@@ -35,10 +35,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "อาจารย์อธิภู สอนหลักการ Biosecurity ในฟาร์มสุกร 3 ขา (segregation / sanitation / resistance) ข้อใดจัดเป็น 'resistance' ที่ถูกต้องที่สุด",
     "options": [
-      "การกั้นรั้วฟาร์มและทำ all-in all-out เพื่อแยกเชื้อจากภายนอก",
-      "การจุ่มเท้าด้วยน้ำยาฆ่าเชื้อพร้อม contact time ที่เพียงพอ",
+      "การกั้นรั้วรอบฟาร์มและทำ all-in all-out เพื่อแยกหมูแต่ละรุ่นออกจากกันและกันเชื้อจากภายนอก",
+      "การจุ่มเท้าด้วยน้ำยาฆ่าเชื้อที่ความเข้มข้นถูกต้องพร้อม contact time ที่เพียงพอก่อนเข้าโรงเรือน",
       "การทำวัคซีนและคัดเลือกหมูที่มี genetic resistance เช่น CD163 edited PRRS-resistant pig",
-      "การควบคุมโซนรถขนส่งและจอดไกลคอกหมู"
+      "การกำหนดโซนรถขนส่งอาหารและรถรับหมูให้จอดนอกรั้วฟาร์ม ห่างจากคอกหมูและทางเดินภายในเสมอ"
     ],
     "answer": 2,
     "explain": "✓ Resistance = ทำให้ตัวสัตว์ทนโรค โดย genetic selection, vaccine (active immune), colostrum/passive immune\n✗ ตัวเลือก a, d = Segregation (กั้น/แยก physical-policy barrier)\n✗ ตัวเลือก b = Sanitation (ทำความสะอาด/disinfect)\n💡 Biosecurity 3 ขา: Segregation (กั้น) + Sanitation (สะอาด) + Resistance (ทนโรค) — ถ้าขาใดอ่อน multifactorial disease จะ break-through",
@@ -60,10 +60,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "หมูขุนตายเฉียบพลันในฟาร์ม signs : ไข้สูง เลือดออกตามอวัยวะภายใน cyanosis ที่หู spleenomegaly fatality สูงเกือบ 100% สงสัย ASF มากที่สุด การส่งตัวอย่างเพื่อ definitive diagnosis ใดเหมาะสมที่สุด",
     "options": [
-      "เก็บ feces ส่งตรวจ ELISA หาแอนติเจน",
+      "เก็บ feces ส่งตรวจ ELISA หาแอนติเจนของไวรัส",
       "เก็บ blood และ superficial inguinal lymph node ส่งตรวจ PCR",
-      "เก็บ nasal swab ส่งเพาะเชื้อแบคทีเรีย",
-      "เก็บ urine ส่งตรวจ heavy metal และ mycotoxin"
+      "เก็บ nasal swab และชิ้นปอดส่งเพาะเชื้อแบคทีเรีย",
+      "เก็บ urine และชิ้นตับส่งตรวจหาระดับ heavy metal และ mycotoxin"
     ],
     "answer": 1,
     "explain": "✓ ASF diagnostic sample = blood (viremia สูง acute phase) + superficial inguinal lymph node (target organ ของ virus, replicate ใน macrophage ของต่อมน้ำเหลือง) → PCR หา ASFV genome\n✗ Feces ELISA ไม่ใช่ definitive ASF — ASFV ขับทาง secretion ทุกชนิดแต่ blood/LN ใช้ confirm\n✗ Nasal swab + bacterial culture ผิด — ASF เป็น virus ไม่ใช่แบคทีเรีย\n💡 ASF differential dx : PRRS, CSF, salmonella cholera suis — fatality 100% + spleenomegaly ทำให้ ASF เด่นกว่า",
@@ -85,10 +85,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "หมูอนุบาลอายุ 7-8 week ระบาด PRRS + Glasser ป่วย 30% ตาย 20% ในเรื่องโปรแกรมวัคซีน PRRS ของลูกสุกร ควรเริ่มฉีดเมื่ออายุเท่าใดเหมาะสมที่สุด",
     "options": [
-      "1-2 สัปดาห์ ทันทีหลังคลอด",
+      "1-2 สัปดาห์ ทันทีหลังคลอด เพื่อให้ภูมิขึ้นก่อนหย่านม",
       "4-5 สัปดาห์ เนื่องจาก passive immunity จาก colostrum เริ่มลดลง",
-      "10 สัปดาห์ หลัง wean 5 สัปดาห์",
-      "16 สัปดาห์ ก่อนเข้าโรงเรือนขุน"
+      "10 สัปดาห์ หลังหย่านม 5 สัปดาห์ เมื่อย้ายออกจากคอกอนุบาลไปคอกรุ่นแล้ว",
+      "16 สัปดาห์ ก่อนย้ายเข้าโรงเรือนขุน เมื่อ MDA หมดไปแล้ว"
     ],
     "answer": 1,
     "explain": "✓ ฉีด PRRS vaccine ที่ 4-5 wk เพราะ passive immunity จาก colostrum (MDA — maternal-derived antibody) ลดลงพอที่ vaccine จะทำงานได้ ไม่ถูก neutralize\n✗ ฉีดเร็วเกินที่ 1-2 wk → MDA สูง vaccine ไม่ติด\n✗ ฉีดช้าเกินที่ 10+ wk → window ของ susceptibility (MDA หมดแต่ vaccine ยังไม่ขึ้น) เสี่ยงติดธรรมชาติก่อน\n💡 ถ้าแม่ไม่เคยฉีด vaccine ระหว่างตั้งท้อง → ฉีดลูกได้ที่อายุ 3 wk (MDA ต่ำกว่า)",
@@ -110,10 +110,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "ลูกสุกรแรกเกิดอายุ 3-7 วัน สีซีดเหลือง mucous membrane ซีด อ่อนเพลีย ผลเลือด Hb และ Hct ต่ำ การจัดการป้องกัน/รักษาที่เป็นมาตรฐาน",
     "options": [
-      "ให้กิน iron sulfate ผสมน้ำดื่ม ตั้งแต่อายุ 1 วัน",
+      "ให้ iron sulfate ผสมน้ำดื่มของแม่สุกร ตั้งแต่ลูกอายุ 1 วันจนหย่านม",
       "ฉีด iron dextran 100-200 mg/ตัว IM ที่ขาหลังหรือต้นคอ ภายใน 3 วันหลังคลอด",
-      "เปลี่ยน colostrum เป็นนมโคให้แทน เพื่อเพิ่ม iron",
-      "ให้ vitamin B12 และ folate IM เพื่อกระตุ้น erythropoiesis"
+      "เปลี่ยน colostrum เป็นนมโคให้กินแทนตั้งแต่วันแรก เพื่อเพิ่มปริมาณ iron",
+      "ฉีด vitamin B12 และ folic acid IM วันเว้นวัน 3 ครั้ง เพื่อกระตุ้น erythropoiesis"
     ],
     "answer": 1,
     "explain": "✓ Piglet newborn anemia = iron deficiency เนื่องจาก (1) แม่ผ่าน iron ผ่าน placenta ได้น้อย (2) นมแม่มี iron ต่ำ (3) piglet โตเร็วมาก iron demand สูง → ฉีด iron dextran/iron leptoferin 100-200 mg/ตัว IM ที่ neck หรือ rear ham ภายใน 3 วันหลังคลอด\n✗ Oral iron ก็ทำได้แต่ไม่นิยม (อาจอาเจียน + ต้องให้ภายใน 12 hr ก่อนลำไส้ปิด)\n✗ นมโคไม่แก้ปัญหา iron — colostrum สำคัญสำหรับ passive immune\n✗ B12/folate ไม่ใช่สาเหตุของ piglet anemia\n💡 Diff dx : eperythrozoonosis (M. hemosuis) → blood smear ดู parasite",
@@ -135,10 +135,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "หมูขุนผิวหนังหนาตัว keratin สะสมที่ stratum corneum ไม่คัน skin lesion diff dx จาก sarcoptic mange และ fatty acid deficiency เลือด zinc level ต่ำ การรักษาที่เหมาะสมที่สุด",
     "options": [
-      "Zinc oxide ผสมในอาหาร ระยะยาว",
+      "Zinc oxide 3,000 ppm ผสมอาหารต่อเนื่องระยะยาวทั้งรุ่น",
       "Zinc carbonate หรือ zinc sulfate supplement ในอาหาร",
-      "Ivermectin SC ทุก 7 วัน 3 ครั้ง",
-      "Vitamin A injection ครั้งเดียว high dose"
+      "Ivermectin 300 µg/kg SC ทุก 7 วัน ติดต่อกัน 3 ครั้ง",
+      "Vitamin A injection IM ขนาดสูงครั้งเดียว ร่วมกับ vitamin D3"
     ],
     "answer": 1,
     "explain": "✓ Parakeratosis = zinc deficiency (ทำให้ vitamin A metabolism ผิดปกติด้วย) → รักษาด้วย zinc carbonate หรือ zinc sulfate supplement ในอาหาร\n✗ Zinc oxide เคยใช้แต่ปัจจุบันลด (EU ban) — ปัญหา antibiotic resistance + environmental Zn pollution + ก่อ diarrhea ที่ขนาดสูง\n✗ Ivermectin เป็นการรักษา mange — diff dx ที่ exclude ไปแล้วเพราะ 'ไม่คัน'\n✗ Vitamin A injection ไม่ใช่ primary tx — zinc deficiency ก่อ vit A metabolism abnormal แต่ก็แก้ที่ zinc\n💡 Sign: skin lesion + keratin↑ + ไม่คัน (ต่างจาก mange) + diff dx ด้วย zn level เลือด",
@@ -186,10 +186,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "Aflatoxin ผลิตโดยเชื้อราชนิดใดและพบในอาหารกลุ่มใดมากที่สุด",
     "options": [
-      "Fusarium roseum — ข้าวโพดและถั่วเหลืองตอนเก็บเกี่ยวฝน",
-      "Claviceps purpurea — ข้าวโพดและบาร์เลย์ที่ขึ้นรา",
+      "Fusarium roseum — ข้าวโพดและถั่วเหลืองที่เก็บเกี่ยวช่วงฝนตกชุก",
+      "Claviceps purpurea — ช่อดอกข้าวไรย์และบาร์เลย์ที่ติดเชื้อราในแปลง",
       "Aspergillus flavus — ถั่วและเมล็ดข้าวโพดเก็บที่ความชื้นสูง",
-      "Penicillium spp. — กากชา rapeseed และถั่ว alfalfa"
+      "Penicillium spp. — กากชา rapeseed และถั่ว alfalfa ที่เก็บไว้นาน"
     ],
     "answer": 2,
     "explain": "✓ Aflatoxin จาก Aspergillus flavus ชอบสภาพ humid + อุ่น (เก็บข้าวโพด/ถั่วในโกดังชื้น) — สร้างพิษกลุ่ม B1/B2/G1/G2 (B1 พิษสุดและ carcinogen ที่ทำให้คนเป็นมะเร็งตับ)\n  - Clinical: suppress immune, milk drop, diarrhea, carcinogen ที่ตับ\n✗ Fusarium roseum สร้าง zearalenone (F-2), DON, T-2\n✗ Claviceps สร้าง ergot alkaloid\n💡 Susceptible species ของ aflatoxin = ducks (เป็ดไวสุด) > สุกร > อื่น ๆ",
@@ -315,7 +315,7 @@ export const QB_SWINE_HERD = [
       "P1 = 35%, P2 = 22%, P3-7 = 10% — ฝูง young heavy ไม่ culled",
       "P1 = 20%, P2-4 = 18-19% (peak), P5+ ค่อย ๆ ลด — pyramid ปกติ",
       "P1 = 7%, P2-4 = 13-22%, P>7 = 18% — มี old sows เหลือมากเกิน",
-      "P1 = 50%, P2 = 30%, P3+ = 5-10% — replace ทุกปี"
+      "P1 = 50%, P2 = 30%, P3+ = 5-10% — replace แม่เกือบทั้งฝูงทุกปี"
     ],
     "answer": 1,
     "explain": "✓ Parity structure ปกติ: P1 ≈ 20%, P2-4 peak ที่ 17-19%, P5+ ลดลงต่อเนื่อง 10/6/5/5% — minimum culling ก่อน peak (P2-4), selective culling หลัง peak\n  - Born alive peak ที่ parity 2-4 → ฟาร์มต้องเก็บแม่ให้ถึงรอบนี้\n✗ ตัวเลือก a + c = poor parity structure (young-heavy หรือ old-heavy → poor production)\n✗ ตัวเลือก d = over-replacement → ขาด experienced sows ที่อยู่ peak\n💡 Performance not equal across parities — culling ทำหลัง peak (P5+ onwards)",
@@ -337,10 +337,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "Non-productive Day (NPD) ของแม่สุกรหมายถึงข้อใดและคำนวณอย่างไร",
     "options": [
-      "วันที่แม่ inactive ระหว่างคลอด คำนวณจาก farrowing duration",
+      "วันที่แม่ inactive ระหว่างการคลอด — NPD = farrowing duration (ชั่วโมงที่ใช้คลอด) × จำนวนครอกต่อแม่ต่อปี",
       "วันที่แม่เข้าฝูงผสมพันธุ์แล้วไม่ได้ทั้ง pregnant และไม่ได้ nursing — NPD = 365 − [(gest days + lact days) × LSY]",
-      "จำนวนวันที่แม่สาวรอ first heat — คำนวณจาก puberty age",
-      "วันที่ระหว่างคัดทิ้งและขายส่ง — คำนวณจาก culling-to-sale interval"
+      "จำนวนวันตั้งแต่ลูกสุกรเพศเมียเกิดจนเข้าสู่วัยเจริญพันธุ์ — NPD = อายุ puberty ของสุกรสาวทดแทน",
+      "วันที่แม่อยู่ในคอกคลอดก่อนคลอดจริง — NPD = (วันคลอด − วันย้ายเข้าคอกคลอด) × LSY"
     ],
     "answer": 1,
     "explain": "✓ NPD (non-productive sow day) = any day ที่แม่ entered breeding herd แล้วไม่ได้ pregnant และไม่ได้ nursing a litter — ฟาร์มยังต้องจ่ายค่า feed + space\n  - สูตร: NPD/ปี = 365 − [(gestation days + lactation days) × LSY (litter/sow/year)]\n  - High-perform farm: NPD ≈ 42 d/ปี, ordinary farm: NPD ≈ 63 d/ปี → NPD diff ≈ 21 d\n💡 Main components ของ NPD diff: sow first-mating-to-pregnancy (6.18 d) + sow first-mating-to-culling (6.90 d)",
@@ -362,10 +362,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "ฟาร์มแม่สุกรพบ %return-to-estrus สูง 23% (target 8%) Pattern: return 10-17 d = 2.3%, return 18-24 d = 1.2%, return 25-35 d = 14.9% — ลักษณะนี้บ่งบอกถึงปัญหาใดมากที่สุด",
     "options": [
-      "Regular return — failure of fertilization (3-week cycle ปกติ 18-24 d)",
+      "Regular return — failure of fertilization หรือ embryo ตายก่อนวันที่ 12 (กลับสัดตามรอบ 18-24 d)",
       "Irregular return — early embryonic death ที่ระหว่าง 12-30 d (pregnancy signal failed)",
-      "Failed to detect estrus — ไม่ใช่ปัญหาทาง biology",
-      "Mating with inferior boar semen quality"
+      "Failed to detect estrus — แม่เป็นสัดตามรอบแต่คนตรวจไม่พบ จึงไม่ใช่ปัญหาทาง biology ของแม่",
+      "Semen quality ของพ่อพันธุ์ต่ำ — ผสมไม่ติดตั้งแต่แรกแล้วกลับสัดตามรอบปกติ 18-24 d หลังผสม"
     ],
     "answer": 1,
     "explain": "✓ Pattern: return 25-35 d (14.9%) สูงกว่า return 18-24 d (regular cycle 21 d) = irregular return\n  - Irregular return → ตั้งท้องระยะแรกแต่ embryo ตาย 12-30 d (after pregnancy signal failed) → cycle ยืดไป 25-35 d\n  - สาเหตุ: stress, moving sows ก่อน D35 (implantation ยังไม่สมบูรณ์), nutrition, mycotoxin, diseases\n✗ Regular return = 18-24 d (3-week cycle) = fertilization failure → ตัวอย่างนี้กลับเป็น 1.2% เท่านั้น\n💡 Target return rate: total <8-10%, regular ~5%, irregular ~3%",
@@ -387,10 +387,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "Wean-to-Service Interval (WSI) ของแม่สุกรหลังหย่านม ค่า ideal และผลต่อ fertility คือข้อใด",
     "options": [
-      "WSI 15+ d = good fertility (แม่ได้พักนาน estrus แข็งแรง)",
+      "WSI 15+ d = good fertility (แม่ได้พักนาน estrus แข็งแรง), WSI 1-7 d = poor fertility",
       "WSI 1-7 d = good fertility, WSI 8-14 d = risky, WSI 15+ d = varied (poor fertility ส่วนใหญ่)",
-      "WSI > 21 d เป็น optimal — ตรงกับ estrus cycle ปกติ",
-      "WSI ไม่มีผลต่อ fertility — ขึ้นกับ boar quality เท่านั้น"
+      "WSI > 21 d เป็น optimal — ตรงกับ estrus cycle ปกติ, WSI < 7 d = แม่ยังไม่พร้อมผสม",
+      "WSI ไม่มีผลต่อ fertility — conception rate ขึ้นกับ boar quality และ semen dose ที่ใช้ผสมเท่านั้น"
     ],
     "answer": 1,
     "explain": "✓ WSI ideal = 5-7 d (target 90% ของแม่ < 7 d) → good fertility\n  - WSI 1-7 d = good (สอดคล้อง LH surge ปกติหลัง wean)\n  - WSI 8-14 d = risky\n  - WSI 15+ d = varied (เสี่ยง poor fertility สูง)\n💡 Cause ของ long WSI: poor sow condition during lactation (BCS ต่ำ, lactation feed ไม่พอ) → delayed estrus → longer WSI → poorer fertility ลูกครอกต่อไป",
@@ -437,9 +437,9 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "หลัก 5 Freedoms ของ Animal Welfare ครอบคลุม 5 ด้าน ข้อใด NOT INCLUDED ใน 5 freedoms",
     "options": [
-      "Freedom from hunger and thirst",
-      "Freedom from discomfort",
-      "Freedom from pain and disease",
+      "Freedom from hunger, thirst and malnutrition",
+      "Freedom from physical and thermal discomfort",
+      "Freedom from pain, injury and disease",
       "Freedom from economic burden of owner"
     ],
     "answer": 3,
@@ -489,10 +489,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "การจับบังคับสุกรขนาดใหญ่ (boar/sow) ด้วย wire/rope snare เพื่อเจาะเลือดที่ jugular fossa ขวา ตำแหน่ง loop snare ที่ถูกต้อง",
     "options": [
-      "ห่วงคล้องที่คอ ผูกแน่นกับเสา",
+      "ห่วงคล้องรอบคอหลังใบหู แล้วดึงผูกปลายเชือกให้แน่นกับเสาคอกด้านหน้าของสัตว์",
       "ห่วงคล้องที่ upper lip (riam หลังเขี้ยว) ตรงปุ่ม-เบ้า แล้วปรับระดับให้ตึง",
-      "ห่วงคล้องที่ตา ปิดการมองเห็นเพื่อสงบ",
-      "ห่วงคล้องที่หาง ดึงให้สัตว์ยืนนิ่ง"
+      "ห่วงคล้องรอบตาและดั้งจมูก ปิดการมองเห็นเพื่อให้สัตว์สงบนิ่ง",
+      "ห่วงคล้องที่โคนหาง แล้วดึงไปด้านหลังให้สัตว์ยืนนิ่ง"
     ],
     "answer": 1,
     "explain": "✓ Wire/rope snare = loop รัดที่ upper lip ของหมูใหญ่ — คล้องที่หลุมหลังฟันเขี้ยว ตรงปุ่ม-เบ้า แล้วปรับให้ตึง (ไม่บาดปาก)\n  - หมูจะถอยหลังต้านแรงดึง → ยืนนิ่งให้เจาะเลือดได้ที่ jugular fossa\n✗ คอ/ตา/หาง = ไม่ใช่ standard restraint สำหรับหมูใหญ่\n💡 Site เจาะเลือด = Rt. jugular fossa (right cranial vena cava drains into right side, ลดความเสี่ยง phrenic nerve damage ที่ซ้าย)\n💡 หมูเล็ก: ดึงขาหลัง 2 ข้าง คว่ำลง (ไม่ใช่ snare — sad T_T เสียง)",
@@ -514,10 +514,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "ระบบผสมข้ามพันธุ์แบบ 3 พันธุ์ (3-breed terminal cross) ในฟาร์มสุกรพาณิชย์ใช้พันธุ์ใดเป็น sire line สุดท้าย และให้ลูกแบบใด",
     "options": [
-      "Landrace × Yorkshire (LR-LW two-line) — เก็บไว้เป็นแม่พันธุ์",
+      "Landrace × Yorkshire (LR × LW) — ลูกผสมสองสาย เก็บไว้เป็นแม่พันธุ์ ไม่ใช่ลูกขุน",
       "(LR × LW) × Duroc — ลูกหมูขุน 3 สาย (terminal cross) เน้น heterosis + เนื้อแดง",
-      "Berkshire × Hampshire — กรอบนุ่ม สำหรับ kurobuta",
-      "Pietrain × Yorkshire — สำหรับ purebred GGP"
+      "Berkshire × Hampshire — ลูกผสมสองสายสำหรับผลิตเนื้อหมูดำ kurobuta เกรดพิเศษ",
+      "(LR × Duroc) × LW — ลูกหมูขุน 3 สาย ใช้ Large White เป็น sire line สุดท้าย เน้นขนาดครอก"
     ],
     "answer": 1,
     "explain": "✓ 3-breed terminal cross (สุกรพาณิชย์ Thai standard):\n  - GGP (ทวดพันธุ์) → purebred LR, LW, Duroc\n  - GP (ปู่ย่า) → (LR × LW) สองสาย = แม่สองสาย\n  - PS (พ่อแม่พันธุ์) → (LR-LW) แม่สองสาย × Duroc พ่อ → ลูก 3 สาย (terminal — ขายทั้งหมด)\n  - ผลดี: heterosis สูงสุด, ความสมบูรณ์พันธุ์แม่ดี (จาก LR-LW), เนื้อแดง+ADG ดี (จาก Duroc sire)\n✗ Berkshire = สำหรับ kurobuta พิเศษ ไม่ใช่ pyramid commercial\n💡 Duroc = sire line เนื้อแดง pleiotropy gene (NN/Nn — Pietrain มี Pss กว่า)",
@@ -539,10 +539,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "Halothane gene ในสุกรเชื่อมโยงกับ Porcine Stress Syndrome (PSS) แบบ pleiotropy — ทำให้เนื้อแดง+โตเร็ว แต่เครียดง่าย MAS (Marker-Assisted Selection) สามารถ detect ได้ระดับใด",
     "options": [
-      "detect ได้เฉพาะ homozygous resistant (NN) เท่านั้น",
+      "detect ได้เฉพาะ homozygous resistant (NN) — Nn และ nn แยกจากกันไม่ได้",
       "detect ได้ทั้ง NN, Nn, nn — เก็บ NN ขยายพันธุ์ คัด Nn/nn ทิ้ง",
-      "detect ไม่ได้ — ต้อง halothane challenge test เท่านั้น",
-      "detect ได้แค่ phenotype PSE meat หลังโรงเชือด"
+      "detect ไม่ได้ — ต้องใช้ halothane challenge test ในลูกสุกรเท่านั้น",
+      "detect ได้แค่ phenotype PSE meat หลังโรงเชือดจากซากของลูกหลาน"
     ],
     "answer": 1,
     "explain": "✓ MAS ใช้ DNA marker หา PSS allele → detect ได้ทุก genotype: NN (homozygous resistant), Nn (heterozygous carrier), nn (homozygous susceptible)\n  - เก็บ NN เป็น sire/dam line, คัด carrier (Nn) + susceptible (nn) ทิ้ง\n  - PSS susceptible → halothane gas ก่อ malignant hyperthermia + PSE meat (pale soft exudative)\n✗ Halothane challenge แต่ก่อนทำได้แค่ระดับ phenotype (กำจัด nn ที่แสดง MH) — แต่กำจัด Nn carrier ไม่ได้\n💡 Pleiotropy = 1 gene → หลาย trait: เนื้อแดง+โตเร็ว (+) + เครียด/PSE (−)",
@@ -564,10 +564,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "BLUP (Best Linear Unbiased Prediction) ในการคัดเลือกพันธุ์สุกรใช้ทำสิ่งใด",
     "options": [
-      "วัดน้ำหนักจริงด้วย ultrasound (back fat + LEA)",
+      "วัดความหนาไขมันสันหลังและ LEA ด้วย ultrasound แล้วเลือกตัวที่ค่าดีที่สุดโดยตรง",
       "ใส่ข้อมูลพันธุ์ประวัติ + performance ของญาติ → คำนวณ EBV (Estimated Breeding Value) → จัดลำดับเลือก",
-      "ตรวจ DNA หาเครื่องหมายพันธุกรรม PSS",
-      "ทดสอบ halothane gas dose ที่ทำให้สุกรเริ่มเครียด"
+      "ตรวจ DNA หา marker ของ halothane gene (PSS) แล้วคัดตัว Nn และ nn ออกจากฝูง",
+      "ทดสอบ halothane gas เพื่อหา dose ที่ทำให้สุกรเริ่มเครียด แล้วคัดตัวที่ไวต่อก๊าซออก"
     ],
     "answer": 1,
     "explain": "✓ BLUP = statistical model ที่ใส่ pedigree + performance data ของตัวสัตว์และญาติ → คำนวณ EBV (Estimated Breeding Value) เพื่อจัดลำดับเลือกพันธุ์\n  - ใช้ทำ selection index — เลือกตัวที่มี EBV สูงสุดในแต่ละ trait (ADG, FCR, BF, litter size)\n✗ Ultrasound = real-time measurement of BF + LEA — ใส่เข้าใน BLUP ได้แต่ไม่ใช่ BLUP เอง\n✗ MAS = marker assisted selection (DNA marker) — เสริม BLUP ได้\n💡 BLUP + MAS + ultrasound → modern integrated breeding program",
@@ -589,10 +589,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "หมูอายุ 10-week ถ่ายเหลว ตาย 2-3 ตัว บางตัวถ่ายมีเลือด สาเหตุที่ น่าจะใช่ที่สุดและยาที่เหมาะสมที่สุด",
     "options": [
-      "PEDV (porcine epidemic diarrhea) — ยา supportive only",
+      "PEDV (porcine epidemic diarrhea) — ยา supportive only ให้น้ำและเกลือแร่",
       "Brachyspira hyodysenteriae (Swine Dysentery) — ยา tiamulin 10 mg/kg",
-      "Coccidia (Isospora suis) — ยา toltrazuril",
-      "Rotavirus — ยาแก้อาเจียน + ORS"
+      "Coccidia (Isospora suis) — ยา toltrazuril 20 mg/kg PO ครั้งเดียวในลูกสุกร",
+      "Rotavirus — ยาแก้อาเจียน + ORS ร่วมกับให้ความอบอุ่นแก่ลูกสุกรที่ป่วย"
     ],
     "answer": 1,
     "explain": "✓ Swine Dysentery (B. hyodysenteriae): bloody diarrhea (mucohemorrhagic) ในหมูอายุ 6-16 wk (grower/finisher), mortality moderate\n  - Drug of choice: Tiamulin หรือ oxytetracycline 10 mg/kg, sensitivity test แนะนำ\n  - Sample: feces + large intestine tissue\n✗ PEDV/Rotavirus = ลูกสุกรอายุน้อย (neonate), อาการ watery ไม่ใช่ bloody\n✗ Coccidia = piglet 1-3 wk, treatment toltrazuril/sulfa\n💡 Diff dx bloody diarrhea: Brachyspira + Salmonella + Lawsonia (PIA) + Trichuris",
@@ -641,9 +641,9 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "คำใดอธิบายสถานะของ ASF ทั่วโลกในปี 2024-2025 ได้ตรงที่สุด",
     "options": [
-      "Sporadic — เกิดประปราย ไม่มี pattern",
-      "Endemic — เกิดประจำในบางประเทศและบางทวีป",
-      "Epidemic — outbreak ในช่วงเวลาจำกัด พื้นที่จำกัด",
+      "Sporadic — เกิดประปรายเป็นครั้งคราว ไม่มี pattern ทางเวลาและพื้นที่ที่ชัดเจน",
+      "Endemic — เกิดประจำด้วยความถี่ที่คาดการณ์ได้ในบางประเทศและบางทวีปของโลก",
+      "Epidemic — outbreak เกินความคาดหมายในช่วงเวลาจำกัดและในพื้นที่จำกัด",
       "Pandemic — เกิดทั่วโลก (worldwide spread) ยกเว้นบางทวีป เช่น Oceania"
     ],
     "answer": 3,
@@ -668,9 +668,9 @@ export const QB_SWINE_HERD = [
     "q": "ฟาร์มต้องการทราบ prevalence ของ PRRS ในลูกสุกรอายุ 3w / 6w / 9w เพื่อ baseline survey — ควรเลือก study design ใด",
     "options": [
       "Cross-sectional study — snapshot ที่ point-in-time → prevalence",
-      "Case-control study — เลือก cases vs controls หา risk factor",
-      "Prospective cohort — follow groups across time → incidence",
-      "Retrospective case series — เก็บ history เก่า ๆ"
+      "Case-control study — เลือก cases vs controls แล้วย้อนหา risk factor",
+      "Prospective cohort — ติดตามกลุ่มไปข้างหน้าตามเวลา → incidence",
+      "Retrospective case series — ย้อนดู history เก่า ๆ ของรายที่ป่วยในฟาร์ม"
     ],
     "answer": 0,
     "explain": "✓ Cross-sectional study (CSS) = snapshot ที่ point-in-time, เก็บ sample ทั้งกลุ่ม → คำนวณ prevalence ได้\n  - ตัวอย่าง: เจาะเลือดลูกสุกร 3w/6w/9w วันเดียวกัน หา %seropositive ของแต่ละ age\n  - ✓ cost+time ต่ำ, ✗ ไม่ได้ causal relationship\n✗ Case-control = หา risk factor (cases vs controls) — ใช้กับโรค rare\n✗ Prospective cohort = follow-forward → incidence\n💡 Prevalence = existing cases / total at one time, Incidence = new cases / time × population",
@@ -693,10 +693,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "ฟาร์มจะนำสุกรสาวทดแทน (replacement gilts) เข้าฟาร์มใหม่ ขั้นตอน biosecurity ที่ถูกต้องตามลำดับ",
     "options": [
-      "ฉีดวัคซีน → ปล่อยเข้าฝูงทันที → observe 7 วัน",
+      "ฉีดวัคซีนตามโปรแกรมฟาร์ม → ปล่อยเข้าฝูงทันที → observe อาการ 7 วัน → ผสมพันธุ์ได้เลย",
       "Isolation 30 วัน (กักโรค) → Acclimatization (ปรับภูมิ ≥3 เดือน, อาจใช้ feedback) → Recovery → ปล่อยรวมฝูง",
-      "Recovery 14 วัน → Feedback colostrum สด → ปล่อยฝูง",
-      "ผสมรวมฝูงเก่าเลย → ปรับ flora ธรรมชาติ"
+      "Recovery 14 วัน → Feedback ด้วย colostrum สดจากแม่ในฝูง → Isolation 7 วัน → ปล่อยรวมฝูง",
+      "ผสมรวมฝูงเก่าทันที → ให้ปรับ flora ตามธรรมชาติ → ฉีดวัคซีนตามหลังเมื่อเข้าฝูงครบ 3 เดือน"
     ],
     "answer": 1,
     "explain": "✓ Standard biosecurity for new gilts:\n  1. Isolation 30 d — กักโรค separate site/farm, observe health, ทดสอบ disease-free\n  2. Acclimatization 3 mo — ปรับ immune ให้เข้ากับ farm pathogen profile — อาจ vaccinate, exposed to farm fomites/feces (feedback), หรือ co-housing with sentinel sows\n  3. Recovery — immune stabilization ก่อนปล่อยเข้าฝูงผสมพันธุ์\n✗ Vaccinate-then-mix ไม่ใช่ standard — เสี่ยง PRRS/Glasser ระบาด\n💡 Feedback = exposure to controlled pathogen (feces, manure, dead piglet) เพื่อ build immune — ต้องระวังไม่ให้เป็นทาง spread reverse",
@@ -719,10 +719,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "Subclinical mastitis ในโคนมไม่มีอาการ visible แต่ทำให้ผลผลิตน้ำนมและคุณภาพลดลง — การตรวจที่เหมาะสมที่สุดในระดับฟาร์มคือข้อใด",
     "options": [
-      "ดูสีน้ำนมและคลำเต้าให้ครบทุก quarter ทุกวัน",
+      "ดูสีน้ำนมและคลำเต้าให้ครบทุก quarter ทุกวันก่อนรีด — ถ้าปกติถือว่าไม่มี mastitis ในฝูง",
       "Somatic Cell Count (SCC) — direct count หรือ indirect ด้วย California Mastitis Test (CMT)",
-      "เพาะเชื้อแบคทีเรียทุกตัวทุกสัปดาห์",
-      "Bulk tank PCR ทุกเช้า"
+      "เพาะเชื้อแบคทีเรียจากน้ำนมทุกตัวทุกสัปดาห์ แล้วนับจำนวนโคโลนีต่อ mL",
+      "Bulk tank PCR ทุกเช้า — แยก quarter และตัวโคที่เป็น subclinical ได้ทันที"
     ],
     "answer": 1,
     "explain": "✓ Subclinical mastitis = no visible signs, milk appearance ปกติ → ตรวจด้วย SCC (somatic cell count)\n  - Direct SCC: lab count, threshold > 200,000 cells/mL = subclinical\n  - Indirect: California Mastitis Test (CMT) ที่ farm-side ใช้ detergent ทำให้ cell DNA gel up → กระจายตัวบ่งบอกระดับ SCC\n✗ Visual inspection ไม่จับ subclinical (definition คือ no visible)\n✗ Bacterial culture ทุกตัวทุกสัปดาห์ — expensive + slow, ใช้ตอนสงสัยและเลือก antibiotic\n💡 Iceberg: subclinical mastitis prevalence < 15% ของฝูง > clinical mastitis < 5%",
@@ -745,10 +745,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "เชื้อก่อ mastitis แบ่งเป็น contagious และ environmental เชื้อกลุ่ม contagious มีลักษณะใดเด่นที่สุด",
     "options": [
-      "เชื้อมาจากดิน, bedding, น้ำสกปรก — เช่น Streptococcus uberis, E. coli, Klebsiella",
+      "เชื้อมาจากดิน bedding มูล และน้ำสกปรกในคอก — เช่น Streptococcus uberis, E. coli, Klebsiella pneumoniae",
       "ติดต่อจากเต้าโคหนึ่งไปอีกเต้าระหว่าง milking — เช่น Staphylococcus aureus, Streptococcus agalactiae, Mycoplasma bovis",
-      "ติดจากคนเลี้ยงเท่านั้น — เช่น Aspergillus, Candida",
-      "Contagious = อาการ acute ทั้งหมด, environmental = chronic ทั้งหมด"
+      "ติดจากมือคนรีดนมเท่านั้น ไม่ติดระหว่างโคด้วยกัน — เช่น เชื้อรา Aspergillus และยีสต์ Candida",
+      "Contagious = อาการ acute รุนแรงแบบ toxic mastitis ทั้งหมด, environmental = chronic subclinical ทั้งหมด"
     ],
     "answer": 1,
     "explain": "✓ Contagious mastitis pathogens = cow-to-cow ส่งผ่านมือ/ผ้า/เครื่อง milking:\n  - Staphylococcus aureus — chronic, treatment-resistant (40% cure rate)\n  - Streptococcus agalactiae — highly contagious, primarily subclinical (>90% cure)\n  - Mycoplasma bovis — herd-wide, no cell wall (no β-lactam)\n✓ Environmental pathogens = จากบริเวณ farm/bedding:\n  - Streptococcus uberis (bedding-associated)\n  - E. coli, Klebsiella (coliforms, endotoxin → acute toxic mastitis)\n  - Enterococcus, Coagulase-negative staph (CNS)\n✗ Contagious vs environmental มี clinical pattern ที่ overlap — ไม่ใช่ acute/chronic แบ่ง",
@@ -770,10 +770,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "Milking machine parameter ที่ถูกต้องสำหรับการรีดนมที่ปลอดภัยต่อ teat",
     "options": [
-      "Vacuum level 80-100 kPa, pulsation 100 cycles/min — เร็วและแรง",
+      "Vacuum level 80-100 kPa, pulsation 100 cycles/min, ratio 80:20 (milk:massage) — รีดเร็วและแรง",
       "Vacuum level 42-48 kPa, pulsation 60-65 cycles/min, ratio 60:40 ถึง 70:30 (milk:massage)",
-      "Vacuum level 20-30 kPa, pulsation 30 cycles/min — กลัวเต้าช้ำ",
-      "Vacuum level constant 60 kPa, no pulsation — flow ต่อเนื่อง"
+      "Vacuum level 20-30 kPa, pulsation 30 cycles/min, ratio 50:50 — กลัวเต้าช้ำ",
+      "Vacuum level คงที่ 60 kPa, no pulsation (ratio 100:0) — ให้นมไหลต่อเนื่อง"
     ],
     "answer": 1,
     "explain": "✓ Standard milking machine parameters:\n  - Vacuum level: 42-48 kPa (ต่ำเกิน → milking incomplete + slippage, สูงเกิน → teat congestion + hyperkeratosis + mastitis risk↑)\n  - Pulsation rate: 60-65 cycles/min\n  - Pulsation ratio: 60:40 ถึง 70:30 (milk phase : massage phase)\n  - Faster rate + higher ratio (70:30) = faster milking but more stress\n💡 Milking phase (liner open) = milk flow, massage phase (liner closed) = mimic natural suckling, prevent congestion",
@@ -795,10 +795,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "Mechanism ของ milk letdown เริ่มจาก stimulus ที่เต้า → ภายในกี่วินาทีและผ่านขั้นตอนใด",
     "options": [
-      "5 วินาที, ผ่าน adrenaline จาก adrenal gland → contract alveoli",
+      "5 วินาที, stimulation → adrenal medulla release adrenaline → smooth muscle รอบ alveoli หดตัว → milk ejection",
       "60-90 วินาที, stimulation → hypothalamus → posterior pituitary release oxytocin → myoepithelial cell contraction → milk ejection",
-      "5 นาที, vagal nerve → smooth muscle teat cistern → milk pump",
-      "Letdown ไม่ต้อง hormone — milk flow ตาม gravity เท่านั้น"
+      "5 นาที, stimulation → vagal nerve → smooth muscle ของ teat cistern หดตัวแบบ pump → milk ejection",
+      "ไม่ต้องอาศัย hormone — milk flow ตาม gravity และแรงดูดของเครื่องรีดเท่านั้น จึงไม่มี prep-lag time"
     ],
     "answer": 1,
     "explain": "✓ Milk letdown pathway (60-90 s prep-lag time):\n  1. Stimulation: teat washing, foremilk stripping, CMT → mechanoreceptors\n  2. Afferent nervous tract → hypothalamus\n  3. Hypothalamus → posterior pituitary → release oxytocin (OXT)\n  4. OXT travels via bloodstream → binds myoepithelial cells around alveoli\n  5. Myoepithelial contraction → milk forced into ducts → teat cistern\n💡 Synchronization between machine attachment + letdown = critical → bimodal milk flow ถ้า prep-lag time สั้นเกิน\n✗ Adrenaline ตรงกันข้าม → inhibit letdown (stress response)",
@@ -820,10 +820,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "แม่สุกรหลังคลอด BCS ลดจาก 3 → 1.5 หลังหย่านม น้ำนมลด ลูกอย่านมน้ำหนักไม่ถึง 6 kg + WSI ยาว > 14 d สาเหตุที่เป็น primary deficiency คือข้อใด",
     "options": [
-      "Excess protein → diarrhea + amino acid imbalance",
+      "Excess protein (crude protein สูงเกินความต้องการ) → diarrhea + amino acid imbalance → แม่ผอม",
       "Energy deficiency (carbohydrate + fat ต่ำ) → catabolism muscle → thin sow syndrome",
-      "Excess vitamin A → osteomalacia",
-      "Salt deficiency → low water intake"
+      "Excess vitamin A → osteomalacia + ขาอ่อน → แม่ลุกขึ้นกินอาหารได้น้อย",
+      "Salt (NaCl) deficiency → low water intake → กินอาหารลดลงและน้ำนมลด"
     ],
     "answer": 1,
     "explain": "✓ Thin sow syndrome = energy deficiency โดย lactation demand สูง (lactation feed needs ↑ทุกสัปดาห์: 4/5/6 kg) ถ้าไม่ได้รับพอ:\n  - แม่ catabolize body fat + muscle → BCS ↓\n  - Repro fail (delayed estrus, long WSI), milk drop, lactation fail\n✓ ใน practice = อาหารแม่ pregnancy ad libitum ไม่พอ ระยะ lactation\n✗ Excess protein → diarrhea แต่ไม่ทำให้ BCS ลด\n✗ Vitamin A excess ทำให้ vit E requirement ↑ → mulberry heart disease\n💡 อ.พรชลิต: pre-mate flushing 3-4 kg/d × 1 wk หลังหย่านม เพื่อ recover energy",
@@ -845,10 +845,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "ระบบการเลี้ยง All-in All-out (AI-AO) มีประโยชน์เด่นข้อใดเหนือกว่า continuous flow",
     "options": [
-      "ใช้พื้นที่น้อยลง — ลูกหมูทุกอายุอยู่คอกเดียวกันได้",
+      "ใช้พื้นที่น้อยลง → ลูกหมูทุกอายุอยู่คอกเดียวกันได้ → ไม่ต้องพักโรงเรือนระหว่าง batch → ลดต้นทุนค่าโรงเรือนลง",
       "อายุเท่ากันอยู่โรงเรือนเดียวกัน → ขายพร้อมกัน → ล้าง+พักโรงเรือนระหว่าง batch → ลดโรคแพร่ระหว่าง age cohort",
-      "ลด labor cost — ไม่ต้องคัดอายุ",
-      "ลด FCR เนื่องจากลูกหมูแย่งอาหารกัน"
+      "ลด labor cost → ไม่ต้องคัดแยกอายุหรือชั่งน้ำหนัก → ย้ายหมูเข้าออกได้ทุกวันตามพื้นที่ว่าง",
+      "ลด FCR → ลูกหมูต่างอายุแย่งอาหารกันจึงกินเร็วขึ้น → โตเร็วกว่าการเลี้ยงแยกรุ่น"
     ],
     "answer": 1,
     "explain": "✓ All-in All-out (AI-AO) = ลูกหมูอายุเท่ากันเข้าโรงเรือนพร้อมกัน → ขายพร้อมกัน → ระหว่าง batch ทำความสะอาด+disinfect+พักโรงเรือน (rest period)\n  - ตัดวงจรเชื้อ between age cohort\n  - ลูกหมูใหม่ไม่สัมผัสเชื้อจากกลุ่มเก่า\n  - Reduce respiratory + enteric disease pressure\n✗ Continuous flow = หลายอายุอยู่ในโรงเรือนเดียวกัน — เชื้อแพร่ข้าม cohort ที่ immune ไม่เท่ากัน\n💡 AI-AO ต้อง biosecurity ครบ: clean + disinfect + dry + rest (≥7 d) ก่อน batch ใหม่",
@@ -870,10 +870,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "Inbreeding depression ในฟาร์มสุกรพันธุ์จะแสดงผลเสียอย่างไร และวิธีป้องกันที่ obvious ที่สุด",
     "options": [
-      "Heterosis สูงขึ้น, ป้องกันโดยผสมพี่น้อง",
+      "Heterosis สูงขึ้นและลูกแข็งแรงขึ้น; ป้องกันด้วยการผสมพี่น้องร่วมครอกให้ต่อเนื่อง",
       "ขนาดครอกและ growth ลดลง พ่อพันธุ์ libido ต่ำ; ป้องกันด้วย pedigree และไม่ผสมเครือญาติ",
-      "ผลผลิตเพิ่มขึ้น เพราะ homozygosity ของ favorable allele",
-      "ไม่มีผล — สุกรเป็น polyestrous polytocous"
+      "ผลผลิตเพิ่มขึ้นเพราะ homozygosity ของ favorable allele สะสมมากขึ้น; ไม่จำเป็นต้องป้องกัน",
+      "ไม่มีผลต่อผลผลิต เพราะสุกรเป็น polyestrous polytocous; ไม่ต้องป้องกัน"
     ],
     "answer": 1,
     "explain": "✓ Inbreeding depression effects (จาก Hauser et al. 1952 + Melka & Schenkel 2010):\n  - Litter size ↓, piglet weight ↓, growth ลดลงถึง 154 d\n  - Boars: lack of libido + delayed puberty\n  - Increased recessive defects: splay leg, ไส้เลื่อนสะดือ/อัณฑะ, ทองแดง (red), ใบ้\n  - Canadian Hampshire สูญเสีย genetic diversity 22%\n✓ Prevention:\n  - Examine pedigrees ก่อนผสม\n  - Avoid mating: brothers × sisters, parents × offspring, grandparents-in-common\n💡 Inbreeding depression = opposite ของ heterosis (hybrid vigor)",
@@ -895,10 +895,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "การให้อาหารแม่สุกร pregnancy 12-16 wk (ระยะ fetal growth สำคัญ) ตามคำแนะนำ อ.พรชลิต",
     "options": [
-      "Restriction 2 kg/วัน ตลอด pregnancy เพื่อ BCS = 3",
+      "Restriction 2 kg/วัน ตลอด pregnancy ทั้ง 16 wk เพื่อคุม BCS = 3 และลดปัญหาคลอดยากช่วงท้าย",
       "Pregnancy 5-11 wk ปรับลดอาหารให้ BCS = 3, แต่ 12-16 wk feed ad libitum เพิ่มให้ลูกโต (birth weight target 1.5 kg) แม่ไม่ซูบ",
-      "Feed ad libitum ทั้ง pregnancy — ตามต้องการ",
-      "Fasting 24 hr ก่อนคลอด เพื่อให้คลอดง่าย"
+      "Feed ad libitum ตลอด pregnancy ตั้งแต่หลังผสม ให้แม่กินตามต้องการเพื่อสะสมไขมันไว้ใช้ช่วงให้นม",
+      "12-16 wk ลดอาหารเหลือ 1 kg/วัน และอดอาหาร 24 hr ก่อนคลอด เพื่อให้ลูกตัวเล็กและคลอดง่าย"
     ],
     "answer": 1,
     "explain": "✓ Pregnancy feeding plan ของอ.พรชลิต:\n  - 1-4 wk หลังผสม: restriction 2 มื้อ/วัน → 2 kg/วัน (BCS = 3 target)\n  - 5-11 wk: ปรับลดอาหารให้ BCS = 3 (avoid over-condition)\n  - 12-16 wk: feed ad libitum → เพิ่มให้ลูกโต birth weight target 1.5 kg, แม่ไม่ซูบ (ไม่สนใจ BCS)\n  - Pre-farrow 2-3 d: 1.8-2.3 kg/d\n✗ Restriction ตลอด pregnancy → fetal growth restriction\n✗ Ad lib ทั้ง pregnancy → over-condition → dystocia + เคี้ยวลูกหลังคลอด\n💡 BCS target = 3 ตลอดยกเว้น last trimester ที่ปล่อย ad libitum",
@@ -920,10 +920,10 @@ export const QB_SWINE_HERD = [
     "type": "mcq",
     "q": "หมูขุนตายเฉียบพลัน autopsy พบ pericardial effusion + epicardial hemorrhage (mulberry-like) + skeletal muscle pallor สาเหตุที่น่าจะใช่ที่สุด",
     "options": [
-      "Aflatoxin poisoning",
+      "Aflatoxin poisoning → hepatotoxicity + coagulopathy → เลือดออกตามอวัยวะภายใน",
       "Vitamin E + Selenium deficiency → Mulberry Heart Disease (MHD) + nutritional myopathy",
-      "Salt poisoning — sodium ion CNS toxicity",
-      "Hypocalcemia — agalactia"
+      "Salt poisoning (ขาดน้ำ) → sodium ion toxicity → eosinophilic meningoencephalitis",
+      "Porcine stress syndrome (halothane gene nn) → malignant hyperthermia + PSE muscle"
     ],
     "answer": 1,
     "explain": "✓ Vitamin E + Selenium deficiency → Mulberry Heart Disease (MHD):\n  - Pathology: pericardial effusion + epicardial petechial hemorrhage (สีคล้าย mulberry)\n  - Muscle: white striations (nutritional myopathy), pallor\n  - Sudden death ในหมูที่โตเร็ว (พันธุ์ Duroc esp.)\n  - Excess vitamin A → ↑vit E requirement → จะเป็น MHD ง่ายขึ้น\n✗ Aflatoxin → ตับเสีย + immunosuppression\n✗ Salt poisoning → CNS convulsion + polioencephalomalacia\n💡 Treatment/prevention: Vit E + Se supplement in feed, esp. ในพันธุ์ Duroc ที่ ADG สูง",

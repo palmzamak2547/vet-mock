@@ -35,9 +35,9 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "แม่แพะตั้งท้องลูกแฝด 2 ตัว อายุครรภ์ ~140 วัน (ใกล้คลอด) ได้อาหารหยาบจำกัด ไม่กินอาหารข้น มาด้วย เบื่ออาหาร นอนมาก เคี้ยวเอื้องลดลง PE: ซึม กล้ามเนื้อสั่น กลิ่นคีโตนออกจากปาก เดินโซเซ อุณหภูมิต่ำ Blood: Glucose ต่ำ (25 mg/dL), BHBA สูง (4 mmol/L), Ca ปกติ, Mg ปกติ — diagnosis ที่น่าจะเป็นมากที่สุดคือข้อใด",
     "options": [
-      "Milk fever (hypocalcemia ในแม่ที่คลอดและเริ่มให้นม)",
-      "Grass tetany (hypomagnesemia จากการกินหญ้าอ่อนๆ หลังฝนตก)",
-      "Urinary calculi (struvite obstruction ใน urethral process)",
+      "Milk fever (hypocalcemia ในแม่ที่เพิ่งคลอดและเริ่มให้นมลูก)",
+      "Grass tetany (hypomagnesemia จากการกินหญ้าอ่อนที่แตกยอดใหม่หลังฝนตก)",
+      "Urinary calculi (นิ่ว struvite อุดตันที่ urethral process จนปัสสาวะไม่ออก)",
       "Pregnancy toxemia (NEB + ketosis ในแม่ใกล้คลอดที่ตั้งท้องลูกแฝด)"
     ],
     "answer": 3,
@@ -61,9 +61,9 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "จาก case Pregnancy toxemia ในแพะแม่ใกล้คลอด (BHBA สูง, glucose ต่ำ 25 mg/dL) — แนวทางการรักษาเริ่มต้นที่เหมาะสมที่สุดคือข้อใด",
     "options": [
       "Propylene glycol PO + Dextrose IV (เร่งแก้ hypoglycemia + เป็น glucose precursor)",
-      "Ammonium chloride PO 0.5-1 g/kg (ป้องกัน struvite recurrence)",
-      "Sodium bicarbonate IV (แก้ metabolic acidosis ของ ruminal acidosis)",
-      "Calcium borogluconate slow IV (เพิ่ม Ca ในเลือดของ milk fever)"
+      "Ammonium chloride PO 0.5-1 g/kg ผสมอาหาร (urine acidifier ป้องกัน struvite ในแพะผู้)",
+      "Sodium bicarbonate IV (แก้ metabolic acidosis ของ acute ruminal acidosis จาก grain overload)",
+      "Calcium borogluconate slow IV (เพิ่ม Ca ในเลือดของแม่ที่เป็น milk fever หลังคลอด)"
     ],
     "answer": 0,
     "explain": "Tx Pregnancy toxemia = แก้ NEB + Hyperketonemia + Hypoglycemia\n- Propylene glycol PO (60-100 mL SID 3-5 day) → เข้าตับ แปลงเป็น glucose ผ่าน gluconeogenesis (precursor)\n- Dextrose 50% slow IV 250-500 mL → แก้ hypoglycemia ทันที\n- +/- Lactate ringer / NSS / Bicarb IV ถ้า metabolic acidosis\n- ถ้าใกล้คลอด ทำคลอดเลย (เอาลูกออก → ลด fetal demand)\n\n- Ammonium chloride = urinary calculi\n- NaHCO3 = ruminal acidosis\n- Ca borogluconate = milk fever (ไม่ใช่ pregnancy toxemia)",
@@ -85,10 +85,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "โคตัวหนึ่งท้องเสีย อุจจาระมีกลิ่นเปรี้ยว HX: เพิ่งเปลี่ยนอาหารข้นจาก 4 → 8 kg/วัน เมื่อ 2 วันก่อน ไม่มีการให้ roughage เพิ่ม PE: ซึม Rumen pH 5.0 Rumen fluid มีกลิ่นเปรี้ยว ไม่มี protozoa เคลื่อนไหว Dehydration +2% Blood: HCO3- ↓, Anion gap ↑, Lactate ↑ — diagnosis คือข้อใด",
     "options": [
-      "Milk fever (hypocalcemia หลังคลอดของแม่โครีดนม)",
-      "Grass tetany (hypomagnesemia ของวัวกินหญ้าอ่อน)",
+      "Milk fever (hypocalcemia หลังคลอด → กล้ามเนื้อหดตัวไม่ได้จนล้มนั่ง คอพับ)",
+      "Grass tetany (hypomagnesemia จาก K และ N สูงในหญ้าอ่อนที่ลดการดูดซึม Mg)",
       "Acute ruminal (lactic) acidosis (กินคาร์บย่อยง่ายเยอะ → Strep. bovis สร้าง lactic acid)",
-      "Ketosis (NEB หลังคลอดของแม่โครีดนมสูง)"
+      "Ketosis (NEB หลังคลอด → lipolysis → NEFA เข้าตับ → ketone bodies ทั้ง BHBA และ acetone สูง)"
     ],
     "answer": 2,
     "explain": "Acute ruminal acidosis (grain overload) = กินแป้ง/น้ำตาลย่อยง่ายมากเกิน หรือเปลี่ยนสูตรอาหารกะทันหัน\n- Strep. bovis ใช้น้ำตาล → สร้าง lactic acid → pH ลด < 5.5 (subacute SARA = 5.5-5.8)\n- Rumen atony, papilla ลอก, protozoa ตายหมด, milk fat ลด\n- Lactate สูง → metabolic acidosis (HCO3 ↓ AG ↑ Lactate ↑)\n- ปล่อย endotoxin → laminitis, มดลูกอักเสบ secondary\n\n- Milk fever = ไม่ใช่ (Ca ปกติ, ไม่มี acidosis ใน rumen)\n- Grass tetany = Mg ต่ำ, ไม่มี rumen acidosis\n- Ketosis = BHBA สูง ไม่มี rumen pH ต่ำ",
@@ -110,10 +110,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "วัว Acute ruminal acidosis (rumen pH 5.0, lactate ↑, dehydration) — แนวทางการรักษาที่ตรงเหตุที่สุดคือข้อใด",
     "options": [
-      "Propylene glycol PO (ใช้เป็น glucose precursor ของ NEB)",
-      "Magnesium sulphate IV + กันชัก (แก้ grass tetany)",
+      "Propylene glycol PO + dextrose 50% IV (glucose precursor แก้ NEB และ ketosis)",
+      "Magnesium sulphate 25% slow IV + diazepam กันชัก (แก้ hypomagnesemia)",
       "Sodium bicarbonate IV + rumen lavage + ABO กันการติดเชื้อ + ปรับอาหารช้าๆ",
-      "Calcium borogluconate slow IV 40% (แก้ hypocalcemia)"
+      "Calcium borogluconate 40% slow IV แล้ว SC ต่ออีก 3 วัน (แก้ hypocalcemia หลังคลอด)"
     ],
     "answer": 2,
     "explain": "Tx clin. rumen acidosis (pH < 5.5)\n- Lumen lavage (ล้าง rumen) → กำจัด lactate และอาหาร ferment\n- ผงฟู (NaHCO3) เข้าทาง rumen + IV → neutralize lactate\n- ABO ป้องกัน rumenitis + ป้องกัน laminitis ตามมา\n- ปรับอาหารช้าๆ กลับมา (โดยให้ roughage ก่อน)\n- ใกล้คลอด/severe → ผ่าตัด rumenotomy ก็ได้\n\n- PG = pregnancy toxemia/ketosis\n- Mg = grass tetany\n- Ca = milk fever",
@@ -136,9 +136,9 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "แพะเพศผู้ ปัสสาวะไม่ออก ตอนอายุ 2 เดือน ให้อาหารข้นเป็นหลัก ไม่มีหญ้าแห้ง น้ำมีให้จำกัด PE: straining หางสะบัด ร้องเสียงดัง ไม่มีปัสสาวะออก distended abdomen palpable bladder Lab: Na, Cl ↓, BUN, Creat ↑, K ↑, pH urine > 8, พบ struvite crystals — diagnosis คือข้อใด",
     "options": [
       "Urinary calculi (struvite obstruction ที่ urethral process ของแพะตัวผู้)",
-      "Grass tetany (hypomagnesemia)",
-      "Acute ruminal acidosis (rumen pH ต่ำ)",
-      "Ketosis (NEB)"
+      "Grass tetany (hypomagnesemia จากหญ้าอ่อน → ชักเกร็ง ตาสั่น nystagmus หัวใจเต้นเร็ว)",
+      "Acute ruminal acidosis (grain overload → rumen pH ต่ำ ท้องเสียกลิ่นเปรี้ยว)",
+      "Ketosis (NEB → lipolysis → BHBA สูง มีกลิ่นคีโตนจากลมหายใจและน้ำนม)"
     ],
     "answer": 0,
     "explain": "Urinary calculi ในแพะ/แกะตัวผู้:\n- urethra ยาว + ขด + แคบ (โดยเฉพาะที่ urethral process)\n- กินอาหารข้นเยอะ P สูง Ca ต่ำ ความเป็นเบสมาก + กินน้ำน้อย → struvite (Mg-NH4-PO4)\n- Stage: early progressing (ไม่ชัด)→ obstruct (anuria, azotemia, UB แตก, peritonitis ตาย)\n- PE: straining, palpable bladder, อาจคลำเจอ vermiform appendage บวม\n\n- Grass tetany = Mg ต่ำ มี neuro sign ชัก\n- Rumen acidosis = pH rumen ต่ำ ท้องเสียกลิ่นเปรี้ยว\n- Ketosis = BHBA สูง กลิ่นคีโตน",
@@ -160,10 +160,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "แพะเพศผู้ struvite urinary calculi (pH urine > 8) — ยา/วิธีจัดการที่ช่วยป้องกัน recurrence และละลายนิ่วโดยทำให้ปัสสาวะเป็นกรดคือข้อใด",
     "options": [
-      "Propylene glycol PO (precursor ของ glucose)",
+      "Propylene glycol PO 60-100 mL SID 3-5 วัน (glucose precursor แก้ภาวะ NEB)",
       "Ammonium chloride PO 0.5-1 g/kg ผสมอาหารลดเบส 5-10 วัน (urine acidifier ละลาย struvite)",
-      "Sodium bicarbonate IV (เพิ่ม HCO3 ในเลือด)",
-      "Calcium borogluconate IV (แก้ hypocalcemia)"
+      "Sodium bicarbonate IV หรือผสมน้ำดื่ม 5-10 วัน (เพิ่ม HCO3 ในเลือดและทำให้ปัสสาวะเป็นด่าง)",
+      "Calcium borogluconate 40% slow IV 5-10 นาที ร่วมกับ SC (แก้ hypocalcemia)"
     ],
     "answer": 1,
     "explain": "struvite (Mg-NH4-PO4) ละลายในกรด → urine acidifier ช่วย:\n- Ammonium chloride PO 0.5-1 g/kg ผสมอาหาร 5-10 วัน → ลด urine pH → ละลาย struvite + ป้องกัน recurrence\n- ร่วมกับ Fluid IV, ลดอาหารข้น เพิ่ม roughage เพิ่ม Ca:P ratio\n- Surgery: vermiform appendage amputation, tube cystotomy, perineal urethrostomy (ตามความรุนแรง)\n\n- PG, NaHCO3, Ca borogluconate → ไม่ใช่/ผิดทิศ NaHCO3 ทำให้ pH urine ขึ้น (สนับสนุน struvite)",
@@ -185,10 +185,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "Foot and Mouth Disease (FMD) — ลักษณะที่ถูกต้องเกี่ยวกับ pathogen และ host range ของโรคนี้คือข้อใด",
     "options": [
-      "Paramyxovirus, ติดเฉพาะม้าและสุนัข",
+      "Paramyxovirus ssRNA, ติดได้ทั้งสัตว์กีบคู่และสัตว์กีบเดี่ยวทุกชนิด (วัว ควาย หมู แพะ แกะ ม้า)",
       "Picornavirus ssRNA, ติด cloven-hoofed animal ทุกชนิด (วัว ควาย หมู แพะ แกะ) — ไม่ติดในม้า",
-      "Reovirus, ติดเฉพาะนกและเป็ดน้ำ",
-      "Coronavirus, ติดวัวเท่านั้น (ไม่ติด pig)"
+      "Capripox virus (DNA), ติดเฉพาะสัตว์เคี้ยวเอื้องทุกชนิด (วัว ควาย แพะ แกะ) — หมูและม้าไม่ติด",
+      "Coronavirus ssRNA, ติดเฉพาะสัตว์เคี้ยวเอื้องขนาดใหญ่ (วัว ควาย) — ไม่ติดหมู แพะ แกะ และม้า"
     ],
     "answer": 1,
     "explain": "FMD (Foot and Mouth Disease):\n- Agent: Picornavirus, ssRNA virus, มี 7 serotype หลัก (O, A, C, SAT1, SAT2, SAT3, Asia1) — ไทย endemic O, A, Asia1 — no cross protection ระหว่าง serotype\n- Host: cloven-hoofed (กีบคู่) — วัว ควาย หมู แพะ แกะ กวาง — ไม่ติดในม้า\n- โรคระบาดสัตว์ category 1 (กลุ่มร้ายแรง)\n- Morbidity สูงมาก แต่ตายน้อย เน้น production loss\n\nDx: vesicular fluid, epithelium+tissue, blood+serum, esophageal fluid (probang cup) → virus isolation*, RT-PCR, ELISA",
@@ -210,10 +210,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "การควบคุม FMD ในประเทศไทย — โปรแกรม vaccine ที่ถูกต้องคือข้อใด",
     "options": [
-      "Live attenuated vaccine 1 เข็มตลอดชีวิต ไม่ต้องกระตุ้น",
+      "Live attenuated O, A, Asia1 — ฉีดเข็มเดียวตอนอายุ 4 เดือน ได้ภูมิคุ้มกันตลอดชีวิต ไม่ต้องกระตุ้นซ้ำ",
       "Inactivated O, A, Asia1 — mass vac 80%+ herd, เริ่ม 4 เดือน boost 2-4 สัปดาห์ ต่อด้วยทุก 4 เดือน (q4m) 3 รอบในปีแรก",
-      "ฉีดเฉพาะวัวป่วยเท่านั้น (therapeutic)",
-      "ใช้ Modified Rose Bengal Test เป็นวัคซีน"
+      "Inactivated O, A, Asia1 — ฉีดเฉพาะวัวที่แสดงอาการแล้วเพื่อรักษา (therapeutic) ส่วนตัวปกติไม่ต้องฉีด",
+      "ไม่ใช้วัคซีน — ใช้ Modified Rose Bengal Test ตรวจเลือดทั้งฝูงทุก 4 เดือน แล้วคัดตัวที่ให้ผลบวกออกจากฝูง (test and cull)"
     ],
     "answer": 1,
     "explain": "FMD vaccine in Thailand:\n- Inactivated trivalent (O+A+Asia1) ครอบ serotype ที่ระบาดในไทย — no cross-protection ระหว่าง serotype\n- Mass vaccination ≥ 80% ของฝูง\n- Start at 4 months → boost 2-4 weeks later → ต่อด้วยทุก 4 เดือน (q4m) 3 รอบในปีแรก, then q6m หรือ q4m maintain\n- Ring vaccination ในพื้นที่เสี่ยง\n\nDisinfectant: NaOH 2%, Na2CO3 4%, Citric acid 0.2% (generic ใน farm: iodophor, quaternary ammonium → hypochlorite NOT working)\n\n- Live attenuated FMD = ไม่ใช้ มีความเสี่ยง reversion\n- Therapeutic vaccine = ไม่มี\n- Rose Bengal = brucellosis diagnostic ไม่ใช่ vaccine",
@@ -235,10 +235,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "Lumpy Skin Disease (LSD) — pathogen และวิธีหลักของการแพร่กระจายคือข้อใด",
     "options": [
-      "Picornavirus ssRNA, แพร่ทาง aerosol ระบบทางเดินหายใจเป็นหลัก",
+      "Picornavirus (ssRNA), แพร่หลักทาง aerosol และการสัมผัส vesicular fluid ของสัตว์ป่วยโดยตรง รวมถึงผลิตภัณฑ์จากสัตว์ที่ปนเปื้อน",
       "Capripox virus (DNA), แพร่หลักผ่าน mechanical transmission ของ blood-sucking insect (เหลือบ ริ้น แมลงวันดูดเลือด) + needle + secretion",
-      "Paramyxovirus, แพร่ผ่าน secretion ตอนคลอดเท่านั้น",
-      "Retrovirus, แพร่ vertically ผ่าน semen เป็นหลัก"
+      "Paramyxovirus (ssRNA), แพร่หลักผ่าน secretion ตอนคลอด รก และน้ำนมของแม่ที่ติดเชื้อ — ไม่มีแมลงเป็นพาหะ",
+      "Retrovirus (ssRNA), แพร่หลักแบบ vertical ผ่าน semen และ colostrum ร่วมกับเข็มฉีดยาหรือถุงมือล้วงตรวจที่ใช้ซ้ำ"
     ],
     "answer": 1,
     "explain": "LSD (Lumpy Skin Disease):\n- Agent: Capripox virus (DNA virus, vaccinia family)\n- โรคระบาด category 1 — ป่วยสูง ตายน้อย\n- Clinical: high fever 104.9F+, firm nodule 0.5-5 cm บนผิวหนัง, ulcerate แล้ว heal (แต่ยัง shed เชื้อได้), lymphadenopathy, production loss, secondary bac.infec\n- Form: cutaneous (ตุ่มตามตัว) / systemic (ตุ่มในอวัยวะ rare)\n- Incubation 4-14-28 d, ทนใน envi\n- Transmission: mechanical via blood-sucking insect (เหลือบ ริ้น), needles (ช่วยคลอด+AI), secretion\n- Live vaccine, q1yr effective\n- DDX: pseudopox (only udder), bovine papular stomatitis (only mouth), cowpox (rare), demodex (neck/back hair loss), tick bite",
@@ -260,10 +260,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "Anthrax (Bacillus anthracis) — ลักษณะของเชื้อและรูปแบบ infectious ที่ถูกต้องคือข้อใด",
     "options": [
-      "Gram-negative cocci, ไม่สร้าง spore, ทนใน envi ไม่กี่ชั่วโมง",
+      "Gram-negative cocci เรียงเป็นคู่ ไม่สร้าง spore — vegetative cell ทนใน envi ได้เพียงไม่กี่ชั่วโมง",
       "Gram-positive bacillus in chain (bamboo stick appearance) สร้าง spore เมื่อสัมผัสอากาศ — spore ทนใน envi 10+ ปี",
-      "Mycoplasma, ไม่มี cell wall, ติดในระบบทางเดินหายใจเท่านั้น",
-      "Acid-fast bacillus, intracellular obligate, ติดผ่าน aerosol จาก vegetative cell"
+      "Mycoplasma ไม่มี cell wall ย้อม Gram ไม่ติด ติดผ่านระบบทางเดินหายใจเท่านั้น — ทนใน envi ไม่กี่วัน",
+      "Acid-fast bacillus, obligate intracellular — ติดผ่าน aerosol ของ vegetative cell ที่ทนใน envi ได้ 10+ ปี"
     ],
     "answer": 1,
     "explain": "Bacillus anthracis:\n- Gram-positive rod, สร้าง spore เมื่อเจออากาศ\n- Gram stain: bamboo stick appearance (in chain)\n- Spore form (infectious stage) — ทนใน envi 10+ ปี, แปลงตอนเข้าร่างกาย (vegetative) → โดนทำลายง่าย\n- Virulent factor: capsule (ป้องกัน macrophage phagocytosis) + toxin complex (PA + EF + LF) — LF lethal factor ยับยั้ง MAPK → กดภูมิ + endothelial เปราะ → bleeding\n- Forms: cutaneous, pulmonary, GI, +/- injection form (drug user)\n- เลือดออก 8 ทวาร, sudden death 1-2h, ตายเลย\n- ห้ามผ่าซาก — โดนอากาศ vegetative→spore แล้วหายใจเข้าปอด ติดคน\n- Control: ฝังลึก ฝัง quicklime ไกลคน ไกลน้ำ ห้ามขายต่อ/เชือดถ้ายังไม่ตาย",
@@ -285,10 +285,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "วัวตายเฉียบพลัน (sudden death 1-2 ชั่วโมง) เลือดออกจากจมูก ปาก ทวาร เป็นเลือดสีเข้มไม่แข็งตัว ตายในพื้นที่มีประวัติคนกินเนื้อวัวดิบแล้วเกิดแผลคล้าย eschar — แนวทางที่ถูกต้องที่สุดในการจัดการซากคือข้อใด",
     "options": [
-      "เปิดผ่าซากเก็บตัวอย่างเลือด + spleen + LN ส่งห้องปฏิบัติการทันที",
+      "เปิดผ่าซากที่ฟาร์มทันที เก็บเลือด ม้าม และต่อมน้ำเหลืองส่งห้องปฏิบัติการ เพื่อยืนยันเชื้อให้ได้ก่อนแจ้งเจ้าหน้าที่ปศุสัตว์อำเภอ",
       "ห้ามผ่าซาก — ฝังหรือเผา (ฝังลึก ไกลน้ำ ใส่ปูนขาว ห้ามขายต่อ/เปิดผ่า) เพื่อป้องกัน vegetative cell เปลี่ยนเป็น spore ในอากาศ",
-      "ขนซากไปขายต่อให้คนกินเพื่อ recover ค่าใช้จ่าย",
-      "ตัดศีรษะออกแล้วโยนทิ้งลำน้ำ"
+      "ชำแหละเนื้อส่วนที่ดูปกติไปต้มให้สุกก่อนจำหน่าย ส่วนเครื่องในและเลือดฝังกลบ เพื่อลดความสูญเสียของเจ้าของ",
+      "ลากซากไปทิ้งลำน้ำหรือที่ลุ่มห่างจากฟาร์ม ปล่อยให้ย่อยสลายเอง แล้วพ่นยาฆ่าเชื้อบริเวณที่สัตว์ล้ม"
     ],
     "answer": 1,
     "explain": "อาการ + ประวัติคนกินเนื้อดิบเกิด eschar = สงสัย Anthrax\n- ห้ามผ่าซาก — vegetative form (ในร่างกาย) จะ aerosol → spore (ทนเป็น 10+ ปี) → คนหายใจเข้า → pulmonary anthrax\n- ทำเฉพาะ peripheral blood smear → Gram stain หา bamboo-stick GPB → ถ้า + ก็ confirm + รายงานกรมปศุสัตว์ทันที (zoonosis + reportable category 1)\n- ฝัง quicklime ลึก ไกลคน ไกลน้ำ หรือเผา — อย่าให้สปอร์กระจายลงดิน → ติด ruminant ตัวอื่นที่กินหญ้า\n- ปศุสัตว์ตามรอย index case, vaccinate ทั่วพื้นที่ Sterne strain 34F\n\n- เปิดผ่า = อันตราย\n- ขายต่อ = zoonosis ติดคน\n- โยนน้ำ = ปนเปื้อนแหล่งน้ำ",
@@ -310,10 +310,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "การ screening Tuberculosis (TB) ในฝูงโคเนื้อ/นม — วิธีที่นิยมใช้เป็น screening test คือข้อใด",
     "options": [
-      "Modified Rose Bengal Test (RBT)",
+      "Modified Rose Bengal Test (RBT) จากซีรัม",
       "Single Intradermal Tuberculin (SID) test",
-      "Complement Fixation Test (CFT)",
-      "California Mastitis Test (CMT)"
+      "Complement Fixation Test (CFT) จากซีรัม",
+      "California Mastitis Test (CMT) จากน้ำนมรวม"
     ],
     "answer": 1,
     "explain": "TB (Mycobacterium bovis) — acid-fast positive\n- Screening test (gold std field): Single Intradermal Tuberculin (SID)\n  - 0.1 mL purified bovine PPD (protein purified derivative สกัดจาก M. bovis)\n  - เข็ม 26G+ tuberculin syringe ฉีดที่ผงคอ/โคนหาง (cervical/caudal fold)\n  - อ่านผล 72 ชั่วโมง: ≥ 4 mm + แข็ง/บวมน้ำ = suspect\n- Comparative ID Tuberculin (CID): ฉีด M. avium + M. bovis แผงคอ → bovis หนากว่า avium ≥ 4 mm = บวก (แยก paraTB false +)\n- Stormont test: short stormont SC 4 mL → วัด temp > 104°F 4,6,8 hr → +, แต่ anaphylactic shock risk\n- IFN-gamma (cellular dx confirm) — sensi+specific สูง, early detection, ใช้กับ anergic cattle\n\n- RBT = brucellosis\n- CFT = brucellosis confirm\n- CMT = subclinical mastitis",
@@ -335,10 +335,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "สาเหตุของ False Positive ของ Single Intradermal Tuberculin test ในการ screening TB คือข้อใด",
     "options": [
-      "Anergy ในวัวที่ผอมมาก/ป่วยเรื้อรัง",
-      "Desensitization จากการ test ซ้ำเร็วเกินไป",
+      "Anergy ในวัวที่ผอมมาก ป่วยเรื้อรัง หรือเป็น TB ระยะท้ายแบบ generalized จนภูมิคุ้มกันไม่ตอบสนองต่อ PPD",
+      "Desensitization จากการทดสอบ tuberculin ซ้ำเร็วเกินไป (ภายใน 60 วันหลังการทดสอบครั้งก่อน) ในตัวเดิม",
       "Cross-react กับ Non-tuberculous Mycobacteria (NTM), Paratuberculosis (M. avium subsp. paratuberculosis), Nocardia",
-      "ฉีด tuberculin น้อยเกินไป (< 0.1 mL)"
+      "ฉีด tuberculin น้อยกว่า 0.1 mL หรือฉีดตื้นจนรั่วออกนอกชั้น intradermal ทำให้ PPD ไม่ถึงชั้นผิวหนังที่ต้องการ"
     ],
     "answer": 2,
     "explain": "False POSITIVE ของ Tuberculin test:\n- Cross-reactivity กับ Non-tuberculous Mycobacteria (NTM)\n- Paratuberculosis (M. avium subsp. paratuberculosis) — ทำให้ paraTB cattle ขึ้น positive ใน SID\n- Nocardia farcinicus → ก้อนแบบที่ปอด แต่ไม่ calcification\n\n→ จึงต้องใช้ Comparative ID Tuberculin (M.avium + M.bovis) เพื่อแยก paraTB → bovis หนากว่า ≥ 4 mm = TB จริง\n\n- Anergy / Desensitization / underdose = False NEGATIVE (ไม่ใช่ false positive)",
@@ -360,10 +360,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "Brucellosis ในโคเนื้อ-นมไทย — pathogen หลัก, transmission ที่สำคัญ และ screening test ที่นิยมใช้คือข้อใด",
     "options": [
-      "Brucella suis, แพร่ทาง aerosol, screening ด้วย CMT",
+      "Brucella suis; แพร่จากสุกรสู่โคทาง aerosol ในคอกรวมเป็นหลัก; คัดกรองด้วย California Mastitis Test",
       "Brucella abortus; B. melitensis จากแพะ/แกะแพร่สู่คนทาง aerosol; คัดกรองด้วย Modified RBT",
-      "Brucella canis, ติดเฉพาะสุนัข, screening ด้วย AGID",
-      "Mycobacterium bovis, แพร่ทาง intradermal route, screening ด้วย CFT"
+      "Brucella canis; แพร่จากสุนัขในฟาร์มสู่โคผ่านรก น้ำคร่ำ และปัสสาวะ; คัดกรองด้วย AGID ทั้งฝูง",
+      "Mycobacterium bovis; แพร่สู่คนผ่านนมดิบและ aerosol ในโรงเรือน; คัดกรองด้วย Complement Fixation Test"
     ],
     "answer": 1,
     "explain": "Brucellosis:\n- B. abortus — โคติดได้\n- B. suis — หมู\n- B. ovis — แกะ ไม่ติดคน\n- B. melitensis — แพะ/แกะ, อาวุธชีวภาพ, แพร่ aerosol ติดคนได้ (Brucella ที่ติดคนรุนแรงที่สุด)\n- Undulant fever ในคน\n\nClinical: แท้งระยะท้าย (3rd trimester), erythritol สูงใน placenta+endometrium+supramammary LN+udder+testis → bacteria เป็น erythritol-trophic\n- ไม่ใช่ทุกตัวที่ติดแล้วจะแท้ง (latent infection ก็มี) — แท้งแค่ครั้งเดียวพอ (มี immunity)\n- mastitis, นมลด, เต้าฟังถาวร, พ่อ orchitis/balanitis/epididymitis ไข่ใหญ่ไม่เท่ากัน\n\nDx in cattle: screen RBT (modified Rose Bengal) → confirm CFT (Complement Fixation Test)\n- RBT: ของวัวใช้ซีรัม 25-30 μL ของแพะ 75 μL (เพราะ Ab น้อยกว่า) หยด Ag mix ภายใน 4 นาที ดูตกตะกอน\n- CFT — gold std confirm",
@@ -386,9 +386,9 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "เกี่ยวกับมาตรการควบคุม Brucellosis ในโคเนื้อ/นมและในแพะของประเทศไทย ข้อใดถูกต้องที่สุด",
     "options": [
       "โคใช้ Strain 19 ครั้งเดียวอายุ 3-8 เดือน; แพะใช้ Test and Cull โดยไม่ใช้ REV-1",
-      "โคและแพะใช้ Strain 19 ทุกตัวทุกปี",
-      "ใช้ Doxycycline รักษาตลอดชีวิต ไม่ต้องคัดทิ้ง",
-      "ใช้ Inactivated FMD vaccine ป้องกัน Brucellosis"
+      "โคและแพะใช้ Strain 19 ฉีดทุกตัวทุกปี; แพะในฝูงที่ผลบวกฉีด REV-1 กระตุ้นเพิ่มทุกปี",
+      "ตัวที่ผลบวกรักษาด้วย Doxycycline ร่วมกับ streptomycin จนหายขาด ไม่ต้องคัดทิ้งออกจากฝูง",
+      "โคและแพะฉีด Inactivated FMD vaccine ปีละ 2 ครั้ง ซึ่งป้องกัน Brucellosis ได้ข้ามกลุ่ม"
     ],
     "answer": 0,
     "explain": "Control Brucellosis ไทย:\n- โคเนื้อ-นม:\n  - Vaccine Strain 19 (live attenuated B. abortus) — ฉีดลูกโคเพศเมีย 3-8 เดือน ครั้งเดียวพอ (ไม่ต้อง boost ทุกปี)\n  - Screen RBT routine ทุก 2 เดือนของฝูง → + culling (Test and Cull)\n  - กำจัดง่ายกว่า TB เพราะไม่ใช่ intracellular ทั้งหมด\n- แพะ:\n  - ไม่ใช้ REV-1 vaccine ในประเทศไทย (REV-1 เป็น live attenuated B. melitensis)\n  - Test and Culling เท่านั้น\n- Client educate: ไม่กินนมดิบ, ระวัง B. meli แพร่อากาศ → ใส่ PPE\n\n- ทุกตัวทุกปี = False (ฉีดครั้งเดียวพอ)\n- Doxy = ไม่ใช้ (intracellular + zoonosis → cull)\n- FMD vaccine ≠ Brucellosis",
@@ -411,9 +411,9 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "Paratuberculosis (Johne's disease) ในวัว — ลักษณะ pathogen, incubation, และ diagnostic ที่ดีที่สุดคือข้อใด",
     "options": [
       "Mycobacterium avium subsp. paratuberculosis (acid-fast), incubation 3-5 ปี, definitive Dx ด้วย Modified ELISA (bovine IFN-gamma) สำหรับตัวที่แสดง clinical signs แล้ว",
-      "Brucella abortus, incubation 2 สัปดาห์, dx ด้วย RBT",
-      "Bacillus anthracis, incubation 1-3 วัน, dx ด้วย Gram stain",
-      "Picornavirus, incubation 2-14 วัน, dx ด้วย virus isolation"
+      "Brucella abortus (Gram-negative coccobacillus), incubation 2 สัปดาห์ถึงหลายเดือน, definitive Dx ด้วย Modified RBT แล้ว confirm ด้วย CFT ในตัวที่แท้งแล้ว",
+      "Bacillus anthracis (Gram-positive, spore-forming), incubation 1-3 วัน, definitive Dx ด้วย Gram stain ของ peripheral blood smear ในตัวที่ตายเฉียบพลันแล้ว",
+      "Mycobacterium bovis (acid-fast), incubation หลายเดือนถึงหลายปี, definitive Dx ด้วย Single Intradermal Tuberculin test สำหรับตัวที่แสดง clinical signs แล้ว"
     ],
     "answer": 0,
     "explain": "Paratuberculosis (Johne's disease):\n- Agent: Mycobacterium avium subsp. paratuberculosis (MAP) — acid-fast +, slow growing, ทนใน envi (esp. ดิน)\n- ติดจากการกินอาหาร/น้ำ/นม (เด็กติดจากแม่), transplacental/semen ก็ได้\n- Incubation นานมาก 3-5 ปี → vlinical sign ตอนวัวอายุ 3-5 yr\n- Clinical: chronic wasting syndrome — persistent diarrhea, rapid weight loss, no fever, bottle jaw จาก hypoalbuminemia, edema\n- Crohn's disease ในคน อาการคล้าย paraTB\n- Dx:\n  - Intradermal Johnin test → false positive บ่อย\n  - Complement Fixation test (CFT) — routine ในไทย\n  - ELISA — sensi สูงในตัวที่ clinical sign แล้ว — definitive\n  - Modified ELISA (bovine IFN-gamma) — best for cellular dx, early detection\n  - Fecal culture gold std but 16+ weeks\n- Resistant ต่อ disinfectant ส่วนใหญ่ → ต้องใช้ 15% formalin\n- ไม่นิยม vaccine + รักษาด้วย ABO ก็ไม่หาย — cull",
@@ -435,10 +435,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "Babesiosis ในโค — pathogen, mechanism ของ hemolysis และ clinical sign ที่จำเพาะคือข้อใด",
     "options": [
-      "Trypanosoma evansi, มี extravascular hemolysis ใน spleen, ไม่มี hemoglobinuria",
+      "Trypanosoma evansi (flagellate อยู่ในพลาสมา ไม่เข้าไปใน RBC); แพร่โดยเหลือบ; extravascular hemolysis → anemia เรื้อรัง ผอมลง บวมน้ำใต้คาง แท้ง ไข้เป็นพักๆ และไม่มี hemoglobinuria (Surra)",
       "Babesia bigemina (ใหญ่ เบียดวงแคบ) / Babesia bovis (เล็ก แผ่กว้าง, ไปสมองได้ → cerebral babesiosis); intravascular hemolysis → hemoglobinemia + hemoglobinuria (red water, portwine urine) + icterus + splenomegaly",
-      "Anaplasma marginale, extravascular hemolysis, ไม่มี hemoglobinuria",
-      "Theileria, extracellular ใน lymphoid, ไม่มี hemolysis"
+      "Anaplasma marginale (จุดที่ขอบ RBC รุนแรง) / A. centrale (จุดกลาง RBC ไม่รุนแรง); extravascular hemolysis → anemia + icterus + hypoxia + ท้องผูก + แท้ง แต่ไม่มี hemoglobinuria (ปัสสาวะไม่แดง)",
+      "Theileria annulata (schizont ใน lymphocyte แล้วเป็น piroplasm ใน RBC); lymphoproliferation → ต่อมน้ำเหลืองโตทั่วตัว + ไข้สูง + anemia + ปอดบวมน้ำในรายรุนแรง (tropical theileriosis)"
     ],
     "answer": 1,
     "explain": "Babesiosis ในโค:\n- Pathogens:\n  - Babesia bigemina — ใหญ่ เบียดแน่นวงแคบ ใน RBC\n  - Babesia bovis — เล็ก แผ่กว้าง วัวเท่านั้น ไปสมองได้ (cerebral babesiosis → ataxia, mania, opisthotonos, blind, ตายสูงมาก)\n  - ควายเป็น B. bovis บ่อย\n  - แพะ/แกะ ไม่ติด Babesia bovis\n- Transmission: เห็บ (tick-borne, Boophilus/Rhipicephalus) + เข็มไม่สะอาด\n- Clinical: piroplasmosis, tick fever, redwater\n  - Fever, system effect\n  - Intravascular hemolysis → hemoglobinemia, hemoglobinuria (ซีรั่มแดง ฉี่แดง portwine urine), icterus, splenomegaly, CVS shock\n  - Cerebral form ใน chronic severe → ตายสูง\n- Dx: blood smear** (Giemsa) — เจอ piroplasm ใน RBC\n- Tx: Diminazine aceturate (BERENIL) 3-5 mg/kg IM +/- oxytet\n- Prophylax: Imidocarb 3 mg/kg IM, 4w protection\n\n- Trypanosoma → Surra (Trypanosoma evansi)\n- Anaplasma → extravascular ไม่มี hemoglobinuria\n- Theileria → ในเลือดเลย",
@@ -460,10 +460,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "ความแตกต่างหลักของ Anaplasmosis และ Babesiosis ในวัวคือข้อใด และ ABO ของ choice ในการรักษา Anaplasmosis คืออะไร",
     "options": [
-      "Anaplasmosis = intravascular hemolysis + hemoglobinuria; Tx ด้วย Penicillin",
+      "Anaplasmosis = intravascular hemolysis (hemoglobinemia + hemoglobinuria ปัสสาวะสีไวน์แดง), A. marginale และ A. centrale รุนแรงพอกัน; Tx ด้วย Procaine penicillin G (22,000 IU/kg IM SID 5 วัน) เพราะเชื้อไวต่อยากลุ่ม beta-lactam ได้ดี",
       "Anaplasmosis = extravascular hemolysis (ไม่มี hemoglobinuria แต่มี jaundice/hypoxia), Anaplasma marginale รุนแรง vs A. centrale ไม่รุนแรง; Tx ด้วย Oxytetracycline (short-act 11 mg/kg IV 3-5 d หรือ long-act 20 mg/kg IM q72h)",
-      "Anaplasmosis = ทำ cerebral form บ่อยกว่า babesiosis; Tx ด้วย Diminazine aceturate",
-      "Anaplasmosis ไม่มี anemia, ไม่ต้องรักษา"
+      "Anaplasmosis = extravascular hemolysis แต่มี cerebral form (ataxia ชัก opisthotonos) บ่อยกว่า babesiosis, A. marginale รุนแรงกว่า A. centrale; Tx ด้วย Diminazene aceturate 3.5 mg/kg IM ครั้งเดียวเหมือน babesiosis",
+      "Anaplasmosis ไม่ทำให้ anemia เพราะเชื้ออยู่ใน neutrophil ไม่ใช่ใน RBC, A. marginale และ A. centrale ก่อโรคได้เฉพาะในแกะ; ไม่ต้องรักษาเฉพาะ ให้ supportive care และกำจัดเห็บในฝูงก็พอ"
     ],
     "answer": 1,
     "explain": "Anaplasmosis vs Babesiosis ใน ruminant:\n- Anaplasmosis:\n  - Anaplasma marginale (รุนแรง) vs A. centrale (ไม่รุนแรง) — A. ovis ในแกะ\n  - Mechanical transmission: เห็บ + tabanid + needles (เข็มเดียวกัน)\n  - Naive herd: morbidity สูง mortality 50%, calves+young เจอภูมิจากแม่ → resist; adults เป็น susceptible สูงสุด\n  - Fever 104-106°F, progressive anemia (1 month+), extravascular hemolysis* (ไม่มี hemoglobinuria; มี jaundice + hypoxia + rumen atony + constipation + abortion)\n  - Dx: blood smear + PE + HX + CBC (PCV ลด)\n  - Tx: Oxytetracycline — short-act 11 mg/kg IV 3-5d / long-act 20 mg/kg IM q72h 1-2 dose / oxytet+กำจัดเห็บ; ตัว carrier — oxytet LA 10d q72h 4 dose\n  - PCV < 12% → blood transfusion\n  - Vaccine ไทยไม่มี แต่ A. marginale cross protect กับ A. bovis\n- Babesiosis = intravascular hemolysis + hemoglobinuria; Tx Diminazine aceturate\n\nKey diff: Babesia → intravascular + redwater; Anaplasma → extravascular + ไม่มี redwater",
@@ -485,10 +485,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "Bovine Ephemeral Fever (ไข้สามวัน) — agent และ vector ที่ถูกต้องคือข้อใด",
     "options": [
-      "Capripox virus, vector = เห็บ",
+      "Capripox virus (DNA), vector = เห็บ Rhipicephalus microplus — เจอบ่อยหน้าแล้ง; โค ควาย แพะ และแกะ susceptible เท่ากัน",
       "Arbovirus (Rhabdoviridae bullet-shape), vector = แมลงดูดเลือด (midges/ริ้น + mosquito) — เจอบ่อยหน้าฝน; โคและควาย susceptible (แพะ/แกะไม่ใช่)",
-      "Picornavirus, vector = aerosol, ติดสัตว์กีบคู่ทุกชนิด",
-      "Paramyxovirus, vector = เห็บ, ติดทั้งโค หมู แพะ แกะ"
+      "Picornavirus (ssRNA ไม่มี envelope), แพร่ทาง aerosol และสัมผัสโดยตรงกับสัตว์ป่วยโดยไม่ต้องอาศัย vector — ติดสัตว์กีบคู่ทุกชนิดรวมทั้งหมู",
+      "Paramyxovirus (Morbillivirus), vector = เห็บและเหลือบ — ระบาดมากหน้าหนาว; susceptible ทั้งโค หมู แพะ แกะ และม้า"
     ],
     "answer": 1,
     "explain": "Bovine Ephemeral Fever:\n- Agent: Arbovirus, Rhabdoviridae family, bullet-shape\n- Vector: blood-sucking insect = midges (ริ้น) + mosquito — เจอช่วงเปลี่ยนฤดู หน้าฝน\n- Host: cattle + buffalo เท่านั้น — แพะ/แกะ ไม่ติด\n- Clinical: ไข้ + ขาแข็ง sudden onset, severe drop in milk production, anorexia, depression, lameness จาก arthritis (vasculitis + synovitis), rumen atony\n- ดูคู่ hypocalcemia — มักให้ Ca gluconate ร่วม\n- Mortality มักเกิดจาก secondary complication: pneumonia (จาก upper resp + พลิกตัวไม่ได้), permanent paralysis ถ้าน้ำหนักตัวมาก\n- Tx: supportive (NSAID ลดไข้+ปวด, Ca gluconate IV/borogluconate SC) — ABO ถ้ามี secondary bacterial\n- Vaccine: มี แต่เลือกใช้/ไม่แล้วแต่",
@@ -535,10 +535,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "Malignant Catarrhal Fever (MCF) — host reservoir, susceptible host และ Clinical sign ที่จำเพาะคือข้อใด",
     "options": [
-      "Reservoir = วัวเท่านั้น; susceptible = ม้า; clin = ลำไส้เลือดออก",
+      "โคและควายเป็น reservoir; แกะ แพะ และ wildebeest ไวรับ; ตุ่มน้ำใสที่ลิ้น ไรกีบ และหัวนม",
       "แกะ แพะ หรือ wildebeest เป็น reservoir; โค ควาย กวาง และหมูไวรับ; corneal opacity ลามจากขอบสู่กลาง",
-      "Reservoir = นกป่า; susceptible = เป็ดน้ำ; clin = สูญเสียการบิน",
-      "Reservoir = แมว; susceptible = สุนัข; clin = อ้วก เซื่องซึม"
+      "หมูป่าเป็น reservoir; โค ควาย แพะ และแกะไวรับ; ก้อนนูนแข็งทั่วผิวหนังร่วมกับต่อมน้ำเหลืองโต",
+      "แกะ แพะ หรือ wildebeest เป็น reservoir; โค ควาย และกวางไวรับ; ไข้สูงขาแข็งเฉียบพลันแล้วหายเองภายใน 3 วัน"
     ],
     "answer": 1,
     "explain": "MCF (Malignant Catarrhal Fever):\n- Agent: Alcelaphine herpesvirus 1 (AlHV-1) ใน wildebeest; ที่เจอในไทยคือ ovine herpesvirus 2 (OvHV-2)\n- Reservoir host: sheep, goat, wildebeest — ไม่แสดงอาการ + เก็บเชื้อ\n- Susceptible (dead-end): วัว ควาย กวาง หมู → ตายเฉียบพลัน\n- เจอในฟาร์มเลี้ยงสัตว์หลายชนิดรวมกัน (เลี้ยงวัวกับแพะ)\n- Transmission: aerosol + nasal discharge (จาก reservoir host)\n- Clinical: high fever + purulent ocular+nasal discharge (catarrhal) + corneal opacity (ขุ่นจากขอบนอกเข้ามาตรงกลาง — ตาบอด) + จมูก/ปาก erosion + ตายแบบ acute/peracute\n- Morbidity 50-100%, mortality 80-90% (100% ใน acute)\n- Dx: PCR + serology + histopath ตับ ไต ตา ปาก UB สมอง → vasculitis + lymphocytic infiltration\n- Tx: ไม่มี ไม่มี vaccine\n- Control: เลี้ยง susceptible host แยกจาก reservoir** (วัว แยกจากแพะ/แกะ)",
@@ -560,10 +560,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "Bovine Respiratory Disease Complex (BRDC, Shipping Fever) — กลไกของโรคและ pathogen หลักคือข้อใด",
     "options": [
-      "Single-pathogen disease — ติดเฉพาะ Pasteurella multocida เท่านั้น",
+      "Single-pathogen disease จาก Pasteurella multocida type B เท่านั้น — ไม่เกี่ยวกับ stress หรือไวรัสนำมาก่อน",
       "Multifactorial จาก stress ร่วมกับ respiratory virus แล้วตามด้วย Mannheimia หรือ Pasteurella",
-      "Pure viral disease ติดทาง vector แมลงดูดเลือด",
-      "Pure parasite disease ติดจาก fecal-oral"
+      "Pure viral disease จาก BHV-1 และ BRSV ที่แพร่ผ่านแมลงดูดเลือด โดยไม่มีแบคทีเรียแทรกซ้อนตามมา",
+      "Parasitic pneumonia จาก Dictyocaulus viviparus ที่ติดทาง fecal-oral เป็นหลัก ไม่เกี่ยวกับ stress"
     ],
     "answer": 1,
     "explain": "BRDC = Multifactorial disease:\n- Host factors: ลูกวัวเด็ก, เครียด (หย่านม, นั่งรถยนต์ไกล, หนาว, ร้อน, คอกหนาแน่น), กิน colostrum น้อย, ภูมิตก\n  - Prevention → vaccinate แม่ก่อนเสมอ + ลูกกิน colostrum เยอะๆ + ค่อยๆ หย่า + ปรับตัวก่อนกิน + รวมกลุ่มที่หลังไม่ให้เครียด\n- Envi: คอกหนาแน่น direct contact อุณหภูมิ ขนส่ง ventilation แย่\n- Agent: virus ลงแรก แล้วแบคทีเรียตามมาเสมอ\n  - Virus: Bovine Herpesvirus-1 (เกิด IBR + IPV + latent infec), BRSV, Parainfluenza-3, BVDV (type 1 noncytopathic, type 2 cytopathic; แม่ติด tri-1 = embryo death; tri-2-4m = Persistent Infection — reservoir ของโรค)\n  - Bacteria: Mannheimia (Pasteurella) hemolytica, Pasteurella multocida (normal flora), Histophilus somni, Mycoplasma bovis (chronic pneumonia + polyarthritis + tenosynovitis + mastitis — รักษายาก, cull)\n- เน้น ฤดูปลายฝนต้นหนาว, เชื้อทนใน envi นานขึ้น\n- Clinical: pneumonia ทั่วไป ไข้ น้ำมูกขี้ตา ไอ dyspnea, increased bronchial sound, abdominal breathing\n- Tx: เก็บตัวอย่างก่อน → ABO broad spec ก่อน (อาจ ceftriofur/tulathromycin/florfenicol/tilmicosin = ไปดีในปอด) + NSAID + ลดเครียด vaccinate วัวใหม่",
@@ -585,10 +585,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "BVDV (Bovine Viral Diarrhea Virus) — outcome ของการที่แม่วัวติดเชื้อในแต่ละช่วงตั้งท้องคือข้อใด",
     "options": [
-      "แม่ติดทุกช่วงตั้งท้อง → ลูกปกติ ไม่มีผล",
+      "น้อยกว่า 1 เดือนเกิดลูก PI; 2-4 เดือนลูกพิการแต่กำเนิด; 5-9 เดือน embryo death และแท้ง",
       "น้อยกว่า 1 เดือน embryo death; 2-4 เดือนเกิดลูก PI; 5-9 เดือนลูกอ่อนแอหรือพิการ",
-      "ลูกที่เกิดทุกตัวจะป่วยและตายภายใน 1 สัปดาห์",
-      "แม่ติดทุกช่วง → ลูกได้ immunity เต็มที่จากแม่"
+      "ทุกช่วงอายุครรภ์ ลูกที่เกิดจะเป็น mucosal disease และตายภายใน 1 สัปดาห์หลังคลอด",
+      "ทุกช่วงอายุครรภ์ ลูกที่เกิดปกติและได้ภูมิคุ้มกันต่อ BVDV เต็มที่จากแม่ผ่าน colostrum"
     ],
     "answer": 1,
     "explain": "BVDV (Pestivirus, Flavivirus family):\n- Type 1 (noncytopathic) + Type 2 (cytopathic)\n- Outcome ขึ้นกับ stage ของการตั้งท้อง:\n  - Tri 1 (< 1 month): embryo death (resorption / abortion)\n  - Tri 1-2 (2-4 months): ลูก Persistent Infection (PI) — เป็น reservoir โรค → cull ทันทีที่เจอ (cornerstone ของการกำจัด BVDV)\n  - Tri 2-3 (5-9 months): ลูกอ่อนแอ พิการ congenital (microcephaly, cerebellar hypoplasia, microphthalmia)\n  - Mucosal disease: PI calf ติด cytopathic strain ทับ → fulminant fatal ภายในไม่กี่สัปดาห์\n- Dx: PCR (realtime PCR ทีเดียวเจอ BVDV + IBR + BRSV + PI3) — Ab test confirm ไม่ได้เพราะสับสนระหว่างติดเชื้อ vs vaccinated\n- Vaccine 2 ยี่ห้อ → กัน 4 ตัวหลัก (IBR + PI3 + BVDV + BRSV)",
@@ -613,7 +613,7 @@ export const QB_HERD_HEALTH_RUM = [
       "Mycobacterium bovis, ติดทั้งโค-คน, clin = chronic wasting",
       "Pasteurella multocida type B/E; พบบ่อยในควาย; คอบวมและตายเฉียบพลัน",
       "Picornavirus, ติดทั้งสัตว์กีบคู่, vesicle ที่ปากเท้า",
-      "Brucella abortus, ติดสัตว์ทุกชนิด, แท้งระยะท้าย"
+      "Brucella abortus; ติดได้ทั้งโค ควาย และคน; แท้งช่วงท้ายของการตั้งท้อง"
     ],
     "answer": 1,
     "explain": "Hemorrhagic Septicemia (HS):\n- Agent: Pasteurella multocida (ชนิด B ใน Asia, E ใน Africa)\n- Host: ควาย (ไทย) — ตายสูงมาก; ในวัว เจอแบบ BRDC\n- โรคระบาด category 1\n- หน้าฝน, ควายแช่ปลัก, ขังคอกรวม, ปกติเจอเชื้อ Pasteurella multocida ใน nasopharynx อยู่แล้ว ตายสูงในควาย แสดงอาการแล้วตายแน่นอน\n- Peracute → ตายภายใน 24 ชั่วโมง\n- Clinical: high fever + diarrhea + submandibular/brisket/foreleg subcutaneous edema (คอบวม คอตีบ) + ตายใน 24h\n- PE/Necropsy: ปอด consolidate + pleuritis + pericarditis, สีน้ำล้างเนื้อ, petechial subcutaneous hemorrhage\n- Dx: blood smear ย้อม methylene blue หา bipolar (Pasteurella multocida bipolar staining)\n- Tx (มาทัน): effective ABO + NSAID + Fluid IV\n- Prevention: vaccine Aluminium hydroxide gel + oil adjuvant (Pasteurella multocida bacterin) — แต่ข้อเสียคือเกิดตาย + ฝีตำแหน่งฉีด → ห้ามฉีดวัคซีนหลังผ่านเรื่องเครียดมา",
@@ -636,10 +636,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "การแบ่ง Ketosis ในแม่โคนมเป็น Type 1 และ Type 2 — ข้อใดถูกต้อง",
     "options": [
-      "Type 1 และ Type 2 เกิดทั้งคู่ที่ 3 สัปดาห์ก่อนคลอด",
+      "Type 1 ช่วง 0-2 สัปดาห์หลังคลอดในวัวอ้วนและ hyperglycemia; Type 2 ช่วง 3-6 สัปดาห์และ hypoglycemia",
       "Type 1 ช่วง 3-6 สัปดาห์หลังคลอดและ hypoglycemia; Type 2 ช่วง 0-2 สัปดาห์ในวัวอ้วนและ hyperglycemia",
-      "Type 1 = วัวอ้วน, Type 2 = วัวผอม",
-      "Type 1 = BHBA ต่ำ, Type 2 = BHBA ปกติ"
+      "Type 1 และ Type 2 เกิดช่วง 3 สัปดาห์ก่อนคลอดทั้งคู่; แยกจากกันด้วยจำนวนลูกในท้องและ BCS ของแม่",
+      "Type 1 มี BHBA ต่ำแต่ glucose สูงในวัวอ้วน; Type 2 มี BHBA ปกติในวัวผอมช่วง 3-6 สัปดาห์หลังคลอด"
     ],
     "answer": 1,
     "explain": "Ketosis ในวัวนม:\n- เกิดจาก NEB (negative energy balance) ใน transition period — แม่กินน้อย แต่ใช้พลังงานเยอะสร้างนม → lipolysis → NEFA → ตับ → ketone bodies (acetone, acetoacetate, BHBA)\n\nType 1 (Underfeeding ketosis):\n- เกิดช่วง นมพีค หลังคลอด 3-6 สัปดาห์\n- อาหารพลังงานต่ำ แต่ผลิตเยอะ → lipolysis เต็มที่\n- Hyperketonemia + Hypoglycemia\n- ไปสร้างนมหมดแล้ว\n\nType 2 (Fat cow / Insulin resistance ketosis):\n- เกิด หลังคลอดทันที-2 สัปดาห์\n- วัวอ้วน BCS > 3.75 ก่อนคลอด\n- Hyperketonemia + Hyperglycemia (insulin resistance ชั่วคราว → glucose เข้าเซลล์ไม่ได้ → ตับยังคงเร่ง lipolysis แบบ DM ชั่วคราว)\n\nDx: BHBA in blood\n- Dry > 0.6 mmol/L = elevated\n- Postpartum subclin ketosis > 1.2 mmol/L (PG ทันยังพอแก้)\n- Clinical ketosis > 3.0 mmol/L\n- NEFA: Dry > 0.3, postpartum > 0.7 mmol/L\n\nClin sign: ซึม ไม่กิน นมลดทันที, ketone ขึ้นสมอง → neuro signs (กัดฟัน น้ำลายฟูม เดินวน)",
@@ -661,10 +661,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "Milk Fever (Parturient Paresis, Hypocalcemia) — pathogenesis, timing และ Tx ที่ถูกต้องคือข้อใด",
     "options": [
-      "เกิดในแม่โครีดนมเด็ก, ก่อนคลอด 3 สัปดาห์, ขาดวิตามินบี",
+      "แม่โคนมสาวท้องแรกช่วง 3 สัปดาห์ก่อนคลอด; รักษาด้วย vitamin B complex IM",
       "แม่โคแก่ช่วง 0-3 วันหลังคลอด; รักษาด้วย calcium borogluconate IV ช้า",
-      "เกิดในวัวสาวก่อนตั้งท้อง, ทำลายตับ",
-      "เกิดในลูกวัว, ขาดเหล็ก, รักษาด้วยเลือดถ่ายโดยตรง"
+      "โคสาวก่อนตั้งท้องที่เป็น fatty liver; รักษาด้วย propylene glycol PO 3-5 วัน",
+      "ลูกโคแรกเกิดที่ขาดธาตุเหล็ก; รักษาด้วยการถ่ายเลือดจากแม่โดยตรงทันที"
     ],
     "answer": 1,
     "explain": "Milk fever (Parturient paresis):\n- Pathogenesis: hypocalcemia เฉียบพลัน — แม่โคแก่ ปรับตัวช้า ขาด Mg/PTH/Active vitD, peak milk demand Ca ของ colostrum สูงมาก → blood Ca ลดเร็ว\n- Timing: 24 ชั่วโมง - 3 วันหลังคลอด (มากที่สุด)\n- Clinical:\n  - Stage 1 — ขาอ่อน ตัวสั่น กัดฟัน\n  - Stage 2 — ล้มนั่ง sternal recumbency คอพับเข้าตัว HR ลด ตัวเย็น\n  - Stage 3 — lateral recumbency หมดสติ flaccid ตาย\n- Dx: serum Ca < 1.5 mmol/L (หนัก < 0.4) — ปกติ 2.2-2.6 mmol/L; แต่ตรวจไม่ทัน สงสัยก็ให้ไปเลย\n- Tx: 40% Calcium borogluconate 400 mL slow IV 5-10 min, ยกขวดสูง 30-40 cm (ฟังหัวใจ ระวัง arrhythmia)\n  - ให้แล้วลุกได้ ลุกขึ้นยืน → SC ต่ออีก 3 วัน + แก้อาหาร\n- Prevention:\n  - ลด Ca ในอาหารดรายให้ฝึก mobilize Ca/PTH\n  - Negative DCAD diet ก่อนคลอด (-100 ถึง -150 mEq/kg DM) — ทำเลือดเป็นกรด → กระตุ้น Ca mobilization\n  - หลังคลอดเปลี่ยน positive DCAD\n\n- Note: hypocalcemia + ephemeral fever เกิดคู่กันได้ → ให้ Ca กลูโคเนตคู่",
@@ -687,9 +687,9 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "Grass Tetany (Hypomagnesemia) ในแม่วัวที่กินหญ้าอ่อนหลังฝนตก — สิ่งที่ก่อให้เกิด clinical sign และ Tx ที่จำเพาะคือข้อใด",
     "options": [
       "K และ N สูงในหญ้าอ่อนลดการดูด Mg; รักษาด้วย MgSO4 ร่วมกับ calcium borogluconate",
-      "Ca สูงในอาหารข้น → กดประสาท → Tx ด้วย Ca chelator",
-      "Glucose ต่ำในเลือด → Tx ด้วย insulin",
-      "Cl ต่ำในเลือด → Tx ด้วย NaCl IV"
+      "Ca สูงในอาหารข้นกดการนำกระแสประสาท; รักษาด้วย Ca chelator (Na2EDTA) IV ช้าๆ",
+      "Glucose ต่ำจาก NEB เพราะหญ้าอ่อนมีพลังงานต่ำ; รักษาด้วย insulin ร่วมกับ dextrose IV",
+      "Na และ Cl ต่ำจากหญ้าอ่อนที่มีน้ำมาก; รักษาด้วย NaCl 0.9% IV ปริมาณมาก"
     ],
     "answer": 0,
     "explain": "Grass tetany (Hypomagnesemia):\n- เกิดในแม่โครีดนม กินแบบปล่อยแปลง หญ้าอ่อนหลังฝนตก\n- Mechanism:\n  - K สูงในอาหารข้น/หญ้าอ่อน → แย่งจับ Mg\n  - N สูงในอาหารข้น → rumen pH กรด → ลดการดูด Mg\n  - Mg ดูดน้อย → blood Mg ลด\n- Timing: 4-8 weeks หลังคลอด, เลี้ยงปล่อยแปลง, ตายทันที\n- Clinical:\n  - Early: ตอบสนองไว มึน กัดฟัน ตาโปน\n  - Late stage: ชัก opisthotonos rapid nystagmus HR สูง → ตาย\n- Dx:\n  - Plasma Mg ตัวสงสัย\n  - Vitreous humor Mg < 0.55 mmol/L (ของตัวตาย) — เพราะ Mg ปกติเปลี่ยนน้อยใน vitreous\n- Tx:\n  - ยากันชักก่อน (diazepam IV)\n  - Ca borogluconate 400 mL (เพราะ Ca ก็อาจต่ำคู่)\n  - 25% Magnesium sulphate slow IV 10-15 min warm + MgSO4 SC 400 mL\n- Prevention: เพิ่ม Mg ในอาหารแห้ง, ค่อยๆ เปลี่ยนอาหาร",
@@ -712,9 +712,9 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "Subacute Ruminal Acidosis (SARA) — Dx ที่ herd level และวิธีปรับอาหารคืออะไร",
     "options": [
       "ดู milk fat และ F:P < 1.1 ระดับฝูง; ปรับ TMR ให้หยาบ 2.5-5 cm และ R:C 40:60",
-      "Dx ที่ herd level ดูแค่ rumen pH ของวัวตัวเดียว",
-      "Tx ให้กิน carbohydrate เพิ่มเร็วๆ",
-      "ไม่มีการปรับอาหาร — ใช้ ABO รักษาอย่างเดียว"
+      "วัด rumen pH ของวัวตัวที่ป่วยตัวเดียว; เพิ่มอาหารข้นให้ R:C เป็น 20:80",
+      "ดู F:P > 1.5 ระดับฝูง; เพิ่มอาหารข้นให้เร็วขึ้น และหั่นอาหารหยาบให้สั้นกว่า 1 cm",
+      "ไม่ต้องปรับอาหาร; ใช้ ABO ผสมน้ำดื่มให้ทั้งฝูงรักษาอย่างเดียว 5-7 วัน"
     ],
     "answer": 0,
     "explain": "Subacute Ruminal Acidosis (SARA):\n- pH 5.5-5.8 (ไม่ถึง clinical < 5.5)\n- เกิดจากกินคาร์บย่อยง่าย/อาหารข้นเยอะ/อาหารหยาบไม่ effective\n\nDx (herd-level):\n- Milk fat ลด, F:P ratio < 1.1\n- Feed analysis → อาหารหยาบเล็ก/ละเอียดไป\n- Chewing cud (cud chewing) < 5 ตัวใน 10 ตัว\n- (rumenocentesis pH < 5.8 ใน individual ก็ได้)\n\nTx/Prevention:\n- ปรับอาหารช้าๆ\n- ใส่ buffer (NaHCO3) ในอาหาร\n- TMR ใหม่ผสมให้ดี\n- อาหารหยาบขนาด 2.5-5 cm ขนาดใหญ่เคี้ยวหยาบ\n- NDF 28-34% ใยเยอะพอ\n- peNDF 20-30% (physically effective NDF)\n- R:C 40:60 (Roughage:Concentrate)\n\nClin acidosis (< 5.5) → rumen lavage + NaHCO3 + ABO + Fluid",
@@ -736,10 +736,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "ลูกโค Holstein อายุ 10 วัน 40 kg ขาดน้ำ 10% (รุนแรง) นอนสเตอร์นัล ไม่ดื่มนม — ชนิดสารน้ำที่เลือก และ อัตราการให้ ที่ถูกต้องที่สุดคืออะไร",
     "options": [
-      "Normal Saline (0.9% NaCl) bolus 8 L ใน 1 ชั่วโมง โดยไม่ต้อง phase",
+      "Normal saline (0.9% NaCl) อย่างเดียวทาง IV; bolus 8 L ภายใน 1 ชั่วโมงแรกโดยไม่แบ่ง phase",
       "Acetated Ringer's หรือ LRS ผสม dextrose ทาง IV; ให้ 2 L แรกเร็ว แล้ว 6 L ภายใน 24 ชั่วโมง",
-      "Lactated Ringer's ในลูกตับวาย → ให้เร็ว 8 L bolus ใน 1 ชั่วโมง",
-      "Hypertonic saline 7.2% bolus 8 L"
+      "Lactated Ringer's ผสม dextrose ทาง PO/OG; ให้ 4 L แรกเร็ว แล้วอีก 4 L ภายใน 24 ชั่วโมง",
+      "Hypertonic saline 7.2% ทาง IV; bolus ทั้ง 8 L ภายใน 1 ชั่วโมง แล้วไม่ต้องให้ต่อ"
     ],
     "answer": 1,
     "explain": "Fluid therapy in calf diarrhea (case จาก lecture):\n- Deficit (D) = 0.10 × 40 kg = 4 L\n- Maintenance (M) = 50 mL/kg/day × 40 kg = 2 L\n- Ongoing Losses (O) = 2 L (ประมาณการของท้องเสียรุนแรง)\n- รวม 24h = D + M + O = 4 + 2 + 2 = 8 L\n\nRoute: IV เท่านั้น เพราะรุนแรงมาก, อ่อนแรง, ไม่มีรีเฟล็กซ์ซักดูดนม, ลำไส้ทำงานผิดปกติ (PO/OG ไม่เหมาะ)\n\nFluid choice:\n- Acetated Ringer's (Acetar) หรือ LRS ผสม Dextrose 2.5-5%\n- Acetated > LRS ในลูกที่อ่อนแรง — เพราะ acetate ผ่านการเผาผลาญในเนื้อเยื่อนอกตับ (extrahepatic) — ดีในตับวาย\n- LRS lactate ต้องเผาผลาญที่ตับ (hepatic) → ห้ามให้ในเคสตับพัง\n- เพิ่ม Dextrose 2.5-5% แก้ภาวะเลือดเป็นกรด + น้ำตาลในเลือดต่ำ\n\nTwo-Phase Strategy:\n- Phase 1 (Resuscitation, 0-1h): ให้ 2 L รวดเร็ว (RAPIDLY) — ฟื้น cardiovascular function\n- Phase 2 (Rehydration, 1-24h): ให้ 6 L ที่เหลือ ในอัตราคงที่ตลอด 23h\n\nDehydration Assessment:\n- < 5% — skin tent 1 sec\n- 6-8% — skin tent 2 sec, ตาแห้ง, เหงือกแห้ง\n- 8-10% — ตาจม skin tent 4 sec\n- 10-12% — สลบ tachycardia tachypnea\n- USG > 1.025 → ไตยังทำงานได้\n\n- NSS อย่างเดียว → ให้มาก/ให้นาน → hyperchloraemic acidosis",
@@ -761,10 +761,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "แม่โคหลังคลอด 5 วัน เต้านมแข็ง บวม น้ำนมเป็นน้ำเหลืองปนเลือด HR 120 RR 50 อุณหภูมิ 37.2°C ขาเย็น ตาลึก พบ toxic line ที่เยื่อเมือก — แนวทาง fluid therapy เริ่มต้นที่เหมาะสมที่สุดคือข้อใด",
     "options": [
-      "Oral electrolyte solution 4 L SID",
+      "Oral electrolyte 20-40 L ผ่านท่อกรอกกระเพาะ ตามด้วย NSS IV ช้าๆ",
       "Hypertonic saline 7.2% 1-2 L IV เร็ว ตามด้วย Acetated Ringer's 20-40 L",
-      "NSS PO ป้อนช้าๆ ใน 24 ชั่วโมง",
-      "ไม่ต้องให้สารน้ำ — ใช้ ABO อย่างเดียวก็พอ"
+      "LRS 1-2 L IV เร็ว ตามด้วย NSS ทาง PO ป้อนช้าๆ ต่อเนื่องให้ครบตลอด 24 ชั่วโมง",
+      "ไม่ต้องให้สารน้ำ — ให้ ABO เข้าเต้าร่วมกับ NSAID อย่างเดียวก็พอ"
     ],
     "answer": 1,
     "explain": "Toxic Mastitis = E.coli/Klebsiella/Pseudomonas (coliform) → endotoxin → endotoxic shock\n- อาการ:\n  - Endotoxic shock: HR เร็วรุนแรง > 100, อุณหภูมิ ต่ำกว่าปกติ ($37.5°C, hypothermia), ชีพจรเบาและเส้นเลือดยุบ\n  - \"toxic line\" line บนเยื่อเมือก (จากภาวะแคลเซียมในเลือดต่ำ)\n  - นม watery, brown, blood-tinged\n\nPriority #1 = IV fluid (สำคัญกว่า ABO)\n\nตัวเลือกที่แนะนำ:\n- Hypertonic saline 7.2% (1-2 L) bolus เร็ว → ดึงน้ำจาก interstitial เข้า vascular ทันที, แก้ shock ภายใน 5 นาที\n- ตามด้วย Acetated Ringer's solution 20-40 L IV (เลือก acetate เพราะ shock → ตับไหลเวียนแย่ → acetate ใช้นอกตับได้)\n\nห้าม:\n- PO/OG — เพราะ rumen atony, ลำไส้ paralytic, ดูดซึมแย่\n- LRS ขนาดใหญ่ในตอน shock — lactate ต้องการตับ\n\nABO ที่ใช้: enrofloxacin หรือ AMC (cover coliform) — แต่หลัง resuscitate fluid + Ca borogluconate (เพราะ hypoCa บ่อย) + NSAID",
@@ -786,10 +786,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "ตาม Traffic Light Principle ของ Responsible Antimicrobial Selection ใน cattle practice — กลุ่มยาใดถูกจัดเป็น Red Light (highest priority ต่อมนุษย์, สงวนไว้สำหรับเคสที่ยาตัวอื่นไม่ได้ผล)",
     "options": [
-      "Procaine penicillin, Tetracycline",
-      "Aminoglycosides, Cephalosporin รุ่นเก่า",
+      "Procaine penicillin และ Tetracyclines (oxytet, doxy)",
+      "Aminoglycosides และ Cephalosporins รุ่น 1 และ 2",
       "Fluoroquinolones และ Cephalosporins รุ่น 3-4",
-      "Sulfatrimethoprim, Lincosamide"
+      "Sulfonamide-trimethoprim และ Lincosamides"
     ],
     "answer": 2,
     "explain": "Traffic Light Principle ของ AMR responsible use (WOAH/OIE/WHO):\n\n- Red Light (Critically Important Antimicrobials for Humans):\n  - Fluoroquinolones (enrofloxacin, marbofloxacin) — ใช้ในคน last line\n  - Cephalosporins Gen 3,4 (ceftiofur, cefquinome) — ใช้ในคน hospital\n  - สงวนไว้สำหรับ:\n    - เคสที่ยาตัวอื่นไม่ได้ผล\n    - Culture confirm ว่าต้องใช้\n    - Severe systemic infection ที่ไม่มี alternative\n\n- Orange Light (High importance):\n  - Aminoglycosides (gentamicin, neomycin)\n  - Cephalosporins รุ่นเก่า (Gen 1,2)\n  - ใช้เมื่อมี indication ชัดเจน + susceptibility test\n\n- Green Light (Lower priority):\n  - Procaine Penicillin, Tetracyclines (oxytet, doxy)\n  - แนะนำให้ใช้เมื่อทราบว่าเชื้อไวต่อยา — เป็น first choice ใน routine\n\nDrug Selection Principles:\n- Start narrow spectrum\n- ไปถึงเนื้อเยื่อเป้าหมาย + อยู่นานพอ\n- bactericidal/bacteriostatic (เลือกตามภูมิ host)\n- Route\n- WT compliant\n- เก็บตัวอย่างก่อนให้ยาเสมอ (sample first)\n- ระยะเวลาการรักษานานพอ ลดการดื้อยา\n\nSpecial cases:\n- Toxic mastitis: enroflox, AMC\n- Strep. agalac: betalactam\n- Drycow mastitis: prophylaxis allowed\n- BRDC: tulathromycin, florfenicol, tilmicosin, ceftriofur",
@@ -812,9 +812,9 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "เป้าหมายของ Calving Interval (CI) และ Calving to Conception Interval (CCI) ในฟาร์มโคนมที่บริหารระบบสืบพันธุ์ได้ดีคือข้อใด",
     "options": [
       "CI 365-385 วัน (1 ปี = 1 ลูก/ตัว/ปี) + Calving to First Service ≤ 65 วัน + CCI 85-115 วัน (≈ 3 เดือน)",
-      "CI 730 วัน (2 ปี = 1 ลูก) + CCI 180 วัน",
-      "CI 200 วัน + CCI 30 วัน",
-      "CI ไม่จำกัด + CCI < 7 วัน"
+      "CI 730 วัน (2 ปี = 1 ลูก/ตัว) + Calving to First Service ≤ 150 วัน + CCI 180-200 วัน (≈ 6 เดือน)",
+      "CI 280-300 วัน (เท่าระยะอุ้มท้อง) + Calving to First Service ≤ 20 วัน + CCI 20-30 วัน (≈ 1 เดือน)",
+      "CI 450-500 วัน (≈ 15 เดือน) + Calving to First Service ≤ 120 วัน + CCI 200-250 วัน (≈ 7 เดือน)"
     ],
     "answer": 0,
     "explain": "Fertility KPI for Dairy cow (Target: Calve 1 ลูก/ตัว/ปี):\n- Calving Interval (CI) = 365-385 วัน — ระยะระหว่างการคลอด 2 ครั้ง\n- Calving to First Service Interval ≤ 65 วัน — ระยะคลอดจนถึงการผสมครั้งแรก\n- Calving to Conception Interval (CCI) = 85-115 วัน (≈ 3 เดือน) — ระยะคลอดจนถึงตั้งท้องสำเร็จ\n- Conception Rate ≥ 50-55% (อัตราการตั้งท้องต่อการผสม)\n- Heat Detection Rate ≥ 75%\n- % Inseminated by 60 DIM ≥ 65-75%\n- % Inseminated by 100 DIM ≥ 70-85%\n- % in calf by 100 DIM ≥ 40-50%\n- % in calf by 150 DIM ≥ 60-70%\n\nReproductive cycle:\n- Pregnancy 9 m + Lactating 10 m + Dry 2 m\n- Day Open (DO) ~3 m (Voluntary Waiting Period 45-60 d ก่อนเริ่มผสมใหม่)\n\nManagement post-partum:\n- CUI (Control Uterine Involution) — ตรวจลูกหลังคลอด 30 วันแรก ทุกตัว (vaginoscope/metricheck/RP)\n- COA (Control Ovarian Activity) — ตรวจรังไข่หลังคลอด 2 เดือน (โคไม่เข้าสัด/ไม่ได้รับการผสมใน 60 วัน)\n- PD (Pregnancy Diagnosis) — ตรวจการตั้งท้องหลังผสม 2 เดือน (RP/US)",
@@ -837,9 +837,9 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "การประเมินการดื้อยาถ่ายพยาธิ (anthelmintic resistance) ในฟาร์มแพะ/แกะ — Fecal Egg Count Reduction Test (FECRT) ตีความผลอย่างไร",
     "options": [
       "ลด > 95% = ดียอด, < 90% เริ่มดื้อ, < 60% ดื้อยาแน่นอน",
-      "ลด > 50% = ดี — ไม่ต้องเปลี่ยนยา",
-      "ลด < 10% = ปกติ — ยาทำงานดี",
-      "ไม่ต้อง test — ใช้ยาตัวเดิมทุก 1 เดือนตลอดไป"
+      "ลด > 50% = ดี, < 40% เริ่มดื้อ, < 20% ดื้อยาแน่นอน",
+      "ลด < 10% = ยาทำงานดี, > 50% เริ่มดื้อ, > 90% ดื้อยาแน่นอน",
+      "ไม่ต้อง test — ถ่ายพยาธิด้วยยาตัวเดิมทุก 1 เดือนตลอดไป"
     ],
     "answer": 0,
     "explain": "Fecal Egg Count Reduction Test (FECRT):\n- เก็บ feces ก่อนให้ยา (Day 0) → นับ EPG (egg per gram)\n- ให้ยาถ่ายพยาธิ\n- เก็บ feces หลังให้ยา 10-14 วัน → นับ EPG\n- คำนวณ % reduction = (EPGpre − EPGpost) / EPG_pre × 100\n\nตีความ:\n- > 95% reduction → ยาดี ไม่มีดื้อ\n- < 90% → เริ่มดื้อยา\n- < 60% → ดื้อยาแน่นอน\n\nPrevention of anthelmintic resistance (สำคัญ):\n- อย่า overuse — ให้ยาเฉพาะตัวที่ Criteria ถึง (FAMACHA chart, BCS, อาการ) อย่าให้ยาสัตว์ทั้งฟาร์ม\n- อย่า underdose — ชั่งน้ำหนักจริง ไม่เดา\n- นำสัตว์เข้าฟาร์มต้อง deworm ก่อนแล้วกักก่อน\n- อย่า rotate ยาทุกครั้งที่ใช้ → ทำ FECRT ก่อน rotate\n- เปลี่ยนยากลุ่มใหม่/เพิ่ม dose/เปลี่ยนยาทุกปี — ไม่ให้ยาซ้ำๆ\n- FAMACHA chart = ดู conjunctiva ของแพะ/แกะ → เทียบสี → ระดับ 3 ขึ้นไปต้องให้ยาถ่าย (anemia guide) — Haemonchus contortus ดูดเลือดทำให้ซีด",
@@ -912,9 +912,9 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "On-farm Culture สำหรับ mastitis case management — ประโยชน์หลักและการตัดสินใจการรักษาคือข้อใด",
     "options": [
       "อ่านผลเพาะใน 24 ชั่วโมง; no growth งดยาปฏิชีวนะ ส่วน growth เลือกยาเฉพาะ",
-      "On-farm culture ใช้เวลา 1 สัปดาห์ ก่อนเริ่มรักษา (ไม่ต้องรีบ)",
+      "อ่านผลเพาะใน 1 สัปดาห์ แล้วจึงเริ่มรักษาทุกราย รวมทั้งรายที่เป็น toxic mastitis",
       "On-farm culture ทำให้ใช้ ABO มากขึ้น เพราะเห็นเชื้อทุกตัว",
-      "On-farm culture แทนที่การวัด SCC ทั้งหมด"
+      "ใช้แทนการวัด SCC และ CMT ในการเฝ้าระวัง subclinical mastitis ทั้งฝูง"
     ],
     "answer": 0,
     "explain": "On-farm Culture (OFC) = ระบบเพาะเชื้อภายในฟาร์ม โดยใช้ media plate (selective media for Gram+/Gram−/Yeast):\n\nProcess:\n1. เจอ Clinical Mastitis (CM) → เก็บตัวอย่างน้ำนม\n2. Inoculate on OFC plate\n3. Incubate 24 ชั่วโมง (37°C)\n4. อ่านผล:\n   - Bacteria growth → เลือก ABO ที่จำเพาะมากขึ้น (กลุ่ม Gram+ = penicillin, Gram− = ระวัง endotoxin)\n   - No growth (~10-40% ของ CM) → ไม่รักษา ABO + management อย่างเดียว\n\nBenefits:\n- ลด ABO use ~50%\n- ลด AMR\n- ลด milk discard (withdrawal)\n- ลด treatment cost\n- เน้น Judicious AMR principle\n\nException:\n- Toxic mastitis → ไม่รอ OFC — รักษาทันที (Aggressive treatment: IV fluid + systemic ABO + intramammary)\n\nOn-farm culture results from CU Dairy Team:\n- Clinical mastitis 41% bacterial growth\n- Subclinical mastitis 59% bacterial growth\n- → ไม่จำเป็นต้องใช้ ABO ทุกเคส\n\nCM = clinical mastitis 5%, subclinical 15%, SCC < 200,000 cell/mL, < 100,000 cell/mL (1st lactation)",
@@ -936,10 +936,10 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "มาตรฐาน Bulk Tank Somatic Cell Count (BTSCC) ของน้ำนมดิบที่รับซื้อตามมาตรฐานคณะกรรมการโคนม 2569 ของไทยและเป้าหมายระดับ premium คือข้อใด",
     "options": [
-      "BTSCC < 100,000 cells/mL = regulation, < 50,000 = premium",
+      "BTSCC < 100,000 cells/mL = regulation, < 50,000 = premium (ฟาร์มดี), > 100,000 = mastitis problem ระดับฝูง",
       "BTSCC < 500,000 cells/mL = regulation (มกอช./คณะกรรมการ 2569), < 200,000 = premium (ฟาร์มดี), > 500,000 = mastitis problem ระดับฝูง",
-      "BTSCC < 1,500,000 = regulation, < 1,000,000 = premium",
-      "BTSCC ไม่มีมาตรฐาน — แต่ละฟาร์มกำหนดเอง"
+      "BTSCC < 1,500,000 cells/mL = regulation, < 1,000,000 = premium (ฟาร์มดี), > 1,500,000 = mastitis problem ระดับฝูง",
+      "BTSCC ไม่มีเกณฑ์กลางระดับประเทศ แต่ละสหกรณ์กำหนดเอง; ใช้ TBC < 500,000 cfu/mL ตัดสินราคาแทน"
     ],
     "answer": 1,
     "explain": "Milk Quality Standard (Thailand):\n\n| Parameter | อ.ย. 2556 | มกอช. 2548 | มาตรฐาน 6005-2553 | คณะกรรมการโคนม 2569 |\n|---|---|---|---|---|\n| SCC (cell/mL) | 300,000 | 200,000 | - | 500,000 |\n| TBC (cfu/mL) | 200,000 | - | - | 500,000 |\n| Coliform (cfu/mL) | - | - | - | 10,000 |\n| Antibiotic | - | - | - | 0 |\n\nTargets at farm level (Benchmarking):\n- Cow level: Clinical mastitis < 5%, Subclinical < 15%, SCC < 200,000 cell/mL (composite), < 100,000 cell/mL (1st lactation)\n- Farm level: BTSCC < 500,000 cell/mL = regular, < 200,000 cell/mL = premium\n- > 500,000 cell/mL = mastitis problem ระดับฝูง — investigate\n\nMilk Composition normal (cow):\n- 87% water\n- 13% dry substances\n- 3.4-3.6% protein\n- 3.5-4.5% fat\n- 4.9% lactose\n- F:P ratio 1.1-1.4 normal (< 1.1 SARA, > 1.4 ketosis/NEB)",
@@ -962,9 +962,9 @@ export const QB_HERD_HEALTH_RUM = [
     "q": "Transition period ของแม่โครีดนม (3 สัปดาห์ก่อนคลอด - 3 สัปดาห์หลังคลอด) — กลยุทธ์ป้องกัน NEB และ ketosis ที่ถูกต้องคือข้อใด",
     "options": [
       "ให้ transition ration 3 สัปดาห์ก่อนคลอด และ propylene glycol หลังคลอดในโคเสี่ยง",
-      "ให้อดอาหาร 3 วันก่อนคลอด เพื่อลดน้ำหนัก",
-      "ให้แต่หญ้าแห้งอย่างเดียว ไม่ให้ concentrate",
-      "เริ่ม Propylene Glycol ทุกตัวก่อนคลอด 3 เดือน"
+      "งดอาหารข้น 3 วันก่อนคลอดเพื่อลด BCS แล้วให้เต็มที่ทันทีหลังคลอด",
+      "ให้หญ้าแห้งอย่างเดียวตลอด transition ไม่ให้ concentrate จนถึงนมพีค",
+      "ให้ propylene glycol ทุกตัวตั้งแต่ 3 เดือนก่อนคลอด และงด transition ration ทั้งหมด"
     ],
     "answer": 0,
     "explain": "Transition Period Management (3w pre-partum → 3w post-partum):\n\nGoals:\n- ลด NEB severity และ duration\n- ป้องกัน Type 1 ketosis (post-partum 3-6w)\n- ป้องกัน fat cow syndrome / Type 2 ketosis\n- Optimize peak milk\n- ลด metabolic disease complications (LDA, milk fever, retained placenta)\n\nStrategies:\n1. Transition feed 3 สัปดาห์ก่อนคลอด — ให้ฟีดที่คล้าย lactation diet (เพื่อ rumen papilla ปรับตัว + Mg/Ca adaptation + DCAD)\n2. หลังคลอดให้สูตร fresh cow / high milk production: high energy, high density, high quality roughage; R:C 40:60\n3. Propylene Glycol (PG) — glucose precursor:\n   - ใช้ป้องกัน: 300 mL SID PO 3-5 วัน ตอนเปลี่ยนสูตรอาหาร\n   - High-risk: 500 mL SID PO day 0, 7, 14 หลังคลอด\n   - PG ไปตับ → propionate → glucose; ป้องกัน rumen acidosis (vs glucose ตรงที่กระตุ้นกินมาก)\n4. Monensin (ionophore) — เลือกแบคที่สร้าง propionic acid → เพิ่ม protein ลด fat ในนม (off-label ใน Thailand)\n5. PUFA ลดอักเสบ + เพิ่ม fertility\n6. ตรวจ BHBA สม่ำเสมอ — Dry > 0.6, postpartum subclin ketosis > 1.2 mmol/L\n7. ตรวจ NEFA — Dry > 0.3, postpartum > 0.7 mmol/L\n\n- อดอาหาร = ทำให้ NEB หนักขึ้น (ผิด)\n- หญ้าแห้งเพียว = พลังงานไม่พอ (ผิด)\n- PG 3 เดือนก่อนคลอด = ไม่จำเป็น (ผิด)",

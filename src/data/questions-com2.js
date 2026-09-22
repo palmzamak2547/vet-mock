@@ -33,11 +33,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "Crown fracture ของหมาที่หักจน pulp exposure ถ้าโครงสร้างใดยังไม่ได้รับผลกระทบจาก trauma — odontoblast ในชั้นไหนจะสร้าง dentin ขึ้นมาใหม่",
     "options": [
-      "Primary dentin (ที่สร้างตั้งแต่ฟันก่อตัวในช่วง embryonic)",
-      "Secondary dentin (ที่สร้างต่อเนื่องตลอดอายุของฟันตามปกติ)",
+      "Primary dentin (ที่สร้างตั้งแต่ฟันก่อตัวในช่วง embryonic จนกระทั่งรากฟันสมบูรณ์)",
+      "Secondary dentin (ที่สร้างต่อเนื่องช้าๆ ตลอดอายุของฟันหลังรากฟันสมบูรณ์)",
       "Tertiary (reparative) dentin (response ต่อ trauma โดย odontoblast ที่เหลืออยู่)",
-      "Mantle dentin (ชั้นนอกสุดที่ติดกับ enamel)",
-      "Cementum (ที่ root surface — ไม่ใช่ dentin)"
+      "Mantle dentin (ชั้นนอกสุดที่ติดกับ enamel และสร้างเป็นชั้นแรกสุด)",
+      "Cementum (เนื้อเยื่อแข็งที่คลุม root surface — ไม่ใช่ dentin)"
     ],
     "answer": 2,
     "explain": "Pulp exposure → ถ้า odontoblast ในเลเยอร์ที่ติดกับ pulp cavity wall ยังไม่ตาย → จะ trigger สร้าง tertiary (reparative/tertiary) dentin ภายในเร็ว ๆ → seal pulp จาก bacterial invasion\n\n✓ Tertiary dentin = สีน้ำตาล, ไม่สม่ำเสมอ, สร้างเฉพาะตำแหน่ง trauma\n✗ Primary/secondary = สร้างตลอดอายุของฟัน, ไม่ใช่ response ต่อ trauma\n✗ Cementum = ที่ root surface, ไม่เกี่ยว pulp protection\n\n💡 Complicated crown fracture (pulp expose) ภายใน 48 hr → vital pulp therapy (เอา pulp ส่วน expose ออก, calcium hydroxide, restorative material); > 48 hr → root canal therapy หรือ extraction",
@@ -57,11 +57,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "หมามาด้วย crown wear traumatized tooth (ฟันสึกจาก trauma) มี pulp exposure ชัดเจน — จัดเป็น crown fracture แบบใด",
     "options": [
-      "Uncomplicated crown fracture (ฟันแตก ไม่ถึง pulp)",
+      "Uncomplicated crown fracture (ฟันแตกถึง dentin แต่ไม่ถึง pulp)",
       "Complicated crown fracture (ฟันแตก ถึง pulp = pulp exposure)",
-      "Crown-root fracture (แตกข้าม cementoenamel junction)",
-      "Enamel infraction (รอยร้าวเฉพาะใน enamel)",
-      "Root fracture (รากฟันหัก แต่ crown ปกติ)"
+      "Crown-root fracture (แตกข้าม cementoenamel junction ลงถึงราก)",
+      "Enamel infraction (รอยร้าวเฉพาะใน enamel โดยไม่มีเนื้อฟันหลุด)",
+      "Root fracture (รากฟันหักใต้แนวเหงือก แต่ตัว crown ยังปกติดี)"
     ],
     "answer": 1,
     "explain": "Complicated crown fracture = pulp exposure (เลือดออก/pink spot ที่ fracture site) → ต้อง endodontic therapy (root canal) หรือ vital pulp therapy\n\nUncomplicated crown fracture = ไม่ถึง pulp → monitor + dental restoration อุดฟันได้\n\n💡 Clinical sign ของ pulp exposure: bleeding spot ที่ fracture, ปวดเวลากิน, drooling, pawing at the mouth, facial edema, fistulous tract ใต้ตา (maxillary) หรือใต้ขากรรไกร (mandibular)",
@@ -81,11 +81,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "Lip avulsion (ริมฝีปากหลุดออกจาก mandible) treatment ที่ถูกต้องคือ",
     "options": [
-      "Tape muzzle อย่างเดียว 4-6 weeks",
+      "Tape muzzle อย่างเดียว 4-6 weeks (ให้ lip แนบกลับกับกระดูกเอง)",
       "Suturing + wiring techniques (เจาะรูที่ mandible แล้วร้อยไหมยึด lip กลับเข้าที่)",
-      "Maxillomandibular fixation (MMF) wires",
-      "Tooth extraction ทุกซี่ในตำแหน่ง avulsion",
-      "Conservative ปล่อย heal เอง"
+      "Maxillomandibular fixation (MMF) wires ยึดขากรรไกรบนกับขากรรไกรล่างเข้าหากันให้แน่น",
+      "Tooth extraction ทุกซี่ในตำแหน่ง avulsion แล้วเย็บ gingiva ปิดแผล",
+      "Conservative ปล่อยให้ heal เองแบบ second intention ร่วมกับยาปฏิชีวนะ"
     ],
     "answer": 1,
     "explain": "Lip avulsion → lip หลุดออกทั้งหมดจาก mandible → ต้อง suturing + wiring techniques: เจาะรูที่ mandible (ระวังโดนรากฟัน) แล้วร้อยไหมจาก lip เข้ารู → ดึง lip กลับ apposition\n\n✓ Lip laceration (แค่ฉีกขาด, ไม่หลุดทั้งหมด) → 4-layer closure (mucosa/submucosa, muscle fascia, subcutis, skin) หรือ rostral mandibulectomy ในเคสรุนแรง\n✗ Tape muzzle = สำหรับ mandibular/maxillary fracture, ไม่ใช่ soft tissue avulsion\n✗ MMF = สำหรับ TMJ luxation หรือ severe fracture",
@@ -105,7 +105,7 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "Unilateral rostral TMJ luxation — mandible จะเบี้ยวไปทางใดเมื่อเทียบกับด้านที่ luxate",
     "options": [
-      "เบี้ยวไปฝั่งเดียวกับด้านที่ luxate (ipsilateral)",
+      "เบี้ยวไปฝั่งเดียวกับด้านที่ luxate (ipsilateral side)",
       "เบี้ยวไปฝั่งตรงข้ามกับด้านที่ luxate (contralateral)",
       "ไม่เบี้ยว — symmetrical ทั้งสองข้าง",
       "เบี้ยวขึ้นด้านบน (dorsal deviation)",
@@ -177,11 +177,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "ในการผ่าตัด maxillomandibular fracture — anesthesia แบบใดเหมาะสมที่สุด เพื่อให้สามารถตรวจ dental occlusion ระหว่างผ่าได้",
     "options": [
-      "Endotracheal intubation ผ่านปาก standard",
+      "Endotracheal intubation ผ่านปากตามปกติ (standard orotracheal) ตลอดการผ่าตัด",
       "Endotracheal intubation + Pharyngotomy incision (เปิดที่ pharynx เอาท่อออกจากปาก)",
-      "Nasotracheal intubation",
-      "Laryngeal mask airway",
-      "Inhalation ผ่าน face mask อย่างเดียว"
+      "Nasotracheal intubation (สอดท่อผ่านรูจมูกลงสู่หลอดลม)",
+      "Laryngeal mask airway (วางเหนือ glottis โดยไม่สอดท่อเข้าหลอดลม)",
+      "Inhalation ผ่าน face mask อย่างเดียวตลอดการผ่าตัด"
     ],
     "answer": 1,
     "explain": "Pharyngotomy intubation = เปิด pharyngotomy incision แล้วเอา endotracheal tube ออกทาง pharynx ด้านข้าง → ปากว่าง ไม่มีท่อในปาก → ตรวจ dental occlusion + apposition ระหว่างผ่าได้\n\n✓ ทำหลังจาก standard intubation ก่อน แล้วค่อย reroute tube ออกข้างคอ\n✗ Standard oral intubation = ท่อกีดขวางการ test occlusion ขณะ reduce fracture\n✓ Alternative: temporary tracheostomy (invasive กว่า — complication: subcutaneous emphysema, mucus plug)\n\n💡 หลังผ่าเสร็จ → soft food + esophageal feeding tube ถ้ารักษาตัว > 1 month",
@@ -201,11 +201,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "Conservative treatment ของ mandibular + maxillary fracture (เคสที่เหมาะสม) คือ",
     "options": [
-      "Bone plate + screws",
-      "Interfragmentary wires",
+      "Bone plate + screws (internal fixation แบบ rigid)",
+      "Interfragmentary wires (ร้อย wire ผ่านกระดูก)",
       "Tape muzzle (พันใส่หน้ากากผ้า/ผ้าพันรอบปาก)",
-      "External skeletal fixator",
-      "IM pin"
+      "External skeletal fixator (ESF ยึดจากภายนอก)",
+      "IM pin (intramedullary pin ในโพรง mandible)"
     ],
     "answer": 2,
     "explain": "Tape muzzle = conservative supportive — simple, ทำง่าย, ใช้บ่อย\n\n✓ Indication: ramus fracture + minimal displacement; ไม่แนะนำในเคสที่มีทั้ง maxillary + mandibular fracture (ปากเปิดไม่ออก)\n✓ ต้องใส่สวมจมูก, มีปัญหาในการใส่ในแมวและสุนัขหน้าสั้น\n✓ มักใช้ร่วมกับ dental composite bonding (interdental stabilization) ในเคส close reduction\n\n✗ Plate/screw/wire = surgical techniques (internal fixation)\n✗ ESF = ใช้ในเคส non-reducible comminuted fracture\n\n💡 หลังใส่ tape muzzle → ต้องดูแลความสะอาด, ผิวใต้ tape ไม่เป็น dermatitis, soft food",
@@ -225,11 +225,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "Mandibular symphyseal separation รักษาด้วยวิธีใด",
     "options": [
-      "Tape muzzle อย่างเดียว",
-      "Bone plate + screws ที่ ventrolateral mandibular surface",
+      "Tape muzzle อย่างเดียว 4-6 weeks จนกว่า symphysis จะติดเอง",
+      "Bone plate + screws ที่ผิว ventrolateral ของ mandible ทั้งสองข้าง",
       "Symphyseal cerclage wires (พันรอบหลัง lower canine teeth)",
-      "Interfragmentary wires ผ่าน fracture line",
-      "External skeletal fixator (ESF)"
+      "Interfragmentary wires เจาะร้อยผ่าน fracture line ของ mandible",
+      "External skeletal fixator (ESF) ยึดข้าง mandible ทั้งสองฝั่ง"
     ],
     "answer": 2,
     "explain": "Mandibular symphysis ไม่ใช่ true fracture — เป็น synchondrosis (fibrocartilage มาเชื่อม mandible สองข้าง) → เวลาแยก เรียก symphyseal separation\n\n✓ Tx: symphyseal cerclage wire — พันรอบหลัง lower canine teeth, เอาออกตอนหาย ประมาณ 6-8 weeks\n✓ ต้องเอาออก เพราะถ้า wire ฝังที่ผิวในปากนาน → osteomyelitis ที่ฝังตัว\n\n✗ Plate/IM pin = สำหรับ true mandibular body/ramus fracture\n✗ Tape muzzle = ไม่แข็งแรงพอ symphysis instability",
@@ -249,11 +249,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "Interfragmentary wires ใช้สำหรับ fracture แบบใดของขากรรไกร",
     "options": [
-      "Comminuted, non-reducible fracture ทุกแบบ",
+      "Comminuted, non-reducible fracture ทุกแบบ (กระดูกแตกย่อยจนจัดเรียงคืนไม่ได้)",
       "Simple + reconstructible mandibular/maxillary fractures (จัดเรียงกลับเข้ารูปได้)",
-      "เฉพาะ symphyseal separation",
-      "เฉพาะ condylar process fracture",
-      "เฉพาะ hard palate fracture"
+      "เฉพาะ symphyseal separation ของ mandible (แยกตรง synchondrosis)",
+      "เฉพาะ condylar process fracture (กระดูกหักภายในข้อ TMJ)",
+      "เฉพาะ hard palate fracture ที่แยกตามแนว midline"
     ],
     "answer": 1,
     "explain": "Interfragmentary wires technique = เจาะกระดูกข้าง fracture line ทั้ง 2 ฝั่ง แล้วร้อย wire ผ่าน → pull fragments เข้าหากัน\n\n✓ Indication: simple + reconstructible fracture (จัดเรียงกลับเข้ารูปเดิมได้) ของทั้ง mandibular และ maxillary\n✗ ไม่เหมาะกับ comminuted/non-reducible — ใช้ bone plate หรือ ESF แทน\n\n💡 Post-op: interfragmentary wires + bone plate/screws → ไม่จำเป็นต้องเอาออก (เว้นแต่ก่อปัญหา)\n💡 ส่วน dental composite, intraoral wires, external fixator → ควรเอาออกเมื่อกระดูกหายดีแล้ว",
@@ -298,11 +298,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "ข้อใดเป็นสาเหตุเริ่มต้น (primary etiology) ของการเกิดโรคข้อสะโพกเสื่อม (canine hip dysplasia, CHD) ในสุนัข",
     "options": [
-      "Trauma (อุบัติเหตุที่ pelvic region)",
+      "Trauma (อุบัติเหตุที่ pelvic region ทำให้ข้อสะโพกเคลื่อน)",
       "Hip laxity (ข้อสะโพกหลวมตั้งแต่กำเนิด — polygenic trait)",
-      "Iatrogenic จาก hip surgery",
-      "Bacterial infection ของ acetabulum",
-      "Autoimmune destruction of femoral head"
+      "Iatrogenic จาก hip surgery ในช่วงลูกสุนัข",
+      "Bacterial infection ของ acetabulum (septic arthritis)",
+      "Autoimmune destruction of femoral head (immune-mediated)"
     ],
     "answer": 1,
     "explain": "CHD = polygenic developmental disease — hip laxity (ข้อสะโพกหลวม) → repetitive subluxation → cartilage damage + acetabular remodeling → secondary OA\n\n✓ Risk factors เสริม: large breed, rapid growth, overfeeding, obesity in puppy, bilateral hip\n✗ Trauma = สาเหตุของ hip luxation (acute), ไม่ใช่ CHD\n\n💡 Breeds: Labrador, Golden Retriever, German Shepherd, Rottweiler\n💡 Age onset: 5-10 เดือน (juvenile), 1-2 ปี (mature with OA)\n💡 Bunny hopping, waddling gait, Ortolani sign positive",
@@ -396,11 +396,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "ข้อใดถูกต้องเกี่ยวกับ Legg-Calvé-Perthes disease (LCP)",
     "options": [
-      "พบใน Large breed, อายุ > 1 ปี, bilateral",
+      "Large breed, อายุ > 1 ปี, bilateral lameness, septic necrosis ของ acetabulum",
       "Small breed, อายุ 5-8 เดือน, unilateral lameness, avascular necrosis of femoral head",
-      "พบใน working dogs, autoimmune disease",
-      "Bilateral hip dysplasia ในแมว",
-      "Infection ที่ acetabulum, ตอบสนองต่อ antibiotics"
+      "Working dogs ทุกขนาด, อายุ 2-5 ปี, autoimmune polyarthritis ของ hip",
+      "แมวทุกสายพันธุ์, อายุ > 5 ปี, bilateral hip dysplasia ร่วมกับ OA",
+      "Giant breed, อายุ 3-4 เดือน, infection ที่ acetabulum และตอบสนองดีต่อ antibiotics"
     ],
     "answer": 1,
     "explain": "LCP = aseptic / avascular necrosis of femoral head ใน young small breed\n\n✓ Signalment: small/toy breed (Yorkie, Westie, Poodle, Pomeranian, Chihuahua, Mini Pinscher)\n✓ Age: 5-8 เดือน (4 m-1 yr range, peak 7 m)\n✓ 90% unilateral lameness, rear limb\n✓ Etiology: blood supply ของ femoral head เสีย → ischemia → bone necrosis → collapse → ม.lateral ฟีบ, crepitus on palpation\n\n💡 X-ray: femoral head แบน, radiolucent line @neck, bone spur, joint space กว้าง\n💡 Tx severe → FHNE (femoral head & neck excision) ในสุนัข BW < 20 kg → pseudoarthrosis รองรับน้ำหนัก หรือ THR ถ้าใหญ่",
@@ -420,11 +420,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "Distraction view (PennHIP technique) มีประโยชน์อย่างไรในการ assess hip",
     "options": [
-      "วัด femoral neck length",
+      "วัด femoral neck length และ angle of anteversion ของ femur",
       "หา Distraction Index (DI) — ปริมาณ hip laxity เชิงปริมาณ",
-      "ดู patellar luxation grade",
-      "ตรวจ stifle effusion",
-      "วัด varus/valgus deformity"
+      "ดู patellar luxation grade ขณะเหยียดขาหลัง",
+      "ตรวจ stifle effusion และ cranial drawer",
+      "วัด varus/valgus deformity ของ distal femur"
     ],
     "answer": 1,
     "explain": "Distraction view = วาง distractor ระหว่างขาหลังสุนัข → กดให้ femoral head ห่างจาก acetabulum สุด → ถ่าย VD → คำนวณ Distraction Index (DI)\n\n✓ DI = ระยะที่ femoral head เคลื่อนออกจากศูนย์กลาง acetabulum / radius of femoral head\n✓ DI ≥ 0.3 = laxity → predisposed to OA\n✓ Predict OA ได้ตั้งแต่อายุ 4 เดือน (เร็วกว่า standard hip extended view ของ OFA)\n\n💡 Comprehensive imaging ของ CHD: standard VD hip extended + Distraction view + hip extended + obturator foramen symmetry + CT acetabular angle",
@@ -445,11 +445,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "ข้อใดถูกต้อง เปรียบเทียบ Double pelvic osteotomy (DPO) กับ Triple pelvic osteotomy (TPO)",
     "options": [
-      "DPO ตัด 3 จุด, TPO ตัด 2 จุด",
+      "DPO ตัดกระดูก 3 จุด ส่วน TPO ตัดเพียง 2 จุด",
       "DPO ทำง่ายกว่า + complication น้อยกว่า TPO",
       "DPO ยุ่งยากกว่า แต่ complication น้อยกว่า TPO",
-      "TPO ใช้ได้เฉพาะแมว",
-      "ทั้ง 2 วิธีไม่ใช้แล้วในปัจจุบัน"
+      "TPO ใช้ได้เฉพาะในแมวและสุนัขพันธุ์เล็ก",
+      "ทั้ง 2 วิธีเลิกใช้แล้วในปัจจุบัน ใช้ THR แทนทั้งหมด"
     ],
     "answer": 2,
     "explain": "DPO (Double) = ตัดที่ pubis + ischium (2 จุด); TPO (Triple) = ตัด pubis + ischium + ilium (3 จุด)\n\n✓ DPO ยุ่งยากกว่า technically (รักษา ilial position โดยไม่ตัด) แต่ complication น้อยกว่า — โดยเฉพาะ pelvic narrowing, screw loosening, infection\n✓ TPO ทำง่ายกว่าทาง surgical (free hemipelvis แล้ว rotate) แต่มี complication สูงกว่า\n\n💡 Indication: CHD ที่อายุ 4-10 เดือน, no OA, Ortolani positive, angle of reduction ≤ 30°, angle of subluxation ≤ 10°\n💡 หลัง 10 เดือน หรือมี OA แล้ว → ไม่ทำ pelvic osteotomy → ทำ FHNE / THR แทน",
@@ -494,11 +494,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "Tibial tuberosity transposition (TTT) ในการแก้ patellar luxation ทำเพื่ออะไร",
     "options": [
-      "เพิ่มความลึกของ trochlear groove",
+      "เพิ่มความลึกของ trochlear groove (sulcoplasty)",
       "ปรับแนวของ patellar ligament + quadriceps mechanism",
-      "ถอด lateral retinaculum ออก",
-      "Replace patella ด้วย prosthesis",
-      "Fuse stifle joint (arthrodesis)"
+      "ตัด lateral retinaculum ออกเพื่อลดแรงดึงของข้อ (release)",
+      "Replace patella ด้วย prosthesis (patellar implant)",
+      "Fuse stifle joint ให้แข็งถาวร (arthrodesis)"
     ],
     "answer": 1,
     "explain": "TTT (Tibial Tuberosity Transposition) = ย้ายตำแหน่ง tibial tuberosity (จุดเกาะของ patellar ligament) ไปทาง lateral (สำหรับ MPL) หรือ medial (สำหรับ LPL) เพื่อ realign quadriceps–patella–tibial tuberosity axis ให้ตรงกัน\n\n✓ ใช้ในเคส MPL ที่มี tibial tuberosity เบี้ยวเข้าด้านใน → ย้าย lateral\n✓ Standard technique ในการแก้ PL grade 2-3-4 ใน skeletally mature dogs\n\n✗ Trochlear chondroplasty/sulcoplasty/wedge = เพิ่มความลึกของ groove, ใช้ใน skeletally mature\n✗ Retinacular imbrication = เย็บ joint capsule ด้านตรงข้าม PL ให้แน่นขึ้น (extracapsular)\n\n💡 ในสุนัขเด็ก (growth plate ยังเปิด) → ใช้ trochlear chondroplasty preserve growth plate",
@@ -522,7 +522,7 @@ export const QB_COM2 = [
       "X-ray ท่า standard lateral, anconeal process fuse แน่นกับ ulna",
       "X-ray ท่า hyperflexed lateral, anconeal process ลอย (ไม่ fuse กับ ulna)",
       "X-ray ท่า DV, fragmented coronoid process",
-      "X-ray ท่า oblique, osteochondrosis ที่ humeral condyle",
+      "X-ray ท่า oblique, osteochondrosis ที่ medial humeral condyle (flattening)",
       "X-ray ท่า craniocaudal, medial joint space แคบลง"
     ],
     "answer": 1,
@@ -544,11 +544,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "ข้อใดถูกต้องเกี่ยวกับการทำ surgical treatment ของ osteochondrosis (OCD) ที่ medial condyle of humerus",
     "options": [
-      "เก็บ cartilage flap ไว้ + เย็บกลับเข้าที่",
+      "เก็บ cartilage flap ไว้ แล้วเย็บหรือ pin ยึดกลับเข้าที่ subchondral bone เดิมให้ติด",
       "Remove cartilage flap + debride/curette subchondral bone ให้ผิวเรียบและเลือดออก (ให้สร้าง fibrocartilage)",
-      "ใส่ prosthesis แทน humeral condyle",
-      "Fuse elbow (arthrodesis) ทันที",
-      "รักษา conservative ด้วย NSAIDs อย่างเดียว"
+      "ใส่ prosthesis แทน humeral condyle ทั้งหมด (total elbow replacement) ทุกราย",
+      "Fuse elbow (arthrodesis) ทันทีเพื่อหยุดการเคลื่อนไหวของข้อ ป้องกัน OA",
+      "รักษา conservative ด้วย NSAIDs และ joint supplement อย่างเดียว ไม่ต้องเอา flap ออก"
     ],
     "answer": 1,
     "explain": "OCD = osteochondrosis dissecans → มี cartilage flap + joint mice (เศษ cartilage)\n\n✓ Surgical tx:\n1. Arthrotomy/arthroscopy → remove cartilage flap + joint mice\n2. Curette/debride subchondral bone ที่ exposed ให้ผิวเรียบ → bleed → induce fibrocartilage healing (reparative)\n3. Lavage joint\n\n✓ Alternatives สำหรับ large defect:\n— Osteochondral autograft transplantation (OAT)\n— Synthetic implant (SynACART) — polycarbonate urethane backed with trabecular metal\n\n💡 Long-term outcome แม้ผ่าแล้ว → ยังเกิด OA ตามมาในระยะยาว",
@@ -569,11 +569,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "External coaptation ที่ใช้หลัง closed reduction ในสุนัข hip luxation แบบ craniodorsal luxation คือ",
     "options": [
-      "Hobbles (รัดขาหลังสองข้างเข้าหากัน)",
+      "Hobbles (รัดขาหลังสองข้างเข้าหากัน — กันการกางขาออก)",
       "Ehmer sling (พันขาเฉพาะข้าง — flex + abduct + internal rotation)",
-      "Velpeau sling (พันขาหน้า)",
-      "Robert Jones bandage",
-      "Spica splint"
+      "Velpeau sling (พันขาหน้า — งอ carpus elbow และ shoulder แนบลำตัว)",
+      "Robert Jones bandage (พันหนาหลายชั้นจากนิ้วถึงต้นขา)",
+      "Spica splint (splint ยาวพาดข้ามข้อด้านบนขึ้นถึงลำตัว)"
     ],
     "answer": 1,
     "explain": "Hip luxation มี 2 รูปแบบ → external coaptation ต่างกัน:\n\n✓ Craniodorsal luxation (75-90% — most common) → Ehmer sling: flex stifle, abduct hip, internal rotation → กัน femoral head หลุดกลับ (กัน external rotation + adduction)\n— ใส่ 7-10 วัน\n\n✓ Ventral luxation → Hobbles: รัดขาหลังสองข้างเข้าหากัน → กันการกางขาออก (abduction) → กัน femoral head หลุดออกทาง ventral\n— ใส่ ~10-14 วัน\n\n💡 Velpeau sling = สำหรับ shoulder luxation/dislocation (พันขาหน้า)\n💡 Spica splint = สำหรับ elbow luxation/proximal limb fracture",
@@ -618,11 +618,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "Active (dynamic) stabilizers ของ shoulder joint ในสุนัข — กล้ามเนื้อยึดข้อไหล่ ได้แก่",
     "options": [
-      "Quadriceps, biceps femoris, gracilis",
+      "Quadriceps, biceps femoris, gracilis (กลุ่มกล้ามเนื้อต้นขา)",
       "Infraspinatus, supraspinatus, teres minor (กลุ่ม rotator cuff)",
-      "Sartorius, semimembranosus, semitendinosus",
-      "Iliopsoas, gluteal group",
-      "Diaphragm + intercostals"
+      "Sartorius, semimembranosus, semitendinosus (กลุ่มกล้ามเนื้อขาหลัง)",
+      "Iliopsoas, gluteal group (กลุ่มกล้ามเนื้อสะโพก)",
+      "Diaphragm + intercostals (กลุ่มกล้ามเนื้อหายใจ)"
     ],
     "answer": 1,
     "explain": "Shoulder joint = ball-and-socket joint ของ glenoid cavity (scapula) + humeral head\n\nStabilizers:\n✓ Active (dynamic): muscles\n— Infraspinatus + supraspinatus + teres minor (Rotator cuff equivalent in dog)\n— Biceps brachii (long head), long head of triceps brachii, deltoideus, teres major\n\n✓ Passive (static): non-contractile\n— Glenoid cavity concavity (concavity compression)\n— Medial + lateral glenohumeral ligaments\n— Joint capsule + tendon of biceps brachii in intertubercular groove (cohesion/adhesion)\n— Capsuloligamentous restraints\n\n💡 ในสุนัขใช้ 2/3 ของแรง shoulder จาก glenohumeral joint, 1/3 จาก scapulothoracic ataches",
@@ -643,11 +643,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "Cranial cruciate ligament (CrCL/CCL) — function หลักคือ",
     "options": [
-      "ป้องกัน caudal drawer motion เพียงอย่างเดียว",
+      "ป้องกัน caudal drawer motion เพียงอย่างเดียว (ทำหน้าที่แทน caudal cruciate ligament) โดยไม่เกี่ยวกับ tibial thrust",
       "จำกัด cranial tibial thrust (main), ป้องกัน cranial drawer + hyperextension, ป้องกัน internal rotation ของ tibia (ร่วมกับ CdCL)",
-      "ยึด patella อยู่ใน trochlear groove",
-      "Stabilize medial collateral ligament",
-      "เชื่อม femoral head กับ acetabulum"
+      "ยึด patella ให้อยู่ใน trochlear groove และป้องกัน medial patellar luxation ขณะเหยียดเข่า",
+      "Stabilize medial collateral ligament และจำกัด varus/valgus ของข้อเข่าเป็นหลัก",
+      "เชื่อม femoral head กับ acetabulum (ทำหน้าที่เหมือน round ligament ของข้อสะโพก)"
     ],
     "answer": 1,
     "explain": "CrCL/CCL functions:\n✓ Main: limit cranial tibial thrust (CTT) — tibia ไม่เลื่อนไปด้านหน้าเมื่อรับน้ำหนัก\n✓ Prevent cranial drawer motion / hyperextension\n✓ Prevent internal rotation of tibia (ร่วมกับ CdCL)\n\n💡 CrCL 2 bands: craniomedial + caudolateral (each tight ในแต่ละ stifle position)\n\n💡 CrCL rupture = หา 2 traumatic vs degenerative (slow progressive) → inflam → instability → arthritis → meniscal tear\n💡 Common in large breed, overweight, working dogs\n💡 PE: sit test (fail = drop hindquarter, leg out), cranial drawer test (specific), tibial compression test (=Cranial Tibial Thrust test)\n💡 X-ray: joint effusion, periarticular osteophytes, medial buttress\n\n💡 Tx: TPLO / TTA / extracapsular suture / intracapsular reconstruction",
@@ -668,11 +668,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "Tibial Plateau Leveling Osteotomy (TPLO) — หลักการแก้ CrCL rupture คือ",
     "options": [
-      "เพิ่ม slope ของ tibial plateau ให้สูงขึ้น",
+      "เพิ่ม slope ของ tibial plateau ให้สูงขึ้นเป็นประมาณ 30° โดยตัด proximal tibia แล้วหมุนไปด้านหน้า",
       "ลด slope ของ tibial plateau ให้เหลือประมาณ 5° (Slocum theory) โดยตัด proximal tibia แล้วหมุนกลับด้าน",
-      "เปลี่ยน meniscus ทั้งสองข้าง",
-      "ใส่ synthetic ligament แทน CrCL",
-      "Fuse stifle joint (arthrodesis)"
+      "เปลี่ยน meniscus ทั้งสองข้างด้วย allograft แล้วเย็บ joint capsule ปิดให้แน่น",
+      "ใส่ synthetic ligament แทน CrCL ผ่าน bone tunnel ของ femur และ tibia (intracapsular)",
+      "Fuse stifle joint (arthrodesis) ที่มุมประมาณ 135° เพื่อหยุดการเคลื่อนของ tibia"
     ],
     "answer": 1,
     "explain": "TPLO (Slocum theory, 1993): ตัด proximal tibia (radial osteotomy ที่ proximal metaphysis) → rotate caudally → ลด tibial plateau slope จาก normal 18-24° → เป้าหมาย ~5°\n\n✓ ผลลัพธ์: ลด/ลบ cranial tibial thrust (CTT) ที่เกิดเมื่อรับน้ำหนัก → ไม่จำเป็นต้องมี CrCL → joint stable functionally\n\n💡 Post-TPLO: cranial drawer test ยัง positive (CrCL ไม่ได้ replaced) แต่ tibial compression test (CTT) → negative (เพราะ slope flat แล้ว)\n\n✓ Alternative: TTA (Tibial Tuberosity Advancement, Montavon) — advance tibial tuberosity ไปข้างหน้า → ลด patellar tendon angle → ลด CTT เช่นกัน\n— Post-TTA: cranial drawer + tibial compression test → still positive (เพราะแก้แค่ angle, ไม่เปลี่ยน slope) — แต่ functional ดี\n\n💡 ตำราล่าสุด: TPLO เป็น gold standard ใน large breed",
@@ -718,11 +718,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "ข้อใดถูกต้องเกี่ยวกับ meniscal injury ในสุนัข",
     "options": [
-      "รอยแตกที่พบบ่อยใน lateral meniscus เรียกว่า bucket-handle tear",
-      "การแก้การแตกของ meniscus คือการทำ meniscal release",
+      "รอยแตกที่พบบ่อยที่สุดอยู่ที่ cranial pole ของ lateral meniscus เรียกว่า bucket-handle tear",
+      "การแก้ไข meniscal tear ที่เกิดขึ้นแล้วทำได้ด้วยการทำ meniscal release",
       "Meniscal tear ส่วนใหญ่อยู่ที่ caudal pole ของ medial meniscus ร่วมกับ CrCL rupture",
-      "Meniscus รับน้ำหนักระหว่าง tibia กับ patella",
-      "ไม่ต้องทำอะไรกับ meniscus เมื่อผ่า CrCL"
+      "Meniscus ทำหน้าที่รับน้ำหนักระหว่าง tibia กับ patella เป็นหลัก",
+      "ไม่ต้องตรวจหรือจัดการ meniscus เลยเมื่อผ่าตัดแก้ CrCL rupture"
     ],
     "answer": 2,
     "explain": "Meniscus = semilunar fibrocartilage @ femur-tibial articulation\n— Cranial pole ยึดด้วย intermeniscal ligament\n— Caudal pole ยึดด้วย meniscofemoral lig (lateral) + meniscotibial lig (medial)\n\n✓ Meniscal tear pattern ที่พบบ่อย:\n— Medial meniscus caudal pole tear (เพราะ medial = ติดแน่นกับ medial collateral + tibial plateau, เคลื่อนไหวน้อยกว่า lateral)\n— ใน CrCL rupture → instability → femoral condyle ครูด caudal pole ของ medial meniscus → bucket-handle tear / church-pew tear\n\n✗ Meniscal release (ใน TPLO) = ตัด medial meniscus เพื่อป้องกัน tear ภายหลัง (prophylactic — ปัจจุบันยังถกเถียง)\n— ไม่ใช่การ 'แก้' meniscus tear — meniscectomy คือการเอา meniscus ที่ฉีกออก (partial vs total)\n\n💡 ในแง่ TJ86 compile: Mod com2 ลบ 'การแก้การแตกของ meniscus คือการทำ meniscal release' (ผิด — เป็น preventive ไม่ใช่ repair) → ดังนั้นคำตอบที่ถูกคือ caudal pole medial meniscus",
@@ -816,11 +816,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "หมา 3 ปี crossbreed โดนรถชน — dog sitting posture, UMN signs ที่ขาหลัง, deep pain ขาหลัง positive — Lesion localization + grade",
     "options": [
-      "C1-C5, grade 1",
-      "C6-T2, grade 2",
+      "C1-C5, grade 1 (spinal pain only)",
+      "C6-T2, grade 2 (ambulatory paresis)",
       "T3-L3, grade 4 (paraplegia + ยังมี deep pain)",
-      "L4-S3, grade 5",
-      "Cauda equina, grade 3"
+      "L4-S3, grade 5 (paraplegia ไม่มี deep pain)",
+      "Cauda equina, grade 3 (non-ambulatory paresis)"
     ],
     "answer": 2,
     "explain": "Dog sitting posture = paraplegia ที่ขาหลังอย่างเดียว (front limbs ปกติ) → lesion อยู่ที่ T3-L3 (เพราะ T3-L3 = UMN segments ของ pelvic limb)\n\n✓ UMN signs at hindlimbs:\n— Hyperreflexia (patellar reflex ↑)\n— Spasticity\n— Decreased voluntary movement\n— Crossed extensor reflex\n\n✓ Deep pain ยัง positive → grade 4 (paraplegia + DPP retained)\n\n💡 Spinal segment localization table:\n— C1-C5 (tetraparesis, UMN all 4 limbs)\n— C6-T2 (tetraparesis, LMN forelimb + UMN hindlimb)\n— T3-L3 (paraparesis, UMN hindlimb, normal forelimb) → dog sitting / paraplegia\n— L4-S3 (paraparesis, LMN hindlimb)",
@@ -840,11 +840,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "Myelography (การฉีดสีในช่อง subarachnoid) — contraindication คือ",
     "options": [
-      "Suspected IVDD",
+      "Suspected IVDD (disc extrusion)",
       "Suspected vertebral fracture/luxation (VFL)",
-      "Spinal pain เรื้อรัง",
-      "Grade 1 spinal injury",
-      "Plain X-ray ปกติ"
+      "Spinal pain เรื้อรังที่หาสาเหตุไม่ได้",
+      "Grade 1 spinal injury (pain only)",
+      "Plain X-ray ปกติแต่ยังมีอาการทางระบบประสาทอยู่"
     ],
     "answer": 1,
     "explain": "Myelography contraindication ใน VFL (vertebral fracture/luxation):\n— การฉีด contrast medium ผ่าน cisterna magna หรือ lumbar → ทำให้เกิด pressure spike + ขยับ spinal column → ทำให้ spinal cord damage เพิ่มขึ้น (เสียอย่างที่ unstable อยู่แล้ว)\n\n✓ Modern imaging ที่ดีกว่า:\n— MRI = gold standard สำหรับ spinal cord + soft tissue (IVDD, neoplasia, myelitis)\n— CT = bone detail + safe implant corridors (สำหรับ surgical planning ใน VFL)\n\n💡 Lateral X-ray ยัง imaging อันแรก (เห็น vertebral alignment, fracture lines, instability)",
@@ -866,10 +866,10 @@ export const QB_COM2 = [
     "q": "Craniomandibular osteopathy (CMO) — clinical sign ที่จำเพาะคือ",
     "options": [
       "Lion jaw (กรามใหญ่ + กรามเจ็บ + บวม + น้ำลายย้อย)",
-      "Bow legs (ขาโค้งออกด้านนอก)",
+      "Bow legs (ขาหน้าโค้งออกด้านนอก + ข้อ carpus บวมโต)",
       "Pseudophyseal line ที่ X-ray ของ long bone",
-      "Rubber jaw (กรามนิ่ม กดยุบ)",
-      "Growth plate widening ที่ tibia"
+      "Rubber jaw (กรามนิ่ม กดยุบ + ฟันโยก)",
+      "Growth plate widening ที่ tibia และ radius"
     ],
     "answer": 0,
     "explain": "CMO (craniomandibular osteopathy) = 'Lion jaw' disease\n— กรามและกระดูกกะโหลก (mandible + temporal + occipital bone) สร้างกระดูกเกินผิดปกติ → mandible หนา/ใหญ่\n— Sign: กรามเจ็บ, บวม, น้ำลายย้อย, ปากเปิดยาก, ทานอาหารลำบาก, ไข้\n— อายุ: 3-6 เดือน\n— Breed predisposition: West Highland White Terrier, Scottish Terrier, Cairn Terrier (autosomal recessive)\n\n✗ Bow legs = rickets / nutritional secondary hyperparathyroidism\n✗ Pseudophyseal line = HOD (hypertrophic osteodystrophy)\n✗ Rubber jaw = FOD (fibrous osteodystrophy) / nutritional secondary hyperPTH\n\n💡 CMO หาย/หยุดเองได้เมื่อสุนัขโตเต็มที่ (~1 yr) — supportive tx เท่านั้น (NSAIDs, soft food, esophageal tube ถ้าจำเป็น)",
@@ -889,11 +889,11 @@ export const QB_COM2 = [
     "examOrigin": "COM II Final 86",
     "q": "Hypertrophic osteodystrophy (HOD) — finding ทาง X-ray ที่จำเพาะคือ",
     "options": [
-      "Lion jaw appearance",
+      "Lion jaw appearance ที่ mandible",
       "Pseudophyseal หรือ double physeal line",
       "Avascular necrosis of femoral head",
       "Salter-Harris physeal fracture",
-      "Hip subluxation"
+      "Hip subluxation ใน VD view"
     ],
     "answer": 1,
     "explain": "HOD = inflammation ที่ metaphyseal region ของ growth plate ใน long bone (เกิด distal radius/ulna, distal tibia บ่อยที่สุด)\n\n✓ X-ray: pseudophyseal line — รอยเส้น radiolucent ขนานกับ physis ใน metaphysis ของ long bone (= second physis appearance)\n✓ Bilateral symmetrical\n✓ Painful swelling at metaphysis, fever\n\n✓ Signalment: large/giant breed, 2-7 เดือน (Great Dane, Weimaraner, Boxer)\n✓ Etiology: unknown — vaccine reaction, viral, vit C deficiency เคยถูก hypothesize\n\n💡 หายเองได้ — supportive tx (NSAIDs, IV fluids ถ้า febrile)\n💡 อย่าสับสนกับ panosteitis (= inflammation ของ medullary cavity ที่ diaphysis, ไม่ใช่ metaphysis)",
@@ -1035,10 +1035,10 @@ export const QB_COM2 = [
     "q": "Compression fixation (เช่น lag screw, DCP plate) — bone healing แบบที่ได้คือ",
     "options": [
       "Primary bone healing (direct healing, ไม่ผ่าน callus)",
-      "Secondary bone healing (callus formation)",
-      "Pseudoarthrosis (false joint)",
-      "Fibrocartilage healing เท่านั้น",
-      "Non-union"
+      "Secondary bone healing (callus formation ผ่าน soft callus)",
+      "Pseudoarthrosis (false joint ที่ fracture site)",
+      "Fibrocartilage healing เท่านั้น (ไม่มี bone ใหม่)",
+      "Non-union (กระดูกไม่ติดกันเลย)"
     ],
     "answer": 0,
     "explain": "Bone healing แบบที่ได้ขึ้นกับ stability + gap ของ fracture:\n\n✓ Primary (direct) bone healing — interfragmentary compression, minimize gap (~< 0.5 mm), absolute stability\n  → osteon remodeling โดยตรง ไม่ผ่าน callus\n  → ใช้ใน: lag screw, cerclage wire, DCP (Dynamic Compression Plate), tension band wire\n\n✓ Secondary (indirect) bone healing — relative stability + gap กว้างขึ้น (callus formation)\n  → ผ่าน hematoma → granulation → soft callus (fibrocartilage) → hard callus (woven bone) → remodel (lamellar bone)\n  → ใช้ใน: bone plate (bridge plating), ESF, interlocking nail, IM pin\n\n💡 Perren's strain theory — interfragmentary strain ลด > 2% → cortical bone heal; ลด < 10% → cancellous bone heal; > 100% → granulation tissue (no healing)",
