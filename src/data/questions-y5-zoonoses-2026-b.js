@@ -704,7 +704,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "gram-negative"
     ],
     "subject": "zoonoses",
-    "topic": "zoo-bacterial",
+    "topic": "zoo-rickettsial",
     "year": 5,
     "type": "mcq",
     "q": "Coxiella burnetii มีคุณสมบัติเด่นตามข้อใด",

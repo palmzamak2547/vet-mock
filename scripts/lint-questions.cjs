@@ -15,6 +15,8 @@
  *   3. ** markdown bold leaking into question/options/explain text —
  *      reads as AI-written and sometimes renders literally if the
  *      string is fed into a non-markdown sink.
+ *   4. An option that names other options by letter ("ข้อ A และ C ถูก")
+ *      on a row the render shuffle permutes (error; set noShuffle).
  *
  * Exit code 0 if everything is within thresholds, 1 otherwise — so this
  * can run in CI / a `npm run` script and fail the build on regression.
@@ -189,6 +191,85 @@ function checkMiddleDotInOptions(questions) {
   return findings;
 }
 
+// An option that names OTHER options by letter or number ("ข้อ A และ C ถูก",
+// "ถูกเฉพาะข้อ 1 และ 2", "ถูกทั้ง A, B, C") only means what it says in the
+// order it was written. getShuffledOptions (src/lib/option-shuffle.js)
+// permutes every question that does not set noShuffle, so for most students
+// the letters point at different options than the author meant. Such a row
+// must set noShuffle — unless the stem carries its own numbered list, which
+// is then what the letters refer to. A reference that cannot resolve (a label
+// past the last option, the option naming itself, "1 และ b") fails always.
+//
+// Only an explicit reference counts: the word ข้อ before the labels, or a
+// ถูก/ผิด verdict over them. Bare "A และ C" is left alone — in this corpus it
+// is TLC spots, figure phases, serovars and finger numbers, not options.
+const LETTER_LABEL = '(?:[A-Ha-h]|[กขคงจฉ]|[1-9])';
+const LETTER_SEP = '(?:\\s*(?:,|และ|and|&|\\+|หรือ|or)\\s*|\\s+)';
+const LETTER_END = '(?![A-Za-z0-9\\u0E01-\\u0E59])';
+const LETTER_REFERENCE_RES = [
+  new RegExp(`ข้อ\\s*(${LETTER_LABEL}(?:${LETTER_SEP}(?:ข้อ\\s*)?${LETTER_LABEL})+)${LETTER_END}`),
+  new RegExp(`(?:ถูก|ผิด)(?:ทั้ง|ทุก|เฉพาะ)?\\s*(${LETTER_LABEL}(?:${LETTER_SEP}${LETTER_LABEL})+)${LETTER_END}`),
+  /\b(?:both\s+)?([A-E](?:\s*(?:,|and|&)\s*[A-E])+)\s+(?:are|is)\s+(?:correct|true|right)\b/i,
+  /\bboth\s+([A-E]\s+and\s+[A-E])\b/i,
+];
+const THAI_LABELS = 'กขคงจฉ';
+
+function letterIndex(label) {
+  if (/^[1-9]$/.test(label)) return Number(label) - 1;
+  if (/^[A-Ha-h]$/.test(label)) return label.toUpperCase().charCodeAt(0) - 65;
+  return THAI_LABELS.indexOf(label);
+}
+
+function letterFamily(label) {
+  if (/^[1-9]$/.test(label)) return 'digit';
+  if (/^[A-Ha-h]$/.test(label)) return 'latin';
+  return 'thai';
+}
+
+function stemEnumerates(stem, family) {
+  const pattern = {
+    digit: /(?:^|[\s(:])\(?([1-9])[.)](?!\d)/g,
+    latin: /(?:^|[\s(:,])\(?([A-Ha-h])(?:[.)]|\s*=)/g,
+    thai: /(?:^|[\s(:])\(?([กขคงจฉ])[.)]/g,
+  }[family];
+  const seen = new Set();
+  for (const m of String(stem || '').matchAll(pattern)) seen.add(m[1].toUpperCase());
+  return seen.size >= 2;
+}
+
+function optionLetterReference(option) {
+  for (const re of LETTER_REFERENCE_RES) {
+    const m = re.exec(String(option));
+    // the separators include "and"/"or", so pick out only free-standing labels
+    if (m) return m[1].match(/(?<![A-Za-z0-9])[A-Za-z0-9](?![A-Za-z0-9])|[กขคงจฉ](?![ก-๙])/g) || [];
+  }
+  return null;
+}
+
+function checkOptionLetterReferences(questions) {
+  const findings = [];
+  for (const q of questions) {
+    if (!Array.isArray(q.options) || q.options.length < 2) continue;
+    for (let i = 0; i < q.options.length; i++) {
+      const labels = optionLetterReference(q.options[i]);
+      if (!labels || labels.length < 2) continue;
+      const families = new Set(labels.map(letterFamily));
+      const listed = families.size === 1 && stemEnumerates(q.q, [...families][0]);
+      const base = { id: q.id, topic: `${q.subject || '?'}::${q.topic || '?'}`, file: q.file, option: String(q.options[i]) };
+      if (listed) continue;
+      const indices = labels.map(letterIndex);
+      const unresolvable = families.size > 1
+        || indices.some((k) => k < 0 || k >= q.options.length || k === i);
+      if (unresolvable) {
+        findings.push({ kind: 'option-letter-reference-broken', severity: 'error', ...base });
+      } else if (q.noShuffle !== true) {
+        findings.push({ kind: 'option-letter-reference', severity: 'error', ...base });
+      }
+    }
+  }
+  return findings;
+}
+
 function checkMarkdownLeak(questions) {
   // Palm audit 2026-05-20: `**emphasis**` in question text is rendered
   // CORRECTLY by RichText (`src/lib/richtext.jsx`) — `**ไม่**` shows up
@@ -209,6 +290,7 @@ function lintQuestions(allQs) {
     ...checkLengthBias(allQs),
     ...checkMarkdownLeak(allQs),
     ...checkMiddleDotInOptions(allQs),
+    ...checkOptionLetterReferences(allQs),
   ];
   return {
     findings,
@@ -286,6 +368,12 @@ function printResults(allQs, result, args = []) {
       if (mdOpt.length) {
         console.log(`   🚫 Middle dot (U+00B7) inside options[] (${mdOpt.length}) — ERROR, the classic answer tell:`);
         mdOpt.forEach((f) => console.log(`     🚨 Q${f.id} ${f.topic}`));
+        console.log();
+      }
+      const letterRefs = [...groupBy('option-letter-reference'), ...groupBy('option-letter-reference-broken')];
+      if (letterRefs.length) {
+        console.log(`   🔤 Options that name other options by letter (${letterRefs.length}) — ERROR, the render shuffle moves what they name:`);
+        letterRefs.forEach((f) => console.log(`     🚨 Q${f.id} ${f.topic} ${f.file || ''} — "${f.option}"${f.kind.endsWith('-broken') ? ' (cannot resolve)' : ' (set noShuffle: true, or name the content)'}`));
         console.log();
       }
       const mdBold = groupBy('markdown-bold');
