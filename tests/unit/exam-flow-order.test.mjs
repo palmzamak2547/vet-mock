@@ -325,6 +325,19 @@ test('the timer line is unchanged while the pool is still being counted, and for
   assert.ok(CONFIG.includes("{!useTimer ? 'ปิด — โหมดอ่านไม่จับเวลา'"), 'the timer-off wording moved');
 });
 
+test('the range hint names the item types that get more time, and only those', () => {
+  const hint = CONFIG.match(/examBudget\.min !== examBudget\.max && \([\s\S]*?<div[^>]*>\s*([^<]+?)\s*<\/div>/)?.[1];
+  assert.ok(hint, 'ConfigView no longer explains the range');
+  const pairs = [{ left: 'a', right: '1' }, { left: 'b', right: '2' }, { left: 'c', right: '3' }];
+  const extra = { short: { type: 'short' }, essay: { type: 'essay' }, match: { type: 'match', pairs } };
+  for (const q of Object.values(extra)) assert.ok(timeForQuestion(q, 60) > 60, `${q.type} no longer gets extra time`);
+  for (const type of ['mcq', 'tf', 'fill']) assert.equal(timeForQuestion({ type }, 60), 60);
+  for (const word of ['ตอบสั้น', 'เขียนบรรยาย', 'จับคู่']) assert.ok(hint.includes(word), `the hint leaves out ${word}`);
+  // 'ข้อเขียน' is the written chip on this same screen, and that chip holds
+  // fill-in-the-blank, which runs on the base time like a choice question.
+  assert.ok(!hint.includes('ข้อเขียน') && !hint.includes('เติมคำ'), `the hint promises fill-in items more time: ${hint}`);
+});
+
 test('Config is handed the pool it counts, so the clock and the count describe one set', () => {
   // .test, not assert.match: a failed match would print all of App.jsx.
   assert.ok(/<ConfigView [^\n]*availablePool=\{configServedPool\}/.test(APP), 'ConfigView is not given the pool');

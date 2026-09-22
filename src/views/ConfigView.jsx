@@ -267,7 +267,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
             </div>
             {isExamMode && !showCategoryPicker && examBudget.min !== examBudget.max && (
               <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
-                ข้อเขียนและข้อจับคู่ได้เวลาเพิ่ม เวลารวมจึงขึ้นกับข้อที่อยู่ในชุด
+                ข้อตอบสั้น เขียนบรรยาย และจับคู่ได้เวลาเพิ่ม เวลารวมจึงขึ้นกับข้อที่อยู่ในชุด
               </div>
             )}
             {/* Writing-time hint only relevant when subject = engprof */}
