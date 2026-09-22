@@ -93,7 +93,15 @@ function loadYouTubeIframeAPI() {
     tag.src = 'https://www.youtube.com/iframe_api';
     tag.async = true;
     tag.dataset.vmxYtApi = '1';
-    tag.onerror = () => reject(new Error('failed to load YT iframe API'));
+    // Forget a failed load. Keeping the rejected promise (and the dead tag
+    // the next call would wait on) turned one network hiccup into a black
+    // player for every clip until the page was reloaded. A classic script is
+    // not cached as a failure, so the next clip opened asks again.
+    tag.onerror = () => {
+      __ytApiPromise = null;
+      tag.remove();
+      reject(new Error('failed to load YT iframe API'));
+    };
     document.head.appendChild(tag);
   });
   return __ytApiPromise;
@@ -806,12 +814,17 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   const ytContainerRef = useRef(null);
   const playerRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
+  // The in-app player could not start (its API did not load, or YT.Player
+  // threw). The clip is still one tap away on YouTube, so the black box says
+  // where instead of staying black.
+  const [playerFailed, setPlayerFailed] = useState(false);
 
   // Mount one YT.Player per (currentVideoId, playlistId) tuple. Recreating
   // the player on video change is simpler than juggling loadVideoById() —
   // and it matches the previous iframe behavior (full reload on switch).
   useEffect(() => {
     if (!currentVideoId) return undefined;
+    setPlayerFailed(false);
     const container = ytContainerRef.current;
     if (!container) return undefined;
 
@@ -836,9 +849,11 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
         playerRef.current = player;
       } catch (err) {
         console.warn('YT.Player init failed:', err?.message);
+        setPlayerFailed(true);
       }
     }).catch((err) => {
       console.warn('YT iframe API load failed:', err?.message);
+      if (!cancelled) setPlayerFailed(true);
     });
 
     return () => {
@@ -984,6 +999,11 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                     allowFullScreen
                     title={video.topic}
                   />
+                )}
+                {playerFailed && (
+                  <div role="status" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, textAlign: 'center', color: '#fff', fontSize: 13, lineHeight: 1.6 }}>
+                    เปิดเครื่องเล่นในแอปไม่ได้ กดปุ่ม เปิดใน YouTube ด้านล่าง หรือปิดคลิปนี้แล้วเปิดใหม่อีกครั้ง
+                  </div>
                 )}
               </div>
             ) : isChannel ? (
