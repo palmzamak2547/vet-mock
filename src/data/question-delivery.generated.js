@@ -8,6 +8,11 @@ export const BLOCKED_QUESTIONS = [
     "source": "questions-y5-final-mixed.js"
   },
   {
+    "key": "livestock-pathology:8200",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-y5-patho.js"
+  },
+  {
     "key": "livestock-pathology:8556",
     "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
     "source": "questions-y5-vision-batch.js"
@@ -46,6 +51,11 @@ export const BLOCKED_QUESTIONS = [
     "key": "livestock-pathology:8563",
     "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
     "source": "questions-y5-vision-batch.js"
+  },
+  {
+    "key": "milk-meat-hygiene:207364",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-mid86-milk-meat-hygiene.js"
   },
   {
     "key": "poa-clinical:8500",
@@ -333,4 +343,4 @@ const BLOCKED_KEYS = new Set(BLOCKED_QUESTIONS.map((item) => item.key));
 
 export const questionDeliveryKey = (question) => `${question?.subject || ''}:${question?.id ?? ''}`;
 export const isQuestionDeliverable = (question) => !BLOCKED_KEYS.has(questionDeliveryKey(question));
-export const BLOCKED_QUESTION_COUNT = 65;
+export const BLOCKED_QUESTION_COUNT = 67;
