@@ -1,5 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { thaiError } from '../lib/errors.js';
 import { createGroup, joinGroupByCode, getMyGroups, leaveGroup } from '../lib/api.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
@@ -15,6 +15,13 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
   const [joinCode, setJoinCode] = useState('');
   const [error, setError] = useState('');
   const [loadError, setLoadError] = useState('');
+  // One create or join at a time. A double tap, or Enter and then a click,
+  // used to send two requests before the first came back: two groups with the
+  // same name and two invite codes, and only the second in the list. The ref
+  // closes the gap between two taps in the same render, which state cannot;
+  // the state is what disables the button.
+  const busyRef = useRef(false);
+  const [busy, setBusy] = useState(false);
 
   const load = async () => {
     setLoading(true);
@@ -28,25 +35,35 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
 
   const handleCreate = async (e) => {
     e.preventDefault();
+    if (busyRef.current) return;
     setError('');
     if (!newName.trim()) return;
+    busyRef.current = true;
+    setBusy(true);
     try {
       const g = await createGroup(newName.trim(), user.id);
-      setGroups([...groups, { ...g, role: 'admin' }]);
+      // From the latest list, not the one this render captured: a first load
+      // that lands while the create is out must not be overwritten.
+      setGroups((prev) => [...prev, { ...g, role: 'admin' }]);
       setNewName(''); setShowCreate(false);
       alertDialog(`สร้างกลุ่ม "${g.name}" สำเร็จ!\nรหัส invite: ${g.code}\n\nส่งรหัสนี้ให้เพื่อนเพื่อ join`);
     } catch (e) { setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
+    finally { busyRef.current = false; setBusy(false); }
   };
 
   const handleJoin = async (e) => {
     e.preventDefault();
+    if (busyRef.current) return;
     setError('');
     if (!joinCode.trim()) return;
+    busyRef.current = true;
+    setBusy(true);
     try {
       await joinGroupByCode(joinCode.trim(), user.id);
       setJoinCode(''); setShowJoin(false);
       await load();
     } catch (e) { setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
+    finally { busyRef.current = false; setBusy(false); }
   };
 
   const handleLeave = async (groupId) => {
@@ -77,7 +94,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
             </div>
             <div className="vmx-btn-row">
               <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowCreate(false)}>ยกเลิก</button>
-              <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm">สร้าง</button>
+              <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={busy}>สร้าง</button>
             </div>
           </form>
         </div>
@@ -92,7 +109,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
             </div>
             <div className="vmx-btn-row">
               <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowJoin(false)}>ยกเลิก</button>
-              <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm">Join</button>
+              <button type="submit" className="vmx-btn vmx-btn-primary vmx-btn-sm" disabled={busy}>Join</button>
             </div>
           </form>
         </div>
