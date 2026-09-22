@@ -14,6 +14,7 @@ import {
 } from '../../src/data/q-counts.js';
 import { BLOCKED_QUESTION_COUNT, isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
 import { SUBJECTS } from '../../src/data/curriculum.js';
+import { originEntry } from '../../src/data/exam-origins.js';
 import { isExamAlignedQuestion, isPastPaperQuestion, questionTopicId } from '../../src/lib/question-metadata.js';
 import { isCurrentScopeQuestion, isHighPredictionQuestion } from '../../src/lib/question-prediction.js';
 
@@ -144,4 +145,53 @@ test('a row marked อิงแนวข้อสอบ never reaches past-paper
     (q) => !q.sourceType && isPastPaperQuestion(q) && isExamAlignedQuestion(q),
   );
   assert.deepEqual(contradictory.map((q) => q.id), [], 'these rows must declare a sourceType');
+});
+
+// The guard above only ever looked at rows with no sourceType, so a typed row
+// could claim both and nothing noticed: six rows once carried sourceType
+// past-paper AND examOrigin "อิงแนวข้อสอบ". Fifty typed rows are both today
+// (avian 17, food industry 18, milk 15) and were reviewed as correctly
+// counted: each names the paper it sat, through sourceType past-paper or
+// through an examOrigin filed as a paper, and the marker sits in tags or
+// verified. This holds every row, typed or not, to that shape.
+function pastAndAlignedFault(q) {
+  if (!isPastPaperQuestion(q) || !isExamAlignedQuestion(q)) return null;
+  if (!q.sourceType) return 'has no sourceType, so nothing names the paper it sat';
+  if (q.sourceType !== 'past-paper' && q.sourceType !== 'student-compilation') {
+    return `sourceType ${q.sourceType} is never a paper`;
+  }
+  if (String(q.examOrigin || '').includes('อิงแนวข้อสอบ')) return 'examOrigin says อิงแนวข้อสอบ, which names no paper';
+  if (q.sourceType === 'student-compilation' && originEntry(q.examOrigin)?.kind !== 'paper') {
+    return 'counted as a paper by the origin regex, but src/data/exam-origins.js does not file that origin as one';
+  }
+  return null;
+}
+
+test('a row that is both a sat paper and อิงแนวข้อสอบ names the paper it sat', () => {
+  const marker = 'อิงแนวข้อสอบ';
+  // Contradictions, typed and untyped.
+  assert.match(String(pastAndAlignedFault({ source: 'Avain med Mid 86.pdf', tags: [marker] })), /no sourceType/);
+  assert.match(String(pastAndAlignedFault({ examOrigin: 'COM I Final 86', tags: [marker] })), /no sourceType/);
+  assert.ok(pastAndAlignedFault({ sourceType: 'past-paper', examOrigin: marker, tags: [marker] }),
+    'past-paper with the marker as its origin names no paper');
+  assert.ok(pastAndAlignedFault({
+    sourceType: 'student-compilation',
+    examOrigin: 'Swine Medicine midterm study notes, author-added lesion list (Vet 85)',
+    tags: [marker],
+  }), 'study notes are counted as a paper by the regex, and are not one');
+  // The reviewed shapes.
+  assert.equal(pastAndAlignedFault({ sourceType: 'past-paper', tags: ['avian-myco', marker] }), null);
+  assert.equal(pastAndAlignedFault({
+    sourceType: 'student-compilation',
+    examOrigin: 'Aj. Sirawit FIQC Vet 85 Midterm',
+    verified: `${marker}, ตรงกับรายการที่บันทึกไว้`,
+  }), null);
+
+  const faults = questions
+    .map((q) => [q, pastAndAlignedFault(q)])
+    .filter(([, why]) => why)
+    .map(([q, why]) => `${q.subject} #${q.id}: ${why}`);
+  assert.deepEqual(faults, []);
+  const both = questions.filter((q) => isPastPaperQuestion(q) && isExamAlignedQuestion(q));
+  assert.ok(both.length > 0 && both.every((q) => q.sourceType), 'the guard no longer sees any typed row');
 });

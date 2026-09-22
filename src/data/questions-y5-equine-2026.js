@@ -1017,7 +1017,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "tags": [
       "diagnostic-workup",
       "Woo-technique",
-      "AGID"
+      "AGID",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -1041,7 +1042,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "tags": [
       "PCR",
       "sensitivity-specificity",
-      "screening-test"
+      "screening-test",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -1064,7 +1066,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105275,
     "tags": [
       "test-result-interpretation",
-      "client-communication"
+      "client-communication",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -1087,7 +1090,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105276,
     "tags": [
       "radiographic-views",
-      "fetlock"
+      "fetlock",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -1110,7 +1114,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105278,
     "tags": [
       "tendon-ultrasound",
-      "ultrasound-zone"
+      "ultrasound-zone",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-poa",
@@ -4130,7 +4135,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105420,
     "tags": [
       "limb-bandaging",
-      "bandage-overlap"
+      "bandage-overlap",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
@@ -4153,7 +4159,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105421,
     "tags": [
       "limb-bandaging",
-      "half-limb-bandage"
+      "half-limb-bandage",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
@@ -4176,7 +4183,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105422,
     "tags": [
       "limb-bandaging",
-      "full-limb-bandage"
+      "full-limb-bandage",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
@@ -4199,7 +4207,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105423,
     "tags": [
       "Robert-Jones-bandage",
-      "bandage-thickness"
+      "bandage-thickness",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-ortho",
@@ -4222,7 +4231,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105424,
     "tags": [
       "Robert-Jones-bandage",
-      "primary-layer"
+      "primary-layer",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-ortho",

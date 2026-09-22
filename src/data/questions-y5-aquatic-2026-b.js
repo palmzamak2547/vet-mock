@@ -15,7 +15,8 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
     "id": 105873,
     "tags": [
       "WOAH",
-      "aquatic-code"
+      "aquatic-code",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
@@ -452,7 +453,8 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
     "id": 105892,
     "tags": [
       "WOAH",
-      "aquatic-animal-commission"
+      "aquatic-animal-commission",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
@@ -475,7 +477,8 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
     "id": 105893,
     "tags": [
       "SEAFDEC",
-      "regional-organization"
+      "regional-organization",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",

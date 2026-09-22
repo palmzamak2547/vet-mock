@@ -131,7 +131,8 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "id": 105946,
     "tags": [
       "norovirus",
-      "fresh-produce-contamination"
+      "fresh-produce-contamination",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "one-health",
     "topic": "oh-foodborne",
@@ -177,7 +178,8 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "id": 105948,
     "tags": [
       "stec",
-      "sprout-outbreak"
+      "sprout-outbreak",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "one-health",
     "topic": "oh-foodborne",
@@ -432,7 +434,8 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "id": 105960,
     "tags": [
       "last-line-antibiotics",
-      "WHO-antibiotic-categorization"
+      "WHO-antibiotic-categorization",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "one-health",
     "topic": "oh-amr",
@@ -524,7 +527,8 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "id": 105964,
     "tags": [
       "substantial-equivalence",
-      "GM-food-safety"
+      "GM-food-safety",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "one-health",
     "topic": "oh-concept",
@@ -547,7 +551,8 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "id": 105965,
     "tags": [
       "GM-food-safety",
-      "allergenicity"
+      "allergenicity",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "one-health",
     "topic": "oh-concept",
@@ -779,7 +784,8 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "id": 105977,
     "tags": [
       "asbestos",
-      "mesothelioma"
+      "mesothelioma",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "one-health",
     "topic": "oh-vet-role",
@@ -941,7 +947,8 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "id": 105984,
     "tags": [
       "effluent-standard",
-      "swine-farm-wastewater"
+      "swine-farm-wastewater",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "one-health",
     "topic": "oh-collaboration",
@@ -1195,7 +1202,8 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "id": 105995,
     "tags": [
       "hazard-characterization",
-      "dose-response"
+      "dose-response",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "one-health",
     "topic": "oh-risk-analysis",

@@ -16,7 +16,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "id": 106005,
     "tags": [
       "leptospirosis",
-      "seasonality"
+      "seasonality",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -40,7 +41,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "tags": [
       "tularemia",
       "tick-vector",
-      "reservoir-host"
+      "reservoir-host",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -64,7 +66,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "tags": [
       "leptospirosis",
       "pulmonary-hemorrhage",
-      "renal-failure"
+      "renal-failure",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -88,7 +91,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "tags": [
       "Streptococcus-suis",
       "reservoir-host",
-      "tonsil-carriage"
+      "tonsil-carriage",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -111,7 +115,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "id": 106009,
     "tags": [
       "plague",
-      "flea-transmission"
+      "flea-transmission",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -134,7 +139,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "id": 106010,
     "tags": [
       "anthrax",
-      "sudden-death"
+      "sudden-death",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -157,7 +163,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "id": 106011,
     "tags": [
       "glanders",
-      "reservoir-host"
+      "reservoir-host",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -181,7 +188,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "tags": [
       "Q-fever",
       "obligate-intracellular",
-      "bioterrorism-agent"
+      "bioterrorism-agent",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -204,7 +212,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "id": 106013,
     "tags": [
       "Lyme-disease",
-      "erythema-migrans"
+      "erythema-migrans",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -227,7 +236,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "id": 106014,
     "tags": [
       "plague",
-      "acral-gangrene"
+      "acral-gangrene",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -250,7 +260,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "id": 106015,
     "tags": [
       "psittacosis",
-      "reservoir-host"
+      "reservoir-host",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -273,7 +284,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "id": 106016,
     "tags": [
       "cat-scratch-disease",
-      "lymphadenopathy"
+      "lymphadenopathy",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -296,7 +308,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "id": 106017,
     "tags": [
       "melioidosis",
-      "environmental-source"
+      "environmental-source",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -320,7 +333,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "tags": [
       "brucellosis",
       "raw-milk",
-      "zoonosis-prevention"
+      "zoonosis-prevention",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -344,7 +358,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "tags": [
       "Streptococcus-suis",
       "raw-pork",
-      "meningitis"
+      "meningitis",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -368,7 +383,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "tags": [
       "plague",
       "septicemic-plague",
-      "acral-gangrene"
+      "acral-gangrene",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -392,7 +408,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "tags": [
       "leptospirosis",
       "Icterohaemorrhagiae",
-      "reservoir-host"
+      "reservoir-host",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -415,7 +432,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "id": 106022,
     "tags": [
       "brucellosis",
-      "reproductive-failure"
+      "reproductive-failure",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -439,7 +457,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "tags": [
       "leptospirosis",
       "vaccination",
-      "urinary-shedding"
+      "urinary-shedding",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -463,7 +482,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "tags": [
       "zoonotic-tuberculosis",
       "tuberculin-test",
-      "test-and-slaughter"
+      "test-and-slaughter",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -487,7 +507,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "tags": [
       "anthrax",
       "antimicrobial-treatment",
-      "ciprofloxacin"
+      "ciprofloxacin",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -511,7 +532,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "tags": [
       "psittacosis",
       "intermittent-shedding",
-      "false-negative"
+      "false-negative",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -535,7 +557,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "tags": [
       "zoonotic-tuberculosis",
       "raw-milk",
-      "zoonosis-prevention"
+      "zoonosis-prevention",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -558,7 +581,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "id": 106028,
     "tags": [
       "leptospirosis",
-      "urinary-shedding"
+      "urinary-shedding",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-bacterial",
@@ -1524,7 +1548,8 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
     "id": 106069,
     "tags": [
       "coronavirus",
-      "reservoir-host"
+      "reservoir-host",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "zoonoses",
     "topic": "zoo-corona",
