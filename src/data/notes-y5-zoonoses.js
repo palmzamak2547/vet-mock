@@ -88,7 +88,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Coronaviruses',
     lecturer: 'Alongkorn Amonsin',
     icon: '🦠',
-    summary: 'Coronaviruses 4 genus (Alpha/Beta/Gamma/Delta) — Beta ก่อ pandemic ในช่วง 20 ปี (SARS, MERS, COVID-19) · Alpha ส่วนใหญ่ก่อโรค enteric ในสัตว์ · Gamma+Delta ในนก/สัตว์น้ำ.',
+    summary: 'Coronaviruses 4 genus (Alpha/Beta/Gamma/Delta) — Beta ก่อ pandemic ในช่วง 20 ปี (SARS, MERS, COVID-19), Alpha ส่วนใหญ่ก่อโรค enteric ในสัตว์, Gamma+Delta ในนก/สัตว์น้ำ.',
     sections: [
       {
         heading: 'Coronaviruses overview — 4 genus',
@@ -156,7 +156,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Ebola + Nipah Virus Disease',
     lecturer: 'TBD',
     icon: '🩸',
-    summary: 'Ebola (Filoviridae) — severe contagious disease ในคนและ non-human primates · Africa outbreak · 6 species (Zaire/Sudan/Bundibugyu/Taï/Reston/Bombali) · Reston ไม่เคยก่อโรคในคน · Nipah originate จาก fruit bat.',
+    summary: 'Ebola (Filoviridae) — severe contagious disease ในคนและ non-human primates, Africa outbreak, 6 species (Zaire/Sudan/Bundibugyu/Taï/Reston/Bombali), Reston ไม่เคยก่อโรคในคน. Nipah originate จาก fruit bat.',
     sections: [
       {
         heading: 'What is Ebola virus disease',
@@ -225,7 +225,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Avian Influenza Virus (AI) — Basic',
     lecturer: 'TBD',
     icon: '🐦',
-    summary: 'Influenza A (Orthomyxoviridae) — 8 segments ssRNA · HA (จับ receptor) + NA (release virion) · Wild aquatic birds เป็น natural reservoir (H1-16) · HPAI H5N1 จาก A/Goose/Guangdong/1/1996 → 2004 ระบาดทั่วโลก + ติดคน.',
+    summary: 'Influenza A (Orthomyxoviridae) — 8 segments ssRNA, HA (จับ receptor) + NA (release virion), Wild aquatic birds เป็น natural reservoir (H1-16), HPAI H5N1 จาก A/Goose/Guangdong/1/1996 → 2004 ระบาดทั่วโลก + ติดคน.',
     sections: [
       {
         heading: 'Influenza A virus — structure + transmission',
@@ -313,7 +313,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'SIV + CIV — Swine + Canine Influenza',
     lecturer: 'TBD',
     icon: '🐷',
-    summary: 'Swine Influenza Virus (SIV) — 2 lineage หลัก (NA-SIV จากอเมริกาเหนือ classical swine + EU-SIV avian-like H1N1) · 1918 Spanish flu = pandemic แรก, 1930 First SIV in pigs USA · 2020 China พบ swine flu ที่มี pandemic potential.',
+    summary: 'Swine Influenza Virus (SIV) — 2 lineage หลัก (NA-SIV จากอเมริกาเหนือ classical swine + EU-SIV avian-like H1N1). 1918 Spanish flu = pandemic แรก, 1930 First SIV in pigs USA, 2020 China พบ swine flu ที่มี pandemic potential.',
     sections: [
       {
         heading: 'Course context — Viral zoonoses',
@@ -430,7 +430,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Rabies — Sample Collection + Diagnosis',
     lecturer: 'NIAH (National Institute of Animal Health)',
     icon: '🐕',
-    summary: 'Rabies sample collection + diagnosis ที่ NIAH — Lyssavirus (Rhabdoviridae, ssRNA negative-sense, bullet-shape) · DFA = WOAH gold standard · Fresh brain tissue (brain stem + cerebellum) · Sample แช่เย็น 2-8°C ส่งใน 24 ชม. หรือแช่แข็ง -20°C.',
+    summary: 'Rabies sample collection + diagnosis ที่ NIAH — Lyssavirus (Rhabdoviridae, ssRNA negative-sense, bullet-shape), DFA = WOAH gold standard, Fresh brain tissue (brain stem + cerebellum), Sample แช่เย็น 2-8°C ส่งใน 24 ชม. หรือแช่แข็ง -20°C.',
     sections: [
       {
         heading: 'NIAH — National Institute of Animal Health',
@@ -535,7 +535,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Epidemiological Approach to Zoonoses',
     lecturer: 'Saharuetai Jeamsripong',
     icon: '📊',
-    summary: 'Epidemiology = study of distribution + determinants + application · 2 main types: Observational (descriptive + analytic) vs Experimental (clinical/field/community trial) · ใช้กับ AMR · chemical/biological contamination · zoonoses.',
+    summary: 'Epidemiology = study of distribution + determinants + application. 2 main types: Observational (descriptive + analytic) vs Experimental (clinical/field/community trial). ใช้กับ AMR, chemical/biological contamination, zoonoses.',
     sections: [
       {
         heading: 'Course intro — Epidemiology + Zoonoses',
@@ -620,7 +620,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Mycozoonoses (Fungal Zoonoses)',
     lecturer: 'Suphachai Nuanualsuwan',
     icon: '🍄',
-    summary: 'Mycozoonoses = รา/ยีสต์ ที่ติดต่อจากสัตว์สู่คน · Fungi = eukaryote (มี nucleus + mitochondria — ต่างจาก bacteria) · 2 forms: Yeast (unicellular, budding) + Mold (filamentous). ⭐ **สรุปข้อสอบเก่า Vet 82 ครอบคลุมหัวข้อนี้มาก** — สำคัญสุดในกลุ่ม final.',
+    summary: 'Mycozoonoses = รา/ยีสต์ ที่ติดต่อจากสัตว์สู่คน, Fungi = eukaryote (มี nucleus + mitochondria — ต่างจาก bacteria), 2 forms: Yeast (unicellular, budding) + Mold (filamentous).',
     sections: [
       {
         heading: 'Mycozoonoses — title + course context',
@@ -682,7 +682,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Prion Diseases',
     lecturer: 'Taradon Luangtongkum',
     icon: '🧬',
-    summary: 'Prion = TSE (Transmissible Spongiform Encephalopathy) · Neurodegenerative · ไม่ใช่ bacteria/fungi/virus — เป็น abnormal protein, no genetic material · Long incubation + rapidly progressive + always fatal · Human: CJD, vCJD, GSS, FFI, Kuru.',
+    summary: 'Prion = TSE (Transmissible Spongiform Encephalopathy), Neurodegenerative, ไม่ใช่ bacteria/fungi/virus — เป็น abnormal protein, no genetic material, Long incubation + rapidly progressive + always fatal. Human: CJD, vCJD, GSS, FFI, Kuru.',
     sections: [
       {
         heading: 'Prion Diseases — course intro',
@@ -742,7 +742,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Bacterial Zoonoses',
     lecturer: 'Taradon Luangtongkum',
     icon: '🧫',
-    summary: 'Bacterial + Rickettsial infections — anthrax, brucellosis, strep, TB, salmonellosis, campylo, vibrio, colibacillosis, yersiniosis (foodborne) · Chlamydial (psittacosis) · Spirochaetal (leptospirosis, borreliosis). ⭐ **ซซดาวบันทึก Vet 84** — สำคัญสุด.',
+    summary: 'Bacterial + Rickettsial infections — anthrax, brucellosis, strep, TB, salmonellosis, campylo, vibrio, colibacillosis, yersiniosis (foodborne), Chlamydial (psittacosis), Spirochaetal (leptospirosis, borreliosis).',
     sections: [
       {
         heading: 'Bacterial Zoonoses — course intro',
@@ -821,7 +821,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Rickettsial Zoonoses',
     lecturer: 'Kamonpan Charoenkul',
     icon: '🕷️',
-    summary: 'Rickettsia — gram-negative obligate intracellular parasite · Vector-borne (ticks, mites, fleas, lice, chiggers) · 4 genera: Rickettsia, Ehrlichia, Orientia, Coxiella · Symptoms: fever, headache, rash + disseminate ไปหลายอวัยวะ.',
+    summary: 'Rickettsia — gram-negative obligate intracellular parasite, Vector-borne (ticks, mites, fleas, lice, chiggers). 4 genera: Rickettsia, Ehrlichia, Orientia, Coxiella. Symptoms: fever, headache, rash + disseminate ไปหลายอวัยวะ.',
     sections: [
       {
         heading: 'Rickettsial Zoonoses — course intro',
@@ -887,7 +887,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Emerging Zoonotic Diseases + Wildlife',
     lecturer: 'Paisin Lekcharoen',
     icon: '🦊',
-    summary: 'Wildlife = reservoirs of pathogens — A reservoir host harbors agent ของโรค แต่ไม่จำเป็นต้อง develop disease (ex. bats + Ebola/SARS) · WWF "COVID-19 and the Rise of Zoonotic Infectious Diseases" → stop the next pandemic.',
+    summary: 'Wildlife = reservoirs of pathogens — A reservoir host harbors agent ของโรค แต่ไม่จำเป็นต้อง develop disease (ex. bats + Ebola/SARS). WWF "COVID-19 and the Rise of Zoonotic Infectious Diseases" → stop the next pandemic.',
     sections: [
       {
         heading: 'Course intro — Wildlife Epidemiology',
@@ -997,7 +997,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'EID Zoonoses in Thailand — Outbreak + Strategic Plans',
     lecturer: 'Soawapak Hinjoy',
     icon: '🚨',
-    summary: 'Emerging zoonotic disease in Thailand — outbreak situation + strategic plans for prevention + control (Dept. of Disease Control, MoPH). EID timeline 1957-2022 (Dengue → COVID → Mpox). **75% of EID in humans is from animals**. ⭐ ซซดาวข้อสอบ.',
+    summary: 'Emerging zoonotic disease in Thailand — outbreak situation + strategic plans for prevention + control (Dept. of Disease Control, MoPH). EID timeline 1957-2022 (Dengue → COVID → Mpox). 75% of EID in humans is from animals.',
     sections: [
       {
         heading: 'EID Zoonoses in Thailand — course intro',
@@ -1075,7 +1075,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Protozoal Zoonoses',
     lecturer: 'Woraporn Sukhumavasi',
     icon: '🦠',
-    summary: 'Protozoal zoonoses — 4 major: Toxoplasmosis, Giardiasis, Cryptosporidiosis, Leishmaniosis · 4 types of parasitic zoonoses: Direct/Cyclo/Meta/Sapro · Sources: ground/water-borne/handling pets/meat-borne/vector-borne. ⭐ **สรุปข้อสอบเก่า Vet 82 ครอบคลุมหัวข้อนี้มาก**.',
+    summary: 'Protozoal zoonoses — 4 major: Toxoplasmosis, Giardiasis, Cryptosporidiosis, Leishmaniosis. 4 types of parasitic zoonoses: Direct/Cyclo/Meta/Sapro. Sources: ground/water-borne/handling pets/meat-borne/vector-borne.',
     sections: [
       {
         heading: 'Protozoal Zoonoses — course intro',

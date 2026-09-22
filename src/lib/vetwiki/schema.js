@@ -150,12 +150,14 @@ export function wikiTitle(raw) {
 // ---- Wiki summary (strip decorative stars/emoji only) --------------------
 // Summaries carry meaningful clinical notation — "→" (leads to), "↑/↓"
 // (increase/decrease), "≥ ≠", subscripts — which MUST be preserved. The only
-// decoration to remove is note-emphasis stars (★ ⭐) and any picto-emoji; do
-// NOT touch arrows/maths (that would corrupt the content).
+// decoration to remove is note-emphasis stars (★ ⭐), any picto-emoji, and
+// markdown bold markers ("**"), which the wiki renders as plain text so the
+// reader would see them literally; do NOT touch arrows/maths (that would
+// corrupt the content).
 const WIKI_SUMMARY_DECOR = /\s*[★☆⭐✨\u{FE0F}\u{1F000}-\u{1FAFF}]/gu;
 export function wikiSummary(raw) {
   if (!raw) return raw;
-  return String(raw).replace(WIKI_SUMMARY_DECOR, '').replace(/\s{2,}/g, ' ').trim();
+  return String(raw).replace(WIKI_SUMMARY_DECOR, '').replace(/\*\*/g, '').replace(/\s{2,}/g, ' ').trim();
 }
 
 // ---- Human-language labels (NEVER show raw enum values to users) ---------
