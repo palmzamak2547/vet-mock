@@ -135,8 +135,8 @@ export default function GroupDetailView({ group, user, goBack }) {
       {!loading && !error && tab === 'questions' && (
         <div>
           <div style={{ marginBottom: 20, fontSize: 13, color: 'var(--clr-ink-soft)' }}>
-            ข้อสอบที่สมาชิกในกลุ่มแชร์มา — ทุกคนในกลุ่มใช้ทำข้อสอบได้<br/>
-            <em>เพิ่มข้อสอบที่ Question Manager → แล้วกด "Share" ในข้อที่ต้องการ</em>
+            ข้อสอบที่สมาชิกในกลุ่มแชร์ไว้<br/>
+            <em>ตอนนี้ยังแชร์ข้อสอบเข้ากลุ่มไม่ได้</em>
           </div>
           {questions.length === 0 ? (
             <div className="vmx-empty">ยังไม่มีข้อสอบที่แชร์</div>
