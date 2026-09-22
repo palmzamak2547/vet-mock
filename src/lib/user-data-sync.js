@@ -71,6 +71,15 @@ const OPERATION_PREFIX = 'vmx-user-op-v1:';
 const CURRENT_OWNER_KEY = 'vmx-user-sync-owner-v1';
 const JOURNAL_KEY = 'vmx-user-sync-journal-v1';
 const ANONYMOUS = 'anonymous';
+// Consecutive lost compare-and-set writes, with no write landing in between,
+// before the push-failed banner shows. The first four retry within 200 ms;
+// from the fifth the normal back-off applies (about 1.5, 3 and 6 s), so the
+// eighth comes roughly 11 s after the first. A real race needs another of the
+// student's own devices to land a write inside each of those read-to-write
+// windows, a round trip long each; eight in a row across growing gaps does not
+// happen between one person's phone and laptop. A write the server can never
+// accept reaches it in those same 11 s.
+const CONFLICT_STREAK_BANNER = 8;
 const REMOTE_FIELDS = Object.keys(USER_DATA_FIELDS)
   .filter((field) => USER_DATA_FIELDS[field].remoteKey);
 let storeInstanceSequence = 0;
@@ -1334,6 +1343,19 @@ export function createUserDataSync({
       // jitter. Only a streak of lost races falls back to the back-off.
       if (error?.code === 'SYNC_CONFLICT') {
         conflictStreak += 1;
+        // A streak this long is not a race. Zero rows back is also what a
+        // write the server will never accept looks like (an UPDATE policy
+        // narrower than SELECT, a proxy that strips Prefer: return=
+        // representation), and without this the student sat at "pending"
+        // for ever with no banner. Say so, keep backing off, keep the outbox.
+        if (conflictStreak >= CONFLICT_STREAK_BANNER) {
+          publish(state.data, syncShape({
+            phase: lifecycle.isOnline() === false ? 'offline' : 'error',
+            error: publicError('REMOTE_PUSH_FAILED', 'บันทึกไว้ในเครื่องแล้ว แต่ยังส่งขึ้นบัญชีไม่สำเร็จ'),
+          }));
+          scheduleRetry('flush');
+          return;
+        }
         publish(state.data, syncShape({ phase: 'pending', error: null }));
         if (conflictStreak <= 4) schedule('flush', Math.round(Math.max(0, Math.min(1, random())) * 200));
         else scheduleRetry('flush');
