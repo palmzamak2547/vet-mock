@@ -133,6 +133,20 @@ export const isAnswered = (ua) => {
   return true; // numbers (MCQ index, including 0) and booleans (true/false)
 };
 
+/**
+ * Where a question lands after submit: 'skipped', 'correct' or 'wrong'.
+ *
+ * Results and Review used to test `!== undefined`, so an answer typed and then
+ * erased, which the submit dialog had just called unanswered, sat under ผิด,
+ * joined the redo-wrong set and was missing from ข้าม. Skipped means what the
+ * dialog means by it. A cleared answer does not join the redo-wrong set, the
+ * same as a question never touched: that set is the questions answered wrong.
+ */
+export const answerOutcome = (q, ua) => {
+  if (!isAnswered(ua)) return 'skipped';
+  return isCorrect(q, ua) ? 'correct' : 'wrong';
+};
+
 // Per-question time allocation. The Final exam is 2 hours for ~20
 // short answers + 1 essay (~5 min/short + ~25 min/essay), so when
 // the user sets a base time-per-question we scale it for writing

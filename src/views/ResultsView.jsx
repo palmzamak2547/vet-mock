@@ -5,7 +5,7 @@ import { clearCompletedExam } from '../lib/exam-recovery.js';
 // engine can auto-grade.
 export const PRACTICE_PASS_PCT = 60;
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { isCorrect, isWritingType } from '../hooks/utils.js';
+import { answerOutcome, isWritingType } from '../hooks/utils.js';
 import BackBar from '../components/BackBar.jsx';
 import ExamSaveNotice from '../components/ExamSaveNotice.jsx';
 import DigitRoll from '../components/DigitRoll.jsx';
@@ -275,8 +275,8 @@ export default function ResultsView({
   // questions don't show up as "wrong" — they need self-grading.
   const autoQs = questions.filter((q) => !isWritingType(q));
   const writingQs = questions.filter((q) => isWritingType(q));
-  const wrongCount = autoQs.filter((q) => answers[q.id] !== undefined && !isCorrect(q, answers[q.id])).length;
-  const skipCount = autoQs.filter((q) => answers[q.id] === undefined).length;
+  const wrongCount = autoQs.filter((q) => answerOutcome(q, answers[q.id]) === 'wrong').length;
+  const skipCount = autoQs.filter((q) => answerOutcome(q, answers[q.id]) === 'skipped').length;
   const writingAttempted = writingQs.filter((q) => {
     const ua = answers[q.id];
     return typeof ua === 'string' && ua.trim().length > 0;
@@ -455,7 +455,7 @@ export default function ResultsView({
       {/* The pattern across the misses, before the standing advice about what
           the system does next — the specific thing is the reason to read on. */}
       <WeakSpots
-        wrongQs={autoQs.filter((q) => answers[q.id] !== undefined && !isCorrect(q, answers[q.id]))}
+        wrongQs={autoQs.filter((q) => answerOutcome(q, answers[q.id]) === 'wrong')}
         answers={answers}
       />
 
@@ -544,7 +544,7 @@ function NextPlayPanel({
   // finished question array one render before ResultsView unmounts; when this
   // memo lived below the branch React saw fewer hooks and crashed with #300.
   const wrongQs = useMemo(
-    () => autoQs.filter((q) => answers[q.id] !== undefined && !isCorrect(q, answers[q.id])),
+    () => autoQs.filter((q) => answerOutcome(q, answers[q.id]) === 'wrong'),
     [autoQs, answers],
   );
 
@@ -796,8 +796,7 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
     if (wrongCount >= 2) {
       const topicTally = {};
       for (const q of autoQs) {
-        if (answers[q.id] === undefined) continue;
-        if (isCorrect(q, answers[q.id])) continue;
+        if (answerOutcome(q, answers[q.id]) !== 'wrong') continue;
         const key = q.topic;
         if (!key) continue;
         topicTally[key] = (topicTally[key] || 0) + 1;
