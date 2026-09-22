@@ -115,8 +115,8 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
 // A subject missing from this map has neither, and its Panic card falls
 // back to the whole subject.
 export const Q_PANIC_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 230,
-  'avian-medicine': 196,
+  'aquatic-clinic': 233,
+  'avian-medicine': 216,
   'biochem-1': 272,
   'cliapprum': 8,
   'com1': 31,
@@ -126,15 +126,15 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'com5': 10,
   'comp-repro-clinic': 48,
   'engprof': 1,
-  'equine-medicine': 223,
-  'equine-repro': 134,
+  'equine-medicine': 233,
+  'equine-repro': 141,
   'exotic': 34,
   'food-industry': 125,
   'food-safety-y4': 31,
   'herd-health-rum': 35,
   'livestock-pathology': 68,
   'milk-meat-hygiene': 517,
-  'one-health': 70,
+  'one-health': 78,
   'poa-clinical': 16,
   'poultry': 68,
   'practrum': 17,
@@ -145,14 +145,14 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'surg1': 29,
   'surg2': 18,
   'surg3': 40,
-  'swine-clinic': 62,
+  'swine-clinic': 84,
   'swine-herd': 27,
   'swine-repro': 29,
   'vca': 18,
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 46,
-  'zoonoses': 155,
+  'zoonoses': 180,
 };
 
 // The same count, narrowed to one paper. A Panic card opened with a phase
@@ -161,7 +161,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
 export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
   midterm: {
     'aquatic-clinic': 144,
-    'avian-medicine': 181,
+    'avian-medicine': 201,
     'biochem-1': 272,
     'cliapprum': 8,
     'com1': 4,
@@ -179,7 +179,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'herd-health-rum': 20,
     'livestock-pathology': 68,
     'milk-meat-hygiene': 517,
-    'one-health': 63,
+    'one-health': 67,
     'poultry': 68,
     'practrum': 17,
     'rec-adv-bioscience': 4,
@@ -189,17 +189,17 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'surg1': 29,
     'surg2': 18,
     'surg3': 40,
-    'swine-clinic': 56,
+    'swine-clinic': 63,
     'swine-herd': 22,
     'swine-repro': 17,
     'vca': 18,
     'vet-dev-anat': 26,
     'vet-imaging': 5,
-    'zoonoses': 136,
+    'zoonoses': 137,
   },
   final: {
-    'aquatic-clinic': 86,
-    'avian-medicine': 59,
+    'aquatic-clinic': 89,
+    'avian-medicine': 60,
     'biochem-1': 272,
     'cliapprum': 8,
     'com1': 31,
@@ -209,14 +209,14 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'com5': 10,
     'comp-repro-clinic': 48,
     'engprof': 1,
-    'equine-medicine': 2,
-    'equine-repro': 71,
+    'equine-medicine': 12,
+    'equine-repro': 78,
     'exotic': 34,
     'food-industry': 1,
     'food-safety-y4': 21,
     'herd-health-rum': 33,
     'livestock-pathology': 68,
-    'one-health': 7,
+    'one-health': 11,
     'poultry': 68,
     'practrum': 17,
     'rec-adv-bioscience': 4,
@@ -226,14 +226,14 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'surg1': 29,
     'surg2': 18,
     'surg3': 40,
-    'swine-clinic': 50,
+    'swine-clinic': 72,
     'swine-herd': 11,
     'swine-repro': 18,
     'vca': 18,
     'vet-dev-anat': 26,
     'vet-imaging': 35,
     'vet-juris': 46,
-    'zoonoses': 32,
+    'zoonoses': 56,
   },
 };
 
@@ -3221,4 +3221,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-22T20:11:14.777Z
+// Built: 2026-09-22T23:03:49.660Z
