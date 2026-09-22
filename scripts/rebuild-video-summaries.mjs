@@ -18,7 +18,8 @@
  *
  * Usage:
  *   node scripts/rebuild-video-summaries.mjs            # rebuild in place
- *   node scripts/rebuild-video-summaries.mjs --check    # report only, no write
+ *   node scripts/rebuild-video-summaries.mjs --check    # report only, no write;
+ *     exits 1 when a shipped entry is not under its own subject
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -55,18 +56,25 @@ const FIELDS = ['videoId', 'title', 'subject', 'date', 'durationMin', 'instructo
 
 const constName = (subject) => 'VIDEO_SUMMARIES_' + subject.toUpperCase().replace(/-/g, '_');
 
+// Every entry, and the file each one was found in. The map alone cannot say
+// that an entry sits in another subject's file, which is the drift --check
+// exists to catch.
 async function readExisting() {
   const files = fs.readdirSync(DATA).filter((f) => /^video-summaries-.+\.js$/.test(f) && !f.includes('meta'));
   const entries = new Map();
+  const placements = [];
   for (const f of files) {
     const mod = await import(pathToFileURL(path.join(DATA, f)).href);
     for (const key of Object.keys(mod)) {
       const obj = mod[key];
       if (!obj || typeof obj !== 'object') continue;
-      for (const [id, entry] of Object.entries(obj)) entries.set(id, entry);
+      for (const [id, entry] of Object.entries(obj)) {
+        entries.set(id, entry);
+        placements.push({ id, subject: entry?.subject, file: f });
+      }
     }
   }
-  return entries;
+  return { entries, placements };
 }
 
 // Front matter + raw body. Summaries are written this way rather than as JSON
@@ -234,9 +242,20 @@ function renderBarrel(subjects) {
   ].join('\n');
 }
 
-const existing = await readExisting();
+const { entries: existing, placements } = await readExisting();
 const before = new Map(existing);
-const { added, skipped, unchecked } = readGenerated(existing);
+// --check judges the shipped corpus only. data-cache/ is gitignored and absent
+// on CI, so a staged draft (finished, pending or broken) must not turn the
+// local gate red while CI stays green. A rebuild still refuses a broken one.
+let staging;
+try {
+  staging = readGenerated(existing);
+} catch (err) {
+  if (!checkOnly) throw err;
+  console.log('staged batch unreadable, not judged by --check: ' + err.message);
+  staging = { added: [], skipped: [], unchecked: [] };
+}
+const { added, skipped, unchecked } = staging;
 for (const e of added) existing.set(e.videoId, e);
 
 const bySubject = new Map();
@@ -266,9 +285,32 @@ const homeless = [];
 for (const [id, e] of before) {
   if (!fs.existsSync(path.join(DATA, 'video-summaries-' + e.subject + '.js'))) homeless.push(id + ' (' + e.subject + ')');
 }
-if (homeless.length) console.log('entries filed under a subject with no file of its own: ' + homeless.length);
+if (homeless.length) {
+  console.log('entries filed under a subject with no file of its own: ' + homeless.length);
+  for (const h of homeless.sort()) console.log('   ' + h);
+}
+
+// An entry inside another subject's file is invisible to its own subject's
+// loader. A rebuild moves it home; --check reports it.
+const misfiled = placements
+  .filter((p) => 'video-summaries-' + p.subject + '.js' !== p.file)
+  .map((p) => p.id + ' (' + p.subject + ') in ' + p.file)
+  .sort();
+if (misfiled.length) {
+  console.log('entries sitting in another subject\'s file: ' + misfiled.length);
+  for (const m of misfiled) console.log('   ' + m);
+}
 
 if (checkOnly) {
+  // One entry can be both (in another file, under a subject with none).
+  const problems = new Set(homeless.concat(misfiled).map((line) => line.split(' ')[0])).size;
+  if (problems) {
+    console.error('\n--check: ' + problems + (problems === 1 ? ' shipped entry is not filed under its own subject.'
+      : ' shipped entries are not filed under their own subjects.')
+      + ' Check the subject is not a typo, then run node scripts/rebuild-video-summaries.mjs,'
+      + ' which files each entry under its subject.');
+    process.exit(1);
+  }
   console.log('\n--check: nothing written.');
   process.exit(0);
 }
