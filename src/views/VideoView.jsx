@@ -467,7 +467,11 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
                         onClick={() => setFilter(s.id)}
                         title={`${count} ชุดวิดีโอ`}
                       >
-                        {s.icon} {s.name} <span style={{ opacity: 0.6, fontSize: 11 }}>{count}</span>
+                        {/* .vmx-chip is inline-flex, which drops the space
+                            before the count ('ระบาดวิทยา2'); the margin puts
+                            the gap back. No opacity: a dimmed count falls
+                            below AA contrast. */}
+                        {s.icon} {s.name} <span style={{ marginLeft: 6, fontSize: 11 }}>{count}</span>
                       </button>
                     );
                   })}

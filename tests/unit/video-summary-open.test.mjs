@@ -14,8 +14,9 @@
 // run under vm with the summary chunks under the test's control, the way the
 // reader-race tests in this folder do it.
 //
-// The same file pins the player's copy: it spoke to the student as พี่, named
-// localStorage, and paged with English controls.
+// The same file pins the player's copy (it spoke to the student as พี่, named
+// localStorage, and paged with English controls) and the gap before each
+// subject chip's clip count on the shelf.
 // ============================================================
 
 import test from 'node:test';
@@ -159,4 +160,15 @@ test('the paging buttons keep their Thai titles and their handlers', () => {
     'the previous-clip button lost its handler, its guard or its label');
   assert.ok(/onClick=\{goNext\} disabled=\{currentIdx < 0 \|\| currentIdx >= playlistItems\.length - 1\} title="ถัดไป \(→\)"[^>]*>ถัดไป →<\/button>/.test(SRC),
     'the next-clip button lost its handler, its guard or its label');
+});
+
+// ── the shelf's subject chips ────────────────────────────────────────
+
+test('each subject chip keeps a gap before its clip count, at full strength', () => {
+  // .vmx-chip is inline-flex, which drops the trailing space of the name, so
+  // the chips read 'ระบาดวิทยา2'. The gap has to come from the count itself.
+  const m = SRC.match(/\{s\.icon\} \{s\.name\} <span style=\{\{([^}]*)\}\}>\{count\}<\/span>/);
+  assert.ok(m, 'the subject chip label is no longer shaped as expected');
+  assert.match(m[1], /marginLeft: 6\b/);
+  assert.doesNotMatch(m[1], /opacity/, 'a dimmed count falls below AA contrast');
 });
