@@ -134,6 +134,68 @@ export function redrawInk(canvas, strokes, scale) {
 }
 
 /**
+ * Repaints an overlay under a highlighter that is still moving. A translucent
+ * stroke cannot be extended in place (see strokeAsOnePath), so every movement
+ * lays the whole live stroke again over the settled ink. That settled ink used
+ * to be re-stroked from its points on every movement too, and a page carrying
+ * a thousand pen strokes cost 59,000 path calls per movement: the highlighter
+ * trailed the pen. It is painted once per swipe instead, copied 1:1 into
+ * `keep` (the caller's holder for this swipe), and each later movement starts
+ * from the copy. The copy is taken again whenever it no longer describes the
+ * overlay: another size or scale (a zoom, a DPR change), or another settled
+ * list (a merge from another device, an undo).
+ */
+export function paintLiveHighlighter(canvas, settled, stroke, scale, keep) {
+  const ctx = canvas?.getContext('2d', { desynchronized: true });
+  if (!ctx) return;
+  const w = canvas.width;
+  const h = canvas.height;
+  // drawImage throws on an empty canvas, and nothing on one is visible.
+  if (!w || !h) return;
+  const copy = keep?.copy;
+  if (copy && keep.settled === settled && keep.scale === scale && copy.width === w && copy.height === h) {
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    resetBrush(ctx);
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(copy, 0, 0);
+  } else {
+    redrawInk(canvas, settled, scale);
+    // A page with no ink yet repaints with one clearRect; a copy of it would
+    // only cost an overlay-sized canvas.
+    if (keep && settled?.length) keepCopy(canvas, settled, scale, keep);
+  }
+  applyBrush(ctx, stroke);
+  strokeAsOnePath(ctx, stroke.points, w, h, widthAt(stroke, stroke.points[0], scale));
+  resetBrush(ctx);
+}
+
+function keepCopy(canvas, settled, scale, keep) {
+  const copy = keep.copy || canvas.ownerDocument?.createElement?.('canvas');
+  const cctx = copy?.getContext?.('2d');
+  // No way to hold a copy: every movement repaints in full, as it always did.
+  if (!cctx) { keep.copy = null; return; }
+  // Setting the size clears the copy, even when the size is unchanged.
+  copy.width = canvas.width;
+  copy.height = canvas.height;
+  cctx.drawImage(canvas, 0, 0);
+  keep.copy = copy;
+  keep.settled = settled;
+  keep.scale = scale;
+}
+
+/**
+ * Lets go of a swipe's copy. An overlay-sized canvas runs to about 15 MB at
+ * 2x, and iOS Safari counts canvas memory against a tab until the canvas is
+ * emptied, not when the last reference to it goes.
+ */
+export function releaseHighlighterCopy(keep) {
+  if (!keep) return;
+  if (keep.copy) { keep.copy.width = 0; keep.copy.height = 0; }
+  keep.copy = null;
+  keep.settled = null;
+}
+
+/**
  * How far from upright a stylus is, 0 (vertical) to 1 (almost flat). Safari
  * has reported altitudeAngle since 16.4 and it is the accurate source;
  * tiltX/tiltY are the older, wider-support fallback. Hardware that reports
