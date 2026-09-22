@@ -52,11 +52,19 @@ export function createAuthStorage(getLocal = () => globalThis.localStorage,
       } catch { return null; }
     },
     setItem(k, v) {
-      try {
-        const { primary, other } = pick();
-        primary.setItem(k, v);
-        other.removeItem(k);
-      } catch {}
+      let keep = true;
+      try { keep = staySignedIn(getLocal()); } catch {}
+      const [primary, other] = keep ? [getLocal, getSession] : [getSession, getLocal];
+      let wrote = false;
+      try { primary().setItem(k, v); wrote = true; } catch {}
+      // Opted out: the persistent copy goes even when the session write failed
+      // (a full sessionStorage). This tab keeps its session in memory until it
+      // closes, which is what the student asked for; the next person does not
+      // inherit it. Kept: the session copy goes only once the persistent write
+      // landed, so a full localStorage never deletes the only token.
+      if (!keep || wrote) {
+        try { other().removeItem(k); } catch {}
+      }
     },
     removeItem(k) {
       // Sign-out clears both, never just the one currently selected — the
