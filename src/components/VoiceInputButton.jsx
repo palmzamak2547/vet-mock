@@ -21,6 +21,7 @@
 // ============================================================
 
 import { useEffect, useRef, useState } from 'react';
+import { speechErrorText } from '../lib/errors.js';
 
 const RecognitionCtor =
   typeof window !== 'undefined'
@@ -79,10 +80,9 @@ export default function VoiceInputButton({ onAppend, lang = 'th-TH', title = '�
       }
     };
     rec.onerror = (e) => {
-      // Common: 'not-allowed' (mic perm), 'no-speech', 'aborted'
-      if (e.error && e.error !== 'aborted' && e.error !== 'no-speech') {
-        setError(e.error === 'not-allowed' ? 'อนุญาตไมค์ในเบราว์เซอร์ก่อน' : `ผิดพลาด: ${e.error}`);
-      }
+      // A spec code ('audio-capture', 'network'), never shown as is.
+      const message = speechErrorText(e.error);
+      if (message) setError(message);
     };
     rec.onend = () => {
       setActive(false);

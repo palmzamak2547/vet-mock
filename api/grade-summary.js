@@ -35,6 +35,10 @@ const MAX_QUESTION = 2000;
 // the platform's generic timeout page the client cannot explain.
 const UPSTREAM_TIMEOUT_MS = 45_000;
 
+// Every `hint` below is Thai: SmartGrader prints it on screen verbatim. The
+// `error` fields stay English. They are for logs, and the client picks its
+// own Thai sentence from the status code instead of reading them.
+
 export default async function handler(req, res) {
   // Student answers and grading feedback are user-specific and must never be
   // retained by a shared cache.
@@ -115,7 +119,7 @@ export default async function handler(req, res) {
       res.setHeader('Retry-After', String(providerBudget.retryAfter));
       return res.status(503).json({
         error: 'AI daily capacity reached',
-        hint: 'Use self-grade for now and try again later.',
+        hint: 'ระบบตรวจอัตโนมัติใช้ครบโควตาของวันนี้แล้ว',
       });
     }
 
@@ -150,7 +154,7 @@ export default async function handler(req, res) {
       console.error('AI did not return a JSON object:', aiText.slice(0, 500));
       return res.status(502).json({
         error: 'AI response not parseable',
-        hint: 'Try again — sometimes the model returns prose instead of JSON.',
+        hint: 'ผลตรวจรอบนี้อ่านไม่ออก ลองกดตรวจอีกครั้ง',
       });
     }
 
@@ -165,7 +169,7 @@ export default async function handler(req, res) {
     return res.status(200).json(grading);
   } catch (err) {
     if (err?.name === 'TimeoutError' || err?.name === 'AbortError') {
-      return res.status(504).json({ error: 'AI grading timed out', hint: 'Try again in a moment, or use self-grade.' });
+      return res.status(504).json({ error: 'AI grading timed out', hint: 'ลองอีกครั้งในอีกสักครู่ หรือประเมินตามเกณฑ์ด้วยตนเอง' });
     }
     console.error('grade-summary handler error:', err);
     return res.status(500).json({ error: 'Internal error' });
