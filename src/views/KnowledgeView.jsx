@@ -27,6 +27,7 @@ import {
   EVIDENCE_LABEL, REVIEW_LABEL,
 } from '../lib/vetwiki/runtime.js';
 import { conflictCountFor } from '../lib/vetwiki/conflict-summary.generated.js';
+import { wikiPracticeTarget } from '../lib/vetwiki/practice-target.js';
 import { copyText } from '../lib/clipboard.js';
 import { wikiPath, wikiUrl, parseWikiPath, WIKI_BASE } from '../lib/vetwiki/url.js';
 import ReportConcern from '../components/ReportConcern.jsx';
@@ -379,7 +380,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
 }
 
 // ================= ARTICLE =================
-function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, related, goPractice, goNotes, onShowProv, shareUrl }) {
+function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, related, goPractice, practiceLabel, goNotes, onShowProv, shareUrl }) {
   const [copied, setCopied] = useState('');
   const copyTimer = useRef(null);
   useEffect(() => () => clearTimeout(copyTimer.current), []);
@@ -471,7 +472,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
 
       {/* Actions */}
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 22 }}>
-        <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={goPractice}>ฝึกจากหัวข้อนี้</button>
+        <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={goPractice}>{practiceLabel}</button>
         <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goNotes}>อ่านโน้ตเต็ม</button>
         <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onShowProv}>ดูแหล่งอ้างอิง</button>
         <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
@@ -673,9 +674,16 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
     );
   }
 
+  // A topic with no questions of its own opens the whole subject directly;
+  // see lib/vetwiki/practice-target.js.
+  const practice = wikiPracticeTarget(current.subject, current.topic);
   const goPractice = () => {
     if (!startExam) return;
-    startExam({ mode: 'quick', subject: current.subject, topic: current.topic, practiceMode: 'all', useTimer: false });
+    startExam({
+      mode: 'quick', subject: current.subject,
+      topic: practice.topic,
+      practiceMode: 'all', useTimer: false,
+    });
   };
   const goNotes = () => {
     if (setSubject) setSubject(current.subject);
@@ -688,7 +696,7 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
       <WikiArticle
         topic={current} knowledge={knowledge} prov={prov} related={related}
         onBackToIndex={backToIndex} onOpen={openTopic}
-        goPractice={goPractice} goNotes={goNotes} onShowProv={() => setShowProv(true)}
+        goPractice={goPractice} practiceLabel={practice.label} goNotes={goNotes} onShowProv={() => setShowProv(true)}
         shareUrl={wikiUrl(typeof window!=='undefined'?window.location.origin:'', current.subject, current.topic)}
       />
       {showProv && prov && <ProvenancePanel prov={prov} onClose={() => setShowProv(false)} />}
