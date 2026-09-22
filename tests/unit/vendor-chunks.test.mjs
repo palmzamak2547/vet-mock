@@ -18,6 +18,9 @@
 // fetch it. Now the first open fetches the reader chunk, and a failed fetch
 // must leave the next attempt free to try again: the reader's error message
 // says "try again", and that has to be possible without reloading the page.
+// The library shelf, which warms the reader while it sits idle, warms pdf.js
+// with it, so the first open from the shelf still waits only for the
+// document, and a shelf visited online can open a cached deck offline.
 // ============================================================
 
 import test from 'node:test';
@@ -136,4 +139,27 @@ test('a failed pdf.js load is not remembered, so the next open can try again', a
   assert.equal(pdfjs.GlobalWorkerOptions.workerSrc, '/assets/pdf.worker.min.mjs');
   assert.equal(await loadPdfjs(), pdfjs);
   assert.equal(readerLoads, 2, 'a reader that loaded is kept, not fetched again');
+});
+
+test('the library shelf warms pdf.js along with the reader while it sits idle', async () => {
+  // Before the split, pdf.js came with the idle vendor chunk, so the shelf's
+  // warm-up of the reader was enough for the first open to wait only for
+  // document bytes. The reader now imports pdf.js only when a document opens.
+  const source = readFileSync(new URL('../../src/views/LibraryView.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+  const start = source.indexOf('// Warm the reader chunk');
+  const end = source.indexOf('}, []);', start);
+  assert.ok(start !== -1 && end > start, 'the shelf must still warm the reader while it sits idle');
+  const code = source.slice(start, end + '}, []);'.length).replaceAll('import(', '__import(');
+
+  const warmed = [];
+  const context = vm.createContext({
+    useEffect: (effect) => { effect(); },
+    window: { requestIdleCallback: (fn) => { fn(); return 1; }, cancelIdleCallback: () => {} },
+    setTimeout,
+    clearTimeout,
+    __import: async (specifier) => { warmed.push(specifier); throw new TypeError('offline'); },
+  });
+  vm.runInContext(code, context);
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.deepEqual([...warmed].sort(), ['./PdfAnnotateView.jsx', 'pdfjs-dist']);
 });
