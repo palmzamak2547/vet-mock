@@ -119,7 +119,7 @@ export default async function handler(req, res) {
       res.setHeader('Retry-After', String(providerBudget.retryAfter));
       return res.status(503).json({
         error: 'AI daily capacity reached',
-        hint: 'ระบบตรวจอัตโนมัติใช้ครบโควตาของวันนี้แล้ว ลองใหม่ภายหลัง หรือประเมินตามเกณฑ์ด้วยตนเอง',
+        hint: 'ระบบตรวจอัตโนมัติใช้ครบโควตาของวันนี้แล้ว',
       });
     }
 
