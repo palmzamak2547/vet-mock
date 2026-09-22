@@ -4,13 +4,15 @@ import test from 'node:test';
 import { listTopics, loadTopic } from '../../src/lib/vetwiki/index.js';
 import { CORRECTIONS, correctionsFor } from '../../src/lib/vetwiki/corrections.js';
 import { sectionId } from '../../src/lib/vetwiki/schema.js';
-import { conflictsForTopic, conflictTotals } from '../../src/lib/vetwiki/conflict-index.js';
+import { VETWIKI_CONFLICT_COUNTS, conflictCountFor } from '../../src/lib/vetwiki/conflict-summary.generated.js';
 
 // The conflict notes are the most exam-actionable content in the corpus, and
 // they are addressed by a string key built independently on three surfaces:
 // the wiki article (via the adapter), the notes page (via sectionId()), and the
-// index badge (via splitting the key). A drift in any one of them fails
-// silently — the note simply does not appear, and nothing reports it.
+// count badge (conflict-summary.generated.js, which splits the key at build
+// time; the app reads that file, so the checks below read it too). A drift in
+// any one of them fails silently — the note simply does not appear, and
+// nothing reports it.
 
 const TOTAL_NOTES = Object.values(CORRECTIONS).flat().length;
 
@@ -44,17 +46,24 @@ test('the notes page derives the same key the wiki does', () => {
   }
 });
 
-test('the index badge totals agree with the notes themselves', () => {
-  const totals = conflictTotals();
-  assert.equal(totals.notes, TOTAL_NOTES, 'a badge must never claim a note that is not written down');
+test('the count badge the app shows agrees with the notes themselves', () => {
+  const badged = Object.values(VETWIKI_CONFLICT_COUNTS).reduce((sum, n) => sum + n, 0);
+  assert.equal(badged, TOTAL_NOTES, 'a badge must never claim a note that is not written down');
 
   let summed = 0;
-  for (const t of listTopics()) summed += conflictsForTopic(t.subject, t.topic).total;
+  for (const t of listTopics()) summed += conflictCountFor(t.subject, t.topic);
   assert.equal(summed, TOTAL_NOTES, 'every note belongs to exactly one governed topic');
+
+  for (const t of listTopics()) {
+    let onPage = 0;
+    for (const sec of loadTopic(t.subject, t.topic)?.sections || []) onPage += sec.corrections?.length || 0;
+    assert.equal(
+      conflictCountFor(t.subject, t.topic), onPage,
+      `${t.subject}/${t.topic}: the badge says ${conflictCountFor(t.subject, t.topic)}, the article shows ${onPage}`,
+    );
+  }
 });
 
 test('a topic with no disagreement reports zero rather than throwing', () => {
-  const none = conflictsForTopic('no-such-subject', 'no-such-topic');
-  assert.equal(none.total, 0);
-  assert.deepEqual(none.sections, []);
+  assert.equal(conflictCountFor('no-such-subject', 'no-such-topic'), 0);
 });
