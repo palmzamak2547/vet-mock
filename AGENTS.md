@@ -43,6 +43,9 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 ### 2. Changelog (`src/data/changelog.js`) shows ONLY user-observable changes
 - ✅ New features (UI, content, fixes that affect usage)
 - ❌ SEO / build / refactor / infrastructure → git history only
+- ❌ Root causes and mechanism: no "สาเหตุคือ…", no model or quota talk. Each change is a title
+  plus at most two sentences, 300 characters at most, on what the student will notice.
+  `tests/unit/changelog-voice.test.mjs` enforces the voice from 5.124.0 and the length after 5.128.0.
 - See header comment in changelog.js
 - The homepage banner and sidebar badge read `src/data/latest-changelog.generated.js`
   (newest entry only, so the entry chunk does not carry the whole history).
