@@ -80,6 +80,10 @@ const ANONYMOUS = 'anonymous';
 // happen between one person's phone and laptop. A write the server can never
 // accept reaches it in those same 11 s.
 const CONFLICT_STREAK_BANNER = 8;
+// A write to this device only partly landed: the edit itself is safe in the
+// outbox (or, for a whole-dataset commit, in the journal) and the rest is
+// retried. The banner says what the student can rely on, not where it is kept.
+const KEPT_ON_DEVICE = 'บันทึกไว้ในเครื่องแล้ว ระบบจะลองจัดเก็บให้ครบอีกครั้ง';
 const REMOTE_FIELDS = Object.keys(USER_DATA_FIELDS)
   .filter((field) => USER_DATA_FIELDS[field].remoteKey);
 let storeInstanceSequence = 0;
@@ -710,6 +714,119 @@ export function compactSyncRecords(storage) {
   return result;
 }
 
+// Outbox records the storage sweeps keep per account.
+const OUTBOX_KEEP = 4;
+
+/**
+ * Trim each account's outbox to its newest few records without losing an edit.
+ *
+ * A signed-in record stays until a push is acknowledged, so records pile up,
+ * one per page load, while a student is offline, and the sweeps keep only the
+ * newest few. An older record is not always a copy of what the snapshot
+ * holds: a window writes its snapshot a few seconds after its last edit, and
+ * until then the edit lives only in that window's record, which is the oldest
+ * one when that window was opened first. So each record that goes is first
+ * replayed onto its account's snapshot, in the order boot replays it, and
+ * every reader, the open windows included, computes the same data as before.
+ * Nothing is dropped for an account whose snapshot cannot be read or written,
+ * or that a half-finished commit's journal would overwrite at the next boot.
+ * The signed-out records of a signed-out device are left to boot, which folds
+ * them into the fields' own keys as well.
+ *
+ * @param {object} storage
+ * @param {{ keep?: number, userId?: string|null, protectKey?: string|null }} [options]
+ *   `userId` limits the sweep to one account (null is the signed-out one);
+ *   `protectKey` is a record being written right now, which always stays, and
+ *   so does every record newer than it.
+ * @returns {{ removed: string[], bytes: number }}
+ */
+export function sweepOutbox(storage, options = {}) {
+  const { keep = OUTBOX_KEEP, protectKey = null } = options;
+  const only = Object.prototype.hasOwnProperty.call(options, 'userId')
+    ? encodeURIComponent(principalKey(options.userId))
+    : null;
+  const tally = { removed: [], bytes: 0 };
+  if (!storage || typeof storage.key !== 'function' || !Number.isFinite(storage.length)) return tally;
+
+  const byPrincipal = new Map();
+  let protectedRecord = null;
+  try {
+    for (let index = 0; index < storage.length; index += 1) {
+      const key = storage.key(index);
+      if (typeof key !== 'string' || !key.startsWith(OPERATION_PREFIX)) continue;
+      const cut = key.indexOf(':', OPERATION_PREFIX.length);
+      if (cut === -1) continue;
+      const principal = key.slice(OPERATION_PREFIX.length, cut);
+      if (only !== null && principal !== only) continue;
+      const createdAt = parseJson(storage, key, null)?.createdAt;
+      const record = { key, createdAt: Number.isFinite(createdAt) ? createdAt : 0 };
+      if (key === protectKey) {
+        protectedRecord = { principal, record };
+        continue;
+      }
+      if (!byPrincipal.has(principal)) byPrincipal.set(principal, []);
+      byPrincipal.get(principal).push(record);
+    }
+  } catch {
+    return tally;
+  }
+  const replayOrder = (a, b) => a.createdAt - b.createdAt || a.key.localeCompare(b.key);
+
+  const owner = parseJson(storage, CURRENT_OWNER_KEY, null);
+  for (const [principal, records] of byPrincipal) {
+    if (records.length <= keep) continue;
+    let userId;
+    try {
+      const decoded = decodeURIComponent(principal);
+      userId = decoded === ANONYMOUS ? null : decoded;
+    } catch {
+      continue;
+    }
+    // Only keys this module wrote, so the replay below reads the same records.
+    if (encodeURIComponent(principalKey(userId)) !== principal) continue;
+    if (!userId && (!owner || owner === ANONYMOUS)) continue;
+
+    // Oldest first, as readPendingOperations orders them.
+    records.sort(replayOrder);
+    let count = records.length - keep;
+    // Only a run of the oldest records folds in boot's order. The record being
+    // written right now stays, so the run stops where that record sorts. A
+    // newer record folded into the snapshot would be replayed before it, and
+    // its older value for an item both changed would come back.
+    if (protectedRecord?.principal === principal) {
+      const newer = records.findIndex((record) => replayOrder(record, protectedRecord.record) > 0);
+      if (newer !== -1) count = Math.min(count, newer);
+    }
+    if (count <= 0) continue;
+    const dropKeys = new Set(records.slice(0, count).map((record) => record.key));
+    const dropped = readPendingOperations(storage, userId).filter((operation) => dropKeys.has(operation.key));
+    if (dropped.length > 0) {
+      const journal = parseJson(storage, JOURNAL_KEY, null);
+      if (journal && journal.snapshotKey === dataKey(userId)) continue;
+      const snapshot = readPrincipalData(storage, userId);
+      if (!snapshot.found) continue;
+      const folded = replayOperations(snapshot.data, dropped).data;
+      if (!sameValue(folded, snapshot.data)) {
+        try {
+          storage.setItem(dataKey(userId), JSON.stringify(folded));
+        } catch {
+          continue;
+        }
+      }
+    }
+    for (const key of dropKeys) {
+      let bytes = key.length;
+      try { bytes += (storage.getItem(key) || '').length; } catch { /* size is only reported */ }
+      try {
+        storage.removeItem(key);
+        tally.removed.push(key);
+        tally.bytes += bytes;
+      } catch { /* folded already; the next sweep tries again */ }
+    }
+  }
+  return tally;
+}
+
 function reconcileDirty(field, entry, remote) {
   if (isItemDelta(entry)) return applyItemDelta(entry, remote);
   const local = entry.value;
@@ -830,6 +947,30 @@ function acknowledgeRemoteOperationParts(storage, operations) {
       // idempotent, so a later retry cannot erase the already-synced value.
     }
   }
+}
+
+/** The outbox as it stands after a push was acknowledged, with each record the
+ *  push had captured and a tab then added to measured from the value that was
+ *  sent. Such a record still carries the base from before the push, folded,
+ *  and folding can hide an edit made in flight: a note added, sent, then
+ *  deleted is, to the folded record, a note never touched, so replayed onto
+ *  the acknowledged payload it left the note there. Item deltas keep their
+ *  removals and replay as they are. */
+function sinceCaptured(captured, remaining) {
+  const sentByKey = new Map(captured.map((operation) => [operation.key, operation.changes]));
+  const has = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
+  return remaining.map((operation) => {
+    const sent = sentByKey.get(operation.key);
+    if (!sent) return operation;
+    const changes = {};
+    for (const [field, change] of Object.entries(operation.changes)) {
+      const before = sent[field];
+      changes[field] = before && !isItemDelta(change) && has(before, 'value') && has(change, 'value')
+        ? { base: before.value, value: change.value }
+        : change;
+    }
+    return { ...operation, changes };
+  });
 }
 
 function fromRemoteRow(row) {
@@ -1125,7 +1266,7 @@ export function createUserDataSync({
         phase: 'error',
         error: publicError(
           'LOCAL_MIRROR_FAILED',
-          'บันทึกการเปลี่ยนแปลงไว้แล้ว แต่ยังจัด snapshot ในเครื่องไม่สำเร็จ',
+          KEPT_ON_DEVICE,
           false,
         ),
       }));
@@ -1173,10 +1314,12 @@ export function createUserDataSync({
   const reclaimForQuota = () => {
     let bytes = 0;
     try { bytes += compactSyncRecords(storage).bytes; } catch { /* keep going */ }
+    try { bytes += reclaim(storage, { today: todayKey() }).bytes; } catch { /* keep going */ }
+    // Old outbox records go only once their edits are in the snapshot; one
+    // may belong to another window that has not compacted yet.
     try {
-      bytes += reclaim(storage, {
-        today: todayKey(),
-        operationPrefix: operationKeyPrefix(userId),
+      bytes += sweepOutbox(storage, {
+        userId,
         protectKey: `${operationKeyPrefix(userId)}${instanceId}`,
       }).bytes;
     } catch { /* keep going */ }
@@ -1314,7 +1457,7 @@ export function createUserDataSync({
       publish(merged, syncShape({
         phase: hasPending ? 'pending' : 'synced',
         error: commit.mirrorError
-          ? publicError('LOCAL_MIRROR_FAILED', 'ข้อมูลปลอดภัยใน recovery journal และจะลองจัดเก็บอีกครั้ง')
+          ? publicError('LOCAL_MIRROR_FAILED', KEPT_ON_DEVICE)
           : null,
       }));
       if (hasPending) schedule('flush', debounceMs);
@@ -1465,7 +1608,9 @@ export function createUserDataSync({
 
       acknowledgeRemoteOperationParts(storage, capturedOperations);
       const remainingOperations = readPendingOperations(storage, userId);
-      const afterAck = replayOperations(rebasedData, remainingOperations);
+      // What was sent is now the account's copy; the edits made while it was
+      // in flight go on top of it.
+      const afterAck = replayOperations(rebasedData, sinceCaptured(capturedOperations, remainingOperations));
       const remainingDirty = {};
       for (const field of afterAck.touched) {
         const definition = USER_DATA_FIELDS[field];
@@ -1683,7 +1828,7 @@ export function createUserDataSync({
         )
         : 'local-only',
       error: edit.mirrorError
-        ? publicError('LOCAL_MIRROR_FAILED', 'ข้อมูลปลอดภัยใน recovery journal และจะลองจัดเก็บอีกครั้ง')
+        ? publicError('LOCAL_MIRROR_FAILED', KEPT_ON_DEVICE)
         : null,
     }));
     // The outbox record no longer carries an earlier change this edit undid,

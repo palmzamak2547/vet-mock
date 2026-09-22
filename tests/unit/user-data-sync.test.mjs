@@ -258,6 +258,71 @@ test('an edit made during an in-flight push is sent in a follow-up flush', async
   sync.close();
 });
 
+test('a note deleted while the push that added it is still in flight stays deleted', async () => {
+  // The acknowledgement replayed the outbox record onto the payload it had
+  // just sent. That record keeps the base from before the note existed, so
+  // after the deletion folded in it no longer mentioned the note at all, and
+  // replayed onto a payload that held the note it left the note there: the
+  // note came back on screen and the next flush sent it to the account.
+  const storage = new MemoryStorage();
+  let row = { notes: {}, custom_questions: [] };
+  const pushes = [];
+  let releaseFirstPush = null;
+  const remote = {
+    async pull() {
+      return clone(row);
+    },
+    async push(userId, payload) {
+      pushes.push(clone(payload));
+      if (pushes.length === 1) await new Promise((resolve) => { releaseFirstPush = resolve; });
+      row = { user_id: userId, ...clone(payload) };
+    },
+  };
+  const sync = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote, debounceMs: 0 });
+  sync.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  await settle();
+
+  sync.send({
+    type: 'CHANGE',
+    principalId: 'user-1',
+    derive: (d) => ({
+      notes: { ...d.notes, q1: 'draft' },
+      customQuestions: [...d.customQuestions, { id: 'cq-1', q: 'draft question' }],
+    }),
+  });
+  await settle();
+  assert.equal(pushes.length, 1, 'the push that adds the note is in flight');
+  assert.equal(pushes[0].notes.q1, 'draft');
+
+  sync.send({
+    type: 'CHANGE',
+    principalId: 'user-1',
+    derive: (d) => {
+      const notes = { ...d.notes };
+      delete notes.q1;
+      return { notes, customQuestions: d.customQuestions.filter((q) => q.id !== 'cq-1') };
+    },
+  });
+  assert.equal(sync.getSnapshot().data.notes.q1, undefined);
+
+  releaseFirstPush();
+  await settle(60);
+
+  assert.equal(sync.getSnapshot().data.notes.q1, undefined, 'the acknowledgement does not bring the note back');
+  assert.deepEqual(sync.getSnapshot().data.customQuestions, [], 'nor the deleted question');
+  assert.ok(pushes.length >= 2, 'the deletion is sent after the acknowledgement');
+  assert.equal(row.notes.q1, undefined, 'the account no longer has the note');
+  assert.deepEqual(row.custom_questions, [], 'nor the question');
+  assert.equal(sync.getSnapshot().sync.pending, false);
+  sync.close();
+
+  const reopened = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote, debounceMs: 0 });
+  reopened.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  assert.equal(reopened.getSnapshot().data.notes.q1, undefined, 'a reload does not bring it back either');
+  assert.deepEqual(reopened.getSnapshot().data.customQuestions, []);
+  reopened.close();
+});
+
 test('a late response from the previous account cannot replace the active account', async () => {
   const storage = new MemoryStorage();
   const lifecycle = createLifecycle(true);
@@ -940,6 +1005,231 @@ test('a sent exam result and a reset streak stay gone once the snapshot has caug
   assert.deepEqual(rebooted.getSnapshot().data.pendingExamResults, [], 'a reboot does not queue it again');
   assert.deepEqual(rebooted.getSnapshot().data.streakData, { streak: 0, lastDate: null });
   rebooted.close(); a.close(); b.close();
+});
+
+// ── Sweeping old outbox records ──────────────────────────────────
+// A window writes its snapshot a few seconds after its last edit, so for those
+// seconds the edit lives only in its outbox record. The sweeps keep the newest
+// four records per account, and a window opened before the others holds the
+// oldest one.
+
+const writeNote = (store, key, principalId = 'user-1') => store.send({
+  type: 'CHANGE', principalId, derive: (d) => ({ notes: { ...d.notes, [key]: `note ${key}` } }),
+});
+
+/** Window A with an edit not yet in the snapshot, whose record is the oldest
+ *  of five unpushed ones. Offline all along, so nothing is pushed. */
+async function fiveRecordsAndALiveEdit() {
+  const storage = new MemoryStorage();
+  const remote = fakeRemote({ notes: {} });
+  const setup = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
+  setup.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  await settle();
+  setup.close();
+
+  let clock = 1_000;
+  const lifeA = createLifecycle(false); const idleA = manualIdle();
+  const a = createUserDataSync({ storage, lifecycle: lifeA, remote, debounceMs: 60_000, scheduler: never, idle: idleA, now: () => clock });
+  a.subscribe(() => {});
+  a.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  writeNote(a, 'a1');
+  idleA.run();
+  for (let i = 0; i < 4; i += 1) {
+    clock += 1_000;
+    const reload = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle(), now: () => clock });
+    reload.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+    writeNote(reload, `c${i}`);
+    reload.close();
+    lifeA.emit('storage');
+  }
+  const lifeB = createLifecycle(false);
+  const b = createUserDataSync({ storage, lifecycle: lifeB, remote, debounceMs: 60_000, scheduler: never, idle: manualIdle(), now: () => clock + 5_000 });
+  b.subscribe(() => {});
+  b.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  clock += 1_000;
+  writeNote(a, 'a2');
+  lifeB.emit('storage');
+  assert.equal(outboxKeys(storage, 'user-1').length, 5);
+  assert.equal(snapshotOf(storage, 'user-1').notes.a2, undefined, 'the edit is only in A’s outbox record');
+  return { storage, remote, a, b, lifeA, idleA };
+}
+
+test('reclaiming room on a full disk keeps an edit another window has not compacted yet', async () => {
+  const { storage, remote, a, b, lifeA, idleA } = await fiveRecordsAndALiveEdit();
+  // B's own record cannot be written until the reclaim frees an outbox key.
+  const realSet = storage.setItem.bind(storage);
+  const realRemove = storage.removeItem.bind(storage);
+  let full = true;
+  storage.setItem = (key, value) => {
+    if (full && key.startsWith('vmx-user-op-v1:')) {
+      const error = new Error('The quota has been exceeded.');
+      error.name = 'QuotaExceededError';
+      throw error;
+    }
+    realSet(key, value);
+  };
+  storage.removeItem = (key) => { realRemove(key); if (key.startsWith('vmx-user-op-v1:')) full = false; };
+
+  assert.equal(writeNote(b, 'b1').accepted, true, 'the reclaim made room for the new edit');
+  assert.ok(outboxKeys(storage, 'user-1').length <= 5, 'an old record went');
+  lifeA.emit('storage');
+  const every = ['a1', 'a2', 'c0', 'c1', 'c2', 'c3'];
+  for (const key of every) assert.equal(a.getSnapshot().data.notes[key], `note ${key}`, `window A still shows ${key}`);
+  idleA.run();
+  a.close();
+  const reopened = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote, idle: manualIdle() });
+  reopened.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  for (const key of every) assert.equal(reopened.getSnapshot().data.notes[key], `note ${key}`, `a reload shows ${key}`);
+  reopened.close(); b.close();
+});
+
+test('the outbox sweep folds what it drops, and drops nothing it cannot fold', async () => {
+  const { sweepOutbox } = await import('../../src/lib/user-data-sync.js');
+  {
+    const { storage, a, b } = await fiveRecordsAndALiveEdit();
+    const out = sweepOutbox(storage);
+    assert.equal(out.removed.length, 1, 'the oldest of five goes');
+    assert.equal(outboxKeys(storage, 'user-1').length, 4);
+    assert.equal(snapshotOf(storage, 'user-1').notes.a2, 'note a2', 'after its edit reached the snapshot');
+    assert.deepEqual(sweepOutbox(storage).removed, [], 'four is left alone');
+    a.close(); b.close();
+  }
+  {
+    // A half-finished commit's journal would put the old snapshot back at the
+    // next boot, over the fold, so the record stays.
+    const { storage, a, b } = await fiveRecordsAndALiveEdit();
+    storage.setItem('vmx-user-sync-journal-v1', JSON.stringify({
+      version: 1, patchIsSnapshot: true, snapshot: snapshotOf(storage, 'user-1'), snapshotKey: 'vmx-user-data-v1:user-1',
+    }));
+    assert.deepEqual(sweepOutbox(storage).removed, []);
+    assert.equal(outboxKeys(storage, 'user-1').length, 5);
+    a.close(); b.close();
+  }
+  {
+    // No snapshot to fold into: nothing goes.
+    const { storage, a, b } = await fiveRecordsAndALiveEdit();
+    storage.removeItem('vmx-user-data-v1:user-1');
+    assert.deepEqual(sweepOutbox(storage).removed, []);
+    a.close(); b.close();
+  }
+  {
+    // The snapshot cannot be written: nothing goes.
+    const { storage, a, b } = await fiveRecordsAndALiveEdit();
+    const realSet = storage.setItem.bind(storage);
+    storage.setItem = (key, value) => {
+      if (key === 'vmx-user-data-v1:user-1') { const e = new Error('full'); e.name = 'QuotaExceededError'; throw e; }
+      realSet(key, value);
+    };
+    assert.deepEqual(sweepOutbox(storage).removed, []);
+    assert.equal(outboxKeys(storage, 'user-1').length, 5);
+    a.close(); b.close();
+  }
+  {
+    // A record being written right now stays, and `userId` limits the sweep.
+    const { storage, a, b } = await fiveRecordsAndALiveEdit();
+    const byAge = outboxKeys(storage, 'user-1')
+      .map((key) => ({ key, createdAt: JSON.parse(storage.getItem(key)).createdAt }))
+      .sort((x, y) => x.createdAt - y.createdAt)
+      .map(({ key }) => key);
+    assert.deepEqual(sweepOutbox(storage, { userId: 'someone-else' }).removed, []);
+    assert.deepEqual(sweepOutbox(storage, { userId: 'user-1', protectKey: byAge[4] }).removed, []);
+    // Nothing newer than the protected record is folded ahead of it.
+    assert.deepEqual(sweepOutbox(storage, { userId: 'user-1', keep: 3, protectKey: byAge[0] }).removed, []);
+    assert.ok(storage.getItem(byAge[0]), 'the protected record survives');
+    const out = sweepOutbox(storage, { userId: 'user-1', keep: 3, protectKey: byAge[4] });
+    assert.deepEqual(out.removed, [byAge[0]]);
+    assert.ok(storage.getItem(byAge[4]), 'the protected record survives');
+    a.close(); b.close();
+  }
+  {
+    // A signed-out device's own records are folded by boot, into the fields'
+    // own keys as well, so the sweep leaves them alone.
+    const storage = new MemoryStorage();
+    for (let i = 0; i < 6; i += 1) {
+      storage.setItem(`vmx-user-op-v1:anonymous:tab-${i}`, JSON.stringify({
+        version: 1, token: `tab-${i}:1`, createdAt: i, changes: { bookmarks: { put: [i], removed: [] } },
+      }));
+    }
+    storage.setItem('vmx-user-sync-owner-v1', JSON.stringify('anonymous'));
+    assert.deepEqual(sweepOutbox(storage).removed, []);
+  }
+});
+
+test('reclaiming room never replays a newer rating under the record being written', async () => {
+  // The window writing right now keeps its record, and it can be the oldest:
+  // it rated a card at nine, another window rated the same card again at ten.
+  // Folding the ten o'clock record into the snapshot put it under the nine
+  // o'clock one, and the older rating came back.
+  const { sweepOutbox } = await import('../../src/lib/user-data-sync.js');
+  const seed = () => {
+    const storage = new MemoryStorage();
+    storage.setItem('vmx-user-sync-owner-v1', JSON.stringify('user-1'));
+    storage.setItem('vmx-user-data-v1:user-1', JSON.stringify({ srCards: { k: { box: 3 } } }));
+    const record = (id, createdAt, changes) => storage.setItem(`vmx-user-op-v1:user-1:${id}`, JSON.stringify({
+      version: 1, token: `${id}:1`, createdAt, changes,
+    }));
+    record('writing', 1, { srCards: { base: {}, value: { k: { box: 1 } } } });
+    record('later', 2, { srCards: { base: { k: { box: 1 } }, value: { k: { box: 3 } } } });
+    for (let i = 0; i < 4; i += 1) record(`other-${i}`, 3 + i, { notes: { base: {}, value: { [`n${i}`]: 'x' } } });
+    return storage;
+  };
+  const card = (storage) => {
+    const reader = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote: fakeRemote(null), idle: manualIdle() });
+    reader.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+    const value = reader.getSnapshot().data.srCards.k;
+    reader.close();
+    return value;
+  };
+  assert.deepEqual(card(seed()), { box: 3 }, 'boot shows the newer rating');
+  const storage = seed();
+  sweepOutbox(storage, { userId: 'user-1', protectKey: 'vmx-user-op-v1:user-1:writing' });
+  assert.deepEqual(card(storage), { box: 3 }, 'and still does after the sweep');
+});
+
+test('a failed write of a field’s own key says the work is kept on this device, not where', async () => {
+  // The banner used to say the data was safe "ใน recovery journal": a name
+  // for app internals, and since edits stopped going through the journal not
+  // even the place it was kept. It says what the student can rely on.
+  const kept = 'บันทึกไว้ในเครื่องแล้ว ระบบจะลองจัดเก็บให้ครบอีกครั้ง';
+  const failFieldKey = (storage) => {
+    const realSet = storage.setItem.bind(storage);
+    storage.setItem = (key, value) => {
+      if (key === 'vmx-notes') { const e = new Error('full'); e.name = 'QuotaExceededError'; throw e; }
+      realSet(key, value);
+    };
+  };
+
+  const storage = new MemoryStorage();
+  const idle = manualIdle();
+  const sync = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote: fakeRemote(null), idle });
+  failFieldKey(storage);
+  const result = sync.send({ type: 'CHANGE', principalId: null, derive: (d) => ({ notes: { ...d.notes, q1: 'kept' } }) });
+  assert.equal(result.accepted, true, 'the edit itself is kept');
+  assert.equal(sync.getSnapshot().data.notes.q1, 'kept');
+  assert.equal(sync.getSnapshot().sync.error?.code, 'LOCAL_MIRROR_FAILED');
+  assert.equal(sync.getSnapshot().sync.error.message, kept);
+  // The idle pass writes the field's key again; still failing, this is the
+  // banner that stays up.
+  idle.run();
+  assert.equal(sync.getSnapshot().sync.phase, 'error');
+  assert.equal(sync.getSnapshot().sync.error?.code, 'LOCAL_MIRROR_FAILED');
+  assert.equal(sync.getSnapshot().sync.error.message, kept);
+  assert.equal(sync.getSnapshot().data.notes.q1, 'kept');
+  sync.close();
+
+  // The same failure while an account's data is written to this device.
+  const hydrating = new MemoryStorage();
+  const account = createUserDataSync({ storage: hydrating, lifecycle: createLifecycle(true), remote: fakeRemote({ notes: { q2: 'cloud' } }), debounceMs: 60_000, scheduler: never, idle: manualIdle() });
+  failFieldKey(hydrating);
+  account.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  await settle();
+  assert.equal(account.getSnapshot().data.notes.q2, 'cloud');
+  assert.equal(account.getSnapshot().sync.error?.code, 'LOCAL_MIRROR_FAILED');
+  assert.equal(account.getSnapshot().sync.error.message, kept);
+  for (const message of [sync.getSnapshot().sync.error.message, account.getSnapshot().sync.error.message]) {
+    assert.doesNotMatch(message, /journal|outbox|snapshot/i);
+  }
+  account.close();
 });
 
 test('a record written by the previous build still loads', () => {
