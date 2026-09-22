@@ -28,6 +28,7 @@ import { hasSupabase } from '../lib/supabase.js';
 import PrivateNotes from '../components/PrivateNotes.jsx';
 
 const RANGES = [[7, '7 วัน'], [30, '30 วัน'], [90, '90 วัน'], [0, 'ทั้งหมด']];
+const rangeName = (days) => RANGES.find(([d]) => d === days)?.[1] || '';
 const SECTIONS = [
   ['overview', 'ภาพรวม'], ['questions', 'โจทย์'], ['subjects', 'วิชา'], ['people', 'คน'], ['exams', 'ชุดสอบ'],
   ['content', 'คลัง'], ['community', 'ชุมชน'], ['errors', 'ข้อผิดพลาด'], ['notes', 'บันทึก'], ['database', 'ฐานข้อมูล'], ['releases', 'เวอร์ชัน'],
@@ -343,9 +344,12 @@ function Releases() {
 
 export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 0, onlineStatus = 'disabled' }) {
   const [gate, setGate] = useState(hasSupabase ? 'checking' : 'nobackend');
+  // `range` is the chip that is pressed; `data.range` is the range the numbers
+  // on screen were loaded for. They differ while a switch is loading or after
+  // it failed, and every label next to a number follows `data.range`.
   const [range, setRange] = useState(30);
   const [data, setData] = useState(null);
-  const [err, setErr] = useState(null);
+  const [err, setErr] = useState(null); // { range, error } of the request that failed
   const [openQ, setOpenQ] = useState(null);
   const [openU, setOpenU] = useState(null);
   const [tick, setTick] = useState(0);
@@ -370,8 +374,8 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
       adminRpc('admin_users_list', { days: range }),
       adminRpc('admin_extras', { days: range }),
     ]).then(([overview, questions, subjects, users, extras]) => {
-      if (alive) setData({ overview, questions: rankQuestions(questions), subjects, users, extras });
-    }).catch((e) => { if (alive) { setErr(e); if (isForbidden(e)) setGate('denied'); } });
+      if (alive) setData({ range, overview, questions: rankQuestions(questions), subjects, users, extras });
+    }).catch((e) => { if (alive) { setErr({ range, error: e }); if (isForbidden(e)) setGate('denied'); } });
     return () => { alive = false; };
   }, [gate, range, tick]);
 
@@ -395,7 +399,11 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
   const o = data?.overview;
   const x = data?.extras;
   const flagged = (data?.questions || []).map((row) => ({ row, flags: qualityFlags(row, keyIndex(bank?.get(Number(row.question_id)))) })).filter((f) => f.flags.length);
-  const rangeLabel = RANGES.find(([d]) => d === range)?.[1] || '';
+  const rangeLabel = rangeName(data ? data.range : range);
+  const failed = err?.range === range ? err.error : null;
+  const rangeStatus = !data || data.range === range ? null
+    : failed ? `โหลดช่วง ${rangeName(range)} ไม่สำเร็จ (${failed.message}) ตัวเลขที่เห็นยังเป็นของช่วง ${rangeLabel} กดดึงใหม่เพื่อลองอีกครั้ง`
+      : `กำลังโหลดช่วง ${rangeName(range)} ตัวเลขที่เห็นยังเป็นของช่วง ${rangeLabel}`;
   const panicTotal = sum(Q_PANIC_COUNTS_BY_SUBJECT);
   const onlineText = onlineStatus === 'connected' ? n(onlineCount) : onlineStatus === 'loading' ? '…' : '—';
   const onlineSub = onlineStatus === 'connected' ? 'แท็บที่เปิดอยู่ตอนนี้ รวมของคุณ' : onlineStatus === 'loading' ? 'กำลังต่อ realtime' : 'realtime ไม่ต่อ';
@@ -408,6 +416,7 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
         <div>
           <h1>หลังบ้าน</h1>
           <p>สถิติทั้งหมดของ VetMock อ่านสดจากฐานข้อมูล เห็นได้เฉพาะบัญชีนี้ ตัวเลขที่ขึ้นกับช่วงเวลาคือช่วง {rangeLabel}{o?.generated_at ? `, ดึงเมื่อ ${fmtWhen(o.generated_at)}` : ''}</p>
+          {rangeStatus && <p role="status">{rangeStatus}</p>}
         </div>
         <div className="ad-range" role="group" aria-label="ช่วงเวลา">
           {RANGES.map(([d, label]) => <button key={d} type="button" className={d === range ? 'is-on' : ''} aria-pressed={d === range} onClick={() => { setRange(d); setOpenQ(null); setOpenU(null); }}>{label}</button>)}
@@ -419,8 +428,8 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
         {SECTIONS.map(([id, label]) => <a key={id} href={`#ad-${id}`}>{label}</a>)}
       </nav>
 
-      {err && !isForbidden(err) && <div className="ad-card"><p className="ad-muted">โหลดไม่สำเร็จ: {err.message}</p></div>}
-      {!data && !err && <div className="ad-card"><div className="ad-skeleton" style={{ width: '40%', marginBottom: 10 }} /><div className="ad-skeleton" style={{ width: '70%' }} /></div>}
+      {failed && !rangeStatus && !isForbidden(failed) && <div className="ad-card"><p className="ad-muted">โหลดไม่สำเร็จ: {failed.message}</p></div>}
+      {!data && !failed && <div className="ad-card"><div className="ad-skeleton" style={{ width: '40%', marginBottom: 10 }} /><div className="ad-skeleton" style={{ width: '70%' }} /></div>}
 
       {data && (
         <>
@@ -437,7 +446,7 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
 
           <section className="ad-card">
             <div className="ad-card-head"><h2>ข้อที่ตอบต่อวัน</h2><p>ทุกคนรวมกัน เอาเมาส์วางเพื่อดูวันนั้น</p></div>
-            <DailyChart daily={o.daily} days={range} />
+            <DailyChart daily={o.daily} days={data.range} />
           </section>
 
           <section id="ad-questions" className="ad-card">
