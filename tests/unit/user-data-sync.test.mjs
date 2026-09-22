@@ -1007,6 +1007,150 @@ test('a sent exam result and a reset streak stay gone once the snapshot has caug
   rebooted.close(); a.close(); b.close();
 });
 
+// ── Sweeping old outbox records ──────────────────────────────────
+// A window writes its snapshot a few seconds after its last edit, so for those
+// seconds the edit lives only in its outbox record. The sweeps keep the newest
+// four records per account, and a window opened before the others holds the
+// oldest one.
+
+const writeNote = (store, key, principalId = 'user-1') => store.send({
+  type: 'CHANGE', principalId, derive: (d) => ({ notes: { ...d.notes, [key]: `note ${key}` } }),
+});
+
+/** Window A with an edit not yet in the snapshot, whose record is the oldest
+ *  of five unpushed ones. Offline all along, so nothing is pushed. */
+async function fiveRecordsAndALiveEdit() {
+  const storage = new MemoryStorage();
+  const remote = fakeRemote({ notes: {} });
+  const setup = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
+  setup.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  await settle();
+  setup.close();
+
+  let clock = 1_000;
+  const lifeA = createLifecycle(false); const idleA = manualIdle();
+  const a = createUserDataSync({ storage, lifecycle: lifeA, remote, debounceMs: 60_000, scheduler: never, idle: idleA, now: () => clock });
+  a.subscribe(() => {});
+  a.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  writeNote(a, 'a1');
+  idleA.run();
+  for (let i = 0; i < 4; i += 1) {
+    clock += 1_000;
+    const reload = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle(), now: () => clock });
+    reload.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+    writeNote(reload, `c${i}`);
+    reload.close();
+    lifeA.emit('storage');
+  }
+  const lifeB = createLifecycle(false);
+  const b = createUserDataSync({ storage, lifecycle: lifeB, remote, debounceMs: 60_000, scheduler: never, idle: manualIdle(), now: () => clock + 5_000 });
+  b.subscribe(() => {});
+  b.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  clock += 1_000;
+  writeNote(a, 'a2');
+  lifeB.emit('storage');
+  assert.equal(outboxKeys(storage, 'user-1').length, 5);
+  assert.equal(snapshotOf(storage, 'user-1').notes.a2, undefined, 'the edit is only in A’s outbox record');
+  return { storage, remote, a, b, lifeA, idleA };
+}
+
+test('reclaiming room on a full disk keeps an edit another window has not compacted yet', async () => {
+  const { storage, remote, a, b, lifeA, idleA } = await fiveRecordsAndALiveEdit();
+  // B's own record cannot be written until the reclaim frees an outbox key.
+  const realSet = storage.setItem.bind(storage);
+  const realRemove = storage.removeItem.bind(storage);
+  let full = true;
+  storage.setItem = (key, value) => {
+    if (full && key.startsWith('vmx-user-op-v1:')) {
+      const error = new Error('The quota has been exceeded.');
+      error.name = 'QuotaExceededError';
+      throw error;
+    }
+    realSet(key, value);
+  };
+  storage.removeItem = (key) => { realRemove(key); if (key.startsWith('vmx-user-op-v1:')) full = false; };
+
+  assert.equal(writeNote(b, 'b1').accepted, true, 'the reclaim made room for the new edit');
+  assert.ok(outboxKeys(storage, 'user-1').length <= 5, 'an old record went');
+  lifeA.emit('storage');
+  const every = ['a1', 'a2', 'c0', 'c1', 'c2', 'c3'];
+  for (const key of every) assert.equal(a.getSnapshot().data.notes[key], `note ${key}`, `window A still shows ${key}`);
+  idleA.run();
+  a.close();
+  const reopened = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote, idle: manualIdle() });
+  reopened.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  for (const key of every) assert.equal(reopened.getSnapshot().data.notes[key], `note ${key}`, `a reload shows ${key}`);
+  reopened.close(); b.close();
+});
+
+test('the outbox sweep folds what it drops, and drops nothing it cannot fold', async () => {
+  const { sweepOutbox } = await import('../../src/lib/user-data-sync.js');
+  {
+    const { storage, a, b } = await fiveRecordsAndALiveEdit();
+    const out = sweepOutbox(storage);
+    assert.equal(out.removed.length, 1, 'the oldest of five goes');
+    assert.equal(outboxKeys(storage, 'user-1').length, 4);
+    assert.equal(snapshotOf(storage, 'user-1').notes.a2, 'note a2', 'after its edit reached the snapshot');
+    assert.deepEqual(sweepOutbox(storage).removed, [], 'four is left alone');
+    a.close(); b.close();
+  }
+  {
+    // A half-finished commit's journal would put the old snapshot back at the
+    // next boot, over the fold, so the record stays.
+    const { storage, a, b } = await fiveRecordsAndALiveEdit();
+    storage.setItem('vmx-user-sync-journal-v1', JSON.stringify({
+      version: 1, patchIsSnapshot: true, snapshot: snapshotOf(storage, 'user-1'), snapshotKey: 'vmx-user-data-v1:user-1',
+    }));
+    assert.deepEqual(sweepOutbox(storage).removed, []);
+    assert.equal(outboxKeys(storage, 'user-1').length, 5);
+    a.close(); b.close();
+  }
+  {
+    // No snapshot to fold into: nothing goes.
+    const { storage, a, b } = await fiveRecordsAndALiveEdit();
+    storage.removeItem('vmx-user-data-v1:user-1');
+    assert.deepEqual(sweepOutbox(storage).removed, []);
+    a.close(); b.close();
+  }
+  {
+    // The snapshot cannot be written: nothing goes.
+    const { storage, a, b } = await fiveRecordsAndALiveEdit();
+    const realSet = storage.setItem.bind(storage);
+    storage.setItem = (key, value) => {
+      if (key === 'vmx-user-data-v1:user-1') { const e = new Error('full'); e.name = 'QuotaExceededError'; throw e; }
+      realSet(key, value);
+    };
+    assert.deepEqual(sweepOutbox(storage).removed, []);
+    assert.equal(outboxKeys(storage, 'user-1').length, 5);
+    a.close(); b.close();
+  }
+  {
+    // A record being written right now stays, and `userId` limits the sweep.
+    const { storage, a, b } = await fiveRecordsAndALiveEdit();
+    const oldest = outboxKeys(storage, 'user-1')
+      .map((key) => ({ key, createdAt: JSON.parse(storage.getItem(key)).createdAt }))
+      .sort((x, y) => x.createdAt - y.createdAt)[0].key;
+    assert.deepEqual(sweepOutbox(storage, { userId: 'someone-else' }).removed, []);
+    assert.deepEqual(sweepOutbox(storage, { userId: 'user-1', protectKey: oldest }).removed, []);
+    const out = sweepOutbox(storage, { userId: 'user-1', keep: 3, protectKey: oldest });
+    assert.equal(out.removed.length, 1);
+    assert.ok(storage.getItem(oldest), 'the protected record survives');
+    a.close(); b.close();
+  }
+  {
+    // A signed-out device's own records are folded by boot, into the fields'
+    // own keys as well, so the sweep leaves them alone.
+    const storage = new MemoryStorage();
+    for (let i = 0; i < 6; i += 1) {
+      storage.setItem(`vmx-user-op-v1:anonymous:tab-${i}`, JSON.stringify({
+        version: 1, token: `tab-${i}:1`, createdAt: i, changes: { bookmarks: { put: [i], removed: [] } },
+      }));
+    }
+    storage.setItem('vmx-user-sync-owner-v1', JSON.stringify('anonymous'));
+    assert.deepEqual(sweepOutbox(storage).removed, []);
+  }
+});
+
 test('a record written by the previous build still loads', () => {
   // Old-shape records with a full `base` are sitting in storage at upgrade
   // time; refusing them would drop changes a student already made.

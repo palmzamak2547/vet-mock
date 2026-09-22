@@ -710,6 +710,101 @@ export function compactSyncRecords(storage) {
   return result;
 }
 
+// Outbox records the storage sweeps keep per account.
+const OUTBOX_KEEP = 4;
+
+/**
+ * Trim each account's outbox to its newest few records without losing an edit.
+ *
+ * A signed-in record stays until a push is acknowledged, so records pile up,
+ * one per page load, while a student is offline, and the sweeps keep only the
+ * newest few. An older record is not always a copy of what the snapshot
+ * holds: a window writes its snapshot a few seconds after its last edit, and
+ * until then the edit lives only in that window's record, which is the oldest
+ * one when that window was opened first. So each record that goes is first
+ * replayed onto its account's snapshot, in the order boot replays it, and
+ * every reader, the open windows included, computes the same data as before.
+ * Nothing is dropped for an account whose snapshot cannot be read or written,
+ * or that a half-finished commit's journal would overwrite at the next boot.
+ * The signed-out records of a signed-out device are left to boot, which folds
+ * them into the fields' own keys as well.
+ *
+ * @param {object} storage
+ * @param {{ keep?: number, userId?: string|null, protectKey?: string|null }} [options]
+ *   `userId` limits the sweep to one account (null is the signed-out one);
+ *   `protectKey` is a record being written right now, which always stays.
+ * @returns {{ removed: string[], bytes: number }}
+ */
+export function sweepOutbox(storage, options = {}) {
+  const { keep = OUTBOX_KEEP, protectKey = null } = options;
+  const only = Object.prototype.hasOwnProperty.call(options, 'userId')
+    ? encodeURIComponent(principalKey(options.userId))
+    : null;
+  const tally = { removed: [], bytes: 0 };
+  if (!storage || typeof storage.key !== 'function' || !Number.isFinite(storage.length)) return tally;
+
+  const byPrincipal = new Map();
+  try {
+    for (let index = 0; index < storage.length; index += 1) {
+      const key = storage.key(index);
+      if (typeof key !== 'string' || !key.startsWith(OPERATION_PREFIX) || key === protectKey) continue;
+      const cut = key.indexOf(':', OPERATION_PREFIX.length);
+      if (cut === -1) continue;
+      const principal = key.slice(OPERATION_PREFIX.length, cut);
+      if (only !== null && principal !== only) continue;
+      const createdAt = parseJson(storage, key, null)?.createdAt;
+      if (!byPrincipal.has(principal)) byPrincipal.set(principal, []);
+      byPrincipal.get(principal).push({ key, createdAt: Number.isFinite(createdAt) ? createdAt : 0 });
+    }
+  } catch {
+    return tally;
+  }
+
+  const owner = parseJson(storage, CURRENT_OWNER_KEY, null);
+  for (const [principal, records] of byPrincipal) {
+    if (records.length <= keep) continue;
+    let userId;
+    try {
+      const decoded = decodeURIComponent(principal);
+      userId = decoded === ANONYMOUS ? null : decoded;
+    } catch {
+      continue;
+    }
+    // Only keys this module wrote, so the replay below reads the same records.
+    if (encodeURIComponent(principalKey(userId)) !== principal) continue;
+    if (!userId && (!owner || owner === ANONYMOUS)) continue;
+
+    // Oldest first, as readPendingOperations orders them.
+    records.sort((a, b) => a.createdAt - b.createdAt || a.key.localeCompare(b.key));
+    const dropKeys = new Set(records.slice(0, records.length - keep).map((record) => record.key));
+    const dropped = readPendingOperations(storage, userId).filter((operation) => dropKeys.has(operation.key));
+    if (dropped.length > 0) {
+      const journal = parseJson(storage, JOURNAL_KEY, null);
+      if (journal && journal.snapshotKey === dataKey(userId)) continue;
+      const snapshot = readPrincipalData(storage, userId);
+      if (!snapshot.found) continue;
+      const folded = replayOperations(snapshot.data, dropped).data;
+      if (!sameValue(folded, snapshot.data)) {
+        try {
+          storage.setItem(dataKey(userId), JSON.stringify(folded));
+        } catch {
+          continue;
+        }
+      }
+    }
+    for (const key of dropKeys) {
+      let bytes = key.length;
+      try { bytes += (storage.getItem(key) || '').length; } catch { /* size is only reported */ }
+      try {
+        storage.removeItem(key);
+        tally.removed.push(key);
+        tally.bytes += bytes;
+      } catch { /* folded already; the next sweep tries again */ }
+    }
+  }
+  return tally;
+}
+
 function reconcileDirty(field, entry, remote) {
   if (isItemDelta(entry)) return applyItemDelta(entry, remote);
   const local = entry.value;
@@ -1197,10 +1292,12 @@ export function createUserDataSync({
   const reclaimForQuota = () => {
     let bytes = 0;
     try { bytes += compactSyncRecords(storage).bytes; } catch { /* keep going */ }
+    try { bytes += reclaim(storage, { today: todayKey() }).bytes; } catch { /* keep going */ }
+    // Old outbox records go only once their edits are in the snapshot; one
+    // may belong to another window that has not compacted yet.
     try {
-      bytes += reclaim(storage, {
-        today: todayKey(),
-        operationPrefix: operationKeyPrefix(userId),
+      bytes += sweepOutbox(storage, {
+        userId,
         protectKey: `${operationKeyPrefix(userId)}${instanceId}`,
       }).bytes;
     } catch { /* keep going */ }

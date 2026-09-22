@@ -19,18 +19,18 @@ window.addEventListener('vite:preloadError', () => {
 // never competes with first paint, and it never touches a student's own work.
 window.addEventListener('load', () => {
   const sweep = () => {
-    Promise.all([import('./storage-gc.js'), import('./daily-q.js')])
-      .then(([gc, daily]) => {
+    Promise.all([import('./storage-gc.js'), import('./daily-q.js'), import('./user-data-sync.js')])
+      .then(([gc, daily, sync]) => {
         const freed = gc.sweepStaleKeys(window.localStorage, { today: daily.todayKey() });
         // Outbox records from tabs that were closed or crashed are the other
         // family that accumulates, and nothing swept them until a write
-        // failed. The prefix is read off the keys themselves so this module
-        // never has to know how user ids are encoded.
-        for (const prefix of gc.outboxPrefixes(window.localStorage)) {
-          const dropped = gc.sweepOldOperations(window.localStorage, prefix);
-          freed.removed.push(...dropped.removed);
-          freed.bytes += dropped.bytes;
-        }
+        // failed. An older record is not always a copy of the snapshot:
+        // another open window writes its snapshot a few seconds after its
+        // last edit. The sync module folds each record into its account's
+        // snapshot before the record goes.
+        const dropped = sync.sweepOutbox(window.localStorage);
+        freed.removed.push(...dropped.removed);
+        freed.bytes += dropped.bytes;
         if (freed.removed.length) {
           console.info(`[storage] reclaimed ${freed.removed.length} dead key(s), ${(freed.bytes / 1024).toFixed(0)} KB`);
         }
