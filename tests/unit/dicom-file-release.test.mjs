@@ -31,6 +31,9 @@ import { createRequire, registerHooks } from 'node:module';
 import { pathToFileURL } from 'node:url';
 // The registry module itself (no package export for it; same path the audit probe used).
 import fileManager from '../../node_modules/@cornerstonejs/dicom-image-loader/dist/esm/imageLoader/wadouri/fileManager.js';
+import { parsedDataSetFor, rememberParsedDataSet, forgetParsedDataSet } from '../../src/lib/dicom/parsed-dataset.js';
+import { TAG_DICT } from '../../src/lib/dicom/tag-dict.js';
+import { isAnonymizedTagName } from '../../src/lib/dicom/anonymizer.js';
 
 const ROOT = resolve(process.cwd());
 const nodeModule = (p) => pathToFileURL(join(ROOT, 'node_modules', p)).href;
@@ -119,7 +122,12 @@ function dicomBytes(species) {
     element(0x0010, 0x2201, 'LO', even(Buffer.from(species), 0x20)),
   ]);
 }
-const dcm = (name, species = 'CANINE') => new File([dicomBytes(species)], name, { type: 'application/dicom' });
+/** A File that counts how often its whole contents are read. */
+class CountingFile extends File {
+  reads = 0;
+  arrayBuffer() { this.reads += 1; return super.arrayBuffer(); }
+}
+const dcm = (name, species = 'CANINE') => new CountingFile([dicomBytes(species)], name, { type: 'application/dicom' });
 
 // A decoded radiograph's footprint in the image cache (a 2k x 2k 16-bit DR plate).
 const DECODED_BYTES = 8 * 1024 * 1024;
@@ -149,11 +157,16 @@ function loadAndCacheDicomFile(imageId, decode) {
 const idleState = () => ({ cacheBytes: cache.getCacheSize(), dataSets: dataSetCacheManager.getInfo().numberOfDataSetsCached });
 
 /** Mount the shipped effect for `file`; the image decode finishes when `decode` settles. */
-function mount(file, { decode = Promise.resolve() } = {}) {
+function mount(file, { decode = Promise.resolve(), viaLoader = true } = {}) {
   const log = [];
   const releases = [];
+  const parses = [];
   const viewport = {
-    async setStack([imageId]) { viewport.csImage = await loadAndCacheDicomFile(imageId, decode); },
+    async setStack([imageId]) {
+      // viaLoader false: an image whose parsed file is not in the loader's dataset cache.
+      if (!viaLoader) { await decode; viewport.csImage = { imageId: null }; return; }
+      viewport.csImage = await loadAndCacheDicomFile(imageId, decode);
+    },
     render() {}, setProperties() {}, resetProperties() {}, resetCamera() {}, csImage: null,
   };
   const toolGroup = { addTool() {}, addViewport() {}, setToolActive() {}, setToolPassive() {} };
@@ -187,14 +200,15 @@ function mount(file, { decode = Promise.resolve() } = {}) {
     ToolEnums: { MouseBindings: { Primary: 1, Auxiliary: 2, Secondary: 4 } },
     applySmartContrast: () => true,
     requestAnimationFrame: (fn) => fn(),
-    dicomParser,
+    dicomParser: { parseDicom: (bytes) => { parses.push(file.name); return dicomParser.parseDicom(bytes); } },
+    rememberParsedDataSet, forgetParsedDataSet,
     Uint8Array,
     console: { error: (...args) => log.push(['console.error', String(args[1]?.message || args[1])]) },
   };
   const effect = vm.runInNewContext('(' + loadEffect() + ')', context);
   const cleanup = effect();
   assert.equal(typeof cleanup, 'function', 'the effect must return its cleanup');
-  return { cleanup, log, releases, viewport };
+  return { cleanup, log, releases, parses, viewport };
 }
 
 const cachedIdOf = (m) => m.viewport.csImage?.imageId;
@@ -323,4 +337,76 @@ test('a decode that fails after leaving is neither reported nor logged, and a cl
   await settle();
   assert.ok(!early.log.some(([k]) => k === 'toolgroup'));
   assert.deepEqual(early.releases, []);
+});
+
+// ------------------------------------------------------------
+// One parse per file (audit PF-14). After Cornerstone had parsed the file to
+// draw it, the viewport read the whole File again and parsed it a second time
+// just for the species tag, and the tag inspector read and parsed it a third
+// time. The loader's parsed dataset is the one both now read.
+// ------------------------------------------------------------
+
+test('species comes from the file the loader already parsed, and that dataset goes to the tag inspector', async () => {
+  const file = dcm('thorax-lateral.dcm', 'FELINE');
+  const m = mount(file);
+  await settle();
+  assert.ok(m.log.some(([k, v]) => k === 'status' && v === 'ready'), 'the mocked load must reach ready');
+  assert.ok(m.log.some(([k, v]) => k === 'species' && v === 'FELINE'), 'the VHS reference range lost its species');
+  assert.equal(file.reads, 1, 'the viewport read the whole file again after the loader had read it');
+  assert.deepEqual(m.parses, [], 'the viewport parsed the file again after the loader had parsed it');
+  const uri = String(indexOf(cachedIdOf(m)));
+  assert.ok(parsedDataSetFor(file), 'the viewport did not hand its parsed file to the tag inspector');
+  assert.equal(parsedDataSetFor(file), dataSetCacheManager.get(uri), 'the inspector must get the loader\'s own dataset');
+
+  m.cleanup();
+  assert.equal(parsedDataSetFor(file), null, 'a closed viewport kept its parsed file reachable');
+});
+
+test('if the loader has no parsed copy, the species still comes through from one parse', async () => {
+  const file = dcm('no-loader-copy.dcm', 'CANINE');
+  const m = mount(file, { viaLoader: false });
+  await settle();
+  assert.ok(m.log.some(([k, v]) => k === 'species' && v === 'CANINE'));
+  assert.equal(m.parses.length, 1);
+  assert.equal(file.reads, 1);
+  m.cleanup();
+  assert.equal(parsedDataSetFor(file), null);
+});
+
+const INSPECTOR = readFileSync(join(ROOT, 'src/components/lab/TagInspector.jsx'), 'utf8').replace(/\r\n/g, '\n');
+
+/** Run the tag inspector's load effect for `file` and collect what it would render. */
+async function inspect(file) {
+  const anchor = 'useEffect(() => {\n    if (!file) return;';
+  const start = INSPECTOR.indexOf(anchor);
+  assert.notEqual(start, -1, 'the inspector must still load its tags in an effect on the file');
+  const end = INSPECTOR.indexOf('\n  }, [file]);', start);
+  assert.notEqual(end, -1, 'the inspector effect must still depend on the file');
+  const state = { tags: null, error: null, parses: 0 };
+  const context = {
+    file, TAG_DICT, isAnonymizedTagName, parsedDataSetFor, Uint8Array,
+    setLoading() {}, setTags: (v) => { state.tags = plain(v); }, setError: (v) => { state.error = v; },
+    dicomParser: { parseDicom: (bytes) => { state.parses += 1; return dicomParser.parseDicom(bytes); } },
+  };
+  vm.runInNewContext('(' + INSPECTOR.slice(start + 'useEffect('.length, end) + '\n  })', context)();
+  await settle();
+  return state;
+}
+
+test('the tag inspector lists the viewport\'s parsed file without reading it again, tag for tag', async () => {
+  const fresh = await inspect(dcm('inspected-alone.dcm', 'CANINE'));
+  assert.equal(fresh.error, null);
+  assert.equal(fresh.parses, 1, 'with no viewport open the inspector parses the file itself');
+  assert.ok(fresh.tags.some((t) => t.tagId === 'x00102201' && t.value.trim() === 'CANINE'));
+
+  const file = dcm('inspected-beside-viewport.dcm', 'CANINE');
+  const m = mount(file);
+  await settle();
+  const readsBefore = file.reads;
+  const shared = await inspect(file);
+  assert.equal(shared.error, null);
+  assert.equal(shared.parses, 0, 'the inspector parsed the file the viewport had already parsed');
+  assert.equal(file.reads, readsBefore, 'the inspector read the whole file again');
+  assert.deepEqual(shared.tags, fresh.tags, 'the inspector must list exactly the tags a fresh parse lists');
+  m.cleanup();
 });

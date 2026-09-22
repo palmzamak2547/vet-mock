@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useRef } from 'react';
 import dicomParser from 'dicom-parser';
 import { TAG_DICT } from '../../lib/dicom/tag-dict.js';
 import { isAnonymizedTagName } from '../../lib/dicom/anonymizer.js';
+import { parsedDataSetFor } from '../../lib/dicom/parsed-dataset.js';
 import { useModalFocus } from '../../hooks/useModalFocus.js';
 
 export default function TagInspector({ file, onClose }) {
@@ -19,8 +20,11 @@ export default function TagInspector({ file, onClose }) {
     (async () => {
       try {
         setLoading(true);
-        const buf = await file.arrayBuffer();
-        const dataSet = dicomParser.parseDicom(new Uint8Array(buf));
+        // The viewport beside this panel has usually parsed the file already
+        // to draw it; list that dataset rather than reading and parsing the
+        // whole file a second time.
+        const dataSet = parsedDataSetFor(file)
+          || dicomParser.parseDicom(new Uint8Array(await file.arrayBuffer()));
         const arr = [];
         for (const tagId of Object.keys(dataSet.elements)) {
           const el = dataSet.elements[tagId];
