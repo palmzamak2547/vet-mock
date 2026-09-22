@@ -334,3 +334,34 @@ test('Config is handed the pool it counts, so the clock and the count describe o
     'the pool handed over must be the one a Panic set is drawn from');
   assert.ok(memo.includes('const configAvailableCount = configServedPool ? configServedPool.length : null;'));
 });
+
+// ── EX-07 ────────────────────────────────────────────────────────────
+
+// ResultsView's own memo for the time it shows and shares, at wall time `now`.
+function resultsSecondsAt(now, props) {
+  const m = RESULTS.match(/const receiverDurationSec = useMemo\(\(\) => \{([\s\S]*?)\n {2}\}, \[([^\]]*)\]\);/);
+  assert.ok(m, 'ResultsView no longer memoises receiverDurationSec');
+  const ctx = vm.createContext({ completedAt: undefined, ...props, Date: { now: () => now }, Number, Math });
+  return { seconds: vm.runInContext(`(() => {${m[1]}\n})()`, ctx), deps: m[2] };
+}
+
+test('the time on Results is the time the set took, however long the review ran', () => {
+  const props = { examStartTime: 100_000, completedAt: 160_000 };
+  assert.equal(resultsSecondsAt(160_000, props).seconds, 60);
+  const later = resultsSecondsAt(460_000, props);
+  assert.equal(later.seconds, 60,
+    'five minutes in the review and a browser Back made a one-minute set read six minutes');
+  assert.match(later.deps, /completedAt/, 'the memo must follow the finish time too');
+  // A legacy path with no finish time still shows something rather than nothing.
+  assert.equal(resultsSecondsAt(460_000, { examStartTime: 100_000 }).seconds, 360);
+});
+
+test('App hands Results a finish time that does not move', () => {
+  const tag = APP.slice(APP.indexOf("{view === 'results' && <ResultsView"), APP.indexOf("{view === 'review' && <ReviewView"));
+  assert.ok(/completedAt: session\.completedAt \?\? completedAtRef\.current/.test(tag),
+    'a resumed submitted set carries submittedAt; a fresh one the time finishExam stamped');
+  // finishExam stamps the ref before it switches the view, so the first
+  // Results render already reads it.
+  const finish = APP.slice(APP.indexOf('const finishExam = async'), APP.indexOf('finishExamRef.current = finishExam;'));
+  assert.ok(finish.indexOf('completedAtRef.current = completedAt;') < finish.indexOf("setView('results');"));
+});

@@ -160,16 +160,22 @@ export default function ResultsView({
   // for "เทียบคะแนน/เวลา" (Phase 5 spec). When this user later shares
   // the same set, their own time goes into the URL for THEIR receiver.
   examStartTime,
+  // When the set was submitted. Results unmounts while the student reads the
+  // answers, and a browser Back mounts it again: timing to Date.now() made a
+  // one-minute set read six minutes after five minutes in the review, and
+  // that was the time shown, compared and shared.
+  completedAt,
 }) {
-  // Receiver's elapsed time (seconds since exam started). Round to int
+  // Receiver's elapsed time (seconds from start to submit). Round to int
   // because URL/display granularity is per-second. Null when start time
   // is missing (e.g. legacy session).
   const receiverDurationSec = useMemo(() => {
     if (!Number.isFinite(examStartTime) || examStartTime <= 0) return null;
-    const ms = Date.now() - examStartTime;
+    const end = Number.isFinite(completedAt) ? completedAt : Date.now();
+    const ms = end - examStartTime;
     if (ms <= 0) return null;
     return Math.max(1, Math.min(9999, Math.round(ms / 1000)));
-  }, [examStartTime]);
+  }, [examStartTime, completedAt]);
   const phaseLabel = selectedPhase ? PHASE_LABEL_RES[selectedPhase] : null;
   // Fire confetti once on mount for a perfect auto-graded score.
   // Lazy-imported so the canvas/animation code never hits the
