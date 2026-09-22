@@ -98,13 +98,14 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
     ctx.fillText(subject.toUpperCase(), W / 2, 1135);
   }
 
-  // Encouragement line — short Thai
+  // Encouragement line — short Thai, one tier per tier of the in-app
+  // message below, so the story says what the screen said.
   let msg = '';
   if (isWritingOnly) msg = 'เขียนไปแล้ว, ไปดูเฉลยกันใน VetMock';
-  else if (total > 0 && correct === total) msg = 'เต็มทุกข้อ รักษาระดับนี้ไว้';
-  else if (total > 0 && correct / total >= 0.8) msg = 'ใกล้แล้ว, อ่านอีกนิดเดียว';
-  else if (reached) msg = 'ผ่านครับ, ทบทวนข้อที่ผิด';
-  else if (pct >= 40) msg = 'สู้ๆ, กลับไปทบทวนเนื้อหาอีกรอบ';
+  else if (total > 0 && correct === total) msg = 'ถูกทุกข้อ รักษาระดับนี้ไว้';
+  else if (total > 0 && correct / total >= 0.8) msg = 'แม่นดีมาก ลองเพิ่มจำนวนข้อดู';
+  else if (reached) msg = 'ถึงเกณฑ์ซ้อมแล้ว ทบทวนข้อที่ผิดต่อ';
+  else if (pct >= 40) msg = 'ยังมีจุดที่ควรทบทวน เริ่มจากข้อที่ผิด';
   else msg = 'เริ่มใหม่ได้เสมอ';
   ctx.font = '400 44px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#3d342a';
