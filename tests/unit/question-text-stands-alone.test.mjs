@@ -1,0 +1,58 @@
+// ============================================================
+// question-text-stands-alone.test.mjs — the words on screen need nothing else
+// ============================================================
+// A student sees a stem, the options in shuffled order, and after answering
+// an explanation. Nothing else: no source page, no slide, no answer outline,
+// and no idea which option was "B" in the file. Three ways the bank broke that:
+//
+// 1. A past-paper stem lost its negation. swine-clinic:8042 asked which option
+//    IS a PCV-2 disease, listed four that are, and keyed "ผิดทุกข้อ" — the
+//    explanation then argued that "all wrong" meant "all right". The sat page
+//    prints "ข้อใดไม่ใช่รอยโรค…", the same as the Vet 81 copy (8241).
+// 2. Explanations named an option by letter or position ("ข้อ B ผิด",
+//    "ตัวเลือกแรก…"). Question.jsx shuffles every MCQ and letters the rows by
+//    display position, so that letter points at a different row on screen.
+// 3. Stems pointed at something only the author had open: "ตามคำอธิบาย",
+//    "โครงคำตอบข้อเขียน", "ที่กำกับไว้ว่า", a figure that is not attached.
+//    lint:question-voice reads ตามบทเรียน but not these.
+// ============================================================
+
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { BANK_REGISTRY } from '../../src/data/bank-registry.generated.js';
+import { carriesFigure } from '../../scripts/lib/question-standard.mjs';
+
+const questions = [];
+for (const entry of BANK_REGISTRY) {
+  const bank = await entry.load();
+  for (const q of (Array.isArray(bank) ? bank : [])) questions.push(q);
+}
+const find = (subject, id) => questions.find((q) => q.subject === subject && q.id === id);
+const label = (q) => `${q.subject}:${q.id}`;
+
+// The papers these three guardrails were written for. Other subjects still
+// carry older instances; widening the scope is a separate, measured change.
+const SUBJECTS = new Set(['swine-clinic', 'aquatic-clinic', 'zoonoses']);
+const inScope = questions.filter((q) => SUBJECTS.has(q.subject));
+
+// ── 1. A none-of-the-above key and its explanation agree ─────
+
+const NONE_KEY = /^\s*(?:ผิดทุกข้อ|ไม่มีข้อ(?:ใด|ไหน)?(?:กล่าว)?ถูก|none of the above)/i;
+const EVERY_OPTION_RIGHT = /ทุกข้อถูก|ถูกทุกข้อ|ถูกหมด|all (?:the )?(?:options|choices) are (?:correct|true)/i;
+
+test('a none-of-the-above key never comes with an explanation that says every option is right', () => {
+  const contradictions = questions
+    .filter((q) => Array.isArray(q.options) && Number.isInteger(q.answer))
+    .filter((q) => NONE_KEY.test(String(q.options[q.answer] ?? '')))
+    .filter((q) => EVERY_OPTION_RIGHT.test(String(q.explain || '')))
+    .map(label);
+  assert.deepEqual(contradictions, []);
+});
+
+test('the Vet 80 PCV-2 item asks for the exception, as the sat page prints it', () => {
+  const q = find('swine-clinic', 8042);
+  assert.ok(q, 'swine-clinic:8042 is missing');
+  assert.match(q.q, /ข้อใดไม่ใช่/, 'the stem must ask which option is NOT caused by PCV-2');
+  assert.equal(q.answer, 4);
+  assert.equal(q.options[4], 'ผิดทุกข้อ');
+});

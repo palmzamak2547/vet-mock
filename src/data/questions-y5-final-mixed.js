@@ -472,10 +472,10 @@ export const QB_Y5_FINAL_MIXED = [
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
     examOrigin: 'Vet 80 past paper · Vet 83 update commentary',
     tags: ['PCVAD', 'syndrome-cluster'], type: 'mcq',
-    q: 'ข้อใดเป็นโรคที่เกิดจากการติดเชื้อ Porcine circovirus type II (PCV-2)',
+    q: 'ข้อใดไม่ใช่รอยโรคที่เกิดจากการติดเชื้อ Porcine circovirus type II (PCV-2)',
     options: ['Postweaning multisystemic wasting syndrome (PMWS), necrotizing vasculitis', 'Porcine dermatitis and nephropathy syndrome (PDNS), reproductive failure', 'Porcine respiratory disease complex (PRDC), proliferative and necrotizing pneumonia (PNP)', 'Hepatitis, congenital tremor', 'ผิดทุกข้อ'],
     answer: 4,
-    explain: 'PCV-2 = "PCVAD" umbrella = ทุก syndrome ที่ list ข้างต้น\n• PMWS — wasting + lymphadenopathy\n• PDNS — diamond skin + nephropathy\n• PRDC — pneumonia complex\n• PNP — proliferative + necrotizing pneumonia\n• Reproductive failure (transplacental)\n• Hepatitis form (recent recognition)\n• Congenital tremor type II\n→ "ผิดทุกข้อ" ในความหมาย "ทุกข้อถูกหมด" (Thai exam style)',
+    explain: 'PCV-2 = "PCVAD" umbrella = ทุก syndrome ที่ list ข้างต้น\n• PMWS — wasting + lymphadenopathy\n• PDNS — diamond skin + nephropathy\n• PRDC — pneumonia complex\n• PNP — proliferative + necrotizing pneumonia\n• Reproductive failure (transplacental)\n• Hepatitis form (recent recognition)\n• Congenital tremor type II\n→ ทุกตัวเลือกเป็นกลุ่มอาการ PCVAD ของ PCV-2 จึงไม่มีข้อใดที่ไม่ใช่รอยโรคจาก PCV-2',
     verified: 'สรุป 80 p.12 (Vet 83 marked E + checked all options)' },
 
   { id: 8043, subject: 'vca', topic: 'dogcat', year: 5,
