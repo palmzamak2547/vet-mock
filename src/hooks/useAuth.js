@@ -17,9 +17,35 @@ import { hasSupabase, hasSavedSession, hasAuthRedirectInUrl, getSupabase } from 
 // Profile fetch retries with backoff because the auth.users → profiles
 // trigger may not have committed yet at the moment we query (race
 // against Supabase's internal SECURITY DEFINER trigger).
+//
+// auth-js emits SIGNED_IN every time the tab becomes visible, and
+// INITIAL_SESSION on subscribe, each with a freshly parsed copy of the same
+// user. Storing that copy re-rendered the whole app, refetched the profile and
+// threw away the library catalogue on every switch back from LINE or a PDF.
+// So an unchanged user keeps its object, the profile follows the id, and the
+// library hears about an auth change only when the id itself changes — which
+// is exactly when its row access changes (anon sees public, any signed-in
+// account sees public + restricted).
+
+// Structural equality for the plain JSON user object auth-js hands out.
+function sameAuthUser(a, b) {
+  if (Object.is(a, b)) return true;
+  if (!a || !b || typeof a !== 'object' || typeof b !== 'object') return false;
+  if (Array.isArray(a) !== Array.isArray(b)) return false;
+  const keys = Object.keys(a);
+  if (keys.length !== Object.keys(b).length) return false;
+  return keys.every((k) => Object.prototype.hasOwnProperty.call(b, k) && sameAuthUser(a[k], b[k]));
+}
+
 export function useAuth() {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
+  // Bumped on USER_UPDATED so the profile is re-read for the same account.
+  const [profileRefresh, setProfileRefresh] = useState(0);
+  // The account id the app last settled on; undefined until the first
+  // hydrate, which must not reset a catalogue that was already fetched with
+  // this session.
+  const userIdRef = useRef(undefined);
   // Treat a URL-borne auth redirect (magic link / OAuth / recovery) as
   // "we're loading auth" so the UI doesn't briefly render the signed-out
   // state before SDK parses the URL hash.
@@ -30,6 +56,17 @@ export function useAuth() {
   // events fired in quick succession (e.g. signup → fallback signin
   // both notify) would otherwise each kick off a getSession() round-trip.
   const setupRunning = useRef(false);
+
+  const commitUser = useCallback((next) => {
+    const nextUser = next ?? null;
+    const prevId = userIdRef.current;
+    const nextId = nextUser?.id ?? null;
+    userIdRef.current = nextId;
+    setUser((prev) => (sameAuthUser(prev, nextUser) ? prev : nextUser));
+    if (prevId !== undefined && prevId !== nextId) {
+      window.dispatchEvent(new Event('vmx-library-auth-changed'));
+    }
+  }, []);
 
   // Load SDK + hydrate session + (idempotently) attach onAuthStateChange
   const setupSDK = useCallback(async (cancelledRef) => {
@@ -53,15 +90,13 @@ export function useAuth() {
 
       const { data: { session } } = await supabase.auth.getSession();
       if (cancelledRef.current) return;
-      setUser(session?.user ?? null);
+      commitUser(session?.user ?? null);
       setLoading(false);
 
       if (!subscribed.current) {
-        const { data } = supabase.auth.onAuthStateChange((_event, s) => {
-          setUser(s?.user ?? null);
-          if (_event === 'SIGNED_IN' || _event === 'SIGNED_OUT') {
-            window.dispatchEvent(new Event('vmx-library-auth-changed'));
-          }
+        const { data } = supabase.auth.onAuthStateChange((event, s) => {
+          commitUser(s?.user ?? null);
+          if (event === 'USER_UPDATED') setProfileRefresh((n) => n + 1);
         });
         subscriptionRef.current = data.subscription;
         subscribed.current = true;
@@ -71,11 +106,11 @@ export function useAuth() {
       // fall straight through `finally` with loading still true, wedging the
       // whole app on the boot spinner forever. Signed-out is a valid state —
       // let the user in.
-      if (!cancelledRef.current) { setUser(null); setLoading(false); }
+      if (!cancelledRef.current) { commitUser(null); setLoading(false); }
     } finally {
       setupRunning.current = false;
     }
-  }, []);
+  }, [commitUser]);
 
   useEffect(() => {
     if (!hasSupabase) return;
@@ -107,13 +142,14 @@ export function useAuth() {
     };
   }, [setupSDK]);
 
-  // Fetch profile when user changes — with retry to dodge the race vs
+  // Fetch profile when the account changes — with retry to dodge the race vs
   // the handle_new_user trigger right after signup. Most profiles are
   // ready inside 100-300ms in practice, so the retry schedule is
   // front-loaded: 0 → 100 → 300 → 800ms, total ≤1.2s before falling
   // back to a synthesized local profile (was 3.75s before).
+  const userId = user?.id ?? null;
   useEffect(() => {
-    if (!user) { setProfile(null); return; }
+    if (!userId) { setProfile(null); return; }
     let cancelled = false;
     let attempt = 0;
     const DELAYS_MS = [0, 100, 300, 800];
@@ -132,7 +168,7 @@ export function useAuth() {
           // columns are private. Keep this explicit so column grants can
           // enforce the boundary without breaking profile hydration.
           .select('id, username, avatar_emoji, created_at')
-          .eq('id', user.id)
+          .eq('id', userId)
           .maybeSingle();
         if (cancelled) return;
 
@@ -143,7 +179,7 @@ export function useAuth() {
       // never gets stuck on "logged in but no name" forever.
       if (!cancelled) {
         setProfile({
-          id: user.id,
+          id: userId,
           // Never the email local-part: for @student.chula.ac.th accounts that
           // is the 10-digit student id, and this name is broadcast to peers.
           username: 'นิสิต',
@@ -153,7 +189,7 @@ export function useAuth() {
     })();
 
     return () => { cancelled = true; };
-  }, [user]);
+  }, [userId, profileRefresh]);
 
   return { user, profile, setProfile, loading, isSignedIn: !!user };
 }
