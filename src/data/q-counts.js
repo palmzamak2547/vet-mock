@@ -115,7 +115,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
 // A subject missing from this map has neither, and its Panic card falls
 // back to the whole subject.
 export const Q_PANIC_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 174,
+  'aquatic-clinic': 230,
   'avian-medicine': 196,
   'biochem-1': 272,
   'cliapprum': 8,
@@ -152,7 +152,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 46,
-  'zoonoses': 123,
+  'zoonoses': 155,
 };
 
 // The same count, narrowed to one paper. A Panic card opened with a phase
@@ -160,7 +160,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
 // lib/exam-scope.js. A subject absent from a paper holds nothing for it.
 export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
   midterm: {
-    'aquatic-clinic': 95,
+    'aquatic-clinic': 144,
     'avian-medicine': 181,
     'biochem-1': 272,
     'cliapprum': 8,
@@ -195,10 +195,10 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vca': 18,
     'vet-dev-anat': 26,
     'vet-imaging': 5,
-    'zoonoses': 108,
+    'zoonoses': 136,
   },
   final: {
-    'aquatic-clinic': 79,
+    'aquatic-clinic': 86,
     'avian-medicine': 59,
     'biochem-1': 272,
     'cliapprum': 8,
@@ -233,7 +233,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vet-dev-anat': 26,
     'vet-imaging': 35,
     'vet-juris': 46,
-    'zoonoses': 28,
+    'zoonoses': 32,
   },
 };
 
@@ -3221,4 +3221,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-22T15:50:38.717Z
+// Built: 2026-09-22T20:11:14.777Z
