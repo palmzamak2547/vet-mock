@@ -10,7 +10,7 @@ export const QB_Y5_ZOONOSES_2026 = [
   {
     id: 104000, subject: 'zoonoses', topic: 'zoo-epi-approach', year: 5,
     type: 'mcq',
-    q: 'ตามการจำแนกประเภทของ epidemiological study ในบทเรียน experimental study แบ่งออกเป็น 3 แบบ ได้แก่ข้อใด',
+    q: 'ในการจำแนกประเภทของ epidemiological study นั้น experimental study แบ่งออกเป็น 3 แบบ ได้แก่ข้อใด',
     options: [
       'Clinical trial, field trial และ community trial',
       'Clinical trial, cohort study และ community trial',

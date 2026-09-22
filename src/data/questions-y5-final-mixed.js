@@ -234,7 +234,7 @@ export const QB_Y5_FINAL_MIXED = [
     q: 'ข้อใดไม่ถูกต้องเกี่ยวกับโรค Porcine Reproductive and Respiratory Syndrome (PRRS)',
     options: ['Late-term abortion, generalized lymphadenopathy', 'Respiratory syndrome in piglets, no effect to boar', 'In utero infection from infected semen, local-isolate PRRSV induced hemorrhage of renal surface', 'Highly pathogenic PRRS virus induced lesions similar to acute classical swine fever', 'ผิดทุกข้อ'],
     answer: 1,
-    explain: 'PRRSV affects BOTH boar (reduced libido + semen quality) AND piglets — ข้อ B ผิด\nBoar ติดเชื้อ = หลั่งเชื้อใน semen + decreased fertility\n\n❌ ข้ออื่นถูก\n— Late-term abortion + lymphadenopathy = classic\n— Renal surface hemorrhage = high-path PRRSV (HP-PRRSV)\n— HP-PRRSV ทำ lesion คล้าย CSF = high fever + multi-organ',
+    explain: 'PRRSV affects BOTH boar (reduced libido + semen quality) AND piglets — "Respiratory syndrome in piglets, no effect to boar" ผิด เพราะ\nBoar ติดเชื้อ = หลั่งเชื้อใน semen + decreased fertility\n\n❌ ข้ออื่นถูก\n— Late-term abortion + lymphadenopathy = classic\n— Renal surface hemorrhage = high-path PRRSV (HP-PRRSV)\n— HP-PRRSV ทำ lesion คล้าย CSF = high fever + multi-organ',
     verified: 'สรุป 80 p.6 (Vet 83 marked B "เคยลง! PRRSV high path")' },
 
   { id: 8019, subject: 'swine-clinic', topic: 'swine-pornchalit-set', year: 5,
@@ -472,10 +472,10 @@ export const QB_Y5_FINAL_MIXED = [
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
     examOrigin: 'Vet 80 past paper · Vet 83 update commentary',
     tags: ['PCVAD', 'syndrome-cluster'], type: 'mcq',
-    q: 'ข้อใดเป็นโรคที่เกิดจากการติดเชื้อ Porcine circovirus type II (PCV-2)',
+    q: 'ข้อใดไม่ใช่รอยโรคที่เกิดจากการติดเชื้อ Porcine circovirus type II (PCV-2)',
     options: ['Postweaning multisystemic wasting syndrome (PMWS), necrotizing vasculitis', 'Porcine dermatitis and nephropathy syndrome (PDNS), reproductive failure', 'Porcine respiratory disease complex (PRDC), proliferative and necrotizing pneumonia (PNP)', 'Hepatitis, congenital tremor', 'ผิดทุกข้อ'],
     answer: 4,
-    explain: 'PCV-2 = "PCVAD" umbrella = ทุก syndrome ที่ list ข้างต้น\n• PMWS — wasting + lymphadenopathy\n• PDNS — diamond skin + nephropathy\n• PRDC — pneumonia complex\n• PNP — proliferative + necrotizing pneumonia\n• Reproductive failure (transplacental)\n• Hepatitis form (recent recognition)\n• Congenital tremor type II\n→ "ผิดทุกข้อ" ในความหมาย "ทุกข้อถูกหมด" (Thai exam style)',
+    explain: 'PCV-2 = "PCVAD" umbrella = ทุก syndrome ที่ list ข้างต้น\n• PMWS — wasting + lymphadenopathy\n• PDNS — diamond skin + nephropathy\n• PRDC — pneumonia complex\n• PNP — proliferative + necrotizing pneumonia\n• Reproductive failure (transplacental)\n• Hepatitis form (recent recognition)\n• Congenital tremor type II\n→ ทุกตัวเลือกเป็นกลุ่มอาการ PCVAD ของ PCV-2 จึงไม่มีข้อใดที่ไม่ใช่รอยโรคจาก PCV-2',
     verified: 'สรุป 80 p.12 (Vet 83 marked E + checked all options)' },
 
   { id: 8043, subject: 'vca', topic: 'dogcat', year: 5,
