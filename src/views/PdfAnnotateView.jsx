@@ -34,7 +34,7 @@ import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import PdfThumbnailSidebar from '../components/PdfThumbnailSidebar.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import PdfPage from '../components/PdfPage.jsx';
-import { drawStroke, applyBrush, resetBrush, widthAt, strokeAsOnePath, redrawInk, tiltOf, inkDpr } from '../lib/ink.js';
+import { drawStroke, applyBrush, resetBrush, widthAt, redrawInk, paintLiveHighlighter, releaseHighlighterCopy, tiltOf, inkDpr } from '../lib/ink.js';
 import {
   hashFile,
   loadAnnotations as loadOwnedAnnotations,
@@ -200,6 +200,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const fileInputRef = useRef(null);
   const wrapperRef = useRef(null);
   const drawingRef = useRef({ on: false, points: [] });
+  // The settled ink under a highlighter swipe, copied once so each movement
+  // does not repaint it stroke by stroke (lib/ink.js paintLiveHighlighter).
+  // Let go of wherever a stroke ends.
+  const hlCopyRef = useRef({});
   const renderTaskRef = useRef(null);
   useEffect(() => {
     try {
@@ -257,8 +261,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // the next number; only the newest may publish, and a document that arrives
   // for a superseded open is destroyed instead of shown. `pendingTaskRef` is
   // the pdf.js load still in flight, so the next open can cancel it outright.
+  // `pendingAbortRef` stops a whole-file download, which runs before there is
+  // any pdf.js load to cancel.
   const loadGenRef = useRef(0);
   const pendingTaskRef = useRef(null);
+  const pendingAbortRef = useRef(null);
   const [exporting, setExporting] = useState(null); // null | {done,total}
   // Page text, extracted once per document and reused for every later search.
   // `pending` is the extraction still running, so a second query joins it.
@@ -327,6 +334,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     const prev = pendingTaskRef.current;
     pendingTaskRef.current = null;
     if (prev) { try { prev.destroy?.()?.catch?.(() => {}); } catch { /* already settled */ } }
+    pendingAbortRef.current?.abort();
+    pendingAbortRef.current = null;
     return gen;
   }, []);
 
@@ -456,7 +465,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         task = pdfjs.getDocument({ url, rangeChunkSize: doc.rangeSupported ? 262144 : 65536,
           ...(doc.rangeSupported ? { disableAutoFetch: true, disableStream: true } : {}) });
       } else {
-        const res = await fetch(url);
+        // Back, or another document, while this downloads: stop it rather than
+        // pull the whole file over mobile data and assemble it in memory for
+        // nobody. The abort lands in the catch below as a withdrawn open.
+        const download = new AbortController();
+        pendingAbortRef.current = download;
+        const res = await fetch(url, { signal: download.signal });
         if (!current()) return;
         if (!res.ok) {
           // The worker answers an offline request for a document that was
@@ -480,6 +494,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         const buf = await readWithProgress(res,
           (msg) => { if (current()) setLoadingMsg(msg); },
           (pct) => { if (current()) setDownloadProgress(pct); });
+        // Every byte is in; a later open must not abort a request the service
+        // worker may still be writing to its cache.
+        if (pendingAbortRef.current === download) pendingAbortRef.current = null;
         if (!current()) return;
         task = pdfjs.getDocument({ data: buf });
       }
@@ -1045,13 +1062,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     scheduleShapeSnap();
 
     if (stroke.mode === 'highlighter') {
-      // Cannot extend a translucent stroke in place; repaint the page's
-      // settled strokes and lay the live one over them as a single path. A
-      // highlighter swipe is short, so this stays cheap.
-      redrawOverlay(currentStrokesRef.current);
-      applyBrush(ctx, stroke);
-      strokeAsOnePath(ctx, stroke.points, c.width, c.height, widthAt(stroke, stroke.points[0], dpr * pageScale));
-      resetBrush(ctx);
+      // Cannot extend a translucent stroke in place; lay the live one as a
+      // single path over the page's settled strokes. Those are painted once
+      // per swipe and copied, not re-stroked on every movement: on a page full
+      // of handwriting that repaint is what made the highlighter trail.
+      paintLiveHighlighter(c, currentStrokesRef.current, stroke, dpr * pageScale, hlCopyRef.current);
       return;
     }
 
@@ -1094,6 +1109,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           // Second tap: switch, and take back the two dots the taps left.
           tapRef.current = { at: 0, x: 0, y: 0 };
           drawingRef.current = { on: false, points: [] };
+          releaseHighlighterCopy(hlCopyRef.current);
           setStrokesByPage((prev) => {
             const list = prev[drawPageRef.current] || [];
             // The FIRST tap was committed as a stroke; drop it too.
@@ -1136,6 +1152,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (!ref?.on) return;
     if (e && e.pointerId !== undefined && e.pointerId !== ref.pointerId) return;
     drawingRef.current = { on: false, points: [] };
+    releaseHighlighterCopy(hlCopyRef.current);
     if (ref.erase) { maybePullAfterStroke(); return; }
     if (!ref.stroke || ref.stroke.points.length < 1) { maybePullAfterStroke(); return; }
     // A tap never reaches onPointerMove, which is the only thing that paints a
@@ -1303,6 +1320,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (d?.on && activePointers.current.has(d.pointerId)) {
       clearTimeout(holdTimerRef.current);
       drawingRef.current = { on: false, points: [] };
+      releaseHighlighterCopy(hlCopyRef.current);
       redrawOverlay(currentStrokesRef.current, drawPageRef.current);
     }
     const [a, b] = [...activePointers.current.values()];
@@ -1376,7 +1394,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           // Nothing else is open, so Escape is about the search. Close the row
           // and put the reader back on the button that opened it; the results
           // are kept, because someone who just found page 41 did not ask to
-          // lose it.
+          // lose it. A search that has not answered yet is withdrawn, or it
+          // would jump the reader to a page behind a row that is gone. Not
+          // gated on `searching`: this effect does not re-run when it changes,
+          // and withdrawing when nothing is pending is harmless.
+          dropSearch();
           setSearchOpen(false);
           document.querySelector('button[aria-label="ค้นหาในเอกสาร"]')?.focus();
         }
@@ -1942,6 +1964,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // An open still in flight has no reader left to publish to: withdraw it
     // and cancel its pdf.js load, so the worker and its requests go with it.
     supersedeOpen();
+    releaseHighlighterCopy(hlCopyRef.current);
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
     if (prerenderRef.current) clearTimeout(prerenderRef.current);
     if (renderTaskRef.current) { try { renderTaskRef.current.cancel(); } catch {} }
@@ -2159,8 +2182,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         {/* Search sits ahead of the zoom cluster so that what scrolls out of a
             narrow viewport is only zoom — which pinch and Ctrl+wheel already
             cover — rather than the only way to find a page in a 100-page deck. */}
+        {/* Closing the row withdraws a search still running, as Escape does;
+            opening it has nothing pending to withdraw. */}
         <ToolButton icon="search" label="ค้นหาในเอกสาร" active={searchOpen}
-          onClick={() => { setSearchOpen((v) => !v); setTimeout(() => document.getElementById('vmx-pdf-search')?.focus(), 30); }} />
+          onClick={() => { dropSearch(); setSearchOpen((v) => !v); setTimeout(() => document.getElementById('vmx-pdf-search')?.focus(), 30); }} />
 
         <ToolButton icon="zoom-out" label="ย่อ" onClick={() => zoomOut()} disabled={zoom <= ZOOM_STEPS[0]} />
         <button
