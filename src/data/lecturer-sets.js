@@ -466,9 +466,11 @@ export const LECTURER_SETS = {
           },
           {
             n: 4, date: '2026-08-27', videoId: 'zFsNom4JMC8',
+            // One deck, not two: the title slide Palm sent reads "Infertility/subfertility
+            // and reproductive diseases in mare", and the 27 ส.ค. recording runs the two
+            // together, so a separate infectious-disease deck was our split, not his.
             decks: [
-              { cover: 'eqrepro-infect', title: 'โรคติดเชื้อที่สำคัญของม้าเพศเมีย', topics: ['eqrepro-stallion-infect'] },
-              { cover: 'eqrepro-infertility', title: 'ภาวะความไม่สมบูรณ์พันธุ์และการตรวจวินิจฉัย', topics: ['eqrepro-infertility'] },
+              { cover: 'eqrepro-infertility', title: 'ภาวะความไม่สมบูรณ์พันธุ์และโรคติดเชื้อที่สำคัญของแม่ม้า', topics: ['eqrepro-infertility', 'eqrepro-stallion-infect'] },
             ],
           },
         ],

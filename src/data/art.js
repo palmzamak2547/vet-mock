@@ -127,6 +127,22 @@ export const SEASONAL_MOCHI = {
  * slides this lecturer opened", not as a list of topic names.
  */
 export const LECTURE_COVERS = {
+  'equine-medicine': {
+    'eqmed-intro': { src: base('lecture-covers', 'equine-medicine-eqmed-intro'), alt: 'ปกสไลด์ Welcome to Equine Med Sur พื้นขาว โลโก้คณะ' },
+    'eqmed-nutrition': { src: base('lecture-covers', 'equine-medicine-eqmed-nutrition'), alt: 'ปกสไลด์ Basic Nutrition for Equine Practitioners ภาพม้ากินหญ้าแห้ง' },
+    'eqmed-practice': { src: base('lecture-covers', 'equine-medicine-eqmed-practice'), alt: 'ปกสไลด์ General Equine Practice ภาพม้าสีเทาในคอก' },
+    'eqmed-dentistry': { src: base('lecture-covers', 'equine-medicine-eqmed-dentistry'), alt: 'ปกสไลด์ Equine Dentistry ภาพตรวจฟันม้าบนพื้นลายกะโหลกม้า' },
+    'eqmed-gi1': { src: base('lecture-covers', 'equine-medicine-eqmed-gi1'), alt: 'ปกสไลด์ Equine Gastrointestinal System I ภาพกายวิภาคทางเดินอาหารม้า' },
+    'eqmed-gi2': { src: base('lecture-covers', 'equine-medicine-eqmed-gi2'), alt: 'ปกสไลด์ Equine Gastrointestinal System II ภาพม้ากับสายให้อาหาร' },
+    'eqmed-parasites': { src: base('lecture-covers', 'equine-medicine-eqmed-parasites'), alt: 'ปกสไลด์ Equine Parasites in Thailand ภาพฝูงม้าในทุ่ง พื้นเข้ม' },
+    'eqmed-respi': { src: base('lecture-covers', 'equine-medicine-eqmed-respi'), alt: 'ปกสไลด์ Equine respiratory diseases พื้นขาว ลายสามเหลี่ยมเขียว' },
+  },
+  'equine-repro': {
+    'eqrepro-anatomy': { src: base('lecture-covers', 'equine-repro-eqrepro-anatomy'), alt: 'ปกสไลด์ Horse reproduction 3108515 หน้าตารางรายวิชา' },
+    'eqrepro-exam': { src: base('lecture-covers', 'equine-repro-eqrepro-exam'), alt: 'ปกสไลด์ Examination of reproductive organs in the mare พื้นขาว ลายวงกลมเขียวอ่อน' },
+    'eqrepro-art': { src: base('lecture-covers', 'equine-repro-eqrepro-art'), alt: 'ปกสไลด์ Reproductive Biotechnology in the female horse ภาพหน้าม้าพื้นดำ' },
+    'eqrepro-infertility': { src: base('lecture-covers', 'equine-repro-eqrepro-infertility'), alt: 'ปกสไลด์ Infertility subfertility and reproductive diseases in mare ภาพแม่ม้ากับลูกม้าในทุ่ง' },
+  },
   'avian-medicine': {
     'avian-nd': { src: base('lecture-covers', 'avian-medicine-avian-nd'), alt: 'ปกสไลด์ Newcastle Disease พื้นน้ำเงิน ลายขนนก' },
     'avian-ib': { src: base('lecture-covers', 'avian-medicine-avian-ib'), alt: 'ปกสไลด์ Infectious Bronchitis พื้นชมพูเข้ม ลายขนนก' },
