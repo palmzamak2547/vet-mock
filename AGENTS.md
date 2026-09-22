@@ -260,7 +260,9 @@ Canonical repo knowledge map:
   `question-metadata.js`, or the gate's shape.** It records why the same class of bug keeps
   recurring (facts that should be references are stored as free text), the rule that these are
   fixed by correcting DATA and adding a guardrail rather than by loosening a predicate, and a
-  measured breakdown of where the ~48-minute gate actually spends its time.
+  measured breakdown of where the gate actually spends its time: about 9 min on a quiet machine
+  at the local default of 6 workers, about 15 min at CI parity (`CI=1`), about 25 min on a busy
+  machine. Playwright is 86-92% of it; the vite build takes 17-73 s.
 - `wiki/guides/content-pipeline.md` — content pipeline detail
 - `wiki/operations/testing-and-ci.md` — lint/CI gates detail
 - `STABILITY.md` — regression guardrails
