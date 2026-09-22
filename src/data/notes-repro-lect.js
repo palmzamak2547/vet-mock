@@ -481,7 +481,7 @@ export const NOTES_REPRO_LECT = {
     title: 'Exotic Pets Reproduction',
     lecturer: 'Chaowaphan Yinharnmingmongkol (CY)',
     icon: '🐇',
-    summary: 'Overview species-specific repro: rabbit (induced ovulator), guinea pig (ovarian cyst), ferret (estrogen toxicity), reptile (hemipenis prolapse) — 2026 slide image-heavy ใช้ sunsun84 summary เสริม',
+    summary: 'Overview species-specific repro: rabbit (induced ovulator), guinea pig (ovarian cyst), ferret (estrogen toxicity), reptile (hemipenis prolapse)',
     sections: [
       {
         heading: 'Rabbit Repro Pearls',
@@ -575,7 +575,7 @@ export const NOTES_REPRO_LECT = {
     title: 'Surgical Neutering',
     lecturer: 'Sroisuda Chotimanukul (SC)',
     icon: '✂️',
-    summary: 'OHE/OE/orchiectomy techniques, ligation + closure, **ORS (Ovarian Remnant Syndrome)** ตัวเอกของ Aj. TT — surgical error #1 cause, AMH dx, caudal midline laparotomy',
+    summary: 'OHE/OE/orchiectomy techniques, ligation + closure, ORS (Ovarian Remnant Syndrome) ตัวเอกของ Aj. TT — surgical error #1 cause, AMH dx, caudal midline laparotomy',
     sections: [
       {
         heading: 'Definitions',

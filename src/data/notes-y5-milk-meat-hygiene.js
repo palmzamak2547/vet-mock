@@ -99,7 +99,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Composition & quality of raw milk',
     lecturer: 'Saharuetai Jeamsripong (SJ)',
     icon: '🥛',
-    summary: 'องค์ประกอบน้ำนมขึ้นกับ breed/สุขภาพ/lactation stage/diet/farm practice/processing/distribution · แยก property 3 กลุ่ม chemical/physicochemical/physical.',
+    summary: 'องค์ประกอบน้ำนมขึ้นกับ breed/สุขภาพ/lactation stage/diet/farm practice/processing/distribution, แยก property 3 กลุ่ม chemical/physicochemical/physical.',
     sections: [
       {
         heading: 'Lecturer & lecture identity',
@@ -221,7 +221,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Biosecurity on dairy farms',
     lecturer: 'รศ.น.สพ.ดร. จักรกริศน์ เนื่องจำนงค์ (Animal Husbandry)',
     icon: '🐄',
-    summary: 'การขอมาตรฐานฟาร์มเลี้ยงสัตว์ → มาตรฐานฟาร์มโคนม + แพะนม · เน้น workflow สมัคร–ฝึกอบรม–ตรวจฟาร์ม.',
+    summary: 'การขอมาตรฐานฟาร์มเลี้ยงสัตว์ → มาตรฐานฟาร์มโคนม + แพะนม, เน้น workflow สมัคร–ฝึกอบรม–ตรวจฟาร์ม.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -270,7 +270,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Mastitis & milk quality',
     lecturer: 'Rungtip Chuanchuen (RC)',
     icon: '🐄',
-    summary: 'Mastitis = inflammation ของ mammary gland จาก microorganisms (ส่วนใหญ่ bacteria) · invade ผ่าน teat canal → colonize secretory cells → toxin damage milk-producing cells.',
+    summary: 'Mastitis = inflammation ของ mammary gland จาก microorganisms (ส่วนใหญ่ bacteria), invade ผ่าน teat canal → colonize secretory cells → toxin damage milk-producing cells.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -321,7 +321,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Storage of raw milk',
     lecturer: 'Rungtip Chuanchuen (RC)',
     icon: '🧊',
-    summary: 'จุดรับน้ำนม (small) → ศูนย์รวบรวมน้ำนม (MCC) → check คุณภาพเบื้องต้น (ชั่ง · ดมกลิ่น · ดูสี · ถ.พ. · อุณหภูมิ) แล้วเก็บรักษาเย็น.',
+    summary: 'จุดรับน้ำนม (small) → ศูนย์รวบรวมน้ำนม (MCC) → check คุณภาพเบื้องต้น (ชั่ง, ดมกลิ่น, ดูสี, ถ.พ., อุณหภูมิ) แล้วเก็บรักษาเย็น.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -372,7 +372,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Storage of milk products',
     lecturer: 'Rungtip Chuanchuen (RC)',
     icon: '🧊',
-    summary: 'Dairy products = อาหารที่ผลิตจากนมสัตว์เลี้ยงลูกด้วยนม (cow หลัก · แพะ · แกะ · จามรี · อูฐ) · 3 abnormalities หลัก: abnormal / undesirable / contaminated milk.',
+    summary: 'Dairy products = อาหารที่ผลิตจากนมสัตว์เลี้ยงลูกด้วยนม (cow หลัก, แพะ, แกะ, จามรี, อูฐ). 3 abnormalities หลัก: abnormal / undesirable / contaminated milk.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -423,7 +423,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Determination of milk quality',
     lecturer: 'Rungtip Chuanchuen (RC)',
     icon: '🔬',
-    summary: '3 เป้าหมาย — consumer protection + milk quality assurance + milk price assurance · ป้องกัน zoonosis / milk-borne disease / milk adulteration / abnormalities ใน infants.',
+    summary: '3 เป้าหมาย — consumer protection + milk quality assurance + milk price assurance, ป้องกัน zoonosis / milk-borne disease / milk adulteration / abnormalities ใน infants.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -474,7 +474,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Milk microbiology',
     lecturer: 'Saharuetai Jeamsripong (SJ)',
     icon: '🦠',
-    summary: 'น้ำนม = good growth medium สำหรับ yeasts/molds/bacteria · 2 กลุ่มหลัก: pathogenic (Brucella · Salmonella · E. coli · S. aureus · Strep. agalactiae · Mycobacterium tuberculosis · Listeria) vs spoilage (Pseudomonas · Enterobacteriaceae · Bacillus cereus · Clostridium).',
+    summary: 'น้ำนม = good growth medium สำหรับ yeasts/molds/bacteria. 2 กลุ่มหลัก: pathogenic (Brucella, Salmonella, E. coli, S. aureus, Strep. agalactiae, Mycobacterium tuberculosis, Listeria) vs spoilage (Pseudomonas, Enterobacteriaceae, Bacillus cereus, Clostridium).',
     sections: [
       {
         heading: 'Lecture identity',
@@ -542,7 +542,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Milk-borne pathogens & diseases',
     lecturer: 'Saharuetai Jeamsripong (SJ)',
     icon: '🦠',
-    summary: '3 source ของ contamination: (1) mammary glands inside/outside udder, (2) handling & storage equipment, (3) external environment · 4 microbe categories in milk products: pathogenic / indicator / spoilage / starter cultures.',
+    summary: '3 source ของ contamination: (1) mammary glands inside/outside udder, (2) handling & storage equipment, (3) external environment. 4 microbe categories in milk products: pathogenic / indicator / spoilage / starter cultures.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -615,7 +615,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Standard of milk industry & milk products (GMP/HACCP)',
     lecturer: 'Saharuetai Jeamsripong (SJ)',
     icon: '🏭',
-    summary: '4 มาตรฐานสำคัญ — ISO 9000 (quality mgmt) + ISO 22000 (food safety mgmt) + HACCP + GMP · มกษ. 6401(G)-2560 = GMP สำหรับศูนย์รวบรวมน้ำนมดิบ.',
+    summary: '4 มาตรฐานสำคัญ — ISO 9000 (quality mgmt) + ISO 22000 (food safety mgmt) + HACCP + GMP, มกษ. 6401(G)-2560 = GMP สำหรับศูนย์รวบรวมน้ำนมดิบ.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -789,7 +789,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Introduction to meat hygiene',
     lecturer: 'Sirawit Pagdepanichkit (SP)',
     icon: '🥩',
-    summary: 'Meat = "animal tissues suitable for food" · 4 categories: red meat / poultry / seafood / game meat · components: muscle (majority) + epithelial + nervous + connective + adipose.',
+    summary: 'Meat = "animal tissues suitable for food", 4 categories: red meat / poultry / seafood / game meat, components: muscle (majority) + epithelial + nervous + connective + adipose.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -843,7 +843,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Seafood: quality changes, spoilage, toxins',
     lecturer: 'Sirawit Pagdepanichkit (SP)',
     icon: '🐟',
-    summary: 'Seafood = species variety สูง (chordata · mollusks · arthropod) · composition water 60-81% / protein 16-25% / lipid 0.4-21% (range กว้าง) · lean meat by default ยกเว้น salmon/อ้วน.',
+    summary: 'Seafood = species variety สูง (chordata, mollusks, arthropod), composition water 60-81% / protein 16-25% / lipid 0.4-21% (range กว้าง), lean meat by default ยกเว้น salmon/อ้วน.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -897,7 +897,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Microbiology of meat & meat hygiene',
     lecturer: 'Taradon Luangtongkum (TL) — ผศ.น.สพ.ดร. ธราดล เหลืองทองคำ',
     icon: '🦠',
-    summary: 'Contamination main เกิดที่ slaughter (evisceration) → storage → distribution · bacteria เป็นกลุ่มสำคัญสุด (spoilage + pathogenic) · มี yeast/mold/virus/parasite/protozoa รอง.',
+    summary: 'Contamination main เกิดที่ slaughter (evisceration) → storage → distribution, bacteria เป็นกลุ่มสำคัญสุด (spoilage + pathogenic), มี yeast/mold/virus/parasite/protozoa รอง.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -954,7 +954,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Storage of meat & meat products',
     lecturer: 'Rungtip Chuanchuen (RC) — Revised 2023',
     icon: '🧊',
-    summary: 'พิจารณา 6 มิติ: meat quality · safety · scientific approval · distribution & marketing · investment · application · ปัจจัยจุลินทรีย์ในเนื้อ = extrinsic + intrinsic.',
+    summary: 'พิจารณา 6 มิติ: meat quality, safety, scientific approval, distribution & marketing, investment, application. ปัจจัยจุลินทรีย์ในเนื้อ = extrinsic + intrinsic.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -1006,7 +1006,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Meat quality & wholesomeness',
     lecturer: 'Rungtip Chuanchuen (RC) — Revised 2023',
     icon: '✅',
-    summary: 'Fresh meat = ผ่าน chemical/physical change หลัง slaughter โดย minimal process · 4 properties หลัก: water-holding capacity · color · odor & taste · texture & tenderness.',
+    summary: 'Fresh meat = ผ่าน chemical/physical change หลัง slaughter โดย minimal process, 4 properties หลัก: water-holding capacity, color, odor & taste, texture & tenderness.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -1058,7 +1058,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Application of molecular biology in meat science',
     lecturer: 'Rungtip Chuanchuen (RC) — Revised 2023',
     icon: '🧬',
-    summary: 'Molecular biology = molecular basis ของ DNA/RNA/protein · genomic techniques = ผสม molecular genetics + quantitative genetics + Mendelian genetics + bioinformatics → ใช้ระบุ species + meat authentication.',
+    summary: 'Molecular biology = molecular basis ของ DNA/RNA/protein, genomic techniques = ผสม molecular genetics + quantitative genetics + Mendelian genetics + bioinformatics → ใช้ระบุ species + meat authentication.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -1111,7 +1111,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Slaughterhouse: production facilities & sanitary practices',
     lecturer: 'Sirawit Pagdepanichkit (SP)',
     icon: '🏭',
-    summary: 'Slaughterhouse design depends on: practice / technology / purpose / financial / capacity · location ต้องมี proper water-electricity-sewerage + hot/cold water + standby generator + pollution-free + remote from urban area.',
+    summary: 'Slaughterhouse design depends on: practice / technology / purpose / financial / capacity. Location ต้องมี proper water-electricity-sewerage + hot/cold water + standby generator + pollution-free + remote from urban area.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -1168,7 +1168,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Antemortem & postmortem inspection',
     lecturer: 'Sirawit Pagdepanichkit (SP)',
     icon: '🔍',
-    summary: 'Objectives: ให้สัตว์ที่ดูสุขภาพดี/ปกติเข้าฆ่า + แยก abnormal animal ออก + แน่ใจว่าเนื้อปลอด disease/wholesome/ไม่เสี่ยงผู้บริโภค · AM ดูพฤติกรรม + BCS + cleanliness + signs · PM ตัดสินซาก + แยก localized/generalized + acute/chronic.',
+    summary: 'Objectives: ให้สัตว์ที่ดูสุขภาพดี/ปกติเข้าฆ่า + แยก abnormal animal ออก + แน่ใจว่าเนื้อปลอด disease/wholesome/ไม่เสี่ยงผู้บริโภค, AM ดูพฤติกรรม + BCS + cleanliness + signs, PM ตัดสินซาก + แยก localized/generalized + acute/chronic.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -1230,7 +1230,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Postmortem changes + meat cutting & grading',
     lecturer: 'Sirawit Pagdepanichkit (SP)',
     icon: '🔪',
-    summary: 'Muscle-to-meat conversion เกิดเมื่อ homeostasis หาย หลัง slaughter · 2 ขั้นเริ่ม: immobilization (electrical/gas stunning) + exsanguination (~50% blood removed) → จุดเริ่ม postmortem changes.',
+    summary: 'Muscle-to-meat conversion เกิดเมื่อ homeostasis หาย หลัง slaughter, 2 ขั้นเริ่ม: immobilization (electrical/gas stunning) + exsanguination (~50% blood removed) → จุดเริ่ม postmortem changes.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -1292,7 +1292,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Pest control in slaughterhouses',
     lecturer: 'รศ.น.สพ.ดร. ศุภชัย เนื้อนวลสุวรรณ',
     icon: '🪲',
-    summary: '3 problem ที่ pest ทำให้เกิด: ทำลายผลิตภัณฑ์อาหาร + เป็น carrier ของ pathogen (foodborne disease + zoonosis) + ก่อให้ spoilage · pests = rodents + insects + birds.',
+    summary: '3 problem ที่ pest ทำให้เกิด: ทำลายผลิตภัณฑ์อาหาร + เป็น carrier ของ pathogen (foodborne disease + zoonosis) + ก่อให้ spoilage, pests = rodents + insects + birds.',
     sections: [
       {
         heading: 'Lecture identity',
@@ -1348,7 +1348,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
     title: 'Microbiology of the avian egg',
     lecturer: 'Suphachai (initials on slide) — DVM, MPVM, PhD',
     icon: '🥚',
-    summary: 'Microbial contamination → spoilage (economic) + foodborne disease (Salmonella หลัก · E. coli · Campylobacter รอง) · egg shell = true shell + shell accessory · tough & flexible, protect embryogenesis.',
+    summary: 'Microbial contamination → spoilage (economic) + foodborne disease (Salmonella หลัก, E. coli, Campylobacter รอง), egg shell = true shell + shell accessory, tough & flexible, protect embryogenesis.',
     sections: [
       {
         heading: 'Lecture identity',
