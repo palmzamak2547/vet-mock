@@ -1,7 +1,6 @@
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
 import { atlasLocalPlugin } from './scripts/atlas-local-plugin.mjs'
 
 const atlasEntry = (server) => {
@@ -12,10 +11,9 @@ const atlasEntry = (server) => {
 };
 
 export default defineConfig({
-  plugins: [react(), tailwindcss(), atlasLocalPlugin(), { name: 'atlas-entry', configureServer: atlasEntry, configurePreviewServer: atlasEntry }],
-  // '@' is the alias the shadcn CLI writes into installed block imports
-  // (@/lib/utils, @/components/ui/*). jsconfig.json mirrors it for the
-  // CLI + editors.
+  plugins: [react(), atlasLocalPlugin(), { name: 'atlas-entry', configureServer: atlasEntry, configurePreviewServer: atlasEntry }],
+  // '@' resolves to src/. Nothing imports through it today; jsconfig.json
+  // mirrors it for editors.
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },
