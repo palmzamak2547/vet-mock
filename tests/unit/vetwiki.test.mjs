@@ -6,6 +6,7 @@ import { slug, sectionId, topicId, wikiTitle, wikiSummary } from '../../src/lib/
 import { noteToKnowledge, verifiedClaimCount } from '../../src/lib/vetwiki/adapter.js';
 import { validateTopic } from '../../src/lib/vetwiki/validate.js';
 import { loadTopic, provenanceSummary, listTopics, verificationFor } from '../../src/lib/vetwiki/index.js';
+import { loadNotesSubject } from '../../src/data/note-corpus.js';
 
 test('stable ids are deterministic and independent of order/index', () => {
   assert.equal(sectionId('com5', 'rabies', 'Diagnosis'), 'com5--rabies--diagnosis');
@@ -252,7 +253,10 @@ test('wikiSummary drops markdown bold markers but keeps clinical notation', () =
 // read as a summary of the subject, not as the note-taker's ingest log or a
 // guess about the paper. '·' followed by a hydrate formula (CuSO4·5H2O) is
 // chemistry, not a separator, and stays allowed.
-test('no VetWiki topic summary carries note markup, ingest notes or exam guesses', () => {
+// Both the rendered wiki summary and the stored one are checked: the Notes
+// page shows the stored summary as-is, without wikiSummary's clean-up, so a
+// "**" that the wiki hides still reaches the reader there.
+test('no VetWiki topic summary carries note markup, ingest notes or exam guesses', async () => {
   const rules = [
     ['middle dot', /·(?!\d*H(?:2|₂)O)/],
     ['markdown bold', /\*\*/],
@@ -265,8 +269,9 @@ test('no VetWiki topic summary carries note markup, ingest notes or exam guesses
   ];
   const dirty = [];
   for (const t of listTopics()) {
+    const stored = (await loadNotesSubject(t.subject))[t.topic]?.summary || '';
     for (const [label, re] of rules) {
-      if (re.test(t.summary || '')) dirty.push(`${t.id}: ${label}`);
+      if (re.test(t.summary || '') || re.test(stored)) dirty.push(`${t.id}: ${label}`);
     }
   }
   assert.deepEqual(dirty, [], 'wiki summaries must read as clinical summaries');

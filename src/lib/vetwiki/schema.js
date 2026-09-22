@@ -147,7 +147,7 @@ export function wikiTitle(raw) {
   return t || String(raw).trim();
 }
 
-// ---- Wiki summary (strip decorative stars/emoji only) --------------------
+// ---- Wiki summary (strip decorative stars/emoji and bold markers only) ---
 // Summaries carry meaningful clinical notation — "→" (leads to), "↑/↓"
 // (increase/decrease), "≥ ≠", subscripts — which MUST be preserved. The only
 // decoration to remove is note-emphasis stars (★ ⭐), any picto-emoji, and

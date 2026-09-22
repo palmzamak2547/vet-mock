@@ -682,7 +682,7 @@ export const NOTES_Y5_ZOONOSES = {
     title: 'Prion Diseases',
     lecturer: 'Taradon Luangtongkum',
     icon: '🧬',
-    summary: 'Prion = TSE (Transmissible Spongiform Encephalopathy), Neurodegenerative, ไม่ใช่ bacteria/fungi/virus — เป็น abnormal protein, no genetic material, Long incubation + rapidly progressive + always fatal. Human: CJD, vCJD, GSS, FFI, Kuru.',
+    summary: 'Prion = TSE (Transmissible Spongiform Encephalopathy), Neurodegenerative, ไม่ใช่ bacteria/fungi/virus — เป็น abnormal protein, no genetic material. Long incubation + rapidly progressive + always fatal. Human: CJD, vCJD, GSS, FFI, Kuru.',
     sections: [
       {
         heading: 'Prion Diseases — course intro',
