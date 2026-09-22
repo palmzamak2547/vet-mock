@@ -38,19 +38,25 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
     setError('');
     setApiError(null);
     setStatus('sending');
+    // The inputs stay editable while this is in flight and during the success
+    // panel, so a student can already be typing the next report. The reset
+    // below clears only what was actually sent.
+    const sent = formData;
 
     try {
       const resp = await fetch('/api/send-feedback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(sent),
       });
 
       if (resp.ok) {
         setStatus('success');
         if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
         resetTimerRef.current = setTimeout(() => {
-          setFormData((prev) => ({ ...prev, subject: '', message: '' }));
+          setFormData((prev) => (prev.subject === sent.subject && prev.message === sent.message
+            ? { ...prev, subject: '', message: '' }
+            : prev));
           setStatus('idle');
           resetTimerRef.current = null;
         }, 4000);

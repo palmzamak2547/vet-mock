@@ -181,7 +181,9 @@ export function getQuestPoolSize() {
 }
 
 // ── Date helpers ──────────────────────────────────────────────────
-function todayKey() {
+// The LOCAL day quests are credited under. Exported so anything that dedupes
+// per day before recording an event (NotesView's reading log) uses the same one.
+export function todayKey() {
   const d = new Date();
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, '0');
