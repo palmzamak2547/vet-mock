@@ -46,25 +46,18 @@ import { loadVideoSummariesForSubject, loadAllVideoSummaries } from '../data/vid
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 
+// A chunk that fails to load (offline, or a tab opened before a deploy that no
+// longer serves the old hash) throws straight to the caller, which shows the
+// reload message. It used to be caught and answered with null, after asking
+// for the other 31 chunks too, so the button quietly did nothing.
 async function loadVideoSummaryEntry(videoId) {
   if (!videoId) return null;
-  const subject = VIDEO_META[videoId]?.subject;
-  if (subject) {
-    try {
-      const map = await loadVideoSummariesForSubject(subject);
-      if (map && map[videoId]) return map[videoId];
-    } catch (err) {
-      console.warn('[VideoView] per-subject loader failed, falling back to all:', err);
-    }
-  }
-  // Fallback: full-set load. Same cost as the old behavior.
-  try {
-    const map = await loadAllVideoSummaries();
-    return map?.[videoId] || null;
-  } catch (err) {
-    console.warn('[VideoView] full-set loader failed:', err);
-    return null;
-  }
+  const map = await loadVideoSummariesForSubject(VIDEO_META[videoId]?.subject);
+  if (map?.[videoId]) return map[videoId];
+  // The chunk loaded but the entry is not in it: the metadata names the wrong
+  // subject, so look in the full set.
+  const all = await loadAllVideoSummaries();
+  return all?.[videoId] || null;
 }
 
 // ── YouTube IFrame API loader ─────────────────────────────────────
@@ -867,12 +860,15 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
     setSummaryLoading(true);
     try {
       const entry = await loadVideoSummaryEntry(currentVideoId);
+      if (!entry) throw new Error('summary entry missing');
       setOpenSummary(entry);
     } catch (err) {
       console.warn('[VideoView] failed to load video-summary entry:', err);
       // Surface a tiny fallback so the user knows the click registered
-      // and isn't a silent UX dead-end.
+      // and isn't a silent UX dead-end. The metadata fills the header
+      // (subject, date, length) so it does not read ', ,  นาที'.
       setOpenSummary({
+        ...VIDEO_META[currentVideoId],
         videoId: currentVideoId,
         title: VIDEO_META[currentVideoId]?.title || 'สรุปคลิป',
         summary: 'โหลดสรุปคลิปไม่สำเร็จ — ลองรีโหลดหน้าเว็บแล้วลองใหม่',
