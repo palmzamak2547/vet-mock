@@ -341,3 +341,58 @@ test('a wrapped subject-card title on a phone leaves room between a below-vowel 
   assert.ok(Number(lh) >= 1.35, `.vmx-subject-card .title line-height ${lh} at 390px`);
   assert.equal(computed(title, 'font-size', PHONE), '16px', 'the phone title size moved; re-check the leading against it');
 });
+
+// ── UI-10: touch targets ──────────────────────────────────────────────
+
+const TOUCH = {
+  'Home wrap-up strip button': chain('div', 'div.vmx-wrap-strip', 'button.vmx-wrap-strip-btn'),
+  'topic-screen wrap-up entry button': chain('div', 'div.vmx-wrap-entry', 'button.vmx-wrap-entry-btn'),
+  'wrap-up reading-mode switch': chain('div.vmx-wrap', 'div.vmx-wrap-mode', 'button'),
+  'wrap-up reading-mode switch (on)': chain('div.vmx-wrap', 'div.vmx-wrap-mode', 'button.is-on'),
+  'lecturer practice button': chain('div.vmx-lect-list', 'article.vmx-lect', 'div.vmx-lect-actions', 'button.vmx-lect-btn'),
+  'lecturer primary practice button': chain('div.vmx-lect-list', 'article.vmx-lect', 'div.vmx-lect-actions', 'button.vmx-lect-btn.is-primary'),
+  'lecturer name (opens the profile)': chain('div.vmx-lect-list', 'article.vmx-lect', 'header.vmx-lect-head', 'button.vmx-lect-name'),
+  'topic-screen reveal switch': chain('div.vmx-lect-list', 'div.vmx-lect-reveal', 'div.vmx-reveal-toggle', 'button'),
+  'topic-screen reveal switch (on)': chain('div.vmx-lect-list', 'div.vmx-lect-reveal', 'div.vmx-reveal-toggle', 'button.is-on'),
+};
+
+test('the exam-week controls are at least 44px tall on a phone, and the box is the tap area', () => {
+  // `* { box-sizing: border-box }` makes min-height the whole visible box.
+  assert.equal(computed(chain('button'), 'box-sizing', PHONE), 'border-box');
+  for (const [name, node] of Object.entries(TOUCH)) {
+    for (const env of [PHONE, DESKTOP]) {
+      const h = px(computed(node, 'min-height', env));
+      assert.ok(h >= 44, `${name}: min-height ${h}px at ${env.width}px`);
+      assert.match(String(computed(node, 'display', env)), /^(inline-)?flex$/, `${name}: needs a flex box to centre its label`);
+      assert.equal(computed(node, 'align-items', env), 'center', `${name}: the label must sit in the middle of the taller box`);
+    }
+  }
+});
+
+test('the exam screen\'s reveal switch keeps its layout (only the topic-screen instance grew)', () => {
+  // The same RevealTimingToggle renders under a written answer and a
+  // matching set mid-exam. Exam-week layout there stays exactly as it was.
+  for (const node of [
+    chain('div.vmx-question', 'div.vmx-reveal-toggle', 'button'),
+    chain('div.vmx-question', 'div.vmx-reveal-toggle', 'button.is-on'),
+  ]) {
+    for (const env of [PHONE, DESKTOP]) {
+      assert.equal(computed(node, 'min-height', env), null);
+      assert.equal(computed(node, 'padding-top', env), '5px');
+      assert.equal(computed(node, 'padding-left', env), '11px');
+    }
+  }
+});
+
+test('the sticky wrap-up index uses the 36px compromise and stays shorter than the jump offset', () => {
+  const index = chain('div.vmx-wrap', 'nav.vmx-wrap-index');
+  const chip = chain('div.vmx-wrap', 'nav.vmx-wrap-index', 'a');
+  const item = chain('div.vmx-wrap', 'div.vmx-wrap-group', 'article.vmx-wrap-item');
+  for (const env of [PHONE, DESKTOP]) {
+    const chipH = px(computed(chip, 'min-height', env));
+    assert.equal(chipH, 36, `wrap-index chip min-height ${chipH}px at ${env.width}px`);
+    const bar = chipH + px(computed(index, 'padding-top', env)) + px(computed(index, 'padding-bottom', env));
+    const offset = px(computed(item, 'scroll-margin-top', env));
+    assert.ok(bar <= offset, `the sticky index is ${bar}px tall and an item it jumps to stops ${offset}px down: the bar covers its heading`);
+  }
+});
