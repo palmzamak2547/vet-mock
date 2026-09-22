@@ -315,3 +315,74 @@ test('a race that keeps being lost backs off instead of hammering the server, an
   assert.equal(inner.row.notes.later, 'yes');
   store.close();
 });
+
+test('a write the server can never accept escalates to the push-failed banner and keeps the outbox', async () => {
+  // Zero rows back from the conditional write reads as a lost race. If that is
+  // really permanent — an UPDATE policy narrower than SELECT, or a proxy that
+  // strips Prefer: return=representation — every attempt "loses", and before
+  // this the student sat at pending forever with no banner while the edit
+  // never left the device. A streak that long is not a race any more.
+  const queue = []; const delays = []; let nextId = 0;
+  const scheduler = {
+    setTimeout(fn, delay) { const id = ++nextId; queue.push({ id, fn }); delays.push(delay); return id; },
+    clearTimeout(id) { const i = queue.findIndex((t) => t.id === id); if (i !== -1) queue.splice(i, 1); },
+  };
+  const runNext = async () => { const t = queue.shift(); assert.ok(t, 'a retry was scheduled'); t.fn(); await settle(5); };
+
+  const inner = casServer({ notes: {} });
+  let healed = false;
+  const server = {
+    pull: (id) => inner.pull(id),
+    async push(id, payload, pre) {
+      if (!healed) throw Object.assign(new Error('0 rows'), { code: 'SYNC_CONFLICT' });
+      return inner.push(id, payload, pre);
+    },
+  };
+  const storage = new MemoryStorage();
+  const store = createUserDataSync({ storage, remote: server, debounceMs: 60_000, scheduler, random: () => 0.5 });
+  openStores.add(store);
+  const shown = [];
+  store.subscribe(() => { const e = store.getSnapshot().sync.error; if (e) shown.push(e.code); });
+  store.send({ type: 'SESSION_CHANGED', userId: 'same-owner' });
+  await settle(10);
+  store.send({ type: 'CHANGE', principalId: 'same-owner', derive: (c) => ({ notes: { ...c.notes, kept: 'yes' } }) });
+  store.send({ type: 'REFRESH_REQUESTED' });
+  await settle(10);
+
+  // Seven lost writes in a row are still treated as a race: no banner.
+  for (let lost = 1; lost < 8; lost += 1) {
+    assert.equal(store.getSnapshot().sync.phase, 'pending', `after ${lost} lost writes`);
+    assert.equal(store.getSnapshot().sync.error, null, `after ${lost} lost writes`);
+    assert.deepEqual(shown, [], `no banner flashed by lost write ${lost}`);
+    await runNext();
+  }
+
+  // The eighth says what the student needs to know, and keeps trying.
+  const sync = store.getSnapshot().sync;
+  assert.equal(sync.phase, 'error');
+  assert.equal(sync.error?.code, 'REMOTE_PUSH_FAILED');
+  assert.notEqual(sync.error?.retryable, false, 'the banner offers a retry');
+  assert.equal(sync.pending, true);
+  assert.equal(queue.length, 1, 'the back-off keeps running');
+  assert.ok(delays.at(-1) <= 36_000, `retry capped near 30 s, got ${delays.at(-1)} ms`);
+
+  // Nothing was acknowledged: the edit is on the device and still queued.
+  assert.equal(store.getSnapshot().data.notes.kept, 'yes');
+  const outbox = [...storage.values.keys()].filter((k) => k.startsWith('vmx-user-op-v1:same-owner:'));
+  assert.equal(outbox.length, 1, 'the outbox record survives');
+  assert.equal(JSON.parse(storage.getItem(outbox[0])).changes.notes.value.kept, 'yes');
+  assert.equal(inner.row.notes.kept, undefined);
+
+  // A further loss keeps the banner up rather than hiding it again.
+  await runNext();
+  assert.equal(store.getSnapshot().sync.error?.code, 'REMOTE_PUSH_FAILED');
+
+  // Once writes land again the banner clears and the outbox empties.
+  healed = true;
+  await runNext();
+  assert.equal(inner.row.notes.kept, 'yes');
+  assert.equal(store.getSnapshot().sync.phase, 'synced');
+  assert.equal(store.getSnapshot().sync.error, null);
+  assert.equal([...storage.values.keys()].filter((k) => k.startsWith('vmx-user-op-v1:same-owner:')).length, 0);
+  store.close();
+});

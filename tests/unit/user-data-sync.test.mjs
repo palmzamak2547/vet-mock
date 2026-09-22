@@ -39,6 +39,9 @@ function createLifecycle(initialOnline = true) {
       online = next;
       for (const listener of listeners) listener(next ? 'online' : 'offline');
     },
+    emit(reason) {
+      for (const listener of listeners) listener(reason);
+    },
   };
 }
 
@@ -635,6 +638,308 @@ test('clearing a list still deletes it rather than merging it back', () => {
   assert.equal(entry.removed.length, 3, 'all three must be recorded as removed');
   assert.deepEqual(entry.put, [], 'nothing was added on the way to empty');
   sync.close();
+});
+
+// ── PF-03: what one small edit writes ─────────────────────────────
+// Every edit used to commit the whole study record: a journal holding the full
+// snapshot, then the snapshot again, then the changed field. With a long
+// history that is several megabytes of JSON per bookmark tap or flashcard
+// rating, a dropped frame each time on a phone, and a record that briefly
+// existed three times in a nearly full storage.
+
+const never = { setTimeout: () => 0, clearTimeout: () => {} };
+const longHistory = (n) => Array.from({ length: n }, (_, i) => ({
+  questionId: 1000 + (i % 4000), correct: i % 3 !== 0, date: 1_750_000_000_000 + i * 60_000,
+  subject: 'com5', year: 4, phase: '2-final',
+}));
+const someCards = (n) => Object.fromEntries(Array.from({ length: n }, (_, i) => [String(i), {
+  questionId: i, easeFactor: 2.5, interval: 3, repetitions: 2, nextReview: 1_750_000_000_000,
+  lastReview: 1_749_000_000_000, totalReviews: 4, lapses: 0,
+}]));
+function recordWrites(storage) {
+  const writes = [];
+  const realSet = storage.setItem.bind(storage);
+  storage.setItem = (key, value) => { writes.push({ key, length: String(value).length }); realSet(key, value); };
+  return writes;
+}
+const tapBookmark = (sync, id, principalId = 'user-1') => sync.send({
+  type: 'CHANGE', principalId,
+  derive: (d) => ({ bookmarks: d.bookmarks.includes(id) ? d.bookmarks.filter((x) => x !== id) : [...d.bookmarks, id] }),
+});
+const rateCard = (sync, id, principalId = 'user-1') => sync.send({
+  type: 'CHANGE', principalId,
+  derive: (d) => ({ srCards: { ...d.srCards, [String(id)]: { ...d.srCards[String(id)], interval: 7 + id } } }),
+});
+
+test('a bookmark tap or flashcard rating does not rewrite a 30,000-entry history', async () => {
+  const history = longHistory(30_000);
+  const historyChars = JSON.stringify(history).length;
+  const remote = fakeRemote({ history, sr_cards: someCards(100), bookmarks: [], notes: {} });
+  const storage = new MemoryStorage();
+  const sync = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote, debounceMs: 60_000, scheduler: never });
+  sync.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  // Hydrating 30,000 entries takes tens of ms here and longer on a busy CI
+  // runner; wait for it rather than for a fixed time.
+  for (let waited = 0; sync.getSnapshot().sync.phase !== 'synced' && waited < 10_000; waited += 20) await settle(20);
+  assert.equal(sync.getSnapshot().data.history.length, 30_000);
+
+  const writes = recordWrites(storage);
+  const cost = (edit) => {
+    const times = [];
+    let largest = 0;
+    for (let i = 0; i < 9; i += 1) {
+      writes.length = 0;
+      const start = performance.now();
+      assert.equal(edit(i).accepted, true);
+      times.push(performance.now() - start);
+      largest = Math.max(largest, ...writes.map((w) => w.length));
+    }
+    times.sort((a, b) => a - b);
+    return { median: times[4], largest };
+  };
+  const tap = cost((i) => tapBookmark(sync, 500 + i));
+  const rating = cost((i) => rateCard(sync, i));
+
+  assert.ok(tap.largest < historyChars / 20, `a bookmark tap wrote ${tap.largest} chars in one key; the history is ${historyChars}`);
+  assert.ok(rating.largest < historyChars / 20, `a rating wrote ${rating.largest} chars in one key; the history is ${historyChars}`);
+  assert.ok(tap.median < 5, `a bookmark tap took ${tap.median.toFixed(2)} ms`);
+  assert.ok(rating.median < 5, `a rating took ${rating.median.toFixed(2)} ms`);
+  assert.equal(sync.getSnapshot().data.srCards['8'].interval, 15, 'the edits themselves landed');
+  sync.close();
+});
+
+/** An idle scheduler the test runs by hand. */
+function manualIdle() {
+  const queue = [];
+  return {
+    queue,
+    request(fn) { const handle = { fn }; queue.push(handle); return handle; },
+    cancel(handle) { const i = queue.indexOf(handle); if (i !== -1) queue.splice(i, 1); },
+    run() { for (const handle of queue.splice(0)) handle.fn(); },
+  };
+}
+const snapshotOf = (storage, principal) => JSON.parse(storage.getItem(`vmx-user-data-v1:${principal}`) || 'null');
+const outboxKeys = (storage, principal) => [...storage.values.keys()].filter((k) => k.startsWith(`vmx-user-op-v1:${principal}:`));
+
+test('an edit made just before a forced close comes back through outbox replay', async () => {
+  const storage = new MemoryStorage();
+  const remote = fakeRemote({ bookmarks: [], notes: {} });
+  const first = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
+  first.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  await settle();
+  tapBookmark(first, 42);
+  first.send({ type: 'CHANGE', principalId: 'user-1', derive: (d) => ({ notes: { ...d.notes, n: 'kept' } }) });
+  // No close, no idle, no flush: the tab is killed here.
+  assert.deepEqual(snapshotOf(storage, 'user-1').bookmarks, [], 'the snapshot has not caught up yet');
+
+  const offline = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote, debounceMs: 0, idle: manualIdle() });
+  offline.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  assert.deepEqual(offline.getSnapshot().data.bookmarks, [42]);
+  assert.equal(offline.getSnapshot().data.notes.n, 'kept');
+  assert.equal(offline.getSnapshot().sync.pending, true, 'still waiting to be pushed');
+  offline.close();
+
+  const online = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote, debounceMs: 0, idle: manualIdle() });
+  online.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  await settle(60);
+  assert.deepEqual(remote.row.bookmarks, [42], 'the edit still reaches the account');
+  assert.equal(remote.row.notes.n, 'kept');
+  assert.equal(online.getSnapshot().sync.pending, false);
+  online.close();
+
+  // Signed out, the fields' own keys and the outbox carry it the same way.
+  const guestStorage = new MemoryStorage();
+  const guest = createUserDataSync({ storage: guestStorage, lifecycle: createLifecycle(true), remote: fakeRemote(null), idle: manualIdle() });
+  tapBookmark(guest, 7, null);
+  const reopened = createUserDataSync({ storage: guestStorage, lifecycle: createLifecycle(true), remote: fakeRemote(null), idle: manualIdle() });
+  assert.deepEqual(reopened.getSnapshot().data.bookmarks, [7]);
+  assert.deepEqual(outboxKeys(guestStorage, 'anonymous'), [], 'boot folds the signed-out outbox into the snapshot');
+  assert.deepEqual(snapshotOf(guestStorage, 'anonymous').bookmarks, [7]);
+  reopened.close();
+});
+
+test('the snapshot catches up once per burst, when the page is idle or hidden', () => {
+  const storage = new MemoryStorage();
+  const idle = manualIdle();
+  const lifecycle = createLifecycle(true);
+  const sync = createUserDataSync({ storage, lifecycle, remote: fakeRemote(null), idle });
+  sync.subscribe(() => {});
+  for (let i = 1; i <= 5; i += 1) tapBookmark(sync, i, null);
+  assert.equal(idle.queue.length, 1, 'five taps ask for one compaction');
+  assert.equal(outboxKeys(storage, 'anonymous').length, 1);
+  idle.run();
+  assert.deepEqual(snapshotOf(storage, 'anonymous').bookmarks, [1, 2, 3, 4, 5]);
+  assert.deepEqual(outboxKeys(storage, 'anonymous'), [], 'signed out, the compacted outbox record goes');
+  assert.equal(sync.getSnapshot().sync.pending, false);
+
+  tapBookmark(sync, 6, null);
+  lifecycle.emit('hidden');
+  assert.deepEqual(snapshotOf(storage, 'anonymous').bookmarks, [1, 2, 3, 4, 5, 6], 'hiding the page compacts at once');
+  assert.equal(idle.queue.length, 0, 'and cancels the idle request');
+  sync.close();
+});
+
+test('switching account after an uncompacted edit keeps both workspaces whole across a reload', async () => {
+  const storage = new MemoryStorage();
+  const remote = fakeRemote({ notes: { account: 'cloud' } });
+  const sync = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
+  tapBookmark(sync, 'guest-q', null);
+  sync.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  await settle();
+  sync.send({ type: 'CHANGE', principalId: 'user-1', derive: (d) => ({ notes: { ...d.notes, mine: 'account edit' } }) });
+  // Killed while signed in, before any compaction or flush.
+
+  const lapsed = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote, idle: manualIdle() });
+  lapsed.send({ type: 'SESSION_CHANGED', userId: null });
+  assert.deepEqual(lapsed.getSnapshot().data.bookmarks, ['guest-q'], 'the signed-out workspace is intact');
+  assert.equal(lapsed.getSnapshot().data.notes.mine, undefined, 'and the account stays hidden');
+  lapsed.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  assert.equal(lapsed.getSnapshot().data.notes.mine, 'account edit', 'the account edit replays on sign-in');
+  lapsed.close();
+});
+
+test('a journal left by a half-finished commit cannot replay over later edits', () => {
+  // Nearly full: the boot commit writes its journal, then the snapshot write
+  // fails, so the journal stays for the next boot to replay. Every edit used
+  // to replace it with its own; now compaction has to.
+  const storage = new MemoryStorage();
+  storage.setItem('vmx-bookmarks', JSON.stringify(['old']));
+  storage.setItem('vmx-user-op-v1:anonymous:crashed-tab', JSON.stringify({
+    version: 1, token: 'crashed-tab:1', createdAt: 1, changes: { notes: { base: {}, value: { n: 'from crash' } } },
+  }));
+  const realSet = storage.setItem.bind(storage);
+  let failSnapshot = true;
+  storage.setItem = (key, value) => {
+    if (failSnapshot && key === 'vmx-user-data-v1:anonymous') { failSnapshot = false; const e = new Error('full'); e.name = 'QuotaExceededError'; throw e; }
+    realSet(key, value);
+  };
+  const idle = manualIdle();
+  const sync = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote: fakeRemote(null), idle });
+  assert.ok(storage.getItem('vmx-user-sync-journal-v1'), 'the half-finished boot commit left its journal');
+  tapBookmark(sync, 'new', null);
+  idle.run();
+  // Killed here. The next boot must not bring 'old' back without 'new'.
+  const reopened = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote: fakeRemote(null), idle: manualIdle() });
+  assert.deepEqual(reopened.getSnapshot().data.bookmarks, ['old', 'new']);
+  assert.equal(reopened.getSnapshot().data.notes.n, 'from crash');
+  reopened.close();
+});
+
+test('another tab sees an edit before the snapshot has caught up', () => {
+  const storage = new MemoryStorage();
+  const lifeA = createLifecycle(true); const lifeB = createLifecycle(true);
+  const idleA = manualIdle();
+  const a = createUserDataSync({ storage, lifecycle: lifeA, remote: fakeRemote(null), idle: idleA });
+  const b = createUserDataSync({ storage, lifecycle: lifeB, remote: fakeRemote(null), idle: manualIdle() });
+  a.subscribe(() => {}); b.subscribe(() => {});
+  tapBookmark(a, 'from-a', null);
+  lifeB.emit('storage');
+  assert.deepEqual(b.getSnapshot().data.bookmarks, ['from-a'], 'read from the outbox');
+  idleA.run();
+  lifeB.emit('storage');
+  assert.deepEqual(b.getSnapshot().data.bookmarks, ['from-a'], 'read from the compacted snapshot');
+  tapBookmark(b, 'from-b', null);
+  lifeA.emit('storage');
+  assert.deepEqual(a.getSnapshot().data.bookmarks, ['from-a', 'from-b']);
+  a.close(); b.close();
+  const reopened = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote: fakeRemote(null), idle: manualIdle() });
+  assert.deepEqual(reopened.getSnapshot().data.bookmarks, ['from-a', 'from-b']);
+  reopened.close();
+});
+
+test('a note deleted after the snapshot caught up stays deleted, after a crash and in another tab', async () => {
+  // The outbox record keeps its oldest base, so a note added and deleted again
+  // folds into a record that no longer mentions it. Replayed onto a snapshot
+  // compacted while the note existed, that record would leave the note there:
+  // a signed-in reboot offline, or a second tab, brought the deleted note back.
+  const setNote = (sync, value) => sync.send({
+    type: 'CHANGE', principalId: 'user-1',
+    derive: (d) => {
+      const notes = { ...d.notes };
+      if (value === undefined) delete notes.q1; else notes.q1 = value;
+      return { notes };
+    },
+  });
+  const storage = new MemoryStorage();
+  const remote = fakeRemote({ notes: {} });
+  const setup = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
+  setup.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  await settle();
+  setup.close();
+
+  // Offline, so nothing is pushed and the outbox record stays.
+  const lifeA = createLifecycle(false); const lifeB = createLifecycle(false);
+  const idleA = manualIdle(); const idleB = manualIdle();
+  const a = createUserDataSync({ storage, lifecycle: lifeA, remote, debounceMs: 60_000, scheduler: never, idle: idleA });
+  const b = createUserDataSync({ storage, lifecycle: lifeB, remote, debounceMs: 60_000, scheduler: never, idle: idleB });
+  a.subscribe(() => {}); b.subscribe(() => {});
+  a.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  b.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  setNote(a, 'draft'); lifeB.emit('storage');
+  idleA.run(); lifeB.emit('storage');
+  assert.equal(snapshotOf(storage, 'user-1').notes.q1, 'draft');
+  setNote(a, undefined); lifeB.emit('storage');
+  assert.equal(a.getSnapshot().data.notes.q1, undefined);
+  assert.equal(b.getSnapshot().data.notes.q1, undefined, 'the other tab does not see the deleted note');
+
+  // A tab killed here, before any idle pass, boots without the note.
+  const rebooted = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
+  rebooted.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  assert.equal(rebooted.getSnapshot().data.notes.q1, undefined, 'a reboot does not bring the deleted note back');
+  rebooted.close();
+
+  // Nor does the other tab write it back when it compacts its own edit.
+  b.send({ type: 'CHANGE', principalId: 'user-1', derive: (d) => ({ bookmarks: [...d.bookmarks, 9] }) });
+  lifeA.emit('storage');
+  idleB.run(); lifeA.emit('storage');
+  assert.equal(a.getSnapshot().data.notes.q1, undefined);
+  a.close(); b.close();
+  const after = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
+  after.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  assert.equal(after.getSnapshot().data.notes.q1, undefined);
+  assert.deepEqual(after.getSnapshot().data.bookmarks, [9]);
+  after.close();
+});
+
+test('a sent exam result and a reset streak stay gone once the snapshot has caught up', async () => {
+  // The same fold, through the list and streak merges rather than the keyed
+  // object: a queued exam result that the snapshot caught up with and that
+  // was then sent and taken off the queue, and a streak reset after the
+  // snapshot held the day's streak. Replayed onto that snapshot, the folded
+  // record put the sent result back in the queue and the old streak back on
+  // the header, in another tab and after a reboot.
+  const storage = new MemoryStorage();
+  const remote = fakeRemote({ streak_data: { streak: 5, lastDate: '2026-09-22' } });
+  const setup = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
+  setup.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  await settle();
+  setup.close();
+
+  const lifeA = createLifecycle(false); const lifeB = createLifecycle(false);
+  const idleA = manualIdle();
+  const a = createUserDataSync({ storage, lifecycle: lifeA, remote, debounceMs: 60_000, scheduler: never, idle: idleA });
+  const b = createUserDataSync({ storage, lifecycle: lifeB, remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
+  a.subscribe(() => {}); b.subscribe(() => {});
+  a.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  b.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  const edit = (derive) => { a.send({ type: 'CHANGE', principalId: 'user-1', derive }); lifeB.emit('storage'); };
+
+  edit((d) => ({
+    pendingExamResults: [...d.pendingExamResults, { id: 'run-1', score: 42 }],
+    streakData: { streak: 6, lastDate: '2026-09-23' },
+  }));
+  idleA.run(); lifeB.emit('storage');
+  assert.deepEqual(snapshotOf(storage, 'user-1').pendingExamResults, [{ id: 'run-1', score: 42 }]);
+  edit((d) => ({ pendingExamResults: d.pendingExamResults.filter((r) => r.id !== 'run-1') }));
+  edit(() => ({ streakData: { streak: 0, lastDate: null } }));
+
+  assert.deepEqual(b.getSnapshot().data.pendingExamResults, [], 'the other tab does not queue the sent result again');
+  assert.deepEqual(b.getSnapshot().data.streakData, { streak: 0, lastDate: null });
+  const rebooted = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
+  rebooted.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  assert.deepEqual(rebooted.getSnapshot().data.pendingExamResults, [], 'a reboot does not queue it again');
+  assert.deepEqual(rebooted.getSnapshot().data.streakData, { streak: 0, lastDate: null });
+  rebooted.close(); a.close(); b.close();
 });
 
 test('a record written by the previous build still loads', () => {
