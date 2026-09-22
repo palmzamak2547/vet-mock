@@ -396,3 +396,70 @@ test('the sticky wrap-up index uses the 36px compromise and stays shorter than t
     assert.ok(bar <= offset, `the sticky index is ${bar}px tall and an item it jumps to stops ${offset}px down: the bar covers its heading`);
   }
 });
+
+// ── UI-13: opacity on text ────────────────────────────────────────────
+
+/** Effective contrast of a text node: its colour times every opacity down the chain, over `bg`. */
+function textContrast(node, env, tokens, bgValue) {
+  const bg = rgb(bgValue, tokens);
+  let alpha = 1;
+  for (let n = 1; n <= node.length; n += 1) {
+    const o = declared(node.slice(0, n), 'opacity', env);
+    if (o) alpha *= Number(o.value);
+  }
+  const fg = rgb(computed(node, 'color', env), tokens);
+  return ratio(over([fg[0], fg[1], fg[2], fg[3] * alpha], bg), bg);
+}
+
+const COUNTDOWN = ['section.vmx-countdown', 'button.vmx-countdown-strip'];
+const day = (mod, part) => chain(...COUNTDOWN, `span.vmx-countdown-day${mod}`, `span.${part}`);
+
+test('the countdown strip\'s day letters and dates clear 4.5:1 in both themes, weekends included', () => {
+  for (const env of [PHONE, DESKTOP]) {
+    for (const [theme, tokens] of Object.entries(THEMES)) {
+      for (const mod of ['', '.is-weekend', '.is-exam', '.is-done']) {
+        for (const part of ['vmx-countdown-dow', 'vmx-countdown-daynum']) {
+          const r = textContrast(day(mod, part), env, tokens, 'var(--clr-surface)');
+          assert.ok(r >= 4.5, `${part}${mod || ''} ${r.toFixed(2)}:1 in ${theme} at ${env.width}px`);
+        }
+      }
+    }
+  }
+});
+
+test('weekend dates still recede from weekday dates, with a token instead of opacity', () => {
+  for (const [theme, tokens] of Object.entries(THEMES)) {
+    const weekday = textContrast(day('', 'vmx-countdown-daynum'), DESKTOP, tokens, 'var(--clr-surface)');
+    const weekend = textContrast(day('.is-weekend', 'vmx-countdown-daynum'), DESKTOP, tokens, 'var(--clr-surface)');
+    assert.ok(weekend < weekday, `${theme}: a weekend date (${weekend.toFixed(2)}) reads as strongly as a weekday (${weekday.toFixed(2)})`);
+  }
+  // Today's date keeps its filled circle on a weekend too.
+  assert.equal(computed(day('.is-weekend.is-today', 'vmx-countdown-daynum'), 'color', DESKTOP), 'var(--clr-sage-on)');
+});
+
+/** The inline style object of the first element after `marker`. */
+function inlineStyle(src, marker) {
+  const at = src.indexOf(marker);
+  assert.notEqual(at, -1, `${marker} is no longer in the source`);
+  const open = src.indexOf('style={{', at);
+  const close = src.indexOf('}}', open);
+  assert.ok(open !== -1 && close !== -1 && open - at < 600, `could not isolate the inline style after ${marker}`);
+  return src.slice(open + 'style={{'.length, close);
+}
+
+test('the XP chip total clears 4.5:1 in both themes', () => {
+  const chip = inlineStyle(XP_CHIP, 'className={`vmx-xp-chip${');
+  const total = inlineStyle(XP_CHIP, 'className="vmx-xp-chip-total"');
+  const opacity = Number((total.match(/\bopacity:\s*([\d.]+)/) || [null, 1])[1]);
+  const color = chip.match(/\bcolor:\s*'([^']+)'/)[1];
+  const fill = chip.match(/\bbackground:\s*'([^']+)'/)[1];
+  // The chip sits in the header, on the page or on a surface card.
+  for (const [theme, tokens] of Object.entries(THEMES)) {
+    for (const page of ['var(--clr-bg)', 'var(--clr-surface)']) {
+      const bg = over(rgb(fill, tokens), rgb(page, tokens));
+      const fg = rgb(color, tokens);
+      const r = ratio(over([fg[0], fg[1], fg[2], opacity], bg), bg);
+      assert.ok(r >= 4.5, `XP total ${r.toFixed(2)}:1 in ${theme} on ${page}`);
+    }
+  }
+});

@@ -106,10 +106,12 @@ export default function XpChip() {
       >
         <span><strong>Lv {lvl}</strong></span>
         {/* A hairline, not punctuation — "Lv 0" and "0 XP" sitting in a flex
-            row with only a gap between them read as one number, "Lv 0 0 XP". */}
+            row with only a gap between them read as one number, "Lv 0 0 XP".
+            The total is secondary by weight (the level is bold), not by
+            opacity: at 0.75 it blended to 3.5:1 on the header. */}
         <span
           className="vmx-xp-chip-total"
-          style={{ opacity: 0.75, paddingLeft: 8, borderLeft: '1px solid currentColor' }}
+          style={{ paddingLeft: 8, borderLeft: '1px solid currentColor' }}
         >
           {state.totalXp.toLocaleString()} XP
         </span>
