@@ -10,6 +10,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { updateStreak } from '../../src/hooks/utils.js';
+import { isFlashcardCompatible } from '../../src/hooks/sr-filter.js';
 
 const read = (path) => readFileSync(new URL(`../../${path}`, import.meta.url), 'utf8');
 const count = (src, needle) => src.split(needle).length - 1;
@@ -91,13 +92,30 @@ test('the spaced-repetition start and finish screens label their numbers in Thai
   assert.ok(s.includes('<div className="vmx-stat-lbl">ถึงรอบพรุ่งนี้</div>'));
   assert.ok(s.includes("{remaining > 0 ? 'ค้างอีก' : 'ถึงรอบพรุ่งนี้'}"));
   assert.ok(s.includes('<div className="vmx-score-label">ทบทวนไปแล้ว</div>'));
-  assert.ok(s.includes('ในรอบทบทวนมี <strong>{eligibleCount}</strong> ข้อ ไม่รวม <strong>{excludedCount}</strong> ข้อที่ต้องเห็นตัวเลือกก่อนถึงจะตอบได้'));
+  assert.ok(s.includes('ในรอบทบทวนมี <strong>{eligibleCount}</strong> ข้อ ไม่รวม <strong>{excludedCount}</strong> ข้อ'));
   // The date beside a card is the day it came due, which is today or earlier
   // for every card in a round; "รอบถัดไป 3 วันที่แล้ว" would contradict itself.
   assert.equal(count(s, 'ถึงรอบ {fmtDate(currentCard.nextReview)}'), 3);
   // Pinned by mochi-presence and motion-integration.
   assert.ok(s.includes("'เริ่ม Session →'"));
   assert.ok(s.includes('แสดงคำตอบ (Space)'));
+});
+
+test('the exclusion note on the review screen names every kind of question it leaves out', () => {
+  // excludedCount is every question isFlashcardCompatible turns away, and that
+  // includes written answers, which have no options at all. A note saying all
+  // of them "need their options on screen" was false for those.
+  assert.equal(isFlashcardCompatible({ type: 'short', q: 'อธิบายกลไก' }), false);
+  assert.equal(isFlashcardCompatible({ type: 'essay', q: 'อธิบายกลไก' }), false);
+  assert.equal(isFlashcardCompatible({ type: 'match' }), false);
+  assert.equal(isFlashcardCompatible({ type: 'mcq', q: 'ข้อใดถูกต้อง' }), false);
+  const s = read('src/views/SRSessionView.jsx');
+  const start = s.indexOf('{excludedCount > 0 && (');
+  const note = s.slice(start, s.indexOf(')}', start));
+  assert.ok(note.includes('ไม่รวม <strong>{excludedCount}</strong> ข้อที่ทบทวนแบบการ์ดไม่ได้'),
+    'the count is introduced by what all of its questions share');
+  assert.ok(note.includes('ข้อเขียน'), 'written questions are part of the count and must be named');
+  assert.ok(note.includes('ข้อจับคู่'));
 });
 
 // ── Screen-reader labels ────────────────────────────────────────────────────

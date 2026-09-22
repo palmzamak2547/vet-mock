@@ -303,7 +303,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
           {excludedCount > 0 && (
             <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', lineHeight: 1.5 }}>
-              ในรอบทบทวนมี <strong>{eligibleCount}</strong> ข้อ ไม่รวม <strong>{excludedCount}</strong> ข้อที่ต้องเห็นตัวเลือกก่อนถึงจะตอบได้ (ข้อ "ข้อใดถูก" และข้อจับคู่)
+              ในรอบทบทวนมี <strong>{eligibleCount}</strong> ข้อ ไม่รวม <strong>{excludedCount}</strong> ข้อที่ทบทวนแบบการ์ดไม่ได้ คือข้อที่ต้องเห็นตัวเลือกก่อนถึงจะตอบได้ (ข้อ "ข้อใดถูก" และข้อจับคู่) และข้อเขียน
             </div>
           )}
 
