@@ -1014,7 +1014,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                   />
                 )}
                 {playerFailed && (
-                  <div role="status" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, textAlign: 'center', color: '#fff', fontSize: 13, lineHeight: 1.6 }}>
+                  <div role="status" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, textAlign: 'center', color: 'white', fontSize: 13, lineHeight: 1.6 }}>
                     เปิดเครื่องเล่นในแอปไม่ได้ กดปุ่ม เปิดใน YouTube ด้านล่าง หรือปิดคลิปนี้แล้วเปิดใหม่อีกครั้ง
                   </div>
                 )}
