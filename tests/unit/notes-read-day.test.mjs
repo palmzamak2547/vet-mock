@@ -15,8 +15,22 @@
 //    This file pins TZ=Asia/Bangkok itself, so it means the same on a UTC CI
 //    runner as on a student's phone (the lesson of ci-runs-in-utc).
 //
-// The view renders JSX, so the function is lifted out of the source and run
-// against a storage shim, the real quests.js and a mocked clock.
+// 2. Typing in "ค้นหาใน notes" does not re-render every section.
+//
+//    Every keystroke re-renders NotesView (the box echoes `search` at once;
+//    filtering and highlighting wait for the 80 ms debounce). SectionBlock was
+//    a plain function and its `conflicts` prop was correctionsFor(...), which
+//    returns a fresh [] for any section without corrections, so each key
+//    re-rendered and re-split the text of every section. aqua-intro-thailand
+//    (127 sections) paid about 5.5 ms of element creation per letter before
+//    React even reconciled. SectionBlock is now React.memo and sections with
+//    no corrections share one frozen empty list, so a section re-renders only
+//    when the debounced query (its highlight) changes.
+//
+// The view renders JSX, so the pieces are lifted out of the source: the
+// dedupe function runs against a storage shim, the real quests.js and a
+// mocked clock; the section list's map callback runs with its <SectionBlock>
+// element read as a props object, against the real corrections and notes.
 // ============================================================
 
 process.env.TZ = 'Asia/Bangkok';
@@ -141,4 +155,127 @@ test('with storage disabled the read is still credited', () => {
   const broken = { getItem() { throw new Error('SecurityError'); }, setItem() { throw new Error('SecurityError'); } };
   const markTopicReadOnce = loadMarkTopicReadOnce(broken);
   assert.equal(markTopicReadOnce('aquatic-clinic', 'aqua-intro-thailand'), true);
+});
+
+// ── 2. Typing in the search box does not re-render every section ──────────
+
+const { correctionsFor } = await import('../../src/lib/vetwiki/corrections.js');
+const { sectionId } = await import('../../src/lib/vetwiki/schema.js');
+const { loadNotesSubject } = await import('../../src/data/note-corpus.js');
+
+/** The source from the first `open` at or after `from` to its matching `close`. */
+function balanced(text, from, open, close) {
+  const start = text.indexOf(open, from);
+  let depth = 0;
+  for (let i = start; i < text.length; i += 1) {
+    if (text[i] === open) depth += 1;
+    else if (text[i] === close && --depth === 0) return text.slice(start, i + 1);
+  }
+  throw new Error(`unbalanced ${open}${close} in NotesView source`);
+}
+
+/**
+ * The callback NotesView maps its sections through, with the <SectionBlock>
+ * element rewritten as the props object React would hand to it.
+ */
+function sectionElementFactory() {
+  const anchor = '{filteredSections.map';
+  const at = SRC.indexOf(anchor);
+  assert.notEqual(at, -1, 'NotesView must still render filteredSections');
+  const call = balanced(SRC, at + anchor.length, '(', ')');
+  let callback = call.slice(1, -1).trim();
+  const tag = callback.indexOf('<SectionBlock');
+  assert.notEqual(tag, -1, 'each section must still render a SectionBlock');
+  let i = tag + '<SectionBlock'.length;
+  const props = [];
+  for (;;) {
+    while (/\s/.test(callback[i])) i += 1;
+    if (callback.startsWith('/>', i)) { i += 2; break; }
+    const attr = /^(\w+)=/.exec(callback.slice(i));
+    assert.ok(attr, `unexpected SectionBlock attribute syntax: ${callback.slice(i, i + 40)}`);
+    i += attr[0].length;
+    const expr = balanced(callback, i, '{', '}');
+    props.push(`${JSON.stringify(attr[1])}: (${expr.slice(1, -1)})`);
+    i += expr.length;
+  }
+  callback = `${callback.slice(0, tag)}({ ${props.join(', ')} })${callback.slice(i)}`;
+  // Module-scope constants the callback may close over (EMPTY_SECTIONS & co).
+  const constants = [...SRC.matchAll(/^const (\w+) = (Object\.freeze\((?:\[\]|\{\})\));$/gm)]
+    .map(([, name, value]) => `const ${name} = ${value};`)
+    .join('\n');
+  const context = vm.createContext({ correctionsFor, sectionId, subject: '', validTopic: '', debouncedSearch: '' });
+  const render = vm.runInContext(`${constants}\n(${callback})`, context);
+  return {
+    context,
+    /** One render of the section list: the props each SectionBlock receives. */
+    renderList: (sections) => sections.map((section, idx) => render(section, idx)),
+  };
+}
+
+/** React.memo's default check: re-render unless every prop is Object.is-equal. */
+function wouldRerender(prev, next) {
+  const keys = new Set([...Object.keys(prev), ...Object.keys(next)]);
+  keys.delete('key');
+  return [...keys].some((k) => !Object.is(prev[k], next[k]));
+}
+
+const SUBJECT = 'aquatic-clinic';
+const TOPIC = 'aqua-intro-thailand';
+const notes = await loadNotesSubject(SUBJECT);
+const sections = notes[TOPIC]?.sections || [];
+
+test('the fixture is the long topic from the report, with and without corrections', () => {
+  assert.ok(sections.length >= 100, `${TOPIC} should still be the long topic (${sections.length} sections)`);
+  const withCorrections = sections.filter((s) => correctionsFor(sectionId(SUBJECT, TOPIC, s.heading)).length > 0);
+  assert.ok(withCorrections.length > 0, 'some sections must carry corrections so both paths are exercised');
+  assert.ok(withCorrections.length < sections.length);
+});
+
+test('SectionBlock is memoised with React\'s default shallow compare', () => {
+  assert.ok(/^import \{[^}]*\bmemo\b[^}]*\} from 'react';$/m.test(SRC), 'memo must come from react');
+  assert.ok(/^const SectionBlock = memo\(function SectionBlock\(/m.test(SRC),
+    'SectionBlock re-rendered on every keystroke because nothing let React skip it');
+});
+
+test('a keystroke before the debounce fires re-renders no section', () => {
+  const { context, renderList } = sectionElementFactory();
+  Object.assign(context, { subject: SUBJECT, validTopic: TOPIC, debouncedSearch: '' });
+  // The student types "r": NotesView re-renders with a new `search` while the
+  // debounced query, and so the filtered list, are unchanged.
+  const before = renderList(sections);
+  const after = renderList(sections);
+  const changed = new Set();
+  let rerendered = 0;
+  before.forEach((props, i) => {
+    if (!wouldRerender(props, after[i])) return;
+    rerendered += 1;
+    for (const k of Object.keys(props)) if (!Object.is(props[k], after[i][k])) changed.add(k);
+  });
+  assert.equal(
+    rerendered,
+    0,
+    `${rerendered} of ${sections.length} sections would re-render on one keystroke (changed props: ${[...changed].join(', ')})`,
+  );
+});
+
+test('each section still gets exactly its own corrections, and the shared empty list cannot be written to', () => {
+  const { context, renderList } = sectionElementFactory();
+  Object.assign(context, { subject: SUBJECT, validTopic: TOPIC, debouncedSearch: '' });
+  for (const props of renderList(sections)) {
+    const expected = correctionsFor(sectionId(SUBJECT, TOPIC, props.section.heading));
+    assert.equal(props.conflicts.length, expected.length);
+    if (expected.length > 0) assert.equal(props.conflicts, expected, 'a section with corrections gets the stored list');
+    else assert.ok(Object.isFrozen(props.conflicts), 'one empty list is shared by every section, so it must be frozen');
+    assert.equal(props.figSectionId, sectionId(SUBJECT, TOPIC, props.section.heading));
+  }
+});
+
+test('when the debounced query changes, every section re-renders once so its highlight follows', () => {
+  const { context, renderList } = sectionElementFactory();
+  Object.assign(context, { subject: SUBJECT, validTopic: TOPIC, debouncedSearch: '' });
+  const before = renderList(sections);
+  context.debouncedSearch = 'กุ้ง';
+  const after = renderList(sections);
+  assert.ok(after.every((p) => p.highlight === 'กุ้ง'));
+  assert.equal(before.filter((p, i) => wouldRerender(p, after[i])).length, sections.length);
 });

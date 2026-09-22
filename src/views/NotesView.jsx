@@ -2,7 +2,7 @@ import Mochi from '../components/Mochi.jsx';
 import ReadingEffects from '../components/ReadingEffects.jsx';
 import { MotionEnter } from '../components/MotionFeedback.jsx';
 import MotionLoader from '../components/MotionLoader.jsx';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import {
   NOTE_SUBJECT_IDS,
   clearNotesSubjectCache,
@@ -61,6 +61,9 @@ function markTopicReadOnce(subject, topic) {
 
 const EMPTY_NOTES = Object.freeze({});
 const EMPTY_SECTIONS = Object.freeze([]);
+// correctionsFor returns a fresh [] for a section without corrections, which
+// would defeat SectionBlock's memo on every keystroke in the search box.
+const NO_CONFLICTS = Object.freeze([]);
 
 // Walk a section's structured body and collect all searchable text
 // into a single lower-cased string. Done once per (topic, section)
@@ -444,16 +447,20 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
               re-walk every text node on every keystroke. The visible
               <input> still reads `search` for instant feedback. */}
           <ReadingEffects contentKey={`${subject}:${validTopic}:${debouncedSearch}`}>
-          {filteredSections.map((section, idx) => (
-            <SectionBlock
-              key={idx}
-              section={section}
-              idx={idx}
-              highlight={debouncedSearch}
-              conflicts={correctionsFor(sectionId(subject, validTopic, section.heading))}
-              figSectionId={sectionId(subject, validTopic, section.heading)}
-            />
-          ))}
+          {filteredSections.map((section, idx) => {
+            const id = sectionId(subject, validTopic, section.heading);
+            const conflicts = correctionsFor(id);
+            return (
+              <SectionBlock
+                key={idx}
+                section={section}
+                idx={idx}
+                highlight={debouncedSearch}
+                conflicts={conflicts.length > 0 ? conflicts : NO_CONFLICTS}
+                figSectionId={id}
+              />
+            );
+          })}
           </ReadingEffects>
         </div>
       </div>
@@ -477,7 +484,10 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
 }
 
 // ── Single section ─────────────────────────────────────────────
-function SectionBlock({ section, idx, highlight, conflicts, figSectionId = null }) {
+// Memoised: every keystroke in the search box re-renders NotesView, but a
+// section's props only change when the debounced query (its highlight) does.
+// Without it a long topic re-split the text of every section on each letter.
+const SectionBlock = memo(function SectionBlock({ section, idx, highlight, conflicts, figSectionId = null }) {
   const [open, setOpen] = useState(true);
   const hasConflict = conflicts.length > 0;
 
@@ -532,7 +542,7 @@ function SectionBlock({ section, idx, highlight, conflicts, figSectionId = null 
       )}
     </div>
   );
-}
+});
 
 // ── Polymorphic body item renderer ─────────────────────────────
 function BodyItem({ item, highlight }) {
