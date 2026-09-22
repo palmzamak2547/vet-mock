@@ -1034,7 +1034,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 color: 'var(--clr-ink-soft)',
               }}
             >
-              ระบบรักษาสถิติการเรียนต่อเนื่อง {freezeNotice.streak} วัน
+              เว้นไป 1 วัน แต่ยังนับต่อเนื่องให้ {freezeNotice.streak} วัน
             </div>
           )}
           {quickStats.streak > 0 && (
@@ -1331,7 +1331,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
               >
                 <div className="icon"><NavIcon name="practice" size={20} /></div>
                 <div className="title">ตามสไลด์ปัจจุบัน</div>
-                <div className="sub">{scopeLabel} {currentScopeCount} ข้อ, เฉลยตรวจแล้ว ตรง {SEMESTER.id}</div>
+                <div className="sub">{scopeLabel} {currentScopeCount} ข้อ, เฉลยตรวจแล้ว ตรงกับสไลด์เทอมนี้</div>
                 <div className="badge" style={{ '--badge-accent': 'var(--clr-sage)' }}>{phaseScope ? scopeLabel : 'ตรวจแล้ว'}</div>
               </button>
             )}
@@ -1347,7 +1347,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
               >
                 <div className="icon"><NavIcon name="exam" size={20} /></div>
                 <div className="title">ชุดน่าจะออก</div>
-                <div className="sub">{scopeLabel} {highPredictionCount} ข้อ, หลักฐานสูง แต่ไม่ใช่ข้อสอบยืนยัน</div>
+                <div className="sub">{scopeLabel} {highPredictionCount} ข้อ, มีหลักฐานหลายทาง แต่ยังเป็นการคาดเดา</div>
                 <div className="badge" style={{ '--badge-accent': 'var(--clr-gold)' }}>เน้นสอบ</div>
               </button>
             )}
@@ -2052,12 +2052,12 @@ function DailyQRow({ user, setView, selectedYear }) {
       </button>
       {streak >= 2 && (
         <span style={{ fontSize: 12, color: 'var(--clr-gold-text, #b88940)', fontFamily: 'var(--vmx-mono)' }}>
-          daily streak {streak}
+          ตอบข้อวันนี้ติดกัน {streak} วัน
         </span>
       )}
       {pulse && pulse.total >= 3 && (
         <span
-          title={`${pulse.correct}/${pulse.total} ตอบถูกใน Daily Q วันนี้`}
+          title={`${pulse.correct}/${pulse.total} ตอบถูกในข้อวันนี้`}
           style={{
             display: 'inline-flex',
             alignItems: 'center',

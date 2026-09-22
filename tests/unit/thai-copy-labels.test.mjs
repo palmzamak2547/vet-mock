@@ -37,3 +37,44 @@ test('the wrong-answer banner never says the answer is marked with a tick', () =
   for (const caller of callers) assert.match(caller, /correctNode=\{/);
   assert.ok(callers[1].includes("correctIsTrue ? '✓ True' : '✗ False'"));
 });
+
+// ── Home ────────────────────────────────────────────────────────────────────
+
+test('the home practice cards describe their sets in words, not a semester id', () => {
+  const home = read('src/views/HomeView.jsx');
+  assert.ok(!home.includes('ตรง {SEMESTER.id}'), 'the card printed "ตรง 2569-1"');
+  assert.ok(home.includes('{scopeLabel} {currentScopeCount} ข้อ, เฉลยตรวจแล้ว ตรงกับสไลด์เทอมนี้'));
+  assert.ok(!home.includes('หลักฐานสูง แต่ไม่ใช่ข้อสอบยืนยัน'));
+  assert.ok(home.includes('{scopeLabel} {highPredictionCount} ข้อ, มีหลักฐานหลายทาง แต่ยังเป็นการคาดเดา'));
+});
+
+test('the streak-freeze notice says a day was skipped and the run still counts', () => {
+  const home = read('src/views/HomeView.jsx');
+  assert.ok(!home.includes('ระบบรักษาสถิติการเรียนต่อเนื่อง'), 'the old line never said what happened');
+  assert.ok(home.includes('เว้นไป 1 วัน แต่ยังนับต่อเนื่องให้ {freezeNotice.streak} วัน'));
+
+  // The notice fires on exactly this event: one skipped day on a run of 5+.
+  const DAY = 86400000;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const saved = updateStreak(today.getTime() - 2 * DAY, 6, null);
+  assert.equal(saved.freezeJustUsed, true);
+  assert.equal(saved.streak, 7);
+  // The freeze re-arms once a run breaks, so the copy may not promise it is
+  // a one-time save.
+  const broken = updateStreak(today.getTime() - 4 * DAY, 9, today.getTime() - 10 * DAY);
+  assert.equal(broken.freezeUsedAt, null);
+  const notice = home.slice(home.indexOf('{freezeNotice && ('), home.indexOf('{quickStats.streak > 0 && ('));
+  assert.ok(!notice.includes('ครั้งเดียว'));
+});
+
+test('the daily-question row calls itself ข้อวันนี้ throughout', () => {
+  const home = read('src/views/HomeView.jsx');
+  const row = home.slice(home.indexOf('function DailyQRow('));
+  assert.ok(row.includes('ข้อวันนี้{status.completed'), 'the button label is the name');
+  assert.ok(!row.includes('daily streak'), 'the counter beside it was English');
+  assert.ok(row.includes('ตอบข้อวันนี้ติดกัน {streak} วัน'));
+  // Kept apart from the study-streak card, which counts something else.
+  assert.ok(!row.includes('วันต่อเนื่อง'));
+  assert.ok(!row.includes('ตอบถูกใน Daily Q'), 'the class-pulse tooltip used a second name');
+  assert.ok(row.includes('`${pulse.correct}/${pulse.total} ตอบถูกในข้อวันนี้`'));
+});
