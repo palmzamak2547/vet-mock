@@ -18,12 +18,22 @@ const EMPTY_CLIPS = Object.freeze([]);
 const EMPTY_WATCHED = Object.freeze({});
 
 // useLocalStorage's shape, backed by the restorable local-extras bundle.
+//
+// Store first, then show. The list used to change on screen before the write,
+// whose false was dropped, so a clip the browser refused to keep appeared,
+// closed its form, and was gone after the next reload. The setter now returns
+// whether the write held, and nothing changes on screen when it did not. The
+// ref is the last stored value, so two functional updates before a render
+// build on each other rather than on the same stale list.
 function useLocalExtra(key, fallback) {
   const [value, setValue] = useState(() => readLocalExtra(key, fallback));
+  const stored = useRef(value);
   const update = (next) => {
-    const resolved = typeof next === 'function' ? next(value) : next;
+    const resolved = typeof next === 'function' ? next(stored.current) : next;
+    if (!writeLocalExtra(key, resolved)) return false;
+    stored.current = resolved;
     setValue(resolved);
-    writeLocalExtra(key, resolved);
+    return true;
   };
   return [value, update];
 }
@@ -370,23 +380,35 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
       return;
     }
     const newVid = { ...form, custom: true };
-    if (editingIdx !== null) {
-      const arr = [...customVideos]; arr[editingIdx] = newVid; setCustomVideos(arr);
-    } else {
-      setCustomVideos([...customVideos, newVid]);
+    const next = editingIdx !== null
+      ? customVideos.map((v, i) => (i === editingIdx ? newVid : v))
+      : [...customVideos, newVid];
+    // The browser can refuse the write (storage full, or a bundle it cannot
+    // read). Keep the form open and filled so nothing typed is lost, and do
+    // not guess which of the two it was.
+    if (!setCustomVideos(next)) {
+      alertDialog({
+        title: 'บันทึกคลิปไม่สำเร็จ',
+        body: 'เบราว์เซอร์เครื่องนี้ยังไม่ได้เก็บคลิปนี้ไว้ ข้อมูลในฟอร์มยังอยู่ ลองกดบันทึกอีกครั้ง',
+      });
+      return;
     }
     setShowAdd(false);
   };
 
   const deleteCustom = async (idx) => {
     if (!(await confirmDialog({ title: 'ลบคลิปนี้?', confirmLabel: 'ลบ', tone: 'danger' }))) return;
-    setCustomVideos(customVideos.filter((_, i) => i !== idx));
+    if (!setCustomVideos(customVideos.filter((_, i) => i !== idx))) {
+      alertDialog({ title: 'ลบคลิปไม่สำเร็จ', body: 'คลิปนี้ยังอยู่ในเบราว์เซอร์เครื่องนี้ ลองลบอีกครั้ง' });
+    }
   };
 
   const customIdx = (vid) => customVideos.findIndex((v) => v.url === vid.url && v.topic === vid.topic);
+  // A watched mark that cannot be stored simply does not show; it is not
+  // worth a dialog in the middle of a clip.
   const markWatched = (videoId) => {
     if (!videoId) return;
-    setWatched({ ...watched, [videoId]: { watchedAt: Date.now() } });
+    setWatched((prev) => ({ ...prev, [videoId]: { watchedAt: Date.now() } }));
   };
 
   const watchedCount = Object.keys(watched).length;
