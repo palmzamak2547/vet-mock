@@ -94,13 +94,11 @@ test('--check fails on one wrong number in a table no other check recounts, name
     fs.writeFileSync(kindsFile, bumpInside(
       fs.readFileSync(kindsFile, 'utf8'),
       'Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE',
-      '"mcq": ',
     ), 'utf8');
     const countsFile = path.join(dir, COUNTS);
     fs.writeFileSync(countsFile, bumpInside(
       fs.readFileSync(countsFile, 'utf8'),
       'Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE',
-      "': ",
     ), 'utf8');
     const before = snapshot(dir);
 

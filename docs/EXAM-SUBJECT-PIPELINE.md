@@ -153,7 +153,9 @@ Rules learned the hard way:
   `npm run test:e2e:ci` runs the suite the way the Smoke e2e workflow does:
   Chromium on two workers, then WebKit and Firefox on one, one retry, and
   `test.only` refused. `npx playwright test --last-failed --workers=2` reruns
-  only what failed. Neither replaces the gate; they settle what its red means.
+  only what the most recent Playwright run failed, so use it straight after
+  the gate, before `npm run test:e2e:ci` overwrites that record. Neither
+  replaces the gate; they settle what its red means.
 - **CI runs in UTC.** A test that pins a clock with `+07:00` across midnight
   passes locally and fails on the runner.
 - A failed GitHub check leaves the Vercel alias on the old build, whatever the
