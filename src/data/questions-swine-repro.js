@@ -33,8 +33,8 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Mid 86",
     "q": "ต่อมใดในระบบสืบพันธุ์เพศผู้ของสุกรที่หลั่งสารลักษณะ \"เม็ดสาคู\" (plug) ที่ช่วยอุดปากมดลูกหลังผสม?",
     "options": [
-      "Seminal vesicle",
-      "Prostate gland",
+      "Seminal vesicle (vesicular gland)",
+      "Prostate gland (body และ disseminate part)",
       "Bulbourethral gland (Cowper's gland)",
       "Ampulla ของ ductus deferens"
     ],
@@ -105,10 +105,10 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Mid 86",
     "q": "Spermatogenesis ในสุกรใช้เวลานานประมาณเท่าใดจนได้ sperm สมบูรณ์?",
     "options": [
-      "ประมาณ 14 วัน",
+      "ประมาณ 14 วัน (~2 สัปดาห์)",
       "ประมาณ 35 วัน (~5 สัปดาห์)",
-      "ประมาณ 60 วัน",
-      "ประมาณ 90 วัน"
+      "ประมาณ 60 วัน (~8.5 สัปดาห์)",
+      "ประมาณ 90 วัน (~13 สัปดาห์)"
     ],
     "answer": 1,
     "explain": "Spermatogenesis ในสุกรใช้เวลาประมาณ 35 วัน ดังนั้นเมื่อมีปัญหาที่ testis แล้วต้องการประเมินซ้ำ ต้องรอประมาณ 5-7 สัปดาห์ก่อนทดสอบใหม่ เพราะ sperm รุ่นใหม่ต้องผ่าน spermatogenesis และ maturation ใน epididymis.",
@@ -129,9 +129,9 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Mid 86",
     "q": "ข้อใดไม่ใช่ index ที่ใช้ในการคัดเลือกพ่อพันธุ์สุกร?",
     "options": [
-      "Days to 100 kg",
-      "Backfat thickness",
-      "Loin eye area",
+      "Days to 100 kg body weight",
+      "Backfat thickness วัดด้วย ultrasound",
+      "Loin eye area (LEA, cm²)",
       "BVD (Bovine Viral Diarrhea)"
     ],
     "answer": 3,
@@ -201,10 +201,10 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Mid 86",
     "q": "Sperm reservoir ของสุกรอยู่ที่ตำแหน่งใดของระบบสืบพันธุ์เพศเมีย?",
     "options": [
-      "Cervix",
-      "Body of uterus",
+      "Cervix (cervical crypts ของ pulvini)",
+      "Uterine body / proximal uterine horn",
       "Uterotubal junction (UTJ) / Caudal isthmus",
-      "Ampulla ของ oviduct"
+      "Ampulla / ampullary-isthmic junction"
     ],
     "answer": 2,
     "explain": "Sperm reservoir ของสุกรอยู่ที่ caudal isthmus ของ oviduct ติดกับ uterotubal junction (UTJ) ทำหน้าที่เก็บ sperm และทยอยปล่อยไปปฏิสนธิที่ ampulla ซึ่งเป็น fertilization site Sperm มี lifetime ~24 ชั่วโมงใน oviduct.",
@@ -249,10 +249,10 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Mid 86",
     "q": "สุกรสาวทดแทน (replacement gilt) ควรเริ่มผสมพันธุ์ครั้งแรกเมื่ออายุประมาณเท่าใด?",
     "options": [
-      "ก่อน 150 วัน",
+      "ก่อน 140-150 วัน",
       "ก่อน 220-230 วัน",
-      "หลัง 300 วัน",
-      "หลัง 365 วัน"
+      "หลัง 300-320 วัน",
+      "หลัง 360-380 วัน"
     ],
     "answer": 1,
     "explain": "สุกรสาวทดแทนควรผสมครั้งแรกที่อายุน้อยกว่า 220-230 วัน เป็นสัดครั้งแรกที่อายุ ~180-200 วัน (น้ำหนัก ~100-109 kg, backfat ~13-15 mm) ควรเจอผู้ชาย (boar exposure) ตั้งแต่อายุ 160 วัน เพื่อกระตุ้น puberty.",
@@ -273,10 +273,10 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Mid 86",
     "q": "วิธีมาตรฐานในการทดสอบการเป็นสัด (standing heat) ของแม่สุกรคือข้อใด?",
     "options": [
-      "Rectal palpation",
+      "Rectal palpation (คลำรังไข่)",
       "Back pressure test (กดหลัง)",
-      "Ultrasound ตรวจรังไข่",
-      "วัดอุณหภูมิทางทวารหนัก"
+      "Ultrasound ตรวจ follicle ที่รังไข่",
+      "วัดอุณหภูมิทางทวารหนักทุกวัน"
     ],
     "answer": 1,
     "explain": "Back pressure test (การกดหลัง) เป็นวิธีมาตรฐานในการทดสอบ standing heat ในแม่สุกร แม่ที่เป็นสัดเต็มที่จะยืนนิ่งให้กดหลังได้ มักทำพร้อมการเจอ boar (boar exposure) ช่วยเพิ่มความแม่นยำ.",
@@ -345,10 +345,10 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Final 86",
     "q": "Maternal recognition of pregnancy ในแม่สุกรเกิดขึ้นช่วงวันใดและด้วยกลไกใด?",
     "options": [
-      "Day 4-5 — blastocyst หลั่ง progesterone",
+      "Day 4-5 — blastocyst หลั่ง progesterone เพื่อคง CL ไว้ก่อนเข้าสู่มดลูก",
       "Day 11-12 — blastocyst หลั่ง estrogen เปลี่ยน PGF2alpha จาก endocrine เป็น exocrine",
-      "Day 16-18 — blastocyst หลั่ง hCG ยับยั้ง luteolysis",
-      "Day 21 — fetal heart beat เริ่มสร้าง relaxin"
+      "Day 15-17 — blastocyst หลั่ง interferon-tau ยับยั้ง oxytocin receptor",
+      "Day 21 — fetal heart beat เริ่มขึ้นและ placenta สร้าง relaxin ไปคง CL"
     ],
     "answer": 1,
     "explain": "Maternal recognition of pregnancy ในสุกรเกิดที่ day 11-12 หลังผสม โดย blastocyst หลั่ง estrogen ไปกระตุ้น prolactin receptor ที่ endometrium เปลี่ยนทิศทางการหลั่ง PGF2alpha จาก endocrine (ไหลเข้าหลอดเลือดไปสลาย CL) เป็น exocrine (ไหลเข้า uterine lumen) จึงไม่ทำลาย CL และคงการตั้งท้องไว้.",
@@ -369,10 +369,10 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Final 86",
     "q": "การตั้งท้องในสุกรเริ่มตรวจด้วย X-ray ได้ที่ประมาณวันใดของการตั้งท้องเป็นต้นไป?",
     "options": [
-      "Day 13 (เริ่มฝังตัว)",
-      "Day 16 (เริ่มมี heart beat)",
+      "Day 13 (เริ่มฝังตัวของ embryo)",
+      "Day 16 (เริ่มมี fetal heart beat)",
       "Day 35 (เริ่มมี calcification ของกระดูก)",
-      "Day 60 (fetus เต็มที่)"
+      "Day 60 (โครงร่าง fetus สมบูรณ์เห็นเงาชัดเจน)"
     ],
     "answer": 2,
     "explain": "Day 35 (ประมาณสัปดาห์ที่ 5) เริ่มพบ calcification ของกระดูก fetus จึงตรวจการตั้งท้องด้วย X-ray ได้ ส่วน fetal heart beat พบที่ day 16, ฝังตัวที่ day 13 และตัวอ่อนยังไม่ฝังตัวจนถึง 2 สัปดาห์แรกจึงห้ามย้ายแม่สุกร.",
@@ -417,10 +417,10 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Final 86",
     "q": "อาการ \"นมพุ่ง / milk let-down\" (milk express) ในแม่สุกรเป็นสัญญาณก่อนคลอดประมาณกี่ชั่วโมง?",
     "options": [
-      "~4 วันก่อนคลอด",
+      "~96 ชั่วโมง (4 วัน) ก่อนคลอด",
       "~24 ชั่วโมง (1 วัน) ก่อนคลอด",
-      "~1 ชั่วโมงก่อนคลอด",
-      "หลังคลอดเสร็จแล้ว"
+      "~1 ชั่วโมง (60 นาที) ก่อนคลอด",
+      "หลังคลอดตัวสุดท้ายเสร็จแล้ว"
     ],
     "answer": 1,
     "explain": "Sign of farrowing ในแม่สุกร: -4 วัน vulva swelling (จาก estrogen), -1 วัน (24 ชั่วโมง) นมพุ่ง/milk let-down จาก oxytocin ผ่าน Ferguson reflex, -1 ชั่วโมง เห็น meconium (ขี้เทาของลูก) เริ่มเบ่ง ถุงน้ำคร่ำแตก ถ้าไม่ออก = dystocia.",
@@ -442,9 +442,9 @@ export const QB_SWINE_REPRO = [
     "q": "เกณฑ์ใดต่อไปนี้บ่งชี้ภาวะ dystocia ในแม่สุกร?",
     "options": [
       "ระยะเวลาคลอด (farrowing duration) > 240 นาที (4 ชั่วโมง)",
-      "ระยะห่างระหว่างลูกแต่ละตัว < 5 นาที",
-      "Litter size > 12 ตัว",
-      "Vulva swelling ก่อนคลอด 4 วัน"
+      "ระยะห่างระหว่างลูกแต่ละตัว (birth interval) สั้นกว่า 5 นาที",
+      "จำนวนลูกต่อครอก (litter size) มากกว่า 12 ตัว",
+      "Vulva บวมแดงช่วง 4 วันก่อนคลอด (จาก estrogen)"
     ],
     "answer": 0,
     "explain": "เกณฑ์ของ dystocia ในสุกร: (1) เวลาคลอดรวม > 240 นาที (4 ชั่วโมง), (2) ระยะห่างระหว่างลูก > 30 นาที, (3) litter size ต่ำ, (4) เบ่งแต่ไม่มีลูกออก/ไม่เบ่งเลย, (5) ไม่มีรกหลังคลอด.",
@@ -465,10 +465,10 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Final 86",
     "q": "Secondary uterine inertia ในแม่สุกรพบบ่อยในกรณีใด และแก้ไขได้อย่างไร?",
     "options": [
-      "พบในสุกรท้องแรกที่ไม่มีแรงเบ่ง น้ำคร่ำแตกแต่ลูกไม่ออก แก้ด้วย oxytocin",
+      "พบในสุกรท้องแรกที่ไม่มีแรงเบ่งตั้งแต่ต้น น้ำคร่ำแตกแต่ลูกไม่ออก แก้ด้วย oxytocin",
       "พบในแม่ท้องแก่ ลูกดก มดลูกบีบจนหมดแรง (flabby) แก้ด้วยการให้ฮอร์โมนกระตุ้นการบีบตัว",
       "พบในแม่อ้วน มี hypocalcemia ไม่รู้สาเหตุชัด แก้ด้วย calcium gluconate",
-      "พบเฉพาะในสุกรสาวที่ผสมเร็วเกินไป"
+      "พบเฉพาะในสุกรสาวท้องแรกที่ผสมเร็วเกินไป แก้ด้วยการผ่าคลอดทุกราย"
     ],
     "answer": 1,
     "explain": "Uterine inertia 3 ประเภท: (1) Primary - ไม่มีแรงเบ่งตั้งแต่ต้น น้ำคร่ำแตก ไม่มีลูกออก, (2) Secondary - มดลูกบีบจนหมดแรง flabby มักเจอในแม่ท้องแก่ลูกดก พบบ่อย แก้โดยให้ฮอร์โมน (oxytocin, calcium), (3) Idiopathic - เจอในแม่อ้วน hypocalcemia ไม่รู้สาเหตุชัด.",
@@ -537,10 +537,10 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Final 86",
     "q": "ปัญหาที่พบในพ่อพันธุ์สุกรที่อ้วนเกินไป ข้อใดถูกต้องที่สุด?",
     "options": [
-      "Libido สูงขึ้น น้ำเชื้อคุณภาพดี",
+      "Libido สูงขึ้น ขึ้น dummy ได้บ่อย, น้ำเชื้อปริมาณและคุณภาพดีขึ้น",
       "Leg problem (ขาเจ็บ, กีบแตก, เลือดออก), libido ต่ำ, lazy, ไม่ยอมขึ้น dummy",
-      "Aspermia ทันที",
-      "Testicular hypoplasia"
+      "Aspermia ทันที (หลั่งไม่มีน้ำเชื้อเลย) เพราะไขมันอุดท่อนำอสุจิ",
+      "Testicular hypoplasia แต่กำเนิด ทำให้อัณฑะเล็กและ sperm output ต่ำ"
     ],
     "answer": 1,
     "explain": "พ่อสุกรที่อ้วนเกินไปจะมีปัญหา leg problem (กีบแตก, ขาเจ็บ), libido ต่ำ, lazy ไม่ยอมขึ้นทับ dummy ส่วนพ่อพันธุ์ที่ผอมเกินไปจะ libido ต่ำ, น้ำเชื้อคุณภาพต่ำ, ejaculation ต่ำเช่นกัน จึงต้องคุมสภาพร่างกายให้ปกติ (BCS).",
@@ -562,10 +562,10 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Final 86",
     "q": "สาเหตุของเชื้อที่พบบ่อยที่สุดใน MMA syndrome (Mastitis-Metritis-Agalactia) / PDS (Postpartum Dysgalactia Syndrome) ของแม่สุกรหลังคลอดคือข้อใด?",
     "options": [
-      "Staphylococcus aureus",
-      "Streptococcus suis",
+      "Staphylococcus aureus (coagulase +)",
+      "Streptococcus suis (serotype 2)",
       "E. coli (Escherichia coli)",
-      "Brucella suis"
+      "Brucella suis (biovar 1)"
     ],
     "answer": 2,
     "explain": "E. coli เป็นเชื้อที่พบบ่อยที่สุดใน MMA syndrome / PDS ของแม่สุกรหลังคลอด เกิดจากการปนเปื้อนเข้าสู่ระบบสืบพันธุ์ ระยะ 24-48 ชั่วโมงหลังคลอด estradiol ลดลง progesterone สูง ภูมิคุ้มกันลด เพิ่มความเสี่ยง รักษาด้วย oxytocin 10 IU + antibiotics + ลด constipation เป็นการป้องกัน.",
@@ -587,9 +587,9 @@ export const QB_SWINE_REPRO = [
     "q": "ลูกสุกรแรกเกิดควรได้รับ colostrum ภายในกี่ชั่วโมงและต้องเสริม iron dextran ขนาดเท่าใดเมื่อใด?",
     "options": [
       "Colostrum ภายใน 24 ชั่วโมง, iron dextran 200 mg/ตัวภายใน 3 วันแรก",
-      "Colostrum ภายใน 7 วัน, iron dextran 500 mg/ตัว ตอนหย่านม",
-      "Colostrum ภายใน 12 ชั่วโมง, iron oral 50 mg/ตัวทุกวัน",
-      "ไม่จำเป็นต้องเสริม iron"
+      "Colostrum ภายใน 7 วัน, iron dextran 500 mg/ตัว ครั้งเดียวตอนหย่านม",
+      "Colostrum ภายใน 72 ชั่วโมง, iron oral 50 mg/ตัว ทุกวันจนหย่านม",
+      "ไม่จำเป็นต้องเสริม iron เพราะนมแม่สุกรมี iron เพียงพอ"
     ],
     "answer": 0,
     "explain": "ลูกสุกรต้องกิน colostrum ภายใน 24 ชั่วโมง (ถ้าเกิน 24-48 ชั่วโมง antibody ไม่ผ่านลำไส้แล้ว) เสริม iron dextran 200 mg/ตัวภายใน 3 วันหลังคลอด, ทำหมันที่อายุ 7 วัน, การย้ายฝาก (cross-fostering) ไม่ควรเกิน 2 วัน / 48 ชั่วโมง เพราะลูกสุกรจะจดจำเต้านม.",
@@ -610,10 +610,10 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Mid 86",
     "q": "WSI (Wean-to-Service Interval) ที่เหมาะสมของแม่สุกรหลังหย่านมเฉลี่ยอยู่ที่เท่าใด?",
     "options": [
-      "1-2 วัน",
+      "1-2 วัน (พบมากวันที่ 1)",
       "4-7 วัน (พบมาก 4-5 วัน)",
-      "10-14 วัน",
-      "21 วัน"
+      "10-14 วัน (พบมาก 12 วัน)",
+      "21 วัน (ครบรอบ estrous cycle)"
     ],
     "answer": 1,
     "explain": "WSI (Wean-to-Service Interval) หรือ WOI (Wean-to-Oestrus Interval) ของแม่สุกรอยู่ที่ 4-7 วัน พบบ่อยที่สุด 4-5 วัน หลังหย่านม prolactin ลดลง GnRH กลับมาทำงาน รังไข่พัฒนาและแม่กลับมาเป็นสัด ถ้านานเกินไป (>7 วัน) ถือว่า delayed return to estrus.",
@@ -635,9 +635,9 @@ export const QB_SWINE_REPRO = [
     "q": "การทำ epidural anesthesia ในสุกรนิยมใช้ยาและตำแหน่งใด?",
     "options": [
       "2% lidocaine (Xylocaine) <2 mg/kg ที่ lumbosacral space (L6-S1)",
-      "10% lidocaine ที่ cervical space (C1-C2)",
-      "Bupivacaine 1% ที่ thoracic space (T13-L1)",
-      "Procaine ที่ caudal space"
+      "10% lidocaine 5 mg/kg ที่ cervical space (C1-C2)",
+      "0.5% bupivacaine 1 mg/kg ที่ thoracolumbar space (T13-L1) หลังซี่โครงสุดท้าย",
+      "Procaine 5% 10 mg/kg ที่ first intercoccygeal space (Co1-Co2)"
     ],
     "answer": 0,
     "explain": "Epidural anesthesia ในสุกรใช้ 2% lidocaine (Xylocaine) ขนาดไม่เกิน 2 mg/kg ที่ lumbosacral space (L6-S1) ระหว่าง wing of ilium การทดสอบว่าเข้าถูกที่ใช้ hanging drop technique หรือ loss of resistance Premedication นิยม Azaperone (Stresnil) 4 mg/kg.",
@@ -658,10 +658,10 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Mid 86",
     "q": "Improvac (GnRH vaccine) ในสุกรเพศผู้มีกลไกการออกฤทธิ์อย่างไร?",
     "options": [
-      "ยับยั้งการสร้าง testosterone โดยการทำลาย Leydig cell โดยตรง",
+      "ยับยั้งการสร้าง testosterone โดยการทำลาย Leydig cell โดยตรง ทำให้ลด boar taint",
       "กระตุ้นภูมิคุ้มกันต้าน GnRH ทำให้ FSH/LH ลดลง ส่งผลให้ testosterone ลด และลด boar taint",
-      "ฉีดเข้า testis ทำลายเนื้อเยื่อโดยตรง",
-      "เพิ่ม aromatase ทำให้ testosterone แปลงเป็น estradiol"
+      "ฉีดเข้า testis ทำลายเนื้อเยื่อ seminiferous tubule โดยตรง เป็นการตอนทางเคมีแบบถาวร",
+      "เพิ่ม aromatase ทำให้ testosterone แปลงเป็น estradiol มากขึ้น ส่งผลให้ลด boar taint"
     ],
     "answer": 1,
     "explain": "Improvac เป็น GnRH vaccine ฉีด SC 2 ครั้งห่างกัน 4 สัปดาห์ ร่างกายสร้าง antibody ต้าน GnRH ทำให้ FSH/LH ลดลง testosterone ลด ลด boar taint (กลิ่นเหม็นจาก 5-alpha-androstenone, skatole) เป็นทางเลือกที่ animal welfare friendly กว่าการตอนปกติ ในไทยยังไม่ได้รับการอนุมัติให้ขายเต็มที่.",
@@ -706,10 +706,10 @@ export const QB_SWINE_REPRO = [
     "examOrigin": "Swine Repro Mid 86",
     "q": "ข้อใดจับคู่ คำศัพท์ semen abnormality ถูกต้อง?",
     "options": [
-      "Azoospermia = ไม่มีน้ำเชื้อเลย",
-      "Oligospermia = มี sperm รูปร่างผิดปกติมาก",
+      "Azoospermia = ไม่มีน้ำเชื้อหลั่งออกมาเลยระหว่างการรีด",
+      "Oligospermia = มี sperm รูปร่างผิดปกติมากกว่า 50%",
       "Teratozoospermia = มี sperm รูปร่างผิดปกติมากกว่า 50%",
-      "Asthenozoospermia = น้ำเชื้อปริมาณสูงผิดปกติ"
+      "Asthenozoospermia = ปริมาณน้ำเชื้อสูงผิดปกติเกิน 500 mL"
     ],
     "answer": 2,
     "explain": "Teratozoospermia = มี sperm รูปร่างผิดปกติมากกว่า 50% (เกี่ยวกับ morphology) คำอื่น: Aspermia = ไม่มีน้ำเชื้อ, Hypospermia = น้ำเชื้อปริมาณน้อย, Hyperspermia = ปริมาณมากผิดปกติ, Azoospermia = ไม่มี sperm ในน้ำเชื้อ, Oligospermia = sperm concentration ต่ำ, Asthenozoospermia = sperm motility < 50%.",
