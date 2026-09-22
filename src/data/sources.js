@@ -121,7 +121,3 @@ export const QUESTION_SOURCES = {
     note: 'Clinical App Ruminant, สอบ ศุกร์ 8 พ.ค. 2569, 13:00-16:00',
   },
 };
-
-export function getSourceInfo(subjectId) {
-  return QUESTION_SOURCES[subjectId] || null;
-}

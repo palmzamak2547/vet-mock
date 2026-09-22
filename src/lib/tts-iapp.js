@@ -275,39 +275,3 @@ export async function speakViaIApp({ text, lang, controller }) {
   await player.finished;
   if (controller?._players) controller._players.delete(player);
 }
-
-// ── Cache management (parallels the tts-edge exports) ──────────
-export async function forceEvictIAppCache() {
-  await evictStale(true);
-}
-export async function clearIAppCache() {
-  try {
-    const store = await dbTx('readwrite');
-    return await new Promise((res, rej) => {
-      const r = store.clear();
-      r.onsuccess = () => res();
-      r.onerror = () => rej(r.error);
-    });
-  } catch { /* ignore */ }
-}
-export async function iappCacheSize() {
-  try {
-    const store = await dbTx('readonly');
-    return await new Promise((res, rej) => {
-      const all = [];
-      const r = store.openCursor();
-      r.onsuccess = (e) => {
-        const c = e.target.result;
-        if (c) { all.push(c.value); c.continue(); }
-        else res({
-          entries: all.length,
-          bytes: all.reduce((s, v) => s + (v.bytes || v.audio?.byteLength || 0), 0),
-          maxBytes: MAX_CACHE_BYTES,
-        });
-      };
-      r.onerror = () => rej(r.error);
-    });
-  } catch {
-    return { entries: 0, bytes: 0, maxBytes: MAX_CACHE_BYTES };
-  }
-}

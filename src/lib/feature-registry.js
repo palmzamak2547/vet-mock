@@ -55,8 +55,6 @@ export const FEATURE_FLAGS = {
 };
 
 export const IMAGING_PRO_URL = 'https://imaging.cuvetsmo.com';
-// Compatibility alias for integrations that imported the original name.
-export const IMAGING_URL = IMAGING_PRO_URL;
 
 export const FEATURE_CATEGORIES = [
   { id: 'practice', label: 'ฝึก & สอบ',        labelEn: 'Practice & Exam', icon: '📝' },
@@ -405,11 +403,6 @@ export function takeViewIntent() {
 
 export function featuresByCategory(categoryId) {
   return FEATURES.filter((f) => f.category === categoryId);
-}
-
-/** The 3 primary study-mode cards (Quick / Exam / SR). */
-export function primaryFeatures() {
-  return FEATURES.filter((f) => f.primary);
 }
 
 /** Quick-access tools surfaced in the floating ToolsFAB (🧮/🎨/🔬). */

@@ -86,14 +86,6 @@ export function deleteNote(videoId, id) {
   return writeAll(all);
 }
 
-export function clearVideoNotes(videoId) {
-  if (!videoId) return;
-  const all = readAll();
-  if (!all[videoId]) return;
-  delete all[videoId];
-  return writeAll(all);
-}
-
 // "MM:SS" under an hour, "H:MM:SS" for hour+. Used by the panel rows.
 export function formatTimestamp(t) {
   const total = Math.max(0, Math.floor(Number(t) || 0));

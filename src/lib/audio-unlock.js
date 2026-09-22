@@ -34,10 +34,6 @@ let _primer = null;
 // Tiny inline silent WAV (44 bytes total — 1 sample, mono, 8-bit PCM)
 const SILENT_WAV = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAVFYAAFRWAAABAAgAZGF0YQAAAAA=';
 
-export function isAudioUnlocked() {
-  return _unlocked;
-}
-
 /**
  * Prime audio playback. Call inside a user-initiated event handler
  * BEFORE any await. Safe to call multiple times — only the first call

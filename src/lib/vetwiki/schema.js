@@ -186,22 +186,5 @@ export const REVIEW_LABEL = {
   deprecated: { th: 'มีเนื้อหาใหม่กว่า', tone: 'muted' },
 };
 
-/** How a supported statement in a VetMock answer got its support. */
-export const SUPPORT_LABEL = {
-  'vetwiki-verified': { th: 'ยืนยันจาก VetWiki', tone: 'strong' },
-  'external-evidence': { th: 'อ้างอิงภายนอก', tone: 'ok' },
-  'tool-result': { th: 'ผลจากเครื่องมือ', tone: 'ok' },
-  'vetmock-analysis': { th: 'การวิเคราะห์ของ VetMock', tone: 'weak' },
-  'conflicting-evidence': { th: 'มีข้อถกเถียง', tone: 'warn' },
-  'insufficient-evidence': { th: 'ข้อมูลยังไม่พอ', tone: 'muted' },
-};
-
-export const USE_SCOPE_LABEL = {
-  learning: 'สำหรับการเรียน',
-  assessment: 'สำหรับการสอบ',
-  research: 'สำหรับงานวิจัย',
-  'clinical-decision-support': 'ใช้เป็นข้อมูลประกอบทางคลินิก',
-};
-
 export const ALL_EVIDENCE = Object.keys(EVIDENCE_LABEL);
 export const ALL_REVIEW = Object.keys(REVIEW_LABEL);

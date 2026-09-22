@@ -83,8 +83,3 @@ export function makeLowEaseCard(questionId, opts = {}) {
     autoPromoted: true,
   };
 }
-
-export const AUTO_PROMOTE_DEFAULTS = Object.freeze({
-  threshold: DEFAULT_THRESHOLD,
-  easeFactor: DEFAULT_EASE,
-});

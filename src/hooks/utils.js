@@ -92,16 +92,6 @@ export function matchScore(q, ua) {
   return { correct, total, fraction: correct / total };
 }
 
-export function matchIsPartialCorrect(q, ua) {
-  const s = matchScore(q, ua);
-  return s.correct > 0 && s.correct < s.total;
-}
-
-// True if the question requires human / self-assessment for grading
-// (vs the deterministic types above). Used by ReviewView to render
-// a "self-assess" UI instead of the rigid "✓ ถูก / ✗ ผิด" badge.
-export const isOpenEnded = (q) => q?.type === 'essay' || (q?.type === 'short' && (!q.keywords || q.keywords.length === 0));
-
 // True if the question is a writing-style question (short answer or
 // essay). Used to (a) allocate longer per-question time, (b) trigger
 // a confirm dialog when skipping blank answers, (c) exclude from the

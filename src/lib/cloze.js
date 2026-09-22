@@ -112,21 +112,6 @@ export function expandCloze(text, idx) {
 }
 
 /**
- * Reveal-all renderer — used by the back face to draw highlighted
- * answer text. Same as expandCloze().back but kept as its own export
- * so callers' intent is obvious.
- *
- * @param {string} text
- * @returns {string}
- */
-export function stripClozeMarks(text) {
-  const raw = typeof text === 'string' ? text : '';
-  const out = raw.replace(CLOZE_RE, (_full, _nStr, payload) => payload);
-  CLOZE_RE.lastIndex = 0;
-  return out;
-}
-
-/**
  * Generate one renderable entry per unique cloze index found in `text`.
  * Returns [] if no marks are present (or text is empty).
  *

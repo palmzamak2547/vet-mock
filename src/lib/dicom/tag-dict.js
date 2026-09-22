@@ -134,7 +134,3 @@ export const TAG_DICT = {
   'x0018700a': 'DetectorID',
   'x00187050': 'FilterMaterial',
 };
-
-// VR list — common ones. Used to decide how to display tag values
-// (string vs binary).
-export const STRING_VRS = new Set(['AE', 'AS', 'CS', 'DA', 'DS', 'DT', 'IS', 'LO', 'LT', 'PN', 'SH', 'ST', 'TM', 'UI', 'UT']);
