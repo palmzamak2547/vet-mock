@@ -660,6 +660,49 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
 }
 
 // ============================================================
+// Player clock — the notes panel's view of where the clip is
+// ============================================================
+// Polls the player's currentTime every 500 ms while the tab is visible, and
+// pauses when the document is hidden to save battery on mobile. This used to
+// be PlayerModal's own state, so while a clip played every tick re-rendered
+// the whole modal and its playlist sidebar. Held here, a tick re-renders only
+// the notes panel that reads it; a paused clip returns the same number and
+// React skips the render.
+function usePlayerClock(playerRef, videoId) {
+  const [currentTime, setCurrentTime] = useState(0);
+  useEffect(() => {
+    if (!videoId) return undefined;
+    let id = null;
+    const start = () => {
+      if (id != null) return;
+      id = window.setInterval(() => {
+        try {
+          const p = playerRef.current;
+          if (p && typeof p.getCurrentTime === 'function') {
+            const t = p.getCurrentTime();
+            if (typeof t === 'number' && !Number.isNaN(t)) setCurrentTime(t);
+          }
+        } catch {}
+      }, 500);
+    };
+    const stop = () => { if (id != null) { clearInterval(id); id = null; } };
+    const onVis = () => { if (document.hidden) stop(); else start(); };
+    if (!document.hidden) start();
+    document.addEventListener('visibilitychange', onVis);
+    return () => {
+      stop();
+      document.removeEventListener('visibilitychange', onVis);
+    };
+  }, [videoId, playerRef]);
+  return currentTime;
+}
+
+function ClockedVideoNotePanel({ videoId, playerRef }) {
+  const currentTime = usePlayerClock(playerRef, videoId);
+  return <VideoNotePanel videoId={videoId} playerRef={playerRef} currentTime={currentTime} />;
+}
+
+// ============================================================
 // PlayerModal — full-featured: search, prev/next, watched, kbd nav
 // ============================================================
 function PlayerModal({ video, onClose, watched, markWatched }) {
@@ -776,7 +819,15 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
     return indexedItems.filter((it) => it._titleLc.includes(q));
   }, [indexedItems, debouncedSearch]);
 
-  const currentIdx = playlistItems.findIndex((p) => p.id === currentVideoId);
+  // Position of each clip in the playlist, built once per list. Every
+  // sidebar row used to search the list for its own number, n searches of n
+  // items per render. The first occurrence wins, as findIndex's did.
+  const indexById = useMemo(() => {
+    const byId = new Map();
+    playlistItems.forEach((p, i) => { if (!byId.has(p.id)) byId.set(p.id, i); });
+    return byId;
+  }, [playlistItems]);
+  const currentIdx = indexById.has(currentVideoId) ? indexById.get(currentVideoId) : -1;
   const goPrev = () => { if (currentIdx > 0) setCurrentVideoId(playlistItems[currentIdx - 1].id); };
   const goNext = () => { if (currentIdx >= 0 && currentIdx < playlistItems.length - 1) setCurrentVideoId(playlistItems[currentIdx + 1].id); };
 
@@ -810,10 +861,9 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   }
 
   // ── YT.Player wrapper (replaces raw <iframe>) ───────────────────
-  // Owned here so VideoNotePanel can read currentTime + seek via ref.
+  // Owned here so the notes panel can read the clock and seek via the ref.
   const ytContainerRef = useRef(null);
   const playerRef = useRef(null);
-  const [currentTime, setCurrentTime] = useState(0);
   // The in-app player could not start (its API did not load, or YT.Player
   // threw). The clip is still one tap away on YouTube, so the black box says
   // where instead of staying black.
@@ -863,33 +913,6 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
       playerRef.current = null;
     };
   }, [currentVideoId, playlistId]);
-
-  // Poll currentTime every 500ms while the tab is visible. Pauses when
-  // the document is hidden to save battery on mobile.
-  useEffect(() => {
-    if (!currentVideoId) return undefined;
-    let id = null;
-    const start = () => {
-      if (id != null) return;
-      id = window.setInterval(() => {
-        try {
-          const p = playerRef.current;
-          if (p && typeof p.getCurrentTime === 'function') {
-            const t = p.getCurrentTime();
-            if (typeof t === 'number' && !Number.isNaN(t)) setCurrentTime(t);
-          }
-        } catch {}
-      }, 500);
-    };
-    const stop = () => { if (id != null) { clearInterval(id); id = null; } };
-    const onVis = () => { if (document.hidden) stop(); else start(); };
-    if (!document.hidden) start();
-    document.addEventListener('visibilitychange', onVis);
-    return () => {
-      stop();
-      document.removeEventListener('visibilitychange', onVis);
-    };
-  }, [currentVideoId]);
 
   const currentItem = playlistItems[currentIdx];
   // hasSummary uses VIDEO_META (sync · ~50 KB) so we don't pay the
@@ -1081,11 +1104,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
 
             {/* Audio-synced notes — only when we have a concrete video id */}
             {currentVideoId && (
-              <VideoNotePanel
-                videoId={currentVideoId}
-                playerRef={playerRef}
-                currentTime={currentTime}
-              />
+              <ClockedVideoNotePanel videoId={currentVideoId} playerRef={playerRef} />
             )}
 
             {/* Footer actions */}
@@ -1148,7 +1167,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                   </div>
                 )}
                 {filteredItems.map((item) => {
-                  const realIdx = playlistItems.findIndex((p) => p.id === item.id);
+                  const realIdx = indexById.get(item.id);
                   const active = item.id === currentVideoId;
                   const isWatched = watched && watched[item.id];
                   const hasSummary = !!VIDEO_META[item.id];

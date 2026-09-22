@@ -169,3 +169,102 @@ test('the failure line points at the YouTube button and at reopening the clip', 
   const frame = cut('<div style={{ position: \'relative\', paddingBottom: \'56.25%\'', '{playerFailed && (');
   assert.match(frame, /ref=\{ytContainerRef\}/);
 });
+
+// ── the player clock ─────────────────────────────────────────────────
+// The notes panel follows the clip through a 500 ms poll of the player's
+// clock. The poll used to be PlayerModal's own state, so while a clip played
+// every tick re-rendered the whole modal, and with it the playlist sidebar,
+// whose rows each searched the playlist for their own number. The clock now
+// belongs to the notes panel's wrapper, and a row's number is a lookup.
+
+// Cut when a test runs, so a missing piece fails that test and not the file.
+const playerModal = () => cut('function PlayerModal(', '\n}\n');
+const clockHook = () => cut('function usePlayerClock(playerRef, videoId) {', '\n}\n');
+
+// A tab: timers the test fires by hand, and a visibility the test flips.
+function clock({ time = () => 12.5, hidden = false } = {}) {
+  const timers = new Map();
+  let nextId = 1;
+  const listeners = new Set();
+  const doc = { hidden, addEventListener: (t, fn) => { assert.equal(t, 'visibilitychange'); listeners.add(fn); }, removeEventListener: (t, fn) => listeners.delete(fn) };
+  const win = {
+    setInterval: (fn, ms) => { assert.equal(ms, 500); const id = nextId++; timers.set(id, fn); return id; },
+  };
+  const slots = [];
+  let at = 0;
+  let cleanup = null;
+  const renders = { count: 0 };
+  const ctx = {
+    window: win,
+    document: doc,
+    clearInterval: (id) => timers.delete(id),
+    useState: (init) => {
+      const i = at++;
+      if (!(i in slots)) slots[i] = { value: init };
+      const slot = slots[i];
+      return [slot.value, (v) => { if (v !== slot.value) { slot.value = v; renders.count += 1; } }];
+    },
+    useEffect: (fn) => { if (!cleanup) cleanup = fn() || (() => {}); },
+  };
+  vm.createContext(ctx);
+  const usePlayerClock = vm.runInContext(`${clockHook()}\nusePlayerClock`, ctx);
+  const playerRef = { current: { getCurrentTime: time } };
+  const read = () => { at = 0; return usePlayerClock(playerRef, 'hPV3Rhh8r3Q'); };
+  read();
+  return {
+    read,
+    renders,
+    tick: () => { for (const fn of [...timers.values()]) fn(); },
+    timers,
+    listeners,
+    setHidden: (h) => { doc.hidden = h; for (const fn of [...listeners]) fn(); },
+    unmount: () => cleanup(),
+  };
+}
+
+test('the clock reads the player every 500 ms and hands back the time', () => {
+  let t = 3;
+  const c = clock({ time: () => t });
+  assert.equal(c.read(), 0);
+  c.tick();
+  assert.equal(c.read(), 3);
+  t = 3.5;
+  c.tick();
+  assert.equal(c.read(), 3.5);
+});
+
+test('the clock stops while the tab is hidden and starts again when it is back', () => {
+  const c = clock();
+  assert.equal(c.timers.size, 1);
+  c.setHidden(true);
+  assert.equal(c.timers.size, 0);
+  c.setHidden(false);
+  assert.equal(c.timers.size, 1);
+  c.unmount();
+  assert.equal(c.timers.size, 0);
+  assert.equal(c.listeners.size, 0);
+});
+
+test('a paused clip costs no render', () => {
+  const c = clock({ time: () => 42 });
+  c.tick();
+  const after = c.renders.count;
+  c.tick();
+  c.tick();
+  assert.equal(c.renders.count, after);
+});
+
+test('the player modal no longer owns the clock, so a tick cannot re-render the sidebar', () => {
+  const modal = playerModal();
+  assert.doesNotMatch(modal, /setCurrentTime|setInterval|getCurrentTime/);
+  assert.match(modal, /<ClockedVideoNotePanel\s+videoId=\{currentVideoId\}\s+playerRef=\{playerRef\}\s*\/>/);
+  const wrapper = cut('function ClockedVideoNotePanel(', '\n}\n');
+  assert.match(wrapper, /usePlayerClock\(playerRef, videoId\)/);
+  assert.match(wrapper, /<VideoNotePanel videoId=\{videoId\} playerRef=\{playerRef\} currentTime=\{currentTime\} \/>/);
+});
+
+test('a sidebar row finds its number without searching the playlist', () => {
+  const rows = cut('{filteredItems.map((item) => {', '\n                })}');
+  assert.doesNotMatch(rows, /findIndex/);
+  assert.match(rows, /indexById\.get\(item\.id\)/);
+});
