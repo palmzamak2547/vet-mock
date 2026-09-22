@@ -499,8 +499,8 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
       )}
 
       <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
-        ⚠️ <strong>Disclaimer:</strong> คลิปเหล่านี้เป็นของเจ้าของช่องบน YouTube ต้นฉบับ ไม่ใช่ผลงานของ VetMock<br/>
-        คลิปที่เพิ่มเอง + ประวัติการดู เก็บใน browser ของพี่เท่านั้น (localStorage)
+        ⚠️ <strong>หมายเหตุ:</strong> คลิปเหล่านี้เป็นของเจ้าของช่องบน YouTube ต้นฉบับ ไม่ใช่ผลงานของ VetMock<br/>
+        คลิปที่เพิ่มเองและประวัติการดูเก็บไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>
@@ -924,9 +924,9 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
               className="vmx-btn vmx-btn-ghost vmx-btn-sm"
               onClick={() => setShowList(!showList)}
               style={{ flexShrink: 0 }}
-              title="แสดง / ซ่อน list"
+              title="แสดงหรือซ่อนรายการคลิป"
             >
-              {showList ? 'ซ่อน list' : `ดู list (${playlistItems.length})`}
+              {showList ? 'ซ่อนรายการ' : `ดูรายการ (${playlistItems.length})`}
             </button>
           )}
           <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onClose} style={{ flexShrink: 0, fontSize: 18, padding: '4px 10px' }} title="ปิด (Esc)" aria-label="ปิดเครื่องเล่นวิดีโอ">✕</button>
@@ -963,19 +963,19 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
             ) : isChannel ? (
               <div style={{ padding: 30, background: 'var(--clr-surface-2)', borderRadius: 12, textAlign: 'center' }}>
                 <div style={{ fontSize: 40, marginBottom: 8 }}>📺</div>
-                <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>เป็น link ของ channel — เปิด YouTube เพื่อเลือกดู</div>
+                <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>ลิงก์นี้เป็นช่อง YouTube เปิดใน YouTube เพื่อเลือกคลิป</div>
               </div>
             ) : (
-              <div style={{ padding: 20, background: 'var(--clr-rose-soft)', borderRadius: 12 }}>ไม่สามารถ embed ได้ — กรุณาเปิดใน YouTube</div>
+              <div style={{ padding: 20, background: 'var(--clr-rose-soft)', borderRadius: 12 }}>คลิปนี้เล่นในแอปไม่ได้ เปิดใน YouTube แทน</div>
             )}
 
-            {/* Now playing line + prev/next controls */}
+            {/* Current-clip line + previous/next controls */}
             {playlistItems.length > 0 && currentItem && (
               <div style={{ marginTop: 14, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-                <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goPrev} disabled={currentIdx <= 0} title="ก่อนหน้า (←)" style={{ padding: '6px 12px' }}>← Prev</button>
+                <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goPrev} disabled={currentIdx <= 0} title="ก่อนหน้า (←)" style={{ padding: '6px 12px' }}>← ก่อนหน้า</button>
                 <div style={{ flex: 1, minWidth: 200 }}>
                   <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)' }}>
-                    Now playing, #{currentIdx + 1}
+                    กำลังเล่นคลิปที่ {currentIdx + 1}
                   </div>
                   <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--clr-ink)', marginTop: 2 }}>
                     {currentItem.title}
@@ -984,7 +984,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                     <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 1 }}>by {currentItem.channel}</div>
                   )}
                 </div>
-                <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={goNext} disabled={currentIdx < 0 || currentIdx >= playlistItems.length - 1} title="ถัดไป (→)" style={{ padding: '6px 12px' }}>Next →</button>
+                <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={goNext} disabled={currentIdx < 0 || currentIdx >= playlistItems.length - 1} title="ถัดไป (→)" style={{ padding: '6px 12px' }}>ถัดไป →</button>
               </div>
             )}
 
@@ -1066,7 +1066,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                     : video.url;
                   const r = await copyText(link);
                   alertDialog(r.ok ? 'คัดลอกลิงก์แล้ว' : `คัดลอกอัตโนมัติไม่ได้ — กดค้างลิงก์นี้:\n${link}`);
-                }}>Copy link</button>
+                }}>คัดลอกลิงก์</button>
               )}
               <div style={{ flex: 1 }} />
               <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', opacity: 0.7 }}>
@@ -1176,7 +1176,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
         {/* Loading state if list pending and no items */}
         {loadingList && playlistId && (
           <div style={{ position: 'absolute', top: 70, right: 18, padding: '4px 10px', borderRadius: 6, background: 'var(--clr-surface-2)', fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
-            กำลังโหลด list...
+            กำลังโหลดรายการ…
           </div>
         )}
       </div>

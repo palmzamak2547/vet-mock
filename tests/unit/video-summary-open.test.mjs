@@ -13,6 +13,9 @@
 // These are the view's real loader and click handler, cut from the source and
 // run under vm with the summary chunks under the test's control, the way the
 // reader-race tests in this folder do it.
+//
+// The same file pins the player's copy: it spoke to the student as พี่, named
+// localStorage, and paged with English controls.
 // ============================================================
 
 import test from 'node:test';
@@ -126,4 +129,34 @@ test('the reload message keeps the clip header the metadata already has', async 
 test('the reload is left to the student', () => {
   const handler = cut('const handleOpenSummary = async () => {', '\n  };\n');
   assert.doesNotMatch(handler, /location\.reload|reloadPage|window\.location/);
+});
+
+// ── the player's copy ────────────────────────────────────────────────
+
+test('the player speaks Thai to the student and never names the storage API', () => {
+  for (const gone of ['ของพี่', '(localStorage)', 'Disclaimer', '← Prev', 'Next →', 'Now playing', 'Copy link', 'ซ่อน list', 'ดู list', 'โหลด list', 'ไม่สามารถ embed', 'link ของ channel']) {
+    assert.ok(!SRC.includes(gone), `VideoView still says ${JSON.stringify(gone)}`);
+  }
+  for (const said of [
+    'หมายเหตุ:',
+    'คลิปที่เพิ่มเองและประวัติการดูเก็บไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น',
+    '← ก่อนหน้า',
+    'ถัดไป →',
+    'กำลังเล่นคลิปที่ {currentIdx + 1}',
+    'คัดลอกลิงก์',
+    "'ซ่อนรายการ'",
+    '`ดูรายการ (${playlistItems.length})`',
+    'กำลังโหลดรายการ…',
+    'คลิปนี้เล่นในแอปไม่ได้ เปิดใน YouTube แทน',
+    'ลิงก์นี้เป็นช่อง YouTube เปิดใน YouTube เพื่อเลือกคลิป',
+  ]) {
+    assert.ok(SRC.includes(said), `VideoView should say ${JSON.stringify(said)}`);
+  }
+});
+
+test('the paging buttons keep their Thai titles and their handlers', () => {
+  assert.ok(/onClick=\{goPrev\} disabled=\{currentIdx <= 0\} title="ก่อนหน้า \(←\)"[^>]*>← ก่อนหน้า<\/button>/.test(SRC),
+    'the previous-clip button lost its handler, its guard or its label');
+  assert.ok(/onClick=\{goNext\} disabled=\{currentIdx < 0 \|\| currentIdx >= playlistItems\.length - 1\} title="ถัดไป \(→\)"[^>]*>ถัดไป →<\/button>/.test(SRC),
+    'the next-clip button lost its handler, its guard or its label');
 });
