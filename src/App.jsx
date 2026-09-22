@@ -868,6 +868,16 @@ export default function App() {
       .catch(() => {});
   }, [selectedYear, selectedYearStored, qbReady]);
 
+  // Every year's banks, for a screen that offers them all (SR's 'ทุกปี').
+  // A cold visit loads only the selected year, so without this that chip
+  // showed this year plus the cross-year banks and nothing more. The revision
+  // bump is what Home's due badge and SR both recount from. Rejects on a
+  // failed load so the caller can offer a retry.
+  const loadAllYears = useCallback(() => loadQB().then(() => {
+    setQbReady(true);
+    setQbRevision((revision) => revision + 1);
+  }), []);
+
   // selectedPhase: '1-mid' | '1-final' | '2-mid' | '2-final' | null.
   // null means "no phase scoping" — show all subjects across both
   // semesters of the year (used as fallback for Y6 which is block-based).
@@ -3063,7 +3073,7 @@ export default function App() {
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
-              {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, onOpenWiki: openWiki }} />}
+              {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki }} />}
               {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear, selectedPhase }} />}
