@@ -28,7 +28,7 @@ const CATEGORIES = [
   { id: 'writing', label: 'Writing เท่านั้น',   icon: '✍️', desc: 'Short + Essay — ฝึกเขียน, จับเวลายาวขึ้นอัตโนมัติ' },
 ];
 
-export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, mode, selectedPhase = null }) {
+export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, showCategoryPicker = false, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, mode, selectedPhase = null }) {
   const knownAvailableCount = Number.isFinite(availableCount)
     ? Math.max(0, Math.floor(availableCount))
     : null;
@@ -61,12 +61,10 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
       setTimePerQ(timePerQuestionRef.current);
     }
   };
-  // The category picker only makes sense for engprof — the only
-  // subject with writing-style items. Showing it for COM III/IV/V
-  // (pure MCQ) just adds visual noise. For bookmarks/weak modes the
-  // pool is heterogeneous; we still hide it because the "all" default
-  // already does the right thing there.
-  const showCategoryPicker = subject === 'engprof' && practiceMode !== 'bookmarks' && practiceMode !== 'weak';
+  // Whether the category picker shows comes from App (categoryPickerShown),
+  // which applies the pick only where it shows: English, outside bookmarks
+  // and weak spots. Deciding it here as well is how a pick made in English
+  // came to filter every subject after it without being on screen.
   const subjMeta = SUBJECTS.find((s) => s.id === subject);
   const topicMeta = topic && subjMeta?.topics?.find((t) => t.id === topic);
   const isExamMode = mode === 'exam';
@@ -105,7 +103,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
           so students get a quick refresher of strategy before they sit
           down to the 25-minute essay. Hidden during pure MCQ to avoid
           UI noise. */}
-      {(cat === 'writing') && subject === 'engprof' && (
+      {showCategoryPicker && cat === 'writing' && (
         <div style={{
           marginBottom: 16,
           padding: 14,
