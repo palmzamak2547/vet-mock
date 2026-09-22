@@ -111,7 +111,7 @@ export default function PanicCard({ subjectId, subjectName, onStart, questionCou
       )}
 
       <span className="vmx-panic-copy">
-        <span className="vmx-panic-kicker">ปี 5 · เทอม 1 · กลางภาค</span>
+        <span className="vmx-panic-kicker">ปี 5 เทอม 1 กลางภาค</span>
         <span className="vmx-panic-title">Panic Mode</span>
         <span className="vmx-panic-sub">ทบทวนเร่งด่วน</span>
         <span className="vmx-panic-sub">{subjectName || card.th}</span>

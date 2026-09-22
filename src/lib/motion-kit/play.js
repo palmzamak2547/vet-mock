@@ -18,7 +18,7 @@ export function createPlay(root, { variant = "memory", scope, assetBase = "./ass
     status.textContent = "แตะพื้นที่ว่างเพื่อโยนบอล";
     wrap.append(status);
     fx = createFollower(root, { scope, kind: "fetch", onCatch: (n) => {
-      status.textContent = `เก็บบอลแล้ว ${n} ครั้ง · เก่งมาก Mochi!`;
+      status.textContent = `เก็บบอลแล้ว ${n} ครั้ง เก่งมาก Mochi!`;
       onEvent({ type: "catch", count: n });
     } });
     scope.on(b, "click", () => {
@@ -54,11 +54,11 @@ export function createPlay(root, { variant = "memory", scope, assetBase = "./ass
           c.classList.add("is-matched");
           opened = [];
           matched++;
-          status.textContent = matched === 4 ? `ครบทุกคู่แล้ว! ใช้ ${moves} ตา ✦` : `เจอ ${matched}/4 คู่ · เล่น ${moves} ตา`;
+          status.textContent = matched === 4 ? `ครบทุกคู่แล้ว! ใช้ ${moves} ตา ✦` : `เจอ ${matched}/4 คู่ เล่นไป ${moves} ตา`;
           if (matched === 4) onEvent({ type: "win", moves });
         } else {
           locked = true;
-          status.textContent = `ยังไม่ใช่คู่นี้ · เล่น ${moves} ตา`;
+          status.textContent = `ยังไม่ใช่คู่นี้ เล่นไป ${moves} ตา`;
           scope.later(() => {
             for (const x of opened) {
               x.textContent = "?";
@@ -140,7 +140,7 @@ export function createPlay(root, { variant = "memory", scope, assetBase = "./ass
     scope.on(root, "vm:motionchange", () => {
       if (scope.reduced()) circle.style.scale = "1";
     });
-    status.textContent = "เข้า 4 วินาที · ออก 6 วินาที · ไม่ต้องฝืนจังหวะ";
+    status.textContent = "หายใจเข้า 4 วินาที ออก 6 วินาที ไม่ต้องฝืนจังหวะ";
     wrap.append(status);
   }
   return { element: wrap, destroy() {

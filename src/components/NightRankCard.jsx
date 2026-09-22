@@ -31,13 +31,13 @@ export default function NightRankCard({ history }) {
       </div>
       <div className="vmx-night-rank-meta">
         {progress.hasNext ? (
-          <>ตอบดึกสะสม <strong>{nightCount}</strong> ข้อ · เหลืออีก <strong>{progress.needed}</strong> ข้อเป็น <strong>{progress.next.label}</strong></>
+          <>ตอบดึกสะสม <strong>{nightCount}</strong> ข้อ อีก <strong>{progress.needed}</strong> ข้อได้เป็น <strong>{progress.next.label}</strong></>
         ) : (
-          <>ตอบดึกสะสม <strong>{nightCount}</strong> ข้อ · ยศสูงสุดแล้ว คืนนี้พักได้</>
+          <>ตอบดึกสะสม <strong>{nightCount}</strong> ข้อ ได้ยศสูงสุดแล้ว คืนนี้พักได้</>
         )}
       </div>
       <div className="vmx-night-rank-footnote">
-        นับเฉพาะข้อที่ส่งคำตอบช่วง 23:00–04:59 · ยศลดอัตโนมัติถ้าล้างประวัติ
+        นับเฉพาะข้อที่ส่งคำตอบช่วง 23:00–04:59 ถ้าล้างประวัติ ยศจะลดตาม
       </div>
     </div>
   );

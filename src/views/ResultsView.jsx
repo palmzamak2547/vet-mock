@@ -30,7 +30,7 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
   // The card must agree with the screen the student shared it from, so it
   // reads the same exact-count bar rather than the rounded percentage it
   // prints. At 28/47 the number rounds to 60 while the session did not reach
-  // the bar, and a card captioned "ผ่านครับ" would contradict the banner.
+  // the bar, and a card captioned "ถึงเกณฑ์ซ้อมแล้ว" would contradict the banner.
   const reached = total > 0 && correct / total >= PRACTICE_PASS_PCT / 100;
   const W = 1080, H = 1920;
   const canvas = document.createElement('canvas');
@@ -98,13 +98,14 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
     ctx.fillText(subject.toUpperCase(), W / 2, 1135);
   }
 
-  // Encouragement line — short Thai
+  // Encouragement line — short Thai, one tier per tier of the in-app
+  // message below, so the story says what the screen said.
   let msg = '';
   if (isWritingOnly) msg = 'เขียนไปแล้ว, ไปดูเฉลยกันใน VetMock';
-  else if (total > 0 && correct === total) msg = 'เต็มทุกข้อ รักษาระดับนี้ไว้';
-  else if (total > 0 && correct / total >= 0.8) msg = 'ใกล้แล้ว, อ่านอีกนิดเดียว';
-  else if (reached) msg = 'ผ่านครับ, ทบทวนข้อที่ผิด';
-  else if (pct >= 40) msg = 'สู้ๆ, กลับไปทบทวนเนื้อหาอีกรอบ';
+  else if (total > 0 && correct === total) msg = 'ถูกทุกข้อ รักษาระดับนี้ไว้';
+  else if (total > 0 && correct / total >= 0.8) msg = 'แม่นดีมาก ลองเพิ่มจำนวนข้อดู';
+  else if (reached) msg = 'ถึงเกณฑ์ซ้อมแล้ว ทบทวนข้อที่ผิดต่อ';
+  else if (pct >= 40) msg = 'ยังมีจุดที่ควรทบทวน เริ่มจากข้อที่ผิด';
   else msg = 'เริ่มใหม่ได้เสมอ';
   ctx.font = '400 44px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#3d342a';
@@ -329,7 +330,7 @@ export default function ResultsView({
           <div className="vmx-night-rank-promo-text">
             <div className="vmx-night-rank-promo-title">🎖️ เลื่อนยศโต้รุ้ง! {rankPromo.to.label}</div>
             <div className="vmx-night-rank-promo-sub">
-              จาก {rankPromo.from.label} → {rankPromo.to.label} · {rankPromo.to.blurb}
+              จาก {rankPromo.from.label} เป็น {rankPromo.to.label}, {rankPromo.to.blurb}
             </div>
           </div>
         </div>
@@ -624,7 +625,7 @@ function NextPlayPanel({
               cursor: 'pointer',
               padding: '14px 16px',
               borderRadius: 14,
-              background: 'var(--clr-rose-soft)',
+              background: 'var(--clr-surface)',
               border: '2px solid var(--clr-rose, #a73d4a)',
               display: 'flex',
               alignItems: 'center',
@@ -646,7 +647,7 @@ function NextPlayPanel({
               padding: '6px 12px',
               borderRadius: 999,
               background: 'var(--clr-rose, #a73d4a)',
-              color: 'white',
+              color: 'var(--clr-rose-on)',
               fontSize: 12,
               fontWeight: 700,
               flexShrink: 0,
@@ -685,7 +686,7 @@ function NextPlayPanel({
               padding: '6px 12px',
               borderRadius: 999,
               background: 'var(--clr-sage, #4a6b4a)',
-              color: 'white',
+              color: 'var(--clr-sage-on)',
               fontSize: 12,
               fontWeight: 700,
               flexShrink: 0,
