@@ -42,9 +42,9 @@ export function useAuth() {
   const [profile, setProfile] = useState(null);
   // Bumped on USER_UPDATED so the profile is re-read for the same account.
   const [profileRefresh, setProfileRefresh] = useState(0);
-  // The account id the app last settled on; undefined until the first
-  // hydrate, which must not reset a catalogue that was already fetched with
-  // this session.
+  // The account id the app last settled on; undefined until a saved session's
+  // first hydrate, which must not reset a catalogue that was already fetched
+  // with that session. A guest boot sets it to null below.
   const userIdRef = useRef(undefined);
   // Treat a URL-borne auth redirect (magic link / OAuth / recovery) as
   // "we're loading auth" so the UI doesn't briefly render the signed-out
@@ -125,6 +125,11 @@ export function useAuth() {
     // refresh — and refresh doesn't help because the hash is gone.
     if (hasSavedSession() || hasAuthRedirectInUrl()) {
       setupSDK(cancelledRef);
+    } else if (userIdRef.current === undefined) {
+      // Boot found no session, so this visitor starts as a guest and anything
+      // cached so far holds public rows only: their first sign-in is a real
+      // change of access and must reach the library.
+      userIdRef.current = null;
     }
 
     // Path B: no saved session → wait for signin helpers to fire the

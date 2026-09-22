@@ -152,8 +152,10 @@ function fakeSupabase(initialUser) {
   return { sb, calls, emit };
 }
 
-async function mountSignedIn(user) {
-  const fake = fakeSupabase(user);
+// Mounts the real hook. savedSession is what hasSavedSession() reports at boot:
+// true takes the eager hydrate path, false the guest path that waits for a
+// sign-in helper to fire vmx-auth-changed.
+function mountHook(fake, { savedSession }) {
   const win = new EventTarget();
   const libraryEvents = [];
   win.addEventListener('vmx-library-auth-changed', () => libraryEvents.push(Date.now()));
@@ -169,16 +171,53 @@ async function mountSignedIn(user) {
   useAuth = new Function(
     ...hookNames, 'hasSupabase', 'hasSavedSession', 'hasAuthRedirectInUrl', 'getSupabase', 'window',
     `${body}\nreturn useAuth;`,
-  )(...hookNames.map((name) => host.react[name]), true, () => true, () => false, async () => fake.sb, win);
+  )(...hookNames.map((name) => host.react[name]), true, () => savedSession, () => false, async () => fake.sb, win);
   host.mount();
+  return { host, win, libraryEvents };
+}
+
+// The boot counts are pinned in their own test below, so a regression there
+// cannot hide what each of the other tests is about.
+async function mountSignedIn(user) {
+  const fake = fakeSupabase(user);
+  const { host, win, libraryEvents } = mountHook(fake, { savedSession: true });
   await settle();
   assert.equal(host.result.user?.id, user.id, 'precondition: the saved session hydrated');
   assert.equal(host.result.profile?.id, user.id, 'precondition: the profile loaded');
+  return { host, fake, win, libraryEvents };
+}
+
+test('a saved session hydrates with one profile read and leaves the catalogue alone', async () => {
+  const { fake, libraryEvents } = await mountSignedIn(makeUser('alice'));
   // INITIAL_SESSION on subscribe is the same user getSession already gave us.
   assert.equal(fake.calls.profile.length, 1, 'boot reads the profile once, not again for INITIAL_SESSION');
-  assert.equal(libraryEvents.length, 0, 'hydrating a saved session must not reset the catalogue');
-  return { host, fake, libraryEvents };
-}
+  assert.equal(libraryEvents.length, 0, 'the catalogue was already fetched with this session');
+});
+
+test('a guest who signs in gets the restricted shelf, once', async () => {
+  // No saved session at boot, so nothing is subscribed until a sign-in helper
+  // fires vmx-auth-changed; auth-js's own SIGNED_IN has already gone by. A
+  // catalogue fetched while browsing as a guest holds public rows only, and
+  // tab returns no longer re-announce the account, so this is the one chance
+  // to drop it.
+  const alice = makeUser('alice');
+  const fake = fakeSupabase(null);
+  const { host, win, libraryEvents } = mountHook(fake, { savedSession: false });
+  await settle();
+  assert.equal(host.result.user, null);
+  assert.equal(libraryEvents.length, 0, 'a guest browsing is not an auth change');
+
+  fake.emit('SIGNED_IN', alice);             // nobody is listening yet
+  win.dispatchEvent(new Event('vmx-auth-changed'));
+  await settle();
+  assert.equal(host.result.user?.id, 'alice');
+  assert.equal(host.result.profile?.id, 'alice');
+  assert.equal(libraryEvents.length, 1, 'the guest catalogue must be dropped when the account arrives');
+
+  fake.emit('SIGNED_IN', alice);             // the next tab return
+  await settle();
+  assert.equal(libraryEvents.length, 1);
+});
 
 test('five tab returns cause no render, no profile request and no library reset', async () => {
   const alice = makeUser('alice');
