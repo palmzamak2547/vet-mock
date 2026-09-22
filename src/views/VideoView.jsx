@@ -6,7 +6,7 @@ import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, handleThumbnail
 // /videos visit even when user just browses the playlist. Now:
 //   • VIDEO_META (small · ~50 KB) — sync · drives "has summary?" badges
 //   • Full bodies — lazy-imported ONCE the user clicks "📝 อ่านสรุปคลิป",
-//     cached at module scope so subsequent opens are instant.
+//     one clip at a time, cached at module scope so reopening is instant.
 import { VIDEO_META } from '../data/video-summaries-meta.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { readLocalExtra, writeLocalExtra } from '../lib/local-extras.js';
@@ -42,32 +42,22 @@ import BackBar from '../components/BackBar.jsx';
 import SummaryModal from '../components/SummaryModal.jsx';
 import VideoNotePanel from '../components/VideoNotePanel.jsx';
 
-// ── Lazy video-summaries body loader (per-subject chunked) ───────
-// Palm audit r4 (2026-05-24): the 2.2 MB monolithic VIDEO_SUMMARIES
-// chunk has been split per-subject by scripts/split-video-summaries.cjs.
-// VideoView now imports the barrel's `loadVideoSummariesForSubject`
-// helper which dynamic-imports ONLY the relevant subject's chunk
-// (typically ~50-200 KB gzip instead of 870 KB for the full set).
-// The subject is derived from VIDEO_META[videoId].subject — already
-// in the lightweight ~50 KB meta file the view loaded synchronously.
-// Falls back to loadAllVideoSummaries() if subject is missing or the
-// per-subject loader returns no entry (e.g. mis-tagged data).
-import { loadVideoSummariesForSubject, loadAllVideoSummaries } from '../data/video-summaries.js';
+// ── Lazy video-summaries body loader (one module per clip) ────────
+// Every summary is its own module behind the barrel's loadVideoSummaryClip,
+// keyed by video id. Opening one used to import the whole subject file, up
+// to 1.9 MB for aquatic when that clip's own summary was 2 KB. Being keyed by
+// id, it no longer depends on the metadata naming the right subject either.
+import { loadVideoSummaryClip } from '../data/video-summaries.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 
 // A chunk that fails to load (offline, or a tab opened before a deploy that no
 // longer serves the old hash) throws straight to the caller, which shows the
-// reload message. It used to be caught and answered with null, after asking
-// for the other 31 chunks too, so the button quietly did nothing.
+// reload message. It used to be caught and answered with null, so the button
+// quietly did nothing. A clip with no summary module resolves null.
 async function loadVideoSummaryEntry(videoId) {
   if (!videoId) return null;
-  const map = await loadVideoSummariesForSubject(VIDEO_META[videoId]?.subject);
-  if (map?.[videoId]) return map[videoId];
-  // The chunk loaded but the entry is not in it: the metadata names the wrong
-  // subject, so look in the full set.
-  const all = await loadAllVideoSummaries();
-  return all?.[videoId] || null;
+  return (await loadVideoSummaryClip(videoId)) || null;
 }
 
 // ── YouTube IFrame API loader ─────────────────────────────────────

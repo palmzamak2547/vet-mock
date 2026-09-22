@@ -15,10 +15,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { copyFileSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import vm from 'node:vm';
 
 const ROOT = fileURLToPath(new URL('../../', import.meta.url));
 const SCRIPT = join(ROOT, 'scripts', 'rebuild-video-summaries.mjs');
@@ -150,5 +151,193 @@ test('a rebuild files a misplaced entry back under its subject', () => {
     assert.equal(rebuilt.status, 0, rebuilt.stdout + rebuilt.stderr);
     const r = s.run('--check');
     assert.equal(r.status, 0, r.stdout + r.stderr);
+  } finally { s.done(); }
+});
+
+// ── one module per clip ──────────────────────────────────────────────
+// Opening one summary used to download every summary of that subject: the
+// loader imported the whole subject file, 1.1 to 1.9 MB for aquatic, equine
+// medicine and zoonoses, when most clips' own summary is 1 to 3 KB. The
+// generator now also writes one module per clip, the barrel imports only the
+// clip asked for, and a whole-subject load is composed of those clips.
+
+const DATA = join(ROOT, 'src', 'data');
+const CLIP_DIR = join(DATA, 'video-summary-clips');
+const BARREL = join(DATA, 'video-summaries.js');
+
+let shippedCache = null;
+async function shipped() {
+  if (shippedCache) return shippedCache;
+  const byId = new Map();
+  const bySubject = new Map();
+  for (const f of readdirSync(DATA).filter((n) => /^video-summaries-.+\.js$/.test(n) && !n.includes('meta')).sort()) {
+    const mod = await import(pathToFileURL(join(DATA, f)).href);
+    const subject = f.slice('video-summaries-'.length, -3);
+    for (const obj of Object.values(mod)) {
+      bySubject.set(subject, obj);
+      for (const [id, e] of Object.entries(obj)) byId.set(id, e);
+    }
+  }
+  shippedCache = { byId, bySubject };
+  return shippedCache;
+}
+
+// The bytes a clip's entry is made of, without any module around it.
+const ownBytes = (e) => Buffer.byteLength(e.summary) + Buffer.byteLength(JSON.stringify({ ...e, summary: '' }));
+
+test('every shipped summary has its own module, identical to its subject entry', async () => {
+  const { byId } = await shipped();
+  const files = readdirSync(CLIP_DIR).filter((f) => f.endsWith('.js')).map((f) => f.slice(0, -3)).sort();
+  assert.deepEqual(files, [...byId.keys()].sort(), 'one clip module per entry and none left over; run node scripts/rebuild-video-summaries.mjs');
+  for (const [id, e] of byId) {
+    const clip = await import(pathToFileURL(join(CLIP_DIR, id + '.js')).href);
+    assert.deepStrictEqual(clip.default, e, id + ' differs from its subject file; run node scripts/rebuild-video-summaries.mjs');
+  }
+});
+
+test('a clip module carries its own entry and a small wrapper, nothing more', async () => {
+  const { byId } = await shipped();
+  let largest = null;
+  for (const [id, e] of byId) {
+    const bytes = statSync(join(CLIP_DIR, id + '.js')).size;
+    const own = ownBytes(e);
+    assert.ok(bytes <= own * 1.05 + 1024, `${id}: ${bytes} B on disk for a ${own} B entry`);
+    if (own < 3 * 1024) assert.ok(bytes < 10 * 1024, `${id}: a small clip must stay well under 10 KB`);
+    if (!largest || own > largest.own) largest = { id, own, bytes };
+  }
+  assert.ok(largest.bytes < largest.own * 1.05 + 1024, 'the largest clip pulls only itself');
+});
+
+test('the barrel imports one clip for one clip, and never a whole subject file', async () => {
+  const { byId } = await shipped();
+  const barrel = readFileSync(BARREL, 'utf8');
+  assert.doesNotMatch(barrel, /import\('\.\/video-summaries-/, 'a loader that imports a subject file downloads every summary in it');
+  const loaders = [...barrel.matchAll(/^ {2}'([^']+)': \(\) => import\('\.\/video-summary-clips\/([^']+)\.js'\),\r?$/gm)];
+  assert.equal(loaders.length, byId.size);
+  for (const [, key, file] of loaders) assert.equal(file, key, `the loader for ${key} imports ${file}`);
+
+  const { loadVideoSummaryClip } = await import(pathToFileURL(BARREL).href);
+  const [id, entry] = [...byId].sort((a, b) => ownBytes(b[1]) - ownBytes(a[1]))[0];
+  assert.deepStrictEqual(await loadVideoSummaryClip(id), entry);
+  assert.equal(await loadVideoSummaryClip('notAClip000'), null);
+  assert.equal(await loadVideoSummaryClip('constructor'), null, 'an id is looked up, not an inherited property');
+  assert.equal(await loadVideoSummaryClip(undefined), null);
+});
+
+test('whole-subject loads are built from the clips and match the subject files', async () => {
+  const { byId, bySubject } = await shipped();
+  const barrel = await import(pathToFileURL(BARREL).href);
+  assert.deepEqual([...barrel.VIDEO_SUMMARY_SUBJECTS], [...bySubject.keys()].sort());
+  for (const [subject, obj] of bySubject) {
+    assert.deepStrictEqual(await barrel.loadVideoSummariesForSubject(subject), obj, subject);
+  }
+  const all = await barrel.loadAllVideoSummaries();
+  assert.equal(Object.keys(all).length, byId.size);
+  assert.deepEqual(await barrel.loadVideoSummariesForSubject('no-such-subject'), {});
+  assert.deepEqual(await barrel.loadVideoSummariesForSubject('constructor'), {});
+});
+
+// The barrel's clip cache, cut from the generated source and run with
+// loaders the test controls.
+function clipCache(loaders) {
+  const src = readFileSync(BARREL, 'utf8').replace(/\r\n/g, '\n');
+  const a = src.indexOf('const has = (map, key) =>');
+  const b = src.indexOf('\n}\n', src.indexOf('export function loadVideoSummaryClip('));
+  assert.ok(a !== -1 && b !== -1, 'the barrel must keep its clip cache and loadVideoSummaryClip');
+  const ctx = { _clipLoaders: loaders };
+  vm.createContext(ctx);
+  return vm.runInContext(src.slice(a, b + 3).replace('export function', 'function') + '\nloadVideoSummaryClip', ctx);
+}
+
+test('a clip that failed to load is asked for again on the next tap', async () => {
+  let attempts = 0;
+  const loaded = { videoId: 'x', summary: 's' };
+  const load = clipCache({
+    x: () => (++attempts === 1
+      ? Promise.reject(new Error('Failed to fetch dynamically imported module'))
+      : Promise.resolve({ default: loaded })),
+  });
+  await assert.rejects(load('x'), /dynamically imported module/);
+  assert.equal(await load('x'), loaded, 'the failure must not be kept for the rest of the tab');
+  assert.equal(attempts, 2);
+  await load('x');
+  assert.equal(attempts, 2, 'a loaded clip is not fetched again');
+});
+
+test('two taps on one clip share one request', async () => {
+  let attempts = 0;
+  const load = clipCache({ x: () => { attempts += 1; return Promise.resolve({ default: { videoId: 'x' } }); } });
+  const [a, b] = await Promise.all([load('x'), load('x')]);
+  assert.equal(a, b);
+  assert.equal(attempts, 1);
+});
+
+// ── the check guards the generated clips ─────────────────────────────
+
+const clipDir = (s) => join(s.root, 'src', 'data', 'video-summary-clips');
+
+test('a clip module out of step with its subject file fails the check and is named', () => {
+  const s = cleanCorpus();
+  try {
+    s.write('video-summaries-alpha.js', subjectFile('alpha', [
+      entry('a1', 'alpha', { summary: 'แก้ในไฟล์วิชาแล้ว แต่ยังไม่ได้ rebuild' }),
+      entry('-a2', 'alpha', { duration: '1 ชม.' }),
+    ]));
+    const r = s.run('--check');
+    assert.equal(r.status, 1, r.stdout + r.stderr);
+    assert.match(r.stdout + r.stderr, /\ba1\b/);
+    assert.doesNotMatch(r.stdout, /^ {3}-a2$/m, 'an unchanged clip is not reported');
+    const rebuilt = s.run();
+    assert.equal(rebuilt.status, 0, rebuilt.stdout + rebuilt.stderr);
+    assert.equal(s.run('--check').status, 0);
+  } finally { s.done(); }
+});
+
+test('a clip module with no entry behind it fails the check, and a rebuild removes it', () => {
+  const s = cleanCorpus();
+  try {
+    writeFileSync(join(clipDir(s), 'gone1.js'), 'export default { videoId: "gone1" };\n');
+    const r = s.run('--check');
+    assert.equal(r.status, 1, r.stdout + r.stderr);
+    assert.match(r.stdout + r.stderr, /gone1/);
+    assert.equal(s.run().status, 0);
+    assert.equal(existsSync(join(clipDir(s), 'gone1.js')), false);
+    assert.equal(s.run('--check').status, 0);
+  } finally { s.done(); }
+});
+
+test('a hand-edited barrel fails the check', () => {
+  const s = cleanCorpus();
+  try {
+    const path = join(s.root, 'src', 'data', 'video-summaries.js');
+    writeFileSync(path, readFileSync(path, 'utf8').replace("'beta': ['b1']", "'beta': ['b1', 'b2']"));
+    const r = s.run('--check');
+    assert.equal(r.status, 1, r.stdout + r.stderr);
+    assert.match(r.stdout + r.stderr, /video-summaries\.js/);
+  } finally { s.done(); }
+});
+
+test('the scratch rebuild writes clips identical to their entries', async () => {
+  const s = cleanCorpus();
+  try {
+    const clip = await import(pathToFileURL(join(clipDir(s), '-a2.js')).href);
+    assert.deepStrictEqual(clip.default, entry('-a2', 'alpha', { duration: '1 ชม.' }));
+    const barrel = await import(pathToFileURL(join(s.root, 'src', 'data', 'video-summaries.js')).href);
+    assert.deepStrictEqual(await barrel.loadVideoSummariesForSubject('alpha'), {
+      a1: entry('a1', 'alpha'),
+      '-a2': entry('-a2', 'alpha', { duration: '1 ชม.' }),
+    });
+  } finally { s.done(); }
+});
+
+test('two ids that differ only in case stop the rebuild', () => {
+  const s = scratch({
+    'video-summaries-alpha.js': subjectFile('alpha', [entry('abcDEF', 'alpha'), entry('ABCdef', 'alpha')]),
+  });
+  try {
+    const r = s.run();
+    assert.equal(r.status, 1, r.stdout + r.stderr);
+    assert.match(r.stderr, /abcDEF/);
+    assert.match(r.stderr, /ABCdef/);
   } finally { s.done(); }
 });
