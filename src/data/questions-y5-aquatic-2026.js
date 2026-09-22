@@ -255,7 +255,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-fish-biology",
     "year": 5,
     "type": "mcq",
-    "q": "เรื่อง chromatophore เซลล์เม็ดสีชนิดใดที่กำกับไว้ว่าให้ iridescent colour",
+    "q": "เซลล์เม็ดสีชนิดใดทำให้ปลามีสีเหลือบรุ้ง (iridescent colour)",
     "options": [
       "Leucophore",
       "Iridophore",
@@ -440,10 +440,10 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "type": "mcq",
     "q": "คู่ส่วนสมองปลาและหน้าที่ใดถูกต้อง",
     "options": [
-      "mesencephalon กำกับว่า vision และ telencephalon กำกับว่า smell",
-      "mesencephalon กำกับว่า smell และ telencephalon กำกับว่า vision",
-      "metencephalon กำกับว่า vision และ mesencephalon กำกับว่า balance",
-      "telencephalon กำกับว่า balance และ metencephalon กำกับว่า smell"
+      "mesencephalon ด้าน vision และ telencephalon ด้าน smell",
+      "mesencephalon ด้าน smell และ telencephalon ด้าน vision",
+      "metencephalon ด้าน vision และ mesencephalon ด้าน balance",
+      "telencephalon ด้าน balance และ metencephalon ด้าน smell"
     ],
     "answer": 0,
     "explain": "mesencephalon คู่กับ vision และ telencephalon คู่กับ smell ส่วน metencephalon (cerebellum + medulla) คู่กับ balance\n\n❌ ทำไมข้ออื่นผิด\n— \"mesencephalon = smell, telencephalon = vision\" = สลับสองส่วนนี้กัน\n— \"metencephalon = vision, mesencephalon = balance\" = vision เป็นของ mesencephalon ส่วน balance เป็นของ metencephalon\n— \"telencephalon = balance, metencephalon = smell\" = smell เป็นของ telencephalon ส่วน balance เป็นของ metencephalon",
@@ -892,7 +892,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "Clean seed มาตรฐานใดถูกกำกับไว้ว่าเป็นเรื่อง animal welfare",
+    "q": "ในมาตรฐานของ clean seed ข้อกำหนดใดจัดอยู่ในหมวด animal welfare",
     "options": [
       "Thai Labour standard TLS 8001-2010",
       "Best Aquaculture Practices",
@@ -900,7 +900,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "ISO 14001:2015 environment management"
     ],
     "answer": 2,
-    "explain": "ในชุดมาตรฐานที่ยกมาสำหรับ clean seed ตัวที่ถูกกำกับไว้ในหมวด animal welfare คือ TESCO ซึ่งเป็นข้อกำหนดของลูกค้า\n\n❌ ทำไมข้ออื่นผิด\n— \"Thai Labour standard TLS 8001-2010\" = ถูกกำกับไว้ในหมวด human welfare ซึ่งเป็นเรื่องของคนทำงาน\n— \"Best Aquaculture Practices\" = ถูกกำกับไว้ในหมวด sustainability\n— \"ISO 14001:2015 environment management\" = เป็นระบบจัดการสิ่งแวดล้อม อยู่ในกลุ่ม safety health and environment",
+    "explain": "ในชุดมาตรฐานที่ยกมาสำหรับ clean seed ตัวที่จัดอยู่ในหมวด animal welfare คือ TESCO ซึ่งเป็นข้อกำหนดของลูกค้า\n\n❌ ทำไมข้ออื่นผิด\n— \"Thai Labour standard TLS 8001-2010\" = จัดอยู่ในหมวด human welfare ซึ่งเป็นเรื่องของคนทำงาน\n— \"Best Aquaculture Practices\" = จัดอยู่ในหมวด sustainability\n— \"ISO 14001:2015 environment management\" = เป็นระบบจัดการสิ่งแวดล้อม อยู่ในกลุ่ม safety health and environment",
     "verified": "Aquaculture_Industry_Tech p.43"
   },
   {
