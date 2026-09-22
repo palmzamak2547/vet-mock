@@ -22,16 +22,18 @@ import BackBar from '../components/BackBar.jsx';
 import ImageAnnotator from '../components/ImageAnnotator.jsx';
 import TemplateLibrary from '../components/TemplateLibrary.jsx';
 import { saveNoteRetryTarget } from '../lib/note-retry.js';
-import { recordQuestEvent } from '../lib/quests.js';
+import { recordQuestEvent, todayKey } from '../lib/quests.js';
 
 // One topic can only count once a day towards the reading quests, so
-// re-opening the same page cannot tick the counter three times.
+// re-opening the same page cannot tick the counter three times. The day is
+// the quest's own local day: a UTC day turned over at 07:00 in Bangkok, so a
+// re-read after midnight earned nothing and 06:59/07:01 counted twice.
 const READ_LOG_LS = 'vmx-notes-read-day';
 const DWELL_MS = 10_000;
 
 function markTopicReadOnce(subject, topic) {
   const key = `${subject}:${topic}`;
-  const day = new Date().toISOString().slice(0, 10);
+  const day = todayKey();
   try {
     const raw = localStorage.getItem(READ_LOG_LS);
     const saved = raw ? JSON.parse(raw) : null;
