@@ -38,7 +38,7 @@ export const QB_Y5_PATHO = [
     answer: 1,
     explain: 'Vet 81 group ตอบ B (Lepto + Aflatoxin) — แต่ commentary "ปอน่าจะตอบข้อนี้" ชี้ไปที่ C (Ochratoxin + Heartworm)\nLepto = interstitial nephritis (ชัด)\nAflatoxin = primary hepatotoxin, renal effect รอง\nOchratoxin = renal tubular damage (ชัด)\nHeartworm = glomerulonephritis (immune-complex)\n\nทุกข้อ list สารที่ทำพยาธิไตทั้งคู่จึงไม่มีข้อ "ไม่ก่อ" ที่ชัดเจน — flag ambiguity',
     verified: 'Final Patho prac.pdf p.1',
-    flag: { note: 'Vet 81 ตอบ B แต่ commentary พี่ปอ ตอบ C — disagreement', sources: ['Final Patho prac.pdf p.1'], severity: 'major' } },
+    flag: { note: 'Vet 81 ตอบ B แต่ commentary พี่ปอ ตอบ C — disagreement; ทุกตัวเลือกก่อพยาธิสภาพที่ไตได้ จึงไม่มีข้อ "ไม่ก่อ" ที่ชัดเจน รอตัดสินเฉลยจากหน้า 1 ของต้นฉบับ', sources: ['Final Patho prac.pdf p.1'], severity: 'unclear' } },
 
   { id: 8201, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
