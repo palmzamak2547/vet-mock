@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { hasSupabase, getSupabase } from '../lib/supabase.js';
 import { questionRevision } from '../lib/study-events.js';
 import { ownedRpc } from '../lib/owned-rpc.js';
-import { resolveRaceQuestions, raceOptionRows, mergeRaceProgress, rankRacePlayers } from '../lib/race-session.js';
+import { createRaceQuestionCache, raceOptionRows, mergeRaceProgress, rankRacePlayers } from '../lib/race-session.js';
 import { QB, loadQBForYear } from '../data/questions.js';
 import { SUBJECTS_BY_YEAR, YEARS, yearForSubject } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
@@ -12,6 +12,9 @@ import BackBar from '../components/BackBar.jsx';
 import { confirmDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
+
+// One per page: a remount (leave and rejoin the same room) keeps its list.
+const resolveRoomQuestions = createRaceQuestionCache();
 
 export default function RaceView({ goHome, setView, user, profile }) {
   const raceSubjectsByYear = YEARS.map(y => ({ year: y.id, label: y.label,
@@ -50,7 +53,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
   async function applySnapshot(snapshot, owner, expectedCode) {
     if (context.current.owner !== owner || (expectedCode && context.current.code !== expectedCode)) return;
     let qs = [];
-    if (snapshot.started_at) qs = await resolveRaceQuestions(snapshot, QB, loadQBForYear);
+    if (snapshot.started_at) qs = await resolveRoomQuestions(snapshot, QB, loadQBForYear);
     if (context.current.owner !== owner || (expectedCode && context.current.code !== expectedCode)) return;
     if (snapshot.code !== context.current.code) progressRef.current = {};
     const merged = mergeRaceProgress(progressRef.current, snapshot.participants);
