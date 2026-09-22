@@ -2,21 +2,26 @@
 // lab-overlay-projection.test.mjs — Norberg and VHS markers follow the camera
 // ============================================================
 // Both overlays keep their points in world space and project them to canvas
-// pixels for the SVG. An 80 ms poll re-renders the component while points
-// exist so the projection can follow pan and zoom, but the projection was
-// memoised on `[worldPoints, viewportRef, setTick]` (Norberg) and
-// `[worldPoints, viewportRef]` (VHS): none of those change when the camera
-// moves, so the circles stayed where they were first drawn while the
-// radiograph panned underneath them, and the drag hit-test (which projects
-// afresh) disagreed with what was on screen (audit MD-02). Keyed on the tick,
-// one frame was still stale: the clock stops while the tool is off, so after
-// panning with another tool the first render on re-selection drew the markers
-// where they were before the pan.
+// pixels for the SVG. A camera clock (`tick`) re-renders the component so the
+// projection can follow pan and zoom, but the projection was memoised on
+// `[worldPoints, viewportRef, setTick]` (Norberg) and `[worldPoints,
+// viewportRef]` (VHS): none of those change when the camera moves, so the
+// circles stayed where they were first drawn while the radiograph panned
+// underneath them, and the drag hit-test (which projects afresh) disagreed
+// with what was on screen (audit MD-02). Keyed on the tick, one frame was
+// still stale: the clock stops while the tool is off, so after panning with
+// another tool the first render on re-selection drew the markers where they
+// were before the pan.
+//
+// The clock itself was an 80 ms setInterval: 12.5 re-renders a second for as
+// long as the tool was active, even on a still image (audit PF-14). It now
+// ticks on Cornerstone's CAMERA_MODIFIED and IMAGE_RENDERED events, at most
+// once per animation frame.
 //
 // The components import Supabase-backed helpers and render JSX, so the
-// projection expression and the poll effect are lifted out of the source and
+// projection expression and the clock effect are lifted out of the source and
 // run against a React-equivalent memo (recompute only when a dependency
-// changes by Object.is) and a fake interval.
+// changes by Object.is), a fake viewport element and fake animation frames.
 // ============================================================
 
 import test from 'node:test';
@@ -41,14 +46,14 @@ function projectionExpression(src) {
   return src.slice(start + anchor.length, end + 2);
 }
 
-/** The poll effect that bumps the tick while the tool is active and has points. */
-function pollEffect(src) {
+/** The effect that advances the tick while the tool is active and has points. */
+function cameraClockEffect(src) {
   const anchor = 'useEffect(() => {\n    if (!active || worldPoints.length === 0) return;';
   const start = src.indexOf(anchor);
-  assert.notEqual(start, -1, 'the camera poll effect must still be there');
-  const end = src.indexOf('}, [active, worldPoints.length]);', start);
-  assert.notEqual(end, -1, 'the poll effect must still depend on active and the point count');
-  return src.slice(start + 'useEffect('.length, end + 1);
+  assert.notEqual(start, -1, 'the camera clock effect must still be there');
+  const end = src.indexOf('\n  }, [active, worldPoints.length', start);
+  assert.notEqual(end, -1, 'the camera clock must still depend on active and the point count');
+  return src.slice(start + 'useEffect('.length, end + '\n  }'.length);
 }
 
 /** Values built inside the vm realm carry another realm's prototypes; compare them as data. */
@@ -137,27 +142,60 @@ for (const { name, src } of OVERLAYS) {
     }
   });
 
-  test(`${name}: the poll drives the tick only while the tool is active and has points, and stops on cleanup`, () => {
+  test(`${name}: the clock ticks on camera and render events, once per frame, never on a still image, and stops on cleanup`, () => {
+    const EVENTS = { CAMERA_MODIFIED: 'CORNERSTONE_CAMERA_MODIFIED', IMAGE_RENDERED: 'CORNERSTONE_IMAGE_RENDERED' };
+    const listeners = new Map();
+    const element = {
+      addEventListener: (type, fn) => { listeners.set(type, [...(listeners.get(type) || []), fn]); },
+      removeEventListener: (type, fn) => { listeners.set(type, (listeners.get(type) || []).filter((f) => f !== fn)); },
+    };
+    const fire = (type) => (listeners.get(type) || []).forEach((fn) => fn({ type }));
+    const frames = new Map();
+    let nextFrame = 1;
+    const paint = () => { const due = [...frames.values()]; frames.clear(); due.forEach((fn) => fn(16)); };
     const timers = [];
     let tick = 0;
-    const run = (active, worldPoints) => vm.runInNewContext('(' + pollEffect(src) + ')()', {
+    const run = (active, worldPoints, viewport = { element }) => vm.runInNewContext('(' + cameraClockEffect(src) + ')()', {
       active, worldPoints,
+      viewportRef: () => viewport,
+      Enums: { Events: EVENTS },
       setTick: (update) => { tick = typeof update === 'function' ? update(tick) : update; },
-      setInterval: (fn, ms) => { timers.push({ fn, ms, live: true }); return timers.length; },
-      clearInterval: (id) => { timers[id - 1].live = false; },
+      requestAnimationFrame: (fn) => { const id = nextFrame++; frames.set(id, fn); return id; },
+      cancelAnimationFrame: (id) => { frames.delete(id); },
+      setInterval: (fn, ms) => { timers.push({ fn, ms }); return timers.length; },
+      clearInterval() {},
     });
 
-    assert.equal(run(true, []), undefined, 'no poll without points');
-    assert.equal(run(false, [[1, 2, 0]]), undefined, 'no poll while the tool is inactive');
+    assert.equal(run(true, []), undefined, 'nothing to follow without points');
+    assert.equal(run(false, [[1, 2, 0]]), undefined, 'nothing to follow while the tool is inactive');
+    assert.equal(listeners.size, 0);
     assert.equal(timers.length, 0);
 
     const cleanup = run(true, [[1, 2, 0]]);
-    assert.equal(timers.length, 1, 'one poll while active with points');
-    assert.ok(timers[0].ms <= 100, 'the poll must keep the markers within perceptual lag');
-    timers[0].fn();
-    timers[0].fn();
-    assert.equal(tick, 2, 'each poll must advance the tick the projection depends on');
+    assert.deepEqual(timers, [], 'a timer re-renders the overlay many times a second while the image is still');
+    assert.equal(listeners.get(EVENTS.CAMERA_MODIFIED)?.length, 1, 'the clock must follow camera moves');
+    assert.equal(listeners.get(EVENTS.IMAGE_RENDERED)?.length, 1, 'the clock must follow every drawn frame');
+
+    // A still image: frames go by, Cornerstone fires nothing, nothing re-renders.
+    paint(); paint();
+    assert.equal(tick, 0);
+
+    // One pan step: the camera moves and the frame is drawn, which is one re-projection.
+    fire(EVENTS.CAMERA_MODIFIED); fire(EVENTS.IMAGE_RENDERED); fire(EVENTS.IMAGE_RENDERED);
+    assert.equal(tick, 0, 'the re-projection waits for the next animation frame');
+    paint();
+    assert.equal(tick, 1, 'events within one frame must coalesce into one re-projection');
+    fire(EVENTS.IMAGE_RENDERED); paint();
+    assert.equal(tick, 2, 'every later frame that moves the image re-projects again');
+
+    // Deactivating with a re-projection pending: it is cancelled and the listeners go.
+    fire(EVENTS.CAMERA_MODIFIED);
     cleanup();
-    assert.equal(timers[0].live, false, 'the poll must stop when the tool is deactivated or the points are cleared');
+    paint();
+    assert.equal(tick, 2, 'a re-projection arrived after the tool was deactivated');
+    assert.equal(listeners.get(EVENTS.CAMERA_MODIFIED).length, 0);
+    assert.equal(listeners.get(EVENTS.IMAGE_RENDERED).length, 0);
+
+    assert.equal(run(true, [[1, 2, 0]], null), undefined, 'no viewport yet, nothing to listen to');
   });
 }
