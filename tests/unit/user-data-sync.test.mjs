@@ -678,7 +678,9 @@ test('a bookmark tap or flashcard rating does not rewrite a 30,000-entry history
   const storage = new MemoryStorage();
   const sync = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote, debounceMs: 60_000, scheduler: never });
   sync.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
-  await settle(200);
+  // Hydrating 30,000 entries takes tens of ms here and longer on a busy CI
+  // runner; wait for it rather than for a fixed time.
+  for (let waited = 0; sync.getSnapshot().sync.phase !== 'synced' && waited < 10_000; waited += 20) await settle(20);
   assert.equal(sync.getSnapshot().data.history.length, 30_000);
 
   const writes = recordWrites(storage);
@@ -843,6 +845,60 @@ test('another tab sees an edit before the snapshot has caught up', () => {
   const reopened = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote: fakeRemote(null), idle: manualIdle() });
   assert.deepEqual(reopened.getSnapshot().data.bookmarks, ['from-a', 'from-b']);
   reopened.close();
+});
+
+test('a note deleted after the snapshot caught up stays deleted, after a crash and in another tab', async () => {
+  // The outbox record keeps its oldest base, so a note added and deleted again
+  // folds into a record that no longer mentions it. Replayed onto a snapshot
+  // compacted while the note existed, that record would leave the note there:
+  // a signed-in reboot offline, or a second tab, brought the deleted note back.
+  const setNote = (sync, value) => sync.send({
+    type: 'CHANGE', principalId: 'user-1',
+    derive: (d) => {
+      const notes = { ...d.notes };
+      if (value === undefined) delete notes.q1; else notes.q1 = value;
+      return { notes };
+    },
+  });
+  const storage = new MemoryStorage();
+  const remote = fakeRemote({ notes: {} });
+  const setup = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
+  setup.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  await settle();
+  setup.close();
+
+  // Offline, so nothing is pushed and the outbox record stays.
+  const lifeA = createLifecycle(false); const lifeB = createLifecycle(false);
+  const idleA = manualIdle(); const idleB = manualIdle();
+  const a = createUserDataSync({ storage, lifecycle: lifeA, remote, debounceMs: 60_000, scheduler: never, idle: idleA });
+  const b = createUserDataSync({ storage, lifecycle: lifeB, remote, debounceMs: 60_000, scheduler: never, idle: idleB });
+  a.subscribe(() => {}); b.subscribe(() => {});
+  a.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  b.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  setNote(a, 'draft'); lifeB.emit('storage');
+  idleA.run(); lifeB.emit('storage');
+  assert.equal(snapshotOf(storage, 'user-1').notes.q1, 'draft');
+  setNote(a, undefined); lifeB.emit('storage');
+  assert.equal(a.getSnapshot().data.notes.q1, undefined);
+  assert.equal(b.getSnapshot().data.notes.q1, undefined, 'the other tab does not see the deleted note');
+
+  // A tab killed here, before any idle pass, boots without the note.
+  const rebooted = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
+  rebooted.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  assert.equal(rebooted.getSnapshot().data.notes.q1, undefined, 'a reboot does not bring the deleted note back');
+  rebooted.close();
+
+  // Nor does the other tab write it back when it compacts its own edit.
+  b.send({ type: 'CHANGE', principalId: 'user-1', derive: (d) => ({ bookmarks: [...d.bookmarks, 9] }) });
+  lifeA.emit('storage');
+  idleB.run(); lifeA.emit('storage');
+  assert.equal(a.getSnapshot().data.notes.q1, undefined);
+  a.close(); b.close();
+  const after = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
+  after.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
+  assert.equal(after.getSnapshot().data.notes.q1, undefined);
+  assert.deepEqual(after.getSnapshot().data.bookmarks, [9]);
+  after.close();
 });
 
 test('a record written by the previous build still loads', () => {
