@@ -192,9 +192,19 @@ test('leaving the reader withdraws the open still in flight', async () => {
 // ── searching ────────────────────────────────────────────────────────
 
 function searcher(pages) {
-  const st = { hits: undefined, navigated: [], searching: [], query: null, getPageCalls: 0 };
+  const st = { hits: undefined, navigated: [], searching: [], query: null, getPageCalls: 0, open: true };
   const waiting = [];
   const ctx = {
+    // The search row, open, with nothing else on screen — the state in which
+    // Escape is about the search.
+    searchOpen: true,
+    optionsOpen: false,
+    menuOpen: false,
+    setSearchOpen: (v) => { st.open = typeof v === 'function' ? v(st.open) : v; ctx.searchOpen = st.open; },
+    setOptionsOpen() {},
+    setMenuOpen() {},
+    document: { querySelector: () => null, getElementById: () => null },
+    setTimeout: (fn) => fn(),
     pdfDoc: {
       numPages: pages.length,
       getPage: async (i) => {
@@ -225,7 +235,13 @@ function searcher(pages) {
   const releaseOne = async () => { waiting.shift()(); await tick(); await tick(); };
   // Exactly what the search box's onChange does.
   const typeInto = (value) => { ctx.setQuery(value); fns.dropSearch(); if (!value.trim()) ctx.setHits(null); };
-  return { st, ctx, fns, documentChanged, finishRead, releaseOne, typeInto, busy: () => st.searching[st.searching.length - 1] };
+  // The two ways the row closes, cut from the source: Escape, and the
+  // toolbar's search button.
+  const onKey = vm.runInContext(`(() => { const onKey = (e) => {${between('const onKey = (e) => {', "\n    window.addEventListener('keydown', onKey);")} return onKey; })()`, ctx);
+  const pressEscape = () => onKey({ key: 'Escape', target: { tagName: 'INPUT' }, preventDefault() {} });
+  const button = between('<ToolButton icon="search"', '/>');
+  const onClick = vm.runInContext(`(${button.slice(button.indexOf('onClick={') + 'onClick={'.length, button.lastIndexOf('}'))})`, ctx);
+  return { st, ctx, fns, documentChanged, finishRead, releaseOne, typeInto, pressEscape, clickSearchButton: () => onClick(), busy: () => st.searching[st.searching.length - 1] };
 }
 
 test('clearing the box while the document is still being read withdraws the search', async () => {
@@ -281,4 +297,41 @@ test('a document change while a search waits publishes nothing, and the search t
 test('the search box withdraws the running search on every edit', () => {
   const input = between('id="vmx-pdf-search"', '/>');
   assert.match(input, /onChange=\{\(e\) => \{ setQuery\(e\.target\.value\); dropSearch\(\);/, 'onChange must call dropSearch');
+});
+
+// Closing the row is the student saying they are done with that search. A
+// search that had not answered yet used to answer anyway a few seconds later:
+// it jumped the reader to a page, behind a results row that was no longer
+// on screen.
+for (const [how, close] of [['Escape', (s) => s.pressEscape()], ['the search button', (s) => s.clickSearchButton()]]) {
+  test(`closing the search row with ${how} while the document is still being read withdraws the search`, async () => {
+    const s = searcher(['alpha', 'beta']);
+    const pending = s.fns.runSearch('alpha');
+    await tick();
+    close(s);
+    assert.equal(s.st.open, false, 'the row did not close');
+    await s.finishRead();
+    await pending;
+    assert.equal(s.st.hits, undefined, 'the closed row was filled with the withdrawn search\'s results');
+    assert.deepEqual(s.st.navigated, [], 'the reader jumped to a page for a search the student had closed');
+    assert.equal(s.busy(), false, 'the search button stayed busy');
+    // The text read is kept: the next search on this document needs it.
+    assert.deepEqual(Array.from(s.ctx.textRef.current.pages || []).slice(1), ['alpha', 'beta']);
+  });
+}
+
+test('closing the search row after a search has answered keeps its results', async () => {
+  const s = searcher(['alpha', 'beta']);
+  const done = s.fns.runSearch('beta');
+  await tick();
+  await s.finishRead();
+  await done;
+  s.pressEscape();
+  s.clickSearchButton(); // open again
+  s.clickSearchButton(); // and close with the button
+  assert.equal(s.st.open, false);
+  assert.equal(s.st.hits?.length, 1, 'someone who just found page 2 did not ask to lose it');
+  assert.equal(s.st.hits[0].page, 2);
+  assert.deepEqual(s.st.navigated, [2]);
+  assert.equal(s.busy(), false);
 });

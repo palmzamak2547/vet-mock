@@ -1376,7 +1376,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           // Nothing else is open, so Escape is about the search. Close the row
           // and put the reader back on the button that opened it; the results
           // are kept, because someone who just found page 41 did not ask to
-          // lose it.
+          // lose it. A search that has not answered yet is withdrawn, or it
+          // would jump the reader to a page behind a row that is gone. Not
+          // gated on `searching`: this effect does not re-run when it changes,
+          // and withdrawing when nothing is pending is harmless.
+          dropSearch();
           setSearchOpen(false);
           document.querySelector('button[aria-label="ค้นหาในเอกสาร"]')?.focus();
         }
@@ -2159,8 +2163,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         {/* Search sits ahead of the zoom cluster so that what scrolls out of a
             narrow viewport is only zoom — which pinch and Ctrl+wheel already
             cover — rather than the only way to find a page in a 100-page deck. */}
+        {/* Closing the row withdraws a search still running, as Escape does;
+            opening it has nothing pending to withdraw. */}
         <ToolButton icon="search" label="ค้นหาในเอกสาร" active={searchOpen}
-          onClick={() => { setSearchOpen((v) => !v); setTimeout(() => document.getElementById('vmx-pdf-search')?.focus(), 30); }} />
+          onClick={() => { dropSearch(); setSearchOpen((v) => !v); setTimeout(() => document.getElementById('vmx-pdf-search')?.focus(), 30); }} />
 
         <ToolButton icon="zoom-out" label="ย่อ" onClick={() => zoomOut()} disabled={zoom <= ZOOM_STEPS[0]} />
         <button
