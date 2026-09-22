@@ -8,7 +8,10 @@
 // `[worldPoints, viewportRef]` (VHS): none of those change when the camera
 // moves, so the circles stayed where they were first drawn while the
 // radiograph panned underneath them, and the drag hit-test (which projects
-// afresh) disagreed with what was on screen (audit MD-02).
+// afresh) disagreed with what was on screen (audit MD-02). Keyed on the tick,
+// one frame was still stale: the clock stops while the tool is off, so after
+// panning with another tool the first render on re-selection drew the markers
+// where they were before the pan.
 //
 // The components import Supabase-backed helpers and render JSX, so the
 // projection expression and the poll effect are lifted out of the source and
@@ -72,6 +75,7 @@ for (const { name, src } of OVERLAYS) {
       viewportRef: () => viewport,
       setTick: () => {},
       tick: 0,
+      active: true,
       useMemo: reactLikeMemo(),
     });
     const expression = projectionExpression(src);
@@ -101,6 +105,36 @@ for (const { name, src } of OVERLAYS) {
     // Dragging a point (new world coordinates) still re-projects without a tick.
     context.worldPoints = [[11, 21, 0], [30, 40, 0]];
     assert.deepEqual(render()[0], { x: 122, y: 142 });
+  });
+
+  test(`${name}: re-selecting the tool after a pan draws the markers where the image is now, on the first frame`, () => {
+    const camera = { dx: 0, dy: 0 };
+    const viewport = { worldToCanvas: ([x, y]) => [x + camera.dx, y + camera.dy] };
+    const context = vm.createContext({
+      worldPoints: [[10, 20, 0], [30, 40, 0]],
+      viewportRef: () => viewport,
+      setTick: () => {},
+      tick: 0,
+      active: true,
+      useMemo: reactLikeMemo(),
+    });
+    const render = () => plain(vm.runInContext(projectionExpression(src), context));
+    assert.deepEqual(render(), [{ x: 10, y: 20 }, { x: 30, y: 40 }]);
+
+    // The student switches to Pan: the overlay renders once as inactive (it
+    // draws nothing), and nothing advances the tick while it is inactive.
+    context.active = false;
+    render();
+    camera.dx = 100; camera.dy = 100;
+
+    // Back to Norberg/VHS: the first render, same tick, must already follow the pan.
+    context.active = true;
+    const first = render();
+    assert.deepEqual(first, [{ x: 110, y: 120 }, { x: 130, y: 140 }], 'the markers sat where they were before the pan until the camera clock next ticked');
+    for (const [i, p] of first.entries()) {
+      const [hx, hy] = viewport.worldToCanvas(context.worldPoints[i]);
+      assert.ok(Math.hypot(hx - p.x, hy - p.y) < 1, `marker ${i} is more than 1 px from where a drag would grab it`);
+    }
   });
 
   test(`${name}: the poll drives the tick only while the tool is active and has points, and stops on cleanup`, () => {

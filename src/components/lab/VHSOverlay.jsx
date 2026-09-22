@@ -122,8 +122,11 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
     // `tick` is the camera clock: every poll bumps it so the points are
     // projected against the camera as it is now. Without it the markers
     // stayed where they were first drawn while the image moved under them.
+    // `active` re-projects on the first render after the tool is selected
+    // again: the clock stops while the tool is off, and the image may have
+    // moved.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [worldPoints, viewportRef, tick]);
+  }, [worldPoints, viewportRef, tick, active]);
 
   const HIT_RADIUS_PX = 16;
   const [draggingIdx, setDraggingIdx] = useState(null);

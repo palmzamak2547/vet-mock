@@ -117,9 +117,11 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
     // `tick` is the camera clock: every poll bumps it so the points are
     // projected against the camera as it is now. Listing the setter here
     // instead (a stable identity) froze the markers where they were first
-    // drawn while the image panned and zoomed underneath them.
+    // drawn while the image panned and zoomed underneath them. `active`
+    // re-projects on the first render after the tool is selected again:
+    // the clock stops while the tool is off, and the image may have moved.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [worldPoints, viewportRef, tick]);
+  }, [worldPoints, viewportRef, tick, active]);
 
   // Hit-test radius for grabbing existing points (in CSS pixels).
   // Slightly bigger than the visible 7 px circle so it's tappable.
