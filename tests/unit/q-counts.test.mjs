@@ -156,7 +156,7 @@ test('a row marked อิงแนวข้อสอบ never reaches past-paper
 // verified. This holds every row, typed or not, to that shape.
 function pastAndAlignedFault(q) {
   if (!isPastPaperQuestion(q) || !isExamAlignedQuestion(q)) return null;
-  if (!q.sourceType) return 'counted as a paper only through the free-text source fallback';
+  if (!q.sourceType) return 'has no sourceType, so nothing names the paper it sat';
   if (q.sourceType !== 'past-paper' && q.sourceType !== 'student-compilation') {
     return `sourceType ${q.sourceType} is never a paper`;
   }
@@ -170,7 +170,8 @@ function pastAndAlignedFault(q) {
 test('a row that is both a sat paper and อิงแนวข้อสอบ names the paper it sat', () => {
   const marker = 'อิงแนวข้อสอบ';
   // Contradictions, typed and untyped.
-  assert.match(String(pastAndAlignedFault({ source: 'Avain med Mid 86.pdf', tags: [marker] })), /fallback/);
+  assert.match(String(pastAndAlignedFault({ source: 'Avain med Mid 86.pdf', tags: [marker] })), /no sourceType/);
+  assert.match(String(pastAndAlignedFault({ examOrigin: 'COM I Final 86', tags: [marker] })), /no sourceType/);
   assert.ok(pastAndAlignedFault({ sourceType: 'past-paper', examOrigin: marker, tags: [marker] }),
     'past-paper with the marker as its origin names no paper');
   assert.ok(pastAndAlignedFault({

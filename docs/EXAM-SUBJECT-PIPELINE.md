@@ -77,8 +77,9 @@ say, in the agent's own instructions:
   in `EXAM_ORIGINS` in the same file, filed by a person as `paper`,
   `aligned`, `source-doc` or `mock`, never guessed from its wording.
 - The band marker `อิงแนวข้อสอบ` goes on an item written from what a
-  compilation marked, which names no paper: `student-compilation` with no
-  `examOrigin`. It never goes in `examOrigin` of a `past-paper` item, which
+  compilation marked rather than from a paper: `student-compilation` with no
+  `examOrigin`, or any item whose `examOrigin` is filed as `aligned`. It
+  never goes in `examOrigin` of a `past-paper` item, which
   would say the item both was and was not sat. An item whose origin is filed
   as a paper does not need it, with one exception while `isPastPaperQuestion`
   still reads origins by regex: when `npm run lint:provenance` reports such a

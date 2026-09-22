@@ -100,6 +100,19 @@ test('a new sourceType value fails', () => {
   assert.match(errors.join('\n'), /sourceType "senior-notes" is not one of/);
 });
 
+test('a malformed origin map entry fails the lint, not only this file', () => {
+  const origins = {
+    'Swine Medicine final recall (Vet 86)': { kind: 'recall' },
+    'Swine Medicine study notes (Vet 86)': { kind: 'source-doc', cohort: 86 },
+    'Swine Medicine midterm recall (Vet 86)': { kind: 'paper', cohort: 'Vet 86', paper: 'mid' },
+  };
+  const text = lintOnly([], { origins }).errors.join('\n');
+  assert.match(text, /kind recall is not one of/);
+  assert.match(text, /only a paper carries cohort and paper/);
+  assert.match(text, /cohort "Vet 86" is not a cohort number/);
+  assert.match(text, /paper "mid" is not one of/);
+});
+
 test('a row that is both a sat paper and marked fails unless it was reviewed', () => {
   const both = row({ sourceType: 'past-paper', tags: [MARKER] });
   assert.match(lintOnly([both]).errors.join('\n'), /counted as a sat paper AND marked/);
