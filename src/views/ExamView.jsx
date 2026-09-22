@@ -2,11 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import QuestionComponent from '../components/Question.jsx';
 import { fmtTime, isCorrect, isWritingType, isAnswered } from '../hooks/utils.js';
-import { countBuddiesOnQ } from '../hooks/useStudyBuddies.js';
+import { useBuddyCountOnQ } from '../hooks/useStudyBuddies.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { motionIsReduced } from '../lib/motion-preferences.js';
 
-export default function ExamView({ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, buddies, user, goHome, mode, instantFeedback, onOpenWiki }) {
+export default function ExamView({ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, user, goHome, mode, instantFeedback, onOpenWiki }) {
   const [showNote, setShowNote] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
@@ -51,9 +51,11 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
   // Show the navigator opener for medium/long exams; short exams (≤10) just use prev/next
   const showNavOpener = questions.length >= 15;
   // Live "X buddies on this Q" count — pulls from Supabase presence
-  // payload (qKey field). Hidden when 0 or no Supabase.
+  // payload (qKey field). Hidden when 0 or no Supabase. Read straight from
+  // the presence store, so this screen renders when someone enters or
+  // leaves this question, not whenever any classmate moves.
   const qKey = currentQ ? `${currentQ.subject}:${currentQ.id}` : null;
-  const buddiesHere = countBuddiesOnQ(buddies || {}, qKey, user?.id);
+  const buddiesHere = useBuddyCountOnQ(qKey, user?.id);
 
   // Exit-exam handler — explicit confirm so a stray tap on the X
   // doesn't lose progress. Auto-save + in-flight resume mean a refresh

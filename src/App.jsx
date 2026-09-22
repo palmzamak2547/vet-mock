@@ -1346,10 +1346,12 @@ export default function App() {
   // — Study buddies — Supabase Realtime presence for "who's online +
   // what subject + which Q they're on". Placed here (not at top of
   // component) because qKey depends on `questions` + `currentIdx`
-  // which were declared just above. HomeView groups by subject;
-  // ExamView surfaces "X buddies on this Q" via countBuddiesOnQ.
+  // which were declared just above. App only owns the channel: the
+  // presence map lives in a store that the Home panel and ExamView's
+  // "X buddies on this Q" chip read directly, so a classmate moving
+  // between questions never re-renders App.
   const _qOnExam = (view === 'exam' || view === 'sr-session') ? questions[currentIdx] : null;
-  const buddies = useStudyBuddies({
+  useStudyBuddies({
     user,
     profile,
     subject: subject === 'all' ? null : subject,
@@ -3045,7 +3047,7 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, buddies, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onOpenWrapUp={openWrapUp} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onOpenWrapUp={openWrapUp} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
@@ -3070,7 +3072,7 @@ export default function App() {
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
-              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
+              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki }} />}
