@@ -109,7 +109,7 @@ async function loadPdfjs() {
       ).toString();
     }
     return pdfjs;
-  })();
+  })().catch((err) => { _pdfjsPromise = null; throw err; });
   return _pdfjsPromise;
 }
 
