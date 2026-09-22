@@ -1125,7 +1125,7 @@ html, body {
 .vmx-nav-btn.active { background: var(--clr-ink); color: var(--clr-bg); border-color: var(--clr-ink); }
 
 .vmx-hero { margin-bottom: 24px; }
-.vmx-hero h1 { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; font-weight: 700; font-size: clamp(26px, 4vw, 36px); line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 8px; color: var(--clr-ink); }
+.vmx-hero h1 { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; font-weight: 700; font-size: clamp(26px, 4vw, 36px); line-height: 1.2; letter-spacing: 0; margin: 0 0 8px; color: var(--clr-ink); }
 .vmx-hero h1 em { font-style: normal; color: var(--clr-sage-text); font-weight: 700; }
 .vmx-hero p { font-size: 14px; color: var(--clr-ink-soft); max-width: 520px; line-height: 1.5; margin: 0; }
 
@@ -1186,13 +1186,15 @@ html, body {
 .vmx-countdown-strip::-webkit-scrollbar { display: none; }
 .vmx-countdown-strip:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
 .vmx-countdown-day { flex: 0 0 34px; display: grid; gap: 4px; justify-items: center; }
-.vmx-countdown-dow { font-size: 10px; color: var(--clr-ink-soft); opacity: 0.7; line-height: 1; }
+.vmx-countdown-dow { font-size: 10px; color: var(--clr-ink-soft); line-height: 1; }
 .vmx-countdown-daynum {
   font-family: var(--vmx-mono); font-size: 11.5px; line-height: 1; color: var(--clr-ink);
   width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%;
 }
-.vmx-countdown-day.is-weekend .vmx-countdown-daynum,
-.vmx-countdown-day.is-weekend .vmx-countdown-dow { opacity: 0.45; }
+/* A weekend recedes by token, not by opacity: ink-soft at 0.7 and 0.45 blended
+   the day letters to 3.6:1 and 2.1:1. The date drops from ink to ink-soft,
+   which still clears 4.5:1 in both themes. */
+.vmx-countdown-day.is-weekend .vmx-countdown-daynum { color: var(--clr-ink-soft); }
 .vmx-countdown-day.is-today .vmx-countdown-daynum { background: var(--clr-sage); color: var(--clr-sage-on); font-weight: 700; }
 .vmx-countdown-dot { width: 6px; height: 6px; margin-top: 8px; border-radius: 50%; background: var(--clr-border); }
 .vmx-countdown-pill {
@@ -2535,6 +2537,10 @@ html.dark .vmx-panic-scrim {
 /* The lecturer block's reveal switch (LecturerSets.jsx). */
 .vmx-lect-reveal { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 0 0 12px; }
 .vmx-lect-reveal .vmx-reveal-toggle { margin-top: 0; }
+/* Scoped to the topic screen: the bare .vmx-reveal-toggle rule below also
+   lays out the same switch under a written answer or a matching set in an
+   exam, and that layout stays as it is. */
+.vmx-lect-reveal .vmx-reveal-toggle button { min-height: var(--touch-min); display: inline-flex; align-items: center; }
 .vmx-lect-reveal-hint { font-size: 12px; line-height: 1.4; color: var(--clr-ink-soft); }
 .vmx-lect-and { font-size: 13px; color: var(--clr-ink-soft); }
 /* Wrap-up (WrapUpView.jsx): the whole paper on one page, the night before. */
@@ -2549,7 +2555,7 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap-legend { margin: 0; font-size: 12px; line-height: 1.5; color: var(--clr-ink-soft); }
 .vmx-wrap-legend b { color: var(--clr-ink); font-weight: 700; }
 .vmx-wrap-index { position: sticky; top: 0; z-index: 2; display: flex; gap: 6px; overflow-x: auto; padding: 8px 0; margin: 0 0 12px; background: var(--clr-bg); scrollbar-width: thin; }
-.vmx-wrap-index a { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-surface); color: var(--clr-ink); font-size: 12px; text-decoration: none; white-space: nowrap; }
+.vmx-wrap-index a { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 5px; min-height: 36px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-surface); color: var(--clr-ink); font-size: 12px; text-decoration: none; white-space: nowrap; }
 .vmx-wrap-index a b { font-family: var(--vmx-mono); font-size: 11px; color: var(--clr-ink-soft); }
 .vmx-wrap-index a:hover { border-color: var(--clr-ink); }
 .vmx-wrap-group { margin: 0 0 22px; }
@@ -2570,7 +2576,7 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap-keys { display: flex; flex-wrap: wrap; gap: 5px; margin: 10px 0 0; }
 .vmx-wrap-key { display: inline-flex; padding: 3px 9px; border-radius: 999px; background: var(--clr-gold-soft); color: var(--clr-ink); font-size: 12px; font-weight: 600; line-height: 1.3; }
 .vmx-wrap-mode { display: inline-flex; border: 1px solid var(--clr-border); border-radius: 999px; overflow: hidden; margin: 0 0 10px; }
-.vmx-wrap-mode button { appearance: none; border: 0; background: var(--clr-bg); color: var(--clr-ink-soft); font: inherit; font-size: 12px; font-weight: 600; padding: 5px 12px; cursor: pointer; }
+.vmx-wrap-mode button { appearance: none; border: 0; background: var(--clr-bg); color: var(--clr-ink-soft); font: inherit; font-size: 12px; font-weight: 600; min-height: var(--touch-min); display: inline-flex; align-items: center; padding: 5px 12px; cursor: pointer; }
 .vmx-wrap-mode button.is-on { background: var(--clr-ink); color: var(--clr-bg); }
 .vmx-wrap-mode button:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -2px; }
 .vmx-wrap-keylist { margin: 10px 0 0; padding: 0; list-style: none; counter-reset: wrapkey; display: grid; gap: 4px; }
@@ -2595,12 +2601,12 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap-entry-eyebrow { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--clr-ink-soft); }
 .vmx-wrap-entry h3 { margin: 3px 0 4px; font-size: 16px; line-height: 1.25; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); text-wrap: balance; }
 .vmx-wrap-entry p { margin: 0; font-size: 12px; line-height: 1.45; color: var(--clr-ink-soft); }
-.vmx-wrap-entry-btn { appearance: none; border: 1px solid var(--clr-ink); background: var(--clr-ink); color: var(--clr-bg); font: inherit; font-weight: 700; font-size: 13px; padding: 8px 16px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
+.vmx-wrap-entry-btn { appearance: none; border: 1px solid var(--clr-ink); background: var(--clr-ink); color: var(--clr-bg); font: inherit; font-weight: 700; font-size: 13px; min-height: var(--touch-min); display: inline-flex; align-items: center; padding: 8px 16px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
 .vmx-wrap-entry-btn:hover { opacity: .92; }
 .vmx-wrap-entry-btn:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 .vmx-wrap-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: -8px 0 18px; }
 .vmx-wrap-strip-label { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--clr-ink-soft); }
-.vmx-wrap-strip-btn { appearance: none; border: 1px solid var(--clr-border); background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: 12px; font-weight: 600; padding: 5px 11px; border-radius: 999px; cursor: pointer; }
+.vmx-wrap-strip-btn { appearance: none; border: 1px solid var(--clr-border); background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: 12px; font-weight: 600; min-height: var(--touch-min); display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 999px; cursor: pointer; }
 .vmx-wrap-strip-btn:hover { border-color: var(--clr-ink); }
 @media print { .vmx-wrap-index, .vmx-wrap-actions { display: none !important; } .vmx-wrap-item { break-inside: avoid; } }
 /* The pad keeps the page still under a pen or a finger. */
@@ -4016,7 +4022,10 @@ button.vmx-chip-quick:focus-visible {
     padding: 14px !important;
     gap: 6px;
   }
-  .vmx-subject-card .title { font-size: 16px; line-height: 1.2; }
+  /* 1.35, not 1.2: at 16px, 1.2 left 3.2px between a vowel under one line
+     and a tone mark over the next, and the sara u of สุข touched the mai tho
+     of เนื้อ on a wrapped card name. */
+  .vmx-subject-card .title { font-size: 16px; line-height: 1.35; }
   .vmx-subject-card .sub { display: none; }
 }
 
@@ -5461,6 +5470,7 @@ body.vmx-reading .vmx-pdf-body {
   appearance: none; border: 0; background: transparent; padding: 0;
   color: var(--clr-ink); font: inherit; font-weight: 700; font-size: 15px;
   line-height: 1.2; letter-spacing: 0; text-align: left; cursor: pointer;
+  min-height: var(--touch-min); display: inline-flex; align-items: center;
 }
 .vmx-lect-name:hover { text-decoration: underline; }
 .vmx-lect-chip {
@@ -5497,7 +5507,9 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-lect-cover-hit:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -2px; }
 .vmx-lect-cover-hit:disabled { cursor: default; opacity: .55; }
 .vmx-lect-cover-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 10px 10px; }
-.vmx-lect-cover-foot .s { padding: 0; }
+/* (0,3,0): `.vmx-lect-cover .s` further down is (0,2,0) and would otherwise
+   win on order, padding the date a second time inside the padded footer. */
+.vmx-lect-cover .vmx-lect-cover-foot .s { padding: 0; }
 .vmx-lect-doc {
   appearance: none; font: inherit; font-size: 11px; line-height: 1.2; padding: 4px 9px; border-radius: 999px;
   border: 1px solid var(--clr-border); background: var(--clr-bg); color: var(--clr-ink); cursor: pointer; white-space: nowrap;
@@ -5522,6 +5534,7 @@ body.vmx-reading .vmx-pdf-body {
   appearance: none; border: 1px solid var(--clr-border); border-radius: 999px;
   background: var(--clr-surface-2); color: var(--clr-ink);
   padding: 8px 14px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+  min-height: var(--touch-min); display: inline-flex; align-items: center;
 }
 .vmx-lect-btn.is-primary { background: var(--clr-ink); color: var(--clr-bg); border-color: var(--clr-ink); }
 .vmx-lect-btn:disabled { opacity: .5; cursor: default; }
