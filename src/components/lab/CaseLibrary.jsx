@@ -59,7 +59,11 @@ function safeSourceUrl(raw) {
 export default function CaseLibrary({ onOpenCase, onBack }) {
   const [cases, setCases] = useState([]);
   const [loading, setLoading] = useState(true);
+  // `error` is the list query's alone: it hides the tabs and the grid. A case
+  // that fails to open goes to `openError` instead ({ caseData, message }),
+  // shown above the grid with a retry, so the rest of the library stays usable.
   const [error, setError] = useState(null);
+  const [openError, setOpenError] = useState(null);
   const [openingId, setOpeningId] = useState(null);
   // Modality filter persists across mounts so a user who picked "X-ray"
   // last time doesn't see "All" again on the next visit.
@@ -126,6 +130,7 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
     const ticket = ++openSeqRef.current;
     const current = () => ticket === openSeqRef.current;
     setOpeningId(c.id);
+    setOpenError(null);
     try {
       const { getSupabase } = await import('../../lib/supabase.js');
       const sb = await getSupabase();
@@ -158,7 +163,9 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
       if (!current()) return;
       // eslint-disable-next-line no-console
       console.error('[CaseLibrary] open case error:', e);
-      setError(thaiError(e, 'เปิดเคสไม่สำเร็จ ลองใหม่อีกครั้ง'));
+      // The notice already says the case did not open; add a reason only
+      // when there is one a student can act on.
+      setOpenError({ caseData: c, message: thaiError(e, '') });
     } finally {
       if (current()) setOpeningId(null);
     }
@@ -186,6 +193,21 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
 
       {error && (
         <div role="alert" style={errorStyle}>โหลดไม่สำเร็จ: {error}</div>
+      )}
+
+      {openError && (
+        <div role="alert" style={openErrorStyle}>
+          <span style={{ flex: '1 1 220px', minWidth: 0, overflowWrap: 'anywhere' }}>
+            เปิดเคส <strong>{openError.caseData.title}</strong> ไม่สำเร็จ{openError.message ? `: ${openError.message}` : ''}
+          </span>
+          <button
+            type="button"
+            onClick={() => handleOpen(openError.caseData)}
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+          >
+            ลองอีกครั้ง
+          </button>
+        </div>
       )}
 
       {!loading && !error && cases.length > 0 && (
@@ -375,6 +397,14 @@ const errorStyle = {
   borderRadius: 6,
   color: '#a33',
   fontSize: '0.85rem',
+};
+const openErrorStyle = {
+  ...errorStyle,
+  display: 'flex',
+  flexWrap: 'wrap',
+  alignItems: 'center',
+  gap: 8,
+  marginBottom: 12,
 };
 const emptyStyle = {
   padding: 36,
