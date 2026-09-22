@@ -121,16 +121,20 @@ really holds an exam image rather than slide content.
 
 ## 5. Regenerate, gate, push, prove
 
-Regenerate **everything** derived before the gate, or the gate fails one stale
-file at a time:
+Bump the version first, then regenerate **everything** derived before the
+gate, or the gate fails one stale file at a time:
 
 ```
-regen:registry regen:q-counts regen:delivery regen:written-questions
-regen:glossary-related regen:citation-index regen:conflict-summary
-regen:notes-registry regen:exam-papers regen:video-meta
-npm run stats -- --write        # the one that gets forgotten
-npm run regen:changelog         # after the version bump
+npm run regen:all
 ```
+
+It runs every `regen:*` script once, each after the generators whose output
+it imports (`regen:q-counts` reads the delivery list and the exam-paper table,
+so it follows `regen:delivery` and `regen:exam-papers`), then
+`regen:changelog`, which reads the bumped version, and `stats -- --write`
+last. `tests/unit/regen-all-order.test.mjs` fails if a new generator or a new
+import breaks that order. The gate never runs it: the gate's job is to find a
+stale file, not to repair one.
 
 Then `npm run gate` — all four Playwright projects, never a three-browser
 subset. It runs about eighteen minutes, which outlives a ten-minute shell
