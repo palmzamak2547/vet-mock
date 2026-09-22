@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { RenderingEngine, Enums } from '@cornerstonejs/core';
+import { RenderingEngine, Enums, cache } from '@cornerstonejs/core';
 import {
   ToolGroupManager,
   WindowLevelTool,
@@ -190,10 +190,17 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
       } catch { /* noop */ }
       // The loader's file registry is a module-global list that only grows,
       // so every DICOM ever opened stayed referenced for the life of the tab.
-      // Release only the entry this mount registered; the other viewport in
-      // compare mode keeps its own. The parsed dataset cache is separate and
-      // is left alone here.
+      // Release only what this mount loaded; the other viewport in compare
+      // mode has its own dicomfile:N and keeps it.
       if (Number.isInteger(fileIndex)) {
+        // The decoded image lives in Cornerstone's image cache, and the loader
+        // stamps it with a sharedCacheKey, so LRU never evicts it and an
+        // unforced remove throws. Force it: that also runs the loader's
+        // decache, which unloads the parsed file.
+        const imageId = `dicomfile:${fileIndex}`;
+        try {
+          if (cache.getImageLoadObject(imageId)) cache.removeImageLoadObject(imageId, { force: true });
+        } catch { /* noop */ }
         try { getDicomImageLoader().wadouri.fileManager.remove(fileIndex); } catch { /* noop */ }
       }
     };
