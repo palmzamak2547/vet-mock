@@ -312,7 +312,7 @@ export const QB_FOOD_SAFETY_Y4 = [
       "Cholera toxin (heat-labile) เท่านั้น — กระตุ้น adenylate cyclase เพิ่ม cAMP",
       "Shiga toxin (heat-labile) เท่านั้น — ทำลาย 28S rRNA ของ endothelium",
       "Botulinum toxin (heat-labile) เท่านั้น — ยับยั้ง acetylcholine release ที่ NMJ ของกล้ามเนื้อลาย",
-      "ไม่สร้าง toxin เลย — ก่อโรคแบบ invasive infection ของลำไส้อย่างเดียว"
+      "ไม่สร้าง toxin เลย ก่อโรคด้วยการรุกรานเยื่อบุลำไส้แบบ invasive infection"
     ],
     "answer": 0,
     "explain": "B. cereus (Gram +, spore-forming) สร้าง 2 toxins:\n1. Emetic toxin (cereulide) — heat-resistant (ทน 121 °C 30 นาที), เป็น preformed toxin → intoxication → อาเจียนเร็ว (1-5 ชม.) → อาหารเสี่ยง = cooked fried rice (ข้าวผัด)\n2. Diarrheal enterotoxin — heat-sensitive, เป็น toxicoinfection (เชื้อสร้าง toxin ใน GI) → ท้องเสีย ปวดท้อง 8-16 ชม. หลังกิน → กลไกคล้าย C. perfringens (ขัดขวางการดูดซึม Na+/Cl-)\n\nการอุ่นอาหารร้อนก่อนกินไม่สามารถทำลาย emetic toxin ได้ (Final 86 Q4 → False)",
@@ -610,7 +610,7 @@ export const QB_FOOD_SAFETY_Y4 = [
     "examOrigin": "Food Safety Mid 86",
     "q": "การจัดกลุ่มสารก่อมะเร็งของ International Agency for Research on Cancer (IARC) กลุ่ม 2A หมายถึงข้อใด",
     "options": [
-      "Carcinogenic to humans (ข้อมูลในมนุษย์เพียงพอ โดยไม่จำเป็นต้องอาศัยข้อมูลในสัตว์)",
+      "Carcinogenic to humans (ข้อมูลในมนุษย์เพียงพอ ยืนยันได้จากการศึกษาในมนุษย์โดยตรง)",
       "Probably carcinogenic to humans (ข้อมูลในมนุษย์ จำกัด/น่าจะ + ข้อมูลในสัตว์ เพียงพอ)",
       "Possibly carcinogenic to humans (ข้อมูลในมนุษย์ จำกัด + ข้อมูลในสัตว์ ยังไม่เพียงพอ)",
       "Not classifiable as to its carcinogenicity to humans (ข้อมูลในมนุษย์และสัตว์ไม่เพียงพอ)",

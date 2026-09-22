@@ -110,7 +110,7 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "วัว Acute ruminal acidosis (rumen pH 5.0, lactate ↑, dehydration) — แนวทางการรักษาที่ตรงเหตุที่สุดคือข้อใด",
     "options": [
-      "Propylene glycol PO + dextrose 50% IV (glucose precursor แก้ NEB และ ketosis)",
+      "Propylene glycol PO + dextrose IV เป็น glucose precursor แก้ NEB และ ketosis",
       "Magnesium sulphate 25% slow IV + diazepam กันชัก (แก้ hypomagnesemia)",
       "Sodium bicarbonate IV + rumen lavage + ABO กันการติดเชื้อ + ปรับอาหารช้าๆ",
       "Calcium borogluconate 40% slow IV แล้ว SC ต่ออีก 3 วัน (แก้ hypocalcemia หลังคลอด)"
@@ -137,7 +137,7 @@ export const QB_HERD_HEALTH_RUM = [
     "options": [
       "Urinary calculi (struvite obstruction ที่ urethral process ของแพะตัวผู้)",
       "Grass tetany (hypomagnesemia จากหญ้าอ่อน → ชักเกร็ง ตาสั่น nystagmus หัวใจเต้นเร็ว)",
-      "Acute ruminal acidosis (grain overload → rumen pH ต่ำ ท้องเสียกลิ่นเปรี้ยว)",
+      "Acute ruminal acidosis (grain overload ทำให้ rumen pH ต่ำ ท้องเสียกลิ่นเปรี้ยว)",
       "Ketosis (NEB → lipolysis → BHBA สูง มีกลิ่นคีโตนจากลมหายใจและน้ำนม)"
     ],
     "answer": 0,
@@ -210,7 +210,7 @@ export const QB_HERD_HEALTH_RUM = [
     "type": "mcq",
     "q": "การควบคุม FMD ในประเทศไทย — โปรแกรม vaccine ที่ถูกต้องคือข้อใด",
     "options": [
-      "Live attenuated O, A, Asia1 — ฉีดเข็มเดียวตอนอายุ 4 เดือน ได้ภูมิคุ้มกันตลอดชีวิต ไม่ต้องกระตุ้นซ้ำ",
+      "Live attenuated O, A, Asia1 — ฉีดเข็มเดียวตอนอายุ 4 เดือน แล้วได้ภูมิคุ้มกันคุ้มครองไปตลอดชีวิต",
       "Inactivated O, A, Asia1 — mass vac 80%+ herd, เริ่ม 4 เดือน boost 2-4 สัปดาห์ ต่อด้วยทุก 4 เดือน (q4m) 3 รอบในปีแรก",
       "Inactivated O, A, Asia1 — ฉีดเฉพาะวัวที่แสดงอาการแล้วเพื่อรักษา (therapeutic) ส่วนตัวปกติไม่ต้องฉีด",
       "ไม่ใช้วัคซีน — ใช้ Modified Rose Bengal Test ตรวจเลือดทั้งฝูงทุก 4 เดือน แล้วคัดตัวที่ให้ผลบวกออกจากฝูง (test and cull)"
@@ -563,7 +563,7 @@ export const QB_HERD_HEALTH_RUM = [
       "Single-pathogen disease จาก Pasteurella multocida type B เท่านั้น — ไม่เกี่ยวกับ stress หรือไวรัสนำมาก่อน",
       "Multifactorial จาก stress ร่วมกับ respiratory virus แล้วตามด้วย Mannheimia หรือ Pasteurella",
       "Pure viral disease จาก BHV-1 และ BRSV ที่แพร่ผ่านแมลงดูดเลือด โดยไม่มีแบคทีเรียแทรกซ้อนตามมา",
-      "Parasitic pneumonia จาก Dictyocaulus viviparus ที่ติดทาง fecal-oral เป็นหลัก ไม่เกี่ยวกับ stress"
+      "Parasitic pneumonia จาก Dictyocaulus viviparus ตัวเดียว ติดจากการกินตัวอ่อนระยะ L3 บนแปลงหญ้า"
     ],
     "answer": 1,
     "explain": "BRDC = Multifactorial disease:\n- Host factors: ลูกวัวเด็ก, เครียด (หย่านม, นั่งรถยนต์ไกล, หนาว, ร้อน, คอกหนาแน่น), กิน colostrum น้อย, ภูมิตก\n  - Prevention → vaccinate แม่ก่อนเสมอ + ลูกกิน colostrum เยอะๆ + ค่อยๆ หย่า + ปรับตัวก่อนกิน + รวมกลุ่มที่หลังไม่ให้เครียด\n- Envi: คอกหนาแน่น direct contact อุณหภูมิ ขนส่ง ventilation แย่\n- Agent: virus ลงแรก แล้วแบคทีเรียตามมาเสมอ\n  - Virus: Bovine Herpesvirus-1 (เกิด IBR + IPV + latent infec), BRSV, Parainfluenza-3, BVDV (type 1 noncytopathic, type 2 cytopathic; แม่ติด tri-1 = embryo death; tri-2-4m = Persistent Infection — reservoir ของโรค)\n  - Bacteria: Mannheimia (Pasteurella) hemolytica, Pasteurella multocida (normal flora), Histophilus somni, Mycoplasma bovis (chronic pneumonia + polyarthritis + tenosynovitis + mastitis — รักษายาก, cull)\n- เน้น ฤดูปลายฝนต้นหนาว, เชื้อทนใน envi นานขึ้น\n- Clinical: pneumonia ทั่วไป ไข้ น้ำมูกขี้ตา ไอ dyspnea, increased bronchial sound, abdominal breathing\n- Tx: เก็บตัวอย่างก่อน → ABO broad spec ก่อน (อาจ ceftriofur/tulathromycin/florfenicol/tilmicosin = ไปดีในปอด) + NSAID + ลดเครียด vaccinate วัวใหม่",

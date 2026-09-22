@@ -497,7 +497,7 @@ export const QB_COM2 = [
       "เพิ่มความลึกของ trochlear groove (sulcoplasty)",
       "ปรับแนวของ patellar ligament + quadriceps mechanism",
       "ตัด lateral retinaculum ออกเพื่อลดแรงดึงของข้อ (release)",
-      "Replace patella ด้วย prosthesis (patellar implant)",
+      "Replace patella ด้วย prosthesis ชนิด patellar implant",
       "Fuse stifle joint ให้แข็งถาวร (arthrodesis)"
     ],
     "answer": 1,

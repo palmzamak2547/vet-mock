@@ -138,7 +138,7 @@ export const QB_SWINE_HERD = [
       "Zinc oxide 3,000 ppm ผสมอาหารต่อเนื่องระยะยาวทั้งรุ่น",
       "Zinc carbonate หรือ zinc sulfate supplement ในอาหาร",
       "Ivermectin 300 µg/kg SC ทุก 7 วัน ติดต่อกัน 3 ครั้ง",
-      "Vitamin A injection IM ขนาดสูงครั้งเดียว ร่วมกับ vitamin D3"
+      "Vitamin A injection IM ขนาดสูงครั้งเดียว ร่วมกับ vitamin E"
     ],
     "answer": 1,
     "explain": "✓ Parakeratosis = zinc deficiency (ทำให้ vitamin A metabolism ผิดปกติด้วย) → รักษาด้วย zinc carbonate หรือ zinc sulfate supplement ในอาหาร\n✗ Zinc oxide เคยใช้แต่ปัจจุบันลด (EU ban) — ปัญหา antibiotic resistance + environmental Zn pollution + ก่อ diarrhea ที่ขนาดสูง\n✗ Ivermectin เป็นการรักษา mange — diff dx ที่ exclude ไปแล้วเพราะ 'ไม่คัน'\n✗ Vitamin A injection ไม่ใช่ primary tx — zinc deficiency ก่อ vit A metabolism abnormal แต่ก็แก้ที่ zinc\n💡 Sign: skin lesion + keratin↑ + ไม่คัน (ต่างจาก mange) + diff dx ด้วย zn level เลือด",
