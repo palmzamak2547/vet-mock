@@ -15,7 +15,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -118,6 +118,20 @@ test('a clean corpus passes, with or without a staged batch', () => {
   } finally { s.done(); }
 });
 
+test('a rebuild still refuses an unreadable draft and writes nothing', () => {
+  const s = cleanCorpus();
+  try {
+    const alpha = join(s.root, 'src', 'data', 'video-summaries-alpha.js');
+    const before = readFileSync(alpha, 'utf8');
+    s.stage('n1.md', staged('n1', 'alpha'), { checked: true });
+    s.stage('broken.md', 'no front matter at all');
+    const r = s.run();
+    assert.notEqual(r.status, 0, 'only --check may pass over a broken draft\n' + r.stdout + r.stderr);
+    assert.equal(readFileSync(alpha, 'utf8'), before, 'the good draft beside it must not ship on its own');
+    assert.equal(existsSync(join(s.root, 'src', 'data', 'video-summary-clips', 'n1.js')), false);
+  } finally { s.done(); }
+});
+
 test('an entry moved into another subject\'s file fails the check and is named', () => {
   const s = cleanCorpus();
   try {
@@ -199,7 +213,8 @@ test('a clip module carries its own entry and a small wrapper, nothing more', as
   const { byId } = await shipped();
   let largest = null;
   for (const [id, e] of byId) {
-    const bytes = statSync(join(CLIP_DIR, id + '.js')).size;
+    // Counted as committed (LF), so a Windows CRLF checkout measures the same.
+    const bytes = Buffer.byteLength(readFileSync(join(CLIP_DIR, id + '.js'), 'utf8').replace(/\r\n/g, '\n'));
     const own = ownBytes(e);
     assert.ok(bytes <= own * 1.05 + 1024, `${id}: ${bytes} B on disk for a ${own} B entry`);
     if (own < 3 * 1024) assert.ok(bytes < 10 * 1024, `${id}: a small clip must stay well under 10 KB`);
