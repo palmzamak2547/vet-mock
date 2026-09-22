@@ -257,8 +257,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // the next number; only the newest may publish, and a document that arrives
   // for a superseded open is destroyed instead of shown. `pendingTaskRef` is
   // the pdf.js load still in flight, so the next open can cancel it outright.
+  // `pendingAbortRef` stops a whole-file download, which runs before there is
+  // any pdf.js load to cancel.
   const loadGenRef = useRef(0);
   const pendingTaskRef = useRef(null);
+  const pendingAbortRef = useRef(null);
   const [exporting, setExporting] = useState(null); // null | {done,total}
   // Page text, extracted once per document and reused for every later search.
   // `pending` is the extraction still running, so a second query joins it.
@@ -327,6 +330,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     const prev = pendingTaskRef.current;
     pendingTaskRef.current = null;
     if (prev) { try { prev.destroy?.()?.catch?.(() => {}); } catch { /* already settled */ } }
+    pendingAbortRef.current?.abort();
+    pendingAbortRef.current = null;
     return gen;
   }, []);
 
@@ -456,7 +461,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         task = pdfjs.getDocument({ url, rangeChunkSize: doc.rangeSupported ? 262144 : 65536,
           ...(doc.rangeSupported ? { disableAutoFetch: true, disableStream: true } : {}) });
       } else {
-        const res = await fetch(url);
+        // Back, or another document, while this downloads: stop it rather than
+        // pull the whole file over mobile data and assemble it in memory for
+        // nobody. The abort lands in the catch below as a withdrawn open.
+        const download = new AbortController();
+        pendingAbortRef.current = download;
+        const res = await fetch(url, { signal: download.signal });
         if (!current()) return;
         if (!res.ok) {
           // The worker answers an offline request for a document that was
@@ -480,6 +490,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         const buf = await readWithProgress(res,
           (msg) => { if (current()) setLoadingMsg(msg); },
           (pct) => { if (current()) setDownloadProgress(pct); });
+        // Every byte is in; a later open must not abort a request the service
+        // worker may still be writing to its cache.
+        if (pendingAbortRef.current === download) pendingAbortRef.current = null;
         if (!current()) return;
         task = pdfjs.getDocument({ data: buf });
       }
