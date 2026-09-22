@@ -508,7 +508,7 @@ export const QB_Y5_FINAL_MIXED = [
     tags: ['RHF', 'right-heart-failure', 'cardiology'], type: 'mcq',
     q: 'สัตว์เลี้ยงที่มี chronic right heart failure สามารถพบรอยโรคทางพยาธิวิทยาอะไรได้บ้าง',
     options: ['Nutmeg liver, hydrothorax', 'Ascites, subcutaneous edema', 'Right heart dilatation, hydroperitoneum', 'ไม่มีรอยโรคใดที่บ่งบอก', 'ถูกทั้งข้อ ก ข และ ค'],
-    answer: 4,
+    answer: 4, noShuffle: true,
     explain: 'Chronic RHF → backflow → :\n• Hepatic congestion → nutmeg liver\n• Pleural effusion → hydrothorax\n• Peritoneal effusion → ascites/hydroperitoneum\n• SC edema (dependent)\n• RV/RA dilation (chamber enlargement)\nทุก option ก-ค ถูก\n\n💡 Right CHF mnemonic: "Ascites, congestion, edema"',
     verified: 'สรุป 80 p.12 (Vet 83 marked E "ถูกทั้ง ก ข ค")' },
 

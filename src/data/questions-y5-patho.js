@@ -770,7 +770,7 @@ export const QB_Y5_PATHO = [
       'ไม่มีรอยโรคที่ชัดเจน',
       'ถูกทั้ง A, B, C'
     ],
-    answer: 4,
+    answer: 4, noShuffle: true,
     explain: 'Chronic R-side HF = systemic venous congestion → fluid in cavities + ทั่วร่างกาย:\n- Nutmeg liver (chronic passive congestion of liver)\n- Hydrothorax, Hydroperitoneum (ascites)\n- Subcutaneous edema (dependent)\n- R-heart dilation/hypertrophy\n→ ทุกข้อเป็นรอยโรค',
     verified: 'Final Patho prac.pdf p.11' },
 

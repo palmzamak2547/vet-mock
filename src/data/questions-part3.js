@@ -30,7 +30,7 @@ export const QB_PART3 = [
   { id: 206, subject: 'surg3', year: 4, source: 'surg_lab_3_final_VET_84.pdf / sos_รวมข้อสอบเก่า_Lab_ortho.pdf', tags: ['ortho', 'FHNE'], type: 'mcq',
     q: 'FHNE (Femoral Head & Neck Excision) เหมาะกับเคสใด',
     options: ['Young dog < 5 kg', 'Animal ที่ใหญ่เกิน 30 kg', 'Cat ทุกขนาด', 'ข้อ 1 และ 3'],
-    answer: 3, explain: 'FHNE เหมาะกับสัตว์ตัวเล็ก < 20 kg หรือแมว; ใหญ่ไปควรทำ THR' },
+    answer: 3, noShuffle: true, explain: 'FHNE เหมาะกับสัตว์ตัวเล็ก < 20 kg หรือแมว; ใหญ่ไปควรทำ THR' },
   { id: 207, subject: 'surg3', year: 4, source: 'surg_lab_3_final_VET_84.pdf / sos_รวมข้อสอบเก่า_Lab_ortho.pdf', tags: ['ortho', 'luxation'], type: 'mcq',
     q: 'Hip luxation ทิศทางที่พบบ่อยที่สุดคือ',
     options: ['Craniodorsal', 'Caudoventral', 'Caudodorsal', 'Cranioventral'],
