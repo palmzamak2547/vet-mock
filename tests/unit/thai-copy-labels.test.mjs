@@ -78,3 +78,24 @@ test('the daily-question row calls itself ข้อวันนี้ throughout
   assert.ok(!row.includes('ตอบถูกใน Daily Q'), 'the class-pulse tooltip used a second name');
   assert.ok(row.includes('`${pulse.correct}/${pulse.total} ตอบถูกในข้อวันนี้`'));
 });
+
+// ── Spaced repetition ───────────────────────────────────────────────────────
+
+test('the spaced-repetition start and finish screens label their numbers in Thai', () => {
+  const s = read('src/views/SRSessionView.jsx');
+  for (const en of ['>Total cards<', '>Total Cards<', '>Mastered<', "'Due tomorrow'", '>Due tomorrow<', '>Cards Reviewed<', 'next: {', 'SR pool', 'choice/lefts']) {
+    assert.ok(!s.includes(en), `${en} is still on the review screen`);
+  }
+  assert.equal(count(s, '<div className="vmx-stat-lbl">การ์ดทั้งหมด</div>'), 2);
+  assert.equal(count(s, '<div className="vmx-stat-lbl">จำได้แล้ว</div>'), 2);
+  assert.ok(s.includes('<div className="vmx-stat-lbl">ถึงรอบพรุ่งนี้</div>'));
+  assert.ok(s.includes("{remaining > 0 ? 'ค้างอีก' : 'ถึงรอบพรุ่งนี้'}"));
+  assert.ok(s.includes('<div className="vmx-score-label">ทบทวนไปแล้ว</div>'));
+  assert.ok(s.includes('ในรอบทบทวนมี <strong>{eligibleCount}</strong> ข้อ ไม่รวม <strong>{excludedCount}</strong> ข้อที่ต้องเห็นตัวเลือกก่อนถึงจะตอบได้'));
+  // The date beside a card is the day it came due, which is today or earlier
+  // for every card in a round; "รอบถัดไป 3 วันที่แล้ว" would contradict itself.
+  assert.equal(count(s, 'ถึงรอบ {fmtDate(currentCard.nextReview)}'), 3);
+  // Pinned by mochi-presence and motion-integration.
+  assert.ok(s.includes("'เริ่ม Session →'"));
+  assert.ok(s.includes('แสดงคำตอบ (Space)'));
+});
