@@ -832,6 +832,30 @@ function acknowledgeRemoteOperationParts(storage, operations) {
   }
 }
 
+/** The outbox as it stands after a push was acknowledged, with each record the
+ *  push had captured and a tab then added to measured from the value that was
+ *  sent. Such a record still carries the base from before the push, folded,
+ *  and folding can hide an edit made in flight: a note added, sent, then
+ *  deleted is, to the folded record, a note never touched, so replayed onto
+ *  the acknowledged payload it left the note there. Item deltas keep their
+ *  removals and replay as they are. */
+function sinceCaptured(captured, remaining) {
+  const sentByKey = new Map(captured.map((operation) => [operation.key, operation.changes]));
+  const has = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
+  return remaining.map((operation) => {
+    const sent = sentByKey.get(operation.key);
+    if (!sent) return operation;
+    const changes = {};
+    for (const [field, change] of Object.entries(operation.changes)) {
+      const before = sent[field];
+      changes[field] = before && !isItemDelta(change) && has(before, 'value') && has(change, 'value')
+        ? { base: before.value, value: change.value }
+        : change;
+    }
+    return { ...operation, changes };
+  });
+}
+
 function fromRemoteRow(row) {
   if (!row) return { found: false, data: {}, present: new Set() };
   const data = {};
@@ -1465,7 +1489,9 @@ export function createUserDataSync({
 
       acknowledgeRemoteOperationParts(storage, capturedOperations);
       const remainingOperations = readPendingOperations(storage, userId);
-      const afterAck = replayOperations(rebasedData, remainingOperations);
+      // What was sent is now the account's copy; the edits made while it was
+      // in flight go on top of it.
+      const afterAck = replayOperations(rebasedData, sinceCaptured(capturedOperations, remainingOperations));
       const remainingDirty = {};
       for (const field of afterAck.touched) {
         const definition = USER_DATA_FIELDS[field];
