@@ -49,7 +49,7 @@ export function useUserDataSync(userId) {
       lifecycle: createBrowserLifecycle(),
       remote: {
         pull: (id) => pullUserData(id),
-        push: (id, payload) => pushUserData(id, payload),
+        push: (id, payload, precondition) => pushUserData(id, payload, precondition),
       },
     });
   }

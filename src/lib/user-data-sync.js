@@ -895,6 +895,8 @@ export function createUserDataSync({
   let sessionGeneration = 0;
   let hydratedUserId = null;
   let retryAttempt = 0;
+  // Writes lost in a row to another device's write (SYNC_CONFLICT).
+  let conflictStreak = 0;
   let timer = null;
   let disposed = false;
   let operationSequence = 0;
@@ -1206,6 +1208,10 @@ export function createUserDataSync({
       const row = await remote.pull(userId);
       if (disposed || generation !== sessionGeneration) return;
       const remoteSnapshot = fromRemoteRow(row);
+      // The write below lands only if the row is still the one read here.
+      // Unconditional, a device that read the same row a moment earlier could
+      // replace this write after both had reported "synced".
+      const precondition = { rowExists: Boolean(row), expectedUpdatedAt: row?.updated_at ?? null };
       let rebasedData = { ...state.data };
       const rebasedDirty = { ...activeMeta.dirty };
 
@@ -1263,9 +1269,10 @@ export function createUserDataSync({
 
       const payload = toRemoteUserData(rebasedData);
       failureStage = 'push';
-      await remote.push(userId, payload);
+      await remote.push(userId, payload, precondition);
       if (disposed || generation !== sessionGeneration) return;
       retryAttempt = 0;
+      conflictStreak = 0;
 
       acknowledgeRemoteOperationParts(storage, capturedOperations);
       const remainingOperations = readPendingOperations(storage, userId);
@@ -1318,6 +1325,18 @@ export function createUserDataSync({
           quotaRetryUsed = true;
           schedule('flush', debounceMs);
         }
+        return;
+      }
+
+      // Another device wrote between our read and our write, so nothing was
+      // written and nothing is acknowledged. That is not a failure the
+      // student can act on: re-read, rebase and write again after a short
+      // jitter. Only a streak of lost races falls back to the back-off.
+      if (error?.code === 'SYNC_CONFLICT') {
+        conflictStreak += 1;
+        publish(state.data, syncShape({ phase: 'pending', error: null }));
+        if (conflictStreak <= 4) schedule('flush', Math.round(Math.max(0, Math.min(1, random())) * 200));
+        else scheduleRetry('flush');
         return;
       }
 
@@ -1504,6 +1523,7 @@ export function createUserDataSync({
     sessionGeneration += 1;
     activeOperation = null;
     retryAttempt = 0;
+    conflictStreak = 0;
     quotaRetryUsed = false;
     const previousUserId = userId;
     userId = normalized;
