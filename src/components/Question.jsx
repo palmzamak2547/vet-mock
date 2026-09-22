@@ -774,8 +774,10 @@ function InstantFeedback({ ok, correctNode, explain, coach, wikiLink, subject, a
       {/* "คุณตอบถูก", not "ถูกต้อง". On a true/false question the
           second reads as a verdict on the STATEMENT, and it sat directly above
           an explanation opening with "ไม่ถูกต้อง" — which is about the statement.
-          Two lines, opposite words, neither saying whose. */}
-      <div className="v">{ok ? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ — คำตอบที่ถูกถูกทำเครื่องหมาย ✓ ไว้'}</div>
+          Two lines, opposite words, neither saying whose.
+          A miss points at the เฉลย row below rather than at a ✓: a false
+          true/false statement's answer is "✗ False". */}
+      <div className="v">{ok ? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง'}</div>
       {(alwaysShowCorrect || !ok) && correctNode != null && (
         <div className="a"><span className="k">เฉลย</span>{correctNode}</div>
       )}
