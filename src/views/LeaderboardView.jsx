@@ -4,6 +4,7 @@ import { getLeaderboard } from '../lib/api.js';
 import { aggregateLeaderboard, LEADERBOARD_MIN_QUESTIONS } from '../lib/leaderboard-gate.js';
 import { SUBJECTS } from '../data/questions.js';
 import StatePanel from '../components/StatePanel.jsx';
+import { thaiError } from '../lib/errors.js';
 import { EMPTY_ART } from '../data/art.js';
 
 export default function LeaderboardView({ user, goHome, selectedYear }) {
@@ -47,7 +48,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
       .catch((err) => {
         if (request !== requestId.current) return;
         setRawScores([]);
-        setError(err?.message || 'โหลดข้อมูลไม่สำเร็จ');
+        setError(thaiError(err, 'โหลดข้อมูลไม่สำเร็จ'));
       })
       .finally(() => { if (request === requestId.current) setLoading(false); });
   }, [yearScope, selectedYear, scoreSource]);

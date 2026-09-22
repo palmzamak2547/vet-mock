@@ -13,6 +13,7 @@ import NightRankCard from '../components/NightRankCard.jsx';
 import { getWebVitalsSamples, summarize } from '../lib/web-vitals.js';
 import StreakHeatmap from '../components/StreakHeatmap.jsx';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
+import { thaiError } from '../lib/errors.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
 import EmptyState from '../components/EmptyState.jsx';
 import NavIcon from '../components/NavIcon.jsx';
@@ -485,7 +486,10 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
         e.target.value = '';
       } catch (error) {
         e.target.value = '';
-        alertDialog(`อ่านไฟล์ backup ไม่สำเร็จ\n\n${error?.message || 'ไฟล์ JSON ไม่ถูกต้อง'}\n\nข้อมูลในเครื่องยังไม่ถูกเปลี่ยน`);
+        // JSON.parse's own words ("Unexpected token < in JSON at position 0")
+        // tell a student nothing; a file that is not JSON is not a backup.
+        const why = error instanceof SyntaxError ? 'ไฟล์นี้ไม่ใช่ไฟล์สำรองของ VetMock' : thaiError(error, 'กรุณาลองเลือกไฟล์อีกครั้ง');
+        alertDialog(`อ่านไฟล์ backup ไม่สำเร็จ\n\n${why}\n\nข้อมูลในเครื่องยังไม่ถูกเปลี่ยน`);
       }
     };
     reader.onerror = () => {
