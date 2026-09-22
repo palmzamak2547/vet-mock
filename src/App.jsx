@@ -402,8 +402,15 @@ function buildExamPool({
     // Year-scoped like every other practice path: the dashboard promises a
     // year-scoped count, and serving lifetime cross-year questions under
     // that number made the two disagree.
-    pool = deliverableQuestions.filter((q) => weakQuestions.includes(q.id)
-      && (q.year == null || !selectedYear || q.year === selectedYear));
+    //
+    // weakQuestions arrives most-missed first, and the pool keeps that rank.
+    // Filtering the bank by membership kept BANK order instead, so a 10-
+    // question set was whichever ten weak questions loaded first, not the
+    // student's ten most missed.
+    const rank = new Map(weakQuestions.map((id, i) => [id, i]));
+    pool = deliverableQuestions.filter((q) => rank.has(q.id)
+      && (q.year == null || !selectedYear || q.year === selectedYear))
+      .sort((a, b) => rank.get(a.id) - rank.get(b.id));
   } else if (practiceMode === 'wrong') {
     // Still wrong, not ever wrong: see lib/wrong-pool.js. A question answered
     // wrong once and then correctly ten times used to stay here permanently.
@@ -2158,7 +2165,11 @@ export default function App() {
     // silently re-sorted the whole cram by id and threw all of that away. It
     // was doing so for nothing: not one of those questions has a passage.
     if (!overrides.panicPool && picked.some((q) => q.examOrigin)) {
-      picked = picked.sort((a, b) => a.id - b.id);
+      // Nor for a curated set, for the same reason: weak and wrong are most-
+      // missed first, and most past-paper questions carry examOrigin, so the
+      // re-sort put 'ทบทวนข้อที่ตอบผิด' back in id order under a screen that
+      // says ผิดบ่อยขึ้นก่อน.
+      if (!ordered) picked = picked.sort((a, b) => a.id - b.id);
     }
     // Per-question time uses timeForQuestion(): essays get 25 min minimum,
     // short answers 3 min minimum, MCQ/TF stay at the user's base setting
