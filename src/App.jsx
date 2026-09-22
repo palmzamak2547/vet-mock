@@ -522,8 +522,9 @@ function buildExamPool({
   else if (questionCategory === 'writing') pool = pool.filter((q) => catOf(q) === 'writing');
   // The lecturer sets practise ONE format, because that is how each part of
   // the paper is written: อ.เกรียงวิชญ์ sets 24 true/false items, อ.ณทยา sets
-  // matching. 'mcq' above keeps its wider meaning (MCQ + T/F + fill) for the
-  // config screen; these two are exact.
+  // matching. 'mcq' above keeps its wider meaning for the config screen,
+  // everything marked automatically (MCQ, true/false and matching, while
+  // fill-in-the-blank is typed and goes with 'writing'); these are exact.
   else if (questionCategory === 'tf') pool = pool.filter((q) => q.type === 'tf');
   // The lecturer cards' ปรนัย: exactly what regen-q-counts counts as mcq —
   // not tf, match or a written type — so the card's number is what is served.
@@ -2081,7 +2082,7 @@ export default function App() {
         }
       }
       if (_questionCategory === 'writing') {
-        alertDialog('ยังไม่มีข้อ Writing ในหมวดนี้ — ลองเปลี่ยนเป็น MCQ หรือ "ทุกประเภท"');
+        alertDialog('ยังไม่มีข้อเขียนในหมวดนี้ — ลองเปลี่ยนเป็น "ปรนัย ถูก-ผิด จับคู่" หรือ "ทุกประเภท"');
         return;
       }
       // A topic with no questions of its own is a dead end 33 VetWiki

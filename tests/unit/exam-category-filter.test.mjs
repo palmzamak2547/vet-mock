@@ -13,6 +13,10 @@
 // lifted out of src/App.jsx and evaluated over the real question bank. Counts
 // are compared against the same subject with the filter off, never hard-coded,
 // so adding questions cannot break them.
+//
+// The second half holds the chip labels to questionCategory(), which puts
+// fill-in-the-blank under the written chip and matching under the auto-marked
+// one, while the chips put fill with MCQ and did not name matching at all.
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -34,6 +38,7 @@ await loadQB();
 const read = (rel) => readFileSync(new URL(`../../${rel}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const APP = read('src/App.jsx');
 const CONFIG = read('src/views/ConfigView.jsx');
+const QUESTION = read('src/components/Question.jsx');
 
 // ── Lift App's module-level pieces into a sandbox ─────────────────────
 function topLevelFunction(name) {
@@ -232,4 +237,48 @@ test('the config screen shows the picker exactly where App applies it', () => {
         `${subject}/${mode}: the filter and the picker disagree`);
     }
   }
+});
+
+// ── EX-09 ─────────────────────────────────────────────────────────────
+function chips() {
+  const start = CONFIG.indexOf('const CATEGORIES = [');
+  assert.ok(start >= 0, 'ConfigView no longer declares CATEGORIES');
+  const src = CONFIG.slice(start + 'const CATEGORIES = '.length, CONFIG.indexOf('];', start) + 1);
+  return vm.runInNewContext(`(${src})`);
+}
+function badgeNames() {
+  const names = {};
+  for (const m of QUESTION.matchAll(/currentQ\.type === '(\w+)' && '([^']+)'/g)) names[m[1]] = m[2];
+  return names;
+}
+
+test('each type is named on the chip that actually serves it', () => {
+  const byId = Object.fromEntries(chips().map((c) => [c.id, c]));
+  const names = badgeNames();
+  const types = ['fill', 'match', 'mcq', 'tf', 'short', 'essay'];
+  for (const t of types) assert.ok(names[t], `the question badge has no name for ${t}`);
+  for (const t of types) {
+    const home = catOf({ type: t });
+    assert.ok(byId[home], `no chip for category ${home}`);
+    const text = (c) => `${c.label} ${c.desc}`;
+    assert.ok(text(byId[home]).includes(names[t]),
+      `${t} (${names[t]}) is served by the "${byId[home].label}" chip, which does not name it`);
+    for (const other of ['mcq', 'writing'].filter((id) => id !== home)) {
+      assert.ok(!text(byId[other]).includes(names[t]),
+        `the "${byId[other].label}" chip names ${names[t]} but serves none of them`);
+    }
+  }
+});
+
+test('the chips use no middle dot', () => {
+  for (const c of chips()) {
+    assert.ok(!`${c.label}${c.desc}`.includes('·'), `chip ${c.id} uses a middle dot`);
+  }
+});
+
+test('relabelling the chips left the filter itself alone', () => {
+  const pool = topLevelFunction('buildExamPool');
+  assert.ok(pool.includes("if (questionCategory === 'mcq') pool = pool.filter((q) => catOf(q) === 'mcq');"));
+  assert.ok(pool.includes("else if (questionCategory === 'writing') pool = pool.filter((q) => catOf(q) === 'writing');"));
+  assert.ok(!pool.includes('MCQ + T/F + fill'), 'the comment still says fill sits with MCQ');
 });

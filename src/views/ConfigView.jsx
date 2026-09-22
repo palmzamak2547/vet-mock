@@ -22,10 +22,14 @@ import BackBar from '../components/BackBar.jsx';
 const QCOUNT_PRESETS = [10, 20, 50];
 const SECONDS_PRESETS = [30, 60, 120];
 
+// Each chip names the types it actually serves, in the words of the badge on
+// the question card. questionCategory() in hooks/utils.js decides membership:
+// fill-in-the-blank is typed, so it sits with the written chip, and matching
+// is marked automatically, so it sits with the other one.
 const CATEGORIES = [
-  { id: 'all',     label: 'ทุกประเภท',          icon: '🎯', desc: 'รวมทุกแบบ — เหมือนสอบจริง' },
-  { id: 'mcq',     label: 'MCQ + T/F + Fill',   icon: '📝', desc: 'ตรวจอัตโนมัติ — ฝึกความรู้เร็วๆ' },
-  { id: 'writing', label: 'Writing เท่านั้น',   icon: '✍️', desc: 'Short + Essay — ฝึกเขียน, จับเวลายาวขึ้นอัตโนมัติ' },
+  { id: 'all',     label: 'ทุกประเภท',           icon: '🎯', desc: 'รวมทุกแบบ — เหมือนสอบจริง' },
+  { id: 'mcq',     label: 'ปรนัย ถูก-ผิด จับคู่', icon: '📝', desc: 'ตรวจอัตโนมัติ — ฝึกความรู้เร็วๆ' },
+  { id: 'writing', label: 'ข้อเขียนเท่านั้น',    icon: '✍️', desc: 'ตอบสั้น เขียนบรรยาย และเติมคำ — พิมพ์คำตอบเอง' },
 ];
 
 export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, showCategoryPicker = false, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, mode, selectedPhase = null }) {
@@ -267,10 +271,10 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
             {/* Writing-time hint only relevant when subject = engprof */}
             {showCategoryPicker && (
               <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5, fontStyle: 'italic' }}>
-                เวลานี้ใช้กับข้อ MCQ/T/F, ข้อ Writing จะได้เวลามากขึ้นอัตโนมัติ:
+                เวลานี้ใช้กับข้อปรนัย ถูก-ผิด และเติมคำ ข้อตอบสั้นกับเขียนบรรยายจะได้เวลามากขึ้นอัตโนมัติ:
                 <br/>
-                &nbsp;&nbsp;&nbsp;Short answer = max({timePerQ * 3 < 180 ? 180 : timePerQ * 3}s = {Math.max(3, timePerQ * 3 / 60)} min)
-               , Essay = max({Math.max(1500, timePerQ * 25)}s = {Math.max(25, Math.round(timePerQ * 25 / 60))} min)
+                &nbsp;&nbsp;&nbsp;ตอบสั้น = max({timePerQ * 3 < 180 ? 180 : timePerQ * 3}s = {Math.max(3, timePerQ * 3 / 60)} min)
+               , เขียนบรรยาย = max({Math.max(1500, timePerQ * 25)}s = {Math.max(25, Math.round(timePerQ * 25 / 60))} min)
               </div>
             )}
           </div>
