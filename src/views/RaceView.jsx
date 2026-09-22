@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { hasSupabase, getSupabase } from '../lib/supabase.js';
 import { questionRevision } from '../lib/study-events.js';
 import { ownedRpc } from '../lib/owned-rpc.js';
-import { resolveRaceQuestions, mergeRaceProgress, rankRacePlayers } from '../lib/race-session.js';
+import { resolveRaceQuestions, raceOptionRows, mergeRaceProgress, rankRacePlayers } from '../lib/race-session.js';
 import { QB, loadQBForYear } from '../data/questions.js';
 import { SUBJECTS_BY_YEAR, YEARS, yearForSubject } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
@@ -235,10 +235,10 @@ export default function RaceView({ goHome, setView, user, profile }) {
             <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginBottom: 4 }}>Q{idx + 1} / {questions.length}</div>
             <div style={{ fontSize: 16, lineHeight: 1.6, marginBottom: 14 }}><RichText text={q.q} /></div>
             <div className="vmx-options">
-              {q.options.map((opt, i) => (
-                <button key={i} className="vmx-option" disabled={busy} onClick={() => answer(i)}>
-                  <div className="vmx-option-letter">{String.fromCharCode(65 + i)}</div>
-                  <div className="vmx-option-text"><RichText text={opt} /></div>
+              {raceOptionRows(q).map(({ text, original }, row) => (
+                <button key={row} className="vmx-option" disabled={busy} onClick={() => answer(original)}>
+                  <div className="vmx-option-letter">{String.fromCharCode(65 + row)}</div>
+                  <div className="vmx-option-text"><RichText text={text} /></div>
                 </button>
               ))}
             </div>
