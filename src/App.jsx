@@ -402,8 +402,15 @@ function buildExamPool({
     // Year-scoped like every other practice path: the dashboard promises a
     // year-scoped count, and serving lifetime cross-year questions under
     // that number made the two disagree.
-    pool = deliverableQuestions.filter((q) => weakQuestions.includes(q.id)
-      && (q.year == null || !selectedYear || q.year === selectedYear));
+    //
+    // weakQuestions arrives most-missed first, and the pool keeps that rank.
+    // Filtering the bank by membership kept BANK order instead, so a 10-
+    // question set was whichever ten weak questions loaded first, not the
+    // student's ten most missed.
+    const rank = new Map(weakQuestions.map((id, i) => [id, i]));
+    pool = deliverableQuestions.filter((q) => rank.has(q.id)
+      && (q.year == null || !selectedYear || q.year === selectedYear))
+      .sort((a, b) => rank.get(a.id) - rank.get(b.id));
   } else if (practiceMode === 'wrong') {
     // Still wrong, not ever wrong: see lib/wrong-pool.js. A question answered
     // wrong once and then correctly ten times used to stay here permanently.
@@ -860,6 +867,16 @@ export default function App() {
       .then(() => setQbRevision((revision) => revision + 1))
       .catch(() => {});
   }, [selectedYear, selectedYearStored, qbReady]);
+
+  // Every year's banks, for a screen that offers them all (SR's 'ทุกปี').
+  // A cold visit loads only the selected year, so without this that chip
+  // showed this year plus the cross-year banks and nothing more. The revision
+  // bump is what Home's due badge and SR both recount from. Rejects on a
+  // failed load so the caller can offer a retry.
+  const loadAllYears = useCallback(() => loadQB().then(() => {
+    setQbReady(true);
+    setQbRevision((revision) => revision + 1);
+  }), []);
 
   // selectedPhase: '1-mid' | '1-final' | '2-mid' | '2-final' | null.
   // null means "no phase scoping" — show all subjects across both
@@ -1917,7 +1934,10 @@ export default function App() {
   }, [view]);
 
   const configPracticeMode = normalizePracticeMode(practiceMode, subject, false);
-  const configAvailableCount = useMemo(() => {
+  // The set the config screen describes. Its size is the count on screen, and
+  // ConfigView reads the questions themselves for the whole-set clock, which
+  // gives written and matching items more than the base time.
+  const configServedPool = useMemo(() => {
     const scopeReady = USER_CURATED_MODES.has(configPracticeMode)
       ? isQBFullyLoaded()
       : isQBYearLoaded(selectedYear);
@@ -1936,8 +1956,9 @@ export default function App() {
     });
     // Panic keeps only the questions closest to a paper, so counting the whole
     // subject here printed a number the session would never serve.
-    return panicPending ? panicPool(pool).length : pool.length;
+    return panicPending ? panicPool(pool) : pool;
   }, [allQuestions, analytics?.weakQuestions, bookmarks, configPracticeMode, history, panicPending, practiceMode, questionCategory, selectedPhase, selectedYear, subject, topic]);
+  const configAvailableCount = configServedPool ? configServedPool.length : null;
 
   // startExam accepts an optional `overrides` object so a caller (like the
   // 1-click "ฝึก 1 ข้อด่วน" from HomeView) can bypass React's async state
@@ -2158,7 +2179,11 @@ export default function App() {
     // silently re-sorted the whole cram by id and threw all of that away. It
     // was doing so for nothing: not one of those questions has a passage.
     if (!overrides.panicPool && picked.some((q) => q.examOrigin)) {
-      picked = picked.sort((a, b) => a.id - b.id);
+      // Nor for a curated set, for the same reason: weak and wrong are most-
+      // missed first, and most past-paper questions carry examOrigin, so the
+      // re-sort put 'ทบทวนข้อที่ตอบผิด' back in id order under a screen that
+      // says ผิดบ่อยขึ้นก่อน.
+      if (!ordered) picked = picked.sort((a, b) => a.id - b.id);
     }
     // Per-question time uses timeForQuestion(): essays get 25 min minimum,
     // short answers 3 min minimum, MCQ/TF stay at the user's base setting
@@ -2758,6 +2783,10 @@ export default function App() {
     setMode('quick');
     setSubject('all');
     startExam({
+      // Named here, not left to state: setMode above reaches the NEXT render,
+      // and startExam reads this one's. After สอบจริง 50 and a Back, that was
+      // still 'exam', and Panic ran on one clock for the whole set.
+      mode: 'quick',
       subject: 'all',
       topic: null,
       practiceMode: 'all',
@@ -2810,6 +2839,10 @@ export default function App() {
     setTopic(single);
     setPracticeMode('all');
     startExam({
+      // The same stale-mode trap as Panic: without it, a lecturer card opened
+      // after สอบจริง 50 and Back ran the whole set on one exam clock instead
+      // of 45 seconds per true/false item.
+      mode: 'quick',
       subject: subjectId,
       // The pool comes from onlyTopics, not the single-topic branch: a
       // session's matching set sits under one disease and names the rest
@@ -3035,12 +3068,12 @@ export default function App() {
               )}
 {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={() => setView('topic-select')} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam }} />}
-              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} onBack={goBackFromConfig} />}
+              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
-              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime, saveStatus: examSaveStatus }} />}
+              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
-              {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, onOpenWiki: openWiki }} />}
+              {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki }} />}
               {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear, selectedPhase }} />}

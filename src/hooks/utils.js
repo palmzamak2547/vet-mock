@@ -133,6 +133,20 @@ export const isAnswered = (ua) => {
   return true; // numbers (MCQ index, including 0) and booleans (true/false)
 };
 
+/**
+ * Where a question lands after submit: 'skipped', 'correct' or 'wrong'.
+ *
+ * Results and Review used to test `!== undefined`, so an answer typed and then
+ * erased, which the submit dialog had just called unanswered, sat under ผิด,
+ * joined the redo-wrong set and was missing from ข้าม. Skipped means what the
+ * dialog means by it. A cleared answer does not join the redo-wrong set, the
+ * same as a question never touched: that set is the questions answered wrong.
+ */
+export const answerOutcome = (q, ua) => {
+  if (!isAnswered(ua)) return 'skipped';
+  return isCorrect(q, ua) ? 'correct' : 'wrong';
+};
+
 // Per-question time allocation. The Final exam is 2 hours for ~20
 // short answers + 1 essay (~5 min/short + ~25 min/essay), so when
 // the user sets a base time-per-question we scale it for writing
@@ -155,6 +169,48 @@ export function timeForQuestion(q, baseSeconds) {
     return Math.max(baseSeconds, baseSeconds + Math.max(0, (n + Math.min(extra, 2) - 2)) * perPair);
   }
   return baseSeconds;
+}
+
+/**
+ * The least and the most a whole-set clock gives `count` questions drawn from
+ * `pool`. The clock adds up timeForQuestion over the draw, and written and
+ * matching items get more than the base, so count × base is only the least:
+ * "สอบจริง 50" on Swine Clinic read 50 minutes and could run 67. Without a
+ * pool (still counting) it is count × base, as before.
+ */
+export function wholeSetTime(pool, count, baseSeconds) {
+  const n = Math.max(0, Math.floor(Number(count) || 0));
+  const base = Number(baseSeconds) || 0;
+  if (!Array.isArray(pool) || !pool.length) {
+    const total = Math.max(0, Math.round(n * base));
+    return { min: total, max: total };
+  }
+  const allowances = pool.map((q) => timeForQuestion(q, base)).sort((a, b) => a - b);
+  const take = Math.min(n, allowances.length);
+  let min = 0;
+  let max = 0;
+  for (let i = 0; i < take; i++) {
+    min += allowances[i];
+    max += allowances[allowances.length - 1 - i];
+  }
+  return { min, max };
+}
+
+const formatSetSeconds = (seconds) => {
+  const total = Math.max(0, Math.round(seconds));
+  if (!total) return '0 นาที';
+  const m = Math.floor(total / 60);
+  const sec = total % 60;
+  if (!m) return `${sec} วินาที`;
+  return sec ? `${m} นาที ${sec} วินาที` : `${m} นาที`;
+};
+
+/** '50 นาที' when every draw gets the same time, '50 ถึง 67 นาที' when not. */
+export function wholeSetTimeLabel({ min, max }) {
+  if (min === max) return formatSetSeconds(min);
+  // Whole minutes, rounded outward, so neither end claims more than it can.
+  if (min >= 60) return `${Math.floor(min / 60)} ถึง ${Math.ceil(max / 60)} นาที`;
+  return `${formatSetSeconds(min)} ถึง ${formatSetSeconds(max)}`;
 }
 
 // Categorize a question for the ConfigView type-filter chip.

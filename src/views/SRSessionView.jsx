@@ -3,7 +3,7 @@ import { MotionEnter, MotionButton } from '../components/MotionFeedback.jsx';
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { createQuestionTiming, createReviewEvent, newStudySessionId } from '../lib/study-events.js';
 import { alertDialog } from '../lib/dialog.js';
-import { QB, SUBJECTS } from '../data/questions.js';
+import { QB, SUBJECTS, isQBFullyLoaded } from '../data/questions.js';
 import { updateCard, initCard, getDueCards, getCardStats, previewInterval } from '../hooks/sm2.js';
 import { isFlashcardCompatible } from '../hooks/sr-filter.js';
 import { fmtDate } from '../hooks/utils.js';
@@ -38,7 +38,7 @@ import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 
 const SIZE_PRESETS = [25, 50, 100, 200];
 
-export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [], selectedYear = 4, selectedPhase, qbReady = true, onOpenWiki = null, ownerId = null }) {
+export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [], selectedYear = 4, selectedPhase, qbReady = true, qbRevision = 0, loadAllYears = null, onOpenWiki = null, ownerId = null }) {
   // Merge in user-authored flashcards (from "Highlight → Flashcard"
   // in SummaryModal). They live in localStorage and don't trigger
   // React updates by themselves — we read on mount and let the
@@ -53,7 +53,9 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     // qbReady matters: QB is lazy-loaded and mutated IN PLACE, so without it
     // this memo keeps the empty snapshot for the whole mount and the view
     // reports "ไม่มีใบที่ต้องทบทวน" for a user who does have cards due.
-    [customQuestions, qbReady],
+    // qbRevision too: App bumps it each time more banks merge in (a year
+    // switched on Home, every year for 'ทุกปี'), which qbReady never does.
+    [customQuestions, qbReady, qbRevision],
   );
 
   // Persist last-used preferences
@@ -92,6 +94,21 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   // into a Y4 review session. User can toggle OFF when they want
   // cross-year ("ทุกปี").
   const [yearScope, setYearScope] = useLocalStorage('vmx-sr-year-scope', 'current');
+  // 'ทุกปี' needs every year's banks, and a cold visit has loaded only the
+  // selected year's: the chip used to lift the year filter over what happened
+  // to be loaded and say nothing. Load the rest here, whether the chip was
+  // just tapped or remembered from last time. A running session is never
+  // re-dealt: sessionCards is set once, by startSession.
+  const [allYearsLoad, setAllYearsLoad] = useState('idle'); // 'idle' | 'loading' | 'failed'
+  const [allYearsTry, setAllYearsTry] = useState(0);
+  useEffect(() => {
+    if (yearScope !== 'all' || !loadAllYears || isQBFullyLoaded()) return;
+    setAllYearsLoad('loading');
+    loadAllYears().then(
+      () => setAllYearsLoad('idle'),
+      () => setAllYearsLoad('failed'),
+    );
+  }, [yearScope, loadAllYears, allYearsTry]);
 
   const { duePool, dueReviewedCount, newCount, excludedCount, eligibleCount } = useMemo(() => {
     let inSubject = subjectFilter === 'all'
@@ -198,6 +215,17 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
                   🌐 ทุกปี
                 </button>
               </div>
+              {yearScope === 'all' && allYearsLoad === 'loading' && (
+                <div className="vmx-config-availability" role="status">กำลังโหลดทุกปี…</div>
+              )}
+              {yearScope === 'all' && allYearsLoad === 'failed' && (
+                <div className="vmx-config-availability" role="status">
+                  ยังโหลดทุกปีไม่ครบ ตอนนี้มีเฉพาะปีที่โหลดแล้ว{' '}
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setAllYearsTry((n) => n + 1)}>
+                    ลองใหม่
+                  </button>
+                </div>
+              )}
             </div>
           )}
 
