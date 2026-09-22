@@ -463,3 +463,26 @@ test('the XP chip total clears 4.5:1 in both themes', () => {
     }
   }
 });
+
+// ── UI-15: the deck card's session date ───────────────────────────────
+
+test('the session date under a deck cover starts on the same left edge as the deck title', () => {
+  const cover = ['div.vmx-lect-list', 'article.vmx-lect', 'div.vmx-lect-strip', 'div.vmx-lect-cover'];
+  const title = chain(...cover, 'button.vmx-lect-cover-hit', 'span.t');
+  const date = chain(...cover, 'div.vmx-lect-cover-foot', 'span.s');
+  // Left inset from the card's edge: margin plus padding of every box inside it.
+  const inset = (node, env) => {
+    let sum = 0;
+    for (let n = APP.length + cover.length + 1; n <= node.length; n += 1) {
+      const box = node.slice(0, n);
+      sum += px(computed(box, 'padding-left', env)) + px(computed(box, 'margin-left', env));
+    }
+    return sum;
+  };
+  for (const env of [PHONE, DESKTOP]) {
+    const t = inset(title, env);
+    const s = inset(date, env);
+    assert.ok(Math.abs(t - s) <= 1, `deck title starts ${t}px in, session date ${s}px in, at ${env.width}px`);
+    assert.equal(px(computed(date, 'padding-bottom', env)), 0, 'the date carries a second bottom padding under the footer\'s');
+  }
+});

@@ -5507,7 +5507,9 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-lect-cover-hit:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -2px; }
 .vmx-lect-cover-hit:disabled { cursor: default; opacity: .55; }
 .vmx-lect-cover-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 10px 10px; }
-.vmx-lect-cover-foot .s { padding: 0; }
+/* (0,3,0): `.vmx-lect-cover .s` further down is (0,2,0) and would otherwise
+   win on order, padding the date a second time inside the padded footer. */
+.vmx-lect-cover .vmx-lect-cover-foot .s { padding: 0; }
 .vmx-lect-doc {
   appearance: none; font: inherit; font-size: 11px; line-height: 1.2; padding: 4px 9px; border-radius: 999px;
   border: 1px solid var(--clr-border); background: var(--clr-bg); color: var(--clr-ink); cursor: pointer; white-space: nowrap;
