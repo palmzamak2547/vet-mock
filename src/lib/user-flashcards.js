@@ -108,22 +108,6 @@ export function nextFlashcardId() {
   return max + 1;
 }
 
-/** Returns next available cloze-card id (75000–79999). */
-export function nextClozeId() {
-  const list = readRaw();
-  let max = CLOZE_ID_START - 1;
-  for (const c of list) {
-    if (
-      c && typeof c.id === 'number'
-      && c.type === 'cloze'
-      && c.id > max && c.id <= CLOZE_ID_MAX
-    ) {
-      max = c.id;
-    }
-  }
-  return max + 1;
-}
-
 /**
  * Append a new flashcard. Returns the saved card (with id + createdAt).
  * `front` + `back` are trimmed; empty `front` is rejected (returns null).
@@ -160,22 +144,6 @@ export function saveUserFlashcard({ front, back, subject = null, source = null }
     .then((m) => m?.invalidateCommandPaletteCache?.())
     .catch(() => { /* palette chunk not loaded yet — fine */ });
   return card;
-}
-
-/** Remove a flashcard by id. No-op if not found. Works for both
- *  manual flashcards AND single cloze cards (the latter usually
- *  deleted via deleteClozeGroup instead, which removes the whole
- *  family at once). */
-export function deleteUserFlashcard(id) {
-  const list = readRaw();
-  const next = list.filter((c) => c.id !== id);
-  if (next.length !== list.length) {
-    if (!writeRaw(next)) return false;
-    notifyPaletteInvalidate();
-    import('../components/CommandPalette.jsx')
-      .then((m) => m?.invalidateCommandPaletteCache?.())
-      .catch(() => { /* no-op */ });
-  }
 }
 
 // ── Cloze cards ──────────────────────────────────────────────
@@ -250,25 +218,4 @@ export function saveClozeText({ fullText, subject = null, source = null } = {}) 
     .then((m) => m?.invalidateCommandPaletteCache?.())
     .catch(() => { /* no-op */ });
   return newCards;
-}
-
-/**
- * Remove every cloze card sharing a deckGroupId. No-op if the
- * group doesn't exist. Returns the number of cards removed.
- */
-export function deleteClozeGroup(deckGroupId) {
-  if (!deckGroupId) return 0;
-  const list = readRaw();
-  const next = list.filter(
-    (c) => !(c && c.type === 'cloze' && c.deckGroupId === deckGroupId),
-  );
-  const removed = list.length - next.length;
-  if (removed > 0) {
-    if (!writeRaw(next)) return false;
-    notifyPaletteInvalidate();
-    import('../components/CommandPalette.jsx')
-      .then((m) => m?.invalidateCommandPaletteCache?.())
-      .catch(() => { /* no-op */ });
-  }
-  return removed;
 }
