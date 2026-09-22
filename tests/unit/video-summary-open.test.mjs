@@ -2,13 +2,13 @@
 // video-summary-open.test.mjs — the clip player and its shelf
 // ============================================================
 // อ่านสรุปคลิป used to do nothing at all when the summary could not be loaded.
-// The per-subject chunk is a lazy import, and it fails offline or in a tab
-// opened before a deploy that no longer serves the old hash. The loader caught
-// that failure, then tried the other 31 chunks as well (which re-read the same
-// cached rejection) and resolved null. The player set its summary to null, so
-// no modal opened, no message showed, and the button came back as if the tap
-// had never happened. The fallback that tells the student to reload was
-// unreachable.
+// The summary chunk is a lazy import, and it fails offline or in a tab opened
+// before a deploy that no longer serves the old hash. The loader caught that
+// failure, then tried the other 31 subject chunks as well (which re-read the
+// same cached rejection) and resolved null. The player set its summary to
+// null, so no modal opened, no message showed, and the button came back as if
+// the tap had never happened. The fallback that tells the student to reload
+// was unreachable. Each summary is now its own module, loaded by video id.
 //
 // These are the view's real loader and click handler, cut from the source and
 // run under vm with the summary chunks under the test's control, the way the
@@ -49,14 +49,14 @@ const META = {
 };
 const ENTRY = { ...META.equineClip, summary: '# colic\n\nเนื้อหาสรุป' };
 
-// A player with one clip open. `subjectLoader` and `allLoader` stand in for
-// the barrel's two loaders; the counters say which of them the view asked.
-function player({ subjectLoader, allLoader, videoId = 'equineClip' }) {
-  const calls = { subject: [], all: 0, opened: [], loading: [], warned: 0 };
+// A player with one clip open. `clipLoader` stands in for the barrel's
+// one-clip loader (each summary is its own module); `calls.clip` says which
+// clips the view asked for.
+function player({ clipLoader, videoId = 'equineClip' }) {
+  const calls = { clip: [], opened: [], loading: [], warned: 0 };
   const ctx = {
     VIDEO_META: META,
-    loadVideoSummariesForSubject: async (subject) => { calls.subject.push(subject); return subjectLoader(subject); },
-    loadAllVideoSummaries: async () => { calls.all += 1; return allLoader(); },
+    loadVideoSummaryClip: async (id) => { calls.clip.push(id); return clipLoader(id); },
     console: { warn() { calls.warned += 1; } },
     currentVideoId: videoId,
     summaryLoading: false,
@@ -73,30 +73,31 @@ const offline = () => { throw new Error('Failed to fetch dynamically imported mo
 // SummaryModal's header line, exactly as it builds it.
 const headerLine = (s) => `${s.subject?.toUpperCase()}, ${s.date}, ${s.durationMin} นาที`;
 
-test('a summary chunk that fails to load rejects, and does not fetch the other 31', async () => {
-  const p = player({ subjectLoader: offline, allLoader: () => ({ equineClip: ENTRY }) });
+test('a summary chunk that fails to load rejects, and fetches nothing else', async () => {
+  const p = player({ clipLoader: offline });
   await assert.rejects(p.loadVideoSummaryEntry('equineClip'), /dynamically imported module/);
-  assert.deepEqual(p.calls.subject, ['equine-medicine']);
-  assert.equal(p.calls.all, 0, 'the full set re-reads the same failed chunk and costs 31 more requests');
+  assert.deepEqual(p.calls.clip, ['equineClip'], 'one clip asked for, once');
 });
 
-test('an entry filed under the wrong subject is still found in the full set', async () => {
-  const p = player({ subjectLoader: () => ({ someOtherClip: {} }), allLoader: () => ({ equineClip: ENTRY }) });
+test('a clip is found by its id, whatever subject the metadata names', async () => {
+  const p = player({ clipLoader: (id) => (id === 'equineClip' ? ENTRY : null) });
   assert.equal(await p.loadVideoSummaryEntry('equineClip'), ENTRY);
-  assert.equal(p.calls.all, 1);
+  assert.deepEqual(p.calls.clip, ['equineClip']);
+  assert.doesNotMatch(LOADER, /VIDEO_META|loadAllVideoSummaries|loadVideoSummariesForSubject/,
+    'opening one summary must not route through a whole subject');
 });
 
-test('the entry in its own subject opens without touching the full set', async () => {
-  const p = player({ subjectLoader: () => ({ equineClip: ENTRY }), allLoader: () => { throw new Error('not needed'); } });
+test('the entry opens from its own clip module and nothing else', async () => {
+  const p = player({ clipLoader: () => ENTRY });
   await p.handleOpenSummary();
-  assert.equal(p.calls.all, 0);
+  assert.deepEqual(p.calls.clip, ['equineClip']);
   assert.equal(p.calls.opened.length, 1);
   assert.equal(p.calls.opened[0], ENTRY, 'the real summary opens');
   assert.deepEqual(p.calls.loading, [true, false]);
 });
 
 test('a failed chunk opens the reload message instead of doing nothing', async () => {
-  const p = player({ subjectLoader: offline, allLoader: offline });
+  const p = player({ clipLoader: offline });
   await p.handleOpenSummary();
   assert.equal(p.calls.opened.length, 1, 'the tap must open something');
   const shown = p.calls.opened[0];
@@ -108,8 +109,8 @@ test('a failed chunk opens the reload message instead of doing nothing', async (
   assert.deepEqual(p.calls.loading, [true, false], 'the button must come back');
 });
 
-test('a summary missing from every chunk also opens the message', async () => {
-  const p = player({ subjectLoader: () => ({}), allLoader: () => ({}) });
+test('a clip with no summary module also opens the message', async () => {
+  const p = player({ clipLoader: () => null });
   await p.handleOpenSummary();
   assert.equal(p.calls.opened.length, 1);
   assert.ok(p.calls.opened[0], 'a missing body must not be a silent null');
@@ -117,7 +118,7 @@ test('a summary missing from every chunk also opens the message', async () => {
 });
 
 test('the reload message keeps the clip header the metadata already has', async () => {
-  const p = player({ subjectLoader: offline, allLoader: offline });
+  const p = player({ clipLoader: offline });
   await p.handleOpenSummary();
   const shown = p.calls.opened[0];
   assert.equal(shown.subject, 'equine-medicine');
