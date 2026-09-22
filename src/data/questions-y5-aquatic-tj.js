@@ -30,7 +30,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['shrimp', 'endocrinology', 'broodstock'],
+    tags: ['shrimp', 'endocrinology', 'broodstock', 'อิงแนวข้อสอบ'],
     q: 'โรงเพาะฟักกุ้งทะเลทำ eyestalk ablation ในแม่กุ้ง เพื่อผลใด และด้วยกลไกใด',
     options: [
       'ลดการติดเชื้อไวรัส โดยกำจัดอวัยวะที่ไวรัสใช้เป็นทางเข้าสู่ตัวกุ้ง',
@@ -52,7 +52,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['shrimp', 'culture-system', 'species'],
+    tags: ['shrimp', 'culture-system', 'species', 'อิงแนวข้อสอบ'],
     q: 'กุ้งชนิดใดที่นิยมเลี้ยงแบบเพศผู้ล้วน เพราะตัวผู้โตเร็วและได้ขนาดใหญ่กว่าตัวเมียอย่างชัดเจน',
     options: [
       'กุ้งก้ามกราม (Macrobrachium rosenbergii)',
@@ -74,7 +74,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['shrimp', 'taxonomy'],
+    tags: ['shrimp', 'taxonomy', 'อิงแนวข้อสอบ'],
     q: 'กุ้งกุลาดำ ซึ่งเป็นกุ้งทะเลพื้นถิ่นของภูมิภาคนี้และเคยเป็นกุ้งเศรษฐกิจหลักของไทยก่อนกุ้งขาว มีชื่อวิทยาศาสตร์ว่าอะไร',
     options: [
       'Litopenaeus vannamei',
@@ -95,7 +95,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['culture-system', 'pond-management'],
+    tags: ['culture-system', 'pond-management', 'อิงแนวข้อสอบ'],
     q: 'การปล่อยกุ้งขาวเลี้ยงร่วมกับปลานิลในบ่อเดียวกัน เรียกระบบการเลี้ยงแบบนี้ว่าอะไร',
     options: [
       'Monoculture',
@@ -117,7 +117,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['shrimp', 'anatomy', 'digestion'],
+    tags: ['shrimp', 'anatomy', 'digestion', 'อิงแนวข้อสอบ'],
     q: 'อวัยวะที่มีลักษณะเป็นกลุ่มท่อ อยู่ในส่วนหัวอกของกุ้ง ทำหน้าที่ย่อย ดูดซึม และสะสมสารอาหาร คืออวัยวะใด',
     options: [
       'Antennal gland',
@@ -139,7 +139,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['shrimp', 'histology', 'hepatopancreas'],
+    tags: ['shrimp', 'histology', 'hepatopancreas', 'อิงแนวข้อสอบ'],
     q: 'R cell ใน hepatopancreas ของกุ้ง ทำหน้าที่หลักใด',
     options: [
       'หลั่งเอนไซม์ย่อยอาหารออกสู่ท่อของทางเดินอาหาร',
@@ -161,7 +161,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['shrimp', 'anatomy', 'exoskeleton'],
+    tags: ['shrimp', 'anatomy', 'exoskeleton', 'อิงแนวข้อสอบ'],
     q: 'Carapace ของกุ้งทำหน้าที่ใด',
     options: [
       'ปกคลุมและป้องกันอวัยวะภายในบริเวณส่วนหัวและอก',
@@ -182,7 +182,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['shrimp', 'innate-immunity', 'hemocyte'],
+    tags: ['shrimp', 'innate-immunity', 'hemocyte', 'อิงแนวข้อสอบ'],
     q: 'เม็ดเลือดของกุ้งกลุ่มใดทำหน้าที่เป็นด่านแรกในการจับกินสิ่งแปลกปลอม',
     options: [
       'Hyaline cells และ semi-granular cells',
@@ -204,7 +204,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['shrimp', 'innate-immunity', 'melanization'],
+    tags: ['shrimp', 'innate-immunity', 'melanization', 'อิงแนวข้อสอบ'],
     q: 'ระบบ prophenoloxidase (proPO) ในกุ้งทำงานอย่างไร',
     options: [
       'สร้างแอนติบอดีจำเพาะต่อแอนติเจนที่กุ้งเคยสัมผัสมาก่อน',
@@ -226,7 +226,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['immunostimulant', 'prevention'],
+    tags: ['immunostimulant', 'prevention', 'อิงแนวข้อสอบ'],
     q: 'Immunostimulant ที่ใช้ในสัตว์น้ำ ต่างจากวัคซีนอย่างไร',
     options: [
       'กระตุ้นความต้านทานแบบไม่จำเพาะ จึงช่วยต่อเชื้อได้หลายชนิดแต่ไม่สร้างความจำ',
@@ -247,7 +247,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['fish-immunology', 'lymphoid-organs'],
+    tags: ['fish-immunology', 'lymphoid-organs', 'อิงแนวข้อสอบ'],
     q: 'อวัยวะน้ำเหลืองหลักของปลากระดูกแข็งประกอบด้วยอะไรบ้าง',
     options: [
       'ไทมัส ไตส่วนหน้า และม้าม',
@@ -268,7 +268,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['fish-immunology', 'mucosal-barrier'],
+    tags: ['fish-immunology', 'mucosal-barrier', 'อิงแนวข้อสอบ'],
     q: 'เมือกที่ผิวหนังปลามีบทบาทอย่างไรในภูมิคุ้มกันแบบไม่จำเพาะ',
     options: [
       'เป็นแหล่งสร้างเม็ดเลือดหลักแทนไตส่วนหน้าในปลาที่โตเต็มวัย',
@@ -292,7 +292,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['frog', 'bacterial-disease', 'farm-management'],
+    tags: ['frog', 'bacterial-disease', 'farm-management', 'อิงแนวข้อสอบ'],
     q: 'ฟาร์มกบมีโรคตาขาวกลับมาซ้ำหลังให้ยาปฏิชีวนะ โดยยังเลี้ยงหนาแน่นและน้ำสกปรก แนวทางใดสำคัญที่สุด',
     options: [
       'เพิ่มขนาดยาปฏิชีวนะเดิมเป็นสองเท่าและให้ต่อเนื่องทั้งบ่อ',
@@ -314,7 +314,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['drug-residue', 'food-safety', 'banned-substance'],
+    tags: ['drug-residue', 'food-safety', 'banned-substance', 'อิงแนวข้อสอบ'],
     q: 'สารชนิดใดที่เคยใช้กำจัดเชื้อราและปรสิตในสัตว์น้ำ แต่ปัจจุบันห้ามใช้ในสัตว์น้ำที่เลี้ยงเพื่อการบริโภค',
     options: [
       'ฟอร์มาลิน',
@@ -336,7 +336,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['frog', 'protozoa', 'transmission'],
+    tags: ['frog', 'protozoa', 'transmission', 'อิงแนวข้อสอบ'],
     q: 'โปรโตซัวในลำไส้ของกบเลี้ยงแพร่เข้าสู่กบตัวใหม่ได้เด่นที่สุดทางใด',
     options: [
       'กินอาหารสดที่ไม่สะอาด หรือกินสิ่งที่ปนเปื้อนอุจจาระกบที่มีเชื้อ',
@@ -358,7 +358,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['frog', 'protozoa', 'clinical-signs'],
+    tags: ['frog', 'protozoa', 'clinical-signs', 'อิงแนวข้อสอบ'],
     q: 'กบเลี้ยงโตช้า ผอม ถ่ายเป็นมูกสีขาว และพบลำไส้ปลิ้นออกทางทวาร ควรสงสัยเชื้อกลุ่มใดมากที่สุด',
     options: [
       'Aeromonas hydrophila และ Flavobacterium meningosepticum',
@@ -380,7 +380,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['frog', 'ranavirus', 'transmission'],
+    tags: ['frog', 'ranavirus', 'transmission', 'อิงแนวข้อสอบ'],
     q: 'Ranavirus ในกบเข้าสู่ตัวกบตัวใหม่ได้ทางใด',
     options: [
       'กินกบหรือซากกบที่มีเชื้อ และผ่านบาดแผลหรือน้ำที่ปนเปื้อน',
@@ -403,7 +403,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['amphibian', 'respiration', 'physiology'],
+    tags: ['amphibian', 'respiration', 'physiology', 'อิงแนวข้อสอบ'],
     q: 'กบตัวเต็มวัยแลกเปลี่ยนแก๊สทางใดบ้าง',
     options: [
       'ทางผิวหนังเท่านั้น เพราะกบตัวเต็มวัยไม่มีปอดที่ใช้งานได้',
@@ -424,7 +424,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['amphibian', 'husbandry', 'temperature'],
+    tags: ['amphibian', 'husbandry', 'temperature', 'อิงแนวข้อสอบ'],
     q: 'หลักการตั้งอุณหภูมิที่เลี้ยงให้สัตว์สะเทินน้ำสะเทินบกคือข้อใด',
     options: [
       'ตั้งไว้ที่ 35 องศาเซลเซียสเท่ากันทุกชนิดเพื่อเร่งให้สัตว์กินอาหาร',
@@ -446,7 +446,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['amphibian', 'hyperthermia', 'emergency'],
+    tags: ['amphibian', 'hyperthermia', 'emergency', 'อิงแนวข้อสอบ'],
     q: 'Axolotl ในตู้ที่ระบบทำความเย็นเสีย ว่ายน้ำอย่างบ้าคลั่งแล้วซึมลง ควรจัดการเบื้องต้นอย่างไร',
     options: [
       'ย้ายลงน้ำผสมน้ำแข็งทันทีเพื่อให้อุณหภูมิลดลงเร็วที่สุด',
@@ -470,7 +470,7 @@ export const QB_Y5_AQUATIC_TJ = [
     type: 'mcq',
     examScope: 'midterm',
     sourceType: 'student-compilation',
-    tags: ['chelonian', 'sexing', 'diagnostics'],
+    tags: ['chelonian', 'sexing', 'diagnostics', 'อิงแนวข้อสอบ'],
     q: 'ลูกเต่าอายุ 1 เดือนยังไม่แสดงลักษณะเพศภายนอก วิธีใดใช้ระบุเพศในวัยนี้ได้',
     options: [
       'ดูความเว้าของกระดองท้องเทียบกับตัวอื่นในครอก',
