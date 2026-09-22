@@ -736,7 +736,8 @@ const OUTBOX_KEEP = 4;
  * @param {object} storage
  * @param {{ keep?: number, userId?: string|null, protectKey?: string|null }} [options]
  *   `userId` limits the sweep to one account (null is the signed-out one);
- *   `protectKey` is a record being written right now, which always stays.
+ *   `protectKey` is a record being written right now, which always stays, and
+ *   so does every record newer than it.
  * @returns {{ removed: string[], bytes: number }}
  */
 export function sweepOutbox(storage, options = {}) {
@@ -748,21 +749,28 @@ export function sweepOutbox(storage, options = {}) {
   if (!storage || typeof storage.key !== 'function' || !Number.isFinite(storage.length)) return tally;
 
   const byPrincipal = new Map();
+  let protectedRecord = null;
   try {
     for (let index = 0; index < storage.length; index += 1) {
       const key = storage.key(index);
-      if (typeof key !== 'string' || !key.startsWith(OPERATION_PREFIX) || key === protectKey) continue;
+      if (typeof key !== 'string' || !key.startsWith(OPERATION_PREFIX)) continue;
       const cut = key.indexOf(':', OPERATION_PREFIX.length);
       if (cut === -1) continue;
       const principal = key.slice(OPERATION_PREFIX.length, cut);
       if (only !== null && principal !== only) continue;
       const createdAt = parseJson(storage, key, null)?.createdAt;
+      const record = { key, createdAt: Number.isFinite(createdAt) ? createdAt : 0 };
+      if (key === protectKey) {
+        protectedRecord = { principal, record };
+        continue;
+      }
       if (!byPrincipal.has(principal)) byPrincipal.set(principal, []);
-      byPrincipal.get(principal).push({ key, createdAt: Number.isFinite(createdAt) ? createdAt : 0 });
+      byPrincipal.get(principal).push(record);
     }
   } catch {
     return tally;
   }
+  const replayOrder = (a, b) => a.createdAt - b.createdAt || a.key.localeCompare(b.key);
 
   const owner = parseJson(storage, CURRENT_OWNER_KEY, null);
   for (const [principal, records] of byPrincipal) {
@@ -779,8 +787,18 @@ export function sweepOutbox(storage, options = {}) {
     if (!userId && (!owner || owner === ANONYMOUS)) continue;
 
     // Oldest first, as readPendingOperations orders them.
-    records.sort((a, b) => a.createdAt - b.createdAt || a.key.localeCompare(b.key));
-    const dropKeys = new Set(records.slice(0, records.length - keep).map((record) => record.key));
+    records.sort(replayOrder);
+    let count = records.length - keep;
+    // Only a run of the oldest records folds in boot's order. The record being
+    // written right now stays, so the run stops where that record sorts. A
+    // newer record folded into the snapshot would be replayed before it, and
+    // its older value for an item both changed would come back.
+    if (protectedRecord?.principal === principal) {
+      const newer = records.findIndex((record) => replayOrder(record, protectedRecord.record) > 0);
+      if (newer !== -1) count = Math.min(count, newer);
+    }
+    if (count <= 0) continue;
+    const dropKeys = new Set(records.slice(0, count).map((record) => record.key));
     const dropped = readPendingOperations(storage, userId).filter((operation) => dropKeys.has(operation.key));
     if (dropped.length > 0) {
       const journal = parseJson(storage, JOURNAL_KEY, null);
