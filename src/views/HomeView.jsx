@@ -42,7 +42,7 @@ const TodaysQModal = lazy(() => import('../components/TodaysQModal.jsx'));
 import NextActionCard from '../components/NextActionCard.jsx';
 import ExamCountdown from '../components/ExamCountdown.jsx';
 import { hasWrapUp, wrapUpStillAhead } from '../data/exam-wrapups.js';
-import { examWindowFor, examEndMs } from '../lib/exam-countdown.js';
+import { examWindowFor, examEndMs, subjectExamState, examStartTime } from '../lib/exam-countdown.js';
 import { scopeForPhase } from '../lib/exam-scope.js';
 // FeatureMenu — categorized feature grid (practice/learn/progress/tools)
 // derived from the shared feature registry. Replaces the old scattered
@@ -1928,9 +1928,16 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
               // set), not courses that sit a paper.
               const exam = examByPhase?.get(s.id);
               const label = EXAM_SCOPE_LABELS[phaseScope];
-              return exam
-                ? <div className="vmx-subject-exam" title={`${exam.title}${exam.time ? ` ${exam.time}` : ''}${exam.location ? ` ${exam.location}` : ''}`}>สอบ{label} {shortThaiDate(exam.date)}</div>
-                : <div className="vmx-subject-exam is-none">ไม่มีสอบ{label}</div>;
+              if (!exam) return <div className="vmx-subject-exam is-none">ไม่มีสอบ{label}</div>;
+              // A paper already sat must not read like one still ahead, and
+              // today's must stand out from the rest of the week. Read on
+              // Bangkok's clock; the Home tick re-renders this every few
+              // minutes, so a card turns to done soon after its paper ends.
+              const title = `${exam.title}${exam.time ? ` ${exam.time}` : ''}${exam.location ? ` ${exam.location}` : ''}`;
+              const state = subjectExamState(exam, new Date());
+              if (state === 'done') return <div className="vmx-subject-exam is-done" title={title}>สอบ{label}แล้ว {shortThaiDate(exam.date)}</div>;
+              if (state === 'today') return <div className="vmx-subject-exam is-today" title={title}>สอบวันนี้{examStartTime(exam) ? ` ${examStartTime(exam)}` : ''}</div>;
+              return <div className="vmx-subject-exam" title={title}>สอบ{label} {shortThaiDate(exam.date)}</div>;
             })()}
 
             {/* Per-subject progress chips — clean text badges */}

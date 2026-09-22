@@ -30,6 +30,13 @@ async function home(page) {
   await expect(page.locator('.vmx-subject-grid')).toBeVisible({ timeout: 20000 });
 }
 
+// A subject card says whether its paper is sat, today's or still ahead, so a
+// spec that reads the card pins the clock. 10:00 Bangkok on 23 Sep: four
+// midterm papers sat, the equine medicine paper running, the afternoon
+// equine paper still today's, zoonoses on the 25th still ahead, every final
+// ahead. The card reads Bangkok's clock, so the runner's zone does not matter.
+const MIDTERM_WEEK = new Date('2026-09-23T10:00:00+07:00');
+
 function subjectCard(page, thaiName) {
   return page.locator('.vmx-subject-card', { hasText: thaiName }).first();
 }
@@ -44,15 +51,22 @@ async function scopedCard(page) {
 
 test('midterm phase: the card, the set and the subject grid all speak midterm', async ({ page, context }) => {
   await seed(context, '1-mid');
+  await page.clock.install({ time: MIDTERM_WEEK });
   await home(page);
 
   const { card, sub, count } = await scopedCard(page);
   expect(sub).toContain('กลางภาค');
   expect(count).toBeGreaterThan(0);
 
-  // The faculty timetable: Avian sits a midterm on 21 Sep; Epidemiology and
-  // POA have no midterm paper.
-  await expect(subjectCard(page, 'อายุรศาสตร์สัตว์ปีก').locator('.vmx-subject-exam')).toHaveText(/สอบกลางภาค 21 ก\.ย\./);
+  // The faculty timetable: Avian sat its midterm on 21 Sep, the equine
+  // papers are today's, Zoonoses sits on the 25th; Epidemiology and POA
+  // have no midterm paper.
+  await expect(subjectCard(page, 'อายุรศาสตร์สัตว์ปีก').locator('.vmx-subject-exam')).toHaveText('สอบกลางภาคแล้ว 21 ก.ย.');
+  await expect(subjectCard(page, 'อายุรศาสตร์สัตว์ปีก').locator('.vmx-subject-exam')).toHaveClass(/\bis-done\b/);
+  await expect(subjectCard(page, 'เวชปฏิบัติม้า').locator('.vmx-subject-exam')).toHaveText('สอบวันนี้ 08:30');
+  await expect(subjectCard(page, 'เวชปฏิบัติม้า').locator('.vmx-subject-exam')).toHaveClass(/\bis-today\b/);
+  await expect(subjectCard(page, 'การสืบพันธุ์ในม้า').locator('.vmx-subject-exam')).toHaveText('สอบวันนี้ 13:00');
+  await expect(subjectCard(page, 'โรคติดต่อระหว่างสัตว์-คน').locator('.vmx-subject-exam')).toHaveText('สอบกลางภาค 25 ก.ย.');
   await expect(subjectCard(page, 'ระบาดวิทยา').locator('.vmx-subject-exam')).toHaveText('ไม่มีสอบกลางภาค');
   await expect(subjectCard(page, 'POA').locator('.vmx-subject-exam')).toHaveText('ไม่มีสอบกลางภาค');
 
@@ -75,6 +89,7 @@ test('midterm phase: the card, the set and the subject grid all speak midterm', 
 
 test('final phase: the same page flips to the final paper', async ({ page, context }) => {
   await seed(context, '1-final');
+  await page.clock.install({ time: MIDTERM_WEEK });
   await home(page);
 
   const { card, sub, count } = await scopedCard(page);
