@@ -143,6 +143,13 @@ Rules learned the hard way:
   newest mtime under `src/`. Restart the gate instead.
 - **Never gate while authoring agents are running.** Nine failures in one
   evening were machine contention; all nine passed in isolation.
+- **A red e2e step in the local gate is not yet a verdict.** The gate runs
+  Playwright with the local defaults (half the cores as workers, no retry),
+  which is harder than CI. On the `dist/` the gate just built,
+  `npm run test:e2e:ci` runs the suite the way the Smoke e2e workflow does:
+  Chromium on two workers, then WebKit and Firefox on one, one retry, and
+  `test.only` refused. `npx playwright test --last-failed --workers=2` reruns
+  only what failed. Neither replaces the gate; they settle what its red means.
 - **CI runs in UTC.** A test that pins a clock with `+07:00` across midnight
   passes locally and fails on the runner.
 - A failed GitHub check leaves the Vercel alias on the old build, whatever the
