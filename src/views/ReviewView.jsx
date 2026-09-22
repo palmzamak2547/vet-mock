@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
-import { isCorrect, matchScore } from '../hooks/utils.js';
+import { isCorrect, matchScore, subjectText } from '../hooks/utils.js';
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
@@ -353,7 +353,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             <div className="vmx-review-head">
               <span>
                 Q{idx + 1}, {subj?.name || q.subject}
-                {topicMeta ? <>, <span style={{ color: subj?.color || 'var(--clr-ink-soft)', fontWeight: 600 }}>{topicMeta.icon} {topicMeta.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span></> : null}
+                {topicMeta ? <>, <span style={{ color: subjectText(subj?.color), fontWeight: 600 }}>{topicMeta.icon} {topicMeta.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span></> : null}
                 {q.examOrigin && (
                   <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 11, fontWeight: 700, fontFamily: 'var(--vmx-mono)' }}>
                     อิงแนวเดิม
