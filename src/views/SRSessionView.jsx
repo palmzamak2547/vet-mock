@@ -303,7 +303,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
           {excludedCount > 0 && (
             <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', lineHeight: 1.5 }}>
-              SR pool ตอนนี้มี <strong>{eligibleCount}</strong> ข้อ, ตัด <strong>{excludedCount}</strong> ข้อออกเพราะตอบไม่ได้แบบ flashcard (ข้อ "ข้อใดถูก..." + ข้อจับคู่ ที่ต้องเห็น choice/lefts ก่อน)
+              ในรอบทบทวนมี <strong>{eligibleCount}</strong> ข้อ ไม่รวม <strong>{excludedCount}</strong> ข้อที่ทบทวนแบบการ์ดไม่ได้ คือข้อที่ต้องเห็นตัวเลือกก่อนถึงจะตอบได้ (ข้อ "ข้อใดถูก" และข้อจับคู่) และข้อเขียน
             </div>
           )}
 
@@ -311,15 +311,15 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           <div className="vmx-stat-grid" style={{ marginTop: 16 }}>
             <div className="vmx-stat-card">
               <div className="vmx-stat-num">{stats.total}</div>
-              <div className="vmx-stat-lbl">Total cards</div>
+              <div className="vmx-stat-lbl">การ์ดทั้งหมด</div>
             </div>
             <div className="vmx-stat-card">
               <div className="vmx-stat-num" style={{ color: 'var(--clr-sage-text)' }}>{stats.mastered}</div>
-              <div className="vmx-stat-lbl">Mastered</div>
+              <div className="vmx-stat-lbl">จำได้แล้ว</div>
             </div>
             <div className="vmx-stat-card">
               <div className="vmx-stat-num" style={{ color: 'var(--clr-gold-text)' }}>{stats.dueTomorrow}</div>
-              <div className="vmx-stat-lbl">Due tomorrow</div>
+              <div className="vmx-stat-lbl">ถึงรอบพรุ่งนี้</div>
             </div>
           </div>
         </div>
@@ -418,13 +418,13 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         <div className="vmx-results-hero">
           <Mochi state={reviewedCount > 0 ? 'happy' : 'idle'} size={80} animate slot="review-complete" className="vmx-result-mochi" />
           <div className="vmx-score-big pass">{reviewedCount}</div>
-          <div className="vmx-score-label">Cards Reviewed</div>
+          <div className="vmx-score-label">ทบทวนไปแล้ว</div>
           <div className="vmx-score-frac">{correctCount} ได้, {reviewedCount - correctCount} ต้องทบทวน</div>
         </div>
         <div className="vmx-stat-grid">
-          <div className="vmx-stat-card"><div className="vmx-stat-num">{stats.total}</div><div className="vmx-stat-lbl">Total Cards</div></div>
-          <div className="vmx-stat-card"><div className="vmx-stat-num" style={{ color: 'var(--clr-sage-text)' }}>{stats.mastered}</div><div className="vmx-stat-lbl">Mastered</div></div>
-          <div className="vmx-stat-card"><div className="vmx-stat-num" style={{ color: 'var(--clr-gold-text)' }}>{remaining > 0 ? remaining : stats.dueTomorrow}</div><div className="vmx-stat-lbl">{remaining > 0 ? 'ค้างอีก' : 'Due tomorrow'}</div></div>
+          <div className="vmx-stat-card"><div className="vmx-stat-num">{stats.total}</div><div className="vmx-stat-lbl">การ์ดทั้งหมด</div></div>
+          <div className="vmx-stat-card"><div className="vmx-stat-num" style={{ color: 'var(--clr-sage-text)' }}>{stats.mastered}</div><div className="vmx-stat-lbl">จำได้แล้ว</div></div>
+          <div className="vmx-stat-card"><div className="vmx-stat-num" style={{ color: 'var(--clr-gold-text)' }}>{remaining > 0 ? remaining : stats.dueTomorrow}</div><div className="vmx-stat-lbl">{remaining > 0 ? 'ค้างอีก' : 'ถึงรอบพรุ่งนี้'}</div></div>
         </div>
         <div className="vmx-btn-row">
           {remaining > 0 && (
@@ -498,7 +498,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         <div className="vmx-exam-top">
           <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
           <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-            next: {fmtDate(currentCard.nextReview)}
+            ถึงรอบ {fmtDate(currentCard.nextReview)}
           </div>
         </div>
         <div className="vmx-progress-bar">
@@ -523,7 +523,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         <div className="vmx-exam-top">
           <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
           <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-            next: {fmtDate(currentCard.nextReview)}
+            ถึงรอบ {fmtDate(currentCard.nextReview)}
           </div>
         </div>
         <div className="vmx-progress-bar">
@@ -547,7 +547,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       <div className="vmx-exam-top">
         <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
         <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-          next: {fmtDate(currentCard.nextReview)}
+          ถึงรอบ {fmtDate(currentCard.nextReview)}
         </div>
       </div>
       <div className="vmx-progress-bar">

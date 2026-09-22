@@ -398,7 +398,7 @@ function DrugDBTab() {
             placeholder="ค้นหายา (ชื่อสามัญ/การค้า/ข้อบ่งใช้)..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            aria-label="Search drugs"
+            aria-label="ค้นหายา"
             className="vmx-vetcalc-field-input"
           />
         </div>

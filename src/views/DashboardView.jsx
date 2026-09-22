@@ -83,7 +83,7 @@ function LearningCurveChart({ data }) {
   const labelStride = Math.max(1, Math.ceil(days / 6));
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', maxHeight: 260, display: 'block' }} aria-label="Learning curve per subject">
+    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', maxHeight: 260, display: 'block' }} aria-label="กราฟความแม่นยำรายวิชา">
       {[0, 50, 70, 100].map((y) => (
         <g key={y}>
           <line x1={PADL} y1={yFor(y)} x2={W - PADR} y2={yFor(y)} stroke="var(--clr-border)" strokeDasharray={y === 70 ? '0' : '2 4'} opacity={y === 70 ? 0.5 : 0.4} />
@@ -158,7 +158,7 @@ function TrendChart({ days }) {
 
   return (
     <div style={{ marginTop: 8 }}>
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', maxHeight: 110, display: 'block' }} aria-label="7-day study trend">
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', maxHeight: 110, display: 'block' }} aria-label="กราฟการฝึก 7 วันล่าสุด">
         {/* Bars — attempt count */}
         {days.map((d, i) => {
           const h = d.total ? Math.max(2, ((H - PAD * 2) * d.total / maxAttempts)) : 0;
