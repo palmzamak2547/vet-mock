@@ -73,29 +73,34 @@ test('a broken backup file is named as such, with no parser text', () => {
 });
 
 // Owned by other packages in this release; each will route its own site
-// through thaiError. The ratchet only fails on a file NOT listed here.
-const NOT_YET = new Set([
-  'src/views/FeedbackView.jsx',
-  'src/views/QuestionManagerView.jsx',
-  'src/views/ReviewQueueView.jsx',
-  'src/components/lab/DicomViewport.jsx',
-  'src/components/lab/TagInspector.jsx',
+// through thaiError. Each file keeps the one offending line it has today and
+// no more: fixing it never breaks this test, adding a second one does.
+const NOT_YET = new Map([
+  ['src/views/FeedbackView.jsx', 1],
+  ['src/views/QuestionManagerView.jsx', 1],
+  ['src/views/ReviewQueueView.jsx', 1],
+  ['src/components/lab/DicomViewport.jsx', 1],
+  ['src/components/lab/TagInspector.jsx', 1],
 ]);
 
 test('no view or component prints an exception message into state or an alert', () => {
   // `setX(err?.message || ...)`, `alertDialog('...' + (e.message || ...))`,
   // `${e?.message || e}` inside a setter. A regex test on the message
-  // (ContributeView classifies auth errors that way) is not display.
+  // (ContributeView classifies auth errors that way) is not display. The scan
+  // reads one line at a time, so a setter spread over several lines is not
+  // seen; this guards the one-line form every listed site used.
   const PRINTS = /\b(?:set[A-Z]\w*|alertDialog|alert)\s*\(.*?\b\w+\??\.message\s*\|\|/;
   const CLASSIFIES = /\.test\(\s*\w+\??\.message\s*\|\|/;
   const offenders = [];
   for (const dir of ['src/views', 'src/components']) {
     for (const name of readdirSync(join(ROOT, dir), { recursive: true })) {
       const rel = `${dir}/${String(name).replace(/\\/g, '/')}`;
-      if (!/\.(jsx?|tsx?)$/.test(rel) || NOT_YET.has(rel)) continue;
+      if (!/\.(jsx?|tsx?)$/.test(rel)) continue;
+      const found = [];
       read(rel).split(/\r?\n/).forEach((line, i) => {
-        if (PRINTS.test(line) && !CLASSIFIES.test(line)) offenders.push(`${rel}:${i + 1}: ${line.trim()}`);
+        if (PRINTS.test(line) && !CLASSIFIES.test(line)) found.push(`${rel}:${i + 1}: ${line.trim()}`);
       });
+      if (found.length > (NOT_YET.get(rel) ?? 0)) offenders.push(...found);
     }
   }
   assert.deepEqual(offenders, [], `raw exception text reaches a student:\n${offenders.join('\n')}`);
