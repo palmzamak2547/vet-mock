@@ -39,11 +39,15 @@ const inScope = questions.filter((q) => SUBJECTS.has(q.subject));
 
 const NONE_KEY = /^\s*(?:ผิดทุกข้อ|ไม่มีข้อ(?:ใด|ไหน)?(?:กล่าว)?ถูก|none of the above)/i;
 const EVERY_OPTION_RIGHT = /ทุกข้อถูก|ถูกทุกข้อ|ถูกหมด|all (?:the )?(?:options|choices) are (?:correct|true)/i;
+// On a "which is NOT…" stem, "every option is right" is exactly why nothing is
+// the exception, so only a stem with no negation turns it into a contradiction.
+const NEGATIVE_STEM = /ไม่|มิใช่|มิได้|ยกเว้น|ผิด|\bnot\b|\bexcept\b|incorrect|\bfalse\b/i;
 
-test('a none-of-the-above key never comes with an explanation that says every option is right', () => {
+test('a none-of-the-above key never answers a positive stem whose explanation says every option is right', () => {
   const contradictions = questions
     .filter((q) => Array.isArray(q.options) && Number.isInteger(q.answer))
     .filter((q) => NONE_KEY.test(String(q.options[q.answer] ?? '')))
+    .filter((q) => !NEGATIVE_STEM.test(String(q.q || '')))
     .filter((q) => EVERY_OPTION_RIGHT.test(String(q.explain || '')))
     .map(label);
   assert.deepEqual(contradictions, []);
