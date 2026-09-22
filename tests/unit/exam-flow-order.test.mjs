@@ -204,3 +204,71 @@ test('ordinary practice still shuffles, then keeps passage questions in id order
   plain.startExam({ practiceMode: 'all', subject: 'equine-medicine', topic: null, questionCategory: 'all', numQuestions: 3 });
   assert.deepEqual(ids((await plain.started()).picked), [2, 1, 3], 'the shuffle is no longer applied');
 });
+
+// ── EX-05 ────────────────────────────────────────────────────────────
+
+const tfItem = { id: 987654321, subject: 'equine-medicine', topic: 'audit-topic', type: 'tf', q: 'audit', answer: true, year: 5 };
+const mcqItem = { id: 987654322, subject: 'equine-medicine', topic: 'audit-topic', type: 'mcq', q: 'audit', options: ['a', 'b'], answer: 0, year: 5 };
+const LECTURER = { subjectId: 'equine-medicine', topics: ['audit-topic'], questionCategory: 'tf', numQuestions: 1 };
+
+for (const staleMode of ['exam', 'quick']) {
+  test(`a lecturer set runs on a 45-second clock per true/false item (mode was '${staleMode}')`, async () => {
+    const app = appAt({ mode: staleMode, QB: [tfItem] });
+    app.startLecturerPractice(LECTURER);
+    const { firstTime, opts } = await app.started();
+    assert.equal(opts.sessionBudget, false, 'the set inherited the exam clock from สอบจริง 50');
+    assert.equal(firstTime, 45);
+  });
+
+  test(`Panic runs on a clock per question (mode was '${staleMode}')`, async () => {
+    const app = appAt({ mode: staleMode, QB: [mcqItem] });
+    app.startPanicSession('30');
+    const { firstTime, opts } = await app.started();
+    assert.equal(opts.sessionBudget, false, 'Panic from the palette inherited the exam clock');
+    assert.equal(firstTime, 60);
+  });
+}
+
+test('the Mock Exam and สอบจริง 50 still run on one clock for the paper', async () => {
+  // Both reach startExam from the config screen with mode 'exam' in state and
+  // only the count and the per-question time as overrides.
+  const app = appAt({ mode: 'exam', subject: 'equine-medicine', QB: [mcqItem, tfItem], numQuestions: 50 });
+  app.startExam({ numQuestions: 50, timePerQ: 60 });
+  const { opts, picked } = await app.started();
+  assert.equal(opts.sessionBudget, true);
+  assert.equal(picked.length, 2);
+});
+
+// useExamSession under a stand-in for React: one render's worth of hooks.
+function hookAt(props) {
+  const src = HOOK.replace(/^import [^\n]*\n/gm, '').replace('export function useExamSession', 'function useExamSession');
+  const ctx = vm.createContext({
+    useState: (init) => {
+      const cell = { value: typeof init === 'function' ? init() : init };
+      return [cell.value, (v) => { cell.value = typeof v === 'function' ? v(cell.value) : v; }];
+    },
+    useRef: (current) => ({ current }),
+    useCallback: (fn) => fn,
+    useEffect: () => {},
+    timeForQuestion, isWritingType, confirmDialog: async () => true,
+    inflightExamKey, isOwnedExam, secondsUntilDeadline,
+    createQuestionTiming, newStudySessionId, validSessionId,
+  });
+  return vm.runInContext(`${src}\nuseExamSession`, ctx)(props);
+}
+
+test('the clock a launcher names is the clock the session runs and saves', async () => {
+  // App builds the hook with sessionBudget from `mode`; a stale 'exam' is the
+  // case that matters. The in-flight record saves clockKind(), and a resume
+  // restores exactly that, so this is also the clock a resumed set keeps.
+  const lecturer = appAt({ mode: 'exam', QB: [tfItem] });
+  lecturer.startLecturerPractice(LECTURER);
+  const started = await lecturer.started();
+  const hook = hookAt({ view: 'config', useTimer: true, timePerQ: 60, ownerId: null, sessionBudget: true });
+  hook.startNewSession(started.picked, started.firstTime, started.opts);
+  assert.equal(hook.clockKind(), 'per-question');
+
+  const exam = hookAt({ view: 'config', useTimer: true, timePerQ: 60, ownerId: null, sessionBudget: true });
+  exam.startNewSession([mcqItem, tfItem], 60, { sessionBudget: true });
+  assert.equal(exam.clockKind(), 'session', 'an exam is still one budget for the paper');
+});

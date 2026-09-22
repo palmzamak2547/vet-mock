@@ -2769,6 +2769,10 @@ export default function App() {
     setMode('quick');
     setSubject('all');
     startExam({
+      // Named here, not left to state: setMode above reaches the NEXT render,
+      // and startExam reads this one's. After สอบจริง 50 and a Back, that was
+      // still 'exam', and Panic ran on one clock for the whole set.
+      mode: 'quick',
       subject: 'all',
       topic: null,
       practiceMode: 'all',
@@ -2821,6 +2825,10 @@ export default function App() {
     setTopic(single);
     setPracticeMode('all');
     startExam({
+      // The same stale-mode trap as Panic: without it, a lecturer card opened
+      // after สอบจริง 50 and Back ran the whole set on one exam clock instead
+      // of 45 seconds per true/false item.
+      mode: 'quick',
       subject: subjectId,
       // The pool comes from onlyTopics, not the single-topic branch: a
       // session's matching set sits under one disease and names the rest
