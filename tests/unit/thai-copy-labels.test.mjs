@@ -99,3 +99,21 @@ test('the spaced-repetition start and finish screens label their numbers in Thai
   assert.ok(s.includes("'เริ่ม Session →'"));
   assert.ok(s.includes('แสดงคำตอบ (Space)'));
 });
+
+// ── Screen-reader labels ────────────────────────────────────────────────────
+
+test('screen readers hear Thai names on the glossary close button, charts, dialogs and fields', () => {
+  const cases = [
+    ['src/components/TermPopup.jsx', 'aria-label="Close"', 'aria-label="ปิด"'],
+    ['src/views/DashboardView.jsx', 'aria-label="Learning curve per subject"', 'aria-label="กราฟความแม่นยำรายวิชา"'],
+    ['src/views/DashboardView.jsx', 'aria-label="7-day study trend"', 'aria-label="กราฟการฝึก 7 วันล่าสุด"'],
+    ['src/components/VoiceSettings.jsx', 'aria-label="Voice settings"', 'aria-label="ตั้งค่าเสียงอ่าน"'],
+    ['src/components/OfflineGame.jsx', 'aria-label="Mini-game canvas"', 'aria-label="พื้นที่เล่นมินิเกม"'],
+    ['src/components/VetCalculator.jsx', 'aria-label="Search drugs"', 'aria-label="ค้นหายา"'],
+  ];
+  for (const [file, before, after] of cases) {
+    const src = read(file);
+    assert.ok(!src.includes(before), `${file} still has ${before}`);
+    assert.ok(src.includes(after), `${file} must carry ${after}`);
+  }
+});

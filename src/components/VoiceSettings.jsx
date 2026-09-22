@@ -47,7 +47,7 @@ export default function VoiceSettings({ onClose }) {
         data-vmx-modal="true"
         role="dialog"
         aria-modal="true"
-        aria-label="Voice settings"
+        aria-label="ตั้งค่าเสียงอ่าน"
         style={{ maxWidth: 480 }}
       >
         <div style={{ marginBottom: 14 }}>

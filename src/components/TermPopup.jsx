@@ -182,7 +182,7 @@ export default function TermPopup({ entry, anchorRect, onClose, onOpenRelated, r
         </div>
         <button
           type="button"
-          aria-label="Close"
+          aria-label="ปิด"
           onClick={onClose}
           style={{
             minWidth: 44, minHeight: 44, width: 44, height: 44,

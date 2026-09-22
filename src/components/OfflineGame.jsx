@@ -579,7 +579,7 @@ export default function OfflineGame({ onClose }) {
           WebkitTapHighlightColor: 'transparent',
           border: '1px solid var(--clr-border, #d8c9a8)',
         }}
-        aria-label="Mini-game canvas"
+        aria-label="พื้นที่เล่นมินิเกม"
       />
 
       <div style={{ fontSize: 12, color: 'var(--clr-ink-soft, #7a6f5e)', textAlign: 'center', lineHeight: 1.5 }}>
