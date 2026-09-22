@@ -70,8 +70,15 @@ say, in the agent's own instructions:
 
 - **What already exists**, with the command that dumps the live bank, because
   the ingest drops a duplicate stem and a near-duplicate is wasted work.
-- `sourceType` is one of `past-paper`, `student-compilation`, `lecture-derived`,
-  and the band marker `อิงแนวข้อสอบ` is legal **only** on the first two.
+- `sourceType` is one of `past-paper`, `student-compilation`, `lecture-derived`.
+  The band marker `อิงแนวข้อสอบ` goes on an item written from what a
+  compilation marked, which names no paper: `student-compilation` with no
+  `examOrigin`. An item that names the paper it sat is band 0 already and
+  does not take the marker, and the marker never goes in `examOrigin` of a
+  `past-paper` item, which would say the item both was and was not sat.
+  `tests/unit/q-counts.test.mjs` fails a row that is both a sat paper and
+  marked unless it names its paper; the fifty that do (avian, food industry,
+  milk) were reviewed and stay as they are.
 - `verified` cites the exact place checked: a recording id with `[mm:ss]`, or a
   compilation page.
 - The guessable-answer rules from `docs/QUESTION-STANDARD.md`: no
