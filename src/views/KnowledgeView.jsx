@@ -211,9 +211,20 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
     loading: false,
     results: topics.map((entry) => ({ topic: entry, matchedSections: [], inTitle: false })),
   }));
-  // Bumped by "ค้นอีกครั้ง". Without it the retry button could not re-run the
-  // search, because the effect's inputs (query, topics) had not changed.
+  // Bumped by "ค้นอีกครั้ง" while offline. Without it the retry button could not
+  // re-run the search, because the effect's inputs (query, topics) had not changed.
   const [retryNonce, setRetryNonce] = useState(0);
+  // Native ESM remembers a failed import for the life of the document, so once
+  // the connection is back only a reload can complete the full-text search
+  // (the query above survives it). Offline, retry in place so the click never
+  // lands on the browser's offline page. Same rule as NotesView.retryLoad.
+  const retrySearch = () => {
+    if (navigator.onLine !== false) {
+      window.location.reload();
+      return;
+    }
+    setRetryNonce((n) => n + 1);
+  };
 
   // Opening the index stays metadata-only. Full note bodies are imported only
   // after someone starts typing, then cached by the browser for the session.
@@ -300,7 +311,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
           {searchState.incomplete === -1
             ? 'ค้นได้เฉพาะชื่อหัวข้อและคำโปรย เพราะโหลดเนื้อหาไม่สำเร็จ ผลจึงยังไม่ครบ'
             : `ค้นไม่ครบ ${searchState.incomplete} วิชา เพราะโหลดเนื้อหาไม่สำเร็จ`}
-          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setRetryNonce((n) => n + 1)} style={{ marginInlineStart: 8 }}>
+          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={retrySearch} style={{ marginInlineStart: 8 }}>
             ค้นอีกครั้ง
           </button>
         </div>
