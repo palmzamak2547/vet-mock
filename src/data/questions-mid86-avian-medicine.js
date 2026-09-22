@@ -69,6 +69,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": 2,
     "explain": "การตรวจว่าไก่ได้วัคซีน IBD จริงมีสามชั้น ชั้นแรกดูทันทีหลังให้วัคซีนละลายน้ำว่าลิ้นไก่ติดสีฟ้าจากสีที่ผสมลงไป ชั้นที่สองตรวจแอนติบอดีต่อวัคซีนที่ 14 วันหลังให้ และชั้นที่สามผ่าซากตั้งแต่ 7 ถึง 8 วันขึ้นไปจะพบว่าต่อมเบอร์ซ่ามีขนาดเล็กลง จากการที่ไวรัสวัคซีนเข้าทำลาย B lymphocyte ตัวเลือกที่ล่อใจคือข้อที่บอกว่าต่อมเบอร์ซ่าโตขึ้น เพราะการโตขึ้นเป็นสองเท่าพร้อมวุ้นสีเหลืองคุมรอบเป็นรอยโรคของการติดเชื้อสนาม ไม่ใช่ผลของวัคซีน",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 4 ข้อ 13 (ชุดจับคู่ อ.ณทยา) และ Avain med Mid 86.pdf หน้า 18",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 4",
     "tags": [
       "avian-ibd",
@@ -92,6 +93,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": 3,
     "explain": "Bacitracin ขนาด 200 ถึง 400 มิลลิกรัมต่อแกลลอนละลายน้ำ ให้ต่อเนื่อง 5 ถึง 7 วัน เป็นสูตรรักษา necrotic enteritis จาก Clostridium perfringens ซึ่งเป็นแบคทีเรียแกรมบวก ยากลุ่มนี้จึงออกฤทธิ์ได้ ตัวเลือกอื่นเป็นโปรโตซัวทั้งหมด เชื้อบิดใช้ยากันบิดผสมอาหารหรือวัคซีนเชื้อเป็น Leucocytozoon คุมด้วยโรงเรือนปิดกับการกำจัดแมลงพาหะ และ avian malaria รักษาด้วย chloroquine จุดที่ต้องระวังคือ necrotic enteritis มักตามหลังเชื้อบิด จึงต้องตรวจหาเชื้อบิดควบคู่เสมอ",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 5 ข้อ 14 (ชุดจับคู่ อ.ณทยา) และ Avain med Mid 86.pdf หน้า 19",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 5",
     "tags": [
       "avian-ne",
@@ -138,6 +140,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": 1,
     "explain": "Pasteurella multocida มีสัตว์พาหะหลายชนิดที่นำเชื้อเข้าฟาร์มได้ ได้แก่ หนู สุกร แรคคูน แมว และนกป่า รวมถึงฝูงที่หายป่วยแล้วซึ่งยังเก็บเชื้อไว้ที่ choanal cleft การควบคุมโรคจึงมีสามขา คือ biosecurity, การควบคุมหนูและนกป่า และการคัดตัวป่วยกับตัวอมโรคออก ส่วน IBD และ IB เป็นไวรัสที่แพร่ในฝูงเองโดยไม่ต้องอาศัยหนู และ Mycoplasma ติดผ่านไข่กับการสัมผัสภายในฝูงเป็นหลัก",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 6 ข้อ 5 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 5",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 6",
     "tags": [
       "avian-fowl-cholera",
@@ -230,6 +233,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": 1,
     "explain": "CRD มี Mycoplasma gallisepticum เป็นเชื้อปฐมภูมิ แล้วจึงมีเชื้อฉวยโอกาสตามมาซ้ำ โดยเฉพาะ Escherichia coli ที่ทำให้กลายเป็น complicated CRD ซึ่งมี airsacculitis, pericarditis และ perihepatitis ตัวเลือก E. coli จึงเป็นเชื้อทุติยภูมิ ไม่ใช่ตัวตั้งต้น ส่วน Avibacterium paragallinarum ก่อโรคหวัดหน้าบวมที่จำกัดอยู่ทางเดินหายใจส่วนต้น และ ORT ให้ airsacculitis ได้แต่ไม่ใช่นิยามของ CRD",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 7 ข้อ 13 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 12",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 7",
     "tags": [
       "avian-myco",
@@ -253,6 +257,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": 2,
     "explain": "โคโลนีของ Mycoplasma มีขนาดเล็ก ผิวเรียบกลม และตรงกลางหนาทึบกว่าขอบจนเรียกว่า fried-egg appearance ซึ่งเป็นผลจากการที่เชื้อไม่มีผนังเซลล์ กลางโคโลนีจึงจมลงไปในวุ้น ผิวหยาบแห้งคล้ายเกล็ดขนมปังเป็นลักษณะของ Mycobacterium สีเขียววาวสะท้อนแสงเป็นของ Escherichia coli บน EMB agar และโคโลนีเมือกเหนียวข้นเป็นของเชื้อที่สร้างแคปซูลหนาอย่าง Klebsiella",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 8 ข้อ 16 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 15",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 8",
     "tags": [
       "avian-myco",
@@ -276,6 +281,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": 3,
     "explain": "วัคซีน MG เชื้อเป็นมีสามสายพันธุ์หลัก 6/85 ปลอดภัยที่สุดแต่ให้ภูมิต่ำที่สุด ให้โดยพ่นเป็นผงเข้าทางจมูก ts-11 ให้ภูมิระดับกลาง ให้โดยหยอดตา ไวต่ออุณหภูมิ ถ้าเกิน 35 องศาเชื้อจะตาย จึงอยู่แค่ทางเดินหายใจส่วนต้นและต้องเก็บที่ลบ 20 องศา ส่วน F-strain ให้ภูมิแรงที่สุดและอยู่ได้ตลอดชีวิตไก่ แต่ยังเหลือความรุนแรงมาก จึงเสี่ยงเกินไปในไก่งวง ส่วน MS-H เป็นวัคซีนของ Mycoplasma synoviae ไม่ใช่ของ MG",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 9 ข้อ 19 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 9",
     "tags": [
       "avian-myco",
@@ -299,6 +305,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": 1,
     "explain": "Transovarian transmission ของ Mycoplasma เริ่มจากแม่ไก่ติดเชื้อทางระบบหายใจ เชื้อเข้าสู่กระแสเลือดเป็น bacteremia แล้วไปสะสมและแบ่งตัวที่รังไข่และท่อนำไข่ เชื้อจึงปนเข้าไปในไข่แดงและไข่ขาวตั้งแต่ก่อนสร้างเปลือก ลูกไก่จึงติดเชื้อมาตั้งแต่ในไข่ อัตราการผ่านไข่อยู่ราว 3 ถึง 5% การเจาะผ่านรูพรุนของเปลือกหลังไข่ถูกวางเป็นกลไกของ Escherichia coli ใน yolk sac infection ไม่ใช่ของ Mycoplasma และ Mycoplasma ไม่สร้างสปอร์",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 9 ข้อ 20 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 19",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 9",
     "tags": [
       "avian-myco",
@@ -322,6 +329,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": 2,
     "explain": "ยาที่ใช้กับ Mycoplasma ได้คือกลุ่ม macrolides อย่าง tylosin กลุ่ม tetracyclines และกลุ่ม pleuromutilins อย่าง tiamulin โดยต้องระวังว่าห้ามใช้ tiamulin ร่วมกับยากันบิดกลุ่ม ionophore ส่วน ampicillin, cephalexin และ penicillin G เป็นยากลุ่ม beta-lactam ที่ออกฤทธิ์ยับยั้งการสร้างผนังเซลล์ จึงใช้กับ Mycoplasma ไม่ได้เลย เพราะเชื้อกลุ่มนี้ไม่มีผนังเซลล์ตั้งแต่แรก",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 9 ข้อ 21 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 20",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 9",
     "tags": [
       "avian-myco",
@@ -345,6 +353,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": 3,
     "explain": "ภูมิคุ้มกันเฉพาะที่ที่เยื่อบุทางเดินหายใจต้องอาศัยเชื้อที่มีชีวิตไปตั้งรกรากบนเยื่อบุนั้นจริง วัคซีนเชื้อเป็นอย่าง ts-11 ที่ให้โดยหยอดตาจึงกระตุ้น local หรือ mucosal immunity ได้ดีที่สุด เพราะเชื้อเดินทางจากตาผ่าน nasolacrimal duct ลงสู่ทางเดินหายใจส่วนต้น วัคซีนเชื้อตายที่ฉีดเข้ากล้ามหรือใต้ผิวหนังกระตุ้นได้แต่ภูมิในกระแสเลือด ส่วนวัคซีน recombinant FP-MG ให้ทาง wing web ไม่ใช่การพ่นหยาบตั้งแต่วันแรก",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 10 ข้อ 23 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 21",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 10",
     "tags": [
       "avian-myco",
@@ -391,6 +400,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": 1,
     "explain": "Mycoplasma synoviae ให้ภาพสองระบบพร้อมกัน ระบบหายใจเป็น airsacculitis ที่มักไม่แสดงอาการชัด กับระบบข้อและเอ็นเป็น infectious synovitis ข้อบวมมีน้ำในข้อสีน้ำฟางข้าวและหนืด รวมถึง keel bursitis ที่อกบวมน้ำ ในแม่ไก่ที่กำลังให้ไข่ยังทำให้ไข่ลดและเปลือกไข่บางผิดปกติ ส่วนหงอนเหนียงม่วงคล้ำเฉียบพลันเป็นภาพของไข้หวัดนกชนิดรุนแรง หน้าบวมน้ำมูกเหม็นเป็นหวัดหน้าบวม และก้อนหนองแห้งในกล่องเสียงเป็นรอยโรคของ ILT",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 10 ข้อ 25 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 22",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 10",
     "tags": [
       "avian-myco",
@@ -414,6 +424,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": 2,
     "explain": "โรคสัตว์ปีกส่วนใหญ่ไก่อายุน้อยไวรับมากกว่า แต่ fowl cholera กับ infectious coryza กลับด้าน fowl cholera ระบุชัดว่า older birds more susceptible than young birds โดยไก่อายุน้อยกว่า 16 สัปดาห์ต้านทานได้และมีอัตราตาย 0 ถึง 20% ส่วน infectious coryza พบได้ทุกอายุแต่อาการรุนแรงน้อยกว่าในไก่อายุน้อย และระบาดในไก่ไข่กับไก่สาวมากกว่าไก่เนื้อ ตรงกันข้ามกับ colibacillosis และ salmonellosis ที่ลูกไก่ไวรับที่สุด",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 10 ข้อ 26 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 23",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 10",
     "tags": [
       "avian-fowl-cholera",
@@ -482,7 +493,8 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "model_answer": "ในสัตว์ปีก ไข้หวัดนกเกิดจากไวรัสไข้หวัดใหญ่ type A เท่านั้น แบ่งย่อยตาม haemagglutinin 16 subtype และ neuraminidase 9 subtype โดยชนิดที่ก่อโรครุนแรงหรือ HPAI ต้องเป็น H5 หรือ H7 เท่านั้น ส่วนในคนพบได้ทั้ง type A, type B และ type C โดย type A เป็นชนิดเดียวที่ข้ามมาจากสัตว์ปีกและก่อการระบาดใหญ่ได้ จึงเป็นชนิดที่ต้องเฝ้าระวังร่วมกันระหว่างงานสัตวแพทย์กับงานสาธารณสุข และสุกรทำหน้าที่เป็น mixing vessel ที่รับเชื้อได้ทั้งจากนกและจากคน",
     "explain": "ข้อนี้เป็นข้อเขียนสั้น ให้ตอบเป็นสองฝั่งก่อนแล้วค่อยขยาย ฝั่งสัตว์ปีกคือ type A อย่างเดียว ฝั่งคนคือ A, B และ C จุดที่มักตกหล่นคือลืมบอกว่า type A เป็นตัวเชื่อมระหว่างสองฝั่ง ถ้าเขียนแค่ว่าคนเป็นได้สามชนิดโดยไม่บอกว่าชนิดไหนข้ามมาจากนก คำตอบจะไม่ครบประเด็นที่โจทย์ถาม",
     "source": "Avain med Mid 86.pdf หน้า 15 (ชุดข้อเขียน อ.จิโรจ ข้อ 3)",
-    "verified": "อิงแนวสอบ, แนวคำตอบตามที่เอกสารสรุปรุ่นพี่บันทึกไว้ หน้า 15",
+    "sourceType": "exam-aligned",
+    "verified": "อิงแนวข้อสอบ, แนวคำตอบตามที่เอกสารสรุปรุ่นพี่บันทึกไว้ หน้า 15",
     "tags": [
       "avian-ai",
       "ข้อเขียน"
@@ -516,6 +528,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": false,
     "explain": "ไม่ถูกต้อง Staphylococcus spp. เป็นเชื้อประจำถิ่นบนตัวไก่และในสิ่งแวดล้อม แต่ทะลุผิวหนังที่สมบูรณ์เข้าไปเองไม่ได้ ต้องอาศัย portal of entry เสมอ ได้แก่ แผลจากการแทงปีก การฉีดยาหรือวัคซีน การตัดปาก แผลขีดข่วน และสะดือที่ยังปิดไม่สนิท การจัดการจึงเน้นลดการบาดเจ็บ ดูแลพื้นคอกและกำจัดของมีคม มากกว่าการพึ่งยาปฏิชีวนะ",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 13 ข้อ 6 (ชุด อ.เกรียงวิชญ์) และ Avain med Mid 86.pdf หน้า 21",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 13",
     "tags": [
       "avian-ahra-set",
@@ -556,6 +569,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": 0,
     "explain": "ห้าซีโรวาร์ที่ถือว่าอันตรายต่อคนและเป็นเงื่อนไขการส่งออกเนื้อไก่ของไทยคือ S. Typhimurium, S. Enteritidis, S. Hadar, S. Virchow และ S. Infantis ถ้าตรวจเจอต้องแจ้งกรมปศุสัตว์ ฟาร์มจะถูกสั่งพักเล้า ไก่ถูกทำลาย และมีค่าปรับ จุดที่มักสับสนคือ S. Pullorum และ S. Gallinarum ซึ่งเป็น non-motile serovar ที่ก่อโรคในไก่เองแต่ไม่ใช่กลุ่มที่เป็นข้อกีดกันทางการค้า ส่วนสองตัวที่สำคัญที่สุดในคนคือ S. Typhimurium และ S. Enteritidis",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 13 ข้อ 8 (ชุด อ.เกรียงวิชญ์) และ Avain med Mid 86.pdf หน้า 21",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 13",
     "tags": [
       "avian-salmonella",
@@ -579,6 +593,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": 1,
     "explain": "ซีโรไทป์ที่พบเป็นสาเหตุของ IBH ในไทยคือ FAdV-2, FAdV-8b และ FAdV-11 ถ้าแบ่งตาม species จะได้ว่า FAdV-2 และ FAdV-11 อยู่ใน group D ส่วน FAdV-8b อยู่ใน group E ทั้งหมดอยู่ใน genus Aviadenovirus ซึ่งจัดเป็น Adenoviridae group I ต่างจาก genus Atadenovirus หรือ group III ที่ก่อ egg drop syndrome รอยโรคของ IBH คือตับซีด อักเสบ มีจุดเลือดออก ร่วมกับ hydropericardium และ gizzard erosion",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 13 ข้อ 9 (ชุด อ.เกรียงวิชญ์) และ Avain med Mid 86.pdf หน้า 22",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 13",
     "tags": [
       "avian-adeno",
@@ -602,6 +617,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "answer": 2,
     "explain": "Aflatoxin เป็นสารพิษที่ทำลายตับอยู่แล้ว เมื่อมารวมกับ IBH ซึ่งทำลายตับเช่นกัน ความเสียหายจึงรุนแรงขึ้น เร็วขึ้น และยาวนานขึ้น ผลกระทบตามช่วงอายุคือไก่เล็กตายมาก ส่วนไก่โตรอดแต่แคระแกร็น นอกจากนี้ FAdV ยังทำลาย bursa, spleen และ pancreas ทำให้ภูมิคุ้มกันตก จึงยิ่งซ้ำเติมกันไปอีก การควบคุมต้องแก้ที่คุณภาพวัตถุดิบอาหารควบคู่กับการฆ่าเชื้อด้วยกลุ่ม aldehydes หรือ hypochlorite",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 13 ข้อ 10 และ 11 (ชุด อ.เกรียงวิชญ์) และ Avain med Mid 86.pdf หน้า 22",
+    "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 13",
     "tags": [
       "avian-adeno",

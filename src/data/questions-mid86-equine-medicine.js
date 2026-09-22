@@ -555,14 +555,14 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "type": "mcq",
     "q": "ค่าปกติของอัตราการเต้นหัวใจและอัตราการหายใจในม้าโตคือเท่าใด",
     "options": [
-      "HR 20 ถึง 30 ครั้งต่อนาที และ RR 8 ถึง 16 ครั้งต่อนาที",
-      "HR 60 ถึง 80 ครั้งต่อนาที และ RR 20 ถึง 40 ครั้งต่อนาที",
-      "HR 30 ถึง 45 ครั้งต่อนาที และ RR 12 ถึง 36 ครั้งต่อนาที",
-      "HR 45 ถึง 60 ครั้งต่อนาที และ RR 30 ถึง 50 ครั้งต่อนาที"
+      "HR 20 ถึง 26 ครั้งต่อนาที และ RR 4 ถึง 8 ครั้งต่อนาที",
+      "HR 28 ถึง 44 ครั้งต่อนาที และ RR 10 ถึง 22 ครั้งต่อนาที",
+      "HR 48 ถึง 60 ครั้งต่อนาที และ RR 24 ถึง 36 ครั้งต่อนาที",
+      "HR 60 ถึง 80 ครั้งต่อนาที และ RR 30 ถึง 50 ครั้งต่อนาที"
     ],
-    "answer": 2,
-    "explain": "ค่าอ้างอิงของม้าโตคือ HR 30 ถึง 45 ครั้งต่อนาที RR 12 ถึง 36 ครั้งต่อนาที อุณหภูมิ 99 ถึง 101.5 องศาฟาเรนไฮต์ และ CRT น้อยกว่า 2 วินาที\n\n❌ ทำไมข้ออื่นผิด\n— HR 20 ถึง 30 ต่ำกว่าค่าปกติ อาจบ่งถึงภาวะหัวใจเต้นช้า\n— HR 60 ถึง 80 เป็นระดับที่พบในม้าโคลิกที่เจ็บมากหรือช็อก\n— HR 45 ถึง 60 สูงกว่าเกณฑ์ปกติแล้ว ต้องหาสาเหตุ\n\n💡 สามสิบถึงสี่สิบห้าคือฐานที่ใช้ตัดสินม้าโคลิก",
-    "verified": "Equine Med Mid 86 p.17"
+    "answer": 1,
+    "explain": "ม้าโตขณะพักมีอัตราการเต้นหัวใจ 28 ถึง 44 ครั้งต่อนาที และอัตราการหายใจ 10 ถึง 22 ครั้งต่อนาที ส่วน CRT ปกติน้อยกว่า 2 วินาที ค่าทั้งสามใช้คู่กันเสมอ เพราะหัวใจที่เต้นเร็วขึ้นพร้อม CRT ที่ยืดออกคือภาพของการไหลเวียนที่เริ่มไม่พอ\n\n❌ ทำไมข้ออื่นผิด\n— HR 20 ถึง 26 กับ RR 4 ถึง 8 ต่ำกว่าเกณฑ์ทั้งคู่ ถ้าพบจริงต้องมองหาภาวะหัวใจเต้นช้าหรือการกดการหายใจ\n— HR 48 ถึง 60 กับ RR 24 ถึง 36 สูงกว่าเกณฑ์ เป็นภาพของม้าที่เจ็บ ตื่นเต้น หรือเพิ่งออกกำลังกาย\n— HR 60 ถึง 80 กับ RR 30 ถึง 50 เป็นระดับของม้าโคลิกที่ปวดรุนแรงหรือเข้าสู่ภาวะช็อก\n\n💡 จำเป็นช่วงกว้าง ๆ ว่าหัวใจม้าเต้นช้ากว่าสุนัขและแมวมาก ราวสามสิบกว่า ส่วนการหายใจอยู่ราวสิบกว่า ค่าที่ขึ้นไปถึงสี่สิบห้าสิบคือสัญญาณ ไม่ใช่ค่าปกติ",
+    "verified": "Equine Med Mid 86 p.17 และหน้า 9 ฉบับ 44 หน้า; zJQ3gItuG6E [143:15], [144:57], [139:25]"
   },
   {
     "id": 202054,
@@ -1476,7 +1476,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.2 + Easley, Dixon & Schumacher, Equine Dentistry and Maxillofacial Surgery",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202357
+    "id": 202357,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1502,7 +1503,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.2 + Easley, Dixon & Schumacher, Equine Dentistry and Maxillofacial Surgery",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202358
+    "id": 202358,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1528,7 +1530,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.2 + Easley, Dixon & Schumacher, Equine Dentistry and Maxillofacial Surgery",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202359
+    "id": 202359,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1554,7 +1557,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.2 + Easley, Dixon & Schumacher, Equine Dentistry and Maxillofacial Surgery",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202360
+    "id": 202360,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1580,7 +1584,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.2 + Easley, Dixon & Schumacher, Equine Dentistry and Maxillofacial Surgery",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202361
+    "id": 202361,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1606,7 +1611,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.2 + Easley, Dixon & Schumacher, Equine Dentistry and Maxillofacial Surgery",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202362
+    "id": 202362,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1632,7 +1638,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.2 + Easley, Dixon & Schumacher, Equine Dentistry and Maxillofacial Surgery",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202363
+    "id": 202363,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1658,7 +1665,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.2 + Easley, Dixon & Schumacher, Equine Dentistry and Maxillofacial Surgery",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202364
+    "id": 202364,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1684,7 +1692,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.2 และ p.20 + Reed, Bayly & Sellon, Equine Internal Medicine",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202365
+    "id": 202365,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1710,7 +1719,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.2 + Easley, Dixon & Schumacher, Equine Dentistry and Maxillofacial Surgery",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202366
+    "id": 202366,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1736,7 +1746,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.3 + FEI Horse Passport identification guidelines",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202367
+    "id": 202367,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1762,7 +1773,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.3 + FEI Horse Passport identification guidelines",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202368
+    "id": 202368,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1788,7 +1800,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.3 + FEI Horse Passport identification guidelines",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202369
+    "id": 202369,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1814,7 +1827,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.3 + FEI Horse Passport identification guidelines",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202370
+    "id": 202370,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1840,7 +1854,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.3 + FEI Horse Passport identification guidelines",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202371
+    "id": 202371,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1866,7 +1881,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.7 + NRC Nutrient Requirements of Horses 6th rev. ed. 2007",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202372
+    "id": 202372,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1892,7 +1908,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.5 + McGreevy, Equine Behavior 2nd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202373
+    "id": 202373,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1918,7 +1935,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.5 + McGreevy, Equine Behavior 2nd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202374
+    "id": 202374,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1944,7 +1962,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.5 + McGreevy, Equine Behavior 2nd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202375
+    "id": 202375,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1970,7 +1989,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.5 + McGreevy, Equine Behavior 2nd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202376
+    "id": 202376,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -1996,7 +2016,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.5 + McGreevy, Equine Behavior 2nd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202377
+    "id": 202377,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2022,7 +2043,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.4 + McGreevy, Equine Behavior 2nd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202378
+    "id": 202378,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2048,7 +2070,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.4 + McGreevy, Equine Behavior 2nd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202379
+    "id": 202379,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2074,7 +2097,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.4 + FEI equipment guidelines",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202380
+    "id": 202380,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2100,7 +2124,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.4 + FEI equipment guidelines",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202381
+    "id": 202381,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2126,7 +2151,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.6 + Reed, Bayly & Sellon, Equine Internal Medicine",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202382
+    "id": 202382,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2152,7 +2178,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.17 + Blikslager et al., The Equine Acute Abdomen 3rd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202383
+    "id": 202383,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2178,7 +2205,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.7 + Reed, Bayly & Sellon, Equine Internal Medicine",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202384
+    "id": 202384,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2204,7 +2232,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.7 + Reed, Bayly & Sellon, Equine Internal Medicine",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202385
+    "id": 202385,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2230,7 +2259,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.7 และ p.20 + Reed, Bayly & Sellon, Equine Internal Medicine",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202386
+    "id": 202386,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2256,7 +2286,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.8 + NRC Nutrient Requirements of Horses 6th rev. ed. 2007",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202387
+    "id": 202387,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2282,7 +2313,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.8 + NRC Nutrient Requirements of Horses 6th rev. ed. 2007",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202388
+    "id": 202388,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2308,7 +2340,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.8 + NRC Nutrient Requirements of Horses 6th rev. ed. 2007",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202389
+    "id": 202389,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2334,7 +2367,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.8 + NRC Nutrient Requirements of Horses 6th rev. ed. 2007",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202390
+    "id": 202390,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2360,7 +2394,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.8 + NRC Nutrient Requirements of Horses 6th rev. ed. 2007",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202391
+    "id": 202391,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2386,7 +2421,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.10 + NRC Nutrient Requirements of Horses 6th rev. ed. 2007",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202392
+    "id": 202392,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2412,7 +2448,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.8 + NRC Nutrient Requirements of Horses 6th rev. ed. 2007",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202393
+    "id": 202393,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2456,7 +2493,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.12 + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202394
+    "id": 202394,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2482,7 +2520,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.12 และ p.14 + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202395
+    "id": 202395,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2508,7 +2547,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.15 + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202396
+    "id": 202396,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2534,7 +2574,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.13 + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202397
+    "id": 202397,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2560,7 +2601,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.16 + Blikslager et al., The Equine Acute Abdomen 3rd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202398
+    "id": 202398,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2586,7 +2628,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.16 + Dyce, Sack & Wensing, Textbook of Veterinary Anatomy",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202399
+    "id": 202399,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2612,7 +2655,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.17 + Blikslager et al., The Equine Acute Abdomen 3rd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202400
+    "id": 202400,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2638,7 +2682,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.17 + Blikslager et al., The Equine Acute Abdomen 3rd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202401
+    "id": 202401,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2664,7 +2709,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.17 + Blikslager et al., The Equine Acute Abdomen 3rd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202402
+    "id": 202402,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2690,7 +2736,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.17 + Blikslager et al., The Equine Acute Abdomen 3rd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202403
+    "id": 202403,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2716,7 +2763,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.18 + Blikslager et al., The Equine Acute Abdomen 3rd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202404
+    "id": 202404,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2742,7 +2790,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.19 + Sykes et al., ECEIM Consensus Statement on Equine Gastric Ulcer Syndrome 2015",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202405
+    "id": 202405,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2771,7 +2820,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.18 + Blikslager et al., The Equine Acute Abdomen 3rd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202406
+    "id": 202406,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2799,7 +2849,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.19 + Blikslager et al., The Equine Acute Abdomen 3rd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202407
+    "id": 202407,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2828,7 +2879,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.18 + Blikslager et al., The Equine Acute Abdomen 3rd ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202408
+    "id": 202408,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2854,7 +2906,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.20 + Reed, Bayly & Sellon, Equine Internal Medicine",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202409
+    "id": 202409,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2880,7 +2933,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.20 + Reed, Bayly & Sellon, Equine Internal Medicine",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202410
+    "id": 202410,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2906,7 +2960,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.20 + Reed, Bayly & Sellon, Equine Internal Medicine",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202411
+    "id": 202411,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2933,7 +2988,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.20 + Reed, Bayly & Sellon, Equine Internal Medicine",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202412
+    "id": 202412,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2959,7 +3015,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.20 + Auer & Stick, Equine Surgery 5th ed.",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202413
+    "id": 202413,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -2985,7 +3042,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.20 + Reed, Bayly & Sellon, Equine Internal Medicine",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202414
+    "id": 202414,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
   },
   {
     "subject": "equine-medicine",
@@ -3011,6 +3069,3212 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "verified": "Equine Med Mid 86 p.3 + FEI Horse Passport identification guidelines",
     "sourceType": "student-compilation",
     "examScope": "midterm",
-    "id": 202454
+    "id": 202454,
+    "examOrigin": "Equine Med midterm recall (Vet 85)"
+  },
+  {
+    "id": 207496,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "จากภาพจุดสังเกตบนตัวม้าเทียบกับโครงกระดูก ข้อใดจับคู่ชื่อจุดสังเกตภายนอกกับโครงสร้างกระดูกที่รองอยู่ได้ถูกต้อง",
+    "options": [
+      "Poll คือแนวยอดของกระดูกสันหลังส่วนคอชิ้นที่สาม",
+      "Dock คือปลายล่างสุดของกระดูกเชิงกรานด้านท้าย",
+      "Withers คือแนวยอดของ spinous process ของกระดูกสันหลังส่วนอก",
+      "Coronet คือแนวขอบล่างของกระดูกฝ่าเท้าที่เรียกว่า cannon",
+      "Elbow คือปลายบนของกระดูก radius ที่ต่อกับกระดูกต้นแขน"
+    ],
+    "answer": 2,
+    "explain": "Withers คือสันที่คลำได้เหนือไหล่ เกิดจากยอดของ spinous process ของกระดูกสันหลังส่วนอกช่วงต้น จุดนี้แทบไม่ขยับเวลาม้ายกหรือก้มหัว จึงถูกใช้เป็นจุดอ้างอิงมาตรฐานเวลาวัดความสูงของม้า\n\n❌ ทำไมข้ออื่นผิด\n— Poll คือจุดสูงสุดของศีรษะระหว่างหูทั้งสองข้าง ตรงกับรอยต่อระหว่างท้ายทอยกับกระดูกคอชิ้นแรก ไม่ใช่ชิ้นที่สาม\n— Dock คือโคนหาง ซึ่งรองด้วยกระดูกสันหลังส่วนหาง ไม่ใช่กระดูกเชิงกราน\n— Coronet คือแนวรอยต่อระหว่างผิวหนังกับขอบบนของกีบ อยู่ต่ำกว่าปลายล่างของ cannon ลงไปอีกสองข้อ\n— Elbow คือปุ่ม olecranon ของกระดูก ulna ที่ยื่นไปด้านหลัง ไม่ใช่ปลายบนของ radius\n\n💡 ไล่จากบนลงล่าง poll ที่หัว withers ที่สันไหล่ dock ที่โคนหาง coronet ที่ขอบกีบ",
+    "source": "EQUINE MED MID 86.pdf (ฉบับ 44 หน้า) หน้า 10 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine Med Mid 86 (ฉบับ 44 หน้า) p.10 ข้อ 1 + jgGGQzDTm4E [39:11]",
+    "tags": [
+      "equine-intro",
+      "body points",
+      "anatomy landmarks"
+    ],
+    "image": "/figures/questions/eqmed-intro-points.webp"
+  },
+  {
+    "id": 207497,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "ในฝูงม้า ตัวที่อยู่สูงสุดของลำดับในฝูงและถือเป็นจ่าฝูงคือตัวใด",
+    "options": [
+      "พ่อม้าที่คุมฝูง เพราะเป็นตัวที่ตัวใหญ่และแข็งแรงที่สุด",
+      "ม้าตอนตัวที่อายุมากที่สุดและอยู่ในฝูงมานานที่สุด",
+      "แม่ม้าตัวที่มีลำดับสูงสุดในฝูง ซึ่งมักเป็นตัวที่อายุมาก",
+      "ลูกม้าเพศผู้ที่ตัวโตที่สุดในรุ่นเดียวกันของฝูงนั้น",
+      "ม้าตัวที่เพิ่งเข้าฝูงใหม่และเดินสำรวจพื้นที่มากที่สุด"
+    ],
+    "answer": 2,
+    "explain": "ม้าอยู่รวมกันเป็นฝูงและมีลำดับชั้นในฝูงเสมอ ตัวที่อยู่สูงสุดของลำดับคือแม่ม้าที่มีลำดับสูงสุด ซึ่งมักเป็นตัวที่อายุมากและอยู่ในฝูงมานาน ส่วนพ่อม้าที่คุมฝูงทำหน้าที่คุ้มกันและต้อนฝูงจากด้านหลัง ไม่ใช่ตัวที่ถือลำดับสูงสุด เรื่องนี้มีผลกับการทำงานจริง เพราะม้าจัดลำดับคนที่เข้าไปหาไว้ด้วย คนที่จับไม่เป็นจึงมักถูกจัดไว้ต่ำสุดแล้วม้าไม่ฟัง\n\n❌ ทำไมข้ออื่นผิด\n— พ่อม้าคุมฝูงจากด้านหลังและคอยกันอันตราย ขนาดตัวไม่ได้ทำให้ถือลำดับสูงสุด\n— ม้าตอนคือม้าเพศผู้ที่ถูกทำหมัน ในฝูงที่คนเลี้ยงมักอยู่ลำดับล่าง ไม่ใช่จ่าฝูง\n— ลูกม้าอยู่ลำดับล่างของฝูงเสมอ และเดินตามแม่ของตัวเอง\n— ม้าที่เพิ่งเข้าฝูงใหม่ต้องไต่ลำดับขึ้นก่อน ช่วงแรกจึงอยู่ล่างสุด\n\n💡 จ่าฝูงคือแม่ม้าลำดับสูงสุด ส่วนพ่อม้าคุมท้ายฝูง",
+    "source": "EQUINE MED MID 86.pdf (ฉบับ 44 หน้า) หน้า 10 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine Med Mid 86 (ฉบับ 44 หน้า) p.10 ข้อ 3 + jgGGQzDTm4E [82:51]",
+    "tags": [
+      "equine-intro",
+      "behaviour",
+      "herd hierarchy"
+    ]
+  },
+  {
+    "id": 207498,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "จากภาพใบหน้าม้าตัวนี้ รอยขนสีขาวบนใบหน้าควรบันทึกลงสมุดประจำตัวม้าว่าอะไร",
+    "options": [
+      "Blaze",
+      "Star",
+      "Stripe",
+      "Snip"
+    ],
+    "answer": 1,
+    "explain": "รอยขนขาวที่อยู่เฉพาะกลางหน้าผาก ไม่ลากต่อลงมาตามสันจมูก เรียกว่า star บันทึกด้วยปากกาสีแดงโดยตัดเส้นขอบตามรูปจริงและไม่ระบาย ถ้ารูปร่างไม่เป็นระเบียบให้เรียก irregular star และถ้ามีเส้นลากต่อลงมาจะกลายเป็นชื่อผสม\n\n❌ ทำไมข้ออื่นผิด\n— Stripe คือแถบขาวแคบยาวตามแนวสันจมูก กว้างไม่เกินแนวกระดูกจมูก\n— Blaze คือปื้นขาวกว้างคลุมหน้าผากลงมาถึงจมูก และกว้างเกินแนวกระดูกจมูก\n— Snip คือรอยขาวเฉพาะบริเวณจมูกระหว่างรูจมูก ไม่ขึ้นมาถึงหน้าผาก ส่วนขาวที่ริมฝีปากนับแยกเป็น lip marking\n\n💡 ขาวอยู่แค่หน้าผากคือ star พอลากลงสันจมูกเมื่อไรจึงเปลี่ยนชื่อ",
+    "source": "EQUINE MED MID 86.pdf (ฉบับ 44 หน้า) หน้า 10 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine Med Mid 86 (ฉบับ 44 หน้า) p.10 ข้อ 7 + jgGGQzDTm4E [55:31]",
+    "tags": [
+      "equine-intro",
+      "marking",
+      "passport"
+    ],
+    "image": "/figures/questions/eqmed-intro-face-star.webp"
+  },
+  {
+    "id": 207499,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "ตำแหน่งที่ใช้ฉีดยาเข้ากล้ามเนื้อม้าเป็นประจำที่สุดในงานคลินิกทั่วไปคือที่ใด",
+    "options": [
+      "กล้ามเนื้อคอที่กะเป็นรูปสามเหลี่ยมด้านหน้าต่อกระดูกสะบัก",
+      "กล้ามเนื้อสะโพกด้านหลังปุ่มกระดูกเชิงกรานด้านข้าง",
+      "กล้ามเนื้อกลุ่มด้านหลังของขาหลังเหนือข้อ hock ขึ้นไป",
+      "กล้ามเนื้อหน้าอกที่อยู่ระหว่างขาหน้าทั้งสองข้าง",
+      "กล้ามเนื้อต้นขาด้านในเหนือข้อเข่าของขาหลัง"
+    ],
+    "answer": 0,
+    "explain": "ตำแหน่งที่ใช้ประจำคือกล้ามเนื้อคอ โดยกะเป็นรูปสามเหลี่ยมที่อยู่ด้านหน้าต่อขอบกระดูกสะบัก เหตุผลหลักคือปลอดภัยที่สุดสำหรับผู้ฉีด เพราะยืนอยู่หน้าไหล่ซึ่งพ้นระยะที่ขาหลังเตะถึง และกล้ามเนื้อมัดนี้กะขอบเขตจากภายนอกได้ง่าย\n\n❌ ทำไมข้ออื่นผิด\n— กล้ามเนื้อสะโพกหนาและขยับมาก ยาจึงเข้าสู่ระบบได้เร็วและรับยาปริมาณมากได้ดีกว่า จึงเลือกใช้เมื่อยามีปริมาณมาก แต่ผู้ฉีดต้องเข้าไปยืนในระยะที่ถูกเตะได้\n— กล้ามเนื้อกลุ่มด้านหลังของขาหลังอยู่ในระยะเตะพอดี จึงไม่ใช้เป็นตำแหน่งประจำ\n— กล้ามเนื้อหน้าอกใช้ได้เมื่อยามีปริมาณเพียงไม่กี่มิลลิลิตร จึงเป็นตัวเลือกรอง\n— กล้ามเนื้อต้นขาด้านในไม่ใช่ตำแหน่งฉีดเข้ากล้ามมาตรฐานในม้า ทั้งเข้าถึงยากและอยู่ในระยะที่ถูกเตะได้\n\n💡 ฉีดเข้ากล้ามในม้าให้นึกถึงสามเหลี่ยมที่คอก่อน แล้วค่อยย้ายไปสะโพกเมื่อยาปริมาณมาก",
+    "source": "EQUINE MED MID 86.pdf (ฉบับ 44 หน้า) หน้า 10 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine Med Mid 86 (ฉบับ 44 หน้า) p.10 ข้อ 8 (หน้าไม่ได้บันทึกคำตอบไว้) + zJQ3gItuG6E [152:44-153:13] + zJQ3gItuG6E [155:01]",
+    "tags": [
+      "equine-intro",
+      "drug administration",
+      "intramuscular"
+    ]
+  },
+  {
+    "id": 207500,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "ม้าที่ใช้ jugular vein ทั้งสองข้างไม่ได้ ข้อใดเป็นชุดหลอดเลือดดำสำรองที่เจาะเลือดหรือให้ยาได้จริงในม้า",
+    "options": [
+      "Cephalic vein, portal vein และ coccygeal vein",
+      "Lateral thoracic vein, pulmonary vein และ saphenous vein",
+      "Coccygeal vein, azygos vein และ cephalic vein",
+      "Cephalic vein, lateral thoracic vein และ saphenous vein",
+      "Saphenous vein, hepatic vein และ lateral thoracic vein"
+    ],
+    "answer": 3,
+    "explain": "หลอดเลือดดำสำรองในม้าคือเส้นที่อยู่ตื้นพอจะคลำและแทงเข็มได้จากภายนอก ชุดที่ใช้กันคือ cephalic vein ที่ด้านในของขาหน้า lateral thoracic vein ที่ผนังลำตัวด้านข้างหลังศอก saphenous vein ที่ขาหลัง และ coccygeal vein ใต้โคนหาง โดย lateral thoracic vein เป็นเส้นที่นิยมเลือกคาสายให้สารน้ำต่อเนื่องเมื่อ jugular ใช้ไม่ได้ทั้งสองข้าง\n\n❌ ทำไมข้ออื่นผิด\n— Portal vein อยู่ลึกในช่องท้องและรับเลือดจากลำไส้เข้าตับ เข้าถึงจากภายนอกไม่ได้\n— Pulmonary vein อยู่ในช่องอก นำเลือดจากปอดกลับเข้าหัวใจ จึงแทงเข็มไม่ได้\n— Azygos vein ทอดอยู่ในช่องอกชิดแนวกระดูกสันหลัง ไม่ใช่เส้นผิวเผิน\n— Hepatic vein อยู่ในเนื้อตับ ใช้เก็บเลือดหรือให้ยาในม้าที่ยังรู้สึกตัวไม่ได้\n\n💡 เส้นสำรองที่ใช้จริงคือเส้นตื้นสี่ที่ ขาหน้า ผนังอก ขาหลัง และโคนหาง",
+    "source": "EQUINE MED MID 86.pdf (ฉบับ 44 หน้า) หน้า 10 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine Med Mid 86 (ฉบับ 44 หน้า) p.10 ข้อ 9 (หน้าบันทึกคำตอบไว้ครบสี่เส้น) + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "equine-intro",
+      "venipuncture",
+      "accessory veins"
+    ]
+  },
+  {
+    "id": 207501,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "กระดูกชิ้นปลายสุดของนิ้วม้าที่เรียกว่า coffin bone วางตัวอยู่ที่ตำแหน่งใด",
+    "options": [
+      "อยู่ระหว่างข้อ fetlock กับข้อ pastern พอดี",
+      "อยู่ภายในกีบ เป็นกระดูกนิ้วชิ้นที่สามของม้า",
+      "อยู่เหนือข้อ fetlock ขึ้นไปตามแนวกระดูก cannon",
+      "อยู่ด้านหลังข้อ fetlock เป็นกระดูกงาคู่ที่รับเอ็น",
+      "อยู่ที่ข้อเข่าหน้า เป็นกระดูกก้อนเล็กเรียงสองแถว"
+    ],
+    "answer": 1,
+    "explain": "Coffin bone คือกระดูกนิ้วชิ้นที่สาม วางตัวอยู่ภายในกีบและมีรูปทรงตามผนังกีบ ยึดกับผนังกีบด้วยชั้น lamellae จึงเป็นกระดูกที่หมุนหรือทรุดลงเมื่อ lamellae ล้มเหลว และเป็นเหตุผลที่แนว coronet กับสภาพกีบบอกปัญหาของกระดูกชิ้นนี้ได้\n\n❌ ทำไมข้ออื่นผิด\n— ระหว่างข้อ fetlock กับข้อ pastern คือกระดูกนิ้วชิ้นที่หนึ่ง ซึ่งอยู่เหนือกีบขึ้นมา\n— เหนือข้อ fetlock ขึ้นไปคือกระดูก cannon ซึ่งเป็นกระดูกฝ่าเท้า ไม่ใช่กระดูกนิ้ว\n— กระดูกงาคู่ที่อยู่ด้านหลังข้อ fetlock คือ proximal sesamoid bone\n— กระดูกก้อนเล็กเรียงสองแถวที่ข้อเข่าหน้าคือกลุ่ม carpal bone\n\n💡 นับจากกีบขึ้นมา ชิ้นที่สามอยู่ในกีบ ชิ้นที่สองกับชิ้นที่หนึ่งอยู่เหนือขอบกีบขึ้นไป",
+    "source": "EQUINE MED MID 86.pdf (ฉบับ 44 หน้า) หน้า 10 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine Med Mid 86 (ฉบับ 44 หน้า) p.10 ข้อ 1 (ป้าย coffin bone ถูกไฮไลต์ไว้บนภาพโครงกระดูก และลายมือแดงข้างภาพเอ่ยถึงชื่อนี้)",
+    "tags": [
+      "equine-intro",
+      "anatomy landmarks",
+      "hoof"
+    ]
+  },
+  {
+    "id": 207502,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "เดินเข้าไปในคอก พบม้ายืนนิ่ง คอผ่อนคลาย ใบหูทั้งสองข้างตกไปทางด้านข้างของศีรษะ ตาปรือ ริมฝีปากล่างหย่อน ท่าทางชุดนี้บ่งบอกอะไร",
+    "options": [
+      "ม้ากำลังโกรธและเตรียมจะดีดขาหลังใส่คนที่เข้าใกล้",
+      "ม้ากำลังจดจ่อกับเสียงที่ดังอยู่ด้านหน้าของตัวเอง",
+      "ม้ากำลังผ่อนคลายหรือกำลังเคลิ้มใกล้จะหลับ",
+      "ม้ากำลังเจ็บท้องจึงยืนเกร็งและไม่ยอมขยับตัว",
+      "ม้ากำลังกลัวสิ่งที่อยู่ด้านหลังและพร้อมจะวิ่งหนี"
+    ],
+    "answer": 2,
+    "explain": "หูที่ตกไปทางด้านข้างโดยไม่เกร็งและไม่แนบราบ ร่วมกับตาปรือและริมฝีปากล่างหย่อน เป็นชุดของม้าที่ผ่อนคลายหรือกำลังเคลิ้มหลับ ม้ายืนหลับได้ จึงเห็นท่านี้บ่อยในคอกช่วงที่ไม่มีอะไรรบกวน\n\n❌ ทำไมข้ออื่นผิด\n— ม้าที่โกรธจะลู่หูแนบราบไปกับคอ ตาเบิก กล้ามเนื้อตึง ไม่ใช่หูตกข้างและปากหย่อน\n— ม้าที่จดจ่อกับสิ่งเร้าด้านหน้าจะตั้งหูชี้ไปข้างหน้าพร้อมกันทั้งสองข้างและยกหัวสูง\n— ม้าเจ็บท้องมักมีหนังเหนือตาย่น แก้มป่องเหมือนกัดกราม และหันมองท้องหรือคุ้ยพื้น\n— ม้ากลัวจะยกหัวสูง ตาเบิก และขยับขาเตรียมหนี ไม่ใช่ยืนนิ่งปากหย่อน\n\n💡 หูตกข้าง ปากหย่อน = กำลังพัก ส่วนหูแนบราบ = ถอยออกมาก่อน",
+    "source": "EQUINE MED MID 86.pdf หน้า 6 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 6 (ฉบับ 44 หน้า) + McGreevy, Equine Behavior 2nd ed.",
+    "tags": [
+      "equine-behaviour",
+      "ear-position",
+      "body-language",
+      "equine-intro"
+    ]
+  },
+  {
+    "id": 207503,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "ขณะผู้ขี่ควบม้าอยู่ ม้าหันใบหูทั้งสองข้างไปทางด้านหลังโดยไม่ได้ลู่แนบไปกับคอ และจังหวะการเคลื่อนไหวยังสม่ำเสมอ ควรแปลท่าทางนี้ว่าอย่างไร",
+    "options": [
+      "ม้ากำลังโกรธผู้ขี่และกำลังจะหยุดเพื่อดีดขาหลัง",
+      "ม้ากำลังสนใจสิ่งที่อยู่ด้านหลัง เช่น ผู้ขี่บนหลัง",
+      "ม้ากำลังง่วงจัดและกำลังจะทรุดตัวลงนอนกลางทาง",
+      "ม้ากำลังเจ็บกีบหน้าจึงถ่ายน้ำหนักไปทางด้านหลัง",
+      "ม้ากำลังตกใจสิ่งที่อยู่ข้างหน้าและจะหยุดกะทันหัน"
+    ],
+    "answer": 1,
+    "explain": "ใบหูที่หันไปด้านหลังแต่ไม่ลู่แนบคอ แปลว่าม้ากำลังเอาใจใส่สิ่งที่อยู่ด้านหลังตัว ซึ่งขณะถูกขี่ก็คือผู้ขี่เอง จุดที่ใช้แยกคือความแนบและความตึงของใบหู ไม่ใช่ทิศทางอย่างเดียว เพราะหูที่ลู่แนบราบไปกับคอคือสัญญาณของความไม่พอใจหรือการข่มขู่\n\n❌ ทำไมข้ออื่นผิด\n— ม้าที่โกรธจะลู่หูจนแนบคอ ร่วมกับตาเบิก หางฟาด และกล้ามเนื้อตึง\n— ม้าที่ง่วงจะหยุดเคลื่อนไหว หูตกไปด้านข้าง และปากหย่อน ไม่ใช่ยังควบสม่ำเสมอ\n— ความเจ็บที่กีบหน้าอ่านจากจังหวะก้าวที่เสียไปและชีพจรที่ขา ไม่ใช่จากทิศของใบหู\n— ม้าที่ตกใจสิ่งข้างหน้าจะตั้งหูไปข้างหน้าและยกหัวขึ้น ไม่ใช่หันหูไปด้านหลัง\n\n💡 หูหันหลังแต่ไม่แนบ = ฟังคนบนหลังอยู่ ส่วนหูแนบคอ = ไม่พอใจ",
+    "source": "EQUINE MED MID 86.pdf หน้า 6 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 6 (ฉบับ 44 หน้า) + McGreevy, Equine Behavior 2nd ed.",
+    "tags": [
+      "equine-behaviour",
+      "ear-position",
+      "ridden-horse",
+      "equine-intro"
+    ]
+  },
+  {
+    "id": 207504,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ขณะเจาะเลือดม้าที่คอ ผู้ตรวจต้องก้มมองเข็มจึงละสายตาจากตัวม้าไปชั่วขณะ วิธีปฏิบัติใดช่วยให้รู้ตัวก่อนม้าจะขยับและถอยออกได้ทัน",
+    "options": [
+      "ยืนตรงหน้าม้าในระยะหนึ่งช่วงแขนเพื่อให้เห็นใบหน้าม้าตลอด",
+      "ยืนห่างจากลำตัวม้าหนึ่งก้าวแล้วยื่นแขนเข้าไปทำหัตถการ",
+      "ผูกม้าไว้กับเสาด้วยเงื่อนตายเพื่อไม่ให้ม้าขยับระหว่างทำงาน",
+      "ยืนประชิดด้านข้างม้า และให้มือหรือลำตัวแตะตัวม้าไว้ตลอดเวลา",
+      "ยืนชิดท้ายม้าตรงแนวกึ่งกลางเพื่อให้พ้นแนวของขาหน้าทั้งสอง"
+    ],
+    "answer": 3,
+    "explain": "การยืนประชิดด้านข้างและคงการสัมผัสไว้ตลอดทำให้รับรู้การเกร็งหรือการถ่ายน้ำหนักของม้าได้ทางมือ แม้สายตาจะอยู่ที่เข็ม และเมื่อม้าขยับ แรงที่ส่งผ่านมือหรือลำตัวยังช่วยให้ผลักตัวเองออกได้ทันที กรณีที่หัตถการต้องใช้สองมือ ให้ใช้ลำตัวแนบไว้แทนมือ\n\n❌ ทำไมข้ออื่นผิด\n— ด้านหน้าตรงปลายจมูกเป็นจุดบอดของม้า และเป็นแนวที่ม้าตะปบด้วยขาหน้าได้\n— การยืนห่างแล้วยื่นแขนทำให้เสียการทรงตัวและถอยออกช้าเมื่อม้าดันเข้ามา\n— เงื่อนตายแก้ไม่ทันเมื่อม้าดิ้น ปมยิ่งแน่นขึ้นและอาจรัดคอม้าเอง\n— ด้านหลังตรงแนวกึ่งกลางคือจุดบอดอีกจุดและเป็นแนวที่ถูกเตะเต็มแรง\n\n💡 มือไม่เคยหลุดจากตัวม้า คือสายตาสำรองของคนที่กำลังก้มทำงาน",
+    "source": "EQUINE MED MID 86.pdf หน้า 6 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 6 (ฉบับ 44 หน้า) + zJQ3gItuG6E [31:24-31:35]",
+    "tags": [
+      "equine-restraint",
+      "handler-safety",
+      "venipuncture",
+      "อิงแนวข้อสอบ",
+      "equine-intro"
+    ]
+  },
+  {
+    "id": 207505,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ม้าที่ผูกเชือกจูงไว้ตกใจและดิ้นจนปมเชือกรัดแน่น ขลุมบิดไปกดหลอดลมจนม้าเริ่มหายใจไม่ออก และแก้ปมไม่ทัน ควรทำอย่างไร",
+    "options": [
+      "ใช้มีดตัดที่ตัวขลุมเพื่อปลดออกจากหัวม้าทันที",
+      "ดึงเชือกจูงให้ตึงขึ้นเพื่อคลายปมที่กำลังรัดอยู่",
+      "รอให้ม้าสงบลงเองก่อนแล้วจึงค่อยเข้าไปแก้ปม",
+      "ฉีดยาซึมเข้าหลอดเลือดดำก่อนแล้วค่อยแก้ปม",
+      "ตัดเฉพาะเชือกจูงเหนือปมแล้วปล่อยขลุมคาไว้"
+    ],
+    "answer": 0,
+    "explain": "เมื่อปมรัดแน่นจนแก้ไม่ทันและม้ากำลังขาดอากาศ สิ่งที่ต้องตัดคือขลุม เพราะเมื่อขลุมหลุดออกจากหัว ทุกอย่างที่รัดอยู่จะหลุดไปพร้อมกันทันที นี่คือเหตุผลที่ม้าต้องถูกผูกด้วยเงื่อนที่กระตุกทีเดียวหลุด และต้องมีมีดอยู่ใกล้มือเสมอ\n\n❌ ทำไมข้ออื่นผิด\n— การดึงเชือกให้ตึงยิ่งทำให้ปมแน่นขึ้น เพราะปมรัดตัวเองจากแรงกระชาก\n— การรอให้ม้าสงบไม่ใช่ทางเลือกเมื่อทางเดินหายใจถูกกด ม้าจะยิ่งดิ้นแรงขึ้น\n— การฉีดยาซึมใช้เวลาออกฤทธิ์ และการเข้าไปใกล้หัวม้าที่กำลังดิ้นเพื่อหาเส้นเลือดยิ่งอันตราย\n— การตัดเฉพาะเชือกยังเหลือขลุมที่บิดรัดคออยู่บนหัวม้า จึงไม่ได้แก้ปัญหา\n\n💡 ตัดสิ่งที่อยู่บนหัวม้า ไม่ใช่เส้นที่โยงไปหาเสา",
+    "source": "EQUINE MED MID 86.pdf หน้า 6 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 6 (ฉบับ 44 หน้า) + zJQ3gItuG6E [37:45-37:59]",
+    "tags": [
+      "equine-restraint",
+      "halter",
+      "emergency",
+      "อิงแนวข้อสอบ",
+      "equine-intro"
+    ]
+  },
+  {
+    "id": 207506,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "การผูกเชือกจากขลุมไปยังผนังทั้งสองข้างของทางเดิน (cross tie) ใช้เพื่ออะไรเป็นหลัก",
+    "options": [
+      "ทำให้ม้าก้มหัวลงต่ำจนกินอาหารจากพื้นได้สะดวก",
+      "ใช้แทนการใส่ขลุมเมื่อหาขลุมขนาดพอดีตัวไม่ได้",
+      "ตรึงหัวม้าให้อยู่กลางทาง ม้าจึงไม่เดินวนจนเชือกพันขา",
+      "ลดแรงกระชากที่คอม้าเมื่อม้าถอยหลังอย่างรุนแรง",
+      "ใช้แทนซองเมื่อต้องทำหัตถการที่ต้องล้อมตัวม้าไว้ทั้งตัว"
+    ],
+    "answer": 2,
+    "explain": "การผูกสองข้างตรึงหัวม้าไว้กลางทางเดิน ทำให้ม้ายืนรอได้โดยไม่เดินวนจนเชือกพันขาหรือพันตัวเอง และทำให้หน้าม้านิ่งพอสำหรับงานอย่างการแต่งกีบหรือใส่เกือก เชือกทั้งสองเส้นยังต้องผูกด้วยเงื่อนที่กระตุกทีเดียวหลุดเหมือนการผูกเส้นเดียว\n\n❌ ทำไมข้ออื่นผิด\n— การผูกสองข้างตรึงหัวไว้ในระดับหนึ่ง จึงไม่ได้ทำให้ม้าก้มกินจากพื้นสะดวกขึ้น\n— ขลุมคือจุดยึดของเชือกทั้งสองเส้น การผูกแบบนี้จึงต้องใส่ขลุมอยู่ดี\n— แรงกระชากเมื่อม้าถอยหลังถูกรับด้วยเชือก safety และเงื่อนที่ปลดได้ ไม่ใช่ด้วยจำนวนเส้นที่ผูก\n— งานที่ต้องล้อมตัวม้าทั้งตัวต้องใช้ซอง เพราะการผูกสองข้างไม่ได้จำกัดลำตัวหรือขาของม้า\n\n💡 สองเส้นซ้ายขวา = หัวอยู่กลางทาง ไม่ใช่เครื่องมือกันแรงกระชาก",
+    "source": "EQUINE MED MID 86.pdf หน้า 6 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 6 (ฉบับ 44 หน้า) + zJQ3gItuG6E [40:36-40:48]",
+    "tags": [
+      "equine-restraint",
+      "cross-tie",
+      "stable-management",
+      "อิงแนวข้อสอบ",
+      "equine-intro"
+    ]
+  },
+  {
+    "id": 207507,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ข้อใดถูกต้องเกี่ยวกับโครงสร้างทางสังคมของฝูงม้า",
+    "options": [
+      "ฝูงม้ามีลำดับชั้นทางสังคม และจ่าฝูงเป็นได้ทั้งตัวผู้และตัวเมีย",
+      "ม้าในฝูงมีสถานะเท่าเทียมกันทุกตัว จึงไม่มีการแย่งลำดับกันเอง",
+      "จ่าฝูงต้องเป็นม้าตัวผู้ที่ยังไม่ได้ทำหมันเท่านั้น ตัวเมียเป็นไม่ได้",
+      "ลำดับชั้นเรียงตามอายุ ตัวที่อายุมากที่สุดเป็นจ่าฝูงเสมอไป",
+      "ม้าที่ถูกแยกออกจากฝูงจะสงบลงทันทีเพราะไม่ต้องแย่งลำดับ"
+    ],
+    "answer": 0,
+    "explain": "ฝูงม้ามีลำดับชั้นทางสังคมชัดเจน และตัวที่นำฝูงเป็นได้ทั้งม้าตัวผู้และม้าตัวเมีย ไม่ได้ผูกกับเพศหรืออายุ ปัจจุบันการเลี้ยงมักแยกคอกเพื่อลดอุบัติเหตุจากการแย่งลำดับกัน แต่ม้าที่ถูกแยกจากฝูงยังคงแสดงความกังวลเมื่อไม่เห็นเพื่อน จึงต้องออกแบบคอกให้ยังเห็นหรือได้ยินม้าตัวอื่น\n\n❌ ทำไมข้ออื่นผิด\n— ฝูงม้ามีตัวนำและมีลำดับรองลงไป ไม่ใช่กลุ่มที่ทุกตัวเท่ากัน\n— เพศไม่ใช่เงื่อนไขของการเป็นจ่าฝูง ม้าตัวเมียนำฝูงได้\n— อายุมากไม่ได้แปลว่าลำดับสูงเสมอไป ลำดับมาจากการปฏิสัมพันธ์ภายในฝูง\n— การแยกจากฝูงทำให้ม้ากังวลมากขึ้น ไม่ใช่สงบลง\n\n💡 มีลำดับแน่นอน แต่ไม่ได้ผูกกับเพศหรืออายุ",
+    "source": "EQUINE MED MID 86.pdf หน้า 6 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 6 (ฉบับ 44 หน้า) + zJQ3gItuG6E [11:28-11:41]",
+    "tags": [
+      "equine-behaviour",
+      "herd",
+      "husbandry",
+      "อิงแนวข้อสอบ",
+      "equine-intro"
+    ]
+  },
+  {
+    "id": 207508,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ขณะตรวจร่างกายม้าและต้องการคลำชีพจรที่ศีรษะ ควรคลำหลอดเลือดใดและที่ตำแหน่งใด",
+    "options": [
+      "Transverse facial artery ที่ใต้กระบอกตา",
+      "Jugular vein ที่ร่องคอด้านข้างส่วนบน",
+      "Common carotid artery ที่โคนคอด้านลึก",
+      "Facial artery ที่ขอบล่างของขากรรไกรล่าง",
+      "Digital artery ที่ด้านข้างของข้อ pastern"
+    ],
+    "answer": 3,
+    "explain": "ชีพจรที่ศีรษะของม้าคลำได้ที่ facial artery ซึ่งอ้อมขึ้นมาที่ขอบล่างของขากรรไกรล่างและมีอยู่ทั้งสองข้าง จึงเป็นจุดที่คลำได้ง่ายที่สุดในการตรวจหน้างาน ใช้ประเมินทั้งอัตราและคุณภาพของชีพจรควบคู่กับสีเยื่อเมือกและ CRT\n\n❌ ทำไมข้ออื่นผิด\n— jugular vein เป็นหลอดเลือดดำ ใช้เจาะเลือดและให้ยาเข้าเส้น ไม่ได้ให้ชีพจร\n— common carotid artery อยู่ลึกใต้กล้ามเนื้อคอ จึงคลำชีพจรตามปกติไม่ได้\n— digital artery อยู่ที่ขาส่วนปลาย ใช้ประเมินภาวะเจ็บกีบ ไม่ใช่ชีพจรที่ศีรษะ\n— transverse facial artery ใช้เก็บตัวอย่างเลือดแดงได้ แต่ไม่ใช่จุดที่ใช้คลำชีพจรเป็นประจำ\n\n💡 ชีพจรที่หน้า = facial ที่ขอบล่างขากรรไกร ส่วนชีพจรที่ขา = digital",
+    "source": "EQUINE MED MID 86.pdf หน้า 9 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 9 (ฉบับ 44 หน้า) + zJQ3gItuG6E [140:16]",
+    "tags": [
+      "equine-physical-exam",
+      "facial-artery",
+      "pulse",
+      "อิงแนวข้อสอบ",
+      "equine-intro"
+    ]
+  },
+  {
+    "id": 207509,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ม้ากีฬาที่เลี้ยงในคอกและใส่เกือก ควรได้รับการตัดแต่งกีบหรือเปลี่ยนเกือกตามรอบเวลาใด",
+    "options": [
+      "ทุก 7 ถึง 10 วัน",
+      "ทุก 30 ถึง 45 วัน",
+      "ทุก 3 ถึง 4 เดือน",
+      "ทุก 6 ถึง 8 เดือน",
+      "ทุก 12 ถึง 18 เดือน"
+    ],
+    "answer": 1,
+    "explain": "ผนังกีบงอกต่อเนื่องตลอดเวลา ถ้าปล่อยไว้นานเกินไป มุมกีบและแนวการลงน้ำหนักจะเปลี่ยน ทำให้เอ็นและข้อต่อรับแรงผิดตำแหน่งจนเกิดภาวะขาเป๋ตามมา รอบที่ใช้กันคือทุก 30 ถึง 45 วัน ซึ่งเป็นรอบเดียวกับการเปลี่ยนเกือก ส่วนการล้างกีบทำทุกวัน\n\n❌ ทำไมข้ออื่นผิด\n— 7 ถึง 10 วัน ถี่เกินกว่าที่กีบจะงอกจนต้องแต่ง และเสี่ยงต่อการแต่งเนื้อกีบมากเกินไป\n— 3 ถึง 4 เดือน ยาวกว่ารอบที่ใช้จริงราวสองเท่า กีบจะเสียรูปก่อนถึงคิวแต่ง\n— 6 ถึง 8 เดือน และ 12 ถึง 18 เดือน ทิ้งช่วงนานจนกีบยาวผิดรูปก่อนจะถูกแต่ง\n\n💡 กีบกับเกือกเดินด้วยรอบเดียวกัน คือหนึ่งเดือนถึงเดือนครึ่ง",
+    "source": "EQUINE MED MID 86.pdf หน้า 7 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 7 (ฉบับ 44 หน้า) + zJQ3gItuG6E [111:02]",
+    "tags": [
+      "hoof-care",
+      "preventive-health",
+      "farriery",
+      "อิงแนวข้อสอบ",
+      "equine-intro"
+    ]
+  },
+  {
+    "id": 207510,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ม้ากีฬาที่เลี้ยงในคอกและกินอาหารข้นเป็นหลัก ควรได้รับการตรวจช่องปากและตะไบฟันบ่อยเพียงใด",
+    "options": [
+      "ประมาณทุก 1 เดือน",
+      "ประมาณทุก 3 เดือน",
+      "ประมาณทุก 6 เดือน",
+      "ประมาณทุก 2 ปี",
+      "ประมาณทุก 3 ปี"
+    ],
+    "answer": 2,
+    "explain": "ฟันม้าเป็นฟันชุดเดียวที่เลื่อนงอกลงมาตลอดชีวิต เมื่อกินอาหารข้นแทนการเล็มหญ้า การสึกจึงไม่สม่ำเสมอ เกิดขอบคมที่บาดกระพุ้งแก้มและลิ้น ม้ากีฬาที่อยู่ในคอกจึงควรเปิดปากตรวจและตะไบราวทุก 6 เดือน ส่วนม้าที่ใช้งานเบากว่าอาจปีละครั้ง และม้าที่มีรอยโรคต้องนัดถี่กว่านั้น\n\n❌ ทำไมข้ออื่นผิด\n— ทุก 1 เดือนและทุก 3 เดือนถี่เกินความจำเป็นของม้าปกติ รอบที่สั้นลงใช้เฉพาะม้าที่มีรอยโรคและต้องติดตามผลการตะไบ\n— ทุก 2 ปีและทุก 3 ปีทิ้งช่วงนานจนขอบคมบาดเนื้อเยื่อและกินอาหารได้แย่ลงก่อนจะถูกตรวจพบ\n\n💡 อยู่คอก กินอาหารข้น = เปิดปากดูทุกครึ่งปี",
+    "source": "EQUINE MED MID 86.pdf หน้า 7 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 7 (ฉบับ 44 หน้า) + zJQ3gItuG6E [115:53] + jOm4PZtiC8o [112:30-112:44]",
+    "tags": [
+      "dental-care",
+      "preventive-health",
+      "floating",
+      "อิงแนวข้อสอบ",
+      "equine-intro"
+    ]
+  },
+  {
+    "id": 207511,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "การให้คะแนน body condition score ในม้า ประเมินไขมันสะสมที่บริเวณใดบ้าง",
+    "options": [
+      "สันคอ withers แนวสันหลัง ซี่โครง โคนหาง และหลังข้อศอก",
+      "ปลายจมูก แก้ม หน้าอก ท้องน้อย ขาหลัง และปลายกีบ",
+      "ปีกสะโพก กระดูกก้นกบ ข้อเข่าหลัง ข้อขัง และปลายกีบ",
+      "แผงคอ โคนหาง ขนลำตัว ผิวหนังท้อง และเยื่อเมือกช่องปาก",
+      "กล้ามเนื้อขาหน้า ข้อศอก ข้อเข่าหน้า ข้อขัง และกีบหน้า"
+    ],
+    "answer": 0,
+    "explain": "คะแนนความสมบูรณ์ร่างกายของม้าอ่านจากไขมันที่สะสมในหกจุด คือ สันคอ withers แนวสันหลังช่วงเอว ซี่โครง โคนหาง และร่องหลังข้อศอก ทุกจุดต้องทั้งดูและคลำ เพราะขนยาวหรือขนหนาบังไขมันได้ และเวลารายงานต้องบอกด้วยว่าใช้สเกลใด เพราะสเกลที่ใช้กันมีทั้งแบบ 9 ระดับและแบบ 5 ระดับ\n\n❌ ทำไมข้ออื่นผิด\n— ปลายจมูก แก้ม และท้องน้อยไม่ใช่จุดสะสมไขมันที่ใช้ให้คะแนน\n— ปีกสะโพกและกระดูกก้นกบเป็นจุดที่ใช้ในโคนม ไม่ใช่ชุดจุดของม้า\n— ขนลำตัวและเยื่อเมือกบอกสภาพทั่วไปและภาวะน้ำในร่างกาย ไม่ได้บอกไขมันสะสม\n— ข้อต่อและกีบของขาหน้าเป็นโครงสร้างรับน้ำหนัก ไม่ใช่ตำแหน่งสะสมไขมัน\n\n💡 หกจุดของม้าเริ่มที่คอ จบที่โคนหาง และต้องคลำ ไม่ใช่ดูอย่างเดียว",
+    "source": "EQUINE MED MID 86.pdf หน้า 9 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 9 (ฉบับ 44 หน้า) + zJQ3gItuG6E [131:12-132:02]",
+    "tags": [
+      "body-condition-score",
+      "equine-physical-exam",
+      "nutrition-assessment",
+      "อิงแนวข้อสอบ",
+      "equine-intro"
+    ]
+  },
+  {
+    "id": 207512,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ซองบังคับม้า (horse stock) ที่ได้มาตรฐานควรมีลักษณะอย่างไร",
+    "options": [
+      "เปิดออกได้เฉพาะด้านหน้า เพื่อให้ม้าเดินเข้าออกทางเดียว",
+      "ปิดทึบทุกด้าน เพื่อไม่ให้ม้ามองเห็นสิ่งรอบตัวจนตื่น",
+      "สูงคร่อมเหนือหัวม้าเสมอ เพื่อไม่ให้ม้าเงยหัวพ้นขอบซอง",
+      "เปิดออกได้ทั้งสี่ด้าน คือด้านซ้าย ขวา หน้า และหลัง",
+      "กว้างพอให้ม้าหมุนตัวกลับได้เองขณะอยู่ภายในซอง"
+    ],
+    "answer": 3,
+    "explain": "ซองที่ได้มาตรฐานเปิดออกได้ทั้งสี่ด้าน คือด้านข้างสองด้าน ด้านหน้า และด้านหลัง เพราะเมื่อม้าล้มหรือขาไปติดโครงซอง คนต้องเข้าถึงตัวม้าจากทิศที่ปลอดภัยที่สุดในขณะนั้นได้ และต้องเอาม้าออกได้เร็ว ซองใช้กับงานหัตถการทั่วไปและงานตรวจระบบสืบพันธุ์เป็นหลัก แต่ซองไม่ได้แปลว่าปลอดภัยเสมอ ม้าที่ไม่เคยถูกฝึกให้เข้าซองยังกระโดดจนขาติดโครงได้\n\n❌ ทำไมข้ออื่นผิด\n— เปิดได้ทางเดียวทำให้ช่วยม้าที่ล้มอยู่ในซองไม่ทัน\n— ซองปิดทึบทำให้ม้าตื่นมากขึ้นและกีดขวางการเข้าถึงตัวม้า\n— ม้ากลัวสิ่งที่อยู่สูงกว่าตัว โครงที่คร่อมหัวจึงยิ่งทำให้ม้าไม่ยอมเข้า\n— ซองที่กว้างจนม้าหมุนตัวได้ไม่ได้จำกัดการเคลื่อนไหว จึงไม่ต่างจากการยืนในคอก\n\n💡 สี่ด้านเปิดได้ = ทางเข้าของคน และทางออกของม้า",
+    "source": "EQUINE MED MID 86.pdf หน้า 6 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 6 (ฉบับ 44 หน้า) + zJQ3gItuG6E [43:25]",
+    "tags": [
+      "equine-restraint",
+      "horse-stock",
+      "handler-safety",
+      "อิงแนวข้อสอบ",
+      "equine-intro"
+    ]
+  },
+  {
+    "id": 207513,
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "วัคซีนหลัก (core vaccine) ของม้าในประเทศไทย และทางที่ใช้ให้วัคซีนตัวนี้ คือข้อใด",
+    "options": [
+      "วัคซีนพิษสุนัขบ้า ให้โดยการฉีดเข้าใต้ผิวหนัง",
+      "วัคซีนบาดทะยัก ให้โดยการฉีดเข้ากล้ามเนื้อ",
+      "วัคซีนไข้สมองอักเสบเจอี ให้โดยการฉีดเข้ากล้ามเนื้อ",
+      "วัคซีนไข้หวัดใหญ่ม้า ให้โดยการพ่นเข้าโพรงจมูก",
+      "วัคซีนเริมม้า ให้โดยการฉีดเข้าใต้ผิวหนัง"
+    ],
+    "answer": 1,
+    "explain": "บาดทะยักเป็น core vaccine ของม้าในประเทศไทย เพราะม้าไวต่อเชื้อ Clostridium tetani มากและอัตรารอดเมื่อเป็นโรคแล้วต่ำ ม้าทุกตัวจึงต้องได้รับ และวัคซีนตัวนี้ให้โดยการฉีดเข้ากล้ามเนื้อ เมื่อม้าที่เคยได้รับวัคซีนเกิดบาดแผล ให้ฉีดกระตุ้นซ้ำ\n\n❌ ทำไมข้ออื่นผิด\n— วัคซีนพิษสุนัขบ้าและวัคซีนไข้หวัดใหญ่ม้าอยู่ในโปรแกรมของไทยเช่นกัน แต่ตัวที่บ้านเราถือเป็น core คือบาดทะยัก และทั้งคู่ให้เข้ากล้ามเนื้อ ไม่ใช่ใต้ผิวหนังหรือพ่นจมูก\n— วัคซีนไข้สมองอักเสบเจอีเป็นตัวเดียวในโปรแกรมที่ให้ใต้ผิวหนัง ไม่ใช่เข้ากล้ามเนื้อ\n— วัคซีนเริมม้า (EHV) ให้เข้ากล้ามเนื้อ และเน้นในแม่ม้าตั้งท้องเพื่อลดการแท้ง\n\n💡 core ของบ้านเราคือบาดทะยัก และเข้ากล้ามเนื้อ",
+    "source": "EQUINE MED MID 86.pdf หน้า 7 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 7 (ฉบับ 44 หน้า) + zJQ3gItuG6E [116:41] + zJQ3gItuG6E [117:09]",
+    "tags": [
+      "vaccination",
+      "tetanus",
+      "core-vaccine",
+      "อิงแนวข้อสอบ",
+      "equine-intro"
+    ]
+  },
+  {
+    "id": 207514,
+    "subject": "equine-medicine",
+    "topic": "equine-nutrition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "หญ้าแห้งที่ตัดตอนแก่มีลำต้นแข็งและตั้งตรง ลักษณะนี้ส่งผลต่อการย่อยของม้าอย่างไร",
+    "options": [
+      "ลิกนินต่ำลง ม้าจึงหมักเซลลูโลสได้มากขึ้นและได้พลังงานเพิ่ม",
+      "แป้งในลำต้นสูงขึ้น ม้าจึงย่อยได้เร็วขึ้นตั้งแต่ลำไส้เล็ก",
+      "ลิกนินสูงขึ้น ม้าหมักไม่ได้ และยิ่งมีมากยิ่งย่อยเซลลูโลสได้น้อยลง",
+      "โปรตีนในลำต้นสูงขึ้น ม้าจึงต้องการอาหารข้นเสริมน้อยลงกว่าเดิม"
+    ],
+    "answer": 2,
+    "explain": "ลิกนินเป็นองค์ประกอบของไฟเบอร์ที่ทำให้ลำต้นแข็งและตั้งตรง และเป็นส่วนที่จุลชีพใน hindgut หมักไม่ได้เลย หญ้าที่แก่จึงมีลิกนินสูงขึ้น ความน่ากินลดลง อัตราการผ่านทางเดินอาหารช้าลง และเซลลูโลสที่อยู่รอบ ๆ ก็ถูกย่อยได้น้อยลงตามไปด้วย ผลรวมคือได้พลังงานน้อยลงพร้อมกับความเสี่ยงอุดตันที่มากขึ้น",
+    "source": "EQUINE MED MID 86.pdf หน้า 14 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 14 + jgGGQzDTm4E [182:55]",
+    "tags": [
+      "forage",
+      "lignin",
+      "fiber",
+      "hay",
+      "equine-nutrition"
+    ]
+  },
+  {
+    "id": 207515,
+    "subject": "equine-medicine",
+    "topic": "equine-nutrition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เจ้าของขอเสริมน้ำมันพืชให้ม้าโดยหวังว่าจะช่วยให้อาหารลื่นและลดการเกิด colic ควรอธิบายอย่างไร",
+    "options": [
+      "น้ำมันถูกย่อยและดูดซึมหมดที่ลำไส้เล็ก จึงไม่ได้ไปหล่อลื่นลำไส้ส่วนท้าย",
+      "น้ำมันเคลือบก้อนอาหารไว้จนถึงลำไส้ใหญ่ จึงลดการอุดตันได้จริงตามที่หวัง",
+      "น้ำมันถูกจุลชีพใน hindgut หมักเป็นกรดไขมัน จึงช่วยให้อุจจาระนิ่มลงได้",
+      "น้ำมันกระตุ้นการบีบตัวของลำไส้โดยตรง จึงช่วยดันก้อนอาหารที่ค้างอยู่ได้"
+    ],
+    "answer": 0,
+    "explain": "น้ำมันเป็นแหล่งพลังงานที่ย่อยและดูดซึมได้ราว 85 ถึง 100 เปอร์เซ็นต์ที่ลำไส้เล็ก จึงแทบไม่เหลือลงไปถึงลำไส้ส่วนท้ายให้หล่อลื่นอะไร ประโยชน์จริงของน้ำมันคือเพิ่มพลังงานโดยไม่ต้องเพิ่มแป้ง สิ่งที่ลดความเสี่ยง colic ได้คือให้อาหารหยาบเพียงพอ ให้น้ำสะอาดพอ และเลี่ยงมื้อใหญ่ที่แป้งสูง",
+    "source": "EQUINE MED MID 86.pdf หน้า 12 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 12 + jgGGQzDTm4E [191:59]",
+    "tags": [
+      "fat",
+      "vegetable oil",
+      "colic",
+      "concentrate",
+      "equine-nutrition"
+    ]
+  },
+  {
+    "id": 207516,
+    "subject": "equine-medicine",
+    "topic": "equine-nutrition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ในการประเมินว่าม้าได้รับโปรตีนพอหรือไม่ ควรใช้ตัวเลขใดเป็นหลัก",
+    "options": [
+      "เปอร์เซ็นต์โปรตีนบนถุงอาหาร เพราะบอกคุณภาพของวัตถุดิบได้โดยตรง",
+      "เปอร์เซ็นต์โปรตีนในหญ้า เพราะหญ้าเป็นอาหารหลักของม้าอยู่แล้ว",
+      "สัดส่วนอาหารข้นต่ออาหารหยาบ เพราะบอกปริมาณโปรตีนรวมได้ทันที",
+      "ปริมาณโปรตีนรวมเป็นกรัมต่อวัน เพราะต้องคิดจากปริมาณที่ให้จริงด้วย"
+    ],
+    "answer": 3,
+    "explain": "เปอร์เซ็นต์บนถุงบอกความเข้มข้น ไม่ได้บอกว่าม้าได้โปรตีนกี่กรัม อาหารโปรตีน 30 เปอร์เซ็นต์ที่ให้วันละ 1 กิโลกรัม ให้โปรตีน 300 กรัม ซึ่งเท่ากับอาหารโปรตีน 15 เปอร์เซ็นต์ที่ให้วันละ 2 กิโลกรัมพอดี คำว่าโปรตีนสูงหรือต่ำจึงไม่มีความหมายถ้าไม่บอกว่าให้กี่กิโลกรัม หน่วยที่ใช้ตัดสินจริงคือกรัมต่อวัน แล้วเทียบกับความต้องการของม้าตัวนั้น",
+    "source": "EQUINE MED MID 86.pdf หน้า 12 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 12 + jgGGQzDTm4E [120:33]",
+    "tags": [
+      "protein",
+      "ration",
+      "feeding management",
+      "equine-nutrition"
+    ]
+  },
+  {
+    "id": 207517,
+    "subject": "equine-medicine",
+    "topic": "equine-nutrition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ม้าตัวหนึ่งกีบเปราะและแตกง่าย ควรตรวจสอบสิ่งใดเป็นอันดับแรกก่อนคิดถึงอาหารเสริม",
+    "options": [
+      "ระดับแคลเซียมในอาหาร เพราะกีบมีแคลเซียมเป็นองค์ประกอบหลัก",
+      "ปริมาณโปรตีนที่ม้าได้รับต่อวัน เพราะเนื้อกีบเป็นโปรตีนเกือบทั้งหมด",
+      "ปริมาณวิตามินซีในอาหาร เพราะม้าสร้างวิตามินซีเองไม่ได้เลย",
+      "ระดับไขมันในอาหาร เพราะไขมันกำหนดความยืดหยุ่นของผนังกีบ"
+    ],
+    "answer": 1,
+    "explain": "ผนังกีบ ขน เส้นเอ็น และผิวหนังประกอบด้วยกรดอะมิโนราว 90 เปอร์เซ็นต์ขึ้นไป กีบที่เปราะจึงมักเป็นปัญหาโปรตีนก่อนเป็นอย่างอื่น ไบโอตินทำให้กีบยาวเร็วขึ้นได้จริง แต่ถ้าโปรตีนและกรดอะมิโนยังไม่พอ เนื้อกีบที่งอกออกมาก็ยังไม่แข็งแรงอยู่ดี นอกจากโปรตีนรวมแล้วควรดูไลซีนซึ่งเป็นกรดอะมิโนที่จำกัดของม้าด้วย",
+    "source": "EQUINE MED MID 86.pdf หน้า 12 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 12 + jgGGQzDTm4E [122:25]",
+    "tags": [
+      "protein",
+      "amino acid",
+      "hoof",
+      "lysine",
+      "equine-nutrition"
+    ]
+  },
+  {
+    "id": 207518,
+    "subject": "equine-medicine",
+    "topic": "equine-nutrition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Topline Evaluation Scoring (TES) เกรด D หรือ 0 หมายถึงลักษณะใด",
+    "options": [
+      "กล้ามเนื้อพัฒนาเต็มที่ แข็งแรง และเห็นสัดส่วนของลำตัวได้ชัดเจน",
+      "กล้ามเนื้อดีพอสมควร แต่ยังพัฒนาเพิ่มได้อีกถ้าปรับอาหารให้เหมาะ",
+      "กล้ามเนื้อฝ่อลีบชัดเจน มักพบในม้าที่เจ็บป่วยหรือขาดสารอาหารรุนแรง",
+      "กล้ามเนื้อขาดไปเล็กน้อย อาจบ่งบอกภาวะโภชนาการที่ยังไม่เพียงพอ"
+    ],
+    "answer": 2,
+    "explain": "TES ไล่เป็นสี่ระดับ คือ A หรือ 3 กล้ามเนื้อเต็มและแข็งแรง B หรือ 2 ดีพอสมควรแต่ยังพัฒนาได้อีก C หรือ 1 เริ่มขาดเล็กน้อยซึ่งเป็นสัญญาณว่าโภชนาการยังไม่พอ และ D หรือ 0 คือฝ่อลีบชัดเจน ระดับล่างสุดนี้มักไม่ได้มาจากอาหารอย่างเดียว ต้องมองหาความเจ็บป่วย ปัญหาฟัน ปรสิต หรือแผลในกระเพาะร่วมด้วย",
+    "source": "EQUINE MED MID 86.pdf หน้า 13 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 13 + jgGGQzDTm4E [168:10]",
+    "tags": [
+      "topline",
+      "TES",
+      "body condition",
+      "protein",
+      "equine-nutrition"
+    ]
+  },
+  {
+    "id": 207519,
+    "subject": "equine-medicine",
+    "topic": "equine-nutrition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เมื่อม้าที่เคยขาดโปรตีนได้รับโปรตีนเพียงพอ กล้ามเนื้อแนวสันหลังจะกลับมาตามลำดับใด",
+    "options": [
+      "ท้ายลำตัวก่อน แล้วกลางหลัง แล้วจึงถึงบริเวณหน้าใกล้สันคอ",
+      "บริเวณหน้าใกล้สันคอก่อน แล้วท้ายลำตัว แล้วจึงถึงกลางหลัง",
+      "กลางหลังก่อน แล้วบริเวณหน้าใกล้สันคอ แล้วจึงถึงท้ายลำตัว",
+      "ทั้งสามจุดกลับมาพร้อมกัน เพราะกล้ามเนื้อแนวสันหลังเป็นมัดเดียว"
+    ],
+    "answer": 0,
+    "explain": "กล้ามเนื้อแนวสันหลังสร้างกลับจากท้ายลำตัวมาหากลางหลัง แล้วจึงมาถึงบริเวณหน้าใกล้สันคอ ลำดับนี้ทำให้คะแนนสามจุดใช้อ่านย้อนได้ว่าโปรตีนพอมานานแค่ไหน ม้าที่มีกล้ามเนื้อกลับมาเฉพาะท้ายลำตัวจึงยังอยู่ช่วงต้นของการฟื้น ยังห่างจากม้าที่เต็มทั้งสามจุด และการอ่านคะแนนนี้ต้องแยกจากไขมัน เพราะม้าที่อ้วนพอดีก็มีกล้ามเนื้อแนวสันหลังแบนได้",
+    "source": "EQUINE MED MID 86.pdf หน้า 13 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 13 + jgGGQzDTm4E [168:51]",
+    "tags": [
+      "topline",
+      "TES",
+      "protein",
+      "muscle",
+      "equine-nutrition"
+    ]
+  },
+  {
+    "id": 207520,
+    "subject": "equine-medicine",
+    "topic": "equine-nutrition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ลูกม้าในฟาร์มมีปัญหาโรคกระดูกจากการพัฒนา การเสริมทองแดงและสังกะสีให้ผลดีที่สุดเมื่อใด",
+    "options": [
+      "เมื่อลูกม้าอายุเกิน 2 ปีแล้ว เพราะกระดูกกำลังรับน้ำหนักมากที่สุด",
+      "เมื่อหย่านมแล้วเท่านั้น เพราะก่อนหน้านั้นลูกม้าดูดซึมแร่ธาตุไม่ได้",
+      "เมื่อลูกม้าเริ่มแสดงอาการขาผิดรูปแล้ว จะได้ให้ตรงกับความต้องการ",
+      "ตั้งแต่แม่ม้ายังตั้งท้อง เพราะเป็นช่วงที่กระดูกอ่อนเปลี่ยนเป็นกระดูก"
+    ],
+    "answer": 3,
+    "explain": "ทองแดงและสังกะสีเกี่ยวข้องกับการสร้างกระดูกอ่อน การเปลี่ยนกระดูกอ่อนเป็นกระดูกตั้งแต่อยู่ในท้อง และความยืดหยุ่นของเส้นเอ็น กลุ่มที่ได้รับตั้งแต่ระยะตั้งท้องจึงมีปัญหาน้อยที่สุด ถ้าพลาดช่วงนั้นไป การเริ่มให้ตอนแม่ม้าให้นมก็ยังดีกว่าไม่ให้เลย และถ้าลูกม้ามีปัญหาแล้วแต่ยังเล็กอยู่ก็ยังพอแก้ได้ แต่เมื่อพ้น 2 ปีไปแล้วปลายกระดูกขาท่อนล่างปิดแล้ว จึงแก้ได้ยากมาก",
+    "source": "EQUINE MED MID 86.pdf หน้า 13 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 13 + jgGGQzDTm4E [154:32]",
+    "tags": [
+      "minerals",
+      "copper",
+      "zinc",
+      "DOD",
+      "foal",
+      "equine-nutrition"
+    ]
+  },
+  {
+    "id": 207521,
+    "subject": "equine-medicine",
+    "topic": "equine-nutrition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ในการสั่งปริมาณอาหารหยาบให้คนเลี้ยงปฏิบัติตาม ควรกำหนดอย่างไร",
+    "options": [
+      "กำหนดเป็นจำนวนฟ่อนต่อวัน เพราะคนเลี้ยงนับได้ง่ายและไม่สับสน",
+      "กำหนดเป็นจำนวนกระสอบต่อวัน เพราะขนาดกระสอบเป็นมาตรฐานเดียวกัน",
+      "กำหนดเป็นน้ำหนักต่อวัน แล้วให้ชั่งก่อนให้ เพราะแต่ละฟ่อนอัดแน่นไม่เท่ากัน",
+      "กำหนดเป็นจำนวนตักต่อมื้อ เพราะใช้ภาชนะเดิมของฟาร์มได้เลย"
+    ],
+    "answer": 2,
+    "explain": "ฟ่อน กระสอบ หรือตัก ไม่ใช่หน่วยของน้ำหนัก ฟ่อนของผู้ผลิตคนละรายอัดแน่นไม่เท่ากัน ม้าที่ได้ 2 ฟ่อนต่อวันจากสองแหล่งจึงได้อาหารไม่เท่ากันจริง การสั่งเป็นกิโลกรัมแล้วให้ชั่งจึงเป็นทางเดียวที่ทำให้แผนอาหารตรงกับที่ม้าได้จริง และเป็นจุดแรกที่ควรตรวจเมื่อม้าผอมลงทั้งที่งานไม่ได้เพิ่ม",
+    "source": "EQUINE MED MID 86.pdf หน้า 14 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 14 + jgGGQzDTm4E [203:14]",
+    "tags": [
+      "feeding management",
+      "forage",
+      "monitoring",
+      "equine-nutrition"
+    ]
+  },
+  {
+    "id": 207522,
+    "subject": "equine-medicine",
+    "topic": "equine-nutrition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ข้อใดอธิบาย complete feed กับ balancer ได้ถูกต้อง",
+    "options": [
+      "Complete feed ให้แทนหญ้าได้ทั้งวันจึงต้องให้ปริมาณมาก ส่วน balancer เป็นอาหารเสริมที่ยังต้องให้หญ้าด้วย",
+      "Complete feed เป็นอาหารเสริมที่ให้วันละน้อย ส่วน balancer ใช้แทนหญ้าได้ทั้งวันจึงต้องให้ปริมาณมาก",
+      "ทั้งสองอย่างใช้แทนหญ้าได้เหมือนกัน ต่างกันแค่ปริมาณไฟเบอร์และราคาต่อกระสอบเท่านั้น",
+      "ทั้งสองอย่างเป็นอาหารเสริมที่ให้วันละไม่เกินครึ่งกิโลกรัม จึงต้องให้ควบคู่กับหญ้าเสมอ"
+    ],
+    "answer": 0,
+    "explain": "Complete feed ออกแบบมาให้กินได้ทั้งวันโดยไม่ต้องให้หญ้า จึงมีไฟเบอร์สูง พลังงานต่ำ และต้องให้ปริมาณมากถึงวันละสิบกว่ากิโลกรัม การให้วันละน้อยเพราะคิดว่ามันครบอยู่แล้วคือการให้ผิดหลักของอาหารประเภทนี้ ส่วน balancer เป็นอาหารเสริมที่ใช้เติมโปรตีน แร่ธาตุ และวิตามินให้ครบ ไม่ได้ใช้แทนอาหารหยาบ",
+    "source": "EQUINE MED MID 86.pdf หน้า 14 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 14 + jgGGQzDTm4E [189:01]",
+    "tags": [
+      "concentrate",
+      "complete feed",
+      "balancer",
+      "forage",
+      "equine-nutrition"
+    ]
+  },
+  {
+    "id": 207523,
+    "subject": "equine-medicine",
+    "topic": "equine-nutrition",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ข้อใดเปรียบเทียบความต้องการพลังงานของม้า endurance ที่ฝึกซ้อมกับแม่ม้าให้นมได้ถูกต้อง",
+    "options": [
+      "ม้า endurance ราว 29-31 Mcal/d ส่วนแม่ม้าให้นมต่ำกว่าครึ่งหนึ่งของค่านั้น",
+      "ม้า endurance ราว 12-14 Mcal/d ส่วนแม่ม้าให้นมสูงกว่าราวสองเท่าตัว",
+      "ทั้งสองกลุ่มใกล้เคียงกัน คือราว 29-31 Mcal/d กับ 26-32 Mcal/d ต่อวัน",
+      "ทั้งสองกลุ่มใกล้เคียงกัน คือราว 15-18 Mcal/d เท่ากับระดับดำรงชีพพอดี"
+    ],
+    "answer": 2,
+    "explain": "ระดับดำรงชีพของม้าตัวโตอยู่ราว 15 Mcal ต่อวัน การฝึกซ้อมระยะไกลบวกเข้าไปอีกประมาณเท่าตัว จึงมาอยู่ราว 30 Mcal ต่อวัน ซึ่งชนกับช่วง 26-32 Mcal ต่อวันของแม่ม้าให้นมพอดี ประโยคที่ใช้ได้จริงคือแม่ม้าให้นมต้องการพลังงานและโปรตีนเทียบเท่าม้าที่ทำงานหนัก แม่ม้าให้นมที่ผอมจึงไม่ใช่เรื่องปกติที่ต้องรอให้หย่านม แต่เป็นสัญญาณว่าอาหารไม่พอ",
+    "source": "EQUINE MED MID 86.pdf หน้า 11 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 11 + jgGGQzDTm4E [140:45]",
+    "tags": [
+      "energy",
+      "endurance",
+      "DE",
+      "workload",
+      "equine-nutrition"
+    ]
+  },
+  {
+    "id": 207524,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med final recall (Vet 85)",
+    "q": "จุดสีน้ำตาลเข้มกลางหน้าตัดฟันตัดม้าที่เรียกกันว่า dental star ในทางกายวิภาคคือเนื้อเยื่อใด และเกิดขึ้นเพราะอะไร",
+    "options": [
+      "Tertiary dentin ที่ odontoblast สร้างขึ้นเมื่อการสึกใกล้ถึงโพรงประสาทฟัน",
+      "Cementum ที่ไหลลงมาอุดร่อง infundibulum จนเต็มหลังจากฟันสึก",
+      "Peripheral enamel ที่พับเข้าด้านในแล้วหนาตัวขึ้นตามอายุของม้า",
+      "เศษอาหารที่อัดแน่นอยู่ในรูของ pulp cavity จนเปลี่ยนเป็นสีน้ำตาล",
+      "กระดูกที่งอกขึ้นมาแทนที่ dentin เดิมหลังจากฟันน้ำนมหลุดไป"
+    ],
+    "answer": 0,
+    "explain": "dental star เป็นคำเรียกอย่างไม่เป็นทางการของ tertiary dentin หรืออีกชื่อคือ reparative dentin เมื่อหน้าตัดฟันสึกลงจนแรงบดเคี้ยวเริ่มใกล้ pulp cavity odontoblast ที่ยังมีชีวิตอยู่รอบโพรงประสาทจะสร้างเนื้อ dentin ชั้นใหม่ขึ้นมาปิดกั้นไว้ก่อน สีที่ออกน้ำตาลเข้มมาจากซิลิกาในหญ้าที่แทรกเข้าไปขณะเนื้อฟันชั้นนี้สัมผัสกับช่องปาก ม้าที่กินแต่อาหารเม็ดจึงอาจเห็น dental star เป็นสีขาวหรือเหลืองได้ ส่วน cup หรือ infundibulum เป็นร่องที่เกิดจากการพับตัวของ enamel ซึ่งเป็นคนละโครงสร้างกัน",
+    "source": "EQUINE MED MID 86.pdf หน้า 19 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 15 และ 19 + jOm4PZtiC8o [11:34] และ [10:58]",
+    "tags": [
+      "equine-dentistry",
+      "dental-star",
+      "tertiary-dentin"
+    ]
+  },
+  {
+    "id": 207525,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med final recall (Vet 85)",
+    "q": "เปิดปากม้าดูฟันตัด พบว่า intermediate incisor (I2) ชุดฟันแท้เพิ่งโผล่พ้นเหงือกขึ้นมา แต่ยังไม่สบกับฟันคู่สบ ม้าตัวนี้น่าจะอายุประมาณเท่าใด",
+    "options": [
+      "ประมาณ 2 ปีครึ่ง",
+      "ประมาณ 3 ปี",
+      "ประมาณ 3 ปีครึ่ง",
+      "ประมาณ 4 ปีครึ่ง",
+      "ประมาณ 5 ปี"
+    ],
+    "answer": 2,
+    "explain": "ชุดฟันตัดแท้ขึ้นไล่กันปีละซี่จากซี่กลางออกไปด้านข้าง central incisor ขึ้นที่ 2 ปีครึ่ง intermediate incisor ขึ้นที่ 3 ปีครึ่ง และ corner incisor ขึ้นที่ 4 ปีครึ่ง หลังจากซี่ไหนโผล่พ้นเหงือกแล้วอีกราว 6 เดือนจึงจะสบกับคู่สบซึ่งเรียกว่า in wear ซี่ที่เพิ่งขึ้นแต่ยังไม่สบกันจึงเป็น intermediate incisor ที่ 3 ปีครึ่ง พออายุ 4 ปีซี่เดียวกันนี้จะ in wear แล้ว และเมื่อครบทุกซี่ in wear ที่ 5 ปีจะประเมินจากซี่มุมแทน",
+    "source": "EQUINE MED MID 86.pdf หน้า 19 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 16 และ 19 + jOm4PZtiC8o [44:24]",
+    "tags": [
+      "equine-dentistry",
+      "ageing",
+      "incisor-eruption"
+    ]
+  },
+  {
+    "id": 207526,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med final recall (Vet 85)",
+    "q": "ลูกม้าตัวหนึ่งอ้าปากให้ตรวจ เห็นฟันตัดน้ำนมคู่ central incisor (I1) ขึ้นเต็มที่แล้ว และเริ่มเห็น intermediate incisor (I2) โผล่ขึ้นมาถัดออกไปด้านข้าง ประเมินอายุได้ประมาณเท่าใด",
+    "options": [
+      "ประมาณ 6 วัน",
+      "ประมาณ 6 สัปดาห์",
+      "ประมาณ 6 เดือน",
+      "ประมาณ 12 เดือน",
+      "ประมาณ 18 เดือน"
+    ],
+    "answer": 1,
+    "explain": "ฟันตัดน้ำนมของม้าขึ้นตามลำดับที่จำง่ายด้วยเลขหกสามครั้ง คือ central incisor ที่ราว 6 วัน intermediate incisor ที่ราว 6 สัปดาห์ และ corner incisor ที่ราว 6 เดือน ปากที่คู่กลางขึ้นเต็มแล้วและเริ่มเห็นคู่ถัดออกไปจึงอยู่ที่ราว 6 สัปดาห์ ถ้ามีเฉพาะคู่กลางก็ยังไม่ถึงช่วงนั้น และถ้าครบทั้งสามคู่ก็ราว 6 เดือน พออายุ 12 เดือน dental star จะเริ่มปรากฏที่ซี่กลางโดยที่ corner incisor ยังไม่สบกัน แล้วที่ 18 เดือนฟันตัดจะ in wear ครบทุกซี่",
+    "source": "EQUINE MED MID 86.pdf หน้า 19 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 16, 19 และ 26 + jOm4PZtiC8o [38:08]",
+    "tags": [
+      "equine-dentistry",
+      "ageing",
+      "deciduous-incisor",
+      "foal"
+    ]
+  },
+  {
+    "id": 207527,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med final recall (Vet 85)",
+    "q": "ตรวจช่องปากม้าพบแผลหลุมที่เยื่อบุกระพุ้งแก้มตรงข้ามแถวฟันกรามบน ตัวแผลวางตัวเป็นแนวตั้ง สาเหตุใดน่าจะเป็นต้นเหตุมากที่สุด",
+    "options": [
+      "เหล็กปากที่ดึงครูดไปตามแนวของช่องปาก",
+      "เชื้อราที่เยื่อบุช่องปากจากการกินหญ้าหมักขึ้นรา",
+      "หินปูนที่พอกรอบคอฟันจนดันเยื่อบุให้ฉีกขาด",
+      "ขอบคมของ enamel ที่ด้านแก้มของฟันกรามบน",
+      "การขาดวิตามินบีจนเยื่อบุช่องปากลอกเป็นแผ่น"
+    ],
+    "answer": 3,
+    "explain": "ม้ามีภาวะ anisognathia คือแถวฟันกรามบนกว้างกว่าแถวล่าง ขอบด้านแก้มของฟันบนและขอบด้านลิ้นของฟันล่างจึงไม่มีคู่สบมาสีให้สึก กลายเป็น sharp enamel point ที่ทิ่มเยื่อบุจนเป็นแผลหลุม แนวของแผลเป็นตัวแยกสาเหตุที่ใช้ได้จริง แผลแนวตั้งหรือแผลกลมมาจากฟันคม ส่วนแผลแนวนอนมาจากเหล็กปากเพราะแรงดึงเหล็กปากไปตามแนวนอนของช่องปาก ม้าที่เจ็บแบบนี้มักเคี้ยวสั้นลงและกินได้น้อยลง ทำให้ฟันยิ่งคมขึ้นไปอีก ตรวจทีไรอย่าลืมแหวกดูใต้ลิ้นด้วยเพราะแผลซ่อนอยู่ได้",
+    "source": "EQUINE MED MID 86.pdf หน้า 19 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 18 และ 19 + jOm4PZtiC8o [113:21] และ [110:44]",
+    "tags": [
+      "equine-dentistry",
+      "sharp-enamel-point",
+      "oral-ulcer"
+    ]
+  },
+  {
+    "id": 207528,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med final recall (Vet 85)",
+    "q": "ในการตรวจฟันม้านอกสถานที่ อุปกรณ์ในข้อใดที่ขาดไปก็ยังตรวจได้ เพราะหาของอย่างอื่นมาใช้แทนได้",
+    "options": [
+      "Full mouth speculum สำหรับง้างปากให้เปิดค้าง",
+      "Head support สำหรับรองคางม้าหลังให้ยาซึม",
+      "Flushing syringe สำหรับล้างหญ้าออกจากช่องปาก",
+      "Light source สำหรับส่องดูหน้าตัดฟันซี่ท้าย"
+    ],
+    "answer": 2,
+    "explain": "ชุดที่ถือว่าขาดไม่ได้คือ full mouth speculum ที่เปิดปากค้างได้เต็มปาก แหล่งแสงที่ส่องเข้าไปถึงฟันซี่ท้าย และการจับบังคับที่มั่นคงซึ่งรวมถึงที่รองคางม้าหลังให้ยาซึมจนหัวตกลงมา การล้างเศษหญ้าออกยังจำเป็นอยู่เพราะถ้าไม่ล้างจะมองหน้าตัดฟันไม่เห็น แต่กระบอกฉีดล้างโดยเฉพาะไม่จำเป็น ใช้สายยางสอดเข้าไปล้างแทนได้ ตอนล้างต้องให้ม้าก้มหน้าไว้เสมอ กันน้ำไหลย้อนขึ้นจมูกแล้วลงหลอดลม และอย่าฉีดแรงเกินไป",
+    "source": "EQUINE MED MID 86.pdf หน้า 19 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 18, 19 และ 25 + jOm4PZtiC8o [67:44], [69:08] และ [69:37]",
+    "tags": [
+      "equine-dentistry",
+      "oral-examination",
+      "equipment"
+    ]
+  },
+  {
+    "id": 207529,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med final recall (Vet 85)",
+    "q": "ข้อใดถูกต้องเกี่ยวกับการเลือกยาซึมเพื่อทำฟันม้าในท่ายืน",
+    "options": [
+      "ยากลุ่ม opioid ต้องให้ร่วมกับ alpha-2 agonist เสมอ ห้ามให้เดี่ยวๆ",
+      "ควรใช้การจับบังคับทางกายภาพแทนยาซึม เพื่อให้ม้าตื่นตัวตลอดการตรวจ",
+      "ควรวางยาสลบให้ม้านอนทุกครั้ง เพราะง้างปากตรวจในท่ายืนทำไม่ได้",
+      "ควรฉีดยาถอนฤทธิ์ทันทีที่ตรวจเสร็จ เพื่อให้ม้าลุกขึ้นยืนได้เร็วที่สุด"
+    ],
+    "answer": 0,
+    "explain": "งานทันตกรรมม้าเกือบทั้งหมดทำในท่ายืนโดยอาศัย chemical restraint ไม่ใช่การจับบังคับทางกายภาพ ยาหลักคือ alpha-2 agonist อย่าง xylazine หรือ detomidine แล้วเสริมด้วย acepromazine หรือ opioid เพื่อให้การซึมราบรื่นขึ้น ข้อห้ามที่ชัดที่สุดคือ opioid ให้เดี่ยวๆ ไม่ได้ ต้องมี alpha-2 นำมาก่อนหรือให้คู่กัน มิฉะนั้นม้าจะเกิด excitement เดินไม่หยุดจนทำงานต่อไม่ได้ ส่วนการถอนฤทธิ์ไม่นิยมทำ เพราะม้าที่ฟื้นเร็วเกินไปจะเซและเสี่ยงล้ม ปล่อยให้สร่างเองจะปลอดภัยกว่า",
+    "source": "EQUINE MED MID 86.pdf หน้า 19 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 18 และ 19 + jOm4PZtiC8o [74:30]",
+    "tags": [
+      "equine-dentistry",
+      "sedation",
+      "opioid",
+      "alpha-2-agonist"
+    ]
+  },
+  {
+    "id": 207530,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med final recall (Vet 85)",
+    "q": "ในระบบ modified Triadan ฟันหมายเลข 104 และ 106 ของม้าคือฟันซี่ใดตามลำดับ",
+    "options": [
+      "ฟันตัดซี่นอกสุดบนขวา และ wolf tooth บนขวา",
+      "ฟันเขี้ยวบนซ้าย และฟันกรามซี่แรกบนซ้าย",
+      "ฟันเขี้ยวบนขวา และ cheek tooth ซี่แรกบนขวา",
+      "wolf tooth บนขวา และฟันกรามซี่ที่สองบนขวา",
+      "ฟันตัดซี่กลางบนขวา และฟันเขี้ยวบนขวา"
+    ],
+    "answer": 2,
+    "explain": "เลขหลักแรกบอกควอดแรนต์ของฟันแท้ คือ 1 บนขวา 2 บนซ้าย 3 ล่างซ้าย 4 ล่างขวา ส่วนเลข 5 ถึง 8 สงวนไว้ให้ฟันน้ำนม สองหลักท้ายไล่จากหน้าไปหลัง 01 ถึง 03 คือฟันตัดสามซี่ 04 คือฟันเขี้ยวเสมอ 05 คือ wolf tooth หรือ premolar 1 แล้ว 06 จึงเป็น premolar 2 ซึ่งนับเป็น cheek tooth ซี่ที่ 1 ไล่ต่อไปจนถึง 11 ที่เป็นฟันกรามซี่สุดท้ายหรือ cheek tooth ซี่ที่ 6 ดังนั้น 104 กับ 204 คือฟันเขี้ยวบนสองข้าง ส่วน 106 กับ 206 คือ cheek tooth ซี่แรกของแต่ละข้าง",
+    "source": "EQUINE MED MID 86.pdf หน้า 19 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 15 และ 19 + jOm4PZtiC8o [26:28] และ [27:38]",
+    "tags": [
+      "equine-dentistry",
+      "triadan",
+      "tooth-numbering"
+    ]
+  },
+  {
+    "id": 207531,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med final recall (Vet 85)",
+    "q": "การไล่หมายเลขโพรงประสาทฟันของ cheek teeth ในม้า โพรงหมายเลข 1 อยู่ตำแหน่งใดเสมอ",
+    "options": [
+      "ด้านลิ้นฝั่งที่ชิดคอ คือ distolingual",
+      "ด้านเพดานฝั่งที่ชิดจมูก คือ mesiopalatal",
+      "ตรงกลางหน้าตัด อยู่ระหว่างโพรงอื่นทั้งหมด",
+      "ด้านแก้มฝั่งที่ชิดจมูก คือ mesiobuccal"
+    ],
+    "answer": 3,
+    "explain": "cheek teeth ชุดบนของม้ามีโพรงประสาทฟันได้ตั้งแต่ 5 ถึง 7 โพรง แต่มีรากเพียง 3 ราก จึงต้องมี pulp communication รวมกันเป็น common pulp chamber ก่อนลงราก ส่วนชุดล่างมีรากเพียงสองรากคือด้านหน้ากับด้านหลัง การไล่เลขใช้กฎเดียวกันทั้งบนและล่าง คือเริ่มจากด้านที่อยู่ใกล้ผู้ตรวจก่อนคือด้าน buccal แล้วไล่ในระนาบเดียวกันจนหมดจึงขึ้นแถวใหม่ โพรงที่ 1 จึงเป็น mesiobuccal เสมอ ตามด้วย 2 ที่เป็น distobuccal ส่วนโพรงที่ 6 ซึ่งพบเฉพาะซี่แรกของแถวกราม จะอยู่ด้าน mesial เสมอ ตอนเขี่ยหาโพรงประสาทให้ใช้ interdental space เป็นตัวบอกว่าด้านไหนคือ mesial",
+    "source": "EQUINE MED MID 86.pdf หน้า 19 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 15 และ 19 + jOm4PZtiC8o [30:59]",
+    "tags": [
+      "equine-dentistry",
+      "pulp",
+      "cheek-teeth"
+    ]
+  },
+  {
+    "id": 207532,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ม้าโตตัวหนึ่งมีฟันแท้ครบตามที่ต้องมี แต่ไม่มีทั้งฟันเขี้ยวและ wolf tooth เลยสักซี่ ม้าตัวนี้มีฟันในช่องปากกี่ซี่",
+    "options": [
+      "36 ซี่",
+      "40 ซี่",
+      "42 ซี่",
+      "44 ซี่"
+    ],
+    "answer": 0,
+    "explain": "สูตรฟันแท้ของม้าเขียนเป็น 2 x (I 3/3 C 1/1 P 3 หรือ 4/3 M 3/3) ที่ตัวเลขไม่ลงตัวเพราะฟันเขี้ยวและ wolf tooth จะมีหรือไม่มีก็ได้ วิธีคิดคือตัดซี่ที่ไม่จำเป็นออกให้หมดก่อน เหลือ incisor 3 canine 0 premolar 3 และ molar 3 ต่อควอดแรนต์ รวมข้างละ 9 ซี่ทั้งบนและล่าง คูณสองฝั่งได้ 36 ซี่ ซึ่งเป็นจำนวนน้อยที่สุดที่เป็นไปได้ ส่วนตัวที่มีครบทั้งฟันเขี้ยวและ wolf tooth ทั้งบนและล่างจะได้ 44 ซี่ ซึ่งเป็นค่ามากที่สุด",
+    "source": "EQUINE MED MID 86.pdf หน้า 15 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 15 + jOm4PZtiC8o [23:22]",
+    "tags": [
+      "equine-dentistry",
+      "dental-formula",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 207533,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ลูกม้าอายุครบ 1 ปีพอดี นับฟันที่ขึ้นมาแล้วในช่องปากได้ทั้งหมดกี่ซี่",
+    "options": [
+      "20 ซี่",
+      "24 ซี่",
+      "28 ซี่",
+      "32 ซี่",
+      "36 ซี่"
+    ],
+    "answer": 2,
+    "explain": "ที่อายุ 1 ปีฟันตัดน้ำนมขึ้นครบทั้งสามคู่ไปแล้วตั้งแต่ 6 เดือน จึงมี incisor 3 ซี่ต่อควอดแรนต์ ส่วน premolar น้ำนมซี่ที่ 2 3 และ 4 ขึ้นมาตั้งแต่สัปดาห์แรกหลังคลอด และ molar 1 ซึ่งเป็นฟันแท้ขึ้นพอดีที่ 1 ปี รวมเป็น 3 บวก 3 บวก 1 เท่ากับ 7 ซี่ต่อควอดแรนต์ คูณสี่ควอดแรนต์ได้ 28 ซี่ ถ้านับเฉพาะ cheek teeth จะได้ 16 ซี่ คือ premolar 3 คู่บนล่างบวก molar 1 คู่บนล่าง พออายุ 2 ปี molar 2 ขึ้นมาอีกซี่ จำนวนรวมจะขยับเป็น 32 ซี่",
+    "source": "EQUINE MED MID 86.pdf หน้า 16 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 16 + jOm4PZtiC8o [41:36]",
+    "tags": [
+      "equine-dentistry",
+      "dental-formula",
+      "ageing",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 207534,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "Infundibular caries ของม้าเกิดขึ้นได้ที่ cheek teeth กลุ่มใด และเพราะเหตุใด",
+    "options": [
+      "ฟันกรามล่าง เพราะเศษหญ้าตกค้างอยู่ด้านลิ้นได้นานกว่า",
+      "ฟันกรามซี่ท้ายสุดทั้งบนและล่าง เพราะอยู่ลึกจนล้างเศษอาหารออกยาก",
+      "ฟันกรามทุกซี่ทั้งบนและล่าง เพราะทุกซี่มี infundibulum เท่ากัน",
+      "ฟันกรามบน เพราะเป็นฟันกรามกลุ่มเดียวที่มี infundibulum"
+    ],
+    "answer": 3,
+    "explain": "infundibulum หรือ cup คือร่องที่เกิดจากการพับตัวของ enamel เข้าไปในตัวฟัน ในแถวฟันกรามพบเฉพาะซี่บน ซี่ละสองร่อง ฟันกรามล่างไม่มีเลย รอยผุที่เริ่มจากภายในร่องนี้จึงจำกัดอยู่ที่ฟันกรามบน ฟันตัดก็มีร่องนี้ซี่ละหนึ่งร่องและเกิดรอยผุในร่องได้เช่นกัน แต่ไม่ใช่ฟันในแถวกราม แยกทั้งหมดนี้ออกจาก peripheral caries ที่เริ่มจากผิวนอกของฟันด้าน buccal และ lingual ซึ่งเกิดได้ทุกซี่ ปัจจัยหลักของทั้งสองแบบคืออาหารที่มีน้ำตาลสูงอย่างอาหารเม็ดและหญ้าหมัก การไล่เกรดเริ่มจากผุเฉพาะ cementum ไปจนถึงเกรดที่ฟันแตกหรือสูญเสียซี่นั้นไป",
+    "source": "EQUINE MED MID 86.pdf หน้า 19 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 15 และ 19 + jOm4PZtiC8o [121:14] และ [32:36]",
+    "tags": [
+      "equine-dentistry",
+      "caries",
+      "infundibulum",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 207535,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ในการเรียกด้านของฟันม้า คำว่า palatal กับ lingual ใช้ต่างกันอย่างไร",
+    "options": [
+      "palatal ใช้กับฟันบน ส่วน lingual ใช้กับฟันล่าง",
+      "palatal ใช้กับฟันล่าง ส่วน lingual ใช้กับฟันบน",
+      "ทั้งสองคำใช้แทนกันได้ทั้งกับฟันบนและฟันล่าง",
+      "palatal ใช้กับฟันตัด ส่วน lingual ใช้กับฟันกราม"
+    ],
+    "answer": 0,
+    "explain": "ด้านที่หันเข้าหาช่องปากของฟันบนติดกับเพดานปาก จึงเรียกว่า palatal ส่วนฟันล่างด้านที่หันเข้าหาช่องปากติดกับลิ้น จึงเรียกว่า lingual สองคำนี้ใช้สลับกันไม่ได้ ด้านที่หันออกหากระพุ้งแก้มเรียก buccal เหมือนกันทั้งบนและล่าง ส่วน labial ใช้กับฟันตัดเท่านั้น เพราะฟันตัดคือกลุ่มที่อยู่หน้าสุดและแนบกับริมฝีปาก อีกคู่ที่มักจำสลับกันคือ mesial ที่แปลว่าไปทางจมูก คือเข้าหาแนวกึ่งกลางของแถวฟัน กับ distal ที่แปลว่าไปทางหู อย่าสับสน mesial กับ medial เพราะคนละความหมายกัน",
+    "source": "EQUINE MED MID 86.pdf หน้า 15 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 15 + jOm4PZtiC8o [31:37] และ [24:13]",
+    "tags": [
+      "equine-dentistry",
+      "nomenclature",
+      "tooth-surfaces",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 207536,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ตรวจฟันตัดซี่นอกสุดบนของม้า พบร่อง Galvayne ยาวลงมาประมาณครึ่งหนึ่งของความสูงฟัน ประเมินอายุได้ประมาณเท่าใด",
+    "options": [
+      "ประมาณ 10 ปี",
+      "ประมาณ 15 ปี",
+      "ประมาณ 20 ปี",
+      "ประมาณ 25 ปี",
+      "ประมาณ 30 ปี"
+    ],
+    "answer": 1,
+    "explain": "ร่อง Galvayne ไม่ได้มีในม้าทุกตัว แต่ตัวที่มีจะเดินตามจังหวะทีละ 5 ปีอย่างค่อนข้างแม่น เริ่มโผล่ที่ขอบเหงือกเมื่อราว 10 ปี ยาวลงมาครึ่งซี่ที่ราว 15 ปี ยาวจนถึงหน้าตัดฟันที่ราว 20 ปี จากนั้นเริ่มหายจากด้านบนที่ราว 25 ปี และหายไปหมดที่ราว 30 ปี เวลาประเมินอย่าใช้ร่องนี้อย่างเดียว ให้ดูร่วมกับทรงหน้าตัดฟันและการหายไปของ cup ด้วย เพราะม้าที่อายุเกิน 18 ปีขึ้นไปการประเมินจากฟันเริ่มคลาดเคลื่อนมาก",
+    "source": "EQUINE MED MID 86.pdf หน้า 16 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 16 + jOm4PZtiC8o [16:19]",
+    "tags": [
+      "equine-dentistry",
+      "ageing",
+      "galvayne",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 207537,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ขณะตะไบฟันกรามม้า สังเกตเห็นเนื้อฟันตรงตำแหน่ง dental star เปลี่ยนจากสีน้ำตาลเข้มไปเป็นน้ำตาลอ่อนจนเริ่มออกขาว ควรทำอย่างไร",
+    "options": [
+      "ตะไบต่อได้อีกจนกว่าจะเห็นสีชมพู เพราะสีขาวยังห่างจากโพรงประสาทฟัน",
+      "หยุดตะไบตรงตำแหน่งนั้น เพราะสีที่จางลงแปลว่าเข้าใกล้โพรงประสาทฟันแล้ว",
+      "เปลี่ยนไปใช้ตะไบไฟฟ้าความเร็วสูง เพื่อให้หน้าตัดฟันเรียบเสมอกันทั้งแถว",
+      "ตะไบหน้าตัดฟันให้เรียบสนิททั้งซี่ก่อน แล้วค่อยกลับมาดูสีอีกครั้งหนึ่ง"
+    ],
+    "answer": 1,
+    "explain": "ใต้ dental star คือโพรงประสาทฟันที่ยังมีชีวิต ระยะจากหน้าตัดฟันถึงโพรงประสาทวัดได้ตั้งแต่ราว 2 ถึง 16 มิลลิเมตร แปรปรวนมากจนคาดเดาเป็นซี่ๆ ไม่ได้ สิ่งที่ใช้เป็นสัญญาณจริงคือสี เนื้อสีน้ำตาลเข้มคือชั้นที่สัมผัสช่องปากมานานจนมีซิลิกาแทรก ยังไถต่อได้ พอจางลงเป็นน้ำตาลอ่อนแล้วออกขาวหรือเหลืองแปลว่าเป็นเนื้อชั้นใหม่ที่เพิ่งถูกสร้าง ให้หยุดทันที ถ้าเห็นสีชมพูคือเปิดถึงโพรงประสาทไปแล้ว อีกอย่างที่ไม่ควรทำคือไถหน้าตัดฟันให้เรียบ เพราะความขรุขระของหน้าตัดคือสิ่งที่ใช้ตัดหญ้า",
+    "source": "EQUINE MED MID 86.pdf หน้า 19 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 19 + jOm4PZtiC8o [129:25], [129:54] และ [130:05]",
+    "tags": [
+      "equine-dentistry",
+      "floating",
+      "pulp",
+      "treatment",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 207538,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine dentistry online test (Vet 81)",
+    "q": "จากแผนผังบันทึกฟันม้าในภาพ เครื่องหมาย # ที่กำกับด้วยหมายเลข 6 บันทึกความผิดปกติใดของฟันซี่นั้น",
+    "options": [
+      "ร่องลึกปริทันต์ระหว่างฟันสองซี่ (periodontal pocket)",
+      "ขอบคมของเคลือบฟันตลอดแนวแผงฟัน (sharp points)",
+      "ฟันหักหรือฟันแตกร้าวทั้งซี่ (fractured tooth)",
+      "ฟันขึ้นผิดตำแหน่งจากแนวของแผงฟัน (malpositioned tooth)",
+      "ฟันที่หลุดหายไปทั้งซี่แล้ว (missing tooth)"
+    ],
+    "answer": 2,
+    "explain": "เครื่องหมาย # บนแผนผังบันทึกฟันใช้แทนฟันที่หักหรือแตกร้าว จุดที่วางเครื่องหมายไว้คือซี่ที่เสียหาย ในแผนผังนี้เครื่องหมายอยู่ข้างขากรรไกรล่างขวาช่วงถัดจากฟันตัดไปทางหลัง ซึ่งเป็นตำแหน่งฟันเขี้ยว ซึ่งในม้าโตเขียนเลขประจำซี่ได้ว่า 404 คือฟันแท้ของแผงล่างข้างขวา ตำแหน่งที่ 04\n\n❌ ทำไมข้ออื่นผิด\n— ร่องลึกปริทันต์บันทึกเป็นขีดคั่นตรงรอยต่อระหว่างฟันสองซี่ ไม่ใช่เครื่องหมายไขว้\n— ขอบคมของเคลือบฟันบันทึกเป็นเส้นยาวลากไปตามแนวขอบของแผงฟัน ไม่ได้ชี้เฉพาะซี่\n— ฟันขึ้นผิดตำแหน่งบันทึกด้วยลูกศรที่ชี้บอกทิศทางที่ซี่นั้นเบี้ยวออกไป\n— ฟันที่หลุดหายไปแล้วเป็นคนละภาวะกับฟันที่ยังอยู่ในเบ้าแต่มีรอยแตก\n\n💡 # คือรอยแตกที่ไขว้กันสองแนว จำคู่กับคำว่า fracture",
+    "source": "EQUINE MED MID 86.pdf หน้า 21 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 21 (ฉบับใหม่เขียนซ้ำใต้รูปด้วยปากกาชมพูว่าเครื่องหมายไขว้คือ Fractured Tooth และเขียนเลขซี่ฟัน 404 ออกมาเต็มด้วยลายมือของรุ่นพี่เอง ยืนยันรอยแก้ด้วยปากกาแดงที่แก้จากเลข 804 ในฉบับก่อน) — คลิป jOm4PZtiC8o ไม่ได้สอนชุดสัญลักษณ์บนแผนผังชุดนี้ไว้",
+    "tags": [
+      "equine-dentistry",
+      "dental-chart",
+      "triadan",
+      "fractured-tooth"
+    ],
+    "image": "/figures/questions/eqmed-dent-triadan-chart.webp"
+  },
+  {
+    "id": 207539,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine dentistry online test (Vet 81)",
+    "q": "จากแผนผังบันทึกฟันม้าในภาพ หมายเลข 9 กำกับขีดที่ขวางอยู่ตรงรอยต่อระหว่างฟันกรามบนซ้ายสองซี่ ขีดนี้บันทึกสิ่งใด",
+    "options": [
+      "ร่องลึกปริทันต์ระหว่างฟันสองซี่ (periodontal pocket)",
+      "ฟันหักหรือฟันแตกร้าวทั้งซี่ (fractured tooth)",
+      "ขอบคมของเคลือบฟันด้านแก้ม (sharp points)",
+      "ฟันผุที่ infundibulum (infundibular caries)",
+      "ฟันขึ้นผิดตำแหน่งจากแนวปกติ (malpositioned tooth)"
+    ],
+    "answer": 0,
+    "explain": "ขีดที่คั่นตรงรอยต่อระหว่างฟันกรามสองซี่ใช้บันทึกร่องลึกปริทันต์ที่ช่องระหว่างซี่นั้น ฟันกรามม้าหกซี่ในแผงเดียวกันทำงานเหมือนเป็นฟันซี่เดียว เมื่อมีช่องว่างแทรกขึ้นมา หญ้าจะถูกอัดลงไปค้างในร่อง เหงือกอักเสบแล้วลามลึกลงไปตามตัวฟัน กลายเป็นร่องลึกปริทันต์ และม้าก็ทำความสะอาดร่องนั้นเองไม่ได้ บนแผนผังใบนี้ขีดวางอยู่ที่ช่องระหว่างซี่ 208 กับ 209 ซึ่งเป็นฟันกรามแท้ของแผงบนข้างซ้าย\n\n❌ ทำไมข้ออื่นผิด\n— ฟันหักหรือแตกร้าวใช้เครื่องหมายไขว้วางที่ตัวซี่ ไม่ใช่ที่รอยต่อระหว่างซี่\n— ขอบคมของเคลือบฟันบันทึกเป็นเส้นยาวไปตามแนวขอบของแผงฟันทั้งแผง\n— ฟันผุที่ infundibulum อยู่กลางหน้าตัดของฟันบน ไม่ใช่ช่องระหว่างสองซี่\n— ฟันขึ้นผิดตำแหน่งบันทึกด้วยลูกศรที่ชี้เข้าหาซี่ซึ่งเบี้ยวออกจากแนว\n\n💡 ขีดคั่นอยู่ระหว่างซี่ เพราะปัญหาปริทันต์ของม้าเริ่มจากช่องระหว่างซี่เสมอ",
+    "source": "EQUINE MED MID 86.pdf หน้า 22 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 22 (ฉบับใหม่เขียนไว้ที่หัวกระดาษด้วยปากกาชมพูว่า Periodontal pocket between 208, 209 เป็นการเขียนเลขซี่ฟันออกมาเต็มด้วยลายมือของรุ่นพี่เอง ยืนยันรอยแก้ด้วยปากกาแดงที่แก้จากเลข 608 และ 609 ในฉบับก่อน) + jOm4PZtiC8o [116:45]",
+    "tags": [
+      "equine-dentistry",
+      "dental-chart",
+      "triadan",
+      "periodontal-disease"
+    ],
+    "image": "/figures/questions/eqmed-dent-triadan-chart.webp"
+  },
+  {
+    "id": 207540,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine dentistry online test (Vet 81)",
+    "q": "จากแผนผังบันทึกฟันม้าในภาพ หมายเลข 8 กำกับลูกศรที่ชี้เข้าหาฟันซี่หนึ่งของแผงฟันล่างข้างซ้าย ลูกศรนี้บันทึกสิ่งใด",
+    "options": [
+      "ขอบคมของเคลือบฟันด้านลิ้น (sharp points)",
+      "ร่องลึกปริทันต์ระหว่างฟันสองซี่ (periodontal pocket)",
+      "ฟันหักหรือฟันแตกร้าวทั้งซี่ (fractured tooth)",
+      "ฟันขึ้นผิดตำแหน่งจากแนวของแผงฟัน (malpositioned tooth)",
+      "ฟันที่โพรงประสาทมีพยาธิสภาพ (endodontically affected)"
+    ],
+    "answer": 3,
+    "explain": "ลูกศรบนแผนผังบันทึกฟันใช้แทนฟันที่ขึ้นผิดตำแหน่ง โดยหัวลูกศรชี้ไปทางที่ซี่นั้นเบี้ยวออกจากแนวของแผงฟัน ซี่ที่เบี้ยวออกมาจะทำให้แนวสบเสียและเปิดช่องให้หญ้าเข้าไปค้างระหว่างซี่ บนแผนผังใบนี้ซี่ที่ถูกชี้คือ 308 คือฟันแท้ตำแหน่งที่ 08 ของแผงล่างข้างซ้าย และหัวลูกศรชี้ออกไปทางด้านแก้ม จึงอ่านได้ว่าซี่นั้นเบี้ยวไปทาง buccal ทิศที่บันทึกไว้มีผลต่อการตรวจขั้นต่อไป เพราะฟันล่างที่เบี้ยวออกด้านแก้มจะไปครูดเยื่อบุกระพุ้งแก้มข้างเดียวกัน ส่วนซี่ที่เบี้ยวเข้าด้านลิ้นจะไปรบกวนลิ้นแทน\n\n❌ ทำไมข้ออื่นผิด\n— ขอบคมของเคลือบฟันบันทึกเป็นเส้นยาวไปตามขอบของแผงฟัน ไม่ใช่ลูกศรชี้ซี่เดียว\n— ร่องลึกปริทันต์บันทึกเป็นขีดคั่นตรงรอยต่อระหว่างฟันสองซี่\n— ฟันหักหรือแตกร้าวใช้เครื่องหมายไขว้วางที่ตัวซี่\n— ฟันที่โพรงประสาทมีพยาธิสภาพบันทึกด้วยวงกลมเล็กที่โยงเส้นเข้าหาซี่นั้น\n\n💡 ลูกศรมีทิศ จึงเหมาะกับความผิดปกติที่ต้องบอกว่าเบี้ยวไปทางไหน",
+    "source": "EQUINE MED MID 86.pdf หน้า 24 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 24 (ฉบับใหม่เขียนใต้รูปด้วยปากกาชมพูว่า 308 malpositional tooth to buccal side เป็นการเขียนเลขซี่ฟันออกมาเต็มด้วยลายมือของรุ่นพี่เอง แทนเลข 708 ที่เขียนไว้ในฉบับก่อน และเพิ่มทิศที่ซี่นั้นเบี้ยวว่าเป็นด้านแก้ม) + jOm4PZtiC8o [114:39] ที่ระบุว่าควอดแรนต์ 3 คือแผงฟันล่างข้างซ้าย",
+    "tags": [
+      "equine-dentistry",
+      "dental-chart",
+      "triadan",
+      "malposition"
+    ],
+    "image": "/figures/questions/eqmed-dent-triadan-chart.webp"
+  },
+  {
+    "id": 207541,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine dentistry online test (Vet 81)",
+    "q": "จากแผนผังบันทึกฟันม้าในภาพ หมายเลข 10 กำกับเส้นยาวที่ลากตามขอบด้านนอกของแผงฟันบนและขอบด้านในของแผงฟันล่าง เส้นนี้บันทึกสิ่งใด",
+    "options": [
+      "ฟันขึ้นผิดตำแหน่งจากแนวของแผงฟัน (malpositioned tooth)",
+      "ขอบคมของเคลือบฟันตลอดแนวแผงฟัน (sharp points)",
+      "ร่องลึกปริทันต์ระหว่างฟันสองซี่ (periodontal pocket)",
+      "ฟันหักหรือฟันแตกร้าวทั้งซี่ (fractured tooth)",
+      "หินปูนที่เกาะตามคอฟันกราม (dental calculus)"
+    ],
+    "answer": 1,
+    "explain": "เส้นยาวที่ลากไปตามขอบของแผงฟันใช้บันทึกขอบคมของเคลือบฟัน และตำแหน่งที่เส้นวางอยู่ก็บอกการกระจายตัวที่เป็นแบบเดียวกันเสมอในม้า คือคมที่ด้านแก้มของฟันกรามบน และคมที่ด้านลิ้นของฟันกรามล่าง เพราะขากรรไกรบนกว้างกว่าล่าง ม้าจึงสบกันไม่เต็มหน้าตัด ขอบที่ไม่ได้ถูกบดจะค่อยๆ เหลือเป็นสันคม เขียนเป็นเลขซี่ฟันของม้าโตได้ว่า 106-111 กับ 206-211 มีคมที่ด้าน buccal และ 306-311 กับ 406-411 มีคมที่ด้าน lingual\n\n❌ ทำไมข้ออื่นผิด\n— ฟันขึ้นผิดตำแหน่งบันทึกด้วยลูกศรที่ชี้เฉพาะซี่ ไม่ใช่เส้นยาวทั้งแผง\n— ร่องลึกปริทันต์บันทึกเป็นขีดสั้นคั่นตรงรอยต่อระหว่างสองซี่\n— ฟันหักหรือแตกร้าวใช้เครื่องหมายไขว้วางที่ตัวซี่\n— หินปูนไม่ใช่ปัญหาหลักของฟันกรามม้า เพราะหน้าตัดฟันสึกและเปลี่ยนตัวเองตลอดเวลา\n\n💡 บนคมนอก ล่างคมใน จำเป็นคู่แล้วจะลากเส้นถูกทุกครั้ง",
+    "source": "EQUINE MED MID 86.pdf หน้า 25 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 25 (ฉบับใหม่เขียนซ้ำใต้รูปด้วยปากกาชมพูว่า sharp point ยืนยันคำตอบเดิม แต่ไม่ได้แก้ช่วงเลขซี่ฟัน 606-611, 506-511, 706-711 และ 806-811 ที่เขียนไว้ด้วยปากกาฟ้า ซึ่งยังเป็นเลขของชุดฟันน้ำนม) + jOm4PZtiC8o [110:44]",
+    "tags": [
+      "equine-dentistry",
+      "dental-chart",
+      "triadan",
+      "sharp-enamel-points"
+    ],
+    "image": "/figures/questions/eqmed-dent-triadan-chart.webp"
+  },
+  {
+    "id": 207542,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine dentistry online test (Vet 81)",
+    "q": "จากแผนผังบันทึกฟันม้าในภาพ หมายเลข 7 กำกับวงกลมเล็กที่โยงเส้นเข้าหาฟันตัดล่างซี่หนึ่ง วงกลมนี้บันทึกสิ่งใด",
+    "options": [
+      "ฟันหักหรือฟันแตกร้าวทั้งซี่ (fractured tooth)",
+      "ขอบคมของเคลือบฟันตลอดแนวแผงฟัน (sharp points)",
+      "ฟันขึ้นผิดตำแหน่งจากแนวของแผงฟัน (malpositioned tooth)",
+      "ร่องลึกปริทันต์ระหว่างฟันสองซี่ (periodontal pocket)",
+      "ฟันที่โพรงประสาทมีพยาธิสภาพ (endodontically affected tooth)"
+    ],
+    "answer": 4,
+    "explain": "วงกลมเล็กที่โยงเส้นเข้าหาฟันซี่หนึ่งบนแผนผังใช้บันทึกฟันที่โพรงประสาทมีพยาธิสภาพ คือ endodontically affected tooth เกิดเมื่อการสึกหรือรอยแตกเปิดทางลงไปถึงโพรงประสาท ทำให้เนื้อเยื่อในโพรงอักเสบหรือตาย ฟันตัดมีโพรงประสาทซี่ละหนึ่งช่อง ส่วนฟันกรามมีได้ตั้งแต่ห้าถึงเจ็ดช่อง จึงต้องเขี่ยตรวจทีละช่องเวลาสงสัย\n\n❌ ทำไมข้ออื่นผิด\n— ฟันหักหรือแตกร้าวใช้เครื่องหมายไขว้ ไม่ใช่วงกลม\n— ขอบคมของเคลือบฟันบันทึกเป็นเส้นยาวไปตามขอบของแผงฟัน\n— ฟันขึ้นผิดตำแหน่งบันทึกด้วยลูกศรที่ชี้บอกทิศ\n— ร่องลึกปริทันต์บันทึกเป็นขีดคั่นตรงรอยต่อระหว่างสองซี่\n\n💡 วงกลมกำกับทั้งซี่ เพราะปัญหาอยู่ในแกนกลางของฟันซี่นั้น ไม่ได้อยู่ที่ขอบ",
+    "source": "EQUINE MED MID 86.pdf หน้า 26 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 26 (ฉบับใหม่เขียนซ้ำท้ายหน้าด้วยปากกาชมพูว่า Endodontically affected tooth ยืนยันคำตอบเดิม แต่ไม่ได้แก้เลขซี่ฟัน 702 ที่เขียนไว้ด้วยปากกาฟ้า) + jOm4PZtiC8o [28:51] และ [118:03] สำหรับจำนวนโพรงประสาทฟัน",
+    "tags": [
+      "equine-dentistry",
+      "dental-chart",
+      "triadan",
+      "endodontic-disease"
+    ],
+    "image": "/figures/questions/eqmed-dent-triadan-chart.webp"
+  },
+  {
+    "id": 207543,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine dentistry online test (Vet 81)",
+    "q": "ก่อนลงมือตรวจช่องปากม้าทุกครั้ง สิ่งใดที่ต้องมาก่อนเป็นอันดับแรก",
+    "options": [
+      "ความปลอดภัยของผู้ปฏิบัติงานและตัวม้า",
+      "การถ่ายภาพรังสีฟันให้ครบทุกควอดแรนต์",
+      "การตะไบฟันให้เรียบก่อนแล้วค่อยตรวจซ้ำ",
+      "การให้ยาปฏิชีวนะคลุมไว้ก่อนเข้าตรวจ",
+      "การชั่งน้ำหนักม้าด้วยเครื่องชั่งมาตรฐาน"
+    ],
+    "answer": 0,
+    "explain": "งานฟันม้าทำกับสัตว์ตัวใหญ่ที่ต้องยืนเอาหัวพาดอยู่ระดับหน้าเรา ความปลอดภัยของทั้งคนทำและตัวม้าจึงมาก่อนทุกขั้นตอน แปลเป็นงานจริงคือ ซึมให้พอจนหัวตกแล้วใช้ที่รองคางค้ำไว้ ตรวจสภาพซองก่อนใช้และไม่ฝืนใช้ซองที่ไม่มั่นคง และวางตัวให้พ้นแนวที่ม้าจะสะบัดหัวมาโดน\n\n❌ ทำไมข้ออื่นผิด\n— ภาพรังสีฟันใช้เมื่อสงสัยพยาธิสภาพที่รากฟันหรือไซนัส ไม่ใช่ขั้นตอนเปิดงานทุกเคส\n— การตะไบเป็นการรักษาที่ตามหลังการวินิจฉัย ไม่ใช่สิ่งที่ทำก่อนตรวจ\n— ยาปฏิชีวนะไม่ได้ให้คลุมไว้ก่อนในการตรวจช่องปากตามปกติ\n— น้ำหนักตัวใช้คำนวณขนาดยาซึม เป็นรายละเอียดในขั้นเตรียม ไม่ใช่หลักการที่มาก่อนทุกอย่าง\n\n💡 คนรอด ม้ารอด ไม่มีใครเจ็บตัว คือเกณฑ์ตัดสินใจก่อนทุกขั้นตอน",
+    "source": "EQUINE MED MID 86.pdf หน้า 22 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 22 (ฉบับใหม่เติมคำตอบไว้ใต้ช่องว่างด้วยลายมือของรุ่นพี่เองว่า Safety ส่วนฉบับก่อนเว้นช่องนี้ไว้โดยไม่มีคำตอบ) + jOm4PZtiC8o [124:36]",
+    "tags": [
+      "equine-dentistry",
+      "oral-examination",
+      "work-safety"
+    ]
+  },
+  {
+    "id": 207544,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine dentistry online test (Vet 81)",
+    "q": "จากภาพในช่องปากม้า ลูกศรสีขาวชี้ไปที่รอยโรคบนเยื่อบุที่แนบกับขอบด้านนอกของแผงฟันกรามบน รอยโรคนี้คืออะไร",
+    "options": [
+      "คราบหินปูนที่คอฟันกรามบน (dental calculus)",
+      "ตุ่มน้ำใสของโรคปากเปื่อยพุพอง (vesicular stomatitis)",
+      "แผลหลุมที่เยื่อบุกระพุ้งแก้ม (buccal ulceration)",
+      "ก้อนเนื้องอกชนิด squamous cell carcinoma",
+      "แผ่นฝ้าขาวจากเชื้อราในช่องปาก (oral candidiasis)"
+    ],
+    "answer": 2,
+    "explain": "ตำแหน่งที่ลูกศรชี้คือเยื่อบุกระพุ้งแก้มที่แนบอยู่กับขอบด้านนอกของฟันกรามบนพอดี ซึ่งเป็นแนวที่ขอบคมของเคลือบฟันเสียดสีจนเยื่อบุถลอกเป็นแผลหลุม แผลชนิดนี้หายยากเพราะปลายแหลมยังครูดซ้ำทุกครั้งที่เคี้ยว จะเห็นขอบแผลพยายามสมานแต่ไม่สำเร็จ ปัญหาขอบคมของเคลือบฟันเป็นปัญหาฟันที่พบมากที่สุดในม้า\n\n❌ ทำไมข้ออื่นผิด\n— หินปูนเกาะบนตัวฟัน ไม่ใช่รอยถลอกบนเยื่อบุแก้ม และไม่ใช่ปัญหาเด่นของฟันกรามม้า\n— โรคปากเปื่อยพุพองขึ้นเป็นตุ่มน้ำแล้วแตก กระจายที่ลิ้นและริมฝีปาก ไม่จำกัดอยู่แนวเดียวกับขอบฟัน\n— เนื้องอกจะเป็นก้อนนูนที่โตขึ้นเรื่อยๆ ไม่ใช่รอยถลอกตื้นตามแนวฟัน\n— ฝ้าขาวจากเชื้อราลอกออกเป็นแผ่น และไม่ได้เรียงตัวตามแนวขอบฟัน\n\n💡 เจอแผลกระพุ้งแก้ม ให้ล้วงคลำขอบฟันแถวนั้นทันที ต้นเหตุมักอยู่ตรงข้ามแผลพอดี",
+    "source": "EQUINE MED MID 86.pdf หน้า 23 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 23 (คำตอบเขียนทับบนภาพ) + jOm4PZtiC8o [112:57]",
+    "tags": [
+      "equine-dentistry",
+      "sharp-enamel-points",
+      "buccal-ulcer",
+      "oral-examination"
+    ],
+    "image": "/figures/questions/eqmed-dent-buccal-ulcer.webp"
+  },
+  {
+    "id": 207545,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ขณะจัดชุดอุปกรณ์ขั้นต่ำเพื่อตรวจช่องปากม้าอย่างละเอียด ควรหลีกเลี่ยงอุปกรณ์ชิ้นใดในการง้างปาก",
+    "options": [
+      "เครื่องถ่างปากแบบเต็มปากที่สภาพยังแน่นหนา",
+      "ที่รองคางสำหรับค้ำหัวม้าที่ซึมจนหัวตกแล้ว",
+      "สายยางหรือกระบอกฉีดสำหรับล้างหญ้าออกจากปาก",
+      "ลิ่มไม้หรือ gag ที่สอดง้างไว้ข้างเดียว",
+      "ไฟส่องสว่างแบบคาดศีรษะหรือไฟทันตกรรม"
+    ],
+    "answer": 3,
+    "explain": "ลิ่มหรือ gag ที่สอดง้างไว้ข้างเดียวทำให้แรงกัดทั้งหมดของม้าลงที่ฟันซี่เดียวที่รองอยู่ โอกาสฟันซี่นั้นแตกจึงสูงมาก ม้าที่ถูกสอดอะไรเข้าปากจะกัดแน่นอน จึงต้องใช้เครื่องถ่างปากแบบเต็มปากที่กระจายแรงไปทั้งสองแผง และต้องเลือกตัวที่สภาพยังแน่นหนา เพราะมือของเราจะล้วงเข้าไปอยู่ในนั้น ชุดที่ขาดไม่ได้เลยมีสามอย่าง คือการบังคับม้าให้นิ่งพอจะล้วงมือเข้าปากได้ เครื่องถ่างปากแบบเต็มปาก และไฟส่องสว่าง ที่เหลืออย่างกระจกส่องฟัน เครื่องมือเขี่ยโพรงประสาท และกระบอกล้างปาก ช่วยให้ตรวจได้ละเอียดขึ้น แต่ไม่ได้ทำให้เปิดปากดูได้ด้วยตัวมันเอง\n\n❌ ทำไมข้ออื่นผิด\n— เครื่องถ่างปากแบบเต็มปากคือตัวที่ควรใช้ เพราะกระจายแรงกัดไม่ให้ลงซี่เดียว\n— ที่รองคางช่วยค้ำหัวม้าที่ซึมแล้วให้อยู่นิ่งในระดับที่ทำงานได้\n— การล้างหญ้าออกก่อนเป็นขั้นตอนจำเป็น เพราะเปิดปากมาแล้วหญ้าเต็มปากจะมองอะไรไม่เห็น\n— ไฟส่องสว่างจำเป็นเสมอ เพราะช่องปากที่เปิดขึ้นมาจะมืดจนประเมินหน้าตัดฟันไม่ได้\n\n💡 แรงกัดของม้ากระจายทั้งแผงได้ ถ้าเปิดทั้งแผง แต่จะลงซี่เดียวทันทีถ้าง้างข้างเดียว",
+    "source": "Equine dentistry 5th year 1-2026",
+    "verified": "jOm4PZtiC8o [68:32] — เขียนจากคาบเรียน ไม่ใช่ข้อที่บันทึกไว้ใน EQUINE MED MID 86.pdf หน้า 26 ซึ่งฉบับใหม่เขียนชุดอุปกรณ์ขั้นต่ำกำกับไว้ด้วยลายมือของรุ่นพี่เองว่า light source, full mouth speculum และ restraint",
+    "tags": [
+      "equine-dentistry",
+      "oral-examination",
+      "equipment",
+      "full-mouth-speculum"
+    ]
+  },
+  {
+    "id": 207546,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine dentistry online test (Vet 81)",
+    "q": "ลูกม้าในภาพอ้าปากให้เห็นฟันตัดชุดน้ำนมของขากรรไกรบน ซี่กลางขึ้นเต็มซี่แล้ว และซี่ถัดออกไปทางข้างเพิ่งโผล่พ้นขอบเหงือกขึ้นมา ลูกม้าตัวนี้อายุประมาณเท่าใด",
+    "options": [
+      "ประมาณ 6 วัน",
+      "ประมาณ 6 สัปดาห์",
+      "ประมาณ 6 เดือน",
+      "ประมาณ 1 ปี",
+      "ประมาณ 1 ปีครึ่ง"
+    ],
+    "answer": 1,
+    "explain": "ฟันตัดชุดน้ำนมของม้าขึ้นตามจังหวะเลข 6 สามตัว คือซี่กลางทะลุเหงือกราว 6 วัน ซี่ถัดออกไปทางข้างราว 6 สัปดาห์ และซี่มุมราว 6 เดือน ภาพนี้ซี่กลางขึ้นเต็มซี่แล้วและซี่ถัดออกไปเพิ่งพ้นเหงือก จึงตรงกับหมุดที่สองพอดี\n\n❌ ทำไมข้ออื่นผิด\n— ที่ราว 6 วันมีเฉพาะซี่กลางที่เพิ่งทะลุเหงือก ยังไม่มีซี่ถัดออกไปทางข้าง\n— ที่ราว 6 เดือนซี่มุมขึ้นมาด้วย จึงเห็นฟันตัดน้ำนมครบทั้งสามคู่\n— ที่ราว 1 ปีฟันตัดน้ำนมขึ้นครบแล้ว ซี่กลางสบกันจนเห็นการสึก และฟันกรามแท้ซี่แรกขึ้นมาแล้ว\n— ที่ราว 1 ปีครึ่งซี่มุมสบกับซี่ล่างแล้ว ซึ่งเป็นหมุดที่ใช้แยกม้าอายุหนึ่งปีกับสองปี\n\n💡 จำเลข 6 สามตัว วัน สัปดาห์ เดือน แล้วไล่จากซี่กลางออกไปหาซี่มุม",
+    "source": "EQUINE MED MID 86.pdf หน้า 27 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 27 (คำตอบที่บันทึกไว้คือ 6 W. และฉบับใหม่เขียนซ้ำใต้ภาพด้วยปากกาชมพูว่า 6w.) + หน้า 20 ของฉบับใหม่ ซึ่งเป็นหน้าที่เพิ่งแทรกเข้ามาและสรุปจังหวะไว้ว่า 6 days = central, 6 wks = central + intermediate, 6 m = + corner + jOm4PZtiC8o [38:08]",
+    "tags": [
+      "equine-dentistry",
+      "ageing",
+      "deciduous-incisor",
+      "foal"
+    ],
+    "image": "/figures/questions/eqmed-dent-foal-incisors.webp"
+  },
+  {
+    "id": 207547,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ม้ากีฬาที่ใช้เหล็กปากประจำ ตรวจพบแผลที่เยื่อบุกระพุ้งแก้มวางตัวเป็นแนวนอน แนวของแผลชี้ไปที่สาเหตุใดมากที่สุด",
+    "options": [
+      "การเสียดสีจากเหล็กปากที่ถูกดึงไปตามแนวขวางของช่องปาก",
+      "ขอบคมของเคลือบฟันที่ด้านแก้มของฟันกรามบน",
+      "ร่องลึกปริทันต์ที่มีหญ้าอัดแน่นอยู่ภายในช่อง",
+      "ฟันน้ำนมที่หลุดไม่หมดแล้วค้างเป็นเสี้ยนอยู่",
+      "การติดเชื้อราที่เยื่อบุช่องปากหลังได้รับยาปฏิชีวนะ"
+    ],
+    "answer": 0,
+    "explain": "แนวของแผลในกระพุ้งแก้มแยกต้นเหตุได้ แผลที่วางตัวแนวนอนเกิดจากเหล็กปาก เพราะแรงดึงบังเหียนลากเหล็กไปตามแนวขวางของช่องปาก ส่วนแผลที่วางตัวแนวตั้งหรือเป็นรอยกลมเกิดจากปลายคมของฟันที่ครูดซ้ำที่เดิม ดังนั้นเจอแผลแนวนอนให้กลับไปดูเหล็กปากและวิธีบังคับก่อน และอย่าลืมเปิดดูใต้ลิ้นด้วยเพราะแผลอาจซ่อนอยู่\n\n❌ ทำไมข้ออื่นผิด\n— ขอบคมของเคลือบฟันทำให้เกิดแผลแนวตั้งหรือแผลกลม ไม่ใช่แนวนอน\n— ร่องลึกปริทันต์ทำให้เจ็บและมีกลิ่น แต่รอยโรคอยู่ที่ร่องระหว่างฟัน ไม่ใช่ผิวกระพุ้งแก้ม\n— ฟันน้ำนมค้างทำให้เคี้ยวลำบากและฟันแท้ขึ้นเบียด ไม่ได้ทำแผลเป็นแนวขวาง\n— เชื้อราทำให้เกิดฝ้าขาวที่ลอกเป็นแผ่น ไม่ได้เรียงตัวเป็นแนวเดียว\n\n💡 แนวนอนคือแนวที่เหล็กปากถูกดึง แนวตั้งคือแนวที่ฟันครูด",
+    "source": "Equine dentistry 5th year 1-2026",
+    "verified": "EQUINE MED MID 86.pdf หน้า 23 + jOm4PZtiC8o [113:21]",
+    "tags": [
+      "equine-dentistry",
+      "buccal-ulcer",
+      "bit-injury",
+      "oral-examination"
+    ]
+  },
+  {
+    "id": 207548,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "บันทึกฟันของม้าโตอายุ 8 ปี ระบุว่าฟันกรามตำแหน่งที่ 08 ของแผงฟันล่างข้างซ้ายขึ้นเบี้ยวออกไปทางด้านแก้ม ซี่นี้ต้องเขียนเลขประจำซี่ตามระบบ modified Triadan ว่าอะไร",
+    "options": [
+      "108",
+      "208",
+      "308",
+      "408",
+      "708"
+    ],
+    "answer": 2,
+    "explain": "ระบบ modified Triadan ใช้เลขหลักแรกบอกแผงฟัน ของฟันแท้คือ 1 บนขวา 2 บนซ้าย 3 ล่างซ้าย 4 ล่างขวา แล้วใช้สองหลักหลังบอกตำแหน่งของซี่ในแผงนั้น แผงฟันล่างข้างซ้ายของม้าโตจึงขึ้นต้นด้วย 3 และซี่ที่ตำแหน่ง 08 เขียนได้ว่า 308 ทิศที่เบี้ยวออกไปต้องบันทึกคู่กันไว้เสมอ เพราะซี่ล่างที่เบี้ยวออกด้านแก้มจะไปครูดเยื่อบุกระพุ้งแก้มข้างนั้น คนที่เปิดปากดูรอบหน้าจะได้รู้ว่าต้องไปดูตรงไหนก่อน\n\n❌ ทำไมข้ออื่นผิด\n— 108 ขึ้นต้นด้วย 1 จึงเป็นแผงฟันบนข้างขวา คนละขากรรไกรและคนละข้าง\n— 208 ขึ้นต้นด้วย 2 จึงเป็นแผงฟันบนข้างซ้าย ถูกข้างแต่ผิดขากรรไกร\n— 408 ขึ้นต้นด้วย 4 จึงเป็นแผงฟันล่างข้างขวา ถูกขากรรไกรแต่ผิดข้าง\n— 708 ขึ้นต้นด้วย 7 ซึ่งเป็นชุดเลขของฟันน้ำนมในแผงล่างข้างซ้าย ใช้กับลูกม้าที่ยังไม่ผลัดฟัน ไม่ใช่ม้าอายุ 8 ปี\n\n💡 เลขหลักแรกเดินรอบปาก 1 2 3 4 สำหรับฟันแท้ แล้วบวกสี่เมื่อเป็นฟันน้ำนม จะได้ 5 6 7 8 เรียงคู่กันช่องต่อช่อง",
+    "source": "EQUINE MED MID 86.pdf หน้า 24 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 24 (ฉบับใหม่เขียนเลขซี่ฟันออกมาเต็มด้วยลายมือของรุ่นพี่เองว่า 308 malpositional tooth to buccal side แทนเลข 708 ที่เขียนไว้ในฉบับก่อน) + jOm4PZtiC8o [114:39] ที่ระบุว่าควอดแรนต์ 3 คือแผงฟันล่างข้างซ้าย และ [26:28] สำหรับหลักเลข 1 2 3 4 ของฟันแท้",
+    "tags": [
+      "equine-dentistry",
+      "triadan",
+      "tooth-numbering",
+      "malposition",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 207549,
+    "subject": "equine-medicine",
+    "topic": "equine-colic-bestfit",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ม้าโคลิกที่มี HR สูงมากจากความปวด ทิ้งตัวลงกระแทกพื้นแล้วลุกขึ้นยืนเอง หลังจากนั้นอาการปวดหายไปและ HR ลดลงจนดูเหมือนดีขึ้น ควรตีความอย่างไร",
+    "options": [
+      "ม้าตอบสนองต่อยาระงับปวดที่ให้ไว้ก่อนหน้า จึงติดตามอาการต่อที่คอกได้",
+      "การกลิ้งช่วยให้แก๊สที่ค้างอยู่เคลื่อนผ่านไปได้ อาการจึงทุเลาลงจริง",
+      "น่าจะเกิด GI rupture ตอนกระแทกพื้น ความปวดจึงหาย และม้ามักทรุดลงในไม่กี่ชั่วโมง",
+      "ลำไส้ที่บิดคลายตัวกลับเข้าที่เอง ถือเป็นสัญญาณที่ดีต่อการพยากรณ์โรค"
+    ],
+    "answer": 2,
+    "explain": "อาการปวดที่หายไปทันทีหลังม้ากระแทกตัวลงพื้นเป็นสัญญาณอันตราย ไม่ใช่สัญญาณว่าดีขึ้น เพราะกระเพาะที่ขยายอยู่แล้วแตกได้จากแรงกระแทก เมื่อแรงดันในกระเพาะหายไปความปวดก็หายตาม แต่คอนเทนต์ที่รั่วเข้าช่องท้องทำให้เกิด peritonitis ม้ามักเยื่อเมือกคล้ำ ช็อก และตายภายในไม่กี่ชั่วโมง จุดที่ต้องทำคือประเมินเยื่อเมือก CRT และ HR ซ้ำ แทนที่จะวางใจกับความปวดที่ลดลง",
+    "source": "EQUINE MED MID 86.pdf หน้า 30 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 30 (ภาพสไลด์ SHOULD EUTHANASIA BE CONSIDERED) + ha7c8qpdsA4 [43:43] [44:21] [44:47]",
+    "tags": [
+      "colic",
+      "GI rupture",
+      "prognosis",
+      "emergency",
+      "equine-colic-bestfit"
+    ]
+  },
+  {
+    "id": 207550,
+    "subject": "equine-medicine",
+    "topic": "equine-colic-bestfit",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ชุดค่าใดที่บ่งว่าม้าโคลิกมี severe cardiovascular compromise จนต้องหยิบยกการุณยฆาตขึ้นมาพิจารณา",
+    "options": [
+      "HR มากกว่า 90 ครั้งต่อนาที ค่าฮีมาโตคริตมากกว่า 60 เปอร์เซ็นต์ และเยื่อเมือกเขียวคล้ำ",
+      "HR 45 ถึง 60 ครั้งต่อนาที ค่าฮีมาโตคริต 40 เปอร์เซ็นต์ และเยื่อเมือกชมพู",
+      "HR มากกว่า 90 ครั้งต่อนาที ค่าฮีมาโตคริต 30 เปอร์เซ็นต์ และ CRT 1 วินาที",
+      "RR มากกว่า 36 ครั้งต่อนาที ค่าฮีมาโตคริต 45 เปอร์เซ็นต์ และอุณหภูมิ 101 F"
+    ],
+    "answer": 0,
+    "explain": "ชุดค่าที่บอกว่าระบบไหลเวียนโลหิตล้มเหลวจนแก้ไม่ทัน คือ HR ที่พุ่งเกิน 90 ครั้งต่อนาทีขึ้นไปถึงระดับ 100 ค่าฮีมาโตคริตที่เกิน 60 เปอร์เซ็นต์ซึ่งสะท้อนภาวะขาดน้ำและเลือดข้นอย่างรุนแรง และเยื่อเมือกที่เขียวคล้ำจากการขาดออกซิเจน สามอย่างนี้รวมกันเป็นเกณฑ์ข้อเดียวในชุดที่ใช้ตัดสินใจ อีกสองข้อที่แยกกันอยู่คือความปวดที่คุมไม่อยู่แม้ให้ยาแก้ปวดแรงเต็มที่แล้ว และภาวะทางเดินอาหารแตก เมื่อเข้าเกณฑ์ข้อใดข้อหนึ่ง การส่งผ่าตัดมักไม่ทันแล้ว จึงต้องคุยกับเจ้าของเรื่องการุณยฆาตอย่างตรงไปตรงมา",
+    "source": "EQUINE MED MID 86.pdf หน้า 30 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 30 (ภาพสไลด์ SHOULD EUTHANASIA BE CONSIDERED ระบุชื่อค่าที่เกิน 60 เปอร์เซ็นต์ว่า PCV) + ha7c8qpdsA4 [135:54] [136:22] [136:35]",
+    "tags": [
+      "colic",
+      "euthanasia",
+      "PCV",
+      "cardiovascular",
+      "equine-colic-bestfit"
+    ]
+  },
+  {
+    "id": 207551,
+    "subject": "equine-medicine",
+    "topic": "equine-colic-bestfit",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "สอด nasogastric tube ให้ม้าโคลิกแล้วของเหลวที่ไหลออกมามีสีแดง ควรทำอย่างไรต่อ",
+    "options": [
+      "ใส่น้ำและพาราฟินเพิ่มทางท่อ แล้วนัดติดตามอาการในอีก 24 ชั่วโมง",
+      "ถอดท่อออกแล้วให้ยาลดกรดชนิดกิน พร้อมงดอาหาร 12 ชั่วโมง",
+      "ล้างกระเพาะซ้ำจนน้ำที่ออกมาใส แล้วประเมิน CCS อีกครั้งในอีก 2 ชั่วโมง",
+      "ส่งม้าขึ้นรถไปโรงพยาบาลที่ผ่าตัดได้ทันที ไม่รอผลของการรักษาทางยา"
+    ],
+    "answer": 3,
+    "explain": "น้ำย้อนจากกระเพาะที่ออกมาเป็นสีแดงแปลว่ามีเลือดปนมาด้วย บ่งถึงลำไส้ที่ขาดเลือดหรือมีเนื้อตายแล้ว ไม่ใช่การอุดตันธรรมดาที่รอดูอาการได้ ขั้นตอนถัดไปคือพาม้าขึ้นรถไปโรงพยาบาลที่ผ่าตัดได้ทันที เพราะเวลาที่ใช้ไปกับการรักษาทางยาคือเวลาที่ลำไส้ส่วนที่ยังดีอยู่เสียไป การเติมน้ำหรือพาราฟินลงไปอีกก็ไม่ช่วย เพราะม้าที่มีน้ำย้อนขึ้นมาแล้วไม่ควร drenching ทำได้แค่ lavage และการล้างกระเพาะซ้ำหรือรอประเมินคะแนนใหม่ก็เป็นการเสียเวลาในเคสที่ตัดสินใจได้ตั้งแต่เห็นสีของน้ำที่ออกมา",
+    "source": "EQUINE MED MID 86.pdf หน้า 29 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 29 (มี reflux แล้วไม่ drenching ทำแค่ lavage) + ha7c8qpdsA4 [86:59] [87:13]",
+    "tags": [
+      "colic",
+      "nasogastric tube",
+      "reflux",
+      "referral",
+      "equine-colic-bestfit"
+    ]
+  },
+  {
+    "id": 207552,
+    "subject": "equine-medicine",
+    "topic": "equine-gi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ของเหลวแบบใดที่นับเป็น gastric reflux เมื่อสอด nasogastric tube ให้ม้า",
+    "options": [
+      "ของเหลวทุกส่วนที่ได้ออกมา ไม่ว่าจะไหลเองหรือต้องใช้ปั๊มดูด",
+      "ของเหลวที่ไหลออกมาเองตามท่อ ส่วนที่ต้องดูดออกไม่นับรวม",
+      "ของเหลวที่ดูดออกมาได้เท่านั้น เพราะส่วนที่ไหลเองมาจากหลอดอาหาร",
+      "ของเหลวที่ไหลออกมาหลังอัดน้ำเข้าไปล้างกระเพาะแล้วเท่านั้น"
+    ],
+    "answer": 1,
+    "explain": "เกณฑ์การนับน้ำย้อนจากกระเพาะคือของที่ไหลย้อนออกมาเองตามท่อหลังสอดเข้าไป ไม่ใช่ทุกอย่างที่ดูดออกมาได้ เพราะของที่ต้องออกแรงดูดบอกแค่ว่ามีคอนเทนต์ค้างอยู่ ไม่ได้แปลว่าแรงดันในกระเพาะสูงจนดันย้อนขึ้นมา ปริมาณที่ไหลเองเกิน 4 ลิตรจึงใช้บอกได้ว่าน่าจะมีการอุดตันที่ลำไส้เล็ก และแยกจากการที่ดูดได้คอนเทนต์น้อยกว่า 0.5 ลิตรซึ่งช่วยตัด impaction กับ tympany ออก",
+    "source": "EQUINE MED MID 86.pdf หน้า 29 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 29 + ha7c8qpdsA4 [86:20]",
+    "tags": [
+      "nasogastric tube",
+      "gastric reflux",
+      "colic",
+      "diagnosis",
+      "equine-gi"
+    ]
+  },
+  {
+    "id": 207553,
+    "subject": "equine-medicine",
+    "topic": "equine-colic-bestfit",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Nephrosplenic entrapment ของม้า ตรงกับคำเรียกทางคลินิกข้อใด",
+    "options": [
+      "Right dorsal displacement เพราะ colon เลื่อนไปกักที่ด้านขวาเหนือฐานซีคัม",
+      "Left ventral displacement เพราะ colon ตกลงไปอยู่ใต้ม้ามทางด้านซ้าย",
+      "Left dorsal displacement เพราะ colon ลอยขึ้นไปค้างเหนือเอ็นที่ยึดไตซ้ายกับม้าม",
+      "Right ventral displacement เพราะ colon เลื่อนมาแนบผนังหน้าท้องด้านขวาล่าง"
+    ],
+    "answer": 2,
+    "explain": "ชื่อเต็มของภาวะนี้คือ left dorsal displacement ของ large colon เพราะลำไส้ใหญ่ลอยขึ้นไปค้างอยู่เหนือเอ็นที่ยึดไตซ้ายกับม้าม ในช่องว่างระหว่างสองอวัยวะนี้ ซึ่งอยู่ทางด้านซ้ายของช่องท้อง คำว่า dorsal บอกทิศที่ colon เคลื่อนขึ้นไป คือขึ้นไปทางแนวสันหลัง ไม่ได้หมายถึงชื่อของ dorsal colon เอง การจำชื่อคู่นี้ช่วยให้อ่านรายงานที่ใช้คำใดคำหนึ่งได้ตรงกัน",
+    "source": "EQUINE MED MID 86.pdf หน้า 29 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 29 (ลายมือสีแดง) + ha7c8qpdsA4 [128:39] [129:14]",
+    "tags": [
+      "colic",
+      "nephrosplenic entrapment",
+      "large colon",
+      "terminology",
+      "equine-colic-bestfit"
+    ]
+  },
+  {
+    "id": 207554,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med Parasitology quiz recall (Vet 81)",
+    "q": "การตรวจวินิจฉัยหาตัวเต็มวัยของพยาธิ Habronema ในกระเพาะม้า ควรใช้วิธีใด",
+    "options": [
+      "ใช้เทปใสแปะรอบรูก้นแล้วส่องกล้อง",
+      "ขูดผิวหนังชั้นลึกที่รอยโรคแล้วส่องกล้อง",
+      "ล้างกระเพาะแล้วนำน้ำล้างไปตกตะกอนดู",
+      "ลอยอุจจาระด้วยน้ำเกลืออิ่มตัวแล้วนับไข่"
+    ],
+    "answer": 2,
+    "explain": "ตัวเต็มวัยของ Habronema อยู่ในกระเพาะ การสอดท่อล้างกระเพาะจะดึง content ออกมา แล้วนำไปตกตะกอนส่องหาไข่และตัวพยาธิ ชนิดที่เกาะตื้นอยู่ที่ผิวเยื่อเมือกจะหลุดมากับน้ำล้างได้มากกว่าชนิดที่ฝังลึกในชั้นใต้เยื่อเมือก ส่วนเทปใสใช้กับ Oxyuris equi และการขูดผิวหนังใช้กับรอยโรคแบบ cutaneous",
+    "source": "EQUINE MED MID 86.pdf หน้า 36 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 36 + IJaulz_PkS8 [18:33] [23:59]",
+    "tags": [
+      "equine-parasites",
+      "habronema",
+      "diagnosis"
+    ]
+  },
+  {
+    "id": 207555,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med Parasitology quiz recall (Vet 81)",
+    "q": "ลูกม้าแคระแกรน ผอมแห้ง น้ำหนักลด มีไข้ มีน้ำมูก ถ่ายเหลวเฉียบพลัน และมีปอดบวมร่วมด้วย ควรนึกถึงการติดปรสิตชนิดใดเป็นอันดับแรก",
+    "options": [
+      "Parascaris equorum",
+      "Oxyuris equi",
+      "Anoplocephala perfoliata",
+      "Gastrodiscus secundus",
+      "Chorioptes equi"
+    ],
+    "answer": 0,
+    "explain": "Parascaris equorum เป็นพยาธิไส้เดือนที่ตัวอ่อนเคลื่อนย้ายผ่านตับและปอด แล้วกลับขึ้นมาที่หลอดลมก่อนถูกกลืนลงทางเดินอาหาร ช่วงที่ผ่านปอดจึงทำให้ลูกม้ามีน้ำมูกและปอดบวมร่วมกับอาการโตช้าและผอมแห้ง เมื่อติดจำนวนมากตัวเต็มวัยในลำไส้เล็กยังทำให้ถ่ายเหลวและอุดตันจนโคลิกได้ พยาธิตัวอื่นในตัวเลือกไม่ได้เคลื่อนผ่านปอด จึงไม่อธิบายอาการทางเดินหายใจ",
+    "source": "EQUINE MED MID 86.pdf หน้า 36 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 36 และ 35 + IJaulz_PkS8 [31:17]",
+    "tags": [
+      "equine-parasites",
+      "parascaris",
+      "foal"
+    ]
+  },
+  {
+    "id": 207556,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med Parasitology quiz recall (Vet 81)",
+    "q": "พยาธิชนิดใดที่ระยะตัวอ่อนมีโอกาสทำให้ม้าเกิด peritonitis ได้",
+    "options": [
+      "Oxyuris equi",
+      "Parascaris equorum",
+      "Strongylus vulgaris",
+      "Strongylus edentatus"
+    ],
+    "answer": 3,
+    "explain": "ตัวอ่อนของ Strongylus edentatus ชอนไชจากผนังลำไส้เข้าตับ แล้วเลาะตามเอ็นยึดตับออกมาอยู่ใต้เยื่อบุช่องท้องและผนังลำตัว เกิดเป็นตุ่มเลือดออกและทำให้เยื่อบุช่องท้องอักเสบ ต่างจาก Strongylus vulgaris ที่ตัวอ่อนขึ้นไปตามหลอดเลือดแดงที่เลี้ยงลำไส้จนเกิดลิ่มเลือดและลำไส้ขาดเลือด",
+    "source": "EQUINE MED MID 86.pdf หน้า 36 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 36 + IJaulz_PkS8 [40:57] + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
+    "tags": [
+      "equine-parasites",
+      "large-strongyles",
+      "pathogenesis"
+    ]
+  },
+  {
+    "id": 207557,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med Parasitology quiz recall (Vet 81)",
+    "q": "พยาธิชนิดใดที่ตัวอ่อนเคลื่อนที่ไปที่หลอดเลือดแดงใหญ่ จนอาจทำอันตรายถึงกับเสียชีวิตได้",
+    "options": [
+      "Strongyloides westeri",
+      "Strongylus vulgaris",
+      "Oxyuris equi",
+      "Anoplocephala perfoliata"
+    ],
+    "answer": 1,
+    "explain": "ตัวอ่อนระยะที่สามของ Strongylus vulgaris ชอนไชเข้าผนังลำไส้แล้วเดินทางย้อนขึ้นไปตาม cranial mesenteric artery ทำให้ผนังหลอดเลือดอักเสบและเกิดลิ่มเลือด เมื่อลิ่มเลือดหลุดไปอุดหลอดเลือดที่เลี้ยงลำไส้ จะเกิดลำไส้ขาดเลือดและโคลิกรุนแรงจนเสียชีวิตได้ จึงถือว่าอันตรายที่สุดในกลุ่ม large strongyles",
+    "source": "EQUINE MED MID 86.pdf หน้า 36 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 36 + IJaulz_PkS8 [39:53] + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
+    "tags": [
+      "equine-parasites",
+      "strongylus-vulgaris",
+      "pathogenesis"
+    ]
+  },
+  {
+    "id": 207558,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med Parasitology quiz recall (Vet 81)",
+    "q": "ม้าที่ตรวจพบเหากัด (biting louse) บริเวณแผงคอ ควรเลือกการรักษาแบบใด",
+    "options": [
+      "Imidocarb 4 มก./กก. เข้ากล้าม 3 วัน",
+      "Ivermectin ป้อนซ้ำทุก 2 สัปดาห์",
+      "Praziquantel ป้อนครั้งเดียว",
+      "ยาทาภายนอก เช่น permethrin หรือ fipronil"
+    ],
+    "answer": 3,
+    "explain": "เหากัดกินเศษผิวหนังและสารคัดหลั่ง ไม่ได้ดูดเลือด ยาที่ให้ทางระบบจึงเข้าไม่ถึงตัวมัน การรักษาจึงใช้ยาทาภายนอกกลุ่ม pyrethroid เช่น permethrin หรือใช้ fipronil ร่วมกับการแปรงขนและเล็มขนให้สั้นลง เพราะเหาอาศัยอยู่บนเส้นขน ต่างจากเหาดูดเลือดที่ตอบสนองต่อ ivermectin เพราะมันกินเลือดที่มียาอยู่",
+    "source": "EQUINE MED MID 86.pdf หน้า 36 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 36 และ 35 + IJaulz_PkS8 [80:24] [80:34]",
+    "tags": [
+      "equine-parasites",
+      "lice",
+      "treatment"
+    ]
+  },
+  {
+    "id": 207559,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med Parasitology quiz recall (Vet 81)",
+    "q": "ยาและขนาดยาที่ใช้รักษาพยาธิไส้เดือนในลูกม้าคือข้อใด",
+    "options": [
+      "Imidocarb 4 มก./กก. เข้ากล้าม",
+      "Ivermectin 200 ไมโครกรัม/กก. ป้อน",
+      "Praziquantel 1 มก./กก. ป้อน",
+      "Diminazene 3.5 มก./กก. เข้ากล้าม"
+    ],
+    "answer": 1,
+    "explain": "Ivermectin เป็นยากลุ่ม macrocyclic lactone ที่ใช้กับพยาธิไส้เดือนในลูกม้า ขนาด 200 ไมโครกรัมต่อน้ำหนักตัวหนึ่งกิโลกรัม ป้อนทางปาก หน่วยเป็นไมโครกรัมไม่ใช่มิลลิกรัม ยาถ่ายพยาธิตัวอื่นที่ใช้ได้ เช่น fenbendazole 5 มก./กก. pyrantel 6.6 มก./กก. และ mebendazole 8.8 มก./กก. ส่วน imidocarb และ diminazene เป็นยาสำหรับปรสิตในเลือด",
+    "source": "EQUINE MED MID 86.pdf หน้า 37 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 37 + IJaulz_PkS8 [24:53] [32:44]",
+    "tags": [
+      "equine-parasites",
+      "parascaris",
+      "anthelmintic",
+      "dose"
+    ]
+  },
+  {
+    "id": 207560,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med Parasitology quiz recall (Vet 81)",
+    "q": "พยาธิสกุลใดที่ทำให้ม้ามีอาการกลัวแสง น้ำตาไหล และอาจตาบอดได้",
+    "options": [
+      "Setaria",
+      "Draschia",
+      "Oxyuris",
+      "Gastrodiscus"
+    ],
+    "answer": 0,
+    "explain": "Setaria ตัวเต็มวัยปกติลอยอยู่ในช่องท้องของสัตว์เคี้ยวเอื้องและไม่ก่อโรค แต่เมื่อยุงดูดเลือดสัตว์เคี้ยวเอื้องแล้วมาดูดม้า จะปล่อยตัวอ่อนเข้าสู่ม้าซึ่งเป็นโฮสต์ผิดชนิด ตัวอ่อนจึงหลงไปอยู่ในช่องหน้าลูกตา ทำให้กระจกตาขุ่น กลัวแสง น้ำตาไหล และตาบอดได้",
+    "source": "EQUINE MED MID 86.pdf หน้า 37 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 37 และ 35 + IJaulz_PkS8 [85:53] [91:47]",
+    "tags": [
+      "equine-parasites",
+      "setaria",
+      "ocular"
+    ]
+  },
+  {
+    "id": 207561,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med Parasitology quiz recall (Vet 81)",
+    "q": "ยาถ่ายพยาธิที่แนะนำให้กับม้า นิยมให้ในรูปแบบใด",
+    "options": [
+      "ยาฉีดเข้ากล้ามเนื้อ",
+      "ยาหยดหลังแบบ pour-on",
+      "ยาป้ายปากแบบ paste",
+      "ยาผสมน้ำอาบทั้งตัว"
+    ],
+    "answer": 2,
+    "explain": "ม้ารับยาถ่ายพยาธิแบบป้ายปากได้สะดวกและไม่ต้องจับบังคับมาก จึงเป็นรูปแบบที่ใช้กันทั่วไป ข้อควรระวังคือเนื้อยาบางส่วนอาจติดค้างที่กระพุ้งแก้มและไม่ถูกกลืนลงไป เวลาคำนวณขนาดยาจากน้ำหนักที่ได้จากสายวัด จึงมักบวกเผื่อไว้อีกเล็กน้อยเพื่อให้ม้าได้รับยาครบ",
+    "source": "EQUINE MED MID 86.pdf หน้า 37 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 37 และ 35 + IJaulz_PkS8 [25:22]",
+    "tags": [
+      "equine-parasites",
+      "anthelmintic",
+      "route"
+    ]
+  },
+  {
+    "id": 207562,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med Parasitology quiz recall (Vet 81)",
+    "q": "การตรวจวินิจฉัย trypanosomiasis (surra) ในม้าทำได้ด้วยวิธีใด",
+    "options": [
+      "ล้างกระเพาะแล้วนำ content ไปตกตะกอน",
+      "เทคนิคหลอดฝอย (Woo's) ร่วมกับ PCR",
+      "ขูดผิวหนังชั้นลึกแล้วส่องกล้อง",
+      "ใช้เทปใสแปะรอบรูก้นแล้วส่องกล้อง"
+    ],
+    "answer": 1,
+    "explain": "เทคนิคหลอดฝอยคือการปั่นเลือดที่ใส่สารกันเลือดแข็ง แล้วส่องดูชั้นพลาสมาที่อยู่เหนือ buffy coat จะเห็นจุดเล็ก ๆ ที่เคลื่อนไหวได้ซึ่งคือตัวเชื้อ กำลังขยายที่ใช้ได้ต่ำจึงบอกได้แค่ว่ามีตัวที่เคลื่อนไหว ปัจจุบันจึงใช้ PCR ตรวจหาดีเอ็นเอของเชื้อเพื่อยืนยันชนิดต่อ",
+    "source": "EQUINE MED MID 86.pdf หน้า 37 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 37 + IJaulz_PkS8 [71:53] [72:06]",
+    "tags": [
+      "equine-parasites",
+      "trypanosoma",
+      "diagnosis"
+    ]
+  },
+  {
+    "id": 207563,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med Parasitology quiz recall (Vet 81)",
+    "q": "ในการรักษาพยาธิ Setaria ที่เข้าไปอยู่ในช่องหน้าตาม้า ทำได้ด้วยวิธีใด",
+    "options": [
+      "เจาะช่องหน้าตาให้แรงดันภายในดันตัวพยาธิออกมา",
+      "หยอดยาปฏิชีวนะร่วมกับสเตียรอยด์เข้าตาจนกว่าจะหาย",
+      "ป้อนยาถ่ายพยาธิกลุ่ม benzimidazole นาน 5 วัน",
+      "ฉีดยาถ่ายพยาธิเข้าช่องหน้าตาโดยตรงครั้งเดียว"
+    ],
+    "answer": 0,
+    "explain": "ตัวพยาธิอยู่ในช่องหน้าลูกตาซึ่งยาที่ให้ทางระบบเข้าถึงได้ยาก วิธีที่ใช้คือทำให้ม้านิ่งแล้วเจาะช่องหน้าลูกตา ความดันภายในจะดันตัวพยาธิออกมาทางรูที่เจาะ แล้วเก็บตัวไปจำแนกชนิดต่อ อีกวิธีคือวางยาสลบแล้วกรีดเอาออกและเย็บปิด หลังทำต้องหยอดยาปฏิชีวนะร่วมกับ atropine และตามด้วยยาลดการอักเสบ",
+    "source": "EQUINE MED MID 86.pdf หน้า 37 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 37 และ 35 + IJaulz_PkS8 [88:02] [89:22]",
+    "tags": [
+      "equine-parasites",
+      "setaria",
+      "ocular",
+      "treatment"
+    ]
+  },
+  {
+    "id": 207564,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med Parasitology quiz recall (Vet 81)",
+    "q": "ม้ามีแผลเรื้อรังขอบนูนแข็งบริเวณหัวตา ให้ยาปฏิชีวนะแล้วไม่หาย ควรนึกถึงโรคใด",
+    "options": [
+      "โรคขี้เรื้อนจาก Chorioptes equi",
+      "โรคผิวหนังจากเชื้อรา dermatophytosis",
+      "การระคายเคืองจากเหากัด Damalinia equi",
+      "แผลหน้าร้อนจาก Habronema (cutaneous form)"
+    ],
+    "answer": 3,
+    "explain": "แผลชนิดนี้เกิดจากตัวอ่อนของ Habronema ที่แมลงวันพามาวางไว้ที่แผลหรือบริเวณที่เปียกชื้นอย่างหัวตา ตัวอ่อนอยู่ได้แค่ระยะที่สามและไม่เจริญเป็นตัวเต็มวัย จึงเกิดปฏิกิริยาแบบ eosinophilic granuloma ขอบแผลนูนแข็ง ยาปฏิชีวนะกำจัดได้แต่แบคทีเรียที่แทรกซ้อน ไม่ได้กำจัดตัวอ่อนในแผล การขูดรอยโรคส่งตรวจจึงช่วยยืนยัน และแผลมักสัมพันธ์กับฤดูที่แมลงวันชุก",
+    "source": "EQUINE MED MID 86.pdf หน้า 37 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 37 + IJaulz_PkS8 [18:07] [19:50] [20:04] [83:28]",
+    "tags": [
+      "equine-parasites",
+      "habronema",
+      "summer-sore",
+      "skin"
+    ]
+  },
+  {
+    "id": 207565,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med Parasitology quiz recall (Vet 81)",
+    "q": "Blood parasite ชนิดใดในม้าที่มีรายงานการติดเชื้อเป็นครั้งแรกในประเทศไทย",
+    "options": [
+      "Babesia caballi",
+      "Trypanosoma evansi",
+      "Babesia equi",
+      "Anaplasma phagocytophilum"
+    ],
+    "answer": 2,
+    "explain": "รายงานนี้มาจากการเจาะเลือดม้าในจังหวัดลำปาง 167 ตัวอย่าง แล้วตรวจด้วย buffy coat thin blood smear พบเชื้อฟอร์มเล็กอยู่ในเม็ดเลือดแดง 12 ตัวอย่าง คิดเป็น 7.19% ซึ่งก่อนหน้านั้นไม่เคยมีรายงานในประเทศไทย ม้ากลุ่มนี้มาจากการตรวจสุขภาพทั่วไปและยังไม่แสดงอาการ ปริมาณเชื้อที่ต่ำกว่า 1% ทำให้ thin blood smear ธรรมดาอาจตรวจไม่พบ",
+    "source": "EQUINE MED MID 86.pdf หน้า 37 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 37 และ 35 + IJaulz_PkS8 [67:15] [67:41]",
+    "tags": [
+      "equine-parasites",
+      "babesia",
+      "thailand",
+      "diagnosis"
+    ]
+  },
+  {
+    "id": 207566,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med Parasitology quiz recall (Vet 81)",
+    "q": "ม้ามีไข้ เยื่อเมือกซีด และเริ่มเดินวนกับเสียการทรงตัว ควรนึกถึงปรสิตชนิดใด",
+    "options": [
+      "Trypanosoma evansi",
+      "Oxyuris equi",
+      "Parascaris equorum",
+      "Chorioptes equi"
+    ],
+    "answer": 0,
+    "explain": "Trypanosoma evansi ก่อโรคเซอร์รา เชื้อเพิ่มจำนวนในกระแสเลือดจนเม็ดเลือดแดงแตก ทำให้มีไข้ ซีด และอ่อนแรง เมื่อเชื้อเข้าสู่ระบบประสาทส่วนกลางจะเกิด ataxia เดินวน ตาบอด และเยื่อหุ้มสมองอักเสบ ม้าไวต่อเชื้อนี้มากและทรุดเร็ว จึงต้องรีบวินิจฉัยและรักษา",
+    "source": "EQUINE MED MID 86.pdf หน้า 38 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 38 และ 35 + IJaulz_PkS8 [69:53] [71:28]",
+    "tags": [
+      "equine-parasites",
+      "trypanosoma",
+      "neurologic"
+    ]
+  },
+  {
+    "id": 207567,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med Parasitology quiz recall (Vet 81)",
+    "q": "ม้าขนร่วงบริเวณข้อเท้าลงไปถึงกีบและคันอย่างรุนแรง ควรนึกถึงปรสิตชนิดใด",
+    "options": [
+      "Damalinia equi",
+      "Habronema muscae",
+      "Oxyuris equi",
+      "Chorioptes equi"
+    ],
+    "answer": 3,
+    "explain": "Chorioptes equi เป็นไรที่ไม่ขุดโพรง กินเศษเนื้อเยื่อผิวหนังบริเวณข้อเท้าลงไปถึงกีบ จึงทำให้ขนร่วง เป็นสะเก็ด และคันจนม้ากระทืบเท้าหรือถูขาเป็นแผล แยกจาก Psoroptes ได้ที่ pretarsi ซึ่งของ Chorioptes ไม่มีข้อและ sucker เป็นรูปถ้วยก้านสั้น",
+    "source": "EQUINE MED MID 86.pdf หน้า 38 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 38 + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
+    "tags": [
+      "equine-parasites",
+      "mite",
+      "chorioptes",
+      "skin"
+    ]
+  },
+  {
+    "id": 207568,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "ตัวเต็มวัยของ Draschia megastoma (Habronema megastoma) อยู่ที่ตำแหน่งใดของกระเพาะม้า",
+    "options": [
+      "ลอยอยู่ในน้ำย่อยโดยไม่เกาะผนัง",
+      "ฝังอยู่ในชั้นใต้เยื่อเมือกเป็นตุ่มนูน",
+      "เกาะอยู่ที่ผิวเยื่อเมือกโดยไม่ฝังตัว",
+      "อยู่ในชั้นกล้ามเนื้อรอบ pylorus"
+    ],
+    "answer": 1,
+    "explain": "Draschia megastoma สร้างตุ่มพังผืดฝังอยู่ในชั้นใต้เยื่อเมือกของกระเพาะ ต่างจาก Habronema muscae ที่อยู่บนผิวเยื่อเมือก และ Habronema microstoma ที่อยู่ในชั้นเยื่อเมือก ความลึกนี้มีผลกับการตรวจ เพราะชนิดที่อยู่ตื้นจะหลุดมากับน้ำล้างกระเพาะได้มากกว่าชนิดที่ฝังลึก",
+    "source": "EQUINE MED MID 86.pdf หน้า 35 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 35 + IJaulz_PkS8 [18:20] + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
+    "tags": [
+      "equine-parasites",
+      "draschia",
+      "habronema",
+      "anatomy"
+    ]
+  },
+  {
+    "id": 207569,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "ยาที่ใช้รักษาโรคเซอร์ราจาก Trypanosoma evansi ในม้าคือข้อใด",
+    "options": [
+      "Ivermectin ป้อนครั้งเดียว",
+      "Fenbendazole ป้อน 5 วัน",
+      "Diminazene aceturate",
+      "Imidocarb เข้ากล้าม 3 วัน"
+    ],
+    "answer": 2,
+    "explain": "โรคเซอร์ราเกิดจาก Trypanosoma evansi ซึ่งเป็นโปรโตซัวในกระแสเลือด ยาที่ใช้เป็นกลุ่ม trypanocide โดยตัวที่ใช้กันคือ diminazene aceturate ชื่อการค้า Berenil ต้องเริ่มรักษาเร็วเพราะม้าไวต่อเชื้อนี้มาก และต้องติดตามต่อเพราะมีโอกาสกลับเป็นซ้ำ ส่วน imidocarb ใช้กับ piroplasmosis และยาถ่ายพยาธิกลุ่มอื่นไม่มีผลกับโปรโตซัวในเลือด",
+    "source": "EQUINE MED MID 86.pdf หน้า 35 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86.pdf หน้า 35 + Taylor, Coop & Wall, Veterinary Parasitology 4th ed. (คาบ 10 ก.ย. 2026 ไม่ได้ระบุชื่อยาไว้ IJaulz_PkS8 [74:38])",
+    "tags": [
+      "equine-parasites",
+      "trypanosoma",
+      "surra",
+      "treatment"
+    ]
+  },
+  {
+    "id": 207570,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ยาถ่ายพยาธิกลุ่มใดในม้าที่ขึ้นชื่อว่าเกิดการดื้อยาได้เร็วที่สุด",
+    "options": [
+      "กลุ่ม benzimidazole",
+      "กลุ่ม macrocyclic lactone",
+      "กลุ่ม tetrahydropyrimidine",
+      "กลุ่ม isoquinoline"
+    ],
+    "answer": 0,
+    "explain": "กลุ่ม benzimidazole ถูกใช้ในม้ามายาวนานและถี่ที่สุด จึงเป็นกลุ่มที่พบการดื้อยาได้เร็วที่สุด โดยเฉพาะกับ small strongyles ที่วงชีวิตสั้นเพียง 6 ถึง 12 สัปดาห์ จึงหลุดจากรอบการถ่ายพยาธิที่ตั้งไว้ทุก 6 เดือน สัญญาณที่ใช้เฝ้าระวังคือไข่กลับมาปรากฏเร็วกว่าช่วงเวลาที่คาดไว้ และการลดลงของไข่หลังให้ยาที่น้อยกว่า 95%",
+    "source": "บันทึกคาบ Equine Parasites in Thailand 10 ก.ย. 2569",
+    "verified": "IJaulz_PkS8 [56:38] [53:41] [42:43]",
+    "tags": [
+      "equine-parasites",
+      "anthelmintic-resistance",
+      "benzimidazole"
+    ]
+  },
+  {
+    "id": 207571,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "ม้า cross-country อายุ 10 ปี ไอมีเสมหะและมีน้ำมูกข้นสองข้างมานานกว่า 2 สัปดาห์ ไม่มีไข้ ผล CBC และ blood chemistry ปกติทุกค่า ส่องกล้องทางเดินหายใจแล้วยังสรุปไม่ได้ ขั้นต่อไปควรเก็บตัวอย่างด้วยวิธีใดจึงตอบคำถามของเคสนี้ได้ตรงที่สุด",
+    "options": [
+      "Bronchoalveolar lavage แล้วส่ง cytology นับสัดส่วนเซลล์อักเสบ",
+      "Transtracheal wash แล้วส่งเพาะเชื้อหาแบคทีเรียก่อโรค",
+      "เจาะช่องอกดูดของเหลวส่งตรวจ เพราะสงสัยน้ำในช่องเยื่อหุ้มปอด",
+      "ป้าย swab ที่ nasopharynx ส่งตรวจหาเชื้อไวรัสทางเดินหายใจ"
+    ],
+    "answer": 0,
+    "explain": "ไม่มีไข้และเลือดปกติทุกค่า ชี้ว่าเรื่องหลักน่าจะเป็นการอักเสบของทางเดินหายใจส่วนล่าง ไม่ใช่การติดเชื้อที่ลุกลาม สิ่งที่ยังไม่รู้คือมีการอักเสบอยู่จริงไหมและเป็นชนิดใด BAL ล้างลงไปถึงระดับถุงลมแล้วนับสัดส่วนเซลล์ จึงตอบคำถามนี้ได้ตรงที่สุด\n\n❌ ทำไมข้ออื่นผิด\n— TTW เด่นเรื่องเพาะเชื้อ เหมาะเมื่อสงสัยการติดเชื้อแบคทีเรีย ซึ่งเคสนี้ยังไม่มีหลักฐาน\n— การเจาะช่องอกใช้เมื่อมีของเหลวในช่องเยื่อหุ้มปอด ซึ่งไม่ได้ชี้จากอาการของเคสนี้\n— swab ที่ nasopharynx สะท้อนแค่ทางเดินหายใจส่วนต้น ไม่บอกการอักเสบส่วนล่าง\n\n💡 ไข้ไม่มี เลือดปกติ แต่ไอเรื้อรัง ให้คิดถึงการอักเสบ แล้วเลือกวิธีที่อ่านเซลล์ได้",
+    "source": "EQUINE MED MID 86.pdf หน้า 39 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 39 และหน้า 40 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "POA",
+      "chronic cough",
+      "bronchoalveolar lavage",
+      "past-paper",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207572,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "ม้าอายุ 10 ปีที่ถ่ายพยาธิสม่ำเสมอ ไอเรื้อรังและมีน้ำมูกข้นสองข้าง ซักประวัติพบว่าคอกอากาศไม่ถ่ายเท มีพัดลมตัวเดียว เปลี่ยนวัสดุรองพื้นสัปดาห์ละครั้ง และเดินผ่านแล้วได้กลิ่นปัสสาวะชัดเจน ข้อมูลชุดนี้สนับสนุนกลไกใดมากที่สุด",
+    "options": [
+      "เชื้อไวรัสทางเดินหายใจแพร่จากม้าตัวข้างเคียงผ่านละอองฝอย",
+      "ตัวอ่อนพยาธิตัวกลมไชผ่านปอดจากพื้นคอกที่ปนเปื้อนอุจจาระ",
+      "ฝุ่นและแอมโมเนียที่สะสมในคอกระคายเคืองทางเดินหายใจส่วนล่าง",
+      "อากาศร้อนจัดทำให้ม้าขาดน้ำจนเยื่อบุทางเดินหายใจแห้งและไอ"
+    ],
+    "answer": 2,
+    "explain": "กลิ่นปัสสาวะที่ได้ตั้งแต่เดินผ่านแปลว่าแอมโมเนียสะสมอยู่ในคอก และวัสดุรองพื้นที่เปลี่ยนสัปดาห์ละครั้งในคอกที่อากาศแทบไม่ถ่ายเทก็เป็นแหล่งฝุ่นตลอดเวลา ทั้งสองอย่างเป็นสิ่งระคายเคืองที่กระตุ้นการอักเสบของทางเดินหายใจส่วนล่างโดยตรง และเป็นจุดที่ต้องแก้ก่อนอย่างอื่น\n\n❌ ทำไมข้ออื่นผิด\n— ไวรัสมักมาพร้อมไข้และระบาดหลายตัวในเวลาไล่เลี่ยกัน ไม่ใช่ตัวเดียวไอเรื้อรังสองสัปดาห์\n— ตัวอ่อนพยาธิไชปอดพบในม้าอายุน้อยที่ถ่ายพยาธิไม่ครบ ไม่ใช่ม้าโตที่ถ่ายพยาธิสม่ำเสมอ\n— ภาวะขาดน้ำไม่ทำให้มีน้ำมูกข้นสองข้างติดต่อกันเป็นสัปดาห์\n\n💡 ประวัติเรื่องคอกไม่ใช่รายละเอียดประกอบ มันคือสิ่งที่ต้องรักษา",
+    "source": "EQUINE MED MID 86.pdf หน้า 39 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 39 และหน้า 44 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "POA",
+      "history taking",
+      "equine asthma",
+      "past-paper",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207573,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "ในม้าที่สงสัย recurrent laryngeal neuropathy เหตุใดจึงต้องทำ slap test ร่วมกับการส่องกล้องกล่องเสียง",
+    "options": [
+      "เพื่อกระตุ้นให้ม้าไอ จะได้เก็บเสมหะจากหลอดลมส่งเพาะเชื้อ",
+      "เพื่อดูว่า arytenoid ยังตอบสนองแบบรีเฟล็กซ์ได้หรือไม่ ขณะม้ายืนพัก",
+      "เพื่อวัดขนาดช่องกล่องเสียงขณะม้าหายใจเข้าลึกที่สุด",
+      "เพื่อประเมินว่าม้าเจ็บกล้ามเนื้อไหล่จนไม่ยอมก้มหัวหรือไม่"
+    ],
+    "answer": 1,
+    "explain": "ตบที่ผนังอกหลังแนวไหล่แล้วมองผ่านกล้อง ถ้าวงจรประสาทยังทำงาน จะเห็น arytenoid ฝั่งตรงข้ามขยับหุบเข้าสั้นๆ ทุกครั้งที่ตบ ม้าที่ยืนพักเฉยๆ อาจกางกล่องเสียงได้ดูเกือบปกติ การกระตุ้นรีเฟล็กซ์จึงช่วยเผยว่าเส้นประสาท recurrent laryngeal ข้างนั้นยังสั่งกล้ามเนื้อได้หรือไม่ โดยไม่ต้องพาม้าไปวิ่ง\n\n❌ ทำไมข้ออื่นผิด\n— การเก็บเสมหะส่งเพาะเชื้อใช้ transtracheal wash ไม่ใช่การตบตัวม้า\n— ขนาดช่องกล่องเสียงดูได้จากภาพส่องกล้องโดยตรง ไม่ต้องตบ\n— ความเจ็บของกล้ามเนื้อไหล่เป็นคนละเรื่องกับการทำงานของกล่องเสียง\n\n💡 ยืนเฉยอาจดูปกติ ต้องกระตุ้นรีเฟล็กซ์ถึงจะเห็นว่าเส้นประสาทยังสั่งงานได้ไหม",
+    "source": "EQUINE MED MID 86.pdf หน้า 42 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 42 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "recurrent laryngeal neuropathy",
+      "slap test",
+      "endoscopy",
+      "past-paper",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207574,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "ม้าแข่งกลับจากการวิ่งด้วยความเร็วสูง แล้วพบเลือดสดไหลออกจมูกทั้งสองข้างทันที ภาวะใดน่าจะเป็นมากที่สุด",
+    "options": [
+      "Progressive ethmoid hematoma ที่ก้อนโตจนมีเลือดซึม",
+      "Guttural pouch mycosis ที่เชื้อรากัดหลอดเลือดแดง",
+      "Secondary sinusitis จากฝีที่ปลายรากฟันกรามบน",
+      "Exercise-induced pulmonary hemorrhage จากการวิ่งหนัก"
+    ],
+    "answer": 3,
+    "explain": "เลือดออกสองข้างทันทีหลังวิ่งเต็มฝีเท้า เข้าได้กับเลือดที่ออกในถุงลมแล้วไหลขึ้นมาตามหลอดลม ก่อนจะออกทางจมูกทั้งสองข้างพร้อมกัน ม้าที่มีภาวะนี้ส่วนใหญ่ไม่เห็นเลือดที่จมูกเลย พบเพียงราว 5% แต่เมื่อเห็นก็มักเป็นสองข้างและผูกกับการออกกำลังอย่างหนัก\n\n❌ ทำไมข้ออื่นผิด\n— ethmoid hematoma ให้เลือดออกข้างเดียว ปริมาณน้อย เป็นๆ หายๆ และไม่สัมพันธ์กับการออกกำลัง\n— guttural pouch mycosis ให้เลือดออกข้างเดียวปริมาณมาก เกิดเองโดยไม่ต้องวิ่ง และมักมีกลืนลำบากร่วมด้วย\n— sinusitis ให้หนองข้างเดียวที่มีกลิ่นเหม็น ไม่ใช่เลือดสดหลังวิ่ง\n\n💡 สองข้าง + ทันทีหลังวิ่ง ให้คิดถึงปอด ข้างเดียว + อยู่ดีๆ ก็ไหล ให้คิดถึงโพรงจมูกและถุงลม",
+    "source": "EQUINE MED MID 86.pdf หน้า 44 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 44 และหน้า 41 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "EIPH",
+      "epistaxis",
+      "differential diagnosis",
+      "past-paper",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207575,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "past-paper",
+    "examScope": "midterm",
+    "examOrigin": "Equine Med midterm recall (Vet 85)",
+    "q": "secondary sinusitis ในม้ามักตามหลังการติดเชื้อที่ปลายรากฟันกลุ่มใด",
+    "options": [
+      "ฟันกรามบนซี่ท้าย ตำแหน่ง Triadan 08 ถึง 11 ที่รากยื่นเข้าไปในโพรงไซนัส",
+      "ฟันตัดบนชุดหน้า Triadan 01 ถึง 03 ที่รากฝังอยู่ในกระดูกพรีแมกซิลลา",
+      "ฟันกรามล่าง Triadan 08 ถึง 11 ที่รากฝังอยู่ในกระดูกขากรรไกรล่าง",
+      "ฟันเขี้ยวของม้าตัวผู้ Triadan 04 ที่ขึ้นในช่องว่างระหว่างฟัน",
+      "Wolf tooth ซี่เล็ก Triadan 05 ที่ขึ้นชิดหน้าฟันกรามบนซี่แรก"
+    ],
+    "answer": 0,
+    "explain": "รากของฟันกรามบนกลุ่มท้ายยื่นขึ้นไปอยู่ในโพรงไซนัสของขากรรไกรบน โดย 08 กับ 09 สัมพันธ์กับ rostral maxillary sinus และ 10 กับ 11 สัมพันธ์กับ caudal maxillary sinus เมื่อปลายรากติดเชื้อ หนองจึงทะลุเข้าโพรงไซนัสได้โดยตรง กลายเป็น secondary sinusitis ที่มีน้ำมูกเป็นหนองข้างเดียวและมีกลิ่นเหม็น\n\n❌ ทำไมข้ออื่นผิด\n— ฟันตัดอยู่หน้าสุดและไม่ได้แตะโพรงไซนัสเลย\n— ฟันกรามล่างมีรากอยู่ในขากรรไกรล่าง การติดเชื้อจึงบวมที่ขอบล่างของขากรรไกร ไม่เข้าไซนัส\n— ฟันเขี้ยวขึ้นในช่องว่างระหว่างฟันตัดกับฟันกราม ไม่เกี่ยวกับไซนัส\n— wolf tooth เป็นซี่เล็กตื้นๆ ที่มักถอนออกได้ง่าย ไม่ได้มีรากในไซนัส\n\n💡 หนองข้างเดียวกลิ่นเหม็นในม้าโต ให้ตรวจฟันกรามบนซี่ท้ายก่อนเสมอ",
+    "source": "EQUINE MED MID 86.pdf หน้า 44 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 44 และหน้า 40 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "sinusitis",
+      "tooth root infection",
+      "Triadan",
+      "past-paper",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207576,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ในการจัดระดับ recurrent laryngeal neuropathy จากการส่องกล้องแบบ Grade 1 ถึง Grade 5 ระดับที่ 5 ตรงกับลักษณะใด",
+    "options": [
+      "arytenoid กางออกได้เต็มที่ แต่ขยับช้ากว่าอีกข้างเล็กน้อย",
+      "arytenoid กางออกได้ราวครึ่งหนึ่งของข้างที่ปกติ",
+      "arytenoid ข้างที่เป็นไม่ขยับและไม่กางออกเลยตลอดการตรวจ",
+      "arytenoid กางเกินจนปลายล้ำแนวกึ่งกลางไปอีกข้าง"
+    ],
+    "answer": 2,
+    "explain": "สเกลนี้ไล่ตามความสามารถในการกางของ arytenoid ข้างที่เป็น ปลายสุดของสเกลคือกางไม่ได้และไม่ขยับเลย กล่องเสียงจึงแคบอยู่ตลอดเวลา ม้าจะมีเสียงดังตอนหายใจเข้าและทนงานที่ใช้ความเร็วไม่ได้ การจัดระดับมีไว้เพื่อบอกพยากรณ์โรค และใช้ตัดสินว่าม้ายังทำงานที่ใช้ความเร็วสูงได้หรือไม่\n\n❌ ทำไมข้ออื่นผิด\n— กางได้เต็มที่แต่ช้ากว่าเล็กน้อย เป็นระดับต้นของสเกล ไม่ใช่ระดับท้ายสุด\n— กางได้ราวครึ่งหนึ่ง ยังมีการเคลื่อนไหวเหลืออยู่ จึงไม่ใช่ระดับท้ายสุด\n— การกางเกินจนล้ำแนวกึ่งกลางไม่ใช่ภาพของกล้ามเนื้อที่เป็นอัมพาต\n\n💡 ปลายสเกลคือ ไม่ขยับเลย ไม่ใช่ ขยับช้า",
+    "source": "EQUINE MED MID 86.pdf หน้า 43 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 43 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "recurrent laryngeal neuropathy",
+      "grading",
+      "endoscopy",
+      "figure",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207577,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ลูกม้าอายุ 6 เดือน มีก้อนบวมที่บริเวณใต้หูข้างหนึ่ง กดแล้วไม่เจ็บ หายใจมีเสียงครืดคราด ภาพรังสีเห็นถุงโป่งด้วยอากาศโดยไม่มีระดับของเหลว ควรวินิจฉัยว่าอะไร",
+    "options": [
+      "Guttural pouch empyema ที่มีหนองสะสมอยู่ภายใน",
+      "Guttural pouch tympany ที่มีอากาศค้างอยู่ภายใน",
+      "ฝีของ retropharyngeal lymph node ที่กำลังสุก",
+      "Guttural pouch mycosis ที่มีคราบเชื้อราเกาะผนัง"
+    ],
+    "answer": 1,
+    "explain": "ภาวะนี้พบในลูกม้าตั้งแต่แรกเกิดถึงอายุราวหนึ่งปี เกิดจากลมเข้าไปค้างในถุงแล้วระบายออกไม่ได้ ก้อนจึงนุ่ม กดไม่เจ็บ และภาพรังสีเห็นเป็นอากาศล้วนโดยไม่มีระดับของเหลว ถุงที่โป่งจะไปเบียดทางเดินหายใจจนมีเสียงครืดคราด และถ้าปล่อยไว้อาจมีหนองตามมาภายหลัง\n\n❌ ทำไมข้ออื่นผิด\n— empyema มีหนองอยู่ในถุง จึงบวมแบบกดเจ็บ ม้าคอแข็งไม่ยอมก้ม และภาพรังสีเห็นระดับของเหลว\n— ฝีของต่อมน้ำเหลืองหลังคอหอยกดเจ็บและมักมาพร้อมไข้\n— mycosis เป็นปัญหาของม้าโต อาการเด่นคือเลือดออกจมูกและกลืนลำบาก ไม่ใช่ก้อนลม\n\n💡 บวมแล้วไม่เจ็บ + ลูกม้า + เห็นแต่ลม ให้คิดถึง tympany ก่อน",
+    "source": "EQUINE MED MID 86.pdf หน้า 41 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 41 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "guttural pouch",
+      "tympany",
+      "foal",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207578,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ม้าโตมีเลือดออกจมูกข้างเดียวปริมาณมากโดยไม่สัมพันธ์กับการออกกำลังกาย ร่วมกับกลืนลำบาก หนังตาตก และรูม่านตาหดข้างเดียวกัน ควรวินิจฉัยว่าอะไร",
+    "options": [
+      "Guttural pouch mycosis ที่ลามไปหลอดเลือดและเส้นประสาท",
+      "Exercise-induced pulmonary hemorrhage ที่เป็นซ้ำหลายครั้ง",
+      "Progressive ethmoid hematoma ที่โตจนอุดโพรงจมูก",
+      "Primary bacterial sinusitis ที่ลุกลามจนเยื่อบุถลอก"
+    ],
+    "answer": 0,
+    "explain": "ถุง guttural pouch มีหลอดเลือดแดงใหญ่และเส้นประสาทสมองวิ่งผ่านอยู่ในผนัง คราบเชื้อราที่เกาะจึงกัดได้ทั้งสองอย่าง กัดหลอดเลือดก็ทำให้เลือดออกรุนแรงโดยม้าไม่ต้องออกแรงเลย กัดเส้นประสาทก็ทำให้กลืนลำบาก ส่วนหนังตาตกกับรูม่านตาหดคือ Horner's syndrome ที่เกิดจากการเสียเส้นทางซิมพาเทติกซึ่งทอดผ่านถุงนี้ การรักษาที่ได้ผลจึงเป็นการอุดหลอดเลือดที่เป็นต้นเหตุ ไม่ใช่การให้ยาฆ่าเชื้อราอย่างเดียว\n\n❌ ทำไมข้ออื่นผิด\n— EIPH สัมพันธ์กับการวิ่งหนัก และเมื่อมีเลือดออกจมูกมักเป็นสองข้าง\n— ethmoid hematoma เลือดออกทีละน้อยแบบเป็นๆ หายๆ และไม่ทำให้กลืนลำบาก\n— sinusitis ให้หนองข้างเดียว ไม่ได้ทำให้เกิดกลุ่มอาการทางระบบประสาทซิมพาเทติก\n\n💡 เลือดออกหนัก + กลืนลำบาก + หนังตาตก คือชุดอาการของถุงลมที่มีเชื้อรา",
+    "source": "EQUINE MED MID 86.pdf หน้า 41 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 41 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "guttural pouch",
+      "mycosis",
+      "Horner syndrome",
+      "epistaxis",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207579,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "การฉีด 4% formaldehyde เข้าก้อนผ่านกล้องเพื่อรักษา progressive ethmoid hematoma ข้อควรระวังที่สำคัญที่สุดคืออะไร",
+    "options": [
+      "ต้องวางยาสลบทุกครั้งเพราะทำในม้ายืนไม่ได้",
+      "ต้องงดน้ำและอาหารอย่างน้อย 24 ชั่วโมงก่อนทำ",
+      "ต้องฉีดซ้ำทุกสัปดาห์ติดต่อกันจนกว่าก้อนจะยุบหมด",
+      "ต้องประเมินก่อนว่าก้อนลามถึง cribriform plate หรือไม่"
+    ],
+    "answer": 3,
+    "explain": "ก้อนชนิดนี้โตออกมาจาก ethmoid labyrinth ซึ่งอยู่ติดกับ cribriform plate ที่กั้นระหว่างโพรงจมูกกับช่องสมอง ถ้าก้อนกินทะลุแผ่นกระดูกนี้ไปแล้ว น้ำยาที่ฉีดจะซึมเข้าช่องสมองได้ และมีรายงานม้าที่เกิดความผิดปกติทางระบบประสาทรุนแรงจนถึงตายหลังการรักษาด้วยวิธีนี้ จึงต้องดูขอบเขตของก้อนให้ชัดก่อนตัดสินใจฉีด\n\n❌ ทำไมข้ออื่นผิด\n— ทำในม้ายืนพร้อมยาซึมได้ ไม่จำเป็นต้องวางยาสลบทุกราย\n— การงดน้ำและอาหารไม่ใช่ประเด็นของหัตถการที่ทำผ่านโพรงจมูก\n— ความถี่ของการฉีดขึ้นกับการตอบสนองของก้อน ไม่ใช่สูตรตายตัวทุกสัปดาห์\n\n💡 ก้อนนี้กลับมาเป็นซ้ำได้บ่อย การนัดส่องกล้องติดตามที่ 6 ถึง 12 เดือนจึงอยู่ในแผนตั้งแต่ต้น",
+    "source": "EQUINE MED MID 86.pdf หน้า 41 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 41 + Reed, Bayly & Sellon, Equine Internal Medicine (ข้อห้ามเรื่อง cribriform plate มาจากตำรา ไม่ใช่จากหน้าเอกสาร)",
+    "tags": [
+      "ethmoid hematoma",
+      "formaldehyde",
+      "treatment",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207580,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ม้าอายุ 12 ปี ไอเรื้อรัง หายใจออกลำบากจนเห็น heave line ผล cytology จาก BAL แบบใดเข้าได้กับ recurrent airway obstruction",
+    "options": [
+      "neutrophil สูงขึ้นเล็กน้อยราว 5 ถึง 20% ของเซลล์ทั้งหมด",
+      "neutrophil เด่นชัดและสูงเกิน 20% ของเซลล์ทั้งหมด",
+      "เม็ดเลือดแดงมากกว่า 90% ร่วมกับพบ hemosiderophage",
+      "lymphocyte เด่นโดยไม่พบ neutrophil เพิ่มขึ้นเลย"
+    ],
+    "answer": 1,
+    "explain": "ภาวะนี้เป็นการอักเสบของทางเดินหายใจส่วนล่างที่มี neutrophil เป็นตัวเด่น เส้นแบ่งที่ใช้คือเกิน 20% ของเซลล์ทั้งหมด และในม้าที่อาการชัดมักอยู่ช่วง 50 ถึง 70% ส่วนช่วง 5 ถึง 20% ถือว่าอักเสบน้อย เข้าได้กับ inflammatory airway disease มากกว่า\n\n❌ ทำไมข้ออื่นผิด\n— เม็ดเลือดแดงเด่นพร้อม hemosiderophage บอกว่ามีเลือดออกในปอด ไม่ใช่การอักเสบเรื้อรังจากสิ่งที่หายใจเข้าไป\n— lymphocyte เด่นโดยไม่มี neutrophil เพิ่ม ไม่ใช่ภาพของภาวะนี้\n\n💡 จำเป็นคู่: 5 ถึง 20 คืออักเสบน้อย เกิน 20 คืออักเสบรุนแรง",
+    "source": "EQUINE MED MID 86.pdf หน้า 44 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 44 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "equine asthma",
+      "RAO",
+      "IAD",
+      "BAL cytology",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207581,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "หัวใจของการจัดการม้าที่เป็น recurrent airway obstruction ในระยะยาวคืออะไร",
+    "options": [
+      "ให้ยาปฏิชีวนะกลุ่มกว้างต่อเนื่องอย่างน้อยสองสัปดาห์",
+      "ให้ยาขับปัสสาวะเพื่อลดของเหลวที่คั่งอยู่ในถุงลม",
+      "ลดฝุ่นและปรับคอกให้อากาศถ่ายเท เพื่อเลี่ยงสิ่งกระตุ้น",
+      "ขังม้าไว้ในคอกปิดและงดการออกกำลังกายอย่างถาวร"
+    ],
+    "answer": 2,
+    "explain": "ภาวะนี้เกิดจากการตอบสนองต่อสิ่งที่ม้าหายใจเข้าไปทุกวัน คอร์ติโคสเตียรอยด์และยาขยายหลอดลมช่วยให้อาการดีขึ้นได้จริง แต่ถ้าสิ่งกระตุ้นยังอยู่ที่เดิม อาการจะกลับมาเสมอ การเปลี่ยนไปใช้วัสดุรองพื้นที่ฝุ่นน้อย แช่หรือเปลี่ยนอาหารหยาบ และทำให้คอกอากาศถ่ายเท จึงเป็นการรักษาหลักไม่ใช่ของแถม\n\n❌ ทำไมข้ออื่นผิด\n— ยาปฏิชีวนะไม่ช่วย เพราะต้นเหตุไม่ใช่การติดเชื้อ\n— ยาขับปัสสาวะใช้กับภาวะน้ำท่วมปอด ไม่ใช่หลอดลมตีบจากการอักเสบเรื้อรัง\n— การขังในคอกปิดยิ่งเพิ่มฝุ่นและแอมโมเนียรอบตัวม้า ทำให้แย่ลง\n\n💡 ยาแค่ซื้อเวลา สิ่งที่รักษาจริงคืออากาศที่ม้าหายใจ",
+    "source": "EQUINE MED MID 86.pdf หน้า 44 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 44 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "RAO",
+      "environmental management",
+      "treatment",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207582,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "หลังผ่าตัด prosthetic laryngoplasty หรือ tie-back ในม้า ภาวะแทรกซ้อนใดที่ต้องเฝ้าระวังที่สุด และเป็นเหตุผลที่ไม่ทำทั้งสองข้าง",
+    "options": [
+      "สำลักอาหารจนเกิดปอดอักเสบ เพราะกล่องเสียงปิดได้ไม่สนิท",
+      "เลือดออกในโพรงจมูกจากการบาดเจ็บของหลอดเลือดที่คอ",
+      "ไซนัสอักเสบข้างเดียวจากทางระบายของโพรงไซนัสถูกปิด",
+      "กล้ามเนื้อคอฝ่อจนม้ายกคอไม่ขึ้นหลังผ่าตัดไปแล้วหลายเดือน"
+    ],
+    "answer": 0,
+    "explain": "การผ่าตัดนี้ดึงให้ช่องกล่องเสียงเปิดค้างไว้ตลอดเวลา ข้อดีคืออากาศผ่านได้ดีขึ้นขณะทำงาน ข้อเสียคือจังหวะกลืน กล่องเสียงปิดไม่สนิทเหมือนเดิม อาหารและน้ำจึงหลุดลงหลอดลมได้ง่ายขึ้นจนเกิดปอดอักเสบจากการสำลัก ถ้าทำทั้งสองข้างช่องจะเปิดค้างจนปิดไม่ได้เลย ความเสี่ยงยิ่งสูง จึงทำข้างเดียวเท่านั้น\n\n❌ ทำไมข้ออื่นผิด\n— เลือดออกในโพรงจมูกไม่ใช่ภาวะแทรกซ้อนประจำของหัตถการนี้\n— ทางระบายของโพรงไซนัสอยู่คนละตำแหน่งกับกล่องเสียง\n— กล้ามเนื้อคอฝ่อจนยกคอไม่ขึ้นไม่ใช่ผลที่ตามมาจากการผ่าตัดนี้\n\n💡 เปิดค้างไว้ = หายใจดีขึ้น แต่กลืนแล้วปิดไม่สนิท",
+    "source": "EQUINE MED MID 86.pdf หน้า 43 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 43 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "laryngoplasty",
+      "tie-back",
+      "aspiration pneumonia",
+      "surgery",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207583,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ม้าแข่งวิ่งไปได้ระยะหนึ่งแล้วมีเสียงดังผิดปกติและชะลอลงเอง ส่องกล้องขณะยืนพักแล้วปกติ ขั้นตอนใดเหมาะที่สุดในการยืนยัน dorsal displacement of the soft palate",
+    "options": [
+      "ถ่ายภาพรังสีกะโหลกท่า lateral เพื่อหาระดับของเหลวในโพรงไซนัส",
+      "ส่องกล้องซ้ำหลังให้ยาซึมขนาดสูงเพื่อให้ม้ายืนนิ่งที่สุด",
+      "เก็บ BAL มานับสัดส่วนเซลล์อักเสบของทางเดินหายใจส่วนล่าง",
+      "ส่องกล้องขณะออกกำลังหรือทันทีหลังออกกำลังโดยไม่ให้ยาซึม"
+    ],
+    "answer": 3,
+    "explain": "เพดานอ่อนเลื่อนขึ้นไปอยู่เหนือ epiglottis เป็นช่วงๆ และมักเกิดเฉพาะตอนม้าออกแรงจริง การส่องกล้องตอนยืนพักจึงเห็นเป็นปกติได้บ่อย ต้องดูในจังหวะที่ม้าทำงาน ยาซึมยังทำให้เพดานอ่อนหย่อนลงจนเกิดภาพหลอกได้ด้วย จึงไม่ใช้ยืนยันภาวะนี้\n\n❌ ทำไมข้ออื่นผิด\n— ภาพรังสีไซนัสใช้กับปัญหาของโพรงไซนัส ไม่ได้บอกตำแหน่งของเพดานอ่อนขณะวิ่ง\n— ยาซึมทำให้กล้ามเนื้อคอหอยหย่อน แปลผลผิดได้\n— BAL บอกการอักเสบของส่วนล่าง ไม่ได้ตอบว่าเพดานอ่อนเลื่อนหรือไม่\n\n💡 โรคที่โผล่เฉพาะตอนวิ่ง ต้องตรวจตอนวิ่ง",
+    "source": "EQUINE MED MID 86.pdf หน้า 42 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 42 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "DDSP",
+      "soft palate",
+      "exercising endoscopy",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207584,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ม้าถูกขนส่งทางไกล 12 ชั่วโมงโดยผูกเชือกให้ยืนคอสูงตลอดทาง หลังถึงปลายทางมีไข้ ไอ และน้ำมูกเป็นหนองสองข้าง กลไกใดอธิบายได้ดีที่สุด",
+    "options": [
+      "การสั่นสะเทือนของรถทำให้หลอดเลือดฝอยในปอดฉีกจนมีเลือดออก",
+      "สิ่งคัดหลั่งค้างในหลอดลมเพราะระบายไม่ได้ ร่วมกับความเครียดที่กดภูมิคุ้มกัน",
+      "ฝุ่นในรถพ่วงกระตุ้นภูมิแพ้เฉียบพลันที่หลอดลมส่วนปลายทั้งสองข้าง",
+      "การขาดน้ำระหว่างเดินทางทำให้เลือดข้นจนเกิดลิ่มเลือดอุดในปอด"
+    ],
+    "answer": 1,
+    "explain": "ปอดกำจัดสิ่งแปลกปลอมด้วยการพัดสิ่งคัดหลั่งขึ้นมาตามหลอดลม แล้วให้ม้าก้มหัวเทออก เมื่อถูกผูกให้คอสูงตลอดทาง เส้นทางระบายนี้ถูกตัดไป ขณะเดียวกันความเครียดจากการเดินทางทำให้คอร์ติซอลสูงขึ้น ซึ่งกดการทำงานของ alveolar macrophage และการโบกของขนกวัด เชื้อที่ตกลงไปจึงตั้งตัวได้จนกลายเป็นปอดอักเสบ\n\n❌ ทำไมข้ออื่นผิด\n— เลือดออกในปอดจากการวิ่งจะให้เลือด ไม่ใช่หนองและไข้\n— ภูมิแพ้เฉียบพลันไม่ทำให้มีไข้สูงและน้ำมูกเป็นหนอง\n— ภาวะขาดน้ำไม่ได้ทำให้เกิดหนองในทางเดินหายใจ\n\n💡 ขนส่งม้าให้ปลอดภัย ต้องมีจังหวะให้ม้าก้มหัวได้ และแวะพัก",
+    "source": "EQUINE MED MID 86.pdf หน้า 43 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "EQUINE MED MID 86 หน้า 43 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "pneumonia",
+      "transport stress",
+      "mucociliary clearance",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207585,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ม้าตัวหนึ่งตรวจช่องปากแล้วไม่พบฟันเขี้ยวและไม่พบฟันกรามน้อยซี่แรกเลยทั้งปาก ม้าตัวนี้มีฟันแท้ทั้งหมดกี่ซี่",
+    "options": [
+      "36 ซี่",
+      "40 ซี่",
+      "42 ซี่",
+      "44 ซี่"
+    ],
+    "answer": 0,
+    "explain": "สูตรฟันแท้ของม้าคือ 2 x (I 3/3, C 1/1, P 3 หรือ 4 / 3 หรือ 4, M 3/3) ซี่ที่มีหรือไม่มีก็ได้มีสองกลุ่มคือฟันเขี้ยวกับฟันกรามน้อยซี่แรก (wolf tooth) ซึ่ง wolf tooth ของขากรรไกรล่างพบได้น้อยกว่าของขากรรไกรบนมาก เมื่อตัดสองกลุ่มนี้ออก จะเหลือฟันตัด 3 ฟันกรามน้อย 3 และฟันกราม 3 ต่อหนึ่งควอดแรนต์ รวม 9 ซี่ คูณสี่ควอดแรนต์ได้ 36 ซี่ ซึ่งเป็นจำนวนฟันแท้ที่น้อยที่สุดที่ม้าตัวหนึ่งจะมีได้ ส่วนจำนวนมากที่สุดคือ 44 ซี่ เมื่อมีครบทั้งฟันเขี้ยวและ wolf tooth ทั้งบนและล่าง\n\n❌ ทำไมข้ออื่นผิด\n— 40 ซี่ คือกรณีที่ยังนับฟันเขี้ยวครบสี่ซี่เข้าไปด้วยแต่ไม่มี wolf tooth\n— 42 ซี่ คือกรณีที่มีฟันเขี้ยวครบและมี wolf tooth เฉพาะขากรรไกรบน\n— 44 ซี่ คือจำนวนที่มากที่สุด ไม่ใช่น้อยที่สุด\n\n💡 ตัดซี่ที่มีก็ได้ไม่มีก็ได้ออกก่อน แล้วค่อยนับ",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 8 (รวบรวมโดยรุ่นพี่ Vet 83)",
+    "verified": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 8 + jOm4PZtiC8o [23:22]",
+    "tags": [
+      "equine-dentistry",
+      "dental formula",
+      "ฟันม้า"
+    ]
+  },
+  {
+    "id": 207586,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ฟันกลุ่มใดของม้าไม่มี infundibulum ในหน้าตัดฟันเลย",
+    "options": [
+      "ฟันตัดชุดบน",
+      "ฟันตัดชุดล่าง",
+      "ฟันกรามชุดบน",
+      "ฟันกรามชุดล่าง"
+    ],
+    "answer": 3,
+    "explain": "หน้าตัดฟันม้าเกิดจากการพับเข้าของชั้นเคลือบฟัน (infolding) ซึ่งเกิดขึ้นในฟันตัดทุกซี่และในฟันกรามชุดบนเท่านั้น ฟันตัดมีหลุมเดียว ฟันกรามบนมีสองหลุมต่อซี่ ส่วนฟันกรามชุดล่างไม่มีการพับนี้จึงไม่มี infundibulum เลย ผลทางคลินิกที่ตามมาคือ infundibular caries เกิดได้เฉพาะฟันที่มีหลุม จึงไม่พบที่ฟันกรามล่าง\n\n❌ ทำไมข้ออื่นผิด\n— ฟันตัดบนมีหลุมกลางหน้าตัดหนึ่งหลุม ใช้ประเมินอายุได้\n— ฟันตัดล่างมีหลุมเช่นกัน และเป็นแถวที่ใช้ดูอายุเป็นหลัก\n— ฟันกรามชุดบนมีหลุมถึงสองหลุมต่อซี่\n\n💡 ชุดกรามล่างคือชุดเดียวที่ไม่มีหลุม",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 8 (รวบรวมโดยรุ่นพี่ Vet 83)",
+    "verified": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 8 + jOm4PZtiC8o [7:39]",
+    "tags": [
+      "equine-dentistry",
+      "infundibulum",
+      "ฟันม้า"
+    ]
+  },
+  {
+    "id": 207587,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "Dental star ที่เห็นกลางหน้าตัดฟันตัดของม้า ตรงกับโครงสร้างใดเมื่อเรียกด้วยศัพท์ทางกายวิภาค",
+    "options": [
+      "Infundibulum ที่ถูกซีเมนต์อุดจนเต็ม",
+      "Tertiary dentin ที่สร้างขึ้นปิดโพรงประสาทฟัน",
+      "Peripheral enamel ที่หนาตัวขึ้นตรงกลางหน้าตัด",
+      "Cementum ชั้นนอกที่สึกจนเปลี่ยนสี"
+    ],
+    "answer": 1,
+    "explain": "เมื่อฟันสึกลงเรื่อยๆ จนใกล้ถึงโพรงประสาทฟัน odontoblast ที่อยู่รอบโพรงประสาทจะสร้างเนื้อฟันชุดที่สาม (tertiary dentin หรือ reparative dentin) ขึ้นมาปิดไว้ก่อน จึงเห็นเป็นจุดสีน้ำตาลเข้มกลางหน้าตัดฟัน ซึ่งเรียกกันอย่างง่ายว่า dental star คำว่า cup และ star เป็นคำเรียกอย่างง่าย ส่วนศัพท์ทางกายวิภาคของทั้งคู่คือ infundibulum และ tertiary dentin ตามลำดับ\n\n❌ ทำไมข้ออื่นผิด\n— infundibulum ที่ซีเมนต์อุดอยู่คือ cup ซึ่งเป็นคนละตำแหน่งและเกิดก่อน dental star\n— peripheral enamel เป็นเคลือบฟันวงนอกสุดของหน้าตัด ไม่ได้อยู่กลางหน้าตัด\n— cementum ชั้นนอกหุ้มตัวฟัน ไม่ใช่เนื้อฟันที่สร้างใหม่เพื่อปิดโพรงประสาท\n\n💡 จุดน้ำตาลกลางหน้าตัดคือเนื้อฟันซ่อมแซม ไม่ใช่หลุม",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 8 (รวบรวมโดยรุ่นพี่ Vet 83)",
+    "verified": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 8 + jOm4PZtiC8o [11:34-11:48]",
+    "tags": [
+      "equine-dentistry",
+      "dental star",
+      "ฟันม้า"
+    ]
+  },
+  {
+    "id": 207588,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "เมื่อม้าอายุมากขึ้น หลุม (cup) บนฟันตัดล่างจะตื้นลงและหายไปตามลำดับใด",
+    "options": [
+      "หายพร้อมกันทั้งสามคู่ ในปีที่ฟันตัดแท้สบกันครบทุกซี่",
+      "เริ่มจากซี่นอกสุด แล้วไล่เข้าหาซี่กลางเป็นคู่สุดท้าย",
+      "เริ่มจากซี่กลาง แล้วไล่ออกไปหาซี่นอกสุดเป็นคู่สุดท้าย",
+      "เริ่มจากฟันตัดบนจนหมด แล้วฟันตัดล่างจึงเริ่มหายตามทีหลัง"
+    ],
+    "answer": 2,
+    "explain": "ฟันตัดล่างขึ้นและเริ่มสบกันไล่จากซี่กลางออกไปหาซี่นอกสุด ห่างกันคู่ละราวหนึ่งปี ซี่ที่สบก่อนจึงสึกก่อน หลุมซึ่งเป็นแอ่งกลางหน้าตัดจะตื้นลงและหายไปตามลำดับเดียวกัน คือซี่กลาง ซี่ถัดออกมา แล้วจึงซี่นอกสุด ชุดตัวเลขที่ใช้กันคือราว 7 8 และ 9 ปี ส่วนตำราบางเล่มไล่เร็วกว่านั้นราวหนึ่งปี เพราะเส้นแบ่งอยู่ที่ว่าแอ่งตื้นแค่ไหนจึงเลิกนับเป็นหลุม ลำดับจึงเชื่อถือได้มากกว่าตัวเลขปี และการประเมินอายุต้องดูทรงหน้าตัด ร่อง Galvayne และ dental star ประกอบกันเสมอ\n\n❌ ทำไมข้ออื่นผิด\n— หลุมไม่ได้หายพร้อมกัน เพราะแต่ละคู่เริ่มสบกันคนละปี จึงสึกไม่เท่ากัน\n— ซี่นอกสุดสบกันครบเป็นคู่สุดท้าย จึงสึกช้าที่สุด ไม่ใช่หายก่อน\n— ฟันตัดล่างหมดหลุมก่อนฟันตัดบนหลายปี เพราะหลุมของฟันตัดบนลึกกว่าจึงสึกจนหายช้ากว่า\n\n💡 สึกก่อนคือคู่ที่สบก่อน ไล่จากซี่กลางออกไปนอกสุด",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 10 (รวบรวมโดยรุ่นพี่ Vet 83)",
+    "verified": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 10 + jOm4PZtiC8o [47:14-47:41] [48:12]",
+    "tags": [
+      "equine-dentistry",
+      "ageing",
+      "ฟันม้า"
+    ]
+  },
+  {
+    "id": 207589,
+    "subject": "equine-medicine",
+    "topic": "equine-dentistry",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "lecture-derived",
+    "examScope": "midterm",
+    "q": "ขณะประเมินการสบของฟันตัดม้า ควรจัดท่าหัวม้าอย่างไร และเพราะเหตุใด",
+    "options": [
+      "ปล่อยหัวม้าลงต่ำตามท่าเล็มหญ้า เพราะการเงยหัวจะดันขากรรไกรล่างไปด้านหลังจนดูเหมือนฟันบนล้ำ",
+      "ยกหัวม้าขึ้นสูงกว่าระดับไหล่ เพราะมุมนี้ทำให้มองเห็นแนวสบของฟันตัดได้ชัดเจนที่สุด",
+      "ดึงขากรรไกรล่างมาข้างหน้าค้างไว้ เพราะเป็นตำแหน่งที่ฟันบนกับฟันล่างสบกันพอดี",
+      "หันหัวม้าไปทางด้านข้างค้างไว้ เพราะทำให้ฟันกรามสองแถวแยกจากกันและวัดมุมสบได้"
+    ],
+    "answer": 0,
+    "explain": "ท่าที่ใช้อ่านการสบคือปล่อยให้หัวม้าอยู่ต่ำระดับเดียวกับตอนเล็มหญ้า เพราะเป็นตำแหน่งที่ฟันตัดบนและล่างสบกันในระนาบเดียวกัน ถ้าเงยหัวม้าขึ้น ขากรรไกรล่างจะเลื่อนไปทาง caudal ได้ราว 5 ถึง 10 มิลลิเมตร ทำให้ฟันตัดบนดูล้ำออกมาเหมือน parrot mouth ทั้งที่การสบปกติ การตัดสินว่าเป็น class 2 malocclusion จึงต้องดูตอนหัวม้าอยู่ต่ำเสมอ\n\n❌ ทำไมข้ออื่นผิด\n— การยกหัวสูงทำให้ขากรรไกรล่างถอยหลัง แล้วอ่านผลผิดไปทางฟันบนล้ำ\n— การดึงขากรรไกรล่างมาข้างหน้าเป็นการบังคับตำแหน่ง ไม่ใช่การสบตามธรรมชาติ\n— การเลื่อนกรามซ้ายขวาตรวจด้วยการดันขากรรไกรล่างไปด้านข้างขณะหัวอยู่นิ่ง ไม่ใช่ด้วยการหันหัวม้า\n\n💡 จะอ่านการสบ ต้องให้ม้าอยู่ในท่าเล็มหญ้า",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 11 (รวบรวมโดยรุ่นพี่ Vet 83)",
+    "verified": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 11 + jOm4PZtiC8o [90:23-90:46] [91:13-91:25]",
+    "tags": [
+      "equine-dentistry",
+      "oral examination",
+      "malocclusion"
+    ]
+  },
+  {
+    "id": 207590,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "แนวทางรักษาภาวะเชื้อราใน guttural pouch ของม้าที่ได้ผลดีที่สุดและตัดความเสี่ยงเลือดออกรุนแรง คือข้อใด",
+    "options": [
+      "ให้ยาต้านเชื้อราชนิดกินร่วมกับยาปฏิชีวนะฉีดจนกว่ารอยโรคจะยุบหมด",
+      "สวนล้างโพรงด้วยน้ำเกลือปลอดเชื้อวันละสองครั้งจนตรวจไม่พบเชื้อรา",
+      "อุดหลอดเลือดแดงที่รอยโรคเกาะอยู่ด้วยบอลลูนหรือขดลวดผ่านทางหลอดเลือด",
+      "พ่นยาต้านเชื้อราเข้าโพรงโดยตรงแล้วรอการตอบสนองนานราวห้าเดือน",
+      "ผ่าเปิดโพรงแล้วขูดรอยโรคออกให้หมดโดยไม่ยุ่งกับหลอดเลือดที่อยู่ใต้รอยโรค"
+    ],
+    "answer": 2,
+    "explain": "การรักษาที่ได้ผลคือตัดเลือดที่ไปเลี้ยงรอยโรคด้วยการอุดหลอดเลือดแดงที่เกี่ยวข้อง ทั้งแบบใส่บอลลูนและแบบใส่ขดลวดหรือสารอุดผ่านทางหลอดเลือด เมื่อเลือดไปเลี้ยงไม่ได้ รอยโรคเชื้อรามักยุบไปเองโดยไม่ต้องให้ยาเพิ่ม ส่วนการให้ยาต้านเชื้อราเฉพาะที่ตอบสนองช้าราวห้าเดือนและไม่ลดความเสี่ยงเลือดออก",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 37 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 37 + Auer & Stick, Equine Surgery 5th ed.",
+    "tags": [
+      "equine-respiratory",
+      "guttural-pouch",
+      "mycosis",
+      "arterial-occlusion",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207591,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ลูกม้าอายุหกเดือนบวมนุ่มไม่เจ็บบริเวณใต้หู หายใจมีเสียงครืดคราด ภาพรังสีบริเวณคอแบบใดที่ช่วยแยกภาวะนี้ออกจากการมีหนองสะสม",
+    "options": [
+      "เห็นระดับน้ำหนึ่งเส้นในโพรงด้านที่บวมมากกว่าอีกด้านชัดเจน",
+      "เห็นเป็นโพรงลมล้วนโดยไม่มีระดับน้ำ และผนังคอหอยถูกกดลงด้านล่าง",
+      "เห็นเงาทึบทั่วทั้งโพรงจนไม่เห็นขอบเขตของช่องลมที่เคยมีอยู่",
+      "เห็นก้อนขอบเขตชัดเจนยื่นเข้ามาในช่องลมของโพรงด้านที่บวม",
+      "เห็นกระดูกไฮออยด์หักร่วมกับลมรั่วแทรกอยู่ใต้ผิวหนังรอบคอ"
+    ],
+    "answer": 1,
+    "explain": "ภาวะลมค้างจนโพรงโป่งพองจะเห็นเป็นโพรงอากาศล้วนโดยไม่มีระดับน้ำ และโพรงที่ขยายจะดันผนังคอหอยส่วนบนให้ถูกกดลงมาด้านล่าง ต่างจากหนองสะสมซึ่งจะเห็นระดับน้ำเป็นเส้นแบ่งอยู่ภายในโพรง ลักษณะบวมที่กดไม่เจ็บในลูกม้าก็ช่วยแยกจากหนองสะสมที่มักกดแล้วเจ็บ",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 37 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 37 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "equine-respiratory",
+      "guttural-pouch",
+      "tympany",
+      "radiograph",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207592,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ข้อใดเปรียบเทียบลักษณะบวมบริเวณข้างแก้มใต้หูของม้าที่มีหนองสะสมใน guttural pouch กับม้าที่มีลมค้างจนโพรงโป่งพองได้ถูกต้อง",
+    "options": [
+      "หนองสะสมกดไม่เจ็บ ส่วนลมค้างกดแล้วเจ็บและม้าคอแข็งเกร็ง",
+      "ทั้งสองภาวะกดแล้วเจ็บเท่ากัน จึงต้องใช้ภาพรังสีแยกเท่านั้น",
+      "ทั้งสองภาวะกดไม่เจ็บ จึงต้องส่องกล้องดูรูเปิดของท่อจึงจะแยกได้",
+      "หนองสะสมกดแล้วเจ็บและม้าคอแข็งเกร็ง ส่วนลมค้างกดไม่เจ็บ",
+      "หนองสะสมบวมสองข้างเสมอ ส่วนลมค้างบวมข้างเดียวเสมอ"
+    ],
+    "answer": 3,
+    "explain": "หนองที่สะสมอยู่ในโพรงทำให้ผนังตึงและอักเสบ จึงกดแล้วเจ็บ ม้ามักยืดคอแข็งเกร็งไม่ยอมก้ม ส่วนลมที่ค้างอยู่จนโพรงโป่งพองดันผนังออกโดยไม่มีการอักเสบ จึงคลำได้เป็นก้อนนุ่มที่กดไม่เจ็บ ทั้งสองภาวะเกิดได้ทั้งข้างเดียวและสองข้าง จึงใช้จำนวนข้างมาแยกไม่ได้",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 37 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 37 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "equine-respiratory",
+      "guttural-pouch",
+      "empyema",
+      "tympany",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207593,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ม้าตัวหนึ่งมีเลือดไหลจากจมูกข้างเดียว ปริมาณไม่มาก เป็นระยะ และไม่สัมพันธ์กับการออกกำลังกาย ลักษณะเลือดออกแบบนี้เข้าได้กับภาวะใดมากที่สุด",
+    "options": [
+      "หลอดเลือดฝอยในปอดแตกจากการวิ่งด้วยความเร็วสูงซ้ำหลายครั้ง",
+      "แผลถลอกในโพรงจมูกจากการสอดท่อให้อาหารผ่านทางรูจมูก",
+      "เชื้อราใน guttural pouch ที่กัดกินผนังหลอดเลือดแดงจนทะลุ",
+      "ก้อนเลือดที่ค่อยโตขึ้นและกัดทำลายกระดูกรอบข้างในโพรงไซนัส",
+      "กระดูกใบหน้าร้าวจากอุบัติเหตุกระแทกจนเลือดซึมเข้าโพรงไซนัส"
+    ],
+    "answer": 3,
+    "explain": "ก้อนเลือดที่โตขึ้นเรื่อยในโพรงไซนัสทำให้เลือดซึมออกมาทีละน้อยเป็นระยะจากรูจมูกข้างเดียว และไม่สัมพันธ์กับการออกกำลังกาย ต่างจากเลือดออกในปอดที่ผูกกับการวิ่งเร็ว และต่างจากเชื้อราในโพรงที่เลือดออกปริมาณมากและต่อเนื่อง ส่วนแผลจากการสอดท่อกับกระดูกร้าวจะมีประวัติเหตุการณ์นำมาก่อนชัดเจน",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 37 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 37 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "equine-respiratory",
+      "ethmoid-hematoma",
+      "epistaxis",
+      "differential",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207594,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ข้อควรระวังที่สำคัญที่สุดของการฉีดสารละลายฟอร์มาลดีไฮด์ 4 เปอร์เซ็นต์เข้าก้อนเลือดในโพรงไซนัสผ่านกล้องส่องตรวจ คือข้อใด",
+    "options": [
+      "ห้ามให้สารรั่วเข้าหลอดเลือด เพราะมีรายงานม้าตายจากการฉีดด้วยวิธีนี้",
+      "ห้ามใช้ในม้าอายุน้อยกว่าสามปี เพราะกระดูกใบหน้ายังเจริญไม่เต็มที่",
+      "ต้องฉีดซ้ำทุกสัปดาห์ติดต่อกันหกครั้ง มิฉะนั้นก้อนจะไม่ยุบลงเลย",
+      "ต้องวางยาสลบและจัดให้ม้านอนตะแคงทุกครั้งที่ฉีด เพื่อกันการสำลัก",
+      "ห้ามใช้ร่วมกับยาลดการอักเสบชนิดไม่ใช่สเตียรอยด์ในช่วงเดียวกัน"
+    ],
+    "answer": 0,
+    "explain": "สารละลายฟอร์มาลดีไฮด์ใช้ฉีดเข้าเนื้อก้อนเพื่อให้ก้อนฝ่อ แต่ถ้าสารรั่วเข้าหลอดเลือดจะเป็นอันตรายถึงชีวิต มีรายงานม้าตายสองในแปดตัวจากสาเหตุนี้ จึงต้องมองเห็นปลายเข็มผ่านกล้องตลอดเวลาและมั่นใจว่าปลายเข็มอยู่ในเนื้อก้อนจริง นอกจากนี้รอยโรคกลับเป็นซ้ำได้บ่อย จึงต้องนัดส่องกล้องติดตามซ้ำ",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 37 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 37 + Auer & Stick, Equine Surgery 5th ed.",
+    "tags": [
+      "equine-respiratory",
+      "ethmoid-hematoma",
+      "formaldehyde",
+      "complication",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207595,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "การเหนี่ยวนำให้เพดานอ่อนเคลื่อนขึ้นไปอยู่เหนือกระดูกอ่อนฝาปิดกล่องเสียงแบบถาวรในงานทดลอง ทำได้ด้วยวิธีใด",
+    "options": [
+      "ตัดเส้นประสาทกล่องเสียงย้อนกลับข้างซ้ายบริเวณคอส่วนต้น",
+      "ผูกรัดลิ้นไว้กับขากรรไกรล่างตลอดเวลาที่ม้าออกกำลังกาย",
+      "บล็อกแขนงคอหอยของเส้นประสาทเวกัสที่ทอดผ่านใน guttural pouch",
+      "ตัดกล้ามเนื้อสเตอร์โนไทรอยด์ทั้งสองข้างบริเวณใต้คอของม้า",
+      "ฉีดยาชาเข้ารอบกระดูกอ่อนอะริทีนอยด์ทั้งสองข้างก่อนให้ม้าวิ่ง"
+    ],
+    "answer": 2,
+    "explain": "แขนงคอหอยของเส้นประสาทเวกัสทอดผ่านอยู่ภายในโพรงถุงลมข้างคอหอย เมื่อบล็อกเส้นประสาทเส้นนี้ กล้ามเนื้อที่ยึดเพดานอ่อนไว้จะทำงานไม่ได้ เพดานอ่อนจึงเคลื่อนขึ้นไปคลุมฝาปิดกล่องเสียงแบบถาวร ส่วนการตัดกล้ามเนื้อสเตอร์โนไทรอยด์เป็นการผ่าตัดรักษา ไม่ใช่การเหนี่ยวนำให้เกิดภาวะนี้",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 38 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 38 + Auer & Stick, Equine Surgery 5th ed.",
+    "tags": [
+      "equine-respiratory",
+      "DDSP",
+      "vagus-nerve",
+      "guttural-pouch",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207596,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ม้าแข่งมีเสียงหายใจดังผิดปกติเฉพาะตอนวิ่ง แต่ส่องกล้องขณะยืนพักแล้วปกติ ควรทำอย่างไรต่อเพื่อยืนยันภาวะเพดานอ่อนเคลื่อน",
+    "options": [
+      "ส่องกล้องซ้ำหลังให้ยาซึมขนาดสูง เพื่อให้กล้ามเนื้อคอหอยคลายตัวเต็มที่",
+      "ส่องกล้องขณะม้าออกกำลังกาย หรือทันทีหลังออกกำลังกายโดยไม่ให้ยาซึม",
+      "ถ่ายภาพรังสีบริเวณคอด้านข้างขณะม้ายืนนิ่ง แล้วมองหาระดับน้ำในโพรง",
+      "เก็บน้ำล้างหลอดลมส่วนลึกไปนับแยกชนิดเซลล์อักเสบเทียบกับค่าปกติ",
+      "ทำอัลตราซาวด์ผ่านผิวหนังบริเวณใต้ขากรรไกรขณะม้ายืนพักในซอง"
+    ],
+    "answer": 1,
+    "explain": "ภาวะนี้เป็นชนิดที่เกิดเป็นระยะและแสดงตัวเฉพาะตอนที่ม้าออกแรงจริง การส่องกล้องขณะม้ายืนพักจึงเห็นปกติได้ ต้องส่องกล้องขณะม้าวิ่งบนลู่หรือส่องทันทีหลังออกกำลังกาย และต้องไม่ให้ยาซึม เพราะยาซึมเองทำให้เพดานอ่อนเคลื่อนได้จนแปลผลไม่ได้",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 38 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 38 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "equine-respiratory",
+      "DDSP",
+      "endoscopy",
+      "exercise",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207597,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ภาวะที่ม้าตัวใหญ่มีเสียงหวีดดังขณะหายใจเข้าและเรียกกันว่า roarer เกิดจากความผิดปกติของโครงสร้างใด",
+    "options": [
+      "เอ็นเสียงข้างขวาหนาตัวขึ้นจากการอักเสบเรื้อรังเป็นเวลานาน",
+      "กระดูกอ่อนฝาปิดกล่องเสียงพับกลับไปด้านหลังจนปิดช่องลม",
+      "กล้ามเนื้อที่หุบกล่องเสียงข้างขวาหดเกร็งค้างจนไม่คลายตัว",
+      "กล้ามเนื้อที่กางกล่องเสียงข้างซ้ายเป็นอัมพาตจากเส้นประสาทเสียหน้าที่",
+      "เยื่อบุคอหอยหนาตัวขึ้นทั้งสองข้างจนช่องทางเดินอากาศแคบลง"
+    ],
+    "answer": 3,
+    "explain": "กล้ามเนื้อคริโคอะริทีนอยด์ด้านหลังเป็นกล้ามเนื้อเดียวที่กางกระดูกอ่อนอะริทีนอยด์ออก และรับการเลี้ยงจากเส้นประสาทกล่องเสียงย้อนกลับ เมื่อเส้นประสาทเสียหน้าที่ กล้ามเนื้อจะหดตัวไม่ได้และหย่อนลง กระดูกอ่อนอะริทีนอยด์กับเอ็นเสียงจึงกางไม่เต็มที่ ช่องกล่องเสียงแคบลงและเกิดเสียงหวีดขณะหายใจเข้า และมักเกิดกับข้างซ้าย",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 38 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 38 + Auer & Stick, Equine Surgery 5th ed.",
+    "tags": [
+      "equine-respiratory",
+      "recurrent-laryngeal-neuropathy",
+      "larynx",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207598,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ขณะส่องกล้องดูกล่องเสียงม้า ผู้ช่วยตบที่ไหล่ม้าเป็นจังหวะ การทำเช่นนี้มีจุดประสงค์ใด",
+    "options": [
+      "กระตุ้นรีเฟล็กซ์ให้กระดูกอ่อนอะริทีนอยด์ขยับ เพื่อดูว่าฝั่งใดขยับได้น้อยกว่า",
+      "ทำให้ม้าตกใจแล้วหายใจแรงขึ้น จะได้ยินเสียงปอดทั้งสองข้างชัดเจนขึ้น",
+      "ไล่เสมหะจากหลอดลมส่วนต้นขึ้นมาให้เก็บตัวอย่างไปเพาะเชื้อได้ง่ายขึ้น",
+      "ตรวจว่ากล้ามเนื้อระหว่างซี่โครงยังตอบสนองต่อการกระตุ้นได้ตามปกติ",
+      "ประเมินความไวของผิวหนังเพื่อบอกหน้าที่ของไขสันหลังส่วนคอที่เลี้ยงขาหน้า"
+    ],
+    "answer": 0,
+    "explain": "การตบไหล่กระตุ้นวงจรรีเฟล็กซ์ที่ทำให้กระดูกอ่อนอะริทีนอยด์ด้านตรงข้ามขยับเข้าออก ผู้ตรวจจึงดูผ่านกล้องได้ว่าฝั่งไหนขยับได้น้อยกว่าหรือไม่ขยับเลย ใช้คู่กับการเป่าลมกระตุ้นเพื่อประเมินการกางของกล่องเสียงในม้าที่สงสัยภาวะกล่องเสียงเป็นอัมพาต",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 38 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 38 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "equine-respiratory",
+      "slap-test",
+      "larynx",
+      "endoscopy",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207599,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "หลังผ่าตัดดึงกระดูกอ่อนกล่องเสียงให้กางค้างไว้ในม้า สิ่งที่ต้องเฝ้าระวังเป็นอันดับแรกคือข้อใด",
+    "options": [
+      "เลือดออกในโพรงจมูกซ้ำหลายครั้งในช่วงสองสัปดาห์แรกหลังผ่าตัด",
+      "กล่องเสียงบวมจนปิดสนิทและม้าหายใจไม่ออกทันทีหลังถอดท่อช่วยหายใจ",
+      "ปอดอักเสบจากการสำลัก เพราะกล่องเสียงปิดไม่สนิทขณะม้ากลืนอาหาร",
+      "เอ็นเสียงฝั่งตรงข้ามหย่อนตามจนต้องกลับไปผ่าตัดซ้ำอีกข้างหนึ่ง",
+      "กระดูกอ่อนฝาปิดกล่องเสียงติดค้างอยู่ใต้เพดานอ่อนแบบถาวรหลังผ่าตัด"
+    ],
+    "answer": 2,
+    "explain": "การผ่าตัดนี้ยึดกระดูกอ่อนอะริทีนอยด์ให้กางค้างไว้ตลอดเวลา กล่องเสียงจึงปิดไม่สนิทขณะกลืน อาหารและน้ำจึงหลุดลงหลอดลมได้ง่ายและนำไปสู่ปอดอักเสบจากการสำลัก ด้วยเหตุผลเดียวกันจึงไม่ทำการผ่าตัดแบบนี้พร้อมกันทั้งสองข้าง เพราะกล่องเสียงจะปิดไม่ได้เลย",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 39 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 39 + Auer & Stick, Equine Surgery 5th ed.",
+    "tags": [
+      "equine-respiratory",
+      "laryngoplasty",
+      "aspiration-pneumonia",
+      "complication",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207600,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "การขนส่งม้าทางไกลโดยผูกหัวให้ยกสูงตลอดทาง เพิ่มความเสี่ยงต่อการเกิดปอดอักเสบผ่านกลไกใด",
+    "options": [
+      "กระบังลมถูกดันขึ้นไปด้านหน้าจนปริมาตรปอดลดลงอย่างถาวรหลังเดินทาง",
+      "ความเครียดดันคอร์ติซอลให้สูงขึ้น จนกดการทำงานของแมคโครฟาจและซีเลีย",
+      "อากาศเย็นในรถทำให้หลอดลมหดเกร็งจนเสมหะค้างอยู่ในถุงลมปอดส่วนลึก",
+      "การยืนนานทำให้เลือดคั่งในปอดส่วนล่างจนน้ำรั่วออกมาสะสมในถุงลม",
+      "แรงสั่นสะเทือนทำให้ผนังถุงลมฉีกขาดจนมีลมรั่วเข้าไปในช่องอกทั้งสองข้าง"
+    ],
+    "answer": 1,
+    "explain": "การขนส่งเป็นความเครียดที่ทำให้คอร์ติซอลสูงขึ้น ผลคือหน้าที่ของแมคโครฟาจในถุงลมและการโบกพัดของซีเลียลดลง กลไกป้องกันของปอดจึงอ่อนแอลง เชื้อที่ขึ้นมาถึงหลอดลมจึงถูกกำจัดไม่ทัน ยิ่งผูกหัวสูงจนม้าก้มลงระบายสิ่งคัดหลั่งไม่ได้ ความเสี่ยงก็ยิ่งสูงขึ้น",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 39 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 39 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "equine-respiratory",
+      "pleuropneumonia",
+      "transport",
+      "mucociliary-clearance",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207601,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ม้าที่เป็นปอดและเยื่อหุ้มปอดอักเสบแล้วเพาะเชื้อขึ้นเป็นแบคทีเรียกลุ่มที่ไม่ใช้ออกซิเจน ควรแปลผลอย่างไร",
+    "options": [
+      "พยากรณ์โรคดีกว่ากลุ่มที่ใช้ออกซิเจน เพราะตอบสนองต่อยาปฏิชีวนะเร็วกว่า",
+      "ไม่ต่างจากกลุ่มที่ใช้ออกซิเจน เพราะเลือกยาปฏิชีวนะกลุ่มเดียวกันได้อยู่แล้ว",
+      "ถือเป็นการปนเปื้อนจากช่องปากเสมอ จึงไม่ต้องนำผลนี้มาใช้เลือกยา",
+      "พยากรณ์โรคแย่กว่ากลุ่มที่ใช้ออกซิเจน ต้องรักษาให้เร็วและเข้มข้น"
+    ],
+    "answer": 3,
+    "explain": "แบคทีเรียกลุ่มที่ไม่ใช้ออกซิเจน เช่น Bacteroides Clostridium และ Fusobacterium ทำให้เนื้อปอดตายและเกิดหนองในช่องเยื่อหุ้มปอดได้มากกว่า จึงมีพยากรณ์โรคแย่กว่ากลุ่มที่ใช้ออกซิเจน โดยเฉพาะ Fusobacterium การพบเชื้อกลุ่มนี้จึงเป็นเหตุผลให้รักษาแต่เนิ่นและเข้มข้น ทั้งยาปฏิชีวนะ การระบายของเหลวในช่องอก และการประคับประคอง",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 39 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 39 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "equine-respiratory",
+      "pleuropneumonia",
+      "anaerobe",
+      "prognosis",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207602,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ม้าอายุสามปีไอเรื้อรัง มีน้ำมูกข้น วิ่งไม่ทน แต่ไม่มีไข้ ผลนับเซลล์จากน้ำล้างถุงลมปอดพบนิวโทรฟิลร้อยละ 12 ควรจัดเข้ากลุ่มใด",
+    "options": [
+      "โรคหืดม้าชนิดรุนแรงที่มีการอุดกั้นทางเดินหายใจร่วมด้วยแล้ว",
+      "โรคหืดม้าชนิดไม่รุนแรง หรือภาวะทางเดินหายใจส่วนล่างอักเสบ",
+      "ปอดอักเสบจากแบคทีเรียที่ต้องเพาะเชื้อก่อนเลือกยาปฏิชีวนะ",
+      "ภาวะเลือดออกในปอดที่ตามหลังการออกกำลังกายอย่างหนัก",
+      "ภาวะน้ำท่วมปอดที่ตามหลังภาวะพิษเหตุติดเชื้อในกระแสเลือด"
+    ],
+    "answer": 1,
+    "explain": "นิวโทรฟิลในน้ำล้างถุงลมปอดที่สูงขึ้นเล็กน้อยราวร้อยละ 5 ถึง 20 เข้าได้กับโรคหืดม้าชนิดไม่รุนแรง ซึ่งพบมากในม้าอายุน้อยราวสองถึงสามปี อาการคล้ายปอดอักเสบแต่แยกได้ที่ไม่มีไข้ ถ้านิวโทรฟิลเกินร้อยละ 20 และส่วนมากอยู่ที่ร้อยละ 50 ถึง 70 จึงจะเข้าได้กับชนิดรุนแรงที่มีการอุดกั้นทางเดินหายใจ",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 40 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 40 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "equine-respiratory",
+      "equine-asthma",
+      "IAD",
+      "BAL",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207603,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ม้าอายุ 12 ปีหายใจออกลำบากเรื้อรัง มีสันกล้ามเนื้อตามแนวชายโครง ฟังปอดได้เสียงหวีดช่วงท้ายของการหายใจออก หัวใจของการจัดการระยะยาวคือข้อใด",
+    "options": [
+      "จัดการสิ่งแวดล้อมให้ลดสารก่อภูมิแพ้ ทั้งการระบายอากาศ วัสดุรองนอน และหญ้าแห้ง",
+      "ให้ยาขยายหลอดลมชนิดกินต่อเนื่องทุกวันไปตลอดช่วงชีวิตที่เหลือของม้า",
+      "ให้ยาปฏิชีวนะกลุ่มกว้างเป็นรอบทุกสองเดือนเพื่อกันการติดเชื้อซ้ำในปอด",
+      "ให้ยาขับปัสสาวะขนาดสูงเพื่อลดน้ำที่คั่งอยู่ในเนื้อปอดและช่องเยื่อหุ้มปอด",
+      "ขังม้าไว้ในคอกปิดมิดชิดตลอดเวลาเพื่อไม่ให้สัมผัสอากาศและฝุ่นภายนอก"
+    ],
+    "answer": 0,
+    "explain": "โรคหืดม้าชนิดรุนแรงเป็นการตอบสนองต่อสารก่อภูมิแพ้ในสิ่งแวดล้อม ยาสเตียรอยด์และยาขยายหลอดลมช่วยคุมอาการได้ แต่จะกลับมาเป็นซ้ำถ้าม้ายังอยู่กับสิ่งกระตุ้นเดิม หลักสำคัญจึงอยู่ที่การป้องกัน คือระบายอากาศให้ดี เปลี่ยนวัสดุรองนอนและหญ้าแห้งที่ฝุ่นน้อย ส่วนการขังในคอกปิดยิ่งทำให้ฝุ่นสะสมและอาการแย่ลง",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 40 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 40 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "equine-respiratory",
+      "equine-asthma",
+      "RAO",
+      "environmental-management",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207604,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ในม้าแข่งที่มีเลือดออกในปอดจากการออกกำลังกาย สัดส่วนที่เห็นเลือดไหลออกทางจมูกเป็นเท่าใด และเพราะเหตุใด",
+    "options": [
+      "เกือบทุกตัว เพราะเลือดที่ออกมักมีปริมาณมากจนล้นขึ้นมาทางจมูกเสมอ",
+      "ราวครึ่งหนึ่ง โดยเลือดมักออกข้างเดียวในม้าที่วิ่งระยะไกลเป็นประจำ",
+      "ส่วนน้อยราวร้อยละห้า เพราะเลือดส่วนใหญ่ค้างอยู่ในถุงลมปอดโดยไม่ไหลออกมา",
+      "ราวสามในสี่ และมักเห็นได้ชัดที่สุดในช่วงไม่กี่นาทีหลังม้าหยุดวิ่ง"
+    ],
+    "answer": 2,
+    "explain": "เลือดที่ออกมาอยู่ในถุงลมและหลอดลมส่วนลึก ส่วนใหญ่จึงค้างอยู่ในปอดและถูกเก็บกวาดไปเอง มีเพียงส่วนน้อยราวร้อยละห้าที่เลือดมากพอจะไหลออกมาให้เห็นทางจมูกทั้งสองข้าง ม้าที่เหลือจึงไม่แสดงอาการให้เห็นและมาด้วยเรื่องวิ่งไม่ออกแทน",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 40 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 40 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "equine-respiratory",
+      "EIPH",
+      "epistaxis",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207605,
+    "subject": "equine-medicine",
+    "topic": "equine-respi",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ต้องการคัดแยกม้าที่มีเลือดออกในปอดจากการออกกำลังกายออกจากม้าปกติก่อนส่งลงแข่ง ควรทำอย่างไร",
+    "options": [
+      "เจาะเลือดตรวจความสมบูรณ์ของเม็ดเลือดหลังจากให้ม้าพักครบยี่สิบสี่ชั่วโมง",
+      "ถ่ายภาพรังสีทรวงอกขณะม้ายืนพัก แล้วมองหาเงาทึบที่เนื้อปอดส่วนหลัง",
+      "เก็บน้ำล้างหลอดลมส่วนลึกขณะม้ายืนพักไปนับสัดส่วนเม็ดเลือดแดง",
+      "ให้ม้าวิ่งเร็วระยะสั้น แล้วส่องกล้องดูหลอดลมในช่วงหลังวิ่งจบ"
+    ],
+    "answer": 3,
+    "explain": "เลือดจะออกก็ต่อเมื่อม้าออกแรงถึงระดับที่ทำให้ความดันในหลอดเลือดปอดสูงพอ การตรวจขณะม้ายืนพักจึงมักไม่พบอะไร วิธีที่ใช้จริงคือกระตุ้นด้วยการวิ่งเร็วระยะสั้นแล้วส่องกล้องดูหลอดลมหลังวิ่งจบ โดยช่วงที่เห็นเลือดในหลอดลมได้ชัดที่สุดคือราวสามสิบถึงเก้าสิบนาทีหลังออกกำลังกาย",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 40 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 40 + Reed, Bayly & Sellon, Equine Internal Medicine",
+    "tags": [
+      "equine-respiratory",
+      "EIPH",
+      "endoscopy",
+      "screening",
+      "อิงแนวข้อสอบ",
+      "equine-respi"
+    ]
+  },
+  {
+    "id": 207606,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ม้าที่ป่วยด้วยภาวะไขสันหลังและสมองอักเสบจากโปรโตซัว มีบทบาทเป็นโฮสต์แบบใดในวงจรชีวิตของเชื้อ",
+    "options": [
+      "โฮสต์แท้ที่เชื้อเจริญจนปล่อยโอโอซิสต์ปนออกมากับอุจจาระได้",
+      "โฮสต์กึ่งกลางที่เก็บระยะซีสต์ไว้ในกล้ามเนื้อให้สัตว์อื่นกินต่อ",
+      "โฮสต์บังเอิญที่เชื้อเข้าผิดทางแล้วไปต่อในวงจรชีวิตไม่ได้",
+      "พาหะเชิงกลที่พาเชื้อติดตัวไปโดยที่เชื้อไม่เพิ่มจำนวนในตัวม้า",
+      "แหล่งรังโรคที่ปล่อยเชื้อออกมาเรื่อยโดยไม่แสดงอาการให้เห็น"
+    ],
+    "answer": 2,
+    "explain": "ม้าเป็นโฮสต์บังเอิญของเชื้อชนิดนี้ เชื้อเข้ามาแล้วไปเจริญระยะแบ่งตัวอยู่ในระบบประสาท โดยเฉพาะไขสันหลัง จึงก่ออาการทางประสาทอย่างเดินเซ กล้ามเนื้อลีบ และเสียการทรงตัว แต่ไปต่อในวงจรชีวิตไม่ได้และไม่ปล่อยเชื้อออกมา ด้วยเหตุนี้การวินิจฉัยจึงต้องอาศัยการตรวจเนื้อเยื่อ ไม่ใช่การตรวจอุจจาระ",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 34 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 34 + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
+    "tags": [
+      "equine-parasites",
+      "EPM",
+      "Sarcocystis-neurona",
+      "aberrant-host",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 207607,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "โฮสต์แท้ของเชื้อโปรโตซัวที่ก่อภาวะไขสันหลังและสมองอักเสบในม้าคือสัตว์ชนิดใด",
+    "options": [
+      "แรคคูนที่หากินตามแหล่งน้ำและกองอาหารรอบฟาร์ม",
+      "โอพอสซัมซึ่งเป็นสัตว์มีกระเป๋าหน้าท้องในทวีปอเมริกา",
+      "แมวบ้านที่เลี้ยงปะปนอยู่ในโรงเรือนและคอกม้า",
+      "นากทะเลที่อาศัยอยู่ตามแนวชายฝั่งของทวีปอเมริกา",
+      "หนูที่อาศัยอยู่ในโรงเก็บอาหารสัตว์และกองหญ้าแห้ง"
+    ],
+    "answer": 1,
+    "explain": "โอพอสซัมในทวีปอเมริกาเป็นโฮสต์แท้ที่เชื้อเจริญจนปล่อยระยะติดต่อออกมากับอุจจาระ ส่วนแรคคูน แมว และนากทะเลเป็นโฮสต์กึ่งกลางที่เก็บระยะซีสต์ไว้ในเนื้อเยื่อ ม้ารับเชื้อเข้าไปโดยบังเอิญจากอาหารหรือน้ำที่ปนเปื้อน โรคนี้จึงพบในพื้นที่ที่มีโฮสต์แท้ชนิดนี้อยู่",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 34 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 34 + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
+    "tags": [
+      "equine-parasites",
+      "EPM",
+      "definitive-host",
+      "life-cycle",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 207608,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "โรคที่เกิดจากทริปาโนโซมชนิดที่ติดต่อทางการผสมพันธุ์ในม้า ควบคุมการแพร่เชื้อได้ดีที่สุดด้วยวิธีใด",
+    "options": [
+      "ใช้การผสมเทียมแทนการผสมจริง เพื่อตัดการสัมผัสโดยตรงระหว่างตัว",
+      "กำจัดเห็บทั้งในคอกและรอบคอกอย่างต่อเนื่องตลอดทั้งปีโดยไม่เว้นช่วง",
+      "พ่นยาฆ่าแมลงวันคอกทุกสัปดาห์ตลอดช่วงฤดูฝนที่แมลงชุกชุมที่สุด",
+      "ฉีดวัคซีนให้พ่อพันธุ์และแม่พันธุ์ทุกตัวก่อนเข้าสู่ฤดูผสมพันธุ์",
+      "ถ่ายพยาธิให้ม้าทั้งฝูงพร้อมกันทุกหกเดือนตามรอบของโปรแกรมฟาร์ม"
+    ],
+    "answer": 0,
+    "explain": "เชื้อชนิดนี้ไม่มีแมลงเป็นพาหะ แต่ติดต่อจากตัวหนึ่งไปอีกตัวโดยตรงผ่านการผสมพันธุ์ และตัวผู้ที่เป็นพาหะมักไม่แสดงอาการ การควบคุมแมลงหรือเห็บจึงไม่ช่วย วิธีที่ตัดวงจรได้คือเลี่ยงการผสมจริงแล้วใช้การผสมเทียมแทน และยังไม่มีวัคซีนสำหรับโรคนี้",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 34 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 34 + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
+    "tags": [
+      "equine-parasites",
+      "dourine",
+      "Trypanosoma-equiperdum",
+      "venereal",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 207609,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "การตรวจหาโอโอซิสต์ของคอกซิเดียในลูกม้าด้วยวิธีลอยตัว ต้องใช้สารละลายน้ำตาลอิ่มตัวแทนน้ำเกลือ เพราะเหตุใด",
+    "options": [
+      "น้ำเกลือทำให้ผนังของโอโอซิสต์แตกออกก่อนที่จะได้อ่านสไลด์",
+      "น้ำเกลือทำปฏิกิริยากับสีย้อมจนดูลักษณะของเชื้อไม่ออกใต้กล้อง",
+      "โอโอซิสต์ชนิดนี้ใหญ่และหนัก จึงจมลงในน้ำเกลือที่ความถ่วงจำเพาะต่ำกว่า",
+      "ตะกอนอุจจาระจะลอยขึ้นมาบังโอโอซิสต์จนหาไม่พบเมื่อใช้น้ำเกลือ",
+      "โอโอซิสต์ชนิดนี้ลอยเร็วเกินไปในน้ำเกลือจนหลุดออกไปนอกแผ่นสไลด์"
+    ],
+    "answer": 2,
+    "explain": "โอโอซิสต์ของคอกซิเดียชนิดที่พบในลูกม้ามีขนาดใหญ่ ผนังหนา สีน้ำตาลเข้มคล้ายเปลือกอัลมอนด์ และหนักกว่าโอโอซิสต์ของสัตว์ชนิดอื่นมาก น้ำเกลือที่ความถ่วงจำเพาะต่ำกว่าจึงพยุงไม่ขึ้น ต้องใช้สารละลายน้ำตาลอิ่มตัวที่ความถ่วงจำเพาะสูงกว่า หรือเปลี่ยนไปใช้วิธีตกตะกอนแทน",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 33 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 33 + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
+    "tags": [
+      "equine-parasites",
+      "Eimeria-leuckarti",
+      "fecal-flotation",
+      "foal",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 207610,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ตรวจเนื้อเยื่อไตของม้าที่ตายด้วยสาเหตุอื่นแล้วพบ schizont ของโปรโตซัวเรียงอยู่ตามท่อของหน่วยไต ควรแปลผลอย่างไร",
+    "options": [
+      "เป็นการติดเชื้อรุนแรงที่ทำให้ไตวายจนเป็นเหตุให้ม้าตายในที่สุด",
+      "เป็นคอกซิเดียของไตที่ไม่ก่อโรค พบได้โดยไม่มีการอักเสบร่วมด้วย",
+      "เป็นระยะแบ่งตัวของเชื้อที่ก่อภาวะไขสันหลังและสมองอักเสบในม้า",
+      "เป็นการปนเปื้อนจากลำไส้ที่เกิดขึ้นตอนเก็บตัวอย่างเนื้อเยื่อไต",
+      "เป็นเชื้อที่ติดต่อสู่คนได้ จึงต้องแจ้งเจ้าหน้าที่ควบคุมโรคทันที"
+    ],
+    "answer": 1,
+    "explain": "คอกซิเดียที่อาศัยอยู่ในท่อของหน่วยไตม้าเป็นเชื้อที่ไม่ก่อโรค ม้าที่ติดเชื้อไม่มีการอักเสบของไตและไม่แสดงอาการ การเห็นระยะแบ่งตัวเรียงอยู่ตามท่อของหน่วยไตจึงถือเป็นการพบโดยบังเอิญที่ยอมรับได้ ไม่ใช่สาเหตุการตายและไม่ต้องรักษา",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 34 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 34 + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
+    "tags": [
+      "equine-parasites",
+      "Klossiella-equi",
+      "kidney",
+      "incidental-finding",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 207611,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "ไข่ของพยาธิใบไม้ที่พบในลำไส้ใหญ่ของม้ามีฝาปิดอยู่ที่ขั้วหนึ่ง ควรตรวจอุจจาระด้วยวิธีใดจึงจะพบไข่",
+    "options": [
+      "วิธีลอยตัวด้วยสารละลายเกลืออิ่มตัวแล้วอ่านจากแผ่นปิดสไลด์",
+      "การเพาะอุจจาระไว้สามวันแล้วเก็บตัวอ่อนระยะที่สามมาจำแนก",
+      "การแปะเทปใสรอบรูทวารแล้วนำเทปมาส่องดูใต้กล้องจุลทรรศน์",
+      "การตกตะกอนอุจจาระแล้วนำตะกอนที่ก้นหลอดมาส่องใต้กล้อง",
+      "การขูดผิวหนังลึกแล้วนำชิ้นเนื้อไปแช่ในน้ำเกลือเจือจางก่อนอ่าน"
+    ],
+    "answer": 3,
+    "explain": "ไข่ของพยาธิใบไม้มีขนาดใหญ่ มีฝาปิดที่ขั้วหนึ่ง และมีความถ่วงจำเพาะสูง จึงหนักเกินกว่าจะลอยขึ้นมาในวิธีลอยตัวตามปกติ ต้องใช้วิธีตกตะกอนแล้วอ่านจากตะกอนที่ก้นหลอด ส่วนตัวเต็มวัยของพยาธิชนิดนี้มักพบตอนผ่าซาก และพยาธิใบไม้ในม้ามีหอยเป็นโฮสต์กึ่งกลาง",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 30 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 30 + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
+    "tags": [
+      "equine-parasites",
+      "Gastrodiscus",
+      "fluke",
+      "fecal-sedimentation",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 207612,
+    "subject": "equine-medicine",
+    "topic": "equine-parasites",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "student-compilation",
+    "examScope": "midterm",
+    "q": "การพบว่าหลอดอาหารของพยาธิตัวกลมตัวเต็มวัยมีกระเปาะสองตอน ใช้บอกได้ว่าพยาธิตัวนั้นอยู่ในอันดับใด",
+    "options": [
+      "อันดับของพยาธิหัวเข็มหมุด",
+      "อันดับของพยาธิไส้เดือน",
+      "อันดับของพยาธิสตรองกาย",
+      "อันดับของพยาธิเส้นด้าย",
+      "อันดับของพยาธิสไปรูริด"
+    ],
+    "answer": 0,
+    "explain": "หลอดอาหารที่มีกระเปาะสองตอนเป็นลักษณะประจำตัวของพยาธิหัวเข็มหมุด ซึ่งในม้าคือชนิดที่ตัวเมียออกมาวางไข่รอบรูทวาร ส่วนอันดับอื่นมีหลอดอาหารคนละแบบ พยาธิไส้เดือนเป็นแบบกล้ามเนื้อล้วน พยาธิเส้นด้ายเป็นแบบเรียวยาว และพยาธิสไปรูริดเป็นแบบกล้ามเนื้อผสมต่อม",
+    "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 28 (รวบรวมโดยรุ่นพี่ Vet 85)",
+    "verified": "Equine med & Sx part 1 หน้า 28 + Taylor, Coop & Wall, Veterinary Parasitology 4th ed.",
+    "tags": [
+      "equine-parasites",
+      "Oxyurida",
+      "nematode-morphology",
+      "esophagus",
+      "อิงแนวข้อสอบ"
+    ]
   },
 ];

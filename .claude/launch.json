@@ -2,6 +2,12 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "vetmock-dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["vite", "--port", "4311", "--strictPort"],
+      "port": 4311
+    },
+    {
       "name": "vetmock-preview",
       "runtimeExecutable": "npx",
       "runtimeArgs": ["vite", "preview", "--port", "4310", "--strictPort"],

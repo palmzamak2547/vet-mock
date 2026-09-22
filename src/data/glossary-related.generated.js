@@ -327,12 +327,21 @@ export const GLOSSARY_RELATED = {
   202219,
   202059,
   202251,
+  207485,
+  207613,
+  207614,
+  207615,
+  207616,
+  207617,
+  207618,
   200207,
   105900,
   105498,
   105499,
   105500,
+  105501,
   105502,
+  105561,
   107424,
   8004,
   8005,
@@ -2791,6 +2800,7 @@ export const GLOSSARY_RELATED = {
  "colic|equine": [
   202066,
   202407,
+  207515,
   105568,
   107414,
   107415,
@@ -2818,6 +2828,7 @@ export const GLOSSARY_RELATED = {
   105396
  ],
  "composite colic score|equine": [
+  207551,
   107416,
   107417,
   107418,
@@ -2827,6 +2838,7 @@ export const GLOSSARY_RELATED = {
  ],
  "ehv-1|equine": [
   202091,
+  207488,
   105538,
   105540,
   105569
@@ -2837,6 +2849,7 @@ export const GLOSSARY_RELATED = {
   105273
  ],
  "endometrial cup|equine": [
+  207624,
   105432,
   105433,
   105434,
@@ -2857,6 +2870,7 @@ export const GLOSSARY_RELATED = {
   105572
  ],
  "gastric reflux|equine": [
+  207552,
   107414,
   107422,
   107423,
@@ -2872,6 +2886,7 @@ export const GLOSSARY_RELATED = {
  "nephrosplenic entrapment|equine": [
   202058,
   202402,
+  207553,
   107411,
   105363,
   105377,
@@ -2930,6 +2945,13 @@ export const GLOSSARY_RELATED = {
  ],
  "uterine edema|equine": [
   202251,
+  207485,
+  207613,
+  207614,
+  207615,
+  207616,
+  207617,
+  207618,
   105498,
   105499,
   105500,

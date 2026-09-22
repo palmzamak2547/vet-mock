@@ -14,7 +14,7 @@ import {
 } from '../../src/data/q-counts.js';
 import { BLOCKED_QUESTION_COUNT, isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
 import { SUBJECTS } from '../../src/data/curriculum.js';
-import { isPastPaperQuestion, questionTopicId } from '../../src/lib/question-metadata.js';
+import { isExamAlignedQuestion, isPastPaperQuestion, questionTopicId } from '../../src/lib/question-metadata.js';
 import { isCurrentScopeQuestion, isHighPredictionQuestion } from '../../src/lib/question-prediction.js';
 
 const questions = [];
@@ -123,4 +123,25 @@ test('past-paper metadata rule keeps canonical and legacy banks aligned', () => 
   assert.equal(isPastPaperQuestion({ examOrigin: 'Past Exam 2021, Part III' }), true);
   assert.equal(isPastPaperQuestion({ sourceType: 'lecture', source: 'Lecture slide' }), false);
   assert.equal(questionTopicId({}), '__unassigned__');
+});
+
+// A question cannot have been sat AND been written from a senior's summary.
+// The 18 that claimed both reached past-paper status only through the legacy
+// free-text  fallback, on a filename like "Avain med Mid 86.pdf" —
+// which names the paper the summary is FOR, not one any cohort sat. The
+// predicate is right and stays as it is; the row has to declare a sourceType.
+test('a row marked อิงแนวข้อสอบ never reaches past-paper through the source fallback', () => {
+  const written = { source: 'Avain med Mid 86.pdf หน้า 18', verified: 'อิงแนวข้อสอบ, เขียนจากเอกสารสรุปรุ่นพี่' };
+  assert.equal(isPastPaperQuestion(written), true, 'legacy fallback must stay as it is');
+  assert.equal(isPastPaperQuestion({ ...written, sourceType: 'exam-aligned' }), false);
+  // Sat, and travelled here through a compilation: the origin names the cohort.
+  assert.equal(isPastPaperQuestion({
+    sourceType: 'student-compilation',
+    examOrigin: 'Aj. Sirawit One Health Vet 85 Midterm',
+  }), true);
+
+  const contradictory = deliverableQuestions.filter(
+    (q) => !q.sourceType && isPastPaperQuestion(q) && isExamAlignedQuestion(q),
+  );
+  assert.deepEqual(contradictory.map((q) => q.id), [], 'these rows must declare a sourceType');
 });

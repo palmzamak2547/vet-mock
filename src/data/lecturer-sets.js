@@ -349,6 +349,132 @@ export const LECTURER_SETS = {
       },
     ],
   },
+  // Equine Med Surg 3106510 — timetable in the Vet 86 compilation: seven Thursday
+  // sessions 6 ส.ค. to 17 ก.ย., midterm 23 ก.ย. 08:30-11:30. The initials against each
+  // row are TC, TJ, SS and PT; the 2026 recordings confirm five of the seven. Nobody
+  // announced a format to this cohort, so each note records only what the previous
+  // cohort wrote down about that lecturer's part.
+  'equine-medicine': {
+    examDate: '2026-09-23',
+    coverage: 'เนื้อหาตั้งแต่ 6 ส.ค. ถึง 17 ก.ย.',
+    lecturers: [
+      {
+        id: 'teerapol',
+        name: 'อ.น.สพ.ดร.ธีรพล ชินกังสดาร',
+        lecturer: 'Teerapol Chinkangsadarn',
+        format: 'all',
+        count: null,
+        announced: false,
+        note: 'ยังไม่มีประกาศรูปแบบจากอาจารย์ รุ่นก่อนหน้าบันทึกไว้ว่าส่วนฟันใช้ภาพประกอบมาก ทั้งภาพช่องปาก ฟิล์มเอกซเรย์ฟัน และ dental chart ที่ให้อ่านว่าควอดรันต์ใดผิดปกติ',
+        sessions: [
+          {
+            n: 1, date: '2026-08-06', videoId: 'jgGGQzDTm4E',
+            decks: [{ cover: 'eqmed-intro', title: 'Intro to Equine Med/Surg, Vet in Sport Event, Equine ID and Tack', topics: ['equine-intro'] }],
+          },
+          {
+            n: 3, date: '2026-08-20', videoId: 'jOm4PZtiC8o',
+            decks: [{ cover: 'eqmed-dentistry', title: 'Equine Dentistry and Oral Surgery', topics: ['equine-dentistry'] }],
+          },
+          {
+            n: 7, date: '2026-09-17', videoId: null,
+            decks: [{ cover: 'eqmed-respi', title: 'Equine Respiratory Diseases', topics: ['equine-respi'] }],
+          },
+        ],
+      },
+      {
+        id: 'thapana',
+        name: 'น.สพ.ฐาปนา จรัสธรรมสิริ',
+        lecturer: 'Thapana Jarutummasiri',
+        format: 'mcq',
+        count: null,
+        announced: false,
+        note: 'ยังไม่มีประกาศรูปแบบจากอาจารย์ รุ่นก่อนหน้าบันทึกไว้ว่าส่วนนี้เป็นช้อยส์จำนวนไม่มาก',
+        sessions: [
+          {
+            n: 1, date: '2026-08-06', videoId: 'jgGGQzDTm4E',
+            decks: [{ cover: 'eqmed-nutrition', title: 'Basic Nutrition for Equine Practitioners', topics: ['equine-nutrition'] }],
+          },
+        ],
+      },
+      {
+        id: 'sawita',
+        name: 'อ.สพ.ญ.ดร.ศวิตา สันติวิภารัตน์',
+        lecturer: 'Sawita Santiviparat',
+        format: 'all',
+        count: null,
+        announced: false,
+        note: 'ยังไม่มีประกาศรูปแบบจากอาจารย์ รุ่นก่อนหน้าบันทึกไว้ว่าส่วนนี้ใช้ภาษาอังกฤษทั้งหมด',
+        sessions: [
+          {
+            n: 2, date: '2026-08-13', videoId: 'zJQ3gItuG6E',
+            decks: [{ cover: 'eqmed-practice', title: 'General Equine Practice — restraint, physical examination, BCS, drug administration', topics: ['equine-intro'] }],
+          },
+          {
+            n: 4, date: '2026-08-27', videoId: 'ha7c8qpdsA4',
+            decks: [{ cover: 'eqmed-gi1', title: 'Equine Gastrointestinal System I — digestive anatomy and GI examination', topics: ['equine-gi'] }],
+          },
+          {
+            n: 5, date: '2026-09-03', videoId: null,
+            decks: [{ cover: 'eqmed-gi2', title: 'Equine Gastrointestinal System II — management of GI disorder and equine colic', topics: ['equine-colic-bestfit'] }],
+          },
+        ],
+      },
+      {
+        id: 'piyanan',
+        name: 'รศ.น.สพ.ดร.ปิยนันท์ ทวีถาวรสวัสดิ์',
+        lecturer: 'Piyanan Taweethavonsawat',
+        format: 'mcq',
+        count: null,
+        announced: false,
+        note: 'ยังไม่มีประกาศรูปแบบจากอาจารย์ รุ่นก่อนหน้าบันทึกไว้ว่าส่วนนี้เป็นช้อยส์ห้าตัวเลือก',
+        sessions: [
+          {
+            n: 6, date: '2026-09-10', videoId: 'IJaulz_PkS8',
+            decks: [{ cover: 'eqmed-parasites', title: 'Equine Parasites in Thailand', topics: ['equine-parasites'] }],
+          },
+        ],
+      },
+    ],
+  },
+  // Equine Reproduction 3108515 — one lecturer for the whole midterm. The compilation's
+  // timetable page names รศ.น.สพ.ดร.ธีรวัฒน์ ธาราศานิต (TT) against every lecture, and he
+  // capped the midterm at lectures 1-6 in class on 27 ส.ค. (zFsNom4JMC8 [126:23-127:43]);
+  // endometritis is taught afterwards and sits in the final, so it is not listed here.
+  'equine-repro': {
+    examDate: '2026-09-23',
+    coverage: 'เนื้อหาตั้งแต่ 6 ส.ค. ถึง 27 ส.ค. (เลคเชอร์ 1 ถึง 6)',
+    lecturers: [
+      {
+        id: 'theerawat',
+        name: 'รศ.น.สพ.ดร.ธีรวัฒน์ ธาราศานิต',
+        lecturer: 'Theerawat Tharasanit',
+        format: 'all',
+        count: null,
+        announced: true,
+        note: 'อาจารย์สรุปท้ายคาบ 27 ส.ค. ว่ากลางภาคตัดที่คาบนี้ ออกเลคเชอร์ 1 ถึง 4 บวกเรื่อง infertility ส่วน endometritis ยกไปปลายภาค',
+        sessions: [
+          {
+            n: 1, date: '2026-08-06', videoId: '5MGooHx0w7w',
+            decks: [{ cover: 'eqrepro-anatomy', title: 'กายวิภาคระบบสืบพันธุ์แม่ม้า และวงรอบการเป็นสัดกับการควบคุม', topics: ['eqrepro-anatomy-cycle'] }],
+          },
+          {
+            n: 3, date: '2026-08-20', videoId: 'FBNU52oH1z8',
+            decks: [
+              { cover: 'eqrepro-exam', title: 'การตรวจระบบสืบพันธุ์แม่ม้า', topics: ['eqrepro-exam-mare'] },
+              { cover: 'eqrepro-art', title: 'เทคโนโลยีชีวภาพทางการสืบพันธุ์ในม้าเพศเมีย', topics: ['eqrepro-art-female'] },
+            ],
+          },
+          {
+            n: 4, date: '2026-08-27', videoId: 'zFsNom4JMC8',
+            decks: [
+              { cover: 'eqrepro-infect', title: 'โรคติดเชื้อที่สำคัญของม้าเพศเมีย', topics: ['eqrepro-stallion-infect'] },
+              { cover: 'eqrepro-infertility', title: 'ภาวะความไม่สมบูรณ์พันธุ์และการตรวจวินิจฉัย', topics: ['eqrepro-infertility'] },
+            ],
+          },
+        ],
+      },
+    ],
+  },
   'avian-medicine': {
     examDate: '2026-09-21',
     coverage: 'เนื้อหาตั้งแต่ 4 ส.ค. ถึง 15 ก.ย.',

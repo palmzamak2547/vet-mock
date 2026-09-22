@@ -20,6 +20,8 @@ const LOADERS = {
   'one-health': () => import('./wrapups/one-health.js'),
   'food-industry': () => import('./wrapups/food-industry.js'),
   'milk-meat-hygiene': () => import('./wrapups/milk-meat-hygiene.js'),
+  'equine-repro': () => import('./wrapups/equine-repro.js'),
+  'equine-medicine': () => import('./wrapups/equine-medicine.js'),
 };
 
 export const WRAPUP_SUBJECTS = Object.keys(LOADERS);

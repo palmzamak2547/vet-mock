@@ -253,6 +253,11 @@ Canonical repo knowledge map:
 - `docs/QUESTION-STANDARD.md` — before writing/editing questions
 - `docs/EXAM-SUBJECT-PIPELINE.md` — before taking a new exam subject from timetable to release
 - `docs/DESIGN_SYSTEM.md` + `docs/css-token-baseline.json` — before styling changes
+- `docs/DATA-INTEGRITY-ROADMAP.md` — **read before any change to provenance, citations, counts,
+  `question-metadata.js`, or the gate's shape.** It records why the same class of bug keeps
+  recurring (facts that should be references are stored as free text), the rule that these are
+  fixed by correcting DATA and adding a guardrail rather than by loosening a predicate, and a
+  measured breakdown of where the ~48-minute gate actually spends its time.
 - `wiki/guides/content-pipeline.md` — content pipeline detail
 - `wiki/operations/testing-and-ci.md` — lint/CI gates detail
 - `STABILITY.md` — regression guardrails
@@ -3061,3 +3066,129 @@ projects) passed inside that gate.
 - `clients.claim()` rejects in WebKit on this fixture (a probe that awaited it never wrote its
   marker in 359 activations, while the prune half finished in 6–167 ms). Activation completes
   anyway — a rejected `waitUntil` does not block it — so `public/sw.js` needs nothing here.
+
+## 2026-09-22 — "Mid 86" in a filename is the paper a summary is FOR, not one that was sat
+
+19 questions answered yes to both `isPastPaperQuestion` and `isExamAlignedQuestion` — sat by a
+previous cohort AND written from that cohort's summary, which cannot both be true. All 19 carried
+no `sourceType`, so they reached past-paper status only through the legacy free-text `source`
+fallback, on the filename `Avain med Mid 86.pdf`. The predicate was not loosened; the data was
+wrong. Read the real documents before deciding, and the documents said it plainly:
+
+- **Avian Medicine, 16 rows → `sourceType: 'exam-aligned'`.** `Avian med mid TJ เฉลย.pdf` heads
+  every lecturer block it carries with its own disclaimer: p1 (อ.ณทยา) *"พาร์ทนี้ผู้ทำเอาสรุปมาทำเป็น
+  ถูกผิดเอง ไม่ใช่ข้อสอบจริง"*, p6 (อ.สมศักดิ์) *"พาร์ทนี้ก็เอาสรุปมาทำช้อยเพิ่มเอง ไม่ใช่ข้อสอบจริง"*,
+  p13 (อ.เกรียงวิชญ์) *"ไม่มีสรุป … พาร์ทนี้อ่านเอานะ"*. The companion `Avain med Mid 86.pdf` is a
+  Vet 85 senior's study summary (p1 "Kimchii #VET85") written FOR the Vet 86 midterm — p11, p15
+  and p21 are lecture notes, not a paper. 202238 cites p15, whose margin box asks *"สรุปเก่ามาก
+  จะตรงไหมข้อเขียน"* about its own essay list, so it is written-from too.
+- **One Health, 3 rows → `sourceType: 'student-compilation'` + `examOrigin: 'Aj. Sirawit One
+  Health Vet 85 Midterm'`.** `One Health Mid 86.pdf` p2 heads the set "Aj. Sirawit pagdepanichkit
+  (SP) 3 ข้อ" and p3 annotates item 3 *"85 ให้อธิบาย 1 ด้านจบ"* — a cohort-specific recall of a sat
+  paper. These stay counted, now because they name a cohort and a paper rather than because a
+  filename matched. Their `verified` dropped the "อิงแนวข้อสอบ" prefix, which was never true of them.
+
+Effect: `Q_PAST_PAPER_COUNTS_BY_TOPIC` for avian-medicine fell 66 → 50 (avian-myco 10 → 3,
+avian-adeno and avian-salmonella and avian-ahra-set to nothing); one-health held at 3. The 16 keep
+their place in Panic Mode as band 1, which is where written-from-a-summary belongs.
+
+### Worth keeping
+
+- **`\bMID 86\b` in a filename is ambiguous by year, which is why this is a data fix and not a
+  predicate fix.** For a year-4 bank it names a paper Vet 86 really sat; for a year-5 bank it names
+  the paper the document was written for. 255 legacy rows reach past-paper through that branch and
+  most of them are year-4 and correct. Judge the document, not the regex.
+- **`sourceType` says HOW a question reached us, `examOrigin` says WHOSE paper it sat on.** A
+  `student-compilation` with an origin naming a cohort IS a past paper; the same marker with no
+  origin is not.
+- **"อิงแนวสอบ" is not "อิงแนวข้อสอบ".** Five rows say the first and are therefore invisible to
+  `isExamAlignedQuestion`, which drops them out of Panic Mode's band 1 entirely. 202238 was one
+  and is fixed; ids 5000, 5066, 4046 and 202267 still say it. `lint-academic-safety.mjs` produces
+  the short spelling itself (`['ออกตามนี้', 'อิงแนวสอบรอบเดียวกัน']`), so the two will keep drifting
+  apart until one of them moves.
+- `tests/unit/q-counts.test.mjs` now fails if any row without a `sourceType` is both past-paper
+  and "อิงแนวข้อสอบ" at once.
+
+## 2026-09-23 — Equine Med Surg and Equine Reproduction
+
+Both papers sat 23 ก.ย. (Equine Med Surg 08:30-11:30, Equine Reproduction 13:00-14:00), shipped
+as 5.127.0 the night before. 134 questions ingested, two wrap-up pages created, two lecturer sets
+added, five figures cut from the source PDFs.
+
+### The 🏅 re-upload is a superset, and the text diff over-reports it
+
+`EQUINE MED MID 86 🏅.pdf` is 44 pages against the already-ingested `Equine Med Mid 86.pdf`'s 20,
+and Palm sent a 45-page revision mid-session. Always align the editions page by page before
+ingesting. Two traps:
+
+- **A normalised-text diff calls a page new when only its annotation layer changed.** It flagged
+  33 of 44; an agent reading the images found p29's printed body identical to the older p18 and
+  already ingested. Treat the diff as a candidate list and let the per-question duplicate check
+  be the gate.
+- **The 45-page revision duplicates p10 at p20**, so everything from p20 on sits one page later.
+  Six handwritten dentistry pages were renumbered 20-26 → 21-27, and the figure crops for that
+  group had to be re-cut from the newer file or they would have landed a page early.
+
+The revision's added ink was a confirmation pass, not an erratum: it writes the recorded answers
+out longhand. That independently confirmed tooth 308, which the first agent had derived by pure
+inference from the quadrant table with no red-pen correction to lean on.
+
+### Figures: crop from the PDF, and pad proportionally
+
+`public/figures/questions/*.webp` must be the real crop from the page (Palm, repeatedly: "รูปจริง
+นะครับ จำไว้เลย ไม่ใช่ข้าม"). Two things the first attempt got wrong:
+
+- **Cropping the 1568 px page render throws away the source.** These pages embed photographs at
+  1000-1500 px native inside a ~100 pt box. Derive the zoom from the native resolution of the
+  embedded images the bbox overlaps — the anatomy plate went 630 px wide to 1601 px, and a dental
+  chart's handwritten numbers went from unreadable to legible.
+- **A flat padding constant leaks neighbouring content.** 5 pt is ~2% of a full-width plate and
+  ~38% of a 13x23 pt inset; on the face-marking chart it pulled the printed caption "Star" into
+  the crop, which answered that question by itself. Pad by a fraction of the smaller side.
+
+**Check every figure for whether it answers its own question.** Three did not (the dental chart
+carries the symbols, not their meanings; the anatomy plate highlights landmarks without naming the
+bones), one did and was re-cut, and the labelled face-marking chart was deliberately left
+unreferenced so it could not ship.
+
+### Panic Mode banding is a third thing the ingest has to get right
+
+Of 135 authored questions, 46 counted as sat papers and 34 were `lecture-derived` (band 2,
+correctly excluded). The remaining 55 were `student-compilation` with no `examOrigin` — written
+FROM a senior's compilation — and answered "no" to both predicates, so `panicRank` returned 2 and
+Panic Mode would never have shown them. They were tagged `อิงแนวข้อสอบ` to reach band 1, which is
+what band 1 is for. Note the fix is the TAG, not `sourceType`: the questions really did reach us
+through a compilation, and tagging under-claims rather than over-claims for any row that was in
+fact recalled.
+
+### What verification caught that authoring did not
+
+Every one of these came from an independent check, not from the agent that wrote the thing:
+
+- **A wrong key already live**: #202053 gave the adult horse HR 30-45 / RR 12-36. This cohort's
+  lecture says HR 28-44 [143:15] and RR 10-22 [144:57] (`zJQ3gItuG6E`). An upper bound of 36
+  against a real 22 would have a student call a tachypnoeic horse normal. The distractors were
+  rewritten at the same time, because moving the key to 28-44 made the old ones overlap it.
+- **A citation that pointed at nothing**: #207494 cited `FBNU52oH1z8` [12:06], which is not in
+  that summary. An audit of all 848 question timestamps bank-wide found this was the only real
+  break; 846 land on a real section and the two outliers sit 31-46 s before a heading, i.e. in
+  the tail of the previous section, which is legitimate. **A summary carries timestamps only at
+  section headings, so "not found in the summary" is not by itself evidence of a bad citation** —
+  the `examFormat` fields cite mid-section moments on purpose, and 13 of 214 of those look wrong
+  by an exact-match test and are not.
+- **Four errors in the senior compilation itself**, none of which became questions: a breeding
+  season the writer contradicts on his own next page, a "3-way" Foley the recording calls two-way,
+  "เข็มเล็กมาก (12G)" where 12G is large bore, and misoprostol dosed in milligrams.
+
+### Reusable
+
+- `work/exam-content-pipeline/scripts/ingest-midterm.mjs` now has `equine-medicine` and reads
+  group JSON from the session scratchpad's `out/`. Its topic list is the hard gate: `equine-poa`
+  and `equine-infectious` are FINAL topics even though the compilation files them beside midterm
+  material, so they are absent on purpose and a batch scoping one as midterm is refused.
+- A **cross-group duplicate check** is worth running before any multi-agent ingest. Eleven agents
+  wrote without seeing each other and their page ranges overlap by design; character-bigram Dice
+  over stems found the one true duplicate that the ingest's 48-character prefix check would have
+  missed. 0 of 135 duplicated the shipped bank — the agents had checked it themselves.
+- **Verify agents keep pre-edit backups in the same folder** (`_name.pre-adversarial.json`).
+  Any collector globbing `out/*.json` must skip them or it double-counts everything.

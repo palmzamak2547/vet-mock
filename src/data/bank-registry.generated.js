@@ -113,10 +113,10 @@ export const BANK_REGISTRY = [
   { file: 'questions-mid86-avian-medicine.js', export: 'QUESTIONS_MID86_AVIAN_MEDICINE', year: 5, count: 144,
     subjects: ['avian-medicine'],
     load: () => import('./questions-mid86-avian-medicine.js').then((m) => m.QUESTIONS_MID86_AVIAN_MEDICINE) },
-  { file: 'questions-mid86-equine-medicine.js', export: 'QUESTIONS_MID86_EQUINE_MEDICINE', year: 5, count: 119,
+  { file: 'questions-mid86-equine-medicine.js', export: 'QUESTIONS_MID86_EQUINE_MEDICINE', year: 5, count: 236,
     subjects: ['equine-medicine'],
     load: () => import('./questions-mid86-equine-medicine.js').then((m) => m.QUESTIONS_MID86_EQUINE_MEDICINE) },
-  { file: 'questions-mid86-equine-repro.js', export: 'QUESTIONS_MID86_EQUINE_REPRO', year: 5, count: 11,
+  { file: 'questions-mid86-equine-repro.js', export: 'QUESTIONS_MID86_EQUINE_REPRO', year: 5, count: 39,
     subjects: ['equine-repro'],
     load: () => import('./questions-mid86-equine-repro.js').then((m) => m.QUESTIONS_MID86_EQUINE_REPRO) },
   { file: 'questions-mid86-food-industry.js', export: 'QUESTIONS_MID86_FOOD_INDUSTRY', year: 5, count: 154,
@@ -280,4 +280,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-09-21T16:52:02.259Z — 90 banks · 6396 Qs
+// Built: 2026-09-22T15:50:37.889Z — 90 banks · 6541 Qs
