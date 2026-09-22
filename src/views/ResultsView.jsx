@@ -30,7 +30,7 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
   // The card must agree with the screen the student shared it from, so it
   // reads the same exact-count bar rather than the rounded percentage it
   // prints. At 28/47 the number rounds to 60 while the session did not reach
-  // the bar, and a card captioned "ผ่านครับ" would contradict the banner.
+  // the bar, and a card captioned "ถึงเกณฑ์ซ้อมแล้ว" would contradict the banner.
   const reached = total > 0 && correct / total >= PRACTICE_PASS_PCT / 100;
   const W = 1080, H = 1920;
   const canvas = document.createElement('canvas');
