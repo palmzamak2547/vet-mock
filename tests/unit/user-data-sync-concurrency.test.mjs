@@ -17,9 +17,18 @@
 // upsert, which is what the engine sent before the fix.
 // ============================================================
 
-import test from 'node:test';
+import test, { afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { createUserDataSync } from '../../src/lib/user-data-sync.js';
+
+// A failed assertion skips the test's own close(), and a store that keeps
+// losing races re-flushes every few ms for ever, so a regression would hang
+// the unit run instead of failing it. Close every store after each test.
+const openStores = new Set();
+afterEach(() => {
+  for (const store of openStores) store.close();
+  openStores.clear();
+});
 
 class MemoryStorage {
   values = new Map();
@@ -88,6 +97,7 @@ function casServer(initial) {
 
 function device(server, storage = new MemoryStorage()) {
   const store = createUserDataSync({ storage, remote: server, debounceMs: 60_000, scheduler: fastScheduler });
+  openStores.add(store);
   store.send({ type: 'SESSION_CHANGED', userId: 'same-owner' });
   return { store, storage };
 }
@@ -209,6 +219,36 @@ test('first write for a new account: two devices racing to create the row', asyn
   a.store.close(); b.store.close();
 });
 
+test('a tab from before the release still upserts, and the new write notices it', async () => {
+  // Old clients keep the unconditional upsert until they close. Their write
+  // lands between this device's read and its write; it moves updated_at, so
+  // the conditional write loses, re-reads, and keeps the old tab's change.
+  const inner = casServer({ bookmarks: [], notes: {} });
+  let oldTabWritesAfterNextPull = false;
+  const server = {
+    async pull(id) {
+      const row = await inner.pull(id);
+      if (oldTabWritesAfterNextPull) {
+        oldTabWritesAfterNextPull = false;
+        await inner.push('same-owner', { ...row, bookmarks: ['fromOldTab'] });   // no precondition
+      }
+      return row;
+    },
+    push: (id, payload, pre) => inner.push(id, payload, pre),
+  };
+  const a = device(server);
+  await until(() => phase(a) === 'synced');
+  change(a, (c) => ({ notes: { ...c.notes, fromA: 'saved' } }));
+  oldTabWritesAfterNextPull = true;
+  a.store.send({ type: 'REFRESH_REQUESTED' });
+  await settle(20);
+  await until(() => phase(a) === 'synced');
+  assert.deepEqual(inner.row.bookmarks, ['fromOldTab'], 'the old tab’s write was replaced by a stale row');
+  assert.equal(inner.row.notes.fromA, 'saved');
+  assert.ok(inner.conflicts.length >= 1, 'the overlap was real');
+  assert.equal(a.store.getSnapshot().sync.error, null);
+});
+
 test('a race that keeps being lost backs off instead of hammering the server, and never shows an error', async () => {
   // A scheduler the test drives by hand, so the requested delays are visible.
   const queue = []; const delays = []; let nextId = 0;
@@ -234,6 +274,7 @@ test('a race that keeps being lost backs off instead of hammering the server, an
   };
   const storage = new MemoryStorage();
   const store = createUserDataSync({ storage, remote: server, debounceMs: 60_000, scheduler, random: () => 0.5 });
+  openStores.add(store);
   store.send({ type: 'SESSION_CHANGED', userId: 'same-owner' });
   await settle(10);
   store.send({ type: 'CHANGE', principalId: 'same-owner', derive: (c) => ({ notes: { ...c.notes, kept: 'yes' } }) });
