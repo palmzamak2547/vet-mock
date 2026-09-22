@@ -121,16 +121,20 @@ really holds an exam image rather than slide content.
 
 ## 5. Regenerate, gate, push, prove
 
-Regenerate **everything** derived before the gate, or the gate fails one stale
-file at a time:
+Bump the version first, then regenerate **everything** derived before the
+gate, or the gate fails one stale file at a time:
 
 ```
-regen:registry regen:q-counts regen:delivery regen:written-questions
-regen:glossary-related regen:citation-index regen:conflict-summary
-regen:notes-registry regen:exam-papers regen:video-meta
-npm run stats -- --write        # the one that gets forgotten
-npm run regen:changelog         # after the version bump
+npm run regen:all
 ```
+
+It runs every `regen:*` script once, each after the generators whose output
+it imports (`regen:q-counts` reads the delivery list and the exam-paper table,
+so it follows `regen:delivery` and `regen:exam-papers`), then
+`regen:changelog`, which reads the bumped version, and `stats -- --write`
+last. `tests/unit/regen-all-order.test.mjs` fails if a new generator or a new
+import breaks that order. The gate never runs it: the gate's job is to find a
+stale file, not to repair one.
 
 Then `npm run gate` — all four Playwright projects, never a three-browser
 subset. It runs about eighteen minutes, which outlives a ten-minute shell
@@ -143,6 +147,15 @@ Rules learned the hard way:
   newest mtime under `src/`. Restart the gate instead.
 - **Never gate while authoring agents are running.** Nine failures in one
   evening were machine contention; all nine passed in isolation.
+- **A red e2e step in the local gate is not yet a verdict.** The gate runs
+  Playwright with the local defaults (half the cores as workers, no retry),
+  which is harder than CI. On the `dist/` the gate just built,
+  `npm run test:e2e:ci` runs the suite the way the Smoke e2e workflow does:
+  Chromium on two workers, then WebKit and Firefox on one, one retry, and
+  `test.only` refused. `npx playwright test --last-failed --workers=2` reruns
+  only what the most recent Playwright run failed, so use it straight after
+  the gate, before `npm run test:e2e:ci` overwrites that record. Neither
+  replaces the gate; they settle what its red means.
 - **CI runs in UTC.** A test that pins a clock with `+07:00` across midnight
   passes locally and fails on the runner.
 - A failed GitHub check leaves the Vercel alias on the old build, whatever the
