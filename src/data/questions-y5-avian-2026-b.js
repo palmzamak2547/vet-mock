@@ -1323,7 +1323,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "ILT",
       "CEO-vaccine",
-      "rolling-infection"
+      "rolling-infection",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-lt",
@@ -1509,7 +1510,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "id": 105836,
     "tags": [
       "fowl-pox",
-      "wing-web"
+      "wing-web",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-pox",
@@ -1580,7 +1582,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "MG",
       "ts-11",
-      "live-vaccine"
+      "live-vaccine",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-myco",
@@ -1604,7 +1607,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "mycoplasma",
       "beta-lactam",
-      "cell-wall"
+      "cell-wall",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-myco",
@@ -1651,7 +1655,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "id": 105842,
     "tags": [
       "MS",
-      "egg-apex-abnormality"
+      "egg-apex-abnormality",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-myco",
@@ -1699,7 +1704,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "MS",
       "infectious-synovitis",
-      "synovial-fluid"
+      "synovial-fluid",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-myco",
@@ -1723,7 +1729,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "mycoplasma",
       "serum-plate-agglutination",
-      "IgM"
+      "IgM",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-myco",
@@ -1747,7 +1754,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "MG",
       "FP-MG-vaccine",
-      "recombinant-vaccine"
+      "recombinant-vaccine",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-myco",
@@ -1795,7 +1803,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "infectious-coryza",
       "bacterin",
-      "vaccine-program"
+      "vaccine-program",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-coryza",
@@ -1842,7 +1851,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "id": 105850,
     "tags": [
       "fowl-cholera",
-      "necrotic-foci"
+      "necrotic-foci",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-fowl-cholera",
@@ -1866,7 +1876,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "fowl-cholera",
       "host-susceptibility",
-      "age-susceptibility"
+      "age-susceptibility",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-fowl-cholera",
@@ -1912,7 +1923,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "id": 105853,
     "tags": [
       "colibacillosis",
-      "serotype"
+      "serotype",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-coli",
@@ -1960,7 +1972,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "colibacillosis",
       "colisepticemia",
-      "polyserositis"
+      "polyserositis",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-coli",
@@ -1984,7 +1997,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "avian-influenza",
       "hemagglutinin",
-      "cross-protection"
+      "cross-protection",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
@@ -2008,7 +2022,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "avian-influenza",
       "HPAI",
-      "LPAI"
+      "LPAI",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
@@ -2031,7 +2046,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "id": 105858,
     "tags": [
       "avian-influenza",
-      "control-zone"
+      "control-zone",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
@@ -2055,7 +2071,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "avian-influenza",
       "WOAH",
-      "stamp-out-policy"
+      "stamp-out-policy",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
@@ -2078,7 +2095,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "id": 105860,
     "tags": [
       "vertical-transmission",
-      "CIA"
+      "CIA",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
@@ -2102,7 +2120,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "avian-influenza",
       "HPAI",
-      "LPAI"
+      "LPAI",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-ai",
@@ -2315,7 +2334,8 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
     "tags": [
       "reovirus",
       "viral-arthritis",
-      "tenosynovitis"
+      "tenosynovitis",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "avian-medicine",
     "topic": "avian-intro",

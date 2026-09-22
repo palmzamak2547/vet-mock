@@ -210,6 +210,29 @@ test('a year-5 compilation row that names no paper is in Panic band 1, not band 
     `${hidden.length} compilation rows would never appear in Panic Mode; tag them อิงแนวข้อสอบ`);
 });
 
+// The same fault, found by origin instead of by sourceType: rows whose
+// examOrigin says a cohort sat the paper or marked the point, while the
+// past-paper regex does not read that wording. The swine rows recalled after
+// the seniors' final ("ไฟนอล Vet 85 บันทึกหลังสอบ"), the zoonoses recalled
+// sections and the avian points "บันทึกไว้ในสรุปสรุป" were all band 2. Until
+// isPastPaperQuestion reads src/data/exam-origins.js, the tag is what brings
+// them in, and it never makes one a sat paper.
+test('a row whose examOrigin is filed as a paper or as exam guidance is never band 2', async () => {
+  const { panicRank, isPastPaperQuestion } = await import('../../src/lib/question-metadata.js');
+  const { originEntry } = await import('../../src/data/exam-origins.js');
+  const { BANK_REGISTRY } = await import('../../src/data/bank-registry.generated.js');
+  const rows = [];
+  for (const entry of BANK_REGISTRY) for (const q of await entry.load()) rows.push(q);
+  const named = rows.filter((q) => ['paper', 'aligned'].includes(originEntry(q.examOrigin)?.kind));
+  assert.ok(named.length > 1000, 'the origin map stopped matching the bank, so this guard checks nothing');
+  const hidden = named.filter((q) => panicRank(q) === 2).map((q) => `${q.subject} #${q.id} ${q.examOrigin}`);
+  assert.deepEqual(hidden, [],
+    `${hidden.length} rows name a paper or exam guidance and never appear in Panic Mode; tag them อิงแนวข้อสอบ`);
+  // The tag lifts them to band 1, not to a paper.
+  const lifted = named.filter((q) => !isPastPaperQuestion(q));
+  assert.ok(lifted.length > 0 && lifted.every((q) => panicRank(q) === 1));
+});
+
 test('zoonoses rows written from the Vet 85 midterm summary are band 1 and never a sat paper', async () => {
   const { panicRank, isPastPaperQuestion } = await import('../../src/lib/question-metadata.js');
   const rows = await loadYear5Bank();
