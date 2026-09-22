@@ -11,7 +11,7 @@
 // rolls to the final on its own; when a year has no timetable it returns
 // null and the component renders nothing — that is the whole year gate.
 // ============================================================
-import { getUpcomingExams, msUntilExam, shortCountdown, fmtThaiRange } from '../data/schedule.js';
+import { getUpcomingExams, msUntilExam, shortCountdown, fmtThaiRange, parseExamStart } from '../data/schedule.js';
 import { SEMESTER } from '../data/semester.js';
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -27,6 +27,38 @@ const isoDate = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2
 /** When a paper is over, from its start time and declared length. */
 export function examEndMs(exam) {
   return msUntilExam(exam, new Date(0)) + (exam.duration_min || 180) * 60 * 1000;
+}
+
+// The timetable is Bangkok's (UTC+7 all year, no daylight saving). What a
+// subject card says about its paper is read on that clock, not the device's:
+// CI runs in UTC, where local midnight falls at 07:00 in Bangkok, and a
+// day-boundary check written against local time passed here and failed there.
+const BANGKOK_OFFSET_MS = 7 * 60 * 60 * 1000;
+
+function bangkokEndMs(exam) {
+  const [y, m, d] = String(exam.date).split('-').map(Number);
+  const start = parseExamStart(exam.time) || { hour: 8, minute: 0 };
+  return Date.UTC(y, m - 1, d, start.hour, start.minute) - BANGKOK_OFFSET_MS
+    + (exam.duration_min || 180) * 60 * 1000;
+}
+
+/**
+ * What a Home subject card says about its paper: 'done' once it has ended,
+ * 'today' when it falls on today's Bangkok date (running or not started yet),
+ * otherwise 'upcoming'. null when there is no paper to speak of.
+ */
+export function subjectExamState(exam, now = new Date()) {
+  if (!exam?.date) return null;
+  const nowMs = now.getTime();
+  if (bangkokEndMs(exam) <= nowMs) return 'done';
+  const today = new Date(nowMs + BANGKOK_OFFSET_MS).toISOString().slice(0, 10);
+  return exam.date === today ? 'today' : 'upcoming';
+}
+
+/** "08:30" from "08:30-11:30"; empty when the timetable gives no time. */
+export function examStartTime(exam) {
+  const start = parseExamStart(exam?.time);
+  return start ? `${String(start.hour).padStart(2, '0')}:${String(start.minute).padStart(2, '0')}` : '';
 }
 
 export function examWindow(exams, now = new Date()) {
