@@ -272,3 +272,65 @@ test('the clock a launcher names is the clock the session runs and saves', async
   exam.startNewSession([mcqItem, tfItem], 60, { sessionBudget: true });
   assert.equal(exam.clockKind(), 'session', 'an exam is still one budget for the paper');
 });
+
+// ── EX-06 ────────────────────────────────────────────────────────────
+
+await loadQB();
+const poolOf = (subject) => {
+  const ctx = vm.createContext({ ...MODULE_SCOPE });
+  const build = vm.runInContext(`(() => {\n${LIFTED}\nreturn buildExamPool;\n})()`, ctx);
+  return build({ questions: QB, practiceMode: 'all', subject, topic: null, questionCategory: 'all', selectedYear: 5 });
+};
+
+// What the timer line on the config screen reads, from ConfigView's own code.
+function configClockLabel({ numQuestions, timePerQ, availablePool }) {
+  // From the first examBudget declaration to the blank line after the label.
+  const m = CONFIG.match(/\n {2}(const examBudget[\s\S]+?;)\n\n/);
+  assert.ok(m && m[1].includes('const examBudgetLabel = '), 'ConfigView no longer declares examBudgetLabel');
+  const ctx = vm.createContext({ ...utils, numQuestions, timePerQ, availablePool });
+  return vm.runInContext(`${m[1]}\nexamBudgetLabel`, ctx);
+}
+// Minutes named in a label: '50 นาที' -> [50], '50 ถึง 67 นาที' -> [50, 67].
+const minutesIn = (label) => [...label.matchAll(/\d+/g)].map((x) => Number(x[0]));
+const clockFor = (qs, base) => qs.reduce((total, q) => total + timeForQuestion(q, base), 0);
+
+test('an MCQ-only subject shows exactly its minutes', () => {
+  const pool = poolOf('equine-repro');
+  assert.ok(pool.length >= 50 && pool.every((q) => timeForQuestion(q, 60) === 60),
+    'equine-repro is no longer an all-base-allowance pool; pick another for this case');
+  assert.equal(configClockLabel({ numQuestions: 50, timePerQ: 60, availablePool: pool }), '50 นาที');
+});
+
+for (const subject of ['swine-clinic', 'engprof']) {
+  test(`${subject}: the config clock is never below what the engine gives any draw`, () => {
+    const pool = poolOf(subject);
+    const n = Math.min(50, pool.length);
+    const byAllowance = [...pool].sort((a, b) => timeForQuestion(a, 60) - timeForQuestion(b, 60));
+    const least = clockFor(byAllowance.slice(0, n), 60);
+    const most = clockFor(byAllowance.slice(-n), 60);
+    assert.ok(most > least, `${subject} no longer mixes allowances; the case is moot`);
+    const label = configClockLabel({ numQuestions: 50, timePerQ: 60, availablePool: pool });
+    const named = minutesIn(label);
+    assert.ok(Math.max(...named) * 60 >= most,
+      `Config says "${label}", but a draw of ${n} can get ${Math.ceil(most / 60)} minutes`);
+    assert.ok(Math.min(...named) * 60 <= least,
+      `Config says "${label}", but a draw of ${n} can get as little as ${Math.floor(least / 60)} minutes`);
+  });
+}
+
+test('the timer line is unchanged while the pool is still being counted, and for 0 questions', () => {
+  assert.equal(configClockLabel({ numQuestions: 50, timePerQ: 60, availablePool: null }), '50 นาที');
+  assert.equal(configClockLabel({ numQuestions: 0, timePerQ: 60, availablePool: poolOf('swine-clinic') }), '0 นาที');
+  assert.equal(configClockLabel({ numQuestions: 1, timePerQ: 45, availablePool: null }), '45 วินาที');
+  assert.ok(CONFIG.includes("{!useTimer ? 'ปิด — โหมดอ่านไม่จับเวลา'"), 'the timer-off wording moved');
+});
+
+test('Config is handed the pool it counts, so the clock and the count describe one set', () => {
+  // .test, not assert.match: a failed match would print all of App.jsx.
+  assert.ok(/<ConfigView [^\n]*availablePool=\{configServedPool\}/.test(APP), 'ConfigView is not given the pool');
+  assert.ok(/availableCount=\{configAvailableCount\}/.test(APP), 'ConfigView is not given the count');
+  const memo = APP.slice(APP.indexOf('const configServedPool'), APP.indexOf('// startExam accepts'));
+  assert.ok(memo.includes('return panicPending ? panicPool(pool) : pool;'),
+    'the pool handed over must be the one a Panic set is drawn from');
+  assert.ok(memo.includes('const configAvailableCount = configServedPool ? configServedPool.length : null;'));
+});

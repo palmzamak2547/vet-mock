@@ -84,7 +84,7 @@ const normalizePracticeMode = (...args) => vm.runInContext('normalizePracticeMod
 
 // The category the config screen's count filters by, as App computes it.
 function configCountCategoryExpr() {
-  const block = APP.slice(APP.indexOf('const configAvailableCount'), APP.indexOf('// startExam accepts'));
+  const block = APP.slice(APP.indexOf('const configServedPool'), APP.indexOf('// startExam accepts'));
   const args = block.slice(block.indexOf('buildExamPool({'));
   const m = args.match(/\n\s*questionCategory(?:\s*:\s*([^\n]+?))?,\n/);
   assert.ok(m, 'the config count no longer passes a questionCategory to buildExamPool');

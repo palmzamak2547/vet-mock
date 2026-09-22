@@ -3,6 +3,7 @@ import { SUBJECTS } from '../data/questions.js';
 import { SEMESTER } from '../data/schedule.js';
 import { EXAM_SCOPE_LABELS, examScopeForPhase } from '../lib/question-prediction.js';
 import BackBar from '../components/BackBar.jsx';
+import { wholeSetTime, wholeSetTimeLabel } from '../hooks/utils.js';
 
 // ============================================================
 // ConfigView — ตั้งค่าก่อนเริ่มฝึก/สอบ
@@ -32,7 +33,7 @@ const CATEGORIES = [
   { id: 'writing', label: 'ข้อเขียนเท่านั้น',    icon: '✍️', desc: 'ตอบสั้น เขียนบรรยาย และเติมคำ — พิมพ์คำตอบเอง' },
 ];
 
-export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, showCategoryPicker = false, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, mode, selectedPhase = null }) {
+export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, showCategoryPicker = false, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, availablePool = null, mode, selectedPhase = null }) {
   const knownAvailableCount = Number.isFinite(availableCount)
     ? Math.max(0, Math.floor(availableCount))
     : null;
@@ -74,15 +75,11 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
   const isExamMode = mode === 'exam';
   // Exam mode runs one clock for the whole paper. The per-question number is
   // still how the budget is chosen, so show what it adds up to rather than a
-  // per-question figure the clock no longer enforces.
-  const examBudgetLabel = (() => {
-    const total = Math.max(0, Math.round((Number(numQuestions) || 0) * (Number(timePerQ) || 0)));
-    if (!total) return '0 นาที';
-    const m = Math.floor(total / 60);
-    const sec = total % 60;
-    if (!m) return `${sec} วินาที`;
-    return sec ? `${m} นาที ${sec} วินาที` : `${m} นาที`;
-  })();
+  // per-question figure the clock no longer enforces. The clock gives written
+  // and matching items more than the base, so from a pool that holds them the
+  // total depends on the draw, and the label gives the range this pool allows.
+  const examBudget = wholeSetTime(availablePool, numQuestions, timePerQ);
+  const examBudgetLabel = wholeSetTimeLabel(examBudget);
 
   // The phase comes from the app's one phase selector; this page only names it.
   const phaseScope = examScopeForPhase(selectedPhase);
@@ -268,6 +265,11 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
                 />
               </label>
             </div>
+            {isExamMode && !showCategoryPicker && examBudget.min !== examBudget.max && (
+              <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
+                ข้อเขียนและข้อจับคู่ได้เวลาเพิ่ม เวลารวมจึงขึ้นกับข้อที่อยู่ในชุด
+              </div>
+            )}
             {/* Writing-time hint only relevant when subject = engprof */}
             {showCategoryPicker && (
               <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5, fontStyle: 'italic' }}>

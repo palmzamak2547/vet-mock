@@ -93,9 +93,12 @@ test('the config count and the exam pool are computed by the same builder', () =
   // If the displayed number came from a separate filter, the phase change
   // would make the count and the delivered set disagree — the exact class of
   // bug this app has been bitten by before.
-  const count = APP.slice(APP.indexOf('const configAvailableCount'), APP.indexOf('// startExam accepts'));
+  // The count is the length of the pool the config screen is handed.
+  const count = APP.slice(APP.indexOf('const configServedPool'), APP.indexOf('// startExam accepts'));
   assert.ok(count.includes('buildExamPool({'), 'the count must come from buildExamPool');
   assert.ok(count.includes('selectedPhase'), 'and must be given the phase');
+  assert.ok(count.includes('const configAvailableCount = configServedPool ? configServedPool.length : null;'),
+    'and the number on screen must be that pool\'s size');
 });
 
 test('a question answered wrong then right is no longer wrong', () => {

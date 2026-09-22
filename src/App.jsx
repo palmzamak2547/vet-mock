@@ -1924,7 +1924,10 @@ export default function App() {
   }, [view]);
 
   const configPracticeMode = normalizePracticeMode(practiceMode, subject, false);
-  const configAvailableCount = useMemo(() => {
+  // The set the config screen describes. Its size is the count on screen, and
+  // ConfigView reads the questions themselves for the whole-set clock, which
+  // gives written and matching items more than the base time.
+  const configServedPool = useMemo(() => {
     const scopeReady = USER_CURATED_MODES.has(configPracticeMode)
       ? isQBFullyLoaded()
       : isQBYearLoaded(selectedYear);
@@ -1943,8 +1946,9 @@ export default function App() {
     });
     // Panic keeps only the questions closest to a paper, so counting the whole
     // subject here printed a number the session would never serve.
-    return panicPending ? panicPool(pool).length : pool.length;
+    return panicPending ? panicPool(pool) : pool;
   }, [allQuestions, analytics?.weakQuestions, bookmarks, configPracticeMode, history, panicPending, practiceMode, questionCategory, selectedPhase, selectedYear, subject, topic]);
+  const configAvailableCount = configServedPool ? configServedPool.length : null;
 
   // startExam accepts an optional `overrides` object so a caller (like the
   // 1-click "ฝึก 1 ข้อด่วน" from HomeView) can bypass React's async state
@@ -3054,7 +3058,7 @@ export default function App() {
               )}
 {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={() => setView('topic-select')} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam }} />}
-              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} onBack={goBackFromConfig} />}
+              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime, saveStatus: examSaveStatus }} />}
