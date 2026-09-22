@@ -3848,7 +3848,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
     "tags": [
       "osmoregulation",
       "fish-physiology",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202442
   },
@@ -3873,7 +3874,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
     "tags": [
       "circulation",
       "crustacean",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202443
   },
@@ -3898,7 +3900,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
     "tags": [
       "fingerling",
       "life-stage",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202444
   },
@@ -3918,7 +3921,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "catfish",
       "respiration",
       "gill-raker",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202445
   },
@@ -3943,7 +3947,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
     "tags": [
       "fish-anatomy",
       "heart",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202446
   },
@@ -3969,7 +3974,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "fish-anatomy",
       "gill",
       "physical-exam",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202447
   },
@@ -3994,7 +4000,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
     "tags": [
       "water-quality",
       "plankton",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202448
   },
@@ -4019,7 +4026,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
     "tags": [
       "water-quality",
       "biofilter",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202449
   },
@@ -4044,7 +4052,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
     "tags": [
       "water-quality",
       "groundwater",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202450
   },
@@ -4070,7 +4079,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "life-support",
       "oxygen",
       "emergency",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202451
   },
@@ -4096,7 +4106,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "trichodina",
       "protozoa",
       "ornamental",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202452
   },
@@ -4122,7 +4133,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "goldfish",
       "poxvirus",
       "ornamental",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202453
   },
@@ -4146,7 +4158,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
     "tags": [
       "transport",
       "husbandry",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202455
   },
@@ -4172,7 +4185,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "ornamental",
       "discus",
       "husbandry",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202456
   },
@@ -4198,7 +4212,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "ornamental",
       "betta",
       "breeding",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202457
   },
@@ -4224,7 +4239,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "goiter",
       "ozone",
       "aquarium",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202458
   },
@@ -4249,7 +4265,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
     "tags": [
       "amphibian",
       "metamorphosis",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202459
   },
@@ -4275,7 +4292,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "amphibian",
       "metabolic-bone-disease",
       "nutrition",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202460
   },
@@ -4301,7 +4319,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "amphibian",
       "hypovitaminosis-a",
       "nutrition",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202461
   },
@@ -4327,7 +4346,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "life-support",
       "filtration",
       "ข้อเขียน",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202462
   },
@@ -4353,7 +4373,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "chelonian",
       "renal-portal",
       "ข้อเขียน",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202463
   },
@@ -4379,7 +4400,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "chelonian",
       "husbandry",
       "ข้อเขียน",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202464
   },
@@ -4405,7 +4427,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "chelonian",
       "urolith",
       "husbandry",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202465
   },
@@ -4431,7 +4454,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "marine-mammal",
       "thailand",
       "conservation",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202466
   },
@@ -4457,7 +4481,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "marine-mammal",
       "irrawaddy-dolphin",
       "conservation",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202467
   },
@@ -4483,7 +4508,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "marine-mammal",
       "dugong",
       "anatomy",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202468
   },
@@ -4509,7 +4535,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "zoonosis",
       "marine-mammal",
       "ข้อเขียน",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202469
   },
@@ -4535,7 +4562,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "regulation",
       "notifiable-disease",
       "ข้อเขียน",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202470
   },
@@ -4576,7 +4604,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "drug-administration",
       "fish",
       "matching",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202471
   },
@@ -4602,7 +4631,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "bacterial-culture",
       "sampling",
       "necropsy",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202472
   },
@@ -4627,7 +4657,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
     "tags": [
       "euryhaline",
       "fish-physiology",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202473
   },
@@ -4653,7 +4684,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "ranavirus",
       "frog",
       "disinfection",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202474
   },
@@ -4678,7 +4710,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
     "tags": [
       "regulation",
       "farm-registration",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202475
   },
@@ -4698,7 +4731,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "otolith",
       "lateral-line",
       "sensory",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202476
   },
@@ -4721,7 +4755,8 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
     "tags": [
       "husbandry",
       "farm-record",
-      "midterm"
+      "midterm",
+      "อิงแนวข้อสอบ"
     ],
     "id": 202477
   },

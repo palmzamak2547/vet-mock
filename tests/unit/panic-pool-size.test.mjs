@@ -178,3 +178,34 @@ test('the mock re-sort cannot undo the Panic order', () => {
   assert.match(APP, /if \(!overrides\.panicPool && picked\.some\(\(q\) => q\.examOrigin\)\)/,
     'the id re-sort is unguarded again and will flatten the Panic order');
 });
+
+// ── Rows written from a senior's compilation have to reach band 1 ────
+// Panic serves bands 0 and 1 and nothing else, so a row that answers "no" to
+// both predicates is invisible to it. The ingest has to get the band right as
+// well as the scope and the provenance, and twice it did not: the aquatic
+// midterm opened on 95 questions while 56 recalled from the seniors' own
+// midterm notes and TJ sheet sat in band 2, and the zoonoses rows written from
+// the Vet 85 midterm summary never appeared at all. The fix is the tag, which
+// under-claims: it never makes a row a sat paper.
+
+async function loadYear5Bank() {
+  const { BANK_REGISTRY } = await import('../../src/data/bank-registry.generated.js');
+  const rows = [];
+  for (const entry of BANK_REGISTRY) {
+    if (entry.year !== 5) continue;
+    for (const q of await entry.load()) rows.push(q);
+  }
+  return rows;
+}
+
+test('a year-5 compilation row that names no paper is in Panic band 1, not band 2', async () => {
+  // Year 5 only: those are the papers this cohort sits now. The year-4 legacy
+  // banks still hold rows of this shape, and that is a separate decision.
+  const { panicRank } = await import('../../src/lib/question-metadata.js');
+  const rows = await loadYear5Bank();
+  const compiled = rows.filter((q) => q.sourceType === 'student-compilation' && !q.examOrigin);
+  assert.ok(compiled.length > 0, 'the year-5 bank lost its compilation rows, so this guard checks nothing');
+  const hidden = compiled.filter((q) => panicRank(q) === 2).map((q) => `${q.subject} #${q.id}`);
+  assert.deepEqual(hidden, [],
+    `${hidden.length} compilation rows would never appear in Panic Mode; tag them อิงแนวข้อสอบ`);
+});
