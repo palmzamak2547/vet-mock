@@ -70,12 +70,19 @@ say, in the agent's own instructions:
 
 - **What already exists**, with the command that dumps the live bank, because
   the ingest drops a duplicate stem and a near-duplicate is wasted work.
-- `sourceType` is one of `past-paper`, `student-compilation`, `lecture-derived`.
-  The band marker `อิงแนวข้อสอบ` goes on an item written from what a
+- `sourceType` says how the item reached us: `past-paper`,
+  `student-compilation` or `lecture-derived` for new work (`SOURCE_TYPES` in
+  `src/data/exam-origins.js` lists every value in use and what each claims).
+  `examOrigin` says whose paper it sat on. A new origin string needs an entry
+  in `EXAM_ORIGINS` in the same file, filed by a person as `paper`,
+  `aligned`, `source-doc` or `mock`, never guessed from its wording.
+- The band marker `อิงแนวข้อสอบ` goes on an item written from what a
   compilation marked, which names no paper: `student-compilation` with no
-  `examOrigin`. An item that names the paper it sat is band 0 already and
-  does not take the marker, and the marker never goes in `examOrigin` of a
-  `past-paper` item, which would say the item both was and was not sat.
+  `examOrigin`. It never goes in `examOrigin` of a `past-paper` item, which
+  would say the item both was and was not sat. An item whose origin is filed
+  as a paper does not need it, with one exception while `isPastPaperQuestion`
+  still reads origins by regex: when `npm run lint:provenance` reports such a
+  row in band 2, tag it, because the tag under-claims into band 1.
   `tests/unit/q-counts.test.mjs` fails a row that is both a sat paper and
   marked unless it names its paper; the fifty that do (avian, food industry,
   milk) were reviewed and stay as they are.
@@ -90,6 +97,10 @@ say, in the agent's own instructions:
 then the ingest script, which refuses the whole batch on any fault — schema,
 forbidden tokens, stem dedupe against the live bank, id assignment, option
 length ratio, answer-index clustering, true/false balance and run length.
+Then `npm run lint:provenance` on the merged bank: it fails on an origin
+nobody has filed, a `sourceType` outside the list, the short spelling
+`อิงแนวสอบ` alone, and a row whose origin names a paper or exam guidance
+but which Panic Mode would never show.
 
 ## 3. Fact-check what the lecturer said
 
