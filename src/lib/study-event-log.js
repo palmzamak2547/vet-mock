@@ -9,6 +9,12 @@ let connection;
 const memory = new Map();
 const ownerKey = owner => owner || 'guest';
 const eventKey = (owner, id) => `${encodeURIComponent(ownerKey(owner))}:${id}`;
+// How far this device has pulled the owner's server archive. It lives in the
+// events store itself, so whatever wipes the events wipes the mark with them
+// and the next pull starts over. It has no `owner` field, so neither index
+// (and no query, in this build or an older one) ever returns it; the '#'
+// cannot occur in an event key, whose owner part is URI-encoded.
+const pullMarkKey = owner => `#pull:${encodeURIComponent(ownerKey(owner))}`;
 
 function open() {
   if (connection) return connection;
@@ -107,6 +113,25 @@ export async function markStudyEventsSynced(owner, ids) {
   } catch { return { ok: false }; }
 }
 
+/** { updatedAt, sessionId } of the newest server batch already restored here,
+ *  or null when this device has never finished a page of the owner's pull. */
+export async function readStudyEventPullMark(owner) {
+  try {
+    const row = await transaction('readonly', store => store.get(pullMarkKey(owner)));
+    return row && typeof row.updatedAt === 'string' && typeof row.sessionId === 'string'
+      ? { updatedAt: row.updatedAt, sessionId: row.sessionId }
+      : null;
+  } catch { return null; }
+}
+
+/** Written only after the batches it covers were stored. */
+export async function writeStudyEventPullMark(owner, { updatedAt, sessionId }) {
+  try {
+    await transaction('readwrite', store => store.put({ key: pullMarkKey(owner), updatedAt, sessionId }));
+    return { ok: true };
+  } catch { return { ok: false }; }
+}
+
 // Storage deletion is explicit and owner-bound. Account deletion can call
 // this after the server confirms its cascade; no other owner's keys are read.
 export async function clearStudyEvents(owner) {
@@ -114,6 +139,7 @@ export async function clearStudyEvents(owner) {
     await transaction('readwrite', store => {
       const request = store.index('owner').getAllKeys(ownerKey(owner));
       request.onsuccess = () => { for (const key of request.result) store.delete(key); };
+      store.delete(pullMarkKey(owner));
     });
     for (const [key, row] of memory) if (row.owner === ownerKey(owner)) memory.delete(key);
     return { ok: true };
