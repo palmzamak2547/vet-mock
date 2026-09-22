@@ -367,6 +367,12 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
     if (gate !== 'ok') return undefined;
     let alive = true;
     setErr(null);
+    // Four of these five expand every user_data.history (admin_history), and
+    // users_list always expands all of it. Measured on production 2026-09-23
+    // with EXPLAIN ANALYZE at ทั้งหมด, the worst case: 12,777 history rows took
+    // 76 ms to expand, and each report ran in 93 to 144 ms. The cost is linear
+    // at about 6 µs a row, so a report reaches 1 s somewhere past 120,000 rows.
+    // Expand once per request (one report RPC) only when it gets near that.
     Promise.all([
       adminRpc('admin_overview', { days: range }),
       adminRpc('admin_questions', { days: range, min_attempts: 3, lim: 80 }),
