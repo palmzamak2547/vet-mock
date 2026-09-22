@@ -204,3 +204,45 @@ test('UI-09: the topic name on each reviewed question is readable on every subje
   }
   assert.equal(colourFor(undefined, subjectText), 'var(--clr-ink-soft)', 'no subject still falls back to the soft ink');
 });
+
+// ---------------------------------------------------------------
+// COPY-03: no middle dot in this week's revision copy
+// ---------------------------------------------------------------
+// The app separates clauses with a comma or a space, never ' · '. What is
+// allowed to keep the character: comments, and a regex character class
+// that strips a leading dot off a label (ResultsView) — that one is how
+// the copy gets cleaned, not copy.
+const DOT_FILES = [
+  '../../src/components/PanicCard.jsx',
+  '../../src/components/NightRankCard.jsx',
+  '../../src/views/ResultsView.jsx',
+  '../../src/lib/motion-kit/play.js',
+];
+const copyOnly = (source) => source
+  .replace(/\/\*[\s\S]*?\*\//g, '')
+  .split('\n')
+  .map((line) => line.replace(/(^|\s)\/\/.*$/, '$1').replace(/\/\^?\[[^\]\n]*\]/g, ''))
+  .join('\n');
+
+test('COPY-03: the Panic card, the night rank, the Results promotion and Study Break carry no middle dot', () => {
+  for (const file of DOT_FILES) {
+    const hits = copyOnly(read(file)).split('\n').filter((line) => line.includes('·'));
+    assert.deepEqual(hits, [], `${file} still has a middle dot in copy`);
+  }
+});
+
+test('COPY-03: the replacement wording says the same thing, clause for clause', () => {
+  const text = (file) => read(file).replace(/<\/?strong>/g, '');
+  assert.ok(text('../../src/components/PanicCard.jsx').includes('<span className="vmx-panic-kicker">ปี 5 เทอม 1 กลางภาค</span>'));
+  const rank = text('../../src/components/NightRankCard.jsx');
+  assert.ok(rank.includes('ตอบดึกสะสม {nightCount} ข้อ อีก {progress.needed} ข้อได้เป็น {progress.next.label}'));
+  assert.ok(rank.includes('ตอบดึกสะสม {nightCount} ข้อ ได้ยศสูงสุดแล้ว คืนนี้พักได้'));
+  assert.ok(rank.includes('นับเฉพาะข้อที่ส่งคำตอบช่วง 23:00–04:59 ถ้าล้างประวัติ ยศจะลดตาม'));
+  assert.ok(results.includes('จาก {rankPromo.from.label} เป็น {rankPromo.to.label}, {rankPromo.to.blurb}'));
+  const play = read('../../src/lib/motion-kit/play.js');
+  // tests/e2e/motion-kit.spec.js reads the fetch status by this prefix.
+  assert.ok(play.includes('`เก็บบอลแล้ว ${n} ครั้ง เก่งมาก Mochi!`'));
+  assert.ok(play.includes('`เจอ ${matched}/4 คู่ เล่นไป ${moves} ตา`'));
+  assert.ok(play.includes('`ยังไม่ใช่คู่นี้ เล่นไป ${moves} ตา`'));
+  assert.ok(play.includes('"หายใจเข้า 4 วินาที ออก 6 วินาที ไม่ต้องฝืนจังหวะ"'));
+});

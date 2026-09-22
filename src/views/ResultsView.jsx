@@ -330,7 +330,7 @@ export default function ResultsView({
           <div className="vmx-night-rank-promo-text">
             <div className="vmx-night-rank-promo-title">🎖️ เลื่อนยศโต้รุ้ง! {rankPromo.to.label}</div>
             <div className="vmx-night-rank-promo-sub">
-              จาก {rankPromo.from.label} → {rankPromo.to.label} · {rankPromo.to.blurb}
+              จาก {rankPromo.from.label} เป็น {rankPromo.to.label}, {rankPromo.to.blurb}
             </div>
           </div>
         </div>
