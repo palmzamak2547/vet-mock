@@ -46,7 +46,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_D = [
       "H3N8 มาจากไวรัสม้าและพบใน racing greyhound สหรัฐฯ ปี 2004 ส่วน H3N2 มาจากไวรัสนกในเอเชียช่วงปี 2005–2006"
     ],
     "answer": 3,
-    "explain": "H3N8 canine influenza สืบจาก equine influenza และพบใน racing greyhound ที่สหรัฐฯ ปี 2004 ส่วน H3N2 มี avian origin และพบในเอเชียช่วงปี 2005–2006\n\n❌ ทำไมข้ออื่นผิด\n— ตัวเลือกแรกสลับทั้งต้นกำเนิดและภูมิภาคที่พบของสอง subtype\n— ทั้งสอง subtype ไม่ได้มาจากไวรัสสุกร และลำดับภูมิภาคถูกสลับกัน\n— ตัวเลือกที่ให้ H3N8 เริ่มในเอเชียและ H3N2 เริ่มใน greyhound สหรัฐฯ สลับลำดับเหตุการณ์\n\n💡 จำเป็นคู่: H3N8 = horse to greyhound; H3N2 = bird to dog",
+    "explain": "H3N8 canine influenza สืบจาก equine influenza และพบใน racing greyhound ที่สหรัฐฯ ปี 2004 ส่วน H3N2 มี avian origin และพบในเอเชียช่วงปี 2005–2006\n\n❌ ทำไมข้ออื่นผิด\n— ตัวเลือกที่ให้ H3N8 มาจากไวรัสนกและ H3N2 มาจากไวรัสม้า สลับทั้งต้นกำเนิดและภูมิภาค\n— ทั้งสอง subtype ไม่ได้มาจากไวรัสสุกร และลำดับภูมิภาคถูกสลับกัน\n— ตัวเลือกที่ให้ H3N8 เริ่มในเอเชียและ H3N2 เริ่มใน greyhound สหรัฐฯ สลับลำดับเหตุการณ์\n\n💡 จำเป็นคู่: H3N8 = horse to greyhound; H3N2 = bird to dog",
     "source": "3. Swine and canine influenza",
     "verified": "3. Swine and canine influenza pp.26, 28",
     "sourceType": "lecture-derived",
@@ -382,7 +382,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_D = [
       "วัคซีนปศุสัตว์มีข้อจำกัดจากการเป็นวัคซีนสำหรับเห็บ จึงไม่ลดการติดเชื้อจากยุง"
     ],
     "answer": 1,
-    "explain": "วัคซีนเชื้อตายของ RVF ต้องให้หลายโดส จึงไม่สะดวกต่อ routine animal-field use ส่วน modified live vaccine มีความเสี่ยงก่อ birth defects และ abortion ในปศุสัตว์ที่ตั้งท้อง การเลือกใช้จึงต้องชั่งความคล่องภาคสนามกับ reproductive safety\n\n❌ ทำไมข้ออื่นผิด\n— ตัวเลือกแรกสลับข้อจำกัดของวัคซีนเชื้อตายกับ modified live vaccine\n— ความเสี่ยง reproductive ที่ระบุอยู่กับ modified live vaccine ไม่ใช่วัคซีนเชื้อตายตามข้อความนี้\n— วัคซีนใช้ป้องกัน ไม่ได้แทน supportive care ในสัตว์ที่ป่วยแล้ว\n— RVF มี mosquito vector และวัคซีนที่กล่าวถึงเป็นวัคซีนในสัตว์ ไม่ใช่วัคซีนสำหรับเห็บ\n\n💡 Inactivated = repeat doses; modified live = pregnancy risk",
+    "explain": "วัคซีนเชื้อตายของ RVF ต้องให้หลายโดส จึงไม่สะดวกต่อ routine animal-field use ส่วน modified live vaccine มีความเสี่ยงก่อ birth defects และ abortion ในปศุสัตว์ที่ตั้งท้อง การเลือกใช้จึงต้องชั่งความคล่องภาคสนามกับ reproductive safety\n\n❌ ทำไมข้ออื่นผิด\n— ตัวเลือกที่บอกว่าวัคซีนเชื้อตายให้ภูมิหลังโดสเดียว สลับข้อจำกัดของวัคซีนเชื้อตายกับ modified live vaccine\n— ความเสี่ยง reproductive ที่ระบุอยู่กับ modified live vaccine ไม่ใช่วัคซีนเชื้อตายตามข้อความนี้\n— วัคซีนใช้ป้องกัน ไม่ได้แทน supportive care ในสัตว์ที่ป่วยแล้ว\n— RVF มี mosquito vector และวัคซีนที่กล่าวถึงเป็นวัคซีนในสัตว์ ไม่ใช่วัคซีนสำหรับเห็บ\n\n💡 Inactivated = repeat doses; modified live = pregnancy risk",
     "source": "vector borne viral zoonosis",
     "verified": "vector borne viral zoonosis pp.7-8",
     "sourceType": "lecture-derived",

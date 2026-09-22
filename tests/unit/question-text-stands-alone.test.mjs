@@ -56,3 +56,26 @@ test('the Vet 80 PCV-2 item asks for the exception, as the sat page prints it', 
   assert.equal(q.answer, 4);
   assert.equal(q.options[4], 'ผิดทุกข้อ');
 });
+
+// ── 2. Explanations never point at an option by position ─────
+
+const TH = '\\u0E00-\\u0E7F';
+const BY_POSITION = [
+  new RegExp(`(?<![${TH}])(?:ข้อ|ตัวเลือก|ตอบ|คำตอบ(?:คือ|ที่ถูก(?:คือ)?)?)\\s*\\(?([ก-จ])\\)?(?=$|[\\s.,)\\]:：;+/=—–-])`),
+  new RegExp(`(?<![${TH}A-Za-z])(?:ข้อ|ตัวเลือก|ตอบ|คำตอบ(?:คือ)?|choice|option|answer(?: is)?)\\s*\\(?([A-Ea-e])\\)?(?![A-Za-z0-9${TH}.])`),
+  /ตัวเลือก(?:แรก|ที่(?:หนึ่ง|สอง|สาม|สี่|ห้า)|สุดท้าย|ที่\s*[1-5](?!\d))|(?:สอง|สาม)?ข้อแรก|ข้อสุดท้าย|(?:first|second|third|last) option/i,
+];
+// Matches that are not about option order at all, each with its reason.
+const NOT_POSITIONAL = {
+  202161: '"amoxicillin จึงไม่ใช่ตัวเลือกแรก" means it is not the first-line drug',
+};
+
+test('explanations in the swine, aquatic and zoonoses banks never name an option by letter or position', () => {
+  const shuffled = inScope.filter((q) => Array.isArray(q.options) && q.options.length >= 2
+    && Number.isInteger(q.answer) && (!q.type || q.type === 'mcq'));
+  const hits = shuffled
+    .filter((q) => !NOT_POSITIONAL[q.id])
+    .filter((q) => BY_POSITION.some((re) => re.test(String(q.explain || ''))))
+    .map(label);
+  assert.deepEqual(hits, []);
+});
