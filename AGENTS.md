@@ -3195,3 +3195,70 @@ Every one of these came from an independent check, not from the agent that wrote
   missed. 0 of 135 duplicated the shipped bank — the agents had checked it themselves.
 - **Verify agents keep pre-edit backups in the same folder** (`_name.pre-adversarial.json`).
   Any collector globbing `out/*.json` must skip them or it double-counts everything.
+
+## 2026-09-23 (evening) — The upgrade ships in three sets; the sync engine is held
+
+Palm, 14:15: ship everything that has passed, one set at a time. Each set was gated on the exact
+commit that shipped (build, lint:all, unit in Bangkok time and UTC, `CI=1 npx playwright test` on
+all four projects), then pushed only after the previous set was proven live.
+
+| release | main | proof |
+|---|---|---|
+| 5.128.0 (wave 0 + DATA-02) | `8195ed78` | live 15:49; served entry carries 5.128.0; swine midterm Panic 63 in the served counts |
+| 5.129.0 (waves 1-2, sync reverted) | `452a0c74` | live 18:53; Vercel dpl_GYyeQ39i; swine midterm Panic 60, practice 72 (a57c163d, Palm's call) |
+| 5.130.0 (wave 3, sync reverted) | `a7602ecc` | pushed 18:54; first run of the sharded smoke matrix |
+
+### Held: the new sync engine (DA-06 compare-and-set, PF-03 deferred compaction, SYNC-SWEEP,
+SYNC-INFLIGHT-DELETE, COPY-JOURNAL)
+
+Every sync commit passed two adversarial reviews, and it still did not ship. A comparison of the
+engine on main with the new one (a random multi-tab and multi-device simulator, every interleaving
+named in the reviews, both engines, and a judge) found that the new engine fixes the phone-plus-laptop
+lost update but adds new ways to lose, revert or bring back data:
+- **C1-control:** two tabs in one browser, a lost compare-and-set race keeps a stale claim, and the
+  tab later writes an older value over a newer one (8-17 per 1000 twelve-second sessions of rapid
+  edits in the model).
+- **R1-R4:** deferred compaction writes a stale meta or snapshot, and a deleted note or bookmark comes back.
+- **SWEEP-boot-meta (rollout only):** an old build's boot sweep drops a new tab's unsnapshotted edit for good.
+
+So 5.129.0 reverts ten commits (d2a1a4d6 9bc96b88 5fc35091 9b44f4b4 067b74d1 ad000853 0492e7b3
+73f0e364 47e0b726 7fd34628). On main, user-data-sync.js, app-lifecycle.js, useUserDataSync.js and
+storage-gc.js are byte-identical to 5.128.0. study-event-sync.js (PF-18, pull-only) shipped. Before
+re-landing, fix M2, M3, M4, C1-control and the rollout sweep, then re-measure on both harnesses. A
+separate multi-tab follow-up (63aa07ba, from a peer session) was rejected: it causes regressions R1,
+N1 and C1. The reproductions, simulators, verdict and backlog are kept, untracked, in
+`work/upgrade-2026-09-23/` (syncsafe-sim/cases, syncsafe-named/scenarios-*.mjs,
+sync-safety-verdict.json, rev-*, BACKLOG.json items SYNC-MULTITAB, EX-TZ, STAB-CLOCK).
+
+### Why production did not move for 90 minutes, and the guards now in place
+
+- **Vercel's ignore step failed the build.** `git diff ${VERCEL_GIT_PREVIOUS_SHA} HEAD` hit
+  `fatal: bad object` because the last successful deploy was outside Vercel's depth-10 clone after
+  a 48-commit push. It now ends in `|| exit 1`, so only "nothing changed" skips a build
+  (deployment-ignore-contract.test.mjs, 248 of Vercel's 256 characters). Read the Vercel build log
+  first when a production deploy fails within seconds.
+- **Vercel missed one push completely** (8195ed78: no deployment, nothing queued). It was deployed
+  through the Vercel API with the same git source. After every push, confirm the deployment exists.
+- **Production moves only when the deployment's GitHub checks pass.** A green Vercel build is not
+  a release. Prove the version string in the served entry chunk.
+- **The live calendar in tests:** exam-scope's near-exam test failed from 11:30 on 23 Sep because
+  the soonest paper changed. Its clock is now pinned, and it runs in Asia/Bangkok, because CI in UTC
+  still read 22 Sep 20:00 as 13:00. STAB-CLOCK (queued) sets timezoneId for every project and pins
+  every test that reads the timetable.
+- **The smoke step budget:** the serial webkit + firefox step took 11.3-16.2 min against a 16 min
+  cap. 5.130.0 replaces it with a sharded matrix whose `smoke` aggregator keeps the check name.
+- **Untracked generated files:** 22 search-index-*.generated.js files existed only on the
+  integration machine; a gate there passed and a fresh checkout would not build. lint:untracked
+  now fails on untracked files under src/, api/ and public/.
+- **CRLF false stale:** a stash, checkout or revert restores CRLF copies of generated files, and
+  pre-STAB-CRLF branches then report them stale. Run regen:all before a gate on those branches.
+
+### Remaining work, in order
+
+1. Prove 5.130.0 live (served entry 5.130.0), including the three e2e jobs and `smoke`.
+2. w3-copy-sweep (solo), w3-gate-2 STAB-CLOCK, EX-TZ, ORG-14 steps 3-4 (PdfAnnotateView hooks,
+   HomeView split), then the sync re-land (above) and SYNC-MULTITAB, each with its own gate.
+3. Palm's OK is needed for ORG-15 part 2: move the dated session log out of this file into
+   docs/handoff/ (63a4f7fa, reverted in 5494a3be until then).
+4. The spelling-fix session that starts in the main checkout on 24 Sep must `git pull` first: main
+   moved from 6118c8bd to a7602ecc today.
