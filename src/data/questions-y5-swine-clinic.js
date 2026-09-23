@@ -96,6 +96,7 @@ export const QB_Y5_SWINE_CLINIC = [
     q: 'จงยกตัวอย่าง clinical signs 2 แบบ ที่สามารถพบได้ในสุกรแม่พันธุ์ที่เป็น MMA (mastitis-metritis-agalactia) syndrome',
     keywords: ['mastitis', 'เต้านมบวม', 'แดง', 'อักเสบ', 'metritis', 'มดลูกอักเสบ', 'vulvar discharge', 'หนอง', 'agalactia', 'น้ำนมแห้ง', 'ลูกไม่มีนม', 'ลูกอ่อนแอ', 'ไข้', 'ซึม', 'ไม่กินอาหาร'],
     explain: 'MMA = postpartum syndrome 3 ส่วนรวม: (1) mastitis — เต้านมบวม แดง ร้อน เจ็บ; (2) metritis — มดลูกอักเสบ vulvar discharge หนอง/เลือดปน; (3) agalactia — น้ำนมแห้ง ลูกหิว ลูกอ่อนแอ น้ำหนักลด. อาการร่วม: ไข้ ซึม ไม่กินอาหาร dehydration. ตอบ 2 อาการจาก 3 หมวด (ระบุชัดเช่น "เต้านมบวมแดง" + "vulvar discharge หนอง").',
+    model_answer: 'แม่สุกรที่เป็น MMA แสดงอาการภายใน 12-72 ชั่วโมงหลังคลอด อาการแรกคือเต้านมอักเสบ เต้านมบวม ร้อน และเจ็บ บางครั้งมีหนอง อาการที่สองคือมดลูกอักเสบ มีหนองไหลออกจากช่องคลอด นอกจากนี้แม่สุกรมีไข้ ไม่กินอาหาร และน้ำนมลดลง ลูกสุกรจึงได้นมไม่พอและอดนม',
     verified: 'swine clin prac p.1 Q6' },
 
   { id: 8356, subject: 'swine-clinic', topic: 'swine-pornchalit-set', year: 5,
@@ -105,6 +106,7 @@ export const QB_Y5_SWINE_CLINIC = [
     q: 'จงยกตัวอย่าง clinical signs 2 แบบ ที่สามารถพบได้ในสุกรที่เกิดภาวะ septicemia',
     keywords: ['cyanosis', 'เขียวคล้ำ', 'ใบหู', 'ปลายขา', 'หาง', 'haemorrhage', 'เลือดออก', 'petechiae', 'ecchymoses', 'ไข้สูง', 'fever', 'ซึม', 'depression', 'หายใจหอบ', 'dyspnoea', 'อาการทางประสาท', 'CNS', 'ตายเฉียบพลัน', 'sudden death'],
     explain: 'Septicemic pig: cyanosis ที่ extremities (ใบหู ปลายขา หาง ท้อง — "blue ears/extremities"), petechial/ecchymotic haemorrhage, high fever, depression, anorexia, อาจมี dyspnoea, CNS signs, หรือ sudden death. Classic septicemic pathogens: Streptococcus suis, Erysipelothrix rhusiopathiae, Salmonella choleraesuis, Actinobacillus suis, Glaesserella parasuis (Glässer). ตอบ 2 ข้อจาก: cyanosis + haemorrhage/petechiae + ไข้สูง + sudden death.',
+    model_answer: 'สุกรที่เกิด septicemia มีผิวหนังส่วนปลายเขียวคล้ำ (cyanosis) เช่น ที่ใบหู จมูก ขา และท้อง และมีจุดเลือดออกตั้งแต่ petechial ถึง ecchymotic haemorrhage ตามผิวหนังและอวัยวะต่างๆ ร่วมกับมีไข้ อาจพบอาการทางประสาท เช่น สั่นและตีขา หรือตายเฉียบพลัน',
     verified: 'swine clin prac p.1 Q7 (annotated "cyanosis / haemorrhage")' },
 
   { id: 8357, subject: 'swine-clinic', topic: 'swine-cns', year: 5,
@@ -130,6 +132,7 @@ export const QB_Y5_SWINE_CLINIC = [
     q: 'จงยกตัวอย่างเชื้อก่อโรค 2 ชนิด ที่สามารถทำให้เกิดข้อบวม (swollen joints / arthritis) ในสุกรได้',
     keywords: ['Mycoplasma hyosynoviae', 'Mycoplasma hyorhinis', 'Haemophilus parasuis', 'Glaesserella parasuis', 'Glässer', 'Streptococcus suis', 'Erysipelothrix rhusiopathiae', 'Erysipelas'],
     explain: 'เชื้อก่อ arthritis/polyserositis-arthritis ในสุกร: (1) Mycoplasma hyosynoviae — non-suppurative arthritis ในสุกร 10-24 wk; (2) Mycoplasma hyorhinis — polyserositis + arthritis ในลูกสุกร 3-10 wk; (3) Glaesserella (Haemophilus) parasuis — Glässer disease, fibrinous polyserositis + arthritis; (4) Streptococcus suis — arthritis + meningitis + septicaemia; (5) Erysipelothrix rhusiopathiae — chronic erysipelas → proliferative arthritis. ตอบ 2 ใน 5.',
+    model_answer: 'Mycoplasma hyosynoviae ทำให้ข้ออักเสบในสุกรรุ่นถึงสุกรขุน โดยไม่มี polyserositis และ Streptococcus suis ทำให้ข้ออักเสบ ข้อบวมเฉพาะที่ข้อ เชื้ออื่นที่ทำให้ข้อบวมได้ ได้แก่ Mycoplasma hyorhinis ซึ่งทำให้เกิด polyserositis ร่วมกับ arthritis, Glaesserella parasuis (Glässer\'s disease) ซึ่งทำให้เกิด polyserositis, arthritis และ meningitis และ Erysipelothrix rhusiopathiae ซึ่งทำให้ข้ออักเสบได้ทั้งในระยะเฉียบพลันและ polyarthritis ในระยะเรื้อรัง',
     verified: 'swine clin prac p.1 Q9 (annotated "Glässer")' },
 
   { id: 8359, subject: 'swine-clinic', topic: 'swine-pornchalit-set', year: 5,

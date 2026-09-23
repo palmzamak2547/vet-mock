@@ -148,3 +148,14 @@ test('no question text or note uses นักศึกษา for the reader', ()
   }
   assert.deepEqual(found, []);
 });
+
+// Three swine short-answer rows (8355, 8356, 8358) had no model_answer, so
+// after writing an answer the reader got no คำตอบตัวอย่าง box and no AI
+// grading. Every written swine-clinic row now carries one, in answer voice.
+test('every written swine-clinic row has a model answer in the voice of the answer', () => {
+  const written = rows.filter(({ q }) => q.subject === 'swine-clinic' && ['short', 'essay'].includes(q.type));
+  assert.ok(written.some(({ q }) => q.id === 8355), 'the swine short rows are loaded');
+  const missing = written.filter(({ q }) => !String(q.model_answer || '').trim()).map(({ q }) => q.id);
+  assert.deepEqual(missing, []);
+  for (const { q } of written) assert.deepEqual(voiceHits(q), [], `#${q.id}`);
+});
