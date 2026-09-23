@@ -42,9 +42,13 @@ import { isFlashcardCompatible } from './hooks/sr-filter.js';
 // class (STABILITY rule 5) and removes a runtime <style> injection —
 // the sheet now loads in <head> before JS runs (better FOUC behavior).
 import './styles.css';
+// The landing sheet stays here although only the landing draws most of it:
+// it also carries two app-wide rules (the small-button size on phones up to
+// 430 px, the subject-card hover on touch screens). The back-office sheet is
+// imported by AdminView, so its chunk carries it and a student's boot does
+// not (tests/unit/boot-weight.test.mjs).
 import './styles-landing.css';
-import './styles-admin.css';
-import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
+import { hasSupabase, hasSavedSession, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
 import { checkIsAdmin } from './lib/admin-api.js';
 import { parseWikiPath, wikiPath } from './lib/vetwiki/url.js';
 import { useExamResultOutbox } from './hooks/useExamResultOutbox.js';
@@ -1217,7 +1221,10 @@ export default function App() {
       // instructor directory (~330 KB, ~75 KB gzipped), which is exactly
       // the kind of chunk this prefetch exists to keep off the boot path.
       // It loads on demand, one tap away, like ExamView.
-      import('./views/AuthView.jsx').catch(() => {});
+      // The sign-in screen only for someone who might sign in: a student who
+      // already holds a session would download it and the auth helpers it
+      // pulls in for nothing. It still loads on demand if they sign out.
+      if (!hasSavedSession()) import('./views/AuthView.jsx').catch(() => {});
     }, { timeout: 5000 });
     return () => cic(id);
   }, []);
