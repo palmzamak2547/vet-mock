@@ -2843,7 +2843,7 @@ html.dark .vmx-panic-scrim {
 .vmx-bar-fill.low { background: var(--clr-rose); }
 .vmx-subj-row { display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 13px; align-items: center; color: var(--clr-ink); }
 .vmx-subj-row .pct { font-family: var(--vmx-mono); color: var(--clr-ink-soft); }
-.vmx-tag-pill { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-size: 11px; font-family: var(--vmx-mono); color: var(--clr-ink-soft); margin: 3px; }
+.vmx-tag-pill { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-size: 12px; font-family: var(--vmx-sans); color: var(--clr-ink-soft); margin: 3px; }
 .vmx-tag-pill.weak { background: var(--clr-rose-soft); border-color: var(--clr-rose); color: var(--clr-ink); }
 .vmx-empty { text-align: center; padding: 40px 20px; color: var(--clr-ink-soft); font-style: italic; }
 

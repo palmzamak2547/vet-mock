@@ -576,6 +576,8 @@ const THAI_LABELS = {
   'night rank label': chain('div', 'div.vmx-night-rank-label'),
   'streak milestone': chain('div', 'span.vmx-streak-milestone'),
   'streak milestone badge': chain('div', 'div.vmx-streak-milestone-badge'),
+  // Tags are codes until they are Thai: #อิงแนวข้อสอบ on Review.
+  'tag pill': chain('div', 'span.vmx-tag-pill'),
 };
 
 test('UI-01: the Thai-bearing label classes are Sarabun, untracked and not uppercased', () => {
