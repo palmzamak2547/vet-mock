@@ -28,8 +28,10 @@ for (const s of [...SUBJECTS, ...Object.values(SUBJECTS_BY_YEAR).flat()]) {
   }
 }
 
-// A note that says the topic is not on the paper, or not on this one.
-const OFF_THE_PAPER = /ไม่ออก(?:ข้อ)?สอบ|หลังสอบกลางภาค/;
+// A note that says the topic is not on the paper, or not on this one. "ไม่อยู่
+// ในตารางบรรยาย/สอน 2569" says this year's timetable has no such lecture (the
+// topic comes from a senior summary): the same skip signal, so it keeps its mark.
+const OFF_THE_PAPER = /ไม่ออก(?:ข้อ)?สอบ|หลังสอบกลางภาค|ไม่อยู่ในตาราง/;
 
 // "หลังสอบ" that does NOT describe this cohort's topic. equine-respi is the
 // last lecture BEFORE Vet 86's midterm; the "(Vet 85 เรียนหลังสอบ)" is about
