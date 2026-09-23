@@ -62,23 +62,23 @@ export const WRAPUP = {
           "examined": [
             {
               "text": "บิดาของ One Health คือ Calvin Schwabe ผู้เขียน Veterinary Medicine and Human Health (1984) เสนอการแพทย์คนและสัตว์ร่วมกันเพื่อป้องกันโรคติดต่อระหว่างสัตว์และคน",
-              "src": "TJ p5, ข้อสอบเก่า 202275"
+              "src": "TJ p5, แนวข้อสอบ 202275"
             },
             {
               "text": "EIDAs ของคณะสัตวแพทยศาสตร์จุฬาฯ เฝ้าระวังโรคอุบัติใหม่และอุบัติซ้ำ บทบาทสัตวแพทย์คือระบุ source of infection, route of transmission และ nature ของ EIDs",
-              "src": "TJ p5, ข้อสอบเก่า 202276"
+              "src": "TJ p5, แนวข้อสอบ 202276"
             },
             {
               "text": "Food safety บทบาท 3 ข้อ: food production จาก farm to fork, ecosystem management, microbial contamination; งานสัตว์เลี้ยง: ให้ความรู้ zoonoses วัคซีน rabies และ leptospirosis ลด ectoparasites และ roundworms",
-              "src": "TJ p5, ข้อสอบเก่า 202279, 202280"
+              "src": "TJ p5, แนวข้อสอบ 202279, 202280"
             },
             {
               "text": "AMU มี 3 วัตถุประสงค์ treatment, prophylaxis, growth promotion; บทบาทสัตวแพทย์ต่อ AMR คือ prudent antibiotic use และ monitoring AMU กับ AMR ใน livestock และ aquaculture",
-              "src": "TJ p6, ข้อสอบเก่า 202281, 202282"
+              "src": "TJ p6, แนวข้อสอบ 202281, 202282"
             },
             {
               "text": "Bioterrorism: ตัวอย่างคือศพในบ่อน้ำ ผ้าห่ม smallpox, Salmonella ในสลัดบาร์, จดหมาย anthrax; rabies ไม่ใช่; บทบาทสัตวแพทย์ 3 ข้อ surveillance, treatment and disease control, early warning systems",
-              "src": "TJ p6, ข้อสอบเก่า 202283"
+              "src": "TJ p6, แนวข้อสอบ 202283"
             }
           ],
           "pitfall": "OHZDP ชุดปัจจุบันคือ avian influenza, coronaviruses, Nipah, rabies, Ebola ส่วนชุด rabies, avian influenza, brucellosis, anthrax, Nipah พร้อมชนิด surveillance เป็นรายการชุดเก่า อย่าสลับกัน",
@@ -135,23 +135,23 @@ export const WRAPUP = {
           "examined": [
             {
               "text": "Quadripartite คือ WHO, FAO, WOAH, UNEP และ OHHLEP เป็นคณะผู้เชี่ยวชาญระดับสูงที่ปรึกษาของทั้ง 4 องค์กร",
-              "src": "TJ p8, ข้อสอบเก่า 202288"
+              "src": "TJ p8, แนวข้อสอบ 202288"
             },
             {
               "text": "WOAH (เดิม OIE) เด่นเรื่องสุขภาพสัตว์: มาตรฐานโรคสัตว์ รายงานการระบาด safe trade และ quarantine รับรอง self-declared disease status มาตรฐาน veterinary products",
-              "src": "TJ p8, p10, ข้อสอบเก่า 202295, 202296"
+              "src": "TJ p8, p10, แนวข้อสอบ 202295, 202296"
             },
             {
               "text": "WHO ส่งเสริมสุขภาพคนทั่วโลกและกำหนดมาตรฐานสุขภาพระหว่างประเทศ 14 ส.ค. 2024 ประกาศ Mpox ใน DRC เป็น PHEIC ระดับเตือนภัยสูงสุด ผลงาน: กวาดล้าง smallpox เกือบกวาดล้าง polio วัคซีน Ebola",
-              "src": "TJ p9, ข้อสอบเก่า 202292, 202293, 202294"
+              "src": "TJ p9, แนวข้อสอบ 202292, 202293, 202294"
             },
             {
               "text": "FAO: ป้องกันควบคุมโรคระหว่างสัตว์และคน จัดการ AMR รับประกัน food safety; priorities รวม early warning systems ในมิติคน สัตว์ พืช สิ่งแวดล้อม biosecurity และ emergency preparedness",
-              "src": "TJ p8-9, ข้อสอบเก่า 202290, 202291"
+              "src": "TJ p8-9, แนวข้อสอบ 202290, 202291"
             },
             {
               "text": "CDC เป็นหน่วยงานสาธารณสุขของสหรัฐฯ ไม่ใช่องค์กรระหว่างประเทศ เป้าหมายปกป้องสุขภาพประชาชน USAID เน้นพัฒนาเศรษฐกิจสังคมระยะยาวและสนับสนุนเครือข่ายมหาวิทยาลัยในแอฟริกาและเอเชียตะวันออกเฉียงใต้",
-              "src": "TJ p8, p10, ข้อสอบเก่า 202297, 202298"
+              "src": "TJ p8, p10, แนวข้อสอบ 202297, 202298"
             }
           ],
           "pitfall": "WAHIS เป็นระบบข้อมูลโรคสัตว์ของ WOAH ไม่ใช่ WHO ส่วนการประกาศ PHEIC เป็นอำนาจของ WHO ไม่ใช่ WOAH",
@@ -220,7 +220,7 @@ export const WRAPUP = {
             },
             {
               "text": "From farm to fork อยู่ใน Food and agricultural component ส่วนนกอพยพกับไข้หวัดนกและ bush meat กับอีโบลาเป็นตัวอย่างของ Ecological component",
-              "src": "TJ p2, ข้อสอบเก่า 202312, 202313"
+              "src": "TJ p2, แนวข้อสอบ 202312, 202313"
             }
           ],
           "pitfall": "Geographical จับคู่กับ environment ไม่ใช่ geography และ agent เป็นคีย์เวิร์ดของ Ecological ไม่ใช่ของ Geographical",
@@ -280,11 +280,11 @@ export const WRAPUP = {
             },
             {
               "text": "การสื่อสารที่ดีในงานสัตว์เลี้ยงเพิ่ม client satisfaction และ compliance ลดข้อร้องเรียนและ malpractice claim สัตว์เลี้ยงเป็น sentinel เพราะรับปัจจัยเสี่ยงและ carcinogen ร่วมกับเจ้าของ",
-              "src": "TJ p3, ข้อสอบเก่า 202314, 202317"
+              "src": "TJ p3, แนวข้อสอบ 202314, 202317"
             },
             {
               "text": "งานปศุสัตว์: สื่อสารเพื่อเปลี่ยนความคิดและพฤติกรรมเกษตรกร ยกระดับ herd health รองรับโครงการควบคุมโรค และมุมมอง farm to fork ต่อคุณภาพเนื้อ นม ไข่",
-              "src": "TJ p3, ข้อสอบเก่า 206170"
+              "src": "TJ p3, แนวข้อสอบ 206170"
             }
           ],
           "pitfall": "Rich กับ lean คือความเข้มข้นของช่องทาง (ตัวอักษรต่ำสุด face to face สูงสุด) ไม่ใช่การแบ่งทางการกับไม่ทางการ ซึ่งเป็นอีกแกนหนึ่ง",
@@ -344,15 +344,15 @@ export const WRAPUP = {
             },
             {
               "text": "USAID เป็นผู้ให้ทุน SEAOHUN และ AFROHUN คือเครือข่ายภูมิภาคที่รับทุนไปทำ THOHUN คือสมาชิกฝั่งไทยของ SEAOHUN",
-              "src": "ข้อสอบเก่า 202320, 206173"
+              "src": "แนวข้อสอบ 202320, 206173"
             },
             {
               "text": "สมาชิก SEAOHUN คือเครือข่ายของ 8 ประเทศอาเซียน ไทย อินโดนีเซีย มาเลเซีย เวียดนาม กัมพูชา ลาว ฟิลิปปินส์ เมียนมา ไม่มีสิงคโปร์และบรูไน",
-              "src": "TJ p10, ข้อสอบเก่า 202299"
+              "src": "TJ p10, แนวข้อสอบ 202299"
             },
             {
               "text": "OHW-NG มีหน้าที่ 5 ด้าน define OHW needs, pre-service training, in-service training, faculty development, organizational development ไม่รวมการรักษาในคลินิกหรือบังคับใช้กฎหมาย",
-              "src": "TJ p11, ข้อสอบเก่า 202300"
+              "src": "TJ p11, แนวข้อสอบ 202300"
             }
           ],
           "pitfall": "THOHUN เป็นเครือข่ายมหาวิทยาลัย ส่วน Thai One Health Network เป็นเครือข่ายหน่วยงานทั่วไปและภาคประชาชน ชื่อคล้ายแต่คนละอัน",
@@ -416,23 +416,23 @@ export const WRAPUP = {
           "examined": [
             {
               "text": "นิยาม EIDs: โรคติดต่อระหว่างสัตว์และคนที่ newly recognized หรือ newly evolved หรือมีอยู่แล้วแต่อุบัติการณ์เพิ่ม หรือขยาย geographical, host หรือ vector range",
-              "src": "TJ p12, ข้อสอบเก่า 202301, 206174"
+              "src": "TJ p12, แนวข้อสอบ 202301, 206174"
             },
             {
               "text": "นิยาม TADs: highly contagious epidemic diseases แพร่เร็วไม่จำกัดพรมแดน ป่วยตายในสัตว์สูง กระทบสังคม เศรษฐกิจ สาธารณสุขอย่างรุนแรง",
-              "src": "TJ p12, ข้อสอบเก่า 206175"
+              "src": "TJ p12, แนวข้อสอบ 206175"
             },
             {
               "text": "Surveillance ต้องครอบคลุมคน สัตว์ สิ่งแวดล้อม และตั้ง early warning systems ถ้าไม่แชร์ข้อมูลข้ามภาคส่วน ฝั่งคนเตรียมรับมือไม่ทัน",
-              "src": "TJ p12, ข้อสอบเก่า 202302, 202303"
+              "src": "TJ p12, แนวข้อสอบ 202302, 202303"
             },
             {
               "text": "Risk assessment and mitigation: ประเมินความเสี่ยงเพื่อลดการแพร่ ออกกฎหมายบังคับใช้ และคัดกรองที่ points of entry (thermo scan กักกันโรค) ลดการหลุดรอดของ MERS และ COVID-19",
-              "src": "TJ p13, ข้อสอบเก่า 202304"
+              "src": "TJ p13, แนวข้อสอบ 202304"
             },
             {
               "text": "WAHIS เป็นระบบของ WOAH ไม่ใช่ WHO Thai Rabies Net ใช้ในไทย จุดเด่น One Health ของแผนอีโบลาคือ Animal Mortality Monitoring Network CU Research Cluster One Health เป็นตัวอย่างความร่วมมือ",
-              "src": "TJ p12-13, ข้อสอบเก่า 206184, 202305"
+              "src": "TJ p12-13, แนวข้อสอบ 206184, 202305"
             }
           ],
           "pitfall": "Emerging ไม่ได้แปลว่าเชื้อใหม่เท่านั้น โรคเดิมที่อุบัติการณ์เพิ่มหรือย้ายไปพื้นที่ โฮสต์ หรือพาหะใหม่ก็เข้านิยาม",

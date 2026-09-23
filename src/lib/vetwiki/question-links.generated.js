@@ -14,7 +14,7 @@
 // question. A wrong link is worse than none: it teaches the reader that the
 // article is useless.
 //
-// 316 link(s): 214 answer the question directly, 102 give supporting context.
+// 335 link(s): 223 answer the question directly, 112 give supporting context.
 // ============================================================
 
 /** @type {Record<string, {subject: string, topic: string, sectionId: string, confidence: string}>} */
@@ -1913,6 +1913,120 @@ export const QUESTION_LINKS = {
     "subject": "com3",
     "topic": "neuro-exam",
     "sectionId": "com3--neuro-exam--spinal-localization",
+    "confidence": "supporting"
+  },
+  "105462": {
+    "subject": "equine-repro",
+    "topic": "eqrepro-anatomy-cycle",
+    "sectionId": "equine-repro--eqrepro-anatomy-cycle--แสง-เมลาโทนิน-และการกลับมาเป็นสัด",
+    "confidence": "supporting"
+  },
+  "105471": {
+    "subject": "equine-repro",
+    "topic": "eqrepro-art-female",
+    "sectionId": "equine-repro--eqrepro-art-female--การกระตุ้นตกไข่และการผสมเทียม",
+    "confidence": "strong"
+  },
+  "105477": {
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "sectionId": "equine-medicine--equine-intro--การจับบังคับด้วยยา-chemical-restraint",
+    "confidence": "supporting"
+  },
+  "105478": {
+    "subject": "equine-repro",
+    "topic": "eqrepro-art-female",
+    "sectionId": "equine-repro--eqrepro-art-female--การกระตุ้นตกไข่และการผสมเทียม",
+    "confidence": "strong"
+  },
+  "105488": {
+    "subject": "equine-repro",
+    "topic": "eqrepro-infertility",
+    "sectionId": "equine-repro--eqrepro-infertility--pneumovagina-สาเหตุและการแก้ไข",
+    "confidence": "strong"
+  },
+  "105489": {
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "sectionId": "equine-medicine--equine-intro--การจับบังคับด้วยยา-chemical-restraint",
+    "confidence": "strong"
+  },
+  "105490": {
+    "subject": "equine-medicine",
+    "topic": "equine-intro",
+    "sectionId": "equine-medicine--equine-intro--พฤติกรรมและการมองเห็นของม้า",
+    "confidence": "strong"
+  },
+  "202189": {
+    "subject": "aquatic-clinic",
+    "topic": "aqua-fish-diseases",
+    "sectionId": "aquatic-clinic--aqua-fish-diseases--ปรสิตภายนอก-ectoparasites",
+    "confidence": "supporting"
+  },
+  "202191": {
+    "subject": "exotic",
+    "topic": "small-mammal-amphibian-medicine",
+    "sectionId": "exotic--small-mammal-amphibian-medicine--infectious-diseases-of-amphibians-chytridiomycosis-red-leg",
+    "confidence": "strong"
+  },
+  "202192": {
+    "subject": "exotic",
+    "topic": "small-mammal-amphibian-medicine",
+    "sectionId": "exotic--small-mammal-amphibian-medicine--infectious-diseases-of-amphibians-chytridiomycosis-red-leg",
+    "confidence": "supporting"
+  },
+  "202193": {
+    "subject": "exotic",
+    "topic": "small-mammal-amphibian-medicine",
+    "sectionId": "exotic--small-mammal-amphibian-medicine--infectious-diseases-of-amphibians-chytridiomycosis-red-leg",
+    "confidence": "supporting"
+  },
+  "202203": {
+    "subject": "exotic",
+    "topic": "reptile-lifespan-husbandry",
+    "sectionId": "exotic--reptile-lifespan-husbandry--average-life-span-of-reptiles-in-captivity",
+    "confidence": "supporting"
+  },
+  "202430": {
+    "subject": "aquatic-clinic",
+    "topic": "aqua-fish-diseases",
+    "sectionId": "aquatic-clinic--aqua-fish-diseases--ปรสิตภายนอก-ectoparasites",
+    "confidence": "supporting"
+  },
+  "202452": {
+    "subject": "aquatic-clinic",
+    "topic": "aqua-fish-diseases",
+    "sectionId": "aquatic-clinic--aqua-fish-diseases--ปรสิตภายนอก-ectoparasites",
+    "confidence": "strong"
+  },
+  "202464": {
+    "subject": "exotic",
+    "topic": "reptile-lifespan-husbandry",
+    "sectionId": "exotic--reptile-lifespan-husbandry--average-life-span-of-reptiles-in-captivity",
+    "confidence": "supporting"
+  },
+  "202474": {
+    "subject": "exotic",
+    "topic": "small-mammal-amphibian-medicine",
+    "sectionId": "exotic--small-mammal-amphibian-medicine--infectious-diseases-of-amphibians-chytridiomycosis-red-leg",
+    "confidence": "supporting"
+  },
+  "204003": {
+    "subject": "aquatic-clinic",
+    "topic": "aqua-intro-thailand",
+    "sectionId": "aquatic-clinic--aqua-intro-thailand--กุ้งทะเลชนิดหลักที่เลี้ยง-major-shrimp-culture-species",
+    "confidence": "strong"
+  },
+  "204014": {
+    "subject": "aquatic-clinic",
+    "topic": "aqua-fish-diseases",
+    "sectionId": "aquatic-clinic--aqua-fish-diseases--การวินิจฉัยโรคแบคทีเรียในปลา-และการใช้ยาปฏิชีวนะ",
+    "confidence": "strong"
+  },
+  "204017": {
+    "subject": "exotic",
+    "topic": "small-mammal-amphibian-medicine",
+    "sectionId": "exotic--small-mammal-amphibian-medicine--infectious-diseases-of-amphibians-chytridiomycosis-red-leg",
     "confidence": "supporting"
   }
 };

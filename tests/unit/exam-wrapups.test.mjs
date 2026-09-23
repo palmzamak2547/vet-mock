@@ -1,8 +1,15 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { WRAPUP_SUBJECTS, WRAPUP_SCOPE, hasWrapUp, loadWrapUp, selfNumbered, wrapUpStillAhead } from '../../src/data/exam-wrapups.js';
 import { LECTURER_SETS } from '../../src/data/lecturer-sets.js';
 import * as curriculum from '../../src/data/curriculum.js';
+import { QB, loadQB } from '../../src/data/questions.js';
+import { isPastPaperQuestion } from '../../src/lib/question-metadata.js';
+import { isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
+import { removeQuestions, wrapUpCites } from '../../scripts/lib/bank-file.mjs';
 
 const FORBIDDEN = /โพย|ออกตามนี้|ตรงข้อสอบ|ข้อสอบรั่ว|ออกบ่อย|ออกสอบบ่อย|นักศึกษา|·|★|…/;
 
@@ -111,4 +118,90 @@ test('only the paper the wrap-up was written for counts; a later final does not 
   assert.equal(wrapUpStillAhead('one-health', papers, end, 2_000, 'midterm'), false, 'the midterm is over');
   assert.equal(wrapUpStillAhead('one-health', papers, end, 2_000, 'final'), true, 'the final is still ahead');
   assert.equal(wrapUpStillAhead('one-health', papers, end, 2_000, null), true, 'no term given: any paper counts');
+});
+
+// A bullet names the question behind it: "ข้อสอบเก่า 105728" is a claim that a
+// cohort sat that item, "แนวข้อสอบ 202275" that it was written from a senior's
+// exam guidance. The number is the only link back to the bank, so it must
+// resolve, and the stronger label must mean exactly what isPastPaperQuestion
+// means everywhere else in the app. Commit 7dd03d5b merged #105730 into
+// #207464 and left the milk wrap-up citing a question that no longer existed,
+// and 57 bullets called a compilation-written item "ข้อสอบเก่า".
+function wrapUpCiteFaults(wrapup, byId) {
+  const faults = [];
+  const walk = (o) => {
+    if (typeof o === 'string') {
+      for (const { label, id } of wrapUpCites(o)) {
+        const q = byId.get(id);
+        if (!q) faults.push(`${label} ${id} is not in the bank`);
+        else if (!isQuestionDeliverable(q)) faults.push(`${label} ${id} is blocked from delivery`);
+        else if (label === 'ข้อสอบเก่า' && !isPastPaperQuestion(q)) faults.push(`ข้อสอบเก่า ${id} is not a past paper (${q.sourceType || 'no sourceType'})`);
+      }
+      return;
+    }
+    if (Array.isArray(o)) o.forEach(walk);
+    else if (o && typeof o === 'object') Object.values(o).forEach(walk);
+  };
+  walk(wrapup);
+  return faults;
+}
+
+const bankById = async () => {
+  await loadQB();
+  return new Map(QB.map((q) => [String(q.id), q]));
+};
+
+test('every question a wrap-up cites is live, and "ข้อสอบเก่า" only ever names a sat paper', async () => {
+  const byId = await bankById();
+  const faults = [];
+  let cites = 0;
+  for (const subject of WRAPUP_SUBJECTS) {
+    const w = await loadWrapUp(subject);
+    cites += wrapUpCites(JSON.stringify(w)).length;
+    faults.push(...wrapUpCiteFaults(w, byId).map((f) => `${subject}: ${f}`));
+  }
+  assert.ok(cites > 150, `only ${cites} cited ids found, so the parser stopped reading them`);
+  assert.deepEqual(faults, []);
+});
+
+test('deleting a question a wrap-up cites fails that check', async () => {
+  const byId = await bankById();
+  const w = await loadWrapUp('milk-meat-hygiene');
+  const [first] = wrapUpCites(JSON.stringify(w));
+  assert.ok(first, 'the milk wrap-up cites questions');
+  assert.deepEqual(wrapUpCiteFaults(w, byId).filter((f) => f.includes(` ${first.id} `)), []);
+  byId.delete(first.id);
+  assert.ok(wrapUpCiteFaults(w, byId).some((f) => f === `${first.label} ${first.id} is not in the bank`));
+});
+
+test('the citation parser reads id lists and stops at the next pointer', () => {
+  assert.deepEqual(wrapUpCites('ข้อสอบเก่า 105734, 105735, TJ ข้อ 46 และ 47 (บล็อก 7)').map((c) => c.id), ['105734', '105735']);
+  assert.deepEqual(wrapUpCites('ข้อสอบเก่าปี 4 1923, แนวข้อสอบปี 4 4019'), [
+    { label: 'ข้อสอบเก่า', id: '1923' }, { label: 'แนวข้อสอบ', id: '4019' },
+  ]);
+  assert.deepEqual(wrapUpCites('TJ p5, แนวข้อสอบ 202279, 202280'), [
+    { label: 'แนวข้อสอบ', id: '202279' }, { label: 'แนวข้อสอบ', id: '202280' },
+  ]);
+  assert.deepEqual(wrapUpCites('ข้อสอบเก่า ตอนถูก/ผิด ข้อ 3'), []);
+});
+
+test('removing a question a wrap-up still cites says so', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'wrapcite-'));
+  fs.mkdirSync(path.join(dir, 'wrapups'));
+  const bank = path.join(dir, 'questions-x.js');
+  fs.writeFileSync(bank, 'export const X = [\n  { "id": 105730, "q": "หนึ่ง" },\n  { "id": 105731, "q": "สอง" },\n];\n');
+  fs.writeFileSync(path.join(dir, 'wrapups', 'milk.js'), 'export default { src: "ข้อสอบเก่า 105730" };\n');
+  const warned = [];
+  const original = console.warn;
+  console.warn = (...args) => warned.push(args.join(' '));
+  try {
+    assert.equal(removeQuestions(bank, new Set([105731])), 1);
+    assert.deepEqual(warned, [], 'an uncited question goes quietly');
+    assert.equal(removeQuestions(bank, new Set([105730])), 1);
+  } finally {
+    console.warn = original;
+  }
+  assert.equal(warned.length, 1);
+  assert.match(warned[0], /milk\.js/);
+  assert.match(warned[0], /105730/);
 });

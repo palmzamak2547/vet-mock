@@ -1084,7 +1084,7 @@ export const WRAPUP = {
             },
             {
               "text": "Ultra pasteurization ใช้อุณหภูมิสูงที่สุด เมื่อเทียบกับ HTST pasteurization, LTLT pasteurization และ sterilization แบบดั้งเดิม",
-              "src": "ข้อสอบเก่า 105730"
+              "src": "ข้อสอบเก่า 207464"
             },
             {
               "text": "การทำ standardized milk ใช้ปริมาณ butter fat เป็นค่าหลักในการคำนวณ ส่วนการทำ homogenization หลังให้ความร้อนมีวัตถุประสงค์เพื่อลดการเหม็นหืนของน้ำนม",

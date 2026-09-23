@@ -38,6 +38,7 @@ const imp = (f) => import(new URL(`../src/data/${f}`, import.meta.url).href);
 const qFiles = ls(/^questions-.*\.js$/);
 let qTotal = 0;
 const qByFile = [];
+const qRows = [];
 for (const f of qFiles) {
   const m = await imp(f);
   const arrays = Object.entries(m).filter(([, v]) => Array.isArray(v));
@@ -45,6 +46,7 @@ for (const f of qFiles) {
   const n = pick ? pick[1].length : 0;
   qTotal += n;
   qByFile.push({ file: f, count: n });
+  if (pick) qRows.push(...pick[1]);
 }
 
 const qc = await imp('q-counts.js');
@@ -94,6 +96,23 @@ for (const t of govTopics) {
   const p = vw.provenanceSummary(k);
   govVerified += p.verifiedClaimCount;
   for (const s of p.sources) govSources.add(s.id);
+}
+
+// ---- VetWiki coverage of questions ---------------------------------------
+// A learner-ready question opens an article through its own topic or through
+// a judged link (lib/vetwiki/registry-lite.js). Counted per subject, so a paper
+// whose questions mostly have nowhere to send a reader shows up here rather
+// than in a student's review screen.
+const { articleForQuestion } = await import(new URL('../src/lib/vetwiki/registry-lite.js', import.meta.url).href);
+const { isQuestionDeliverable } = await imp('question-delivery.generated.js');
+const wikiCoverage = new Map();
+for (const row of qRows) {
+  if (!isQuestionDeliverable(row)) continue;
+  const c = wikiCoverage.get(row.subject) || { n: 0, reach: 0, linked: 0 };
+  c.n += 1;
+  const article = articleForQuestion(row);
+  if (article) { c.reach += 1; if (article.derived) c.linked += 1; }
+  wikiCoverage.set(row.subject, c);
 }
 
 // ---- report --------------------------------------------------------------
@@ -156,6 +175,19 @@ L(`| Governed sections | ${govSections} |`);
 L(`| Claims verified against an external source | ${govVerified} |`);
 L(`| Distinct external sources cited | ${govSources.size} |`);
 L(`| Share of note sections governed | ${governedPercent}% |`);
+L();
+L('## VetWiki coverage of questions');
+L();
+L('Learner-ready questions that open an article, through their own topic or a judged link.');
+L();
+L('| Subject | Questions | Reach an article | Via a judged link | Coverage |');
+L('|---|---|---|---|---|');
+const coverageTotal = { n: 0, reach: 0, linked: 0 };
+for (const [subject, c] of [...wikiCoverage].sort(([a], [b]) => String(a).localeCompare(String(b)))) {
+  L(`| ${subject} | ${c.n} | ${c.reach} | ${c.linked} | ${((100 * c.reach) / c.n).toFixed(1)}% |`);
+  for (const k of Object.keys(coverageTotal)) coverageTotal[k] += c[k];
+}
+L(`| **All** | ${coverageTotal.n} | ${coverageTotal.reach} | ${coverageTotal.linked} | ${((100 * coverageTotal.reach) / (coverageTotal.n || 1)).toFixed(1)}% |`);
 L();
 
 const md = lines.join('\n');

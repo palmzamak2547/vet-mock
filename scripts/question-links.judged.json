@@ -1,0 +1,1718 @@
+{
+  "about": "Judged input for scripts/apply-question-links.mjs. Re-run: node scripts/apply-question-links.mjs scripts/question-links.judged.json --write. Each link was judged by reading the question and the section: the section must answer or directly support the key, never share words only. Entries without a reason were carried unchanged from the generated file of commit b47f8518, whose own judged input was not kept.",
+  "links": [
+    {
+      "questionId": 9,
+      "sectionId": "practrum--rumenotomy--surgical-procedure",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 60,
+      "sectionId": "repro-lect--semen-ai--vaginal-cytology-by-cycle-stage",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 61,
+      "sectionId": "repro-lect--semen-ai--vaginal-cytology-by-cycle-stage",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 65,
+      "sectionId": "repro-lect--hormonal-applications--oxytocin-critical-use",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 69,
+      "sectionId": "practrum--penile-deviation--indications-mechanism",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 71,
+      "sectionId": "repro-lect--hormonal-applications--clinical-drug-matching",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 74,
+      "sectionId": "repro-lect--semen-ai--vaginal-cytology-by-cycle-stage",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 75,
+      "sectionId": "repro-lect--surgical-neutering--ovarian-remnant-syndrome-ors-aj-tt-favorite",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 76,
+      "sectionId": "repro-lect--semen-ai--ovulation-timing-aj-kc",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 79,
+      "sectionId": "repro-lect--hormonal-applications--clinical-drug-matching",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 230,
+      "sectionId": "repro-lect--repro-ultrasound--pregnancy-timeline-canine-days-post-lh-surge",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 232,
+      "sectionId": "repro-lect--semen-ai--ovulation-timing-aj-kc",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 233,
+      "sectionId": "repro-lect--repro-ultrasound--fetal-viability",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 234,
+      "sectionId": "repro-lect--semen-ai--ai-quality-threshold",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 236,
+      "sectionId": "repro-lect--repro-ultrasound--pregnancy-timeline-canine-days-post-lh-surge",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 238,
+      "sectionId": "repro-lect--hormonal-applications--clinical-drug-matching",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 240,
+      "sectionId": "com3--er-anes--dystocia-caesarean",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 267,
+      "sectionId": "com4--derm-endocrine--hyperadrenocorticism-cushing-s-hac",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 268,
+      "sectionId": "com3--metabolic-er--addisonian-crisis-hypoadrenocorticism",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1500,
+      "sectionId": "com3--cpcr--rhythm-interpretation",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1501,
+      "sectionId": "com3--triage--primary-survey-abcde",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1503,
+      "sectionId": "com3--triage--approach-to-emergency-patients",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1504,
+      "sectionId": "com3--metabolic-er--addisonian-crisis-hypoadrenocorticism",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1506,
+      "sectionId": "com3--ataxia-tremor--peripheral-vs-central-vestibular",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1510,
+      "sectionId": "com3--acute-abdomen--categorization",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1512,
+      "sectionId": "com3--nutrition--rer-calculation",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1514,
+      "sectionId": "com3--neuro-er--acute-spinal-cord-injury",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1515,
+      "sectionId": "com3--ataxia-tremor--tremor-classification",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1516,
+      "sectionId": "com3--spinal--other-spinal-disorders",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1518,
+      "sectionId": "com3--ataxia-tremor--cerebellar-disease-features",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1519,
+      "sectionId": "com3--triage--6-perfusion-parameters-circulation",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1520,
+      "sectionId": "com3--triage--resuscitation-secondary-survey",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1522,
+      "sectionId": "com3--neuro-exam--hand-off-examination",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1523,
+      "sectionId": "com3--cpcr--step-4-advanced-life-support",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1526,
+      "sectionId": "com3--ataxia-tremor--tremor-classification",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1529,
+      "sectionId": "com3--er-anes--urethral-obstruction-cat",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1531,
+      "sectionId": "com3--spinal--terminology",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1533,
+      "sectionId": "com3--nutrition--simple-vs-stress-starvation",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1535,
+      "sectionId": "com3--spinal--hansen-type-i-ivdd",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1537,
+      "sectionId": "com3--nutrition--feeding-protocol",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1538,
+      "sectionId": "com3--seizure--classification-ivetf-2015",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1539,
+      "sectionId": "com3--shock--treatment",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1541,
+      "sectionId": "com3--nutrition--rer-calculation",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1542,
+      "sectionId": "com3--acute-abdomen--categorization",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1543,
+      "sectionId": "com3--triage--6-perfusion-parameters-circulation",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1544,
+      "sectionId": "com3--neuro-exam--hand-off-examination",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1545,
+      "sectionId": "com3--nutrition--simple-vs-stress-starvation",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1546,
+      "sectionId": "com3--ataxia-tremor--peripheral-vs-central-vestibular",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1547,
+      "sectionId": "com3--spinal--other-spinal-disorders",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1549,
+      "sectionId": "com3--acute-abdomen--pain-management",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1551,
+      "sectionId": "com3--neuro-er--head-trauma-assessment",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1552,
+      "sectionId": "com3--spinal--hansen-type-ii-ivdd",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1554,
+      "sectionId": "com3--ataxia-tremor--peripheral-vs-central-vestibular",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1555,
+      "sectionId": "com3--triage--6-perfusion-parameters-circulation",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1558,
+      "sectionId": "com3--cpcr--step-1-3-basic-life-support",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1559,
+      "sectionId": "com3--neuro-er--acute-spinal-cord-injury",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1560,
+      "sectionId": "com3--spinal--other-spinal-disorders",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1561,
+      "sectionId": "com3--ataxia-tremor--tremor-classification",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1562,
+      "sectionId": "com3--cpcr--step-1-3-basic-life-support",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1563,
+      "sectionId": "com3--cpcr--recognition-team",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1564,
+      "sectionId": "com3--resp-cv-er--respiratory-patterns",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1566,
+      "sectionId": "com3--metabolic-er--diabetic-ketoacidosis-dka",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1567,
+      "sectionId": "com3--er-anes--drug-summary",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1569,
+      "sectionId": "com3--shock--5-types-of-shock",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1570,
+      "sectionId": "com3--er-anes--drug-summary",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1571,
+      "sectionId": "com3--metabolic-er--diabetic-ketoacidosis-dka",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1709,
+      "sectionId": "poultry--first-week-mortality--vaccine-strategy-rolling-reaction-concept",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1712,
+      "sectionId": "poultry--first-week-mortality--antibodies-maternal-immunity",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1715,
+      "sectionId": "poultry--avian-zoonosis--major-avian-zoonoses-viral",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 1729,
+      "sectionId": "poultry--first-week-mortality--vaccine-strategy-rolling-reaction-concept",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 1740,
+      "sectionId": "poultry--avian-drugs--common-conditions-first-line-drugs",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 2054,
+      "sectionId": "repro-lect--exotic-repro--common-exotic-repro-flags",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 2060,
+      "sectionId": "repro-lect--gonadectomy-risk--benefits",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 2061,
+      "sectionId": "repro-lect--surgical-neutering--cervical-stump-issues-post-ovh",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 2062,
+      "sectionId": "repro-lect--gonadectomy-risk--predisposed-breed-lists-aj-sc-จำไปให้หมด",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 2063,
+      "sectionId": "repro-lect--gonadectomy-risk--predisposed-breed-lists-aj-sc-จำไปให้หมด",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 2064,
+      "sectionId": "repro-lect--gonadectomy-risk--predisposed-breed-lists-aj-sc-จำไปให้หมด",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 2066,
+      "sectionId": "com4--behavior-med--medical-causes-of-behavioral-signs",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 2067,
+      "sectionId": "repro-lect--gonadectomy-risk--detriments-to-discuss",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 2080,
+      "sectionId": "repro-lect--surgical-neutering--definitions",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 2081,
+      "sectionId": "repro-lect--surgical-neutering--male-techniques",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 2083,
+      "sectionId": "repro-lect--surgical-neutering--ovarian-remnant-syndrome-ors-aj-tt-favorite",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 2084,
+      "sectionId": "repro-lect--hormonal-applications--aglepristone-3-indications-หลัก",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 2088,
+      "sectionId": "repro-lect--surgical-neutering--ohe-technical-points",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 3002,
+      "sectionId": "practrum--rumenotomy--past-exam-mapping-vet-85-final-q1-3-q9-10",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 3006,
+      "sectionId": "practrum--bovine-anesthesia--local-anesthesia-lidocaine-2",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 3008,
+      "sectionId": "practrum--rumenotomy--pre-op-post-op",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 3015,
+      "sectionId": "practrum--animal-nutrition--dmi-calculation",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 3016,
+      "sectionId": "practrum--animal-nutrition--r-c-ratio-particle-size",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 3017,
+      "sectionId": "practrum--animal-nutrition--r-c-ratio-particle-size",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 3019,
+      "sectionId": "practrum--animal-nutrition--nutritional-values",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 3038,
+      "sectionId": "practrum--penile-deviation--indications-mechanism",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 3039,
+      "sectionId": "practrum--penile-deviation--drug-protocol-lecture-2026",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 3040,
+      "sectionId": "practrum--penile-deviation--indications-mechanism",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 3051,
+      "sectionId": "practrum--animal-nutrition--nutritional-values",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 3054,
+      "sectionId": "poultry--nutrition--antinutritional-factors-สารต่อต้านในวัตถุดิบ",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 3056,
+      "sectionId": "poultry--nutrition--antinutritional-factors-สารต่อต้านในวัตถุดิบ",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 3061,
+      "sectionId": "cliapprum--ruminant-anesthesia--local-regional-block-selection",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 3062,
+      "sectionId": "practrum--dehorning--anatomy-anesthesia",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 3069,
+      "sectionId": "practrum--dehorning--disbudding-methods-comparison",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 3070,
+      "sectionId": "practrum--rumenotomy--surgical-procedure",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 3071,
+      "sectionId": "practrum--rumenotomy--pre-op-post-op",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4001,
+      "sectionId": "poultry--biosecurity--3-levels-of-biosecurity",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4004,
+      "sectionId": "poultry--biosecurity--sampling-for-surveillance",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4005,
+      "sectionId": "poultry--biosecurity--sampling-for-surveillance",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4006,
+      "sectionId": "poultry--biosecurity--sampling-for-surveillance",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 4008,
+      "sectionId": "poultry--avian-drugs--drug-withdrawal-period",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 4009,
+      "sectionId": "poultry--nutrition--past-exam-mapping-l8-nutrition",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4010,
+      "sectionId": "poultry--avian-drugs--banned-drugs-thailand-poultry",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4012,
+      "sectionId": "poultry--quality-assurance--quality-assurance-5-ด้าน",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4013,
+      "sectionId": "poultry--quality-assurance--pdca-cycle-deming-wheel",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4014,
+      "sectionId": "poultry--avian-zoonosis--major-avian-zoonoses-bacterial",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 4016,
+      "sectionId": "poultry--quality-assurance--five-freedoms-welfare",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4017,
+      "sectionId": "poultry--avian-zoonosis--major-avian-zoonoses-bacterial",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4018,
+      "sectionId": "poultry--avian-zoonosis--major-avian-zoonoses-bacterial",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4019,
+      "sectionId": "poultry--avian-zoonosis--major-avian-zoonoses-viral",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4020,
+      "sectionId": "zoonoses--zoo-ai-basic--hpai-h5n1-outbreak-origin-spread",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 4022,
+      "sectionId": "poultry--avian-zoonosis--major-avian-zoonoses-fungal-parasitic",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4028,
+      "sectionId": "poultry--first-week-mortality--pasgar-score-chick-quality-at-24h",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4030,
+      "sectionId": "poultry--first-week-mortality--common-causes-of-first-week-mortality",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 4031,
+      "sectionId": "poultry--nutrition--protein-amino-acids",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4032,
+      "sectionId": "poultry--nutrition--protein-amino-acids",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4033,
+      "sectionId": "poultry--nutrition--protein-amino-acids",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4034,
+      "sectionId": "poultry--nutrition--fat-essential-fatty-acid",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4035,
+      "sectionId": "poultry--nutrition--minerals-calcium-phosphorus-สำคัญมาก",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4036,
+      "sectionId": "poultry--nutrition--minerals-calcium-phosphorus-สำคัญมาก",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4037,
+      "sectionId": "poultry--nutrition--dietary-electrolyte-balance-deb-trace-minerals-vitamins",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4038,
+      "sectionId": "poultry--nutrition--heat-stress-nutrition-management",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4039,
+      "sectionId": "poultry--nutrition--minerals-calcium-phosphorus-สำคัญมาก",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4040,
+      "sectionId": "poultry--nutrition--dietary-fiber-feed-additives-enzymes-probiotics-botanicals",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4041,
+      "sectionId": "poultry--nutrition--minerals-calcium-phosphorus-สำคัญมาก",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4042,
+      "sectionId": "poultry--nutrition--minerals-calcium-phosphorus-สำคัญมาก",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4043,
+      "sectionId": "poultry--nutrition--broiler-diet-phases-starter-grower-finisher",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4044,
+      "sectionId": "poultry--nutrition--layer-diet-phases-starter-grower-developer-pre-lay-production",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4045,
+      "sectionId": "poultry--nutrition--layer-diet-phases-starter-grower-developer-pre-lay-production",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4046,
+      "sectionId": "poultry--avian-drugs--drug-withdrawal-period",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 4047,
+      "sectionId": "poultry--nutrition--past-exam-mapping-l8-nutrition",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 4053,
+      "sectionId": "poultry--avian-zoonosis--major-avian-zoonoses-bacterial",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 4058,
+      "sectionId": "poultry--nutrition--antinutritional-factors-สารต่อต้านในวัตถุดิบ",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 4060,
+      "sectionId": "poultry--avian-zoonosis--avian-influenza-hpai-detail",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5000,
+      "sectionId": "cliapprum--ruminant-anesthesia--ga-potential-problems",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5002,
+      "sectionId": "cliapprum--ruminant-anesthesia--pre-medication-sedation",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5003,
+      "sectionId": "practrum--bovine-anesthesia--sedation-alpha-2-agonist",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5004,
+      "sectionId": "practrum--bovine-anesthesia--sedation-alpha-2-agonist",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5005,
+      "sectionId": "practrum--bovine-anesthesia--local-anesthesia-lidocaine-2",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 5006,
+      "sectionId": "practrum--bovine-anesthesia--block-decision-tree-clinical-scenario",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5007,
+      "sectionId": "practrum--bovine-anesthesia--local-anesthesia-lidocaine-2",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5010,
+      "sectionId": "cliapprum--gi-surgery-sawita--diagnostic-ping-sound-map",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5011,
+      "sectionId": "cliapprum--gi-surgery-sawita--lda-left-displaced-abomasum",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 5012,
+      "sectionId": "cliapprum--gi-vdtt--rumen-fluid-analysis-cowside",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5013,
+      "sectionId": "cliapprum--gi-vdtt--rumen-ph-spectrum",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5016,
+      "sectionId": "cliapprum--ruminant-anesthesia--local-anesthetic-pharmacology",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5018,
+      "sectionId": "cliapprum--gi-vdtt--bloat-tympany",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 5020,
+      "sectionId": "practrum--hoof-trim--hoof-anatomy-claw-zones",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 5021,
+      "sectionId": "cliapprum--hoof-health-fleet--footbath-protocol",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5023,
+      "sectionId": "practrum--hoof-trim--routine-care-disease-categories",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5024,
+      "sectionId": "practrum--hoof-trim--routine-care-disease-categories",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 5025,
+      "sectionId": "practrum--hoof-trim--routine-care-disease-categories",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5026,
+      "sectionId": "practrum--hoof-trim--digital-amputation-s2-sole-ulcer-osteomyelitis",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5027,
+      "sectionId": "practrum--dehorning--anatomy-anesthesia",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5028,
+      "sectionId": "practrum--dehorning--anatomy-anesthesia",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5029,
+      "sectionId": "practrum--dehorning--post-op-complication-sinusitis",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5030,
+      "sectionId": "practrum--rumenotomy--surgical-procedure",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5031,
+      "sectionId": "cliapprum--gi-surgery-sawita--rumenotomy-overlap-with-vet-prac-rum-aj-ea",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5033,
+      "sectionId": "cliapprum--gi-surgery-sawita--lda-left-displaced-abomasum",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5036,
+      "sectionId": "cliapprum--gi-surgery-sawita--lda-left-displaced-abomasum",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 5040,
+      "sectionId": "practrum--bovine-anesthesia--block-decision-tree-clinical-scenario",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5048,
+      "sectionId": "cliapprum--gi-surgery-sawita--rumenotomy-overlap-with-vet-prac-rum-aj-ea",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 5049,
+      "sectionId": "practrum--rumenotomy--surgical-procedure",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5051,
+      "sectionId": "practrum--rumenotomy--surgical-procedure",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5052,
+      "sectionId": "cliapprum--gi-surgery-sawita--lda-left-displaced-abomasum",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5053,
+      "sectionId": "cliapprum--gi-surgery-sawita--rda-rav-right-displaced-abomasum-volvulus-surgical-emergency",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5054,
+      "sectionId": "practrum--rumenotomy--surgical-procedure",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 5062,
+      "sectionId": "practrum--dehorning--post-op-complication-sinusitis",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 5067,
+      "sectionId": "cliapprum--ruminant-anesthesia--pre-medication-sedation",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 5069,
+      "sectionId": "cliapprum--ruminant-anesthesia--local-regional-block-selection",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5070,
+      "sectionId": "practrum--bovine-anesthesia--local-anesthesia-lidocaine-2",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5072,
+      "sectionId": "practrum--bovine-anesthesia--local-anesthesia-lidocaine-2",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5074,
+      "sectionId": "cliapprum--gi-surgery-sawita--cecal-dilatation-dislocation-cdd",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 5075,
+      "sectionId": "com3--acute-abdomen--fluid-analysis-key",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 5078,
+      "sectionId": "cliapprum--gi-vdtt--rumen-ph-spectrum",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5079,
+      "sectionId": "practrum--rumenotomy--reticulum-specific-procedures",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 5080,
+      "sectionId": "cliapprum--gi-vdtt--gi-motility-disorders",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5082,
+      "sectionId": "cliapprum--hoof-health-fleet--tli-framework-4-elements",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5083,
+      "sectionId": "cliapprum--hoof-health-fleet--tli-framework-4-elements",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5084,
+      "sectionId": "cliapprum--hoof-health-fleet--tli-framework-4-elements",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 5085,
+      "sectionId": "cliapprum--hoof-health-fleet--interpretation-tree-decision-logic",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5086,
+      "sectionId": "cliapprum--hoof-health-fleet--interpretation-tree-decision-logic",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5087,
+      "sectionId": "cliapprum--hoof-health-fleet--locomotion-score-lcs-sprecher-1997",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5088,
+      "sectionId": "cliapprum--hoof-health-fleet--locomotion-score-lcs-sprecher-1997",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 5089,
+      "sectionId": "practrum--hoof-trim--hoof-anatomy-claw-zones",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6002,
+      "sectionId": "exotic--rodent-fish-health--common-signs-of-illness-in-aquarium-fish",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6071,
+      "sectionId": "exotic--aquarium-water-quality-ph--essential-aquarium-maintenance-nitrogen-cycle-protection",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6080,
+      "sectionId": "food-industry--fiqc-aquatic--อันตรายทางชีวภาพในสัตว์น้ำ",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6104,
+      "sectionId": "com4--derm-endocrine--hyperadrenocorticism-cushing-s-hac",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6112,
+      "sectionId": "exotic--rabbit-chinchilla-care--buying-physical-exam-checklist-for-first-time-rabbits",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6114,
+      "sectionId": "exotic--rodent-fish-health--biting-triggers-safe-handling-in-small-animals",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6115,
+      "sectionId": "exotic--rabbit-nutritional-requirements--nutrient-requirements-fiber-balance-in-rabbits",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6116,
+      "sectionId": "repro-lect--exotic-repro--rabbit-repro-pearls",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6120,
+      "sectionId": "exotic--zoo-vet--vaccination-protocols",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6130,
+      "sectionId": "exotic--bird-noninfect--ectoparasites-knemidocoptes",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6132,
+      "sectionId": "exotic--bird-infect--pdd-proventricular-dilatation-disease",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6133,
+      "sectionId": "exotic--bird-infect--pbfd-psittacine-beak-and-feather-disease",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6134,
+      "sectionId": "exotic--bird-noninfect--anesthesia",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6144,
+      "sectionId": "exotic--bird-noninfect--nutritional-husbandry-diseases",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6153,
+      "sectionId": "practrum--bovine-anesthesia--sedation-alpha-2-agonist",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6156,
+      "sectionId": "com5--feline-uri--5-pathogens-overview",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6157,
+      "sectionId": "cliapprum--ruminant-anesthesia--pre-medication-sedation",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6213,
+      "sectionId": "poultry--first-week-mortality--avian-immune-system-anatomy",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6214,
+      "sectionId": "poultry--first-week-mortality--vaccine-strategy-rolling-reaction-concept",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6215,
+      "sectionId": "poultry--avian-zoonosis--avian-influenza-hpai-detail",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6220,
+      "sectionId": "poultry--avian-zoonosis--major-avian-zoonoses-bacterial",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6221,
+      "sectionId": "poultry--avian-drugs--common-conditions-first-line-drugs",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6231,
+      "sectionId": "exotic--bird-infect--fungal-candidiasis-thrush",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6240,
+      "sectionId": "poultry--biosecurity--sampling-for-surveillance",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6242,
+      "sectionId": "poultry--biosecurity--sampling-for-surveillance",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6280,
+      "sectionId": "poultry--first-week-mortality--vaccine-strategy-rolling-reaction-concept",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6281,
+      "sectionId": "poultry--first-week-mortality--vaccine-strategy-rolling-reaction-concept",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6290,
+      "sectionId": "poultry--avian-drugs--drug-withdrawal-period",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6291,
+      "sectionId": "poultry--avian-drugs--common-conditions-first-line-drugs",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6292,
+      "sectionId": "poultry--nutrition--heat-stress-nutrition-management",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6300,
+      "sectionId": "poultry--nutrition--protein-amino-acids",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6303,
+      "sectionId": "poa-clinical--poa-edema--สรุปเคส-heartworm-ร่วมกับ-right-sided-chf",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6312,
+      "sectionId": "poultry--nutrition--egg-quality-production-diet",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6403,
+      "sectionId": "zoonoses--zoo-protozoal--type-of-parasitic-zoonoses-4-categories",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6422,
+      "sectionId": "com4--derm-nutrition--zinc-responsive-dermatosis",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6431,
+      "sectionId": "exotic--small-mammal-pig-zoonoses--zoonoses-spread-from-rodents-potbellied-pigs-to-humans",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6470,
+      "sectionId": "poultry--avian-drugs--common-conditions-first-line-drugs",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6482,
+      "sectionId": "poultry--nutrition--protein-amino-acids",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6483,
+      "sectionId": "com4--peds-geri--pediatric-neonatal-4hs",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6612,
+      "sectionId": "com4--imha--pathogenesis",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6631,
+      "sectionId": "equine-medicine--equine-respi--urt-vs-lrt-specific-diseases",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6642,
+      "sectionId": "equine-medicine--equine-gi--esophagus-choke",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6644,
+      "sectionId": "equine-medicine--equine-colic-bestfit--approach-classification-decision-tree",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6650,
+      "sectionId": "equine-medicine--equine-tendon--incidence",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6651,
+      "sectionId": "practrum--hoof-trim--routine-care-disease-categories",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6701,
+      "sectionId": "equine-medicine--equine-colic-surgery--pre-op-intra-op-pictures-case-slides",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6810,
+      "sectionId": "cliapprum--gi-vdtt--acute-lactic-acidosis-grain-engorgement",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6811,
+      "sectionId": "cliapprum--metabolism-nutrition--past-exam-mapping-sunsun84-kim85-metabolism",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 6814,
+      "sectionId": "practrum--rumenotomy--cow-magnet-hardware-disease-prevention",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6871,
+      "sectionId": "cliapprum--gi-surgery-sawita--lda-left-displaced-abomasum",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6872,
+      "sectionId": "cliapprum--gi-surgery-sawita--hardware-disease-trp-traumatic-reticuloperitonitis",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6873,
+      "sectionId": "cliapprum--gi-vdtt--bloat-tympany",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6901,
+      "sectionId": "cliapprum--gi-surgery-sawita--rumenotomy-overlap-with-vet-prac-rum-aj-ea",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6902,
+      "sectionId": "practrum--dehorning--method-by-age",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6911,
+      "sectionId": "cliapprum--ruminant-anesthesia--patient-preparation",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 6922,
+      "sectionId": "cliapprum--metabolism-nutrition--transition-period-3-weeks-pre-post-calving",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7002,
+      "sectionId": "com5--gi-protozoa--toxoplasma-gondii",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7004,
+      "sectionId": "com4--derm-parasitic--fleas-fad",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7005,
+      "sectionId": "com4--derm-parasitic--mites-comparison",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 7012,
+      "sectionId": "com4--imha--pathogenesis",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 7020,
+      "sectionId": "com5--vaccine--feline-vaccines-summary-wsava-2024",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7021,
+      "sectionId": "com5--vaccine--canine-vaccines-summary-wsava-2024",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7022,
+      "sectionId": "com5--vaccine--canine-puppy-schedule-wsava-2024-vpat-2024",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7023,
+      "sectionId": "com5--rabies--prevention-pre-exposure-thai-rabies-cpg",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7031,
+      "sectionId": "com4--imha--clinical-signs-diagnosis",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7045,
+      "sectionId": "com3--metabolic-er--acute-kidney-injury-aki",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 7050,
+      "sectionId": "com3--shock--treatment",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7053,
+      "sectionId": "com3--cpcr--step-1-3-basic-life-support",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7060,
+      "sectionId": "com3--nutrition--essential-amino-acids-in-cats",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7061,
+      "sectionId": "com3--resp-cv-er--pulmonary-edema",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7062,
+      "sectionId": "com3--metabolic-er--addisonian-crisis-hypoadrenocorticism",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7063,
+      "sectionId": "com4--derm-endocrine--hyperadrenocorticism-cushing-s-hac",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7065,
+      "sectionId": "com5--cve--clinical-signs-cpv",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7067,
+      "sectionId": "com3--metabolic-er--urethral-obstruction",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7101,
+      "sectionId": "practrum--bovine-anesthesia--sedation-alpha-2-agonist",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 7102,
+      "sectionId": "com3--shock--treatment",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 7110,
+      "sectionId": "repro-lect--hormonal-applications--aglepristone-3-indications-หลัก",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 7111,
+      "sectionId": "repro-lect--infertility--queen-specific-traps",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 7120,
+      "sectionId": "com4--derm-allergic--treatment-multimodal",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7121,
+      "sectionId": "com4--derm-autoimmune--treatment-autoimmune-skin-overall",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7131,
+      "sectionId": "com3--spinal--hansen-type-i-ivdd",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7132,
+      "sectionId": "com3--seizure--aed-first-line",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7136,
+      "sectionId": "com4--behavior-med--canine-psychopharmacology-behavior-drugs",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 7160,
+      "sectionId": "com3--er-anes--urethral-obstruction-cat",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 8009,
+      "sectionId": "com5--cve--pathogenesis",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 8010,
+      "sectionId": "poa-clinical--poa-edema--สรุปเคส-heartworm-ร่วมกับ-right-sided-chf",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 8038,
+      "sectionId": "com4--derm-fungal--dermatophytosis-ringworm",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 8043,
+      "sectionId": "com4--imha--clinical-signs-diagnosis",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 8045,
+      "sectionId": "poa-clinical--poa-edema--สรุปเคส-heartworm-ร่วมกับ-right-sided-chf",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 8060,
+      "sectionId": "com4--peds-geri--pediatric-neonatal-4hs",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 52004,
+      "sectionId": "repro-lect--hormonal-applications--progestin-adverse-effects-ออก-2-ล้านข้อ-จำไป",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52005,
+      "sectionId": "repro-lect--hormonal-applications--cabergoline-pseudopregnancy-lactation",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52006,
+      "sectionId": "repro-lect--hormonal-applications--progestin-adverse-effects-ออก-2-ล้านข้อ-จำไป",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52007,
+      "sectionId": "repro-lect--hormonal-applications--hormone-groups-จำให้ได้",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52008,
+      "sectionId": "repro-lect--hormonal-applications--progestin-adverse-effects-ออก-2-ล้านข้อ-จำไป",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52010,
+      "sectionId": "repro-lect--hormonal-applications--progestin-adverse-effects-ออก-2-ล้านข้อ-จำไป",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52013,
+      "sectionId": "repro-lect--hormonal-applications--oxytocin-critical-use",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52014,
+      "sectionId": "repro-lect--repro-ultrasound--male-u-s-specifics",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52016,
+      "sectionId": "repro-lect--repro-ultrasound--male-u-s-specifics",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52019,
+      "sectionId": "repro-lect--repro-ultrasound--clinical-pitfall",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 52021,
+      "sectionId": "repro-lect--repro-ultrasound--fetal-sex-determination",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52024,
+      "sectionId": "repro-lect--infertility--sperm-terminology",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52030,
+      "sectionId": "repro-lect--infertility--male-workup-tom-stud-dog",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 52031,
+      "sectionId": "repro-lect--semen-ai--ovulation-timing-aj-kc",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52033,
+      "sectionId": "repro-lect--infertility--queen-specific-traps",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 52034,
+      "sectionId": "repro-lect--semen-ai--collection-methods-aj-tt",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52035,
+      "sectionId": "repro-lect--semen-ai--collection-methods-aj-tt",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52036,
+      "sectionId": "repro-lect--semen-ai--semen-evaluation-framework",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52037,
+      "sectionId": "repro-lect--semen-ai--ovulation-timing-aj-kc",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52038,
+      "sectionId": "repro-lect--semen-ai--ovulation-timing-aj-kc",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52039,
+      "sectionId": "repro-lect--semen-ai--ai-routes",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52040,
+      "sectionId": "repro-lect--semen-ai--ai-routes",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52042,
+      "sectionId": "repro-lect--semen-ai--ai-quality-threshold",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52043,
+      "sectionId": "repro-lect--semen-ai--ovulation-timing-aj-kc",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 52044,
+      "sectionId": "repro-lect--biotech--art-toolbox",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52045,
+      "sectionId": "repro-lect--biotech--art-toolbox",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52047,
+      "sectionId": "repro-lect--biotech--embryo-development-timeline-dog",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52049,
+      "sectionId": "repro-lect--biotech--embryo-development-timeline-dog",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52050,
+      "sectionId": "repro-lect--biotech--scnt-cloning",
+      "confidence": "strong"
+    },
+    {
+      "questionId": 52051,
+      "sectionId": "repro-lect--biotech--art-toolbox",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 52052,
+      "sectionId": "repro-lect--biotech--why-dogs-cats-matter-for-conservation",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 52053,
+      "sectionId": "repro-lect--semen-preservation--cryobiology-logic",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 94204,
+      "sectionId": "cliapprum--ruminant-anesthesia--local-anesthetic-pharmacology",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 94205,
+      "sectionId": "cliapprum--ruminant-anesthesia--local-anesthetic-pharmacology",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 94209,
+      "sectionId": "com3--neuro-exam--spinal-localization",
+      "confidence": "supporting"
+    },
+    {
+      "questionId": 105488,
+      "sectionId": "equine-repro--eqrepro-infertility--pneumovagina-สาเหตุและการแก้ไข",
+      "confidence": "strong",
+      "reason": "Caslick vulvoplasty is the named operation for pneumovagina in this section.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 105471,
+      "sectionId": "equine-repro--eqrepro-art-female--การกระตุ้นตกไข่และการผสมเทียม",
+      "confidence": "strong",
+      "reason": "Section names hCG as the ovulation inducer used with AI in the mare.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 105478,
+      "sectionId": "equine-repro--eqrepro-art-female--การกระตุ้นตกไข่และการผสมเทียม",
+      "confidence": "strong",
+      "reason": "Section: semen is deposited in the uterine body, intracervix struck out.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 105462,
+      "sectionId": "equine-repro--eqrepro-anatomy-cycle--แสง-เมลาโทนิน-และการกลับมาเป็นสัด",
+      "confidence": "supporting",
+      "reason": "Long-day breeding: light lowers melatonin and lifts GnRH; the same axis drives the stallion season.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 105489,
+      "sectionId": "equine-medicine--equine-intro--การจับบังคับด้วยยา-chemical-restraint",
+      "confidence": "strong",
+      "reason": "Acepromazine: persistent penile prolapse or paralysis at high dose, in the horse.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 105477,
+      "sectionId": "equine-medicine--equine-intro--การจับบังคับด้วยยา-chemical-restraint",
+      "confidence": "supporting",
+      "reason": "Sedating a horse and the acepromazine penile warning that shapes the choice before semen collection.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 105490,
+      "sectionId": "equine-medicine--equine-intro--พฤติกรรมและการมองเห็นของม้า",
+      "confidence": "strong",
+      "reason": "Section defines gelding as the castrated male.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 202452,
+      "sectionId": "aquatic-clinic--aqua-fish-diseases--ปรสิตภายนอก-ectoparasites",
+      "confidence": "strong",
+      "reason": "Trichodina (เห็บระฆัง) as a ciliated protozoan ectoparasite with the flashing and mucus it causes.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 202189,
+      "sectionId": "aquatic-clinic--aqua-fish-diseases--ปรสิตภายนอก-ectoparasites",
+      "confidence": "supporting",
+      "reason": "Protozoan ectoparasites of the gills and the excess mucus they cause; Chilodonella itself is not named.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 202430,
+      "sectionId": "aquatic-clinic--aqua-fish-diseases--ปรสิตภายนอก-ectoparasites",
+      "confidence": "supporting",
+      "reason": "Diagnosis by mucus scraping, with gill or fin clipping kept for dead fish.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 204014,
+      "sectionId": "aquatic-clinic--aqua-fish-diseases--การวินิจฉัยโรคแบคทีเรียในปลา-และการใช้ยาปฏิชีวนะ",
+      "confidence": "strong",
+      "reason": "Malachite green is listed as banned in food fish with chloramphenicol and nitrofurans.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 202191,
+      "sectionId": "exotic--small-mammal-amphibian-medicine--infectious-diseases-of-amphibians-chytridiomycosis-red-leg",
+      "confidence": "strong",
+      "reason": "Red-leg syndrome: Aeromonas hydrophila with ventral erythema and petechiae.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 202193,
+      "sectionId": "exotic--small-mammal-amphibian-medicine--infectious-diseases-of-amphibians-chytridiomycosis-red-leg",
+      "confidence": "supporting",
+      "reason": "Chytridiomycosis is Batrachochytrium dendrobatidis; Thai status is not covered.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 202192,
+      "sectionId": "exotic--small-mammal-amphibian-medicine--infectious-diseases-of-amphibians-chytridiomycosis-red-leg",
+      "confidence": "supporting",
+      "reason": "Ranavirus: skin haemorrhage and ulcers in frogs and tadpoles.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 204017,
+      "sectionId": "exotic--small-mammal-amphibian-medicine--infectious-diseases-of-amphibians-chytridiomycosis-red-leg",
+      "confidence": "supporting",
+      "reason": "Ranavirus in amphibians and strict biosecurity; the routes themselves are not listed.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 202474,
+      "sectionId": "exotic--small-mammal-amphibian-medicine--infectious-diseases-of-amphibians-chytridiomycosis-red-leg",
+      "confidence": "supporting",
+      "reason": "Ranavirus has no specific treatment, so control is biosecurity.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 202203,
+      "sectionId": "exotic--reptile-lifespan-husbandry--average-life-span-of-reptiles-in-captivity",
+      "confidence": "supporting",
+      "reason": "Red-eared slider is flagged for vitamin A deficiency.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 202464,
+      "sectionId": "exotic--reptile-lifespan-husbandry--average-life-span-of-reptiles-in-captivity",
+      "confidence": "supporting",
+      "reason": "Tortoise husbandry: room to roam, outdoor enclosure, UVB and calcium.",
+      "judged": "2026-09-23"
+    },
+    {
+      "questionId": 204003,
+      "sectionId": "aquatic-clinic--aqua-intro-thailand--กุ้งทะเลชนิดหลักที่เลี้ยง-major-shrimp-culture-species",
+      "confidence": "strong",
+      "reason": "Black tiger shrimp is Penaeus monodon.",
+      "judged": "2026-09-23"
+    }
+  ]
+}

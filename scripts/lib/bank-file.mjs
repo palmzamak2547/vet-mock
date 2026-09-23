@@ -84,14 +84,46 @@ export function updateField(file, field, values) {
   return n;
 }
 
+// A wrap-up page names the question behind a bullet by id: "ข้อสอบเก่า 105728,
+// 105729" for a sat paper, "แนวข้อสอบ 202275" for one written from a senior's
+// exam guidance. The id is the only link back to the bank, so the wrap-up test
+// and removeQuestions below read it the same way.
+const WRAPUP_CITE = /(ข้อสอบเก่า|แนวข้อสอบ)(?:ปี\s*\d)?\s*((?:\d{3,6}(?:\s*,\s*|\s*และ\s*)?)+)/g;
+
+/** Every question id a wrap-up string cites, with the label it is cited under. */
+export function wrapUpCites(text) {
+  const out = [];
+  for (const m of String(text ?? '').matchAll(WRAPUP_CITE)) {
+    for (const id of m[2].split(/\s*,\s*|\s*และ\s*/).filter(Boolean)) out.push({ label: m[1], id });
+  }
+  return out;
+}
+
+/** The wrap-up files in `dir` that cite any of `ids`. */
+export function wrapUpCitations(ids, dir) {
+  if (!ids.size || !fs.existsSync(dir)) return [];
+  const want = new Set([...ids].map(String));
+  const hits = [];
+  for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.js'))) {
+    for (const c of wrapUpCites(fs.readFileSync(path.join(dir, f), 'utf8'))) {
+      if (want.has(c.id)) hits.push({ file: f, ...c });
+    }
+  }
+  return hits;
+}
+
 /** Cut the objects carrying these ids out of the file's text.
  *
  *  Brace counting, skipping anything inside a string so a `{` in Thai prose or
- *  an escaped quote cannot end the object early. Returns the number removed. */
+ *  an escaped quote cannot end the object early. Returns the number removed.
+ *
+ *  A wrap-up that still cites a removed id is named on stderr: the dedupe that
+ *  merged #105730 into #207464 left the milk wrap-up pointing at nothing. */
 export function removeQuestions(file, ids) {
   if (!ids.size) return 0;
   let src = fs.readFileSync(file, 'utf8');
   let removed = 0;
+  const gone = new Set();
 
   for (const id of ids) {
     const at = idAt(src, id);
@@ -124,8 +156,14 @@ export function removeQuestions(file, ids) {
 
     src = src.slice(0, start) + src.slice(end);
     removed++;
+    gone.add(id);
   }
 
-  if (removed) fs.writeFileSync(file, src);
+  if (removed) {
+    fs.writeFileSync(file, src);
+    for (const c of wrapUpCitations(gone, path.join(path.dirname(file), 'wrapups'))) {
+      console.warn(`removeQuestions: wrapups/${c.file} still cites "${c.label} ${c.id}", point it at the question that replaces it`);
+    }
+  }
   return removed;
 }
