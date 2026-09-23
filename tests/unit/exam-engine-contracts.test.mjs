@@ -3,7 +3,8 @@
 // ============================================================
 // startExam and the analytics memo live inside App.jsx and cannot be
 // imported without React, so these pin the shape of the code the way
-// panic-pool-size.test.mjs and boot-diet.test.mjs already do.
+// panic-pool-size.test.mjs and boot-diet.test.mjs already do. The pool
+// builder can be imported (src/lib/exam-pool.js), so promise 3 is run.
 //
 //   1. A caller's `mode` override reaches the session. VetWiki's
 //      "ฝึกจากหัวข้อนี้" passed mode:'quick' and it was ignored, so after a
@@ -26,6 +27,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { buildExamPool } from '../../src/lib/exam-pool.js';
+import { stillWrong } from '../../src/lib/wrong-pool.js';
 
 const APP = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 
@@ -60,12 +63,28 @@ test('a curated set is picked in order; ordinary practice still shuffles', () =>
 });
 
 test("the 'wrong' pool means still wrong, sorted most-missed-first", () => {
-  const branch = between("} else if (practiceMode === 'wrong') {", '  } else {\n    pool = subject === \'all\'');
-  // Membership now comes from the shared definition (lib/wrong-pool.js) so the
+  // Membership comes from the shared definition (lib/wrong-pool.js) so the
   // pool, the home chip and the weak list cannot drift apart. The counts it
   // returns still drive the ordering both surfaces promise.
-  assert.match(branch, /stillWrong\(history\)/, 'membership must use the shared rule');
-  assert.match(branch, /pool\.sort\(\(a, b\) => \(wrongCount\.get\(`\$\{b\.subject\}:\$\{b\.id\}`\) \|\| 0\)/);
+  const mk = (id, subject) => ({ id, subject, topic: 'fixture-topic', type: 'mcq', q: 'x', options: ['a', 'b'], answer: 0 });
+  const questions = [mk(1, 'equine-medicine'), mk(2, 'equine-medicine'), mk(3, 'zoonoses'), mk(4, 'zoonoses'), mk(5, 'zoonoses')];
+  const row = (q, correct, date) => ({ subject: q.subject, questionId: q.id, correct, date });
+  const [once, relearnt, thrice, twice, never] = questions;
+  const history = [
+    row(once, false, 1),
+    row(relearnt, false, 2), row(relearnt, false, 3), row(relearnt, true, 4),
+    row(thrice, false, 5), row(thrice, false, 6), row(thrice, false, 7),
+    row(twice, false, 8), row(twice, true, 9), row(twice, false, 10),
+    row(never, true, 11),
+  ];
+  const pool = buildExamPool({
+    questions, practiceMode: 'wrong', subject: 'all', topic: null, questionCategory: 'all', selectedYear: 5, history,
+  });
+  const key = (q) => `${q.subject}:${q.id}`;
+  const { keys, counts } = stillWrong(history);
+  assert.deepEqual(new Set(pool.map(key)), keys, 'membership must use the shared rule');
+  assert.deepEqual(pool.map(key), [thrice, twice, once].map(key), 'most missed first, as both screens promise');
+  assert.deepEqual(pool.map((q) => counts.get(key(q))), [3, 2, 1]);
 });
 
 test('the legacy-history fallback is an index lookup, not a scan of the bank', () => {

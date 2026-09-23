@@ -26,7 +26,7 @@
 import test, { before } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, posix } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
 import { build } from 'esbuild';
@@ -82,6 +82,15 @@ function staticReach(from) {
   return seen;
 }
 const importsOf = (file) => inputs[file]?.imports || [];
+// Files a module on the boot path loads with import(), wherever in the boot
+// path that import() is written.
+function lazyFromBoot() {
+  const out = new Set();
+  for (const file of staticReach('src/main.jsx')) {
+    for (const edge of importsOf(file)) if (!edge.external && edge.kind === 'dynamic-import') out.add(edge.path);
+  }
+  return out;
+}
 
 // ── What a stylesheet's rules can reach ──────────────────────────────
 // Every selector in the sheet, with @media/@supports unwrapped, plus the
@@ -147,7 +156,7 @@ test('the back-office stylesheet is not in the boot stylesheet', () => {
   // It travels with the view that uses it, and that view is reached lazily.
   assert.ok(importsOf('src/views/AdminView.jsx').some((e) => e.path === 'src/styles-admin.css' && e.kind === 'import-statement'),
     'AdminView must import its own stylesheet, or the back-office renders unstyled');
-  assert.ok(importsOf('src/App.jsx').some((e) => e.path === 'src/views/AdminView.jsx' && e.kind === 'dynamic-import'));
+  assert.ok(lazyFromBoot().has('src/views/AdminView.jsx'), 'the back-office is no longer reached through a lazy import');
 });
 
 test('the back-office sheet styles nothing outside the back-office', () => {
@@ -178,20 +187,23 @@ test('the landing sheet leaves the boot path only once it holds nothing the app 
 });
 
 // ── The idle prefetch ────────────────────────────────────────────────
-// App's own effect, lifted out of App.jsx and run with the browser pieces it
-// touches stood in. Returns the chunks it asked for.
+// App's own effect, lifted out of src/app/lazy-views.js (where it sits with
+// the lazy() declarations it warms) and run with the browser pieces it
+// touches stood in. Returns the modules it asked for, as paths under src/.
+const PREFETCH_FILE = 'src/app/lazy-views.js';
 function idlePrefetch({ savedSession, saveData = false }) {
-  const app = read('src/App.jsx');
-  const start = app.indexOf('useEffect(', app.indexOf('// Idle-time prefetch'));
-  const end = app.indexOf('}, []);', start);
+  const source = read(PREFETCH_FILE);
+  const start = source.indexOf('useEffect(', source.indexOf('// Idle-time prefetch'));
+  const end = source.indexOf('}, []);', start);
   assert.ok(start > 0 && end > start, 'the idle prefetch effect moved');
-  const effect = app.slice(start + 'useEffect('.length, end + 1).replace(/\bimport\(/g, '__import(');
+  const effect = source.slice(start + 'useEffect('.length, end + 1).replace(/\bimport\(/g, '__import(');
+  const dir = posix.dirname(PREFETCH_FILE.slice('src/'.length));
   const requested = [];
   const ctx = vm.createContext({
     window: { requestIdleCallback: (cb) => { cb(); return 1; }, cancelIdleCallback() {} },
     navigator: { connection: { saveData } },
     hasSavedSession: () => savedSession,
-    __import: (spec) => { requested.push(spec); return Promise.resolve({}); },
+    __import: (spec) => { requested.push(posix.join(dir, spec)); return Promise.resolve({}); },
   });
   vm.runInContext(`(${effect})()`, ctx);
   return requested;
@@ -200,11 +212,69 @@ function idlePrefetch({ savedSession, saveData = false }) {
 test('a signed-in student is not sent the sign-in screen at idle', () => {
   const signedIn = idlePrefetch({ savedSession: true });
   const guest = idlePrefetch({ savedSession: false });
-  assert.ok(!signedIn.includes('./views/AuthView.jsx'),
+  assert.ok(!signedIn.includes('views/AuthView.jsx'),
     'the sign-in screen was prefetched for a student who already holds a session');
-  assert.ok(guest.includes('./views/AuthView.jsx'), 'a visitor who may sign in still gets it warmed');
-  assert.deepEqual(signedIn, guest.filter((spec) => spec !== './views/AuthView.jsx'),
+  assert.ok(guest.includes('views/AuthView.jsx'), 'a visitor who may sign in still gets it warmed');
+  assert.deepEqual(signedIn, guest.filter((spec) => spec !== 'views/AuthView.jsx'),
     'the other prefetched screens must not change');
-  assert.ok(signedIn.includes('./views/HomeView.jsx'));
+  assert.ok(signedIn.includes('views/HomeView.jsx'));
   assert.deepEqual(idlePrefetch({ savedSession: false, saveData: true }), [], 'Save-Data still gets nothing');
+});
+
+test('every screen the idle prefetch warms is a real lazy chunk', () => {
+  // A prefetch of a module that is also on the boot path warms nothing, and a
+  // path that resolves to no file warms nothing either.
+  const lazy = lazyFromBoot();
+  const boot = staticReach('src/main.jsx');
+  for (const rel of idlePrefetch({ savedSession: false })) {
+    const file = `src/${rel}`;
+    assert.ok(lazy.has(file), `${file} is prefetched but not loaded lazily from the boot path`);
+    assert.ok(!boot.has(file), `${file} is prefetched but already in the entry chunk`);
+  }
+});
+
+// ── Lazy screens keep their own chunks ───────────────────────────────
+// Vite names a lazy chunk after the module it starts from (KnowledgeView-
+// <hash>.js), whichever file holds the import(). e2e specs route on those
+// names, so each of these has to stay a dynamic import from the boot path
+// and stay off the static boot graph, or its chunk is merged into the entry
+// and the spec's route never matches.
+const CHUNK_NAMED_IN_E2E = [
+  'src/views/KnowledgeView.jsx',       // connected-study.spec.js
+  'src/components/CommandPalette.jsx', // optional-feature-failure.spec.js
+  'src/components/HighlightToCard.jsx',// optional-feature-failure.spec.js
+  'src/views/AboutView.jsx',           // update-and-intent.spec.js
+  'src/components/VetCalculator.jsx',  // update-and-intent.spec.js
+];
+
+test('the chunks e2e finds by name are still their own lazy chunks', () => {
+  const lazy = lazyFromBoot();
+  const boot = staticReach('src/main.jsx');
+  for (const file of CHUNK_NAMED_IN_E2E) {
+    assert.ok(lazy.has(file), `${file} is no longer imported lazily from the boot path`);
+    assert.ok(!boot.has(file), `${file} is on the static boot path, so it has no chunk of its own`);
+  }
+});
+
+test('every lazy() screen App declares stays off the boot path', () => {
+  // The declarations live in src/app/lazy-views.js. Each names a file that
+  // exists, is loaded with import() from the boot path, and is not also
+  // imported statically, which would fold it into the entry chunk.
+  const source = read('src/app/lazy-views.js');
+  const specs = [...source.matchAll(/lazy\(\(\) => import\('([^']+)'\)\)/g)].map((m) => m[1]);
+  assert.ok(specs.length >= 50, `found only ${specs.length} lazy() declarations`);
+  const lazy = lazyFromBoot();
+  const boot = staticReach('src/main.jsx');
+  for (const spec of specs) {
+    const file = posix.join('src/app', spec);
+    assert.ok(lazy.has(file), `${spec} does not resolve to a lazily loaded file`);
+    assert.ok(!boot.has(file), `${file} is also imported statically, so lazy() splits nothing`);
+  }
+});
+
+test('the schedule tables stay off the boot path', () => {
+  // SEMESTER comes from data/semester.js; schedule.js re-exports it for its
+  // other readers and carries the whole timetable with it.
+  assert.ok(staticReach('src/main.jsx').has('src/data/semester.js'), 'the scan finds the semester module');
+  assert.ok(!staticReach('src/main.jsx').has('src/data/schedule.js'), 'schedule.js is statically reachable from the entry');
 });

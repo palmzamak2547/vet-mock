@@ -10,11 +10,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { posix } from 'node:path';
+import vm from 'node:vm';
 
-const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
+const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const review = read('../../src/views/ReviewView.jsx');
 const wikiLink = read('../../src/components/WikiLinkForQuestion.jsx');
-const app = read('../../src/App.jsx');
+// App's idle prefetch lives with its lazy() declarations.
+const lazyViews = read('../../src/app/lazy-views.js');
 
 test('ReviewView reads conflict counts from the generated summary, not the full index', () => {
   // The button lives in WikiLinkForQuestion since the instant-feedback
@@ -29,7 +32,26 @@ test('ReviewView reads conflict counts from the generated summary, not the full 
 });
 
 test('the idle prefetch does not pull the instructor directory', () => {
-  const block = app.slice(app.indexOf('// Idle-time prefetch'), app.indexOf('useWakeLock('));
-  assert.doesNotMatch(block, /FacultyView/ === null ? /x/ : /import\('\.\/views\/FacultyView\.jsx'\)/);
-  assert.match(block, /import\('\.\/views\/ScheduleView\.jsx'\)/, 'the lighter prefetches stay');
+  // Run the prefetch effect (src/app/lazy-views.js) with the browser pieces
+  // it touches stood in, for a visitor and for a signed-in student, and
+  // collect the modules it asks for as paths under src/.
+  const start = lazyViews.indexOf('useEffect(', lazyViews.indexOf('// Idle-time prefetch'));
+  const end = lazyViews.indexOf('}, []);', start);
+  assert.ok(start > 0 && end > start, 'the idle prefetch effect moved');
+  const effect = lazyViews.slice(start + 'useEffect('.length, end + 1).replace(/\bimport\(/g, '__import(');
+  const requested = new Set();
+  for (const savedSession of [false, true]) {
+    const ctx = vm.createContext({
+      window: { requestIdleCallback: (cb) => { cb(); return 1; }, cancelIdleCallback() {} },
+      navigator: { connection: { saveData: false } },
+      hasSavedSession: () => savedSession,
+      __import: (spec) => { requested.add(posix.join('app', spec)); return Promise.resolve({}); },
+    });
+    vm.runInContext(`(${effect})()`, ctx);
+  }
+  assert.ok(requested.has('views/ScheduleView.jsx'), 'the lighter prefetches stay');
+  assert.ok(requested.has('views/HomeView.jsx'));
+  assert.ok(!requested.has('views/FacultyView.jsx'), 'the instructor directory is back on the idle path');
+  // No other spelling of it either: the directory rides with FacultyView.
+  assert.ok(![...requested].some((p) => /Faculty|instructors/.test(p)), [...requested].join(', '));
 });

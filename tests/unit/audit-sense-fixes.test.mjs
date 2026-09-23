@@ -11,9 +11,20 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { semesterForSubject, SUBJECTS_BY_YEAR } from '../../src/data/curriculum.js';
 import { stillWrong } from '../../src/lib/wrong-pool.js';
+import { buildExamPool } from '../../src/lib/exam-pool.js';
 
 const src = (p) => readFileSync(new URL('../../' + p, import.meta.url), 'utf8');
 const APP = src('src/App.jsx');
+
+// The pool builder on a small fixture bank. Real subject ids, because the
+// pool reads each subject's year and term from the curriculum; an unknown
+// topic, so each question's own examScope decides its paper.
+let fixtureId = 950_000;
+const fixture = (subject, extra = {}) => ({
+  id: fixtureId++, subject, topic: 'fixture-topic', type: 'mcq', q: 'fixture', options: ['a', 'b'], answer: 0, ...extra,
+});
+const served = (args) => buildExamPool({ practiceMode: 'all', subject: 'all', topic: null, questionCategory: 'all', ...args })
+  .map((q) => q.id);
 
 test('semesterForSubject answers from the curriculum, and stays quiet about what it cannot know', () => {
   // Real data, not a fixture: pick a subject that the curriculum actually
@@ -42,27 +53,26 @@ test('ordinary practice honours the chosen term, and only the term', () => {
   // "เทอม 1 กลางภาค" set was filtered by YEAR only: a year-4 term-1 midterm
   // probe returned 1,981 questions, 1,633 of them from term 2, with an id list
   // identical to the term-2 final set.
-  assert.ok(APP.includes("const PHASE_SEMESTER = { '1-mid': 1, '1-final': 1, '2-mid': 2, '2-final': 2 }"),
-    'the phase-to-semester map must exist');
-  const pool = APP.slice(APP.indexOf('function buildExamPool'), APP.indexOf('const startMockExam'));
-  assert.ok(pool.includes('PHASE_SEMESTER[selectedPhase]'), 'the ordinary pool must read the phase');
-  assert.ok(pool.includes('semesterForSubject(q.subject)'), 'scoping is by the subject\'s term');
-  assert.ok(pool.includes('sem === 0'), 'a year-long subject must not be filtered out');
-  assert.ok(pool.includes("subject === 'all'"),
+  const term1 = fixture('equine-medicine');
+  const term2 = fixture('ruminant-clinical');
+  const yearLong = fixture('vca');
+  assert.equal(semesterForSubject(term1.subject), 1);
+  assert.equal(semesterForSubject(term2.subject), 2);
+  assert.equal(semesterForSubject(yearLong.subject), 0);
+  const questions = [term1, term2, yearLong];
+  // Ordinary practice, not only the curated modes, reads the phase: the
+  // gating behind current-scope/predicted is exactly what left it unscoped.
+  // None of these carries prediction metadata, so a filter that borrowed the
+  // curated predicate would serve nothing at all.
+  for (const phase of ['1-mid', '1-final']) {
+    assert.deepEqual(new Set(served({ questions, selectedYear: 5, selectedPhase: phase })), new Set([term1.id, yearLong.id]),
+      `${phase}: scoping is by the subject's term, and a year-long subject stays`);
+  }
+  for (const phase of ['2-mid', '2-final']) {
+    assert.deepEqual(new Set(served({ questions, selectedYear: 5, selectedPhase: phase })), new Set([term2.id, yearLong.id]));
+  }
+  assert.deepEqual(served({ questions, subject: term2.subject, selectedYear: 5, selectedPhase: '1-mid' }), [term2.id],
     'a named subject is the student\'s explicit choice and must not be narrowed away');
-  // The curated current-scope/predicted filter lives in this same branch and
-  // uses isCurrentScopeQuestion legitimately. What matters is that the phase
-  // filter is NOT gated behind it — that gating is exactly what left ordinary
-  // practice unscoped — so it must appear before that conditional.
-  const phaseAt = pool.indexOf('PHASE_SEMESTER[selectedPhase]');
-  const curatedAt = pool.indexOf("practiceMode === 'current-scope'");
-  assert.ok(phaseAt > 0 && curatedAt > 0, 'both the phase filter and the curated filter must exist');
-  assert.ok(phaseAt < curatedAt,
-    'the phase filter must apply to ordinary practice, not only inside the curated modes');
-  // And it must not borrow the curated predicate, which demands verified
-  // prediction metadata and would empty ordinary practice.
-  const phaseBlock = pool.slice(phaseAt, curatedAt);
-  assert.ok(!phaseBlock.includes('isCurrentScopeQuestion'));
 });
 
 test('the phase screen promises exactly what the pool now delivers', () => {
@@ -84,9 +94,13 @@ test('the phase screen promises exactly what the pool now delivers', () => {
     'วิชาเทอม 2 ไม่รวมเนื้อหาปลายภาค', 'วิชาเทอม 2 ไม่รวมเนื้อหากลางภาค',
   ]));
   // ...and the guarantee is real: the pool builder must apply the paper filter.
-  const app = src('src/App.jsx');
-  assert.ok(app.includes('questionInScope(q, wantedScope)'),
+  const mid = fixture('equine-medicine', { examScope: 'midterm' });
+  const fin = fixture('equine-medicine', { examScope: 'final' });
+  const unmapped = fixture('zoonoses');
+  const questions = [mid, fin, unmapped];
+  assert.deepEqual(new Set(served({ questions, selectedYear: 5, selectedPhase: '1-mid' })), new Set([mid.id, unmapped.id]),
     'buildExamPool must filter by the paper, or the subtitle is a lie again');
+  assert.deepEqual(new Set(served({ questions, selectedYear: 5, selectedPhase: '1-final' })), new Set([fin.id, unmapped.id]));
 });
 
 test('the config count and the exam pool are computed by the same builder', () => {
@@ -133,7 +147,19 @@ test('the same id in two subjects is tracked separately', () => {
 });
 
 test('every surface that shows "wrong" uses the one definition', () => {
-  assert.ok(APP.includes("from './lib/wrong-pool.js'"), 'the pool must import the shared rule');
+  // The pool: answered wrong and then right is not in the wrong-answer set,
+  // and the latest attempt wins by date, not by row order.
+  const relearnt = fixture('equine-medicine');
+  const lost = fixture('equine-medicine');
+  const history = [
+    { subject: relearnt.subject, questionId: relearnt.id, correct: true, date: 20 },
+    { subject: relearnt.subject, questionId: relearnt.id, correct: false, date: 10 },
+    { subject: lost.subject, questionId: lost.id, correct: true, date: 10 },
+    { subject: lost.subject, questionId: lost.id, correct: false, date: 20 },
+  ];
+  assert.deepEqual(served({ questions: [relearnt, lost], practiceMode: 'wrong', history, selectedYear: 5 }), [lost.id],
+    'the pool must use the shared rule');
+  assert.ok(APP.includes("from './lib/wrong-pool.js'"), 'the weak list must import the shared rule');
   assert.ok(APP.includes('stillWrong(history).keys'), 'the weak list must use it too');
   // The home chip once kept its own copy of the rule and it drifted: it read
   // array order while the pool read the latest attempt by date, so two synced
@@ -260,9 +286,17 @@ test('the video list reads through the bundle a restore actually writes', () => 
 });
 
 test('"more questions" excludes the ones just answered', () => {
-  const pool = APP.slice(APP.indexOf('function buildExamPool'), APP.indexOf('// The question bank loads lazily'));
-  assert.ok(pool.includes('excludeIds = null'), 'the pool builder must accept an exclusion');
-  assert.ok(pool.includes('!excludeIds.has(`${q.subject}:${q.id}`)'), 'compound keys: ids collide across subjects');
+  const answered = fixture('equine-medicine');
+  const namesake = { ...fixture('zoonoses'), id: answered.id };
+  const fresh = fixture('equine-medicine');
+  const questions = [answered, namesake, fresh];
+  assert.equal(served({ questions, selectedYear: 5 }).length, 3, 'with no exclusion nothing is left out');
+  const pool = buildExamPool({
+    questions, practiceMode: 'all', subject: 'all', topic: null, questionCategory: 'all', selectedYear: 5,
+    excludeIds: new Set([`${answered.subject}:${answered.id}`]),
+  });
+  assert.deepEqual(pool.map((q) => `${q.subject}:${q.id}`), [`zoonoses:${answered.id}`, `equine-medicine:${fresh.id}`],
+    'compound keys: ids collide across subjects');
   const results = src('src/views/ResultsView.jsx');
   assert.ok(results.includes('excludeIds: new Set((questions || []).map('),
     'the continue button must pass the set it just showed');
@@ -326,23 +360,30 @@ test('the phase scope narrows a year, and never empties one', async () => {
     return n + (keep ? (counts[s.id] || 0) : 0);
   }, 0);
 
-  let sawAnEmptyOne = false;
+  const { scopeOfQuestion } = await import('../../src/lib/exam-scope.js');
+  const empties = [];
   for (const [year, subjects] of Object.entries(SUBJECTS_BY_YEAR)) {
     const total = (subjects || []).reduce((n, s) => n + (counts[s.id] || 0), 0);
     if (!total) continue;
     for (const semester of [1, 2]) {
       const scoped = inScope(subjects || [], semester);
-      if (scoped === 0) sawAnEmptyOne = true;
+      if (scoped === 0) empties.push({ year: Number(year), semester, subjects: subjects.filter((s) => counts[s.id]) });
       // What the engine actually serves, guard included.
       const served = scoped || total;
       assert.ok(served > 0, `year ${year} term ${semester} must serve something`);
       assert.ok(served <= total, `year ${year} term ${semester} must not invent questions`);
     }
   }
-  assert.ok(sawAnEmptyOne,
+  assert.ok(empties.length,
     'if no year is empty in either term the guard is untested — check the data, not this test');
-  assert.ok(APP.includes('if (scoped.length) pool = scoped;'),
-    'the phase filter must be applied only when it leaves something behind');
+  // The pool builder, on that same year: one question per subject that holds
+  // any, each on a topic with no paper of its own so only the term decides.
+  for (const { year, semester, subjects } of empties) {
+    const questions = subjects.map((s) => fixture(s.id)).filter((q) => scopeOfQuestion(q) == null);
+    assert.ok(questions.length, `year ${year} has no subject left to probe the guard with`);
+    assert.deepEqual(new Set(served({ questions, selectedYear: year, selectedPhase: `${semester}-mid` })), new Set(questions.map((q) => q.id)),
+      `year ${year} term ${semester}: the phase filter must be applied only when it leaves something behind`);
+  }
 });
 
 test('the latest attempt wins even when the rows arrive out of order', () => {

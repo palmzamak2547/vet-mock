@@ -14,8 +14,12 @@ const app = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8').
 const host = app.slice(app.indexOf('function VetCalculatorHost('), app.indexOf('export default function App('));
 
 test('the calculator is not imported eagerly and not through React.lazy', () => {
+  // App's lazy() declarations live in src/app/lazy-views.js.
+  const lazyViews = readFileSync(new URL('../../src/app/lazy-views.js', import.meta.url), 'utf8');
   assert.doesNotMatch(app, /^import VetCalculator from/m);
-  assert.doesNotMatch(app, /lazy\(\(\) => import\('\.\/components\/VetCalculator\.jsx'\)\)/);
+  for (const src of [app, lazyViews]) {
+    assert.doesNotMatch(src, /lazy\(\(\) => import\('(?:\.|\.\.)\/components\/VetCalculator\.jsx'\)\)/);
+  }
   assert.match(app, /const loadVetCalculator = \(\) => import\('\.\/components\/VetCalculator\.jsx'\);/);
 });
 

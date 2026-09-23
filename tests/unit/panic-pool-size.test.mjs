@@ -7,25 +7,25 @@
 // simply ended early. The same 25 also truncated the weak count on the
 // dashboard, so a student with 80 weak questions was told they had 25.
 //
-// These two numbers live in one file and must be read together, so the test
-// holds them together rather than restating either.
+// These two numbers live in one file (src/lib/exam-pool.js) and must be read
+// together, so the test holds them together rather than restating either.
+// App.jsx is still read as text for the handlers that use them.
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { PANIC_SIZE, PANIC_SUBJECT_MAX, WEAK_POOL_CAP } from '../../src/lib/exam-pool.js';
 
 const APP = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
 
 function readPanicSizes() {
-  const line = APP.slice(APP.indexOf('export const PANIC_SIZE'));
-  const body = line.slice(line.indexOf('{'), line.indexOf('}') + 1);
-  return [...body.matchAll(/:\s*(\d+)/g)].map((m) => Number(m[1]));
+  assert.ok(PANIC_SIZE && typeof PANIC_SIZE === 'object', 'PANIC_SIZE is gone');
+  return Object.values(PANIC_SIZE).map(Number);
 }
 
 function readWeakCap() {
-  const m = APP.match(/export const WEAK_POOL_CAP = (\d+);/);
-  assert.ok(m, 'WEAK_POOL_CAP is gone — Panic Mode can silently under-deliver again');
-  return Number(m[1]);
+  assert.ok(Number.isInteger(WEAK_POOL_CAP), 'WEAK_POOL_CAP is gone — Panic Mode can silently under-deliver again');
+  return WEAK_POOL_CAP;
 }
 
 test('the weak pool can cover the longest Panic session offered', () => {
@@ -84,8 +84,8 @@ test('a per-subject Panic is not cut to a fixed size', () => {
   // but nothing hands them a fixed slice without asking.
   assert.match(fn, /setNumQuestions\(PANIC_SUBJECT_MAX\)/, 'the per-subject cram is back on a fixed size');
   assert.doesNotMatch(fn, /PANIC_SIZE/, 'the per-subject cram reads a time preset again');
-  const cap = Number(APP.match(/export const PANIC_SUBJECT_MAX = (\d+);/)?.[1]);
-  assert.ok(cap >= 500, `PANIC_SUBJECT_MAX ${cap} would truncate the largest subject pool`);
+  const cap = PANIC_SUBJECT_MAX;
+  assert.ok(Number.isInteger(cap) && cap >= 500, `PANIC_SUBJECT_MAX ${cap} would truncate the largest subject pool`);
 });
 
 test('the card prints the number the session will serve', async () => {
