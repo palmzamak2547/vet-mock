@@ -22,6 +22,8 @@ const LOADERS = {
   'milk-meat-hygiene': () => import('./wrapups/milk-meat-hygiene.js'),
   'equine-repro': () => import('./wrapups/equine-repro.js'),
   'equine-medicine': () => import('./wrapups/equine-medicine.js'),
+  'swine-clinic': () => import('./wrapups/swine-clinic.js'),
+  'aquatic-clinic': () => import('./wrapups/aquatic-clinic.js'),
 };
 
 export const WRAPUP_SUBJECTS = Object.keys(LOADERS);
