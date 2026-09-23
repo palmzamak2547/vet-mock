@@ -2361,7 +2361,9 @@ html.dark .vmx-panic-scrim {
 }
 .vmx-q-meta > span:not(.vmx-origin-chip) { padding: 0 8px; border-left: 1px solid var(--clr-border); }
 .vmx-q-meta > span:first-child { padding-left: 0; border-left: 0; }
-.vmx-q-meta > .vmx-origin-chip { margin-left: 4px; }
+/* The part before it already carries 8px of right padding; a margin here
+   would indent the chip when it wraps to its own line on a phone. */
+.vmx-q-meta > .vmx-origin-chip { margin-left: 0; }
 
 /* The "ที่มา" line under every question. A real button with the 44px floor —
    it was an inline all:unset row 20px tall — and full-opacity text. */
