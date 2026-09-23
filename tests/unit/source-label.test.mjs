@@ -168,17 +168,30 @@ const bankRow = (subject, id) => {
   return q;
 };
 
+/** The label of every Row the open chip draws, read off the element itself:
+ *  the flattened text runs a label into its value ("SourceGI_protozoa.pdf"),
+ *  where a word-boundary check cannot see an English label. */
+function rowLabels(q) {
+  globalThis.__vmxHooks = hooks({ open: true });
+  return findAll(QSourceChip({ q }), (n) => typeof n.type === 'function' && n.type.name === 'Row').map((n) => n.props.label);
+}
+
 test('the source panel reads in Thai, with no internal ids or status words', () => {
   // A row with every citation field: source, verified, a flag and tags.
   const full = bankRow('com5', 568);
   const { text } = renderChip(full, { open: true });
+  const labels = rowLabels(full);
   for (const english of ['Source', 'Verified', 'Flag', 'Tags']) {
+    assert.ok(!labels.includes(english), `"${english}" is still a row label`);
     assert.doesNotMatch(text, new RegExp(`\\b${english}\\b`), `"${english}" is still a row label`);
   }
-  for (const thai of ['ที่มา', 'ตรวจกับ', 'หมายเหตุ', 'แท็ก']) assert.ok(text.includes(thai), `no "${thai}" label`);
+  for (const thai of ['ที่มา', 'ตรวจกับ', 'หมายเหตุ', 'แท็ก']) assert.ok(labels.includes(thai), `no "${thai}" label`);
+  // Every label is Thai; "Wiki" inside a Thai label is the product's name.
+  for (const label of labels) assert.match(label.replace(/Vet ?Wiki|Wiki/g, ''), /^[฀-๿\s]+$/, `label "${label}"`);
   // ReviewView's wording for a major flag.
-  const major = renderChip({ ...full, flag: { ...full.flag, severity: 'major' } }, { open: true });
-  assert.ok(major.text.includes('ข้อควรระวังสำคัญ'));
+  const major = { ...full, flag: { ...full.flag, severity: 'major' } };
+  assert.ok(renderChip(major, { open: true }).text.includes('ข้อควรระวังสำคัญ'));
+  assert.ok(rowLabels(major).includes('ข้อควรระวังสำคัญ'));
 
   // An approved VetWiki citation shows its title, not "page#anchor".
   const cited = renderChip(bankRow('com5', 501), { open: true });
