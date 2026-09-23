@@ -434,3 +434,57 @@ test('PF-17: after sign-out no restricted row is served from memory, and no mint
     globalThis.fetch = realFetch;
   }
 });
+
+// The two epoch checks in fetchLibraryDocs guard a refresh that is already in
+// flight when the device signs out. The reset above cannot reach it: the
+// fetch holds its own copy of the previous rows, and stores its own rows when
+// it finishes. Both revisions are made to collide on purpose, so only the
+// epoch can stop the signed-in rows.
+test('PF-17: a refresh whose rows were read across a sign-out does not leave them for the guest', async () => {
+  const env = install({ signedIn: true });
+  const lib = await freshLibrary();
+  const signedInRows = [...shelf(10), { ...doc('login-only', 'restricted', R_HASH), updated_at: '2026-09-01T00:00:00Z' }];
+  const t = table(signedInRows);
+  globalThis.__vmxTestSupabase = t.client;
+  await lib.getLibraryCatalog();
+  refresh(env);
+  // The refresh reads its revision, then its rows; the device signs out while
+  // those rows (authorised before the sign-out) are on their way back.
+  let signedOut = false;
+  t.stats.beforeAnswer = (req) => {
+    if (req.range && !signedOut) { signedOut = true; signOut(env); }
+  };
+  await lib.getLibraryCatalog().catch(() => {});
+  assert.ok(signedOut, 'precondition: the sign-out landed mid-refresh');
+  t.stats.beforeAnswer = null;
+  t.set(shelf(10));
+  t.stats.revisionAs = { count: 11, newest: '2026-09-01T00:00:00Z' };
+  await settle();
+  refresh(env);
+  const { docs } = await lib.getLibraryCatalog();
+  assert.ok(!docs.some((d) => d.status === 'restricted'), 'the rows the straddling refresh read are not reused for a guest');
+});
+
+test('PF-17: a refresh whose revision was read across a sign-out does not hand back the signed-in rows', async () => {
+  const env = install({ signedIn: true });
+  const lib = await freshLibrary();
+  const signedInRows = [...shelf(10), { ...doc('login-only', 'restricted', R_HASH), updated_at: '2026-09-01T00:00:00Z' }];
+  const t = table(signedInRows);
+  globalThis.__vmxTestSupabase = t.client;
+  await lib.getLibraryCatalog();
+  refresh(env);
+  await lib.getLibraryCatalog(); // the in-memory copy, with its revision
+  refresh(env);
+  // The device signs out while the next refresh is asking whether anything
+  // changed, and the guest's answer happens to match the signed-in one.
+  t.stats.beforeAnswer = (req) => {
+    if (!req.range && !t.stats.revisionAs) {
+      signOut(env);
+      t.set(shelf(10));
+      t.stats.revisionAs = { count: 11, newest: '2026-09-01T00:00:00Z' };
+    }
+  };
+  const { docs } = await lib.getLibraryCatalog();
+  assert.ok(t.stats.revisionAs, 'precondition: the sign-out landed mid-refresh');
+  assert.ok(!docs.some((d) => d.status === 'restricted'), 'the signed-in rows are not handed back after the sign-out');
+});
