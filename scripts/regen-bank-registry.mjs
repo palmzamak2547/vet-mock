@@ -25,14 +25,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
-// Line endings normalised before comparing. Git checks these files out
-// with CRLF on Windows while the generator writes LF, so a byte-for-byte
-// comparison called the file STALE on every Windows machine until someone
-// regenerated locally — and then called it stale again after the next
-// checkout. Same shape as the localeCompare collation bug this file
-// already documents: a check that is red for reasons unrelated to its
-// subject teaches people to ignore it.
-const eol = (s) => String(s).replace(/\r\n/g, '\n');
+// Line endings (and the Built stamp) are ignored when comparing. Git checks
+// these files out with CRLF on Windows while the generator writes LF, so a
+// byte-for-byte comparison called the file STALE on every Windows machine
+// until someone regenerated locally — and then called it stale again after
+// the next checkout. A check that is red for reasons unrelated to its
+// subject teaches people to ignore it. One helper serves every generator.
+import { sameGenerated } from './lib/same-generated.mjs';
 
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -135,9 +134,8 @@ const content = L.join('\n');
 
 if (checkMode) {
   const cur = fs.existsSync(outPath) ? fs.readFileSync(outPath, 'utf8') : '';
-  // Compare ignoring the volatile "Built:" timestamp line.
-  const strip = (s) => s.replace(/^\/\/ Built:.*$/m, '');
-  if (eol(strip(cur)) !== eol(strip(content))) {
+  // sameGenerated ignores the volatile "Built:" timestamp line.
+  if (!sameGenerated(cur, content)) {
     console.error('❌ bank-registry.generated.js is STALE → run: npm run regen:registry');
     process.exit(1);
   }

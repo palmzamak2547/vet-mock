@@ -573,6 +573,17 @@ test.describe('landing accessibility', () => {
       } catch {}
     });
     await page.setViewportSize({ width: 1280, height: 800 });
+    // This test asserts icons, labels and observer-driven scroll state, never
+    // motion. On WebKit it took 15-18 s in quiet runs (Chromium 1.6-2.4 s) and
+    // failed with "waiting for element to be stable" at theme.click() and at
+    // #progress.scrollIntoViewIfNeeded() (STAB-10). No trace has been read
+    // yet; the likely mover is the landing's entrance motion (count-ups that
+    // change text width, reveal transforms, the eyebrow's letter-spacing),
+    // which a slow engine stretches out. Reduced motion shows all of it in its
+    // final state at once, and the scroll observers this test checks do not
+    // depend on it (useLandingMotion.js, the nav sentinel in LandingView.jsx).
+    // If WebKit is still slow here, the trace is the next thing to read.
+    await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('/?e2e-fresh=1');
 
     const sound = page.locator('.lp-sound-toggle');

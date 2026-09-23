@@ -1,2 +1,15 @@
 # Content-hashed artwork must keep identical bytes on Windows and Linux.
 public/motion/poses/*.svg text eol=lf
+
+# Generated artifacts are written with LF by their generators, and their
+# --check scripts compare against a fresh generation. Checking them out as LF
+# keeps a Windows worktree (core.autocrlf=true) identical to what the generator
+# writes. scripts/lib/same-generated.mjs forgives CRLF anyway, for worktrees
+# checked out before this rule; this rule is why new ones never need it.
+*.generated.js text eol=lf
+*.generated.json text eol=lf
+src/data/q-counts.js text eol=lf
+src/data/video-summaries-meta.js text eol=lf
+src/data/video-summaries.js text eol=lf
+src/data/video-summary-clips/*.js text eol=lf
+docs/content-inventory.md text eol=lf

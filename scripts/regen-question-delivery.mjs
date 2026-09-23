@@ -12,14 +12,13 @@ import { bankFiles, readBank } from './lib/bank-file.mjs';
 import { needsFigure } from './lib/question-standard.mjs';
 import { questionNeedsAnswerReview } from '../src/lib/question-prediction.js';
 
-// Line endings normalised before comparing. Git checks these files out
-// with CRLF on Windows while the generator writes LF, so a byte-for-byte
-// comparison called the file STALE on every Windows machine until someone
-// regenerated locally — and then called it stale again after the next
-// checkout. Same shape as the localeCompare collation bug this file
-// already documents: a check that is red for reasons unrelated to its
-// subject teaches people to ignore it.
-const eol = (s) => String(s).replace(/\r\n/g, '\n');
+// Line endings (and the Built stamp) are ignored when comparing. Git checks
+// these files out with CRLF on Windows while the generator writes LF, so a
+// byte-for-byte comparison called the file STALE on every Windows machine
+// until someone regenerated locally — and then called it stale again after
+// the next checkout. A check that is red for reasons unrelated to its
+// subject teaches people to ignore it. One helper serves every generator.
+import { sameGenerated } from './lib/same-generated.mjs';
 
 
 const OUT = 'src/data/question-delivery.generated.js';
@@ -68,7 +67,7 @@ const output = lines.join('\n');
 
 if (CHECK) {
   const current = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : '';
-  if (eol(current) !== eol(output)) {
+  if (!sameGenerated(current, output)) {
     console.error(`✗ ${OUT} ไม่ตรงกับคลังโจทย์ปัจจุบัน - รัน npm run regen:delivery`);
     process.exit(1);
   }

@@ -111,11 +111,12 @@ test('--check fails on one wrong number in a table no other check recounts, name
   });
 });
 
-test('lint:all runs the q-counts check', () => {
+test('lint:all runs the q-counts check (through lint:data)', () => {
   const { scripts } = JSON.parse(fs.readFileSync(path.join(repo, 'package.json'), 'utf8'));
   assert.equal(scripts['lint:q-counts'], 'node scripts/regen-q-counts.mjs --check');
+  assert.ok(scripts['lint:all'].split(' && ').includes('npm run lint:data'));
   assert.ok(
-    scripts['lint:all'].split(' && ').includes('npm run lint:q-counts'),
-    'lint:all must include npm run lint:q-counts',
+    scripts['lint:data'].split(' && ').includes('npm run lint:q-counts'),
+    'lint:data must include npm run lint:q-counts',
   );
 });

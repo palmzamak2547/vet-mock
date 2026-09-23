@@ -33,21 +33,34 @@ test.beforeEach(async ({ page }) => {
 
 test('@smoke a cold video shelf fetches covers for what is on screen, not all 41 playlists', async ({ page }) => {
   const calls = [];
-  page.on('request', (r) => { if (r.url().includes('/api/playlist')) calls.push(r.url()); });
+  let lastCallAt = 0;
+  page.on('request', (r) => {
+    if (r.url().includes('/api/playlist')) { calls.push(r.url()); lastCallAt = Date.now(); }
+  });
 
   await page.goto('/app/videos', { waitUntil: 'domcontentloaded' });
-  await page.waitForTimeout(3500);
 
-  const seen = await page.evaluate(() => ({
-    visibility: document.visibilityState,
-    thumbs: [...document.querySelectorAll('div')]
-      .filter((d) => /aspect-ratio/.test(d.getAttribute('style') || '')).length,
-  }));
+  // Wait for the cards themselves, not for a number of seconds. This used to
+  // sleep 3.5 s and then count once; on a loaded run the shelf had not mounted
+  // yet and the count read 0 (4 of 4 loaded gate runs, STAB-07).
+  const countThumbs = () => page.evaluate(() => [...document.querySelectorAll('div')]
+    .filter((d) => /aspect-ratio/.test(d.getAttribute('style') || '')).length);
+  await expect.poll(countThumbs, { timeout: 15_000 }).toBeGreaterThan(20);
 
   // Guard the guard: in a hidden tab nothing loads and the count would be 0
   // for a reason that has nothing to do with the fix.
-  expect(seen.visibility).toBe('visible');
-  expect(seen.thumbs).toBeGreaterThan(20);
+  expect(await page.evaluate(() => document.visibilityState)).toBe('visible');
+
+  // The flood this pins fires as the cards mount, so counting the instant the
+  // cards appear could miss it. Settle first: at least 1.5 s after the cards
+  // appeared AND 1.5 s since the last playlist request started. A flood keeps
+  // resetting that window, so it is still counted in full below.
+  lastCallAt = Date.now();
+  await expect.poll(() => Date.now() - lastCallAt, {
+    timeout: 15_000,
+    intervals: [250],
+    message: '/api/playlist requests never went quiet for 1.5 s',
+  }).toBeGreaterThanOrEqual(1_500);
 
   // A 1280x860 desktop viewport shows well under a dozen cards; allow generous
   // headroom for layout changes while still failing on a per-playlist flood.

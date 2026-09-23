@@ -12,6 +12,16 @@
 # 4 projects: Chromium desktop/mobile, WebKit mobile, and Firefox desktop.
 # Linux Firefox uses a virtual display and Mesa software graphics. A pixel
 # probe fails early if that backend is unavailable, before Atlas assertions.
+#
+# 2026-09-23 (STAB-14): three runners at once instead of one runner doing
+# the two browser steps back to back. The one job took 18-23 min (median
+# 22.4): about 2 min of setup, 4.7 min of Chromium, then 11.3 min of
+# WebKit + Firefox on one worker. Now Chromium runs on its own runner and
+# the software-GL pair is split into two halves (--shard) on two more, each
+# still one worker with the whole machine to itself, which is the property
+# that made them stable. Expected wall time is about 2 + max(4.7, ~5.7) min.
+# The job named `smoke` below is what Vercel and branch protection wait for;
+# it passes only when all three runners passed.
 
 name: Smoke e2e
 
@@ -25,10 +35,32 @@ on:
     branches: [main]
 
 jobs:
-  smoke:
+  e2e:
+    name: e2e (${{ matrix.label }})
     runs-on: ubuntu-latest
-    # Leave time to retain diagnostics when the browser step itself times out.
-    timeout-minutes: 30
+    strategy:
+      # One engine failing must not cancel the others: the report of every
+      # engine is what makes a red run readable.
+      fail-fast: false
+      matrix:
+        include:
+          - label: chromium
+            group: chromium
+            browsers: chromium
+            report: chromium
+          - label: webkit + firefox, half 1
+            group: gl
+            browsers: webkit firefox
+            shard: 1/2
+            report: gl-1
+          - label: webkit + firefox, half 2
+            group: gl
+            browsers: webkit firefox
+            shard: 2/2
+            report: gl-2
+    # Setup (~2 min) + the longest browser step cap (14) + 3 min, so a step
+    # that hits its own cap still leaves time to upload the report.
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7
 
@@ -46,20 +78,20 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-playwright-${{ matrix.group }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-playwright-
+            ${{ runner.os }}-playwright-${{ matrix.group }}-
 
       - name: Install Playwright browsers
-        # All 3 engines — the smoke matrix runs chromium (desktop +
-        # mobile), webkit (real iOS Safari), and firefox (Gecko).
-        # Cross-engine coverage catches Safari/Firefox-only regressions.
-        run: npx playwright install --with-deps chromium webkit firefox
+        # Only the engines this runner uses: chromium (desktop + mobile), or
+        # webkit (real iOS Safari) and firefox (Gecko).
+        run: npx playwright install --with-deps ${{ matrix.browsers }}
 
       - name: Prepare software graphics
         run: sudo apt-get install -y libgl1-mesa-dri libglx-mesa0 libegl-mesa0 mesa-utils
 
       - name: Verify Firefox WebGL2
+        if: matrix.group == 'gl'
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: xvfb-run --auto-servernum node scripts/check-ci-graphics.mjs
@@ -69,17 +101,19 @@ jobs:
         # specific bugs (TDZ, dead-code removal regressions).
         run: npm run build
 
-      # Two steps, not one, because the contention was the bug.
-      # Chromium is hardware-independent here and parallelises fine. Firefox
-      # and WebKit both run headful against Mesa software GL, and when a second
-      # worker competes for that context they slow down 3-5x: on 2026-09-19 a
-      # commit whose ONLY change was one line of .mailmap failed
+      # Two engine groups, never one runner for both, because the contention
+      # was the bug. Chromium is hardware-independent here and parallelises
+      # fine. Firefox and WebKit both run headful against Mesa software GL, and
+      # when a second worker competes for that context they slow down 3-5x: on
+      # 2026-09-19 a commit whose ONLY change was one line of .mailmap failed
       # summary-pdf-export on firefox at the 60s test timeout, while the
       # byte-identical bundle had passed the same suite 20 minutes earlier and
       # the same two tests finish in 11.4s on a developer machine. Raising the
       # timeout again would have been treating the symptom; giving the
-      # software-GL engines the machine to themselves removes it.
+      # software-GL engines the machine to themselves removes it. Each half
+      # below still runs one worker on a runner of its own.
       - name: Run smoke e2e (chromium)
+        if: matrix.group == 'chromium'
         timeout-minutes: 14
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
@@ -88,17 +122,37 @@ jobs:
           --project=chromium-desktop --project=chromium-mobile
 
       - name: Run smoke e2e (software-GL engines, one worker)
-        timeout-minutes: 16
+        if: matrix.group == 'gl'
+        timeout-minutes: 12
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: >-
           xvfb-run --auto-servernum npx playwright test
           --project=webkit-mobile --project=firefox-desktop --workers=1
+          --shard=${{ matrix.shard }}
 
       - name: Upload HTML report on failure
         if: failure() || cancelled()
         uses: actions/upload-artifact@v7
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.report }}
           path: playwright-report/
           retention-days: 7
+
+  # The required check. Its name has been `smoke` since this workflow began,
+  # and Vercel's deployment checks and branch protection wait for that name,
+  # so it stays. `always()` makes it report even when an e2e runner failed or
+  # was cancelled: a skipped job would count as passing a required check.
+  smoke:
+    name: smoke
+    needs: e2e
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Every e2e runner passed
+        env:
+          RESULT: ${{ needs.e2e.result }}
+        run: |
+          echo "e2e runners: $RESULT"
+          test "$RESULT" = "success"

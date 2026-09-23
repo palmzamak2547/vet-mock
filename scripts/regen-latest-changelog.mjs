@@ -26,6 +26,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { sameGenerated } from './lib/same-generated.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(here, '..');
@@ -58,14 +59,14 @@ export const LATEST_CHANGELOG = ${JSON.stringify(latest, null, 2)};
 
 const current = fs.existsSync(out) ? fs.readFileSync(out, 'utf8') : '';
 if (process.argv.includes('--check')) {
-  if (current !== body) {
+  if (!sameGenerated(current, body)) {
     console.error(`❌ ${path.relative(root, out)} is stale — run: npm run regen:changelog`);
     process.exit(1);
   }
   console.log(`✅ ${path.relative(root, out)} matches changelog.js (${latest.version})`);
   process.exit(0);
 }
-if (current === body) {
+if (sameGenerated(current, body)) {
   console.log(`${path.relative(root, out)} already current (${latest.version})`);
 } else {
   fs.writeFileSync(out, body);

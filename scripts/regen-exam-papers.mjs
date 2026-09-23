@@ -16,6 +16,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { sameGenerated } from './lib/same-generated.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'src/data/exam-papers.generated.js');
@@ -74,7 +75,7 @@ export const PAPER_COVERED_YEARS = Object.freeze([${coveredYears.join(', ')}]);
 
 if (process.argv.includes('--check')) {
   const current = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : '';
-  if (current !== file) {
+  if (!sameGenerated(current, file)) {
     console.error('❌ src/data/exam-papers.generated.js is stale — run: npm run regen:exam-papers');
     process.exit(1);
   }

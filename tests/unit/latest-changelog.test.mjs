@@ -34,5 +34,7 @@ test('build and dev regenerate the module first, and the lint guards the checked
   assert.match(pkg.scripts.build, /^node scripts\/regen-latest-changelog\.mjs && vite build/);
   assert.equal(pkg.scripts.predev, 'node scripts/regen-latest-changelog.mjs');
   assert.equal(pkg.scripts['lint:changelog-latest'], 'node scripts/regen-latest-changelog.mjs --check');
-  assert.match(pkg.scripts['lint:all'], /npm run lint:changelog-latest/);
+  // lint:data runs before the build, which would otherwise have rewritten
+  // the module the check reads (STAB-13).
+  assert.match(pkg.scripts['lint:data'], /npm run lint:changelog-latest/);
 });

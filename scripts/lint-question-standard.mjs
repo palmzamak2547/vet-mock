@@ -3,6 +3,8 @@
 // lint-question-standard.mjs — how far each year is from the standard
 // ============================================================
 // Usage: node scripts/lint-question-standard.mjs [--strict]
+//        node scripts/lint-question-standard.mjs --ratchet           (lint:all; reads, never writes)
+//        node scripts/lint-question-standard.mjs --ratchet --write   (npm run ratchet:question-standard)
 //
 // docs/QUESTION-STANDARD.md says what a good question looks like. This says
 // where the corpus actually stands, per year, so "ทุกชั้นปี" is a number
@@ -78,15 +80,27 @@ console.log(`\n${defective} defect(s) across ${total} questions`);
 // failing outright would block every unrelated commit until they are rewritten,
 // while allowing them silently is how 354 deck-naming stems accumulated. A
 // ceiling that can only fall is the honest middle.
+//
+// The gate only READS the baseline. It used to rewrite it whenever a count
+// fell, which left a green gate with a dirty tree, so what was pushed was not
+// what had been gated. Recording a lower ceiling is now a deliberate step,
+// `npm run ratchet:question-standard` (--ratchet --write), and a commit.
 const BASELINE = 'docs/question-standard-baseline.json';
+const RECORD = 'npm run ratchet:question-standard';
+const WRITE = process.argv.includes('--write');
 if (process.argv.includes('--ratchet') || process.argv.includes('--rebaseline')) {
   const counts = Object.fromEntries(DEFECTS.map(([label, test]) =>
     [label, [...byYear.values()].flat().filter(test).length]));
 
   if (!fs.existsSync(BASELINE)) {
-    fs.writeFileSync(BASELINE, `${JSON.stringify(counts, null, 2)}\n`);
-    console.log(`\nwrote first baseline to ${BASELINE}`);
-    process.exit(0);
+    if (WRITE) {
+      fs.writeFileSync(BASELINE, `${JSON.stringify(counts, null, 2)}\n`);
+      console.log(`\nwrote first baseline to ${BASELINE}`);
+      process.exit(0);
+    }
+    // A ratchet with nothing to compare against checks nothing.
+    console.error(`\n✗ ${BASELINE} is missing, so nothing is being held. Record one with: ${RECORD}`);
+    process.exit(1);
   }
 
   // Widening a detector makes a row go UP without the corpus getting worse:
@@ -123,10 +137,12 @@ if (process.argv.includes('--ratchet') || process.argv.includes('--rebaseline'))
     if (!(label in counts)) console.log(`· "${label}" is no longer measured — drop it from the baseline`);
   }
   if (worse) process.exit(1);
-  if (better) {
+  if (better && WRITE) {
     fs.writeFileSync(BASELINE, `${JSON.stringify(counts, null, 2)}\n`);
     console.log(`\nbaseline lowered — ${BASELINE} updated, commit it`);
-  } else if (!worse) {
+  } else if (better) {
+    console.log(`\nthe baseline can come down to these numbers. Record it with: ${RECORD}, then commit ${BASELINE}`);
+  } else {
     console.log('\nno movement, no regression');
   }
 }
