@@ -24,3 +24,11 @@ const sleeps = (text) => text.split('\n')
 test('video-shelf-requests waits for the cards, not for 3.5 s (STAB-07)', () => {
   assert.deepEqual(sleeps(spec('video-shelf-requests.spec.js')), []);
 });
+
+test('summary-pdf-export keeps third-party video off the wire and its budgets where they were (STAB-09)', () => {
+  const text = spec('summary-pdf-export.spec.js');
+  assert.match(text, /youtube\\\.com/, 'the YouTube player is not what this spec tests, and it loads heavily on Firefox and WebKit');
+  assert.match(text, /waitForResponse\(/, 'the clip summary module is awaited by name');
+  const budgets = [...text.matchAll(/timeout:\s*([\d_]+)/g)].map((m) => Number(m[1].replace(/_/g, '')));
+  assert.ok(budgets.every((ms) => ms <= 30_000), `a wait budget was raised past 30 s: ${budgets.join(', ')}`);
+});
