@@ -168,6 +168,33 @@ export const SOURCE_DOCS = [
     match: /\bAvian med mid TJ\b/,
     editions: [{ id: '13p', pages: 13 }],
   },
+  // The 8-page copy Palm sent on 23 ก.ย. 2569; its pages 1-7 are the 7-page copy of 14 ก.ย. unchanged, page 8 is new.
+  {
+    slug: 'swine-med-mid86', subject: 'swine-clinic', title: 'Swine Med Mid 86',
+    match: /\bSwine Med Mid 86\b/,
+    editions: [{ id: '8p', pages: 8 }],
+  },
+  {
+    slug: 'swine-mid-tj86', subject: 'swine-clinic', title: 'Swine med mid TJ',
+    match: /\bSwine med mid TJ\b|\bTJ86 \(Swine med mid\)/,
+    editions: [{ id: '8p', pages: 8 }],
+  },
+  {
+    slug: 'swine-mid-answers86', subject: 'swine-clinic', title: 'คำตอบลายมือ อธิภู,พรชลิต',
+    match: /อธิภู,พรชลิต/,
+    editions: [{ id: '4p', pages: 4 }],
+  },
+  // Kimchii #85 notes; 18 of its pages are pages of Aqua Med Mid 86.
+  {
+    slug: 'aquatic-med-mid86-kimchii', subject: 'aquatic-clinic', title: 'AQUATIC MED MID 86 🏅',
+    match: /AQUATIC MED MID 86/,
+    editions: [{ id: '32p', pages: 32 }],
+  },
+  {
+    slug: 'mod-aquatic-mid-tj', subject: 'aquatic-clinic', title: 'Mod Aquatic med Mid TJ',
+    match: /\bMod Aquatic med Mid TJ\b|\bTJ86 \(Mod\)/,
+    editions: [{ id: '14p', pages: 14 }],
+  },
 ];
 
 export const SOURCE_DOC_BY_SLUG = new Map(SOURCE_DOCS.map((d) => [d.slug, d]));

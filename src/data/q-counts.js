@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 6474;
-export const QB_SOURCE_TOTAL = 6541;
+export const QB_TOTAL = 6485;
+export const QB_SOURCE_TOTAL = 6552;
 export const QB_BLOCKED_TOTAL = 67;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -47,7 +47,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'surg1': 29,
   'surg2': 18,
   'surg3': 40,
-  'swine-clinic': 96,
+  'swine-clinic': 107,
   'swine-herd': 36,
   'swine-repro': 29,
   'vca': 455,
@@ -97,7 +97,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'surg1': 29,
   'surg2': 18,
   'surg3': 40,
-  'swine-clinic': 96,
+  'swine-clinic': 107,
   'swine-herd': 36,
   'swine-repro': 29,
   'vca': 455,
@@ -145,7 +145,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'surg1': 29,
   'surg2': 18,
   'surg3': 40,
-  'swine-clinic': 84,
+  'swine-clinic': 95,
   'swine-herd': 27,
   'swine-repro': 29,
   'vca': 18,
@@ -189,7 +189,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'surg1': 29,
     'surg2': 18,
     'surg3': 40,
-    'swine-clinic': 60,
+    'swine-clinic': 71,
     'swine-herd': 22,
     'swine-repro': 17,
     'vca': 18,
@@ -226,7 +226,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'surg1': 29,
     'surg2': 18,
     'surg3': 40,
-    'swine-clinic': 72,
+    'swine-clinic': 83,
     'swine-herd': 11,
     'swine-repro': 18,
     'vca': 18,
@@ -254,7 +254,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'milk-meat-hygiene': 804,
     'one-health': 153,
     'surg1': 29,
-    'swine-clinic': 72,
+    'swine-clinic': 83,
     'swine-herd': 31,
     'swine-repro': 17,
     'vca': 455,
@@ -276,7 +276,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'herd-health-rum': 37,
     'one-health': 35,
     'surg1': 29,
-    'swine-clinic': 84,
+    'swine-clinic': 95,
     'swine-herd': 16,
     'swine-repro': 18,
     'vca': 455,
@@ -337,12 +337,12 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
   '1-mid': {
     2: 104,
     4: 139,
-    5: 3132,
+    5: 3143,
   },
   '1-final': {
     2: 104,
     4: 302,
-    5: 1201,
+    5: 1212,
   },
   '2-mid': {
     1: 298,
@@ -508,8 +508,8 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'swine-clinic': {
       'swine-cns': 11,
-      'swine-gi-viral': 13,
-      'swine-pornchalit-set': 36,
+      'swine-gi-viral': 14,
+      'swine-pornchalit-set': 46,
       'swine-resp-viral': 12,
     },
     'swine-herd': {
@@ -805,11 +805,11 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'swine-cns': 11,
       'swine-csf': 3,
       'swine-fmd': 4,
-      'swine-gi-viral': 13,
+      'swine-gi-viral': 14,
       'swine-greasypig': 1,
       'swine-ileitis-bacti': 4,
       'swine-pcv2': 9,
-      'swine-pornchalit-set': 36,
+      'swine-pornchalit-set': 46,
     },
     'swine-herd': {
       'asf-acute-signs': 1,
@@ -2062,7 +2062,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 3894,
+  5: 3905,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2074,7 +2074,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 3878,
+  5: 3889,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2562,11 +2562,11 @@ export const Q_COUNTS_BY_TOPIC = {
     "swine-cns": 11,
     "swine-csf": 3,
     "swine-fmd": 4,
-    "swine-gi-viral": 13,
+    "swine-gi-viral": 14,
     "swine-greasypig": 1,
     "swine-ileitis-bacti": 4,
     "swine-pcv2": 9,
-    "swine-pornchalit-set": 36,
+    "swine-pornchalit-set": 46,
     "swine-resp-viral": 12,
   },
   "swine-herd": {
@@ -3223,4 +3223,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-23T17:05:50.400Z
+// Built: 2026-09-23T17:28:48.243Z

@@ -108,7 +108,7 @@ export const QUESTIONS_MID86_SWINE_CLINIC = [
       "all in all out",
       "apx"
     ],
-    "model_answer": "สาเหตุคือเชื้อ Actinobacillus pleuropneumoniae ซึ่งเป็นแบคทีเรียแกรมลบรูปร่าง coccobacilli อาการแบ่งเป็นสามแบบ แบบ peracute สุกรจะซึม ตายภายใน 6 ถึง 8 ชั่วโมง มีไข้สูงเกิน 104 องศาฟาเรนไฮต์ มีของเหลวปนเลือดเป็นฟองออกจากปากและจมูก และมี cyanosis ที่ปลายร่างกาย แบบ acute ตายภายใน 24 ถึง 48 ชั่วโมง มีไข้สูง ซึม ไม่กินอาหาร และหายใจลำบากทางปาก แบบ chronic อาการไม่ชัดเจน หายใจด้วยช่องท้อง และเป็นพาหะนำโรคต่อ การวินิจฉัยใช้ bacterial isolation เป็น gold standard ซึ่งยังทำ antimicrobial sensitivity test ต่อได้ ร่วมกับ serology เช่น ELISA, CFT, immunodiffusion และ agglutination และ PCR ที่จำแนก subtype ได้ การรักษาใช้ยาต้านจุลชีพ เช่น ceftiofur หรือ amoxicillin โดยทำ antimicrobial sensitivity test ก่อน และคำนวณ dose ให้สูงกว่าค่า MIC และ MPC การควบคุมและป้องกันโรคทำโดยหาสาเหตุนำที่ทำให้เกิดโรค เช่น สุกรหนาแน่นหรือการระบายอากาศไม่ดี ปรับปรุงการจัดการฝูงด้วยระบบ all in all out นำสุกรที่ปลอดโรคเข้าฟาร์ม ทำการกำจัดโรคและป้องกันไม่ให้เชื้อเข้าฟาร์ม นำพาหะนำโรคออกให้เร็วที่สุด ใช้ยาเพื่อควบคุมการแพร่ระบาด ใช้วัคซีนเพื่อสร้างภูมิคุ้มกันโดยมุ่งไปที่ DIVA vaccine ที่ตัด ApxIV ออกเพื่อให้แยกสุกรที่ทำวัคซีนออกจากสุกรที่ติดเชื้อตามธรรมชาติได้ และทำความสะอาดฆ่าเชื้อโรงเรือนอย่างสม่ำเสมอ",
+    "model_answer": "สาเหตุคือเชื้อ Actinobacillus pleuropneumoniae ซึ่งเป็นแบคทีเรียแกรมลบรูปร่าง coccobacilli อาการแบ่งเป็นสามแบบ แบบ peracute สุกรจะซึม ตายภายใน 6 ถึง 8 ชั่วโมง มีไข้สูงเกิน 104 องศาฟาเรนไฮต์ มีของเหลวปนเลือดเป็นฟองออกจากปากและจมูก และมี cyanosis ที่ปลายร่างกาย แบบ acute ตายภายใน 24 ถึง 48 ชั่วโมง มีไข้สูง ซึม ไม่กินอาหาร และหายใจลำบากทางปาก แบบ chronic อาการไม่ชัดเจน หายใจด้วยช่องท้อง และเป็นพาหะนำโรคต่อ การวินิจฉัยเริ่มจากประวัติ อาการ การตรวจร่างกาย และรอยโรคจากการผ่าซาก คือ hemorrhagic fibrinonecrotic pneumonia ร่วมกับ fibrinous pleuritis แล้วยืนยันด้วย bacterial isolation ซึ่งเป็น gold standard เพราะได้ทั้ง typing และ antimicrobial sensitivity test ส่วน PCR ใช้ทำ subtyping แต่ทำ sensitivity test ไม่ได้ และ serology ใช้ ApxIV ELISA แยกสุกรที่ทำวัคซีน DIVA ออกจากสุกรที่ติดเชื้อตามธรรมชาติ การรักษาใช้ยาต้านจุลชีพ เช่น ceftiofur หรือ amoxicillin โดยทำ antimicrobial sensitivity test ก่อน และคำนวณ dose ให้สูงกว่าค่า MIC และ MPC การควบคุมและป้องกันโรคทำโดยหาสาเหตุนำที่ทำให้เกิดโรค เช่น สุกรหนาแน่นหรือการระบายอากาศไม่ดี ปรับปรุงการจัดการฝูงด้วยระบบ all in all out นำสุกรที่ปลอดโรคเข้าฟาร์ม ทำการกำจัดโรคและป้องกันไม่ให้เชื้อเข้าฟาร์ม นำพาหะนำโรคออกให้เร็วที่สุด ใช้ยาเพื่อควบคุมการแพร่ระบาด ใช้วัคซีนเพื่อสร้างภูมิคุ้มกันโดยมุ่งไปที่ DIVA vaccine ที่ตัด ApxIV ออกเพื่อให้แยกสุกรที่ทำวัคซีนออกจากสุกรที่ติดเชื้อตามธรรมชาติได้ และทำความสะอาดฆ่าเชื้อโรงเรือนอย่างสม่ำเสมอ",
     "explain": "โครงคำตอบต้องครบห้าหัวข้อตามที่โจทย์ระบุ ห้ามข้ามหัวข้อใดหัวข้อหนึ่ง\n\nตัวเลขและคำเฉพาะที่ควรใส่คือ ตายภายใน 6 ถึง 8 ชั่วโมงในแบบ peracute, ไข้เกิน 104 องศาฟาเรนไฮต์, bacterial isolation เป็น gold standard และ DIVA vaccine ที่ตัด ApxIV",
     "source": "Swine Med Mid 86.pdf หน้า 5 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
@@ -184,13 +184,13 @@ export const QUESTIONS_MID86_SWINE_CLINIC = [
     ],
     "explain": "จุดที่ต้องแยกให้ออกคือคู่ที่มักสับสนสองคู่\n\nคู่แรก APP กับ pneumonic pasteurellosis รอยโรค APP เป็นแบบเลือดออกและ fibrinonecrotic มีฝีและเยื่อหุ้มปอดหนาติดกัน ส่วน pasteurellosis มีเส้นแบ่งเขตรอยโรคชัดและเยื่อหุ้มปอดใสแห้ง\n\nคู่ที่สอง M. hyopneumoniae กับ Pasteurella ทั้งคู่เป็น cranioventral แต่ M. hyopneumoniae ให้สีม่วงถึงเทาและปอดแฟบ ส่วน Pasteurella ให้ขอบเขตชัดพร้อม pleuritis\n\nเชื้ออื่นในชุดเดียวกันมีรอยโรคเด่นต่างกันคือ M. hyorhinis ที่ให้ serofibrinous polyserositis และข้ออักเสบ, M. hyosynoviae ที่ให้ข้ออักเสบร่วมกับ osteochondrosis และ Streptococcus suis ที่เป็น early colonizer และให้ septicaemia, meningitis, endocarditis, pneumonia และ arthritis",
     "source": "Swine Med Mid 86.pdf หน้า 5 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
-    "sourceType": "past-paper",
-    "verified": "Swine Med Mid 86 p.5 ข้อ 3.1 ถึง 3.9 จงบอกรอยโรคที่สำคัญของเชื้อต่อไปนี้",
+    "sourceType": "student-compilation",
+    "verified": "Swine Med Mid 86 p.5 โจทย์พิมพ์ข้อ 3.1 ถึง 3.5 จงบอกรอยโรคที่สำคัญของเชื้อต่อไปนี้ แปลงเป็นแบบจับคู่เพื่อฝึก ส่วนคู่ A. suis มาจากข้อ 3.6 ที่รุ่นพี่เขียนเพิ่มด้วยมือ ส่วนข้อเขียนตามรูปแบบจริงเป็นอีกข้อในคลัง",
     "tags": [
       "lesions",
       "respiratory",
       "pornchalit",
-      "past-paper"
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-pornchalit-set",

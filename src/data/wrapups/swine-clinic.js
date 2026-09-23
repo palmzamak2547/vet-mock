@@ -296,11 +296,11 @@ export const WRAPUP = {
             },
             {
               "text": "รอยโรค APP คือ hemorrhagic fibrinonecrotic pneumonia กับ fibrinous pleuritis, pneumonic pasteurellosis คือ cranioventral consolidation ขอบชัด เยื่อหุ้มปอดใสและแห้ง, M. hyopneumoniae คือ purple to gray consolidation ที่ cranioventral lobes",
-              "src": "ข้อสอบเก่า 202355 (ข้อเขียนกลางภาค Vet 85 ข้อ 3), 105626, 105627, 105629 (กลางภาค Vet 85)"
+              "src": "ข้อสอบเก่า 202478 (ข้อเขียนกลางภาค Vet 85 ข้อ 3), 105626, 105627, 105629 (กลางภาค Vet 85)"
             },
             {
               "text": "Glässer ให้ fibrinopurulent polyserositis, arthritis และ meningitis ส่วน atrophic rhinitis เกิดจาก Bordetella bronchiseptica กับ toxigenic P. multocida type D และใน PAR พังผืดเข้าแทนที่กระดูก ventral conchae",
-              "src": "ข้อสอบเก่า 202355, 105628, 105630 (กลางภาค Vet 85), 8019 (Vet 80), 8353 (วิชา swine clinical practice ไม่ทราบปี)"
+              "src": "ข้อสอบเก่า 202478, 105628, 105630 (กลางภาค Vet 85), 8019 (Vet 80), 8353 (วิชา swine clinical practice ไม่ทราบปี)"
             },
             {
               "text": "เชื้อที่ทำข้ออักเสบในสุกร ได้แก่ S. suis และ Glässer ซึ่งมี meningitis ร่วม, M. hyorhinis ซึ่งมี polyserositis ร่วม และ M. hyosynoviae ซึ่งเป็นข้ออักเสบอย่างเดียว",
@@ -313,7 +313,7 @@ export const WRAPUP = {
             "YlS2efVw0OQ (4 ก.ย. 2569, Swine Medicine II: วัคซีน APP, A. suis, Pasteurella multocida, atrophic rhinitis, M. hyopneumoniae)",
             "130fSmEeitU (11 ก.ย. 2569, Swine Medicine III: M. hyorhinis, M. hyosynoviae, Glässer's disease, S. suis; ส่วน locomotor ท่านประกาศว่าไม่อยู่ในกลางภาค จึงไม่ได้ใช้)",
             "src/data/notes-85-swine-clinic.js หัวข้อ swine-pornchalit-set (Swine Med mid น.5 ถึง 7)",
-            "ข้อสอบเก่าในคลังหัวข้อ swine-pornchalit-set: 202353, 202354, 202355, 105621 ถึง 105630, 105636, 8019, 8023, 8353, 8358",
+            "ข้อสอบเก่าในคลังหัวข้อ swine-pornchalit-set: 202353, 202354, 202478, 105621 ถึง 105630, 105636, 8019, 8023, 8353, 8358",
             "src/data/glossary.js หัวข้อ Actinobacillus pleuropneumoniae, atrophic rhinitis, Mycoplasma hyopneumoniae, Streptococcus suis"
           ]
         }

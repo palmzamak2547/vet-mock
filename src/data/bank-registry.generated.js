@@ -245,6 +245,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-repro-clinic.js', export: 'QB_Y5_REPRO_CLINIC', year: 5, count: 48,
     subjects: ['comp-repro-clinic'],
     load: () => import('./questions-y5-repro-clinic.js').then((m) => m.QB_Y5_REPRO_CLINIC) },
+  { file: 'questions-y5-swine-0924.js', export: 'QB_Y5_SWINE_0924', year: 5, count: 11,
+    subjects: ['swine-clinic'],
+    load: () => import('./questions-y5-swine-0924.js').then((m) => m.QB_Y5_SWINE_0924) },
   { file: 'questions-y5-swine-2026-b.js', export: 'QUESTIONS_Y5_SWINE_2026_B', year: 5, count: 66,
     subjects: ['swine-clinic'],
     load: () => import('./questions-y5-swine-2026-b.js').then((m) => m.QUESTIONS_Y5_SWINE_2026_B) },
@@ -280,4 +283,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-09-23T17:05:45.794Z — 90 banks · 6541 Qs
+// Built: 2026-09-23T17:28:45.837Z — 91 banks · 6552 Qs
