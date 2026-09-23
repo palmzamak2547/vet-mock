@@ -207,9 +207,9 @@ test('group members are read without a relationship that does not exist', () => 
 test('one failed group section does not blank the other two', () => {
   const s = src('src/views/GroupDetailView.jsx');
   assert.ok(s.includes('Promise.allSettled'), 'Promise.all turned one failure into a whole-tab error');
-  assert.ok(s.includes('rejected.length === 3'),
-    'the full-tab panel is only honest when nothing loaded');
-  assert.ok(s.includes('loadWarning'), 'a partial failure says so while leaving what loaded on screen');
+  // Since PF-20 each section fails on its own; group-account-switch.test.mjs drives it.
+  assert.ok(s.includes('failed[tab]'), 'a failure replaces only its own section, never every tab');
+  assert.ok(s.includes('hiddenFailure'), 'a failure out of sight says so while leaving what loaded on screen');
 });
 
 test('a shelf document keeps its origin through a merge', async () => {
