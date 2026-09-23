@@ -3303,3 +3303,27 @@ that kept the fact-check: the deterministic `check.mjs` inside each rewrite, the
 human look at each suspicious one. It caught one guess ("ซีราโน" rewritten as zearalenone
 where the original said the word could not be recovered), which was reverted.
 
+### 24 Sep, small hours — the gap sweep (5.130.5, 5.130.6)
+
+Palm: "ลองดูว่าข้อไหนเรายังไม่มีครับ เก็บให้ครบ". One sweep, 8 agents (author and skeptic per file range),
+rendered every page of the six files and listed every recalled item and every red underline, star
+and highlight, deduped against the bank, then authored only what was missing:
+
+- **5.130.5** — 11 swine written items (`questions-y5-swine-0924.js`, 202478-202488), including the Vet 85
+  lesion item in its own written form (typed 3.1-3.5 only). 202355, the matching conversion of that item,
+  stays as practice but is now student-compilation + อิงแนวข้อสอบ with its `verified` corrected; nothing
+  was deleted, so progress keyed on it survives. 202353's diagnosis follows the 28 Aug lecture (history,
+  signs, PE, lesions, culture as gold standard; CFT, immunodiffusion and agglutination "เลิกแล้ว" [91:09]).
+- **5.130.6** — 66 aquatic MCQs (`questions-y5-aquatic-0924.js`, 204022-204087; four cross-range duplicates
+  dropped before ingest), one with the real nitrogen-cycle figure from Mod TJ p.8. Fixed against the 2026
+  lectures: 202453 (carp pox is CyHV-1, not a poxvirus), 202147 (fish do have affinity maturation, less
+  efficiently), 202430 (a gill biopsy can be taken from a live fish), and the glossary S. suis count
+  (35 originally, 29 now).
+- New compilations are listed in `source-docs.js` so their page cites are structured and the text-only
+  budget (4412) holds: split each citation at every listed document name, then `pageNumbers()` per
+  segment; a `;` or `+` between a name and its page breaks the match.
+
+Flagged, not changed (need a source that settles them): 202152 ("freshwater = Streptococcus" mnemonic vs
+the ornamental lecture's gram-negative emphasis), 202139 ("MS-222 most widely used" vs clove oil being
+popular in practice), notes-85-swine-clinic P. multocida capsular types (note says pneumonic A and D, the
+4 Sep lecture says pneumonic A, AR D), the S. suis "พักคอก 7 วัน" handwriting (no 2026 source).
