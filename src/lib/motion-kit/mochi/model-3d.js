@@ -1,6 +1,5 @@
 import * as THREE from "three";
-import { STATES, poseAt } from "./motion.js";
-export { STATES };
+import { poseAt } from "./motion.js";
 export function buildMochi({ detail = 24 } = {}) {
   const root = new THREE.Group();
   root.name = "Mochi";
