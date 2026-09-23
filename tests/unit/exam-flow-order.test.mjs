@@ -1,10 +1,10 @@
 // ============================================================
 // Starting a set, and what the Config and Results screens say about it
 // ============================================================
-// These run App's own startExam, its launchers and buildExamPool, lifted out
-// of src/App.jsx and evaluated against a stand-in for React state, plus the
-// plain expressions ConfigView and ResultsView render. Each case names what a
-// student saw before the fix.
+// These run App's own startExam and its launchers, lifted out of src/App.jsx
+// and evaluated against a stand-in for React state, over the real pool builder
+// (src/lib/exam-pool.js), plus the plain expressions ConfigView and
+// ResultsView render. Each case names what a student saw before the fix.
 //
 //   EX-03  'ข้อที่ยังอ่อน' served the first N weak questions in bank order,
 //          not the N most missed, and 'ทบทวนข้อที่ตอบผิด' was re-sorted by id
@@ -26,15 +26,14 @@ import * as curriculum from '../../src/data/curriculum.js';
 import { stillWrong } from '../../src/lib/wrong-pool.js';
 import { isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
 import * as utils from '../../src/hooks/utils.js';
-import { scopeForPhase, questionInScope } from '../../src/lib/exam-scope.js';
-import { isCurrentScopeQuestion, isHighPredictionQuestion } from '../../src/lib/question-prediction.js';
-import { isPastPaperQuestion, panicPool } from '../../src/lib/question-metadata.js';
-import { SEMESTER } from '../../src/data/semester.js';
+import { panicPool } from '../../src/lib/question-metadata.js';
+import * as examPool from '../../src/lib/exam-pool.js';
 import { createQuestionTiming, newStudySessionId, validSessionId } from '../../src/lib/study-events.js';
 import { inflightExamKey, isOwnedExam } from '../../src/lib/exam-recovery.js';
 import { secondsUntilDeadline } from '../../src/lib/exam-clock.js';
 
-const { timeForQuestion, questionCategory: catOf, isWritingType } = utils;
+const { timeForQuestion, isWritingType } = utils;
+const { buildExamPool } = examPool;
 const read = (rel) => readFileSync(new URL(`../../${rel}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const APP = read('src/App.jsx');
 const HOOK = read('src/hooks/useExamSession.js');
@@ -80,34 +79,19 @@ function lift(src, header) {
   const body = src.indexOf('{', paramsEnd);
   return `${src.slice(start, closeOf(src, body))};`;
 }
-function liftConst(name) {
-  const m = APP.match(new RegExp(`\\n(?:export )?const ${name} = [^\\n]+;\\n`));
-  assert.ok(m, `App.jsx no longer declares ${name}`);
-  return m[0].replace('export ', '');
-}
-
 const LIFTED = [
-  liftConst('PHASE_SEMESTER'),
-  liftConst('USER_CURATED_MODES'),
-  liftConst('PANIC_SIZE'),
-  liftConst('PANIC_SUBJECT_MAX'),
-  lift(APP, 'function normalizePracticeMode('),
-  lift(APP, 'function categoryPickerShown('),
-  lift(APP, 'function appliedCategory('),
-  lift(APP, 'function buildExamPool('),
   lift(APP, 'const startExam = async ('),
   lift(APP, 'const startPanicSession = ('),
   lift(APP, 'const startLecturerPractice = ('),
 ].join('\n');
 
+// What App's module scope holds for these handlers: its imports, the pool
+// module's among them.
 const MODULE_SCOPE = {
+  ...examPool,
   SUBJECTS: curriculum.SUBJECTS,
-  hiddenTopicIdsFor: curriculum.hiddenTopicIdsFor,
   yearForSubject: curriculum.yearForSubject,
-  semesterForSubject: curriculum.semesterForSubject,
-  stillWrong, isQuestionDeliverable, catOf, scopeForPhase, questionInScope,
-  isCurrentScopeQuestion, isHighPredictionQuestion, isPastPaperQuestion, SEMESTER,
-  panicPool, timeForQuestion,
+  stillWrong, isQuestionDeliverable, panicPool, timeForQuestion,
 };
 
 // App at one render: `state` is what React state holds when the handler runs,
@@ -176,9 +160,7 @@ test('a one-question weak set is the most-missed question, not the first in the 
 });
 
 test('the weak pool keeps the most-missed order the dashboard ranked', () => {
-  const ctx = vm.createContext({ ...MODULE_SCOPE });
-  const build = vm.runInContext(`(() => {\n${LIFTED}\nreturn buildExamPool;\n})()`, ctx);
-  const pool = build({ questions: [lower, higher], practiceMode: 'weak', questionCategory: 'all',
+  const pool = buildExamPool({ questions: [lower, higher], practiceMode: 'weak', questionCategory: 'all',
     selectedYear: 5, weakQuestions: [higher.id, lower.id] });
   assert.deepEqual(pool.map((q) => q.id), [higher.id, lower.id]);
 });
@@ -276,11 +258,9 @@ test('the clock a launcher names is the clock the session runs and saves', async
 // ── EX-06 ────────────────────────────────────────────────────────────
 
 await loadQB();
-const poolOf = (subject) => {
-  const ctx = vm.createContext({ ...MODULE_SCOPE });
-  const build = vm.runInContext(`(() => {\n${LIFTED}\nreturn buildExamPool;\n})()`, ctx);
-  return build({ questions: QB, practiceMode: 'all', subject, topic: null, questionCategory: 'all', selectedYear: 5 });
-};
+const poolOf = (subject) => buildExamPool({
+  questions: QB, practiceMode: 'all', subject, topic: null, questionCategory: 'all', selectedYear: 5,
+});
 
 // What the timer line on the config screen reads, from ConfigView's own code.
 function configClockLabel({ numQuestions, timePerQ, availablePool }) {

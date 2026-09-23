@@ -8,9 +8,10 @@
 // Start greyed out and no control that explained it (291 questions, 0 served).
 // The sidebar Mock Exam served 70 written items out of a 1,981-question year.
 //
-// These tests run the App's own code: buildExamPool, and the exact expressions
-// the config count and startExam use to decide which category to filter by,
-// lifted out of src/App.jsx and evaluated over the real question bank. Counts
+// These tests run the real pool builder (src/lib/exam-pool.js), and the exact
+// expressions the config count and startExam use to decide which category to
+// filter by, lifted out of src/App.jsx and evaluated over the real question
+// bank. Counts
 // are compared against the same subject with the filter off, never hard-coded,
 // so adding questions cannot break them.
 //
@@ -25,13 +26,14 @@ import vm from 'node:vm';
 
 import { QB, loadQB } from '../../src/data/questions.js';
 import * as curriculum from '../../src/data/curriculum.js';
-import { stillWrong } from '../../src/lib/wrong-pool.js';
 import { isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
 import { questionCategory as catOf } from '../../src/hooks/utils.js';
-import { scopeForPhase, questionInScope } from '../../src/lib/exam-scope.js';
-import { isCurrentScopeQuestion, isHighPredictionQuestion } from '../../src/lib/question-prediction.js';
-import { isPastPaperQuestion } from '../../src/lib/question-metadata.js';
-import { SEMESTER } from '../../src/data/semester.js';
+import {
+  buildExamPool,
+  normalizePracticeMode,
+  categoryPickerShown,
+  appliedCategory,
+} from '../../src/lib/exam-pool.js';
 
 await loadQB();
 
@@ -40,47 +42,8 @@ const APP = read('src/App.jsx');
 const CONFIG = read('src/views/ConfigView.jsx');
 const QUESTION = read('src/components/Question.jsx');
 
-// ── Lift App's module-level pieces into a sandbox ─────────────────────
-function topLevelFunction(name) {
-  const start = APP.indexOf(`\nfunction ${name}(`);
-  if (start < 0) return '';
-  return APP.slice(start, APP.indexOf('\n}\n', start) + 3);
-}
-function topLevelConst(name) {
-  const m = APP.match(new RegExp(`\\nconst ${name} = [^\\n]+;\\n`));
-  assert.ok(m, `App.jsx no longer declares ${name}`);
-  return m[0];
-}
-
-const sandbox = vm.createContext({
-  SUBJECTS: curriculum.SUBJECTS,
-  hiddenTopicIdsFor: curriculum.hiddenTopicIdsFor,
-  yearForSubject: curriculum.yearForSubject,
-  semesterForSubject: curriculum.semesterForSubject,
-  stillWrong,
-  isQuestionDeliverable,
-  catOf,
-  scopeForPhase,
-  questionInScope,
-  isCurrentScopeQuestion,
-  isHighPredictionQuestion,
-  isPastPaperQuestion,
-  SEMESTER,
-});
-const lifted = [
-  topLevelConst('PHASE_SEMESTER'),
-  topLevelConst('USER_CURATED_MODES'),
-  topLevelFunction('normalizePracticeMode'),
-  topLevelFunction('buildExamPool'),
-  // The fix's helpers. Absent before it, which is fine: the expressions
-  // below then name only state, and the tests fail on the numbers.
-  topLevelFunction('categoryPickerShown'),
-  topLevelFunction('appliedCategory'),
-].join('\n');
-assert.ok(lifted.includes('function buildExamPool('), 'buildExamPool is no longer a top-level function in App.jsx');
-vm.runInContext(lifted, sandbox);
-const buildExamPool = (args) => vm.runInContext('buildExamPool', sandbox)(args);
-const normalizePracticeMode = (...args) => vm.runInContext('normalizePracticeMode', sandbox)(...args);
+// ── The expressions App evaluates, in a sandbox holding what App imports ──
+const sandbox = vm.createContext({ categoryPickerShown, appliedCategory });
 
 // The category the config screen's count filters by, as App computes it.
 function configCountCategoryExpr() {
@@ -229,11 +192,9 @@ test('the config screen shows the picker exactly where App applies it', () => {
     'App must hand ConfigView the same predicate it filters by');
   assert.ok(!/subject === 'engprof'/.test(CONFIG),
     'ConfigView must not keep a second copy of the picker rule');
-  const show = vm.runInContext('categoryPickerShown', sandbox);
-  const applied = vm.runInContext('appliedCategory', sandbox);
   for (const subject of ['engprof', 'com4', 'all', null]) {
     for (const mode of ['all', 'bookmarks', 'weak', 'wrong', 'current-scope', 'predicted']) {
-      assert.equal(applied('writing', subject, mode), show(subject, mode) ? 'writing' : 'all',
+      assert.equal(appliedCategory('writing', subject, mode), categoryPickerShown(subject, mode) ? 'writing' : 'all',
         `${subject}/${mode}: the filter and the picker disagree`);
     }
   }
@@ -280,8 +241,20 @@ test('the chips use no middle dot', () => {
 });
 
 test('relabelling the chips left the filter itself alone', () => {
-  const pool = topLevelFunction('buildExamPool');
-  assert.ok(pool.includes("if (questionCategory === 'mcq') pool = pool.filter((q) => catOf(q) === 'mcq');"));
-  assert.ok(pool.includes("else if (questionCategory === 'writing') pool = pool.filter((q) => catOf(q) === 'writing');"));
-  assert.ok(!pool.includes('MCQ + T/F + fill'), 'the comment still says fill sits with MCQ');
+  // The two chips split the bank exactly as questionCategory() does: fill
+  // under the written chip, matching under the auto-marked one.
+  const deliverable = QB.filter(isQuestionDeliverable);
+  const one = ['mcq', 'tf', 'match', 'fill', 'short', 'essay'].map((type) => {
+    const found = deliverable.find((q) => q.type === type);
+    assert.ok(found, `the bank holds no deliverable ${type} item`);
+    return found;
+  });
+  const served = (questionCategory) => buildExamPool({
+    questions: one, practiceMode: 'bookmarks', bookmarks: one.map((q) => q.id), questionCategory,
+  }).map((q) => q.type).sort();
+  assert.deepEqual(served('all').length, one.length);
+  assert.deepEqual(served('mcq'), one.filter((q) => catOf(q) === 'mcq').map((q) => q.type).sort());
+  assert.deepEqual(served('writing'), one.filter((q) => catOf(q) === 'writing').map((q) => q.type).sort());
+  assert.ok(served('writing').includes('fill') && served('mcq').includes('match'));
+  assert.ok(!read('src/lib/exam-pool.js').includes('MCQ + T/F + fill'), 'the comment still says fill sits with MCQ');
 });

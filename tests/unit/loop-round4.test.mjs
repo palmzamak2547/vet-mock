@@ -114,19 +114,20 @@ test('the skip link is the first tab stop, before the desktop sidebar', () => {
   assert.equal((APP.match(/className="vmx-skip-link"/g) || []).length, 1, 'exactly one skip link');
 });
 
-test('App.jsx reads SEMESTER without pulling schedule.js into the boot chunk', () => {
-  assert.ok(APP.includes("import { SEMESTER } from './data/semester.js';"));
+test('the exam pool reads SEMESTER without pulling schedule.js into the boot chunk', () => {
+  // The pool builder moved from App.jsx to lib/exam-pool.js, and the import
+  // went with it. boot-weight.test.mjs checks the whole boot graph.
+  const POOL = src('src/lib/exam-pool.js');
+  assert.ok(POOL.includes("import { SEMESTER } from '../data/semester.js';"));
+  assert.equal(POOL.includes('/data/schedule.js'), false, 'schedule.js must stay out of the entry chunk');
   assert.equal(APP.includes("from './data/schedule.js'"), false, 'schedule.js must stay out of the entry chunk');
   assert.ok(existsSync(new URL('../../src/data/semester.js', import.meta.url)));
   assert.ok(src('src/data/schedule.js').includes("export { SEMESTER } from './semester.js';"), 'schedule.js must re-export it for its other consumers');
   assert.ok(src('src/data/semester.js').includes("id: '2569-1'"), 'the semester data moved intact');
 });
 
-test('buildExamPool caches the hidden-topic set per subject', () => {
-  const fn = APP.slice(APP.indexOf('function buildExamPool'), APP.indexOf('export default function App'));
-  assert.ok(fn.includes('const hiddenBySubject = new Map();'));
-  assert.equal(fn.includes('!hiddenTopicIdsFor(q.subject).has(q.topic)'), false, 'the per-question call is gone');
-});
+// "buildExamPool caches the hidden-topic set per subject" is now measured,
+// not read off the source: exam-pool.test.mjs counts the curriculum lookups.
 
 test('the worker precaches the shell one entry at a time', () => {
   const sw = src('public/sw.js');
