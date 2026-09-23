@@ -652,7 +652,10 @@ export const LECTURER_SETS = {
   // VET86 recording every week; 8 and 15 ก.ย. each carry two. The formats are what the
   // class recorded for its own paper (curriculum.js examFormat.notes[0]); no recording
   // states a format. The 18 ส.ค. recording has two halves: อ.ฐนิดา on LSS, then water
-  // quality, which curriculum.js gives to อ.ภัทรพล. No deck covers yet: blank tiles.
+  // quality, which curriculum.js gives to อ.ภัทรพล. 4 ส.ค. also had a guest deck, Aquaculture
+  // Industry and Technology (Dr. Sirikorn Kitiyodom, CPF), so that session's deck is
+  // listed under อ.อรัญญา by its own title only. อ.ภัทรพล is รศ. on his 8 ก.ย. 2569 deck.
+  // No deck covers yet: blank tiles.
   'aquatic-clinic': {
     examDate: '2026-09-24',
     coverage: 'เนื้อหาตั้งแต่ 4 ส.ค. ถึง 15 ก.ย.',
@@ -668,7 +671,7 @@ export const LECTURER_SETS = {
         sessions: [
           {
             n: 1, date: '2026-08-04', videoId: 'DEYzFQDOYHk',
-            decks: [{ cover: 'aqua-intro', title: 'Aquaculture in Thailand และ Aquaculture industry and technology', topics: ['aqua-intro-thailand'] }],
+            decks: [{ cover: 'aqua-intro', title: 'Aquaculture in Thailand', topics: ['aqua-intro-thailand'] }],
           },
           {
             n: 2, date: '2026-08-11', videoId: 'r8YaeGUc4E0',
@@ -682,7 +685,7 @@ export const LECTURER_SETS = {
       },
       {
         id: 'patharapol',
-        name: 'ผศ.น.สพ.ดร.ภัทรพล เปี่ยมสมบูรณ์',
+        name: 'รศ.น.สพ.ดร.ภัทรพล เปี่ยมสมบูรณ์',
         lecturer: 'Patharapol Piamsomboon',
         format: 'mcq',
         count: null,
