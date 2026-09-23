@@ -2238,6 +2238,23 @@ html.dark .vmx-panic-scrim {
 
 .vmx-btn-sm { padding: 8px 14px; font-size: 13px; min-height: 44px; }
 .vmx-btn-row { display: flex; gap: 10px; justify-content: space-between; align-items: center; margin-top: 20px; flex-wrap: wrap; }
+/* A row that is a list rather than a Back/Next pair (Results' secondary
+   actions): it starts at the left, and a phone stacks it in DOM order
+   instead of reversing it (see the 640px block). */
+.vmx-btn-row.is-stack { justify-content: flex-start; }
+/* "ชวนเพื่อน": the three ways to bring a friend behind one native
+   disclosure, so they stop outranking the answer review. */
+.vmx-invite { flex: 0 0 auto; }
+.vmx-invite[open] { flex-basis: 100%; }
+.vmx-invite > summary { list-style: none; cursor: pointer; }
+.vmx-invite > summary::-webkit-details-marker { display: none; }
+.vmx-invite > summary::after {
+  content: ''; width: 6px; height: 6px; margin-left: 2px;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+.vmx-invite[open] > summary::after { transform: translateY(2px) rotate(-135deg); }
+.vmx-invite-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 
 /* Top back-bar: sticky at top of sub-views so users always know
    how to escape — especially helpful inside long pages (Notes,
@@ -3223,6 +3240,12 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 
 @media (max-width: 640px) {
+  .vmx-btn-row.is-stack > .vmx-invite { width: 100%; }
+  .vmx-btn-row.is-stack { flex-direction: column; align-items: stretch; }
+  .vmx-invite-actions { flex-direction: column; }
+}
+
+@media (max-width: 640px) {
   .vmx-btn-row { flex-direction: column-reverse; gap: 10px; }
   .vmx-btn-row .vmx-btn { width: 100%; justify-content: center; }
   .vmx-mode-grid { grid-template-columns: 1fr; }
@@ -3758,25 +3781,26 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 /* Promotion banner on ResultsView — fires when a late-night session
    pushes the user up the rank ladder. */
 .vmx-night-rank-promo {
-  margin: 0 auto 14px;
-  max-width: 420px;
+  margin: 12px 0 0;
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border-radius: var(--r-md);
-  border: 1px solid rgba(184, 137, 64, 0.35);
-  background: rgba(184, 137, 64, 0.10);
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 2px 0;
+  border-top: 1px solid var(--clr-border);
   animation: vmx-pop-in 0.4s ease-out;
 }
 
 .vmx-night-rank-promo-icon {
-  font-size: 26px;
+  font-size: 16px;
   line-height: 1;
 }
 
 .vmx-night-rank-promo-text {
   min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 6px;
 }
 
 .vmx-night-rank-promo-title {
@@ -3786,8 +3810,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 
 .vmx-night-rank-promo-sub {
-  margin-top: 2px;
-  font-size: 11.5px;
+  font-size: 12px;
   color: var(--clr-ink-soft);
   line-height: 1.45;
 }

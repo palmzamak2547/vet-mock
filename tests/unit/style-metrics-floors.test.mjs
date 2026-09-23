@@ -669,3 +669,16 @@ test('UI-07: the source toggle is a 44px tap target', () => {
     assert.equal(computed(toggle, 'align-items', env), 'center');
   }
 });
+
+// ── UI-06: the Results action stack reads top to bottom ───────────────
+// `.vmx-btn-row` reverses its children at 640px and below, which is right
+// for a Back/Next pair (Next on top) and wrong for a list: on Results it put
+// "ส่งเข้ากลุ่ม" first and "ดูเฉลย" last, and the visual order no longer
+// matched the DOM or the Tab order (WCAG 1.3.2 / 2.4.3).
+test('UI-06: a stacked button row keeps DOM order on a phone; a Back/Next pair still reverses', () => {
+  assert.equal(computed(chain('div', 'div.vmx-btn-row.is-stack'), 'flex-direction', PHONE), 'column');
+  assert.equal(computed(chain('div', 'div.vmx-btn-row'), 'flex-direction', PHONE), 'column-reverse');
+  // On desktop the stack is a row that starts at the left, in the same order.
+  assert.notEqual(computed(chain('div', 'div.vmx-btn-row.is-stack'), 'flex-direction', DESKTOP), 'row-reverse');
+  assert.equal(computed(chain('div', 'div.vmx-btn-row.is-stack'), 'justify-content', DESKTOP), 'flex-start');
+});

@@ -331,17 +331,6 @@ export default function ResultsView({
     <>
       <BackBar onBack={goHome} label="หน้าแรก" mochi={false} />
       <ExamSaveNotice status={saveStatus} />
-      {rankPromo && (
-        <div className="vmx-night-rank-promo" role="status">
-          <span className="vmx-night-rank-promo-icon" aria-hidden="true">{rankPromo.to.icon}</span>
-          <div className="vmx-night-rank-promo-text">
-            <div className="vmx-night-rank-promo-title">เลื่อนยศโต้รุ้ง! {rankPromo.to.label}</div>
-            <div className="vmx-night-rank-promo-sub">
-              จาก {rankPromo.from.label} เป็น {rankPromo.to.label}, {rankPromo.to.blurb}
-            </div>
-          </div>
-        </div>
-      )}
       {(phaseLabel || selectedYear) && (
         <div style={{
           marginBottom: 12, display: 'flex', gap: 6, justifyContent: 'center',
@@ -425,6 +414,20 @@ export default function ResultsView({
           </div>
         )}
       </div>
+
+      {/* A late-night promotion is a note under the result, not a banner over
+          it: the score is what a student came to this screen for. */}
+      {rankPromo && (
+        <div className="vmx-night-rank-promo" role="status">
+          <span className="vmx-night-rank-promo-icon" aria-hidden="true">{rankPromo.to.icon}</span>
+          <div className="vmx-night-rank-promo-text">
+            <div className="vmx-night-rank-promo-title">เลื่อนยศโต้รุ้ง! {rankPromo.to.label}</div>
+            <div className="vmx-night-rank-promo-sub">
+              จาก {rankPromo.from.label} เป็น {rankPromo.to.label}, {rankPromo.to.blurb}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Challenge comparison — shown ONLY when receiver finishes a
           challenge link with sender's score embedded. Round 2B 2026-05-18.
@@ -557,10 +560,10 @@ function NextPlayPanel({
   // Pure-writing → keep classic flow (review needed for self-grading)
   if (autoQs.length === 0) {
     return (
-      <div className="vmx-btn-row" style={{ flexWrap: 'wrap', marginTop: 16 }}>
-        <button className="vmx-btn vmx-btn-ghost" onClick={goHome} style={{ minHeight: 44 }}>← กลับหน้าแรก</button>
+      <div className="vmx-btn-row is-stack" style={{ marginTop: 16 }}>
         <button className="vmx-btn vmx-btn-primary" onClick={() => setView('review')} style={{ minHeight: 44 }}>ดูเฉลย + ให้คะแนนข้อเขียน →</button>
         <ShareQuizButton questions={questions} />
+        <button className="vmx-btn vmx-btn-ghost" onClick={goHome} style={{ minHeight: 44 }}>← กลับหน้าแรก</button>
       </div>
     );
   }
@@ -702,8 +705,11 @@ function NextPlayPanel({
           </button>
         )}
 
-        {/* Secondary row — ดูเฉลย + ทำหัวข้อนี้ต่อ (when hasWrong) */}
-        <div className="vmx-btn-row" style={{ flexWrap: 'wrap', gap: 8 }}>
+        {/* Secondary row, in the order a student reaches for it: the answers,
+            the summary, more of the same topic. A stack, so a phone does not
+            reverse it (.vmx-btn-row alone is a Back/Next pair). The three ways
+            to bring a friend sit behind one disclosure at the end. */}
+        <div className="vmx-btn-row is-stack" style={{ gap: 8 }}>
           <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('review')} style={{ minHeight: 44 }}>
             ดูเฉลย
           </button>
@@ -749,24 +755,29 @@ function NextPlayPanel({
               ทำ{ctx.topic ? 'หัวข้อ' : 'วิชา'}นี้อีก 5 ข้อ
             </button>
           )}
-          <ChallengeQuizButton questions={questions} score={score} senderTimeSec={receiverDurationSec} />
-          {/* Round 2B 2026-05-18: race-room shortcut. Skips the Race
-              entry page — just routes to RaceView (it handles its own
-              flow). Future enhancement: pass current questions[] as
-              seed when RaceView accepts a seed prop. */}
-          <button
-            type="button"
-            className="vmx-btn vmx-btn-ghost"
-            onClick={() => setView('race')}
-            style={{ minHeight: 44 }}
-            title="ไปหน้า Race mode — สร้างห้องแข่งกับเพื่อนแบบ realtime"
-          >
-            <NavIcon name="users" size={16} /> สร้างห้องแข่ง
-          </button>
-          {/* Round 2B 2026-05-18: "send to group" — same primitive as
-              ChallengeQuizButton but explicitly invokes navigator.share
-              first (mobile system picker → LINE/IG group chat target). */}
-          <SendToGroupButton questions={questions} score={score} senderTimeSec={receiverDurationSec} />
+          <details className="vmx-invite">
+            <summary className="vmx-btn vmx-btn-ghost">ชวนเพื่อน</summary>
+            <div className="vmx-invite-actions">
+              <ChallengeQuizButton questions={questions} score={score} senderTimeSec={receiverDurationSec} />
+              {/* Round 2B 2026-05-18: race-room shortcut. Skips the Race
+                  entry page — just routes to RaceView (it handles its own
+                  flow). Future enhancement: pass current questions[] as
+                  seed when RaceView accepts a seed prop. */}
+              <button
+                type="button"
+                className="vmx-btn vmx-btn-ghost"
+                onClick={() => setView('race')}
+                style={{ minHeight: 44 }}
+                title="ไปหน้า Race mode — สร้างห้องแข่งกับเพื่อนแบบ realtime"
+              >
+                <NavIcon name="users" size={16} /> สร้างห้องแข่ง
+              </button>
+              {/* Round 2B 2026-05-18: "send to group" — same primitive as
+                  ChallengeQuizButton but explicitly invokes navigator.share
+                  first (mobile system picker → LINE/IG group chat target). */}
+              <SendToGroupButton questions={questions} score={score} senderTimeSec={receiverDurationSec} />
+            </div>
+          </details>
         </div>
       </div>
     </div>
