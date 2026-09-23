@@ -102,7 +102,7 @@ gate = build && lint:all && test:unit && playwright
 |---|---|---|---|
 | `vite build` | 17-30 วินาทีตอนเครื่องว่าง, 61-73 วินาทีตอนเครื่องถูกแย่ง | gate13 `built in 17.36s`, gate8 `built in 30.05s`, gate-eq `built in 1m 1s`, gate9 `built in 1m 13s` | — |
 | `build` ทั้งขั้นบน CI (vite + prerender wiki/atlas/og) | 24-27 วินาที | CI run 35757275474 (24 วินาที) และ CI run 35761306644 (27 วินาที) ขั้น Build production bundle | — |
-| `lint:all` 46 ขั้นเรียงกัน บน CI | 21-25 วินาที | CI run 35757275474 (21 วินาที) และ CI run 35761306644 (25 วินาที) ขั้น Generated data, content and accessibility gates | **43 จาก 46 ไม่ต้องใช้** มีแค่ `audit:contrast` 3 ขั้น |
+| `lint:all` 46 ขั้นเรียงกัน บน CI | 21-25 วินาที | CI run 35757275474 (21 วินาที) และ CI run 35761306644 (25 วินาที) ขั้น Generated data, content and accessibility gates ซึ่งรวม `lint:atlas` ไว้ด้วย | **43 จาก 46 ไม่ต้องใช้** มีแค่ `audit:contrast` 3 ขั้น |
 | `test:unit` | 4-10 วินาที | gate4 `ℹ duration_ms 3828.3396`, gate-int `ℹ duration_ms 9672.5479` | ไม่ต้องใช้ |
 | `playwright` 748 tests × 4 projects ที่ 6 workers (ค่าเริ่มต้นในเครื่อง) | 7.5-9.3 นาทีตอนเครื่องว่าง, 13.5-23.2 นาทีตอนเครื่องถูกแย่ง | gate13 `705 passed (7.5m)`, gate8 `702 passed (9.3m)`, gate9 `693 passed (13.5m)`, gate-eq `690 passed (23.2m)` | ต้องใช้ |
 | `playwright` แบบ `CI=1` (2 workers, retry 1 ครั้ง) | 12.6-13.2 นาทีตอนเครื่องว่าง, 19.3 นาทีตอนเครื่องถูกแย่ง | gate-w0.prev2 `707 passed (12.6m)`, gate-int `707 passed (13.2m)`, gate-w0.run2 `706 passed (19.3m)` | ต้องใช้ |
