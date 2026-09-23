@@ -112,29 +112,25 @@ export default function QSourceChip({ q, store }) {
                 }}
                 style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
               >
+                {/* The title is the link. The page and anchor ids behind it
+                    are the wiki's own addressing, not something to read. */}
                 <Row label="อ้างอิง VetWiki" value={eligibleCitation.title} icon="🔗" iconColor="var(--clr-sage)" />
-                <div style={{ marginTop: 4, paddingLeft: 16, fontSize: 11, opacity: 0.9, display: 'flex', flexDirection: 'column', gap: 2 }}>
-                  <div>เปิดบทความ: <code>{eligibleCitation.pageId}#{eligibleCitation.anchorId}</code></div>
-                </div>
               </a>
             </div>
           )}
           {!eligibleCitation && hasDisplayableWikiRefs && displayableWikiRefs.map((ref, idx) => (
             <div key={idx} style={{ padding: 8, borderRadius: 6, background: 'rgba(74, 107, 74, 0.08)', border: '1px solid var(--clr-border)' }}>
-              <Row label="ข้อมูลอ้างอิง Wiki" value={ref.label || `${ref.pageId}#${ref.anchorId}`} icon="🔗" iconColor="var(--clr-sage)" />
-              <div style={{ marginTop: 4, paddingLeft: 16, fontSize: 11, opacity: 0.85, display: 'flex', flexDirection: 'column', gap: 2 }}>
-                <div>Target: <code>{ref.pageId}#{ref.anchorId}</code></div>
-                <div>Status: <code>{ref.status || 'approved'}</code> | Mapping: <code>{ref.mappingStatus || 'verified'}</code></div>
-              </div>
+              <Row label="ข้อมูลอ้างอิง Wiki" value={ref.label} icon="🔗" iconColor="var(--clr-sage)" />
             </div>
           ))}
+          {/* Labels as ReviewView words them. */}
           {q.source && (
-            <Row label="Source"   value={q.source} />
+            <Row label="ที่มา" value={q.source} />
           )}
           {q.verified && (
             // Rendered through humanSource: the field stores "7XyI0SjnuBA
             // [12:34]" and the student reads "คาบ 1 (4 ส.ค.) นาที 12:34".
-            <Row label="Verified" value={humanSource(q.verified)} icon="✓" iconColor="var(--clr-sage)" />
+            <Row label="ตรวจกับ" value={humanSource(q.verified)} icon="✓" iconColor="var(--clr-sage)" />
           )}
           {sourceDocumentUrl && (
             <a href={sourceDocumentUrl} target="_blank" rel="noopener noreferrer"
@@ -145,7 +141,7 @@ export default function QSourceChip({ q, store }) {
           )}
           {q.flag?.note && (
             <Row
-              label="Flag"
+              label={q.flag.severity === 'major' ? 'ข้อควรระวังสำคัญ' : 'หมายเหตุ'}
               value={q.flag.note}
               icon="⚠️"
               iconColor={
@@ -156,7 +152,7 @@ export default function QSourceChip({ q, store }) {
             />
           )}
           {q.tags && q.tags.length > 0 && (
-            <Row label="Tags" value={q.tags.join(', ')} />
+            <Row label="แท็ก" value={q.tags.join(', ')} />
           )}
           {/* The decks these citations name live in the app's own shelf —
               close the loop instead of leaving the reference as dead text. */}
@@ -192,7 +188,9 @@ function Row({ label, value, icon, iconColor }) {
           {icon}
         </span>
       )}
-      <span style={{ flex: '0 0 auto', minWidth: 60, color: 'var(--clr-ink-soft)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+      {/* The labels are Thai now: no uppercasing, and no tracking, which
+          pulls Thai tone marks away from their consonants. */}
+      <span style={{ flex: '0 0 auto', minWidth: 60, color: 'var(--clr-ink-soft)', fontSize: 11, letterSpacing: 0 }}>
         {label}
       </span>
       <span style={{ flex: 1, minWidth: 0, overflowWrap: 'anywhere', color: 'var(--clr-ink)', fontFamily: 'inherit', fontSize: 11 }}>
