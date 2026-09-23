@@ -154,6 +154,7 @@ export const QB_Y5_ZOONOSES_2026 = [
   {
     id: 104009, subject: 'zoonoses', topic: 'zoo-epi-approach', year: 5,
     image: '/figures/questions/q104009.webp',
+    imageAlt: 'แผนภาพวงจร chain of infection หกส่วน ได้แก่ pathogen, reservoir, portal of exit, mode of transmission, portal of entry และ susceptible host แต่ละส่วนมีรายการตัวอย่างกำกับ',
     type: 'mcq',
     q: 'ในแผนภาพ chain of infection ส่วนที่เป็น reservoir ถูกระบุไว้ว่าประกอบด้วยอะไรบ้าง',
     options: [

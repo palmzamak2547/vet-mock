@@ -860,6 +860,7 @@ export const QB_PRACTRUM = [
     options: ['A', 'B', 'C', 'D', 'E'],
     answer: 0,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า A = หัวออกมาแล้ว ขาขวายื่นออก แต่ขาซ้ายค้างใน uterus (พับงอ retained) — Correction: ดัน fetus กลับ + งัดขาซ้ายมาด้วย eye/limb hook ก่อนดึง',
     verified: 'TJ p10 + (Final) p4 + Roberts Vet Obstetrics' },
 
@@ -870,6 +871,7 @@ export const QB_PRACTRUM = [
     options: ['A', 'B', 'C', 'D', 'E'],
     answer: 1,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า B = ขาหน้าพับงอทั้ง 2 ข้าง (carpal flexion / shoulder flexion bilateral) หัวออกมาก่อนแต่ติดที่ไหล่ — Correction: extend แต่ละขาทีละข้าง',
     verified: 'TJ p10 + (Final) p4' },
 
@@ -880,6 +882,7 @@ export const QB_PRACTRUM = [
     options: ['A', 'B', 'C', 'D', 'E'],
     answer: 2,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า C = elbow flexion ข้างเดียว แตกต่างจาก B (carpal flexion) — fetlock อยู่ระดับ pelvis แต่ elbow ติด — แค่ดึงขาขึ้นที่ระดับ elbow ก็พอ',
     verified: 'TJ p10 + Roberts Vet Obstetrics' },
 
@@ -890,6 +893,7 @@ export const QB_PRACTRUM = [
     options: ['A', 'B', 'C', 'D', 'E'],
     answer: 3,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า D = หัวงอ ventral (chest-poll position) เห็นแต่ขาหน้า — Correction: push fetus กลับ, ใช้ eye hook (ระวัง globe) หรือ jaw hook ดึงหัวขึ้นเข้า birth canal',
     verified: 'TJ p10 + Roberts Vet Obstetrics' },
 
@@ -900,6 +904,7 @@ export const QB_PRACTRUM = [
     options: ['A', 'B', 'C', 'D', 'E'],
     answer: 4,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า E = หัวเงยขึ้น (stargazing) — เห็นขาหน้าทั้ง 2, แต่หัวอยู่เหนือตัว — Correction: push fetus กลับเล็กน้อย, ดึงหัวลงมาเข้า canal',
     verified: 'TJ p10 + Roberts Vet Obstetrics' },
 
@@ -910,6 +915,7 @@ export const QB_PRACTRUM = [
     options: ['D', 'E', 'F', 'G', 'H'],
     answer: 2,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า F = ventral (คว่ำหน้า) แทน dorsal (หงาย) + retention ขา — fetus rotate 180° จากปกติ, ต้อง rotate กลับให้ดอร์ซัล + แก้ retention',
     verified: 'TJ p10 + Roberts' },
 
@@ -920,6 +926,7 @@ export const QB_PRACTRUM = [
     options: ['E', 'F', 'G', 'H', 'I'],
     answer: 2,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า G = "นั่งหมา" — fetus งอเข่าทั้ง 2 ข้าง, ก้นจ่อ pelvis — fetus stuck เพราะขาหน้า + ขาหลังมาที่ pelvis พร้อมกัน — Tx: C-section ถ้าใหญ่',
     verified: 'TJ p10 + Roberts' },
 
@@ -930,6 +937,7 @@ export const QB_PRACTRUM = [
     options: ['F', 'G', 'H', 'I', 'J'],
     answer: 2,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า H = True breech — เห็นแต่หาง/ก้น ขาหลังพับขึ้นใต้ท้อง — Correction: push fetus cranial → flex hock → จับ hock + ขาหลังออก หรือ C-section',
     verified: 'TJ p10 + Roberts (classic Q)' },
 
@@ -940,6 +948,7 @@ export const QB_PRACTRUM = [
     options: ['G', 'H', 'I', 'J', 'K'],
     answer: 2,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า I = Posterior + hock flexion — เห็นกีบขาหลังยื่นออก แต่ติดที่ hock — easier than breech — Correction: lift hock, extend leg',
     verified: 'TJ p10 + Roberts' },
 
@@ -950,6 +959,7 @@ export const QB_PRACTRUM = [
     options: ['H', 'I', 'J', 'K', 'L'],
     answer: 2,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า J = ventral posterior — fetus คว่ำหน้า + ออกหลังก่อน + hock flexion — ต้อง rotate fetus + แก้ hock flexion ก่อนดึง',
     verified: 'TJ p10' },
 
@@ -960,6 +970,7 @@ export const QB_PRACTRUM = [
     options: ['I', 'J', 'K', 'L', 'A'],
     answer: 2,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า K = transverse (ขวาง) + ventral (ท้องลง) — เห็นทั้งหัวและหางที่ pelvic inlet — Tx: C-section first choice (ดึงไม่ได้)',
     verified: 'TJ p10 + Roberts' },
 
@@ -970,6 +981,7 @@ export const QB_PRACTRUM = [
     options: ['I', 'J', 'K', 'L', 'B'],
     answer: 3,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า L = transverse + dorsal (หงาย) หรือ right lateral lying — fetus ขวางในแนวตั้ง — Tx: C-section (mutation ทำได้แต่ใน fetus เล็ก/early dystocia)',
     verified: 'TJ p10 + Roberts' },
 

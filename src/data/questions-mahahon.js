@@ -187,6 +187,7 @@ export const QB_MAHAHON = [
     options: ['CEH (cystic hyperplasia)', 'Normal uterus in estrus', 'Active uterine bleeding', 'Postpartum metritis'],
     answer: 0,
     imagePath: '/images/repro-us/q4-ceh.png',
+    imageAlt: 'ภาพอัลตร้าซาวด์ระนาบ sagittal ของมดลูกสุนัข เห็นผนังมดลูกหนาและมีโพรงสีดำขนาดเล็กหลายโพรงกระจายอยู่ในผนัง',
     explain: 'Multiple anechoic cystic dilations ในผนัง uterus = classic CEH (cystic endometrial hyperplasia) pattern, ไม่มี debris (echogenic content) จึงแยกจาก pyometra ได้',
     verified: 'Blackboard auto-grade 10/10' },
 
@@ -197,6 +198,7 @@ export const QB_MAHAHON = [
     options: ['Splenic tail', 'Blood vessel', 'Uterus', 'Colon'],
     answer: 1,
     imagePath: '/images/repro-us/q5-bloodvessel.png',
+    imageAlt: 'ภาพอัลตร้าซาวด์ Color Doppler ระนาบ sagittal บริเวณกระเพาะปัสสาวะสุนัข เห็นโครงสร้างรูปท่อยาวที่มีสัญญาณสีน้ำเงินและแดงอยู่ด้านล่าง',
     explain: 'Color Doppler แสดง flow ใน vessel (น่าจะเป็น iliac artery/branch) ติดกับ bladder, Uterus จะไม่มี flow แบบนี้',
     verified: 'Blackboard auto-grade 10/10' },
 
@@ -207,6 +209,7 @@ export const QB_MAHAHON = [
     options: ['Septic pyometra', 'Cystic mucometra', 'Tubular hydrometra', 'Fluid-filled uterus'],
     answer: 3,
     imagePath: '/images/repro-us/q6-fluid.png',
+    imageAlt: 'ภาพอัลตร้าซาวด์ระนาบ sagittal ของมดลูกสุนัข เห็นบริเวณสีดำขนาดใหญ่หลายส่วนเรียงตามแนวของมดลูก',
     explain: 'U/S เพียงอย่างเดียวแยก pyo/muco/hydrometra ไม่ได้ — ต้อง cytology/culture, "fluid-filled uterus" เป็น descriptor ที่ถูกต้องที่สุด',
     verified: 'Blackboard auto-grade 10/10' },
 
@@ -217,6 +220,7 @@ export const QB_MAHAHON = [
     options: ['Ovaritis', 'Ovarian neoplasia', 'Anestrus stage', 'Estrus stage'],
     answer: 3,
     imagePath: '/images/repro-us/q7-estrus.png',
+    imageAlt: 'ภาพอัลตร้าซาวด์ระนาบ sagittal ของรังไข่สุนัข เห็นโพรงสีดำสองโพรงที่วัดขนาดกำกับไว้ 1.73 และ 0.89 เซนติเมตร',
     explain: 'Multiple anechoic round structures (mature follicles 4-9 mm, preovulatory ~1-2 cm) = estrus, CL ของ diestrus จะ echogenic กว่า',
     verified: 'Blackboard auto-grade 10/10' },
 
@@ -250,6 +254,7 @@ export const QB_MAHAHON = [
     options: ['ventriculomegaly (hydrocephalus)', 'cerebral fluid infection', 'orbital development', 'normal brain tissue'],
     answer: 0,
     imagePath: '/images/repro-us/q10-hydrocephalus.png',
+    imageAlt: 'ภาพอัลตร้าซาวด์ระนาบ sagittal ของศีรษะลูกสุนัขในครรภ์ เห็นบริเวณสีดำภายในกะโหลก',
     explain: 'Enlarged anechoic ventricles ใน fetal cranium = ventriculomegaly/hydrocephalus, มักเห็นใน brachycephalic breeds (Bulldog, Chihuahua)',
     verified: 'Blackboard auto-grade 10/10' },
 

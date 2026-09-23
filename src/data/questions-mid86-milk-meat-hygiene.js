@@ -3913,7 +3913,8 @@ export const QUESTIONS_MID86_MILK_MEAT_HYGIENE = [
       "milk-raw-storage",
       "figure"
     ],
-    "image": "/figures/questions/milk-growth-curve.webp"
+    "image": "/figures/questions/milk-growth-curve.webp",
+    "imageAlt": "กราฟเส้นจำนวนเซลล์แบคทีเรียแบบ log ตามเวลา แบ่งเป็นสี่ช่วงติดป้าย A ถึง D ช่วง A ราบต่ำ B ชันขึ้น C ราบสูง และ D ลดลง"
   },
   {
     "id": 207245,
@@ -3939,7 +3940,8 @@ export const QUESTIONS_MID86_MILK_MEAT_HYGIENE = [
       "milk-raw-storage",
       "figure"
     ],
-    "image": "/figures/questions/milk-growth-curve.webp"
+    "image": "/figures/questions/milk-growth-curve.webp",
+    "imageAlt": "กราฟเส้นจำนวนเซลล์แบคทีเรียแบบ log ตามเวลา แบ่งเป็นสี่ช่วงติดป้าย A ถึง D ช่วง A ราบต่ำ B ชันขึ้น C ราบสูง และ D ลดลง"
   },
   {
     "id": 207246,
@@ -3965,7 +3967,8 @@ export const QUESTIONS_MID86_MILK_MEAT_HYGIENE = [
       "milk-raw-storage",
       "figure"
     ],
-    "image": "/figures/questions/milk-growth-curve.webp"
+    "image": "/figures/questions/milk-growth-curve.webp",
+    "imageAlt": "กราฟเส้นจำนวนเซลล์แบคทีเรียแบบ log ตามเวลา แบ่งเป็นสี่ช่วงติดป้าย A ถึง D ช่วง A ราบต่ำ B ชันขึ้น C ราบสูง และ D ลดลง"
   },
   {
     "id": 207247,
@@ -3991,7 +3994,8 @@ export const QUESTIONS_MID86_MILK_MEAT_HYGIENE = [
       "milk-raw-storage",
       "figure"
     ],
-    "image": "/figures/questions/milk-growth-curve.webp"
+    "image": "/figures/questions/milk-growth-curve.webp",
+    "imageAlt": "กราฟเส้นจำนวนเซลล์แบคทีเรียแบบ log ตามเวลา แบ่งเป็นสี่ช่วงติดป้าย A ถึง D ช่วง A ราบต่ำ B ชันขึ้น C ราบสูง และ D ลดลง"
   },
   {
     "id": 207248,
@@ -4017,7 +4021,8 @@ export const QUESTIONS_MID86_MILK_MEAT_HYGIENE = [
       "milk-microbiology",
       "figure"
     ],
-    "image": "/figures/questions/milk-temperature-scale.webp"
+    "image": "/figures/questions/milk-temperature-scale.webp",
+    "imageAlt": "แถบเทอร์โมมิเตอร์แบ่งช่วงอุณหภูมิเป็นสี่กลุ่มติดป้าย A ถึง D โดยมีเส้นแบ่งที่ 7, 20 และ 45 องศาเซลเซียส"
   },
   {
     "id": 207249,
@@ -4043,7 +4048,8 @@ export const QUESTIONS_MID86_MILK_MEAT_HYGIENE = [
       "milk-microbiology",
       "figure"
     ],
-    "image": "/figures/questions/milk-temperature-scale.webp"
+    "image": "/figures/questions/milk-temperature-scale.webp",
+    "imageAlt": "แถบเทอร์โมมิเตอร์แบ่งช่วงอุณหภูมิเป็นสี่กลุ่มติดป้าย A ถึง D โดยมีเส้นแบ่งที่ 7, 20 และ 45 องศาเซลเซียส"
   },
   {
     "id": 207250,

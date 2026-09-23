@@ -672,6 +672,7 @@ export const QB_COM3 = [
     options: ['Grave prognosis', 'Mild head trauma', 'Normal', 'Excellent prognosis'],
     answer: 0, explain: 'MGCS 3-8 = grave\n9-14 = guarded\n15-18 = good\nใช้ประเมิน prognosis ใน head trauma\n\n❌ ทำไมข้ออื่นผิด\n— Mild head trauma / Normal / Excellent = score สูงกว่า (9-18)\n\n💡 severe coma',
     image: IMG_MGCS,
+    imageAlt: 'แผนภาพสเกลคะแนน Modified Glasgow Coma Scale ตั้งแต่ 3 ถึง 18 แบ่งเป็นสามช่วงสีพร้อมป้ายระดับ prognosis และรายการหมวดที่ใช้ประเมิน',
     verified: 'neuroER 1 hr.pdf + master' },
 
   { id: 822, subject: 'com3', topic: 'neuro-er', year: 4, source: 'neuroER 1 hr.pdf',
@@ -680,6 +681,7 @@ export const QB_COM3 = [
     options: ['Fever + cough + tachypnea', 'Bradycardia + hypertension + irregular RR', 'Vital signs ปกติทุกอย่าง', 'Tachycardia + hypotension + tachypnea'],
     answer: 1, explain: 'Cushing reflex (Cushing\'s triad) = bradycardia + ↑ BP (hypertension) + irregular respiration\nเป็น late sign ของ ↑ ICP → brain herniation imminent\n\n❌ ทำไมข้ออื่นผิด\n— Fever + cough = infection\n— Normal vitals = ผิด ICP สูง\n— Tachy + hypotension = shock (ตรงข้าม)\n\n💡 terminal sign',
     image: IMG_CUSHING_REFLEX,
+    imageAlt: 'แผนภาพวงกลมสามวงแสดงองค์ประกอบของ Cushing\'s reflex เมื่อความดันในกะโหลกสูง พร้อมหมายเหตุการจัดการเบื้องต้นด้านล่าง',
     verified: 'neuroER 1 hr.pdf' },
 
   { id: 823, subject: 'com3', topic: 'neuro-er', year: 4, source: 'neuroER 1 hr.pdf',
@@ -1066,6 +1068,7 @@ export const QB_COM3 = [
     options: ['Visual function อย่างเดียว (PLR ขนาดรูม่านตา)', '3 หมวด: motor + brainstem reflex + LOC', 'ระดับความเจ็บปวดอย่างเดียว (NRS 0-10)', 'Heart rate และ blood pressure เป็นหลัก'],
     answer: 1, explain: 'MGCS 3 categories: motor activity (tone, gait, posture) + brainstem reflex (PLR, oculocephalic) + level of consciousness\neach 1-6 = total 3-18\n3-8 grave\n9-14 guarded\n15-18 good\n\n❌ ทำไมข้ออื่นผิด\n— Visual only / Pain only / HR+BP = ไม่ใช่ MGCS components\n\n💡 each scored 1-6, total 3-18',
     image: IMG_MGCS,
+    imageAlt: 'แผนภาพสเกลคะแนน Modified Glasgow Coma Scale ตั้งแต่ 3 ถึง 18 แบ่งเป็นสามช่วงสีพร้อมป้ายระดับ prognosis และรายการหมวดที่ใช้ประเมิน',
     verified: 'neuroER 1 hr.pdf' },
 
   // ─── AI in Vet Learning (NEW topic — 8 questions) ────────────
@@ -1189,6 +1192,7 @@ export const QB_COM3 = [
     options: ['C6-T2 (LMN ขาหน้า + UMN ขาหลัง)', 'T3-L3 (ขาหน้าปกติ + UMN ขาหลัง)', 'L4-S3 (LMN ขาหลังเท่านั้น)', 'C1-C5 (UMN ทั้ง 4 ขา)'],
     answer: 3, explain: 'Hyperreflexive ทั้งขาหน้า + ขาหลัง = UMN 4 ขา = lesion above C6 = C1-C5\n(ขาหน้าใช้ biceps/triceps reflex, ขาหลังใช้ patellar reflex — ตรวจคนละกลุ่มกล้ามเนื้อ)\nถ้า LMN ขาหน้า (hyporeflexia biceps/triceps) → C6-T2\nalert mentation = ไม่ใช่ forebrain\n\n❌ ทำไมข้ออื่นผิด\n— C6-T2 = ต้องมี LMN ขาหน้า (hyporeflexia biceps/triceps) ขัดกับ case\n— T3-L3 = ขาหน้าปกติทั้งหมดขัดกับ hyperreflexia\n— L4-S3 = ขาหลัง LMN เท่านั้น (ขาหน้าปกติ)',
     image: IMG_SPINAL_LOCALIZATION,
+    imageAlt: 'แผนภาพไขสันหลังแบ่งเป็นสี่ช่วง C1-C5, C6-T2, T3-L3 และ L4-S3 พร้อมคำอธิบายรูปแบบ reflex ของขาหน้าและขาหลังใต้แผนภาพ',
     verified: 'neuro_exam 1 hr.pdf + neuro_localised 1 hr.pdf' },
 
   { id: 891, subject: 'com3', topic: 'spinal', year: 4, source: 'Spinal disorder',
