@@ -960,7 +960,7 @@ export const QB_POULTRY = [
       'Prevalence = วัดในสัตว์, Incidence = วัดในคนเท่านั้น',
     ],
     answer: 1,
-    explain: 'Prevalence = point-in-time / snapshot — บอก "ขนาดปัญหา" ของฝูง ณ เวลานั้น, Incidence = อัตรา new case ในช่วงเวลา — บอก "ความเร็วของโรค" → ใช้คำนวณ R0/หา outbreak, Aj. Nakcha emphasis: incidence ดีกว่าในการตามโรคใหม่' },
+    explain: 'Prevalence = point-in-time / snapshot — บอก "ขนาดปัญหา" ของฝูง ณ เวลานั้น, Incidence = อัตรา new case ในช่วงเวลา — บอก "ความเร็วของโรค" → ใช้คำนวณ R0/หา outbreak, incidence ดีกว่าในการตามโรคใหม่' },
 
   { id: 1925, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha #4 (page 9)',
@@ -970,7 +970,7 @@ export const QB_POULTRY = [
     q: 'การเก็บเลือดเพื่อตรวจ Antibody ในไก่ ควรเก็บกี่ตัวอย่างต่อโรงเรือน และตัวละกี่ml',
     options: ['20-30 ตัว, ตัวละ 1 ml', '5 ตัว, ตัวละ 5 ml', '100 ตัว, ตัวละ 0.1 ml', '50 ตัว, ตัวละ 2 ml'],
     answer: 0,
-    explain: 'มาตรฐาน Aj. Nakcha: 20-30 ตัว/โรงเรือน, ตัวละ 1 ml → enough volume ทำ ELISA + serial dilution, ตำแหน่ง: หัวใจ (ลูกไก่) / right jugular / brachial vein (ไก่โต), ถี่ตรวจซ้ำสม่ำเสมอเพื่อสร้าง baseline' },
+    explain: 'มาตรฐาน: 20-30 ตัว/โรงเรือน, ตัวละ 1 ml → enough volume ทำ ELISA + serial dilution, ตำแหน่ง: หัวใจ (ลูกไก่) / right jugular / brachial vein (ไก่โต), ถี่ตรวจซ้ำสม่ำเสมอเพื่อสร้าง baseline' },
 
   { id: 1926, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha #5 (page 9)',
@@ -1019,7 +1019,7 @@ export const QB_POULTRY = [
     q: 'ระดับ mortality ที่ถือว่าผิดปกติและต้องวินิจฉัยเพิ่มเติม คือเท่าใด (ต่อวัน)',
     options: ['พ่อแม่พันธุ์ >0.3/1000, ไก่เนื้อ >1/1000', 'พ่อแม่พันธุ์ >0.1/1000, ไก่เนื้อ >0.3/1000', 'พ่อแม่พันธุ์ >1/1000, ไก่เนื้อ >5/1000', 'พ่อแม่พันธุ์ >5/1000, ไก่เนื้อ >10/1000'],
     answer: 0,
-    explain: 'Mortality threshold (Aj. Nakcha): พ่อแม่พันธุ์/breeder >0.3/1000 ตัว/วัน, ไก่เนื้อ/broiler >1/1000 ตัว/วัน → ถ้าเกิน = ผิดปกติ ต้องวินิจฉัยเพิ่ม (necropsy + lab), เช่น 10,000 ตัว → broiler >10 ตัว/วัน = abnormal' },
+    explain: 'Mortality threshold: พ่อแม่พันธุ์/breeder >0.3/1000 ตัว/วัน, ไก่เนื้อ/broiler >1/1000 ตัว/วัน → ถ้าเกิน = ผิดปกติ ต้องวินิจฉัยเพิ่ม (necropsy + lab), เช่น 10,000 ตัว → broiler >10 ตัว/วัน = abnormal' },
 
   { id: 1931, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha #11 (page 9)',
@@ -1089,7 +1089,7 @@ export const QB_POULTRY = [
     q: 'Biosecurity risk assessment ในฟาร์มไก่ แบ่งเป็นกี่ส่วน อะไรบ้าง',
     options: ['2 ส่วน — สัตว์ + คน', '3 ส่วน — สัตว์ + อาหาร + น้ำ', '4 ส่วน', '5 ส่วน — เพิ่ม management'],
     answer: 2,
-    explain: '4 ส่วน (Aj. Nakcha): (1) Farm info — ชื่อฟาร์ม/ที่ตั้ง, (2) Area risk factor — สภาพแวดล้อม/ความหนาแน่นของฟาร์มในพื้นที่, (3) Farm risk factor — ประวัติโรคในฟาร์ม, (4) House risk factor — สภาพโรงเรือน → score แบบ exponential\n\n💡 Farm info + Area risk + Farm risk + House risk' },
+    explain: '4 ส่วน: (1) Farm info — ชื่อฟาร์ม/ที่ตั้ง, (2) Area risk factor — สภาพแวดล้อม/ความหนาแน่นของฟาร์มในพื้นที่, (3) Farm risk factor — ประวัติโรคในฟาร์ม, (4) House risk factor — สภาพโรงเรือน → score แบบ exponential\n\n💡 Farm info + Area risk + Farm risk + House risk' },
 
   { id: 1937, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Kimchii85 Poultry Final Vet 83 — Aj. Nakcha slide deck (Building serological program)',
@@ -1165,7 +1165,7 @@ export const QB_POULTRY = [
       'Hygiene, Welfare, Profit',
     ],
     answer: 1,
-    explain: 'BQM 3 มิติ (case study Betagro ที่ Aj. Ekasingh สอน): (1) Food Safety — ไม่มีเชื้อโรค + ไม่มี drug residue, (2) Quality — เนื้อสัตว์ตามสเปค, (3) Service — ตรงเวลา ตามคำสั่ง, ใช้ PDCA cycle ขับเคลื่อน improvement' },
+    explain: 'BQM 3 มิติ (case study Betagro): (1) Food Safety — ไม่มีเชื้อโรค + ไม่มี drug residue, (2) Quality — เนื้อสัตว์ตามสเปค, (3) Service — ตรงเวลา ตามคำสั่ง, ใช้ PDCA cycle ขับเคลื่อน improvement' },
 
   { id: 1943, subject: 'poultry', topic: 'quality-assurance', year: 4,
     source: 'sunsun84 (Vet 84) — อ.เอกสิงห์.pdf — surface microbiology standard',
@@ -1231,7 +1231,7 @@ export const QB_POULTRY = [
     q: '"กรมปศุสัตว์ห้ามใช้" ในไก่เนื้อ/ไก่ไข่ ข้อใดเป็นรายการที่ห้ามทั้งหมด',
     options: ['Tylosin, Tetracycline, Amoxicillin, Sulfa', 'Doxycycline, Enrofloxacin, Gentamicin', 'Nitrofurans (Furazolidone/Furaltadone)', 'Ionophore (Narasin, Salinomycin) เท่านั้น'],
     answer: 2,
-    explain: 'กรมปศุสัตว์ banned: (1) Nitrofurans = carcinogen, (2) Nitroimidazoles (Metronidazole) = mutagen, (3) Glycopeptide (Vancomycin) = WHO last-resort, (4) β-agonists (Clenbuterol/Diethylstilbestrol) = anabolic, ทำให้เนื้อนุ่ม + carcinogen, (5) Chloramphenicol = aplastic anemia, (6) Enrofloxacin (in layers) = AMR, "อ.นิวัต ข้อเขียน 3 ตัวห้ามแน่ๆ": Diethylstilbestrol, Vancomycin, Chloramphenicol\n\n💡 Vancomycin, Chloramphenicol, Diethylstilbestrol, Clenbuterol, Metronidazole' },
+    explain: 'กรมปศุสัตว์ banned: (1) Nitrofurans = carcinogen, (2) Nitroimidazoles (Metronidazole) = mutagen, (3) Glycopeptide (Vancomycin) = WHO last-resort, (4) β-agonists (Clenbuterol/Diethylstilbestrol) = anabolic, ทำให้เนื้อนุ่ม + carcinogen, (5) Chloramphenicol = aplastic anemia, (6) Enrofloxacin (in layers) = AMR, 3 ตัวที่ห้ามแน่นอน: Diethylstilbestrol, Vancomycin, Chloramphenicol\n\n💡 Vancomycin, Chloramphenicol, Diethylstilbestrol, Clenbuterol, Metronidazole' },
 
   { id: 1948, subject: 'poultry', topic: 'avian-drugs', year: 4,
     source: 'POULTRY FINAL 86.pdf, jubing vet86 — Aj. Niwat drug page',

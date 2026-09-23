@@ -106,9 +106,49 @@ export const DEFECTS = [
   ['invalid prediction metadata', hasInvalidPredictionMetadata],
 ];
 
+/** An explanation that only repeats the key ("นิ้ว 2, 5", "Cast",
+ *  "Tibial compression test") tells a student who got it wrong nothing about
+ *  why. Flagged when it is almost empty (under 25 characters), or short and
+ *  made mostly of the key's own words (bigram Dice ≥ 0.6) with no causal
+ *  link, or under 60 characters with no causal link at all. A causal link is
+ *  a word such as เพราะ / จึง / ทำให้ / ไม่ใช่ / แต่ / because / whereas, or
+ *  an arrow. For a true/false row the statement stands in for the key.
+ *  lint:questions holds the count to RESTATED_KEY_BUDGET. */
+const CAUSAL_WORD = /เพราะ|เนื่องจาก|ทำให้|จึง|ดังนั้น|ส่งผล|เป็นผล|โดย(?:ที่|การ)?|ซึ่ง|ส่วน|ต่างจาก|ไม่ใช่|แต่|หาก|ถ้า|เมื่อ|because|since|due to|therefore|so that|whereas|unlike|not /i;
+// An arrow or "=" links a short note to its reason ("Biceps brachii = ขาหน้า")
+// but not a copy of the key to itself ("IMRD format = Introduction → …").
+const CAUSAL_LINK = new RegExp(`${CAUSAL_WORD.source}|→|=`, 'i');
+const gramText = (s) => String(s || '').toLowerCase().replace(/[\s​.,;:!?()[\]"'`—–-]/g, '');
+const bigramSet = (s) => {
+  const t = gramText(s);
+  const g = new Set();
+  for (let i = 0; i < t.length - 1; i++) g.add(t.slice(i, i + 2));
+  return g;
+};
+const diceOf = (a, b) => {
+  if (!a.size || !b.size) return 0;
+  let n = 0;
+  for (const x of a) if (b.has(x)) n++;
+  return (2 * n) / (a.size + b.size);
+};
+
+export function restatesKey(q) {
+  const explain = String(q?.explain || '').replace(/\s+/g, ' ').trim();
+  const len = [...explain].length;
+  if (len < 25) return true;
+  let key = '';
+  if (q?.type === 'mcq' && Array.isArray(q.options) && Number.isInteger(q.answer)) key = String(q.options[q.answer] ?? '');
+  else if (q?.type === 'tf') key = String(q.q || '');
+  if (key && !CAUSAL_WORD.test(explain)
+    && len < Math.max(60, 1.6 * [...key].length)
+    && diceOf(bigramSet(explain), bigramSet(key)) >= 0.6) return true;
+  return len < 60 && !CAUSAL_LINK.test(explain);
+}
+
 /** Coverage: the habits that separate the Year-4 semester-2 banks from the
  *  rest. Not build-failing — this is the gap being closed, year by year. */
 export const COVERAGE = [
+  ['gives a reason, not the key', (q) => !restatesKey(q)],
   ['explains every distractor', (q) => /ทำไมข้ออื่นผิด|❌/.test(q?.explain || '')],
   ['memory hook', (q) => /💡/.test(q?.explain || '')],
   ['2+ concept tags', (q) => (q?.tags || []).length >= 2],

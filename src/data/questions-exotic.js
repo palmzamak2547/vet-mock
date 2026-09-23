@@ -57,7 +57,7 @@ export const QB_EXOTIC = [
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['bird', 'anesthesia'], type: 'mcq',
     q: 'อดอาหารก่อนวางยาสลบนก',
     options: ['30 นาที', '2-3 ชม.', '6 ชม.', '12 ชม.'],
-    answer: 1, explain: '2-3 ชม. (นกอดอาหารนานเสี่ยง hypoglycemia)',
+    answer: 1, explain: 'นกตัวเล็กอดอาหารก่อนวางยาสลบเพียง 2-3 ชั่วโมง เพราะ BMR สูง ถ้าอดนานจะเสี่ยง hypoglycemia',
     wikiRefs: [{
       pageId: 'exotic-avian-and-reptile-medicine',
       anchorId: 'avian-anatomy-and-common-diseases',
@@ -101,7 +101,7 @@ export const QB_EXOTIC = [
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['virus'], type: 'mcq',
     q: "Pacheco's disease เกิดจาก",
     options: ['Herpesvirus', 'Polyomavirus', 'Adenovirus', 'Bornavirus'],
-    answer: 0, explain: 'Psittacid Herpesvirus (PsHV) — acute hepatic necrosis',
+    answer: 0, explain: 'Pacheco\'s disease เกิดจาก Psittacid Herpesvirus (PsHV) ทำให้ตับตายแบบเฉียบพลันและนกตายกะทันหัน พบ intranuclear inclusion body ในตับ ไต และม้าม',
     wikiRefs: [{
       pageId: 'exotic-avian-and-reptile-medicine',
       anchorId: 'avian-anatomy-and-common-diseases',
@@ -115,7 +115,7 @@ export const QB_EXOTIC = [
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['virus'], type: 'mcq',
     q: 'PDD (Proventricular Dilatation Disease) เกิดจาก',
     options: ['Herpesvirus', 'Bornavirus', 'Polyomavirus', 'Circovirus'],
-    answer: 1, explain: 'Avian Bornavirus (ABV) — wasting + neuro',
+    answer: 1, explain: 'PDD เกิดจาก Avian Bornavirus ซึ่งทำให้เกิด lymphoplasmacytic ganglioneuritis ในระบบประสาทอัตโนมัติ นกจึงผอมลง สำรอกอาหาร ถ่ายเมล็ดที่ไม่ย่อย และอาจมีอาการทางประสาท',
     wikiRefs: [{
       pageId: 'exotic-avian-and-reptile-medicine',
       anchorId: 'avian-anatomy-and-common-diseases',
@@ -337,7 +337,7 @@ export const QB_EXOTIC = [
     source: 'Slide Lecture 2026 — โรคไม่ติดเชื้อ.pptx', tags: ['anesthesia', 'fasting'], type: 'mcq',
     q: 'นกตัวเล็ก (small parrot) อดอาหารก่อนวางยานานเท่าไหร่',
     options: ['ไม่อด', '2-3 ชั่วโมง', '6 ชั่วโมง', '12 ชั่วโมง'],
-    answer: 1, explain: '2-3 ชม., นกอดนานเสี่ยง hypoglycemia (BMR สูง)',
+    answer: 1, explain: 'นกตัวเล็กอดอาหารก่อนวางยาสลบเพียง 2-3 ชั่วโมง เพราะ BMR สูง ถ้าอดนานจะเสี่ยง hypoglycemia',
     wikiRefs: [{
       pageId: 'exotic-avian-and-reptile-medicine',
       anchorId: 'avian-anatomy-and-common-diseases',
@@ -423,7 +423,7 @@ export const QB_EXOTIC = [
     source: 'EXOTIC FINAL 86 master compilation', tags: ['Chlamydophila', 'antibiotic'], type: 'mcq',
     q: 'Antibiotic of choice สำหรับ Chlamydophila psittaci ในนก',
     options: ['Amoxicillin', 'Doxycycline', 'Enrofloxacin', 'Ceftriaxone'],
-    answer: 1, explain: 'Doxycycline penetrates intracellular Chlamydophila ได้ดี',
+    answer: 1, explain: 'Doxycycline เข้าถึง Chlamydophila ซึ่งอยู่ภายในเซลล์ได้ดี จึงเป็น antibiotic of choice ส่วน azithromycin เป็นทางเลือกรอง',
     wikiRefs: [{
       pageId: 'exotic-avian-and-reptile-medicine',
       anchorId: 'avian-anatomy-and-common-diseases',
@@ -1048,7 +1048,7 @@ export const QB_EXOTIC = [
   {"id":94004,"subject":"exotic","topic":"rabbit","year":4,"source":"EXOTIC MID 86 -.pdf","examOrigin":"TJ86","tags":["exotic","midterm","rabbit","lifespan"],"type":"mcq","q":"อายุเฉลี่ยของกระต่ายคือเท่าใด","options":["5-12 ปี","6-13 ปี","7-14 ปี","8-15 ปี","ไม่มีข้อใดถูก"],"answer":1,"explain":"✓ 6-13 ปี — อายุขัยกระต่ายเลี้ยง\n💡 Puberty: small breed 4-5 เดือน, large breed 5-8 เดือน → ทำหมันตอน 5 เดือน; ระยะตั้งท้อง 30-32 วัน; litter size 4-10; weaning 4-6 wk","verified":"EXOTIC MID 86 p.2 Q5"},
   {"id":94005,"subject":"exotic","topic":"rabbit","year":4,"source":"EXOTIC MID 86 -.pdf","examOrigin":"TJ86","tags":["exotic","midterm","rabbit","venipuncture"],"type":"mcq","q":"ควรเจาะเลือดจากเส้นเลือดใดบนใบหูกระต่าย","options":["เส้นเลือดดำด้านบนใบหู (ด้านนอก)","เส้นเลือดแดงบริเวณกลางใบหู (ด้านนอก)","เส้นเลือดดำด้านล่างใบหู (ด้านนอก)","เส้นเลือดดำด้านในของใบหู","ถูกทุกข้อ"],"answer":2,"explain":"✓ เส้นเลือดดำด้านล่างใบหู ด้านนอก = Marginal ear vein — ตำแหน่งมาตรฐานเจาะเลือด/ให้ fluid\n✗ Central artery หลีกเลี่ยง (เสี่ยง necrosis ของใบหู)\n💡 Lateral marginal ear vein — visible ผ่านผิวบาง warm ear ก่อนเพื่อ vasodilate","verified":"EXOTIC MID 86 p.2 Q6"},
   {"id":94006,"subject":"exotic","topic":"rabbit","year":4,"source":"EXOTIC MID 86 -.pdf","examOrigin":"TJ86","tags":["exotic","midterm","rabbit","dental"],"type":"mcq","q":"ฟันใดของกระต่ายเป็น open root","options":["incisor","peg teeth","premolar","molar","ถูกทุกข้อ"],"answer":4,"explain":"✓ ถูกทุกข้อ — กระต่ายมี incisor + peg teeth (เขี้ยวเล็กหลังฟันหน้าบน) + premolar + molar ทั้งหมดเป็น open root (elodont) งอกตลอดชีวิต\n💡 28 ฟันรวม peg teeth — หนูแกสบี้มีแค่ incisor/premolar/molar (ไม่มี peg teeth)","verified":"EXOTIC MID 86 p.3 Q7"},
-  {"id":94007,"subject":"exotic","topic":"rabbit","year":4,"source":"EXOTIC MID 86 -.pdf","examOrigin":"TJ86","tags":["exotic","midterm","rabbit","dental"],"type":"mcq","q":"Dental spur มักพบบริเวณใดของฟันกระต่าย","options":["lingual surface ของ incisor teeth","lingual surface ของ maxilla cheek teeth","buccal surface ของ mandibular cheek teeth","lingual surface ของ maxilla cheek teeth และ buccal surface ของ mandibular cheek teeth","ไม่มีข้อใดถูก"],"answer":4,"explain":"✓ ไม่มีข้อใดถูก — รูปแบบที่ถูกต้องคือ lingual surface ของ MANDIBULAR cheek teeth + buccal surface ของ MAXILLARY cheek teeth (กลับด้านจาก choice d)\n💡 Dental spur ตำแหน่งที่ขาบหา premolar/molar — anisognathism ทำให้ฟันสบไม่สม่ำเสมอ → spur ทิ่มลิ้น/แก้ม","verified":"EXOTIC MID 86 p.3 Q8"},
+  {"id":94007,"subject":"exotic","topic":"rabbit","year":4,"source":"EXOTIC MID 86 -.pdf","examOrigin":"TJ86","tags":["exotic","midterm","rabbit","dental"],"type":"mcq","q":"Dental spur มักพบบริเวณใดของฟันกระต่าย","options":["lingual surface ของ incisor teeth","lingual surface ของ maxilla cheek teeth","buccal surface ของ mandibular cheek teeth","lingual surface ของ maxilla cheek teeth และ buccal surface ของ mandibular cheek teeth","ไม่มีข้อใดถูก"],"answer":4,"explain":"✓ ไม่มีข้อใดถูก — รูปแบบที่ถูกต้องคือ lingual surface ของ MANDIBULAR cheek teeth + buccal surface ของ MAXILLARY cheek teeth (กลับด้านจากข้อที่ระบุ lingual ของ maxilla และ buccal ของ mandibular)\n💡 Dental spur ตำแหน่งที่ขาบหา premolar/molar — anisognathism ทำให้ฟันสบไม่สม่ำเสมอ → spur ทิ่มลิ้น/แก้ม","verified":"EXOTIC MID 86 p.3 Q8"},
   {"id":94008,"subject":"exotic","topic":"rabbit","year":4,"source":"EXOTIC MID 86 -.pdf","examOrigin":"TJ86","tags":["exotic","midterm","rabbit","nutrition"],"type":"mcq","q":"หญ้า Alfalfa ไม่ควรให้กระต่ายอายุเท่าใดกินอย่างเต็มที่ (ad lib)","options":[">3 เดือน",">4 เดือน",">5 เดือน",">6 เดือน","ไม่มีข้อใดถูก"],"answer":3,"explain":"✓ >6 เดือน — Alfalfa Ca/protein สูงเกินสำหรับกระต่ายโต → urolithiasis + obesity\n💡 กระต่ายโต ad lib หญ้า timothy/orchard; Alfalfa เฉพาะลูกกระต่าย (<6 เดือน), pregnant/lactating doe","verified":"EXOTIC MID 86 p.3 Q9"},
   {"id":94009,"subject":"exotic","topic":"rabbit","year":4,"source":"EXOTIC MID 86 -.pdf","examOrigin":"TJ86","tags":["exotic","midterm","rabbit","physiology"],"type":"mcq","q":"ใน cecotroph ไม่พบสิ่งใดต่อไปนี้","options":["volatile fatty acid","vitamin","amino acid","glucose","mucus"],"answer":3,"explain":"✓ Glucose — ไม่พบใน cecotroph (caecum fermentation ไม่ผลิต free glucose)\n✗ VFA + vitamin (B/K from microbial synthesis) + amino acid (microbial protein) + mucus (เคลือบ pellet) พบทั้งหมด\n💡 Cecotrophy = กระต่ายกินอุจจาระคืน (night feces) เพื่อ recycle nutrients","verified":"EXOTIC MID 86 p.3 Q10"},
   {"id":94010,"subject":"exotic","topic":"reptile","year":4,"source":"EXOTIC MID 86 -.pdf","examOrigin":"TJ86","tags":["exotic","midterm","reptile","pharmacology"],"type":"mcq","q":"ยาใดไม่แนะนำให้ใช้ในเต่า","options":["Ivermectin","Fenbendazole","Ketoconazole","Cefalexin","ไม่มีข้อใดถูก"],"answer":0,"explain":"✓ Ivermectin — มี toxicity สูงในเต่า (chelonian) ทำให้ flaccid paralysis + ตายได้\n✗ Fenbendazole/Ketoconazole/Cefalexin ใช้ได้ในเต่า\n💡 ใช้ Praziquantel หรือ Fenbendazole แทน ivermectin สำหรับ parasite ในเต่า","verified":"EXOTIC MID 86 p.3 Q11"},

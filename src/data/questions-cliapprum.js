@@ -70,7 +70,7 @@ export const QB_CLIAPPRUM = [
     q: 'ค่า Nutritional Value ที่สำคัญในการประเมินอาหารโคนม คือชุดข้อใด',
     options: ['Hb, WBC, BUN', 'CP, NDF, ADF, NE', 'BP, HR, RR, Temp', 'Iron, Copper, Zinc'],
     answer: 1,
-    explain: 'CP / NDF / ADF / NE = standard ration evaluation parameters:\n\n• **CP** (Crude Protein, %) — protein content, target 16-18% for high producers\n• **NDF** (Neutral Detergent Fiber, %) — total fiber (cellulose + hemicellulose + lignin), ตัวบ่งชี้ "ปริมาณกินได้", ↑NDF = ↓DMI\n• **ADF** (Acid Detergent Fiber, %) — less digestible fiber (cellulose + lignin), ตัวบ่งชี้ "พลังงานที่ใช้ได้"\n• **NE** (Net Energy, Mcal/kg) — energy available for maintenance + production\n\n📊 Example (จาก slide):\n• ฟาร์ม A: DMI 14.4, CP 15.4, NDF 66.1, ADF 33.5, NE 19.10\n• ฟาร์ม B: DMI 14.4, CP 18.8, NDF 51.4, ADF 25.8, NE 21.17 (BEST)\n• ฟาร์ม C: DMI 9.51, CP 15.9, NDF 59.4, ADF 34.5, NE 12.55 (low intake/energy)',
+    explain: 'CP / NDF / ADF / NE = standard ration evaluation parameters:\n\n• **CP** (Crude Protein, %) — protein content, target 16-18% for high producers\n• **NDF** (Neutral Detergent Fiber, %) — total fiber (cellulose + hemicellulose + lignin), ตัวบ่งชี้ "ปริมาณกินได้", ↑NDF = ↓DMI\n• **ADF** (Acid Detergent Fiber, %) — less digestible fiber (cellulose + lignin), ตัวบ่งชี้ "พลังงานที่ใช้ได้"\n• **NE** (Net Energy, Mcal/kg) — energy available for maintenance + production\n\n📊 Example:\n• ฟาร์ม A: DMI 14.4, CP 15.4, NDF 66.1, ADF 33.5, NE 19.10\n• ฟาร์ม B: DMI 14.4, CP 18.8, NDF 51.4, ADF 25.8, NE 21.17 (BEST)\n• ฟาร์ม C: DMI 9.51, CP 15.9, NDF 59.4, ADF 34.5, NE 12.55 (low intake/energy)',
     verified: 'Clin App Ruminant Final master PDF p.3 nutritional values table' },
 
   { id: 2103, subject: 'cliapprum', topic: 'metabolism-nutrition', year: 4,
@@ -146,7 +146,7 @@ export const QB_CLIAPPRUM = [
               'Malignant hyperthermia (กล้ามเนื้อเกร็ง ไข้พุ่งจาก RYR1 mutation)',
               'Anaphylaxis ต่อ premedication (BP ตก หลอดลมหดเฉียบพลัน)'],
     answer: 1,
-    explain: 'Lecture 2026 (อ.ภัทร์มนฉัตร PB):\n\n**Greater risks when prolonged recumbency** in ruminants:\n• **Myopathies** — muscle damage จาก:\n  - Compartment compression (radial, peroneal, sciatic nerve areas)\n  - Hypoperfusion → ischemic damage\n  - Lactic acidosis ใน muscle\n• **Neuropathies**:\n  - Radial nerve (forelimb, esp. when not in proper sternal recumbency with leg extended)\n  - Peroneal nerve (hindlimb, "knuckling")\n  - Sciatic nerve\n\n💡 Prevention:\n• Proper position + protective padding\n• Reposition every 30 min if possible\n• Keep recumbency time <2-3 hr\n• Ensure good systemic perfusion (BP >80 mmHg)\n\n💡 "Violent recovery usually do not occur with ruminants" — ต่างจาก equine ไม่ต้อง force-down recovery box',
+    explain: '**Greater risks when prolonged recumbency** in ruminants:\n• **Myopathies** — muscle damage จาก:\n  - Compartment compression (radial, peroneal, sciatic nerve areas)\n  - Hypoperfusion → ischemic damage\n  - Lactic acidosis ใน muscle\n• **Neuropathies**:\n  - Radial nerve (forelimb, esp. when not in proper sternal recumbency with leg extended)\n  - Peroneal nerve (hindlimb, "knuckling")\n  - Sciatic nerve\n\n💡 Prevention:\n• Proper position + protective padding\n• Reposition every 30 min if possible\n• Keep recumbency time <2-3 hr\n• Ensure good systemic perfusion (BP >80 mmHg)\n\n💡 "Violent recovery usually do not occur with ruminants" — ต่างจาก equine ไม่ต้อง force-down recovery box',
     verified: 'Ruminant_Anesthesia.pdf 2026 General considerations slide' },
 
   { id: 2109, subject: 'cliapprum', topic: 'ruminant-anesthesia', year: 4,
@@ -160,7 +160,7 @@ export const QB_CLIAPPRUM = [
               'Food + water 36-48 hr (เหมือน large mature bull เสมอ)',
               'ไม่ต้องอดเลย (แนะนำเฉพาะลูกวัวแรกเกิด)'],
     answer: 0,
-    explain: 'Lecture 2026 (อ.ภัทร์มนฉัตร PB) Recommended fasting times:\n• **Neonates: NOT recommended** (risk of hypoglycemia) ⭐\n• Calves + small ruminants: Food 12 hr / Water 8 hr\n• **Adult cattle: Food + water 12-24 hr** ⭐\n• Large mature bulls: Food + water 24-36 hr\n\n💡 Comparative fasting (other species table from slide):\n• Cow: 24-48 hr food / 12-24 hr water\n• Goat: 12-24 / 2-8 hr\n• Horse: 6-12 / not necessary\n• Llama: 12-24 / 8 hr\n• Sheep: 12-24 / 2-8 hr\n• Pig: 8-12 / not necessary\n\n💡 Why fasting matters:\n• Empty stomach + intestines\n• Prevent regurgitation/aspiration\n• Allow normal diaphragm movement\n• Decrease vena cava pressure\n• Ease abdominal surgery (less spill)',
+    explain: 'Recommended fasting times:\n• **Neonates: NOT recommended** (risk of hypoglycemia) ⭐\n• Calves + small ruminants: Food 12 hr / Water 8 hr\n• **Adult cattle: Food + water 12-24 hr** ⭐\n• Large mature bulls: Food + water 24-36 hr\n\n💡 Comparative fasting (other species):\n• Cow: 24-48 hr food / 12-24 hr water\n• Goat: 12-24 / 2-8 hr\n• Horse: 6-12 / not necessary\n• Llama: 12-24 / 8 hr\n• Sheep: 12-24 / 2-8 hr\n• Pig: 8-12 / not necessary\n\n💡 Why fasting matters:\n• Empty stomach + intestines\n• Prevent regurgitation/aspiration\n• Allow normal diaphragm movement\n• Decrease vena cava pressure\n• Ease abdominal surgery (less spill)',
     verified: 'Ruminant_Anesthesia.pdf 2026 patient preparation slides' },
 
   { id: 2110, subject: 'cliapprum', topic: 'ruminant-anesthesia', year: 4,
@@ -174,7 +174,7 @@ export const QB_CLIAPPRUM = [
               '50 ml/kg/h ต่อเนื่อง (อัตราเดียวกับช่วง shock)',
               'ไม่ต้องให้ fluid ระหว่าง anesthesia ในวัวโตเต็มวัย'],
     answer: 1,
-    explain: 'Lecture 2026 (อ.ภัทร์มนฉัตร PB) IV fluid rates ในวัว anesthesia:\n\n• **Maintenance: 4-8 ml/kg/h** ⭐\n• **Correct hypotension: 10-25 ml/kg/h** ⭐\n• Correct hypovolemia: as needed (bolus 20 ml/kg over 15-30 min)\n\n💡 Catheter selection:\n• Jugular vein 14 gauge — most common\n• Cephalic / saphenous vein — small ruminants\n\n💡 Fluid choice:\n• LRS / Plasmalyte for routine maintenance\n• Hypertonic saline 7.2% (4-5 ml/kg) + LRS for shock\n• Avoid plain D5W in adults (no electrolyte support)\n\n💡 Monitoring:\n• MAP ≥70 mmHg = adequate organ perfusion\n• HR + capillary refill + mucous membranes',
+    explain: 'IV fluid rates ในวัว anesthesia:\n\n• **Maintenance: 4-8 ml/kg/h** ⭐\n• **Correct hypotension: 10-25 ml/kg/h** ⭐\n• Correct hypovolemia: as needed (bolus 20 ml/kg over 15-30 min)\n\n💡 Catheter selection:\n• Jugular vein 14 gauge — most common\n• Cephalic / saphenous vein — small ruminants\n\n💡 Fluid choice:\n• LRS / Plasmalyte for routine maintenance\n• Hypertonic saline 7.2% (4-5 ml/kg) + LRS for shock\n• Avoid plain D5W in adults (no electrolyte support)\n\n💡 Monitoring:\n• MAP ≥70 mmHg = adequate organ perfusion\n• HR + capillary refill + mucous membranes',
     verified: 'Ruminant_Anesthesia.pdf 2026 catheter + fluid slides' },
 
   { id: 2111, subject: 'cliapprum', topic: 'ruminant-anesthesia', year: 4,
@@ -216,7 +216,7 @@ export const QB_CLIAPPRUM = [
               'Cesarean section',
               'Cervical esophagotomy'],
     answer: 1,
-    explain: '**IV Regional Anesthesia (Bier block)** = lidocaine ฉีด IV ใน distal limb หลังใส่ tourniquet\n\n💡 Use case ในวัว:\n• **Distal limb procedures** ⭐\n  - Digital amputation\n  - Sole abscess drainage\n  - Interdigital fibroma excision\n  - Hoof block placement\n• Applied below tourniquet → systemic absorption blocked\n\n💡 Procedure:\n1. Restraint cow (chute / lateral recum)\n2. Apply tight tourniquet proximal to surgery site\n3. Insert IV catheter into superficial vein distal to tourniquet (e.g., dorsal common digital vein)\n4. Inject **2% lidocaine 20-30 ml** (without epinephrine!)\n5. Wait 5-10 min for onset\n6. Procedure time limit: ≤90 min (release tourniquet by 90 min to avoid ischemia + systemic lidocaine release)\n\n⚠️ NEVER use lidocaine + epinephrine in Bier block (limb ischemia risk)\n\n💡 Decision Matrix from slide:\n• Auriculopalpebral / Peterson / Retrobulbar = eye surgery\n• Paravertebral = flank surgery (rumenotomy, c-section, LDA)\n• IV regional = distal limb',
+    explain: '**IV Regional Anesthesia (Bier block)** = lidocaine ฉีด IV ใน distal limb หลังใส่ tourniquet\n\n💡 Use case ในวัว:\n• **Distal limb procedures** ⭐\n  - Digital amputation\n  - Sole abscess drainage\n  - Interdigital fibroma excision\n  - Hoof block placement\n• Applied below tourniquet → systemic absorption blocked\n\n💡 Procedure:\n1. Restraint cow (chute / lateral recum)\n2. Apply tight tourniquet proximal to surgery site\n3. Insert IV catheter into superficial vein distal to tourniquet (e.g., dorsal common digital vein)\n4. Inject **2% lidocaine 20-30 ml** (without epinephrine!)\n5. Wait 5-10 min for onset\n6. Procedure time limit: ≤90 min (release tourniquet by 90 min to avoid ischemia + systemic lidocaine release)\n\n⚠️ NEVER use lidocaine + epinephrine in Bier block (limb ischemia risk)\n\n💡 Decision matrix:\n• Auriculopalpebral / Peterson / Retrobulbar = eye surgery\n• Paravertebral = flank surgery (rumenotomy, c-section, LDA)\n• IV regional = distal limb',
     verified: 'Clin App Ruminant master p.15 Anesthesia Decision Matrix' },
 
   { id: 2114, subject: 'cliapprum', topic: 'ruminant-anesthesia', year: 4,
@@ -398,7 +398,7 @@ export const QB_CLIAPPRUM = [
     q: 'Routine hoof trimming (RT) ใน dairy fleet ตามที่อ.ปิยะณัฐสอน แนะนำทำที่ frequency เท่าใด',
     options: ['ไม่ต้อง trim เลยหากฝูงยังไม่แสดงอาการขาเจ็บ', '2x/year (ทุก 6-12 เดือน) โดยผู้มีทักษะ', '6x/year (ทุก 2 เดือน) ในวัวรีดนมทุกตัว', '12x/year (ทุกเดือน) เป็นมาตรฐานฟาร์มใหญ่'],
     answer: 1,
-    explain: '**Routine Trimming (RT)** อ.ปิยะณัฐ slide 8: 2 ครั้ง/ปี (ทุก 6-12 เดือน) โดยเจ้าหน้าที่/ฟาร์มที่มีทักษะถูกต้อง\n\n💡 Common timing:\n• At **dry-off** (~60 days before next calving)\n• At **mid-lactation** (~150 days in milk)\n• High-risk cows: 3-4x/year\n\n💡 Why 2x/year:\n• Claw growth ~5 mm/month → ~6 cm/year\n• Wear ~3-4 mm/month\n• Excess growth → unbalanced weight → sole ulcer / white line / laminitis sequelae\n\n💡 Slide 9-10: Interpretation framework\n• ฟาร์มที่มี RT: lameness ไม่กังวล (รอรอบ RT), กังวลถ้าเพิ่งผ่าน RT (= infectious / iatrogenic)\n• ฟาร์มที่ไม่มี RT: น่ากังวลมาก (sole ulcer / white line / infectious / laminitis)',
+    explain: '**Routine Trimming (RT)**: 2 ครั้ง/ปี (ทุก 6-12 เดือน) โดยเจ้าหน้าที่/ฟาร์มที่มีทักษะถูกต้อง\n\n💡 Common timing:\n• At **dry-off** (~60 days before next calving)\n• At **mid-lactation** (~150 days in milk)\n• High-risk cows: 3-4x/year\n\n💡 Why 2x/year:\n• Claw growth ~5 mm/month → ~6 cm/year\n• Wear ~3-4 mm/month\n• Excess growth → unbalanced weight → sole ulcer / white line / laminitis sequelae\n\n💡 Interpretation framework\n• ฟาร์มที่มี RT: lameness ไม่กังวล (รอรอบ RT), กังวลถ้าเพิ่งผ่าน RT (= infectious / iatrogenic)\n• ฟาร์มที่ไม่มี RT: น่ากังวลมาก (sole ulcer / white line / infectious / laminitis)',
     verified: 'การประเมินและจัดการสุขภาพกีบในฝูง.pptx, อ.ปิยะณัฐ slide 8-10' },
 
   // ── Hoof Health Fleet, Aj. PP TLI Framework (slide 3-7) ───
@@ -413,7 +413,7 @@ export const QB_CLIAPPRUM = [
               'Trim, Lift, Inject, Isolate',
               'Track, Lameness, Imaging, Intervention'],
     answer: 1,
-    explain: '**4 elements ของ LCS evaluation** (อ.ปิยะณัฐ slide 3-7):\n\n1. **Timing** (ประเมินตอนไหนดี?) — ไม่รบกวน work flow, ใช้คนน้อย, โคเดินอิสระ, เวลาประณีต\n2. **Location** (ประเมินตรงไหนดี?) — work flow น้อย, พื้นเรียบไม่ลาดเอียง, ระยะเดินตรง ≥4 เมตร\n3. **Identification** (จดเบอร์โคให้ครบทุกตัว) — ต้องได้ ID ครบ\n4. **Interpretation** (แปลผลอย่างไร) — ดูปัจจัย RT (Routine trimming) ของฟาร์ม\n\n💡 Goal: ออกแบบการประเมิน LCS ที่นำไปประยุกต์ใช้ได้ในภาคสนาม + แปลผลได้ + วางแผนจัดการสุขภาพกีบ',
+    explain: '**4 elements ของ LCS evaluation**:\n\n1. **Timing** (ประเมินตอนไหนดี?) — ไม่รบกวน work flow, ใช้คนน้อย, โคเดินอิสระ, เวลาประณีต\n2. **Location** (ประเมินตรงไหนดี?) — work flow น้อย, พื้นเรียบไม่ลาดเอียง, ระยะเดินตรง ≥4 เมตร\n3. **Identification** (จดเบอร์โคให้ครบทุกตัว) — ต้องได้ ID ครบ\n4. **Interpretation** (แปลผลอย่างไร) — ดูปัจจัย RT (Routine trimming) ของฟาร์ม\n\n💡 Goal: ออกแบบการประเมิน LCS ที่นำไปประยุกต์ใช้ได้ในภาคสนาม + แปลผลได้ + วางแผนจัดการสุขภาพกีบ',
     verified: 'การประเมินและจัดการสุขภาพกีบในฝูง.pptx, อ.ปิยะณัฐ slide 3' },
 
   // ═══════════════════════════════════════════════════════════
@@ -430,7 +430,7 @@ export const QB_CLIAPPRUM = [
     q: 'pH ของ ruminal fluid ที่ <5.5 บ่งบอกภาวะใด',
     options: ['Inactive rumen จาก rumen washout หรืออาหารบูด', 'Clinical lactic acidosis (กรดแลกติกเกิน)', 'ค่าปกติช่วงหลังให้อาหาร concentrate ใหม่ ๆ', 'Alkalosis จาก rumen เป็นด่างผิดปกติ'],
     answer: 1,
-    explain: 'Ruminal pH interpretation (อ.ธนศักดิ์):\n\n• **<5.0**: Severe acute acidosis (grain engorgement)\n• **<5.5**: Clinical lactic acidosis ⭐\n• 5.5-7.5: Normal (มักอยู่ 6.0-7.0 ระหว่างมื้อ)\n• >7.0: Inactive rumen (rumen washout, spoiled feed, prolonged anorexia)\n\n💡 Subacute rumen acidosis (SARA):\n• pH 5.0-5.5 intermittent (ไม่ severe แต่ chronic)\n• เกิดจาก high concentrate, low effective fiber\n• Sequelae: laminitis, milk fat depression, LDA',
+    explain: 'Ruminal pH interpretation:\n\n• **<5.0**: Severe acute acidosis (grain engorgement)\n• **<5.5**: Clinical lactic acidosis ⭐\n• 5.5-7.5: Normal (มักอยู่ 6.0-7.0 ระหว่างมื้อ)\n• >7.0: Inactive rumen (rumen washout, spoiled feed, prolonged anorexia)\n\n💡 Subacute rumen acidosis (SARA):\n• pH 5.0-5.5 intermittent (ไม่ severe แต่ chronic)\n• เกิดจาก high concentrate, low effective fiber\n• Sequelae: laminitis, milk fat depression, LDA',
     verified: 'อ.ธนศักดิ์ GI Disorder + standard ruminant medicine' },
 
   { id: 2130, subject: 'cliapprum', topic: 'gi-vdtt', year: 4,
@@ -474,7 +474,7 @@ export const QB_CLIAPPRUM = [
     q: 'วัวที่มี Rumen hypomotility (ฟัง <1 contraction/min) Diff Dx อันดับแรกที่ต้องนึกถึงคือกลุ่มใด',
     options: ['Polycythemia (เม็ดเลือดแดงสูงผิดปกติ) เป็นหลัก', 'Hardware disease / hypocalcemia / acidosis', 'โรคหัวใจเพียงอย่างเดียว ไม่เกี่ยวกับสาเหตุอื่น', 'โรคผิวหนังภายนอกที่ไม่กระทบทางเดินอาหาร'],
     answer: 1,
-    explain: 'Rumen hypomotility DDx (อ.ธนศักดิ์):\n\n💡 **Mechanical causes**:\n• Hardware disease (TRP) — pain inhibits rumen reflex\n• Displaced abomasum (LDA/RDA) — anatomical disturbance\n• Cecal dilatation — caudal pressure\n• Bloat (severe distension)\n\n💡 **Metabolic causes**:\n• Hypocalcemia (post-partum) — Ca needed for smooth muscle contraction\n• Acidosis (rumen pH <5.0) — direct toxin to rumen wall\n• Endotoxemia (mastitis, metritis, laminitis sequela)\n• Hyperkalemia\n\n💡 **Systemic causes**:\n• Sepsis, severe pneumonia, BVDV, MCF\n• Late-stage ketosis\n• Vagal indigestion (chronic)\n\n💡 Approach:\n1. PE + rumen pH + bloodwork (Ca, K, BHBA, lactate)\n2. Rectal exam (LDA/RDA/cecum)\n3. Pain test (TRP)\n4. Treat underlying + supportive (Ca, NaHCO3, fluids)',
+    explain: 'Rumen hypomotility DDx:\n\n💡 **Mechanical causes**:\n• Hardware disease (TRP) — pain inhibits rumen reflex\n• Displaced abomasum (LDA/RDA) — anatomical disturbance\n• Cecal dilatation — caudal pressure\n• Bloat (severe distension)\n\n💡 **Metabolic causes**:\n• Hypocalcemia (post-partum) — Ca needed for smooth muscle contraction\n• Acidosis (rumen pH <5.0) — direct toxin to rumen wall\n• Endotoxemia (mastitis, metritis, laminitis sequela)\n• Hyperkalemia\n\n💡 **Systemic causes**:\n• Sepsis, severe pneumonia, BVDV, MCF\n• Late-stage ketosis\n• Vagal indigestion (chronic)\n\n💡 Approach:\n1. PE + rumen pH + bloodwork (Ca, K, BHBA, lactate)\n2. Rectal exam (LDA/RDA/cecum)\n3. Pain test (TRP)\n4. Treat underlying + supportive (Ca, NaHCO3, fluids)',
     verified: 'อ.ธนศักดิ์ GI Disorder DDx framework' },
 
   { id: 2128, subject: 'cliapprum', topic: 'hoof-health-fleet', year: 4,
@@ -488,7 +488,7 @@ export const QB_CLIAPPRUM = [
               'Lameness ที่ถูกเหนี่ยวนำจากการตั้งท้องระยะท้าย',
               'ความผิดปกติทางพันธุกรรมของโครงสร้างกีบ'],
     answer: 1,
-    explain: '**Interpretation framework** (อ.ปิยะณัฐ slide 9):\n\n💡 ฟาร์มที่มี RT 2 ครั้ง/ปี:\n• ถ้า lameness "ไม่น่ากังวล" → รอรอบ RT ถัดไป (กีบยาวเป็นปัจจัย)\n• ถ้า lameness "น่ากังวล + เพิ่งผ่าน RT" → ไม่ใช่ overgrowth, DDx:\n  - **Infectious** (digital dermatitis, foot rot)\n  - **Laminitis** (feeding mgt — high concentrate, SARA)\n  - **Iatrogenic** (over-trimmed at last RT → sole exposed)\n\n💡 ฟาร์มที่ไม่มี RT (slide 10):\n• "น่ากังวลมาก" — DDx: Sole ulcer, White line disorder, Infectious, Laminitis\n• แนะนำเริ่ม RT program ทันที',
+    explain: '**Interpretation framework**:\n\n💡 ฟาร์มที่มี RT 2 ครั้ง/ปี:\n• ถ้า lameness "ไม่น่ากังวล" → รอรอบ RT ถัดไป (กีบยาวเป็นปัจจัย)\n• ถ้า lameness "น่ากังวล + เพิ่งผ่าน RT" → ไม่ใช่ overgrowth, DDx:\n  - **Infectious** (digital dermatitis, foot rot)\n  - **Laminitis** (feeding mgt — high concentrate, SARA)\n  - **Iatrogenic** (over-trimmed at last RT → sole exposed)\n\n💡 ฟาร์มที่ไม่มี RT:\n• "น่ากังวลมาก" — DDx: Sole ulcer, White line disorder, Infectious, Laminitis\n• แนะนำเริ่ม RT program ทันที',
     verified: 'การประเมินและจัดการสุขภาพกีบในฝูง.pptx, อ.ปิยะณัฐ slide 9-10' },
 
   // ════════════════════════════════════════════════════════════════════
@@ -628,7 +628,7 @@ export const QB_CLIAPPRUM = [
       'Low body condition score (BCS)',
     ],
     answer: 3,
-    explain: 'Signs ของ GI dysfunction: เบื่ออาหาร, ไม่เคี้ยวเอื้อง, ท้องกางหรือท้องแฟบ, รูเมนบีบตัวผิดปกติ, ถ่ายผิดปกติ. Low BCS เป็น chronic outcome ไม่ใช่ acute sign — Vet 85 ตอบนี้',
+    explain: 'Signs ของ GI dysfunction: เบื่ออาหาร, ไม่เคี้ยวเอื้อง, ท้องกางหรือท้องแฟบ, รูเมนบีบตัวผิดปกติ, ถ่ายผิดปกติ. Low BCS เป็น chronic outcome ไม่ใช่ acute sign',
     verified: 'Clin approach final TJ p3 Vet 85 #1' },
 
   { id: 5009, subject: 'cliapprum', topic: 'mahahon-cliapprum-givdtt', year: 4,

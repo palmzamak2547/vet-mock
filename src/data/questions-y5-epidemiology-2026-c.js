@@ -991,7 +991,7 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
       "Type I error คือ false positive; Type II error คือ false negative; power = 1 - beta"
     ],
     "answer": 3,
-    "explain": "Type I error คือปฏิเสธ H0 ทั้งที่ H0 จริง จึงเป็น false positive และมีความน่าจะเป็น alpha; Type II error คือไม่ปฏิเสธ H0 ทั้งที่ H0 เท็จ จึงเป็น false negative และมีความน่าจะเป็น beta; power = 1 - beta\n\n❌ ทำไมข้ออื่นผิด\n— ตัวเลือกแรกสลับ Type I กับ Type II และใช้ 1 - alpha แทน power\n— True positive คือ power และ true negative คือ 1 - alpha ไม่ใช่ชนิด error\n— การจับชนิด error ถูก แต่ power ไม่ใช่ 1 - alpha\n\n💡 Alpha ผูกกับบวกลวง; beta ผูกกับลบลวง; power คือส่วนที่เหลือจาก beta",
+    "explain": "Type I error คือปฏิเสธ H0 ทั้งที่ H0 จริง จึงเป็น false positive และมีความน่าจะเป็น alpha; Type II error คือไม่ปฏิเสธ H0 ทั้งที่ H0 เท็จ จึงเป็น false negative และมีความน่าจะเป็น beta; power = 1 - beta\n\n❌ ทำไมข้ออื่นผิด\n— ชุดที่ให้ Type I เป็น false negative สลับ Type I กับ Type II และใช้ 1 - alpha แทน power\n— True positive คือ power และ true negative คือ 1 - alpha ไม่ใช่ชนิด error\n— การจับชนิด error ถูก แต่ power ไม่ใช่ 1 - alpha\n\n💡 Alpha ผูกกับบวกลวง; beta ผูกกับลบลวง; power คือส่วนที่เหลือจาก beta",
     "source": "Sample size determination_TC",
     "verified": "Sample size determination_TC p.23, p.25",
     "sourceType": "lecture-derived",

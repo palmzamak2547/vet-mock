@@ -154,7 +154,7 @@ export const QB_Y5_REPRO_CLINIC = [
     q: 'ก่อนผ่าตัดทำหมันสุนัข/แมว ควรอดอาหาร (NPO) นานเท่าใด',
     options: ['1–2 ชั่วโมง', '12–18 ชั่วโมง', '3–5 ชั่วโมง', '8–12 ชั่วโมง'],
     answer: 3,
-    explain: '8–12 hr fasting = ลดความเสี่ยง aspiration ระหว่าง intubation/recovery\n⚠️ Update 2026: AAHA/WSAVA แนะ 6–8 hr ใน healthy adult (long fast เพิ่ม hypoglycemia/GI ulcer) — แต่ Vet 81 answer ตรงสนาม\n💡 < 12 wk puppy + kitten = อดสั้นกว่า 4–6 hr',
+    explain: '8–12 hr fasting = ลดความเสี่ยง aspiration ระหว่าง intubation/recovery\n⚠️ Update 2026: AAHA/WSAVA แนะ 6–8 hr ใน healthy adult (long fast เพิ่ม hypoglycemia/GI ulcer)\n💡 < 12 wk puppy + kitten = อดสั้นกว่า 4–6 hr',
     verified: '7. Anl Repro Clin.pdf p.3 Q28',
     flag: { note: 'Vet 81 answer 8-12 hr; current AAHA 2020 guideline = 6-8 hr', severity: 'minor' } },
 
@@ -205,7 +205,7 @@ export const QB_Y5_REPRO_CLINIC = [
     q: 'หลังผ่าตัดทำหมันแก้ไข abdominal cryptorchidism ในสุนัข ควรนัดทำแผลต่อเนื่องกี่วัน',
     options: ['4 วัน', '2 วัน', '10 วัน', '14 วัน'],
     answer: 2,
-    explain: '10–14 วัน = standard skin healing → ตัดไหม\nCryptorchidism abdominal = แผลใหญ่กว่า scrotal castration ทั่วไป → close monitor wound\n\n4 วัน = สั้นไป (เพิ่ง inflammation)\n2 วัน = สั้นมาก\n14 วัน = ตามคู่มือเลย แต่ Vet 81 answer ตรงคือ 10 d',
+    explain: '10–14 วัน = standard skin healing → ตัดไหม\nCryptorchidism abdominal = แผลใหญ่กว่า scrotal castration ทั่วไป → close monitor wound\n\n4 วัน = สั้นไป (เพิ่ง inflammation)\n2 วัน = สั้นมาก\n14 วัน = ยังอยู่ในช่วงตามคู่มือ แต่คำตอบที่ตรงที่สุดคือ 10 วัน',
     verified: '7. Anl Repro Clin.pdf p.2 Q9' },
 
   { id: 8416, subject: 'comp-repro-clinic', topic: 'comp-repro-surgery', year: 5,
@@ -548,7 +548,7 @@ export const QB_Y5_REPRO_CLINIC = [
     q: 'สภาวะใดที่จัดเป็น "ฉุกเฉิน" ที่ควรรีบผ่าตัดแก้ไขทันที',
     options: ['Vaginal bleeding (mild)', 'Mummified fetus (no clinical sign)', 'Dystocia (obstructive, fetal distress)', 'Pyometra with peritonitis'],
     answer: 2,
-    explain: 'Dystocia = "true emergency" — fetal hypoxia/death + maternal exhaustion + uterine rupture risk — golden window ~ 2-4 hr\n\n⚠️ Pyometra with peritonitis = ก็ฉุกเฉินจริงๆ + sepsis risk · Vet 81 answer ตามคีย์เฉลยคือ "dystocia" แต่ทั้ง 2 ข้อ acceptable depending on stability — exam context = single best answer = dystocia\n\nMummified fetus = chronic, non-urgent · Vaginal bleeding mild = workup ไม่ใช่ stat surgery',
+    explain: 'Dystocia = "true emergency" — fetal hypoxia/death + maternal exhaustion + uterine rupture risk — golden window ~ 2-4 hr\n\n⚠️ Pyometra with peritonitis = ก็ฉุกเฉินจริงๆ + sepsis risk แต่ถ้าต้องเลือกคำตอบเดียวที่ดีที่สุดคือ dystocia\n\nMummified fetus = chronic, non-urgent · Vaginal bleeding mild = workup ไม่ใช่ stat surgery',
     verified: '7. Anl Repro Clin.pdf p.5 Q48',
     flag: { note: 'Past paper key marks 2 answers (dystocia + pyometra peritonitis). Single best answer = dystocia (more time-sensitive for fetal survival).', severity: 'minor' } },
 ];

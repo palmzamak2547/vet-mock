@@ -178,7 +178,7 @@ export const QB_ENGPROF1 = [
       "Syllable 7 (com-pre-hen-si-bil-i-TY)"
     ],
     "answer": 2,
-    "explain": "✓ Answer Key: syllable 5 is circled. Pattern: words ending in '-ity' shift stress to the syllable immediately before the suffix (BIL-i-ty). Same rule applies to 'productivity', 'flexibility', 'responsibility'.\n✗ Other syllables get only secondary or unstressed treatment.\n💡 -ity / -ic / -ical / -ion / -ial / -ious all force stress onto the syllable just before the suffix. Memorise this rule once and you'll get most multi-syllable words right.",
+    "explain": "✓ Syllable 5 carries the primary stress. Pattern: words ending in '-ity' shift stress to the syllable immediately before the suffix (BIL-i-ty). Same rule applies to 'productivity', 'flexibility', 'responsibility'.\n✗ Other syllables get only secondary or unstressed treatment.\n💡 -ity / -ic / -ical / -ion / -ial / -ious all force stress onto the syllable just before the suffix. Memorise this rule once and you'll get most multi-syllable words right.",
     "verified": "Answer Key & Script p.2 Part II.A Q7 (circled 5)"
   },
   {
@@ -201,7 +201,7 @@ export const QB_ENGPROF1 = [
       "Pro-duc-TIV-i-ty (stress 3)"
     ],
     "answer": 1,
-    "explain": "✓ 'Procedure' is sa-LI-va's twin: pro-CE-dure, stress on syllable 2 — both are three-syllable nouns with a long middle vowel. Answer Key Q6 also circles syllable 2 for 'Procedure.'\n✗ Temporary: stress 1 (TEM-po-rary). Development: stress 3 (de-VEL-op-ment per Answer Key — note: classical analysis is stress 2; CU answer key marks 2). Productivity: stress 3 (pro-duc-TIV-i-ty).\n💡 For clinical communication, getting 'saliva' and 'procedure' right is essential. Mispronunciation in case discussions creates confusion.",
+    "explain": "✓ 'Procedure' is sa-LI-va's twin: pro-CE-dure, stress on syllable 2 — both are three-syllable nouns with a long middle vowel.\n✗ Temporary: stress 1 (TEM-po-rary). Development: listed here as stress 3, though de-VEL-op-ment is usually analysed as stress 2. Productivity: stress 3 (pro-duc-TIV-i-ty).\n💡 For clinical communication, getting 'saliva' and 'procedure' right is essential. Mispronunciation in case discussions creates confusion.",
     "verified": "Answer Key & Script p.2 Part II.A Q2 + Q6"
   },
   {
@@ -224,7 +224,7 @@ export const QB_ENGPROF1 = [
       "It happened last year, not this year"
     ],
     "answer": 0,
-    "explain": "✓ Stress on 'swimming' contrasts the SPORT — implication: not some other sport (e.g., skiing). Answer Key marks (a).\n✗ Stress on 'gold' would imply not silver/bronze. Stress on 'Paul' would imply not someone else. None of these match the actual stress pattern.\n💡 Sentence-level stress = focus marker. The stressed word signals the contrast point. Crucial skill for understanding implications in clinical conversation (e.g., 'we should use THIS protocol' implies rejection of an alternative protocol).",
+    "explain": "✓ Stress on 'swimming' contrasts the SPORT — implication: not some other sport (e.g., skiing).\n✗ Stress on 'gold' would imply not silver/bronze. Stress on 'Paul' would imply not someone else. None of these match the actual stress pattern.\n💡 Sentence-level stress = focus marker. The stressed word signals the contrast point. Crucial skill for understanding implications in clinical conversation (e.g., 'we should use THIS protocol' implies rejection of an alternative protocol).",
     "verified": "Answer Key & Script p.2 Part II.B Q1 (circled a)"
   },
   {
@@ -247,7 +247,7 @@ export const QB_ENGPROF1 = [
       "Politeness (softening a request)"
     ],
     "answer": 1,
-    "explain": "✓ Answer Key: 'Contrast.' The pair endodontist vs orthodontist contrast in WHICH specialist — listener might confuse the two similar-sounding terms, so stress disambiguates.\n✗ Emotion would apply to '$10,000 dollars?' (shocked). Clarification fits 'You said I should take TWO tablets every four hours?' (checking).\n💡 Three functions of stressed words: contrast (distinguishing options), emotion (showing feelings), clarification (confirming info). Critical for medical contexts: 'I said the LEFT eye, not the RIGHT eye' is contrast preventing wrong-site error.",
+    "explain": "✓ Contrast. The pair endodontist vs orthodontist contrast in WHICH specialist — listener might confuse the two similar-sounding terms, so stress disambiguates.\n✗ Emotion would apply to '$10,000 dollars?' (shocked). Clarification fits 'You said I should take TWO tablets every four hours?' (checking).\n💡 Three functions of stressed words: contrast (distinguishing options), emotion (showing feelings), clarification (confirming info). Critical for medical contexts: 'I said the LEFT eye, not the RIGHT eye' is contrast preventing wrong-site error.",
     "verified": "Answer Key & Script p.3 Part II.C Q4 (Contrast checked)"
   },
   {
@@ -270,7 +270,7 @@ export const QB_ENGPROF1 = [
       "Politeness — softening the topic of cost"
     ],
     "answer": 1,
-    "explain": "✓ Answer Key marks Q1 as 'Emotion (shocked).' Rising intonation + heightened pitch on '10,000 dollars' = surprise/disbelief.\n✗ Contrast would require a pair (e.g., 'not 1,000'). Clarification would be flatter, checking-tone.\n💡 In client communication, recognising emotion in voice (shock, fear, sympathy) is part of bedside manner. 'I'm afraid you have signs of advanced periodontitis' = SYMPATHETIC emotion (delivering bad news gently).",
+    "explain": "✓ Emotion (shocked). Rising intonation + heightened pitch on '10,000 dollars' = surprise/disbelief.\n✗ Contrast would require a pair (e.g., 'not 1,000'). Clarification would be flatter, checking-tone.\n💡 In client communication, recognising emotion in voice (shock, fear, sympathy) is part of bedside manner. 'I'm afraid you have signs of advanced periodontitis' = SYMPATHETIC emotion (delivering bad news gently).",
     "verified": "Answer Key & Script p.3 Part II.C Q1 (Emotion checked)"
   },
   {
@@ -293,7 +293,7 @@ export const QB_ENGPROF1 = [
       "Sarcasm — implying disbelief at the dose"
     ],
     "answer": 2,
-    "explain": "✓ Answer Key: 'Clarification.' Repeating back the key detail (dose + frequency) with a question intonation is classic clarification — a safety check.\n✗ Emotion would be sharper. Contrast would name the alternative. Sarcasm is not the safety-relevant interpretation.\n💡 Read-back is a core patient-safety practice in pharmacy / nursing / vet pharmacology. Always confirm dose, frequency, route, and patient identity when receiving verbal orders.",
+    "explain": "✓ Clarification. Repeating back the key detail (dose + frequency) with a question intonation is classic clarification — a safety check.\n✗ Emotion would be sharper. Contrast would name the alternative. Sarcasm is not the safety-relevant interpretation.\n💡 Read-back is a core patient-safety practice in pharmacy / nursing / vet pharmacology. Always confirm dose, frequency, route, and patient identity when receiving verbal orders.",
     "verified": "Answer Key & Script p.3 Part II.C Q5 (Clarification checked)"
   },
   {

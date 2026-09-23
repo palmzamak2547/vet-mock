@@ -1024,7 +1024,7 @@ export const QB_BIOCHEM_LECT2 = [
       'L-ascorbic acid ; SVCT1',
     ],
     answer: 3,
-    explain: 'รูป oxidized ของ vitamin C คือ dehydroascorbic acid และตัวขนส่งเข้าเซลล์คือ SVCT (sodium-dependent vitamin C transporter); ในตัวเลือกที่ให้เฉลยจับคู่ D-dehydroascorbic acid กับ SVCT1',
+    explain: 'รูป oxidized ของ vitamin C คือ dehydroascorbic acid และตัวขนส่งเข้าเซลล์คือ SVCT (sodium-dependent vitamin C transporter); ในตัวเลือกที่ให้ คู่ที่ใช้เป็นคำตอบคือ D-dehydroascorbic acid กับ SVCT1',
     source: 'Biochemistry I Lecture Final (Blackboard) 12 พ.ค. 2022',
     examOrigin: 'Biochemistry I 3102113 · Lecture Final 2022',
     verified: 'Blackboard lecture-final Q92 (เฉลยไฮไลต์ในไฟล์)' },

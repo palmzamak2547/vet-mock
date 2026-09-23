@@ -105,6 +105,8 @@ export const QB_Y5_ZOONOSES_2026 = [
   },
   {
     id: 104006, subject: 'zoonoses', topic: 'zoo-epi-approach', year: 5,
+    image: '/figures/questions/q104006.webp',
+    imageAlt: 'ภาพการ์ตูนคนหนึ่งไอหรือพูดพ่นละอองฝอยไปทางอีกคนที่สวมหน้ากากซึ่งยืนอยู่ห่างออกไป ละอองสีแดงขนาดใหญ่ตกลงสู่พื้นตามลูกศรโค้ง ละอองสีดำขนาดเล็กลอยไปไกลกว่า ด้านล่างมีสเกลระยะทางที่มีขีดกำกับ 3 feet และ 6 feet',
     type: 'mcq',
     q: 'ในรูปการแพร่เชื้อทางอากาศ ระยะที่กำกับไว้ว่าเป็นจุดสิ้นสุดโซนการตกของละอองฝอยขนาดใหญ่ (heavy large droplet) คือระยะใด',
     options: [
@@ -154,6 +156,7 @@ export const QB_Y5_ZOONOSES_2026 = [
   {
     id: 104009, subject: 'zoonoses', topic: 'zoo-epi-approach', year: 5,
     image: '/figures/questions/q104009.webp',
+    imageAlt: 'แผนภาพวงจร chain of infection หกส่วน ได้แก่ pathogen, reservoir, portal of exit, mode of transmission, portal of entry และ susceptible host แต่ละส่วนมีรายการตัวอย่างกำกับ',
     type: 'mcq',
     q: 'ในแผนภาพ chain of infection ส่วนที่เป็น reservoir ถูกระบุไว้ว่าประกอบด้วยอะไรบ้าง',
     options: [

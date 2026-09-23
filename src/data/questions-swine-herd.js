@@ -41,7 +41,7 @@ export const QB_SWINE_HERD = [
       "การกำหนดโซนรถขนส่งอาหารและรถรับหมูให้จอดนอกรั้วฟาร์ม ห่างจากคอกหมูและทางเดินภายในเสมอ"
     ],
     "answer": 2,
-    "explain": "✓ Resistance = ทำให้ตัวสัตว์ทนโรค โดย genetic selection, vaccine (active immune), colostrum/passive immune\n✗ ตัวเลือก a, d = Segregation (กั้น/แยก physical-policy barrier)\n✗ ตัวเลือก b = Sanitation (ทำความสะอาด/disinfect)\n💡 Biosecurity 3 ขา: Segregation (กั้น) + Sanitation (สะอาด) + Resistance (ทนโรค) — ถ้าขาใดอ่อน multifactorial disease จะ break-through",
+    "explain": "✓ Resistance = ทำให้ตัวสัตว์ทนโรค โดย genetic selection, vaccine (active immune), colostrum/passive immune\n✗ การกั้นรั้ว/all-in all-out และการแยกโซนรถ = Segregation (กั้น/แยก physical-policy barrier)\n✗ การจุ่มเท้าในน้ำยาฆ่าเชื้อ = Sanitation (ทำความสะอาด/disinfect)\n💡 Biosecurity 3 ขา: Segregation (กั้น) + Sanitation (สะอาด) + Resistance (ทนโรค) — ถ้าขาใดอ่อน multifactorial disease จะ break-through",
     "verified": "Swine Hlth final TJ.pdf อ.อธิภู section biosecurity + swine herd mid p.4 PDR intervention strategies"
   },
   {
@@ -318,7 +318,7 @@ export const QB_SWINE_HERD = [
       "P1 = 50%, P2 = 30%, P3+ = 5-10% — replace แม่เกือบทั้งฝูงทุกปี"
     ],
     "answer": 1,
-    "explain": "✓ Parity structure ปกติ: P1 ≈ 20%, P2-4 peak ที่ 17-19%, P5+ ลดลงต่อเนื่อง 10/6/5/5% — minimum culling ก่อน peak (P2-4), selective culling หลัง peak\n  - Born alive peak ที่ parity 2-4 → ฟาร์มต้องเก็บแม่ให้ถึงรอบนี้\n✗ ตัวเลือก a + c = poor parity structure (young-heavy หรือ old-heavy → poor production)\n✗ ตัวเลือก d = over-replacement → ขาด experienced sows ที่อยู่ peak\n💡 Performance not equal across parities — culling ทำหลัง peak (P5+ onwards)",
+    "explain": "✓ Parity structure ปกติ: P1 ≈ 20%, P2-4 peak ที่ 17-19%, P5+ ลดลงต่อเนื่อง 10/6/5/5% — minimum culling ก่อน peak (P2-4), selective culling หลัง peak\n  - Born alive peak ที่ parity 2-4 → ฟาร์มต้องเก็บแม่ให้ถึงรอบนี้\n✗ ฝูงที่ P1 35% หรือ P>7 18% = poor parity structure (young-heavy หรือ old-heavy → poor production)\n✗ ฝูงที่ P1 50% = over-replacement → ขาด experienced sows ที่อยู่ peak\n💡 Performance not equal across parities — culling ทำหลัง peak (P5+ onwards)",
     "verified": "Record Analysis.pdf slides 33-37 parity structure + production curve"
   },
   {
@@ -826,7 +826,7 @@ export const QB_SWINE_HERD = [
       "Salt (NaCl) deficiency → low water intake → กินอาหารลดลงและน้ำนมลด"
     ],
     "answer": 1,
-    "explain": "✓ Thin sow syndrome = energy deficiency โดย lactation demand สูง (lactation feed needs ↑ทุกสัปดาห์: 4/5/6 kg) ถ้าไม่ได้รับพอ:\n  - แม่ catabolize body fat + muscle → BCS ↓\n  - Repro fail (delayed estrus, long WSI), milk drop, lactation fail\n✓ ใน practice = อาหารแม่ pregnancy ad libitum ไม่พอ ระยะ lactation\n✗ Excess protein → diarrhea แต่ไม่ทำให้ BCS ลด\n✗ Vitamin A excess ทำให้ vit E requirement ↑ → mulberry heart disease\n💡 อ.พรชลิต: pre-mate flushing 3-4 kg/d × 1 wk หลังหย่านม เพื่อ recover energy",
+    "explain": "✓ Thin sow syndrome = energy deficiency โดย lactation demand สูง (lactation feed needs ↑ทุกสัปดาห์: 4/5/6 kg) ถ้าไม่ได้รับพอ:\n  - แม่ catabolize body fat + muscle → BCS ↓\n  - Repro fail (delayed estrus, long WSI), milk drop, lactation fail\n✓ ใน practice = อาหารแม่ pregnancy ad libitum ไม่พอ ระยะ lactation\n✗ Excess protein → diarrhea แต่ไม่ทำให้ BCS ลด\n✗ Vitamin A excess ทำให้ vit E requirement ↑ → mulberry heart disease\n💡 pre-mate flushing 3-4 kg/d × 1 wk หลังหย่านม เพื่อ recover energy",
     "verified": "swine herd mid p.16 อ.อนุศกุล nutrient deficiency table + อ.พรชลิต flushing"
   },
   {

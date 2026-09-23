@@ -3098,7 +3098,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
       "body points",
       "anatomy landmarks"
     ],
-    "image": "/figures/questions/eqmed-intro-points.webp"
+    "image": "/figures/questions/eqmed-intro-points.webp",
+    "imageAlt": "ภาพสองภาพวางคู่กัน ซ้ายเป็นม้ายืนด้านข้างพร้อมป้ายชื่อจุดสังเกตภายนอก ขวาเป็นโครงกระดูกม้าพร้อมป้ายชื่อกระดูก"
   },
   {
     "id": 207497,
@@ -3152,7 +3153,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
       "marking",
       "passport"
     ],
-    "image": "/figures/questions/eqmed-intro-face-star.webp"
+    "image": "/figures/questions/eqmed-intro-face-star.webp",
+    "imageAlt": "ภาพวาดใบหน้าม้าสีน้ำตาลมองจากด้านหน้า มีรอยขนสีขาวขนาดเล็กอยู่กลางหน้าผากระหว่างตาทั้งสองข้าง"
   },
   {
     "id": 207499,
@@ -4240,7 +4242,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
       "triadan",
       "fractured-tooth"
     ],
-    "image": "/figures/questions/eqmed-dent-triadan-chart.webp"
+    "image": "/figures/questions/eqmed-dent-triadan-chart.webp",
+    "imageAlt": "แผนผังบันทึกฟันม้าแสดงแผงฟันบนและฟันล่างทั้งซ้ายและขวา มีเครื่องหมายสีแดงกำกับหมายเลข 6 ถึง 10 และลายมือเขียนเพิ่มเติม"
   },
   {
     "id": 207539,
@@ -4269,7 +4272,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
       "triadan",
       "periodontal-disease"
     ],
-    "image": "/figures/questions/eqmed-dent-triadan-chart.webp"
+    "image": "/figures/questions/eqmed-dent-triadan-chart.webp",
+    "imageAlt": "แผนผังบันทึกฟันม้าแสดงแผงฟันบนและฟันล่างทั้งซ้ายและขวา มีเครื่องหมายสีแดงกำกับหมายเลข 6 ถึง 10 และลายมือเขียนเพิ่มเติม"
   },
   {
     "id": 207540,
@@ -4298,7 +4302,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
       "triadan",
       "malposition"
     ],
-    "image": "/figures/questions/eqmed-dent-triadan-chart.webp"
+    "image": "/figures/questions/eqmed-dent-triadan-chart.webp",
+    "imageAlt": "แผนผังบันทึกฟันม้าแสดงแผงฟันบนและฟันล่างทั้งซ้ายและขวา มีเครื่องหมายสีแดงกำกับหมายเลข 6 ถึง 10 และลายมือเขียนเพิ่มเติม"
   },
   {
     "id": 207541,
@@ -4327,7 +4332,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
       "triadan",
       "sharp-enamel-points"
     ],
-    "image": "/figures/questions/eqmed-dent-triadan-chart.webp"
+    "image": "/figures/questions/eqmed-dent-triadan-chart.webp",
+    "imageAlt": "แผนผังบันทึกฟันม้าแสดงแผงฟันบนและฟันล่างทั้งซ้ายและขวา มีเครื่องหมายสีแดงกำกับหมายเลข 6 ถึง 10 และลายมือเขียนเพิ่มเติม"
   },
   {
     "id": 207542,
@@ -4356,7 +4362,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
       "triadan",
       "endodontic-disease"
     ],
-    "image": "/figures/questions/eqmed-dent-triadan-chart.webp"
+    "image": "/figures/questions/eqmed-dent-triadan-chart.webp",
+    "imageAlt": "แผนผังบันทึกฟันม้าแสดงแผงฟันบนและฟันล่างทั้งซ้ายและขวา มีเครื่องหมายสีแดงกำกับหมายเลข 6 ถึง 10 และลายมือเขียนเพิ่มเติม"
   },
   {
     "id": 207543,
@@ -4412,7 +4419,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
       "buccal-ulcer",
       "oral-examination"
     ],
-    "image": "/figures/questions/eqmed-dent-buccal-ulcer.webp"
+    "image": "/figures/questions/eqmed-dent-buccal-ulcer.webp",
+    "imageAlt": "ภาพถ่ายในช่องปากม้า เห็นแผงฟันกรามบนและเยื่อบุกระพุ้งแก้ม มีลูกศรสีขาวชี้ไปที่เยื่อบุบริเวณขอบด้านนอกของแผงฟัน"
   },
   {
     "id": 207545,
@@ -4468,7 +4476,8 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
       "deciduous-incisor",
       "foal"
     ],
-    "image": "/figures/questions/eqmed-dent-foal-incisors.webp"
+    "image": "/figures/questions/eqmed-dent-foal-incisors.webp",
+    "imageAlt": "ภาพถ่ายลูกม้าสีครีมอ้าปากกว้างมองจากด้านหน้า เห็นฟันตัดบนคู่กลาง มีลายมือเขียนชี้ซี่กลางและซี่ถัดออกไป"
   },
   {
     "id": 207547,

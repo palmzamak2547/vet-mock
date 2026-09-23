@@ -272,7 +272,7 @@ export const QB_VET_PHARM2 = [
       'Mebendazole กับ oxibendazole',
     ],
     answer: 1,
-    explain: 'Febantel ถูก metabolize ใน GI ได้เป็น fenbendazole และ oxfendazole ส่วน netobimin ซึ่งเป็น probenzimidazole อีกตัวถูกเปลี่ยนเป็น albendazole การจำคู่ prodrug กับ active drug ให้ตรงคือจุดที่ข้อสอบชอบสลับ',
+    explain: 'Febantel ถูก metabolize ใน GI ได้เป็น fenbendazole และ oxfendazole ส่วน netobimin ซึ่งเป็น probenzimidazole อีกตัวถูกเปลี่ยนเป็น albendazole ต้องจำคู่ prodrug กับ active drug ให้ตรง',
     verified: 'สไลด์ Antiparasitic drugs 10.04.2025 (รศ.สพ.ญ.ดร.ปิยะรัตน์) หน้า 16',
   },
   {

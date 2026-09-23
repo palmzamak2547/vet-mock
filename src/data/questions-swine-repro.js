@@ -63,7 +63,7 @@ export const QB_SWINE_REPRO = [
       "ไม่ผ่าน inguinal canal"
     ],
     "answer": 1,
-    "explain": "สุกรเป็นสัตว์ที่ ductus deferens ไม่มี ampulla (ส่วนปลายที่พองเป็นกระเปาะแบบในวัว) เป็นจุดที่มักออกข้อสอบ ส่วน ductus deferens ปกติออกจาก cauda epididymis ผ่าน spermatic cord เข้า inguinal canal ไปเปิดที่ pelvic urethra.",
+    "explain": "สุกรเป็นสัตว์ที่ ductus deferens ไม่มี ampulla (ส่วนปลายที่พองเป็นกระเปาะแบบในวัว) ส่วน ductus deferens ปกติออกจาก cauda epididymis ผ่าน spermatic cord เข้า inguinal canal ไปเปิดที่ pelvic urethra.",
     "verified": "Modified Swine Repro Final TJ 86 + Mid 86 สรุป (cross-confirmed)"
   },
   {

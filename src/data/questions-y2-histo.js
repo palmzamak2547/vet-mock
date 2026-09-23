@@ -229,7 +229,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Decrease in granulopoiesis ซึ่งพบได้ใน nonregenerative anemia จาก marrow aplasia"
     ],
     "answer": 2,
-    "explain": "M:E ratio ที่ลดลงต่ำกว่า 1 เช่น 1:4 ร่วมกับ WBC ปกติ แปลว่าสาย erythroid เพิ่มขึ้น จึงหมายถึง increase in erythropoiesis เช่นจาก severe blood loss หรือ erythrocyte destruction ได้แก่ hemorrhagic anemia และ hemolytic anemia ตัวเลือกแรกเป็นการแปลผลของ M:E ที่เพิ่มขึ้นมากกว่า 1 เช่น 4:1 ซึ่งเป็นทิศทางตรงกันข้าม และต้องแปลผลเทียบกับ total WBC count เสมอ",
+    "explain": "M:E ratio ที่ลดลงต่ำกว่า 1 เช่น 1:4 ร่วมกับ WBC ปกติ แปลว่าสาย erythroid เพิ่มขึ้น จึงหมายถึง increase in erythropoiesis เช่นจาก severe blood loss หรือ erythrocyte destruction ได้แก่ hemorrhagic anemia และ hemolytic anemia ส่วน decrease in erythropoiesis เป็นการแปลผลของ M:E ที่เพิ่มขึ้นมากกว่า 1 เช่น 4:1 ซึ่งเป็นทิศทางตรงกันข้าม และต้องแปลผลเทียบกับ total WBC count เสมอ",
     "verified": "Bone Marrow น.53"
   },
   {
@@ -571,7 +571,7 @@ export const QUESTIONS_Y2_HISTO = [
       "เยื่อบุเป็น simple cuboidal epi. ทำหน้าที่สร้าง bile เอง และผนัง thinnest ใน bovine"
     ],
     "answer": 1,
-    "explain": "Gallbladder บุด้วย sim. col. epi. with microvilli และพบ goblet cells ใน cattle ผนังหนาที่สุดใน bovine บางที่สุดใน carnivore ส่วนสัตว์ที่ไม่มีถุงน้ำดีคือ horse, elephant และ rat\n\n❌ ทำไมข้ออื่นผิด\n— \"เยื่อบุเป็น keratinized stratified squamous epi. ผนัง thickest ใน carnivore และ thinnest ใน bovine\" = ผิดทั้งเยื่อบุและสลับความหนากัน ผนังหนาที่สุดใน bovine และบางที่สุดใน carnivore\n— \"พบ goblet cells ใน horse และไม่มีถุงน้ำดีใน cattle\" = สลับสัตว์กัน horse คือกลุ่มที่ไม่มีถุงน้ำดี ส่วน cattle คือตัวที่พบ goblet cells\n— \"เยื่อบุเป็น simple cuboidal epi.\" = เยื่อบุจริงคือ sim. col. epi. with microvilli และถุงน้ำดีเป็นที่เก็บ bile ไม่ได้สร้าง bile เอง ทั้งยังสลับความหนา เพราะ bovine คือตัวที่ผนังหนาที่สุด\n\n💡 ม้าไม่มีถุงน้ำดี วัวมี goblet cells สองจุดนี้คือที่ข้อสอบชอบสลับกัน",
+    "explain": "Gallbladder บุด้วย sim. col. epi. with microvilli และพบ goblet cells ใน cattle ผนังหนาที่สุดใน bovine บางที่สุดใน carnivore ส่วนสัตว์ที่ไม่มีถุงน้ำดีคือ horse, elephant และ rat\n\n❌ ทำไมข้ออื่นผิด\n— \"เยื่อบุเป็น keratinized stratified squamous epi. ผนัง thickest ใน carnivore และ thinnest ใน bovine\" = ผิดทั้งเยื่อบุและสลับความหนากัน ผนังหนาที่สุดใน bovine และบางที่สุดใน carnivore\n— \"พบ goblet cells ใน horse และไม่มีถุงน้ำดีใน cattle\" = สลับสัตว์กัน horse คือกลุ่มที่ไม่มีถุงน้ำดี ส่วน cattle คือตัวที่พบ goblet cells\n— \"เยื่อบุเป็น simple cuboidal epi.\" = เยื่อบุจริงคือ sim. col. epi. with microvilli และถุงน้ำดีเป็นที่เก็บ bile ไม่ได้สร้าง bile เอง ทั้งยังสลับความหนา เพราะ bovine คือตัวที่ผนังหนาที่สุด\n\n💡 ม้าไม่มีถุงน้ำดี วัวมี goblet cells สองจุดนี้สลับกันได้ง่าย",
     "verified": "Digestive System III น.46-47"
   },
   {

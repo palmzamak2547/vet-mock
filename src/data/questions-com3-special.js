@@ -308,7 +308,7 @@ export const QB_COM3_SPECIAL = [
       'Furosemide 2 mg/kg IV bolus',
     ],
     answer: 2,
-    explain: 'Severe hyperK + cardiac signs (weak pulse, HR 120 = relative bradycardia ในแมว hyperK) → **Calcium gluconate 0.5-1.5 ml/kg ของ 10% IV slow 5-10 min** = first-line, stabilize cardiac membrane ภายใน 1-3 min (ไม่ลด K แต่ป้องกัน arrhythmia/asystole), ตามด้วย dextrose ± regular insulin (shift K เข้า cell, 15-30 min), NaHCO3 ใช้เมื่อ severe acidosis ดื้อต่อ fluid, Furosemide ห้ามใช้ใน UO obstruction, 2026 lecture ของ Aj. Chutirat ไม่ระบุ first-line drug ชัดเจน — ใช้ standard ECC: Ca first',
+    explain: 'Severe hyperK + cardiac signs (weak pulse, HR 120 = relative bradycardia ในแมว hyperK) → **Calcium gluconate 0.5-1.5 ml/kg ของ 10% IV slow 5-10 min** = first-line, stabilize cardiac membrane ภายใน 1-3 min (ไม่ลด K แต่ป้องกัน arrhythmia/asystole), ตามด้วย dextrose ± regular insulin (shift K เข้า cell, 15-30 min), NaHCO3 ใช้เมื่อ severe acidosis ดื้อต่อ fluid, Furosemide ห้ามใช้ใน UO obstruction — ตามหลัก standard ECC: Ca first',
     verified: 'metabolic and endocrine and UT 1 hr.pdf 2026 + standard ACVECC teaching (DC3final 2019 ตอบ Dextrose ซึ่งเป็น 2019-era simplification — แก้ตามมาตรฐานปัจจุบัน)' },
 
   { id: 1530, subject: 'com3', topic: 'special-prep', year: 4, source: 'COM III Final 2019',

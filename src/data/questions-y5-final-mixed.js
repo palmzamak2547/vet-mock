@@ -76,7 +76,7 @@ export const QB_Y5_FINAL_MIXED = [
     q: 'ข้อใดเป็นโรคที่เกิดการอักเสบแบบเป็นก้อน (granulomatous inflammation) เกือบทั้งหมด',
     options: ['Tuberculosis, actinomycosis', 'Cryptococcosis, blastomycosis', 'Feline infectious peritonitis (FIP), dermatophytic pseudomycetoma', 'Botryomycosis, porcine circovirus type II infection', 'Paratuberculosis, infectious laryngotracheitis (ILT)'],
     answer: 3,
-    explain: 'Botryomycosis = Staphylococcus + sulfur granule = pyogranuloma\nPCV-2 = granulomatous + lymphoid depletion\nคู่นี้ = "เกือบทั้งหมด granulomatous"\n\n❌ ทำไมข้ออื่นใกล้แต่ไม่ตรง\n— TB/Actino = granuloma ทั้งคู่ (sulfur granule) — ใช้ได้แต่ไม่ตรงสุด\n— Crypto/Blasto = granuloma ทั้งคู่ (จริง)\n— FIP = pyogranuloma, Pseudomycetoma = granuloma\n— Paratb = granuloma, ILT = diphtheritic membrane (ไม่ใช่ granuloma)\n\n💡 Vet 83 commented "เปลี่ยน choice" — answer ใช้ของเดิม',
+    explain: 'Botryomycosis = Staphylococcus + sulfur granule = pyogranuloma\nPCV-2 = granulomatous + lymphoid depletion\nคู่นี้ = "เกือบทั้งหมด granulomatous"\n\n❌ ทำไมข้ออื่นใกล้แต่ไม่ตรง\n— TB/Actino = granuloma ทั้งคู่ (sulfur granule) — ใช้ได้แต่ไม่ตรงสุด\n— Crypto/Blasto = granuloma ทั้งคู่ (จริง)\n— FIP = pyogranuloma, Pseudomycetoma = granuloma\n— Paratb = granuloma, ILT = diphtheritic membrane (ไม่ใช่ granuloma)',
     verified: 'สรุป 80 p.2 (Vet 83 marked "Botryomycosis, PCV-2")',
     flag: { note: 'multiple options arguably granulomatous; PCV-2 + Botryomycosis chosen for "เกือบทั้งหมด"', severity: 'unclear' } },
 
@@ -179,7 +179,7 @@ export const QB_Y5_FINAL_MIXED = [
     q: 'ข้อใดไม่ใช่ โรคที่ก่อให้เกิดพยาธิสภาพที่ผิวหนัง',
     options: ['Hypothyroidism, scabies', 'Photosensitization, Psoroptes cuniculi infestation (ไม่ผ่าน skin?)', 'Zinc deficiency, hypovitaminosis D (hyperkeratosis)', 'Blastomyces dermatitidis, Malassezia pachydermatis infection', 'Hyperadrenocorticism, Demodicosis (Cushing)'],
     answer: 1,
-    explain: 'Psoroptes cuniculi = ear mite ในกระต่าย → ear, ไม่ใช่ผิวหนังทั่ว\nPhotosensitization = ทำผิวเสียจริง แต่คู่นี้ไม่ตรง\nคำตอบใช้ option B เพราะ Psoroptes ไม่ทำ skin lesion ทั่วร่างกาย\n\n❌ ข้ออื่นทำ skin lesion จริง\n— Hypothyroidism = bilateral alopecia, Scabies = pruritic\n— Zn def = hyperkeratosis, Vit D = ผิวลอก\n— Blasto = skin granuloma, Malassezia = greasy skin\n— Cushing = thin skin, Demodex = alopecia',
+    explain: 'Psoroptes cuniculi = ear mite ในกระต่าย → ear, ไม่ใช่ผิวหนังทั่ว\nPhotosensitization = ทำผิวเสียจริง แต่คู่นี้ไม่ตรง\nคำตอบคือคู่ Photosensitization กับ Psoroptes cuniculi เพราะ Psoroptes ไม่ทำ skin lesion ทั่วร่างกาย\n\n❌ ข้ออื่นทำ skin lesion จริง\n— Hypothyroidism = bilateral alopecia, Scabies = pruritic\n— Zn def = hyperkeratosis, Vit D = ผิวลอก\n— Blasto = skin granuloma, Malassezia = greasy skin\n— Cushing = thin skin, Demodex = alopecia',
     verified: 'สรุป 80 p.5 (Vet 83 marked X at option B)',
     flag: { note: 'Psoroptes ใน rabbit = ear; Q logic depends on "ทั่วผิวหนัง" interpretation', severity: 'unclear' } },
 
@@ -200,7 +200,7 @@ export const QB_Y5_FINAL_MIXED = [
     q: 'ข้อใดจับคู่โรคกับรอยโรคทางพยาธิวิทยาได้สัมพันธ์กันมากที่สุด',
     options: ['Oleandriasis — nutmeg liver, centrilobular fatty degeneration', 'Feline herpes virus infection — ulcerative glossitis, intranuclear inclusion body of conjunctival epithelium', 'Canine parvoviral enteritis — watery diarrhea, destruction of intestinal crypts', 'Feline distemper — catarrhal enteritis, destruction of intestinal crypts (FPV)', 'PRRS virus — diffuse pneumonia, bronchointerstitial pneumonia'],
     answer: 0,
-    explain: 'Oleandriasis (cardiac glycoside toxicity) = CHF → nutmeg liver (chronic passive congestion) + centrilobular degeneration\nคู่นี้ตรงสุด — phenotype congestive/RHF\n\n❌ ข้ออื่น็ใกล้แต่:\n— FHV = oral ulcer + INIB conjunctiva ถูกเหมือนกัน\n— CPV/FPV = crypt destruction ถูก\n— PRRSV = interstitial pneumonia ถูก\nVet 83 mark ตรงที่ Oleandriasis = CHF→liver',
+    explain: 'Oleandriasis (cardiac glycoside toxicity) = CHF → nutmeg liver (chronic passive congestion) + centrilobular degeneration\nคู่นี้ตรงสุด — phenotype congestive/RHF\n\n❌ ข้ออื่น็ใกล้แต่:\n— FHV = oral ulcer + INIB conjunctiva ถูกเหมือนกัน\n— CPV/FPV = crypt destruction ถูก\n— PRRSV = interstitial pneumonia ถูก',
     verified: 'สรุป 80 p.5 (Vet 83 marked ANS = Oleandriasis with notation "ตับมี CHF")' },
 
   // ═══════════════════════════════════════════════════════════
@@ -295,7 +295,7 @@ export const QB_Y5_FINAL_MIXED = [
     q: 'กลุ่มเชื้อในข้อใดไม่เข้าได้กับการเป็นสาเหตุของลำไส้อักเสบในสุกร',
     options: ['Isospora suis, porcine parvovirus, Salmonella spp. (RBC only)', 'Porcine circovirus type II, Clostridium difficile, Brachyspira pilosicoli', 'Brachyspira hyodysenteriae, classical swine fever virus (CSFV), Candida albicans', 'Lawsonia intracellularis, Balantidium coli, porcine epidemic diarrhea virus', 'Transmissible gastroenteritis virus (TGEV), Escherichia coli, Trichuris suis'],
     answer: 0,
-    explain: 'Isospora suis + porcine parvovirus + Salmonella → Isospora ทำ enteritis ลูกสุกร, แต่ parvovirus = SMEDI ไม่ใช่ enteritis โดยตรง\nVet 83 mark X — กลุ่มนี้ไม่ตรงทั้งคู่\n\n✓ ข้ออื่นทำ enteritis ใน pig ทั้งคู่\n— PCV2 colitis + C. difficile + Brachyspira = ทั้งคู่ enteritis\n— Brachyspira hyodysenteriae = swine dysentery, CSFV = button ulcer\n— Lawsonia = PPE/ileitis, Balantidium = colitis, PEDV = villus atrophy\n— TGEV + ETEC + Trichuris = ทั้งหมด enteritis',
+    explain: 'Isospora suis + porcine parvovirus + Salmonella → Isospora ทำ enteritis ลูกสุกร, แต่ parvovirus = SMEDI ไม่ใช่ enteritis โดยตรง\nกลุ่มนี้จึงไม่ตรงทั้งคู่\n\n✓ ข้ออื่นทำ enteritis ใน pig ทั้งคู่\n— PCV2 colitis + C. difficile + Brachyspira = ทั้งคู่ enteritis\n— Brachyspira hyodysenteriae = swine dysentery, CSFV = button ulcer\n— Lawsonia = PPE/ileitis, Balantidium = colitis, PEDV = villus atrophy\n— TGEV + ETEC + Trichuris = ทั้งหมด enteritis',
     verified: 'สรุป 80 p.7 (Vet 83 marked A "RBC only")',
     flag: { note: 'A marked X for "RBC only" notation — may indicate ambiguous Q', severity: 'unclear' } },
 
@@ -326,7 +326,7 @@ export const QB_Y5_FINAL_MIXED = [
     q: 'ข้อใดไม่ใช่ การวินิจฉัยและสาเหตุของการขับถ่ายเป็นเลือด (bloody diarrhea) ในสุกร',
     options: ['Salmonellosis, swine dysentery (B. hyodysenteriae)', 'Swine dysentery, whipworm trichuriasis (Trichuris suis)', 'Hemorrhagic bowel disease, acute form of porcine proliferative enteropathy (PPE)', 'Porcine colonic spirochetosis, balantidiosis', 'ผิดทุกข้อ'],
     answer: 3,
-    explain: 'Brachyspira pilosicoli = "spirochetal colitis" ใน pig ทำ mucohemorrhagic diarrhea (เกิดได้)\nBalantidium coli = colitis แต่ commensal usually, rarely bloody\nคู่นี้ Vet 83 mark X เพราะ Balantidium ไม่ใช่ bloody diarrhea primary cause\n\n✓ ข้ออื่นทำ bloody diarrhea\n— Salmo + swine dysentery\n— Trichuris + B. hyodysenteriae\n— HBD + PPE (PPE acute = bloody)',
+    explain: 'Brachyspira pilosicoli = "spirochetal colitis" ใน pig ทำ mucohemorrhagic diarrhea (เกิดได้)\nBalantidium coli = colitis แต่ commensal usually, rarely bloody\nคู่นี้จึงเป็นคำตอบ เพราะ Balantidium ไม่ใช่ bloody diarrhea primary cause\n\n✓ ข้ออื่นทำ bloody diarrhea\n— Salmo + swine dysentery\n— Trichuris + B. hyodysenteriae\n— HBD + PPE (PPE acute = bloody)',
     verified: 'สรุป 80 p.8 (Vet 83 marked D X "Balantidium ไม่เด่นออก")',
     flag: { note: 'Balantidium colitis can be bloody in some cases — Vet 83 ambiguous', severity: 'unclear' } },
 
@@ -464,7 +464,7 @@ export const QB_Y5_FINAL_MIXED = [
     q: 'ข้อใดไม่ถูกต้องเกี่ยวกับโรควัวบ้า (Mad cow disease, BSE)',
     options: ['จัดอยู่ในกลุ่มโรค Transmissible spongiform encephalopathies (TSE)', 'สามารถติดต่อและถ่ายทอด variant Creutzfeldt-Jakob disease (vCJD) ในคนได้', 'สามารถส่งตัวอย่าง obex เพื่อการวินิจฉัยที่ดี โดยเก็บที่ตำแหน่งบริเวณ foramen magnum ของกระดูกท้ายทอย', 'รอยโรคทางพยาธิวิทยาแบบ neuronal vacuolation และ spongiosis', 'Prion เป็นโปรตีนทั่วไป'],
     answer: 4,
-    explain: 'Prion = เป็นโปรตีน abnormal (PrPSc) — "ไม่ใช่โปรตีนทั่วไป" (เป็น misfolded prion protein) → ข้อ E ผิด\n\n✓ ข้ออื่นถูก\n— BSE = ใน TSE family\n— vCJD = variant CJD ในคนจาก BSE consumption\n— Obex sample = brainstem sample point for histopath\n— Neuronal vacuolation + spongiosis = classic',
+    explain: 'Prion = เป็นโปรตีน abnormal (PrPSc) — "ไม่ใช่โปรตีนทั่วไป" (เป็น misfolded prion protein) → ข้อความนี้ผิด\n\n✓ ข้ออื่นถูก\n— BSE = ใน TSE family\n— vCJD = variant CJD ในคนจาก BSE consumption\n— Obex sample = brainstem sample point for histopath\n— Neuronal vacuolation + spongiosis = classic',
     verified: 'สรุป 80 p.11 (Vet 83 marked E "เป็นprotein-ป่าว ?")',
     flag: { note: 'Vet 83 query indicates Q ambiguous; E chosen as "incorrect statement"', severity: 'unclear' } },
 
@@ -495,7 +495,7 @@ export const QB_Y5_FINAL_MIXED = [
     q: 'ข้อใดเป็นการเก็บตัวอย่างที่ดีของ Bovine paratuberculosis (Johne\'s disease) สำหรับการตรวจ',
     options: ['Bovine bacterial infection ส่งตัวอย่างเดียวคำหวาน', 'Bovine bacterial infection ส่งตัวอย่างเดียวเลือดเลือดอำคำหวาน', 'Bovine bacterial infection ส่งตัวอย่างเดียว jejunum หรือ ileum เลือดอำคำหวาน', 'Bovine bacterial infection ส่งตัวอย่าง jejunum หรือ ileum และ feces ที่อยู่ทางก้อน', 'Bovine paratuberculosis เก็บตัวอย่าง jejunum หรือ ileum ส่งเลือดอำคำหวาน'],
     answer: 3,
-    explain: "Johne's disease = Mycobacterium avium subsp. paratuberculosis (MAP) → granulomatous ileitis\nBest sample = ileum + jejunum + feces (acid-fast + PCR + culture)\n\n❌ ข้ออื่นไม่ครอบคลุม\nVet 83 mark D (jeju + ileum + feces)",
+    explain: "Johne's disease = Mycobacterium avium subsp. paratuberculosis (MAP) → granulomatous ileitis\nBest sample = ileum + jejunum + feces (acid-fast + PCR + culture)\n\n❌ ข้ออื่นไม่ครอบคลุม",
     verified: 'สรุป 80 p.12 (Vet 83 marked D "jeju, ileum")' },
 
   // ═══════════════════════════════════════════════════════════
@@ -539,7 +539,7 @@ export const QB_Y5_FINAL_MIXED = [
     q: 'ข้อใดถูกต้องเกี่ยวกับโรคเนื้องอกในสัตว์ปีก (avian leukosis และ Marek\'s disease)',
     options: ['เนื้องอกชนิด lymphoma ในอวัยวะภายในสามารถเกิดได้ทั้งจาก avian leukosis และ Marek\'s disease', "Marek's disease สามารถเกิดก้อนที่ผูง (feather follicle) ได้", 'การทำวัคซีนสามารถใช้ป้องกันได้ทั้ง avian leukosis และ Marek\'s disease', "หนึ่งใน avian leukosis และ Marek's disease สามารถเจอโรคโดย vertical transmission ได้ทั้งคู่หนึ่งกัน (horizontal ONLY)", "Avian leukosis เกิดจาก DNA virus ในขณะที่ Marek's disease เกิดจาก DNA virus (retrovirus)"],
     answer: 0,
-    explain: 'Avian leukosis (ALV, retrovirus) + Marek\'s disease (MD, herpesvirus alpha-2) ทั้งคู่ทำ B-cell/T-cell lymphoma ในไก่ → tumor ในอวัยวะภายในทั้งคู่\n\n❌ ข้ออื่นผิด\n— Marek = feather follicle (จริง — skin form) แต่ความผิดอยู่อื่น\n— Vaccine ป้องกัน Marek ได้ แต่ ALV ไม่มี vaccine effective\n— Vertical ใช้ ALV เท่านั้น Marek = horizontal\n— ALV = RNA retrovirus, MD = DNA herpesvirus (ข้อ E สลับ)',
+    explain: 'Avian leukosis (ALV, retrovirus) + Marek\'s disease (MD, herpesvirus alpha-2) ทั้งคู่ทำ B-cell/T-cell lymphoma ในไก่ → tumor ในอวัยวะภายในทั้งคู่\n\n❌ ข้ออื่นผิด\n— Marek = feather follicle (จริง — skin form) แต่ความผิดอยู่อื่น\n— Vaccine ป้องกัน Marek ได้ แต่ ALV ไม่มี vaccine effective\n— Vertical ใช้ ALV เท่านั้น Marek = horizontal\n— ALV = RNA retrovirus, MD = DNA herpesvirus (ALV ไม่ใช่ DNA virus)',
     verified: 'สรุป 80 p.13 (Vet 83 marked A "lymphocytic feature ทั้งคู่")' },
 
   { id: 8049, subject: 'rec-adv-bioscience', topic: 'ravb-bacterial-dx', year: 5,
@@ -589,7 +589,7 @@ export const QB_Y5_FINAL_MIXED = [
     q: 'พยาธิที่พบในกระเพาะและลำไส้ของกระบือต่อไปนี้เป็นพยาธิตัวกลม (nematode) ยกเว้นข้อใด',
     options: ['Haemonchus contortus', 'Oesophagostomum spp.', 'Cooperia spp. (cattle)', 'Mecistocirrus digitatus (ruminant)', 'Monezia spp. (tapeworm)'],
     answer: 4,
-    explain: 'Monezia = tape worm (cestode) — มี proglottids (segments)\nคำถาม "พยาธิตัวตืด" จริงๆ คือ tapeworm\n→ Monezia เป็นตืด แต่ option อื่นเป็น nematode (roundworm)\n\n❌ Haemonchus, Oesophagostomum, Cooperia, Mecistocirrus = nematodes\n→ "ยกเว้น" = nematode (ไม่ใช่ tape worm) — ตอบยกเว้นข้อ Monezia\n\n⚠️ Vet 83 marked E circled "Monezia (tape)" = nematode list except for E',
+    explain: 'Monezia = tape worm (cestode) — มี proglottids (segments)\nคำถาม "พยาธิตัวตืด" จริงๆ คือ tapeworm\n→ Monezia เป็นตืด แต่ option อื่นเป็น nematode (roundworm)\n\n❌ Haemonchus, Oesophagostomum, Cooperia, Mecistocirrus = nematodes\n→ "ยกเว้น" = nematode (ไม่ใช่ tape worm) — ตอบยกเว้นข้อ Monezia',
     verified: 'สรุป 80 p.14 (Vet 83 marked E "Monezia (tape)")',
     flag: { note: 'Question wording ambiguous; Vet 83 highlights Monezia as the exception (it IS the tapeworm)', severity: 'unclear' } },
 
@@ -630,7 +630,7 @@ export const QB_Y5_FINAL_MIXED = [
     q: 'โรคขี้ขาวในกุ้ง เกิดจากสาเหตุใด',
     options: ['Gregarine protozoa', 'Aggregated transformed microvilli (ATM)', 'Hepatopancreatic haplosporidiosis (HPH)', 'Covert morality disease'],
     answer: 0,
-    explain: 'White feces disease (โรคขี้ขาว) = multi-factorial in shrimp\n• Gregarine protozoa (Nematopsis) — historical cause\n• ATM (aggregated transformed microvilli) — recent finding\n• EHP (Enterocytozoon hepatopenaei) — emerging\nVet 83 mark A (Gregarine) ตามเดิม\n\n❌ ข้ออื่นรอง',
+    explain: 'White feces disease (โรคขี้ขาว) = multi-factorial in shrimp\n• Gregarine protozoa (Nematopsis) — historical cause\n• ATM (aggregated transformed microvilli) — recent finding\n• EHP (Enterocytozoon hepatopenaei) — emerging\nคำตอบของข้อนี้คือ Gregarine protozoa\n\n❌ ข้ออื่นรอง',
     verified: 'สรุป 80 p.14 (Vet 83 marked A "Gregarine protozoa")' },
 
   { id: 8058, subject: 'aquatic-clinic', topic: 'aqua-fish-diseases', year: 5,

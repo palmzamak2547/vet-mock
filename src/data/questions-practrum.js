@@ -306,7 +306,7 @@ export const QB_PRACTRUM = [
               'Propofol CRI + Lidocaine epidural + Enrofloxacin SC + Meloxicam',
               'Acepromazine + Bupivacaine ring block + Penicillin IM + Banocin'],
     answer: 1,
-    explain: 'Lecture 2026 Penile deviation drug protocol (slides 4-8):\n\n**Sedation**: Xylazine HCl 0.05-0.1 mg/kg IM หรือ IV\n**Local anesthesia**: Lidocaine 2% — ring block + line block ที่ scrotum/penis\n**Antibiotic**: Pendistrep L.A. (Procaine + Benzathine Penicillin + Dihydrostreptomycin) 20,000 IU/kg IM\n**NSAID**: Phenylbutazone 2-5 mg/kg IV (Butasyl)\n**Topical**: Banocin powder (Clioquinol + Bacitracin + Neomycin sulfate)\n\n💡 Restraint: Hannover trolley (mobile stand)',
+    explain: 'Penile deviation drug protocol:\n\n**Sedation**: Xylazine HCl 0.05-0.1 mg/kg IM หรือ IV\n**Local anesthesia**: Lidocaine 2% — ring block + line block ที่ scrotum/penis\n**Antibiotic**: Pendistrep L.A. (Procaine + Benzathine Penicillin + Dihydrostreptomycin) 20,000 IU/kg IM\n**NSAID**: Phenylbutazone 2-5 mg/kg IV (Butasyl)\n**Topical**: Banocin powder (Clioquinol + Bacitracin + Neomycin sulfate)\n\n💡 Restraint: Hannover trolley (mobile stand)',
     verified: 'Lecture 2026 slides 4-9 Drugs & Equipments section' },
 
   { id: 2023, subject: 'practrum', topic: 'penile-deviation', year: 4,
@@ -533,7 +533,7 @@ export const QB_PRACTRUM = [
     q: 'ถ้าจะผ่าตัดในลูกวัวต้องอดอาหารนานเท่าไหร่',
     options: ['ไม่อดอาหารเลย', 'อด 8 ชั่วโมง', 'อด 12 ชั่วโมง', 'อด 24 ชั่วโมง', 'อด 36 ชั่วโมง'],
     answer: 0,
-    explain: 'ลูกวัว (neonate) — **ไม่อดอาหารเลย** เพราะเสี่ยง hypoglycemia\n\n💡 Pre-op fasting guidelines (Aj. Ekkapol 2024 lecture):\n• **Neonates: NOT recommended** (risk of hypoglycemia)\n• Small ruminants: Food 12 hr / Water 8 hr\n• Adult cattle: Food + water 12-24 hr\n• Large mature bulls: Food + water 24-36 hr\n\n⚠️ Neonate ยังเป็น functional monogastric — ต้องการ milk บ่อย และ rumen ยังไม่พัฒนาให้สามารถ buffer ได้นาน',
+    explain: 'ลูกวัว (neonate) — **ไม่อดอาหารเลย** เพราะเสี่ยง hypoglycemia\n\n💡 Pre-op fasting guidelines:\n• **Neonates: NOT recommended** (risk of hypoglycemia)\n• Small ruminants: Food 12 hr / Water 8 hr\n• Adult cattle: Food + water 12-24 hr\n• Large mature bulls: Food + water 24-36 hr\n\n⚠️ Neonate ยังเป็น functional monogastric — ต้องการ milk บ่อย และ rumen ยังไม่พัฒนาให้สามารถ buffer ได้นาน',
     verified: 'pp\'s vet prac rum final85 p.2 Q3 — answer marked A' },
 
   { id: 2035, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
@@ -582,7 +582,7 @@ export const QB_PRACTRUM = [
     q: 'Caudal epidural nerve block ทำที่ไหน (ในวัว)',
     options: ['L6-S1', 'L7-S1', 'L8-S1', 'S3-C1', 'S5-C1'],
     answer: 4,
-    explain: 'วัว: caudal epidural ที่ **S5-Co1 (sacrococcygeal space)** หรือ first intercoccygeal (Co1-Co2)\n\n💡 Lecture detail (Aj. Ekkapol 2024):\n• Sacrococcygeal (S5-Co1) ✓\n• First intercoccygeal (Co1-Co2)\n• Lidocaine 2%: 1 ml/100 kg, max 6 ml\n• Loss of resistance + hanging drop technique\n\n💡 Indication: analgesia of pelvic visceral + genitalia (perineal sx, c-section, dystocia)\n\n⚠️ ต่างจากแพะแกะ (lumbosacral L6-S1) เพราะ vertebral anatomy + caudal nerve emergence ต่างกัน',
+    explain: 'วัว: caudal epidural ที่ **S5-Co1 (sacrococcygeal space)** หรือ first intercoccygeal (Co1-Co2)\n\n💡 รายละเอียด:\n• Sacrococcygeal (S5-Co1) ✓\n• First intercoccygeal (Co1-Co2)\n• Lidocaine 2%: 1 ml/100 kg, max 6 ml\n• Loss of resistance + hanging drop technique\n\n💡 Indication: analgesia of pelvic visceral + genitalia (perineal sx, c-section, dystocia)\n\n⚠️ ต่างจากแพะแกะ (lumbosacral L6-S1) เพราะ vertebral anatomy + caudal nerve emergence ต่างกัน',
     verified: 'pp\'s vet prac rum final85 p.2 Q7 — answer marked E' },
 
   { id: 2039, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
@@ -594,7 +594,7 @@ export const QB_PRACTRUM = [
     q: 'ข้อใดสำคัญที่สุดในการบอกว่าทำ paravertebral nerve block สำเร็จแล้ว',
     options: ['อุณหภูมิสูงขึ้น', 'ความเจ็บปวดลดลง', 'เดินผิดปกติ', 'ระยะเวลาที่ออกฤทธิ์', 'สีผิวหนังเปลี่ยนไป'],
     answer: 1,
-    explain: '**ความเจ็บปวดลดลง (loss of pain sensation)** = สำคัญที่สุดในการ confirm block สำเร็จ\n\n💡 Test method (Aj. Ekkapol):\n1. ใช้ pin prick / sharp needle ที่ skin บริเวณ flank\n2. ถ้า block สำเร็จ → cow ไม่ตอบสนอง (ไม่กระตุก ไม่หลบ)\n3. ถ้า block ไม่สำเร็จ → cow ตอบสนอง pain → ต้อง re-inject\n\n💡 Secondary signs (รองลงมา):\n• อุณหภูมิผิวสูงขึ้น (vasodilation post-sympathetic block) — ตรงแต่ไม่ first-line\n• เดินผิดปกติ — ถ้า block ไกลเกินไป (motor block)\n• สีผิวเปลี่ยน — vasodilation\n\n⚠️ ระยะเวลาที่ออกฤทธิ์ (15-20 min onset) — ไม่บอก success ทันที',
+    explain: '**ความเจ็บปวดลดลง (loss of pain sensation)** = สำคัญที่สุดในการ confirm block สำเร็จ\n\n💡 Test method:\n1. ใช้ pin prick / sharp needle ที่ skin บริเวณ flank\n2. ถ้า block สำเร็จ → cow ไม่ตอบสนอง (ไม่กระตุก ไม่หลบ)\n3. ถ้า block ไม่สำเร็จ → cow ตอบสนอง pain → ต้อง re-inject\n\n💡 Secondary signs (รองลงมา):\n• อุณหภูมิผิวสูงขึ้น (vasodilation post-sympathetic block) — ตรงแต่ไม่ first-line\n• เดินผิดปกติ — ถ้า block ไกลเกินไป (motor block)\n• สีผิวเปลี่ยน — vasodilation\n\n⚠️ ระยะเวลาที่ออกฤทธิ์ (15-20 min onset) — ไม่บอก success ทันที',
     verified: 'pp\'s vet prac rum final85 p.2 Q8 — answer marked B' },
 
   { id: 2040, subject: 'practrum', topic: 'rumenotomy', year: 4,
@@ -723,7 +723,7 @@ export const QB_PRACTRUM = [
     q: 'Caudal epidural nerve block ทำที่ตำแหน่งใดในวัว',
     options: ['L6-S1', 'L7-S1', 'L8-S1', 'S3-C1', 'S5-C1'],
     answer: 4,
-    explain: 'Caudal epidural ในวัว 2 ตำแหน่งมาตรฐาน: (1) S5-Co1 = sacrococcygeal junction (high caudal, ตำแหน่งในข้อสอบ) (2) Co1-Co2 = 1st intercoccygeal space (low caudal, ใช้บ่อยกว่าใน routine), คลำหา joint โดยยกหางขึ้น-ลง, block tail + perineum + posterior vagina, ปริมาณ 5-7 ml lidocaine 2%',
+    explain: 'Caudal epidural ในวัว 2 ตำแหน่งมาตรฐาน: (1) S5-Co1 = sacrococcygeal junction (high caudal) (2) Co1-Co2 = 1st intercoccygeal space (low caudal, ใช้บ่อยกว่าใน routine), คลำหา joint โดยยกหางขึ้น-ลง, block tail + perineum + posterior vagina, ปริมาณ 5-7 ml lidocaine 2%',
     verified: 'TJ p4 highlighted E + Roberts Veterinary Obstetrics' },
 
 
@@ -860,6 +860,7 @@ export const QB_PRACTRUM = [
     options: ['A', 'B', 'C', 'D', 'E'],
     answer: 0,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า A = หัวออกมาแล้ว ขาขวายื่นออก แต่ขาซ้ายค้างใน uterus (พับงอ retained) — Correction: ดัน fetus กลับ + งัดขาซ้ายมาด้วย eye/limb hook ก่อนดึง',
     verified: 'TJ p10 + (Final) p4 + Roberts Vet Obstetrics' },
 
@@ -870,6 +871,7 @@ export const QB_PRACTRUM = [
     options: ['A', 'B', 'C', 'D', 'E'],
     answer: 1,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า B = ขาหน้าพับงอทั้ง 2 ข้าง (carpal flexion / shoulder flexion bilateral) หัวออกมาก่อนแต่ติดที่ไหล่ — Correction: extend แต่ละขาทีละข้าง',
     verified: 'TJ p10 + (Final) p4' },
 
@@ -880,6 +882,7 @@ export const QB_PRACTRUM = [
     options: ['A', 'B', 'C', 'D', 'E'],
     answer: 2,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า C = elbow flexion ข้างเดียว แตกต่างจาก B (carpal flexion) — fetlock อยู่ระดับ pelvis แต่ elbow ติด — แค่ดึงขาขึ้นที่ระดับ elbow ก็พอ',
     verified: 'TJ p10 + Roberts Vet Obstetrics' },
 
@@ -890,6 +893,7 @@ export const QB_PRACTRUM = [
     options: ['A', 'B', 'C', 'D', 'E'],
     answer: 3,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า D = หัวงอ ventral (chest-poll position) เห็นแต่ขาหน้า — Correction: push fetus กลับ, ใช้ eye hook (ระวัง globe) หรือ jaw hook ดึงหัวขึ้นเข้า birth canal',
     verified: 'TJ p10 + Roberts Vet Obstetrics' },
 
@@ -900,6 +904,7 @@ export const QB_PRACTRUM = [
     options: ['A', 'B', 'C', 'D', 'E'],
     answer: 4,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า E = หัวเงยขึ้น (stargazing) — เห็นขาหน้าทั้ง 2, แต่หัวอยู่เหนือตัว — Correction: push fetus กลับเล็กน้อย, ดึงหัวลงมาเข้า canal',
     verified: 'TJ p10 + Roberts Vet Obstetrics' },
 
@@ -910,6 +915,7 @@ export const QB_PRACTRUM = [
     options: ['D', 'E', 'F', 'G', 'H'],
     answer: 2,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า F = ventral (คว่ำหน้า) แทน dorsal (หงาย) + retention ขา — fetus rotate 180° จากปกติ, ต้อง rotate กลับให้ดอร์ซัล + แก้ retention',
     verified: 'TJ p10 + Roberts' },
 
@@ -920,6 +926,7 @@ export const QB_PRACTRUM = [
     options: ['E', 'F', 'G', 'H', 'I'],
     answer: 2,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า G = "นั่งหมา" — fetus งอเข่าทั้ง 2 ข้าง, ก้นจ่อ pelvis — fetus stuck เพราะขาหน้า + ขาหลังมาที่ pelvis พร้อมกัน — Tx: C-section ถ้าใหญ่',
     verified: 'TJ p10 + Roberts' },
 
@@ -930,6 +937,7 @@ export const QB_PRACTRUM = [
     options: ['F', 'G', 'H', 'I', 'J'],
     answer: 2,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า H = True breech — เห็นแต่หาง/ก้น ขาหลังพับขึ้นใต้ท้อง — Correction: push fetus cranial → flex hock → จับ hock + ขาหลังออก หรือ C-section',
     verified: 'TJ p10 + Roberts (classic Q)' },
 
@@ -940,6 +948,7 @@ export const QB_PRACTRUM = [
     options: ['G', 'H', 'I', 'J', 'K'],
     answer: 2,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า I = Posterior + hock flexion — เห็นกีบขาหลังยื่นออก แต่ติดที่ hock — easier than breech — Correction: lift hock, extend leg',
     verified: 'TJ p10 + Roberts' },
 
@@ -950,6 +959,7 @@ export const QB_PRACTRUM = [
     options: ['H', 'I', 'J', 'K', 'L'],
     answer: 2,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า J = ventral posterior — fetus คว่ำหน้า + ออกหลังก่อน + hock flexion — ต้อง rotate fetus + แก้ hock flexion ก่อนดึง',
     verified: 'TJ p10' },
 
@@ -960,6 +970,7 @@ export const QB_PRACTRUM = [
     options: ['I', 'J', 'K', 'L', 'A'],
     answer: 2,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า K = transverse (ขวาง) + ventral (ท้องลง) — เห็นทั้งหัวและหางที่ pelvic inlet — Tx: C-section first choice (ดึงไม่ได้)',
     verified: 'TJ p10 + Roberts' },
 
@@ -970,6 +981,7 @@ export const QB_PRACTRUM = [
     options: ['I', 'J', 'K', 'L', 'B'],
     answer: 3,
     imagePath: '/images/practrum/dystocia/grid-A-L.png',
+    imageAlt: 'ภาพลายเส้นขาวดำ 12 ช่อง ติดป้าย A ถึง L แสดงลูกโคในมดลูกแม่โคในท่าคลอดแบบต่าง ๆ มองจากด้านข้าง',
     explain: 'ท่า L = transverse + dorsal (หงาย) หรือ right lateral lying — fetus ขวางในแนวตั้ง — Tx: C-section (mutation ทำได้แต่ใน fetus เล็ก/early dystocia)',
     verified: 'TJ p10 + Roberts' },
 
@@ -1113,7 +1125,7 @@ export const QB_PRACTRUM = [
     q: 'อาหารข้น (concentrate) สำหรับวัวโต ควรมี crude fiber ขั้นต่ำเท่าไร',
     options: ['8%', '12%', '15%', '18%', '25%'],
     answer: 3,
-    explain: 'อ.น้ำ field practice: เยื่อใย 18% ถึงจะถือว่า concentrate ที่เหมาะสมสำหรับ ruminant, ป้องกัน SARA + รักษา rumen function, ถ้าน้อยกว่า rumen pH ตก',
+    explain: 'ในภาคสนาม เยื่อใย 18% ถึงจะถือว่า concentrate ที่เหมาะสมสำหรับ ruminant, ป้องกัน SARA + รักษา rumen function, ถ้าน้อยกว่า rumen pH ตก',
     verified: 'LINE teacher note (อ.น้ำ Field Practice 5 พ.ค.)' },
 
   { id: 3042, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,
@@ -1187,7 +1199,7 @@ export const QB_PRACTRUM = [
     q: 'แหล่ง vitamin K สูงในพืชอาหารสัตว์',
     options: ['เมล็ดข้าวโพดบด', 'ใบกระถิน (Leucaena)', 'รำละเอียด (rice bran)', 'ปลายข้าวหัก', 'มันเส้นตากแห้ง'],
     answer: 1,
-    explain: 'อ.น้ำ teaches: ใบกระถิน (Leucaena leucocephala) = vitamin K สูง, พืชสีเขียวทั่วไป = vitamin A, รำละเอียด = vitamin E เยอะ + B complex, ใช้เป็น natural vitamin source',
+    explain: 'ใบกระถิน (Leucaena leucocephala) = vitamin K สูง, พืชสีเขียวทั่วไป = vitamin A, รำละเอียด = vitamin E เยอะ + B complex, ใช้เป็น natural vitamin source',
     verified: 'LINE teacher note' },
 
   { id: 3048, subject: 'practrum', topic: 'mahahon-practrum-feed', year: 4,

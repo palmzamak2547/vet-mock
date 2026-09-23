@@ -2620,7 +2620,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "พ่อม้าเมื่อได้กลิ่นแม่ม้าเป็นสัด"
     ],
     "answer": 3,
-    "explain": "Flehmen คือการยกริมฝีปากบนขึ้นเพื่อดันกลิ่นเข้าสู่ vomeronasal organ พบบ่อยที่สุดในพ่อม้าที่ดมกลิ่นปัสสาวะหรือกลิ่นตัวของแม่ม้าที่เป็นสัด โจทย์ในข้อสอบชุดเดิมเขียนสลับเป็นแม่ม้า และเฉลยได้แก้ไว้ จึงเป็นจุดที่ต้องอ่านให้ละเอียด",
+    "explain": "Flehmen คือการยกริมฝีปากบนขึ้นเพื่อดันกลิ่นเข้าสู่ vomeronasal organ พบบ่อยที่สุดในพ่อม้าที่ดมกลิ่นปัสสาวะหรือกลิ่นตัวของแม่ม้าที่เป็นสัด",
     "verified": "Equine repro mid 85 น.5",
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
@@ -2902,7 +2902,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "พบ endometrial cyst มากกว่า 2 cm ในระยะ diestrus ถัดไป"
     ],
     "answer": 0,
-    "explain": "บันทึกในสรุประบุ intraluminal uterine fluid มากกว่า 2 cm ในช่วง 6-36 ชม. หลังผสม และแนะนำให้ ultrasound เทียบปริมาณ fluid ก่อนผสมกับหลังผสม. ตัวเลข 5 cm ที่ 72 ชม. ไม่ใช่เกณฑ์ที่ระบุไว้. ผนังมดลูกหนาเป็นลักษณะของ metritis หลังคลอด. endometrial cyst พบใน endometrosis ซึ่งเป็นคนละภาวะ",
+    "explain": "เกณฑ์คือ intraluminal uterine fluid มากกว่า 2 cm ในช่วง 6-36 ชม. หลังผสม และแนะนำให้ ultrasound เทียบปริมาณ fluid ก่อนผสมกับหลังผสม. ตัวเลข 5 cm ที่ 72 ชม. ไม่ใช่เกณฑ์นี้. ผนังมดลูกหนาเป็นลักษณะของ metritis หลังคลอด. endometrial cyst พบใน endometrosis ซึ่งเป็นคนละภาวะ",
     "verified": "Equine Repro Final (Vet 85) น.2",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"
@@ -2998,7 +2998,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "แปลผลไม่ได้ ต้องรอตรวจซ้ำในระยะ estrus ถัดไป"
     ],
     "answer": 1,
-    "explain": "สรุประบุชัดว่าการมี intraluminal fluid ในระยะ diestrus เป็นสิ่งผิดปกติเสมอ เพราะช่วงนี้ cervix ปิดและมดลูกควรแห้ง ต่างจากระยะ estrus ที่มดลูกบวมน้ำและมี fluid ได้ตามปกติ. เกณฑ์ fluid เกิน 2 cm ใช้ประเมินหลังผสมในช่วง 6-36 ชม. ไม่ใช่ค่าที่ยอมรับได้ใน diestrus. การรอตรวจซ้ำทำให้เสียเวลาโดยไม่จำเป็น",
+    "explain": "การมี intraluminal fluid ในระยะ diestrus เป็นสิ่งผิดปกติเสมอ เพราะช่วงนี้ cervix ปิดและมดลูกควรแห้ง ต่างจากระยะ estrus ที่มดลูกบวมน้ำและมี fluid ได้ตามปกติ. เกณฑ์ fluid เกิน 2 cm ใช้ประเมินหลังผสมในช่วง 6-36 ชม. ไม่ใช่ค่าที่ยอมรับได้ใน diestrus. การรอตรวจซ้ำทำให้เสียเวลาโดยไม่จำเป็น",
     "verified": "Equine Repro Final (Vet 85) น.4",
     "sourceType": "student-compilation",
     "examOrigin": "Equine Repro (Vet 85) reconstructed case set"
@@ -3046,7 +3046,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "Expanded blastocyst อาศัย oxytocin เปิด UTJ"
     ],
     "answer": 2,
-    "explain": "สรุประบุลำดับ zygote ไป morula ไป early blastocyst ที่วัน 6-7 และระบุว่าวัน 6.5-7 blastocyst สร้าง PGE2 ไปคลายกล้ามเนื้อ uterotubal junction ให้ตัวอ่อนผ่านลงมดลูก. PGF2α เป็นตัวสลาย CL ไม่ใช่ตัวเปิด UTJ. Zygote ยังอยู่ในช่วงวันแรกๆ ใน oviduct. Oxytocin ไม่เกี่ยวข้องกับขั้นตอนนี้",
+    "explain": "ลำดับคือ zygote ไป morula ไป early blastocyst ที่วัน 6-7 และวัน 6.5-7 blastocyst สร้าง PGE2 ไปคลายกล้ามเนื้อ uterotubal junction ให้ตัวอ่อนผ่านลงมดลูก. PGF2α เป็นตัวสลาย CL ไม่ใช่ตัวเปิด UTJ. Zygote ยังอยู่ในช่วงวันแรกๆ ใน oviduct. Oxytocin ไม่เกี่ยวข้องกับขั้นตอนนี้",
     "verified": "Equine Repro Final (Vet 85) น.5",
     "sourceType": "student-compilation",
     "examOrigin": "Equine Repro (Vet 85) recalled exam point"
@@ -3116,7 +3116,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "ตรวจหาลูกแฝดเพื่อพิจารณาบี้ทิ้ง"
     ],
     "answer": 3,
-    "explain": "สรุประบุรอบแรกวัน 14-16 เพื่อดูว่ามีลูกแฝดหรือไม่ เพราะแฝดในม้ามักแท้งระยะท้าย จึงต้องบี้ทิ้งถุงหนึ่ง. รอบสองวัน 22-30 ดูหัวใจเต้น. รอบสามดูการสร้าง endometrial cup. รอบสี่วัน 60 ขึ้นไปจึงดูเพศได้",
+    "explain": "รอบแรกวัน 14-16 ใช้ดูว่ามีลูกแฝดหรือไม่ เพราะแฝดในม้ามักแท้งระยะท้าย จึงต้องบี้ทิ้งถุงหนึ่ง. รอบสองวัน 22-30 ดูหัวใจเต้น. รอบสามดูการสร้าง endometrial cup. รอบสี่วัน 60 ขึ้นไปจึงดูเพศได้",
     "verified": "Equine Repro Final (Vet 85) น.5",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"
@@ -3185,7 +3185,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "Neonatal isoerythrolysis ที่จะเกิดกับลูกหลังคลอด"
     ],
     "answer": 1,
-    "explain": "กล่องในสรุประบุว่า premature mammary development หรือ early udder filling อาจบ่งชี้ placental dysfunction ตรวจต่อด้วย ultrasound จะเห็นรกหนาและลูกโตช้า. Hypocalcemia แสดงออกเป็นอ่อนแรง สั่น นอนไม่ลุก. Uterine torsion แสดงเป็น colic และหัวใจเต้นเร็ว. NI เกิดหลังลูกกินนมน้ำเหลือง ไม่ใช่สัญญาณก่อนคลอด",
+    "explain": "premature mammary development หรือ early udder filling อาจบ่งชี้ placental dysfunction ตรวจต่อด้วย ultrasound จะเห็นรกหนาและลูกโตช้า. Hypocalcemia แสดงออกเป็นอ่อนแรง สั่น นอนไม่ลุก. Uterine torsion แสดงเป็น colic และหัวใจเต้นเร็ว. NI เกิดหลังลูกกินนมน้ำเหลือง ไม่ใช่สัญญาณก่อนคลอด",
     "verified": "Equine Repro Final (Vet 85) น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"
@@ -3231,7 +3231,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "เมื่อยืนยันว่าท้องที่อายุครรภ์ 60 วัน"
     ],
     "answer": 1,
-    "explain": "สรุประบุให้เปิดรอยเย็บ Caslick ราว 2 สัปดาห์ก่อนคลอด และถ้าไม่เคยเย็บก็ไม่ต้องทำ. การรอถึง stage I เสี่ยงต่อการฉีกขาดของฝีเย็บขณะลูกออก. การเปิดหลังคลอดไม่ทันการณ์. อายุครรภ์ 60 วันเร็วเกินไปเพราะยังต้องการรอยเย็บไว้กันลมและสิ่งสกปรกตลอดการตั้งท้อง",
+    "explain": "ให้เปิดรอยเย็บ Caslick ราว 2 สัปดาห์ก่อนคลอด และถ้าไม่เคยเย็บก็ไม่ต้องทำ. การรอถึง stage I เสี่ยงต่อการฉีกขาดของฝีเย็บขณะลูกออก. การเปิดหลังคลอดไม่ทันการณ์. อายุครรภ์ 60 วันเร็วเกินไปเพราะยังต้องการรอยเย็บไว้กันลมและสิ่งสกปรกตลอดการตั้งท้อง",
     "verified": "Equine Repro Final (Vet 85) น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"
@@ -3278,7 +3278,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "ให้ oxytetracycline ทางหลอดเลือด"
     ],
     "answer": 0,
-    "explain": "IgG น้อยกว่า 400 mg/dL คือ failure of passive transfer สรุประบุว่าถ้าอายุน้อยกว่า 12 ชม. ให้ colostrum ทางปาก แต่ถ้าเกิน 12 ชม. ลำไส้ปิดการดูดซึม immunoglobulin แล้ว จึงต้องให้ plasma ทางหลอดเลือดดำ 1-2 ลิตร. IV fluid ร่วมกับ probiotics ใช้กับ neonatal diarrhea. Oxytetracycline ใช้กับ limb deformity ไม่ใช่ FPT",
+    "explain": "IgG น้อยกว่า 400 mg/dL คือ failure of passive transfer ถ้าอายุน้อยกว่า 12 ชม. ให้ colostrum ทางปาก แต่ถ้าเกิน 12 ชม. ลำไส้ปิดการดูดซึม immunoglobulin แล้ว จึงต้องให้ plasma ทางหลอดเลือดดำ 1-2 ลิตร. IV fluid ร่วมกับ probiotics ใช้กับ neonatal diarrhea. Oxytetracycline ใช้กับ limb deformity ไม่ใช่ FPT",
     "verified": "Equine Repro Final (Vet 85) น.7",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"
@@ -3324,7 +3324,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "ผสมทันทีภายใน 7 วันหลังคลอดขณะที่ปากมดลูกยังเปิด"
     ],
     "answer": 0,
-    "explain": "Foal heat คือการกลับสัดที่ 10-15 วันหลังคลอดซึ่งผสมได้จริง แต่ไม่แนะนำเพราะอัตราการตั้งท้องต่ำและมดลูกยังฟื้นไม่ดี จึงควรรอราว 20-30 วัน. การรอจนหย่านมนานเกินความจำเป็น. การผสมภายใน 7 วันเร็วเกินไปและไม่ได้ระบุไว้ในสรุป",
+    "explain": "Foal heat คือการกลับสัดที่ 10-15 วันหลังคลอดซึ่งผสมได้จริง แต่ไม่แนะนำเพราะอัตราการตั้งท้องต่ำและมดลูกยังฟื้นไม่ดี จึงควรรอราว 20-30 วัน. การรอจนหย่านมนานเกินความจำเป็น. การผสมภายใน 7 วันเร็วเกินไป",
     "verified": "Equine Repro Final (Vet 85) น.7",
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Repro (Vet 85) study summary"

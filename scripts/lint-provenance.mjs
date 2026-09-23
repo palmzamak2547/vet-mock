@@ -25,13 +25,17 @@
 //      is filed as not a paper (one known row, cleared when the predicate
 //      reads the map);
 //   9. more rows without a sourceType, or more past-paper rows without an
-//      examOrigin, than the budget. Both budgets may only fall.
+//      examOrigin, than the budget. Both budgets may only fall;
+//  10. a figure that does not resolve under public/, or more figures
+//      without a real imageAlt than FIGURE_ALT_BUDGET (checkFigures).
 //
 // It also prints what switching isPastPaperQuestion to the map would move,
 // so that switch can be made after the exams against a reviewed list.
 // ============================================================
 
-import { pathToFileURL } from 'node:url';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import { BANK_REGISTRY } from '../src/data/bank-registry.generated.js';
 import {
@@ -235,10 +239,70 @@ export function checkProvenance(rows, {
   };
 }
 
+// ── Figures ─────────────────────────────────────────────────────────
+// Where a question's figure comes from is provenance too. A figure path that
+// does not resolve was only ever caught by regen-question-delivery, which
+// blocks the question quietly: after a regen the gate was green and the
+// question had left practice without anyone being told. And a figure with no
+// imageAlt is announced as "ภาพประกอบข้อ <id> วิชา <subject>" by a screen reader.
+// A figure is a path under public/ or an inline data:image; anything else
+// fails. An imageAlt must describe what is visible (FIGURE_ALT_MIN
+// characters, the rule q-counts.test.mjs already held epidemiology to)
+// without giving the answer away.
+export const FIGURE_ALT_MIN = 20;
+// Rows with a figure but no real imageAlt. Measured 2026-09-23 at 55, then
+// written for all of them. Lower it when it falls; never raise it.
+export const FIGURE_ALT_BUDGET = 0;
+const PUBLIC_DIR = fileURLToPath(new URL('../public/', import.meta.url));
+
+/** Figures that do not resolve, and figures that do not describe themselves. */
+export function checkFigures(rows, { publicDir = PUBLIC_DIR, altBudget = FIGURE_ALT_BUDGET } = {}) {
+  const errors = [];
+  const warnings = [];
+  let figures = 0;
+  let missing = 0;
+  const withoutAlt = [];
+  for (const q of rows) {
+    const src = q.image || q.imagePath;
+    if (!src) continue;
+    figures++;
+    const value = String(src);
+    if (value.startsWith('/')) {
+      const onDisk = path.join(publicDir, value.split(/[?#]/)[0].replace(/^\/+/, ''));
+      if (!fs.existsSync(onDisk)) {
+        missing++;
+        errors.push(`${label(q)}: figure ${value} does not exist under public/`);
+      }
+    } else if (!value.startsWith('data:image/')) {
+      errors.push(`${label(q)}: figure ${value.slice(0, 80)} is neither a path under public/ nor an inline image`);
+    }
+    if ([...String(q.imageAlt || '').trim()].length < FIGURE_ALT_MIN) withoutAlt.push(q);
+  }
+  if (withoutAlt.length > altBudget) {
+    errors.push(`${withoutAlt.length} figure(s) without an imageAlt of ${FIGURE_ALT_MIN}+ characters, over the budget of ${altBudget}: ${withoutAlt.slice(0, 8).map(label).join(', ')}`);
+  } else if (withoutAlt.length < altBudget) {
+    warnings.push(`figures without imageAlt: ${withoutAlt.length}, under the budget of ${altBudget}; lower FIGURE_ALT_BUDGET to ${withoutAlt.length}`);
+  }
+  return { errors, warnings, counts: { figures, missing, withoutAlt: withoutAlt.length } };
+}
+
+/** Everything lint:provenance fails on, over one set of rows. main() prints it. */
+export function lintRows(rows, { publicDir } = {}) {
+  const provenance = checkProvenance(rows);
+  const figureCheck = checkFigures(rows, publicDir ? { publicDir } : {});
+  return {
+    provenance,
+    figureCheck,
+    errors: [...provenance.errors, ...figureCheck.errors],
+    warnings: [...provenance.warnings, ...figureCheck.warnings],
+  };
+}
+
 async function main() {
   const rows = [];
   for (const entry of BANK_REGISTRY) for (const q of await entry.load()) rows.push(q);
-  const { errors, warnings, counts, switchPreview } = checkProvenance(rows);
+  const { provenance, figureCheck, errors, warnings } = lintRows(rows);
+  const { counts, switchPreview } = provenance;
 
   const bySubject = (list) => Object.entries(list.reduce((acc, q) => ({ ...acc, [q.subject]: (acc[q.subject] || 0) + 1 }), {}))
     .map(([s, n]) => `${s} ${n}`).join(', ') || 'none';
@@ -246,6 +310,7 @@ async function main() {
   console.log(`  no sourceType ${counts.noSourceType}/${BUDGETS.noSourceType}, past paper without examOrigin ${counts.pastPaperWithoutOrigin}/${BUDGETS.pastPaperWithoutOrigin}`);
   console.log(`  reviewed past-and-marked ${counts.pastAndAligned}, short spelling alone ${counts.shortSpelling}, origin over-claims ${counts.overclaims}`);
   console.log(`  if typed rows read the map: into band 0 ${switchPreview.into.length} (${bySubject(switchPreview.into)}); out of band 0 ${switchPreview.outOf.map(label).join(', ') || 'none'}`);
+  console.log(`  figures ${figureCheck.counts.figures}: missing on disk ${figureCheck.counts.missing}, without imageAlt ${figureCheck.counts.withoutAlt}/${FIGURE_ALT_BUDGET}`);
   for (const w of warnings) console.log(`⚠️  ${w}`);
   if (errors.length) {
     for (const e of errors.slice(0, 60)) console.error(`✗ ${e}`);

@@ -941,7 +941,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "ในการตรวจซีรัมวิทยาของ MG วิธี SPA มีความไวสูงที่สุด ส่วนวิธี HI มีความจำเพาะสูงที่สุด",
     "answer": true,
-    "explain": "ถูก อาจารย์จัดอันดับความไวเป็น SPA มากกว่า ELISA มากกว่า HI และความจำเพาะ HI สูงสุด ต่ำสุดคือ SPA ดังนั้น SPA จึงเหมาะเป็น screening test แล้วยืนยันผลบวกด้วยการเจือจางซีรั่ม 1:10 หรือตรวจ ELISA ซ้ำ",
+    "explain": "ถูก ความไวเรียงเป็น SPA มากกว่า ELISA มากกว่า HI และความจำเพาะ HI สูงสุด ต่ำสุดคือ SPA ดังนั้น SPA จึงเหมาะเป็น screening test แล้วยืนยันผลบวกด้วยการเจือจางซีรั่ม 1:10 หรือตรวจ ELISA ซ้ำ",
     "source": "สรุปรวมรุ่นพี่ Avian Medicine (Mycoplasmosis)",
     "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 14 Serum plate agglutination; VET86 8ekNMuG25gI [47:19-47:45], [45:31-47:19]",
     "tags": [
@@ -1193,7 +1193,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "รอยโรคถุงหุ้มหัวใจอักเสบ เยื่อหุ้มตับอักเสบ ถุงลมอักเสบ และเยื่อบุช่องท้องอักเสบจาก E. coli จะพบหลังไก่รับเชื้อแล้ว 7-10 วัน",
     "answer": false,
-    "explain": "ผิด ระยะฟักตัวของ E. coli สั้นมาก อาจารย์ให้ประมาณ 2 วันหลังรับเชื้อจึงแสดงอาการ และในลูกไก่การติดเชื้อทางกระแสเลือดใช้เวลาราว 24-48 ชั่วโมง ตัวเลข 7-10 วันจึงยาวเกินจริง ระยะฟักตัวสั้นนี้ยังใช้แยกจาก MG ที่นาน 10-21 วัน",
+    "explain": "ผิด ระยะฟักตัวของ E. coli สั้นมาก ประมาณ 2 วันหลังรับเชื้อจึงแสดงอาการ และในลูกไก่การติดเชื้อทางกระแสเลือดใช้เวลาราว 24-48 ชั่วโมง ตัวเลข 7-10 วันจึงยาวเกินจริง ระยะฟักตัวสั้นนี้ยังใช้แยกจาก MG ที่นาน 10-21 วัน",
     "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p67; VET86 R0xTpIvGn98 [31:28], [40:31]; VET86 8ekNMuG25gI [57:29-57:40]",
     "tags": [
@@ -1352,7 +1352,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "การติดเชื้อไวรัสเป็นสาเหตุปฐมภูมิมักไม่ทำให้เกิดหนอง เพราะเซลล์ที่ตอบสนองเป็น lymphocyte ไม่ใช่ heterophil",
     "answer": true,
-    "explain": "ถูก หนองเกิดจาก heterophil หรือ neutrophil ที่มาตอบสนองต่อแบคทีเรีย ส่วนไวรัสกระตุ้น lymphocyte จึงไม่เกิดหนอง อาจารย์ใช้เหตุผลนี้อธิบายว่าทำไม differential diagnosis ของ E. coli จึงเป็นแบคทีเรียทั้งหมด",
+    "explain": "ถูก หนองเกิดจาก heterophil หรือ neutrophil ที่มาตอบสนองต่อแบคทีเรีย ส่วนไวรัสกระตุ้น lymphocyte จึงไม่เกิดหนอง เหตุผลนี้อธิบายว่าทำไม differential diagnosis ของ E. coli จึงเป็นแบคทีเรียทั้งหมด",
     "source": "VET86 คาบ Colibacillosis, Fowl cholera, Infectious coryza 18 ส.ค. (อ.สมศักดิ์)",
     "verified": "VET86 R0xTpIvGn98 [46:10-46:22]",
     "tags": [
@@ -1369,7 +1369,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "รอยโรคไฟบรินคลุมหัวใจ ไฟบรินคลุมตับ ถุงลมอักเสบ และเยื่อบุช่องท้องอักเสบในไก่ ราว 90% เกิดจากเชื้อ E. coli",
     "answer": true,
-    "explain": "ถูก อาจารย์ให้ตัวเลขว่าชุดรอยโรค pericarditis, perihepatitis, airsacculitis และ peritonitis ประมาณ 90% เกิดจาก E. coli และเมื่อพบไฟบรินคลุมตับ หัวใจ พร้อมช่องท้องอักเสบ ให้มั่นใจได้ราว 90% ว่าเป็น E. coli",
+    "explain": "ถูก ชุดรอยโรค pericarditis, perihepatitis, airsacculitis และ peritonitis ประมาณ 90% เกิดจาก E. coli และเมื่อพบไฟบรินคลุมตับ หัวใจ พร้อมช่องท้องอักเสบ ให้มั่นใจได้ราว 90% ว่าเป็น E. coli",
     "source": "สรุปรวมรุ่นพี่ Avian Medicine (Colibacillosis)",
     "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 11 fibrinous pericarditis, airsacculitis เกิดจากเชื้ออะไร; VET86 R0xTpIvGn98 [5:16-5:28], [33:25]",
     "tags": [
@@ -1513,7 +1513,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "Vertical transmission ของ fowl cholera ถือว่าแทบไม่มี เพราะ P. multocida ในไข่ฟักทำให้ตัวอ่อนตายก่อนฟักออก",
     "answer": true,
-    "explain": "ถูก ถ้าแยกเชื้อไปฉีดในไข่ฟัก ไข่ตายแน่นอน ฟักออกเป็น 0% จึงไม่เรียกว่า vertical transmission เพราะลูกไก่ตายก่อน อาจารย์สรุปว่าทั้ง P. multocida, Avibacterium และ E. coli มีโอกาสพบ vertical transmission น้อยมาก",
+    "explain": "ถูก ถ้าแยกเชื้อไปฉีดในไข่ฟัก ไข่ตายแน่นอน ฟักออกเป็น 0% จึงไม่เรียกว่า vertical transmission เพราะลูกไก่ตายก่อน ทั้ง P. multocida, Avibacterium และ E. coli มีโอกาสพบ vertical transmission น้อยมาก",
     "source": "สรุปรวมรุ่นพี่ Avian Medicine (Fowl cholera)",
     "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 1 โรคไหนส่งผ่านไข่; VET86 R0xTpIvGn98 [62:00], [96:39]",
     "tags": [
@@ -1583,7 +1583,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "โรคหวัดหน้าบวมและ fowl cholera ไก่อายุน้อยต้านทานโรคได้ดีกว่าไก่อายุมาก ต่างจาก colibacillosis ที่ไก่อายุน้อยไวกว่า",
     "answer": true,
-    "explain": "ถูก ทั้งหวัดหน้าบวมและ fowl cholera ไก่อายุมากไวหรือรุนแรงกว่า อาจารย์นิยามโตเต็มที่ว่าเริ่มให้ไข่แล้วราว 17 สัปดาห์ขึ้นไป ส่วน E. coli สัตว์ปีกอายุน้อยไวต่อโรคมากกว่าสัตว์ปีกที่โตเต็มที่",
+    "explain": "ถูก ทั้งหวัดหน้าบวมและ fowl cholera ไก่อายุมากไวหรือรุนแรงกว่า โดยไก่โตเต็มที่หมายถึงเริ่มให้ไข่แล้วราว 17 สัปดาห์ขึ้นไป ส่วน E. coli สัตว์ปีกอายุน้อยไวต่อโรคมากกว่าสัตว์ปีกที่โตเต็มที่",
     "source": "สรุปรวมรุ่นพี่ Avian Medicine (Infectious coryza)",
     "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 23; VET86 R0xTpIvGn98 [55:14], [96:02-96:15], [14:42]",
     "tags": [
@@ -1706,7 +1706,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "โรคหวัดหน้าบวมตรวจทางซีรัมวิทยาด้วย HI test ได้ เพราะ Avibacterium paragallinarum มีคุณสมบัติ hemagglutination",
     "answer": true,
-    "explain": "ถูก Avibacterium paragallinarum อยู่ในกลุ่มเชื้อที่มี HA ร่วมกับ Mycoplasma, Newcastle และ AI จึงใช้ HI ตรวจได้ แต่อาจารย์ชอบการ culture จาก exudate แล้วทดสอบ agglutination มากกว่าเพราะง่าย เร็ว และไม่แพง",
+    "explain": "ถูก Avibacterium paragallinarum อยู่ในกลุ่มเชื้อที่มี HA ร่วมกับ Mycoplasma, Newcastle และ AI จึงใช้ HI ตรวจได้ แต่การ culture จาก exudate แล้วทดสอบ agglutination ใช้ได้ดีกว่าเพราะง่าย เร็ว และไม่แพง",
     "source": "สรุปรวมรุ่นพี่ Avian Medicine (Infectious coryza)",
     "verified": "อิงแนวข้อสอบ, images/7.jpg ข้อ 2; images/9.jpg บรรทัด Serology: plate/tube agglutination, AGP, HI; VET86 R0xTpIvGn98 [93:05], [105:25-105:52]",
     "tags": [
@@ -1742,7 +1742,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "ภูมิคุ้มกันหลังทำวัคซีนหวัดหน้าบวมครบโปรแกรมอยู่ได้ราว 3 เดือน จึงต้องกระตุ้นซ้ำทุกไตรมาสตลอดช่วงให้ไข่",
     "answer": false,
-    "explain": "ผิด เมื่อสร้างภูมิขึ้นแล้วจะอยู่ได้นานถึง 9 เดือน ซึ่งอาจารย์ถือว่าครอบคลุมตลอดชีวิตไก่ก่อนส่งโรงฆ่า ในพื้นที่ที่มีการระบาดประจำจึงให้เพียง 3-4 ครั้งห่างกัน 4 สัปดาห์ในช่วงไก่รุ่น ไม่ใช่ทุกไตรมาส",
+    "explain": "ผิด เมื่อสร้างภูมิขึ้นแล้วจะอยู่ได้นานถึง 9 เดือน ซึ่งถือว่าครอบคลุมตลอดชีวิตไก่ก่อนส่งโรงฆ่า ในพื้นที่ที่มีการระบาดประจำจึงให้เพียง 3-4 ครั้งห่างกัน 4 สัปดาห์ในช่วงไก่รุ่น ไม่ใช่ทุกไตรมาส",
     "source": "สรุปรวมรุ่นพี่ Avian Medicine (Infectious coryza)",
     "verified": "อิงแนวข้อสอบ, images/9.jpg บรรทัด Antibodies following vaccination last for 9 months; VET86 R0xTpIvGn98 [114:38-114:51]",
     "tags": [
@@ -1862,7 +1862,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "ขี้ติดก้นหรือ vent pasting ในลูกไก่ เป็นตัวชี้วัดความเครียดจากการจัดการ เช่น ร้อนไป หนาวไป หรือขนส่งไม่ดี",
     "answer": true,
-    "explain": "ถูก อาจารย์เรียก vent pasting ว่าเป็นอินดิเคเตอร์ของภาวะเครียดในลูกไก่ ไม่ว่าจากอุณหภูมิ ออกซิเจนไม่พอ หรือการขนส่ง เทียบกับคนที่เครียดแล้วระบบย่อยอาหารแปรปรวนจนท้องเสีย",
+    "explain": "ถูก vent pasting เป็นอินดิเคเตอร์ของภาวะเครียดในลูกไก่ ไม่ว่าจากอุณหภูมิ ออกซิเจนไม่พอ หรือการขนส่ง เทียบกับคนที่เครียดแล้วระบบย่อยอาหารแปรปรวนจนท้องเสีย",
     "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
     "verified": "VET86 ezb2wLM_R2o [43:28-44:19]",
     "tags": [
@@ -1947,7 +1947,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "ลำไส้ที่เป็นแผลจากโรคบิดเป็นช่องทางให้ Staphylococcus เข้ากระแสเลือดได้โดยไม่ผ่านบาดแผลที่ข้อขา",
     "answer": true,
-    "explain": "ถูก เมื่อโรคบิดทำให้ลำไส้เป็นแผล เชื้อเข้าทางลำไส้สู่กระแสเลือดโดยตรง จึงพบภาวะติดเชื้อในกระแสเลือดแทนข้ออักเสบ อาจารย์ถือเป็นปัจจัยร่วมระหว่าง Staph กับโรคบิด และย้ำว่าช่องทางเข้ามีได้ทั้งสะดือ ผิวหนัง ปากที่ถูกตัด และเข็มฉีดยา",
+    "explain": "ถูก เมื่อโรคบิดทำให้ลำไส้เป็นแผล เชื้อเข้าทางลำไส้สู่กระแสเลือดโดยตรง จึงพบภาวะติดเชื้อในกระแสเลือดแทนข้ออักเสบ โรคบิดจึงเป็นปัจจัยร่วมของการติด Staph และช่องทางเข้ามีได้ทั้งสะดือ ผิวหนัง ปากที่ถูกตัด และเข็มฉีดยา",
     "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
     "verified": "VET86 ezb2wLM_R2o [56:31-57:21], [50:29-51:19]",
     "tags": [
@@ -1964,7 +1964,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "IBD ทำลายเบอร์ซาและ CAV ทำลายไทมัส ทำให้ไก่ถูกกดภูมิคุ้มกันจนติดเชื้อ Staphylococcus ตามมาได้",
     "answer": true,
-    "explain": "ถูก อาจารย์นับ IBD และ CAV อยู่ในกลุ่มโรคกดภูมิสามโรคที่เปิดทางให้ Staph โดย IBD ทำลายเบอร์ซา CAV ทำลายไทมัส ในกรณี CAV ยังทำให้เลือดออกง่าย ปีกเป็นแผลแล้ว Staph ติดที่ปีกก่อน การทำวัคซีน IBD และ CAV จึงเป็นส่วนหนึ่งของการควบคุม",
+    "explain": "ถูก IBD และ CAV อยู่ในกลุ่มโรคกดภูมิสามโรคที่เปิดทางให้ Staph โดย IBD ทำลายเบอร์ซา CAV ทำลายไทมัส ในกรณี CAV ยังทำให้เลือดออกง่าย ปีกเป็นแผลแล้ว Staph ติดที่ปีกก่อน การทำวัคซีน IBD และ CAV จึงเป็นส่วนหนึ่งของการควบคุม",
     "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
     "verified": "VET86 ezb2wLM_R2o [58:50-60:20], [61:38-62:18]",
     "tags": [
@@ -2052,7 +2052,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "อาการเด่นของลูกไก่ที่ป่วยด้วยโรค AE คืออาการหัวสั่น ยืนสั่น และพยุงตัวไม่ค่อยได้",
     "answer": true,
-    "explain": "ถูก ลูกไก่ที่เป็น AE จะหัวสั่น ยืนสั่น พยุงตัวไม่ได้ ถ้าเป็นลูกที่รับเชื้อจากพ่อแม่จะคอบิด คอสั่น กินน้ำกินอาหารไม่ได้แล้วตาย อาจารย์สรุปว่า AE คือโรคระบบประสาทที่ทำให้ไก่ตายช่วงแรก",
+    "explain": "ถูก ลูกไก่ที่เป็น AE จะหัวสั่น ยืนสั่น พยุงตัวไม่ได้ ถ้าเป็นลูกที่รับเชื้อจากพ่อแม่จะคอบิด คอสั่น กินน้ำกินอาหารไม่ได้แล้วตาย AE จึงเป็นโรคระบบประสาทที่ทำให้ไก่ตายช่วงแรก",
     "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
     "verified": "VET86 ezb2wLM_R2o [84:09-85:39], [91:14-91:41]",
     "tags": [
@@ -2103,7 +2103,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "แม้ฝูงพ่อแม่พันธุ์ไม่มีภูมิคุ้มกันต่อ AE ลูกไก่ก็จะไม่ป่วยถ้าในฟาร์มที่เลี้ยงไม่มีเชื้อ AE",
     "answer": true,
-    "explain": "ถูก อาจารย์แก้ความเข้าใจผิดว่าอย่าโทษพ่อแม่อย่างเดียว ต่อให้พ่อแม่ไม่มีภูมิ ถ้าฟาร์มไม่มีเชื้อโรคไก่ก็ไม่เป็นอะไร ที่ป่วยเพราะมีเชื้อในฟาร์มด้วย ฟาร์มไก่เนื้อจึงต้องล้างเล้าให้สะอาดควบคู่กับภูมิจากแม่",
+    "explain": "ถูก ไม่ใช่ความผิดของพ่อแม่อย่างเดียว ต่อให้พ่อแม่ไม่มีภูมิ ถ้าฟาร์มไม่มีเชื้อโรคไก่ก็ไม่เป็นอะไร ที่ป่วยเพราะมีเชื้อในฟาร์มด้วย ฟาร์มไก่เนื้อจึงต้องล้างเล้าให้สะอาดควบคู่กับภูมิจากแม่",
     "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
     "verified": "VET86 ezb2wLM_R2o [88:02-88:25], [109:46-110:41]",
     "tags": [
@@ -2171,7 +2171,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "Gizzard erosion จาก adenovirus ต้องวินิจฉัยแยกจากพิษ gizzerosine ในอาหารสัตว์ ซึ่งทำให้กึ๋นลอกหลุดเหมือนกัน",
     "answer": true,
-    "explain": "ถูก อาจารย์ให้แยกกับ gizzerosine ซึ่งเป็นสารพิษที่เรียนใน Nutrition ส่วนกลไกตามตำราคือไวรัส (FAdV-1) เพิ่มจำนวนในเยื่อบุกึ๋นโดยตรง พบ intranuclear inclusion body ในเซลล์เยื่อบุกึ๋น ร่วมกับตับและตับอ่อนอักเสบได้",
+    "explain": "ถูก ต้องแยกกับ gizzerosine ซึ่งเป็นสารพิษในอาหารสัตว์ ส่วนกลไกของ adenovirus คือไวรัส (FAdV-1) เพิ่มจำนวนในเยื่อบุกึ๋นโดยตรง พบ intranuclear inclusion body ในเซลล์เยื่อบุกึ๋น ร่วมกับตับและตับอ่อนอักเสบได้",
     "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
     "verified": "VET86 ezb2wLM_R2o [96:20-97:14]",
     "tags": [
@@ -2188,7 +2188,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "ไวรัส EDS อยู่ในจีนัส Aviadenovirus เช่นเดียวกับไวรัสที่ก่อ IBH และ hydropericardium",
     "answer": false,
-    "explain": "ผิด EDS เป็น adenovirus คนละกลุ่มกับ fowl adenovirus อยู่ในจีนัส Atadenovirus (group III) ส่วน IBH, hydropericardium และ gizzard erosion เป็น Aviadenovirus (group I) อาจารย์สรุปว่าเป็น Avi ทั้งหมดยกเว้น EDS",
+    "explain": "ผิด EDS เป็น adenovirus คนละกลุ่มกับ fowl adenovirus อยู่ในจีนัส Atadenovirus (group III) ส่วน IBH, hydropericardium และ gizzard erosion เป็น Aviadenovirus (group I) สรุปคือเป็น Avi ทั้งหมดยกเว้น EDS",
     "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
     "verified": "VET86 ezb2wLM_R2o [99:22], [179:29-180:03], [93:17-93:28]",
     "tags": [
@@ -2477,7 +2477,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "examScope": "midterm",
     "q": "หลักการควบคุม AE, IBH และ Salmonella เหมือนกัน คือทำให้พ่อแม่พันธุ์มีภูมิเพื่อส่งภูมิให้ลูกในช่วงแรก",
     "answer": true,
-    "explain": "ถูก อาจารย์สรุปว่าหลักการเดียวกันหมดเลย AE IBH ซัลโมเนลลา พ่อแม่ทำวัคซีนแล้วมีภูมิ ก็ไม่ถ่ายทอดเชื้อและส่งภูมิให้ลูกรอดช่วงแรก แต่หลังจากนั้นภูมิจากแม่หมด ฟาร์มไก่เนื้อจึงต้องล้างเล้าให้ไม่มีเชื้อในพื้นที่",
+    "explain": "ถูก หลักการเดียวกันหมดทั้ง AE IBH และซัลโมเนลลา พ่อแม่ทำวัคซีนแล้วมีภูมิ ก็ไม่ถ่ายทอดเชื้อและส่งภูมิให้ลูกรอดช่วงแรก แต่หลังจากนั้นภูมิจากแม่หมด ฟาร์มไก่เนื้อจึงต้องล้างเล้าให้ไม่มีเชื้อในพื้นที่",
     "source": "VET86 คาบ Omphalitis, Ascites, Staphylococcus, AE, Adenovirus, Salmonella 15 ก.ย. (อ.เกรียงวิชญ์)",
     "verified": "VET86 ezb2wLM_R2o [144:16-144:43], [109:46-110:41]",
     "tags": [

@@ -84,7 +84,7 @@ export const QB_Y5_VISION_BATCH = [
       "วัดค่า rumen pH หลังการกินอาหารด้วยเครื่อง rumenocentesis"
     ],
     "answer": 0,
-    "explain": "จุดเน้นของฐานคือ sampling + shaking technique + interpretation ไม่ใช่ lab analysis. เอกสาร p.10 ระบุวัตถุประสงค์ชัดเจน: \"หาขนาดของอาหารด้วย PSPS ตามวิธีการที่ถูกต้อง การสุ่มตัวเก็บอย่างอาหารในปริมาณที่ถูกต้อง รวมถึงสามารถแปลผลที่ได้จากเขย่าอาหารด้วยเครื่อง PSPS\".\nหมายเหตุสำคัญ: \"หลังจากเขย่าเสร็จแล้ว ไม่ต้องนำแต่ละชั้นมาชั่ง\" → ตัวเลือก B (ชั่งน้ำหนัก) ผิด เพราะ rubric บอกชัดว่าไม่ชั่ง.\nสถานีนี้ประเมินทักษะ sampling + shaking technique + interpretation — ไม่ใช่ lab analysis.",
+    "explain": "จุดเน้นของฐานคือ sampling + shaking technique + interpretation ไม่ใช่ lab analysis. วัตถุประสงค์ของสถานี: \"หาขนาดของอาหารด้วย PSPS ตามวิธีการที่ถูกต้อง การสุ่มตัวเก็บอย่างอาหารในปริมาณที่ถูกต้อง รวมถึงสามารถแปลผลที่ได้จากเขย่าอาหารด้วยเครื่อง PSPS\".\nหมายเหตุสำคัญ: \"หลังจากเขย่าเสร็จแล้ว ไม่ต้องนำแต่ละชั้นมาชั่ง\" → การชั่งน้ำหนักแต่ละชั้นจึงไม่ใช่วัตถุประสงค์ของสถานีนี้.\nสถานีนี้ประเมินทักษะ sampling + shaking technique + interpretation — ไม่ใช่ lab analysis.",
     "verified": "OSCE prep doc p.10 (station 2 objective + instructions)",
     "flag": {
       "note": "Paraphrased from station spec — verify before student use",
@@ -115,7 +115,7 @@ export const QB_Y5_VISION_BATCH = [
       "ฉีดฮอร์โมนที่เลือกเข้าโมเดลโคให้ครบโดสตามวิธีการในแต่ละเคส"
     ],
     "answer": 4,
-    "explain": "เอกสาร p.11 ระบุขั้นตอน 4 ข้อ (A-D ในตัวเลือกตรงกับ instructions 1-4). การฉีดยาเข้าโมเดลโคเป็นของฐาน ข้อ 4 (PE+Drug admin) ไม่ใช่ฐานข้อ 3 (Hormone selection).\nฐานข้อ 3 ประเมินทักษะการ match diagnosis → hormone choice (เช่น CL → PGF2α · cystic follicle → GnRH · Ovsynch GnRH 7d→PGF2α). ไม่มี physical drug administration ในฐานนี้.\nเตรียมตัวก่อนสอบ: ทบทวนผลิตภัณฑ์ฮอร์โมน + โปรแกรมฮอร์โมนที่ใช้ในงานสูติกรรม.",
+    "explain": "ขั้นตอนของฐานมี 4 ข้อ คือสุ่มเลือกใบรายงาน อ่านรายงานแล้วเลือกเวชภัณฑ์ เขียนคำตอบพร้อมส่งตัวอย่าง และการซักถามเพิ่มเติมโดยผู้คุมสอบ. การฉีดยาเข้าโมเดลโคเป็นของฐาน ข้อ 4 (PE+Drug admin) ไม่ใช่ฐานข้อ 3 (Hormone selection).\nฐานข้อ 3 ประเมินทักษะการ match diagnosis → hormone choice (เช่น CL → PGF2α · cystic follicle → GnRH · Ovsynch GnRH 7d→PGF2α). ไม่มี physical drug administration ในฐานนี้.\nเตรียมตัวก่อนสอบ: ทบทวนผลิตภัณฑ์ฮอร์โมน + โปรแกรมฮอร์โมนที่ใช้ในงานสูติกรรม.",
     "verified": "OSCE prep doc p.11 (station 3 instructions 1-4 + objective)",
     "flag": {
       "note": "Paraphrased from station spec — verify before student use",
@@ -264,7 +264,7 @@ export const QB_Y5_VISION_BATCH = [
       "PEDV + ETEC: villus atrophy + secretory diarrhea"
     ],
     "answer": 1,
-    "explain": "จากตัวเลือกในข้อสอบ, choice ที่ตอบโดยตรงกับ \"bloody diarrhea\" จะเน้น large-intestine lesion:\n— Swine dysentery (Brachyspira hyodysenteriae): mucohemorrhagic colitis ใน colon\n— Trichuriasis (Trichuris suis): aphthous ulcer + bloody mucus ใน cecum/colon\nทั้งสองตัวเป็น large-intestine bleeders.\n\nLawsonia acute form (PHE = Proliferative Hemorrhagic Enteropathy) ก็ทำให้ bloody diarrhea ได้แต่ลำไส้เล็ก (ileum), ส่วน PHE chronic form = proliferative enteropathy without blood.\n\nหมายเหตุการเรียน: ddx \"หมูถ่ายเป็นเลือด\" คลาสสิก = Swine dysentery + Trichuris + Lawsonia (PHE) + Salmonella choleraesuis (typhlitis).",
+    "explain": "สาเหตุของ bloody diarrhea ที่ตรงที่สุดในตัวเลือกคือกลุ่มที่เป็น large-intestine lesion:\n— Swine dysentery (Brachyspira hyodysenteriae): mucohemorrhagic colitis ใน colon\n— Trichuriasis (Trichuris suis): aphthous ulcer + bloody mucus ใน cecum/colon\nทั้งสองตัวเป็น large-intestine bleeders.\n\nLawsonia acute form (PHE = Proliferative Hemorrhagic Enteropathy) ก็ทำให้ bloody diarrhea ได้แต่ลำไส้เล็ก (ileum), ส่วน PHE chronic form = proliferative enteropathy without blood.\n\nddx \"หมูถ่ายเป็นเลือด\" คลาสสิก = Swine dysentery + Trichuris + Lawsonia (PHE) + Salmonella choleraesuis (typhlitis).",
     "verified": "patho p.5 (Q12 bloody diarrhea ddx · answer-key tick on Swine dysentery + Trichuriasis combo)",
     "flag": {
       "note": "Q stem cid:xxx-garbled; English pathogen names + checkmark recoverable. Paraphrased — verify",
@@ -534,7 +534,7 @@ export const QB_Y5_VISION_BATCH = [
       "แม่สุนัขกินอาหารปกติและไม่มีอาการ"
     ],
     "answer": 4,
-    "explain": "Dystocia criteria ในสุนัข:\n(1) ตั้งท้อง > 72 วันจาก breeding (canine gestation = 63 ± 1 วันจาก ovulation, > 65 วันจาก LH peak)\n(2) อุณหภูมิร่างกายแม่ < 100°F แล้วไม่กลับขึ้น = sign of impending parturition (24h pre-whelping) → ถ้า drop แล้วไม่คลอดใน 24h = dystocia\n(3) Stage 1 > 12-24h หรือ Stage 2 > 4h ไม่มีลูกออก\n(4) ระหว่างลูก > 2 ชั่วโมง (แม้แม่จะ active labour)\n(5) มดลูกบีบรัดกว่า 30 นาทีต่อเนื่องไม่มีลูกออก\n(6) เห็น uteroverdin (สีเขียว) ไม่มีลูกออกเกิน 1-2 ชั่วโมง = placental separation\n(7) แม่มีอาการเจ็บรุนแรง\n(8) เห็นส่วนของลูกออกมาแต่ไม่ออกใน 5-10 นาที\n(9) Stage 2 > 12h\n\nข้อ E (กินอาหารปกติ) = sign of NO labour → ไม่ใช่ dystocia, อาจเป็น false pregnancy หรือ inertia ที่ยังไม่เริ่มคลอด",
+    "explain": "Dystocia criteria ในสุนัข:\n(1) ตั้งท้อง > 72 วันจาก breeding (canine gestation = 63 ± 1 วันจาก ovulation, > 65 วันจาก LH peak)\n(2) อุณหภูมิร่างกายแม่ < 100°F แล้วไม่กลับขึ้น = sign of impending parturition (24h pre-whelping) → ถ้า drop แล้วไม่คลอดใน 24h = dystocia\n(3) Stage 1 > 12-24h หรือ Stage 2 > 4h ไม่มีลูกออก\n(4) ระหว่างลูก > 2 ชั่วโมง (แม้แม่จะ active labour)\n(5) มดลูกบีบรัดกว่า 30 นาทีต่อเนื่องไม่มีลูกออก\n(6) เห็น uteroverdin (สีเขียว) ไม่มีลูกออกเกิน 1-2 ชั่วโมง = placental separation\n(7) แม่มีอาการเจ็บรุนแรง\n(8) เห็นส่วนของลูกออกมาแต่ไม่ออกใน 5-10 นาที\n(9) Stage 2 > 12h\n\nการกินอาหารปกติ = sign of NO labour → ไม่ใช่ dystocia, อาจเป็น false pregnancy หรือ inertia ที่ยังไม่เริ่มคลอด",
     "verified": "repro p.3 (Q40 · 10 dystocia criteria listed in answer key)",
     "flag": {
       "note": "Detailed criteria list; numeric thresholds clean in extraction. Distractor designed for trick. Verify",
