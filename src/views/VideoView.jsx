@@ -917,7 +917,10 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
             rel: 0,
             modestbranding: 1,
             playsinline: 1,
-            ...(playlistId ? { list: playlistId } : {}),
+            // No `list`: the app lists the clips and moves between them itself,
+            // and YouTube refuses the whole embed when it will not play the
+            // playlist, so a playable clip showed "This video is unavailable"
+            // (the Swine Medicine VET86 playlist, 23 Sep 2026).
             ...(startAt > 0 ? { start: startAt } : {}),
           },
         });
