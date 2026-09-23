@@ -2339,7 +2339,27 @@ html.dark .vmx-panic-scrim {
 .vmx-note-btn.vmx-pin-btn:hover { border-color: var(--clr-gold); }
 .vmx-note-btn.vmx-pin-btn.is-pinned { background: var(--clr-gold-soft); border-color: var(--clr-gold); color: var(--clr-ink); }
 
-.vmx-qtype-badge { display: inline-block; font-family: var(--vmx-mono); font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: var(--clr-surface-2); color: var(--clr-ink-soft); margin-bottom: 16px; border: 1px solid var(--clr-border); }
+.vmx-qtype-badge { display: inline-block; font-family: var(--vmx-sans); font-size: 12px; line-height: 1.35; letter-spacing: 0; text-transform: none; padding: 3px 10px; border-radius: 999px; background: var(--clr-surface-2); color: var(--clr-ink-soft); margin-bottom: 16px; border: 1px solid var(--clr-border); }
+/* On the exam card the badge is a quiet row, not a pill: type, subject, topic
+   and paper as separate parts, a hairline between them instead of a comma. */
+.vmx-qtype-badge.vmx-q-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 0;
+  padding: 0; border: 0; border-radius: 0; background: none;
+}
+.vmx-q-meta > span:not(.vmx-origin-chip) { padding: 0 8px; border-left: 1px solid var(--clr-border); }
+.vmx-q-meta > span:first-child { padding-left: 0; border-left: 0; }
+.vmx-q-meta > .vmx-origin-chip { margin-left: 4px; }
+
+/* The "ที่มา" line under every question. A real button with the 44px floor —
+   it was an inline all:unset row 20px tall — and full-opacity text. */
+.vmx-qsource-toggle {
+  appearance: none; margin: 0; padding: 0; border: 0; background: none;
+  width: 100%; min-height: var(--touch-min);
+  display: flex; align-items: center; gap: 8px;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+}
+.vmx-qsource-toggle:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: var(--r-sm); }
+.vmx-qsource-toggle svg { flex: 0 0 auto; color: var(--clr-sage-text); }
 .vmx-qtext { font-family: inherit; font-weight: 500; font-size: 17px; line-height: 1.55; margin: 0 0 24px; color: var(--clr-ink); }
 .vmx-qimage { width: 100%; max-width: 400px; border-radius: 12px; border: 1px solid var(--clr-border); margin-bottom: 20px; display: block; aspect-ratio: 4 / 3; object-fit: contain; background: var(--clr-surface-2); }
 

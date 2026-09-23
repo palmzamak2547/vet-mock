@@ -66,6 +66,16 @@ function writeFlags(map) {
   try { window.localStorage.setItem(FLAGS_KEY, JSON.stringify(map)); } catch {}
 }
 
+// The question type as the exam card's meta row names it.
+const TYPE_LABEL = {
+  mcq: 'ปรนัย',
+  tf: 'ถูก-ผิด',
+  fill: 'เติมคำ',
+  match: 'จับคู่',
+  short: 'ตอบสั้น',
+  essay: 'เขียนบรรยาย',
+};
+
 export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki }) {
   // Count presses, not the value. This component is not remounted between
   // questions, so keying the "saved" bounce to isBookmarked replayed it on
@@ -571,26 +581,25 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         />
       </div>
 
-      <div className="vmx-qtype-badge">
-        {/* Thai, like the rest of the card — this chip sits directly above a
-            Thai stem and a Thai subject name. */}
-        {currentQ.type === 'mcq' && 'ปรนัย'}
-        {currentQ.type === 'tf' && 'ถูก-ผิด'}
-        {currentQ.type === 'fill' && 'เติมคำ'}
-        {currentQ.type === 'match' && 'จับคู่'}
-        {currentQ.type === 'short' && 'ตอบสั้น'}
-        {currentQ.type === 'essay' && 'เขียนบรรยาย'}
+      {/* The type, subject, topic and paper as separate parts of one quiet
+          row — Thai, like the rest of the card, and never uppercased. The
+          hairline between parts is CSS (.vmx-q-meta), so no separator is
+          written into the copy, and the topic's emoji stays on the topic
+          screen where it is the topic's identity, not chrome. */}
+      <div className="vmx-qtype-badge vmx-q-meta">
         {(() => {
+          const typeLabel = TYPE_LABEL[currentQ.type];
           const subj = SUBJECTS.find((s) => s.id === currentQ.subject);
           const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
+          // Only questions that carry exam-scope metadata say which paper
+          // they belong to; a legacy question says nothing rather than guessing.
+          const paper = examScopeLabel(scopeOfQuestion(currentQ));
           return (
             <>
-              {', '}{subj?.name || currentQ.subject}
-              {topic && <>, <span style={{ color: subjectText(subj?.color) }}>{topic.icon} {topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span></>}
-              {/* Only questions that carry exam-scope metadata say which
-                  paper they belong to; a legacy question says nothing
-                  rather than guessing. */}
-              {examScopeLabel(scopeOfQuestion(currentQ)) && <>, <span className="vmx-scope-chip">{examScopeLabel(scopeOfQuestion(currentQ))}</span></>}
+              {typeLabel && <span>{typeLabel}</span>}
+              <span>{subj?.name || currentQ.subject}</span>
+              {topic && <span style={{ color: subjectText(subj?.color) }}>{topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span>}
+              {paper && <span className="vmx-scope-chip">{paper}</span>}
             </>
           );
         })()}

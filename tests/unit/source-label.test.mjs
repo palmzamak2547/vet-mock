@@ -97,6 +97,8 @@ const STUBS = {
   '../components/SummaryModal.jsx': 'export default function SummaryModal() { return null; }',
   '../components/VideoNotePanel.jsx': 'export default function VideoNotePanel() { return null; }',
   '../hooks/useModalFocus.js': 'export const useModalFocus = () => ({ current: null });',
+  // The chip's line icon. A named function, so the tree can say which glyph.
+  './NavIcon.jsx': 'export default function NavIcon() { return null; }',
 };
 const repoRoot = fileURLToPath(new URL('../../', import.meta.url));
 const fileUrl = (rel) => pathToFileURL(repoRoot + rel).href;
@@ -534,4 +536,25 @@ test('the food-industry questions written from the 25-page re-upload cite its pa
   const edition = (id) => [...new Set(bankRow('food-industry', id).sourcePages.map((c) => c.edition))];
   for (const id of [207475, 207476, 207477, 207479]) assert.deepEqual(edition(id), ['25p'], `#${id}`);
   for (const id of [207000, 207002, 207030, 207043, 207482]) assert.deepEqual(edition(id), ['22p'], `#${id}`);
+});
+
+// ── UI-07: the source toggle is a real control ──────────────────────
+// It was an `all: unset` button 20px tall (290x20 at 390px, 728x20 at
+// 1280px), under the 44px floor, led by a 📚 emoji, with "▾ ดูเต็ม" at
+// opacity 0.7: 3.48:1 in light and 3.91:1 in dark at 11px.
+test('UI-07: the source toggle is a class-styled button with a line icon and full-opacity text', () => {
+  const q = bankRow('food-industry', 207001);
+  globalThis.__vmxHooks = hooks();
+  const raw = QSourceChip({ q });
+  const button = findAll(raw, (n) => n.type === 'button')[0];
+  assert.equal(button.props.className, 'vmx-qsource-toggle');
+  assert.equal(button.props.style, undefined, 'an inline all:unset resets the class it depends on');
+  const icons = findAll(raw, (n) => typeof n.type === 'function' && n.type.name === 'NavIcon');
+  assert.deepEqual(icons.map((n) => n.props.name), ['book']);
+  const { tree, text } = renderChip(q);
+  assert.doesNotMatch(text, /📚/);
+  const faded = findAll(tree, (n) => n.props?.style && 'opacity' in n.props.style);
+  assert.deepEqual(faded.map((n) => textOf(n)), [], 'text on the chip is dimmed by opacity');
+  // The closed chip still reads the same line the VCA spec selects on.
+  assert.match(textOf(button), /ที่มา: /);
 });

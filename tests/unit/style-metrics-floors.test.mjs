@@ -644,3 +644,28 @@ test('UI-18: PinButton lets a toolbar class own its shape, and the exam toolbar 
   const q = read('../../src/components/Question.jsx');
   assert.match(q, /<PinButton\s+className="vmx-note-btn vmx-pin-btn"/);
 });
+
+// ── UI-07: the exam card's meta row and source toggle ─────────────────
+test('UI-07: the exam card meta is a quiet Sarabun row, not a tracked uppercase pill', () => {
+  const meta = chain('div.vmx-question-card', 'div.vmx-qtype-badge.vmx-q-meta');
+  for (const env of [PHONE, DESKTOP]) {
+    assert.equal(computed(meta, 'display', env), 'flex');
+    assert.equal(computed(meta, 'font-size', env), '12px');
+    assert.equal(computed(meta, 'border', env), '0');
+    assert.equal(computed(meta, 'background', env), 'none');
+  }
+  assertThaiLabel('exam meta row', meta);
+  assertThaiLabel('exam meta paper', chain('div.vmx-question-card', 'div.vmx-qtype-badge.vmx-q-meta', 'span.vmx-scope-chip'));
+  // Wherever else the badge is used (VetWiki governance, spaced repetition,
+  // the landing), it is a Thai-safe label too.
+  assertThaiLabel('type badge', chain('div', 'span.vmx-qtype-badge'));
+});
+
+test('UI-07: the source toggle is a 44px tap target', () => {
+  const toggle = chain('div.vmx-question-card', 'div', 'button.vmx-qsource-toggle');
+  for (const env of [PHONE, DESKTOP]) {
+    assert.ok(px(computed(toggle, 'min-height', env)) >= 44, `min-height at ${env.width}px`);
+    assert.equal(computed(toggle, 'display', env), 'flex');
+    assert.equal(computed(toggle, 'align-items', env), 'center');
+  }
+});

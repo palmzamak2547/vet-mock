@@ -249,6 +249,9 @@ function chips() {
 function badgeNames() {
   const names = {};
   for (const m of QUESTION.matchAll(/currentQ\.type === '(\w+)' && '([^']+)'/g)) names[m[1]] = m[2];
+  // Since UI-07 the exam card's meta row reads the names from one map.
+  const map = QUESTION.match(/const TYPE_LABEL = (\{[\s\S]*?\});/);
+  if (map) Object.assign(names, vm.runInNewContext(`(${map[1]})`));
   return names;
 }
 
