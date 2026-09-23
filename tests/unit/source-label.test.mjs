@@ -524,3 +524,14 @@ test('every Equine Med Mid 86 citation at p20 or later names its edition', () =>
   assert.deepEqual(edition(207549), ['44p'], 'the colic page, read from the 44-page copy');
   assert.deepEqual(edition(207580), ['44p'], 'p44 of the 44-page copy is p45 of the revision');
 });
+
+test('the food-industry questions written from the 25-page re-upload cite its pages', () => {
+  // FOOD INDUSTRY MID 86 went from 22 to 25 pages at 20:52 on 21 ก.ย., its
+  // pages reordered and p4-p6 new, and both are written "MID 86 audit". The
+  // questions ingested that night from the new file cite its p4 (a page the
+  // 22-page copy does not have) and its p7 (the 22-page copy's p21). Everything
+  // ingested earlier that day, and #207482, cites the 22-page copy.
+  const edition = (id) => [...new Set(bankRow('food-industry', id).sourcePages.map((c) => c.edition))];
+  for (const id of [207475, 207476, 207477, 207479]) assert.deepEqual(edition(id), ['25p'], `#${id}`);
+  for (const id of [207000, 207002, 207030, 207043, 207482]) assert.deepEqual(edition(id), ['22p'], `#${id}`);
+});

@@ -94,7 +94,13 @@ export const SOURCE_DOCS = [
   {
     slug: 'food-industry-mid86', subject: 'food-industry', title: 'Food Industry Mid 86',
     match: /\bMID ?86 (?:audit|🏅)/,
-    editions: [{ id: '22p', pages: 22 }],
+    editions: [
+      { id: '22p', pages: 22 },
+      // The 21 ก.ย. 20:52 re-upload: the same pages reordered, p4-p6 new. The
+      // questions ingested from it that night cite its p4 and its p7 (the
+      // 22-page copy's p21); both copies are written "MID 86 audit".
+      { id: '25p', pages: 25 },
+    ],
   },
   {
     slug: 'anl-repro-clin', subject: 'comp-repro-clinic', title: '7. Anl Repro Clin',
