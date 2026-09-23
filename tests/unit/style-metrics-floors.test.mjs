@@ -283,8 +283,11 @@ function declared(chain, prop, env) {
 
 const INHERITED = new Set(['line-height', 'letter-spacing', 'color', 'font-family', 'text-transform', 'font-variant-numeric']);
 // Every engine's UA sheet resets these on form controls, so a <button>
-// does not inherit them from body.
-const UA_FORM_RESET = { tags: new Set(['button', 'input', 'select', 'textarea']), props: new Set(['line-height', 'letter-spacing']) };
+// does not inherit them from body. font-family too (the UA `font:` shorthand
+// on buttons): now that font-family inherits in this model, a Thai label on a
+// button that names no face must not read as Sarabun here while the browser
+// draws it in the system face.
+const UA_FORM_RESET = { tags: new Set(['button', 'input', 'select', 'textarea']), props: new Set(['line-height', 'letter-spacing', 'font-family']) };
 
 /** The computed value of `prop` for the last node of `chain`, or null for the initial value. */
 function computed(chain, prop, env) {
