@@ -28,7 +28,7 @@ jobs:
   smoke:
     runs-on: ubuntu-latest
     # Leave time to retain diagnostics when the browser step itself times out.
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v7
 
@@ -87,8 +87,12 @@ jobs:
           xvfb-run --auto-servernum npx playwright test
           --project=chromium-desktop --project=chromium-mobile
 
+      # The whole webkit + firefox suite, serial. Green runs took 11.3-15.6 min
+      # (22-23 Sep), so a 16 min cap failed 80c59738 and 8a3d05f7 at 16.2 min
+      # with no test failing on its own. This is the step budget, not a test
+      # timeout; the sharded matrix on the upgrade branch replaces it.
       - name: Run smoke e2e (software-GL engines, one worker)
-        timeout-minutes: 16
+        timeout-minutes: 24
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: >-
