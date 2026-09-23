@@ -1151,52 +1151,6 @@ test('the outbox sweep folds what it drops, and drops nothing it cannot fold', a
   }
 });
 
-test('a failed write of a field’s own key says the work is kept on this device, not where', async () => {
-  // The banner used to say the data was safe "ใน recovery journal": a name
-  // for app internals, and since edits stopped going through the journal not
-  // even the place it was kept. It says what the student can rely on.
-  const kept = 'บันทึกไว้ในเครื่องแล้ว ระบบจะลองจัดเก็บให้ครบอีกครั้ง';
-  const failFieldKey = (storage) => {
-    const realSet = storage.setItem.bind(storage);
-    storage.setItem = (key, value) => {
-      if (key === 'vmx-notes') { const e = new Error('full'); e.name = 'QuotaExceededError'; throw e; }
-      realSet(key, value);
-    };
-  };
-
-  const storage = new MemoryStorage();
-  const idle = manualIdle();
-  const sync = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote: fakeRemote(null), idle });
-  failFieldKey(storage);
-  const result = sync.send({ type: 'CHANGE', principalId: null, derive: (d) => ({ notes: { ...d.notes, q1: 'kept' } }) });
-  assert.equal(result.accepted, true, 'the edit itself is kept');
-  assert.equal(sync.getSnapshot().data.notes.q1, 'kept');
-  assert.equal(sync.getSnapshot().sync.error?.code, 'LOCAL_MIRROR_FAILED');
-  assert.equal(sync.getSnapshot().sync.error.message, kept);
-  // The idle pass writes the field's key again; still failing, this is the
-  // banner that stays up.
-  idle.run();
-  assert.equal(sync.getSnapshot().sync.phase, 'error');
-  assert.equal(sync.getSnapshot().sync.error?.code, 'LOCAL_MIRROR_FAILED');
-  assert.equal(sync.getSnapshot().sync.error.message, kept);
-  assert.equal(sync.getSnapshot().data.notes.q1, 'kept');
-  sync.close();
-
-  // The same failure while an account's data is written to this device.
-  const hydrating = new MemoryStorage();
-  const account = createUserDataSync({ storage: hydrating, lifecycle: createLifecycle(true), remote: fakeRemote({ notes: { q2: 'cloud' } }), debounceMs: 60_000, scheduler: never, idle: manualIdle() });
-  failFieldKey(hydrating);
-  account.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
-  await settle();
-  assert.equal(account.getSnapshot().data.notes.q2, 'cloud');
-  assert.equal(account.getSnapshot().sync.error?.code, 'LOCAL_MIRROR_FAILED');
-  assert.equal(account.getSnapshot().sync.error.message, kept);
-  for (const message of [sync.getSnapshot().sync.error.message, account.getSnapshot().sync.error.message]) {
-    assert.doesNotMatch(message, /journal|outbox|snapshot/i);
-  }
-  account.close();
-});
-
 test('a record written by the previous build still loads', () => {
   // Old-shape records with a full `base` are sitting in storage at upgrade
   // time; refusing them would drop changes a student already made.

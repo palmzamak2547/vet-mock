@@ -80,10 +80,6 @@ const ANONYMOUS = 'anonymous';
 // happen between one person's phone and laptop. A write the server can never
 // accept reaches it in those same 11 s.
 const CONFLICT_STREAK_BANNER = 8;
-// A write to this device only partly landed: the edit itself is safe in the
-// outbox (or, for a whole-dataset commit, in the journal) and the rest is
-// retried. The banner says what the student can rely on, not where it is kept.
-const KEPT_ON_DEVICE = 'บันทึกไว้ในเครื่องแล้ว ระบบจะลองจัดเก็บให้ครบอีกครั้ง';
 const REMOTE_FIELDS = Object.keys(USER_DATA_FIELDS)
   .filter((field) => USER_DATA_FIELDS[field].remoteKey);
 let storeInstanceSequence = 0;
@@ -1248,7 +1244,7 @@ export function createUserDataSync({
         phase: 'error',
         error: publicError(
           'LOCAL_MIRROR_FAILED',
-          KEPT_ON_DEVICE,
+          'บันทึกการเปลี่ยนแปลงไว้แล้ว แต่ยังจัด snapshot ในเครื่องไม่สำเร็จ',
           false,
         ),
       }));
@@ -1439,7 +1435,7 @@ export function createUserDataSync({
       publish(merged, syncShape({
         phase: hasPending ? 'pending' : 'synced',
         error: commit.mirrorError
-          ? publicError('LOCAL_MIRROR_FAILED', KEPT_ON_DEVICE)
+          ? publicError('LOCAL_MIRROR_FAILED', 'ข้อมูลปลอดภัยใน recovery journal และจะลองจัดเก็บอีกครั้ง')
           : null,
       }));
       if (hasPending) schedule('flush', debounceMs);
@@ -1810,7 +1806,7 @@ export function createUserDataSync({
         )
         : 'local-only',
       error: edit.mirrorError
-        ? publicError('LOCAL_MIRROR_FAILED', KEPT_ON_DEVICE)
+        ? publicError('LOCAL_MIRROR_FAILED', 'ข้อมูลปลอดภัยใน recovery journal และจะลองจัดเก็บอีกครั้ง')
         : null,
     }));
     // The outbox record no longer carries an earlier change this edit undid,
