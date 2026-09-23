@@ -28,6 +28,13 @@
      Thai face before the generic keeps digits and codes in JetBrains Mono
      while Thai gets IBM Plex Sans Thai — which the page already loads. */
   --vmx-mono: 'JetBrains Mono', 'IBM Plex Sans Thai', ui-monospace, monospace;
+  /* The page's own face, for a label that sits inside a mono parent (the
+     countdown's ชม. นาที วินาที) or that used to be mono. A small label that
+     can carry Thai is set in this, untracked and never uppercased: the mono
+     stack reaches Thai only through the loopless IBM Plex fallback, which
+     reads as pasted in beside looped Sarabun. Mono stays for digits and
+     codes (timer, kbd, counts). */
+  --vmx-sans: 'Sarabun', 'IBM Plex Sans Thai', system-ui, sans-serif;
   /* Display face for headings and numerals. Fraunces carries no Thai glyphs,
      and the inline 'var(--vmx-display)' stacks scattered through the views fell
      straight through to the generic serif for Thai text — so a Thai heading
@@ -1149,10 +1156,10 @@ html, body {
 }
 .vmx-countdown-lead { display: grid; gap: 4px; min-width: 0; }
 .vmx-countdown-eyebrow {
-  font-family: var(--vmx-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  font-family: var(--vmx-sans); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none;
   color: var(--clr-ink-soft); white-space: nowrap;
 }
-.vmx-countdown-eyebrow > span { color: var(--clr-sage-text); margin-left: 8px; letter-spacing: 0.02em; }
+.vmx-countdown-eyebrow > span { color: var(--clr-sage-text); margin-left: 8px; letter-spacing: 0; }
 .vmx-countdown-num {
   font-family: var(--vmx-display); font-weight: 600; font-size: clamp(46px, 6vw, 66px);
   line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: var(--clr-ink);
@@ -1170,7 +1177,7 @@ html, body {
 }
 .vmx-countdown-clock b { font-weight: 600; }
 .vmx-countdown-clock b:last-of-type { color: var(--clr-rose-text); }
-.vmx-countdown-clock i { font-style: normal; font-size: 10.5px; letter-spacing: 0.06em; color: var(--clr-ink-soft); margin: 0 10px 0 3px; }
+.vmx-countdown-clock i { font-family: var(--vmx-sans); font-style: normal; font-size: 10.5px; letter-spacing: 0; color: var(--clr-ink-soft); margin: 0 10px 0 3px; }
 .vmx-countdown-clock i:last-of-type { margin-right: 0; }
 /* Under a day the clock is the hero. */
 .vmx-countdown.is-hours .vmx-countdown-clock { font-size: clamp(36px, 4.6vw, 50px); letter-spacing: 0; margin-top: 4px; }
@@ -2547,10 +2554,10 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap { max-width: 880px; margin: 0 auto; padding-bottom: 48px; }
 .vmx-wrap-empty { font-size: 14px; color: var(--clr-ink-soft); }
 .vmx-wrap-hero { padding: 6px 0 14px; border-bottom: 1px solid var(--clr-border); margin-bottom: 14px; }
-.vmx-wrap-eyebrow { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--clr-ink-soft); }
+.vmx-wrap-eyebrow { font-family: var(--vmx-sans); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); }
 .vmx-wrap-hero h1 { margin: 4px 0 8px; font-family: var(--vmx-display); font-size: clamp(26px, 4vw, 36px); line-height: 1.2; letter-spacing: 0; color: var(--clr-ink); text-wrap: balance; }
 .vmx-wrap-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-.vmx-wrap-pill { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; font-family: var(--vmx-mono); background: var(--clr-gold-soft); color: var(--clr-ink); }
+.vmx-wrap-pill { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; font-family: var(--vmx-sans); font-variant-numeric: tabular-nums; letter-spacing: 0; background: var(--clr-gold-soft); color: var(--clr-ink); }
 .vmx-wrap-intro { margin: 0 0 8px; font-size: 14px; line-height: 1.6; color: var(--clr-ink); max-width: 70ch; }
 .vmx-wrap-legend { margin: 0; font-size: 12px; line-height: 1.5; color: var(--clr-ink-soft); }
 .vmx-wrap-legend b { color: var(--clr-ink); font-weight: 700; }
@@ -2587,10 +2594,10 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap-keylist.is-self-numbered li::before { content: none; }
 .vmx-wrap-cols { display: grid; grid-template-columns: 1fr; gap: 10px 18px; margin-top: 12px; }
 @media (min-width: 720px) { .vmx-wrap-cols { grid-template-columns: 1fr 1fr; } }
-.vmx-wrap-list-label { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--clr-ink-soft); margin-bottom: 4px; }
+.vmx-wrap-list-label { font-family: var(--vmx-sans); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); margin-bottom: 4px; }
 .vmx-wrap-list ul { margin: 0; padding-left: 18px; }
 .vmx-wrap-list li { font-size: 13.5px; line-height: 1.55; color: var(--clr-ink); margin: 0 0 4px; }
-.vmx-wrap-src { display: block; font-family: var(--vmx-mono); font-size: 10.5px; color: var(--clr-ink-soft); }
+.vmx-wrap-src { display: block; font-family: var(--vmx-sans); font-size: 11px; letter-spacing: 0; color: var(--clr-ink-soft); }
 .vmx-wrap-none { margin: 0; font-size: 13px; line-height: 1.5; color: var(--clr-ink-soft); font-style: italic; }
 .vmx-wrap-pitfall { margin: 10px 0 0; padding: 8px 12px; border-left: 3px solid var(--clr-gold-soft); background: var(--clr-surface-2); border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size: 13px; line-height: 1.5; color: var(--clr-ink); }
 .vmx-wrap-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
@@ -2598,14 +2605,14 @@ html.dark .vmx-panic-scrim {
 /* Entry card on the topic screen, and the strip under the countdown on Home. */
 .vmx-wrap-entry { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; margin: 0 0 18px; padding: 14px 16px; border-radius: var(--r-lg); border: 1px solid var(--clr-border); background: var(--clr-surface); }
 .vmx-wrap-entry-text { flex: 1 1 320px; min-width: 0; }
-.vmx-wrap-entry-eyebrow { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--clr-ink-soft); }
+.vmx-wrap-entry-eyebrow { font-family: var(--vmx-sans); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); }
 .vmx-wrap-entry h3 { margin: 3px 0 4px; font-size: 16px; line-height: 1.25; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); text-wrap: balance; }
 .vmx-wrap-entry p { margin: 0; font-size: 12px; line-height: 1.45; color: var(--clr-ink-soft); }
 .vmx-wrap-entry-btn { appearance: none; border: 1px solid var(--clr-ink); background: var(--clr-ink); color: var(--clr-bg); font: inherit; font-weight: 700; font-size: 13px; min-height: var(--touch-min); display: inline-flex; align-items: center; padding: 8px 16px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
 .vmx-wrap-entry-btn:hover { opacity: .92; }
 .vmx-wrap-entry-btn:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 .vmx-wrap-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: -8px 0 18px; }
-.vmx-wrap-strip-label { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--clr-ink-soft); }
+.vmx-wrap-strip-label { font-family: var(--vmx-sans); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); }
 .vmx-wrap-strip-btn { appearance: none; border: 1px solid var(--clr-border); background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: 12px; font-weight: 600; min-height: var(--touch-min); display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 999px; cursor: pointer; }
 .vmx-wrap-strip-btn:hover { border-color: var(--clr-ink); }
 @media print { .vmx-wrap-index, .vmx-wrap-actions { display: none !important; } .vmx-wrap-item { break-inside: avoid; } }

@@ -281,7 +281,7 @@ function declared(chain, prop, env) {
   return best;
 }
 
-const INHERITED = new Set(['line-height', 'letter-spacing', 'color']);
+const INHERITED = new Set(['line-height', 'letter-spacing', 'color', 'font-family', 'text-transform', 'font-variant-numeric']);
 // Every engine's UA sheet resets these on form controls, so a <button>
 // does not inherit them from body.
 const UA_FORM_RESET = { tags: new Set(['button', 'input', 'select', 'textarea']), props: new Set(['line-height', 'letter-spacing']) };
@@ -484,5 +484,58 @@ test('the session date under a deck cover starts on the same left edge as the de
     const s = inset(date, env);
     assert.ok(Math.abs(t - s) <= 1, `deck title starts ${t}px in, session date ${s}px in, at ${env.width}px`);
     assert.equal(px(computed(date, 'padding-bottom', env)), 0, 'the date carries a second bottom padding under the footer\'s');
+  }
+});
+
+// ── UI-02: the exam-week labels read in the page's Thai face ──────────
+// The wrap-up page and the Home countdown are what a student reads the night
+// before a paper. Their small labels were a Latin eyebrow style — the mono
+// face, 0.06-0.1em tracking, uppercase — set on Thai: JetBrains Mono has no
+// Thai glyphs, so "สอบกลางภาค", "ชม. นาที วินาที" and the wrap-up pills fell
+// back to the loopless IBM Plex face beside the looped Sarabun around them,
+// with gaps between the letters. Digits may stay tabular; the face and the
+// tracking may not.
+
+/** The first face a font-family value asks for, var() resolved. */
+const firstFace = (value) => (value === null ? null
+  : resolveVars(value).split(',')[0].replace(/['"]/g, '').trim());
+
+function assertThaiLabel(name, node) {
+  for (const env of [PHONE, DESKTOP]) {
+    const face = firstFace(computed(node, 'font-family', env));
+    assert.equal(face, 'Sarabun', `${name}: font-family starts with ${face} at ${env.width}px`);
+    const ls = computed(node, 'letter-spacing', env);
+    assert.ok(ls === null || ls === '0' || ls === 'normal', `${name}: letter-spacing ${ls} at ${env.width}px pulls Thai marks off their consonants`);
+    const tt = computed(node, 'text-transform', env);
+    assert.ok(tt === null || tt === 'none', `${name}: text-transform ${tt} at ${env.width}px`);
+  }
+}
+
+const WRAP_ITEM = ['div.vmx-wrap', 'section.vmx-wrap-group', 'article.vmx-wrap-item'];
+const COUNTDOWN_LEAD = ['section.vmx-countdown', 'div.vmx-countdown-lead'];
+const EXAM_WEEK_LABELS = {
+  'wrap-up eyebrow': chain('div.vmx-wrap', 'header.vmx-wrap-hero', 'div.vmx-wrap-eyebrow'),
+  'wrap-up pill': chain('div.vmx-wrap', 'header.vmx-wrap-hero', 'div.vmx-wrap-meta', 'span.vmx-wrap-pill'),
+  'wrap-up list label': chain(...WRAP_ITEM, 'div.vmx-wrap-cols', 'div.vmx-wrap-list', 'div.vmx-wrap-list-label'),
+  'wrap-up source line': chain(...WRAP_ITEM, 'div.vmx-wrap-cols', 'div.vmx-wrap-list', 'ul', 'li', 'small.vmx-wrap-src'),
+  'topic-screen wrap-up eyebrow': chain('section.vmx-wrap-entry', 'div.vmx-wrap-entry-text', 'div.vmx-wrap-entry-eyebrow'),
+  'Home wrap-up strip label': chain('div.vmx-wrap-strip', 'span.vmx-wrap-strip-label'),
+  'countdown eyebrow': chain(...COUNTDOWN_LEAD, 'span.vmx-countdown-eyebrow'),
+  'countdown eyebrow date range': chain(...COUNTDOWN_LEAD, 'span.vmx-countdown-eyebrow', 'span'),
+  'countdown units (ชม. นาที วินาที)': chain(...COUNTDOWN_LEAD, 'span.vmx-countdown-clock', 'i'),
+  'countdown units under a day': chain('section.vmx-countdown.is-hours', 'div.vmx-countdown-lead', 'span.vmx-countdown-clock', 'i'),
+};
+
+test('UI-02: the wrap-up and countdown labels are Sarabun, untracked and not uppercased', () => {
+  for (const [name, node] of Object.entries(EXAM_WEEK_LABELS)) assertThaiLabel(name, node);
+});
+
+test('UI-02: the wrap-up pills keep their dates aligned with tabular digits, and the countdown digits stay mono', () => {
+  const pill = EXAM_WEEK_LABELS['wrap-up pill'];
+  for (const env of [PHONE, DESKTOP]) {
+    assert.equal(computed(pill, 'font-variant-numeric', env), 'tabular-nums');
+    // The digits of the clock are digits only: they keep the mono face.
+    const digits = chain(...COUNTDOWN_LEAD, 'span.vmx-countdown-clock', 'b');
+    assert.match(resolveVars(computed(digits, 'font-family', env)), /JetBrains Mono/);
   }
 });
