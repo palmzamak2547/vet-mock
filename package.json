@@ -94,6 +94,7 @@
     "lint:empty-sections": "node scripts/lint-empty-sections.mjs",
     "lint:quotes": "node scripts/audit-quote-fidelity.mjs --budget",
     "lint:question-standard": "node scripts/lint-question-standard.mjs --ratchet",
+    "ratchet:question-standard": "node scripts/lint-question-standard.mjs --ratchet --write",
     "lint:delivery": "node scripts/regen-question-delivery.mjs --check",
     "prep:explain-rewrite": "node scripts/batch-narrating-explains.mjs",
     "audit:coherence": "node scripts/audit-coherence.mjs",
