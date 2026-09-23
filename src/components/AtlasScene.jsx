@@ -278,10 +278,10 @@ export default function AtlasScene({
         ctx.fillRect(0, imageHeight, output.width, output.height - imageHeight);
         ctx.fillStyle = style.getPropertyValue('--clr-ink').trim();
         const selectedPart = specimen.parts.find((part) => part.id === latest.current.selected);
-        const selectionLabel = specimen.kind === 'segmented' && selectedPart ? `${selectedPart.en} · ` : '';
+        const selectionLabel = specimen.kind === 'segmented' && selectedPart ? `${selectedPart.en}, ` : '';
         ctx.font = '600 22px sans-serif';
         ctx.fillText(
-          `VetMock Atlas · ${selectionLabel}${viewData.map((view) => view.titleEn).join(' / ')}`,
+          `VetMock Atlas: ${selectionLabel}${viewData.map((view) => view.titleEn).join(' / ')}`,
           20,
           imageHeight + 32,
           output.width - 40,
@@ -289,7 +289,7 @@ export default function AtlasScene({
         ctx.font = '14px sans-serif';
         viewData.forEach((view, index) => {
           const y = imageHeight + 56 + index * 54;
-          ctx.fillText(`${view.titleEn} · ${view.authors} · ${view.license}`, 20, y, output.width - 40);
+          ctx.fillText(`${view.titleEn} — ${view.authors} — ${view.license}`, 20, y, output.width - 40);
           ctx.fillText(view.sourceUrl, 20, y + 20, output.width - 40);
         });
         ctx.fillText(
