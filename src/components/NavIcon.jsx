@@ -128,6 +128,9 @@ const PATHS = {
       <path d="M8 6H4.5v1.5A3.5 3.5 0 0 0 8 11M16 6h3.5v1.5A3.5 3.5 0 0 1 16 11" />
     </>
   ),
+  // spanner / the floating tools button (calculator, sketchpad, Imaging).
+  // Not `settings`: a gear there read as "preferences", not "tools".
+  tools: <path d="M15.5 3.5a4.5 4.5 0 0 0-4.3 5.8L4 16.5a2.12 2.12 0 0 0 3 3l7.2-7.2a4.5 4.5 0 0 0 5.8-4.3l-2.7 2.6-2.7-.6-.6-2.7 2.8-2.8Z" />,
   settings: (
     <>
       <circle cx="12" cy="12" r="3" />

@@ -227,8 +227,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             marginTop: 8, display: 'inline-block',
             padding: '3px 10px', borderRadius: 999,
             background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)',
-            fontFamily: 'var(--vmx-mono)', fontSize: 11,
-            letterSpacing: '0.08em', color: 'var(--clr-ink-soft)',
+            fontSize: 12, fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink-soft)',
           }}>
             ปี {selectedYear}{phaseLabel ? `, ${phaseLabel}` : ''}
           </div>
@@ -352,7 +351,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 Q{idx + 1}, {subj?.name || q.subject}
                 {topicMeta ? <>, <span style={{ color: subjectText(subj?.color), fontWeight: 600 }}>{topicMeta.icon} {topicMeta.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span></> : null}
                 {q.examOrigin && (
-                  <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 11, fontWeight: 700, fontFamily: 'var(--vmx-mono)' }}>
+                  <span className="vmx-origin-chip" title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน">
                     อิงแนวเดิม
                   </span>
                 )}
@@ -368,7 +367,6 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                       background: 'rgba(125, 74, 125, 0.15)',
                       color: 'var(--clr-plum-text, #7d4a7d)',
                       border: '1px solid var(--clr-plum, #7d4a7d)',
-                      fontFamily: 'var(--vmx-mono)',
                       fontWeight: 600,
                     }}
                   >
@@ -447,7 +445,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 </div>
                 {q.model_answer && (
                   <div style={{ marginBottom: 6, padding: 10, borderRadius: 8, background: 'rgba(74, 107, 74, 0.08)', border: '1px solid var(--clr-sage)' }}>
-                    <div style={{ fontSize: 11, color: 'var(--clr-sage-text)', fontFamily: 'var(--vmx-mono)', marginBottom: 4, fontWeight: 600 }}>คำตอบตัวอย่างจากเฉลย</div>
+                    <div style={{ fontSize: 12, color: 'var(--clr-sage-text)', marginBottom: 4, fontWeight: 600 }}>คำตอบตัวอย่างจากเฉลย</div>
                     <div style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>
                       <RichText text={q.model_answer} />
                     </div>
@@ -455,7 +453,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 )}
                 {q.rubric && (
                   <div style={{ marginBottom: 6, padding: 10, borderRadius: 8, background: 'rgba(184, 137, 64, 0.08)', border: '1px solid var(--clr-gold)' }}>
-                    <div style={{ fontSize: 11, color: 'var(--clr-gold-text)', fontFamily: 'var(--vmx-mono)', marginBottom: 4, fontWeight: 600 }}>เกณฑ์ให้คะแนน</div>
+                    <div style={{ fontSize: 12, color: 'var(--clr-gold-text)', marginBottom: 4, fontWeight: 600 }}>เกณฑ์ให้คะแนน</div>
                     <div style={{ fontSize: 12, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>
                       <RichText text={q.rubric} />
                     </div>
@@ -524,7 +522,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               </div>
             )}
             {q.source && (
-              <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', fontFamily: 'var(--vmx-mono)' }}>
+              <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-ink-soft)' }}>
                 แหล่งอ้างอิง: {q.source}
               </div>
             )}
@@ -576,7 +574,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
           scrolls within 600px of viewport, useEffect above expands the
           window. Hidden when everything is already shown. */}
       {visibleCount < filtered.length && (
-        <div ref={sentinelRef} style={{ height: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--clr-ink-soft)', fontSize: 12, fontFamily: 'var(--vmx-mono)' }}>
+        <div ref={sentinelRef} style={{ height: 80, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--clr-ink-soft)', fontSize: 12 }}>
           กำลังโหลด {Math.min(filtered.length - visibleCount, PAGE)} ข้อถัดไป…
         </div>
       )}

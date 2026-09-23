@@ -19,6 +19,7 @@ import { NIGHT_RANK_EVENT, takePromotion } from '../lib/night-rank.js';
 import { hasTopic, articleForQuestion } from '../lib/vetwiki/registry-lite.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import WeakSpots from '../components/WeakSpots.jsx';
+import NavIcon from '../components/NavIcon.jsx';
 
 // Render a 1080×1920 portrait score card (IG Story aspect 9:16) onto a
 // canvas and return a Blob. Pure-canvas, no external deps. Designed to
@@ -330,22 +331,10 @@ export default function ResultsView({
     <>
       <BackBar onBack={goHome} label="หน้าแรก" mochi={false} />
       <ExamSaveNotice status={saveStatus} />
-      {rankPromo && (
-        <div className="vmx-night-rank-promo" role="status">
-          <span className="vmx-night-rank-promo-icon" aria-hidden="true">{rankPromo.to.icon}</span>
-          <div className="vmx-night-rank-promo-text">
-            <div className="vmx-night-rank-promo-title">🎖️ เลื่อนยศโต้รุ้ง! {rankPromo.to.label}</div>
-            <div className="vmx-night-rank-promo-sub">
-              จาก {rankPromo.from.label} เป็น {rankPromo.to.label}, {rankPromo.to.blurb}
-            </div>
-          </div>
-        </div>
-      )}
       {(phaseLabel || selectedYear) && (
         <div style={{
           marginBottom: 12, display: 'flex', gap: 6, justifyContent: 'center',
-          fontFamily: 'var(--vmx-mono)', fontSize: 11,
-          letterSpacing: '0.08em', color: 'var(--clr-ink-soft)',
+          fontSize: 12, fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink-soft)',
         }}>
           <span style={{
             padding: '3px 10px', borderRadius: 999,
@@ -356,12 +345,12 @@ export default function ResultsView({
         </div>
       )}
       {showPassFail && (
-        <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'var(--vmx-mono)', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-ink-soft)' }}>
+        <div className="vmx-eyebrow" style={{ textAlign: 'center', marginBottom: 16 }}>
           {passed ? `ถึงเกณฑ์ซ้อมของแอป (${PRACTICE_PASS_PCT}%)` : `ยังไม่ถึงเกณฑ์ซ้อมของแอป (${PRACTICE_PASS_PCT}%)`}, โหมดสอบ
         </div>
       )}
       {isExam && autoQs.length === 0 && writingQs.length > 0 && (
-        <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'var(--vmx-mono)', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-gold-text)' }}>
+        <div className="vmx-eyebrow" style={{ textAlign: 'center', marginBottom: 16, color: 'var(--clr-gold-text)' }}>
           ชุดข้อเขียน, รอตรวจให้คะแนน
         </div>
       )}
@@ -370,7 +359,7 @@ export default function ResultsView({
           marginBottom: 16, padding: '10px 16px', borderRadius: 12,
           background: 'var(--clr-gold-soft)',
           border: '1px solid var(--clr-gold)', textAlign: 'center',
-          fontFamily: 'var(--vmx-mono)', fontSize: 13, letterSpacing: '0.05em',
+          fontSize: 13, fontVariantNumeric: 'tabular-nums',
           color: 'var(--clr-gold-text)', fontWeight: 700,
         }}>
           สถิติใหม่ของคุณ {personalBest.pct}% (เดิม {personalBest.prev}%)
@@ -391,15 +380,15 @@ export default function ResultsView({
         ) : (
           <>
             <h2 className="vmx-score-big" style={{ color: 'var(--clr-gold-text)' }}>
-              ✍️
+              <NavIcon name="pen" size={72} /><span className="vmx-sr-only">ข้อเขียน</span>
             </h2>
             <div className="vmx-score-label">ฝึกข้อเขียนเสร็จแล้ว</div>
             <div className="vmx-score-frac">{writingAttempted} / {writingQs.length} ข้อเขียนเสร็จ</div>
           </>
         )}
         {writingQs.length > 0 && autoQs.length > 0 && (
-          <div style={{ marginTop: 8, padding: '6px 12px', borderRadius: 999, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', display: 'inline-block', fontSize: 12, color: 'var(--clr-ink)', fontFamily: 'var(--vmx-mono)' }}>
-            ✍️ มีข้อเขียน {writingQs.length} ข้อ — ตรวจด้วย rubric ใน "ดูเฉลย"
+          <div style={{ marginTop: 8, padding: '6px 12px', borderRadius: 999, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', display: 'inline-block', fontSize: 12, color: 'var(--clr-ink)' }}>
+            <NavIcon name="pen" size={13} /> มีข้อเขียน {writingQs.length} ข้อ — ตรวจด้วย rubric ใน "ดูเฉลย"
           </div>
         )}
         <div className="vmx-score-msg">{msg}</div>
@@ -425,6 +414,20 @@ export default function ResultsView({
           </div>
         )}
       </div>
+
+      {/* A late-night promotion is a note under the result, not a banner over
+          it: the score is what a student came to this screen for. */}
+      {rankPromo && (
+        <div className="vmx-night-rank-promo" role="status">
+          <span className="vmx-night-rank-promo-icon" aria-hidden="true">{rankPromo.to.icon}</span>
+          <div className="vmx-night-rank-promo-text">
+            <div className="vmx-night-rank-promo-title">เลื่อนยศโต้รุ้ง! {rankPromo.to.label}</div>
+            <div className="vmx-night-rank-promo-sub">
+              จาก {rankPromo.from.label} เป็น {rankPromo.to.label}, {rankPromo.to.blurb}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Challenge comparison — shown ONLY when receiver finishes a
           challenge link with sender's score embedded. Round 2B 2026-05-18.
@@ -557,10 +560,10 @@ function NextPlayPanel({
   // Pure-writing → keep classic flow (review needed for self-grading)
   if (autoQs.length === 0) {
     return (
-      <div className="vmx-btn-row" style={{ flexWrap: 'wrap', marginTop: 16 }}>
-        <button className="vmx-btn vmx-btn-ghost" onClick={goHome} style={{ minHeight: 44 }}>← กลับหน้าแรก</button>
+      <div className="vmx-btn-row is-stack" style={{ marginTop: 16 }}>
         <button className="vmx-btn vmx-btn-primary" onClick={() => setView('review')} style={{ minHeight: 44 }}>ดูเฉลย + ให้คะแนนข้อเขียน →</button>
         <ShareQuizButton questions={questions} />
+        <button className="vmx-btn vmx-btn-ghost" onClick={goHome} style={{ minHeight: 44 }}>← กลับหน้าแรก</button>
       </div>
     );
   }
@@ -640,12 +643,12 @@ function NextPlayPanel({
             }}
             aria-label={`ทำซ้ำ ${wrongQs.length} ข้อที่ตอบผิดในรอบนี้`}
           >
-            <div style={{ fontSize: 28, lineHeight: 1 }}>🎯</div>
+            <span className="vmx-results-card-icon is-retry" aria-hidden="true"><NavIcon name="repeat" size={26} /></span>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
                 แก้ข้อที่ผิด {wrongQs.length} ข้อ ทันที
               </div>
-              <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                 ทำซ้ำเฉพาะข้อในรอบนี้ที่ตอบผิด
               </div>
             </div>
@@ -679,12 +682,12 @@ function NextPlayPanel({
             }}
             aria-label={continueLabel}
           >
-            <div style={{ fontSize: 28, lineHeight: 1 }}>🚀</div>
+            <span className="vmx-results-card-icon is-more" aria-hidden="true"><NavIcon name="practice" size={26} /></span>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
-                {continueLabel.replace('🚀 ', '')}
+                {continueLabel}
               </div>
-              <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                 {continueSub}
               </div>
             </div>
@@ -702,8 +705,11 @@ function NextPlayPanel({
           </button>
         )}
 
-        {/* Secondary row — ดูเฉลย + ทำหัวข้อนี้ต่อ (when hasWrong) */}
-        <div className="vmx-btn-row" style={{ flexWrap: 'wrap', gap: 8 }}>
+        {/* Secondary row, in the order a student reaches for it: the answers,
+            the summary, more of the same topic. A stack, so a phone does not
+            reverse it (.vmx-btn-row alone is a Back/Next pair). The three ways
+            to bring a friend sit behind one disclosure at the end. */}
+        <div className="vmx-btn-row is-stack" style={{ gap: 8 }}>
           <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('review')} style={{ minHeight: 44 }}>
             ดูเฉลย
           </button>
@@ -749,24 +755,29 @@ function NextPlayPanel({
               ทำ{ctx.topic ? 'หัวข้อ' : 'วิชา'}นี้อีก 5 ข้อ
             </button>
           )}
-          <ChallengeQuizButton questions={questions} score={score} senderTimeSec={receiverDurationSec} />
-          {/* Round 2B 2026-05-18: race-room shortcut. Skips the Race
-              entry page — just routes to RaceView (it handles its own
-              flow). Future enhancement: pass current questions[] as
-              seed when RaceView accepts a seed prop. */}
-          <button
-            type="button"
-            className="vmx-btn vmx-btn-ghost"
-            onClick={() => setView('race')}
-            style={{ minHeight: 44 }}
-            title="ไปหน้า Race mode — สร้างห้องแข่งกับเพื่อนแบบ realtime"
-          >
-            🏁 สร้างห้องแข่ง
-          </button>
-          {/* Round 2B 2026-05-18: "send to group" — same primitive as
-              ChallengeQuizButton but explicitly invokes navigator.share
-              first (mobile system picker → LINE/IG group chat target). */}
-          <SendToGroupButton questions={questions} score={score} senderTimeSec={receiverDurationSec} />
+          <details className="vmx-invite">
+            <summary className="vmx-btn vmx-btn-ghost">ชวนเพื่อน</summary>
+            <div className="vmx-invite-actions">
+              <ChallengeQuizButton questions={questions} score={score} senderTimeSec={receiverDurationSec} />
+              {/* Round 2B 2026-05-18: race-room shortcut. Skips the Race
+                  entry page — just routes to RaceView (it handles its own
+                  flow). Future enhancement: pass current questions[] as
+                  seed when RaceView accepts a seed prop. */}
+              <button
+                type="button"
+                className="vmx-btn vmx-btn-ghost"
+                onClick={() => setView('race')}
+                style={{ minHeight: 44 }}
+                title="ไปหน้า Race mode — สร้างห้องแข่งกับเพื่อนแบบ realtime"
+              >
+                <NavIcon name="users" size={16} /> สร้างห้องแข่ง
+              </button>
+              {/* Round 2B 2026-05-18: "send to group" — same primitive as
+                  ChallengeQuizButton but explicitly invokes navigator.share
+                  first (mobile system picker → LINE/IG group chat target). */}
+              <SendToGroupButton questions={questions} score={score} senderTimeSec={receiverDurationSec} />
+            </div>
+          </details>
         </div>
       </div>
     </div>
@@ -790,11 +801,11 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
       // a pattern — the rule is right, the sentence was wrong. It now states
       // the rule instead of announcing something that did not happen.
       out.push({
-        icon: '🧠',
+        icon: 'repeat',
         text: `ผิด ${wrongCount} ข้อ — ข้อไหนที่พลาดซ้ำเป็นครั้งที่สอง จะถูกดึงเข้าคิวทบทวนอัตโนมัติ`,
       });
       out.push({
-        icon: '🕒',
+        icon: 'exam',
         text: 'คิวทบทวนจะปล่อยข้อนั้นกลับมาเองตามจังหวะ spaced repetition ไม่ต้องจำเองว่าต้องกลับมาเมื่อไหร่',
       });
     }
@@ -818,14 +829,14 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
           .trim()
           .slice(0, 40);
         out.push({
-          icon: '🎯',
+          icon: 'progress',
           text: `คุณพลาด ${count} ข้อในหัวข้อ "${cleaned}" — ลองทบทวนเนื้อหานี้ก่อน`,
         });
       }
     }
     if (score.pct >= 90 && autoQs.length >= 5) {
       out.push({
-        icon: '🔥',
+        icon: 'flame',
         text: 'คะแนนสูงในรอบนี้ ลองเพิ่มจำนวนข้อรอบหน้าเพื่อท้าทายตัวเองดู',
       });
     }
@@ -858,7 +869,7 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
               color: 'var(--clr-ink)',
             }}
           >
-            <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }} aria-hidden>{h.icon}</span>
+            <span style={{ display: 'inline-flex', flexShrink: 0, marginTop: 2, color: 'var(--clr-gold-text)' }} aria-hidden><NavIcon name={h.icon} size={16} /></span>
             <span style={{ flex: 1 }}>{h.text}</span>
           </li>
         ))}
@@ -894,7 +905,7 @@ function ShareQuizButton({ questions }) {
       title="แชร์ชุดโจทย์นี้ให้เพื่อน — เปิดลิงก์แล้วได้ข้อเดียวกัน เรียงเดียวกัน"
     >
       แชร์ชุดนี้
-      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text, #4a6b4a)' }}>{hint}</span>}
     </button>
   );
 }
@@ -960,7 +971,7 @@ function ChallengeQuizButton({ questions, label = 'ท้าเพื่อน�
       title="แชร์ลิงก์ชุดโจทย์ + ข้อความท้าทาย — เพื่อนเปิดลิงก์แล้วทำชุดเดียวกัน"
     >
       {label}
-      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text, #4a6b4a)' }}>{hint}</span>}
     </button>
   );
 }
@@ -1011,7 +1022,7 @@ function SendToGroupButton({ questions, score, senderTimeSec }) {
       title="ส่งลิงก์ชุดโจทย์เข้ากลุ่ม LINE / IG / chat"
     >
       ส่งเข้ากลุ่ม
-      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text, #4a6b4a)' }}>{hint}</span>}
     </button>
   );
 }
@@ -1039,9 +1050,9 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
   const rPct = r.total > 0 ? Math.round((r.correct / r.total) * 100) : 0;
   const verdict = rPct > sPct ? 'win' : rPct < sPct ? 'lose' : 'tie';
   const verdictMeta = {
-    win:  { icon: '🥇', label: 'คุณชนะ!',  copy: `${r.correct}/${r.total} ดีกว่า ${s.correct}/${s.total} ของผู้ส่ง, ขอบราเดอร์`, color: '#4a6b4a' },
-    lose: { icon: '💭', label: 'เกือบแล้ว', copy: `ผู้ส่งได้ ${s.correct}/${s.total}, คุณ ${r.correct}/${r.total} — ลองอีกชุดดู`, color: '#a73d4a' },
-    tie:  { icon: '🤝', label: 'เสมอ',     copy: `ได้เท่ากัน ${r.correct}/${r.total} ทั้งคู่ — เพื่อนสนิทแล้ว`, color: '#b88940' },
+    win:  { icon: 'trophy', label: 'คุณชนะ!',  copy: `${r.correct}/${r.total} ดีกว่า ${s.correct}/${s.total} ของผู้ส่ง, ขอบราเดอร์`, color: '#4a6b4a' },
+    lose: { icon: 'repeat', label: 'เกือบแล้ว', copy: `ผู้ส่งได้ ${s.correct}/${s.total}, คุณ ${r.correct}/${r.total} — ลองอีกชุดดู`, color: '#a73d4a' },
+    tie:  { icon: 'users', label: 'เสมอ',     copy: `ได้เท่ากัน ${r.correct}/${r.total} ทั้งคู่ — เพื่อนสนิทแล้ว`, color: '#b88940' },
   }[verdict];
 
   // Time race: only render when BOTH sides have a valid duration. With
@@ -1065,7 +1076,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
         ผลการท้า {sender.senderName ? `จาก ${sender.senderName}` : 'จากเพื่อน'}
       </div>
       <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: hasTimes ? 12 : 0 }}>
-        <div style={{ fontSize: 36, lineHeight: 1, flexShrink: 0 }} aria-hidden>{verdictMeta.icon}</div>
+        <div style={{ display: 'inline-flex', flexShrink: 0, color: verdictMeta.color }} aria-hidden><NavIcon name={verdictMeta.icon} size={32} /></div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 18, color: 'var(--clr-ink)' }}>
             {verdictMeta.label}
@@ -1087,24 +1098,24 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
           padding: 10,
           borderRadius: 10,
           background: 'rgba(0,0,0,0.04)',
-          fontFamily: 'var(--vmx-mono)',
+          fontVariantNumeric: 'tabular-nums',
           fontSize: 12,
         }}>
           <div>
-            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+            <div className="vmx-eyebrow" style={{ marginBottom: 4 }}>
               ผู้ส่ง{sender.senderName ? `, ${sender.senderName}` : ''}
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
-              {s.correct}/{s.total}, ⏱ {fmtTimeSec(sender.senderTimeSec)}
+              {s.correct}/{s.total}, เวลา {fmtTimeSec(sender.senderTimeSec)}
               {fasterSender && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-gold-text, #b88940)' }}>เร็วกว่า</span>}
             </div>
           </div>
           <div>
-            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+            <div className="vmx-eyebrow" style={{ marginBottom: 4 }}>
               คุณ
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
-              {r.correct}/{r.total}, ⏱ {fmtTimeSec(receiverTimeSec)}
+              {r.correct}/{r.total}, เวลา {fmtTimeSec(receiverTimeSec)}
               {fasterReceiver && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-sage-text, #4a6b4a)' }}>เร็วกว่า</span>}
             </div>
           </div>
@@ -1172,7 +1183,7 @@ function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writi
         </button>
       </div>
       {hint && (
-        <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center', fontFamily: 'var(--vmx-mono)' }}>
+        <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
           {hint}
         </div>
       )}

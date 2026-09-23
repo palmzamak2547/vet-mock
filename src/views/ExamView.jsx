@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import QuestionComponent from '../components/Question.jsx';
 import ExamClock from '../components/ExamClock.jsx';
+import NavIcon from '../components/NavIcon.jsx';
 import { isCorrect, isWritingType, isAnswered } from '../hooks/utils.js';
 import { useBuddyCountOnQ } from '../hooks/useStudyBuddies.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
@@ -99,8 +100,9 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
               fontWeight: 700,
               fontFamily: 'var(--vmx-mono)',
               letterSpacing: '0.06em',
+              display: 'inline-flex', alignItems: 'center', gap: 4, verticalAlign: 'middle',
             }}>
-              ✍️ {currentQ.type === 'essay' ? 'WRITING' : 'SHORT'}
+              <NavIcon name="pen" size={12} /> {currentQ.type === 'essay' ? 'WRITING' : 'SHORT'}
             </span>
           )}
         </div>
@@ -140,11 +142,11 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         <div style={{
           marginTop: 8, padding: '4px 12px', borderRadius: 999,
           background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)',
-          fontSize: 11, fontFamily: 'var(--vmx-mono)',
+          fontSize: 12,
           color: 'var(--clr-sage-text)',
           display: 'inline-flex', alignItems: 'center', gap: 6,
         }}>
-          👥 {buddiesHere} คนกำลังทำข้อนี้
+          <NavIcon name="users" size={14} /> {buddiesHere} คนกำลังทำข้อนี้
         </div>
       )}
 
@@ -168,7 +170,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         <button className="vmx-btn vmx-btn-ghost" onClick={prevQ} disabled={currentIdx === 0}>← ข้อก่อนหน้า</button>
         {showNavOpener && jumpToQ && (
           <button className="vmx-btn vmx-btn-ghost" onClick={() => setShowNav(true)} title="ดูทุกข้อ + ข้ามไปข้อที่ต้องการ">
-            📋 {currentIdx + 1}/{questions.length}
+            <NavIcon name="practice" size={18} /> {currentIdx + 1}/{questions.length}
           </button>
         )}
         <button
@@ -279,7 +281,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 16, gap: 12, flexWrap: 'wrap' }}>
           <h2 id="vmx-nav-grid-title" style={{ margin: 0 }}>ข้ามไปข้อ</h2>
-          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
+          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontVariantNumeric: 'tabular-nums' }}>
             ตอบแล้ว {answered}/{questions.length}, เหลือ {remaining}
           </div>
         </div>

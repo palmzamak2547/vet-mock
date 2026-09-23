@@ -281,10 +281,13 @@ function declared(chain, prop, env) {
   return best;
 }
 
-const INHERITED = new Set(['line-height', 'letter-spacing', 'color']);
+const INHERITED = new Set(['line-height', 'letter-spacing', 'color', 'font-family', 'text-transform', 'font-variant-numeric']);
 // Every engine's UA sheet resets these on form controls, so a <button>
-// does not inherit them from body.
-const UA_FORM_RESET = { tags: new Set(['button', 'input', 'select', 'textarea']), props: new Set(['line-height', 'letter-spacing']) };
+// does not inherit them from body. font-family too (the UA `font:` shorthand
+// on buttons): now that font-family inherits in this model, a Thai label on a
+// button that names no face must not read as Sarabun here while the browser
+// draws it in the system face.
+const UA_FORM_RESET = { tags: new Set(['button', 'input', 'select', 'textarea']), props: new Set(['line-height', 'letter-spacing', 'font-family']) };
 
 /** The computed value of `prop` for the last node of `chain`, or null for the initial value. */
 function computed(chain, prop, env) {
@@ -484,5 +487,232 @@ test('the session date under a deck cover starts on the same left edge as the de
     const s = inset(date, env);
     assert.ok(Math.abs(t - s) <= 1, `deck title starts ${t}px in, session date ${s}px in, at ${env.width}px`);
     assert.equal(px(computed(date, 'padding-bottom', env)), 0, 'the date carries a second bottom padding under the footer\'s');
+  }
+});
+
+// ── UI-02: the exam-week labels read in the page's Thai face ──────────
+// The wrap-up page and the Home countdown are what a student reads the night
+// before a paper. Their small labels were a Latin eyebrow style — the mono
+// face, 0.06-0.1em tracking, uppercase — set on Thai: JetBrains Mono has no
+// Thai glyphs, so "สอบกลางภาค", "ชม. นาที วินาที" and the wrap-up pills fell
+// back to the loopless IBM Plex face beside the looped Sarabun around them,
+// with gaps between the letters. Digits may stay tabular; the face and the
+// tracking may not.
+
+/** The first face a font-family value asks for, var() resolved. */
+const firstFace = (value) => (value === null ? null
+  : resolveVars(value).split(',')[0].replace(/['"]/g, '').trim());
+
+function assertThaiLabel(name, node) {
+  for (const env of [PHONE, DESKTOP]) {
+    const face = firstFace(computed(node, 'font-family', env));
+    assert.equal(face, 'Sarabun', `${name}: font-family starts with ${face} at ${env.width}px`);
+    const ls = computed(node, 'letter-spacing', env);
+    assert.ok(ls === null || ls === '0' || ls === 'normal', `${name}: letter-spacing ${ls} at ${env.width}px pulls Thai marks off their consonants`);
+    const tt = computed(node, 'text-transform', env);
+    assert.ok(tt === null || tt === 'none', `${name}: text-transform ${tt} at ${env.width}px`);
+  }
+}
+
+const WRAP_ITEM = ['div.vmx-wrap', 'section.vmx-wrap-group', 'article.vmx-wrap-item'];
+const COUNTDOWN_LEAD = ['section.vmx-countdown', 'div.vmx-countdown-lead'];
+const EXAM_WEEK_LABELS = {
+  'wrap-up eyebrow': chain('div.vmx-wrap', 'header.vmx-wrap-hero', 'div.vmx-wrap-eyebrow'),
+  'wrap-up pill': chain('div.vmx-wrap', 'header.vmx-wrap-hero', 'div.vmx-wrap-meta', 'span.vmx-wrap-pill'),
+  'wrap-up list label': chain(...WRAP_ITEM, 'div.vmx-wrap-cols', 'div.vmx-wrap-list', 'div.vmx-wrap-list-label'),
+  'wrap-up source line': chain(...WRAP_ITEM, 'div.vmx-wrap-cols', 'div.vmx-wrap-list', 'ul', 'li', 'small.vmx-wrap-src'),
+  'topic-screen wrap-up eyebrow': chain('section.vmx-wrap-entry', 'div.vmx-wrap-entry-text', 'div.vmx-wrap-entry-eyebrow'),
+  'Home wrap-up strip label': chain('div.vmx-wrap-strip', 'span.vmx-wrap-strip-label'),
+  'countdown eyebrow': chain(...COUNTDOWN_LEAD, 'span.vmx-countdown-eyebrow'),
+  'countdown eyebrow date range': chain(...COUNTDOWN_LEAD, 'span.vmx-countdown-eyebrow', 'span'),
+  'countdown units (ชม. นาที วินาที)': chain(...COUNTDOWN_LEAD, 'span.vmx-countdown-clock', 'i'),
+  'countdown units under a day': chain('section.vmx-countdown.is-hours', 'div.vmx-countdown-lead', 'span.vmx-countdown-clock', 'i'),
+};
+
+test('UI-02: the wrap-up and countdown labels are Sarabun, untracked and not uppercased', () => {
+  for (const [name, node] of Object.entries(EXAM_WEEK_LABELS)) assertThaiLabel(name, node);
+});
+
+test('UI-02: the wrap-up pills keep their dates aligned with tabular digits, and the countdown digits stay mono', () => {
+  const pill = EXAM_WEEK_LABELS['wrap-up pill'];
+  for (const env of [PHONE, DESKTOP]) {
+    assert.equal(computed(pill, 'font-variant-numeric', env), 'tabular-nums');
+    // The digits of the clock are digits only: they keep the mono face.
+    const digits = chain(...COUNTDOWN_LEAD, 'span.vmx-countdown-clock', 'b');
+    assert.match(resolveVars(computed(digits, 'font-family', env)), /JetBrains Mono/);
+  }
+});
+
+// ── UI-01: every small label that carries Thai follows the same rule ──
+// The eyebrow style (mono, tracked, uppercase) was on Thai labels well
+// beyond the exam-week screens: Results' "ถูก ผิด ข้าม" and kickers, the
+// review's "คำตอบของคุณ:", the lecturer format chip, the deck counts that
+// rendered "ทุกประเภท  101  ข้อ" with mono-width spaces, the footer's
+// "เกี่ยวกับ" at 0.88px. `.vmx-eyebrow` is the one tokenised label style;
+// the class rules below keep their size and colour and take its face,
+// tracking and case.
+const THAI_LABELS = {
+  'shared eyebrow': chain('div', 'div.vmx-eyebrow'),
+  'kicker': chain('div', 'div.vmx-kicker'),
+  'Results stat label (ถูก ผิด ข้าม)': chain('div.vmx-stat-grid', 'div.vmx-stat-card', 'div.vmx-stat-lbl'),
+  'Review answer key (คำตอบของคุณ:)': chain('div.vmx-review-item', 'div.vmx-review-ans', 'span.k'),
+  'instant-feedback key (เฉลย)': chain('div.vmx-question-card', 'div.vmx-instant-feedback', 'div.a', 'span.k'),
+  'past-paper origin chip (อิงแนวเดิม)': chain('div.vmx-question-card', 'div.vmx-qtype-badge', 'span.vmx-origin-chip'),
+  'lecturer format chip': chain('div.vmx-lect-list', 'article.vmx-lect', 'header.vmx-lect-head', 'span.vmx-lect-chip'),
+  'deck count under a cover': chain('div.vmx-lect-list', 'article.vmx-lect', 'div.vmx-lect-strip', 'div.vmx-lect-cover', 'div.vmx-lect-cover-foot', 'span.c'),
+  'chip': chain('div.vmx-chip-row', 'button.vmx-chip'),
+  'Home plan kicker': chain('section', 'span.vmx-next-actions-kicker'),
+  'Home next-action kicker': chain('section', 'span.vmx-next-action-kicker'),
+  'Home next-exam label': chain('section', 'span.vmx-next-exam-label'),
+  'footer heading': chain('footer.vmx-footer', 'nav.vmx-footer-col', 'h2'),
+  'past-paper share on a topic card': chain('div.vmx-topic-grid', 'article.vmx-topic-card', 'button.vmx-topic-main', 'span.vmx-topic-past'),
+  'sidebar heading': chain('aside.vmx-sidebar', 'nav.vmx-sidebar-nav', 'p.vmx-sidebar-heading'),
+  'coach key': chain('div', 'span.vmx-coach-k'),
+  'spaced-repetition interval': chain('div', 'button.vmx-sr-btn', 'div.sub'),
+  'fill-in label': chain('div.vmx-question-card', 'label.vmx-fill-label'),
+  'calculator field label': chain('div', 'label.vmx-vetcalc-field-label'),
+  'tour skip': chain('div', 'button.vmx-tour-skip'),
+  'matching answer label': chain('div', 'span.vmx-match-answer-label'),
+  'lesson eyebrow': chain('div', 'p.vmx-lesson__eyebrow'),
+  'lesson contents head': chain('div', 'p.vmx-lesson__tochead'),
+  'lesson checks head': chain('div', 'p.vmx-lesson__checkshead'),
+  'night rank label': chain('div', 'div.vmx-night-rank-label'),
+  'streak milestone': chain('div', 'span.vmx-streak-milestone'),
+  'streak milestone badge': chain('div', 'div.vmx-streak-milestone-badge'),
+  // Tags are codes until they are Thai: #อิงแนวข้อสอบ on Review.
+  'tag pill': chain('div', 'span.vmx-tag-pill'),
+};
+
+test('UI-01: the Thai-bearing label classes are Sarabun, untracked and not uppercased', () => {
+  for (const [name, node] of Object.entries(THAI_LABELS)) assertThaiLabel(name, node);
+});
+
+test('UI-01: the shared eyebrow is a Thai-safe label: 12px, line-height at least 1.2, ink-soft', () => {
+  const node = THAI_LABELS['shared eyebrow'];
+  for (const env of [PHONE, DESKTOP]) {
+    assert.equal(computed(node, 'font-size', env), '12px');
+    assert.ok(Number(computed(node, 'line-height', env)) >= 1.2);
+    assert.equal(computed(node, 'color', env), 'var(--clr-ink-soft)');
+  }
+});
+
+test('UI-01: the header context pill carries no tracking', () => {
+  // `:not(.is-quiet)` is a state the cascade model does not evaluate, so the
+  // rule is read directly: 0.01em on "ทม.1 กลาง" was the last tracked Thai.
+  const rule = CSS.match(/\.vmx-context-pill:not\(\.is-quiet\) \{([^}]*)\}/);
+  assert.ok(rule, 'the context pill rule moved');
+  assert.doesNotMatch(rule[1], /letter-spacing:\s*0?\.\d/);
+});
+
+// ── UI-18: icon buttons in one row share one shape ────────────────────
+// Header on a phone: search (circle), sign-in (a rounded square, because
+// the compact rule made it a 44px icon but it kept .vmx-btn's 12px radius)
+// and theme (circle). Header on desktop: pill, rounded rectangle, circle.
+// Exam toolbar: four circles and then the pin, a 10px-radius transparent
+// square. Each row now has one shape per kind of control.
+const HEADER_RIGHT = ['header.vmx-header', 'div.vmx-header-right'];
+const TOOLBAR = ['div.vmx-question-card', 'div.vmx-q-toolbar'];
+
+test('UI-18: every icon-only control in the phone header and the exam toolbar is a circle', () => {
+  const circles = {
+    'header search': chain(...HEADER_RIGHT, 'button.vmx-cmdk-btn'),
+    'header sign-in': chain(...HEADER_RIGHT, 'button.vmx-btn.vmx-btn-ghost.vmx-btn-sm.vmx-login-btn'),
+    'header theme': chain(...HEADER_RIGHT, 'button.vmx-theme-btn'),
+    'toolbar bookmark': chain(...TOOLBAR, 'button.vmx-bookmark-btn'),
+    'toolbar note': chain(...TOOLBAR, 'button.vmx-note-btn'),
+    'toolbar pin': chain(...TOOLBAR, 'button.vmx-note-btn.vmx-pin-btn'),
+  };
+  for (const [name, node] of Object.entries(circles)) {
+    assert.equal(computed(node, 'border-radius', PHONE), '50%', `${name} at 390px`);
+  }
+  // The pin takes the toolbar's surface, not a transparent box of its own.
+  assert.equal(computed(circles['toolbar pin'], 'background', PHONE), 'var(--clr-bg)');
+  assert.equal(computed(chain(...TOOLBAR, 'button.vmx-note-btn.vmx-pin-btn.is-pinned'), 'background', PHONE), 'var(--clr-gold-soft)');
+});
+
+test('UI-18: on desktop the search and sign-in pills match, and theme stays a circle', () => {
+  const search = computed(chain(...HEADER_RIGHT, 'button.vmx-cmdk-btn'), 'border-radius', DESKTOP);
+  const signIn = computed(chain(...HEADER_RIGHT, 'button.vmx-btn.vmx-btn-ghost.vmx-btn-sm.vmx-login-btn'), 'border-radius', DESKTOP);
+  assert.equal(search, '999px');
+  assert.equal(signIn, search);
+  assert.equal(computed(chain(...HEADER_RIGHT, 'button.vmx-theme-btn'), 'border-radius', DESKTOP), '50%');
+});
+
+test('UI-18: PinButton lets a toolbar class own its shape, and the exam toolbar uses it', () => {
+  const pin = read('../../src/components/PinButton.jsx');
+  assert.match(pin, /export default function PinButton\(\{ type, payload, label, compact = false, style, className \}\)/);
+  // With a class, the inline box (radius, fill, border) is left to the class.
+  assert.match(pin, /className=\{className \? `\$\{className\}\$\{pinned \? ' is-pinned' : ''\}` : undefined\}/);
+  assert.match(pin, /style=\{className \? style : \{/);
+  const q = read('../../src/components/Question.jsx');
+  assert.match(q, /<PinButton\s+className="vmx-note-btn vmx-pin-btn"/);
+});
+
+// ── UI-07: the exam card's meta row and source toggle ─────────────────
+test('UI-07: the exam card meta is a quiet Sarabun row, not a tracked uppercase pill', () => {
+  const meta = chain('div.vmx-question-card', 'div.vmx-qtype-badge.vmx-q-meta');
+  for (const env of [PHONE, DESKTOP]) {
+    assert.equal(computed(meta, 'display', env), 'flex');
+    assert.equal(computed(meta, 'font-size', env), '12px');
+    assert.equal(computed(meta, 'border', env), '0');
+    assert.equal(computed(meta, 'background', env), 'none');
+  }
+  assertThaiLabel('exam meta row', meta);
+  assertThaiLabel('exam meta paper', chain('div.vmx-question-card', 'div.vmx-qtype-badge.vmx-q-meta', 'span.vmx-scope-chip'));
+  // Wherever else the badge is used (VetWiki governance, spaced repetition,
+  // the landing), it is a Thai-safe label too.
+  assertThaiLabel('type badge', chain('div', 'span.vmx-qtype-badge'));
+});
+
+test('UI-07: the source toggle is a 44px tap target', () => {
+  const toggle = chain('div.vmx-question-card', 'div', 'button.vmx-qsource-toggle');
+  for (const env of [PHONE, DESKTOP]) {
+    assert.ok(px(computed(toggle, 'min-height', env)) >= 44, `min-height at ${env.width}px`);
+    assert.equal(computed(toggle, 'display', env), 'flex');
+    assert.equal(computed(toggle, 'align-items', env), 'center');
+  }
+});
+
+// ── UI-06: the Results action stack reads top to bottom ───────────────
+// `.vmx-btn-row` reverses its children at 640px and below, which is right
+// for a Back/Next pair (Next on top) and wrong for a list: on Results it put
+// "ส่งเข้ากลุ่ม" first and "ดูเฉลย" last, and the visual order no longer
+// matched the DOM or the Tab order (WCAG 1.3.2 / 2.4.3).
+test('UI-06: a stacked button row keeps DOM order on a phone; a Back/Next pair still reverses', () => {
+  assert.equal(computed(chain('div', 'div.vmx-btn-row.is-stack'), 'flex-direction', PHONE), 'column');
+  assert.equal(computed(chain('div', 'div.vmx-btn-row'), 'flex-direction', PHONE), 'column-reverse');
+  // On desktop the stack is a row that starts at the left, in the same order.
+  assert.notEqual(computed(chain('div', 'div.vmx-btn-row.is-stack'), 'flex-direction', DESKTOP), 'row-reverse');
+  assert.equal(computed(chain('div', 'div.vmx-btn-row.is-stack'), 'justify-content', DESKTOP), 'flex-start');
+});
+
+// ── UI-05: the subject colour has one home, and it is not a clipped rail ──
+// Every list was a rounded card with a 4px absolute left stripe that the
+// 16px corner clipped into a curved sliver (_c1, _d1, _t4 in the audit). On
+// a subject card the colour is now a small swatch in the top corner; on the
+// topic screen, where every card had the SAME subject colour, the stripe
+// said nothing and is gone. The topic card's three bordered boxes (lecturer,
+// สรุป, VetWiki) become one row of text actions, each still a 44px target.
+test('UI-05: the subject colour is a corner swatch, not a clipped full-height stripe', () => {
+  const accent = chain('div.vmx-subject-grid', 'button.vmx-subject-card', 'div.accent');
+  for (const env of [PHONE, DESKTOP]) {
+    assert.equal(computed(accent, 'width', env), '8px');
+    assert.equal(computed(accent, 'height', env), '8px');
+    assert.equal(computed(accent, 'border-radius', env), '50%');
+    assert.equal(computed(accent, 'left', env), null, 'pinned to the left edge again');
+  }
+});
+
+test('UI-05: topic-card actions are one row of borderless text actions, 44px tall', () => {
+  const action = chain('div.vmx-topic-grid', 'article.vmx-topic-card', 'div.vmx-topic-actions', 'button.vmx-topic-action');
+  const wide = chain('div.vmx-topic-grid', 'article.vmx-topic-card', 'div.vmx-topic-actions', 'button.vmx-topic-action.is-wide');
+  for (const env of [PHONE, DESKTOP]) {
+    for (const node of [action, wide]) {
+      assert.equal(computed(node, 'border', env), '0');
+      assert.equal(computed(node, 'background', env), 'none');
+      assert.ok(px(computed(node, 'min-height', env)) >= 44);
+      assert.equal(computed(node, 'align-items', env), 'center');
+    }
+    assert.notEqual(computed(wide, 'flex-basis', env), '100%', 'the lecturer still takes a line of its own');
   }
 });

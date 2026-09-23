@@ -26,8 +26,19 @@
      rendered in a different face on Windows, Android and iOS, and never in
      the one the design intends. Font fallback is per-glyph, so naming the
      Thai face before the generic keeps digits and codes in JetBrains Mono
-     while Thai gets IBM Plex Sans Thai — which the page already loads. */
+     while Thai gets IBM Plex Sans Thai — which the page already loads.
+     That fallback is a safety net, not a style: since UI-01 (2026-09) a label
+     that carries Thai is set in --vmx-sans below, and mono is for digits and
+     codes only (timer, kbd, counts). The canvas share cards still name IBM
+     Plex after JetBrains Mono for their own Thai lines. */
   --vmx-mono: 'JetBrains Mono', 'IBM Plex Sans Thai', ui-monospace, monospace;
+  /* The page's own face, for a label that sits inside a mono parent (the
+     countdown's ชม. นาที วินาที) or that used to be mono. A small label that
+     can carry Thai is set in this, untracked and never uppercased: the mono
+     stack reaches Thai only through the loopless IBM Plex fallback, which
+     reads as pasted in beside looped Sarabun. Mono stays for digits and
+     codes (timer, kbd, counts). */
+  --vmx-sans: 'Sarabun', 'IBM Plex Sans Thai', system-ui, sans-serif;
   /* Display face for headings and numerals. Fraunces carries no Thai glyphs,
      and the inline 'var(--vmx-display)' stacks scattered through the views fell
      straight through to the generic serif for Thai text — so a Thai heading
@@ -595,14 +606,15 @@ html, body {
 
   .vmx-sidebar-heading {
     margin: 0 0 8px calc(var(--vmx-nav-inset) + 2px);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    line-height: 1.3;
+    letter-spacing: 0;
+    text-transform: none;
     /* No opacity. Washing a token out defeats the contrast it was tested
        for — measured 3.2:1 against the rail, under the 4.5 AA needs. The
-       size, weight and letter-spacing already say "secondary" without
-       spending legibility to do it. */
+       size and weight already say "secondary" without spending legibility
+       to do it; tracking is not used, because the heading is Thai. */
     color: var(--vmx-text-muted);
   }
 
@@ -909,7 +921,7 @@ html, body {
   font-weight: 500;
 }
 .vmx-context-pill.is-quiet:hover { background: var(--clr-surface-2); color: var(--clr-ink); }
-.vmx-context-pill:not(.is-quiet) { gap: 7px; letter-spacing: 0.01em; }
+.vmx-context-pill:not(.is-quiet) { gap: 7px; letter-spacing: 0; }
 .vmx-context-caret {
   width: 0; height: 0;
   border-left: 4px solid transparent;
@@ -1051,6 +1063,10 @@ html, body {
 
 .vmx-cmdk-btn { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-size: 13px; color: var(--clr-ink-soft); transition: all 0.15s; font-family: inherit; }
 .vmx-cmdk-btn:hover { border-color: var(--clr-ink); color: var(--clr-ink); }
+/* Sign-in sits beside the search pill, so it is the same pill; .vmx-btn's 12px
+   radius made it the one rounded rectangle in a row of pills and circles. The
+   two classes outrank .vmx-btn, which comes later in the sheet. */
+.vmx-btn.vmx-login-btn { border-radius: 999px; }
 .vmx-cmdk-kbd { font-family: var(--vmx-mono); font-size: var(--text-xs); padding: 2px 6px; border: 1px solid var(--clr-border); border-radius: 4px; background: var(--clr-bg); color: var(--clr-ink-soft); letter-spacing: 0.04em; }
 
 /* Mobile header — keeps everything visible by tightening spacing,
@@ -1085,6 +1101,8 @@ html, body {
   .vmx-xp-chip { display: none !important; }
   .vmx-logo-btn { width: var(--touch-min); padding: 0; justify-content: center; }
   .vmx-login-btn { width: var(--touch-min); min-width: var(--touch-min); padding-inline: 0; justify-content: center; }
+  /* Icon-only here, between two circles: a circle too. */
+  .vmx-btn.vmx-login-btn, .vmx-cmdk-btn { border-radius: 50%; }
   .vmx-login-btn span { display: none; }
   .vmx-xp-chip-total, .vmx-xp-chip-progress { display: none !important; }
   .vmx-context-pill { padding: 0 10px; font-size: 12px; }
@@ -1149,10 +1167,10 @@ html, body {
 }
 .vmx-countdown-lead { display: grid; gap: 4px; min-width: 0; }
 .vmx-countdown-eyebrow {
-  font-family: var(--vmx-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  font-family: var(--vmx-sans); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none;
   color: var(--clr-ink-soft); white-space: nowrap;
 }
-.vmx-countdown-eyebrow > span { color: var(--clr-sage-text); margin-left: 8px; letter-spacing: 0.02em; }
+.vmx-countdown-eyebrow > span { color: var(--clr-sage-text); margin-left: 8px; letter-spacing: 0; }
 .vmx-countdown-num {
   font-family: var(--vmx-display); font-weight: 600; font-size: clamp(46px, 6vw, 66px);
   line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; color: var(--clr-ink);
@@ -1170,7 +1188,7 @@ html, body {
 }
 .vmx-countdown-clock b { font-weight: 600; }
 .vmx-countdown-clock b:last-of-type { color: var(--clr-rose-text); }
-.vmx-countdown-clock i { font-style: normal; font-size: 10.5px; letter-spacing: 0.06em; color: var(--clr-ink-soft); margin: 0 10px 0 3px; }
+.vmx-countdown-clock i { font-family: var(--vmx-sans); font-style: normal; font-size: 10.5px; letter-spacing: 0; color: var(--clr-ink-soft); margin: 0 10px 0 3px; }
 .vmx-countdown-clock i:last-of-type { margin-right: 0; }
 /* Under a day the clock is the hero. */
 .vmx-countdown.is-hours .vmx-countdown-clock { font-size: clamp(36px, 4.6vw, 50px); letter-spacing: 0; margin-top: 4px; }
@@ -1273,10 +1291,10 @@ html, body {
 .vmx-next-action-kicker,
 .vmx-next-exam-label {
   color: var(--clr-ink-soft);
-  font-family: var(--vmx-mono);
-  font-size: var(--text-xs);
+  font-family: var(--vmx-sans);
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0;
 }
 .vmx-next-actions-heading {
   margin: 2px 0 0;
@@ -1485,7 +1503,12 @@ html, body {
    review rows. One class replaces ~dozens of identical inline literals
    (font 11 · mono · uppercase · 0.08em). Color / margins / flex layout
    stay per-use since they legitimately vary; see docs/DESIGN_SYSTEM.md. */
-.vmx-kicker { font-family: var(--vmx-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-ink-soft); }
+/* The one small-label style. Thai-first: the page's face, no tracking, never
+   uppercased — the old Latin eyebrow (mono, 0.08em, uppercase) put Thai into
+   the loopless IBM Plex fallback with gaps between the letters. Every class
+   rule that labels Thai below takes these three declarations. */
+.vmx-eyebrow { font-family: var(--vmx-sans); font-size: 12px; font-weight: 600; line-height: 1.35; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); }
+.vmx-kicker { font-family: var(--vmx-sans); font-size: 12px; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); }
 .vmx-section-tabs {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1536,7 +1559,10 @@ html, body {
 
 .vmx-subject-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 32px; }
 .vmx-subject-card .count { font-size: 12px; color: var(--clr-ink-soft); margin-top: 2px; }
-.vmx-subject-card .accent { position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
+/* The subject's colour, once, as a small swatch in the top corner. It used to
+   be a 4px full-height stripe that the 16px corner clipped into a curved
+   sliver, the same rail every list in the app wore. */
+.vmx-subject-card .accent { position: absolute; top: 18px; right: 16px; width: 8px; height: 8px; border-radius: 50%; }
 /* Cards without usable content yet: a dashed edge and a quieter icon and
    accent carry the "not ready" signal. The text keeps its full tokens — the
    old whole-card opacity took the subtitle and count under 4.5:1. */
@@ -1575,17 +1601,6 @@ html, body {
 .vmx-topic-card:hover {
   border-color: var(--clr-ink);
   background: var(--clr-surface-2);
-}
-.vmx-topic-card .accent {
-  position: absolute;
-  top: 0;
-  right: auto;
-  bottom: 0;
-  left: 0;
-  inset: 0 auto 0 0;
-  width: 4px;
-  z-index: 1;
-  pointer-events: none;
 }
 .vmx-topic-main {
   position: relative;
@@ -1634,8 +1649,9 @@ html, body {
   border-radius: 999px;
   background: rgba(184,137,64,.12);
   color: var(--clr-gold-text);
-  font-family: var(--vmx-mono);
-  font-size: 11px;
+  font-family: var(--vmx-sans);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
 }
 .vmx-topic-note {
   margin-top: 2px;
@@ -1643,37 +1659,43 @@ html, body {
   border-radius: 6px;
   background: var(--clr-surface-2);
   color: var(--clr-ink-soft);
-  font-size: 11px;
-  font-style: italic;
-  line-height: 1.4;
+  font-size: 12px;
+  line-height: 1.45;
 }
+/* A note that says the topic is off the paper — the one a student may use to
+   skip it this week — keeps its warning sign and reads in full ink. */
+.vmx-topic-note.is-caveat { color: var(--clr-ink); }
+/* One row of text actions under a hairline, not three bordered boxes inside
+   the card. Each stays a 44px target; the lecturer's name may wrap. */
 .vmx-topic-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  padding: 8px 10px 10px 12px;
+  align-items: center;
+  gap: 0 2px;
+  padding: 2px 8px;
   border-top: 1px solid var(--clr-border);
 }
 .vmx-topic-action {
   min-height: 44px;
-  flex: 1 1 86px;
-  padding: 7px 9px;
-  border: 1px solid var(--clr-border);
+  flex: 0 1 auto;
+  min-width: 0;
+  padding: 0 8px;
+  border: 0;
   border-radius: var(--r-sm);
-  background: var(--clr-bg);
-  color: var(--clr-ink-soft);
+  background: none;
+  color: var(--clr-sage-text);
   font-family: inherit;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.3;
+  text-align: left;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 6px;
 }
-.vmx-topic-action.is-wide { flex-basis: 100%; justify-content: flex-start; }
-.vmx-topic-action:hover { border-color: var(--clr-sage); color: var(--clr-ink); }
+.vmx-topic-action:hover { background: var(--clr-surface-2); color: var(--clr-ink); }
 @media (max-width: 700px) {
   .vmx-topic-grid { grid-template-columns: 1fr; }
   .vmx-subject-card .sub { display: none; }
@@ -1780,10 +1802,11 @@ html, body {
   color: var(--clr-ink-soft);
 }
 .vmx-coach-k {
-  font-family: var(--vmx-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: var(--vmx-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--clr-ink-soft);
   margin-right: var(--space-2);
 }
@@ -2114,7 +2137,7 @@ html.dark .vmx-panic-scrim {
 .vmx-number-pill:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 .vmx-label { font-size: 13px; font-weight: 600; margin-bottom: 10px; display: block; color: var(--clr-ink); }
 .vmx-chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
-.vmx-chip { padding: 10px 16px; border: 1px solid var(--clr-border); background: var(--clr-bg); border-radius: 999px; cursor: pointer; font-size: 13px; font-family: var(--vmx-mono); transition: all 0.15s; color: var(--clr-ink-soft); display: inline-flex; align-items: center; }
+.vmx-chip { padding: 10px 16px; border: 1px solid var(--clr-border); background: var(--clr-bg); border-radius: 999px; cursor: pointer; font-size: 13px; font-family: var(--vmx-sans); font-variant-numeric: tabular-nums; transition: all 0.15s; color: var(--clr-ink-soft); display: inline-flex; align-items: center; }
 .vmx-chip:hover { border-color: var(--clr-ink); }
 .vmx-chip.active { background: var(--clr-ink); color: var(--clr-bg); border-color: var(--clr-ink); }
 
@@ -2211,6 +2234,23 @@ html.dark .vmx-panic-scrim {
 
 .vmx-btn-sm { padding: 8px 14px; font-size: 13px; min-height: 44px; }
 .vmx-btn-row { display: flex; gap: 10px; justify-content: space-between; align-items: center; margin-top: 20px; flex-wrap: wrap; }
+/* A row that is a list rather than a Back/Next pair (Results' secondary
+   actions): it starts at the left, and a phone stacks it in DOM order
+   instead of reversing it (see the 640px block). */
+.vmx-btn-row.is-stack { justify-content: flex-start; }
+/* "ชวนเพื่อน": the three ways to bring a friend behind one native
+   disclosure, so they stop outranking the answer review. */
+.vmx-invite { flex: 0 0 auto; }
+.vmx-invite[open] { flex-basis: 100%; }
+.vmx-invite > summary { list-style: none; cursor: pointer; }
+.vmx-invite > summary::-webkit-details-marker { display: none; }
+.vmx-invite > summary::after {
+  content: ''; width: 6px; height: 6px; margin-left: 2px;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+.vmx-invite[open] > summary::after { transform: translateY(2px) rotate(-135deg); }
+.vmx-invite-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 
 /* Top back-bar: sticky at top of sub-views so users always know
    how to escape — especially helpful inside long pages (Notes,
@@ -2307,8 +2347,34 @@ html.dark .vmx-panic-scrim {
 .vmx-note-btn { position: absolute; top: 20px; right: 64px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-note-btn:hover { border-color: var(--clr-ocean); }
 .vmx-note-btn.has-note { background: var(--clr-ocean); color: var(--clr-surface); border-color: var(--clr-ocean); }
+/* The pin in the question toolbar is one of the row's circles (PinButton hands
+   its shape to this class); pinned reads gold, like a saved bookmark. */
+.vmx-note-btn.vmx-pin-btn:hover { border-color: var(--clr-gold); }
+.vmx-note-btn.vmx-pin-btn.is-pinned { background: var(--clr-gold-soft); border-color: var(--clr-gold); color: var(--clr-ink); }
 
-.vmx-qtype-badge { display: inline-block; font-family: var(--vmx-mono); font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: var(--clr-surface-2); color: var(--clr-ink-soft); margin-bottom: 16px; border: 1px solid var(--clr-border); }
+.vmx-qtype-badge { display: inline-block; font-family: var(--vmx-sans); font-size: 12px; line-height: 1.35; letter-spacing: 0; text-transform: none; padding: 3px 10px; border-radius: 999px; background: var(--clr-surface-2); color: var(--clr-ink-soft); margin-bottom: 16px; border: 1px solid var(--clr-border); }
+/* On the exam card the badge is a quiet row, not a pill: type, subject, topic
+   and paper as separate parts, a hairline between them instead of a comma. */
+.vmx-qtype-badge.vmx-q-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 0;
+  padding: 0; border: 0; border-radius: 0; background: none;
+}
+.vmx-q-meta > span:not(.vmx-origin-chip) { padding: 0 8px; border-left: 1px solid var(--clr-border); }
+.vmx-q-meta > span:first-child { padding-left: 0; border-left: 0; }
+/* The part before it already carries 8px of right padding; a margin here
+   would indent the chip when it wraps to its own line on a phone. */
+.vmx-q-meta > .vmx-origin-chip { margin-left: 0; }
+
+/* The "ที่มา" line under every question. A real button with the 44px floor —
+   it was an inline all:unset row 20px tall — and full-opacity text. */
+.vmx-qsource-toggle {
+  appearance: none; margin: 0; padding: 0; border: 0; background: none;
+  width: 100%; min-height: var(--touch-min);
+  display: flex; align-items: center; gap: 8px;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+}
+.vmx-qsource-toggle:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: var(--r-sm); }
+.vmx-qsource-toggle svg { flex: 0 0 auto; color: var(--clr-sage-text); }
 .vmx-qtext { font-family: inherit; font-weight: 500; font-size: 17px; line-height: 1.55; margin: 0 0 24px; color: var(--clr-ink); }
 .vmx-qimage { width: 100%; max-width: 400px; border-radius: 12px; border: 1px solid var(--clr-border); margin-bottom: 20px; display: block; aspect-ratio: 4 / 3; object-fit: contain; background: var(--clr-surface-2); }
 
@@ -2508,7 +2574,7 @@ html.dark .vmx-panic-scrim {
 }
 
 .vmx-fill-row { display: flex; flex-direction: column; gap: 12px; }
-.vmx-fill-label { font-family: var(--vmx-mono); font-size: 11px; color: var(--clr-ink-soft); margin-bottom: 4px; }
+.vmx-fill-label { font-family: var(--vmx-sans); font-size: 12px; font-weight: 600; color: var(--clr-ink-soft); margin-bottom: 4px; }
 .vmx-fill-input { width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--clr-border); background: var(--clr-bg); font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 15px; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-fill-input:focus { outline: none; border-color: var(--clr-ink); background: var(--clr-surface); }
 /* Handwriting pad under a written answer (HandwritingInput.jsx). The pad is
@@ -2547,10 +2613,10 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap { max-width: 880px; margin: 0 auto; padding-bottom: 48px; }
 .vmx-wrap-empty { font-size: 14px; color: var(--clr-ink-soft); }
 .vmx-wrap-hero { padding: 6px 0 14px; border-bottom: 1px solid var(--clr-border); margin-bottom: 14px; }
-.vmx-wrap-eyebrow { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--clr-ink-soft); }
+.vmx-wrap-eyebrow { font-family: var(--vmx-sans); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); }
 .vmx-wrap-hero h1 { margin: 4px 0 8px; font-family: var(--vmx-display); font-size: clamp(26px, 4vw, 36px); line-height: 1.2; letter-spacing: 0; color: var(--clr-ink); text-wrap: balance; }
 .vmx-wrap-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-.vmx-wrap-pill { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; font-family: var(--vmx-mono); background: var(--clr-gold-soft); color: var(--clr-ink); }
+.vmx-wrap-pill { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; font-family: var(--vmx-sans); font-variant-numeric: tabular-nums; letter-spacing: 0; background: var(--clr-gold-soft); color: var(--clr-ink); }
 .vmx-wrap-intro { margin: 0 0 8px; font-size: 14px; line-height: 1.6; color: var(--clr-ink); max-width: 70ch; }
 .vmx-wrap-legend { margin: 0; font-size: 12px; line-height: 1.5; color: var(--clr-ink-soft); }
 .vmx-wrap-legend b { color: var(--clr-ink); font-weight: 700; }
@@ -2579,18 +2645,23 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap-mode button { appearance: none; border: 0; background: var(--clr-bg); color: var(--clr-ink-soft); font: inherit; font-size: 12px; font-weight: 600; min-height: var(--touch-min); display: inline-flex; align-items: center; padding: 5px 12px; cursor: pointer; }
 .vmx-wrap-mode button.is-on { background: var(--clr-ink); color: var(--clr-bg); }
 .vmx-wrap-mode button:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -2px; }
-.vmx-wrap-keylist { margin: 10px 0 0; padding: 0; list-style: none; counter-reset: wrapkey; display: grid; gap: 4px; }
-.vmx-wrap-keylist li { counter-increment: wrapkey; position: relative; padding: 6px 10px 6px 34px; border-radius: var(--r-sm); background: var(--clr-gold-soft); color: var(--clr-ink); font-size: 13px; line-height: 1.5; }
-.vmx-wrap-keylist li::before { content: counter(wrapkey); position: absolute; left: 10px; top: 6px; font-family: var(--vmx-mono); font-size: 11px; font-weight: 700; color: var(--clr-ink-soft); }
+.vmx-wrap-keylist { margin: 10px 0 0; padding: 0; list-style: none; counter-reset: wrapkey; display: grid; gap: 0; }
+/* Rows on a hairline, not twelve tinted boxes: the page is read top to
+   bottom the night before, and a wall of gold blocks hid where one line
+   ended. The term that opens a "Term — explanation" line is bold. */
+.vmx-wrap-keylist li { counter-increment: wrapkey; position: relative; padding: 6px 10px 6px 34px; border-bottom: 1px solid var(--clr-border); color: var(--clr-ink); font-size: 13px; line-height: 1.5; }
+.vmx-wrap-keylist li:last-child { border-bottom: 0; }
+.vmx-wrap-keylist li b { font-weight: 700; }
+.vmx-wrap-keylist li::before { content: counter(wrapkey); position: absolute; left: 10px; top: 6px; font-family: var(--vmx-sans); font-variant-numeric: tabular-nums; font-size: 12px; font-weight: 700; color: var(--clr-ink-soft); }
 /* The lecturer numbered the list themselves; ours would sit beside theirs. */
 .vmx-wrap-keylist.is-self-numbered li { padding-left: 10px; }
 .vmx-wrap-keylist.is-self-numbered li::before { content: none; }
 .vmx-wrap-cols { display: grid; grid-template-columns: 1fr; gap: 10px 18px; margin-top: 12px; }
 @media (min-width: 720px) { .vmx-wrap-cols { grid-template-columns: 1fr 1fr; } }
-.vmx-wrap-list-label { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--clr-ink-soft); margin-bottom: 4px; }
+.vmx-wrap-list-label { font-family: var(--vmx-sans); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); margin-bottom: 4px; }
 .vmx-wrap-list ul { margin: 0; padding-left: 18px; }
 .vmx-wrap-list li { font-size: 13.5px; line-height: 1.55; color: var(--clr-ink); margin: 0 0 4px; }
-.vmx-wrap-src { display: block; font-family: var(--vmx-mono); font-size: 10.5px; color: var(--clr-ink-soft); }
+.vmx-wrap-src { display: block; font-family: var(--vmx-sans); font-size: 11px; letter-spacing: 0; color: var(--clr-ink-soft); }
 .vmx-wrap-none { margin: 0; font-size: 13px; line-height: 1.5; color: var(--clr-ink-soft); font-style: italic; }
 .vmx-wrap-pitfall { margin: 10px 0 0; padding: 8px 12px; border-left: 3px solid var(--clr-gold-soft); background: var(--clr-surface-2); border-radius: 0 var(--r-sm) var(--r-sm) 0; font-size: 13px; line-height: 1.5; color: var(--clr-ink); }
 .vmx-wrap-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
@@ -2598,14 +2669,14 @@ html.dark .vmx-panic-scrim {
 /* Entry card on the topic screen, and the strip under the countdown on Home. */
 .vmx-wrap-entry { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; margin: 0 0 18px; padding: 14px 16px; border-radius: var(--r-lg); border: 1px solid var(--clr-border); background: var(--clr-surface); }
 .vmx-wrap-entry-text { flex: 1 1 320px; min-width: 0; }
-.vmx-wrap-entry-eyebrow { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--clr-ink-soft); }
+.vmx-wrap-entry-eyebrow { font-family: var(--vmx-sans); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); }
 .vmx-wrap-entry h3 { margin: 3px 0 4px; font-size: 16px; line-height: 1.25; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); text-wrap: balance; }
 .vmx-wrap-entry p { margin: 0; font-size: 12px; line-height: 1.45; color: var(--clr-ink-soft); }
 .vmx-wrap-entry-btn { appearance: none; border: 1px solid var(--clr-ink); background: var(--clr-ink); color: var(--clr-bg); font: inherit; font-weight: 700; font-size: 13px; min-height: var(--touch-min); display: inline-flex; align-items: center; padding: 8px 16px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
 .vmx-wrap-entry-btn:hover { opacity: .92; }
 .vmx-wrap-entry-btn:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 .vmx-wrap-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: -8px 0 18px; }
-.vmx-wrap-strip-label { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--clr-ink-soft); }
+.vmx-wrap-strip-label { font-family: var(--vmx-sans); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); }
 .vmx-wrap-strip-btn { appearance: none; border: 1px solid var(--clr-border); background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: 12px; font-weight: 600; min-height: var(--touch-min); display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 999px; cursor: pointer; }
 .vmx-wrap-strip-btn:hover { border-color: var(--clr-ink); }
 @media print { .vmx-wrap-index, .vmx-wrap-actions { display: none !important; } .vmx-wrap-item { break-inside: avoid; } }
@@ -2776,7 +2847,12 @@ html.dark .vmx-panic-scrim {
 .vmx-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
 .vmx-stat-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-md); padding: 16px; text-align: center; }
 .vmx-stat-num { font-family: inherit; font-weight: 700; font-size: 32px; line-height: 1; color: var(--clr-ink); }
-.vmx-stat-lbl { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-ink-soft); margin-top: 6px; }
+/* The line icon that leads each Results action card (NavIcon, not an emoji):
+   rose on the retry card, sage on the one that offers more. */
+.vmx-results-card-icon { display: inline-flex; flex: 0 0 auto; }
+.vmx-results-card-icon.is-retry { color: var(--clr-rose-text); }
+.vmx-results-card-icon.is-more { color: var(--clr-sage-text); }
+.vmx-stat-lbl { font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); margin-top: 6px; }
 
 .vmx-review-item { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-lg); padding: 20px; margin-bottom: 12px; }
 .vmx-review-item.correct { border-left: 4px solid var(--clr-sage); }
@@ -2801,7 +2877,7 @@ html.dark .vmx-panic-scrim {
 }
 .vmx-review-expand:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 .vmx-review-ans { padding: 10px 14px; border-radius: 10px; margin-bottom: 8px; font-size: 13px; background: var(--clr-bg); color: var(--clr-ink); }
-.vmx-review-ans .k { font-family: var(--vmx-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-ink-soft); margin-right: 8px; }
+.vmx-review-ans .k { font-family: var(--vmx-sans); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); margin-right: 8px; }
 .vmx-review-ans.correct-ans { background: rgba(74, 107, 74, 0.1); border: 1px solid rgba(74, 107, 74, 0.2); }
 .vmx-review-explain { margin-top: 10px; padding: 12px; border-radius: 10px; background: var(--clr-surface-2); font-size: 13px; line-height: 1.5; color: var(--clr-ink-soft); border-left: 3px solid var(--clr-gold); }
 .vmx-review-explain .k { font-family: inherit; font-weight: 700; color: var(--clr-gold-text); margin-right: 8px; }
@@ -2817,7 +2893,7 @@ html.dark .vmx-panic-scrim {
 .vmx-bar-fill.low { background: var(--clr-rose); }
 .vmx-subj-row { display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 13px; align-items: center; color: var(--clr-ink); }
 .vmx-subj-row .pct { font-family: var(--vmx-mono); color: var(--clr-ink-soft); }
-.vmx-tag-pill { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-size: 11px; font-family: var(--vmx-mono); color: var(--clr-ink-soft); margin: 3px; }
+.vmx-tag-pill { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-size: 12px; font-family: var(--vmx-sans); color: var(--clr-ink-soft); margin: 3px; }
 .vmx-tag-pill.weak { background: var(--clr-rose-soft); border-color: var(--clr-rose); color: var(--clr-ink); }
 .vmx-empty { text-align: center; padding: 40px 20px; color: var(--clr-ink-soft); font-style: italic; }
 
@@ -2825,7 +2901,7 @@ html.dark .vmx-panic-scrim {
 .vmx-sr-btn { padding: 14px 8px; border-radius: 12px; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-family: inherit; transition: all 0.15s; text-align: center; color: var(--clr-ink); }
 .vmx-sr-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .vmx-sr-btn .label { font-family: var(--vmx-display); font-weight: 600; font-size: 16px; margin-bottom: 4px; }
-.vmx-sr-btn .sub { font-family: var(--vmx-mono); font-size: var(--text-xs); color: var(--clr-ink-soft); letter-spacing: 0.05em; }
+.vmx-sr-btn .sub { font-family: var(--vmx-sans); font-variant-numeric: tabular-nums; font-size: 12px; color: var(--clr-ink-soft); letter-spacing: 0; }
 .vmx-sr-btn.again { border-color: var(--clr-rose); }
 .vmx-sr-btn.again .label { color: var(--clr-rose-text); }
 .vmx-sr-btn.hard { border-color: var(--clr-gold); }
@@ -2986,7 +3062,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   cursor: pointer;
   font-size: 13px;
   color: var(--clr-ink-soft);
-  font-family: var(--vmx-mono);
+  font-family: var(--vmx-sans);
   padding: 8px 0;
   min-height: 24px;
 }
@@ -3030,8 +3106,8 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 .vmx-footer-col { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
 .vmx-footer-col h2 {
   margin: 0 0 var(--space-1);
-  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--clr-ink);
+  font-size: 12px; font-weight: 700; line-height: 1.3; letter-spacing: 0;
+  text-transform: none; color: var(--clr-ink);
 }
 /* Links read as text until you reach for them — underline on hover only. */
 .vmx-footer a, .vmx-footer .vmx-footer-link {
@@ -3159,6 +3235,12 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
     max-height: calc(100vh - 110px);
     max-height: calc(100dvh - 110px);
   }
+}
+
+@media (max-width: 640px) {
+  .vmx-btn-row.is-stack > .vmx-invite { width: 100%; }
+  .vmx-btn-row.is-stack { flex-direction: column; align-items: stretch; }
+  .vmx-invite-actions { flex-direction: column; }
 }
 
 @media (max-width: 640px) {
@@ -3515,8 +3597,10 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 
 .vmx-streak-fire {
+  display: inline-flex;
   font-size: 22px;
   line-height: 1;
+  color: var(--clr-gold-text);
 }
 
 .vmx-streak-info {
@@ -3568,7 +3652,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   font-size: 11px;
   font-weight: 600;
   color: var(--clr-gold-text);
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
   animation: vmx-milestone-fade 0.5s ease-out;
 }
 
@@ -3616,7 +3700,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   font-size: var(--text-xs);
   font-weight: 600;
   color: var(--clr-gold-text);
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
   margin-top: 6px;
   padding: 2px 8px;
   border-radius: var(--r-pill);
@@ -3659,7 +3743,8 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 .vmx-night-rank-label {
   font-size: 16px;
   font-weight: 700;
-  letter-spacing: 0.01em;
+  line-height: 1.25;
+  letter-spacing: 0;
 }
 
 .vmx-night-rank-blurb {
@@ -3694,25 +3779,26 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 /* Promotion banner on ResultsView — fires when a late-night session
    pushes the user up the rank ladder. */
 .vmx-night-rank-promo {
-  margin: 0 auto 14px;
-  max-width: 420px;
+  margin: 12px 0 0;
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border-radius: var(--r-md);
-  border: 1px solid rgba(184, 137, 64, 0.35);
-  background: rgba(184, 137, 64, 0.10);
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 2px 0;
+  border-top: 1px solid var(--clr-border);
   animation: vmx-pop-in 0.4s ease-out;
 }
 
 .vmx-night-rank-promo-icon {
-  font-size: 26px;
+  font-size: 16px;
   line-height: 1;
 }
 
 .vmx-night-rank-promo-text {
   min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 6px;
 }
 
 .vmx-night-rank-promo-title {
@@ -3722,8 +3808,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 
 .vmx-night-rank-promo-sub {
-  margin-top: 2px;
-  font-size: 11.5px;
+  font-size: 12px;
   color: var(--clr-ink-soft);
   line-height: 1.45;
 }
@@ -4188,7 +4273,7 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 .vmx-instant-feedback.is-ok .v { color: var(--clr-ink); }
 .vmx-instant-feedback.is-no .v { color: var(--clr-ink); }
 .vmx-instant-feedback .a { margin-top: 6px; padding: 8px 10px; border-radius: 8px; background: rgba(74, 107, 74, 0.14); color: var(--clr-ink); }
-.vmx-instant-feedback .k { font-family: var(--vmx-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-ink-soft); margin-right: 8px; }
+.vmx-instant-feedback .k { font-family: var(--vmx-sans); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); margin-right: 8px; }
 .vmx-instant-feedback .w { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--clr-border); color: var(--clr-ink-soft); }
 @keyframes vmx-instant-in {
   from { opacity: 0; transform: translateY(-3px); }
@@ -4260,9 +4345,9 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
   font-size: 12px;
   color: var(--clr-ink-soft);
   margin-bottom: 8px;
-  font-family: var(--vmx-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-family: var(--vmx-sans);
+  text-transform: none;
+  letter-spacing: 0;
   font-weight: 600;
 }
 .vmx-vetcalc-field-input-wrap {
@@ -4792,6 +4877,15 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-subject-exam.is-done { color: var(--clr-ink-soft); font-weight: 400; }
 .vmx-subject-exam.is-today { color: var(--clr-rose-text); font-weight: 700; }
 .vmx-scope-chip { color: var(--clr-ink-soft); }
+/* "อิงแนวเดิม" on a question card and on each reviewed question: one class,
+   so the two cannot drift, and Thai-safe wherever it sits (inside the type
+   badge it would otherwise inherit that row's face and case). */
+.vmx-origin-chip {
+  display: inline-flex; align-items: center; margin-left: 8px; padding: 2px 8px;
+  border-radius: 999px; background: var(--clr-gold-soft); color: var(--clr-ink);
+  font-family: var(--vmx-sans); font-size: 11px; font-weight: 700; line-height: 1.3;
+  letter-spacing: 0; text-transform: none;
+}
 
 
 /* Mochi break room: bounded activity, existing study/navigation contracts. */
@@ -5109,8 +5203,8 @@ body.vmx-reading .vmx-pdf-body {
 }
 .vmx-lesson__headmain { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: var(--space-1); }
 .vmx-lesson__eyebrow {
-  margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--clr-gold-text);
+  margin: 0; font-size: 12px; font-weight: 700; line-height: 1.35; letter-spacing: 0;
+  text-transform: none; color: var(--clr-gold-text);
 }
 .vmx-lesson__title {
   margin: 0; font-family: var(--vmx-display); font-size: clamp(28px, 4.6vw, 40px);
@@ -5136,7 +5230,7 @@ body.vmx-reading .vmx-pdf-body {
 
 .vmx-lesson__body { display: grid; grid-template-columns: minmax(0, 250px) minmax(0, 1fr); gap: var(--space-8); align-items: start; }
 .vmx-lesson__toc { position: sticky; top: var(--space-4); display: flex; flex-direction: column; gap: var(--space-5); max-height: calc(100vh - 80px); overflow-y: auto; }
-.vmx-lesson__tochead { margin: 0 0 var(--space-2); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-ink-soft); }
+.vmx-lesson__tochead { margin: 0 0 var(--space-2); font-size: 12px; font-weight: 700; line-height: 1.35; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); }
 .vmx-lesson__toclist { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
 .vmx-lesson__tocitem {
   display: flex; align-items: baseline; gap: var(--space-2); width: 100%;
@@ -5230,7 +5324,7 @@ body.vmx-reading .vmx-pdf-body {
 
 /* ── checks ─────────────────────────────────────────────────────── */
 .vmx-lesson__checks { display: flex; flex-direction: column; gap: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--clr-border); }
-.vmx-lesson__checkshead { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--clr-gold-text); }
+.vmx-lesson__checkshead { margin: 0; font-size: 12px; font-weight: 700; line-height: 1.35; letter-spacing: 0; text-transform: none; color: var(--clr-gold-text); }
 .vmx-check { display: flex; flex-direction: column; gap: var(--space-3); }
 .vmx-check__q { margin: 0; font-weight: 700; line-height: 1.6; color: var(--clr-ink); }
 .vmx-check__done { margin-left: var(--space-2); font-size: 11px; font-weight: 600; color: var(--clr-sage-text); }
@@ -5446,7 +5540,7 @@ body.vmx-reading .vmx-pdf-body {
   flex: none;
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0;
   color: var(--clr-sage-text);
 }
 .vmx-match-answer-text {
@@ -5478,7 +5572,7 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-lect-name:hover { text-decoration: underline; }
 .vmx-lect-chip {
   display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 999px;
-  font-size: 12px; font-weight: 700; font-family: var(--vmx-mono);
+  font-size: 12px; font-weight: 700; font-family: var(--vmx-sans); letter-spacing: 0; line-height: 1.3;
   background: var(--clr-gold-soft); color: var(--clr-ink);
 }
 .vmx-lect-chip.is-unannounced { background: var(--clr-surface-2); color: var(--clr-ink-soft); }
@@ -5530,7 +5624,7 @@ body.vmx-reading .vmx-pdf-body {
   background: var(--clr-surface); border-bottom: 1px solid var(--clr-border);
 }
 .vmx-lect-cover .t { padding: 8px 10px 0; font-weight: 700; font-size: 13px; line-height: 1.25; letter-spacing: 0; }
-.vmx-lect-cover .c { padding: 3px 10px 0; font-size: 12px; font-family: var(--vmx-mono); color: var(--clr-ink-soft); }
+.vmx-lect-cover .c { padding: 3px 10px 0; font-size: 12px; font-family: var(--vmx-sans); font-variant-numeric: tabular-nums; color: var(--clr-ink-soft); }
 .vmx-lect-cover .s { padding: 2px 10px 10px; font-size: 11px; color: var(--clr-ink-soft); }
 .vmx-lect-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
 .vmx-lect-btn {
@@ -5548,6 +5642,20 @@ body.vmx-reading .vmx-pdf-body {
   .vmx-lect-cover { flex-basis: 204px; }
 }
 .vmx-lect-block { margin-bottom: 22px; }
+/* The section's loading skeleton (TopicSelectView LecturerSetsSkeleton). Each
+   block stands in for the real element at its real size, inside the real
+   card's layout classes, so the topic list below does not move when the
+   chunk lands. The shimmer is .vmx-skeleton's, which stops under reduced
+   motion. */
+.vmx-lect-skel-intro { width: 78%; }
+.vmx-lect-skel-name { width: 190px; max-width: 60%; height: 20px; margin: 12px 0; border-radius: var(--r-sm); }
+.vmx-lect-skel-chip { width: 64px; height: 22px; border-radius: 999px; }
+.vmx-lect-skel-note { flex: 1 0 100%; width: 100%; }
+.vmx-lect-skel-cover { flex: 0 0 232px; height: 240px; border-radius: var(--r-lg); }
+.vmx-lect-skel-btn { width: 240px; max-width: 100%; height: var(--touch-min); border-radius: 999px; }
+@media (max-width: 600px) {
+  .vmx-lect-skel-cover { flex-basis: 204px; height: 222px; }
+}
 
 /* Printed matching set: the answer list stays in view while the student works
    down eighteen items, the way the key sits at the top of the paper. */

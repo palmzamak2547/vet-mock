@@ -66,6 +66,16 @@ function writeFlags(map) {
   try { window.localStorage.setItem(FLAGS_KEY, JSON.stringify(map)); } catch {}
 }
 
+// The question type as the exam card's meta row names it.
+const TYPE_LABEL = {
+  mcq: 'ปรนัย',
+  tf: 'ถูก-ผิด',
+  fill: 'เติมคำ',
+  match: 'จับคู่',
+  short: 'ตอบสั้น',
+  essay: 'เขียนบรรยาย',
+};
+
 export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki }) {
   // Count presses, not the value. This component is not remounted between
   // questions, so keying the "saved" bounce to isBookmarked replayed it on
@@ -466,7 +476,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 }}
               />
             </div>
-            <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+            <div style={{ fontVariantNumeric: 'tabular-nums', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
               <strong style={{ color: essayTextColor }}>{essayWords}</strong>
               <span> / target {target} words</span>
               {essayWords > hardMax && <span style={{ color: 'var(--clr-rose-text)', marginLeft: 8 }}>, −2 pts (เกิน {hardMax})</span>}
@@ -561,39 +571,40 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         </button>
         {/* Pin → adds this Q to the personal Pinboard. */}
         {/* Not `compact`: its 36px inline size sat next to four 44px controls,
-            so the row read as uneven — and 44px is the touch floor anyway. */}
+            so the row read as uneven — and 44px is the touch floor anyway.
+            The toolbar's circle class owns its shape, like its four neighbours. */}
         <PinButton
+          className="vmx-note-btn vmx-pin-btn"
           type="question"
           payload={{ subject: currentQ?.subject, id: currentQ?.id, stem: (currentQ?.q || '').slice(0, 80) }}
           label={(currentQ?.q || '').slice(0, 60)}
         />
       </div>
 
-      <div className="vmx-qtype-badge">
-        {/* Thai, like the rest of the card — this chip sits directly above a
-            Thai stem and a Thai subject name. */}
-        {currentQ.type === 'mcq' && 'ปรนัย'}
-        {currentQ.type === 'tf' && 'ถูก-ผิด'}
-        {currentQ.type === 'fill' && 'เติมคำ'}
-        {currentQ.type === 'match' && 'จับคู่'}
-        {currentQ.type === 'short' && 'ตอบสั้น'}
-        {currentQ.type === 'essay' && 'เขียนบรรยาย'}
+      {/* The type, subject, topic and paper as separate parts of one quiet
+          row — Thai, like the rest of the card, and never uppercased. The
+          hairline between parts is CSS (.vmx-q-meta), so no separator is
+          written into the copy, and the topic's emoji stays on the topic
+          screen where it is the topic's identity, not chrome. */}
+      <div className="vmx-qtype-badge vmx-q-meta">
         {(() => {
+          const typeLabel = TYPE_LABEL[currentQ.type];
           const subj = SUBJECTS.find((s) => s.id === currentQ.subject);
           const topic = currentQ.topic && subj?.topics?.find((t) => t.id === currentQ.topic);
+          // Only questions that carry exam-scope metadata say which paper
+          // they belong to; a legacy question says nothing rather than guessing.
+          const paper = examScopeLabel(scopeOfQuestion(currentQ));
           return (
             <>
-              {', '}{subj?.name || currentQ.subject}
-              {topic && <>, <span style={{ color: subjectText(subj?.color) }}>{topic.icon} {topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span></>}
-              {/* Only questions that carry exam-scope metadata say which
-                  paper they belong to; a legacy question says nothing
-                  rather than guessing. */}
-              {examScopeLabel(scopeOfQuestion(currentQ)) && <>, <span className="vmx-scope-chip">{examScopeLabel(scopeOfQuestion(currentQ))}</span></>}
+              {typeLabel && <span>{typeLabel}</span>}
+              <span>{subj?.name || currentQ.subject}</span>
+              {topic && <span style={{ color: subjectText(subj?.color) }}>{topic.label.replace(/^คาบ\s*\d+(-\d+)?\s*,\s*/, '')}</span>}
+              {paper && <span className="vmx-scope-chip">{paper}</span>}
             </>
           );
         })()}
         {currentQ.examOrigin && (
-          <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 11, fontWeight: 700, fontFamily: 'var(--vmx-mono)' }}>
+          <span className="vmx-origin-chip" title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน">
             อิงแนวเดิม
           </span>
         )}
@@ -631,7 +642,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           aria-label="ดู passage"
           title="ดู passage"
         >
-          📄 Passage
+          <NavIcon name="book" size={16} /> Passage
         </button>
       )}
     </div>
@@ -651,9 +662,9 @@ function FlagChip({ flag }) {
   // read 2.65 there. The -text variants are what that role is for; border
   // and bg keep the accent, where nothing reads on top of it.
   const PALETTE = {
-    major: { bg: 'rgba(194, 109, 109, 0.12)', border: 'var(--clr-rose)', text: 'var(--clr-rose-text)', icon: '⚠️' },
-    minor: { bg: 'rgba(184, 137, 64, 0.12)', border: 'var(--clr-gold)', text: 'var(--clr-gold-text)', icon: '⚡' },
-    unclear: { bg: 'var(--clr-surface-2)', border: 'var(--clr-border)', text: 'var(--clr-ink-soft)', icon: '❓' },
+    major: { bg: 'rgba(194, 109, 109, 0.12)', border: 'var(--clr-rose)', text: 'var(--clr-rose-text)' },
+    minor: { bg: 'rgba(184, 137, 64, 0.12)', border: 'var(--clr-gold)', text: 'var(--clr-gold-text)' },
+    unclear: { bg: 'var(--clr-surface-2)', border: 'var(--clr-border)', text: 'var(--clr-ink-soft)' },
   };
   // Was `}[sev] || palette.unclear`, reading `palette` inside its own
   // initializer: any severity in the data that is not one of these three
@@ -677,13 +688,13 @@ function FlagChip({ flag }) {
           background: palette.bg,
           border: `1px solid ${palette.border}`,
           borderRadius: 999,
-          fontSize: 11,
-          fontFamily: 'var(--vmx-mono)',
+          fontSize: 12,
           color: palette.text,
         }}
         title="ข้อมูลขัดแย้ง — กดดูรายละเอียด"
       >
-        {palette.icon} ข้อมูลขัดแย้ง, {sev.toUpperCase()} {open ? '▾' : '▸'}
+        {/* One line flag; the severity is the word beside it and the colour. */}
+        <NavIcon name="flag" size={13} filled /> ข้อมูลขัดแย้ง, {sev.toUpperCase()} {open ? '▾' : '▸'}
       </button>
 
       {open && (

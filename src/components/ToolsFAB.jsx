@@ -8,7 +8,7 @@
 // the screen calmer until the user actually needs a tool.
 //
 // Behavior:
-//   • Default: single 🛠 button bottom-right.
+//   • Default: single tools button (NavIcon spanner) bottom-right.
 //   • Tap → opens a mini popover above the button with each tool as
 //     a small labelled row. Tap outside / Esc closes.
 //   • Calculator open: dispatches the `vmx-open-vetcalc` window event,
@@ -25,6 +25,7 @@ import { useEffect, useRef, useState } from 'react';
 // so the floating menu can't drift from the home grid / ⌘K. Adding a new
 // quick tool = set fab:true on its registry entry; nothing here changes.
 import { fabFeatures, rememberViewIntent } from '../lib/feature-registry.js';
+import NavIcon from './NavIcon.jsx';
 
 export default function ToolsFAB({ onSketch, onView }) {
   const [open, setOpen] = useState(false);
@@ -137,7 +138,7 @@ export default function ToolsFAB({ onSketch, onView }) {
           transform: open ? 'rotate(45deg)' : 'rotate(0)',
         }}
       >
-        {open ? '×' : '🛠'}
+        {open ? '×' : <NavIcon name="tools" size={22} />}
       </button>
 
       <style>{`
@@ -174,7 +175,7 @@ function FabMenuItem({ icon, label, hint, onClick }) {
       <span style={{ fontSize: 20, lineHeight: 1, flex: '0 0 auto' }}>{icon}</span>
       <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
         <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>{label}</span>
-        <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>{hint}</span>
+        <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>{hint}</span>
       </span>
     </button>
   );

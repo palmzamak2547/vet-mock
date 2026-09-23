@@ -23,6 +23,7 @@ import { originPaperNote } from '../lib/exam-scope.js';
 import { humanSource, recordingMoments, momentHref } from '../lib/source-label.js';
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
 import { archivedSourceUrl, googleDriveSourceUrl } from '../lib/vca-library.js';
+import NavIcon from './NavIcon.jsx';
 
 export { isDisplayableWikiRef, getEligibleCitationForQuestion };
 
@@ -54,33 +55,28 @@ export default function QSourceChip({ q, store }) {
   const moments = open ? momentsByClip(q) : [];
 
   return (
+    // The page's face, not mono: the line opens with Thai ("ที่มา:") and
+    // mono has no Thai glyphs.
     <div style={{
       marginTop: 14,
-      padding: '8px 12px',
+      padding: '0 12px',
       borderRadius: 10,
       background: 'rgba(74, 107, 74, 0.04)',
       border: '1px solid var(--clr-border)',
       fontSize: 12,
       color: 'var(--clr-ink-soft)',
-      fontFamily: 'var(--vmx-mono)',
     }}>
+      {/* A class, not an inline all:unset (which reset the very rules the
+          control needs): the 44px floor, a focus ring, and a line icon in
+          place of the 📚 emoji. */}
       <button
         type="button"
+        className="vmx-qsource-toggle"
         onClick={() => setOpen((v) => !v)}
-        style={{
-          all: 'unset',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          width: '100%',
-          boxSizing: 'border-box',
-          fontFamily: 'inherit',
-        }}
         aria-expanded={open}
         title={open ? 'ซ่อนแหล่งที่มา' : 'ดูแหล่งที่มาของข้อนี้'}
       >
-        <span style={{ fontSize: 14, lineHeight: 1, flex: '0 0 auto' }}>📚</span>
+        <NavIcon name="book" size={16} />
         <span style={{
           flex: 1,
           overflow: 'hidden',
@@ -90,19 +86,21 @@ export default function QSourceChip({ q, store }) {
         }}>
           ที่มา: {summary}
         </span>
-        <span style={{ fontSize: 11, opacity: 0.7, flex: '0 0 auto' }}>
+        {/* Full opacity: at 0.7 this 11px hint measured 3.48:1 in light and
+            3.91:1 in dark, under the 4.5 floor. */}
+        <span style={{ fontSize: 12, flex: '0 0 auto' }}>
           {open ? '▴ ซ่อน' : '▾ ดูเต็ม'}
         </span>
       </button>
 
       {paperNote && (
-        <div style={{ marginTop: 6, fontSize: 11, lineHeight: 1.5, opacity: 0.85 }}>
+        <div style={{ margin: '0 0 8px', fontSize: 12, lineHeight: 1.5 }}>
           หมายเหตุ: {paperNote}
         </div>
       )}
 
       {open && (
-        <div style={{ marginTop: 10, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <div style={{ margin: '0 0 10px', paddingTop: 10, borderTop: '1px dashed var(--clr-border)', display: 'flex', flexDirection: 'column', gap: 6 }}>
           {eligibleCitation && (
             <div style={{ padding: 8, borderRadius: 6, background: 'rgba(74, 107, 74, 0.12)', border: '1px solid var(--clr-sage)' }}>
               <a

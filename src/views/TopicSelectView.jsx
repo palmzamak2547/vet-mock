@@ -10,7 +10,8 @@ import { announced } from '../data/curriculum.js';
 import { librarySubjectCounts } from '../lib/library.js';
 import { takeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
-import { hasLecturerSet } from '../data/lecturer-sets.js';
+import { hasLecturerSet, LECTURER_SETS } from '../data/lecturer-sets.js';
+import { topicLecturerLabel } from '../lib/lecturer-name.js';
 import { hasWrapUp } from '../data/exam-wrapups.js';
 
 // Lazy — pulls instructors data (~30KB) only when user clicks an
@@ -196,6 +197,9 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // The paper split by lecturer, only where the class has been told how each
   // part is written and only while that paper is the one in scope.
   const showLecturers = Boolean(onStartLecturer && hasLecturerSet(subject, selectedYear, selectedPhase));
+  // How many lecturer cards the section will draw, so its loading skeleton
+  // takes the same space and the topic list below it does not jump.
+  const lecturerCount = LECTURER_SETS[subject]?.lecturers?.length || 1;
   // The one-page wrap-up of this paper (exam-wrapups.js): first thing on the
   // topics tab the week of the exam, above the lecturer block.
   const showWrapUp = Boolean(onOpenWrapUp && hasWrapUp(subject, selectedYear, selectedPhase));
@@ -473,7 +477,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       {showLecturers && (
         <div className="vmx-lect-block">
           <div className="vmx-section-label">ข้อสอบกลางภาคแยกตามอาจารย์ผู้สอน</div>
-          <Suspense fallback={<div className="vmx-lect-intro">กำลังโหลด</div>}>
+          <Suspense fallback={<LecturerSetsSkeleton count={lecturerCount} />}>
             <LecturerSets
               subject={subject}
               topics={topics}
@@ -580,12 +584,18 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           const hasWikiForTopic = t.resources?.wiki?.enabled;
           const isEmpty = !hasTopicContent(t);
           const isRead = t.read;
+          // A note that says the topic is off the paper (curriculum.js flags it)
+          // keeps a warning sign; a provenance note is plain text.
+          const caveat = t.lecturerNoteKind === 'caveat';
+          // The name the lecturer section above uses for the same person;
+          // null for TBD, which gets no button at all.
+          const lecturerLabel = topicLecturerLabel(subject, t.lecturer);
           const primaryLabelBase = hasQuestions
             ? `ฝึกข้อสอบ ${t.label} ${count} ข้อ`
             : hasNotesForTopic
               ? `อ่าน Notes ${t.label}`
               : `หัวข้อ ${t.label} ยังไม่มีเนื้อหาพร้อมใช้`;
-          const primaryLabel = `${primaryLabelBase}${isRead ? ', อ่านแล้ว' : ''}`;
+          const primaryLabel = `${primaryLabelBase}${isRead ? ', อ่านแล้ว' : ''}${caveat && !isEmpty ? `, ${t.lecturerNote}` : ''}`;
           const openPrimary = () => {
             if (hasQuestions) choose(t.id);
             else if (hasNotesForTopic) runStudyAction(t.resources.notes);
@@ -599,7 +609,8 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                 position: 'relative',
               }}
             >
-              <div className="accent" style={{ background: subjectMeta?.color || 'var(--clr-ink)' }}></div>
+              {/* No colour stripe: every card on this screen is the same
+                  subject, so it said nothing. */}
               <button
                 type="button"
                 className="vmx-topic-main"
@@ -619,15 +630,17 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                   </span>
                 )}
                 {t.lecturerNote && !isEmpty && (
-                  <span className="vmx-topic-note">⚠️ {t.lecturerNote}</span>
+                  <span className={`vmx-topic-note${caveat ? ' is-caveat' : ''}`}>
+                    {caveat && <span aria-hidden="true">⚠️ </span>}{t.lecturerNote}
+                  </span>
                 )}
               </button>
 
-              {!isEmpty && (t.lecturer || hasNotesForTopic || hasWikiForTopic || (subject === 'vca' && VCA_NOTES_MAP[t.id])) && (
+              {!isEmpty && (lecturerLabel || hasNotesForTopic || hasWikiForTopic || (subject === 'vca' && VCA_NOTES_MAP[t.id])) && (
                 <div className="vmx-topic-actions" aria-label={`แหล่งเรียน ${t.label}`}>
-                  {t.lecturer && (
+                  {lecturerLabel && (
                     <button type="button" className="vmx-topic-action is-wide" onClick={() => openInstructorFor(t.lecturer)} title="ดูโปรไฟล์อาจารย์ + งานวิจัย">
-                      <NavIcon name="user" size={15} /> อาจารย์ {t.lecturer}{t.lecturer_year && ` (${t.lecturer_year})`}
+                      <NavIcon name="user" size={15} /> {lecturerLabel.titled ? lecturerLabel.name : `อาจารย์ ${lecturerLabel.name}`}
                     </button>
                   )}
                   {hasNotesForTopic && (
@@ -736,7 +749,7 @@ function ExamFormatBanner({ format, accent }) {
       border: '1px solid var(--clr-border)',
       marginBottom: 20,
     }}>
-      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
+      <div className="vmx-eyebrow" style={{ marginBottom: 8 }}>
         รูปแบบของชุดโจทย์ฝึก
       </div>
 
@@ -771,6 +784,36 @@ function ExamFormatBanner({ format, accent }) {
       <div style={{ marginTop: 8, fontSize: 11, fontStyle: 'italic', color: 'var(--clr-ink-soft)' }}>
         โปรดยืนยันกับอาจารย์/หัวปีอีกครั้งก่อนวันสอบจริง
       </div>
+    </div>
+  );
+}
+
+// What the lecturer section looks like before its chunk arrives: the intro
+// line, the reveal switch and one card per lecturer, each laid out with the
+// real card's own classes (head, cover strip, action row), so the section
+// already takes its final height and the topic list under it stays put.
+function LecturerSetsSkeleton({ count }) {
+  return (
+    <div className="vmx-lect-list" aria-busy="true">
+      <span className="vmx-sr-only" role="status">กำลังโหลดข้อสอบแยกตามอาจารย์</span>
+      <span className="vmx-skeleton vmx-skeleton-line vmx-lect-skel-intro" aria-hidden="true" />
+      <span className="vmx-skeleton vmx-lect-skel-btn" aria-hidden="true" />
+      {Array.from({ length: count }, (_, i) => (
+        <div key={i} className="vmx-lect" aria-hidden="true">
+          <div className="vmx-lect-head">
+            <span className="vmx-skeleton vmx-lect-skel-name" />
+            <span className="vmx-skeleton vmx-lect-skel-chip" />
+            <span className="vmx-skeleton vmx-skeleton-line vmx-lect-skel-note" />
+          </div>
+          <div className="vmx-lect-strip">
+            <span className="vmx-skeleton vmx-lect-skel-cover" />
+            <span className="vmx-skeleton vmx-lect-skel-cover" />
+          </div>
+          <div className="vmx-lect-actions">
+            <span className="vmx-skeleton vmx-lect-skel-btn" />
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
