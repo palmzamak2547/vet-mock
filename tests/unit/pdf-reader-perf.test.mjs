@@ -153,3 +153,188 @@ test('hashFile reads the file itself when the bytes it was handed are no longer 
   assert.equal(await hashFile(pickedFile(bytes), partial), expected, 'a partial buffer was fingerprinted as if it were the file');
   assert.notEqual(expected, await hashFile(new Blob([])), 'the test bytes must not digest like nothing');
 });
+
+// ── a page's size at every zoom ──────────────────────────────────────
+// Each row of the reader used to learn its size from an effect keyed on the
+// scale: every zoom step sent every page back to pdf.js, and until that
+// answered the row kept its old height under the new scale. The zoom anchor
+// then had to wait for a column of rows to resize a tick after the zoom. The
+// size at a scale is getViewport's arithmetic on a page pdf.js has already
+// answered with, so it is known in the same render as the scale.
+//
+// The row's own hook code is cut from PdfPage.jsx and run under a small hooks
+// runtime (state, refs, memo, effects flushed after each render), against
+// real pdf.js pages. Nothing here has a DOM, so the raster never paints; what
+// is measured is the height the row reserves, which is what the column, the
+// zoom anchor and jump-to-page all read.
+
+const PAGE_SRC = readFileSync(new URL('../../src/components/PdfPage.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+
+function hooksRuntime() {
+  const slots = [];
+  let cursor = 0;
+  let queue = [];
+  const rt = { dirty: false };
+  const same = (a, b) => Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((v, i) => Object.is(v, b[i]));
+  rt.api = {
+    useRef(init = null) { const k = cursor++; if (!slots[k]) slots[k] = { current: init }; return slots[k]; },
+    useState(init) {
+      const k = cursor++;
+      if (!slots[k]) slots[k] = { value: typeof init === 'function' ? init() : init };
+      const slot = slots[k];
+      return [slot.value, (next) => {
+        const v = typeof next === 'function' ? next(slot.value) : next;
+        if (!Object.is(v, slot.value)) { slot.value = v; rt.dirty = true; }
+      }];
+    },
+    useMemo(fn, deps) {
+      const k = cursor++;
+      if (slots[k] && same(slots[k].deps, deps)) return slots[k].value;
+      slots[k] = { deps, value: fn() };
+      return slots[k].value;
+    },
+    useCallback(fn, deps) { return rt.api.useMemo(() => fn, deps); },
+    useEffect(fn, deps) {
+      const k = cursor++;
+      const prev = slots[k];
+      if (prev && deps && same(prev.deps, deps)) return;
+      const slot = { deps, cleanup: null };
+      slots[k] = slot;
+      queue.push(() => { prev?.cleanup?.(); const c = fn(); slot.cleanup = typeof c === 'function' ? c : null; });
+    },
+  };
+  rt.begin = () => { cursor = 0; };
+  rt.flush = () => { const q = queue; queue = []; for (const run of q) run(); };
+  return rt;
+}
+
+// One row of the reader, mounted. `render` is one React render plus its
+// effects; `settle` lets pdf.js answer and re-renders for whatever it set.
+function mountRow(props) {
+  const rt = hooksRuntime();
+  const ctx = vm.createContext({ ...rt.api, console, RUNWAY: 1, redrawInk() {}, inkDpr: () => 1 });
+  const body = cut(PAGE_SRC, 'export default memo(function PdfPage({', '\n  return (');
+  const Row = vm.runInContext(`(function PdfPage({${body}\n  return { w, h };\n})`, ctx);
+  let current = props;
+  const render = (next = current) => {
+    current = next;
+    rt.begin();
+    const out = Row(current);
+    rt.flush();
+    return { w: out.w, h: out.h };
+  };
+  const settle = async (pending = []) => {
+    let out = render();
+    for (let i = 0; i < 40; i++) {
+      await Promise.allSettled(pending);
+      await tick();
+      if (rt.dirty) { rt.dirty = false; out = render(); }
+    }
+    return out;
+  };
+  return { render, settle, props: () => current };
+}
+
+// A document that counts how often it is asked for a page.
+function counted(doc) {
+  const spy = { calls: 0, pending: [] };
+  spy.doc = {
+    numPages: doc.numPages,
+    getPage: (n) => { spy.calls += 1; const p = doc.getPage(n); spy.pending.push(p); return p; },
+  };
+  return spy;
+}
+
+// Pages of every shape the reader meets: A4 in fractional points, a 16:9
+// slide, a turned page, a cropped and turned one with odd offsets, and one
+// that declares a UserUnit.
+async function shapesDeck() {
+  const { PDFDocument, PDFName, PDFNumber, degrees } = await import('pdf-lib');
+  const pdf = await PDFDocument.create();
+  pdf.addPage([595.28, 841.89]);
+  pdf.addPage([960, 540]);
+  pdf.addPage([612, 792]).setRotation(degrees(90));
+  const cropped = pdf.addPage([960, 540]);
+  cropped.setRotation(degrees(270));
+  cropped.setCropBox(13.7, 21.3, 500.5, 377.25);
+  pdf.addPage([720, 540]).node.set(PDFName.of('UserUnit'), PDFNumber.of(1.5));
+  return pdf.save();
+}
+
+async function openDeck(bytes) {
+  const { getDocument } = await import('pdfjs-dist/legacy/build/pdf.mjs');
+  return getDocument({ data: new Uint8Array(bytes), verbosity: 0 }).promise;
+}
+
+// What the row has always reserved: pdf.js's own viewport at that scale,
+// floored.
+async function viewportSize(doc, pageNum, scale) {
+  const vp = (await doc.getPage(pageNum)).getViewport({ scale });
+  return { w: Math.floor(vp.width), h: Math.floor(vp.height) };
+}
+
+// The zoom steps, and scales a fit-to-width frame produces.
+const SCALES = [0.4, 0.5, 0.75, 1, 1.1234, 1.25, 1.5, (1280 - 24) / 960, 1.75, 2, 2.5, 3, 4];
+
+test('a zoom step gives the page its new size in the same render, without asking pdf.js again', async () => {
+  const doc = await openDeck(await shapesDeck());
+  try {
+    for (let pageNum = 1; pageNum <= doc.numPages; pageNum++) {
+      const spy = counted(doc);
+      const row = mountRow({ pdfDoc: spy.doc, pageNum, scale: 1 });
+      assert.deepEqual(await row.settle(spy.pending), await viewportSize(doc, pageNum, 1));
+      for (const scale of SCALES) {
+        const now = row.render({ ...row.props(), scale });
+        assert.deepEqual(now, await viewportSize(doc, pageNum, scale),
+          `page ${pageNum} at ${scale.toFixed(3)}x kept its old size for a render after the zoom`);
+        await row.settle(spy.pending);
+      }
+      assert.equal(spy.calls, 1, `page ${pageNum} was asked of pdf.js ${spy.calls} times over ${SCALES.length} zoom steps`);
+    }
+  } finally {
+    await doc.destroy();
+  }
+});
+
+test('every page reserves exactly the size it always did, at every zoom', async () => {
+  const doc = await openDeck(await shapesDeck());
+  try {
+    for (let pageNum = 1; pageNum <= doc.numPages; pageNum++) {
+      for (const scale of SCALES) {
+        const spy = counted(doc);
+        const row = mountRow({ pdfDoc: spy.doc, pageNum, scale });
+        assert.deepEqual(await row.settle(spy.pending), await viewportSize(doc, pageNum, scale),
+          `page ${pageNum} opened at ${scale.toFixed(3)}x reserved a different size`);
+      }
+    }
+  } finally {
+    await doc.destroy();
+  }
+});
+
+test('a row handed another document keeps its height until that document answers, then takes its size', async () => {
+  const { PDFDocument } = await import('pdf-lib');
+  const other = await PDFDocument.create();
+  other.addPage([400, 300]);
+  const [first, second] = [await openDeck(await shapesDeck()), await openDeck(await other.save())];
+  try {
+    const a = counted(first);
+    const row = mountRow({ pdfDoc: a.doc, pageNum: 1, scale: 1.5 });
+    const before = await row.settle(a.pending);
+    assert.deepEqual(before, await viewportSize(first, 1, 1.5));
+    // The next document, not yet answered: the column must not jump to a
+    // placeholder under the reader for the length of one worker round trip.
+    let answer;
+    const gate = new Promise((r) => { answer = r; });
+    const b = { calls: 0, doc: { numPages: 1, getPage: (n) => { b.calls += 1; return gate.then(() => second.getPage(n)); } } };
+    assert.deepEqual(row.render({ ...row.props(), pdfDoc: b.doc }), before);
+    await tick();
+    assert.deepEqual(row.render(), before);
+    answer();
+    assert.deepEqual(await row.settle([gate]), await viewportSize(second, 1, 1.5), 'the row kept the previous document\'s size');
+    assert.equal(b.calls, 1);
+  } finally {
+    await first.destroy();
+    await second.destroy();
+  }
+});

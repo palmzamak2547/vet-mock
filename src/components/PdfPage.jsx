@@ -19,7 +19,7 @@
 // parent, because a gesture can begin on one page and end on another. This
 // component only supplies its own page number to the handlers it is given.
 
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { redrawInk, inkDpr } from '../lib/ink.js';
 
 // How far outside the viewport a page still renders. One viewport of runway
@@ -51,7 +51,7 @@ export default memo(function PdfPage({
   const overlayRef = useRef(null);
   const taskRef = useRef(null);
   const [near, setNear] = useState(false);
-  const [size, setSize] = useState(null); // { w, h } in CSS px at this scale
+  const [measured, setMeasured] = useState(null); // the pdf.js page, once it has answered
   const [renderStatus, setRenderStatus] = useState('idle');
   const [renderAttempt, setRenderAttempt] = useState(0);
 
@@ -76,21 +76,39 @@ export default memo(function PdfPage({
   }, [scrollRoot]);
 
   // ── the page's own size, known before it is drawn ────────────────────
+  // pdf.js is asked for the page once per document, not once per zoom step.
+  // The size at any scale is getViewport's own arithmetic on that page, done
+  // here in render, so a zoom step resizes every row in the same render as
+  // the new scale. It used to be an effect keyed on the scale: each step sent
+  // every page back to pdf.js, and each row kept its old height under the
+  // new scale until that answered, which the zoom anchor then had to wait out.
+  //
+  // A row handed another document keeps the page it has until the new one
+  // answers, exactly as it kept its old size before, so the column does not
+  // collapse to placeholders for the length of a worker round trip.
   useEffect(() => {
     let cancelled = false;
     (async () => {
       if (!pdfDoc) return;
       try {
         const page = await pdfDoc.getPage(pageNum);
-        if (cancelled) return;
-        const vp = page.getViewport({ scale });
-        const s = { w: Math.floor(vp.width), h: Math.floor(vp.height) };
-        setSize(s);
-        onSize?.(pageNum, s);
+        if (!cancelled) setMeasured(page);
       } catch { /* a page that will not measure will not render either */ }
     })();
     return () => { cancelled = true; };
-  }, [pdfDoc, pageNum, scale, onSize]);
+  }, [pdfDoc, pageNum]);
+
+  const size = useMemo(() => { // { w, h } in CSS px at this scale
+    if (!measured) return null;
+    try {
+      const vp = measured.getViewport({ scale });
+      return { w: Math.floor(vp.width), h: Math.floor(vp.height) };
+    } catch { return null; }
+  }, [measured, scale]);
+
+  useEffect(() => {
+    if (size) onSize?.(pageNum, size);
+  }, [size, pageNum, onSize]);
 
   // ── render, and release when far away ────────────────────────────────
   useEffect(() => {
