@@ -38,6 +38,7 @@ export const QB_Y5_PATHO = [
     answer: 1,
     explain: 'Lepto = interstitial nephritis (ชัด)\nAflatoxin = primary hepatotoxin, renal effect รอง\nOchratoxin = renal tubular damage (ชัด)\nHeartworm = glomerulonephritis (immune-complex)\n\nทุกข้อ list สารที่ทำพยาธิไตทั้งคู่จึงไม่มีข้อ "ไม่ก่อ" ที่ชัดเจน',
     verified: 'Final Patho prac.pdf p.1',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 1 }],
     flag: { note: 'Vet 81 ตอบ B แต่ commentary พี่ปอ ตอบ C — disagreement; ทุกตัวเลือกก่อพยาธิสภาพที่ไตได้ จึงไม่มีข้อ "ไม่ก่อ" ที่ชัดเจน รอตัดสินเฉลยจากหน้า 1 ของต้นฉบับ', sources: ['Final Patho prac.pdf p.1'], severity: 'unclear' } },
 
   { id: 8201, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
@@ -54,7 +55,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'ทุกคู่ในตัวเลือกอื่นเป็น DDx ของ jaundice (pre/hepatic/post-hepatic)\n- Babesiosis, M. haemofelis, IMHA = pre-hepatic (hemolysis)\n- Hepatic lipidosis, Lepto, Cu-hepatitis = hepatic\n- PCV2, Anaplasmosis = mixed\n→ "ผิดทุกข้อ" คือ "ไม่มีข้อใดที่ไม่ใช่ DDx" = ทุกข้อเป็น DDx ทั้งหมด',
-    verified: 'Final Patho prac.pdf p.1' },
+    verified: 'Final Patho prac.pdf p.1',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 1 }] },
 
   { id: 8202, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -70,7 +72,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 2,
     explain: 'Uremia lesions ใน dog:\n- GI ulceration (uremic gastritis/colitis)\n- Subpleural / soft tissue calcification (Ca x P imbalance)\n- Ulcerative stomatitis (uremic burn ที่ลิ้น/แก้ม)\n- Renal secondary hyperparathyroidism\n→ Thyroid hyperplasia ไม่ใช่ feature of uremia (parathyroid ต่างหากที่ hyperplasia)',
-    verified: 'Final Patho prac.pdf p.1' },
+    verified: 'Final Patho prac.pdf p.1',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 1 }] },
 
   { id: 8203, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -86,7 +89,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'Granulomatous inflammation = chronic Mø-rich response\nA: TB, Actinomycosis ✓\nB: Crypto, Blasto (fungi) ✓\nC: FIP dry form (pyogranulomatous), pseudomycetoma ✓\nD: Botryomycosis (Staph granuloma), PCV2 (granulomatous lymphadenitis) ✓\nE: Paratuberculosis ✓ แต่ ILT = diphtheritic membrane (necro-fibrinous tracheitis), NOT granulomatous → E คือคำตอบ',
-    verified: 'Final Patho prac.pdf p.1' },
+    verified: 'Final Patho prac.pdf p.1',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 1 }] },
 
   { id: 8204, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -102,7 +106,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 1,
     explain: 'B: Zinc phosphide → GI corrosion + pulm edema (สาเหตุตายเร็ว) แต่ไม่ทำให้เลือดออกแบบ petechiae/ecchymosis เป็น primary lesion (เน้น respiratory/GI)\nข้ออื่นทุกตัวมี hemorrhage ชัดเจน — Warfarin/CSF/ICH/IBD/PDNS/HPAI/Salmonella/CHV ทั้งหมดทำเลือดออกได้',
-    verified: 'Final Patho prac.pdf p.1-2' },
+    verified: 'Final Patho prac.pdf p.1-2',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 1 }, { doc: 'final-patho-prac', edition: '15p', page: 2 }] },
 
   { id: 8205, subject: 'livestock-pathology', topic: 'lpath-slaughter', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -118,7 +123,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'Postmortem changes = สิ่งที่เกิดขึ้นหลังตาย ไม่เกี่ยวกับโรค\n- Pseudomelanosis, Bile/Hb imbibition (สีเปลี่ยน)\n- Rigor mortis (กล้ามเนื้อแข็ง)\n- Hypostatic congestion (เลือดตกตามแรงโน้มถ่วง)\n- Putrefaction, Algor mortis (อุณหภูมิลดลง)\n- Gas in GI = postmortem fermentation\n→ E: Pulmonary congestion + edema = ANTEMORTEM (agonal) lesion / Bloat ในวัว = อาจ ante- หรือ postmortem แต่ pulm edema = antemortem ชัด',
-    verified: 'Final Patho prac.pdf p.2' },
+    verified: 'Final Patho prac.pdf p.2',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 2 }] },
 
   { id: 8206, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -134,7 +140,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 3,
     explain: 'D: Porcine parvovirus = SMEDI (reproductive, ไม่ใช่ GI) ในแม่สุกร และ leptospirosis = ส่วนใหญ่ไต/ตับ ไม่ใช่ GI\nA: Giardia (GI) / FMD (oral vesicles + esophagus → GI) / CD (alimentary form = diarrhea)\nB: FIP (GI mass, granuloma), stress (GI ulcer), Duck plaque (Diph esophagitis)\nC: MCT (GI ulcer จาก histamine), Spirocerca (esophageal granuloma), TB (GI ก็เจอ)\nE: ทั้งหมด GI ชัด',
-    verified: 'Final Patho prac.pdf p.2' },
+    verified: 'Final Patho prac.pdf p.2',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 2 }] },
 
   { id: 8207, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -150,7 +157,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 2,
     explain: 'กระเพาะอาหาร CAN have infarction — เช่นใน GDV (Gastric dilatation-volvulus) ที่บิด → infarction ของผนังกระเพาะ\nม้าม = hemorrhagic infarct (loose tissue)\nไต = anemic infarct (firm tissue)\nหัวใจ = thrombo-embolic from coronary\n→ C ผิด',
-    verified: 'Final Patho prac.pdf p.2' },
+    verified: 'Final Patho prac.pdf p.2',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 2 }] },
 
   { id: 8208, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -166,7 +174,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 2,
     explain: 'Negri body (Rabies) อยู่ใน NEURONS (Purkinje cells, hippocampal pyramidal cells) — ไม่ใช่ microglia\n- ICH = basophilic intranuclear in hepatocyte/endothelium ✓\n- PR = acidophilic intranuclear in neuron ✓\n- CD = intracytoplasmic in bronchiolar epi / urothelium / lymphocyte ✓\n- PCV2 = amphophilic intracytoplasmic in macrophage (botryoid) ✓',
-    verified: 'Final Patho prac.pdf p.2' },
+    verified: 'Final Patho prac.pdf p.2',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 2 }] },
 
   { id: 8209, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -182,7 +191,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 2,
     explain: 'CPV-2 ในลูกสุนัขไม่ฉีดวัคซีน → bloody/fetid diarrhea + vomiting → crypt epithelium necrosis → villus collapse/atrophy → diagnostic histology',
-    verified: 'Final Patho prac.pdf p.2-3' },
+    verified: 'Final Patho prac.pdf p.2-3',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 2 }, { doc: 'final-patho-prac', edition: '15p', page: 3 }] },
 
   { id: 8210, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -198,7 +208,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'Dirofilaria immitis (heartworm) → R-side heart load → tricuspid regurg, R heart dilatation, pulm artery villous endarteritis, parasitic pneumonia, ascites, chronic glomerulonephritis (immune complex → contracted kidney), subpleural fibrosis\n→ ทุกข้อเป็นรอยโรค heartworm ได้หมด',
-    verified: 'Final Patho prac.pdf p.3' },
+    verified: 'Final Patho prac.pdf p.3',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 3 }] },
 
   { id: 8211, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -214,7 +225,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 0,
     explain: 'Wet FIP (effusive form) — แมวปล่อย, ascites + dyspnea จาก pleural effusion/peritonitis = classic FIP\nM. haemofelis → hemolytic anemia (ไม่ใช่ ascites)\nFeLV → lymphoma\nPlatynosomum → liver fluke (cholangitis)',
-    verified: 'Final Patho prac.pdf p.3' },
+    verified: 'Final Patho prac.pdf p.3',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 3 }] },
 
   { id: 8212, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -230,7 +242,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 3,
     explain: 'Botryomycosis = แบคทีเรีย (Staphylococcus aureus) granuloma ที่มี Splendore-Hoeppli phenomenon — NOT fungus\n- Pythium = oomycete (รา-like)\n- Crypto = yeast (encapsulated)\n- ข้ออื่นทุกตัวเป็นรา/dimorphic ครบ',
-    verified: 'Final Patho prac.pdf p.3' },
+    verified: 'Final Patho prac.pdf p.3',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 3 }] },
 
   { id: 8213, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -246,7 +259,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 2,
     explain: 'Hypovitaminosis D → bone disease (rickets) — ไม่ใช่ผิวหนัง\n- Hypothyroidism → seborrhea, alopecia ✓\n- Photosensitization → skin necrosis ✓\n- Zinc deficiency → parakeratosis (skin) ✓\nคำว่า "Zinc deficiency" ก่อ skin lesion แต่ "Hypovit D" ไม่ — C ผิด',
-    verified: 'Final Patho prac.pdf p.3' },
+    verified: 'Final Patho prac.pdf p.3',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 3 }] },
 
   { id: 8214, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -263,6 +277,7 @@ export const QB_Y5_PATHO = [
     answer: 1,
     explain: 'CDV มี IB ได้ทั้ง intranuclear และ intracytoplasmic ในหลายชนิดเซลล์ (urothelium, lymphocyte, bronchiolar epi, neuron, astrocyte)\nClinical signs ระบบประสาท + GI + URI = CDV ชัด ไม่ใช่ Rabies\nNote: บางตำราเน้น intracytoplasmic IB ของ CDV ใน neuron',
     verified: 'Final Patho prac.pdf p.3-4',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 3 }, { doc: 'final-patho-prac', edition: '15p', page: 4 }],
     flag: { note: 'CDV inclusion bodies เจอได้ทั้ง intranuclear และ intracytoplasmic — บางตำราเน้น intracytoplasmic เป็นหลัก แต่ Vet 81 key ตอบ B', sources: ['Final Patho prac.pdf p.3-4'], severity: 'minor' } },
 
   { id: 8215, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
@@ -279,7 +294,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 0,
     explain: 'Dirofilariasis → R-heart failure → chronic passive congestion of liver → "nutmeg liver" gross → centrilobular fatty degeneration histology — match ครบทุก level\n- FHV-1 = corneal ulcer + IB in epithelium (glossitis ไม่ใช่ feature หลัก)\n- CPV = BLOODY diarrhea (not watery) + crypt necrosis\n- FPV = catarrhal + crypt damage (พอใช้แต่ A ดีกว่า)\n- PRRS = bronchointerstitial pneumonia ✓ แต่ "diffuse" ไม่เน้นทั่ว',
-    verified: 'Final Patho prac.pdf p.4' },
+    verified: 'Final Patho prac.pdf p.4',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 4 }] },
 
   // ═══════════════════════════════════════════════════════════
   // Swine Pathology (PRRS, PCV2, CSF, FMD, polyserositis, etc.)
@@ -299,7 +315,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 3,
     explain: 'D: ทั้ง PCV2 และ PRRSV ทำให้ generalized lymphadenopathy ได้\nA: SIV จำกัดที่ respiratory system, ไม่ตายเหมือน HPAI\nB: Cranioventral pneumonia เกิดได้จาก หลายเชื้อ (Pasteurella, App, Strep, Mycoplasma)\nC: hemorrhagic LN เป็น DDx หลายโรค (HPAI-like PRRS, septicemia, anthrax)\nE: Lepto ทำให้แท้งในแม่สุกรได้ (abortion storm)',
-    verified: 'Final Patho prac.pdf p.4' },
+    verified: 'Final Patho prac.pdf p.4',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 4 }] },
 
   { id: 8217, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -315,7 +332,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'Vesicle ที่ปลายจมูก ในสุกรเป็น DDx หลายโรค:\n- FMD\n- Swine vesicular disease (SVD)\n- Vesicular stomatitis (VS)\n- Vesicular exanthema of swine (VES)\n- Senecavirus A (SVA)\nClinically แยกไม่ได้ ต้อง lab confirm\n→ E ผิด (ไม่ใช่ FMD เท่านั้น)',
-    verified: 'Final Patho prac.pdf p.4' },
+    verified: 'Final Patho prac.pdf p.4',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 4 }] },
 
   { id: 8218, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -331,7 +349,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 1,
     explain: 'B: PRRSV affects boars — testicular damage, reduced sperm quality, sheds virus in semen\nA: Late-term abortion + lymphadenopathy ✓\nC: vertical via semen + Thai isolate causes renal surface hemorrhage ✓\nD: HP-PRRS = high fever + hemorrhagic LN/spleen mimicking CSF',
-    verified: 'Final Patho prac.pdf p.4-5' },
+    verified: 'Final Patho prac.pdf p.4-5',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 4 }, { doc: 'final-patho-prac', edition: '15p', page: 5 }] },
 
   { id: 8219, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -347,7 +366,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 3,
     explain: 'Erysipelas → vegetative valvular endocarditis + chronic proliferative synovitis + diamond skin lesion + degenerative arthritis — ไม่มี polyserositis (fibrinous เยื่อหุ้ม)\nA: H. parasuis = Glasser disease = classic fibrinous polyserositis + polyarthritis + meningitis\nB: M. hyorhinis = polyserositis + polyarthritis\nC: S. suis = meningitis + polyserositis + polyarthritis\n→ D ไม่เข้ากลุ่ม polyserositis',
-    verified: 'Final Patho prac.pdf p.5' },
+    verified: 'Final Patho prac.pdf p.5',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 5 }] },
 
   { id: 8220, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -363,7 +383,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 3,
     explain: 'PDNS = Porcine dermatitis and nephropathy syndrome (เป็นส่วนหนึ่งของ PCVAD จริง) แต่ Diphtheritic colitis = Salmonella/Swine dysentery feature ไม่ใช่ PCVAD → ข้อนี้จึงเป็นข้อที่ "ไม่ใช่"\nLymphoid depletion = รอยโรคแกนของ PMWS จึงนับเป็น feature ของ PCVAD\nPCVAD spectrum: PMWS (lymphadenopathy + emaciation + jaundice + lymphoid depletion) + PDNS + PRDC + reproductive failure + enteritis (granulomatous) + hepatitis\nMesocolon edema = edema disease (E. coli) จริงๆ — แต่อยู่กับ "diffuse pneumonia" ของ PCV (PRDC)\n→ D ผิด (Diph colitis ไม่ใช่ PCV)',
-    verified: 'Final Patho prac.pdf p.5-6' },
+    verified: 'Final Patho prac.pdf p.5-6',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 5 }, { doc: 'final-patho-prac', edition: '15p', page: 6 }] },
 
   { id: 8221, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -379,7 +400,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 2,
     explain: 'Porcine respiratory coronavirus (PRCV) = RESPIRATORY ONLY, ไม่ทำ neuro\n- TGEV (สายพันธุ์ที่เป็น PRCV deletion mutant) = GI\n- PRCV เกิดจาก deletion mutation ใน TGEV → tropism เปลี่ยนเป็น respiratory\nWest Nile + Rabies = neuro ทั้งคู่ แต่ PRCV ในข้อ C ทำให้ "เซ็ตของ 3 ตัว" ไม่ครบ neuro\n→ C เป็น set ที่ไม่ neuro ครบ',
-    verified: 'Final Patho prac.pdf p.6' },
+    verified: 'Final Patho prac.pdf p.6',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 6 }] },
 
   { id: 8222, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -395,7 +417,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 3,
     explain: 'D: Mycoplasma HYOPNEUMONIAE = lung only, ไม่ทำ joint pathology (ต่างจาก M. hyosynoviae/hyorhinis ที่ทำ joint)\n- Osteochondrosis = joint problem ✓\n- A/B/C ทั้งคู่ทำ joint ครบ\n- E: FMD foot lesion + biotin def → lameness ก็เกี่ยวข้อง',
-    verified: 'Final Patho prac.pdf p.6' },
+    verified: 'Final Patho prac.pdf p.6',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 6 }] },
 
   { id: 8223, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -411,7 +434,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 2,
     explain: 'Candida albicans = oral thrush/esophagitis, ไม่ใช่สาเหตุของ enteritis หลักในสุกร\nA: Isospora (coccidia)/PPV/Salmonella ทำ enteritis ✓\nB: PCV2 (granulomatous enteritis)/C. diff/B. pilosicoli ✓\nD: Lawsonia (PPE)/Balantidium/PED ✓\nE: TGE/ETEC/Trichuris ✓\n→ C ผิด เพราะ Candida',
-    verified: 'Final Patho prac.pdf p.6' },
+    verified: 'Final Patho prac.pdf p.6',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 6 }] },
 
   { id: 8224, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -427,7 +451,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 3,
     explain: 'SIV → necrotizing BRONCHIOLITIS / bronchointerstitial pneumonia ไม่ใช่ suppurative bronchopneumonia (= bacterial)\nA-E ที่เหลือ match correctly\n→ D ผิด',
-    verified: 'Final Patho prac.pdf p.6' },
+    verified: 'Final Patho prac.pdf p.6',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 6 }] },
 
   { id: 8225, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -443,7 +468,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'รอยโรค hemorrhagic lymphadenopathy เป็น hallmark ของ:\n- Acute CSF (ขอบ LN แดงเป็น "marbled")\n- Septicemic Salmonella\n- PDNS (PCV2-mediated)\n- HP-PRRS\nทุกข้อเป็น DDx จริง',
-    verified: 'Final Patho prac.pdf p.6' },
+    verified: 'Final Patho prac.pdf p.6',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 6 }] },
 
   { id: 8226, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -459,7 +485,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'ในข้อย่อยทั้งหมด ขี้เป็นเลือดได้หมด → ทุกข้อเป็น DDx of bloody diarrhea จริง\n- Salmonella, Swine dysentery (Brachyspira hyodysenteriae) = bloody\n- Trichuris = bloody (whipworm)\n- HBD, PPE acute = bloody\n- Colonic spirochete + Balantidium = ได้ทั้งคู่ (Balantidium rare แต่ได้)\n→ "ผิดทุกข้อ" = ไม่มีข้อไหนที่ไม่ใช่ DDx',
-    verified: 'Final Patho prac.pdf p.6-7' },
+    verified: 'Final Patho prac.pdf p.6-7',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 6 }, { doc: 'final-patho-prac', edition: '15p', page: 7 }] },
 
   { id: 8227, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -475,7 +502,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 2,
     explain: 'Button ulcer (ulcer แบบ raised edge + central depression) = classic ของ:\n- Chronic CSF (ที่ ileocecal junction)\n- Salmonella choleraesuis (deep button ulcer ใน colon)',
-    verified: 'Final Patho prac.pdf p.7' },
+    verified: 'Final Patho prac.pdf p.7',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 7 }] },
 
   { id: 8228, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -491,7 +519,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 2,
     explain: 'Triad classic ของ Swine Erysipelas (Erysipelothrix rhusiopathiae):\n1. Chronic proliferative synovitis\n2. Degenerative arthritis\n3. Vegetative valvular endocarditis (verrucous, mitral valve)\n+ "Diamond skin lesion" acute form',
-    verified: 'Final Patho prac.pdf p.7' },
+    verified: 'Final Patho prac.pdf p.7',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 7 }] },
 
   // ═══════════════════════════════════════════════════════════
   // Avian / Poultry Pathology
@@ -511,7 +540,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'Classic IBD presentation:\n- 3-6 wk broiler\n- High mortality (50%)\n- Proventricular-gizzard junction hemorrhage\n- Cecal tonsil hemorrhage\n- Bursa of Fabricius swollen → atrophy\n- Muscle hemorrhage (thigh, breast)\n- Tremors/paralysis = immunosuppression sequelae',
-    verified: 'Final Patho prac.pdf p.7' },
+    verified: 'Final Patho prac.pdf p.7',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 7 }] },
 
   { id: 8230, subject: 'livestock-pathology', topic: 'lpath-avian', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -527,7 +557,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 1,
     explain: 'Urate cast/deposit ที่ท่อไต = feature ของ Infectious Bronchitis (IB) nephropathogenic strain, ไม่ใช่ IBD\nIBD lesion:\n- Thigh/breast muscle hemorrhage ✓\n- Bursa: petechial hemorrhage → swelling → atrophy + caseous debris ✓\nIB nephropathogenic strain = urolithiasis + visceral gout',
-    verified: 'Final Patho prac.pdf p.7' },
+    verified: 'Final Patho prac.pdf p.7',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 7 }] },
 
   { id: 8231, subject: 'livestock-pathology', topic: 'lpath-avian', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -543,7 +574,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'E ถูก: Duck plague = Duck enteritis virus = Anatid alphaherpesvirus 1 (Herpesviridae) + เป็นโรคในบัญชี พ.ร.บ.\nA ผิด: Trichinella spiralis = zoonosis (กินสุกรดิบ → คน)\nB ผิด: CSF ทำให้เกิด splenic infarction (chronic form)\nC ผิด: NaOH/Na2CO3 เป็นยาฆ่าเชื้อที่ดีสำหรับ FMD\nD ผิด: สุนัขกินเนื้อโค Trypanosoma evansi-positive ติดได้ (mechanical)',
-    verified: 'Final Patho prac.pdf p.7-8' },
+    verified: 'Final Patho prac.pdf p.7-8',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 7 }, { doc: 'final-patho-prac', edition: '15p', page: 8 }] },
 
   // ═══════════════════════════════════════════════════════════
   // Diagnostic Reasoning + Sample Collection
@@ -563,7 +595,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'E ไม่เพียงพอ: PCV2 พบเป็น ubiquitous ในประชากรสุกรปกติ (subclinical infection) — PCR positive อย่างเดียวไม่บอกว่าเป็น PCVAD\n→ ต้องมี clinical sign + characteristic lesion (lymphocyte depletion + botryoid IB) ร่วม\nข้ออื่น A-D = combined evidence (clinical + lesion + culture/test) เพียงพอ',
-    verified: 'Final Patho prac.pdf p.8' },
+    verified: 'Final Patho prac.pdf p.8',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 8 }] },
 
   { id: 8233, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -579,7 +612,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 1,
     explain: 'Classic HS (Pasteurella multocida B:2 ในเอเชีย):\n- กระบือ, peracute fever\n- Subcutaneous edema (submandibular, brisket)\n- Hemorrhagic LN, lung, viscera\n- Blood-tinged effusion ช่องอก/ช่องท้อง\n- Mortality สูง, ฝูงตายพร้อมกัน\nBlackleg = young cattle, muscle gas\nMCF = upper resp + ocular',
-    verified: 'Final Patho prac.pdf p.8' },
+    verified: 'Final Patho prac.pdf p.8',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 8 }] },
 
   { id: 8234, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -595,7 +629,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 2,
     explain: 'Bovine TB (Mycobacterium bovis) → caseous + calcifying granuloma ที่ LN (Mediastinal/bronchial/mesenteric)\nStain: Acid-fast (Ziehl-Neelsen) → AFB เป็น pink rod-shaped\nGlanders (B. mallei) = ม้า ไม่ใช่โค\nActinomycosis = "lumpy jaw" ใน mandible, Gram positive ไม่ใช่ AF',
-    verified: 'Final Patho prac.pdf p.8' },
+    verified: 'Final Patho prac.pdf p.8',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 8 }] },
 
   { id: 8235, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -612,6 +647,7 @@ export const QB_Y5_PATHO = [
     answer: 3,
     explain: 'Liver failure ก็ทำให้เกิด PU/PD ได้ผ่าน:\n- ลด urea synthesis → medullary washout → reduced concentrating ability\n- Hepatic encephalopathy → polydipsia\n→ ตามตำรา ทุกข้อทำ PU/PD ได้ ข้อนี้จึงยังมีข้อโต้แย้งว่าคำตอบที่ถูกคือ "ผิดทุกข้อ"',
     verified: 'Final Patho prac.pdf p.8-9',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 8 }, { doc: 'final-patho-prac', edition: '15p', page: 9 }],
     flag: { note: 'Vet 81 group ตอบ D (Liver failure) แต่ commentary พี่ปอ + textbook ตอบ E (ผิดทุกข้อ เพราะ liver failure ก็ทำ PU/PD ได้)', sources: ['Final Patho prac.pdf p.8-9'], severity: 'major' } },
 
   { id: 8236, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
@@ -628,7 +664,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'Gastric ulcer ในสุกร → เกิดที่ PARS ESOPHAGEA (non-glandular squamous region รอบ esophageal entrance) ไม่ใช่ pylorus\nGastric ulcer ในสุนัข = pylorus / pyloric antrum (กรดที่ความเข้มข้นสูงสุด)\nA-D = multifactorial pathogenesis ถูกต้อง',
-    verified: 'Final Patho prac.pdf p.9' },
+    verified: 'Final Patho prac.pdf p.9',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 9 }] },
 
   { id: 8237, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -644,7 +681,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 1,
     explain: 'Classical dermatophytosis (Microsporum canis):\n- "ring worm" = วงๆ ของขนร่วง\n- คันได้, มี scale\n- ติดได้ระหว่างสุนัข-แมว-คน (zoonosis)\n- Terrier susceptible\n- Pseudomycetoma = deep dermatophyte (rare, Persian cat ส่วนใหญ่)\nMalassezia = greasy seborrhea',
-    verified: 'Final Patho prac.pdf p.9' },
+    verified: 'Final Patho prac.pdf p.9',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 9 }] },
 
   { id: 8238, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -660,7 +698,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 2,
     explain: 'TVT spread = direct contact / IMPLANTATION (เซลล์เนื้องอกย้ายตัวเองทางผิวสัมผัส mucous membrane) ไม่ใช่ hematogenous/lymphatic\n→ การแพร่ไปดั้งจมูก = transplantation จากการเลีย/สัมผัส (sniffing)\nA: TVT ✓ (cauliflower-like at penile sheath, "ดอกกะหล่ำ")\nB: immunosuppression → grow uncontrolled\nD: secondary infection → death\nE: spontaneous regression ใน immunocompetent dog ภายในเดือน',
-    verified: 'Final Patho prac.pdf p.9' },
+    verified: 'Final Patho prac.pdf p.9',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 9 }] },
 
   { id: 8239, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -676,7 +715,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 1,
     explain: 'PMWS (PCV2) target tissues:\n- Lymphoid: tonsil, mesenteric LN, spleen, Peyer\'s patches → granulomatous lymphadenitis + botryoid IB\n- Lung: bronchointerstitial pneumonia + granuloma\n- Ileum: lymphoid follicle ที่ Peyer\'s patch\n→ B (ileum + tonsil + LN + lung) ครบ key tissue\nข้ออื่นขาดส่วน lymphoid หรือ pulmonary',
-    verified: 'Final Patho prac.pdf p.10' },
+    verified: 'Final Patho prac.pdf p.10',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 10 }] },
 
   { id: 8240, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -692,7 +732,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'Prion = "proteinaceous infectious particle" ไม่ใช่ไวรัส (ไม่มี nucleic acid)\nPrion = PrP^Sc (misfolded prion protein) เปลี่ยน PrP^C ปกติ → propagation\nA-D ถูกต้องทั้งหมด:\n- BSE/scrapie/CWD/CJD = TSE family\n- vCJD ในคน link กับ BSE จากการบริโภคเนื้อ\n- Obex = sample of choice (สำหรับ surveillance)\n- Histology: neuronal vacuolation + spongiosis (no inflammation!)',
-    verified: 'Final Patho prac.pdf p.10' },
+    verified: 'Final Patho prac.pdf p.10',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 10 }] },
 
   { id: 8241, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -708,7 +749,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'PCV2 spectrum (PCVAD) ครอบคลุม:\n- PMWS (lymphoid + multi-systemic)\n- PDNS (Type III hypersensitivity → necrotizing vasculitis + glomerulonephritis)\n- Reproductive failure (mummies, stillborn)\n- PRDC + PNP\n- Hepatitis\n- Congenital tremor (PCV3, also PCV2-associated)\n→ ทุกข้อเป็น PCV2 จริง → E "ผิดทุกข้อ" = ไม่มีข้อไหนที่ไม่ใช่ PCV2',
-    verified: 'Final Patho prac.pdf p.10' },
+    verified: 'Final Patho prac.pdf p.10',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 10 }] },
 
   { id: 8242, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -724,7 +766,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 3,
     explain: 'Coombs\' test (direct antiglobulin test, DAT) = ตรวจหา anti-RBC antibody bound ผิว RBC\n→ Gold standard ยืนยัน immune-mediated hemolysis\nSupporting: spherocytosis ใน blood smear + autoagglutination',
-    verified: 'Final Patho prac.pdf p.10-11' },
+    verified: 'Final Patho prac.pdf p.10-11',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 10 }, { doc: 'final-patho-prac', edition: '15p', page: 11 }] },
 
   { id: 8243, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -740,7 +783,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 2,
     explain: 'Johne\'s disease (Mycobacterium avium subsp. paratuberculosis):\n- Chronic granulomatous enteritis → mucosal thickening + "corrugated" appearance ของ ileum + jejunum\n- Submandibular edema + hypoproteinemia + emaciation\nSample = ใน MUCOSA ของ jejunum/ileum (ที่ acid-fast bacilli อยู่หนาแน่น) + mesenteric LN\n→ C เก็บลำไส้ตรงจุด (LN ก็เก็บได้ แต่ลำไส้ดีกว่า)',
-    verified: 'Final Patho prac.pdf p.11' },
+    verified: 'Final Patho prac.pdf p.11',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 11 }] },
 
   { id: 8244, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -756,7 +800,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'Toxicology gross findings ที่ classic:\n- Hemorrhage (anticoagulant rodenticide, ITP)\n- Bile retention + GB wall edema (hepatotoxin)\n- Sudden death + full stomach = peracute toxicity\n→ ทุกข้อ A-C เป็น sign of toxicosis ได้ → E "ผิดทุกข้อ" = ไม่มีข้อใดที่ไม่ใช่ sign',
-    verified: 'Final Patho prac.pdf p.11' },
+    verified: 'Final Patho prac.pdf p.11',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 11 }] },
 
   { id: 8245, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -772,7 +817,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4, noShuffle: true,
     explain: 'Chronic R-side HF = systemic venous congestion → fluid in cavities + ทั่วร่างกาย:\n- Nutmeg liver (chronic passive congestion of liver)\n- Hydrothorax, Hydroperitoneum (ascites)\n- Subcutaneous edema (dependent)\n- R-heart dilation/hypertrophy\n→ ทุกข้อเป็นรอยโรค',
-    verified: 'Final Patho prac.pdf p.11' },
+    verified: 'Final Patho prac.pdf p.11',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 11 }] },
 
   { id: 8246, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -788,7 +834,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 1,
     explain: 'Salmonella choleraesuis → diffuse interstitial pneumonia + septicemic (เหมือน viral pattern เพราะ hematogenous spread ไม่ใช่ aerogenous)\n- Pasteurella/Mycoplasma/App = cranioventral lobar / fibrinous (bacterial pattern)\n- Strep suis = meningitis หลัก',
-    verified: 'Final Patho prac.pdf p.11' },
+    verified: 'Final Patho prac.pdf p.11',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 11 }] },
 
   { id: 8247, subject: 'livestock-pathology', topic: 'lpath-avian', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -804,7 +851,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 1,
     explain: 'Liver = primary target of fowl cholera (septicemic spread) → multifocal hepatic necrosis + culture P. multocida\nLiver bacterial culture เป็น gold standard practical (เนื้อเยื่อปลอดเชื้ออื่นๆ ระบบ confirm sensitivity ได้)\nหนูทดลอง = obsolete (mouse inoculation test)\nAir sac swab = สำหรับ chronic respiratory dz มากกว่า',
-    verified: 'Final Patho prac.pdf p.11-12' },
+    verified: 'Final Patho prac.pdf p.11-12',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 11 }, { doc: 'final-patho-prac', edition: '15p', page: 12 }] },
 
   { id: 8248, subject: 'livestock-pathology', topic: 'lpath-avian', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -820,7 +868,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 3,
     explain: 'Marek\'s disease (MDV, Herpesvirus) = HORIZONTAL transmission ผ่าน dander/feather follicle epithelium (ฝุ่นขนนก)\nAvian leukosis (ALV, Retrovirus) = VERTICAL + horizontal\n→ MD ไม่ได้แพร่ vertical (D ผิด)\nA: ม้ามใหญ่ขึ้นจาก lymphoid tumor ของทั้งคู่ ✓\nB: MD ที่ feather follicle ✓ (cutaneous form)\nC: Nerve enlargement = MD signature (sciatic), AL ไม่เกี่ยว ✓\nE: ALV = RNA retrovirus, MDV = DNA herpesvirus ✓',
-    verified: 'Final Patho prac.pdf p.12' },
+    verified: 'Final Patho prac.pdf p.12',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 12 }] },
 
   { id: 8249, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -836,7 +885,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'A ผิด: band 7% = LEFT shift (immature neutrophil) ไม่ใช่ right shift\nB ผิด: Actinobacillosis (woody tongue, granuloma soft tissue) = Actinobacillus lignieresii (Gram-)\n     Actinomycosis (lumpy jaw, bone) = Actinomyces bovis (Gram+)\n     ก้อนใต้คาง soft tissue + sulfur granule = Actinobacillosis มากกว่า\nC ผิด: ไม่ใช่ acid-fast — ใช้ Gram stain (Gram+ rod คือ Actinomyces, Gram- rod คือ Actinobacillus)\nD ผิด: ไม่ควรแช่แข็ง — เก็บใน transport medium / สดส่ง\n→ E ผิดทุกข้อ ถูกต้อง',
-    verified: 'Final Patho prac.pdf p.12' },
+    verified: 'Final Patho prac.pdf p.12',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 12 }] },
 
   // ═══════════════════════════════════════════════════════════
   // Parasitology + Microbiology Methods
@@ -856,7 +906,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 0,
     explain: 'Trematode (fluke) eggs = HEAVY ไข่ใหญ่ + operculate + specific gravity สูง → ไม่ลอย ใน flotation solution (sg ~1.18-1.30)\n→ Simple flotation = FALSE NEGATIVE สำหรับ fluke\nวิธีที่ใช้: sedimentation, fluke finder (เครื่อง centrifuge เฉพาะ), modified Stoll\nMcMaster = egg count quantitative (เห็น strongyle, ascarid, ไม่ใช่ fluke เป็นหลัก)',
-    verified: 'Final Patho prac.pdf p.12-13' },
+    verified: 'Final Patho prac.pdf p.12-13',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 12 }, { doc: 'final-patho-prac', edition: '15p', page: 13 }] },
 
   { id: 8251, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -872,7 +923,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 0,
     explain: 'Hemoparasite (Babesia, Anaplasma, microfilaria) สด → preserve morphology + viability\n→ แช่ตู้เย็น 2-4°C ภายใน 24 ชม.\nFreeze → lyse RBC + ทำลาย parasite morphology\nRoom temp → bacterial overgrowth + parasite degeneration',
-    verified: 'Final Patho prac.pdf p.13' },
+    verified: 'Final Patho prac.pdf p.13',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 13 }] },
 
   { id: 8252, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -888,7 +940,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 4,
     explain: 'Moniezia = TAPEWORM (Cestoda), ไม่ใช่ Strongyle (Nematoda)\nGI strongyle ในแกะ:\n- Haemonchus contortus (barber pole worm, abomasum)\n- Oesophagostomum (nodular worm, colon)\n- Cooperia (small intestine)\n- Mecistocirrus (abomasum)',
-    verified: 'Final Patho prac.pdf p.13' },
+    verified: 'Final Patho prac.pdf p.13',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 13 }] },
 
   { id: 8253, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -904,7 +957,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 1,
     explain: 'Body temperature alone = non-specific (ไข้เกือบทุกโรค) ไม่ diagnostic\nA: Hx + tick exposure ✓\nC: Buffy coat smear → morula in monocyte (E. canis) ✓\nD: thrombocytopenia + pancytopenia + hyperglobulinemia ✓\nE: Snap 4DX = serology (Ab) ✓',
-    verified: 'Final Patho prac.pdf p.13' },
+    verified: 'Final Patho prac.pdf p.13',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 13 }] },
 
   { id: 8254, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -921,6 +975,7 @@ export const QB_Y5_PATHO = [
     answer: 1,
     explain: 'DDx สำคัญคือ Prototheca กับ Pythium\nClinical (collie outdoor + bloody diarrhea + capsulated organism + no response to enrofloxacin) เข้าได้ทั้ง:\n- Prototheca = colorless algae, round/oval ขนาดเล็ก, แคปซูลใส, antibiotic ไม่ตอบสนอง\n- Pythium = oomycete, GI granuloma + bloody diarrhea, antibiotic ไม่ตอบสนอง\nMorphology "เมล็ดถั่ว + capsule ใส" → Prototheca มากกว่า (Pythium = hyphae, ไม่ใช่ round)\n→ Prototheca',
     verified: 'Final Patho prac.pdf p.13',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 13 }],
     flag: { note: 'Vet 81 ตอบ Prototheca, commentary พี่ปอ ชี้ Pythium — morphology "round + capsule" เข้า Prototheca มากกว่า', sources: ['Final Patho prac.pdf p.13'], severity: 'minor' } },
 
   // ═══════════════════════════════════════════════════════════
@@ -940,7 +995,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 0,
     explain: 'AHPND (EMS, Early Mortality Syndrome) = Vibrio parahaemolyticus carrying PirAB^vp toxin gene (plasmid)\n→ Hepatopancreas (HP) necrosis + early mortality 30-35 days post-stocking\n- E. hepatopenaei = microsporidian, slow growth\n- WSSV = white spot virus\n- Gregarines = white feces syndrome',
-    verified: 'Final Patho prac.pdf p.13' },
+    verified: 'Final Patho prac.pdf p.13',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 13 }] },
 
   { id: 8256, subject: 'livestock-pathology', topic: 'lpath-avian', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -955,7 +1011,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 0,
     explain: 'WFS = ขี้กุ้งสีขาวลอย, hepatopancreas เสียหาย\nสาเหตุหลัก = Gregarines (protozoa) ใน HP tubule\n- ATM = ลักษณะ histo ของ microvilli ที่ปนเปลี่ยน (อาจเป็นรอยโรคไม่ใช่สาเหตุ)\n- HPH/Covert mortality = โรคอื่น',
-    verified: 'Final Patho prac.pdf p.13-14' },
+    verified: 'Final Patho prac.pdf p.13-14',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 13 }, { doc: 'final-patho-prac', edition: '15p', page: 14 }] },
 
   { id: 8257, subject: 'livestock-pathology', topic: 'lpath-avian', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -970,7 +1027,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 2,
     explain: 'KHV (CyHV-3) → gill necrosis + "signet ring" appearance ของ branchial epithelial cells/leukocytes:\n- Nuclear swelling\n- Margination of chromatin\n- Pale diffuse eosinophilic intranuclear inclusion\nHallmark histology — diagnostic',
-    verified: 'Final Patho prac.pdf p.13-14' },
+    verified: 'Final Patho prac.pdf p.13-14',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 13 }, { doc: 'final-patho-prac', edition: '15p', page: 14 }] },
 
   { id: 8258, subject: 'livestock-pathology', topic: 'lpath-avian', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -985,7 +1043,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 3,
     explain: 'WTD = MrNV + extra small virus (XSV) co-infection\n→ Whitish opaque tail (abdominal muscle necrosis)\nIMNV = ใน Penaeus vannamei (ไม่ใช่ Macrobrachium)\nMicrosporidiosis = E. hepatopenaei',
-    verified: 'Final Patho prac.pdf p.14' },
+    verified: 'Final Patho prac.pdf p.14',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 14 }] },
 
   // ═══════════════════════════════════════════════════════════
   // Hematology + Coagulation + Postmortem Protocol
@@ -1004,7 +1063,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 0,
     explain: 'D-Dimer = specific marker of FIBRIN breakdown (จาก crosslinked fibrin) → จำเพาะกับ secondary fibrinolysis (e.g., DIC, thromboembolism)\nFDPs = fibrinogen หรือ fibrin breakdown — sensitive แต่ less specific\nPlasmin = enzyme ไม่ใช่ marker\nFibrinogen = ระดับลดลงใน DIC แต่ไม่จำเพาะกับ fibrinolysis',
-    verified: 'Final Patho prac.pdf p.14' },
+    verified: 'Final Patho prac.pdf p.14',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 14 }] },
 
   { id: 8260, subject: 'livestock-pathology', topic: 'lpath-slaughter', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -1019,7 +1079,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 1,
     explain: 'Necropsy protocol ที่ถูกต้อง:\n1. Signalment + Hx\n2. Verify ID บนซาก\n3. ทำชันสูตร\n4. เก็บอวัยวะใน 10% buffered formalin (ไม่ใช่ 70% alcohol = fixative ผิด)\n5. ล้างซาก/area\n6. บันทึก gross findings\n→ B ถูกที่สุด\n- A ผิดเพราะใช้ 70% alcohol\n- C เก็บล้างก่อน fix = ไม่ optimal (ทิ้งของก่อน fix)\n- D เขียน findings ก่อน fix = ทำงาน flow ไม่ถูก',
-    verified: 'Final Patho prac.pdf p.14' },
+    verified: 'Final Patho prac.pdf p.14',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 14 }] },
 
   { id: 8261, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -1034,7 +1095,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 2,
     explain: 'แมวมี reticulocyte 2 รูปแบบ:\n- Aggregate retic (newer, <12 hr after release) = นับสำหรับ regenerative response\n- Punctate retic (older, persists 7-21 days) = อยู่นานในเลือด, ไม่บ่ง regeneration ปัจจุบัน\n→ ใช้เฉพาะ aggregate retic ในการประเมิน regenerative response\nA ผิด: สุนัขมีทั้ง 2 รูปแบบ (Macrocytic polychromatophil = aggregate-like)\nB ผิด: Retic คือ immature RBC ที่ stained with new methylene blue → reticular pattern; ไม่ใช่ทุกตัวเป็น macrocyte\nD ส่วน punctate retic บ่ง erythropoiesis 7-21 วันก่อน (ไม่ใช่ 3 สัปดาห์เป๊ะ) — แต่ถูกในแง่ time window',
-    verified: 'Final Patho prac.pdf p.15' },
+    verified: 'Final Patho prac.pdf p.15',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 15 }] },
 
   { id: 8262, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -1049,7 +1111,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 0,
     explain: 'Crossmatch + blood typing → ใช้ EDTA (purple top) — ป้องกัน coagulation + preserve RBC morphology\nSodium citrate (blue) = coagulation testing\nHeparin (green) = chemistry\nNo anticoag (red) = serum chemistry',
-    verified: 'Final Patho prac.pdf p.15' },
+    verified: 'Final Patho prac.pdf p.15',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 15 }] },
 
   { id: 8263, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -1064,7 +1127,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 0,
     explain: 'Ghost cell = RBC ที่ Hb หลุดออกหมด เหลือเฉพาะ membrane → intravascular hemolysis classic\nSpherocyte = IMHA (extravascular hemolysis ที่ spleen)\nHeinz body = oxidative damage (onion/garlic, acetaminophen)\nHowell-Jolly = nuclear remnant in regenerative anemia/splenectomy',
-    verified: 'Final Patho prac.pdf p.15' },
+    verified: 'Final Patho prac.pdf p.15',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 15 }] },
 
   { id: 8264, subject: 'livestock-pathology', topic: 'lpath-slaughter', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -1079,7 +1143,8 @@ export const QB_Y5_PATHO = [
     ],
     answer: 1,
     explain: 'B (แบมแบม) = complete workflow:\n1. ถ่ายรูป (documentation)\n2. Sterile syringe เก็บหนองสด → bacterial culture + fluid analysis (cell count, protein, cytology)\n3. วัดปริมาตร (quantify)\n4. บันทึก gross findings\nA: ถ่ายรูป + จดสีพอ ไม่เก็บ sample\nC: เก็บ sample แต่ไม่บันทึก findings/วัด\nD: Formalin = ฆ่าแบคทีเรีย ไม่สามารถเพาะเชื้อได้',
-    verified: 'Final Patho prac.pdf p.15' },
+    verified: 'Final Patho prac.pdf p.15',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 15 }] },
 
   { id: 8265, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
@@ -1094,6 +1159,7 @@ export const QB_Y5_PATHO = [
     ],
     answer: 3,
     explain: 'Stress leukogram (glucocorticoid effect) ในสุนัข:\n- Mature neutrophilia (no left shift, may be hypersegmented) — demargination + delayed apoptosis\n- Lymphopenia — redistribution + apoptosis\n- Monocytosis (ในสุนัข)\n- Eosinopenia\n→ D ตรงตาม classic pattern',
-    verified: 'Final Patho prac.pdf p.15' },
+    verified: 'Final Patho prac.pdf p.15',
+    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 15 }] },
 
 ];

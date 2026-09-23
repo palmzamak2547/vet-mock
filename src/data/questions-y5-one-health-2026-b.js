@@ -32,6 +32,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 2,
     "explain": "TADs นิยามว่า highly contagious แพร่รวดเร็วโดยไม่สนใจพรมแดนประเทศ ทำให้สัตว์ป่วยและตายในอัตราสูง และก่อ socio-economic กับ public health consequences อย่างรุนแรง ตัวอย่างเช่น African horse sickness ข้อที่ว่าแพร่ช้าหรือจำกัดในฝูงเดียวขัดกับคำว่า transboundary ส่วนข้อที่ว่าติดเฉพาะสัตว์ป่าและข้อที่ว่าเป็นโรคประจำถิ่นไม่ต้องรายงานก็ตรงข้ามกับนิยาม เพราะ TADs หลายโรคเป็นโรคที่ต้องแจ้ง",
     "verified": "OneHealth final น.2",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 2 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -55,6 +56,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "fruit bat, non-human primate และ pig เป็นแหล่งรังโรคหรือพาหะของ Ebola ได้ และการระบาดเริ่มจากการล่าชิมแปนซีมาชำแหละกินในหมู่บ้าน ตัวเลือกอื่นเป็นพาหะจริงของโรคอื่น เช่น นกน้ำอพยพเป็นพาหะไข้หวัดนก และเห็บโคเป็นพาหะของ babesiosis กับ anaplasmosis แต่ไม่ใช่ของ Ebola",
     "verified": "OneHealth final น.2",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 2 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -78,6 +80,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "ตลาดค้าสัตว์ปีกมีชีวิตอย่างคลองเตยและเยาวราชเป็นจุดเสี่ยง เพราะขายสัตว์ปีกเป็นและชำแหละหลังร้าน จุดสำคัญคือสัตว์มาจากหลายแหล่งมารวมกันโดยไม่มีการจัดการที่ดี ฟาร์มระบบปิดและโรงฟักที่ควบคุมสภาพแวดล้อมเป็นระบบที่มี biosecurity ส่วนโรงงานแปรรูปปรุงสุกทำลายเชื้อไปแล้ว จึงไม่ใช่จุดเสี่ยงสำคัญ",
     "verified": "OneHealth final น.2",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 2 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -101,6 +104,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "MOPH-TUC คือความร่วมมือระหว่างกระทรวงสาธารณสุขไทยกับ US-CDC ตัวเลือกอื่นเป็นความร่วมมือที่มีอยู่จริงในงานสุขภาพสัตว์และสาธารณสุข แต่ไม่ใช่ชื่อย่อนี้ โดย MOPH มาจาก Ministry of Public Health และ TUC มาจาก Thailand MOPH US-CDC Collaboration",
     "verified": "OneHealth final น.2",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 2 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -124,6 +128,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "บทบาทของ WOAH คือกำหนดมาตรฐานสุขภาพสัตว์ระดับโลก ส่วนการให้ทุนและจัดอบรมเป็นบทบาทของ SEAOHUN และ THOHUN การจัดทำมาตรฐานความปลอดภัยอาหารเป็นของ Codex Alimentarius Commission และการบูรณาการข้อมูลคน สัตว์ สิ่งแวดล้อมในไทยเป็นงานของศูนย์ One Health กรมควบคุมโรค",
     "verified": "OneHealth final น.2",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 2 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -148,6 +153,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "กรณีนี้เป็น คน บวก สิ่งแวดล้อม เพราะแหล่งปนเปื้อนคือมือของคนเก็บผลและน้ำที่ใช้รด ไม่มีสัตว์เข้ามาเกี่ยวข้องในห่วงโซ่นี้ แม้ปัจจุบันจะพบ NoV GII ในสัตว์แล้วก็ตาม แต่นั่นเป็นประเด็นเฝ้าระวังในอนาคต ไม่ใช่แหล่งของการระบาดครั้งนี้",
     "verified": "OneHealth final น.3",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อสอบที่รุ่นก่อนหน้าบันทึกไว้จากวิชา One Health in Veterinary Public Health"
   },
@@ -171,6 +177,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 2,
     "explain": "ตอนแช่แข็งจะเอาเบอร์รีจากทุกสวนมาผสมกัน ถ้าสวนใดสวนหนึ่งปนเปื้อนก็กระจายไปทุกล็อต ซึ่งเป็นกลไกขยายผลของการระบาด ข้อที่ว่าเก็บเกี่ยวด้วยเครื่องจักรตรงข้ามกับข้อเท็จจริง เพราะมือคนเก็บนี่เองที่เป็นแหล่งเชื้อ ส่วนอุณหภูมิขนส่งและสารกันบูดไม่ได้ถูกระบุในกรณีนี้ และ norovirus ทนความเย็นได้ดีอยู่แล้ว",
     "verified": "OneHealth final น.3",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 3 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -195,6 +202,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "เคสนี้ต่างออกไป คือสัตว์ไม่ได้เป็นพาหะ แต่เป็นคนที่ทำให้เกิดการปนเปื้อน ทั้งที่ปกติ STEC มีโคเป็น reservoir หลัก ข้อที่ว่ามีโคเป็น reservoir จึงเป็นภาพของ STEC ทั่วไปไม่ใช่จุดต่าง ส่วนการสร้าง shiga toxin ต้องอาศัย virulence gene ที่รับมา และเชื้อกลุ่มนี้เจริญได้ดีที่อุณหภูมิร่างกาย ไม่ได้ต้องการอุณหภูมิสูงกว่า 40 องศา",
     "verified": "OneHealth final น.3",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อสอบที่รุ่นก่อนหน้าบันทึกไว้จากวิชา One Health in Veterinary Public Health"
   },
@@ -219,6 +227,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "เชื้อไม่ได้อยู่ในกลุ่ม Enterohemorrhagic แต่เป็นกลุ่ม Enteroaggregative สายพันธุ์ O104:H4 ที่ได้รับ virulence gene จนผลิต shiga toxin ได้ ตัวเลือกที่เป็น EHEC O157:H7 คือภาพจำเดิมของ STEC ที่มาจากโค ส่วน ETEC และ EPEC เป็น pathotype จริงของ E. coli แต่ไม่ได้สร้าง shiga toxin",
     "verified": "OneHealth final น.3",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 3 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -242,6 +251,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "เชื้อ grow at wide pH range, high salt concentration และที่ refrigeration temperature จึงเป็นปัญหากับอาหารแช่เย็นพร้อมบริโภค Listeria ไม่สร้างสปอร์ ไม่ใช่เชื้อที่ต้องการภาวะไร้ออกซิเจนอย่างเดียวเพราะเป็น facultative anaerobe และการทนเกลือสูงหมายความว่าเจริญได้แม้ water activity ต่ำลง",
     "verified": "OneHealth final น.3",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 3 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -265,6 +275,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "วิธีที่ดีที่สุดคือทำ active surveillance โดยตรวจสมองและไขสันหลังเพื่อดูรอยโรคในวัวที่มาเชือด เหตุผลคือวัวที่ติดเชื้อไม่แสดงอาการ การปรุงสุกไม่ช่วยลดการปนเปื้อนเพราะ prion ทนความร้อน วัคซีนสำหรับ BSE ไม่มีใช้ และการตรวจแอนติบอดีก็ใช้ไม่ได้เพราะ prion เป็นโปรตีนของโฮสต์เองจึงไม่กระตุ้นภูมิคุ้มกัน",
     "verified": "OneHealth final น.3",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 3 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -288,6 +299,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "การดื้อ colistin เกิดจากยีน mcr-1 บนพลาสมิด และงานวิจัยในเป็ดเนื้อของไทยพบ mcr-1.1 บน IncI2 plasmid ส่วน vanA เป็นยีนดื้อ vancomycin ใน enterococci mecA เป็นยีนของ MRSA และ blaCTX-M เป็นยีนสร้าง ESBL ทั้งสามตัวเป็นยีนดื้อยาจริงแต่คนละยาคนละกลไก",
     "verified": "OneHealth final น.4",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 4 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -311,6 +323,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 2,
     "explain": "MDR bacteria คือเชื้อที่ดื้อยาตั้งแต่ 3 classes ขึ้นไป จุดสำคัญคือนับเป็นกลุ่มยา ไม่ใช่จำนวนตัวยา การดื้อยา 2 ชนิดในกลุ่มเดียวกันยังไม่เข้าเกณฑ์ ส่วนการดื้อยาทุกตัวที่ทดสอบมักถูกเรียกว่า pandrug resistant ซึ่งรุนแรงกว่านิยาม MDR",
     "verified": "OneHealth final น.4",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 4 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -334,6 +347,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "Cross resistance คือกลไกเดียวทำให้ดื้อยาหลายชนิดแม้คนละกลุ่ม ตัวอย่างเช่น efflux pump ตัวเดียวที่ปั๊มยาได้หลายชนิดออกจากเซลล์ ส่วนยีนหลายตัวที่ติดมาด้วยกันบนพลาสมิดวงเดียวคือ co-selection ซึ่งเป็นคนละกลไก ส่วนการกลายพันธุ์แล้วส่งต่อให้ลูกหลานคือ vertical transfer และเอนไซม์ที่ทำลายยาชนิดเดียวไม่ทำให้เกิดการดื้อข้ามยา",
     "verified": "OneHealth final น.4",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 4 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -357,6 +371,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "ตัวที่ได้รับ DNA จาก donor สำเร็จผ่าน conjugation เรียกว่า transconjugant คำอื่นเป็นคำจริงในพันธุศาสตร์แบคทีเรียแต่คนละกระบวนการ transformant คือเซลล์ที่รับ DNA อิสระจากสิ่งแวดล้อม transductant คือเซลล์ที่ได้ DNA มาทาง bacteriophage และ transposon คือชิ้นดีเอ็นเอที่เคลื่อนย้ายตำแหน่งได้ ไม่ใช่ชื่อเรียกเซลล์",
     "verified": "OneHealth final น.4",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 4 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -380,6 +395,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "plasmid analysis serves as an epidemiological marker for AMR surveillance เพราะพลาสมิดที่อยู่ Inc group เดียวกันมีพันธุกรรมคล้ายกัน จึงใช้ตามรอยการแพร่ข้ามฟาร์มและข้ามประเทศได้ การเลือกยารักษาต้องอาศัยผล AST ไม่ใช่ Inc group ส่วนจำนวนสำเนายีนและอัตราการกลายพันธุ์เป็นคนละการวัด",
     "verified": "OneHealth final น.4",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 4 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -403,6 +419,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "commensal E. coli เป็นตัวที่แนะนำให้ทำ surveillance เพราะเป็น normal flora ที่โดน selection pressure ทุกครั้งที่ฟาร์มใช้ยา รูปแบบการดื้อยาจึงสะท้อนการใช้ยาจริงในฟาร์ม เชื้ออื่นที่ควรดูด้วยคือ Salmonella, Campylobacter และ Enterococcus ส่วน S. aureus, C. perfringens และ P. aeruginosa เป็นเชื้อก่อโรคที่พบได้จริงแต่ไม่ใช่ตัวชี้วัดหลักของการใช้ยาในฟาร์ม",
     "verified": "OneHealth final น.5",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 5 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -427,6 +444,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 2,
     "explain": "ในการรักษาเน้น phenotype มากกว่าการทำ WGS เพราะเชื้อมียีนดื้อยาก็จริงแต่อาจไม่แสดงออก ดังนั้น AST ยังสำคัญกับการรักษา WGS ตรวจยีนบนพลาสมิดได้และปัจจุบันก็ไม่ได้ช้ากว่าการเพาะเชื้อหลายสัปดาห์ ส่วนผลบวกลวงจากการปนเปื้อนเป็นข้อจำกัดทางเทคนิคทั่วไป ไม่ใช่เหตุผลหลักข้อนี้",
     "verified": "OneHealth final น.5",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 5 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -451,6 +469,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "WHO แบ่งยาเป็นสามกลุ่ม โดยกลุ่มแรกคือยาที่ควรสงวนไว้ใช้ในคนเท่านั้น ซึ่งครอบคลุมยา last line อย่าง colistin, imipenem และ cephalosporins รุ่นสูง การสงวนยาเหล่านี้ไว้ให้สัตว์เลี้ยงหรือปศุสัตว์ขัดกับหลักการ เพราะยิ่งใช้ในสัตว์มากยิ่งเร่งการเกิดเชื้อดื้อยาที่จะย้อนกลับมาสู่คน",
     "verified": "OneHealth final น.4",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อสอบที่รุ่นก่อนหน้าบันทึกไว้จากวิชา One Health in Veterinary Public Health"
   },
@@ -474,6 +493,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "73% ของยาปฏิชีวนะถูกใช้ใน food animals ทั่วโลกและกำลังเพิ่มขึ้นทุกปีโดยเฉพาะในเอเชีย และเรียงลำดับสัตว์ที่ใช้ยามากที่สุดว่าสุกรมากกว่าไก่มากกว่าโค ตัวเลือกที่ให้โคหรือสัตว์น้ำเป็นอันดับหนึ่งจึงสลับลำดับ และตัวเลข 50% กับ 90% ไม่ตรงกับที่บรรยาย",
     "verified": "OneHealth final น.4",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 4 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -497,6 +517,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "fluoroquinolones จัดอยู่ในกลุ่มที่ดื้อด้วย chromosomal mutation เป็นยา 2nd line ที่การดื้อเกิดจาก mutation บนโครโมโซมจนยาจับกับ DNA ของเชื้อไม่ได้ ส่วนเอนไซม์ทำลายบีตาแลกแทมและ carbapenemase เป็นกลไกที่มียีนอยู่บนพลาสมิดและใช้กับยาคนละกลุ่ม จุดที่ควรจำต่อคือการกลายพันธุ์บนโครโมโซมแพร่ข้ามชนิดเชื้อได้ยากกว่าและช้ากว่าการแพร่ผ่านพลาสมิด",
     "verified": "OneHealth final น.4",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 4 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -520,6 +541,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "Bt corn เอายีนของแบคทีเรีย Bacillus thuringiensis ที่ผลิต toxin ฆ่าแมลงมาใส่ในข้าวโพด แมลงที่มากินจึงตาย การทนต่อ glyphosate เป็นลักษณะของ Roundup Ready soybean และการใช้ยีนจากแซลมอนชินุกเป็นกรณีของ AquAdvantage salmon ส่วน B. subtilis เป็นแบคทีเรียจริงแต่ไม่ได้ถูกใช้ในกรณีนี้",
     "verified": "OneHealth final น.6",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 6 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -544,6 +566,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 2,
     "explain": "substantial equivalence คือความปลอดภัยของ GM crop ต้องเทียบเท่ากับ crop ปกติ โดยเทียบจาก toxicity, nutrition และ allergenicity นี่เป็นเกณฑ์ด้านความปลอดภัย ไม่ใช่เกณฑ์ผลผลิต ราคา หรือความเหมือนของลำดับดีเอ็นเอ ซึ่งโดยนิยามพืช GM ย่อมมีลำดับดีเอ็นเอต่างจากพืชเดิมอยู่แล้ว",
     "verified": "OneHealth final น.6",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 6 }],
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อสอบที่รุ่นก่อนหน้าบันทึกไว้จากวิชา One Health in Veterinary Public Health"
   },
@@ -568,6 +591,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "การทำ food safety assessment อาหาร GM มีสี่อย่างคือ molecular characterization, nutrition, toxicological และ allergenicity assessment ตัวเลือกที่เติม carcinogenicity เข้ามาแทนที่หนึ่งในสี่ข้อนี้จึงผิด ส่วน teratogenicity และ environmental persistence เป็นการประเมินที่มีจริงในบริบทอื่นแต่ไม่อยู่ในชุดสี่ข้อนี้",
     "verified": "OneHealth final น.6",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 6 }],
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อสอบที่รุ่นก่อนหน้าบันทึกไว้จากวิชา One Health in Veterinary Public Health"
   },
@@ -591,6 +615,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "นโยบายไทยคือ Thailand ban on commercial cultivation of GM crops but allow the importation of GM crops as raw material for further food processing และต้องระบุว่าเป็น GM crop สองส่วนนี้ต้องจำคู่กัน พร้อมข้อกำหนดเรื่องฉลาก",
     "verified": "OneHealth final น.7",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 7 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -614,6 +639,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "แอมโมเนียไม่ใช่ VOC เพราะละลายน้ำได้ดี ต่างจาก VOC ที่ระเหยง่ายแต่ละลายน้ำได้น้อย และเพราะไม่ใช่สารประกอบอินทรีย์ ข้อควรระวังคือเหตุผลที่ว่าไม่มี C และ H นั้นคลาดเคลื่อน เพราะ NH3 มีไฮโดรเจนอยู่ ที่ถูกคือไม่มีคาร์บอน แอมโมเนียระเหยง่ายและมีน้ำหนักโมเลกุลต่ำ ข้ออื่นจึงไม่ใช่เหตุผล",
     "verified": "OneHealth final น.8",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 8 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -637,6 +663,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "fluorinated gases เป็น subset ของ VOCs ใช้ในอุตสาหกรรม มีปริมาณน้อยแต่ trap ความร้อนและก่อภาวะเรือนกระจกได้มากกว่าแก๊สอื่นเพราะมีค่า GWP สูง แก๊สที่ปล่อยออกมามากที่สุดคือ CO2 การหมักย่อยในกระเพาะสัตว์เคี้ยวเอื้องเป็นแหล่งของมีเทน และสารกลุ่มนี้มีอายุในบรรยากาศยาวไม่ใช่สลายตัวเร็ว",
     "verified": "OneHealth final น.8",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 8 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -660,6 +687,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "food loss เกิดได้จากทุกขั้นตอนของการผลิตและเก็บรักษา เช่น ความชื้น ความร้อน เชื้อรา หนู แมลง หรือความเสียหายระหว่างขนส่ง ส่วน food waste คืออาหารที่เสียหรือถูกทิ้งโดยผู้ค้าปลีกและผู้บริโภค เช่น หมดอายุ หรือเข้าใจผิดระหว่าง best before กับ expired ข้อที่ว่า food loss เกิดที่ผู้บริโภคจึงสลับสองฝั่งกัน ส่วนอีกสองข้อแยกด้วยเกณฑ์ที่ไม่ได้ใช้จริง",
     "verified": "OneHealth final น.8",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 8 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -683,6 +711,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "Agroecology หรือนิเวศเกษตรกรรม คือการทำการเกษตรโดยมองฟาร์มและระบบอาหารเป็นระบบนิเวศหนึ่งระบบ เน้นความสัมพันธ์ระหว่างพืช สัตว์ ดิน น้ำ แมลง จุลินทรีย์ และมนุษย์ เพื่อให้การผลิตอาหารยั่งยืน ตัวเลือกที่เกี่ยวกับพลังงานสะอาดและเซนเซอร์คือ energy efficiency strategy ส่วนการลดการกินเนื้อสัตว์คือ diet change strategy ซึ่งเป็นคนละกลยุทธ์ในสามข้อของบทนี้",
     "verified": "OneHealth final น.9",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 9 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -706,6 +735,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 2,
     "explain": "สัตว์เลี้ยงแชร์สิ่งแวดล้อมร่วมกับคน มีพฤติกรรมเสี่ยงต่อการรับสารเคมีมากกว่า เช่น เลีย คลุกดิน ดม และมี latency สั้นกว่าคน จึงป่วยให้เห็นก่อน ข้อที่ว่าอายุยืนกว่าคนขัดกับข้อเท็จจริงที่ว่าอายุขัยสั้นกว่า ส่วนอัตราการกำจัดสารพิษและขนาดตัวไม่ใช่เหตุผลหลัก",
     "verified": "OneHealth final น.10",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 10 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -729,6 +759,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "กระทะเคลือบ Teflon เมื่อร้อนเกิน 280 องศาเซลเซียสจะปล่อย PTFE fumes คนที่สูดเข้าไปจะเกิด polymer fume fever อาการคล้ายหวัด ไอ หายใจลำบาก และมักถูกวินิจฉัยผิดว่าเป็นไวรัสถ้าไม่รู้ว่ามีนกตายก่อน ไอปรอทธาตุทำให้เกิด ARDS แร่ใยหินทำให้เกิด mesothelioma และ 2,4-D สัมพันธ์กับ lymphoma ซึ่งเป็นคนละภาวะ",
     "verified": "OneHealth final น.10",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 10 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -753,6 +784,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "elemental mercury จากแหล่งอย่าง amalgam เทอร์โมมิเตอร์ และหลอดฟลูออเรสเซนต์ ได้รับทางการสูดดมเป็นหลัก และอาจเกิด ARDS ในสัตว์ภายในไม่กี่นาทีถึงชั่วโมง ส่วนคนจะไอ หายใจเร็ว และเกิด hypoxia ซึ่งมักถูกวินิจฉัยผิดเป็นปอดอักเสบ อาการทางระบบประสาทร่วมกับทางเดินอาหารจากการกินเป็นภาพของพิษตะกั่ว",
     "verified": "OneHealth final น.10",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 10 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -777,6 +809,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "methylmercury สะสมในสมองและระบบประสาท ได้รับจากปลาและอาหารทะเล หรือโรงงานที่ปล่อยสารลงน้ำ และผ่านทางเดินอาหารกับผิวหนังได้ดี จุดที่ควรจำต่อคือแบคทีเรียเปลี่ยน inorganic mercury ไปเป็น organic mercury ซึ่งเป็นพิษมากขึ้น ส่วนการสะสมในกระดูกเป็นภาพของตะกั่ว และเยื่อหุ้มปอดเป็นเรื่องของแร่ใยหิน",
     "verified": "OneHealth final น.10",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 10 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -801,6 +834,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 2,
     "explain": "asbestos ที่พบในวัสดุก่อสร้างเช่นกระเบื้องเก่าและหลังคา เมื่อสูดดมเรื้อรังทำให้เกิด mesothelioma ได้ทั้งในคนและสัตว์ mesothelioma ไม่ได้เกิดจากปรอท ตะกั่วก่อพิษทางระบบประสาทและทางเดินอาหาร ส่วน 2,4-D สัมพันธ์กับ lymphoma",
     "verified": "OneHealth final น.11",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 11 }],
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อสอบที่รุ่นก่อนหน้าบันทึกไว้จากวิชา One Health in Veterinary Public Health"
   },
@@ -824,6 +858,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "2,4-D รับได้ทาง oral, dermal และ inhalation โดย acute dose ไม่สูงเมื่อได้รับทางกินและผิวหนัง แต่ chronic exposure จากการสูดดมมีแนวโน้มเป็นสาเหตุของ lymphoma ในสุนัข และ non-Hodgkin lymphoma ในคน มะเร็งชนิดอื่นที่ยกมาเป็นมะเร็งที่พบจริงในสุนัข แต่ไม่ใช่ความสัมพันธ์ที่บทนี้กล่าวถึง",
     "verified": "OneHealth final น.11",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 11 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -847,6 +882,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "บทบาทของสัตวแพทย์มีสองทางคู่กัน คือแจ้งเจ้าของให้ไปตรวจร่างกายกับแพทย์ และแจ้งหน่วยงานสาธารณสุขให้เข้าไปตรวจสิ่งแวดล้อม เพราะประเด็นของ sentinel คือสัตว์ป่วยก่อนแล้วช่วยให้คนได้รับการวินิจฉัยเร็วขึ้น การรักษาสัตว์อย่างเดียวหรือย้ายสัตว์ออกโดยไม่แจ้งใครทำให้ต้นตอในบ้านยังอยู่และคนยังเสี่ยงต่อไป",
     "verified": "OneHealth final น.10",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 10 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -871,6 +907,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 2,
     "explain": "ยีน IGF-1 ในสุนัขพันธุ์ใหญ่กระตุ้นการเจริญเติบโตมากเกินไปจึงทำให้อายุสั้น จึงมีความพยายามสร้างยาที่ยับยั้งการสร้างฮอร์โมนนี้โดยทดลองในสุนัขก่อน โครงการนี้ศึกษาความสัมพันธ์ระหว่างขนาดตัว IGF และอายุขัย โดยมีเป้าหมายชะลอความชราพร้อมคงเมแทบอลิซึมให้สมดุล",
     "verified": "OneHealth final น.11",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 11 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -894,6 +931,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "ข้อกังวลคือการทำหมันทำให้ฮอร์โมนเปลี่ยน จึงมีผลต่อ incidence ของมะเร็ง ส่วนข้ออื่นขัดกับความจริง เพราะสุนัขมีอายุขัยสั้นกว่าคนซึ่งเป็นข้อดีที่ทำให้เห็นวงจรโรคเร็วกว่า สรีรวิทยาก็ใกล้เคียงมนุษย์มาก และข้อมูลมะเร็งในสุนัขมีจำนวนมาก เพียงแต่ยังไม่ได้ validate สำหรับการเทียบเคียงกับคนในระดับนั้น",
     "verified": "OneHealth final น.11",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 11 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -917,6 +955,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "หลักการจัดการของเสียจากฟาร์มปศุสัตว์มีสามประการคือ reduce ลดปริมาณของเสียจากแหล่งกำเนิด reuse นำของเสียไปใช้ประโยชน์เป็นอาหารสัตว์ ปุ๋ยอินทรีย์ หรือแหล่งพลังงาน และ treatment คือการบำบัดจัดการของเสียโดยเฉพาะน้ำเสีย คำอื่นเป็นคำที่ใช้ในบริบทการจัดการขยะทั่วไป แต่ไม่ใช่ชุดสามคำของฟาร์มปศุสัตว์",
     "verified": "OneHealth final น.12",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 12 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -940,6 +979,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 2,
     "explain": "ระบบบ่อบำบัดมีค่าก่อสร้างต่ำ ใช้พื้นที่มาก บำรุงรักษาง่าย ผลตอบแทนปานกลาง และคุณภาพน้ำทิ้งผ่านมาตรฐาน ส่วนระบบก๊าซชีวภาพค่าก่อสร้างสูง ใช้พื้นที่น้อยกว่า บำรุงรักษายาก ผลตอบแทนสูง แต่คุณภาพน้ำทิ้งไม่ผ่าน จึงต้องบำบัดเพิ่มอีกขั้น\n\n❌ ทำไมข้ออื่นผิด\n— \"ระบบบ่อบำบัดใช้พื้นที่น้อยกว่า และให้ผลตอบแทนสูงกว่าก๊าซชีวภาพ\" = สลับกันทั้งคู่ บ่อบำบัดใช้พื้นที่มากกว่าและผลตอบแทนปานกลาง\n— \"ระบบก๊าซชีวภาพดูแลรักษาง่ายกว่า และคุณภาพน้ำทิ้งผ่านมาตรฐานเสมอ\" = ก๊าซชีวภาพบำรุงรักษายากกว่า และคุณภาพน้ำทิ้งยังไม่ผ่าน\n— \"ระบบก๊าซชีวภาพใช้พื้นที่มากกว่า แต่ค่าก่อสร้างถูกกว่าบ่อบำบัด\" = ผิดทั้งสองครึ่ง ก๊าซชีวภาพใช้พื้นที่น้อยกว่าและค่าก่อสร้างสูงกว่า\n\n💡 บ่อบำบัดคือถูกแต่กินพื้นที่ ก๊าซชีวภาพคือแพงแต่ประหยัดพื้นที่และได้ผลตอบแทนกลับมา แลกกับน้ำทิ้งที่ต้องบำบัดต่อ",
     "verified": "OneHealth final น.12",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 12 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -964,6 +1004,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "มาตรฐานน้ำทิ้งจากฟาร์มสุกรควบคุมไว้ 5 ค่า คือ pH value, biochemical oxygen demand (BOD), suspended solids (SS), chemical oxygen demand (COD) และ total Kjeldahl nitrogen (TKN)\n\n❌ ทำไมข้ออื่นผิด\n— \"pH, BOD, COD, SS และจำนวนสุกร\" = จำนวนสุกรใช้จัดประเภทฟาร์ม ไม่ใช่ค่าคุณภาพน้ำ\n— \"pH, BOD, DO, ความขุ่น และ TKN\" = DO และความขุ่นไม่ได้อยู่ในค่าที่ควบคุมชุดนี้\n— \"pH, COD, SS, TKN และโคลิฟอร์ม\" = โคลิฟอร์มไม่ได้อยู่ในค่าที่ควบคุมชุดนี้ และชุดนี้ยังขาด BOD\n\n💡 จำนวนสุกรเป็นตัวลวงที่เจอบ่อย เพราะอยู่ในเรื่องเดียวกันแต่คนละบทบาท คือใช้แบ่งประเภทฟาร์ม ไม่ได้ใช้วัดคุณภาพน้ำ",
     "verified": "OneHealth final น.12",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 12 }],
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อสอบที่รุ่นก่อนหน้าบันทึกไว้จากวิชา One Health in Veterinary Public Health"
   },
@@ -987,6 +1028,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "ประกาศที่ใช้บังคับอยู่แบ่งการเลี้ยงสุกรเป็นสามประเภท และคุมบีโอดีของน้ำทิ้งไว้ที่ ประเภท ก ไม่เกิน 40 มิลลิกรัมต่อลิตร ส่วนประเภท ข และ ค ไม่เกิน 80\n\nค่าอื่นที่ประกาศฉบับเดียวกันคุมไว้คือ ของแข็งแขวนลอยทั้งหมด 150 กับ 200 ซีโอดี 250 กับ 350 ทีเคเอ็น 120 กับ 200 ฟอสฟอรัสรวม 5 ทุกประเภท และ pH 5.5 ถึง 9.0 ทุกประเภท\n\n❌ ทำไมข้ออื่นผิด\n— 80 เป็นค่าของประเภท ข และ ค ไม่ใช่ประเภท ก\n— 150 เป็นค่าของแข็งแขวนลอยของประเภท ก ไม่ใช่บีโอดี\n— 250 เป็นค่าซีโอดีของประเภท ก ไม่ใช่บีโอดี\n\n⚠️ สรุปรุ่นก่อนหลายฉบับเขียนว่าประเภท ก ใช้ 60 และประเภท ข ใช้ 100 ซึ่งเป็นค่าตามประกาศฉบับเดิม ฉบับที่ใช้อยู่ตอนนี้ลดเหลือ 40 กับ 80 ถ้าเจอเลขชุดเก่าในชีตให้รู้ว่ามาจากฉบับไหน\n\n💡 ฟาร์มยิ่งใหญ่ยิ่งคุมเข้ม ประเภท ก จึงได้ตัวเลขต่ำที่สุด",
     "verified": "OneHealth final น.12",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 12 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -1010,6 +1052,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "upflow anaerobic sludge blanket reactor หรือ UASB มีประสิทธิภาพการกำจัดน้ำเสียสูงราว 70 ถึง 80 เปอร์เซ็นต์ ส่วน CIGAR เป็นระบบบ่อคลุมที่ใช้เวลาบำบัดนานกว่า 120 วัน fixed dome เป็นระบบโดมคงที่ที่ไม่ได้ระบุตัวเลขนี้ และ aerobic pond เป็นหนึ่งในบ่อของระบบบ่อบำบัด ไม่ใช่ระบบก๊าซชีวภาพ",
     "verified": "OneHealth final น.12",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 12 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -1033,6 +1076,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 2,
     "explain": "สิ่งปนเปื้อนในน้ำจากกิจกรรมของมนุษย์มีสี่กลุ่ม คือ pathogens จากการปนเปื้อนมูลสัตว์ในฟาร์มปศุสัตว์ agrochemicals จากการเกษตรแบบเข้มข้น sediments จากการชะล้างพังทลายของดิน และ microplastics จากกิจกรรมของมนุษย์หลากหลายรูปแบบ กัมมันตรังสี น้ำมันดิบ ก๊าซเรือนกระจก และ PM 2.5 เป็นมลพิษจริงแต่ไม่ได้อยู่ในสี่กลุ่มนี้",
     "verified": "OneHealth final น.12",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 12 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -1056,6 +1100,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "Risk analysis มี 3 ส่วนคือ risk assessment ประเมิน risk management จัดการ และ risk communication สื่อสาร วิธีจำคือ วิเคราะห์เท่ากับ ประเมิน บวก จัดการ บวก สื่อสาร ตัวเลือกอื่นสอดแทรกคำที่ฟังดูคล้ายอย่างการสืบค้น การบูรณาการ และการพิสูจน์ ซึ่งไม่ใช่องค์ประกอบตามกรอบของ Codex",
     "verified": "OneHealth final น.14",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
     "sourceType": "past-paper",
     "examOrigin": "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้"
   },
@@ -1079,6 +1124,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "CODEX หรือ Codex Alimentarius Commission เป็นผู้จัดทำมาตรฐานสากลที่ SPS ใช้กำหนดมาตรการด้านความปลอดภัยอาหารในคน จึงเป็นกรอบหลักของ food risk analysis ในเชิงสาธารณสุข WHO และ FAO เป็นองค์กรที่ร่วมก่อตั้งและสนับสนุน Codex แต่ไม่ใช่ผู้วางกรอบนี้โดยตรง ส่วน WOAH ดูแลด้านสุขภาพสัตว์และมีกรอบ risk analysis ของตนเองที่แยกออกไป",
     "verified": "OneHealth final น.14",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
     "sourceType": "past-paper",
     "examOrigin": "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้"
   },
@@ -1102,6 +1148,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "food risk analysis อยู่ภายใต้ SPS agreement ซึ่งเป็นข้อตกลงที่ให้ประเทศสมาชิกใช้มาตรการปกป้องชีวิตและสุขภาพคน สัตว์ และพืชได้ โดยต้องอิงหลักฐานทางวิทยาศาสตร์และมาตรฐานของ Codex GATT เป็นข้อตกลงการค้าทั่วไป TBT ว่าด้วยมาตรฐานทางเทคนิคของสินค้า และ TRIPS ว่าด้วยทรัพย์สินทางปัญญา",
     "verified": "OneHealth final น.14",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
     "sourceType": "past-paper",
     "examOrigin": "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้"
   },
@@ -1126,6 +1173,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 2,
     "explain": "Risk characterization คือขั้นที่สี่ ซึ่งรวมผลของ hazard characterization ที่ให้ความสัมพันธ์ dose-response เข้ากับ exposure assessment ที่ให้ปริมาณการได้รับจริง การระบุอันตรายเป็นขั้นแรกที่ทำก่อนทั้งสองขั้นนี้ ส่วนการจัดการและการสื่อสารความเสี่ยงอยู่คนละส่วนของ risk analysis ไม่ได้อยู่ใน risk assessment",
     "verified": "OneHealth final น.14",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
     "sourceType": "past-paper",
     "examOrigin": "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้"
   },
@@ -1149,6 +1197,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "Risk management คือการทำให้ความเสี่ยงอยู่ในระดับที่ยอมรับได้ด้วยการลดความเสี่ยง เช่น กินให้น้อยลง กินให้สะอาด และป้องกันการปนเปื้อน ส่วน risk assessment คือการประเมินว่ามีโอกาสป่วยมากน้อยแค่ไหน risk communication คือการที่ risk manager คุยกับผู้ประเมินและให้ข้อมูลกับ stakeholders และ hazard identification เป็นเพียงขั้นตอนแรกของการประเมิน",
     "verified": "OneHealth final น.14",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
     "sourceType": "past-paper",
     "examOrigin": "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้"
   },
@@ -1172,6 +1221,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "คำว่าเชิงปริมาณในโจทย์เป็นตัวชี้ทางโดยตรง การประเมินความเสี่ยงเชิงปริมาณต้องใช้ข้อมูลเชิงปริมาณ เช่น ความชุกเป็นตัวเลข ความเข้มข้นเป็น log MPN ต่อกรัม และปริมาณอาหารที่บริโภคเป็นกรัม ข้อมูลเชิงคุณภาพให้ได้เพียงระดับสูงกลางต่ำ ส่วน probabilistic และ interval estimate เป็นรูปแบบการนำเสนอผลลัพธ์ ไม่ใช่ลักษณะของข้อมูลนำเข้าที่โจทย์ถาม",
     "verified": "OneHealth final น.14",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
     "sourceType": "past-paper",
     "examOrigin": "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้"
   },
@@ -1195,6 +1245,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "probability of exposure ต้องรู้สามตัวร่วมกัน คือ prevalence ของเชื้อในอาหาร ความเข้มข้นของเชื้อในหน่วย log MPN ต่อกรัม และปริมาณอาหารที่กินเข้าไป ขาดตัวใดตัวหนึ่งก็คำนวณไม่ได้ว่าผู้บริโภครับเชื้อเข้าไปเท่าไร\n\n❌ ทำไมข้ออื่นผิด\n— \"ความชุกของอันตราย ความรุนแรงของโรค และระยะฟักตัวของเชื้อ\" = ความรุนแรงและระยะฟักตัวเป็นข้อมูลของ hazard characterization มีแค่ความชุกที่อยู่ในขั้นนี้\n— \"ความเข้มข้นของอันตราย ราคาของอาหาร และช่องทางการจำหน่าย\" = ราคาและช่องทางจำหน่ายไม่ได้เข้าสูตรคำนวณการสัมผัส\n— \"ปริมาณที่บริโภค อายุของผู้บริโภค และภูมิคุ้มกันของประชากร\" = อายุและภูมิคุ้มกันเป็นความไวของผู้บริโภคต่อโรค ไม่ใช่ตัวแปรที่บอกว่าได้รับเชื้อเข้าไปมากแค่ไหน\n\n💡 สามตัวเรียงเป็นคำถามต่อกัน มีเชื้อไหม (prevalence) เชื้อเยอะแค่ไหน (concentration) กินเข้าไปเท่าไร (amount)",
     "verified": "OneHealth final น.14",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
     "sourceType": "past-paper",
     "examOrigin": "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้"
   },
@@ -1219,6 +1270,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 2,
     "explain": "Hazard characterization คือ dose-response assessment คือต้องรู้ว่าโดสที่ได้รับสัมพันธ์กับโอกาสป่วยอย่างไร ปัจจัยที่เกี่ยวข้องมีสามกลุ่มคือ microbiological factor, host และ food matrix ส่วนความชุกคู่กับปริมาณที่บริโภคเป็นเรื่องของ exposure assessment และการระบุชนิดอันตรายเป็นขั้น hazard identification",
     "verified": "OneHealth final น.14",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 14 }],
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อสอบที่รุ่นก่อนหน้าบันทึกไว้จากวิชา One Health in Veterinary Public Health"
   },
@@ -1242,6 +1294,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "ปัจจัยที่ทำให้ความชุกหรือความเข้มข้นของเชื้อเปลี่ยนไปตลอดห่วงโซ่ เช่น อุณหภูมิ เวลา และการปนเปื้อนข้าม เป็นข้อมูลที่ป้อนเข้าสู่ exposure assessment เพราะกำหนดว่าผู้บริโภคจะได้รับเชื้อในปริมาณเท่าใด ณ จุดบริโภค hazard identification เป็นการระบุว่าอะไรคืออันตราย hazard characterization ตอบเรื่อง dose-response และ risk characterization เป็นการรวมผลของสองขั้นหลัง",
     "verified": "OneHealth final น.13",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 13 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -1265,6 +1318,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "ALOP คือผลกระทบที่ยอมรับได้ วัดเป็นจำนวนเคสต่อปี แต่วัดได้ยากในทางปฏิบัติ จึงแปลงเป็น FSO ซึ่งเป็นปริมาณการปนเปื้อนเชื้อที่ยอมรับได้ ณ จุดบริโภค ซึ่งเป็นค่าความเข้มข้น ตัวเลือกที่สลับสองนิยามจึงผิด และทั้งสองค่าเป็นเป้าหมายที่ภาครัฐกำหนดในระดับนโยบาย ไม่ได้แบ่งตามผู้กำหนดหรือแหล่งที่มาของสินค้า",
     "verified": "OneHealth final น.13",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 13 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -1288,6 +1342,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 2,
     "explain": "Entry assessment ประเมินโอกาสที่เชื้อจะติดมากับสินค้าและเข้าสู่ประเทศ โดยจุดเริ่มต้นอยู่ที่ประเทศผู้ส่งออก ถ้าไม่มีการปนเปื้อนตั้งแต่ต้นทางก็ไม่เกิด exposure ตามมา ส่วนโอกาสที่โฮสต์จะเจอเชื้อคือ exposure assessment ผลกระทบเมื่อระบาดคือ consequence assessment และการรวมผลทั้งหมดคือ risk estimation",
     "verified": "OneHealth final น.13",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 13 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -1311,6 +1366,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "risk analysis ของ WOAH มี 4 ส่วน โดยแยก hazard identification ออกมาเป็นส่วนหนึ่งต่างหาก ส่วนอีก 3 ข้อที่เหลือคือ risk assessment, risk management และ risk communication เหมือนกับ food risk analysis ตัวเลือกอื่นเปลี่ยนจำนวนส่วนหรือเพิ่มองค์ประกอบที่ไม่มีอยู่ในกรอบนี้",
     "verified": "OneHealth final น.13",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 13 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -1334,6 +1390,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 1,
     "explain": "เชื้อที่น่ากลัวที่สุดในกุ้งนำเข้าคือ WSSV เพราะพบได้ในกุ้งที่ดูปกติจากการติดเชื้อแบบซ่อนเร้น และยังตรวจเจอ DNA ของเชื้อได้แม้ในกุ้งแช่แข็ง ไวรัสอื่นที่ยกมาเป็นเชื้อก่อโรคในกุ้งที่มีอยู่จริงและอยู่ในบัญชีโรคของ WOAH เช่นกัน แต่ไม่ใช่ตัวที่กรณีศึกษานี้ระบุเป็น hazard หลัก",
     "verified": "OneHealth final น.15",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 15 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -1357,6 +1414,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "PALEE ย่อมาจาก partial annual likelihood of entry and exposure หมายถึงโอกาสรายปีที่เชื้อจะเข้าประเทศและไปถึงโฮสต์ในแต่ละกลุ่ม คำนวณจาก likelihood of entry คูณกับ partial likelihood of exposure ของกลุ่มนั้น ส่วน consequence จะถูกนำมาคูณในขั้นถัดไปเมื่อคำนวณ partial annual risk ไม่ใช่ในขั้นของ PALEE เอง",
     "verified": "OneHealth final น.15 และ น.16",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 15 }, { "doc": "onehealth-final85", "edition": "16p", "page": 16 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -1380,6 +1438,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 3,
     "explain": "ค่า partial likelihood of exposure ของฟาร์มกุ้งทั่วไปเท่ากับ low ส่วนโรงเพาะฟักและกุ้งธรรมชาติเท่ากับ high โดยโรงเพาะฟักเป็นกลุ่มที่สัมผัสเชื้อสูงที่สุด และกุ้งธรรมชาติเสี่ยงเพราะกุ้งดิบอาจถูกทิ้งลงทะเลหรือใช้เป็นเหยื่อ โรงงานแปรรูปไม่ได้ถูกจัดเป็นหนึ่งในสามกลุ่มที่ประเมิน",
     "verified": "OneHealth final น.15",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 15 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -1403,6 +1462,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 2,
     "explain": "ALOP คือระดับความเสี่ยงสูงสุดที่ประเทศยอมรับได้ ของออสเตรเลียกำหนดไว้ที่ very low เมื่อ overall annual risk ของ WSSV ออกมาเป็น high ซึ่งสูงกว่า ALOP จึงไม่สามารถอนุญาตให้นำเข้าแบบเดิมได้และต้องทำ risk management ก่อน ตัวเลือกที่ยกเลิกการตรวจสอบหรือห้ามนำเข้าทั้งหมดไม่ตรงกับข้อสรุปของกรณีศึกษา",
     "verified": "OneHealth final น.16",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 16 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },
@@ -1426,6 +1486,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
     "answer": 0,
     "explain": "มาตรการ risk management มีหลายข้อ ได้แก่ นำเข้าจากประเทศหรือเขตปลอดโรค ตรวจ PCR ให้ได้ผลลบ แปรรูปโดยแกะเปลือกและเด็ดหัว ทำให้สุกที่อุณหภูมิไม่ต่ำกว่า 85 องศาเซลเซียส ติดฉลาก for human consumption only และตรวจซ้ำหลังเข้าประเทศ อุณหภูมิ 65 และ 75 องศาเป็นเกณฑ์ที่ใช้กับอาหารทั่วไป แต่ไม่ใช่ค่าที่กรณีศึกษานี้กำหนด",
     "verified": "OneHealth final น.16",
+    "sourcePages": [{ "doc": "onehealth-final85", "edition": "16p", "page": 16 }],
     "sourceType": "lecture-derived",
     "examOrigin": "เรียบเรียงจากเอกสารสรุป One Health final ของรุ่นก่อนหน้า"
   },

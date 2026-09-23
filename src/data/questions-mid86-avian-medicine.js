@@ -24,6 +24,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "IBV เข้าทำลาย ciliated epithelial cell และ mucus secreting cell ของท่อลม ซึ่งเป็นด่านแรกของระบบป้องกันทางเดินหายใจ เมื่อขนกวัดถูกทำลาย เมือกจึงค้างอยู่ในท่อลม เชื้อฉวยโอกาสอย่าง Escherichia coli จึงลงมาซ้ำได้ง่าย เกิด airsacculitis, pericarditis และ perihepatitis ตามมา จนอัตราการตายในไก่เนื้อพุ่งได้ถึง 60% ทั้งที่ IBV เดี่ยว ๆ ทำให้ตายน้อยกว่านั้นมาก ตัวเลือกที่ล่อใจคือ B lymphocyte ในต่อมเบอร์ซ่า ซึ่งเป็นเซลล์เป้าหมายของ IBDV ไม่ใช่ของ IBV",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 1 ข้อ 1 (ชุดจับคู่ อ.ณทยา)",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 1",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 1 }],
     "tags": [
       "avian-ib",
       "อิงแนวข้อสอบ"
@@ -47,6 +48,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ชุดอาการหัวบวม คือไซนัสใต้ตาบวมร่วมกับ subcutaneous yellow gelatinous edema ที่หงอน คอ และเหนียง เป็นภาพของ avian metapneumovirus หรือ swollen head syndrome ในประเทศไทยพิจารณาทำวัคซีนเฉพาะฟาร์มที่มีประวัติปัญหาและมีความเสี่ยง ไม่ได้ทำทุกฝูง โปรแกรมตัวอย่างในพ่อแม่พันธุ์ไก่เนื้อคือเชื้อเป็นที่ 12 สัปดาห์ทางน้ำกิน แล้วเชื้อตายที่ 16 สัปดาห์โดยฉีดเข้ากล้าม ตัวเลือกที่ล่อใจคือหวัดหน้าบวมจาก Avibacterium ซึ่งหน้าบวมเหมือนกัน แต่ของเหลวที่คั่งเป็นน้ำมูกในไซนัส ไม่ใช่วุ้นใต้ผิวหนัง",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 1 ข้อ 10 (ชุดจับคู่ อ.ณทยา)",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 1",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 1 }],
     "tags": [
       "avian-mpv",
       "อิงแนวข้อสอบ"
@@ -71,6 +73,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 4 ข้อ 13 (ชุดจับคู่ อ.ณทยา) และ Avain med Mid 86.pdf หน้า 18",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 4",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 4 }],
     "tags": [
       "avian-ibd",
       "อิงแนวข้อสอบ"
@@ -95,6 +98,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 5 ข้อ 14 (ชุดจับคู่ อ.ณทยา) และ Avain med Mid 86.pdf หน้า 19",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 5",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 5 }],
     "tags": [
       "avian-ne",
       "อิงแนวข้อสอบ"
@@ -118,6 +122,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ทั้งสามโรคนี้ทำให้ไก่หายใจลำบากได้ Mycoplasma gallisepticum ให้ภาพ chronic respiratory disease ส่วน fowl cholera ระยะเฉียบพลันมี depression, cyanosis และอาการทางระบบหายใจจนคล้ายไข้หวัดนก และ infectious coryza ระยะเฉียบพลันมีน้ำมูก น้ำตา และหน้าบวมจนหายใจลำบาก ชุดโรคในตัวเลือกอื่นมีทั้งโรคทางเดินอาหารอย่าง necrotic enteritis กับ histomoniasis และโรคข้ออย่าง staphylococcosis ซึ่งไม่ได้ให้อาการทางระบบหายใจเป็นอาการนำ",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 6 ข้อ 1 (ชุด MCQ อ.สมศักดิ์)",
     "verified": "อิงแนวสอบ, เขียนใหม่จากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 6 โดยตัดตัวเลือกรวบยอดออก",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 6 }],
     "tags": [
       "avian-myco",
       "อิงแนวข้อสอบ"
@@ -142,6 +147,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 6 ข้อ 5 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 5",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 6",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 6 }],
     "tags": [
       "avian-fowl-cholera",
       "อิงแนวข้อสอบ"
@@ -165,6 +171,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "จุดแยกอยู่ที่การย้อมสี Mycobacterium เป็น acid-fast positive ส่วน Escherichia coli เป็น acid-fast negative การย้อมจึงตอบได้ทันทีว่าก้อนที่เห็นเป็น coligranuloma หรือที่เรียกว่า Hjarre's disease หรือเป็นวัณโรคสัตว์ปีก การเพาะบน blood agar บอกได้แค่ว่า E. coli ขึ้น แต่ไม่ได้ตัดวัณโรคออก เพราะ Mycobacterium โตช้ามากและต้องใช้อาหารจำเพาะ ส่วน ELISA และ plate agglutination เป็นการตรวจแอนติบอดี ไม่ได้ดูตัวเชื้อในรอยโรคที่มีอยู่ตรงหน้า",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 6 ข้อ 6 (ชุด MCQ อ.สมศักดิ์)",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 6",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 6 }],
     "tags": [
       "avian-coli",
       "อิงแนวข้อสอบ"
@@ -188,6 +195,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "หลักการของยาปฏิชีวนะคือยาต้องเข้าไปสัมผัสและทำปฏิกิริยากับตัวเชื้อโดยตรงในระดับความเข้มข้นที่เหมาะสมจึงจะได้ผล เมื่อรอยโรคมีไฟบรินหนาห่อหุ้มเชื้อไว้ ยาเข้าไม่ถึง การเพิ่มขนาดยาจึงไม่ช่วย ถ้าตับมีไฟบรินหนาตัว โอกาสรักษาหายน้อย ควรคัดทิ้ง และยาปฏิชีวนะไม่ได้ฟื้นรอยโรคเรื้อรังให้กลับเป็นปกติ อีกทั้งใช้กับไวรัสไม่ได้ไม่ว่าจะให้นานแค่ไหน",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 6 ถึง 7 ข้อ 7 (ชุด MCQ อ.สมศักดิ์)",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 6",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 6 }],
     "tags": [
       "avian-coli",
       "อิงแนวข้อสอบ"
@@ -211,6 +219,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "โรคหวัดหน้าบวมรักษาด้วย oxytetracycline, amoxicillin หรือกลุ่ม macrolides ผสมน้ำหรืออาหาร และถ้าต้องฉีดรายตัวใช้ gentamicin หรือ tylosin ร่วมกับ streptomycin ซึ่งได้ผลดีแต่ต้องจับฉีดทีละตัว จึงเหมาะกับกรณีป่วยไม่กี่ตัว ข้อที่ผิดชัดคือ enrofloxacin ในไก่ไข่ที่กำลังให้ไข่ เพราะกลุ่ม quinolone ตกค้างในไข่และห้ามใช้ ส่วน gentamicin ไม่ใช่ยาที่ให้โดยละลายน้ำ และโจทย์ระบุแล้วว่าเลือกฉีดเป็นรายตัว",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 7 ข้อ 8 (ชุด MCQ อ.สมศักดิ์)",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 7",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 7 }],
     "tags": [
       "avian-coryza",
       "อิงแนวข้อสอบ"
@@ -235,6 +244,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 7 ข้อ 13 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 12",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 7",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 7 }],
     "tags": [
       "avian-myco",
       "อิงแนวข้อสอบ"
@@ -259,6 +269,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 8 ข้อ 16 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 15",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 8",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 8 }],
     "tags": [
       "avian-myco",
       "อิงแนวข้อสอบ"
@@ -283,6 +294,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 9 ข้อ 19 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 9",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 9 }],
     "tags": [
       "avian-myco",
       "อิงแนวข้อสอบ"
@@ -307,6 +319,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 9 ข้อ 20 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 19",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 9",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 9 }],
     "tags": [
       "avian-myco",
       "อิงแนวข้อสอบ"
@@ -331,6 +344,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 9 ข้อ 21 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 20",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 9",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 9 }],
     "tags": [
       "avian-myco",
       "อิงแนวข้อสอบ"
@@ -355,6 +369,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 10 ข้อ 23 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 21",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 10",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 10 }],
     "tags": [
       "avian-myco",
       "อิงแนวข้อสอบ"
@@ -378,6 +393,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "MS-H เป็นวัคซีนเชื้อเป็นชนิด temperature sensitive ที่พัฒนาขึ้นสำหรับ Mycoplasma synoviae โดยเฉพาะ ให้โดยการหยอดตาในไก่รุ่น ส่วน ts-11, 6/85 และ F-strain ทั้งสามตัวเป็นวัคซีนของ Mycoplasma gallisepticum ที่ต่างกันที่ความแรงของภูมิและความเสี่ยง จุดที่มักสับสนคือ ts-11 กับ MS-H เพราะทั้งคู่เป็น temperature sensitive และให้โดยหยอดตาเหมือนกัน ให้จำจากตัวอักษรนำหน้าว่า MS คือ M. synoviae",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 10 ข้อ 24 (ชุด MCQ อ.สมศักดิ์)",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 10",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 10 }],
     "tags": [
       "avian-myco",
       "อิงแนวข้อสอบ"
@@ -402,6 +418,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 10 ข้อ 25 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 22",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 10",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 10 }],
     "tags": [
       "avian-myco",
       "อิงแนวข้อสอบ"
@@ -426,6 +443,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 10 ข้อ 26 (ชุด MCQ อ.สมศักดิ์) และ Avain med Mid 86.pdf หน้า 11 ข้อ 23",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 10",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 10 }],
     "tags": [
       "avian-fowl-cholera",
       "อิงแนวข้อสอบ"
@@ -449,6 +467,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "Avibacterium paragallinarum เป็นโรคของทางเดินหายใจส่วนต้นล้วน ๆ คือโพรงจมูกและไซนัสใต้เบ้าตา เชื้อไม่ลงไปถึงท่อลมและถุงลมถ้าไม่มีเชื้อแทรกซ้อน ข้อนี้สำคัญเพราะใช้แยกจาก MG, E. coli และไข้หวัดนกที่ลงลึกกว่า ถ้าพบ airsacculitis หรือปอดอักเสบร่วมด้วย แปลว่ามีเชื้อแทรกซ้อนอย่าง MG, fowlpox หรือ E. coli แล้ว ส่วนการหลบใน trigeminal ganglion เป็นกลไกของ ILT ซึ่งเป็น herpesvirus",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 11 ข้อ 28 (ชุด MCQ อ.สมศักดิ์)",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 11",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 11 }],
     "tags": [
       "avian-coryza",
       "อิงแนวข้อสอบ"
@@ -472,6 +491,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "Natural host ของ Avibacterium paragallinarum คือไก่ โดยยังพบได้ในไก่ฟ้าและ guinea fowl และการระบาดพบในไก่ไข่กับไก่สาวมากกว่าไก่เนื้อ เพราะไก่เนื้อถูกจับก่อนถึงช่วงอายุที่โรคแสดงออก ลักษณะเด่นของโรคคือ high morbidity แต่ low mortality และผลเสียหลักคือไข่ลด 10 ถึง 40% ส่วนตัวเลือกเรื่องเป็ดและห่านไวรับมากกว่าไก่เป็นข้อความของ fowl cholera ที่ถูกนำมาสลับ",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 11 ข้อ 30 (ชุด MCQ อ.สมศักดิ์)",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 11",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 11 }],
     "tags": [
       "avian-coryza",
       "อิงแนวข้อสอบ"
@@ -512,6 +532,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ถูก เมื่อ Staphylococcus spp. เข้าสู่กระแสเลือดจะเกิด septicemia แล้วไปสร้างรอยโรคที่อวัยวะภายใน โดยตับเป็นตำแหน่งที่พบได้ชัด นอกจากนี้ยังพบที่ข้อและกระดูกจนไก่เดินกะเผลก การเก็บตัวอย่างในกรณี systemic จึงเก็บจากตับ เลือด และข้อ hock ส่งเพาะบน blood agar จุดที่ต้องระวังคือถ้าไก่ติดไวรัสร่วมด้วย เช่น Reovirus การรักษาด้วยยาปฏิชีวนะจะไม่ได้ผลแม้เชื้อจะไวต่อยา",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 13 ข้อ 5 (ชุด อ.เกรียงวิชญ์)",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 13",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 13 }],
     "tags": [
       "avian-ahra-set",
       "อิงแนวข้อสอบ"
@@ -530,6 +551,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 13 ข้อ 6 (ชุด อ.เกรียงวิชญ์) และ Avain med Mid 86.pdf หน้า 21",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 13",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 13 }],
     "tags": [
       "avian-ahra-set",
       "อิงแนวข้อสอบ"
@@ -547,6 +569,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ถูก MRSA ในฝูงสัตว์ปีกไม่ได้เป็นแค่ปัญหาการรักษาในฟาร์ม แต่เป็นประเด็นความปลอดภัยทางอาหาร เพราะเชื้อดื้อยาส่งต่อถึงผู้บริโภคและผู้ปฏิบัติงานในโรงเชือดได้ และยังเป็นหลักฐานว่ามีการใช้ยาปฏิชีวนะไม่เหมาะสมในฟาร์ม จึงเชื่อมโยงกับแนวคิด antibiotic free farming และการเฝ้าระวังเชื้อดื้อยาตามแนวทาง One Health",
     "source": "Avian med mid TJ เฉลย.pdf หน้า 13 ข้อ 7 (ชุด อ.เกรียงวิชญ์)",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 13",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 13 }],
     "tags": [
       "avian-ahra-set",
       "อิงแนวข้อสอบ"
@@ -571,6 +594,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 13 ข้อ 8 (ชุด อ.เกรียงวิชญ์) และ Avain med Mid 86.pdf หน้า 21",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 13",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 13 }],
     "tags": [
       "avian-salmonella",
       "อิงแนวข้อสอบ"
@@ -595,6 +619,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 13 ข้อ 9 (ชุด อ.เกรียงวิชญ์) และ Avain med Mid 86.pdf หน้า 22",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 13",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 13 }],
     "tags": [
       "avian-adeno",
       "อิงแนวข้อสอบ"
@@ -619,6 +644,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "source": "Avian med mid TJ เฉลย.pdf หน้า 13 ข้อ 10 และ 11 (ชุด อ.เกรียงวิชญ์) และ Avain med Mid 86.pdf หน้า 22",
     "sourceType": "exam-aligned",
     "verified": "อิงแนวสอบ, เขียนจากเอกสารสรุปรุ่นพี่ TJ 86 หน้า 13",
+    "sourcePages": [{ "doc": "avian-mid-tj", "edition": "13p", "page": 13 }],
     "tags": [
       "avian-adeno",
       "อิงแนวข้อสอบ"
@@ -800,6 +826,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ถูก Mycoplasma ไม่มีผนังเซลล์ ยาที่ออกฤทธิ์ต่อผนังเซลล์อย่างเพนิซิลลินและอะม็อกซีซิลลินจึงไม่มีเป้าหมายให้ทำลาย และเชื้อมีขนาดเล็กกว่าแบคทีเรียทั่วไปแต่ใหญ่กว่าไวรัส",
     "source": "บันทึกหลังสอบกลางภาค Avian Medicine (Mycoplasma)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p71; VET86 8ekNMuG25gI [5:24], [3:47-4:01]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 71 }],
     "tags": [
       "avian-myco",
       "อิงแนวข้อสอบ"
@@ -818,6 +845,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ผิด M. meleagridis (MM) เป็นเชื้อของไก่งวง พบเฉพาะในไก่งวง แม้บางครั้งแยกได้จากไก่แต่ไก่ไม่เป็นโรค เชื้อที่เป็นปัญหาในไก่คือ MG กับ MS เท่านั้น",
     "source": "บันทึกหลังสอบกลางภาค Avian Medicine (Mycoplasma)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p72; VET86 8ekNMuG25gI [6:15-7:09]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 72 }],
     "tags": [
       "avian-myco",
       "อิงแนวข้อสอบ"
@@ -836,6 +864,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ถูก CRD complex มี primary cause เป็น MG หรือ MS แล้วมีเชื้อทุติยภูมิอย่าง E. coli หรือ IB ซ้ำเติม ถุงลมอักเสบเกิดจาก MG และ/หรือ MS ร่วมกับการติดเชื้อทางเดินหายใจอื่นหรือ E. coli",
     "source": "บันทึกหลังสอบกลางภาค Avian Medicine (Mycoplasma)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p73; VET86 8ekNMuG25gI [12:14-12:41], [8:49-9:03]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 73 }],
     "tags": [
       "avian-myco",
       "อิงแนวข้อสอบ"
@@ -1106,6 +1135,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ผิด ชื่อปัจจุบันของเชื้อก่อโรคกลุ่มนี้คือ avian pathogenic Escherichia coli ย่อว่า APEC ส่วน poultry pathogenic E. coli เป็นชื่อเดิมที่เลิกใช้แล้ว",
     "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p61 Question 31; VET86 R0xTpIvGn98 [4:38], [28:12]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 61 }],
     "tags": [
       "avian-coli",
       "อิงแนวข้อสอบ"
@@ -1124,6 +1154,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ผิด ซีโรไทป์ก่อโรคในไทยคือ O1, O2, O35 และ O78 ตัวเลขที่ต่างคือ O78 ไม่ใช่ O87 และวัคซีนเชื้อตายส่วนใหญ่ครอบคลุมสี่ซีโรไทป์นี้อยู่แล้ว",
     "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p62 Question 32; VET86 R0xTpIvGn98 [9:28], [45:37], [51:51]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 62 }],
     "tags": [
       "avian-coli",
       "อิงแนวข้อสอบ"
@@ -1142,6 +1173,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ผิด ในไก่ E. coli ราว 95% เป็นโรคทางเดินหายใจ ต่างจากสัตว์อื่นที่มักเป็นทางเดินอาหาร ท้องเสียจาก APEC พบเพียงราว 10% และมักเป็นเชื้อที่สร้างสารพิษซึ่งพบน้อย",
     "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p63; VET86 8ekNMuG25gI [12:41-13:07]; VET86 R0xTpIvGn98 [27:45-28:38]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 63 }],
     "tags": [
       "avian-coli",
       "อิงแนวข้อสอบ"
@@ -1160,6 +1192,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ถูก เชื้อเข้าทางการกินอาหารและน้ำที่ปนเปื้อน ทางฝุ่นละอองในโรงเรือนที่มีเชื้อจากทางเดินหายใจไก่ป่วย ทางรูพรุนของเปลือกไข่ที่เปื้อนมูลไก่ และทางบาดแผลที่ผิวหนังซึ่งเป็นปัจจัยโน้มนำอีกทางหนึ่ง",
     "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p64; VET86 R0xTpIvGn98 [13:10-14:15], [17:38-17:52], [14:55]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 64 }],
     "tags": [
       "avian-coli",
       "อิงแนวข้อสอบ"
@@ -1178,6 +1211,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ถูก รูปแบบเฉพาะที่ของ colibacillosis มี yolk sac infection กับสะดืออักเสบ การติดเชื้อใต้ผิวหนังทางบาดแผล และ salpingitis ที่มักลามเป็น peritonitis โดยเชื้อเข้าท่อนำไข่ได้ทั้งจากโคลเอกาและจากถุงลมอักเสบ",
     "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p65; VET86 R0xTpIvGn98 [16:33-18:06], [24:27], [28:52-30:48]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 65 }],
     "tags": [
       "avian-coli",
       "อิงแนวข้อสอบ"
@@ -1196,6 +1230,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ผิด ระยะฟักตัวของ E. coli สั้นมาก ประมาณ 2 วันหลังรับเชื้อจึงแสดงอาการ และในลูกไก่การติดเชื้อทางกระแสเลือดใช้เวลาราว 24-48 ชั่วโมง ตัวเลข 7-10 วันจึงยาวเกินจริง ระยะฟักตัวสั้นนี้ยังใช้แยกจาก MG ที่นาน 10-21 วัน",
     "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p67; VET86 R0xTpIvGn98 [31:28], [40:31]; VET86 8ekNMuG25gI [57:29-57:40]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 67 }],
     "tags": [
       "avian-coli",
       "อิงแนวข้อสอบ"
@@ -1214,6 +1249,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ถูก เป็ดที่ติด E. coli พบไฟบรินคลุมตับ หัวใจ และถุงลมเหมือน new duck syndrome จากเชื้อ anatipestifer รอยโรคคล้ายกันจนแยกได้ด้วยการเพาะเชื้อเท่านั้น",
     "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p68; VET86 R0xTpIvGn98 [43:21-43:58]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 68 }],
     "tags": [
       "avian-coli",
       "อิงแนวข้อสอบ"
@@ -1232,6 +1268,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ผิด coligranuloma เป็นตุ่มแกรนูโลมาคล้ายเนื้องอกที่อวัยวะภายใน เช่น ตับและลำไส้ ไม่ใช่ที่ผิวหนัง เป็นรูปแบบเรื้อรังที่พบน้อยมาก และต้องแยกจากวัณโรคสัตว์ปีกด้วยการย้อม acid fast",
     "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p69; VET86 R0xTpIvGn98 [6:05-6:57], [31:43]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 69 }],
     "tags": [
       "avian-coli",
       "อิงแนวข้อสอบ"
@@ -1250,6 +1287,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ผิด รอยโรคแบบนี้รักษาอย่างไรก็ไม่หาย ถ้ารอดก็แคระแกร็น เพราะยาจะได้ผลต่อเมื่อสัมผัสเชื้อโดยตรง แต่ไฟบรินคลุมตัวเชื้อไว้ ที่พอรักษาทันคือระยะที่ไฟบรินยังบางเท่านั้น จึงต้องวินิจฉัยให้เร็ว",
     "source": "บันทึกหลังสอบกลางภาค Avian Medicine (E. coli)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p70; VET86 R0xTpIvGn98 [33:51-35:42]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 70 }],
     "tags": [
       "avian-coli",
       "อิงแนวข้อสอบ"
@@ -2001,6 +2039,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ผิด AE มี age resistance ไก่จะเสียหายเมื่อติดเชื้อในช่วง 4 สัปดาห์แรกที่ภูมิคุ้มกันยังไม่พร้อม ไก่โตติดเชื้อแล้วไม่มีความเสียหายทางประสาทให้เห็น ลูกไก่ป่วยจะหัวสั่นและยืนพยุงตัวไม่ได้",
     "source": "บันทึกหลังสอบ Avian Medicine (AE)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p37 Question 7; VET86 ezb2wLM_R2o [83:17-84:34]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 37 }],
     "tags": [
       "avian-ae",
       "อิงแนวข้อสอบ"
@@ -2019,6 +2058,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ผิด การควบคุม AE ทำที่ไก่พ่อแม่พันธุ์ ให้พ่อแม่มีภูมิแล้วส่งภูมิให้ลูกป้องกันช่วงแรกที่ไวต่อโรค วัคซีนเชื้อเป็นให้ในไก่รุ่นของฝูงพันธุ์ (ค่าที่ใช้อยู่คือราว 6 สัปดาห์ ส่วนตำราให้ที่ 8 สัปดาห์ขึ้นไปและก่อนเริ่มไข่อย่างน้อย 4 สัปดาห์) ส่วนวัคซีนที่ทำในไก่เนื้อมีเพียง ND, IB และ IBD",
     "source": "บันทึกหลังสอบ Avian Medicine (AE)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p40 Question 10; VET86 ezb2wLM_R2o [86:20-87:11], [90:35-91:01]; VET86 R0xTpIvGn98 [10:54]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 40 }],
     "tags": [
       "avian-ae",
       "อิงแนวข้อสอบ"
@@ -2037,6 +2077,7 @@ export const QUESTIONS_MID86_AVIAN_MEDICINE = [
     "explain": "ถูก AE ติดทาง oral route ซึ่งก็คือการกินอุจจาระ น้ำดื่มที่ปนเปื้อนอุจจาระหรือฝุ่นที่มีไวรัสไปแปะในอาหาร ไวรัสเพิ่มจำนวนในทางเดินอาหารก่อน ขับออกทางอุจจาระ แล้วจึงไปที่ระบบประสาท",
     "source": "บันทึกหลังสอบ Avian Medicine (AE)",
     "verified": "อิงแนวข้อสอบ, MID 86 audit p42 Question 12; VET86 ezb2wLM_R2o [82:00-82:50]",
+    "sourcePages": [{ "doc": "avian-med-mid86", "edition": "82p", "page": 42 }],
     "tags": [
       "avian-ae",
       "อิงแนวข้อสอบ"

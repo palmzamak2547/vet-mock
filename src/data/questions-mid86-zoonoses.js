@@ -34,7 +34,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 0,
     "explain": "WOAH (World Organisation for Animal Health) ซึ่งเดิมใช้ชื่อ OIE เป็นองค์กรที่ออกมาตรฐานสุขภาพสัตว์ รับแจ้งโรคระบาดสัตว์จากประเทศสมาชิก และประกาศสถานะปลอดโรคของแต่ละประเทศ\n\n❌ ทำไมข้ออื่นผิด\n— WHO รับผิดชอบสุขภาพคน ไม่ได้กำกับมาตรฐานโรคระบาดสัตว์\n— FAO ดูแลด้านอาหารและการเกษตร ร่วมงานกับ WOAH แต่ไม่ได้ออกมาตรฐานสุขภาพสัตว์\n— UNEP ดูแลด้านสิ่งแวดล้อม เป็นขาที่สามของ One Health ไม่ใช่ผู้กำกับโรคสัตว์\n\n💡 โรคสัตว์ข้ามพรมแดนเมื่อไร ปลายทางการแจ้งคือ WOAH",
-    "verified": "Zoonosis Mid 86 p.2"
+    "verified": "Zoonosis Mid 86 p.2",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 2 }]
   },
   {
     "id": 202001,
@@ -58,7 +59,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 1,
     "explain": "One Health มองว่าสุขภาพคน สุขภาพสัตว์ และสิ่งแวดล้อมเป็นเรื่องเดียวกัน การควบคุมโรคสัตว์สู่คนจึงต้องทำงานร่วมกันทั้งสามด้าน\n\n❌ ทำไมข้ออื่นผิด\n— เศรษฐกิจเป็นผลกระทบที่ตามมา ไม่ใช่องค์ประกอบของ One Health\n— ความปลอดภัยอาหารและการค้าเป็นผลลัพธ์ของการทำงาน ไม่ใช่สามเสาหลัก\n— กฎหมายเป็นเครื่องมือในการขับเคลื่อน แต่ไม่ได้แทนที่มิติสิ่งแวดล้อม\n\n💡 คน สัตว์ สิ่งแวดล้อม สามขา ขาดขาใดขาหนึ่งไม่ได้",
-    "verified": "Zoonosis Mid 86 p.2"
+    "verified": "Zoonosis Mid 86 p.2",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 2 }]
   },
   {
     "id": 202002,
@@ -82,7 +84,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 2,
     "explain": "โรคอุบัติใหม่คือโรคติดเชื้อที่เพิ่งเกิดขึ้นในพื้นที่หรือประชากรนั้นเป็นครั้งแรก เช่น COVID-19 และ Nipah virus ส่วนโรคเดิมที่กลับมารุนแรงหรือกระจายกว้างขึ้นเรียกว่าโรคอุบัติซ้ำ\n\n❌ ทำไมข้ออื่นผิด\n— โรคประจำถิ่นที่อัตราคงที่คือ endemic ไม่ใช่โรคอุบัติใหม่\n— โรคที่แพร่ข้ามพรมแดนและกระทบเศรษฐกิจคือ transboundary animal disease\n— โรคที่ติดจากคนย้อนกลับไปสู่สัตว์คือ reverse zoonosis\n\n💡 ใหม่สำหรับพื้นที่หรือประชากรนั้น ก็นับว่าอุบัติใหม่แล้ว",
-    "verified": "Zoonosis Mid 86 p.2"
+    "verified": "Zoonosis Mid 86 p.2",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 2 }]
   },
   {
     "id": 202003,
@@ -106,7 +109,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 3,
     "explain": "Rickettsia felis เป็นเชื้อกลุ่ม flea-borne spotted fever มีหมัดแมว Ctenocephalides felis เป็นพาหะหลัก และพบเชื้อได้ทั้งในหมัดและในแมวหรือสุนัขที่มีหมัด\n\n❌ ทำไมข้ออื่นผิด\n— Rhipicephalus sanguineus เป็นเห็บสุนัข พาหะของ spotted fever กลุ่มที่นำโดยเห็บ\n— Leptotrombidium เป็นไรอ่อน พาหะของ Orientia tsutsugamushi ที่ทำให้เกิด scrub typhus\n— Pediculus humanus เป็นเหา พาหะของ Rickettsia prowazekii ที่ทำให้เกิด epidemic typhus\n\n💡 ชื่อ felis บอกอยู่แล้วว่ามากับหมัดแมว",
-    "verified": "Zoonosis Mid 86 p.3"
+    "verified": "Zoonosis Mid 86 p.3",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 3 }]
   },
   {
     "id": 202004,
@@ -130,7 +134,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 0,
     "explain": "E. chaffeensis เข้าเพิ่มจำนวนใน monocyte จึงทำให้เกิด human monocytic ehrlichiosis ส่วน E. phagocytophila เข้า neutrophil ทำให้เกิด human granulocytic ehrlichiosis\n\n❌ ทำไมข้ออื่นผิด\n— E. phagocytophila เข้า neutrophil ไม่ใช่ monocyte\n— E. chaffeensis ไม่ได้เจริญใน lymphocyte\n— เชื้อกลุ่มนี้ไม่ได้ใช้เกล็ดเลือดเป็นเซลล์เป้าหมายหลัก ที่เข้าเกล็ดเลือดคือ Anaplasma platys ในสุนัข\n\n💡 chaffeensis คู่กับ mono ส่วน phagocytophila คู่กับ granulocyte",
-    "verified": "Zoonosis Mid 86 p.3"
+    "verified": "Zoonosis Mid 86 p.3",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 3 }]
   },
   {
     "id": 202005,
@@ -154,7 +159,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 1,
     "explain": "ค้างคาวกินผลไม้เป็นแหล่งรังโรคตามธรรมชาติของไวรัสอีโบลา คนมักติดเชื้อจากการชำแหละและบริโภคเนื้อสัตว์ป่า\n\n❌ ทำไมข้ออื่นผิด\n— ลิงใหญ่ติดเชื้อแล้วป่วยตายเป็นจำนวนมาก จึงเป็นเหยื่อของโรคไม่ใช่รังโรค\n— สัตว์ฟันแทะเป็นรังโรคของ hantavirus และ Lassa virus ไม่ใช่ของอีโบลา\n— แอนทิโลปเป็นเนื้อสัตว์ป่าที่คนล่าเช่นกัน แต่ไม่ใช่แหล่งเก็บเชื้อตามธรรมชาติ\n\n💡 ค้างคาวเก็บเชื้อไว้ได้โดยไม่ป่วย ตัวที่ป่วยตายคือลิงกับคน",
-    "verified": "Zoonosis Mid 86 p.4"
+    "verified": "Zoonosis Mid 86 p.4",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 4 }]
   },
   {
     "id": 202006,
@@ -178,7 +184,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 2,
     "explain": "ผู้ป่วยกลุ่มแรกมีอาการทางระบบหายใจและระบบประสาทคล้ายไข้สมองอักเสบเจอี ซึ่งเป็นโรคที่พบประจำในพื้นที่ จึงถูกวินิจฉัยผิดในช่วงแรกจนมาตรการควบคุมไม่ได้ผล\n\n❌ ทำไมข้ออื่นผิด\n— อหิวาต์สุกรทำให้สุกรตายเป็นจำนวนมาก แต่ไม่ทำให้คนป่วยเป็นสมองอักเสบ\n— โรคปากและเท้าเปื่อยมีรอยโรคเป็นตุ่มน้ำที่ปากและกีบ ไม่เข้ากับอาการทางประสาท\n— โรคออเจสกี้ก่ออาการทางประสาทในสุกร แต่ไม่ทำให้คนป่วยเป็นกลุ่มก้อน\n\n💡 อาการซ้ำกับเจอีคือสาเหตุที่นิปาห์ถูกจับได้ช้า",
-    "verified": "Zoonosis Mid 86 p.4"
+    "verified": "Zoonosis Mid 86 p.4",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 4 }]
   },
   {
     "id": 202007,
@@ -202,7 +209,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 3,
     "explain": "โรคติดเชื้อไวรัสนิปาห์มีอัตราป่วยตายสูงประมาณร้อยละ 40 ถึง 75 และยังไม่มียาหรือวัคซีนที่จำเพาะ ทำได้เพียงรักษาตามอาการ\n\n❌ ทำไมข้ออื่นผิด\n— ร้อยละ 5 ถึง 15 ต่ำเกินไป ใกล้เคียงกับโรคไข้สมองอักเสบทั่วไปมากกว่า\n— ร้อยละ 15 ถึง 30 ใกล้เคียงกับอัตราตายของไข้สมองอักเสบเจอี\n— ร้อยละ 80 ถึง 95 สูงเกินจริง เป็นระดับที่เจอในการระบาดอีโบลาบางครั้งเท่านั้น\n\n💡 นิปาห์ตายราวครึ่งหนึ่ง ระยะฟักตัวสั้นเพียง 4 ถึง 14 วัน",
-    "verified": "Zoonosis Mid 86 p.4"
+    "verified": "Zoonosis Mid 86 p.4",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 4 }]
   },
   {
     "id": 202008,
@@ -226,7 +234,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 0,
     "explain": "ไข้เหลืองเป็นไวรัสสกุล Flavivirus นำโดยยุงลาย Aedes ในวงจรเมือง และยุง Haemagogus ในวงจรป่าของอเมริกากลางและอเมริกาใต้\n\n❌ ทำไมข้ออื่นผิด\n— Culex เป็นพาหะของไข้สมองอักเสบเจอีและไข้เวสต์ไนล์ ไม่ใช่ไข้เหลือง\n— Anopheles เป็นพาหะของมาลาเรีย ส่วน Mansonia นำพยาธิฟิลาเรียบางชนิด\n— Armigeres พบมากในแหล่งน้ำเสีย ไม่ใช่พาหะหลักของไข้เหลือง\n\n💡 ไข้เหลืองมีสองวงจร เมืองใช้ Aedes ป่าใช้ Haemagogus",
-    "verified": "Zoonosis Mid 86 p.5"
+    "verified": "Zoonosis Mid 86 p.5",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 5 }]
   },
   {
     "id": 202009,
@@ -250,7 +259,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 1,
     "explain": "ผู้ป่วยเจอีที่มีอาการรุนแรงมีอัตราป่วยตายราวร้อยละ 30 และผู้ที่รอดชีวิตจำนวนหนึ่งยังมีความผิดปกติทางระบบประสาทหลงเหลืออยู่\n\n❌ ทำไมข้ออื่นผิด\n— ร้อยละ 10 ต่ำกว่าความเป็นจริงของกลุ่มที่มีอาการรุนแรง\n— ร้อยละ 50 ใกล้เคียงกับอัตราตายของอีโบลามากกว่า\n— ร้อยละ 70 สูงเกินไป เข้าใกล้ขอบบนของนิปาห์\n\n💡 เจอีตายราวหนึ่งในสาม และหายแล้วยังอาจพิการทางประสาท",
-    "verified": "Zoonosis Mid 86 p.5"
+    "verified": "Zoonosis Mid 86 p.5",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 5 }]
   },
   {
     "id": 202010,
@@ -274,7 +284,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 2,
     "explain": "รายงานการระบาดครั้งแรกของ Rift Valley fever เกิดในฝูงแกะที่ประเทศเคนยาเมื่อปี 1931 ลักษณะเด่นคือแม่สัตว์แท้งเป็นจำนวนมากและลูกสัตว์ตายสูง\n\n❌ ทำไมข้ออื่นผิด\n— แอฟริกาใต้มีการระบาดในภายหลัง ไม่ใช่รายงานแรกและไม่ได้เริ่มในโคนม\n— อียิปต์มีการระบาดใหญ่ในปี 1977 แต่เป็นการแพร่ออกนอกถิ่นเดิม ไม่ใช่ครั้งแรก\n— ซูดานพบการระบาดในช่วงหลัง และสัตว์ที่ได้รับผลกระทบหลักคือแกะกับโค\n\n💡 Rift Valley อยู่ในแอฟริกาตะวันออก จุดเริ่มจึงอยู่ที่เคนยาในฝูงแกะ",
-    "verified": "Zoonosis Mid 86 p.5"
+    "verified": "Zoonosis Mid 86 p.5",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 5 }]
   },
   {
     "id": 202011,
@@ -298,7 +309,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 3,
     "explain": "Rift Valley fever เกิดจากไวรัสสกุล Phlebovirus กลุ่มเดียวกับ SFTSV ส่วนไข้เหลือง ไข้เวสต์ไนล์ และไข้สมองอักเสบเจอี อยู่ในสกุล Flavivirus ทั้งหมด\n\n❌ ทำไมข้ออื่นผิด\n— ไข้เหลืองเป็น Flavivirus ต้นแบบของวงศ์ Flaviviridae\n— ไข้เวสต์ไนล์เป็น Flavivirus ที่มียุง Culex เป็นพาหะและมีนกเป็น amplifier host\n— ไข้สมองอักเสบเจอีเป็น Flavivirus ที่มียุง Culex เป็นพาหะเช่นกัน\n\n💡 จำเป็นกลุ่ม ไข้เหลือง เจอี เวสต์ไนล์ คือ Flavivirus ส่วน RVF กับ SFTSV คือ Phlebovirus",
-    "verified": "Zoonosis Mid 86 p.5"
+    "verified": "Zoonosis Mid 86 p.5",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 5 }]
   },
   {
     "id": 202012,
@@ -322,7 +334,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 0,
     "explain": "Crimean-Congo haemorrhagic fever เกิดจากไวรัสสกุล Nairovirus ติดต่อโดยการถูกเห็บแข็ง (Ixodid ticks) กัด รวมถึงการสัมผัสเลือดหรือเนื้อเยื่อของสัตว์ที่ติดเชื้อ\n\n❌ ทำไมข้ออื่นผิด\n— Phlebovirus คือกลุ่มของ Rift Valley fever และ SFTSV\n— Flavivirus ที่นำโดยยุงลายคือไข้เหลืองและไข้เดงกี ไม่ใช่ CCHF\n— Henipavirus คือกลุ่มของ Nipah และ Hendra ซึ่งมีค้างคาวเป็นรังโรค\n\n💡 เลือดออกรุนแรงบวกประวัติเห็บกัด ให้นึกถึง CCHF ในกลุ่ม Nairovirus",
-    "verified": "Zoonosis Mid 86 p.6"
+    "verified": "Zoonosis Mid 86 p.6",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 6 }]
   },
   {
     "id": 202013,
@@ -346,7 +359,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 1,
     "explain": "ในสุกร เจอีแสดงออกเป็นปัญหาระบบสืบพันธุ์เป็นหลัก คือแม่สุกรแท้งและลูกตายแรกคลอด ขณะที่ตัวสุกรเองมักไม่ป่วยรุนแรงแต่ทำหน้าที่เป็น amplifier host\n\n❌ ทำไมข้ออื่นผิด\n— ท้องเสียหลังหย่านมเข้าได้กับโรคทางเดินอาหารของสุกร ไม่ใช่เจอี\n— ตุ่มน้ำที่ปากและกีบเป็นรอยโรคของโรคปากและเท้าเปื่อย\n— ปอดอักเสบเรื้อรังเข้าได้กับกลุ่มโรคระบบหายใจของสุกรมากกว่า\n\n💡 เจอีในสุกรคือปัญหาการสืบพันธุ์ ส่วนในม้าและคนคือปัญหาทางประสาท",
-    "verified": "Zoonosis Mid 86 p.5"
+    "verified": "Zoonosis Mid 86 p.5",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 5 }]
   },
   {
     "id": 202014,
@@ -370,7 +384,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 2,
     "explain": "ไวรัสเวสต์ไนล์ก่อโรคได้ทั้งในคน ม้า และนก โดยนกทำหน้าที่เป็น amplifier host ส่วนม้ามักแสดงอาการทางระบบประสาทอย่างชัดเจน\n\n❌ ทำไมข้ออื่นผิด\n— สุกรเป็น amplifier host ของไข้สมองอักเสบเจอี ไม่ใช่ของเวสต์ไนล์\n— สุนัขและแมวติดเชื้อได้บ้างแต่ไม่ค่อยแสดงอาการและไม่ใช่กลุ่มที่ก่อปัญหา\n— ค้างคาวและสัตว์ฟันแทะไม่ใช่กลุ่มที่ป่วยเด่นจากไวรัสชนิดนี้\n\n💡 เวสต์ไนล์เดินเป็นสามเหลี่ยม นกขยายเชื้อ ยุง Culex พา คนกับม้าเป็นผู้รับเคราะห์",
-    "verified": "Zoonosis Mid 86 p.5"
+    "verified": "Zoonosis Mid 86 p.5",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 5 }]
   },
   {
     "id": 202015,
@@ -394,7 +409,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 3,
     "explain": "Antigenic drift คือการเปลี่ยนแปลงแบบค่อยเป็นค่อยไปจาก point mutation ในยีนที่เข้ารหัส HA และ NA ทำให้โปรตีนผิวเปลี่ยนไปเล็กน้อยจนแอนติบอดีเดิมจำได้ไม่ดีและติดเชื้อซ้ำได้\n\n❌ ทำไมข้ออื่นผิด\n— การแลกเปลี่ยน gene segment คือ antigenic shift ซึ่งเป็นการเปลี่ยนแปลงครั้งใหญ่\n— การรวมจีโนมของไวรัสสองชนิดในโฮสต์เดียวกันก็คือ reassortment ซึ่งนำไปสู่ shift เช่นกัน\n— ไวรัสไข้หวัดใหญ่ไม่ได้เพิ่มจำนวนสำเนายีน HA เพื่อหนีภูมิคุ้มกัน\n\n💡 drift คือเปลี่ยนทีละนิดจาก mutation ส่วน shift คือสลับชิ้นยีนกันทั้งท่อน",
-    "verified": "Zoonosis Mid 86 p.7"
+    "verified": "Zoonosis Mid 86 p.7",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 7 }]
   },
   {
     "id": 202016,
@@ -419,7 +435,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 0,
     "explain": "เป็ดไล่ทุ่งถูกปล่อยให้หากินเองในนาข้าวและถูกต้อนย้ายไปเรื่อยๆ จึงปล่อยเชื้อไปตามเส้นทางที่ผ่าน อีกทั้งเป็ดมักติดเชื้อโดยไม่แสดงอาการ ทำให้เป็นแหล่งรังโรคที่สำคัญ\n\n❌ ทำไมข้ออื่นผิด\n— ไก่เนื้อในโรงเรือนระบบปิดมีระบบความปลอดภัยทางชีวภาพ จึงไม่ใช่แหล่งเก็บเชื้อในธรรมชาติ\n— นกกระทาในฟาร์มปิดอยู่ในระบบควบคุม ไม่ได้เคลื่อนย้ายไปทั่วพื้นที่\n— ไก่ไข่ในกรงตับเมื่อได้รับเชื้อรุนแรงมักตายเร็ว จึงไม่ได้เก็บเชื้อไว้นาน\n\n💡 ตัวที่ติดแล้วไม่ตายและเดินทางไปทั่ว คือตัวที่กระจายเชื้อได้ไกลที่สุด",
-    "verified": "Zoonosis Mid 86 p.8"
+    "verified": "Zoonosis Mid 86 p.8",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 8 }]
   },
   {
     "id": 202017,
@@ -443,7 +460,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 1,
     "explain": "ตลาดค้าสัตว์ปีกมีชีวิตรวมสัตว์ปีกต่างแหล่งต่างชนิดไว้ในที่เดียว มีการชำแหละสดและคนสัมผัสใกล้ชิด จึงเป็นจุดที่เชื้อผสมและข้ามมาสู่คนได้ง่าย\n\n❌ ทำไมข้ออื่นผิด\n— โรงฟักไข่ที่ควบคุมการเข้าออกมีความเสี่ยงต่ำเพราะไม่มีการรวมสัตว์จากหลายแหล่ง\n— โรงงานแปรรูปเนื้อแช่แข็งทำงานกับซากที่ผ่านการตรวจแล้ว ไม่ใช่สัตว์มีชีวิต\n— นกพิราบในสวนสาธารณะไม่ใช่แหล่งรวมสัตว์ปีกหลายชนิดและคนไม่ได้สัมผัสเลือดหรือเครื่องใน\n\n💡 สัตว์ปีกเป็นๆ หลายแหล่งมากองรวมกัน คือโรงงานผสมเชื้อชั้นดี",
-    "verified": "Zoonosis Mid 86 p.8"
+    "verified": "Zoonosis Mid 86 p.8",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 8 }]
   },
   {
     "id": 202018,
@@ -467,7 +485,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 2,
     "explain": "H9N2 เป็นไข้หวัดนกชนิดรุนแรงต่ำ (LPAI) ที่ระบาดเป็นวงกว้างและฝังตัวอยู่ในฝูงไก่อย่างเรื้อรัง จึงเป็นแหล่งยีนภายในที่สำคัญให้กับไวรัสสายพันธุ์อื่น\n\n❌ ทำไมข้ออื่นผิด\n— ไข้หวัดนกชนิดรุนแรงสูงต้องเป็น H5 หรือ H7 เท่านั้น\n— H9N2 ไม่ได้จำกัดอยู่ในนกป่า แต่พบมากในสัตว์ปีกที่เลี้ยง\n— H9N2 เป็นไวรัสของสัตว์ปีก ไม่ใช่สายพันธุ์ที่พบเฉพาะในสุกร\n\n💡 รุนแรงสูงมีแค่ H5 กับ H7 ส่วน H9N2 อยู่ยาวแบบไม่รุนแรงแต่ไม่หายไป",
-    "verified": "Zoonosis Mid 86 p.8"
+    "verified": "Zoonosis Mid 86 p.8",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 8 }]
   },
   {
     "id": 202019,
@@ -491,7 +510,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 3,
     "explain": "ไวรัสไข้หวัดใหญ่ที่หมุนเวียนอยู่ในฝูงสุกรเป็นหลักคือ H1N1 และ H3N2 ซึ่งเป็นกลุ่มเดียวกับที่ก่อโรคในคน จึงทำให้เกิดการแลกเปลี่ยนยีนกันได้\n\n❌ ทำไมข้ออื่นผิด\n— H5N1 และ H5N8 เป็นไข้หวัดนกชนิดรุนแรงสูงในสัตว์ปีก\n— H7N9 และ H9N2 เป็นไวรัสของสัตว์ปีกเช่นกัน ไม่ใช่สายพันธุ์หลักในสุกร\n— H3N8 พบในม้าและสุนัข ส่วน H5N6 เป็นไข้หวัดนก\n\n💡 หมูถือไพ่สองใบเหมือนคน คือ H1N1 กับ H3N2 จึงเป็นภาชนะผสมเชื้อ",
-    "verified": "Zoonosis Mid 86 p.8"
+    "verified": "Zoonosis Mid 86 p.8",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 8 }]
   },
   {
     "id": 202020,
@@ -515,7 +535,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 0,
     "explain": "จีนแจ้งองค์การอนามัยโลกเรื่องกลุ่มผู้ป่วยปอดอักเสบไม่ทราบสาเหตุที่เมืองอู่ฮั่นเมื่อวันที่ 31 ธันวาคม 2019 ซึ่งถือเป็นจุดเริ่มต้นของการเฝ้าระวังระดับโลก\n\n❌ ทำไมข้ออื่นผิด\n— 17 พฤศจิกายน 2019 คือวันที่พบผู้ป่วยรายแรกในอู่ฮั่น ยังไม่ได้แจ้งองค์การอนามัยโลก\n— 12 มกราคม 2020 คือวันที่จีนเปิดเผยลำดับพันธุกรรมของไวรัส\n— 11 มีนาคม 2020 คือวันที่องค์การอนามัยโลกประกาศให้เป็นการระบาดใหญ่\n\n💡 ไล่ไทม์ไลน์ พบผู้ป่วย แจ้ง WHO เปิดรหัสพันธุกรรม แล้วจึงประกาศ pandemic",
-    "verified": "Zoonosis Mid 86 p.10"
+    "verified": "Zoonosis Mid 86 p.10",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 10 }]
   },
   {
     "id": 202021,
@@ -539,7 +560,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 1,
     "explain": "intermediate host คือสัตว์ที่ติดเชื้อต่อจากแหล่งรังโรคตามธรรมชาติ แล้วทำหน้าที่เป็นสะพานให้ไวรัสปรับตัว เพิ่มจำนวน หรือกลายพันธุ์ ก่อนส่งต่อไปยังโฮสต์สุดท้ายซึ่งมักเป็นคน ตัวอย่างเช่นชะมดของ SARS-CoV อูฐของ MERS-CoV และตัวนิ่มของ SARS-CoV-2\n\n❌ ทำไมข้ออื่นผิด\n— สัตว์ที่เก็บเชื้อไว้โดยไม่ป่วยคือ reservoir host ซึ่งของโคโรนาไวรัสกลุ่มนี้คือค้างคาว\n— สัตว์ที่รับเชื้อแล้วไม่แพร่ต่อคือ dead-end host เช่นสุนัขและแมวที่ติด SARS-CoV-2 จากเจ้าของ\n— สัตว์ที่นำเชื้อเข้าสู่คนโดยการกัดดูดเลือดคือ vector ซึ่งไม่ใช่รูปแบบการติดต่อของโคโรนาไวรัส\n\n💡 รังโรคคือที่เก็บ ตัวกลางคือสะพาน คนคือปลายทาง",
-    "verified": "Zoonosis Mid 86 p.10"
+    "verified": "Zoonosis Mid 86 p.10",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 10 }]
   },
   {
     "id": 202022,
@@ -563,7 +585,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 2,
     "explain": "หลังเพิ่มจำนวนเล็กน้อยในเซลล์กล้ามเนื้อบริเวณแผล ไวรัสพิษสุนัขบ้าจะจับกับ nicotinic acetylcholine receptor ที่รอยต่อประสาทกล้ามเนื้อ รวมถึง NCAM และ p75 neurotrophin receptor แล้วเคลื่อนย้ายแบบ retrograde ขึ้นสู่ระบบประสาทส่วนกลาง\n\n❌ ทำไมข้ออื่นผิด\n— ตัวรับ sialic acid เป็นตัวรับของไวรัสไข้หวัดใหญ่\n— DPP4 เป็นตัวรับของ MERS-CoV\n— ACE2 เป็นตัวรับของ SARS-CoV และ SARS-CoV-2\n\n💡 ไวรัสเข้าทางรอยต่อประสาทกล้ามเนื้อ จึงใช้ตัวรับของอะเซทิลโคลีนเป็นประตู",
-    "verified": "Zoonosis Mid 86 p.11"
+    "verified": "Zoonosis Mid 86 p.11",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 11 }]
   },
   {
     "id": 202023,
@@ -587,7 +610,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 3,
     "explain": "โรคพิษสุนัขบ้าเมื่อแสดงอาการแล้วแทบไม่มีทางรักษา ผู้ป่วยมักเสียชีวิตภายใน 7 ถึง 14 วัน การป้องกันหลังสัมผัสเชื้อจึงต้องทำก่อนที่อาการจะปรากฏ\n\n❌ ทำไมข้ออื่นผิด\n— 2 ถึง 3 วัน สั้นเกินไปสำหรับการดำเนินโรคตามปกติ\n— 4 ถึง 6 วัน ยังเร็วกว่าที่พบจริงในผู้ป่วยส่วนใหญ่\n— 21 ถึง 30 วัน ยาวเกินไป ตัวเลขนี้ใกล้เคียงกับช่วงระยะฟักตัวมากกว่า\n\n💡 ระยะฟักตัวยาวเป็นสัปดาห์ถึงเป็นเดือน แต่เมื่อออกอาการแล้วเหลือเวลาราวหนึ่งถึงสองสัปดาห์",
-    "verified": "Zoonosis Mid 86 p.11"
+    "verified": "Zoonosis Mid 86 p.11",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 11 }]
   },
   {
     "id": 202024,
@@ -611,7 +635,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 0,
     "explain": "ไวรัสต้องเดินทางตามเส้นประสาทเข้าสู่สมอง ระยะฟักตัวจึงขึ้นกับระยะทางจากแผลถึงสมองเป็นหลัก แผลที่ใบหน้าหรือคอจะมีระยะฟักตัวสั้นกว่าแผลที่ปลายขา\n\n❌ ทำไมข้ออื่นผิด\n— ชนิดสัตว์ที่กัดบอกความเสี่ยงของการมีเชื้อ แต่ไม่ได้กำหนดความยาวของระยะฟักตัว\n— อายุและน้ำหนักตัวไม่ใช่ตัวกำหนดความเร็วของการเดินทางตามเส้นประสาท\n— ฤดูกาลและอุณหภูมิไม่มีผลต่อการเคลื่อนที่ของไวรัสในร่างกาย\n\n💡 ยิ่งแผลใกล้สมอง ไวรัสยิ่งถึงเร็ว ระยะฟักตัวยิ่งสั้น",
-    "verified": "Zoonosis Mid 86 p.11"
+    "verified": "Zoonosis Mid 86 p.11",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 11 }]
   },
   {
     "id": 202025,
@@ -635,7 +660,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 1,
     "explain": "แนะนำให้ฉีดวัคซีนพิษสุนัขบ้าเข็มแรกเมื่อลูกสุนัขและลูกแมวอายุ 2 ถึง 4 เดือน ซึ่งเป็นช่วงที่ภูมิคุ้มกันจากแม่ลดลงแล้ว จากนั้นกระตุ้นซ้ำเป็นประจำทุกปี\n\n❌ ทำไมข้ออื่นผิด\n— อายุ 3 ถึง 4 สัปดาห์ยังเล็กเกินไป ภูมิคุ้มกันจากแม่จะรบกวนการสร้างภูมิ\n— อายุ 6 ถึง 8 เดือน ช้าเกินไป ปล่อยให้มีช่วงเสี่ยงยาวโดยไม่จำเป็น\n— อายุ 10 ถึง 12 เดือน ยิ่งช้ากว่าเดิม ไม่สอดคล้องกับแนวทางควบคุมโรคในพื้นที่เสี่ยง\n\n💡 เข็มแรกที่ 2 ถึง 4 เดือน แล้วกระตุ้นทุกปีตลอดชีวิต",
-    "verified": "Zoonosis Mid 86 p.11"
+    "verified": "Zoonosis Mid 86 p.11",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 11 }]
   },
   {
     "id": 202026,
@@ -659,7 +685,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 2,
     "explain": "การประกาศเขตโรคระบาดสัตว์ชั่วคราวเป็นอำนาจตามพระราชบัญญัติโรคระบาดสัตว์ พ.ศ. 2558 ซึ่งใช้ควบคู่กับการทำวัคซีนแบบวงแหวนรัศมี 5 กิโลเมตรรอบจุดเกิดโรค\n\n❌ ทำไมข้ออื่นผิด\n— พระราชบัญญัติโรคพิษสุนัขบ้า พ.ศ. 2535 กำหนดหน้าที่เจ้าของสัตว์ในการฉีดวัคซีน แต่ไม่ได้ให้อำนาจประกาศเขตโรคระบาด\n— พระราชบัญญัติควบคุมการฆ่าสัตว์ใช้กำกับโรงฆ่าสัตว์และการจำหน่ายเนื้อสัตว์\n— พระราชบัญญัติวิชาชีพการสัตวแพทย์กำกับการประกอบวิชาชีพ ไม่ใช่การควบคุมโรคระบาด\n\n💡 ประกาศเขตโรคระบาดสัตว์ ต้องอ้างกฎหมายโรคระบาดสัตว์ ฉบับปี 2558",
-    "verified": "Zoonosis Mid 86 p.11"
+    "verified": "Zoonosis Mid 86 p.11",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 11 }]
   },
   {
     "id": 202027,
@@ -683,7 +710,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 3,
     "explain": "ไข่ของ Ancylostoma caninum ที่ออกมากับอุจจาระสุนัขจะฟักเป็นตัวอ่อนระยะติดต่อในดิน แล้วไชผ่านผิวหนังคนที่เดินเท้าเปล่า จึงจัดเป็นปรสิตที่ติดต่อทางดิน\n\n❌ ทำไมข้ออื่นผิด\n— Leishmania infantum ติดต่อโดยริ้นฝอยทรายกัด จัดเป็น vector-borne\n— Trypanosoma evansi ติดต่อโดยแมลงดูดเลือดเป็นพาหะเชิงกล ไม่ผ่านดิน\n— Dirofilaria immitis ติดต่อโดยยุงเป็นพาหะ ไม่ผ่านดินเช่นกัน\n\n💡 ปรสิตที่ต้องบ่มตัวอ่อนในดินก่อน คือกลุ่มที่เดินเท้าเปล่าแล้วติด",
-    "verified": "Zoonosis Mid 86 p.12"
+    "verified": "Zoonosis Mid 86 p.12",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 12 }]
   },
   {
     "id": 202028,
@@ -707,7 +735,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 0,
     "explain": "การยกแมวให้คนอื่นเลี้ยงไม่จำเป็น เพราะความเสี่ยงอยู่ที่การสัมผัสอุจจาระแมวที่มีโอโอซิสต์สุกแล้ว ไม่ใช่การอยู่ร่วมบ้าน เพียงจัดการกระบะทรายให้ถูกวิธีและเลี้ยงแมวในบ้านก็ลดความเสี่ยงได้\n\n❌ ทำไมข้ออื่นผิด\n— การให้คนอื่นเก็บกระบะทรายทุกวันถูกต้อง เพราะโอโอซิสต์ต้องใช้เวลา 1 ถึง 5 วันจึงจะติดต่อได้\n— การเลี้ยงแมวในบ้านและให้อาหารสำเร็จรูปถูกต้อง เพราะตัดโอกาสที่แมวจะกินหนูหรือเนื้อดิบ\n— การล้างมือหลังสัมผัสแมวเป็นคำแนะนำพื้นฐานที่ถูกต้อง\n\n💡 ปัญหาอยู่ที่กระบะทราย ไม่ได้อยู่ที่ตัวแมว",
-    "verified": "Zoonosis Mid 86 p.12"
+    "verified": "Zoonosis Mid 86 p.12",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 12 }]
   },
   {
     "id": 202029,
@@ -731,7 +760,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 1,
     "explain": "คนติดพยาธิใบไม้ปอดจากการกินปูน้ำจืดหรือกุ้งน้ำจืดดิบหรือดองที่มี metacercaria ตัวอ่อนจะไชผ่านผนังลำไส้ไปเจริญเป็นตัวเต็มวัยในปอด ทำให้ไอเรื้อรังและไอเป็นเลือด\n\n❌ ทำไมข้ออื่นผิด\n— ปลาน้ำจืดเกล็ดขาวดิบเป็นแหล่งของพยาธิใบไม้ตับ Opisthorchis\n— หอยเป็นโฮสต์กึ่งกลางตัวแรกของพยาธิใบไม้หลายชนิด แต่ไม่ใช่ระยะที่คนกินแล้วติด\n— ผักน้ำสดที่มี metacercaria เกาะเป็นทางติดของ Fasciola ซึ่งเป็นพยาธิใบไม้ตับในสัตว์เคี้ยวเอื้อง\n\n💡 ปูดองคู่กับปอด ปลาดิบคู่กับตับ",
-    "verified": "Zoonosis Mid 86 p.13"
+    "verified": "Zoonosis Mid 86 p.13",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 13 }]
   },
   {
     "id": 202030,
@@ -755,7 +785,8 @@ export const QUESTIONS_MID86_ZOONOSES = [
     ],
     "answer": 2,
     "explain": "พยาธิ Anatrichosoma ฝังตัวอยู่ในชั้นผิวหนัง การวินิจฉัยจึงต้องตัดชิ้นเนื้อจากรอยโรคไปตรวจทางจุลพยาธิวิทยา แล้วยืนยันชนิดด้วยวิธีทางอณูชีววิทยา\n\n❌ ทำไมข้ออื่นผิด\n— การตรวจอุจจาระด้วยวิธีลอยตัวใช้กับพยาธิในทางเดินอาหาร ไม่ใช่พยาธิที่อยู่ในผิวหนัง\n— ยังไม่มีชุดตรวจแอนติเจนสำเร็จรูปสำหรับพยาธิชนิดนี้\n— การขูดผิวหนังใช้หาไรขี้เรื้อน ไม่สามารถเก็บพยาธิที่ฝังลึกในชั้นผิวหนังได้\n\n💡 พยาธิอยู่ในเนื้อ ก็ต้องตัดเนื้อมาดู แล้วยืนยันด้วยอณูชีววิทยา",
-    "verified": "Zoonosis Mid 86 p.13"
+    "verified": "Zoonosis Mid 86 p.13",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 13 }]
   },
   {
     "year": 5,
@@ -773,6 +804,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 2 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.2 รายการข้อสอบ intro ข้อ \"ค.หมาย zoonosis\"",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 2 }],
     "tags": [
       "zoonosis",
       "definition",
@@ -799,6 +831,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 2 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.2 รายการข้อสอบ intro ข้อ \"ค.หมาย transboundary\"",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 2 }],
     "tags": [
       "transboundary",
       "definition",
@@ -827,6 +860,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 2 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.2 หัวข้อดาว 1 \"ทำยังไงให้ human case ลดลง\" และโน้ตว่าพาร์ท intro มีข้อเขียน 2 ข้อ",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 2 }],
     "tags": [
       "intro",
       "surveillance",
@@ -856,6 +890,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 2 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.2 หัวข้อดาว 2 \"ปัจจัยก่อให้เกิด zoonosis\" รายการหกข้อ",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 2 }],
     "tags": [
       "intro",
       "emerging",
@@ -882,6 +917,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 3 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.3 ข้อ 2 \"Vector ที่สำคัญของ Rickettsia\"",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 3 }],
     "tags": [
       "rickettsia",
       "vector",
@@ -907,6 +943,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 3 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.3 ข้อ 5 \"โรคใดที่พบในไทย\" พร้อมโน้ตข้างว่า epidemic typhus ไม่แน่ใจว่าเจอในไทย",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 3 }],
     "tags": [
       "rickettsia",
       "thailand",
@@ -933,6 +970,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 3 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.3 ข้อ 8 \"อาการสำคัญของ Rickettsia\" และโน้ตข้างว่า maculopapular rash, eschar",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 3 }],
     "tags": [
       "rickettsia",
       "clinical-signs",
@@ -959,6 +997,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 3 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.3 ข้อ 18 \"อาการของโรค Q fever ทั้งในคนและสัตว์\" พร้อมตารางข้างที่แยก sign in human กับ sign in animal",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 3 }],
     "tags": [
       "q-fever",
       "coxiella",
@@ -985,6 +1024,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 4 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.4 รายการข้อสอบ Ebola และ Nipah ข้อ \"อาการของ Ebola\" และหัวข้อ Signs and symptoms ในเนื้อหาหน้าเดียวกัน",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 4 }],
     "tags": [
       "ebola",
       "clinical-signs",
@@ -1010,6 +1050,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 4 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.4 รายการข้อสอบข้อ \"Nipah เจอที่หมู่บ้านอะไร\" และเนื้อหาที่ไฮไลต์ว่า Nipah River Village",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 4 }],
     "tags": [
       "nipah",
       "history",
@@ -1035,6 +1076,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 4 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.4 รายการข้อสอบข้อ Nipah ที่ทำดาวไว้ว่า \"ไม่มี vac\" และบรรทัด Currently no drugs or vaccines specific for Nipah virus",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 4 }],
     "tags": [
       "nipah",
       "treatment",
@@ -1061,6 +1103,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 8 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.7 รายการข้อสอบ AI ข้อ \"subtypes ที่มักเจอในไก่\" และ p.8 บรรทัด \"ในไก่ subtype ที่พบบ่อยที่สุด คือ H5, H7, H9\"",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 8 }, { "doc": "zoonosis-mid86", "edition": "13p", "page": 7 }],
     "tags": [
       "avian-influenza",
       "subtype",
@@ -1088,6 +1131,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 7 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.7 โน้ตดาวว่า \"มีข้อเขียน บอกวิธีป้องกันไม่ให้ติด influenza\"",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 7 }],
     "tags": [
       "influenza",
       "prevention",
@@ -1114,6 +1158,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 8 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.7 รายการข้อสอบ SIV และ Canine ข้อ \"pandemic H1N1 2009 spread ยังไง\" และ p.8 บรรทัด Humans-to-pigs reverse transmission",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 8 }, { "doc": "zoonosis-mid86", "edition": "13p", "page": 7 }],
     "tags": [
       "swine-influenza",
       "pandemic-h1n1",
@@ -1140,6 +1185,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 8 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.7 รายการข้อสอบ SIV และ Canine ข้อ \"อาการในคน สัตว์\"",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 8 }, { "doc": "zoonosis-mid86", "edition": "13p", "page": 7 }],
     "tags": [
       "swine-influenza",
       "clinical-signs",
@@ -1167,6 +1213,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 10 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.10 หัวข้อที่เขียนไว้ว่า \"ข้อเขียน: Timeline of SAR-COV 2\" พร้อมทำดาว",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 10 }],
     "tags": [
       "coronavirus",
       "covid-19",
@@ -1196,6 +1243,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 10 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.10 หัวข้อที่เขียนไว้ว่า \"ข้อเขียน: What's intermediate host? ยกตัวอย่าง intermediate host of coronavirus\" พร้อมทำดาว",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 10 }],
     "tags": [
       "coronavirus",
       "intermediate-host",
@@ -1224,6 +1272,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 9 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.9 หัวข้อ \"ข้อเขียน: How to prevent zoonotic emerging diseases from coronavirus?\" พร้อมโน้ตว่าไม่แน่ใจว่าออกหรือไม่",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 9 }],
     "tags": [
       "coronavirus",
       "prevention",
@@ -1253,6 +1302,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 11 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.11 โน้ตว่า \"Rabies เขียนหมด 5 ข้อ\" รายการข้อที่ 1 dx rabies",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 11 }],
     "tags": [
       "rabies",
       "diagnosis",
@@ -1281,6 +1331,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 11 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.11 รายการข้อที่ 2 pathogenesis พร้อมกล่อง pathogenesis ver. full ที่แจกแจงสี่ขั้น",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 11 }],
     "tags": [
       "rabies",
       "pathogenesis",
@@ -1309,6 +1360,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 11 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.11 รายการข้อที่ 3 มาตรการควบคุมในพื้นที่เสี่ยง และหัวข้อ \"มาตรการป้องกันโรคในพื้นที่เสี่ยง\" ในเนื้อหาหน้าเดียวกัน",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 11 }],
     "tags": [
       "rabies",
       "control",
@@ -1337,6 +1389,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 11 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.11 รายการข้อที่ 4 หน้าที่ vet ในการควบคุม rabies และหัวข้อ Vet's roles ข้อ 1 ถึง 7",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 11 }],
     "tags": [
       "rabies",
       "vet-role",
@@ -1365,6 +1418,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 11 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.11 รายการข้อที่ 5 ข้อแนะนำในการป้องกัน rabies และหัวข้อ \"ข้อแนะนำในการป้องกัน\" ที่แบ่งเป็นสัตว์เลี้ยง คน และชุมชน",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 11 }],
     "tags": [
       "rabies",
       "prevention",
@@ -1391,6 +1445,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 12 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.12 ข้อ 7 \"แหล่งอาหารใดมีโอกาสพบเชื้อ Toxoplasma\"",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 12 }],
     "tags": [
       "toxoplasma",
       "foodborne",
@@ -1416,6 +1471,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 13 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.13 ข้อ 7 \"Dipylidium caninum มีรายงานติดในเด็กอายุเท่าไร\"",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 13 }],
     "tags": [
       "dipylidium",
       "helminth",
@@ -1441,6 +1497,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 13 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.13 ข้อ 16 \"Dirofilaria ที่เรียนล่าสุด\"",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 13 }],
     "tags": [
       "dirofilaria",
       "helminth",
@@ -1467,6 +1524,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 13 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.13 ข้อ 17 \"D. repens มีการรายงานที่ภาคไหน\"",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 13 }],
     "tags": [
       "dirofilaria",
       "helminth",
@@ -1493,6 +1551,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 13 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.13 ข้อ 19 \"ล่าสุดมีเคสคนติดพยาธินัยน์ตาไก่ (Oxyspirura manaoni)\" พร้อมโน้ตข้างว่าข้อท้าย ๆ รุ่นพี่ไม่มั่นใจคำตอบ",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 13 }],
     "tags": [
       "oxyspirura",
       "helminth",
@@ -1519,6 +1578,7 @@ export const QUESTIONS_MID86_ZOONOSES = [
     "source": "Zoonosis Mid 86.pdf หน้า 13 (บันทึกหลังสอบของรุ่นพี่ Vet 85)",
     "sourceType": "past-paper",
     "verified": "Zoonosis Mid 86.pdf p.13 โน้ตข้างหน้าว่า \"พวก case ในไทย D. repens, B. pahangi, Thelazia\"",
+    "sourcePages": [{ "doc": "zoonosis-mid86", "edition": "13p", "page": 13 }],
     "tags": [
       "brugia",
       "filaria",

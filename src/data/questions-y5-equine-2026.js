@@ -33,7 +33,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "ม้ามีต่อมเหงื่อ 2 ชนิด ชนิดที่กระจายอยู่ทั่วผิวหนังส่วนที่มีขนคือ apocrine gland เหงื่อที่ได้จึงข้นเหนียวและมีกลิ่นมากกว่า\n\n❌ ทำไมข้ออื่นผิด\n— Eccrine gland = ต่อมเหงื่ออีกชนิดของม้าจริง แต่จำกัดอยู่ที่ glabrous skin กับกีบ อยู่ตื้นกว่า เหงื่อใส ใช้ระบายความร้อน ไม่ใช่ชนิดของผิวหนังที่มีขน\n— Sebaceous gland = ต่อมไขมัน ไม่ใช่ต่อมเหงื่อ\n— Ceruminous gland = ต่อมดัดแปลงในช่องหู ไม่ได้กระจายอยู่ทั่วผิวหนัง\n\n💡 มีขน = apocrine ข้นและมีกลิ่น, ไม่มีขนกับกีบ = eccrine ใสและระบายความร้อน",
     "verified": "Equine Dermatology น.4",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 4 }]
   },
   {
     "id": 105217,
@@ -56,7 +57,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "Permanent hair คือแผงคอ หาง และขนตา ไม่ผลัด และงอกต่อเนื่อง 2 ถึง 5 มิลลิเมตรต่อเดือน ส่วน temporary hair คือขนส่วนใหญ่ของลำตัวและขาซึ่งผลัดตามความยาวของแสงกลางวัน tylotrich hair ใหญ่กว่าขนปกติและทำหน้าที่รับความรู้สึก และ tactile sinus hair อยู่ที่ใบหน้า เปลือกตา ใบหู เชื่อมกับปลายประสาท",
     "verified": "Equine Dermatology น.5",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 5 }]
   },
   {
     "id": 105218,
@@ -79,7 +81,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "ผิวหนังที่มีขนของม้าหนาที่สุดที่ dorsum กับด้านข้างของขา และบางที่สุดที่เปลือกตา ventrum กับด้านในของต้นขา\n\n❌ ทำไมข้ออื่นผิด\n— dorsum และด้านข้างของขาส่วนบน = ขั้วตรงข้าม เป็นจุดที่ผิวหนังหนาที่สุด\n— แผงคอ โคนหาง สะโพกด้านนอก = อยู่ในกลุ่มที่ผิวหนังหนาหรือมี subcutis หนา\n— คอด้านล่าง อก หัวไหล่ = เช่นกัน ไม่ได้อยู่ในกลุ่มที่บางที่สุด",
     "verified": "Equine Dermatology น.2",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 2 }]
   },
   {
     "id": 105219,
@@ -102,7 +105,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "surface adhesive tape แปะเก็บได้เฉพาะสิ่งที่อยู่บนผิวชั้นตื้น จึงเหมาะกับไข่ Oxyuris equi และจุลชีพบนผิวหนัง รวมถึง chorioptic mange เชื้อรา และยีสต์\n\n❌ ทำไมข้ออื่นผิด\n— เซลล์เนื้องอกจากก้อนในชั้น dermis = ต้อง needle aspirate หรือ biopsy เทปแปะไม่ถึงชั้น dermis\n— ตัวไร Sarcoptes ที่ฝังตัวลึก = ต้อง skin scraping\n— แบคทีเรียในกระแสเลือด = เป็นการเพาะเชื้อจากเลือด คนละตัวอย่างกับผิวหนัง",
     "verified": "Equine Dermatology น.11",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 11 }]
   },
   {
     "id": 105221,
@@ -125,7 +129,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "ม้าสีเทา (grey) สัมพันธ์กับ melanoma โดยตรง และพบได้บ่อยโดยเฉพาะในม้าที่อายุมาก\n\n❌ ทำไมข้ออื่นผิด\n— \"Actinic dermatitis หรือผิวไหม้แดดบริเวณที่ไม่มีเม็ดสี\" = สัมพันธ์กับ albino หรือ cremello ที่ผิวไม่มีเม็ดสี ไม่ใช่สีเทา\n— \"Epidermolysis bullosa ซึ่งเป็นความผิดปกติแต่กำเนิด\" = เป็นโรคแต่กำเนิดในลูกม้า และสัมพันธ์กับสายพันธุ์ Belgian\n— \"Reticulated leukotrichia ที่สัมพันธ์กับสายพันธุ์ Quarterhorse\" = จัดตามสายพันธุ์ Quarterhorse ไม่ได้จัดตามสีขน\n\n💡 สีขนบอกโรคได้ก็จริง แต่ต้องแยกให้ออกว่าข้อไหนผูกกับสี ข้อไหนผูกกับสายพันธุ์",
     "verified": "Equine Dermatology น.9",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 9 }]
   },
   {
     "id": 105222,
@@ -148,7 +153,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "PVAS เป็นสเกล 0 ถึง 10 ที่ไล่ระดับความคันตามผลกระทบต่อพฤติกรรม ตั้งแต่ไม่คันเลย จนถึงคันตลอดเวลาจนกินและใช้งานไม่ได้ จึงเป็นการวัดอาการคัน ไม่ใช่วัดแผล ปริมาณสะเก็ด หรือความเจ็บของก้อนเนื้องอก",
     "verified": "Equine Dermatology น.15",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 15 }]
   },
   {
     "id": 105223,
@@ -171,7 +177,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "กีบของลูกม้าแรกเกิดนุ่ม แล้วแข็งตัวอย่างรวดเร็วหลังคลอด ที่นุ่มไว้ตอนอยู่ในท้องก็เพื่อไม่ให้บาดมดลูกแม่ และส่วนที่นุ่มนั้นจะหลุดไปใน 1 ถึง 2 วัน\n\n❌ ทำไมข้ออื่นผิด\n— แข็งในท้องแล้วค่อยนุ่มหลังคลอด = สลับลำดับ ถ้าแข็งตั้งแต่อยู่ในท้องจะบาดมดลูกแม่\n— ยังไม่สร้างกีบจนอายุ 1 เดือน = ขัดกับที่ลูกม้ายืนลงน้ำหนักได้ตั้งแต่ชั่วโมงแรก\n— แข็งเท่าม้าโตตั้งแต่แรกเกิด = เหตุผลเดียวกัน และขัดกับส่วนนุ่มที่หลุดใน 1 ถึง 2 วัน\n\n💡 นุ่มตอนคลอดเพื่อแม่ แข็งทันทีเพื่อลูกที่ต้องยืนในชั่วโมงแรก",
     "verified": "Equine Dermatology น.4",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 4 }]
   },
   {
     "id": 105224,
@@ -194,7 +201,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "Chorioptes bovis ทำให้เกิด chorioptic mange ที่ขาส่วนปลาย โดยเฉพาะขาหลัง รอยโรคอยู่ที่ pastern, fetlock และ cannon\n\n❌ ทำไมข้ออื่นผิด\n— บริเวณศีรษะ รอบเบ้าตา ใบหู = ไม่ใช่ตำแหน่งเด่นของไรชนิดนี้\n— แผงคอและแนวสันหลังถึงโคนหาง = ตำแหน่งของ Culicoides hypersensitivity\n— รอบทวารหนักและฝีเย็บ = ตำแหน่งของ Oxyuris equi",
     "verified": "Equine Dermatology น.17",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 17 }]
   },
   {
     "id": 105227,
@@ -217,7 +225,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เหาที่ก่อโรคในม้าคือ Haematopinus asini กับ Bovicola equi เมื่อรบกวนมากพออาจลุกลามเป็นอาการทางระบบคือโลหิตจาง\n\n❌ ทำไมข้ออื่นผิด\n— Damalinia bovis กับ Linognathus vituli = เหาของโค ไม่ใช่ของม้า\n— Chorioptes bovis กับ Psoroptes ovis = เป็นไร ไม่ใช่เหา\n— Culicoides sp. กับ Stomoxys calcitrans = แมลงบินที่บินมากัดแล้วไป ไม่ได้อาศัยอยู่บนตัวสัตว์แบบเหา",
     "verified": "Equine Dermatology น.16",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 16 }]
   },
   {
     "id": 105228,
@@ -240,7 +249,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "Oxyuris equi ทำให้คันรอบทวารหนักและฝีเย็บ ม้าจึงถูหางเป็นอาการนำ และวินิจฉัยด้วย scotch tape technique coital exanthema แม้อยู่ที่ฝีเย็บได้แต่มาด้วย papule ไปเป็น vesicle และแผลหลุมหลังผสมพันธุ์ ไม่ได้มาด้วยการถูหาง sarcoid ชนิด occult เป็นแผ่นแบนขนร่วงและไม่คัน ส่วน rain scald อยู่ที่ลำตัวด้านบนในช่วงฝนตก",
     "verified": "Equine Dermatology น.19",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 19 }]
   },
   {
     "id": 105229,
@@ -263,7 +273,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "Culicoides hypersensitivity เป็นภูมิไวเกิน type I ร่วมกับ type IV รอยโรคเด่นที่แนวสันหลัง และพบที่แนวกลางท้องได้ด้วย\n\n❌ ทำไมข้ออื่นผิด\n— Type II และ III ที่ขาส่วนปลายทั้งสี่ขา = ผิดทั้งชนิด และขาส่วนปลายเป็นตำแหน่งของ chorioptic mange กับ mud fever\n— Type III อย่างเดียว ที่ศีรษะและใบหู = ปฏิกิริยานี้ไม่ได้เป็น type III เดี่ยว และตำแหน่งนั้นก็ไม่ใช่จุดเด่น\n— Type IV อย่างเดียว ที่ฝีเย็บกับโคนหาง = ขาด type I ไป และฝีเย็บกับโคนหางเป็นภาพของ oxyuriasis",
     "verified": "Equine Dermatology น.21",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 21 }]
   },
   {
     "id": 105231,
@@ -287,7 +298,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "ตัวแก่ของ Habronema spp. อยู่ในกระเพาะม้า ไข่หรือตัวอ่อนออกมากับอุจจาระ แมลงวัน Musca domestica และ Stomoxys calcitrans กินเข้าไปแล้วนำตัวอ่อนระยะติดต่อไปวางบนผิวหนังชื้นหรือบาดแผล รอยโรคที่ผิวหนังจึงเป็น aberrant parasitism ไม่ใช่ที่อยู่ปกติของพยาธิ\n\n❌ ทำไมข้ออื่นผิด\n— ตัวแก่ในลำไส้ใหญ่ ไข่ออกทางปัสสาวะ ยุงเป็นพาหะ = ผิดทั้งตำแหน่งตัวแก่ ทางออกของไข่ และพาหะ ตัวจริงคือกระเพาะ อุจจาระ และแมลงวัน\n— ตัวแก่ในหลอดเลือด ตัวอ่อนไชผ่านผิวหนังจากดินชื้น = ไม่มีขั้นตอนไชผ่านผิวเอง ตัวอ่อนถูกแมลงวันพามาวางไว้\n— ตัวแก่ในถุงลม ไอตัวอ่อนออกมา เห็บเป็นพาหะ = ผิดทั้งอวัยวะและพาหะ",
     "verified": "Equine Dermatology น.28",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 28 }]
   },
   {
     "id": 105232,
@@ -310,7 +322,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "ivermectin 200 ug/kg หรือ moxidectin 400 ug/kg กิน 2 ครั้ง ห่างกัน 3 สัปดาห์ เพื่อฆ่าตัวอ่อนแล้วรอยโรคจะยุบ และให้ glucocorticoid ร่วมเพื่อลดปฏิกิริยาภูมิไวเกิน\n\n❌ ทำไมข้ออื่นผิด\n— Fenbendazole = กลุ่ม benzimidazole ไม่ใช่ยาที่ใช้กับตัวอ่อน Habronema ในผิวหนัง\n— Praziquantel = ยาถ่ายพยาธิคนละกลุ่ม ไม่ได้อยู่ในแนวทางของรอยโรคนี้\n— Levamisole = เช่นกัน ไม่ได้อยู่ในแนวทางของรอยโรคนี้",
     "verified": "Equine Dermatology น.29",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 29 }]
   },
   {
     "id": 105233,
@@ -333,7 +346,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "ชิ้นเนื้อของ cutaneous habronemiasis เป็น eosinophilic dermatitis ร่วมกับ coagulation necrosis และเห็นตัวอ่อนพยาธิอยู่ในรอยโรค\n\n❌ ทำไมข้ออื่นผิด\n— Ballooning degeneration กับ intranuclear inclusion body = ภาพของ coital exanthema จาก EHV-3\n— Epidermal hyperplasia, koilocyte, parakeratotic hyperkeratosis = ภาพของ viral papillomatosis\n— Granulomatous dermatitis กับ flame figure และการสะสมแคลเซียม = ภาพของ eosinophilic granuloma",
     "verified": "Equine Dermatology น.29",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 29 }]
   },
   {
     "id": 105236,
@@ -357,7 +371,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "Dermatophilus congolensis ในม้าออกมา 2 กลุ่มอาการ คือ rain scald ที่ลำตัวด้านบนและด้านข้างตรงแนวที่น้ำไหลผ่าน กับ mud fever ที่ขาส่วนปลาย\n\n❌ ทำไมข้ออื่นผิด\n— Sweet itch = ชื่อเรียกของ insect bite hypersensitivity ส่วน summer sore = ชื่อเรียกของ habronemiasis\n— Greasy heel = กลุ่มอาการที่ขาส่วนปลายซึ่งต้องเอามาแยกโรคด้วย ไม่ใช่ชื่อกลุ่มอาการของ dermatophilosis เอง และ coronary band dystrophy ก็ไม่ได้อยู่ใน 2 กลุ่มนี้\n— Occult กับ fibroblastic sarcoid = เนื้องอก คนละกลุ่มกับการติดเชื้อแบคทีเรีย\n\n💡 ชื่อบอกทางน้ำ ฝนไหลลงหลัง = rain scald โคลนแฉะที่ขา = mud fever",
     "verified": "Equine Dermatology น.26",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 26 }]
   },
   {
     "id": 105237,
@@ -380,7 +395,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "รอยโรค dermatophilosis เริ่มจากขนตั้งเป็นกระจุกแบบ paintbrush แล้วกลายเป็นสะเก็ดหนา แกะสะเก็ดออกจะเห็นด้านล่างเว้าและมีหนองบางเคลือบอยู่\n\n❌ ทำไมข้ออื่นผิด\n— ตุ่มน้ำใสแตกเป็นแผลตื้นที่อวัยวะสืบพันธุ์ = ภาพของ coital exanthema\n— ก้อนแข็งไม่คันไม่เจ็บบริเวณอานม้า = ภาพของ eosinophilic granuloma\n— แผ่นแบนขนร่วงมีสะเก็ดโดยไม่อักเสบชัดเจน = ภาพของ occult sarcoid",
     "verified": "Equine Dermatology น.26",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 26 }]
   },
   {
     "id": 105238,
@@ -404,7 +420,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "EHV-3 ฟักตัว 5 ถึง 9 วัน และให้พักการใช้พ่อพันธุ์แม่พันธุ์ 3 ถึง 4 สัปดาห์\n\n❌ ทำไมข้ออื่นผิด\n— ฟักตัว 19 ถึง 67 วัน พัก 1 ถึง 2 สัปดาห์ = 19 ถึง 67 วันเป็นระยะฟักตัวของ viral papillomatosis และพักสั้นกว่าที่แนะนำ\n— ฟักตัว 21 ถึง 30 วัน พัก 2 ถึง 3 วัน = ระยะฟักตัวยาวเกินและพักสั้นเกินไปมาก\n— ฟักตัว 1 ถึง 2 วัน พัก 6 ถึง 8 เดือน = ระยะฟักตัวสั้นเกินและพักนานเกิน\n\n💡 ฟักตัวนับเป็นวัน แต่พักผสมนับเป็นสัปดาห์",
     "verified": "Equine Dermatology น.30-31",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 30 }, { "doc": "equine-dermatology85", "edition": "42p", "page": 31 }]
   },
   {
     "id": 105239,
@@ -427,7 +444,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "latent carrier ของ EHV-3 ยังไม่มีวิธีตรวจที่ใช้ได้จริงในปัจจุบัน วิธีที่มีอยู่ล้วนต้องอาศัยรอยโรคที่แสดงออกมาแล้ว\n\n❌ ทำไมข้ออื่นผิด\n— PCR จากเลือดในทุกห้องปฏิบัติการ = PCR ที่มีคือทำจากรอยโรคผิวหนัง และมีให้บริการเพียงบางห้องปฏิบัติการ\n— เพาะแยกเชื้อจากน้ำอสุจิเสมอ = การแยกเชื้อทำจาก vesicle สะเก็ด หรือชิ้นเนื้อ คือต้องมีรอยโรคให้เก็บ\n— แอนติบอดีที่สูงขึ้นในตัวไม่แสดงอาการ = titre ที่สูงขึ้นใช้ยืนยันการติดเชื้อที่กำลังดำเนินอยู่ ไม่ได้ชี้ว่าเป็นพาหะแฝง",
     "verified": "Equine Dermatology น.31",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 31 }]
   },
   {
     "id": 105240,
@@ -450,7 +468,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "หูดจากไวรัสในม้าพบบ่อยในม้าอายุน้อยกว่า 3 ปี ไม่จำเพาะสายพันธุ์หรือเพศ และรอยโรคไม่คันไม่เจ็บ\n\n❌ ทำไมข้ออื่นผิด\n— อายุมากกว่า 15 ปีและเจ็บมาก = ช่วงอายุนั้นสัมพันธ์กับ Cushing's syndrome และ SCC ส่วนหูดเป็นรอยโรคที่ไม่เจ็บ\n— เฉพาะม้าสีเทาและลุกลามเข้าต่อมน้ำเหลือง = ม้าสีเทาคือภาพของ melanoma และการลุกลามเข้าต่อมน้ำเหลืองเป็นของ SCC\n— เฉพาะเพศผู้และเกิดที่อวัยวะเพศเท่านั้น = หูดไม่จำเพาะเพศและไม่ได้จำกัดอยู่ที่อวัยวะเพศ",
     "verified": "Equine Dermatology น.36",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 36 }]
   },
   {
     "id": 105241,
@@ -474,7 +493,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "หูดจากไวรัสมักหายเองใน 2 ถึง 3 เดือนด้วย cell-mediated immunity ซึ่งให้ภูมิคุ้มกันตลอดชีวิต ถ้าเป็นนานเกิน 12 เดือนให้สงสัยภาวะภูมิคุ้มกันบกพร่อง\n\n❌ ทำไมข้ออื่นผิด\n— 2 ถึง 3 สัปดาห์ เกิน 2 เดือนสงสัยติดเชื้อซ้ำซ้อน = เร็วเกินไปทั้งคู่ ระยะหายเองนับเป็นเดือน และเส้นแบ่งที่ผิดปกติคือ 12 เดือน\n— 6 ถึง 8 เดือน เกิน 2 ปีสงสัยกลายเป็นมะเร็ง = ช้ากว่าความจริง และสิ่งที่ต้องสงสัยคือภูมิคุ้มกันบกพร่อง ไม่ใช่การกลายเป็นมะเร็ง\n— ไม่หายเอง ต้องผ่าตัดออกทุกตัว = กลับข้าง การผ่าตัดหรือ cryotherapy สงวนไว้สำหรับรอยโรคที่ไม่ยุบเท่านั้น",
     "verified": "Equine Dermatology น.37",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 37 }]
   },
   {
     "id": 105242,
@@ -497,7 +517,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "เนื้องอกผิวหนังที่พบบ่อยที่สุดในม้าคือ sarcoid สัมพันธ์กับ bovine papillomavirus ชนิดที่ 1 เป็นหลัก หรือชนิดที่ 2\n\n❌ ทำไมข้ออื่นผิด\n— SCC กับ EcPV-2 = คู่นี้สัมพันธ์กันจริงที่รอยโรคองคชาต แต่ SCC พบเป็นอันดับสอง ไม่ใช่ตัวที่พบบ่อยที่สุด\n— Melanoma กับ EHV-3 = melanoma สัมพันธ์กับม้าสีเทา ไม่ใช่ herpesvirus\n— Eosinophilic granuloma กับ equine papillomavirus = สงสัยว่าเกิดจาก insect bite hypersensitivity และไม่ใช่เนื้องอกที่พบมากที่สุด\n\n💡 ไวรัสของวัวเป็นตัวที่ก่อเนื้องอกซึ่งพบบ่อยที่สุดในม้า",
     "verified": "Equine Dermatology น.34",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 34 }]
   },
   {
     "id": 105243,
@@ -520,7 +541,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "Fibroblastic sarcoid เป็นก้อนเนื้อแดง มีแผลหลุม และมีก้านหรือฐานแบน\n\n❌ ทำไมข้ออื่นผิด\n— Verrucose = คล้ายหูด ผิวหนา เป็นขุยแข็ง ลักษณะก้อนแดงมีแผลและมีก้านเป็นของ fibroblastic\n— Nodular = ก้อนอยู่ในชั้น dermis หรือใต้ dermis ไม่ใช่แผ่นแบนขนร่วง\n— Occult = แผ่นแบน ขนร่วง มีสะเก็ดบาง ลักษณะคล้ายหูดผิวหนาเป็นขุยเป็นของ verrucose\n\n💡 ไล่จากแบนไปนูน occult แบน, verrucose คล้ายหูด, nodular เป็นก้อนใต้ผิว, fibroblastic เนื้อแดงมีแผล",
     "verified": "Equine Dermatology น.34",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 34 }]
   },
   {
     "id": 105246,
@@ -543,7 +565,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "SCC พบมากเป็นอันดับสอง ราว 20% ของเคส อายุเฉลี่ยประมาณ 12 ปี และพบในเพศผู้มากกว่าเพราะรอยโรคที่อวัยวะเพศ\n\n❌ ทำไมข้ออื่นผิด\n— อันดับหนึ่งและอายุน้อยกว่า 3 ปี = อันดับหนึ่งคือ sarcoid ส่วนอายุน้อยกว่า 3 ปีเป็นภาพของหูดจากไวรัส\n— เฉพาะม้าสีเทาที่โคนหางกับฝีเย็บ = ภาพของ melanoma\n— เฉพาะลูกม้าแรกเกิดและหายเองในสามเดือน = การหายเองในสามเดือนเป็นลักษณะของหูดจากไวรัส\n\n💡 sarcoid มาที่หนึ่ง SCC ตามมาที่สอง และเป็นโรคของม้าวัยกลางขึ้นไป",
     "verified": "Equine Dermatology น.38",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 38 }]
   },
   {
     "id": 105247,
@@ -567,7 +590,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "ปัจจัยเสี่ยงของ SCC คือแสง UV ที่ลงบนผิวซึ่งไม่มีเม็ดสี และ EcPV-2 ที่สัมพันธ์กับรอยโรคที่องคชาตและหนังหุ้ม\n\n❌ ทำไมข้ออื่นผิด\n— Dermatophilus congolensis ซ้ำหลายครั้ง = การติดเชื้อแบคทีเรียที่ผิวหนัง ไม่ได้เป็นปัจจัยเสี่ยงของมะเร็งชนิดนี้\n— Selenium เกินขนาด = ทำให้ keratin ของแผงคอและหางเสียหาย คนละภาวะกัน\n— Culicoides กัดซ้ำ = นำไปสู่ภูมิไวเกินและ eosinophilic granuloma ไม่ใช่ SCC\n\n💡 ผิวที่ไม่มีเม็ดสีคือผิวที่ไม่มีที่กันแดด แดดกับไวรัสจึงเป็นคู่ที่ต้องนึกถึงเสมอ",
     "verified": "Equine Dermatology น.38",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 38 }]
   },
   {
     "id": 105248,
@@ -591,7 +615,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "Melanoma พบบ่อยมากในม้าสีเทาที่อายุมาก และพบน้อยในม้าสีอื่น ตำแหน่งเด่นคือโคนหาง ฝีเย็บ ปากช่องคลอด หนังหุ้มองคชาต ริมฝีปาก และต่อมน้ำลาย parotid\n\n❌ ทำไมข้ออื่นผิด\n— ม้าสีน้ำตาลอายุน้อย ที่แผงคอและแนวสันหลัง = กลับข้างทั้งกลุ่มม้าและตำแหน่ง แนวสันหลังเป็นตำแหน่งของ Culicoides hypersensitivity\n— ม้าขาวเผือกทุกช่วงอายุ ที่ขาส่วนปลายและกีบ = ม้าขาวเผือกสัมพันธ์กับ actinic dermatitis และ SCC\n— เพศผู้ทุกสี ที่เปลือกตาและเยื่อบุตาขาว = รอยโรครอบตาเป็นภาพเด่นของ SCC",
     "verified": "Equine Dermatology น.39",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 39 }]
   },
   {
     "id": 105249,
@@ -614,7 +639,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "ผ่าตัดหรือใช้เลเซอร์ตัดออกตั้งแต่ระยะแรกได้ผลดีที่สุดและช่วยกันการแพร่กระจาย ส่วนการฉีด cisplatin เข้าก้อนเป็นทางเลือกรอง\n\n❌ ทำไมข้ออื่นผิด\n— Cimetidine เป็นหลักและได้ผลแน่นอนทุกราย = ผลของ cimetidine ไม่น่าเชื่อถือ จึงไม่ใช่ยาหลัก\n— ฉายรังสีทั้งตัวเป็นมาตรฐานอันดับแรก = ไม่ได้อยู่ในแนวทางการรักษา\n— ยาต้านฮิสตามีนร่วมกับ prednisolone = ไม่ได้อยู่ในแนวทางการรักษาเช่นกัน",
     "verified": "Equine Dermatology น.39",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 39 }]
   },
   {
     "id": 105250,
@@ -637,7 +663,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "ก้อนของ eosinophilic granuloma มีขอบเขตชัด แข็ง ไม่เจ็บ ไม่คัน และผิวหนังกับขนที่คลุมอยู่ยังปกติ เว้นแต่ถูกเสียดสี\n\n❌ ทำไมข้ออื่นผิด\n— ก้อนนิ่ม เจ็บมาก มีหนองไหลจากรูเปิด = เข้าได้กับฝีหรือการติดเชื้อ\n— ก้อนแบนราบ ขนร่วงเป็นวง มีสะเก็ด = ภาพของ occult sarcoid\n— ตุ่มน้ำใสแตกเป็นแผลแล้วตกสะเก็ดใน 14 วัน = ภาพของ coital exanthema",
     "verified": "Equine Dermatology น.40",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 40 }]
   },
   {
     "id": 105252,
@@ -661,7 +688,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "PPID เกิดจากเซลล์ประสาทที่หลั่ง dopamine จาก hypothalamus เสื่อม ทำให้ pars intermedia หนาตัวหรือเกิด adenoma และ ACTH สูงขึ้น\n\n❌ ทำไมข้ออื่นผิด\n— เนื้องอกที่ต่อมหมวกไต = เป็นรูปแบบของ Cushing's ในคนกับสุนัข ไม่ใช่กลไกในม้า\n— ต่อมไทรอยด์ทำงานลดลง = ไทรอยด์ไม่ใช่ต้นเหตุของภาวะนี้\n— ตับอ่อนหลั่ง insulin ลดลง = คนละกลไก ม้า PPID พบ hyperinsulinemia ร่วมได้ ไม่ใช่ insulin ต่ำ\n\n💡 ม้าเป็นที่ pars intermedia และต้นตอคือ dopamine ที่หายไป ไม่ใช่ต่อมหมวกไตแบบคนกับสุนัข",
     "verified": "Equine Dermatology น.32",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 32 }]
   },
   {
     "id": 105253,
@@ -684,7 +712,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "ยาหลักคือ pergolide เริ่มที่ 2 ug/kg กินวันละครั้ง แล้วปรับเพิ่มได้ถึง 6 ถึง 10 ug/kg ถ้าจำเป็น\n\n❌ ทำไมข้ออื่นผิด\n— Cyproheptadine = ยาที่เพิ่มเข้าไปเมื่อตอบสนองไม่ดี ไม่ใช่ยาเริ่มต้น\n— Levothyroxine = ไม่ได้อยู่ในแนวทางการรักษา PPID\n— Metformin = ไม่ได้อยู่ในแนวทางการรักษา PPID",
     "verified": "Equine Dermatology น.33",
     "sourceType": "lecture-derived",
-    "source": "Equine Dermatology lecture deck (Vet 85)"
+    "source": "Equine Dermatology lecture deck (Vet 85)",
+    "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 33 }]
   },
   {
     "id": 105254,
@@ -3780,6 +3809,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 0,
     "explain": "Field surgery ใช้ยาฉีดเป็นหลักแบบ TIVA และ monitor ได้แค่ heart rate, respiratory rate และ reflexes เพราะเครื่องมือในภาคสนามมีจำกัด\n\n❌ ทำไมข้ออื่นผิด\n— Inhalation เป็นหลักและมี capnography พกพาเสมอ = เป็นภาพของ hospital-based surgery\n— มี ECG, capnography และ direct blood pressure ครบ = เป็นชุด monitor ของห้องผ่าตัดใหญ่\n— ความเสี่ยงต่ำกว่าเพราะเข้าถึงการดูแลฉุกเฉินได้ทันที = กลับข้าง field surgery เสี่ยงกว่า เพราะควบคุมสภาพแวดล้อมได้น้อยและเข้าถึงการดูแลฉุกเฉินได้ยากกว่า\n\n💡 ในสนาม ยาอยู่ในเข็ม การเฝ้าอยู่ที่ตากับมือ ในโรงพยาบาล ยาอยู่ในเครื่องดมยา การเฝ้าอยู่ที่จอ",
     "verified": "Equine Sx concept น.2",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 2 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -3803,6 +3833,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 2,
     "explain": "การโกนขนทิ้งช่วงไว้นานทำให้ผิวหนังถลอกและระคายเคือง แล้วแบคทีเรียเพิ่มจำนวนขึ้นตรงตำแหน่งที่จะลงมีด ยิ่งทิ้งไว้ข้ามวันยิ่งได้ครบทั้งรอยถลอก ขนที่งอกกลับ และสิ่งสกปรกที่มาสะสม การโกนจึงต้องเป็นขั้นตอนที่ต่อเนื่องกับการผ่าตัด ไม่ใช่งานที่ทำเผื่อไว้ล่วงหน้า\n\n❌ ทำไมข้ออื่นผิด\n— \"ขนจะยาวขึ้นจนบังแนวลงมีด\" = ขนงอกกลับจริง แต่สิ่งที่มันพามาคือความสกปรกและเชื้อ ไม่ใช่การบังสายตาศัลยแพทย์\n— \"น้ำยา antiseptic เสื่อมฤทธิ์ถ้าทิ้งไว้เกิน 2 ชั่วโมง\" = น้ำยาลงตอน scrub ซึ่งเป็นคนละขั้นกับการโกน ไม่ได้ค้างอยู่บนผิวตั้งแต่ตอนโกน ช่วงเวลาที่ทิ้งไว้จึงไม่เกี่ยวกับฤทธิ์ของน้ำยา\n— \"สูญเสียความร้อนทางผิวหนังจนอุณหภูมิกายต่ำ\" = การเสียความร้อนเป็นปัญหาของช่วงที่ม้าสลบและนอนนิ่ง ไม่ใช่เหตุผลที่กำหนดว่าโกนได้ล่วงหน้านานแค่ไหน",
     "verified": "Equine Sx concept น.12",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 12 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -3826,6 +3857,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 3,
     "explain": "ขอบเขตโกนและ scrub ของการผ่าตัด colic กินตั้งแต่ pubis ขึ้นไปเลย xiphoid cartilage และกว้างออกด้านข้างจนถึง flank fold ทั้งสองข้าง เพราะแผลเป็น ventral midline ที่ยาวได้ตลอดแนวกลางท้อง เขตปลอดเชื้อจึงต้องกว้างกว่าแนวแผลทุกด้าน\n\n❌ ทำไมข้ออื่นผิด\n— \"เฉพาะแนว ventral midline กว้างข้างละ 10 เซนติเมตร\" = แคบเกินไป ไม่ถึง flank fold ซึ่งเป็นขอบด้านข้างที่ต้องรวมอยู่ในเขตที่เตรียม\n— \"จาก costal arch ลงมาถึงกลางท้อง โดยไม่ต้องถึง pubis\" = ตัด pubis ทิ้ง ทั้งที่เป็นขอบท้ายของเขตที่ต้องเตรียม\n— \"รอบเอวทั้งวง จาก withers ถึง stifle\" = เป็นการเตรียมแบบคาดรอบตัว คนละแนวกับแผลที่อยู่กลางท้องด้านล่าง",
     "verified": "Equine Sx concept น.12",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 12 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -3849,6 +3881,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 0,
     "explain": "ในท่านอนตะแคง น้ำหนักตัวม้าทั้งตัวลงมากองบนขาหน้าด้านล่าง การดึงขาหน้าด้านล่างไปข้างหน้าคือการเลื่อนลำตัวออกจากแนว brachial plexus ไม่ให้เส้นประสาทถูกกดค้างจนเกิด neuropathy หลังวางยาสลบ\n\n❌ ทำไมข้ออื่นผิด\n— \"ให้กระบังลมขยายตัวได้ดีขึ้น\" = การจัดขาหน้าไม่ได้เปลี่ยนพื้นที่ให้กระบังลม เหตุผลของท่านี้อยู่ที่เส้นประสาทใต้ลำตัว\n— \"ป้องกันการบิดหมุนของข้อ carpus ขณะยกม้าขึ้นเตียง\" = การยกม้าเป็นคนละขั้นกับการจัดท่าหลังวางลงแล้ว และสิ่งที่ท่านี้ปกป้องคือเส้นประสาท ไม่ใช่ข้อ\n— \"สายน้ำเกลือที่ jugular vein ไม่ถูกกดทับ\" = jugular vein อยู่ที่คอ คนละตำแหน่งกับ brachial plexus ที่ไหล่\n\n💡 ข้อควรระวังเรื่องการจัดท่าม้าทุกข้อแก้ปัญหาเดียวกันหมด คือ myopathy กับ neuropathy จากการถูกกดค้าง",
     "verified": "Equine Sx concept น.17",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 17 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -3872,6 +3905,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 2,
     "explain": "การปูผ้าในม้าใช้ผ้าแยกกันสี่ผืนแบบ four-quadrant ผืนละด้านของแผล แล้วปูซ้อนสองชั้นขึ้นไปให้ได้ชั้นกันน้ำ เพราะการผ่าตัดม้ามีของเหลวมาก และถ้าของเหลวซึมทะลุผ้าลงมาได้ เขตปลอดเชื้อก็เสียทั้งผืน\n\n❌ ทำไมข้ออื่นผิด\n— \"ใช้ผ้าพลาสติกล้วนคลุมทั้งตัวเพราะกันน้ำดีที่สุด\" = ผ้าพลาสติกล้วนเป็นสิ่งที่ให้เลี่ยง ความกันน้ำได้มาจากการปูซ้อนหลายชั้นแทน\n— \"เขตปลอดเชื้อครอบคลุมทุกบริเวณที่ต่ำกว่าระดับแผล\" = กลับด้าน เขตปลอดเชื้อคือบริเวณที่อยู่เหนือและระดับเดียวกับแผล ส่วนที่ต่ำกว่านั้นถือว่าไม่ปลอดเชื้อ\n— \"ใช้ incise film ในทุกเคส\" = incise film ไม่ได้ถูกแนะนำให้ใช้เป็นประจำ\n\n💡 เขตปลอดเชื้อวัดขึ้น ไม่ได้วัดลง อะไรที่ต่ำกว่าระดับแผลถือว่าสกปรกไว้ก่อน",
     "verified": "Equine Sx concept น.20",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 20 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -3895,6 +3929,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 2,
     "explain": "คานขวางด้านหน้าของซองอยู่ระดับคอม้าพอดี ถ้าตั้งไว้ไม่เหมาะหรือม้าดันตัวไปข้างหน้า คานจะกดลงบนหลอดลม ข้อควรระวังของการจัดม้าเข้าซองจึงคือต้องแน่ใจว่าคานขวางไม่กดทับหลอดลม\n\n❌ ทำไมข้ออื่นผิด\n— \"ใช้ซองกว้างมากเพื่อให้ม้าขยับได้อิสระที่สุด\" = ซองต้องไม่กว้างเกินไป ไม่อย่างนั้นม้าขยับได้มากและเข้าถึง flank เพื่อทำหัตถการไม่ได้\n— \"คานขวางด้านหน้ากดคอม้าไว้เพื่อกันม้าถอยหลัง\" = คานมีไว้จำกัดการเคลื่อนไหวไปหน้าและถอยหลัง ไม่ใช่กดคอ และการกดคอคือสิ่งที่ต้องเลี่ยง\n— \"ปล่อยหัวม้าอิสระโดยไม่ต้องมีที่รองรับ\" = หัวม้าต้องพักบน padded headstand ตลอดการทำหัตถการ",
     "verified": "Equine Sx concept น.18",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 18 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -3918,6 +3953,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 1,
     "explain": "ASA class II คือมีโรคเฉพาะที่โดยไม่มีอาการทางระบบ พยากรณ์โรค good และตัวอย่างมาตรฐานของระดับนี้คือ skin laceration กับ simple fracture ม้าที่มีแผลฉีกขาดที่ผิวหนังแต่ทั้งตัวยังปกติจึงตรงกับนิยามนี้พอดี\n\n❌ ทำไมข้ออื่นผิด\n— \"ASA class I\" = สัตว์สุขภาพดีที่ไม่มีโรคใดเลย การมีแผลฉีกขาดอยู่ดันระดับขึ้นมาหนึ่งขั้น\n— \"ASA class III\" = เริ่มมีอาการทางระบบระดับปานกลางจนจำกัดการทำงาน ซึ่งโจทย์บอกชัดว่าไม่มี\n— \"ASA class IV\" = มีอาการทางระบบรุนแรงถึงขั้นคุกคามชีวิต",
     "verified": "Equine Sx concept น.9",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 9 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -3941,6 +3977,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 3,
     "explain": "ASA class V คือ moribund ม้าที่คาดว่าอยู่ได้ไม่เกิน 24 ชั่วโมงไม่ว่าจะผ่าตัดหรือไม่ผ่าตัด ตัวอย่างคือ endotoxic shock, severe trauma และ multiorgan failure พยากรณ์โรค grave\n\n❌ ทำไมข้ออื่นผิด\n— \"โรคเฉพาะที่ ไม่มีอาการทางระบบ เช่น แผลฉีกขาดที่ผิวหนัง\" = นิยามของ class II\n— \"อาการทางระบบปานกลางจนจำกัดการทำงาน เช่น หัวใจมีเสียงฟู่\" = นิยามของ class III\n— \"อาการทางระบบรุนแรงคุกคามชีวิต เช่น ขาดน้ำอย่างหนัก\" = นิยามของ class IV\n\n💡 class IV ยังพลิกได้ถ้าแก้ไขทัน แต่ class V คือคาดหมายไว้แล้วว่าไม่รอด ไม่ว่าจะลงมีดหรือไม่",
     "verified": "Equine Sx concept น.9",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 9 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -3965,6 +4002,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 2,
     "explain": "การขนส่งนาน ๆ ทำให้ม้ายืนค้างและเครียด สองอย่างที่ตามมาแบบซ่อนอยู่คือ rhabdomyolysis กับ salmonellosis ตัวแรกสำคัญกับการวางยาเป็นพิเศษ เพราะกล้ามเนื้อที่ยืนค้างมานานจะยิ่งเสียหายเมื่อถูกกดทับต่อระหว่าง GA ทำให้เสี่ยงต่อการวางยาและ recovery ช้า\n\n❌ ทำไมข้ออื่นผิด\n— \"PCV ลดลงจนต้องให้เลือดก่อนผ่าตัดทุกเคส\" = สิ่งที่ความเครียดจากการขนส่งทำกับเลือดคือ stress leukogram ไม่ใช่ PCV ตกจนต้องให้เลือด\n— \"เกิด hypothermia จนต้องเลื่อนการผ่าตัด\" = อุณหภูมิกายต่ำไม่ใช่ความเสี่ยงที่ผูกกับประวัติการขนส่ง\n— \"ขาดน้ำจนเกิด laminitis ที่ขาหน้าทั้งสองข้าง\" = ความเสี่ยงที่ผูกกับการขนส่งอยู่ที่กล้ามเนื้อและทางเดินอาหาร ไม่ใช่ที่กีบ\n\n💡 ได้ยินคำว่าขนส่งมานาน ให้นึกสองคำทันที rhabdomyolysis กับ salmonellosis",
     "verified": "Equine Sx concept น.5 และ น.8",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 5 }, { "doc": "equine-sx-concept85", "edition": "62p", "page": 8 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -3988,6 +4026,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 1,
     "explain": "ในสนามให้จัดท่า lateral recumbency ดึงขาหน้าด้านล่างออกมาข้างหน้า ส่วนอีกสามขาวางตั้งฉากกับลำตัว เป้าหมายคือไม่ให้กล้ามเนื้อและเส้นประสาทข้างที่นอนทับถูกกดค้าง จึงกัน postanesthetic myositis และอัมพาตของเส้นประสาทไปพร้อมกัน\n\n❌ ทำไมข้ออื่นผิด\n— \"dorsal recumbency เสมอ\" = ท่าที่ดีกว่าในสนามคือ lateral recumbency และคำว่าเสมอทำให้ผิดซ้ำอีกชั้น\n— \"sternal recumbency แล้วพลิกตัวม้าไปมาทุก 15 นาที\" = กติกาข้อหนึ่งของการจัดท่าคือไม่พลิกตัวม้า การกลิ้งม้าที่สลบอยู่ไม่ทำ\n— \"จัดท่ายืนในซองบังคับเสมอ\" = ซองบังคับเป็นของ standing anesthesia ไม่ใช่ม้าที่สลบเต็มตัว",
     "verified": "Equine Sx concept น.26",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 26 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -4011,6 +4050,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 3,
     "explain": "TPR คือ temperature, pulse rate และ respiratory rate เป็นชุดข้อมูลที่สำคัญที่สุดก่อนผ่าตัด เพราะเป็นตัวแรกที่เตือนศัลยแพทย์ว่ามีปัญหา cardiorespiratory หรือปัญหาเชิงระบบซ่อนอยู่ และเป็นตัวชี้ว่าจะเดินหน้า elective surgery ได้หรือต้องเลื่อน\n\n❌ ทำไมข้ออื่นผิด\n— \"สีเยื่อเมือกร่วมกับ capillary refill time\" = บอก perfusion ได้จริง แต่เป็นรายการที่ตามหลัง TPR ไม่ใช่ตัวคัดกรองตั้งต้น\n— \"ลักษณะและความแข็งของมูล\" = อยู่ในลำดับถัดไปของการตรวจ ไม่ใช่ตัวที่บอกสถานะเชิงระบบ\n— \"เสียงการเคลื่อนไหวของลำไส้ทั้งสี่ควอดแรนต์\" = การฟังช่องท้องก็เป็นรายการที่ตามหลัง TPR เช่นกัน",
     "verified": "Equine Sx concept น.8",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 8 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -4034,6 +4074,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 0,
     "explain": "ลูกม้าที่โตขึ้นมาแล้วแต่ยังฉีดวัคซีนไม่ครบชุด ให้ tetanus toxoid ก่อนเข้ารับการผ่าตัด เพราะแผลผ่าตัดเป็นทางเข้าของ tetanus และภูมิที่ยังไม่ครบชุดคือช่องโหว่ที่ต้องปิดก่อนลงมีด\n\n❌ ทำไมข้ออื่นผิด\n— \"ไม่ต้องให้อะไร เพราะได้ภูมิจากนมน้ำเหลืองแล้ว\" = ภูมิจาก colostrum เป็นของลูกม้าแรกเกิด ไม่ใช่ของลูกม้าที่โตขึ้นมาแล้ว\n— \"ให้ยาปฏิชีวนะกลุ่ม penicillin แทนวัคซีน\" = ยาปฏิชีวนะไม่ได้สร้างภูมิคุ้มกัน จึงแทน toxoid ไม่ได้\n— \"เลื่อนการผ่าตัดจนกว่าจะฉีดครบชุด\" = การจัดการคือให้ toxoid แล้วผ่าตัดได้ ไม่ใช่เลื่อนการผ่าตัดออกไป",
     "verified": "Equine Sx concept น.7",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 7 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -4058,6 +4099,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 3,
     "explain": "Pony หายเร็วกว่าเพราะอาศัย wound contraction เป็นหลัก ส่วนม้าพึ่ง epithelialization ซึ่งเดินหน้าช้ากว่า แผลชนิดเดียวกันในม้าจึงใช้เวลานานกว่า และแผลที่ปลายขาของม้าคือแผลที่ปิดช้าที่สุด\n\n❌ ทำไมข้ออื่นผิด\n— \"Pony อาศัย epithelialization ส่วนม้าอาศัย wound contraction\" = สลับข้างกันพอดี\n— \"หายด้วยอัตราเท่ากันถ้าแผลอยู่ตำแหน่งปลายขาเหมือนกัน\" = ตำแหน่งเดียวกันก็ยังไม่เท่ากัน และปลายขาคือจุดที่ช่องว่างระหว่างสองกลุ่มกว้างที่สุด\n— \"ม้าสร้าง granulation tissue น้อยกว่า pony จึงได้แผลเป็นดีกว่า\" = กลับด้าน ม้าสร้าง granulation tissue มากจนเกิด EGT และได้แผลเป็นที่เปราะและคุณภาพด้อยกว่า\n\n💡 pony หด ม้าคลาน contraction ปิดแผลเร็ว epithelialization ปิดแผลช้า",
     "verified": "Equine Sx concept น.38",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 38 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -4081,6 +4123,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 1,
     "explain": "การอักเสบของม้าเริ่มช้าและอ่อนแรง แต่ไม่ยอมจบ ลากยาวเป็นแบบเรื้อรัง ผลที่ตามมาเป็นชุดคือ contraction ช้า เกิด EGT และ epithelialization ไม่ดี\n\n❌ ทำไมข้ออื่นผิด\n— \"รุนแรงและจบเร็วภายใน 3 สัปดาห์ กำจัดแบคทีเรียได้ดี\" = เป็นคำอธิบายของ pony ทั้งประโยค\n— \"ไม่มีระยะอักเสบเลย เข้าสู่ระยะสร้างเนื้อเยื่อทันทีตั้งแต่วันแรก\" = ม้าไม่ได้ข้ามระยะอักเสบ แต่ทำได้ไม่ดีและไม่ยอมจบ\n— \"รุนแรงมากจนแผลหดตัวเร็วเกินไปและปิดสนิทภายใน 7 วัน\" = ม้าเป็นฝั่งที่ contraction ช้า ไม่ใช่เร็วเกิน\n\n💡 อ่อนแต่ยาวคือลายเซ็นของม้า แรงแต่สั้นคือของ pony",
     "verified": "Equine Sx concept น.39",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 39 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -4104,6 +4147,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 2,
     "explain": "EGT พบมากที่สุดที่แผลบริเวณขาส่วนปลายของม้า และปัจจัยโน้มนำข้อแรกคือแผลปลายขาที่ epithelialization ช้า granulation tissue จึงงอกล้นขึ้นมาก่อนที่ผิวหนังจะคลานมาปิดทัน\n\n❌ ทำไมข้ออื่นผิด\n— \"แผลบริเวณลำตัวและสีข้างที่เย็บปิดไปแล้ว\" = แผลลำตัวหายดีกว่าปลายขาอยู่แล้ว และแผลที่เย็บปิดไปเป็นการหายแบบ first intention ไม่ใช่เวทีของ EGT\n— \"แผลบริเวณใบหน้าและรอบเบ้าตาที่ติดเชื้อ\" = ไม่ใช่ตำแหน่งคลาสสิกของ EGT\n— \"แผลบริเวณคอที่มีการเคลื่อนไหวของกล้ามเนื้อมาก\" = การเคลื่อนไหวเป็นปัจจัยที่ต้องคุมจริง แต่ตำแหน่งที่ EGT ขึ้นชื่อคือปลายขา",
     "verified": "Equine Sx concept น.44",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 44 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -4128,6 +4172,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 0,
     "explain": "จัดการ EGT ด้วยการเอาเนื้อเยื่อส่วนเกินออกก่อน ด้วย surgical excision หรือ sharp debridement แล้วพัน pressure bandage ซึ่งทำหน้าที่กดไม่ให้ granulation tissue งอกล้นกลับขึ้นมาอีก เสริมด้วย topical corticosteroids และการดามเพื่อลดการเคลื่อนไหว ส่วนเคสที่ยากขึ้นไปใช้ hydrocolloid dressing หรือ regenerative therapy\n\n❌ ทำไมข้ออื่นผิด\n— \"ปล่อยให้ยุบเองและงดพันแผลทุกชนิด\" = ปล่อยไว้จะกลายเป็นแผลเรื้อรังและติดเชื้อแทรกซ้อน และการงดพันคือการถอดแรงกดที่เป็นตัวคุม granulation ออกไป\n— \"ใช้ยาปฏิชีวนะฉีดอย่างเดียวโดยไม่ตัดเนื้อเยื่อออก\" = ยาฉีดไม่ทำให้ก้อนเนื้อที่งอกล้นไปแล้วหายไป ต้องเอาออกด้วยมือก่อน\n— \"ใส่เฝือก fiberglass คลุมทั้งขา 6 สัปดาห์โดยไม่เปลี่ยนแผล\" = การดามใช้เพื่อลดการเคลื่อนไหวควบคู่กับการรักษาแผล ไม่ใช่ปิดทิ้งไว้โดยไม่ดูแผล",
     "verified": "Equine Sx concept น.45",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 45 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -4152,6 +4197,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 2,
     "explain": "พันจาก distal ขึ้นไปหา proximal และให้แต่ละรอบซ้อนทับรอบก่อนหน้า 50 เปอร์เซ็นต์ ทิศทางจากล่างขึ้นบนช่วยไล่ของเหลวขึ้นไปทาง proximal และได้ pressure gradient ที่ค่อย ๆ ลดลงเมื่อสูงขึ้น ส่วนการซ้อน 50 เปอร์เซ็นต์ทำให้ความหนาเท่ากันตลอดแนวโดยไม่มีช่องว่าง\n\n❌ ทำไมข้ออื่นผิด\n— \"proximal ไป distal ซ้อนทับ 50 เปอร์เซ็นต์\" = ปริมาณการซ้อนถูก แต่ทิศทางกลับด้าน จะไล่ของเหลวลงไปคั่งที่ปลายขาแทน\n— \"proximal ไป distal ซ้อนทับ 10 เปอร์เซ็นต์\" = ผิดทั้งทิศทางและปริมาณการซ้อน\n— \"distal ไป proximal โดยไม่ซ้อนทับกันเลย\" = ทิศทางถูก แต่ไม่ซ้อนทับจะได้ผ้าที่หนาไม่เท่ากันและมีช่องว่างระหว่างรอบ\n\n💡 ล่างขึ้นบน ซ้อนครึ่งต่อครึ่ง",
     "verified": "Equine Sx concept น.47",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 47 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept (Vet 85) margin marks bandaging as a recurring VCA item"
   },
@@ -4176,6 +4222,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 3,
     "explain": "Half limb bandage พันจาก heel bulbs ขึ้นไปถึงระดับข้อ carpometacarpal ในขาหน้า หรือ tarsometatarsal ในขาหลัง คือคลุม metacarpus หรือ metatarsus ทั้งท่อน แล้วหยุดใต้ข้อ carpus หรือ tarsus พอดี\n\n❌ ทำไมข้ออื่นผิด\n— \"จาก coronary band ถึงระดับข้อ fetlock\" = สั้นกว่าจริง หยุดแค่ fetlock ยังไม่ทันคลุม metacarpus\n— \"จาก heel bulb ถึงข้อศอกหรือใต้ข้อ stifle\" = เป็นขอบเขตของ full limb bandage ไม่ใช่ half limb\n— \"จากกลาง metacarpus ถึง distal radius หรือ tibia\" = เป็นระดับที่ใช้พัน carpal หรือ tarsal bandage และเริ่มจากกลางขา ไม่ได้เริ่มที่ heel bulb\n\n💡 half limb หยุดใต้ข้อ carpus หรือ tarsus ส่วน full limb เลยข้อนั้นขึ้นไปถึงศอกหรือ stifle",
     "verified": "Equine Sx concept น.48",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 48 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept (Vet 85) margin marks this bandage as a recurring exam item"
   },
@@ -4200,6 +4247,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 1,
     "explain": "Full limb bandage ของขาหลังพันจาก bulb of heel ขึ้นไปถึงระดับใต้ข้อ stifle ส่วนคู่เทียบของขาหน้าคือจาก bulb of heel ขึ้นไปถึง elbow region หมุดปลายบนจึงต่างกันตามขาหน้าขาหลัง แต่จุดเริ่มเหมือนกัน\n\n❌ ทำไมข้ออื่นผิด\n— \"ถึงระดับข้อศอก\" = เป็นขอบเขตของขาหน้า ไม่ใช่ขาหลัง\n— \"ถึงระดับข้อ tarsus พอดี ไม่พันเลยขึ้นไป\" = หยุดแค่ tarsus ยังไม่ถือเป็น full limb ต้องเลยข้อขึ้นไป\n— \"ถึงระดับข้อสะโพก\" = สูงเกินขอบเขตที่กำหนดไว้ และเป็นบริเวณที่ผ้าพันขาขึ้นไปไม่ถึง",
     "verified": "Equine Sx concept น.49",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 49 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept (Vet 85) margin marks bandage extents as a recurring exam item"
   },
@@ -4224,6 +4272,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 2,
     "explain": "Robert Jones bandage ที่พันเสร็จต้องเป็นท่อขนานกันตลอดความยาว หนาประมาณ 3 เท่าของเส้นผ่านศูนย์กลางขา ทรงท่อขนานคือสิ่งที่ทำให้แรงกดสม่ำเสมอเท่ากันตลอดแนวขา\n\n❌ ทำไมข้ออื่นผิด\n— \"ทรงกรวยเรียวลง หนา 1.5 เท่าของเส้นผ่านศูนย์กลางขา\" = ผิดทั้งทรงและความหนา ทรงกรวยทำให้แรงกดไม่เท่ากันตลอดแนว\n— \"ท่อขนาน หนา 6 เท่าของเส้นผ่านศูนย์กลางขา\" = ทรงถูกแล้ว แต่หนาเกินสัดส่วนที่กำหนด\n— \"ทรงกระบอกบางแนบขา หนาไม่เกิน 2 เซนติเมตร\" = 2 เซนติเมตรคือเพดานความหนาของสำลีแต่ละชั้น ไม่ใช่ความหนาของ bandage ทั้งอัน\n\n💡 สองตัวเลขนี้อยู่คนละระดับกัน สำลีชั้นละไม่เกิน 2 ซม. แต่ทั้งอันหนา 3 เท่าของขา",
     "verified": "Equine Sx concept น.52",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 52 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept (Vet 85) margin notes Robert Jones as the usual VCA item"
   },
@@ -4248,6 +4297,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 1,
     "explain": "ชั้น primary วางสำลีทีละชั้น แต่ละชั้นหนาน้อยกว่า 2 ซม. แล้วรัดด้วยเทปยืดหยุ่นชนิดไม่มีกาวทีละชั้นก่อนวางชั้นถัดไป การรัดแยกทีละชั้นคือสิ่งที่ทำให้ได้แรงกดสม่ำเสมอทั้งอัน\n\n❌ ทำไมข้ออื่นผิด\n— \"วางสำลีชั้นหนาชั้นเดียวคลุมทั้งขาในครั้งเดียว\" = ห้ามวางชั้นหนา เพราะวัสดุจะเลื่อนและอัดตัวกันเอง\n— \"วางหลายชั้นแล้วรัดรวบทั้งหมดพร้อมกันตอนท้าย\" = จำนวนชั้นถูก แต่การรัดรวบทีเดียวทำให้ชั้นในกับชั้นนอกถูกกดไม่เท่ากัน\n— \"ไม่ต้องใช้สำลี ใช้เฉพาะเทปยืดหยุ่นพันให้แน่น\" = สำลีคือตัวชั้น primary ทั้งชั้น ถอดออกแล้วไม่เหลือสิ่งที่จะกระจายแรงกด",
     "verified": "Equine Sx concept น.52",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 52 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept (Vet 85) margin notes Robert Jones as the usual VCA item"
   },
@@ -4271,6 +4321,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 0,
     "explain": "PVC pipe splint แข็งและ rigid มาก จึงเหมาะกับ distal limb fracture และการ stabilize ในสนาม แต่ข้อแลกคือ conformity ตามรูปขาไม่ดี ท่อไม่ยอมโค้งตามขา จึงต้องรองนุ่มให้พอ ไม่อย่างนั้นจะได้แผลกดทับตรงจุดที่ท่อกดลงบนขา\n\n❌ ทำไมข้ออื่นผิด\n— \"น้ำหนักเบาและแนบรูปขาได้ดี แต่แข็งแรงน้อยกว่าไม้และ PVC\" = เป็นคุณสมบัติของ fiberglass ไม่ใช่ของ PVC\n— \"ให้ความแข็งแรงปานกลาง ใช้ต่อขึ้นไปถึงข้อไหล่และข้อสะโพกได้โดยไม่จำกัด\" = PVC เป็นฝั่งที่ให้ความแข็งแรงสูง ไม่ใช่ปานกลาง และการต่อขึ้นไปถึงข้อไหล่หรือข้อสะโพกเป็นขอบเขตที่วัสดุดามติดข้อจำกัดอยู่\n— \"เป็นเฝือกสำเร็จรูปเชิงพาณิชย์ ใช้เฉพาะช่วง recovery\" = compression boot คือกลุ่มเฝือกสำเร็จรูปที่ใช้ช่วง recovery หลังวางยาสลบ ส่วน PVC เป็นท่อที่ตัดขึ้นรูปเองหน้างาน\n\n💡 PVC แข็งแต่ไม่แนบ fiberglass แนบแต่ไม่แข็งเท่า เลือกตัวไหนก็ต้องชดเชยข้อเสียของตัวนั้น",
     "verified": "Equine Sx concept น.54",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 54 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -4294,6 +4345,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 2,
     "explain": "ข้อจำกัดของ fiberglass casting material คือต่อขึ้นไปถึงข้อไหล่หรือข้อสะโพกไม่ได้ จึงเหมาะกับขาส่วนกลางถึงปลายเท่านั้น ส่วนจุดแข็งของมันคือ lightweight และ conforming ขึ้นรูปตามกายวิภาคของขาได้ง่าย\n\n❌ ทำไมข้ออื่นผิด\n— \"ขึ้นรูปตามลักษณะขาไม่ได้ ต้องตัดตามแบบสำเร็จ\" = ตรงข้ามกับความจริง ความ conforming คือจุดเด่นของ fiberglass\n— \"มีน้ำหนักมากที่สุดในบรรดาวัสดุทำ splint\" = fiberglass อยู่ฝั่ง lightweight\n— \"ใช้ร่วมกับผ้าพันที่รองนุ่มไม่ได้\" = ต้องใส่ทับ bandage ที่รองนุ่มไว้ดีแล้วเสมอ ไม่ใช่ใส่ลงบนขาเปล่า",
     "verified": "Equine Sx concept น.55",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 55 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -4317,6 +4369,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 3,
     "explain": "Stent bandage ใช้ปกป้องแผลที่เย็บปิดแล้วในบริเวณที่พันผ้ารอบตัวไม่ได้ คือลำตัว คอ และขาส่วนบน ตัวอย่างที่เจอบ่อยคือแผล ventral midline หลัง laparotomy ซึ่งไม่มีทางเอาผ้าพันรอบให้แนบแผลได้เลย\n\n❌ ทำไมข้ออื่นผิด\n— \"แผลที่ปลายขาซึ่งพันผ้ารอบขาได้สะดวกอยู่แล้ว\" = พันรอบได้อยู่แล้วจึงไม่ต้องพึ่ง stent\n— \"แผลที่กีบและ coronary band ที่ต้องการแรงกดสูงมาก\" = ตำแหน่งนั้นพันรอบได้เช่นกัน และ stent ไม่ใช่วิธีที่เลือกใช้เพื่อให้แรงกดสูง\n— \"แผลที่หัวและรอบเบ้าตาที่ต้องใช้ตาข่ายคลุม\" = แผลที่หัวมีวิธีของตัวเองคือ head bandage ที่ใช้ mesh stockinette",
     "verified": "Equine Sx concept น.57",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 57 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -4340,6 +4393,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 0,
     "explain": "Abdominal bandage หลังผ่าตัดเปิดช่องท้องคลุมตั้งแต่ด้านหลังต่อ withers ลงมาถึงด้านหลังต่อสะดือ ตรง withers ต้องรองนุ่มเป็นพิเศษเพราะเป็นสันกระดูกที่รับแรงเหมือนตำแหน่งอาน แล้วพัน conforming gauze ซ้อนทับ 50 เปอร์เซ็นต์ ก่อนปิดทับด้วย elastic adhesive bandage\n\n❌ ทำไมข้ออื่นผิด\n— \"จากระดับ xiphoid ถึงระดับข้อสะโพกทั้งสองข้าง\" = ไม่ใช่หมุดที่ใช้ทั้งคู่ ขอบที่กำหนดคือหลังต่อ withers กับหลังต่อสะดือ\n— \"จากระดับคอด้านล่างลงมาถึงระดับกลางลำตัว\" = เริ่มที่คอซึ่งอยู่หน้ากว่า withers และไม่ได้ลงมาถึงสะดือซึ่งเป็นขอบท้ายที่กำหนดไว้\n— \"จากระดับเอวด้านหลังไปถึงระดับหน้าอกด้านหน้า\" = สลับหัวท้าย และไม่มีหมุดสะดือซึ่งเป็นขอบที่ใช้จริง",
     "verified": "Equine Sx concept น.59",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 59 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -4363,6 +4417,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 3,
     "explain": "นอกจากปกป้องแผลที่หัวและแผลที่ปล่อยให้หายแบบ second intention แล้ว head bandage ยังให้แรงกดเบา ๆ เพื่อคุม subcutaneous emphysema โดยเฉพาะเคสที่เกี่ยวกับไซนัส ซึ่งอากาศรั่วเข้ามาอยู่ใต้ผิวหนังได้ คำว่าเบา ๆ สำคัญ เพราะห้ามพันแน่นบริเวณปากหรือ throatlatch\n\n❌ ทำไมข้ออื่นผิด\n— \"ลดอุณหภูมิบริเวณศีรษะเพื่อป้องกันสมองบวม\" = head bandage ไม่ได้มีบทบาทเรื่องอุณหภูมิหรือภาวะสมองบวม\n— \"ยึด nasogastric tube ให้อยู่กับที่\" = การยึดสายเป็นคนละงาน ไม่ใช่ประโยชน์ที่ระบุไว้ของผ้าพันหัว\n— \"จำกัดการเคี้ยวและการกลืนในม้าที่งดอาหาร\" = ขัดกับข้อห้ามโดยตรง เพราะห้ามพันแน่นบริเวณปากหรือ throatlatch อยู่แล้ว",
     "verified": "Equine Sx concept น.60",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 60 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -4386,6 +4441,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 1,
     "explain": "Accessory carpal bone เป็นปุ่มกระดูกที่นูนออกมาจากแนวขา ถ้าพันทับ แรงกดจะไปกองที่จุดนั้นมากกว่าบริเวณรอบข้างจนเกิดแผลกดทับ การพัน figure-of-eight รอบ carpus จึงเว้นปุ่มนี้ไว้ เช่นเดียวกับที่ขาหลังเว้น calcaneal tuberosity\n\n❌ ทำไมข้ออื่นผิด\n— \"เพื่อให้ตรวจชีพจรที่หลอดเลือดบริเวณนั้นได้ตลอดเวลา\" = เหตุผลที่เว้นคือแรงกด ไม่ใช่การเปิดช่องไว้คลำชีพจร\n— \"เพื่อให้ข้อ carpus งอได้เต็มที่ขณะลงน้ำหนัก\" = การเว้นปุ่มกระดูกจุดเดียวไม่ได้เพิ่มมุมงอของข้อ\n— \"เพื่อให้ยาที่ฉีดเข้าข้อซึมออกมาระบายได้\" = ผ้าพันไม่ได้มีหน้าที่ระบายยาออกจากข้อ และการฉีดยาเข้าข้อไม่ใช่เหตุผลของรูปแบบการพัน\n\n💡 ทุกปุ่มกระดูกที่นูนคือจุดที่แรงกดไปกอง ขาหน้าเว้น accessory carpal bone ขาหลังเว้น calcaneal tuberosity",
     "verified": "Equine Sx concept น.50",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 50 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },
@@ -4409,6 +4465,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "answer": 3,
     "explain": "ความแข็งแรงของแผลไต่ขึ้นเรื่อย ๆ ตลอดระยะ remodeling และเมื่อครบราว 1 ปีก็ยังขึ้นได้แค่ประมาณ 80 เปอร์เซ็นต์ของผิวหนังเดิม แผลเป็นจึงไม่มีวันแข็งแรงเท่าผิวหนังก่อนเกิดแผล\n\n❌ ทำไมข้ออื่นผิด\n— \"กลับมาเท่าผิวหนังปกติภายใน 21 วัน\" = จุดที่ 21 วันคือช่วง collagen cross-linking ซึ่งเป็นแค่จุดกลางทางของการสะสมความแข็งแรง ไม่ใช่ปลายทาง\n— \"ขึ้นสูงสุดในช่วง proliferative phase แล้วลดลงเรื่อย ๆ\" = ความแข็งแรงไม่ได้ลดลงหลัง proliferative phase มันยังไต่ขึ้นต่อไปตลอด remodeling\n— \"คงที่ตั้งแต่วันแรกและไม่เปลี่ยนแปลงตลอด remodeling\" = remodeling คือระยะที่ความแข็งแรงเปลี่ยนแปลงมากที่สุด\n\n💡 แผลปิดกับแผลแข็งแรงเป็นคนละเวลากัน ปิดนับเป็นสัปดาห์ แข็งแรงนับเป็นปี และสุดท้ายก็ยังไม่ถึงร้อย",
     "verified": "Equine Sx concept น.34",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 34 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },

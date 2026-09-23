@@ -29,6 +29,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "RMSF เกิดจาก R. rickettsii มีสุนัขเป็นแหล่งรังโรคและ tick เป็น vector ส่วน R. prowazekii ก่อ epidemic typhus (louse), R. typhi ก่อ murine typhus (flea), R. akari ก่อ rickettsialpox (house mite)",
     "verified": "ซูสุขติ mid น.3",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -49,6 +50,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "RMSF มี dog เป็นแหล่งรังโรคและ tick เป็น vector ส่วน rodent + house mite คือ rickettsialpox และ rodent + chigger คือ scrub typhus",
     "verified": "ซูสุขติ mid น.3",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -69,6 +71,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "Rickettsialpox เกิดจาก R. akari มี rodent เป็นแหล่งรังโรคและ house mite เป็น vector ตัวเลือกอื่นเป็นการจับคู่ของโรคอื่นในกลุ่ม",
     "verified": "ซูสุขติ mid น.3",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -89,6 +92,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "Scrub typhus เกิดจาก Orientia tsutsugamushi มี rodent เป็นรังโรคและ chigger (ไรอ่อน) เป็น vector มักเจอช่วงปลายฝนต้นหนาว ฤดูท่องเที่ยว ภาคเหนือ",
     "verified": "ซูสุขติ mid น.3",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -109,6 +113,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "Murine typhus เกิดจาก R. typhi ติดต่อผ่าน flea (ทาง feces ของหมัด) ตัวเลือกอื่นเป็นคู่เชื้อกับ vector ของ epidemic typhus, scrub typhus และ rickettsialpox ตามลำดับ",
     "verified": "ซูสุขติ mid น.3",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -129,6 +134,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "Epidemic typhus เกิดจาก R. prowazekii มี louse เป็น vector เป็นโรคหายาก มักเจอช่วงสงครามและสภาพสุขลักษณะไม่ดี ตัวเลือกอื่นตรงกับ murine typhus, scrub typhus และ RMSF",
     "verified": "ซูสุขติ mid น.3",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -149,6 +155,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "E. phagocytophila เข้า neutrophil จึงก่อ human granulocytic ehrlichiosis ส่วน E. sennetsu และ E. chaffeensis เข้า monocytes ทั้งสามตัวก่อโรคในคนได้ ขณะที่ E. canis เป็นเชื้อหลักในสุนัข",
     "verified": "ซูสุขติ mid น.3",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -169,6 +176,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "Q fever เกิดจาก Coxiella burnetii เป็นโรคสำคัญใน ruminants โดยเฉพาะแพะ แกะ ในสัตว์มัก mild หรือ asymptomatic แต่พบ abortion และ stillbirth ส่วนในคนพบ febrile illness, pneumonia, endocarditis และ liver disease",
     "verified": "ซูสุขติ mid น.3",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -189,6 +197,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "ยารักษากลุ่ม rickettsia ที่บันทึกไว้คือ doxycycline, tetracycline และ chloramphenicol เพราะเชื้อเป็น obligate intracellular ยากลุ่ม beta-lactam และ aminoglycoside เข้าไม่ถึงเป้าหมาย ส่วนกลุ่มสุดท้ายเป็นยาโปรโตซัวและพยาธิ",
     "verified": "ซูสุขติ mid น.3",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -209,6 +218,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "Rickettsia ต้องเจริญใน viable eukaryotic host cells เท่านั้น เพาะบนอาหารเลี้ยงเชื้อไร้เซลล์ไม่ได้ ลักษณะอื่นถูกทุกข้อตามที่บันทึกไว้",
     "verified": "ซูสุขติ mid น.3",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -229,6 +239,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "Reverse zoonosis คือโรคที่ถ่ายทอดจากคนกลับไปสู่สัตว์ ตัวอย่างที่บันทึกไว้คือหมาติดเชื้อ M-pox จากคน ส่วน rabies และ leptospirosis เป็น zoonosis ทิศทางสัตว์สู่คน และแมวกินหนูเป็นการติดระหว่างสัตว์",
     "verified": "ซูสุขติ mid น.2",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 2 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -249,6 +260,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "Transboundary disease คือโรคสัตว์ที่รุนแรง แพร่เร็ว ข้ามพรมแดนง่าย กระทบเศรษฐกิจและอาหาร ตัวอย่างคือ FMD, ASF, HPAI และ Brucellosis ส่วนอีกสามโรคไม่จัดอยู่ในกลุ่มนี้",
     "verified": "ซูสุขติ mid น.2",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 2 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -269,6 +281,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "SARS เกิดจาก coronavirus ส่วน brucellosis และ leptospirosis เป็นแบคทีเรีย และ trichinellosis เป็นพยาธิ ตรงกับข้อที่เล่าต่อกันมาว่าตัวเลือกอื่นเป็นแบคทีเรียหรือพยาธิ",
     "verified": "ซูสุขติ mid น.2",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 2 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -289,6 +302,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "ปัจจัยที่บันทึกไว้คือระบบเฝ้าระวัง แล็บ และนโยบายที่เสื่อมถอย (deterioration) ไม่ใช่เข้มแข็งขึ้น ส่วนการขยายตัวของเมือง การเดินทาง และการใช้พื้นที่ป่า เป็นปัจจัยจริงทั้งหมด",
     "verified": "ซูสุขติ mid น.2",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 2 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -309,6 +323,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "คำตอบข้อเขียนที่บันทึกไว้คือ early detection / early warning, pandemic preparedness และ rapid response การเฝ้าระวังในสัตว์ทำให้ควบคุมได้ก่อนเชื้อข้ามมาสู่คน",
     "verified": "ซูสุขติ mid น.2",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 2 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -329,6 +344,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "Ebola ค้นพบครั้งแรกปี 1976 ใกล้แม่น้ำ Ebola ใน Democratic Republic of Congo และ South Sudan ปี 1998 มาเลเซียคือ Nipah ปี 1967 เยอรมนีคือ Marburg virus",
     "verified": "ซูสุขติ mid น.4",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -349,6 +365,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "Ebola haemorrhagic fever เกิดจากไวรัสใน family Filoviridae ส่วน Flaviviridae คือกลุ่ม YF/JE/West Nile, Paramyxoviridae คือ Nipah และ Phenuiviridae เกี่ยวข้องกับ SFTSV",
     "verified": "ซูสุขติ mid น.4",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -369,6 +386,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "Nipah อยู่ใน family Paramyxoviridae genus Henipavirus ส่วน Filoviridae คือ Ebola, Flaviviridae คือกลุ่มไข้สมองอักเสบจากยุง และ Rhabdoviridae/Lyssavirus คือ rabies",
     "verified": "ซูสุขติ mid น.4",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -389,6 +407,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "การระบาดครั้งแรกเกิดในหมูและคนที่มาเลเซียแล้วลามไปสิงคโปร์ช่วงปี 1998-1999 ชื่อโรคมาจากหมู่บ้าน Nipah River Village ส่วนบังกลาเทศและอินเดียพบภายหลังในปี 2001",
     "verified": "ซูสุขติ mid น.4",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -409,6 +428,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "Nipah ในสุกรก่อ porcine respiratory and encephalitic syndrome (PRES) หรือ barking pig ติดต่อในสุกรได้ง่ายมาก ส่วน PRRS, PMWS และ PED เป็นโรคสุกรจากไวรัสอื่น",
     "verified": "ซูสุขติ mid น.4",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -429,6 +449,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "Nipah มีค้างคาวผลไม้สกุล Pteropus เป็น natural reservoir และสุกรเป็น amplifier host ที่เพิ่มจำนวนเชื้อจนกระจาย นอกจากนี้มีรายงานคนติดจากม้าที่ติดโรคด้วย",
     "verified": "ซูสุขติ mid น.4",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -449,6 +470,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "Ebola ติดต่อแบบ direct contact กับ tissue เลือด สารคัดหลั่ง นม และทางเพศสัมพันธ์ (ไวรัสอยู่ในอสุจิได้ถึง 15 เดือน) รวมถึงประเพณีงานศพ ไม่ใช่โรคที่นำโดยยุง",
     "verified": "ซูสุขติ mid น.4",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 4 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -469,6 +491,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "RVF ทำให้ abortion rate สูงและ infant mortality ในสัตว์เคี้ยวเอื้อง ไม่มี human-to-human transmission ไม่มีวัคซีนในคน และ vector เป็นยุง Aedes/Culex ไม่ใช่เห็บ",
     "verified": "ซูสุขติ mid น.5",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 5 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -489,6 +512,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "วัคซีน yellow fever ฉีดโดสเดียวอยู่ได้ตลอดชีพ ใช้ฉีดใน endemic area หรือให้ traveler ร่วมกับ vector control ส่วนกลุ่มโรคนี้ทั้งหมดไม่มียาต้านไวรัสจำเพาะ",
     "verified": "ซูสุขติ mid น.5",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 5 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -509,6 +533,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "JE มีสุกรและนกน้ำเป็น amplifier host โดยติดต่อผ่านยุง Culex กัดเท่านั้น สุกรพบ abortion และ stillbirth ส่วนม้าแสดง pyrexia, depression, muscle tremors และ ataxia แต่ไม่ใช่ amplifier",
     "verified": "ซูสุขติ mid น.5",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 5 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -529,6 +554,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "West Nile fever มีนกเป็น amplifier host เริ่มระบาดในแอฟริกาแล้วไป North America จากการนำเข้าสัตว์ ก่อโรคได้ทั้งในคน ม้า และนก โดยม้าและคนเป็นผู้ป่วยปลายทาง",
     "verified": "ซูสุขติ mid น.5",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 5 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -549,6 +575,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "SFTSV (Dabie bandavirus) พบครั้งแรกที่จีนปี 2009 แล้วกระจายไปเกาหลี ญี่ปุ่น จนมาไทยปี 2019 เชื่อว่านำโดยเห็บ Haemaphysalis longicornis ที่มากับ migratory birds อาการเด่นคือไข้ร่วมกับ thrombocytopenia และ leukocytopenia",
     "verified": "ซูสุขติ mid น.6",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 6 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -569,6 +596,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "ทุกโรคในกลุ่มนี้ไม่มี specific treatment ทำได้แค่ supportive care การป้องกันจึงเน้น vector control เป็นหลัก ยาปฏิชีวนะใช้กับแบคทีเรียไม่ใช่ไวรัส",
     "verified": "ซูสุขติ mid น.5",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 5 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -589,6 +617,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "Antigenic shift คือการเปลี่ยนแปลงครั้งใหญ่จาก gene reassortment ระหว่าง influenza A ต่างสายพันธุ์ที่ติดในโฮสต์ตัวเดียวกัน เช่น ในหมูที่เป็น mixing vessel ได้ novel strain เสี่ยง pandemic ส่วน point mutation ใน HA/NA คือ antigenic drift",
     "verified": "ซูสุขติ mid น.7",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 7 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -609,6 +638,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "สุกรมีทั้ง SAα2,3-Gal (แบบนก) และ SAα2,6-Gal (แบบคน) จึงติดไวรัสได้ทั้งสองแหล่งและเปิดโอกาสให้เกิด gene reassortment ส่วนนกมี α2,3 เด่นใน gut และทางเดินหายใจ คนมี α2,6 เด่นใน upper respiratory",
     "verified": "ซูสุขติ mid น.7",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 7 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -629,6 +659,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "HPAI ต้องเป็น subtype H5 หรือ H7 เท่านั้น เกิดจาก mutation ของ HA gene ให้มี multiple basic amino acid และ IVPI มากกว่า 1.2 ส่วน LPAI เป็นได้ทุก subtype โรคไม่รุนแรง IVPI ไม่เกิน 1.2",
     "verified": "ซูสุขติ mid น.7-8",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 7 }, { "doc": "zoonoses-mid85", "edition": "15p", "page": 8 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -649,6 +680,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "H7N9 ระบาดในจีนปี 2013 เป็น LPAI ที่ไม่รุนแรงในไก่ แต่ถ้าติดคนอัตราตายราว 30% เป็นตัวอย่างว่าความรุนแรงในไก่กับในคนไม่จำเป็นต้องไปด้วยกัน",
     "verified": "ซูสุขติ mid น.8",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 8 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -669,6 +701,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "H5N1 clade 2.3.4.4b strain B3.13 รายงานครั้งแรก 25 มี.ค. 2024 ที่สหรัฐฯ เต้านมวัวมี receptor ของไวรัสจึง shed เชื้อทางน้ำนมได้ และแพร่ผ่านน้ำนม น้ำมูก fomite และการเคลื่อนย้ายสัตว์ วัวติดมากกว่า 1,078 cases คนมากกว่า 70 cases",
     "verified": "ซูสุขติ mid น.8",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 8 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -689,6 +722,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "ปี 2004 ทั้งหมาและแมวติดเชื้อด้วย แมวติดจากการกินไก่ดิบ มีไข้สูง หอบ อาการทางประสาท ตายเฉียบพลัน และตรวจพบปอดอักเสบรุนแรง ส่วนเป็ดไล่ทุ่งเป็น potential reservoir ที่มักไม่แสดงอาการ และ potential source คือ live bird markets",
     "verified": "ซูสุขติ mid น.8",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 8 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -709,6 +743,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "Pandemic H1N1 2009 อุบัติครั้งแรกในประชากรมนุษย์ที่เม็กซิโกแล้วไปสหรัฐฯ แพร่แบบ human-to-human ผ่าน droplets เกิดจาก gene reassortment ของ influenza A หลายสายพันธุ์ในสุกร และมี reverse transmission คือหมูติดจากคนได้ด้วย",
     "verified": "ซูสุขติ mid น.8",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 8 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -729,6 +764,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "CIV(H3N2) ในไทยคือไวรัสไข้หวัดนกที่ข้ามมาติดสุนัข ไม่ได้มาจากหมูแม้จะเป็น H3N2 เหมือนกัน ใกล้เคียงกับ CIV ในเกาหลีและจีนโดยมี NA mutation แบบจีน อาการคือไอ จาม น้ำมูก ไม่ค่อยพบไข้ และไม่ติดคน",
     "verified": "ซูสุขติ mid น.8",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 8 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -749,6 +785,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "TRIG cassette (Triple Reassortant Internal Gene cassette) ของ NA-SIV เป็นการผสมกันระหว่าง swine, human และ avian influenza ส่วน EU-SIV มอบยีน M และ NA เข้ามาในไวรัสใหม่",
     "verified": "ซูสุขติ mid น.8",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 8 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -769,6 +806,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "MERS-CoV ใช้ DPP4 เป็น receptor ส่วน SARS-CoV และ SARS-CoV-2 ใช้ ACE2 และ sialic acid α2,3-Gal เป็น receptor ของ avian influenza ไม่ใช่ coronavirus",
     "verified": "ซูสุขติ mid น.9",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 9 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -789,6 +827,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "SARS-CoV-1 มี palm civet (Paguma larvata), MERS มี dromedary camel และ SARS-CoV-2 มี pangolin เป็น intermediate host ที่ให้ไวรัส adapt, amplify หรือ mutate ก่อนไปสู่คน ส่วนค้างคาวคือ natural reservoir ไม่ใช่ intermediate host",
     "verified": "ซูสุขติ mid น.10",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 10 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -809,6 +848,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "ทั้งสามตัวเป็น betacoronavirus ที่มี origin จากค้างคาว ส่วน alpha พบในหมา (CCoV) แมว (FIP) หมู gamma ก่อโรคในโลมา และ delta เป็นกลุ่มใหม่ที่เริ่มติดคนได้",
     "verified": "ซูสุขติ mid น.9",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 9 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -829,6 +869,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "เกาหลีใต้ระบาดเยอะเพราะนักธุรกิจชาวเกาหลีไปซาอุฯ แล้วติดเชื้อกลับมารักษาในโรงพยาบาลที่เกาหลี ทำให้เชื้อแพร่ไปทั่ว เป็นตัวอย่างการระบาดในโรงพยาบาล ไม่ใช่จากอูฐในประเทศ",
     "verified": "ซูสุขติ mid น.9",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 9 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -849,6 +890,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "วันที่ 13 ม.ค. 2020 พบผู้ติดเชื้อรายแรกนอกจีนที่ประเทศไทย ก่อนที่ WHO จะประกาศ pandemic ในวันที่ 11 มี.ค. 2020",
     "verified": "ซูสุขติ mid น.10",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 10 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -869,6 +911,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "คำตอบข้อเขียนที่บันทึกไว้คือ control wildlife-human contact, enhance surveillance ในสัตว์และคน, strengthen health systems + rapid response และ promote One Health approaches การกำจัดค้างคาวหรือให้ยาต้านไวรัสทั่วไปไม่ใช่แนวทางที่ถูก",
     "verified": "ซูสุขติ mid น.9",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 9 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -889,6 +932,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "Alphacoronavirus เจอในสัตว์เยอะและติดคนได้ เช่น CCoV ในหมา FIP ในแมว รวมถึงในหมูและค้างคาว ส่วน SARS และ MERS เป็น betacoronavirus และโรคในโลมาเป็น gammacoronavirus",
     "verified": "ซูสุขติ mid น.9",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 9 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -909,6 +953,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "WHO ประกาศ pandemic วันที่ 11 มี.ค. 2020 ส่วน 31 ธ.ค. 2019 คือวันที่จีนแจ้ง WHO และ 13 ม.ค. 2020 คือวันพบเคสแรกนอกจีน (ไทย) ขณะที่ พ.ค. 2023 คือช่วงยุติสถานการณ์ฉุกเฉิน (ส่วนหลังนี้ผู้เขียนสรุปเพิ่มเอง)",
     "verified": "ซูสุขติ mid น.10",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 10 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -929,6 +974,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "ตรวจหา rabies antigen ในสมองส่วน hippocampus, cerebellum และ brainstem ซึ่งเป็นตำแหน่งที่ไวรัส replicate หนาแน่น",
     "verified": "ซูสุขติ mid น.11",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 11 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -949,6 +995,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "ลำดับคือ entry ที่แผล อยู่ในกล้ามเนื้อ เข้า NMJ แล้ว retrograde ไป CNS, replicate ในสมอง แล้ว centrifugal spread ออกไปยังต่อมน้ำลายเพื่อถ่ายทอดเชื้อ ไวรัสเดินทางตามเส้นประสาท ไม่ใช่ทางกระแสเลือด",
     "verified": "ซูสุขติ mid น.11",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 11 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -969,6 +1016,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "มาตรการที่บันทึกไว้คือฉีดวัคซีนแบบ ring vaccination รัศมี 5 กม. รอบจุดเกิดโรค ร่วมกับการประกาศเขตโรคระบาดสัตว์ชั่วคราวตาม พ.ร.บ.โรคระบาดสัตว์ พ.ศ. 2558",
     "verified": "ซูสุขติ mid น.11",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 11 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -989,6 +1037,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "สัตว์สัมผัสเชื้อที่มีเจ้าของให้ฉีดวัคซีนแบบ 4x4 (วัน 0, 7, 21, 28) และกักเฝ้าดูอาการ 15 วัน การุณยฆาตและส่งตรวจใช้กับสัตว์ที่สงสัยป่วยเป็นโรคแล้ว ส่วนสัตว์ไม่มีเจ้าของให้ประสาน อปท. จับไปกัก",
     "verified": "ซูสุขติ mid น.11",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 11 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -1009,6 +1058,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "ตามที่บันทึกไว้ ถ้าสัตว์กัดคนให้กักหมาดูอาการ 10 วัน ส่วน 15 วันคือระยะกักเฝ้าดูสัตว์ที่สัมผัสเชื้อ และการเฝ้าระวังโรคในพื้นที่ทำต่อเนื่อง 6 เดือน",
     "verified": "ซูสุขติ mid น.11",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 11 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -1029,6 +1079,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "ข้อแนะนำคือล้างแผลด้วยน้ำและสบู่อย่างน้อย 15 นาที ใส่ยาฆ่าเชื้อ แล้วรีบไปพบแพทย์เพื่อรับวัคซีน",
     "verified": "ซูสุขติ mid น.11",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 11 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -1049,6 +1100,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "ระดับชุมชนควรมีโครงการฉีดวัคซีนสัตว์เลี้ยงครอบคลุมอย่างน้อย 70% ร่วมกับการควบคุมสัตว์จรจัดและ ring vaccination รอบพื้นที่พบโรค",
     "verified": "ซูสุขติ mid น.11",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 11 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -1069,6 +1121,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "Negri bodies คือ eosinophilic inclusion bodies ที่พบใน neuron ของสัตว์ที่ติดเชื้อ rabies เป็นการตรวจทาง histopathology ที่ช่วยสนับสนุนการวินิจฉัย",
     "verified": "ซูสุขติ mid น.11",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 11 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -1089,6 +1142,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "บทบาทสัตวแพทย์ที่บันทึกไว้คือกรณีพบสัตว์สัมผัสเชื้อให้เฝ้าระวังโรคในพื้นที่ต่อเนื่อง 6 เดือน ควบคู่กับการจัดการรายตัว (วัคซีน 4x4 และกักดูอาการ)",
     "verified": "ซูสุขติ mid น.11",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 11 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -1109,6 +1163,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "Cryptosporidium เป็นเชื้อที่พบในผู้ป่วยที่ไปสวนน้ำหรือสระว่ายน้ำสาธารณะ เพราะ oocyst ทนคลอรีนและติดต่อทางน้ำ ส่วน Leishmania และ Trypanosoma เป็น vector-borne",
     "verified": "ซูสุขติ mid น.12",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1129,6 +1184,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "Cryptosporidium และ Giardia ถูกขับออกมาเป็น cyst ที่ติดต่อได้ทันที ต่างจาก oocyst ของ Toxoplasma ที่ต้อง sporulate ในสิ่งแวดล้อมก่อนจึงจะติดต่อได้",
     "verified": "ซูสุขติ mid น.12",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1149,6 +1205,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "ข้อที่ recall ระบุว่าไม่เสี่ยงคือการลูบขนแมว เพราะ oocyst ที่เพิ่งถูกขับออกยังไม่ sporulate ช่องทางติดจริงคือ meat-borne (เนื้อไม่สุก), soil-borne (ดิน), water-borne และ transplacental",
     "verified": "ซูสุขติ mid น.12",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1169,6 +1226,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "ช่องทางที่บันทึกไว้คือ transplacental, water-borne, meat-borne และ soil-borne ไม่มีการติดต่อผ่านแมลงดูดเลือด",
     "verified": "ซูสุขติ mid น.12",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1189,6 +1247,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "กลุ่ม vector-borne ที่บันทึกไว้คือ heartworm, Trypanosoma, Leishmania และ filaria worm ส่วน Giardia กับ Cryptosporidium เป็น water/soil-borne และ Ancylostoma เป็น soil-borne",
     "verified": "ซูสุขติ mid น.12",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1209,6 +1268,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "Metazoonosis คือโรคที่ต้องอาศัยทั้งสัตว์มีกระดูกสันหลังและ arthropod vector ในการแพร่สู่คน ตรงกับ Leishmania infantum ที่นำโดย sandfly ส่วนตัวอื่นไม่ต้องใช้ arthropod vector",
     "verified": "ซูสุขติ mid น.12",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1229,6 +1289,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "การกินเนื้อไม่สุกเสี่ยง Toxoplasma (tissue cyst ในเนื้อ) และ Sarcocystis ส่วน Giardia/Cryptosporidium มากับน้ำและอาหารปนเปื้อนอุจจาระ และ Leishmania/Trypanosoma/Babesia เป็น vector-borne",
     "verified": "ซูสุขติ mid น.12",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1249,6 +1310,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "Sandfly ตัวเล็กมากจนมุดลอดมุ้งธรรมดาได้ มุ้งทั่วไปที่กันยุงจึงไม่เพียงพอ ตามที่ recall บันทึกว่าข้อนี้เป็นข้อผิดของโจทย์",
     "verified": "ซูสุขติ mid น.12",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1269,6 +1331,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "คำตอบที่บันทึกไว้คือ Toxoplasma และ Cryptosporidium ซึ่งก่อโรครุนแรงในผู้ที่ภูมิคุ้มกันบกพร่อง เช่น toxoplasmic encephalitis และ chronic cryptosporidiosis",
     "verified": "ซูสุขติ mid น.12",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1289,6 +1352,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "Recall บันทึกว่าข้อความ 'สารละลายที่เหมาะสุดคือน้ำตาลเข้มข้น' เป็นข้อผิดของโจทย์ เพราะสารละลายน้ำตาลและเกลือเข้มข้นทำให้ cyst ของ Giardia บิดเบี้ยว มาตรฐานที่ใช้คือ zinc sulfate ส่วน formalin เป็นน้ำยารักษาสภาพ ไม่ใช่ flotation solution",
     "verified": "ซูสุขติ mid น.12",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1309,6 +1373,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "Recall ระบุว่าข้อความ 'เชื้อที่พบในสุนัขและแมวมักเป็นชนิดก่อโรค' เป็นข้อผิด เพราะ assemblage ที่พบในสุนัขและแมวส่วนใหญ่จำเพาะกับโฮสต์นั้น ไม่ใช่สายหลักที่ก่อโรคในคน ข้ออื่นเป็นความจริงของ Giardia",
     "verified": "ซูสุขติ mid น.12",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1329,6 +1394,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "Opisthorchis ติดจากการกินปลาเกล็ดขาวดิบที่มี metacercaria ส่วนปูดิบคือ Paragonimus ผักน้ำคือ Fasciola และเนื้อหมูดิบคือ Taenia solium",
     "verified": "ซูสุขติ mid น.13",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 13 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1349,6 +1415,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "Opisthorchis รักษาด้วย praziquantel ส่วน albendazole ใช้กับพยาธิตัวกลมหลายชนิด ivermectin ใช้กับ filaria และพยาธิภายนอก และ niclosamide ใช้กับพยาธิตัวตืดบางชนิด",
     "verified": "ซูสุขติ mid น.13",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 13 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1369,6 +1436,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "อาการที่บันทึกไว้คือ anorexia, diarrhea, marasmus และ intestinal obstruction ส่วน anemia คือข้อที่ recall ระบุว่าไม่ใช่อาการของโรคนี้",
     "verified": "ซูสุขติ mid น.13",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 13 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1389,6 +1457,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "Cysticercus cellulosae คือระยะตัวอ่อนของ Taenia solium ในเนื้อหมู ส่วน T. saginata มากับเนื้อวัว (cysticercus bovis), Echinococcus ติดจากไข่พยาธิของสุนัข และ D. latum มากับปลาน้ำจืด",
     "verified": "ซูสุขติ mid น.13",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 13 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1409,6 +1478,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "ตามที่บันทึกไว้ cysticercus bovis (ตัวอ่อนของ Taenia saginata ในโค) ใช้เวลา maturation ราว 18 สัปดาห์",
     "verified": "ซูสุขติ mid น.13",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 13 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1429,6 +1499,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "Dipylidium caninum ติดจากการกลืนหมัดหรือเหาที่มี cysticercoid เข้าไป มักพบในเด็กเล็ก โดยมีรายงานติดในเด็กอายุ 11 เดือน การถูกหมัดกัดเฉยๆ ไม่ทำให้ติด",
     "verified": "ซูสุขติ mid น.13",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 13 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1449,6 +1520,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "L3 ของพยาธิปากขอชอนไชเข้าผิวหนังคนเกิด creeping eruption (cutaneous larva migrans) โดย larva ไม่พัฒนาเป็น adult ในคน ส่วน visceral/ocular larva migrans เป็นของ Toxocara",
     "verified": "ซูสุขติ mid น.13",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 13 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1469,6 +1541,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "คนเป็น paratenic host ของ Toxocara คือ larva ไม่พัฒนาเป็น adult ในคนแต่ชอนไชไปตามอวัยวะ ก่อ visceral และ ocular larva migrans",
     "verified": "ซูสุขติ mid น.13",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 13 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1489,6 +1562,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "Trichuris อาศัยอยู่ที่ลำไส้ใหญ่ตามที่บันทึกไว้ ส่วนลำไส้เล็กเป็นที่อยู่ของพยาธิตัวกลมส่วนใหญ่ และท่อน้ำดีคือ Opisthorchis",
     "verified": "ซูสุขติ mid น.13",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 13 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1509,6 +1583,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "Anatrichosomiasis พบรอยโรคที่อุ้งเท้าเป็น ulcerative pododermatitis เป็นพยาธิที่ติดต่อสู่คนซึ่งพบเคสในแมวในไทยเป็นที่แรก ตรวจด้วย biopsy แล้วยืนยันด้วย molecular technique",
     "verified": "ซูสุขติ mid น.13",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 13 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1529,6 +1604,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "Thelazia callipaeda มีแมลงหวี่เป็นพาหะ มีรายงานเคสในสุนัขที่เชียงใหม่ (ข้อมูล ณ ปีของรุ่น 85 เคสไทยกลุ่มนี้เปลี่ยนตามรายงานใหม่ทุกปี)",
     "verified": "ซูสุขติ mid น.13",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 13 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1549,6 +1625,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "M. canis เป็น zoophilic ที่ก่อโรคในคนมากที่สุด พบในแมวมากกว่าหมา ส่วน M. gypseum เป็น geophilic, M. audouinii เป็น anthropophilic และ M. nanum พบในสุกร",
     "verified": "ซูสุขติ mid น.14",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1569,6 +1646,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "San Joaquin Valley fever, desert fever และ desert rheumatism เป็นชื่อพ้องของ coccidioidomycosis ข้อ recall เดิมถามว่าข้อใดไม่ใช่ชื่อพ้องของ candidiasis ซึ่งคำตอบคือชื่อนี้ (ชื่อพ้องของ candidiasis คือ candidosis, moniliasis, thrush)",
     "verified": "ซูสุขติ mid น.14",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1589,6 +1667,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "Recall บันทึกว่าอุบัติการณ์มากในสัตว์ปล่อยทุ่งมากกว่าที่อยู่ในคอก เนื่องจากแหล่งของเชื้ออยู่ในสิ่งแวดล้อมและธรรมชาติ ส่วนเชื้อ zoophilic ไม่แพร่ระหว่างคน",
     "verified": "ซูสุขติ mid น.14",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1609,6 +1688,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "Trichophytosis เป็น dermatophytosis จัดอยู่ในกลุ่ม superficial/cutaneous mycoses ส่วน sporotrichosis กับ cryptococcosis อยู่กลุ่ม systemic dimorphic และ aspergillosis เป็น systemic",
     "verified": "ซูสุขติ mid น.14",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1629,6 +1709,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "กลุ่มที่ชอบสัตว์เรียก zoophilic เช่น M. canis, T. verrucosum ส่วน anthropophilic ชอบคน และ geophilic ชอบดิน",
     "verified": "ซูสุขติ mid น.14",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1649,6 +1730,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "เชื้อที่บันทึกไว้คือ Candida albicans, C. glabrata และ C. tropicalis ส่วนข้ออื่นเป็นเชื้อของ coccidioidomycosis/cryptococcosis, aspergillosis และ dermatophytosis",
     "verified": "ซูสุขติ mid น.14",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1669,6 +1751,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "Dermatophyte อยู่ที่ชั้น keratin ของผิวหนัง ไม่ก่อ mastitis หรือ abortion ส่วน Aspergillus ก่อ placentitis แล้วแท้งในโค Candida ก่อ mastitis และ abortion ได้ และ Cryptococcus ก่อ bovine mastitis",
     "verified": "ซูสุขติ mid น.14",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1689,6 +1772,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "คำตอบที่ recall จดไว้คือ respiratory เพราะเชื้อเข้าทางการหายใจ (แหล่งสำคัญคือมูลนกพิราบ) เริ่มที่ปอดก่อน แล้วในราย disseminated จึงไปที่ CNS ได้",
     "verified": "ซูสุขติ mid น.14",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1709,6 +1793,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "Tinea และ ringworm คือชื่อพ้องของ dermatophytosis ตามที่บันทึกไว้ ส่วน candidiasis มีชื่อพ้องว่า moniliasis/thrush",
     "verified": "ซูสุขติ mid น.14",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1729,6 +1814,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "Superficial candidiasis พบที่ปาก ผิวหนังตามซอกพับ และ vulvovaginal thrush ส่วน endophthalmitis เป็นรอยโรคของ systemic/disseminated form ตรงกับข้อ recall ที่ให้ตอบว่า endophthalmitis ไม่ใช่ลักษณะ superficial",
     "verified": "ซูสุขติ mid น.14",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1749,6 +1835,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 3,
     "explain": "สาเหตุที่บันทึกไว้คือการใช้ antibiotic เพิ่มขึ้น ผู้ป่วยภูมิคุ้มกันต่ำ และการกินยากดภูมิ เพราะ Candida เป็น opportunistic pathogen จาก normal flora ไม่เกี่ยวกับนกพิราบ (นั่นคือ Cryptococcus)",
     "verified": "ซูสุขติ mid น.14",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1769,6 +1856,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "Sporotrichosis มีแมวเป็นพาหะสำคัญ แพร่สู่คนโดยตรงได้แม้คนไม่มีบาดแผลใหญ่ เพราะเชื้อจำนวนมากอยู่ในแผล เล็บ และมูลแมว ส่วนอีกสามโรคติดจากสิ่งแวดล้อม ไม่ติดจากสัตว์สู่คน",
     "verified": "ซูสุขติ mid น.14-15",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }, { "doc": "zoonoses-mid85", "edition": "15p", "page": 15 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1789,6 +1877,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "Aspergillosis ก่อโรคหลักที่ระบบทางเดินหายใจ เพราะติดจากการหายใจเอา spores จากสิ่งแวดล้อม ในคนตั้งแต่ asthma จนถึง bronchopneumonia และในสัตว์ปีกพบ tubercle ที่ปอดและ airsac",
     "verified": "ซูสุขติ mid น.14",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"
   },
@@ -1809,6 +1898,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 0,
     "explain": "ตารางบันทึกว่า DTM (Fungassay) medium เปลี่ยนสีจากเหลืองเป็นแดง ส่วน Wood's filter ใช้ส่องรอยโรคให้เรืองแสง และ fungal culture ใช้เวลาราว 1 สัปดาห์",
     "verified": "ซูสุขติ mid น.15",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 15 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -1829,6 +1919,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 2,
     "explain": "Sporotrichosis (Rose gardener's disease) ติดจากเชื้อเข้าทางบาดแผลเล็กๆ ที่ผิวหนัง เช่น หนามตำ รอยขีดข่วน รอยถลอก พบบ่อยในคนสัมผัสมอส กุหลาบ หญ้าแห้ง ดิน และฟาง รูปแบบ pulmonary พบได้น้อย",
     "verified": "ซูสุขติ mid น.14",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -1849,6 +1940,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "Aspergillosis ไม่นับเป็น zoonosis แท้ เพราะทั้งคนและสัตว์ต่างติดจากสิ่งแวดล้อม คือหายใจเอา spores ของเชื้อที่มีอยู่ทั่วไป (ubiquitous) เข้าไป ไม่ได้ติดต่อกันเอง\n\n❌ ทำไมข้ออื่นผิด\n— \"ติดต่อจากสัตว์สู่คนโดยตรงผ่านการสัมผัส\" = ไม่มีการติดต่อจากสัตว์สู่คนโดยตรง ต่างฝ่ายต่างรับเชื้อจากสิ่งแวดล้อม\n— \"แพร่ระหว่างคนสู่คนผ่าน droplet ได้ง่าย\" = ไม่แพร่จากคนสู่คน\n— \"ติดผ่านการกินนมดิบจากโคที่เป็น mastitis\" = ไม่ใช่เส้นทางการติดเชื้อของ aspergillosis\n\n💡 เชื้อที่อยู่ในสิ่งแวดล้อมทั่วไป แล้วคนกับสัตว์ต่างรับมาเอง จะไม่ถูกนับเป็น zoonosis แท้ แม้จะพบได้ทั้งสองฝ่าย",
     "verified": "ซูสุขติ mid น.15",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 15 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   },
@@ -1869,6 +1961,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "answer": 1,
     "explain": "Cryptococcus neoformans แพร่ผ่าน pigeon droppings (มูลนกพิราบ) ส่วนดินทะเลทรายสัมพันธ์กับ Coccidioides และมอส/หญ้าแห้งสัมพันธ์กับ Sporothrix",
     "verified": "ซูสุขติ mid น.15",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 15 }],
     "sourceType": "lecture-derived",
     "examOrigin": "แต่งจากสรุป Zoonoses mid ของรุ่น Vet 85"
   }

@@ -516,7 +516,8 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 3,
     explain: 'GA problems มาตรฐานในวัว: Regurgitation (active vs passive), Bloat, Respiratory complication, Hypoventilation, Nerve paralysis (จากท่านอนนาน) — Hyperthyroidism ไม่เกี่ยวกับ GA ในสัตว์เคี้ยวเอื้อง เป็น distractor หลอก',
-    verified: 'Clin approach final TJ p1 #1 (อิงแนวสอบ Vet 86)' },
+    verified: 'Clin approach final TJ p1 #1 (อิงแนวสอบ Vet 86)',
+    sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 1 }] },
 
   { id: 5001, subject: 'cliapprum', topic: 'mahahon-cliapprum-anes', year: 4,
     source: 'Clin approach final TJ p1 #2', sourceType: 'student-compilation',
@@ -530,7 +531,8 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 2,
     explain: '**Diazepam** = insoluble in water → IM absorb ต่ำ ต้องใช้ IV ใน organic vehicle (propylene glycol). **Midazolam** = water-soluble → ฉีด IM ได้ดี ออกฤทธิ์เร็ว เป็นตัวเลือกนิยมในงานสนาม + neonatal sedation',
-    verified: 'Clin approach final TJ p1 #2' },
+    verified: 'Clin approach final TJ p1 #2',
+    sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 1 }] },
 
   { id: 5002, subject: 'cliapprum', topic: 'mahahon-cliapprum-anes', year: 4,
     source: 'Clin approach final TJ p1 #3', sourceType: 'student-compilation',
@@ -544,7 +546,8 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 0,
     explain: 'Acepromazine (Phenothiazine) ทำให้ retractor penis muscle คลายตัว → penile prolapse ในวัวพ่อพันธุ์ อาจเป็นถาวรและกระทบการผสมพันธุ์ จึงห้ามใช้ในวัวพ่อพันธุ์',
-    verified: 'Clin approach final TJ p1 #3' },
+    verified: 'Clin approach final TJ p1 #3',
+    sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 1 }] },
 
   { id: 5003, subject: 'cliapprum', topic: 'mahahon-cliapprum-anes', year: 4,
     source: 'Clin approach final TJ p1 #4', sourceType: 'student-compilation',
@@ -558,7 +561,8 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 2,
     explain: 'Brahmans ไวที่สุด > Hereford > Holstein (น้อยสุด). ในแพะ-แกะไวกว่าวัว โดยเฉพาะแกะ → ระวัง hypoxemia + pulmonary edema. ในแม่ท้องท้ายๆ กระตุ้นคลอดก่อนกำหนด + รกค้าง',
-    verified: 'Clin approach final TJ p1 #4' },
+    verified: 'Clin approach final TJ p1 #4',
+    sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 1 }] },
 
   { id: 5004, subject: 'cliapprum', topic: 'mahahon-cliapprum-anes', year: 4,
     source: 'Clin approach final TJ p1 #5', sourceType: 'student-compilation',
@@ -572,7 +576,8 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 1,
     explain: 'Alpha-2: Transient hypertension จาก peripheral vasoconstriction → reflex bradycardia + myocardial depression → decreased CO. นอกจากนี้มี hypoinsulinemia → hyperglycemia + ลด ADH → เพิ่ม UOP',
-    verified: 'Clin approach final TJ p1 #5' },
+    verified: 'Clin approach final TJ p1 #5',
+    sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 1 }] },
 
   { id: 5005, subject: 'cliapprum', topic: 'mahahon-cliapprum-anes', year: 4,
     source: 'Clin approach final TJ p1 #11', sourceType: 'student-compilation',
@@ -586,7 +591,8 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 1,
     explain: 'Toxic dose: 800 kg × 10 mg/kg = 8,000 mg ÷ ความเข้มข้น 20 mg/ml (2%) = 400 ml. ในแพะ-แกะ toxic dose ต่ำกว่าที่ 4 mg/kg',
-    verified: 'Clin approach final TJ p1 #11' },
+    verified: 'Clin approach final TJ p1 #11',
+    sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 1 }] },
 
   { id: 5006, subject: 'cliapprum', topic: 'mahahon-cliapprum-anes', year: 4,
     source: 'Clin approach final TJ p2 #14', sourceType: 'student-compilation',
@@ -600,7 +606,8 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 1,
     explain: '**Peterson block** สำหรับ Enucleation (ควักลูกตา) หรือ Exenteration. block ทั้ง sensory และ motor ของโครงสร้างในดวงตา ยกเว้นเปลือกตา ต้องเสริม Auriculopalpebral block แยกอีกหนึ่ง',
-    verified: 'Clin approach final TJ p2 #14' },
+    verified: 'Clin approach final TJ p2 #14',
+    sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 2 }] },
 
   { id: 5007, subject: 'cliapprum', topic: 'mahahon-cliapprum-anes', year: 4,
     source: 'Clin approach final TJ p2 #16', sourceType: 'student-compilation',
@@ -614,7 +621,8 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 1,
     explain: 'Proximal paravertebral: ปักหน้า L1 (block T13), หลัง L1 (block L1), หลัง L2 (block L2) ที่ฐานของ transverse process. Distal paravertebral: ปักที่ปลาย transverse process ของ L1, L2, L4 ทำง่ายกว่า ความเสี่ยง dura mater น้อยกว่า',
-    verified: 'Clin approach final TJ p2 #16' },
+    verified: 'Clin approach final TJ p2 #16',
+    sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 2 }] },
 
   // ── GI VDTT (อ.ธนศักดิ์) — อิงแนวสอบ Vet 85 10 + Vet 84 8 ──
   { id: 5008, subject: 'cliapprum', topic: 'mahahon-cliapprum-givdtt', year: 4,
@@ -629,7 +637,8 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 3,
     explain: 'Signs ของ GI dysfunction: เบื่ออาหาร, ไม่เคี้ยวเอื้อง, ท้องกางหรือท้องแฟบ, รูเมนบีบตัวผิดปกติ, ถ่ายผิดปกติ. Low BCS เป็น chronic outcome ไม่ใช่ acute sign',
-    verified: 'Clin approach final TJ p3 Vet 85 #1' },
+    verified: 'Clin approach final TJ p3 Vet 85 #1',
+    sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 3 }] },
 
   { id: 5009, subject: 'cliapprum', topic: 'mahahon-cliapprum-givdtt', year: 4,
     source: 'Clin approach final TJ p3 (Vet 85 #3)', sourceType: 'student-compilation',
@@ -643,7 +652,8 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 2,
     explain: 'Wither test = ดึงหนังที่หลังลงมา compress withers เพื่อหา pain associated with foreign body หรือ TRP → ผลบวกคือ Grunting (เสียงครางเจ็บ). ใช้ร่วมกับ Pole test (ใช้ไม้กดอก) ที่ก็ทำให้ grunting เมื่อมี hardware',
-    verified: 'Clin approach final TJ p3 Vet 85 #3' },
+    verified: 'Clin approach final TJ p3 Vet 85 #3',
+    sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 3 }] },
 
   { id: 5010, subject: 'cliapprum', topic: 'mahahon-cliapprum-givdtt', year: 4,
     source: 'Clin approach final TJ p3 (Vet 85 #4)', sourceType: 'student-compilation',
@@ -657,7 +667,8 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 1,
     explain: '**Ping ด้านขวา** = RDA หรือ RTA. **Ping ด้านซ้าย** = LDA. เคาะ percussion + auscultation ฟังเสียง ping ที่สีข้างวัว ด้านที่ตรวจพบบอกตำแหน่ง displacement',
-    verified: 'Clin approach final TJ p3 Vet 85 #4' },
+    verified: 'Clin approach final TJ p3 Vet 85 #4',
+    sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 3 }] },
 
   { id: 5011, subject: 'cliapprum', topic: 'mahahon-cliapprum-givdtt', year: 4,
     source: 'Clin approach final TJ p3 (Vet 85 #5)', sourceType: 'student-compilation',
@@ -671,7 +682,8 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 2,
     explain: '**Sticky finely divided + oily sheen** = ลักษณะเด่น classic ของ **LDA**. เกิดจาก abomasum displaced ไปทาง left → การย่อย/ดูดซึมในลำไส้ผิดปกติ + ผ่านลำไส้เร็วเกินไป. Acidosis = อุจจาระเหลวกรด, vagal = อุจจาระแห้งเป็นก้อน',
-    verified: 'Clin approach final TJ p3 Vet 85 #5' },
+    verified: 'Clin approach final TJ p3 Vet 85 #5',
+    sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 3 }] },
 
   { id: 5012, subject: 'cliapprum', topic: 'mahahon-cliapprum-givdtt', year: 4,
     source: 'Clin approach final TJ p3 (Vet 85 #8)', sourceType: 'student-compilation',
@@ -685,7 +697,8 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 0,
     explain: 'Methylene blue reduction time: น้อยกว่า 3 นาที = Grain engorgement (acidosis) เพราะ gram-negative bacteria เพิ่ม metabolize เร็วเกินปกติ. 3-6 นาที = ปกติ. มากกว่า 6 นาที = inactive rumen หรือ fiber ไม่พอ',
-    verified: 'Clin approach final TJ p3 Vet 85 #8' },
+    verified: 'Clin approach final TJ p3 Vet 85 #8',
+    sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 3 }] },
 
   { id: 5013, subject: 'cliapprum', topic: 'mahahon-cliapprum-givdtt', year: 4,
     source: 'Clin approach final TJ p3 (Vet 85 #10)', sourceType: 'student-compilation',
@@ -699,7 +712,8 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 0,
     explain: 'Rumen pH: ปกติ 5.5-7.5. ต่ำกว่า 5.5 = Grain engorgement (acidosis จาก lactic acid). มากกว่า 7.0 = Inactivate rumen (alkalosis จาก feed deprivation หรือ urea toxicity)',
-    verified: 'Clin approach final TJ p3 Vet 85 #10' },
+    verified: 'Clin approach final TJ p3 Vet 85 #10',
+    sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 3 }] },
 
   // ── Sawita GI Surgery (Hernia + Esophageal) — Tomato p13-15, p25-26 ──
   { id: 5014, subject: 'cliapprum', topic: 'mahahon-cliapprum-sawita-gi', year: 4,

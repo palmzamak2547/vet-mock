@@ -395,3 +395,93 @@ test('the clip page without a moment behaves as it always did', async () => {
   const out = findAll(tree, (n) => n.type === 'a' && String(n.props.href || '').startsWith('https://www.youtube.com/watch'))[0];
   assert.equal(out.props.href, 'https://www.youtube.com/watch?v=WRttiWQ7D9s');
 });
+
+// ============================================================
+// The documents a page citation points into
+// ============================================================
+// "EQUINE MED MID 86.pdf หน้า 21" is one page in the 44-page edition and the
+// next page in the 45-page revision, which repeats p10 at p20. The citation
+// now carries { doc, edition, page } beside the raw text, and
+// lint-source-docs checks it against src/data/source-docs.js.
+
+const { SOURCE_DOCS } = await import('../../src/data/source-docs.js');
+const { SUBJECTS } = await import('../../src/data/curriculum.js');
+const { checkSourceDocs, pageNumbers, FREE_TEXT_BUDGET } = await import('../../scripts/lint-source-docs.mjs');
+const SUBJECT_IDS = new Set(SUBJECTS.map((s) => s.id));
+
+const TEST_DOCS = [
+  { slug: 'one-ed', subject: 'equine-medicine', title: 'One Ed', match: /\bOne Ed\b/, editions: [{ id: '10p', pages: 10 }] },
+  { slug: 'two-ed', subject: 'equine-medicine', title: 'Two Ed', match: /\bTwo Ed\b/i, editions: [{ id: '44p', pages: 44 }, { id: '45p', pages: 45 }] },
+];
+const lintRows = (questions, docs = TEST_DOCS) => checkSourceDocs({ questions, docs, subjects: SUBJECT_IDS });
+const row = (extra) => ({ id: 1, subject: 'equine-medicine', source: 'One Ed p4', ...extra });
+
+test('page numbers are read the ways the bank writes them', () => {
+  assert.deepEqual(pageNumbers('Aqua Med Mid 86 p.43, หน้า 21 และ น.3; pp. 4 p12'), [43, 21, 3, 4, 12]);
+  assert.deepEqual(pageNumbers('EQUINE MED MID 86.pdf หน้า 18, 19 และ 25 + jOm4PZtiC8o [67:44]'), [18, 19, 25]);
+  assert.deepEqual(pageNumbers('HHM p.8-9 Brucellosis; MID86 🏅 p12-p17'), [8, 9, 12, 13, 14, 15, 16, 17]);
+  assert.deepEqual(pageNumbers('p.43 ข้อ 2, 3'), [43], 'an item number is not a page');
+  assert.deepEqual(pageNumbers('step 2 top 10 Group 3'), [], 'the p ending a word is not a page');
+});
+
+test('a structured cite must name a listed document, edition and page', () => {
+  assert.deepEqual(lintRows([row({ sourcePages: [{ doc: 'one-ed', edition: '10p', page: 4 }] })]).errors, []);
+  const errs = (sourcePages, extra) => lintRows([row({ sourcePages, ...extra })]).errors.join('\n');
+  assert.match(errs([{ doc: 'nope', edition: '10p', page: 4 }]), /unknown document slug "nope"/);
+  assert.match(errs([{ doc: 'one-ed', edition: '20p', page: 4 }]), /one-ed has no edition "20p"/);
+  assert.match(errs([{ doc: 'one-ed', edition: '10p', page: 11 }], { source: 'One Ed p11' }), /page 11 is past the end of one-ed 10p \(10 pages\)/);
+  assert.match(errs([{ doc: 'one-ed', edition: '10p', page: 0 }]), /page 0 is past the end/);
+  assert.match(errs([{ doc: 'one-ed', edition: '10p', page: 4 }], { subject: 'aquatic-clinic' }), /one-ed belongs to equine-medicine/);
+  assert.match(errs([{ doc: 'one-ed', edition: '10p', page: 5 }]), /the raw citation has no page 5/);
+  assert.match(errs([{ doc: 'one-ed', edition: '10p', page: 4 }], { source: 'Other Doc p4' }), /does not name One Ed/);
+  assert.match(errs([{ doc: 'one-ed', page: 4 }]), /must be \{ doc, edition, page \}/);
+  assert.match(errs([]), /non-empty array/);
+});
+
+test('a document with two editions cannot be cited at a page without one', () => {
+  assert.match(lintRows([row({ source: 'TWO ED หน้า 21' })]).errors.join('\n'), /cites Two Ed at a page without saying which edition \(44p, 45p\)/);
+  assert.deepEqual(lintRows([row({ source: 'TWO ED หน้า 21', sourcePages: [{ doc: 'two-ed', edition: '45p', page: 21 }] })]).errors, []);
+  // Named without a page, there is nothing to pin down.
+  assert.deepEqual(lintRows([row({ source: 'Two Ed (compiled by seniors)' })]).errors, []);
+});
+
+test('page citations held only as text are counted, and a structured one is not', () => {
+  const { freeText } = lintRows([
+    row({ source: 'One Ed p4', verified: 'Some Book p. 12, p. 13 + One Ed p4' }),
+    row({ id: 2, source: 'One Ed p4', sourcePages: [{ doc: 'one-ed', edition: '10p', page: 4 }] }),
+  ]);
+  // Row 1: One Ed p4 (twice) and Some Book p12, p13. Row 2: none.
+  assert.equal(freeText, 4);
+});
+
+test('the registry itself is checked', () => {
+  const bad = [
+    { slug: 'Bad Slug', subject: 'no-such-subject', title: '', match: /x/g, editions: [{ id: '1p', pages: 0 }, { id: '1p', pages: 1 }] },
+    { slug: 'one-ed', subject: 'equine-medicine', title: 'x', match: /x/, editions: [] },
+    { slug: 'one-ed', subject: 'equine-medicine', title: 'x', match: /x/, editions: [{ id: '1p', pages: 1 }] },
+  ];
+  const errs = lintRows([], bad).errors.join('\n');
+  for (const want of [/slug must be lowercase/, /unknown subject "no-such-subject"/, /no title/, /must not be global/, /edition 1p has no page count/, /edition 1p is listed twice/, /no editions/, /slug is listed twice/]) {
+    assert.match(errs, want);
+  }
+});
+
+test('the bank passes: every structured cite is a real page of a real edition', () => {
+  const { errors, freeText } = checkSourceDocs({ questions: QB, docs: SOURCE_DOCS, subjects: SUBJECT_IDS });
+  assert.deepEqual(errors.slice(0, 10), []);
+  assert.ok(freeText <= FREE_TEXT_BUDGET, `${freeText} text-only page citations, budget ${FREE_TEXT_BUDGET}`);
+});
+
+test('every Equine Med Mid 86 citation at p20 or later names its edition', () => {
+  // The 44-page and 45-page editions part ways at p20. The dentistry pages
+  // were read from the 45-page revision, everything else from the 44-page one.
+  const late = QB.filter((q) => q.subject === 'equine-medicine'
+    && [q.source, q.verified].some((t) => /EQUINE MED MID 86/.test(String(t || '')) && pageNumbers(t).some((p) => p >= 20)));
+  assert.ok(late.length >= 46, `the rows this is about are still in the bank (${late.length})`);
+  const missing = late.filter((q) => !(q.sourcePages || []).some((c) => c.doc === 'equine-med-mid86' && c.page >= 20 && ['44p', '45p'].includes(c.edition)));
+  assert.deepEqual(missing.map((q) => q.id), []);
+  const edition = (id) => [...new Set(QB.find((q) => q.subject === 'equine-medicine' && q.id === id).sourcePages.map((c) => c.edition))];
+  assert.deepEqual(edition(207538), ['45p'], 'the dentistry recall page, read from the revision');
+  assert.deepEqual(edition(207549), ['44p'], 'the colic page, read from the 44-page copy');
+  assert.deepEqual(edition(207580), ['44p'], 'p44 of the 44-page copy is p45 of the revision');
+});
