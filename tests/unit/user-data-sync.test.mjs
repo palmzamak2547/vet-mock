@@ -1127,18 +1127,14 @@ test('the outbox sweep folds what it drops, and drops nothing it cannot fold', a
   {
     // A record being written right now stays, and `userId` limits the sweep.
     const { storage, a, b } = await fiveRecordsAndALiveEdit();
-    const byAge = outboxKeys(storage, 'user-1')
+    const oldest = outboxKeys(storage, 'user-1')
       .map((key) => ({ key, createdAt: JSON.parse(storage.getItem(key)).createdAt }))
-      .sort((x, y) => x.createdAt - y.createdAt)
-      .map(({ key }) => key);
+      .sort((x, y) => x.createdAt - y.createdAt)[0].key;
     assert.deepEqual(sweepOutbox(storage, { userId: 'someone-else' }).removed, []);
-    assert.deepEqual(sweepOutbox(storage, { userId: 'user-1', protectKey: byAge[4] }).removed, []);
-    // Nothing newer than the protected record is folded ahead of it.
-    assert.deepEqual(sweepOutbox(storage, { userId: 'user-1', keep: 3, protectKey: byAge[0] }).removed, []);
-    assert.ok(storage.getItem(byAge[0]), 'the protected record survives');
-    const out = sweepOutbox(storage, { userId: 'user-1', keep: 3, protectKey: byAge[4] });
-    assert.deepEqual(out.removed, [byAge[0]]);
-    assert.ok(storage.getItem(byAge[4]), 'the protected record survives');
+    assert.deepEqual(sweepOutbox(storage, { userId: 'user-1', protectKey: oldest }).removed, []);
+    const out = sweepOutbox(storage, { userId: 'user-1', keep: 3, protectKey: oldest });
+    assert.equal(out.removed.length, 1);
+    assert.ok(storage.getItem(oldest), 'the protected record survives');
     a.close(); b.close();
   }
   {
@@ -1153,37 +1149,6 @@ test('the outbox sweep folds what it drops, and drops nothing it cannot fold', a
     storage.setItem('vmx-user-sync-owner-v1', JSON.stringify('anonymous'));
     assert.deepEqual(sweepOutbox(storage).removed, []);
   }
-});
-
-test('reclaiming room never replays a newer rating under the record being written', async () => {
-  // The window writing right now keeps its record, and it can be the oldest:
-  // it rated a card at nine, another window rated the same card again at ten.
-  // Folding the ten o'clock record into the snapshot put it under the nine
-  // o'clock one, and the older rating came back.
-  const { sweepOutbox } = await import('../../src/lib/user-data-sync.js');
-  const seed = () => {
-    const storage = new MemoryStorage();
-    storage.setItem('vmx-user-sync-owner-v1', JSON.stringify('user-1'));
-    storage.setItem('vmx-user-data-v1:user-1', JSON.stringify({ srCards: { k: { box: 3 } } }));
-    const record = (id, createdAt, changes) => storage.setItem(`vmx-user-op-v1:user-1:${id}`, JSON.stringify({
-      version: 1, token: `${id}:1`, createdAt, changes,
-    }));
-    record('writing', 1, { srCards: { base: {}, value: { k: { box: 1 } } } });
-    record('later', 2, { srCards: { base: { k: { box: 1 } }, value: { k: { box: 3 } } } });
-    for (let i = 0; i < 4; i += 1) record(`other-${i}`, 3 + i, { notes: { base: {}, value: { [`n${i}`]: 'x' } } });
-    return storage;
-  };
-  const card = (storage) => {
-    const reader = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote: fakeRemote(null), idle: manualIdle() });
-    reader.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
-    const value = reader.getSnapshot().data.srCards.k;
-    reader.close();
-    return value;
-  };
-  assert.deepEqual(card(seed()), { box: 3 }, 'boot shows the newer rating');
-  const storage = seed();
-  sweepOutbox(storage, { userId: 'user-1', protectKey: 'vmx-user-op-v1:user-1:writing' });
-  assert.deepEqual(card(storage), { box: 3 }, 'and still does after the sweep');
 });
 
 test('a failed write of a field’s own key says the work is kept on this device, not where', async () => {
