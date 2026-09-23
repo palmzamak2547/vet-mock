@@ -5579,6 +5579,20 @@ body.vmx-reading .vmx-pdf-body {
   .vmx-lect-cover { flex-basis: 204px; }
 }
 .vmx-lect-block { margin-bottom: 22px; }
+/* The section's loading skeleton (TopicSelectView LecturerSetsSkeleton). Each
+   block stands in for the real element at its real size, inside the real
+   card's layout classes, so the topic list below does not move when the
+   chunk lands. The shimmer is .vmx-skeleton's, which stops under reduced
+   motion. */
+.vmx-lect-skel-intro { width: 78%; }
+.vmx-lect-skel-name { width: 190px; max-width: 60%; height: 20px; margin: 12px 0; border-radius: var(--r-sm); }
+.vmx-lect-skel-chip { width: 64px; height: 22px; border-radius: 999px; }
+.vmx-lect-skel-note { flex: 1 0 100%; width: 100%; }
+.vmx-lect-skel-cover { flex: 0 0 232px; height: 240px; border-radius: var(--r-lg); }
+.vmx-lect-skel-btn { width: 240px; max-width: 100%; height: var(--touch-min); border-radius: 999px; }
+@media (max-width: 600px) {
+  .vmx-lect-skel-cover { flex-basis: 204px; height: 222px; }
+}
 
 /* Printed matching set: the answer list stays in view while the student works
    down eighteen items, the way the key sits at the top of the paper. */

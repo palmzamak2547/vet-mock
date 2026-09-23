@@ -10,7 +10,7 @@ import { announced } from '../data/curriculum.js';
 import { librarySubjectCounts } from '../lib/library.js';
 import { takeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
-import { hasLecturerSet } from '../data/lecturer-sets.js';
+import { hasLecturerSet, LECTURER_SETS } from '../data/lecturer-sets.js';
 import { topicLecturerLabel } from '../lib/lecturer-name.js';
 import { hasWrapUp } from '../data/exam-wrapups.js';
 
@@ -197,6 +197,9 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // The paper split by lecturer, only where the class has been told how each
   // part is written and only while that paper is the one in scope.
   const showLecturers = Boolean(onStartLecturer && hasLecturerSet(subject, selectedYear, selectedPhase));
+  // How many lecturer cards the section will draw, so its loading skeleton
+  // takes the same space and the topic list below it does not jump.
+  const lecturerCount = LECTURER_SETS[subject]?.lecturers?.length || 1;
   // The one-page wrap-up of this paper (exam-wrapups.js): first thing on the
   // topics tab the week of the exam, above the lecturer block.
   const showWrapUp = Boolean(onOpenWrapUp && hasWrapUp(subject, selectedYear, selectedPhase));
@@ -474,7 +477,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       {showLecturers && (
         <div className="vmx-lect-block">
           <div className="vmx-section-label">ข้อสอบกลางภาคแยกตามอาจารย์ผู้สอน</div>
-          <Suspense fallback={<div className="vmx-lect-intro">กำลังโหลด</div>}>
+          <Suspense fallback={<LecturerSetsSkeleton count={lecturerCount} />}>
             <LecturerSets
               subject={subject}
               topics={topics}
@@ -780,6 +783,36 @@ function ExamFormatBanner({ format, accent }) {
       <div style={{ marginTop: 8, fontSize: 11, fontStyle: 'italic', color: 'var(--clr-ink-soft)' }}>
         โปรดยืนยันกับอาจารย์/หัวปีอีกครั้งก่อนวันสอบจริง
       </div>
+    </div>
+  );
+}
+
+// What the lecturer section looks like before its chunk arrives: the intro
+// line, the reveal switch and one card per lecturer, each laid out with the
+// real card's own classes (head, cover strip, action row), so the section
+// already takes its final height and the topic list under it stays put.
+function LecturerSetsSkeleton({ count }) {
+  return (
+    <div className="vmx-lect-list" aria-busy="true">
+      <span className="vmx-sr-only" role="status">กำลังโหลดข้อสอบแยกตามอาจารย์</span>
+      <span className="vmx-skeleton vmx-skeleton-line vmx-lect-skel-intro" aria-hidden="true" />
+      <span className="vmx-skeleton vmx-lect-skel-btn" aria-hidden="true" />
+      {Array.from({ length: count }, (_, i) => (
+        <div key={i} className="vmx-lect" aria-hidden="true">
+          <div className="vmx-lect-head">
+            <span className="vmx-skeleton vmx-lect-skel-name" />
+            <span className="vmx-skeleton vmx-lect-skel-chip" />
+            <span className="vmx-skeleton vmx-skeleton-line vmx-lect-skel-note" />
+          </div>
+          <div className="vmx-lect-strip">
+            <span className="vmx-skeleton vmx-lect-skel-cover" />
+            <span className="vmx-skeleton vmx-lect-skel-cover" />
+          </div>
+          <div className="vmx-lect-actions">
+            <span className="vmx-skeleton vmx-lect-skel-btn" />
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
