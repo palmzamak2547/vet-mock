@@ -6098,17 +6098,17 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "match": 0,
         "writing": 1
       },
-      "swine-cns": {
-        "mcq": 8,
-        "tf": 0,
-        "match": 0,
-        "writing": 1
-      },
       "swine-pornchalit-set": {
         "mcq": 18,
         "tf": 0,
         "match": 1,
         "writing": 5
+      },
+      "swine-cns": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
       }
     },
     "zoonoses": {
@@ -7136,12 +7136,6 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "match": 0,
         "writing": 1
       },
-      "swine-cns": {
-        "mcq": 8,
-        "tf": 0,
-        "match": 0,
-        "writing": 1
-      },
       "swine-pornchalit-set": {
         "mcq": 18,
         "tf": 0,
@@ -7161,6 +7155,12 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "swine-ileitis-bacti": {
+        "mcq": 1,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "swine-cns": {
         "mcq": 1,
         "tf": 0,
         "match": 0,

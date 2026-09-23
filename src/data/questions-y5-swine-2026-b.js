@@ -873,7 +873,8 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     "id": 105614,
     "tags": [
       "PHEV",
-      "Betacoronavirus"
+      "Betacoronavirus",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-cns",
@@ -888,16 +889,17 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     ],
     "answer": 0,
     "explain": "PHEV เป็น beta coronavirus ต่างจาก TGE, PED และ PRCV ที่เป็น alpha coronavirus ส่วน Lyssavirus เป็นสาเหตุของ rabies",
-    "verified": "Swine Medicine midterm essay recall (Vet 85)",
+    "verified": "Swine Med Mid 86.pdf p.4 เป็นคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ แต่ p.2 บันทึกว่าข้อสอบของ อ.อธิภู รุ่นนั้นมี 2 ข้อ ไม่มีข้อระบบประสาท และ TJ86 ข้อ 3 ระบุว่าปีก่อนไม่ออก",
     "sourceType": "student-compilation",
-    "examOrigin": "Swine Medicine midterm essay recall (Vet 85)"
+    "examOrigin": "อิงแนวข้อสอบ จากคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ ข้อนี้ไม่ได้ออกในรอบของรุ่นนั้น"
   },
   {
     "id": 105615,
     "tags": [
       "PHEV",
       "vomiting-and-wasting-disease",
-      "encephalomyelitis"
+      "encephalomyelitis",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-cns",
@@ -912,15 +914,16 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     ],
     "answer": 0,
     "explain": "PHEV แบ่งเป็น encephalomyelitis ที่มีอาการทางประสาทร่วมกับอาเจียน และ vomiting and wasting disease ที่อาเจียน เบื่ออาหาร ซึม แคระแกร็น ทั้งสองแบบพบในลูกสุกรอายุน้อย ตัวเลือกอื่นเป็นภาพของโรคระบบอื่นที่ไม่เกี่ยวกับ CNS",
-    "verified": "Swine Medicine midterm essay recall (Vet 85)",
+    "verified": "Swine Med Mid 86.pdf p.4 เป็นคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ แต่ p.2 บันทึกว่าข้อสอบของ อ.อธิภู รุ่นนั้นมี 2 ข้อ ไม่มีข้อระบบประสาท และ TJ86 ข้อ 3 ระบุว่าปีก่อนไม่ออก",
     "sourceType": "student-compilation",
-    "examOrigin": "Swine Medicine midterm essay recall (Vet 85)"
+    "examOrigin": "อิงแนวข้อสอบ จากคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ ข้อนี้ไม่ได้ออกในรอบของรุ่นนั้น"
   },
   {
     "id": 105616,
     "tags": [
       "PHEV",
-      "age-predilection"
+      "age-predilection",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-cns",
@@ -935,15 +938,16 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     ],
     "answer": 2,
     "explain": "สองกลุ่มอาการนี้พบในลูกสุกรอายุน้อยกว่า 4 สัปดาห์ ซึ่งเข้ากับการที่ลูกสุกรพ้นภูมิจากแม่ไม่ทัน สุกรโตกว่านี้มักติดเชื้อโดยไม่แสดงอาการ",
-    "verified": "Swine Medicine midterm essay recall (Vet 85)",
+    "verified": "Swine Med Mid 86.pdf p.4 เป็นคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ แต่ p.2 บันทึกว่าข้อสอบของ อ.อธิภู รุ่นนั้นมี 2 ข้อ ไม่มีข้อระบบประสาท และ TJ86 ข้อ 3 ระบุว่าปีก่อนไม่ออก",
     "sourceType": "student-compilation",
-    "examOrigin": "Swine Medicine midterm essay recall (Vet 85)"
+    "examOrigin": "อิงแนวข้อสอบ จากคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ ข้อนี้ไม่ได้ออกในรอบของรุ่นนั้น"
   },
   {
     "id": 105617,
     "tags": [
       "tetanus",
-      "antitoxin"
+      "antitoxin",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-cns",
@@ -958,15 +962,16 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     ],
     "answer": 3,
     "explain": "tetanus ในสุกรที่ยังไม่มีอาการ spasm ใช้ยากลุ่ม penicillin ร่วมกับ tetanus antitoxin เพื่อจับ toxin ที่ยังไม่เข้าสู่เส้นประสาท ยากลุ่มอื่นไม่ใช่ยาหลักของเชื้อ Clostridium และไม่มีฤทธิ์ต่อ toxin",
-    "verified": "Swine Medicine midterm essay recall (Vet 85)",
+    "verified": "Swine Med Mid 86.pdf p.4 เป็นคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ แต่ p.2 บันทึกว่าข้อสอบของ อ.อธิภู รุ่นนั้นมี 2 ข้อ ไม่มีข้อระบบประสาท และ TJ86 ข้อ 3 ระบุว่าปีก่อนไม่ออก",
     "sourceType": "student-compilation",
-    "examOrigin": "Swine Medicine midterm essay recall (Vet 85)"
+    "examOrigin": "อิงแนวข้อสอบ จากคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ ข้อนี้ไม่ได้ออกในรอบของรุ่นนั้น"
   },
   {
     "id": 105618,
     "tags": [
       "tetanus",
-      "wound-infection"
+      "wound-infection",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-cns",
@@ -981,15 +986,16 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     ],
     "answer": 3,
     "explain": "เชื้อสร้างสปอร์อยู่ในดินและเข้าสู่ร่างกายทางบาดแผล จึงเน้นการรักษาความสะอาดในหัตถการที่ทำให้เกิดแผล สปอร์ที่ถูกกินเข้าไปไม่ใช่ทางเข้าหลัก เพราะเชื้อต้องการภาวะไร้ออกซิเจนในเนื้อเยื่อบาดแผลจึงจะสร้าง toxin",
-    "verified": "Swine Medicine midterm essay recall (Vet 85)",
+    "verified": "Swine Med Mid 86.pdf p.4 เป็นคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ แต่ p.2 บันทึกว่าข้อสอบของ อ.อธิภู รุ่นนั้นมี 2 ข้อ ไม่มีข้อระบบประสาท และ TJ86 ข้อ 3 ระบุว่าปีก่อนไม่ออก",
     "sourceType": "student-compilation",
-    "examOrigin": "Swine Medicine midterm essay recall (Vet 85)"
+    "examOrigin": "อิงแนวข้อสอบ จากคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ ข้อนี้ไม่ได้ออกในรอบของรุ่นนั้น"
   },
   {
     "id": 105619,
     "tags": [
       "rabies",
-      "reservoir-control"
+      "reservoir-control",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-cns",
@@ -1004,16 +1010,17 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     ],
     "answer": 1,
     "explain": "สุกรมักติดจากการถูกสุนัขกัด แนวทางคือทำลายสุกรที่แสดงอาการ และใช้ biosecurity กันไม่ให้สุนัขหรือสัตว์อื่นเข้ามาสัมผัสสุกร ไม่มีการรักษาสัตว์ที่แสดงอาการแล้ว และการแยกไว้แล้วนำกลับเข้าฝูงเป็นอันตรายเพราะเป็นโรคติดต่อสู่คน",
-    "verified": "Swine Medicine midterm essay recall (Vet 85)",
+    "verified": "Swine Med Mid 86.pdf p.4 เป็นคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ แต่ p.2 บันทึกว่าข้อสอบของ อ.อธิภู รุ่นนั้นมี 2 ข้อ ไม่มีข้อระบบประสาท และ TJ86 ข้อ 3 ระบุว่าปีก่อนไม่ออก",
     "sourceType": "student-compilation",
-    "examOrigin": "Swine Medicine midterm essay recall (Vet 85)"
+    "examOrigin": "อิงแนวข้อสอบ จากคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ ข้อนี้ไม่ได้ออกในรอบของรุ่นนั้น"
   },
   {
     "id": 105620,
     "tags": [
       "listeria-monocytogenes",
       "carrier-state",
-      "zoonosis"
+      "zoonosis",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
     "topic": "swine-cns",
@@ -1028,9 +1035,9 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
     ],
     "answer": 2,
     "explain": "สุกรมักเป็นพาหะของเชื้อ อาจพบการแท้งในแม่สุกร และเชื้อปนเปื้อนไปสู่คนได้ ทำให้เป็นโรคติดต่อระหว่างสัตว์และคน Listeria ไม่ได้ถ่ายทอดโดยแมลงพาหะ",
-    "verified": "Swine Medicine midterm essay recall (Vet 85)",
+    "verified": "Swine Med Mid 86.pdf p.4 เป็นคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ แต่ p.2 บันทึกว่าข้อสอบของ อ.อธิภู รุ่นนั้นมี 2 ข้อ ไม่มีข้อระบบประสาท และ TJ86 ข้อ 3 ระบุว่าปีก่อนไม่ออก",
     "sourceType": "student-compilation",
-    "examOrigin": "Swine Medicine midterm essay recall (Vet 85)"
+    "examOrigin": "อิงแนวข้อสอบ จากคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ ข้อนี้ไม่ได้ออกในรอบของรุ่นนั้น"
   },
   {
     "id": 105621,

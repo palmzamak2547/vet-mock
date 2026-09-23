@@ -1513,7 +1513,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'testicular-block': 1,
     },
     'swine-clinic': {
-      'swine-cns': 9,
+      'swine-cns': 1,
       'swine-gi-viral': 11,
       'swine-pornchalit-set': 24,
       'swine-resp-viral': 12,
@@ -1712,7 +1712,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'testicular-block': 1,
     },
     'swine-clinic': {
-      'swine-cns': 9,
+      'swine-cns': 1,
       'swine-csf': 1,
       'swine-gi-viral': 11,
       'swine-ileitis-bacti': 1,
@@ -3078,7 +3078,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "__unassigned__": 40,
   },
   "swine-clinic": {
-    "swine-cns": 9,
+    "swine-cns": 1,
     "swine-csf": 1,
     "swine-gi-viral": 11,
     "swine-ileitis-bacti": 1,
@@ -3223,4 +3223,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-23T01:09:35.322Z
+// Built: 2026-09-23T16:36:21.650Z

@@ -57,7 +57,7 @@ export const SHORT_MARKER = 'อิงแนวสอบ';
 // Measured 2026-09-23. Lower these when the numbers fall; never raise them.
 export const BUDGETS = Object.freeze({
   noSourceType: 3031,
-  pastPaperWithoutOrigin: 428,
+  pastPaperWithoutOrigin: 427,
 });
 
 // Both a sat paper and marked, reviewed 2026-09-22/23 as correctly counted:

@@ -192,6 +192,10 @@ export const EXAM_ORIGINS = Object.freeze({
   "แนวข้อสอบที่รุ่นพี่ Vet 85 บันทึกไว้ในสรุปสรุป หมวด Mycoplasma": { kind: 'aligned' },
   "แนวข้อสอบที่รุ่นพี่ Vet 85 บันทึกไว้ในสรุปสรุป Avian Medicine": { kind: 'aligned' },
   "อิงแนวข้อสอบ": { kind: 'aligned' },
+  // Swine Med Mid 86.pdf p.2 records that the Vet 85 paper had two items from อ.อธิภู and no
+  // nervous-system item (TJ86 item 3 agrees); these seven were built from the CNS answer a
+  // senior prepared on p.4, and were filed under the essay-recall origin until 23 ก.ย. 2569.
+  "อิงแนวข้อสอบ จากคำตอบเรื่องโรคระบบประสาทที่รุ่นพี่ Vet 85 เตรียมไว้ ข้อนี้ไม่ได้ออกในรอบของรุ่นนั้น": { kind: 'aligned' },
   "อิงแนวข้อสอบกลางภาครุ่นพี่": { kind: 'aligned' },
   "Equine Sx concept (Vet 85) margin marks bandage extents as a recurring exam item": { kind: 'aligned' },
   "Equine Sx concept (Vet 85) margin marks bandaging as a recurring VCA item": { kind: 'aligned' },
