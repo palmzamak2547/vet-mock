@@ -52,14 +52,23 @@ jobs:
       - name: Contract tests
         run: npm run test:unit
 
+      # Before the build, on purpose. The build regenerates the changelog
+      # banner and prebuild regenerates the Mochi poses, so lints that ran
+      # after it only ever saw freshly written files and could not fail on a
+      # stale committed one. None of these steps reads dist/. lint:data starts
+      # with lint:untracked and ends with lint:atlas.
+      - name: Generated data and content gates
+        run: npm run lint:data
+
       - name: Build production bundle
         run: npm run build
 
       - name: Install browser for contrast checks
         run: npx playwright install --with-deps chromium
 
-      - name: Generated data, content and accessibility gates
-        run: npm run lint:all && npm run lint:atlas
+      # The contrast audits measure the built bundle, so only they wait for it.
+      - name: Accessibility gates on the built bundle
+        run: npm run lint:dist
 
       - name: Report bundle sizes
         run: |

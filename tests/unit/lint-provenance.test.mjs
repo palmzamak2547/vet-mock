@@ -168,8 +168,9 @@ test('reading the map for typed rows would lift only band-1 rows, and drop only 
   assert.deepEqual(switchPreview.outOf.map((q) => q.id), [...KNOWN_ORIGIN_OVERCLAIMS]);
 });
 
-test('lint:all runs lint:provenance', () => {
+test('lint:all runs lint:provenance (through lint:data)', () => {
   const { scripts } = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
   assert.equal(scripts['lint:provenance'], 'node scripts/lint-provenance.mjs');
-  assert.ok(scripts['lint:all'].split(' && ').includes('npm run lint:provenance'));
+  assert.ok(scripts['lint:all'].split(' && ').includes('npm run lint:data'));
+  assert.ok(scripts['lint:data'].split(' && ').includes('npm run lint:provenance'));
 });

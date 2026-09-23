@@ -26,6 +26,10 @@ const localE2eUrl = `http://127.0.0.1:${localE2ePort}`;
 
 export default defineConfig({
   testDir: './tests/e2e',
+  // Playwright empties its output folder when a run starts, so two runs at
+  // once (`npm run gate:fast`) each need their own, or the second wipes the
+  // first one's traces mid-run. Both stay under the ignored test-results/.
+  outputDir: process.env.PLAYWRIGHT_OUTPUT_DIR || 'test-results',
   // Scratch repros live in testDir too. They are gitignored, but an
   // `add -A` or a local run should not be able to promote one into the gate.
   testIgnore: ['**/zz-*.spec.js'],
