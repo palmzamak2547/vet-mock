@@ -11,6 +11,7 @@ import { librarySubjectCounts } from '../lib/library.js';
 import { takeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
 import { hasLecturerSet } from '../data/lecturer-sets.js';
+import { topicLecturerLabel } from '../lib/lecturer-name.js';
 import { hasWrapUp } from '../data/exam-wrapups.js';
 
 // Lazy — pulls instructors data (~30KB) only when user clicks an
@@ -583,6 +584,9 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           // A note that says the topic is off the paper (curriculum.js flags it)
           // keeps a warning sign; a provenance note is plain text.
           const caveat = t.lecturerNoteKind === 'caveat';
+          // The name the lecturer section above uses for the same person;
+          // null for TBD, which gets no button at all.
+          const lecturerLabel = topicLecturerLabel(subject, t.lecturer);
           const primaryLabelBase = hasQuestions
             ? `ฝึกข้อสอบ ${t.label} ${count} ข้อ`
             : hasNotesForTopic
@@ -628,11 +632,11 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                 )}
               </button>
 
-              {!isEmpty && (t.lecturer || hasNotesForTopic || hasWikiForTopic || (subject === 'vca' && VCA_NOTES_MAP[t.id])) && (
+              {!isEmpty && (lecturerLabel || hasNotesForTopic || hasWikiForTopic || (subject === 'vca' && VCA_NOTES_MAP[t.id])) && (
                 <div className="vmx-topic-actions" aria-label={`แหล่งเรียน ${t.label}`}>
-                  {t.lecturer && (
+                  {lecturerLabel && (
                     <button type="button" className="vmx-topic-action is-wide" onClick={() => openInstructorFor(t.lecturer)} title="ดูโปรไฟล์อาจารย์ + งานวิจัย">
-                      <NavIcon name="user" size={15} /> อาจารย์ {t.lecturer}{t.lecturer_year && ` (${t.lecturer_year})`}
+                      <NavIcon name="user" size={15} /> {lecturerLabel.titled ? lecturerLabel.name : `อาจารย์ ${lecturerLabel.name}`}
                     </button>
                   )}
                   {hasNotesForTopic && (
