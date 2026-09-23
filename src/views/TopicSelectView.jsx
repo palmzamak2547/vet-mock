@@ -736,7 +736,7 @@ function ExamFormatBanner({ format, accent }) {
       border: '1px solid var(--clr-border)',
       marginBottom: 20,
     }}>
-      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
+      <div className="vmx-eyebrow" style={{ marginBottom: 8 }}>
         รูปแบบของชุดโจทย์ฝึก
       </div>
 

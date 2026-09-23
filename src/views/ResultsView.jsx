@@ -344,8 +344,7 @@ export default function ResultsView({
       {(phaseLabel || selectedYear) && (
         <div style={{
           marginBottom: 12, display: 'flex', gap: 6, justifyContent: 'center',
-          fontFamily: 'var(--vmx-mono)', fontSize: 11,
-          letterSpacing: '0.08em', color: 'var(--clr-ink-soft)',
+          fontSize: 12, fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink-soft)',
         }}>
           <span style={{
             padding: '3px 10px', borderRadius: 999,
@@ -356,12 +355,12 @@ export default function ResultsView({
         </div>
       )}
       {showPassFail && (
-        <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'var(--vmx-mono)', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-ink-soft)' }}>
+        <div className="vmx-eyebrow" style={{ textAlign: 'center', marginBottom: 16 }}>
           {passed ? `ถึงเกณฑ์ซ้อมของแอป (${PRACTICE_PASS_PCT}%)` : `ยังไม่ถึงเกณฑ์ซ้อมของแอป (${PRACTICE_PASS_PCT}%)`}, โหมดสอบ
         </div>
       )}
       {isExam && autoQs.length === 0 && writingQs.length > 0 && (
-        <div style={{ textAlign: 'center', marginBottom: 16, fontFamily: 'var(--vmx-mono)', fontSize: 12, letterSpacing: '0.15em', color: 'var(--clr-gold-text)' }}>
+        <div className="vmx-eyebrow" style={{ textAlign: 'center', marginBottom: 16, color: 'var(--clr-gold-text)' }}>
           ชุดข้อเขียน, รอตรวจให้คะแนน
         </div>
       )}
@@ -370,7 +369,7 @@ export default function ResultsView({
           marginBottom: 16, padding: '10px 16px', borderRadius: 12,
           background: 'var(--clr-gold-soft)',
           border: '1px solid var(--clr-gold)', textAlign: 'center',
-          fontFamily: 'var(--vmx-mono)', fontSize: 13, letterSpacing: '0.05em',
+          fontSize: 13, fontVariantNumeric: 'tabular-nums',
           color: 'var(--clr-gold-text)', fontWeight: 700,
         }}>
           สถิติใหม่ของคุณ {personalBest.pct}% (เดิม {personalBest.prev}%)
@@ -398,7 +397,7 @@ export default function ResultsView({
           </>
         )}
         {writingQs.length > 0 && autoQs.length > 0 && (
-          <div style={{ marginTop: 8, padding: '6px 12px', borderRadius: 999, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', display: 'inline-block', fontSize: 12, color: 'var(--clr-ink)', fontFamily: 'var(--vmx-mono)' }}>
+          <div style={{ marginTop: 8, padding: '6px 12px', borderRadius: 999, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', display: 'inline-block', fontSize: 12, color: 'var(--clr-ink)' }}>
             ✍️ มีข้อเขียน {writingQs.length} ข้อ — ตรวจด้วย rubric ใน "ดูเฉลย"
           </div>
         )}
@@ -645,7 +644,7 @@ function NextPlayPanel({
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
                 แก้ข้อที่ผิด {wrongQs.length} ข้อ ทันที
               </div>
-              <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                 ทำซ้ำเฉพาะข้อในรอบนี้ที่ตอบผิด
               </div>
             </div>
@@ -684,7 +683,7 @@ function NextPlayPanel({
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
                 {continueLabel.replace('🚀 ', '')}
               </div>
-              <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                 {continueSub}
               </div>
             </div>
@@ -894,7 +893,7 @@ function ShareQuizButton({ questions }) {
       title="แชร์ชุดโจทย์นี้ให้เพื่อน — เปิดลิงก์แล้วได้ข้อเดียวกัน เรียงเดียวกัน"
     >
       แชร์ชุดนี้
-      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text, #4a6b4a)' }}>{hint}</span>}
     </button>
   );
 }
@@ -960,7 +959,7 @@ function ChallengeQuizButton({ questions, label = 'ท้าเพื่อน�
       title="แชร์ลิงก์ชุดโจทย์ + ข้อความท้าทาย — เพื่อนเปิดลิงก์แล้วทำชุดเดียวกัน"
     >
       {label}
-      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text, #4a6b4a)' }}>{hint}</span>}
     </button>
   );
 }
@@ -1011,7 +1010,7 @@ function SendToGroupButton({ questions, score, senderTimeSec }) {
       title="ส่งลิงก์ชุดโจทย์เข้ากลุ่ม LINE / IG / chat"
     >
       ส่งเข้ากลุ่ม
-      {hint && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text, #4a6b4a)', fontFamily: 'var(--vmx-mono)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text, #4a6b4a)' }}>{hint}</span>}
     </button>
   );
 }
@@ -1087,11 +1086,11 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
           padding: 10,
           borderRadius: 10,
           background: 'rgba(0,0,0,0.04)',
-          fontFamily: 'var(--vmx-mono)',
+          fontVariantNumeric: 'tabular-nums',
           fontSize: 12,
         }}>
           <div>
-            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+            <div className="vmx-eyebrow" style={{ marginBottom: 4 }}>
               ผู้ส่ง{sender.senderName ? `, ${sender.senderName}` : ''}
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
@@ -1100,7 +1099,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
             </div>
           </div>
           <div>
-            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 4 }}>
+            <div className="vmx-eyebrow" style={{ marginBottom: 4 }}>
               คุณ
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
@@ -1172,7 +1171,7 @@ function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writi
         </button>
       </div>
       {hint && (
-        <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center', fontFamily: 'var(--vmx-mono)' }}>
+        <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
           {hint}
         </div>
       )}

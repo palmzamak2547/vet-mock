@@ -539,3 +539,62 @@ test('UI-02: the wrap-up pills keep their dates aligned with tabular digits, and
     assert.match(resolveVars(computed(digits, 'font-family', env)), /JetBrains Mono/);
   }
 });
+
+// ── UI-01: every small label that carries Thai follows the same rule ──
+// The eyebrow style (mono, tracked, uppercase) was on Thai labels well
+// beyond the exam-week screens: Results' "ถูก ผิด ข้าม" and kickers, the
+// review's "คำตอบของคุณ:", the lecturer format chip, the deck counts that
+// rendered "ทุกประเภท  101  ข้อ" with mono-width spaces, the footer's
+// "เกี่ยวกับ" at 0.88px. `.vmx-eyebrow` is the one tokenised label style;
+// the class rules below keep their size and colour and take its face,
+// tracking and case.
+const THAI_LABELS = {
+  'shared eyebrow': chain('div', 'div.vmx-eyebrow'),
+  'kicker': chain('div', 'div.vmx-kicker'),
+  'Results stat label (ถูก ผิด ข้าม)': chain('div.vmx-stat-grid', 'div.vmx-stat-card', 'div.vmx-stat-lbl'),
+  'Review answer key (คำตอบของคุณ:)': chain('div.vmx-review-item', 'div.vmx-review-ans', 'span.k'),
+  'instant-feedback key (เฉลย)': chain('div.vmx-question-card', 'div.vmx-instant-feedback', 'div.a', 'span.k'),
+  'past-paper origin chip (อิงแนวเดิม)': chain('div.vmx-question-card', 'div.vmx-qtype-badge', 'span.vmx-origin-chip'),
+  'lecturer format chip': chain('div.vmx-lect-list', 'article.vmx-lect', 'header.vmx-lect-head', 'span.vmx-lect-chip'),
+  'deck count under a cover': chain('div.vmx-lect-list', 'article.vmx-lect', 'div.vmx-lect-strip', 'div.vmx-lect-cover', 'div.vmx-lect-cover-foot', 'span.c'),
+  'chip': chain('div.vmx-chip-row', 'button.vmx-chip'),
+  'Home plan kicker': chain('section', 'span.vmx-next-actions-kicker'),
+  'Home next-action kicker': chain('section', 'span.vmx-next-action-kicker'),
+  'Home next-exam label': chain('section', 'span.vmx-next-exam-label'),
+  'footer heading': chain('footer.vmx-footer', 'nav.vmx-footer-col', 'h2'),
+  'past-paper share on a topic card': chain('div.vmx-topic-grid', 'article.vmx-topic-card', 'button.vmx-topic-main', 'span.vmx-topic-past'),
+  'sidebar heading': chain('aside.vmx-sidebar', 'nav.vmx-sidebar-nav', 'p.vmx-sidebar-heading'),
+  'coach key': chain('div', 'span.vmx-coach-k'),
+  'spaced-repetition interval': chain('div', 'button.vmx-sr-btn', 'div.sub'),
+  'fill-in label': chain('div.vmx-question-card', 'label.vmx-fill-label'),
+  'calculator field label': chain('div', 'label.vmx-vetcalc-field-label'),
+  'tour skip': chain('div', 'button.vmx-tour-skip'),
+  'matching answer label': chain('div', 'span.vmx-match-answer-label'),
+  'lesson eyebrow': chain('div', 'p.vmx-lesson__eyebrow'),
+  'lesson contents head': chain('div', 'p.vmx-lesson__tochead'),
+  'lesson checks head': chain('div', 'p.vmx-lesson__checkshead'),
+  'night rank label': chain('div', 'div.vmx-night-rank-label'),
+  'streak milestone': chain('div', 'span.vmx-streak-milestone'),
+  'streak milestone badge': chain('div', 'div.vmx-streak-milestone-badge'),
+};
+
+test('UI-01: the Thai-bearing label classes are Sarabun, untracked and not uppercased', () => {
+  for (const [name, node] of Object.entries(THAI_LABELS)) assertThaiLabel(name, node);
+});
+
+test('UI-01: the shared eyebrow is a Thai-safe label: 12px, line-height at least 1.2, ink-soft', () => {
+  const node = THAI_LABELS['shared eyebrow'];
+  for (const env of [PHONE, DESKTOP]) {
+    assert.equal(computed(node, 'font-size', env), '12px');
+    assert.ok(Number(computed(node, 'line-height', env)) >= 1.2);
+    assert.equal(computed(node, 'color', env), 'var(--clr-ink-soft)');
+  }
+});
+
+test('UI-01: the header context pill carries no tracking', () => {
+  // `:not(.is-quiet)` is a state the cascade model does not evaluate, so the
+  // rule is read directly: 0.01em on "ทม.1 กลาง" was the last tracked Thai.
+  const rule = CSS.match(/\.vmx-context-pill:not\(\.is-quiet\) \{([^}]*)\}/);
+  assert.ok(rule, 'the context pill rule moved');
+  assert.doesNotMatch(rule[1], /letter-spacing:\s*0?\.\d/);
+});

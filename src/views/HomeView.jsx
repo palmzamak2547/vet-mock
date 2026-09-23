@@ -999,7 +999,6 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 marginTop: 8,
                 fontSize: 12,
                 color: 'var(--clr-ink-soft)',
-                fontFamily: 'var(--vmx-mono)',
                 textDecoration: 'underline',
               }}
             >
@@ -1095,7 +1094,6 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
               style={{
                 fontSize: 11,
                 color: 'var(--clr-ink-soft)',
-                fontFamily: 'var(--vmx-mono)',
                 marginLeft: 6,
               }}
             >
@@ -1119,7 +1117,6 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 background: 'rgba(167, 61, 74, 0.12)',
                 border: '1px solid var(--clr-rose)',
                 fontSize: 13,
-                fontFamily: 'var(--vmx-mono)',
                 color: 'var(--clr-rose-text)',
                 transition: 'transform 0.12s, background 0.15s',
               }}
@@ -1143,7 +1140,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
                 padding: '6px 12px', borderRadius: 999,
                 background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)',
-                fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)',
+                fontSize: 12, color: 'var(--clr-sage-text)',
                 minHeight: 44, boxSizing: 'border-box',
               }}
             >
@@ -1160,7 +1157,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
                 padding: '6px 12px', borderRadius: 999,
                 background: 'rgba(184, 137, 64, 0.10)', border: '1px solid var(--clr-gold)',
-                fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-gold-text)',
+                fontSize: 12, color: 'var(--clr-gold-text)',
                 minHeight: 44, boxSizing: 'border-box',
               }}
             >
@@ -1179,7 +1176,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
                 padding: '6px 12px', borderRadius: 999,
                 background: 'rgba(194, 109, 109, 0.10)', border: '1px solid var(--clr-rose)',
-                fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-rose-text)',
+                fontSize: 12, color: 'var(--clr-rose-text)',
                 minHeight: 44, boxSizing: 'border-box',
               }}
             >
@@ -1206,7 +1203,6 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 background: 'rgba(184, 137, 64, 0.10)',
                 border: '1px solid var(--clr-gold, #b88940)',
                 fontSize: 12,
-                fontFamily: 'var(--vmx-mono)',
                 color: 'var(--clr-gold-text, var(--clr-gold, #b88940))',
               }}
               title="ดูรายละเอียดอัปเดตล่าสุด"
@@ -1693,7 +1689,6 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           display: 'flex',
           justifyContent: 'center',
           fontSize: 12,
-          fontFamily: 'var(--vmx-mono)',
           color: 'var(--clr-ink-soft)',
         }}>
           <button type="button" className="vmx-link-btn" onClick={() => setLastSeenChangelog(null)} style={linkStyle}>
@@ -1735,7 +1730,6 @@ function ScopeChip({ scope }) {
         background: meta.bg,
         color: subjectText(meta.color),
         fontSize: 11,
-        fontFamily: 'var(--vmx-mono)',
         fontWeight: 600,
         verticalAlign: 'middle',
         whiteSpace: 'nowrap',
@@ -1764,7 +1758,6 @@ function FeedbackChip() {
         background: 'rgba(184, 137, 64, 0.15)',
         color: 'var(--clr-gold-text)',
         fontSize: 11,
-        fontFamily: 'var(--vmx-mono)',
         fontWeight: 600,
         verticalAlign: 'middle',
         whiteSpace: 'nowrap',
@@ -2071,7 +2064,7 @@ function DailyQRow({ user, setView, selectedYear }) {
         ข้อวันนี้{status.completed ? ' ✓' : ''}, {subj?.icon || ''} {subj?.name || todaysQ.subject}
       </button>
       {streak >= 2 && (
-        <span style={{ fontSize: 12, color: 'var(--clr-gold-text, #b88940)', fontFamily: 'var(--vmx-mono)' }}>
+        <span style={{ fontSize: 12, color: 'var(--clr-gold-text, #b88940)' }}>
           ตอบข้อวันนี้ติดกัน {streak} วัน
         </span>
       )}
@@ -2087,7 +2080,6 @@ function DailyQRow({ user, setView, selectedYear }) {
             background: 'rgba(93, 180, 211, 0.10)',
             border: '1px solid rgba(93, 180, 211, 0.5)',
             fontSize: 11,
-            fontFamily: 'var(--vmx-mono)',
             color: 'var(--clr-ocean-text)',
           }}
         >

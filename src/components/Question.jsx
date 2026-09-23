@@ -466,7 +466,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 }}
               />
             </div>
-            <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+            <div style={{ fontVariantNumeric: 'tabular-nums', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
               <strong style={{ color: essayTextColor }}>{essayWords}</strong>
               <span> / target {target} words</span>
               {essayWords > hardMax && <span style={{ color: 'var(--clr-rose-text)', marginLeft: 8 }}>, −2 pts (เกิน {hardMax})</span>}
@@ -593,7 +593,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           );
         })()}
         {currentQ.examOrigin && (
-          <span title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน" style={{ marginLeft: 8, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontSize: 11, fontWeight: 700, fontFamily: 'var(--vmx-mono)' }}>
+          <span className="vmx-origin-chip" title="คำถามนี้อิงตามแนวที่เคยพบในการสอบประเภทเดียวกัน">
             อิงแนวเดิม
           </span>
         )}
@@ -677,8 +677,7 @@ function FlagChip({ flag }) {
           background: palette.bg,
           border: `1px solid ${palette.border}`,
           borderRadius: 999,
-          fontSize: 11,
-          fontFamily: 'var(--vmx-mono)',
+          fontSize: 12,
           color: palette.text,
         }}
         title="ข้อมูลขัดแย้ง — กดดูรายละเอียด"

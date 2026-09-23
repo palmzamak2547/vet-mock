@@ -140,7 +140,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         <div style={{
           marginTop: 8, padding: '4px 12px', borderRadius: 999,
           background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)',
-          fontSize: 11, fontFamily: 'var(--vmx-mono)',
+          fontSize: 12,
           color: 'var(--clr-sage-text)',
           display: 'inline-flex', alignItems: 'center', gap: 6,
         }}>
@@ -279,7 +279,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 16, gap: 12, flexWrap: 'wrap' }}>
           <h2 id="vmx-nav-grid-title" style={{ margin: 0 }}>ข้ามไปข้อ</h2>
-          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
+          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontVariantNumeric: 'tabular-nums' }}>
             ตอบแล้ว {answered}/{questions.length}, เหลือ {remaining}
           </div>
         </div>
