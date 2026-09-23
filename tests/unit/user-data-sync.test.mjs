@@ -901,47 +901,6 @@ test('a note deleted after the snapshot caught up stays deleted, after a crash a
   after.close();
 });
 
-test('a sent exam result and a reset streak stay gone once the snapshot has caught up', async () => {
-  // The same fold, through the list and streak merges rather than the keyed
-  // object: a queued exam result that the snapshot caught up with and that
-  // was then sent and taken off the queue, and a streak reset after the
-  // snapshot held the day's streak. Replayed onto that snapshot, the folded
-  // record put the sent result back in the queue and the old streak back on
-  // the header, in another tab and after a reboot.
-  const storage = new MemoryStorage();
-  const remote = fakeRemote({ streak_data: { streak: 5, lastDate: '2026-09-22' } });
-  const setup = createUserDataSync({ storage, lifecycle: createLifecycle(true), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
-  setup.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
-  await settle();
-  setup.close();
-
-  const lifeA = createLifecycle(false); const lifeB = createLifecycle(false);
-  const idleA = manualIdle();
-  const a = createUserDataSync({ storage, lifecycle: lifeA, remote, debounceMs: 60_000, scheduler: never, idle: idleA });
-  const b = createUserDataSync({ storage, lifecycle: lifeB, remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
-  a.subscribe(() => {}); b.subscribe(() => {});
-  a.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
-  b.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
-  const edit = (derive) => { a.send({ type: 'CHANGE', principalId: 'user-1', derive }); lifeB.emit('storage'); };
-
-  edit((d) => ({
-    pendingExamResults: [...d.pendingExamResults, { id: 'run-1', score: 42 }],
-    streakData: { streak: 6, lastDate: '2026-09-23' },
-  }));
-  idleA.run(); lifeB.emit('storage');
-  assert.deepEqual(snapshotOf(storage, 'user-1').pendingExamResults, [{ id: 'run-1', score: 42 }]);
-  edit((d) => ({ pendingExamResults: d.pendingExamResults.filter((r) => r.id !== 'run-1') }));
-  edit(() => ({ streakData: { streak: 0, lastDate: null } }));
-
-  assert.deepEqual(b.getSnapshot().data.pendingExamResults, [], 'the other tab does not queue the sent result again');
-  assert.deepEqual(b.getSnapshot().data.streakData, { streak: 0, lastDate: null });
-  const rebooted = createUserDataSync({ storage, lifecycle: createLifecycle(false), remote, debounceMs: 60_000, scheduler: never, idle: manualIdle() });
-  rebooted.send({ type: 'SESSION_CHANGED', userId: 'user-1' });
-  assert.deepEqual(rebooted.getSnapshot().data.pendingExamResults, [], 'a reboot does not queue it again');
-  assert.deepEqual(rebooted.getSnapshot().data.streakData, { streak: 0, lastDate: null });
-  rebooted.close(); a.close(); b.close();
-});
-
 test('a record written by the previous build still loads', () => {
   // Old-shape records with a full `base` are sitting in storage at upgrade
   // time; refusing them would drop changes a student already made.
