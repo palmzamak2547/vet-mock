@@ -192,10 +192,9 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
   }, []);
 
   if (editing !== null) {
-    // If user dropped a file straight into the empty zone, push that
-    // through to the editor as initialFile (it reads via FileReader).
+    // A file dropped on the empty zone arrives as editing._bootstrapFile.
     // The editor itself accepts initialDeck = { imageDataUrl, masks }, so
-    // we resolve the file-to-dataUrl here before mounting.
+    // EditorBootstrap reads the file to a data URL before mounting it.
     return (
       <Suspense fallback={<div style={{ padding: 40, textAlign: 'center' }}>กำลังโหลด editor…</div>}>
         <EditorBootstrap
