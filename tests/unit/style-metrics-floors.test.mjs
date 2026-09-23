@@ -600,3 +600,47 @@ test('UI-01: the header context pill carries no tracking', () => {
   assert.ok(rule, 'the context pill rule moved');
   assert.doesNotMatch(rule[1], /letter-spacing:\s*0?\.\d/);
 });
+
+// ── UI-18: icon buttons in one row share one shape ────────────────────
+// Header on a phone: search (circle), sign-in (a rounded square, because
+// the compact rule made it a 44px icon but it kept .vmx-btn's 12px radius)
+// and theme (circle). Header on desktop: pill, rounded rectangle, circle.
+// Exam toolbar: four circles and then the pin, a 10px-radius transparent
+// square. Each row now has one shape per kind of control.
+const HEADER_RIGHT = ['header.vmx-header', 'div.vmx-header-right'];
+const TOOLBAR = ['div.vmx-question-card', 'div.vmx-q-toolbar'];
+
+test('UI-18: every icon-only control in the phone header and the exam toolbar is a circle', () => {
+  const circles = {
+    'header search': chain(...HEADER_RIGHT, 'button.vmx-cmdk-btn'),
+    'header sign-in': chain(...HEADER_RIGHT, 'button.vmx-btn.vmx-btn-ghost.vmx-btn-sm.vmx-login-btn'),
+    'header theme': chain(...HEADER_RIGHT, 'button.vmx-theme-btn'),
+    'toolbar bookmark': chain(...TOOLBAR, 'button.vmx-bookmark-btn'),
+    'toolbar note': chain(...TOOLBAR, 'button.vmx-note-btn'),
+    'toolbar pin': chain(...TOOLBAR, 'button.vmx-note-btn.vmx-pin-btn'),
+  };
+  for (const [name, node] of Object.entries(circles)) {
+    assert.equal(computed(node, 'border-radius', PHONE), '50%', `${name} at 390px`);
+  }
+  // The pin takes the toolbar's surface, not a transparent box of its own.
+  assert.equal(computed(circles['toolbar pin'], 'background', PHONE), 'var(--clr-bg)');
+  assert.equal(computed(chain(...TOOLBAR, 'button.vmx-note-btn.vmx-pin-btn.is-pinned'), 'background', PHONE), 'var(--clr-gold-soft)');
+});
+
+test('UI-18: on desktop the search and sign-in pills match, and theme stays a circle', () => {
+  const search = computed(chain(...HEADER_RIGHT, 'button.vmx-cmdk-btn'), 'border-radius', DESKTOP);
+  const signIn = computed(chain(...HEADER_RIGHT, 'button.vmx-btn.vmx-btn-ghost.vmx-btn-sm.vmx-login-btn'), 'border-radius', DESKTOP);
+  assert.equal(search, '999px');
+  assert.equal(signIn, search);
+  assert.equal(computed(chain(...HEADER_RIGHT, 'button.vmx-theme-btn'), 'border-radius', DESKTOP), '50%');
+});
+
+test('UI-18: PinButton lets a toolbar class own its shape, and the exam toolbar uses it', () => {
+  const pin = read('../../src/components/PinButton.jsx');
+  assert.match(pin, /export default function PinButton\(\{ type, payload, label, compact = false, style, className \}\)/);
+  // With a class, the inline box (radius, fill, border) is left to the class.
+  assert.match(pin, /className=\{className \? `\$\{className\}\$\{pinned \? ' is-pinned' : ''\}` : undefined\}/);
+  assert.match(pin, /style=\{className \? style : \{/);
+  const q = read('../../src/components/Question.jsx');
+  assert.match(q, /<PinButton\s+className="vmx-note-btn vmx-pin-btn"/);
+});

@@ -561,8 +561,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         </button>
         {/* Pin → adds this Q to the personal Pinboard. */}
         {/* Not `compact`: its 36px inline size sat next to four 44px controls,
-            so the row read as uneven — and 44px is the touch floor anyway. */}
+            so the row read as uneven — and 44px is the touch floor anyway.
+            The toolbar's circle class owns its shape, like its four neighbours. */}
         <PinButton
+          className="vmx-note-btn vmx-pin-btn"
           type="question"
           payload={{ subject: currentQ?.subject, id: currentQ?.id, stem: (currentQ?.q || '').slice(0, 80) }}
           label={(currentQ?.q || '').slice(0, 60)}

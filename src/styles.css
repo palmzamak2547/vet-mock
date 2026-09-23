@@ -1063,6 +1063,10 @@ html, body {
 
 .vmx-cmdk-btn { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--clr-border); background: var(--clr-surface); cursor: pointer; font-size: 13px; color: var(--clr-ink-soft); transition: all 0.15s; font-family: inherit; }
 .vmx-cmdk-btn:hover { border-color: var(--clr-ink); color: var(--clr-ink); }
+/* Sign-in sits beside the search pill, so it is the same pill; .vmx-btn's 12px
+   radius made it the one rounded rectangle in a row of pills and circles. The
+   two classes outrank .vmx-btn, which comes later in the sheet. */
+.vmx-btn.vmx-login-btn { border-radius: 999px; }
 .vmx-cmdk-kbd { font-family: var(--vmx-mono); font-size: var(--text-xs); padding: 2px 6px; border: 1px solid var(--clr-border); border-radius: 4px; background: var(--clr-bg); color: var(--clr-ink-soft); letter-spacing: 0.04em; }
 
 /* Mobile header — keeps everything visible by tightening spacing,
@@ -1097,6 +1101,8 @@ html, body {
   .vmx-xp-chip { display: none !important; }
   .vmx-logo-btn { width: var(--touch-min); padding: 0; justify-content: center; }
   .vmx-login-btn { width: var(--touch-min); min-width: var(--touch-min); padding-inline: 0; justify-content: center; }
+  /* Icon-only here, between two circles: a circle too. */
+  .vmx-btn.vmx-login-btn, .vmx-cmdk-btn { border-radius: 50%; }
   .vmx-login-btn span { display: none; }
   .vmx-xp-chip-total, .vmx-xp-chip-progress { display: none !important; }
   .vmx-context-pill { padding: 0 10px; font-size: 12px; }
@@ -2328,6 +2334,10 @@ html.dark .vmx-panic-scrim {
 .vmx-note-btn { position: absolute; top: 20px; right: 64px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--clr-border); background: var(--clr-bg); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.15s; color: var(--clr-ink); }
 .vmx-note-btn:hover { border-color: var(--clr-ocean); }
 .vmx-note-btn.has-note { background: var(--clr-ocean); color: var(--clr-surface); border-color: var(--clr-ocean); }
+/* The pin in the question toolbar is one of the row's circles (PinButton hands
+   its shape to this class); pinned reads gold, like a saved bookmark. */
+.vmx-note-btn.vmx-pin-btn:hover { border-color: var(--clr-gold); }
+.vmx-note-btn.vmx-pin-btn.is-pinned { background: var(--clr-gold-soft); border-color: var(--clr-gold); color: var(--clr-ink); }
 
 .vmx-qtype-badge { display: inline-block; font-family: var(--vmx-mono); font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; background: var(--clr-surface-2); color: var(--clr-ink-soft); margin-bottom: 16px; border: 1px solid var(--clr-border); }
 .vmx-qtext { font-family: inherit; font-weight: 500; font-size: 17px; line-height: 1.55; margin: 0 0 24px; color: var(--clr-ink); }

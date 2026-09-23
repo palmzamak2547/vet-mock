@@ -10,6 +10,9 @@
 //   compact  bool — render the 36 px icon-only variant for cramped
 //            UIs (modal header, toolbar). Default 44 px hit target.
 //   style    optional inline-style override (positioning, etc.)
+//   className optional — a row that owns its controls' shape (the question
+//            toolbar's circles) passes its class, and the button then draws
+//            no box of its own; 'is-pinned' is added while pinned.
 //
 // State syncs across instances via the `vmx-pinboard-changed`
 // CustomEvent — no polling, no React context needed.
@@ -20,7 +23,7 @@ import NavIcon from './NavIcon.jsx';
 import { alertDialog } from '../lib/dialog.js';
 import { useMotionFeedback } from './MotionFeedback.jsx';
 
-export default function PinButton({ type, payload, label, compact = false, style }) {
+export default function PinButton({ type, payload, label, compact = false, style, className }) {
   const key = payloadKey(type, payload);
   const [pinned, setPinned] = useState(() => isPinned(type, key));
   // Presses, not the value: `pinned` also moves when another PinButton for the
@@ -69,7 +72,8 @@ export default function PinButton({ type, payload, label, compact = false, style
       onClick={onClick}
       aria-label={pinned ? 'ปลดหมุดจาก Pinboard' : 'เพิ่มเข้า Pinboard'}
       title={pinned ? 'ปลดหมุด (อยู่ใน Pinboard)' : 'หมุดเก็บไว้ใน Pinboard'}
-      style={{
+      className={className ? `${className}${pinned ? ' is-pinned' : ''}` : undefined}
+      style={className ? style : {
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
