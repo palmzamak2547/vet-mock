@@ -962,7 +962,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ต้องแช่เลือดในน้ำแข็งทันทีทุกครั้งก่อนส่งแลป"
     ],
     "answer": 2,
-    "explain": "ปริมาณเลือดที่เจาะราว 1 cc ต่อตัว ลูกเจี๊ยบราว 0.5 cc และใช้เข็มขนาด 22 ในไก่โต ไซริงค์ 1-3 cc ส่วนตำแหน่งนิยมเจาะจาก jugular vein โดยไก่ใหญ่อาจใช้ wing vein จึงไม่ใช่ห้ามเจาะ jugular และไม่ต้องแช่เย็นทันทีอย่างที่ตัวเลือกสุดท้ายว่าไว้ ให้วางนอนไว้ที่อุณหภูมิห้องราว 3 ชั่วโมงจะแยกซีรัมได้ง่ายกว่า",
+    "explain": "ปริมาณเลือดที่เจาะราว 1 cc ต่อตัว ลูกเจี๊ยบราว 0.5 cc และใช้เข็มขนาด 22 ในไก่โต ไซริงค์ 1-3 cc ส่วนตำแหน่งนิยมเจาะจาก jugular vein โดยไก่ใหญ่อาจใช้ wing vein จึงไม่ใช่ห้ามเจาะ jugular และไม่ต้องแช่เลือดในน้ำแข็งทันที ให้วางนอนไว้ที่อุณหภูมิห้องราว 3 ชั่วโมงจะแยกซีรัมได้ง่ายกว่า",
     "verified": "Avian Med KFC น.17",
     "sourceType": "lecture-derived",
     "examOrigin": "Avian Medicine final study notes (Vet 85 compilation)"
@@ -1384,7 +1384,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ทั้งสองชนิดให้ได้เฉพาะการแทงที่ wing web และเริ่มให้ได้ตั้งแต่อายุ 1 วัน"
     ],
     "answer": 0,
-    "explain": "CEO ให้ทาง eye drop, drinking water และ coarse spray ส่วน TCO ให้ทาง eye drop เท่านั้น ตัวเลือกที่สองสลับกัน ส่วนการฉีดใต้ผิวหนังอายุ 1 วันเป็นวิธีของ recombinant fowlpox-ILT ไม่ใช่วัคซีนเชื้อเป็น และ wing web เป็นวิธีของ FPV-ILT ในไก่พ่อแม่พันธุ์อายุ 7 สัปดาห์",
+    "explain": "CEO ให้ทาง eye drop, drinking water และ coarse spray ส่วน TCO ให้ทาง eye drop เท่านั้น ข้อที่ให้ CEO ทาง eye drop อย่างเดียวจึงสลับกัน ส่วนการฉีดใต้ผิวหนังอายุ 1 วันเป็นวิธีของ recombinant fowlpox-ILT ไม่ใช่วัคซีนเชื้อเป็น และ wing web เป็นวิธีของ FPV-ILT ในไก่พ่อแม่พันธุ์อายุ 7 สัปดาห์",
     "verified": "KFC MED Mid น.3",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -1769,7 +1769,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "ห้ามใช้ในไก่ที่ติด MG มาก่อน เพราะวัคซีนจะโดนแอนติบอดีเดิมทำลาย"
     ],
     "answer": 3,
-    "explain": "FP-MG เป็น recombinant ที่ใช้ยีนของ MG ยัดใส่ fowl pox ฉีดที่ wing web และห้ามติด MG มาก่อน ไม่งั้นวัคซีนจะโดนแอนติบอดีทำลาย ข้อดีของวัคซีนตัวนี้คือให้ยาปฏิชีวนะหลังทำวัคซีนได้ ตัวเลือกที่สามจึงกลับด้าน ส่วนการเก็บที่ -196 องศาเป็นของวัคซีน Marek cell-associated และข้อห้ามในไก่อายุน้อยกว่า 10 วันเป็นของวัคซีน IBD intermediate plus",
+    "explain": "FP-MG เป็น recombinant ที่ใช้ยีนของ MG ยัดใส่ fowl pox ฉีดที่ wing web และห้ามติด MG มาก่อน ไม่งั้นวัคซีนจะโดนแอนติบอดีทำลาย ข้อดีของวัคซีนตัวนี้คือให้ยาปฏิชีวนะหลังทำวัคซีนได้ ข้อที่ห้ามให้ยาปฏิชีวนะจึงกลับด้าน ส่วนการเก็บที่ -196 องศาเป็นของวัคซีน Marek cell-associated และข้อห้ามในไก่อายุน้อยกว่า 10 วันเป็นของวัคซีน IBD intermediate plus",
     "verified": "KFC MED Mid น.11",
     "sourceType": "student-compilation",
     "examOrigin": "แนวข้อสอบที่รุ่นพี่ Vet 85 บันทึกไว้ในสรุปสรุป หมวดวัคซีน Mycoplasma"
@@ -2230,7 +2230,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "Marek ไม่มีวัคซีนป้องกัน ส่วน Avian leukosis มีวัคซีนเชื้อเป็นใช้แพร่หลาย"
     ],
     "answer": 2,
-    "explain": "Marek เป็น oncogenic virus ตัวเดียวที่ไม่มี vertical transmission โดยแพร่ผ่าน feather debris หรือ dander ส่วน avian leukosis ติดต่อได้ทั้ง vertical และ horizontal เซลล์เป้าหมายของ Marek คือ T lymphocyte ส่วน ALV คือ B lymphocyte ซึ่งตรงข้ามกับตัวเลือกที่สอง และเรื่องวัคซีนก็กลับด้าน เพราะ Marek เป็นโรคเนื้องอกที่เกิดจากไวรัสชนิดเดียวที่มีวัคซีน ส่วน ALV ไม่มีวัคซีน ต้องกำจัดออกจากฝูงพ่อแม่พันธุ์",
+    "explain": "Marek เป็น oncogenic virus ตัวเดียวที่ไม่มี vertical transmission โดยแพร่ผ่าน feather debris หรือ dander ส่วน avian leukosis ติดต่อได้ทั้ง vertical และ horizontal เซลล์เป้าหมายของ Marek คือ T lymphocyte ส่วน ALV คือ B lymphocyte ซึ่งตรงข้ามกับข้อที่ว่า Marek เป็นเนื้องอกของ B lymphocyte และเรื่องวัคซีนก็กลับด้าน เพราะ Marek เป็นโรคเนื้องอกที่เกิดจากไวรัสชนิดเดียวที่มีวัคซีน ส่วน ALV ไม่มีวัคซีน ต้องกำจัดออกจากฝูงพ่อแม่พันธุ์",
     "verified": "KFC MED Mid น.5",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"
@@ -2277,7 +2277,7 @@ export const QUESTIONS_Y5_AVIAN_2026_B = [
       "นำไวรัสสายพันธุ์อ่อนมาละลายน้ำให้กิน เพื่อกระตุ้นภูมิที่ GALT โดยตรง"
     ],
     "answer": 0,
-    "explain": "immune-complex vaccine มีใช้แค่ใน IBD เพราะลูกไก่ได้ MDA สูงมากจนวัคซีนธรรมดาอาจไม่ได้ผล จึงเอาแอนติบอดีมาหุ้มผิวไวรัสเพื่อลบ MDA พอเวลาผ่านไปแอนติบอดีที่หุ้มหลุดออก ไวรัสข้างในก็ทำหน้าที่เหมือนวัคซีนเชื้อเป็น ส่วนตัวเลือกที่สองคือ recombinant vaccine ที่ใช้ VP2 ใน rHVT ซึ่งเป็นวัคซีน IBD จริงแต่คนละชนิด และอีกสองตัวเลือกคือวัคซีนเชื้อตายกับเชื้อเป็นแบบทั่วไป",
+    "explain": "immune-complex vaccine มีใช้แค่ใน IBD เพราะลูกไก่ได้ MDA สูงมากจนวัคซีนธรรมดาอาจไม่ได้ผล จึงเอาแอนติบอดีมาหุ้มผิวไวรัสเพื่อลบ MDA พอเวลาผ่านไปแอนติบอดีที่หุ้มหลุดออก ไวรัสข้างในก็ทำหน้าที่เหมือนวัคซีนเชื้อเป็น ส่วนการใส่ยีน VP2 ใน herpesvirus of turkey คือ recombinant vaccine (rHVT) ซึ่งเป็นวัคซีน IBD จริงแต่คนละชนิด และอีกสองตัวเลือกคือวัคซีนเชื้อตายกับเชื้อเป็นแบบทั่วไป",
     "verified": "KFC MED Mid น.7",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากโน้ตสรุป Avian Medicine ของรุ่นพี่ Vet 85"

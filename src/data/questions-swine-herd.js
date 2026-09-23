@@ -41,7 +41,7 @@ export const QB_SWINE_HERD = [
       "การกำหนดโซนรถขนส่งอาหารและรถรับหมูให้จอดนอกรั้วฟาร์ม ห่างจากคอกหมูและทางเดินภายในเสมอ"
     ],
     "answer": 2,
-    "explain": "✓ Resistance = ทำให้ตัวสัตว์ทนโรค โดย genetic selection, vaccine (active immune), colostrum/passive immune\n✗ ตัวเลือก a, d = Segregation (กั้น/แยก physical-policy barrier)\n✗ ตัวเลือก b = Sanitation (ทำความสะอาด/disinfect)\n💡 Biosecurity 3 ขา: Segregation (กั้น) + Sanitation (สะอาด) + Resistance (ทนโรค) — ถ้าขาใดอ่อน multifactorial disease จะ break-through",
+    "explain": "✓ Resistance = ทำให้ตัวสัตว์ทนโรค โดย genetic selection, vaccine (active immune), colostrum/passive immune\n✗ การกั้นรั้ว/all-in all-out และการแยกโซนรถ = Segregation (กั้น/แยก physical-policy barrier)\n✗ การจุ่มเท้าในน้ำยาฆ่าเชื้อ = Sanitation (ทำความสะอาด/disinfect)\n💡 Biosecurity 3 ขา: Segregation (กั้น) + Sanitation (สะอาด) + Resistance (ทนโรค) — ถ้าขาใดอ่อน multifactorial disease จะ break-through",
     "verified": "Swine Hlth final TJ.pdf อ.อธิภู section biosecurity + swine herd mid p.4 PDR intervention strategies"
   },
   {
@@ -318,7 +318,7 @@ export const QB_SWINE_HERD = [
       "P1 = 50%, P2 = 30%, P3+ = 5-10% — replace แม่เกือบทั้งฝูงทุกปี"
     ],
     "answer": 1,
-    "explain": "✓ Parity structure ปกติ: P1 ≈ 20%, P2-4 peak ที่ 17-19%, P5+ ลดลงต่อเนื่อง 10/6/5/5% — minimum culling ก่อน peak (P2-4), selective culling หลัง peak\n  - Born alive peak ที่ parity 2-4 → ฟาร์มต้องเก็บแม่ให้ถึงรอบนี้\n✗ ตัวเลือก a + c = poor parity structure (young-heavy หรือ old-heavy → poor production)\n✗ ตัวเลือก d = over-replacement → ขาด experienced sows ที่อยู่ peak\n💡 Performance not equal across parities — culling ทำหลัง peak (P5+ onwards)",
+    "explain": "✓ Parity structure ปกติ: P1 ≈ 20%, P2-4 peak ที่ 17-19%, P5+ ลดลงต่อเนื่อง 10/6/5/5% — minimum culling ก่อน peak (P2-4), selective culling หลัง peak\n  - Born alive peak ที่ parity 2-4 → ฟาร์มต้องเก็บแม่ให้ถึงรอบนี้\n✗ ฝูงที่ P1 35% หรือ P>7 18% = poor parity structure (young-heavy หรือ old-heavy → poor production)\n✗ ฝูงที่ P1 50% = over-replacement → ขาด experienced sows ที่อยู่ peak\n💡 Performance not equal across parities — culling ทำหลัง peak (P5+ onwards)",
     "verified": "Record Analysis.pdf slides 33-37 parity structure + production curve"
   },
   {

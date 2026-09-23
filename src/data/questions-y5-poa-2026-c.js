@@ -579,7 +579,7 @@ export const QUESTIONS_Y5_POA_2026_C = [
       "Regurgitation และ vomiting เป็น passive process จาก pharynx เหมือนกัน ต่างกันเฉพาะเวลา"
     ],
     "answer": 2,
-    "explain": "Regurgitation เป็นการไหลย้อนแบบ passive ของอาหารหรือน้ำจาก pharynx หรือ esophagus ส่วน vomiting เป็น active process ที่ขับสิ่งใน stomach และบางครั้ง duodenum ออกมา\n\n❌ ทำไมข้ออื่นผิด\n— ตัวเลือกแรกสลับทั้ง active/passive และตำแหน่งกำเนิด\n— สองปัญหาไม่ได้เป็น active gastric process เหมือนกัน\n— Regurgitation ไม่ใช่ seizure และ vomiting ไม่ได้จำกัดที่ colon\n— Vomiting ไม่ใช่ passive pharyngeal process และความต่างไม่ได้มีเพียงเวลา\n\n💡 Passive + esophagus = regurgitation; active + stomach = vomiting",
+    "explain": "Regurgitation เป็นการไหลย้อนแบบ passive ของอาหารหรือน้ำจาก pharynx หรือ esophagus ส่วน vomiting เป็น active process ที่ขับสิ่งใน stomach และบางครั้ง duodenum ออกมา\n\n❌ ทำไมข้ออื่นผิด\n— ข้อที่ให้ regurgitation เป็น active จาก stomach สลับทั้ง active/passive และตำแหน่งกำเนิด\n— สองปัญหาไม่ได้เป็น active gastric process เหมือนกัน\n— Regurgitation ไม่ใช่ seizure และ vomiting ไม่ได้จำกัดที่ colon\n— Vomiting ไม่ใช่ passive pharyngeal process และความต่างไม่ได้มีเพียงเวลา\n\n💡 Passive + esophagus = regurgitation; active + stomach = vomiting",
     "source": "POA - vomiting and regurgitation",
     "verified": "POA - vomiting and regurgitation pp.3-4",
     "sourceType": "lecture-derived",

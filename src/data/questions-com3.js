@@ -1875,7 +1875,7 @@ export const QB_COM3 = [
       'ควรทำ chest compression ด้วยความเร็ว 100-120 ครั้ง/นาที (ไม่ช้ากว่านี้)',
       'ต้องให้หน้าอกคืนสภาพเดิม (chest recoil) ให้เต็มที่ก่อนกด chest compression ครั้งต่อไป',
     ],
-    answer: 0, explain: 'ตัวเลือก a ผิด — Bulldog เป็น barrel-chested (หน้าอกกลม-กว้าง) → ใช้ lateral recumbency + cardiac pump theory (กดที่ตำแหน่งหัวใจตรง), Dorsal recumbency + thoracic pump = ใช้กับ deep-chested keel-shaped breeds (Greyhound, Doberman, Setter) ที่หัวใจอยู่ลึก ใช้ pressure gradient ใน chest cavity\n\n✓ Lateral default for most dogs/cats, Dorsal for keel-chested, Compression depth 1/3-1/2 chest width, Rate 100-120/min, Full recoil',
+    answer: 0, explain: 'ข้อที่ให้ Bulldog นอนหงายผิด — Bulldog เป็น barrel-chested (หน้าอกกลม-กว้าง) → ใช้ lateral recumbency + cardiac pump theory (กดที่ตำแหน่งหัวใจตรง), Dorsal recumbency + thoracic pump = ใช้กับ deep-chested keel-shaped breeds (Greyhound, Doberman, Setter) ที่หัวใจอยู่ลึก ใช้ pressure gradient ใน chest cavity\n\n✓ Lateral default for most dogs/cats, Dorsal for keel-chested, Compression depth 1/3-1/2 chest width, Rate 100-120/min, Full recoil',
     verified: 'CPCR 1 hr.pdf, RECOVER 2012, DC3final 86' },
 
   { id: 1349, subject: 'com3', topic: 'cpcr', year: 4, source: 'DC3final 86',

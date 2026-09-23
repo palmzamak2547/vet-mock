@@ -9,8 +9,8 @@
 // An explanation is written to the candidate, in the voice of the answer. It
 // states the fact. It never says where the writer read it, never quotes a
 // marker's handwriting, never names the lecturer, a senior or the deck, never
-// predicts what the paper will ask, and never points at a table, figure or
-// attachment the reader cannot see. Provenance belongs in
+// predicts what the paper will ask, and never points at a table, figure,
+// attachment or option letter the reader cannot see. Provenance belongs in
 // `verified`, which renders through humanSource(); framing belongs in `why`.
 //
 // A model answer is held to the same voice: it is what a candidate would
@@ -83,6 +83,32 @@ export const RULES = [
   ['exam-prediction', /ข้อสอบ(?:ชอบ|มัก|จะ|ถาม)|ออก(?:ข้อ)?สอบ|ออก\s?\d+\s?ล้านข้อ|จำไปให้หมด|จำไปสอบ/, 'predicts what the paper will ask'],
 ];
 
+// Option letters and positions only mean something while the options keep the
+// order they were written in. getShuffledOptions (src/lib/option-shuffle.js)
+// permutes every multiple-choice row that does not set noShuffle, and the
+// screen relabels them A-E by display position, so "ข้อ D จึงถูก" or
+// "ตัวเลือกแรกผิดเพราะ" points at a different row for most students. Quote the
+// option's content instead. Review shows answers as text, so this is only a
+// defect on a shuffled row.
+export const OPTION_POSITION = new RegExp([
+  '(?<![\\u0E00-\\u0E7FA-Za-z])(?:ข้อ|ตัวเลือก|choice|option)\\s*\\(?[A-E]\\)?(?![A-Za-z0-9\\u0E00-\\u0E7F.])',
+  '(?<![\\u0E00-\\u0E7F])(?:ข้อ|ตัวเลือก)\\s*\\(?[ก-จ]\\)?(?![\\u0E00-\\u0E7F])',
+  'ตอบ\\s*[A-E](?![A-Za-z0-9])',
+  // "ยาตัวเลือกแรก", "ไม่ใช่ตัวเลือกแรก" and "เป็นตัวเลือกแรก" mean a drug or
+  // diet of first choice, not an option on the screen.
+  '(?<!ยา|ไม่ใช่|เป็น)ตัวเลือก(?:แรก|ที่\\s*(?:หนึ่ง|สอง|สาม|สี่|ห้า|[1-5](?!\\d))|สุดท้าย|ท้าย)',
+  '(?:สอง|สาม)ตัวเลือก(?:แรก|ท้าย)',
+  // Only as its own word: "ปัจจัยโน้มนำข้อแรกคือ" and "คำถามข้อแรก" count items
+  // of a list the explanation is teaching, not options.
+  '(?:^|\\s|สอง|สาม|และ|ส่วน)ข้อ(?:แรก|สุดท้าย)(?=\\s*(?:ผิด|ถูก|เป็น|คือ|สลับ|ไม่|,|$))',
+  // "คือข้อแรกของการซักประวัติ" is the first step of a history, not an option.
+  'คือข้อ(?:แรก|สุดท้าย)(?!ของ|ที่|ใน)',
+  '(?:เหมือน|เลือก)ข้อ(?:แรก|สุดท้าย)',
+  '\\b(?:first|second|third|last) option\\b',
+].join('|'), 'i');
+
+const isShuffledChoice = (q) => Array.isArray(q?.options) && q.options.length > 1 && q.noShuffle !== true;
+
 /** Every narrating phrase in one question, as {field, rule, why, quote}. */
 export function voiceHits(q) {
   const out = [];
@@ -92,6 +118,17 @@ export function voiceHits(q) {
     for (const [rule, re, why] of RULES) {
       const i = text.search(re);
       if (i >= 0) out.push({ field, rule, why, quote: text.slice(Math.max(0, i - 45), i + 95).replace(/\s+/g, ' ') });
+    }
+    if (field === 'explain' && isShuffledChoice(q)) {
+      const i = text.search(OPTION_POSITION);
+      if (i >= 0) {
+        out.push({
+          field,
+          rule: 'option-position',
+          why: 'names an option by letter or position on a row whose options shuffle',
+          quote: text.slice(Math.max(0, i - 45), i + 95).replace(/\s+/g, ' '),
+        });
+      }
     }
   }
   return out;
@@ -134,7 +171,7 @@ async function main() {
 
   const byRule = {};
   for (const h of hits) for (const r of h.rules) byRule[r] = (byRule[r] || 0) + 1;
-  const rules = RULES.map(([k, , w]) => [k, w]);
+  const rules = [...RULES.map(([k, , w]) => [k, w]), ['option-position', 'names an option by letter or position on a row whose options shuffle']];
 
   console.log(`scanned ${scanned} explanations and model answers in ${banks.length} banks`);
   console.log(`explanations that narrate instead of explain: ${hits.length}`);

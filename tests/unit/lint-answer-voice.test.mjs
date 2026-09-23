@@ -5,7 +5,9 @@
 // 2026-09-23 while ~180 still said "เอกสารเขียนว่า…", "รุ่นพี่บันทึกว่าอาจารย์
 // ออก…", "(Aj. Rosama เน้น)", "Vet 81 group ตอบ B" or "ข้อสอบชอบถามคู่กัน…".
 // Its word list had never met those phrasings, and it did not read
-// model_answer at all.
+// model_answer at all. Another ~65 explanations pointed at options by letter
+// or position ("ข้อ D จึงถูก", "ตัวเลือกแรกผิดเพราะ") on rows whose options are
+// shuffled per student, so the letter named a different row on screen.
 //
 // Each phrase class below is one the lint used to miss; each false positive is
 // one a broader pattern would wrongly catch.
@@ -23,6 +25,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '.
 
 let nextId = 995000;
 const row = (explain, extra = {}) => ({ id: nextId++, subject: 'fixture', topic: 't', type: 'tf', explain, ...extra });
+const mcq = (explain, extra = {}) => row(explain, { type: 'mcq', options: ['หนึ่ง', 'สอง', 'สาม', 'สี่'], answer: 0, ...extra });
 const rulesOf = (q) => [...new Set(voiceHits(q).map((h) => h.rule))];
 
 test('each narrating phrase class the lint used to miss is now caught', () => {
@@ -83,6 +86,37 @@ test('a model answer is read in the same voice as the explanation', () => {
   const q = row('ปัจจัยมีหกข้อ', { type: 'short', model_answer: 'ปัจจัยที่อาจารย์ให้ไว้มีหกข้อ ข้อแรกคือ human demographic changes' });
   const hits = voiceHits(q);
   assert.deepEqual(hits.map((h) => `${h.field}/${h.rule}`), ['model_answer/lecturer']);
+});
+
+test('an option named by letter or position fails only where the options shuffle', () => {
+  const pointing = [
+    'ข้อ D จึงถูก ส่วนตัวลวงที่คนพลาดบ่อยคือข้อ B',
+    'ตัวเลือกแรกผิดเพราะ CEO แพร่ระหว่างตัวได้',
+    'จึงตัดตัวเลือกสุดท้ายออก',
+    'ส่วนสองตัวเลือกแรกเป็นตัวเลขไขมันตั้งต้น',
+    'ข้อที่ล่อให้ตอบผิดคือข้อสุดท้าย เพราะสรุปผิด',
+    'ตัวเลือก a ผิด — Bulldog เป็น barrel-chested',
+    'ช่วงอาหารเหลือทิ้ง ข้อแรกเป็นนิยามของ rotational grazing',
+    'ตั้งอุณหภูมิสูงกว่าปกติ สองข้อแรกเป็นช่วง LTLT และ HTST',
+    '"C × A" = เป็นการคูณเหมือนข้อแรก แค่สลับที่กัน',
+    'ผู้ที่ท่องเพียงว่าสารเร่งเนื้อแดงคือ beta-agonist จะเลือกข้อแรกทันที',
+  ];
+  for (const explain of pointing) {
+    assert.ok(rulesOf(mcq(explain)).includes('option-position'), `shuffled: "${explain}"`);
+    assert.ok(!rulesOf(mcq(explain, { noShuffle: true })).includes('option-position'), `noShuffle keeps the order: "${explain}"`);
+    assert.ok(!rulesOf(row(explain)).includes('option-position'), `no options, nothing to shuffle: "${explain}"`);
+  }
+  const ordinary = [
+    'ประชากรหนาแน่นเป็นปัจจัยข้อแรกที่ระบุไว้',
+    'amoxicillin จึงไม่ใช่ตัวเลือกแรก — enrofloxacin ครอบคลุมกว้าง',
+    'high-fat/raw/fiber ไม่ใช่ตัวเลือกแรก',
+    'ยาตัวเลือกแรกของ Staph pyoderma คือ cephalexin',
+    'ประวัติสุขภาพโดยรวมคือข้อแรกของการซักประวัติแม่ม้า',
+    'ปัจจัยโน้มนำข้อแรกคือแผลปลายขาที่ epithelialization ช้า',
+    '"มีมาตรการควบคุมหรือไม่" = คำถามข้อแรกถูก แต่จำนวนคำถามผิด',
+    'Vitamin D3 ต่างจาก vitamin D2',
+  ];
+  for (const explain of ordinary) assert.ok(!rulesOf(mcq(explain)).includes('option-position'), explain);
 });
 
 // The live bank: every explanation and model answer in the voice of the answer.

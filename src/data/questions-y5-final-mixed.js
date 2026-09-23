@@ -179,7 +179,7 @@ export const QB_Y5_FINAL_MIXED = [
     q: 'ข้อใดไม่ใช่ โรคที่ก่อให้เกิดพยาธิสภาพที่ผิวหนัง',
     options: ['Hypothyroidism, scabies', 'Photosensitization, Psoroptes cuniculi infestation (ไม่ผ่าน skin?)', 'Zinc deficiency, hypovitaminosis D (hyperkeratosis)', 'Blastomyces dermatitidis, Malassezia pachydermatis infection', 'Hyperadrenocorticism, Demodicosis (Cushing)'],
     answer: 1,
-    explain: 'Psoroptes cuniculi = ear mite ในกระต่าย → ear, ไม่ใช่ผิวหนังทั่ว\nPhotosensitization = ทำผิวเสียจริง แต่คู่นี้ไม่ตรง\nคำตอบใช้ option B เพราะ Psoroptes ไม่ทำ skin lesion ทั่วร่างกาย\n\n❌ ข้ออื่นทำ skin lesion จริง\n— Hypothyroidism = bilateral alopecia, Scabies = pruritic\n— Zn def = hyperkeratosis, Vit D = ผิวลอก\n— Blasto = skin granuloma, Malassezia = greasy skin\n— Cushing = thin skin, Demodex = alopecia',
+    explain: 'Psoroptes cuniculi = ear mite ในกระต่าย → ear, ไม่ใช่ผิวหนังทั่ว\nPhotosensitization = ทำผิวเสียจริง แต่คู่นี้ไม่ตรง\nคำตอบคือคู่ Photosensitization กับ Psoroptes cuniculi เพราะ Psoroptes ไม่ทำ skin lesion ทั่วร่างกาย\n\n❌ ข้ออื่นทำ skin lesion จริง\n— Hypothyroidism = bilateral alopecia, Scabies = pruritic\n— Zn def = hyperkeratosis, Vit D = ผิวลอก\n— Blasto = skin granuloma, Malassezia = greasy skin\n— Cushing = thin skin, Demodex = alopecia',
     verified: 'สรุป 80 p.5 (Vet 83 marked X at option B)',
     flag: { note: 'Psoroptes ใน rabbit = ear; Q logic depends on "ทั่วผิวหนัง" interpretation', severity: 'unclear' } },
 
@@ -464,7 +464,7 @@ export const QB_Y5_FINAL_MIXED = [
     q: 'ข้อใดไม่ถูกต้องเกี่ยวกับโรควัวบ้า (Mad cow disease, BSE)',
     options: ['จัดอยู่ในกลุ่มโรค Transmissible spongiform encephalopathies (TSE)', 'สามารถติดต่อและถ่ายทอด variant Creutzfeldt-Jakob disease (vCJD) ในคนได้', 'สามารถส่งตัวอย่าง obex เพื่อการวินิจฉัยที่ดี โดยเก็บที่ตำแหน่งบริเวณ foramen magnum ของกระดูกท้ายทอย', 'รอยโรคทางพยาธิวิทยาแบบ neuronal vacuolation และ spongiosis', 'Prion เป็นโปรตีนทั่วไป'],
     answer: 4,
-    explain: 'Prion = เป็นโปรตีน abnormal (PrPSc) — "ไม่ใช่โปรตีนทั่วไป" (เป็น misfolded prion protein) → ข้อ E ผิด\n\n✓ ข้ออื่นถูก\n— BSE = ใน TSE family\n— vCJD = variant CJD ในคนจาก BSE consumption\n— Obex sample = brainstem sample point for histopath\n— Neuronal vacuolation + spongiosis = classic',
+    explain: 'Prion = เป็นโปรตีน abnormal (PrPSc) — "ไม่ใช่โปรตีนทั่วไป" (เป็น misfolded prion protein) → ข้อความนี้ผิด\n\n✓ ข้ออื่นถูก\n— BSE = ใน TSE family\n— vCJD = variant CJD ในคนจาก BSE consumption\n— Obex sample = brainstem sample point for histopath\n— Neuronal vacuolation + spongiosis = classic',
     verified: 'สรุป 80 p.11 (Vet 83 marked E "เป็นprotein-ป่าว ?")',
     flag: { note: 'Vet 83 query indicates Q ambiguous; E chosen as "incorrect statement"', severity: 'unclear' } },
 
@@ -539,7 +539,7 @@ export const QB_Y5_FINAL_MIXED = [
     q: 'ข้อใดถูกต้องเกี่ยวกับโรคเนื้องอกในสัตว์ปีก (avian leukosis และ Marek\'s disease)',
     options: ['เนื้องอกชนิด lymphoma ในอวัยวะภายในสามารถเกิดได้ทั้งจาก avian leukosis และ Marek\'s disease', "Marek's disease สามารถเกิดก้อนที่ผูง (feather follicle) ได้", 'การทำวัคซีนสามารถใช้ป้องกันได้ทั้ง avian leukosis และ Marek\'s disease', "หนึ่งใน avian leukosis และ Marek's disease สามารถเจอโรคโดย vertical transmission ได้ทั้งคู่หนึ่งกัน (horizontal ONLY)", "Avian leukosis เกิดจาก DNA virus ในขณะที่ Marek's disease เกิดจาก DNA virus (retrovirus)"],
     answer: 0,
-    explain: 'Avian leukosis (ALV, retrovirus) + Marek\'s disease (MD, herpesvirus alpha-2) ทั้งคู่ทำ B-cell/T-cell lymphoma ในไก่ → tumor ในอวัยวะภายในทั้งคู่\n\n❌ ข้ออื่นผิด\n— Marek = feather follicle (จริง — skin form) แต่ความผิดอยู่อื่น\n— Vaccine ป้องกัน Marek ได้ แต่ ALV ไม่มี vaccine effective\n— Vertical ใช้ ALV เท่านั้น Marek = horizontal\n— ALV = RNA retrovirus, MD = DNA herpesvirus (ข้อ E สลับ)',
+    explain: 'Avian leukosis (ALV, retrovirus) + Marek\'s disease (MD, herpesvirus alpha-2) ทั้งคู่ทำ B-cell/T-cell lymphoma ในไก่ → tumor ในอวัยวะภายในทั้งคู่\n\n❌ ข้ออื่นผิด\n— Marek = feather follicle (จริง — skin form) แต่ความผิดอยู่อื่น\n— Vaccine ป้องกัน Marek ได้ แต่ ALV ไม่มี vaccine effective\n— Vertical ใช้ ALV เท่านั้น Marek = horizontal\n— ALV = RNA retrovirus, MD = DNA herpesvirus (ALV ไม่ใช่ DNA virus)',
     verified: 'สรุป 80 p.13 (Vet 83 marked A "lymphocytic feature ทั้งคู่")' },
 
   { id: 8049, subject: 'rec-adv-bioscience', topic: 'ravb-bacterial-dx', year: 5,

@@ -97,7 +97,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_C = [
       "Field veterinarian ตรวจสัตว์และเก็บตัวอย่าง; public health liaison ติดตามคน; environmental analyst ประเมิน ecosystem"
     ],
     "answer": 3,
-    "explain": "Field veterinarian ดู animal populations เก็บตัวอย่างและรายงานความผิดปกติ Public health liaison ติดตาม human morbidity/mortality และประสาน clinical services ส่วน environmental analyst ประเมิน habitat, climate และ ecosystem factors\n\n❌ ทำไมข้ออื่นผิด\n— Human case tracking ไม่ใช่งานหลักของ field veterinarian และ habitat ไม่ใช่งานหลักของ public health liaison\n— Policy brief เป็นบทบาท communications lead ขณะที่ animal sampling เป็นงาน field veterinarian\n— ตัวเลือกที่สามสลับหน้าที่ของทั้ง environmental analyst, communications lead และ field veterinarian\n\n💡 แบ่งตาม layer ก่อน แล้วค่อยรวมข้อค้นพบกลับเป็น network evidence",
+    "explain": "Field veterinarian ดู animal populations เก็บตัวอย่างและรายงานความผิดปกติ Public health liaison ติดตาม human morbidity/mortality และประสาน clinical services ส่วน environmental analyst ประเมิน habitat, climate และ ecosystem factors\n\n❌ ทำไมข้ออื่นผิด\n— Human case tracking ไม่ใช่งานหลักของ field veterinarian และ habitat ไม่ใช่งานหลักของ public health liaison\n— Policy brief เป็นบทบาท communications lead ขณะที่ animal sampling เป็นงาน field veterinarian\n— Environmental analyst ไม่ได้วัด morbidity คน และ communications lead ไม่ได้ตรวจสัตว์ ชุดนั้นสลับหน้าที่ทั้งสามบทบาท\n\n💡 แบ่งตาม layer ก่อน แล้วค่อยรวมข้อค้นพบกลับเป็น network evidence",
     "source": "Global One Health Activity Network SJ (2 Sep 2026)",
     "verified": "Global One Health Activity Network SJ (2 Sep 2026) p.6",
     "sourceType": "lecture-derived",
@@ -274,7 +274,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_C = [
       "GIS ใช้ spatial mapping; dashboard ใช้ดู trend; LIMS ใช้ติดตาม sample/result; forum ใช้ cross-node discussion"
     ],
     "answer": 3,
-    "explain": "GIS เหมาะกับ spatial spread ที่ animal-human-environment interfaces, shared dashboard ใช้ real-time case reporting และ trends, LIMS ติดตาม sample submission กับ diagnostic results และ forum รองรับ asynchronous collaboration\n\n❌ ทำไมข้ออื่นผิด\n— ตัวเลือกแรกย้าย sample ไป GIS, discussion ไป dashboard, mapping ไป LIMS และ trend ไป forum\n— ตัวเลือกที่สองสลับหน้าที่ trend, sample, discussion และ spatial mapping ทั้งชุด\n— ตัวเลือกที่สามสลับ discussion, mapping, trend และ sample tracking ออกจากเครื่องมือที่รองรับจริง\n\n💡 Map = GIS, trend = dashboard, sample = LIMS, discussion = forum",
+    "explain": "GIS เหมาะกับ spatial spread ที่ animal-human-environment interfaces, shared dashboard ใช้ real-time case reporting และ trends, LIMS ติดตาม sample submission กับ diagnostic results และ forum รองรับ asynchronous collaboration\n\n❌ ทำไมข้ออื่นผิด\n— ชุดที่ให้ GIS ติดตาม sample ย้าย sample ไป GIS, discussion ไป dashboard, mapping ไป LIMS และ trend ไป forum\n— ชุดที่ให้ GIS ดู trend สลับหน้าที่ trend, sample, discussion และ spatial mapping ทั้งชุด\n— ชุดที่ให้ GIS ใช้ cross-node discussion สลับ discussion, mapping, trend และ sample tracking ออกจากเครื่องมือที่รองรับจริง\n\n💡 Map = GIS, trend = dashboard, sample = LIMS, discussion = forum",
     "source": "Global One Health Activity Network SJ (2 Sep 2026)",
     "verified": "Global One Health Activity Network SJ (2 Sep 2026) p.16",
     "sourceType": "lecture-derived",
@@ -401,7 +401,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_C = [
       "WHO ดู human health/IHR; WOAH ดูมาตรฐานโรคสัตว์; FAO ดูอาหารและเกษตร; UNEP ดู environmental drivers"
     ],
     "answer": 4,
-    "explain": "WHO รับบท human health guidance และ IHR coordination, WOAH ดู animal disease standards/reporting, FAO ดู food systems และ agricultural health, UNEP ดู environmental drivers of disease emergence\n\n❌ ทำไมข้ออื่นผิด\n— ตัวเลือกแรกสลับภารกิจขององค์กรทั้งสี่\n— ตัวเลือกที่สองย้าย IHR ออกจาก WHO และย้าย environment ออกจาก UNEP\n— ตัวเลือกที่สามไม่เหลือองค์กรใดทำบทบาทหลักตรงกรอบ\n— WHO-IHR ถูกเพียงคู่เดียว แต่อีกสามองค์กรถูกจับคู่ผิดภารกิจ\n\n💡 คน = WHO, สัตว์ = WOAH, อาหารเกษตร = FAO, สิ่งแวดล้อม = UNEP",
+    "explain": "WHO รับบท human health guidance และ IHR coordination, WOAH ดู animal disease standards/reporting, FAO ดู food systems และ agricultural health, UNEP ดู environmental drivers of disease emergence\n\n❌ ทำไมข้ออื่นผิด\n— ชุดที่ให้ WHO ดูมาตรฐานโรคสัตว์สลับภารกิจขององค์กรทั้งสี่\n— ชุดที่ให้ WHO ดูอาหารและเกษตรย้าย IHR ออกจาก WHO และย้าย environment ออกจาก UNEP\n— ชุดที่ให้ WHO ดู environmental drivers ไม่เหลือองค์กรใดทำบทบาทหลักตรงกรอบ\n— WHO-IHR ถูกเพียงคู่เดียว แต่อีกสามองค์กรถูกจับคู่ผิดภารกิจ\n\n💡 คน = WHO, สัตว์ = WOAH, อาหารเกษตร = FAO, สิ่งแวดล้อม = UNEP",
     "source": "Global One Health Activity Network SJ (2 Sep 2026)",
     "verified": "Global One Health Activity Network SJ (2 Sep 2026) p.21",
     "sourceType": "lecture-derived",

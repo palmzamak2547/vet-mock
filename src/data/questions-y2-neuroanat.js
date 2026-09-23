@@ -657,7 +657,7 @@ export const QUESTIONS_Y2_NEUROANAT = [
       "motor nuclei อยู่ทาง ventral-medial"
     ],
     "answer": 2,
-    "explain": "Solitary nucleus เป็น sensory nuclei ที่รับสัญญาณจากอวัยวะภายในผ่านใยรับความรู้สึกของ vagus nerve และวางตัวอยู่ทาง dorsal-medial ของ medulla oblongata\n\n❌ ทำไมข้ออื่นผิด\n— \"motor nuclei อยู่ทาง ventral-lateral\" = ผิดทั้งชนิดและตำแหน่ง solitary nucleus เป็นนิวเคลียสรับความรู้สึกและอยู่ dorsal-medial\n— \"motor nuclei อยู่ทาง dorsal-medial\" = ตำแหน่งตรง แต่ชนิดผิด เพราะ solitary nucleus ทำหน้าที่รับความรู้สึก ไม่ใช่สั่งการ\n— \"sensory nuclei อยู่ทาง ventral-medial\" = ชนิดตรง แต่ตำแหน่งที่ระบุไว้คือ dorsal-medial\n\n💡 ข้อนี้ถามสองชั้น ทั้งชนิดและตำแหน่ง ถ้าจำได้ก่อนว่า solitary nucleus เป็นสายรับความรู้สึกที่มากับ vagus ก็ตัดสองตัวเลือกแรกทิ้งได้ทันที เหลือเลือกแค่ตำแหน่ง",
+    "explain": "Solitary nucleus เป็น sensory nuclei ที่รับสัญญาณจากอวัยวะภายในผ่านใยรับความรู้สึกของ vagus nerve และวางตัวอยู่ทาง dorsal-medial ของ medulla oblongata\n\n❌ ทำไมข้ออื่นผิด\n— \"motor nuclei อยู่ทาง ventral-lateral\" = ผิดทั้งชนิดและตำแหน่ง solitary nucleus เป็นนิวเคลียสรับความรู้สึกและอยู่ dorsal-medial\n— \"motor nuclei อยู่ทาง dorsal-medial\" = ตำแหน่งตรง แต่ชนิดผิด เพราะ solitary nucleus ทำหน้าที่รับความรู้สึก ไม่ใช่สั่งการ\n— \"sensory nuclei อยู่ทาง ventral-medial\" = ชนิดตรง แต่ตำแหน่งที่ระบุไว้คือ dorsal-medial\n\n💡 ข้อนี้ถามสองชั้น ทั้งชนิดและตำแหน่ง ถ้าจำได้ก่อนว่า solitary nucleus เป็นสายรับความรู้สึกที่มากับ vagus ก็ตัดตัวเลือกที่เป็น motor nuclei ทิ้งได้ทันที เหลือเลือกแค่ตำแหน่ง",
     "verified": "Myelencephalon น.6"
   },
   {

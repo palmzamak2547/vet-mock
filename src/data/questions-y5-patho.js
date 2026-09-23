@@ -53,7 +53,7 @@ export const QB_Y5_PATHO = [
       'ผิดทุกข้อ (เพราะในตัวเลือกเป็นดีซ่านได้หมด)'
     ],
     answer: 4,
-    explain: 'ตัวเลือก A-D เป็น DDx ของ jaundice ครบทุกข้อ (pre/hepatic/post-hepatic)\n- Babesiosis, M. haemofelis, IMHA = pre-hepatic (hemolysis)\n- Hepatic lipidosis, Lepto, Cu-hepatitis = hepatic\n- PCV2, Anaplasmosis = mixed\n→ "ผิดทุกข้อ" คือ "ไม่มีข้อใดที่ไม่ใช่ DDx" = ทุกข้อเป็น DDx ทั้งหมด',
+    explain: 'ทุกคู่ในตัวเลือกอื่นเป็น DDx ของ jaundice (pre/hepatic/post-hepatic)\n- Babesiosis, M. haemofelis, IMHA = pre-hepatic (hemolysis)\n- Hepatic lipidosis, Lepto, Cu-hepatitis = hepatic\n- PCV2, Anaplasmosis = mixed\n→ "ผิดทุกข้อ" คือ "ไม่มีข้อใดที่ไม่ใช่ DDx" = ทุกข้อเป็น DDx ทั้งหมด',
     verified: 'Final Patho prac.pdf p.1' },
 
   { id: 8202, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,

@@ -229,7 +229,7 @@ export const QUESTIONS_Y2_HISTO = [
       "Decrease in granulopoiesis ซึ่งพบได้ใน nonregenerative anemia จาก marrow aplasia"
     ],
     "answer": 2,
-    "explain": "M:E ratio ที่ลดลงต่ำกว่า 1 เช่น 1:4 ร่วมกับ WBC ปกติ แปลว่าสาย erythroid เพิ่มขึ้น จึงหมายถึง increase in erythropoiesis เช่นจาก severe blood loss หรือ erythrocyte destruction ได้แก่ hemorrhagic anemia และ hemolytic anemia ตัวเลือกแรกเป็นการแปลผลของ M:E ที่เพิ่มขึ้นมากกว่า 1 เช่น 4:1 ซึ่งเป็นทิศทางตรงกันข้าม และต้องแปลผลเทียบกับ total WBC count เสมอ",
+    "explain": "M:E ratio ที่ลดลงต่ำกว่า 1 เช่น 1:4 ร่วมกับ WBC ปกติ แปลว่าสาย erythroid เพิ่มขึ้น จึงหมายถึง increase in erythropoiesis เช่นจาก severe blood loss หรือ erythrocyte destruction ได้แก่ hemorrhagic anemia และ hemolytic anemia ส่วน decrease in erythropoiesis เป็นการแปลผลของ M:E ที่เพิ่มขึ้นมากกว่า 1 เช่น 4:1 ซึ่งเป็นทิศทางตรงกันข้าม และต้องแปลผลเทียบกับ total WBC count เสมอ",
     "verified": "Bone Marrow น.53"
   },
   {
