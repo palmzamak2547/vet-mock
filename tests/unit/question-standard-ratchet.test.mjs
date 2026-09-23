@@ -26,7 +26,13 @@ import { fileURLToPath } from 'node:url';
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const SCRIPT = path.join(repo, 'scripts', 'lint-question-standard.mjs');
 const BASELINE = 'docs/question-standard-baseline.json';
-const real = JSON.parse(fs.readFileSync(path.join(repo, BASELINE), 'utf8'));
+
+// What the lint measures on the copied banks, recorded once in the scratch
+// directory. The committed baseline is deliberately NOT the reference: now that
+// the gate no longer lowers it, it may sit above the corpus until someone runs
+// ratchet:question-standard, and a newly added detector row is absent from it
+// until then. Neither is a failure of the lint, so neither may fail this file.
+let measured;
 
 let scratch;
 test.before(() => {
@@ -39,6 +45,10 @@ test.before(() => {
       fs.copyFileSync(path.join(repo, 'src', 'data', name), path.join(data, name));
     }
   }
+  const r = spawnSync(process.execPath, [SCRIPT, '--ratchet', '--write'], { cwd: scratch, encoding: 'utf8' });
+  assert.equal(r.status, 0, `${r.stdout}${r.stderr}`);
+  measured = JSON.parse(fs.readFileSync(path.join(scratch, BASELINE), 'utf8'));
+  assert.ok(Object.keys(measured).length > 0, 'the lint measures at least one row');
 });
 test.after(() => { if (scratch) fs.rmSync(scratch, { recursive: true, force: true }); });
 
@@ -55,7 +65,7 @@ const lint = (...args) => {
 
 // Every row the lint measures, one count higher than the corpus has, so every
 // row reads as "fell".
-const inflated = () => Object.fromEntries(Object.entries(real).map(([k, n]) => [k, n + 3]));
+const inflated = () => Object.fromEntries(Object.entries(measured).map(([k, n]) => [k, n + 3]));
 
 test('a count that fell is reported with the command that records it, and nothing is written', () => {
   writeBaseline(inflated());
@@ -67,7 +77,7 @@ test('a count that fell is reported with the command that records it, and nothin
 });
 
 test('a row measured for the first time is reported, and nothing is written', () => {
-  const partial = { ...real };
+  const partial = { ...measured };
   delete partial[Object.keys(partial).at(-1)];
   writeBaseline(partial);
   const before = hash();
@@ -86,7 +96,7 @@ test('ratchet:question-standard records the lower counts', () => {
   writeBaseline(inflated());
   const r = lint('--ratchet', '--write');
   assert.equal(r.status, 0, r.out);
-  assert.deepEqual(readBaseline(), real, 'the recorded baseline is the measured one');
+  assert.deepEqual(readBaseline(), measured, 'the recorded baseline is the measured one');
 });
 
 test('a missing baseline fails the gate instead of writing a first one', () => {
@@ -98,11 +108,11 @@ test('a missing baseline fails the gate instead of writing a first one', () => {
 
   const w = lint('--ratchet', '--write');
   assert.equal(w.status, 0, w.out);
-  assert.deepEqual(readBaseline(), real);
+  assert.deepEqual(readBaseline(), measured);
 });
 
 test('a count that rose still fails, and the baseline is not moved', () => {
-  writeBaseline(real);
+  writeBaseline(measured);
   const extra = path.join(scratch, 'src', 'data', 'questions-zz-ratchet.js');
   fs.writeFileSync(extra, 'export const QZZ = [{ id: 987654321, subject: "zz-none", question: "x?", options: ["a", "b"], answer: 0 }];\n');
   try {
