@@ -91,3 +91,14 @@ test('every figure in the live bank resolves and describes itself', () => {
   assert.equal(res.counts.withoutAlt, FIGURE_ALT_BUDGET);
   assert.equal(FIGURE_ALT_BUDGET, 0, 'every figure carries an imageAlt');
 });
+
+// 104006 asks for the distance a labelled scale marks on the airborne
+// transmission figure (deck p.17). Without the figure, 6 feet is as defensible
+// as the keyed 3 feet, so the row ships with the real figure cut from the deck.
+test('104006 carries the airborne-transmission figure it reads a label from', () => {
+  const q = LIVE.find((r) => r.id === 104006);
+  assert.ok(q, '104006 is in the bank');
+  assert.equal(q.image, '/figures/questions/q104006.webp');
+  assert.ok(fs.existsSync(path.join(PUBLIC, q.image)), 'figure file exists');
+  assert.ok([...(q.imageAlt || '')].length >= FIGURE_ALT_MIN, 'figure has an imageAlt');
+});
