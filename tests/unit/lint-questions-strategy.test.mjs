@@ -84,13 +84,17 @@ test('the live bank is within its length-strategy budget', () => {
   assert.deepEqual(strategyErrors(live).map((e) => `${e.subject} ${e.strategy} ${e.score}%`), []);
 });
 
-test('the budget lists exactly the subjects that still beat chance, and no others', () => {
+// A listed subject that has since come within the margin is a lint warning
+// ("delete it from LENGTH_STRATEGY_BUDGET"), not a failure: a rewrite that
+// makes a subject fairer must not turn the gate red.
+test('every subject that still beats chance is listed in the budget', () => {
   const scores = lengthStrategyScores(live);
   for (const strategy of ['longest', 'shortest']) {
     const over = scores
       .filter((s) => s.n >= STRATEGY_MIN_N && s[strategy] - s.chance > STRATEGY_MARGIN)
-      .map((s) => s.subject).sort();
-    assert.deepEqual(Object.keys(LENGTH_STRATEGY_BUDGET[strategy]).sort(), over, strategy);
+      .map((s) => s.subject);
+    const unlisted = over.filter((s) => !Object.hasOwn(LENGTH_STRATEGY_BUDGET[strategy], s));
+    assert.deepEqual(unlisted, [], strategy);
   }
 });
 
@@ -105,7 +109,7 @@ test('the budget lists exactly the subjects that still beat chance, and no other
 // ============================================================
 
 const { restatesKey, COVERAGE } = await import('../../scripts/lib/question-standard.mjs');
-const { RESTATED_KEY_BUDGET } = require('../../scripts/lint-questions.cjs');
+const { RESTATED_KEY_BUDGET, lintBank } = require('../../scripts/lint-questions.cjs');
 
 const tf = (q, explain) => ({ id: nextId++, subject: 'fixture', topic: 't', type: 'tf', q, answer: true, explain });
 const choice = (options, answer, explain) => ({ id: nextId++, subject: 'fixture', topic: 't', type: 'mcq', q: 'fixture', options, answer, explain });
@@ -145,8 +149,19 @@ test('lint:questions holds restated keys to a budget that may only fall', () => 
   assert.equal(loose.warns.filter((f) => f.kind === 'restated-key-budget').length, 1);
 });
 
-test('the live bank is within the restated-key budget, and the budget is tight', () => {
+// Under the budget is a lint warning asking for the number to be lowered, not
+// a failure: rewriting one more explanation must not turn the gate red.
+test('the live bank is within the restated-key budget', () => {
   const count = live.filter(restatesKey).length;
   assert.ok(count <= RESTATED_KEY_BUDGET, `${count} restated keys, budget ${RESTATED_KEY_BUDGET}`);
-  assert.equal(count, RESTATED_KEY_BUDGET, 'lower RESTATED_KEY_BUDGET to the live count');
+});
+
+// The CLI must pass the predicate in: lintQuestions() without it skips the
+// check, so this goes through lintBank, the path main() takes.
+test('lint:questions itself fails when one more explanation only restates the key', async () => {
+  const clean = await lintBank(live);
+  assert.deepEqual(clean.errors.filter((f) => f.kind === 'restated-key'), []);
+  const extra = Array.from({ length: RESTATED_KEY_BUDGET + 1 - live.filter(restatesKey).length }, () => choice(['A9', 'B9'], 0, 'A9'));
+  const over = await lintBank([...live, ...extra]);
+  assert.deepEqual(over.errors.filter((f) => f.kind === 'restated-key').map((f) => f.count), [RESTATED_KEY_BUDGET + 1]);
 });

@@ -531,10 +531,16 @@ function printResults(allQs, result, args = []) {
   }
 }
 
+/** lintQuestions with every check the CLI runs, including the ESM-only
+ *  restated-key predicate. main() uses exactly this. */
+async function lintBank(allQs, options = {}) {
+  const { restatesKey } = await import('./lib/question-standard.mjs');
+  return lintQuestions(allQs, { restatesKey, ...options });
+}
+
 async function main(args = process.argv.slice(2)) {
   const allQs = await loadQuestions();
-  const { restatesKey } = await import('./lib/question-standard.mjs');
-  const result = lintQuestions(allQs, { restatesKey });
+  const result = await lintBank(allQs);
   printResults(allQs, result, args);
   return result.errors.length > 0 && !args.includes('--warn-only') ? 1 : 0;
 }
@@ -549,6 +555,7 @@ if (require.main === module) {
 module.exports = {
   loadQuestions,
   lintQuestions,
+  lintBank,
   lengthStrategyScores,
   LENGTH_STRATEGY_BUDGET,
   STRATEGY_MARGIN,

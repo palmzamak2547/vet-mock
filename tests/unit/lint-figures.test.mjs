@@ -21,7 +21,7 @@ import test from 'node:test';
 import { fileURLToPath } from 'node:url';
 
 import { BANK_REGISTRY } from '../../src/data/bank-registry.generated.js';
-import { FIGURE_ALT_BUDGET, FIGURE_ALT_MIN, checkFigures } from '../../scripts/lint-provenance.mjs';
+import { FIGURE_ALT_BUDGET, FIGURE_ALT_MIN, checkFigures, lintRows } from '../../scripts/lint-provenance.mjs';
 
 const LIVE = [];
 for (const entry of BANK_REGISTRY) for (const q of await entry.load()) LIVE.push(q);
@@ -80,6 +80,14 @@ test('a figure without a real imageAlt counts against a budget that may only fal
   const under = checkFigures([good], { publicDir: PUBLIC, altBudget: 2 });
   assert.deepEqual(under.errors, []);
   assert.equal(under.warnings.length, 1, 'a budget above the count asks to be lowered');
+});
+
+test('lint:provenance itself fails when one live figure no longer resolves', () => {
+  assert.deepEqual(lintRows(LIVE).errors, [], 'the live bank passes as it is');
+  const renamed = LIVE.map((q) => (q.id === 104006 ? { ...q, image: '/figures/questions/q104006-renamed.webp' } : q));
+  const { errors } = lintRows(renamed);
+  assert.equal(errors.length, 1, errors.join('\n'));
+  assert.match(errors[0], /q104006-renamed\.webp does not exist under public\//);
 });
 
 test('every figure in the live bank resolves and describes itself', () => {

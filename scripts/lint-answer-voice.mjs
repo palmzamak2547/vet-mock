@@ -53,8 +53,9 @@ export const RULES = [
   ['classmates', /นักศึกษา/, 'talks about other students instead of the fact'],
   // Every อาจารย์ in an explanation narrates the lecturer; the one innocent use
   // in the bank is One Health's faculty development ("พัฒนาอาจารย์"). "Aj." and
-  // "อ.<name>" are the same thing abbreviated; "อ.ย." is the Thai FDA.
-  ['lecturer', /ผู้บรรยาย|(?<!พัฒนา)อาจารย์|\bAj\.|\bAj [A-Z]|(?<![ก-๙])อ\.(?!ย\.)\s?[ก-ฮ]|ในคาบ(?:นี้|เรียน|)?\s*(?:ระบุ|บอก|สอน|พูด|ย้ำ|เน้น)?|\b[Pp]er (?:lecture|slide)\b/, 'names the lecturer or the class'],
+  // "อ.<name>" are the same thing abbreviated; "อ.ย." is the Thai FDA, and a
+  // dotted acronym (อ.ส.ค., อ.บ.ต., อ.ส.ม.) is an organisation, not a name.
+  ['lecturer', /ผู้บรรยาย|(?<!พัฒนา)อาจารย์|\bAj\.|\bAj [A-Z]|(?<![ก-๙])อ\.(?!ย\.|[ก-ฮ]\.[ก-ฮ])\s?[ก-ฮ]|ในคาบ(?:นี้|เรียน|)?\s*(?:ระบุ|บอก|สอน|พูด|ย้ำ|เน้น)?|\b[Pp]er (?:lecture|slide)\b/, 'names the lecturer or the class'],
   // "ตามเอกสาร" is only narration when it means "according to the document".
   // "ปล่อยให้เข้าฆ่าก่อนแล้วตามเอกสารทีหลัง" is a slaughterhouse following up on
   // its own paperwork, so the verb that follows decides it. Likewise เอกสาร is

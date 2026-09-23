@@ -286,14 +286,23 @@ export function checkFigures(rows, { publicDir = PUBLIC_DIR, altBudget = FIGURE_
   return { errors, warnings, counts: { figures, missing, withoutAlt: withoutAlt.length } };
 }
 
+/** Everything lint:provenance fails on, over one set of rows. main() prints it. */
+export function lintRows(rows, { publicDir } = {}) {
+  const provenance = checkProvenance(rows);
+  const figureCheck = checkFigures(rows, publicDir ? { publicDir } : {});
+  return {
+    provenance,
+    figureCheck,
+    errors: [...provenance.errors, ...figureCheck.errors],
+    warnings: [...provenance.warnings, ...figureCheck.warnings],
+  };
+}
+
 async function main() {
   const rows = [];
   for (const entry of BANK_REGISTRY) for (const q of await entry.load()) rows.push(q);
-  const provenance = checkProvenance(rows);
-  const figureCheck = checkFigures(rows);
+  const { provenance, figureCheck, errors, warnings } = lintRows(rows);
   const { counts, switchPreview } = provenance;
-  const errors = [...provenance.errors, ...figureCheck.errors];
-  const warnings = [...provenance.warnings, ...figureCheck.warnings];
 
   const bySubject = (list) => Object.entries(list.reduce((acc, q) => ({ ...acc, [q.subject]: (acc[q.subject] || 0) + 1 }), {}))
     .map(([s, n]) => `${s} ${n}`).join(', ') || 'none';
