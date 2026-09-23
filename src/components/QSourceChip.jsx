@@ -20,7 +20,7 @@
 
 import { useState } from 'react';
 import { originPaperNote } from '../lib/exam-scope.js';
-import { humanSource } from '../lib/source-label.js';
+import { humanSource, recordingMoments, momentHref } from '../lib/source-label.js';
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
 import { archivedSourceUrl, googleDriveSourceUrl } from '../lib/vca-library.js';
 
@@ -44,11 +44,14 @@ export default function QSourceChip({ q, store }) {
   if (!hasAny) return null;
 
   // Compact summary: prefer examOrigin (most user-meaningful), fall
-  // back to source filename if examOrigin missing.
+  // back to source filename if examOrigin missing. The source reads through
+  // humanSource like the verified row does: "WRttiWQ7D9s [28:22]" is stored,
+  // "คาบ 3 (2 ก.ย.) นาที 28:22" is what the นิสิต sees.
   const paperNote = originPaperNote(q);
   const summary = q.examOrigin
     ? q.examOrigin
-    : (typeof q.source === 'string' ? q.source.replace(/\.pdf.*$/, '.pdf') : (hasDisplayableWikiRefs ? 'มีข้อมูลอ้างอิง Wiki' : 'มีแหล่งอ้างอิง'));
+    : (typeof q.source === 'string' ? humanSource(q.source).replace(/\.pdf.*$/, '.pdf') : (hasDisplayableWikiRefs ? 'มีข้อมูลอ้างอิง Wiki' : 'มีแหล่งอ้างอิง'));
+  const moments = open ? momentsByClip(q) : [];
 
   return (
     <div style={{
@@ -112,30 +115,50 @@ export default function QSourceChip({ q, store }) {
                 }}
                 style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
               >
+                {/* The title is the link. The page and anchor ids behind it
+                    are the wiki's own addressing, not something to read. */}
                 <Row label="อ้างอิง VetWiki" value={eligibleCitation.title} icon="🔗" iconColor="var(--clr-sage)" />
-                <div style={{ marginTop: 4, paddingLeft: 16, fontSize: 11, opacity: 0.9, display: 'flex', flexDirection: 'column', gap: 2 }}>
-                  <div>เปิดบทความ: <code>{eligibleCitation.pageId}#{eligibleCitation.anchorId}</code></div>
-                </div>
               </a>
             </div>
           )}
           {!eligibleCitation && hasDisplayableWikiRefs && displayableWikiRefs.map((ref, idx) => (
             <div key={idx} style={{ padding: 8, borderRadius: 6, background: 'rgba(74, 107, 74, 0.08)', border: '1px solid var(--clr-border)' }}>
-              <Row label="ข้อมูลอ้างอิง Wiki" value={ref.label || `${ref.pageId}#${ref.anchorId}`} icon="🔗" iconColor="var(--clr-sage)" />
-              <div style={{ marginTop: 4, paddingLeft: 16, fontSize: 11, opacity: 0.85, display: 'flex', flexDirection: 'column', gap: 2 }}>
-                <div>Target: <code>{ref.pageId}#{ref.anchorId}</code></div>
-                <div>Status: <code>{ref.status || 'approved'}</code> | Mapping: <code>{ref.mappingStatus || 'verified'}</code></div>
-              </div>
+              <Row label="ข้อมูลอ้างอิง Wiki" value={ref.label} icon="🔗" iconColor="var(--clr-sage)" />
             </div>
           ))}
+          {/* Labels as ReviewView words them. Both fields render through
+              humanSource: they store "7XyI0SjnuBA [12:34]" and the student
+              reads "คาบ 1 (4 ส.ค.) นาที 12:34". */}
           {q.source && (
-            <Row label="Source"   value={q.source} />
+            <Row label="ที่มา" value={humanSource(q.source)} />
           )}
           {q.verified && (
-            // Rendered through humanSource: the field stores "7XyI0SjnuBA
-            // [12:34]" and the student reads "คาบ 1 (4 ส.ค.) นาที 12:34".
-            <Row label="Verified" value={humanSource(q.verified)} icon="✓" iconColor="var(--clr-sage)" />
+            <Row label="ตรวจกับ" value={humanSource(q.verified)} icon="✓" iconColor="var(--clr-sage)" />
           )}
+          {/* Each cited moment of a recording opens that clip at that second.
+              A new tab, so the question the student is on stays where it is. */}
+          {moments.map((clip) => (
+            <div key={clip.videoId} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 6, fontSize: 11 }}>
+              <span style={{ color: 'var(--clr-ink)' }}>▶ {clip.session}</span>
+              {clip.moments.map((m) => (
+                <a
+                  key={m.seconds}
+                  href={momentHref(m)}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={`เปิดคลิป${m.label}`}
+                  title="เปิดคลิปที่นาทีนี้ในแท็บใหม่"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', minHeight: 44, padding: '0 10px',
+                    borderRadius: 999, border: '1px solid var(--clr-border)', textDecoration: 'none',
+                    color: 'var(--clr-sage-text)', fontWeight: 600, fontSize: 11.5, whiteSpace: 'nowrap',
+                  }}
+                >
+                  นาที {m.stamp}
+                </a>
+              ))}
+            </div>
+          ))}
           {sourceDocumentUrl && (
             <a href={sourceDocumentUrl} target="_blank" rel="noopener noreferrer"
               style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, color: 'var(--clr-sage-text)', overflowWrap: 'anywhere' }}>
@@ -145,7 +168,7 @@ export default function QSourceChip({ q, store }) {
           )}
           {q.flag?.note && (
             <Row
-              label="Flag"
+              label={q.flag.severity === 'major' ? 'ข้อควรระวังสำคัญ' : 'หมายเหตุ'}
               value={q.flag.note}
               icon="⚠️"
               iconColor={
@@ -156,7 +179,7 @@ export default function QSourceChip({ q, store }) {
             />
           )}
           {q.tags && q.tags.length > 0 && (
-            <Row label="Tags" value={q.tags.join(', ')} />
+            <Row label="แท็ก" value={q.tags.join(', ')} />
           )}
           {/* The decks these citations name live in the app's own shelf —
               close the loop instead of leaving the reference as dead text. */}
@@ -184,6 +207,24 @@ export default function QSourceChip({ q, store }) {
   );
 }
 
+// Every moment the citation names, grouped by clip, so a row that cites one
+// lecture at thirty moments reads as one lecture with thirty times.
+function momentsByClip(q) {
+  const clips = [];
+  const seen = new Set();
+  for (const field of [q.verified, q.source]) {
+    if (typeof field !== 'string') continue;
+    for (const m of recordingMoments(field)) {
+      if (seen.has(`${m.videoId}@${m.seconds}`)) continue;
+      seen.add(`${m.videoId}@${m.seconds}`);
+      let clip = clips.find((c) => c.videoId === m.videoId);
+      if (!clip) clips.push(clip = { videoId: m.videoId, session: m.session, moments: [] });
+      clip.moments.push(m);
+    }
+  }
+  return clips;
+}
+
 function Row({ label, value, icon, iconColor }) {
   return (
     <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, lineHeight: 1.5 }}>
@@ -192,7 +233,9 @@ function Row({ label, value, icon, iconColor }) {
           {icon}
         </span>
       )}
-      <span style={{ flex: '0 0 auto', minWidth: 60, color: 'var(--clr-ink-soft)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+      {/* The labels are Thai now: no uppercasing, and no tracking, which
+          pulls Thai tone marks away from their consonants. */}
+      <span style={{ flex: '0 0 auto', minWidth: 60, color: 'var(--clr-ink-soft)', fontSize: 11, letterSpacing: 0 }}>
         {label}
       </span>
       <span style={{ flex: 1, minWidth: 0, overflowWrap: 'anywhere', color: 'var(--clr-ink)', fontFamily: 'inherit', fontSize: 11 }}>

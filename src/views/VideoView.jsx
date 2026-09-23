@@ -11,6 +11,7 @@ import { VIDEO_META } from '../data/video-summaries-meta.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { readLocalExtra, writeLocalExtra } from '../lib/local-extras.js';
 import { videoSubjectForNavigation, videoSubjectNavigation } from '../lib/video-navigation.js';
+import { momentFromSearch, sessionLabel, MOMENT_SECOND_PARAM } from '../lib/source-label.js';
 
 // Stable defaults: a fresh [] or {} per render would make the state initialiser
 // look like a new value every time.
@@ -299,8 +300,38 @@ function usePlaylistPreview(playlistId) {
 // VideoView — main page (grid of subject cards / playlist tiles)
 // ============================================================
 
+// A citation under a question links here as ?v=<clip>&at=<second>
+// (QSourceChip, momentHref). That clip opens at once and plays from that
+// second; `start` rides on the clip object, so a clip opened from a card still
+// starts at 0. Only a clip the app knows opens: any eleven characters fit the
+// id's shape, and a crafted address must not play a stranger's video under
+// the app's own lecture title.
+function citedMoment() {
+  const moment = typeof window === 'undefined' ? null : momentFromSearch(window.location.search);
+  const topic = moment && (VIDEO_META[moment.videoId]?.title || sessionLabel(moment.videoId));
+  if (!topic) return null;
+  return {
+    url: `https://www.youtube.com/watch?v=${moment.videoId}`,
+    topic,
+    subject: VIDEO_META[moment.videoId]?.subject || '',
+    start: moment.seconds,
+  };
+}
+
 export default function VideoView({ goHome, initialSubject = null, selectedYear = null }) {
-  const [playing, setPlaying] = useState(null);
+  const [playing, setPlaying] = useState(citedMoment);
+  // Closing a clip a citation opened drops the moment from the address, so a
+  // reload or Back lands on the shelf rather than reopening it.
+  const closePlayer = () => {
+    setPlaying(null);
+    try {
+      const url = new URL(window.location.href);
+      if (!url.searchParams.has('v') && !url.searchParams.has(MOMENT_SECOND_PARAM)) return;
+      url.searchParams.delete('v');
+      url.searchParams.delete(MOMENT_SECOND_PARAM);
+      window.history.replaceState(window.history.state, '', url);
+    } catch { /* the address is a nicety */ }
+  };
   const [showAdd, setShowAdd] = useState(false);
   const [editingIdx, setEditingIdx] = useState(null);
   // Through the local-extras bundle, not the raw keys. restoreLocalExtras only
@@ -503,7 +534,7 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
       })()}
 
       {showAdd && <AddEditModal {...{ form, setForm, save, onClose: () => setShowAdd(false), editing: editingIdx !== null }} />}
-      {playing && <PlayerModal video={playing} onClose={() => setPlaying(null)} watched={watched} markWatched={markWatched} />}
+      {playing && <PlayerModal video={playing} onClose={closePlayer} watched={watched} markWatched={markWatched} />}
 
       {filtered.length === 0 ? (
         <div className="vmx-empty">ยังไม่มีคลิปในวิชานี้ — กด "เพิ่มคลิป" เพื่อเพิ่ม</div>
@@ -700,6 +731,9 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   const videoId = getVideoId(video.url);
   const isChannel = isChannelUrl(video.url) && !videoId && !playlistId;
   const [currentVideoId, setCurrentVideoId] = useState(videoId);
+  // The cited second belongs to the clip that was opened; any other clip in
+  // its playlist plays from its start.
+  const startAt = video.start > 0 && currentVideoId === videoId ? video.start : 0;
   const [showList, setShowList] = useState(false);
   const [playlistItems, setPlaylistItems] = useState([]);
   const [loadingList, setLoadingList] = useState(false);
@@ -884,6 +918,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
             modestbranding: 1,
             playsinline: 1,
             ...(playlistId ? { list: playlistId } : {}),
+            ...(startAt > 0 ? { start: startAt } : {}),
           },
         });
         playerRef.current = player;
@@ -1110,7 +1145,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                   {summaryLoading ? 'กำลังโหลด…' : 'อ่านสรุปคลิป'}
                 </button>
               )}
-              <a className="vmx-btn vmx-btn-ghost vmx-btn-sm" href={currentVideoId ? `https://www.youtube.com/watch?v=${currentVideoId}${playlistId ? `&list=${playlistId}` : ''}` : video.url} target="_blank" rel="noopener noreferrer">
+              <a className="vmx-btn vmx-btn-ghost vmx-btn-sm" href={currentVideoId ? `https://www.youtube.com/watch?v=${currentVideoId}${playlistId ? `&list=${playlistId}` : ''}${startAt > 0 ? `&t=${startAt}s` : ''}` : video.url} target="_blank" rel="noopener noreferrer">
                 เปิดใน YouTube ↗
               </a>
               {currentVideoId && (

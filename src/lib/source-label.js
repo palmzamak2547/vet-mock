@@ -117,3 +117,70 @@ export function humanSourceParts(raw) {
     .map((p) => humanSource(p))
     .filter(Boolean);
 }
+
+// ── A cited moment a student can open ─────────────────────────────
+// "คาบ 3 นาที 26:48" tells the นิสิต where the fact was taught, but finding
+// that minute meant opening the clip and scrubbing to it by hand. These turn
+// the same pointer into the clip and the second it names.
+
+/**
+ * A bracketed time as the authors write it, in seconds: "26:48", "129:25"
+ * (a long recording's player counts minutes past the hour) or "1:02:03".
+ * null when the text is not a time.
+ */
+export function citeSeconds(stamp) {
+  const m = /^(\d{1,3}):(\d{2})(?::(\d{2}))?$/.exec(String(stamp ?? '').trim());
+  if (!m) return null;
+  const [a, b] = [Number(m[1]), Number(m[2])];
+  if (b > 59) return null;
+  if (m[3] === undefined) return a * 60 + b;
+  const c = Number(m[3]);
+  return c > 59 ? null : a * 3600 + b * 60 + c;
+}
+
+const RECORDING = new RegExp(`(?<![0-9A-Za-z_-])(?:VET86\\s+)?(${ID})((?:\\s*,?\\s*\\[[^\\]]*\\])+)`, 'g');
+
+/**
+ * Every moment of a taught session one citation names, in order and once
+ * each: { videoId, seconds, stamp, session, label }. A bracket can hold a list
+ * ("[131:42-133:10, 121:47]"), and a range opens at its first second. An id
+ * that is not a taught session is skipped, as humanSource leaves it unnamed.
+ */
+export function recordingMoments(raw) {
+  const out = [];
+  const seen = new Set();
+  for (const [, videoId, brackets] of String(raw ?? '').matchAll(RECORDING)) {
+    const session = sessionLabel(videoId);
+    if (!session) continue;
+    for (const [, inside] of brackets.matchAll(/\[([^\]]*)\]/g)) {
+      for (const item of inside.split(',')) {
+        const stamp = item.trim();
+        const seconds = citeSeconds(stamp.split(/\s*[-–]\s*/)[0]);
+        if (seconds === null || seen.has(`${videoId}@${seconds}`)) continue;
+        seen.add(`${videoId}@${seconds}`);
+        out.push({ videoId, seconds, stamp, session, label: `${session} นาที ${stamp}` });
+      }
+    }
+  }
+  return out;
+}
+
+// The second rides as "at", not YouTube's "t": App reads "t" on any address it
+// boots on as a shared quiz's sender time (share-link.js), and a moment link
+// carrying it opened a tab that believed a friend had sent a challenge.
+export const MOMENT_SECOND_PARAM = 'at';
+
+/** Where a moment opens: the clip page, playing that clip from that second. */
+export function momentHref({ videoId, seconds }) {
+  return `/app/videos?v=${encodeURIComponent(videoId)}&${MOMENT_SECOND_PARAM}=${seconds}`;
+}
+
+/** The moment a /app/videos address asks for, or null when it names no clip. */
+export function momentFromSearch(search) {
+  const params = new URLSearchParams(search || '');
+  const videoId = params.get('v') || '';
+  if (!new RegExp(`^${ID}$`).test(videoId)) return null;
+  const seconds = Number(params.get(MOMENT_SECOND_PARAM) || 0);
+  // A second that is not one plays the clip from its start rather than not at all.
+  return { videoId, seconds: Number.isInteger(seconds) && seconds >= 0 && seconds <= 86400 ? seconds : 0 };
+}

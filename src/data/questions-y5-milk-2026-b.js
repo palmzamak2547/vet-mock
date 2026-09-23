@@ -31,6 +31,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "โครงสร้างที่กั้นไม่ให้น้ำนมไหลออกจาก teat cistern ลงสู่ teat canal คือ Furstenberg's rosette ซึ่งเป็นกลุ่มกล้ามเนื้อและเยื่อเมือกที่พับซ้อนกันคล้ายกลีบกุหลาบอยู่ที่รอยต่อระหว่าง teat cistern กับ teat canal นอกจากกั้นน้ำนมแล้วยังเป็นด่านกรองเชื้อไม่ให้ขึ้นสู่เต้านม ❌ ทำไมข้ออื่นผิด — annular fold เป็นรอยพับกั้นระหว่าง gland cistern กับ teat cistern คนละตำแหน่ง — myoepithelial cell รอบ alveolus ทำหน้าที่บีบไล่น้ำนมออก ไม่ได้กั้นการรั่ว — ในตำรากายวิภาคทั่วไปจะแยก teat sphincter ที่ล้อมรอบ streak canal ออกมาเป็นหูรูดอีกชั้นหนึ่ง แต่ในวิชานี้ชี้ที่ rosette เป็นตัวหลัก",
     "verified": "Milk Hygiene MID 85 น.2 — ทบทวนกับคำบรรยายกายวิภาคเต้านม cHediceYO_Y [23:08] และ [72:40] ที่เรียก Furstenberg's rosette ว่าเป็นกล้ามเนื้อและเป็นตัวกันน้ำนมไหล",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 2 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -54,6 +55,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "การรีดนมแม่โคหนึ่งตัวต่อครั้งไม่ควรนานเกินราว 5 ถึง 7 นาที เพราะ oxytocin ที่หลั่งออกมาออกฤทธิ์ในช่วงสั้น การรีดนานเกินไปไม่ได้น้ำนมเพิ่มแต่ทำให้หัวนมบาดเจ็บและเสี่ยงเต้านมอักเสบ",
     "verified": "Milk Hygiene MID 85 น.3",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -77,6 +79,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "การสร้างน้ำนม 1 หน่วยน้ำหนัก ต้องมีเลือดไหลผ่านเต้านมราว 400 ถึง 500 หน่วย ตัวเลข 10 ถึง 20 และ 50 ถึง 100 ต่ำเกินจริงมาก ส่วน 2,000 ถึง 3,000 สูงเกินจริง",
     "verified": "Milk Hygiene MID 85 น.8",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 8 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -100,6 +103,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "Median suspensory ligament เป็นเนื้อเยื่อ elastic และเป็นโครงสร้างค้ำจุนหลักของเต้านม ส่วน lateral suspensory ligament ไม่ใช่เนื้อเยื่อ elastic ผิวหนังกับ superficial fascia มีบทบาทค้ำจุนน้อยที่สุด ส่วน coarse areolar tissue เป็นเนื้อเยื่อเชื่อมเต้านมคู่หน้ากับผนังช่องท้อง",
     "verified": "Milk Hygiene MID 85 น.5-6",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 5 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 6 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -123,6 +127,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "ภายในเต้านมมีเส้นประสาทเพียงเล็กน้อยและเป็นระบบ sympathetic เท่านั้น จึงไม่มี parasympathetic ร่วมด้วย และ myoepithelium ไม่ได้รับคำสั่งจาก somatic motor แต่ตอบสนองต่อ oxytocin",
     "verified": "Milk Hygiene MID 85 น.14",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 14 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -146,6 +151,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "Venous circle ของเต้านมเกิดจาก anterior milk vein ต่อกับ posterior milk vein คู่ที่มี perineal vein จึงไม่ใช่ ตัวเลือกอื่นเป็นเส้นเลือดที่มีจริงแต่ไม่ใช่คู่ที่ประกอบเป็นวงนี้",
     "verified": "Milk Hygiene MID 85 น.15",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 15 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -169,6 +175,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "การจัดตัวเป็นรูปตัว S ช่วยรองรับการเปลี่ยนแปลงรูปทรงของเต้านม จึงลดความดันที่เกิดจากการกดทับเมื่อเต้านมมีน้ำนมเต็ม ไม่ได้ทำหน้าที่เร่งความเร็วเลือด เก็บสำรองเลือด หรือกันเลือดดำไหลย้อน ซึ่งเป็นหน้าที่ของลิ้นในหลอดเลือดดำ",
     "verified": "Milk Hygiene MID 85 น.10",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 10 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -193,6 +200,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "เส้นทางของแลคโตสคือ propionic acid จากรูเมนไปตับ เปลี่ยนเป็น glycogen แล้วเป็นกลูโคส เข้าสู่ secretory cell ได้ galactose แล้วรวมเป็นแลคโตส ส่วน acetate และ butyrate เป็นสารตั้งต้นของไขมันนม และกรดอะมิโนเป็นสารตั้งต้นของเคซีน",
     "verified": "Milk Hygiene MID 85 น.20",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 20 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -217,6 +225,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "การหมักอาหารหยาบในรูเมนให้ acetate และ butyrate ซึ่งถูกนำไปสร้างเป็น triglyceride ที่เต้านม ส่วน propionate ใช้สร้างกลูโคสและแลคโตส กรดอะมิโนใช้สร้างเคซีน และแลคโตสไม่ได้เปลี่ยนเป็นไขมันที่เต้านม",
     "verified": "Milk Hygiene MID 85 น.12",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 12 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -240,6 +249,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "เคซีนสังเคราะห์ขึ้นใหม่ที่เซลล์สร้างน้ำนมในกระเปาะ alveolus โดยใช้กรดอะมิโนจากกระแสเลือด ไม่ได้สร้างที่ตับหรือรูเมน และไม่ได้เกิดจากอัลบูมินที่รั่วมา ซึ่งเป็นกลไกที่พบตอนเต้านมอักเสบมากกว่า",
     "verified": "Milk Hygiene MID 85 น.16",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 16 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -263,6 +273,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "แลคโตสกำหนดแรงดันออสโมติกจึงกำหนดปริมาตรน้ำนม โดยมีอยู่ราว 5 เปอร์เซ็นต์ ส่วนค่า 9 เปอร์เซ็นต์สูงเกินจริง ความเป็นกรดของน้ำนมสดขึ้นกับเคซีน ฟอสเฟตและซิเตรต ไม่ใช่แลคโตสโดยตรง",
     "verified": "Milk Hygiene MID 85 น.19",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 19 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -287,6 +298,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "ทั้งสองเป็นเวย์โปรตีนที่พบมากในน้ำนมโค แต่ข้อสอบตอบว่าไม่ได้ช่วยเสริมสร้างภูมิคุ้มกันให้ผู้บริโภค ภูมิคุ้มกันมาจากอิมมูโนโกลบูลิน ส่วนฟอสโฟโปรตีนคือเคซีน และโปรตีนที่รั่วจากเลือดคือกลุ่มอัลบูมินกับอิมมูโนโกลบูลินในภาวะอักเสบ",
     "verified": "Milk Hygiene MID 85 น.18",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 18 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -311,6 +323,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "ความตกใจกระตุ้นระบบ sympathetic ให้หลั่ง epinephrine ซึ่งทำให้หลอดเลือดที่เต้านมหดตัวและต้านฤทธิ์ของ oxytocin ที่ myoepithelium น้ำนมจึงไม่ถูกขับออก ไม่ใช่ผลจาก prolactin การคลายหูรูด หรือการยับยั้งการสร้างแลคโตสในทันที",
     "verified": "Milk Hygiene MID 85 น.11",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 11 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -335,6 +348,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "การสัมผัสเต้านมเป็นสิ่งเร้าที่นำไปสู่การหลั่ง oxytocin ทำให้ myoepithelium ที่ล้อมรอบ alveolus หดตัวและเกิดการขับน้ำนม epinephrine มีผลตรงข้ามคือยับยั้งการขับน้ำนม การเช็ดไม่ได้เปลี่ยนความหนืดของน้ำนมและไม่ได้เปิดหูรูดโดยตรง",
     "verified": "Milk Hygiene MID 85 น.21",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 21 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -358,6 +372,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "เต้านมคู่หลังมีขนาดใหญ่และให้ผลผลิตมากกว่า จึงเสี่ยงต่อเต้านมอักเสบมากกว่า ไม่ได้เกี่ยวกับจำนวนเส้นประสาทซึ่งมีน้อยทั้งสี่เต้า coarse areolar tissue เกี่ยวข้องกับเต้าคู่หน้า และ median suspensory ligament ค้ำจุนเต้านมทั้งสองข้าง",
     "verified": "Milk Hygiene MID 85 น.4",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -381,6 +396,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "วิตามินบี 2 หรือ riboflavin มีสีเหลืองอมเขียวและละลายน้ำ จึงเป็นสารที่ให้สีเหลืองในเวย์และน้ำนม วิตามินบี 1 บี 5 และบี 6 ไม่ได้ให้สีที่มองเห็นได้ในน้ำนม",
     "verified": "Milk Hygiene MID 85 น.44",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 44 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -404,6 +420,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "แลคโตสมีประมาณ 4.6 ถึง 5 เปอร์เซ็นต์ ซึ่งสูงกว่าไขมันและโปรตีนที่อยู่ราว 3 ถึง 4 เปอร์เซ็นต์ ส่วนวิตามินและแร่ธาตุมีปริมาณน้อยที่สุด",
     "verified": "Milk Hygiene MID 85 น.29",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 29 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -427,6 +444,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "เคซีนเป็นฟอสโฟโปรตีนที่จับกับแคลเซียมฟอสเฟตเป็น casein micelle ส่วนอิมมูโนโกลบูลินและซีรัมอัลบูมินเป็นโปรตีนจากเลือด และแลคโตโกลบูลินเป็นเวย์โปรตีน",
     "verified": "Milk Hygiene MID 85 น.30",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 30 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -450,6 +468,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "นิยามระบุว่าเป็นน้ำนมจากแม่โคหลังคลอดไม่น้อยกว่า 3 วัน จึงไม่มีน้ำนมเหลืองปน และไม่ผ่านกรรมวิธีใดยกเว้นการทำให้เย็น ตัวเลือกที่บอกว่าผ่านความร้อนหรือปรับมาตรฐานไขมันขัดกับคำว่าดิบ และ 1 วันเป็นตัวเลขที่ผิด เพราะกำหนดไว้ 3 วัน",
     "verified": "Milk Hygiene MID 85 น.46",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 46 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -473,6 +492,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "น้ำนมโคสดคือน้ำนมโคที่ผ่านความร้อนต่ำกว่า 80 องศาเซลเซียส และมีมันเนยไม่น้อยกว่า 3.2 เปอร์เซ็นต์โดยน้ำหนัก ส่วนน้ำนมที่ยังไม่ผ่านความร้อนคือน้ำนมโคดิบ การเก็บที่ไม่เกิน 8 องศาเป็นเงื่อนไขการเก็บรักษาไม่ใช่นิยาม และข้อที่ขึ้นต้นว่าผลิตภัณฑ์จากน้ำนมดิบเป็นนิยามของผลิตภัณฑ์นม",
     "verified": "Milk Hygiene MID 85 น.25",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 25 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -496,6 +516,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "มาตรฐาน อย. ครอบคลุมน้ำนมโคสด น้ำนมโค นมผง นมข้น นมคืนรูป และนมแปลงไขมัน น้ำนมโคดิบไม่อยู่ในรายการนี้ เพราะเป็นวัตถุดิบที่กำกับโดยกระทรวงเกษตรและสหกรณ์",
     "verified": "Milk Hygiene MID 85 น.49",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 49 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -519,6 +540,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "เกณฑ์ที่ระบุคือไม่เกิน 5 คูณ 10 ยกกำลัง 5 หรือ 500,000 CFU ต่อมิลลิลิตร ค่า 1 คูณ 10 ยกกำลัง 5 เข้มงวดเกินกว่าที่กำหนด ส่วนระดับ 10 ยกกำลัง 6 ขึ้นไปเป็นช่วงที่ถูกตัดราคาหรือปฏิเสธการรับซื้อ",
     "verified": "Milk Hygiene MID 85 น.72",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 72 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -542,6 +564,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "เกณฑ์ที่วิชานี้ใช้คือ SCC มากกว่า 10 ยกกำลัง 6 เซลล์ต่อมิลลิลิตร หรือมากกว่า 1,000,000 เซลล์ต่อมิลลิลิตร จึงจะส่งน้ำนมคืนสหกรณ์หรือศูนย์รวบรวม\n\n❌ ทำไมข้ออื่นผิด\n— \"มากกว่า 10 ยกกำลัง 4 เซลล์ต่อมิลลิลิตร\" = ต่ำกว่าเกณฑ์ส่งคืนมาก ช่วงที่ต่ำกว่า 1,000,000 เป็นเพียงการปรับลดหรือเพิ่มราคา\n— \"มากกว่า 10 ยกกำลัง 5 เซลล์ต่อมิลลิลิตร\" = ยังอยู่ในช่วงที่ปรับราคา ไม่ถึงเกณฑ์ส่งคืน\n— \"มากกว่า 10 ยกกำลัง 7 เซลล์ต่อมิลลิลิตร\" = สูงเกินเส้นแบ่งที่ใช้ตัดสินการส่งคืนไปหนึ่งเลขยกกำลัง\n\n💡 หลักล้านคือเส้นแบ่ง ต่ำกว่านั้นแค่โดนหักราคา เกินขึ้นไปคือถูกส่งคืน",
     "verified": "Milk Hygiene MID 85 น.51",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 51 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -565,6 +588,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "เกณฑ์เซลล์โซมาติกของน้ำนมโคดิบไทยคือน้อยกว่า 500,000 เซลล์ต่อมิลลิลิตร ส่วน 200,000 เป็นช่วงที่ได้ราคาเพิ่มสูงสุด 1,000,000 คือช่วงที่ต้องส่งคืน และ 50,000 ต่ำกว่าเกณฑ์จริง",
     "verified": "Milk Hygiene MID 85 น.126",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 126 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -588,6 +612,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "ช่วง SNF 8.35 ถึง 8.49 เปอร์เซ็นต์เป็นช่วงที่ไม่ปรับราคา โดยมีจุดตัดอ้างอิงที่ 8.25 ค่าที่ต่ำกว่านี้จะถูกตัดราคาและค่าที่สูงกว่าจะได้ราคาเพิ่ม",
     "verified": "Milk Hygiene MID 85 น.62",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 62 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -611,6 +636,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "เกณฑ์รับซื้อน้ำนมดิบใช้เปอร์เซ็นต์ไขมัน SNF standard plate count somatic cell count และจุดเยือกแข็ง แต่ไม่ได้ใช้เปอร์เซ็นต์ของแข็งทั้งหมดเป็นเกณฑ์แยกต่างหาก",
     "verified": "Milk Hygiene MID 85 น.73",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 73 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -634,6 +660,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "จุดเยือกแข็งของน้ำนมค่อนข้างคงที่และเปลี่ยนไปทันทีเมื่อมีการเติมน้ำ จึงใช้ตรวจการเจือปนน้ำและกำหนดการรับซื้อ acidity เป็นค่าทางเคมี ส่วน boiling point และ refractive index ไม่ได้ใช้เป็นเกณฑ์รับซื้อ",
     "verified": "Milk Hygiene MID 85 น.66",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 66 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -657,6 +684,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "เกณฑ์ E. coli ของน้ำนมดิบคือ 10,000 ส่วนน้ำนมสดคือ 10 จึงต่างกัน 1,000 เท่า เนื่องจากน้ำนมสดผ่านความร้อนมาแล้วจึงมีเกณฑ์เข้มงวดกว่ามาก",
     "verified": "Milk Hygiene MID 85 น.53",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 53 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -680,6 +708,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "มาตรฐานนมข้นกำหนดค่าของวิตามินเอไว้ เนื่องจากเป็นวิตามินละลายในไขมันที่สูญเสียไปในกระบวนการผลิตและมีการเสริมกลับ วิตามินชนิดอื่นไม่ได้ถูกกำหนดในมาตรฐานนี้",
     "verified": "Milk Hygiene MID 85 น.71",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 71 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -704,6 +733,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "ความเย็นทำให้แบคทีเรียปรับตัวได้ช้าลง จึงยืดระยะ lag phase ออกไปและชะลอการเข้าสู่ log phase ระยะ log stationary และ death เป็นผลตามมาหลังจากเชื้อเริ่มเพิ่มจำนวนแล้ว",
     "verified": "Milk Hygiene MID 85 น.75",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 75 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -728,6 +758,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "ระยะ log phase คือช่วงที่แบคทีเรียเพิ่มจำนวนอย่างรวดเร็วและเริ่มสร้างการเปลี่ยนแปลงที่ทำให้น้ำนมเสีย ระยะ lag phase เชื้อยังไม่เพิ่มจำนวน ส่วน stationary และ death phase คือช่วงที่น้ำนมเสียไปแล้ว",
     "verified": "Milk Hygiene MID 85 น.91",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 91 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -752,6 +783,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "อุณหภูมิที่อุ่นขึ้นทำให้แบคทีเรียปรับตัวได้เร็ว ระยะ lag phase จึงสั้นลงและเข้าสู่การเพิ่มจำนวนเร็วขึ้น ตรงข้ามกับการเก็บที่อุณหภูมิต่ำซึ่งยืด lag phase ออกไป",
     "verified": "Milk Hygiene MID 85 น.97",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 97 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -776,6 +808,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "log phase คือช่วงที่จำนวนเพิ่มขึ้นเร็วที่สุดและ death phase คือช่วงที่จำนวนลดลงเร็วที่สุด ทั้งคู่จึงเป็นช่วงที่ความชันของกราฟมากที่สุด ส่วน lag และ stationary phase จำนวนเชื้อค่อนข้างคงที่",
     "verified": "Milk Hygiene MID 85 น.86",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 86 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -799,6 +832,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "หลังรีดต้องลดอุณหภูมิน้ำนมดิบให้ต่ำกว่า 10 องศาเซลเซียสทันทีหรือภายใน 2 ชั่วโมง การรอถึง 6 ชั่วโมงหรือไม่ลดเลยทำให้เชื้อเข้าสู่ log phase และการลดต่ำกว่า 0 องศาจะทำให้น้ำนมเป็นน้ำแข็ง",
     "verified": "Milk Hygiene MID 85 น.82",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 82 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -822,6 +856,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "น้ำนมดิบควรถึงศูนย์รวบรวมภายใน 2 ชั่วโมง ตัวเลือก 30 นาทีสั้นเกินกว่าที่กำหนดจริงในทางปฏิบัติ ส่วน 4 และ 8 ชั่วโมงนานเกินไปจนคุณภาพน้ำนมเสื่อม",
     "verified": "Milk Hygiene MID 85 น.52",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 52 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -845,6 +880,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "ข้อความที่ทำเครื่องหมายว่าถูกระบุว่าอุณหภูมิน้ำนมดิบต้องเปลี่ยนแปลงไม่เกิน 2 องศาเซลเซียสตลอดการขนส่ง ตัวเลข 0.5 เข้มงวดเกินกว่าที่กำหนด ส่วน 5 และ 10 องศาหลวมเกินไปจนเชื้อเจริญได้",
     "verified": "Milk Hygiene MID 85 น.99",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 99 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -868,6 +904,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "แม้ระยะทางจะสั้น ก็ยังต้องลดอุณหภูมิน้ำนมดิบก่อนและระหว่างการขนส่ง ข้อนี้จึงเป็นข้อที่ผิด อีกสามข้อเป็นข้อปฏิบัติที่ถูกต้อง",
     "verified": "Milk Hygiene MID 85 น.99",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 99 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -891,6 +928,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "มาตรฐานกำหนดให้ควบคุมอุณหภูมิผลิตภัณฑ์ไม่เกิน 8 องศาเซลเซียสตลอดเวลาหลังกระบวนการพาสเจอร์ไรส์ การเก็บรักษา และการขนส่ง ค่า 4 องศาเป็นเกณฑ์ของถังเก็บน้ำนมดิบ ส่วน 12 และ 15 องศาสูงเกินไป",
     "verified": "Milk Hygiene MID 85 น.50",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 50 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -914,6 +952,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "เมื่ออุณหภูมิของนมพาสเจอร์ไรส์หลุดเกินเกณฑ์ ต้องคัดทิ้ง ไม่ใช่นำไปแช่เย็นแล้วบริโภค เพราะเชื้อที่รอดจากการพาสเจอร์ไรส์ได้เจริญไปแล้ว การทำให้เย็นหรือต้มซ้ำไม่คืนคุณภาพและไม่กำจัดสารพิษที่อาจสร้างไว้",
     "verified": "Milk Hygiene MID 85 น.94",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 94 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -937,6 +976,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "ถังเก็บน้ำนมดิบในโรงงานต้องมีอุณหภูมิต่ำกว่า 4 องศาเซลเซียส ส่วนตัวเลข 10 องศาเป็นเกณฑ์ของการลดอุณหภูมิที่ฟาร์มทันทีหลังรีด ไม่ใช่ของถังเก็บในโรงงาน",
     "verified": "Milk Hygiene MID 85 น.64",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 64 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -960,6 +1000,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "ข้อกำหนดของสหภาพยุโรปให้น้ำนมดิบใน cooling tank ไม่เกิน 6 องศาเซลเซียส ค่า 10 องศาจึงสูงเกินไป ส่วน 4 องศาเป็นเกณฑ์เมื่อไม่แปรรูปภายใน 48 ชั่วโมง",
     "verified": "Milk Hygiene MID 85 น.90",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 90 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -983,6 +1024,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "ระบบ LP ประกอบด้วย lactoperoxidase, thiocyanate และ hydrogen peroxide ซึ่งทำงานร่วมกันเป็นสารยับยั้งเชื้อตามธรรมชาติ ส่วน catalase ทำหน้าที่สลาย hydrogen peroxide ให้เป็นน้ำและออกซิเจน จึงไม่เข้าพวก",
     "verified": "Milk Hygiene MID 85 น.78",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 78 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1007,6 +1049,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "โจทย์ถามสารที่เก็บน้ำนมดิบได้สั้นที่สุด คำตอบคือ 35 เปอร์เซ็นต์ hydrogen peroxide โดยมีบันทึกว่าเก็บได้ราว 6 ถึง 8 ชั่วโมง ระยะเวลาที่ยาวกว่านี้เป็นของการลดอุณหภูมิหรือสารกันบูดชนิดอื่น",
     "verified": "Milk Hygiene MID 85 น.63",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 63 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1031,6 +1074,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "การเติมไฮโดรเจนเปอร์ออกไซด์เพื่อกระตุ้นระบบ lactoperoxidase ทำในน้ำนมดิบ ซึ่งยังมีเอนไซม์และ thiocyanate ตามธรรมชาติเหลืออยู่ ตัวเลือกที่ระบุนมพาสเจอร์ไรส์ไม่ถูก เพราะนมที่ผ่านความร้อนแล้วเอนไซม์ถูกทำลายไป",
     "verified": "Milk Hygiene MID 85 น.81",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 81 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1054,6 +1098,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "การเติมสารกันบูดในน้ำนมดิบต้องอยู่ภายใต้การควบคุมของเจ้าหน้าที่ศูนย์รวมน้ำนมเท่านั้น จึงไม่ใช่สิ่งที่ทำได้เสมอแม้จะเก็บน้ำนมไว้ไม่เกิน 1 วัน ข้อห้ามเด็ดขาดกับน้ำนมที่ส่งเข้าโรงงานแปรรูปก็ไม่ถูกต้อง และสารกันบูดไม่ได้ใช้แทนการลดอุณหภูมิเป็นการถาวร",
     "verified": "Milk Hygiene MID 85 น.89",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 89 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1077,6 +1122,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "สารกันบูดออกฤทธิ์กับจุลินทรีย์เท่านั้น ไม่ได้กำจัดสิ่งสกปรก เซลล์โซมาติก หรือสารตกค้างที่ปนอยู่แล้ว จึงไม่ทำให้น้ำนมสะอาดขึ้น และไม่ได้ใช้แทนการลดอุณหภูมิ",
     "verified": "Milk Hygiene MID 85 น.82",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 82 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1101,6 +1147,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "Ice cone เหมาะกับน้ำนมปริมาณน้อย ส่วน plate heat exchanger และ surface cooler ใช้ในฟาร์มที่มีปริมาณน้ำนมมากกว่า และ cooling tank เหมาะกับฟาร์มขนาดใหญ่",
     "verified": "Milk Hygiene MID 85 น.96",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 96 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1124,6 +1171,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "water tank อาศัยน้ำเป็นตัวกลางรับความร้อนเท่านั้น จึงลดอุณหภูมิได้จำกัดที่สุด ระบบอื่นใช้พื้นผิวแลกเปลี่ยนความร้อนหรือสารทำความเย็นจึงลดอุณหภูมิได้ต่ำกว่าและเร็วกว่า",
     "verified": "Milk Hygiene MID 85 น.98",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 98 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1147,6 +1195,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "แสงเร่งการสลายตัวของวิตามินที่ไวต่อแสงและเร่งปฏิกิริยาออกซิเดชันของไขมันจนเกิดกลิ่นผิดปกติ ส่วนการเจริญของ psychrotroph ควบคุมด้วยอุณหภูมิ การตกตะกอนของเคซีนเกิดจากความเป็นกรด และ Maillard เกิดจากความร้อน",
     "verified": "Milk Hygiene MID 85 น.80",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 80 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1170,6 +1219,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "น้ำตาลปริมาณสูงทำให้แรงดันออสโมติกสูง น้ำอิสระลดลง จุลินทรีย์จึงเจริญได้ยาก ทำหน้าที่เป็นสารถนอมอาหารไปด้วย ไม่ได้ทำงานผ่านความคงตัวต่อความร้อนหรือการยับยั้งเอนไซม์โดยตรง",
     "verified": "Milk Hygiene MID 85 น.93",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 93 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1194,6 +1244,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "เมื่อถึง stationary phase จำนวนเชื้อขึ้นถึงระดับสูงสุดและของเสียจากเชื้อสะสมไปแล้ว น้ำนมจึงเสียไปแล้ว จุดที่ต้องหยุดคือตั้งแต่ระยะ lag phase การพาสเจอร์ไรส์ซ้ำก็ไม่กำจัดสารพิษและกลิ่นรสที่เปลี่ยนไปแล้ว",
     "verified": "Milk Hygiene MID 85 น.95",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 95 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1217,6 +1268,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "Delvo test เป็นชุดทดสอบทางจุลชีววิทยาที่อาศัยการยับยั้งการเจริญของแบคทีเรียทดสอบ จึงใช้ตรวจยาต้านจุลชีพตกค้าง ไม่ได้ออกแบบมาตรวจวัตถุเจือปนอาหาร สารเคมีปนเปื้อน หรือสารพิษจากเชื้อรา ซึ่งต้องใช้วิธีทางเคมีวิเคราะห์",
     "verified": "Milk Hygiene MID 85 น.26",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 26 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1240,6 +1292,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "Kjeldahl วัดปริมาณไนโตรเจนทั้งหมดแล้วคำนวณกลับเป็นโปรตีน ส่วนไขมันนิยมใช้วิธี Gerber หรือ Rose Gottlieb แลคโตสใช้วิธีทางเคมีหรือเครื่องวิเคราะห์อินฟราเรด และความเป็นกรดใช้การไทเทรต",
     "verified": "Milk Hygiene MID 85 น.45",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 45 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1263,6 +1316,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "องค์ประกอบพื้นฐานที่เครื่องวิเคราะห์คือไขมันในรูปไตรกลีเซอไรด์ โปรตีน และแลคโตส กลูโคสอิสระในน้ำนมมีปริมาณน้อยมากจึงไม่ใช่ค่าพื้นฐานที่รายงาน และฟอสเฟตไม่ใช่องค์ประกอบหลักที่วัด",
     "verified": "Milk Hygiene MID 85 น.43",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 43 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1286,6 +1340,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "เป็นไฮโดรมิเตอร์ที่ออกแบบสำหรับน้ำนม จึงอ่านค่าความถ่วงจำเพาะโดยตรง ค่า SNF คำนวณต่อจากความถ่วงจำเพาะร่วมกับเปอร์เซ็นต์ไขมัน ส่วนจุดเยือกแข็งวัดด้วย cryoscope และแลคโตสวัดด้วยวิธีอื่น",
     "verified": "Milk Hygiene MID 85 น.61",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 61 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1309,6 +1364,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "SNF คือของแข็งที่ไม่ใช่ไขมัน มีผลต่อสมบัติทางกายภาพอย่างค่าดัชนีหักเห จุดเดือด และความหนาแน่น แต่ความเป็นกรดที่วัดด้วยการไทเทรตขึ้นกับปริมาณกรดและหมู่บัฟเฟอร์ ไม่ได้แปรตาม SNF โดยตรง",
     "verified": "Milk Hygiene MID 85 น.32",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 32 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1332,6 +1388,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "lipase ย่อยไตรกลีเซอไรด์ให้กรดไขมันอิสระสายสั้นซึ่งเป็นต้นเหตุของกลิ่นหืน phosphatase ใช้เป็นตัวชี้วัดความสมบูรณ์ของการพาสเจอร์ไรส์ protease เกี่ยวข้องกับรสขมและเนื้อสัมผัสของนมและเคิร์ด ส่วน lactase ย่อยแลคโตส",
     "verified": "Milk Hygiene MID 85 น.27",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 27 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1355,6 +1412,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "beta-lactoglobulin เป็นเวย์โปรตีนที่เสียสภาพเมื่อผ่านความร้อนสูงในการทำนมผง ปริมาณที่เหลืออยู่จึงใช้แยกว่าเป็นน้ำนมดิบหรือนมผงคืนรูป เคซีนทนความร้อนได้ดีจึงไม่ต่างกันชัด และ alpha-lactalbumin ไวต่อความร้อนน้อยกว่า",
     "verified": "Milk Hygiene MID 85 น.37",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 37 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1378,6 +1436,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "ทั้งสองวิธีอาศัยความไม่คงตัวของโปรตีนในน้ำนมที่มีความเป็นกรดสูง จึงใช้คัดกรองที่จุดรับน้ำนมได้เร็ว โดยมี acidity test เป็นวิธีร่วมอีกวิธีหนึ่ง วิธีที่เหลือใช้เวลานานหรือใช้ตอบคำถามคนละเรื่อง",
     "verified": "Milk Hygiene MID 85 น.87",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 87 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1401,6 +1460,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "น้ำยา CMT มี detergent ที่สลายเซลล์โซมาติกแล้วจับกับ DNA เกิดเป็นเจล ความหนืดที่เห็นจึงแปรตามจำนวนเซลล์ การนำไฟฟ้าเป็นหลักการของเครื่อง mastitis detector การตกตะกอนด้วยแอลกอฮอล์เป็น alcohol test และปฏิกิริยาแอนติบอดีเป็นวิธีทางซีรัมวิทยา",
     "verified": "Milk Hygiene MID 85 น.23-24",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 23 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 24 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1424,6 +1484,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "ไอออนที่เป็นตัวนำไฟฟ้าหลักในน้ำนมคือโซเดียมและคลอไรด์ ซึ่งเพิ่มขึ้นเมื่อเต้านมอักเสบ ค่าการนำไฟฟ้าจึงใช้คัดกรองได้ แลคโตสและกลูโคสไม่มีประจุ ส่วนโปรตีนและแคลเซียมฟอสเฟตอยู่ในรูปคอลลอยด์เป็นส่วนใหญ่",
     "verified": "Milk Hygiene MID 85 น.23-24",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 23 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 24 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1447,6 +1508,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "NAGase เป็น lysosomal enzyme ที่หลั่งจากเม็ดเลือดขาวและเซลล์เยื่อบุที่เสียหาย จึงสัมพันธ์กับความรุนแรงของการอักเสบ lactoperoxidase เป็นระบบยับยั้งเชื้อตามธรรมชาติ hyaluronidase เป็นเอนไซม์ของเชื้อ และ alkaline phosphatase ใช้ตรวจการพาสเจอร์ไรส์",
     "verified": "Milk Hygiene MID 85 น.23-24",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 23 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 24 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1471,6 +1533,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "Pseudomonas เจริญได้ดีที่อุณหภูมิตู้เย็นและสร้างเอนไซม์ทนความร้อนที่ทำให้นมเสีย จึงเป็น psychrotroph หลักในน้ำนมแช่เย็น Bacillus เด่นเรื่องสปอร์ Micrococcus ทนความร้อนแบบ thermoduric และ Lactococcus เป็นกลุ่ม starter culture",
     "verified": "Milk Hygiene MID 85 น.34",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 34 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1494,6 +1557,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "Bacillus cereus สร้าง endospore ที่ทนความร้อนและอยู่รอดในดินและสิ่งแวดล้อมของฟาร์ม อีกสามชนิดเป็นแบคทีเรียก่อโรคที่ไม่สร้างสปอร์",
     "verified": "Milk Hygiene MID 85 น.35",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 35 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1517,6 +1581,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "คำตอบที่ทำเครื่องหมายไว้คือ Escherichia coli เพราะบ่งชี้การปนเปื้อนจากอุจจาระได้จำเพาะกว่ากลุ่มโคลิฟอร์มซึ่งรวมเชื้อจากสิ่งแวดล้อมด้วย thermoduric bacteria ใช้ประเมินประสิทธิภาพการฆ่าเชื้อ และ total bacterial count เป็นค่ารวมไม่ใช่ตัวบ่งชี้เฉพาะ",
     "verified": "Milk Hygiene MID 85 น.36",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 36 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1540,6 +1605,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "ตัวบ่งชี้ที่ดีต้องตรวจได้ง่ายและเร็วพอจะใช้ตัดสินใจ ต้องสัมพันธ์กับระดับอันตราย และไม่ควรเจริญช้ากว่าจุลินทรีย์ที่ทำให้เสีย ไม่เช่นนั้นจะตรวจไม่พบทันเวลา สามข้อที่เหลือจึงเป็นคุณสมบัติที่ไม่พึงประสงค์",
     "verified": "Milk Hygiene MID 85 น.39",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 39 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1563,6 +1629,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "starter culture เป็นเชื้อที่ใส่ลงไปโดยตั้งใจเพื่อสร้างกรดและกลิ่นรสในผลิตภัณฑ์หมัก กลุ่มก่อโรคและกลุ่มทำให้เสียเป็นโทษ ส่วนกลุ่มบ่งชี้ใช้เพื่อการตรวจสอบเท่านั้น ไม่ได้ให้ประโยชน์ต่อตัวผลิตภัณฑ์",
     "verified": "Milk Hygiene MID 85 น.40",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 40 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1586,6 +1653,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "การทำให้น้ำนมเน่าเสียเป็นผลเสียโดยตรง ส่วนอีกสามข้อเป็นการใช้ประโยชน์จากจุลินทรีย์ ทั้งการใช้เป็นดัชนีคุณภาพ การประเมินสภาพผลิตภัณฑ์ และการหมักที่ให้ผลตามต้องการ",
     "verified": "Milk Hygiene MID 85 น.33",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 33 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1610,6 +1678,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "ข้อความที่ตอบว่าถูกระบุว่าเชื้ออ่อนแอต้องใช้เวลาปรับตัวนาน lag phase จึงยาว และถูกทำลายด้วยความร้อนได้ง่าย จึงไม่สร้างปัญหามากเมื่อเทียบกับเชื้อที่แข็งแรงกว่า ตัวเลือกอื่นเป็นลักษณะของเชื้อที่แข็งแรงหรือเชื้อสร้างสปอร์",
     "verified": "Milk Hygiene MID 85 น.79",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 79 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1633,6 +1702,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "เชื้อนี้ทนสภาพแห้งได้ดีจึงอยู่รอดในนมผงและปนเปื้อนเข้าสู่ทารกได้ โดยเฉพาะทารกแรกเกิดที่อาจเกิดการติดเชื้อรุนแรงและความผิดปกติทางระบบประสาทตามมา ผลิตภัณฑ์ที่มีน้ำมากหรือผ่านการฆ่าเชื้อรุนแรงไม่ใช่แหล่งหลัก",
     "verified": "Milk Hygiene MID 85 น.28",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 28 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1656,6 +1726,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "Listeria monocytogenes ผ่านรกและก่อโรครุนแรงในทารกแรกเกิดและหญิงตั้งครรภ์ ทั้งยังเจริญได้ที่อุณหภูมิตู้เย็น ส่วน Salmonella และ Bacillus cereus ทำให้เกิดอาการทางเดินอาหารทั่วไป และ Staphylococcus aureus ก่อโรคจากสารพิษ",
     "verified": "Milk Hygiene MID 85 น.47",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 47 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1679,6 +1750,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "ภาพที่บรรยายตรงกับ staphylococcal food poisoning ซึ่งเกิดจาก enterotoxin ของ Staphylococcus aureus ทำให้อาเจียนรุนแรงและถึงขั้นช็อกได้ Bacillus cereus ทำให้อาเจียนหรือถ่ายเหลวแต่ไม่ถึงช็อกจากสารพิษแบบนี้ ส่วน Salmonella และ Listeria มีภาพการติดเชื้อคนละแบบ",
     "verified": "Milk Hygiene MID 85 น.38",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 38 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1702,6 +1774,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "สารพิษบางชนิดที่แบคทีเรียสร้างไว้ก่อนทนความร้อน จึงยังคงอยู่แม้เชื้อจะถูกทำลายไปแล้ว นี่คือเหตุผลที่การให้ความร้อนไม่รับประกันความปลอดภัยหากปล่อยให้เชื้อเจริญมาก่อน สามข้อที่เหลือไม่ใช่กลไกของสารพิษที่แบคทีเรียสร้างไว้ก่อนการให้ความร้อน",
     "verified": "Milk Hygiene MID 85 น.23-24",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 23 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 24 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1725,6 +1798,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "Staphylococcus aureus เป็น contagious pathogen หลักของเต้านมอักเสบในโคนม ติดต่อระหว่างเต้าและระหว่างตัวสัตว์ขณะรีดนม เชื้ออีกสามชนิดพบในน้ำนมได้แต่ไม่ใช่สาเหตุหลักของเต้านมอักเสบ",
     "verified": "Milk Hygiene MID 85 น.31",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 31 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -1748,6 +1822,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "Mycoplasma bovis แพร่กระจายในฝูงได้รวดเร็วแบบ epizootic ทำให้น้ำนมเปลี่ยนลักษณะและผลผลิตลดลงอย่างชัดเจน Corynebacterium bovis เป็น minor pathogen ที่อาการไม่รุนแรง ส่วนอีกสองกลุ่มเป็นเชื้อจากสิ่งแวดล้อมที่มักเกิดเป็นรายตัว",
     "verified": "Milk Hygiene MID 85 น.23-24",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 23 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 24 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1772,6 +1847,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "Corynebacterium bovis จัดเป็น minor pathogen ที่มักไม่แสดงอาการรุนแรง แต่ทำให้จำนวนเซลล์โซมาติกสูงขึ้นได้ถึงระดับหลายแสนเซลล์ต่อมิลลิลิตร ต่างจาก Mycoplasma และ Staphylococcus aureus ที่ทำให้เกิดโรครุนแรงกว่า",
     "verified": "Milk Hygiene MID 85 น.23-24",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 23 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 24 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1795,6 +1871,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "hyaluronidase ย่อยกรดไฮยาลูโรนิกในเนื้อเยื่อเกี่ยวพัน ทำให้เชื้อแทรกและทำลายเนื้อเยื่อได้ lactoperoxidase เป็นระบบป้องกันของน้ำนมเอง plasmin เป็นโปรตีเอสจากเลือดที่ย่อยเคซีน และ catalase สลาย hydrogen peroxide",
     "verified": "Milk Hygiene MID 85 น.23-24",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 23 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 24 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1818,6 +1895,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "ยาปฏิชีวนะบางชนิดที่ตกค้างกระตุ้นภาวะภูมิไวเกินในผู้ที่แพ้ และยังเป็นแรงกดดันให้เกิดเชื้อดื้อยา การขาดวิตามิน การสะสมสารพิษจากเชื้อรา และการแตกของเม็ดเลือดแดงเป็นกลไกคนละเรื่อง",
     "verified": "Milk Hygiene MID 85 น.23-24",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 23 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 24 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1841,6 +1919,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "เซลล์สร้างน้ำนมเสียหายจึงสังเคราะห์แลคโตสได้ลดลง และร่างกายชดเชยแรงดันออสโมติกด้วยการปล่อยโซเดียมคลอไรด์เข้ามาแทน แลคโตสไม่ได้มาจากเลือดโดยตรง และการลดลงไม่ได้เกิดจากการที่จุลินทรีย์ย่อยจนหมด",
     "verified": "Milk Hygiene MID 85 น.21-22",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 21 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 22 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1865,6 +1944,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "การอักเสบทำลาย tight junction ระหว่างเซลล์เยื่อบุต่อมน้ำนม โซเดียมและคลอไรด์จากของเหลวนอกเซลล์จึงรั่วเข้าสู่น้ำนม เกลือในน้ำนมไม่ได้ถูกสังเคราะห์ขึ้นใหม่ ไตไม่ได้ขับเกลือทางน้ำนม และเม็ดเลือดขาวไม่ใช่แหล่งของเกลือ",
     "verified": "Milk Hygiene MID 85 น.21-22",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 21 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 22 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1889,6 +1969,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "curd tension ขึ้นกับปริมาณเคซีนที่จับตัวเป็นเคิร์ด เมื่อเซลล์สร้างน้ำนมเสียหายและเคซีนถูกย่อยโดยโปรตีเอส ปริมาณเคซีนจึงลดลงและเคิร์ดอ่อนตัว แลคโตสและไขมันไม่ได้กำหนดความแข็งของเคิร์ด และเกลือแร่กลับเพิ่มขึ้นไม่ใช่ลดลง",
     "verified": "Milk Hygiene MID 85 น.21-22",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 21 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 22 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1912,6 +1993,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "การอักเสบกระตุ้น chemotaxis ดึงเม็ดเลือดขาวเข้าสู่ต่อมน้ำนม ประกอบกับปริมาณน้ำนมที่ลดลงทำให้ความเข้มข้นของเซลล์สูงขึ้นอีก เซลล์โซมาติกไม่ได้นับรวมแบคทีเรีย และเม็ดเลือดแดงเกี่ยวข้องกับน้ำนมสีแดงไม่ใช่ค่า SCC",
     "verified": "Milk Hygiene MID 85 น.21-22",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 21 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 22 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1935,6 +2017,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "กรดไขมันอิสระเกิดจากการย่อยไตรกลีเซอไรด์โดย lipase ซึ่งเพิ่มขึ้นในภาวะเต้านมอักเสบและทำให้เกิดกลิ่นหืน การย่อยเคซีนให้กรดอะมิโนอิสระ การหมักแลคโตสเป็นกรดแลคติก และการรั่วของอัลบูมินเป็นการเปลี่ยนแปลงคนละรายการ",
     "verified": "Milk Hygiene MID 85 น.21-22",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 21 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 22 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1958,6 +2041,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "สีแดงในน้ำนมมาจากเม็ดเลือดแดงที่รั่วออกมาพร้อมน้ำนมเมื่อหลอดเลือดฝอยในเต้านมเสียหาย เม็ดเลือดขาวที่เพิ่มขึ้นทำให้น้ำนมขุ่นหรือเป็นก้อนไม่ใช่สีแดง ส่วนอีกสองข้อไม่ได้อธิบายการมีเลือดปนในน้ำนม",
     "verified": "Milk Hygiene MID 85 น.23-24",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 23 }, { "doc": "milk-hygiene-mid85", "edition": "143p", "page": 24 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -1981,6 +2065,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "เงื่อนไขนี้คือ thermisation ซึ่งใช้ลดจำนวนจุลินทรีย์ในน้ำนมดิบก่อนเก็บรอแปรรูป ไม่ใช่การพาสเจอร์ไรส์ซึ่งใช้ 63 องศานาน 30 นาทีแบบ LTLT หรือ 72 องศานาน 15 วินาทีแบบ HTST ส่วน standardization และ homogenization ไม่ใช่การให้ความร้อน",
     "verified": "Milk Hygiene MID 85 น.121",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 121 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -2004,6 +2089,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "HTST ใช้ 72 องศาเซลเซียสขึ้นไปนาน 15 วินาที ส่วน 63 องศานาน 30 นาทีคือ LTLT อุณหภูมิ 138 องศาในเวลาไม่กี่วินาทีเป็นช่วงของ UHT และ 85 องศาเป็นอุณหภูมิของการล้างด้วยน้ำร้อน",
     "verified": "Milk Hygiene MID 85 น.74",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 74 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2027,6 +2113,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "การพาสเจอร์ไรส์มุ่งทำลายเชื้อก่อโรคที่ไม่สร้างสปอร์ แต่เอนไซม์ทนความร้อนบางชนิดโดยเฉพาะที่สร้างจาก psychrotroph ยังคงอยู่และทำให้นมเสื่อมคุณภาพต่อได้ สปอร์ก็ไม่ถูกทำลายด้วยอุณหภูมิระดับนี้",
     "verified": "Milk Hygiene MID 85 น.85",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 85 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -2050,6 +2137,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "UHT ทำลายจุลินทรีย์ได้ทั้งหมดรวมถึงสปอร์ ซึ่งเป็นเหตุผลที่นม UHT เก็บได้ที่อุณหภูมิห้อง ต่างจากการพาสเจอร์ไรส์ที่เหลือทั้งสปอร์และเอนไซม์บางชนิด",
     "verified": "Milk Hygiene MID 85 น.88",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 88 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -2073,6 +2161,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "การโฮโมจิไนซ์ทำให้เม็ดไขมันเล็กลงและเพิ่มพื้นที่ผิวที่ lipase จะเข้าทำปฏิกิริยา ถ้าทำก่อนให้ความร้อนขณะที่ lipase ยังทำงานอยู่จะเกิดกลิ่นหืน การทำหลังความร้อนจึงเป็นการลดการเหม็นหืน ส่วนการกระจายตัวของไขมันเป็นผลของกระบวนการโดยรวม และเรื่องสุขลักษณะเป็นเหตุผลของการทำก่อนให้ความร้อน",
     "verified": "Milk Hygiene MID 85 น.101",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 101 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -2096,6 +2185,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "clarification ใช้แรงหนีศูนย์กลางแยกสิ่งสกปรกและเซลล์ที่ปนมาออกจากน้ำนม separation ใช้แรงหนีศูนย์กลางเช่นกันแต่แยกครีมกับหางนม filtration เป็นการกรองด้วยตัวกลาง และ standardization คือการปรับปริมาณไขมัน",
     "verified": "Milk Hygiene MID 85 น.117",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 117 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2119,6 +2209,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "separation แยกน้ำนมออกเป็นครีมกับหางนมหรือ skim milk เพื่อใช้ในการปรับมาตรฐานไขมันต่อไป การแยกสิ่งสกปรกคือ clarification การแยกน้ำคือ evaporation และการแยกโปรตีนไม่ใช่จุดประสงค์ของขั้นตอนนี้",
     "verified": "Milk Hygiene MID 85 น.118",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 118 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -2142,6 +2233,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "การปรับมาตรฐานนมคือการปรับเปอร์เซ็นต์ไขมันหรือ butter fat ให้ได้ตามที่ต้องการ โดยผสมครีมกับหางนมตามสัดส่วน ค่าที่เหลือเป็นปริมาณของวัตถุดิบหรือองค์ประกอบอื่นที่ไม่ได้ใช้ตั้งสมการ",
     "verified": "Milk Hygiene MID 85 น.111",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 111 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -2165,6 +2257,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "ใช้ Pearson square ส่วนของน้ำนมสดคือ 2.5 ลบ 0.04 เท่ากับ 2.46 ส่วนของหางนมคือ 3.9 ลบ 2.5 เท่ากับ 1.4 รวมได้ 3.86 ปริมาณหางนมจึงเป็น 3,000 คูณ 1.4 หารด้วย 3.86 ส่วน 3,000 คูณ 2.46 หารด้วย 3.86 คือปริมาณน้ำนมสด และสูตรที่หารด้วย 2.5 ไม่ใช่สูตรของวิธีนี้",
     "verified": "Milk Hygiene MID 85 น.112",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 112 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2188,6 +2281,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "ส่วนของครีมคือ 15 ลบ 3 เท่ากับ 12 และส่วนของหางนมคือ 20 ลบ 15 เท่ากับ 5 จึงได้อัตราส่วนครีมต่อหางนมเท่ากับ 12 ต่อ 5 ตัวเลือก 5 ต่อ 12 คือการสลับด้าน ส่วน 20 ต่อ 3 และ 15 ต่อ 20 เป็นตัวเลขไขมันตั้งต้นที่ยังไม่ผ่านการลบ",
     "verified": "Milk Hygiene MID 85 น.115",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 115 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2211,6 +2305,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "นมข้นหวานต้องระเหยน้ำออกเพื่อเพิ่มความเข้มข้นก่อนเติมน้ำตาล นมยูเอชทีใช้ความร้อนสูงในเวลาสั้นแต่ไม่ระเหยน้ำ นมเปรี้ยวได้จากการหมัก และเวย์เป็นผลพลอยได้จากการแยกเคิร์ด",
     "verified": "Milk Hygiene MID 85 น.109",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 109 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2234,6 +2329,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "การผลิตนมพาสเจอร์ไรส์มีการปรับมาตรฐานไขมัน การโฮโมจิไนซ์ และอาจมี thermisation ในขั้นตอนเก็บรักษาน้ำนมดิบ แต่ไม่มีการระเหยน้ำออก เพราะการระเหยเป็นขั้นตอนของนมข้นและนมผง",
     "verified": "Milk Hygiene MID 85 น.110",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 110 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2257,6 +2353,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "การทำแห้งหรือ dehydration เป็นขั้นตอนของนมผงและเวย์ผง ไม่ใช่ของนมยูเอชทีซึ่งเป็นผลิตภัณฑ์เหลว ส่วนการโฮโมจิไนซ์ การฆ่าเชื้อ และการให้ความร้อนก่อนหน้าเป็นขั้นตอนที่พบในสายการผลิตนี้",
     "verified": "Milk Hygiene MID 85 น.122",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 122 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2280,6 +2377,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "Maillard reaction คือปฏิกิริยาระหว่างหมู่คาร์บอนิลของน้ำตาลรีดิวซ์กับหมู่อะมิโนของกรดอะมิโน ทำให้เกิดสีน้ำตาลและกลิ่นในนมที่ผ่านความร้อนสูงหรือเก็บนาน ไขมันไม่ได้เป็นสารตั้งต้นของปฏิกิริยานี้",
     "verified": "Milk Hygiene MID 85 น.100",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 100 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2304,6 +2402,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "หน้าที่เด่นของ Lactobacillus bulgaricus ในการผลิตโยเกิร์ตคือการย่อยเคซีนให้ได้เปปไทด์และกรดอะมิโน ซึ่งช่วยส่งเสริมการเจริญของ Streptococcus thermophilus ที่เลี้ยงร่วมกัน กรดแลคติกไม่ได้ผลิตจากไขมัน และการสร้างกรดไขมันไม่ระเหยไม่ใช่บทบาทหลัก",
     "verified": "Milk Hygiene MID 85 น.123",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 123 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -2327,6 +2426,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "ต้องล้างด้วยน้ำสะอาดก่อนเพื่อชะคราบนมส่วนใหญ่ออกไป มิฉะนั้นสารเคมีจะถูกใช้ไปกับสารอินทรีย์ที่ตกค้างและประสิทธิภาพลดลง ลำดับต่อจากนั้นจึงเป็นด่าง กรด และสารฆ่าเชื้อ",
     "verified": "Milk Hygiene MID 85 น.108",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 108 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2350,6 +2450,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "ถ้าหยุดการผลิตนานเกิน 4 ชั่วโมงต้องทำความสะอาดใหม่ การรอถึง 12 ชั่วโมงจึงนานเกินไป เพราะคราบนมที่ค้างในระบบเป็นอาหารของจุลินทรีย์ในเวลาไม่กี่ชั่วโมง",
     "verified": "Milk Hygiene MID 85 น.113",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 113 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2373,6 +2474,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "คำตอบที่ทำเครื่องหมายไว้คือ 85 องศาเซลเซียส ซึ่งสูงพอจะฆ่าเชื้อบนพื้นผิว อุณหภูมิ 65 และ 75 องศาเป็นช่วงของการล้างด้วยสารละลายด่างและกรดตามลำดับ ไม่ใช่ของการฆ่าเชื้อด้วยน้ำร้อน",
     "verified": "Milk Hygiene MID 85 น.114",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 114 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2396,6 +2498,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "คราบโปรตีนและไขมันเป็นสารอินทรีย์ที่ถูกสลายด้วยด่างอย่างโซเดียมไฮดรอกไซด์ กรดไนตริกจึงไม่ใช่คำตอบ เพราะกรดใช้กับคราบแร่ธาตุ ส่วนไอโอโดฟอร์และแอลกอฮอล์เป็นสารฆ่าเชื้อไม่ใช่สารขจัดคราบ",
     "verified": "Milk Hygiene MID 85 น.67",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 67 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2419,6 +2522,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "แอลกอฮอล์ละลายไขมันในเยื่อหุ้มเซลล์จนโครงสร้างเสียหายและโปรตีนเสียสภาพตามมา การออกซิไดซ์หมู่ไทออลเป็นกลไกของกลุ่มฮาโลเจน alkylation เป็นกลไกของอัลดีไฮด์ และการลดแรงตึงผิวเป็นกลไกของ surface active agents",
     "verified": "Milk Hygiene MID 85 น.102",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 102 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2442,6 +2546,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "ในการจำแนกสารฆ่าเชื้อที่วิชานี้ใช้ กลไกนี้เป็นของ halogen compound ซึ่งออกฤทธิ์เป็น oxidizing agent ต่อคาร์บอน กำมะถัน และไนโตรเจน ทำลาย disulphide bond จนโครงสร้างและการทำงานของโปรตีนเปลี่ยนไป และรบกวนเมแทบอลิซึม\n\n❌ ทำไมข้ออื่นผิด\n— \"Chlorhexidine\" = เป็นสารเดี่ยว ไม่ใช่กลุ่มที่ถูกผูกไว้กับกลไกออกซิไดซ์หมู่ไทออล\n— \"Oxidizing agents\" = เป็นการเรียกตามคุณสมบัติกว้าง ไม่ใช่ชื่อกลุ่มที่โจทย์ถามถึง\n— \"Phenolic compounds\" = ถูกจัดไว้กับกลไกอื่น ไม่ใช่การออกซิไดซ์หมู่ไทออล\n\n💡 ข้อนี้วัดว่าจำชื่อกลุ่มได้ไหม ไม่ได้วัดว่ารู้จักคุณสมบัติ ซึ่งเป็นเหตุผลที่ oxidizing agents ถูกวางไว้เป็นตัวลวง",
     "verified": "Milk Hygiene MID 85 น.104",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 104 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2465,6 +2570,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "สารกลุ่มฟีนอลทำลายเยื่อหุ้มเซลล์และทำให้โปรตีนภายในเสียสภาพ จึงใช้กันแพร่หลายในโรงพยาบาลและโรงงาน การลดแรงตึงผิวเป็นกลไกของ surface active agents การออกซิไดซ์เป็นของกลุ่มฮาโลเจน และ alkylation เป็นของอัลดีไฮด์",
     "verified": "Milk Hygiene MID 85 น.106",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 106 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2488,6 +2594,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "ไอโอโดฟอร์ปลดปล่อยไอโอดีนซึ่งถูกใช้ไปกับสารอินทรีย์ที่ตกค้าง ฤทธิ์ฆ่าเชื้อจึงลดลงอย่างชัดเจน นี่คือเหตุผลที่ต้องล้างคราบออกก่อนใช้สารฆ่าเชื้อเสมอ เมื่อเทียบกันในข้อนี้ สารกลุ่มอื่นได้รับผลกระทบน้อยกว่า",
     "verified": "Milk Hygiene MID 85 น.119",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 119 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2511,6 +2618,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "Phenol coefficient คือความเจือจางสูงสุดของสารทดสอบที่ฆ่าเชื้อได้ที่ 5 และ 10 นาที หารด้วยความเจือจางของฟีนอลที่ให้ผลเช่นเดียวกัน ตัวอย่างที่ยกไว้ในวิชานี้คือสาร A ได้ผลที่ 1 ต่อ 350 ส่วนฟีนอลได้ที่ 1 ต่อ 75 ค่า PC จึงเป็น 350 ส่วน 75\n\n❌ ทำไมข้ออื่นผิด\n— \"อัตราส่วนความเข้มข้นของฟีนอลต่อสารทดสอบที่เวลาแตกต่างกันสองช่วงเวลา\" = กลับตัวตั้งกับตัวหาร และ 5 กับ 10 นาทีเป็นเงื่อนไขเดียวกันของทั้งสองสาร ไม่ใช่คนละช่วงเวลา\n— \"ผลต่างของเวลาที่สารทดสอบกับฟีนอลใช้ฆ่าเชื้อจนหมดในหลอดทดลองเดียวกัน\" = PC คิดจากความเจือจาง ไม่ใช่ผลต่างของเวลา\n— \"ผลคูณของความเจือจางกับเวลาที่ใช้ฆ่าเชื้อของสารทดสอบแต่ละชนิด\" = เป็นผลหารระหว่างสองสาร ไม่ใช่ผลคูณ\n\n💡 ตัวตั้งคือสารทดสอบ ตัวหารคือฟีนอล ถ้าจำสลับด้าน ค่าที่ได้จะกลับกัน",
     "verified": "Milk Hygiene MID 85 น.105",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 105 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2534,6 +2642,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "สารในอุดมคติต้องครอบคลุมเชื้อที่เป็นอันตรายต่อคนได้กว้าง มีฟองต่ำเพื่อให้ล้างออกง่ายในระบบ CIP ไม่ทำให้เกิดเชื้อดื้อ และประสิทธิภาพต้องลดลงเมื่อเจือจางไม่ใช่เพิ่มขึ้น",
     "verified": "Milk Hygiene MID 85 น.103",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 103 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2557,6 +2666,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "HACCP มี 7 หลักการ และเมื่อรวมขั้นตอนเตรียมการก่อนหน้าจะได้ 12 ขั้นตอน ตัวเลือกอื่นสลับตัวเลขหรือใช้จำนวนที่ไม่ถูกต้อง",
     "verified": "Milk Hygiene MID 85 น.55",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 55 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2580,6 +2690,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "ข้อความที่ตอบว่าถูกระบุขอบเขตตั้งแต่การรับวัตถุดิบจนถึงการจัดจำหน่าย โดยมีบันทึกกำกับย้ำว่าไม่ได้เริ่มจากฟาร์ม ส่วนขอบเขตที่แคบกว่านั้นทำให้มีจุดอันตรายหลุดจากการควบคุม",
     "verified": "Milk Hygiene MID 85 น.68",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 68 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -2603,6 +2714,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "critical limit คือเกณฑ์ที่จุดวิกฤตต้องคุมให้ได้ เพื่อกำจัดหรือลดอันตรายให้เหลือน้อยที่สุด ไม่ใช่เรื่องการมอบหมายงาน ต้นทุน หรือความถี่ของการสุ่มตรวจ",
     "verified": "Milk Hygiene MID 85 น.56",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 56 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2626,6 +2738,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "ข้อความที่ตอบว่าถูกคือบุคลากรในบริเวณผลิตต้องตรวจสุขภาพอย่างน้อยปีละ 1 ครั้ง เพื่อคัดกรองพาหะของเชื้อที่อาจปนเปื้อนสู่ผลิตภัณฑ์ ความถี่ที่มากกว่าไม่ใช่ข้อกำหนดขั้นต่ำ และการเว้น 3 ปีห่างเกินไป",
     "verified": "Milk Hygiene MID 85 น.57",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 57 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -2649,6 +2762,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "ความถี่ขั้นต่ำที่กำหนดคือปีละ 1 ครั้ง ความถี่ที่สูงกว่านี้อย่างปีละ 3 ครั้งหรือเดือนละครั้งทำได้แต่ไม่ใช่ข้อกำหนด และการเว้น 3 ปีห่างเกินไป",
     "verified": "Milk Hygiene MID 85 น.65",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 65 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2672,6 +2786,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "ข้อความที่ตอบว่าถูกระบุว่าต้องวิเคราะห์ครบทั้งกายภาพ เคมี และจุลินทรีย์ เพราะวัตถุดิบอาจมีปัญหาได้ทั้งการเจือปน สารตกค้าง และการปนเปื้อนของเชื้อ การตรวจเพียงด้านเดียวจึงไม่เพียงพอ",
     "verified": "Milk Hygiene MID 85 น.70",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 70 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -2695,6 +2810,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "การยืนยันผลต้องดูหลายด้านประกอบกัน เช่น คราบตกค้าง สารเคมีตกค้าง และบันทึกกระบวนการ การตรวจจุลินทรีย์อย่างเดียว สารตกค้างของยาต้านจุลชีพอย่างเดียว หรืออุณหภูมิน้ำล้างอย่างเดียว จึงไม่พอ",
     "verified": "Milk Hygiene MID 85 น.69",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 69 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2718,6 +2834,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "ผิวเรียบและไม่มีจุดอับทำให้ล้างออกได้หมดและไม่เหลือคราบให้เชื้อสะสมเป็นไบโอฟิล์ม ผิวหยาบ มุมอับ และวัสดุที่ดูดซับน้ำล้วนเป็นจุดที่ทำความสะอาดไม่ถึง",
     "verified": "Milk Hygiene MID 85 น.54",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 54 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2741,6 +2858,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "ฟาร์มโคนมขนาดใหญ่คือตั้งแต่ 101 ตัวขึ้นไป เพราะฟาร์มขนาดกลางคือ 21 ถึง 100 ตัว และขนาดเล็กคือไม่เกิน 20 ตัว ตัวเลข 100 จึงยังอยู่ในกลุ่มขนาดกลาง",
     "verified": "Milk Hygiene MID 85 น.127",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 127 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2764,6 +2882,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "อาหารสำเร็จรูปสำหรับโคอายุไม่เกิน 1 ปี กำหนดอะฟลาทอกซินไม่เกิน 100 ไมโครกรัมต่อกิโลกรัม ส่วนตัวเลข 200 เป็นเกณฑ์ของโคอายุเกิน 1 ปี เนื่องจากลูกโคไวต่อสารพิษมากกว่า",
     "verified": "Milk Hygiene MID 85 น.138",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 138 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -2787,6 +2906,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 3,
     "explain": "ห้ามนำวัตถุดิบที่ปนเปื้อน mycotoxin มาเลี้ยงสัตว์ทุกกลุ่ม การให้สัตว์ที่ไวน้อยกว่าจึงผิด เพราะสารพิษจากเชื้อราทนความร้อนและแสงแดด การเจือจางก็ไม่ได้ทำลายสารพิษ เพียงกระจายความเสี่ยงออกไป",
     "verified": "Milk Hygiene MID 85 น.137",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 137 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2811,6 +2931,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "การกำจัดซากโคนมที่ไม่เป็นไปตามข้อกำหนดถือเป็น major nonconformity ไม่ใช่ minor เพราะซากสัตว์ที่จัดการไม่ถูกต้องเป็นแหล่งแพร่เชื้อสู่ฝูงและสิ่งแวดล้อมโดยตรง",
     "verified": "Milk Hygiene MID 85 น.139",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 139 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -2834,6 +2955,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "ข้อความที่ตอบว่าถูกระบุว่า recommendation คือสิ่งที่ยังไม่ถือเป็นข้อบกพร่อง แต่หากปล่อยไว้หรือละเลยอาจนำไปสู่ nonconformity ได้ จึงต่างจาก minor และ major nonconformity ที่เป็นข้อบกพร่องแล้ว",
     "verified": "Milk Hygiene MID 85 น.143",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 143 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -2857,6 +2979,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 0,
     "explain": "การกินหญ้าในทุ่งทำให้โคได้รับระยะติดต่อของพยาธิที่ปนอยู่กับหญ้าและดินซ้ำ ๆ จึงเป็นปัญหาที่พบมากที่สุด ปัญหาอื่นเกิดได้แต่ไม่ใช่ผลกระทบหลักของระบบปล่อยแทะเล็ม",
     "verified": "Milk Hygiene MID 85 น.131",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 131 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },
@@ -2880,6 +3003,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "การตัดหญ้ามาให้กินในโรงเรือนเหมาะกับพื้นที่จำกัดและสภาพอากาศร้อนชื้นของไทย ทั้งยังลดการสัมผัสระยะติดต่อของพยาธิในแปลง ส่วนระบบแทะเล็มแบบต่าง ๆ ต้องใช้พื้นที่มากและจัดการแปลงหญ้าอย่างเข้มงวด",
     "verified": "Milk Hygiene MID 85 น.132",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 132 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2903,6 +3027,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "คำตอบที่วงไว้เน้นความปลอดภัยเป็นหลัก คือจำหน่ายตัวสัตว์ที่ปลอดโรคและผู้บริโภคบริโภคได้อย่างมั่นใจ ส่วนการแข่งขันทางการค้า รายได้ที่เพิ่มขึ้น และนโยบายสุขภาพหนึ่งเดียวเป็นผลพลอยได้ ไม่ใช่เป้าหมายหลักที่ถามถึง",
     "verified": "Milk Hygiene MID 85 น.133",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 133 }],
     "sourceType": "past-paper",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2926,6 +3051,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 1,
     "explain": "การเลี้ยงในระบบปล่อยพบการบาดเจ็บที่กีบน้อยกว่าการผูกยืนโรง เพราะโคได้เคลื่อนไหวและไม่ต้องยืนบนพื้นแข็งอยู่กับที่ตลอดเวลา",
     "verified": "Milk Hygiene MID 85 น.141",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 141 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85)"
   },
@@ -2949,6 +3075,7 @@ export const QUESTIONS_Y5_MILK_2026_B = [
     "answer": 2,
     "explain": "ยาแต่ละชนิดมีเงื่อนไขการเก็บต่างกัน จึงต้องยึดตามคำแนะนำของผู้ผลิต การเหมารวมว่าต้องแช่เย็นทุกชนิดหรือเก็บที่อุณหภูมิห้องทุกชนิดล้วนผิด และการเก็บยารวมกับอาหารสัตว์เสี่ยงต่อการปนเปื้อน",
     "verified": "Milk Hygiene MID 85 น.134",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 134 }],
     "sourceType": "student-compilation",
     "examOrigin": "Milk Hygiene mid-term recall (Vet 85, recurring topic)"
   },

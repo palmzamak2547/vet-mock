@@ -33,6 +33,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "Endometrial cups เริ่มก่อตัวราววันที่ 35 ถึง 38 ของการตั้งท้อง แล้วเสื่อมสลายไปราววันที่ 100 ถึง 120 วันที่ 15 จึงเร็วเกินไป วันที่ 25 เป็นช่วงที่ตัวอ่อนหยุดเคลื่อนที่และเริ่มยึดเกาะ ส่วนวันที่ 60 เป็นช่วงที่ eCG ขึ้นสูงเต็มที่แล้ว ไม่ใช่วันเริ่มพัฒนา",
     "verified": "Repro horse final น.6; สอนในคาบมิดเทอม zFsNom4JMC8 [0:41]",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 6 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -56,6 +57,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "Endometrial cups เกิดจากเซลล์ trophoblast ที่บริเวณ chorionic girdle ของถุงตัวอ่อน ซึ่งรุกเข้าไปฝังในชั้น endometrium ราววันที่ 36 ไม่ได้เกิดจาก caruncles เพราะ caruncle เป็นโครงสร้างของสัตว์เคี้ยวเอื้องและไม่มีในม้า ส่วน endometrial glands และ yolk sac เป็นคนละโครงสร้างที่ไม่ได้ให้กำเนิด cups",
     "verified": "Repro horse final น.10",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 10 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -80,6 +82,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "Endometrial cups สร้าง eCG ซึ่งมีฤทธิ์คล้าย LH และ FSH ไปกระตุ้น follicle บนรังไข่ให้เกิด accessory corpora lutea ในช่วงวันที่ 40 ถึง 120 PSPB เป็นตัวชี้วัดการตั้งท้องในสัตว์เคี้ยวเอื้อง IFN tau เป็นสัญญาณ maternal recognition ของสัตว์เคี้ยวเอื้อง ส่วน placental lactogen ไม่ใช่ผลผลิตหลักของ cups ในม้า",
     "verified": "Repro horse final น.11; สอนในคาบมิดเทอม zFsNom4JMC8 [0:41]",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 11 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -104,6 +107,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "ตัวอ่อนม้าเคลื่อนที่ไปมาทั่วโพรงมดลูกวันละหลายสิบครั้งจนถึงราววันที่ 16 เพื่อส่งสัญญาณไปทั่ว endometrium และยับยั้งการหลั่ง PGF2 alpha ซึ่งเป็นกลไกจำเพาะของม้า interferon tau เป็นของสัตว์เคี้ยวเอื้อง estrone sulfate ใช้ตรวจการตั้งท้องระยะหลังไม่ใช่กลไกจดจำ และ endometrial cups เกิดหลังวันที่ 35 ซึ่งช้ากว่าช่วงที่ต้องรักษา corpus luteum ไว้",
     "verified": "Repro horse final น.5; สอนในคาบมิดเทอม zFsNom4JMC8 [11:41]",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 5 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -128,6 +132,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "ตัวอ่อนม้าผลิต PGE2 ซึ่งทำให้กล้ามเนื้อเรียบบริเวณ utero tubal junction คลายตัว ตัวอ่อนจึงผ่านเข้ามดลูกได้ ขณะที่ไข่ที่ไม่ได้ผสมจะค้างอยู่ในท่อนำไข่ PGF2 alpha ไม่ได้ทำหน้าที่นี้ เพราะเป็นตัวสลาย corpus luteum ส่วน oxytocin และ relaxin ไม่เกี่ยวกับการผ่าน utero tubal junction",
     "verified": "Repro horse final น.14; สอนในคาบมิดเทอม 5MGooHx0w7w [21:35]",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 14 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -151,6 +156,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "Interferon tau เป็นสัญญาณ maternal recognition ของสัตว์เคี้ยวเอื้อง ไม่ใช่ของม้า ม้าใช้การเคลื่อนที่ของตัวอ่อนไปทั่วมดลูกร่วมกับสารที่ตัวอ่อนสร้างเอง เช่น estrogen แทน การบอกว่าตัวอ่อนม้า endometrial cups หรือรกม้าสร้าง interferon tau จึงผิดทั้งหมด เพราะไม่มีการสร้างสารนี้ในม้า",
     "verified": "Repro horse final น.9",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 9 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -174,6 +180,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "ช่วงกลางถึงปลายการตั้งท้อง fetal gonad ของลูกม้าจะขยายใหญ่มากและส่ง precursor ให้รกเปลี่ยนเป็น estrogen จึงพบ estrogen สูงมากในวันที่ 200 ถึง 260 ไม่ได้มาจาก follicle ที่ตอบสนอง eCG เพราะ follicle และ accessory corpora lutea ที่เกิดจาก eCG เป็นเรื่องของช่วงวันที่ 40 ถึง 120 และให้ progestin ไม่ใช่ estrogen ช่วงนี้",
     "verified": "Repro horse final น.7",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 7 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -197,6 +204,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "รกม้าเป็น diffuse epitheliochorial เมื่อดูด้วยตาเปล่า แต่ในระดับจุลทรรศน์จะเห็น microcotyledon กระจายอยู่ทั่วผิว ระดับ gross จึงไม่ใช่ cotyledonary เหมือนสัตว์เคี้ยวเอื้อง รกแบบ zonary เป็นของสุนัขและแมว ส่วน discoid เป็นของสัตว์ฟันแทะและคน",
     "verified": "Repro horse final น.13",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 13 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -220,6 +228,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "หลังราววันที่ 100 ถึง 120 โครงสร้าง luteal ทั้ง primary corpus luteum และ accessory corpora lutea จะสลายไป และรกร่วมกับลูกม้าซึ่งเรียกรวมว่า feto placental unit จะผลิต progestin ค้ำจุนการตั้งท้องแทน การตัดรังไข่หลังวันที่ 150 จึงไม่ทำให้แท้ง ส่วน endometrial cups ก็เสื่อมสลายตั้งแต่ราววันที่ 120 แล้วเช่นกัน",
     "verified": "Repro horse final น.18",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 18 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -243,6 +252,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "ม้าตั้งท้องราว 11 เดือน หรือประมาณ 335 ถึง 342 วัน ผสมเดือนเมษายนจึงครบกำหนดคลอดราวเดือนมีนาคมของปีถัดไป เดือนมกราคมของปีหน้าเร็วเกินไป เดือนธันวาคมปีเดียวกันสั้นเกินไปเพราะเท่ากับ 8 เดือน ส่วนเดือนพฤษภาคมปีหน้ายาวเกินไปเพราะเท่ากับ 13 เดือน",
     "verified": "Repro horse final น.21",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 21 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -266,6 +276,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "ลูกม้าคลอดปกติในท่า dorsal longitudinal anterior presentation คือหลังลูกม้าหันไปทางด้านหลังของแม่ ตัวขนานกับแนวลำตัวแม่ และเอาขาหน้ากับหัวออกมาก่อน ท่า posterior คือเอาท้ายออกก่อนซึ่งเป็นภาวะคลอดยาก ท่า ventral คือหงายท้องขึ้น และท่า transverse คือขวางลำ ทั้งสามแบบผิดปกติ",
     "verified": "Repro horse final น.12",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 12 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -289,6 +300,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "แม่ม้าส่วนใหญ่จะนอนตะแคงในระยะขับลูกออก ซึ่งเป็นท่าปกติของม้า ไม่ใช่สัญญาณอันตรายในตัวมันเอง สิ่งที่ต้องเฝ้าคือระยะเวลาของระยะที่ 2 ซึ่งในม้าสั้นมากราว 20 ถึง 30 นาที ไม่ใช่ท่าที่แม่นอน uterine inertia และท่าผิดต้องประเมินจากการเบ่งที่ไม่คืบหน้าและการล้วงตรวจ",
     "verified": "Repro horse final น.20",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 20 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -312,6 +324,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "Teat waxing คือหยดน้ำนมเหลืองแห้งติดอยู่ที่ปลายหัวนม พบได้ในแม่ม้าส่วนใหญ่ราว 1 ถึง 4 วันก่อนคลอด โดยเฉลี่ยราว 2 วัน จึงใช้เป็นสัญญาณเตือนให้เริ่มเฝ้าคลอด แต่ไม่แม่นพอจะกำหนดชั่วโมงคลอดได้ ระยะ 2 สัปดาห์และ 1 เดือนเป็นช่วงที่เต้านมเพิ่งเริ่มขยาย ยังไม่มี wax",
     "verified": "Repro horse final น.3",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 3 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -336,6 +349,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "ม้ามี estrogen รวมสูงมากในช่วงกลางการตั้งท้องราววันที่ 200 ถึง 260 ซึ่งมาจาก fetal gonad ผ่านรก และมี progestin จาก feto placental unit สูงขึ้นอีกครั้งในระยะท้ายก่อนคลอด แบบแผนนี้ต่างจากสัตว์อื่นหลายชนิดที่ progesterone มักลดลงชัดเจนก่อนคลอด",
     "verified": "Repro horse final น.15",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 15 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -359,6 +373,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "ม้าปกติขับรกออกภายใน 30 นาทีถึง 3 ชั่วโมงหลังคลอด หากเกิน 3 ชั่วโมงถือเป็นรกค้างและต้องเข้ารักษาทันที เพราะเสี่ยงต่อ metritis, endotoxemia และ laminitis ที่รุนแรงกว่าในโคมาก เกณฑ์ 12 ชั่วโมงเป็นของโคซึ่งทนได้นานกว่า ส่วน 1 ถึง 2 ชั่วโมงยังอยู่ในช่วงปกติ",
     "verified": "Repro horse final น.4",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 4 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -382,6 +397,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "รกม้าเป็น diffuse epitheliochorial ที่แนบผิว endometrium แบบกระจายทั่ว ไม่ได้ฝังลึกเหมือน cotyledon ของโค จึงลอกหลุดง่ายและอุบัติการณ์รกค้างต่ำกว่าโค การบอกว่าพบสูงกว่าเพราะเป็น cotyledonary type จึงผิดทั้งอุบัติการณ์และชนิดของรก ม้าไม่มี caruncle และรกม้าก็ไม่ใช่แบบ zonary",
     "verified": "Repro horse final น.19",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 19 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -405,6 +421,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "Foal heat คือการเป็นสัดครั้งแรกหลังคลอดของแม่ม้า เกิดราววันที่ 5 ถึง 12 หลังคลอด ถือเป็นสรีรวิทยาปกติเพราะม้าไม่มีช่วง postpartum anestrus ที่ยาวเหมือนสัตว์อื่น คำนี้ไม่เกี่ยวกับวัยเจริญพันธุ์ของลูกม้าเพศเมีย และไม่ใช่คำเรียกการเป็นสัดครั้งแรกของฤดูกาล",
     "verified": "Repro horse final น.8",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 8 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -428,6 +445,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "foal heat มีการตกไข่จริง จึงผสมติดได้ แต่มดลูกยังฟื้นตัวไม่เต็มที่ ทำให้อัตราการตั้งท้องต่ำกว่าและอัตราการสูญเสียตัวอ่อนสูงกว่ารอบถัดไป จึงมักเลือกผสมเฉพาะแม่ม้าที่คลอดง่าย ไม่มีรกค้าง และมดลูกฟื้นดี",
     "verified": "Repro horse final น.16",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 16 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -451,6 +469,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "ใช้ไอโอดีนอย่างอ่อนราว 2 เปอร์เซ็นต์ หรือคลอร์เฮกซิดีนที่เจือจางแล้ว เพราะน้ำยาเข้มข้นสูงโดยเฉพาะทิงเจอร์ไอโอดีนจะกัดเนื้อเยื่อจนเกิดแผลไหม้ และกลับเพิ่มโอกาสติดเชื้อและ patent urachus ความเข้มข้นสูงจึงไม่ใช่ทางเลือกที่ถูก ส่วนแอลกอฮอล์ไม่ใช่ตัวเลือกมาตรฐานของการจุ่มสะดือ",
     "verified": "Repro horse final น.2",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 2 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -474,6 +493,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "เกณฑ์ที่ใช้กันคือ IgG มากกว่า 800 มิลลิกรัมต่อเดซิลิตรที่ 24 ชั่วโมงหลังคลอด ถือว่าได้รับภูมิคุ้มกันจากน้ำนมเหลืองเพียงพอ ถ้าต่ำกว่า 400 ถือเป็น failure of passive transfer เต็มรูปแบบ และช่วง 400 ถึง 800 ถือเป็น partial failure ที่ยังเสี่ยงติดเชื้อและควรให้พลาสมา",
     "verified": "Repro horse final น.17",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 17 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -497,6 +517,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "seminiferous tubule เป็นที่เกิด spermatogenesis โดยมี Sertoli cell เป็นเซลล์พี่เลี้ยง การเก็บและทำให้อสุจิเจริญเต็มที่จนเคลื่อนที่ไปข้างหน้าได้เป็นหน้าที่ของ epididymis ส่วน testosterone สร้างจาก Leydig cell ที่อยู่ระหว่างท่อ และของเหลวส่วนแรกก่อนหลั่งมาจาก bulbourethral gland",
     "verified": "Repro horse final น.28",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 28 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -520,6 +541,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "Sertoli cell เลี้ยงเซลล์สืบพันธุ์ที่กำลังพัฒนา ตอบสนองต่อ FSH สร้าง inhibin และมี tight junction ระหว่างกันซึ่งก็คือ blood testis barrier ที่กันไม่ให้ระบบภูมิคุ้มกันเข้าถึงและทำลายอสุจิ testosterone มาจาก Leydig cell ส่วน fructose มาจากต่อมร่วมทางเดินอสุจิ",
     "verified": "Repro horse final น.67",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 67 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -543,6 +565,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "การสร้างอสุจิในท่อ seminiferous ของม้าใช้เวลาราว 57 วัน และเมื่อรวมเวลาผ่าน epididymis อีกราว 8 ถึง 11 วันจะได้เวลารวมราว 60 กว่าวัน ตัวเลข 77 วันจึงยาวเกินไป ส่วน 30 และ 40 วันสั้นเกินไป ค่านี้สำคัญเพราะบอกว่าถ้าอัณฑะบาดเจ็บหรือมีไข้วันนี้ ผลจะเห็นในน้ำเชื้ออีกราวสองเดือนถัดไป",
     "verified": "Repro horse final น.37",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 37 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -566,6 +589,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "อสุจิถูกเก็บสะสมไว้ที่ cauda epididymis และถูกขับผ่าน vas deferens ออกมาใน sperm rich fraction ไม่ได้มาจาก rete testis เพราะ rete testis เป็นเพียงทางผ่านที่มีอสุจิน้อยและยังไม่เจริญเต็มที่ head of epididymis ก็มีอสุจิที่ยังเคลื่อนที่ไม่เป็น ส่วน seminal vesicle และ prostate ให้แต่ของเหลว",
     "verified": "Repro horse final น.38",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 38 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -589,6 +613,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "gel fraction ของน้ำเชื้อม้าสร้างจาก vesicular gland และหลั่งออกมาเป็นส่วนท้าย มักถูกกรองทิ้งก่อนนำน้ำเชื้อไปเจือจาง ไม่ได้มาจาก bulbourethral gland เพราะต่อมนั้นให้ pre sperm fraction ที่ล้างท่อปัสสาวะ prostate ให้ของเหลวใส ส่วน ampulla เป็นที่พักอสุจิไม่ได้ผลิตเจล",
     "verified": "Repro horse final น.34",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 34 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -612,6 +637,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "pre sperm fraction คือของเหลวใสส่วนแรกที่หลั่งออกมาเพื่อล้างและหล่อลื่นท่อปัสสาวะก่อนอสุจิ มาจาก bulbourethral gland ส่วน seminal vesicle ให้ gel fraction ที่หลั่งท้ายสุด prostate ให้ของเหลวที่ปนมากับ sperm rich fraction ส่วน cauda epididymis เป็นที่เก็บอสุจิ ไม่ใช่ต่อมสร้างของเหลว",
     "verified": "Repro horse final น.55",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 55 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -635,6 +661,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "hypothalamus หลั่ง GnRH ไปกระตุ้น pituitary ให้หลั่ง LH และ FSH ซึ่งออกฤทธิ์ที่ Leydig cell และ Sertoli cell ในอัณฑะ จึงเป็น hypothalamic pituitary testis axis ส่วน epididymis ไม่ได้อยู่ในแกนนี้ เพราะเป็นเพียงทางผ่านและที่เก็บ และ melatonin จาก pineal gland ออกฤทธิ์ผ่าน hypothalamus ไม่ใช่ผ่าน adrenal",
     "verified": "Repro horse final น.64",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 64 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -658,6 +685,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "gubernaculum เจริญขยายแล้วหดสั้นลงเพื่อดึงอัณฑะผ่าน inguinal canal ลงสู่ถุงหุ้มอัณฑะ การพัฒนาผิดปกติของโครงสร้างนี้เป็นสาเหตุหนึ่งของภาวะทองแดง cremaster ทำหน้าที่ยกอัณฑะขึ้นลงตามอุณหภูมิ pampiniform plexus แลกเปลี่ยนความร้อนของเลือด ส่วน tunica dartos ปรับผิวถุงอัณฑะ",
     "verified": "Repro horse final น.57",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 57 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -681,6 +709,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "อัณฑะม้าเคลื่อนลงถุงตั้งแต่ช่วงท้ายของการตั้งท้องจนถึงราว 2 สัปดาห์ถึง 1 เดือนหลังคลอด ถ้าเลยช่วงนี้แล้วยังคลำไม่พบให้เริ่มสงสัยภาวะทองแดง แม้บางตัวอาจลงช้ากว่านั้นก็ยังควรตรวจติดตาม ไม่ใช่การรอถึง 1 หรือ 2 ปีโดยไม่ทำอะไร",
     "verified": "Repro horse final น.40",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 40 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -704,6 +733,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "การคลำหาตำแหน่งของ epididymis โดยเฉพาะ tail of epididymis ที่ปกติควรอยู่ทางด้านหลังและด้านล่างของอัณฑะ ใช้บอกได้ว่าอัณฑะอยู่ในแนวปกติหรือบิดหมุนไปกี่องศา pampiniform plexus ใช้อ้างอิงไม่ได้ เพราะเป็นกลุ่มหลอดเลือดที่คลำแยกได้ยาก tunica vaginalis เป็นเยื่อหุ้ม และ cremaster ไม่ใช่จุดอ้างอิงตำแหน่ง",
     "verified": "Repro horse final น.36",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 36 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -727,6 +757,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "ม้าเป็น seasonal long day breeder พ่อม้าจึงมีขนาดอัณฑะ ปริมาตรน้ำเชื้อ และจำนวนอสุจิรวมสูงสุดในช่วงวันยาว และลดลงในฤดูวันสั้น ผลกระทบเกิดทั้งกับปริมาตรและจำนวนอสุจิ ไม่ใช่แค่ปริมาตรอย่างเดียว จึงต้องเผื่อโดสเมื่อผสมเทียมนอกฤดู",
     "verified": "Repro horse final น.63",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 63 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -750,6 +781,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "อสุจิจะได้ความสามารถในการเคลื่อนที่ไปข้างหน้าและเข้าปฏิสนธิเมื่อเดินทางมาถึง cauda epididymis จึงเก็บจากส่วนนี้ไปผสมเทียมได้ เช่นกรณีพ่อม้าตายกะทันหันหรือถูกตัดอัณฑะ ส่วนหัวใช้ไม่ได้ เพราะอสุจิจากส่วนหัวและตัวรวมถึง rete testis ยังไม่เจริญเต็มที่",
     "verified": "Repro horse final น.30",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 30 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -773,6 +805,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "Flehmen คือการเชิดหัวและม้วนริมฝีปากบนขึ้น เพื่อดันกลิ่นเข้าสู่ vomeronasal organ เป็นพฤติกรรมของพ่อม้าเมื่อดมปัสสาวะหรือบริเวณอวัยวะเพศของแม่ม้า ไม่ใช่พฤติกรรมของแม่ม้าหรือลูกม้า สิ่งที่แม่ม้าเป็นสัดแสดงคือยกหางออกด้านข้างและ winking ของ vulva",
     "verified": "Repro horse final น.52",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 52 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -796,6 +829,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "Tail flagging คือการกระดกหางเป็นจังหวะของพ่อม้าขณะขึ้นทับและหลั่งน้ำเชื้อ ใช้เป็นสัญญาณยืนยันว่ามีการหลั่งจริงขณะรีดเก็บน้ำเชื้อ ไม่ใช่พฤติกรรมของแม่ม้าหรือลูกม้า สิ่งที่แม่ม้าเป็นสัดแสดงคือยกหางออกด้านข้างค้างไว้และ winking ไม่ใช่การกระดกหางเป็นจังหวะ",
     "verified": "Repro horse final น.66",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 66 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -819,6 +853,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "ม้าอยู่รวมกันเป็นฝูงแบบ harem คือพ่อม้าหนึ่งตัวคุมกลุ่มแม่ม้าหลายตัวและลูก แล้วขับไล่ตัวผู้อื่นออกจากฝูง lek เป็นระบบที่ตัวผู้มารวมกลุ่มแสดงตัวในพื้นที่เฉพาะให้ตัวเมียเลือก monogamous คือจับคู่เดี่ยวเช่นในนกบางชนิด ทั้งสองแบบไม่ใช่ของม้า",
     "verified": "Repro horse final น.31",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 31 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -842,6 +877,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "breeding soundness examination ในพ่อม้ารวมการตรวจร่างกายทั่วไป ระบบโครงร่างและการเดิน เพราะพ่อม้าต้องขึ้นทับได้ ภาวะขากะเผลกจึงกระทบความสมบูรณ์พันธุ์โดยตรง ส่วน DNA integrity เป็นการตรวจขั้นสูงในงานวิจัย karyotype ใช้เฉพาะเมื่อสงสัยความผิดปกติของโครโมโซม และ AMH ใช้ช่วยวินิจฉัยภาวะทองแดง ไม่ใช่รายการพื้นฐาน",
     "verified": "Repro horse final น.43",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 43 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -865,6 +901,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "น้ำเชื้อม้าแช่เย็นที่ราว 5 องศาเซลเซียสให้ผลดีภายใน 24 ถึง 48 ชั่วโมงและไม่ควรเกิน 72 ชั่วโมง โดยผลขึ้นกับพ่อม้าแต่ละตัวซึ่งทนต่อการแช่เย็นไม่เท่ากัน 6 ชั่วโมงสั้นเกินจริงจนไม่สะท้อนการขนส่งข้ามจังหวัด ส่วน 7 ถึง 14 วันเป็นไปไม่ได้สำหรับน้ำเชื้อแช่เย็นที่ยังไม่แช่แข็ง",
     "verified": "Repro horse final น.39",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 39 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -888,6 +925,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "น้ำเชื้อแช่แข็งม้าใช้จำนวนอสุจิที่มีชีวิตต่อโดสสูงราว 250 ถึง 500 ล้านตัว เพราะกระบวนการแช่แข็งและละลายทำลายอสุจิไปมาก ระดับ 50 ถึง 80 ล้านตัวจึงต่ำเกินไป ยกเว้นกรณีทำ deep horn insemination ที่ลดโดสลงได้ ส่วน 5 ถึง 10 ล้านตัวน้อยเกินไป และหลักพันล้านมากเกินจริง",
     "verified": "Repro horse final น.54",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 54 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -911,6 +949,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "การปล่อยน้ำเชื้อลึกถึงปลายปีกมดลูกข้างที่จะตกไข่ ทำให้อสุจิอยู่ใกล้ utero tubal junction จึงลดจำนวนอสุจิต่อโดสได้โดยอัตราการตั้งท้องไม่ลดลง มีประโยชน์มากกับพ่อม้าที่น้ำเชื้อมีจำกัดหรือแช่แข็งได้น้อย แต่วิธีนี้ไม่ได้ป้องกัน endometritis ไม่ได้แทน ovulation inducer และไม่เกี่ยวกับอายุการเก็บน้ำเชื้อ",
     "verified": "Repro horse final น.61",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 61 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -935,6 +974,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "การผสมด้วยน้ำเชื้อแช่แข็งต้องผสมใกล้เวลาตกไข่มาก จึงใช้ hCG หรือ GnRH analogue เช่น deslorelin เหนี่ยวนำให้ตกไข่ในเวลาที่คาดเดาได้ AMH ใช้เหนี่ยวนำการตกไข่ไม่ได้ เพราะเป็นตัวชี้วัดเนื้อเยื่ออัณฑะที่ตกค้างหรือเนื้องอกรังไข่ ส่วน PGF2 alpha ใช้สลาย corpus luteum และ progesterone ใช้ยับยั้งการเป็นสัด",
     "verified": "Repro horse final น.62",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 62 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -958,6 +998,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "extender เพิ่มปริมาตรจนแบ่งเป็นหลายโดสได้ ให้พลังงาน สารบัฟเฟอร์ และมักผสมยาปฏิชีวนะ จึงยืดอายุอสุจิระหว่างเก็บและขนส่ง ไม่ได้เร่ง capacitation ซึ่งควรเกิดในระบบสืบพันธุ์เพศเมีย ไม่ได้ทำให้อสุจิว่ายเร็วขึ้น และยาปฏิชีวนะใน extender คุมเชื้อในน้ำเชื้อ ไม่ได้ใช้รักษามดลูกแม่ม้า",
     "verified": "Repro horse final น.48",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 48 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -981,6 +1022,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "artificial vagina เป็นมาตรฐานในม้า เพราะได้น้ำเชื้อสะอาด ครบทุก fraction และประเมินพฤติกรรมพ่อม้าไปพร้อมกัน electroejaculation ใช้น้อยมากในม้าเพราะต้องวางยาสลบและได้ตัวอย่างคุณภาพด้อยกว่า digital manipulation ใช้เฉพาะบางกรณี ส่วนการเก็บจากช่องคลอดปนเปื้อนสูงจนประเมินคุณภาพไม่ได้",
     "verified": "Repro horse final น.70",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 70 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1004,6 +1046,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "อุณหภูมิภายใน artificial vagina ราว 45 ถึง 50 องศาเซลเซียสเป็นตัวกระตุ้นการหลั่งที่สำคัญที่สุด ถ้าเย็นเกินไปพ่อม้าจะไม่หลั่ง ถ้าร้อนเกินไปอสุจิจะเสียหาย แรงกดเป็นปัจจัยรองลงมา ส่วนความยาวปลอกและสีของหุ่นไม่ใช่ปัจจัยชี้ขาด",
     "verified": "Repro horse final น.47",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 47 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1027,6 +1070,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "การตรวจพื้นฐานก่อนผสมเทียมม้าคือปริมาตร ลักษณะภายนอก ความเข้มข้น การเคลื่อนที่ และรูปร่างของอสุจิ ส่วน DNA integrity เป็นการตรวจขั้นสูงที่ใช้ในงานวิจัยหรือกรณีที่ผสมไม่ติดโดยไม่ทราบสาเหตุ จึงไม่ใช่การตรวจพื้นฐานที่ต้องทำทุกครั้ง",
     "verified": "Repro horse final น.26",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 26 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1050,6 +1094,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "ความทนต่อการแช่แข็งเป็นคุณสมบัติเฉพาะตัวของพ่อม้าแต่ละตัว มีเพียงส่วนหนึ่งเท่านั้นที่แช่แข็งแล้วให้ผลดีพอใช้งานได้ บางตัวอสุจิเสียหายมากจนอัตราผสมติดต่ำเกินไป gel fraction ถูกแยกออกก่อนเจือจางอยู่แล้วจึงไม่ใช่เหตุผล ส่วนเรื่องอายุและกฎหมายไม่เกี่ยวกับ cryosensitivity",
     "verified": "Repro horse final น.24",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 24 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1073,6 +1118,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "การให้ยาซึมขนาดต่ำช่วยลดความตื่นตัวจนเก็บน้ำเชื้อได้ปลอดภัยทั้งคนและม้า แต่ต้องเลี่ยงยากลุ่ม phenothiazine เช่น acepromazine เพราะเสี่ยงต่อ penile paralysis การเพิ่มอุณหภูมิเกินช่วงที่เหมาะสมทำให้อสุจิเสียหาย ส่วนการงดรีดเก็บนานไม่ได้แก้ปัญหาพฤติกรรม",
     "verified": "Repro horse final น.41",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 41 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1096,6 +1142,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "การผสมเทียมม้าทำโดยสอดมือผ่าน cervix แล้วปล่อยน้ำเชื้อในตัวมดลูก ซึ่งทำได้ง่ายเพราะ cervix ของม้าคลายตัวมากขณะเป็นสัด จึงไม่ใช่การปล่อยไว้ที่ intracervix เพียงตำแหน่งเดียว กรณีน้ำเชื้อจำกัดอาจปล่อยลึกถึงปลายปีกมดลูกข้างที่จะตกไข่ ส่วนการฉีดเข้าท่อนำไข่ใช้เฉพาะงานวิจัยและเทคโนโลยีช่วยการสืบพันธุ์",
     "verified": "Repro horse final น.58",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 58 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1119,6 +1166,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "CEM เกิดจาก Taylorella equigenitalis ซึ่งเป็นแบคทีเรียแกรมลบที่ติดต่อทางการผสมพันธุ์และเป็นโรคที่ต้องแจ้งในหลายประเทศ Streptococcus equi ไม่ใช่สาเหตุของ CEM เพราะเชื้อนั้นเป็นสาเหตุของโรค strangles ส่วน Klebsiella และ Pseudomonas ทำให้เกิด venereal endometritis ได้เหมือนกันแต่ไม่ใช่ CEM",
     "verified": "Repro horse final น.33",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 33 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1142,6 +1190,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "EHV 3 ทำให้เกิด equine coital exanthema คือตุ่มและแผลที่ผิวหนังบริเวณอวัยวะเพศ ติดต่อทางการผสมพันธุ์ ทำให้ต้องพักการผสมจนแผลหาย แต่ไม่ทำให้แท้ง EHV 1 และ EHV 4 ต่างหากที่ทำให้เกิด rhinopneumonitis และการแท้ง ส่วน equine viral arteritis และ equine infectious anemia เกิดจากไวรัสคนละกลุ่ม",
     "verified": "Repro horse final น.45",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 45 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1165,6 +1214,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "ไวรัส EVA คงอยู่ในต่อมร่วมทางเดินอสุจิของพ่อม้าที่หายจากโรคแล้วได้นานหลายปี จึงปล่อยเชื้อออกมากับน้ำเชื้อและติดต่อผ่านการผสมจริงหรือผสมเทียมได้ ทำให้ต้องคัดกรองก่อนใช้น้ำเชื้อโดยเฉพาะน้ำเชื้อนำเข้า ส่วน equine influenza และ strangles ติดต่อทางระบบหายใจ และ EPM ติดจากอาหารที่ปนเปื้อน sporocyst",
     "verified": "Repro horse final น.69",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 69 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1188,6 +1238,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "Streptococcus equi subsp. zooepidemicus เป็นเชื้อฉวยโอกาสที่พบบ่อยที่สุดในมดลูกอักเสบของม้าหลังการผสม Taylorella equigenitalis เป็นเชื้อเฉพาะของ CEM ที่พบน้อยและควบคุมด้วยการกักกัน ส่วน Mycobacterium bovis และ Listeria monocytogenes ไม่ใช่เชื้อหลักของมดลูกอักเสบในม้า",
     "verified": "Repro horse final น.56",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 56 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1211,6 +1262,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "closed castration ไม่เปิด vaginal tunic จึงกันไม่ให้ลำไส้หรือ omentum เลื่อนออกมาทาง inguinal ring ที่กว้าง เหมาะกับกรณี scrotal hernia หรือ inguinal hernia การใช้ open castration จะเกิดไส้เลื่อนออกมาหลังผ่าตัดซึ่งเป็นภาวะแทรกซ้อนร้ายแรง ส่วนการกดกลับด้วยมืออย่างเดียวไม่ได้แก้ปัญหาถาวร",
     "verified": "Repro horse final น.23",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 23 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1234,6 +1286,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "emasculator บีบเพื่อห้ามเลือดและตัด spermatic cord ในจังหวะเดียว โดยต้องวางด้านที่บีบไว้ทางฝั่งลำตัวเสมอ Burdizzo เป็นคีมบีบสายโดยไม่ตัดที่ใช้ในโคและแพะ elastrator เป็นห่วงยางที่ใช้ในแกะ ส่วน Henderson tool ใช้บิดสายซึ่งเป็นเทคนิคคนละแบบ",
     "verified": "Repro horse final น.32",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 32 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1257,6 +1310,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "standing castration ทำได้ในม้าที่จับบังคับได้ดี โดยใช้ยาซึมร่วมกับยาชาเฉพาะที่ ข้อดีคือไม่ต้องเสี่ยงกับการวางยาสลบ แต่ผู้ทำต้องระวังการถูกเตะ การให้ม้านอนตะแคงเลือกใช้ในม้าเด็ก ม้าดุ หรือกรณีที่ต้องมองเห็นสนามผ่าตัดชัด อายุไม่ได้จำกัดที่ 3 ปี และการคลำพบอัณฑะครบสองข้างคือเงื่อนไขที่เหมาะกับการผ่าตัดตามปกติ",
     "verified": "Repro horse final น.68",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 68 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1280,6 +1334,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "Scirrhous cord คือการติดเชื้อและอักเสบเรื้อรังของตอ spermatic cord หลังทำ castration ทำให้ตอบวมแข็ง มีหนองและรูระบายเรื้อรังที่แผล การรักษาคือผ่าตัดเอาเนื้อเยื่อที่ติดเชื้อออกให้หมด ส่วนหลอดเลือดขอดของ pampiniform plexus คือ varicocele ซึ่งเป็นคนละภาวะ การบิดหมุนของ cord และเนื้องอก Sertoli cell ก็เป็นคนละโรค",
     "verified": "Repro horse final น.42",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 42 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1303,6 +1358,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "การฉีดยาชาเข้าเนื้ออัณฑะจะกระจายไปตาม spermatic cord ทำให้ชาถึงสาย cord ซึ่งเป็นจุดที่เจ็บที่สุดตอนบีบและตัด ร่วมกับฉีดใต้ผิวหนังตามแนวที่จะลงมีด การฉีดที่ cremaster muscle ไม่ใช่ตำแหน่งที่ใช้ การฉีดที่ perineum ไม่ครอบคลุมอัณฑะ ส่วนการทำ epidural ไม่ใช่วิธีมาตรฐานของการทำหมันม้า",
     "verified": "Repro horse final น.25",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 25 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1326,6 +1382,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "Caslick vulvoplasty คือการเย็บปิดขอบบนของ vulva ให้เหลือช่องเปิดพอปัสสาวะได้ เป็นวิธีมาตรฐานแก้ pneumovagina ที่เกิดจากรูปทรง vulva ไม่ดี และต้องเปิดแผลก่อนคลอดทุกครั้ง urethral extension ใช้แก้ urovagina ส่วน perineal body transection เป็นขั้นตอนหนึ่งของการซ่อม rectovaginal fistula ไม่ใช่การรักษา pneumovagina",
     "verified": "Repro horse final น.71",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 71 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)",
     "examScope": "both"
@@ -1350,6 +1407,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "ยากลุ่ม phenothiazine โดยเฉพาะ acepromazine ทำให้กล้ามเนื้อ retractor penis คลายตัวจนอวัยวะเพศยื่นออกมาและอาจไม่หดกลับ เกิด paraphimosis หรือ penile paralysis จึงควรเลี่ยงในพ่อพันธุ์ ขณะที่ alpha 2 agonist เช่น xylazine ทำให้อวัยวะเพศยื่นชั่วคราวแต่กลับคืนได้ ส่วน opioid และ NSAID ไม่ก่อภาวะนี้",
     "verified": "Repro horse final น.60",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 60 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1373,6 +1431,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "gelding คือม้าเพศผู้ที่ถูกตัดอัณฑะแล้ว ส่วน colt คือม้าเพศผู้อายุน้อยที่ยังไม่ทำหมัน stallion คือพ่อม้าที่ยังสมบูรณ์และใช้ผสมพันธุ์ได้ และ filly คือม้าเพศเมียอายุน้อย",
     "verified": "Repro horse final น.53",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 53 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1396,6 +1455,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "poor conformation ของ vulva ทำให้ปากช่องคลอดปิดไม่สนิทหรือเอียงลาดผิดตำแหน่ง อากาศจึงถูกดูดเข้าไปในช่องคลอด นำไปสู่ vaginitis และ endometritis ตามมา การติดเชื้อและการอักเสบจึงเป็นผลลัพธ์ ไม่ใช่สาเหตุตั้งต้น และฮอร์โมนไม่ใช่กลไกของภาวะนี้",
     "verified": "Equine repro mid 85 น.4, น.5",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }, { "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1419,6 +1479,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "เนื้องอกรังไข่ที่พบบ่อยในม้าคือ granulosa theca cell tumour ซึ่งมักเป็นข้างเดียว การรักษาคือตัดรังไข่ข้างที่เป็นออก แล้วรังไข่อีกข้างที่ถูกกดการทำงานอยู่จะกลับมาทำงานได้ภายในไม่กี่เดือน ไม่เลือก ovariohysterectomy เพราะการเอามดลูกออกในม้ามีความเสี่ยงสูงและตัดโอกาสสืบพันธุ์ทิ้งโดยไม่จำเป็น",
     "verified": "Repro horse final น.59",
+    "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 59 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine reproduction final exam recall (Vet 85)"
   },
@@ -1442,6 +1503,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "การซักประวัติแม่ม้าเน้นข้อมูลของตัวแม่ม้าเอง คือ immuno-prophylaxis profile, previous estrus, previous pregnancy และ mare fertility profile ส่วนความสมบูรณ์พันธุ์ของพ่อม้าเป็นข้อมูลของสัตว์อีกตัวหนึ่ง ใช้ในการประเมิน stallion ไม่ใช่ส่วนหนึ่งของการตรวจแม่ม้า",
     "verified": "Equine repro mid 85 น.2",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 2 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine Reproduction midterm (Vet 85)"
   },
@@ -1465,6 +1527,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "อาการเป็นสัดที่สังเกตได้จากภายนอกคือ receptivity ต่อพ่อม้า การยกหาง และการปัสสาวะถี่ ส่วนคอมดลูกเป็นอวัยวะภายใน มองไม่เห็นจากภายนอก ต้องใช้ vaginal speculum จึงจะดูได้ อาการกระพริบที่เห็นได้จากภายนอกคือการเปิดปิดของคลิตอริส (clitoral winking) ไม่ใช่ของคอมดลูก",
     "verified": "Equine repro mid 85 น.2",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 2 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine Reproduction midterm (Vet 85)"
   },
@@ -1488,6 +1551,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "รังไข่ม้ากลับด้านกับสัตว์ชนิดอื่น คือ cortex อยู่ด้านในและ medulla อยู่ด้านนอก CL จึงฝังอยู่ในเนื้อรังไข่และไม่นูนพ้นผิวให้คลำได้ ต้องอาศัย ultrasound ส่วน uterine tone ฟอลลิเคิลขนาดใหญ่ และถุงหุ้มตัวอ่อนคลำได้ตามปกติ",
     "verified": "Equine repro mid 85 น.2",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 2 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine Reproduction midterm (Vet 85)"
   },
@@ -1511,6 +1575,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "epididymis เป็นท่อพักและทำให้อสุจิเจริญเต็มที่ในสัตว์เพศผู้ จึงไม่มีในแม่ม้า ส่วนรูปร่างบริเวณฝีเย็บ คอมดลูก และตัวมดลูก เป็นรายการมาตรฐานของการตรวจระบบสืบพันธุ์แม่ม้า โดยรูปร่างฝีเย็บสำคัญเพราะสัมพันธ์กับความเสี่ยงต่อ pneumovagina",
     "verified": "Equine repro mid 85 น.2",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 2 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine Reproduction midterm (Vet 85)"
   },
@@ -1534,6 +1599,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "ultrasound เป็นเครื่องมือวินิจฉัย ใช้ดูฟอลลิเคิล CL การตั้งท้อง และความผิดปกติของระบบสืบพันธุ์ แต่ไม่ใช่เครื่องมือที่ทำให้เกิดลูกแฝด การตั้งท้องแฝดเกิดจาก double ovulation ในทางกลับกัน ultrasound คือเครื่องมือที่ใช้ตรวจพบและจัดการลูกแฝดต่างหาก",
     "verified": "Equine repro mid 85 น.2",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 2 }],
     "sourceType": "past-paper",
     "examOrigin": "Equine Reproduction midterm (Vet 85)"
   },
@@ -1557,6 +1623,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "การพบ CL ร่วมกับ uterine edema เท่ากับ 0 และมดลูกมีความตึงตัวดี เป็นภาพของช่วงที่ progesterone เป็นใหญ่ คือ diestrus แม้จะพบฟอลลิเคิล 3.5 ซม. ก็เป็นคลื่นฟอลลิเคิลที่เกิดได้ในช่วงนี้ ส่วน estrus ต้องมี edema สูงและมดลูกคลายตัว anestrus จะไม่มี CL และ transition จะพบฟอลลิเคิลหลายใบที่ไม่ตกไข่\n\n📊 อ่านสี่ค่าพร้อมกัน แล้วระยะจะออกมาเอง\n\n**Estrus** — ฟอลลิเคิลใหญ่ตั้งแต่ 3.5 ซม. | edema 3 ถึง 4 | cervix +3 ถึง +4 | teasing 3 ถึง 4\n**Diestrus** — พบ CL | edema 0 ถึง 1 | cervix +1 ถึง +2 | uterine tone 1 ถึง 2 คือแข็งและเป็นท่อ | teasing 0 ถึง 2\n**Transition** — มีฟอลลิเคิลใหญ่แต่ตรวจซ้ำแล้วไม่ตกไข่ หรือพบฟอลลิเคิลเล็กหลายใบ | edema ปานกลาง | cervix ปานกลาง\n**Anestrus** — ฟอลลิเคิลเล็กหลายใบทั้งสองข้าง รังไข่เล็ก | edema 0 | cervix เล็ก | uterine tone 4 คือนิ่มมาก\n\n💡 uterine tone ให้คะแนน 1 ถึง 4 โดย 1 คือแข็งมากและ 4 คือนิ่มมาก ส่วน cervix score คือความกว้างจากขอบหนึ่งไปอีกขอบเป็นเซนติเมตร และ edema เป็นสกอร์เดียวที่เริ่มนับจาก 0 ไม่ใช่ 1\n💡 ค่าที่ตัดสินเร็วที่สุดคือ edema เพราะเป็นภาพสะท้อนของเอสโตรเจน ยิ่งบวมยิ่งใกล้ตกไข่ ส่วน CL คู่กับ edema 0 คือ diestrus และถ้าเจอ CL พร้อม edema สูง ให้คิดถึงความผิดปกติ เช่นการอักเสบ",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1580,6 +1647,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "uterine edema ที่ระดับสูงสุดเกิดจากอิทธิพลของ estrogen จากฟอลลิเคิลที่โตใกล้ตกไข่ เมื่อรวมกับฟอลลิเคิลขนาด 3.5 ซม. จึงเป็น estrus ชัดเจน diestrus จะมี edema เท่ากับ 0 anestrus จะไม่มีฟอลลิเคิลขนาดใหญ่ ส่วน transition จะพบฟอลลิเคิลหลายใบที่ไม่ตกไข่และ edema ยังไม่สูง\n\n📊 อ่านสี่ค่าพร้อมกัน แล้วระยะจะออกมาเอง\n\n**Estrus** — ฟอลลิเคิลใหญ่ตั้งแต่ 3.5 ซม. | edema 3 ถึง 4 | cervix +3 ถึง +4 | teasing 3 ถึง 4\n**Diestrus** — พบ CL | edema 0 ถึง 1 | cervix +1 ถึง +2 | uterine tone 1 ถึง 2 คือแข็งและเป็นท่อ | teasing 0 ถึง 2\n**Transition** — มีฟอลลิเคิลใหญ่แต่ตรวจซ้ำแล้วไม่ตกไข่ หรือพบฟอลลิเคิลเล็กหลายใบ | edema ปานกลาง | cervix ปานกลาง\n**Anestrus** — ฟอลลิเคิลเล็กหลายใบทั้งสองข้าง รังไข่เล็ก | edema 0 | cervix เล็ก | uterine tone 4 คือนิ่มมาก\n\n💡 uterine tone ให้คะแนน 1 ถึง 4 โดย 1 คือแข็งมากและ 4 คือนิ่มมาก ส่วน cervix score คือความกว้างจากขอบหนึ่งไปอีกขอบเป็นเซนติเมตร และ edema เป็นสกอร์เดียวที่เริ่มนับจาก 0 ไม่ใช่ 1\n💡 ค่าที่ตัดสินเร็วที่สุดคือ edema เพราะเป็นภาพสะท้อนของเอสโตรเจน ยิ่งบวมยิ่งใกล้ตกไข่ ส่วน CL คู่กับ edema 0 คือ diestrus และถ้าเจอ CL พร้อม edema สูง ให้คิดถึงความผิดปกติ เช่นการอักเสบ",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1603,6 +1671,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "มดลูกนิ่ม รังไข่เล็ก และมีเพียงฟอลลิเคิลขนาดราว 1 ซม. โดยไม่พบ CL คือภาพของ anestrus นอกฤดูผสมพันธุ์ ส่วน transition จะมีฟอลลิเคิลขนาดใหญ่ขึ้นหลายใบแต่ไม่ตกไข่ diestrus ต้องพบ CL และ estrus ต้องมี uterine edema สูง ข้อนี้อิงรูปแบบฤดูกาลของเขตอบอุ่นที่บรรยายในชั้นเรียน ม้าที่เลี้ยงในไทยอาจไม่หยุดวงรอบตามเดือนแบบนี้\n\n📊 อ่านสี่ค่าพร้อมกัน แล้วระยะจะออกมาเอง\n\n**Estrus** — ฟอลลิเคิลใหญ่ตั้งแต่ 3.5 ซม. | edema 3 ถึง 4 | cervix +3 ถึง +4 | teasing 3 ถึง 4\n**Diestrus** — พบ CL | edema 0 ถึง 1 | cervix +1 ถึง +2 | uterine tone 1 ถึง 2 คือแข็งและเป็นท่อ | teasing 0 ถึง 2\n**Transition** — มีฟอลลิเคิลใหญ่แต่ตรวจซ้ำแล้วไม่ตกไข่ หรือพบฟอลลิเคิลเล็กหลายใบ | edema ปานกลาง | cervix ปานกลาง\n**Anestrus** — ฟอลลิเคิลเล็กหลายใบทั้งสองข้าง รังไข่เล็ก | edema 0 | cervix เล็ก | uterine tone 4 คือนิ่มมาก\n\n💡 uterine tone ให้คะแนน 1 ถึง 4 โดย 1 คือแข็งมากและ 4 คือนิ่มมาก ส่วน cervix score คือความกว้างจากขอบหนึ่งไปอีกขอบเป็นเซนติเมตร และ edema เป็นสกอร์เดียวที่เริ่มนับจาก 0 ไม่ใช่ 1\n💡 ค่าที่ตัดสินเร็วที่สุดคือ edema เพราะเป็นภาพสะท้อนของเอสโตรเจน ยิ่งบวมยิ่งใกล้ตกไข่ ส่วน CL คู่กับ edema 0 คือ diestrus และถ้าเจอ CL พร้อม edema สูง ให้คิดถึงความผิดปกติ เช่นการอักเสบ",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1626,6 +1695,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "การพบ CL ที่ทำงานอยู่พร้อมกับฟอลลิเคิลขนาด 3 ซม. แปลว่ารังไข่กำลังทำงานเป็นวงรอบ ซึ่งเกิดเฉพาะในฤดูผสมพันธุ์ anestrus จะไม่มี CL เลย การวินิจฉัยตั้งท้องต้องเห็น embryonic vesicle ในมดลูก และ persistent CL วินิจฉัยจากประวัติที่ไม่กลับเป็นสัดนานผิดปกติ ไม่ใช่จากภาพรังไข่ครั้งเดียว\n\n📊 อ่านสี่ค่าพร้อมกัน แล้วระยะจะออกมาเอง\n\n**Estrus** — ฟอลลิเคิลใหญ่ตั้งแต่ 3.5 ซม. | edema 3 ถึง 4 | cervix +3 ถึง +4 | teasing 3 ถึง 4\n**Diestrus** — พบ CL | edema 0 ถึง 1 | cervix +1 ถึง +2 | uterine tone 1 ถึง 2 คือแข็งและเป็นท่อ | teasing 0 ถึง 2\n**Transition** — มีฟอลลิเคิลใหญ่แต่ตรวจซ้ำแล้วไม่ตกไข่ หรือพบฟอลลิเคิลเล็กหลายใบ | edema ปานกลาง | cervix ปานกลาง\n**Anestrus** — ฟอลลิเคิลเล็กหลายใบทั้งสองข้าง รังไข่เล็ก | edema 0 | cervix เล็ก | uterine tone 4 คือนิ่มมาก\n\n💡 uterine tone ให้คะแนน 1 ถึง 4 โดย 1 คือแข็งมากและ 4 คือนิ่มมาก ส่วน cervix score คือความกว้างจากขอบหนึ่งไปอีกขอบเป็นเซนติเมตร และ edema เป็นสกอร์เดียวที่เริ่มนับจาก 0 ไม่ใช่ 1\n💡 ค่าที่ตัดสินเร็วที่สุดคือ edema เพราะเป็นภาพสะท้อนของเอสโตรเจน ยิ่งบวมยิ่งใกล้ตกไข่ ส่วน CL คู่กับ edema 0 คือ diestrus และถ้าเจอ CL พร้อม edema สูง ให้คิดถึงความผิดปกติ เช่นการอักเสบ",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1649,6 +1719,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "ultrasound ทางทวารหนักดูขนาดและรูปร่างของฟอลลิเคิลร่วมกับ uterine edema ได้ในคราวเดียวและรู้ผลทันที จึงทำนายเวลาตกไข่ได้แม่นและเร็วที่สุด vaginal cytology ใช้ได้ดีในสุนัขแต่ในม้าไม่สะท้อนระยะวงรอบชัดเจน อุณหภูมิร่างกายไม่เปลี่ยนสัมพันธ์กับการตกไข่ในม้า และการส่อง speculum ทุก 3 วันหยาบเกินไปสำหรับการจับเวลาตกไข่",
     "verified": "Equine repro mid 85 น.3",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1672,6 +1743,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "การล้วงตรวจเริ่มจากคลำหาจุดแยกของปีกมดลูก แล้วไล่ไปตามปีกมดลูกแต่ละข้างจนถึงรังไข่ ทำให้ตรวจได้ครบและเป็นระบบไม่ตกหล่นข้างใดข้างหนึ่ง cervix คลำได้แต่ไม่ใช่จุดอ้างอิงที่ใช้ไล่ไปหารังไข่ การเริ่มที่รังไข่ข้างเดียวเสี่ยงลืมอีกข้าง ส่วนกระเพาะปัสสาวะไม่ใช่อวัยวะสืบพันธุ์",
     "verified": "Equine repro mid 85 น.3",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1695,6 +1767,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "รังไข่ม้ากลับด้านกับสัตว์ชนิดอื่น คือ cortex ซึ่งเป็นที่อยู่ของฟอลลิเคิลถูกดันเข้าไปอยู่ด้านใน ส่วน medulla อยู่ด้านนอก ผลตามมาสองอย่างที่ต้องจำคู่กันคือ การตกไข่ต้องเกิดเฉพาะที่ ovulation fossa และคลำ CL ทางทวารหนักไม่ได้ แบบที่ cortex อยู่ด้านนอกคือรูปแบบของโคและสุนัข",
     "verified": "Equine repro mid 85 น.3",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1718,6 +1791,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "เพราะ cortex ของรังไข่ม้าอยู่ด้านใน ฟอลลิเคิลจึงออกสู่ภายนอกได้เฉพาะที่ ovulation fossa ซึ่งเป็นรอยบุ๋มจุดเดียวที่ cortex มาสัมผัสผิวรังไข่ ต่างจากโคหรือสุนัขที่ตกไข่ได้ทั่วผิวรังไข่ ส่วน mesovarium เป็นเยื่อแขวนรังไข่ ไม่ใช่ตำแหน่งตกไข่",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1741,6 +1815,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "ฟอลลิเคิลก่อนตกไข่ของม้าใหญ่กว่าสัตว์ชนิดอื่นมาก โดยทั่วไปประมาณ 3.5 ถึง 4 ซม. ขนาด 1 ถึง 2.5 ซม. ยังเป็นฟอลลิเคิลระยะกำลังเจริญ ส่วนขนาดที่ใหญ่เกินช่วงนี้ไปมากพบได้ในฟอลลิเคิลที่ไม่ตกไข่ ตัวเลขนี้ใช้เป็นเกณฑ์ตัดสินใจว่าจะกระตุ้นการตกไข่หรือผสมเมื่อไร",
     "verified": "Equine repro mid 85 น.3",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1764,6 +1839,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "ม้าเป็นสัตว์ที่เป็นสัดหลายรอบเฉพาะบางฤดู คือช่วงวันยาว จึงเป็น seasonal polyestrus และตกไข่ได้เองโดยไม่ต้องอาศัยการผสม จึงเป็น spontaneous ovulation แมวและกระต่ายเป็นตัวอย่างของ induced ovulation ส่วนสุนัขเป็น monoestrus",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1787,6 +1863,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "เมลาโทนินสร้างจากต่อม pineal gland และหลั่งมากในช่วงมืด จึงหลั่งมากในช่วงวันสั้น ผลของมันคือกดการสร้าง GnRH ทำให้ม้าเข้าสู่ anestrus การเพิ่มชั่วโมงแสงเทียมจึงลดเมลาโทนินและปลดการกดนี้ ข้อที่ระบุ posterior pituitary ผิด เพราะต่อมนั้นหลั่ง oxytocin และ ADH",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1810,6 +1887,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "ม้าเป็น long day breeder การเพิ่มชั่วโมงแสงเทียมทำให้เมลาโทนินลดลง GnRH จึงกลับมาหลั่ง แม่ม้าที่อยู่ใน anestrus ช่วงวันสั้นจึงกลับมามีวงรอบการเป็นสัดเร็วขึ้น การเพิ่มแสงไม่ได้กระตุ้นให้ตกไข่หลายใบ ซึ่งต้องใช้ฮอร์โมน และไม่มีผลเปลี่ยนกำหนดคลอด",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1833,6 +1911,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "CL ของม้าต้องเจริญจนมี receptor ต่อ PGF2 alpha เสียก่อน ซึ่งใช้เวลาราว 5 ถึง 6 วันหลังตกไข่ การฉีด prostaglandin ก่อนหน้านั้นจะไม่ทำให้ CL สลาย เป็นข้อผิดพลาดที่พบบ่อยเวลาวางโปรแกรมกำหนดการเป็นสัด ส่วนวันที่ 10 ถึง 16 CL ยังตอบสนองอยู่ แต่ไม่ใช่วันที่เริ่มตอบสนอง",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1856,6 +1935,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "ม้าที่มี two-follicular wave pattern จะมีคลื่นฟอลลิเคิลรองเกิดขึ้นในช่วง diestrus และฟอลลิเคิลจากคลื่นนั้นอาจโตจนตกไข่ได้ทั้งที่ยังมี CL อยู่ จึงเรียกว่า diestrus ovulation ส่วนม้าที่มีคลื่นเดียวจะมีฟอลลิเคิลเด่นเฉพาะช่วงท้าย diestrus ต่อเนื่องเข้า estrus จึงไม่เกิดภาวะนี้",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1880,6 +1960,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "ตัวอ่อนม้าเคลื่อนที่ไปทั่วทั้งสองปีกมดลูกวันละหลายรอบในช่วงก่อน fixation เพื่อส่งสัญญาณยับยั้งการหลั่ง PGF2 alpha ให้ทั่วทั้งมดลูก interferon-tau เป็นสัญญาณของสัตว์เคี้ยวเอื้อง estrogen จาก conceptus เป็นสัญญาณของสุกร ส่วน prostaglandin E ในม้าสร้างจากตัวอ่อนเพื่อช่วยการเคลื่อนผ่านท่อนำไข่ ไม่ใช่จากเยื่อบุมดลูก",
     "verified": "Equine repro mid 85 น.5; สอนในคาบมิดเทอม zFsNom4JMC8 [11:41]",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1903,6 +1984,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "interferon-tau เป็นสัญญาณ maternal recognition ของสัตว์เคี้ยวเอื้อง เช่น โคและแกะ ในม้าใช้กลไกการเคลื่อนที่ของตัวอ่อนแทน ในสุกรใช้ estrogen จาก conceptus ส่วนสุนัขไม่ต้องมีสัญญาณจากตัวอ่อน เพราะ CL คงอยู่นานเท่ากันทั้งตอนท้องและไม่ท้อง",
     "verified": "Equine repro mid 85 น.5",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1927,6 +2009,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "endometrial cups เริ่มก่อตัวราววันที่ 35 ถึง 40 ของการตั้งท้อง แล้วอยู่ต่อไปอีกหลายเดือน จุดนี้คือเส้นแบ่งทางคลินิกที่สำคัญ เพราะการเสียตัวอ่อนก่อนวันนี้ม้าจะกลับเป็นสัดตามปกติ แต่ถ้าเสียหลังจากนี้ cups ที่สร้างไปแล้วจะทำให้ม้าไม่กลับมาเป็นสัดไปอีกนาน",
     "verified": "Equine repro mid 85 น.5; สอนในคาบมิดเทอม zFsNom4JMC8 [0:41]",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1951,6 +2034,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "เมื่อทำลายตัวอ่อนหลังวันที่ 35 ถึง 40 endometrial cup ที่สร้างขึ้นแล้วจะยังคงอยู่และหลั่ง eCG ต่อไป ทำให้เกิด accessory CL และมี progesterone ค้างในระบบ ม้าจึงไม่กลับมาเป็นสัดจนกว่า cup จะสลายไปเอง ส่วนมดลูกอักเสบและความเครียดไม่ใช่กลไกที่อธิบายการไม่กลับเป็นสัดยาวนานแบบนี้",
     "verified": "Equine repro mid 85 น.3; สอนในคาบมิดเทอม FBNU52oH1z8 [38:43]",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1975,6 +2059,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "endometrial cup ที่สร้างขึ้นแล้วจะคงอยู่และหลั่ง eCG ต่อไปแม้ตัวอ่อนจะตายแล้ว จึงกดไม่ให้ม้ากลับมาเป็นสัด ต้องรอจน cup สลายไปเองซึ่งกินเวลาราว 3 เดือน ต่างจากการเสียตัวอ่อนก่อนวันที่ 35 ที่ม้าจะกลับมาเป็นสัดภายในไม่กี่สัปดาห์",
     "verified": "Equine repro mid 85 น.3; สอนในคาบมิดเทอม zFsNom4JMC8 [0:41]",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -1999,6 +2084,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "endometrial cups สร้าง eCG ซึ่งเดิมเรียก PMSG มีฤทธิ์คล้าย LH ในม้า ทำให้เกิด accessory CL และช่วยพยุงการตั้งท้องช่วงแรก hCG มาจากรกของคน FSH สร้างจากต่อมใต้สมองส่วนหน้า ส่วน PGF2 alpha สร้างจากเยื่อบุมดลูกและมีฤทธิ์สลาย CL ซึ่งตรงข้ามกับสิ่งที่ cups ทำ",
     "verified": "Equine repro mid 85 น.5; สอนในคาบมิดเทอม zFsNom4JMC8 [0:41]",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2022,6 +2108,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "รกม้าเป็นแบบ diffuse epitheliochorial คือมี microcotyledon กระจายอยู่ทั่วผิวรกทั้งใบ ไม่รวมกลุ่มเป็นปุ่ม cotyledonary เป็นแบบของโคและแกะซึ่งประกบกับ caruncle เกิดเป็น placentome zonary เป็นแบบของสุนัขและแมว ส่วน discoid เป็นแบบของคนและสัตว์ฟันแทะ",
     "verified": "Equine repro mid 85 น.5",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2045,6 +2132,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "ระยะตั้งท้องของม้าประมาณ 11 เดือน ผสมเดือนเมษายนจึงคลอดราวเดือนมีนาคมของปีถัดไป การนับผิดเป็น 9 หรือ 12 เดือนเป็นความสับสนที่มาจากการเทียบกับคนหรือโค ซึ่งมีระยะตั้งท้องต่างกัน",
     "verified": "Equine repro mid 85 น.5",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2069,6 +2157,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "ก่อน fixation ราววันที่ 16 ตัวอ่อนยังเคลื่อนที่ได้ จึงนิยมบีบทำลายตัวอ่อนใบหนึ่งผ่านทางทวารหนัก แต่หลัง fixation ตัวอ่อนยึดอยู่กับที่แล้ว จึงใช้การเจาะถุงตัวอ่อนภายใต้ ultrasound guidance ส่วนการฉีด prostaglandin ยุติการตั้งท้องทั้งหมด ไม่ใช่การลดจำนวนตัวอ่อน และถ้าจะเลือกทางนั้นต้องตัดสินใจก่อนวันที่ 35 เพราะเมื่อ endometrial cup สร้างขึ้นแล้ว มันจะหลั่ง eCG ต่อไปแม้ตัวอ่อนจะไม่อยู่ แม่ม้าจึงไม่กลับมาเป็นสัดที่ผสมติดอีกหลายเดือน",
     "verified": "Equine repro mid 85 น.4; สอนในคาบมิดเทอม FBNU52oH1z8 [38:43]",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2093,6 +2182,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "ลูกแฝดในม้าเกิดจาก double ovulation เป็นหลัก ส่วน embryonic division หรือการแบ่งตัวของตัวอ่อนพบได้น้อยมากในม้า การตกไข่ในระยะ diestrus เป็นคนละภาวะกันและไม่ได้เป็นสาเหตุหลัก และในทางปฏิบัติการย้ายฝากตัวอ่อนจะทำครั้งละหนึ่งใบ",
     "verified": "Equine repro mid 85 น.3-4; สอนในคาบมิดเทอม FBNU52oH1z8 [38:43]",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }, { "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2116,6 +2206,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "foal heat คือการเป็นสัดรอบแรกของแม่ม้าหลังคลอด โดยทั่วไปเกิดราว 5 ถึง 12 วันหลังคลอด คำว่า foal ในชื่อหมายถึงว่ามีลูกม้าอยู่ข้างกาย ไม่ได้แปลว่าเป็นการเป็นสัดของลูกม้า และไม่เกี่ยวกับอาการไข้แต่อย่างใด",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2139,6 +2230,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "hCG มีฤทธิ์คล้าย LH ในม้า จึงใช้กระตุ้นฟอลลิเคิลที่โตพร้อมแล้วให้ตกไข่ในกรอบเวลาที่คาดเดาได้ ทำให้จับเวลาผสมได้แม่นขึ้น PGF2 alpha ใช้สลาย CL เพื่อเรียกการเป็นสัด ไม่ใช่เพื่อให้ตกไข่ progesterone ใช้กดวงรอบ ส่วน eCG ไม่ใช่ตัวเลือกที่ใช้กระตุ้นการตกไข่ในม้า",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2162,6 +2254,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "การปล่อยน้ำเชื้อในตัวมดลูกทำให้อสุจิกระจายไปยังปีกมดลูกทั้งสองข้างและขึ้นสู่ท่อนำไข่ได้ดี จึงเป็นตำแหน่งมาตรฐานของการผสมเทียมม้า การปล่อยในช่องคลอดหรือในรูคอมดลูกทำให้อัตราการปฏิสนธิต่ำกว่า ส่วนการปล่อยเข้าปีกมดลูกข้างเดียวเป็นเทคนิคเฉพาะทางสำหรับน้ำเชื้อปริมาณน้อยมาก ไม่ใช่วิธีทั่วไป",
     "verified": "Equine repro mid 85 น.5",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2185,6 +2278,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "ตัวอ่อนม้าเข้าสู่มดลูกในวันที่ 6 ถึง 7 หลังตกไข่ ในระยะ morula ถึง early blastocyst เมื่อชะล้างเก็บในวันที่ 7 จึงได้ตัวอ่อนระยะ blastocyst ที่มีแคปซูลหุ้มแล้ว ระยะ 2 ถึง 4 เซลล์ยังอยู่ในท่อนำไข่ จึงล้างจากมดลูกไม่ได้ และยังห่างไกลจากระยะ fetus มาก",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2208,6 +2302,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "ตัวอ่อนม้าระยะ expanded blastocyst มีขนาดใหญ่และมีแคปซูลหนา สารป้องกันการแข็งตัวจึงซึมเข้าได้ยาก เกิดผลึกน้ำแข็งภายในและอัตรารอดหลังการละลายต่ำ ตัวอ่อนระยะเล็กกว่าเช่น morula ถึง early blastocyst แช่แข็งได้ผลดีกว่ามาก อุณหภูมิและเวลาที่ใช้ไม่ใช่ตัวแปรที่แตกต่างกันตามระยะตัวอ่อน",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2231,6 +2326,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "มดลูกของตัวรับต้องอยู่ในช่วงที่ progesterone สอดคล้องกับอายุของตัวอ่อนที่ย้ายฝาก จึงต้อง synchronise ให้ตกไข่ใกล้เคียงกับตัวให้ ถ้าห่างกันหลายวันมดลูกจะไม่พร้อมรับตัวอ่อน ส่วน recipient ที่อยู่ใน anestrus ไม่มี CL จึงไม่มี progesterone พยุงการตั้งท้องเลย",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2254,6 +2350,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "โอโอไซต์เป็นเซลล์ haploid เมื่อดูดนิวเคลียสเดิมออกแล้วใส่นิวเคลียสจากเซลล์ร่างกายซึ่งเป็น diploid เข้าไปแทน ตัวอ่อนที่ได้จึงมีชุดโครโมโซมครบเป็น diploid ถ้าไม่ดูดออกจะได้ชุดโครโมโซมเกิน การดูดนิวเคลียสไม่ได้กำจัดไมโทคอนเดรีย เพราะไมโทคอนเดรียอยู่ในไซโทพลาซึม ซึ่งเป็นเหตุผลที่ลูกโคลนไม่เหมือนต้นแบบ 100 เปอร์เซ็นต์",
     "verified": "Equine repro mid 85 น.3",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2277,6 +2374,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "นิวเคลียสที่ใส่เข้าไปมาจากเซลล์ต้นแบบทั้งหมด แต่ไมโทคอนเดรียซึ่งมี DNA ของตัวเองยังคงมาจากโอโอไซต์ของแม่ผู้ให้ไข่ ลูกที่ได้จึงเหมือนต้นแบบราว 99 เปอร์เซ็นต์ ไม่ใช่ 100 เปอร์เซ็นต์ ตัวเลข 50 เปอร์เซ็นต์เป็นสัดส่วนของการผสมพันธุ์ตามปกติที่ได้จากพ่อและแม่อย่างละครึ่ง",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2300,6 +2398,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "ระเบียบของ Jockey club กำหนดให้ Thoroughbred ที่จะขึ้นทะเบียนแข่งต้องเกิดจากการผสมจริงเท่านั้น ห้ามใช้การผสมเทียม การย้ายฝากตัวอ่อน หรือการโคลนนิ่ง ต่างจากม้าพันธุ์อื่นอีกหลายพันธุ์ที่อนุญาตให้ใช้เทคโนโลยีเหล่านี้ในการขึ้นทะเบียนได้",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2323,6 +2422,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "ตัวอ่อนม้าสร้าง prostaglandin E ซึ่งทำให้กล้ามเนื้อเรียบของท่อนำไข่ส่วนท้ายและ utero-tubal junction คลายตัว ตัวอ่อนจึงผ่านเข้าสู่มดลูกได้ ส่วนโอโอไซต์ที่ไม่ได้รับการปฏิสนธิไม่สร้าง PGE จึงค้างอยู่ในท่อนำไข่ได้นานเป็นเดือน ตัวอ่อนไม่ได้เล็กกว่าโอโอไซต์ และแคปซูลไม่ใช่กลไกที่เปิดทางผ่าน",
     "verified": "Equine repro mid 85 น.4-5",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }, { "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2346,6 +2446,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "PGE ทำให้กล้ามเนื้อเรียบของท่อนำไข่คลายตัว จึงใช้ป้ายบริเวณท่อนำไข่เพื่อเปิดทางให้มิวคัสที่อุดตันหลุดออกไปได้ oxytocin และ PGF2 alpha ทำให้กล้ามเนื้อมดลูกบีบตัว จึงใช้ขับของเหลวออกจากมดลูก ไม่ได้แก้การอุดตันของท่อนำไข่ ส่วน progesterone ไม่มีผลในเรื่องนี้",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2369,6 +2470,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "Caslick's operation หรือ Caslick vulvoplasty คือการเย็บปิดขอบช่องคลอดส่วนบนให้เหลือช่องเปิดด้านล่างพอปัสสาวะได้ ลดการดูดอากาศเข้าช่องคลอด เป็นวิธีมาตรฐานสำหรับ pneumovagina ที่เกิดจาก poor vulvar conformation ส่วน Buhner's operation ใช้แก้ช่องคลอดปลิ้นในโค และ marsupialization ใช้กับถุงน้ำหรือฝี ไม่ใช่ข้อบ่งใช้นี้",
     "verified": "Equine repro mid 85 น.3, น.5",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }, { "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2392,6 +2494,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "ด่านกั้นทางกายภาพของแม่ม้าเรียงจากนอกเข้าใน ได้แก่ ปากช่องคลอด (vulvar lips) และ vestibulovaginal fold โดยตำรามาตรฐานนับคอมดลูกเป็นด่านที่สามด้วย เมื่อรูปร่างฝีเย็บผิดปกติ ด่านนอกสุดทำงานได้ไม่ดี อากาศจึงเข้าช่องคลอดได้ ส่วนท่อปัสสาวะ เยื่อบุมดลูก และท่อนำไข่ ไม่ได้ทำหน้าที่กั้นอากาศ",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2415,6 +2518,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "การผสมพันธุ์นำน้ำเชื้อและแบคทีเรียเข้าสู่มดลูก จึงเกิดการอักเสบตอบสนองเสมอ เรียกว่า post breeding endometritis แม่ม้าปกติจะกำจัดได้ภายใน 24 ถึง 48 ชั่วโมง แต่แม่ม้าที่กำจัดไม่ได้จะกลายเป็น persistent endometritis การอักเสบหลังคลอดพบได้แต่ไม่ใช่รูปแบบที่พบบ่อยที่สุด และช่วงตั้งท้องกับ anestrus มดลูกอยู่ใต้ progesterone จึงไม่ใช่ช่วงที่พบบ่อย",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2438,6 +2542,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "การอักเสบเรื้อรังของเยื่อบุมดลูกทำให้สภาพแวดล้อมในมดลูกไม่เหมาะกับตัวอ่อน เกิดการตายของตัวอ่อนในระยะแรกและนำไปสู่ภาวะมีบุตรยาก ไม่ได้ทำให้เกิดลูกแฝดซึ่งมาจาก double ovulation และไม่ได้เปลี่ยนความยาวของการตั้งท้อง",
     "verified": "Equine repro mid 85 น.3",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2461,6 +2566,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "Streptococcus zooepidemicus เป็นเชื้อฉวยโอกาสที่พบมากที่สุดใน post breeding endometritis และ metritis ของแม่ม้า Taylorella equigenitalis เป็นเชื้อของโรค contagious equine metritis ซึ่งเป็นโรคติดต่อทางการผสมพันธุ์ที่พบไม่บ่อยแต่ต้องควบคุม Streptococcus equi subsp. equi ก่อโรค strangles ในระบบทางเดินหายใจ ส่วน Klebsiella ก่อ endometritis ได้แต่พบน้อยกว่ามาก",
     "verified": "Equine repro mid 85 น.5",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2484,6 +2590,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "EHV type 1 เป็นสาเหตุหลักของการแท้งในแม่ม้า และยังก่อ encephalomyelitis ได้ด้วย EHV type 3 ก่อ equine coital exanthema คือตุ่มใสที่อวัยวะสืบพันธุ์ภายนอก EHV type 4 ก่ออาการทางระบบทางเดินหายใจเป็นหลัก และ EHV type 2 ไม่ใช่สาเหตุของการแท้ง",
     "verified": "Equine repro mid 85 น.3",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2507,6 +2614,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "EHV เป็น DNA virus ที่เพิ่มจำนวนภายในนิวเคลียส จึงพบ eosinophilic intranuclear inclusion body ในเนื้อเยื่อของลูกม้าแท้ง โดยเฉพาะในตับและปอด inclusion ในไซโทพลาซึมเป็นลักษณะของไวรัสกลุ่มอื่นเช่น poxvirus ส่วน neutrophilic infiltration พบได้ทั่วไปในการอักเสบจากแบคทีเรีย จึงไม่จำเพาะพอจะยืนยันเชื้อ",
     "verified": "Equine repro mid 85 น.3",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2530,6 +2638,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 1,
     "explain": "EHV type 3 ก่อโรค equine coital exanthema ซึ่งเป็นตุ่มใสและแผลที่อวัยวะสืบพันธุ์ภายนอก ติดต่อทางการผสมพันธุ์ แต่โดยทั่วไปไม่ทำให้แท้งและไม่กระทบความสมบูรณ์พันธุ์ในระยะยาว EHV type 1 ทำให้แท้ง EAV ก่อ equine viral arteritis และ Taylorella equigenitalis ก่อ contagious equine metritis",
     "verified": "Equine repro mid 85 น.3, น.5",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }, { "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2553,6 +2662,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "EVA แพร่ได้ทางน้ำเชื้อ และพ่อม้าที่หายป่วยแล้วส่วนหนึ่งกลายเป็นตัวพาหะที่ปล่อยเชื้อออกมากับน้ำเชื้ออย่างเรื้อรัง จึงเป็นโรคหลักที่ต้องตรวจก่อนนำเข้าหรือส่งออกน้ำเชื้อ influenza และ strangles แพร่ทางระบบทางเดินหายใจ ส่วน EIA แพร่ทางเลือดและแมลงดูดเลือดเป็นหลัก",
     "verified": "Equine repro mid 85 น.3, น.5",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }, { "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2576,6 +2686,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "Dourine เกิดจาก Trypanosoma equiperdum ซึ่งเป็นโปรโตซัวที่ถ่ายทอดโดยตรงจากการผสมพันธุ์โดยไม่ต้องมีแมลงพาหะ ซึ่งต่างจากทริปพาโนโซมชนิดอื่น Glanders ติดต่อทางการสัมผัสและการกิน Tetanus เข้าทางบาดแผล ส่วน influenza ติดต่อทางละอองฝอย",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2599,6 +2710,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "Taylorella equigenitalis เป็นแบคทีเรียก่อโรค contagious equine metritis ทำให้แม่ม้ามีมูกหนองไหลจากช่องคลอดและมีบุตรยาก ส่วนพ่อม้ามักไม่แสดงอาการแต่เป็นพาหะที่ผิวหนังบริเวณอวัยวะเพศ ทำให้ควบคุมโรคยาก equine coital exanthema เกิดจาก EHV type 3 EVA เกิดจาก EAV และ Dourine เกิดจาก Trypanosoma equiperdum",
     "verified": "Equine repro mid 85 น.3",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 3 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2622,6 +2734,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "Flehmen คือการยกริมฝีปากบนขึ้นเพื่อดันกลิ่นเข้าสู่ vomeronasal organ พบบ่อยที่สุดในพ่อม้าที่ดมกลิ่นปัสสาวะหรือกลิ่นตัวของแม่ม้าที่เป็นสัด",
     "verified": "Equine repro mid 85 น.5",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2645,6 +2758,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 0,
     "explain": "gelding คือม้าเพศผู้ที่ถูกตอนแล้ว จึงไม่ใช้เป็นพ่อพันธุ์และมักใช้เป็นม้าขี่หรือม้าทำงาน ม้าเพศผู้ที่ยังไม่ถูกตอนและใช้เป็นพ่อพันธุ์เรียก stallion ม้าเพศเมียโตเต็มวัยเรียก mare และม้าเพศเมียอายุน้อยเรียก filly",
     "verified": "Equine repro mid 85 น.5",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2668,6 +2782,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 2,
     "explain": "เมื่อวงรอบการเป็นสัดยังปกติ แสดงว่ารังไข่และแกนฮอร์โมนทำงานได้ ปัญหาจึงมักอยู่ที่การจับเวลาผสมให้ตรงกับช่วงตกไข่ ถ้าผสมห่างจากการตกไข่มากเกินไปก็ไม่เกิดการปฏิสนธิ ส่วน granulosa cell tumor และความผิดปกติของโครโมโซมเพศมักทำให้วงรอบการเป็นสัดผิดปกติร่วมด้วย และ anestrus ก็จะไม่มีวงรอบให้เห็นตั้งแต่แรก",
     "verified": "Equine repro mid 85 น.4",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 4 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },
@@ -2691,6 +2806,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
     "answer": 3,
     "explain": "caruncle เป็นปุ่มบนเยื่อบุมดลูกของสัตว์เคี้ยวเอื้อง เช่น โคและแกะ ซึ่งจะประกบกับ cotyledon ของรกกลายเป็น placentome ม้าและสุกรมีรกแบบ diffuse จึงไม่มี caruncle ส่วนสุนัขมีรกแบบ zonary ซึ่งเป็นแถบคาดรอบตัวอ่อน",
     "verified": "Equine repro mid 85 น.5",
+    "sourcePages": [{ "doc": "equine-repro-mid85", "edition": "5p", "page": 5 }],
     "sourceType": "student-compilation",
     "examOrigin": "Equine Reproduction midterm recall (Vet 85)"
   },

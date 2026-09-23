@@ -358,6 +358,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_D = [
     "explain": "CCHF เป็น Nairovirus ที่มี Ixodid หรือ hard tick เป็น vector สัตว์ป่าและสัตว์เลี้ยงหลายชนิดทำหน้าที่ amplifying hosts คนติดได้จากเห็บและการสัมผัสเลือดหรือเนื้อเยื่อโดยตรงหรือโดยอ้อม จึงต้องลดทั้ง tick-to-human, animal-to-human และ human-to-human exposure\n\n❌ ทำไมข้ออื่นผิด\n— Aedes/Culex กับ abortion ในสัตว์เคี้ยวเอื้องเป็น package ของ Rift Valley fever\n— Culex, bird amplifier และ neurologic disease เชื่อมกับ West Nile fever\n— Aedes, primate และวัคซีนหนึ่งโดสเชื่อมกับ yellow fever\n— Haemaphysalis และ thrombocytopenia-leukocytopenia เชื่อมกับ SFTS มากกว่า CCHF\n\n💡 CCHF = hard tick + hemorrhage + blood/tissue exposure",
     "source": "vector borne viral zoonosis",
     "verified": "vector borne viral zoonosis pp.31-34 + ซูสุขติ mid น.6",
+    "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 6 }],
     "sourceType": "lecture-derived",
     "examScope": "midterm",
     "curriculumVersion": "2569-1",

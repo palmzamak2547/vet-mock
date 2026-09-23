@@ -8837,6 +8837,7 @@ export const QUESTIONS_MID86_MILK_MEAT_HYGIENE = [
     "explain": "เรียงตามอุณหภูมิได้ดังนี้ LTLT ใช้ 63 องศาเซลเซียส นาน 30 นาที HTST ใช้ 72 ถึง 75 องศาเซลเซียส นาน 15 ถึง 20 วินาที sterilization ใช้ 115 ถึง 120 องศาเซลเซียส นาน 20 ถึง 30 นาที และ ultra pasteurization ใช้ 125 ถึง 138 องศาเซลเซียส นาน 2 ถึง 4 วินาที จึงสูงที่สุดในสี่ข้อนี้\n\n❌ ทำไมข้ออื่นผิด\n— LTLT และ HTST เป็นการพาสเจอร์ไรส์ซึ่งใช้ความร้อนต่ำกว่าจุดเดือด\n— sterilization ใช้เวลานานแต่อุณหภูมิยังต่ำกว่า ultra pasteurization",
     "source": "ชีทรุ่นพี่ สุขศาสตร์น้ำนม (บล็อก อ.สหฤทัย)",
     "verified": "ชีทรุ่นพี่ บล็อก 7 ข้อ 53; Milk Hygiene MID 85 น.124",
+    "sourcePages": [{ "doc": "milk-hygiene-mid85", "edition": "143p", "page": 124 }],
     "tags": [
       "milk-processing"
     ]

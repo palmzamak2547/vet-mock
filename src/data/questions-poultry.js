@@ -1374,7 +1374,8 @@ export const QB_POULTRY = [
     q: 'Biosecurity แบ่งเป็น 3 levels ได้แก่ ____ (ตำแหน่งฟาร์ม + design), ____ (อาคาร + footbath + ระบบลม), และ ____ (SOP + daily practice)',
     blanks: ['Conceptual', 'Structural', 'Procedural'],
     explain: '3 levels: Conceptual (ระดับแนวคิด, ตำแหน่งฟาร์ม + design) → Structural (โครงสร้างกายภาพ, fence, footbath, ระบบลม) → Procedural (วิธีปฏิบัติ, SOP, daily practice), ทุก level ต้องทำควบคู่กัน',
-    verified: 'TJ p3 + Lecture 2026 — appears as fill-in across Vet 85/86' },
+    verified: 'TJ p3 + Lecture 2026 — appears as fill-in across Vet 85/86',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 3 }] },
 
   { id: 4002, subject: 'poultry', topic: 'mahahon-poultry-biosec', year: 4,
     source: 'Poultry Final TJ.pdf p3 — fill-in style across years', sourceType: 'student-compilation',
@@ -1382,7 +1383,8 @@ export const QB_POULTRY = [
     q: 'สมการของ Disease ตามแนวทางอ.เกรียงวิทย์/อ.ณทยา คือ Disease = ____ × ____ × ____',
     blanks: ['Virulence', 'Frequency', 'Dose'],
     explain: 'Disease = virulence × frequency × dose, กลไกควบคุม disease = ลด 1 ใน 3 ปัจจัย, biosecurity ลด frequency + dose, vaccine ลด virulence',
-    verified: 'TJ p3 + p8 — repeated across years' },
+    verified: 'TJ p3 + p8 — repeated across years',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 3 }] },
 
   { id: 4003, subject: 'poultry', topic: 'mahahon-poultry-biosec', year: 4,
     source: 'Poultry Final TJ.pdf p4', sourceType: 'student-compilation',
@@ -1391,7 +1393,8 @@ export const QB_POULTRY = [
     options: ['5 ตัวอย่าง, wing vein', '20 ตัวอย่าง', '100 ตัวอย่าง, leg vein', '50 ตัวอย่าง, femoral'],
     answer: 1,
     explain: '20 ตัวอย่าง/โรงเรือน, 1 ml/ตัว, หัวใจ (cardiac puncture, sacrifice), Rt jugular, brachial vein, เก็บ Ab หลังเชื้อเข้า 2 wk, pair serum ตรวจ acute + convalescent\n\n💡 1 ml/ตัว, หัวใจ, Rt jugular, brachial vein',
-    verified: 'TJ p4' },
+    verified: 'TJ p4',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 4 }] },
 
   { id: 4004, subject: 'poultry', topic: 'mahahon-poultry-biosec', year: 4,
     source: 'Poultry Final TJ.pdf p4', sourceType: 'student-compilation',
@@ -1400,7 +1403,8 @@ export const QB_POULTRY = [
     options: ['Cleft palate swab (ฟ่างปาก)', 'Cloacal swab (ปากทวาร)', 'Boot/Drag swab + กระดาษรองกล่อง', 'Water sample จากบ่อน้ำ'],
     answer: 2,
     explain: 'Boot swab/Drag swab + กระดาษรองกล่อง = test Salmonella, Cleft palate = respiratory (NDV/influ/Mycoplasma), Cloacal = GI (NDV/influ/Mycoplasma/IBD), Water = bact/fungal/pH/heavy metal',
-    verified: 'TJ p4 #9 #14' },
+    verified: 'TJ p4 #9 #14',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 4 }] },
 
   { id: 4005, subject: 'poultry', topic: 'mahahon-poultry-biosec', year: 4,
     source: 'Poultry Final TJ.pdf p4', sourceType: 'student-compilation',
@@ -1409,7 +1413,8 @@ export const QB_POULTRY = [
     options: ['Salmonella, E. coli', 'Coccidia, parasites', 'IBD + Reovirus only', 'NDV + Influenza + Mycoplasma'],
     answer: 3,
     explain: 'Cleft palate swab = respiratory infection, NDV + Avian Influenza + Mycoplasma, Cloacal = NDV + Influ + Mycoplasma + IBD (GI side)',
-    verified: 'TJ p4 #10-11' },
+    verified: 'TJ p4 #10-11',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 4 }] },
 
   { id: 4006, subject: 'poultry', topic: 'mahahon-poultry-biosec', year: 4,
     source: 'Poultry Final TJ.pdf p4', sourceType: 'student-compilation',
@@ -1418,7 +1423,8 @@ export const QB_POULTRY = [
     options: ['Specificity สูง = false positive สูง', 'Specificity สูง = false positive ต่ำ', 'Specificity ต่ำต้องเพิ่มจำนวน sample', 'Sensitivity ต่ำต้องเพิ่มจำนวน sample'],
     answer: 0,
     explain: 'Specificity สูง → false positive ต่ำ (correctly identifies negatives) ดังนั้น "specificity สูง = false positive สูง" ผิด, Se/Sp ต่ำ → ต้องเพิ่ม sample size',
-    verified: 'TJ p4 #2' },
+    verified: 'TJ p4 #2',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 4 }] },
 
   // ── L10-11 Drugs (นิวัตร) — TJ p5 ──
   { id: 4007, subject: 'poultry', topic: 'mahahon-poultry-drugs', year: 4,
@@ -1428,7 +1434,8 @@ export const QB_POULTRY = [
     options: ['ดีที่สุด: ฉีด, ทำจริง: กิน', 'ดีที่สุด: การจุ่ม (Dip), ทำจริง: พ่นบนตัว', 'ดีที่สุด: ทาผิว, ทำจริง: ฉีด', 'ดีที่สุด: กิน, ทำจริง: ทาผิว'],
     answer: 1,
     explain: 'Dip = ดีที่สุด (ครอบคลุมทุกซอก) แต่ทำจริงไม่ได้ในฟาร์มขนาดใหญ่ → Spray เป็น practical, ทั้ง 2 ต้อง dilute ตาม label',
-    verified: 'TJ p5 #1-2' },
+    verified: 'TJ p5 #1-2',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 5 }] },
 
   { id: 4008, subject: 'poultry', topic: 'mahahon-poultry-drugs', year: 4,
     source: 'Poultry Final TJ.pdf p5', sourceType: 'student-compilation',
@@ -1437,7 +1444,8 @@ export const QB_POULTRY = [
     options: ['Enrofloxacin', 'Tylosin', 'Neomycin', 'Doxycycline', 'Amoxicillin'],
     answer: 2,
     explain: 'Neomycin = aminoglycoside ที่ดูดซึมจากลำไส้ได้น้อยมาก → ไม่มี systemic residue → ไม่ต้องมี withdrawal, ใช้ลด GI bacteria ก่อนผ่าตัดได้',
-    verified: 'TJ p5 #3' },
+    verified: 'TJ p5 #3',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 5 }] },
 
   { id: 4009, subject: 'poultry', topic: 'mahahon-poultry-drugs', year: 4,
     source: 'Poultry Final TJ.pdf p5', sourceType: 'student-compilation',
@@ -1446,7 +1454,8 @@ export const QB_POULTRY = [
     options: ['Tetracycline antibiotics', 'Penicillin antibiotics', 'Ionophore coccidiostats', 'Sulfonamide antibiotics'],
     answer: 2,
     explain: 'Ionophore coccidiostats: Monensin, Salinomycin, Narasin, Maduramicin = ห้ามในไก่ไข่ (ตกค้างในไข่), 3 ตัวแรกอยู่ในกลุ่ม Ionophores',
-    verified: 'TJ p5 #4 #7' },
+    verified: 'TJ p5 #4 #7',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 5 }] },
 
   { id: 4010, subject: 'poultry', topic: 'mahahon-poultry-drugs', year: 4,
     source: 'Poultry Final TJ.pdf p5', sourceType: 'student-compilation',
@@ -1460,7 +1469,8 @@ export const QB_POULTRY = [
     ],
     answer: 1,
     explain: 'Banned in broiler: Nitrofurans (carcinogen), Nitroimidazoles (Metronidazole), Chloramphenicol (aplastic anemia in human), ห้ามใน food animal ทั่วไป',
-    verified: 'TJ p5 #5' },
+    verified: 'TJ p5 #5',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 5 }] },
 
   { id: 4011, subject: 'poultry', topic: 'mahahon-poultry-drugs', year: 4,
     source: 'Poultry Final TJ.pdf p5 — fill-in style', sourceType: 'student-compilation',
@@ -1468,7 +1478,8 @@ export const QB_POULTRY = [
     q: 'ยารักษาพยาธิตัวกลม (roundworm: Ascaridia, Heterakis) ในไก่ที่ใช้แบบจำเพาะ คือ ____',
     blanks: ['Piperazine'],
     explain: 'Piperazine = ฆ่าพยาธิตัวกลม (Ascaridia, Heterakis), GABA agonist → flaccid paralysis ของพยาธิ → ขับออก, Praziquantel = ตัวแบน, Ivermectin = ext + nematode, Albendazole = broad',
-    verified: 'TJ p5 #6 — fill-in across years' },
+    verified: 'TJ p5 #6 — fill-in across years',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 5 }] },
 
   // ── L12 QA (เอกสิงห์) — TJ p6 ──
   { id: 4012, subject: 'poultry', topic: 'mahahon-poultry-qa', year: 4,
@@ -1477,7 +1488,8 @@ export const QB_POULTRY = [
     q: 'Quality Assurance (QA) มี 5 องค์ประกอบหลัก ได้แก่ Quality ____, Quality ____, Quality ____, Quality ____, และ ____',
     blanks: ['Control', 'Audit', 'Accreditation', 'Assessment', 'Traceability'],
     explain: 'QA 5 components: 1) Quality Control (QC) ตรวจสอบกระบวนการ 2) Quality Audit ตรวจระบบ 3) Quality Accreditation รับรอง 4) Quality Assessment ประเมิน 5) Traceability ตรวจสอบย้อนกลับ',
-    verified: 'TJ p6 #1 — fill-in across years' },
+    verified: 'TJ p6 #1 — fill-in across years',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 6 }] },
 
   { id: 4013, subject: 'poultry', topic: 'mahahon-poultry-qa', year: 4,
     source: 'Poultry Final TJ.pdf p6 — fill-in style', sourceType: 'student-compilation',
@@ -1485,7 +1497,8 @@ export const QB_POULTRY = [
     q: 'PDCA cycle ใน Quality Assurance ย่อมาจาก ____ → ____ → ____ → ____ (Systematic Problem Solving / continuous improvement)',
     blanks: ['Plan', 'Do', 'Check', 'Action'],
     explain: 'PDCA = Plan → Do → Check → Action, Systematic Problem Solving (Deming wheel), ใช้ปรับปรุงคุณภาพต่อเนื่อง continuous improvement',
-    verified: 'TJ p6 #2 — fill-in across years' },
+    verified: 'TJ p6 #2 — fill-in across years',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 6 }] },
 
   { id: 4014, subject: 'poultry', topic: 'mahahon-poultry-qa', year: 4,
     source: 'Poultry Final TJ.pdf p6', sourceType: 'student-compilation',
@@ -1499,7 +1512,8 @@ export const QB_POULTRY = [
     ],
     answer: 0,
     explain: 'Bio hazard: Salmonella enteritidis (egg-borne human gastroenteritis) + S. Typhimurium + AI (HPAI ความเสี่ยง zoonotic), Chemical hazard: drug residue, heavy metal, melamine, dioxin',
-    verified: 'TJ p6 #4' },
+    verified: 'TJ p6 #4',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 6 }] },
 
   { id: 4015, subject: 'poultry', topic: 'mahahon-poultry-qa', year: 4,
     source: 'Poultry Final TJ.pdf p6', sourceType: 'student-compilation',
@@ -1508,7 +1522,8 @@ export const QB_POULTRY = [
     options: ['RAU (Reduce) → RWA → NAE (No Antibiotics Ever)', 'GMP → HACCP → ISO 22000 certified', 'PDCA → ISO 9001 → BQM framework', 'GLP → BLS → Sedex audit scheme'],
     answer: 0,
     explain: 'AMR ระดับเข้มข้นขึ้น: 1) RAU = Reduce ลดใช้ 2) RWA = ไม่ใช้ ABO เลี้ยง แต่รักษาโรคได้ 3) NAE = ไม่ใช้เลย, พรีเมียมขึ้นตามลำดับ\n\n💡 No Antibiotics Ever',
-    verified: 'TJ p6 #5' },
+    verified: 'TJ p6 #5',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 6 }] },
 
   { id: 4016, subject: 'poultry', topic: 'mahahon-poultry-qa', year: 4,
     source: 'Poultry Final TJ.pdf p6', sourceType: 'student-compilation',
@@ -1517,7 +1532,8 @@ export const QB_POULTRY = [
     options: ['อิสระในการเดิน, กิน, ดื่ม, นอน, สืบพันธุ์', 'Free Form: หิว, เจ็บ, ไม่สบายตัว, กลัว + Free to: แสดงพฤติกรรม', 'Cage-free, organic, GMO-free, antibiotic-free, certified', 'PDCA + ISO + GLP + BLS + Sedex'],
     answer: 1,
     explain: 'Five Freedoms (Brambell 1965 / FAWC): Free FROM hunger/thirst, discomfort, pain/injury/disease, fear/distress + Free TO express normal behavior, มาตรฐาน animal welfare ทั่วโลก',
-    verified: 'TJ p6 #6' },
+    verified: 'TJ p6 #6',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 6 }] },
 
   // ── L13 Zoonosis (กมลพรรณ) — TJ p7 ──
   { id: 4017, subject: 'poultry', topic: 'mahahon-poultry-zoonosis', year: 4,
@@ -1527,7 +1543,8 @@ export const QB_POULTRY = [
     options: ['Chicken — diarrhea', 'Parrot, Turkey, Pigeon', 'Duck — encephalitis', 'Quail — meningitis'],
     answer: 1,
     explain: 'Chlamydia psittaci, Hosts: Parrot (Psittacosis) + Turkey + Pigeon, Bird: green droppings, respi, sudden death, Human: flu-like (fever) → atypical pneumonia, transmission inhaled feces/feather dust\n\n💡 flu-like illness, pneumonia ในคน',
-    verified: 'TJ p7' },
+    verified: 'TJ p7',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 7 }] },
 
   { id: 4018, subject: 'poultry', topic: 'mahahon-poultry-zoonosis', year: 4,
     source: 'Poultry Final TJ.pdf p7', sourceType: 'student-compilation',
@@ -1536,7 +1553,8 @@ export const QB_POULTRY = [
     options: ['Severe pneumonia', 'Erysipeloid skin lesion', 'Encephalitis', 'No human disease'],
     answer: 1,
     explain: 'Erysipelothrix rhusiopathiae อยู่ในดิน, Birds: vegetative endocarditis, sudden death, Human: erysipeloid skin lesion (กลม แดง คัน) at-risk เกษตรกร/สัตวแพทย์/คนชำแหละ\n\n💡 at-risk: เกษตรกร, สัตวแพทย์',
-    verified: 'TJ p7' },
+    verified: 'TJ p7',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 7 }] },
 
   { id: 4019, subject: 'poultry', topic: 'mahahon-poultry-zoonosis', year: 4,
     source: 'Poultry Final TJ.pdf p7', sourceType: 'student-compilation',
@@ -1545,7 +1563,8 @@ export const QB_POULTRY = [
     options: ['Severe pneumonia', 'Encephalitis', 'Conjunctivitis', 'Hepatitis'],
     answer: 2,
     explain: 'NDV ในคน: Conjunctivitis เด่น (eye irritation), พบบ่อยจากสัมผัสวัคซีน NDV (vaccine handling), self-limiting, ในไก่: respi + nervous + GI signs + death',
-    verified: 'TJ p7' },
+    verified: 'TJ p7',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 7 }] },
 
   { id: 4020, subject: 'poultry', topic: 'mahahon-poultry-zoonosis', year: 4,
     source: 'Poultry Final TJ.pdf p7', sourceType: 'student-compilation',
@@ -1554,7 +1573,8 @@ export const QB_POULTRY = [
     options: ['ไก่: asymptomatic ไม่ป่วย, คน: ไม่ติดเชื้อ', 'ไก่: chronic mild, คน: encephalitis only', 'ไก่: เฉพาะ leg paralysis, คน: GI only', 'ไก่: sudden death + cyanosis, คน: acute respi + flu-like'],
     answer: 3,
     explain: 'AI HPAI: ไก่ sudden death, diarrhea, cyanosis (face/comb/wattle ม่วง), egg drop, คน acute respi, flu-like high fever myalgia cough, severe pneumonia, can be fatal',
-    verified: 'TJ p7' },
+    verified: 'TJ p7',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 7 }] },
 
   { id: 4021, subject: 'poultry', topic: 'mahahon-poultry-zoonosis', year: 4,
     source: 'Poultry Final TJ.pdf p7', sourceType: 'student-compilation',
@@ -1563,7 +1583,8 @@ export const QB_POULTRY = [
     options: ['Yersiniosis mimics pseudo-appendicitis', 'Severe pneumonia + sepsis', 'Severe encephalitis + seizure', 'Hemolytic anemia + jaundice'],
     answer: 0,
     explain: 'Yersinia enterocolitica/pseudotuberculosis, Birds mostly inapparent, Human: GI infection + lymphadenitis ที่ ileocecal → ปวดท้องน้อยขวา mimics appendicitis (pseudo-appendicitis)\n\n💡 ปวดท้องน้อยขวา คล้ายไส้ติ่งอักเสบ',
-    verified: 'TJ p7' },
+    verified: 'TJ p7',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 7 }] },
 
   { id: 4022, subject: 'poultry', topic: 'mahahon-poultry-zoonosis', year: 4,
     source: 'Poultry Final TJ.pdf p7', sourceType: 'student-compilation',
@@ -1572,7 +1593,8 @@ export const QB_POULTRY = [
     options: ['Chicken — pneumonia only', 'Duck — GI only', 'Pigeon (มูลนกพิราบ)', 'Turkey — skin lesion'],
     answer: 2,
     explain: 'Cryptococcus neoformans = yeast เด่นใน Pigeon excreta, birds asymptomatic, Human: inhalation → respi → CNS meningitis (classic ใน immunocompromised + AIDS) → disseminated, India ink stain ดู capsule\n\n💡 Respi + CNS meningitis + disseminated ในคน',
-    verified: 'TJ p7' },
+    verified: 'TJ p7',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 7 }] },
 
   // ── L14 First-Week Mortality (เกรียงวิทย์) — TJ p8-9 ──
   { id: 4023, subject: 'poultry', topic: 'mahahon-poultry-firstweek', year: 4,
@@ -1587,7 +1609,8 @@ export const QB_POULTRY = [
     ],
     answer: 1,
     explain: 'Broiler ไทย: Cobb 500, ROSS 308, Hubbard, Arbor Acres, Layer: Lohmann brown, ISA brown, ทุกสายพันธุ์มี genetic standard — ฟาร์มต้อง management ให้ได้มาตรฐาน',
-    verified: 'TJ p8 #5-6' },
+    verified: 'TJ p8 #5-6',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 8 }] },
 
   { id: 4024, subject: 'poultry', topic: 'mahahon-poultry-firstweek', year: 4,
     source: 'Poultry Final TJ.pdf p8', sourceType: 'student-compilation',
@@ -1596,7 +1619,8 @@ export const QB_POULTRY = [
     options: ['20-40%', '50-60%', '60-70%', '80-100%', '100% เสมอ'],
     answer: 3,
     explain: 'Crob fulfill 24 hr ต้อง 80-100% (คลำได้ที่ crop เต็ม), ถ้าต่ำกว่า = First-week mortality เพิ่ม, เกี่ยวกับ access ของ feeder + drinker + อุณหภูมิ + chick quality',
-    verified: 'TJ p8 #8' },
+    verified: 'TJ p8 #8',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 8 }] },
 
   { id: 4025, subject: 'poultry', topic: 'mahahon-poultry-firstweek', year: 4,
     source: 'Poultry Final TJ.pdf p8', sourceType: 'student-compilation',
@@ -1605,7 +1629,8 @@ export const QB_POULTRY = [
     options: ['UVA (315-400 nm)', 'UVB (280-315 nm)', 'UVC (100-280 nm)', 'UVD'],
     answer: 2,
     explain: 'UVC (100-280 nm) = germicidal, ทำลาย DNA/RNA, ใช้ฆ่าเชื้อในน้ำ/อากาศ/พื้นผิว, UVA = tanning, UVB = sunburn, ก่อนใช้ UVC ต้อง cleaning กำจัด biofilm ก่อน',
-    verified: 'TJ p8 #9-10' },
+    verified: 'TJ p8 #9-10',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 8 }] },
 
   { id: 4026, subject: 'poultry', topic: 'mahahon-poultry-firstweek', year: 4,
     source: 'Poultry Final TJ.pdf p9', sourceType: 'student-compilation',
@@ -1614,7 +1639,8 @@ export const QB_POULTRY = [
     options: ['Respiratory only', 'Respi + Neuro + GI', 'GI only', 'Neuro + GI'],
     answer: 2,
     explain: 'IBD (Gumboro) = GI only, Bursa of Fabricius เสียหาย → immunosuppression, ND/AI = GI/Neuro/Respi, IB = Respi only, AE = GI + Neuro\n\n💡 Bursa = lymphoid',
-    verified: 'TJ p9 #12' },
+    verified: 'TJ p9 #12',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 9 }] },
 
   { id: 4027, subject: 'poultry', topic: 'mahahon-poultry-firstweek', year: 4,
     source: 'Poultry Final TJ.pdf p9', sourceType: 'student-compilation',
@@ -1623,7 +1649,8 @@ export const QB_POULTRY = [
     options: ['Marek disease', 'Blue wing disease', 'Newcastle', 'Coccidiosis'],
     answer: 1,
     explain: 'CAV (Gyrovirus) → Blue wing disease, ทำลาย thymus + bone marrow → anemia + immunosuppression → wing tips มีเลือดออก/cyanotic (สีฟ้า), vertical transmission',
-    verified: 'TJ p9 #14' },
+    verified: 'TJ p9 #14',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 9 }] },
 
   { id: 4028, subject: 'poultry', topic: 'mahahon-poultry-firstweek', year: 4,
     source: 'Poultry Final TJ.pdf p9', sourceType: 'student-compilation',
@@ -1632,7 +1659,8 @@ export const QB_POULTRY = [
     options: ['Legs, Beak, Naval (สะดือ), Belly, Reflex', 'Color, Eye, Comb, Wing, Tail', 'Weight, Length, HR, Resp, Temp', 'Feed, Water, Shelter, Light, Air'],
     answer: 0,
     explain: 'Pasgar score 5 components: Legs (posture/standing), Beak (alignment), Naval (สะดือปิด/แห้ง), Belly (อ่อน/firm), Reflex, ลูกไก่คุณภาพดี = score สูง, evaluate ใน 24 hr',
-    verified: 'TJ p9 #17' },
+    verified: 'TJ p9 #17',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 9 }] },
 
   { id: 4029, subject: 'poultry', topic: 'mahahon-poultry-firstweek', year: 4,
     source: 'Poultry Final TJ.pdf p9', sourceType: 'student-compilation',
@@ -1641,7 +1669,8 @@ export const QB_POULTRY = [
     options: ['Vitamin D + Ca ขาด', 'Marek disease ระยะแรก', 'Bacterial infection', 'Heat stress + ความชื้นต่ำ'],
     answer: 3,
     explain: 'Splayed leg ขาแบะ ลุกไม่ได้, เครื่องฟัก heat stress + ความชื้นต่ำเกิน → น้ำระเหยจาก egg มาก → embryo dehydrate → leg muscle/tendon พัฒนาไม่สมบูรณ์, Optimal humidity 50-60%, temp 37.5°C',
-    verified: 'TJ p9 #16' },
+    verified: 'TJ p9 #16',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 9 }] },
 
   { id: 4030, subject: 'poultry', topic: 'mahahon-poultry-firstweek', year: 4,
     source: 'Poultry Final TJ.pdf p9', sourceType: 'student-compilation',
@@ -1650,7 +1679,8 @@ export const QB_POULTRY = [
     options: ['Brooding temperature ผิด', 'การติดเชื้อ Salmonella เท่านั้น', 'การให้น้ำมากเกินไป', 'ฉีดวัคซีนผิดทาง'],
     answer: 0,
     explain: 'Vent pasting = ขี้เลอะรอบทวาร, Brooding temperature ผิด — Too cold (chick crowd, ไม่กิน, ขี้เหลว) หรือ Too hot (panting, dehydrate, electrolyte imbalance) → stress → digestive upset → vent pasting, กระทบ first-week mortality',
-    verified: 'TJ p9 #19' },
+    verified: 'TJ p9 #19',
+    sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 9 }] },
 
   // ── L8 Animal Nutrition (อ.หทัยรัตน์ พลายมาศ) — TJ p1-2 + Master 86 p4-7 ──
   // ★ คะแนน Final scope! เพิ่งพบจาก syllabus update 6 พ.ค. — ก่อนนี้ตกหล่น

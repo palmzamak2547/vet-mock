@@ -109,6 +109,7 @@ function player(api, { currentVideoId = 'hPV3Rhh8r3Q', playlistId = null } = {})
   const ctx = {
     currentVideoId,
     playlistId,
+    startAt: 0,
     ytContainerRef: { current: container },
     playerRef: { current: null },
     loadYouTubeIframeAPI: () => api(YT),

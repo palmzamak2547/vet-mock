@@ -325,6 +325,7 @@ export const QB_COM5 = [
     answer: 2,
     explain: "Puppy < 12 weeks มี severe infection (mortality ~70%)\nAdult dogs มัก subclinical (mortality ~1%)\n\n❌ ทำไมข้ออื่นผิด\n— \"40% เท่ากัน\" / \"Puppy 50/Adult 30\" / \"Puppy 30/Adult 50\" / \"Puppy 1/Adult 70\" = mortality figures ผิดทั้งหมด",
     verified: "COM V FINAL 86 p.5 (TJ86)",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 5 }],
     wikiRefs: [
           {
                 "pageId": "com5-canine-viral-enteritis",
@@ -432,7 +433,8 @@ export const QB_COM5 = [
     options: ["Recombinant IL-2 + GM-CSF infusion ทางหลอดเลือด","IV immunoglobulin จากมนุษย์ขนาดสูง","Recombinant feline interferon omega + oseltamivir","High-dose steroid pulse therapy ต่อเนื่อง"],
     answer: 2,
     explain: "rFeIFN-ω 2.5 MU/kg IV × 3 d, Oseltamivir 2 mg/kg PO q12 × 5 d\nongoing: nitazoxanide, mAb, FMT\n\n❌ ทำไมข้ออื่นผิด\n— IL-2 = no role\n— IVIG human = ไม่ใช่ standard\n— Steroid pulse = immunosuppress → แย่ลง",
-    verified: "CVE.pdf p.18 + COM V FINAL 86 p.5", },
+    verified: "CVE.pdf p.18 + COM V FINAL 86 p.5",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 5 }], },
 
   {
     id: 508, subject: 'com5', topic: 'sporo-crypto', year: 4, source: "Com_5_final_TJ.pdf",
@@ -582,6 +584,7 @@ export const QB_COM5 = [
     answer: 2,
     explain: "S. schenckii = species ในไทย\nS. brasiliensis พบในบราซิล\nS. globosa พบที่อื่น\n\n❌ ทำไมข้ออื่นผิด\n— S. globosa = Asia (China/Japan)\n— S. luriei = rare worldwide\n— S. brasiliensis = Brazil endemic",
     verified: "COM V FINAL 86 p.7 (TJ86 + Vet 83)",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 7 }],
     wikiRefs: [
           {
                 "pageId": "com5-systemic-mycoses-and-protozoa",
@@ -820,6 +823,7 @@ export const QB_COM5 = [
     answer: false,
     explain: "False! Cryptococcosis = NON-contagious systemic fungal disease\nคนติดได้จากสิ่งแวดล้อม (มูลนกพิราบ) ไม่ใช่จากแมวโดยตรง\nต่างจาก Sporotrichosis ที่เป็น zoonosis",
     verified: "Sporotrichosis and Cryptococcosis.pdf p.55 + COM V FINAL 86 p.8",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 8 }],
     wikiRefs: [
           {
                 "pageId": "com5-systemic-mycoses-and-protozoa",
@@ -900,6 +904,7 @@ export const QB_COM5 = [
     answer: 2,
     explain: "T. foetus มีแค่ trophozoite (NO cyst) → flotation ตรวจไม่ได้\nDirect wet mount sensitivity ต่ำ <14%\ngold standard = InPouch TF-Feline\n\n❌ ทำไมข้ออื่นผิด\n— Centrifugal flotation = T.foetus ไม่มี cyst → เจอไม่ได้\n— Antigen ELISA = ไม่ specific T.foetus\n— Formalin-ether / Simple sed = trophozoite ตายก่อน\n\n💡 เห็น trophozoite เคลื่อนไหวแบบ erratic jerky",
     verified: "GI_protozoa.pdf p.20 + COM V FINAL 86 p.18",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 18 }],
     wikiRefs: [
           {
                 "pageId": "com5-systemic-mycoses-and-protozoa",
@@ -1014,6 +1019,7 @@ export const QB_COM5 = [
     answer: 0,
     explain: "Direct wet mount sensitivity <14%\nFecal culture (InPouch TF) sensitivity ~55%\nPCR sensitivity สูงสุด\n\n❌ ทำไมข้ออื่นผิด\n— Centrifugal flotation = T.foetus ไม่มี cyst\n— Serology = ไม่ available\n— Direct smear = sensitivity <14%",
     verified: "GI_protozoa.pdf p.20 + COM V FINAL 86 p.18",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 18 }],
     flag: {"note":"ข้อสอบข้อสอบเก่าบางฉบับเฉลย \"direct fecal smear\" — ตามสไลด์ปี 2026 ควรเป็น InPouch TF-Feline หรือ PCR (gold standard)","sources":["GI_protozoa.pdf p.20","Gookins & Tolbert 2009"],"severity":"minor"},
     wikiRefs: [
           {
@@ -1172,6 +1178,7 @@ export const QB_COM5 = [
     answer: 3,
     explain: "Sulfa-Trimethoprim = ทั้งสุนัขและแมว\nToltrazuril = สุนัข\nทั้งสองตัวไม่ได้ FDA approve อย่างเป็นทางการ\n\n❌ ทำไมข้ออื่นผิด\n— Doxycycline = bacterial\n— Fenbendazole = Giardia/nematode\n— Pyrantel = nematode",
     verified: "COM V FINAL 86 p.17",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 17 }],
     wikiRefs: [
           {
                 "pageId": "com5-systemic-mycoses-and-protozoa",
@@ -1310,6 +1317,7 @@ export const QB_COM5 = [
     answer: 3,
     explain: "No vaccine: euthanize หรือ restricted quarantine 180 วัน\nVaccinated: ฉีดกระตุ้น + monitor 45 วัน\n\n❌ ทำไมข้ออื่นผิด\n— 45/90/365/10 วัน = ผิด (180 d = WHO/Thai standard for unvaccinated)",
     verified: "Rabies.pdf p.21 + COM V FINAL 86 p.24",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 24 }],
     wikiRefs: [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
@@ -1330,6 +1338,7 @@ export const QB_COM5 = [
     answer: 1,
     explain: "5 ย: อย่าแหย่ / อย่าแยก / อย่าเหยียบ / อย่ายุ่ง / อย่าหยิบ + 3 ป (ป้องกันสัตว์เป็นโรค / ป้องกันการถูกกัด / ป้องกันหลังถูกกัด)\n\n❌ ทำไมข้ออื่นผิด\n— Wording อื่นๆ = ไม่ตรงตาม campaign จริง — 5 ย: อย่าแหย่/อย่าแยก/อย่าเหยียบ/อย่ายุ่ง/อย่าหยิบ",
     verified: "Rabies.pdf p.27 + COM V FINAL 86 p.24",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 24 }],
     wikiRefs: [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
@@ -1469,6 +1478,7 @@ export const QB_COM5 = [
     answer: 2,
     explain: "Thailand endemic\n2 จังหวัดอันดับแรก: อุบลราชธานี, ชลบุรี\nDogs 91%, Cats 2%, others (rabbit/bat/rat/cattle) 7%\n\n❌ ทำไมข้ออื่นผิด\n— โค ~5% / ค้างคาว ~3% / แมว ~6% = ไม่ใช่ majority — สุนัขมากที่สุด ~91%",
     verified: "COM V FINAL 86 p.23 (Aj.Vachira)",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 23 }],
     wikiRefs: [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
@@ -1547,6 +1557,7 @@ export const QB_COM5 = [
     answer: 1,
     explain: "VPAT 2024: 12 wk → 2-4 wk later (2nd dose) → 1 yr booster → annual\nเข็มที่สองห่างจากเข็มแรก 2-4 สัปดาห์ แล้ว booster ที่ 1 ปี และทุกปี\nปีแรกแนะนำ monovalent rabies เพื่อประสิทธิภาพสูงสุด",
     verified: "Vaccination_guideline.pdf p.30 + COM V FINAL 86 p.32",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 32 }],
     wikiRefs: [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
@@ -1676,6 +1687,7 @@ export const QB_COM5 = [
     answer: 2,
     explain: "VPAT 2024 + Thai Rabies CPG: เริ่ม 12 wk\n2nd dose 2-4 wk later\n1 yr booster\nannual\nปีแรกแนะนำ monovalent rabies\n\n❌ ทำไมข้ออื่นผิด\n— \"1 ครั้ง 2 mo\" = ผิด\n— \"เริ่ม 8 wk\" = early กว่ากฎหมาย VPAT (12 wk)\n— \"3+12 mo\" = ไม่ตรง schedule\n\n💡 2 เข็มห่างกัน 2-4 wk, บูสที่ 1 ปี + ทุกปี",
     verified: "Vaccination_guideline.pdf p.30 (VPAT 2024) + COM V FINAL 86 p.32",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 32 }],
     wikiRefs: [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
@@ -1857,6 +1869,7 @@ export const QB_COM5 = [
     answer: 3,
     explain: "WSAVA 2024: 6-mo booster (เปลี่ยนจาก 2016 ที่ใช้ 1 ปี) → จากนั้น revaccinate ที่ 3 ปี และทุก 3 ปี\nVPAT 2024: 6-mo booster → 1-yr booster → ทุก 1 หรือ 3 ปี (ถี่กว่า WSAVA เล็กน้อย)\n\n❌ ทำไมข้ออื่นผิด\n— \"ไม่ต้อง booster\" = ผิด\n— \"18 / 24 mo\" = ไม่ใช่ 2024\n— \"12 mo เหมือน 2016\" = guideline เก่า",
     verified: "Vaccination_guideline.pdf p.9 + COM V FINAL 86 p.34",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 34 }],
     wikiRefs: [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
@@ -1916,6 +1929,7 @@ export const QB_COM5 = [
     answer: 2,
     explain: "WSAVA: 6-mo booster → ทุก 3 ปี (low risk)\nVPAT: 6-mo booster → 1-yr booster → ทุก 1 หรือ 3 ปี (ถี่กว่า WSAVA เล็กน้อย)",
     verified: "COM V FINAL 86 p.34",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 34 }],
     wikiRefs: [
           {
                 "pageId": "com5-rabies-and-vaccine-guidelines",
@@ -1995,6 +2009,7 @@ export const QB_COM5 = [
     answer: 2,
     explain: "5 pathogens: FCV + FHV-1 (viruses)\nChlamydia felis + Mycoplasma spp. + Bordetella bronchiseptica (bacteria)\nมักติดร่วมกัน → severity เพิ่ม\n80-90% ไม่ต้อง identify เชื้อก่อนรักษา\n\n❌ ทำไมข้ออื่นผิด\n— \"7 ตัว รวม FeLV/FIV\" = ผิด (FeLV/FIV ไม่ใช่ FRDC pathogens)\n— 3 ตัว / 2 ตัว = ขาด pathogens",
     verified: "Feline_Upper_Respiratory_Infection.pdf p.4 + COM V FINAL 86 p.27",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 27 }],
     wikiRefs: [
           {
                 "pageId": "com5-feline-upper-respiratory-complex",
@@ -2152,6 +2167,7 @@ export const QB_COM5 = [
     answer: 2,
     explain: "Famciclovir 90 mg/kg PO q8-12h × 7-21 d\nปลอดภัยในแมว (ทดลอง > 4 เดือน ไม่มี AE สำคัญ)\nAcyclovir/Ribavirin = พิษกับแมว\nOphthalmic options: Cidofovir q12, Trifluridine q4, Idoxuridine q4\n\n❌ ทำไมข้ออื่นผิด\n— Ribavirin = พิษกับแมว\n— Foscarnet = nephrotoxic\n— Acyclovir = พิษกับแมว",
     verified: "Feline_Upper_Respiratory_Infection.pdf p.39 + COM V FINAL 86 p.28",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 28 }],
     flag: {"note":"COM V FINAL 86 (ข้อสอบเก่า) อ้างทั้ง \"40 mg/kg q8h or 90 mg/kg q12h\" และ \"90 mg/kg q8-12h\" — slide 2026 ใช้ 90 mg/kg q8-12h ตาม ABCD/ISFM 2018","sources":["Feline_Upper_Respiratory_Infection.pdf p.39","COM V FINAL 86 p.28"],"severity":"minor"},
     wikiRefs: [
           {
@@ -2173,6 +2189,7 @@ export const QB_COM5 = [
     answer: 2,
     explain: "FCV ทนต่อ chlorhex/QUAT/alcohol\nต้องใช้ 1:32 ของ 5.25% NaOCl หรือ accelerated H₂O₂\n\n❌ ทำไมข้ออื่นผิด\n— Alcohol 70% / QUAT / Chlorhexidine = FCV ทนต่อ disinfectant กลุ่มนี้\n\n💡 bleach",
     verified: "Feline_Upper_Respiratory_Infection.pdf p.41 + COM V FINAL 86 p.28",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 28 }],
     wikiRefs: [
           {
                 "pageId": "com5-feline-upper-respiratory-complex",
@@ -2192,6 +2209,7 @@ export const QB_COM5 = [
     answer: true,
     explain: "Limping syndrome: transient fever + alternating leg lameness (ไม่มี oral ulcer/respiratory)\nมักหลังฉีด FCV vaccine ที่อายุ 6-12 wk\nself-resolve",
     verified: "COM V FINAL 86 p.27",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 27 }],
     wikiRefs: [
           {
                 "pageId": "com5-feline-upper-respiratory-complex",
@@ -2212,6 +2230,7 @@ export const QB_COM5 = [
     answer: 2,
     explain: "Incubation 2-10 d\nuncomplicated case อาการอยู่ < 10 วัน (self-limiting)\nsevere ในลูกแมว/แมวแก่/ภูมิตกอาจยาวถึง 6 wk",
     verified: "Feline_Upper_Respiratory_Infection.pdf p.5 + COM V FINAL 86 p.27",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 27 }],
     wikiRefs: [
           {
                 "pageId": "com5-feline-upper-respiratory-complex",
@@ -2271,6 +2290,7 @@ export const QB_COM5 = [
     answer: 3,
     explain: "Vaccine ลด severity + shedding แต่ไม่ป้องกัน 100%\nFCV หลาย strain → vaccine ไม่ครอบคลุมทุก strain\nMLV ห้ามใน FeLV/FIV/pregnant\ncore schedule: เริ่ม 6-9 wk → q3-4 wk จน 16 wk + annual",
     verified: "Feline_Upper_Respiratory_Infection.pdf p.43-44 + COM V FINAL 86 p.28",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 28 }],
     wikiRefs: [
           {
                 "pageId": "com5-feline-upper-respiratory-complex",
@@ -2290,6 +2310,7 @@ export const QB_COM5 = [
     answer: false,
     explain: "False! ห้ามใช้ใน FRDC แม้จะป้อนง่าย เพราะ ineffective ต่อ B. bronchiseptica + Mycoplasma + C. felis\nใช้ Doxy + Amoxi-clav แทน",
     verified: "COM V FINAL 86 p.28",
+    sourcePages: [{ doc: "com5-final86", edition: "34p", page: 28 }],
     wikiRefs: [
           {
                 "pageId": "com5-feline-upper-respiratory-complex",

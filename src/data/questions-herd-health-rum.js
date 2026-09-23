@@ -42,7 +42,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 3,
     "explain": "Pregnancy toxemia ในแพะ/แกะ = ketosis ของแม่ใกล้คลอด (1 เดือนสุดท้าย) ที่ตั้งท้องลูกแฝด/แฝดสาม → fetal energy demand สูง + แม่แก่/ปรับตัวช้า/ผอม/กินน้อย → NEB → hyperketonemia + hypoglycemia → ซึม กลิ่นคีโตน neuro signs (ตาบอด ชัก ล้ม)\n\n- Milk fever = หลังคลอด, Ca ต่ำ ไม่ใช่ Glucose ต่ำ\n- Grass tetany = Mg ต่ำ มี ซัก nystagmus\n- Urinary calculi = แพะตัวผู้ ปัสสาวะไม่ออก\n\nKey: pre-partum + twin pregnancy + Glucose ต่ำ + BHBA สูง = Pregnancy toxemia แน่นอน",
-    "verified": "modified HHM ruminant final TJ.pdf p.2 case 1 (Saranporn Poothong metabolic disease) + cross-ref จะเปนหมอวัวในสองวันให้ได้เลย2 p.4 Pregnancy toxemia section"
+    "verified": "modified HHM ruminant final TJ.pdf p.2 case 1 (Saranporn Poothong metabolic disease) + cross-ref จะเปนหมอวัวในสองวันให้ได้เลย2 p.4 Pregnancy toxemia section",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 2 }]
   },
   {
     "id": 94501,
@@ -67,7 +68,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 0,
     "explain": "Tx Pregnancy toxemia = แก้ NEB + Hyperketonemia + Hypoglycemia\n- Propylene glycol PO (60-100 mL SID 3-5 day) → เข้าตับ แปลงเป็น glucose ผ่าน gluconeogenesis (precursor)\n- Dextrose 50% slow IV 250-500 mL → แก้ hypoglycemia ทันที\n- +/- Lactate ringer / NSS / Bicarb IV ถ้า metabolic acidosis\n- ถ้าใกล้คลอด ทำคลอดเลย (เอาลูกออก → ลด fetal demand)\n\n- Ammonium chloride = urinary calculi\n- NaHCO3 = ruminal acidosis\n- Ca borogluconate = milk fever (ไม่ใช่ pregnancy toxemia)",
-    "verified": "modified HHM ruminant final TJ.pdf p.2 case 1 Q4 answer A,D + จะเปนหมอวัวในสองวันให้ได้เลย2 p.4 Pregnancy toxemia Tx section"
+    "verified": "modified HHM ruminant final TJ.pdf p.2 case 1 Q4 answer A,D + จะเปนหมอวัวในสองวันให้ได้เลย2 p.4 Pregnancy toxemia Tx section",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 2 }]
   },
   {
     "id": 94502,
@@ -92,7 +94,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 2,
     "explain": "Acute ruminal acidosis (grain overload) = กินแป้ง/น้ำตาลย่อยง่ายมากเกิน หรือเปลี่ยนสูตรอาหารกะทันหัน\n- Strep. bovis ใช้น้ำตาล → สร้าง lactic acid → pH ลด < 5.5 (subacute SARA = 5.5-5.8)\n- Rumen atony, papilla ลอก, protozoa ตายหมด, milk fat ลด\n- Lactate สูง → metabolic acidosis (HCO3 ↓ AG ↑ Lactate ↑)\n- ปล่อย endotoxin → laminitis, มดลูกอักเสบ secondary\n\n- Milk fever = ไม่ใช่ (Ca ปกติ, ไม่มี acidosis ใน rumen)\n- Grass tetany = Mg ต่ำ, ไม่มี rumen acidosis\n- Ketosis = BHBA สูง ไม่มี rumen pH ต่ำ",
-    "verified": "modified HHM ruminant final TJ.pdf p.2 case 3 (answer C) + จะเปนหมอวัวในสองวันให้ได้เลย2 p.3 Ruminal acidosis section"
+    "verified": "modified HHM ruminant final TJ.pdf p.2 case 3 (answer C) + จะเปนหมอวัวในสองวันให้ได้เลย2 p.3 Ruminal acidosis section",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 2 }]
   },
   {
     "id": 94503,
@@ -117,7 +120,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 2,
     "explain": "Tx clin. rumen acidosis (pH < 5.5)\n- Lumen lavage (ล้าง rumen) → กำจัด lactate และอาหาร ferment\n- ผงฟู (NaHCO3) เข้าทาง rumen + IV → neutralize lactate\n- ABO ป้องกัน rumenitis + ป้องกัน laminitis ตามมา\n- ปรับอาหารช้าๆ กลับมา (โดยให้ roughage ก่อน)\n- ใกล้คลอด/severe → ผ่าตัด rumenotomy ก็ได้\n\n- PG = pregnancy toxemia/ketosis\n- Mg = grass tetany\n- Ca = milk fever",
-    "verified": "modified HHM ruminant final TJ.pdf p.2 case 4 (answer C Sodium bicarbonate) + จะเปนหมอวัวในสองวันให้ได้เลย2 Ruminal acidosis Tx"
+    "verified": "modified HHM ruminant final TJ.pdf p.2 case 4 (answer C Sodium bicarbonate) + จะเปนหมอวัวในสองวันให้ได้เลย2 Ruminal acidosis Tx",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 2 }]
   },
   {
     "id": 94504,
@@ -142,7 +146,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 0,
     "explain": "Urinary calculi ในแพะ/แกะตัวผู้:\n- urethra ยาว + ขด + แคบ (โดยเฉพาะที่ urethral process)\n- กินอาหารข้นเยอะ P สูง Ca ต่ำ ความเป็นเบสมาก + กินน้ำน้อย → struvite (Mg-NH4-PO4)\n- Stage: early progressing (ไม่ชัด)→ obstruct (anuria, azotemia, UB แตก, peritonitis ตาย)\n- PE: straining, palpable bladder, อาจคลำเจอ vermiform appendage บวม\n\n- Grass tetany = Mg ต่ำ มี neuro sign ชัก\n- Rumen acidosis = pH rumen ต่ำ ท้องเสียกลิ่นเปรี้ยว\n- Ketosis = BHBA สูง กลิ่นคีโตน",
-    "verified": "modified HHM ruminant final TJ.pdf p.2 case 5 (answer A Urinary calculi) + จะเปนหมอวัวในสองวันให้ได้เลย2 p.4 Urinary calculi section"
+    "verified": "modified HHM ruminant final TJ.pdf p.2 case 5 (answer A Urinary calculi) + จะเปนหมอวัวในสองวันให้ได้เลย2 p.4 Urinary calculi section",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 2 }]
   },
   {
     "id": 94505,
@@ -167,7 +172,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 1,
     "explain": "struvite (Mg-NH4-PO4) ละลายในกรด → urine acidifier ช่วย:\n- Ammonium chloride PO 0.5-1 g/kg ผสมอาหาร 5-10 วัน → ลด urine pH → ละลาย struvite + ป้องกัน recurrence\n- ร่วมกับ Fluid IV, ลดอาหารข้น เพิ่ม roughage เพิ่ม Ca:P ratio\n- Surgery: vermiform appendage amputation, tube cystotomy, perineal urethrostomy (ตามความรุนแรง)\n\n- PG, NaHCO3, Ca borogluconate → ไม่ใช่/ผิดทิศ NaHCO3 ทำให้ pH urine ขึ้น (สนับสนุน struvite)",
-    "verified": "modified HHM ruminant final TJ.pdf p.2 case 6 (answer B Ammonium chloride) + จะเปนหมอวัวในสองวันให้ได้เลย2 Urinary calculi Tx"
+    "verified": "modified HHM ruminant final TJ.pdf p.2 case 6 (answer B Ammonium chloride) + จะเปนหมอวัวในสองวันให้ได้เลย2 Urinary calculi Tx",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 2 }]
   },
   {
     "id": 94506,
@@ -267,7 +273,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 1,
     "explain": "Bacillus anthracis:\n- Gram-positive rod, สร้าง spore เมื่อเจออากาศ\n- Gram stain: bamboo stick appearance (in chain)\n- Spore form (infectious stage) — ทนใน envi 10+ ปี, แปลงตอนเข้าร่างกาย (vegetative) → โดนทำลายง่าย\n- Virulent factor: capsule (ป้องกัน macrophage phagocytosis) + toxin complex (PA + EF + LF) — LF lethal factor ยับยั้ง MAPK → กดภูมิ + endothelial เปราะ → bleeding\n- Forms: cutaneous, pulmonary, GI, +/- injection form (drug user)\n- เลือดออก 8 ทวาร, sudden death 1-2h, ตายเลย\n- ห้ามผ่าซาก — โดนอากาศ vegetative→spore แล้วหายใจเข้าปอด ติดคน\n- Control: ฝังลึก ฝัง quicklime ไกลคน ไกลน้ำ ห้ามขายต่อ/เชือดถ้ายังไม่ตาย",
-    "verified": "modified HHM ruminant final TJ.pdf p.4 Anthrax section + จะเปนหมอวัวในสองวันให้ได้เลย1 p.4 Anthrax"
+    "verified": "modified HHM ruminant final TJ.pdf p.4 Anthrax section + จะเปนหมอวัวในสองวันให้ได้เลย1 p.4 Anthrax",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 4 }]
   },
   {
     "id": 94510,
@@ -292,7 +299,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 1,
     "explain": "อาการ + ประวัติคนกินเนื้อดิบเกิด eschar = สงสัย Anthrax\n- ห้ามผ่าซาก — vegetative form (ในร่างกาย) จะ aerosol → spore (ทนเป็น 10+ ปี) → คนหายใจเข้า → pulmonary anthrax\n- ทำเฉพาะ peripheral blood smear → Gram stain หา bamboo-stick GPB → ถ้า + ก็ confirm + รายงานกรมปศุสัตว์ทันที (zoonosis + reportable category 1)\n- ฝัง quicklime ลึก ไกลคน ไกลน้ำ หรือเผา — อย่าให้สปอร์กระจายลงดิน → ติด ruminant ตัวอื่นที่กินหญ้า\n- ปศุสัตว์ตามรอย index case, vaccinate ทั่วพื้นที่ Sterne strain 34F\n\n- เปิดผ่า = อันตราย\n- ขายต่อ = zoonosis ติดคน\n- โยนน้ำ = ปนเปื้อนแหล่งน้ำ",
-    "verified": "modified HHM ruminant final TJ.pdf p.4 Anthrax (highlight ห้ามผ่าฉาก) + จะเปนหมอวัวในสองวันให้ได้เลย1 p.4 Anthrax management"
+    "verified": "modified HHM ruminant final TJ.pdf p.4 Anthrax (highlight ห้ามผ่าฉาก) + จะเปนหมอวัวในสองวันให้ได้เลย1 p.4 Anthrax management",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 4 }]
   },
   {
     "id": 94511,
@@ -317,7 +325,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 1,
     "explain": "TB (Mycobacterium bovis) — acid-fast positive\n- Screening test (gold std field): Single Intradermal Tuberculin (SID)\n  - 0.1 mL purified bovine PPD (protein purified derivative สกัดจาก M. bovis)\n  - เข็ม 26G+ tuberculin syringe ฉีดที่ผงคอ/โคนหาง (cervical/caudal fold)\n  - อ่านผล 72 ชั่วโมง: ≥ 4 mm + แข็ง/บวมน้ำ = suspect\n- Comparative ID Tuberculin (CID): ฉีด M. avium + M. bovis แผงคอ → bovis หนากว่า avium ≥ 4 mm = บวก (แยก paraTB false +)\n- Stormont test: short stormont SC 4 mL → วัด temp > 104°F 4,6,8 hr → +, แต่ anaphylactic shock risk\n- IFN-gamma (cellular dx confirm) — sensi+specific สูง, early detection, ใช้กับ anergic cattle\n\n- RBT = brucellosis\n- CFT = brucellosis confirm\n- CMT = subclinical mastitis",
-    "verified": "modified HHM ruminant final TJ.pdf p.7 Tuberculosis section + จะเปนหมอวัวในสองวันให้ได้เลย1 p.7-8 TB dx"
+    "verified": "modified HHM ruminant final TJ.pdf p.7 Tuberculosis section + จะเปนหมอวัวในสองวันให้ได้เลย1 p.7-8 TB dx",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 7 }]
   },
   {
     "id": 94512,
@@ -342,7 +351,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 2,
     "explain": "False POSITIVE ของ Tuberculin test:\n- Cross-reactivity กับ Non-tuberculous Mycobacteria (NTM)\n- Paratuberculosis (M. avium subsp. paratuberculosis) — ทำให้ paraTB cattle ขึ้น positive ใน SID\n- Nocardia farcinicus → ก้อนแบบที่ปอด แต่ไม่ calcification\n\n→ จึงต้องใช้ Comparative ID Tuberculin (M.avium + M.bovis) เพื่อแยก paraTB → bovis หนากว่า ≥ 4 mm = TB จริง\n\n- Anergy / Desensitization / underdose = False NEGATIVE (ไม่ใช่ false positive)",
-    "verified": "modified HHM ruminant final TJ.pdf p.7 TB False positive list + จะเปนหมอวัวในสองวันให้ได้เลย1 p.8 FALSE POS section"
+    "verified": "modified HHM ruminant final TJ.pdf p.7 TB False positive list + จะเปนหมอวัวในสองวันให้ได้เลย1 p.8 FALSE POS section",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 7 }]
   },
   {
     "id": 94513,
@@ -367,7 +377,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 1,
     "explain": "Brucellosis:\n- B. abortus — โคติดได้\n- B. suis — หมู\n- B. ovis — แกะ ไม่ติดคน\n- B. melitensis — แพะ/แกะ, อาวุธชีวภาพ, แพร่ aerosol ติดคนได้ (Brucella ที่ติดคนรุนแรงที่สุด)\n- Undulant fever ในคน\n\nClinical: แท้งระยะท้าย (3rd trimester), erythritol สูงใน placenta+endometrium+supramammary LN+udder+testis → bacteria เป็น erythritol-trophic\n- ไม่ใช่ทุกตัวที่ติดแล้วจะแท้ง (latent infection ก็มี) — แท้งแค่ครั้งเดียวพอ (มี immunity)\n- mastitis, นมลด, เต้าฟังถาวร, พ่อ orchitis/balanitis/epididymitis ไข่ใหญ่ไม่เท่ากัน\n\nDx in cattle: screen RBT (modified Rose Bengal) → confirm CFT (Complement Fixation Test)\n- RBT: ของวัวใช้ซีรัม 25-30 μL ของแพะ 75 μL (เพราะ Ab น้อยกว่า) หยด Ag mix ภายใน 4 นาที ดูตกตะกอน\n- CFT — gold std confirm",
-    "verified": "modified HHM ruminant final TJ.pdf p.8-9 Brucellosis section (TF Qs verified - การคัดกรองโคแท้งติดต่อในโคนิยมใช้วิธี Modified RBT = True, แม่โคที่ผลบวกต่อการตรวจคัดกรอง → ส่งตัวอย่างซีรัม CFT = True)"
+    "verified": "modified HHM ruminant final TJ.pdf p.8-9 Brucellosis section (TF Qs verified - การคัดกรองโคแท้งติดต่อในโคนิยมใช้วิธี Modified RBT = True, แม่โคที่ผลบวกต่อการตรวจคัดกรอง → ส่งตัวอย่างซีรัม CFT = True)",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 8 }, { "doc": "hhm-rum-final-tj", "edition": "11p", "page": 9 }]
   },
   {
     "id": 94514,
@@ -392,7 +403,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 0,
     "explain": "Control Brucellosis ไทย:\n- โคเนื้อ-นม:\n  - Vaccine Strain 19 (live attenuated B. abortus) — ฉีดลูกโคเพศเมีย 3-8 เดือน ครั้งเดียวพอ (ไม่ต้อง boost ทุกปี)\n  - Screen RBT routine ทุก 2 เดือนของฝูง → + culling (Test and Cull)\n  - กำจัดง่ายกว่า TB เพราะไม่ใช่ intracellular ทั้งหมด\n- แพะ:\n  - ไม่ใช้ REV-1 vaccine ในประเทศไทย (REV-1 เป็น live attenuated B. melitensis)\n  - Test and Culling เท่านั้น\n- Client educate: ไม่กินนมดิบ, ระวัง B. meli แพร่อากาศ → ใส่ PPE\n\n- ทุกตัวทุกปี = False (ฉีดครั้งเดียวพอ)\n- Doxy = ไม่ใช้ (intracellular + zoonosis → cull)\n- FMD vaccine ≠ Brucellosis",
-    "verified": "modified HHM ruminant final TJ.pdf p.9 Brucellosis TF (8. มาตรการควบคุมโคเนื้อใช้ Brucella strain 19 ชนิดเชื้อเป็น = True; 9. แพะใช้ Test and Cull + REV-1 = False เพราะไทยไม่ใช้ REV-1)"
+    "verified": "modified HHM ruminant final TJ.pdf p.9 Brucellosis TF (8. มาตรการควบคุมโคเนื้อใช้ Brucella strain 19 ชนิดเชื้อเป็น = True; 9. แพะใช้ Test and Cull + REV-1 = False เพราะไทยไม่ใช้ REV-1)",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 9 }]
   },
   {
     "id": 94515,
@@ -417,7 +429,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 0,
     "explain": "Paratuberculosis (Johne's disease):\n- Agent: Mycobacterium avium subsp. paratuberculosis (MAP) — acid-fast +, slow growing, ทนใน envi (esp. ดิน)\n- ติดจากการกินอาหาร/น้ำ/นม (เด็กติดจากแม่), transplacental/semen ก็ได้\n- Incubation นานมาก 3-5 ปี → vlinical sign ตอนวัวอายุ 3-5 yr\n- Clinical: chronic wasting syndrome — persistent diarrhea, rapid weight loss, no fever, bottle jaw จาก hypoalbuminemia, edema\n- Crohn's disease ในคน อาการคล้าย paraTB\n- Dx:\n  - Intradermal Johnin test → false positive บ่อย\n  - Complement Fixation test (CFT) — routine ในไทย\n  - ELISA — sensi สูงในตัวที่ clinical sign แล้ว — definitive\n  - Modified ELISA (bovine IFN-gamma) — best for cellular dx, early detection\n  - Fecal culture gold std but 16+ weeks\n- Resistant ต่อ disinfectant ส่วนใหญ่ → ต้องใช้ 15% formalin\n- ไม่นิยม vaccine + รักษาด้วย ABO ก็ไม่หาย — cull",
-    "verified": "modified HHM ruminant final TJ.pdf p.7 Paratuberculosis section + จะเปนหมอวัวในสองวันให้ได้เลย1 p.6 ParaTB"
+    "verified": "modified HHM ruminant final TJ.pdf p.7 Paratuberculosis section + จะเปนหมอวัวในสองวันให้ได้เลย1 p.6 ParaTB",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 7 }]
   },
   {
     "id": 94516,
@@ -492,7 +505,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 1,
     "explain": "Bovine Ephemeral Fever:\n- Agent: Arbovirus, Rhabdoviridae family, bullet-shape\n- Vector: blood-sucking insect = midges (ริ้น) + mosquito — เจอช่วงเปลี่ยนฤดู หน้าฝน\n- Host: cattle + buffalo เท่านั้น — แพะ/แกะ ไม่ติด\n- Clinical: ไข้ + ขาแข็ง sudden onset, severe drop in milk production, anorexia, depression, lameness จาก arthritis (vasculitis + synovitis), rumen atony\n- ดูคู่ hypocalcemia — มักให้ Ca gluconate ร่วม\n- Mortality มักเกิดจาก secondary complication: pneumonia (จาก upper resp + พลิกตัวไม่ได้), permanent paralysis ถ้าน้ำหนักตัวมาก\n- Tx: supportive (NSAID ลดไข้+ปวด, Ca gluconate IV/borogluconate SC) — ABO ถ้ามี secondary bacterial\n- Vaccine: มี แต่เลือกใช้/ไม่แล้วแต่",
-    "verified": "modified HHM ruminant final TJ.pdf p.5 Ephemeral fever section + จะเปนหมอวัวในสองวันให้ได้เลย1 p.5 Bovine ephemeral fever"
+    "verified": "modified HHM ruminant final TJ.pdf p.5 Ephemeral fever section + จะเปนหมอวัวในสองวันให้ได้เลย1 p.5 Bovine ephemeral fever",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 5 }]
   },
   {
     "id": 94519,
@@ -517,7 +531,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 1,
     "explain": "EBL (Enzootic Bovine Leukosis):\n- Agent: BLV (Bovine Leukemia Virus) — ssRNA Retroviridae (เหมือน FIV, EIA, avian leukosis)\n- Target: B lymphocyte\n- Transmission:\n  - Horizontal (เด่นในไทย): เข็มซ้ำ, ถุงมือล้วงตรวจใช้ซ้ำ, แมลงดูดเลือด (rare), ตัดเขา/ทำแผล, direct contact, เลี้ยงวัวหนาแน่น (กระตุ้นสร้าง lymphocyte), Intradermal tuberculin test\n  - Vertical: transplacental (เสี่ยงเมื่อแม่มี persistent lymphocytosis/lymphosarcoma — แม่ติด + PL → ลูก 26%, แม่ติด non-PL → ลูก 0%), transmammary (colostrum) → ไม่แนะนำให้ลูกกิน เทพร้อม หานมแม่อื่นหรือ freeze-thaw colostrum ก่อนกิน\n- Clinical:\n  - Asymptomatic Ag+ แต่ไม่มีอาการ (ตัวแพร่ silent)\n  - Persistent lymphocytosis (PL) > 3 SD นาน > 1 เดือน (PL ในวัว EBV ไม่มาก แต่ถ้าเดินไปเจอ PL แทบ confirm)\n  - Lymphosarcoma 1-5% — แทรกที่ abomasum, epidural, retrobulbar (ตาปูด), หัวใจ, LN ทั่วตัว, chronic mastitis, uterine form, pearl disease\n- Dx:\n  - AGID (Agar Gel Immunodiffusion) = gold std ใช้ serum ต้องใช้เชื้อเยอะ ระวัง false neg\n  - ELISA สะดวกกว่า — ใช้ได้กับ milk, blood\n  - PCR หาเชื้อใน B cell ทำ routine/confirm\n- Incubate 3-6 ปี**\n- Prevention: ไม่เอา colos แม่ป่วยให้ลูก ไม่ผสม semen ของตัว BLV+, test แล้วแยก, ใช้เข็มและถุงมือใหม่ทุกตัว",
-    "verified": "modified HHM ruminant final TJ.pdf p.5 EBL section + จะเปนหมอวัวในสองวันให้ได้เลย1 p.5-6 Enzootic bovine leukosis (Incubate 3-6yr**, AGID Goldstd.)"
+    "verified": "modified HHM ruminant final TJ.pdf p.5 EBL section + จะเปนหมอวัวในสองวันให้ได้เลย1 p.5-6 Enzootic bovine leukosis (Incubate 3-6yr**, AGID Goldstd.)",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 5 }]
   },
   {
     "id": 94520,
@@ -542,7 +557,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 1,
     "explain": "MCF (Malignant Catarrhal Fever):\n- Agent: Alcelaphine herpesvirus 1 (AlHV-1) ใน wildebeest; ที่เจอในไทยคือ ovine herpesvirus 2 (OvHV-2)\n- Reservoir host: sheep, goat, wildebeest — ไม่แสดงอาการ + เก็บเชื้อ\n- Susceptible (dead-end): วัว ควาย กวาง หมู → ตายเฉียบพลัน\n- เจอในฟาร์มเลี้ยงสัตว์หลายชนิดรวมกัน (เลี้ยงวัวกับแพะ)\n- Transmission: aerosol + nasal discharge (จาก reservoir host)\n- Clinical: high fever + purulent ocular+nasal discharge (catarrhal) + corneal opacity (ขุ่นจากขอบนอกเข้ามาตรงกลาง — ตาบอด) + จมูก/ปาก erosion + ตายแบบ acute/peracute\n- Morbidity 50-100%, mortality 80-90% (100% ใน acute)\n- Dx: PCR + serology + histopath ตับ ไต ตา ปาก UB สมอง → vasculitis + lymphocytic infiltration\n- Tx: ไม่มี ไม่มี vaccine\n- Control: เลี้ยง susceptible host แยกจาก reservoir** (วัว แยกจากแพะ/แกะ)",
-    "verified": "modified HHM ruminant final TJ.pdf p.4 Malignant Catarrhal Fever + จะเปนหมอวัวในสองวันให้ได้เลย1 p.5 MCF (Corneal opacity ขุ่นจากขอบนอกเข้ามาตรงกลาง*)"
+    "verified": "modified HHM ruminant final TJ.pdf p.4 Malignant Catarrhal Fever + จะเปนหมอวัวในสองวันให้ได้เลย1 p.5 MCF (Corneal opacity ขุ่นจากขอบนอกเข้ามาตรงกลาง*)",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 4 }]
   },
   {
     "id": 94521,
@@ -843,7 +859,8 @@ export const QB_HERD_HEALTH_RUM = [
     ],
     "answer": 0,
     "explain": "Fecal Egg Count Reduction Test (FECRT):\n- เก็บ feces ก่อนให้ยา (Day 0) → นับ EPG (egg per gram)\n- ให้ยาถ่ายพยาธิ\n- เก็บ feces หลังให้ยา 10-14 วัน → นับ EPG\n- คำนวณ % reduction = (EPGpre − EPGpost) / EPG_pre × 100\n\nตีความ:\n- > 95% reduction → ยาดี ไม่มีดื้อ\n- < 90% → เริ่มดื้อยา\n- < 60% → ดื้อยาแน่นอน\n\nPrevention of anthelmintic resistance (สำคัญ):\n- อย่า overuse — ให้ยาเฉพาะตัวที่ Criteria ถึง (FAMACHA chart, BCS, อาการ) อย่าให้ยาสัตว์ทั้งฟาร์ม\n- อย่า underdose — ชั่งน้ำหนักจริง ไม่เดา\n- นำสัตว์เข้าฟาร์มต้อง deworm ก่อนแล้วกักก่อน\n- อย่า rotate ยาทุกครั้งที่ใช้ → ทำ FECRT ก่อน rotate\n- เปลี่ยนยากลุ่มใหม่/เพิ่ม dose/เปลี่ยนยาทุกปี — ไม่ให้ยาซ้ำๆ\n- FAMACHA chart = ดู conjunctiva ของแพะ/แกะ → เทียบสี → ระดับ 3 ขึ้นไปต้องให้ยาถ่าย (anemia guide) — Haemonchus contortus ดูดเลือดทำให้ซีด",
-    "verified": "modified HHM ruminant final TJ.pdf p.9 GI parasite + จะเปนหมอวัวในสองวันให้ได้เลย1 p.9 (FEC reduction test ลด 95%+ เวิคดีมาก, <90% เริ่มดื้อ, <60% ดื้อยา)"
+    "verified": "modified HHM ruminant final TJ.pdf p.9 GI parasite + จะเปนหมอวัวในสองวันให้ได้เลย1 p.9 (FEC reduction test ลด 95%+ เวิคดีมาก, <90% เริ่มดื้อ, <60% ดื้อยา)",
+    "sourcePages": [{ "doc": "hhm-rum-final-tj", "edition": "11p", "page": 9 }]
   },
   {
     "id": 94533,
