@@ -154,7 +154,9 @@ test('the back-office sheet styles nothing outside the back-office', () => {
   // Until AdminView's chunk loads the sheet applies to nothing, so any rule
   // in it that could match another screen would be a rule that silently
   // stopped applying there.
-  assert.deepEqual(unscoped(read('src/styles-admin.css'), ['ad-']), [],
+  const sheet = read('src/styles-admin.css');
+  assert.ok(sheetParts(sheet).selectors.length > 100, 'the scan reads the back-office rules');
+  assert.deepEqual(unscoped(sheet, ['ad-']), [],
     'every selector in styles-admin.css must sit inside an .ad-* element');
   const users = filesUsingClassPrefix('ad-');
   const admin = staticReach('src/views/AdminView.jsx');
@@ -164,14 +166,14 @@ test('the back-office sheet styles nothing outside the back-office', () => {
 });
 
 test('the landing sheet leaves the boot path only once it holds nothing the app relies on', () => {
-  const boot = staticReach('src/main.jsx');
-  const outside = unscoped(read('src/styles-landing.css'), ['lp-', 'lp_', 'cta']);
-  if (boot.has('src/styles-landing.css')) {
-    // Today: app-wide rules live in it, which is why it stays.
-    assert.ok(outside.some((s) => s.includes('.vmx-btn-sm')), 'the scan sees the phone-size small-button rule');
-    return;
-  }
-  assert.deepEqual(outside, [],
+  // The scan catches an app-wide rule tucked inside a media query, which is
+  // how the landing sheet holds the small-button size today.
+  assert.deepEqual(
+    unscoped('@media (max-width: 430px) { .vmx-btn-sm { padding: 8px; } } .lp-root .vmx-btn { overflow: visible; }', ['lp-']),
+    ['.vmx-btn-sm'],
+  );
+  if (staticReach('src/main.jsx').has('src/styles-landing.css')) return;
+  assert.deepEqual(unscoped(read('src/styles-landing.css'), ['lp-', 'cta']), [],
     'styles-landing.css left the boot stylesheet while it still styles the app outside the landing');
 });
 
