@@ -12,8 +12,9 @@ export async function resolveRaceQuestions(snapshot, bank, loadYear) {
 }
 
 // The room's questions only change with the room, its start, the set or the
-// revisions, so the 2 s poll reuses the resolved list (same array, so React
-// skips the redraw) instead of scanning the bank for every question again.
+// revisions, so the 2 s poll reuses the resolved list (the same array, so the
+// questions state is left unchanged) instead of scanning the bank for every
+// question again.
 // A failed resolve is dropped, so the next poll retries it.
 export function createRaceQuestionCache() {
   let key = null, bankRef = null, pending = null;

@@ -86,6 +86,11 @@ test('ข้อวันนี้ renders the shuffled order and records the sou
   has(TODAY, /const \{ displayOptions, displayToOriginal \} = getShuffledOptions\(q\);/);
   has(TODAY, /displayOptions\.map\(\(opt, row\) => \{\s*const i = displayToOriginal\[row\];/);
   has(TODAY, /onClick=\{\(\) => pickAnswer\(i\)\}/);
+  // The reveal marks rows by the same source index, so the tick lands on the
+  // row showing the key and the cross on the row that was clicked.
+  has(TODAY, /const correctIdx = q\.answer;/);
+  has(TODAY, /const isCorrectAnswer = i === correctIdx;/);
+  has(TODAY, /const isPicked = picked === i;/);
   has(TODAY, /String\.fromCharCode\(65 \+ row\)/);
 });
 
@@ -163,23 +168,29 @@ test('a restarted room, another room, a new set or new revisions resolve again',
   const qs = twenty();
   const bank = countingBank(qs);
   const resolve = race.createRaceQuestionCache();
-  const base = await resolve(roomOf(qs), bank, async () => {});
   const reversed = qs.map((q) => q.id).reverse();
   const cases = [
     ['restarted', { started_at: '2026-09-23T03:05:00+00:00' }, qs.map((q) => q.id)],
     ['another room', { code: 'B4D8E1' }, qs.map((q) => q.id)],
     ['new set', { question_ids: reversed }, reversed],
   ];
+  // Each case follows a fresh resolve of the base room, so it is compared
+  // with a warm cache for that room, not with the case before it.
   for (const [label, over, ids] of cases) {
+    const warm = await resolve(roomOf(qs), bank, async () => {});
     const next = await resolve(roomOf(qs, over), bank, async () => {});
-    assert.notEqual(next, base, `${label}: served the previous list`);
+    assert.notEqual(next, warm, `${label}: served the previous list`);
     assert.deepEqual(next.map((q) => q.id), ids, `${label}: wrong questions`);
   }
   // Revisions the local bank does not match are still refused, not served
-  // from the cache: the server would score against a different key.
-  await assert.rejects(resolve(roomOf(qs, { question_versions: {} }), bank, async () => {}), /คนละรุ่น/);
+  // from the cache: the server would score against a different key. Each is
+  // asked right after the same room and set resolved, so a cache key that
+  // ignored the revisions would hand back that warm list here.
   const changed = { ...roomOf(qs).question_versions, [qs[0].id]: 'r-other' };
-  await assert.rejects(resolve(roomOf(qs, { question_versions: changed }), bank, async () => {}), /คนละรุ่น/);
+  for (const versions of [{}, changed]) {
+    await resolve(roomOf(qs), bank, async () => {});
+    await assert.rejects(resolve(roomOf(qs, { question_versions: versions }), bank, async () => {}), /คนละรุ่น/);
+  }
 });
 
 test('a failed resolve is retried on the next poll, not remembered', async () => {
