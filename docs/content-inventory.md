@@ -49,3 +49,54 @@ Consistency: source banks **6541**, learner-ready **6474**, fail-closed **67**, 
 | Claims verified against an external source | 3216 |
 | Distinct external sources cited | 2093 |
 | Share of note sections governed | 43.9% |
+
+## VetWiki coverage of questions
+
+Learner-ready questions that open an article, through their own topic or a judged link.
+
+| Subject | Questions | Reach an article | Via a judged link | Coverage |
+|---|---|---|---|---|
+| aquatic-clinic | 346 | 297 | 12 | 85.8% |
+| avian-medicine | 519 | 305 | 0 | 58.8% |
+| biochem-1 | 272 | 0 | 0 | 0.0% |
+| cliapprum | 136 | 95 | 51 | 69.9% |
+| com1 | 31 | 0 | 0 | 0.0% |
+| com2 | 42 | 0 | 0 | 0.0% |
+| com3 | 359 | 308 | 47 | 85.8% |
+| com4 | 291 | 286 | 2 | 98.3% |
+| com5 | 129 | 129 | 0 | 100.0% |
+| comp-repro-clinic | 48 | 0 | 0 | 0.0% |
+| engprof | 70 | 70 | 0 | 100.0% |
+| engprof1 | 30 | 0 | 0 | 0.0% |
+| epidemiology | 100 | 60 | 0 | 60.0% |
+| equine-medicine | 455 | 455 | 0 | 100.0% |
+| equine-repro | 183 | 155 | 7 | 84.7% |
+| exotic | 151 | 101 | 0 | 66.9% |
+| food-industry | 289 | 50 | 0 | 17.3% |
+| food-safety-y4 | 31 | 0 | 0 | 0.0% |
+| herd-health-rum | 39 | 0 | 0 | 0.0% |
+| livestock-pathology | 67 | 0 | 0 | 0.0% |
+| milk-meat-hygiene | 804 | 804 | 0 | 100.0% |
+| one-health | 188 | 178 | 0 | 94.7% |
+| poa-clinical | 71 | 35 | 0 | 49.3% |
+| poultry | 178 | 114 | 42 | 64.0% |
+| practrum | 117 | 68 | 18 | 58.1% |
+| rec-adv-bioscience | 4 | 0 | 0 | 0.0% |
+| repro | 31 | 16 | 16 | 51.6% |
+| repro-lect | 208 | 151 | 45 | 72.6% |
+| ruminant-clinical | 15 | 0 | 0 | 0.0% |
+| surg1 | 29 | 3 | 3 | 10.3% |
+| surg2 | 18 | 1 | 1 | 5.6% |
+| surg3 | 40 | 0 | 0 | 0.0% |
+| swine-clinic | 96 | 88 | 0 | 91.7% |
+| swine-herd | 36 | 0 | 0 | 0.0% |
+| swine-repro | 29 | 0 | 0 | 0.0% |
+| vca | 455 | 90 | 90 | 19.8% |
+| vet-dev-anat | 26 | 0 | 0 | 0.0% |
+| vet-histo | 104 | 0 | 0 | 0.0% |
+| vet-imaging | 35 | 0 | 0 | 0.0% |
+| vet-juris | 46 | 0 | 0 | 0.0% |
+| vet-neuroanat | 40 | 40 | 0 | 100.0% |
+| vet-pharm-2 | 62 | 0 | 0 | 0.0% |
+| zoonoses | 254 | 254 | 0 | 100.0% |
+| **All** | 6474 | 4153 | 334 | 64.1% |
