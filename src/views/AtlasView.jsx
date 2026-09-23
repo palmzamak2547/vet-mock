@@ -402,9 +402,10 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
           <select
             aria-label="ตัวอย่างที่เปรียบเทียบ"
             value={comparison.id}
-            // The scene reports the new comparison itself; the primary model
-            // stays ready while it loads.
-            onChange={(e) => setLocation((current) => ({ ...current, compareId: e.target.value }))}
+            onChange={(e) => {
+              setLocation((current) => ({ ...current, compareId: e.target.value }));
+              setStatus({ kind: 'loading', views: [] });
+            }}
           >
             {ATLAS_CATALOG.filter((item) => item.id !== specimen.id).map((item) => (
               <option key={item.id} value={item.id}>
