@@ -3262,3 +3262,44 @@ sync-safety-verdict.json, rev-*, BACKLOG.json items SYNC-MULTITAB, EX-TZ, STAB-C
    docs/handoff/ (63a4f7fa, reverted in 5494a3be until then).
 4. The spelling-fix session that starts in the main checkout on 24 Sep must `git pull` first: main
    moved from 6118c8bd to a7602ecc today.
+
+## 2026-09-23 (night) — Swine and Aquatic for the 24 Sep papers, shipped in small releases
+
+Palm asked for tomorrow's two subjects the way the others were done, shipped "ทยอย" as each
+piece passed, with facts checked. Releases, each proven by CI green, Vercel READY and the
+version string in the served entry chunk:
+
+- **5.130.1** — the in-app player no longer passes `list=` to YouTube. Every Swine Medicine
+  VET86 clip showed "This video is unavailable" in the app while playing on YouTube: the clips
+  are embeddable, the playlist is not, and YouTube refuses the whole embed when handed a
+  playlist it will not play. `tests/unit/video-player-no-list.test.mjs` guards it. The
+  playlist-only iframe fallback (no clip chosen) still uses `list=`.
+- **5.130.2** — lecturer sets for `swine-clinic` (7-session timetable Palm sent: AN 1-3, PA
+  4-7; sessions 1 and 7 have no recording and carry no deck) and `aquatic-clinic` (weekly
+  sessions from 4 ส.ค.; formats from the class announcement: อรัญญา MCQ 63, ภัทรพล 5-option,
+  ฐนิดา MCQ). The swine 2026 summaries rewritten as study notes (voice and layout only;
+  timestamps, headings and verbatim quotes checked byte for byte by `check.mjs`). **Provenance
+  fix:** Swine Med Mid 86 p.2 records that the Vet 85 paper had two items from อ.อธิภู and no
+  CNS item ("ไม่ออก neuro virus"), and TJ86 item 3 says the same; 202352 and 105614-105620 were
+  built from the CNS answer a senior *prepared* (p.4) and are now student-compilation +
+  อิงแนวข้อสอบ (band 1), with the new origin filed in `exam-origins.js`.
+- **5.130.3** — wrap-up pages for both subjects, aquatic deck covers from Palm's title slides.
+  The 4 ส.ค. "Aquaculture Industry and Technology" deck was a guest's (Dr. Sirikorn Kitiyodom,
+  CPF), not อ.อรัญญา's; อ.ภัทรพล is รศ. on his 8 ก.ย. 2569 deck.
+- **5.130.4** — the aquatic 2026 summaries rewritten the same way; อ.ฐนิดา corrected from the
+  transcript's "ธนิดา" wherever it was prose (spoken quotes keep the transcript).
+
+Scope conflict stated on the swine page rather than resolved: the class chat says the midterm
+covers 7 ส.ค. to 18 ก.ย. (session 7 = musculoskeletal), while อ.พรชลิต said on 11 ก.ย. that
+locomotor is not examined [130fSmEeitU 127:13] and his part is respiratory only [158:24].
+
+Palm's standing rule, now in memory: **red underlines, stars and highlights in the files he
+sends are all points that were on a past exam.** Render pages to read them; the text layer
+loses the marks.
+
+Usage lesson: a per-piece LLM verifier doubled a 122-piece rewrite. The cheaper equivalent
+that kept the fact-check: the deterministic `check.mjs` inside each rewrite, then
+`terms.mjs` (every Latin-script term a rewrite introduced that its original lacked) and a
+human look at each suspicious one. It caught one guess ("ซีราโน" rewritten as zearalenone
+where the original said the word could not be recovered), which was reverted.
+
