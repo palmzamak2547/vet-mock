@@ -6,6 +6,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { transformSync } from 'esbuild';
 import {
   humanSource, humanSourceParts, sessionLabel,
+  citeSeconds, recordingMoments, momentHref, momentFromSearch,
 } from '../../src/lib/source-label.js';
 import { QB, loadQB } from '../../src/data/questions.js';
 
@@ -66,13 +67,14 @@ test('a compound citation splits into readable pieces', () => {
 // ============================================================
 // The source chip under every question, rendered
 // ============================================================
-// QSourceChip.jsx is JSX, so the test compiles the real file with
-// esbuild and renders it with a stub React whose elements are
+// QSourceChip.jsx and VideoView.jsx are JSX, so the test compiles the real
+// files with esbuild and renders them with a stub React whose elements are
 // plain { type, props } objects. Function components the chip draws (its
 // Row) are called; everything else is read off the tree.
 
 const COMPILED = {
   'vetmock-test:q-source-chip': 'src/components/QSourceChip.jsx',
+  'vetmock-test:video-view': 'src/views/VideoView.jsx',
 };
 const STUB = 'vetmock-test:stub:';
 const STUBS = {
@@ -89,6 +91,12 @@ const STUBS = {
     'export const jsx = (type, props, key) => ({ type, props: props || {}, key });',
     'export const jsxs = jsx;',
   ].join('\n'),
+  // VideoView's children that need a browser. The test reads the tree
+  // VideoView and its player build, not the insides of these.
+  '../components/BackBar.jsx': 'export default function BackBar() { return null; }',
+  '../components/SummaryModal.jsx': 'export default function SummaryModal() { return null; }',
+  '../components/VideoNotePanel.jsx': 'export default function VideoNotePanel() { return null; }',
+  '../hooks/useModalFocus.js': 'export const useModalFocus = () => ({ current: null });',
 };
 const repoRoot = fileURLToPath(new URL('../../', import.meta.url));
 const fileUrl = (rel) => pathToFileURL(repoRoot + rel).href;
@@ -212,4 +220,178 @@ test('no row that cites a recording shows its raw id anywhere on the chip', () =
     }
   }
   assert.deepEqual(shown, []);
+});
+
+// ============================================================
+// A cited moment a student can open
+// ============================================================
+// 546 questions cite a lecture moment, "WRttiWQ7D9s [26:48]", and none of
+// those citations could be opened: the student read "คาบ 3 นาที 26:48" and
+// then had to find the clip and scrub to that minute by hand. The citation
+// now carries the clip and the second, and the clip page plays from there.
+
+test('a bracketed time is the second the recording is at', () => {
+  assert.equal(citeSeconds('26:48'), 1608);
+  assert.equal(citeSeconds('0:05'), 5);
+  // A long recording's player counts minutes past the hour.
+  assert.equal(citeSeconds('129:25'), 7765);
+  assert.equal(citeSeconds('1:02:03'), 3723);
+  assert.equal(citeSeconds(' 6:15 '), 375);
+  for (const bad of ['', '6', '6:5', '6:75', '1:75:00', '1:02:75', 'p12', null, undefined]) {
+    assert.equal(citeSeconds(bad), null, JSON.stringify(bad));
+  }
+});
+
+test('each cited moment is a clip and a second, in order and once each', () => {
+  assert.deepEqual(recordingMoments('MID 86 audit p12; WRttiWQ7D9s [26:48]'), [
+    { videoId: 'WRttiWQ7D9s', seconds: 1608, stamp: '26:48', session: 'คาบ 3 (2 ก.ย.)', label: 'คาบ 3 (2 ก.ย.) นาที 26:48' },
+  ]);
+  // A range opens where it starts; a bracket may hold a list.
+  assert.deepEqual(
+    recordingMoments('VET86 7XyI0SjnuBA [5:24], [3:47-4:01]').map((m) => [m.seconds, m.stamp]),
+    [[324, '5:24'], [227, '3:47-4:01']],
+  );
+  assert.deepEqual(
+    recordingMoments('7XyI0SjnuBA [131:42-133:10, 121:47]').map((m) => m.seconds),
+    [7902, 7307],
+  );
+  // The same second cited twice is one moment.
+  assert.equal(recordingMoments('7XyI0SjnuBA [5:24] + 7XyI0SjnuBA [5:24-6:00]').length, 1);
+});
+
+test('text with no taught recording has no moment', () => {
+  assert.deepEqual(recordingMoments('ZZZZZZZZZZZ [1:00]'), []);
+  assert.deepEqual(recordingMoments('deck oh-vet-role.pdf p4, p7'), []);
+  assert.deepEqual(recordingMoments('7XyI0SjnuBA'), []);
+  assert.deepEqual(recordingMoments('xx7XyI0SjnuBA [1:00]'), [], 'an id is never read out of a longer token');
+  assert.deepEqual(recordingMoments(null), []);
+});
+
+test('a moment is an address on the clip page, and the address reads back', () => {
+  const href = momentHref({ videoId: 'WRttiWQ7D9s', seconds: 1608 });
+  assert.equal(href, '/app/videos?v=WRttiWQ7D9s&t=1608');
+  assert.deepEqual(momentFromSearch(href.slice(href.indexOf('?'))), { videoId: 'WRttiWQ7D9s', seconds: 1608 });
+  assert.deepEqual(momentFromSearch('?subject=food-industry&v=-9iGaiDgagI'), { videoId: '-9iGaiDgagI', seconds: 0 });
+  assert.deepEqual(momentFromSearch('?v=WRttiWQ7D9s&t=abc'), { videoId: 'WRttiWQ7D9s', seconds: 0 });
+  for (const none of ['', '?subject=food-industry', '?v=short', '?v=<script>alert</script>', null]) {
+    assert.equal(momentFromSearch(none), null, JSON.stringify(none));
+  }
+});
+
+const momentLinks = (tree) => findAll(tree, (n) => n.type === 'a' && String(n.props.href || '').startsWith('/app/videos'));
+
+test('a cited moment opens its clip at that second, in a tab of its own', () => {
+  // #207000 cites [26:48] in source and [26:48-28:22] in verified: one moment.
+  const { tree } = renderChip(bankRow('food-industry', 207000), { open: true });
+  assert.deepEqual(momentLinks(tree).map((a) => a.props.href), ['/app/videos?v=WRttiWQ7D9s&t=1608']);
+  // #207001 cites [26:48-28:22] and [28:22]: two moments of one clip.
+  const two = renderChip(bankRow('food-industry', 207001), { open: true });
+  const links = momentLinks(two.tree);
+  assert.deepEqual(links.map((a) => a.props.href), ['/app/videos?v=WRttiWQ7D9s&t=1608', '/app/videos?v=WRttiWQ7D9s&t=1702']);
+  for (const a of links) {
+    // The question the student is on stays open behind it.
+    assert.equal(a.props.target, '_blank');
+    assert.match(a.props.rel, /noopener/);
+    assert.match(a.props['aria-label'], /คาบ 3 \(2 ก\.ย\.\) นาที/);
+  }
+  // Closed, the chip is one line and links nowhere.
+  assert.equal(findAll(renderChip(bankRow('food-industry', 207000)).tree, (n) => n.type === 'a').length, 0);
+});
+
+test('a question that cites no moment gets no clip link', () => {
+  for (const q of [bankRow('com5', 568), bankRow('com5', 501)]) {
+    const { tree } = renderChip(q, { open: true });
+    assert.equal(findAll(tree, (n) => String(n.props?.href || '').startsWith('/app/videos')).length, 0, `${q.subject}#${q.id}`);
+  }
+});
+
+// ── the clip page ───────────────────────────────────────────────────
+
+// VideoView reads the address and the browser's storage when it renders.
+const memoryStorage = () => {
+  const m = new Map();
+  return { getItem: (k) => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: (k) => m.delete(k) };
+};
+globalThis.window = {
+  location: { search: '', href: 'https://vetmock.vercel.app/app/videos', pathname: '/app/videos' },
+  history: { state: null, replaceState() {}, pushState() {} },
+  localStorage: memoryStorage(),
+  addEventListener() {},
+  removeEventListener() {},
+};
+globalThis.document = { hidden: false, addEventListener() {}, removeEventListener() {} };
+
+const { default: VideoView } = await import('vetmock-test:video-view');
+
+function renderVideoView(search) {
+  window.location.search = search;
+  window.location.href = `https://vetmock.vercel.app/app/videos${search}`;
+  globalThis.__vmxHooks = hooks();
+  return VideoView({ goHome() {} });
+}
+const playerIn = (tree) => findAll(tree, (n) => n.type?.name === 'PlayerModal')[0] || null;
+
+/** Mount the player a PlayerModal element describes and return what YT.Player was given. */
+async function mountPlayer(modal) {
+  const h = hooks();
+  globalThis.__vmxHooks = h;
+  const tree = modal.type(modal.props);
+  const box = findAll(tree, (n) => n.type === 'div' && String(n.key || '').startsWith('yt-'))[0];
+  assert.ok(box, 'the player box is drawn');
+  box.props.ref.current = {};
+  const made = [];
+  window.YT = { Player: function Player(node, opts) { made.push(opts); this.destroy = () => {}; } };
+  try {
+    const effect = h.effects.find((e) => e.deps?.length === 2 && typeof e.deps[0] === 'string' && e.deps[0].length === 11);
+    assert.ok(effect, 'the player effect is registered for this clip');
+    effect.fn();
+    await new Promise((r) => setTimeout(r, 0));
+  } finally {
+    delete window.YT;
+  }
+  assert.equal(made.length, 1);
+  return { opts: made[0], tree };
+}
+
+test('the clip page opens a cited moment at once and plays from that second', async () => {
+  const modal = playerIn(renderVideoView('?v=WRttiWQ7D9s&t=1608'));
+  assert.ok(modal, 'the player opens without a tap');
+  const { opts, tree } = await mountPlayer(modal);
+  assert.equal(opts.videoId, 'WRttiWQ7D9s');
+  assert.equal(opts.playerVars.start, 1608);
+  assert.equal(opts.playerVars.autoplay, 1);
+  // The way out to YouTube, for when the in-app player cannot start, lands on
+  // the same second.
+  const out = findAll(tree, (n) => n.type === 'a' && String(n.props.href || '').startsWith('https://www.youtube.com/watch'))[0];
+  assert.equal(out.props.href, 'https://www.youtube.com/watch?v=WRttiWQ7D9s&t=1608s');
+});
+
+test('closing a cited clip takes the moment out of the address, and nothing else', () => {
+  const writes = [];
+  const replaceState = window.history.replaceState;
+  window.history.replaceState = (state, _title, url) => writes.push(String(url));
+  try {
+    playerIn(renderVideoView('?subject=food-industry&v=WRttiWQ7D9s&t=1608')).props.onClose();
+    assert.deepEqual(writes, ['https://vetmock.vercel.app/app/videos?subject=food-industry']);
+    // A clip opened from a card leaves the address alone, as before.
+    writes.length = 0;
+    const modal = playerIn(renderVideoView('?v=WRttiWQ7D9s&t=1608'));
+    window.location.href = 'https://vetmock.vercel.app/app/videos?subject=food-industry';
+    modal.props.onClose();
+    assert.deepEqual(writes, []);
+  } finally {
+    window.history.replaceState = replaceState;
+  }
+});
+
+test('the clip page without a moment behaves as it always did', async () => {
+  assert.equal(playerIn(renderVideoView('')), null, 'nothing opens by itself');
+  assert.equal(playerIn(renderVideoView('?subject=food-industry')), null);
+  // A clip opened from a card plays from its start.
+  const modal = playerIn(renderVideoView('?v=WRttiWQ7D9s&t=1608'));
+  const card = { ...modal, props: { ...modal.props, video: { url: 'https://www.youtube.com/watch?v=WRttiWQ7D9s', topic: 'x', subject: 'food-industry' } } };
+  const { opts, tree } = await mountPlayer(card);
+  assert.equal('start' in opts.playerVars, false);
+  const out = findAll(tree, (n) => n.type === 'a' && String(n.props.href || '').startsWith('https://www.youtube.com/watch'))[0];
+  assert.equal(out.props.href, 'https://www.youtube.com/watch?v=WRttiWQ7D9s');
 });

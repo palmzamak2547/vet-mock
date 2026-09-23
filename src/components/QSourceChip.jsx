@@ -20,7 +20,7 @@
 
 import { useState } from 'react';
 import { originPaperNote } from '../lib/exam-scope.js';
-import { humanSource } from '../lib/source-label.js';
+import { humanSource, recordingMoments, momentHref } from '../lib/source-label.js';
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
 import { archivedSourceUrl, googleDriveSourceUrl } from '../lib/vca-library.js';
 
@@ -51,6 +51,7 @@ export default function QSourceChip({ q, store }) {
   const summary = q.examOrigin
     ? q.examOrigin
     : (typeof q.source === 'string' ? humanSource(q.source).replace(/\.pdf.*$/, '.pdf') : (hasDisplayableWikiRefs ? 'มีข้อมูลอ้างอิง Wiki' : 'มีแหล่งอ้างอิง'));
+  const moments = open ? momentsByClip(q) : [];
 
   return (
     <div style={{
@@ -134,6 +135,30 @@ export default function QSourceChip({ q, store }) {
           {q.verified && (
             <Row label="ตรวจกับ" value={humanSource(q.verified)} icon="✓" iconColor="var(--clr-sage)" />
           )}
+          {/* Each cited moment of a recording opens that clip at that second.
+              A new tab, so the question the student is on stays where it is. */}
+          {moments.map((clip) => (
+            <div key={clip.videoId} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 6, fontSize: 11 }}>
+              <span style={{ color: 'var(--clr-ink)' }}>▶ {clip.session}</span>
+              {clip.moments.map((m) => (
+                <a
+                  key={m.seconds}
+                  href={momentHref(m)}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={`เปิดคลิป${m.label}`}
+                  title="เปิดคลิปที่นาทีนี้ในแท็บใหม่"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', minHeight: 44, padding: '0 10px',
+                    borderRadius: 999, border: '1px solid var(--clr-border)', textDecoration: 'none',
+                    color: 'var(--clr-sage-text)', fontWeight: 600, fontSize: 11.5, whiteSpace: 'nowrap',
+                  }}
+                >
+                  นาที {m.stamp}
+                </a>
+              ))}
+            </div>
+          ))}
           {sourceDocumentUrl && (
             <a href={sourceDocumentUrl} target="_blank" rel="noopener noreferrer"
               style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, color: 'var(--clr-sage-text)', overflowWrap: 'anywhere' }}>
@@ -180,6 +205,24 @@ export default function QSourceChip({ q, store }) {
       )}
     </div>
   );
+}
+
+// Every moment the citation names, grouped by clip, so a row that cites one
+// lecture at thirty moments reads as one lecture with thirty times.
+function momentsByClip(q) {
+  const clips = [];
+  const seen = new Set();
+  for (const field of [q.verified, q.source]) {
+    if (typeof field !== 'string') continue;
+    for (const m of recordingMoments(field)) {
+      if (seen.has(`${m.videoId}@${m.seconds}`)) continue;
+      seen.add(`${m.videoId}@${m.seconds}`);
+      let clip = clips.find((c) => c.videoId === m.videoId);
+      if (!clip) clips.push(clip = { videoId: m.videoId, session: m.session, moments: [] });
+      clip.moments.push(m);
+    }
+  }
+  return clips;
 }
 
 function Row({ label, value, icon, iconColor }) {
