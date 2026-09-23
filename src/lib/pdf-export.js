@@ -143,8 +143,7 @@ export async function exportAnnotatedPdf({
     // factor is the ratio of this raster to the page's points.
     paint(ctx, strokesByPage[pageNo] || [], w, h, RENDER_SCALE);
 
-    const dataUrl = canvas.toDataURL('image/png');
-    const png = await pdf.embedPng(dataUrl);
+    const png = await pdf.embedPng(await pngBytes(canvas));
     // Turned back by the page's own angle onto its crop box, so the ink
     // covers the content it was drawn over (see inkFrame).
     page.drawImage(png, {
@@ -169,6 +168,28 @@ export async function exportAnnotatedPdf({
 
   const out = await pdf.save();
   return new Blob([out], { type: 'application/pdf' });
+}
+
+// The raster as PNG bytes. toDataURL encodes on the main thread and then
+// base64s the result, and the reader froze for each inked page while it did;
+// toBlob hands the same encode to the browser. PNG is lossless, so the page
+// that lands in the PDF is the same either way. Any step of that which is
+// missing or fails (no toBlob, an empty blob, a blob that cannot be read)
+// falls back to the old encode rather than to no export or a hung one; the
+// canvas still holds its pixels until this has settled.
+function pngBytes(canvas) {
+  return new Promise((resolve, reject) => {
+    const sync = () => {
+      try { resolve(canvas.toDataURL('image/png')); } catch (e) { reject(e); }
+    };
+    if (typeof canvas.toBlob !== 'function') { sync(); return; }
+    try {
+      canvas.toBlob((blob) => {
+        if (!blob || typeof blob.arrayBuffer !== 'function') { sync(); return; }
+        blob.arrayBuffer().then((buf) => resolve(new Uint8Array(buf)), sync);
+      }, 'image/png');
+    } catch { sync(); }
+  });
 }
 
 /** Filename that says what it is without saying who made it. */

@@ -363,11 +363,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     setLoading(true);
     setLoadingMsg('กำลังอ่านไฟล์…');
     try {
-      const hash = await hashFile(file);
+      // One read of the file serves both the fingerprint and pdf.js, so a
+      // large deck is not held in memory twice while it opens. The digest
+      // has to finish first: pdf.js transfers the buffer to its worker, which
+      // empties it here. Nothing needs these bytes afterwards, because an
+      // export reads the File again (readOriginalBytes).
+      const buf = await file.arrayBuffer();
+      if (!current()) return;
+      const hash = await hashFile(file, buf);
       if (!current()) return;
       setLoadingMsg('กำลังแกะ PDF…');
       const pdfjs = await loadPdfjs();
-      const buf = await file.arrayBuffer();
       if (!current()) return;
       const task = pdfjs.getDocument({ data: buf });
       pendingTaskRef.current = task;

@@ -171,3 +171,101 @@ test('pages of different sizes each get their own frame, and annotated-only keep
   assert.deepEqual([second.width, second.height], [400, 300]);
   assert.ok(near(second, 0.8, 0.6), `page 2's dot moved to (${second.x.toFixed(3)}, ${second.y.toFixed(3)})`);
 });
+
+// ── the raster is encoded without holding the page ───────────────────
+// toDataURL encodes the PNG on the main thread and then base64s it, once per
+// inked page, and the reader cannot respond while it does. toBlob hands the
+// same encode to the browser; what reaches the PDF must not change.
+
+// Every canvas the export makes, with a count of the synchronous encodes.
+function countingCanvas(createCanvas, { withoutToBlob = false, blob = null } = {}) {
+  const seen = { toDataURL: 0, toBlob: 0 };
+  const make = (w, h) => {
+    const c = createCanvas(w, h);
+    const sync = c.toDataURL.bind(c);
+    c.toDataURL = (...args) => { seen.toDataURL += 1; return sync(...args); };
+    if (withoutToBlob) {
+      c.toBlob = undefined;
+    } else if (blob) {
+      // A browser whose toBlob answers, but not with anything readable.
+      c.toBlob = (cb) => { seen.toBlob += 1; setImmediate(() => cb(blob())); };
+    } else {
+      const async = c.toBlob.bind(c);
+      c.toBlob = (...args) => { seen.toBlob += 1; return async(...args); };
+    }
+    return c;
+  };
+  return { seen, make };
+}
+
+// The whole rendered page, pixel for pixel.
+async function pixels(bytes, pageNo, createCanvas) {
+  const doc = await getDocument({ data: new Uint8Array(bytes) }).promise;
+  const page = await doc.getPage(pageNo);
+  const viewport = page.getViewport({ scale: 1 });
+  const canvas = createCanvas(Math.round(viewport.width), Math.round(viewport.height));
+  const ctx = canvas.getContext('2d');
+  await page.render({ canvasContext: ctx, canvas, viewport }).promise;
+  const data = Buffer.from(ctx.getImageData(0, 0, canvas.width, canvas.height).data);
+  await doc.destroy();
+  return data;
+}
+
+const INK = {
+  1: [dot(0.25, 0.25), { id: 'line', mode: 'pen', color: '#1a3c8c', size: 3, points: [[0.1, 0.6], [0.5, 0.65], [0.9, 0.55]] }],
+  2: [{ id: 'hl', mode: 'highlighter', color: 'rgb(255,214,0)', size: 3, points: [[0.2, 0.3], [0.7, 0.3]] }],
+};
+
+test('an inked page is encoded through toBlob, never the synchronous toDataURL', async (t) => {
+  const lib = await canvasLib();
+  if (!lib) { t.skip('@napi-rs/canvas is not installed on this checkout'); return; }
+  const pdf = await PDFDocument.create();
+  pdf.addPage([600, 800]);
+  pdf.addPage([720, 540]);
+  const original = await pdf.save();
+  const { seen, make } = countingCanvas(lib.createCanvas);
+  await withCanvasDocument(make, () => exportAnnotatedPdf({ bytes: original, strokesByPage: INK, paint }));
+  assert.equal(seen.toDataURL, 0, `the export encoded ${seen.toDataURL} page(s) synchronously on the main thread`);
+  assert.equal(seen.toBlob, 2, 'each inked page is encoded once');
+});
+
+test('the exported pages are pixel-identical to the synchronous encode', async (t) => {
+  const lib = await canvasLib();
+  if (!lib) { t.skip('@napi-rs/canvas is not installed on this checkout'); return; }
+  const pdf = await PDFDocument.create();
+  pdf.addPage([600, 800]).setRotation(degrees(90));
+  pdf.addPage([720, 540]);
+  const original = await pdf.save();
+  const oldWay = countingCanvas(lib.createCanvas, { withoutToBlob: true });
+  const before = await withCanvasDocument(oldWay.make, () => exportAnnotatedPdf({ bytes: original, strokesByPage: INK, paint }));
+  assert.equal(oldWay.seen.toDataURL, 2, 'a canvas without toBlob still exports, the way it always did');
+  const newWay = countingCanvas(lib.createCanvas);
+  const after = await withCanvasDocument(newWay.make, () => exportAnnotatedPdf({ bytes: original, strokesByPage: INK, paint }));
+  assert.deepEqual(newWay.seen, { toDataURL: 0, toBlob: 2 }, 'the comparison did not go through toBlob');
+  for (const pageNo of [1, 2]) {
+    const a = await pixels(new Uint8Array(await before.arrayBuffer()), pageNo, lib.createCanvas);
+    const b = await pixels(new Uint8Array(await after.arrayBuffer()), pageNo, lib.createCanvas);
+    assert.equal(a.length, b.length);
+    assert.ok(a.equals(b), `page ${pageNo} renders differently once encoded through toBlob`);
+  }
+});
+
+test('a toBlob that answers with nothing usable falls back to the old encode instead of failing or hanging', async (t) => {
+  const lib = await canvasLib();
+  if (!lib) { t.skip('@napi-rs/canvas is not installed on this checkout'); return; }
+  const original = await fixture();
+  const expected = await measure(await (await withCanvasDocument(countingCanvas(lib.createCanvas, { withoutToBlob: true }).make,
+    () => exportAnnotatedPdf({ bytes: original, strokesByPage: { 1: [dot(0.25, 0.25)] }, paint }))).arrayBuffer(), 1, lib.createCanvas);
+  const answers = {
+    'no blob': () => null,
+    'a blob that cannot be read': () => ({ size: 1 }),
+    'a blob whose read fails': () => ({ size: 1, arrayBuffer: () => Promise.reject(new Error('NotReadableError')) }),
+  };
+  for (const [name, blob] of Object.entries(answers)) {
+    const { seen, make } = countingCanvas(lib.createCanvas, { blob });
+    const out = await withCanvasDocument(make, () => exportAnnotatedPdf({ bytes: original, strokesByPage: { 1: [dot(0.25, 0.25)] }, paint }));
+    assert.deepEqual(seen, { toDataURL: 1, toBlob: 1 }, `${name}: the export did not fall back once`);
+    const seenPage = await measure(new Uint8Array(await out.arrayBuffer()), 1, lib.createCanvas);
+    assert.ok(seenPage.n > 0 && near(seenPage, expected.x, expected.y), `${name}: the ink did not survive the fallback`);
+  }
+});

@@ -129,39 +129,78 @@ export function findIn(haystack, needle) {
   const q = String(needle || '').trim();
   if (!q) return null;
   const thai = hasThai(q);
-
   const attempt = (dropMarks) => {
-    const h = fold(haystack, { dropSpaces: thai, dropMarks });
-    const n = fold(q, { dropSpaces: thai, dropMarks });
-    if (!n.text) return null;
-    const at = h.text.indexOf(n.text);
-    if (at < 0) return null;
-    const endFolded = at + n.text.length - 1;
-    return {
-      at: h.map[at],
-      // Exclusive, so the caller can slice; a folded character that came
-      // from two source characters (a decomposed สระอำ) ends after both.
-      end: h.ends[endFolded],
-      loose: dropMarks,
-    };
+    const opts = { dropSpaces: thai, dropMarks };
+    return locate(fold(haystack, opts), fold(q, opts), dropMarks);
   };
-
   // Exact first. Only if that finds nothing is it worth relaxing.
   return attempt(false) || (thai ? attempt(true) : null);
+}
+
+// A folded needle in a folded haystack, in ORIGINAL-text coordinates.
+function locate(h, n, loose) {
+  if (!n.text) return null;
+  const at = h.text.indexOf(n.text);
+  if (at < 0) return null;
+  return {
+    at: h.map[at],
+    // Exclusive, so the caller can slice; a folded character that came from
+    // two source characters (a decomposed สระอำ) ends after both.
+    end: h.ends[at + n.text.length - 1],
+    loose,
+  };
+}
+
+// Folding is the expensive half of a search and depends only on the page, so
+// a document's pages are folded once and kept for as long as its text is:
+// keyed by the pages array itself, which the reader holds per document and
+// lets go of with it. A dense 60-page deck costs tens of milliseconds to
+// fold, and without this every query paid that again (twice over for a Thai
+// word that is not there, once per pass).
+//
+// Each entry remembers the text it was folded from, so a page whose text has
+// since changed is folded again rather than answered from its old self.
+const folded = new WeakMap();
+
+function foldedPage(pages, i, dropSpaces, dropMarks) {
+  let variants = folded.get(pages);
+  if (!variants) { variants = new Map(); folded.set(pages, variants); }
+  const key = (dropSpaces ? 2 : 0) + (dropMarks ? 1 : 0);
+  let byPage = variants.get(key);
+  if (!byPage) { byPage = []; variants.set(key, byPage); }
+  const src = pages[i];
+  let f = byPage[i];
+  if (!f || f.src !== src) {
+    const full = fold(src, { dropSpaces, dropMarks });
+    // Offsets in a typed array: the same numbers at a fraction of the memory
+    // a plain array of them takes in some engines.
+    f = { text: full.text, map: Int32Array.from(full.map), ends: Int32Array.from(full.ends), src };
+    byPage[i] = f;
+  }
+  return f;
 }
 
 /**
  * Searches a list of page texts. Returns one hit per page, in page order, each
  * carrying a quote taken from the ORIGINAL text so it reads the way the slide
  * reads.
+ *
+ * Each page answers exactly as findIn(page, needle) would; the folded pages
+ * are reused across searches of the same `pages` array (see `folded`).
  */
 export function searchPages(pages, needle, { limit = 200, context = 45 } = {}) {
   const out = [];
   if (!needle || !needle.trim()) return out;
+  const q = needle.trim();
+  const thai = hasThai(q);
+  const exact = fold(q, { dropSpaces: thai, dropMarks: false });
+  const loose = thai ? fold(q, { dropSpaces: thai, dropMarks: true }) : null;
   for (let i = 1; i < (pages?.length || 0); i++) {
     const text = pages[i];
     if (!text) continue;
-    const hit = findIn(text, needle);
+    // Exact first. Only if that finds nothing is it worth relaxing.
+    const hit = locate(foldedPage(pages, i, thai, false), exact, false)
+      || (loose ? locate(foldedPage(pages, i, thai, true), loose, true) : null);
     if (!hit) continue;
     const from = Math.max(0, hit.at - context);
     const to = Math.min(text.length, hit.end + context);

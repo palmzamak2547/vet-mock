@@ -159,3 +159,73 @@ test('English offsets are original too, past an invisible prefix', async () => {
   const hit = findIn(page, 'the cat');
   assert.equal(page.slice(hit.at, hit.end), 'the cat');
 });
+
+// ── a document is folded once, not once per search ───────────────────
+// Folding is the expensive half of a search and depends only on the page, so
+// a second query on the same document must not pay for it again. The reader
+// keeps one pages array per document, which is what the cache is keyed on.
+
+// Dense slide text, Thai and English mixed, about 1,900 characters a page.
+const PARA = 'โรคติดเชื้อในม้า Equine influenza การวินิจฉัยและการรักษา ไข้ ไอ น้ำมูก วัคซีน strangles Streptococcus equi ';
+const deck = (n) => [''].concat(Array.from({ length: n }, (_, i) => `${PARA.repeat(18)} หน้า ${i}`));
+
+// Every page on its own through findIn: what searchPages has always meant.
+function reference(pages, needle) {
+  const out = [];
+  for (let i = 1; i < pages.length; i++) {
+    if (!pages[i]) continue;
+    const hit = findIn(pages[i], needle);
+    if (hit) out.push({ page: i, at: hit.at, end: hit.end, loose: hit.loose });
+  }
+  return out;
+}
+const located = (hits) => hits.map(({ page, at, end, loose }) => ({ page, at, end, loose }));
+
+test('a second search on the same document gives the same hits and offsets as the first', () => {
+  const pages = [null,
+    'หลักการการวินิจ ฉัยโรคปอดบวมในสุนัข',
+    'การ​วินิจฉัย​แยกโรค',
+    'สรุป จํานวนสัตว์ป่วย',
+    'ปี ๒๕๖๘​ การ​วินิจ ฉัย​โรค',
+    'café latte เชื้อแบคทีเรีย',
+    '',
+    '​​see the cat',
+    'A​'.repeat(60) + 'วินิจฉัย' + ' tail',
+  ];
+  const queries = ['วินิจฉัย', 'จำนวน', '2568', 'เชือแบคทีเรีย', 'café', 'the cat', 'cat', 'วินิจฉย', 'ไม่มีคำนี้'];
+  for (let round = 0; round < 3; round++) {
+    for (const q of queries) {
+      const hits = searchPages(pages, q);
+      assert.deepEqual(located(hits), reference(pages, q), `round ${round}, "${q}" answered differently`);
+      for (const h of hits) assert.ok(h.quote.length > 0, 'a hit came back without its quote');
+    }
+  }
+});
+
+test('a page whose text changes is searched as it reads now, not as it was folded', () => {
+  const pages = [null, 'การวินิจฉัยโรค', 'แบคทีเรีย'];
+  assert.deepEqual(searchPages(pages, 'แบคทีเรีย').map((h) => h.page), [2]);
+  pages[1] = 'เชื้อแบคทีเรียก่อโรค';
+  assert.deepEqual(located(searchPages(pages, 'แบคทีเรีย')), reference(pages, 'แบคทีเรีย'));
+  assert.deepEqual(searchPages(pages, 'วินิจฉัย'), [], 'the old text of the page still answered');
+});
+
+test('a second search on the same document costs a fifth of the first or less', () => {
+  const pages = deck(60);
+  const time = (fn) => { const t0 = performance.now(); fn(); return performance.now() - t0; };
+  const median = (xs) => [...xs].sort((a, b) => a - b)[Math.floor(xs.length / 2)];
+  // Warm the matcher up on throwaway copies, so the first search below is
+  // measured at full speed rather than while the engine is still compiling.
+  for (let i = 0; i < 3; i++) { searchPages(pages.slice(), 'ไม่มีคำนี้'); searchPages(pages.slice(), 'strangles'); }
+  for (const [miss, other] of [['ไม่มีคำนี้', 'ไม่พบคำนี้'], ['strangles', 'influenza']]) {
+    // A first search: a fresh copy of the document each time, as a newly
+    // opened deck would be.
+    const first = median([0, 1, 2].map(() => { const doc = pages.slice(); return time(() => searchPages(doc, miss)); }));
+    const doc = pages.slice();
+    searchPages(doc, miss);
+    const again = median([0, 1, 2, 3, 4].map(() => time(() => searchPages(doc, other))));
+    assert.ok(again <= first * 0.2,
+      `"${other}" after "${miss}" took ${again.toFixed(2)} ms against ${first.toFixed(2)} ms for a first search`);
+    assert.deepEqual(located(searchPages(doc, other)), reference(doc, other));
+  }
+});

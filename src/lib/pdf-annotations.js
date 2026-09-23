@@ -286,16 +286,24 @@ function normalise(hash, v) {
 
 // ── Public API ────────────────────────────────────────────────────────────
 
-/** SHA-256 of the file bytes, hex, truncated to 16 chars. */
-export async function hashFile(file) {
+/** SHA-256 of the file bytes, hex, truncated to 16 chars.
+ *
+ *  `bytes`, when given, is the file's content already read by the caller, so
+ *  opening a document reads it from disk once instead of twice. It is used
+ *  only while it is still the whole file: pdf.js transfers the buffer it is
+ *  handed to its worker, which leaves it empty here, and an empty buffer
+ *  digests without complaint to the fingerprint of nothing, the same for
+ *  every file. Anything short of the whole file is ignored and the file is
+ *  read again. */
+export async function hashFile(file, bytes = null) {
   if (!file) throw new Error('hashFile: missing file');
   if (typeof crypto !== 'undefined' && crypto.subtle) {
     try {
-      const buf = await file.arrayBuffer();
-      const digest = await crypto.subtle.digest('SHA-256', buf);
-      const bytes = new Uint8Array(digest);
+      const whole = bytes != null && Number.isFinite(file.size) && bytes.byteLength === file.size;
+      const buf = whole ? bytes : await file.arrayBuffer();
+      const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', buf));
       let hex = '';
-      for (let i = 0; i < bytes.length; i++) hex += bytes[i].toString(16).padStart(2, '0');
+      for (let i = 0; i < digest.length; i++) hex += digest[i].toString(16).padStart(2, '0');
       return hex.slice(0, 16);
     } catch { /* fall through */ }
   }
