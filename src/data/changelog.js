@@ -47,6 +47,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.130.3',
+    date: '2026-09-23',
+    headline: 'หน้าสรุปก่อนสอบของ Swine Medicine และ Aquatic Animal Medicine พร้อมอ่านแล้ว',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: 'CHECK', title: 'หน้าสรุปก่อนสอบของ Swine Medicine และ Aquatic Animal Medicine',
+        desc: 'สองวิชาที่สอบ 24 ก.ย. มีหน้าสรุปก่อนสอบแล้ว แยกตามอาจารย์ แต่ละหัวข้อบอกคำสำคัญ จุดที่อาจารย์เน้นพร้อมนาทีในคลิป และจุดที่มีในข้อสอบเก่า เข้าได้จากแถบใต้เคาน์ดาวน์หน้าแรก และจากการ์ดด้านบนในหน้าเลือกหัวข้อ',
+      },
+      { scope: 'multi', kind: 'content', icon: 'CHECK', title: 'ชุดฝึกแยกตามอาจารย์ของ Aquatic Animal Medicine มีปกสไลด์แล้ว',
+        desc: 'แต่ละคาบแสดงหน้าปกสไลด์ของเรื่องนั้น จึงหาเรื่องที่จะฝึกได้เร็วขึ้น',
+      },
+    ],
+  },
+  {
     version: '5.130.2',
     date: '2026-09-23',
     headline: 'Swine Medicine และ Aquatic Animal Medicine ฝึกแยกตามอาจารย์ได้แล้ว และสรุปคลิปคาบเรียน Swine Medicine อ่านง่ายขึ้น',

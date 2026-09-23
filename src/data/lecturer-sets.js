@@ -655,7 +655,7 @@ export const LECTURER_SETS = {
   // quality, which curriculum.js gives to อ.ภัทรพล. 4 ส.ค. also had a guest deck, Aquaculture
   // Industry and Technology (Dr. Sirikorn Kitiyodom, CPF), so that session's deck is
   // listed under อ.อรัญญา by its own title only. อ.ภัทรพล is รศ. on his 8 ก.ย. 2569 deck.
-  // No deck covers yet: blank tiles.
+  // Deck covers are the title slides Palm sent on 23 ก.ย.
   'aquatic-clinic': {
     examDate: '2026-09-24',
     coverage: 'เนื้อหาตั้งแต่ 4 ส.ค. ถึง 15 ก.ย.',

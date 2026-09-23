@@ -149,6 +149,18 @@ export const LECTURE_COVERS = {
     'swine-an-cns': { src: base('lecture-covers', 'swine-clinic-swine-an-cns'), alt: 'ปกสไลด์ โรคระบบประสาทในสุกร ตราพระเกี้ยว และภาพ รศ.น.สพ.ดร.อธิภู นันทประเสริฐ' },
     'swine-pa-note': { src: base('lecture-covers', 'swine-clinic-swine-pa-note'), alt: 'ปกเอกสาร Lecture note: Swine Medicine 2026 ของ Dr. Pornchalit Assavacheep พื้นขาว ตัวอักษรสีน้ำเงิน' },
   },
+  'aquatic-clinic': {
+    'aqua-intro': { src: base('lecture-covers', 'aquatic-clinic-aqua-intro'), alt: 'ปกสไลด์ Aquaculture in Thailand ของ Aranya Ponpornpisit พื้นขาว' },
+    'aqua-fish-biology': { src: base('lecture-covers', 'aquatic-clinic-aqua-fish-biology'), alt: 'ปกสไลด์ Fish Biology ภาพกล้องจุลทรรศน์กับสไลด์แก้ว' },
+    'aqua-ornamental': { src: base('lecture-covers', 'aquatic-clinic-aqua-ornamental'), alt: 'ปกสไลด์ Ornamental Fish Medicine พื้นขาว ตัวอักษรดำ' },
+    'aqua-water-quality': { src: base('lecture-covers', 'aquatic-clinic-aqua-water-quality'), alt: 'ปกสไลด์ Water quality in aquaculture pond ภาพบ่อเลี้ยงกุ้งกับเครื่องตีน้ำ' },
+    'aqua-shrimp': { src: base('lecture-covers', 'aquatic-clinic-aqua-shrimp'), alt: 'ปกสไลด์ Aquatic Animal Medicine: Economic spp. Class of 2026 ภาพปลานิลและกุ้ง' },
+    'aqua-frog': { src: base('lecture-covers', 'aquatic-clinic-aqua-frog'), alt: 'ปกสไลด์ Diseases and Health Management in cultured frog ภาพกบเลี้ยง' },
+    'aqua-lss': { src: base('lecture-covers', 'aquatic-clinic-aqua-lss'), alt: 'ปกสไลด์ Life Supporting System Effects on Aquatic Animals Health in Aquarium พื้นน้ำทะเลสีน้ำเงิน' },
+    'aqua-amphibian': { src: base('lecture-covers', 'aquatic-clinic-aqua-amphibian'), alt: 'ปกสไลด์ Basic Amphibian Medicine พื้นดำ ภาพเงาซาลาแมนเดอร์และกบ' },
+    'aqua-turtle-1': { src: base('lecture-covers', 'aquatic-clinic-aqua-turtle'), alt: 'ปกสไลด์ Chelonian พื้นเหลือง ภาพเงาเต่า' },
+    'aqua-turtle-2': { src: base('lecture-covers', 'aquatic-clinic-aqua-turtle'), alt: 'ปกสไลด์ Chelonian พื้นเหลือง ภาพเงาเต่า' },
+  },
   'avian-medicine': {
     'avian-nd': { src: base('lecture-covers', 'avian-medicine-avian-nd'), alt: 'ปกสไลด์ Newcastle Disease พื้นน้ำเงิน ลายขนนก' },
     'avian-ib': { src: base('lecture-covers', 'avian-medicine-avian-ib'), alt: 'ปกสไลด์ Infectious Bronchitis พื้นชมพูเข้ม ลายขนนก' },
