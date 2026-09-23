@@ -25,8 +25,8 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 ## 🎯 Project At a Glance
 
 - **VetMock** — คลังข้อสอบสัตวแพทย์ จุฬา (Vet question bank for Vet 86 + future years)
-- **Stack**: React 18 + Vite 6.4.3 + Supabase (auth/DB) + PWA · plain JSX app code, TS only at the edges (`db/schema.ts` + `src/db/schema.ts`, `drizzle.config.ts`, `supabase/functions/*`)
-- **Current source version**: v5.122.1 (2026-09-19); verify exact-SHA CI/deployment and live flow before describing production as current.
+- **Stack**: React 18 + Vite 6.4.3 + Supabase (auth/DB) + PWA · plain JSX app code, TS only at the edges (`supabase/functions/*`)
+- **Current source version**: `version` in `package.json`; the newest release note is the top entry of `src/data/changelog.js`. Verify exact-SHA CI/deployment and live flow before describing production as current.
 - **Hosting**: Vercel (auto-deploy on push to `main` · `api/*.js` are Vercel serverless functions · `vercel.json` also CSP-rewrites `/venipuncture/*` to a separate app and `/wiki/*` + `/app/*` to the SPA)
 - **Production**: https://vetmock.vercel.app
 - **Audience**: ~50-100 vet students at Chulalongkorn (Vet 86 cohort) · Thai-language
@@ -43,6 +43,9 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 ### 2. Changelog (`src/data/changelog.js`) shows ONLY user-observable changes
 - ✅ New features (UI, content, fixes that affect usage)
 - ❌ SEO / build / refactor / infrastructure → git history only
+- ❌ Root causes and mechanism: no "สาเหตุคือ…", no model or quota talk. Each change is a title
+  plus at most two sentences, 300 characters at most, on what the student will notice.
+  `tests/unit/changelog-voice.test.mjs` enforces the voice from 5.124.0 and the length after 5.128.0.
 - See header comment in changelog.js
 - The homepage banner and sidebar badge read `src/data/latest-changelog.generated.js`
   (newest entry only, so the entry chunk does not carry the whole history).
@@ -152,7 +155,7 @@ Rules that follow from it, and they are not negotiable:
 | Mochi / Motion | `src/components/Mochi.jsx` + `src/lib/mochi-presence.js` embed contextual companions in existing views; one device preference hides all; 3D stays on demand in `/app/mochi`. Exam feedback requires a revealed practice answer; focused drawing/imaging workspaces stay clear. |
 | Motion in real flows | `MotionFeedback.jsx` owns visual responses on real controls; `ReadingEffects.jsx` enhances actual Notes/VetWiki text; `FocusBackdrop.jsx` + `StudyBreak.jsx` follow Pomodoro state. Global settings live in ThemePicker. See `docs/motion-kit-real-usage.md`; preview actions are never evidence of a real save or answer. |
 | Vercel serverless functions | `api/*.js` (wiki-explain, study-coach, grade-summary, tts, library-file/blob, send-feedback, …) · shared model chain in `api/_lib/llm.js`, output guards in `api/_lib/grounding.js` |
-| DB schema (drizzle) | `db/schema.ts` ≡ `src/db/schema.ts` · push via `npm run db:push` |
+| DB schema | `supabase/migrations/*.sql` is the schema source of truth |
 | Supabase edge functions | `supabase/functions/*` (LINE auth, account deletion — TS) |
 | Question banks / loader | `src/data/questions-*.js` + `bank-registry.generated.js` |
 | VCA source inventory | `src/data/vca-materials.js` + `src/lib/vca-library.js`; verified R2 copies and original Drive provenance; recovery in `docs/vca-archive.md` |
@@ -163,9 +166,8 @@ Rules that follow from it, and they are not negotiable:
 | Video summaries | `src/data/video-summaries-*.js` + metadata barrel |
 | Changelog (homepage banner) | `src/data/changelog.js` |
 | Curriculum / subjects / topics | `src/data/curriculum.js` |
-| Styles (all CSS) | `src/styles.css` + `src/styles-landing.css` + `src/styles-admin.css` (`.ad-*`, the back-office only) |
+| Styles (all CSS) | `src/styles.css` + `src/styles-landing.css` + `src/styles-admin.css` (`.ad-*`, the back-office only) + `src/styles-atlas.css` (AtlasView) + `src/styles-motion-kit.css` (MotionLoader, MotionSurface, StudyBreak) |
 | Back-office (one account) | `src/views/AdminView.jsx` at `/app/admin`; reads `src/lib/admin-api.js` (RPCs gated by `is_admin()`), flags from `src/lib/question-quality.js`; schema in `supabase/migrations/20260915121049_admin_backoffice_v1.sql` |
-| Tailwind v4 (scoped) | `src/styles-tailwind.css` — utilities ONLY for `src/components/shadcn-space/**`; no preflight, everything layered so hand-written CSS always wins; `@` alias → `src/` |
 | Static blog (SEO) | `public/blog/*.html` |
 | SEO config | `public/{robots.txt,sitemap.xml}` + `index.html` meta |
 | Scripts (transcript, lint, ping) | `scripts/*.{mjs,cjs}` |
@@ -192,7 +194,6 @@ npm run regen:changelog   # Hand-regen latest-changelog.generated.js
 npm run fetch:videos      # Fetch YouTube transcripts to data-cache/transcripts/
 npm run flat:transcript   # Flatten transcript JSON → text (with timestamps)
 npm run ping:indexnow     # Notify Bing/Yandex/Naver after deploy
-npm run db:push           # Push drizzle schema to Postgres (drizzle-kit)
 ```
 
 Generated files — never hand-edit; the matching `lint:*` or `regen:*` script owns them:
@@ -257,7 +258,9 @@ Canonical repo knowledge map:
   `question-metadata.js`, or the gate's shape.** It records why the same class of bug keeps
   recurring (facts that should be references are stored as free text), the rule that these are
   fixed by correcting DATA and adding a guardrail rather than by loosening a predicate, and a
-  measured breakdown of where the ~48-minute gate actually spends its time.
+  measured breakdown of where the gate actually spends its time: about 9 min on a quiet machine
+  at the local default of 6 workers, about 15 min at CI parity (`CI=1`), about 25 min on a busy
+  machine. Playwright is 86-92% of it; the vite build takes 17-73 s.
 - `wiki/guides/content-pipeline.md` — content pipeline detail
 - `wiki/operations/testing-and-ci.md` — lint/CI gates detail
 - `STABILITY.md` — regression guardrails
