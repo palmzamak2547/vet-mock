@@ -659,7 +659,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-acupuncture",
     "title": "Veterinary Acupuncture in Equine Practice",
     "icon": "🪡",
-    "summary": "Intro to TCVM (Traditional Chinese Veterinary Medicine) → 3 หมวดในคาบ: TCVM in brief · TCVM essentials · Case examples. Note บนสไลด์: ออกสอบ choice ~20 ข้อ.",
+    "summary": "Intro to TCVM (Traditional Chinese Veterinary Medicine) → 3 หมวดในคาบ: TCVM in brief, TCVM essentials, Case examples.",
     "flagship": false
   },
   {
@@ -668,7 +668,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-anesthesia",
     "title": "Equine anesthesia (2024)",
     "icon": "💉",
-    "summary": "แบ่ง 2 ส่วน: full anesthesia (in-hospital, GA + recovery) · field anesthesia (knock-them-down anes, AUS style). Source PDF ใหญ่ >100MB ไม่สามารถเปิดสไลด์ได้ — ใช้เนื้อหา anchored จาก intro slide deck + course chatter เท่านั้น.",
+    "summary": "แบ่ง 2 ส่วน: full anesthesia (in-hospital, GA + recovery), field anesthesia (knock-them-down anes, AUS style).",
     "flagship": false
   },
   {
@@ -677,7 +677,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-colic-bestfit",
     "title": "Colic best-fit",
     "icon": "😣",
-    "summary": "การจัดการที่เหมาะสมสำหรับปัญหาโคลิกในม้า — colic = สาเหตุการตายอันดับ 1 ในม้า · ปวดท้องแบบ acute (ER). Lecture จาก KU (KSU large animal + wildlife clinical sciences).",
+    "summary": "การจัดการที่เหมาะสมสำหรับปัญหาโคลิกในม้า — colic = สาเหตุการตายอันดับ 1 ในม้า, ปวดท้องแบบ acute (ER). Lecture จาก KU (KSU large animal + wildlife clinical sciences).",
     "flagship": false
   },
   {
@@ -686,7 +686,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-colic-surgery",
     "title": "Surgical colic + cases",
     "icon": "🔪",
-    "summary": "Surgical colic = ผ่าตัดเปิดช่องท้องเพื่อแก้ obstruction/strangulation. Techniques: ventral midline celiotomy → manual exploratory → exteriorize → enterotomy (SI/cecum/large colon/small colon) · **pelvic flexure enterotomy** (นิยม) · resection & anastomosis · abdominal closure. Pre-op pic: ม้าเทกพ์ + dorsal recumbency + GA.",
+    "summary": "Surgical colic = ผ่าตัดเปิดช่องท้องเพื่อแก้ obstruction/strangulation. Techniques: ventral midline celiotomy → manual exploratory → exteriorize → enterotomy (SI/cecum/large colon/small colon), pelvic flexure enterotomy (นิยม), resection & anastomosis, abdominal closure. Pre-op pic: ม้าเทกพ์ + dorsal recumbency + GA.",
     "flagship": false
   },
   {
@@ -695,7 +695,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-dentistry",
     "title": "Equine dentistry",
     "icon": "🦷",
-    "summary": "Intro: ทำไม dental สำคัญในม้า (มันบุญไม่ได้ → ต้องหา sign เอง) · Dental morphology (anatomy + physiology) · Dental nomenclature · Ageing change in dentition. Key concepts: hypsodont (high-crown) + reserve crown · anisognathism (upper arcade 30% wider than lower) · infundibulum (incisors + upper cheek teeth only).",
+    "summary": "Intro: ทำไม dental สำคัญในม้า (มันบุญไม่ได้ → ต้องหา sign เอง), Dental morphology (anatomy + physiology), Dental nomenclature, Ageing change in dentition. Key concepts: hypsodont (high-crown) + reserve crown, anisognathism (upper arcade 30% wider than lower), infundibulum (incisors + upper cheek teeth only).",
     "flagship": false
   },
   {
@@ -704,7 +704,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-farabella",
     "title": "Farabella (miniature horse / Falabella)",
     "icon": "🐎",
-    "summary": "Lecture เรื่อง Farabella / Falabella (miniature horse breed). หน้า 1-3 ของ PDF เปิดแล้วเป็น content ภาพ X-ray / orthopedic case images (mandible fracture + plate fixation) → suggest lecture covers physical/orthopedic differences ใน mini horses.",
+    "summary": "Lecture เรื่อง Farabella / Falabella (miniature horse breed): orthopedic case ภาพ X-ray (mandible fracture + plate fixation).",
     "flagship": false
   },
   {
@@ -713,7 +713,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-gi",
     "title": "Equine GI — Anatomy + Physiology + Exam + Medical mgmt",
     "icon": "🐴",
-    "summary": "Horse = grazing animal · non-ruminant herbivore · **hindgut fermenter** (cecum). Foregut: mouth · esophagus · stomach · SI. Hindgut: cecum · large colon · small colon · rectum. Exam: PE/auscultation · mouth/teeth · fecal · NGT · rectal palp · abdominocentesis · radiograph · endoscopy · blood. Mgmt classification by pathology: obstruction · strangulation · ulceration · enteritis & colitis · peritonitis · non-strangulation infarction.",
+    "summary": "Horse = grazing animal, non-ruminant herbivore, hindgut fermenter (cecum). Foregut: mouth, esophagus, stomach, SI. Hindgut: cecum, large colon, small colon, rectum. Exam: PE/auscultation, mouth/teeth, fecal, NGT, rectal palp, abdominocentesis, radiograph, endoscopy, blood. Mgmt classification by pathology: obstruction, strangulation, ulceration, enteritis & colitis, peritonitis, non-strangulation infarction.",
     "flagship": false
   },
   {
@@ -722,7 +722,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-hoof",
     "title": "Pathologic conditions of the equine foot",
     "icon": "🐴",
-    "summary": "External anatomy + ground surface anatomy ก่อน → pathologic conditions (laminitis · navicular · abscess · canker · thrush · cracks). หมายเหตุ TC: \"ปัญหาที่ foot ~60% ของ lameness cases\".",
+    "summary": "External anatomy + ground surface anatomy ก่อน → pathologic conditions (laminitis, navicular, abscess, canker, thrush, cracks). หมายเหตุ TC: \"ปัญหาที่ foot ~60% ของ lameness cases\".",
     "flagship": false
   },
   {
@@ -731,7 +731,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-infectious",
     "title": "Equine infectious diseases & vaccination",
     "icon": "🦠",
-    "summary": "Outline 4 หมวด: Virus (Rabies / AHS / EHV / EIA / EI / EE / JE) · Bacteria (Strangles / Tetanus / Glanders / CEM) · Protozoa (Trypanosomiasis / Equine piroplasmosis) · Fungi (Pythiosis / Guttural pouch mycosis). เน้น viral disease ที่ \"เจอใน TH\".",
+    "summary": "Outline 4 หมวด: Virus (Rabies / AHS / EHV / EIA / EI / EE / JE), Bacteria (Strangles / Tetanus / Glanders / CEM), Protozoa (Trypanosomiasis / Equine piroplasmosis), Fungi (Pythiosis / Guttural pouch mycosis). เน้น viral disease ที่ \"เจอใน TH\".",
     "flagship": false
   },
   {
@@ -758,7 +758,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-lapove",
     "title": "Laparoscopic Ovariectomy (LapOVE)",
     "icon": "🔬",
-    "summary": "LapOVE = Minimally Invasive Surgery (MIS) ทำใน standing & flock standing/sedated. ใช้ port เล็กในช่องท้อง → small incision · reduced tissue damage · better visualization. Cover 2 parts: Laparoscopic Fundamental (laparoscopy + general rules) + LapOVE case study (patient prep · port entry · surgery).",
+    "summary": "LapOVE = Minimally Invasive Surgery (MIS) ทำใน standing & flock standing/sedated. ใช้ port เล็กในช่องท้อง → small incision, reduced tissue damage, better visualization. Cover 2 parts: Laparoscopic Fundamental (laparoscopy + general rules) + LapOVE case study (patient prep, port entry, surgery).",
     "flagship": false
   },
   {
@@ -767,7 +767,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-neonatal",
     "title": "Neonatal & Foal management",
     "icon": "🐎",
-    "summary": "TOC 8 หัวข้อ: Parturition in the mare · Stage of labor · Newborn examination · Placental examination · Intensive care of neonatal foal · Foal's immune system · Neonatal disorder · Foal health care. Gestation length: 320-380 days (~11 months) · pony 320-345d · Thoroughbred 320-360d · donkeys 360-380d.",
+    "summary": "TOC 8 หัวข้อ: Parturition in the mare, Stage of labor, Newborn examination, Placental examination, Intensive care of neonatal foal, Foal's immune system, Neonatal disorder, Foal health care. Gestation length: 320-380 days (~11 months), pony 320-345d, Thoroughbred 320-360d, donkeys 360-380d.",
     "flagship": false
   },
   {
@@ -776,7 +776,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-nutrition",
     "title": "Equine nutrition — Basic + What diet provides + Feeds",
     "icon": "🌾",
-    "summary": "นิยาม nutrition + Equine Well-being Triad (Genetic / Management / Nutrition) + BCS (1-9) + Topline Evaluation Score (TES) → BCS 5 ฝ้ายอ่อน, BCS 7-9 = obese · same breed/age/sex/env ก็ต้องการอาหารต่างกันได้ (genetic + history + intrauterine).",
+    "summary": "นิยาม nutrition + Equine Well-being Triad (Genetic / Management / Nutrition) + BCS (1-9) + Topline Evaluation Score (TES) → BCS 5 ฝ้ายอ่อน, BCS 7-9 = obese. Same breed/age/sex/env ก็ต้องการอาหารต่างกันได้ (genetic + history + intrauterine).",
     "flagship": false
   },
   {
@@ -785,7 +785,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-ophth",
     "title": "Equine ophthalmology",
     "icon": "👁",
-    "summary": "\"A horse is NOT a big dog\" — equine eye ≠ canine eye (เพิ่มเป็น comparative). Lecture guideline: (1) Normal ocular organs, (2) Each ocular organ — Normal function · Ophthalmic examinations · Common abnormalities.",
+    "summary": "\"A horse is NOT a big dog\" — equine eye ≠ canine eye (เพิ่มเป็น comparative). Lecture guideline: (1) Normal ocular organs, (2) Each ocular organ — Normal function, Ophthalmic examinations, Common abnormalities.",
     "flagship": false
   },
   {
@@ -794,7 +794,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-ortho",
     "title": "Equine orthopedic",
     "icon": "🦴",
-    "summary": "Orthopedic — PDF p.1-3 แสดง case-based images (mandibular fracture repair: pre-op X-ray + post-op plate/screw fixation). Slides น่าจะคลุม fracture management, internal fixation, plate/screw systems, region-specific approaches.",
+    "summary": "Orthopedic — case-based images (mandibular fracture repair: pre-op X-ray + post-op plate/screw fixation), wound healing ในม้าเทียบกับ pony, exuberant granulation tissue (EGT) และ bandage แต่ละชนิด.",
     "flagship": false
   },
   {
@@ -803,7 +803,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-parasites",
     "title": "Equine parasites in Thailand",
     "icon": "🪱",
-    "summary": "วัตถุประสงค์: อธิบายความสำคัญของโรคปรสิตในม้าใน TH + อธิบายความก่อโรคของปรสิตตามอวัยวะ. Outline 4 หมวด: GI parasite · Blood parasite · Skin disease · Eyes disease due to parasite.",
+    "summary": "วัตถุประสงค์: อธิบายความสำคัญของโรคปรสิตในม้าใน TH + อธิบายความก่อโรคของปรสิตตามอวัยวะ. Outline 4 หมวด: GI parasite, Blood parasite, Skin disease, Eyes disease due to parasite.",
     "flagship": false
   },
   {
@@ -812,7 +812,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-poa",
     "title": "POA equine (Practical / Objective Approach)",
     "icon": "🩺",
-    "summary": "POA = Practical Objective Assessment-style station(s) เน้น lameness + infectious dz workup. PDF เปิด p.1-3 แสดง: history-taking (9-best-question approach), PE checklist (BCS, palpation), lameness scoring (5-grade), nerve block ladder (PD → abaxial → low 4 → high 4), hoof tester, radiograph diff-dx (navicular bone dz). POA ออกสอบ final ~2 ข้อ.",
+    "summary": "POA = Practical Objective Assessment-style station(s) เน้น lameness + infectious dz workup: history-taking (9-best-question approach), PE checklist (BCS, palpation), lameness scoring (5-grade), nerve block ladder (PD → abaxial → low 4 → high 4), hoof tester, radiograph diff-dx (navicular bone dz).",
     "flagship": false
   },
   {
@@ -821,7 +821,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-pythium",
     "title": "Pythium / Equine pythiosis",
     "icon": "🦠",
-    "summary": "Pythium insidiosum (oomycete, ไม่ใช่เชื้อรา true fungus). PDF filename: \"20 - pythium ไม่แจกชีท เพราะอะไรอีก.pdf\" → ผู้บรรยายไม่แจกชีท → outline ส่วนใหญ่จาก infectious disease lecture (3 - Eq_inf_dz_67.pdf) ที่ list pythiosis ใน Fungi category.",
+    "summary": "Pythium insidiosum (oomycete, ไม่ใช่เชื้อรา true fungus) แม้ในหัวข้อ equine infectious disease จะจัด pythiosis ไว้ในหมวด Fungi.",
     "flagship": false
   },
   {
@@ -830,7 +830,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-respi",
     "title": "Equine respiratory diseases",
     "icon": "🫁",
-    "summary": "Outline 4 หัวข้อ: Sign of respiratory problems · Equine respiratory examination · Upper respiratory problems · Lower respiratory problems. Exam: PE + breathing sound (URT vs LRT) + auscultation (↑/↓/adventitious) + percussion + radiograph + ultrasound + CT/MRI.",
+    "summary": "Outline 4 หัวข้อ: Sign of respiratory problems, Equine respiratory examination, Upper respiratory problems, Lower respiratory problems. Exam: PE + breathing sound (URT vs LRT) + auscultation (↑/↓/adventitious) + percussion + radiograph + ultrasound + CT/MRI.",
     "flagship": false
   },
   {
@@ -839,7 +839,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-rvf",
     "title": "Rectovaginal fistula (RVF)",
     "icon": "🩹",
-    "summary": "Rectovaginal fistula tract = ม้าหายจาก vagina เปิดเข้า rectum (มักจากคลอดยาก). Technique: standing sedation + epidural block (xylazine + mepivacaine) → ตัดแยกเป็น 2 ชั้น (vagina + rectum) → suture pattern เช่น **six-bite** (Auer, Equine Surgery).",
+    "summary": "Rectovaginal fistula tract = ม้าหายจาก vagina เปิดเข้า rectum (มักจากคลอดยาก). Technique: standing sedation + epidural block (xylazine + mepivacaine) → ตัดแยกเป็น 2 ชั้น (vagina + rectum) → suture pattern เช่น six-bite (Auer, Equine Surgery).",
     "flagship": false
   },
   {
@@ -848,7 +848,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-tendon",
     "title": "Tendon / Ligament injuries and treatments",
     "icon": "💪",
-    "summary": "\"Bowed tendon\" / sprain เจอเยอะในม้าฝึก — incidence 18-48% (อาจถึง 80% in training). Recurrence สูงมาก **30-87.5%**. Tendinopathies: SDFT (Fore >> Hind) · Suspensory lig · Inferior check lig · DDFT (rare) · others (biceps, ext, calcaneal).",
+    "summary": "\"Bowed tendon\" / sprain เจอเยอะในม้าฝึก — incidence 18-48% (อาจถึง 80% in training). Recurrence สูงมาก 30-87.5%. Tendinopathies: SDFT (Fore >> Hind), Suspensory lig, Inferior check lig, DDFT (rare), others (biceps, ext, calcaneal).",
     "flagship": false
   },
   {
@@ -857,7 +857,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-tumors",
     "title": "Equine tumor series",
     "icon": "🦠",
-    "summary": "Tumor series 4 ตัวหลัก: Squamous cell carcinoma · Fibroma · Sarcoid · Melanoma. Case-based teaching. Case 01: 10-yr stallion, mixed breed, mass at medial canthus OD → SCC suspect → surgical remove + histopath + chemotherapy.",
+    "summary": "Tumor series 4 ตัวหลัก: Squamous cell carcinoma, Fibroma, Sarcoid, Melanoma. Case-based teaching. Case 01: 10-yr stallion, mixed breed, mass at medial canthus OD → SCC suspect → surgical remove + histopath + chemotherapy.",
     "flagship": false
   },
   {
@@ -1082,7 +1082,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-ante-post-mortem",
     "title": "Antemortem & postmortem inspection",
     "icon": "🔍",
-    "summary": "Objectives: ให้สัตว์ที่ดูสุขภาพดี/ปกติเข้าฆ่า + แยก abnormal animal ออก + แน่ใจว่าเนื้อปลอด disease/wholesome/ไม่เสี่ยงผู้บริโภค · AM ดูพฤติกรรม + BCS + cleanliness + signs · PM ตัดสินซาก + แยก localized/generalized + acute/chronic.",
+    "summary": "Objectives: ให้สัตว์ที่ดูสุขภาพดี/ปกติเข้าฆ่า + แยก abnormal animal ออก + แน่ใจว่าเนื้อปลอด disease/wholesome/ไม่เสี่ยงผู้บริโภค, AM ดูพฤติกรรม + BCS + cleanliness + signs, PM ตัดสินซาก + แยก localized/generalized + acute/chronic.",
     "flagship": false
   },
   {
@@ -1091,7 +1091,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-cutting-grading",
     "title": "Postmortem changes + meat cutting & grading",
     "icon": "🔪",
-    "summary": "Muscle-to-meat conversion เกิดเมื่อ homeostasis หาย หลัง slaughter · 2 ขั้นเริ่ม: immobilization (electrical/gas stunning) + exsanguination (~50% blood removed) → จุดเริ่ม postmortem changes.",
+    "summary": "Muscle-to-meat conversion เกิดเมื่อ homeostasis หาย หลัง slaughter, 2 ขั้นเริ่ม: immobilization (electrical/gas stunning) + exsanguination (~50% blood removed) → จุดเริ่ม postmortem changes.",
     "flagship": false
   },
   {
@@ -1100,7 +1100,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-egg-micro",
     "title": "Microbiology of the avian egg",
     "icon": "🥚",
-    "summary": "Microbial contamination → spoilage (economic) + foodborne disease (Salmonella หลัก · E. coli · Campylobacter รอง) · egg shell = true shell + shell accessory · tough & flexible, protect embryogenesis.",
+    "summary": "Microbial contamination → spoilage (economic) + foodborne disease (Salmonella หลัก, E. coli, Campylobacter รอง), egg shell = true shell + shell accessory, tough & flexible, protect embryogenesis.",
     "flagship": false
   },
   {
@@ -1109,7 +1109,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-hygiene-intro",
     "title": "Introduction to meat hygiene",
     "icon": "🥩",
-    "summary": "Meat = \"animal tissues suitable for food\" · 4 categories: red meat / poultry / seafood / game meat · components: muscle (majority) + epithelial + nervous + connective + adipose.",
+    "summary": "Meat = \"animal tissues suitable for food\", 4 categories: red meat / poultry / seafood / game meat, components: muscle (majority) + epithelial + nervous + connective + adipose.",
     "flagship": false
   },
   {
@@ -1118,7 +1118,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-microbiology",
     "title": "Microbiology of meat & meat hygiene",
     "icon": "🦠",
-    "summary": "Contamination main เกิดที่ slaughter (evisceration) → storage → distribution · bacteria เป็นกลุ่มสำคัญสุด (spoilage + pathogenic) · มี yeast/mold/virus/parasite/protozoa รอง.",
+    "summary": "Contamination main เกิดที่ slaughter (evisceration) → storage → distribution, bacteria เป็นกลุ่มสำคัญสุด (spoilage + pathogenic), มี yeast/mold/virus/parasite/protozoa รอง.",
     "flagship": false
   },
   {
@@ -1127,7 +1127,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-molecular",
     "title": "Application of molecular biology in meat science",
     "icon": "🧬",
-    "summary": "Molecular biology = molecular basis ของ DNA/RNA/protein · genomic techniques = ผสม molecular genetics + quantitative genetics + Mendelian genetics + bioinformatics → ใช้ระบุ species + meat authentication.",
+    "summary": "Molecular biology = molecular basis ของ DNA/RNA/protein, genomic techniques = ผสม molecular genetics + quantitative genetics + Mendelian genetics + bioinformatics → ใช้ระบุ species + meat authentication.",
     "flagship": false
   },
   {
@@ -1136,7 +1136,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-pest-control",
     "title": "Pest control in slaughterhouses",
     "icon": "🪲",
-    "summary": "3 problem ที่ pest ทำให้เกิด: ทำลายผลิตภัณฑ์อาหาร + เป็น carrier ของ pathogen (foodborne disease + zoonosis) + ก่อให้ spoilage · pests = rodents + insects + birds.",
+    "summary": "3 problem ที่ pest ทำให้เกิด: ทำลายผลิตภัณฑ์อาหาร + เป็น carrier ของ pathogen (foodborne disease + zoonosis) + ก่อให้ spoilage, pests = rodents + insects + birds.",
     "flagship": false
   },
   {
@@ -1145,7 +1145,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-quality",
     "title": "Meat quality & wholesomeness",
     "icon": "✅",
-    "summary": "Fresh meat = ผ่าน chemical/physical change หลัง slaughter โดย minimal process · 4 properties หลัก: water-holding capacity · color · odor & taste · texture & tenderness.",
+    "summary": "Fresh meat = ผ่าน chemical/physical change หลัง slaughter โดย minimal process, 4 properties หลัก: water-holding capacity, color, odor & taste, texture & tenderness.",
     "flagship": false
   },
   {
@@ -1154,7 +1154,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-seafood",
     "title": "Seafood: quality changes, spoilage, toxins",
     "icon": "🐟",
-    "summary": "Seafood = species variety สูง (chordata · mollusks · arthropod) · composition water 60-81% / protein 16-25% / lipid 0.4-21% (range กว้าง) · lean meat by default ยกเว้น salmon/อ้วน.",
+    "summary": "Seafood = species variety สูง (chordata, mollusks, arthropod), composition water 60-81% / protein 16-25% / lipid 0.4-21% (range กว้าง), lean meat by default ยกเว้น salmon/อ้วน.",
     "flagship": false
   },
   {
@@ -1163,7 +1163,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-slaughter",
     "title": "Slaughterhouse: production facilities & sanitary practices",
     "icon": "🏭",
-    "summary": "Slaughterhouse design depends on: practice / technology / purpose / financial / capacity · location ต้องมี proper water-electricity-sewerage + hot/cold water + standby generator + pollution-free + remote from urban area.",
+    "summary": "Slaughterhouse design depends on: practice / technology / purpose / financial / capacity. Location ต้องมี proper water-electricity-sewerage + hot/cold water + standby generator + pollution-free + remote from urban area.",
     "flagship": false
   },
   {
@@ -1172,7 +1172,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-storage",
     "title": "Storage of meat & meat products",
     "icon": "🧊",
-    "summary": "พิจารณา 6 มิติ: meat quality · safety · scientific approval · distribution & marketing · investment · application · ปัจจัยจุลินทรีย์ในเนื้อ = extrinsic + intrinsic.",
+    "summary": "พิจารณา 6 มิติ: meat quality, safety, scientific approval, distribution & marketing, investment, application. ปัจจัยจุลินทรีย์ในเนื้อ = extrinsic + intrinsic.",
     "flagship": false
   },
   {
@@ -1181,7 +1181,7 @@ export const VETWIKI_TOPICS = [
     "topic": "milk-biosec-dairy",
     "title": "Biosecurity on dairy farms",
     "icon": "🐄",
-    "summary": "การขอมาตรฐานฟาร์มเลี้ยงสัตว์ → มาตรฐานฟาร์มโคนม + แพะนม · เน้น workflow สมัคร–ฝึกอบรม–ตรวจฟาร์ม.",
+    "summary": "การขอมาตรฐานฟาร์มเลี้ยงสัตว์ → มาตรฐานฟาร์มโคนม + แพะนม, เน้น workflow สมัคร–ฝึกอบรม–ตรวจฟาร์ม.",
     "flagship": false
   },
   {
@@ -1190,7 +1190,7 @@ export const VETWIKI_TOPICS = [
     "topic": "milk-borne-pathogens",
     "title": "Milk-borne pathogens & diseases",
     "icon": "🦠",
-    "summary": "3 source ของ contamination: (1) mammary glands inside/outside udder, (2) handling & storage equipment, (3) external environment · 4 microbe categories in milk products: pathogenic / indicator / spoilage / starter cultures.",
+    "summary": "3 source ของ contamination: (1) mammary glands inside/outside udder, (2) handling & storage equipment, (3) external environment. 4 microbe categories in milk products: pathogenic / indicator / spoilage / starter cultures.",
     "flagship": false
   },
   {
@@ -1208,7 +1208,7 @@ export const VETWIKI_TOPICS = [
     "topic": "milk-industry-std",
     "title": "Standard of milk industry & milk products (GMP/HACCP)",
     "icon": "🏭",
-    "summary": "4 มาตรฐานสำคัญ — ISO 9000 (quality mgmt) + ISO 22000 (food safety mgmt) + HACCP + GMP · มกษ. 6401(G)-2560 = GMP สำหรับศูนย์รวบรวมน้ำนมดิบ.",
+    "summary": "4 มาตรฐานสำคัญ — ISO 9000 (quality mgmt) + ISO 22000 (food safety mgmt) + HACCP + GMP, มกษ. 6401(G)-2560 = GMP สำหรับศูนย์รวบรวมน้ำนมดิบ.",
     "flagship": false
   },
   {
@@ -1217,7 +1217,7 @@ export const VETWIKI_TOPICS = [
     "topic": "milk-mastitis",
     "title": "Mastitis & milk quality",
     "icon": "🐄",
-    "summary": "Mastitis = inflammation ของ mammary gland จาก microorganisms (ส่วนใหญ่ bacteria) · invade ผ่าน teat canal → colonize secretory cells → toxin damage milk-producing cells.",
+    "summary": "Mastitis = inflammation ของ mammary gland จาก microorganisms (ส่วนใหญ่ bacteria), invade ผ่าน teat canal → colonize secretory cells → toxin damage milk-producing cells.",
     "flagship": false
   },
   {
@@ -1226,7 +1226,7 @@ export const VETWIKI_TOPICS = [
     "topic": "milk-microbiology",
     "title": "Milk microbiology",
     "icon": "🦠",
-    "summary": "น้ำนม = good growth medium สำหรับ yeasts/molds/bacteria · 2 กลุ่มหลัก: pathogenic (Brucella · Salmonella · E. coli · S. aureus · Strep. agalactiae · Mycobacterium tuberculosis · Listeria) vs spoilage (Pseudomonas · Enterobacteriaceae · Bacillus cereus · Clostridium).",
+    "summary": "น้ำนม = good growth medium สำหรับ yeasts/molds/bacteria. 2 กลุ่มหลัก: pathogenic (Brucella, Salmonella, E. coli, S. aureus, Strep. agalactiae, Mycobacterium tuberculosis, Listeria) vs spoilage (Pseudomonas, Enterobacteriaceae, Bacillus cereus, Clostridium).",
     "flagship": false
   },
   {
@@ -1253,7 +1253,7 @@ export const VETWIKI_TOPICS = [
     "topic": "milk-products-storage",
     "title": "Storage of milk products",
     "icon": "🧊",
-    "summary": "Dairy products = อาหารที่ผลิตจากนมสัตว์เลี้ยงลูกด้วยนม (cow หลัก · แพะ · แกะ · จามรี · อูฐ) · 3 abnormalities หลัก: abnormal / undesirable / contaminated milk.",
+    "summary": "Dairy products = อาหารที่ผลิตจากนมสัตว์เลี้ยงลูกด้วยนม (cow หลัก, แพะ, แกะ, จามรี, อูฐ). 3 abnormalities หลัก: abnormal / undesirable / contaminated milk.",
     "flagship": false
   },
   {
@@ -1262,7 +1262,7 @@ export const VETWIKI_TOPICS = [
     "topic": "milk-quality-composition",
     "title": "Composition & quality of raw milk",
     "icon": "🥛",
-    "summary": "องค์ประกอบน้ำนมขึ้นกับ breed/สุขภาพ/lactation stage/diet/farm practice/processing/distribution · แยก property 3 กลุ่ม chemical/physicochemical/physical.",
+    "summary": "องค์ประกอบน้ำนมขึ้นกับ breed/สุขภาพ/lactation stage/diet/farm practice/processing/distribution, แยก property 3 กลุ่ม chemical/physicochemical/physical.",
     "flagship": false
   },
   {
@@ -1271,7 +1271,7 @@ export const VETWIKI_TOPICS = [
     "topic": "milk-quality-determination",
     "title": "Determination of milk quality",
     "icon": "🔬",
-    "summary": "3 เป้าหมาย — consumer protection + milk quality assurance + milk price assurance · ป้องกัน zoonosis / milk-borne disease / milk adulteration / abnormalities ใน infants.",
+    "summary": "3 เป้าหมาย — consumer protection + milk quality assurance + milk price assurance, ป้องกัน zoonosis / milk-borne disease / milk adulteration / abnormalities ใน infants.",
     "flagship": false
   },
   {
@@ -1289,7 +1289,7 @@ export const VETWIKI_TOPICS = [
     "topic": "milk-raw-storage",
     "title": "Storage of raw milk",
     "icon": "🧊",
-    "summary": "จุดรับน้ำนม (small) → ศูนย์รวบรวมน้ำนม (MCC) → check คุณภาพเบื้องต้น (ชั่ง · ดมกลิ่น · ดูสี · ถ.พ. · อุณหภูมิ) แล้วเก็บรักษาเย็น.",
+    "summary": "จุดรับน้ำนม (small) → ศูนย์รวบรวมน้ำนม (MCC) → check คุณภาพเบื้องต้น (ชั่ง, ดมกลิ่น, ดูสี, ถ.พ., อุณหภูมิ) แล้วเก็บรักษาเย็น.",
     "flagship": false
   },
   {
@@ -1523,7 +1523,7 @@ export const VETWIKI_TOPICS = [
     "topic": "exotic-repro",
     "title": "Exotic Pets Reproduction",
     "icon": "🐇",
-    "summary": "Overview species-specific repro: rabbit (induced ovulator), guinea pig (ovarian cyst), ferret (estrogen toxicity), reptile (hemipenis prolapse) — 2026 slide image-heavy ใช้ sunsun84 summary เสริม",
+    "summary": "Overview species-specific repro: rabbit (induced ovulator), guinea pig (ovarian cyst), ferret (estrogen toxicity), reptile (hemipenis prolapse)",
     "flagship": false
   },
   {
@@ -1595,7 +1595,7 @@ export const VETWIKI_TOPICS = [
     "topic": "surgical-neutering",
     "title": "Surgical Neutering",
     "icon": "✂️",
-    "summary": "OHE/OE/orchiectomy techniques, ligation + closure, **ORS (Ovarian Remnant Syndrome)** ตัวเอกของ Aj. TT — surgical error #1 cause, AMH dx, caudal midline laparotomy",
+    "summary": "OHE/OE/orchiectomy techniques, ligation + closure, ORS (Ovarian Remnant Syndrome) ตัวเอกของ Aj. TT — surgical error #1 cause, AMH dx, caudal midline laparotomy",
     "flagship": false
   },
   {
@@ -1739,7 +1739,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-ai-basic",
     "title": "Avian Influenza Virus (AI) — Basic",
     "icon": "🐦",
-    "summary": "Influenza A (Orthomyxoviridae) — 8 segments ssRNA · HA (จับ receptor) + NA (release virion) · Wild aquatic birds เป็น natural reservoir (H1-16) · HPAI H5N1 จาก A/Goose/Guangdong/1/1996 → 2004 ระบาดทั่วโลก + ติดคน.",
+    "summary": "Influenza A (Orthomyxoviridae) — 8 segments ssRNA, HA (จับ receptor) + NA (release virion), Wild aquatic birds เป็น natural reservoir (H1-16), HPAI H5N1 จาก A/Goose/Guangdong/1/1996 → 2004 ระบาดทั่วโลก + ติดคน.",
     "flagship": false
   },
   {
@@ -1748,7 +1748,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-bacterial",
     "title": "Bacterial Zoonoses",
     "icon": "🧫",
-    "summary": "Bacterial + Rickettsial infections — anthrax, brucellosis, strep, TB, salmonellosis, campylo, vibrio, colibacillosis, yersiniosis (foodborne) · Chlamydial (psittacosis) · Spirochaetal (leptospirosis, borreliosis). **ซซดาวบันทึก Vet 84** — สำคัญสุด.",
+    "summary": "Bacterial + Rickettsial infections — anthrax, brucellosis, strep, TB, salmonellosis, campylo, vibrio, colibacillosis, yersiniosis (foodborne), Chlamydial (psittacosis), Spirochaetal (leptospirosis, borreliosis).",
     "flagship": false
   },
   {
@@ -1757,7 +1757,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-corona",
     "title": "Coronaviruses",
     "icon": "🦠",
-    "summary": "Coronaviruses 4 genus (Alpha/Beta/Gamma/Delta) — Beta ก่อ pandemic ในช่วง 20 ปี (SARS, MERS, COVID-19) · Alpha ส่วนใหญ่ก่อโรค enteric ในสัตว์ · Gamma+Delta ในนก/สัตว์น้ำ.",
+    "summary": "Coronaviruses 4 genus (Alpha/Beta/Gamma/Delta) — Beta ก่อ pandemic ในช่วง 20 ปี (SARS, MERS, COVID-19), Alpha ส่วนใหญ่ก่อโรค enteric ในสัตว์, Gamma+Delta ในนก/สัตว์น้ำ.",
     "flagship": false
   },
   {
@@ -1766,7 +1766,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-ebola-nipah",
     "title": "Ebola + Nipah Virus Disease",
     "icon": "🩸",
-    "summary": "Ebola (Filoviridae) — severe contagious disease ในคนและ non-human primates · Africa outbreak · 6 species (Zaire/Sudan/Bundibugyu/Taï/Reston/Bombali) · Reston ไม่เคยก่อโรคในคน · Nipah originate จาก fruit bat.",
+    "summary": "Ebola (Filoviridae) — severe contagious disease ในคนและ non-human primates, Africa outbreak, 6 species (Zaire/Sudan/Bundibugyu/Taï/Reston/Bombali), Reston ไม่เคยก่อโรคในคน. Nipah originate จาก fruit bat.",
     "flagship": false
   },
   {
@@ -1775,7 +1775,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-eid-cuvet",
     "title": "EID Zoonoses in Thailand — Outbreak + Strategic Plans",
     "icon": "🚨",
-    "summary": "Emerging zoonotic disease in Thailand — outbreak situation + strategic plans for prevention + control (Dept. of Disease Control, MoPH). EID timeline 1957-2022 (Dengue → COVID → Mpox). **75% of EID in humans is from animals**. ซซดาวข้อสอบ.",
+    "summary": "Emerging zoonotic disease in Thailand — outbreak situation + strategic plans for prevention + control (Dept. of Disease Control, MoPH). EID timeline 1957-2022 (Dengue → COVID → Mpox). 75% of EID in humans is from animals.",
     "flagship": false
   },
   {
@@ -1784,7 +1784,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-eid-wildlife",
     "title": "Emerging Zoonotic Diseases + Wildlife",
     "icon": "🦊",
-    "summary": "Wildlife = reservoirs of pathogens — A reservoir host harbors agent ของโรค แต่ไม่จำเป็นต้อง develop disease (ex. bats + Ebola/SARS) · WWF \"COVID-19 and the Rise of Zoonotic Infectious Diseases\" → stop the next pandemic.",
+    "summary": "Wildlife = reservoirs of pathogens — A reservoir host harbors agent ของโรค แต่ไม่จำเป็นต้อง develop disease (ex. bats + Ebola/SARS). WWF \"COVID-19 and the Rise of Zoonotic Infectious Diseases\" → stop the next pandemic.",
     "flagship": false
   },
   {
@@ -1793,7 +1793,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-epi-approach",
     "title": "Epidemiological Approach to Zoonoses",
     "icon": "📊",
-    "summary": "Epidemiology = study of distribution + determinants + application · 2 main types: Observational (descriptive + analytic) vs Experimental (clinical/field/community trial) · ใช้กับ AMR · chemical/biological contamination · zoonoses.",
+    "summary": "Epidemiology = study of distribution + determinants + application. 2 main types: Observational (descriptive + analytic) vs Experimental (clinical/field/community trial). ใช้กับ AMR, chemical/biological contamination, zoonoses.",
     "flagship": false
   },
   {
@@ -1820,7 +1820,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-mycoses",
     "title": "Mycozoonoses (Fungal Zoonoses)",
     "icon": "🍄",
-    "summary": "Mycozoonoses = รา/ยีสต์ ที่ติดต่อจากสัตว์สู่คน · Fungi = eukaryote (มี nucleus + mitochondria — ต่างจาก bacteria) · 2 forms: Yeast (unicellular, budding) + Mold (filamentous). **สรุปข้อสอบเก่า Vet 82 ครอบคลุมหัวข้อนี้มาก** — สำคัญสุดในกลุ่ม final.",
+    "summary": "Mycozoonoses = รา/ยีสต์ ที่ติดต่อจากสัตว์สู่คน, Fungi = eukaryote (มี nucleus + mitochondria — ต่างจาก bacteria), 2 forms: Yeast (unicellular, budding) + Mold (filamentous).",
     "flagship": false
   },
   {
@@ -1829,7 +1829,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-prion",
     "title": "Prion Diseases",
     "icon": "🧬",
-    "summary": "Prion = TSE (Transmissible Spongiform Encephalopathy) · Neurodegenerative · ไม่ใช่ bacteria/fungi/virus — เป็น abnormal protein, no genetic material · Long incubation + rapidly progressive + always fatal · Human: CJD, vCJD, GSS, FFI, Kuru.",
+    "summary": "Prion = TSE (Transmissible Spongiform Encephalopathy), Neurodegenerative, ไม่ใช่ bacteria/fungi/virus — เป็น abnormal protein, no genetic material. Long incubation + rapidly progressive + always fatal. Human: CJD, vCJD, GSS, FFI, Kuru.",
     "flagship": false
   },
   {
@@ -1838,7 +1838,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-protozoal",
     "title": "Protozoal Zoonoses",
     "icon": "🦠",
-    "summary": "Protozoal zoonoses — 4 major: Toxoplasmosis, Giardiasis, Cryptosporidiosis, Leishmaniosis · 4 types of parasitic zoonoses: Direct/Cyclo/Meta/Sapro · Sources: ground/water-borne/handling pets/meat-borne/vector-borne. **สรุปข้อสอบเก่า Vet 82 ครอบคลุมหัวข้อนี้มาก**.",
+    "summary": "Protozoal zoonoses — 4 major: Toxoplasmosis, Giardiasis, Cryptosporidiosis, Leishmaniosis. 4 types of parasitic zoonoses: Direct/Cyclo/Meta/Sapro. Sources: ground/water-borne/handling pets/meat-borne/vector-borne.",
     "flagship": false
   },
   {
@@ -1847,7 +1847,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-rabies",
     "title": "Rabies — Sample Collection + Diagnosis",
     "icon": "🐕",
-    "summary": "Rabies sample collection + diagnosis ที่ NIAH — Lyssavirus (Rhabdoviridae, ssRNA negative-sense, bullet-shape) · DFA = WOAH gold standard · Fresh brain tissue (brain stem + cerebellum) · Sample แช่เย็น 2-8°C ส่งใน 24 ชม. หรือแช่แข็ง -20°C.",
+    "summary": "Rabies sample collection + diagnosis ที่ NIAH — Lyssavirus (Rhabdoviridae, ssRNA negative-sense, bullet-shape), DFA = WOAH gold standard, Fresh brain tissue (brain stem + cerebellum), Sample แช่เย็น 2-8°C ส่งใน 24 ชม. หรือแช่แข็ง -20°C.",
     "flagship": false
   },
   {
@@ -1856,7 +1856,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-rickettsial",
     "title": "Rickettsial Zoonoses",
     "icon": "🕷️",
-    "summary": "Rickettsia — gram-negative obligate intracellular parasite · Vector-borne (ticks, mites, fleas, lice, chiggers) · 4 genera: Rickettsia, Ehrlichia, Orientia, Coxiella · Symptoms: fever, headache, rash + disseminate ไปหลายอวัยวะ.",
+    "summary": "Rickettsia — gram-negative obligate intracellular parasite, Vector-borne (ticks, mites, fleas, lice, chiggers). 4 genera: Rickettsia, Ehrlichia, Orientia, Coxiella. Symptoms: fever, headache, rash + disseminate ไปหลายอวัยวะ.",
     "flagship": false
   },
   {
@@ -1865,7 +1865,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-siv-civ",
     "title": "SIV + CIV — Swine + Canine Influenza",
     "icon": "🐷",
-    "summary": "Swine Influenza Virus (SIV) — 2 lineage หลัก (NA-SIV จากอเมริกาเหนือ classical swine + EU-SIV avian-like H1N1) · 1918 Spanish flu = pandemic แรก, 1930 First SIV in pigs USA · 2020 China พบ swine flu ที่มี pandemic potential.",
+    "summary": "Swine Influenza Virus (SIV) — 2 lineage หลัก (NA-SIV จากอเมริกาเหนือ classical swine + EU-SIV avian-like H1N1). 1918 Spanish flu = pandemic แรก, 1930 First SIV in pigs USA, 2020 China พบ swine flu ที่มี pandemic potential.",
     "flagship": false
   },
   {

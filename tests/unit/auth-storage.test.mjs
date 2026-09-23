@@ -117,3 +117,35 @@ test('a storage that throws degrades to signed-out rather than crashing boot', (
   assert.doesNotThrow(() => store.setItem(TOKEN_KEY, 'x'));
   assert.doesNotThrow(() => store.removeItem(TOKEN_KEY));
 });
+
+// A store whose writes throw, the way a full sessionStorage or localStorage
+// does, while reads and removals still work.
+function fullStore() {
+  const s = fakeStore();
+  s.setItem = () => { throw new Error('QuotaExceededError'); };
+  return s;
+}
+
+test('opting out still clears the persistent token when the session write fails', () => {
+  // The box was unticked in a second, signed-out tab, so this tab still holds
+  // a token in localStorage. Then the refresh cannot land in sessionStorage.
+  const local = fakeStore();
+  const session = fullStore();
+  local.setItem(STAY_SIGNED_IN_KEY, '0');
+  local.setItem(TOKEN_KEY, 'old');
+  const store = createAuthStorage(() => local, () => session);
+  store.setItem(TOKEN_KEY, 'new');
+  assert.equal(local.getItem(TOKEN_KEY), null,
+    'the token the student asked us not to keep must not outlive a failed session write');
+  assert.equal(store.getItem(TOKEN_KEY), null, 'and the next reader on this machine must not find it');
+});
+
+test('staying signed in never deletes the only token when localStorage is full', () => {
+  const local = fullStore();
+  const session = fakeStore();
+  session.setItem(TOKEN_KEY, 'tok');
+  const store = createAuthStorage(() => local, () => session);
+  store.setItem(TOKEN_KEY, 'new');
+  assert.equal(session.getItem(TOKEN_KEY), 'tok', 'the session copy is the only one left, so it stays');
+  assert.equal(store.getItem(TOKEN_KEY), 'tok');
+});

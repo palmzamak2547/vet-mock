@@ -10,6 +10,7 @@ import { SUBJECTS_BY_YEAR, YEARS, yearForSubject } from '../data/curriculum.js';
 import { RichText } from '../lib/richtext.jsx';
 import BackBar from '../components/BackBar.jsx';
 import { confirmDialog } from '../lib/dialog.js';
+import { thaiError } from '../lib/errors.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 
 export default function RaceView({ goHome, setView, user, profile }) {
@@ -90,7 +91,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
     if (busyRef.current) return;
     busyRef.current = true; setBusy(true); setError(null);
     try { await work(); }
-    catch (failure) { setError(failure.message || 'ยังส่งไม่สำเร็จ กรุณาลองอีกครั้ง'); }
+    catch (failure) { setError(thaiError(failure, 'ยังส่งไม่สำเร็จ กรุณาลองอีกครั้ง')); }
     finally { busyRef.current = false; setBusy(false); }
   }
   const createRace = () => act(async () => {

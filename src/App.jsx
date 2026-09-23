@@ -355,6 +355,23 @@ function normalizePracticeMode(mode, subject, explicitMode = false) {
   return mode;
 }
 
+// The type picker (all types, auto-marked, written) is on the config screen
+// for English only, and the pick is plain state that nothing resets. It used
+// to be applied everywhere after English, unseen: a written-only pick there,
+// then COM IV, and the screen said ยังไม่มีข้อที่พร้อมใช้ในชุดนี้ with Start
+// greyed out and no control that explained it; the sidebar Mock Exam served
+// 70 written items out of a 1,981-question year. So the filter applies only
+// where its picker is on screen. The pick itself is kept, so it is still
+// selected when the student goes back to English. ConfigView is handed this
+// same answer instead of working it out again.
+function categoryPickerShown(subject, practiceMode) {
+  return subject === 'engprof' && practiceMode !== 'bookmarks' && practiceMode !== 'weak';
+}
+
+function appliedCategory(category, subject, practiceMode) {
+  return categoryPickerShown(subject, practiceMode) ? category : 'all';
+}
+
 /**
  * One pool definition for both ConfigView's truthful availability count and
  * startExam's actual selection. Keeping these paths together prevents the UI
@@ -385,8 +402,15 @@ function buildExamPool({
     // Year-scoped like every other practice path: the dashboard promises a
     // year-scoped count, and serving lifetime cross-year questions under
     // that number made the two disagree.
-    pool = deliverableQuestions.filter((q) => weakQuestions.includes(q.id)
-      && (q.year == null || !selectedYear || q.year === selectedYear));
+    //
+    // weakQuestions arrives most-missed first, and the pool keeps that rank.
+    // Filtering the bank by membership kept BANK order instead, so a 10-
+    // question set was whichever ten weak questions loaded first, not the
+    // student's ten most missed.
+    const rank = new Map(weakQuestions.map((id, i) => [id, i]));
+    pool = deliverableQuestions.filter((q) => rank.has(q.id)
+      && (q.year == null || !selectedYear || q.year === selectedYear))
+      .sort((a, b) => rank.get(a.id) - rank.get(b.id));
   } else if (practiceMode === 'wrong') {
     // Still wrong, not ever wrong: see lib/wrong-pool.js. A question answered
     // wrong once and then correctly ten times used to stay here permanently.
@@ -505,8 +529,9 @@ function buildExamPool({
   else if (questionCategory === 'writing') pool = pool.filter((q) => catOf(q) === 'writing');
   // The lecturer sets practise ONE format, because that is how each part of
   // the paper is written: อ.เกรียงวิชญ์ sets 24 true/false items, อ.ณทยา sets
-  // matching. 'mcq' above keeps its wider meaning (MCQ + T/F + fill) for the
-  // config screen; these two are exact.
+  // matching. 'mcq' above keeps its wider meaning for the config screen,
+  // everything marked automatically (MCQ, true/false and matching, while
+  // fill-in-the-blank is typed and goes with 'writing'); these are exact.
   else if (questionCategory === 'tf') pool = pool.filter((q) => q.type === 'tf');
   // The lecturer cards' ปรนัย: exactly what regen-q-counts counts as mcq —
   // not tf, match or a written type — so the card's number is what is served.
@@ -842,6 +867,16 @@ export default function App() {
       .then(() => setQbRevision((revision) => revision + 1))
       .catch(() => {});
   }, [selectedYear, selectedYearStored, qbReady]);
+
+  // Every year's banks, for a screen that offers them all (SR's 'ทุกปี').
+  // A cold visit loads only the selected year, so without this that chip
+  // showed this year plus the cross-year banks and nothing more. The revision
+  // bump is what Home's due badge and SR both recount from. Rejects on a
+  // failed load so the caller can offer a retry.
+  const loadAllYears = useCallback(() => loadQB().then(() => {
+    setQbReady(true);
+    setQbRevision((revision) => revision + 1);
+  }), []);
 
   // selectedPhase: '1-mid' | '1-final' | '2-mid' | '2-final' | null.
   // null means "no phase scoping" — show all subjects across both
@@ -1311,10 +1346,12 @@ export default function App() {
   // — Study buddies — Supabase Realtime presence for "who's online +
   // what subject + which Q they're on". Placed here (not at top of
   // component) because qKey depends on `questions` + `currentIdx`
-  // which were declared just above. HomeView groups by subject;
-  // ExamView surfaces "X buddies on this Q" via countBuddiesOnQ.
+  // which were declared just above. App only owns the channel: the
+  // presence map lives in a store that the Home panel and ExamView's
+  // "X buddies on this Q" chip read directly, so a classmate moving
+  // between questions never re-renders App.
   const _qOnExam = (view === 'exam' || view === 'sr-session') ? questions[currentIdx] : null;
-  const buddies = useStudyBuddies({
+  useStudyBuddies({
     user,
     profile,
     subject: subject === 'all' ? null : subject,
@@ -1899,7 +1936,10 @@ export default function App() {
   }, [view]);
 
   const configPracticeMode = normalizePracticeMode(practiceMode, subject, false);
-  const configAvailableCount = useMemo(() => {
+  // The set the config screen describes. Its size is the count on screen, and
+  // ConfigView reads the questions themselves for the whole-set clock, which
+  // gives written and matching items more than the base time.
+  const configServedPool = useMemo(() => {
     const scopeReady = USER_CURATED_MODES.has(configPracticeMode)
       ? isQBFullyLoaded()
       : isQBYearLoaded(selectedYear);
@@ -1909,7 +1949,7 @@ export default function App() {
       practiceMode: configPracticeMode,
       subject,
       topic,
-      questionCategory,
+      questionCategory: appliedCategory(questionCategory, subject, practiceMode),
       selectedYear,
       selectedPhase,
       bookmarks,
@@ -1918,8 +1958,9 @@ export default function App() {
     });
     // Panic keeps only the questions closest to a paper, so counting the whole
     // subject here printed a number the session would never serve.
-    return panicPending ? panicPool(pool).length : pool.length;
-  }, [allQuestions, analytics?.weakQuestions, bookmarks, configPracticeMode, history, panicPending, questionCategory, selectedPhase, selectedYear, subject, topic]);
+    return panicPending ? panicPool(pool) : pool;
+  }, [allQuestions, analytics?.weakQuestions, bookmarks, configPracticeMode, history, panicPending, practiceMode, questionCategory, selectedPhase, selectedYear, subject, topic]);
+  const configAvailableCount = configServedPool ? configServedPool.length : null;
 
   // startExam accepts an optional `overrides` object so a caller (like the
   // 1-click "ฝึก 1 ข้อด่วน" from HomeView) can bypass React's async state
@@ -1937,7 +1978,12 @@ export default function App() {
     let _practiceMode = 'practiceMode' in overrides ? overrides.practiceMode : practiceMode;
     const _subject = 'subject' in overrides ? overrides.subject : subject;
     const _topic = 'topic' in overrides ? overrides.topic : topic;
-    const _questionCategory = 'questionCategory' in overrides ? overrides.questionCategory : questionCategory;
+    // A caller that names a category gets exactly it. Otherwise the pick
+    // counts only where the picker shows, judged by the subject this set is
+    // for, which a caller can pass while another subject is on screen.
+    const _questionCategory = 'questionCategory' in overrides
+      ? overrides.questionCategory
+      : appliedCategory(questionCategory, _subject, _practiceMode);
     const _numQuestions = 'numQuestions' in overrides ? overrides.numQuestions : numQuestions;
     const _useTimer = 'useTimer' in overrides ? overrides.useTimer : useTimer;
     const _timePerQ = 'timePerQ' in overrides ? overrides.timePerQ : timePerQ;
@@ -2059,7 +2105,7 @@ export default function App() {
         }
       }
       if (_questionCategory === 'writing') {
-        alertDialog('ยังไม่มีข้อ Writing ในหมวดนี้ — ลองเปลี่ยนเป็น MCQ หรือ "ทุกประเภท"');
+        alertDialog('ยังไม่มีข้อเขียนในหมวดนี้ — ลองเปลี่ยนเป็น "ปรนัย ถูก-ผิด จับคู่" หรือ "ทุกประเภท"');
         return;
       }
       // A topic with no questions of its own is a dead end 33 VetWiki
@@ -2135,7 +2181,11 @@ export default function App() {
     // silently re-sorted the whole cram by id and threw all of that away. It
     // was doing so for nothing: not one of those questions has a passage.
     if (!overrides.panicPool && picked.some((q) => q.examOrigin)) {
-      picked = picked.sort((a, b) => a.id - b.id);
+      // Nor for a curated set, for the same reason: weak and wrong are most-
+      // missed first, and most past-paper questions carry examOrigin, so the
+      // re-sort put 'ทบทวนข้อที่ตอบผิด' back in id order under a screen that
+      // says ผิดบ่อยขึ้นก่อน.
+      if (!ordered) picked = picked.sort((a, b) => a.id - b.id);
     }
     // Per-question time uses timeForQuestion(): essays get 25 min minimum,
     // short answers 3 min minimum, MCQ/TF stay at the user's base setting
@@ -2735,6 +2785,10 @@ export default function App() {
     setMode('quick');
     setSubject('all');
     startExam({
+      // Named here, not left to state: setMode above reaches the NEXT render,
+      // and startExam reads this one's. After สอบจริง 50 and a Back, that was
+      // still 'exam', and Panic ran on one clock for the whole set.
+      mode: 'quick',
       subject: 'all',
       topic: null,
       practiceMode: 'all',
@@ -2787,6 +2841,10 @@ export default function App() {
     setTopic(single);
     setPracticeMode('all');
     startExam({
+      // The same stale-mode trap as Panic: without it, a lecturer card opened
+      // after สอบจริง 50 and Back ran the whole set on one exam clock instead
+      // of 45 seconds per true/false item.
+      mode: 'quick',
       subject: subjectId,
       // The pool comes from onlyTopics, not the single-topic branch: a
       // session's matching set sits under one disease and names the rest
@@ -2989,7 +3047,7 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, buddies, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onOpenWrapUp={openWrapUp} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onOpenWrapUp={openWrapUp} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
@@ -3012,12 +3070,12 @@ export default function App() {
               )}
 {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={() => setView('topic-select')} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam }} />}
-              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} availableCount={configAvailableCount} onBack={goBackFromConfig} />}
+              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
-              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, buddies, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
-              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime, saveStatus: examSaveStatus }} />}
+              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
+              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
-              {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, onOpenWiki: openWiki }} />}
+              {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki }} />}
               {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear, selectedPhase }} />}

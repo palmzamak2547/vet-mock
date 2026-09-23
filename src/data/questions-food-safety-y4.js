@@ -61,8 +61,8 @@ export const QB_FOOD_SAFETY_Y4 = [
       "2 ขั้นตอน — Hazard identification + Risk characterization",
       "3 ขั้นตอน — Hazard identification + Hazard characterization + Risk characterization",
       "4 ขั้นตอน — Hazard identification + Hazard characterization + Exposure assessment + Risk characterization",
-      "5 ขั้นตอน — Hazard identification + Hazard analysis + Exposure + Dose-response + Risk characterization",
-      "6 ขั้นตอน รวม Risk communication"
+      "5 ขั้นตอน — Hazard identification + Hazard analysis + Exposure assessment + Dose-response + Risk characterization",
+      "6 ขั้นตอน — รวม Risk management และ Risk communication เข้าไปด้วย"
     ],
     "answer": 2,
     "explain": "Risk assessment (CAC) = 4 ขั้นตอน:\n1. Hazard identification — ระบุอันตราย biological/chemical/physical ที่อาจอยู่ในอาหาร\n2. Hazard characterization — อธิบายความรุนแรง (dose-response, severity)\n3. Exposure assessment — ประเมินการสัมผัส (prevalence × concentration × consumption)\n4. Risk characterization — บูรณาการ 2+3 เพื่อประมาณ probability + severity ในประชากร\n\nRisk communication + Risk management อยู่นอก risk assessment แต่อยู่ใน risk analysis",
@@ -106,11 +106,11 @@ export const QB_FOOD_SAFETY_Y4 = [
     "examOrigin": "Food Safety Final 86",
     "q": "เส้นโค้ง dose response ของอันตรายทางจุลินทรีย์ส่วนมากมักเป็นลักษณะใด",
     "options": [
-      "เส้นโค้งแบบคลื่น (sinusoidal)",
-      "เส้นฟันปลา (saw-tooth)",
+      "เส้นโค้งแบบคลื่นขึ้นลงเป็นรอบ (sinusoidal oscillation)",
+      "เส้นฟันปลา (saw-tooth — ขึ้นลงเป็นขั้นตามช่วง dose)",
       "เส้นโค้งแบบลาดขึ้น (monotonic increasing — เช่น Beta-Poisson)",
-      "เส้นโค้งแบบลาดลง (decreasing)",
-      "เส้นตรง (linear ตลอดช่วง)"
+      "เส้นโค้งแบบลาดลง (monotonic decreasing — เช่น exponential decay)",
+      "เส้นตรงตลอดช่วง (linear — เพิ่มขึ้นคงที่ไม่มีจุดอิ่มตัว)"
     ],
     "answer": 2,
     "explain": "Dose-response curve สำหรับ microbial hazard ส่วนใหญ่ใช้ Beta-Poisson model:\nP(D) = 1 - [1 + Dose/β]^(-α)\n\nลักษณะเส้น = ลาดขึ้น (probability of illness เพิ่มเมื่อ dose เพิ่ม) แบบ S-curve / sigmoidal, ไม่ใช่เส้นตรง เพราะมี threshold effect ที่ low dose และ saturation ที่ high dose\n\nค่าตัวอย่าง Salmonella: α = 0.1324, β = 51.45 (slide 26)",
@@ -132,7 +132,7 @@ export const QB_FOOD_SAFETY_Y4 = [
     "q": "ความตกลงระหว่างประเทศที่ใช้บังคับมาตรการสุขอนามัยและสุขอนามัยพืช (Sanitary and Phytosanitary measures) อยู่ภายใต้องค์กรหรือข้อตกลงใด",
     "options": [
       "World Trade Organization (WTO) ภายใต้ SPS Agreement",
-      "สำนักงานมาตรฐานสินค้าเกษตรและอาหารแห่งชาติ (ACFS)",
+      "สำนักงานมาตรฐานสินค้าเกษตรและอาหารแห่งชาติ (มกอช., ACFS)",
       "Codex Alimentarius Commission (CAC) เท่านั้น",
       "World Health Organization (WHO)",
       "World Organisation for Animal Health (WOAH/OIE)"
@@ -182,10 +182,10 @@ export const QB_FOOD_SAFETY_Y4 = [
     "q": "ผู้หญิงคนหนึ่งคลื่นไส้ อาเจียน ท้องเสียรุนแรง หลังพบแพทย์ได้รับยาปฏิชีวนะกลุ่ม macrolides อาการดีขึ้น ต่อมาเริ่มมีอาการกล้ามเนื้อแขนขาอ่อนแรง (flaccid paralysis) ต้องนอนรักษาตัวที่โรงพยาบาล เชื้อใดน่าจะเป็นสาเหตุ",
     "options": [
       "Campylobacter jejuni (มี Guillain-Barré syndrome เป็น sequela)",
-      "Escherichia coli O157:H7",
-      "Listeria monocytogenes",
-      "Salmonella enterica",
-      "Yersinia enterocolitica"
+      "Escherichia coli O157:H7 (มี hemolytic uremic syndrome เป็น sequela)",
+      "Listeria monocytogenes (มี meningoencephalitis และการแท้งตามมา)",
+      "Salmonella enterica (มี reactive arthritis เป็น sequela)",
+      "Yersinia enterocolitica (มี reactive arthritis และ erythema nodosum)"
     ],
     "answer": 0,
     "explain": "C. jejuni → bloody diarrhea + sequela = Guillain-Barré syndrome (autoimmune-mediated flaccid paralysis เนื่องจาก molecular mimicry ของ LOS กับ ganglioside ของเส้นประสาท)\n\nClue ในโจทย์:\n- ยา macrolides (erythromycin/azithromycin) = first-line สำหรับ Campylobacter\n- Flaccid paralysis หลังท้องเสีย = pathognomonic ของ post-Campylobacter GBS\n\nเชื้อ microaerophilic ที่เจริญ 42 °C, reservoir = สัตว์ปีก/นมดิบ",
@@ -233,11 +233,11 @@ export const QB_FOOD_SAFETY_Y4 = [
     "examOrigin": "Food Safety Final 86",
     "q": "ข้อใดถูกต้องเกี่ยวกับ Listeria monocytogenes",
     "options": [
-      "Gram-negative, mesophile, ไม่ทนเค็ม",
+      "Gram-negative, mesophile (เจริญที่ 30-37 °C เท่านั้น), ไม่ทนเค็ม, ไม่ผ่านรก",
       "Gram-positive, psychrotroph (เจริญที่ 0-4 °C), ทนเค็ม, ทนกรด, ผ่านรกได้ → abortion",
-      "Gram-negative, spore-forming, สร้าง neurotoxin",
-      "Gram-positive, halophilic เท่านั้น, ไม่สามารถผ่านรกได้",
-      "Gram-positive, thermophile (เจริญที่ > 50 °C เท่านั้น)"
+      "Gram-negative, spore-forming, strict anaerobe, สร้าง neurotoxin ยับยั้ง acetylcholine",
+      "Gram-positive, halophilic (ต้องการ NaCl 1-8%) เท่านั้น, ไม่สามารถผ่านรกได้",
+      "Gram-positive, thermophile (เจริญที่ > 50 °C เท่านั้น), ถูกทำลายในตู้เย็น"
     ],
     "answer": 1,
     "explain": "L. monocytogenes (Gram +, facultative anaerobe, psychrotroph):\n- เจริญที่ 0-4 °C → อยู่ในตู้เย็นได้\n- ทนเกลือ, ทนกรด, ทนความแห้ง\n- พบใน ready-to-eat food (post-processing contamination), นมดิบ, deli meat\n- ผ่าน placenta → abortion / stillbirth ในหญิงตั้งครรภ์\n- High mortality rate (~30% ใน invasive disease)\n- Zero-tolerance policy (ห้ามมีในอาหาร 0%) — ใช้กับ Salmonella และ Listeria\n- คนติดเชื้อโดยไม่แสดงอาการได้ และ shed เชื้อในอุจจาระ\n- แยกจาก L. innocua โดย CAMP test + β-hemolysis",
@@ -258,11 +258,11 @@ export const QB_FOOD_SAFETY_Y4 = [
     "examOrigin": "Food Safety Final 86",
     "q": "อาหารใดเป็นตัวการสำคัญของโรคอาหารเป็นพิษจาก Clostridium botulinum",
     "options": [
-      "ไก่ทอดที่ทิ้งไว้ที่อุณหภูมิห้อง",
-      "ข้าวผัดที่ทิ้งไว้นาน",
+      "ไก่ทอดที่ทิ้งไว้ที่อุณหภูมิห้องนานหลายชั่วโมงก่อนนำมาอุ่นร้อนเสิร์ฟให้ลูกค้า",
+      "ข้าวสวยที่หุงค้างคืนไว้ที่อุณหภูมิห้องแล้วนำมาผัดซ้ำ",
       "อาหารกระป๋อง low-acid (pH > 4.6) ที่บรรจุไม่ปลอดภัย เช่น หน่อไม้ปี๊บ",
-      "นมพาสเจอไรซ์",
-      "ผักสดล้างน้ำสะอาด"
+      "นมพาสเจอไรซ์ที่เก็บในตู้เย็นเลยวันหมดอายุไปหลายวัน",
+      "ผักสดล้างน้ำสะอาดแล้วเก็บในภาชนะเปิดฝาที่อุณหภูมิห้อง"
     ],
     "answer": 2,
     "explain": "C. botulinum:\n- Gram +, spore-forming, anaerobe → spore ทนความร้อน 121 °C\n- ปัจจัย 4 ที่ทำให้สร้าง toxin: anaerobic + low acid (pH > 4.6) + temp > 4 °C + high moisture (aw สูง)\n- อาหารเสี่ยง = อาหารกระป๋อง home-canned low-acid, หน่อไม้ปี๊บ, ปลาร้า\n- Botulinum toxin = neurotoxin ยับยั้ง acetylcholine release ที่ NMJ → descending flaccid paralysis\n- ทำลาย toxin: 80 °C 10 นาที (อุ่นก่อนเสิร์ฟ)\n- ป้องกัน: pressure canning (115 °C+) สำหรับ low-acid food, ปรับ pH < 4.6, ลด aw (salt/sugar)",
@@ -283,11 +283,11 @@ export const QB_FOOD_SAFETY_Y4 = [
     "examOrigin": "Food Safety Final 86",
     "q": "นิสิตปี 5 กินข้าวสลัดมันฝรั่งตอน 12:00 น. เริ่มอาเจียน คลื่นไส้ ปวดท้อง ตอน 15:00 น. ไม่มีไข้ อาการดีขึ้นวันรุ่งขึ้น เชื้อใดน่าจะเป็นสาเหตุ",
     "options": [
-      "Salmonella enterica (incubation 12-36 ชม.)",
+      "Salmonella enterica (incubation 12-36 ชม., infection ในลำไส้เล็ก, มีไข้สูง)",
       "Staphylococcus aureus (incubation 2-4 ชม., preformed enterotoxin, ไม่มีไข้)",
-      "Listeria monocytogenes",
-      "Clostridium botulinum",
-      "Norovirus"
+      "Listeria monocytogenes (incubation 1-4 สัปดาห์, invasive, มีไข้)",
+      "Clostridium botulinum (incubation 12-36 ชม., neurotoxin, อัมพาต)",
+      "Norovirus (incubation 24-48 ชม., ท้องเสียเป็นน้ำ, ไข้ต่ำ)"
     ],
     "answer": 1,
     "explain": "S. aureus food intoxication:\n- Incubation period สั้นมาก = 2-4 ชม. (เพราะกิน preformed toxin ที่อยู่ในอาหารแล้ว ไม่ต้องรอเชื้อเจริญใน GI)\n- Toxin = Staphylococcal enterotoxin (SEA, SED) → heat-stable (ต้อง 100 °C 30 นาทีจึงสลาย — การอุ่นซ้ำไม่ทำลาย)\n- กระตุ้น vagus nerve → vomiting center → คลื่นไส้/อาเจียน เด่น\n- ไม่มีไข้, หายเองภายใน 24 ชม.\n- อาหารเสี่ยง = อาหารโปรตีนสูง (สลัดมันฝรั่ง, แฮม, ไก่, ครีม) ที่คน handle ด้วยมือเปล่า\n- การวินิจฉัย = Thermostable nuclease test + Immunodiffusion test (ตรวจ enterotoxin)",
@@ -309,10 +309,10 @@ export const QB_FOOD_SAFETY_Y4 = [
     "q": "Bacillus cereus สร้าง toxin ใดและคุณสมบัติทนความร้อนเป็นอย่างไร",
     "options": [
       "Emetic toxin (heat-resistant ทน 121 °C) + Diarrheal enterotoxin (heat-sensitive)",
-      "Cholera toxin (heat-labile) เท่านั้น",
-      "Shiga toxin (heat-labile) เท่านั้น",
-      "Botulinum toxin (heat-labile) เท่านั้น",
-      "ไม่สร้าง toxin เลย — เป็น invasive infection อย่างเดียว"
+      "Cholera toxin (heat-labile) เท่านั้น — กระตุ้น adenylate cyclase เพิ่ม cAMP",
+      "Shiga toxin (heat-labile) เท่านั้น — ทำลาย 28S rRNA ของ endothelium",
+      "Botulinum toxin (heat-labile) เท่านั้น — ยับยั้ง acetylcholine release ที่ NMJ ของกล้ามเนื้อลาย",
+      "ไม่สร้าง toxin เลย ก่อโรคด้วยการรุกรานเยื่อบุลำไส้แบบ invasive infection"
     ],
     "answer": 0,
     "explain": "B. cereus (Gram +, spore-forming) สร้าง 2 toxins:\n1. Emetic toxin (cereulide) — heat-resistant (ทน 121 °C 30 นาที), เป็น preformed toxin → intoxication → อาเจียนเร็ว (1-5 ชม.) → อาหารเสี่ยง = cooked fried rice (ข้าวผัด)\n2. Diarrheal enterotoxin — heat-sensitive, เป็น toxicoinfection (เชื้อสร้าง toxin ใน GI) → ท้องเสีย ปวดท้อง 8-16 ชม. หลังกิน → กลไกคล้าย C. perfringens (ขัดขวางการดูดซึม Na+/Cl-)\n\nการอุ่นอาหารร้อนก่อนกินไม่สามารถทำลาย emetic toxin ได้ (Final 86 Q4 → False)",
@@ -335,7 +335,7 @@ export const QB_FOOD_SAFETY_Y4 = [
     "options": [
       "Vibrio cholerae",
       "Vibrio parahaemolyticus",
-      "Vibrio vulnificus",
+      "Vibrio vulnificus biotype 1",
       "Aeromonas hydrophila",
       "Listeria monocytogenes"
     ],
@@ -358,9 +358,9 @@ export const QB_FOOD_SAFETY_Y4 = [
     "examOrigin": "Food Safety Final 86",
     "q": "เชื้อแบคทีเรียคู่ใดเป็น Gram+ และ Gram- ตามลำดับ ที่เจริญได้ในตู้เย็นที่อุณหภูมิ 0-4 °C (psychrotroph)",
     "options": [
-      "Salmonella + Shigella",
+      "Salmonella enterica + Shigella dysenteriae",
       "Listeria monocytogenes + Yersinia enterocolitica",
-      "Vibrio cholerae + E. coli",
+      "Vibrio parahaemolyticus + Escherichia coli O157:H7",
       "Staphylococcus aureus + Campylobacter jejuni",
       "Clostridium botulinum + Bacillus cereus"
     ],
@@ -408,11 +408,11 @@ export const QB_FOOD_SAFETY_Y4 = [
     "examOrigin": "Food Safety Final 86",
     "q": "ข้อใดถูกต้องเกี่ยวกับ Hepatitis A virus (HAV) และ Hepatitis E virus (HEV)",
     "options": [
-      "ก่อโรคตับเรื้อรัง (chronic hepatitis) คล้าย HBV/HCV",
+      "ก่อโรคตับเรื้อรัง (chronic hepatitis) และ cirrhosis คล้าย HBV/HCV; ติดทางเลือดและเพศสัมพันธ์",
       "ก่อ acute hepatitis เท่านั้น ไม่ก่อตับเรื้อรัง/มะเร็งตับ; ติดทาง fecal-oral; HEV รุนแรงในหญิงตั้งครรภ์",
-      "ติดต่อทางเพศสัมพันธ์เป็นหลัก",
-      "ทำให้เกิดอาการรุนแรงในเด็กเล็กมากกว่าผู้ใหญ่เสมอ",
-      "วัคซีนไม่มีสำหรับ HAV"
+      "ติดต่อทางเพศสัมพันธ์และเลือดเป็นหลัก; ก่อ acute hepatitis; ไม่มีความเสี่ยงพิเศษในหญิงตั้งครรภ์",
+      "ทำให้เกิดอาการรุนแรงในเด็กเล็กมากกว่าผู้ใหญ่เสมอ; ติดทาง fecal-oral; ไม่มีภูมิคุ้มกันหลังหาย",
+      "ไม่มีวัคซีนสำหรับ HAV; ก่อ acute hepatitis; ติดเชื้อซ้ำได้ตลอดเพราะไม่มี lifelong immunity"
     ],
     "answer": 1,
     "explain": "HAV + HEV (foodborne hepatitis):\n- ติดทาง fecal-oral (น้ำ/อาหารปนเปื้อน, เนื้อหมูสุกไม่ทั่ว = HEV)\n- ก่อ acute hepatitis เท่านั้น ไม่กลายเป็น chronic / cirrhosis / HCC (ต่างจาก HBV, HCV)\n- HEV ในหญิงตั้งครรภ์ → fulminant hepatitis, mortality สูง 20-25%\n- HAV อาการรุนแรงในผู้ใหญ่มากกว่าเด็ก (เด็กมักไม่แสดงอาการ)\n- มี vaccine สำหรับ HAV และ HEV (HEV vaccine ในจีน)\n\n❌ Final 86 Q3 → False (HAV+HEV ไม่ทำให้ prolonged liver damage)\n❌ Q11 → False (มี lifelong immunity หลังติดเชื้อ HAV)",
@@ -509,11 +509,11 @@ export const QB_FOOD_SAFETY_Y4 = [
     "examOrigin": "Food Safety Final 86",
     "q": "ข้อใดถูกต้องเกี่ยวกับ Prion disease และความสัมพันธ์ระหว่าง BSE, vCJD, scrapie",
     "options": [
-      "ความร้อนและความดันในกระบวนการผลิตอาหารและเครื่องมือแพทย์ทำลาย prion ได้",
+      "ความร้อนและความดันในกระบวนการผลิตอาหารและเครื่องมือแพทย์ทำลาย prion ได้หมด จึงไม่มีความเสี่ยงจากเนื้อที่ปรุงสุก",
       "Prion = ระยะฟักตัวสั้น/นาน? = นานกว่าโรคติดต่อทางอาหารอื่น และผู้ป่วยเสียชีวิตทุกราย; คนติด vCJD จากการบริโภคเนื้อวัวที่เป็น BSE",
-      "Scrapie ในแกะไม่สามารถถ่ายให้วัวได้",
-      "คนติด CJD (ไม่ใช่ vCJD) จากการกินเนื้อวัว BSE",
-      "CJD มี incubation period สั้นกว่าและตายไวกว่า vCJD"
+      "Scrapie ในแกะไม่สามารถถ่ายให้วัวได้; BSE เกิดขึ้นเองในวัวโดยไม่เกี่ยวกับอาหารสัตว์ที่มีเนื้อและกระดูกป่น",
+      "คนติด classical CJD (ไม่ใช่ vCJD) จากการกินเนื้อวัว BSE; ระยะฟักตัวสั้นเพียงไม่กี่สัปดาห์หลังบริโภค",
+      "vCJD ดำเนินโรคเร็วกว่าและพบในผู้ป่วยอายุมากกว่า classical CJD; prion ถูกทำลายได้ด้วยการต้มเดือด"
     ],
     "answer": 1,
     "explain": "Prion (proteinaceous infectious particle):\n- ระยะฟักตัวนานมาก (หลายปี — สิบ ปี) นานกว่าโรคติดต่อทางอาหารอื่น\n- ไม่มีการรักษา → mortality 100%\n- BSE (Bovine spongiform encephalopathy / โรควัวบ้า) ในวัว → คนกินเนื้อวัวติด BSE → variant CJD (vCJD)\n- Scrapie (ในแกะ) → ถ้านำเนื้อ/กระดูกแกะที่เป็น scrapie ไปให้วัวกิน → วัวเป็น BSE ได้ (origin ของ BSE epidemic)\n- คน → vCJD (ไม่ใช่ classical CJD — classical CJD = sporadic, ไม่เกี่ยวกับการกินอาหาร)\n- vCJD มี incubation period นานกว่าและอายุน้อยกว่า classical CJD; classical CJD ก้าวหน้าเร็วกว่า\n- ความร้อน/ความดันปกติทำลาย prion ไม่ได้ → ต้อง autoclave 134 °C 1 ชม. + NaOH",
@@ -536,10 +536,10 @@ export const QB_FOOD_SAFETY_Y4 = [
     "q": "วัตถุประสงค์ของการใช้สารประกอบไนไตรท์ (Sodium nitrite) ในการถนอมอาหารประเภทเนื้อสัตว์ คือข้อใด",
     "options": [
       "ยับยั้ง C. botulinum, เป็นสารกันเสีย และสารแต่งสี (สีแดง/ชมพูของ cured meat)",
-      "ยับยั้ง C. perfringens, เป็นสารกันเสีย และสารทำตัว",
-      "ยับยั้ง C. botulinum, เป็นสารกันเสีย และสารทำตัว",
+      "ยับยั้ง C. perfringens, เป็นสารกันเสีย และสารทำตัว (ช่วยให้เนื้อยึดเกาะและอุ้มน้ำ)",
+      "ยับยั้ง C. botulinum, เป็นสารกันเสีย และสารทำตัว (ช่วยให้เนื้อยึดเกาะและอุ้มน้ำ)",
       "ยับยั้ง C. perfringens, เป็นสารกันเสีย และสารแต่งสี",
-      "ยับยั้ง C. perfringens, เป็นสารกันเสีย และสารฟอกขาว"
+      "ยับยั้ง C. perfringens, เป็นสารกันเสีย และสารฟอกขาว (ทำให้เนื้อสีซีดขาวน่ารับประทาน)"
     ],
     "answer": 0,
     "explain": "Sodium nitrite (NaNO2) ใน cured meats (เบคอน, แฮม, ไส้กรอก):\n1. ยับยั้ง C. botulinum spore germination (สำคัญสุดสำหรับ food safety) — ป้องกัน botulism\n2. Preservative (กันเสีย — ยับยั้ง spoilage bacteria)\n3. Color fixative — NaNO2 → NO → จับกับ myoglobin → nitrosomyoglobin (สีแดง/ชมพูสด)\n4. Flavor enhancer\n\n⚠️ Risk = nitrite + secondary amines (ในกระเพาะ) → nitrosamines = IARC Group 2A (probable carcinogen) → จำกัด max residue level\n\n💡 จำคู่: nitrite ↔ botulinum (low-acid food → botulinum spore เสี่ยงสุด)",
@@ -587,7 +587,7 @@ export const QB_FOOD_SAFETY_Y4 = [
     "q": "Acceptable Daily Intake (ADI) มีความหมายตามข้อใด",
     "options": [
       "ปริมาณวัตถุเจือปนอาหารที่มนุษย์สามารถบริโภคได้ต่อวันเป็นเวลาตลอดชีวิตโดยไม่ก่อให้เกิดอาการผิดปกติใดๆ มีหน่วยเป็น mg/kg-bw/day",
-      "ปริมาณสูงสุดของสารตกค้างที่ใส่ในอาหารสัตว์ทดลองแล้ว ไม่ทำให้เกิดความผิดปกติในสัตว์นั้น มีหน่วยเป็น mg/kg-food/day",
+      "ปริมาณสูงสุดของสารตกค้างที่ใส่ในอาหารสัตว์ทดลองแล้ว ไม่ทำให้เกิดความผิดปกติใดๆ ในสัตว์นั้นตลอดชีวิต มีหน่วยเป็น mg/kg-food/day",
       "ปริมาณสูงสุดของสารตกค้างที่ใส่ในอาหารสัตว์ทดลองแล้ว ไม่ทำให้เกิดความผิดปกติในสัตว์นั้น มีหน่วยเป็น mg/kg-bw/day",
       "ปริมาณต่ำสุดของสารตกค้างที่ใส่เข้าสัตว์ทดลองแล้ว ไม่สังเกตเห็นความผิดปกติ มีหน่วยเป็น mg/kg-bw/day",
       "ปริมาณสูงสุดของสารเจือปนอาหารที่มนุษย์สามารถบริโภคได้ต่อวันเป็นเวลาตลอดชีวิต มีหน่วยเป็น mg/kg-food/day"
@@ -610,11 +610,11 @@ export const QB_FOOD_SAFETY_Y4 = [
     "examOrigin": "Food Safety Mid 86",
     "q": "การจัดกลุ่มสารก่อมะเร็งของ International Agency for Research on Cancer (IARC) กลุ่ม 2A หมายถึงข้อใด",
     "options": [
-      "Carcinogenic to humans (ข้อมูลในมนุษย์เพียงพอ)",
+      "Carcinogenic to humans (ข้อมูลในมนุษย์เพียงพอ ยืนยันได้จากการศึกษาในมนุษย์โดยตรง)",
       "Probably carcinogenic to humans (ข้อมูลในมนุษย์ จำกัด/น่าจะ + ข้อมูลในสัตว์ เพียงพอ)",
-      "Possibly carcinogenic to humans (ข้อมูลในมนุษย์ จำกัด + ข้อมูลในสัตว์ ไม่เพียงพอ)",
-      "Not classifiable as to its carcinogenicity to humans",
-      "Probably not carcinogenic to humans"
+      "Possibly carcinogenic to humans (ข้อมูลในมนุษย์ จำกัด + ข้อมูลในสัตว์ ยังไม่เพียงพอ)",
+      "Not classifiable as to its carcinogenicity to humans (ข้อมูลในมนุษย์และสัตว์ไม่เพียงพอ)",
+      "Probably not carcinogenic to humans (หลักฐานบ่งชี้ว่าไม่ก่อมะเร็งทั้งในมนุษย์และในสัตว์)"
     ],
     "answer": 1,
     "explain": "IARC carcinogen classification:\n- Group 1 = Carcinogenic to humans (มีหลักฐานในมนุษย์เพียงพอ — เช่น aflatoxin B1, asbestos, vinyl chloride, tobacco)\n- Group 2A = Probably carcinogenic (ข้อมูลในมนุษย์ limited + ข้อมูลในสัตว์ sufficient — เช่น styrene, antimony trioxide, red meat)\n- Group 2B = Possibly carcinogenic (ข้อมูลในมนุษย์ inadequate + ข้อมูลในสัตว์ limited/sufficient — เช่น DEHP, BPA bisphenol, ochratoxin, fumonisin)\n- Group 3 = Not classifiable (insufficient evidence — DON, zearalenone)\n- Group 4 = Probably not carcinogenic (เลิกใช้แล้วใน IARC 2019)\n\n💡 จำตัวอย่าง: vinyl chloride = 1, styrene = 2A, DEHP = 2B, DON/zearalenone = 3",
@@ -636,11 +636,11 @@ export const QB_FOOD_SAFETY_Y4 = [
     "examOrigin": "Food Safety Mid 86",
     "q": "สารใดต่อไปนี้ที่ปนเปื้อนจากบรรจุภัณฑ์อาหารและเป็น endocrine disruptor (สารรบกวนระบบต่อมไร้ท่อ)",
     "options": [
-      "Antimony trioxide เท่านั้น",
-      "Lead เท่านั้น",
+      "Antimony trioxide ที่ละลายออกจากขวด PET เท่านั้น",
+      "Lead ที่ละลายจากน้ำยาเคลือบภาชนะเซรามิกเท่านั้น",
       "Bisphenol A (BPA), DEHP และ Nonylphenol",
-      "Vinyl chloride monomer เท่านั้น",
-      "Styrene เท่านั้น"
+      "Vinyl chloride monomer ที่ตกค้างใน PVC เท่านั้น",
+      "Styrene monomer จาก polystyrene เท่านั้น"
     ],
     "answer": 2,
     "explain": "Endocrine disruptors จากบรรจุภัณฑ์อาหาร (3 ตัวสำคัญ):\n1. BPA (Bisphenol A) — จาก polycarbonate + epoxy lining ของกระป๋อง → estrogen-mimicking\n2. DEHP (Di(2-ethylhexyl)phthalate) — plasticizer ใน PVC → anti-androgen, IARC Group 2B\n3. Nonylphenol — surfactant + impurity → estrogen-mimicking\n\nรบกวน hormone signaling (estrogen, androgen, thyroid) → reproductive disorders, developmental defects\n\n⚠️ Antimony trioxide จาก PET = IARC 2B carcinogen แต่ไม่ใช่ endocrine disruptor\n⚠️ Styrene จาก polystyrene = IARC 2A + CNS effect แต่ไม่ใช่ endocrine disruptor",
@@ -662,10 +662,10 @@ export const QB_FOOD_SAFETY_Y4 = [
     "q": "ข้อใดถูกต้องเกี่ยวกับระยะเวลาการหยุดยา (Withdrawal period) ในสัตว์",
     "options": [
       "เป็นระยะเวลาที่สัตว์ได้รับยาครั้งสุดท้ายจนถึงสัตว์ถูกส่งเข้าเชือดหรือเก็บผลิตภัณฑ์เพื่อบริโภค ซึ่งจะอาจพบยาตกค้างในเนื้อแต่ต่ำกว่า MRL",
-      "ระยะเวลาที่หยุดยาแล้วต้องไม่พบยาตกค้างในเนื้อ/ผลิตภัณฑ์เลย",
-      "ยาทุกชนิดมีระยะเวลาการหยุดยาเท่ากันเสมอ ไม่ขึ้นกับสัตว์/วิธีการให้ยา",
-      "MRL = ปริมาณยาตกค้างสูงสุด เท่ากันทุกอวัยวะของสัตว์ทุกชนิด",
-      "Premi®Test (microbial tube test) สามารถตรวจยาตกค้างได้ทุกชนิด/ทุกกลุ่ม"
+      "ระยะเวลาที่หยุดยาแล้วต้องไม่พบยาตกค้างในเนื้อและผลิตภัณฑ์เลยแม้แต่น้อย (zero residue) ก่อนส่งเชือดหรือเก็บผลผลิต",
+      "ยาทุกชนิดมีระยะเวลาการหยุดยาเท่ากันเสมอ ไม่ขึ้นกับชนิดสัตว์ วิธีการให้ยา ขนาดยา หรือผลิตภัณฑ์ที่เก็บ",
+      "MRL คือปริมาณยาตกค้างสูงสุดที่ยอมให้มีได้ และมีค่าเท่ากันทุกอวัยวะ (ตับ ไต กล้ามเนื้อ ไขมัน) ของสัตว์ทุกชนิด",
+      "Premi®Test (microbial tube test) ตรวจยาตกค้างได้ทุกชนิดทุกกลุ่ม และใช้เป็น confirmatory test ได้ทันที"
     ],
     "answer": 0,
     "explain": "Withdrawal period (WDT) = ช่วงเวลาตั้งแต่สัตว์ได้รับยาครั้งสุดท้ายจนถึงเชือด/เก็บผลิตภัณฑ์ (นม ไข่ เนื้อ) เพื่อให้มั่นใจว่ายาตกค้างในเนื้อเยื่อ ≤ MRL\n- พบยาตกค้างได้ แต่ต้อง < MRL (ไม่ใช่ 0)\n- แตกต่างกันตามชนิดยา + ชนิดสัตว์ + วิธีให้ + dose + frequency + animal health\n\n⚠️ ข้อสอบ Mid Q20 → True (WDT = ระยะเวลาที่กล่าว, แต่ในที่นี้ผู้สอนตอบว่าจะไม่พบยาเลย — ตามข้อมูล Final ตอบ False เพราะพบบ้างแต่น้อย)\n\nMRL (Maximum Residue Limit):\n- หน่วย mg/kg อาหาร (ไม่ใช่ bw)\n- แตกต่างกันตามชนิดยา + ชนิดสัตว์ + tissue (liver/kidney/muscle/fat) — แต่ละ tissue อาจมี MRL ต่างกัน\n\nPremi®Test = screening (broad-spectrum antibiotic detection) ไม่ใช่ confirmatory + ไม่ครอบคลุมยาทุกกลุ่ม",
@@ -687,7 +687,7 @@ export const QB_FOOD_SAFETY_Y4 = [
     "q": "ยาสัตว์ตกค้างที่ก่อความเป็นพิษโดยกดการทำงานของไขกระดูก ทำให้เกิดภาวะ aplastic anemia ในมนุษย์ และถูกห้ามใช้ในสัตว์ที่ให้ผลผลิตเป็นอาหาร (food-producing animals) ได้แก่",
     "options": [
       "Chloramphenicol และ Phenylbutazone",
-      "Penicillin และ Tetracycline",
+      "Procaine penicillin และ Oxytetracycline",
       "Sulfonamide และ Trimethoprim",
       "Amoxicillin และ Ampicillin",
       "Enrofloxacin และ Marbofloxacin"
@@ -711,11 +711,11 @@ export const QB_FOOD_SAFETY_Y4 = [
     "examOrigin": "Food Safety Mid 86",
     "q": "วิธี UHT (Ultra-High Temperature) สำหรับน้ำนมที่ทำให้เก็บได้ที่อุณหภูมิห้องและมีอายุการเก็บนานกว่าน้ำนม pasteurized คือข้อใด",
     "options": [
-      "72 °C 30 นาที (LTLT pasteurization)",
-      "135 °C 20 นาที (overcooked)",
+      "72 °C 30 นาที (LTLT pasteurization) — ทำลายเชื้อก่อโรคแต่ต้องเก็บในตู้เย็น",
+      "135 °C 20 นาที (overcooked) — ทำลาย spore ได้แต่น้ำนมไหม้และสูญเสียคุณค่า",
       "135 °C 2-3 วินาที — ทำลายจุลินทรีย์ทั้งหมดรวม spore + บรรจุปลอดเชื้อในภาชนะปลอดเชื้อ",
-      "72 °C 15 วินาที (HTST pasteurization)",
-      "63 °C 30 นาที (vat pasteurization)"
+      "72 °C 15 วินาที (HTST pasteurization) — ทำลาย Coxiella burnetii แต่ spore ยังเหลือ",
+      "63 °C 30 นาที (vat pasteurization) — ทำลายเชื้อก่อโรคที่ไม่สร้าง spore ต้องแช่เย็น"
     ],
     "answer": 2,
     "explain": "Milk thermal processing:\n- Vat / LTLT (Low Temp Long Time): 63 °C 30 min — pasteurization\n- HTST (High Temp Short Time): 72 °C 15 sec — pasteurization (target = Coxiella burnetii — most heat-resistant non-spore-former ในนม)\n- UHT (Ultra-High Temp): 135-150 °C 2-5 sec — commercial sterility + aseptic packaging → shelf-stable at room temp 6+ เดือน\n\nUHT ฆ่าเชื้อรวม spore (ทำลายจุลินทรีย์เป้าหมายในนมดิบ = spore-forming bacteria) แต่ heat-resistant enzyme อาจเหลือ → flavor change\n\n⚠️ Pasteurization (HTST) target = Coxiella burnetii (Q fever) — เชื้อที่ทนความร้อนสุดที่ไม่ใช่ spore\n⚠️ Liquid egg pasteurization target = Salmonella Seftenberg (heat-resistant Salmonella)",
@@ -762,10 +762,10 @@ export const QB_FOOD_SAFETY_Y4 = [
     "q": "แผนสุ่มตัวอย่างของอาหาร Poultry meat กำหนด SPC, n=20, c=12, m=5×10⁵, M=5×10⁶ ถ้าสุ่ม 20 ตัวอย่างพบว่า 12 ตัวอย่างมีปริมาณเชื้อ 5×10⁶ จะยอมรับหรือปฏิเสธอาหาร lot นี้",
     "options": [
       "ยอมรับ — เพราะจำนวนตัวอย่างที่เกินค่า m แต่ไม่เกินค่า M (= 12 = c) ยังอยู่ในเกณฑ์",
-      "ปฏิเสธ — เพราะเกิน c",
-      "ยอมรับ — เพราะเกิน M ไม่กี่ตัวอย่าง",
-      "ปฏิเสธ — เพราะเชื้อเกิน m เพียงเล็กน้อย",
-      "ยอมรับโดยไม่เงื่อนไข"
+      "ปฏิเสธ — เพราะจำนวนตัวอย่างที่อยู่ระหว่าง m กับ M (12) เกินค่า c ที่กำหนดไว้",
+      "ยอมรับ — เพราะมีตัวอย่างที่เกินค่า M เพียงไม่กี่ตัวอย่าง ซึ่งยังน้อยกว่า n",
+      "ปฏิเสธ — เพราะมีตัวอย่างที่ปริมาณเชื้อเกินค่า m แม้จะเกินเพียงเล็กน้อย",
+      "ยอมรับโดยไม่มีเงื่อนไข — เพราะ 3-class plan พิจารณาเฉพาะค่า M อย่างเดียว"
     ],
     "answer": 0,
     "explain": "Sampling plan (3-class):\n- n = จำนวนตัวอย่างทั้งหมดที่สุ่ม (20)\n- c = จำนวนตัวอย่างสูงสุดที่อนุญาตให้อยู่ระหว่าง m-M (marginal)\n- m = limit ที่ยอมรับ (ตัวอย่างควรอยู่ ≤ m)\n- M = limit ที่ปฏิเสธทันที (เกิน M = reject)\n\nกฎ:\n- ถ้ามีตัวอย่างใด > M → reject (ไม่ว่ากี่ตัว)\n- ถ้าจำนวนตัวอย่างระหว่าง m-M > c → reject\n- ถ้าจำนวนระหว่าง m-M ≤ c และไม่มีใครเกิน M → accept\n\nโจทย์: 12 ตัวอย่างมีค่า 5×10⁶ = ค่า M พอดี (ไม่เกิน M)\n- 12 = c พอดี (ไม่เกิน c)\n→ Accept\n\n⚠️ ถ้า 2 ตัวอย่างมี 6×10⁶ (เกิน M) → reject ทันที (Mid Q2)",
@@ -786,11 +786,11 @@ export const QB_FOOD_SAFETY_Y4 = [
     "examOrigin": "Food Safety Final 86",
     "q": "ข้อใดถูกต้องเกี่ยวกับ Rotavirus",
     "options": [
-      "Enveloped, dsRNA, ทำลายด้วย alcohol-based sanitizer ได้ง่าย",
+      "Enveloped, dsRNA, ทำลายด้วย alcohol-based sanitizer ได้ง่าย, ก่อโรคเฉพาะในผู้ใหญ่ที่มีภูมิคุ้มกันบกพร่องเท่านั้น",
       "Non-enveloped, dsRNA, highly contagious, ทนทานในสิ่งแวดล้อม, ก่อโรคในเด็กเล็กที่สุด, ติดเชื้อซ้ำได้แต่อาการอ่อนลง",
-      "Enveloped, ssRNA, ก่อโรคในผู้ใหญ่เท่านั้น",
-      "Non-enveloped, ssDNA, ก่อ chronic hepatitis",
-      "Lifelong immunity หลังติดครั้งแรก ไม่ติดซ้ำเลย"
+      "Enveloped, ssRNA, highly contagious แต่ไม่ทนในสิ่งแวดล้อม, ก่อโรคในผู้ใหญ่เท่านั้น ไม่พบในเด็ก",
+      "Non-enveloped, ssDNA, ติดทางเลือดเป็นหลัก, ก่อ chronic hepatitis และมะเร็งตับในผู้ใหญ่",
+      "Non-enveloped, dsRNA, ก่อโรคในเด็กเล็ก แต่ได้ lifelong immunity หลังติดครั้งแรก ไม่ติดซ้ำเลย"
     ],
     "answer": 1,
     "explain": "Rotavirus:\n- non-enveloped, dsRNA virus (Reoviridae)\n- Highly contagious (low infectious dose ~10 viral particles)\n- ทนทานในสิ่งแวดล้อม → พบทั่วโลก (พัฒนาแล้ว+กำลังพัฒนา) — non-enveloped จึงทนต่อ alcohol/heat ปานกลาง\n- ก่อโรคในเด็กเล็ก (< 5 ปี) — เป็น leading cause of severe diarrhea ในเด็กทั่วโลก\n- ติดเชื้อซ้ำได้ แต่อาการลดลงตามอายุ (partial immunity)\n- มี vaccine (Rotarix, RotaTeq) — ลด severe diarrhea + mortality\n- ทำให้เกิดอาการนอก GI ได้บางครั้ง (encephalopathy, seizure, RTI) → Final Q13 → True\n\n⚠️ Norovirus = ไวรัสที่ก่อ foodborne illness มากที่สุดในผู้ใหญ่ — Rotavirus = ก่อในเด็ก",

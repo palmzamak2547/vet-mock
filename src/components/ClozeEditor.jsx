@@ -32,6 +32,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { parseCloze, expandCloze, maxClozeIndex } from '../lib/cloze.js';
 import { saveClozeText } from '../lib/user-flashcards.js';
+import { thaiError } from '../lib/errors.js';
 
 export default function ClozeEditor({
   initialText = '',
@@ -131,7 +132,7 @@ export default function ClozeEditor({
       }
       onSave?.(cards);
     } catch (e) {
-      setError(`บันทึกไม่ได้: ${e?.message || e}`);
+      setError(thaiError(e, 'บันทึกไม่สำเร็จ ลองอีกครั้ง'));
     }
   }
 

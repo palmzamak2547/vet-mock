@@ -18,6 +18,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { alertDialog } from '../lib/dialog.js';
+import { thaiError } from '../lib/errors.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 
 const PEN_COLORS = [
@@ -308,7 +309,9 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
         triggerDownload(blob, `vetmock-annotation-${Date.now()}.png`);
       }, 'image/png');
     } catch (e) {
-      alertDialog('บันทึก PNG ผิดพลาด: ' + (e.message || 'unknown'));
+      // A tainted canvas throws here ("Tainted canvases may not be exported"),
+      // so the fallback names the one thing that still works.
+      alertDialog(thaiError(e, 'บันทึกภาพ PNG ไม่สำเร็จ ลองคลิกขวาที่รูปแล้วเลือก Save image แทน'));
     }
   }
   function triggerDownload(blob, filename) {

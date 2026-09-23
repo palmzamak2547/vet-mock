@@ -1,16 +1,27 @@
 #!/usr/bin/env node
 // Project the canonical VetWiki evidence corpus into browser-friendly,
 // per-subject chunks. Canonical files remain the only hand-edited source.
+//
+// Two projections come out of here:
+//   runtime-data/subject-*.generated.js   evidence overlays, sources and
+//                                         corrections for an opened article
+//   search-index-subject-*.generated.js   the text the Wiki search box
+//                                         matches, per section
+// The search index depends on the note bodies as well as the evidence, so a
+// note edit makes --check fail until this script is run again.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { VERIFICATIONS } from '../src/lib/vetwiki/verification.js';
 import { CORRECTIONS } from '../src/lib/vetwiki/corrections.js';
 import { resolveSource } from '../src/lib/vetwiki/sources.js';
+import { listTopics, loadTopic } from '../src/lib/vetwiki/index.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const OUTPUT_DIR = path.join(ROOT, 'src', 'lib', 'vetwiki', 'runtime-data');
-const INDEX_FILE = path.join(ROOT, 'src', 'lib', 'vetwiki', 'runtime-data.generated.js');
+const VETWIKI_DIR = path.join(ROOT, 'src', 'lib', 'vetwiki');
+const OUTPUT_DIR = path.join(VETWIKI_DIR, 'runtime-data');
+const INDEX_FILE = path.join(VETWIKI_DIR, 'runtime-data.generated.js');
+const SEARCH_LOADERS_FILE = path.join(VETWIKI_DIR, 'search-index-loaders.generated.js');
 const checkOnly = process.argv.includes('--check');
 
 const subjects = [...new Set([
@@ -68,19 +79,127 @@ const indexText = [
   '}\n',
 ].join('');
 
+// ---- Wiki search index -----------------------------------------------------
+// The search box used to build this text in the browser: on the first word
+// typed it imported every subject's note chunk and evidence chunk and ran all
+// the articles through noteToKnowledge, only to read their text. The text is
+// the same for every student, so it is built here from the canonical articles,
+// and the browser loads one data chunk per subject instead.
+//
+// Each section's text is exactly what runtime-search.js used to match: the
+// heading, every body string, bullet label and value, sub-heading, callout and
+// table cell, then the verified claim statements, joined with ' \n ', with the
+// Markdown emphasis markers removed and lower-cased. It is lower-cased with
+// toLowerCase, not toLocaleLowerCase, so the file does not change with the
+// machine that wrote it; the two differ only in Turkish, Azeri and Lithuanian.
+// tests/unit/wiki-search-parity.test.mjs keeps the old in-browser pass as the
+// oracle for both the text and the results.
+
+function flattenBody(body, out = []) {
+  for (const item of body || []) {
+    if (typeof item === 'string') { out.push(item); continue; }
+    if (!item || typeof item !== 'object') continue;
+    if (item.bullets) {
+      for (const bullet of item.bullets) {
+        out.push(typeof bullet === 'string' ? bullet : `${bullet.label} ${bullet.value}`);
+      }
+    }
+    if (item.sub) { out.push(item.sub); flattenBody(item.body, out); }
+    if (item.callout) out.push(item.callout);
+    if (item.table) {
+      for (const heading of item.table.headers || []) out.push(heading);
+      for (const row of item.table.rows || []) for (const cell of row) out.push(cell);
+    }
+  }
+  return out;
+}
+
+const normalize = (value) => String(value || '')
+  .replace(/\*\*/g, '')
+  .replace(/\*/g, '')
+  .toLowerCase();
+
+function searchRows(knowledge) {
+  return knowledge.sections.map((section) => [
+    section.id,
+    section.heading,
+    normalize([
+      section.heading,
+      ...flattenBody(section.body),
+      ...(section.claims || []).map((claim) => claim.statement),
+    ].join(' \n ')),
+  ]);
+}
+
+function searchIndexFileName(subject) {
+  return `search-index-subject-${subject}.generated.js`;
+}
+
+const searchIndexes = new Map();
+for (const topic of listTopics()) {
+  const knowledge = loadTopic(topic.subject, topic.topic);
+  if (!knowledge) continue;
+  if (!searchIndexes.has(topic.subject)) searchIndexes.set(topic.subject, {});
+  searchIndexes.get(topic.subject)[topic.id] = searchRows(knowledge);
+}
+const searchSubjects = [...searchIndexes.keys()].sort();
+
+// A plain object literal, not JSON.parse('...'). The data is about 1,800 long
+// section strings, so both parse at the same speed (measured in Node: 42-47 ms
+// against 45-62 ms for all 21 subjects), but JSON.parse keeps three copies of
+// the text alive (the module source, the string literal and the parsed
+// result) where the literal keeps two: 7.7 MiB rather than 11.3 MiB retained.
+//
+// Strings are single-quoted, the way the note files are written. JSON's
+// escaped double quotes hid a quoted file name ("....pdf") from the file-name
+// exemption in lint:academic-safety, which then read a senior's file name as
+// a claim about an exam. JSON.stringify still does the escaping (control
+// characters, lone surrogates, backslashes); only the quoting changes, and
+// U+2028 and U+2029 are escaped for parsers older than ES2019.
+const LINE_SEPARATORS = /[\u2028\u2029]/g;
+const jsString = (value) => `'${JSON.stringify(String(value)).slice(1, -1)
+  .replace(/\\"/g, '"')
+  .replace(/'/g, "\\'")
+  .replace(LINE_SEPARATORS, (ch) => `\\u${ch.charCodeAt(0).toString(16)}`)}'`;
+
+function searchIndexText(subject) {
+  const topics = Object.entries(searchIndexes.get(subject)).map(([id, rows]) => (
+    `${jsString(id)}:[${rows.map((row) => `[${row.map(jsString).join(',')}]`).join(',')}]`
+  ));
+  return [
+    '// Generated by scripts/regen-vetwiki-runtime-data.mjs. Do not edit.\n',
+    `// Wiki search text for ${subject}: topic id -> [section id, heading, text] per section.\n`,
+    `export default {${topics.join(',')}};\n`,
+  ].join('');
+}
+
+const searchLoadersText = [
+  '// Generated by scripts/regen-vetwiki-runtime-data.mjs. Do not edit.\n',
+  'const LOADERS = {\n',
+  ...searchSubjects.map((subject) => `  ${JSON.stringify(subject)}: () => import('./${searchIndexFileName(subject)}'),\n`),
+  '};\n\n',
+  "// One subject's Wiki search index: topic id -> [section id, heading, text] rows.\n",
+  'export function loadSearchIndex(subject) {\n',
+  '  const load = LOADERS[subject];\n',
+  '  return load ? load().then((module) => module.default) : Promise.resolve({});\n',
+  '}\n',
+].join('');
+
 const expected = new Map([
   [INDEX_FILE, indexText],
   ...subjects.map((subject) => [path.join(OUTPUT_DIR, runtimeFileName(subject)), moduleText(subject)]),
+  [SEARCH_LOADERS_FILE, searchLoadersText],
+  ...searchSubjects.map((subject) => [path.join(VETWIKI_DIR, searchIndexFileName(subject)), searchIndexText(subject)]),
 ]);
-const expectedRuntimeFiles = new Set(
-  subjects.map((subject) => path.join(OUTPUT_DIR, runtimeFileName(subject))),
-);
-const extraRuntimeFiles = fs.existsSync(OUTPUT_DIR)
-  ? fs.readdirSync(OUTPUT_DIR, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.endsWith('.generated.js'))
-    .map((entry) => path.join(OUTPUT_DIR, entry.name))
-    .filter((file) => !expectedRuntimeFiles.has(file))
-  : [];
+const generatedIn = (dir, pattern) => (fs.existsSync(dir)
+  ? fs.readdirSync(dir, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && pattern.test(entry.name))
+    .map((entry) => path.join(dir, entry.name))
+  : []);
+const extraRuntimeFiles = [
+  ...generatedIn(OUTPUT_DIR, /\.generated\.js$/),
+  ...generatedIn(VETWIKI_DIR, /^search-index-.*\.generated\.js$/),
+].filter((file) => !expected.has(file));
 
 if (checkOnly) {
   const stale = [...expected].filter(([file, content]) => {
@@ -91,11 +210,11 @@ if (checkOnly) {
     console.error(`VetWiki runtime projection is stale (${count} file${count === 1 ? '' : 's'}). Run npm run regen:wiki-runtime.`);
     process.exit(1);
   }
-  console.log(`VetWiki runtime projection is current (${subjects.length} subjects).`);
+  console.log(`VetWiki runtime projection is current (${subjects.length} evidence subjects, ${searchSubjects.length} search subjects).`);
   process.exit(0);
 }
 
 fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 for (const file of extraRuntimeFiles) fs.unlinkSync(file);
 for (const [file, content] of expected) fs.writeFileSync(file, content, 'utf8');
-console.log(`Generated VetWiki runtime projection for ${subjects.length} subjects.`);
+console.log(`Generated VetWiki runtime projection for ${subjects.length} evidence subjects and ${searchSubjects.length} search subjects.`);

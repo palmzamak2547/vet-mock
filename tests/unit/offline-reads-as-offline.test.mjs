@@ -39,7 +39,7 @@ test('the video shelf recognises the worker\'s offline 503 before blaming YouTub
 
 test('the reader names offline instead of "HTTP 503" for a document never cached', () => {
   const src = read('src/views/PdfAnnotateView.jsx');
-  const at = src.indexOf('const res = await fetch(url);');
+  const at = src.indexOf('const res = await fetch(url, { signal: download.signal });');
   assert.notEqual(at, -1);
   const block = src.slice(at, at + 900);
   assert.match(block, /offline_not_cached/, 'the worker\'s code for "never cached here" must be recognised');

@@ -35,3 +35,18 @@ test('swine 8026 asks about the lymph node lesion the paper asks about', async (
   assert.match(q.options[0], /classical swine fever/i);
   assert.equal(q.options[q.answer], 'ถูกทุกข้อ');
 });
+
+// livestock-pathology 8200 asks which pair does NOT cause renal lesions, and
+// its own explanation concludes that every pair does, so no option is right.
+// It was delivered with its conflict chip and marked students wrong anyway.
+// It stays out of every pool until someone with the paper settles the key.
+// The hold goes through the flag (an unclear conflict), the way the bank's
+// other held rows do: answerStatus alone would be partial prediction
+// metadata, which the question standard rejects.
+test('livestock-pathology 8200, whose explanation admits no option fits, is held for review', async () => {
+  const { questionNeedsAnswerReview, predictionMetadataIssues } = await import('../../src/lib/question-prediction.js');
+  const q = await row('questions-y5-patho.js', 'livestock-pathology', 8200);
+  assert.equal(questionNeedsAnswerReview(q), true, '8200 is still delivered');
+  assert.equal(q.flag?.severity, 'unclear');
+  assert.deepEqual(predictionMetadataIssues(q), []);
+});

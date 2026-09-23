@@ -6,7 +6,7 @@ import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, handleThumbnail
 // /videos visit even when user just browses the playlist. Now:
 //   • VIDEO_META (small · ~50 KB) — sync · drives "has summary?" badges
 //   • Full bodies — lazy-imported ONCE the user clicks "📝 อ่านสรุปคลิป",
-//     cached at module scope so subsequent opens are instant.
+//     one clip at a time, cached at module scope so reopening is instant.
 import { VIDEO_META } from '../data/video-summaries-meta.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { readLocalExtra, writeLocalExtra } from '../lib/local-extras.js';
@@ -18,12 +18,22 @@ const EMPTY_CLIPS = Object.freeze([]);
 const EMPTY_WATCHED = Object.freeze({});
 
 // useLocalStorage's shape, backed by the restorable local-extras bundle.
+//
+// Store first, then show. The list used to change on screen before the write,
+// whose false was dropped, so a clip the browser refused to keep appeared,
+// closed its form, and was gone after the next reload. The setter now returns
+// whether the write held, and nothing changes on screen when it did not. The
+// ref is the last stored value, so two functional updates before a render
+// build on each other rather than on the same stale list.
 function useLocalExtra(key, fallback) {
   const [value, setValue] = useState(() => readLocalExtra(key, fallback));
+  const stored = useRef(value);
   const update = (next) => {
-    const resolved = typeof next === 'function' ? next(value) : next;
+    const resolved = typeof next === 'function' ? next(stored.current) : next;
+    if (!writeLocalExtra(key, resolved)) return false;
+    stored.current = resolved;
     setValue(resolved);
-    writeLocalExtra(key, resolved);
+    return true;
   };
   return [value, update];
 }
@@ -32,32 +42,22 @@ import BackBar from '../components/BackBar.jsx';
 import SummaryModal from '../components/SummaryModal.jsx';
 import VideoNotePanel from '../components/VideoNotePanel.jsx';
 
-// ── Lazy video-summaries body loader (per-subject chunked) ───────
-// Palm audit r4 (2026-05-24): the 2.2 MB monolithic VIDEO_SUMMARIES
-// chunk has been split per-subject by scripts/split-video-summaries.cjs.
-// VideoView now imports the barrel's `loadVideoSummariesForSubject`
-// helper which dynamic-imports ONLY the relevant subject's chunk
-// (typically ~50-200 KB gzip instead of 870 KB for the full set).
-// The subject is derived from VIDEO_META[videoId].subject — already
-// in the lightweight ~50 KB meta file the view loaded synchronously.
-// Falls back to loadAllVideoSummaries() if subject is missing or the
-// per-subject loader returns no entry (e.g. mis-tagged data).
-import { loadVideoSummariesForSubject, loadAllVideoSummaries } from '../data/video-summaries.js';
+// ── Lazy video-summaries body loader (one module per clip) ────────
+// Every summary is its own module behind the barrel's loadVideoSummaryClip,
+// keyed by video id. Opening one used to import the whole subject file, up
+// to 1.9 MB for aquatic when that clip's own summary was 2 KB. Being keyed by
+// id, it no longer depends on the metadata naming the right subject either.
+import { loadVideoSummaryClip } from '../data/video-summaries.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 
 // A chunk that fails to load (offline, or a tab opened before a deploy that no
 // longer serves the old hash) throws straight to the caller, which shows the
-// reload message. It used to be caught and answered with null, after asking
-// for the other 31 chunks too, so the button quietly did nothing.
+// reload message. It used to be caught and answered with null, so the button
+// quietly did nothing. A clip with no summary module resolves null.
 async function loadVideoSummaryEntry(videoId) {
   if (!videoId) return null;
-  const map = await loadVideoSummariesForSubject(VIDEO_META[videoId]?.subject);
-  if (map?.[videoId]) return map[videoId];
-  // The chunk loaded but the entry is not in it: the metadata names the wrong
-  // subject, so look in the full set.
-  const all = await loadAllVideoSummaries();
-  return all?.[videoId] || null;
+  return (await loadVideoSummaryClip(videoId)) || null;
 }
 
 // ── YouTube IFrame API loader ─────────────────────────────────────
@@ -83,7 +83,15 @@ function loadYouTubeIframeAPI() {
     tag.src = 'https://www.youtube.com/iframe_api';
     tag.async = true;
     tag.dataset.vmxYtApi = '1';
-    tag.onerror = () => reject(new Error('failed to load YT iframe API'));
+    // Forget a failed load. Keeping the rejected promise (and the dead tag
+    // the next call would wait on) turned one network hiccup into a black
+    // player for every clip until the page was reloaded. A classic script is
+    // not cached as a failure, so the next clip opened asks again.
+    tag.onerror = () => {
+      __ytApiPromise = null;
+      tag.remove();
+      reject(new Error('failed to load YT iframe API'));
+    };
     document.head.appendChild(tag);
   });
   return __ytApiPromise;
@@ -370,23 +378,35 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
       return;
     }
     const newVid = { ...form, custom: true };
-    if (editingIdx !== null) {
-      const arr = [...customVideos]; arr[editingIdx] = newVid; setCustomVideos(arr);
-    } else {
-      setCustomVideos([...customVideos, newVid]);
+    const next = editingIdx !== null
+      ? customVideos.map((v, i) => (i === editingIdx ? newVid : v))
+      : [...customVideos, newVid];
+    // The browser can refuse the write (storage full, or a bundle it cannot
+    // read). Keep the form open and filled so nothing typed is lost, and do
+    // not guess which of the two it was.
+    if (!setCustomVideos(next)) {
+      alertDialog({
+        title: 'บันทึกคลิปไม่สำเร็จ',
+        body: 'เบราว์เซอร์เครื่องนี้ยังไม่ได้เก็บคลิปนี้ไว้ ข้อมูลในฟอร์มยังอยู่ ลองกดบันทึกอีกครั้ง',
+      });
+      return;
     }
     setShowAdd(false);
   };
 
   const deleteCustom = async (idx) => {
     if (!(await confirmDialog({ title: 'ลบคลิปนี้?', confirmLabel: 'ลบ', tone: 'danger' }))) return;
-    setCustomVideos(customVideos.filter((_, i) => i !== idx));
+    if (!setCustomVideos(customVideos.filter((_, i) => i !== idx))) {
+      alertDialog({ title: 'ลบคลิปไม่สำเร็จ', body: 'คลิปนี้ยังอยู่ในเบราว์เซอร์เครื่องนี้ ลองลบอีกครั้ง' });
+    }
   };
 
   const customIdx = (vid) => customVideos.findIndex((v) => v.url === vid.url && v.topic === vid.topic);
+  // A watched mark that cannot be stored simply does not show; it is not
+  // worth a dialog in the middle of a clip.
   const markWatched = (videoId) => {
     if (!videoId) return;
-    setWatched({ ...watched, [videoId]: { watchedAt: Date.now() } });
+    setWatched((prev) => ({ ...prev, [videoId]: { watchedAt: Date.now() } }));
   };
 
   const watchedCount = Object.keys(watched).length;
@@ -630,6 +650,49 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
 }
 
 // ============================================================
+// Player clock — the notes panel's view of where the clip is
+// ============================================================
+// Polls the player's currentTime every 500 ms while the tab is visible, and
+// pauses when the document is hidden to save battery on mobile. This used to
+// be PlayerModal's own state, so while a clip played every tick re-rendered
+// the whole modal and its playlist sidebar. Held here, a tick re-renders only
+// the notes panel that reads it; a paused clip returns the same number and
+// React skips the render.
+function usePlayerClock(playerRef, videoId) {
+  const [currentTime, setCurrentTime] = useState(0);
+  useEffect(() => {
+    if (!videoId) return undefined;
+    let id = null;
+    const start = () => {
+      if (id != null) return;
+      id = window.setInterval(() => {
+        try {
+          const p = playerRef.current;
+          if (p && typeof p.getCurrentTime === 'function') {
+            const t = p.getCurrentTime();
+            if (typeof t === 'number' && !Number.isNaN(t)) setCurrentTime(t);
+          }
+        } catch {}
+      }, 500);
+    };
+    const stop = () => { if (id != null) { clearInterval(id); id = null; } };
+    const onVis = () => { if (document.hidden) stop(); else start(); };
+    if (!document.hidden) start();
+    document.addEventListener('visibilitychange', onVis);
+    return () => {
+      stop();
+      document.removeEventListener('visibilitychange', onVis);
+    };
+  }, [videoId, playerRef]);
+  return currentTime;
+}
+
+function ClockedVideoNotePanel({ videoId, playerRef }) {
+  const currentTime = usePlayerClock(playerRef, videoId);
+  return <VideoNotePanel videoId={videoId} playerRef={playerRef} currentTime={currentTime} />;
+}
+
+// ============================================================
 // PlayerModal — full-featured: search, prev/next, watched, kbd nav
 // ============================================================
 function PlayerModal({ video, onClose, watched, markWatched }) {
@@ -746,7 +809,15 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
     return indexedItems.filter((it) => it._titleLc.includes(q));
   }, [indexedItems, debouncedSearch]);
 
-  const currentIdx = playlistItems.findIndex((p) => p.id === currentVideoId);
+  // Position of each clip in the playlist, built once per list. Every
+  // sidebar row used to search the list for its own number, n searches of n
+  // items per render. The first occurrence wins, as findIndex's did.
+  const indexById = useMemo(() => {
+    const byId = new Map();
+    playlistItems.forEach((p, i) => { if (!byId.has(p.id)) byId.set(p.id, i); });
+    return byId;
+  }, [playlistItems]);
+  const currentIdx = indexById.has(currentVideoId) ? indexById.get(currentVideoId) : -1;
   const goPrev = () => { if (currentIdx > 0) setCurrentVideoId(playlistItems[currentIdx - 1].id); };
   const goNext = () => { if (currentIdx >= 0 && currentIdx < playlistItems.length - 1) setCurrentVideoId(playlistItems[currentIdx + 1].id); };
 
@@ -780,16 +851,20 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   }
 
   // ── YT.Player wrapper (replaces raw <iframe>) ───────────────────
-  // Owned here so VideoNotePanel can read currentTime + seek via ref.
+  // Owned here so the notes panel can read the clock and seek via the ref.
   const ytContainerRef = useRef(null);
   const playerRef = useRef(null);
-  const [currentTime, setCurrentTime] = useState(0);
+  // The in-app player could not start (its API did not load, or YT.Player
+  // threw). The clip is still one tap away on YouTube, so the black box says
+  // where instead of staying black.
+  const [playerFailed, setPlayerFailed] = useState(false);
 
   // Mount one YT.Player per (currentVideoId, playlistId) tuple. Recreating
   // the player on video change is simpler than juggling loadVideoById() —
   // and it matches the previous iframe behavior (full reload on switch).
   useEffect(() => {
     if (!currentVideoId) return undefined;
+    setPlayerFailed(false);
     const container = ytContainerRef.current;
     if (!container) return undefined;
 
@@ -814,9 +889,11 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
         playerRef.current = player;
       } catch (err) {
         console.warn('YT.Player init failed:', err?.message);
+        setPlayerFailed(true);
       }
     }).catch((err) => {
       console.warn('YT iframe API load failed:', err?.message);
+      if (!cancelled) setPlayerFailed(true);
     });
 
     return () => {
@@ -826,33 +903,6 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
       playerRef.current = null;
     };
   }, [currentVideoId, playlistId]);
-
-  // Poll currentTime every 500ms while the tab is visible. Pauses when
-  // the document is hidden to save battery on mobile.
-  useEffect(() => {
-    if (!currentVideoId) return undefined;
-    let id = null;
-    const start = () => {
-      if (id != null) return;
-      id = window.setInterval(() => {
-        try {
-          const p = playerRef.current;
-          if (p && typeof p.getCurrentTime === 'function') {
-            const t = p.getCurrentTime();
-            if (typeof t === 'number' && !Number.isNaN(t)) setCurrentTime(t);
-          }
-        } catch {}
-      }, 500);
-    };
-    const stop = () => { if (id != null) { clearInterval(id); id = null; } };
-    const onVis = () => { if (document.hidden) stop(); else start(); };
-    if (!document.hidden) start();
-    document.addEventListener('visibilitychange', onVis);
-    return () => {
-      stop();
-      document.removeEventListener('visibilitychange', onVis);
-    };
-  }, [currentVideoId]);
 
   const currentItem = playlistItems[currentIdx];
   // hasSummary uses VIDEO_META (sync · ~50 KB) so we don't pay the
@@ -963,6 +1013,11 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                     title={video.topic}
                   />
                 )}
+                {playerFailed && (
+                  <div role="status" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, textAlign: 'center', color: 'white', fontSize: 13, lineHeight: 1.6 }}>
+                    เปิดเครื่องเล่นในแอปไม่ได้ กดปุ่ม เปิดใน YouTube ด้านล่าง หรือปิดคลิปนี้แล้วเปิดใหม่อีกครั้ง
+                  </div>
+                )}
               </div>
             ) : isChannel ? (
               <div style={{ padding: 30, background: 'var(--clr-surface-2)', borderRadius: 12, textAlign: 'center' }}>
@@ -1039,11 +1094,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
 
             {/* Audio-synced notes — only when we have a concrete video id */}
             {currentVideoId && (
-              <VideoNotePanel
-                videoId={currentVideoId}
-                playerRef={playerRef}
-                currentTime={currentTime}
-              />
+              <ClockedVideoNotePanel videoId={currentVideoId} playerRef={playerRef} />
             )}
 
             {/* Footer actions */}
@@ -1106,7 +1157,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                   </div>
                 )}
                 {filteredItems.map((item) => {
-                  const realIdx = playlistItems.findIndex((p) => p.id === item.id);
+                  const realIdx = indexById.get(item.id);
                   const active = item.id === currentVideoId;
                   const isWatched = watched && watched[item.id];
                   const hasSummary = !!VIDEO_META[item.id];

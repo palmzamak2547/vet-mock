@@ -10,9 +10,9 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 6476;
+export const QB_TOTAL = 6474;
 export const QB_SOURCE_TOTAL = 6541;
-export const QB_BLOCKED_TOTAL = 65;
+export const QB_BLOCKED_TOTAL = 67;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 346,
@@ -34,8 +34,8 @@ export const Q_COUNTS_BY_SUBJECT = {
   'food-industry': 289,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
-  'livestock-pathology': 68,
-  'milk-meat-hygiene': 805,
+  'livestock-pathology': 67,
+  'milk-meat-hygiene': 804,
   'one-health': 188,
   'poa-clinical': 71,
   'poultry': 178,
@@ -84,8 +84,8 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'food-industry': 273,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
-  'livestock-pathology': 68,
-  'milk-meat-hygiene': 805,
+  'livestock-pathology': 67,
+  'milk-meat-hygiene': 804,
   'one-health': 188,
   'poa-clinical': 71,
   'poultry': 132,
@@ -132,8 +132,8 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'food-industry': 125,
   'food-safety-y4': 31,
   'herd-health-rum': 35,
-  'livestock-pathology': 68,
-  'milk-meat-hygiene': 517,
+  'livestock-pathology': 67,
+  'milk-meat-hygiene': 516,
   'one-health': 78,
   'poa-clinical': 16,
   'poultry': 68,
@@ -177,8 +177,8 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'food-industry': 124,
     'food-safety-y4': 15,
     'herd-health-rum': 20,
-    'livestock-pathology': 68,
-    'milk-meat-hygiene': 517,
+    'livestock-pathology': 67,
+    'milk-meat-hygiene': 516,
     'one-health': 67,
     'poultry': 68,
     'practrum': 17,
@@ -189,7 +189,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'surg1': 29,
     'surg2': 18,
     'surg3': 40,
-    'swine-clinic': 63,
+    'swine-clinic': 60,
     'swine-herd': 22,
     'swine-repro': 17,
     'vca': 18,
@@ -215,7 +215,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'food-industry': 1,
     'food-safety-y4': 21,
     'herd-health-rum': 33,
-    'livestock-pathology': 68,
+    'livestock-pathology': 67,
     'one-health': 11,
     'poultry': 68,
     'practrum': 17,
@@ -251,16 +251,16 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'food-industry': 239,
     'food-safety-y4': 15,
     'herd-health-rum': 24,
-    'milk-meat-hygiene': 805,
+    'milk-meat-hygiene': 804,
     'one-health': 153,
     'surg1': 29,
-    'swine-clinic': 75,
+    'swine-clinic': 72,
     'swine-herd': 31,
     'swine-repro': 17,
     'vca': 455,
     'vet-histo': 104,
     'vet-imaging': 5,
-    'zoonoses': 197,
+    'zoonoses': 198,
   },
   '1-final': {
     'aquatic-clinic': 130,
@@ -283,7 +283,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vet-histo': 104,
     'vet-imaging': 35,
     'vet-juris': 46,
-    'zoonoses': 99,
+    'zoonoses': 98,
   },
   '2-mid': {
     'biochem-1': 272,
@@ -294,7 +294,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'comp-repro-clinic': 48,
     'engprof': 70,
     'exotic': 108,
-    'livestock-pathology': 68,
+    'livestock-pathology': 67,
     'poultry': 132,
     'practrum': 113,
     'rec-adv-bioscience': 4,
@@ -317,7 +317,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'comp-repro-clinic': 48,
     'engprof': 70,
     'exotic': 108,
-    'livestock-pathology': 68,
+    'livestock-pathology': 67,
     'poultry': 132,
     'practrum': 113,
     'rec-adv-bioscience': 4,
@@ -337,26 +337,26 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
   '1-mid': {
     2: 104,
     4: 139,
-    5: 3135,
+    5: 3132,
   },
   '1-final': {
     2: 104,
     4: 302,
-    5: 1202,
+    5: 1201,
   },
   '2-mid': {
     1: 298,
     2: 40,
     3: 62,
     4: 1633,
-    5: 590,
+    5: 589,
   },
   '2-final': {
     1: 298,
     2: 40,
     3: 62,
     4: 1633,
-    5: 590,
+    5: 589,
   },
 };
 
@@ -477,7 +477,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'milk-microbiology': 79,
       'milk-overview': 28,
       'milk-processing': 106,
-      'milk-products-storage': 18,
+      'milk-products-storage': 17,
       'milk-quality-composition': 92,
       'milk-quality-determination': 94,
       'milk-raw-std': 67,
@@ -508,7 +508,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'swine-clinic': {
       'swine-cns': 11,
-      'swine-gi-viral': 16,
+      'swine-gi-viral': 13,
       'swine-pornchalit-set': 36,
       'swine-resp-viral': 12,
     },
@@ -610,7 +610,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'zoo-intro': 20,
       'zoo-protozoal': 13,
       'zoo-rabies': 24,
-      'zoo-rickettsial': 18,
+      'zoo-rickettsial': 19,
       'zoo-siv-civ': 9,
       'zoo-vbz': 16,
     },
@@ -801,13 +801,14 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'testicular-block': 1,
     },
     'swine-clinic': {
-      'swine-asf': 5,
+      'swine-asf': 3,
       'swine-cns': 11,
-      'swine-csf': 1,
+      'swine-csf': 3,
       'swine-fmd': 4,
-      'swine-gi-viral': 16,
-      'swine-ileitis-bacti': 1,
-      'swine-pcv2': 10,
+      'swine-gi-viral': 13,
+      'swine-greasypig': 1,
+      'swine-ileitis-bacti': 4,
+      'swine-pcv2': 9,
       'swine-pornchalit-set': 36,
     },
     'swine-herd': {
@@ -901,7 +902,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'wildlife-act-2562': 5,
     },
     'zoonoses': {
-      'zoo-bacterial': 36,
+      'zoo-bacterial': 35,
       'zoo-eid-wildlife': 13,
       'zoo-epi-approach': 16,
       'zoo-mycoses': 17,
@@ -1022,7 +1023,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     'livestock-pathology': {
       'lpath-avian': 10,
       'lpath-slaughter': 3,
-      'lpath-swine-systemic': 54,
+      'lpath-swine-systemic': 53,
       'lpath-systemic': 1,
     },
     'poultry': {
@@ -1257,7 +1258,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     'livestock-pathology': {
       'lpath-avian': 10,
       'lpath-slaughter': 3,
-      'lpath-swine-systemic': 54,
+      'lpath-swine-systemic': 53,
       'lpath-systemic': 1,
     },
     'poultry': {
@@ -1853,7 +1854,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
     'livestock-pathology': {
       'lpath-avian': 10,
       'lpath-slaughter': 3,
-      'lpath-swine-systemic': 54,
+      'lpath-swine-systemic': 53,
       'lpath-systemic': 1,
     },
     'poultry': {
@@ -1995,7 +1996,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
     'livestock-pathology': {
       'lpath-avian': 10,
       'lpath-slaughter': 3,
-      'lpath-swine-systemic': 54,
+      'lpath-swine-systemic': 53,
       'lpath-systemic': 1,
     },
     'poultry': {
@@ -2061,7 +2062,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 3896,
+  5: 3894,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2073,7 +2074,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 3880,
+  5: 3878,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2417,7 +2418,7 @@ export const Q_COUNTS_BY_TOPIC = {
   "livestock-pathology": {
     "lpath-avian": 10,
     "lpath-slaughter": 3,
-    "lpath-swine-systemic": 54,
+    "lpath-swine-systemic": 53,
     "lpath-systemic": 1,
   },
   "milk-meat-hygiene": {
@@ -2429,7 +2430,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "milk-microbiology": 79,
     "milk-overview": 28,
     "milk-processing": 106,
-    "milk-products-storage": 18,
+    "milk-products-storage": 17,
     "milk-quality-composition": 92,
     "milk-quality-determination": 94,
     "milk-raw-std": 67,
@@ -2557,13 +2558,14 @@ export const Q_COUNTS_BY_TOPIC = {
     "__unassigned__": 40,
   },
   "swine-clinic": {
-    "swine-asf": 5,
+    "swine-asf": 3,
     "swine-cns": 11,
-    "swine-csf": 1,
+    "swine-csf": 3,
     "swine-fmd": 4,
-    "swine-gi-viral": 16,
-    "swine-ileitis-bacti": 1,
-    "swine-pcv2": 10,
+    "swine-gi-viral": 13,
+    "swine-greasypig": 1,
+    "swine-ileitis-bacti": 4,
+    "swine-pcv2": 9,
     "swine-pornchalit-set": 36,
     "swine-resp-viral": 12,
   },
@@ -2707,7 +2709,7 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "zoonoses": {
     "zoo-ai-basic": 12,
-    "zoo-bacterial": 36,
+    "zoo-bacterial": 35,
     "zoo-corona": 17,
     "zoo-ebola-nipah": 18,
     "zoo-eid-wildlife": 13,
@@ -2718,7 +2720,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "zoo-prion": 4,
     "zoo-protozoal": 13,
     "zoo-rabies": 24,
-    "zoo-rickettsial": 18,
+    "zoo-rickettsial": 19,
     "zoo-siv-civ": 9,
     "zoo-vbz": 16,
   },
@@ -2983,7 +2985,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   "livestock-pathology": {
     "lpath-avian": 10,
     "lpath-slaughter": 3,
-    "lpath-swine-systemic": 54,
+    "lpath-swine-systemic": 53,
     "lpath-systemic": 1,
   },
   "milk-meat-hygiene": {
@@ -3221,4 +3223,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-22T23:03:49.660Z
+// Built: 2026-09-22T23:22:34.273Z

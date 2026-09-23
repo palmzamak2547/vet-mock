@@ -6441,7 +6441,11 @@ export const QUESTIONS_MID86_MILK_MEAT_HYGIENE = [
     "verified": "ชีทรุ่นพี่ บล็อก 5 ข้อ 21",
     "tags": [
       "milk-products-storage"
-    ]
+    ],
+    "flag": {
+      "note": "เฉลยขัดกับข้อ 104766 ซึ่งเป็นประโยคเดียวกัน: หน้าบันทึกแบบทดสอบของข้อนั้นเลือก True ไว้ ส่วนข้อนี้ให้ False ตามหลักว่า alcohol และ clot-on-boiling เป็น platform test ของน้ำนมดิบ รอตัดสินเฉลยจากต้นฉบับ",
+      "severity": "unclear"
+    }
   },
   {
     "id": 207365,

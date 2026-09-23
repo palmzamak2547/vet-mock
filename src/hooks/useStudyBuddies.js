@@ -11,10 +11,59 @@
 // Supabase isn't configured.
 // ============================================================
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useSyncExternalStore } from 'react';
 import { getSupabase, hasSupabase } from '../lib/supabase.js';
 
 const CHANNEL_NAME = 'vet-mock-buddies';
+
+// ── The presence store ─────────────────────────────────────────────
+// Presence lives here, outside React state. It used to be App state,
+// replaced on every Realtime sync of the global channel — and every
+// signed-in student is on that channel, re-announcing on each question —
+// so the whole app, Home shell and exam screen included, rebuilt from the
+// top whenever any classmate moved. Now App only owns the channel, and each
+// reader subscribes to the one value it draws: ExamView the count on its
+// own question, the Home panel who is online on which subject. A sync that
+// leaves that value alone renders nothing.
+//
+// One store per page: App mounts useStudyBuddies once.
+const NO_BUDDIES = Object.freeze({});
+let presence = NO_BUDDIES; // user id -> first presence meta, as Realtime sent it
+let panel = NO_BUDDIES; // user id -> the fields StudyBuddiesPanel prints
+let panelKey = '';
+const listeners = new Set();
+
+function publishPresence(next) {
+  presence = next;
+  // The panel prints a name, an avatar and a subject per student, so its
+  // map keeps its identity until one of those, or who is online, changes.
+  // A new question or view is most of the traffic and changes none of them.
+  const fields = {};
+  for (const [k, b] of Object.entries(next)) {
+    fields[k] = { username: b?.username ?? null, avatar: b?.avatar ?? null, subject: b?.subject ?? null };
+  }
+  const key = JSON.stringify(fields);
+  if (key !== panelKey) {
+    panelKey = key;
+    panel = Object.keys(fields).length ? fields : NO_BUDDIES;
+  }
+  for (const listener of listeners) listener();
+}
+
+function subscribePresence(listener) {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
+/** How many others are on this question — ExamView's "👥 N คนกำลังทำข้อนี้". */
+export function useBuddyCountOnQ(qKey, selfUserId) {
+  return useSyncExternalStore(subscribePresence, () => countBuddiesOnQ(presence, qKey, selfUserId));
+}
+
+/** Who is online and on which subject, keyed by user id — the Home panel. */
+export function useBuddyPanel() {
+  return useSyncExternalStore(subscribePresence, () => panel);
+}
 
 // Presence is a message every time: supabase-js sends a `track` on every
 // call (there is no client-side "same payload" short-circuit), and Realtime
@@ -37,8 +86,9 @@ function presencePayload({ user, username, avatar, subject, view, qKey, joinedAt
   };
 }
 
+// Owns the channel and publishes into the store above. Returns nothing:
+// the caller (App) must not re-render on presence.
 export function useStudyBuddies({ user, profile, subject, view, qKey }) {
-  const [buddies, setBuddies] = useState({});
   const channelRef = useRef(null);
   const joinedAtRef = useRef(0);
   const lastSentRef = useRef('');
@@ -65,7 +115,7 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
 
   useEffect(() => {
     if (!hasSupabase || !user) {
-      setBuddies({});
+      publishPresence(NO_BUDDIES);
       return;
     }
     let cancelled = false;
@@ -89,7 +139,7 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
           const meta = state[k]?.[0] || {};
           merged[k] = meta;
         }
-        setBuddies(merged);
+        publishPresence(merged);
       });
       channelRef.current = channel;
       await channel.subscribe((status) => {
@@ -107,6 +157,8 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
         try { channel.untrack?.(); } catch {}
         try { channel.unsubscribe?.(); } catch {}
       }
+      // The store describes a live channel; a closed one leaves nobody on screen.
+      publishPresence(NO_BUDDIES);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
@@ -139,8 +191,6 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
     return () => document.removeEventListener('visibilitychange', onVis);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
-
-  return buddies;
 }
 
 // Helper: count buddies currently on the same question (excluding self).

@@ -4788,6 +4788,9 @@ body.vmx-reading .vmx-pdf-body {
    in one place, the ปี/ช่วงสอบ selector. */
 .vmx-subject-exam { font-size: 11px; margin-top: 4px; color: var(--clr-sage-text); font-weight: 600; }
 .vmx-subject-exam.is-none { color: var(--clr-ink-soft); font-weight: 400; }
+/* A paper already sat steps back; today's paper is the one to find. */
+.vmx-subject-exam.is-done { color: var(--clr-ink-soft); font-weight: 400; }
+.vmx-subject-exam.is-today { color: var(--clr-rose-text); font-weight: 700; }
 .vmx-scope-chip { color: var(--clr-ink-soft); }
 
 

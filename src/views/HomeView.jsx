@@ -7,6 +7,7 @@ import { QB, isQBYearLoaded } from '../data/questions.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 import { QB_TOTAL, Q_CURRENT_SCOPE_COUNTS, Q_HIGH_PREDICTION_COUNTS, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
+import { useBuddyPanel } from '../hooks/useStudyBuddies.js';
 import { getUpcomingExams, SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, shortCountdown, getNextClass, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
@@ -42,7 +43,7 @@ const TodaysQModal = lazy(() => import('../components/TodaysQModal.jsx'));
 import NextActionCard from '../components/NextActionCard.jsx';
 import ExamCountdown from '../components/ExamCountdown.jsx';
 import { hasWrapUp, wrapUpStillAhead } from '../data/exam-wrapups.js';
-import { examWindowFor, examEndMs } from '../lib/exam-countdown.js';
+import { examWindowFor, examEndMs, subjectExamState, examStartTime } from '../lib/exam-countdown.js';
 import { scopeForPhase } from '../lib/exam-scope.js';
 // FeatureMenu — categorized feature grid (practice/learn/progress/tools)
 // derived from the shared feature registry. Replaces the old scattered
@@ -83,7 +84,7 @@ const shortThaiDate = (dateStr) => {
 
 const DOW_TH = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัส', 'ศุกร์', 'เสาร์'];
 
-export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, buddies = {}, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
+export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
   // Year context — determines hero copy + reading checklist scope.
   // Years 4 and 5 both carry exam schedules (ภาคต้น 2569); scaffold years
   // carry none, so the countdown banner hides itself when getNextExam
@@ -1551,18 +1552,15 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
 
       {/* Study buddies — Supabase presence list. Hidden when no buddies
           are present (StudyBuddiesPanel returns null). */}
-      {user && Object.keys(buddies || {}).length > 1 && (
-        <Suspense fallback={null}>
-          <StudyBuddiesPanel
-            buddies={buddies}
-            selfUserId={user?.id}
-            onJumpToSubject={(subjectId) => {
-              setSubject?.(subjectId);
-              setMode?.('quick');
-              setView('subject-select');
-            }}
-          />
-        </Suspense>
+      {user && (
+        <StudyBuddiesSection
+          selfUserId={user.id}
+          onJumpToSubject={(subjectId) => {
+            setSubject?.(subjectId);
+            setMode?.('quick');
+            setView('subject-select');
+          }}
+        />
       )}
 
       {/* Daily Q + Race + PWA install — entry points share one row */}
@@ -1777,6 +1775,21 @@ function FeedbackChip() {
   );
 }
 
+// ── Study buddies ─────────────────────────────────────────────
+// Reads the presence store itself, so a classmate joining, leaving or
+// switching subject renders this section and nothing above it, and a
+// classmate moving to the next question renders nothing at all. Shown when
+// more than one student is present, as before.
+function StudyBuddiesSection({ selfUserId, onJumpToSubject }) {
+  const buddies = useBuddyPanel();
+  if (Object.keys(buddies).length <= 1) return null;
+  return (
+    <Suspense fallback={null}>
+      <StudyBuddiesPanel buddies={buddies} selfUserId={selfUserId} onJumpToSubject={onJumpToSubject} />
+    </Suspense>
+  );
+}
+
 // ── Subject Grid ──────────────────────────────────────────────
 // Primary content of HomeView (across all years). Each card represents
 // a subject in the current year, with LIVE state (counts, exam format)
@@ -1928,9 +1941,16 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
               // set), not courses that sit a paper.
               const exam = examByPhase?.get(s.id);
               const label = EXAM_SCOPE_LABELS[phaseScope];
-              return exam
-                ? <div className="vmx-subject-exam" title={`${exam.title}${exam.time ? ` ${exam.time}` : ''}${exam.location ? ` ${exam.location}` : ''}`}>สอบ{label} {shortThaiDate(exam.date)}</div>
-                : <div className="vmx-subject-exam is-none">ไม่มีสอบ{label}</div>;
+              if (!exam) return <div className="vmx-subject-exam is-none">ไม่มีสอบ{label}</div>;
+              // A paper already sat must not read like one still ahead, and
+              // today's must stand out from the rest of the week. Read on
+              // Bangkok's clock; the Home tick re-renders this every few
+              // minutes, so a card turns to done soon after its paper ends.
+              const title = `${exam.title}${exam.time ? ` ${exam.time}` : ''}${exam.location ? ` ${exam.location}` : ''}`;
+              const state = subjectExamState(exam, new Date());
+              if (state === 'done') return <div className="vmx-subject-exam is-done" title={title}>สอบ{label}แล้ว {shortThaiDate(exam.date)}</div>;
+              if (state === 'today') return <div className="vmx-subject-exam is-today" title={title}>สอบวันนี้{examStartTime(exam) ? ` ${examStartTime(exam)}` : ''}</div>;
+              return <div className="vmx-subject-exam" title={title}>สอบ{label} {shortThaiDate(exam.date)}</div>;
             })()}
 
             {/* Per-subject progress chips — clean text badges */}

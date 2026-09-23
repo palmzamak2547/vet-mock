@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, useRef, useId } from 'react';
+import { Enums } from '@cornerstonejs/core';
 import { saveAttempt, reasonLabel } from '../../lib/dicom/save-attempt.js';
 import { useMediaQuery } from '../../lib/dicom/use-media-query.js';
 
@@ -44,14 +45,31 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
   const [cardCollapsed, setCardCollapsed] = useState(false);
   const [worldPoints, setWorldPoints] = useState([]);
   // Tick re-renders SVG positions when the camera moves (zoom/pan); the
-  // projection below depends on its value, not just on the setter.
+  // projection below depends on its value, not just on the setter. It
+  // advances on Cornerstone's camera and render events, at most once per
+  // animation frame, so a still image re-renders nothing.
   const [tick, setTick] = useState(0);
 
   useEffect(() => {
     if (!active || worldPoints.length === 0) return;
-    const id = setInterval(() => setTick((t) => t + 1), 80);
-    return () => clearInterval(id);
-  }, [active, worldPoints.length]);
+    const element = viewportRef?.()?.element;
+    if (!element) return;
+    let frame = null;
+    const onViewportChange = () => {
+      if (frame !== null) return;
+      frame = requestAnimationFrame(() => {
+        frame = null;
+        setTick((t) => t + 1);
+      });
+    };
+    element.addEventListener(Enums.Events.CAMERA_MODIFIED, onViewportChange);
+    element.addEventListener(Enums.Events.IMAGE_RENDERED, onViewportChange);
+    return () => {
+      element.removeEventListener(Enums.Events.CAMERA_MODIFIED, onViewportChange);
+      element.removeEventListener(Enums.Events.IMAGE_RENDERED, onViewportChange);
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
+  }, [active, worldPoints.length, viewportRef]);
 
   useEffect(() => {
     const onClear = () => setWorldPoints([]);
@@ -119,11 +137,14 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
         return { x: -100, y: -100 };
       }
     });
-    // `tick` is the camera clock: every poll bumps it so the points are
-    // projected against the camera as it is now. Without it the markers
+    // `tick` is the camera clock: every camera move bumps it so the points
+    // are projected against the camera as it is now. Without it the markers
     // stayed where they were first drawn while the image moved under them.
+    // `active` re-projects on the first render after the tool is selected
+    // again: the clock stops while the tool is off, and the image may have
+    // moved.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [worldPoints, viewportRef, tick]);
+  }, [worldPoints, viewportRef, tick, active]);
 
   const HIT_RADIUS_PX = 16;
   const [draggingIdx, setDraggingIdx] = useState(null);

@@ -19,7 +19,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
-    "topic": "swine-gi-viral",
+    "topic": "swine-ileitis-bacti",
     "year": 5,
     "type": "mcq",
     "q": "สุกรขุนถ่ายเหลว ถ่ายเป็นมูกเลือดและอุจจาระสีดำ หนึ่งใน DDx คือ proliferative enteropathy หรือ ileitis เชื้อก่อโรคของ ileitis คือข้อใด",
@@ -43,7 +43,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
-    "topic": "swine-gi-viral",
+    "topic": "swine-ileitis-bacti",
     "year": 5,
     "type": "mcq",
     "q": "โรค swine dysentery ที่อยู่ในชุด DDx เดียวกันของสุกรขุนถ่ายมูกเลือด เกิดจากเชื้อใด",
@@ -68,7 +68,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
-    "topic": "swine-gi-viral",
+    "topic": "swine-ileitis-bacti",
     "year": 5,
     "type": "mcq",
     "q": "การตรวจหา antibody ต่อ ileitis ใช้วิธีใด",
@@ -383,7 +383,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
-    "topic": "swine-asf",
+    "topic": "swine-csf",
     "year": 5,
     "type": "mcq",
     "q": "เหตุใดจึงไม่นิยมใช้ Ab ELISA ในการวินิจฉัยโรค CSF ในพื้นที่ที่มีการทำวัคซีน",
@@ -431,7 +431,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
-    "topic": "swine-asf",
+    "topic": "swine-csf",
     "year": 5,
     "type": "mcq",
     "q": "การก่อโรคแบบ late-onset ของ CSF เกิดจากสถานการณ์ใด",
@@ -504,7 +504,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "swine-clinic",
-    "topic": "swine-pcv2",
+    "topic": "swine-greasypig",
     "year": 5,
     "type": "mcq",
     "q": "Exudative epidermitis ในสุกรโต มักแสดงลักษณะอย่างไรเมื่อเทียบกับลูกสุกรดูดนม",

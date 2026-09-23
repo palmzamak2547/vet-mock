@@ -3,6 +3,7 @@ import { SUBJECTS } from '../data/questions.js';
 import { SEMESTER } from '../data/schedule.js';
 import { EXAM_SCOPE_LABELS, examScopeForPhase } from '../lib/question-prediction.js';
 import BackBar from '../components/BackBar.jsx';
+import { wholeSetTime, wholeSetTimeLabel } from '../hooks/utils.js';
 
 // ============================================================
 // ConfigView — ตั้งค่าก่อนเริ่มฝึก/สอบ
@@ -22,13 +23,17 @@ import BackBar from '../components/BackBar.jsx';
 const QCOUNT_PRESETS = [10, 20, 50];
 const SECONDS_PRESETS = [30, 60, 120];
 
+// Each chip names the types it actually serves, in the words of the badge on
+// the question card. questionCategory() in hooks/utils.js decides membership:
+// fill-in-the-blank is typed, so it sits with the written chip, and matching
+// is marked automatically, so it sits with the other one.
 const CATEGORIES = [
-  { id: 'all',     label: 'ทุกประเภท',          icon: '🎯', desc: 'รวมทุกแบบ — เหมือนสอบจริง' },
-  { id: 'mcq',     label: 'MCQ + T/F + Fill',   icon: '📝', desc: 'ตรวจอัตโนมัติ — ฝึกความรู้เร็วๆ' },
-  { id: 'writing', label: 'Writing เท่านั้น',   icon: '✍️', desc: 'Short + Essay — ฝึกเขียน, จับเวลายาวขึ้นอัตโนมัติ' },
+  { id: 'all',     label: 'ทุกประเภท',           icon: '🎯', desc: 'รวมทุกแบบ — เหมือนสอบจริง' },
+  { id: 'mcq',     label: 'ปรนัย ถูก-ผิด จับคู่', icon: '📝', desc: 'ตรวจอัตโนมัติ — ฝึกความรู้เร็วๆ' },
+  { id: 'writing', label: 'ข้อเขียนเท่านั้น',    icon: '✍️', desc: 'ตอบสั้น เขียนบรรยาย และเติมคำ — พิมพ์คำตอบเอง' },
 ];
 
-export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, mode, selectedPhase = null }) {
+export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, showCategoryPicker = false, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, availablePool = null, mode, selectedPhase = null }) {
   const knownAvailableCount = Number.isFinite(availableCount)
     ? Math.max(0, Math.floor(availableCount))
     : null;
@@ -61,26 +66,20 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
       setTimePerQ(timePerQuestionRef.current);
     }
   };
-  // The category picker only makes sense for engprof — the only
-  // subject with writing-style items. Showing it for COM III/IV/V
-  // (pure MCQ) just adds visual noise. For bookmarks/weak modes the
-  // pool is heterogeneous; we still hide it because the "all" default
-  // already does the right thing there.
-  const showCategoryPicker = subject === 'engprof' && practiceMode !== 'bookmarks' && practiceMode !== 'weak';
+  // Whether the category picker shows comes from App (categoryPickerShown),
+  // which applies the pick only where it shows: English, outside bookmarks
+  // and weak spots. Deciding it here as well is how a pick made in English
+  // came to filter every subject after it without being on screen.
   const subjMeta = SUBJECTS.find((s) => s.id === subject);
   const topicMeta = topic && subjMeta?.topics?.find((t) => t.id === topic);
   const isExamMode = mode === 'exam';
   // Exam mode runs one clock for the whole paper. The per-question number is
   // still how the budget is chosen, so show what it adds up to rather than a
-  // per-question figure the clock no longer enforces.
-  const examBudgetLabel = (() => {
-    const total = Math.max(0, Math.round((Number(numQuestions) || 0) * (Number(timePerQ) || 0)));
-    if (!total) return '0 นาที';
-    const m = Math.floor(total / 60);
-    const sec = total % 60;
-    if (!m) return `${sec} วินาที`;
-    return sec ? `${m} นาที ${sec} วินาที` : `${m} นาที`;
-  })();
+  // per-question figure the clock no longer enforces. The clock gives written
+  // and matching items more than the base, so from a pool that holds them the
+  // total depends on the draw, and the label gives the range this pool allows.
+  const examBudget = wholeSetTime(availablePool, numQuestions, timePerQ);
+  const examBudgetLabel = wholeSetTimeLabel(examBudget);
 
   // The phase comes from the app's one phase selector; this page only names it.
   const phaseScope = examScopeForPhase(selectedPhase);
@@ -105,7 +104,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
           so students get a quick refresher of strategy before they sit
           down to the 25-minute essay. Hidden during pure MCQ to avoid
           UI noise. */}
-      {(cat === 'writing') && subject === 'engprof' && (
+      {showCategoryPicker && cat === 'writing' && (
         <div style={{
           marginBottom: 16,
           padding: 14,
@@ -266,13 +265,18 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
                 />
               </label>
             </div>
+            {isExamMode && !showCategoryPicker && examBudget.min !== examBudget.max && (
+              <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
+                ข้อตอบสั้น เขียนบรรยาย และจับคู่ได้เวลาเพิ่ม เวลารวมจึงขึ้นกับข้อที่อยู่ในชุด
+              </div>
+            )}
             {/* Writing-time hint only relevant when subject = engprof */}
             {showCategoryPicker && (
               <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5, fontStyle: 'italic' }}>
-                เวลานี้ใช้กับข้อ MCQ/T/F, ข้อ Writing จะได้เวลามากขึ้นอัตโนมัติ:
+                เวลานี้ใช้กับข้อปรนัย ถูก-ผิด และเติมคำ ข้อตอบสั้นกับเขียนบรรยายจะได้เวลามากขึ้นอัตโนมัติ:
                 <br/>
-                &nbsp;&nbsp;&nbsp;Short answer = max({timePerQ * 3 < 180 ? 180 : timePerQ * 3}s = {Math.max(3, timePerQ * 3 / 60)} min)
-               , Essay = max({Math.max(1500, timePerQ * 25)}s = {Math.max(25, Math.round(timePerQ * 25 / 60))} min)
+                &nbsp;&nbsp;&nbsp;ตอบสั้น = max({timePerQ * 3 < 180 ? 180 : timePerQ * 3}s = {Math.max(3, timePerQ * 3 / 60)} min)
+               , เขียนบรรยาย = max({Math.max(1500, timePerQ * 25)}s = {Math.max(25, Math.round(timePerQ * 25 / 60))} min)
               </div>
             )}
           </div>

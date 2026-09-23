@@ -88,7 +88,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Equine nutrition — Basic + What diet provides + Feeds',
     lecturer: 'Thapana Jarutummasiri (Zoo One Siri)',
     icon: '🌾',
-    summary: 'นิยาม nutrition + Equine Well-being Triad (Genetic / Management / Nutrition) + BCS (1-9) + Topline Evaluation Score (TES) → BCS 5 ฝ้ายอ่อน, BCS 7-9 = obese · same breed/age/sex/env ก็ต้องการอาหารต่างกันได้ (genetic + history + intrauterine).',
+    summary: 'นิยาม nutrition + Equine Well-being Triad (Genetic / Management / Nutrition) + BCS (1-9) + Topline Evaluation Score (TES) → BCS 5 ฝ้ายอ่อน, BCS 7-9 = obese. Same breed/age/sex/env ก็ต้องการอาหารต่างกันได้ (genetic + history + intrauterine).',
     sections: [
       {
         heading: 'Basic Nutrition for Your Partner — opening',
@@ -167,7 +167,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Equine infectious diseases & vaccination',
     lecturer: 'Teerapol Chinkangsadarn',
     icon: '🦠',
-    summary: 'Outline 4 หมวด: Virus (Rabies / AHS / EHV / EIA / EI / EE / JE) · Bacteria (Strangles / Tetanus / Glanders / CEM) · Protozoa (Trypanosomiasis / Equine piroplasmosis) · Fungi (Pythiosis / Guttural pouch mycosis). เน้น viral disease ที่ "เจอใน TH".',
+    summary: 'Outline 4 หมวด: Virus (Rabies / AHS / EHV / EIA / EI / EE / JE), Bacteria (Strangles / Tetanus / Glanders / CEM), Protozoa (Trypanosomiasis / Equine piroplasmosis), Fungi (Pythiosis / Guttural pouch mycosis). เน้น viral disease ที่ "เจอใน TH".',
     sections: [
       {
         heading: 'Course / lecturer intro',
@@ -250,7 +250,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Equine parasites in Thailand',
     lecturer: 'Piyanan Taweethavonsawat',
     icon: '🪱',
-    summary: 'วัตถุประสงค์: อธิบายความสำคัญของโรคปรสิตในม้าใน TH + อธิบายความก่อโรคของปรสิตตามอวัยวะ. Outline 4 หมวด: GI parasite · Blood parasite · Skin disease · Eyes disease due to parasite.',
+    summary: 'วัตถุประสงค์: อธิบายความสำคัญของโรคปรสิตในม้าใน TH + อธิบายความก่อโรคของปรสิตตามอวัยวะ. Outline 4 หมวด: GI parasite, Blood parasite, Skin disease, Eyes disease due to parasite.',
     sections: [
       {
         heading: 'Course intro — speaker',
@@ -304,7 +304,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Veterinary Acupuncture in Equine Practice',
     lecturer: 'Weerapongse Tangjitjaroen (CVA — Certified Vet Acupuncturist)',
     icon: '🪡',
-    summary: 'Intro to TCVM (Traditional Chinese Veterinary Medicine) → 3 หมวดในคาบ: TCVM in brief · TCVM essentials · Case examples. Note บนสไลด์: ออกสอบ choice ~20 ข้อ.',
+    summary: 'Intro to TCVM (Traditional Chinese Veterinary Medicine) → 3 หมวดในคาบ: TCVM in brief, TCVM essentials, Case examples.',
     sections: [
       {
         heading: 'Title + speaker',
@@ -428,7 +428,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Pathologic conditions of the equine foot',
     lecturer: 'Teerapol Chinkangsadarn',
     icon: '🐴',
-    summary: 'External anatomy + ground surface anatomy ก่อน → pathologic conditions (laminitis · navicular · abscess · canker · thrush · cracks). หมายเหตุ TC: "ปัญหาที่ foot ~60% ของ lameness cases".',
+    summary: 'External anatomy + ground surface anatomy ก่อน → pathologic conditions (laminitis, navicular, abscess, canker, thrush, cracks). หมายเหตุ TC: "ปัญหาที่ foot ~60% ของ lameness cases".',
     sections: [
       {
         heading: 'Lecture title + scope',
@@ -487,7 +487,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Tendon / Ligament injuries and treatments',
     lecturer: 'Teerapol Chinkangsadarn (with material courtesy Dr. Cedric Chang, HKJC)',
     icon: '💪',
-    summary: '"Bowed tendon" / sprain เจอเยอะในม้าฝึก — incidence 18-48% (อาจถึง 80% in training). Recurrence สูงมาก **30-87.5%**. Tendinopathies: SDFT (Fore >> Hind) · Suspensory lig · Inferior check lig · DDFT (rare) · others (biceps, ext, calcaneal).',
+    summary: '"Bowed tendon" / sprain เจอเยอะในม้าฝึก — incidence 18-48% (อาจถึง 80% in training). Recurrence สูงมาก 30-87.5%. Tendinopathies: SDFT (Fore >> Hind), Suspensory lig, Inferior check lig, DDFT (rare), others (biceps, ext, calcaneal).',
     sections: [
       {
         heading: 'Title + speaker',
@@ -544,7 +544,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Equine anesthesia (2024)',
     lecturer: 'Piyanun Tawiparsanan (course director — full anes) / Thapana Jarutummasiri (field anes)',
     icon: '💉',
-    summary: 'แบ่ง 2 ส่วน: full anesthesia (in-hospital, GA + recovery) · field anesthesia (knock-them-down anes, AUS style). Source PDF ใหญ่ >100MB ไม่สามารถเปิดสไลด์ได้ — ใช้เนื้อหา anchored จาก intro slide deck + course chatter เท่านั้น.',
+    summary: 'แบ่ง 2 ส่วน: full anesthesia (in-hospital, GA + recovery), field anesthesia (knock-them-down anes, AUS style).',
     sections: [
       {
         heading: 'Course position (จาก Intro deck)',
@@ -585,7 +585,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Equine dentistry',
     lecturer: 'Teerapol Chinkangsadarn ("Tum")',
     icon: '🦷',
-    summary: 'Intro: ทำไม dental สำคัญในม้า (มันบุญไม่ได้ → ต้องหา sign เอง) · Dental morphology (anatomy + physiology) · Dental nomenclature · Ageing change in dentition. Key concepts: hypsodont (high-crown) + reserve crown · anisognathism (upper arcade 30% wider than lower) · infundibulum (incisors + upper cheek teeth only).',
+    summary: 'Intro: ทำไม dental สำคัญในม้า (มันบุญไม่ได้ → ต้องหา sign เอง), Dental morphology (anatomy + physiology), Dental nomenclature, Ageing change in dentition. Key concepts: hypsodont (high-crown) + reserve crown, anisognathism (upper arcade 30% wider than lower), infundibulum (incisors + upper cheek teeth only).',
     sections: [
       {
         heading: 'Title + speaker',
@@ -643,7 +643,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Equine GI — Anatomy + Physiology + Exam + Medical mgmt',
     lecturer: 'Teerapol Chinkangsadarn',
     icon: '🐴',
-    summary: 'Horse = grazing animal · non-ruminant herbivore · **hindgut fermenter** (cecum). Foregut: mouth · esophagus · stomach · SI. Hindgut: cecum · large colon · small colon · rectum. Exam: PE/auscultation · mouth/teeth · fecal · NGT · rectal palp · abdominocentesis · radiograph · endoscopy · blood. Mgmt classification by pathology: obstruction · strangulation · ulceration · enteritis & colitis · peritonitis · non-strangulation infarction.',
+    summary: 'Horse = grazing animal, non-ruminant herbivore, hindgut fermenter (cecum). Foregut: mouth, esophagus, stomach, SI. Hindgut: cecum, large colon, small colon, rectum. Exam: PE/auscultation, mouth/teeth, fecal, NGT, rectal palp, abdominocentesis, radiograph, endoscopy, blood. Mgmt classification by pathology: obstruction, strangulation, ulceration, enteritis & colitis, peritonitis, non-strangulation infarction.',
     sections: [
       {
         heading: 'Lecture 1 — GI anatomy + physiology',
@@ -795,7 +795,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Colic best-fit (KU lecture)',
     lecturer: 'Asst.Prof. Aree Laikul (Kasetsart University)',
     icon: '😣',
-    summary: 'การจัดการที่เหมาะสมสำหรับปัญหาโคลิกในม้า — colic = สาเหตุการตายอันดับ 1 ในม้า · ปวดท้องแบบ acute (ER). Lecture จาก KU (KSU large animal + wildlife clinical sciences).',
+    summary: 'การจัดการที่เหมาะสมสำหรับปัญหาโคลิกในม้า — colic = สาเหตุการตายอันดับ 1 ในม้า, ปวดท้องแบบ acute (ER). Lecture จาก KU (KSU large animal + wildlife clinical sciences).',
     sections: [
       {
         heading: 'Title + lecturer',
@@ -827,7 +827,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Surgical colic + cases (KU)',
     lecturer: 'Asst.Prof. Aree Laikul (Kasetsart University)',
     icon: '🔪',
-    summary: 'Surgical colic = ผ่าตัดเปิดช่องท้องเพื่อแก้ obstruction/strangulation. Techniques: ventral midline celiotomy → manual exploratory → exteriorize → enterotomy (SI/cecum/large colon/small colon) · **pelvic flexure enterotomy** (นิยม) · resection & anastomosis · abdominal closure. Pre-op pic: ม้าเทกพ์ + dorsal recumbency + GA.',
+    summary: 'Surgical colic = ผ่าตัดเปิดช่องท้องเพื่อแก้ obstruction/strangulation. Techniques: ventral midline celiotomy → manual exploratory → exteriorize → enterotomy (SI/cecum/large colon/small colon), pelvic flexure enterotomy (นิยม), resection & anastomosis, abdominal closure. Pre-op pic: ม้าเทกพ์ + dorsal recumbency + GA.',
     sections: [
       {
         heading: 'Title + lecturer',
@@ -886,7 +886,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Farabella (miniature horse / Falabella)',
     lecturer: 'TBD',
     icon: '🐎',
-    summary: 'Lecture เรื่อง Farabella / Falabella (miniature horse breed). หน้า 1-3 ของ PDF เปิดแล้วเป็น content ภาพ X-ray / orthopedic case images (mandible fracture + plate fixation) → suggest lecture covers physical/orthopedic differences ใน mini horses.',
+    summary: 'Lecture เรื่อง Farabella / Falabella (miniature horse breed): orthopedic case ภาพ X-ray (mandible fracture + plate fixation).',
     sections: [
       {
         heading: 'Lecture content (จาก PDF preview)',
@@ -918,7 +918,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Equine tumor series',
     lecturer: 'Aree Laikul (KU)',
     icon: '🦠',
-    summary: 'Tumor series 4 ตัวหลัก: Squamous cell carcinoma · Fibroma · Sarcoid · Melanoma. Case-based teaching. Case 01: 10-yr stallion, mixed breed, mass at medial canthus OD → SCC suspect → surgical remove + histopath + chemotherapy.',
+    summary: 'Tumor series 4 ตัวหลัก: Squamous cell carcinoma, Fibroma, Sarcoid, Melanoma. Case-based teaching. Case 01: 10-yr stallion, mixed breed, mass at medial canthus OD → SCC suspect → surgical remove + histopath + chemotherapy.',
     sections: [
       {
         heading: 'Title + lecturer',
@@ -1003,7 +1003,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Rectovaginal fistula (RVF)',
     lecturer: 'TBD',
     icon: '🩹',
-    summary: 'Rectovaginal fistula tract = ม้าหายจาก vagina เปิดเข้า rectum (มักจากคลอดยาก). Technique: standing sedation + epidural block (xylazine + mepivacaine) → ตัดแยกเป็น 2 ชั้น (vagina + rectum) → suture pattern เช่น **six-bite** (Auer, Equine Surgery).',
+    summary: 'Rectovaginal fistula tract = ม้าหายจาก vagina เปิดเข้า rectum (มักจากคลอดยาก). Technique: standing sedation + epidural block (xylazine + mepivacaine) → ตัดแยกเป็น 2 ชั้น (vagina + rectum) → suture pattern เช่น six-bite (Auer, Equine Surgery).',
     sections: [
       {
         heading: 'Anatomy — RVF diagram',
@@ -1060,7 +1060,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Laparoscopic Ovariectomy (LapOVE)',
     lecturer: 'Aree Laikul (KU)',
     icon: '🔬',
-    summary: 'LapOVE = Minimally Invasive Surgery (MIS) ทำใน standing & flock standing/sedated. ใช้ port เล็กในช่องท้อง → small incision · reduced tissue damage · better visualization. Cover 2 parts: Laparoscopic Fundamental (laparoscopy + general rules) + LapOVE case study (patient prep · port entry · surgery).',
+    summary: 'LapOVE = Minimally Invasive Surgery (MIS) ทำใน standing & flock standing/sedated. ใช้ port เล็กในช่องท้อง → small incision, reduced tissue damage, better visualization. Cover 2 parts: Laparoscopic Fundamental (laparoscopy + general rules) + LapOVE case study (patient prep, port entry, surgery).',
     sections: [
       {
         heading: 'Title + lecturer',
@@ -1126,7 +1126,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Equine orthopedic',
     lecturer: 'Niphapha (ดู Vet 84 final reference)',
     icon: '🦴',
-    summary: 'Orthopedic — PDF p.1-3 แสดง case-based images (mandibular fracture repair: pre-op X-ray + post-op plate/screw fixation). Slides น่าจะคลุม fracture management, internal fixation, plate/screw systems, region-specific approaches.',
+    summary: 'Orthopedic — case-based images (mandibular fracture repair: pre-op X-ray + post-op plate/screw fixation), wound healing ในม้าเทียบกับ pony, exuberant granulation tissue (EGT) และ bandage แต่ละชนิด.',
     sections: [
       {
         heading: 'Lecture intro + case images',
@@ -1158,7 +1158,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Pythium / Equine pythiosis',
     lecturer: 'TBD',
     icon: '🦠',
-    summary: 'Pythium insidiosum (oomycete, ไม่ใช่เชื้อรา true fungus). PDF filename: "20 - pythium ไม่แจกชีท เพราะอะไรอีก.pdf" → ผู้บรรยายไม่แจกชีท → outline ส่วนใหญ่จาก infectious disease lecture (3 - Eq_inf_dz_67.pdf) ที่ list pythiosis ใน Fungi category.',
+    summary: 'Pythium insidiosum (oomycete, ไม่ใช่เชื้อรา true fungus) แม้ในหัวข้อ equine infectious disease จะจัด pythiosis ไว้ในหมวด Fungi.',
     sections: [
       {
         heading: 'Source caveat — no handout',
@@ -1181,7 +1181,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Equine ophthalmology',
     lecturer: 'Nalinee Tuntivanich (DVM, PhD, DipAiCVO, DipTBVS)',
     icon: '👁',
-    summary: '"A horse is NOT a big dog" ⭐ — equine eye ≠ canine eye (เพิ่มเป็น comparative). Lecture guideline: (1) Normal ocular organs, (2) Each ocular organ — Normal function · Ophthalmic examinations · Common abnormalities.',
+    summary: '"A horse is NOT a big dog" ⭐ — equine eye ≠ canine eye (เพิ่มเป็น comparative). Lecture guideline: (1) Normal ocular organs, (2) Each ocular organ — Normal function, Ophthalmic examinations, Common abnormalities.',
     sections: [
       {
         heading: 'Title + speaker',
@@ -1235,7 +1235,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Equine respiratory diseases',
     lecturer: 'Teerapol Chinkangsadarn',
     icon: '🫁',
-    summary: 'Outline 4 หัวข้อ: Sign of respiratory problems · Equine respiratory examination · Upper respiratory problems · Lower respiratory problems. Exam: PE + breathing sound (URT vs LRT) + auscultation (↑/↓/adventitious) + percussion + radiograph + ultrasound + CT/MRI.',
+    summary: 'Outline 4 หัวข้อ: Sign of respiratory problems, Equine respiratory examination, Upper respiratory problems, Lower respiratory problems. Exam: PE + breathing sound (URT vs LRT) + auscultation (↑/↓/adventitious) + percussion + radiograph + ultrasound + CT/MRI.',
     sections: [
       {
         heading: 'Title + speaker',
@@ -1295,7 +1295,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'Neonatal & Foal management',
     lecturer: 'Asst.Prof. Suphannika Phutthachalee (KKU)',
     icon: '🐎',
-    summary: 'TOC 8 หัวข้อ: Parturition in the mare · Stage of labor · Newborn examination · Placental examination · Intensive care of neonatal foal · Foal\'s immune system · Neonatal disorder · Foal health care. Gestation length: 320-380 days (~11 months) · pony 320-345d · Thoroughbred 320-360d · donkeys 360-380d.',
+    summary: 'TOC 8 หัวข้อ: Parturition in the mare, Stage of labor, Newborn examination, Placental examination, Intensive care of neonatal foal, Foal\'s immune system, Neonatal disorder, Foal health care. Gestation length: 320-380 days (~11 months), pony 320-345d, Thoroughbred 320-360d, donkeys 360-380d.',
     sections: [
       {
         heading: 'Title + speaker',
@@ -1355,7 +1355,7 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
     title: 'POA equine (Practical / Objective Approach)',
     lecturer: 'TBD',
     icon: '🩺',
-    summary: 'POA = Practical Objective Assessment-style station(s) เน้น lameness + infectious dz workup. PDF เปิด p.1-3 แสดง: history-taking (9-best-question approach), PE checklist (BCS, palpation), lameness scoring (5-grade), nerve block ladder (PD → abaxial → low 4 → high 4), hoof tester, radiograph diff-dx (navicular bone dz). POA ออกสอบ final ~2 ข้อ.',
+    summary: 'POA = Practical Objective Assessment-style station(s) เน้น lameness + infectious dz workup: history-taking (9-best-question approach), PE checklist (BCS, palpation), lameness scoring (5-grade), nerve block ladder (PD → abaxial → low 4 → high 4), hoof tester, radiograph diff-dx (navicular bone dz).',
     sections: [
       {
         heading: 'Source PDF — POA workflow snapshots',

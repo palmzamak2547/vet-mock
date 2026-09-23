@@ -16,3 +16,14 @@ export function thaiError(e, fallback = 'เกิดข้อผิดพลา
   }
   return fallback;
 }
+
+// SpeechRecognition reports a failure as a bare spec code ('audio-capture',
+// 'service-not-allowed'), which is not a sentence. null means stay quiet:
+// 'aborted' follows our own stop, 'no-speech' is just a pause.
+export function speechErrorText(code) {
+  if (!code || code === 'aborted' || code === 'no-speech') return null;
+  if (code === 'not-allowed' || code === 'service-not-allowed') return 'อนุญาตไมค์ในเบราว์เซอร์ก่อน';
+  if (code === 'audio-capture') return 'ไม่พบไมโครโฟน';
+  if (code === 'network') return 'เชื่อมต่อไม่ได้ ลองใหม่';
+  return 'ฟังไม่สำเร็จ ลองอีกครั้ง';
+}

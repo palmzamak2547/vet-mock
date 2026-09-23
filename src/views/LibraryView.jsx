@@ -394,11 +394,13 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
   }, [reloadKey]);
 
   // Warm the reader chunk while the shelf sits idle, so the first เปิดอ่าน
-  // waits only for document bytes, not for JavaScript.
+  // waits only for document bytes, not for JavaScript. pdf.js has a chunk of
+  // its own that the reader imports only when a document opens, so it is
+  // warmed here too.
   useEffect(() => {
     const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1500));
     const cancel = window.cancelIdleCallback || clearTimeout;
-    const id = idle(() => { import('./PdfAnnotateView.jsx').catch(() => {}); });
+    const id = idle(() => { import('./PdfAnnotateView.jsx').catch(() => {}); import('pdfjs-dist').catch(() => {}); });
     return () => cancel(id);
   }, []);
 

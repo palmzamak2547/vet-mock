@@ -71,6 +71,19 @@ const OPERATION_PREFIX = 'vmx-user-op-v1:';
 const CURRENT_OWNER_KEY = 'vmx-user-sync-owner-v1';
 const JOURNAL_KEY = 'vmx-user-sync-journal-v1';
 const ANONYMOUS = 'anonymous';
+// Consecutive lost compare-and-set writes, with no write landing in between,
+// before the push-failed banner shows. The first four retry within 200 ms;
+// from the fifth the normal back-off applies (about 1.5, 3 and 6 s), so the
+// eighth comes roughly 11 s after the first. A real race needs another of the
+// student's own devices to land a write inside each of those read-to-write
+// windows, a round trip long each; eight in a row across growing gaps does not
+// happen between one person's phone and laptop. A write the server can never
+// accept reaches it in those same 11 s.
+const CONFLICT_STREAK_BANNER = 8;
+// A write to this device only partly landed: the edit itself is safe in the
+// outbox (or, for a whole-dataset commit, in the journal) and the rest is
+// retried. The banner says what the student can rely on, not where it is kept.
+const KEPT_ON_DEVICE = 'บันทึกไว้ในเครื่องแล้ว ระบบจะลองจัดเก็บให้ครบอีกครั้ง';
 const REMOTE_FIELDS = Object.keys(USER_DATA_FIELDS)
   .filter((field) => USER_DATA_FIELDS[field].remoteKey);
 let storeInstanceSequence = 0;
@@ -266,6 +279,62 @@ function writeLocalCommit(storage, {
   }
 
   return { durable: true, mirrorError };
+}
+
+// One edit writes only what it changed: the sync meta, so the dirty set
+// survives a reload, and the changed fields' own keys. The outbox record,
+// written just before, is what boot replays, so an edit needs neither the
+// journal nor the full snapshot. Committing both on every edit rewrote the
+// whole history (megabytes for a long one) on each bookmark tap or flashcard
+// rating. The snapshot is brought up to date later, by compaction, hydrate and
+// flush. Each key is tried on its own so one failed write does not skip the
+// rest; the fields that failed are returned so compaction can write them again.
+function writeLocalEdit(storage, { patch, meta, metaStorageKey, owner }) {
+  let mirrorError = null;
+  const failed = [];
+  try {
+    storage.setItem(metaStorageKey, JSON.stringify(meta));
+    storage.setItem(CURRENT_OWNER_KEY, JSON.stringify(owner));
+  } catch (error) {
+    mirrorError = error;
+  }
+  for (const [field, value] of Object.entries(patch)) {
+    const definition = USER_DATA_FIELDS[field];
+    if (!definition) continue;
+    try {
+      storage.setItem(definition.localKey, JSON.stringify(value));
+    } catch (error) {
+      mirrorError = mirrorError || error;
+      failed.push(field);
+    }
+  }
+  return { mirrorError, failed };
+}
+
+// When the page is next idle, a little after the last edit. Edits in between
+// ride along with the one already requested, so a burst of taps compacts once.
+export function createIdleScheduler(delayMs = 3000) {
+  return {
+    request(fn) {
+      const handle = { timer: null, idle: null };
+      handle.timer = setTimeout(() => {
+        handle.timer = null;
+        if (typeof requestIdleCallback === 'function') {
+          handle.idle = requestIdleCallback(() => { handle.idle = null; fn(); }, { timeout: 2000 });
+        } else {
+          fn();
+        }
+      }, delayMs);
+      // Node only: a pending compaction must not hold a test process open.
+      handle.timer?.unref?.();
+      return handle;
+    },
+    cancel(handle) {
+      if (!handle) return;
+      if (handle.timer !== null) clearTimeout(handle.timer);
+      if (handle.idle !== null && typeof cancelIdleCallback === 'function') cancelIdleCallback(handle.idle);
+    },
+  };
 }
 
 function meaningful(field, value) {
@@ -526,6 +595,34 @@ function foldChangeRecord(field, prior, next) {
   return { ...prior, value: next.value };
 }
 
+/** Folding keeps the record's oldest base, so an item changed and then
+ *  changed back (a note added and deleted, an item ticked and unticked) is,
+ *  to the folded record, an item never touched. Replayed onto a snapshot
+ *  written in between, which still holds the changed value, that record
+ *  leaves the value in place. True when the folded record, replayed onto the
+ *  value the record held before this edit, does not give the value after it.
+ *  Item deltas keep their removals, so only base/value records can do this. */
+function foldHidesChange(field, prior, folded) {
+  const has = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
+  if (isItemDelta(folded) || !has(folded, 'base')) return false;
+  if (!prior || !has(prior, 'value')) return false;
+  const { base, value } = folded;
+  const before = prior.value;
+  const plain = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
+  if (USER_DATA_FIELDS[field]?.merge === 'keyed-object' && plain(base) && plain(value) && plain(before)) {
+    // The same test key by key, without stringifying the whole deck on every
+    // flashcard rating: a key this edit touched that is now back at its base.
+    for (const key of new Set([...Object.keys(before), ...Object.keys(value)])) {
+      const hadIt = has(before, key);
+      const hasIt = has(value, key);
+      if (hadIt === hasIt && (!hasIt || sameValue(before[key], value[key]))) continue;
+      if (has(base, key) === hasIt && (!hasIt || sameValue(base[key], value[key]))) return true;
+    }
+    return false;
+  }
+  return !sameValue(reconcileDirty(field, folded, before), value);
+}
+
 /** Rewrite one field-change map so every key-array entry is an item delta.
  *  Returns null when nothing changed so callers can skip the write. Never
  *  makes an entry larger: a delta is a subset of the value it replaces. */
@@ -615,6 +712,119 @@ export function compactSyncRecords(storage) {
     }
   }
   return result;
+}
+
+// Outbox records the storage sweeps keep per account.
+const OUTBOX_KEEP = 4;
+
+/**
+ * Trim each account's outbox to its newest few records without losing an edit.
+ *
+ * A signed-in record stays until a push is acknowledged, so records pile up,
+ * one per page load, while a student is offline, and the sweeps keep only the
+ * newest few. An older record is not always a copy of what the snapshot
+ * holds: a window writes its snapshot a few seconds after its last edit, and
+ * until then the edit lives only in that window's record, which is the oldest
+ * one when that window was opened first. So each record that goes is first
+ * replayed onto its account's snapshot, in the order boot replays it, and
+ * every reader, the open windows included, computes the same data as before.
+ * Nothing is dropped for an account whose snapshot cannot be read or written,
+ * or that a half-finished commit's journal would overwrite at the next boot.
+ * The signed-out records of a signed-out device are left to boot, which folds
+ * them into the fields' own keys as well.
+ *
+ * @param {object} storage
+ * @param {{ keep?: number, userId?: string|null, protectKey?: string|null }} [options]
+ *   `userId` limits the sweep to one account (null is the signed-out one);
+ *   `protectKey` is a record being written right now, which always stays, and
+ *   so does every record newer than it.
+ * @returns {{ removed: string[], bytes: number }}
+ */
+export function sweepOutbox(storage, options = {}) {
+  const { keep = OUTBOX_KEEP, protectKey = null } = options;
+  const only = Object.prototype.hasOwnProperty.call(options, 'userId')
+    ? encodeURIComponent(principalKey(options.userId))
+    : null;
+  const tally = { removed: [], bytes: 0 };
+  if (!storage || typeof storage.key !== 'function' || !Number.isFinite(storage.length)) return tally;
+
+  const byPrincipal = new Map();
+  let protectedRecord = null;
+  try {
+    for (let index = 0; index < storage.length; index += 1) {
+      const key = storage.key(index);
+      if (typeof key !== 'string' || !key.startsWith(OPERATION_PREFIX)) continue;
+      const cut = key.indexOf(':', OPERATION_PREFIX.length);
+      if (cut === -1) continue;
+      const principal = key.slice(OPERATION_PREFIX.length, cut);
+      if (only !== null && principal !== only) continue;
+      const createdAt = parseJson(storage, key, null)?.createdAt;
+      const record = { key, createdAt: Number.isFinite(createdAt) ? createdAt : 0 };
+      if (key === protectKey) {
+        protectedRecord = { principal, record };
+        continue;
+      }
+      if (!byPrincipal.has(principal)) byPrincipal.set(principal, []);
+      byPrincipal.get(principal).push(record);
+    }
+  } catch {
+    return tally;
+  }
+  const replayOrder = (a, b) => a.createdAt - b.createdAt || a.key.localeCompare(b.key);
+
+  const owner = parseJson(storage, CURRENT_OWNER_KEY, null);
+  for (const [principal, records] of byPrincipal) {
+    if (records.length <= keep) continue;
+    let userId;
+    try {
+      const decoded = decodeURIComponent(principal);
+      userId = decoded === ANONYMOUS ? null : decoded;
+    } catch {
+      continue;
+    }
+    // Only keys this module wrote, so the replay below reads the same records.
+    if (encodeURIComponent(principalKey(userId)) !== principal) continue;
+    if (!userId && (!owner || owner === ANONYMOUS)) continue;
+
+    // Oldest first, as readPendingOperations orders them.
+    records.sort(replayOrder);
+    let count = records.length - keep;
+    // Only a run of the oldest records folds in boot's order. The record being
+    // written right now stays, so the run stops where that record sorts. A
+    // newer record folded into the snapshot would be replayed before it, and
+    // its older value for an item both changed would come back.
+    if (protectedRecord?.principal === principal) {
+      const newer = records.findIndex((record) => replayOrder(record, protectedRecord.record) > 0);
+      if (newer !== -1) count = Math.min(count, newer);
+    }
+    if (count <= 0) continue;
+    const dropKeys = new Set(records.slice(0, count).map((record) => record.key));
+    const dropped = readPendingOperations(storage, userId).filter((operation) => dropKeys.has(operation.key));
+    if (dropped.length > 0) {
+      const journal = parseJson(storage, JOURNAL_KEY, null);
+      if (journal && journal.snapshotKey === dataKey(userId)) continue;
+      const snapshot = readPrincipalData(storage, userId);
+      if (!snapshot.found) continue;
+      const folded = replayOperations(snapshot.data, dropped).data;
+      if (!sameValue(folded, snapshot.data)) {
+        try {
+          storage.setItem(dataKey(userId), JSON.stringify(folded));
+        } catch {
+          continue;
+        }
+      }
+    }
+    for (const key of dropKeys) {
+      let bytes = key.length;
+      try { bytes += (storage.getItem(key) || '').length; } catch { /* size is only reported */ }
+      try {
+        storage.removeItem(key);
+        tally.removed.push(key);
+        tally.bytes += bytes;
+      } catch { /* folded already; the next sweep tries again */ }
+    }
+  }
+  return tally;
 }
 
 function reconcileDirty(field, entry, remote) {
@@ -739,6 +949,30 @@ function acknowledgeRemoteOperationParts(storage, operations) {
   }
 }
 
+/** The outbox as it stands after a push was acknowledged, with each record the
+ *  push had captured and a tab then added to measured from the value that was
+ *  sent. Such a record still carries the base from before the push, folded,
+ *  and folding can hide an edit made in flight: a note added, sent, then
+ *  deleted is, to the folded record, a note never touched, so replayed onto
+ *  the acknowledged payload it left the note there. Item deltas keep their
+ *  removals and replay as they are. */
+function sinceCaptured(captured, remaining) {
+  const sentByKey = new Map(captured.map((operation) => [operation.key, operation.changes]));
+  const has = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
+  return remaining.map((operation) => {
+    const sent = sentByKey.get(operation.key);
+    if (!sent) return operation;
+    const changes = {};
+    for (const [field, change] of Object.entries(operation.changes)) {
+      const before = sent[field];
+      changes[field] = before && !isItemDelta(change) && has(before, 'value') && has(change, 'value')
+        ? { base: before.value, value: change.value }
+        : change;
+    }
+    return { ...operation, changes };
+  });
+}
+
 function fromRemoteRow(row) {
   if (!row) return { found: false, data: {}, present: new Set() };
   const data = {};
@@ -783,7 +1017,12 @@ export function createBrowserLifecycle() {
       const onOffline = () => listener('offline');
       const onVisible = () => {
         if (document.visibilityState === 'visible') listener('visible');
+        else if (document.visibilityState === 'hidden') listener('hidden');
       };
+      // Leaving the page is the last moment to bring the snapshot up to date.
+      // Nothing depends on it (the outbox replays at boot), but it keeps the
+      // record that boot reads current.
+      const onPageHide = () => listener('hidden');
       const onStorage = (event) => {
         const key = event.key;
         if (
@@ -800,11 +1039,13 @@ export function createBrowserLifecycle() {
       window.addEventListener('online', onOnline);
       window.addEventListener('offline', onOffline);
       window.addEventListener('storage', onStorage);
+      window.addEventListener('pagehide', onPageHide);
       document.addEventListener('visibilitychange', onVisible);
       return () => {
         window.removeEventListener('online', onOnline);
         window.removeEventListener('offline', onOffline);
         window.removeEventListener('storage', onStorage);
+        window.removeEventListener('pagehide', onPageHide);
         document.removeEventListener('visibilitychange', onVisible);
       };
     },
@@ -822,6 +1063,7 @@ export function createUserDataSync({
   now = () => Date.now(),
   random = () => Math.random(),
   debounceMs = 1500,
+  idle = createIdleScheduler(),
 } = {}) {
   if (!storage?.getItem || !storage?.setItem || !storage?.removeItem) {
     throw new TypeError('createUserDataSync requires a storage adapter');
@@ -895,6 +1137,13 @@ export function createUserDataSync({
   let sessionGeneration = 0;
   let hydratedUserId = null;
   let retryAttempt = 0;
+  // Writes lost in a row to another device's write (SYNC_CONFLICT).
+  let conflictStreak = 0;
+  // The principal snapshot lags this store's edits until compaction runs;
+  // fields whose own key could not be written wait here for it too.
+  let compactionDue = false;
+  let compactionHandle = null;
+  const unmirroredFields = new Set();
   let timer = null;
   let disposed = false;
   let operationSequence = 0;
@@ -912,7 +1161,9 @@ export function createUserDataSync({
 
   const syncShape = (patch = {}) => {
     const dirtyFields = new Set(Object.keys(activeMeta.dirty || {}));
-    for (const operation of readPendingOperations(storage, userId)) {
+    // Signed out there is nothing to push, and an outbox record waiting for
+    // compaction is not "pending" work.
+    for (const operation of userId ? readPendingOperations(storage, userId) : []) {
       for (const field of Object.keys(operation.changes)) {
         if (USER_DATA_FIELDS[field]?.remoteKey) dirtyFields.add(field);
       }
@@ -942,9 +1193,11 @@ export function createUserDataSync({
           : {}
       ),
     };
+    let hidesChange = false;
     for (const [field, change] of Object.entries(changes)) {
       const prior = cumulativeChanges[field];
       cumulativeChanges[field] = prior ? foldChangeRecord(field, prior, change) : change;
+      if (prior && foldHidesChange(field, prior, cumulativeChanges[field])) hidesChange = true;
     }
     const token = `${instanceId}:${++localOperationSequence}`;
     storage.setItem(key, JSON.stringify({
@@ -953,7 +1206,7 @@ export function createUserDataSync({
       createdAt: Number.isFinite(existing?.createdAt) ? existing.createdAt : now(),
       changes: cumulativeChanges,
     }));
-    return key;
+    return { key, hidesChange };
   };
 
   const clearTimer = () => {
@@ -963,6 +1216,84 @@ export function createUserDataSync({
 
   const persistMeta = (meta) => {
     storage.setItem(metaKey(userId), JSON.stringify(meta));
+  };
+
+  // Bring the principal snapshot up to date with this store's edits, once per
+  // burst instead of on every edit. Runs when the page is idle, when it is
+  // hidden or closed, and before the principal changes; hydrate and flush
+  // write the snapshot themselves. Until it runs, the outbox record and the
+  // fields' own keys hold every edit, and boot and the storage handler replay
+  // the outbox onto the snapshot, so a crash in between loses nothing.
+  const compact = () => {
+    if (compactionHandle !== null) {
+      idle.cancel(compactionHandle);
+      compactionHandle = null;
+    }
+    if (!compactionDue) return;
+    const snapshot = replayOperations(
+      state.data,
+      readPendingOperations(storage, userId),
+    ).data;
+    let failed = false;
+    try {
+      if (storage.getItem(JOURNAL_KEY) !== null) {
+        // A whole-dataset commit could not finish its mirror writes and left
+        // its journal, which the next boot would replay over these newer
+        // edits. Every per-edit commit used to replace it; supersede it with
+        // a full commit of the current data instead.
+        failed = Boolean(writeLocalCommit(storage, {
+          patch: snapshot,
+          meta: activeMeta,
+          metaStorageKey: metaKey(userId),
+          snapshot,
+          snapshotStorageKey: dataKey(userId),
+          owner: principalKey(userId),
+        }).mirrorError);
+      } else {
+        storage.setItem(dataKey(userId), JSON.stringify(snapshot));
+        storage.setItem(metaKey(userId), JSON.stringify(activeMeta));
+        for (const field of unmirroredFields) {
+          storage.setItem(USER_DATA_FIELDS[field].localKey, JSON.stringify(snapshot[field]));
+        }
+      }
+    } catch {
+      failed = true;
+    }
+    if (failed) {
+      // Still due: the next edit, hide or close tries again. Every edit is
+      // in the outbox meanwhile. This is what a failed per-edit commit said.
+      publish(state.data, syncShape({
+        phase: 'error',
+        error: publicError(
+          'LOCAL_MIRROR_FAILED',
+          KEPT_ON_DEVICE,
+          false,
+        ),
+      }));
+      return;
+    }
+    compactionDue = false;
+    unmirroredFields.clear();
+    // Signed out there is nowhere to push to, so once the snapshot holds this
+    // store's edits its outbox record is redundant. Left in place it grew one
+    // cumulative record per page load until localStorage filled.
+    if (!userId) discardOperationRecord();
+  };
+
+  const requestCompaction = () => {
+    compactionDue = true;
+    if (compactionHandle !== null || disposed) return;
+    compactionHandle = idle.request(() => {
+      compactionHandle = null;
+      if (!disposed) compact();
+    });
+  };
+
+  /** A whole-dataset commit just wrote the snapshot and every field's key. */
+  const compactedBy = (commit) => {
+    if (commit.mirrorError) return;
+    compactionDue = false;
+    unmirroredFields.clear();
   };
 
   const schedule = (kind, delay) => {
@@ -983,10 +1314,12 @@ export function createUserDataSync({
   const reclaimForQuota = () => {
     let bytes = 0;
     try { bytes += compactSyncRecords(storage).bytes; } catch { /* keep going */ }
+    try { bytes += reclaim(storage, { today: todayKey() }).bytes; } catch { /* keep going */ }
+    // Old outbox records go only once their edits are in the snapshot; one
+    // may belong to another window that has not compacted yet.
     try {
-      bytes += reclaim(storage, {
-        today: todayKey(),
-        operationPrefix: operationKeyPrefix(userId),
+      bytes += sweepOutbox(storage, {
+        userId,
         protectKey: `${operationKeyPrefix(userId)}${instanceId}`,
       }).bytes;
     } catch { /* keep going */ }
@@ -1113,6 +1446,7 @@ export function createUserDataSync({
         owner: userId,
       });
       activeMeta = nextMeta;
+      compactedBy(commit);
       hydratedUserId = userId;
       retryAttempt = 0;
 
@@ -1123,7 +1457,7 @@ export function createUserDataSync({
       publish(merged, syncShape({
         phase: hasPending ? 'pending' : 'synced',
         error: commit.mirrorError
-          ? publicError('LOCAL_MIRROR_FAILED', 'ข้อมูลปลอดภัยใน recovery journal และจะลองจัดเก็บอีกครั้ง')
+          ? publicError('LOCAL_MIRROR_FAILED', KEPT_ON_DEVICE)
           : null,
       }));
       if (hasPending) schedule('flush', debounceMs);
@@ -1206,6 +1540,10 @@ export function createUserDataSync({
       const row = await remote.pull(userId);
       if (disposed || generation !== sessionGeneration) return;
       const remoteSnapshot = fromRemoteRow(row);
+      // The write below lands only if the row is still the one read here.
+      // Unconditional, a device that read the same row a moment earlier could
+      // replace this write after both had reported "synced".
+      const precondition = { rowExists: Boolean(row), expectedUpdatedAt: row?.updated_at ?? null };
       let rebasedData = { ...state.data };
       const rebasedDirty = { ...activeMeta.dirty };
 
@@ -1263,13 +1601,16 @@ export function createUserDataSync({
 
       const payload = toRemoteUserData(rebasedData);
       failureStage = 'push';
-      await remote.push(userId, payload);
+      await remote.push(userId, payload, precondition);
       if (disposed || generation !== sessionGeneration) return;
       retryAttempt = 0;
+      conflictStreak = 0;
 
       acknowledgeRemoteOperationParts(storage, capturedOperations);
       const remainingOperations = readPendingOperations(storage, userId);
-      const afterAck = replayOperations(rebasedData, remainingOperations);
+      // What was sent is now the account's copy; the edits made while it was
+      // in flight go on top of it.
+      const afterAck = replayOperations(rebasedData, sinceCaptured(capturedOperations, remainingOperations));
       const remainingDirty = {};
       for (const field of afterAck.touched) {
         const definition = USER_DATA_FIELDS[field];
@@ -1287,7 +1628,7 @@ export function createUserDataSync({
         revision: activeMeta.revision + 1,
         lastSyncedAt: syncedAt,
       };
-      writeLocalCommit(storage, {
+      const committed = writeLocalCommit(storage, {
         patch: afterAck.data,
         meta: nextMeta,
         metaStorageKey: metaKey(userId),
@@ -1296,6 +1637,7 @@ export function createUserDataSync({
         owner: userId,
       });
       activeMeta = nextMeta;
+      compactedBy(committed);
       publish(afterAck.data, syncShape({
         phase: hasRemotePending ? 'pending' : 'synced',
         error: null,
@@ -1318,6 +1660,31 @@ export function createUserDataSync({
           quotaRetryUsed = true;
           schedule('flush', debounceMs);
         }
+        return;
+      }
+
+      // Another device wrote between our read and our write, so nothing was
+      // written and nothing is acknowledged. That is not a failure the
+      // student can act on: re-read, rebase and write again after a short
+      // jitter. Only a streak of lost races falls back to the back-off.
+      if (error?.code === 'SYNC_CONFLICT') {
+        conflictStreak += 1;
+        // A streak this long is not a race. Zero rows back is also what a
+        // write the server will never accept looks like (an UPDATE policy
+        // narrower than SELECT, a proxy that strips Prefer: return=
+        // representation), and without this the student sat at "pending"
+        // for ever with no banner. Say so, keep backing off, keep the outbox.
+        if (conflictStreak >= CONFLICT_STREAK_BANNER) {
+          publish(state.data, syncShape({
+            phase: lifecycle.isOnline() === false ? 'offline' : 'error',
+            error: publicError('REMOTE_PUSH_FAILED', 'บันทึกไว้ในเครื่องแล้ว แต่ยังส่งขึ้นบัญชีไม่สำเร็จ'),
+          }));
+          scheduleRetry('flush');
+          return;
+        }
+        publish(state.data, syncShape({ phase: 'pending', error: null }));
+        if (conflictStreak <= 4) schedule('flush', Math.round(Math.max(0, Math.min(1, random())) * 200));
+        else scheduleRetry('flush');
         return;
       }
 
@@ -1395,11 +1762,12 @@ export function createUserDataSync({
         changeRecord(field, currentData[field], value),
       ]),
     );
+    let hidesChange = false;
     try {
       // A unique per-store operation is the first durability boundary. Two
       // tabs can overwrite shared snapshots, but never each other's outbox
       // entries; replay restores both changes after a crash or reload.
-      persistOperation(operationChanges);
+      ({ hidesChange } = persistOperation(operationChanges));
     } catch (writeError) {
       // Out of room is not a blip — the quota stays full, so the next write
       // fails too and the student sees the same message on every action with
@@ -1413,7 +1781,7 @@ export function createUserDataSync({
           // a device that filled up under the previous build), sweep the dead
           // keys, then try the write once more.
           reclaimForQuota();
-          persistOperation(operationChanges);
+          ({ hidesChange } = persistOperation(operationChanges));
           recovered = true;
         } catch {
           // Still no room. Fall through and say so — the alternative is
@@ -1438,52 +1806,38 @@ export function createUserDataSync({
       }
     }
 
-    try {
-      const commit = writeLocalCommit(storage, {
-        patch: changed,
-        meta: nextMeta,
-        metaStorageKey: metaKey(userId),
-        snapshot: nextData,
-        snapshotStorageKey: dataKey(userId),
-        owner: principalKey(userId),
-      });
-      activeMeta = nextMeta;
-      // An anonymous principal has no remote to push to, so once the snapshot
-      // commit above succeeded the outbox record is pure redundancy — and
-      // nothing else ever deleted it (flush() returns early without a userId).
-      // Left in place it grew one cumulative record per page load, each
-      // carrying `base` AND `value` of the whole dataset, until localStorage
-      // filled and every finished exam was silently dropped.
-      if (!userId) discardOperationRecord();
-      publish(nextData, syncShape({
-        phase: userId
-          ? (
-            lifecycle.isOnline() === false
-              ? 'offline'
-              : (hydratedUserId === userId ? 'pending' : 'hydrating')
-          )
-          : 'local-only',
-        error: commit.mirrorError
-          ? publicError('LOCAL_MIRROR_FAILED', 'ข้อมูลปลอดภัยใน recovery journal และจะลองจัดเก็บอีกครั้ง')
-          : null,
-      }));
-      if (userId && hydratedUserId === userId) schedule('flush', debounceMs);
-      return { accepted: true, generation: nextMeta.revision };
-    } catch {
-      // The append-only operation above is already durable. A failed shared
-      // snapshot mirror must not make the accepted edit disappear in-memory.
-      activeMeta = nextMeta;
-      publish(nextData, syncShape({
-        phase: 'error',
-        error: publicError(
-          'LOCAL_MIRROR_FAILED',
-          'บันทึกการเปลี่ยนแปลงไว้แล้ว แต่ยังจัด snapshot ในเครื่องไม่สำเร็จ',
-          false,
-        ),
-      }));
-      if (userId && hydratedUserId === userId) schedule('flush', debounceMs);
-      return { accepted: true, generation: nextMeta.revision };
-    }
+    // The outbox record above is the durable copy. What follows mirrors the
+    // edit into the meta and the changed fields' keys; the full snapshot waits
+    // for compaction. A failed mirror write must not make the accepted edit
+    // disappear in memory.
+    const edit = writeLocalEdit(storage, {
+      patch: changed,
+      meta: nextMeta,
+      metaStorageKey: metaKey(userId),
+      owner: principalKey(userId),
+    });
+    activeMeta = nextMeta;
+    for (const field of edit.failed) unmirroredFields.add(field);
+    requestCompaction();
+    publish(nextData, syncShape({
+      phase: userId
+        ? (
+          lifecycle.isOnline() === false
+            ? 'offline'
+            : (hydratedUserId === userId ? 'pending' : 'hydrating')
+        )
+        : 'local-only',
+      error: edit.mirrorError
+        ? publicError('LOCAL_MIRROR_FAILED', KEPT_ON_DEVICE)
+        : null,
+    }));
+    // The outbox record no longer carries an earlier change this edit undid,
+    // so a snapshot written since would bring it back at the next boot or in
+    // another tab. Bring the snapshot level now, not on the idle pass. This
+    // runs after publish because compaction starts from the published data.
+    if (hidesChange) compact();
+    if (userId && hydratedUserId === userId) schedule('flush', debounceMs);
+    return { accepted: true, generation: nextMeta.revision };
   };
 
   const sessionChanged = (nextUserId) => {
@@ -1500,10 +1854,14 @@ export function createUserDataSync({
       return { accepted: true };
     }
 
+    // The outgoing principal's snapshot is what its next sign-in or sign-out
+    // restore reads, so it is brought up to date before anything switches.
+    compact();
     clearTimer();
     sessionGeneration += 1;
     activeOperation = null;
     retryAttempt = 0;
+    conflictStreak = 0;
     quotaRetryUsed = false;
     const previousUserId = userId;
     userId = normalized;
@@ -1620,6 +1978,10 @@ export function createUserDataSync({
 
   const handleLifecycle = (reason) => {
     if (disposed) return;
+    if (reason === 'hidden') {
+      compact();
+      return;
+    }
     if (reason === 'storage') {
       const persisted = readPrincipalData(storage, userId);
       const base = persisted.found ? persisted.data : state.data;
@@ -1692,6 +2054,8 @@ export function createUserDataSync({
       throw new TypeError(`Unknown UserDataSync command: ${command.type}`);
     },
     close() {
+      if (disposed) return;
+      compact();
       disposed = true;
       pauseLifecycle();
       listeners.clear();

@@ -2,10 +2,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { slug, sectionId, topicId, wikiTitle } from '../../src/lib/vetwiki/schema.js';
+import { slug, sectionId, topicId, wikiTitle, wikiSummary } from '../../src/lib/vetwiki/schema.js';
 import { noteToKnowledge, verifiedClaimCount } from '../../src/lib/vetwiki/adapter.js';
 import { validateTopic } from '../../src/lib/vetwiki/validate.js';
 import { loadTopic, provenanceSummary, listTopics, verificationFor } from '../../src/lib/vetwiki/index.js';
+import { loadNotesSubject } from '../../src/data/note-corpus.js';
 
 test('stable ids are deterministic and independent of order/index', () => {
   assert.equal(sectionId('com5', 'rabies', 'Diagnosis'), 'com5--rabies--diagnosis');
@@ -238,4 +239,40 @@ test('no VetWiki topic title carries an emoji (scales past ~100 topics)', () => 
   const emoji = /[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2190}-\u{21FF}\u{2B00}-\u{2BFF}\u{FE0F}]/u;
   const dirty = listTopics().filter((t) => emoji.test(t.title));
   assert.deepEqual(dirty.map((t) => t.title), [], 'wiki titles must be emoji-free');
+});
+
+test('wikiSummary drops markdown bold markers but keeps clinical notation', () => {
+  // The summary is rendered as plain text (wiki index and topic lead), so a
+  // "**" reaches the reader literally. Arrows and maths stay untouched.
+  assert.equal(wikiSummary('Recurrence สูงมาก **30-87.5%**.'), 'Recurrence สูงมาก 30-87.5%.');
+  assert.equal(wikiSummary('**75% of EID in humans is from animals**'), '75% of EID in humans is from animals');
+  assert.equal(wikiSummary('BCS ↑ → risk ≥ 2 ⭐'), 'BCS ↑ → risk ≥ 2');
+});
+
+// The topic lead is the first thing a student reads on a wiki page. It must
+// read as a summary of the subject, not as the note-taker's ingest log or a
+// guess about the paper. '·' followed by a hydrate formula (CuSO4·5H2O) is
+// chemistry, not a separator, and stays allowed.
+// Both the rendered wiki summary and the stored one are checked: the Notes
+// page shows the stored summary as-is, without wikiSummary's clean-up, so a
+// "**" that the wiki hides still reaches the reader there.
+test('no VetWiki topic summary carries note markup, ingest notes or exam guesses', async () => {
+  const rules = [
+    ['middle dot', /·(?!\d*H(?:2|₂)O)/],
+    ['markdown bold', /\*\*/],
+    ['PDF reference', /\bPDF\b|\.pdf\b/i],
+    ['file size', /\d\s*MB\b/],
+    ['senior compilation', /ซซดาว|sunsun\d/i],
+    ['past-paper coverage claim', /ข้อสอบเก่า/],
+    ['question-count prediction', /ออกสอบ[^.;]*?\d+\s*ข้อ/],
+    ['slide annotation', /Note บนสไลด์/],
+  ];
+  const dirty = [];
+  for (const t of listTopics()) {
+    const stored = (await loadNotesSubject(t.subject))[t.topic]?.summary || '';
+    for (const [label, re] of rules) {
+      if (re.test(t.summary || '') || re.test(stored)) dirty.push(`${t.id}: ${label}`);
+    }
+  }
+  assert.deepEqual(dirty, [], 'wiki summaries must read as clinical summaries');
 });

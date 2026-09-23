@@ -5,8 +5,9 @@ import { EVIDENCE_LABEL, REVIEW_LABEL } from './schema.js';
 import { loadRuntimeData } from './runtime-data.generated.js';
 import { loadNotesSubject } from '../../data/note-corpus.js';
 
-// Grow this cache as subjects are opened/searched. It avoids a global source
-// corpus while remaining safe when several subject chunks load concurrently.
+// Grow this cache as subjects are opened. It avoids a global source corpus
+// while remaining safe when several subject chunks load concurrently. (The
+// Wiki search no longer comes through here; it reads its own prebuilt index.)
 const loadedSources = new Map();
 
 export async function loadTopic(subject, topic) {

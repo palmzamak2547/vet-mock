@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
-import { isCorrect, matchScore, subjectText } from '../hooks/utils.js';
+import { isCorrect, isAnswered, answerOutcome, matchScore, subjectText } from '../hooks/utils.js';
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
@@ -138,8 +138,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
   // ones is brutal. Start with wrong/skipped work when present; all-correct
   // sessions fall back to the complete list.
   const [filter, setFilter] = useState(() => {
-    if (questions.some((q) => answers[q.id] !== undefined && !isCorrect(q, answers[q.id]))) return 'wrong';
-    if (questions.some((q) => answers[q.id] === undefined)) return 'skipped';
+    if (questions.some((q) => answerOutcome(q, answers[q.id]) === 'wrong')) return 'wrong';
+    if (questions.some((q) => answerOutcome(q, answers[q.id]) === 'skipped')) return 'skipped';
     return 'all';
   });
   const [expandedCorrect, setExpandedCorrect] = useState(() => new Set());
@@ -158,10 +158,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
   const counts = useMemo(() => {
     const c = { all: questions.length, correct: 0, wrong: 0, skipped: 0, bookmarked: 0, noted: 0 };
     for (const q of questions) {
-      const ua = answers[q.id];
-      if (ua === undefined) c.skipped++;
-      else if (isCorrect(q, ua)) c.correct++;
-      else c.wrong++;
+      c[answerOutcome(q, answers[q.id])]++;
       if (bookmarks?.includes(q.id)) c.bookmarked++;
       if (notes && notes[q.id]) c.noted++;
     }
@@ -173,9 +170,9 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
     return questions.filter((q) => {
       const ua = answers[q.id];
       switch (filter) {
-        case 'correct':    return ua !== undefined && isCorrect(q, ua);
-        case 'wrong':      return ua !== undefined && !isCorrect(q, ua);
-        case 'skipped':    return ua === undefined;
+        case 'correct':
+        case 'wrong':
+        case 'skipped':    return answerOutcome(q, ua) === filter;
         case 'bookmarked': return bookmarks?.includes(q.id);
         case 'noted':      return notes && notes[q.id];
         default:           return true;
@@ -292,7 +289,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
 
       {visible.map((q, idx) => {
         const userAns = answers[q.id];
-        const answered = userAns !== undefined;
+        const answered = isAnswered(userAns);
         const correct = isCorrect(q, userAns);
         // match: แสดง partial เป็น wrong แต่มีแถบส้มถ้าได้บางส่วน (ให้กำลังใจ)
         const ms = q.type === 'match' && answered ? matchScore(q, userAns) : null;

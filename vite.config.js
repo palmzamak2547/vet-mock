@@ -101,8 +101,12 @@ export default defineConfig({
             // `vendor` bundle, which the app loads on first paint — so every
             // student would download half a megabyte for a button most of
             // them never press. Measured before this line existed: it was in
-            // vendor-CIZ-5148.js.
-            if (/[\\/]node_modules[\\/]pdf-lib[\\/]/.test(id)) return 'vendor-pdf-write'
+            // vendor-CIZ-5148.js. Its embedded fonts and PNG codec
+            // (@pdf-lib/*, 115 KB of base64 fonts) go with it.
+            if (/[\\/]node_modules[\\/]@?pdf-lib[\\/]/.test(id)) return 'vendor-pdf-write'
+            // pdf.js reads the PDF and is imported only when one opens. It
+            // was 362 KB of the 666 KB shared chunk every visit loaded.
+            if (/[\\/]node_modules[\\/]pdfjs-dist[\\/]/.test(id)) return 'vendor-pdf-read'
             // Be SPECIFIC about react packaging — `includes('react')` was
             // too broad and matched any path containing the substring
             // (e.g. `use-sync-external-store`, `cmdk`, things that
@@ -118,9 +122,22 @@ export default defineConfig({
               id.includes('@kitware/vtk.js') ||
               id.includes('dicom-parser') ||
               id.includes('gl-matrix') ||
-              id.includes('comlink')
+              id.includes('comlink') ||
+              // Cornerstone import()s this decoder; kept here, it arrives with
+              // the viewer instead of as a fetch in the middle of a decode.
+              id.includes('jpeg-lossless-decoder-js')
             ) return 'vendor-cornerstone'
-            return 'vendor'
+            // The shared chunk loads at idle for every visitor (the Supabase
+            // client and Vercel analytics import it), so it holds only the
+            // small packages those loaders share. It used to be a catch-all
+            // and grew to 666 KB of PDF and DICOM code.
+            if (/[\\/]node_modules[\\/](tslib|iceberg-js|clsx|tailwind-merge|@vercel[\\/](analytics|speed-insights))[\\/]/.test(id)) return 'vendor'
+            // Every other package is left to Rollup. Rollup pulls a static
+            // dependency of a chunk above into that chunk, and a package two
+            // of them share joins whichever runs first, so a shared package
+            // needs a rule here (tslib is one). Anything else sits beside the
+            // code that imports it.
+            return undefined
           }
           // Question banks are heavy + only needed once user starts a quiz.
           // Splitting each into its own chunk lets the browser fetch them
