@@ -71,14 +71,16 @@ const QUIET = { warn() {}, error() {}, log() {} };
 
 // The flag on a question (Question.jsx toggleFlag). What the student sees on
 // failure is the alert.
-function mountFlag(respond, reason = 'เฉลยข้อนี้ไม่ตรงกับคำอธิบาย') {
+// `storage: false` is a browser whose localStorage drops every write (full,
+// or blocked): writeFlags swallows the failure, as Question.jsx's does.
+function mountFlag(respond, reason = 'เฉลยข้อนี้ไม่ตรงกับคำอธิบาย', { storage = true } = {}) {
   const h = { store: {}, alerts: [], calls: [], flagState: undefined };
   const stub = fetchStub(h.calls, respond);
   const context = {
     compoundId: 'swine:101',
     currentQ: { id: 101, subject: 'swine', q: 'สุกรอายุ 3 สัปดาห์ ท้องเสีย' },
     readFlags: () => JSON.parse(JSON.stringify(h.store)),
-    writeFlags: (map) => { h.store = JSON.parse(JSON.stringify(map)); },
+    writeFlags: (map) => { if (storage) h.store = JSON.parse(JSON.stringify(map)); },
     promptDialog: async () => reason,
     alertDialog: (opts) => { h.alerts.push(opts); },
     setFlagState: (v) => { h.flagState = v; },
@@ -339,6 +341,16 @@ test('a flag withdrawn while its report is in flight is not put back by the fail
   release(ANSWERS.server());
   await running;
   assert.equal(flag.store['swine:101'], undefined, 'the withdrawn flag came back');
+});
+
+test('a failed report is still announced when the browser would not keep the local mark', async () => {
+  // A full or blocked localStorage drops the write silently, so the mark is
+  // missing afterwards without the student having withdrawn anything. The
+  // report still did not reach the team, and the student must be told.
+  const flag = mountFlag(ANSWERS.daily_cap, undefined, { storage: false });
+  await flag.run();
+  assert.equal(flag.alerts.length, 1, 'the failure was swallowed because the mark never landed in storage');
+  assert.ok(flag.shown().includes(client.FEEDBACK_MESSAGES.daily_cap));
 });
 
 // ── One client ─────────────────────────────────────────────────────────

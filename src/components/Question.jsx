@@ -155,6 +155,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       map[compoundId] = entry;
       writeFlags(map);
       setFlagState(entry);
+      // Whether the mark landed: a full or blocked localStorage drops the
+      // write silently, and then its absence after the send means nothing.
+      const stored = readFlags()[compoundId]?.ts === entry.ts;
       // The report must actually REACH someone — for a long time this only
       // wrote localStorage, so students typed out real complaints about
       // wrong answer keys and nobody was ever told. The local flag above stays
@@ -178,9 +181,14 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         // or withdrawn this one while the request was out, and the copy read
         // before it would write that back over them.
         const latest = readFlags();
-        if (latest[compoundId]?.ts !== entry.ts) return;
-        latest[compoundId] = { ...entry, delivered: false };
-        writeFlags(latest);
+        if (latest[compoundId]?.ts === entry.ts) {
+          latest[compoundId] = { ...entry, delivered: false };
+          writeFlags(latest);
+        } else if (stored) {
+          // Withdrawn meanwhile (and perhaps raised again, which sends its
+          // own report): nothing of this one is left to warn about.
+          return;
+        }
         alertDialog({
           title: 'ส่งรายงานไม่สำเร็จ',
           body: `เครื่องหมายบนข้อนี้บันทึกไว้ในเครื่องแล้ว แต่ยังส่งถึงทีมงานไม่ได้ ${sent.messageTh}`,
