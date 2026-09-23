@@ -3,7 +3,6 @@ import { migrateHistoryArray } from './id-migration.js';
 import { yearForSubject } from '../data/curriculum.js';
 import { LEADERBOARD_MIN_QUESTIONS } from './leaderboard-gate.js';
 import { thaiError } from './errors.js';
-import { casWriteUserData } from './user-data-cas.js';
 
 // All cloud-sync calls await getSupabase() so anonymous visitors never
 // pay the 190KB SDK download cost — the chunk only fetches once a
@@ -375,13 +374,9 @@ export async function pullUserData(userId) {
   return data;
 }
 
-// `precondition` ({ rowExists, expectedUpdatedAt }) makes the write land only
-// on the row the sync engine read and rebased on; a lost race rejects with
-// SYNC_CONFLICT and the engine re-reads. Without one, the old upsert.
-export async function pushUserData(userId, patch, precondition) {
+export async function pushUserData(userId, patch) {
   const supabase = await getSupabase();
   if (!supabase) return;
-  if (precondition) return casWriteUserData(supabase, userId, patch, precondition);
   const { error } = await supabase.from('user_data')
     .upsert({ user_id: userId, ...patch, updated_at: new Date().toISOString() });
   if (error) throw error;
