@@ -13,7 +13,9 @@
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const source = readFileSync(new URL('../../src/components/PrivateNotes.jsx', import.meta.url), 'utf8');
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
@@ -63,4 +65,17 @@ test('confirming deletes that one note, and the dialog reads as a destructive ac
 test('no component in src calls window.confirm directly', () => {
   assert.ok(!source.includes('window.confirm('), 'PrivateNotes.jsx still calls window.confirm');
   assert.match(source, /import \{ confirmDialog \} from '\.\.\/lib\/dialog\.js';/);
+  // Every .jsx under src, comments aside. dialog.js keeps its native fallback
+  // for when no DialogHost is mounted; that is the one place it belongs.
+  const src = fileURLToPath(new URL('../../src/', import.meta.url));
+  const calls = [];
+  for (const name of readdirSync(src, { recursive: true })) {
+    if (!String(name).endsWith('.jsx')) continue;
+    readFileSync(join(src, String(name)), 'utf8').split(/\r?\n/).forEach((line, index) => {
+      const code = line.trim();
+      if (code.startsWith('//') || code.startsWith('*') || code.startsWith('/*')) return;
+      if (/(^|[^.\w])(window\.)?confirm\(/.test(code.replace(/\/\/.*$/, ''))) calls.push(`src/${name}:${index + 1}`);
+    });
+  }
+  assert.deepEqual(calls, [], 'a component still opens the browser confirm box');
 });
