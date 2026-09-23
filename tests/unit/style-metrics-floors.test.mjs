@@ -682,3 +682,34 @@ test('UI-06: a stacked button row keeps DOM order on a phone; a Back/Next pair s
   assert.notEqual(computed(chain('div', 'div.vmx-btn-row.is-stack'), 'flex-direction', DESKTOP), 'row-reverse');
   assert.equal(computed(chain('div', 'div.vmx-btn-row.is-stack'), 'justify-content', DESKTOP), 'flex-start');
 });
+
+// ── UI-05: the subject colour has one home, and it is not a clipped rail ──
+// Every list was a rounded card with a 4px absolute left stripe that the
+// 16px corner clipped into a curved sliver (_c1, _d1, _t4 in the audit). On
+// a subject card the colour is now a small swatch in the top corner; on the
+// topic screen, where every card had the SAME subject colour, the stripe
+// said nothing and is gone. The topic card's three bordered boxes (lecturer,
+// สรุป, VetWiki) become one row of text actions, each still a 44px target.
+test('UI-05: the subject colour is a corner swatch, not a clipped full-height stripe', () => {
+  const accent = chain('div.vmx-subject-grid', 'button.vmx-subject-card', 'div.accent');
+  for (const env of [PHONE, DESKTOP]) {
+    assert.equal(computed(accent, 'width', env), '8px');
+    assert.equal(computed(accent, 'height', env), '8px');
+    assert.equal(computed(accent, 'border-radius', env), '50%');
+    assert.equal(computed(accent, 'left', env), null, 'pinned to the left edge again');
+  }
+});
+
+test('UI-05: topic-card actions are one row of borderless text actions, 44px tall', () => {
+  const action = chain('div.vmx-topic-grid', 'article.vmx-topic-card', 'div.vmx-topic-actions', 'button.vmx-topic-action');
+  const wide = chain('div.vmx-topic-grid', 'article.vmx-topic-card', 'div.vmx-topic-actions', 'button.vmx-topic-action.is-wide');
+  for (const env of [PHONE, DESKTOP]) {
+    for (const node of [action, wide]) {
+      assert.equal(computed(node, 'border', env), '0');
+      assert.equal(computed(node, 'background', env), 'none');
+      assert.ok(px(computed(node, 'min-height', env)) >= 44);
+      assert.equal(computed(node, 'align-items', env), 'center');
+    }
+    assert.notEqual(computed(wide, 'flex-basis', env), '100%', 'the lecturer still takes a line of its own');
+  }
+});

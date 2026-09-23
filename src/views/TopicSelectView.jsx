@@ -609,7 +609,8 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                 position: 'relative',
               }}
             >
-              <div className="accent" style={{ background: subjectMeta?.color || 'var(--clr-ink)' }}></div>
+              {/* No colour stripe: every card on this screen is the same
+                  subject, so it said nothing. */}
               <button
                 type="button"
                 className="vmx-topic-main"

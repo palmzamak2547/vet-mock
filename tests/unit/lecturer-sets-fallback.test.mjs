@@ -51,3 +51,12 @@ test('UI-22: the skeleton blocks carry the real cover and button geometry, and t
   // The shared skeleton already stops shimmering under reduced motion.
   assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?\.vmx-skeleton,[\s\S]*?\{ animation: none; \}/);
 });
+
+test('UI-05: topic cards carry no colour stripe; the subject-level cards keep their swatch', () => {
+  const at = view.indexOf('className="vmx-topic-card"');
+  assert.ok(at > 0);
+  const card = view.slice(at, view.indexOf('</article>', at));
+  assert.doesNotMatch(card, /className="accent"/, 'every topic card on a screen had the same colour stripe');
+  // รวมทุกหัวข้อ and the collection cards still say which subject or block.
+  assert.ok((view.match(/<div className="accent" style=\{\{ background:/g) || []).length >= 2);
+});
