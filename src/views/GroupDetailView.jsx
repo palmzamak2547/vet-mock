@@ -167,7 +167,7 @@ export default function GroupDetailView({ group, user, goBack }) {
             questions.map((q) => (
               <div key={q.id} className="vmx-review-item">
                 <div className="vmx-review-head">
-                  <span>by {q.author_name || 'Anon'}, {SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}</span>
+                  <span>by {q.author_name || 'Anon'}{!q.invalid && q.data.subject ? `, ${SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}` : ''}</span>
                   {q.author_id === user.id && (
                     <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
                       if (!(await confirmDialog({ title: 'ลบข้อนี้ออกจากกลุ่ม?', confirmLabel: 'ลบ', tone: 'danger' }))) return;
@@ -181,9 +181,17 @@ export default function GroupDetailView({ group, user, goBack }) {
                     }}>🗑</button>
                   )}
                 </div>
-                <div className="vmx-review-q">{q.data.q}</div>
-                {q.data.tags && q.data.tags.length > 0 && (
-                  <div>{q.data.tags.map((t) => <span key={t} className="vmx-tag-pill">#{t}</span>)}</div>
+                {/* getSharedQuestions flags a row whose question cannot be
+                    read; it stays in the list so its author can delete it. */}
+                {q.invalid ? (
+                  <div className="vmx-review-q" style={{ color: 'var(--clr-ink-soft)' }}>แสดงข้อนี้ไม่ได้ เพราะข้อมูลของข้อไม่ครบ</div>
+                ) : (
+                  <>
+                    <div className="vmx-review-q">{q.data.q}</div>
+                    {Array.isArray(q.data.tags) && q.data.tags.length > 0 && (
+                      <div>{q.data.tags.map((t) => <span key={t} className="vmx-tag-pill">#{t}</span>)}</div>
+                    )}
+                  </>
                 )}
               </div>
             ))

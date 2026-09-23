@@ -127,12 +127,35 @@ export async function shareQuestion(groupId, questionData, authorId, authorName)
   return data;
 }
 
+// shared_questions.data is JSON another member wrote (the app has no share
+// action yet, so today only a direct API insert can put a row there), and it
+// was handed to the page exactly as stored: one row whose tags was a string
+// blanked the whole Shared Q tab with "q.data.tags.map is not a function".
+// The question text decides whether a row can be shown; the fields around it
+// are made safe rather than fatal. A row that cannot be shown is kept and
+// flagged, so the list stays honest and its author can still delete it.
+export function readSharedQuestion(row) {
+  const data = row?.data;
+  const readable = !!data && typeof data === 'object' && !Array.isArray(data)
+    && typeof data.q === 'string' && data.q.trim() !== '';
+  if (!readable) return { ...row, invalid: true };
+  return {
+    ...row,
+    invalid: false,
+    data: {
+      ...data,
+      subject: typeof data.subject === 'string' && data.subject ? data.subject : null,
+      tags: Array.isArray(data.tags) ? data.tags.filter((t) => typeof t === 'string' && t.trim() !== '') : [],
+    },
+  };
+}
+
 export async function getSharedQuestions(groupId) {
   const supabase = await getSupabase();
   const { data, error } = await supabase.from('shared_questions')
     .select('*').eq('group_id', groupId).order('created_at', { ascending: false });
   if (error) throw error;
-  return data;
+  return (data || []).map(readSharedQuestion);
 }
 
 export async function deleteSharedQuestion(id) {
