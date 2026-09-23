@@ -47,6 +47,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.130.4',
+    date: '2026-09-24',
+    headline: 'สรุปคลิปคาบเรียน Aquatic Animal Medicine ปี 2026 อ่านง่ายขึ้น',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: 'CHECK', title: 'สรุปคลิปคาบเรียน Aquatic Animal Medicine ปี 2026 อ่านง่ายขึ้น',
+        desc: 'สรุปทั้งเก้าคลิปเรียบเรียงใหม่เป็นย่อหน้าสั้น รายการ และตาราง ใช้ชื่อเชื้อ ยา และสัตว์ตามจริง เนื้อหา นาทีในคลิป และจุดที่อาจารย์เน้นยังเหมือนเดิม',
+      },
+    ],
+  },
+  {
     version: '5.130.3',
     date: '2026-09-23',
     headline: 'หน้าสรุปก่อนสอบของ Swine Medicine และ Aquatic Animal Medicine พร้อมอ่านแล้ว',
