@@ -414,18 +414,6 @@ export function isWrappedDismissed(phaseId) {
   return cur[phaseId] != null;
 }
 
-/** Clear dismissal for `phaseId` — used for "show again" testing. */
-export function resetWrappedDismissed(phaseId) {
-  const cur = safeReadLS(LS_DISMISSED_KEY, {}) || {};
-  if (typeof cur !== 'object' || Array.isArray(cur)) return;
-  if (phaseId) {
-    delete cur[phaseId];
-    safeWriteLS(LS_DISMISSED_KEY, cur);
-  } else {
-    safeWriteLS(LS_DISMISSED_KEY, {});
-  }
-}
-
 // ── Plain-text version (for clipboard "คัดลอกสรุป") ───────────
 
 /** Render the stats as an IG-caption / chat-paste friendly block. */

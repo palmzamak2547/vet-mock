@@ -1,21 +1,13 @@
 import { createMochi } from "./mochi/companion.js";
 import { createMochiLab } from "./mochi/lab.js";
 import { createFollower } from "./mochi/follower.js";
-export { createMochi } from "./mochi/companion.js";
-export { createMotion, STATES as MOCHI_STATES } from "./mochi/motion.js";
 import { createScope, element } from "./core.js";
 import { EFFECTS } from "./catalog.js";
 import { createParticles } from "./particles.js";
 import { createLoader } from "./loaders.js";
 import { createInteraction } from "./interactions.js";
 import { selectReadingItem } from './reading.js';
-export { playFeedback, bindHoverFeedback } from './feedback.js';
 import { createPlay } from "./play.js";
-export { EFFECTS, GROUPS } from "./catalog.js";
-export { createScope } from "./core.js";
-export { createParticles, POINTER_PRESETS, BURST_PRESETS } from "./particles.js";
-export { createLoader, LOADER_PRESETS } from "./loaders.js";
-export { createInteraction, INTERACTION_PRESETS } from "./interactions.js";
 export function mountEffect(root, id = "paw", options = {}) {
   const effect = EFFECTS.find((e) => e.id === id);
   if (!effect) throw new Error(`Unknown VetMock effect: ${id}`);
@@ -136,8 +128,4 @@ export function mountEffect(root, id = "paw", options = {}) {
     root.classList.remove('vm-host'); delete root.dataset.effect;
     throw error;
   }
-}
-export async function createMochi3D(host, options) {
-  const module = await import("./mochi/companion-3d.js");
-  return module.createMochi3D(host, options);
 }

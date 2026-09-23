@@ -107,11 +107,6 @@ export const SCORE_BREAKDOWN = {
   },
 };
 
-export function getScoreBreakdown(subjectId) {
-  // Find primary entry (some subjects have multiple, e.g. repro/reprolab)
-  return Object.values(SCORE_BREAKDOWN).find((s) => s.subject_id === subjectId);
-}
-
 export function getAllScores() {
   return Object.values(SCORE_BREAKDOWN);
 }

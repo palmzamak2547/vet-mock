@@ -518,12 +518,6 @@ export const ACADEMIC_MILESTONES = [
   { id: 'drop-last', start: '2026-09-11', end: '2026-09-11', titleTh: 'วันสุดท้ายของการลดรายวิชา (W)', kind: 'deadline' },
 ];
 
-/** รายวิชาที่จัดสอบนอกตาราง (ตามหมายเหตุท้ายตารางสอบ) */
-export const OFF_SCHEDULE_EXAMS = [
-  { code: '3100103', title: 'VET IMP PROF I', note: 'TDF (จัดสอบนอกตาราง)' },
-  { code: '3100201', title: 'VET IMP PROF II', note: 'TDF (จัดสอบนอกตาราง)' },
-];
-
 // ── Helpers: ตารางเรียน + ปฏิทินการศึกษา ─────────────────────────────
 
 /** คาบเรียนของวันนั้น (default = วันนี้) เรียงตามเวลา. เสาร์-อาทิตย์ = [] */

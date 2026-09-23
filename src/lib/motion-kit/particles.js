@@ -1,6 +1,4 @@
 import { clamp, lerp, random, createScope, localPoint, svgPaw } from "./core.js";
-export const POINTER_PRESETS = ["paw", "halo", "comet", "orbit", "mochi", "leaf", "ink", "spotlight"];
-export const BURST_PRESETS = ["confetti", "pawburst", "fireflies", "hearts", "streak", "chapter"];
 export function createParticles(root, { scope: providedScope, preset = "paw", kind = "cursor", intensity = 1, assetBase = "./assets", eventTarget = root, maxDpr = 2, pointerBursts = true, idleTimeout = 0, onCatch = () => {
 } } = {}) {
   const ownsScope = !providedScope, scope = providedScope || createScope(root), oldCursor = eventTarget.style.cursor;

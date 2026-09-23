@@ -5,8 +5,10 @@
 // structured claims (not prose) so every sentence can show where it came from.
 //
 // Two modes, one contract:
-//   topic mode  — body carries subject+topic (the WikiExplain panel on an
-//                 article): context = that article's sections, as before.
+//   topic mode  — body carries subject+topic: context = that article's
+//                 sections. No screen in the app sends it today (the
+//                 per-article panel that did was removed unused); the mode
+//                 stays so the request contract does not change.
 //   corpus mode — no subject/topic (the AI Search box): the server retrieves
 //                 the most relevant sections ACROSS every governed topic
 //                 (src/lib/vetwiki/retrieve.js — deterministic, Thai-aware)

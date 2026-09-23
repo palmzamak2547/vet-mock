@@ -144,13 +144,3 @@ export async function loadAtlasAsset(asset, { signal, onProgress = () => {}, onS
     .catch(() => reportStored(false));
   return { bytes, cached: false, stored: false };
 }
-
-export async function atlasCacheStatus(assets) {
-  try {
-    const cache = await caches.open(ATLAS_CACHE_NAME);
-    const hits = await Promise.all(assets.map((asset) => cache.match(asset.model)));
-    return { available: true, count: hits.filter(Boolean).length };
-  } catch {
-    return { available: false, count: 0 };
-  }
-}

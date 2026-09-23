@@ -24651,5 +24651,3 @@ export function resolveSource(ref) {
   if (!ref) return null;
   return SOURCES[ref.sourceId] || null;
 }
-
-export const ALL_SOURCE_IDS = Object.keys(SOURCES);

@@ -8,7 +8,6 @@ import {
   ANON_TAGS,
   isAnonymizedTagName,
 } from '../../src/lib/dicom/anonymizer.js';
-import { csvCell } from '../../src/lib/dicom/export-attempts.js';
 import { decodeQuizSet, encodeQuizSet, readSenderInfoFromLocation } from '../../src/lib/share-link.js';
 import { headerText } from '../../api/send-feedback.js';
 import {
@@ -109,17 +108,6 @@ test('DICOM owner contact tags are stripped and inspector warnings share that so
   assert.equal(byTag.get('x00102299'), 'ResponsibleOrganization');
   assert.equal(isAnonymizedTagName('ResponsiblePerson'), true);
   assert.equal(isAnonymizedTagName('PixelData'), false);
-});
-
-test('Imaging CSV export neutralizes spreadsheet formulas without changing numbers', () => {
-  assert.equal(
-    csvCell('=HYPERLINK("https://evil.example")'),
-    '"\'=HYPERLINK(""https://evil.example"")"',
-  );
-  assert.equal(csvCell('+cmd'), "'+cmd");
-  assert.equal(csvCell(' @SUM(A1:A2)'), "' @SUM(A1:A2)");
-  assert.equal(csvCell(-12.5), '-12.5');
-  assert.equal(csvCell('ordinary note'), 'ordinary note');
 });
 
 test('shared quiz URLs reject oversized and malformed payloads before use', () => {

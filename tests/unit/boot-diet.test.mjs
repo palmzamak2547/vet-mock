@@ -22,7 +22,6 @@ test('ReviewView reads conflict counts from the generated summary, not the full 
   // count must read the generated summary, never the 368 KB table.
   const holder = review.includes('conflictCountFor') ? review : wikiLink;
   assert.match(holder, /conflict-summary\.generated\.js/);
-  assert.doesNotMatch(holder, /conflict-index\.js/);
   assert.doesNotMatch(holder, /vetwiki\/corrections\.js/);
   if (holder === wikiLink) {
     assert.match(review, /WikiLinkForQuestion/, 'ReviewView must render the shared button');

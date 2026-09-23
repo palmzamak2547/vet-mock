@@ -1,6 +1,5 @@
 import * as THREE from "three";
-import { STATES, poseAt } from "./motion.js";
-export { STATES };
+import { poseAt } from "./motion.js";
 export function buildMochi({ detail = 24 } = {}) {
   const root = new THREE.Group();
   root.name = "Mochi";
@@ -183,31 +182,4 @@ export function buildMochi({ detail = 24 } = {}) {
   const apply = (state, t) => applyPose(poseAt(state, t), t);
   apply("idle", 0);
   return { root, rig, apply, applyPose, palette, original };
-}
-export function bakeClips(model, fps = 30) {
-  const names = ["Body", "Head", "ArmL", "ArmR", "LegL", "LegR", "EarL", "EarR", "Tail", "EyeL", "EyeR", "HappyMouth", "Book", "Sparkles", "Heart", "Check", "Question", "SleepZ", "ThinkShoulder", "ScarfKnot"];
-  return Object.entries(STATES).map(([state, meta]) => {
-    const times = [], data = {};
-    for (const name of names) data[name] = { position: [], quaternion: [], scale: [] };
-    const n = Math.round(meta.duration * fps);
-    for (let i = 0; i <= n; i++) {
-      const t = i / fps, wrap = i === n && meta.loop;
-      times.push(t);
-      model.applyPose(poseAt(state, wrap ? 0 : t, { loopPhase: wrap ? 0 : i / n }), wrap ? 0 : i / n * Math.PI * 2);
-      for (const name of names) {
-        const o = model.rig[name] || model.root.getObjectByName(name);
-        data[name].position.push(...o.position);
-        data[name].quaternion.push(...o.quaternion);
-        data[name].scale.push(...o.scale);
-      }
-    }
-    const tracks = [];
-    for (const name of names) for (const prop of ["position", "quaternion", "scale"]) {
-      const Track = prop === "quaternion" ? THREE.QuaternionKeyframeTrack : THREE.VectorKeyframeTrack;
-      tracks.push(new Track(`${name}.${prop}`, times, data[name][prop]));
-    }
-    const clip = new THREE.AnimationClip(state, meta.duration, tracks);
-    clip.optimize();
-    return clip;
-  });
 }
