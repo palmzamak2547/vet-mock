@@ -591,34 +591,6 @@ function foldChangeRecord(field, prior, next) {
   return { ...prior, value: next.value };
 }
 
-/** Folding keeps the record's oldest base, so an item changed and then
- *  changed back (a note added and deleted, an item ticked and unticked) is,
- *  to the folded record, an item never touched. Replayed onto a snapshot
- *  written in between, which still holds the changed value, that record
- *  leaves the value in place. True when the folded record, replayed onto the
- *  value the record held before this edit, does not give the value after it.
- *  Item deltas keep their removals, so only base/value records can do this. */
-function foldHidesChange(field, prior, folded) {
-  const has = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
-  if (isItemDelta(folded) || !has(folded, 'base')) return false;
-  if (!prior || !has(prior, 'value')) return false;
-  const { base, value } = folded;
-  const before = prior.value;
-  const plain = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
-  if (USER_DATA_FIELDS[field]?.merge === 'keyed-object' && plain(base) && plain(value) && plain(before)) {
-    // The same test key by key, without stringifying the whole deck on every
-    // flashcard rating: a key this edit touched that is now back at its base.
-    for (const key of new Set([...Object.keys(before), ...Object.keys(value)])) {
-      const hadIt = has(before, key);
-      const hasIt = has(value, key);
-      if (hadIt === hasIt && (!hasIt || sameValue(before[key], value[key]))) continue;
-      if (has(base, key) === hasIt && (!hasIt || sameValue(base[key], value[key]))) return true;
-    }
-    return false;
-  }
-  return !sameValue(reconcileDirty(field, folded, before), value);
-}
-
 /** Rewrite one field-change map so every key-array entry is an item delta.
  *  Returns null when nothing changed so callers can skip the write. Never
  *  makes an entry larger: a delta is a subset of the value it replaces. */
@@ -1052,11 +1024,9 @@ export function createUserDataSync({
           : {}
       ),
     };
-    let hidesChange = false;
     for (const [field, change] of Object.entries(changes)) {
       const prior = cumulativeChanges[field];
       cumulativeChanges[field] = prior ? foldChangeRecord(field, prior, change) : change;
-      if (prior && foldHidesChange(field, prior, cumulativeChanges[field])) hidesChange = true;
     }
     const token = `${instanceId}:${++localOperationSequence}`;
     storage.setItem(key, JSON.stringify({
@@ -1065,7 +1035,7 @@ export function createUserDataSync({
       createdAt: Number.isFinite(existing?.createdAt) ? existing.createdAt : now(),
       changes: cumulativeChanges,
     }));
-    return { key, hidesChange };
+    return key;
   };
 
   const clearTimer = () => {
@@ -1617,12 +1587,11 @@ export function createUserDataSync({
         changeRecord(field, currentData[field], value),
       ]),
     );
-    let hidesChange = false;
     try {
       // A unique per-store operation is the first durability boundary. Two
       // tabs can overwrite shared snapshots, but never each other's outbox
       // entries; replay restores both changes after a crash or reload.
-      ({ hidesChange } = persistOperation(operationChanges));
+      persistOperation(operationChanges);
     } catch (writeError) {
       // Out of room is not a blip — the quota stays full, so the next write
       // fails too and the student sees the same message on every action with
@@ -1636,7 +1605,7 @@ export function createUserDataSync({
           // a device that filled up under the previous build), sweep the dead
           // keys, then try the write once more.
           reclaimForQuota();
-          ({ hidesChange } = persistOperation(operationChanges));
+          persistOperation(operationChanges);
           recovered = true;
         } catch {
           // Still no room. Fall through and say so — the alternative is
@@ -1686,11 +1655,6 @@ export function createUserDataSync({
         ? publicError('LOCAL_MIRROR_FAILED', 'ข้อมูลปลอดภัยใน recovery journal และจะลองจัดเก็บอีกครั้ง')
         : null,
     }));
-    // The outbox record no longer carries an earlier change this edit undid,
-    // so a snapshot written since would bring it back at the next boot or in
-    // another tab. Bring the snapshot level now, not on the idle pass. This
-    // runs after publish because compaction starts from the published data.
-    if (hidesChange) compact();
     if (userId && hydratedUserId === userId) schedule('flush', debounceMs);
     return { accepted: true, generation: nextMeta.revision };
   };
