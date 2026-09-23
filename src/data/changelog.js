@@ -47,6 +47,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.130.6',
+    date: '2026-09-24',
+    headline: 'Aquatic Animal Medicine มีข้อเพิ่ม 66 ข้อ จากโจทย์ที่รุ่นพี่บันทึกและจุดที่ทำเครื่องหมายไว้',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: 'CHECK', title: 'ข้อปรนัย Aquatic Animal Medicine เพิ่ม 66 ข้อ',
+        desc: 'ทุกข้อมาจากโจทย์ที่รุ่นพี่บันทึกไว้หรือจุดที่ขีดเส้น ติดดาว หรือไฮไลต์ในเอกสารที่ยังไม่มีในคลัง ครอบคลุมเก้าหัวข้อกลางภาค รวมข้อแผนภาพวัฏจักรในบ่อที่ใช้ภาพจริงจากเอกสาร',
+      },
+      { scope: 'multi', kind: 'fix', icon: 'CHECK', title: 'แก้ข้อเท็จจริงสี่จุดให้ตรงกับที่สอนในปีนี้',
+        desc: 'goldfish pox เกิดจาก cyprinid herpesvirus 1 ไม่ใช่ poxvirus ปลามี affinity maturation แต่น้อยกว่า การตัดปลายเหงือกทำในปลามีชีวิตได้ และ S. suis ปัจจุบันเหลือ 29 ซีโรไทป์',
+      },
+    ],
+  },
+  {
     version: '5.130.5',
     date: '2026-09-24',
     headline: 'Swine Medicine มีข้อเขียนเพิ่ม 11 ข้อ จากโจทย์เก่าและจุดที่รุ่นพี่ทำเครื่องหมายไว้',

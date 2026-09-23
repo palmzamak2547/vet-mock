@@ -10,12 +10,12 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 6485;
-export const QB_SOURCE_TOTAL = 6552;
+export const QB_TOTAL = 6551;
+export const QB_SOURCE_TOTAL = 6618;
 export const QB_BLOCKED_TOTAL = 67;
 
 export const Q_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 346,
+  'aquatic-clinic': 412,
   'avian-medicine': 519,
   'biochem-1': 272,
   'cliapprum': 136,
@@ -65,7 +65,7 @@ export const Q_COUNTS_BY_SUBJECT = {
 // HomeView SubjectGrid renders these for the per-card Q badges so
 // the page doesn't need to scan the full QB at render time.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 346,
+  'aquatic-clinic': 412,
   'avian-medicine': 519,
   'biochem-1': 272,
   'cliapprum': 134,
@@ -115,7 +115,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
 // A subject missing from this map has neither, and its Panic card falls
 // back to the whole subject.
 export const Q_PANIC_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 233,
+  'aquatic-clinic': 299,
   'avian-medicine': 216,
   'biochem-1': 272,
   'cliapprum': 8,
@@ -160,7 +160,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
 // lib/exam-scope.js. A subject absent from a paper holds nothing for it.
 export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
   midterm: {
-    'aquatic-clinic': 144,
+    'aquatic-clinic': 210,
     'avian-medicine': 201,
     'biochem-1': 272,
     'cliapprum': 8,
@@ -242,7 +242,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
 // the number and the set have to come from the same rule.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
   '1-mid': {
-    'aquatic-clinic': 216,
+    'aquatic-clinic': 282,
     'avian-medicine': 495,
     'com1': 4,
     'com2': 14,
@@ -337,7 +337,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
   '1-mid': {
     2: 104,
     4: 139,
-    5: 3143,
+    5: 3209,
   },
   '1-final': {
     2: 104,
@@ -363,15 +363,15 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
 export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
   '1-mid': {
     'aquatic-clinic': {
-      'aqua-amphibian': 10,
-      'aqua-fish-biology': 41,
-      'aqua-frog-diseases': 12,
-      'aqua-intro-thailand': 82,
+      'aqua-amphibian': 12,
+      'aqua-fish-biology': 45,
+      'aqua-frog-diseases': 14,
+      'aqua-intro-thailand': 98,
       'aqua-life-support': 10,
-      'aqua-ornamental': 11,
-      'aqua-shrimp-immunology': 16,
-      'aqua-turtle': 12,
-      'aqua-water-quality': 22,
+      'aqua-ornamental': 38,
+      'aqua-shrimp-immunology': 21,
+      'aqua-turtle': 15,
+      'aqua-water-quality': 29,
     },
     'avian-medicine': {
       'avian-adeno': 23,
@@ -2062,7 +2062,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 3905,
+  5: 3971,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2074,7 +2074,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 3889,
+  5: 3955,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2082,20 +2082,20 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
 // retained under "__unassigned__" so nested totals remain exact.
 export const Q_COUNTS_BY_TOPIC = {
   "aquatic-clinic": {
-    "aqua-amphibian": 10,
+    "aqua-amphibian": 12,
     "aqua-aquarium-vet": 3,
     "aqua-conservation": 11,
     "aqua-disease-control": 35,
-    "aqua-fish-biology": 41,
+    "aqua-fish-biology": 45,
     "aqua-fish-diseases": 44,
-    "aqua-frog-diseases": 12,
-    "aqua-intro-thailand": 82,
+    "aqua-frog-diseases": 14,
+    "aqua-intro-thailand": 98,
     "aqua-life-support": 10,
-    "aqua-ornamental": 11,
+    "aqua-ornamental": 38,
     "aqua-shrimp-diseases": 37,
-    "aqua-shrimp-immunology": 16,
-    "aqua-turtle": 12,
-    "aqua-water-quality": 22,
+    "aqua-shrimp-immunology": 21,
+    "aqua-turtle": 15,
+    "aqua-water-quality": 29,
   },
   "avian-medicine": {
     "avian-adeno": 23,
@@ -3223,4 +3223,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-23T17:28:48.243Z
+// Built: 2026-09-23T18:14:15.388Z
