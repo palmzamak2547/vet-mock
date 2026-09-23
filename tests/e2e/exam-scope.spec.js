@@ -116,6 +116,12 @@ test('a year with no timetable in the app makes no claim about its exams', async
 });
 
 test('the config page names the phase it was opened under', async ({ page, context }) => {
+  // ซ้อมใกล้สอบ opens the soonest paper, and names the phase only when that
+  // subject has questions checked against this term's slides. On the real
+  // clock the soonest paper changes by the hour: from 11:30 on 23 Sep it was
+  // equine repro (none), and the test failed. The evening of 22 Sep puts
+  // equine medicine midterm next, which has them.
+  await page.clock.setFixedTime(new Date('2026-09-22T20:00:00+07:00'));
   await seed(context, '1-mid');
   await home(page);
   const near = page.locator('button.vmx-mode-card', { hasText: 'ซ้อมใกล้สอบ' });
