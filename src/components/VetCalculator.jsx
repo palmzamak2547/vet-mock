@@ -50,8 +50,8 @@ function RERTab() {
   return (
     <div>
       <Field label="น้ำหนัก (kg)" value={bw} onChange={setBw} placeholder="20" type="number" />
-      <Result label="RER (linear, 30·BW + 70)" value={fmt(linear, ' kcal/day')} accent />
-      <Result label="RER (allometric, 70·BW^0.75)" value={fmt(allometric, ' kcal/day')} />
+      <Result label="RER (linear, 30 × BW + 70)" value={fmt(linear, ' kcal/day')} accent />
+      <Result label="RER (allometric, 70 × BW^0.75)" value={fmt(allometric, ' kcal/day')} />
       <Note>
         ใช้ <strong>linear</strong> สำหรับ 2-30 kg (ง่าย แม่น)., <strong>allometric</strong>
         สำหรับ &lt; 2 kg หรือ &gt; 30 kg.

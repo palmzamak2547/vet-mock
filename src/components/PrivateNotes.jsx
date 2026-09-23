@@ -163,7 +163,7 @@ export default function PrivateNotes() {
             <li key={row.slug} className={open?.slug === row.slug ? 'is-open' : ''}>
               <button type="button" onClick={() => view(row.slug)}>
                 <b>{row.title}</b>
-                <small>{row.parts} ส่วน · แก้ล่าสุด {fmtWhen(row.updatedAt)}</small>
+                <small>{row.parts} ส่วน แก้ล่าสุด {fmtWhen(row.updatedAt)}</small>
               </button>
               <button type="button" className="ad-pn-del" onClick={() => remove(row.slug)} aria-label={`ลบ ${row.title}`}>ลบ</button>
             </li>

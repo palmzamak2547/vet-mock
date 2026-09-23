@@ -34,7 +34,7 @@ export function createInteraction(root, { variant = "magnet", scope, onEvent = (
   }
   if (variant === "tilt") {
     const card = button("", "vm-tilt vm-study-card");
-    card.innerHTML = '<span class="vm-card-kicker">YOUR LITTLE STUDY BUDDY</span><span class="vm-card-paw">' + svgPaw() + "</span><strong>Small steps.<br>Big progress.</strong><span>เลื่อนเมาส์บนการ์ด · แตะเพื่อเด้ง</span>";
+    card.innerHTML = '<span class="vm-card-kicker">YOUR LITTLE STUDY BUDDY</span><span class="vm-card-paw">' + svgPaw() + "</span><strong>Small steps.<br>Big progress.</strong><span>เลื่อนเมาส์บนการ์ด หรือแตะเพื่อเด้ง</span>";
     scope.on(card, "pointermove", (e) => {
       if (scope.reduced() || !scope.enabled() || e.pointerType === "touch") return;
       const r = wrap.getBoundingClientRect();

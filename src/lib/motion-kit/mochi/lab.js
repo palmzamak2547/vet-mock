@@ -39,7 +39,7 @@ export function createMochiLab(root, { scope, id = "mochi-hello", onEvent = () =
   root.append(wrap);
   let selected = id, disposed = false, rig3 = null, loading3 = false, modeError = null, mode = "2d", requestedMode = "2d", camera = 0, autoTime = 0, autoIndex = 0, lastPat = -10;
   const pet = createMochi(viewport, { scope, size: "100%", state: MOCHI_ACTIONS[id]?.[0] || "idle", onComplete: (state) => {
-    if (selected !== "mochi-showcase" && !modeError && !loading3) status.textContent = "Mochi รอเล่นต่ออยู่ · กดอีกครั้งได้เลย";
+    if (selected !== "mochi-showcase" && !modeError && !loading3) status.textContent = "Mochi รอเล่นต่ออยู่ กดอีกครั้งได้เลย";
     onEvent({ type: "mochi-complete", state });
   } });
   const draw3 = scope.frame((dt, t) => {
@@ -61,7 +61,7 @@ export function createMochiLab(root, { scope, id = "mochi-hello", onEvent = () =
     pet.setState(next === "mochi-showcase" ? sequence[0] : MOCHI_ACTIONS[next][0]);
     pose.value = pet.state;
     replay.textContent = { "mochi-pet": "ลูบหัวอีกที ♡", "mochi-treat": "ส่งขนมให้ Mochi", "mochi-five": "ไฮไฟว์ ✋" }[next] || "เล่นอีกครั้ง ↻";
-    status.textContent = modeError || (next === "mochi-showcase" ? "ท่าต่อกันอัตโนมัติ · เลือก 2D หรือ 3D ได้" : next === "mochi-pet" ? "ลากเบา ๆ บนหัว หรือกดลูบหัวด้านล่าง" : "ลองเปลี่ยนท่าขณะน้องขยับได้เลย");
+    status.textContent = modeError || (next === "mochi-showcase" ? "ท่าต่อกันอัตโนมัติ เลือก 2D หรือ 3D ได้" : next === "mochi-pet" ? "ลากเบา ๆ บนหัว หรือกดลูบหัวด้านล่าง" : "ลองเปลี่ยนท่าขณะน้องขยับได้เลย");
     if (scope.reduced() && rig3) rig3.render(pet.motion.pose(), 0, 0);
   }
   async function setMode(next) {
