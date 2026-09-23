@@ -165,9 +165,14 @@ export function recordingMoments(raw) {
   return out;
 }
 
+// The second rides as "at", not YouTube's "t": App reads "t" on any address it
+// boots on as a shared quiz's sender time (share-link.js), and a moment link
+// carrying it opened a tab that believed a friend had sent a challenge.
+export const MOMENT_SECOND_PARAM = 'at';
+
 /** Where a moment opens: the clip page, playing that clip from that second. */
 export function momentHref({ videoId, seconds }) {
-  return `/app/videos?v=${encodeURIComponent(videoId)}&t=${seconds}`;
+  return `/app/videos?v=${encodeURIComponent(videoId)}&${MOMENT_SECOND_PARAM}=${seconds}`;
 }
 
 /** The moment a /app/videos address asks for, or null when it names no clip. */
@@ -175,7 +180,7 @@ export function momentFromSearch(search) {
   const params = new URLSearchParams(search || '');
   const videoId = params.get('v') || '';
   if (!new RegExp(`^${ID}$`).test(videoId)) return null;
-  const seconds = Number(params.get('t') || 0);
+  const seconds = Number(params.get(MOMENT_SECOND_PARAM) || 0);
   // A second that is not one plays the clip from its start rather than not at all.
   return { videoId, seconds: Number.isInteger(seconds) && seconds >= 0 && seconds <= 86400 ? seconds : 0 };
 }

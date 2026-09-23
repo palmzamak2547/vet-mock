@@ -282,10 +282,10 @@ test('text with no taught recording has no moment', () => {
 
 test('a moment is an address on the clip page, and the address reads back', () => {
   const href = momentHref({ videoId: 'WRttiWQ7D9s', seconds: 1608 });
-  assert.equal(href, '/app/videos?v=WRttiWQ7D9s&t=1608');
+  assert.equal(href, '/app/videos?v=WRttiWQ7D9s&at=1608');
   assert.deepEqual(momentFromSearch(href.slice(href.indexOf('?'))), { videoId: 'WRttiWQ7D9s', seconds: 1608 });
   assert.deepEqual(momentFromSearch('?subject=food-industry&v=-9iGaiDgagI'), { videoId: '-9iGaiDgagI', seconds: 0 });
-  assert.deepEqual(momentFromSearch('?v=WRttiWQ7D9s&t=abc'), { videoId: 'WRttiWQ7D9s', seconds: 0 });
+  assert.deepEqual(momentFromSearch('?v=WRttiWQ7D9s&at=abc'), { videoId: 'WRttiWQ7D9s', seconds: 0 });
   for (const none of ['', '?subject=food-industry', '?v=short', '?v=<script>alert</script>', null]) {
     assert.equal(momentFromSearch(none), null, JSON.stringify(none));
   }
@@ -296,11 +296,11 @@ const momentLinks = (tree) => findAll(tree, (n) => n.type === 'a' && String(n.pr
 test('a cited moment opens its clip at that second, in a tab of its own', () => {
   // #207000 cites [26:48] in source and [26:48-28:22] in verified: one moment.
   const { tree } = renderChip(bankRow('food-industry', 207000), { open: true });
-  assert.deepEqual(momentLinks(tree).map((a) => a.props.href), ['/app/videos?v=WRttiWQ7D9s&t=1608']);
+  assert.deepEqual(momentLinks(tree).map((a) => a.props.href), ['/app/videos?v=WRttiWQ7D9s&at=1608']);
   // #207001 cites [26:48-28:22] and [28:22]: two moments of one clip.
   const two = renderChip(bankRow('food-industry', 207001), { open: true });
   const links = momentLinks(two.tree);
-  assert.deepEqual(links.map((a) => a.props.href), ['/app/videos?v=WRttiWQ7D9s&t=1608', '/app/videos?v=WRttiWQ7D9s&t=1702']);
+  assert.deepEqual(links.map((a) => a.props.href), ['/app/videos?v=WRttiWQ7D9s&at=1608', '/app/videos?v=WRttiWQ7D9s&at=1702']);
   for (const a of links) {
     // The question the student is on stays open behind it.
     assert.equal(a.props.target, '_blank');
@@ -367,7 +367,7 @@ async function mountPlayer(modal) {
 }
 
 test('the clip page opens a cited moment at once and plays from that second', async () => {
-  const modal = playerIn(renderVideoView('?v=WRttiWQ7D9s&t=1608'));
+  const modal = playerIn(renderVideoView('?v=WRttiWQ7D9s&at=1608'));
   assert.ok(modal, 'the player opens without a tap');
   const { opts, tree } = await mountPlayer(modal);
   assert.equal(opts.videoId, 'WRttiWQ7D9s');
@@ -379,16 +379,42 @@ test('the clip page opens a cited moment at once and plays from that second', as
   assert.equal(out.props.href, 'https://www.youtube.com/watch?v=WRttiWQ7D9s&t=1608s');
 });
 
+const searchOf = (href) => href.slice(href.indexOf('?'));
+
+test('a cited moment\'s address is not read as a challenge link', async () => {
+  // App reads a shared quiz's sender from the address it boots on, and a
+  // "t" there is the sender's time. A moment link carrying its second as "t"
+  // made the tab it opened believe a friend had sent a challenge, and its
+  // exam and results screens then showed "เพื่อน ท้าคุณ" to nobody's sending.
+  const { readSenderInfoFromLocation } = await import('../../src/lib/share-link.js');
+  const saved = window.location.search;
+  try {
+    for (const seconds of [5, 1608, 7765]) {
+      window.location.search = searchOf(momentHref({ videoId: 'WRttiWQ7D9s', seconds }));
+      assert.equal(readSenderInfoFromLocation(), null, window.location.search);
+    }
+  } finally {
+    window.location.search = saved;
+  }
+});
+
+test('an address naming a clip the app does not have opens nothing', () => {
+  // Any eleven characters fit the id's shape; only a clip of the app's own
+  // opens, so a crafted link cannot play a stranger's video as a lecture.
+  assert.equal(playerIn(renderVideoView(searchOf(momentHref({ videoId: 'ZZZZZZZZZZZ', seconds: 60 })))), null);
+  assert.ok(playerIn(renderVideoView(searchOf(momentHref({ videoId: 'WRttiWQ7D9s', seconds: 60 })))));
+});
+
 test('closing a cited clip takes the moment out of the address, and nothing else', () => {
   const writes = [];
   const replaceState = window.history.replaceState;
   window.history.replaceState = (state, _title, url) => writes.push(String(url));
   try {
-    playerIn(renderVideoView('?subject=food-industry&v=WRttiWQ7D9s&t=1608')).props.onClose();
+    playerIn(renderVideoView('?subject=food-industry&v=WRttiWQ7D9s&at=1608')).props.onClose();
     assert.deepEqual(writes, ['https://vetmock.vercel.app/app/videos?subject=food-industry']);
     // A clip opened from a card leaves the address alone, as before.
     writes.length = 0;
-    const modal = playerIn(renderVideoView('?v=WRttiWQ7D9s&t=1608'));
+    const modal = playerIn(renderVideoView('?v=WRttiWQ7D9s&at=1608'));
     window.location.href = 'https://vetmock.vercel.app/app/videos?subject=food-industry';
     modal.props.onClose();
     assert.deepEqual(writes, []);
@@ -401,7 +427,7 @@ test('the clip page without a moment behaves as it always did', async () => {
   assert.equal(playerIn(renderVideoView('')), null, 'nothing opens by itself');
   assert.equal(playerIn(renderVideoView('?subject=food-industry')), null);
   // A clip opened from a card plays from its start.
-  const modal = playerIn(renderVideoView('?v=WRttiWQ7D9s&t=1608'));
+  const modal = playerIn(renderVideoView('?v=WRttiWQ7D9s&at=1608'));
   const card = { ...modal, props: { ...modal.props, video: { url: 'https://www.youtube.com/watch?v=WRttiWQ7D9s', topic: 'x', subject: 'food-industry' } } };
   const { opts, tree } = await mountPlayer(card);
   assert.equal('start' in opts.playerVars, false);

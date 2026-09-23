@@ -11,7 +11,7 @@ import { VIDEO_META } from '../data/video-summaries-meta.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { readLocalExtra, writeLocalExtra } from '../lib/local-extras.js';
 import { videoSubjectForNavigation, videoSubjectNavigation } from '../lib/video-navigation.js';
-import { momentFromSearch, sessionLabel } from '../lib/source-label.js';
+import { momentFromSearch, sessionLabel, MOMENT_SECOND_PARAM } from '../lib/source-label.js';
 
 // Stable defaults: a fresh [] or {} per render would make the state initialiser
 // look like a new value every time.
@@ -300,15 +300,19 @@ function usePlaylistPreview(playlistId) {
 // VideoView — main page (grid of subject cards / playlist tiles)
 // ============================================================
 
-// A citation under a question links here as ?v=<clip>&t=<second>
-// (QSourceChip). That clip opens at once and plays from that second; `start`
-// rides on the clip object, so a clip opened from a card still starts at 0.
+// A citation under a question links here as ?v=<clip>&at=<second>
+// (QSourceChip, momentHref). That clip opens at once and plays from that
+// second; `start` rides on the clip object, so a clip opened from a card still
+// starts at 0. Only a clip the app knows opens: any eleven characters fit the
+// id's shape, and a crafted address must not play a stranger's video under
+// the app's own lecture title.
 function citedMoment() {
   const moment = typeof window === 'undefined' ? null : momentFromSearch(window.location.search);
-  if (!moment) return null;
+  const topic = moment && (VIDEO_META[moment.videoId]?.title || sessionLabel(moment.videoId));
+  if (!topic) return null;
   return {
     url: `https://www.youtube.com/watch?v=${moment.videoId}`,
-    topic: VIDEO_META[moment.videoId]?.title || sessionLabel(moment.videoId) || 'คลิปคาบเรียน',
+    topic,
     subject: VIDEO_META[moment.videoId]?.subject || '',
     start: moment.seconds,
   };
@@ -322,9 +326,9 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
     setPlaying(null);
     try {
       const url = new URL(window.location.href);
-      if (!url.searchParams.has('v') && !url.searchParams.has('t')) return;
+      if (!url.searchParams.has('v') && !url.searchParams.has(MOMENT_SECOND_PARAM)) return;
       url.searchParams.delete('v');
-      url.searchParams.delete('t');
+      url.searchParams.delete(MOMENT_SECOND_PARAM);
       window.history.replaceState(window.history.state, '', url);
     } catch { /* the address is a nicety */ }
   };
