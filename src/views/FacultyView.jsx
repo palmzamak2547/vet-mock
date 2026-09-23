@@ -16,7 +16,7 @@
 //   • setView('faculty') from anywhere
 // ============================================================
 
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import { lazy, memo, Suspense, useEffect, useMemo, useState } from 'react';
 import { ALL_INSTRUCTORS } from '../data/instructors.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
@@ -314,7 +314,7 @@ export default function FacultyView({ goHome }) {
             <FacultyCard
               key={ins.slug}
               instructor={ins}
-              onClick={() => setOpenInstructor(ins)}
+              onOpen={setOpenInstructor}
             />
           ))}
         </div>
@@ -333,14 +333,17 @@ export default function FacultyView({ goHome }) {
   );
 }
 
-function FacultyCard({ instructor, onClick }) {
+// Memoised with a stable onOpen (the state setter): every keystroke in the
+// search box re-renders FacultyView, and without this every card on screen
+// rendered again with it. A card now renders only when it first appears.
+const FacultyCard = memo(function FacultyCard({ instructor, onOpen }) {
   const { nameEn, nameTh, position, department, areas, papers, subjects, status, verification } = instructor;
   const deptId = classifyDept(department);
   const deptMeta = DEPT_META[deptId];
 
   return (
     <button
-      onClick={onClick}
+      onClick={() => onOpen(instructor)}
       style={{
         all: 'unset',
         cursor: 'pointer',
@@ -475,4 +478,4 @@ function FacultyCard({ instructor, onClick }) {
       </div>
     </button>
   );
-}
+});
