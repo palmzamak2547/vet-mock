@@ -38,16 +38,25 @@ const textOf = (q) => `${q.q || ''}\n${q.explain || ''}\n${q.model_answer || ''}
 /**
  * @param questions bank rows
  * @param resolve (term, subject) -> entry | null, as the term detector uses it
+ * @param covered (text, subject) -> [{ start, end }] spans that already open a
+ *   card (detectTerms). A word inside one ("antennal" in "antennal gland") is
+ *   not a gap, and listing it would send an author to write a card that exists.
  * @returns [{ subject, term, questions }] for terms used by >= minQuestions
  */
-export function glossaryGaps(questions, { resolve, minQuestions = 5, subjects = null } = {}) {
+export function glossaryGaps(questions, { resolve, covered = null, minQuestions = 5, subjects = null } = {}) {
   const bySubject = new Map();
   for (const q of questions) {
     if (!q?.subject || (subjects && !subjects.has(q.subject))) continue;
     const seen = new Set();
     const counts = bySubject.get(q.subject) || new Map();
     bySubject.set(q.subject, counts);
-    for (const m of textOf(q).matchAll(TOKEN)) {
+    let text = textOf(q);
+    // Blank each covered span with spaces of the same length, so the offsets
+    // of the spans after it still hold.
+    for (const s of covered ? covered(text, q.subject) : []) {
+      text = text.slice(0, s.start) + ' '.repeat(s.end - s.start) + text.slice(s.end);
+    }
+    for (const m of text.matchAll(TOKEN)) {
       const key = m[1].toLowerCase();
       if (PLAIN.has(key) || seen.has(key)) continue;
       seen.add(key);
@@ -77,11 +86,13 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const { QB, loadQB } = await import(pathToFileURL(path.join(root, 'src/data/questions.js')).href);
   const { resolveGlossaryEntry } = await import(pathToFileURL(path.join(root, 'src/data/glossary.js')).href);
   const { isQuestionDeliverable } = await import(pathToFileURL(path.join(root, 'src/data/question-delivery.generated.js')).href);
+  const { detectTerms } = await import(pathToFileURL(path.join(root, 'src/lib/term-detect.js')).href);
   await loadQB();
   const only = arg('--subject', null);
   const top = Number(arg('--top', 25));
   const gaps = glossaryGaps(QB.filter(isQuestionDeliverable), {
     resolve: resolveGlossaryEntry,
+    covered: detectTerms,
     minQuestions: Number(arg('--min', 5)),
     subjects: only ? new Set([only]) : null,
   });

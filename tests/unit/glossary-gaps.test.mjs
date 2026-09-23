@@ -25,6 +25,17 @@ test('a term five questions use, with no in-scope entry, is reported', () => {
   assert.deepEqual(glossaryGaps([1, 2, 3, 4, 5].map((i) => row(i, `disease of the water ${i}`)), { resolve: none }), [], 'plain English words are not terms');
 });
 
+test('a word inside a phrase that already opens a card is not a gap', () => {
+  // "antennal" alone resolves to nothing, but "antennal gland" has a card, so
+  // listing "antennal" would send an author to write a card that exists.
+  const qs = [1, 2, 3, 4, 5].map((i) => row(i, `antennal gland ของกุ้ง ${i}`));
+  assert.equal(resolveGlossaryEntry('antennal', 'aquatic-clinic'), null);
+  assert.deepEqual(glossaryGaps(qs, { resolve: resolveGlossaryEntry, covered: detectTerms }), []);
+  const alone = [1, 2, 3, 4, 5].map((i) => row(i, `antennal ของกุ้ง ${i}`));
+  assert.deepEqual(glossaryGaps(alone, { resolve: resolveGlossaryEntry, covered: detectTerms }).map((g) => g.term), ['antennal'],
+    'the same word outside the phrase still counts');
+});
+
 test('every aquatic entry is scoped to aquatic and names a term aquatic questions use', async () => {
   await loadQB();
   const aq = QB.filter((q) => q.subject === 'aquatic-clinic' && isQuestionDeliverable(q));
