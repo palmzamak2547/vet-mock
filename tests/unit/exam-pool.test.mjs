@@ -27,6 +27,8 @@ import {
 import { SUBJECTS, semesterForSubject, yearForSubject, hiddenTopicIdsFor } from '../../src/data/curriculum.js';
 import { scopeOfQuestion } from '../../src/lib/exam-scope.js';
 import { BLOCKED_QUESTIONS } from '../../src/data/question-delivery.generated.js';
+import { SEMESTER } from '../../src/data/semester.js';
+import { isCurrentScopeQuestion, isHighPredictionQuestion } from '../../src/lib/question-prediction.js';
 
 let nextId = 900_000;
 const q = (subject, extra = {}) => ({
@@ -262,6 +264,45 @@ test('the curated modes are not narrowed by the paper', () => {
   const fin = q('equine-medicine', { examScope: 'final' });
   const pool = build({ questions: [fin], practiceMode: 'weak', weakQuestions: [fin.id], selectedYear: 5, selectedPhase: '1-mid' });
   assert.deepEqual(ids(pool), [fin.id]);
+});
+
+// ── Home's current-scope and predicted sets ────────────────────────────
+test('the current-scope and predicted sets serve only what their metadata vouches for', () => {
+  // Home launches both. Each is a filter on top of ordinary practice, so
+  // without it the student is handed every question in the subject under a
+  // label that promises checked answers from this term's slides.
+  const vouched = (extra = {}) => q('equine-medicine', {
+    answerStatus: 'verified', curriculumVersion: SEMESTER.id, examScope: 'midterm', sourceType: 'lecture-derived',
+    predictionTier: 'medium', predictionSignals: ['current-lecture'], ...extra,
+  });
+  const high = vouched({
+    predictionTier: 'high', predictionSignals: ['current-lecture', 'senior-recurrence'],
+    predictionEvidence: ['current lecture slides', 'recurs across senior papers'],
+  });
+  const medium = vouched();
+  const unchecked = vouched({ answerStatus: 'needs-review' });
+  const otherTerm = vouched({ curriculumVersion: '2568-2' });
+  const plain = q('equine-medicine', { examScope: 'midterm' });
+  // The term the curriculum is on now, so the test follows SEMESTER forward.
+  const term = SEMESTER.id.split('-')[1];
+  const mid = `${term}-mid`;
+  const phase = { curriculumVersion: SEMESTER.id, selectedPhase: mid };
+  assert.ok(isCurrentScopeQuestion(high, phase) && isCurrentScopeQuestion(medium, phase), 'the vouched fixtures lost a field');
+  assert.ok(isHighPredictionQuestion(high, phase) && !isHighPredictionQuestion(medium, phase));
+
+  const args = { questions: [high, medium, unchecked, otherTerm, plain], subject: 'equine-medicine', selectedYear: 5, selectedPhase: mid };
+  assert.deepEqual(new Set(ids(build({ ...args, practiceMode: 'current-scope' }))), new Set([high.id, medium.id]),
+    'current-scope served an unchecked, other-term or unlabelled question');
+  assert.deepEqual(ids(build({ ...args, practiceMode: 'predicted' })), [high.id], 'predicted served below the high tier');
+  assert.equal(build({ ...args, practiceMode: 'all' }).length, 5, 'ordinary practice is not narrowed by the metadata');
+
+  // The paper is part of the promise. A final-paper item stays out of the
+  // midterm set even for a named subject, where the never-empty guard would
+  // otherwise hand it back.
+  const finalOnly = vouched({ examScope: 'final' });
+  const named = { questions: [finalOnly], subject: 'equine-medicine', selectedYear: 5, practiceMode: 'current-scope' };
+  assert.deepEqual(build({ ...named, selectedPhase: mid }), [], 'a final-paper item was served as midterm scope');
+  assert.deepEqual(ids(build({ ...named, selectedPhase: `${term}-final` })), [finalOnly.id]);
 });
 
 // ── A lecturer's part, past papers, formats, exclusions ───────────────

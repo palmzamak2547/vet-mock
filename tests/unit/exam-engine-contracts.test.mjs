@@ -30,7 +30,7 @@ import { readFileSync } from 'node:fs';
 import { buildExamPool } from '../../src/lib/exam-pool.js';
 import { stillWrong } from '../../src/lib/wrong-pool.js';
 
-const APP =readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+const APP = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 
 function between(startMarker, endMarker) {
   const a = APP.indexOf(startMarker);
