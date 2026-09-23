@@ -15,6 +15,7 @@
 import { lazy, Suspense, useState } from 'react';
 import { RichText } from '../lib/richtext.jsx';
 import { isCorrect } from '../hooks/utils.js';
+import { getShuffledOptions } from '../lib/option-shuffle.js';
 import { recordTodaysQAnswer } from '../lib/daily-q.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { buildShareUrl } from '../lib/share-link.js';
@@ -37,6 +38,9 @@ export default function TodaysQModal({ q, onClose, onDone }) {
   if (!q) return null;
   const correctIdx = q.answer;
   const subjectMeta = SUBJECTS.find((s) => s.id === q.subject);
+  // The exam screen's order, so the author's key position does not show
+  // through the letter. Picks and the reveal stay on source indices.
+  const { displayOptions, displayToOriginal } = getShuffledOptions(q);
 
   function pickAnswer(idx) {
     if (revealed) return;
@@ -81,7 +85,8 @@ export default function TodaysQModal({ q, onClose, onDone }) {
         </div>
 
         <div className="vmx-options" style={{ marginTop: 12 }}>
-          {q.options.map((opt, i) => {
+          {displayOptions.map((opt, row) => {
+            const i = displayToOriginal[row];
             const isCorrectAnswer = i === correctIdx;
             const isPicked = picked === i;
             let bg = '';
@@ -97,13 +102,13 @@ export default function TodaysQModal({ q, onClose, onDone }) {
             }
             return (
               <button
-                key={i}
+                key={row}
                 className="vmx-option"
                 onClick={() => pickAnswer(i)}
                 disabled={revealed}
                 style={{ background: bg || undefined, border: border || undefined }}
               >
-                <div className="vmx-option-letter">{String.fromCharCode(65 + i)}</div>
+                <div className="vmx-option-letter">{String.fromCharCode(65 + row)}</div>
                 <div className="vmx-option-text">
                   <RichText text={opt} />
                 </div>

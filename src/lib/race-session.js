@@ -1,4 +1,5 @@
 import { questionRevision } from './study-events.js';
+import { getShuffledOptions } from './option-shuffle.js';
 export async function resolveRaceQuestions(snapshot, bank, loadYear) {
   if (!snapshot.started_at) return [];
   const qIds = snapshot.question_ids;
@@ -8,6 +9,33 @@ export async function resolveRaceQuestions(snapshot, bank, loadYear) {
   if (qs.filter(Boolean).length !== qIds.length) throw new Error('โหลดข้อสอบไม่ครบ กรุณาลองเชื่อมต่อใหม่');
   if (qs.some(q => snapshot.question_versions?.[q.id] !== questionRevision(q))) throw new Error('ข้อสอบในเครื่องเป็นคนละรุ่นกับห้องนี้ กรุณารีเฟรชก่อนเข้าห้อง');
   return qs;
+}
+
+// The room's questions only change with the room, its start, the set or the
+// revisions, so the 2 s poll reuses the resolved list (the same array, so the
+// questions state is left unchanged) instead of scanning the bank for every
+// question again.
+// A failed resolve is dropped, so the next poll retries it.
+export function createRaceQuestionCache() {
+  let key = null, bankRef = null, pending = null;
+  return (snapshot, bank, loadYear) => {
+    const next = JSON.stringify([snapshot.code, snapshot.started_at, snapshot.subject, snapshot.year,
+      snapshot.question_ids, snapshot.question_versions ?? null]);
+    if (!pending || next !== key || bank !== bankRef) {
+      const attempt = resolveRaceQuestions(snapshot, bank, loadYear);
+      key = next; bankRef = bank; pending = attempt;
+      attempt.catch(() => { if (pending === attempt) pending = null; });
+    }
+    return pending;
+  };
+}
+
+// Options in the same per-session shuffled order as the exam screen. Each
+// row keeps its SOURCE index: the room's key is stored by source index, so
+// that is what answer_race must receive, never the row position.
+export function raceOptionRows(q) {
+  const { displayOptions, displayToOriginal } = getShuffledOptions(q);
+  return displayOptions.map((text, row) => ({ text, original: displayToOriginal[row] }));
 }
 
 export function mergeRaceProgress(previous, incoming) {
