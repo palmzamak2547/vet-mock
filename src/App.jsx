@@ -42,9 +42,13 @@ import { isFlashcardCompatible } from './hooks/sr-filter.js';
 // class (STABILITY rule 5) and removes a runtime <style> injection —
 // the sheet now loads in <head> before JS runs (better FOUC behavior).
 import './styles.css';
+// The landing sheet stays here although only the landing draws most of it:
+// it also carries two app-wide rules (the small-button size on phones up to
+// 430 px, the subject-card hover on touch screens). The back-office sheet is
+// imported by AdminView, so its chunk carries it and a student's boot does
+// not (tests/unit/boot-weight.test.mjs).
 import './styles-landing.css';
-import './styles-admin.css';
-import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
+import { hasSupabase, hasSavedSession, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
 import { checkIsAdmin } from './lib/admin-api.js';
 import { parseWikiPath, wikiPath } from './lib/vetwiki/url.js';
 import { useExamResultOutbox } from './hooks/useExamResultOutbox.js';
@@ -1217,7 +1221,10 @@ export default function App() {
       // instructor directory (~330 KB, ~75 KB gzipped), which is exactly
       // the kind of chunk this prefetch exists to keep off the boot path.
       // It loads on demand, one tap away, like ExamView.
-      import('./views/AuthView.jsx').catch(() => {});
+      // The sign-in screen only for someone who might sign in: a student who
+      // already holds a session would download it and the auth helpers it
+      // pulls in for nothing. It still loads on demand if they sign out.
+      if (!hasSavedSession()) import('./views/AuthView.jsx').catch(() => {});
     }, { timeout: 5000 });
     return () => cic(id);
   }, []);
@@ -1281,10 +1288,12 @@ export default function App() {
 
   // In-flight exam runtime — extracted to src/hooks/useExamSession.js
   // 2026-05-27. The hook owns: questions · currentIdx · answers ·
-  // timeLeft · examStartTime + the 5 navigation callbacks
+  // the deadline · examStartTime + the 5 navigation callbacks
   // (answerCurrent · nextQ · prevQ · jumpToQ · replayQuestions) + the
-  // 2 timer effects (shadow-start + tick). localStorage hydration of
-  // in-flight exam ('vmx-inflight-exam') also lives in the hook.
+  // 2 timer effects (shadow-start + deadline watch). The seconds on screen
+  // tick inside ExamClock, so App does not re-render once a second.
+  // localStorage hydration of in-flight exam ('vmx-inflight-exam') also
+  // lives in the hook.
   //
   // startExam / finishExam stay in App.jsx because they touch many
   // OTHER concerns (streak, XP, quests, Supabase save, year resolution).
@@ -1320,7 +1329,7 @@ export default function App() {
     questions, setQuestions,
     answers, setAnswers,
     currentIdx, setCurrentIdx,
-    timeLeft, setTimeLeft, questionDeadline,
+    setTimeLeft, questionDeadline,
     examStartTime, setExamStartTime,
     sessionId: examSessionId, getQuestionTimes,
     currentQ, currentAnswer,
@@ -3087,7 +3096,7 @@ export default function App() {
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
-              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
+              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, questionDeadline, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki }} />}

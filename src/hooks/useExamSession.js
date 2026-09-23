@@ -9,7 +9,7 @@
 // session.resetSession() instead of mutating raw setters.
 //
 // What this hook owns:
-//   • State:    questions · currentIdx · answers · timeLeft · examStartTime
+//   • State:    questions · currentIdx · answers · questionDeadline · examStartTime
 //   • Derived:  currentQ · currentAnswer
 //   • Actions:  answerCurrent · nextQ · prevQ · jumpToQ · replayQuestions
 //   • Lifecycle helpers (called BY App.jsx, not internal):
@@ -79,13 +79,18 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
       && initialSaved.currentIdx >= 0 && initialSaved.currentIdx < initialSaved.questions.length
       ? initialSaved.currentIdx : 0
   ));
-  const [timeLeft, setRemainingTime] = useState(0);
+  // The clock is a deadline, not a count of seconds left. The countdown a
+  // student watches ticks inside ExamClock; this hook only needs to know
+  // whether the deadline has passed, so App renders once when time is up
+  // rather than once a second. It starts true, as a clock of 0 did: nothing
+  // is timed until a set primes it.
+  const [timeUp, setTimeUp] = useState(true);
   const [questionDeadline, setQuestionDeadline] = useState(null);
   const [examStartTime, setExamStartTime] = useState(null);
   const setTimeLeft = useCallback((seconds) => {
     const duration = Math.max(0, Number(seconds) || 0);
     setQuestionDeadline(Date.now() + duration * 1000);
-    setRemainingTime(duration);
+    setTimeUp(duration <= 0);
   }, []);
   // Whether THIS session runs on one clock for the whole set. Held in a ref,
   // not read from the prop, so a session that started under the per-question
@@ -110,9 +115,9 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
 
   // ── Shadow-start clock ──────────────────────────────────────────────
   // When entering view='exam' via a share-link (?qset=) the normal
-  // startExam() never ran, so timeLeft + examStartTime stay at their
-  // defaults. Without this priming effect, the timer tick below would
-  // immediately see timeLeft=0 and auto-fire onFinish on single-Q quizzes.
+  // startExam() never ran, so the deadline + examStartTime stay at their
+  // defaults. Without this priming effect, the deadline watch below would
+  // immediately see time up and auto-fire onFinish on single-Q quizzes.
   useEffect(() => {
     if (view !== 'exam') return;
     if (questions.length === 0) return;
@@ -123,7 +128,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     setTimeLeft(sessionBudget ? budgetFor(questions) : timeForQuestion(questions[currentIdx], timePerQ));
   }, [view, questions, currentIdx, timePerQ, examStartTime, ownerId, sessionBudget, budgetFor]);
 
-  // ── Timer tick ──────────────────────────────────────────────────────
+  // ── Deadline watch ──────────────────────────────────────────────────
   // Reconciles with wall time. On time-up: advance to next Q
   // (with its own per-Q time budget) or fire onFinish if on the last Q.
   useEffect(() => {
@@ -132,10 +137,10 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     // ?qset= URL references Q ids that no longer exist in QB.
     if (questions.length === 0) return;
     // Don't auto-tick until the shadow-start effect above has primed
-    // the clock. Otherwise the very first render sees timeLeft=0 and
-    // immediately fires onFinish on single-Q exams.
+    // the clock. Otherwise the very first render sees the unprimed clock
+    // as time up and immediately fires onFinish on single-Q exams.
     if (examStartTime === null) return;
-    if (timeLeft <= 0) {
+    if (timeUp) {
       // One clock for the set: time up ends the paper wherever they are, the
       // same as an invigilator calling time. The per-question clock instead
       // carries them to the next question with a fresh budget.
@@ -147,17 +152,28 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
       } else onFinish?.();
       return;
     }
-    const update = () => setRemainingTime(secondsUntilDeadline(questionDeadline));
-    const t = setTimeout(update, 1000);
-    document.addEventListener('visibilitychange', update);
-    window.addEventListener('pageshow', update);
+    // Watch the deadline without touching state until it passes. The check
+    // reads the wall clock at least once a second, and at once when the tab
+    // comes back or the page is restored from the back-forward cache, the
+    // same cadence as the per-second tick it replaces. That cadence is the
+    // point: one timeout armed for the deadline runs on the clock that stands
+    // still while a device sleeps, and would end the paper minutes late.
+    let t = null;
+    const check = () => {
+      clearTimeout(t);
+      if (secondsUntilDeadline(questionDeadline) <= 0) { setTimeUp(true); return; }
+      t = setTimeout(check, Math.min(1000, questionDeadline - Date.now()));
+    };
+    check();
+    document.addEventListener('visibilitychange', check);
+    window.addEventListener('pageshow', check);
     return () => {
       clearTimeout(t);
-      document.removeEventListener('visibilitychange', update);
-      window.removeEventListener('pageshow', update);
+      document.removeEventListener('visibilitychange', check);
+      window.removeEventListener('pageshow', check);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- onFinish stable via ref pattern in caller
-  }, [timeLeft, questionDeadline, view, useTimer, currentIdx, questions, timePerQ, examStartTime]);
+  }, [timeUp, questionDeadline, view, useTimer, currentIdx, questions, timePerQ, examStartTime]);
 
   // ── Navigation callbacks ────────────────────────────────────────────
   const answerCurrent = useCallback((val) => {
@@ -288,7 +304,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     sessionClockRef.current = saved.clock === 'session';
     if (Number.isFinite(saved.questionDeadline) && saved.questionDeadline > 0) {
       setQuestionDeadline(saved.questionDeadline);
-      setRemainingTime(secondsUntilDeadline(saved.questionDeadline));
+      setTimeUp(secondsUntilDeadline(saved.questionDeadline) <= 0);
     } else if (sessionClockRef.current) {
       setTimeLeft(budgetFor(saved.questions));
     } else {
@@ -319,7 +335,8 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     questions, setQuestions,
     answers, setAnswers,
     currentIdx, setCurrentIdx,
-    timeLeft, setTimeLeft,
+    setTimeLeft,
+    // What the clock on screen counts down to (ExamClock).
     questionDeadline,
     examStartTime, setExamStartTime,
     sessionId, getQuestionTimes, sessionOwner, completedAt,

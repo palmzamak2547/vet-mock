@@ -26,6 +26,10 @@ import { QB_TOTAL, QB_BLOCKED_TOTAL, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUN
 import { CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
 import { hasSupabase } from '../lib/supabase.js';
 import PrivateNotes from '../components/PrivateNotes.jsx';
+// The back-office styles travel with this lazy chunk: one account opens
+// this page, so they are not part of the stylesheet every student's boot
+// waits for. Every rule in it is scoped to .ad-* (tests/unit/boot-weight).
+import '../styles-admin.css';
 
 const RANGES = [[7, '7 วัน'], [30, '30 วัน'], [90, '90 วัน'], [0, 'ทั้งหมด']];
 const rangeName = (days) => RANGES.find(([d]) => d === days)?.[1] || '';
