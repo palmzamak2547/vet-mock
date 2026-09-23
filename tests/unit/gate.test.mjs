@@ -52,6 +52,19 @@ test('lint:all is lint:data then lint:dist, and only lint:dist reads the build (
   }
 });
 
+// regen-all-order.test.mjs keeps regen:all out of `lint:all` and `gate` by
+// reading their text, which now reads only "npm run lint:data && npm run
+// lint:dist" and "node scripts/gate.mjs". The gate runs every lint:data and
+// lint:dist leaf, so the rule is pinned on those leaves: a generator in the
+// gate only ever checks, it never rewrites the file it is judging.
+test('every generator the gate runs is a --check, so the gate never regenerates', () => {
+  const leaves = [...resolveSteps(scripts, 'lint:data'), ...resolveSteps(scripts, 'lint:dist')];
+  const generators = leaves.filter((l) => /(^|[\\/])(regen-|stats\.mjs)/.test(l.args?.[0] || l.command));
+  assert.ok(generators.length >= 10, `the scan finds the generator checks (${generators.length})`);
+  for (const g of generators) assert.ok(g.args.includes('--check'), `${g.label} (${g.command}) would rewrite its output`);
+  assert.doesNotMatch(`${scripts['lint:data']} ${scripts['lint:dist']}`, /regen:/);
+});
+
 test('the gate scripts are the orchestrator, its concurrent variant and a no-script fallback', () => {
   assert.equal(scripts.gate, 'node scripts/gate.mjs');
   assert.equal(scripts['gate:fast'], 'node scripts/gate.mjs --e2e-concurrent');

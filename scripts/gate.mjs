@@ -247,7 +247,9 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
   const t0 = Date.now();
   const timings = [];
   const start = treeState(cwd);
-  const strays = listProcesses();
+  // Listed during phase A, so the scan costs no time; --data-only never builds
+  // and has nothing to check it for, and would only wait on it before exiting.
+  const strays = dataOnly ? null : listProcesses();
 
   const moved = (phase) => {
     const change = treeChange(start, treeState(cwd));
