@@ -43,7 +43,7 @@ import './styles.css';
 // imported by AdminView, so its chunk carries it and a student's boot does
 // not (tests/unit/boot-weight.test.mjs).
 import './styles-landing.css';
-import { hasSupabase, hasSavedSession, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
+import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
 import { checkIsAdmin } from './lib/admin-api.js';
 import { parseWikiPath, wikiPath } from './lib/vetwiki/url.js';
 import { useExamResultOutbox } from './hooks/useExamResultOutbox.js';
@@ -67,22 +67,24 @@ import { panicPool } from './lib/question-metadata.js';
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import OptionalFeature from './components/OptionalFeature.jsx';
 
-// Lazy — HomeView is 1300+ lines and pulls curriculum.js + changelog.
-// Splitting it shaves ~80KB off the initial bundle. We prefetch it on
-// idle below so navigation feels instant even on first cold load.
-const HomeView = lazy(() => import('./views/HomeView.jsx'));
-
-// Lazy — pulls VIDEO_SUMMARIES (~200KB) into a separate chunk so it
-// only ships when the user actually presses ⌘K (or clicks the search
-// button). Keeps the first-paint bundle small.
-const CommandPalette = lazy(() => import('./components/CommandPalette.jsx'));
-
-// InstructorModal — also lazy. Opens when an instructor is selected
-// from the palette or from a topic card.
-const InstructorModal = lazy(() => import('./components/InstructorModal.jsx'));
-// VoiceSettings — sliders for TTS pace + pause defaults. Lazy because
-// most sessions never tweak voice — keep the main bundle slim.
-const VoiceSettings = lazy(() => import('./components/VoiceSettings.jsx'));
+// Lazy: every screen and heavy modal loads as its own chunk. The
+// declarations, and the idle prefetch of the likely next views, live in
+// src/app/lazy-views.js.
+import {
+  HomeView, CommandPalette, InstructorModal, VoiceSettings,
+  ImageAnnotator, LabView, WrapUpView, AtlasView, PinboardView,
+  ContributeView, ReviewQueueView, BenchView, AdminView, HighlightToCard,
+  ShortcutSheet, OnboardingTour, SubjectSelectView, ConfigView, ExamView,
+  ResultsView, ReviewView, SRSessionView, DashboardView,
+  QuestionManagerView, AuthView, GroupsView, GroupDetailView,
+  LeaderboardView, ScheduleView, ScoresView, VideoView, AboutView,
+  FeedbackView, IgCardStudioView, YearSelectView, LandingView,
+  PhaseSelectView, TopicSelectView, NotesView, LibraryView,
+  KnowledgeView, ReadingChecklistView, FacultyView, PrivacyView,
+  AccountSettingsView, OfflineGameView, MochiView, PomodoroView,
+  RaceView, PdfAnnotateView, ImageOcclusionView, PhaseWrappedView,
+  useIdlePrefetch,
+} from './app/lazy-views.js';
 
 // VetCalculator — clinical math modal (RER, fluid, drug dose, transfusion,
 // DKA insulin). It used to be imported eagerly "because the FAB needs to
@@ -137,48 +139,10 @@ function VetCalculatorHost() {
 import ToolsFAB from './components/ToolsFAB.jsx';
 import BottomNav from './components/BottomNav.jsx';
 
-// Sketchpad — opens a blank canvas for free-form drawing/diagrams.
-// Lazy because it includes canvas + image processing only used when
-// the user opens the pad.
-const ImageAnnotator = lazy(() => import('./components/ImageAnnotator.jsx'));
-
-// VetMock's practical Imaging Lab intentionally stays separate from the
-// full CUVETSMO imaging workstation. Keep it lazy: the Cornerstone/DICOM
-// stack is only downloaded when a learner opens #lab.
-const LabView = lazy(() => import('./views/LabView.jsx'));
-const WrapUpView = lazy(() => import('./views/WrapUpView.jsx'));
-const AtlasView = lazy(() => import('./views/AtlasView.jsx'));
-
-// PinboardView — personal pin grid (Qs / summaries / flashcards /
-// notes). Lazy because most sessions never open it.
-const PinboardView = lazy(() => import('./views/PinboardView.jsx'));
-const ContributeView = lazy(() => import('./views/ContributeView.jsx'));
-const ReviewQueueView = lazy(() => import('./views/ReviewQueueView.jsx'));
-
-// BenchView — the screening-test bench. Self-contained and rarely the first
-// screen of a session, so it stays out of the main bundle.
-const BenchView = lazy(() => import('./views/BenchView.jsx'));
-
-// AdminView — the back-office. One account ever sees it, so its code stays
-// out of everyone else's bundle.
-const AdminView = lazy(() => import('./views/AdminView.jsx'));
-
-// HighlightToCard — listens for text selections inside
-// .vmx-summary-body (SummaryModal content) and offers a floating
-// "✨ ทำ flashcard" button that opens a save modal. Lazy because
-// users only need it when reading a video summary.
-const HighlightToCard = lazy(() => import('./components/HighlightToCard.jsx'));
-
 // XpChip + QuestsPanel are NOT imported here anymore (2026-05-27):
 //   • XpChip moved into components/HeaderBar.jsx (its only consumer).
 //   • QuestsPanel is owned by HomeView (renders under the streak row).
 // Removing the dead App-level imports keeps the module graph honest.
-
-// ShortcutSheet — Linear-style "press ? for keyboard help" modal.
-// Tiny, but only opened on `?` press from exam/review, so lazy keeps
-// it out of the first-paint bundle.
-const ShortcutSheet = lazy(() => import('./components/ShortcutSheet.jsx'));
-const OnboardingTour = lazy(() => import('./components/OnboardingTour.jsx'));
 
 // View Transitions API helper — wraps a state update so the browser
 // snapshots the DOM before/after and crossfades automatically. Falls
@@ -225,58 +189,6 @@ function withTransition(updateFn) {
 // 2026-05-24 to slim App.jsx (1994 → ~1800 LOC). Imports at top.
 // Mobile-clipping fix history: see STABILITY.md rule 11.
 
-
-// Lazy — pulled in only when the user navigates to that view.
-// Big wins on cold load (esp. iPad / mobile Safari) since NotesView,
-// VideoView, GroupsView etc. ship their own chunks.
-const SubjectSelectView = lazy(() => import('./views/SubjectSelectView.jsx'));
-const ConfigView = lazy(() => import('./views/ConfigView.jsx'));
-const ExamView = lazy(() => import('./views/ExamView.jsx'));
-const ResultsView = lazy(() => import('./views/ResultsView.jsx'));
-const ReviewView = lazy(() => import('./views/ReviewView.jsx'));
-const SRSessionView = lazy(() => import('./views/SRSessionView.jsx'));
-const DashboardView = lazy(() => import('./views/DashboardView.jsx'));
-const QuestionManagerView = lazy(() => import('./views/QuestionManagerView.jsx'));
-const AuthView = lazy(() => import('./views/AuthView.jsx'));
-const GroupsView = lazy(() => import('./views/GroupsView.jsx'));
-const GroupDetailView = lazy(() => import('./views/GroupDetailView.jsx'));
-const LeaderboardView = lazy(() => import('./views/LeaderboardView.jsx'));
-const ScheduleView = lazy(() => import('./views/ScheduleView.jsx'));
-const ScoresView = lazy(() => import('./views/ScoresView.jsx'));
-const VideoView = lazy(() => import('./views/VideoView.jsx'));
-const AboutView = lazy(() => import('./views/AboutView.jsx'));
-const FeedbackView = lazy(() => import('./views/FeedbackView.jsx'));
-const IgCardStudioView = lazy(() => import('./views/IgCardStudioView.jsx'));
-const YearSelectView = lazy(() => import('./views/YearSelectView.jsx'));
-// Marketing landing — signed-out front door. Full-bleed (own nav/footer),
-// so it early-returns before the app chrome. Own scoped CSS.
-const LandingView = lazy(() => import('./views/LandingView.jsx'));
-const PhaseSelectView = lazy(() => import('./views/PhaseSelectView.jsx'));
-const TopicSelectView = lazy(() => import('./views/TopicSelectView.jsx'));
-const NotesView = lazy(() => import('./views/NotesView.jsx'));
-const LibraryView = lazy(() => import('./views/LibraryView.jsx'));
-const KnowledgeView = lazy(() => import('./views/KnowledgeView.jsx'));
-const ReadingChecklistView = lazy(() => import('./views/ReadingChecklistView.jsx'));
-const FacultyView = lazy(() => import('./views/FacultyView.jsx'));
-const PrivacyView = lazy(() => import('./views/PrivacyView.jsx'));
-const AccountSettingsView = lazy(() => import('./views/AccountSettingsView.jsx'));
-const OfflineGameView = lazy(() => import('./views/OfflineGameView.jsx'));
-const MochiView = lazy(() => import('./views/MochiView.jsx'));
-// PomodoroView — Forest-style focus timer with a hatching-chick companion.
-// Lazy: only loaded when the user opens it from the command palette.
-const PomodoroView = lazy(() => import('./views/PomodoroView.jsx'));
-const RaceView = lazy(() => import('./views/RaceView.jsx'));
-// PdfAnnotateView — lazy because pdfjs-dist is heavy (~1 MB) and only
-// needed when the user opens "PDF + annotate" from the command palette.
-// Worker chunk is dynamically imported inside the view itself.
-const PdfAnnotateView = lazy(() => import('./views/PdfAnnotateView.jsx'));
-const ImageOcclusionView = lazy(() => import('./views/ImageOcclusionView.jsx'));
-// PhaseWrappedView — end-of-phase recap (Spotify-Wrapped style).
-// Only shown after a phase ends or opened via command palette,
-// so lazy-load is appropriate.
-const PhaseWrappedView = lazy(() => import('./views/PhaseWrappedView.jsx'));
-// (Removed MockExamView/MockResultsView — an unwired English "DEMO ONLY" stub.
-//  "Mock Exam" nav now routes into the real config → exam engine. 2026-07-24)
 
 import TopLoadingBar, { ViewFallback } from './components/TopLoadingBar.jsx';
 import { MochiProvider } from './components/MochiContext.jsx';
@@ -951,42 +863,9 @@ export default function App() {
     setView('year-select');
   }, [view, selectedYearStored, setView]);
 
-  // Idle-time prefetch — once the page is settled, quietly download
-  // the chunks for views the user is most likely to visit next. By
-  // the time they click, the chunk is already in the browser cache
-  // and Suspense doesn't even need to show a fallback.
-  //
-  // We don't prefetch heavy/rare views (ExamView, NotesView with
-  // notes-com3 ~270KB) — those still load on demand to keep the
-  // initial idle bandwidth small. Sticking to small-medium views
-  // that are 1 click away from home.
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    // A visitor who asked their browser to save data gets nothing they did
-    // not tap for. The chunks still load on demand, one tap later.
-    if (navigator.connection?.saveData) return;
-    const ric = window.requestIdleCallback || ((cb) => setTimeout(cb, 1500));
-    const cic = window.cancelIdleCallback || clearTimeout;
-    const id = ric(() => {
-      // HomeView itself first — landing page for nearly every session,
-      // so prefetch it the moment we're idle. (Even if `initialView` is
-      // 'year-select', we'll be on home within ~3 seconds anyway.)
-      import('./views/HomeView.jsx').catch(() => {});
-      // Most-common next steps from home
-      import('./views/SubjectSelectView.jsx').catch(() => {});
-      import('./views/ConfigView.jsx').catch(() => {});
-      import('./views/ScheduleView.jsx').catch(() => {});
-      // FacultyView is not on this list on purpose: it carries the whole
-      // instructor directory (~330 KB, ~75 KB gzipped), which is exactly
-      // the kind of chunk this prefetch exists to keep off the boot path.
-      // It loads on demand, one tap away, like ExamView.
-      // The sign-in screen only for someone who might sign in: a student who
-      // already holds a session would download it and the auth helpers it
-      // pulls in for nothing. It still loads on demand if they sign out.
-      if (!hasSavedSession()) import('./views/AuthView.jsx').catch(() => {});
-    }, { timeout: 5000 });
-    return () => cic(id);
-  }, []);
+  // Once the page is idle, warm the views a student most likely opens next.
+  // The list and its reasons are in src/app/lazy-views.js.
+  useIdlePrefetch();
 
   // Keep the screen on while an exam is in progress (Web Wake Lock
   // API). Auto-releases when leaving exam view or component unmount.
