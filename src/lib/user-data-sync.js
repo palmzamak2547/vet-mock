@@ -277,62 +277,6 @@ function writeLocalCommit(storage, {
   return { durable: true, mirrorError };
 }
 
-// One edit writes only what it changed: the sync meta, so the dirty set
-// survives a reload, and the changed fields' own keys. The outbox record,
-// written just before, is what boot replays, so an edit needs neither the
-// journal nor the full snapshot. Committing both on every edit rewrote the
-// whole history (megabytes for a long one) on each bookmark tap or flashcard
-// rating. The snapshot is brought up to date later, by compaction, hydrate and
-// flush. Each key is tried on its own so one failed write does not skip the
-// rest; the fields that failed are returned so compaction can write them again.
-function writeLocalEdit(storage, { patch, meta, metaStorageKey, owner }) {
-  let mirrorError = null;
-  const failed = [];
-  try {
-    storage.setItem(metaStorageKey, JSON.stringify(meta));
-    storage.setItem(CURRENT_OWNER_KEY, JSON.stringify(owner));
-  } catch (error) {
-    mirrorError = error;
-  }
-  for (const [field, value] of Object.entries(patch)) {
-    const definition = USER_DATA_FIELDS[field];
-    if (!definition) continue;
-    try {
-      storage.setItem(definition.localKey, JSON.stringify(value));
-    } catch (error) {
-      mirrorError = mirrorError || error;
-      failed.push(field);
-    }
-  }
-  return { mirrorError, failed };
-}
-
-// When the page is next idle, a little after the last edit. Edits in between
-// ride along with the one already requested, so a burst of taps compacts once.
-export function createIdleScheduler(delayMs = 3000) {
-  return {
-    request(fn) {
-      const handle = { timer: null, idle: null };
-      handle.timer = setTimeout(() => {
-        handle.timer = null;
-        if (typeof requestIdleCallback === 'function') {
-          handle.idle = requestIdleCallback(() => { handle.idle = null; fn(); }, { timeout: 2000 });
-        } else {
-          fn();
-        }
-      }, delayMs);
-      // Node only: a pending compaction must not hold a test process open.
-      handle.timer?.unref?.();
-      return handle;
-    },
-    cancel(handle) {
-      if (!handle) return;
-      if (handle.timer !== null) clearTimeout(handle.timer);
-      if (handle.idle !== null && typeof cancelIdleCallback === 'function') cancelIdleCallback(handle.idle);
-    },
-  };
-}
-
 function meaningful(field, value) {
   return !sameValue(value, USER_DATA_FIELDS[field].initial);
 }
@@ -848,12 +792,7 @@ export function createBrowserLifecycle() {
       const onOffline = () => listener('offline');
       const onVisible = () => {
         if (document.visibilityState === 'visible') listener('visible');
-        else if (document.visibilityState === 'hidden') listener('hidden');
       };
-      // Leaving the page is the last moment to bring the snapshot up to date.
-      // Nothing depends on it (the outbox replays at boot), but it keeps the
-      // record that boot reads current.
-      const onPageHide = () => listener('hidden');
       const onStorage = (event) => {
         const key = event.key;
         if (
@@ -870,13 +809,11 @@ export function createBrowserLifecycle() {
       window.addEventListener('online', onOnline);
       window.addEventListener('offline', onOffline);
       window.addEventListener('storage', onStorage);
-      window.addEventListener('pagehide', onPageHide);
       document.addEventListener('visibilitychange', onVisible);
       return () => {
         window.removeEventListener('online', onOnline);
         window.removeEventListener('offline', onOffline);
         window.removeEventListener('storage', onStorage);
-        window.removeEventListener('pagehide', onPageHide);
         document.removeEventListener('visibilitychange', onVisible);
       };
     },
@@ -894,7 +831,6 @@ export function createUserDataSync({
   now = () => Date.now(),
   random = () => Math.random(),
   debounceMs = 1500,
-  idle = createIdleScheduler(),
 } = {}) {
   if (!storage?.getItem || !storage?.setItem || !storage?.removeItem) {
     throw new TypeError('createUserDataSync requires a storage adapter');
@@ -970,11 +906,6 @@ export function createUserDataSync({
   let retryAttempt = 0;
   // Writes lost in a row to another device's write (SYNC_CONFLICT).
   let conflictStreak = 0;
-  // The principal snapshot lags this store's edits until compaction runs;
-  // fields whose own key could not be written wait here for it too.
-  let compactionDue = false;
-  let compactionHandle = null;
-  const unmirroredFields = new Set();
   let timer = null;
   let disposed = false;
   let operationSequence = 0;
@@ -992,9 +923,7 @@ export function createUserDataSync({
 
   const syncShape = (patch = {}) => {
     const dirtyFields = new Set(Object.keys(activeMeta.dirty || {}));
-    // Signed out there is nothing to push, and an outbox record waiting for
-    // compaction is not "pending" work.
-    for (const operation of userId ? readPendingOperations(storage, userId) : []) {
+    for (const operation of readPendingOperations(storage, userId)) {
       for (const field of Object.keys(operation.changes)) {
         if (USER_DATA_FIELDS[field]?.remoteKey) dirtyFields.add(field);
       }
@@ -1045,84 +974,6 @@ export function createUserDataSync({
 
   const persistMeta = (meta) => {
     storage.setItem(metaKey(userId), JSON.stringify(meta));
-  };
-
-  // Bring the principal snapshot up to date with this store's edits, once per
-  // burst instead of on every edit. Runs when the page is idle, when it is
-  // hidden or closed, and before the principal changes; hydrate and flush
-  // write the snapshot themselves. Until it runs, the outbox record and the
-  // fields' own keys hold every edit, and boot and the storage handler replay
-  // the outbox onto the snapshot, so a crash in between loses nothing.
-  const compact = () => {
-    if (compactionHandle !== null) {
-      idle.cancel(compactionHandle);
-      compactionHandle = null;
-    }
-    if (!compactionDue) return;
-    const snapshot = replayOperations(
-      state.data,
-      readPendingOperations(storage, userId),
-    ).data;
-    let failed = false;
-    try {
-      if (storage.getItem(JOURNAL_KEY) !== null) {
-        // A whole-dataset commit could not finish its mirror writes and left
-        // its journal, which the next boot would replay over these newer
-        // edits. Every per-edit commit used to replace it; supersede it with
-        // a full commit of the current data instead.
-        failed = Boolean(writeLocalCommit(storage, {
-          patch: snapshot,
-          meta: activeMeta,
-          metaStorageKey: metaKey(userId),
-          snapshot,
-          snapshotStorageKey: dataKey(userId),
-          owner: principalKey(userId),
-        }).mirrorError);
-      } else {
-        storage.setItem(dataKey(userId), JSON.stringify(snapshot));
-        storage.setItem(metaKey(userId), JSON.stringify(activeMeta));
-        for (const field of unmirroredFields) {
-          storage.setItem(USER_DATA_FIELDS[field].localKey, JSON.stringify(snapshot[field]));
-        }
-      }
-    } catch {
-      failed = true;
-    }
-    if (failed) {
-      // Still due: the next edit, hide or close tries again. Every edit is
-      // in the outbox meanwhile. This is what a failed per-edit commit said.
-      publish(state.data, syncShape({
-        phase: 'error',
-        error: publicError(
-          'LOCAL_MIRROR_FAILED',
-          'บันทึกการเปลี่ยนแปลงไว้แล้ว แต่ยังจัด snapshot ในเครื่องไม่สำเร็จ',
-          false,
-        ),
-      }));
-      return;
-    }
-    compactionDue = false;
-    unmirroredFields.clear();
-    // Signed out there is nowhere to push to, so once the snapshot holds this
-    // store's edits its outbox record is redundant. Left in place it grew one
-    // cumulative record per page load until localStorage filled.
-    if (!userId) discardOperationRecord();
-  };
-
-  const requestCompaction = () => {
-    compactionDue = true;
-    if (compactionHandle !== null || disposed) return;
-    compactionHandle = idle.request(() => {
-      compactionHandle = null;
-      if (!disposed) compact();
-    });
-  };
-
-  /** A whole-dataset commit just wrote the snapshot and every field's key. */
-  const compactedBy = (commit) => {
-    if (commit.mirrorError) return;
-    compactionDue = false;
-    unmirroredFields.clear();
   };
 
   const schedule = (kind, delay) => {
@@ -1273,7 +1124,6 @@ export function createUserDataSync({
         owner: userId,
       });
       activeMeta = nextMeta;
-      compactedBy(commit);
       hydratedUserId = userId;
       retryAttempt = 0;
 
@@ -1453,7 +1303,7 @@ export function createUserDataSync({
         revision: activeMeta.revision + 1,
         lastSyncedAt: syncedAt,
       };
-      const committed = writeLocalCommit(storage, {
+      writeLocalCommit(storage, {
         patch: afterAck.data,
         meta: nextMeta,
         metaStorageKey: metaKey(userId),
@@ -1462,7 +1312,6 @@ export function createUserDataSync({
         owner: userId,
       });
       activeMeta = nextMeta;
-      compactedBy(committed);
       publish(afterAck.data, syncShape({
         phase: hasRemotePending ? 'pending' : 'synced',
         error: null,
@@ -1630,33 +1479,52 @@ export function createUserDataSync({
       }
     }
 
-    // The outbox record above is the durable copy. What follows mirrors the
-    // edit into the meta and the changed fields' keys; the full snapshot waits
-    // for compaction. A failed mirror write must not make the accepted edit
-    // disappear in memory.
-    const edit = writeLocalEdit(storage, {
-      patch: changed,
-      meta: nextMeta,
-      metaStorageKey: metaKey(userId),
-      owner: principalKey(userId),
-    });
-    activeMeta = nextMeta;
-    for (const field of edit.failed) unmirroredFields.add(field);
-    requestCompaction();
-    publish(nextData, syncShape({
-      phase: userId
-        ? (
-          lifecycle.isOnline() === false
-            ? 'offline'
-            : (hydratedUserId === userId ? 'pending' : 'hydrating')
-        )
-        : 'local-only',
-      error: edit.mirrorError
-        ? publicError('LOCAL_MIRROR_FAILED', 'ข้อมูลปลอดภัยใน recovery journal และจะลองจัดเก็บอีกครั้ง')
-        : null,
-    }));
-    if (userId && hydratedUserId === userId) schedule('flush', debounceMs);
-    return { accepted: true, generation: nextMeta.revision };
+    try {
+      const commit = writeLocalCommit(storage, {
+        patch: changed,
+        meta: nextMeta,
+        metaStorageKey: metaKey(userId),
+        snapshot: nextData,
+        snapshotStorageKey: dataKey(userId),
+        owner: principalKey(userId),
+      });
+      activeMeta = nextMeta;
+      // An anonymous principal has no remote to push to, so once the snapshot
+      // commit above succeeded the outbox record is pure redundancy — and
+      // nothing else ever deleted it (flush() returns early without a userId).
+      // Left in place it grew one cumulative record per page load, each
+      // carrying `base` AND `value` of the whole dataset, until localStorage
+      // filled and every finished exam was silently dropped.
+      if (!userId) discardOperationRecord();
+      publish(nextData, syncShape({
+        phase: userId
+          ? (
+            lifecycle.isOnline() === false
+              ? 'offline'
+              : (hydratedUserId === userId ? 'pending' : 'hydrating')
+          )
+          : 'local-only',
+        error: commit.mirrorError
+          ? publicError('LOCAL_MIRROR_FAILED', 'ข้อมูลปลอดภัยใน recovery journal และจะลองจัดเก็บอีกครั้ง')
+          : null,
+      }));
+      if (userId && hydratedUserId === userId) schedule('flush', debounceMs);
+      return { accepted: true, generation: nextMeta.revision };
+    } catch {
+      // The append-only operation above is already durable. A failed shared
+      // snapshot mirror must not make the accepted edit disappear in-memory.
+      activeMeta = nextMeta;
+      publish(nextData, syncShape({
+        phase: 'error',
+        error: publicError(
+          'LOCAL_MIRROR_FAILED',
+          'บันทึกการเปลี่ยนแปลงไว้แล้ว แต่ยังจัด snapshot ในเครื่องไม่สำเร็จ',
+          false,
+        ),
+      }));
+      if (userId && hydratedUserId === userId) schedule('flush', debounceMs);
+      return { accepted: true, generation: nextMeta.revision };
+    }
   };
 
   const sessionChanged = (nextUserId) => {
@@ -1673,9 +1541,6 @@ export function createUserDataSync({
       return { accepted: true };
     }
 
-    // The outgoing principal's snapshot is what its next sign-in or sign-out
-    // restore reads, so it is brought up to date before anything switches.
-    compact();
     clearTimer();
     sessionGeneration += 1;
     activeOperation = null;
@@ -1797,10 +1662,6 @@ export function createUserDataSync({
 
   const handleLifecycle = (reason) => {
     if (disposed) return;
-    if (reason === 'hidden') {
-      compact();
-      return;
-    }
     if (reason === 'storage') {
       const persisted = readPrincipalData(storage, userId);
       const base = persisted.found ? persisted.data : state.data;
@@ -1873,8 +1734,6 @@ export function createUserDataSync({
       throw new TypeError(`Unknown UserDataSync command: ${command.type}`);
     },
     close() {
-      if (disposed) return;
-      compact();
       disposed = true;
       pauseLifecycle();
       listeners.clear();
