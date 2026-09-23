@@ -10,7 +10,6 @@ import StatePanel from '../components/StatePanel.jsx';
 
 // A group page is three independent requests, one per tab.
 const SECTIONS = ['members', 'questions', 'leaderboard'];
-const FETCH = { members: getGroupMembers, questions: getSharedQuestions, leaderboard: getLeaderboard };
 const ALL_PENDING = { members: true, questions: true, leaderboard: true };
 const NONE_FAILED = { members: '', questions: '', leaderboard: '' };
 
@@ -44,6 +43,7 @@ export default function GroupDetailView({ group, user, goBack }) {
   // Resolves once every requested section has settled, each having painted
   // the moment its own answer arrived.
   const load = (keys = SECTIONS) => {
+    const request = { members: getGroupMembers, questions: getSharedQuestions, leaderboard: getLeaderboard };
     const all = (value) => Object.fromEntries(keys.map((key) => [key, value]));
     setPending((p) => ({ ...p, ...all(true) }));
     setFailed((f) => ({ ...f, ...all('') }));
@@ -54,7 +54,7 @@ export default function GroupDetailView({ group, user, goBack }) {
         apply();
         setPending((p) => ({ ...p, [key]: false }));
       };
-      return FETCH[key](group.id).then(
+      return request[key](group.id).then(
         (rows) => settle(() => show[key](rows)),
         (err) => settle(() => setFailed((f) => ({ ...f, [key]: thaiError(err, 'โหลดข้อมูลกลุ่มไม่สำเร็จ') }))),
       );
@@ -62,11 +62,19 @@ export default function GroupDetailView({ group, user, goBack }) {
   };
   const retryFailed = () => load(SECTIONS.filter((key) => failed[key]));
 
+  // GroupsView records which account opened the group. If the session is now
+  // another account (a direct switch while this page is open, or a sign-out
+  // and a different sign-in with the page still selected), nothing of the
+  // group is fetched or drawn, its invite code included: back to the list,
+  // which loads the new account's groups.
+  const foreign = group.openedBy != null && group.openedBy !== user.id;
+
   useEffect(() => {
+    if (foreign) { goBack(); return undefined; }
     load();
-    // Leaving the group makes every answer still in flight stale.
+    // Leaving the group or the account makes every answer in flight stale.
     return () => { for (const key of SECTIONS) latest.current[key] += 1; };
-  }, [group.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [group.id, user.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const status = pending[tab] ? 'loading' : failed[tab] ? 'error' : 'ready';
   // The tab on screen speaks for itself; this is for a failure out of sight.
@@ -83,6 +91,8 @@ export default function GroupDetailView({ group, user, goBack }) {
       alertDialog(`คัดลอกอัตโนมัติไม่ได้บนเบราว์เซอร์นี้ — กดค้าง code นี้แล้วเลือก Copy:\n\n${group.code}`);
     }
   };
+
+  if (foreign) return null;
 
   return (
     <>

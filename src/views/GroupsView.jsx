@@ -22,32 +22,58 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
   // the state is what disables the button.
   const busyRef = useRef(false);
   const [busy, setBusy] = useState(false);
+  // Whose groups `groups` holds, and who is signed in now. An email link for
+  // another account, opened in this browser while the list is on screen,
+  // switches the session straight from one account to the other without
+  // passing through signed-out, so this view stays mounted. The list is drawn
+  // only for the account it was loaded for, and an answer that arrives for
+  // the previous account (a load, a create) is dropped.
+  const [listOwner, setListOwner] = useState(user.id);
+  const ownerRef = useRef(user.id);
+  const stillFor = (owner) => ownerRef.current === owner;
 
   const load = async () => {
+    const owner = user.id;
+    if (!stillFor(owner)) return;
     setLoading(true);
     setLoadError('');
-    try { setGroups(await getMyGroups(user.id)); }
-    catch (e) { setLoadError(thaiError(e, 'โหลดกลุ่มไม่สำเร็จ')); }
-    finally { setLoading(false); }
+    try {
+      const rows = await getMyGroups(owner);
+      if (stillFor(owner)) setGroups(rows);
+    } catch (e) { if (stillFor(owner)) setLoadError(thaiError(e, 'โหลดกลุ่มไม่สำเร็จ')); }
+    finally { if (stillFor(owner)) setLoading(false); }
   };
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => {
+    ownerRef.current = user.id;
+    if (listOwner !== user.id) {
+      setGroups([]); setError('');
+      setShowCreate(false); setShowJoin(false); setNewName(''); setJoinCode('');
+      setListOwner(user.id);
+    }
+    load();
+  }, [user.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const shownGroups = listOwner === user.id ? groups : [];
+  const listLoading = loading || listOwner !== user.id;
 
   const handleCreate = async (e) => {
     e.preventDefault();
     if (busyRef.current) return;
     setError('');
     if (!newName.trim()) return;
+    const owner = user.id;
     busyRef.current = true;
     setBusy(true);
     try {
-      const g = await createGroup(newName.trim(), user.id);
+      const g = await createGroup(newName.trim(), owner);
+      if (!stillFor(owner)) return;
       // From the latest list, not the one this render captured: a first load
       // that lands while the create is out must not be overwritten.
       setGroups((prev) => [...prev, { ...g, role: 'admin' }]);
       setNewName(''); setShowCreate(false);
       alertDialog(`สร้างกลุ่ม "${g.name}" สำเร็จ!\nรหัส invite: ${g.code}\n\nส่งรหัสนี้ให้เพื่อนเพื่อ join`);
-    } catch (e) { setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
+    } catch (e) { if (stillFor(owner)) setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
     finally { busyRef.current = false; setBusy(false); }
   };
 
@@ -56,20 +82,27 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
     if (busyRef.current) return;
     setError('');
     if (!joinCode.trim()) return;
+    const owner = user.id;
     busyRef.current = true;
     setBusy(true);
     try {
-      await joinGroupByCode(joinCode.trim(), user.id);
+      await joinGroupByCode(joinCode.trim(), owner);
+      if (!stillFor(owner)) return;
       setJoinCode(''); setShowJoin(false);
       await load();
-    } catch (e) { setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
+    } catch (e) { if (stillFor(owner)) setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
     finally { busyRef.current = false; setBusy(false); }
   };
 
+  // The group page is told which account opened it, so it can refuse to draw
+  // this group (name, invite code) if the session has moved on by then.
+  const openGroup = (g) => { setActiveGroup({ ...g, openedBy: user.id }); setView('group-detail'); };
+
   const handleLeave = async (groupId) => {
     if (!(await confirmDialog({ title: 'ออกจากกลุ่มนี้?', confirmLabel: 'ออกจากกลุ่ม', tone: 'danger' }))) return;
-    try { await leaveGroup(groupId, user.id); await load(); }
-    catch (e) { setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
+    const owner = user.id;
+    try { await leaveGroup(groupId, owner); if (stillFor(owner)) await load(); }
+    catch (e) { if (stillFor(owner)) setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
   };
 
   return (
@@ -117,23 +150,23 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
 
       {error && <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-rose-soft)', marginBottom: 16, fontSize: 13 }}>⚠️ {error}</div>}
 
-      <div className="vmx-section-label">กลุ่มของฉัน ({groups.length})</div>
+      <div className="vmx-section-label">กลุ่มของฉัน ({shownGroups.length})</div>
 
-      {loading ? (
+      {listLoading ? (
         <StatePanel kind="loading" title="กำลังโหลดกลุ่มของคุณ…" />
       ) : loadError ? (
         <StatePanel kind="error" title="โหลดกลุ่มไม่สำเร็จ" body={loadError} actionLabel="ลองอีกครั้ง" onAction={load} />
-      ) : groups.length === 0 ? (
+      ) : shownGroups.length === 0 ? (
         <StatePanel art={EMPTY_ART.groups} title="ยังไม่มีกลุ่ม" body="สร้างกลุ่มใหม่ หรือ join ด้วย invite code เพื่อเริ่มติวกับเพื่อน" />
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {groups.map((g) => (
+          {shownGroups.map((g) => (
             <div key={g.id} className="vmx-dash-card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12, flexWrap: 'wrap' }}>
                 <button
                   type="button"
                   className="vmx-pressable-card"
-                  onClick={() => { setActiveGroup(g); setView('group-detail'); }}
+                  onClick={() => openGroup(g)}
                   style={{ flex: '1 1 220px', padding: 0 }}
                   aria-label={`เปิดกลุ่ม ${g.name}, code ${g.code}`}
                 >
@@ -143,7 +176,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
                   </div>
                 </button>
                 <div style={{ display: 'flex', gap: 6 }}>
-                  <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => { setActiveGroup(g); setView('group-detail'); }}>เปิด →</button>
+                  <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => openGroup(g)}>เปิด →</button>
                   <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => handleLeave(g.id)}>ออก</button>
                 </div>
               </div>

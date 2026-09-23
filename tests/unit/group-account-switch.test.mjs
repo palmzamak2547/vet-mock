@@ -244,3 +244,99 @@ test('PF-20: an answer from a superseded load cannot overwrite a newer one', asy
   assert.match(textOf(view.tree), /70%/, 'the newer answer stays');
   assert.doesNotMatch(textOf(view.tree), /10%/, 'the stale answer must not replace it');
 });
+
+// ── DA-01: a direct switch from account A to account B ────────────────────
+const A_GROUP = { id: 'g-A', name: 'A-only group', code: 'AAAAAA', role: 'admin' };
+const B_GROUP = { id: 'g-B', name: 'B group', code: 'BBBBBB', role: 'member' };
+const leaksA = (tree) => /A-only group|AAAAAA/.test(JSON.stringify(tree));
+
+async function groupsView({ getMyGroups, deps = {}, props = {} } = {}) {
+  const calls = { load: [], opened: [], alerts: [] };
+  const make = await loadView('src/views/GroupsView.jsx', {
+    getMyGroups: (id) => { calls.load.push(id); return getMyGroups ? getMyGroups(id) : Promise.resolve(id === 'A' ? [A_GROUP] : [B_GROUP]); },
+    createGroup: async (name) => ({ id: 'g-new', name, code: 'NEWNEW' }),
+    joinGroupByCode: async () => ({}),
+    leaveGroup: async () => {},
+    thaiError: (e, fallback) => e?.message || fallback,
+    confirmDialog: async () => true,
+    alertDialog: (msg) => { calls.alerts.push(msg); },
+    EMPTY_ART: { groups: '' },
+    ...deps,
+  });
+  const view = mount(make, {
+    user: { id: 'A' }, goHome() {}, setView() {}, setActiveGroup: (g) => calls.opened.push(g), ...props,
+  });
+  await view.settle();
+  return { view, calls };
+}
+
+test('DA-01: the group list reloads for account B and never shows A\'s groups under B', async () => {
+  const { view, calls } = await groupsView();
+  assert.ok(leaksA(view.tree), 'precondition: A sees A\'s group');
+  const from = view.frames.length;
+  view.render({ ...view.props, user: { id: 'B' } });
+  await view.settle();
+  assert.deepEqual(calls.load, ['A', 'B'], 'B\'s groups must be asked for');
+  assert.ok(!view.frames.slice(from).some(leaksA), 'no frame under B may carry A\'s group or invite code');
+  assert.match(textOf(view.tree), /B group/);
+});
+
+test('DA-01: A\'s answer that lands after the switch is dropped', async () => {
+  const slowA = deferred();
+  const { view } = await groupsView({ getMyGroups: (id) => (id === 'A' ? slowA.promise : Promise.resolve([B_GROUP])) });
+  const from = view.frames.length;
+  view.render({ ...view.props, user: { id: 'B' } });
+  await view.settle();
+  slowA.resolve([A_GROUP]);
+  await view.settle();
+  assert.ok(!view.frames.slice(from).some(leaksA), 'A\'s late list must not replace B\'s');
+  assert.match(textOf(view.tree), /B group/);
+});
+
+test('DA-01: a create still out when the account switches is not added to B\'s list', async () => {
+  const created = deferred();
+  const { view, calls } = await groupsView({ deps: { createGroup: () => created.promise } });
+  find(view.tree, (n) => n.type === 'button' && textOf(n) === 'สร้างกลุ่ม').props.onClick();
+  view.render();
+  find(view.tree, (n) => n.props.id === 'vmx-group-name').props.onChange({ target: { value: 'A new one' } });
+  view.render();
+  const run = find(view.tree, (n) => n.type === 'form').props.onSubmit({ preventDefault() {} });
+  view.render({ ...view.props, user: { id: 'B' } });
+  await view.settle();
+  created.resolve({ id: 'g-A2', name: 'A new one', code: 'AAAAAA' });
+  await run;
+  await view.settle();
+  assert.doesNotMatch(textOf(view.tree), /A new one/, 'A\'s new group is not B\'s');
+  assert.ok(!calls.alerts.some((m) => m.includes('AAAAAA')), 'A\'s new invite code is not announced to B');
+});
+
+test('DA-01: a group opened from the list remembers which account opened it', async () => {
+  const { view, calls } = await groupsView();
+  find(view.tree, (n) => n.type === 'button' && textOf(n) === 'เปิด →').props.onClick();
+  assert.equal(calls.opened[0].id, 'g-A');
+  assert.equal(calls.opened[0].openedBy, 'A');
+});
+
+test('DA-01: a group page opened by A is left, not drawn, once the session is B', async () => {
+  let back = 0;
+  const { view, calls } = await detailView({ props: { goBack: () => { back++; } } });
+  assert.match(JSON.stringify(view.tree), /AAAAAA/, 'precondition: A sees the invite code');
+  const before = { ...calls };
+  const from = view.frames.length;
+  view.render({ ...view.props, user: { id: 'B' } });
+  await view.settle();
+  assert.equal(back, 1, 'the page returns to the group list, which loads B\'s groups');
+  assert.ok(!view.frames.slice(from).some((t) => /AAAAAA|A study group/.test(JSON.stringify(t))),
+    'A\'s group name and invite code never appear under B');
+  assert.deepEqual({ ...calls }, before, 'nothing of A\'s group is fetched under B');
+});
+
+test('DA-01: A\'s group reopened for B after a sign-out in between is not drawn either', async () => {
+  // A signs out in another tab (the page shows the sign-in prompt), then B
+  // signs in: App mounts the page afresh with the group A had open.
+  let back = 0;
+  const { view, calls } = await detailView({ props: { user: { id: 'B' }, goBack: () => { back++; } } });
+  assert.equal(back, 1);
+  assert.ok(!view.frames.some((t) => /AAAAAA|A study group/.test(JSON.stringify(t))));
+  assert.deepEqual([calls.members, calls.questions, calls.board], [0, 0, 0]);
+});
