@@ -185,3 +185,31 @@ test('the source panel reads in Thai, with no internal ids or status words', () 
   assert.ok(refOnly.text.includes('Rabies: clinical signs'));
   assert.doesNotMatch(refOnly.text, /Target|Status|Mapping|com5-rabies|anchor-12|#|approved|verified/);
 });
+
+// ── the source line ─────────────────────────────────────────────────
+// 46 food-industry rows store their source as "WRttiWQ7D9s [28:22]" with no
+// examOrigin, so the chip's one visible line printed the bare YouTube id.
+const RAW_MOMENT = /(?<![0-9A-Za-z_-])[0-9A-Za-z_-]{11}\s*,?\s*\[\d/;
+
+test('the source line under a question names the lecture, not a YouTube id', () => {
+  const q = bankRow('food-industry', 207001);
+  assert.equal(q.source, 'WRttiWQ7D9s [28:22]', 'the stored pointer is unchanged');
+  const closed = renderChip(q);
+  assert.match(closed.text, /ที่มา: คาบ 3 \(2 ก\.ย\.\) นาที 28:22/);
+  assert.doesNotMatch(closed.text, /WRttiWQ7D9s/);
+  const opened = renderChip(q, { open: true });
+  assert.doesNotMatch(opened.text, /WRttiWQ7D9s/, 'the expanded source row is read through humanSource too');
+});
+
+test('no row that cites a recording shows its raw id anywhere on the chip', () => {
+  const rows = QB.filter((q) => RAW_MOMENT.test(String(q.source || '')));
+  assert.ok(rows.length >= 53, `the bank still holds the rows this is about (${rows.length})`);
+  const shown = [];
+  for (const q of rows) {
+    for (const open of [false, true]) {
+      const { text } = renderChip(q, { open });
+      if (RAW_MOMENT.test(text)) shown.push(`${q.subject}#${q.id}${open ? ' (open)' : ''}`);
+    }
+  }
+  assert.deepEqual(shown, []);
+});

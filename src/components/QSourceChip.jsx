@@ -44,11 +44,13 @@ export default function QSourceChip({ q, store }) {
   if (!hasAny) return null;
 
   // Compact summary: prefer examOrigin (most user-meaningful), fall
-  // back to source filename if examOrigin missing.
+  // back to source filename if examOrigin missing. The source reads through
+  // humanSource like the verified row does: "WRttiWQ7D9s [28:22]" is stored,
+  // "คาบ 3 (2 ก.ย.) นาที 28:22" is what the นิสิต sees.
   const paperNote = originPaperNote(q);
   const summary = q.examOrigin
     ? q.examOrigin
-    : (typeof q.source === 'string' ? q.source.replace(/\.pdf.*$/, '.pdf') : (hasDisplayableWikiRefs ? 'มีข้อมูลอ้างอิง Wiki' : 'มีแหล่งอ้างอิง'));
+    : (typeof q.source === 'string' ? humanSource(q.source).replace(/\.pdf.*$/, '.pdf') : (hasDisplayableWikiRefs ? 'มีข้อมูลอ้างอิง Wiki' : 'มีแหล่งอ้างอิง'));
 
   return (
     <div style={{
@@ -123,13 +125,13 @@ export default function QSourceChip({ q, store }) {
               <Row label="ข้อมูลอ้างอิง Wiki" value={ref.label} icon="🔗" iconColor="var(--clr-sage)" />
             </div>
           ))}
-          {/* Labels as ReviewView words them. */}
+          {/* Labels as ReviewView words them. Both fields render through
+              humanSource: they store "7XyI0SjnuBA [12:34]" and the student
+              reads "คาบ 1 (4 ส.ค.) นาที 12:34". */}
           {q.source && (
-            <Row label="ที่มา" value={q.source} />
+            <Row label="ที่มา" value={humanSource(q.source)} />
           )}
           {q.verified && (
-            // Rendered through humanSource: the field stores "7XyI0SjnuBA
-            // [12:34]" and the student reads "คาบ 1 (4 ส.ค.) นาที 12:34".
             <Row label="ตรวจกับ" value={humanSource(q.verified)} icon="✓" iconColor="var(--clr-sage)" />
           )}
           {sourceDocumentUrl && (
