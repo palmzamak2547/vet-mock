@@ -1167,7 +1167,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "จุดเลือดออกทั่วอวัยวะร่วมกับ vascular emboli ของแบคทีเรีย"
     ],
     "answer": 1,
-    "explain": "ข้อสอบให้บอกรอยโรคของเชื้อแต่ละตัว คำตอบของ M. hyopneumoniae คือ purple to gray consolidation ที่ cranioventral lung lobes และ atelectasis จนเนื้อปอดเป็น meaty ส่วน polyserositis กับ meningitis เป็นของ Glässerella และ vascular emboli เป็นของ Actinobacillus suis",
+    "explain": "รอยโรคมหภาคของ M. hyopneumoniae คือ purple to gray consolidation ที่ cranioventral lung lobes และ atelectasis จนเนื้อปอดเป็น meaty ส่วน polyserositis กับ meningitis เป็นของ Glässerella และ vascular emboli เป็นของ Actinobacillus suis",
     "verified": "Swine Medicine midterm, typed paper reproduced (Vet 85)",
     "sourceType": "past-paper",
     "examOrigin": "Swine Medicine midterm, typed paper reproduced (Vet 85)"
@@ -1191,7 +1191,7 @@ export const QUESTIONS_Y5_SWINE_2026_B = [
       "Fibrinonecrotic pneumonia ร่วมกับ fibrinous pleuritis"
     ],
     "answer": 3,
-    "explain": "คำตอบของ APP คือ hemorrhagic และ fibrinonecrotic pneumonia มีฝีหนอง ร่วมกับ fibrinous pleuritis และ serofibrinous exudate ในช่องอก ส่วนเยื่อหุ้มปอดใสและแห้งพร้อมเส้นแบ่งเขตชัดเป็นภาพของ pneumonic pasteurellosis ซึ่งเป็นคู่เทียบที่ใช้แยกกันในข้อสอบ",
+    "explain": "รอยโรคของ APP คือ hemorrhagic และ fibrinonecrotic pneumonia มีฝีหนอง ร่วมกับ fibrinous pleuritis และ serofibrinous exudate ในช่องอก ส่วนเยื่อหุ้มปอดใสและแห้งพร้อมเส้นแบ่งเขตชัดเป็นภาพของ pneumonic pasteurellosis ซึ่งเป็นโรคที่ต้องแยกจาก APP",
     "verified": "Swine Medicine midterm, typed paper reproduced (Vet 85)",
     "sourceType": "past-paper",
     "examOrigin": "Swine Medicine midterm, typed paper reproduced (Vet 85)"

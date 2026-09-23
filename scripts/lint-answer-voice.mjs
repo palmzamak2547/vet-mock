@@ -41,7 +41,7 @@ export const RULES = [
   ['marker-hand', /เขียนกำกับ|ลายมือที่แก้|ที่แก้ไว้ในสรุป|ตามไฮไลต์|หมึก(?:สี)?แดง|ขีดเส้นใต้|ติดดาว|ตีกรอบไว้|ลูกศรโยง|โน้ต(?:ระบุ|เขียน|บอก)|กล่อง(?:ในสรุป|ค่าอ้างอิง|กำกับ)/, "describes a marker's handwriting"],
   ['attachment', /ที่แนบมา|แนบมากับข้อสอบ|ตามที่แนบ/, 'points at an attachment that is not shown'],
   ['table-ref', /(?:ตาม|ใน|จาก|ดู)ตาราง(?!เวลา)/, 'points at a table that is not shown'],
-  ['prior-paper', /ข้อสอบเดิม|โจทย์เดิม|โจทย์ข้อนี้|ข้อสอบข้อนี้|แนวข้อสอบเดิม|ข้อสอบรอบก่อน|ข้อสอบชุดเดิม|คำถามข้อนี้/, 'talks about the paper instead of the fact'],
+  ['prior-paper', /ข้อสอบเดิม|โจทย์เดิม|โจทย์ข้อนี้|ข้อสอบข้อนี้|แนวข้อสอบเดิม|ข้อสอบรอบก่อน|ข้อสอบชุด|คำถามข้อนี้|ข้อสอบเก่า|ในข้อสอบ|ข้อสอบให้/, 'talks about the paper instead of the fact'],
   // Any mention of a senior, a senior's sheet or a named senior summary.
   // รุ่นพี่ appears in 12 explanations and every one narrates a compilation.
   ['senior-sheet', /รุ่นพี่|ชีท|โพย|ผู้สรุป|Kimchii|\bTJ\s?8\d\b/, 'names a senior compilation'],

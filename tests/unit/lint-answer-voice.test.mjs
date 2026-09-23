@@ -57,6 +57,9 @@ test('each narrating phrase class the lint used to miss is now caught', () => {
     ['ผู้สรุปเขียนวิธีจำไว้ว่า วิเคราะห์เท่ากับ ประเมิน', 'senior-sheet'],
     ['ส่วนการจัดการโคลิกเน้นด้วยหมึกสีแดงว่า', 'marker-hand'],
     ['โน้ตระบุว่าค่า ORP สัมพันธ์กับโอโซน', 'marker-hand'],
+    ['ข้อสอบเก่าระบุ rabbit gestation ประมาณ 30 วัน', 'prior-paper'],
+    ['ซึ่งเป็นคู่เทียบที่ใช้แยกกันในข้อสอบ', 'prior-paper'],
+    ['💡 ข้อสอบชุดนี้ชอบวางอาหารดิบหลายชนิดไว้ให้เลือก', 'prior-paper'],
   ];
   for (const [explain, rule] of cases) {
     assert.ok(rulesOf(row(explain)).includes(rule), `"${explain}" should hit ${rule}, got ${rulesOf(row(explain)).join(',') || 'nothing'}`);

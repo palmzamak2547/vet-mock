@@ -723,7 +723,7 @@ export const QB_PRACTRUM = [
     q: 'Caudal epidural nerve block ทำที่ตำแหน่งใดในวัว',
     options: ['L6-S1', 'L7-S1', 'L8-S1', 'S3-C1', 'S5-C1'],
     answer: 4,
-    explain: 'Caudal epidural ในวัว 2 ตำแหน่งมาตรฐาน: (1) S5-Co1 = sacrococcygeal junction (high caudal, ตำแหน่งในข้อสอบ) (2) Co1-Co2 = 1st intercoccygeal space (low caudal, ใช้บ่อยกว่าใน routine), คลำหา joint โดยยกหางขึ้น-ลง, block tail + perineum + posterior vagina, ปริมาณ 5-7 ml lidocaine 2%',
+    explain: 'Caudal epidural ในวัว 2 ตำแหน่งมาตรฐาน: (1) S5-Co1 = sacrococcygeal junction (high caudal) (2) Co1-Co2 = 1st intercoccygeal space (low caudal, ใช้บ่อยกว่าใน routine), คลำหา joint โดยยกหางขึ้น-ลง, block tail + perineum + posterior vagina, ปริมาณ 5-7 ml lidocaine 2%',
     verified: 'TJ p4 highlighted E + Roberts Veterinary Obstetrics' },
 
 

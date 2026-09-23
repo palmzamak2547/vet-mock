@@ -264,7 +264,7 @@ export const QB_Y5_VISION_BATCH = [
       "PEDV + ETEC: villus atrophy + secretory diarrhea"
     ],
     "answer": 1,
-    "explain": "จากตัวเลือกในข้อสอบ, choice ที่ตอบโดยตรงกับ \"bloody diarrhea\" จะเน้น large-intestine lesion:\n— Swine dysentery (Brachyspira hyodysenteriae): mucohemorrhagic colitis ใน colon\n— Trichuriasis (Trichuris suis): aphthous ulcer + bloody mucus ใน cecum/colon\nทั้งสองตัวเป็น large-intestine bleeders.\n\nLawsonia acute form (PHE = Proliferative Hemorrhagic Enteropathy) ก็ทำให้ bloody diarrhea ได้แต่ลำไส้เล็ก (ileum), ส่วน PHE chronic form = proliferative enteropathy without blood.\n\nหมายเหตุการเรียน: ddx \"หมูถ่ายเป็นเลือด\" คลาสสิก = Swine dysentery + Trichuris + Lawsonia (PHE) + Salmonella choleraesuis (typhlitis).",
+    "explain": "สาเหตุของ bloody diarrhea ที่ตรงที่สุดในตัวเลือกคือกลุ่มที่เป็น large-intestine lesion:\n— Swine dysentery (Brachyspira hyodysenteriae): mucohemorrhagic colitis ใน colon\n— Trichuriasis (Trichuris suis): aphthous ulcer + bloody mucus ใน cecum/colon\nทั้งสองตัวเป็น large-intestine bleeders.\n\nLawsonia acute form (PHE = Proliferative Hemorrhagic Enteropathy) ก็ทำให้ bloody diarrhea ได้แต่ลำไส้เล็ก (ileum), ส่วน PHE chronic form = proliferative enteropathy without blood.\n\nddx \"หมูถ่ายเป็นเลือด\" คลาสสิก = Swine dysentery + Trichuris + Lawsonia (PHE) + Salmonella choleraesuis (typhlitis).",
     "verified": "patho p.5 (Q12 bloody diarrhea ddx · answer-key tick on Swine dysentery + Trichuriasis combo)",
     "flag": {
       "note": "Q stem cid:xxx-garbled; English pathogen names + checkmark recoverable. Paraphrased — verify",
