@@ -15,6 +15,7 @@
 // ============================================================
 import { useEffect, useMemo, useState } from 'react';
 import { adminRpc } from '../lib/admin-api.js';
+import { confirmDialog } from '../lib/dialog.js';
 import { splitKey, slugify } from '../lib/private-notes.js';
 
 const TH_MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
@@ -110,8 +111,12 @@ export default function PrivateNotes() {
   };
 
   const remove = async (slug) => {
-    // eslint-disable-next-line no-alert
-    if (!window.confirm(`ลบ ${slug} ออกจากฐานข้อมูล เอากลับไม่ได้`)) return;
+    if (!(await confirmDialog({
+      title: `ลบ ${slug}?`,
+      body: 'ลบออกจากฐานข้อมูลแล้วเอากลับไม่ได้',
+      confirmLabel: 'ลบ',
+      tone: 'danger',
+    }))) return;
     setBusy(`กำลังลบ ${slug}`); setErr(null);
     try { await adminRpc('admin_private_note_delete', { note_slug: slug }); setOpen(null); await reload(); }
     catch (e) { setErr(e); }
@@ -158,7 +163,7 @@ export default function PrivateNotes() {
             <li key={row.slug} className={open?.slug === row.slug ? 'is-open' : ''}>
               <button type="button" onClick={() => view(row.slug)}>
                 <b>{row.title}</b>
-                <small>{row.parts} ส่วน · แก้ล่าสุด {fmtWhen(row.updatedAt)}</small>
+                <small>{row.parts} ส่วน แก้ล่าสุด {fmtWhen(row.updatedAt)}</small>
               </button>
               <button type="button" className="ad-pn-del" onClick={() => remove(row.slug)} aria-label={`ลบ ${row.title}`}>ลบ</button>
             </li>

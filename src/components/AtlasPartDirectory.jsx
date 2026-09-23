@@ -27,7 +27,7 @@ export default function AtlasPartDirectory({ parts, total, selected, visibleIds,
         <input ref={searchRef} type="search" placeholder="ไทย / English / Latin"
           value={query} onChange={(event) => { setCollapsed([]); onQuery(event.target.value); }} />
       </label>
-      <p className="vmx-atlas-directory-hint">เปิดดูเป็นหมวด · ซ่อนหรือดูเฉพาะหมวดได้</p>
+      <p className="vmx-atlas-directory-hint">เปิดดูเป็นหมวด จะซ่อนหรือดูเฉพาะหมวดก็ได้</p>
       {groups.map(({ label, items }, index) => {
         const expanded = !collapsed.includes(label);
         const count = items.filter((item) => visible.has(item.id)).length;

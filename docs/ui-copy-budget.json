@@ -1,0 +1,46 @@
+{
+  "note": "lint:ui-copy English-word budget, per file. A number may only go down; a file with no row may have none. Middle dots and นักศึกษา have no budget: they fail outright. \"allow\" names text that keeps a middle dot on purpose, with the reason.",
+  "allow": [
+    {
+      "file": "src/components/SummaryModal.jsx",
+      "text": "  ·  ",
+      "reason": "The print header joins its fields with this and replaces every middle dot with an em dash on the same line, so the dot never reaches the page."
+    }
+  ],
+  "englishLeaks": {
+    "src/components/CommandPalette.jsx": 2,
+    "src/components/DailyQShareCard.jsx": 1,
+    "src/components/DiagramLabelDrill.jsx": 1,
+    "src/components/OnboardingTour.jsx": 1,
+    "src/components/PWAInstallChip.jsx": 1,
+    "src/components/PomodoroTimer.jsx": 1,
+    "src/components/QComments.jsx": 2,
+    "src/components/Question.jsx": 7,
+    "src/components/QuestsPanel.jsx": 3,
+    "src/components/ShortcutSheet.jsx": 3,
+    "src/components/VoiceSettings.jsx": 1,
+    "src/lib/mock-session-service.js": 1,
+    "src/views/AboutView.jsx": 6,
+    "src/views/AccountSettingsView.jsx": 32,
+    "src/views/AuthView.jsx": 22,
+    "src/views/ContributeView.jsx": 2,
+    "src/views/DashboardView.jsx": 11,
+    "src/views/ExamView.jsx": 2,
+    "src/views/FacultyView.jsx": 1,
+    "src/views/FeedbackView.jsx": 4,
+    "src/views/GroupDetailView.jsx": 3,
+    "src/views/GroupsView.jsx": 4,
+    "src/views/ImageOcclusionView.jsx": 1,
+    "src/views/PinboardView.jsx": 1,
+    "src/views/PomodoroView.jsx": 3,
+    "src/views/RaceView.jsx": 4,
+    "src/views/ReadingChecklistView.jsx": 2,
+    "src/views/ResultsView.jsx": 1,
+    "src/views/ReviewView.jsx": 1,
+    "src/views/SRSessionView.jsx": 3,
+    "src/views/ScheduleView.jsx": 1,
+    "src/views/ScoresView.jsx": 2,
+    "src/views/TopicSelectView.jsx": 6,
+    "src/views/VideoView.jsx": 10
+  }
+}

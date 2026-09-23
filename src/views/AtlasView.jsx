@@ -295,7 +295,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
           <h1>
             Atlas<span>สัตว์ต่างชนิด มองโครงสร้างร่วมกัน</span>
           </h1>
-          <p>สำรวจ · เปรียบเทียบ · เข้าใจ</p>
+          <p>สำรวจ เปรียบเทียบ เข้าใจ</p>
         </div>
         <div className="vmx-atlas-header-actions">
           {onToggleTheme && (
@@ -324,7 +324,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
         <div className="vmx-atlas-collection-title">
           <span>คอลเลกชันกายวิภาค</span>
           <span>
-            {ATLAS_CATALOG.length} ตัวอย่าง · {species.length} ชนิดสัตว์
+            {ATLAS_CATALOG.length} ตัวอย่าง จาก {species.length} ชนิดสัตว์
           </span>
           <label>
             <span className="vmx-sr-only">กรองชนิดสัตว์</span>
@@ -389,8 +389,8 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
               setStatus({ kind: 'loading', views: [] });
             }}
           >
-            <option value="quick">ภาพเร็ว · {formatBytes(specimen.profiles.quick.bytes)}</option>
-            <option value="detail">รายละเอียด · {formatBytes(specimen.profiles.detail.bytes)}</option>
+            <option value="quick">ภาพเร็ว ({formatBytes(specimen.profiles.quick.bytes)})</option>
+            <option value="detail">รายละเอียด ({formatBytes(specimen.profiles.detail.bytes)})</option>
           </select>
         </label>
       </div>
@@ -402,10 +402,9 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
           <select
             aria-label="ตัวอย่างที่เปรียบเทียบ"
             value={comparison.id}
-            onChange={(e) => {
-              setLocation((current) => ({ ...current, compareId: e.target.value }));
-              setStatus({ kind: 'loading', views: [] });
-            }}
+            // The scene reports the new comparison itself; the primary model
+            // stays ready while it loads.
+            onChange={(e) => setLocation((current) => ({ ...current, compareId: e.target.value }))}
           >
             {ATLAS_CATALOG.filter((item) => item.id !== specimen.id).map((item) => (
               <option key={item.id} value={item.id}>
@@ -424,7 +423,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
               aria-expanded={systemsExpanded} aria-controls="atlas-system-options"
               onClick={() => setSystemsExpanded(value => !value)}>
               <Layers size={16} aria-hidden="true" />
-              ชั้นโครงสร้าง · {systems.length} ระบบ {systemsExpanded ? '−' : '+'}
+              ชั้นโครงสร้าง ({systems.length} ระบบ) {systemsExpanded ? '−' : '+'}
             </button>
           )}
         <div id="atlas-system-options" className="vmx-atlas-systems" role="group" aria-label="ชั้นโครงสร้าง"
@@ -495,7 +494,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
                   <img src={item.poster} alt={`ภาพตัวอย่างจากโมเดล ${item.title}`} width="600" height="600" />
                   <span>
                     {status.views?.[index]?.kind === 'error'
-                      ? 'ภาพตัวอย่าง · 3D ยังไม่พร้อม'
+                      ? 'ภาพตัวอย่าง (3D ยังไม่พร้อม)'
                       : staticMode
                         ? 'ภาพตัวอย่างจากโมเดล'
                         : 'กำลังเปิด 3D…'}
@@ -517,13 +516,13 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
             )}
             {comparison && (
               <div className="vmx-atlas-pane-names">
-                <span>A · {specimen.species}</span>
-                <span>B · {comparison.species}</span>
+                <span>A {specimen.species}</span>
+                <span>B {comparison.species}</span>
               </div>
             )}
             {ready && segmented && (
               <div className="vmx-atlas-selected-tag">
-                {hideAnswer ? `ชิ้นที่ ${round + 1}` : part.en} · {visibleIds.length}/{specimen.parts.length}
+                {hideAnswer ? `ชิ้นที่ ${round + 1}` : part.en} ({visibleIds.length}/{specimen.parts.length})
               </div>
             )}
           </div>
@@ -641,8 +640,8 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
           <div className="vmx-atlas-stage-footer">
             <span>
               {staticMode
-                ? 'ภาพตัวอย่างจากโมเดล · เปิด 3D เพื่อหมุนมุมมอง'
-                : `ลากเพื่อหมุน · กางนิ้วเพื่อซูม${comparison ? ' · กล้องขยับพร้อมกัน' : ''}`}
+                ? 'ภาพตัวอย่างจากโมเดล เปิด 3D เพื่อหมุนมุมมอง'
+                : `ลากเพื่อหมุน กางนิ้วเพื่อซูม${comparison ? ' กล้องขยับพร้อมกัน' : ''}`}
             </span>
             {shellReady &&
               status.views?.length > 0 &&
@@ -656,7 +655,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
           <details className="vmx-atlas-visibility">
             <summary>
               <Layers size={16} aria-hidden="true" />
-              การมองเห็น{cut > 0 ? ' · กำลังตัดผิวโมเดล' : ''}
+              การมองเห็น{cut > 0 ? ' (กำลังตัดผิวโมเดล)' : ''}
             </summary>
             <div>
               {segmented && (
@@ -722,7 +721,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
           {recall && (
             <div className="vmx-atlas-recall">
               <span className="vmx-atlas-eyebrow">
-                ทบทวนชื่อ · {round + 1}/{specimen.parts.length}
+                ทบทวนชื่อ ({round + 1}/{specimen.parts.length})
               </span>
               <h2>{hideAnswer ? 'ชิ้นนี้ชื่ออะไร?' : 'เทียบกับคำตอบของคุณ'}</h2>
               <p>หมุนดูรูปร่าง แล้วลองนึกชื่อก่อนเปิดคำตอบ</p>
@@ -753,7 +752,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
               <div className="vmx-atlas-detail-title">
                 <span className="vmx-atlas-eyebrow">
                   {segmented ? part.group : specimen.speciesEn}
-                  {part.side ? ` · ${part.side}ของสัตว์` : ''}
+                  {part.side ? ` (${part.side}ของสัตว์)` : ''}
                 </span>
                 <h2>{part.en}</h2>
                 <p>{part.th}</p>
@@ -821,7 +820,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
                       Nomina Anatomica Veterinaria
                     </a>
                     <p>
-                      6th ed. (2017) · Osteologia หน้า {part.navPage}
+                      6th ed. (2017), Osteologia หน้า {part.navPage}
                       <br />
                       หน้า {part.pdfPage} ในไฟล์ PDF
                     </p>
@@ -830,8 +829,8 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
                 <span className="vmx-atlas-review-note">
                   {segmented
                     ? specimen.terminologyReview === 'nav-checked'
-                      ? 'ชื่อศัพท์เทียบ NAV แล้ว · รูปร่างหลังแปลงและคำไทยยังรอทบทวน'
-                      : 'ชื่อโครงสร้างตามต้นทาง · ยังรอตรวจศัพท์ รูปร่าง และคำไทย'
+                      ? 'ชื่อศัพท์เทียบ NAV แล้ว ส่วนรูปร่างหลังแปลงและคำไทยยังรอทบทวน'
+                      : 'ชื่อโครงสร้างตามต้นทาง ยังรอตรวจศัพท์ รูปร่าง และคำไทย'
                     : 'ตัวอย่างจากแหล่งต้นทาง ไม่ได้แทนความแปรผันทั้งหมดของสัตว์ชนิดนี้'}
                 </span>
               </div>
@@ -905,18 +904,18 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
                 <strong>{item.title}:</strong>{' '}
                 <a href={item.sourceOverview} target="_blank" rel="noopener noreferrer">
                   {item.authors}
-                </a>{' '}
-                ·{' '}
+                </a>
+                ,{' '}
                 <a href={item.licenseUrl} target="_blank" rel="noopener noreferrer">
                   {item.license}
                 </a>
-                {item.licenseNoticeUrl && <> · <a href={item.licenseNoticeUrl} target="_blank" rel="noopener noreferrer">ประกาศลิขสิทธิ์ต้นฉบับ</a></>}
-                {item.sourceManifest && <> · <a href={item.sourceManifest} target="_blank" rel="noopener noreferrer">ข้อมูลพิกัดและที่มาของชิ้นส่วน</a></>}
+                {item.licenseNoticeUrl && <>, <a href={item.licenseNoticeUrl} target="_blank" rel="noopener noreferrer">ประกาศลิขสิทธิ์ต้นฉบับ</a></>}
+                {item.sourceManifest && <>, <a href={item.sourceManifest} target="_blank" rel="noopener noreferrer">ข้อมูลพิกัดและที่มาของชิ้นส่วน</a></>}
               </p>
             ))}
             <p>
               คงรูปร่างจากไฟล์ต้นทาง ปรับพิกัดเพื่อแสดงผล ลดรายละเอียดผิว และสร้างภาพตัวอย่างจากโมเดลจริง
-              การตรวจชื่อและที่มาไม่ใช่การรับรองความถูกต้องทางคลินิก ·{' '}
+              การตรวจชื่อและที่มาไม่ใช่การรับรองความถูกต้องทางคลินิก{' '}
               <a href="/atlas/ATTRIBUTION.md" target="_blank" rel="noopener noreferrer">
                 เครดิตและรายละเอียดการดัดแปลง
               </a>
@@ -930,8 +929,8 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
                 <li key={book.title}>
                   <a href={book.url} target="_blank" rel="noopener noreferrer">
                     {book.title}
-                  </a>{' '}
-                  · {book.edition} · {book.locator}
+                  </a>
+                  , {book.edition}, {book.locator}
                 </li>
               ))}
             </ul>
