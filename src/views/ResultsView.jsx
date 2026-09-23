@@ -19,6 +19,7 @@ import { NIGHT_RANK_EVENT, takePromotion } from '../lib/night-rank.js';
 import { hasTopic, articleForQuestion } from '../lib/vetwiki/registry-lite.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import WeakSpots from '../components/WeakSpots.jsx';
+import NavIcon from '../components/NavIcon.jsx';
 
 // Render a 1080×1920 portrait score card (IG Story aspect 9:16) onto a
 // canvas and return a Blob. Pure-canvas, no external deps. Designed to
@@ -334,7 +335,7 @@ export default function ResultsView({
         <div className="vmx-night-rank-promo" role="status">
           <span className="vmx-night-rank-promo-icon" aria-hidden="true">{rankPromo.to.icon}</span>
           <div className="vmx-night-rank-promo-text">
-            <div className="vmx-night-rank-promo-title">🎖️ เลื่อนยศโต้รุ้ง! {rankPromo.to.label}</div>
+            <div className="vmx-night-rank-promo-title">เลื่อนยศโต้รุ้ง! {rankPromo.to.label}</div>
             <div className="vmx-night-rank-promo-sub">
               จาก {rankPromo.from.label} เป็น {rankPromo.to.label}, {rankPromo.to.blurb}
             </div>
@@ -390,7 +391,7 @@ export default function ResultsView({
         ) : (
           <>
             <h2 className="vmx-score-big" style={{ color: 'var(--clr-gold-text)' }}>
-              ✍️
+              <NavIcon name="pen" size={72} /><span className="vmx-sr-only">ข้อเขียน</span>
             </h2>
             <div className="vmx-score-label">ฝึกข้อเขียนเสร็จแล้ว</div>
             <div className="vmx-score-frac">{writingAttempted} / {writingQs.length} ข้อเขียนเสร็จ</div>
@@ -398,7 +399,7 @@ export default function ResultsView({
         )}
         {writingQs.length > 0 && autoQs.length > 0 && (
           <div style={{ marginTop: 8, padding: '6px 12px', borderRadius: 999, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', display: 'inline-block', fontSize: 12, color: 'var(--clr-ink)' }}>
-            ✍️ มีข้อเขียน {writingQs.length} ข้อ — ตรวจด้วย rubric ใน "ดูเฉลย"
+            <NavIcon name="pen" size={13} /> มีข้อเขียน {writingQs.length} ข้อ — ตรวจด้วย rubric ใน "ดูเฉลย"
           </div>
         )}
         <div className="vmx-score-msg">{msg}</div>
@@ -639,7 +640,7 @@ function NextPlayPanel({
             }}
             aria-label={`ทำซ้ำ ${wrongQs.length} ข้อที่ตอบผิดในรอบนี้`}
           >
-            <div style={{ fontSize: 28, lineHeight: 1 }}>🎯</div>
+            <span className="vmx-results-card-icon is-retry" aria-hidden="true"><NavIcon name="repeat" size={26} /></span>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
                 แก้ข้อที่ผิด {wrongQs.length} ข้อ ทันที
@@ -678,10 +679,10 @@ function NextPlayPanel({
             }}
             aria-label={continueLabel}
           >
-            <div style={{ fontSize: 28, lineHeight: 1 }}>🚀</div>
+            <span className="vmx-results-card-icon is-more" aria-hidden="true"><NavIcon name="practice" size={26} /></span>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
-                {continueLabel.replace('🚀 ', '')}
+                {continueLabel}
               </div>
               <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                 {continueSub}
@@ -760,7 +761,7 @@ function NextPlayPanel({
             style={{ minHeight: 44 }}
             title="ไปหน้า Race mode — สร้างห้องแข่งกับเพื่อนแบบ realtime"
           >
-            🏁 สร้างห้องแข่ง
+            <NavIcon name="users" size={16} /> สร้างห้องแข่ง
           </button>
           {/* Round 2B 2026-05-18: "send to group" — same primitive as
               ChallengeQuizButton but explicitly invokes navigator.share
@@ -789,11 +790,11 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
       // a pattern — the rule is right, the sentence was wrong. It now states
       // the rule instead of announcing something that did not happen.
       out.push({
-        icon: '🧠',
+        icon: 'repeat',
         text: `ผิด ${wrongCount} ข้อ — ข้อไหนที่พลาดซ้ำเป็นครั้งที่สอง จะถูกดึงเข้าคิวทบทวนอัตโนมัติ`,
       });
       out.push({
-        icon: '🕒',
+        icon: 'exam',
         text: 'คิวทบทวนจะปล่อยข้อนั้นกลับมาเองตามจังหวะ spaced repetition ไม่ต้องจำเองว่าต้องกลับมาเมื่อไหร่',
       });
     }
@@ -817,14 +818,14 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
           .trim()
           .slice(0, 40);
         out.push({
-          icon: '🎯',
+          icon: 'progress',
           text: `คุณพลาด ${count} ข้อในหัวข้อ "${cleaned}" — ลองทบทวนเนื้อหานี้ก่อน`,
         });
       }
     }
     if (score.pct >= 90 && autoQs.length >= 5) {
       out.push({
-        icon: '🔥',
+        icon: 'flame',
         text: 'คะแนนสูงในรอบนี้ ลองเพิ่มจำนวนข้อรอบหน้าเพื่อท้าทายตัวเองดู',
       });
     }
@@ -857,7 +858,7 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
               color: 'var(--clr-ink)',
             }}
           >
-            <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }} aria-hidden>{h.icon}</span>
+            <span style={{ display: 'inline-flex', flexShrink: 0, marginTop: 2, color: 'var(--clr-gold-text)' }} aria-hidden><NavIcon name={h.icon} size={16} /></span>
             <span style={{ flex: 1 }}>{h.text}</span>
           </li>
         ))}
@@ -1038,9 +1039,9 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
   const rPct = r.total > 0 ? Math.round((r.correct / r.total) * 100) : 0;
   const verdict = rPct > sPct ? 'win' : rPct < sPct ? 'lose' : 'tie';
   const verdictMeta = {
-    win:  { icon: '🥇', label: 'คุณชนะ!',  copy: `${r.correct}/${r.total} ดีกว่า ${s.correct}/${s.total} ของผู้ส่ง, ขอบราเดอร์`, color: '#4a6b4a' },
-    lose: { icon: '💭', label: 'เกือบแล้ว', copy: `ผู้ส่งได้ ${s.correct}/${s.total}, คุณ ${r.correct}/${r.total} — ลองอีกชุดดู`, color: '#a73d4a' },
-    tie:  { icon: '🤝', label: 'เสมอ',     copy: `ได้เท่ากัน ${r.correct}/${r.total} ทั้งคู่ — เพื่อนสนิทแล้ว`, color: '#b88940' },
+    win:  { icon: 'trophy', label: 'คุณชนะ!',  copy: `${r.correct}/${r.total} ดีกว่า ${s.correct}/${s.total} ของผู้ส่ง, ขอบราเดอร์`, color: '#4a6b4a' },
+    lose: { icon: 'repeat', label: 'เกือบแล้ว', copy: `ผู้ส่งได้ ${s.correct}/${s.total}, คุณ ${r.correct}/${r.total} — ลองอีกชุดดู`, color: '#a73d4a' },
+    tie:  { icon: 'users', label: 'เสมอ',     copy: `ได้เท่ากัน ${r.correct}/${r.total} ทั้งคู่ — เพื่อนสนิทแล้ว`, color: '#b88940' },
   }[verdict];
 
   // Time race: only render when BOTH sides have a valid duration. With
@@ -1064,7 +1065,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
         ผลการท้า {sender.senderName ? `จาก ${sender.senderName}` : 'จากเพื่อน'}
       </div>
       <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: hasTimes ? 12 : 0 }}>
-        <div style={{ fontSize: 36, lineHeight: 1, flexShrink: 0 }} aria-hidden>{verdictMeta.icon}</div>
+        <div style={{ display: 'inline-flex', flexShrink: 0, color: verdictMeta.color }} aria-hidden><NavIcon name={verdictMeta.icon} size={32} /></div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 18, color: 'var(--clr-ink)' }}>
             {verdictMeta.label}
@@ -1094,7 +1095,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
               ผู้ส่ง{sender.senderName ? `, ${sender.senderName}` : ''}
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
-              {s.correct}/{s.total}, ⏱ {fmtTimeSec(sender.senderTimeSec)}
+              {s.correct}/{s.total}, เวลา {fmtTimeSec(sender.senderTimeSec)}
               {fasterSender && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-gold-text, #b88940)' }}>เร็วกว่า</span>}
             </div>
           </div>
@@ -1103,7 +1104,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
               คุณ
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
-              {r.correct}/{r.total}, ⏱ {fmtTimeSec(receiverTimeSec)}
+              {r.correct}/{r.total}, เวลา {fmtTimeSec(receiverTimeSec)}
               {fasterReceiver && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-sage-text, #4a6b4a)' }}>เร็วกว่า</span>}
             </div>
           </div>

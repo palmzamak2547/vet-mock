@@ -63,3 +63,69 @@ test('UI-07: "อิงแนวเดิม" is one class on the exam card and 
     assert.ok(!attrs.includes('style'), `${file}: the chip is styled inline again`);
   }
 });
+
+// ── UI-17: interface icons are line glyphs, not emoji ─────────────────
+// DESIGN_SYSTEM rule 6: no emoji as an interface icon — NavIcon draws them.
+// The chrome of Results, the exam and Home carried 🛠 🎯 🚀 🏁 ✍️ 👥 📋 🧠
+// 🕒 🔥 🎖️ ⏱ and the like, which render differently on every phone. What
+// may stay: a subject's or topic's own emoji (data, its identity), Mochi,
+// the canvas share card, and the text of a message a student sends.
+const PICTO = /\p{Extended_Pictographic}/u;
+const CHROME_FILES = [
+  'src/views/ResultsView.jsx',
+  'src/views/ExamView.jsx',
+  'src/components/ToolsFAB.jsx',
+  'src/components/Question.jsx',
+  'src/views/HomeView.jsx',
+];
+
+function chromeEmoji(file) {
+  const src = read(file);
+  const ast = parse(src, { sourceType: 'module', plugins: ['jsx'] });
+  const hits = [];
+  const lineOf = (n) => src.slice(0, n.start).split('\n').length;
+  const literal = (e) => (e?.type === 'StringLiteral' ? e.value
+    : e?.type === 'TemplateLiteral' ? e.quasis.map((q) => q.value.cooked).join('') : '');
+  walk(ast.program, (n) => {
+    // Text drawn by JSX, directly or through a conditional.
+    if (n.type === 'JSXText' && PICTO.test(n.value)) hits.push(`${file}:${lineOf(n)} ${n.value.trim()}`);
+    if (n.type === 'JSXExpressionContainer') {
+      const e = n.expression;
+      const parts = e?.type === 'ConditionalExpression' ? [e.consequent, e.alternate] : [e];
+      for (const p of parts) if (PICTO.test(literal(p))) hits.push(`${file}:${lineOf(n)} ${literal(p)}`);
+    }
+    // Icon fields that a component renders as the icon of a row or a card.
+    if (n.type === 'ObjectProperty' && (n.key.name === 'icon') && PICTO.test(literal(n.value))) {
+      hits.push(`${file}:${lineOf(n)} icon: ${literal(n.value)}`);
+    }
+  });
+  return hits;
+}
+
+test('UI-17: the chrome of Results, the exam and Home draws no emoji as an icon', () => {
+  const hits = CHROME_FILES.flatMap(chromeEmoji);
+  assert.deepEqual(hits, []);
+});
+
+test('UI-17: the checker catches the shapes that shipped', () => {
+  const probe = (code) => {
+    const ast = parse(code, { sourceType: 'module', plugins: ['jsx'] });
+    let found = false;
+    walk(ast.program, (n) => {
+      if (n.type === 'JSXText' && PICTO.test(n.value)) found = true;
+      if (n.type === 'JSXExpressionContainer' && n.expression?.type === 'ConditionalExpression'
+        && [n.expression.consequent, n.expression.alternate].some((b) => b.type === 'StringLiteral' && PICTO.test(b.value))) found = true;
+    });
+    return found;
+  };
+  assert.ok(probe("const a = <button>{open ? '×' : '🛠'}</button>;"));
+  assert.ok(probe('const a = <div>🎯</div>;'));
+  assert.ok(!probe("const a = <div>{open ? '×' : 'x'}</div>;"));
+});
+
+test('UI-17: NavIcon has a wrench for the tools button, distinct from the settings gear', () => {
+  const icon = read('src/components/NavIcon.jsx');
+  assert.match(icon, /\n {2}tools: /);
+  const fab = read('src/components/ToolsFAB.jsx');
+  assert.match(fab, /<NavIcon name="tools"/);
+});

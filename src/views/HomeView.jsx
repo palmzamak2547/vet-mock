@@ -62,10 +62,10 @@ const QuestsPanel = lazy(() => import('../components/QuestsPanel.jsx'));
 // so the WebSocket presence survives view changes — see App.jsx).
 // Phase metadata for label rendering. Mirrors PhaseSelectView's PHASES.
 const PHASE_LABELS = {
-  '1-mid':   { thai: 'เทอม 1 กลางภาค', short: 'เทอม 1 กลาง',  semester: 1, icon: '📚' },
-  '1-final': { thai: 'เทอม 1 ปลายภาค', short: 'เทอม 1 ปลาย',  semester: 1, icon: '🎯' },
-  '2-mid':   { thai: 'เทอม 2 กลางภาค', short: 'เทอม 2 กลาง',  semester: 2, icon: '📖' },
-  '2-final': { thai: 'เทอม 2 ปลายภาค', short: 'เทอม 2 ปลาย',  semester: 2, icon: '🏁' },
+  '1-mid':   { thai: 'เทอม 1 กลางภาค', short: 'เทอม 1 กลาง',  semester: 1 },
+  '1-final': { thai: 'เทอม 1 ปลายภาค', short: 'เทอม 1 ปลาย',  semester: 1 },
+  '2-mid':   { thai: 'เทอม 2 กลางภาค', short: 'เทอม 2 กลาง',  semester: 2 },
+  '2-final': { thai: 'เทอม 2 ปลายภาค', short: 'เทอม 2 ปลาย',  semester: 2 },
 };
 
 // Shared empty list so a year without subjects does not mint a fresh array
@@ -1042,7 +1042,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
               className={`vmx-pop-in vmx-streak-card-home ${quickStats.streak >= 7 ? 'vmx-streak-hot' : quickStats.streak >= 3 ? 'vmx-streak-warm' : ''}`}
               title={`ทำข้อสอบติดต่อกัน ${quickStats.streak} วัน`}
             >
-              <span className="vmx-streak-fire">🔥</span>
+              <span className="vmx-streak-fire" aria-hidden="true"><NavIcon name="flame" size={22} /></span>
               <div className="vmx-streak-info">
                 <span className="vmx-streak-num">{quickStats.streak}</span>
                 <span className="vmx-streak-unit">วันต่อเนื่อง</span>
@@ -2083,7 +2083,7 @@ function DailyQRow({ user, setView, selectedYear }) {
             color: 'var(--clr-ocean-text)',
           }}
         >
-          🌐 {pulse.total} คนทำแล้ว, {pulse.pct}% ถูก
+          <NavIcon name="users" size={13} /> {pulse.total} คนทำแล้ว, {pulse.pct}% ถูก
         </span>
       )}
       {open && (

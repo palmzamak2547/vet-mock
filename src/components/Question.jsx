@@ -642,7 +642,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           aria-label="ดู passage"
           title="ดู passage"
         >
-          📄 Passage
+          <NavIcon name="book" size={16} /> Passage
         </button>
       )}
     </div>
@@ -662,9 +662,9 @@ function FlagChip({ flag }) {
   // read 2.65 there. The -text variants are what that role is for; border
   // and bg keep the accent, where nothing reads on top of it.
   const PALETTE = {
-    major: { bg: 'rgba(194, 109, 109, 0.12)', border: 'var(--clr-rose)', text: 'var(--clr-rose-text)', icon: '⚠️' },
-    minor: { bg: 'rgba(184, 137, 64, 0.12)', border: 'var(--clr-gold)', text: 'var(--clr-gold-text)', icon: '⚡' },
-    unclear: { bg: 'var(--clr-surface-2)', border: 'var(--clr-border)', text: 'var(--clr-ink-soft)', icon: '❓' },
+    major: { bg: 'rgba(194, 109, 109, 0.12)', border: 'var(--clr-rose)', text: 'var(--clr-rose-text)' },
+    minor: { bg: 'rgba(184, 137, 64, 0.12)', border: 'var(--clr-gold)', text: 'var(--clr-gold-text)' },
+    unclear: { bg: 'var(--clr-surface-2)', border: 'var(--clr-border)', text: 'var(--clr-ink-soft)' },
   };
   // Was `}[sev] || palette.unclear`, reading `palette` inside its own
   // initializer: any severity in the data that is not one of these three
@@ -693,7 +693,8 @@ function FlagChip({ flag }) {
         }}
         title="ข้อมูลขัดแย้ง — กดดูรายละเอียด"
       >
-        {palette.icon} ข้อมูลขัดแย้ง, {sev.toUpperCase()} {open ? '▾' : '▸'}
+        {/* One line flag; the severity is the word beside it and the colour. */}
+        <NavIcon name="flag" size={13} filled /> ข้อมูลขัดแย้ง, {sev.toUpperCase()} {open ? '▾' : '▸'}
       </button>
 
       {open && (

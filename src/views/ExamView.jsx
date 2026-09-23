@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import QuestionComponent from '../components/Question.jsx';
 import ExamClock from '../components/ExamClock.jsx';
+import NavIcon from '../components/NavIcon.jsx';
 import { isCorrect, isWritingType, isAnswered } from '../hooks/utils.js';
 import { useBuddyCountOnQ } from '../hooks/useStudyBuddies.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
@@ -99,8 +100,9 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
               fontWeight: 700,
               fontFamily: 'var(--vmx-mono)',
               letterSpacing: '0.06em',
+              display: 'inline-flex', alignItems: 'center', gap: 4, verticalAlign: 'middle',
             }}>
-              ✍️ {currentQ.type === 'essay' ? 'WRITING' : 'SHORT'}
+              <NavIcon name="pen" size={12} /> {currentQ.type === 'essay' ? 'WRITING' : 'SHORT'}
             </span>
           )}
         </div>
@@ -144,7 +146,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
           color: 'var(--clr-sage-text)',
           display: 'inline-flex', alignItems: 'center', gap: 6,
         }}>
-          👥 {buddiesHere} คนกำลังทำข้อนี้
+          <NavIcon name="users" size={14} /> {buddiesHere} คนกำลังทำข้อนี้
         </div>
       )}
 
@@ -168,7 +170,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         <button className="vmx-btn vmx-btn-ghost" onClick={prevQ} disabled={currentIdx === 0}>← ข้อก่อนหน้า</button>
         {showNavOpener && jumpToQ && (
           <button className="vmx-btn vmx-btn-ghost" onClick={() => setShowNav(true)} title="ดูทุกข้อ + ข้ามไปข้อที่ต้องการ">
-            📋 {currentIdx + 1}/{questions.length}
+            <NavIcon name="practice" size={18} /> {currentIdx + 1}/{questions.length}
           </button>
         )}
         <button

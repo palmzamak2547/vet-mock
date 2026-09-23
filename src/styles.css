@@ -2832,6 +2832,11 @@ html.dark .vmx-panic-scrim {
 .vmx-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
 .vmx-stat-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-md); padding: 16px; text-align: center; }
 .vmx-stat-num { font-family: inherit; font-weight: 700; font-size: 32px; line-height: 1; color: var(--clr-ink); }
+/* The line icon that leads each Results action card (NavIcon, not an emoji):
+   rose on the retry card, sage on the one that offers more. */
+.vmx-results-card-icon { display: inline-flex; flex: 0 0 auto; }
+.vmx-results-card-icon.is-retry { color: var(--clr-rose-text); }
+.vmx-results-card-icon.is-more { color: var(--clr-sage-text); }
 .vmx-stat-lbl { font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); margin-top: 6px; }
 
 .vmx-review-item { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-lg); padding: 20px; margin-bottom: 12px; }
@@ -3571,8 +3576,10 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 
 .vmx-streak-fire {
+  display: inline-flex;
   font-size: 22px;
   line-height: 1;
+  color: var(--clr-gold-text);
 }
 
 .vmx-streak-info {
