@@ -259,3 +259,178 @@ test('DA-07: App closes the reader\'s shelf document when a signed-in owner chan
   assert.match(effect, /setPdfLibraryReturnPath\(null\)/);
   assert.match(effect, /\}, \[user\?\.id\]\);/, 'it follows the account id');
 });
+
+// ============================================================
+// PF-17 — a catalogue refresh downloads rows only when they changed
+// ============================================================
+// fetchLibraryDocs pulled the whole catalogue on every refresh (after any
+// vmx-palette-invalidate: a flashcard or image-occlusion save, a backup
+// restore), and read every page after the second one round-trip at a time.
+// Now page 0 carries the exact row count, so the rest are asked for at once;
+// and a refresh in the same session first asks for a one-row revision (row
+// count plus newest updated_at) and reuses the rows it already has when that
+// has not moved. The reuse lives in memory only and is dropped whenever the
+// account changes, so it can never carry restricted rows across a sign-out.
+
+/** library_docs behind PostgREST, answering a tick later so concurrency is
+ *  observable, and counting what was asked. */
+function table(initial) {
+  let rows = initial;
+  // revisionAs: answer the revision query with this { count, newest } instead.
+  const stats = { pages: [], revisions: 0, inflight: 0, maxInflightAfterSecond: 0, beforeAnswer: null, revisionAs: null };
+  const client = {
+    from() {
+      const req = { count: null, range: null, limit: null };
+      const q = {
+        select(_cols, opts = {}) { req.count = opts.count || null; return q; },
+        order() { return q; },
+        range(a, b) { req.range = [a, b]; return q; },
+        limit(n) { req.limit = n; return q; },
+        then(res, rej) {
+          if (req.range) stats.pages.push(req.range[0]); else stats.revisions += 1;
+          const tail = req.range && req.range[0] >= 2000;
+          if (tail) {
+            stats.inflight += 1;
+            stats.maxInflightAfterSecond = Math.max(stats.maxInflightAfterSecond, stats.inflight);
+          }
+          return new Promise((r) => setImmediate(r)).then(() => {
+            stats.beforeAnswer?.(req);
+            if (tail) stats.inflight -= 1;
+            const all = rows;
+            if (req.range) {
+              return { data: all.slice(req.range[0], req.range[1] + 1), error: null, count: req.count ? all.length : null };
+            }
+            if (stats.revisionAs) return { data: [{ updated_at: stats.revisionAs.newest }], error: null, count: stats.revisionAs.count };
+            const newest = all.reduce((m, r) => (String(r.updated_at) > m ? String(r.updated_at) : m), '');
+            return { data: all.length ? [{ updated_at: newest }] : [], error: null, count: all.length };
+          }).then(res, rej);
+        },
+      };
+      return q;
+    },
+    auth: { getSession: async () => ({ data: { session: null } }) },
+  };
+  return { client, stats, set(next) { rows = next; } };
+}
+
+const shelf = (n, { status = 'public', stamp = '2026-09-01T00:00:00Z', prefix = 'd' } = {}) => Array.from({ length: n }, (_, i) => ({
+  ...doc(`${prefix}${String(i).padStart(5, '0')}`, status, `${prefix}${i}`.padEnd(16, '0').slice(0, 16)),
+  updated_at: stamp,
+}));
+const refresh = (env) => env.win.dispatchEvent(new Event('vmx-palette-invalidate'));
+
+test('PF-17: more than 2,000 rows arrive whole, once each, with the pages after the second asked for together', async () => {
+  install({ signedIn: false });
+  const lib = await freshLibrary();
+  const t = table(shelf(4500));
+  globalThis.__vmxTestSupabase = t.client;
+  const { docs } = await lib.fetchLibraryDocs();
+  assert.equal(docs.length, 4500);
+  assert.equal(new Set(docs.map((d) => d.id)).size, 4500, 'no row twice');
+  assert.deepEqual([...t.stats.pages].sort((a, b) => a - b), [0, 1000, 2000, 3000, 4000]);
+  assert.ok(t.stats.maxInflightAfterSecond >= 3, `pages 3 to 5 must be in flight together, saw ${t.stats.maxInflightAfterSecond}`);
+});
+
+test('PF-17: a shelf that grows while it is read still arrives whole, and a row that shifts pages is kept once', async () => {
+  install({ signedIn: false });
+  const lib = await freshLibrary();
+  const base = shelf(2500);
+  const t = table(base);
+  globalThis.__vmxTestSupabase = t.client;
+  // After the first two pages are answered, 600 rows are published at the
+  // end and one row lands at the very front, shifting every later page.
+  let answered = 0;
+  t.stats.beforeAnswer = () => {
+    answered += 1;
+    if (answered === 2) t.set([{ ...doc('front', 'public', 'f'.repeat(16)), updated_at: '2026-09-02T00:00:00Z' }, ...base, ...shelf(600, { prefix: 'n' })]);
+  };
+  const { docs } = await lib.fetchLibraryDocs();
+  const ids = docs.map((d) => d.id);
+  assert.equal(new Set(ids).size, ids.length, 'the row pushed across a page boundary is not listed twice');
+  for (const d of [...base, ...shelf(600, { prefix: 'n' })]) assert.ok(ids.includes(d.id), `row ${d.id} was dropped`);
+});
+
+test('PF-17: a refresh with nothing changed downloads no rows', async () => {
+  const env = install({ signedIn: false });
+  const lib = await freshLibrary();
+  const t = table(shelf(1500));
+  globalThis.__vmxTestSupabase = t.client;
+  const first = await lib.getLibraryCatalog();
+  assert.deepEqual(t.stats.pages, [0, 1000], 'a cold load reads the rows');
+  refresh(env);
+  await lib.getLibraryCatalog();
+  refresh(env);
+  const pagesBefore = t.stats.pages.length;
+  const again = await lib.getLibraryCatalog();
+  assert.equal(t.stats.pages.length, pagesBefore, 'an unchanged catalogue is not downloaded again');
+  assert.ok(t.stats.revisions >= 2, 'each refresh asks whether anything changed');
+  assert.deepEqual(again.docs.map((d) => d.id), first.docs.map((d) => d.id));
+});
+
+test('PF-17: a publish, an edit or a removal shows up on the next refresh', async () => {
+  const env = install({ signedIn: false });
+  const lib = await freshLibrary();
+  let rows = shelf(1500);
+  const t = table(rows);
+  globalThis.__vmxTestSupabase = t.client;
+  await lib.getLibraryCatalog();
+  refresh(env);
+  await lib.getLibraryCatalog(); // records the revision
+
+  // An edit in place: same count, newer updated_at (the table's trigger).
+  rows = rows.map((r, i) => (i === 7 ? { ...r, title: 'Renamed deck', updated_at: '2026-09-23T10:00:00Z' } : r));
+  t.set(rows);
+  refresh(env);
+  let { docs } = await lib.getLibraryCatalog();
+  assert.ok(docs.some((d) => d.title === 'Renamed deck'), 'an edited title appears');
+
+  // A publish.
+  rows = [...rows, { ...doc('new-deck', 'public', 'e'.repeat(16)), updated_at: '2026-09-23T11:00:00Z' }];
+  t.set(rows);
+  refresh(env);
+  ({ docs } = await lib.getLibraryCatalog());
+  assert.ok(docs.some((d) => d.slug === 'new-deck'), 'a new document appears');
+
+  // A removal (archived rows leave the visible set; the count drops).
+  rows = rows.filter((d) => d.slug !== 'new-deck');
+  t.set(rows);
+  refresh(env);
+  ({ docs } = await lib.getLibraryCatalog());
+  assert.ok(!docs.some((d) => d.slug === 'new-deck'), 'a removed document goes');
+});
+
+test('PF-17: after sign-out no restricted row is served from memory, and no minted link survives', async () => {
+  const env = install({ signedIn: true });
+  const lib = await freshLibrary();
+  const signedInRows = [...shelf(10), { ...doc('login-only', 'restricted', R_HASH), updated_at: '2026-09-01T00:00:00Z' }];
+  const t = table(signedInRows);
+  globalThis.__vmxTestSupabase = t.client;
+  await lib.getLibraryCatalog();
+  refresh(env);
+  await lib.getLibraryCatalog(); // the in-memory copy now carries the restricted row
+
+  // A link minted for the restricted deck, prefetched on intent.
+  const realFetch = globalThis.fetch;
+  let mints = 0;
+  globalThis.fetch = async () => { mints += 1; return Response.json({ url: '/api/library-blob?t=signed' }); };
+  try {
+    const restricted = signedInRows.at(-1);
+    lib.prefetchDocUrl(restricted);
+    await settle();
+    const minted = mints;
+
+    // Signed out. The guest's table has no restricted row, and its revision
+    // is made to collide with the signed-in one on purpose: the reuse must be
+    // dropped by the sign-out itself, not by a lucky mismatch.
+    t.set(shelf(10));
+    t.stats.revisionAs = { count: 11, newest: '2026-09-01T00:00:00Z' };
+    signOut(env);
+    await settle();
+    const { docs } = await lib.getLibraryCatalog();
+    assert.ok(!docs.some((d) => d.status === 'restricted'), 'a guest is not served the signed-in rows');
+    await lib.resolveDocUrl(restricted).catch(() => {});
+    assert.equal(mints, minted + 1, 'the link minted while signed in is not handed out after sign-out');
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+});
