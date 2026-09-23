@@ -143,6 +143,12 @@ export const LECTURE_COVERS = {
     'eqrepro-art': { src: base('lecture-covers', 'equine-repro-eqrepro-art'), alt: 'ปกสไลด์ Reproductive Biotechnology in the female horse ภาพหน้าม้าพื้นดำ' },
     'eqrepro-infertility': { src: base('lecture-covers', 'equine-repro-eqrepro-infertility'), alt: 'ปกสไลด์ Infertility subfertility and reproductive diseases in mare ภาพแม่ม้ากับลูกม้าในทุ่ง' },
   },
+  'swine-clinic': {
+    'swine-an-gi': { src: base('lecture-covers', 'swine-clinic-swine-an-gi'), alt: 'ปกสไลด์ โรคระบบทางเดินอาหารจากเชื้อไวรัสในสุกร ตราพระเกี้ยว และภาพ รศ.น.สพ.ดร.อธิภู นันทประเสริฐ' },
+    'swine-an-resp': { src: base('lecture-covers', 'swine-clinic-swine-an-resp'), alt: 'ปกสไลด์ โรคระบบทางเดินหายใจจากเชื้อไวรัสในสุกร ตราพระเกี้ยว และภาพ รศ.น.สพ.ดร.อธิภู นันทประเสริฐ' },
+    'swine-an-cns': { src: base('lecture-covers', 'swine-clinic-swine-an-cns'), alt: 'ปกสไลด์ โรคระบบประสาทในสุกร ตราพระเกี้ยว และภาพ รศ.น.สพ.ดร.อธิภู นันทประเสริฐ' },
+    'swine-pa-note': { src: base('lecture-covers', 'swine-clinic-swine-pa-note'), alt: 'ปกเอกสาร Lecture note: Swine Medicine 2026 ของ Dr. Pornchalit Assavacheep พื้นขาว ตัวอักษรสีน้ำเงิน' },
+  },
   'avian-medicine': {
     'avian-nd': { src: base('lecture-covers', 'avian-medicine-avian-nd'), alt: 'ปกสไลด์ Newcastle Disease พื้นน้ำเงิน ลายขนนก' },
     'avian-ib': { src: base('lecture-covers', 'avian-medicine-avian-ib'), alt: 'ปกสไลด์ Infectious Bronchitis พื้นชมพูเข้ม ลายขนนก' },

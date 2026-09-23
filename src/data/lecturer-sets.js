@@ -587,6 +587,151 @@ export const LECTURER_SETS = {
       },
     ],
   },
+  // Swine Medicine 3107507 — two lecturers, a written paper. The department timetable
+  // (ตารางสอนวิชา อายุรศาสตร์สุกร, sent by Palm on 23 ก.ย.) gives seven Friday sessions:
+  // AN = อ.อธิภู for 1-3 (7, 14, 21 ส.ค.), PA = อ.พรชลิต for 4-7 (28 ส.ค. to 18 ก.ย.).
+  // Sessions 1 and 7 have no VET86 recording, so they carry no deck here. The recorded
+  // days did not keep the timetable's topic order (21 ส.ค. taught the GI viral deck and
+  // the nervous-system deck together), so each deck sits under the recording that
+  // opened it; the deck titles are their title slides. The class announcement says the
+  // midterm covers 7 ส.ค. to 18 ก.ย.; on 11 ก.ย. อ.พรชลิต said locomotor is not examined
+  // [130fSmEeitU 127:13] and that his part is respiratory only [130fSmEeitU 158:24].
+  // The card states both.
+  'swine-clinic': {
+    examDate: '2026-09-24',
+    coverage: 'เนื้อหาตั้งแต่ 7 ส.ค. ถึง 18 ก.ย. ตามตาราง',
+    lecturers: [
+      {
+        id: 'athipoo',
+        name: 'รศ.น.สพ.ดร.อธิภู นันทประเสริฐ',
+        lecturer: 'Athipoo Nuntaprasert',
+        format: 'writing',
+        count: 3,
+        announced: true,
+        note: 'อาจารย์แจ้งว่าส่วนนี้มี 3 ข้อ ข้อละ 10 คะแนน เขียนตอบลงกระดาษ A4 ข้อละหนึ่งเรื่อง คือโรคติดเชื้อไวรัสระบบทางเดินหายใจ ระบบทางเดินอาหาร และโรคระบบประสาท ให้อธิบายวิธีวินิจฉัยและวิธีรักษาป้องกัน',
+        sessions: [
+          {
+            n: 2, date: '2026-08-14', videoId: 'fe_SEPc0U_o',
+            decks: [{ cover: 'swine-an-resp', title: 'โรคระบบทางเดินหายใจจากเชื้อไวรัสในสุกร', topics: ['swine-resp-viral'] }],
+          },
+          {
+            n: 3, date: '2026-08-21', videoId: '2I7DU_E8vho',
+            decks: [
+              { cover: 'swine-an-gi', title: 'โรคระบบทางเดินอาหารจากเชื้อไวรัสในสุกร', topics: ['swine-gi-viral'] },
+              { cover: 'swine-an-cns', title: 'โรคระบบประสาทในสุกร', topics: ['swine-cns'] },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'pornchalit',
+        name: 'ผศ.น.สพ.ดร.พรชลิต อัศวชีพ',
+        lecturer: 'Pornchalit Assavacheep',
+        format: 'writing',
+        count: null,
+        announced: true,
+        note: 'อาจารย์แจ้งว่าเป็นข้อเขียนล้วน ไม่มีช้อยส์ มีทั้งข้อสั้นและข้อยาว บางข้อเป็นเคส ให้คะแนนตามไอเดียและคีย์เวิร์ด ปิดคาบ 11 ก.ย. บอกว่าส่วนนี้มีเฉพาะระบบทางเดินหายใจ ระบบเคลื่อนไหวไม่อยู่ในกลางภาค ส่วนประกาศในกลุ่มระบุว่ากลางภาคครอบคลุมถึงคาบ 18 ก.ย.',
+        sessions: [
+          {
+            n: 4, date: '2026-08-28', videoId: 'rhqufdfIEkM',
+            decks: [{ cover: 'swine-pa-note', title: 'Actinobacillus pleuropneumoniae (APP)', topics: ['swine-pornchalit-set'] }],
+          },
+          {
+            n: 5, date: '2026-09-04', videoId: 'YlS2efVw0OQ',
+            decks: [{ cover: 'swine-pa-note', title: 'A. suis, Pasteurella multocida, atrophic rhinitis, Mycoplasma hyopneumoniae', topics: ['swine-pornchalit-set'] }],
+          },
+          {
+            n: 6, date: '2026-09-11', videoId: '130fSmEeitU',
+            decks: [{ cover: 'swine-pa-note', title: "M. hyorhinis, M. hyosynoviae, Glässer's disease, Streptococcus suis", topics: ['swine-pornchalit-set'] }],
+          },
+        ],
+      },
+    ],
+  },
+  // Aquatic Animal Medicine — three lecturers, seven Tuesday sessions from 4 ส.ค. with a
+  // VET86 recording every week; 8 and 15 ก.ย. each carry two. The formats are what the
+  // class recorded for its own paper (curriculum.js examFormat.notes[0]); no recording
+  // states a format. The 18 ส.ค. recording has two halves: อ.ฐนิดา on LSS, then water
+  // quality, which curriculum.js gives to อ.ภัทรพล. No deck covers yet: blank tiles.
+  'aquatic-clinic': {
+    examDate: '2026-09-24',
+    coverage: 'เนื้อหาตั้งแต่ 4 ส.ค. ถึง 15 ก.ย.',
+    lecturers: [
+      {
+        id: 'aranya',
+        name: 'รศ.สพ.ญ.ดร.อรัญญา พลพรพิสิฐ',
+        lecturer: 'Aranya Ponpornpisit',
+        format: 'mcq',
+        count: 63,
+        announced: true,
+        note: 'รุ่นแจ้งว่าส่วนนี้เป็นปรนัย 63 ข้อ',
+        sessions: [
+          {
+            n: 1, date: '2026-08-04', videoId: 'DEYzFQDOYHk',
+            decks: [{ cover: 'aqua-intro', title: 'Aquaculture in Thailand และ Aquaculture industry and technology', topics: ['aqua-intro-thailand'] }],
+          },
+          {
+            n: 2, date: '2026-08-11', videoId: 'r8YaeGUc4E0',
+            decks: [{ cover: 'aqua-fish-biology', title: 'Fish biology', topics: ['aqua-fish-biology'] }],
+          },
+          {
+            n: 5, date: '2026-09-01', videoId: 'Nto0dg3GP1w',
+            decks: [{ cover: 'aqua-ornamental', title: 'Ornamental fish medicine', topics: ['aqua-ornamental'] }],
+          },
+        ],
+      },
+      {
+        id: 'patharapol',
+        name: 'ผศ.น.สพ.ดร.ภัทรพล เปี่ยมสมบูรณ์',
+        lecturer: 'Patharapol Piamsomboon',
+        format: 'mcq',
+        count: null,
+        announced: true,
+        note: 'รุ่นแจ้งว่าส่วนนี้เป็นปรนัย 5 ตัวเลือก',
+        sessions: [
+          {
+            n: 3, date: '2026-08-18', videoId: '4n_3DBI9LXA',
+            decks: [{ cover: 'aqua-water-quality', title: 'Water quality in aquaculture pond', topics: ['aqua-water-quality'] }],
+          },
+          {
+            n: 4, date: '2026-08-25', videoId: 'hHvKF5h22RU',
+            decks: [{ cover: 'aqua-shrimp', title: 'Shrimp biology and fish immunology', topics: ['aqua-shrimp-immunology'] }],
+          },
+          {
+            n: 6, date: '2026-09-08', videoId: 'CwDZzlE9Xzg',
+            decks: [{ cover: 'aqua-frog', title: 'Diseases and health management in cultured frog', topics: ['aqua-frog-diseases'] }],
+          },
+        ],
+      },
+      {
+        id: 'thanida',
+        name: 'อ.สพ.ญ.ดร.ฐนิดา เหตระกูล',
+        lecturer: 'Thanida Haetrakul',
+        format: 'mcq',
+        count: null,
+        announced: true,
+        note: 'รุ่นแจ้งว่าส่วนนี้เป็นปรนัย',
+        sessions: [
+          {
+            n: 3, date: '2026-08-18', videoId: '4n_3DBI9LXA',
+            decks: [{ cover: 'aqua-lss', title: 'Life support system and fish health', topics: ['aqua-life-support'] }],
+          },
+          {
+            n: 6, date: '2026-09-08', videoId: 'ktxMaLGGfhE',
+            decks: [{ cover: 'aqua-amphibian', title: 'Amphibian medicine', topics: ['aqua-amphibian'] }],
+          },
+          {
+            n: 7, date: '2026-09-15', videoId: 'II_JuR2yE9k',
+            decks: [{ cover: 'aqua-turtle-1', title: 'Turtle and tortoise medicine 7.1', topics: ['aqua-turtle'] }],
+          },
+          {
+            n: 7, date: '2026-09-15', videoId: 'hYF6kxFJPgk',
+            decks: [{ cover: 'aqua-turtle-2', title: 'Turtle and tortoise medicine 7.2', topics: ['aqua-turtle'] }],
+          },
+        ],
+      },
+    ],
+  },
 };
 
 /** Whether this subject has a lecturer set for the scope the student is in. */
