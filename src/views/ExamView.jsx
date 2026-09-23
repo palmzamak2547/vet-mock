@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import QuestionComponent from '../components/Question.jsx';
-import { fmtTime, isCorrect, isWritingType, isAnswered } from '../hooks/utils.js';
+import ExamClock from '../components/ExamClock.jsx';
+import { isCorrect, isWritingType, isAnswered } from '../hooks/utils.js';
 import { useBuddyCountOnQ } from '../hooks/useStudyBuddies.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { motionIsReduced } from '../lib/motion-preferences.js';
 
-export default function ExamView({ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, user, goHome, mode, instantFeedback, onOpenWiki }) {
+export default function ExamView({ currentQ, currentIdx, questions, questionDeadline, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, user, goHome, mode, instantFeedback, onOpenWiki }) {
   const [showNote, setShowNote] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
@@ -105,9 +106,7 @@ export default function ExamView({ currentQ, currentIdx, questions, timeLeft, us
         </div>
         <div className="vmx-exam-top-right">
         {useTimer && (
-          <div className={`vmx-timer ${timeLeft <= 10 ? 'warn' : (timeLeft <= 60 && (currentQ?.type === 'essay' || currentQ?.type === 'short')) ? 'warn' : ''}`}>
-            {fmtTime(timeLeft)}
-          </div>
+          <ExamClock deadline={questionDeadline} writing={currentQ?.type === 'essay' || currentQ?.type === 'short'} />
         )}
         {revealAnswer && (() => {
           // Running tally over auto-gradable answered questions — the

@@ -1281,10 +1281,12 @@ export default function App() {
 
   // In-flight exam runtime — extracted to src/hooks/useExamSession.js
   // 2026-05-27. The hook owns: questions · currentIdx · answers ·
-  // timeLeft · examStartTime + the 5 navigation callbacks
+  // the deadline · examStartTime + the 5 navigation callbacks
   // (answerCurrent · nextQ · prevQ · jumpToQ · replayQuestions) + the
-  // 2 timer effects (shadow-start + tick). localStorage hydration of
-  // in-flight exam ('vmx-inflight-exam') also lives in the hook.
+  // 2 timer effects (shadow-start + deadline watch). The seconds on screen
+  // tick inside ExamClock, so App does not re-render once a second.
+  // localStorage hydration of in-flight exam ('vmx-inflight-exam') also
+  // lives in the hook.
   //
   // startExam / finishExam stay in App.jsx because they touch many
   // OTHER concerns (streak, XP, quests, Supabase save, year resolution).
@@ -1320,7 +1322,7 @@ export default function App() {
     questions, setQuestions,
     answers, setAnswers,
     currentIdx, setCurrentIdx,
-    timeLeft, setTimeLeft, questionDeadline,
+    setTimeLeft, questionDeadline,
     examStartTime, setExamStartTime,
     sessionId: examSessionId, getQuestionTimes,
     currentQ, currentAnswer,
@@ -3087,7 +3089,7 @@ export default function App() {
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
-              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, timeLeft, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
+              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, questionDeadline, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki }} />}
