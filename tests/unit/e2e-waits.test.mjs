@@ -25,6 +25,10 @@ test('video-shelf-requests waits for the cards, not for 3.5 s (STAB-07)', () => 
   assert.deepEqual(sleeps(spec('video-shelf-requests.spec.js')), []);
 });
 
+test('pdf-annotate waits on the reader and on storage, never on a clock (STAB-08)', () => {
+  assert.deepEqual(sleeps(spec('pdf-annotate.spec.js')), []);
+});
+
 test('the landing chrome test does not wait out entrance motion it never asserts (STAB-10)', () => {
   const text = spec('connected-study.spec.js');
   const start = text.indexOf("test('landing chrome uses one icon language");

@@ -49,7 +49,68 @@ async function openReaderWithPdf(page, pages = 1) {
   // canvas are CLAMPED to its edge (pointFromEvent), where consecutive
   // duplicates are then dropped by the near-duplicate filter.
   await expect(page.locator('[data-page="1"][data-render-state="ready"]')).toBeVisible({ timeout: 30_000 });
+  await settledPage(page, 1);
 }
+
+// ── Waiting on conditions, not on a clock ───────────────────────────────
+// This spec used to sleep 31.8 s per project (37 waitForTimeout calls), which
+// made it the most expensive spec in every run and still left it flaky under
+// load (STAB-08). Each sleep stood in for one of the conditions below.
+
+// A row that is rendered AND has stopped moving. A row can report `ready` and
+// then render again: the fit-to-width scale is measured from the frame, which
+// can still change width after the first raster (a scrollbar arriving), and
+// during that second render the loading cover sits over the overlay and takes
+// the pointer, so a stroke drawn then draws nothing. Two readings in a row
+// must agree on the row's box and its raster width.
+async function settledPage(page, n = 1) {
+  let last = null;
+  await expect.poll(async () => {
+    const now = await page.evaluate((num) => {
+      const row = document.querySelector(`[data-page="${num}"]`);
+      if (!row || row.getAttribute('data-render-state') !== 'ready') return null;
+      const r = row.getBoundingClientRect();
+      return [r.left, r.top, r.width, r.height].map(Math.round).join(',')
+        + `/${row.querySelector('canvas')?.width || 0}`;
+    }, n);
+    const steady = now !== null && now === last;
+    last = now;
+    return steady;
+  }, { timeout: 30_000, intervals: [150, 250], message: `page ${n} never settled into a rendered, still layout` }).toBe(true);
+}
+
+// Two painted frames and a task after them. Pointer events fired from
+// page.evaluate run their handlers at once, but React commits the state they
+// set, and the page repaints its ink from that state, on later tasks. This
+// waits for those; on a slow machine the frames simply arrive later.
+function nextFrames(page) {
+  return page.evaluate(() => new Promise((resolve) => {
+    requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(resolve, 0)));
+  }));
+}
+
+// A reading that has stopped changing: two polls in a row agree and it
+// passes `ok`. A committed stroke is repainted from the stored list after the
+// live preview, so the pixel count can move once before it holds.
+async function steady(read, ok, message) {
+  let last = null;
+  let value;
+  await expect.poll(async () => {
+    value = await read();
+    const held = ok(value) && JSON.stringify(value) === JSON.stringify(last);
+    last = value;
+    return held;
+  }, { intervals: [150, 250], message }).toBe(true);
+  return value;
+}
+
+// The zoom the toolbar shows ("100%"). It changes in the same render as the
+// zoom itself, before any page re-renders, so it is the earliest proof that a
+// zoom did, or did not, happen.
+const zoomLabel = (page) => page.locator('button[title="กลับไปพอดีความกว้าง"]').textContent();
+
+// The pen-only switch appears, pressed, the moment the reader sees a stylus.
+const penOnlySwitch = (page) => page.locator('button[aria-label="รับเฉพาะปากกา วางมือบนจอได้ นิ้วใช้เลื่อนหน้า"]');
 
 // The part of the overlay that is BOTH on the canvas and inside the window.
 // On a phone the page canvas is taller than the viewport, so a point chosen
@@ -138,6 +199,11 @@ function storedRecordRaw(page) {
   }));
 }
 
+// The strokes stored for one page, [] until the first autosave lands.
+async function storedStrokes(page, pageNum = '1') {
+  return (await storedRecordRaw(page))?.strokesByPage?.[pageNum] || [];
+}
+
 test('a stroke that is drawn is a stroke that is stored', async ({ page }) => {
   await openReaderWithPdf(page);
   const box = await overlayBox(page);
@@ -153,8 +219,11 @@ test('a stroke that is drawn is a stroke that is stored', async ({ page }) => {
 
   expect(await inkPixels(page)).toBeGreaterThan(300);
 
-  // Past the 500 ms autosave, with room for the IndexedDB round trip.
-  await page.waitForTimeout(1500);
+  // The 500 ms autosave and the IndexedDB round trip, however long they take.
+  // The bug this pins wrote a record with no strokes and never wrote again,
+  // so the poll runs out instead of passing.
+  await expect.poll(async () => (await storedRecord(page)).strokesOnPage1,
+    { message: 'ink was on the canvas but the record held no strokes' }).toBe(1);
   const rec = await storedRecord(page);
   expect(rec.records, 'no record was written for the opened document').toBeGreaterThan(0);
   expect(rec.strokesOnPage1, 'ink was on the canvas but the record held no strokes').toBe(1);
@@ -173,13 +242,12 @@ test('a stroke made a moment before leaving is not thrown away', async ({ page }
   for (let i = 1; i <= 15; i++) await page.mouse.move(box.x + 30 + i * ((box.w - 60) / 15), y);
   await page.mouse.up();
 
-  // Well inside the 500 ms autosave debounce.
-  await page.waitForTimeout(60);
+  // Leave at once, well inside the 500 ms autosave debounce, so only the
+  // flush on the way out can save the stroke.
   await page.locator('button:has-text("เปลี่ยน PDF")').first().click();
-  await page.waitForTimeout(1500);
 
-  const stored = await storedRecord(page);
-  expect(stored.strokesOnPage1, 'leaving the reader discarded the last stroke').toBe(1);
+  await expect.poll(async () => (await storedRecord(page)).strokesOnPage1,
+    { message: 'leaving the reader discarded the last stroke' }).toBe(1);
 });
 
 test('a personal PDF opened from the shelf retains ink when returning to the search', async ({ page }) => {
@@ -190,6 +258,11 @@ test('a personal PDF opened from the shelf retains ink when returning to the sea
   // starts only after the PDF page is ready, as it does for a real reader.
   await expect(page.locator('[data-page="1"][data-render-state="ready"]')).toBeVisible({ timeout: 30_000 });
   await expect(page.getByRole('button', { name: 'กลับคลังเอกสาร', exact: true })).toBeVisible();
+  // CI run 35761306637 drew here and read 0 ink pixels for 15 s (passed on
+  // retry). The row can report ready and then render again as the shelf's
+  // layout settles; drawing during that second render lands on the loading
+  // cover. Draw only once the page has stopped moving.
+  await settledPage(page, 1);
   const box = await overlayBox(page);
   const y = box.y + box.h * 0.3;
   await page.mouse.move(box.x + 30, y);
@@ -236,15 +309,14 @@ test('the reader is a scrolling column and a stroke lands on the page it was dra
   // wrong and a slow stroke near a page boundary is filed under whichever page
   // scrolled into view while the pen was still down.
   await openReaderWithPdf(page, 4);
-  await page.waitForTimeout(600);
-  expect(await page.locator('[data-page]').count(),
-    'the column did not render one row per page').toBe(4);
+  await expect(page.locator('[data-page]'), 'the column did not render one row per page').toHaveCount(4);
 
   await page.evaluate(() => {
     const el = document.querySelector('[data-page="3"]');
     el.parentElement.scrollTop = el.offsetTop - 8;
   });
-  await page.waitForTimeout(1400);
+  await expect(page.locator('[data-page="3"][data-render-state="ready"]')).toBeVisible();
+  await settledPage(page, 3);
 
   const box = await page.evaluate(() => {
     const el = document.querySelector('[data-page="3"]');
@@ -257,34 +329,40 @@ test('the reader is a scrolling column and a stroke lands on the page it was dra
   await page.mouse.down();
   for (let i = 1; i <= 15; i++) await page.mouse.move(box.x + 40 + i * ((box.w - 80) / 15), box.y);
   await page.mouse.up();
-  await page.waitForTimeout(1600);
 
-  const filed = await page.evaluate(async () => {
-    const db = await new Promise((res) => {
-      const r = indexedDB.open('vmx-pdf-annotations');
-      r.onsuccess = () => res(r.result);
-    });
-    const recs = await new Promise((res) => {
-      const q = db.transaction('docs').objectStore('docs').getAll();
-      q.onsuccess = () => res(q.result);
-    });
-    const byPage = recs[0]?.strokesByPage || {};
+  const filed = async () => {
+    const byPage = (await storedRecordRaw(page))?.strokesByPage || {};
     return Object.entries(byPage).filter(([, a]) => a.length).map(([k, a]) => k + ':' + a.length).join();
-  });
-  expect(filed, 'the stroke was filed under the wrong page').toBe('3:1');
+  };
+  // Polled until the autosave lands; a stroke filed under another page shows
+  // up as that page's entry and never turns into '3:1'.
+  await expect.poll(filed, { message: 'the stroke was filed under the wrong page' }).toBe('3:1');
 });
 
 test('distant pages let go of their bitmaps', async ({ page }) => {
   // A 300-page textbook cannot hold 300 rasters, and on iOS a tab that tries
   // is killed with no error and no unload event.
   await openReaderWithPdf(page, 8);
-  await page.waitForTimeout(1600);
   const rendered = () => page.evaluate(() => [...document.querySelectorAll('[data-page]')]
     .filter((el) => (el.querySelector('canvas')?.width || 0) > 10).length);
+  // "Fewer than 8" is true of a column that has not started rendering, so
+  // first wait until the reader has finished deciding: page 1 ready, no row
+  // still loading, no idle row still holding the canvas's default 300 px
+  // bitmap (its size not yet measured), and the same answer twice in a row.
+  // A column that renders all eight gets there with eight bitmaps.
+  await steady(
+    () => page.evaluate(() => [...document.querySelectorAll('[data-page]')]
+      .map((el) => `${el.dataset.page}:${el.getAttribute('data-render-state')}:`
+        + `${(el.querySelector('canvas')?.width || 0) > 10 ? 'bitmap' : 'none'}`).join(' ')),
+    (rows) => /(^| )1:ready:/.test(rows) && !/:loading:/.test(rows) && !/:idle:bitmap/.test(rows),
+    'the column never finished rendering',
+  );
   expect(await rendered(), 'every page rendered at once').toBeLessThan(8);
   await page.evaluate(() => { document.querySelector('[data-page]').parentElement.scrollTop = 99999; });
-  await page.waitForTimeout(1600);
-  expect(await rendered(), 'pages left behind kept their bitmaps').toBeLessThan(8);
+  await expect(page.locator('[data-page="8"][data-render-state="ready"]')).toBeVisible();
+  // Pages scrolled far away let go as the observer reports them; a column
+  // that keeps every bitmap never gets below eight.
+  await expect.poll(rendered, { message: 'pages left behind kept their bitmaps' }).toBeLessThan(8);
 });
 
 test('undo removes ink and redo puts the same ink back', async ({ page }) => {
@@ -297,20 +375,20 @@ test('undo removes ink and redo puts the same ink back', async ({ page }) => {
   await page.mouse.down();
   for (let i = 1; i <= 20; i++) await page.mouse.move(box.x + 30 + i * dx, yy);
   await page.mouse.up();
-  await page.waitForTimeout(200);
-  const drawn = await inkPixels(page);
+  // The committed stroke is repainted from the stored list after the live
+  // preview, so read the count once it has stopped moving.
+  await nextFrames(page);
+  const drawn = await steady(() => inkPixels(page), (n) => n > 200, 'the stroke never settled on the canvas');
   expect(drawn).toBeGreaterThan(200);
 
   // The toolbar is icon-only now, so the accessible name is the handle. That
   // is also the stricter test: if a button loses its label the suite fails,
   // which is the right outcome for a row of unlabelled glyphs.
   await page.locator('button[aria-label="ย้อนกลับ"]').click();
-  await page.waitForTimeout(250);
-  expect(await inkPixels(page), 'undo left ink behind').toBe(0);
+  await expect.poll(() => inkPixels(page), { message: 'undo left ink behind' }).toBe(0);
 
   await page.locator('button[aria-label="ทำซ้ำ"]').click();
-  await page.waitForTimeout(250);
-  expect(await inkPixels(page), 'redo did not restore the same stroke').toBe(drawn);
+  await expect.poll(() => inkPixels(page), { message: 'redo did not restore the same stroke' }).toBe(drawn);
 });
 
 test('the highlighter stays translucent where it crosses itself', async ({ page }) => {
@@ -328,16 +406,17 @@ test('the highlighter stays translucent where it crosses itself', async ({ page 
   for (let i = 1; i <= 18; i++) await page.mouse.move(box.x + 30 + i * hx, hy);
   for (let i = 18; i >= 6; i--) await page.mouse.move(box.x + 30 + i * hx, hy);
   await page.mouse.up();
-  await page.waitForTimeout(400);
-
-  const maxAlpha = await page.evaluate(() => {
+  // A finished highlighter stroke is repainted once, flat, after the live
+  // preview. Read the canvas after that repaint and once it holds.
+  await nextFrames(page);
+  const maxAlpha = await steady(() => page.evaluate(() => {
     const ov = [...document.querySelectorAll('canvas')]
       .find((c) => getComputedStyle(c).position === 'absolute');
     const d = ov.getContext('2d').getImageData(0, 0, ov.width, ov.height).data;
     let max = 0;
     for (let i = 3; i < d.length; i += 4) if (d[i] > max) max = d[i];
     return max;
-  });
+  }), (a) => a > 0, 'the highlighter painted nothing');
   expect(maxAlpha, 'the highlighter painted nothing').toBeGreaterThan(0);
   expect(maxAlpha, 'the highlighter went opaque where it overlapped itself').toBeLessThan(190);
 });
@@ -377,10 +456,11 @@ test('a finger that scrolled in pen-only mode does not become half of a pinch', 
     return true;
   });
   expect(penOnly).toBe(true);
-  await page.waitForTimeout(300);
+  await expect(penOnlySwitch(page), 'the stylus did not switch pen-only mode on').toHaveAttribute('aria-pressed', 'true');
 
   const before = await pageWidth();
   expect(before, 'the page must have rendered before the gesture test').toBeGreaterThan(0);
+  const zoomBefore = await zoomLabel(page);
 
   // A finger scrolls the page, then lifts.
   await page.evaluate(() => {
@@ -389,7 +469,7 @@ test('a finger that scrolled in pen-only mode does not become half of a pinch', 
     window.__fire('pointermove', 2, 'touch', x, y - 40);
     window.__fire('pointerup', 2, 'touch', x, y - 40);
   });
-  await page.waitForTimeout(200);
+  await nextFrames(page);
 
   // A single finger, on its own, drags a long way. That is a scroll, not a
   // pinch, and it must not change the zoom.
@@ -400,8 +480,11 @@ test('a finger that scrolled in pen-only mode does not become half of a pinch', 
     window.__fire('pointermove', 3, 'touch', x + 300, y);
     window.__fire('pointerup', 3, 'touch', x + 300, y);
   });
-  await page.waitForTimeout(1200);
-
+  // The phantom-finger pinch set the zoom inside that pointermove; once React
+  // has committed, the toolbar shows it. The page's own re-render comes later,
+  // so the zoom reading is the one that cannot be early.
+  await nextFrames(page);
+  expect(await zoomLabel(page), 'one finger dragging zoomed the document').toBe(zoomBefore);
   expect(await pageWidth(), 'one finger dragging zoomed the document').toBe(before);
 });
 
@@ -430,6 +513,13 @@ test('zoom keeps the point under the cursor put and never widens the layout', as
     return { x: b.left + b.width * 0.5, y: b.top + b.height * 0.4 };
   });
   const pt = await mark();
+  const zoomBefore = await zoomLabel(page);
+  // The zoom took effect (the toolbar reads a new value) and the page has
+  // re-rendered at it and stopped moving, anchor restore included.
+  const zoomed = async (how) => {
+    await expect.poll(() => zoomLabel(page), { message: `${how} did not change the zoom` }).not.toBe(zoomBefore);
+    await settledPage(page, 1);
+  };
   // mouse.wheel is unsupported in mobile WebKit, so mobile zooms with the
   // toolbar button instead — whose anchor falls back to the middle of the
   // frame, so the same stays-put assertion still means something as long as
@@ -457,15 +547,15 @@ test('zoom keeps the point under the cursor put and never widens the layout', as
       return { fy: (cy - b.top) / b.height, cx: w.left + w.width / 2, cy };
     });
     await page.locator('button[aria-label="ขยาย"]').click();
-    await page.waitForTimeout(1400);
+    await zoomed('the zoom-in button');
     const rowAfter = await page.evaluate((fy) => {
       const b = document.querySelector('[data-page="1"]').getBoundingClientRect();
       return { y: b.top + fy * b.height };
     }, centred.fy);
     expect(Math.abs(rowAfter.y - centred.cy), 'button zoom lost the frame centre').toBeLessThan(48);
   }
-  await page.waitForTimeout(1400);
   if (wheelWorks) {
+    await zoomed('ctrl+wheel');
     const ptAfter = await mark();
     expect(Math.abs(ptAfter.x - pt.x), 'zoom lost the point under the cursor (x)').toBeLessThan(48);
     expect(Math.abs(ptAfter.y - pt.y), 'zoom lost the point under the cursor (y)').toBeLessThan(48);
@@ -514,10 +604,10 @@ test('the whole-stroke eraser tombstones the stroke it touches and redo brings i
     await page.mouse.down();
     await page.mouse.move(box.x + box.w * 0.7, y, { steps: 8 });
     await page.mouse.up();
-    await page.waitForTimeout(200);
+    await nextFrames(page);
   }
-  await page.waitForTimeout(900);
-  let rec = await storedRecordRaw(page);
+  await expect.poll(async () => (await storedStrokes(page)).length, { message: 'two strokes should be stored' }).toBe(2);
+  const rec = await storedRecordRaw(page);
   expect(rec.strokesByPage['1'].length, 'two strokes should be stored').toBe(2);
 
   // Switch to the eraser, open its options with a second tap, pick
@@ -528,21 +618,21 @@ test('the whole-stroke eraser tombstones the stroke it touches and redo brings i
   // Close the options panel — it sits in normal flow and pushes the page
   // down, so every coordinate remembered from before it opened now misses.
   await page.locator('button[aria-label="ยางลบ, แตะซ้ำเพื่อเลือกโหมดลบ"]').click();
+  await settledPage(page, 1);
   const box2 = await overlayBox(page);
 
   // One tap on the first stroke takes the whole stroke.
+  const strokesAndTombs = async () => {
+    const r = await storedRecordRaw(page);
+    return [(r?.strokesByPage?.['1'] || []).length, (r?.deleted || []).length];
+  };
   await page.mouse.click(box2.x + box2.w * 0.45, box2.y + box2.h * 0.3);
-  await page.waitForTimeout(900);
-  rec = await storedRecordRaw(page);
-  expect(rec.strokesByPage['1'].length, 'the touched stroke should be gone').toBe(1);
-  expect((rec.deleted || []).length, 'the deletion must be a tombstone').toBe(1);
+  // [strokes on page 1, tombstones]: the touched stroke gone, as a tombstone.
+  await expect.poll(strokesAndTombs, { message: 'the touched stroke should be gone, as a tombstone' }).toEqual([1, 1]);
 
   // Redo puts the same ink back under a NEW id (tombstones only grow).
   await page.locator('button[aria-label="ทำซ้ำ"]').click();
-  await page.waitForTimeout(900);
-  rec = await storedRecordRaw(page);
-  expect(rec.strokesByPage['1'].length, 'redo should restore the stroke').toBe(2);
-  expect((rec.deleted || []).length, 'the tombstone must survive the redo').toBe(1);
+  await expect.poll(strokesAndTombs, { message: 'redo should restore the stroke and keep the tombstone' }).toEqual([2, 1]);
 });
 
 test('a colour mixed in the custom picker is the colour the stroke stores', async ({ page }) => {
@@ -559,10 +649,10 @@ test('a colour mixed in the custom picker is the colour the stroke stores', asyn
   await page.mouse.down();
   await page.mouse.move(box.x + box.w * 0.6, y, { steps: 6 });
   await page.mouse.up();
-  await page.waitForTimeout(900);
-  const rec = await storedRecordRaw(page);
-  const stroke = rec.strokesByPage['1'][rec.strokesByPage['1'].length - 1];
-  expect(stroke.color, 'the stroke should carry the custom colour').toBe('#123456');
+  // Polled until the stroke is stored; a stroke stored in another colour
+  // never turns into this one, so the poll runs out and shows what it held.
+  await expect.poll(async () => (await storedStrokes(page)).at(-1)?.color,
+    { message: 'the stroke should carry the custom colour' }).toBe('#123456');
 });
 
 test('a rough rectangle held still snaps to a clean five-point rectangle', async ({ page }) => {
@@ -647,7 +737,7 @@ test('a save merges with what is already stored instead of replacing it', async 
   await page.mouse.down();
   await page.mouse.move(box.x + box.w * 0.6, box.y + box.h * 0.3, { steps: 8 });
   await page.mouse.up();
-  await page.waitForTimeout(900);
+  await expect.poll(async () => (await storedStrokes(page)).length, { message: 'the first stroke must be stored' }).toBe(1);
 
   const first = await storedRecordRaw(page);
   expect(first, 'the first stroke must be stored').toBeTruthy();
@@ -677,7 +767,10 @@ test('a save merges with what is already stored instead of replacing it', async 
   await page.mouse.down();
   await page.mouse.move(box.x + box.w * 0.6, box.y + box.h * 0.5, { steps: 8 });
   await page.mouse.up();
-  await page.waitForTimeout(1200);
+  // This tab's second save is the one that used to drop the other tab's
+  // stroke; wait for it (page 1 holds two strokes), then read what it wrote.
+  await expect.poll(async () => (await storedStrokes(page)).length,
+    { message: 'this tab\'s second stroke was never saved' }).toBeGreaterThanOrEqual(2);
 
   const after = await storedRecordRaw(page);
   const otherTabStrokes = (after?.strokesByPage?.[2] || []).filter((s) => s.id === 'other-tab-stroke');
@@ -697,8 +790,9 @@ test('a hand resting on the glass mid-stroke keeps the stroke and does not zoom'
 
   // One stylus contact switches pen-only mode on, as it does for a student.
   await page.evaluate(({ x, y }) => { window.__fire('pointerdown', 1, 'pen', x, y); window.__fire('pointerup', 1, 'pen', x, y); }, rig);
-  await page.waitForTimeout(400);
+  await expect(penOnlySwitch(page), 'the stylus did not switch pen-only mode on').toHaveAttribute('aria-pressed', 'true');
   const before = await pageWidth();
+  const zoomBefore = await zoomLabel(page);
   const strokesBefore = ((await storedRecordRaw(page))?.strokesByPage?.['1'] || []).length;
 
   // Pen writes a line; the palm lands part way through; the pen keeps going.
@@ -715,13 +809,17 @@ test('a hand resting on the glass mid-stroke keeps the stroke and does not zoom'
     f('pointerup', 1, 'pen', x + 200, y + 40);
     f('pointerup', 2, 'touch', x + 62, y + 141);
   }, rig);
-  await page.waitForTimeout(1200);
 
-  const rec = await storedRecordRaw(page);
-  const strokes = rec?.strokesByPage?.['1'] || [];
-  const long = strokes.filter((st) => (st.points || []).length >= 4);
-  expect(long.length, 'the pen stroke was discarded when the palm landed').toBeGreaterThanOrEqual(1);
+  // The pen stroke reaches storage, whole. When the palm used to throw it
+  // away, no stroke of four or more points was ever saved.
+  await expect.poll(async () => (await storedStrokes(page)).filter((st) => (st.points || []).length >= 4).length,
+    { message: 'the pen stroke was discarded when the palm landed' }).toBeGreaterThanOrEqual(1);
+  const strokes = await storedStrokes(page);
   expect(strokes.length).toBeGreaterThan(strokesBefore);
+  // A palm pinch would have set the zoom inside those events, long before the
+  // autosave above landed; the toolbar shows it at once, the page soon after.
+  await nextFrames(page);
+  expect(await zoomLabel(page), 'the palm started a pinch-zoom').toBe(zoomBefore);
   expect(await pageWidth(), 'the palm started a pinch-zoom').toBe(before);
 });
 
@@ -737,7 +835,7 @@ test('the whole-stroke eraser leaves pixel-eraser strokes alone', async ({ page 
   await page.mouse.down();
   await page.mouse.move(box.x + box.w * 0.7, box.y + box.h * 0.3, { steps: 8 });
   await page.mouse.up();
-  await page.waitForTimeout(300);
+  await nextFrames(page);
 
   // A pixel-eraser pass at 60% — it touches nothing, so it is purely a hole.
   await page.locator('button[aria-label="ยางลบ"]').click();
@@ -745,8 +843,9 @@ test('the whole-stroke eraser leaves pixel-eraser strokes alone', async ({ page 
   await page.mouse.down();
   await page.mouse.move(box.x + box.w * 0.7, box.y + box.h * 0.6, { steps: 8 });
   await page.mouse.up();
-  await page.waitForTimeout(900);
 
+  await expect.poll(async () => (await storedStrokes(page)).filter((st) => st.mode === 'eraser').length,
+    { message: 'the pixel-eraser pass should be stored as an eraser stroke' }).toBe(1);
   let rec = await storedRecordRaw(page);
   const holes = (rec.strokesByPage['1'] || []).filter((st) => st.mode === 'eraser');
   expect(holes.length, 'the pixel-eraser pass should be stored as an eraser stroke').toBe(1);
@@ -756,10 +855,18 @@ test('the whole-stroke eraser leaves pixel-eraser strokes alone', async ({ page 
   await page.locator('button[aria-label="ยางลบ, แตะซ้ำเพื่อเลือกโหมดลบ"]').click();
   await page.locator('button:text-is("ลบทั้งเส้นที่แตะ")').click();
   await page.locator('button[aria-label="ยางลบ, แตะซ้ำเพื่อเลือกโหมดลบ"]').click();
+  const redo = page.locator('button[aria-label="ทำซ้ำ"]');
+  await expect(redo, 'nothing has been taken back yet, so there is nothing to redo').toBeDisabled();
+  await settledPage(page, 1);
   const box2 = await overlayBox(page);
   await page.mouse.click(box2.x + box2.w * 0.45, box2.y + box2.h * 0.6);
-  await page.waitForTimeout(900);
 
+  // The whole-stroke eraser deletes inside the tap's own handler and offers
+  // what it took to redo. So once React has committed, a disabled redo proves
+  // nothing was deleted and no save was scheduled; that is what this waited
+  // 900 ms to see. Storage is then read as it stands.
+  await nextFrames(page);
+  await expect(redo, 'a hole was deleted, which un-erases').toBeDisabled();
   rec = await storedRecordRaw(page);
   expect(rec.strokesByPage['1'].length, 'a hole was deleted, which un-erases').toBe(total);
   expect((rec.deleted || []).length, 'no tombstone should have been written').toBe(0);
@@ -771,7 +878,6 @@ test('the whole-stroke eraser leaves pixel-eraser strokes alone', async ({ page 
 // pinch-discard repaint drew page 1's ink onto page 2's overlay.
 test('a pinch that interrupts a stroke on page 2 does not paint page 1 ink there', async ({ page }) => {
   await openReaderWithPdf(page, 2);
-  await page.waitForTimeout(500);
 
   // Ink on page 1 (mouse), committed.
   const b1 = await overlayBox(page);
@@ -779,14 +885,15 @@ test('a pinch that interrupts a stroke on page 2 does not paint page 1 ink there
   await page.mouse.down();
   await page.mouse.move(b1.x + b1.w * 0.7, b1.y + 40, { steps: 8 });
   await page.mouse.up();
-  await page.waitForTimeout(900);
+  await expect.poll(async () => (await storedStrokes(page)).length, { message: 'the page 1 stroke must be committed' }).toBe(1);
 
   // Scroll page 2 into view.
   await page.evaluate(() => {
     const el = document.querySelector('[data-page="2"]');
     el.parentElement.scrollTop = el.offsetTop - 8;
   });
-  await page.waitForTimeout(1200);
+  await expect(page.locator('[data-page="2"][data-render-state="ready"]')).toBeVisible();
+  await settledPage(page, 2);
 
   // On page 2: a finger starts a stroke, a second finger interrupts it.
   const r2 = await page.evaluate(() => {
@@ -807,7 +914,9 @@ test('a pinch that interrupts a stroke on page 2 does not paint page 1 ink there
     window.__fire2('pointerup', 1, x + 30, y);
     window.__fire2('pointerup', 2, x + 120, y + 80);
   }, r2);
-  await page.waitForTimeout(600);
+  // The discard repaint runs inside the second finger's pointerdown; wait for
+  // React to commit whatever those events set before reading the canvas.
+  await nextFrames(page);
 
   const inkOnPage2 = await page.evaluate(() => {
     const el = document.querySelector('[data-page="2"]');
@@ -827,23 +936,21 @@ test('a pinch that interrupts a stroke on page 2 does not paint page 1 ink there
 // the mark just made stayed. Undo means "take back what I just did".
 test('undo after scrolling on still takes back the last stroke', async ({ page }) => {
   await openReaderWithPdf(page, 2);
-  await page.waitForTimeout(500);
 
   const b1 = await overlayBox(page);
   await page.mouse.move(b1.x + b1.w * 0.2, b1.y + 40);
   await page.mouse.down();
   await page.mouse.move(b1.x + b1.w * 0.7, b1.y + 40, { steps: 8 });
   await page.mouse.up();
-  await page.waitForTimeout(900);
-  let rec = await storedRecordRaw(page);
-  expect((rec.strokesByPage['1'] || []).length, 'the stroke must be stored on page 1').toBe(1);
+  await expect.poll(async () => (await storedStrokes(page)).length, { message: 'the stroke must be stored on page 1' }).toBe(1);
 
   // Scroll so page 2 is the page in view.
   await page.evaluate(() => {
     const el = document.querySelector('[data-page="2"]');
     el.parentElement.scrollTop = el.offsetTop - 8;
   });
-  await page.waitForTimeout(1200);
+  await expect(page.locator('[data-page="2"][data-render-state="ready"]')).toBeVisible();
+  await settledPage(page, 2);
   const inView = await page.evaluate(() => {
     const rows = [...document.querySelectorAll('[data-page]')];
     const wrap = rows[0].parentElement.getBoundingClientRect();
@@ -857,8 +964,10 @@ test('undo after scrolling on still takes back the last stroke', async ({ page }
   // page-1 stroke.
   await expect(page.locator('button[aria-label="ย้อนกลับ"]')).toBeEnabled();
   await page.keyboard.press('Control+z');
-  await page.waitForTimeout(900);
-  rec = await storedRecordRaw(page);
-  expect((rec.strokesByPage['1'] || []).length, 'the last stroke was not taken back').toBe(0);
-  expect((rec.deleted || []).length, 'the undo must be a tombstone').toBe(1);
+  // [strokes on page 1, tombstones] once the undo's save lands. An undo that
+  // did nothing, or took back something else, never reaches [0, 1].
+  await expect.poll(async () => {
+    const rec = await storedRecordRaw(page);
+    return [(rec?.strokesByPage?.['1'] || []).length, (rec?.deleted || []).length];
+  }, { message: 'the last stroke was not taken back as a tombstone' }).toEqual([0, 1]);
 });
