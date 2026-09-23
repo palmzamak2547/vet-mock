@@ -26,6 +26,7 @@
 import { SUBJECTS } from '../data/curriculum.js';
 import { EXTERNAL_COURSES } from '../data/library-courses.js';
 import { googleDriveSourceUrl, mergeLibrarySources, vcaLibraryDocs } from './vca-library.js';
+import { hasStoredAuthToken } from './auth-storage.js';
 
 const CDN_BASE = import.meta.env?.VITE_LIBRARY_CDN_BASE || '';
 
@@ -317,6 +318,7 @@ export function getLibraryCatalog() {
           error.partialDocs = sources;
           throw error;
         }
+        noteDocHashes(result.docs);
         const combined = { ...result, docs: mergeLibrarySources(result.docs, sources), configured: result.configured || sources.length > 0 };
         saveCatalogSnapshot(combined);
         return combined;
@@ -328,9 +330,44 @@ export function getLibraryCatalog() {
   }
   return _catalogPromise;
 }
+
+// ── Sign-out: the worker's copies of login-only documents ────────────────
+// The service worker keeps opened documents in its own cache, keyed only by
+// content hash (public/sw.js, libraryDoc), and answers any request for that
+// hash from it, whoever asks. Restricted means "any signed-in account", so
+// an account switch changes nothing; but once this device is signed out, the
+// copies of restricted documents go. Only those: public decks, the offline
+// shell, a student's own PDFs and their ink live elsewhere or stay.
+// The name and key are the worker's; library-signout-purge.test.mjs pins
+// them together.
+const LIB_DOC_CACHE = 'vmx-lib-docs-v1';
+
+// content hash -> true when any catalogue this session listed it as public
+const _docHashes = new Map();
+function noteDocHashes(docs) {
+  for (const d of Array.isArray(docs) ? docs : []) {
+    if (!d?.sha256_16) continue;
+    _docHashes.set(d.sha256_16, _docHashes.get(d.sha256_16) === true || d.status === 'public');
+  }
+}
+
+async function purgeRestrictedDocBytes() {
+  const hashes = [..._docHashes].filter(([, isPublic]) => !isPublic).map(([hash]) => hash);
+  _docHashes.clear();
+  if (!hashes.length || typeof caches === 'undefined') return;
+  try {
+    // has() first: opening would create the worker's cache on a device that
+    // never had one.
+    if (!(await caches.has(LIB_DOC_CACHE))) return;
+    const cache = await caches.open(LIB_DOC_CACHE);
+    await Promise.all(hashes.map((hash) => cache.delete(`/__lib-doc/${hash}`).catch(() => false)));
+  } catch { /* storage blocked: the offline rule in resolveDocUrl still refuses them */ }
+}
+
 if (typeof window !== 'undefined') {
   window.addEventListener('vmx-palette-invalidate', () => { _catalogPromise = null; _subjectCounts = null; });
   window.addEventListener('vmx-library-auth-changed', () => {
+    if (!hasStoredAuthToken()) purgeRestrictedDocBytes();
     _catalogPromise = null;
     _subjectCounts = null;
     _urlIntent.clear();
@@ -498,6 +535,18 @@ export function prefetchDocUrl(doc) {
   p.catch(() => {});
 }
 
+// The worker's offline copy answers whoever asks for its hash, so the page
+// decides who may ask: a restricted document only while this device holds a
+// session. Signed out, the reader says it needs a login, exactly as it does
+// online, instead of opening the last reader's deck from the cache.
+function offlineDocUrl(doc) {
+  if (doc.status !== 'public' && !hasStoredAuthToken()) {
+    throw new Error('ไฟล์นี้ต้องเข้าสู่ระบบก่อนจึงจะเปิดได้');
+  }
+  if (doc.sha256_16) return `/api/library-blob?offline=1&h=${encodeURIComponent(doc.sha256_16)}`;
+  throw new Error('ออฟไลน์อยู่ และยังไม่เคยเปิดไฟล์นี้ในเครื่อง จึงเปิดไม่ได้ตอนนี้');
+}
+
 export async function resolveDocUrl(doc) {
   if (!doc) throw new Error('resolveDocUrl: missing doc');
   if (doc.storage_provider === 'google-drive') {
@@ -541,8 +590,7 @@ export async function resolveDocUrl(doc) {
       // by the `h` param — hand it a URL it can answer from that cache. If
       // the document was never opened on this device, the request falls
       // through to the network and fails honestly.
-      if (doc.sha256_16) return `/api/library-blob?offline=1&h=${encodeURIComponent(doc.sha256_16)}`;
-      throw new Error('ออฟไลน์อยู่ และยังไม่เคยเปิดไฟล์นี้ในเครื่อง จึงเปิดไม่ได้ตอนนี้');
+      return offlineDocUrl(doc);
     }
     if (res.status === 401) throw new Error('ไฟล์นี้ต้องเข้าสู่ระบบก่อนจึงจะเปิดได้');
     if (!res.ok) {
@@ -555,10 +603,7 @@ export async function resolveDocUrl(doc) {
       const offlineBody = await res.clone().json().catch(() => ({}));
       const swSaysOffline = res.status === 503 && offlineBody.error === 'Offline';
       const browserSaysOffline = typeof navigator !== 'undefined' && navigator.onLine === false;
-      if (swSaysOffline || browserSaysOffline) {
-        if (doc.sha256_16) return `/api/library-blob?offline=1&h=${encodeURIComponent(doc.sha256_16)}`;
-        throw new Error('ออฟไลน์อยู่ และยังไม่เคยเปิดไฟล์นี้ในเครื่อง จึงเปิดไม่ได้ตอนนี้');
-      }
+      if (swSaysOffline || browserSaysOffline) return offlineDocUrl(doc);
       // The endpoint answers with machine codes (not_found, storage_not_configured,
       // catalog_unavailable). Printing those, or a bare HTTP number, told the
       // reader nothing they could act on.

@@ -2550,6 +2550,21 @@ export default function App() {
       if (pdfLibraryReturnPath) setPdfLibraryReturnPath(null);
     }
   }, [view, libraryDoc, pdfLibraryReturnPath]);
+  // The reader is keyed by account, so a sign-out in another tab remounted it
+  // as a guest still holding the deck the previous student had open. Close
+  // the shelf document when a signed-in owner changes (sign-out, or another
+  // account). Guest to signed-in keeps it: that is the "ต้องเข้าสู่ระบบ" deck
+  // the student just signed in to read.
+  const libraryOwnerRef = useRef(user?.id ?? null);
+  useEffect(() => {
+    const prev = libraryOwnerRef.current;
+    const next = user?.id ?? null;
+    libraryOwnerRef.current = next;
+    if (prev !== null && prev !== next) {
+      setLibraryDoc(null);
+      setPdfLibraryReturnPath(null);
+    }
+  }, [user?.id]);
 
   const openLibraryReader = (doc = null) => {
     // Local files and shelf documents use the same reader. Explicitly clear
