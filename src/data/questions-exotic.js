@@ -57,7 +57,7 @@ export const QB_EXOTIC = [
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['bird', 'anesthesia'], type: 'mcq',
     q: 'อดอาหารก่อนวางยาสลบนก',
     options: ['30 นาที', '2-3 ชม.', '6 ชม.', '12 ชม.'],
-    answer: 1, explain: '2-3 ชม. (นกอดอาหารนานเสี่ยง hypoglycemia)',
+    answer: 1, explain: 'นกตัวเล็กอดอาหารก่อนวางยาสลบเพียง 2-3 ชั่วโมง เพราะ BMR สูง ถ้าอดนานจะเสี่ยง hypoglycemia',
     wikiRefs: [{
       pageId: 'exotic-avian-and-reptile-medicine',
       anchorId: 'avian-anatomy-and-common-diseases',
@@ -101,7 +101,7 @@ export const QB_EXOTIC = [
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['virus'], type: 'mcq',
     q: "Pacheco's disease เกิดจาก",
     options: ['Herpesvirus', 'Polyomavirus', 'Adenovirus', 'Bornavirus'],
-    answer: 0, explain: 'Psittacid Herpesvirus (PsHV) — acute hepatic necrosis',
+    answer: 0, explain: 'Pacheco\'s disease เกิดจาก Psittacid Herpesvirus (PsHV) ทำให้ตับตายแบบเฉียบพลันและนกตายกะทันหัน พบ intranuclear inclusion body ในตับ ไต และม้าม',
     wikiRefs: [{
       pageId: 'exotic-avian-and-reptile-medicine',
       anchorId: 'avian-anatomy-and-common-diseases',
@@ -115,7 +115,7 @@ export const QB_EXOTIC = [
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['virus'], type: 'mcq',
     q: 'PDD (Proventricular Dilatation Disease) เกิดจาก',
     options: ['Herpesvirus', 'Bornavirus', 'Polyomavirus', 'Circovirus'],
-    answer: 1, explain: 'Avian Bornavirus (ABV) — wasting + neuro',
+    answer: 1, explain: 'PDD เกิดจาก Avian Bornavirus ซึ่งทำให้เกิด lymphoplasmacytic ganglioneuritis ในระบบประสาทอัตโนมัติ นกจึงผอมลง สำรอกอาหาร ถ่ายเมล็ดที่ไม่ย่อย และอาจมีอาการทางประสาท',
     wikiRefs: [{
       pageId: 'exotic-avian-and-reptile-medicine',
       anchorId: 'avian-anatomy-and-common-diseases',
@@ -337,7 +337,7 @@ export const QB_EXOTIC = [
     source: 'Slide Lecture 2026 — โรคไม่ติดเชื้อ.pptx', tags: ['anesthesia', 'fasting'], type: 'mcq',
     q: 'นกตัวเล็ก (small parrot) อดอาหารก่อนวางยานานเท่าไหร่',
     options: ['ไม่อด', '2-3 ชั่วโมง', '6 ชั่วโมง', '12 ชั่วโมง'],
-    answer: 1, explain: '2-3 ชม., นกอดนานเสี่ยง hypoglycemia (BMR สูง)',
+    answer: 1, explain: 'นกตัวเล็กอดอาหารก่อนวางยาสลบเพียง 2-3 ชั่วโมง เพราะ BMR สูง ถ้าอดนานจะเสี่ยง hypoglycemia',
     wikiRefs: [{
       pageId: 'exotic-avian-and-reptile-medicine',
       anchorId: 'avian-anatomy-and-common-diseases',
@@ -423,7 +423,7 @@ export const QB_EXOTIC = [
     source: 'EXOTIC FINAL 86 master compilation', tags: ['Chlamydophila', 'antibiotic'], type: 'mcq',
     q: 'Antibiotic of choice สำหรับ Chlamydophila psittaci ในนก',
     options: ['Amoxicillin', 'Doxycycline', 'Enrofloxacin', 'Ceftriaxone'],
-    answer: 1, explain: 'Doxycycline penetrates intracellular Chlamydophila ได้ดี',
+    answer: 1, explain: 'Doxycycline เข้าถึง Chlamydophila ซึ่งอยู่ภายในเซลล์ได้ดี จึงเป็น antibiotic of choice ส่วน azithromycin เป็นทางเลือกรอง',
     wikiRefs: [{
       pageId: 'exotic-avian-and-reptile-medicine',
       anchorId: 'avian-anatomy-and-common-diseases',

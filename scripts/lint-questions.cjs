@@ -269,6 +269,24 @@ function checkLengthStrategy(questions, budget = LENGTH_STRATEGY_BUDGET) {
   return findings;
 }
 
+// ── Explanations that only restate the key ──────────────────────────
+// The predicate is restatesKey in scripts/lib/question-standard.mjs (ESM,
+// so main() loads it and passes it in). The count may only fall: lower
+// RESTATED_KEY_BUDGET when rows are rewritten into "fact + why".
+const RESTATED_KEY_BUDGET = 89;
+
+function checkRestatedKeys(questions, restatesKey, budget = RESTATED_KEY_BUDGET) {
+  if (typeof restatesKey !== 'function') return [];
+  const hits = questions.filter((q) => restatesKey(q));
+  if (hits.length > budget) {
+    return [{ kind: 'restated-key', severity: 'error', count: hits.length, budget, ids: hits.map((q) => q.id), note: `explanations that only restate the key rose above the budget of ${budget}` }];
+  }
+  if (hits.length < budget) {
+    return [{ kind: 'restated-key-budget', severity: 'warn', count: hits.length, budget, note: `lower RESTATED_KEY_BUDGET to ${hits.length}` }];
+  }
+  return [];
+}
+
 function checkMiddleDotInOptions(questions) {
   const findings = [];
   const MD = String.fromCharCode(0xB7);
@@ -377,11 +395,16 @@ function checkMarkdownLeak(questions) {
   return [];
 }
 
-function lintQuestions(allQs, { strategyBudget = LENGTH_STRATEGY_BUDGET } = {}) {
+function lintQuestions(allQs, {
+  strategyBudget = LENGTH_STRATEGY_BUDGET,
+  restatesKey = null,
+  restatedKeyBudget = RESTATED_KEY_BUDGET,
+} = {}) {
   const findings = [
     ...checkPositionBias(allQs),
     ...checkLengthBias(allQs),
     ...checkLengthStrategy(allQs, strategyBudget),
+    ...checkRestatedKeys(allQs, restatesKey, restatedKeyBudget),
     ...checkMarkdownLeak(allQs),
     ...checkMiddleDotInOptions(allQs),
     ...checkOptionLetterReferences(allQs),
@@ -442,6 +465,10 @@ function printResults(allQs, result, args = []) {
       console.log(`     ${f.severity === 'error' ? '🚨' : 'ℹ️ '} ${f.subject} ${f.strategy} ${f.score}% (chance ${f.chance}%) — ${f.note}`);
     }
     if (strat.length) console.log();
+    for (const f of findings.filter((x) => x.kind === 'restated-key' || x.kind === 'restated-key-budget')) {
+      console.log(`   ${f.severity === 'error' ? '🚨' : 'ℹ️ '} Explanations that only restate the key: ${f.count} (budget ${f.budget}) — ${f.note}`);
+      console.log();
+    }
 
     if (findings.length === 0) {
       console.log('   ✅ No bias detected. Good shape.');
@@ -506,7 +533,8 @@ function printResults(allQs, result, args = []) {
 
 async function main(args = process.argv.slice(2)) {
   const allQs = await loadQuestions();
-  const result = lintQuestions(allQs);
+  const { restatesKey } = await import('./lib/question-standard.mjs');
+  const result = lintQuestions(allQs, { restatesKey });
   printResults(allQs, result, args);
   return result.errors.length > 0 && !args.includes('--warn-only') ? 1 : 0;
 }
@@ -525,5 +553,6 @@ module.exports = {
   LENGTH_STRATEGY_BUDGET,
   STRATEGY_MARGIN,
   STRATEGY_MIN_N,
+  RESTATED_KEY_BUDGET,
   main,
 };
