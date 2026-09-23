@@ -427,7 +427,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
       "ลำดับที่ 4"
     ],
     "answer": 2,
-    "explain": "ในระบบ Halal-HACCP ที่กำหนดจุดควบคุมสิ่งต้องห้าม (Haram Critical Control Point) การทำให้สัตว์สลบ (stunning) จัดเป็น Haram-CCP ลำดับที่ 3 ซึ่งเป็นลำดับที่ระบบกำหนดไว้ จึงต้องจำเป็นข้อกำหนด\n\n❌ ทำไมข้ออื่นผิด\n— \"ลำดับที่ 1\" = ไม่ใช่ลำดับของ stunning\n— \"ลำดับที่ 2\" = ไม่ใช่ลำดับของ stunning\n— \"ลำดับที่ 4\" = ไม่ใช่ลำดับของ stunning",
+    "explain": "ในระบบ Halal-HACCP ที่กำหนดจุดควบคุมสิ่งต้องห้าม (Haram Critical Control Point) การทำให้สัตว์สลบ (stunning) จัดเป็น Haram-CCP ลำดับที่ 3 ส่วนเหตุผลที่ stunning อยู่ลำดับนี้แทนลำดับอื่น ยังไม่มีแหล่งอ้างอิงใน VetMock ที่ยืนยันได้ จึงควรทวนลำดับ Haram-CCP ทั้งชุดประกอบด้วย\n\n❌ ทำไมข้ออื่นผิด\n— \"ลำดับที่ 1\" = ไม่ใช่ลำดับของ stunning\n— \"ลำดับที่ 2\" = ไม่ใช่ลำดับของ stunning\n— \"ลำดับที่ 4\" = ไม่ใช่ลำดับของ stunning",
     "verified": "FIQC final น.3",
     "sourceType": "student-compilation",
     "examOrigin": "FIQC final recall (Vet 85)"
