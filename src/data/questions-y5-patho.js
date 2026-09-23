@@ -36,7 +36,7 @@ export const QB_Y5_PATHO = [
       'Gentamicin, Feline infectious peritonitis (FIP)'
     ],
     answer: 1,
-    explain: 'Vet 81 group ตอบ B (Lepto + Aflatoxin) — แต่ commentary "ปอน่าจะตอบข้อนี้" ชี้ไปที่ C (Ochratoxin + Heartworm)\nLepto = interstitial nephritis (ชัด)\nAflatoxin = primary hepatotoxin, renal effect รอง\nOchratoxin = renal tubular damage (ชัด)\nHeartworm = glomerulonephritis (immune-complex)\n\nทุกข้อ list สารที่ทำพยาธิไตทั้งคู่จึงไม่มีข้อ "ไม่ก่อ" ที่ชัดเจน — flag ambiguity',
+    explain: 'Lepto = interstitial nephritis (ชัด)\nAflatoxin = primary hepatotoxin, renal effect รอง\nOchratoxin = renal tubular damage (ชัด)\nHeartworm = glomerulonephritis (immune-complex)\n\nทุกข้อ list สารที่ทำพยาธิไตทั้งคู่จึงไม่มีข้อ "ไม่ก่อ" ที่ชัดเจน',
     verified: 'Final Patho prac.pdf p.1',
     flag: { note: 'Vet 81 ตอบ B แต่ commentary พี่ปอ ตอบ C — disagreement; ทุกตัวเลือกก่อพยาธิสภาพที่ไตได้ จึงไม่มีข้อ "ไม่ก่อ" ที่ชัดเจน รอตัดสินเฉลยจากหน้า 1 ของต้นฉบับ', sources: ['Final Patho prac.pdf p.1'], severity: 'unclear' } },
 
@@ -53,7 +53,7 @@ export const QB_Y5_PATHO = [
       'ผิดทุกข้อ (เพราะในตัวเลือกเป็นดีซ่านได้หมด)'
     ],
     answer: 4,
-    explain: 'ตัวเลือก A-D เป็น DDx ของ jaundice ครบทุกข้อ (pre/hepatic/post-hepatic)\n- Babesiosis, M. haemofelis, IMHA = pre-hepatic (hemolysis)\n- Hepatic lipidosis, Lepto, Cu-hepatitis = hepatic\n- PCV2, Anaplasmosis = mixed\n→ E "ผิดทุกข้อ" คือ "ไม่มีข้อใดที่ไม่ใช่ DDx" = ทุกข้อเป็น DDx ทั้งหมด',
+    explain: 'ตัวเลือก A-D เป็น DDx ของ jaundice ครบทุกข้อ (pre/hepatic/post-hepatic)\n- Babesiosis, M. haemofelis, IMHA = pre-hepatic (hemolysis)\n- Hepatic lipidosis, Lepto, Cu-hepatitis = hepatic\n- PCV2, Anaplasmosis = mixed\n→ "ผิดทุกข้อ" คือ "ไม่มีข้อใดที่ไม่ใช่ DDx" = ทุกข้อเป็น DDx ทั้งหมด',
     verified: 'Final Patho prac.pdf p.1' },
 
   { id: 8202, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
@@ -261,7 +261,7 @@ export const QB_Y5_PATHO = [
       'Rabies: intracytoplasmic IB in neuron and astrocyte'
     ],
     answer: 1,
-    explain: 'Vet 81 group ตอบ B (intranuclear IB in neuron/astrocyte) — CDV มี IB ได้ทั้ง intranuclear และ intracytoplasmic ในหลายชนิดเซลล์ (urothelium, lymphocyte, bronchiolar epi, neuron, astrocyte)\nClinical signs ระบบประสาท + GI + URI = CDV ชัด ไม่ใช่ Rabies\nNote: บางตำราเน้น intracytoplasmic IB ของ CDV ใน neuron — เลือกตาม Vet 81 key',
+    explain: 'CDV มี IB ได้ทั้ง intranuclear และ intracytoplasmic ในหลายชนิดเซลล์ (urothelium, lymphocyte, bronchiolar epi, neuron, astrocyte)\nClinical signs ระบบประสาท + GI + URI = CDV ชัด ไม่ใช่ Rabies\nNote: บางตำราเน้น intracytoplasmic IB ของ CDV ใน neuron',
     verified: 'Final Patho prac.pdf p.3-4',
     flag: { note: 'CDV inclusion bodies เจอได้ทั้ง intranuclear และ intracytoplasmic — บางตำราเน้น intracytoplasmic เป็นหลัก แต่ Vet 81 key ตอบ B', sources: ['Final Patho prac.pdf p.3-4'], severity: 'minor' } },
 
@@ -458,7 +458,7 @@ export const QB_Y5_PATHO = [
       'ผิดทุกข้อ'
     ],
     answer: 4,
-    explain: 'Vet 81 commentary: "ในข้อย่อยทั้งหมด ขี้เป็นเลือดได้หมด" → ทุกข้อเป็น DDx of bloody diarrhea จริง\n- Salmonella, Swine dysentery (Brachyspira hyodysenteriae) = bloody\n- Trichuris = bloody (whipworm)\n- HBD, PPE acute = bloody\n- Colonic spirochete + Balantidium = ได้ทั้งคู่ (Balantidium rare แต่ได้)\n→ E "ผิดทุกข้อ" = ไม่มีข้อไหนที่ไม่ใช่ DDx',
+    explain: 'ในข้อย่อยทั้งหมด ขี้เป็นเลือดได้หมด → ทุกข้อเป็น DDx of bloody diarrhea จริง\n- Salmonella, Swine dysentery (Brachyspira hyodysenteriae) = bloody\n- Trichuris = bloody (whipworm)\n- HBD, PPE acute = bloody\n- Colonic spirochete + Balantidium = ได้ทั้งคู่ (Balantidium rare แต่ได้)\n→ "ผิดทุกข้อ" = ไม่มีข้อไหนที่ไม่ใช่ DDx',
     verified: 'Final Patho prac.pdf p.6-7' },
 
   { id: 8227, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
@@ -610,7 +610,7 @@ export const QB_Y5_PATHO = [
       'ผิดทุกข้อ เพราะพบหมด'
     ],
     answer: 3,
-    explain: 'Vet 81 group ตอบ D (Liver failure ไม่ทำ PU/PD) — commentary "ผิดทุกข้อ*เพราะพบหมด" → ปอเลือก E\nReal answer: Liver failure CAN cause PU/PD ผ่าน:\n- ลด urea synthesis → medullary washout → reduced concentrating ability\n- Hepatic encephalopathy → polydipsia\n→ ทุกข้อทำ PU/PD ได้ → E ถูกต้องทางตำรา\n→ Flag (Vet 81 ตอบ D, ปอ + textbook ตอบ E)',
+    explain: 'Liver failure ก็ทำให้เกิด PU/PD ได้ผ่าน:\n- ลด urea synthesis → medullary washout → reduced concentrating ability\n- Hepatic encephalopathy → polydipsia\n→ ตามตำรา ทุกข้อทำ PU/PD ได้ ข้อนี้จึงยังมีข้อโต้แย้งว่าคำตอบที่ถูกคือ "ผิดทุกข้อ"',
     verified: 'Final Patho prac.pdf p.8-9',
     flag: { note: 'Vet 81 group ตอบ D (Liver failure) แต่ commentary พี่ปอ + textbook ตอบ E (ผิดทุกข้อ เพราะ liver failure ก็ทำ PU/PD ได้)', sources: ['Final Patho prac.pdf p.8-9'], severity: 'major' } },
 
@@ -919,7 +919,7 @@ export const QB_Y5_PATHO = [
       'Toxocara canis'
     ],
     answer: 1,
-    explain: 'Vet 81 ตอบ B (Prototheca) — Pee Por commentary แย้งว่าอาจเป็น "PYTHIUM"\nClinical (collie outdoor + bloody diarrhea + capsulated organism + no response to enrofloxacin) เข้าได้ทั้ง:\n- Prototheca = colorless algae, round/oval ขนาดเล็ก, แคปซูลใส, antibiotic ไม่ตอบสนอง\n- Pythium = oomycete, GI granuloma + bloody diarrhea, antibiotic ไม่ตอบสนอง\nMorphology "เมล็ดถั่ว + capsule ใส" → Prototheca มากกว่า (Pythium = hyphae, ไม่ใช่ round)\n→ B (Prototheca)',
+    explain: 'DDx สำคัญคือ Prototheca กับ Pythium\nClinical (collie outdoor + bloody diarrhea + capsulated organism + no response to enrofloxacin) เข้าได้ทั้ง:\n- Prototheca = colorless algae, round/oval ขนาดเล็ก, แคปซูลใส, antibiotic ไม่ตอบสนอง\n- Pythium = oomycete, GI granuloma + bloody diarrhea, antibiotic ไม่ตอบสนอง\nMorphology "เมล็ดถั่ว + capsule ใส" → Prototheca มากกว่า (Pythium = hyphae, ไม่ใช่ round)\n→ Prototheca',
     verified: 'Final Patho prac.pdf p.13',
     flag: { note: 'Vet 81 ตอบ Prototheca, commentary พี่ปอ ชี้ Pythium — morphology "round + capsule" เข้า Prototheca มากกว่า', sources: ['Final Patho prac.pdf p.13'], severity: 'minor' } },
 

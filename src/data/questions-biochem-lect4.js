@@ -76,7 +76,7 @@ export const QB_BIOCHEM_LECT4 = [
       'เป็นองค์ประกอบของ extracellular matrix (เช่น GAGs/proteoglycan)',
     ],
     answer: 1,
-    explain: 'โจทย์ถามหน้าที่ที่เป็นไปได้น้อยสุด — โครงสร้าง (cellulose/chitin), สะสมพลังงาน (starch/glycogen), ECM (GAGs) ล้วนเป็นบทบาทจริง; ข้อที่ระบุกว้าง "ให้พลังงาน" ซ้ำกับสะสมพลังงาน จึงเป็นตัวเลือกที่เฉลยตัดออก (ตามไฮไลต์ในไฟล์)',
+    explain: 'โจทย์ถามหน้าที่ที่เป็นไปได้น้อยสุด — โครงสร้าง (cellulose/chitin), สะสมพลังงาน (starch/glycogen), ECM (GAGs) ล้วนเป็นบทบาทจริง; ข้อที่ระบุกว้าง "ให้พลังงาน" ซ้ำกับสะสมพลังงาน จึงเป็นหน้าที่ที่เป็นไปได้น้อยที่สุด',
     source: 'Biochemistry I Lecture Final (Blackboard) 9 มี.ค. 2022',
     examOrigin: 'Biochemistry I 3102113 · Lecture Final 2022',
     verified: 'Blackboard lecture-final Q23 (เฉลยไฮไลต์ในไฟล์)' },

@@ -41,7 +41,7 @@ export const QB_SHORT = [
     tags: ['banned-drugs', 'short'], type: 'short',
     q: 'ในการเลี้ยงสัตว์ปีกเชิงพาณิชย์ของไทย ยา/สารห้ามใช้เด็ดขาดมี 4 กลุ่มหลัก จงระบุชื่อยาในแต่ละกลุ่มอย่างน้อย 1 ตัวอย่าง',
     keywords: ['Vancomycin', 'DES', 'Diethylstilbestrol', 'Chloramphenicol', 'CAP', 'Nitrofurans', 'Furazolidone'],
-    explain: 'ยาห้ามใช้ใน poultry production (Aj. Niwat L13):\n1. **Vancomycin** — last-resort human antibiotic, ห้ามใช้ในสัตว์อาหาร\n2. **DES (Diethylstilbestrol)** — synthetic estrogen, carcinogen\n3. **Chloramphenicol (CAP)** — bone marrow toxicity in humans\n4. **Nitrofurans** (Furazolidone, Nitrofurazone) — carcinogenic\n\n💡 Common reason: ตกค้างในผลิตภัณฑ์ → ผู้บริโภคได้รับ → mutagenic/carcinogenic/AMR' },
+    explain: 'ยาห้ามใช้ใน poultry production:\n1. **Vancomycin** — last-resort human antibiotic, ห้ามใช้ในสัตว์อาหาร\n2. **DES (Diethylstilbestrol)** — synthetic estrogen, carcinogen\n3. **Chloramphenicol (CAP)** — bone marrow toxicity in humans\n4. **Nitrofurans** (Furazolidone, Nitrofurazone) — carcinogenic\n\n💡 Common reason: ตกค้างในผลิตภัณฑ์ → ผู้บริโภคได้รับ → mutagenic/carcinogenic/AMR' },
 
   { id: 2202, subject: 'poultry', topic: 'biosecurity', year: 4,
     source: 'Aj. Nataya slide L11 + Master 86 compilation p.28',
@@ -50,7 +50,7 @@ export const QB_SHORT = [
     tags: ['biosecurity', '3-levels', 'fill'], type: 'fill',
     q: 'Biosecurity ในฟาร์มสัตว์ปีกแบ่งเป็น 3 levels: \n1) ___ Biosecurity = แผนผังโครงสร้างฟาร์ม (zoning, fencing) \n2) ___ Biosecurity = อุปกรณ์ + ระบบ (boot dip, shower-in) \n3) ___ Biosecurity = ขั้นตอนปฏิบัติ + monitoring',
     blanks: ['Conceptual', 'Structural', 'Procedural'],
-    explain: '3 Levels of Biosecurity (Aj. Nataya):\n1. **Conceptual** = แนวคิดและแผนผังของฟาร์ม (ระยะห่าง, zone separation, pest exclusion)\n2. **Structural** = สิ่งก่อสร้าง + อุปกรณ์ (boot dip, perimeter fence, dedicated equipment per house)\n3. **Procedural** = SOP / monitoring (employee training, water quality test pH+heavy metals+bacterial count, feed quality, recordkeeping)' },
+    explain: '3 Levels of Biosecurity:\n1. **Conceptual** = แนวคิดและแผนผังของฟาร์ม (ระยะห่าง, zone separation, pest exclusion)\n2. **Structural** = สิ่งก่อสร้าง + อุปกรณ์ (boot dip, perimeter fence, dedicated equipment per house)\n3. **Procedural** = SOP / monitoring (employee training, water quality test pH+heavy metals+bacterial count, feed quality, recordkeeping)' },
 
   { id: 2203, subject: 'poultry', topic: 'quality-assurance', year: 4,
     source: 'Aj. Ekasingh L14-15 Quality Assurance',
@@ -72,7 +72,7 @@ export const QB_SHORT = [
     tags: ['rumenotomy', 'indication', 'fill'], type: 'fill',
     q: 'Indications หลักของ rumenotomy ในวัวมี 6 ข้อ จงเติม 4 ข้อแรก:\n1) Hardware disease / ___ disease\n2) Frothy ___\n3) Persistent ___ impaction\n4) Some forms of ___',
     blanks: ['Traumatic Reticuloperitonitis', 'bloat', 'rumen', 'choke'],
-    explain: 'Rumenotomy indications (Aj. Ekkapol L13):\n1. Hardware disease / Traumatic Reticuloperitonitis (TRP)\n2. Frothy bloat (ระบาย gas + foam)\n3. Persistent rumen impaction\n4. Some forms of choke (FB stuck)\n5. Other foreign bodies in reticulum\n6. Exploration of rumen, reticulum, parts of omasum' },
+    explain: 'Rumenotomy indications:\n1. Hardware disease / Traumatic Reticuloperitonitis (TRP)\n2. Frothy bloat (ระบาย gas + foam)\n3. Persistent rumen impaction\n4. Some forms of choke (FB stuck)\n5. Other foreign bodies in reticulum\n6. Exploration of rumen, reticulum, parts of omasum' },
 
   { id: 2211, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
     source: 'Sunsun84 anesthesia + Aj. Ekkapol L13 epidural',
@@ -81,7 +81,7 @@ export const QB_SHORT = [
     tags: ['epidural', 'sacrococcygeal', 'fill'], type: 'fill',
     q: 'Caudal epidural block ในวัว: ฉีด lidocaine 2% ที่ ___-___ space (between vertebrae), dose ___ ml/100 kg, max ___ ml',
     blanks: ['S5', 'C1', '1', '6'],
-    explain: 'Caudal epidural block (Aj. Ekkapol):\n• Site: **Sacrococcygeal (S5-Co1) space** หรือ first intercoccygeal (Co1-Co2)\n• Anesthetic: 2% Lidocaine\n• Dose: **1 ml/100 kg**\n• Maximum: **6 ml**\n• Technique: loss of resistance + hanging drop\n• Indication: perineal sx, c-section, dystocia' },
+    explain: 'Caudal epidural block:\n• Site: **Sacrococcygeal (S5-Co1) space** หรือ first intercoccygeal (Co1-Co2)\n• Anesthetic: 2% Lidocaine\n• Dose: **1 ml/100 kg**\n• Maximum: **6 ml**\n• Technique: loss of resistance + hanging drop\n• Indication: perineal sx, c-section, dystocia' },
 
   // ═══════════════════════════════════════════════════════════
   // CLIN APP RUM, Final scope, Short-answer
@@ -116,7 +116,7 @@ export const QB_SHORT = [
     tags: ['contraception', 'progestin', 'fill'], type: 'fill',
     q: 'Synthetic progestins ใช้ใน contraception ของแมวเพศเมีย: \n1) ตัวอย่างยา ___ acetate (MPA)\n2) ผลข้างเคียงสำคัญที่พบบ่อย = ___ endometrial hyperplasia\n3) ทำให้แมวเสี่ยง mammary ___ เพิ่มขึ้น',
     blanks: ['Medroxyprogesterone', 'Cystic', 'tumor'],
-    explain: 'Progestin contraceptives (Aj. SP L15):\n• **Medroxyprogesterone acetate (MPA)**, Megestrol acetate, Altrenogest\n• Mechanism: negative feedback → ↓LH/FSH → no ovulation\n\n⚠️ Side effects:\n1. **Cystic Endometrial Hyperplasia (CEH)** → pyometra risk\n2. **Mammary tumor** (cats: very strong link, MPA = carcinogen)\n3. Diabetes mellitus (insulin resistance)\n4. Adrenal suppression\n5. Pyometra\n\n💡 Modern alternative: surgical neutering (OHE/OE) preferred over long-term progestin' },
+    explain: 'Progestin contraceptives:\n• **Medroxyprogesterone acetate (MPA)**, Megestrol acetate, Altrenogest\n• Mechanism: negative feedback → ↓LH/FSH → no ovulation\n\n⚠️ Side effects:\n1. **Cystic Endometrial Hyperplasia (CEH)** → pyometra risk\n2. **Mammary tumor** (cats: very strong link, MPA = carcinogen)\n3. Diabetes mellitus (insulin resistance)\n4. Adrenal suppression\n5. Pyometra\n\n💡 Modern alternative: surgical neutering (OHE/OE) preferred over long-term progestin' },
 
   { id: 2231, subject: 'repro-lect', topic: 'infertility', year: 4,
     source: 'Aj. TT L18 Infertility',
@@ -125,7 +125,7 @@ export const QB_SHORT = [
     tags: ['brucellosis', 'short'], type: 'short',
     q: 'ผู้เลี้ยงนำสุนัขเพศเมียที่แท้งช่วงท้ายของท้อง (>45 days gestation) มาตรวจ + รายงานว่าตัวผู้ที่ผสมก็มี testicular atrophy, จงระบุโรคที่ต้องตัดออก + ขั้นตอนการตรวจ + ความเสี่ยง zoonosis',
     keywords: ['Brucella canis', 'brucellosis', 'RSAT', 'rapid slide agglutination', 'PCR', 'culture', 'zoonosis', 'cull', 'isolation'],
-    explain: '**Canine Brucellosis** (Aj. TT L18):\n\n📋 Clinical signs:\n• Female: late-term abortion (45-59 days, classic dog), stillbirth, weak puppies, infertility\n• Male: testicular atrophy / scrotal dermatitis / orchitis, epididymitis\n\n📋 Tests:\n1. **RSAT** (Rapid Slide Agglutination Test) — screening, 2-5 wks post-infection, false positive common\n2. **AGID** (Agar Gel Immunodiffusion) — confirmatory\n3. **PCR** — definitive, blood/tissue\n4. **Culture** — gold standard, BUT slow + biohazard\n\n⚠️ **Zoonosis** — Brucella canis can infect humans (flu-like → undulant fever)\n• Owner counseling: PPE, no breeding, isolate\n• Lab personnel: BSL-3 handling\n\n💡 Tx: lifelong tetracycline + rifampin, BUT poor cure rate, **culling (euthanasia)** often recommended for kennels\n\n⚠️ Reportable disease in some jurisdictions' },
+    explain: '**Canine Brucellosis**:\n\n📋 Clinical signs:\n• Female: late-term abortion (45-59 days, classic dog), stillbirth, weak puppies, infertility\n• Male: testicular atrophy / scrotal dermatitis / orchitis, epididymitis\n\n📋 Tests:\n1. **RSAT** (Rapid Slide Agglutination Test) — screening, 2-5 wks post-infection, false positive common\n2. **AGID** (Agar Gel Immunodiffusion) — confirmatory\n3. **PCR** — definitive, blood/tissue\n4. **Culture** — gold standard, BUT slow + biohazard\n\n⚠️ **Zoonosis** — Brucella canis can infect humans (flu-like → undulant fever)\n• Owner counseling: PPE, no breeding, isolate\n• Lab personnel: BSL-3 handling\n\n💡 Tx: lifelong tetracycline + rifampin, BUT poor cure rate, **culling (euthanasia)** often recommended for kennels\n\n⚠️ Reportable disease in some jurisdictions' },
 
   // ═══════════════════════════════════════════════════════════
   // ENG VET PROF II, Essay (already exists in questions-engprof.js, references for cross-subject)

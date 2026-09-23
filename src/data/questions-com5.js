@@ -1525,7 +1525,7 @@ export const QB_COM5 = [
     tags: ["rabies","animal-mgmt"], type: 'match',
     q: "จับคู่การจัดการสัตว์ที่กัดคน",
     pairs: [{"left":"สัตว์กัดดูปกติ ไม่ป่วย (มีเจ้าของ)","right":"ขังกรงดูอาการ 10 วัน, ห้ามฉีดวัคซีนทับ"},{"left":"สัตว์ที่กัดมีอาการป่วย","right":"Euthanize + ส่งตรวจ DFA"},{"left":"สัตว์ไม่มีเจ้าของ (ทั้งป่วยและไม่ป่วย)","right":"Euthanize + ส่งตรวจ"}],
-    explain: "Aj.Vachira: ห้ามฉีด vaccine ในช่วงสังเกตอาการเพราะจะ confuse กับ adverse effect",
+    explain: "ห้ามฉีด vaccine ในช่วงสังเกตอาการเพราะจะ confuse กับ adverse effect",
     verified: "Rabies.pdf p.23",
     wikiRefs: [
           {

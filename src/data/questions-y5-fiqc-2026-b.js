@@ -170,7 +170,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
       "ตั้งทีม HACCP ของสถานประกอบการ"
     ],
     "answer": 3,
-    "explain": "ลำดับ 5 primary steps คือ ตั้งทีม HACCP, บรรยายผลิตภัณฑ์และ scope, ระบุกลุ่มผู้บริโภค, เขียน flow diagram, และตรวจ flow diagram ว่าตรงกับหน้างานจริง โดยเอกสารย้ำว่าต้องทำตามลำดับ ส่วนการชี้บ่งอันตรายเป็น principle ที่ 1 ไม่ใช่ primary step",
+    "explain": "ลำดับ 5 primary steps คือ ตั้งทีม HACCP, บรรยายผลิตภัณฑ์และ scope, ระบุกลุ่มผู้บริโภค, เขียน flow diagram, และตรวจ flow diagram ว่าตรงกับหน้างานจริง และต้องทำตามลำดับ ส่วนการชี้บ่งอันตรายเป็น principle ที่ 1 ไม่ใช่ primary step",
     "verified": "FIQC final น.4",
     "sourceType": "lecture-derived",
     "examOrigin": "FIQC final study notes (Vet 85)"
@@ -331,7 +331,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
       "Prerequisite คือชื่อเรียกเดิมของ corrective action ในระบบ Codex"
     ],
     "answer": 1,
-    "explain": "เอกสารเน้นประโยค Without basic prerequisite (Biosecurity / GHP / GAP), hardly HACCP successful เพราะ HACCP ควบคุมเฉพาะจุดวิกฤต ส่วน prerequisite ป้องกันอันตรายจากสิ่งแวดล้อมการผลิตทั้งหมด จึงต้องมีก่อนเสมอ ไม่ใช่เรื่องเฉพาะการส่งออกและไม่ใช่ชื่อเดิมของ corrective action",
+    "explain": "หลักคือ without basic prerequisite (Biosecurity / GHP / GAP), hardly HACCP successful เพราะ HACCP ควบคุมเฉพาะจุดวิกฤต ส่วน prerequisite ป้องกันอันตรายจากสิ่งแวดล้อมการผลิตทั้งหมด จึงต้องมีก่อนเสมอ ไม่ใช่เรื่องเฉพาะการส่งออกและไม่ใช่ชื่อเดิมของ corrective action",
     "verified": "FIQC final น.2, 4",
     "sourceType": "lecture-derived",
     "examOrigin": "FIQC final study notes (Vet 85)"
@@ -355,7 +355,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
       "การชั่งน้ำหนัก การตัดแต่ง และการบรรจุกล่อง"
     ],
     "answer": 0,
-    "explain": "เอกสารเน้นว่าโรงเชือดกำหนดจุดล้างซากและ chilling เป็น CCP โดยล้างซากคุม water pressure และ volume ส่วน chilling คุม core temp ไม่เกิน 4 C พร้อม overflow ขั้นตอนลวก ถอนขน และการตรวจก่อนหลังฆ่าเป็นขั้นตอนปกติหรือมาตรการคุมทั่วไปในตัวอย่างนี้",
+    "explain": "โรงเชือดกำหนดจุดล้างซากและ chilling เป็น CCP โดยล้างซากคุม water pressure และ volume ส่วน chilling คุม core temp ไม่เกิน 4 C พร้อม overflow ขั้นตอนลวก ถอนขน และการตรวจก่อนหลังฆ่าเป็นขั้นตอนปกติหรือมาตรการคุมทั่วไปในตัวอย่างนี้",
     "verified": "FIQC final น.2, 6",
     "sourceType": "lecture-derived",
     "examOrigin": "FIQC final study notes (Vet 85)"
@@ -427,7 +427,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
       "ลำดับที่ 4"
     ],
     "answer": 2,
-    "explain": "คำตอบที่บันทึกไว้ของข้อนี้คือลำดับที่ 3 ซึ่งมาจากคำเฉลยที่รุ่นพี่ Vet 85 จดไว้ หัวข้อ Haram Critical Control Point ไม่ได้ถูกอธิบายไว้ในเนื้อหาสรุปชุดนี้ และไม่มีข้อมูลว่าเพราะเหตุใด stunning จึงถูกจัดไว้ที่ลำดับนี้แทนลำดับอื่น จึงควรทวนรายละเอียด Halal-HACCP จากเอกสารประกอบการสอนของปีปัจจุบันประกอบด้วย\n\n❌ ทำไมข้ออื่นผิด\n— \"ลำดับที่ 1\" = ไม่ตรงกับลำดับที่บันทึกไว้เป็นคำตอบ และไม่มีข้อมูลในชุดนี้ว่าขั้นตอนใดถูกจัดไว้ที่ลำดับนี้\n— \"ลำดับที่ 2\" = ไม่ตรงกับลำดับที่บันทึกไว้เช่นกัน และไม่มีรายละเอียดของลำดับนี้ให้ยืนยัน\n— \"ลำดับที่ 4\" = ไม่ตรงกับลำดับที่บันทึกไว้เช่นกัน และไม่มีรายละเอียดของลำดับนี้ให้ยืนยัน",
+    "explain": "ในระบบ Halal-HACCP ที่กำหนดจุดควบคุมสิ่งต้องห้าม (Haram Critical Control Point) การทำให้สัตว์สลบ (stunning) จัดเป็น Haram-CCP ลำดับที่ 3 ซึ่งเป็นลำดับที่ระบบกำหนดไว้ จึงต้องจำเป็นข้อกำหนด\n\n❌ ทำไมข้ออื่นผิด\n— \"ลำดับที่ 1\" = ไม่ใช่ลำดับของ stunning\n— \"ลำดับที่ 2\" = ไม่ใช่ลำดับของ stunning\n— \"ลำดับที่ 4\" = ไม่ใช่ลำดับของ stunning",
     "verified": "FIQC final น.3",
     "sourceType": "student-compilation",
     "examOrigin": "FIQC final recall (Vet 85)"
@@ -474,7 +474,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
       "กรมปศุสัตว์หยุดออกใบรับรองการส่งออกให้เนื้อไก่ดิบแล้ว"
     ],
     "answer": 1,
-    "explain": "ตั้งแต่ AI ระบาด การขายเนื้อดิบถูกจำกัด ไทยจึงขายเนื้อสุกเพิ่มขึ้นจน cooked มากกว่า raw ส่วนภาษี ค่าขนส่ง และใบรับรองไม่ใช่เหตุผลที่เอกสารกล่าวถึง",
+    "explain": "ตั้งแต่ AI ระบาด การขายเนื้อดิบถูกจำกัด ไทยจึงขายเนื้อสุกเพิ่มขึ้นจน cooked มากกว่า raw ส่วนภาษี ค่าขนส่ง และใบรับรองไม่ใช่เหตุผลหลัก",
     "verified": "FIQC final น.3, 7",
     "sourceType": "lecture-derived",
     "examOrigin": "FIQC final study notes (Vet 85)"
@@ -521,7 +521,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
       "บริษัทต้องเข้าร่วม Better Chicken Commitment ก่อนยื่นขอส่งออก"
     ],
     "answer": 0,
-    "explain": "ข้อบังคับของ DLD ได้แก่ HACCP และ GHP certificate, DLD GAP farm certificate, ปลอด AI และ ND หรือมี compartment certificate, ไม่มี prohibited antibiotic, insecticide และ heavy metal residue ส่วน ISO 14000 เป็นมาตรฐานสิ่งแวดล้อมที่เอกสารกาว่าไม่เกี่ยว และ BCC เป็นพันธสัญญาของกลุ่มผู้ซื้อ ไม่ใช่ข้อบังคับราชการ",
+    "explain": "ข้อบังคับของ DLD ได้แก่ HACCP และ GHP certificate, DLD GAP farm certificate, ปลอด AI และ ND หรือมี compartment certificate, ไม่มี prohibited antibiotic, insecticide และ heavy metal residue ส่วน ISO 14000 เป็นมาตรฐานสิ่งแวดล้อม ไม่ใช่ข้อบังคับของกรมปศุสัตว์ และ BCC เป็นพันธสัญญาของกลุ่มผู้ซื้อ ไม่ใช่ข้อบังคับราชการ",
     "verified": "FIQC final น.3",
     "sourceType": "lecture-derived",
     "examOrigin": "FIQC final study notes (Vet 85)"
@@ -781,7 +781,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
       "สัตว์ต้องถูกเชือดทันทีที่มาถึงโรงงานโดยไม่ต้องพักก่อน"
     ],
     "answer": 2,
-    "explain": "เงื่อนไข halal ของฝั่งอาหรับคือเชือดด้วยมือขวาพร้อมกล่าวนามพระเจ้า ห้ามลับมีดต่อหน้าสัตว์ และสัตว์ต้องได้พักก่อนเชือด โดยซาอุดีอาระเบียไม่ยอมรับ electrical stunning ในสัตว์ปีก ซึ่งโน้ตระบุว่าการเชือดโดยไม่สลบทำให้ความเสียหายสูงมาก",
+    "explain": "เงื่อนไข halal ของฝั่งอาหรับคือเชือดด้วยมือขวาพร้อมกล่าวนามพระเจ้า ห้ามลับมีดต่อหน้าสัตว์ และสัตว์ต้องได้พักก่อนเชือด โดยซาอุดีอาระเบียไม่ยอมรับ electrical stunning ในสัตว์ปีก ซึ่งทำให้การเชือดโดยไม่สลบมีความเสียหายสูงมาก",
     "verified": "FIQC final น.3",
     "sourceType": "lecture-derived",
     "examOrigin": "FIQC final study notes (Vet 85)"

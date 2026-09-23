@@ -492,7 +492,7 @@ export const QB_BIOCHEM_LAB = [
       "electrophoresis คือการเคลื่อนที่ของอนุภาคมีประจุในสารละลายโดยแรงดันไฟฟ้า"
     ],
     "answer": 1,
-    "explain": "ข้อที่ผิดตามเฉลยคือข้อ \"ใช้ voltage เป็นตัวแสดง\" — ในระบบนี้ voltage/power supply เป็นแหล่งจ่ายไฟเพื่อขับการเคลื่อนที่ ไม่ใช่ \"ตัวแสดงผล\" การแยก ส่วนการอ่าน MW จากกราฟ, ข้อจำกัดกับ glycoprotein และนิยาม electrophoresis ถูกต้อง",
+    "explain": "ข้อที่ผิดคือข้อ \"ใช้ voltage เป็นตัวแสดง\" — ในระบบนี้ voltage/power supply เป็นแหล่งจ่ายไฟเพื่อขับการเคลื่อนที่ ไม่ใช่ \"ตัวแสดงผล\" การแยก ส่วนการอ่าน MW จากกราฟ, ข้อจำกัดกับ glycoprotein และนิยาม electrophoresis ถูกต้อง",
     "source": "Biochem Lab Final (Blackboard) 12 พ.ค. 2022",
     "examOrigin": "Biochemistry I 3102113 · Final Examination (Lab) 2022",
     "verified": "Blackboard final Q20 (เฉลยในไฟล์ · option ปรับถ้อยคำให้กระชับ)"

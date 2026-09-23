@@ -113,7 +113,7 @@ export const QB_FOOD_SAFETY_Y4 = [
       "เส้นตรงตลอดช่วง (linear — เพิ่มขึ้นคงที่ไม่มีจุดอิ่มตัว)"
     ],
     "answer": 2,
-    "explain": "Dose-response curve สำหรับ microbial hazard ส่วนใหญ่ใช้ Beta-Poisson model:\nP(D) = 1 - [1 + Dose/β]^(-α)\n\nลักษณะเส้น = ลาดขึ้น (probability of illness เพิ่มเมื่อ dose เพิ่ม) แบบ S-curve / sigmoidal, ไม่ใช่เส้นตรง เพราะมี threshold effect ที่ low dose และ saturation ที่ high dose\n\nค่าตัวอย่าง Salmonella: α = 0.1324, β = 51.45 (slide 26)",
+    "explain": "Dose-response curve สำหรับ microbial hazard ส่วนใหญ่ใช้ Beta-Poisson model:\nP(D) = 1 - [1 + Dose/β]^(-α)\n\nลักษณะเส้น = ลาดขึ้น (probability of illness เพิ่มเมื่อ dose เพิ่ม) แบบ S-curve / sigmoidal, ไม่ใช่เส้นตรง เพราะมี threshold effect ที่ low dose และ saturation ที่ high dose\n\nค่าตัวอย่าง Salmonella: α = 0.1324, β = 51.45",
     "verified": "QMRA slide 26, Food Safety Final 86 Q6"
   },
   {

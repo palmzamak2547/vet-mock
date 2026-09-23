@@ -84,7 +84,7 @@ export const QB_Y5_VISION_BATCH = [
       "วัดค่า rumen pH หลังการกินอาหารด้วยเครื่อง rumenocentesis"
     ],
     "answer": 0,
-    "explain": "จุดเน้นของฐานคือ sampling + shaking technique + interpretation ไม่ใช่ lab analysis. เอกสาร p.10 ระบุวัตถุประสงค์ชัดเจน: \"หาขนาดของอาหารด้วย PSPS ตามวิธีการที่ถูกต้อง การสุ่มตัวเก็บอย่างอาหารในปริมาณที่ถูกต้อง รวมถึงสามารถแปลผลที่ได้จากเขย่าอาหารด้วยเครื่อง PSPS\".\nหมายเหตุสำคัญ: \"หลังจากเขย่าเสร็จแล้ว ไม่ต้องนำแต่ละชั้นมาชั่ง\" → ตัวเลือก B (ชั่งน้ำหนัก) ผิด เพราะ rubric บอกชัดว่าไม่ชั่ง.\nสถานีนี้ประเมินทักษะ sampling + shaking technique + interpretation — ไม่ใช่ lab analysis.",
+    "explain": "จุดเน้นของฐานคือ sampling + shaking technique + interpretation ไม่ใช่ lab analysis. วัตถุประสงค์ของสถานี: \"หาขนาดของอาหารด้วย PSPS ตามวิธีการที่ถูกต้อง การสุ่มตัวเก็บอย่างอาหารในปริมาณที่ถูกต้อง รวมถึงสามารถแปลผลที่ได้จากเขย่าอาหารด้วยเครื่อง PSPS\".\nหมายเหตุสำคัญ: \"หลังจากเขย่าเสร็จแล้ว ไม่ต้องนำแต่ละชั้นมาชั่ง\" → ตัวเลือก B (ชั่งน้ำหนัก) ผิด เพราะ rubric บอกชัดว่าไม่ชั่ง.\nสถานีนี้ประเมินทักษะ sampling + shaking technique + interpretation — ไม่ใช่ lab analysis.",
     "verified": "OSCE prep doc p.10 (station 2 objective + instructions)",
     "flag": {
       "note": "Paraphrased from station spec — verify before student use",

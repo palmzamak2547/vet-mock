@@ -826,7 +826,7 @@ export const QB_SWINE_HERD = [
       "Salt (NaCl) deficiency → low water intake → กินอาหารลดลงและน้ำนมลด"
     ],
     "answer": 1,
-    "explain": "✓ Thin sow syndrome = energy deficiency โดย lactation demand สูง (lactation feed needs ↑ทุกสัปดาห์: 4/5/6 kg) ถ้าไม่ได้รับพอ:\n  - แม่ catabolize body fat + muscle → BCS ↓\n  - Repro fail (delayed estrus, long WSI), milk drop, lactation fail\n✓ ใน practice = อาหารแม่ pregnancy ad libitum ไม่พอ ระยะ lactation\n✗ Excess protein → diarrhea แต่ไม่ทำให้ BCS ลด\n✗ Vitamin A excess ทำให้ vit E requirement ↑ → mulberry heart disease\n💡 อ.พรชลิต: pre-mate flushing 3-4 kg/d × 1 wk หลังหย่านม เพื่อ recover energy",
+    "explain": "✓ Thin sow syndrome = energy deficiency โดย lactation demand สูง (lactation feed needs ↑ทุกสัปดาห์: 4/5/6 kg) ถ้าไม่ได้รับพอ:\n  - แม่ catabolize body fat + muscle → BCS ↓\n  - Repro fail (delayed estrus, long WSI), milk drop, lactation fail\n✓ ใน practice = อาหารแม่ pregnancy ad libitum ไม่พอ ระยะ lactation\n✗ Excess protein → diarrhea แต่ไม่ทำให้ BCS ลด\n✗ Vitamin A excess ทำให้ vit E requirement ↑ → mulberry heart disease\n💡 pre-mate flushing 3-4 kg/d × 1 wk หลังหย่านม เพื่อ recover energy",
     "verified": "swine herd mid p.16 อ.อนุศกุล nutrient deficiency table + อ.พรชลิต flushing"
   },
   {

@@ -773,7 +773,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "แทงเข็มผ่านช่องซี่โครงเพื่อดูดของเหลวที่ค้างในช่องอก"
     ],
     "answer": 1,
-    "explain": "โน้ตระบุว่า BAL เก็บเฉพาะจุดที่อยู่ลึก บอกเรื่องการอักเสบได้ดี และดู neutrophil เป็นหลัก ส่วนการส่งเพาะเชื้อเอกสารเขียนไว้ที่ TTW ไม่ใช่ BAL การแทงผ่านผนังหลอดลมคือ transtracheal ซึ่งไม่ได้ให้ตัวอย่างจากทุกกลีบปอด และการแทงเข็มผ่านช่องซี่โครงดูดของเหลวคือ thoracocentesis ซึ่งเป็นคนละหัตถการ",
+    "explain": "BAL เก็บเฉพาะจุดที่อยู่ลึก บอกเรื่องการอักเสบได้ดี และดู neutrophil เป็นหลัก ส่วนการส่งเพาะเชื้อใช้ TTW ไม่ใช่ BAL การแทงผ่านผนังหลอดลมคือ transtracheal ซึ่งไม่ได้ให้ตัวอย่างจากทุกกลีบปอด และการแทงเข็มผ่านช่องซี่โครงดูดของเหลวคือ thoracocentesis ซึ่งเป็นคนละหัตถการ",
     "verified": "Ekwai Med น.5",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากสไลด์ Equine respiratory diseases ที่รุ่นพี่ Vet 85 จดกำกับ"
@@ -867,7 +867,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ม้าไม่มี third eyelid มาช่วยปกป้องผิวกระจกตาเลย"
     ],
     "answer": 2,
-    "explain": "บรรทัดที่ขีดเส้นใต้ใน น้ำตาม้ามี polymorphonuclear cell รวมถึง collagenase และ proteinase จำนวนมาก ย่อยโปรตีนในกระจกตา ทำให้รอยโรครุนแรงกว่าในสัตว์เล็ก และลูกศรโยงไปที่คำว่า melting cornea โดยตรง ส่วนม้ามี third eyelid จริง (เอกสารพูดถึงการเย็บ nictitating membrane flap) และกระจกตาม้าโค้งและกว้างมาก ไม่ได้บอกว่าบางกว่า",
+    "explain": "น้ำตาม้ามี polymorphonuclear cell รวมถึง collagenase และ proteinase จำนวนมาก ย่อยโปรตีนในกระจกตา ทำให้รอยโรครุนแรงกว่าในสัตว์เล็ก จึงนำไปสู่ melting cornea โดยตรง ส่วนม้ามี third eyelid จริง (ใช้ทำ nictitating membrane flap ได้) และกระจกตาม้าโค้งและกว้างมาก ไม่ได้บอกว่าบางกว่า",
     "verified": "Ekwai Med น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากสรุปจักษุวิทยาม้าของรุ่นพี่ Vet 85"
@@ -891,7 +891,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ยาต้าน collagenase เช่น NAC และ Na EDTA"
     ],
     "answer": 3,
-    "explain": "เอกสารเขียนไว้ตรง ๆ ว่าการรักษาต้องใช้ ABO ร่วมกับ anti-collagenase เช่น NAC และ Na EDTA เพื่อหยุดกระบวนการย่อยโปรตีนที่ทำให้กระจกตาละลาย ยาลดความดันลูกตาใช้กับ glaucoma tropicamide ใช้ตอนตรวจเลนส์และในกรณี uveitis ส่วน cyclosporin A ใช้กับ eosinophilic keratitis ไม่ใช่แผลติดเชื้อ",
+    "explain": "การรักษาต้องใช้ ABO ร่วมกับ anti-collagenase เช่น NAC และ Na EDTA เพื่อหยุดกระบวนการย่อยโปรตีนที่ทำให้กระจกตาละลาย ยาลดความดันลูกตาใช้กับ glaucoma tropicamide ใช้ตอนตรวจเลนส์และในกรณี uveitis ส่วน cyclosporin A ใช้กับ eosinophilic keratitis ไม่ใช่แผลติดเชื้อ",
     "verified": "Ekwai Med น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากสรุปจักษุวิทยาม้าของรุ่นพี่ Vet 85"
@@ -914,7 +914,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ทำให้ความดันลูกตาต่ำลงเสมอเช่นเดียวกับ uveitis ในสุนัข"
     ],
     "answer": 2,
-    "explain": "เอกสารเรียก ERU ว่าพระจันทร์ตาบอด ระบุว่าตาขุ่นบวมน้ำสีฟ้าแสดงถึงการอักเสบชั้นลึกจนทำให้ตาบอดได้ และวงเล็บว่า Appaloosa มีโอกาสเกิดสูงถึง 8 เท่า ตัวเลือกเรื่อง IOP ต่ำผิด เพราะเอกสารเขียนไว้ชัดว่า ERU ทำให้เกิด posterior uveitis ซึ่งอาจไม่ได้ทำให้ IOP ต่ำเหมือนในสุนัข และชื่อโรคที่มีคำว่า recurrent ก็ขัดกับตัวเลือกที่บอกว่าหายขาดครั้งเดียว",
+    "explain": "ERU หรือพระจันทร์ตาบอด มีตาขุ่นบวมน้ำสีฟ้าซึ่งแสดงถึงการอักเสบชั้นลึกจนทำให้ตาบอดได้ และ Appaloosa มีโอกาสเกิดสูงถึง 8 เท่า ตัวเลือกเรื่อง IOP ต่ำผิด เพราะ ERU ทำให้เกิด posterior uveitis ซึ่งอาจไม่ได้ทำให้ IOP ต่ำเหมือนในสุนัข และชื่อโรคที่มีคำว่า recurrent ก็ขัดกับตัวเลือกที่บอกว่าหายขาดครั้งเดียว",
     "verified": "Ekwai Med น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากสรุปจักษุวิทยาม้าของรุ่นพี่ Vet 85"
@@ -960,7 +960,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ช่วยยึดเลนส์ให้อยู่กับที่ขณะม้าเคลื่อนไหว"
     ],
     "answer": 0,
-    "explain": "เอกสารเขียนว่า iris ด้านบนจะมี granular iridica หรือ corpora nigra เป็นติ่งสีดำช่วยกันแสงยูวี การระบาย aqueous humor เป็นหน้าที่ของมุมตาซึ่งถ้าเสียไปจะเกิด glaucoma ชั้นไขมันของ tear film สร้างจากต่อม meibomian ส่วนการยึดเลนส์เป็นหน้าที่ของ zonule ไม่ใช่ติ่งม่านตา",
+    "explain": "iris ด้านบนจะมี granular iridica หรือ corpora nigra เป็นติ่งสีดำช่วยกันแสงยูวี การระบาย aqueous humor เป็นหน้าที่ของมุมตาซึ่งถ้าเสียไปจะเกิด glaucoma ชั้นไขมันของ tear film สร้างจากต่อม meibomian ส่วนการยึดเลนส์เป็นหน้าที่ของ zonule ไม่ใช่ติ่งม่านตา",
     "verified": "Ekwai Med น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากสรุปจักษุวิทยาม้าของรุ่นพี่ Vet 85"
@@ -1007,7 +1007,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "55 ถึง 70 mmHg"
     ],
     "answer": 2,
-    "explain": "กล่องค่าอ้างอิงระบุ respiratory ไว้ว่า PaCO2 35 to 55 mmHg และ PaO2 50-100 mmHg โดยบรรทัด PaO2 ถูกขีดเส้นใต้และติดดาวเน้นไว้ ช่วง 20 ถึง 30 สะท้อนภาวะ hyperventilation ส่วน 55 ถึง 70 เป็นช่วงที่คั่งเกินกรอบที่เอกสารยอมรับ",
+    "explain": "ค่าอ้างอิงด้าน respiratory คือ PaCO2 35 to 55 mmHg และ PaO2 50-100 mmHg ช่วง 20 ถึง 30 สะท้อนภาวะ hyperventilation ส่วน 55 ถึง 70 เป็นช่วงที่ CO2 คั่งเกินกรอบที่ยอมรับได้",
     "verified": "Ekwai Med น.6",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากกล่องค่าเฝ้าระวังวิสัญญีในเอกสารของรุ่นพี่ Vet 85"
@@ -1152,7 +1152,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ถ่ายเหลวและอัตราการเต้นหัวใจช้าลงกว่าปกติ"
     ],
     "answer": 1,
-    "explain": "ส่วนการจัดการโคลิกเน้นด้วยหมึกสีแดงว่า ถ้ายังปวดอยู่ให้ดู clinical signs สองอย่างคือท้องกางกับไม่ตอบสนองต่อยาแก้ปวด ซึ่งจะทำให้มีความเสี่ยงที่ต้องผ่าตัดสูงมาก สองข้อนี้สะท้อนลำไส้ที่ขยายตัวและความปวดที่คุมไม่อยู่ ส่วนหัวใจเต้นช้าลงเป็นทิศทางตรงข้ามกับม้าโคลิกที่รุนแรง ซึ่งเอกสารเองก็บันทึกไว้ในอีกเคสว่า HR สูง",
+    "explain": "ในการจัดการโคลิก ถ้ายังปวดอยู่ให้ดู clinical signs สองอย่างคือท้องกางกับไม่ตอบสนองต่อยาแก้ปวด ซึ่งจะทำให้มีความเสี่ยงที่ต้องผ่าตัดสูงมาก สองข้อนี้สะท้อนลำไส้ที่ขยายตัวและความปวดที่คุมไม่อยู่ ส่วนหัวใจเต้นช้าลงเป็นทิศทางตรงข้ามกับม้าโคลิกที่รุนแรง ซึ่งมักมี HR สูง",
     "verified": "Ekwai Med น.4",
     "sourceType": "lecture-derived",
     "examOrigin": "เขียนจากคาบเรียนเคสจริงที่รุ่นพี่ Vet 85 จดไว้"
@@ -1476,7 +1476,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ผูกเงื่อนที่กระตุกแก้ได้เร็ว และไม่ผูกกับเสาตรงๆ"
     ],
     "answer": 3,
-    "explain": "เอกสารห้ามผูกเงื่อนตายเพราะถ้าม้าตกใจแล้วแก้ไม่ทันจะอันตราย ต้องผูกให้กระตุกแก้ได้เร็วที่สุด",
+    "explain": "ห้ามผูกเงื่อนตายเพราะถ้าม้าตกใจแล้วแก้ไม่ทันจะอันตราย ต้องผูกให้กระตุกแก้ได้เร็วที่สุด",
     "verified": "Equine Med 85 น.5",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1499,7 +1499,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "การหลั่งกรดในกระเพาะเพิ่มขึ้นจนเกิดแผลอย่างเฉียบพลัน"
     ],
     "answer": 0,
-    "explain": "เอกสารทำเครื่องหมายเน้นว่าต้อง aware for induction persistent penile prolapse หรือ paralysis ถ้า dose สูงเกิน จุดเด่นอีกอย่างของ acepromazine คือให้ sedation without significant ataxia",
+    "explain": "ต้องระวังการเกิด persistent penile prolapse หรือ paralysis ถ้า dose สูงเกิน จุดเด่นอีกอย่างของ acepromazine คือให้ sedation without significant ataxia",
     "verified": "Equine Med 85 น.6",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1570,7 +1570,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Common carotid artery และ vagosympathetic nerve trunk"
     ],
     "answer": 3,
-    "explain": "เอกสารเตือนว่าต้องระวัง common carotid artery และ vagosympathetic nerve trunk ที่ทอดขนานกับหลอดเลือดดำ โดยเฉพาะถ้าฉีดยาซึมพลาดเข้า artery ยาจะขึ้นสมองและทำให้ม้าช็อกได้ทันที จึงแนะนำให้แทงที่ค่อนไปทางส่วนบนของคอซึ่งหลอดเลือดทั้งสองแยกจากกันชัดกว่า",
+    "explain": "ต้องระวัง common carotid artery และ vagosympathetic nerve trunk ที่ทอดขนานกับหลอดเลือดดำ โดยเฉพาะถ้าฉีดยาซึมพลาดเข้า artery ยาจะขึ้นสมองและทำให้ม้าช็อกได้ทันที จึงแนะนำให้แทงที่ค่อนไปทางส่วนบนของคอซึ่งหลอดเลือดทั้งสองแยกจากกันชัดกว่า",
     "verified": "Equine Med 85 น.6",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -1756,7 +1756,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "1 g starch/kg BW/meal"
     ],
     "answer": 3,
-    "explain": "เอกสารแยกขีดจำกัดตามความเสี่ยงไว้ 3 ระดับ คือ starch overload ใน hindgut ที่ 2 g/kg BW/meal, gastric ulcer syndrome ที่ 1 g/kg BW/meal",
+    "explain": "ขีดจำกัดของ starch แยกตามความเสี่ยง เช่น starch overload ใน hindgut ที่ 2 g/kg BW/meal, gastric ulcer syndrome ที่ 1 g/kg BW/meal",
     "verified": "Equine Med 85 น.9",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2080,7 +2080,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "1 ส่วน Ca ต่อ 3-4 ส่วน P"
     ],
     "answer": 1,
-    "explain": "เอกสารกำกับไว้ว่า Ca 1-2 : 1 P คือแคลเซียมต้องมากกว่าหรือเท่ากับฟอสฟอรัสเสมอ ถ้ากลับด้านจนฟอสฟอรัสมากกว่า เช่น การให้รำข้าวมากเกิน จะทำให้เกิดภาวะพาราไทรอยด์ทุติยภูมิจากอาหารและเกิด big head",
+    "explain": "Ca 1-2 : 1 P คือแคลเซียมต้องมากกว่าหรือเท่ากับฟอสฟอรัสเสมอ ถ้ากลับด้านจนฟอสฟอรัสมากกว่า เช่น การให้รำข้าวมากเกิน จะทำให้เกิดภาวะพาราไทรอยด์ทุติยภูมิจากอาหารและเกิด big head",
     "verified": "Equine Med 85 น.10",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2219,7 +2219,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "โปรตีนหรือแคลอรีต่ำ ปัญหาฟัน ปรสิต และแผลในกระเพาะ"
     ],
     "answer": 3,
-    "explain": "เอกสารไล่สาเหตุไว้ว่า diet ที่โปรตีนหรือแคลอรีต่ำ, โรคอย่าง Cushing's หรือ insulin resistance, ความเจ็บปวดจากอานไม่พอดีหรือขาเจ็บ, poor dental care, ปรสิต, แผลในกระเพาะ",
+    "explain": "สาเหตุได้แก่ diet ที่โปรตีนหรือแคลอรีต่ำ, โรคอย่าง Cushing's หรือ insulin resistance, ความเจ็บปวดจากอานไม่พอดีหรือขาเจ็บ, poor dental care, ปรสิต, แผลในกระเพาะ",
     "verified": "Equine Med 85 น.10",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2335,7 +2335,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Parascaris equorum"
     ],
     "answer": 0,
-    "explain": "เอกสารกำกับไว้ชัดว่า Trichostrongylus axei เป็น zoonosis และพบใน ruminant มี PPP ประมาณ 3 สัปดาห์ วินิจฉัยด้วย fecal floatation",
+    "explain": "Trichostrongylus axei เป็น zoonosis และพบใน ruminant มี PPP ประมาณ 3 สัปดาห์ วินิจฉัยด้วย fecal floatation",
     "verified": "Equine Med 85 น.12",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2383,7 +2383,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Tabanus spp. เหลือบดูดเลือด"
     ],
     "answer": 2,
-    "explain": "เอกสารแยกไว้เป็นคู่ว่า Musca domestica เป็นพาหะของ H. muscae และ S. megastoma ส่วน Stomoxys calcitrans เป็นพาหะของ H. microstoma การจำเป็นคู่แบบนี้ช่วยกันสับสนเวลาข้อสอบถามสลับกัน",
+    "explain": "Musca domestica เป็นพาหะของ H. muscae และ S. megastoma ส่วน Stomoxys calcitrans เป็นพาหะของ H. microstoma การจำเป็นคู่แบบนี้ช่วยกันสับสนระหว่าง Habronema สองชนิด",
     "verified": "Equine Med 85 น.13",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2618,7 +2618,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "อยู่ในเกณฑ์ที่ยังไม่ต้องให้ยา"
     ],
     "answer": 0,
-    "explain": "เอกสารแบ่งเกณฑ์ไว้ว่า 500 = mild, 500-1,000 = moderate และมากกว่า 1,000 = severe ค่า 1,500 จึงเป็น severe",
+    "explain": "เกณฑ์คือ 500 = mild, 500-1,000 = moderate และมากกว่า 1,000 = severe ค่า 1,500 จึงเป็น severe",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2710,7 +2710,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Transmammary transmission"
     ],
     "answer": 0,
-    "explain": "เอกสารกำกับไว้ว่า Babesia equi ติดต่อในเห็บแบบ transtadial transmission ซึ่งไม่เหมือน Babesia ชนิดอื่นที่ส่วนใหญ่เป็น transovarian transmission คือส่งเชื้อจากแม่เห็บไปที่ไข่จนถึงระยะต่างๆ ได้",
+    "explain": "Babesia equi ติดต่อในเห็บแบบ transtadial transmission ซึ่งไม่เหมือน Babesia ชนิดอื่นที่ส่วนใหญ่เป็น transovarian transmission คือส่งเชื้อจากแม่เห็บไปที่ไข่จนถึงระยะต่างๆ ได้",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2896,7 +2896,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Chorioptes มีลำตัวยาวรีและขุดรูใต้ผิวหนังได้ลึก"
     ],
     "answer": 0,
-    "explain": "เอกสารเปรียบเทียบไว้ว่า Psoroptes มี jointed pretarsi และ funnel-shaped sucker ส่วน Chorioptes มี unjointed pretarsi",
+    "explain": "Psoroptes มี jointed pretarsi และ funnel-shaped sucker ส่วน Chorioptes มี unjointed pretarsi",
     "verified": "Equine Med 85 น.15",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -2990,7 +2990,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ระบบไหลเวียนโลหิต"
     ],
     "answer": 0,
-    "explain": "เอกสารเปิดบทกายวิภาคด้วยประโยคว่า GI = shock organ of horse ซึ่งอธิบายว่าทำไมโรคทางเดินอาหารในม้าจึงกลายเป็นภาวะฉุกเฉินได้เร็ว",
+    "explain": "GI คือ shock organ ของม้า ซึ่งอธิบายว่าทำไมโรคทางเดินอาหารในม้าจึงกลายเป็นภาวะฉุกเฉินได้เร็ว",
     "verified": "Equine Med 85 น.16",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -3013,7 +3013,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ม้าไม่มีถุงน้ำดี จึงไม่มีแรงดันย้อนกลับขึ้นมาจากลำไส้เล็ก"
     ],
     "answer": 1,
-    "explain": "เอกสารให้เหตุผล 2 ข้อคือมุมที่หลอดอาหารต่อกับกระเพาะแหลมมาก และ LES หรือ cardiac sphincter แข็งแรงมาก ทำให้การบีบตัวเป็นแบบทางเดียว",
+    "explain": "เหตุผลมี 2 ข้อคือมุมที่หลอดอาหารต่อกับกระเพาะแหลมมาก และ LES หรือ cardiac sphincter แข็งแรงมาก ทำให้การบีบตัวเป็นแบบทางเดียว",
     "verified": "Equine Med 85 น.16",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -3290,7 +3290,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Deep ulceration ลึกถึงชั้นใต้เยื่อบุ"
     ],
     "answer": 1,
-    "explain": "เอกสารแบ่งเกรดไว้ว่า 0 คือปกติ 1 คือ hyperkeratosis ล้างแล้วไม่หลุด 2 และ 3 คือเกิด ulcer เยื่อบุแหว่ง",
+    "explain": "เกรด 0 คือปกติ 1 คือ hyperkeratosis ล้างแล้วไม่หลุด 2 และ 3 คือเกิด ulcer เยื่อบุแหว่ง",
     "verified": "Equine Med 85 น.19",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
@@ -3545,7 +3545,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "ให้ทาง PO เท่านั้น เพราะรูปแบบฉีดทำให้เกิดภาวะเลือดจาง"
     ],
     "answer": 0,
-    "explain": "เอกสารกำกับไว้ว่า phenylbutazone ให้ IV only ห้าม IM เพราะยาระคายเคือง และห้ามให้ยารั่วออกนอกหลอดเลือด ซึ่งเป็นจุดที่แตกต่างจาก flunixin meglumine ที่ให้ได้หลายทาง",
+    "explain": "phenylbutazone ให้ IV only ห้าม IM เพราะยาระคายเคือง และห้ามให้ยารั่วออกนอกหลอดเลือด ซึ่งเป็นจุดที่แตกต่างจาก flunixin meglumine ที่ให้ได้หลายทาง",
     "verified": "Equine Med 85 น.18",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"
