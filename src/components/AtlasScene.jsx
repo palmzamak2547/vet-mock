@@ -40,6 +40,14 @@ export default function AtlasScene({
     onStatus,
     onExport,
   };
+  // The renderer and the primary view live as long as the specimen, the
+  // quality and the stage layout. Entering or leaving comparison changes the
+  // layout (on a phone the panes stack and the stage grows from 320 to 600 px),
+  // and WebKit never shows a WebGL canvas again once its drawing buffer is
+  // resized after it has been on screen, so a new layout gets a new canvas.
+  // Choosing another comparison keeps the layout: the next effect swaps only
+  // the comparison view, and the primary model is not loaded again.
+  const comparing = Boolean(comparison);
   useEffect(() => {
     const el = host.current;
     let disposed = false,
@@ -54,10 +62,10 @@ export default function AtlasScene({
       targetExplosion = displayedExplosion,
       lastMotionTime = performance.now();
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const abort = new AbortController(),
-      timeout = setTimeout(() => abort.abort(), 45000);
-    const viewData = [specimen, comparison].filter(Boolean);
-    const states = viewData.map(() => ({ kind: 'loading', progress: 0 }));
+    // views[0] is the primary, views[1] the comparison while there is one;
+    // states[i] is what the page is told about views[i].
+    const views = [];
+    const states = [];
     const emit = () => {
       if (!disposed && !departed)
         latest.current.onStatus({
@@ -70,7 +78,6 @@ export default function AtlasScene({
     try {
       renderer = new T.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'low-power' });
     } catch {
-      clearTimeout(timeout);
       states[0] = {
         kind: 'error',
         message: 'อุปกรณ์นี้เปิดภาพ 3D ไม่ได้ ใช้ภาพตัวอย่างและแหล่งอ้างอิงด้านล่างได้',
@@ -82,7 +89,7 @@ export default function AtlasScene({
       // BFCache keeps this document alive; a real navigation does not.
       if (event.persisted) return;
       departed = true;
-      abort.abort();
+      for (const view of views) view.abort.abort();
       if (frame) cancelAnimationFrame(frame);
       frame = 0;
     };
@@ -94,8 +101,7 @@ export default function AtlasScene({
     renderer.setClearColor(0, 0);
     renderer.outputColorSpace = T.SRGBColorSpace;
     renderer.localClippingEnabled = true;
-    const panes = [leftPane.current, rightPane.current];
-    const views = viewData.map((data, index) => {
+    function addView(data, index, pane) {
       const scene = new T.Scene();
       scene.add(new T.HemisphereLight(0xffffff, 0x726b62, 2.4));
       const key = new T.DirectionalLight(0xffffff, 2.1);
@@ -106,25 +112,45 @@ export default function AtlasScene({
       scene.add(fill);
       const camera = new T.PerspectiveCamera(35, 1, 0.01, 100);
       camera.position.set(2.5, 1.5, -4);
-      const controls = new OrbitControls(camera, panes[index]);
+      const controls = new OrbitControls(camera, pane);
       controls.enableDamping = true;
       controls.dampingFactor = 0.13;
       controls.minDistance = 0.2;
       controls.maxDistance = 16;
-      return {
+      const view = {
         data,
+        index,
         scene,
         camera,
         controls,
         clipping: new T.Plane(new T.Vector3(0, 0, -1), 2),
-        pane: panes[index],
+        pane,
         model: null,
         meshes: [],
         cleanups: [],
         cameraMotion: null,
-        fittedExplosion: displayedExplosion,
+        fittedExplosion: targetExplosion,
+        abort: new AbortController(),
+        timeout: 0,
+        removed: false,
       };
-    });
+      views[index] = view;
+      states[index] = { kind: 'loading', progress: 0 };
+      listen(view);
+      return view;
+    }
+    function disposeView(view) {
+      if (view.removed) return;
+      view.removed = true;
+      view.abort.abort();
+      clearTimeout(view.timeout);
+      view.cleanups.forEach((cleanup) => cleanup());
+      view.controls.dispose();
+      view.meshes.forEach((mesh) => {
+        mesh.geometry.dispose();
+        mesh.material.dispose();
+      });
+    }
     function requestRender() {
       if (!disposed && !departed && !lost && !frame && inView && !document.hidden) frame = requestAnimationFrame(render);
     }
@@ -216,12 +242,29 @@ export default function AtlasScene({
       view.controls.update();
       syncing = false;
     }
+    function applyPose(view, pose) {
+      view.camera.position.fromArray(pose.position);
+      view.controls.target.fromArray(pose.target);
+      syncing = true;
+      view.controls.update();
+      syncing = false;
+    }
+    // A quality change reloads both views; each gets back the camera it had.
+    // A comparison that joins a primary already on screen takes the primary's
+    // camera instead, because the two move together.
+    function restorePose(view) {
+      const saved = savedPose.current;
+      const matches = saved?.id === specimen.id && saved?.compareId === views[1]?.data.id;
+      if (view.index > 0 && states[0].kind === 'ready') copyPose(views[0]);
+      else if (matches && saved.poses[view.index]) applyPose(view, saved.poses[view.index]);
+    }
     const accent = new T.Color();
     const readColours = () => accent.set(getComputedStyle(el).getPropertyValue('--clr-sage').trim());
     readColours();
     function exportView() {
       render();
       try {
+        const viewData = views.map((view) => view.data);
         const output = document.createElement('canvas');
         output.width = Math.min(1920, Math.max(960, canvas.width));
         const imageHeight = Math.round((canvas.height * output.width) / canvas.width);
@@ -235,10 +278,10 @@ export default function AtlasScene({
         ctx.fillRect(0, imageHeight, output.width, output.height - imageHeight);
         ctx.fillStyle = style.getPropertyValue('--clr-ink').trim();
         const selectedPart = specimen.parts.find((part) => part.id === latest.current.selected);
-        const selectionLabel = specimen.kind === 'segmented' && selectedPart ? `${selectedPart.en}, ` : '';
+        const selectionLabel = specimen.kind === 'segmented' && selectedPart ? `${selectedPart.en} · ` : '';
         ctx.font = '600 22px sans-serif';
         ctx.fillText(
-          `VetMock Atlas: ${selectionLabel}${viewData.map((view) => view.titleEn).join(' / ')}`,
+          `VetMock Atlas · ${selectionLabel}${viewData.map((view) => view.titleEn).join(' / ')}`,
           20,
           imageHeight + 32,
           output.width - 40,
@@ -246,7 +289,7 @@ export default function AtlasScene({
         ctx.font = '14px sans-serif';
         viewData.forEach((view, index) => {
           const y = imageHeight + 56 + index * 54;
-          ctx.fillText(`${view.titleEn} — ${view.authors} — ${view.license}`, 20, y, output.width - 40);
+          ctx.fillText(`${view.titleEn} · ${view.authors} · ${view.license}`, 20, y, output.width - 40);
           ctx.fillText(view.sourceUrl, 20, y + 20, output.width - 40);
         });
         ctx.fillText(
@@ -323,10 +366,9 @@ export default function AtlasScene({
       }
       requestRender();
     }
-    engine.current = { sync: applyState };
-    for (const [index, view] of views.entries()) {
+    function listen(view) {
       view.controls.addEventListener('start', () => {
-        activeIndex = index;
+        activeIndex = view.index;
         views.forEach((item) => { item.cameraMotion = null; });
       });
       view.controls.addEventListener('change', () => {
@@ -366,7 +408,7 @@ export default function AtlasScene({
           });
         pointers.delete(event.pointerId);
         start = null;
-        if (!tap || index !== 0 || !view.model || view.data.kind !== 'segmented') return;
+        if (!tap || view.index !== 0 || !view.model || view.data.kind !== 'segmented') return;
         const rect = view.pane.getBoundingClientRect();
         pointer.set(
           ((event.clientX - rect.left) / rect.width) * 2 - 1,
@@ -400,7 +442,9 @@ export default function AtlasScene({
         window.removeEventListener('blur', cancel);
       });
     }
-    const resize = new ResizeObserver(() => {
+    // A comparison swap changes the views without the host changing size, so
+    // this also runs then, not only on resize.
+    function layout() {
       renderer.setSize(Math.max(1, el.clientWidth), Math.max(1, el.clientHeight), false);
       // A resize can interrupt separation. Frame the destination, not a
       // transient pose that the moving parts would immediately outgrow.
@@ -413,7 +457,119 @@ export default function AtlasScene({
       }
       placeParts(displayedExplosion);
       requestRender();
-    });
+    }
+    async function loadView(view) {
+      const { index } = view;
+      const live = () => !disposed && !departed && !view.removed;
+      let persisted = false;
+      view.timeout = setTimeout(() => view.abort.abort(), 45000);
+      try {
+        const loaded = await loadAtlasAsset(view.data.profiles[quality], {
+          signal: view.abort.signal,
+          onProgress: (progress) => {
+            if (!live()) return;
+            states[index].progress = progress;
+            emit();
+          },
+          onStored: (stored) => {
+            persisted = stored;
+            if (live() && states[index].kind === 'ready') {
+              states[index].stored = stored;
+              emit();
+            }
+          },
+        });
+        if (!live()) return;
+        const gltf = await new GLTFLoader().parseAsync(loaded.bytes, '');
+        const meshes = [];
+        gltf.scene.traverse((mesh) => {
+          if (mesh.isMesh) meshes.push(mesh);
+        });
+        if (!live()) {
+          meshes.forEach((mesh) => {
+            mesh.geometry.dispose();
+            mesh.material.dispose();
+          });
+          return;
+        }
+        view.model = gltf.scene;
+        view.meshes = meshes;
+        const expected = view.data.parts.map((part) => part.id);
+        if (
+          meshes.length !== expected.length ||
+          meshes.some((mesh) => !expected.includes(mesh.name)) ||
+          new Set(meshes.map((mesh) => mesh.name)).size !== meshes.length
+        )
+          throw new Error('ชื่อชิ้นส่วนไม่ตรงกับข้อมูลต้นฉบับ');
+        const bounds = new T.Box3().setFromObject(view.model),
+          sphere = bounds.getBoundingSphere(new T.Sphere());
+        view.model.scale.setScalar(1 / sphere.radius);
+        view.model.position.copy(sphere.center).multiplyScalar(-1 / sphere.radius);
+        for (const [partIndex, mesh] of meshes.entries()) {
+          mesh.geometry.computeBoundingBox();
+          mesh.userData.originalPosition = mesh.position.clone();
+          mesh.userData.explodeDirection = mesh.geometry.boundingBox
+            .getCenter(new T.Vector3())
+            .sub(sphere.center)
+            .normalize();
+          mesh.userData.colour = new T.Color().setHSL((partIndex * 0.137 + 0.04) % 1, 0.2, 0.68);
+          mesh.userData.boneColour = new T.Color(0xe0d7c4);
+          const partMetadata = view.data.parts.find((part) => part.id === mesh.name);
+          if (partMetadata?.representation === 'muscle-path') {
+            mesh.userData.colour.set(getComputedStyle(el).getPropertyValue('--clr-rose').trim());
+          } else if (partMetadata?.representation === 'source-segment') {
+            mesh.userData.colour.copy(mesh.userData.boneColour);
+          }
+          mesh.material.dispose();
+          mesh.material = new T.MeshStandardMaterial({ roughness: 0.7, side: T.DoubleSide });
+        }
+        view.scene.add(view.model);
+        applyState();
+        fit(view, false, true);
+        restorePose(view);
+        states[index] = {
+          kind: 'ready',
+          progress: 100,
+          cached: loaded.cached,
+          stored: loaded.stored || persisted,
+        };
+        emit();
+        requestRender();
+      } catch (error) {
+        if (!live()) return;
+        states[index] = {
+          kind: 'error',
+          message: view.abort.signal.aborted
+            ? 'โหลดโมเดลนานเกินไป ลองใหม่เมื่ออินเทอร์เน็ตพร้อม'
+            : error.message || 'เปิดโมเดลไม่ได้ ลองใหม่ได้',
+        };
+        emit();
+      } finally {
+        clearTimeout(view.timeout);
+      }
+    }
+    const primary = addView(specimen, 0, leftPane.current);
+    engine.current = {
+      sync: applyState,
+      // Returns the cleanup that takes the comparison back out.
+      compare(data, pane) {
+        if (disposed || !pane) return undefined;
+        const view = addView(data, 1, pane);
+        layout();
+        emit();
+        loadView(view);
+        return () => {
+          if (disposed || view.removed) return;
+          disposeView(view);
+          views.splice(views.indexOf(view), 1);
+          states.length = views.length;
+          activeIndex = 0;
+          layout();
+          emit();
+        };
+      },
+    };
+    const resize = new ResizeObserver(layout);
     resize.observe(el);
     const observer = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
@@ -441,104 +597,11 @@ export default function AtlasScene({
     };
     canvas.addEventListener('webglcontextlost', contextLost);
     emit();
-    Promise.all(
-      views.map(async (view, index) => {
-        let persisted = false;
-        try {
-          const loaded = await loadAtlasAsset(view.data.profiles[quality], {
-            signal: abort.signal,
-            onProgress: (progress) => {
-              states[index].progress = progress;
-              emit();
-            },
-            onStored: (stored) => {
-              persisted = stored;
-              if (states[index].kind === 'ready') {
-                states[index].stored = stored;
-                emit();
-              }
-            },
-          });
-          if (disposed || departed) return;
-          const gltf = await new GLTFLoader().parseAsync(loaded.bytes, '');
-          const meshes = [];
-          gltf.scene.traverse((mesh) => {
-            if (mesh.isMesh) meshes.push(mesh);
-          });
-          if (disposed || departed) {
-            meshes.forEach((mesh) => {
-              mesh.geometry.dispose();
-              mesh.material.dispose();
-            });
-            return;
-          }
-          view.model = gltf.scene;
-          view.meshes = meshes;
-          const expected = view.data.parts.map((part) => part.id);
-          if (
-            meshes.length !== expected.length ||
-            meshes.some((mesh) => !expected.includes(mesh.name)) ||
-            new Set(meshes.map((mesh) => mesh.name)).size !== meshes.length
-          )
-            throw new Error('ชื่อชิ้นส่วนไม่ตรงกับข้อมูลต้นฉบับ');
-          const bounds = new T.Box3().setFromObject(view.model),
-            sphere = bounds.getBoundingSphere(new T.Sphere());
-          view.model.scale.setScalar(1 / sphere.radius);
-          view.model.position.copy(sphere.center).multiplyScalar(-1 / sphere.radius);
-          for (const [partIndex, mesh] of meshes.entries()) {
-            mesh.geometry.computeBoundingBox();
-            mesh.userData.originalPosition = mesh.position.clone();
-            mesh.userData.explodeDirection = mesh.geometry.boundingBox
-              .getCenter(new T.Vector3())
-              .sub(sphere.center)
-              .normalize();
-            mesh.userData.colour = new T.Color().setHSL((partIndex * 0.137 + 0.04) % 1, 0.2, 0.68);
-            mesh.userData.boneColour = new T.Color(0xe0d7c4);
-            const partMetadata = view.data.parts.find((part) => part.id === mesh.name);
-            if (partMetadata?.representation === 'muscle-path') {
-              mesh.userData.colour.set(getComputedStyle(el).getPropertyValue('--clr-rose').trim());
-            } else if (partMetadata?.representation === 'source-segment') {
-              mesh.userData.colour.copy(mesh.userData.boneColour);
-            }
-            mesh.material.dispose();
-            mesh.material = new T.MeshStandardMaterial({ roughness: 0.7, side: T.DoubleSide });
-          }
-          view.scene.add(view.model);
-          applyState();
-          fit(view, false, true);
-          if (savedPose.current?.id === specimen.id && savedPose.current?.compareId === comparison?.id) {
-            const pose = savedPose.current.poses[index];
-            if (pose) {
-              view.camera.position.fromArray(pose.position);
-              view.controls.target.fromArray(pose.target);
-              syncing = true;
-              view.controls.update();
-              syncing = false;
-            }
-          }
-          states[index] = {
-            kind: 'ready',
-            progress: 100,
-            cached: loaded.cached,
-            stored: loaded.stored || persisted,
-          };
-          emit();
-          requestRender();
-        } catch (error) {
-          states[index] = {
-            kind: 'error',
-            message: abort.signal.aborted
-              ? 'โหลดโมเดลนานเกินไป ลองใหม่เมื่ออินเทอร์เน็ตพร้อม'
-              : error.message || 'เปิดโมเดลไม่ได้ ลองใหม่ได้',
-          };
-          emit();
-        }
-      }),
-    ).finally(() => clearTimeout(timeout));
+    loadView(primary);
     return () => {
       savedPose.current = {
         id: specimen.id,
-        compareId: comparison?.id,
+        compareId: views[1]?.data.id,
         poses: views.map((view) => ({
           position: view.camera.position.toArray(),
           target: view.controls.target.toArray(),
@@ -546,8 +609,6 @@ export default function AtlasScene({
       };
       disposed = true;
       engine.current = null;
-      abort.abort();
-      clearTimeout(timeout);
       if (frame) cancelAnimationFrame(frame);
       resize.disconnect();
       observer.disconnect();
@@ -555,19 +616,18 @@ export default function AtlasScene({
       document.removeEventListener('visibilitychange', visibility);
       window.removeEventListener('pagehide', pagehide);
       canvas.removeEventListener('webglcontextlost', contextLost);
-      for (const view of views) {
-        view.cleanups.forEach((cleanup) => cleanup());
-        view.controls.dispose();
-        view.meshes.forEach((mesh) => {
-          mesh.geometry.dispose();
-          mesh.material.dispose();
-        });
-      }
+      for (const view of views) disposeView(view);
       renderer.dispose();
       renderer.forceContextLoss();
       canvas.remove();
     };
-  }, [specimen.id, comparison?.id, quality]);
+  }, [specimen.id, quality, comparing]);
+  // Keyed on everything the renderer effect is keyed on as well: when that
+  // effect rebuilds, the comparison has to be added to the new renderer.
+  useEffect(() => {
+    if (!comparison) return undefined;
+    return engine.current?.compare(comparison, rightPane.current);
+  }, [specimen.id, quality, comparison?.id]);
   useEffect(() => {
     engine.current?.sync();
   }, [selected, visibleIds, exploded, coloured, ghost, cut, command]);
