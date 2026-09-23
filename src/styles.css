@@ -2600,9 +2600,14 @@ html.dark .vmx-panic-scrim {
 .vmx-wrap-mode button { appearance: none; border: 0; background: var(--clr-bg); color: var(--clr-ink-soft); font: inherit; font-size: 12px; font-weight: 600; min-height: var(--touch-min); display: inline-flex; align-items: center; padding: 5px 12px; cursor: pointer; }
 .vmx-wrap-mode button.is-on { background: var(--clr-ink); color: var(--clr-bg); }
 .vmx-wrap-mode button:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -2px; }
-.vmx-wrap-keylist { margin: 10px 0 0; padding: 0; list-style: none; counter-reset: wrapkey; display: grid; gap: 4px; }
-.vmx-wrap-keylist li { counter-increment: wrapkey; position: relative; padding: 6px 10px 6px 34px; border-radius: var(--r-sm); background: var(--clr-gold-soft); color: var(--clr-ink); font-size: 13px; line-height: 1.5; }
-.vmx-wrap-keylist li::before { content: counter(wrapkey); position: absolute; left: 10px; top: 6px; font-family: var(--vmx-mono); font-size: 11px; font-weight: 700; color: var(--clr-ink-soft); }
+.vmx-wrap-keylist { margin: 10px 0 0; padding: 0; list-style: none; counter-reset: wrapkey; display: grid; gap: 0; }
+/* Rows on a hairline, not twelve tinted boxes: the page is read top to
+   bottom the night before, and a wall of gold blocks hid where one line
+   ended. The term that opens a "Term — explanation" line is bold. */
+.vmx-wrap-keylist li { counter-increment: wrapkey; position: relative; padding: 6px 10px 6px 34px; border-bottom: 1px solid var(--clr-border); color: var(--clr-ink); font-size: 13px; line-height: 1.5; }
+.vmx-wrap-keylist li:last-child { border-bottom: 0; }
+.vmx-wrap-keylist li b { font-weight: 700; }
+.vmx-wrap-keylist li::before { content: counter(wrapkey); position: absolute; left: 10px; top: 6px; font-family: var(--vmx-sans); font-variant-numeric: tabular-nums; font-size: 12px; font-weight: 700; color: var(--clr-ink-soft); }
 /* The lecturer numbered the list themselves; ours would sit beside theirs. */
 .vmx-wrap-keylist.is-self-numbered li { padding-left: 10px; }
 .vmx-wrap-keylist.is-self-numbered li::before { content: none; }

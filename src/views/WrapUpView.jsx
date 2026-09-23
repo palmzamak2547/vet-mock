@@ -20,6 +20,7 @@ import { LECTURE_COVERS } from '../data/art.js';
 import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
 import { getLibraryCatalogFast, readerPayload, recordRecentDoc } from '../lib/library.js';
 import { humanSource } from '../lib/source-label.js';
+import { keyTerm } from '../lib/wrap-keyline.js';
 
 const TH_MONTH = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 function thaiDate(iso) {
@@ -186,6 +187,9 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
               const format = deck?.format || g.format;
               const count = (kindTable[it.topic] || {})[format] || 0;
               const doc = deck?.doc && docsBySlug ? docsBySlug.get(deck.doc) : null;
+              // A list the lecturer numbered is printed as written; a plain one
+              // leads each 'Term — explanation' line with the term in bold.
+              const numbered = selfNumbered(it.keywords);
               return (
                 <article key={anchorId(it.topic, n - 1)} id={anchorId(it.topic, n - 1)} className="vmx-wrap-item">
                   <div className="vmx-wrap-item-head">
@@ -204,8 +208,11 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
                       ("1 Emerging Infectious Diseases", "2 Public Health"), the
                       list must not add a second set of numbers beside it. */}
                   {it.keywords?.length > 0 && (it.keywords.some((k) => k.length > 44) ? (
-                    <ul className={`vmx-wrap-keylist${selfNumbered(it.keywords) ? ' is-self-numbered' : ''}`} aria-label="คีย์เวิร์ดและรายการที่ต้องจำ">
-                      {it.keywords.map((k) => <li key={k}>{k}</li>)}
+                    <ul className={`vmx-wrap-keylist${numbered ? ' is-self-numbered' : ''}`} aria-label="คีย์เวิร์ดและรายการที่ต้องจำ">
+                      {it.keywords.map((k) => {
+                        const parts = numbered ? null : keyTerm(k);
+                        return <li key={k}>{parts ? <><b>{parts.term}</b>{' — '}{parts.rest}</> : k}</li>;
+                      })}
                     </ul>
                   ) : (
                     <div className="vmx-wrap-keys" aria-label="คีย์เวิร์ด">
