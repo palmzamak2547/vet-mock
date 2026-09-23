@@ -22,6 +22,7 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import { sendFeedback } from '../../src/lib/feedback-client.js';
 
 const SRC = readFileSync(join(resolve(process.cwd()), 'src/views/FeedbackView.jsx'), 'utf8').replace(/\r\n/g, '\n');
 
@@ -63,6 +64,8 @@ function mountForm(initial, respond) {
     JSON,
     console: { warn() {}, error() {} },
   };
+  // submit sends through lib/feedback-client.js, pointed at the stub above.
+  context.sendFeedback = (payload) => sendFeedback(payload, { fetch: context.fetch });
   h.submit = vm.runInNewContext('(' + submitSource() + ')', context);
   /** The student types into the subject/message boxes. */
   h.type = (patch) => { h.state = { ...h.state, ...patch }; };
@@ -133,7 +136,7 @@ test('an API failure keeps the text and offers retry, with no reset timer', asyn
   await form.submit({ preventDefault() {} });
 
   assert.equal(form.status, 'api-error');
-  assert.equal(form.apiError.code, 500);
+  assert.equal(form.apiError.status, 500);
   assert.equal(form.timers.length, 0);
   assert.equal(form.state.message, 'keep me');
   assert.equal(form.state.subject, 'key');
@@ -144,7 +147,7 @@ test('a network failure keeps the text, with no reset timer', async () => {
   await form.submit({ preventDefault() {} });
 
   assert.equal(form.status, 'network-error');
-  assert.equal(form.apiError.code, 'network');
+  assert.equal(form.apiError.reason, 'offline');
   assert.equal(form.timers.length, 0);
   assert.equal(form.state.message, 'keep me too');
 });

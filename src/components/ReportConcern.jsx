@@ -2,16 +2,18 @@
 // ReportConcern — "flag something wrong" on a governed VetWiki section
 // ============================================================
 // A correctable knowledge base needs a low-friction way for a reader to say
-// "this looks off". Reuses the existing /api/send-feedback endpoint (Resend +
-// rate-limit) — a concern is just a structured feedback message tagged with the
-// stable sectionId, so nothing new is built server-side. Degrades honestly if
-// the endpoint isn't configured.
+// "this looks off". Reuses the feedback endpoint through lib/feedback-client.js
+// (Resend + rate-limit) — a concern is just a structured feedback message tagged
+// with the stable sectionId, so nothing new is built server-side. A failure
+// shows the client's sentence for its cause, the same one the question flag
+// and the feedback page show, and the concern stays in the box.
 //
 // Deliberately small + inline (a disclosure, not a modal): a governed page
 // stays a calm reading surface until the reader chooses to open it.
 // ============================================================
 
 import React, { useState } from 'react';
+import { sendFeedback } from '../lib/feedback-client.js';
 
 export default function ReportConcern({ topicId, sectionId, sectionHeading }) {
   const [open, setOpen] = useState(false);
@@ -23,38 +25,14 @@ export default function ReportConcern({ topicId, sectionId, sectionHeading }) {
     const concern = text.trim();
     if (!concern || state === 'sending') return;
     setState('sending'); setMsg('');
-    try {
-      const res = await fetch('/api/send-feedback', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          type: 'VetWiki concern',
-          subject: `VetWiki: ${sectionId}`,
-          // The locator is machine-readable so a reviewer can jump straight to it.
-          message: `หัวข้อ: ${sectionHeading}\nsection: ${sectionId}\ntopic: ${topicId}\n\nข้อกังวล:\n${concern}`,
-        }),
-      });
-      if (!(res.headers.get('content-type') || '').includes('application/json')) {
-        // Local preview has no serverless runtime.
-        setState('error'); setMsg('ส่งได้เฉพาะบนเว็บจริง'); return;
-      }
-      // 429 has two causes with opposite advice: a per-IP burst clears in
-      // minutes, the daily cap does not clear until tomorrow. Telling someone
-      // at the daily cap to "try again shortly" sends them in circles.
-      const body = await res.json().catch(() => ({}));
-      if (res.status === 429) {
-        setState('error');
-        setMsg(body.reason === 'daily_cap'
-          ? 'วันนี้ระบบรับข้อความครบโควตาแล้ว พรุ่งนี้ส่งได้อีก หรือแจ้งผ่านหน้า “ส่ง Feedback” ได้เลย'
-          : 'ส่งบ่อยเกินไป ลองใหม่ในสักครู่');
-        return;
-      }
-      if (res.status === 503) { setState('error'); setMsg('ยังไม่ได้ตั้งค่าการส่ง — แจ้งผ่านหน้า “ส่ง Feedback” แทนได้'); return; }
-      if (!res.ok) { setState('error'); setMsg('ส่งไม่สำเร็จ ลองใหม่อีกครั้ง'); return; }
-      setState('done');
-    } catch {
-      setState('error'); setMsg('เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง');
-    }
+    const result = await sendFeedback({
+      type: 'VetWiki concern',
+      subject: `VetWiki: ${sectionId}`,
+      // The locator is machine-readable so a reviewer can jump straight to it.
+      message: `หัวข้อ: ${sectionHeading}\nsection: ${sectionId}\ntopic: ${topicId}\n\nข้อกังวล:\n${concern}`,
+    });
+    if (result.ok) { setState('done'); return; }
+    setState('error'); setMsg(result.messageTh);
   };
 
   if (state === 'done') {

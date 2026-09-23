@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import BackBar from '../components/BackBar.jsx';
-
-const CONTACT_EMAIL = 'palmzamak2547@gmail.com';
+import { sendFeedback, FEEDBACK_EMAIL as CONTACT_EMAIL } from '../lib/feedback-client.js';
 
 export default function FeedbackView({ goHome, user, profile, prefill, clearPrefill }) {
   // Prefill arrives from contextual entry points (e.g. clicking a
@@ -21,7 +20,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
   // status: 'idle' | 'sending' | 'success' | 'api-error' | 'network-error'
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
-  const [apiError, setApiError] = useState(null); // { code, message } from API failure
+  const [apiError, setApiError] = useState(null); // sendFeedback's failed result: { status, reason, messageTh }
 
   // Track the success-reset timer so we can cancel it if the user
   // navigates away before it fires — otherwise setState ran on an
@@ -43,42 +42,25 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
     // below clears only what was actually sent.
     const sent = formData;
 
-    try {
-      const resp = await fetch('/api/send-feedback', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(sent),
-      });
-
-      if (resp.ok) {
-        setStatus('success');
-        if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
-        resetTimerRef.current = setTimeout(() => {
-          setFormData((prev) => (prev.subject === sent.subject && prev.message === sent.message
-            ? { ...prev, subject: '', message: '' }
-            : prev));
-          setStatus('idle');
-          resetTimerRef.current = null;
-        }, 4000);
-        return;
-      }
-
-      // API failure — surface error instead of silently opening mail app
-      const errData = await resp.json().catch(() => ({}));
-      console.warn('API error:', resp.status, errData);
-      setApiError({
-        code: resp.status,
-        reason: errData.reason || null,
-        message: errData.error || `HTTP ${resp.status}`,
-        hint: errData.hint || null,
-      });
-      setStatus('api-error');
-
-    } catch (err) {
-      console.error('Network error:', err);
-      setApiError({ code: 'network', message: err?.message || 'Network error' });
-      setStatus('network-error');
+    const result = await sendFeedback(sent);
+    if (result.ok) {
+      setStatus('success');
+      if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+      resetTimerRef.current = setTimeout(() => {
+        setFormData((prev) => (prev.subject === sent.subject && prev.message === sent.message
+          ? { ...prev, subject: '', message: '' }
+          : prev));
+        setStatus('idle');
+        resetTimerRef.current = null;
+      }, 4000);
+      return;
     }
+
+    // Failure: surface it instead of silently opening the mail app. The form
+    // keeps the text; the panel shows the client's sentence for the cause.
+    console.warn('[feedback] not sent:', result.status, result.reason);
+    setApiError(result);
+    setStatus(result.reason === 'offline' ? 'network-error' : 'api-error');
   };
 
   const openMailto = () => {
@@ -108,20 +90,14 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
         {(status === 'api-error' || status === 'network-error') && apiError && (
           <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-rose-soft)', border: '1px solid var(--clr-rose)', marginBottom: 16 }}>
             ❌ <strong>ส่งไม่สำเร็จ</strong>
-            {/* One Thai sentence the student can act on. This panel used to
-                print an HTTP status chip, the server's raw English text and a
-                hint naming Resend + env vars — deployment detail on a student's
-                screen, and the 500 line asserted a missing RESEND_API_KEY for
-                every 500 including plain crashes. Diagnostics stay in the
-                console (already logged where apiError is built). */}
+            {/* One Thai sentence the student can act on, from
+                lib/feedback-client.js: the question flag and the VetWiki
+                concern box show the same one for the same cause. This panel
+                used to print an HTTP status chip, the server's raw English
+                text and a hint naming Resend + env vars. Diagnostics stay in
+                the console (logged in submit). */}
             <div style={{ fontSize: 13, color: 'var(--clr-ink)', marginTop: 8, lineHeight: 1.6 }}>
-              {apiError.code === 429
-                ? (apiError.reason === 'daily_cap'
-                  ? 'วันนี้ระบบรับข้อความครบโควตาแล้ว พรุ่งนี้ส่งได้อีก หรือใช้ปุ่มเปิดแอปอีเมลด้านล่างส่งถึงทีมงานได้เลย'
-                  : 'ส่งถี่เกินไป พักสักครู่แล้วลองใหม่ (ส่งได้ 3 ครั้งต่อ 10 นาที)')
-                : apiError.code === 'network'
-                  ? 'เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองใหม่'
-                  : 'ระบบส่งข้อความขัดข้องชั่วคราว ใช้ปุ่มเปิดแอปอีเมลด้านล่างส่งถึงทีมงานได้เลย'}
+              {apiError.messageTh}
             </div>
             <div style={{ marginTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               <button
