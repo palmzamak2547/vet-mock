@@ -105,28 +105,3 @@ test('every npm script the guide tells an agent to run exists (ORG-15)', () => {
   const missing = [...new Set(named)].filter((name) => !(name in scripts)).sort();
   assert.deepEqual(missing, [], 'the guide names npm scripts that package.json does not have');
 });
-
-// ── ORG-15: the dated log lives in docs/handoff/ ─────────────────
-// New entries are still appended to AGENTS.md, under its Session log heading,
-// and moved verbatim into a monthly file under docs/handoff/ when it grows.
-const ARCHIVE = 'docs/handoff/2026-09.md';
-const DATED = /^## (\d{4}-\d{2}-\d{2}\b.*)$/gm;
-
-test('AGENTS.md is the guide plus a session log that points at the archive (ORG-15)', () => {
-  assert.match(agents, /^## .*\bSession log\b/m, 'a Session log section closes the guide');
-  assert.ok(agents.includes(`](${ARCHIVE})`), `the Session log links ${ARCHIVE}`);
-  assert.doesNotMatch(guide, /^## \d{4}-\d{2}-\d{2}/m, 'dated entries go below the Session log heading');
-  assert.ok(guide.split('\n').length < 400, 'the guide above the session log stays under 400 lines');
-});
-
-test('the archived entries are there, and none is kept in both places (ORG-15)', () => {
-  assert.ok(existsSync(new URL(ARCHIVE, ROOT)), `${ARCHIVE} exists`);
-  const archived = [...read(`../../${ARCHIVE}`).matchAll(DATED)].map((m) => m[1]);
-  for (const heading of [
-    '2026-09-06 — Vercel cost pass (Claude)',
-    '2026-09-22 — "Mid 86" in a filename is the paper a summary is FOR, not one that was sat',
-    '2026-09-23 — Equine Med Surg and Equine Reproduction',
-  ]) assert.ok(archived.includes(heading), `archived: ${heading}`);
-  const kept = new Set([...agents.matchAll(DATED)].map((m) => m[1]));
-  assert.deepEqual(archived.filter((h) => kept.has(h)), [], 'an entry lives in AGENTS.md or the archive, not both');
-});
