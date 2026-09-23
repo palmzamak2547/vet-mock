@@ -63,7 +63,11 @@ export function getShuffledOptions(q) {
   // the earlier alternatives matched — so it shuffled into the middle and
   // read as a broken question. ไม่มีข้อกำหนด ("no requirement") is a real
   // option and must keep shuffling, hence the ถูก|ผิด tail.
-  const TAIL_RE = /^(?:ถูก(?:ทั้ง|ทุก)|ผิด(?:ทั้ง|ทุก)|all of the above|none of the above|ทั้ง[ก-ฮa-z]+|ข้อ\s*[a-zก-ฮ]\s*และ|ไม่มีข้อ(?:ใด|ไหน)?(?:ถูก|ผิด))/i;
+  // Eight catch-alls start with ทุกข้อ instead ("ทุกข้อถูก", "ทุกข้อข้างต้น",
+  // "ทำได้ทุกข้อที่กล่าวมา") and landed mid-list. ข้อ is also "joint", so
+  // ทุกข้อ pins only when it ends the row or runs into ถูก/ข้างต้น/ที่กล่าว:
+  // "ทุกข้อต่อมีการอักเสบ" is a real answer and keeps shuffling.
+  const TAIL_RE = /^(?:ถูก(?:ทั้ง|ทุก)|ผิด(?:ทั้ง|ทุก)|all of the above|none of the above|ทั้ง[ก-ฮa-z]+|ข้อ\s*[a-zก-ฮ]\s*และ|ไม่มีข้อ(?:ใด|ไหน)?(?:ถูก|ผิด)|(?:ทำได้)?ทุกข้อ(?=\s*$|\s*(?:ถูก|ข้างต้น|ที่กล่าว))|ข้อ(?:ที่)?กล่าวมา(?:แล้ว)?ทั้งหมด)/i;
   const tailIndices = [];
   const headIndices = [];
   for (let i = 0; i < options.length; i++) {
