@@ -186,16 +186,15 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
       setToast('ไฟล์ไม่ใช่รูป');
       return;
     }
-    // Open a fresh editor; the file is pre-staged in editing._initialFile.
-    // Editor reads it via FileReader on mount.
+    // Open a fresh editor with the file staged in editing._bootstrapFile;
+    // EditorBootstrap reads it before the editor mounts.
     setEditing({ _bootstrapFile: file });
   }, []);
 
   if (editing !== null) {
-    // If user dropped a file straight into the empty zone, push that
-    // through to the editor as initialFile (it reads via FileReader).
+    // A file dropped on the empty zone arrives as editing._bootstrapFile.
     // The editor itself accepts initialDeck = { imageDataUrl, masks }, so
-    // we resolve the file-to-dataUrl here before mounting.
+    // EditorBootstrap reads the file to a data URL before mounting it.
     return (
       <Suspense fallback={<div style={{ padding: 40, textAlign: 'center' }}>กำลังโหลด editor…</div>}>
         <EditorBootstrap
@@ -353,6 +352,12 @@ function EditorBootstrap({ initial, onSave, onClose }) {
         </div>
       </div>
     );
+  }
+
+  // The editor takes initialDeck only when it mounts, so a dropped file has
+  // to be read first; mounting it straight away opened an empty editor.
+  if (initial?._bootstrapFile && !resolved) {
+    return <div style={{ padding: 40, textAlign: 'center' }}>กำลังเปิดรูป…</div>;
   }
 
   // For a "new deck" (initial === {}), resolved stays null and we still
