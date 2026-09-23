@@ -26,6 +26,7 @@
 import { SUBJECTS } from '../data/curriculum.js';
 import { EXTERNAL_COURSES } from '../data/library-courses.js';
 import { googleDriveSourceUrl, mergeLibrarySources, vcaLibraryDocs } from './vca-library.js';
+import { hasStoredAuthToken } from './auth-storage.js';
 
 const CDN_BASE = import.meta.env?.VITE_LIBRARY_CDN_BASE || '';
 
@@ -302,6 +303,14 @@ export function isMissingLibraryTable(err) {
 // subject-count helper kept private caches. One cache means one truth on
 // screen, and the invalidation event clears everyone at once.
 let _catalogPromise = null;
+// The last rows fetched, with the revision they were fetched at, so a refresh
+// whose revision has not moved reuses them instead of downloading them again.
+// In memory only: a signed-in catalogue carries restricted rows, and the disk
+// snapshot below is public-only on purpose. Dropped whenever the account
+// changes; the epoch stops a fetch that started under the previous account
+// from storing its rows after that.
+let _lastFetch = null; // { revision, result }
+let _catalogEpoch = 0;
 export function getLibraryCatalog() {
   if (!_catalogPromise) {
     _catalogPromise = Promise.all([
@@ -317,6 +326,7 @@ export function getLibraryCatalog() {
           error.partialDocs = sources;
           throw error;
         }
+        noteDocHashes(result.docs);
         const combined = { ...result, docs: mergeLibrarySources(result.docs, sources), configured: result.configured || sources.length > 0 };
         saveCatalogSnapshot(combined);
         return combined;
@@ -328,9 +338,46 @@ export function getLibraryCatalog() {
   }
   return _catalogPromise;
 }
+
+// ── Sign-out: the worker's copies of login-only documents ────────────────
+// The service worker keeps opened documents in its own cache, keyed only by
+// content hash (public/sw.js, libraryDoc), and answers any request for that
+// hash from it, whoever asks. Restricted means "any signed-in account", so
+// an account switch changes nothing; but once this device is signed out, the
+// copies of restricted documents go. Only those: public decks, the offline
+// shell, a student's own PDFs and their ink live elsewhere or stay.
+// The name and key are the worker's; library-signout-purge.test.mjs pins
+// them together.
+const LIB_DOC_CACHE = 'vmx-lib-docs-v1';
+
+// content hash -> true when any catalogue this session listed it as public
+const _docHashes = new Map();
+function noteDocHashes(docs) {
+  for (const d of Array.isArray(docs) ? docs : []) {
+    if (!d?.sha256_16) continue;
+    _docHashes.set(d.sha256_16, _docHashes.get(d.sha256_16) === true || d.status === 'public');
+  }
+}
+
+async function purgeRestrictedDocBytes() {
+  const hashes = [..._docHashes].filter(([, isPublic]) => !isPublic).map(([hash]) => hash);
+  _docHashes.clear();
+  if (!hashes.length || typeof caches === 'undefined') return;
+  try {
+    // has() first: opening would create the worker's cache on a device that
+    // never had one.
+    if (!(await caches.has(LIB_DOC_CACHE))) return;
+    const cache = await caches.open(LIB_DOC_CACHE);
+    await Promise.all(hashes.map((hash) => cache.delete(`/__lib-doc/${hash}`).catch(() => false)));
+  } catch { /* storage blocked: the offline rule in resolveDocUrl still refuses them */ }
+}
+
 if (typeof window !== 'undefined') {
   window.addEventListener('vmx-palette-invalidate', () => { _catalogPromise = null; _subjectCounts = null; });
   window.addEventListener('vmx-library-auth-changed', () => {
+    if (!hasStoredAuthToken()) purgeRestrictedDocBytes();
+    _lastFetch = null;
+    _catalogEpoch += 1;
     _catalogPromise = null;
     _subjectCounts = null;
     _urlIntent.clear();
@@ -403,6 +450,20 @@ export async function fetchLibraryDocs() {
   if (!hasSupabase) return { docs: [], configured: false };
 
   const sb = await getSupabase();
+  const epoch = _catalogEpoch;
+
+  // A refresh in the same session (after vmx-palette-invalidate) first asks
+  // whether anything changed. The revision is read BEFORE the rows, so a
+  // change that lands during the read makes the next revision differ, never
+  // match: the worst case is one extra download, never a stale shelf. A cold
+  // load does not pay for the extra round-trip, so the first refresh after it
+  // still downloads once, and records the revision it read first.
+  const previous = _lastFetch;
+  let revision = null;
+  if (previous) {
+    revision = await catalogRevision(sb);
+    if (revision && revision === previous.revision && epoch === _catalogEpoch) return previous.result;
+  }
 
   // Paged, because PostgREST silently caps an un-ranged select at 1,000
   // rows and the MyCourseVille mirror is ~3,000. With rows ordered year
@@ -410,9 +471,9 @@ export async function fetchLibraryDocs() {
   // people using this app are actually in — the day the full shelf landed,
   // with no error anywhere.
   const PAGE = 1000;
-  const fetchPage = (from) => sb
+  const fetchPage = (from, withCount = false) => sb
     .from('library_docs')
-    .select(CATALOG_COLUMNS)
+    .select(CATALOG_COLUMNS, withCount ? { count: 'exact' } : undefined)
     .order('year', { ascending: true, nullsFirst: false })
     .order('semester', { ascending: true, nullsFirst: false })
     .order('subject', { ascending: true, nullsFirst: false })
@@ -423,31 +484,7 @@ export async function fetchLibraryDocs() {
     .order('slug', { ascending: true })
     .range(from, from + PAGE - 1);
 
-  // The shelf is ~1,500 rows today, so the first TWO pages are fired
-  // concurrently — sequential paging made every visitor pay page 1's full
-  // round-trip before page 2 even started (measured 414 ms + 182 ms on
-  // prod). Only a shelf that outgrows 2,000 rows pages on sequentially.
-  const data = [];
-  let error = null;
-  const [p0, p1] = await Promise.all([fetchPage(0), fetchPage(PAGE)]);
-  if (p0.error) error = p0.error;
-  else {
-    data.push(...(p0.data || []));
-    if ((p0.data || []).length === PAGE) {
-      if (p1.error) error = p1.error;
-      else {
-        data.push(...(p1.data || []));
-        let last = p1.data || [];
-        for (let from = PAGE * 2; !error && last.length === PAGE; from += PAGE) {
-          const res = await fetchPage(from);
-          if (res.error) { error = res.error; break; }
-          data.push(...(res.data || []));
-          last = res.data || [];
-        }
-      }
-    }
-  }
-
+  const { rows, error } = await fetchCatalogRows(fetchPage, PAGE);
   if (error) {
     if (isMissingLibraryTable(error)) return { docs: [], configured: true };
     throw error;
@@ -456,7 +493,72 @@ export async function fetchLibraryDocs() {
   // in). Archived rows can only appear through a service-role client, which
   // the browser never has, but filtering here keeps the view honest if that
   // ever changes.
-  return { docs: (data || []).filter((d) => d.status !== 'archived'), configured: true };
+  const result = { docs: rows.filter((d) => d.status !== 'archived'), configured: true };
+  if (epoch === _catalogEpoch) _lastFetch = { revision, result };
+  return result;
+}
+
+// Every page of the catalogue. The shelf is ~1,500 rows today, so the first
+// TWO pages are fired concurrently: sequential paging made every visitor pay
+// page 1's full round-trip before page 2 even started (measured 414 ms +
+// 182 ms on prod). Page 0 also carries the exact row count, so a shelf past
+// 2,000 rows asks for all its remaining pages at once instead of one
+// round-trip at a time. A shelf that grew while it was being read still gets
+// its tail, and a row pushed across a page boundary by an insert is kept once.
+async function fetchCatalogRows(fetchPage, PAGE) {
+  const [p0, p1] = await Promise.all([fetchPage(0, true), fetchPage(PAGE)]);
+  if (p0.error) return { error: p0.error };
+  const rows = [...(p0.data || [])];
+  let last = p0.data || [];
+  let from = PAGE;
+  if (last.length === PAGE) {
+    if (p1.error) return { error: p1.error };
+    rows.push(...(p1.data || []));
+    last = p1.data || [];
+    from = PAGE * 2;
+    if (last.length === PAGE && Number.isInteger(p0.count) && p0.count > from) {
+      const offsets = [];
+      for (; from < p0.count; from += PAGE) offsets.push(from);
+      for (const page of await Promise.all(offsets.map((offset) => fetchPage(offset)))) {
+        if (page.error) return { error: page.error };
+        rows.push(...(page.data || []));
+        last = page.data || [];
+      }
+    }
+    for (; last.length === PAGE; from += PAGE) {
+      const page = await fetchPage(from);
+      if (page.error) return { error: page.error };
+      rows.push(...(page.data || []));
+      last = page.data || [];
+    }
+  }
+  const seen = new Set();
+  return {
+    rows: rows.filter((row) => {
+      const key = row?.id ?? row?.slug;
+      if (key == null) return true;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }),
+  };
+}
+
+// The cheapest question that tells whether the visible catalogue changed:
+// how many rows there are, and the newest updated_at among them (a trigger
+// bumps it on every update). RLS applies, so it is this reader's catalogue.
+// One row and a count; null when it cannot be read, which means "download".
+async function catalogRevision(sb) {
+  try {
+    const { data, count, error } = await sb.from('library_docs')
+      .select('updated_at', { count: 'exact' })
+      .order('updated_at', { ascending: false, nullsFirst: false })
+      .limit(1);
+    if (error || !Number.isInteger(count)) return null;
+    return `${count}|${data?.[0]?.updated_at ?? ''}`;
+  } catch {
+    return null;
+  }
 }
 
 // Resolves a catalog row to a fetchable URL.
@@ -496,6 +598,18 @@ export function prefetchDocUrl(doc) {
   // Nothing awaits a prefetch; swallow here so it can never surface as an
   // unhandled rejection in a student's console.
   p.catch(() => {});
+}
+
+// The worker's offline copy answers whoever asks for its hash, so the page
+// decides who may ask: a restricted document only while this device holds a
+// session. Signed out, the reader says it needs a login, exactly as it does
+// online, instead of opening the last reader's deck from the cache.
+function offlineDocUrl(doc) {
+  if (doc.status !== 'public' && !hasStoredAuthToken()) {
+    throw new Error('ไฟล์นี้ต้องเข้าสู่ระบบก่อนจึงจะเปิดได้');
+  }
+  if (doc.sha256_16) return `/api/library-blob?offline=1&h=${encodeURIComponent(doc.sha256_16)}`;
+  throw new Error('ออฟไลน์อยู่ และยังไม่เคยเปิดไฟล์นี้ในเครื่อง จึงเปิดไม่ได้ตอนนี้');
 }
 
 export async function resolveDocUrl(doc) {
@@ -541,8 +655,7 @@ export async function resolveDocUrl(doc) {
       // by the `h` param — hand it a URL it can answer from that cache. If
       // the document was never opened on this device, the request falls
       // through to the network and fails honestly.
-      if (doc.sha256_16) return `/api/library-blob?offline=1&h=${encodeURIComponent(doc.sha256_16)}`;
-      throw new Error('ออฟไลน์อยู่ และยังไม่เคยเปิดไฟล์นี้ในเครื่อง จึงเปิดไม่ได้ตอนนี้');
+      return offlineDocUrl(doc);
     }
     if (res.status === 401) throw new Error('ไฟล์นี้ต้องเข้าสู่ระบบก่อนจึงจะเปิดได้');
     if (!res.ok) {
@@ -555,10 +668,7 @@ export async function resolveDocUrl(doc) {
       const offlineBody = await res.clone().json().catch(() => ({}));
       const swSaysOffline = res.status === 503 && offlineBody.error === 'Offline';
       const browserSaysOffline = typeof navigator !== 'undefined' && navigator.onLine === false;
-      if (swSaysOffline || browserSaysOffline) {
-        if (doc.sha256_16) return `/api/library-blob?offline=1&h=${encodeURIComponent(doc.sha256_16)}`;
-        throw new Error('ออฟไลน์อยู่ และยังไม่เคยเปิดไฟล์นี้ในเครื่อง จึงเปิดไม่ได้ตอนนี้');
-      }
+      if (swSaysOffline || browserSaysOffline) return offlineDocUrl(doc);
       // The endpoint answers with machine codes (not_found, storage_not_configured,
       // catalog_unavailable). Printing those, or a bare HTTP number, told the
       // reader nothing they could act on.

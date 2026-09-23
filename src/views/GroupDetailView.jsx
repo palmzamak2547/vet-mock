@@ -1,5 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getGroupMembers, getSharedQuestions, getLeaderboard, deleteSharedQuestion } from '../lib/api.js';
 import { qualifiesForLeaderboard } from '../lib/leaderboard-gate.js';
 import { copyText } from '../lib/clipboard.js';
@@ -8,56 +8,77 @@ import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
 import StatePanel from '../components/StatePanel.jsx';
 
+// A group page is three independent requests, one per tab.
+const SECTIONS = ['members', 'questions', 'leaderboard'];
+const ALL_PENDING = { members: true, questions: true, leaderboard: true };
+const NONE_FAILED = { members: '', questions: '', leaderboard: '' };
+
 export default function GroupDetailView({ group, user, goBack }) {
   const [tab, setTab] = useState('leaderboard'); // 'leaderboard' | 'questions' | 'members'
   const [members, setMembers] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [leaderboard, setLeaderboard] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  // Errors from an action the student took (delete), separate from `error`
-  // which is the load failure and replaces the whole tab with a panel.
+  // Each section loads, fails and retries on its own. One Promise.allSettled
+  // behind one spinner made the tab on screen wait for the slowest hidden
+  // request, and a failed section was only a banner: its own tab then drew an
+  // empty list, as though the group had no members or nobody had scored.
+  const [pending, setPending] = useState(ALL_PENDING);
+  const [failed, setFailed] = useState(NONE_FAILED);
+  // Errors from an action the student took (delete), separate from a load
+  // failure, which replaces its own section with a panel.
   const [actionError, setActionError] = useState('');
-  // A section that failed while the others loaded. Distinct from `error`,
-  // which replaces the whole tab and so must mean "nothing loaded".
-  const [loadWarning, setLoadWarning] = useState('');
+  // The newest request per section. An answer to an older one (a reload
+  // overtook it, or the page left this group) is dropped rather than drawn
+  // over the newer answer.
+  const latest = useRef({ members: 0, questions: 0, leaderboard: 0 });
 
-  const load = async () => {
-    setLoading(true);
-    setError('');
-    try {
-      // Three independent sections, so one failure must not blank the other
-      // two: Promise.all turned a single broken members query into "โหลดข้อมูล
-      // กลุ่มไม่สำเร็จ" over the whole tab, hiding shared questions and the
-      // board that had both loaded fine.
-      const [m, q, lb] = await Promise.allSettled([
-        getGroupMembers(group.id),
-        getSharedQuestions(group.id),
-        getLeaderboard(group.id),
-      ]);
-      if (m.status === 'fulfilled') setMembers(m.value);
-      if (q.status === 'fulfilled') setQuestions(q.value);
-      // Same min-questions gate as the global board — a 2-question
-      // sprint topping a group board is the same luck problem.
-      if (lb.status === 'fulfilled') {
-        setLeaderboard((Array.isArray(lb.value) ? lb.value : []).filter(qualifiesForLeaderboard));
-      }
-      const rejected = [m, q, lb].filter((r) => r.status === 'rejected');
-      // `error` hides every tab, so it is only honest when there is nothing
-      // left to show. A partial failure says so inline and leaves what did
-      // load on screen.
-      setLoadWarning('');
-      if (rejected.length === 3) {
-        setError(thaiError(rejected[0].reason, 'โหลดข้อมูลกลุ่มไม่สำเร็จ'));
-      } else if (rejected.length) {
-        setLoadWarning(thaiError(rejected[0].reason, 'บางส่วนของกลุ่มโหลดไม่สำเร็จ'));
-      }
-    } catch (err) {
-      setError(thaiError(err, 'โหลดข้อมูลกลุ่มไม่สำเร็จ'));
-    } finally { setLoading(false); }
+  const show = {
+    members: setMembers,
+    questions: setQuestions,
+    // Same min-questions gate as the global board — a 2-question
+    // sprint topping a group board is the same luck problem.
+    leaderboard: (rows) => setLeaderboard((Array.isArray(rows) ? rows : []).filter(qualifiesForLeaderboard)),
   };
 
-  useEffect(() => { load(); }, [group.id]);
+  // Resolves once every requested section has settled, each having painted
+  // the moment its own answer arrived.
+  const load = (keys = SECTIONS) => {
+    const request = { members: getGroupMembers, questions: getSharedQuestions, leaderboard: getLeaderboard };
+    const all = (value) => Object.fromEntries(keys.map((key) => [key, value]));
+    setPending((p) => ({ ...p, ...all(true) }));
+    setFailed((f) => ({ ...f, ...all('') }));
+    return Promise.allSettled(keys.map((key) => {
+      const ticket = ++latest.current[key];
+      const settle = (apply) => {
+        if (latest.current[key] !== ticket) return;
+        apply();
+        setPending((p) => ({ ...p, [key]: false }));
+      };
+      return request[key](group.id).then(
+        (rows) => settle(() => show[key](rows)),
+        (err) => settle(() => setFailed((f) => ({ ...f, [key]: thaiError(err, 'โหลดข้อมูลกลุ่มไม่สำเร็จ') }))),
+      );
+    }));
+  };
+  const retryFailed = () => load(SECTIONS.filter((key) => failed[key]));
+
+  // GroupsView records which account opened the group. If the session is now
+  // another account (a direct switch while this page is open, or a sign-out
+  // and a different sign-in with the page still selected), nothing of the
+  // group is fetched or drawn, its invite code included: back to the list,
+  // which loads the new account's groups.
+  const foreign = group.openedBy != null && group.openedBy !== user.id;
+
+  useEffect(() => {
+    if (foreign) { goBack(); return undefined; }
+    load();
+    // Leaving the group or the account makes every answer in flight stale.
+    return () => { for (const key of SECTIONS) latest.current[key] += 1; };
+  }, [group.id, user.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const status = pending[tab] ? 'loading' : failed[tab] ? 'error' : 'ready';
+  // The tab on screen speaks for itself; this is for a failure out of sight.
+  const hiddenFailure = status !== 'error' && SECTIONS.some((key) => key !== tab && failed[key]);
 
   // Robust copy: Clipboard API → execCommand fallback for in-app browsers
   // (LINE / FB WebView) where navigator.clipboard is absent or rejects.
@@ -70,6 +91,8 @@ export default function GroupDetailView({ group, user, goBack }) {
       alertDialog(`คัดลอกอัตโนมัติไม่ได้บนเบราว์เซอร์นี้ — กดค้าง code นี้แล้วเลือก Copy:\n\n${group.code}`);
     }
   };
+
+  if (foreign) return null;
 
   return (
     <>
@@ -91,17 +114,17 @@ export default function GroupDetailView({ group, user, goBack }) {
 
       {actionError && <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-rose-soft)', marginBottom: 16, fontSize: 13 }}>⚠️ {actionError}</div>}
 
-      {!loading && !error && loadWarning && (
+      {hiddenFailure && (
         <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-gold-soft)', marginBottom: 16, fontSize: 13 }}>
-          ⚠️ {loadWarning}{' '}
-          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={load} style={{ marginInlineStart: 8 }}>ลองอีกครั้ง</button>
+          ⚠️ บางส่วนของกลุ่มโหลดไม่สำเร็จ{' '}
+          <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={retryFailed} style={{ marginInlineStart: 8 }}>ลองอีกครั้ง</button>
         </div>
       )}
 
-      {loading && <StatePanel kind="loading" title="กำลังโหลดข้อมูลกลุ่ม…" />}
-      {!loading && error && <StatePanel kind="error" title="โหลดข้อมูลกลุ่มไม่สำเร็จ" body={error} actionLabel="ลองอีกครั้ง" onAction={load} />}
+      {status === 'loading' && <StatePanel kind="loading" title="กำลังโหลดข้อมูลกลุ่ม…" />}
+      {status === 'error' && <StatePanel kind="error" title="โหลดข้อมูลกลุ่มไม่สำเร็จ" body={failed[tab]} actionLabel="ลองอีกครั้ง" onAction={retryFailed} />}
 
-      {!loading && !error && tab === 'leaderboard' && (
+      {status === 'ready' && tab === 'leaderboard' && (
         <div>
           {leaderboard.length === 0 ? (
             <div className="vmx-empty">ยังไม่มีใครทำข้อสอบในกลุ่มนี้ — ลองเป็นคนแรกกันเถอะ 💪</div>
@@ -132,11 +155,11 @@ export default function GroupDetailView({ group, user, goBack }) {
         </div>
       )}
 
-      {!loading && !error && tab === 'questions' && (
+      {status === 'ready' && tab === 'questions' && (
         <div>
           <div style={{ marginBottom: 20, fontSize: 13, color: 'var(--clr-ink-soft)' }}>
-            ข้อสอบที่สมาชิกในกลุ่มแชร์มา — ทุกคนในกลุ่มใช้ทำข้อสอบได้<br/>
-            <em>เพิ่มข้อสอบที่ Question Manager → แล้วกด "Share" ในข้อที่ต้องการ</em>
+            ข้อสอบที่สมาชิกในกลุ่มแชร์ไว้<br/>
+            <em>ตอนนี้ยังแชร์ข้อสอบเข้ากลุ่มไม่ได้</em>
           </div>
           {questions.length === 0 ? (
             <div className="vmx-empty">ยังไม่มีข้อสอบที่แชร์</div>
@@ -144,7 +167,7 @@ export default function GroupDetailView({ group, user, goBack }) {
             questions.map((q) => (
               <div key={q.id} className="vmx-review-item">
                 <div className="vmx-review-head">
-                  <span>by {q.author_name || 'Anon'}, {SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}</span>
+                  <span>by {q.author_name || 'Anon'}{!q.invalid && q.data.subject ? `, ${SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}` : ''}</span>
                   {q.author_id === user.id && (
                     <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
                       if (!(await confirmDialog({ title: 'ลบข้อนี้ออกจากกลุ่ม?', confirmLabel: 'ลบ', tone: 'danger' }))) return;
@@ -158,9 +181,17 @@ export default function GroupDetailView({ group, user, goBack }) {
                     }}>🗑</button>
                   )}
                 </div>
-                <div className="vmx-review-q">{q.data.q}</div>
-                {q.data.tags && q.data.tags.length > 0 && (
-                  <div>{q.data.tags.map((t) => <span key={t} className="vmx-tag-pill">#{t}</span>)}</div>
+                {/* getSharedQuestions flags a row whose question cannot be
+                    read; it stays in the list so its author can delete it. */}
+                {q.invalid ? (
+                  <div className="vmx-review-q" style={{ color: 'var(--clr-ink-soft)' }}>แสดงข้อนี้ไม่ได้ เพราะข้อมูลของข้อไม่ครบ</div>
+                ) : (
+                  <>
+                    <div className="vmx-review-q">{q.data.q}</div>
+                    {Array.isArray(q.data.tags) && q.data.tags.length > 0 && (
+                      <div>{q.data.tags.map((t) => <span key={t} className="vmx-tag-pill">#{t}</span>)}</div>
+                    )}
+                  </>
                 )}
               </div>
             ))
@@ -168,7 +199,7 @@ export default function GroupDetailView({ group, user, goBack }) {
         </div>
       )}
 
-      {!loading && !error && tab === 'members' && (
+      {status === 'ready' && tab === 'members' && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12 }}>
           {members.map((m) => (
             <div key={m.id} className="vmx-dash-card" style={{ textAlign: 'center' }}>
