@@ -209,6 +209,22 @@ for (const engine of ENGINES) {
     } finally { env.restore(); }
   });
 
+  test(`${engine.name}: replaying a cached phrase marks it recently played`, async () => {
+    const env = install();
+    try {
+      const get = await engine.load();
+      const p = PHRASES[0];
+      const key = await engine.legacyKey(p);
+      const tenDaysAgo = Date.now() - 10 * 24 * 3600 * 1000;
+      const data = new Map([[key, { audio: new Uint8Array([5]).buffer, ts: tenDaysAgo, bytes: 1 }]]);
+      env.idb.dbs.set(engine.db, data);
+      await get(p);
+      await settle();
+      assert.equal(env.calls.length, 0);
+      assert.ok(data.get(key).ts > tenDaysAgo, 'a replay must refresh the entry, or the size sweep drops audio in use');
+    } finally { env.restore(); }
+  });
+
   test(`${engine.name}: the cache drops month-old audio and trims to 80% of 30 MB`, async () => {
     const env = install();
     try {
