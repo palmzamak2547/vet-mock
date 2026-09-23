@@ -58,9 +58,9 @@ jobs:
             browsers: webkit firefox
             shard: 2/2
             report: gl-2
-    # Setup (~2 min) + the longest browser step cap (14) + 3 min, so a step
+    # Setup (~2 min) + the longest browser step cap (16) + 3 min + 1 spare, so a step
     # that hits its own cap still leaves time to upload the report.
-    timeout-minutes: 20
+    timeout-minutes: 22
     steps:
       - uses: actions/checkout@v7
 
@@ -123,7 +123,9 @@ jobs:
 
       - name: Run smoke e2e (software-GL engines, one worker)
         if: matrix.group == 'gl'
-        timeout-minutes: 12
+        # A half of the serial suite. The serial whole took 11.3-16.2+ min on
+        # 22-23 Sep and shards need not split time evenly, so a half gets 16.
+        timeout-minutes: 16
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: >-

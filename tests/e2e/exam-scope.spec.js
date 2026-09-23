@@ -12,6 +12,12 @@
 
 import { test, expect } from '@playwright/test';
 
+// Paper times in schedule.js are Bangkok times and every student reads them in
+// Bangkok. CI runs in UTC, where 22 Sep 20:00 Bangkok is 13:00 and the
+// milk-meat paper (13:00-16:00) still counts as upcoming, so the soonest-paper
+// test failed there and passed here. Run the browser in Bangkok time on both.
+test.use({ timezoneId: 'Asia/Bangkok' });
+
 const SCOPE_CHIP = '.vmx-qtype-badge .vmx-scope-chip';
 
 // The app stores selections as JSON (src/hooks/useStorage.js), so a phase
