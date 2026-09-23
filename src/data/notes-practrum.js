@@ -485,7 +485,7 @@ export const NOTES_PRACTRUM = {
             'Iron FB attracts to magnet, prevents penetration of pericardium → prevents TRP',
             'Both prevention (calves @ 6mo) + treatment (TRP early stage)',
           ] },
-          { callout: '⚠️ Q1 trap: นักศึกษามักเลือก "magnet อยู่ใน rumen" — ผิด, อยู่ใน reticulum', kind: 'warn' },
+          { callout: '⚠️ จุดที่มักเลือกผิด: "magnet อยู่ใน rumen" ที่ถูกคืออยู่ใน reticulum', kind: 'warn' },
         ],
       },
       {

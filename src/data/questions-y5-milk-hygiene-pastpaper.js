@@ -204,7 +204,7 @@ export const QB_Y5_MILK_HYGIENE_PASTPAPER = [
       "Bacillus cereus"
     ],
     "answer": 3,
-    "explain": "ในกลุ่มแบคทีเรียก่อโรคทางอาหาร มีเพียงสกุล Bacillus และ Clostridium เท่านั้นที่สร้าง endospore ดังนั้นคำตอบคือ Bacillus cereus สปอร์ของมันทนความร้อนระดับ pasteurization ได้ จึงเป็นปัญหาในนมและผลิตภัณฑ์นม (sweet curdling, bitty cream) ตัวลวงคือ Listeria monocytogenes เพราะนักศึกษามักจำว่า 'ทนสภาพแวดล้อมเก่ง โตที่อุณหภูมิตู้เย็นได้' แต่ Listeria ไม่สร้างสปอร์ มันอาศัย biofilm และความทนเย็น/เกลือแทน เช่นเดียวกับ Salmonella และ S. aureus ที่เป็น non-spore-forming ทั้งคู่",
+    "explain": "ในกลุ่มแบคทีเรียก่อโรคทางอาหาร มีเพียงสกุล Bacillus และ Clostridium เท่านั้นที่สร้าง endospore ดังนั้นคำตอบคือ Bacillus cereus สปอร์ของมันทนความร้อนระดับ pasteurization ได้ จึงเป็นปัญหาในนมและผลิตภัณฑ์นม (sweet curdling, bitty cream) ตัวลวงคือ Listeria monocytogenes เพราะทนสภาพแวดล้อมเก่งและโตที่อุณหภูมิตู้เย็นได้ แต่ Listeria ไม่สร้างสปอร์ มันอาศัย biofilm และความทนเย็น/เกลือแทน เช่นเดียวกับ Salmonella และ S. aureus ที่เป็น non-spore-forming ทั้งคู่",
     "source": "สรุปรวมรุ่นพี่ Milk Hygiene, บันทึกแบบทดสอบไว้ทั้งชุด",
     "verified": "อิงแนวข้อสอบ, ตรวจคำตอบซ้ำกับลายมือที่แก้ไว้ในสรุป (หน้า 35)",
     "tags": [
