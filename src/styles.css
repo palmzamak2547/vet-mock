@@ -1661,10 +1661,12 @@ html, body {
   border-radius: 6px;
   background: var(--clr-surface-2);
   color: var(--clr-ink-soft);
-  font-size: 11px;
-  font-style: italic;
-  line-height: 1.4;
+  font-size: 12px;
+  line-height: 1.45;
 }
+/* A note that says the topic is off the paper — the one a student may use to
+   skip it this week — keeps its warning sign and reads in full ink. */
+.vmx-topic-note.is-caveat { color: var(--clr-ink); }
 .vmx-topic-actions {
   display: flex;
   flex-wrap: wrap;

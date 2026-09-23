@@ -580,12 +580,15 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           const hasWikiForTopic = t.resources?.wiki?.enabled;
           const isEmpty = !hasTopicContent(t);
           const isRead = t.read;
+          // A note that says the topic is off the paper (curriculum.js flags it)
+          // keeps a warning sign; a provenance note is plain text.
+          const caveat = t.lecturerNoteKind === 'caveat';
           const primaryLabelBase = hasQuestions
             ? `ฝึกข้อสอบ ${t.label} ${count} ข้อ`
             : hasNotesForTopic
               ? `อ่าน Notes ${t.label}`
               : `หัวข้อ ${t.label} ยังไม่มีเนื้อหาพร้อมใช้`;
-          const primaryLabel = `${primaryLabelBase}${isRead ? ', อ่านแล้ว' : ''}`;
+          const primaryLabel = `${primaryLabelBase}${isRead ? ', อ่านแล้ว' : ''}${caveat && !isEmpty ? `, ${t.lecturerNote}` : ''}`;
           const openPrimary = () => {
             if (hasQuestions) choose(t.id);
             else if (hasNotesForTopic) runStudyAction(t.resources.notes);
@@ -619,7 +622,9 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                   </span>
                 )}
                 {t.lecturerNote && !isEmpty && (
-                  <span className="vmx-topic-note">⚠️ {t.lecturerNote}</span>
+                  <span className={`vmx-topic-note${caveat ? ' is-caveat' : ''}`}>
+                    {caveat && <span aria-hidden="true">⚠️ </span>}{t.lecturerNote}
+                  </span>
                 )}
               </button>
 
