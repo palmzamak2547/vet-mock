@@ -25,6 +25,18 @@ test('video-shelf-requests waits for the cards, not for 3.5 s (STAB-07)', () => 
   assert.deepEqual(sleeps(spec('video-shelf-requests.spec.js')), []);
 });
 
+test('the landing chrome test does not wait out entrance motion it never asserts (STAB-10)', () => {
+  const text = spec('connected-study.spec.js');
+  const start = text.indexOf("test('landing chrome uses one icon language");
+  assert.ok(start >= 0, 'the landing chrome test exists');
+  const body = text.slice(start, text.indexOf('\n  test(', start + 1));
+  assert.ok(
+    body.indexOf("emulateMedia({ reducedMotion: 'reduce' })") >= 0
+      && body.indexOf("emulateMedia({ reducedMotion: 'reduce' })") < body.indexOf('page.goto('),
+    'reduced motion is set before the landing loads',
+  );
+});
+
 test('summary-pdf-export keeps third-party video off the wire and its budgets where they were (STAB-09)', () => {
   const text = spec('summary-pdf-export.spec.js');
   assert.match(text, /youtube\\\.com/, 'the YouTube player is not what this spec tests, and it loads heavily on Firefox and WebKit');
