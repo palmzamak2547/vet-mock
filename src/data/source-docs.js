@@ -208,6 +208,18 @@ export const SOURCE_DOCS = [
     match: /\bZoonosis mid TJ\b|\bTJ86 \(Zoonosis/,
     editions: [{ id: '33p', pages: 33 }],
   },
+  // Kimchii #85's 37-page 🏅 copy Palm sent on 24 ก.ย. 2569: pages 2-10, 12, 14 and 22 are pages of
+  // Zoonosis Mid 86(1); the rest are the handwritten helminth and protozoa notes and deck covers.
+  {
+    slug: 'zoonoses-mid86-medal', subject: 'zoonoses', title: 'ZOONOSES MID 86 🏅',
+    match: /\bZOONOSES MID 86\b/,
+    editions: [{ id: '37p', pages: 37 }],
+  },
+  {
+    slug: 'zoonoses-outbreak-deck', subject: 'zoonoses', title: 'lessons from the field_outbreak investigation of zoonotic diseases',
+    match: /lessons from the field_outbreak investigation/i,
+    editions: [{ id: '66p', pages: 66 }],
+  },
 ];
 
 export const SOURCE_DOC_BY_SLUG = new Map(SOURCE_DOCS.map((d) => [d.slug, d]));

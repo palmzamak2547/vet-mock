@@ -47,6 +47,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.130.12',
+    date: '2026-09-24',
+    headline: 'Zoonoses เพิ่มอีก 53 ข้อ จากแบบทดสอบ helminth กับ protozoa และสไลด์ outbreak investigation',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: 'CHECK', title: 'ข้อ Zoonoses เพิ่ม 53 ข้อ',
+        desc: 'helminth 20 ข้อ และ protozoa 4 ข้อ จากแบบทดสอบออนไลน์และโน้ตลายมือที่ทำเครื่องหมายไว้ outbreak investigation 12 ข้อจากสไลด์ปีนี้ที่ทำเครื่องหมายไว้ และจุดที่คลังยังไม่มีอีก 17 ข้อ ทุกข้อตรวจเฉลยซ้ำโดยไม่เห็นคำตอบก่อน',
+      },
+    ],
+  },
+  {
     version: '5.130.11',
     date: '2026-09-24',
     headline: 'Zoonoses มีข้อเพิ่ม 60 ข้อ จากโจทย์ที่รุ่นพี่บันทึกและจุดที่ทำเครื่องหมายไว้',

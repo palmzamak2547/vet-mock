@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 6611;
-export const QB_SOURCE_TOTAL = 6678;
+export const QB_TOTAL = 6664;
+export const QB_SOURCE_TOTAL = 6731;
 export const QB_BLOCKED_TOTAL = 67;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -57,7 +57,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'vet-juris': 46,
   'vet-neuroanat': 40,
   'vet-pharm-2': 62,
-  'zoonoses': 314,
+  'zoonoses': 367,
 };
 
 // Visible counts exclude hidden-topic Qs (midterm leftovers,
@@ -107,7 +107,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'vet-juris': 46,
   'vet-neuroanat': 40,
   'vet-pharm-2': 62,
-  'zoonoses': 314,
+  'zoonoses': 367,
 };
 
 // What Panic Mode holds per subject: questions from a real paper plus the
@@ -152,7 +152,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 46,
-  'zoonoses': 240,
+  'zoonoses': 293,
 };
 
 // The same count, narrowed to one paper. A Panic card opened with a phase
@@ -195,7 +195,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vca': 18,
     'vet-dev-anat': 26,
     'vet-imaging': 5,
-    'zoonoses': 197,
+    'zoonoses': 250,
   },
   final: {
     'aquatic-clinic': 89,
@@ -233,7 +233,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vet-dev-anat': 26,
     'vet-imaging': 35,
     'vet-juris': 46,
-    'zoonoses': 62,
+    'zoonoses': 71,
   },
 };
 
@@ -260,7 +260,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vca': 455,
     'vet-histo': 104,
     'vet-imaging': 5,
-    'zoonoses': 258,
+    'zoonoses': 311,
   },
   '1-final': {
     'aquatic-clinic': 130,
@@ -283,7 +283,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vet-histo': 104,
     'vet-imaging': 35,
     'vet-juris': 46,
-    'zoonoses': 104,
+    'zoonoses': 113,
   },
   '2-mid': {
     'biochem-1': 272,
@@ -337,12 +337,12 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
   '1-mid': {
     2: 104,
     4: 139,
-    5: 3269,
+    5: 3322,
   },
   '1-final': {
     2: 104,
     4: 302,
-    5: 1218,
+    5: 1227,
   },
   '2-mid': {
     1: 298,
@@ -601,19 +601,20 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'ct-basics': 5,
     },
     'zoonoses': {
-      'zoo-ai-basic': 19,
+      'zoo-ai-basic': 22,
       'zoo-corona': 21,
-      'zoo-ebola-nipah': 22,
+      'zoo-ebola-nipah': 23,
       'zoo-eid-cuvet': 4,
       'zoo-eid-wildlife': 9,
       'zoo-epi-approach': 16,
-      'zoo-helminthic': 40,
-      'zoo-intro': 20,
-      'zoo-protozoal': 19,
-      'zoo-rabies': 27,
+      'zoo-helminthic': 64,
+      'zoo-intro': 21,
+      'zoo-outbreak': 12,
+      'zoo-protozoal': 28,
+      'zoo-rabies': 28,
       'zoo-rickettsial': 25,
       'zoo-siv-civ': 11,
-      'zoo-vbz': 25,
+      'zoo-vbz': 27,
     },
   },
   '1-final': {
@@ -909,7 +910,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'zoo-epi-approach': 16,
       'zoo-mycoses': 17,
       'zoo-prion': 4,
-      'zoo-protozoal': 19,
+      'zoo-protozoal': 28,
     },
   },
   '2-mid': {
@@ -1564,9 +1565,9 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'zoo-ai-basic': 9,
       'zoo-corona': 12,
       'zoo-ebola-nipah': 11,
-      'zoo-helminthic': 23,
+      'zoo-helminthic': 24,
       'zoo-intro': 12,
-      'zoo-protozoal': 16,
+      'zoo-protozoal': 17,
       'zoo-rabies': 7,
       'zoo-rickettsial': 21,
       'zoo-siv-civ': 4,
@@ -1771,7 +1772,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
     'zoonoses': {
       'zoo-bacterial': 2,
       'zoo-mycoses': 13,
-      'zoo-protozoal': 16,
+      'zoo-protozoal': 17,
     },
   },
   '2-mid': {
@@ -2065,7 +2066,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 4031,
+  5: 4084,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2077,7 +2078,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 4015,
+  5: 4068,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2711,22 +2712,23 @@ export const Q_COUNTS_BY_TOPIC = {
     "nsaids": 2,
   },
   "zoonoses": {
-    "zoo-ai-basic": 19,
+    "zoo-ai-basic": 22,
     "zoo-bacterial": 35,
     "zoo-corona": 21,
-    "zoo-ebola-nipah": 22,
+    "zoo-ebola-nipah": 23,
     "zoo-eid-cuvet": 4,
     "zoo-eid-wildlife": 9,
     "zoo-epi-approach": 16,
-    "zoo-helminthic": 40,
-    "zoo-intro": 20,
+    "zoo-helminthic": 64,
+    "zoo-intro": 21,
     "zoo-mycoses": 17,
+    "zoo-outbreak": 12,
     "zoo-prion": 4,
-    "zoo-protozoal": 19,
-    "zoo-rabies": 27,
+    "zoo-protozoal": 28,
+    "zoo-rabies": 28,
     "zoo-rickettsial": 25,
     "zoo-siv-civ": 11,
-    "zoo-vbz": 25,
+    "zoo-vbz": 27,
   },
 };
 
@@ -3168,10 +3170,10 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "zoo-bacterial": 2,
     "zoo-corona": 12,
     "zoo-ebola-nipah": 11,
-    "zoo-helminthic": 23,
+    "zoo-helminthic": 24,
     "zoo-intro": 12,
     "zoo-mycoses": 13,
-    "zoo-protozoal": 16,
+    "zoo-protozoal": 17,
     "zoo-rabies": 7,
     "zoo-rickettsial": 21,
     "zoo-siv-civ": 4,
@@ -3228,4 +3230,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-24T14:33:32.078Z
+// Built: 2026-09-24T15:30:34.329Z
