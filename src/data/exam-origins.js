@@ -103,6 +103,7 @@ export const EXAM_ORIGINS = Object.freeze({
   "Vet Prac Rum 2023 (Vet 83)": { kind: 'paper', cohort: 83, paper: null },
   "Vet Prac Rum Final 2025 (Vet 85)": { kind: 'paper', cohort: 85, paper: 'final' },
   "Zoonoses midterm recall (Vet 85)": { kind: 'paper', cohort: 85, paper: 'midterm' },
+  "Zoonoses midterm recall (Vet 85, TJ86)": { kind: 'paper', cohort: 85, paper: 'midterm' },
   "Zoonoses (Vet 85) recalled choice section": { kind: 'paper', cohort: 85, paper: null },
   "Zoonoses (Vet 85) recalled item noted on the coronaviruses slide": { kind: 'paper', cohort: 85, paper: null },
   "Zoonoses (Vet 85) recalled matching section": { kind: 'paper', cohort: 85, paper: null },

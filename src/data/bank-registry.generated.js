@@ -260,6 +260,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-vision-batch.js', export: 'QB_Y5_VISION_BATCH', year: 5, count: 26,
     subjects: ['livestock-pathology', 'poa-clinical', 'ruminant-clinical'],
     load: () => import('./questions-y5-vision-batch.js').then((m) => m.QB_Y5_VISION_BATCH) },
+  { file: 'questions-y5-zoonoses-0925.js', export: 'QB_Y5_ZOONOSES_0925', year: 5, count: 60,
+    subjects: ['zoonoses'],
+    load: () => import('./questions-y5-zoonoses-0925.js').then((m) => m.QB_Y5_ZOONOSES_0925) },
   { file: 'questions-y5-zoonoses-2026-b.js', export: 'QUESTIONS_Y5_ZOONOSES_2026_B', year: 5, count: 67,
     subjects: ['zoonoses'],
     load: () => import('./questions-y5-zoonoses-2026-b.js').then((m) => m.QUESTIONS_Y5_ZOONOSES_2026_B) },
@@ -286,4 +289,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-09-24T13:14:09.340Z — 92 banks · 6618 Qs
+// Built: 2026-09-24T14:33:29.749Z — 93 banks · 6678 Qs
