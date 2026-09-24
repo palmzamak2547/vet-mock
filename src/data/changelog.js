@@ -47,6 +47,19 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.130.7',
+    date: '2026-09-24',
+    headline: 'Zoonoses ฝึกแยกตามอาจารย์ได้แล้ว พร้อมปกสไลด์ของทุกคาบ',
+    changes: [
+      { scope: 'multi', kind: 'feature', icon: 'CHECK', title: 'Zoonoses ฝึกแยกตามอาจารย์ได้แล้ว',
+        desc: 'หน้าหัวข้อของ Zoonoses แยกตามอาจารย์ผู้สอนทั้งแปดท่าน มีปกสไลด์และวันที่ของแต่ละคาบ และบอกเท่าที่มีหลักฐานว่าแต่ละส่วนเป็นกากบาทหรือข้อเขียน',
+      },
+      { scope: 'multi', kind: 'fix', icon: 'CHECK', title: 'ชื่อผู้สอนของหัวข้อ Zoonoses ตรงกับที่สอนจริงในปีนี้',
+        desc: 'Rickettsial zoonoses เป็นของ อ.กมลพรรณ ไม่ใช่ อ.นวพล คาบไข้หวัดใหญ่ Ebola, Nipah และ vector-borne บอกว่ามีวิทยากรรับเชิญร่วมสอน และคาบการสอบสวนการระบาดมีหัวข้อของตัวเอง',
+      },
+    ],
+  },
+  {
     version: '5.130.6',
     date: '2026-09-24',
     headline: 'Aquatic Animal Medicine มีข้อเพิ่ม 66 ข้อ จากโจทย์ที่รุ่นพี่บันทึกและจุดที่ทำเครื่องหมายไว้',

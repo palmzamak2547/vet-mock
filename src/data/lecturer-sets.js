@@ -735,6 +735,116 @@ export const LECTURER_SETS = {
       },
     ],
   },
+  // Zoonoses 3109504 — the timetable is on the cover of Kimchii's pack (Zoonosis Mid 86(1).pdf
+  // p.1): seven rows 7 ส.ค. to 18 ก.ย. 69, coordinator อ.สพ.ญ.ดร.กมลพรรณ เจริญกุล. Coronaviruses
+  // moved from 14 to 28 ส.ค. [u_cH2UtCIAg 1:09]; rickettsia was taught on 10 ก.ย. The 7 and 14
+  // ส.ค. sessions were given by guests (known only by nicknames in the recordings) with the
+  // coordinator hosting, so those decks sit on her card. No format was announced; the rickettsial
+  // lecturer said the paper has both กากบาท and ข้อเขียน, mostly กากบาท [9Tp4CeaCac4 18:49].
+  'zoonoses': {
+    examDate: '2026-09-25',
+    coverage: 'เนื้อหาตั้งแต่ 7 ส.ค. ถึง 18 ก.ย. ตามตาราง',
+    lecturers: [
+      {
+        id: 'alongkorn',
+        name: 'ศ.น.สพ.ดร.อลงกร อมรศิลป์',
+        lecturer: 'Alongkorn Amonsin',
+        format: 'all',
+        count: null,
+        announced: false,
+        note: 'ท่านสอนชั่วโมงแรกของคาบ 7 ส.ค. ให้จดและกาดาวสไลด์ปัจจัยที่ทำให้เกิดโรคอุบัติใหม่ และย้ำให้จำสามบทบาทของสัตวแพทย์ ไม่ได้แจ้งรูปแบบ รุ่นก่อนหน้าบันทึกว่าส่วนบทนำเป็นปรนัย 10 ข้อและข้อเขียน 2 ข้อ',
+        sessions: [
+          { n: 1, date: '2026-08-07', videoId: 'oWZEdlLXcpo', decks: [{ cover: 'zoo-intro', title: '3109504 Zoonoses', topics: ['zoo-intro'], doc: 'introduction-zooonoses-d370d9' }] },
+        ],
+      },
+      {
+        id: 'kamonpan',
+        name: 'อ.สพ.ญ.ดร.กมลพรรณ เจริญกุล',
+        lecturer: 'Kamonpan Charoenkul',
+        format: 'all',
+        count: null,
+        announced: false,
+        note: 'ผู้ประสานรายวิชา คาบไข้หวัดใหญ่ (7 ส.ค.) และคาบ Ebola, Nipah กับ vector-borne (14 ส.ค.) สอนร่วมกับวิทยากรรับเชิญตามตาราง ท้ายคาบ rickettsial zoonoses (10 ก.ย.) ผู้สอนเล่าว่าเห็นข้อสอบคร่าวๆ มีทั้งกากบาทและข้อเขียน ส่วนใหญ่เป็นกากบาท รุ่นก่อนหน้าบันทึกว่าไข้หวัดนก Ebola และ Nipah เป็นปรนัยทั้งหมด',
+        sessions: [
+          { n: 1, date: '2026-08-07', videoId: 'oWZEdlLXcpo', decks: [{ cover: 'zoo-ai', title: 'Avian Influenza Virus', topics: ['zoo-ai-basic'], doc: '2-avian-influenza-63683a' }, { cover: 'zoo-siv', title: 'Swine Influenza Virus (SIV) และ canine influenza', topics: ['zoo-siv-civ'], doc: '3-swine-and-canine-influenza-ea34d3' }] },
+          { n: 2, date: '2026-08-14', videoId: 'u_cH2UtCIAg', decks: [{ cover: 'zoo-ebola', title: 'Ebola virus disease และ Nipah', topics: ['zoo-ebola-nipah'], doc: '4-ebola-and-nipah-056f1a' }, { cover: 'zoo-vbz', title: 'Vector-borne viral zoonosis', topics: ['zoo-vbz'], doc: 'vector-borne-viral-zoonosis-5a9ae4' }] },
+          { n: 7, date: '2026-09-10', videoId: '9Tp4CeaCac4', decks: [{ cover: 'zoo-rickettsial', title: 'Rickettsia zoonoses', topics: ['zoo-rickettsial'], doc: 'rickettsia-zoonosis-49913d' }] },
+        ],
+      },
+      {
+        id: 'orapawee',
+        name: 'สพ.ญ.อรปวีณ์ สการะเศรณี',
+        lecturer: 'อรปวีณ์ สการะเศรณี',
+        format: 'writing',
+        count: null,
+        announced: false,
+        note: 'วิทยากรจากกรมปศุสัตว์ ไม่ได้แจ้งรูปแบบ รุ่นก่อนหน้าบันทึกว่าส่วนโรคพิษสุนัขบ้าเป็นข้อเขียนทั้งหมด 5 ข้อ',
+        sessions: [
+          { n: 3, date: '2026-08-21', videoId: 'DhtSsPLtFTo', decks: [{ cover: 'zoo-rabies', title: 'Comprehensive Rabies Control in Thailand', topics: ['zoo-rabies'] }] },
+        ],
+      },
+      {
+        id: 'navapon',
+        name: 'ผศ.น.สพ.ดร.นวพล เตชะเกรียงไกร',
+        lecturer: 'Navapon Techakriengkrai',
+        format: 'all',
+        count: null,
+        announced: false,
+        note: 'ไม่ได้แจ้งรูปแบบ ท่านบอกว่าไม่ต้องจำรายละเอียด ให้เข้าใจแนวคิดของการเกิดโรคอุบัติใหม่ ตารางปีก่อนไม่มีคาบนี้ จึงไม่มีบันทึกรูปแบบจากรุ่นก่อนหน้า',
+        sessions: [
+          { n: 4, date: '2026-08-28', videoId: 'QjFdBnGrJIs', decks: [{ cover: 'zoo-emerging', title: 'Emerging virus', topics: ['zoo-eid-cuvet'], doc: 'emerging-virus-5ce5b2' }] },
+        ],
+      },
+      {
+        id: 'waleemas',
+        name: 'สพ.ญ.ดร.วลีมาศ ใจรักษ์',
+        lecturer: 'Waleemas Jairak',
+        format: 'all',
+        count: null,
+        announced: false,
+        note: 'วิทยากรจากองค์การสวนสัตว์ คาบย้ายจาก 14 ส.ค. มา 28 ส.ค. ไม่ได้แจ้งรูปแบบ รุ่นก่อนหน้าบันทึกว่าส่วนโคโรนาไวรัสมีปรนัยราว 17 ข้อ และข้อเขียน 3 ข้อ',
+        sessions: [
+          { n: 4, date: '2026-08-28', videoId: 'BnfVPW0S_lw', decks: [{ cover: 'zoo-corona', title: 'Viral Zoonosis II Coronaviruses', topics: ['zoo-corona'], doc: 'coronavirus-viral-zoonosis-86a9e1' }] },
+        ],
+      },
+      {
+        id: 'peeriya',
+        name: 'นพ.พีริยะ วตะกูลสิน',
+        lecturer: 'Peeriya Watakulsin',
+        format: 'all',
+        count: null,
+        announced: false,
+        note: 'แพทย์จากกรมควบคุมโรค ไม่ได้แจ้งรูปแบบของกลางภาค มีงานเขียนตอบในคาบหนึ่งข้อ ปีก่อนหัวข้อนี้อยู่ในปลายภาค',
+        sessions: [
+          { n: 5, date: '2026-09-04', videoId: '_NpT5OMLkUk', decks: [{ cover: 'zoo-outbreak', title: 'Lessons from the Field: Outbreak Investigation of Zoonotic Diseases', topics: ['zoo-outbreak'], doc: 'lessons-from-field-outbreak-investigation-1548fb' }] },
+        ],
+      },
+      {
+        id: 'piyanan',
+        name: 'รศ.น.สพ.ดร.ปิยนันท์ ทวีถาวรสวัสดิ์',
+        lecturer: 'Piyanan Taweethavonsawat',
+        format: 'mcq',
+        count: null,
+        announced: false,
+        note: 'ไม่ได้แจ้งรูปแบบ รุ่นก่อนหน้าบันทึกว่าส่วนนี้เป็นปรนัย 15 ข้อ และให้จำชื่อไทยของพยาธิด้วย',
+        sessions: [
+          { n: 6, date: '2026-09-10', videoId: 'gwgmq6oGOWc', decks: [{ cover: 'zoo-helminthic', title: 'Helminthic Zoonoses', topics: ['zoo-helminthic'], doc: 'helminthic-zoonoses-b01570' }] },
+        ],
+      },
+      {
+        id: 'woraporn',
+        name: 'ผศ.สพ.ญ.ดร.วรพร สุขุมาวาสี',
+        lecturer: 'Woraporn Sukhumavasi',
+        format: 'mcq',
+        count: null,
+        announced: false,
+        note: 'ยังไม่มีคลิปของคาบนี้ รุ่นก่อนหน้าเก็บข้อปรนัยห้าตัวเลือกของส่วนนี้ไว้ 15 ข้อ ครอบคลุม Giardia, Cryptosporidium, Toxoplasma, Sarcocystis และ Leishmania',
+        sessions: [
+          { n: 8, date: '2026-09-18', videoId: null, decks: [{ cover: 'zoo-protozoal', title: 'Protozoal Zoonoses', topics: ['zoo-protozoal'], doc: 'protozoal-zoonoses-dr-woraporn-4c615e' }] },
+        ],
+      },
+    ],
+  },
 };
 
 /** Whether this subject has a lecturer set for the scope the student is in. */

@@ -1247,7 +1247,13 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "zoo-eid-wildlife": {
-        "mcq": 13,
+        "mcq": 9,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "zoo-eid-cuvet": {
+        "mcq": 4,
         "tf": 0,
         "match": 0,
         "writing": 0
@@ -2683,13 +2689,19 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "zoo-eid-wildlife": {
-        "mcq": 13,
+        "mcq": 9,
         "tf": 0,
         "match": 0,
         "writing": 0
       },
       "zoo-mycoses": {
         "mcq": 17,
+        "tf": 0,
+        "match": 0,
+        "writing": 0
+      },
+      "zoo-eid-cuvet": {
+        "mcq": 4,
         "tf": 0,
         "match": 0,
         "writing": 0

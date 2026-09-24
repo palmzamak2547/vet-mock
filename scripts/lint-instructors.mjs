@@ -43,6 +43,7 @@ const PLACEHOLDER_PATTERNS = [
 // letting a student see who actually stood in front of them.
 const OFF_DIRECTORY_LECTURERS = new Set([
   'Nantarika Chansue',
+  'Peeriya Watakulsin', // นพ.พีริยะ วตะกูลสิน, กรมควบคุมโรค: 4 ก.ย. 2569 outbreak-investigation lecture
   'Thapana Jarutumnasaki',
   'Waleemas Jairak',
   'มินตรา ลักขณา',

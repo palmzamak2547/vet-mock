@@ -604,7 +604,8 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'zoo-ai-basic': 12,
       'zoo-corona': 17,
       'zoo-ebola-nipah': 18,
-      'zoo-eid-wildlife': 13,
+      'zoo-eid-cuvet': 4,
+      'zoo-eid-wildlife': 9,
       'zoo-epi-approach': 16,
       'zoo-helminthic': 21,
       'zoo-intro': 20,
@@ -903,7 +904,8 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'zoonoses': {
       'zoo-bacterial': 35,
-      'zoo-eid-wildlife': 13,
+      'zoo-eid-cuvet': 4,
+      'zoo-eid-wildlife': 9,
       'zoo-epi-approach': 16,
       'zoo-mycoses': 17,
       'zoo-prion': 4,
@@ -2712,7 +2714,8 @@ export const Q_COUNTS_BY_TOPIC = {
     "zoo-bacterial": 35,
     "zoo-corona": 17,
     "zoo-ebola-nipah": 18,
-    "zoo-eid-wildlife": 13,
+    "zoo-eid-cuvet": 4,
+    "zoo-eid-wildlife": 9,
     "zoo-epi-approach": 16,
     "zoo-helminthic": 21,
     "zoo-intro": 20,
@@ -3223,4 +3226,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-23T18:14:15.388Z
+// Built: 2026-09-24T12:27:32.341Z
