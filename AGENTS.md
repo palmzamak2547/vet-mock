@@ -3327,3 +3327,60 @@ Flagged, not changed (need a source that settles them): 202152 ("freshwater = St
 the ornamental lecture's gram-negative emphasis), 202139 ("MS-222 most widely used" vs clove oil being
 popular in practice), notes-85-swine-clinic P. multocida capsular types (note says pneumonic A and D, the
 4 Sep lecture says pneumonic A, AR D), the S. suis "พักคอก 7 วัน" handwriting (no 2026 source).
+
+## 2026-09-24 — Zoonoses, the last midterm (25 Sep), shipped in seven releases
+
+Palm sent the Zoonoses files (Zoonosis Mid 86(1) 69p, Zoonosis mid TJ เฉลย 33p, the Vet 85 recall, the 2569
+timetable) and later the 37-page 🏅 copy and a marked copy of the outbreak-investigation deck, asking for the same
+treatment as the other subjects: lecturer set, wrap-up, every past item and every mark converted, keys and
+facts checked, summaries that read naturally. Each release was proven by CI green and the version string in
+the served entry chunk.
+
+- **5.130.7**: lecturer set `zoonoses` (8 lecturers, sessions 1-8 with recordings and verified library_docs
+  slugs) and 12 deck covers. Topic lecturers now follow the timetable, the title slides and the recordings
+  (Kamonpan Charoenkul for AI basic, SIV/CIV, Ebola/Nipah, VBZ and rickettsial, with caveat notes where a guest is
+  known only by nickname). Outbreak investigation is its own topic, `zoo-outbreak` (Peeriya Watakulsin, 4 ก.ย.).
+  Peeriya Watakulsin is in `OFF_DIRECTORY_LECTURERS`.
+- **5.130.8**: the eight 2026 Zoonoses summaries rewritten as study notes: kept quotes 1156 -> 34, framing
+  lines 3. Both compilations listed in `source-docs.js`. The old "Zoonosis Mid 86" match gained `(?!\()` so
+  it stops claiming "Zoonosis Mid 86(1)".
+- **5.130.9**: the wrap-up page (8 groups, 12 items, 121 bullets; all 58 recording cites on headings).
+- **5.130.10**: 18 existing items corrected to this year's lectures, applied field by field only where the
+  current value equalled the audited old one. Among them: rabies 4x4 is 4 doses 4 days apart, a biting dog
+  is observed about 2 weeks, the wound is washed about 5 minutes, the Thai coverage target is above 80%.
+  The rest: Ebola CFR, Q fever, Dipylidium, D. repens, MERS, pangolin, mixing vessel.
+- **5.130.11**: 60 items (208000-208059) from the Vet 85 recall, TJ86 and the marked pages of Mid 86(1). The
+  two files overlap heavily: 30 duplicate groups were merged, one item each with every recurrence in
+  `verified`. The blind key audit held all 60 keys and corrected 5 explanations. New origin: "Zoonoses
+  midterm recall (Vet 85, TJ86)".
+- **5.130.12**: 53 items (208100-208152) from the late files and a completeness pass. The 🏅 file's
+  helminth and protozoa quiz screenshots and handwritten notes gave 20 + 4; the marked deck gave 12
+  (lecture-derived, `zoo-outbreak`). The completeness pass mapped 543 points (489 covered, 29 not exam
+  points, 25 missing) and gave 17 fills. 0 duplicates. The blind audit held all 53 keys and corrected 3
+  explanations. 202342 gained point eight: the year-coloured tag and yellow certificate, with the fine given
+  as "ไม่เกิน 200 บาท".
+- **5.130.13**: 26 explanations of the Vet 85 recall items (`questions-y5-zoonoses-2026-c.js`) spoke about
+  the record ("ที่บันทึกไว้คือ", "recall บันทึกว่า"); a writer and a skeptic per half rewrote them to the
+  reader and checked each fact once it became a direct claim. 106150 keeps its recorded key with the claim
+  limited to soil fungi (crowded housing is the risk for T. verrucosum in cattle). 106155 asked which
+  system cryptococcosis "usually" affects, which had two defensible answers; it now asks where infection
+  starts. `lint:answer-voice` does not catch this voice: `voice-list.mjs` in the playbook does.
+
+### Worth keeping
+
+- A script that writes a regex into a source file must build it with `String.raw`. A plain `'\b'` is a
+  U+0008 backspace, which a terminal hides and which makes the regex silently never match: the 🏅 file's
+  cites had no structured pages until that was found. The same slip has been in `curriculum.js`
+  `announced()` since 5.53.0 (`/^tbd<U+0008>/i`); it is filed as a separate task, not fixed here.
+- A slide title can read as a page run: "หน้า 7-1-7" gave 208141 pages 1-7 of the deck. After
+  `add-sourcepages`, read each item's `sourcePages`, not just the budget line.
+- A late file is a new batch through the whole pipeline (sweep, dedupe, ingest, cites, blind audit), with
+  its own audit directory, never a hand patch onto the shipped one.
+- Scripts and the per-stage notes: `work/exam-content-pipeline/README.md` ("Additions from Swine, Aquatic
+  and Zoonoses") and `scripts/2026-09-24/`.
+
+Flagged, not changed: 208068 keeps a Vet 85 item whose recorded answer was the combined option "ข้อ 1, 2,
+3 และ 4"; 208071 (Leishmania and Culicoides) and 208073 (Oxyspirura) rest on PubMed papers, not a 2026
+source; 106135 lists saturated NaCl as a wrong option though the com5 recording names it beside zinc
+sulphate (the key, zinc sulphate, stands). Swine and FIQC explanations still carry some "ที่บันทึกไว้" voice
+(those papers are over); the swine and aquatic summaries still carry quote tables from the older checker.
