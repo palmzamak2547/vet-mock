@@ -56,7 +56,8 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'zoonosis-mid86', subject: 'zoonoses', title: 'Zoonosis Mid 86',
-    match: /\bZoonosis Mid 86\b/,
+    // (?!\() keeps the 69-page copy, cited as 'Zoonosis Mid 86(1)', off this 13-page edition.
+    match: /\bZoonosis Mid 86\b(?!\()/,
     editions: [{ id: '13p', pages: 13 }],
   },
   {
@@ -194,6 +195,18 @@ export const SOURCE_DOCS = [
     slug: 'mod-aquatic-mid-tj', subject: 'aquatic-clinic', title: 'Mod Aquatic med Mid TJ',
     match: /\bMod Aquatic med Mid TJ\b|\bTJ86 \(Mod\)/,
     editions: [{ id: '14p', pages: 14 }],
+  },
+  // The 69-page copy Palm sent on 24 ก.ย. 2569: its pages 1-3 are the 13-page copy's, a new page 4
+  // shifts the rest by one, and pages 14-29 and 31-69 are new.
+  {
+    slug: 'zoonosis-mid86-69p', subject: 'zoonoses', title: 'Zoonosis Mid 86(1)',
+    match: /\bZoonosis Mid 86\(1\)/,
+    editions: [{ id: '69p', pages: 69 }],
+  },
+  {
+    slug: 'zoonosis-mid-tj86', subject: 'zoonoses', title: 'Zoonosis mid TJ',
+    match: /\bZoonosis mid TJ\b|\bTJ86 \(Zoonosis/,
+    editions: [{ id: '33p', pages: 33 }],
   },
 ];
 
