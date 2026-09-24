@@ -195,7 +195,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "Metronidazole, Tinidazole, Albendazole"
     ],
     "answer": 1,
-    "explain": "ยารักษากลุ่ม rickettsia ที่บันทึกไว้คือ doxycycline, tetracycline และ chloramphenicol เพราะเชื้อเป็น obligate intracellular ยากลุ่ม beta-lactam และ aminoglycoside เข้าไม่ถึงเป้าหมาย ส่วนกลุ่มสุดท้ายเป็นยาโปรโตซัวและพยาธิ",
+    "explain": "ยารักษาโรคกลุ่ม rickettsia คือ doxycycline, tetracycline และ chloramphenicol ซึ่งเข้าถึงเชื้อที่เป็น obligate intracellular ในเซลล์ได้ ยากลุ่ม beta-lactam และ aminoglycoside ใช้ไม่ได้ผลกับเชื้อกลุ่มนี้ ส่วน metronidazole, tinidazole และ albendazole เป็นยาฆ่าโปรโตซัวและยาถ่ายพยาธิ",
     "verified": "ซูสุขติ mid น.3",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 3 }],
     "sourceType": "student-compilation",
@@ -216,7 +216,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "พบได้ทั้งในสัตว์เลี้ยงลูกด้วยนมและ vector"
     ],
     "answer": 2,
-    "explain": "Rickettsia ต้องเจริญใน viable eukaryotic host cells เท่านั้น เพาะบนอาหารเลี้ยงเชื้อไร้เซลล์ไม่ได้ ลักษณะอื่นถูกทุกข้อตามที่บันทึกไว้",
+    "explain": "Rickettsia เจริญได้เฉพาะใน viable eukaryotic host cells จึงเพาะบนอาหารเลี้ยงเชื้อไร้เซลล์ไม่ได้ ต้องเลี้ยงในเซลล์ที่มีชีวิต เช่น ในไข่ฟักหรือฉีดเข้าหนู ส่วนลักษณะอื่นถูกทุกข้อ",
     "verified": "ซูสุขติ mid น.3",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 3 }],
     "sourceType": "student-compilation",
@@ -237,7 +237,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "แมวติดเชื้อ Toxoplasma จากการกินหนู"
     ],
     "answer": 1,
-    "explain": "Reverse zoonosis คือโรคที่ถ่ายทอดจากคนกลับไปสู่สัตว์ ตัวอย่างที่บันทึกไว้คือหมาติดเชื้อ M-pox จากคน ส่วน rabies และ leptospirosis เป็น zoonosis ทิศทางสัตว์สู่คน และแมวกินหนูเป็นการติดระหว่างสัตว์",
+    "explain": "Reverse zoonosis หรือ zooanthroponosis คือโรคที่ถ่ายทอดจากคนกลับไปสู่สัตว์ เช่น สุนัขติดเชื้อ M-pox จากคน ส่วน rabies และ leptospirosis เป็น zoonosis ทิศทางสัตว์สู่คน และแมวกินหนูเป็นการติดระหว่างสัตว์",
     "verified": "ซูสุขติ mid น.2",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 2 }],
     "sourceType": "student-compilation",
@@ -300,7 +300,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "ระบบเฝ้าระวังโรคที่เข้มแข็งขึ้น"
     ],
     "answer": 3,
-    "explain": "ปัจจัยที่บันทึกไว้คือระบบเฝ้าระวัง แล็บ และนโยบายที่เสื่อมถอย (deterioration) ไม่ใช่เข้มแข็งขึ้น ส่วนการขยายตัวของเมือง การเดินทาง และการใช้พื้นที่ป่า เป็นปัจจัยจริงทั้งหมด",
+    "explain": "ปัจจัยด้านระบบที่ทำให้เกิด emerging zoonosis คือระบบเฝ้าระวัง แล็บ และนโยบายที่เสื่อมถอยลง (breakdown) ไม่ใช่เข้มแข็งขึ้น ส่วนการขยายตัวของเมือง การเดินทาง และการใช้พื้นที่ป่า เป็นปัจจัยจริงทั้งหมด การตรวจที่ดีขึ้นทำให้พบเชื้อใหม่บ่อยขึ้น แต่ไม่ได้ทำให้โรคเกิด",
     "verified": "ซูสุขติ mid น.2",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 2 }],
     "sourceType": "student-compilation",
@@ -321,7 +321,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "ควบคุมเฉพาะโรคที่มีวัคซีนสำหรับคนแล้วเท่านั้น"
     ],
     "answer": 0,
-    "explain": "คำตอบข้อเขียนที่บันทึกไว้คือ early detection / early warning, pandemic preparedness และ rapid response การเฝ้าระวังในสัตว์ทำให้ควบคุมได้ก่อนเชื้อข้ามมาสู่คน",
+    "explain": "มาตรการที่ลดจำนวนผู้ป่วยได้ตรงที่สุดคือ early warning, early detection และ pandemic preparedness ร่วมกับ rapid response การเฝ้าระวังกดการติดเชื้อในสัตว์ให้ต่ำ จึงควบคุมโรคได้ก่อนเชื้อข้ามมาสู่คน",
     "verified": "ซูสุขติ mid น.2",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 2 }],
     "sourceType": "student-compilation",
@@ -909,7 +909,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "ควบคุมการสัมผัสระหว่างสัตว์ป่ากับคน ร่วมกับหลัก One Health"
     ],
     "answer": 3,
-    "explain": "คำตอบข้อเขียนที่บันทึกไว้คือ control wildlife-human contact, enhance surveillance ในสัตว์และคน, strengthen health systems + rapid response และ promote One Health approaches การกำจัดค้างคาวหรือให้ยาต้านไวรัสทั่วไปไม่ใช่แนวทางที่ถูก",
+    "explain": "หลักการป้องกัน zoonotic emerging diseases จาก coronavirus คือ control wildlife-human contact, enhance surveillance ในสัตว์และคน, strengthen health systems + rapid response และ promote One Health approaches ตลาดค้าสัตว์ป่ามีชีวิตเสี่ยงตลอดเวลา ไม่ใช่เฉพาะช่วงระบาด ส่วนการกำจัดค้างคาวหรือให้ยาต้านไวรัสทั่วไปไม่ใช่แนวทางที่ถูก",
     "verified": "ซูสุขติ mid น.9",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 9 }],
     "sourceType": "student-compilation",
@@ -1014,7 +1014,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "15 กม."
     ],
     "answer": 1,
-    "explain": "มาตรการที่บันทึกไว้คือฉีดวัคซีนแบบ ring vaccination รัศมี 5 กม. รอบจุดเกิดโรค ร่วมกับการประกาศเขตโรคระบาดสัตว์ชั่วคราวตาม พ.ร.บ.โรคระบาดสัตว์ พ.ศ. 2558",
+    "explain": "การควบคุมโรค rabies ใช้รัศมีประมาณ 5 กม. รอบจุดเกิดโรค ฉีดวัคซีนแบบ ring vaccination 1 เข็มให้สัตว์ในรัศมีที่ไม่ได้สัมผัสเชื้อ ร่วมกับประกาศเขตโรคระบาดสัตว์ชั่วคราวตาม พ.ร.บ.โรคระบาดสัตว์ พ.ศ. 2558 รัศมีนี้ไม่ตายตัว ปรับตามผลสอบสวนโรคว่าสัตว์ป่วยไปถึงไหน",
     "verified": "ซูสุขติ mid น.11",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 11 }],
     "sourceType": "lecture-derived",
@@ -1145,7 +1145,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "12 เดือน"
     ],
     "answer": 2,
-    "explain": "บทบาทสัตวแพทย์ที่บันทึกไว้คือกรณีพบสัตว์สัมผัสเชื้อให้เฝ้าระวังโรคในพื้นที่ต่อเนื่อง 6 เดือน ควบคู่กับการจัดการรายตัว (วัคซีน 4x4 และกักดูอาการ)",
+    "explain": "เมื่อพบโรคในพื้นที่ ต้องเฝ้าระวังโรคต่อเนื่อง 6 เดือน ควบคู่กับการจัดการรายตัว คือสัตว์ที่สัมผัสเชื้อได้วัคซีนแบบ 4x4 และกักดูอาการอย่างน้อย 15 วัน ส่วน 30 วันคือระยะงดเคลื่อนย้ายสัตว์ออกจากเขตที่ประกาศ",
     "verified": "ซูสุขติ mid น.11",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 11 }],
     "sourceType": "lecture-derived",
@@ -1208,7 +1208,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "ดื่มน้ำที่ไม่สะอาด"
     ],
     "answer": 0,
-    "explain": "ข้อที่ recall ระบุว่าไม่เสี่ยงคือการลูบขนแมว เพราะ oocyst ที่เพิ่งถูกขับออกยังไม่ sporulate ช่องทางติดจริงคือ meat-borne (เนื้อไม่สุก), soil-borne (ดิน), water-borne และ transplacental",
+    "explain": "การลูบขนแมวเสี่ยงน้อยที่สุด เพราะ oocyst ที่เพิ่งถูกขับออกยังไม่ sporulate ต้องอยู่ในสิ่งแวดล้อมราว 1 ถึง 5 วันก่อนจึงติดต่อได้ ช่องทางติดจริงคือ meat-borne (เนื้อไม่สุก), soil-borne (ดิน), water-borne และ transplacental",
     "verified": "ซูสุขติ mid น.12",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
@@ -1229,7 +1229,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "ดินที่ปนเปื้อน oocyst (soil-borne)"
     ],
     "answer": 2,
-    "explain": "ช่องทางที่บันทึกไว้คือ transplacental, water-borne, meat-borne และ soil-borne ไม่มีการติดต่อผ่านแมลงดูดเลือด",
+    "explain": "ช่องทางหลักที่ Toxoplasma gondii ติดสู่คนคือ transplacental, water-borne, meat-borne และ soil-borne ไม่มีแมลงดูดเลือดเป็นพาหะ",
     "verified": "ซูสุขติ mid น.12",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
@@ -1250,7 +1250,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "Leishmania"
     ],
     "answer": 3,
-    "explain": "กลุ่ม vector-borne ที่บันทึกไว้คือ heartworm, Trypanosoma, Leishmania และ filaria worm ส่วน Giardia กับ Cryptosporidium เป็น water/soil-borne และ Ancylostoma เป็น soil-borne",
+    "explain": "Vector-borne parasitic zoonosis ได้แก่ heartworm, Trypanosoma, Leishmania (มี sandfly เป็นพาหะ) และ filaria worm ส่วน Giardia กับ Cryptosporidium เป็น water/soil-borne และ Ancylostoma เป็น soil-borne",
     "verified": "ซูสุขติ mid น.12",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
@@ -1313,7 +1313,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "หลีกเลี่ยงกิจกรรมกลางแจ้งช่วงพลบค่ำ"
     ],
     "answer": 0,
-    "explain": "Sandfly ตัวเล็กมากจนมุดลอดมุ้งธรรมดาได้ มุ้งทั่วไปที่กันยุงจึงไม่เพียงพอ ตามที่ recall บันทึกว่าข้อนี้เป็นข้อผิดของโจทย์",
+    "explain": "Sandfly ตัวเล็กมากจนมุดลอดมุ้งธรรมดาได้ มุ้งทั่วไปที่กันยุงได้จึงไม่พอป้องกัน Leishmania ส่วนยากันแมลง เสื้อผ้ามิดชิด และการเลี่ยงช่วงพลบค่ำที่ sandfly ออกหากิน ใช้ได้จริง",
     "verified": "ซูสุขติ mid น.12",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
@@ -1334,7 +1334,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "Leishmania และ Sarcocystis"
     ],
     "answer": 1,
-    "explain": "คำตอบที่บันทึกไว้คือ Toxoplasma และ Cryptosporidium ซึ่งก่อโรครุนแรงในผู้ที่ภูมิคุ้มกันบกพร่อง เช่น toxoplasmic encephalitis และ chronic cryptosporidiosis",
+    "explain": "Toxoplasma และ Cryptosporidium ก่อโรครุนแรงในผู้ที่ภูมิคุ้มกันบกพร่อง จึงเป็น opportunistic pathogen สำคัญในผู้ติดเชื้อ HIV เช่น toxoplasmic encephalitis จากเชื้อใน tissue cyst ที่กลับมาแบ่งตัวใหม่ (reactivation) และ chronic cryptosporidiosis",
     "verified": "ซูสุขติ mid น.12",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
@@ -1355,7 +1355,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "Formalin 10%"
     ],
     "answer": 2,
-    "explain": "Recall บันทึกว่าข้อความ 'สารละลายที่เหมาะสุดคือน้ำตาลเข้มข้น' เป็นข้อผิดของโจทย์ เพราะสารละลายน้ำตาลและเกลือเข้มข้นทำให้ cyst ของ Giardia บิดเบี้ยว มาตรฐานที่ใช้คือ zinc sulfate ส่วน formalin เป็นน้ำยารักษาสภาพ ไม่ใช่ flotation solution",
+    "explain": "Zinc sulfate 33% เป็นสารละลายมาตรฐานสำหรับลอย cyst ของ Giardia ส่วนน้ำตาลเข้มข้น (Sheather's sugar) และน้ำเกลืออิ่มตัวเป็นสารละลายเข้มข้นสูงที่ทำให้ cyst ของ Giardia เหี่ยวบิดเบี้ยวจนจำแนกยาก และ formalin 10% เป็นน้ำยารักษาสภาพตัวอย่าง ไม่ใช่ flotation solution",
     "verified": "ซูสุขติ mid น.12",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
@@ -1376,7 +1376,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "วินิจฉัยได้จากการตรวจอุจจาระด้วยวิธี flotation"
     ],
     "answer": 2,
-    "explain": "Recall ระบุว่าข้อความ 'เชื้อที่พบในสุนัขและแมวมักเป็นชนิดก่อโรค' เป็นข้อผิด เพราะ assemblage ที่พบในสุนัขและแมวส่วนใหญ่จำเพาะกับโฮสต์นั้น ไม่ใช่สายหลักที่ก่อโรคในคน ข้ออื่นเป็นความจริงของ Giardia",
+    "explain": "Giardia ที่พบในสุนัขและแมวส่วนใหญ่เป็น assemblage ที่จำเพาะกับโฮสต์นั้น ไม่ใช่ assemblage หลักที่ก่อโรคในคน ส่วนข้ออื่นถูกต้อง Giardia ติดต่อผ่านน้ำและอาหารปนเปื้อน cyst ติดต่อได้ทันทีที่ถูกขับออก และตรวจ cyst ได้ด้วยวิธี flotation",
     "verified": "ซูสุขติ mid น.12",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
@@ -1439,7 +1439,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "Anemia"
     ],
     "answer": 3,
-    "explain": "อาการที่บันทึกไว้คือ anorexia, diarrhea, marasmus และ intestinal obstruction ส่วน anemia คือข้อที่ recall ระบุว่าไม่ใช่อาการของโรคนี้",
+    "explain": "Spirometra ตัวเต็มวัยในลำไส้ของสุนัข แมว และคน มักไม่ทำอันตรายรุนแรง ถ้ามีพยาธิมากจะทำให้เบื่ออาหาร ท้องเสีย ผอมแห้ง (marasmus) และอาจอุดตันลำไส้ ส่วน anemia เป็นอาการเด่นของพยาธิปากขอที่ทำให้เสียเลือด ไม่ใช่อาการของ Spirometra ในลำไส้",
     "verified": "ซูสุขติ mid น.13",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 13 }],
     "sourceType": "student-compilation",
@@ -1481,7 +1481,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "24 สัปดาห์"
     ],
     "answer": 2,
-    "explain": "ตามที่บันทึกไว้ cysticercus bovis (ตัวอ่อนของ Taenia saginata ในโค) ใช้เวลา maturation ราว 18 สัปดาห์",
+    "explain": "Cysticercus bovis เป็นระยะตัวอ่อนของ Taenia saginata ในกล้ามเนื้อโค ใช้เวลา maturation ราว 18 สัปดาห์",
     "verified": "ซูสุขติ mid น.13",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 13 }],
     "sourceType": "student-compilation",
@@ -1565,7 +1565,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "ท่อน้ำดี"
     ],
     "answer": 1,
-    "explain": "Trichuris อาศัยอยู่ที่ลำไส้ใหญ่ตามที่บันทึกไว้ ส่วนลำไส้เล็กเป็นที่อยู่ของพยาธิตัวกลมส่วนใหญ่ และท่อน้ำดีคือ Opisthorchis",
+    "explain": "Trichuris อาศัยอยู่ที่ลำไส้ใหญ่ (cecum และ colon) ส่วนลำไส้เล็กเป็นที่อยู่ของพยาธิปากขอ พยาธิไส้เดือน และตัวตืดส่วนใหญ่ และท่อน้ำดีคือที่อยู่ของ Opisthorchis",
     "verified": "ซูสุขติ mid น.13",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 13 }],
     "sourceType": "student-compilation",
@@ -1649,7 +1649,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "Blastomycosis"
     ],
     "answer": 0,
-    "explain": "San Joaquin Valley fever, desert fever และ desert rheumatism เป็นชื่อพ้องของ coccidioidomycosis ข้อ recall เดิมถามว่าข้อใดไม่ใช่ชื่อพ้องของ candidiasis ซึ่งคำตอบคือชื่อนี้ (ชื่อพ้องของ candidiasis คือ candidosis, moniliasis, thrush)",
+    "explain": "San Joaquin Valley fever, desert fever และ desert rheumatism เป็นชื่อพ้องของ coccidioidomycosis จากเชื้อ Coccidioides immitis ส่วน candidiasis มีชื่อพ้องว่า candidosis, moniliasis และ thrush และ histoplasmosis มีชื่อพ้องว่า reticuloendothelial cytomycosis",
     "verified": "ซูสุขติ mid น.14",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
@@ -1670,7 +1670,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "อุบัติการณ์ในสัตว์ปล่อยทุ่งมากกว่าสัตว์ที่อยู่ในคอก"
     ],
     "answer": 3,
-    "explain": "Recall บันทึกว่าอุบัติการณ์มากในสัตว์ปล่อยทุ่งมากกว่าที่อยู่ในคอก เนื่องจากแหล่งของเชื้ออยู่ในสิ่งแวดล้อมและธรรมชาติ ส่วนเชื้อ zoophilic ไม่แพร่ระหว่างคน",
+    "explain": "Dermatophyte กลุ่ม geophilic เช่น Microsporum gypseum อาศัยอยู่ในดิน สัตว์ที่ปล่อยทุ่งจึงสัมผัสเชื้อจากธรรมชาติได้มากกว่าสัตว์ในคอก ข้อนี้ถูกในแง่ของเชื้อจากดิน แต่เชื้อ zoophilic ที่ติดต่อโดยสัมผัสตรง เช่น Trichophyton verrucosum ในโค กลับพบมากในลูกโคที่เลี้ยงรวมกันแออัดในคอกช่วงหน้าหนาว ส่วนข้ออื่นผิด เพราะเชื้อกลุ่ม zoophilic แพร่จากคนสู่คนได้น้อย แหล่งเชื้อคือสัตว์ที่เป็น reservoir และดิน ไม่ใช่อาหารสัตว์ และโรคไม่ได้จำกัดอยู่ในสัตว์ที่เลี้ยงระบบปิด",
     "verified": "ซูสุขติ mid น.14",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
@@ -1733,7 +1733,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "T. rubrum, T. verrucosum, T. simii"
     ],
     "answer": 0,
-    "explain": "เชื้อที่บันทึกไว้คือ Candida albicans, C. glabrata และ C. tropicalis ส่วนข้ออื่นเป็นเชื้อของ coccidioidomycosis/cryptococcosis, aspergillosis และ dermatophytosis",
+    "explain": "Candida albicans, C. glabrata และ C. tropicalis เป็นเชื้อหลักของ candidiasis ในคน ส่วน C. immitis และ C. posadasii ก่อ coccidioidomycosis, C. gattii ก่อ cryptococcosis, Aspergillus ก่อ aspergillosis และ Trichophyton ก่อ dermatophytosis",
     "verified": "ซูสุขติ mid น.14",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
@@ -1767,7 +1767,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "topic": "zoo-mycoses",
     "year": 5,
     "type": "mcq",
-    "q": "Cryptococcosis ที่พบในคนมักเกิดกับระบบใด",
+    "q": "Cryptococcosis ในคนเริ่มติดเชื้อที่ระบบใดก่อน",
     "options": [
       "ระบบประสาทส่วนกลาง",
       "ระบบทางเดินหายใจ",
@@ -1775,7 +1775,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "ระบบกระดูกและข้อ"
     ],
     "answer": 1,
-    "explain": "คำตอบที่ recall จดไว้คือ respiratory เพราะเชื้อเข้าทางการหายใจ (แหล่งสำคัญคือมูลนกพิราบ) เริ่มที่ปอดก่อน แล้วในราย disseminated จึงไปที่ CNS ได้",
+    "explain": "Cryptococcus neoformans ติดทางการหายใจ แหล่งสำคัญคือมูลนกพิราบ การติดเชื้อในคนจึงเริ่มที่ปอดก่อน แล้วในราย disseminated โดยเฉพาะผู้ภูมิคุ้มกันบกพร่อง จึงไปถึงระบบประสาทส่วนกลางได้ เยื่อหุ้มสมองอักเสบเป็นอาการที่ทำให้ผู้ป่วยมาพบแพทย์บ่อยที่สุด แต่เป็นผลที่ตามมาหลังเชื้อแพร่กระจายจากปอด ไม่ใช่จุดที่เชื้อติดก่อน",
     "verified": "ซูสุขติ mid น.14",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
@@ -1796,7 +1796,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "Dermatophytosis"
     ],
     "answer": 3,
-    "explain": "Tinea และ ringworm คือชื่อพ้องของ dermatophytosis ตามที่บันทึกไว้ ส่วน candidiasis มีชื่อพ้องว่า moniliasis/thrush",
+    "explain": "Tinea และ ringworm เป็นชื่อพ้องของ dermatophytosis ส่วน candidiasis มีชื่อพ้องว่า candidosis, moniliasis และ thrush",
     "verified": "ซูสุขติ mid น.14",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
@@ -1817,7 +1817,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "Endophthalmitis"
     ],
     "answer": 3,
-    "explain": "Superficial candidiasis พบที่ปาก ผิวหนังตามซอกพับ และ vulvovaginal thrush ส่วน endophthalmitis เป็นรอยโรคของ systemic/disseminated form ตรงกับข้อ recall ที่ให้ตอบว่า endophthalmitis ไม่ใช่ลักษณะ superficial",
+    "explain": "Superficial candidiasis ในคนพบที่ปาก (oral thrush ในเด็กดูดนมหรือผู้ใส่ฟันปลอม) ผิวหนังตามซอกพับ และ vulvovaginal thrush ส่วน endophthalmitis เกิดจากเชื้อที่เข้ากระแสเลือดไปถึงลูกตา จึงเป็นรอยโรคของ systemic form ในผู้ภูมิคุ้มกันต่ำ",
     "verified": "ซูสุขติ mid น.14",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
@@ -1838,7 +1838,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "การใช้ antibiotic และยากดภูมิที่เพิ่มขึ้น"
     ],
     "answer": 3,
-    "explain": "สาเหตุที่บันทึกไว้คือการใช้ antibiotic เพิ่มขึ้น ผู้ป่วยภูมิคุ้มกันต่ำ และการกินยากดภูมิ เพราะ Candida เป็น opportunistic pathogen จาก normal flora ไม่เกี่ยวกับนกพิราบ (นั่นคือ Cryptococcus)",
+    "explain": "อุบัติการณ์ของ candidiasis เพิ่มขึ้นตามการใช้ antibiotic ที่มากขึ้น ผู้ป่วยภูมิคุ้มกันต่ำ และการใช้ยากดภูมิ เพราะ Candida เป็น opportunistic pathogen จาก normal flora ของร่างกายเอง ไม่เกี่ยวกับนกพิราบซึ่งเป็นแหล่งของ Cryptococcus",
     "verified": "ซูสุขติ mid น.14",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",
@@ -1901,7 +1901,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "ต้องใช้ PCR ยืนยันทุกเคสก่อนเริ่มการรักษา"
     ],
     "answer": 0,
-    "explain": "ตารางบันทึกว่า DTM (Fungassay) medium เปลี่ยนสีจากเหลืองเป็นแดง ส่วน Wood's filter ใช้ส่องรอยโรคให้เรืองแสง และ fungal culture ใช้เวลาราว 1 สัปดาห์",
+    "explain": "DTM (Fungassay) medium เปลี่ยนสีจากเหลืองเป็นแดงเมื่อ dermatophyte เจริญ ส่วน Wood's lamp ส่องให้รอยโรคเรืองแสงได้บ่อยในเชื้อ M. canis ซึ่งเป็นกลุ่ม zoophilic และ fungal culture ใช้เวลาราว 1 สัปดาห์",
     "verified": "ซูสุขติ mid น.15",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 15 }],
     "sourceType": "lecture-derived",

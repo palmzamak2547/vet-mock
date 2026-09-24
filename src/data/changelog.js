@@ -47,6 +47,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.130.13',
+    date: '2026-09-24',
+    headline: 'คำอธิบาย Zoonoses 26 ข้อ อธิบายเนื้อหาตรง ๆ แทนการเล่าว่าบันทึกไว้อย่างไร',
+    changes: [
+      { scope: 'multi', kind: 'content', icon: 'CHECK', title: 'คำอธิบาย Zoonoses เขียนใหม่ 26 ข้อ',
+        desc: 'คำอธิบายของข้อจากโจทย์รุ่นพี่ที่เคยขึ้นต้นว่าคำตอบที่บันทึกไว้คือ ตอนนี้อธิบายเนื้อหาโดยตรง ทุกข้อเท็จจริงตรวจกับคาบปีนี้ ข้อ Cryptococcosis ปรับโจทย์ให้ถามจุดที่เชื้อติดก่อน จึงมีคำตอบเดียว',
+      },
+    ],
+  },
+  {
     version: '5.130.12',
     date: '2026-09-24',
     headline: 'Zoonoses เพิ่มอีก 53 ข้อ จากแบบทดสอบ helminth กับ protozoa และสไลด์ outbreak investigation',
