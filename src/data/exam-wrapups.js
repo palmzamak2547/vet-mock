@@ -24,6 +24,7 @@ const LOADERS = {
   'equine-medicine': () => import('./wrapups/equine-medicine.js'),
   'swine-clinic': () => import('./wrapups/swine-clinic.js'),
   'aquatic-clinic': () => import('./wrapups/aquatic-clinic.js'),
+  'zoonoses': () => import('./wrapups/zoonoses.js'),
 };
 
 export const WRAPUP_SUBJECTS = Object.keys(LOADERS);
