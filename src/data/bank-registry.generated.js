@@ -292,4 +292,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-09-24T15:52:35.209Z — 94 banks · 6731 Qs
+// Built: 2026-09-25T11:08:07.701Z — 94 banks · 6731 Qs
