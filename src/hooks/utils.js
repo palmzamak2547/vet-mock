@@ -44,11 +44,12 @@ const normFill = (s) => String(s ?? '')
 
 // A key made only of numbers joined by : or - ("15", "2:1", "80-100").
 const NUMERIC_KEY = /^\d+(?:\.\d+)?(?:\s*[:-]\s*\d+(?:\.\d+)?)*$/;
-// A number in the typed answer. A digit glued to a letter is part of a word
-// or a unit ("m2", "C1", "H5"), not a second number.
+// A number in the typed answer. A digit glued to a Latin letter is part of a
+// code or a unit ("m2", "C1", "H5"), not a second number. A Thai letter does
+// not count: Thai has no spaces between words, so "ประมาณ15" is 15.
 // (No lookbehind: the support floor is iOS 14. The character before the
 // number is captured instead, and the number is group 2.)
-const NUMBER_IN_ANSWER = /(^|[^a-z฀-๿\d.])(\d+(?:\.\d+)?(?:\s*[:-]\s*\d+(?:\.\d+)?)*)/g;
+const NUMBER_IN_ANSWER = /(^|[^a-z\d.])(\d+(?:\.\d+)?(?:\s*[:-]\s*\d+(?:\.\d+)?)*)/g;
 const numberParts = (s) => {
   const nums = s.split(/\s*[:-]\s*/).map(Number);
   const seps = s.match(/[:-]/g) || [];
@@ -72,6 +73,9 @@ function numericBlankCorrect(u, key) {
 }
 
 const LATIN_WORD = /[a-z0-9]/;
+// "hips" for hip, "condyles" for condyle: an English plural ending is still
+// the key. Only s or es, and only when the word ends there.
+const PLURAL_TAIL = /^(?:s|es)(?![a-z0-9])/;
 const NEGATED = /(?:ไม่ใช่|มิใช่|ไม่)\s*$|(?:^|[^a-z])(?:not|no|non)[\s-]*$/;
 
 // Writing MORE than the key is fine: "the lateral condyle" still names the
@@ -83,7 +87,9 @@ function containsKey(u, bl) {
     const before = u[at - 1];
     const after = u[at + bl.length];
     if (before && LATIN_WORD.test(before) && LATIN_WORD.test(bl[0])) continue;
-    if (after && LATIN_WORD.test(after) && LATIN_WORD.test(bl[bl.length - 1])) continue;
+    const last = bl[bl.length - 1];
+    const plural = /[a-z]/.test(last) && PLURAL_TAIL.test(u.slice(at + bl.length));
+    if (after && LATIN_WORD.test(after) && LATIN_WORD.test(last) && !plural) continue;
     if (NEGATED.test(u.slice(0, at))) continue;
     return true;
   }
