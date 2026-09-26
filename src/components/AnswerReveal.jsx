@@ -14,7 +14,7 @@
 // answer's keyword checklist (the same matcher SmartGrader uses).
 // ============================================================
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { RichText } from '../lib/richtext.jsx';
 import TermLinkedRichText from './TermLinkedRichText.jsx';
 import { keywordCoverage } from './SmartGrader.jsx';
@@ -23,8 +23,18 @@ const KEY = 'vmx-reveal-timing';
 export const REVEAL_ROW = 'row';
 export const REVEAL_END = 'end';
 
+// Until the student picks a timing of their own, it follows instant
+// feedback (on unless switched off, App.jsx), which is what the lecturer
+// block's switch draws and what its hint promises: row by row for matching
+// and a ดูเฉลยข้อนี้ button for written answers. A separate default of
+// "after the whole set" made a first-time student's matching sets and
+// written answers do the opposite of the switch they had just read.
 export function readRevealTiming() {
-  try { return localStorage.getItem(KEY) === REVEAL_ROW ? REVEAL_ROW : REVEAL_END; } catch { return REVEAL_END; }
+  try {
+    const picked = localStorage.getItem(KEY);
+    if (picked === REVEAL_ROW || picked === REVEAL_END) return picked;
+    return localStorage.getItem('vmx-instant-feedback') === 'off' ? REVEAL_END : REVEAL_ROW;
+  } catch { return REVEAL_ROW; } // storage blocked: instant feedback is on (App.jsx), so is this
 }
 
 export function writeRevealTiming(m) {
@@ -168,11 +178,18 @@ export function MatchReview({ q, userAns, answered }) {
 export function WrittenReveal({ q, answer, subject }) {
   const text = typeof answer === 'string' ? answer : '';
   const cov = keywordCoverage(text, q.keywords);
+  // Not a live region as a whole: the checklist is recomputed on every
+  // keystroke, and role="status" (atomic) had a screen reader read the model
+  // answer again each time a keyword ticked. Only the n/m counter speaks.
+  // The button that opened this panel is gone once it opens, so the panel
+  // takes focus instead of letting it fall to the page.
+  const rootRef = useRef(null);
+  useEffect(() => { rootRef.current?.focus?.({ preventScroll: true }); }, []);
   return (
-    <div className="vmx-written-reveal" role="status">
+    <div className="vmx-written-reveal" ref={rootRef} tabIndex={-1} style={{ outline: 'none' }}>
       {cov && (
         <div className="vmx-written-reveal-kw">
-          <div className="k">คีย์เวิร์ดที่ควรมี <span className="c">{cov.found.length}/{cov.found.length + cov.missing.length}</span></div>
+          <div className="k">คีย์เวิร์ดที่ควรมี <span className="c" role="status">{cov.found.length}/{cov.found.length + cov.missing.length}</span></div>
           <ul className="vmx-kw-list">
             {(q.keywords || []).map((kw) => {
               const hit = cov.found.includes(kw);

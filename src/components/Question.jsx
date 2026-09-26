@@ -445,6 +445,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           {/* Optional third way in: handwriting, transcribed into the same
               box so the student edits it before it is graded. */}
           <HandwritingInput
+            key={compoundId}
             maxChars={1000}
             onText={(text) => {
               const cur = typeof currentAnswer === 'string' ? currentAnswer : '';
@@ -498,6 +499,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             }}
           />
           <HandwritingInput
+            key={compoundId}
             maxChars={5000}
             onText={(text) => {
               const cur = essayText || '';

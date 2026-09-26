@@ -18,6 +18,7 @@ import { getLibraryCatalogFast, readerPayload, recordRecentDoc, resolveDocUrl } 
 import { LECTURE_COVERS } from '../data/art.js';
 import { RevealTimingToggle, REVEAL_ROW, REVEAL_END, writeRevealTiming } from './AnswerReveal.jsx';
 import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
+import { lecturerCount } from '../lib/lecturer-count.js';
 
 const TH_MONTH = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 function thaiDate(iso) {
@@ -80,7 +81,16 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
       }
       const name = `${doc.title}.pdf`;
       const abs = new URL(url, window.location.href);
-      if (abs.origin === window.location.origin) {
+      // Offline, the library hands back the worker's cache URL. The worker
+      // answers it with 503 when this device never opened the deck, so an
+      // <a download> there would save nothing while the note said it had
+      // started. Read it first: the bytes are local, and a miss says why.
+      const offlineOnly = abs.origin === window.location.origin && abs.searchParams.get('offline') === '1';
+      if (offlineOnly) {
+        const res = await fetch(abs.href);
+        if (!res.ok) throw new Error('ออฟไลน์อยู่ และยังไม่เคยเปิดไฟล์นี้ในเครื่องนี้ จึงดาวน์โหลดไม่ได้ตอนนี้');
+        saveBlob(await res.blob(), name);
+      } else if (abs.origin === window.location.origin) {
         // The library's own blob route: let the browser stream the file
         // straight to disk with its own progress, instead of buffering the
         // whole deck here first and only then handing it over.
@@ -118,12 +128,9 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
   // `_matchCovers` marks a matching set filed under another topic whose bank
   // names this one. A deck cover counts it (the set does include that
   // disease); the lecturer's whole-part button does not, or one set spanning
-  // five decks would be counted five times.
-  const countOf = (topicIds, kind, { covers = false } = {}) => topicIds.reduce((sum, id) => {
-    const row = kindTable[id] || {};
-    if (kind === 'all') return sum + Object.entries(row).reduce((a, [k, v]) => (k.startsWith('_') ? a : a + v), 0);
-    return sum + (row[kind] || 0) + (covers && kind === 'match' ? (row._matchCovers || 0) : 0);
-  }, 0);
+  // five decks would be counted five times. The wrap-up page uses the same
+  // rule (lib/lecturer-count.js).
+  const countOf = (topicIds, kind, opts) => lecturerCount(kindTable, topicIds, kind, opts);
   const covers = LECTURE_COVERS[subject] || {};
   // The pool category for a format: ปรนัย must exclude tf and match, which
   // the plain 'mcq' category lumps in (see buildExamPool).

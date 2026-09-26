@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useRef, useEffect } from 'react';
+import { useMemo, useCallback, useRef, useEffect, useState } from 'react';
 import { RichText } from '../lib/richtext.jsx';
 import { useRevealTiming, RevealTimingToggle, REVEAL_ROW, explainParagraphFor } from './AnswerReveal.jsx';
 
@@ -40,6 +40,19 @@ function shuffledRights(q) {
 
 function strip(s) { return String(s || '').replace(/\*\*/g, '').replace(/\*/g, '').trim(); }
 
+// Rows that have shown their answer ("เฉลยทีละข้อ"), per question, for this
+// page load. A row that printed its key stays locked for the rest of the
+// set: neither ล้างทั้งหมด nor switching to "เฉลยหลังทำครบ" may reopen it, or
+// the key just read could be entered and scored as the student's own. Kept
+// outside the component because one instance serves consecutive questions
+// (ExamView renders the card without a key) and a set may be revisited.
+const LOCKED = new Map();
+const lockKey = (q) => `${q?.subject || '?'}:${q?.id}`;
+
+// Keys that move a closed <select>'s value on Windows (and fire change at
+// once) without the student having settled on an option.
+const BROWSE_KEYS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'PageUp', 'PageDown']);
+
 export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, revealAnswer }) {
   // A printed matching set: `bank` is the answer list in printed order (A, B,
   // C ...) and the items reuse those letters — seven viruses across eighteen
@@ -70,11 +83,53 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
   // filled — revealing after the first selection would lock the rest.
   const isRevealed = Boolean(revealAnswer) && totalSlots > 0 && filledCount === totalSlots;
   // The student's choice (AnswerReveal): with "เฉลยทีละข้อ" a row shows its
-  // verdict and answer as soon as it is filled, and locks; the set's score
+  // verdict and answer as soon as its choice is committed, and locks for the
+  // rest of the set (see `locked` below); the set's score
   // banner still waits for the last row. "เฉลยหลังทำครบ" is the rule above.
   // Scoring never changes — only when a row shows what it holds.
   const [timing, setTiming] = useRevealTiming();
   const rowReveals = Boolean(revealAnswer) && timing === REVEAL_ROW;
+
+  // Which rows are locked. A row locks when its choice is committed in row
+  // mode: at once for a pick from the option list (touch, mouse), and on
+  // leaving the row or Enter when the keyboard is browsing, because arrow
+  // keys and type-ahead on a closed select change its value on every step.
+  // Entering a set, the rows already answered in row mode count as seen.
+  const qKey = lockKey(currentQ);
+  const answeredIdx = () => Object.keys(ans).filter((k) => ans[k]).map(Number);
+  const answered = answeredIdx();
+  const [locked, setLocked] = useState(() => new Set());
+  const [lockedFor, setLockedFor] = useState(null);
+  const [wasRow, setWasRow] = useState(rowReveals);
+  let nextLocked = null;
+  if (lockedFor !== qKey) {
+    // A new set (or the same set again): what was already seen stays seen.
+    nextLocked = new Set([...(LOCKED.get(qKey) || [])].filter((i) => answered.includes(i)));
+    if (rowReveals) for (const i of answered) nextLocked.add(i);
+    setLockedFor(qKey);
+  } else if (locked.size > 0 && answered.length === 0) {
+    // Locked rows are never cleared inside a set, so an empty answer is a
+    // fresh start of the same question (a new session): nothing is seen.
+    nextLocked = new Set();
+  } else if (rowReveals && !wasRow) {
+    // Switched to row by row: the rows already filled show their answer.
+    nextLocked = new Set([...locked, ...answered]);
+  }
+  if (rowReveals !== wasRow) setWasRow(rowReveals);
+  if (nextLocked) {
+    LOCKED.set(qKey, nextLocked);
+    setLocked(nextLocked);
+  }
+  const lastLocked = useRef(null);
+  const lockRow = (i) => {
+    if (!rowReveals || locked.has(i)) return;
+    const next = new Set(locked);
+    next.add(i);
+    LOCKED.set(qKey, next);
+    lastLocked.current = i;
+    setLocked(next);
+  };
+  const browsing = useRef(null); // row index the keyboard is stepping through
 
   const setPair = useCallback((leftIdx, rightVal) => {
     let obj = {};
@@ -111,6 +166,7 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
   // it and hand focus to this block, so Tab continues from the question they
   // just answered.
   const rootRef = useRef(null);
+  const selectRefs = useRef([]);
   useEffect(() => {
     if (!isRevealed) return;
     const root = rootRef.current;
@@ -121,6 +177,29 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
     if (active && active !== document.body) return;
     root.focus({ preventScroll: true });
   }, [isRevealed]);
+  // The same drop, one row at a time: a row locked from the option list
+  // disables the select that holds focus. Hand focus to the next open row,
+  // or to this block when none is left.
+  useEffect(() => {
+    const i = lastLocked.current;
+    if (i == null) return;
+    lastLocked.current = null;
+    if (typeof document === 'undefined') return;
+    const active = document.activeElement;
+    if (active && active !== document.body) return;
+    const n = currentQ.pairs.length;
+    for (let j = 1; j < n; j++) {
+      const k = (i + j) % n;
+      if (!locked.has(k) && !getVal(k)) {
+        const el = selectRefs.current[k];
+        if (el) { el.focus({ preventScroll: true }); return; }
+      }
+    }
+    rootRef.current?.focus({ preventScroll: true });
+  }, [locked]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Filled rows the student may still change (for ล้างทั้งหมด).
+  const clearable = answered.filter((i) => !locked.has(i));
 
   return (
     <div className="vmx-match-dnd" ref={rootRef} tabIndex={-1} style={{ outline: 'none' }}>
@@ -131,12 +210,17 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
           </span>
           {revealAnswer && <RevealTimingToggle mode={timing} onChange={setTiming} />}
         </div>
-        {filledCount > 0 && !isRevealed && (
+        {clearable.length > 0 && !isRevealed && (
           <button
             type="button"
             className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-match-clear-all-btn"
-            onClick={() => answerCurrent({})}
-            title="ล้างคำตอบทั้งหมด"
+            onClick={() => {
+              // Rows that have shown their answer keep it; only open rows clear.
+              const keep = {};
+              for (const i of locked) { const v = getVal(i); if (v) keep[i] = v; }
+              answerCurrent(keep);
+            }}
+            title={locked.size ? 'ล้างคำตอบของข้อที่ยังไม่เฉลย' : 'ล้างคำตอบทั้งหมด'}
           >
             🗑️ ล้างทั้งหมด
           </button>
@@ -156,7 +240,7 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
           const val = getVal(i);
           const isCorrect = val === pair.right;
           const isAnswered = Boolean(val);
-          const revealed = isRevealed || (rowReveals && isAnswered);
+          const revealed = isRevealed || (locked.has(i) && isAnswered);
           // The set's explain is written organism by organism; a wrong row
           // gets the paragraph of the card it should have chosen.
           const why = revealed && isAnswered && !isCorrect ? explainParagraphFor(currentQ.explain, pair.right) : null;
@@ -176,10 +260,22 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
               
               <div className="vmx-match-select-right">
                 <select
+                  ref={(el) => { selectRefs.current[i] = el; }}
                   className={`vmx-match-native-select ${isAnswered ? 'has-value' : ''}`}
                   value={val}
                   disabled={revealed}
-                  onChange={(e) => setPair(i, e.target.value)}
+                  onKeyDown={(e) => {
+                    if (BROWSE_KEYS.has(e.key) || (String(e.key || '').length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey)) browsing.current = i;
+                    else if (e.key === 'Enter' && val) { browsing.current = null; lockRow(i); }
+                  }}
+                  onChange={(e) => {
+                    setPair(i, e.target.value);
+                    if (e.target.value && browsing.current !== i) lockRow(i);
+                  }}
+                  onBlur={() => {
+                    if (browsing.current === i) browsing.current = null;
+                    if (val) lockRow(i);
+                  }}
                   aria-label={`จับคู่ข้อ ${i + 1}: ${strip(pair.left)}`}
                 >
                   <option value="">— เลือกคำตอบ —</option>

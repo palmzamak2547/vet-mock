@@ -113,6 +113,13 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
   const policy = useRef(createPointerPolicy());
   const onTextRef = useRef(onText);
   useEffect(() => { onTextRef.current = onText; });
+  // One pad per question (Question.jsx keys it by the question). A reading
+  // that comes back after the pad has gone, because the clock or ถัดไป moved
+  // on, is dropped: onTextRef would otherwise be the next question's, and
+  // the handwriting would land in an answer it was not written for.
+  const alive = useRef(true);
+  useEffect(() => { alive.current = true; return () => { alive.current = false; }; }, []);
+  const fileRef = useRef(null);
 
   const padSize = () => [padRef.current?.clientWidth || 320, height];
 
@@ -209,6 +216,7 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
   };
 
   async function transcribe(dataUrl) {
+    if (!alive.current) return;
     setBusy(true);
     setStatus('กำลังอ่านลายมือ');
     try {
@@ -219,6 +227,7 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
         signal: AbortSignal.timeout(50000),
       });
       const data = await res.json().catch(() => null);
+      if (!alive.current) return;
       if (res.status === 503) { setStatus('ยังไม่เปิดใช้บนเซิร์ฟเวอร์นี้ พิมพ์หรือพูดได้ตามเดิม'); return; }
       if (res.status === 429) { setStatus('ใช้บ่อยเกินไป รอสักครู่แล้วลองใหม่'); return; }
       if (!res.ok || typeof data?.text !== 'string') { setStatus('อ่านไม่สำเร็จ ลองอีกครั้ง'); return; }
@@ -228,9 +237,9 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
       setStatus('ถอดแล้ว ตรวจและแก้ในช่องคำตอบได้เลย');
       clear();
     } catch {
-      setStatus('เชื่อมต่อไม่ได้ ลองอีกครั้ง');
+      if (alive.current) setStatus('เชื่อมต่อไม่ได้ ลองอีกครั้ง');
     } finally {
-      setBusy(false);
+      if (alive.current) setBusy(false);
     }
   }
 
@@ -278,10 +287,13 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
         <button type="button" className="is-primary" onClick={convertPad} disabled={busy || !hasInk}>แปลงเป็นข้อความ</button>
         <button type="button" onClick={undo} disabled={busy || !hasInk}>ย้อนเส้นล่าสุด</button>
         <button type="button" onClick={clear} disabled={busy || !hasInk}>ล้าง</button>
-        <label className="vmx-hand-file">
+        {/* A real button, so the keyboard reaches it; the input is visually
+            hidden rather than display:none, so clicking it by script works
+            on every browser and it is not a second, invisible tab stop. */}
+        <button type="button" className="vmx-hand-file" onClick={() => fileRef.current?.click()} disabled={busy}>
           ถ่ายรูปที่เขียนบนกระดาษ
-          <input type="file" accept="image/*" capture="environment" hidden disabled={busy} onChange={onFile} />
-        </label>
+        </button>
+        <input ref={fileRef} type="file" accept="image/*" capture="environment" className="vmx-sr-only" tabIndex={-1} aria-hidden="true" disabled={busy} onChange={onFile} />
         <button type="button" onClick={() => setOpen(false)} disabled={busy}>ปิด</button>
         {status && <span className="vmx-hand-status" role="status">{status}</span>}
       </div>

@@ -21,6 +21,7 @@ import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.genera
 import { getLibraryCatalogFast, readerPayload, recordRecentDoc } from '../lib/library.js';
 import { humanSource } from '../lib/source-label.js';
 import { keyTerm } from '../lib/wrap-keyline.js';
+import { topicPractice } from '../lib/lecturer-count.js';
 
 const TH_MONTH = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 function thaiDate(iso) {
@@ -184,8 +185,12 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
               const n = numberOf.get(it);
               const deck = decks.get(it.topic);
               const art = deck ? covers[deck.cover] : null;
-              const format = deck?.format || g.format;
-              const count = (kindTable[it.topic] || {})[format] || 0;
+              // The same rule as the lecturer card (lib/lecturer-count.js):
+              // 'all' sums every kind, a matching deck counts the set that
+              // covers it from another topic, and a topic with nothing in
+              // the lecturer's format offers every format instead.
+              const lecFormat = deck?.format || g.format;
+              const { format, count, fellBack } = topicPractice(kindTable, [it.topic], lecFormat);
               const doc = deck?.doc && docsBySlug ? docsBySlug.get(deck.doc) : null;
               // A list the lecturer numbered is printed as written; a plain one
               // leads each 'Term — explanation' line with the term in bold.
@@ -249,7 +254,9 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
                           className="vmx-lect-btn"
                           onClick={() => onStartTopic({ subjectId: subject, topics: [it.topic], questionCategory: categoryOf(format) })}
                         >
-                          ฝึกแบบ{FORMAT_LABEL[format] || format} ({count} {format === 'match' ? 'ชุด' : 'ข้อ'})
+                          {fellBack
+                            ? `ยังไม่มีข้อแบบ${FORMAT_LABEL[lecFormat] || lecFormat} ฝึกรวมทุกประเภท (${count} ข้อ)`
+                            : `ฝึกแบบ${FORMAT_LABEL[format] || format} (${count} ${format === 'match' ? 'ชุด' : 'ข้อ'})`}
                         </button>
                       )}
                       {doc && (
