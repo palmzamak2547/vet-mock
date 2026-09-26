@@ -263,7 +263,7 @@ function offerBankRetry() {
 }
 
 // Mount inside the view's Suspense boundary: a cold chunk must finish before
-// the browser can restore a long page's scroll position and focus its content.
+// the browser can restore a long page's scroll position.
 function ViewEntry({ view, returnScrollRef }) {
   useEffect(() => {
     const id = requestAnimationFrame(() => {
@@ -271,10 +271,6 @@ function ViewEntry({ view, returnScrollRef }) {
       returnScrollRef.current = null;
       try { window.scrollTo({ top, behavior: 'instant' }); }
       catch { window.scrollTo(0, top); }
-      if (!document.querySelector('[data-vmx-modal="true"]')) {
-        try { document.getElementById('main')?.focus({ preventScroll: true }); }
-        catch { document.getElementById('main')?.focus(); }
-      }
     });
     return () => cancelAnimationFrame(id);
   }, [view, returnScrollRef]);
@@ -755,7 +751,17 @@ export default function App() {
     } else setView('topic-select');
   };
 
-  useEffect(() => { viewRef.current = view; }, [view]);
+  useEffect(() => {
+    viewRef.current = view;
+    // Focus belongs to navigation, not a later chunk download: a palette
+    // that is still downloading must retain its original return target.
+    const id = requestAnimationFrame(() => {
+      if (document.querySelector('[data-vmx-modal="true"]')) return;
+      try { document.getElementById('main')?.focus({ preventScroll: true }); }
+      catch { document.getElementById('main')?.focus(); }
+    });
+    return () => cancelAnimationFrame(id);
+  }, [view]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;

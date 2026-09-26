@@ -86,6 +86,25 @@ test('a delayed view does not take focus from the search dialog', async ({ page 
   await expect(search).toBeFocused();
 });
 
+test('a view that finishes while search is downloading keeps the search return focus', async ({ page }) => {
+  let releaseView, releaseSearch;
+  const viewReady = new Promise(resolve => { releaseView = resolve; });
+  const searchReady = new Promise(resolve => { releaseSearch = resolve; });
+  await page.route('**/assets/HomeView-*.js', async route => { await viewReady; await route.continue(); });
+  await page.route('**/assets/CommandPalette-*.js', async route => { await searchReady; await route.continue(); });
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  const launch = page.getByRole('button', { name: 'ค้นหา', exact: true });
+  await launch.click();
+  releaseView();
+  await expect(page.locator('.vmx-subject-card').first()).toBeVisible();
+  await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  releaseSearch();
+  await expect(page.getByRole('textbox', { name: 'ค้นหาใน VetMock' })).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' })).toBeHidden();
+  await expect(launch).toBeFocused();
+});
+
 test('a failed Notes download retains the intended subject on browser Forward', async ({ page, context }) => {
   await page.goto('/app/reading');
   await page.getByRole('button', { name: 'เปิด Notes Storage of raw milk', exact: true }).click();
