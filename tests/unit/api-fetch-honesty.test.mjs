@@ -43,6 +43,20 @@ const rewritten = SRC.replace(/from '(\.[^']+)'/g, (_m, spec) => {
 });
 const api = await import('data:text/javascript;base64,' + Buffer.from(rewritten + '\n//# sourceURL=api-under-test.mjs').toString('base64'));
 
+test('group RPCs reject PostgreSQL NULL composites and retain real rows', async () => {
+  for (const data of [null, [], { id: null, name: null }, [{ id: null, name: null }]]) {
+    globalThis.__vmxTestSupabase = { rpc: async () => ({ data, error: null }) };
+    await assert.rejects(api.joinGroupByCode('AAAAAA'), /ไม่พบกลุ่มรหัสนี้/);
+    await assert.rejects(api.createGroup('test group'), /สร้างกลุ่มไม่สำเร็จ/);
+  }
+  const group = { id: 'test-group-id', name: 'Test group' };
+  for (const data of [group, [group]]) {
+    globalThis.__vmxTestSupabase = { rpc: async () => ({ data, error: null }) };
+    assert.deepEqual(await api.joinGroupByCode('AAAAAA'), group);
+    assert.deepEqual(await api.createGroup('test group'), group);
+  }
+});
+
 /** A Supabase client whose reads and inserts answer with what the test says. */
 function fakeClient({ select = { data: [], error: null }, insert = { error: null } } = {}) {
   const calls = { selects: 0, inserts: 0 };

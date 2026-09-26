@@ -291,7 +291,7 @@ export default async function handler(req, res) {
   try {
     const body = req.body || {};
     const mode = String(body.mode || '');
-    const build = BUILDERS[mode];
+    const build = Object.prototype.hasOwnProperty.call(BUILDERS, mode) ? BUILDERS[mode] : null;
     if (!build) return res.status(400).json({ error: 'Unknown mode' });
 
     const plan = await build(body);

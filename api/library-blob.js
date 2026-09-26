@@ -62,6 +62,9 @@ export default async function handler(req, res) {
   // boundaries, so a re-open within the window is a cache hit, not a
   // re-stream.
   const cacheSeconds = Math.max(0, Math.floor(payload.e - Date.now() / 1000));
+  const access = payload.a === 'public' ? 'public' : 'restricted';
+  const cacheControl = access === 'public' ? `private, max-age=${cacheSeconds}` : 'no-store';
+  res.setHeader('X-VetMock-Library-Access', access);
 
   // The CF REST object API is a management plane: it ignores Range and
   // rejects HEAD (probed live — HEAD came back as an upstream error, and a
@@ -72,7 +75,7 @@ export default async function handler(req, res) {
     res.setHeader('Content-Type', contentHeaders(payload).type);
     if (Number.isFinite(payload.n) && payload.n > 0) res.setHeader('Content-Length', String(payload.n));
     res.setHeader('Accept-Ranges', 'none');
-    res.setHeader('Cache-Control', `private, max-age=${cacheSeconds}`);
+    res.setHeader('Cache-Control', cacheControl);
     return res.end();
   }
 
@@ -113,9 +116,9 @@ export default async function handler(req, res) {
   const saveAs = wantDownload && askedName ? askedName : basename;
   const disposition = wantDownload ? 'attachment' : content.disposition;
   res.setHeader('Content-Disposition', `${disposition}; filename="${asciiName(saveAs)}"; filename*=UTF-8''${rfc5987(saveAs)}`);
-  // Private but cacheable for the token's own lifetime — the URL is stable
-  // for the whole mint window, so a re-open is a browser cache hit.
-  res.setHeader('Cache-Control', `private, max-age=${cacheSeconds}`);
+  // Restricted offline copies belong to the worker's revocable cache, never
+  // the HTTP cache which sign-out cannot remove.
+  res.setHeader('Cache-Control', cacheControl);
   for (const h of ['content-length', 'content-range', 'etag']) {
     const v = upstream.headers.get(h);
     if (v) res.setHeader(h, v);

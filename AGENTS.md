@@ -3384,3 +3384,12 @@ Flagged, not changed: 208068 keeps a Vet 85 item whose recorded answer was the c
 source; 106135 lists saturated NaCl as a wrong option though the com5 recording names it beside zinc
 sulphate (the key, zinc sulphate, stands). Swine and FIQC explanations still carry some "ที่บันทึกไว้" voice
 (those papers are over); the swine and aquatic summaries still carry quote tables from the older checker.
+
+## 2026-09-26 — Security candidate 5.130.16 (isolated, not pushed)
+
+- Branch `codex/security-0926`, rebased onto `9fb038d5`. Report: `docs/security-audit-2026-09-26.md`; local evidence/checkpoint: `work/security-20260926/CHECKPOINT.md`.
+- Six confirmed request/cache/moderation/invite weaknesses have bounded patches. Live SQL migrations `20260926132348_security_boundaries_20260926` and `20260926140457_group_join_empty_result` applied and post-apply assertions passed; all fixtures rolled back. Refused joins return zero rows for old REST clients; frontend `rpcRow` also requires an ID.
+- Final checks: data lint/build/three contrast audits pass; unit 1826/1826 both UTC/Bangkok (4 workers). CI-parity E2E exit0: Chromium 361 passed/1 flaky/19 skipped; WebKit+Firefox 355 passed/1 flaky/24 skipped. Native cache tests pass three engines, including Chromium worker restart; physical iOS/passkey/email delivery/native PDF-child range behavior not claimed.
+- Preserve `fix/bughunt-0926` cache-key edits in study-coach and its other api.js edits. Security owns only own-property dispatch and shared group-row ID normalization. Primary checkout untouched except this lane's additive handoff.
+- Live password reauthentication enabled/read-back true; HIBP enable returned402(Pro required), unchanged. No application push/worker upload. Next: explicit production release decision, then one real main push with exact-SHA hosted Build/Smoke/deployment/live proof; never add vercel --prod to that push.
+- Reusable checks: quota debits belong before each upstream request; SQL RAISE rolls back counters; role NULL must deny; revoked library cache needs verified hash/live-client checks and detached old handles. Scope PLAYWRIGHT_PORT only to E2E, not inherited gate unit fixtures.

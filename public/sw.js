@@ -18,7 +18,7 @@
 // version-scoped, while immutable hashed assets survive across deploys.
 // ============================================================
 
-const SW_VERSION = 'v194-2026-09-19';
+const SW_VERSION = 'v195-2026-09-26';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = 'vmx-assets-v1';
 // Atlas verifies content hashes and owns a bounded public-model cache.
@@ -42,6 +42,9 @@ const LIB_DOC_MAX_BYTES = 40 * 1024 * 1024;
 // localStorage, which it was filling). Unversioned like LIB_DOCS: a worker
 // update must not make the next library visit paint late.
 const CATALOG = 'vmx-library-catalog-v1';
+const LIB_ACCESS_URL = '/__vmx/library-access.json';
+const libraryClients = new Map();
+let libraryWrites = Promise.resolve();
 const NAV_TIMEOUT_MS = 4000;
 const ASSET_CLEANUP_DELAY_MS = 1000;
 
@@ -264,11 +267,79 @@ function staleWhileRevalidate(request, cacheName, event) {
 // Library blobs: serve the cached copy when the hash matches, otherwise
 // stream from the network and remember the bytes. FIFO capped — six recent
 // documents at up to 40 MB each is a week of reading, not a hoard.
+async function libraryAccess() {
+  return caches.open(CATALOG).then(cache => cache.match(LIB_ACCESS_URL)).then(hit => hit?.json()).catch(() => null);
+}
+
+async function libraryClientAllowed(request, event, access) {
+  if (!access?.signedIn || !access.epoch || new URL(request.url).searchParams.get('a') !== access.epoch) return false;
+  try {
+    const clients = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    const nativeClient = clients.find(client => client.id === event.clientId);
+    const nativeUrl = nativeClient ? new URL(nativeClient.url) : null;
+    const nativeDocument = nativeUrl?.origin === self.location.origin && nativeUrl.pathname === '/api/library-blob'
+      && nativeUrl.searchParams.get('a') === access.epoch
+      && nativeUrl.searchParams.get('h') === new URL(request.url).searchParams.get('h');
+    for (const client of clients) {
+      if (client.id === event.excludeClientId) continue;
+      // A native PDF tab may issue later range reads under its own client id.
+      // Its held document capability still requires a live authorized app.
+      if (event.clientId && !nativeDocument ? client.id !== event.clientId : !nativeDocument && request.mode !== 'navigate') continue;
+      if (libraryClients.get(client.id) === access.epoch) return true;
+      const source = new URL(client.url);
+      if (source.origin !== self.location.origin || !(source.pathname === '/' || /^\/(?:app|wiki)\//.test(source.pathname))) continue;
+      // Browsers may terminate an idle worker. A held PDF URL must still work
+      // after its RAM registration is gone, but only a live signed-in page can
+      // answer this fresh challenge; persisted access alone cannot authorize it.
+      const allowed = await new Promise(resolve => {
+        const channel = new MessageChannel();
+        const timer = setTimeout(() => done(false), 1000);
+        function done(ok) { clearTimeout(timer); channel.port1.close(); channel.port2.close(); resolve(ok); }
+        channel.port1.onmessage = event => done(event.data?.epoch === access.epoch);
+        try { client.postMessage({ type: 'LIBRARY_ACCESS_CHECK', epoch: access.epoch }, [channel.port2]); }
+        catch { done(false); }
+      });
+      if (allowed) { libraryClients.set(client.id, access.epoch); return true; }
+    }
+    return false;
+  } catch { return false; }
+}
+
+async function verifiedLibraryResponse(response, hash, access) {
+  const bytes = await response.arrayBuffer();
+  if (bytes.byteLength > LIB_DOC_MAX_BYTES) return null;
+  const digest = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(n => n.toString(16).padStart(2, '0')).join('');
+  if (digest.slice(0, hash.length) !== hash.toLowerCase()) return null;
+  const headers = new Headers(response.headers);
+  headers.set('X-VetMock-Library-Access', access);
+  headers.set('X-VetMock-Library-Hash', hash.toLowerCase());
+  return new Response(bytes, { status: response.status, headers });
+}
+
 async function libraryDoc(request, hash, event) {
   const cache = await caches.open(LIB_DOCS);
   const key = new Request(`/__lib-doc/${hash}`);
+  const access = await libraryAccess();
   const hit = await cache.match(key);
-  if (hit) return hit;
+  if (hit) {
+    let kind = hit.headers.get('X-VetMock-Library-Access');
+    const verified = hit.headers.get('X-VetMock-Library-Hash') === hash.toLowerCase();
+    let response = verified ? hit : null;
+    if (!verified) {
+      // Legacy caches trusted an unsigned h. Only actual bytes matching a
+      // published catalogue hash may become a public offline response.
+      const snapshot = await caches.open(CATALOG).then(store => store.match('/__vmx/library-catalog.json'))
+        .then(value => value?.json()).catch(() => null);
+      const publicHash = snapshot?.docs?.some(doc => doc.status === 'public' && doc.sha256_16 === hash);
+      kind = kind === 'restricted' || !publicHash ? 'restricted' : 'public';
+      response = await verifiedLibraryResponse(hit, hash, kind).catch(() => null);
+    }
+    if (response && kind === 'public') return response;
+    if (response && await libraryClientAllowed(request, event, access)) {
+      const current = await libraryAccess();
+      if (current?.signedIn && current.epoch === access?.epoch) return response;
+    }
+  }
 
   const offlineOnly = new URL(request.url).searchParams.get('offline') === '1';
   if (offlineOnly) {
@@ -284,15 +355,24 @@ async function libraryDoc(request, hash, event) {
   if (res && res.status === 200) {
     const len = Number(res.headers.get('content-length'));
     if (Number.isFinite(len) && len > 0 && len <= LIB_DOC_MAX_BYTES) {
-      const clone = res.clone();
-      // Evict + store off the response path — the reader gets bytes now.
-      keepAlive(event, cache.keys().then(async (keys) => {
-        // cache.keys() preserves insertion order, so keys[0] is the oldest.
-        for (let i = 0; i <= keys.length - LIB_DOC_MAX_ENTRIES; i++) {
-          await cache.delete(keys[i]).catch(() => {});
+      const kind = res.headers.get('X-VetMock-Library-Access') === 'public' ? 'public' : 'restricted';
+      const verification = verifiedLibraryResponse(res.clone(), hash, kind).catch(() => null);
+      // ponytail: one write queue for six document slots; split only if actual
+      // concurrent shelf downloads make this measurable. Streaming is outside it.
+      libraryWrites = libraryWrites.catch(() => {}).then(async () => {
+        const response = await verification;
+        if (!response) return;
+        if (kind !== 'public') {
+          const current = await libraryAccess();
+          if (current?.epoch !== access?.epoch || !await libraryClientAllowed(request, event, current)) return;
         }
-        await cache.put(key, clone);
-      }));
+        // A logout deletes this named cache; this captured handle then writes
+        // only into its detached predecessor, never the replacement cache.
+        await cache.put(key, response);
+        const keys = await cache.keys();
+        for (const old of keys.slice(0, Math.max(0, keys.length - LIB_DOC_MAX_ENTRIES))) await cache.delete(old);
+      });
+      keepAlive(event, libraryWrites);
     }
   }
   return res;
@@ -314,7 +394,7 @@ self.addEventListener('fetch', (event) => {
   // opened on campus re-open on the train with zero bandwidth.
   if (url.pathname === '/api/library-blob') {
     const hash = url.searchParams.get('h');
-    if (hash && /^[a-f0-9]{8,64}$/i.test(hash)) {
+    if (hash && /^(?:[a-f0-9]{16}|[a-f0-9]{64})$/i.test(hash)) {
       event.respondWith(libraryDoc(request, hash, event));
       return;
     }
@@ -405,6 +485,25 @@ self.addEventListener('fetch', (event) => {
 // Allow the page to ask "are you ready?" (used by main.jsx to detect
 // successful activation without a reload race).
 self.addEventListener('message', (event) => {
+  if (event.data?.type === 'LIBRARY_ACCESS_REVOKE') {
+    libraryClients.delete(event.source?.id);
+    keepAlive(event, libraryAccess().then(async access => {
+      const request = { url: `${self.location.origin}/api/library-blob?a=${encodeURIComponent(event.data.epoch)}`, mode: 'navigate' };
+      const active = await libraryClientAllowed(request, { excludeClientId: event.source?.id }, access);
+      event.ports?.[0]?.postMessage({ active });
+    }));
+  }
+  if (event.data?.type === 'LIBRARY_ACCESS') {
+    // Only a live app client can register itself. The persisted access epoch
+    // alone cannot carry a session-only login into a later direct navigation.
+    try {
+      const source = new URL(event.source?.url);
+      if (source.origin === self.location.origin && (source.pathname === '/' || /^\/(?:app|wiki)\//.test(source.pathname))) {
+        libraryClients.set(event.source.id, event.data.epoch);
+      }
+    } catch { /* Unidentified clients cannot read restricted offline bytes. */ }
+    event.ports?.[0]?.postMessage({ ready: true });
+  }
   // Ignore early-activation messages, including legacy SKIP_WAITING. The
   // browser waits until old documents close; none can receive a forced switch.
   if (event.data === 'TRIM_ASSETS_IF_UNUSED') {

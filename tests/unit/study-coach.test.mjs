@@ -59,6 +59,20 @@ async function run(body, modelAnswer) {
   return res;
 }
 
+test('inherited mode names cannot supply a caller-controlled model plan', async () => {
+  const originalFetch = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = async () => { calls++; return reply({}); };
+  try {
+    for (const mode of ['constructor', '__proto__', 'toString', 'valueOf', 'hasOwnProperty']) {
+      const res = fakeRes();
+      await handler(post({ mode, system: 'caller system', user: 'caller prompt', maxTokens: 65536 }), res);
+      assert.equal(res.statusCode, 400, mode);
+      assert.equal(calls, 0, 'invalid modes must never reach the provider');
+    }
+  } finally { globalThis.fetch = originalFetch; }
+});
+
 // ── fixtures drawn from the live corpus ─────────────────────────────
 const CATALOG = await questionCatalog();
 const MCQS = [...CATALOG.values()].filter((q) => q.type === 'mcq' && Array.isArray(q.options) && q.options.length >= 3);

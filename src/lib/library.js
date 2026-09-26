@@ -346,13 +346,17 @@ export function getLibraryCatalog() {
 // an account switch changes nothing; but once this device is signed out, the
 // copies of restricted documents go. Only those: public decks, the offline
 // shell, a student's own PDFs and their ink live elsewhere or stay.
-// The name and key are the worker's; library-signout-purge.test.mjs pins
-// them together.
+// Replace the cache rather than deleting selected keys: a pending download
+// still holds the old Cache handle, which deletion detaches from CacheStorage.
 const LIB_DOC_CACHE = 'vmx-lib-docs-v1';
+const LIB_ACCESS_URL = '/__vmx/library-access.json';
+let _librarySignedIn = false;
+let _accessWork = Promise.resolve();
 
 // content hash -> true when any catalogue this session listed it as public
 const _docHashes = new Map();
 function noteDocHashes(docs) {
+  _docHashes.clear();
   for (const d of Array.isArray(docs) ? docs : []) {
     if (!d?.sha256_16) continue;
     _docHashes.set(d.sha256_16, _docHashes.get(d.sha256_16) === true || d.status === 'public');
@@ -360,28 +364,108 @@ function noteDocHashes(docs) {
 }
 
 async function purgeRestrictedDocBytes() {
-  const hashes = [..._docHashes].filter(([, isPublic]) => !isPublic).map(([hash]) => hash);
+  const publicHashes = new Set([..._docHashes].filter(([, isPublic]) => isPublic).map(([hash]) => hash));
+  for (const doc of (await readCatalogSnapshot())?.docs || []) {
+    if (_docHashes.get(doc.sha256_16) !== false) publicHashes.add(doc.sha256_16);
+  }
   _docHashes.clear();
-  if (!hashes.length || typeof caches === 'undefined') return;
+  if (typeof caches === 'undefined') return;
   try {
-    // has() first: opening would create the worker's cache on a device that
-    // never had one.
     if (!(await caches.has(LIB_DOC_CACHE))) return;
     const cache = await caches.open(LIB_DOC_CACHE);
-    await Promise.all(hashes.map((hash) => cache.delete(`/__lib-doc/${hash}`).catch(() => false)));
-  } catch { /* storage blocked: the offline rule in resolveDocUrl still refuses them */ }
+    const retained = [];
+    for (const key of await cache.keys()) {
+      const hash = new URL(key.url, 'https://same-origin.invalid').pathname.split('/').pop();
+      if (!/^[a-f0-9]{16,64}$/i.test(hash) || !publicHashes.has(hash)) continue;
+      const response = await cache.match(key);
+      if (!response?.ok || response.headers.get('X-VetMock-Library-Access') === 'restricted') continue;
+      const bytes = await response.arrayBuffer();
+      if (bytes.byteLength > 40 * 1024 * 1024) continue;
+      const digest = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(n => n.toString(16).padStart(2, '0')).join('');
+      if (digest.slice(0, hash.length) !== hash.toLowerCase()) continue;
+      const headers = new Headers(response.headers);
+      headers.set('X-VetMock-Library-Access', 'public');
+      headers.set('X-VetMock-Library-Hash', hash.toLowerCase());
+      retained.push([key, new Response(bytes, { status: response.status, headers })]);
+      if (retained.length === 6) break;
+    }
+    await caches.delete(LIB_DOC_CACHE);
+    if (retained.length) {
+      const replacement = await caches.open(LIB_DOC_CACHE);
+      for (const [key, response] of retained) await replacement.put(key, response);
+    }
+  } catch {
+    // An uninspectable legacy cache is not proof of public access.
+    await caches.delete(LIB_DOC_CACHE).catch(() => {});
+  }
+}
+
+function libraryWorkerMessage(data) {
+  const worker = typeof navigator !== 'undefined' ? navigator.serviceWorker?.controller : null;
+  if (!worker || typeof MessageChannel === 'undefined') return Promise.resolve(null);
+  return new Promise(resolve => {
+    const channel = new MessageChannel();
+    const timer = setTimeout(() => done(null), 1000);
+    function done(value) { clearTimeout(timer); channel.port1.close(); channel.port2.close(); resolve(value); }
+    channel.port1.onmessage = event => done(event.data);
+    try { worker.postMessage(data, [channel.port2]); } catch { done(null); }
+  });
+}
+
+export function setLibraryAccess(signedIn, { initial = false } = {}) {
+  _librarySignedIn = signedIn === true;
+  const allowed = _librarySignedIn;
+  _accessWork = _accessWork.catch(() => {}).then(async () => {
+    if (typeof caches === 'undefined') return null;
+    const cache = await caches.open('vmx-library-catalog-v1');
+    const previous = await cache.match(LIB_ACCESS_URL).then(hit => hit?.json()).catch(() => null);
+    if (!allowed && previous?.signedIn) {
+      const other = await libraryWorkerMessage({ type: 'LIBRARY_ACCESS_REVOKE', epoch: previous.epoch });
+      // A guest tab cannot erase another tab's session-only reader. An older
+      // worker cannot answer this check; initial guest boot leaves that state
+      // alone, while an explicit sign-out still purges it.
+      if (other?.active || (initial && other === null && typeof navigator !== 'undefined' && navigator.serviceWorker?.controller)) return previous;
+    }
+    const state = { signedIn: allowed, epoch: allowed && previous?.signedIn && previous.epoch
+      ? previous.epoch : [...crypto.getRandomValues(new Uint8Array(16))].map(n => n.toString(16).padStart(2, '0')).join('') };
+    await cache.put(LIB_ACCESS_URL, new Response(JSON.stringify(state), { headers: { 'Content-Type': 'application/json' } }));
+    if (!allowed) await purgeRestrictedDocBytes();
+    return state;
+  });
+  return _accessWork;
+}
+
+async function libraryAccessForRequest() {
+  await _accessWork.catch(() => {});
+  if (!_librarySignedIn || typeof caches === 'undefined') return null;
+  const cache = await caches.open('vmx-library-catalog-v1');
+  const state = await cache.match(LIB_ACCESS_URL).then(hit => hit?.json()).catch(() => null);
+  if (!state?.signedIn || !state.epoch) return null;
+  await libraryWorkerMessage({ type: 'LIBRARY_ACCESS', epoch: state.epoch });
+  return state.epoch;
 }
 
 if (typeof window !== 'undefined') {
+  if (typeof navigator !== 'undefined') navigator.serviceWorker?.addEventListener('message', async (event) => {
+    if (event.data?.type !== 'LIBRARY_ACCESS_CHECK') return;
+    if (!_librarySignedIn) { event.ports?.[0]?.postMessage({ epoch: null }); return; }
+    await _accessWork.catch(() => {});
+    const cache = typeof caches !== 'undefined' ? await caches.open('vmx-library-catalog-v1') : null;
+    const state = await cache?.match(LIB_ACCESS_URL).then(hit => hit?.json()).catch(() => null);
+    event.ports?.[0]?.postMessage({ epoch: _librarySignedIn && state?.signedIn && state.epoch === event.data.epoch ? state.epoch : null });
+  });
   window.addEventListener('vmx-palette-invalidate', () => { _catalogPromise = null; _subjectCounts = null; });
-  window.addEventListener('vmx-library-auth-changed', () => {
-    if (!hasStoredAuthToken()) purgeRestrictedDocBytes();
+  window.addEventListener('vmx-library-auth-changed', (event) => {
+    setLibraryAccess(event.detail?.signedIn === true).catch(() => {});
     _lastFetch = null;
     _catalogEpoch += 1;
     _catalogPromise = null;
     _subjectCounts = null;
     _urlIntent.clear();
   });
+  // A guest boot needs no auth SDK, but must revoke a session-only reader's
+  // earlier cache even when the catalogue has never opened in this document.
+  if (!hasStoredAuthToken()) setLibraryAccess(false, { initial: true }).catch(() => {});
 }
 
 // ── Instant-paint snapshot ────────────────────────────────────────────────
@@ -604,16 +688,17 @@ export function prefetchDocUrl(doc) {
 // decides who may ask: a restricted document only while this device holds a
 // session. Signed out, the reader says it needs a login, exactly as it does
 // online, instead of opening the last reader's deck from the cache.
-function offlineDocUrl(doc) {
-  if (doc.status !== 'public' && !hasStoredAuthToken()) {
+function offlineDocUrl(doc, accessEpoch) {
+  if (doc.status !== 'public' && !accessEpoch) {
     throw new Error('ไฟล์นี้ต้องเข้าสู่ระบบก่อนจึงจะเปิดได้');
   }
-  if (doc.sha256_16) return `/api/library-blob?offline=1&h=${encodeURIComponent(doc.sha256_16)}`;
+  if (doc.sha256_16) return `/api/library-blob?offline=1&h=${encodeURIComponent(doc.sha256_16)}${accessEpoch ? `&a=${encodeURIComponent(accessEpoch)}` : ''}`;
   throw new Error('ออฟไลน์อยู่ และยังไม่เคยเปิดไฟล์นี้ในเครื่อง จึงเปิดไม่ได้ตอนนี้');
 }
 
 export async function resolveDocUrl(doc) {
   if (!doc) throw new Error('resolveDocUrl: missing doc');
+  const accessEpoch = doc.status !== 'public' ? await libraryAccessForRequest() : null;
   if (doc.storage_provider === 'google-drive') {
     const url = googleDriveSourceUrl(doc.external_url);
     if (!url) throw new Error('ลิงก์เอกสารต้นฉบับไม่ถูกต้อง');
@@ -655,7 +740,7 @@ export async function resolveDocUrl(doc) {
       // by the `h` param — hand it a URL it can answer from that cache. If
       // the document was never opened on this device, the request falls
       // through to the network and fails honestly.
-      return offlineDocUrl(doc);
+      return offlineDocUrl(doc, accessEpoch);
     }
     if (res.status === 401) throw new Error('ไฟล์นี้ต้องเข้าสู่ระบบก่อนจึงจะเปิดได้');
     if (!res.ok) {
@@ -668,7 +753,7 @@ export async function resolveDocUrl(doc) {
       const offlineBody = await res.clone().json().catch(() => ({}));
       const swSaysOffline = res.status === 503 && offlineBody.error === 'Offline';
       const browserSaysOffline = typeof navigator !== 'undefined' && navigator.onLine === false;
-      if (swSaysOffline || browserSaysOffline) return offlineDocUrl(doc);
+      if (swSaysOffline || browserSaysOffline) return offlineDocUrl(doc, accessEpoch);
       // The endpoint answers with machine codes (not_found, storage_not_configured,
       // catalog_unavailable). Printing those, or a bare HTTP number, told the
       // reader nothing they could act on.
@@ -688,7 +773,7 @@ export async function resolveDocUrl(doc) {
     // is what makes "open the same deck again next week, offline on the
     // train" work.
     if (url.startsWith('/api/library-blob?') && doc.sha256_16) {
-      return `${url}&h=${encodeURIComponent(doc.sha256_16)}`;
+      return `${url}&h=${encodeURIComponent(doc.sha256_16)}${accessEpoch ? `&a=${encodeURIComponent(accessEpoch)}` : ''}`;
     }
     return url;
   }

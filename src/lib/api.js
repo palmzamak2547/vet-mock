@@ -26,7 +26,8 @@ async function ensureProfile() {
 // GROUPS
 // ==========================================================
 function rpcRow(data) {
-  return Array.isArray(data) ? (data[0] || null) : (data || null);
+  const row = Array.isArray(data) ? data[0] : data;
+  return row?.id ? row : null;
 }
 
 export async function createGroup(name, _userId) {

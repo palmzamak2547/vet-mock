@@ -41,6 +41,7 @@ test('the archive streams only the requested bytes, answers HEAD and denies anon
   assert.equal(response.status, 206);
   assert.equal(response.headers.get('Content-Range'), 'bytes 2-5/10');
   assert.equal(response.headers.get('Content-Length'), '4');
+  assert.equal(response.headers.get('Cache-Control'), 'no-store');
   assert.equal(await response.text(), '2345');
   assert.deepEqual(reads, [{ range: { offset: 2, length: 4 } }]);
   assert.match(response.headers.get('Content-Disposition'), /filename\*=UTF-8''/);
@@ -53,4 +54,6 @@ test('the archive streams only the requested bytes, answers HEAD and denies anon
   assert.equal(unsatisfiable.headers.get('Content-Range'), 'bytes */10');
   assert.equal(reads.length, 1);
   assert.equal((await worker.fetch(new Request(urlFor(), { method: 'PUT', body: 'change' }), runtime)).status, 405);
+  const publicHead = await worker.fetch(new Request(urlFor({ ...doc, status: 'public' }), { method: 'HEAD' }), runtime);
+  assert.match(publicHead.headers.get('Cache-Control'), /^private, max-age=/);
 });
