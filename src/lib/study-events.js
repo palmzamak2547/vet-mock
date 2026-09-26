@@ -1,4 +1,4 @@
-import { isCorrect } from '../hooks/utils.js';
+import { isCorrect, isAnswered } from '../hooks/utils.js';
 
 export const validSessionId = value => typeof value === 'string'
   && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
@@ -43,6 +43,13 @@ export function createAttemptEntries({ questions, answers, sessionId, questionTi
     mode,
   }));
 }
+
+// The attempts that count as practice: history, the wrong pool, XP, quests
+// and the streak. A question left blank grades as correct:false, and
+// counting it made a never-seen question a wrong answer while Results and
+// Review called it ข้าม. createAttemptEntries still returns every question,
+// because the detailed log and the leaderboard payload need all of them.
+export const answeredAttempts = entries => entries.filter(entry => isAnswered(entry.answer));
 
 export function createReviewEvent({ question, quality, before, after, sessionId, elapsedMs = null, now = Date.now() }) {
   if (!Number.isInteger(quality) || quality < 0 || quality > 3) throw new Error('Invalid review rating');

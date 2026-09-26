@@ -47,7 +47,7 @@ import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './l
 import { checkIsAdmin } from './lib/admin-api.js';
 import { parseWikiPath, wikiPath } from './lib/vetwiki/url.js';
 import { useExamResultOutbox } from './hooks/useExamResultOutbox.js';
-import { createAttemptEntries } from './lib/study-events.js';
+import { createAttemptEntries, answeredAttempts } from './lib/study-events.js';
 import { readShareUrlFromLocation, readSenderInfoFromLocation } from './lib/share-link.js';
 import { awardXp, XP_AWARDS } from './lib/xp.js';
 import { recordQuestEvent } from './lib/quests.js';
@@ -1873,7 +1873,9 @@ export default function App() {
     completedAtRef.current = completedAt;
     const detailedEntries = createAttemptEntries({ questions: autoQs, answers, sessionId: examSessionId,
       questionTimes: getQuestionTimes(), year: selectedYear, phase: selectedPhase, mode, now: completedAt });
-    let newEntries = detailedEntries.map(({ date, questionId, correct, subject, year, phase }) => ({ date, questionId, correct, subject, year, phase }));
+    // Only answered questions count as practice (history, wrong pool, XP, streak).
+    // The detailed log and the leaderboard payload still carry every question.
+    let newEntries = answeredAttempts(detailedEntries).map(({ date, questionId, correct, subject, year, phase }) => ({ date, questionId, correct, subject, year, phase }));
     const eventOwner = user?.id ?? null;
     finishedEntriesRef.current = { owner: eventOwner, entries: newEntries, details: detailedEntries };
     import('./lib/study-event-log.js').then(async ({ appendStudyEvents }) => {

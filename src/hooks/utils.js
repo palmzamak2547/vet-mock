@@ -29,31 +29,169 @@ export const fmtDate = (ts) => {
   return `${Math.abs(diffDays)} วันที่แล้ว`;
 };
 
+// ── Fill-in-the-blank ────────────────────────────────────────────────
+// One rule for the client and the server: api/_lib/exam-scoring.js imports
+// isCorrect from here, so the leaderboard re-scores with this same code.
+
+// Case, spacing, dash style and Thai digits are writing, not knowledge.
+const normFill = (s) => String(s ?? '')
+  .normalize('NFC')
+  .toLowerCase()
+  .replace(/[๐-๙]/g, (d) => String(d.charCodeAt(0) - 0x0e50))
+  .replace(/[‐-―−]/g, '-')
+  .replace(/\s+/g, ' ')
+  .trim();
+
+// A key made only of numbers joined by : or - ("15", "2:1", "80-100").
+const NUMERIC_KEY = /^\d+(?:\.\d+)?(?:\s*[:-]\s*\d+(?:\.\d+)?)*$/;
+// A number in the typed answer. A digit glued to a letter is part of a word
+// or a unit ("m2", "C1", "H5"), not a second number.
+// (No lookbehind: the support floor is iOS 14. The character before the
+// number is captured instead, and the number is group 2.)
+const NUMBER_IN_ANSWER = /(^|[^a-z฀-๿\d.])(\d+(?:\.\d+)?(?:\s*[:-]\s*\d+(?:\.\d+)?)*)/g;
+const numberParts = (s) => {
+  const nums = s.split(/\s*[:-]\s*/).map(Number);
+  const seps = s.match(/[:-]/g) || [];
+  return { nums, seps };
+};
+
+// B01/B46: containment let "2500" stand for 250, "150" for 15 and "10 ml"
+// for 1 ml. A number is right only when the answer holds exactly one number
+// and it is the key: units, spacing and "ถึง"/"to" for a range are allowed.
+function numericBlankCorrect(u, key) {
+  const text = u
+    .replace(/(\d),(\d{3})(?!\d)/g, '$1$2')
+    .replace(/(\d)\s*(?:ถึง|to|~)\s*(\d)/g, '$1-$2');
+  const found = [...text.matchAll(NUMBER_IN_ANSWER)].map((m) => m[2]);
+  if (found.length !== 1) return false;
+  const a = numberParts(found[0]);
+  const k = numberParts(key);
+  return a.nums.length === k.nums.length
+    && a.seps.join('') === k.seps.join('')
+    && a.nums.every((n, i) => n === k.nums[i]);
+}
+
+const LATIN_WORD = /[a-z0-9]/;
+const NEGATED = /(?:ไม่ใช่|มิใช่|ไม่)\s*$|(?:^|[^a-z])(?:not|no|non)[\s-]*$/;
+
+// Writing MORE than the key is fine: "the lateral condyle" still names the
+// lateral condyle. It is not fine when the key is only the inside of a
+// longer word or code ("S55" for S5, "noncohesive" for cohesive) or when the
+// answer says it is NOT the key ("ไม่ใช่ตับอ่อน").
+function containsKey(u, bl) {
+  for (let at = u.indexOf(bl); at >= 0; at = u.indexOf(bl, at + 1)) {
+    const before = u[at - 1];
+    const after = u[at + bl.length];
+    if (before && LATIN_WORD.test(before) && LATIN_WORD.test(bl[0])) continue;
+    if (after && LATIN_WORD.test(after) && LATIN_WORD.test(bl[bl.length - 1])) continue;
+    if (NEGATED.test(u.slice(0, at))) continue;
+    return true;
+  }
+  return false;
+}
+
+function blankMatches(rawAnswer, rawKey, allowFragment = true) {
+  const u = normFill(rawAnswer);
+  const bl = normFill(rawKey);
+  if (!u) return false;
+  if (u === bl) return true;
+  if (NUMERIC_KEY.test(bl)) return numericBlankCorrect(u, bl);
+  if (u.length < 3) return false;
+  if (containsKey(u, bl)) return true;
+  // Writing LESS used to be fine too, and that was the bug: any three
+  // characters of the key scored full marks. Measured on the corpus,
+  // 36 of 60 blanks accepted their own first three letters — "lat" for
+  // lateral condyle, "vas" for vastus lateralis, "ตับ" for ตับอ่อน,
+  // which is a different organ. A fragment is not an answer.
+  //
+  // Short-of-the-key is still allowed when it covers most of it, so a
+  // student who drops a qualifier ("reticuloperitonitis" for
+  // "traumatic reticuloperitonitis") is not punished for it.
+  return allowFragment && bl.includes(u) && u.length >= bl.length * 0.6;
+}
+
+// The stem text printed right before blank i ("วางด้าน ____" → "วางด้าน").
+function textBeforeBlank(stem, i) {
+  const marks = [...String(stem || '').matchAll(/_{3,}/g)];
+  const mark = marks[i];
+  if (!mark) return '';
+  const start = i > 0 ? marks[i - 1].index + marks[i - 1][0].length : 0;
+  return normFill(stem.slice(start, mark.index));
+}
+
+// B46: the key of 32 is "ด้านหน้า" and the stem already prints "วางด้าน ____",
+// so "หน้า" is the answer the stem asks for. When the key opens with the word
+// the stem ends on, the rest of the key is accepted as well.
+function stemEchoRest(stem, i, key) {
+  const before = textBeforeBlank(stem, i);
+  const bl = normFill(key);
+  if (!before || !bl) return null;
+  const lastWord = before.split(' ').pop();
+  for (let n = Math.min(lastWord.length, bl.length - 2); n >= 3; n--) {
+    const echo = bl.slice(0, n);
+    if (!lastWord.endsWith(echo)) continue;
+    // Latin: only a whole word of the key, and only the whole last word.
+    if (/[a-z]/.test(echo) && (echo !== lastWord || bl[n] !== ' ')) continue;
+    const rest = bl.slice(n).trim();
+    return rest.length >= 2 ? rest : null;
+  }
+  return null;
+}
+
+function blankCorrect(q, i, answer, key) {
+  if (blankMatches(answer, key)) return true;
+  const rest = stemEchoRest(q.q, i, key);
+  // The rest is short ("หน้า"), so a fragment of it ("น้า") is not it.
+  return rest !== null && blankMatches(answer, rest, false);
+}
+
+// q.unordered: true when every blank is one set, or a list of index groups
+// ([[0,1,2,3]]) when only some blanks are ("Quality ____" ×4, then "และ ____").
+function unorderedGroups(q) {
+  const n = q.blanks.length;
+  if (q.unordered === true) return [q.blanks.map((_, i) => i)];
+  if (!Array.isArray(q.unordered)) return [];
+  const used = new Set();
+  const groups = [];
+  for (const g of q.unordered) {
+    if (!Array.isArray(g)) continue;
+    const idx = g.filter((i) => Number.isInteger(i) && i >= 0 && i < n && !used.has(i));
+    idx.forEach((i) => used.add(i));
+    if (idx.length > 1) groups.push(idx);
+  }
+  return groups;
+}
+
+// Each typed answer in a group must match a different key of that group.
+function groupCorrect(q, idx, ua) {
+  const keys = idx.map((i) => ({ i, key: q.blanks[i] }));
+  const taken = new Array(keys.length).fill(false);
+  const place = (a) => {
+    if (a === idx.length) return true;
+    const answer = ua[idx[a]];
+    for (let k = 0; k < keys.length; k++) {
+      if (taken[k] || !blankCorrect(q, keys[k].i, answer, keys[k].key)) continue;
+      taken[k] = true;
+      if (place(a + 1)) return true;
+      taken[k] = false;
+    }
+    return false;
+  };
+  return place(0);
+}
+
+function fillCorrect(q, ua) {
+  if (!Array.isArray(ua) || !Array.isArray(q.blanks)) return false;
+  const groups = unorderedGroups(q);
+  const inGroup = new Set(groups.flat());
+  return groups.every((g) => groupCorrect(q, g, ua))
+    && q.blanks.every((b, i) => inGroup.has(i) || blankCorrect(q, i, ua[i], b));
+}
+
 export const isCorrect = (q, ua) => {
   if (ua === null || ua === undefined) return false;
   if (q.type === 'mcq' || q.type === 'tf') return ua === q.answer;
-  if (q.type === 'fill') {
-    if (!Array.isArray(ua)) return false;
-    return q.blanks.every((b, i) => {
-      const u = (ua[i] || '').toLowerCase().trim();
-      const bl = b.toLowerCase().trim();
-      if (u === bl) return true;
-      if (u.length < 3) return false;
-      // Writing MORE than the key is fine: "the lateral condyle" still names
-      // the lateral condyle.
-      if (u.includes(bl)) return true;
-      // Writing LESS used to be fine too, and that was the bug: any three
-      // characters of the key scored full marks. Measured on the corpus,
-      // 36 of 60 blanks accepted their own first three letters — "lat" for
-      // lateral condyle, "vas" for vastus lateralis, "ตับ" for ตับอ่อน,
-      // which is a different organ. A fragment is not an answer.
-      //
-      // Short-of-the-key is still allowed when it covers most of it, so a
-      // student who drops a qualifier ("reticuloperitonitis" for
-      // "traumatic reticuloperitonitis") is not punished for it.
-      return bl.includes(u) && u.length >= bl.length * 0.6;
-    });
-  }
+  if (q.type === 'fill') return fillCorrect(q, ua);
   if (q.type === 'match') {
     if (!ua || typeof ua !== 'object') return false;
     // รองรับทั้ง object {0:right} (เดิม) และ array [right, ...]
@@ -134,6 +272,19 @@ export const isAnswered = (ua) => {
  */
 export const answerOutcome = (q, ua) => {
   if (!isAnswered(ua)) return 'skipped';
+  return isCorrect(q, ua) ? 'correct' : 'wrong';
+};
+
+/**
+ * Review's bucket for a question: answerOutcome, plus 'self' for a written
+ * answer. Results keeps essays and short answers out of the score and says
+ * they are checked against the rubric; Review called them ✗ ผิด, because an
+ * essay is never auto-correct and 14 short items fail their own model answer
+ * on the keyword count. A written answer is graded by the student.
+ */
+export const reviewOutcome = (q, ua) => {
+  if (!isAnswered(ua)) return 'skipped';
+  if (isWritingType(q)) return 'self';
   return isCorrect(q, ua) ? 'correct' : 'wrong';
 };
 

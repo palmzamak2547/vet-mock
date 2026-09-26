@@ -1050,10 +1050,12 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
   const rPct = r.total > 0 ? Math.round((r.correct / r.total) * 100) : 0;
   const verdict = rPct > sPct ? 'win' : rPct < sPct ? 'lose' : 'tie';
   const verdictMeta = {
-    win:  { icon: 'trophy', label: 'คุณชนะ!',  copy: `${r.correct}/${r.total} ดีกว่า ${s.correct}/${s.total} ของผู้ส่ง, ขอบราเดอร์`, color: '#4a6b4a' },
-    lose: { icon: 'repeat', label: 'เกือบแล้ว', copy: `ผู้ส่งได้ ${s.correct}/${s.total}, คุณ ${r.correct}/${r.total} — ลองอีกชุดดู`, color: '#a73d4a' },
-    tie:  { icon: 'users', label: 'เสมอ',     copy: `ได้เท่ากัน ${r.correct}/${r.total} ทั้งคู่ — เพื่อนสนิทแล้ว`, color: '#b88940' },
+    win:  { icon: 'trophy', label: 'คุณชนะ!',  copy: `${r.correct}/${r.total} ดีกว่า ${s.correct}/${s.total} ของผู้ส่ง, ขอบราเดอร์`, tint: 'var(--clr-sage)', text: 'var(--clr-sage-text)' },
+    lose: { icon: 'repeat', label: 'เกือบแล้ว', copy: `ผู้ส่งได้ ${s.correct}/${s.total}, คุณ ${r.correct}/${r.total} — ลองอีกชุดดู`, tint: 'var(--clr-rose)', text: 'var(--clr-rose-text)' },
+    tie:  { icon: 'users', label: 'เสมอ',     copy: `ได้เท่ากัน ${r.correct}/${r.total} ทั้งคู่ — เพื่อนสนิทแล้ว`, tint: 'var(--clr-gold)', text: 'var(--clr-gold-text)' },
   }[verdict];
+  // Theme tokens, not fixed hex: the kicker and icon take the -text token
+  // (4.5:1 on the tint in both themes), the border and the tint the base.
 
   // Time race: only render when BOTH sides have a valid duration. With
   // the same score, faster wins. Otherwise time is informational only
@@ -1069,14 +1071,14 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
       marginTop: 18,
       padding: '14px 16px',
       borderRadius: 14,
-      background: `linear-gradient(135deg, ${verdictMeta.color}1f, ${verdictMeta.color}0d)`,
-      border: `2px solid ${verdictMeta.color}`,
+      background: `linear-gradient(135deg, color-mix(in srgb, ${verdictMeta.tint} 12%, transparent), color-mix(in srgb, ${verdictMeta.tint} 5%, transparent))`,
+      border: `2px solid ${verdictMeta.tint}`,
     }}>
-      <div className="vmx-kicker" style={{ color: verdictMeta.color, marginBottom: 6 }}>
+      <div className="vmx-kicker" style={{ color: verdictMeta.text, marginBottom: 6 }}>
         ผลการท้า {sender.senderName ? `จาก ${sender.senderName}` : 'จากเพื่อน'}
       </div>
       <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: hasTimes ? 12 : 0 }}>
-        <div style={{ display: 'inline-flex', flexShrink: 0, color: verdictMeta.color }} aria-hidden><NavIcon name={verdictMeta.icon} size={32} /></div>
+        <div style={{ display: 'inline-flex', flexShrink: 0, color: verdictMeta.text }} aria-hidden><NavIcon name={verdictMeta.icon} size={32} /></div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 18, color: 'var(--clr-ink)' }}>
             {verdictMeta.label}

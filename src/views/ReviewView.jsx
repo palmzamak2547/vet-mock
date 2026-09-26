@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
-import { isCorrect, isAnswered, answerOutcome, matchScore, subjectText } from '../hooks/utils.js';
+import { isAnswered, reviewOutcome, matchScore, subjectText } from '../hooks/utils.js';
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
@@ -138,8 +138,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
   // ones is brutal. Start with wrong/skipped work when present; all-correct
   // sessions fall back to the complete list.
   const [filter, setFilter] = useState(() => {
-    if (questions.some((q) => answerOutcome(q, answers[q.id]) === 'wrong')) return 'wrong';
-    if (questions.some((q) => answerOutcome(q, answers[q.id]) === 'skipped')) return 'skipped';
+    if (questions.some((q) => reviewOutcome(q, answers[q.id]) === 'wrong')) return 'wrong';
+    if (questions.some((q) => reviewOutcome(q, answers[q.id]) === 'skipped')) return 'skipped';
     return 'all';
   });
   const [expandedCorrect, setExpandedCorrect] = useState(() => new Set());
@@ -156,9 +156,9 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
   });
 
   const counts = useMemo(() => {
-    const c = { all: questions.length, correct: 0, wrong: 0, skipped: 0, bookmarked: 0, noted: 0 };
+    const c = { all: questions.length, correct: 0, wrong: 0, skipped: 0, self: 0, bookmarked: 0, noted: 0 };
     for (const q of questions) {
-      c[answerOutcome(q, answers[q.id])]++;
+      c[reviewOutcome(q, answers[q.id])]++;
       if (bookmarks?.includes(q.id)) c.bookmarked++;
       if (notes && notes[q.id]) c.noted++;
     }
@@ -172,7 +172,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
       switch (filter) {
         case 'correct':
         case 'wrong':
-        case 'skipped':    return answerOutcome(q, ua) === filter;
+        case 'skipped':
+        case 'self':       return reviewOutcome(q, ua) === filter;
         case 'bookmarked': return bookmarks?.includes(q.id);
         case 'noted':      return notes && notes[q.id];
         default:           return true;
@@ -211,6 +212,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
     { id: 'all',        label: 'ทั้งหมด',  icon: '📋', color: 'var(--clr-ink)' },
     { id: 'wrong',      label: 'ผิด',      icon: '✗',  color: 'var(--clr-rose-text)' },
     { id: 'correct',    label: 'ถูก',      icon: '✓',  color: 'var(--clr-sage-text)' },
+    { id: 'self',       label: 'ประเมินเอง', icon: '✎', color: 'var(--clr-gold-text)' },
     { id: 'skipped',    label: 'ข้าม',     icon: '⏭', color: 'var(--clr-ink-soft)' },
     { id: 'bookmarked', label: 'บันทึกไว้', icon: '★',  color: 'var(--clr-gold-text)' },
     { id: 'noted',      label: 'มีโน้ต',   icon: '📝', color: 'var(--clr-plum-text, #7d4a7d)' },
@@ -289,16 +291,18 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
       {visible.map((q, idx) => {
         const userAns = answers[q.id];
         const answered = isAnswered(userAns);
-        const correct = isCorrect(q, userAns);
+        // One rule with the counts and tabs above: a written answer is
+        // ประเมินเอง, never ✓ or ✗ from a keyword count.
+        const outcome = reviewOutcome(q, userAns);
+        const correct = outcome === 'correct';
         // match: แสดง partial เป็น wrong แต่มีแถบส้มถ้าได้บางส่วน (ให้กำลังใจ)
         const ms = q.type === 'match' && answered ? matchScore(q, userAns) : null;
         const isPartial = ms && ms.correct > 0 && ms.correct < ms.total;
-        const cls = !answered ? 'skipped' : (correct ? 'correct' : (isPartial ? 'skipped' : 'wrong'));
+        const cls = outcome === 'correct' ? 'correct' : (outcome === 'wrong' && !isPartial ? 'wrong' : 'skipped');
 
         // Build display strings (stripRichText so joined output doesn't show raw asterisks)
         // Defensive bounds check — guards against malformed answer indices
         let userDisplay = '—', correctDisplay = '';
-        const isOpen = q.type === 'essay' || (q.type === 'short' && (!q.keywords || q.keywords.length === 0));
         if (q.type === 'mcq') {
           const userOpt = answered && userAns >= 0 && userAns < (q.options?.length || 0) ? q.options[userAns] : null;
           const corrOpt = q.options?.[q.answer];
@@ -381,9 +385,9 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                   onClick={() => toggleBookmark(q.id)}>
                   {bookmarks.includes(q.id) ? '★' : '☆'}
                 </button>
-                <span className={`vmx-review-result ${correct ? 'ok' : (isOpen ? '' : (isPartial ? '' : 'no'))}`}
-                  style={isOpen ? { background: 'rgba(184, 137, 64, 0.15)', color: 'var(--clr-gold-text)' } : isPartial ? { background: 'rgba(184,137,64,.15)', color: 'var(--clr-gold-text)' } : undefined}>
-                  {!answered ? 'ข้าม' : isOpen ? 'ประเมินเอง' : (correct ? '✓ ถูก' : (isPartial ? `◐ ${ms.correct}/${ms.total}` : '✗ ผิด'))}
+                <span className={`vmx-review-result ${correct ? 'ok' : (outcome === 'self' || isPartial ? '' : 'no')}`}
+                  style={outcome === 'self' ? { background: 'rgba(184, 137, 64, 0.15)', color: 'var(--clr-gold-text)' } : isPartial ? { background: 'rgba(184,137,64,.15)', color: 'var(--clr-gold-text)' } : undefined}>
+                  {!answered ? 'ข้าม' : outcome === 'self' ? 'ประเมินเอง' : (correct ? '✓ ถูก' : (isPartial ? `◐ ${ms.correct}/${ms.total}` : '✗ ผิด'))}
                 </span>
               </div>
             </div>
