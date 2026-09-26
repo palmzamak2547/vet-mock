@@ -6,7 +6,7 @@ import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 // q-counts.js (~1 KB) replaces a static QB import that would have
 // dragged every per-subject Q chunk into this view's load graph.
 import { Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
-import { detectCurrentPhase } from './PhaseSelectView.jsx';
+import { detectCurrentPhase } from '../lib/current-phase.js';
 
 // ──────────────────────────────────────────────────────────────
 // YearSelectView — first-time front door for VetMock.
@@ -37,7 +37,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
       if (setSelectedPhase) setSelectedPhase(null);
       setView('home');
     } else {
-      if (setSelectedPhase) setSelectedPhase(detectCurrentPhase());
+      if (setSelectedPhase) setSelectedPhase(detectCurrentPhase(new Date(), y.id));
       setView(y.scaffold ? 'home' : 'phase-select');
     }
   };

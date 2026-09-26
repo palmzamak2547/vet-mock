@@ -2297,6 +2297,14 @@ html.dark .vmx-panic-scrim {
 }
 .vmx-exam-top-left { justify-self: start; display: flex; align-items: center; min-width: 0; }
 .vmx-exam-top-right { justify-self: end; display: flex; align-items: center; gap: 10px; min-width: 0; }
+/* The SHORT/WRITING chip beside the position. Its display lives here, not
+   inline, so the narrow-screen rule below can remove it. */
+.vmx-exam-type-chip { display: inline-flex; }
+/* Below 380 px there is no room for it beside the clock, and the card's own
+   type badge already says ตอบสั้น or เขียนบรรยาย. */
+@media (max-width: 379px) {
+  .vmx-exam-type-chip { display: none; }
+}
 .vmx-progress { font-family: var(--vmx-mono); font-size: 13px; color: var(--clr-ink-soft); }
 .vmx-progress strong { color: var(--clr-ink); font-size: 16px; }
 .vmx-timer { font-family: var(--vmx-mono); font-size: 16px; font-weight: 600; padding: 6px 14px; border-radius: 999px; background: var(--clr-surface); border: 1px solid var(--clr-border); color: var(--clr-ink); }
@@ -3276,7 +3284,11 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-dash-grid { grid-template-columns: 1fr; }
   .vmx-progress-bar { height: 6px; }
   .vmx-exam-top { gap: 8px; }
-  .vmx-exam-top-right { gap: 6px; }
+  /* The right track is a third of what the middle leaves. The clock plus the
+     live score is wider than that on a phone (✓ 10/12 beside a 78 px clock
+     needs 139 px at 320 px wide, the track has 107), and it spilled into the
+     position and the SHORT/WRITING chip. Wrapping keeps each piece inside. */
+  .vmx-exam-top-right { gap: 6px; flex-wrap: wrap; justify-content: flex-end; row-gap: 4px; }
   .vmx-options { gap: 8px; }
   .vmx-next-actions { padding: var(--space-3); border-radius: var(--r-lg); }
   .vmx-next-actions-header { align-items: start; margin-bottom: var(--space-2); }

@@ -6,6 +6,11 @@
 // Pure presentation — no listeners outside Esc/overlay; the key
 // bindings themselves live in App.jsx so the gating logic stays
 // centralised (view + input-target guards).
+//
+// Every row here is a key App.jsx answers on the exam screen, the only place
+// '?' opens this sheet. A flag key (F is True/False's "False" in an exam) and
+// the command palette (kept closed during an exam) were listed and did
+// nothing, so they are not.
 
 import { useModalFocus } from '../hooks/useModalFocus.js';
 
@@ -23,7 +28,6 @@ const SHORTCUTS = [
     items: [
       { keys: ['B'], label: 'บันทึก (bookmark)' },
       { keys: ['P'], label: 'หมุด (pin)' },
-      { keys: ['F'], label: 'ทำเครื่องหมาย (flag)' },
       { keys: ['1', '2', '3', '4', '5'], label: 'เลือกตัวเลือก (MCQ)' },
       { keys: ['T', 'F'], label: 'True / False' },
     ],
@@ -31,7 +35,6 @@ const SHORTCUTS = [
   {
     section: 'Tools',
     items: [
-      { keys: ['⌘K', 'Ctrl+K'], label: 'Command palette' },
       { keys: ['?'], label: 'แสดง / ปิด keyboard shortcut sheet' },
     ],
   },
@@ -209,7 +212,7 @@ export default function ShortcutSheet({ open, onClose }) {
             textAlign: 'center',
           }}
         >
-          กด <Kbd>?</Kbd> ในหน้า exam หรือ review เพื่อเปิด/ปิด
+          กด <Kbd>?</Kbd> ระหว่างทำข้อสอบเพื่อเปิด/ปิด
         </p>
       </div>
     </div>

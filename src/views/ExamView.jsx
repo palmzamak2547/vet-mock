@@ -90,7 +90,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         <div className="vmx-progress">
           <strong>{currentIdx + 1}</strong> / {questions.length}
           {(currentQ?.type === 'essay' || currentQ?.type === 'short') && (
-            <span style={{
+            <span className="vmx-exam-type-chip" style={{
               marginLeft: 8,
               padding: '2px 8px',
               borderRadius: 999,
@@ -100,7 +100,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
               fontWeight: 700,
               fontFamily: 'var(--vmx-mono)',
               letterSpacing: '0.06em',
-              display: 'inline-flex', alignItems: 'center', gap: 4, verticalAlign: 'middle',
+              alignItems: 'center', gap: 4, verticalAlign: 'middle',
             }}>
               <NavIcon name="pen" size={12} /> {currentQ.type === 'essay' ? 'WRITING' : 'SHORT'}
             </span>
@@ -198,7 +198,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
       <ConfirmDialog
         open={confirmExit}
         title="ออกจากชุดนี้?"
-        body={`ความคืบหน้า${answeredCount > 0 ? ` ${answeredCount} จาก ${questions.length} ข้อ` : ''} จะถูกเก็บไว้ที่หน้าแรก กดทำต่อเพื่อกลับมาข้อเดิมได้ภายใน 6 ชั่วโมง`}
+        body={`ความคืบหน้า${answeredCount > 0 ? ` ${answeredCount} จาก ${questions.length} ข้อ` : ''} จะถูกเก็บไว้ที่หน้าแรก กดทำต่อเพื่อกลับมาข้อเดิมได้ภายใน 6 ชั่วโมง${useTimer ? ' เวลาที่เหลือจะหยุดนับจนกว่าจะกลับมาทำต่อ' : ''}`}
         confirmLabel="เก็บไว้แล้วออก"
         cancelLabel="ทำต่อ"
         onConfirm={() => { setConfirmExit(false); goHome(); }}

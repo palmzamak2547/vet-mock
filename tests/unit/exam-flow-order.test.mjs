@@ -116,6 +116,10 @@ function appAt(state = {}) {
     selectedYear: 5, selectedPhase: null,
     customQuestions: [], bookmarks: [], analytics: null, history: [], QB: [],
     finishingRef: { current: false },
+    // App's own guard (it reads refs this harness does not model). Here the
+    // student has nothing unfinished, or agreed to drop it.
+    confirmReplaceUnfinished: async () => true,
+    setSessionKind() {}, setChallengeSender() {},
     setPendingResume() {}, setQbReady() {}, setQbRevision() {},
     setSubject() {}, setTopic() {}, setPracticeMode() {}, setUseTimer() {}, setTimePerQ() {},
     setMode: record('setMode'),
@@ -148,6 +152,15 @@ const higher = { id: 207575, subject: 'equine-medicine', topic: 'audit-b', type:
 // Arrays built inside the lifted code belong to another realm; compare copies.
 const ids = (qs) => Array.from(qs, (q) => q.id);
 const missed = (q, i) => ({ subject: q.subject, questionId: q.id, correct: false, date: 1_000_000 + i });
+
+// ── B63 ──────────────────────────────────────────────────────────────
+
+test('a student who keeps the unfinished set starts nothing', async () => {
+  const app = appAt({ QB: [lower, higher], confirmReplaceUnfinished: async () => false });
+  app.startExam({ practiceMode: 'all', subject: 'all', topic: null, questionCategory: 'all', numQuestions: 1, useTimer: false });
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(app.calls.find((c) => c.start), undefined, 'the tour and the Home launchers replaced a parked set without asking');
+});
 
 // ── EX-03 ────────────────────────────────────────────────────────────
 

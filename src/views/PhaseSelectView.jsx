@@ -1,14 +1,15 @@
 import Mochi from '../components/Mochi.jsx';
 import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
+import { detectCurrentPhase } from '../lib/current-phase.js';
 
 // PhaseSelectView — second step of the year picker.
 // After user picks a year, they pick a 4-quadrant exam phase:
 //   เทอม 1 กลางภาค, เทอม 1 ปลายภาค, เทอม 2 กลางภาค, เทอม 2 ปลายภาค
 //
 // Each card shows # subjects tagged with that semester + LIVE state.
-// Auto-suggests the most likely current phase via month heuristic
-// (Aug-Oct = 1-mid, Oct-Dec = 1-final, Jan-Mar = 2-mid, Mar-May = 2-final).
+// Recommends the paper still ahead in the year's timetable (lib/current-phase.js);
+// the month heuristic only answers for dates the timetable does not cover.
 // Y6 is block-based (no fixed semester) — bypasses this view in App routing.
 
 // `sub` says what the choice actually scopes. It used to read
@@ -22,28 +23,16 @@ import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 // paper we KNOW belongs to the other exam is removed, and a topic whose paper
 // is not yet mapped is still shown rather than silently withheld.
 const PHASES = [
-  { id: '1-mid',   semester: 1, label: 'เทอม 1 กลางภาค',   sub: 'วิชาเทอม 1 ไม่รวมเนื้อหาปลายภาค', icon: '📚', months: [8, 9, 10] },
-  { id: '1-final', semester: 1, label: 'เทอม 1 ปลายภาค',   sub: 'วิชาเทอม 1 ไม่รวมเนื้อหากลางภาค', icon: '🎯', months: [11, 12] },
-  { id: '2-mid',   semester: 2, label: 'เทอม 2 กลางภาค',   sub: 'วิชาเทอม 2 ไม่รวมเนื้อหาปลายภาค', icon: '📖', months: [2, 3] },
-  { id: '2-final', semester: 2, label: 'เทอม 2 ปลายภาค',   sub: 'วิชาเทอม 2 ไม่รวมเนื้อหากลางภาค', icon: '🏁', months: [4, 5] },
+  { id: '1-mid',   semester: 1, label: 'เทอม 1 กลางภาค',   sub: 'วิชาเทอม 1 ไม่รวมเนื้อหาปลายภาค', icon: '📚' },
+  { id: '1-final', semester: 1, label: 'เทอม 1 ปลายภาค',   sub: 'วิชาเทอม 1 ไม่รวมเนื้อหากลางภาค', icon: '🎯' },
+  { id: '2-mid',   semester: 2, label: 'เทอม 2 กลางภาค',   sub: 'วิชาเทอม 2 ไม่รวมเนื้อหาปลายภาค', icon: '📖' },
+  { id: '2-final', semester: 2, label: 'เทอม 2 ปลายภาค',   sub: 'วิชาเทอม 2 ไม่รวมเนื้อหากลางภาค', icon: '🏁' },
 ];
-
-export function detectCurrentPhase(now = new Date()) {
-  const m = now.getMonth() + 1; // 1-12
-  const found = PHASES.find((p) => p.months.includes(m));
-  if (found) return found.id;
-  // Uncovered months are semester breaks, and in a break the useful answer is
-  // the phase you are walking INTO, not the one that just ended. June-July is
-  // the long break before semester 1 (a student on 31 July is studying for
-  // เทอม 1 กลางภาค, not the เทอม 2 final they sat in May); January is the gap
-  // before semester 2's midterm.
-  return m === 1 ? '2-mid' : '1-mid';
-}
 
 export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, setSelectedPhase, setView }) {
   const yearMeta = YEARS.find((y) => y.id === selectedYear);
   const subjects = SUBJECTS_BY_YEAR[selectedYear] || [];
-  const currentPhase = detectCurrentPhase();
+  const currentPhase = detectCurrentPhase(new Date(), selectedYear);
 
   return (
     <>
@@ -80,7 +69,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
                 borderColor: isPicked ? accent : (isCurrent ? 'var(--clr-rose)' : undefined),
                 position: 'relative',
               }}
-              title={isCurrent ? 'ช่วงที่ระบบแนะนำจากเดือนปัจจุบัน' : ''}
+              title={isCurrent ? 'ช่วงสอบที่กำลังจะมาถึงตามตารางสอบ' : ''}
             >
               <div className="icon">{p.icon}</div>
               <div className="title">{p.label}</div>
@@ -116,7 +105,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
         textAlign: 'center',
         lineHeight: 1.6,
       }}>
-        ระบบแนะนำช่วงสอบจากเดือนปัจจุบัน คุณเลือกช่วงอื่นได้ตลอด
+        ระบบแนะนำช่วงสอบที่กำลังจะมาถึงตามตารางสอบ คุณเลือกช่วงอื่นได้ตลอด
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>

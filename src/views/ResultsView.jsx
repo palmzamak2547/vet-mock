@@ -157,6 +157,9 @@ export default function ResultsView({
   // app parses `?sc=…&by=…` and passes the parsed payload. Drives the
   // post-exam comparison panel + win/lose framing.
   challengeSender,
+  // 'redo' for the wrong-answer round opened from this page: its keys were
+  // just on screen, so it never sets a personal best.
+  sessionKind,
   // Round 3 2026-05-18: examStartTime → compute receiver elapsed time
   // for "เทียบคะแนน/เวลา" (Phase 5 spec). When this user later shares
   // the same set, their own time goes into the URL for THEIR receiver.
@@ -233,7 +236,7 @@ export default function ResultsView({
     try {
       const subj = questions[0]?.subject;
       const allSameSubj = subj && questions.every((q) => q.subject === subj);
-      if (allSameSubj && score.total >= 5) {
+      if (sessionKind !== 'redo' && allSameSubj && score.total >= 5) {
         const raw = window.localStorage.getItem('vmx-personal-best');
         const map = raw ? JSON.parse(raw) : {};
         const prev = map[subj] || 0;

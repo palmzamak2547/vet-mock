@@ -17,7 +17,7 @@
     "src/components/QComments.jsx": 2,
     "src/components/Question.jsx": 7,
     "src/components/QuestsPanel.jsx": 3,
-    "src/components/ShortcutSheet.jsx": 3,
+    "src/components/ShortcutSheet.jsx": 2,
     "src/components/VoiceSettings.jsx": 1,
     "src/views/AboutView.jsx": 6,
     "src/views/AccountSettingsView.jsx": 32,

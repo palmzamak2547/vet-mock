@@ -31,6 +31,7 @@ import { useExamSession } from './hooks/useExamSession.js';
 import { shuffle, isCorrect, downloadJSON, updateStreak, timeForQuestion, isWritingType } from './hooks/utils.js';
 import { getCardStats } from './hooks/sm2.js';
 import { isFlashcardCompatible } from './hooks/sr-filter.js';
+import { keyAnswerLocked, answeredCount, practicePreset, leavesReader, srPoolQuestions, questionPinPayload, unfinishedWork } from './lib/app-flow.js';
 // Global stylesheet. 2026-05-27: converted from a JS template-literal
 // export (src/styles.js, injected via <style>{STYLES}</style>) to a real
 // CSS file Vite handles natively. Kills the backtick-in-comment fragility
@@ -785,11 +786,17 @@ export default function App() {
   // A glossary card's "ข้อที่เกี่ยวข้อง N ข้อ" hands up the ids it counted.
   // Without this listener the button dispatched into nothing: it looked
   // like a working control and did not move the app at all.
+  //
+  // Through a ref refreshed every render. The listener is registered once,
+  // and a direct startExam here was the FIRST render's copy, built while auth
+  // was still resolving: it stamped sessionOwner=null on the set, and a
+  // signed-in student could answer every question and never submit it.
+  const startExamRef = useRef(null);
   useEffect(() => {
     const onOpenRelated = (e) => {
       const ids = e?.detail?.ids;
       if (!Array.isArray(ids) || ids.length === 0) return;
-      startExam({ onlyIds: ids, practiceMode: 'all', subject: 'all', topic: null });
+      startExamRef.current?.({ onlyIds: ids, practiceMode: 'all', subject: 'all', topic: null });
     };
     window.addEventListener('vmx:open-related-qs', onOpenRelated);
     return () => window.removeEventListener('vmx:open-related-qs', onOpenRelated);
@@ -1009,6 +1016,9 @@ export default function App() {
   // was detected. Lives in App so HomeView (and any future entry points)
   // can read + handle resume/dismiss without re-querying localStorage.
   const [pendingResume, setPendingResume] = useState(null);
+  // 'redo' for a round of the questions whose key the results page just
+  // showed. It is review, not a run: no leaderboard row, no personal best.
+  const [sessionKind, setSessionKind] = useState('normal');
   // Feedback prefill — populated when a contextual entry (e.g. scaffold
   // subject card) routes to feedback. FeedbackView reads it on mount,
   // then clears so a manual revisit isn't pre-stuffed with old context.
@@ -1210,11 +1220,12 @@ export default function App() {
       // the session clock and resumes per-question, so nobody mid-exam has the
       // rules changed by a deploy.
       clock: session.clockKind(),
+      sessionKind,
     };
     if (Date.now() - inflightWrittenAtRef.current >= 3000) { writeInflight(); return undefined; }
     const timer = setTimeout(writeInflight, 500);
     return () => clearTimeout(timer);
-  }, [view, questions, answers, currentIdx, questionDeadline, examStartTime, examSessionId, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase, writeInflight]);
+  }, [view, questions, answers, currentIdx, questionDeadline, examStartTime, examSessionId, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase, sessionKind, writeInflight]);
   useEffect(() => {
     const onHide = () => writeInflight();
     window.addEventListener('pagehide', onHide);
@@ -1259,7 +1270,10 @@ export default function App() {
     setPendingResume({
       submitted: !!saved.submitted,
       qCount: saved.questions.length,
-      answered: Object.keys(saved.answers || {}).length,
+      // Answers that say something. A blank the student typed into and then
+      // cleared is still a key in the record; the exit and submit dialogs
+      // never counted it, so the card must not either.
+      answered: answeredCount(saved.answers),
       // The timestamp, not a precomputed age: this is read once when the
       // effect runs, so a stored "5 นาทีที่แล้ว" stayed 5 no matter how long
       // the home screen was left open. The card works it out at render.
@@ -1300,6 +1314,7 @@ export default function App() {
     if ('selectedPhase' in saved) setSelectedPhase(saved.selectedPhase);
     if (typeof saved.useTimer === 'boolean') setUseTimer(saved.useTimer);
     if (Number.isFinite(saved.timePerQ)) setTimePerQ(saved.timePerQ);
+    setSessionKind(saved.sessionKind === 'redo' ? 'redo' : 'normal');
     setPendingResume(null);
     finishingRef.current = false; // arm the finish latch for the resumed session
     setView(saved.submitted ? 'results' : 'exam');
@@ -1347,6 +1362,11 @@ export default function App() {
       if (typeof document !== 'undefined' && document.querySelector('.vmx-modal-overlay')) return;
       const q = questions[currentIdx];
       if (!q) return;
+      // Practice with instant feedback shows the key the moment a choice is
+      // made, and the click path then refuses a second pick. The keys must
+      // refuse it too: pressing the correct row's digit after seeing it
+      // replaced a wrong answer, flipped the card to correct and scored it so.
+      const locked = keyAnswerLocked(q, answers[q.id], { mode, instantFeedback });
       // One digit per visible row, bounded below by how many rows this
       // question has. 1,427 questions in the bank carry five options, and
       // the old '1'..'4' list left their fifth row unreachable by keyboard.
@@ -1361,9 +1381,9 @@ export default function App() {
         const displayIdx = parseInt(e.key, 10) - 1;
         // A 3-option question has no row 4. Storing 3 there used to count as
         // answered while matching no option at all.
-        if (displayIdx < displayToOriginal.length) answerCurrent(displayToOriginal[displayIdx]);
+        if (!locked && displayIdx < displayToOriginal.length) answerCurrent(displayToOriginal[displayIdx]);
       }
-      else if (q.type === 'tf') {
+      else if (q.type === 'tf' && !locked) {
         if (e.key === 't' || e.key === 'T') answerCurrent(true);
         if (e.key === 'f' || e.key === 'F') answerCurrent(false);
       }
@@ -1390,24 +1410,21 @@ export default function App() {
     // changes (and those callbacks read from current state via setState
     // updaters / memo-stable identities).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [view, currentIdx, questions, paletteOpen]);
+  }, [view, currentIdx, questions, paletteOpen, answers, mode, instantFeedback]);
 
-  // Linear-style power-user shortcuts — J/K/B/P/F/?. Gated to exam +
-  // review views so they don't interfere with HomeView/Notes typing.
-  // Skipped on INPUT/TEXTAREA/CONTENTEDITABLE targets so users typing
-  // a note or answer don't trigger navigation. Also yields to the
-  // command palette + shortcut sheet (so '?' inside the sheet closes
-  // it through Esc, not double-toggles).
+  // Power-user shortcuts for the exam screen: J/K to move, P to pin, ? for the
+  // sheet that lists them. Skipped on INPUT/TEXTAREA/CONTENTEDITABLE targets
+  // so a student typing an answer does not navigate, and yields to the
+  // command palette and the sheet itself ('?' closes the sheet).
   //
-  // Exam-only collisions handled:
-  //   - B already toggles bookmark in the exam-only handler above, so
-  //     here we only fire B in 'review' to avoid double-toggle.
-  //   - F doubles as the True/False "False" key in exam (q.type==='tf'),
-  //     so we only treat F as flag in 'review'.
-  // P, J, K, ? have no collisions and fire in both views.
+  // Exam only. In review the question on screen is not questions[currentIdx]
+  // (ReviewView lists the whole set and currentIdx is where the student
+  // submitted), so B there bookmarked a question they were not looking at,
+  // and J/K/P/F dispatched events nothing listened for. F is the True/False
+  // "False" key in an exam and B lives in the handler above.
   useEffect(() => {
     const handleKey = (e) => {
-      if (view !== 'exam' && view !== 'review') return;
+      if (view !== 'exam') return;
       if (paletteOpen || shortcutSheetOpen) {
         // Allow '?' to act as a toggle even when sheet is open — closes it
         if (shortcutSheetOpen && e.key === '?') {
@@ -1434,64 +1451,74 @@ export default function App() {
       }
       if (k === 'j' || k === 'J') {
         e.preventDefault();
-        if (view === 'exam') { if (currentIdx < questions.length - 1) nextQ(); else window.dispatchEvent(new CustomEvent('vmx-exam-submit-request')); }
-        else if (view === 'review') {
-          // ReviewView owns its own navigation. Emit an event so it can
-          // listen and step forward without us reaching into its state.
-          try { window.dispatchEvent(new CustomEvent('vmx-review-next')); } catch {}
-        }
+        if (currentIdx < questions.length - 1) nextQ(); else window.dispatchEvent(new CustomEvent('vmx-exam-submit-request'));
         return;
       }
       if (k === 'k' || k === 'K') {
         e.preventDefault();
-        if (view === 'exam') prevQ();
-        else if (view === 'review') {
-          try { window.dispatchEvent(new CustomEvent('vmx-review-prev')); } catch {}
-        }
+        prevQ();
         return;
       }
-      if (k === 'p' || k === 'P') {
-        // Pin — Question.jsx owns PinButton state; dispatch event with the
-        // current questionId so it can pick up the right card.
-        try {
-          window.dispatchEvent(new CustomEvent('vmx-q-pin-toggle', {
-            detail: { questionId: q?.id ?? null },
-          }));
-        } catch {}
-        return;
-      }
-      if (view === 'review' && (k === 'b' || k === 'B')) {
-        // Bookmark in review — exam handler covers exam view.
-        if (q?.id != null) toggleBookmark(q.id);
-        return;
-      }
-      if (view === 'review' && (k === 'f' || k === 'F')) {
-        // Flag — emit event; whoever listens (Question.jsx flag UI) opens
-        // its own prompt. Exam handler treats F as TF answer so we skip.
-        try {
-          window.dispatchEvent(new CustomEvent('vmx-q-flag-toggle', {
-            detail: { questionId: q?.id ?? null },
-          }));
-        } catch {}
+      if ((k === 'p' || k === 'P') && q?.id != null) {
+        // The pinboard itself, with the payload the card's own pin writes:
+        // every PinButton for this question hears the change and redraws.
+        // It used to dispatch an event no component listened for.
+        e.preventDefault();
+        const pin = questionPinPayload(q);
+        import('./lib/pinboard.js').then(({ addPin, removePinByKey, isPinned, payloadKey, PINBOARD_MAX }) => {
+          const key = payloadKey(pin.type, pin.payload);
+          const saved = isPinned(pin.type, key) ? removePinByKey(pin.type, key) : addPin(pin);
+          if (!saved) { alertDialog('บันทึก Pinboard ไม่สำเร็จ พื้นที่ในเครื่องอาจเต็ม กรุณาลองใหม่'); return; }
+          if (saved.evicted?.length) {
+            const dropped = saved.evicted[0]?.label;
+            alertDialog(dropped
+              ? `กระดานเต็ม ${PINBOARD_MAX} รายการแล้ว จึงเอารายการที่เก่าสุดออก: ${dropped}`
+              : `กระดานเต็ม ${PINBOARD_MAX} รายการแล้ว จึงเอารายการที่เก่าสุดออกให้`);
+          }
+        }).catch(() => {});
         return;
       }
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-    // Same TDZ caveat as the exam handler above — nextQ/prevQ/toggleBookmark
-    // are declared later in this component. Closure read at fire time is OK.
+    // Same TDZ caveat as the exam handler above — nextQ/prevQ are declared
+    // later in this component. Closure read at fire time is OK.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view, currentIdx, questions, paletteOpen, shortcutSheetOpen]);
+
+  // The student's own cards (Highlight → Flashcard, cloze, image occlusion)
+  // are in the SR session's pool, so they belong in Home's due count too: a
+  // student whose only due cards were their own saw nothing due on Home and a
+  // full session behind the button. Loaded off the boot path, and again when
+  // the cards change or Home is shown.
+  // `recordFor` is the session's own lookup (srCardFor): a renumbered card of
+  // the student's keeps its review history under its old id, and reading only
+  // srCards[q.id] counted a reviewed card as new.
+  const [userSr, setUserSr] = useState({ cards: [], recordFor: null });
+  const onHome = view === 'home';
+  useEffect(() => {
+    let alive = true;
+    const load = () => Promise.all([import('./lib/user-flashcards.js'), import('./lib/image-occlusion.js')])
+      .then(([cards, occlusion]) => {
+        if (alive) setUserSr({ cards: [...cards.loadUserFlashcards(), ...occlusion.loadOcclusionCards()], recordFor: cards.srCardFor });
+      })
+      .catch(() => {});
+    load();
+    const events = ['vmx-user-flashcards-changed', 'vmx-image-occlusion-changed', 'vmx-palette-invalidate'];
+    events.forEach((name) => window.addEventListener(name, load));
+    return () => { alive = false; events.forEach((name) => window.removeEventListener(name, load)); };
+  }, [user?.id, onHome]);
 
   const cardStats = useMemo(() => {
     // Only count SR-eligible questions so the Home dashboard "X due"
     // badge matches what SRSessionView will actually serve.
     const pool = {};
-    allQuestions.filter(isFlashcardCompatible).forEach((q) => {
-      pool[q.id] = srCards[q.id] || { nextReview: Date.now(), totalReviews: 0, repetitions: 0, interval: 0 };
+    srPoolQuestions(allQuestions, [], userSr.cards, isFlashcardCompatible).forEach((q) => {
+      const record = userSr.recordFor ? userSr.recordFor(srCards, q) : srCards[q.id];
+      pool[q.id] = record || { nextReview: Date.now(), totalReviews: 0, repetitions: 0, interval: 0 };
     });
     return getCardStats(pool);
-  }, [srCards, allQuestions]);
+  }, [srCards, allQuestions, userSr]);
 
   const analytics = useMemo(() => {
     if (!history.length) return null;
@@ -1616,12 +1643,43 @@ export default function App() {
   // Use `'key' in overrides` so callers can explicitly pass null (e.g.,
   // topic: null means "no topic filter"); `??` would default null back
   // to the state value.
+  // A new set is autosaved under the same key as the set before it, so
+  // starting one throws the other away. The redo round always asked first;
+  // the tour's last button, the Home launchers, the palette and a glossary
+  // card's related questions (from inside an exam, too) did not. Nothing
+  // answered means nothing to lose, and then nobody is asked.
+  const confirmReplaceUnfinished = async () => {
+    let work = null;
+    if (viewRef.current === 'exam') {
+      const live = sessionRef.current;
+      work = unfinishedWork({ questions: live?.questions, answers: live?.answers });
+      if (!work) return true;
+      return confirmDialog({
+        title: 'มีชุดที่กำลังทำอยู่',
+        body: `ตอบไปแล้ว ${work.answered}/${work.total} ข้อ ถ้าเริ่มชุดใหม่ตอนนี้ ชุดที่ทำอยู่จะถูกทิ้ง`,
+        confirmLabel: 'เริ่มชุดใหม่ ทิ้งชุดเดิม', cancelLabel: 'กลับไปทำชุดเดิม',
+      });
+    }
+    try { work = unfinishedWork(readOwnedExam(window.localStorage, eventContextRef.current?.owner ?? null)); } catch { work = null; }
+    if (!work) return true;
+    return confirmDialog({
+      title: 'มีชุดข้อสอบที่ทำค้างไว้',
+      body: `ทำไว้ ${work.answered}/${work.total} ข้อ ถ้าเริ่มชุดใหม่ตอนนี้ ชุดนั้นจะถูกทิ้ง`,
+      confirmLabel: 'เริ่มชุดใหม่ ทิ้งชุดเดิม', cancelLabel: 'ยังไม่เริ่ม',
+    });
+  };
+
   const startExam = async (overrides = {}) => {
+    if (!(await confirmReplaceUnfinished())) return;
     finishingRef.current = false; // arm the finish latch for a fresh session
     // A new set replaces whatever was saved, so the resume card's numbers
     // (captured once at boot) would otherwise describe a session that no
     // longer exists — and its "ทำต่อ" button would find nothing to resume.
     setPendingResume(null);
+    setSessionKind('normal');
+    // A friend's challenge is about the set their link opened. Carried into
+    // the next set, it compared an unrelated score with theirs.
+    setChallengeSender(null);
     let _practiceMode = 'practiceMode' in overrides ? overrides.practiceMode : practiceMode;
     const _subject = 'subject' in overrides ? overrides.subject : subject;
     const _topic = 'topic' in overrides ? overrides.topic : topic;
@@ -1848,6 +1906,7 @@ export default function App() {
     // it disagree with HomeView's streak, which is derived from real answer
     // history. It now happens in finishExam, where practice actually happened.
   };
+  startExamRef.current = startExam;
 
   const finishExam = async () => {
     if (authLoading || session.sessionOwner !== (user?.id ?? null)) {
@@ -1894,7 +1953,9 @@ export default function App() {
       }
     });
     const years = new Set(autoQs.map(q => q.year ?? yearForSubject(q.subject) ?? selectedYear));
-    const runResult = user && autoQs.length ? {
+    // A redo round answers questions whose key was on screen a moment ago.
+    // Its history still counts; a leaderboard run it is not.
+    const runResult = user && autoQs.length && sessionKind !== 'redo' ? {
       id: examSessionId, user_id: user.id, mode, subject,
       total: autoQs.length, correct, pct: Math.round(correct / autoQs.length * 100),
       duration_sec: examStartTime ? Math.max(0, Math.round((completedAt - examStartTime) / 1000)) : 0,
@@ -2199,6 +2260,22 @@ export default function App() {
       if (pdfLibraryReturnPath) setPdfLibraryReturnPath(null);
     }
   }, [view, libraryDoc, pdfLibraryReturnPath]);
+  // Leaving the reader by ANY route forgets the deck and where its back went.
+  // Only the reader's own back button used to: after the bottom nav, the
+  // sidebar or browser Back, "เขียนบน PDF" reopened the old deck, and
+  // "เปิดคลังเอกสาร" in the empty reader returned to the last topic screen.
+  // Only a transition out of the reader clears, so the render where a cover
+  // has handed over its deck but the view has not flipped yet is untouched.
+  const readerPrevViewRef = useRef(view);
+  useEffect(() => {
+    const prev = readerPrevViewRef.current;
+    readerPrevViewRef.current = view;
+    if (leavesReader(prev, view)) {
+      setLibraryDoc(null);
+      setPdfLibraryReturnPath(null);
+      setPdfReturnView('library');
+    }
+  }, [view]);
   // The reader is keyed by account, so a sign-out in another tab remounted it
   // as a guest still holding the deck the previous student had open. Close
   // the shelf document when a signed-in owner changes (sign-out, or another
@@ -2228,6 +2305,15 @@ export default function App() {
       : '/app/library');
     setView('pdf-annotate');
   };
+  // The empty reader's "เปิดคลังเอกสาร" and a shelf file under ไฟล์ล่าสุด go
+  // to the shelf. returnToLibrary is the way BACK, to wherever the open deck
+  // came from; with no deck open, that origin is stale.
+  const openLibraryFromReader = () => {
+    setLibraryDoc(null);
+    setPdfLibraryReturnPath(null);
+    setPdfReturnView('library');
+    setView('library');
+  };
   const returnToLibrary = () => {
     const path = pdfLibraryReturnPath || '/app/library';
     const target = pdfReturnView;
@@ -2238,6 +2324,10 @@ export default function App() {
   };
 
   const goHome = () => {
+    // Park the set as it stands right now. The autosave is throttled, and its
+    // savedAt is what a resumed clock counts from: without this the resumed
+    // set lost up to three seconds of answers and got back time it had spent.
+    writeInflight();
     setView('home');
     finishingRef.current = false; // clear the finish latch on leaving
     // Reset exam runtime (clears questions/answers/currentIdx + timer)
@@ -2321,25 +2411,32 @@ export default function App() {
   // is handled by session.replayQuestions; the App-only side effects
   // (setUseTimer false → redo rounds run untimed, setView('exam') →
   // route transition) wrap around it.
-  const replayQuestions = useCallback(async (qs) => {
+  // `redo` marks the results page's "แก้ข้อที่ผิด" round: the key to every
+  // question in it was just on screen, so it runs in practice mode with
+  // feedback and does not count as a run (see finishExam and ResultsView).
+  // Any round drops a friend's challenge: that belonged to the set its link
+  // opened, and carried over it compared an unrelated score with theirs.
+  const replayQuestions = useCallback(async (qs, { redo = false } = {}) => {
     if (!Array.isArray(qs) || qs.length === 0) return;
     // A parked mock (the Home "ทำต่อ" card) sits under the very key this round
     // is about to autosave to. Ask before throwing it away, as goHome does.
     // Owner and view come from refs: this callback is memoised once.
     if (viewRef.current !== 'exam') {
-      let parked = null;
-      try { parked = readOwnedExam(window.localStorage, eventContextRef.current?.owner ?? null); } catch { parked = null; }
-      if (parked && !parked.submitted && parked.questions?.length) {
-        const answered = Object.keys(parked.answers || {}).length;
+      let work = null;
+      try { work = unfinishedWork(readOwnedExam(window.localStorage, eventContextRef.current?.owner ?? null)); } catch { work = null; }
+      if (work) {
         const ok = await confirmDialog({
           title: 'มีชุดข้อสอบที่ทำค้างไว้',
-          body: `ทำไว้ ${answered}/${parked.questions.length} ข้อ ถ้าเปิดข้อนี้ตอนนี้ ชุดนั้นจะถูกทิ้ง`,
+          body: `ทำไว้ ${work.answered}/${work.total} ข้อ ถ้าเปิดข้อนี้ตอนนี้ ชุดนั้นจะถูกทิ้ง`,
           confirmLabel: 'เปิดข้อนี้ ทิ้งชุดเดิม', cancelLabel: 'กลับไปทำชุดเดิม',
         });
         if (!ok) return;
       }
     }
     finishingRef.current = false; // arm the finish latch for the redo round
+    setSessionKind(redo ? 'redo' : 'normal');
+    if (redo) setMode('quick');
+    setChallengeSender(null);
     setUseTimer(false); // redo rounds never on a clock — focused review
     // Through the ref, NOT the closure. This callback is memoised once, so a
     // direct `session.replayQuestions` was the first render's binding, whose
@@ -2365,6 +2462,8 @@ export default function App() {
   // current render, and an empty-dep useCallback here would pin the first
   // render's empty bank forever — the same trap that once stamped a null owner
   // onto a whole exam set.
+  const replayWrongRound = useCallback((qs) => replayQuestions(qs, { redo: true }), [replayQuestions]);
+
   const openQuestionById = async (id) => {
     if (!id) return false;
     // Compare as strings. Bank ids are numbers, but the callers are storage
@@ -2737,7 +2836,7 @@ export default function App() {
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, questionDeadline, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
-              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions, challengeSender, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
+              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions: replayWrongRound, challengeSender, sessionKind, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki }} />}
               {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
@@ -2771,7 +2870,7 @@ export default function App() {
                   initialDoc={libraryDoc}
                   onExit={libraryDoc || pdfLibraryReturnPath ? returnToLibrary : null}
                   exitLabel={pdfReturnView === 'topic-select' ? 'กลับหน้าหัวข้อ' : pdfReturnView === 'wrapup' ? 'กลับหน้า wrap-up' : 'กลับคลังเอกสาร'}
-                  onOpenLibrary={returnToLibrary}
+                  onOpenLibrary={openLibraryFromReader}
                 />
               )}
               {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setTopic, setPracticeMode, onOpenQuestion: openQuestionById, notes, selectedYear, selectedPhase }} />}
@@ -2841,12 +2940,19 @@ export default function App() {
             onOpenQuestion={openQuestionById}
             onOpenLibraryDoc={openLibraryReader}
             onPractice={(inv) => {
-              setMode(inv.mode || 'quick');
-              setSubject(inv.subject || 'all');
-              setPracticeMode(inv.practiceMode || 'all');
-              if (inv.numQuestions != null) setNumQuestions(inv.numQuestions);
-              if (inv.useTimer != null) setUseTimer(inv.useTimer);
-              if (inv.timePerQ != null) setTimePerQ(inv.timePerQ);
+              // Cross-subject, so no topic: one left over from browsing kept
+              // scoping the "รวมทุกวิชา" set to that topic, as startMockExam
+              // already knew. The palette also opens over the config screen,
+              // where a Panic set may be pending; this is not one.
+              const p = practicePreset(inv);
+              setMode(p.mode);
+              setSubject(p.subject);
+              setTopic(p.topic);
+              setPanicPending(false);
+              setPracticeMode(p.practiceMode);
+              if (p.numQuestions != null) setNumQuestions(p.numQuestions);
+              if (p.useTimer != null) setUseTimer(p.useTimer);
+              if (p.timePerQ != null) setTimePerQ(p.timePerQ);
               setView('config');
             }}
             signedIn={!!user}

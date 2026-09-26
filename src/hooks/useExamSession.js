@@ -41,6 +41,7 @@ import { timeForQuestion, isWritingType } from './utils.js';
 import { confirmDialog } from '../lib/dialog.js';
 import { inflightExamKey, isOwnedExam } from '../lib/exam-recovery.js';
 import { secondsUntilDeadline } from '../lib/exam-clock.js';
+import { resumedDeadline } from '../lib/app-flow.js';
 import { createQuestionTiming, newStudySessionId, validSessionId } from '../lib/study-events.js';
 
 /**
@@ -302,9 +303,14 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     // per-question: their deadline IS a per-question one, and treating it as a
     // whole-paper deadline would end someone's exam the moment they reopened it.
     sessionClockRef.current = saved.clock === 'session';
-    if (Number.isFinite(saved.questionDeadline) && saved.questionDeadline > 0) {
-      setQuestionDeadline(saved.questionDeadline);
-      setTimeUp(secondsUntilDeadline(saved.questionDeadline) <= 0);
+    // The clock stood still while the set was parked. A wall-clock deadline
+    // ran on through it, so an exam paper left for an hour was submitted, with
+    // every blank marked, the moment ทำต่อ opened it; the exit dialog had
+    // promised the student would come back to the same question.
+    const deadline = resumedDeadline(saved);
+    if (deadline !== null) {
+      setQuestionDeadline(deadline);
+      setTimeUp(secondsUntilDeadline(deadline) <= 0);
     } else if (sessionClockRef.current) {
       setTimeLeft(budgetFor(saved.questions));
     } else {

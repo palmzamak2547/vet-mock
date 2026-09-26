@@ -52,6 +52,7 @@ import FeatureMenu from '../components/FeatureMenu.jsx';
 import Mochi from '../components/Mochi.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import { truncateThai } from '../lib/thai-text.js';
+import { practicePreset } from '../lib/app-flow.js';
 import { EXAM_SCOPE_LABELS, examScopeForPhase } from '../lib/question-prediction.js';
 // QuestsPanel — Duolingo-style daily quests. Lazy because most users
 // won't need it on first paint, and it pulls in quests + xp libs
@@ -1660,12 +1661,16 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           // Registry 'practice' invoke → set up a config flow (same as the
           // primary mode cards). Lands on ConfigView so count/timer can be
           // tweaked before starting. Mirrors App.startExam's overrides path.
-          setMode?.(inv.mode);
-          setSubject?.(inv.subject || 'all');
-          setPracticeMode?.(inv.practiceMode || 'all');
-          if (inv.numQuestions != null) setNumQuestions?.(inv.numQuestions);
-          if (inv.useTimer != null) setUseTimer?.(inv.useTimer);
-          if (inv.timePerQ != null) setTimePerQ?.(inv.timePerQ);
+          // The topic is cleared: Home can be reached with one still set from
+          // a subject's topic screen, and it scoped the "รวมทุกวิชา" set to it.
+          const p = practicePreset(inv);
+          setMode?.(p.mode);
+          setSubject?.(p.subject);
+          setTopic?.(p.topic);
+          setPracticeMode?.(p.practiceMode);
+          if (p.numQuestions != null) setNumQuestions?.(p.numQuestions);
+          if (p.useTimer != null) setUseTimer?.(p.useTimer);
+          if (p.timePerQ != null) setTimePerQ?.(p.timePerQ);
           setView('config');
         }}
       />
