@@ -10,14 +10,14 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 6664;
+export const QB_TOTAL = 6663;
 export const QB_SOURCE_TOTAL = 6731;
-export const QB_BLOCKED_TOTAL = 67;
+export const QB_BLOCKED_TOTAL = 68;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 412,
   'avian-medicine': 519,
-  'biochem-1': 272,
+  'biochem-1': 271,
   'cliapprum': 136,
   'com1': 31,
   'com2': 42,
@@ -67,7 +67,7 @@ export const Q_COUNTS_BY_SUBJECT = {
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 412,
   'avian-medicine': 519,
-  'biochem-1': 272,
+  'biochem-1': 271,
   'cliapprum': 134,
   'com1': 31,
   'com2': 42,
@@ -117,7 +117,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
 export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 299,
   'avian-medicine': 216,
-  'biochem-1': 272,
+  'biochem-1': 271,
   'cliapprum': 8,
   'com1': 31,
   'com2': 42,
@@ -162,7 +162,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
   midterm: {
     'aquatic-clinic': 210,
     'avian-medicine': 201,
-    'biochem-1': 272,
+    'biochem-1': 271,
     'cliapprum': 8,
     'com1': 4,
     'com2': 14,
@@ -200,7 +200,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
   final: {
     'aquatic-clinic': 89,
     'avian-medicine': 60,
-    'biochem-1': 272,
+    'biochem-1': 271,
     'cliapprum': 8,
     'com1': 31,
     'com2': 39,
@@ -286,7 +286,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'zoonoses': 113,
   },
   '2-mid': {
-    'biochem-1': 272,
+    'biochem-1': 271,
     'cliapprum': 134,
     'com3': 359,
     'com4': 291,
@@ -309,7 +309,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vet-pharm-2': 62,
   },
   '2-final': {
-    'biochem-1': 272,
+    'biochem-1': 271,
     'cliapprum': 134,
     'com3': 359,
     'com4': 291,
@@ -345,14 +345,14 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     5: 1227,
   },
   '2-mid': {
-    1: 298,
+    1: 297,
     2: 40,
     3: 62,
     4: 1633,
     5: 589,
   },
   '2-final': {
-    1: 298,
+    1: 297,
     2: 40,
     3: 62,
     4: 1633,
@@ -916,7 +916,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
   '2-mid': {
     'biochem-1': {
       'lab-carbohydrate': 7,
-      'lab-chromatography': 10,
+      'lab-chromatography': 9,
       'lab-dna': 6,
       'lab-electrophoresis': 12,
       'lab-equipment': 5,
@@ -1151,7 +1151,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
   '2-final': {
     'biochem-1': {
       'lab-carbohydrate': 7,
-      'lab-chromatography': 10,
+      'lab-chromatography': 9,
       'lab-dna': 6,
       'lab-electrophoresis': 12,
       'lab-equipment': 5,
@@ -1778,7 +1778,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
   '2-mid': {
     'biochem-1': {
       'lab-carbohydrate': 7,
-      'lab-chromatography': 10,
+      'lab-chromatography': 9,
       'lab-dna': 6,
       'lab-electrophoresis': 12,
       'lab-equipment': 5,
@@ -1920,7 +1920,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
   '2-final': {
     'biochem-1': {
       'lab-carbohydrate': 7,
-      'lab-chromatography': 10,
+      'lab-chromatography': 9,
       'lab-dna': 6,
       'lab-electrophoresis': 12,
       'lab-equipment': 5,
@@ -2062,7 +2062,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
 };
 
 export const Q_COUNTS_BY_YEAR = {
-  1: 298,
+  1: 297,
   2: 144,
   3: 62,
   4: 2076,
@@ -2074,7 +2074,7 @@ export const Q_COUNTS_BY_YEAR = {
 // UI deliberately hides, so showing it next to per-subject cards made
 // the same screen disagree with itself by up to 106 questions.
 export const Q_VISIBLE_COUNTS_BY_YEAR = {
-  1: 298,
+  1: 297,
   2: 144,
   3: 62,
   4: 1981,
@@ -2133,7 +2133,7 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "biochem-1": {
     "lab-carbohydrate": 7,
-    "lab-chromatography": 10,
+    "lab-chromatography": 9,
     "lab-dna": 6,
     "lab-electrophoresis": 12,
     "lab-equipment": 5,
@@ -2770,7 +2770,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   },
   "biochem-1": {
     "lab-carbohydrate": 7,
-    "lab-chromatography": 10,
+    "lab-chromatography": 9,
     "lab-dna": 6,
     "lab-electrophoresis": 12,
     "lab-equipment": 5,
@@ -3230,4 +3230,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-26T06:44:04.168Z
+// Built: 2026-09-26T16:59:26.266Z
