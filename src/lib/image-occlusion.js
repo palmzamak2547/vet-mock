@@ -29,8 +29,8 @@ import { readLocalExtra, writeLocalExtra } from './local-extras.js';
 //   • Built-in QB Qs    : 1 – 49999
 //   • Reserved buffer   : 50000 – 59999 (legacy/seeded)
 //   • customQuestions   : 60000 – 69999
-//   • user flashcards   : 70000+
-//   • image occlusion   : 80000+        ← this module
+//   • user flashcards   : 9_070_000+ (see user-flashcards.js)
+//   • image occlusion   : 80000 – 89999 ← this module (banks resume at 90000)
 //
 // Card IDs are deck.id + mask.slot, and a deck reserves a 100-id window
 // because nextDeckId() spaces deck ids by ID_STRIDE. Both parts are fixed
@@ -183,15 +183,51 @@ export function findDeck(deckId) {
   return loadDecks().find((d) => d.id === deckId) || null;
 }
 
-/** Returns max(existing ids) + 1, floored to ID_START. */
+// Bank questions start again at 90000, so every window must end below it.
+const ID_MAX = 89999;
+const SR_CARDS_KEY = 'vmx-sr-cards';
+
+/** Card ids that already carry a review schedule, read-only. */
+function scheduledIds() {
+  try {
+    const raw = window.localStorage?.getItem(SR_CARDS_KEY);
+    const cards = raw ? JSON.parse(raw) : null;
+    if (!cards || typeof cards !== 'object' || Array.isArray(cards)) return [];
+    return Object.keys(cards).map(Number).filter((n) => n >= ID_START && n <= ID_MAX);
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * A window of ID_STRIDE card ids that no stored deck uses and no review
+ * schedule points into, or null when none is left.
+ *
+ * It used to be max(remaining ids) + ID_STRIDE. Deleting the newest deck (or
+ * the only one) and making another handed the new deck the deleted deck's id,
+ * so its first cards opened with the deleted cards' intervals: hidden from
+ * review for days and counted as reviewed. srCards is cloud-synced, so reading
+ * it also keeps a window another device reviewed out of reach. A deleted deck
+ * nobody reviewed left nothing behind, and its window may be reused.
+ */
 function nextDeckId() {
   const list = readRaw();
+  const deckIds = list.filter((d) => d && typeof d.id === 'number').map((d) => d.id);
+  const scheduled = scheduledIds();
+  const taken = (base) => deckIds.some((id) => Math.abs(id - base) < ID_STRIDE)
+    || scheduled.some((id) => id >= base && id < base + ID_STRIDE);
+  const fits = (base) => base + ID_STRIDE - 1 <= ID_MAX;
   let max = ID_START - 1;
-  for (const d of list) {
-    if (d && typeof d.id === 'number' && d.id > max) max = d.id;
-  }
+  for (const id of deckIds) if (id > max) max = id;
   // Reserve ID_STRIDE per deck so masks get disjoint card-ids.
-  return Math.max(ID_START, max + ID_STRIDE);
+  for (let base = Math.max(ID_START, max + ID_STRIDE); fits(base); base += ID_STRIDE) {
+    if (!taken(base)) return base;
+  }
+  // The windows above every deck are spent: take the lowest free one.
+  for (let base = ID_START; fits(base); base += ID_STRIDE) {
+    if (!taken(base)) return base;
+  }
+  return null;
 }
 
 /**
@@ -210,6 +246,7 @@ export function saveDeck(deck) {
   const now = Date.now();
   const isNew = typeof deck.id !== 'number';
   const id = isNew ? nextDeckId() : deck.id;
+  if (id === null) return null; // every card-id window is spent
   // A mask that comes back without its slot (a caller that serialised only
   // geometry and text) keeps the slot the stored copy gave it, matched by
   // mask id. Otherwise a save renumbered the survivors from zero and a later

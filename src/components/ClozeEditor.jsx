@@ -31,7 +31,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { parseCloze, expandCloze, maxClozeIndex } from '../lib/cloze.js';
-import { saveClozeText } from '../lib/user-flashcards.js';
+import { saveClozeText, CARD_STORAGE_FULL_MESSAGE } from '../lib/user-flashcards.js';
 import { thaiError } from '../lib/errors.js';
 
 export default function ClozeEditor({
@@ -123,7 +123,7 @@ export default function ClozeEditor({
       // marks when the real problem is a full localStorage sends them to fix
       // something that is not broken.
       if (cards === null) {
-        setError('บันทึกไม่สำเร็จ เบราว์เซอร์นี้เก็บข้อมูลเพิ่มไม่ได้ ลองลบการ์ดเก่าหรือปิดโหมดไม่ระบุตัวตน');
+        setError(CARD_STORAGE_FULL_MESSAGE);
         return;
       }
       if (cards.length === 0) {

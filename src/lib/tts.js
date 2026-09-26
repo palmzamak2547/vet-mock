@@ -398,7 +398,9 @@ function safeSplit(text) {
   if (text.length <= SAFE_CHUNK_LIMIT) return [text];
   const out = [];
   let buf = '';
-  for (const part of text.split(/(?<=[.!?]\s)/)) {
+  // Each piece ends after a sentence mark and its space. No lookbehind:
+  // WebKit before 16.4 cannot parse one and the whole module would fail.
+  for (const part of text.match(/[^.!?]*(?:[.!?](?!\s)[^.!?]*)*(?:[.!?]\s|[.!?]?$)/g).filter(Boolean)) {
     if ((buf + part).length > SAFE_CHUNK_LIMIT && buf) {
       out.push(buf.trim());
       buf = part;

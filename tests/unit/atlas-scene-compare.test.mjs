@@ -160,7 +160,15 @@ function world(layout = 'desktop') {
     devicePixelRatio: 2,
     matchMedia: () => ({ matches: true }),
   });
-  const doc = Object.assign(new Events(), { hidden: false, documentElement: {} });
+  const doc = Object.assign(new Events(), {
+    hidden: false,
+    documentElement: {},
+    // exportView draws onto a 2D canvas and hands onExport its PNG blob.
+    createElement: () => ({
+      getContext: () => new Proxy({}, { get: () => () => {}, set: () => true }),
+      toBlob: (done) => done({ type: 'image/png' }),
+    }),
+  });
   const initial = w.layout(false);
   w.dom = {
     host: element(initial.host),
@@ -501,4 +509,80 @@ test('the page keeps the ready primary on screen while a new comparison loads', 
   const picker = view.slice(start, view.indexOf('</select>', start));
   assert.ok(picker.includes('compareId: e.target.value'));
   assert.ok(!picker.includes('setStatus'), 'choosing a comparison resets the whole stage to loading');
+});
+
+// ── B22: a rebuild never runs a command again ──────────────────────────────
+// The renderer effect started with lastCommand = null, so the first applyState
+// after a rebuild treated the student's last command as new. After
+// "บันทึกภาพพร้อมอ้างอิง", switching quality, a hash/Back specimen change or the
+// retry remount downloaded another PNG nobody asked for, taken before the
+// camera was restored.
+test('a quality switch, a specimen restore or a retry after export downloads nothing new', async () => {
+  const w = world();
+  const dog = specimen('dog'), horse = specimen('horse');
+  let exports = 0;
+  const scene = loadScene(w);
+  scene.render({ ...baseProps(w, dog, null), onExport: () => { exports += 1; } });
+  await w.settle();
+  scene.render({ command: { kind: 'export', seq: 1 } });
+  await w.settle();
+  assert.equal(exports, 1, 'the tap exports once');
+  scene.render({ quality: 'detail' });
+  await w.settle();
+  assert.equal(w.renderers.length, 2, 'quality still rebuilds');
+  assert.equal(exports, 1, 'switching quality downloaded another PNG');
+  scene.render({ specimen: horse, selected: horse.parts[0].id, visibleIds: ids(horse) });
+  await w.settle();
+  assert.equal(exports, 1, 'a hash/Back specimen restore downloaded another PNG');
+  scene.remount();
+  await w.settle();
+  assert.equal(exports, 1, 'a remount downloaded another PNG');
+  scene.render({ command: { kind: 'export', seq: 2 } });
+  await w.settle();
+  assert.equal(exports, 2, 'a new tap still exports');
+  scene.unmount();
+});
+
+test('a new command issued during a rebuild still runs', async () => {
+  const w = world();
+  const dog = specimen('dog');
+  let exports = 0;
+  const scene = loadScene(w);
+  scene.render({ ...baseProps(w, dog, null), onExport: () => { exports += 1; } });
+  await w.settle();
+  scene.render({ quality: 'detail' });
+  scene.render({ command: { kind: 'export', seq: 1 } });
+  await w.settle();
+  assert.equal(exports, 1);
+  scene.unmount();
+});
+
+// ── B41: the scene shows Thai, whatever threw ───────────────────────────────
+test('a model that fails with an English error shows a Thai line', async () => {
+  for (const failure of [new TypeError('Failed to fetch'), new Error('THREE.GLTFLoader: Unexpected token'), new Error('Invalid atlas asset descriptor.')]) {
+    const w = world();
+    const dog = specimen('dog'), horse = specimen('horse');
+    w.globals.loadAtlasAsset = async () => { throw failure; };
+    const scene = loadScene(w);
+    scene.render(baseProps(w, dog, horse));
+    await w.settle();
+    const status = lastStatus(w);
+    assert.equal(status.kind, 'error');
+    for (const view of status.views) {
+      assert.match(view.message, /[฀-๿]/, `"${failure.message}" reached the student`);
+      assert.doesNotMatch(view.message, /[A-Za-z]{4,}/, `"${view.message}" carries English`);
+    }
+    scene.unmount();
+  }
+});
+
+test('a Thai message from the loader is shown as it is', async () => {
+  const w = world();
+  const dog = specimen('dog');
+  w.globals.loadAtlasAsset = async () => { throw new Error('ดาวน์โหลดโมเดลมาไม่ครบ'); };
+  const scene = loadScene(w);
+  scene.render(baseProps(w, dog, null));
+  await w.settle();
+  assert.equal(lastStatus(w).message, 'ดาวน์โหลดโมเดลมาไม่ครบ');
+  scene.unmount();
 });

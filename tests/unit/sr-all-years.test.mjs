@@ -22,6 +22,7 @@ import vm from 'node:vm';
 import { isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
 import { isFlashcardCompatible } from '../../src/hooks/sr-filter.js';
 import { initCard, getDueCards } from '../../src/hooks/sm2.js';
+import { srCardFor } from '../../src/lib/user-flashcards.js';
 
 const read = (rel) => readFileSync(new URL(`../../${rel}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const SR = read('src/views/SRSessionView.jsx');
@@ -83,7 +84,7 @@ async function openSR({ yearScope, network = 'up' }) {
   function render() {
     const scope = vm.createContext({
       QB: bank.QB, isQBFullyLoaded: bank.isQBFullyLoaded,
-      isQuestionDeliverable, isFlashcardCompatible, initCard, getDueCards,
+      isQuestionDeliverable, isFlashcardCompatible, initCard, getDueCards, srCardFor,
       loadUserFlashcards: () => [], loadOcclusionCards: () => [],
       customQuestions, qbReady: true, qbRevision: app.qbRevision, selectedYear: 5,
       loadAllYears,

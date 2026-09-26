@@ -57,7 +57,11 @@ export default function AtlasScene({
       lost = false,
       syncing = false,
       activeIndex = 0,
-      lastCommand = null;
+      // A rebuild (quality, specimen, retry) adopts the command already on
+      // screen as done. Starting from null ran it again on load: after an
+      // export, switching quality downloaded a second PNG. The initial reset
+      // needs no command, since every load fits with reset below.
+      lastCommand = latest.current.command;
     let displayedExplosion = latest.current.exploded,
       targetExplosion = displayedExplosion,
       lastMotionTime = performance.now();
@@ -539,9 +543,15 @@ export default function AtlasScene({
         if (!live()) return;
         states[index] = {
           kind: 'error',
+          // Only a message written in Thai reaches the student; a browser,
+          // GLTFLoader or validator error in English becomes the Thai line.
           message: view.abort.signal.aborted
             ? 'โหลดโมเดลนานเกินไป ลองใหม่เมื่ออินเทอร์เน็ตพร้อม'
-            : error.message || 'เปิดโมเดลไม่ได้ ลองใหม่ได้',
+            : /[฀-๿]/.test(error?.message || '')
+              ? error.message
+              : globalThis.navigator?.onLine === false
+                ? 'ออฟไลน์อยู่ โมเดลนี้ยังไม่ได้เก็บไว้ในเครื่อง ลองใหม่เมื่ออินเทอร์เน็ตพร้อม'
+                : 'เปิดโมเดลไม่ได้ ลองใหม่ได้',
         };
         emit();
       } finally {

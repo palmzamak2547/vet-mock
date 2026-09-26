@@ -4,7 +4,7 @@
 // Pure functions. No localStorage, no React. Storage is handled
 // by user-flashcards.js (cloze cards live alongside manual
 // flashcards in the same `vmx-user-flashcards` array, distinct
-// only by `type: 'cloze'` and ID range 75000–79999).
+// only by `type: 'cloze'`; the id ranges are defined in user-flashcards.js).
 //
 // Cloze syntax:
 //   "RER = 30 × {{c1::BW}} + {{c2::70}}"

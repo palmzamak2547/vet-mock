@@ -67,15 +67,16 @@ export function answersInHourRange(history, fromHour, toHour) {
 /**
  * Which badges this student has earned.
  *
- * @param {object} src  history, srCards, bookmarks, customQuestions, stats
+ * @param {object} src  history, srCards, stats, and the counts the history
+ *   cannot tell: contributions, panicAnswers, groupCount, raceWins
  * @returns {Array<{id, label, src, why}>} earned only, in display order
  */
 export function earnedBadges({
   history = [],
   srCards = {},
-  customQuestions = [],
   stats = null,
   contributions = 0,
+  panicAnswers = 0,
   groupCount = 0,
   raceWins = 0,
 } = {}) {
@@ -101,14 +102,18 @@ export function earnedBadges({
     ['streak-30', streak >= 30, `ทำข้อสอบต่อเนื่อง ${streak} วัน`],
     ['questions-100', answered >= 100, `ทำไปแล้ว ${answered.toLocaleString()} ข้อ`],
     ['questions-1000', answered >= 1000, `ทำไปแล้ว ${answered.toLocaleString()} ข้อ`],
-    // The exact counts: 199/200 rounds to 100 but is not every one right.
-    ['perfect', (stats?.qCount || 0) >= 10 && stats?.correct === stats?.qCount, 'มีชุดที่ถูกทุกข้อ'],
-    ['panic-survivor', (stats?.qCount || 0) >= 50, `ทำ ${stats?.qCount || 0} ข้อในช่วงสอบนี้`],
+    // One set (10 answers or more) with none wrong, not the whole window.
+    ['perfect', (stats?.perfectSets || 0) >= 1, 'มีชุดที่ถูกทุกข้อ'],
+    // History rows carry no mode, so the caller passes how many answers were
+    // given in Panic Mode; any 50 answers are not "รอดจาก Panic Mode".
+    ['panic-survivor', panicAnswers >= 50, `ทำ ${panicAnswers} ข้อใน Panic Mode`],
     ['night-owl', nightAnswers >= 50, `ทำข้อสอบหลังสี่ทุ่ม ${nightAnswers} ข้อ`],
     ['early-bird', earlyAnswers >= 50, `ทำข้อสอบก่อนแปดโมง ${earlyAnswers} ข้อ`],
     ['corrected-mistakes', corrected >= 20, `กลับไปแก้ข้อที่เคยผิดได้ ${corrected} ข้อ`],
     ['review-cycle', reviewedCards >= 50, `ทบทวนการ์ดครบรอบ ${reviewedCards} ใบ`],
-    ['contributor', (contributions || customQuestions.length) >= 1, 'ส่งเนื้อหาเข้ามาช่วยเติมคลัง'],
+    // Submissions to the shared bank only: a private custom question is never
+    // sent anywhere, so it does not make "ส่งเนื้อหาเข้ามาช่วยเติมคลัง" true.
+    ['contributor', contributions >= 1, 'ส่งเนื้อหาเข้ามาช่วยเติมคลัง'],
     ['study-group', groupCount >= 1, 'อยู่ในกลุ่มติว'],
     ['race-winner', raceWins >= 1, 'ชนะการแข่งอย่างน้อยหนึ่งครั้ง'],
     ['exam-finished', stats?.phaseCompleted === true, 'ผ่านช่วงสอบนี้มาแล้ว'],

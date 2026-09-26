@@ -145,6 +145,11 @@ export function useIdlePrefetch() {
       import('../views/SubjectSelectView.jsx').catch(() => {});
       import('../views/ConfigView.jsx').catch(() => {});
       import('../views/ScheduleView.jsx').catch(() => {});
+      // The offline banner's "เล่นเกม" opens this view, and it only appears
+      // once the device is offline: a chunk first asked for then cannot load,
+      // and the tap landed on "หน้านี้ขัดข้อง". Warmed now, the worker's
+      // cache-first /assets/ route has it for the offline tap.
+      import('../views/OfflineGameView.jsx').catch(() => {});
       // FacultyView is not on this list on purpose: it carries the whole
       // instructor directory (~330 KB, ~75 KB gzipped), which is exactly
       // the kind of chunk this prefetch exists to keep off the boot path.

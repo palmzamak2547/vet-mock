@@ -12,7 +12,7 @@ import { useLocalStorage } from '../hooks/useStorage.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
-import { loadUserFlashcards } from '../lib/user-flashcards.js';
+import { loadUserFlashcards, srCardFor } from '../lib/user-flashcards.js';
 // Wave-4 card types — each lib produces Q-shaped objects with a
 // distinct `type` so the renderer below can dispatch to the right
 // React component. Storage + ID ranges are owned by the libs (cloze
@@ -128,7 +128,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     // bare-id keyed (no migration); the runtime annotation is enough to
     // pick the right Q for display.
     eligible.forEach((q) => {
-      const card = srCards[q.id] || initCard(q.id);
+      const card = srCardFor(srCards, q) || initCard(q.id);
       pool[q.id] = { ...card, subject: q.subject };
     });
     const due = getDueCards(pool);
@@ -150,16 +150,16 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   // current subject filter — keeps Total/Mastered consistent with what
   // the user can actually see in SR.
   const stats = useMemo(() => {
-    const eligibleIds = new Set();
+    const eligible = new Map();
     let inSubject = subjectFilter === 'all'
       ? allQuestions
       : allQuestions.filter((q) => q.subject === subjectFilter);
     if (yearScope === 'current' && subjectFilter === 'all') {
       inSubject = inSubject.filter((q) => q.year == null || q.year === selectedYear);
     }
-    inSubject.filter(isFlashcardCompatible).forEach((q) => eligibleIds.add(q.id));
+    inSubject.filter(isFlashcardCompatible).forEach((q) => { if (!eligible.has(q.id)) eligible.set(q.id, q); });
     const filtered = {};
-    for (const id of eligibleIds) if (srCards[id]) filtered[id] = srCards[id];
+    for (const [id, q] of eligible) { const card = srCardFor(srCards, q); if (card) filtered[id] = card; }
     return getCardStats(filtered);
   }, [srCards, allQuestions, subjectFilter, yearScope, selectedYear]);
 
@@ -388,16 +388,15 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
   // A re-queued relearn copy is the PRE-Again snapshot; the grade already
   // reads the live record, the interval previews on the buttons did not.
-  const liveCard = (currentCard && srCards[currentCard.questionId])
-    ? { ...srCards[currentCard.questionId] }
-    : currentCard;
+  const liveRecord = currentCard ? srCardFor(srCards, { ...currentQ, id: currentCard.questionId }) : undefined;
+  const liveCard = liveRecord ? { ...liveRecord } : currentCard;
 
   const handleGrade = (quality) => {
     const token = `${reviewSessionId}:${currentIdx}`;
     if (gradedRef.current === token) return;
     let event;
     const result = setSrCards(current => {
-      const { _relearn: _runtime, ...before } = current[currentCard.questionId] || initCard(currentCard.questionId);
+      const { _relearn: _runtime, ...before } = srCardFor(current, { ...currentQ, id: currentCard.questionId }) || initCard(currentCard.questionId);
       const updated = updateCard(before, quality);
       event = createReviewEvent({ question: currentQ, quality, before, after: updated,
         sessionId: reviewSessionId, elapsedMs: timingRef.current.snapshot()[currentQ.id] || 0 });

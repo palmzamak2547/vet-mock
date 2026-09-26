@@ -24,8 +24,11 @@ import PomodoroChick from './PomodoroChick.jsx';
 import FocusBackdrop from './FocusBackdrop.jsx';
 import StudyBreak from './StudyBreak.jsx';
 import { MotionButton } from './MotionFeedback.jsx';
+import {
+  VISIBILITY_GRACE_MS, phaseMinutes, statusLabel, runEndsAt, escapedWhileAway,
+  loadRun, saveRun, markRunAway,
+} from '../lib/pomodoro-run.js';
 
-const VISIBILITY_GRACE_MS = 5_000; // 5 s — survives glances at notifications
 const FOCUS_PER_CYCLE = 4; // every 4th focus → long break
 
 // --- Audio: best-effort WebAudio beep ------------------------------------
@@ -85,40 +88,35 @@ function formatClock(ms) {
 // draws the same four stages as real artwork and decides them from
 // `progress` itself.)
 
-function statusLabel(state, strictFocus = true) {
-  switch (state) {
-    case 'idle':
-      return strictFocus
-        ? 'พร้อมเริ่ม — กด Start เพื่อฟักลูกไก่ (Strict Mode: ห้ามออกจากหน้าเกิน 5 วินาที)'
-        : 'พร้อมเริ่ม — กด Start เพื่อเริ่มโฟกัส (Relaxed Mode)';
-    case 'focus':
-      return strictFocus
-        ? 'กำลังโฟกัส — อย่าออกจากหน้านี้เกิน 5 วินาทีนะ ไก่จะหนี!'
-        : 'กำลังโฟกัส — สลับแอปอ่าน PDF/สรุปได้ตามสะดวก 📚';
-    case 'shortBreak':
-      return 'พักสายตา 5 นาที';
-    case 'longBreak':
-      return 'พักยาว 15 นาที — เก่งมาก! 🌻';
-    case 'failed':
-      return 'ลูกไก่หนีไปแล้ว! เริ่มใหม่อีกครั้ง';
-    default:
-      return '';
-  }
-}
+// (statusLabel lives in lib/pomodoro-run.js: the break lines used to be the
+// literals "5 นาที" / "15 นาที" whatever the student had set.)
 
 export default function PomodoroTimer({ config, onSessionComplete }) {
   const reduced = usePrefersReducedMotion();
 
+  // A session that was running when the student opened another screen comes
+  // back from storage (lib/pomodoro-run.js); the wall clock does the rest.
+  const [loaded] = useState(loadRun);
+  // A Strict Mode focus left (another screen, hidden tab) for longer than the
+  // grace comes back failed, decided before the first render so the expiry
+  // effect below cannot also record it as completed.
+  const [escapedOnRestore] = useState(() => Boolean(
+    loaded?.state === 'focus' && loaded.strict && escapedWhileAway(loaded.awaySince),
+  ));
+  const restored = escapedOnRestore ? null : loaded;
+
   // State machine
-  const [state, setState] = useState('idle'); // 'idle' | 'focus' | 'shortBreak' | 'longBreak' | 'failed'
-  const [focusCount, setFocusCount] = useState(0); // # of completed focus sessions this run
+  const [state, setState] = useState(escapedOnRestore ? 'failed' : (restored?.state || 'idle')); // 'idle' | 'focus' | 'shortBreak' | 'longBreak' | 'failed'
+  const [focusCount, setFocusCount] = useState((restored || loaded)?.focusCount || 0); // # of completed focus sessions this run
   const [ambience, setAmbience] = useState('rain');
 
   // Wall-clock anchors
-  const [startedAt, setStartedAt] = useState(null);
-  const [pauseStartedAt, setPauseStartedAt] = useState(null);
-  const [pausedAcc, setPausedAcc] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [startedAt, setStartedAt] = useState(restored?.startedAt ?? null);
+  const [pauseStartedAt, setPauseStartedAt] = useState(restored?.pauseStartedAt ?? null);
+  const [pausedAcc, setPausedAcc] = useState(restored?.pausedAcc || 0);
+  const [paused, setPaused] = useState(restored?.paused || false);
+  // Minutes the running phase started with; a slider change applies next phase.
+  const [runMin, setRunMin] = useState(restored?.runMin ?? null);
 
   // Force re-render every second while a timer state is active
   const [, setTickN] = useState(0);
@@ -126,14 +124,14 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
   // Visibility escape bookkeeping
   const escapeTimerRef = useRef(null);
   const hiddenSinceRef = useRef(null);
+  const restoreHandledRef = useRef(false);
 
   // Pick total ms for the current state
   const totalMs = useMemo(() => {
-    if (state === 'focus') return (config?.focusMin || 25) * 60_000;
-    if (state === 'shortBreak') return (config?.shortBreakMin || 5) * 60_000;
-    if (state === 'longBreak') return (config?.longBreakMin || 15) * 60_000;
-    return (config?.focusMin || 25) * 60_000; // idle preview
-  }, [state, config]);
+    const active = state === 'focus' || state === 'shortBreak' || state === 'longBreak';
+    if (active && runMin > 0) return runMin * 60_000;
+    return phaseMinutes(active ? state : 'focus', config) * 60_000; // idle preview
+  }, [state, runMin, config]);
 
   // Pure: compute remaining ms from wall clock
   const computeRemaining = useCallback(() => {
@@ -160,29 +158,79 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
     if (!isTimerActive || paused) return;
     if (remainingMs > 0) return;
     if (state === 'focus') {
-      const focusMin = config?.focusMin || 25;
+      const focusMin = runMin || phaseMinutes('focus', config);
       const nextCount = focusCount + 1;
       setFocusCount(nextCount);
       onSessionComplete?.({ durationMin: focusMin, completed: true });
       playTone(880, 220);
       // Every 4th focus → long break, else short break
       const goLong = nextCount % FOCUS_PER_CYCLE === 0;
-      setStartedAt(Date.now());
+      const next = goLong ? 'longBreak' : 'shortBreak';
+      // The break starts when the focus ended, not when this screen noticed:
+      // a session that finished while the student was elsewhere in VetMock
+      // resumes at the right point of its break (or finishes it too).
+      setStartedAt(runEndsAt({ startedAt, pausedAcc, runMin: focusMin }));
+      setRunMin(phaseMinutes(next, config));
       setPausedAcc(0);
       setPauseStartedAt(null);
       setPaused(false);
-      setState(goLong ? 'longBreak' : 'shortBreak');
+      setState(next);
     } else if (state === 'shortBreak' || state === 'longBreak') {
       playTone(540, 180);
       // Return to idle — let the user decide whether to start another focus
       setStartedAt(null);
+      setRunMin(null);
       setPausedAcc(0);
       setPauseStartedAt(null);
       setPaused(false);
       setState('idle');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [remainingMs, isTimerActive, paused, state, focusCount, config?.focusMin]);
+  }, [remainingMs, isTimerActive, paused, state, focusCount, runMin]);
+
+  // Strict Mode escape: the session fails and is recorded as not completed.
+  const reportEscape = useCallback((minutes) => {
+    // Later than now: on a remount this runs before PomodoroView's listener.
+    setTimeout(() => {
+      try {
+        window.dispatchEvent(new Event('vmx-pomodoro-failed'));
+      } catch {
+        /* ignore */
+      }
+    }, 0);
+    onSessionComplete?.({ durationMin: minutes || phaseMinutes('focus', config), completed: false });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onSessionComplete, config?.focusMin]);
+
+  const failFocus = useCallback((minutes) => {
+    reportEscape(minutes);
+    setStartedAt(null);
+    setRunMin(null);
+    setPausedAcc(0);
+    setPauseStartedAt(null);
+    setPaused(false);
+    setState('failed');
+  }, [reportEscape]);
+
+  // --- Persist the running session (survives other VetMock screens) ------
+  useEffect(() => {
+    saveRun(isTimerActive ? {
+      state, startedAt, runMin, pausedAcc, paused, pauseStartedAt, focusCount,
+      strict: config?.strictFocus !== false,
+    } : null);
+  }, [isTimerActive, state, startedAt, runMin, pausedAcc, paused, pauseStartedAt, focusCount, config?.strictFocus]);
+
+  // Leaving this screen while a session runs: note when, so a Strict Mode
+  // focus left for longer than the grace fails when the student comes back,
+  // the same as a hidden tab.
+  useEffect(() => () => markRunAway(Date.now()), []);
+
+  useEffect(() => {
+    if (restoreHandledRef.current) return;
+    restoreHandledRef.current = true;
+    if (escapedOnRestore) reportEscape(loaded.runMin);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // --- Visibility escape (focus state only, if strictFocus mode is active) ---
   useEffect(() => {
@@ -190,29 +238,26 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
     const onVis = () => {
       if (document.hidden) {
         hiddenSinceRef.current = Date.now();
+        markRunAway(hiddenSinceRef.current);
         if (escapeTimerRef.current) clearTimeout(escapeTimerRef.current);
         escapeTimerRef.current = setTimeout(() => {
           // Re-check — still hidden, still in focus state?
-          if (document.hidden && state === 'focus') {
-            try {
-              window.dispatchEvent(new Event('vmx-pomodoro-failed'));
-            } catch {
-              /* ignore */
-            }
-            onSessionComplete?.({ durationMin: config?.focusMin || 25, completed: false });
-            setStartedAt(null);
-            setPausedAcc(0);
-            setPauseStartedAt(null);
-            setPaused(false);
-            setState('failed');
-          }
+          if (document.hidden && state === 'focus') failFocus(runMin);
         }, VISIBILITY_GRACE_MS);
       } else {
+        // A locked phone or a switched-away app can suspend the page, and
+        // with it the timer above: when the page wakes, the visible event may
+        // run first and clear it. The wall clock decides instead.
+        const away = hiddenSinceRef.current;
         hiddenSinceRef.current = null;
         if (escapeTimerRef.current) {
           clearTimeout(escapeTimerRef.current);
           escapeTimerRef.current = null;
         }
+        if (escapedWhileAway(away)) { failFocus(runMin); return; }
+        saveRun({
+          state, startedAt, runMin, pausedAcc, paused, pauseStartedAt, focusCount, strict: true,
+        });
       }
     };
     document.addEventListener('visibilitychange', onVis);
@@ -224,17 +269,18 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state, config?.focusMin, config?.strictFocus]);
+  }, [state, runMin, startedAt, pausedAcc, paused, pauseStartedAt, focusCount, config?.strictFocus]);
 
   // --- Actions ------------------------------------------------------------
   const startFocus = useCallback(() => {
     setStartedAt(Date.now());
+    setRunMin(phaseMinutes('focus', config));
     setPausedAcc(0);
     setPauseStartedAt(null);
     setPaused(false);
     setState('focus');
     playTone(720, 160);
-  }, []);
+  }, [config]);
 
   const pause = useCallback(() => {
     if (!isTimerActive || paused) return;
@@ -251,6 +297,7 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
 
   const reset = useCallback(() => {
     setStartedAt(null);
+    setRunMin(null);
     setPausedAcc(0);
     setPauseStartedAt(null);
     setPaused(false);
@@ -268,7 +315,7 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
   const RADIUS = (RING_SIZE - STROKE) / 2;
   const CIRC = 2 * Math.PI * RADIUS;
   const dashOffset = CIRC * (1 - Math.max(0, Math.min(1, progress)));
-  const status = statusLabel(state, config?.strictFocus !== false);
+  const status = statusLabel(state, config?.strictFocus !== false, runMin);
 
   // Ring color reflects state
   const ringColor =

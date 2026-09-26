@@ -96,6 +96,15 @@ async function storeCached(asset, bytes, signal) {
   return stored;
 }
 
+// fetch() and a body stream fail with the browser's own English ("Failed to
+// fetch", "Load failed", "network error"), and the scene shows the message to
+// the student. An abort stays an abort (the scene tells a timeout by it) and a
+// message this module wrote in Thai passes through; anything else is replaced.
+function transportError(error, thai) {
+  if (error?.name === 'AbortError' || /[฀-๿]/.test(error?.message || '')) return error;
+  return new Error(thai, { cause: error });
+}
+
 export async function loadAtlasAsset(asset, { signal, onProgress = () => {}, onStored = () => {} } = {}) {
   validateAsset(asset);
   const cached = await bounded(readCached(asset), globalThis.navigator?.onLine === false ? 5000 : 1200).catch(
@@ -106,7 +115,12 @@ export async function loadAtlasAsset(asset, { signal, onProgress = () => {}, onS
     onProgress(100);
     return { bytes: cached, cached: true, stored: true };
   }
-  const response = await fetch(asset.model, { signal });
+  let response;
+  try {
+    response = await fetch(asset.model, { signal });
+  } catch (error) {
+    throw transportError(error, 'เชื่อมต่ออินเทอร์เน็ตไม่ได้ โมเดลนี้ยังไม่ได้เก็บไว้ในเครื่อง ลองใหม่เมื่ออินเทอร์เน็ตพร้อม');
+  }
   if (!response.ok) throw new Error('โหลดไฟล์โมเดลไม่สำเร็จ');
   let bytes;
   if (response.body?.getReader) {
@@ -129,7 +143,7 @@ export async function loadAtlasAsset(asset, { signal, onProgress = () => {}, onS
       }
     } catch (error) {
       await reader.cancel().catch(() => {});
-      throw error;
+      throw transportError(error, 'การเชื่อมต่อหลุดระหว่างโหลดโมเดล ลองใหม่เมื่ออินเทอร์เน็ตพร้อม');
     }
     if (offset !== asset.bytes) throw new Error('ดาวน์โหลดโมเดลมาไม่ครบ');
     bytes = output.buffer;

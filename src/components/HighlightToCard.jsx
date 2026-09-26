@@ -20,7 +20,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
-import { saveUserFlashcard } from '../lib/user-flashcards.js';
+import { saveUserFlashcard, CARD_STORAGE_FULL_MESSAGE } from '../lib/user-flashcards.js';
 import ClozeEditor from './ClozeEditor.jsx';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 
@@ -181,7 +181,7 @@ export default function HighlightToCard() {
   function handleClozeSaved(cards) {
     const n = Array.isArray(cards) ? cards.length : 0;
     if (n === 0) {
-      setToast('บันทึกไม่สำเร็จ เบราว์เซอร์นี้เก็บข้อมูลเพิ่มไม่ได้ ลองลบการ์ดเก่าหรือปิดโหมดไม่ระบุตัวตน');
+      setToast(CARD_STORAGE_FULL_MESSAGE);
       return;
     }
     setToast(n > 1 ? `✓ เพิ่ม ${n} cloze cards แล้ว` : '✓ เพิ่ม cloze card แล้ว');
@@ -198,7 +198,7 @@ export default function HighlightToCard() {
       source: 'summary-highlight',
     });
     if (!saved) {
-      setToast('บันทึกไม่สำเร็จ เบราว์เซอร์นี้เก็บข้อมูลเพิ่มไม่ได้ ลองลบการ์ดเก่าหรือปิดโหมดไม่ระบุตัวตน');
+      setToast(CARD_STORAGE_FULL_MESSAGE);
       return;
     }
     setToast('✓ เพิ่ม flashcard แล้ว');

@@ -12,6 +12,7 @@ import assert from 'node:assert/strict';
 
 import { earnedBadges, longestDayStreak, answersInHourRange } from '../../src/lib/badges.js';
 import { seasonalMochiKey } from '../../src/lib/seasonal-mochi.js';
+import { buildPhaseStats } from '../../src/lib/phase-wrapped.js';
 import { EMPTY_ART, SUBJECT_MOCHI, BADGE_ART, IG_BACKGROUNDS, GAME_ART, LOADING_ART, SEASONAL_MOCHI, allArtPaths } from '../../src/data/art.js';
 
 const day = (d, h = 12) => new Date(`2026-09-${String(d).padStart(2, '0')}T${String(h).padStart(2, '0')}:00:00`).toISOString();
@@ -53,14 +54,15 @@ test('a badge carries the reason it was given', () => {
 });
 
 test('a perfect set needs to be a real set, not one lucky answer', () => {
-  const history = [{ date: day(1), correct: true, id: 1 }];
-  const few = earnedBadges({ history, stats: { correctPct: 100, qCount: 3, correct: 3 } }).map((b) => b.id);
-  assert.ok(!few.includes('perfect'), '3 questions is not a set');
-  const real = earnedBadges({ history, stats: { correctPct: 100, qCount: 20, correct: 20 } }).map((b) => b.id);
-  assert.ok(real.includes('perfect'));
+  // Rows as finishExam writes them: one `date` per set. The stats are the
+  // recap's own (buildPhaseStats), which count sets rather than the window.
+  const phase = { id: '1-mid', label: 'กลางภาค', startDate: new Date('2026-09-21T00:00:00'), endDate: new Date('2026-09-25T00:00:00') };
+  const aSet = (n, right) => Array.from({ length: n }, (_, i) => ({ date: day(1), correct: i < right, id: i }));
+  const badgesFor = (history) => earnedBadges({ history, stats: buildPhaseStats({ phase, history }) }).map((b) => b.id);
+  assert.ok(!badgesFor(aSet(3, 3)).includes('perfect'), '3 questions is not a set');
+  assert.ok(badgesFor(aSet(20, 20)).includes('perfect'));
   // 199/200 rounds to 100% and is not a perfect set.
-  const nearly = earnedBadges({ history, stats: { correctPct: 100, qCount: 200, correct: 199 } }).map((b) => b.id);
-  assert.ok(!nearly.includes('perfect'), 'the badge reads the counts, not the rounded percent');
+  assert.ok(!badgesFor(aSet(200, 199)).includes('perfect'), 'the badge reads the counts, not the rounded percent');
 });
 
 test('going back and fixing a wrong answer is what earns that badge', () => {

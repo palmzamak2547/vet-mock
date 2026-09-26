@@ -192,6 +192,34 @@ function pngBytes(canvas) {
   });
 }
 
+/**
+ * The original file's bytes for an export.
+ *
+ * `src` is what the reader opened: { kind: 'file', file } or
+ * { kind: 'url', url, resolve? }, where `resolve` mints a fresh signed link
+ * (the library payload's own). A library link lives 15 to 75 minutes, and a
+ * deck over 40 MB is never in the service worker's cache, so an export after
+ * the window used to re-fetch a dead link and show "(403)" on every retry.
+ * On 401/403 this mints once, remembers the new link on `src`, and tries
+ * again; otherwise it asks the student to reopen the document.
+ */
+export async function readSourceBytes(src, { fetchImpl = (...a) => fetch(...a) } = {}) {
+  if (!src) throw new Error('ไม่พบไฟล์ต้นฉบับ ลองเปิดเอกสารใหม่อีกครั้ง');
+  if (src.kind === 'file') return src.file.arrayBuffer();
+  const expired = (res) => res.status === 401 || res.status === 403;
+  let res = await fetchImpl(src.url);
+  if (expired(res) && typeof src.resolve === 'function') {
+    const fresh = await Promise.resolve().then(() => src.resolve()).catch(() => null);
+    if (typeof fresh === 'string' && fresh && fresh !== src.url) {
+      res = await fetchImpl(fresh);
+      if (res.ok) src.url = fresh;
+    }
+  }
+  if (expired(res)) throw new Error('ลิงก์ของเอกสารนี้หมดเวลาแล้ว ปิดแล้วเปิดเอกสารนี้ใหม่อีกครั้งเพื่อส่งออก');
+  if (!res.ok) throw new Error('โหลดไฟล์ต้นฉบับไม่สำเร็จ ลองใหม่อีกครั้ง');
+  return res.arrayBuffer();
+}
+
 /** Filename that says what it is without saying who made it. */
 export function exportFileName(sourceName, annotatedOnly) {
   const stem = String(sourceName || 'document').replace(/\.pdf$/i, '').slice(0, 80);

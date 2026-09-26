@@ -40,7 +40,6 @@
     "components/SmartGrader.jsx": 3,
     "components/SmartPassage.jsx": 6,
     "components/StreakHeatmap.jsx": 5,
-    "components/SummaryModal.jsx": 1,
     "components/SyncStatusNotice.jsx": 3,
     "components/TemplateLibrary.jsx": 1,
     "components/TermLinkedRichText.jsx": 1,
@@ -69,6 +68,7 @@
     "lib/motion-kit/mochi/model-3d.js": "Mochi illustration pigments and scene lighting; UI controls use semantic tokens.",
     "lib/motion-kit/mochi/renderer-3d.js": "Mochi illustration pigments and scene lighting; UI controls use semantic tokens.",
     "lib/motion-kit/mochi/svg-art.js": "Mochi illustration pigments and scene lighting; UI controls use semantic tokens.",
-    "lib/motion-kit/particles.js": "Bounded decorative particle and cursor artwork; no text surfaces."
+    "lib/motion-kit/particles.js": "Bounded decorative particle and cursor artwork; no text surfaces.",
+    "components/HandwritingInput.jsx": "Canvas ink, paper and guide colours: the pad is exported as an image for handwriting reading and must stay dark ink on white in every theme."
   }
 }

@@ -43,7 +43,9 @@ const SCANNED_ROOTS = [
 
 // 3- or 6-digit hex colors, not inside var() definitions (those live
 // in styles.css anyway). rgba()/var() usage is not hex debt.
-const HEX_RE = /#[0-9a-fA-F]{3}\b|#[0-9a-fA-F]{6}\b/g;
+// `&#124;` is an HTML character entity, not a colour. (Node-only script:
+// this lookbehind never reaches a browser.)
+const HEX_RE = /(?<!&)(?:#[0-9a-fA-F]{3}\b|#[0-9a-fA-F]{6}\b)/g;
 
 function listFiles(p) {
   const stat = fs.statSync(p);
@@ -77,11 +79,10 @@ const failures = [];
 const lowered = {};
 for (const [file, n] of Object.entries(counts)) {
   if (exempt.has(file)) continue;
-  const cap = budget[file];
-  if (cap == null) {
-    // First run: everything current is the budget. --write records it.
-    continue;
-  }
+  // A file with no row has budget 0. Skipping it let every new component
+  // carry any number of hexes while the lint printed "all within budget".
+  // Record it with --write, exempt it with a reason, or use tokens.
+  const cap = budget[file] ?? 0;
   if (n > cap) failures.push(`${file}: ${n} > budget ${cap}`);
   else if (n < cap) lowered[file] = n;
 }

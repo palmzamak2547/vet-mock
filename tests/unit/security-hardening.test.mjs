@@ -16,6 +16,7 @@ import {
 } from '../../supabase/functions/_shared/app-origins.js';
 import { clientIP } from '../../api/_lib/rate-limit.js';
 import { vercelHeadersFor } from '../helpers/vercel-static.mjs';
+import { presign } from '../../api/_lib/r2.js';
 
 test('shared images accept VetMock storage but reject attacker-owned Supabase projects', () => {
   const official = 'https://mpovsdzdggvksmeehqfj.supabase.co/storage/v1/object/public/q/a.webp';
@@ -181,7 +182,7 @@ test('browser group flow delegates identity and role assignment to RPCs', () => 
   assert.doesNotMatch(api, /from\('groups'\)\s*\.select\('\*'\)/);
 });
 
-test('only the DICOM decode worker may compile WebAssembly, and nothing it runs may eval', () => {
+test('only the decode workers (DICOM, and pdf.js since B56) may compile WebAssembly, and nothing they run may eval', () => {
   // A worker takes its CSP from its own response, so the codecs get
   // 'wasm-unsafe-eval' without widening the policy of any page (2026-09-25).
   const cfg = JSON.parse(readFileSync(resolve('vercel.json'), 'utf8'));
@@ -211,4 +212,85 @@ test('personal API responses use private cache directives', () => {
   assert.match(playlist, /provider:youtube-data-api:daily/);
   assert.match(feedback, /provider:resend:daily/);
   assert.match(iapp, /provider:iapp:daily/);
+});
+
+// ── Header policy against what the app actually uses (2026-09-26) ──────────
+
+const vercelCfg = () => JSON.parse(readFileSync(resolve('vercel.json'), 'utf8'));
+const cspFor = (path) => vercelHeadersFor(path, vercelCfg())['content-security-policy'] || '';
+const directive = (csp, name) => {
+  const hit = csp.split(';').map((d) => d.trim()).find((d) => d.split(/\s+/)[0] === name);
+  return hit ? hit.split(/\s+/).slice(1) : null;
+};
+// CSP host-source matching for the forms this file uses: 'self', an exact
+// https origin, and a leading *. wildcard.
+const cspAllowsUrl = (sources, url, selfOrigin = 'https://vetmock.vercel.app') => {
+  const u = new URL(url, selfOrigin);
+  return sources.some((s) => {
+    if (s === "'self'") return u.origin === selfOrigin;
+    const m = /^(https:|wss:)\/\/(\*\.)?([^/]+)$/.exec(s);
+    if (!m || m[1] !== u.protocol) return false;
+    return m[2] ? u.hostname.endsWith(`.${m[3]}`) : u.hostname === m[3];
+  });
+};
+
+function walkSrc(dir, out = []) {
+  for (const ent of readdirSync(dir, { withFileTypes: true })) {
+    const full = resolve(dir, ent.name);
+    if (ent.isDirectory()) walkSrc(full, out);
+    else if (/\.(m?js|jsx)$/.test(ent.name)) out.push(full);
+  }
+  return out;
+}
+
+test('the site keeps the microphone for itself while its own voice input uses it (B54)', () => {
+  // microphone=() switched the feature off for vetmock itself: every mic
+  // button failed with not-allowed and told the student to fix a browser
+  // setting that cannot override the site's own policy.
+  const usesMic = walkSrc(resolve('src')).some((f) =>
+    /\bSpeechRecognition\b|getUserMedia\s*\(/.test(readFileSync(f, 'utf8')));
+  assert.ok(usesMic, 'the app still ships voice input');
+  for (const path of ['/', '/app/about', '/app/exam', '/wiki/x']) {
+    const policy = vercelHeadersFor(path, vercelCfg())['permissions-policy'] || '';
+    const mic = /(?:^|,\s*)microphone=\(([^)]*)\)/.exec(policy);
+    assert.ok(mic, `${path} names the microphone`);
+    assert.deepEqual(mic[1].trim().split(/\s+/), ['self'], `${path}: the site itself, and no embedded frame`);
+  }
+});
+
+test('every origin the library endpoint can hand the reader is in connect-src (B55)', () => {
+  const connect = directive(cspFor('/app/library'), 'connect-src');
+  assert.ok(connect, 'the page policy has a connect-src');
+  // Presigned R2: switches on by itself once S3 keys land in the env.
+  const presigned = presign('docs/abc/x.pdf', {
+    env: {
+      R2_ACCOUNT_ID: '0123456789abcdef0123456789abcdef',
+      R2_ACCESS_KEY_ID: 'AKIAIOSFODNN7EXAMPLE',
+      R2_SECRET_ACCESS_KEY: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+    },
+  });
+  assert.ok(presigned, 'presign builds a URL once keys exist');
+  const archive = /const ARCHIVE_ORIGIN = '([^']+)'/.exec(readFileSync(resolve('api/library-file.js'), 'utf8'))?.[1];
+  assert.ok(archive, 'library-file still names its archive origin');
+  for (const url of [presigned, `${archive}/?t=x&s=y`, '/api/library-blob?t=x&s=y']) {
+    assert.ok(cspAllowsUrl(connect, url), `connect-src allows ${new URL(url, 'https://vetmock.vercel.app').origin}`);
+  }
+  // Only connect-src widened: no other directive learns about R2.
+  assert.equal(cspFor('/app/library').match(/r2\.cloudflarestorage\.com/g)?.length, 1);
+});
+
+test('the pdf.js worker may compile its JPEG 2000 decoder and nothing more (B56)', () => {
+  // pdf.js decodes JPXDecode images with new WebAssembly.Module inside its
+  // worker; under the page policy that throws and the image renders blank.
+  const worker = cspFor('/assets/pdf.worker.min-yatZIOMy.mjs');
+  assert.deepEqual(directive(worker, 'script-src'), ["'self'", "'wasm-unsafe-eval'"]);
+  assert.deepEqual(directive(worker, 'default-src'), ["'none'"]);
+  assert.doesNotMatch(worker, /'unsafe-eval'|'unsafe-inline'|https:/);
+  // The rule matches only the worker file, never a page or another chunk.
+  for (const path of ['/', '/app/library', '/assets/PdfAnnotateView-AbC123.js', '/assets/vendor-pdf-read-AbC123.js', '/assets/pdf.worker.min-x.js']) {
+    assert.doesNotMatch(cspFor(path), /wasm-unsafe-eval/, `${path} keeps the page policy`);
+  }
+  // The file name the rule relies on is the one the reader asks Vite for.
+  const view = readFileSync(resolve('src/views/PdfAnnotateView.jsx'), 'utf8');
+  assert.match(view, /pdfjs-dist\/build\/pdf\.worker\.min\.mjs\?url/);
 });

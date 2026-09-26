@@ -138,7 +138,27 @@ export function citeSeconds(stamp) {
   return c > 59 ? null : a * 3600 + b * 60 + c;
 }
 
-const RECORDING = new RegExp(`(?<![0-9A-Za-z_-])(?:VET86\\s+)?(${ID})((?:\\s*,?\\s*\\[[^\\]]*\\])+)`, 'g');
+// No lookbehind: WebKit before Safari 16.4 cannot build one, and this module
+// loads with every exam, clip summary and wrap-up (package.json: ios >= 14).
+// The "not inside a longer token" rule is checked by hand in recordingMatches.
+const RECORDING = new RegExp(`(?:VET86\\s+)?(${ID})((?:\\s*,?\\s*\\[[^\\]]*\\])+)`, 'g');
+const ID_CHAR = /[0-9A-Za-z_-]/;
+
+/** RECORDING's matches that do not start inside a longer id-like token. */
+function recordingMatches(text) {
+  const out = [];
+  const re = new RegExp(RECORDING.source, 'g');
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > 0 && ID_CHAR.test(text[m.index - 1])) {
+      // What a lookbehind would do: this start fails, the next one is tried.
+      re.lastIndex = m.index + 1;
+      continue;
+    }
+    out.push(m);
+  }
+  return out;
+}
 
 /**
  * Every moment of a taught session one citation names, in order and once
@@ -149,7 +169,7 @@ const RECORDING = new RegExp(`(?<![0-9A-Za-z_-])(?:VET86\\s+)?(${ID})((?:\\s*,?\
 export function recordingMoments(raw) {
   const out = [];
   const seen = new Set();
-  for (const [, videoId, brackets] of String(raw ?? '').matchAll(RECORDING)) {
+  for (const [, videoId, brackets] of recordingMatches(String(raw ?? ''))) {
     const session = sessionLabel(videoId);
     if (!session) continue;
     for (const [, inside] of brackets.matchAll(/\[([^\]]*)\]/g)) {

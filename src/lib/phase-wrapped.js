@@ -363,6 +363,20 @@ export function buildPhaseStats({ phase, history = [], srCards = {}, bookmarks =
 
   const correctPct = qCount > 0 ? Math.round((correct / qCount) * 100) : 0;
 
+  // Sets of at least 10 answers with none wrong. finishExam stamps every row
+  // of one set with the same `date` (a row may also carry its sessionId), so
+  // rows group back into the sets they came from.
+  const sets = new Map();
+  for (const h of scoped) {
+    const key = h.sessionId ?? h.date;
+    const cur = sets.get(key) || { n: 0, correct: 0 };
+    cur.n += 1;
+    if (h.correct) cur.correct += 1;
+    sets.set(key, cur);
+  }
+  let perfectSets = 0;
+  for (const s of sets.values()) if (s.n >= 10 && s.correct === s.n) perfectSets += 1;
+
   return {
     phaseId: phase.id,
     phaseLabel: phase.label,
@@ -378,6 +392,9 @@ export function buildPhaseStats({ phase, history = [], srCards = {}, bookmarks =
     dailyAvg,
     byDay,
     bookmarkCount: Array.isArray(bookmarks) ? bookmarks.length : 0,
+    perfectSets,
+    // The recap opens on a completed phase first (PhaseWrappedView marks it).
+    phaseCompleted: phase._state === 'completed',
     isEmpty: qCount === 0,
   };
 }
@@ -398,6 +415,8 @@ function emptyStats() {
     dailyAvg: 0,
     byDay: [],
     bookmarkCount: 0,
+    perfectSets: 0,
+    phaseCompleted: false,
     isEmpty: true,
   };
 }

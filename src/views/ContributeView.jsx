@@ -81,32 +81,37 @@ function emptyPayload(defaultYear = 4) {
 
 export default function ContributeView({ goHome, setView, user, selectedYear = 4 }) {
   // ─── Auth gate ───────────────────────────────────────────────
-  if (!user) {
-    return (
-      <>
-        <BackBar onBack={goHome} label="หน้าแรก" />
-        <div className="vmx-hero">
-          <h1><em>ส่งคำถาม</em> ให้ Q bank</h1>
-          <p>Login ก่อนเพื่อส่งคำถาม — ทุกข้อผ่านการตรวจ 4 ชั้น (ระบบคัดกรอง → เพื่อนตรวจ 2 คน → ทีมงาน → เผยแพร่) ก่อนเข้าคลังข้อสอบ</p>
-        </div>
-        <div style={{ ...CARD_BASE, maxWidth: 480, margin: '24px auto', textAlign: 'center' }}>
-          <div style={{ fontSize: 36, marginBottom: 12 }}>🔐</div>
-          <p style={{ marginBottom: 16, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
-            ต้องล็อกอินด้วยบัญชี VetMock ก่อนถึงจะส่งคำถามได้
-          </p>
-          <button
-            type="button"
-            className="vmx-btn vmx-btn-primary"
-            style={{ padding: '12px 20px' }}
-            onClick={() => setView && setView('auth')}
-          >
-            Login เพื่อส่งคำถาม →
-          </button>
-        </div>
-      </>
-    );
-  }
+  // The form's hooks live in ContributeForm. App renders this view with no
+  // user gate, so a sign-out on this page (or in another tab) re-renders the
+  // same instance with user = null; returning here before the form's hooks
+  // made React throw "Rendered fewer hooks than expected".
+  if (user) return <ContributeForm goHome={goHome} setView={setView} user={user} selectedYear={selectedYear} />;
+  return (
+    <>
+      <BackBar onBack={goHome} label="หน้าแรก" />
+      <div className="vmx-hero">
+        <h1><em>ส่งคำถาม</em> ให้ Q bank</h1>
+        <p>Login ก่อนเพื่อส่งคำถาม — ทุกข้อผ่านการตรวจ 4 ชั้น (ระบบคัดกรอง → เพื่อนตรวจ 2 คน → ทีมงาน → เผยแพร่) ก่อนเข้าคลังข้อสอบ</p>
+      </div>
+      <div style={{ ...CARD_BASE, maxWidth: 480, margin: '24px auto', textAlign: 'center' }}>
+        <div style={{ fontSize: 36, marginBottom: 12 }}>🔐</div>
+        <p style={{ marginBottom: 16, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
+          ต้องล็อกอินด้วยบัญชี VetMock ก่อนถึงจะส่งคำถามได้
+        </p>
+        <button
+          type="button"
+          className="vmx-btn vmx-btn-primary"
+          style={{ padding: '12px 20px' }}
+          onClick={() => setView && setView('auth')}
+        >
+          Login เพื่อส่งคำถาม →
+        </button>
+      </div>
+    </>
+  );
+}
 
+function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
   // ─── Form state ─────────────────────────────────────────────
   const [payload, setPayload] = useState(() => emptyPayload(selectedYear));
   const [submitting, setSubmitting] = useState(false);

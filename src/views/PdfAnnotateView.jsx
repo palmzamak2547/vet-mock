@@ -51,7 +51,7 @@ import {
 import * as annotationSync from '../lib/annotation-sync.js';
 import { searchPages, pageTextFromItems } from '../lib/thai-search.js';
 import { fitShape, strokeHit } from '../lib/shape-fit.js';
-import { exportAnnotatedPdf, exportFileName, downloadBlob } from '../lib/pdf-export.js';
+import { exportAnnotatedPdf, exportFileName, downloadBlob, readSourceBytes } from '../lib/pdf-export.js';
 
 const PEN_COLORS = [
   { id: 'red',  rgb: '#c0392b', name: 'แดง' },
@@ -551,7 +551,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const startPage = Math.min(Math.max(1, Number(existing?.lastPage) || 1), pdf.numPages);
       resumeTo.current = startPage > 1 ? startPage : 0;
       // Published with the document it belongs to (see ingestFile).
-      sourceRef.current = { kind: 'url', url };
+      // `resolve` is kept so an export after the signed link has expired can
+      // mint a fresh one instead of failing with a bare status code.
+      sourceRef.current = { kind: 'url', url, resolve: typeof doc.resolve === 'function' ? doc.resolve : null };
       setPdfDoc(pdf);
       setFileHash(hash);
       setFileName(doc.fileName || 'document.pdf');
@@ -1554,15 +1556,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   // ── Export ─────────────────────────────────────────────────
   async function readOriginalBytes() {
-    const src = sourceRef.current;
-    if (!src) throw new Error('ไม่พบไฟล์ต้นฉบับ ลองเปิดเอกสารใหม่อีกครั้ง');
-    if (src.kind === 'file') return src.file.arrayBuffer();
     // The signed link is minted against fixed hour boundaries and the service
     // worker caches by content hash, so this is normally a cache hit rather
-    // than a second download.
-    const res = await fetch(src.url);
-    if (!res.ok) throw new Error(`โหลดไฟล์ต้นฉบับไม่สำเร็จ (${res.status})`);
-    return res.arrayBuffer();
+    // than a second download. An expired link is minted again once.
+    return readSourceBytes(sourceRef.current);
   }
 
   async function runExport(annotatedOnly) {

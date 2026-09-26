@@ -14,23 +14,65 @@ import { readLocalExtra, writeLocalExtra } from './local-extras.js';
 //        | { id, type:'cloze', subject, fullText, clozeIdx,
 //            front, back, deckGroupId, createdAt, source? }
 //
-// ID range:
-//   • Built-in QB Qs    : 1 – 49999
-//   • Reserved buffer   : 50000 – 59999 (legacy/seeded)
+// ID range. srCards and the SR pool key cards by `q.id` only, so a card a
+// student writes must never share an id with a bank question.
 //   • customQuestions   : 60000 – 69999
-//   • user flashcards   : 70000 – 74999  ← manual back
-//   • cloze cards       : 75000 – 79999  ← cloze deletion
-// Keeping ranges disjoint avoids SR-card key collisions in the
-// sm2 store (which keys cards by `q.id` only).
+//   • user flashcards   : 9_100_000 – 9_399_999  ← manual back
+//   • cloze cards       : 9_400_000 – 9_699_999  ← cloze deletion
+//   • moved legacy cards: old id + 9_000_000 (9_070_000 – 9_079_999)
+// Flashcards used to take 70000+ and cloze cards 75000+, but the year-1 banks
+// were later numbered 70001-76039: a new card inherited a bank question's
+// review schedule and one of the two dropped out of the session. A stored
+// card whose id a bank question holds (LEGACY_BANK_ID_RANGES) is moved once,
+// deterministically, and keeps `legacyId`; every other stored id stays put.
+// tests/unit/user-card-ids.test.mjs checks both lists against the banks.
 // ============================================================
 
 import { splitClozes } from './cloze.js';
 
 const STORAGE_KEY = 'vmx-user-flashcards';
-const ID_START = 70000;
-const FLASHCARD_ID_MAX = 74999;
-const CLOZE_ID_START = 75000;
-const CLOZE_ID_MAX = 79999;
+const ID_START = 9_100_000;
+const FLASHCARD_ID_MAX = 9_399_999;
+const CLOZE_ID_START = 9_400_000;
+const CLOZE_ID_MAX = 9_699_999;
+const LEGACY_OFFSET = 9_000_000;
+
+export const USER_CARD_ID_RANGES = Object.freeze({
+  flashcard: [ID_START, FLASHCARD_ID_MAX],
+  cloze: [CLOZE_ID_START, CLOZE_ID_MAX],
+  movedLegacy: [70000 + LEGACY_OFFSET, 79999 + LEGACY_OFFSET],
+});
+
+/** Bank question ids inside the old 70000-79999 personal-card range. */
+export const LEGACY_BANK_ID_RANGES = Object.freeze([
+  [70001, 70027], [70029, 70043], [70045, 70049], [71001, 71026], [72001, 72046],
+  [73001, 73028], [74001, 74081], [75001, 75032], [76001, 76029], [76031, 76039],
+]);
+
+/**
+ * What a save screen says when the browser refused to store a card. It used
+ * to say "ลองลบการ์ดเก่า", but no screen deletes a personal card. Image-
+ * occlusion decks hold whole images in the same storage and can be deleted.
+ */
+export const CARD_STORAGE_FULL_MESSAGE =
+  'บันทึกไม่สำเร็จ เบราว์เซอร์นี้เก็บข้อมูลเพิ่มไม่ได้ ลองลบแฟลชการ์ดปิดภาพที่ไม่ใช้แล้ว หรือปิดโหมดไม่ระบุตัวตน';
+
+const onBankId = (id) => LEGACY_BANK_ID_RANGES.some(([lo, hi]) => id >= lo && id <= hi);
+
+/**
+ * The SR record a card reads. A moved card (see readRaw) has no record under
+ * its new id until it is graded again, so it reads the one it used before the
+ * move, stamped with the new id. Nothing in srCards is rewritten or dropped:
+ * the old record stays with the bank question that shares the old id.
+ */
+export function srCardFor(srCards, q) {
+  if (!srCards || !q) return undefined;
+  const own = srCards[q.id];
+  if (own) return own;
+  if (!Number.isInteger(q.legacyId)) return undefined;
+  const carried = srCards[q.legacyId];
+  return carried ? { ...carried, questionId: q.id } : undefined;
+}
 
 // Belt-and-suspenders: notify the ⌘K palette that its static index
 // is now stale (user just added/removed a flashcard). Two channels:
@@ -62,7 +104,19 @@ function safeParse(raw) {
 
 function readRaw() {
   const value = readLocalExtra(STORAGE_KEY, []);
-  return Array.isArray(value) ? value : [];
+  if (!Array.isArray(value)) return [];
+  // A card saved on a bank question's id moves to old id + LEGACY_OFFSET. The
+  // move is a pure function of the stored id, so the card reads the same
+  // whether or not the write-back below lands.
+  let moved = false;
+  const list = value.map((c) => {
+    if (!c || typeof c !== 'object' || !Number.isInteger(c.id) || !onBankId(c.id)) return c;
+    if (c.type !== 'flashcard' && c.type !== 'cloze') return c;
+    moved = true;
+    return { ...c, id: c.id + LEGACY_OFFSET, legacyId: c.id };
+  });
+  if (moved) writeLocalExtra(STORAGE_KEY, list);
+  return list;
 }
 
 /**
