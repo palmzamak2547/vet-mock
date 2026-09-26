@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
-import { EXAM_SCHEDULE, SEMESTER, fmtThaiDate, getUpcomingExams, shortCountdown } from '../data/schedule.js';
+import { SEMESTER, fmtThaiDate, getUpcomingExams, shortCountdown } from '../data/schedule.js';
 import WeekTimetable from '../components/WeekTimetable.jsx';
 import AcademicCalendar from '../components/AcademicCalendar.jsx';
-import { SUBJECTS } from '../data/curriculum.js';
 // Phase 2 perf: use precomputed counts instead of QB. ScheduleView
-// only asks "does subject X have any Qs?" — a boolean lookup against
+// only asks "does this paper have usable Qs?" — a boolean lookup against
 // the tiny q-counts.js file. Saves dragging the full QB into this
 // view's load graph.
-import { Q_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
+import { Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
+import { hasNotes } from '../data/notes-registry.generated.js';
+import { buildExamPool } from '../lib/exam-pool.js';
+import { scopeForPhase, questionInScope } from '../lib/exam-scope.js';
 import BackBar from '../components/BackBar.jsx';
 
-export default function ScheduleView({ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear = 4, selectedPhase }) {
+export default function ScheduleView({ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, setSelectedPhase, selectedYear = 4, selectedPhase, customQuestions = [] }) {
   const [showPast, setShowPast] = useState(false);
   const [, setTick] = useState(0);
   const yearKey = `y${selectedYear}`;
@@ -24,18 +26,33 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
   const pastCount = allExams.filter((e) => e.daysLeft < 0).length;
   const exams = showPast ? allExams : allExams.filter((e) => e.daysLeft >= 0);
 
-  const practiceSubject = (subjId) => {
+  const hasQuestions = (subjId, phase = selectedPhase) => {
+    if (((Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE[phase] || Q_VISIBLE_COUNTS_BY_SUBJECT)[subjId] || 0) > 0) return true;
+    if (!customQuestions.length) return false;
+    const pool = buildExamPool({ questions: customQuestions, subject: subjId, topic: null,
+      practiceMode: 'all', questionCategory: 'all', selectedYear, selectedPhase: phase });
+    // The engine may return another paper to avoid an empty named-subject
+    // set. A timetable paper must only advertise its own usable content.
+    return pool.some(question => questionInScope(question, scopeForPhase(phase)));
+  };
+  const hasContent = (subjId, phase = selectedPhase) => hasQuestions(subjId, phase) || hasNotes(subjId);
+  const examPhase = (exam) => exam.term === 'midterm' || exam.term === 'final'
+    ? `${SEMESTER.id.split('-')[1]}-${exam.term === 'midterm' ? 'mid' : 'final'}`
+    : selectedPhase;
+
+  const openSubject = (subjId, phase = selectedPhase) => {
+    if (!hasContent(subjId, phase)) return;
     setSubject(subjId);
     // Clear the topic with the subject. A topic belongs to whichever subject
     // was open before, so carrying it into a different subject filters the
     // pool down to nothing while the screen still offers to start.
     if (setTopic) setTopic(null);
+    // A named paper owns its scope, even if the header still shows another.
+    if (phase !== selectedPhase) setSelectedPhase?.(phase);
     setPracticeMode('all');
     setMode('quick');
-    setView('config');
+    setView(hasQuestions(subjId, phase) ? 'config' : 'notes');
   };
-
-  const hasQuestions = (subjId) => (Q_COUNTS_BY_SUBJECT[subjId] || 0) > 0;
 
   return (
     <>
@@ -50,8 +67,8 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
       {/* วันนี้เรียนอะไร — the question students open this page for */}
       <WeekTimetable
         year={selectedYear}
-        onOpenSubject={(subjId) => { if (hasQuestions(subjId)) practiceSubject(subjId); }}
-        hasContent={hasQuestions}
+        onOpenSubject={(subjId) => openSubject(subjId)}
+        hasContent={hasContent}
       />
 
       <AcademicCalendar year={selectedYear} />
@@ -70,6 +87,8 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
           const isPast = exam.daysLeft < 0;
           const isToday = exam.daysLeft === 0;
           const isUrgent = exam.daysLeft > 0 && exam.daysLeft <= 7;
+          const phase = examPhase(exam);
+          const canPractice = hasQuestions(exam.subject, phase);
           return (
             <div key={exam.id} className="vmx-dash-card" style={{
               borderLeft: `4px solid ${exam.color}`,
@@ -151,14 +170,14 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
                   )}
 
                   {!isPast && (
-                    hasQuestions(exam.subject) ? (
+                    hasContent(exam.subject, phase) ? (
                       <button className="vmx-btn vmx-btn-primary vmx-btn-sm" style={{ marginTop: 12 }}
-                        onClick={() => practiceSubject(exam.subject)}>
-                        ฝึกข้อสอบวิชานี้ →
+                        onClick={() => openSubject(exam.subject, phase)}>
+                        {canPractice ? 'ฝึกข้อสอบวิชานี้ →' : 'อ่านสรุปวิชานี้ →'}
                       </button>
                     ) : (
                       <div style={{ marginTop: 12, fontSize: 12, color: 'var(--clr-ink-soft)', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, display: 'inline-block' }}>
-                        ยังไม่มีข้อสอบของวิชานี้ในแอป
+                        ยังไม่มีข้อสอบสำหรับช่วงสอบนี้ในแอป
                       </div>
                     )
                   )}
@@ -170,7 +189,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
       </div>
 
       <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
-        💡 <strong>Tip:</strong> คลิก "ฝึกข้อสอบวิชานี้" เพื่อเริ่มทำข้อสอบวิชานั้นเลย<br/>
+        💡 <strong>Tip:</strong> เลือกวิชาเพื่อฝึกตามช่วงสอบ หรือเปิดสรุปที่มีให้อ่าน<br/>
         ข้อมูลตารางอาจเปลี่ยนแปลง — เช็คกับเพื่อนในห้องอีกครั้งก่อนสอบ<br/>
         🔄 ถ้าข้อมูลผิด/ล้าสมัย → ส่งไปที่ <button type="button" className="vmx-inline-action" onClick={() => setView('feedback')}>ฟอร์มแจ้ง</button>
       </div>

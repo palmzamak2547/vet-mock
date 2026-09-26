@@ -5,9 +5,9 @@ completely before working in this repository. This file intentionally stays
 short so agent-specific copies cannot drift from project rules, counts,
 architecture, or release gates.
 
-Before the next main push, read `work/flow-update-safety-20260919/RELEASE-STATUS.md`
-if present. It tracks the separate production release authorized on 2026-09-19;
-continue local content work, preserve pending edits, and do not force-push over it.
+Before the next main push, read the latest release/lane handoff in `AGENTS.md`
+and its linked proof. Preserve pending edits, fetch the current main, and retain
+other lanes' changes rather than replacing files or force-pushing over them.
 
 See also:
 

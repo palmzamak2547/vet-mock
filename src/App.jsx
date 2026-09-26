@@ -12,6 +12,14 @@ import { stillWrong } from './lib/wrong-pool.js';
 // A tag only counts as weak below this accuracy — the same line the accuracy
 // chart on the dashboard already draws.
 const WEAK_TAG_MAX_PCT = 70;
+const NOTES_RETURN_LABELS = new Map([
+  ['reading-checklist', 'รายการอ่าน'], ['schedule', 'ตารางเรียนและสอบ'], ['knowledge', 'บทความเดิม'],
+]);
+const notesReturnFrom = (state) => ({
+  view: NOTES_RETURN_LABELS.has(state?.vmxNotesReturn) ? state.vmxNotesReturn : 'topic-select',
+  top: Number.isFinite(state?.vmxNotesScroll) ? Math.max(0, state.vmxNotesScroll) : 0,
+  path: typeof state?.vmxNotesPath === 'string' ? state.vmxNotesPath : null,
+});
 import { useLocalStorage } from './hooks/useStorage.js';
 import { inflightExamKey, isOwnedExam, readOwnedExam, readUnclaimedExam, claimLegacyExam, markExamDetailsSaved } from './lib/exam-recovery.js';
 import { useAuth } from './hooks/useAuth.js';
@@ -254,6 +262,25 @@ function offerBankRetry() {
   });
 }
 
+// Mount inside the view's Suspense boundary: a cold chunk must finish before
+// the browser can restore a long page's scroll position and focus its content.
+function ViewEntry({ view, returnScrollRef }) {
+  useEffect(() => {
+    const id = requestAnimationFrame(() => {
+      const top = returnScrollRef.current?.view === view ? returnScrollRef.current.top : 0;
+      returnScrollRef.current = null;
+      try { window.scrollTo({ top, behavior: 'instant' }); }
+      catch { window.scrollTo(0, top); }
+      if (!document.querySelector('[data-vmx-modal="true"]')) {
+        try { document.getElementById('main')?.focus({ preventScroll: true }); }
+        catch { document.getElementById('main')?.focus(); }
+      }
+    });
+    return () => cancelAnimationFrame(id);
+  }, [view, returnScrollRef]);
+  return null;
+}
+
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
 
@@ -468,6 +495,8 @@ export default function App() {
   const _wikiEntry = typeof window !== 'undefined' ? parseWikiPath(window.location.pathname) : { subject: null, topic: null };
   const [subject, setSubject] = useState(_wikiEntry.subject || notesRetryTarget?.subject || 'all');
   const [topic, setTopic] = useState(_wikiEntry.topic || notesRetryTarget?.topic || null);
+  const notesReturnRef = useRef(notesReturnFrom(typeof window === 'undefined' ? null : window.history?.state));
+  const returnScrollRef = useRef(null);
   // Videos may be opened either globally (show every subject) or from a
   // subject page (start scoped to that subject). Keep this navigation
   // context separate from the last exam subject so global Videos never
@@ -657,6 +686,12 @@ export default function App() {
       return;
     }
     const previous = viewRef.current;
+    if (next === 'notes') {
+      // Wiki loads its article body separately, so return to the heading;
+      // checklist and calendar can restore the exact saved list position.
+      notesReturnRef.current = notesReturnFrom({ vmxNotesReturn: previous,
+        vmxNotesScroll: previous === 'knowledge' ? 0 : window.scrollY, vmxNotesPath: window.location.pathname });
+    }
     if (next === 'topic-select' && previous !== 'notes') setTopicSection('topics');
     // Every navigation passes through here whatever opened it — a sidebar
     // row, the palette, a card on Home — so this is the one place the
@@ -673,6 +708,9 @@ export default function App() {
           ...(window.history.state || {}),
           vmxView: next,
           vmxVideoSubject: nextVideoSubject,
+          vmxNotesReturn: next === 'notes' ? notesReturnRef.current.view : null,
+          vmxNotesScroll: next === 'notes' ? notesReturnRef.current.top : null,
+          vmxNotesPath: next === 'notes' ? notesReturnRef.current.path : null,
         };
         // Wiki, Practical, and stable app destinations own canonical URLs.
         // Stateful flows return to root so refresh never reconstructs a
@@ -710,6 +748,13 @@ export default function App() {
     withTransition(() => setViewRaw(next));
   }, []);
 
+  const returnFromNotes = () => {
+    const origin = notesReturnRef.current;
+    if (NOTES_RETURN_LABELS.has(origin.view) && window.history.state?.vmxView === 'notes') {
+      window.history.back();
+    } else setView('topic-select');
+  };
+
   useEffect(() => { viewRef.current = view; }, [view]);
 
   useEffect(() => {
@@ -730,6 +775,17 @@ export default function App() {
         || viewForAppPath(window.location.pathname)
         || (wiki.isWiki ? 'knowledge' : null)
         || (window.location.hash === '#lab' ? 'lab' : 'home');
+      if (viewRef.current === 'notes' && next === notesReturnRef.current.view
+        && window.location.pathname === notesReturnRef.current.path) {
+        returnScrollRef.current = { view: next, top: notesReturnRef.current.top };
+      }
+      if (next === 'notes') {
+        notesReturnRef.current = notesReturnFrom(event.state);
+        if (typeof event.state?.vmxNotesSubject === 'string') {
+          setSubject(event.state.vmxNotesSubject);
+          setTopic(typeof event.state.vmxNotesTopic === 'string' ? event.state.vmxNotesTopic : null);
+        }
+      }
       // Wiki paths only: `subject` doubles as the exam scope, so writing it on
       // every popstate would silently re-scope the practice flow.
       if (wiki.isWiki && wiki.subject && wiki.topic) {
@@ -830,23 +886,6 @@ export default function App() {
     window.addEventListener('hashchange', onHash);
     return () => window.removeEventListener('hashchange', onHash);
   }, [setView]);
-
-  // Scroll to top when view changes — without this, navigating to a
-  // long page (e.g. NotesView) keeps you scrolled at the previous
-  // view's offset, which feels broken. 'instant' avoids fighting the
-  // View Transitions fade animation.
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    // Use rAF so the scroll happens after the new view's first paint —
-    // the browser positions the new content first, then jumps to top.
-    const id = requestAnimationFrame(() => {
-      try { window.scrollTo({ top: 0, behavior: 'instant' }); }
-      catch { window.scrollTo(0, 0); }
-      try { document.getElementById('main')?.focus({ preventScroll: true }); }
-      catch { document.getElementById('main')?.focus(); }
-    });
-    return () => cancelAnimationFrame(id);
-  }, [view]);
 
   // The front door covers a visitor who ARRIVES on a year-scoped path. They
   // can also walk to Home from a year-agnostic one — the shared library, a
@@ -2557,6 +2596,7 @@ export default function App() {
             consent={consent}
             onConsent={landingConsent}
           />
+          <ViewEntry view={view} returnScrollRef={returnScrollRef} />
         </Suspense>
         </ErrorBoundary>
         {analyticsAllowed && !IS_LOCAL_HOST && (
@@ -2718,7 +2758,7 @@ export default function App() {
                   selectedPhase={selectedPhase}
                 />
               )}
-{view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={() => setView('topic-select')} goHome={goHome} onOpenWiki={openWiki} />}
+{view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={NOTES_RETURN_LABELS.get(notesReturnRef.current.view) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
@@ -2728,7 +2768,7 @@ export default function App() {
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki }} />}
               {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
               {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
-              {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear, selectedPhase }} />}
+              {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear, selectedPhase, setSelectedPhase, customQuestions }} />}
               {view === 'scores' && <ScoresView {...{ goHome }} />}
               {view === 'videos' && <VideoView goHome={goHome} initialSubject={videoSubject} selectedYear={selectedYear} />}
               {view === 'privacy' && <PrivacyView {...{ goHome, setView, consent, analyticsAllowed }} onConsent={(choice, prefs) => { setConsent(choice); if (prefs) setConsentPrefs(prefs); }} />}
@@ -2766,6 +2806,7 @@ export default function App() {
               {view === 'contribute' && <ContributeView {...{ goHome, setView, user, selectedYear }} />}
               {view === 'review-queue' && user && <ReviewQueueView {...{ goHome, setView, user }} />}
               {(view === 'mock-exam' || view === 'mock-results') && <ViewFallback />}
+              <ViewEntry view={view} returnScrollRef={returnScrollRef} />
             </Suspense>
             </ErrorBoundary>
           )}
