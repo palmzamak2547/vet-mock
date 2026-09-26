@@ -1,4 +1,4 @@
-import { test as base, expect as defaultExpect } from '@playwright/test';
+import { test as base, expect as defaultExpect } from './fixtures.js';
 import { readFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { UPDATE_UNSAFE_VIEWS as legacyUnsafeViews } from '../fixtures/legacy-update-e6ab5ea2/update-safety.js';

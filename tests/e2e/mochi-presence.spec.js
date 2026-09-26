@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 import { MOCHI_POSE_ASSETS } from '../../src/data/mochi-poses.generated.js';
 
 test.setTimeout(90_000);

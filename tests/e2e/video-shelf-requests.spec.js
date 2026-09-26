@@ -12,7 +12,7 @@
 // cold load must cost a handful of requests, not one per playlist in the
 // library. It has to run in a real rendering context — IntersectionObserver is
 // suspended in a hidden tab, which makes a naive check pass for the wrong reason.
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 // ── No third-party network in this gate ─────────────────────────────────
 // The video surfaces embed youtube.com (the player iframe and its API) and

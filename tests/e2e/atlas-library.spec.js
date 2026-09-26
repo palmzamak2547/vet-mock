@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 import { readFile } from 'node:fs/promises';
 import { ATLAS_CACHE_NAME } from '../../src/lib/atlas-cache.js';
 import { DEFAULT_ATLAS_ID, getAtlasSpecimen } from '../../src/data/atlas-catalog.js';

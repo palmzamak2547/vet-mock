@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 // The screening bench prints a 2x2 table of five-figure counts inside a side
 // panel. At iPad width the panel is narrower than the table's smallest size and

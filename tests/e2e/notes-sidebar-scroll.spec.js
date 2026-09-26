@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 // ทวนเนื้อหา put the topic picker in a sticky column beside the article, but
 // the picker lists every subject and every topic of the open one, so on a wide

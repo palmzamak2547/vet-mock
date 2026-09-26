@@ -16,7 +16,7 @@
 //   • either way       → no horizontal overflow
 // ============================================================
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 // A fresh visit lands on the marketing page (.lp-root), which is a different
 // shell from the app (.vmx-app). Seeding a chosen year is how the rest of the

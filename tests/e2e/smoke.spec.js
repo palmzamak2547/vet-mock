@@ -19,7 +19,7 @@
 // CI wires this up via .github/workflows/smoke-e2e.yml. Local:
 //   npm run test:e2e
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 async function answerCurrentQuestion(page) {
   const mcq = page.locator('.vmx-option:visible').first();

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 // The subject card prints "อ่านแล้ว X%" and the reading list prints its own
 // percentage for the same reading. Once the list started following the chosen

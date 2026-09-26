@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.js';
 // The topic button renders its count from this file, so read the count
 // from the same place the app does. Hardcoding "5 ข้อ" made this test
 // fail the day one epidemiology question was pulled for missing its

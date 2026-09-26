@@ -15,7 +15,7 @@
 // on the point), because that is what makes a stylus feel like a pen, and
 // undo/redo actually move ink rather than just toggling a button.
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 // A minimal one-page PDF. Built here rather than committed as a fixture so
 // the test carries its own input and cannot drift from it.

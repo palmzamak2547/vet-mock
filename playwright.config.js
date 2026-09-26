@@ -51,6 +51,10 @@ export default defineConfig({
   workers: process.env.CI ? 2 : undefined,
   reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : 'list',
   use: {
+    // Students read the app in Bangkok and CI runs in UTC: one zone for every
+    // project, so a paper at 13:00 means 13:00 on both (STAB-CLOCK). The
+    // calendar itself is pinned in tests/e2e/fixtures.js.
+    timezoneId: 'Asia/Bangkok',
     // Tests default to a local Vite preview server (see webServer
     // below). Override via PLAYWRIGHT_BASE_URL=https://vetmock.vercel.app
     // to smoke-test the actual production build.

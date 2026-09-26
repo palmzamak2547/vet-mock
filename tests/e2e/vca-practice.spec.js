@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 import { encodeQuizSet } from '../../src/lib/share-link.js';
 
 test.use({ serviceWorkers: 'block' });

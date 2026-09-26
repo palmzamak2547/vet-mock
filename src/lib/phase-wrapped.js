@@ -231,6 +231,27 @@ export function getCompletedPhase(now = new Date(), year = 'y4') {
  * @param {Array} [args.allQuestions] - currently unused but kept in signature
  * @param {Array} [args.subjects] - SUBJECTS list for pretty labels
  */
+// Phase window: 60 days before the first paper so the recap covers the
+// study time, not just exam week, and 2 days after the last so cram-week
+// activity stays in. buildPhaseStats and hasPhaseActivity share it, so the
+// Home card never offers a recap that would open empty.
+function historyInPhase(phase, history) {
+  if (!phase) return [];
+  const startMs = phase.startDate.getTime() - 60 * 24 * 60 * 60 * 1000;
+  const endMs = phase.endDate.getTime() + 2 * 24 * 60 * 60 * 1000;
+  return (Array.isArray(history) ? history : []).filter((h) => {
+    if (!h?.date) return false;
+    const ts = new Date(h.date).getTime();
+    if (Number.isNaN(ts)) return false;
+    return ts >= startMs && ts <= endMs;
+  });
+}
+
+/** True when the student answered at least one question inside the phase window. */
+export function hasPhaseActivity(phase, history) {
+  return historyInPhase(phase, history).length > 0;
+}
+
 export function buildPhaseStats({ phase, history = [], srCards = {}, bookmarks = [], allQuestions = [], subjects = [] }) {
   if (!phase) {
     return emptyStats();
@@ -242,18 +263,7 @@ export function buildPhaseStats({ phase, history = [], srCards = {}, bookmarks =
     if (s?.id) subjMap[s.id] = { name: s.name || s.id, icon: s.icon || '📚' };
   }
 
-  // Phase window — pad 60 days before startDate so the recap
-  // covers actual study time, not just exam week. Padding past
-  // endDate keeps cram-week activity in scope.
-  const startMs = phase.startDate.getTime() - 60 * 24 * 60 * 60 * 1000;
-  const endMs = phase.endDate.getTime() + 2 * 24 * 60 * 60 * 1000;
-
-  const scoped = (Array.isArray(history) ? history : []).filter((h) => {
-    if (!h?.date) return false;
-    const ts = new Date(h.date).getTime();
-    if (Number.isNaN(ts)) return false;
-    return ts >= startMs && ts <= endMs;
-  });
+  const scoped = historyInPhase(phase, history);
 
   // Per-subject + global aggregation in one pass
   const subj = {};

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 test.use({ serviceWorkers: 'block' });
 
 test('direct Atlas entry avoids exam, account and Home bundles', async ({ page }) => {

@@ -1,4 +1,9 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
+
+// Both tests drive time with page.clock, which does not stack with the pinned
+// calendar in fixtures.js; their timetable is year 4 phase 2-final, which no
+// real date can reach.
+test.use({ pinCalendar: false });
 
 test.use({ serviceWorkers: 'block' });
 

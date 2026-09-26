@@ -4,7 +4,7 @@
 // JPEG 2000, JPEG-LS, HTJ2K or greyscale JPEG file opened to a black viewer
 // reading "? × ? pixels" (2026-09-25). This spec serves dist/ with the headers
 // vercel.json gives production and opens one file per codec.
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 import { createRequire } from 'node:module';
 import { serveDist } from '../helpers/vercel-static.mjs';
 

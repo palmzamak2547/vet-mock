@@ -17,7 +17,7 @@ import { useLocalStorage } from '../hooks/useStorage.js';
 import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } from '../lib/daily-q.js';
 // Phase Wrapped banner — surfaces a Spotify-Wrapped-style recap once
 // a phase ends. Cheap helpers; the heavy canvas + card UI is lazy.
-import { getCompletedPhase, isWrappedDismissed, markWrappedDismissed } from '../lib/phase-wrapped.js';
+import { getCompletedPhase, hasPhaseActivity, isWrappedDismissed, markWrappedDismissed } from '../lib/phase-wrapped.js';
 import { isTopicRead } from '../lib/study-progress.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 import { stillWrong } from '../lib/wrong-pool.js';
@@ -553,13 +553,18 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   const [wrappedTick, setWrappedTick] = useState(0);
   const completedPhase = useMemo(() => {
     if (isScaffoldYear) return null;
-    try { return getCompletedPhase(); } catch { return null; }
+    // The chosen year's papers: without the year this read year 4's timetable
+    // for every student.
+    try { return getCompletedPhase(new Date(), `y${selectedYear}`); } catch { return null; }
     // wrappedTick is read implicitly via the dismiss-state check —
     // include it as a dep so the memo invalidates when the user
     // clicks "ปิด" below.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isScaffoldYear, wrappedTick]);
-  const showWrappedBanner = completedPhase && !isWrappedDismissed(completedPhase.id);
+  }, [isScaffoldYear, selectedYear, wrappedTick]);
+  // A recap needs something to recap: a student who answered nothing in that
+  // phase keeps the welcome card (tour, Mochi) instead of an empty summary.
+  const showWrappedBanner = completedPhase && !isWrappedDismissed(completedPhase.id)
+    && hasPhaseActivity(completedPhase, history);
 
   // ─── Banner priority winner — Phase 1 (2026-05-18) ─────────────
   // Palm spec: "Banner priority rule — แสดงได้ครั้งละ 1 banner เท่านั้น".

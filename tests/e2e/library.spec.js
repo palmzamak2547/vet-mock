@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures.js';
 
 // The study library is a connected feature: without VITE_SUPABASE_* the catalog
 // cannot load, and CI deliberately builds without those. So this spec guards

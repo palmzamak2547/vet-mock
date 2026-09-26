@@ -35,18 +35,19 @@ function daysUntil(date) {
   return Math.round((target - today) / (24 * 60 * 60 * 1000));
 }
 
-export default function PhaseWrappedView({ goHome, history = [], srCards = {}, bookmarks = [], customQuestions = [] }) {
+export default function PhaseWrappedView({ goHome, history = [], srCards = {}, bookmarks = [], customQuestions = [], selectedYear = null }) {
   const [, setTick] = useState(0); // forces a re-read of dismissal state
 
   // Prefer a completed phase first; fall back to the current
   // phase so the user can peek mid-term ("how am I doing?").
   const phase = useMemo(() => {
-    const completed = getCompletedPhase();
+    const year = selectedYear ? `y${selectedYear}` : undefined;
+    const completed = getCompletedPhase(new Date(), year);
     if (completed) return { ...completed, _state: 'completed' };
-    const current = getCurrentPhase();
+    const current = getCurrentPhase(new Date(), year);
     if (current) return { ...current, _state: 'current' };
     return null;
-  }, []);
+  }, [selectedYear]);
 
   const stats = useMemo(() => {
     if (!phase) return null;

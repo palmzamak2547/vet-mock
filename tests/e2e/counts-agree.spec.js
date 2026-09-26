@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 // One number, four screens. A student reads a count on the subject card, then
 // on รวมทุกหัวข้อ, then on the config screen, then on the button that starts the

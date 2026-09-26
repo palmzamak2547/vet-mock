@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 // The phase screen tells a student that เทอม 1 กลางภาค means "วิชาเทอม 1
 // ไม่รวมเนื้อหาปลายภาค". The reading list did not keep that promise: it listed

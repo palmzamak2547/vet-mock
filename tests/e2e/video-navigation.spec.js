@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 import { SUBJECTS } from '../../src/data/curriculum.js';
 import { VIDEO_LIBRARY } from '../../src/data/videos.js';
 

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 // The exam header has four pieces and only three of them are always there:
 // the exit button, the position, the clock, and the running score. Under

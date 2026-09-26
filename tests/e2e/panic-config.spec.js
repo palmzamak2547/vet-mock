@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 // Panic mode started the set on the spot with the count, the clock and the
 // reveal all fixed, so a student could not say "ten questions" or "show me the

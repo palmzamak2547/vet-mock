@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 import { EFFECTS, GROUPS } from '../../src/lib/motion-kit/catalog.js';
 import { STATES } from '../../src/lib/motion-kit/mochi/motion.js';
 

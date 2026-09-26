@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 test.use({ serviceWorkers: 'block' });
 test('separation interpolates real geometry, settles to idle and respects reduced motion', async ({ page }) => {

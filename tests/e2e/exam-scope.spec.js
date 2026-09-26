@@ -10,7 +10,7 @@
 // with no midterm (Epidemiology) or no paper at all (POA) never stands in
 // the midterm grid as if it had one.
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 // Paper times in schedule.js are Bangkok times and every student reads them in
 // Bangkok. CI runs in UTC, where 22 Sep 20:00 Bangkok is 13:00 and the
@@ -136,6 +136,10 @@ test('a year with no timetable in the app makes no claim about its exams', async
   await expect(page.locator('.vmx-subject-exam')).toHaveCount(0);
 });
 
+// This test drives time itself with page.clock, which does not stack with the
+// pinned calendar in fixtures.js.
+test.describe('own clock', () => {
+  test.use({ pinCalendar: false });
 test('the config page names the phase it was opened under', async ({ page, context }) => {
   // ซ้อมใกล้สอบ opens the soonest paper, and names the phase only when that
   // subject has questions checked against this term's slides. On the real
@@ -151,4 +155,5 @@ test('the config page names the phase it was opened under', async ({ page, conte
   await expect(page.locator('.vmx-hero p')).toContainText('กลางภาค');
   await expect(page.locator('.vmx-scope-pill')).toHaveCount(0);
   await expect(page.locator('.vmx-config-availability')).toHaveText(/มี\s*[\d,]+\s*ข้อในชุดนี้/, { timeout: 20000 });
+});
 });

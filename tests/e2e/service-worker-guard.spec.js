@@ -14,7 +14,7 @@
 // than quietly re-arming a class of flake nobody will connect to the config.
 // tests/e2e/atlas-offline.spec.js is the one deliberate exception and declares
 // `serviceWorkers: 'allow'` itself — that is where worker behaviour is tested.
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 test('the production service worker is blocked by default', async ({ page }) => {
   await page.goto('/');

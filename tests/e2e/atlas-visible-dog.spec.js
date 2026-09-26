@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 test.use({ serviceWorkers: 'block' });
 test('whole-body default opens and keeps source organs through layer and quality changes', async ({ page }) => {

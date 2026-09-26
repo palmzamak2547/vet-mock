@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 // ── No third-party network in this gate ─────────────────────────────────
 // The video surfaces embed youtube.com (the player iframe and its API) and

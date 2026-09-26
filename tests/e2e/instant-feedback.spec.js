@@ -19,7 +19,7 @@
 // invalidate a mock exam, and the guard for it is a single `mode !==
 // 'exam'` in ExamView with nothing pinning it.
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 const noise = /Vercel Web Analytics|Vercel Speed Insights|va\.vercel-scripts|vitals\.vercel-insights|Unrecognized feature|_vercel\/(insights|speed-insights)|Failed to load resource.*404|downloadable font|Unexpected token '<'|expected expression, got '<'|__cf_bm|rejected for invalid domain/i;
 

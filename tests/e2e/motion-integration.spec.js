@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures.js';
 
 test.setTimeout(90_000);
 test.use({ serviceWorkers: 'block' });
@@ -145,6 +145,10 @@ test('the supplied flip reveals only the actual SR answer after the learner asks
   await expect(page.locator('.vmx-sr-grade')).toBeVisible();
 });
 
+// This test drives time itself with page.clock, which does not stack with the
+// pinned calendar in fixtures.js.
+test.describe('own clock', () => {
+  test.use({ pinCalendar: false });
 test('Pomodoro uses the ambience and opens playable activities only during a real break', async ({ page }) => {
   await page.clock.install();
   await page.addInitScript(() => localStorage.setItem('vmx-pomodoro-config', JSON.stringify({ focusMin: 5, shortBreakMin: 1, longBreakMin: 5, strictFocus: false })));
@@ -162,6 +166,7 @@ test('Pomodoro uses the ambience and opens playable activities only during a rea
   await page.clock.fastForward(61_000);
   await expect(page.locator('.vmx-study-break')).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'เริ่ม focus session', exact: true })).toBeVisible();
+});
 });
 
 test('the existing Mochi page leads to real rest and focus, with its examples kept optional', async ({ page }) => {
