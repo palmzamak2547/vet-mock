@@ -67,14 +67,20 @@ export function detectDoseIntent(query) {
   // A dog-only or cat-only drug answers for its own species even when the
   // query names none.
   if (!species && best.drug.species !== 'both') species = best.drug.species;
+  // A species the database does not list the drug for gets no number at all:
+  // "carprofen แมว 4 kg" once answered with a green cat total under a note
+  // that says DO NOT USE IN CATS. The calculator's Drug DB tab hides these
+  // drugs for the other species; the card says the drug is not listed.
+  const speciesMismatch = Boolean(species && best.drug.species !== 'both' && species !== best.drug.species);
 
   return {
     kind: 'dose',
     drug: best.drug,
     weightKg,
     species,
-    dose: drugDose(best.drug, weightKg, species),
-    perKg: drugDose(best.drug, null, species),
+    speciesMismatch,
+    dose: speciesMismatch ? null : drugDose(best.drug, weightKg, species),
+    perKg: speciesMismatch ? null : drugDose(best.drug, null, species),
   };
 }
 

@@ -23,6 +23,13 @@ export function setMeta(html, matcher, replacement) {
     : html.replace('</head>', `    ${replacement}\n  </head>`);
 }
 
+// A VetWiki article's page title before the brand. buildOgHead appends
+// " — VetMock" itself; the prerender used to add "· VetMock" as well, so every
+// shared article read "… — VetWiki · VetMock — VetMock".
+export function wikiArticleTitle(articleTitle) {
+  return `${articleTitle} — VetWiki`;
+}
+
 export function buildOgHead(html, {
   title,
   description,

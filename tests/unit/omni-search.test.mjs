@@ -93,3 +93,46 @@ test('drug entries are searchable by brand and category', () => {
   const firstBrand = String(d.brand).split(',')[0].trim().toLowerCase();
   assert.ok(e._hayLc.includes(firstBrand));
 });
+
+// B74: a species the drug database does not list the drug for must never get
+// a per-animal total. "carprofen แมว 4 kg" used to answer with a green
+// "8–17.6 mg รวม" for a cat, under a note that says DO NOT USE IN CATS. The
+// calculator's Drug DB tab hides these drugs when the other species is picked;
+// the palette card now agrees with it.
+test('a single-species drug queried with the other species answers with no dose', () => {
+  const single = VET_DRUGS.filter((d) => d.species !== 'both');
+  assert.ok(single.length > 0);
+  for (const d of single) {
+    const other = d.species === 'dog' ? 'แมว' : 'สุนัข';
+    const it = detectDoseIntent(`${d.generic.toLowerCase()} ${other} 4 kg`);
+    assert.equal(it?.kind, 'dose', d.generic);
+    assert.equal(it.drug, d);
+    assert.equal(it.speciesMismatch, true, `${d.generic} [${d.species}] queried for ${other}`);
+    assert.equal(it.dose, null, `${d.generic} still computed a total for ${other}`);
+    assert.equal(it.perKg, null, `${d.generic} still offered a range for ${other}`);
+  }
+});
+
+test('a single-species drug queried with its own species (or none) still computes', () => {
+  const carprofen = detectDoseIntent('carprofen สุนัข 4 kg');
+  assert.equal(carprofen.speciesMismatch, false);
+  assert.equal(carprofen.dose.lo, carprofen.drug.doseLo * 4);
+  const bare = detectDoseIntent('carprofen 4 kg');
+  assert.equal(bare.species, 'dog');
+  assert.equal(bare.speciesMismatch, false);
+  assert.ok(bare.dose.lo != null);
+  // a both-species drug is never a mismatch
+  assert.equal(detectDoseIntent('ketamine 12 kg แมว').speciesMismatch, false);
+});
+
+test('the palette dose card renders no range, total or frequency on a species mismatch', async () => {
+  const { readFileSync } = await import('node:fs');
+  const src = readFileSync(new URL('../../src/components/CommandPalette.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+  const card = src.slice(src.indexOf('function DoseCard('), src.indexOf('function CourseCard('));
+  assert.match(card, /speciesMismatch \}? = intent|speciesMismatch } = intent/);
+  assert.match(card, /const perKgText = speciesMismatch\s*\?\s*null/);
+  assert.match(card, /\{perKgText && <div>/);
+  assert.match(card, /\{!speciesMismatch && dose && dose\.perKg/);
+  assert.match(card, /\{!speciesMismatch && drug\.freq &&/);
+  assert.match(card, /ไม่มีขนาดยาสำหรับ\{speciesTh\}ในฐานข้อมูล/);
+});

@@ -231,6 +231,8 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
     if (!q) return topicSections;
     return topicSections.filter((sec) => getSectionHaystack(sec).includes(q));
   }, [topicSections, debouncedSearch]);
+  // A section's own number in its topic, whatever the search leaves on screen.
+  const sectionNumber = useMemo(() => new Map(topicSections.map((sec, i) => [sec, i + 1])), [topicSections]);
 
   const retryLoad = () => {
     clearNotesSubjectCache(subject);
@@ -447,14 +449,18 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
               re-walk every text node on every keystroke. The visible
               <input> still reads `search` for instant feedback. */}
           <ReadingEffects contentKey={`${subject}:${validTopic}:${debouncedSearch}`}>
-          {filteredSections.map((section, idx) => {
+          {filteredSections.map((section) => {
             const id = sectionId(subject, validTopic, section.heading);
             const conflicts = correctionsFor(id);
+            const number = sectionNumber.get(section);
+            // Keyed by the section, not its slot: a slot key carried one
+            // topic's collapsed §3 onto the next topic's §3, and onto whatever
+            // the search moved into that slot.
             return (
               <SectionBlock
-                key={idx}
+                key={`${id}@${number}`}
                 section={section}
-                idx={idx}
+                number={number}
                 highlight={debouncedSearch}
                 conflicts={conflicts.length > 0 ? conflicts : NO_CONFLICTS}
                 figSectionId={id}
@@ -487,7 +493,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
 // Memoised: every keystroke in the search box re-renders NotesView, but a
 // section's props only change when the debounced query (its highlight) does.
 // Without it a long topic re-split the text of every section on each letter.
-const SectionBlock = memo(function SectionBlock({ section, idx, highlight, conflicts, figSectionId = null }) {
+const SectionBlock = memo(function SectionBlock({ section, number, highlight, conflicts, figSectionId = null }) {
   const [open, setOpen] = useState(true);
   const hasConflict = conflicts.length > 0;
 
@@ -507,7 +513,7 @@ const SectionBlock = memo(function SectionBlock({ section, idx, highlight, confl
       >
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>
-            §{idx + 1}
+            §{number}
           </div>
           <div style={{ fontFamily: 'var(--vmx-display)', fontSize: 17, fontWeight: 600, lineHeight: 1.3 }}>
             <RichText text={section.heading} highlight={highlight} />

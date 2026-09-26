@@ -197,7 +197,23 @@ if (WRITE) {
   console.log(`  ${(bytes / 1024 / 1024).toFixed(1)} MB at ${WIDTH}px ${FORMAT} q${QUALITY}`);
   const out = 'src/data/slide-images.generated.js';
   const existing = fs.existsSync(out) ? (await import(`../${out}?t=${Date.now()}`)).SLIDE_IMAGES || {} : {};
-  const merged = { ...existing, ...manifest };
+  // Keep other subjects as they are, but not this subject's keys that no longer
+  // name a section: when a note section is cut, its figures used to stay in the
+  // map under an id nothing renders (11 sections, 24 figures in 2026-09). They
+  // are listed here so they can be reattached by hand; the files stay on disk.
+  const liveIds = new Set();
+  for (const [topicId, topic] of Object.entries(NOTES)) {
+    for (const s of topic.sections || []) liveIds.add(sectionId(SUBJECT, topicId, s.heading));
+  }
+  const retained = {};
+  for (const [id, figs] of Object.entries(existing)) {
+    if (id.startsWith(`${SUBJECT}--`) && !liveIds.has(id) && !manifest[id]) {
+      console.log(`  dropped orphan ${id} (${figs.length} figure(s)): ${figs.join(', ')}`);
+      continue;
+    }
+    retained[id] = figs;
+  }
+  const merged = { ...retained, ...manifest };
   fs.writeFileSync(out, `// ============================================================
 // slide-images.generated.js — DO NOT EDIT BY HAND
 // ============================================================

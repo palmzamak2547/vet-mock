@@ -74,3 +74,41 @@ test('topic identity remains scoped when legacy topic ids collide', () => {
   assert.equal(com3.read, false);
   assert.equal(poultry.read, true);
 });
+
+// B27: the wiki action followed note availability, but VetWiki covers only
+// some note subjects. Year-2 cards (vet-histo "26 บทความ", microbiology,
+// physiology…) and 97 topic buttons opened an article that does not exist
+// and landed on the index. The wiki action now exists only where an article
+// does.
+test('the VetWiki action is offered only where a VetWiki article exists', async () => {
+  const { SUBJECTS } = await import('../../src/data/curriculum.js');
+  const { VETWIKI_TOPIC_KEYS } = await import('../../src/lib/vetwiki/topic-keys.generated.js');
+  const keys = new Set(VETWIKI_TOPIC_KEYS);
+  const catalog = createStudyCatalog();
+  let noteOnly = 0;
+  for (const s of SUBJECTS) {
+    const r = catalog.browse({ subject: s.id });
+    if (r.status !== 'ok') continue;
+    const subjectKeys = VETWIKI_TOPIC_KEYS.filter((k) => k.startsWith(`${s.id}--`)).length;
+    assert.equal(r.resources.wiki.count, subjectKeys, `${s.id} wiki count`);
+    assert.equal(r.resources.wiki.available, subjectKeys > 0, `${s.id} wiki card`);
+    assert.equal(r.resources.wiki.action.enabled, subjectKeys > 0, `${s.id} wiki card action`);
+    for (const t of r.topics) {
+      const has = keys.has(`${s.id}--${t.id}`);
+      assert.equal(t.resources.wiki.enabled, has, `${s.id}/${t.id} wiki button`);
+      if (t.resources.notes.enabled && !has) noteOnly++;
+    }
+  }
+  // the probe found 97 note topics with no article; the catalog must not
+  // pretend they have one
+  assert.ok(noteOnly > 0, 'expected note topics without an article in the corpus');
+  const histo = catalog.browse({ subject: 'vet-histo' });
+  assert.equal(histo.resources.wiki.available, false);
+  assert.ok(histo.resources.notes.available);
+});
+
+test('a topic with notes but no article does not claim "มีสรุปและ VetWiki"', async () => {
+  const { readFileSync } = await import('node:fs');
+  const src = readFileSync(new URL('../../src/views/TopicSelectView.jsx', import.meta.url), 'utf8');
+  assert.match(src, /hasNotesForTopic \? \(hasWikiForTopic \? 'มีสรุปและ VetWiki' : 'มีสรุป'\)/);
+});

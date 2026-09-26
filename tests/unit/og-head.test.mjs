@@ -152,3 +152,20 @@ test('ogCoverFor finds by id', () => {
   assert.equal(ogCoverFor('pomodoro')?.route, '/app/focus');
   assert.equal(ogCoverFor('nope'), null);
 });
+
+// B59: prerender-wiki passed "<title> — VetWiki · VetMock" and buildOgHead
+// appended " — VetMock", so every article title, og:title and twitter:title
+// carried the brand twice.
+test('a VetWiki article title carries the brand once', async () => {
+  const { wikiArticleTitle } = await import('../../scripts/lib/og-head.mjs');
+  const out = buildOgHead(SHELL, { ...ROUTE_ARGS, title: wikiArticleTitle('Rabies — โรคพิษสุนัขบ้า') });
+  assert.equal(prop(out, 'og:title'), 'Rabies — โรคพิษสุนัขบ้า — VetWiki — VetMock');
+  for (const tag of [/<title>([^<]*)<\/title>/, /property="og:title" content="([^"]*)"/, /name="twitter:title" content="([^"]*)"/]) {
+    const v = tag.exec(out)[1];
+    assert.equal(v.split('VetMock').length - 1, 1, `${v} repeats the brand`);
+  }
+  const { readFileSync } = await import('node:fs');
+  const script = readFileSync(new URL('../../scripts/prerender-wiki.mjs', import.meta.url), 'utf8');
+  assert.match(script, /const title = wikiArticleTitle\(k\.title\);/);
+  assert.doesNotMatch(script, /VetWiki · VetMock`/);
+});

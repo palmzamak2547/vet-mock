@@ -203,12 +203,16 @@ function sectionElementFactory() {
   const constants = [...SRC.matchAll(/^const (\w+) = (Object\.freeze\((?:\[\]|\{\})\));$/gm)]
     .map(([, name, value]) => `const ${name} = ${value};`)
     .join('\n');
-  const context = vm.createContext({ correctionsFor, sectionId, subject: '', validTopic: '', debouncedSearch: '' });
+  const context = vm.createContext({ correctionsFor, sectionId, subject: '', validTopic: '', debouncedSearch: '', sectionNumber: new Map() });
   const render = vm.runInContext(`${constants}\n(${callback})`, context);
   return {
     context,
     /** One render of the section list: the props each SectionBlock receives. */
-    renderList: (sections) => sections.map((section, idx) => render(section, idx)),
+    // NotesView's sectionNumber: each section's 1-based place in its topic.
+    renderList: (sections) => {
+      context.sectionNumber = new Map(sections.map((section, i) => [section, i + 1]));
+      return sections.map((section, idx) => render(section, idx));
+    },
   };
 }
 

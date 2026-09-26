@@ -3,6 +3,8 @@
 // ============================================================
 
 import { QB } from '../data/questions.js';
+import { articleForQuestion } from './vetwiki/registry-lite.js';
+import { wikiPath } from './vetwiki/url.js';
 
 /**
  * Strict gate for legacy UI Wiki Citation Chip rendering:
@@ -89,6 +91,12 @@ export function evaluateCitationEligibility(record) {
     return null;
   }
 
+  // The link names a real article. A reference's pageId ("com5-rabies-and-
+  // vaccine-guidelines") is not a wiki path: /wiki/<pageId> parsed as a
+  // subject with no topic and landed on the index, for every cited question.
+  const article = record.article;
+  const url = article && article.subject && article.topic ? wikiPath(article.subject, article.topic) : null;
+
   // Return ONLY minimal sanitized public citation metadata (NO raw content)
   return {
     pageId,
@@ -96,7 +104,7 @@ export function evaluateCitationEligibility(record) {
     title: record.title || record.ref?.label || `${pageId}#${anchorId}`,
     sourceApprovalRef,
     mappingEligible: true,
-    url: `/wiki/${pageId}#${anchorId}`,
+    url,
   };
 }
 
@@ -129,7 +137,8 @@ export function getEligibleCitationForQuestion(questionId, subject) {
   const ref = q.questionWikiRef || (Array.isArray(q.wikiRefs) && q.wikiRefs[0]);
   if (!ref || !ref.pageId || !ref.anchorId) return null;
 
-  return evaluateCitationEligibility({
+  const citation = evaluateCitationEligibility({
+    article: articleForQuestion(q),
     pageId: ref.pageId,
     anchorId: ref.anchorId,
     title: ref.label || ref.title,
@@ -140,4 +149,7 @@ export function getEligibleCitationForQuestion(questionId, subject) {
     isDemo: q.isDemo || ref.isDemo,
     visibility: q.visibility || ref.visibility,
   });
+  // No article behind the reference: no link. The chip still shows the
+  // reference's label as plain text.
+  return citation && citation.url ? citation : null;
 }

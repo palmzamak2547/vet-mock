@@ -88,6 +88,58 @@ function defaultOpenRelated(ids, entry) {
   } catch {}
 }
 
+// RichText's own tokens (lib/richtext.jsx TOKEN_RE): bold, italic, code, and
+// line breaks. Kept in step with it by the term-markdown test.
+const MARKDOWN_TOKEN_RE = /(\*\*[^*\n]+\*\*|\*[^*\n]+\*|`[^`\n]+`|\n)/g;
+
+// Terms are detected on the whole string (their context guard reads the words
+// before them), but the markdown is split first. Cutting the raw string at
+// each term used to hand RichText a lone "**" on either side of "**DMI**", so
+// the asterisks printed and the bold was lost. A term now renders inside the
+// bold or italic run it sits in; one inside `code`, or straddling a marker,
+// stays plain text. Pure data, no JSX: nodes are
+//   { type: 'text', value } | { type: 'term', value, entry, at }
+//   | { type: 'raw', value }  (a code span or a line break, for RichText)
+//   | { type: 'strong' | 'em', children }
+function splitTermMarkdown(str, matches) {
+  const terms = [];
+  const inside = (a, b) => {
+    const out = [];
+    let cursor = a;
+    for (const m of matches) {
+      if (m.start < a || m.end > b) continue;
+      if (m.start < cursor) continue;
+      if (m.start > cursor) out.push({ type: 'text', value: str.slice(cursor, m.start) });
+      const node = { type: 'term', value: str.slice(m.start, m.end), entry: m.entry, at: terms.length };
+      terms.push(node);
+      out.push(node);
+      cursor = m.end;
+    }
+    if (cursor < b) out.push({ type: 'text', value: str.slice(cursor, b) });
+    return out;
+  };
+  const nodes = [];
+  let last = 0;
+  MARKDOWN_TOKEN_RE.lastIndex = 0;
+  let t;
+  while ((t = MARKDOWN_TOKEN_RE.exec(str)) !== null) {
+    const a = t.index;
+    const b = a + t[0].length;
+    if (a > last) nodes.push(...inside(last, a));
+    const tok = t[0];
+    if (tok.length >= 4 && tok.startsWith('**') && tok.endsWith('**')) {
+      nodes.push({ type: 'strong', children: inside(a + 2, b - 2) });
+    } else if (tok.length >= 3 && tok.startsWith('*') && tok.endsWith('*')) {
+      nodes.push({ type: 'em', children: inside(a + 1, b - 1) });
+    } else {
+      nodes.push({ type: 'raw', value: tok });
+    }
+    last = b;
+  }
+  if (last < str.length) nodes.push(...inside(last, str.length));
+  return { nodes, terms };
+}
+
 export default function TermLinkedRichText({ text, highlight, onOpenRelated, subject = null }) {
   if (typeof document !== 'undefined') ensureTermStyles();
 
@@ -103,30 +155,14 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated, sub
   // Compute segments + related-Q counts once per text change.
   // Memoized because Question.jsx may re-render frequently (timers,
   // bookmark state, etc.) but text rarely changes mid-Q.
-  const { segments, relatedCountByTerm } = useMemo(() => {
-    if (!text) return { segments: [], relatedCountByTerm: new Map() };
+  const { nodes, terms, relatedCountByTerm } = useMemo(() => {
+    if (!text) return { nodes: [], terms: [], relatedCountByTerm: new Map() };
     const str = String(text);
     const matches = detectTerms(str, subject);
     if (matches.length === 0) {
-      return { segments: [{ type: 'text', value: str }], relatedCountByTerm: new Map() };
+      return { nodes: [{ type: 'raw', value: str }], terms: [], relatedCountByTerm: new Map() };
     }
-    // Build ordered segment list — non-overlapping by construction.
-    const segs = [];
-    let cursor = 0;
-    for (const m of matches) {
-      if (m.start > cursor) {
-        segs.push({ type: 'text', value: str.slice(cursor, m.start) });
-      }
-      segs.push({
-        type: 'term',
-        value: str.slice(m.start, m.end),  // preserve original casing
-        entry: m.entry,
-      });
-      cursor = m.end;
-    }
-    if (cursor < str.length) {
-      segs.push({ type: 'text', value: str.slice(cursor) });
-    }
+    const { nodes: built, terms: found } = splitTermMarkdown(str, matches);
 
     // Related-Q counts come from the build-time index, not a scan of
     // whatever the session has loaded — see regen-glossary-related.mjs.
@@ -136,7 +172,7 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated, sub
       if (counts.has(key)) continue;
       counts.set(key, (GLOSSARY_RELATED[entryKey(m.entry)] || []).length);
     }
-    return { segments: segs, relatedCountByTerm: counts };
+    return { nodes: built, terms: found, relatedCountByTerm: counts };
   }, [text, subject]);
 
   // Delegated click handler — fires for any descendant.
@@ -182,11 +218,45 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated, sub
   // re-renders that might shuffle segment order.
   // Read the entry off the segment that was actually clicked. If the text
   // changed under us the index no longer names a term, and nothing opens.
-  const openSegment = openAt != null ? segments[openAt] : null;
+  const openSegment = openAt != null ? terms[openAt] : null;
   const openEntry = openSegment && openSegment.type === 'term' ? openSegment.entry : null;
   const openRelatedCount = openEntry
     ? (relatedCountByTerm.get(openEntry.term.toLowerCase()) ?? 0)
     : 0;
+
+  // Plain runs and raw tokens go through RichText so highlight and code still
+  // render; bold and italic wrap their own children, terms included.
+  const renderNode = (node, key) => {
+    if (node.type === 'text' || node.type === 'raw') {
+      return <Fragment key={key}><RichText text={node.value} highlight={highlight} /></Fragment>;
+    }
+    if (node.type === 'strong') {
+      return <strong key={key} style={{ fontWeight: 700 }}>{node.children.map(renderNode)}</strong>;
+    }
+    if (node.type === 'em') {
+      return <em key={key}>{node.children.map(renderNode)}</em>;
+    }
+    // Term — render as a button. We deliberately keep the original casing
+    // inside so the underlined word reads naturally inline with surrounding
+    // text.
+    const isActive = openAt === node.at;
+    return (
+      <button
+        key={key}
+        type="button"
+        className={`vmx-term${isActive ? ' active' : ''}`}
+        data-at={node.at}
+        aria-haspopup="dialog"
+        aria-expanded={isActive ? 'true' : 'false'}
+        aria-label={`Definition: ${node.entry.term}`}
+        title={node.entry.defShort || node.entry.term}
+      >
+        {/* Highlight search query inside the term text too, so Cmd-K results
+            still glow when the result is the term itself. */}
+        <RichText text={node.value} highlight={highlight} />
+      </button>
+    );
+  };
 
   return (
     <>
@@ -207,33 +277,7 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated, sub
           }
         }}
       >
-        {segments.map((seg, i) => {
-          if (seg.type === 'text') {
-            // Pass through RichText so markdown still works.
-            return <Fragment key={i}><RichText text={seg.value} highlight={highlight} /></Fragment>;
-          }
-          // Term segment — render as a button. We deliberately keep
-          // the original casing inside so the underlined word reads
-          // naturally inline with surrounding text.
-          const isActive = openAt === i;
-          return (
-            <button
-              key={i}
-              type="button"
-              className={`vmx-term${isActive ? ' active' : ''}`}
-              data-at={i}
-              aria-haspopup="dialog"
-              aria-expanded={isActive ? 'true' : 'false'}
-              aria-label={`Definition: ${seg.entry.term}`}
-              title={seg.entry.defShort || seg.entry.term}
-            >
-              {/* Highlight search query inside the term text too, so
-                  Cmd-K results still glow when the result is the term
-                  itself. */}
-              <RichText text={seg.value} highlight={highlight} />
-            </button>
-          );
-        })}
+        {nodes.map((node, i) => renderNode(node, i))}
       </span>
 
       {openEntry && anchorRect && (

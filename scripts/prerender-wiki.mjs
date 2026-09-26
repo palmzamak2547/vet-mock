@@ -21,7 +21,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildOgHead } from './lib/og-head.mjs';
+import { buildOgHead, wikiArticleTitle } from './lib/og-head.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
@@ -46,7 +46,7 @@ for (const t of topics) {
   if (!k) continue;
   const prov = vw.provenanceSummary(k);
   const url = `${ORIGIN}/wiki/${t.subject}/${t.topic}`;
-  const title = `${k.title} — VetWiki · VetMock`;
+  const title = wikiArticleTitle(k.title);
   // Honest description: say what the article is AND how well-checked it is.
   const checked = prov.verifiedClaimCount > 0
     ? `ตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว ${prov.verifiedClaimCount} จุด`

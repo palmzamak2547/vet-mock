@@ -83,5 +83,8 @@ test('UI-20: the topic card shows no year and no TBD, and opens the profile with
   assert.match(view, /const lecturerLabel = topicLecturerLabel\(subject, t\.lecturer\);/);
   // The lookup behind the profile modal still gets the curriculum string.
   assert.match(view, /onClick=\{\(\) => openInstructorFor\(t\.lecturer\)\}/);
-  assert.match(view, /\{lecturerLabel && \(/);
+  // The chip is derived from the label, so a TBD (null label) still renders
+  // nothing; a label the directory cannot resolve is plain text (B30).
+  assert.match(view, /const lecturer = lecturerChip\(lecturerLabel, /);
+  assert.match(view, /\{lecturer\?\.kind === 'profile' && \(/);
 });

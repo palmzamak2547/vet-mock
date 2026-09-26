@@ -361,16 +361,31 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
                         )}
                       </span>
                       {t.summary && <span style={{ display: 'block', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.55, marginTop: 2, overflowWrap: 'anywhere' }}>{t.summary}</span>}
-                      {/* Which sections matched — a hit is only useful if you
-                          can see where in the article it landed. */}
-                      {query && (matchById.get(t.id) || []).length > 0 && (
-                        <span style={{ display: 'block', fontSize: 12, color: 'var(--clr-sage-text)', marginTop: 4, lineHeight: 1.5 }}>
-                          พบใน: {(matchById.get(t.id) || []).slice(0, 3).map((s) => s.heading).join(', ')}
-                          {(matchById.get(t.id) || []).length > 3 ? ` และอีก ${(matchById.get(t.id) || []).length - 3} หัวข้อ` : ''}
-                        </span>
-                      )}
                     </span>
                   </button>
+                  {/* Which sections matched — a hit is only useful if you can
+                      see where in the article it landed, and go there. Outside
+                      the row button: each heading is its own control, and
+                      opens the article at that section. */}
+                  {query && (matchById.get(t.id) || []).length > 0 && (
+                    <div style={{ fontSize: 12, color: 'var(--clr-sage-text)', lineHeight: 1.5, padding: '0 10px 8px 24px', marginTop: -6 }}>
+                      พบใน:{' '}
+                      {(matchById.get(t.id) || []).slice(0, 3).map((s, i) => (
+                        <React.Fragment key={s.id}>
+                          {i > 0 ? ', ' : ''}
+                          <button
+                            type="button"
+                            onClick={() => onOpenSection?.(t.id, s.id)}
+                            title={`เปิดที่หัวข้อ ${s.heading}`}
+                            style={{ all: 'unset', cursor: 'pointer', color: 'inherit', textDecoration: 'underline', textUnderlineOffset: 2, padding: '2px 0' }}
+                          >
+                            {s.heading}
+                          </button>
+                        </React.Fragment>
+                      ))}
+                      {(matchById.get(t.id) || []).length > 3 ? ` และอีก ${(matchById.get(t.id) || []).length - 3} หัวข้อ` : ''}
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
@@ -613,6 +628,17 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   };
 
   const openTopic = (id) => { setOpenId(id); syncUrl(id); window.scrollTo({ top: 0, behavior: 'auto' }); };
+  // A search hit's matched heading: the article, at that section. WikiArticle
+  // scrolls to the address's #section once the article has loaded.
+  const openSection = (id, sectionId) => {
+    const t = topics.find((x) => x.id === id);
+    if (!t) return;
+    setOpenId(id);
+    if (typeof window !== 'undefined' && window.history?.pushState) {
+      window.history.pushState({ vetwiki: id }, '', wikiPath(t.subject, t.topic, sectionId));
+    }
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  };
   const backToIndex = () => { setOpenId(null); syncUrl(null); };
 
   // Follow the props when they change. `openId` is otherwise only ever read in
@@ -655,7 +681,7 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   }, []);
 
   if (!current) {
-    return <WikiIndex topics={topics} onOpen={openTopic} goHome={goHome} />;
+    return <WikiIndex topics={topics} onOpen={openTopic} onOpenSection={openSection} goHome={goHome} />;
   }
 
   if (!knowledge) {

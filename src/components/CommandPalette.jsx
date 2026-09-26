@@ -209,7 +209,8 @@ function buildStaticItems() {
     if (!s?.title) continue;
     push({
       type: 'summary',
-      payload: null,
+      // The clip itself, so the hit opens that clip rather than the shelf.
+      payload: s.videoId ? { videoId: s.videoId, subject: s.subject || null } : null,
       label: s.title,
       hint: `สรุปคลิป, ${(s.subject || '').toUpperCase()}`,
       icon: '📝',
@@ -323,7 +324,15 @@ function runItem(item, handlers) {
       }
     }
     case 'subject':    setSubject?.(item.payload); goView?.('topic-select'); return;
-    case 'summary':    goView?.('videos'); return;
+    case 'summary': {
+      // One clip was chosen: leave its id for VideoView, which opens it (on a
+      // fresh mount, or through vmx-view-intent when the shelf is already open).
+      const clip = item.payload;
+      if (!clip?.videoId) { goView?.('videos'); return; }
+      try { sessionStorage.setItem('vmx-video-pending-clip', JSON.stringify({ videoId: clip.videoId, at: Date.now() })); } catch { /* the shelf still opens */ }
+      goView?.('videos', { videoId: clip.videoId, ...(clip.subject ? { subject: clip.subject } : {}) });
+      return;
+    }
     case 'instructor': openInstructor?.(item.payload); return;
     // A search result names ONE question. Open that question, rather than the
     // whole subject's config screen or the bookmarks pool: the student already
@@ -461,10 +470,14 @@ const PLACEHOLDERS = [
 // ── Answer cards (intent results — computed, never generated) ────────────
 
 function DoseCard({ intent, onOpenCalc }) {
-  const { drug, dose, perKg, weightKg, species } = intent;
+  const { drug, dose, perKg, weightKg, species, speciesMismatch } = intent;
   const speciesTh = species === 'cat' ? 'แมว' : species === 'dog' ? 'สุนัข' : null;
   const range = (r) => (r && r.lo != null ? `${r.lo}–${r.hi} ${r.unit}` : null);
-  const perKgText = perKg?.perKg === false
+  // A species the database does not list the drug for: no range, no total.
+  const listedFor = drug.species === 'cat' ? 'แมว' : 'สุนัข';
+  const perKgText = speciesMismatch
+    ? null
+    : perKg?.perKg === false
     ? `${drug.doseLo}–${drug.doseHi} ${perKg.unit} ต่อตัว`
     : range({ ...perKg, lo: drug.doseLo, hi: drug.doseHi }) + '/kg';
   return (
@@ -479,14 +492,19 @@ function DoseCard({ intent, onOpenCalc }) {
           </span>
         )}
       </div>
+      {speciesMismatch && (
+        <div role="alert" style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-rose-text)', margin: '10px 0 2px', lineHeight: 1.5 }}>
+          ไม่มีขนาดยาสำหรับ{speciesTh}ในฐานข้อมูล ข้อมูลยานี้ในแอปมีเฉพาะ{listedFor}
+        </div>
+      )}
       <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', margin: '10px 0 2px' }}>
-        <div>
+        {perKgText && <div>
           <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>ช่วงขนาดยา</div>
           <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 15, fontWeight: 600 }}>
             {perKgText} <span style={{ fontWeight: 400, fontSize: 12 }}>{drug.route}</span>
           </div>
-        </div>
-        {dose && dose.perKg && dose.lo != null && (
+        </div>}
+        {!speciesMismatch && dose && dose.perKg && dose.lo != null && (
           <div>
             <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>สำหรับ {weightKg} kg</div>
             <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 15, fontWeight: 700, color: 'var(--clr-sage-text)' }}>
@@ -494,7 +512,7 @@ function DoseCard({ intent, onOpenCalc }) {
             </div>
           </div>
         )}
-        {drug.freq && (
+        {!speciesMismatch && drug.freq && (
           <div>
             <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>ความถี่</div>
             <div style={{ fontSize: 13 }}>{drug.freq}</div>
@@ -633,14 +651,16 @@ function AskAnswerCard({ ask, onOpenWiki, onClose }) {
                     <button
                       key={sectionId}
                       type="button"
-                      onClick={() => { onOpenWiki?.(m.subject, m.topic); onClose(); }}
+                      // The cited section, not the article top: openWiki
+                      // takes the section id and the article scrolls to it.
+                      onClick={() => { onOpenWiki?.(m.subject, m.topic, sectionId); onClose(); }}
                       title={m.heading}
                       style={{
                         all: 'unset', cursor: 'pointer', fontSize: 11, fontWeight: 600,
                         color: 'var(--clr-ocean-text)', padding: '1px 4px',
                       }}
                     >
-                      → {m.topicTitle}
+                      → {m.topicTitle}{m.heading ? <span style={{ fontWeight: 400 }}>, {m.heading}</span> : null}
                     </button>
                   );
                 })}

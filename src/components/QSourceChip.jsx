@@ -103,14 +103,14 @@ export default function QSourceChip({ q, store }) {
         <div style={{ margin: '0 0 10px', paddingTop: 10, borderTop: '1px dashed var(--clr-border)', display: 'flex', flexDirection: 'column', gap: 6 }}>
           {eligibleCitation && (
             <div style={{ padding: 8, borderRadius: 6, background: 'rgba(74, 107, 74, 0.12)', border: '1px solid var(--clr-sage)' }}>
+              {/* A new tab, like the recording moments below: the chip shows
+                  in exam mode, and a same-tab link pulled the student out of
+                  the question they were on. */}
               <a
                 href={eligibleCitation.url}
-                onClick={(e) => {
-                  if (typeof window !== 'undefined' && window.__vetmock_navigate) {
-                    e.preventDefault();
-                    window.__vetmock_navigate(eligibleCitation.url);
-                  }
-                }}
+                target="_blank"
+                rel="noopener"
+                title="เปิดบทความใน VetWiki ในแท็บใหม่"
                 style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
               >
                 {/* The title is the link. The page and anchor ids behind it

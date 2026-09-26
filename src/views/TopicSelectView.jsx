@@ -34,6 +34,29 @@ const VCA_NOTES_MAP = {
 // that no other screen needs, so the topic screen's own chunk stays as it was.
 const LecturerSets = lazy(() => import('../components/LecturerSets.jsx'));
 
+// One lazy directory for the whole view (and every later visit).
+let instructorLookupCache = null;
+let instructorLookupPromise = null;
+function loadInstructorLookup() {
+  if (instructorLookupCache) return Promise.resolve(instructorLookupCache);
+  if (!instructorLookupPromise) {
+    instructorLookupPromise = import('../data/instructors.js')
+      .then((mod) => { instructorLookupCache = mod.getInstructorByLecturerString; return instructorLookupCache; })
+      .catch(() => { instructorLookupPromise = null; return null; });
+  }
+  return instructorLookupPromise;
+}
+
+// What a topic card shows for its lecturer string. A profile button only when
+// the directory resolves the string; otherwise the label as plain text, and
+// "อาจารย์" is never put in front of something that did not resolve to a
+// person ("COM III Final 2019 past exam", "Surgery staff").
+function lecturerChip(label, profile) {
+  if (!label) return null;
+  if (profile) return { kind: 'profile', text: label.titled ? label.name : `อาจารย์ ${label.name}` };
+  return { kind: 'text', text: label.name };
+}
+
 export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase = null, onStartPanic = null, onStartLecturer = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null, onOpenWrapUp = null }) {
   // Real documents on this subject's shelf — the fourth study resource,
   // fetched from the same session-cached catalog Home uses.
@@ -62,9 +85,19 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // Open instructor profile by lecturer string. Looks up via the
   // helper in instructors.js which handles "(KB)" tag stripping +
   // partial match against Thai/English names.
-  const openInstructorFor = async (lecturerString) => {
-    const mod = await import('../data/instructors.js');
-    const found = mod.getInstructorByLecturerString(lecturerString);
+  // The directory is ~460 KB, so it stays a lazy chunk; the view loads it
+  // once and only then offers a profile button. A lecturer string with no
+  // profile (a person the directory lacks, "Surgery staff", a past-paper
+  // label) used to get a button that did nothing when tapped.
+  const [findInstructor, setFindInstructor] = useState(() => instructorLookupCache);
+  useEffect(() => {
+    if (findInstructor) return undefined;
+    let live = true;
+    loadInstructorLookup().then((find) => { if (live && find) setFindInstructor(() => find); });
+    return () => { live = false; };
+  }, [findInstructor]);
+  const openInstructorFor = (lecturerString) => {
+    const found = findInstructor?.(lecturerString);
     if (found) setOpenInstructor(found);
   };
 
@@ -590,6 +623,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           // The name the lecturer section above uses for the same person;
           // null for TBD, which gets no button at all.
           const lecturerLabel = topicLecturerLabel(subject, t.lecturer);
+          const lecturer = lecturerChip(lecturerLabel, lecturerLabel ? findInstructor?.(t.lecturer) : null);
           const primaryLabelBase = hasQuestions
             ? `ฝึกข้อสอบ ${t.label} ${count} ข้อ`
             : hasNotesForTopic
@@ -622,7 +656,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                 {isRead && <span className="vmx-topic-read" aria-hidden="true" title="อ่านแล้ว">✓</span>}
                 <span className="title">{t.label}</span>
                 <span className="count" style={{ color: isEmpty ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)' }}>
-                  {hasQuestions ? `${count} ข้อ` : hasNotesForTopic ? 'มีสรุปและ VetWiki' : 'รอเนื้อหาเพิ่ม'}
+                  {hasQuestions ? `${count} ข้อ` : hasNotesForTopic ? (hasWikiForTopic ? 'มีสรุปและ VetWiki' : 'มีสรุป') : 'รอเนื้อหาเพิ่ม'}
                 </span>
                 {ppCount > 0 && hasQuestions && (
                   <span className="vmx-topic-past" title={`มีข้อสอบเก่า ${ppCount}/${count} ข้อ (${ppPct}% ของหัวข้อนี้)`}>
@@ -638,10 +672,15 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
 
               {!isEmpty && (lecturerLabel || hasNotesForTopic || hasWikiForTopic || (subject === 'vca' && VCA_NOTES_MAP[t.id])) && (
                 <div className="vmx-topic-actions" aria-label={`แหล่งเรียน ${t.label}`}>
-                  {lecturerLabel && (
+                  {lecturer?.kind === 'profile' && (
                     <button type="button" className="vmx-topic-action is-wide" onClick={() => openInstructorFor(t.lecturer)} title="ดูโปรไฟล์อาจารย์ + งานวิจัย">
-                      <NavIcon name="user" size={15} /> {lecturerLabel.titled ? lecturerLabel.name : `อาจารย์ ${lecturerLabel.name}`}
+                      <NavIcon name="user" size={15} /> {lecturer.text}
                     </button>
+                  )}
+                  {lecturer?.kind === 'text' && (
+                    <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)', alignSelf: 'center', overflowWrap: 'anywhere' }}>
+                      {lecturer.text}
+                    </span>
                   )}
                   {hasNotesForTopic && (
                     <button type="button" className="vmx-topic-action" onClick={() => runStudyAction(t.resources.notes)}>

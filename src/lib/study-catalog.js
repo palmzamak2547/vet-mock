@@ -24,6 +24,22 @@ import { VIDEO_LIBRARY } from '../data/videos.js';
 import { isPastPaperQuestion } from './question-metadata.js';
 import { isTopicRead, topicProgressKey } from './study-progress.js';
 import { wikiPath } from './vetwiki/url.js';
+import { VETWIKI_TOPIC_KEYS } from './vetwiki/topic-keys.generated.js';
+
+// VetWiki covers only some note subjects. The wiki action used to follow note
+// availability, so year-2 subjects advertised articles that do not exist and
+// their buttons landed on the index. The ids alone answer "is there an
+// article?" without pulling the catalog.
+const WIKI_TOPIC_KEYS = new Set(VETWIKI_TOPIC_KEYS);
+function countWikiTopicsBySubject() {
+  const counts = Object.create(null);
+  for (const key of VETWIKI_TOPIC_KEYS) {
+    const subject = key.split('--')[0];
+    counts[subject] = (counts[subject] || 0) + 1;
+  }
+  return counts;
+}
+const WIKI_COUNTS_BY_SUBJECT = countWikiTopicsBySubject();
 
 function safeQuestions(value) {
   return Array.isArray(value) ? value.filter((q) => q && typeof q === 'object') : [];
@@ -101,6 +117,7 @@ export function createStudyCatalog({ customQuestions = [], readingChecklist = {}
         const questionCount = (builtInByTopic[topic.id] || 0) + customCount(topic.id);
         const pastPaperCount = (builtInPastByTopic[topic.id] || 0) + customPastCount(topic.id);
         const noteAvailable = hasNoteTopic(subjectId, topic.id);
+        const wikiAvailable = WIKI_TOPIC_KEYS.has(`${subjectId}--${topic.id}`);
         const topicState = { subject: subjectId, topic: topic.id };
         const practice = action(
           'practice',
@@ -119,10 +136,10 @@ export function createStudyCatalog({ customQuestions = [], readingChecklist = {}
         const wiki = action(
           'wiki',
           'เปิด VetWiki',
-          noteAvailable,
+          wikiAvailable,
           topicState,
-          noteAvailable ? null : 'missing-content',
-          noteAvailable ? wikiPath(subjectId, topic.id) : null,
+          wikiAvailable ? null : 'missing-content',
+          wikiAvailable ? wikiPath(subjectId, topic.id) : null,
         );
 
         return Object.freeze({
@@ -143,6 +160,7 @@ export function createStudyCatalog({ customQuestions = [], readingChecklist = {}
       .reduce((sum, [, count]) => sum + count, 0)
       + visibleCustom.filter(isPastPaperQuestion).length;
     const noteCount = NOTE_TOPIC_COUNTS_BY_SUBJECT[subjectId] || 0;
+    const wikiCount = WIKI_COUNTS_BY_SUBJECT[subjectId] || 0;
     const videoCount = VIDEO_COUNTS_BY_SUBJECT[subjectId] || 0;
     const subjectState = { subject: subjectId, topic: null };
 
@@ -160,9 +178,9 @@ export function createStudyCatalog({ customQuestions = [], readingChecklist = {}
         action: action('notes', 'Notes / สรุป', noteCount > 0, subjectState, noteCount > 0 ? null : 'missing-content'),
       }),
       wiki: Object.freeze({
-        count: noteCount,
-        available: noteCount > 0,
-        action: action('wiki', 'VetWiki', noteCount > 0, subjectState, noteCount > 0 ? null : 'missing-content', '/wiki'),
+        count: wikiCount,
+        available: wikiCount > 0,
+        action: action('wiki', 'VetWiki', wikiCount > 0, subjectState, wikiCount > 0 ? null : 'missing-content', '/wiki'),
       }),
       videos: Object.freeze({
         count: videoCount,

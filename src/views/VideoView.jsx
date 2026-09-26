@@ -245,6 +245,7 @@ function usePlaylistPreview(playlistId) {
     if (!playlistId) return undefined;
     const cached = readCachedPreview(playlistId);
     if (cached) { setPreview(cached); return undefined; }
+    setPreview(null); // never show the previous playlist's cover or count
     // A recent miss: the placeholder is the answer for now. No subscription,
     // no spinner, and — the point — no request.
     if (previewMissedUntil(playlistId)) return undefined;
@@ -306,20 +307,58 @@ function usePlaylistPreview(playlistId) {
 // starts at 0. Only a clip the app knows opens: any eleven characters fit the
 // id's shape, and a crafted address must not play a stranger's video under
 // the app's own lecture title.
-function citedMoment() {
-  const moment = typeof window === 'undefined' ? null : momentFromSearch(window.location.search);
-  const topic = moment && (VIDEO_META[moment.videoId]?.title || sessionLabel(moment.videoId));
+function knownClip(videoId, seconds = 0) {
+  const topic = videoId && (VIDEO_META[videoId]?.title || sessionLabel(videoId));
   if (!topic) return null;
   return {
-    url: `https://www.youtube.com/watch?v=${moment.videoId}`,
+    url: `https://www.youtube.com/watch?v=${videoId}`,
     topic,
-    subject: VIDEO_META[moment.videoId]?.subject || '',
-    start: moment.seconds,
+    subject: VIDEO_META[videoId]?.subject || '',
+    start: seconds,
   };
 }
 
+function citedMoment() {
+  const moment = typeof window === 'undefined' ? null : momentFromSearch(window.location.search);
+  return moment ? knownClip(moment.videoId, moment.seconds) : null;
+}
+
+// A ⌘K 'สรุปคลิป' hit names one clip. The palette leaves its id here before it
+// opens this view, and the view opens that clip, so the student no longer lands
+// on the whole shelf to hunt for it. Taken once, and only while fresh: a jump
+// that never arrived (an exam that asked to stay) must not open a clip on some
+// later visit.
+const PENDING_CLIP_KEY = 'vmx-video-pending-clip';
+const PENDING_CLIP_MAX_AGE_MS = 30_000;
+function takePendingClip() {
+  let raw = null;
+  try {
+    raw = sessionStorage.getItem(PENDING_CLIP_KEY);
+    if (raw) sessionStorage.removeItem(PENDING_CLIP_KEY);
+  } catch { return null; }
+  if (!raw) return null;
+  let pending = null;
+  try { pending = JSON.parse(raw); } catch { return null; }
+  if (!pending || typeof pending.videoId !== 'string') return null;
+  const age = Date.now() - Number(pending.at);
+  if (!(age >= 0 && age <= PENDING_CLIP_MAX_AGE_MS)) return null;
+  return knownClip(pending.videoId, 0);
+}
+
+// A stable key per shelf card. Two entries can share subject, url and topic
+// (a custom clip that repeats a library one), so a repeat gets its ordinal.
+function videoCardKeys(list) {
+  const seen = new Map();
+  return list.map((v) => {
+    const base = `${v.custom ? 'custom' : 'lib'}|${v.subject}|${v.url}|${v.topic}`;
+    const n = seen.get(base) || 0;
+    seen.set(base, n + 1);
+    return { v, key: n ? `${base}|${n}` : base };
+  });
+}
+
 export default function VideoView({ goHome, initialSubject = null, selectedYear = null }) {
-  const [playing, setPlaying] = useState(citedMoment);
+  const [playing, setPlaying] = useState(() => citedMoment() || takePendingClip());
   // Closing a clip a citation opened drops the moment from the address, so a
   // reload or Back lands on the shelf rather than reopening it.
   const closePlayer = () => {
@@ -368,8 +407,14 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
     };
     const followIntent = (event) => {
       const detail = event.detail;
-      if (detail?.view !== 'videos'
-        || !Object.prototype.hasOwnProperty.call(detail.navigationState || {}, 'subject')) return;
+      if (detail?.view !== 'videos') return;
+      // The shelf is already open: a palette hit for one clip arrives here
+      // instead of through a fresh mount.
+      if (typeof detail.navigationState?.videoId === 'string') {
+        const clip = takePendingClip() || knownClip(detail.navigationState.videoId, 0);
+        if (clip) setPlaying(clip);
+      }
+      if (!Object.prototype.hasOwnProperty.call(detail.navigationState || {}, 'subject')) return;
       setFilter(videoSubjectForNavigation('', detail.navigationState.subject, availableSubjects));
     };
     followNavigation();
@@ -384,6 +429,9 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
   const [form, setForm] = useState({ subject: 'surg2', topic: '', url: '', author: '', duration: '' });
 
   const filtered = filter === 'all' ? allVideos : allVideos.filter((v) => v.subject === filter);
+  // Cards keyed by the clip, not the slot: after a subject switch a card at
+  // the same index kept the previous playlist's cover, count, and error state.
+  const filteredKeys = videoCardKeys(filtered);
 
   const startAdd = () => {
     setForm({ subject: filter !== 'all' ? filter : 'surg2', topic: '', url: '', author: '', duration: '' });
@@ -540,9 +588,9 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
         <div className="vmx-empty">ยังไม่มีคลิปในวิชานี้ — กด "เพิ่มคลิป" เพื่อเพิ่ม</div>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
-          {filtered.map((v, idx) => (
+          {filteredKeys.map(({ v, key }) => (
             <VideoCard
-              key={idx}
+              key={key}
               video={v}
               onPlay={() => setPlaying(v)}
               onEdit={v.custom ? () => startEdit(customIdx(v)) : null}
@@ -858,6 +906,9 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   // Keyboard navigation
   useEffect(() => {
     const handleKey = (e) => {
+      // The clip summary sits on top of the player: its reader's arrows and "/"
+      // must not change the clip behind the summary it is describing.
+      if (openSummary) return;
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       if (e.key === 'ArrowLeft') { e.preventDefault(); goPrev(); }
       if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
@@ -865,7 +916,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [currentIdx, playlistItems.length, onClose]);
+  }, [currentIdx, playlistItems.length, onClose, openSummary]);
 
   // Auto-scroll active item into view
   useEffect(() => {
