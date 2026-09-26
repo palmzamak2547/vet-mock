@@ -51,3 +51,32 @@ test('a failed automatic highlight helper leaves the page usable without a dialo
   await expect(page.getByRole('heading', { name: 'หน้านี้ขัดข้อง', exact: true })).toHaveCount(0);
   expect(await page.evaluate(() => window.__documentIdentity)).toBe(identity);
 });
+
+test('a failed loading animation still lets the requested page finish loading', async ({ page }) => {
+  let finishView;
+  const viewReady = new Promise(resolve => { finishView = resolve; });
+  let loaderFailed = false;
+  await page.route(/\/assets\/FeedbackView-[^/]+\.js/, async route => {
+    await viewReady;
+    await route.continue();
+  });
+  await page.route(/\/assets\/MotionLoader-[^/]+\.js/, route => {
+    loaderFailed = true;
+    return route.abort();
+  });
+  try {
+    await page.goto('/app/feedback', { waitUntil: 'domcontentloaded' });
+    const identity = await page.evaluate(() => window.__documentIdentity);
+    await expect.poll(() => loaderFailed).toBe(true);
+    await expect(page.getByRole('heading', { name: 'หน้านี้ขัดข้อง', exact: true })).toHaveCount(0);
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.getByRole('status').filter({ hasText: 'กำลังโหลด…' })).toBeVisible();
+    finishView();
+    const draft = page.locator('#vmx-feedback-message');
+    await draft.fill('โหลดภาพประกอบไม่ได้ แต่ยังเขียนข้อความได้');
+    await expect(draft).toHaveValue('โหลดภาพประกอบไม่ได้ แต่ยังเขียนข้อความได้');
+    expect(await page.evaluate(() => window.__documentIdentity)).toBe(identity);
+  } finally {
+    finishView();
+  }
+});

@@ -10,19 +10,19 @@
 // computer, a login-only lecture deck could be reopened offline after its
 // reader signed out in another tab.
 //
-// The worker is not changed (its update contract is frozen). Instead:
+// Natural worker activation stays unchanged. Cache authorization now adds:
 //   1. library.js hands out the offline URL for a restricted document only
 //      while this device still holds a session;
-//   2. on sign-out, library.js deletes the cached bytes of every restricted
-//      catalogue document this session listed, and nothing else: public
-//      decks, the offline shell, a student's own PDFs, their ink, bookmarks
-//      and notes all stay;
+//   2. after the last authorized reader signs out, library.js detaches the
+//      document cache and restores only hash-verified public entries. The
+//      offline shell, a student's own PDFs, ink, bookmarks and notes stay;
 //   3. App drops the reader's shelf document when a signed-in owner changes,
 //      but not on guest to signed-in (that deck is what they signed in for).
 // ============================================================
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -32,7 +32,7 @@ const ROOT = resolve(process.cwd());
 const src = (p) => readFileSync(join(ROOT, p), 'utf8');
 
 const R_HASH = 'aaaaaaaaaaaaaaaa'; // a restricted lecture deck
-const P_HASH = 'bbbbbbbbbbbbbbbb'; // a public handout
+const P_HASH = crypto.createHash('sha256').update('public handout bytes').digest('hex').slice(0, 16);
 const OLD_HASH = 'cccccccccccccccc'; // opened on an earlier day, not in this session's catalogue
 const MINE_HASH = 'dddddddddddddddd'; // the student's own PDF, opened from the file picker
 const TOKEN_KEY = 'sb-project-auth-token';
@@ -111,8 +111,10 @@ async function freshLibrary() {
   const code = src('src/lib/library.js')
     .replace(/from '(\.[^']+)'/g, (_m, spec) => `from '${abs(spec)}'`)
     .replace(/import\('(\.[^']+)'\)/g, (_m, spec) => (spec === './supabase.js' ? `import('${supabaseStub}')` : `import('${abs(spec)}')`));
-  return import('data:text/javascript;base64,'
+  const lib = await import('data:text/javascript;base64,'
     + Buffer.from(`${code}\n//# sourceURL=library-under-test-${++loads}.mjs`).toString('base64'));
+  await lib.setLibraryAccess(!!globalThis.localStorage.getItem(TOKEN_KEY));
+  return lib;
 }
 
 const doc = (slug, status, sha, extra = {}) => ({
@@ -152,7 +154,26 @@ function catalogue(rows) {
 }
 
 const settle = async () => { for (let i = 0; i < 20; i++) await new Promise((r) => setImmediate(r)); };
-const signOut = (env) => { env.local.removeItem(TOKEN_KEY); env.win.dispatchEvent(new Event('vmx-library-auth-changed')); };
+const signOut = (env) => { env.local.removeItem(TOKEN_KEY); env.win.dispatchEvent(new CustomEvent('vmx-library-auth-changed', { detail: { signedIn: false } })); };
+
+test('a current restricted catalogue status overrides an earlier public snapshot and public cache headers', async () => {
+  const env = install({ signedIn: true });
+  const lib = await freshLibrary();
+  let rows = [doc('deck', 'public', P_HASH)];
+  globalThis.__vmxTestSupabase = catalogue(() => rows).client;
+  await lib.getLibraryCatalog();
+  rows = [doc('deck', 'restricted', P_HASH)];
+  env.win.dispatchEvent(new Event('vmx-palette-invalidate'));
+  await lib.getLibraryCatalog();
+  await settle();
+  const snapshot = await env.caches.open('vmx-library-catalog-v1');
+  await snapshot.put('/__vmx/library-catalog.json', Response.json({ docs: [doc('deck', 'public', P_HASH)] }));
+  const bytes = await env.caches.open('vmx-lib-docs-v1');
+  await bytes.put('/__lib-doc/' + P_HASH, new Response('public handout bytes', { headers: { 'X-VetMock-Library-Access': 'public' } }));
+  signOut(env);
+  await lib.setLibraryAccess(false);
+  assert.deepEqual(env.caches._entries('vmx-lib-docs-v1'), []);
+});
 
 test('DA-07: sign-out deletes only the restricted decks\' bytes; public decks, the shell and the student\'s own work stay', async () => {
   const env = install({ signedIn: true });
@@ -164,7 +185,7 @@ test('DA-07: sign-out deletes only the restricted decks\' bytes; public decks, t
   // What a signed-in afternoon leaves on the device.
   await lib.getLibraryCatalog();
   const bytes = await env.caches.open('vmx-lib-docs-v1');
-  for (const h of [R_HASH, P_HASH, OLD_HASH]) await bytes.put(new Request(`https://vetmock.test/__lib-doc/${h}`), new Response(`pdf ${h}`));
+  for (const h of [R_HASH, P_HASH, OLD_HASH]) await bytes.put(new Request(`https://vetmock.test/__lib-doc/${h}`), new Response(h === P_HASH ? 'public handout bytes' : `pdf ${h}`));
   const shell = await env.caches.open('vmx-runtime-v194-2026-09-19');
   await shell.put('/', new Response('<html>'));
   await shell.put('/assets/index.js', new Response('js'));
@@ -178,14 +199,15 @@ test('DA-07: sign-out deletes only the restricted decks\' bytes; public decks, t
 
   // An account switch or a guest signing in: a session is still there, so
   // nothing is removed. Restricted means any signed-in account.
-  env.win.dispatchEvent(new Event('vmx-library-auth-changed'));
+  env.win.dispatchEvent(new CustomEvent('vmx-library-auth-changed', { detail: { signedIn: true } }));
   await settle();
   assert.deepEqual(env.caches._entries('vmx-lib-docs-v1'), [OLD_HASH, P_HASH, R_HASH].map((h) => `/__lib-doc/${h}`).sort());
 
   // Signed out.
   signOut(env);
+  await lib.setLibraryAccess(false);
   await settle();
-  assert.deepEqual(env.caches._entries('vmx-lib-docs-v1'), [OLD_HASH, P_HASH].map((h) => `/__lib-doc/${h}`).sort(),
+  assert.deepEqual(env.caches._entries('vmx-lib-docs-v1'), [P_HASH].map((h) => `/__lib-doc/${h}`).sort(),
     'the restricted deck\'s bytes are gone, the public handout\'s are kept');
   assert.deepEqual(env.caches._entries('vmx-runtime-v194-2026-09-19'), ['/', '/assets/index.js'], 'the offline shell is untouched');
   assert.deepEqual(env.caches._entries('vmx-assets-v1'), ['/assets/app.css']);
@@ -210,6 +232,7 @@ test('DA-07: a device with no worker cache is left alone at sign-out', async () 
   globalThis.__vmxTestSupabase = catalogue(() => [doc('deck', 'restricted', R_HASH)]).client;
   await lib.getLibraryCatalog();
   signOut(env);
+  await lib.setLibraryAccess(false);
   await settle();
   assert.equal(env.caches._named.has('vmx-lib-docs-v1'), false, 'the page must not create the worker\'s cache');
 });
@@ -232,9 +255,10 @@ test('DA-07: offline, a signed-out reader gets "sign in" for a restricted deck, 
     assert.equal(await lib.resolveDocUrl(open), `/api/library-blob?offline=1&h=${P_HASH}`);
     // Signed in, the restricted deck opens offline as before.
     env.local.setItem(TOKEN_KEY, '{"access_token":"t"}');
-    assert.equal(await lib.resolveDocUrl(restricted), `/api/library-blob?offline=1&h=${R_HASH}`);
+    await lib.setLibraryAccess(true);
+    assert.match(await lib.resolveDocUrl(restricted), new RegExp(`^/api/library-blob\\?offline=1&h=${R_HASH}&a=`));
     globalThis.fetch = async () => { throw new TypeError('Failed to fetch'); };
-    assert.equal(await lib.resolveDocUrl(restricted), `/api/library-blob?offline=1&h=${R_HASH}`);
+    assert.match(await lib.resolveDocUrl(restricted), new RegExp(`^/api/library-blob\\?offline=1&h=${R_HASH}&a=`));
   } finally {
     globalThis.fetch = realFetch;
   }
@@ -246,7 +270,7 @@ test('DA-07: the page purges the worker\'s own cache, by the worker\'s own key',
   const swName = sw.match(/const LIB_DOCS = '([^']+)'/)[1];
   assert.ok(lib.includes(`'${swName}'`), `library.js must name the worker's cache '${swName}'`);
   assert.match(sw, /new Request\(`\/__lib-doc\/\$\{hash\}`\)/, 'the worker still keys bytes as /__lib-doc/<hash>');
-  assert.match(lib, /`\/__lib-doc\/\$\{/, 'and the purge deletes that same key');
+  assert.match(lib, /await caches\.delete\(LIB_DOC_CACHE\)/, 'logout detaches the whole document cache, including old writers');
 });
 
 test('DA-07: App closes the reader\'s shelf document when a signed-in owner changes, not on guest to signed-in', () => {

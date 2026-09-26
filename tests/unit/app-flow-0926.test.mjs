@@ -203,12 +203,12 @@ test("B68: Home's due count and the SR session count the same pool", () => {
   const mine = [{ id: 900001, type: 'flashcard' }, { id: 950001, type: 'cloze' }, { id: 990001, type: 'image-occlusion' }];
   const pool = srPoolQuestions(bank, [], mine, isFlashcardCompatible);
   assert.deepEqual(pool.map((q) => q.id), [1, 900001, 950001, 990001], 'the student\'s own cards are in the pool, a match question is not');
-  const stats = block(APP, 'const cardStats = useMemo', 900);
-  assert.match(stats, /srPoolQuestions\(allQuestions, \[\], userSr\.cards, isFlashcardCompatible\)/);
-  assert.match(stats, /userSr\.recordFor \? userSr\.recordFor\(srCards, q\) : srCards\[q\.id\]/,
+  // Main (5.132.0) moved the Home due count into HomeView; the guard follows it there.
+  const HOME = read('src/views/HomeView.jsx');
+  const stats = block(HOME, 'const cardStats = useMemo', 900);
+  assert.match(stats, /loadUserFlashcards\(\), \.\.\.loadOcclusionCards\(\)/, 'the student\'s own cards are in Home\'s pool');
+  assert.match(stats, /srCardFor\(srCards, q\) \|\| initCard\(q\.id\)/,
     'a renumbered card keeps its history under its old id; the session reads it through srCardFor, so Home must too');
-  assert.match(stats, /\[srCards, allQuestions, userSr\]/);
-  assert.match(APP, /recordFor: cards\.srCardFor/);
 });
 
 test('B68: the record Home reads for a renumbered card is the one the session reads', async () => {

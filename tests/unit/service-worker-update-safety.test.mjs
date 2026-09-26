@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
+import crypto from 'node:crypto';
 
 const ORIGIN = 'https://vetmock.test';
 const source = readFileSync(new URL('../../public/sw.js', import.meta.url), 'utf8');
@@ -48,7 +49,7 @@ function worker({ clients = [], network = async () => response('network'), sched
     async delete(name) { return stores.delete(name); },
   };
   const context = {
-    caches, URL, Response, AbortController, setTimeout: schedule, clearTimeout,
+    caches, URL, Headers, Response, crypto: crypto.webcrypto, AbortController, setTimeout: schedule, clearTimeout,
     Request: class extends Request { constructor(input, init) { super(absolute(input), init); } },
     fetch: (...args) => network(...args),
     self: {
@@ -346,10 +347,10 @@ for (const [kind, path, overrides] of [
   ['navigation', '/app/notes', { mode: 'navigate' }],
   ['runtime data', '/public-data.json', {}],
   ['uncached image', '/figure.png', { destination: 'image' }],
-  ['library document', '/api/library-blob?h=abcdef12', {}],
+  ['library document', `/api/library-blob?h=${crypto.createHash('sha256').update('bytes').digest('hex').slice(0, 16)}`, {}],
 ]) {
   test(`${kind} cache write stays alive after the response is returned`, async () => {
-    const app = worker({ clients: [{ id: 'active-tab' }], network: async () => response('bytes', { headers: { 'Content-Length': '5' } }) });
+    const app = worker({ clients: [{ id: 'active-tab' }], network: async () => response('bytes', { headers: { 'Content-Length': '5', 'X-VetMock-Library-Access': 'public' } }) });
     let release;
     app.setWriteBarrier(new Promise(resolve => { release = resolve; }));
     const load = app.request(path, overrides);
@@ -361,7 +362,7 @@ for (const [kind, path, overrides] of [
     assert.equal(durable, false, 'network response should not wait for a slow cache write');
     release();
     await complete;
-    const cached = path.startsWith('/api/library-blob') ? '/__lib-doc/abcdef12' : path;
+    const cached = path.startsWith('/api/library-blob') ? '/__lib-doc/' + new URL(path, ORIGIN).searchParams.get('h') : path;
     assert.equal(await (await app.caches.match(cached)).text(), 'bytes');
   });
 }

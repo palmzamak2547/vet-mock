@@ -137,6 +137,9 @@ export function useIdlePrefetch() {
     const ric = window.requestIdleCallback || ((cb) => setTimeout(cb, 1500));
     const cic = window.cancelIdleCallback || clearTimeout;
     const id = ric(() => {
+      // Conditions can change while waiting for idle. Avoid caching failed
+      // imports for screens the student has not requested while offline.
+      if (navigator.onLine === false || navigator.connection?.saveData) return;
       // HomeView itself first — landing page for nearly every session,
       // so prefetch it the moment we're idle. (Even if `initialView` is
       // 'year-select', we'll be on home within ~3 seconds anyway.)

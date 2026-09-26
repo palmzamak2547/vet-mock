@@ -64,31 +64,21 @@ export default async function handler(req, res) {
   // ─── 1) Prefer YouTube Data API if key configured ───
   let degraded = null; // why we fell through to RSS, if we did
   if (apiKey) {
-    // YouTube's free quota is 10,000 UNITS/day and one fetch here costs 2
-    // (playlistItems.list 1 + videos.list 1). The old cap of 250 CALLS/day was
-    // therefore ~5% of what we may spend, while a single cold visit to
-    // /app/videos costs 41 — the budget died after ~6 visitors and every
-    // playlist silently degraded to an empty RSS answer for the rest of the day.
-    const providerBudget = await rateLimit('provider:youtube-data-api:daily', 2000, 24 * 60 * 60 * 1000);
-    if (providerBudget.unavailable) return sendRateLimitFailure(res, providerBudget);
-    if (providerBudget.ok) {
-      try {
-        const items = await fromDataApi(id, apiKey);
-        // Only a REAL answer earns a long cache. An empty list from the API is
-        // a genuine empty playlist, so it caches too — but says so.
-        res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
-        return res.status(200).json({
-          items,
-          count: items.length,
-          source: 'api',
-          ...(items.length === 0 ? { reason: 'empty_playlist' } : {}),
-        });
-      } catch (err) {
-        console.warn('Data API failed, falling back to RSS:', err.message);
-        degraded = 'api_error';
-      }
-    } else {
-      degraded = 'budget_exhausted';
+    try {
+      const items = await fromDataApi(id, apiKey);
+      // Only a REAL answer earns a long cache. An empty list from the API is
+      // a genuine empty playlist, so it caches too — but says so.
+      res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+      return res.status(200).json({
+        items,
+        count: items.length,
+        source: 'api',
+        ...(items.length === 0 ? { reason: 'empty_playlist' } : {}),
+      });
+    } catch (err) {
+      if (err.limit?.unavailable) return sendRateLimitFailure(res, err.limit);
+      console.warn('Data API failed, falling back to RSS:', err.message);
+      degraded = err.limit ? 'budget_exhausted' : 'api_error';
     }
   } else {
     degraded = 'no_key';
@@ -134,6 +124,18 @@ export default async function handler(req, res) {
 }
 
 // ─── Helper: YouTube Data API ───
+// Each playlistItems.list/videos.list request costs one quota unit, including
+// every page and duration batch. Leave 2,000 of the default 10,000 for other uses.
+async function dataApiFetch(url) {
+  const limit = await rateLimit('provider:youtube-data-api:daily', 8000, 24 * 60 * 60 * 1000);
+  if (!limit.ok) {
+    const error = new Error('YouTube quota unavailable');
+    error.limit = limit;
+    throw error;
+  }
+  return fetch(url, { signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS) });
+}
+
 // Fetch playlistItems + videos (for duration) — costs 2 units per 50-clip page
 async function fromDataApi(playlistId, apiKey) {
   const items = [];
@@ -145,7 +147,7 @@ async function fromDataApi(playlistId, apiKey) {
     url.searchParams.set('playlistId', playlistId);
     url.searchParams.set('key', apiKey);
     if (pageToken) url.searchParams.set('pageToken', pageToken);
-    const r = await fetch(url, { signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS) });
+    const r = await dataApiFetch(url);
     if (!r.ok) {
       const txt = await r.text();
       throw new Error(`Data API ${r.status}: ${txt.slice(0, 200)}`);
@@ -178,7 +180,7 @@ async function fromDataApi(playlistId, apiKey) {
         u.searchParams.set('part', 'contentDetails');
         u.searchParams.set('id', batch.map((b) => b.id).join(','));
         u.searchParams.set('key', apiKey);
-        const r = await fetch(u, { signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS) });
+        const r = await dataApiFetch(u);
         if (!r.ok) break;
         const data = await r.json();
         const dmap = new Map();
@@ -190,6 +192,7 @@ async function fromDataApi(playlistId, apiKey) {
         }
       }
     } catch (e) {
+      if (e.limit?.unavailable) throw e;
       // duration is optional — don't fail the whole call
       console.warn('duration fetch failed:', e.message);
     }

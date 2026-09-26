@@ -94,7 +94,7 @@ function getSectionHaystack(sec) {
   return out;
 }
 
-export default function NotesView({ subject: subjectProp = 'com5', initialTopic = null, setSubject: setSubjectProp, goBack, goHome, onOpenWiki }) {
+export default function NotesView({ subject: subjectProp = 'com5', initialTopic = null, setSubject: setSubjectProp, goBack, backLabel = 'เลือกหัวข้ออื่น', goHome, onOpenWiki }) {
   const [activeSubject, setActiveSubjectLocal] = useState(subjectProp);
   const subject = activeSubject;
   const [notesState, setNotesState] = useState({ subject: null, status: 'loading', notes: EMPTY_NOTES, error: null });
@@ -148,6 +148,14 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
   //    activeTopic state directly leaves a render cycle with the previous
   //    subject's id (→ blank page) when the user switches subjects.
   const validTopic = topicIds.includes(activeTopic) ? activeTopic : topicIds[0];
+
+  useEffect(() => {
+    if (window.history.state?.vmxView !== 'notes') return;
+    try {
+      window.history.replaceState({ ...window.history.state, vmxNotesSubject: subject,
+        vmxNotesTopic: (notesReady ? validTopic : activeTopic) || null }, '');
+    } catch {}
+  }, [notesReady, subject, validTopic, activeTopic]);
 
   const switchSubject = (next) => {
     const cached = getCachedNotesSubject(next);
@@ -250,7 +258,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
   if (notesState.subject !== subject || notesState.status === 'loading') {
     return (
       <>
-        <BackBar onBack={goBack || goHome} label={goBack ? 'เลือกหัวข้ออื่น' : 'หน้าแรก'} />
+        <BackBar onBack={goBack || goHome} label={goBack ? backLabel : 'หน้าแรก'} />
         <div className="vmx-hero"><h1>กำลังเปิด <em>โน้ต</em></h1></div>
         <div className="vmx-config-panel" role="status" aria-live="polite">
           <Mochi state="loading" size={36} animate slot="loading" className="vmx-status-mochi" /><MotionLoader label="กำลังโหลดสรุปบทเรียน" />
@@ -263,7 +271,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
   if (notesState.status === 'error') {
     return (
       <>
-        <BackBar onBack={goBack || goHome} label={goBack ? 'เลือกหัวข้ออื่น' : 'หน้าแรก'} />
+        <BackBar onBack={goBack || goHome} label={goBack ? backLabel : 'หน้าแรก'} />
         <div className="vmx-hero"><h1>เปิดโน้ต<em>ไม่สำเร็จ</em></h1></div>
         <div className="vmx-empty" role="alert">
           <Mochi state="encourage" size={52} slot="error" className="vmx-empty-mochi" />
@@ -271,7 +279,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
         </div>
         <div className="vmx-btn-row">
           <button className="vmx-btn vmx-btn-primary" onClick={retryLoad}>ลองอีกครั้ง</button>
-          <button className="vmx-btn vmx-btn-ghost" onClick={goBack || goHome}>กลับไปเลือกหัวข้อ</button>
+          <button className="vmx-btn vmx-btn-ghost" onClick={goBack || goHome}>{backLabel === 'เลือกหัวข้ออื่น' ? 'กลับไปเลือกหัวข้อ' : `กลับ${backLabel}`}</button>
         </div>
       </>
     );
@@ -280,7 +288,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
   if (!topic) {
     return (
       <>
-        <BackBar onBack={goBack || goHome} label={goBack ? 'เลือกหัวข้ออื่น' : 'หน้าแรก'} />
+        <BackBar onBack={goBack || goHome} label={goBack ? backLabel : 'หน้าแรก'} />
         <div className="vmx-hero"><h1>ทวน <em>เนื้อหา</em></h1></div>
         <div className="vmx-empty"><Mochi state="curious" size={52} slot="empty" className="vmx-empty-mochi" />ยังไม่มีโน้ตสำหรับวิชานี้</div>
         <div className="vmx-btn-row">
@@ -292,7 +300,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
 
   return (
     <>
-      <BackBar onBack={goBack || goHome} label={goBack ? 'เลือกหัวข้ออื่น' : 'หน้าแรก'} subtitle={`${subjectMeta?.icon || ''} ${subjectMeta?.name || ''}`} />
+      <BackBar onBack={goBack || goHome} label={goBack ? backLabel : 'หน้าแรก'} subtitle={`${subjectMeta?.icon || ''} ${subjectMeta?.name || ''}`} />
       <div className="vmx-hero">
         <h1>ทวน <em>เนื้อหา</em></h1>
         <p>

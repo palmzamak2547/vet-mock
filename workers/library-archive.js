@@ -60,7 +60,9 @@ export default {
     const disposition = unsafe || mime.startsWith('application/vnd.openxmlformats-officedocument.') ? 'attachment' : 'inline';
     headers.set('Content-Disposition', `${disposition}; filename*=UTF-8''${encodedName}`);
     headers.set('Content-Length', String(range ? range.length : head.size));
-    headers.set('Cache-Control', `private, max-age=${Math.max(0, Math.floor(payload.e - Date.now() / 1000))}`);
+    headers.set('X-VetMock-Library-Access', payload.a === 'public' ? 'public' : 'restricted');
+    headers.set('Cache-Control', payload.a === 'public'
+      ? `private, max-age=${Math.max(0, Math.floor(payload.e - Date.now() / 1000))}` : 'no-store');
     if (range) headers.set('Content-Range', `bytes ${range.offset}-${range.offset + range.length - 1}/${head.size}`);
     if (request.method === 'HEAD') return new Response(null, { headers });
     const object = await env.ARCHIVE.get(payload.k, range ? { range } : undefined);

@@ -15,7 +15,8 @@ import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { hasNoteTopic } from '../data/notes-registry.generated.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { isTopicRead, setTopicRead } from '../lib/study-progress.js';
-import { scopeForPhase, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
+import { scopeForPhase, questionInScope, EXAM_SCOPE_LABEL } from '../lib/exam-scope.js';
+import { alertDialog } from '../lib/dialog.js';
 import { EMPTY_ART } from '../data/art.js';
 import EmptyState from '../components/EmptyState.jsx';
 
@@ -30,24 +31,16 @@ export default function ReadingChecklistView({
   setTopic,
   setView,
 }) {
-  // Filter out hidden topics globally — the same `hidden: true` flag that
-  // hides topics in TopicSelectView (and excludes them from visibleQuestionCount)
-  // must also hide them from the reading checklist; otherwise non-Final topics
-  // (e.g. Poultry midterm scope, Exotic week 1-6) show up in รายการอ่าน.
-  //
-  // The list also follows the paper the student picked, which is what the phase
-  // screen already promises them: เทอม 1 กลางภาค is described there as
-  // "วิชาเทอม 1 ไม่รวมเนื้อหาปลายภาค". It was not true here — a year-5 student on
-  // กลางภาค was handed 86 topics that sit on the final paper. Same rule as the
-  // topic list: the topic's own examScope decides, and a topic without one is
-  // kept, because filtering on absent metadata would quietly shrink the list the
-  // day someone adds a topic and forgets the field. Nothing is erased; a tick on
-  // a final topic is still in storage and reappears under ปลายภาค.
+  // Follow both the term and the paper. The shared resolver also knows a
+  // subject's scope and its timetable; a missing topic field is not the same
+  // as unknown scope. Unknown and cross-semester topics remain reachable.
+  // This is a projection only: all saved marks survive a scope change.
   const paperScope = scopeForPhase(selectedPhase);
-  const onThisPaper = (t) => !paperScope || !t?.examScope
-    || t.examScope === paperScope || t.examScope === 'both';
+  const semester = Number(/^([12])-(?:mid|final)$/.exec(selectedPhase)?.[1]) || null;
   const subjects = (SUBJECTS_BY_YEAR[selectedYear] || [])
-    .map((s) => ({ ...s, topics: Array.isArray(s.topics) ? s.topics.filter((t) => !t.hidden && onThisPaper(t)) : [] }))
+    .filter((s) => !semester || s.semester == null || s.semester === 0 || s.semester === semester)
+    .map((s) => ({ ...s, topics: Array.isArray(s.topics) ? s.topics.filter((t) => !t.hidden
+      && questionInScope({ subject: s.id, topic: t.id }, paperScope)) : [] }))
     .filter((s) => s.topics.length > 0);
 
   // The celebration below watches a derived count, which also moves when the
@@ -58,12 +51,16 @@ export default function ReadingChecklistView({
 
   const toggle = (subjectId, topicId) => {
     tickedHere.current = true;
-    setReadingChecklist((prev) => setTopicRead(prev, subjectId, topicId));
+    const saved = setReadingChecklist((prev) => setTopicRead(prev, subjectId, topicId));
+    if (saved?.accepted === false) {
+      tickedHere.current = false;
+      void alertDialog('บันทึกรายการอ่านไม่สำเร็จ โปรดลองใหม่');
+    }
   };
 
   const setSubjectAll = (subj, value) => {
     tickedHere.current = true;
-    setReadingChecklist((prev) => {
+    const saved = setReadingChecklist((prev) => {
       let next = prev;
       const completedAt = Date.now();
       // subj.topics is already filtered (no hidden topics) — safe to iterate
@@ -72,20 +69,25 @@ export default function ReadingChecklistView({
       });
       return next;
     });
+    if (saved?.accepted === false) {
+      tickedHere.current = false;
+      void alertDialog('บันทึกรายการอ่านไม่สำเร็จ โปรดลองใหม่');
+    }
   };
 
   // Overall stats (counts visible topics only — hidden already filtered above)
   const totalTopics = subjects.reduce((acc, s) => acc + s.topics.length, 0);
   const totalDone = subjects.reduce((acc, s) => acc + s.topics.filter((t) => isTopicRead(readingChecklist, s.id, t.id)).length, 0);
   const overallPct = totalTopics > 0 ? Math.round((totalDone / totalTopics) * 100) : 0;
-  const previous = useRef({ year: selectedYear, done: totalDone });
+  const previous = useRef({ year: selectedYear, phase: selectedPhase, done: totalDone });
   useEffect(() => {
-    if (tickedHere.current && previous.current.year === selectedYear && totalDone > previous.current.done) {
+    if (tickedHere.current && previous.current.year === selectedYear
+      && previous.current.phase === selectedPhase && totalDone > previous.current.done) {
       fireConfetti({ count: 32, preset: 'chapter' });
     }
     tickedHere.current = false;
-    previous.current = { year: selectedYear, done: totalDone };
-  }, [selectedYear, totalDone]);
+    previous.current = { year: selectedYear, phase: selectedPhase, done: totalDone };
+  }, [selectedYear, selectedPhase, totalDone]);
 
   return (
     <>
@@ -95,7 +97,7 @@ export default function ReadingChecklistView({
         <p>ติ๊กหัวข้อที่อ่านเสร็จแล้ว ดูเหลือต้องอ่านอีกกี่คาบ, เก็บไว้ในเครื่อง (sync cloud ถ้า login)</p>
         {paperScope && (
           <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
-            แสดงเฉพาะหัวข้อของ{EXAM_SCOPE_LABEL[paperScope]}ตามช่วงสอบที่เลือกไว้ ที่ติ๊กไว้ในอีกช่วงยังอยู่ครบ สลับช่วงสอบที่หน้าแรกแล้วกลับมาดูได้
+            ไม่รวมเนื้อหา{paperScope === 'midterm' ? 'ปลายภาค' : 'กลางภาค'}{semester ? ` และวิชาเทอม ${semester === 1 ? 2 : 1}` : ''} ยังแสดงหัวข้อที่ไม่ระบุช่วงสอบ ที่ติ๊กไว้ในอีกช่วงยังอยู่ครบ สลับช่วงสอบที่หน้าแรกแล้วกลับมาดูได้
           </p>
         )}
       </div>

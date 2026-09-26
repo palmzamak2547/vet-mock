@@ -13,9 +13,10 @@
 //   • No external lib, ~50 LOC
 // ============================================================
 
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { lazy, useEffect, useRef, useState } from 'react';
 const MotionLoader = lazy(() => import('./MotionLoader.jsx'));
 import Mochi from './Mochi.jsx';
+import OptionalFeature from './OptionalFeature.jsx';
 
 export default function TopLoadingBar() {
   const [progress, setProgress] = useState(0);
@@ -139,7 +140,7 @@ export function ViewFallback() {
           flexWrap: 'wrap',
         }}
       >
-        <span className="vmx-loading-mark" aria-hidden="true">{showLongHint ? <Suspense fallback={null}><MotionLoader /></Suspense> : '…'}</span>
+        <span className="vmx-loading-mark" aria-hidden="true">{showLongHint ? <OptionalFeature><MotionLoader /></OptionalFeature> : '…'}</span>
         <span>กำลังโหลด…</span>
         {showLongHint && <Mochi state="loading" size={32} slot="loading" />}
         {showLongHint && (

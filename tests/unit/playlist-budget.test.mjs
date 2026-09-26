@@ -43,12 +43,13 @@ test('the shared daily budget survives many cold visitors, not six', async () =>
   assert.ok(m, 'daily provider budget not found in api/playlist.js');
   const budget = Number(m[1]);
   const playlists = await playlistCount();
-  // A cold visitor can cost at most one call per playlist. Ten such visitors in
-  // a day is an ordinary morning for a cohort, so the budget must clear that.
+  // Each playlist can cost five page requests plus five duration requests.
+  // Ten cold visitors in a day must fit without exceeding the safe quota cap.
   assert.ok(
-    budget >= playlists * 10,
-    `daily budget ${budget} covers only ${Math.floor(budget / playlists)} cold visits over ${playlists} playlists`,
+    budget >= playlists * 10 * 10,
+    `daily budget ${budget} cannot cover ten cold visits over ${playlists} full playlists`,
   );
+  assert.ok(budget <= 8000, 'leave reserve below the default 10,000-unit quota');
 });
 
 test('a degraded or rejected answer is never cacheable', () => {

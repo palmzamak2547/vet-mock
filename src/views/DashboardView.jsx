@@ -1,5 +1,6 @@
 import { useMemo, useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS, QB } from '../data/questions.js';
+import { yearForSubject } from '../data/curriculum.js';
 import { downloadJSON, subjectText } from '../hooks/utils.js';
 import {
   describeBackupFields,
@@ -44,8 +45,10 @@ function buildLearningCurve(history, daysBack = 14) {
   const startMs = dayBuckets[0].start;
   const bySubject = new Map();
   for (const h of history) {
-    if (!h.subject || h.date < startMs) continue;
-    const idx = Math.floor((h.date - startMs) / MS_DAY);
+    // Backups permit undated attempts; older synced rows can use ISO dates.
+    const date = new Date(h?.date).getTime();
+    if (!h?.subject || !Number.isFinite(date) || date < startMs) continue;
+    const idx = Math.floor((date - startMs) / MS_DAY);
     if (idx < 0 || idx >= daysBack) continue;
     if (!bySubject.has(h.subject)) bySubject.set(h.subject, Array.from({ length: daysBack }, () => ({ total: 0, correct: 0 })));
     const arr = bySubject.get(h.subject);
@@ -130,7 +133,10 @@ function build7DayTrend(history) {
   for (let i = 6; i >= 0; i--) {
     const start = t0 - i * MS_DAY;
     const end = start + MS_DAY;
-    const slice = history.filter((h) => h.date >= start && h.date < end);
+    const slice = history.filter((h) => {
+      const date = new Date(h?.date).getTime();
+      return date >= start && date < end;
+    });
     const correct = slice.filter((h) => h.correct).length;
     const total = slice.length;
     const dateLabel = new Date(start).toLocaleDateString('th-TH', { weekday: 'short' });
@@ -294,28 +300,18 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
     try { localStorage.setItem('vmx-dash-year-scope', yearScope); } catch { /* noop */ }
   }, [yearScope]);
 
-  // Build subject → year map once so we can filter history without
-  // joining against QB on every render (history doesn't store q.year).
-  const subjectYear = useMemo(() => {
-    const m = {};
-    for (const q of QB) {
-      if (q.subject && q.year != null && !(q.subject in m)) m[q.subject] = q.year;
-    }
-    return m;
-  }, []);
-
   const scopedHistory = useMemo(() => {
     if (yearScope === 'all') return history;
     return (history || []).filter((h) => {
       // Prefer entry's explicit `year` field (set by App.jsx finishExam
       // post-data-layer-audit AND by the one-time backfill effect).
       if (typeof h?.year === 'number') return h.year === selectedYear;
-      // Fallback for legacy rows the backfill missed: map subject→year.
+      // Curriculum is available before lazy banks load, including other years.
       // Keep rows without subject (defensive — don't drop unknown).
-      const y = subjectYear[h?.subject];
+      const y = yearForSubject(h?.subject);
       return y == null || y === selectedYear;
     });
-  }, [history, yearScope, subjectYear, selectedYear]);
+  }, [history, yearScope, selectedYear]);
 
   const trend = useMemo(() => build7DayTrend(scopedHistory), [scopedHistory]);
   const [curveDays, setCurveDays] = useState(14);

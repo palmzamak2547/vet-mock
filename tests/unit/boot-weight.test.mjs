@@ -191,7 +191,7 @@ test('the landing sheet leaves the boot path only once it holds nothing the app 
 // the lazy() declarations it warms) and run with the browser pieces it
 // touches stood in. Returns the modules it asked for, as paths under src/.
 const PREFETCH_FILE = 'src/app/lazy-views.js';
-function idlePrefetch({ savedSession, saveData = false }) {
+function idlePrefetch({ savedSession, saveData = false, online = true, beforeIdle } = {}) {
   const source = read(PREFETCH_FILE);
   const start = source.indexOf('useEffect(', source.indexOf('// Idle-time prefetch'));
   const end = source.indexOf('}, []);', start);
@@ -199,13 +199,17 @@ function idlePrefetch({ savedSession, saveData = false }) {
   const effect = source.slice(start + 'useEffect('.length, end + 1).replace(/\bimport\(/g, '__import(');
   const dir = posix.dirname(PREFETCH_FILE.slice('src/'.length));
   const requested = [];
+  const navigator = { onLine: online, connection: { saveData } };
+  let idle;
   const ctx = vm.createContext({
-    window: { requestIdleCallback: (cb) => { cb(); return 1; }, cancelIdleCallback() {} },
-    navigator: { connection: { saveData } },
+    window: { requestIdleCallback: (cb) => { idle = cb; return 1; }, cancelIdleCallback() {} },
+    navigator,
     hasSavedSession: () => savedSession,
     __import: (spec) => { requested.push(posix.join(dir, spec)); return Promise.resolve({}); },
   });
   vm.runInContext(`(${effect})()`, ctx);
+  beforeIdle?.(navigator);
+  idle?.();
   return requested;
 }
 
@@ -219,6 +223,16 @@ test('a signed-in student is not sent the sign-in screen at idle', () => {
     'the other prefetched screens must not change');
   assert.ok(signedIn.includes('views/HomeView.jsx'));
   assert.deepEqual(idlePrefetch({ savedSession: false, saveData: true }), [], 'Save-Data still gets nothing');
+});
+
+test('idle prefetch checks offline and Save-Data state when the callback actually runs', () => {
+  assert.deepEqual(idlePrefetch({ online: false }), [], 'offline boot must not attempt unused chunks');
+  assert.deepEqual(idlePrefetch({ beforeIdle: (nav) => { nav.onLine = false; } }), [],
+    'losing the connection before idle must not prefetch');
+  assert.deepEqual(idlePrefetch({ beforeIdle: (nav) => { nav.connection.saveData = true; } }), [],
+    'turning Save-Data on before idle must take effect');
+  assert.ok(idlePrefetch({ online: false, beforeIdle: (nav) => { nav.onLine = true; } }).includes('views/HomeView.jsx'),
+    'a connection restored before idle can still warm the next view');
 });
 
 test('every screen the idle prefetch warms is a real lazy chunk', () => {
@@ -243,6 +257,7 @@ const CHUNK_NAMED_IN_E2E = [
   'src/views/KnowledgeView.jsx',       // connected-study.spec.js
   'src/components/CommandPalette.jsx', // optional-feature-failure.spec.js
   'src/components/HighlightToCard.jsx',// optional-feature-failure.spec.js
+  'src/components/MotionLoader.jsx',   // optional-feature-failure.spec.js
   'src/views/AboutView.jsx',           // update-and-intent.spec.js
   'src/components/VetCalculator.jsx',  // update-and-intent.spec.js
 ];

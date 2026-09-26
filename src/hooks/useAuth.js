@@ -63,8 +63,15 @@ export function useAuth() {
     const nextId = nextUser?.id ?? null;
     userIdRef.current = nextId;
     setUser((prev) => (sameAuthUser(prev, nextUser) ? prev : nextUser));
+    if (prevId !== nextId) {
+      // Keep the catalogue module lazy. Its access record and live worker
+      // registration follow an explicit auth result, never another tab's token.
+      import('../lib/library.js').then(({ setLibraryAccess }) => {
+        if (userIdRef.current === nextId) return setLibraryAccess(nextId !== null, { initial: prevId === undefined });
+      }).catch(() => {});
+    }
     if (prevId !== undefined && prevId !== nextId) {
-      window.dispatchEvent(new Event('vmx-library-auth-changed'));
+      window.dispatchEvent(new CustomEvent('vmx-library-auth-changed', { detail: { signedIn: nextId !== null } }));
     }
   }, []);
 
@@ -129,7 +136,7 @@ export function useAuth() {
       // Boot found no session, so this visitor starts as a guest and anything
       // cached so far holds public rows only: their first sign-in is a real
       // change of access and must reach the library.
-      userIdRef.current = null;
+      commitUser(null);
     }
 
     // Path B: no saved session → wait for signin helpers to fire the

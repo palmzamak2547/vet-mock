@@ -63,7 +63,7 @@ export const SCOPE_LABELS = {
 };
 
 export const LATEST_CHANGELOG = {
-  "version": "5.131.0",
+  "version": "5.133.0",
   "date": "2026-09-27",
   "headline": "ตรวจคำตอบเติมคำแม่นขึ้น ชุดที่พักไว้หยุดเวลา และรูปประกอบไม่บอกเฉลยก่อนตอบ",
   "changes": [
