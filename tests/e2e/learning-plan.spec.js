@@ -12,7 +12,9 @@ const mid = compatible.find(q => q.year === 5 && scopeOfQuestion(q) === 'midterm
 const final = compatible.find(q => q.year === 5 && scopeOfQuestion(q) === 'final');
 const otherYear = compatible.find(q => q.year === 4 && scopeOfQuestion(q) === 'midterm');
 if (!mid || !final || !otherYear) throw new Error('Review fixture needs real cards in both papers and years');
-const privateCard = { id: 70001, type: 'flashcard', subject: final.subject,
+// A card a student writes gets an id in the user-card range (src/lib/user-flashcards.js).
+// 70001, used here before, is a year-1 bank question: the collision B61 fixed.
+const privateCard = { id: 9_100_001, type: 'flashcard', subject: final.subject,
   front: 'การ์ดส่วนตัวสำหรับตรวจการทบทวน', q: 'การ์ดส่วนตัวสำหรับตรวจการทบทวน',
   back: 'คำตอบส่วนตัวสำหรับตรวจการทบทวน' };
 const now = Date.parse(PINNED_NOW);
