@@ -30,6 +30,7 @@
 
 import { yearForSubject } from '../data/curriculum.js';
 import { sweepStaleKeys } from './storage-gc.js';
+import { isTextOnlyQuestion } from './question-surfaces.js';
 
 export const TODAY_KEY_PREFIX = 'vmx-todays-q-';
 
@@ -56,7 +57,10 @@ export function pickTodaysQ(qb, dateStr = todayKey(), { year = null } = {}) {
     q?.type === 'mcq' &&
     Array.isArray(q?.options) &&
     q.options.length >= 3 &&
-    !q.flag?.severity // skip Qs with major data discrepancies
+    !q.flag?.severity && // skip Qs with major data discrepancies
+    // TodaysQModal draws the stem and options only: a question that reads
+    // off a figure or a passage cannot be answered there.
+    isTextOnlyQuestion(q)
   );
   if (year != null) {
     pool = pool.filter((q) => yearForSubject(q.subject) === year);

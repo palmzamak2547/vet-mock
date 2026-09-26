@@ -170,13 +170,15 @@ function PrevalenceCurve({ sensitivity, specificity, prevalence, ppv, showNow = 
   );
 }
 
-export default function ScreeningBench({ preset = 0 }) {
+// `initialGuess` opens the bench in guessing mode, as if the student had
+// just pressed "ลองเดาก่อนดูคำตอบ"; the page never passes it.
+export default function ScreeningBench({ preset = 0, initialGuess = null }) {
   const start = LECTURE_SCENARIOS[preset]?.input || LECTURE_SCENARIOS[0].input;
   const [n, setN] = useState(start.n);
   const [prevalence, setPrevalence] = useState(start.prevalence * 100);
   const [sensitivity, setSensitivity] = useState(start.sensitivity * 100);
   const [specificity, setSpecificity] = useState(start.specificity * 100);
-  const [guess, setGuess] = useState(null);
+  const [guess, setGuess] = useState(initialGuess);
   const [committed, setCommitted] = useState(null);
 
   const table = useMemo(
@@ -348,13 +350,17 @@ export default function ScreeningBench({ preset = 0 }) {
           </div>
           )}
 
+          {/* The curve is the answer read off another axis: at the current
+              prevalence its height IS the value being guessed, and its label
+              says so. It waits for the reveal, like the table and the field. */}
+          {hidden ? <p className="vmx-bench-field__empty">กราฟค่าทำนายผลบวกตามความชุกจะแสดงหลังกดดูคำตอบ</p> : (
           <PrevalenceCurve
-            showNow={!hidden}
             sensitivity={sensitivity / 100}
             specificity={specificity / 100}
             prevalence={prevalence / 100}
             ppv={table.ppv}
           />
+          )}
         </div>
       </div>
     </div>

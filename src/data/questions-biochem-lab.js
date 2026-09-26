@@ -201,7 +201,7 @@ export const QB_BIOCHEM_LAB = [
     "options": [
       "A และ C",
       "B และ C",
-      "C และ D",
+      "B และ D",
       "D และ C",
       "E และ C"
     ],
@@ -209,7 +209,11 @@ export const QB_BIOCHEM_LAB = [
     "explain": "อ่านจากแผ่น TLC: จุดของ unknown อยู่ระดับเดียวกับ (มี Rf ตรงกับ) จุดของ known D และ C จึงสรุปว่า Unk. ประกอบด้วยสารทั้งสองชนิดนั้น",
     "source": "Biochem Lab Final (Blackboard) 12 พ.ค. 2022",
     "examOrigin": "Biochemistry I 3102113 · Final Examination (Lab) 2022",
-    "verified": "Blackboard final Q8 (เฉลยในไฟล์)"
+    "verified": "Blackboard final Q8 (เฉลยในไฟล์, ตัวเลือก C และ D ซ้ำกับคำตอบ D และ C จึงเปลี่ยนเป็น B และ D)",
+    "flag": {
+      "severity": "unclear",
+      "note": "โจทย์ให้อ่านตำแหน่งจุดจากแผ่น TLC แต่ยังไม่มีภาพแผ่นจากข้อสอบแนบไว้ จึงยังตอบไม่ได้ พักไว้จนกว่าจะได้ภาพ"
+    }
   },
   {
     "id": 70009,

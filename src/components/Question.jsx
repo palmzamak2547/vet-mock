@@ -87,6 +87,16 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   const figureSrc = safeImageUrl(currentQ?.image || currentQ?.imagePath);
   const figureAlt = currentQ?.imageAlt
     || `ภาพประกอบข้อ ${currentQ?.id || ''} วิชา ${currentQ?.subject || ''}`.trim();
+  // A figure that would give the answer away belongs to the explanation: it
+  // shows only after the answer is revealed, never above the options.
+  const explainFigureSrc = safeImageUrl(currentQ?.explainImage);
+  const explainFigure = explainFigureSrc ? (
+    <ZoomableImage
+      src={explainFigureSrc}
+      alt={currentQ.explainImageAlt || `ภาพประกอบเฉลยข้อ ${currentQ?.id || ''}`.trim()}
+      maxHeight={320}
+    />
+  ) : null;
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [flagState, setFlagState] = useState(() => readFlags()[compoundId] || null);
 
@@ -336,6 +346,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               ok={mcqOk}
               correctNode={Array.isArray(currentQ.options) && <RichText text={currentQ.options[currentQ.answer]} />}
               explain={currentQ.explain}
+              figure={explainFigure}
               subject={currentQ.subject}
               coach={!mcqOk && <MissCoach key={currentQ.id} q={currentQ} chosen={currentAnswer} />}
               wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={mcqOk} />}
@@ -381,6 +392,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 // are both true at once, and only one of them was on screen.
                 alwaysShowCorrect
                 explain={currentQ.explain}
+                figure={explainFigure}
                 subject={currentQ.subject}
                 wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={tfOk} />}
               />
@@ -791,7 +803,7 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, correctNode, explain, coach, wikiLink, subject, alwaysShowCorrect = false }) {
+function InstantFeedback({ ok, correctNode, explain, figure = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
   return (
     <MotionEnter effect="reveal" className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
       <Mochi state={ok ? 'correct' : 'encourage'} size={48} slot="feedback" animate className="vmx-feedback-mochi" />
@@ -808,6 +820,7 @@ function InstantFeedback({ ok, correctNode, explain, coach, wikiLink, subject, a
       {explain && (
         <div className="w"><span className="k">เหตุผล</span><TermLinkedRichText text={explain} subject={subject} /></div>
       )}
+      {figure}
       {coach}
       {wikiLink}
     </MotionEnter>

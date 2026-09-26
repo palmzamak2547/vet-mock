@@ -12,6 +12,7 @@ import BackBar from '../components/BackBar.jsx';
 import { confirmDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
+import { raceEligibleQuestions } from '../lib/question-surfaces.js';
 
 // One per page: a remount (leave and rejoin the same room) keeps its list.
 const resolveRoomQuestions = createRaceQuestionCache();
@@ -47,8 +48,9 @@ export default function RaceView({ goHome, setView, user, profile }) {
       .finally(() => { if (alive) setLoadingBank(false); });
     return () => { alive = false; };
   }, [subject]);
-  const eligibleQs = useMemo(() => QB.filter(q => isQuestionDeliverable(q) && q.type === 'mcq'
-    && q.subject === subject && q.options?.length >= 3), [subject, bankTick]);
+  // The run screen draws stem and options only, so figure and passage
+  // questions stay out of the pool (lib/question-surfaces.js).
+  const eligibleQs = useMemo(() => raceEligibleQuestions(QB, subject, isQuestionDeliverable), [subject, bankTick]);
 
   async function applySnapshot(snapshot, owner, expectedCode) {
     if (context.current.owner !== owner || (expectedCode && context.current.code !== expectedCode)) return;

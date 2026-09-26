@@ -21,6 +21,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { drugDose as computeDrugDose } from '../hooks/utils.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { VET_DRUGS, DRUG_CATEGORIES } from '../data/vet-drug-database.js';
+import { fluidPlan, criPlan, CRI_EXAMPLE } from '../lib/vet-calc.js';
 
 const TABS = [
   { id: 'rer',          label: 'RER',         icon: '🔥' },
@@ -69,28 +70,26 @@ function FluidTab() {
   const [pct, setPct] = useState('');
   const [hours, setHours] = useState('24');
   const [ongoing, setOngoing] = useState('0');
-  const w = parseFloat(bw);
-  const dehyd = parseFloat(pct);
+  // Deficit (mL) = BW(kg) × dehyd(%) × 10. The deficit runs over the
+  // correction window; maintenance and ongoing loss are daily volumes and
+  // run over 24 h whatever the window (lib/vet-calc.js).
+  const { deficit, maint, total, ratePerHr, rateAfter } = fluidPlan({ bw, dehydPct: pct, hours, ongoing });
   const hr = parseFloat(hours);
-  const og = parseFloat(ongoing) || 0;
-  // Deficit (mL) = BW(kg) × dehyd(%) × 10 (because 1 kg = 1000 mL,
-  // % = /100, so /100 × 1000 = ×10)
-  const deficit = isFinite(w) && isFinite(dehyd) && w > 0 && dehyd >= 0 ? r(w * dehyd * 10, 0) : null;
-  const maint = isFinite(w) && w > 0 ? r(w * 60, 0) : null; // 60 mL/kg/day default
-  const total = deficit !== null && maint !== null ? deficit + maint + og : null;
-  const ratePerHr = total !== null && isFinite(hr) && hr > 0 ? r(total / hr, 1) : null;
   return (
     <div>
       <Field label="น้ำหนัก (kg)" value={bw} onChange={setBw} placeholder="4" type="number" />
       <Field label="% Dehydration" value={pct} onChange={setPct} placeholder="7" type="number" suffix="%" />
       <Field label="แก้ภายในกี่ชม." value={hours} onChange={setHours} placeholder="24" type="number" suffix="hr" />
-      <Field label="Ongoing loss (vomit/diarrhea, mL)" value={ongoing} onChange={setOngoing} placeholder="0" type="number" suffix="mL" />
+      <Field label="Ongoing loss ต่อวัน (vomit/diarrhea, mL)" value={ongoing} onChange={setOngoing} placeholder="0" type="number" suffix="mL" />
       <Result label="Deficit" value={fmt(deficit, ' mL')} />
       <Result label="Maintenance (60 mL/kg/d)" value={fmt(maint, ' mL/day')} />
-      <Result label="รวม / วัน" value={fmt(total, ' mL/day')} />
-      <Result label="Rate / hour" value={fmt(ratePerHr, ' mL/hr')} accent />
+      <Result label="รวม (deficit + maintenance และ ongoing 1 วัน)" value={fmt(total, ' mL')} />
+      <Result label={isFinite(hr) && hr > 0 ? `Rate ช่วง ${hr} ชม. แรก` : 'Rate ช่วงแก้ขาดน้ำ'} value={fmt(ratePerHr, ' mL/hr')} accent />
+      <Result label="Rate หลังแก้ขาดน้ำแล้ว" value={fmt(rateAfter, ' mL/hr')} />
       <Note>
-        Deficit = BW × %dehyd × 10, Maintenance = 60 mL/kg/day (kitten/puppy 80-100),
+        Deficit = BW × %dehyd × 10 ให้ภายในเวลาที่เลือก, Maintenance = 60 mL/kg/day (kitten/puppy 80-100)
+        และ ongoing loss เป็นปริมาณต่อวัน จึงหารด้วย 24 เสมอ.
+        <br />
         Shock bolus (90 mL/kg dog, 60 mL/kg cat) แยก — ให้บางส่วนแล้ว reassess.
       </Note>
     </div>
@@ -210,20 +209,11 @@ function CRITab() {
   const [stock, setStock] = useState('');             // mg/mL
   const [bag, setBag] = useState('250');              // mL
   const [rate, setRate] = useState('');               // mL/hr
-  const w = parseFloat(bw);
-  const t = parseFloat(target);
-  const s = parseFloat(stock);
-  const b = parseFloat(bag);
-  const ml = parseFloat(rate);
-  // 1 mg/kg/hr = 16.67 µg/kg/min → going via µg/kg/min for fewer slips
-  // Required mg/hr at target dose = BW(kg) × target(µg/kg/min) × 60 / 1000
-  const mgPerHr = isFinite(w) && isFinite(t) && w > 0 && t > 0 ? r(w * t * 60 / 1000, 3) : null;
-  // Concentration needed in bag (mg/mL) so that running at given mL/hr delivers mgPerHr:
-  const concNeeded = mgPerHr !== null && isFinite(ml) && ml > 0 ? r(mgPerHr / ml, 3) : null;
-  // Drug volume (mL) to add to bag = (concNeeded × bag) / stock
-  const drugMl = concNeeded !== null && isFinite(s) && isFinite(b) && s > 0 && b > 0
-    ? r((concNeeded * b) / s, 2)
-    : null;
+  // 1 mg/kg/hr = 16.67 µg/kg/min → going via µg/kg/min for fewer slips.
+  // The arithmetic lives in lib/vet-calc.js, and the worked example below
+  // is computed by the same function so it cannot disagree with the tab.
+  const { mgPerHr, concNeeded, drugMl } = criPlan({ bw, target, stock, bag, rate });
+  const example = criPlan(CRI_EXAMPLE);
   return (
     <div>
       <Field label="น้ำหนัก (kg)" value={bw} onChange={setBw} placeholder="20" type="number" />
@@ -235,8 +225,8 @@ function CRITab() {
       <Result label="Concentration ในถุง" value={fmt(concNeeded, ' mg/mL')} />
       <Result label="ดูดยาใส่ถุง" value={fmt(drugMl, ' mL')} accent />
       <Note>
-        ตัวอย่าง dopamine 5 µg/kg/min, dog 20 kg, stock 40 mg/mL, bag 250 mL, pump 10 mL/hr
-        → ดูดยา ≈ 1.5 mL ใส่ถุง.
+        ตัวอย่าง {CRI_EXAMPLE.drug} {CRI_EXAMPLE.target} µg/kg/min, dog {CRI_EXAMPLE.bw} kg, stock {CRI_EXAMPLE.stock} mg/mL, bag {CRI_EXAMPLE.bag} mL, pump {CRI_EXAMPLE.rate} mL/hr
+        → ดูดยา ≈ {example.drugMl} mL ใส่ถุง.
         <br />
         เช็คผลซ้ำเสมอ: หมุนกลับ — concentration × pump rate ÷ BW × 1000/60 ควรได้ใกล้ target.
       </Note>

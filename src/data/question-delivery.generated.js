@@ -3,6 +3,11 @@
 
 export const BLOCKED_QUESTIONS = [
   {
+    "key": "biochem-1:70008",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-biochem-lab.js"
+  },
+  {
     "key": "livestock-pathology:8003",
     "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
     "source": "questions-y5-final-mixed.js"
@@ -343,4 +348,4 @@ const BLOCKED_KEYS = new Set(BLOCKED_QUESTIONS.map((item) => item.key));
 
 export const questionDeliveryKey = (question) => `${question?.subject || ''}:${question?.id ?? ''}`;
 export const isQuestionDeliverable = (question) => !BLOCKED_KEYS.has(questionDeliveryKey(question));
-export const BLOCKED_QUESTION_COUNT = 67;
+export const BLOCKED_QUESTION_COUNT = 68;

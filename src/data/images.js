@@ -14,21 +14,25 @@ export const IMG_FEMUR = encodeSvg(`<svg xmlns='http://www.w3.org/2000/svg' view
 <text x='265' y='180' font-family='sans-serif' font-size='11' fill='#4a6b4a'>biceps femoris (caudal)</text>
 </svg>`);
 
+// Q27 asks which two muscles the radial nerve runs between, so the two
+// bellies beside it are drawn and left for the student to name. They used
+// to be labelled "Lat. head of triceps" and "Brachialis", the key (B48).
 export const IMG_NERVE = encodeSvg(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'>
 <rect width='400' height='240' fill='#fdf8ef'/>
 <text x='20' y='30' font-family='serif' font-size='14' fill='#2b2419'>Radial nerve position</text>
 <rect x='170' y='50' width='60' height='150' fill='#e8d4a8' stroke='#b88940' stroke-width='2' rx='6'/>
 <text x='175' y='125' font-family='sans-serif' font-size='10' fill='#5c4f3d'>Humerus</text>
 <ellipse cx='130' cy='120' rx='28' ry='70' fill='#a8c0a8' opacity='0.6'/>
-<text x='90' y='90' font-family='sans-serif' font-size='10' fill='#2b2419'>Lat. head</text>
-<text x='90' y='102' font-family='sans-serif' font-size='10' fill='#2b2419'>of triceps</text>
+<text x='124' y='124' font-family='sans-serif' font-size='14' fill='#2b2419'>?</text>
 <ellipse cx='270' cy='120' rx='28' ry='70' fill='#e8b8b8' opacity='0.6'/>
-<text x='252' y='125' font-family='sans-serif' font-size='10' fill='#2b2419'>Brachialis</text>
+<text x='266' y='124' font-family='sans-serif' font-size='14' fill='#2b2419'>?</text>
 <path d='M 160 80 Q 200 150 240 200' stroke='#c26d6d' stroke-width='4' fill='none'/>
 <circle cx='200' cy='140' r='6' fill='#c26d6d'/>
 <text x='210' y='145' font-family='italic serif' font-size='13' fill='#c26d6d'>Radial n.</text>
 </svg>`);
 
+// Q60 asks which cell dominates in estrus; the caption that named the
+// cells ("angular cornified cells") printed the key above the options (B48).
 export const IMG_CYTO = encodeSvg(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 240'>
 <rect width='400' height='240' fill='#fdf8ef'/>
 <text x='20' y='30' font-family='serif' font-size='14' fill='#2b2419'>Vaginal cytology - Estrus</text>
@@ -38,5 +42,4 @@ export const IMG_CYTO = encodeSvg(`<svg xmlns='http://www.w3.org/2000/svg' viewB
 <polygon points='310,75 345,85 355,115 335,145 305,135 295,105' fill='#e8b8b8' stroke='#c26d6d' stroke-width='1.5'/>
 <polygon points='90,160 130,155 145,185 125,210 85,205 70,180' fill='#e8b8b8' stroke='#c26d6d' stroke-width='1.5'/>
 <polygon points='200,170 235,165 245,195 225,220 195,215 185,190' fill='#e8b8b8' stroke='#c26d6d' stroke-width='1.5'/>
-<text x='20' y='230' font-family='italic serif' font-size='11' fill='#5c4f3d'>angular cornified cells, clean background</text>
 </svg>`);

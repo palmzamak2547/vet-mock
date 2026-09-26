@@ -476,6 +476,13 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               </>
             )}
             {q.explain && q.type !== 'match' && <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichText text={q.explain} /></div>}
+            {safeImageUrl(q.explainImage) && (
+              <ZoomableImage
+                src={safeImageUrl(q.explainImage)}
+                alt={q.explainImageAlt || `ภาพประกอบเฉลยข้อ ${q.id}`}
+                maxHeight={320}
+              />
+            )}
             {/* For a missed question, offer the checked VetWiki summary — the
                 highest-value moment to read the verified version. Correct
                 answers don't need the nudge. */}
