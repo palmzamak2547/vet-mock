@@ -171,3 +171,28 @@ test('every fill item in the corpus accepts its own key', async () => {
   }
   assert.ok(n >= 20, `expected the corpus fill items, found ${n}`);
 });
+
+// Review round 2 (26 Sep): the exact-number and negation rules must not mark
+// wrong what the stem itself supplies. A unit copied from the stem is not a
+// second number, and the stem's own "ไม่ ____" may be written with the key.
+const Q202477 = fill('ในการเลี้ยงสัตว์น้ำ ข้อดีของการคัดขนาดสัตว์น้ำคือทำให้สัตว์น้ำไม่ ____ และข้อดีของการจดบันทึกข้อมูลฟาร์มคือทำให้ ____ ข้อมูลย้อนหลังได้ และใช้ประกอบการประเมิน ____ ของฟาร์ม', ['กินกันเอง', 'ตรวจสอบ', 'มาตรฐาน']);
+
+test('numbers the stem prints are not counted against the student', () => {
+  const ok = (b2) => isCorrect(Q2211, ['S5', 'C1', b2, '6']);
+  assert.equal(ok('1 ml/100 kg'), true);
+  assert.equal(ok('1ml/100 kg'), true);
+  assert.equal(ok('1 ml ต่อ 100 kg'), true);
+  assert.equal(ok('10'), false, '10 is not 1');
+  assert.equal(ok('100'), false, 'the stem number alone is not the answer');
+  assert.equal(ok('1 ml/10 kg'), false, 'a different unit number is still a second number');
+  assert.equal(isCorrect(Q4036, ['2:1', '10:1 (x:1)']), true);
+});
+
+test('the stem\'s own negation written with the key is still the answer', () => {
+  const rest = ['ตรวจสอบ', 'มาตรฐาน'];
+  assert.equal(isCorrect(Q202477, ['ไม่กินกันเอง', ...rest]), true);
+  assert.equal(isCorrect(Q202477, ['ไม่ กินกันเอง', ...rest]), true);
+  assert.equal(isCorrect(Q202477, ['กินกันเอง', ...rest]), true);
+  assert.equal(isCorrect(Q202477, ['ไม่ใช่กินกันเอง', ...rest]), false);
+  assert.equal(isCorrect(Q202477, ['ไม่ ใช่กินกันเอง', ...rest]), false);
+});

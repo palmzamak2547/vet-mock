@@ -59,11 +59,18 @@ const numberParts = (s) => {
 // B01/B46: containment let "2500" stand for 250, "150" for 15 and "10 ml"
 // for 1 ml. A number is right only when the answer holds exactly one number
 // and it is the key: units, spacing and "ถึง"/"to" for a range are allowed.
-function numericBlankCorrect(u, key) {
+function numericBlankCorrect(u, key, stemNumbers = null) {
   const text = u
     .replace(/(\d),(\d{3})(?!\d)/g, '$1$2')
     .replace(/(\d)\s*(?:ถึง|to|~)\s*(\d)/g, '$1-$2');
-  const found = [...text.matchAll(NUMBER_IN_ANSWER)].map((m) => m[2]);
+  let found = [...text.matchAll(NUMBER_IN_ANSWER)].map((m) => m[2]);
+  // A number the stem itself prints ("dose ___ ml/100 kg", "ตอบในรูป x:1") is
+  // not held against a student who copies the unit: "1 ml/100 kg" is 1. Only
+  // when that leaves exactly one number, so "1 ml/10 kg" and "100" stay wrong.
+  if (found.length > 1 && stemNumbers?.size) {
+    const own = found.filter((n) => !stemNumbers.has(n));
+    if (own.length === 1) found = own;
+  }
   if (found.length !== 1) return false;
   const a = numberParts(found[0]);
   const k = numberParts(key);
@@ -76,7 +83,7 @@ const LATIN_WORD = /[a-z0-9]/;
 // "hips" for hip, "condyles" for condyle: an English plural ending is still
 // the key. Only s or es, and only when the word ends there.
 const PLURAL_TAIL = /^(?:s|es)(?![a-z0-9])/;
-const NEGATED = /(?:ไม่ใช่|มิใช่|ไม่)\s*$|(?:^|[^a-z])(?:not|no|non)[\s-]*$/;
+const NEGATED = /(?:ไม่\s*ใช่|มิ\s*ใช่|ไม่)\s*$|(?:^|[^a-z])(?:not|no|non)[\s-]*$/;
 
 // Writing MORE than the key is fine: "the lateral condyle" still names the
 // lateral condyle. It is not fine when the key is only the inside of a
@@ -96,12 +103,12 @@ function containsKey(u, bl) {
   return false;
 }
 
-function blankMatches(rawAnswer, rawKey, allowFragment = true) {
+function blankMatches(rawAnswer, rawKey, allowFragment = true, stemNumbers = null) {
   const u = normFill(rawAnswer);
   const bl = normFill(rawKey);
   if (!u) return false;
   if (u === bl) return true;
-  if (NUMERIC_KEY.test(bl)) return numericBlankCorrect(u, bl);
+  if (NUMERIC_KEY.test(bl)) return numericBlankCorrect(u, bl, stemNumbers);
   if (u.length < 3) return false;
   if (containsKey(u, bl)) return true;
   // Writing LESS used to be fine too, and that was the bug: any three
@@ -144,8 +151,23 @@ function stemEchoRest(stem, i, key) {
   return null;
 }
 
+// Numbers the stem prints anywhere (units such as "ml/100 kg", formats such as "x:1").
+function stemNumbersOf(stem) {
+  return new Set([...normFill(stem).matchAll(NUMBER_IN_ANSWER)].map((m) => m[2]));
+}
+
+// The negation the stem prints right before the blank ("ทำให้สัตว์น้ำไม่ ____").
+const STEM_NEGATION = /(ไม่ใช่|มิใช่|ไม่)\s*$|(?:^|[^a-z])(not|no|non)[\s-]*$/;
+
 function blankCorrect(q, i, answer, key) {
-  if (blankMatches(answer, key)) return true;
+  if (blankMatches(answer, key, true, stemNumbersOf(q.q))) return true;
+  // A student who writes the stem's own negation with the key ("ไม่กินกันเอง"
+  // for "ไม่ ____" = กินกันเอง) is answering, not negating: drop the echo.
+  const neg = textBeforeBlank(q.q, i).match(STEM_NEGATION);
+  const said = normFill(answer);
+  const echo = neg && (neg[1] || neg[2]);
+  const tail = echo && said.startsWith(echo) ? said.slice(echo.length) : null;
+  if (tail !== null && !/^\s*ใช่/.test(tail) && blankMatches(tail, key)) return true;
   const rest = stemEchoRest(q.q, i, key);
   // The rest is short ("หน้า"), so a fragment of it ("น้า") is not it.
   return rest !== null && blankMatches(answer, rest, false);
