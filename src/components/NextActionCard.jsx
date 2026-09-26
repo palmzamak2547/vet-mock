@@ -3,6 +3,7 @@
 // ============================================================
 
 import { useMemo, useState } from 'react';
+import { useLocalStorage } from '../hooks/useStorage.js';
 import { MotionButton } from './MotionFeedback.jsx';
 import ConfirmDialog from './ConfirmDialog.jsx';
 import { buildDailyPlan } from '../lib/daily-plan.js';
@@ -18,6 +19,7 @@ export default function NextActionCard({
   cardStats,
   accBySubject,
   subjects,
+  practiceCounts,
   history,
   pendingResume,
   countdown,
@@ -27,15 +29,14 @@ export default function NextActionCard({
   onPickPanic,
   onPickSR,
   onPickWrong,
-  onPickWeakSubject,
   onPickRandom,
   onOpenSchedule,
   onPickPlannedPractice,
 }) {
   const [confirmDiscard, setConfirmDiscard] = useState(false);
-  const [minutes, setMinutes] = useState(30);
+  const [minutes, setMinutes] = useLocalStorage('vmx-daily-minutes', 30);
 
-  const actions = useMemo(() => {
+  const { actions, plan } = useMemo(() => {
     const out = [];
 
     // Priority 0: resume in-flight exam
@@ -86,55 +87,6 @@ export default function NextActionCard({
       });
     }
 
-    // Priority 2: SR cards due
-    if (
-      cardStats?.due >= 5
-      && Array.isArray(history)
-      && history.length >= 10
-    ) {
-      const target = Math.min(cardStats.due, 20);
-      out.push({
-        title: `ทบทวนความจำ ${target} ข้อ`,
-        sub: cardStats.due > target
-          ? `ค้างรวม ${cardStats.due} ข้อ (ทำวันละ ~${target} ข้อ)`
-          : 'ทบทวนข้อสอบตามรอบระยะเวลา',
-        cta: 'เริ่มทบทวน',
-        kind: 'sr',
-        onClick: () => onPickSR?.(),
-      });
-    }
-
-    // Priority 3: wrong-streak review
-    if (quickStats?.wrongCount >= 5) {
-      const target = Math.min(quickStats.wrongCount, 10);
-      out.push({
-        title: `ทบทวนข้อที่ตอบผิด ${target} ข้อ`,
-        sub: `มีข้อสอบที่ตอบผิดในประวัติรวม ${quickStats.wrongCount} ข้อ`,
-        cta: 'ทบทวนข้อผิด',
-        kind: 'wrong',
-        onClick: () => onPickWrong?.(),
-      });
-    }
-
-    // Priority 4: weakest subject
-    if (out.length < 3 && accBySubject) {
-      const candidates = Object.entries(accBySubject)
-        .filter(([, acc]) => acc && acc.total >= 5)
-        .map(([id, acc]) => ({ id, pct: acc.correct / acc.total, total: acc.total }))
-        .sort((a, b) => a.pct - b.pct);
-      if (candidates.length > 0 && candidates[0].pct < 0.75) {
-        const weakest = candidates[0];
-        const subj = subjects?.find((s) => s.id === weakest.id);
-        out.push({
-          title: `เสริมจุดอ่อน ${subj?.name || weakest.id}`,
-          sub: `ความถูกต้อง ${Math.round(weakest.pct * 100)}% (ประวัติ 90 วันล่าสุด)`,
-          cta: 'ฝึกซ้อม',
-          kind: 'weak',
-          onClick: () => onPickWeakSubject?.(weakest.id),
-        });
-      }
-    }
-
     // Fallback: random Q
     if (out.length === 0) {
       out.push({
@@ -150,29 +102,40 @@ export default function NextActionCard({
       });
     }
 
-    if (pendingResume) return out.slice(0, 1);
+    if (pendingResume) return { actions: out.slice(0, 1) };
     // A brand-new student is invited by the hero to try one question in 20
     // seconds. The plan below then offered a 12-question, 24-minute session as
     // the prominent button, so the two surfaces described very different first
     // steps. With no history there is nothing to plan from anyway: honour the
     // small first step the hero promised.
-    if (!history?.length) return out.slice(0, 1);
-    const weak = Object.entries(accBySubject || {}).filter(([, a]) => a.total >= 5)
+    if (!history?.length) return { actions: out.slice(0, 1) };
+    const available = id => practiceCounts == null ? Infinity : (practiceCounts[id] || 0);
+    const weak = Object.entries(accBySubject || {}).filter(([id, a]) =>
+      subjects?.some(s => s.id === id) && available(id) > 0
+      && Number.isFinite(a?.total) && a.total >= 5
+      && Number.isFinite(a?.correct) && a.correct >= 0 && a.correct / a.total < 0.75)
       .sort((a, b) => a[1].correct / a[1].total - b[1].correct / b[1].total)[0];
+    const exam = Number.isFinite(nextExam?.daysLeft) && nextExam.daysLeft >= 0 && nextExam.daysLeft <= 7
+      && subjects?.some(s => s.id === nextExam.subject) && available(nextExam.subject) > 0;
     const plan = buildDailyPlan({ minutes, due: cardStats?.due, wrong: quickStats?.wrongCount,
-      exam: !!(nextExam?.daysLeft >= 0 && nextExam.daysLeft <= 7 && nextExam.subject), weakSubject: weak?.[0] });
-    return plan.steps.map(step => ({ kind: step.kind, cta: 'เริ่มฝึก',
+      exam, examUrgent: exam && nextExam.daysLeft <= 1, weakSubject: weak?.[0],
+      practiceAvailable: available(exam ? nextExam.subject : weak?.[0] || 'all') });
+    return { plan, actions: plan.steps.map(step => ({ kind: step.kind, cta: step.kind === 'sr' ? 'เริ่มทบทวน' : 'เริ่มฝึก',
       title: step.kind === 'sr' ? `ทบทวนตามรอบ ${step.count} ข้อ`
         : step.kind === 'wrong' ? `ทบทวนข้อผิด ${step.count} ข้อ`
         : step.kind === 'exam' ? `เตรียม ${nextExam.subject_name || nextExam.title || 'วิชาที่ใกล้สอบ'} ${step.count} ข้อ`
         : step.kind === 'weak' ? `ฝึก ${subjects?.find(s => s.id === step.subject)?.name || step.subject} ${step.count} ข้อ`
         : `ฝึกโจทย์ ${step.count} ข้อ`,
-      sub: `เผื่อเวลาประมาณ ${step.minutes} นาที รวมดูเฉลย`,
+      sub: `${step.kind === 'exam' ? `กำหนดสอบ ${fmtThaiDate(nextExam.date)}`
+        : step.kind === 'sr' ? 'ถึงรอบทบทวนในช่วงที่เลือก'
+        : step.kind === 'wrong' ? 'ข้อที่ยังตอบผิดจากประวัติการฝึก'
+        : step.kind === 'weak' ? `ความถูกต้อง ${Math.round(weak[1].correct / weak[1].total * 100)}% จาก ${weak[1].total} ครั้งใน 90 วัน`
+        : 'โจทย์ในปีและช่วงสอบที่เลือก'}, ประมาณ ${step.minutes} นาที`,
       onClick: () => step.kind === 'sr' ? onPickSR?.(step.count)
         : step.kind === 'wrong' ? onPickWrong?.(step.count)
         : onPickPlannedPractice?.(step.kind === 'exam' ? nextExam.subject : step.kind === 'weak' ? step.subject : 'all', step.count),
-    }));
-  }, [nextExam, quickStats, cardStats, accBySubject, subjects, history, pendingResume, onPickResume, onDismissResume, onPickExamPrep, onPickPanic, onPickSR, onPickWrong, onPickWeakSubject, onPickRandom, minutes, onPickPlannedPractice]);
+    })) };
+  }, [nextExam, quickStats, cardStats, accBySubject, subjects, practiceCounts, history, pendingResume, onPickResume, onDismissResume, onPickExamPrep, onPickPanic, onPickSR, onPickWrong, onPickRandom, minutes, onPickPlannedPractice]);
 
   if (actions.length === 0) return null;
 
@@ -262,10 +225,10 @@ export default function NextActionCard({
             </h2>
           </div>
         </div>
-        {pendingResume ? <span className="vmx-next-actions-note">{guidanceNote}</span> : (
+        {pendingResume || !plan ? <span className="vmx-next-actions-note">{guidanceNote}</span> : (
           <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12 }}>
             วันนี้มีเวลา
-            <select id="vmx-daily-minutes" value={minutes} onChange={e => setMinutes(Number(e.target.value))}
+            <select id="vmx-daily-minutes" value={plan.budget} onChange={e => setMinutes(Number(e.target.value))}
               style={{ minHeight: 44, padding: '4px 7px', borderRadius: 8, background: 'var(--clr-surface)', color: 'var(--clr-ink)' }}>
               {[15, 30, 60].map(n => <option key={n} value={n}>{n} นาที</option>)}
             </select>
@@ -278,7 +241,7 @@ export default function NextActionCard({
           {renderAction(primaryAction, { primary: true })}
 
           {secondaryActions.length > 0 && (
-            <div className="vmx-next-actions-secondary" role="group" aria-label="ตัวเลือกฝึกสำรอง">
+            <div className="vmx-next-actions-secondary" role="group" aria-label="กิจกรรมถัดไปในแผน">
               {secondaryActions.map((action) => renderAction(action))}
             </div>
           )}
@@ -312,6 +275,10 @@ export default function NextActionCard({
           </button>
         )}
       </div>
+
+      {plan && <p role="status" style={{ margin: 'var(--space-3) 0 0', color: 'var(--clr-ink-soft)', fontSize: 'var(--text-sm)', lineHeight: 1.6 }}>
+        เผื่ออ่านเฉลย {plan.reviewMinutes} นาที, แผนปรับตามผลหลังฝึกแต่ละชุด
+      </p>}
 
       <ConfirmDialog
         open={confirmDiscard}

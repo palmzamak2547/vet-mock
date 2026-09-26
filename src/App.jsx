@@ -29,8 +29,6 @@ import AuthRequiredState, { AuthUnavailableState } from './components/AuthRequir
 import { useStudyBuddies } from './hooks/useStudyBuddies.js';
 import { useExamSession } from './hooks/useExamSession.js';
 import { shuffle, isCorrect, downloadJSON, updateStreak, timeForQuestion, isWritingType } from './hooks/utils.js';
-import { getCardStats } from './hooks/sm2.js';
-import { isFlashcardCompatible } from './hooks/sr-filter.js';
 // Global stylesheet. 2026-05-27: converted from a JS template-literal
 // export (src/styles.js, injected via <style>{STYLES}</style>) to a real
 // CSS file Vite handles natively. Kills the backtick-in-comment fragility
@@ -1483,16 +1481,6 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view, currentIdx, questions, paletteOpen, shortcutSheetOpen]);
 
-  const cardStats = useMemo(() => {
-    // Only count SR-eligible questions so the Home dashboard "X due"
-    // badge matches what SRSessionView will actually serve.
-    const pool = {};
-    allQuestions.filter(isFlashcardCompatible).forEach((q) => {
-      pool[q.id] = srCards[q.id] || { nextReview: Date.now(), totalReviews: 0, repetitions: 0, interval: 0 };
-    });
-    return getCardStats(pool);
-  }, [srCards, allQuestions]);
-
   const analytics = useMemo(() => {
     if (!history.length) return null;
     const bySubject = {};
@@ -2709,7 +2697,7 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, cardStats, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onOpenWrapUp={openWrapUp} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onOpenWrapUp={openWrapUp} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}

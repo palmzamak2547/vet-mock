@@ -5,7 +5,8 @@ import { createQuestionTiming, createReviewEvent, newStudySessionId } from '../l
 import { alertDialog } from '../lib/dialog.js';
 import { QB, SUBJECTS, isQBFullyLoaded } from '../data/questions.js';
 import { updateCard, initCard, getDueCards, getCardStats, previewInterval } from '../hooks/sm2.js';
-import { isFlashcardCompatible } from '../hooks/sr-filter.js';
+import { isFlashcardCompatible, reviewQuestionsInContext } from '../hooks/sr-filter.js';
+import { EXAM_SCOPE_LABEL, scopeForPhase } from '../lib/exam-scope.js';
 import { fmtDate } from '../hooks/utils.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
@@ -61,6 +62,8 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   // Persist last-used preferences
   const [sessionSize, setSessionSize] = useLocalStorage('vmx-sr-session-size', 25);
   const [subjectFilter, setSubjectFilter] = useLocalStorage('vmx-sr-subject-filter', 'all');
+  const [phaseScope, setPhaseScope] = useLocalStorage('vmx-sr-phase-scope', 'current');
+  const selectedPaper = scopeForPhase(selectedPhase);
 
   const [sessionCards, setSessionCards] = useState(null);  // null = planning step
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -111,16 +114,9 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   }, [yearScope, loadAllYears, allYearsTry]);
 
   const { duePool, dueReviewedCount, newCount, excludedCount, eligibleCount } = useMemo(() => {
-    let inSubject = subjectFilter === 'all'
-      ? allQuestions
-      : allQuestions.filter((q) => q.subject === subjectFilter);
-    // Year-scope: when 'current', restrict cross-subject pool to selectedYear.
-    // User-authored flashcards / cloze / image-occlusion typically lack q.year —
-    // we keep those (year-agnostic content). Only filter Qs that explicitly
-    // carry a year field that doesn't match.
-    if (yearScope === 'current' && subjectFilter === 'all') {
-      inSubject = inSubject.filter((q) => q.year == null || q.year === selectedYear);
-    }
+    const inSubject = reviewQuestionsInContext(allQuestions, {
+      selectedYear, selectedPhase, subjectFilter, yearScope, phaseScope,
+    });
     const eligible = inSubject.filter(isFlashcardCompatible);
     const pool = {};
     // Attach `subject` to each card runtime so the currentQ lookup below
@@ -144,24 +140,21 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       excludedCount: inSubject.length - eligible.length,
       eligibleCount: eligible.length,
     };
-  }, [allQuestions, srCards, subjectFilter, yearScope, selectedYear]);
+  }, [allQuestions, srCards, subjectFilter, yearScope, selectedYear, selectedPhase, phaseScope]);
 
   // Stats only for cards belonging to SR-eligible questions in the
   // current subject filter — keeps Total/Mastered consistent with what
   // the user can actually see in SR.
   const stats = useMemo(() => {
     const eligibleIds = new Set();
-    let inSubject = subjectFilter === 'all'
-      ? allQuestions
-      : allQuestions.filter((q) => q.subject === subjectFilter);
-    if (yearScope === 'current' && subjectFilter === 'all') {
-      inSubject = inSubject.filter((q) => q.year == null || q.year === selectedYear);
-    }
+    const inSubject = reviewQuestionsInContext(allQuestions, {
+      selectedYear, selectedPhase, subjectFilter, yearScope, phaseScope,
+    });
     inSubject.filter(isFlashcardCompatible).forEach((q) => eligibleIds.add(q.id));
     const filtered = {};
     for (const id of eligibleIds) if (srCards[id]) filtered[id] = srCards[id];
     return getCardStats(filtered);
-  }, [srCards, allQuestions, subjectFilter, yearScope, selectedYear]);
+  }, [srCards, allQuestions, subjectFilter, yearScope, selectedYear, selectedPhase, phaseScope]);
 
   // Subjects that actually have at least one card in the bank
   const subjectsWithCards = useMemo(() => {
@@ -230,20 +223,42 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           )}
 
           {/* Subject filter */}
-          {subjectsWithCards.length > 2 && (
-            <div className="vmx-config-row" role="group" aria-labelledby="vmx-srs-subject-label">
-              <div id="vmx-srs-subject-label" className="vmx-label">วิชา</div>
+          {(subjectsWithCards.length > 2 || subjectFilter !== 'all') && (
+            <div className="vmx-config-row vmx-form-group">
+              <label htmlFor="vmx-srs-subject" className="vmx-label">วิชา</label>
+              <select id="vmx-srs-subject" value={subjectFilter}
+                onChange={(event) => setSubjectFilter(event.target.value)}
+                style={{ minHeight: 'var(--touch-min)', maxWidth: '100%' }}>
+                {!subjectsWithCards.some((s) => s.id === subjectFilter) && (
+                  <option value={subjectFilter}>วิชาที่เลือกไว้ก่อนหน้า</option>
+                )}
+                {subjectsWithCards.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+              </select>
+              {!subjectsWithCards.some((s) => s.id === subjectFilter) && (
+                <div className="vmx-config-availability" role="status">
+                  วิชาที่เลือกไว้ไม่อยู่ในรายชื่อ เลือก “รวมทุกวิชา” หรือวิชาอื่นได้
+                </div>
+              )}
+            </div>
+          )}
+
+          {selectedPaper && (
+            <div className="vmx-config-row" role="group" aria-labelledby="vmx-srs-paper-label">
+              <div id="vmx-srs-paper-label" className="vmx-label">ขอบเขตข้อสอบ</div>
               <div className="vmx-chip-row">
-                {subjectsWithCards.map((s) => (
-                  <button
-                    key={s.id}
-                    className={`vmx-chip ${subjectFilter === s.id ? 'active' : ''}`}
-                    aria-pressed={subjectFilter === s.id}
-                    onClick={() => setSubjectFilter(s.id)}
-                  >
-                    {s.icon} {s.name}
-                  </button>
-                ))}
+                <button className={`vmx-chip ${phaseScope !== 'all' ? 'active' : ''}`}
+                  aria-pressed={phaseScope !== 'all'} onClick={() => setPhaseScope('current')}>
+                  {EXAM_SCOPE_LABEL[selectedPaper]}
+                </button>
+                <button className={`vmx-chip ${phaseScope === 'all' ? 'active' : ''}`}
+                  aria-pressed={phaseScope === 'all'} onClick={() => setPhaseScope('all')}>
+                  ทุกช่วง
+                </button>
+              </div>
+              <div className="vmx-config-availability">
+                {phaseScope === 'all'
+                  ? 'รวมทุกช่วงสอบและเนื้อหาที่ไม่มีสอบแยก'
+                  : 'ไม่รวมเนื้อหาอีกช่วงสอบ ยังแสดงข้อที่ไม่ระบุช่วงและการ์ดที่สร้างเอง'}
               </div>
             </div>
           )}
@@ -332,6 +347,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           {excludedCount > 0 && (
             <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', lineHeight: 1.5 }}>
               ในรอบทบทวนมี <strong>{eligibleCount}</strong> ข้อ ไม่รวม <strong>{excludedCount}</strong> ข้อที่ทบทวนแบบการ์ดไม่ได้ คือข้อที่ต้องเห็นตัวเลือกก่อนถึงจะตอบได้ (ข้อ "ข้อใดถูก" และข้อจับคู่) และข้อเขียน
+            </div>
+          )}
+
+          {dueCount === 0 && selectedPaper && phaseScope !== 'all' && (
+            <div className="vmx-config-availability" role="status">
+              ไม่มีการ์ดถึงรอบในขอบเขตนี้ เลือก “ทุกช่วง” เพื่อดูเนื้อหาช่วงอื่น
             </div>
           )}
 

@@ -20,8 +20,10 @@ import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 
 import { isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
-import { isFlashcardCompatible } from '../../src/hooks/sr-filter.js';
-import { initCard, getDueCards } from '../../src/hooks/sm2.js';
+import { isFlashcardCompatible, reviewQuestionsInContext } from '../../src/hooks/sr-filter.js';
+import { initCard, getDueCards, getCardStats } from '../../src/hooks/sm2.js';
+import { SUBJECTS } from '../../src/data/curriculum.js';
+import { questionInScope, scopeForPhase } from '../../src/lib/exam-scope.js';
 
 const read = (rel) => readFileSync(new URL(`../../${rel}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const SR = read('src/views/SRSessionView.jsx');
@@ -42,6 +44,12 @@ const DUE_POOL = (() => {
   assert.ok(from >= 0 && m, 'SRSessionView no longer builds the due pool in one memo');
   return { body: m[1], deps: `[${m[2]}]` };
 })();
+const STATS = (() => {
+  const from = SR.indexOf('const stats = useMemo');
+  const m = SR.slice(from).match(/= useMemo\(\(\) => \{([\s\S]*?)\n {2}\}, \[([^\]]*)\]\);/);
+  assert.ok(from >= 0 && m, 'SRSessionView no longer builds stats in one memo');
+  return { body: m[1], deps: `[${m[2]}]` };
+})();
 const EFFECTS = [...SR.matchAll(/useEffect\(\(\) => \{([\s\S]*?)\n {2}\}, \[([^\]]*)\]\);/g)]
   .map((m) => ({ body: m[1], deps: `[${m[2]}]` }))
   // The only effect this is about: the one that fetches the other years.
@@ -56,7 +64,8 @@ const APP_LOADER = APP.match(/const loadAllYears = useCallback\(([\s\S]*?), \[\]
 const same = (a, b) => a.length === b.length && a.every((x, i) => Object.is(x, b[i]));
 
 // SRSessionView over one bank, with App behind it.
-async function openSR({ yearScope, network = 'up' }) {
+async function openSR({ yearScope, network = 'up', selectedPhase = null, subjectFilter = 'all',
+  phaseScope = 'current', customQuestions = [], userCards = [], srCards = {} }) {
   const bank = await coldBank();
   await bank.loadQBForYear(5);
   const app = { qbRevision: 1, network };
@@ -66,7 +75,7 @@ async function openSR({ yearScope, network = 'up' }) {
     setQbReady() {},
     setQbRevision: (next) => { app.qbRevision = typeof next === 'function' ? next(app.qbRevision) : next; },
   }));
-  const state = { yearScope, subjectFilter: 'all', srCards: {}, allYearsLoad: 'idle', allYearsTry: 0 };
+  const state = { yearScope, subjectFilter, selectedPhase, phaseScope, srCards, allYearsLoad: 'idle', allYearsTry: 0 };
   const cells = new Map();
   const memo = (key, deps, compute) => {
     const cell = cells.get(key);
@@ -78,13 +87,12 @@ async function openSR({ yearScope, network = 'up' }) {
   const effectDeps = new Map();
   // Stable across renders, as App's useCallback(..., []) is.
   const loadAllYears = appLoader && (() => { const p = appLoader(); pending.push(p); return p; });
-  const customQuestions = [];
 
   function render() {
     const scope = vm.createContext({
       QB: bank.QB, isQBFullyLoaded: bank.isQBFullyLoaded,
-      isQuestionDeliverable, isFlashcardCompatible, initCard, getDueCards,
-      loadUserFlashcards: () => [], loadOcclusionCards: () => [],
+      isQuestionDeliverable, isFlashcardCompatible, reviewQuestionsInContext, initCard, getDueCards, getCardStats,
+      loadUserFlashcards: () => userCards, loadOcclusionCards: () => [],
       customQuestions, qbReady: true, qbRevision: app.qbRevision, selectedYear: 5,
       loadAllYears,
       ...state,
@@ -94,13 +102,14 @@ async function openSR({ yearScope, network = 'up' }) {
     const at = (code) => vm.runInContext(code, scope);
     scope.allQuestions = memo('allQuestions', at(ALL_QUESTIONS.deps), () => at(`(${ALL_QUESTIONS.factory})()`));
     const pool = memo('duePool', at(DUE_POOL.deps), () => at(`(() => {${DUE_POOL.body}\n})()`));
+    const stats = memo('stats', at(STATS.deps), () => at(`(() => {${STATS.body}\n})()`));
     EFFECTS.forEach((effect, i) => {
       const deps = at(effect.deps);
       if (effectDeps.has(i) && same(effectDeps.get(i), deps)) return;
       effectDeps.set(i, deps);
       at(`(() => {${effect.body}\n})()`);
     });
-    return { ...pool, allQuestions: scope.allQuestions, lookup: (card) => at(`((currentCard) => ${CURRENT_Q})`)(card) };
+    return { ...pool, stats, allQuestions: scope.allQuestions, lookup: (card) => at(`((currentCard) => ${CURRENT_Q})`)(card) };
   }
 
   // Let whatever the effects started finish, then render what App renders next.
@@ -196,4 +205,73 @@ test('App loads for SR the way it loads for everything else, and says so to ever
   const line = tag.slice(0, tag.indexOf('\n'));
   assert.ok(line.includes('qbRevision') && line.includes('loadAllYears'),
     'SR is not told when the bank grows, so a year switched on Home stays missing until SR is reopened');
+});
+
+test('SR uses the selected paper for both the queue and its stats, retaining unknown and personal cards', async () => {
+  const q = (id, examScope, over = {}) => ({ id, subject: 'sr-test', type: 'tf', q: 'Recall', answer: true,
+    year: 5, examScope, ...over });
+  const customQuestions = [q(60001, 'midterm'), q(60002, 'final'), q(60003, 'both'),
+    q(60004, undefined), q(60005, 'continuous'), q(60006, 'midterm', { type: 'short' })];
+  const userCards = ['flashcard', 'cloze', 'image-occlusion'].map((type, i) => q(75001 + i, 'final', { type }));
+  const srCards = Object.fromEntries([...customQuestions, ...userCards].map((question) => [question.id, {
+    ...initCard(question.id), nextReview: 1, totalReviews: 5, repetitions: 5, interval: 21,
+  }]));
+  srCards[99999] = { ...initCard(99999), nextReview: 1, totalReviews: 1 };
+  const saved = structuredClone(srCards);
+  const sr = await openSR({ yearScope: 'current', selectedPhase: '1-mid', subjectFilter: 'sr-test',
+    customQuestions, userCards, srCards });
+  const ids = (result) => Array.from(result.duePool, (card) => card.questionId).sort((a, b) => a - b);
+  const mid = sr.render();
+  assert.deepEqual(ids(mid), [60001, 60003, 60004, 75001, 75002, 75003]);
+  assert.equal(mid.stats.due, mid.dueReviewedCount, 'same scope for the count and the dealt queue');
+  assert.equal(mid.stats.mastered, 6);
+  assert.equal(mid.excludedCount, 1, 'incompatible format is counted after paper scoping');
+
+  const final = sr.set({ selectedPhase: '1-final' });
+  assert.deepEqual(ids(final), [60002, 60003, 60004, 75001, 75002, 75003]);
+  assert.equal(final.stats.due, 6, 'paper dependency must refresh the stats too');
+  const all = sr.set({ phaseScope: 'all' });
+  assert.deepEqual(ids(all), [60001, 60002, 60003, 60004, 60005, 75001, 75002, 75003]);
+  assert.equal(all.stats.due, 8, 'the all-paper escape includes continuous content');
+  assert.deepEqual(srCards, saved, 'scope changes never mutate archived or scheduled cards');
+  for (const card of mid.duePool) assert.equal(all.lookup(card), mid.lookup(card), 'a dealt card remains resolvable');
+});
+
+test('SR delegates topic precedence and unknown scope to the existing exam-scope resolver', () => {
+  const subject = SUBJECTS.find((s) => s.topics?.some((t) => t.examScope === 'final'));
+  const topic = subject.topics.find((t) => t.examScope === 'final');
+  const question = { id: 60011, subject: subject.id, topic: topic.id, examScope: 'midterm', type: 'tf' };
+  assert.equal(reviewQuestionsInContext([question], { selectedPhase: '1-mid' }).length, 0,
+    'a past-paper question label must not override the current curriculum topic');
+  assert.equal(reviewQuestionsInContext([question], { selectedPhase: '1-final' }).length, 1);
+  const unknown = { id: 60012, subject: 'no-timetable', type: 'tf' };
+  assert.equal(reviewQuestionsInContext([unknown], { selectedPhase: '1-mid' }).length, 1);
+  assert.equal(reviewQuestionsInContext([question], { selectedPhase: null }).length, 1);
+});
+
+test('SR keeps explicit saved subject and year filters while applying the selected paper', () => {
+  const questions = [
+    { id: 1, subject: 'previous-year', year: 4, examScope: 'midterm' },
+    { id: 2, subject: 'previous-year', year: 4, examScope: 'final' },
+    { id: 3, subject: 'current-year', year: 5, examScope: 'midterm' },
+    { id: 4, subject: 'personal', type: 'flashcard' },
+  ];
+  const context = { selectedYear: 5, selectedPhase: '1-mid' };
+  assert.deepEqual(reviewQuestionsInContext(questions, context).map((q) => q.id), [3, 4]);
+  assert.deepEqual(reviewQuestionsInContext(questions, { ...context, yearScope: 'all' }).map((q) => q.id), [1, 3, 4]);
+  assert.deepEqual(reviewQuestionsInContext(questions, { ...context, subjectFilter: 'previous-year' }).map((q) => q.id), [1]);
+  assert.deepEqual(reviewQuestionsInContext(questions, { ...context, subjectFilter: 'previous-year', selectedPhase: '1-final' }).map((q) => q.id), [2]);
+  assert.deepEqual(reviewQuestionsInContext(questions, { ...context, subjectFilter: 'missing-subject' }), [],
+    'a saved subject must never silently expand into an unrelated pool');
+});
+
+test('real-bank SR paper selection agrees with the canonical resolver in both phases', async () => {
+  const bank = await coldBank();
+  await bank.loadQBForYear(5);
+  const questions = bank.QB.filter(isQuestionDeliverable);
+  for (const selectedPhase of ['1-mid', '1-final']) {
+    const scope = scopeForPhase(selectedPhase);
+    const expected = questions.filter((q) => (q.year == null || q.year === 5) && questionInScope(q, scope));
+    assert.deepEqual(reviewQuestionsInContext(questions, { selectedYear: 5, selectedPhase }), expected);
+  }
 });

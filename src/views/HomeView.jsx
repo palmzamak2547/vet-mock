@@ -20,6 +20,12 @@ import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } f
 import { getCompletedPhase, hasPhaseActivity, isWrappedDismissed, markWrappedDismissed } from '../lib/phase-wrapped.js';
 import { isTopicRead } from '../lib/study-progress.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
+import { buildExamPool } from '../lib/exam-pool.js';
+import { getCardStats, initCard } from '../hooks/sm2.js';
+import { isFlashcardCompatible, reviewQuestionsInContext } from '../hooks/sr-filter.js';
+import { loadUserFlashcards } from '../lib/user-flashcards.js';
+import { loadOcclusionCards } from '../lib/image-occlusion.js';
+import { alertDialog } from '../lib/dialog.js';
 import { stillWrong } from '../lib/wrong-pool.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
 
@@ -84,7 +90,39 @@ const shortThaiDate = (dateStr) => {
 
 const DOW_TH = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัส', 'ศุกร์', 'เสาร์'];
 
-export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, cardStats, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
+export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
+  // Compute the Home badge here, in its lazy view, from the same context as
+  // the review planner. Returning from a personal-card editor rereads it too.
+  const cardStats = useMemo(() => {
+    const questions = [...QB.filter(isQuestionDeliverable), ...(customQuestions || []), ...loadUserFlashcards(), ...loadOcclusionCards()];
+    const pool = {};
+    for (const q of reviewQuestionsInContext(questions, { selectedYear, selectedPhase }).filter(isFlashcardCompatible)) {
+      pool[q.id] = srCards?.[q.id] || initCard(q.id);
+    }
+    return getCardStats(pool);
+  }, [srCards, customQuestions, selectedYear, selectedPhase, QB.length]);
+
+  const practiceCounts = useMemo(() => {
+    const pool = buildExamPool({ questions: [...QB, ...(customQuestions || [])], practiceMode: 'all',
+      subject: 'all', questionCategory: 'all', selectedYear, selectedPhase });
+    const counts = { all: pool.length };
+    for (const q of pool) counts[q.subject] = (counts[q.subject] || 0) + 1;
+    return counts;
+  }, [customQuestions, selectedYear, selectedPhase, QB.length]);
+
+  const launchSR = (count) => {
+    // A scoped recommendation must not inherit a filter from an old session.
+    try {
+      window.localStorage.setItem('vmx-sr-subject-filter', JSON.stringify('all'));
+      window.localStorage.setItem('vmx-sr-year-scope', JSON.stringify('current'));
+      window.localStorage.setItem('vmx-sr-phase-scope', JSON.stringify('current'));
+      if (Number.isInteger(count) && count > 0) window.localStorage.setItem('vmx-sr-session-size', JSON.stringify(count));
+    } catch {
+      void alertDialog('ตั้งแผนทบทวนตามหน้าแรกไม่ได้ โปรดตรวจวิชา ช่วงสอบ และจำนวนการ์ดก่อนเริ่ม');
+    }
+    setMode?.('sr');
+    setView('sr-session');
+  };
   // Year context — determines hero copy + reading checklist scope.
   // Years 4 and 5 both carry exam schedules (ภาคต้น 2569); scaffold years
   // carry none, so the countdown banner hides itself when getNextExam
@@ -700,8 +738,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       return;
     }
     if (action.kind === 'sr') {
-      setMode && setMode('sr');
-      setView('sr-session');
+      launchSR();
       return;
     }
     if (action.kind === 'subject' && action.subject) {
@@ -824,6 +861,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           cardStats={cardStats}
           accBySubject={accBySubject}
           subjects={yearSubjects}
+          practiceCounts={practiceCounts}
           history={history}
           pendingResume={pendingResume}
           countdown={countdown}
@@ -838,17 +876,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
             }
           }}
           onPickPanic={onStartPanic}
-          onPickSR={(count) => {
-            if (Number.isInteger(count)) { try { window.localStorage.setItem('vmx-sr-session-size', JSON.stringify(count)); } catch {} }
-            setMode && setMode('sr'); setView('sr-session');
-          }}
+          onPickSR={launchSR}
           onPickPlannedPractice={(subjectId, count) => startExam?.({ mode: 'quick', subject: subjectId,
-            topic: null, practiceMode: 'all', questionCategory: 'mcq', numQuestions: count, useTimer: false })}
+            topic: null, practiceMode: 'all', questionCategory: 'all', numQuestions: count, useTimer: false })}
           onPickWrong={launchWrongReview}
-          onPickWeakSubject={(subjectId) => {
-            setSubject && setSubject(subjectId);
-            setView('topic-select');
-          }}
           onPickRandom={launchRandomQ}
           onOpenSchedule={() => setView('schedule')}
         />
@@ -1495,7 +1526,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
               <div className="sub">50 ข้อ, จับเวลารวม 50 นาที</div>
             </button>
 
-            <button className="vmx-mode-card" onClick={() => { setMode('sr'); setView('sr-session'); }}>
+            <button className="vmx-mode-card" onClick={() => launchSR()}>
               <div className="icon"><NavIcon name="repeat" size={20} /></div>
               <div className="title">ทบทวนตามรอบ</div>
               <div className="sub">
