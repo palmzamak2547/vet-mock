@@ -15,6 +15,7 @@ import {
   resolveAppRedirect,
 } from '../../supabase/functions/_shared/app-origins.js';
 import { clientIP } from '../../api/_lib/rate-limit.js';
+import { vercelHeadersFor } from '../helpers/vercel-static.mjs';
 
 test('shared images accept VetMock storage but reject attacker-owned Supabase projects', () => {
   const official = 'https://mpovsdzdggvksmeehqfj.supabase.co/storage/v1/object/public/q/a.webp';
@@ -178,6 +179,19 @@ test('browser group flow delegates identity and role assignment to RPCs', () => 
   assert.match(api, /rpc\('join_study_group'/);
   assert.doesNotMatch(api, /from\('group_members'\)\s*\.insert/);
   assert.doesNotMatch(api, /from\('groups'\)\s*\.select\('\*'\)/);
+});
+
+test('only the DICOM decode worker may compile WebAssembly, and nothing it runs may eval', () => {
+  // A worker takes its CSP from its own response, so the codecs get
+  // 'wasm-unsafe-eval' without widening the policy of any page (2026-09-25).
+  const cfg = JSON.parse(readFileSync(resolve('vercel.json'), 'utf8'));
+  const csp = (path) => vercelHeadersFor(path, cfg)['content-security-policy'] || '';
+  const worker = csp('/assets/decodeImageFrameWorker-AbC123.js');
+  assert.match(worker, /script-src 'self' 'wasm-unsafe-eval'(;|$)/);
+  assert.doesNotMatch(worker, /'unsafe-eval'|'unsafe-inline'|https:/);
+  for (const path of ['/', '/index.html', '/app/study', '/assets/main-AbC123.js', '/sw.js']) {
+    assert.doesNotMatch(csp(path), /wasm-unsafe-eval|'unsafe-eval'/, `${path} keeps the page policy`);
+  }
 });
 
 test('personal API responses use private cache directives', () => {

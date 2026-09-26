@@ -47,6 +47,16 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.130.15',
+    date: '2026-09-26',
+    headline: 'ไฟล์ DICOM แบบบีบอัดเปิดดูภาพได้ในห้อง Imaging',
+    changes: [
+      { scope: 'system', kind: 'fix', icon: 'CHECK', title: 'ไฟล์ DICOM แบบบีบอัดไม่ขึ้นจอดำแล้ว',
+        desc: 'ไฟล์ภาพ JPEG 2000, JPEG-LS, HTJ2K และ JPEG แบบบีบอัด เปิดในห้อง Imaging แล้วเห็นภาพ ถ้าไฟล์ไหนอ่านภาพไม่ได้ หน้าจอจะบอกตรง ๆ แทนการค้างอยู่ที่ภาพดำ',
+      },
+    ],
+  },
+  {
     version: '5.130.14',
     date: '2026-09-25',
     headline: 'สรุปคลิป Aquatic เอาเครื่องหมายคำพูดออกจากคำที่ไม่มีในคลิป',

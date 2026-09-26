@@ -220,6 +220,40 @@ before editing it:
 - A new host must be added to `connect-src` / `img-src` / `frame-src` before
   the client can reach it; the failure mode is a silent block in the browser
   console, not an error the student sees.
+- **The DICOM decode worker has a policy of its own (2026-09-25).** The
+  Imaging Practical decodes JPEG 2000, JPEG-LS, HTJ2K and greyscale JPEG with
+  WebAssembly codecs inside `/assets/decodeImageFrameWorker-*.js`. The page
+  policy has no `'wasm-unsafe-eval'`, so production refused all four and those
+  files opened to a black viewer, while dev and `vite preview` (which send no
+  CSP) worked. A worker takes its CSP from its own response, so `vercel.json`
+  gives that one file `default-src 'none'; script-src 'self'
+  'wasm-unsafe-eval'; connect-src 'self'`, in a rule after the catch-all
+  (later rules win on the same key). The lab lives at `/#lab`, the same
+  document as every other screen, so a page-route rule could not scope it.
+  - Granted: compiling WebAssembly inside that worker. Every document, the
+    exam included, keeps the page policy, and the worker loses everything
+    else the page allows: inline script, third-party script hosts, and
+    connections to Supabase, LINE, Google and Vercel.
+  - Not granted: `'unsafe-eval'`. The codec builds Cornerstone 4.22.13 pins
+    create functions from strings (`new Function`, Embind invokers), so
+    `package.json` `overrides` pins eval-free builds: codec-openjpeg 1.3.6,
+    codec-charls 1.2.7, codec-openjph 2.4.11, codec-libjpeg-turbo-8bit
+    1.2.7, the set Cornerstone 5.x ships. Dropping an override brings back an
+    `EvalError`; the answer is a newer codec, never `'unsafe-eval'`.
+  - Residual risk: the codecs are C compiled to WebAssembly and parse bytes
+    from a file the student opens (public cases are curated; RLS stops users
+    publishing one or uploading to `lab-dicom`). A memory-safety bug stays in
+    the codec's linear memory, and with no eval in the glue or the policy
+    there is no path from corrupted memory to running script.
+  - Limits: `'wasm-unsafe-eval'` needs Chrome 97, Firefox 102 or Safari 16;
+    older browsers still refuse, and the viewer says the file cannot be read.
+    The worker's file name changes when the codecs change, so a copy the
+    service worker cached under the old headers is never reused; a tab opened
+    before a release keeps its old worker until it reloads.
+  - Guards: `tests/e2e/imaging-production-headers.spec.js` serves `dist/`
+    with these headers and opens one file per codec in all four projects;
+    `tests/unit/security-hardening.test.mjs` fails if any other path gains
+    the exception or the worker gains `'unsafe-eval'`.
 
 ## Reporting
 

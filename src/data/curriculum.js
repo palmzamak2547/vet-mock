@@ -2199,7 +2199,7 @@ const PLACEHOLDERS = /^(tbd|tba|n\/a|-|\?+)$/i;
 export function announced(value) {
   if (typeof value !== 'string') return value || null;
   const v = value.trim();
-  if (!v || PLACEHOLDERS.test(v) || /^tbd/i.test(v)) return null;
+  if (!v || PLACEHOLDERS.test(v) || /^tbd\b/i.test(v)) return null;
   return v;
 }
 

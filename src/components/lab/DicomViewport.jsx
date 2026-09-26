@@ -117,6 +117,10 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
         // cleanup has already destroyed this engine, so no tool group may be
         // created for it and nothing rendered into it.
         if (cancelled) return;
+        // setStack also resolves when the image failed to load or decode
+        // (Cornerstone only fires IMAGE_LOAD_ERROR), and the viewer then sat
+        // "ready" over a black canvas reading "? × ? pixels".
+        if (!viewport.csImage) throw new Error('อ่านภาพในไฟล์นี้ไม่ได้');
 
         const tg = ToolGroupManager.createToolGroup(toolGroupId);
         Object.values(TOOLS).forEach(({ cls }) => tg.addTool(cls.toolName));
