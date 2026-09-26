@@ -108,7 +108,10 @@ async function buildMiss(body) {
   ].filter(Boolean).join('\n\n');
 
   return {
-    cacheKey: `coach:${CACHE_VERSION}:miss:${qid}:${chosen}`,
+    // The key carries a hash of exactly what the model is shown (question,
+    // options, which one is correct, the bank's explanation), so correcting
+    // any of them retires the old entry instead of serving it for a week.
+    cacheKey: `coach:${CACHE_VERSION}:miss:${qid}:${chosen}:${hash(material)}`,
     system: MISS_SYSTEM,
     user: material,
     maxTokens: 600,
@@ -183,7 +186,9 @@ async function buildReview(body) {
   ].join('\n')).join('\n\n');
 
   return {
-    cacheKey: `coach:${CACHE_VERSION}:review:${hash(picked.map((p) => [p.q.id, p.chose]))}`,
+    // Hash of the material itself, which includes each correct answer, so a
+    // re-keyed question does not keep a pattern written against the old key.
+    cacheKey: `coach:${CACHE_VERSION}:review:${hash(material)}`,
     system: REVIEW_SYSTEM,
     user: material,
     maxTokens: 900,
@@ -232,10 +237,13 @@ async function buildRecall(body) {
   const summary = String(entry?.summary || '');
   if (summary.length < 200) return { error: 404, message: 'No summary for this lecture' };
 
+  const user = `LECTURE: ${meta.title}\n\nSUMMARY:\n${summary.slice(0, MAX_SUMMARY_CHARS)}`;
   return {
-    cacheKey: `coach:${CACHE_VERSION}:recall:${videoId}`,
+    // A corrected summary gets a new key: a recall answer is a quote verified
+    // against the summary it was written from, and must not outlive it.
+    cacheKey: `coach:${CACHE_VERSION}:recall:${videoId}:${hash(user)}`,
     system: RECALL_SYSTEM,
-    user: `LECTURE: ${meta.title}\n\nSUMMARY:\n${summary.slice(0, MAX_SUMMARY_CHARS)}`,
+    user,
     maxTokens: 1200,
     finish: (parsed) => {
       const items = [];

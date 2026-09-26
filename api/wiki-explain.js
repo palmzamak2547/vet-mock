@@ -136,12 +136,9 @@ export default async function handler(req, res) {
     // or 2-5 s of a student's time on an answer the validator already
     // approved. Cached payloads passed validateAnswer before being stored,
     // and the client's isomorphic guard re-validates them like any answer.
+    // The key also carries the text of the sections the answer is built from
+    // (see below), so a corrected section retires the cached answer.
     const norm = question.replace(/\s+/g, ' ').toLowerCase();
-    const cacheKey = `ask:${createHash('sha1').update(JSON.stringify({ norm, subject, topic, wanted })).digest('hex')}`;
-    const cached = await kvGetJSON(cacheKey);
-    if (cached && Array.isArray(cached.claims) && cached.claims.length) {
-      return res.status(200).json({ ...cached, meta: { ...(cached.meta || {}), cached: true } });
-    }
 
     // topic mode (article panel) or corpus mode (AI Search) — both end at
     // the same shape: `picked` = [{ subject, topic, topicTitle, section }].
@@ -165,6 +162,15 @@ export default async function handler(req, res) {
         claims: [{ id: 'c1', text: 'ยังไม่มีเนื้อหาในคลังความรู้ที่ตอบคำถามนี้ได้', supportType: 'insufficient-evidence', support: [] }],
         meta: { mode: 'corpus', sectionsUsed: 0, sections: [] },
       });
+    }
+
+    const sectionsRev = createHash('sha1').update(JSON.stringify(picked.map(({ section: s }) => [
+      s.id, s.heading, s.body, (s.claims || []).map((c) => [c.statement, c.reviewStatus]),
+    ]))).digest('hex');
+    const cacheKey = `ask:${createHash('sha1').update(JSON.stringify({ norm, subject, topic, wanted, sectionsRev })).digest('hex')}`;
+    const cached = await kvGetJSON(cacheKey);
+    if (cached && Array.isArray(cached.claims) && cached.claims.length) {
+      return res.status(200).json({ ...cached, meta: { ...(cached.meta || {}), cached: true } });
     }
 
     const providerBudget = await rateLimit('provider:llm:daily', LLM_DAILY_BUDGET, 24 * 60 * 60 * 1000);

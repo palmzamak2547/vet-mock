@@ -145,7 +145,7 @@ async function detailView({ members, questions, board, props = {}, deps = {} } =
   const make = await loadView('src/views/GroupDetailView.jsx', {
     getGroupMembers: () => { calls.members++; return answer(members, MEMBERS); },
     getSharedQuestions: () => { calls.questions++; return answer(questions, QUESTIONS); },
-    getLeaderboard: () => { calls.board++; return answer(board, BOARD); },
+    getGroupLeaderboard: () => { calls.board++; return answer(board, BOARD); },
     deleteSharedQuestion: async (id) => { calls.deleted.push(id); },
     qualifiesForLeaderboard: () => true,
     copyText: async () => ({ ok: true }),

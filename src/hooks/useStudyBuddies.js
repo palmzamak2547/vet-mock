@@ -75,10 +75,42 @@ export function useBuddyPanel() {
 // re-sent, and joined_at is fixed for the life of the channel.
 const RETRACK_DELAY_MS = 1500;
 
+// 'vet-mock-buddies' is a public Realtime channel: anyone holding the
+// shipped anon key can join it. So it carries no auth id (the presence key
+// is a digest of it, see presenceKeyFor), and a student who
+// turned the leaderboard off is published without their name or avatar,
+// matching how get_leaderboard_by_source reads show_on_leaderboard. Moving
+// the channel behind Realtime authorization needs a database change.
+const SHOWN_VALUES = new Set(['true', 't', 'yes', 'y', 'on', '1']);
+function showsOnLeaderboard(user) {
+  const flag = user?.user_metadata?.show_on_leaderboard;
+  if (flag === undefined || flag === null) return true;
+  return SHOWN_VALUES.has(String(flag).trim().toLowerCase());
+}
+
+// A 64-bit digest of the id: the same in every tab of one account (so two
+// tabs stay one person) and far too short to carry the 122 random bits of the
+// id itself. Synchronous on purpose, so joining the channel takes no longer
+// than it did.
+export function presenceKeyFor(userId) {
+  const text = `vet-mock-buddies:${userId}`;
+  let h1 = 0xdeadbeef;
+  let h2 = 0x41c6ce57;
+  for (let i = 0; i < text.length; i++) {
+    const c = text.charCodeAt(i);
+    h1 = Math.imul(h1 ^ c, 2654435761);
+    h2 = Math.imul(h2 ^ c, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return `b-${(h2 >>> 0).toString(16).padStart(8, '0')}${(h1 >>> 0).toString(16).padStart(8, '0')}`;
+}
+
 function presencePayload({ user, username, avatar, subject, view, qKey, joinedAt }) {
+  const shown = showsOnLeaderboard(user);
   return {
-    username: username || 'นิสิต',
-    avatar: avatar || '🐾',
+    username: (shown && username) || 'นิสิต',
+    avatar: (shown && avatar) || '🐾',
     subject: subject || null,
     view: view || 'home',
     qKey: qKey || null,
@@ -128,8 +160,9 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
       if (cancelled) return;
       const supabase = await getSupabase();
       if (!supabase || cancelled) return;
+      const selfKey = presenceKeyFor(user.id);
       channel = supabase.channel(CHANNEL_NAME, {
-        config: { presence: { key: user.id } },
+        config: { presence: { key: selfKey } },
       });
       channel.on('presence', { event: 'sync' }, () => {
         if (cancelled || !channel) return;
@@ -137,7 +170,9 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
         const merged = {};
         for (const k of Object.keys(state)) {
           const meta = state[k]?.[0] || {};
-          merged[k] = meta;
+          // Readers exclude "me" by user id; this client is on the channel
+          // under its digest, so it is filed under its own id here.
+          merged[k === selfKey ? user.id : k] = meta;
         }
         publishPresence(merged);
       });

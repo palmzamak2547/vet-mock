@@ -147,13 +147,35 @@ export async function pushNow(hash, recArg, ownerId = null) {
     return { ok: false, reason: 'signed-out' };
   }
 
+  // A push may only ADD strokes or tombstones to the account copy. Writing
+  // this device's record as-is replaced the row, so a device that missed
+  // another device's change (a sleeping laptop, a backgrounded tab: realtime
+  // does not replay missed events) removed strokes it had never seen. Read
+  // the account copy and push the two-phase-set merge of both. When that read
+  // fails, push nothing: the local record is intact and a later push retries.
+  let remoteRow;
+  try {
+    const { data, error } = await conn.sb
+      .from(TABLE)
+      .select('data')
+      .eq('user_id', ownerId)
+      .eq('doc_hash', hash)
+      .maybeSingle();
+    if (error) { setState('error', { reason: error.message }, ownerId); return { ok: false }; }
+    remoteRow = data?.data || null;
+  } catch (e) {
+    setState('error', { reason: String(e?.message || e) }, ownerId);
+    return { ok: false };
+  }
+  const merged = remoteRow ? mergeRecords(rec, { ...remoteRow, hash, ownerId }) : rec;
+
   const payload = {
-    fileName: rec.fileName,
-    pageCount: rec.pageCount,
-    strokesByPage: rec.strokesByPage || {},
-    deleted: rec.deleted || [],
-    lastPage: rec.lastPage ?? 1,
-    lastOpened: rec.lastOpened || Date.now(),
+    fileName: merged.fileName,
+    pageCount: merged.pageCount,
+    strokesByPage: merged.strokesByPage || {},
+    deleted: merged.deleted || [],
+    lastPage: merged.lastPage ?? 1,
+    lastOpened: merged.lastOpened || Date.now(),
   };
   const body = JSON.stringify(payload);
   const byteLength = new TextEncoder().encode(body).byteLength;

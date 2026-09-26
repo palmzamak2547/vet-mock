@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { hasSupabase, getSupabase } from '../lib/supabase.js';
 import { questionRevision } from '../lib/study-events.js';
 import { ownedRpc } from '../lib/owned-rpc.js';
+import { RACE_REFUSALS } from '../lib/race-refusals.js';
 import { createRaceQuestionCache, raceOptionRows, mergeRaceProgress, rankRacePlayers } from '../lib/race-session.js';
 import { QB, loadQBForYear } from '../data/questions.js';
 import { SUBJECTS_BY_YEAR, YEARS, yearForSubject } from '../data/curriculum.js';
@@ -77,17 +78,24 @@ export default function RaceView({ goHome, setView, user, profile }) {
     if (!code || !user?.id) return;
     let alive = true, reading = false;
     const owner = user.id;
+    let timer = null;
     const refresh = async () => {
       if (!alive || reading || document.visibilityState === 'hidden') return;
       reading = true;
       try {
-        const state = await ownedRpc(owner, 'race_snapshot', { p_code: code });
+        const state = await ownedRpc(owner, 'race_snapshot', { p_code: code }, { refusals: RACE_REFUSALS });
         if (alive) await applySnapshot(state, owner, code);
-      } catch { if (alive) setError('การเชื่อมต่อสะดุด ระบบกำลังลองใหม่ คำตอบที่ส่งสำเร็จยังอยู่'); }
+      } catch (failure) {
+        if (!alive) return;
+        // The room expired or this account is no longer in it: polling again
+        // can never succeed, so say so and stop instead of "retrying" forever.
+        if (failure?.refused) { alive = false; clearInterval(timer); setError(failure.message); return; }
+        setError('การเชื่อมต่อสะดุด ระบบกำลังลองใหม่ คำตอบที่ส่งสำเร็จยังอยู่');
+      }
       finally { reading = false; }
     };
     refresh();
-    const timer = setInterval(refresh, 2000);
+    timer = setInterval(refresh, 2000);
     window.addEventListener('online', refresh); document.addEventListener('visibilitychange', refresh);
     return () => { alive = false; clearInterval(timer); window.removeEventListener('online', refresh); document.removeEventListener('visibilitychange', refresh); };
   }, [code, user?.id]);
@@ -101,13 +109,13 @@ export default function RaceView({ goHome, setView, user, profile }) {
   }
   const createRace = () => act(async () => {
     const owner = user.id;
-    await applySnapshot(await ownedRpc(owner, 'enter_race', { p_code: null }), owner);
+    await applySnapshot(await ownedRpc(owner, 'enter_race', { p_code: null }, { refusals: RACE_REFUSALS }), owner);
   });
   const joinRace = input => act(async () => {
     const value = String(input || '').trim().toUpperCase();
     if (!/^[A-F0-9]{6}$/.test(value)) throw new Error('ใส่รหัสห้อง 6 ตัวจากเพื่อน (ห้องรุ่นเก่าต้องสร้างใหม่)');
     const owner = user.id;
-    await applySnapshot(await ownedRpc(owner, 'enter_race', { p_code: value }), owner);
+    await applySnapshot(await ownedRpc(owner, 'enter_race', { p_code: value }, { refusals: RACE_REFUSALS }), owner);
   });
   const startRace = () => act(async () => {
     if (!isHost || loadingBank || eligibleQs.length < count) throw new Error('รอโหลดคลัง หรือเลือกจำนวนไม่เกินข้อสอบที่มี');

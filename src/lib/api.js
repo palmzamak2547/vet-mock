@@ -108,6 +108,26 @@ export async function getGroupMembers(groupId) {
   }));
 }
 
+/** A study group's board. Nothing writes exam_results.group_id (record_exam_receipt
+ *  has no such column and no exam flow carries a group), so a group_id query
+ *  could never rank anyone. The group board is the verified global board
+ *  narrowed to the group's members (lib/group-board.js): same 5-question
+ *  floor, same show_on_leaderboard choice. Its own member-id read keeps it
+ *  independent of the members tab's request. */
+export async function getGroupLeaderboard(groupId) {
+  if (!groupId) return [];
+  const supabase = await getSupabase();
+  const [{ groupBoardRows, GROUP_BOARD_SOURCE_LIMIT }, members] = await Promise.all([
+    import('./group-board.js'),
+    supabase.from('group_members').select('user_id').eq('group_id', groupId),
+  ]);
+  if (members.error) throw members.error;
+  const ids = (members.data || []).map((row) => row.user_id);
+  if (!ids.length) return [];
+  const board = await getLeaderboard({ scoreSource: 'server', limit: GROUP_BOARD_SOURCE_LIMIT });
+  return groupBoardRows(ids, board);
+}
+
 // ==========================================================
 // SHARED QUESTIONS
 // ==========================================================
@@ -227,6 +247,9 @@ export async function saveExamResult(result) {
         ? 'ชุดนี้ถูกส่งจากอีกแท็บด้วยคำตอบต่างกันแล้ว กรุณาสำรองผลชุดนี้'
         : 'ผลสอบยังรอส่ง ระบบจะลองใหม่เมื่อเชื่อมต่อได้');
       error.retryAfter = Number(receipt?.retryAfter) || 0;
+      // The outbox sets aside a result the server refuses for good (400, 409,
+      // 413) so it cannot hold every later result on the device.
+      error.status = response.ok ? 0 : response.status;
       throw error;
     }
     return receipt;
@@ -490,11 +513,34 @@ export async function subscribeQComments(qSubject, qId, onEvent) {
       'postgres_changes',
       { event: '*', schema: 'public', table: 'q_comments', filter: `q_subject=eq.${qSubject}` },
       (payload) => {
+        // A DELETE on an RLS table carries only the primary key, so it has no
+        // q_id to match; it is handled by the unfiltered listener below.
+        if (payload.eventType === 'DELETE') return;
         // Server-side filter only narrows by subject — final filter on q_id
         // happens here so we don't depend on multi-column filter syntax.
         const row = payload.new || payload.old;
-        if (row && row.q_id === qId) onEvent(payload);
+        if (!row || row.q_id !== qId) return;
+        if (payload.eventType !== 'INSERT') { onEvent(payload); return; }
+        // The realtime row has no profiles join, so a classmate's new comment
+        // drew as "ผู้ใช้ 🐾" until a reload. Read it back with its author.
+        // A row that is already gone (posted then deleted) is not shown.
+        supabase.from('q_comments')
+          .select('id, q_subject, q_id, user_id, body, parent_id, created_at, updated_at, profiles ( username, avatar_emoji )')
+          .eq('id', row.id)
+          .maybeSingle()
+          .then(({ data, error }) => {
+            if (error) { onEvent(payload); return; }
+            if (data) onEvent({ ...payload, new: data });
+          }, () => onEvent(payload));
       },
+    )
+    // Realtime cannot evaluate a column filter on a DELETE (the old row holds
+    // only the key), so deletions are heard unfiltered and matched by id in
+    // the thread, which ignores ids it does not hold.
+    .on(
+      'postgres_changes',
+      { event: 'DELETE', schema: 'public', table: 'q_comments' },
+      (payload) => { if (payload?.old?.id != null) onEvent(payload); },
     )
     .subscribe();
   return channel;

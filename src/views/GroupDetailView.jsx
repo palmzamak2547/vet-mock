@@ -1,6 +1,6 @@
 import Mochi from '../components/Mochi.jsx';
 import { useState, useEffect, useRef } from 'react';
-import { getGroupMembers, getSharedQuestions, getLeaderboard, deleteSharedQuestion } from '../lib/api.js';
+import { getGroupMembers, getSharedQuestions, getGroupLeaderboard, deleteSharedQuestion } from '../lib/api.js';
 import { qualifiesForLeaderboard } from '../lib/leaderboard-gate.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/questions.js';
@@ -43,7 +43,7 @@ export default function GroupDetailView({ group, user, goBack }) {
   // Resolves once every requested section has settled, each having painted
   // the moment its own answer arrived.
   const load = (keys = SECTIONS) => {
-    const request = { members: getGroupMembers, questions: getSharedQuestions, leaderboard: getLeaderboard };
+    const request = { members: getGroupMembers, questions: getSharedQuestions, leaderboard: getGroupLeaderboard };
     const all = (value) => Object.fromEntries(keys.map((key) => [key, value]));
     setPending((p) => ({ ...p, ...all(true) }));
     setFailed((f) => ({ ...f, ...all('') }));
@@ -126,6 +126,9 @@ export default function GroupDetailView({ group, user, goBack }) {
 
       {status === 'ready' && tab === 'leaderboard' && (
         <div>
+          <div style={{ marginBottom: 12, fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+            อันดับจากผลดีที่สุดของสมาชิกแต่ละคนที่ระบบตรวจคะแนนแล้ว (อย่างน้อย 5 ข้อ) สมาชิกที่ปิดการแสดงบนอันดับจะไม่ปรากฏ
+          </div>
           {leaderboard.length === 0 ? (
             <div className="vmx-empty">ยังไม่มีใครทำข้อสอบในกลุ่มนี้ — ลองเป็นคนแรกกันเถอะ 💪</div>
           ) : (

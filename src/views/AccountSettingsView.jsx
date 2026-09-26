@@ -281,7 +281,9 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
             : 'ลบไม่สำเร็จ — บัญชีและข้อมูลยังอยู่ โปรดลองใหม่ หรือส่งเมลให้ทีมงานลบให้');
         return;
       }
-      setInfo('✓ ลบ account สำเร็จ — Logout แล้ว');
+      setInfo(result.devicePurged === false
+        ? '✓ ลบบัญชีสำเร็จและออกจากระบบแล้ว แต่ล้างข้อมูลบางส่วนในเครื่องนี้ไม่สำเร็จ ลบข้อมูลเว็บไซต์ในการตั้งค่าเบราว์เซอร์เองได้'
+        : '✓ ลบ account สำเร็จ — Logout แล้ว');
       setTimeout(() => {
         if (onSignedOut) onSignedOut();
       }, 2000);
@@ -597,7 +599,8 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
               <div style={{ padding: 12, borderRadius: 8, background: 'var(--clr-rose-soft)', marginBottom: 12, fontSize: 12, lineHeight: 1.6 }}>
                 <strong>การลบ account จะ:</strong>
                 <ul style={{ margin: '6px 0 0 16px', padding: 0 }}>
-                  <li>ลบ progress, scores, bookmarks, flashcards ทั้งหมด</li>
+                  <li>ลบ progress, scores, bookmarks และข้อมูลของบัญชีนี้ทั้งหมด ทั้งในบัญชีและในเครื่องนี้</li>
+                  <li>Flashcard ชุดปิดภาพ และ Pinboard เก็บไว้ในเบราว์เซอร์นี้ ไม่ได้อยู่ในบัญชี จึงไม่ถูกลบ ลบเองได้จากหน้าเครื่องมือนั้น หรือล้างข้อมูลเว็บไซต์ในเบราว์เซอร์</li>
                   <li>Logout จากทุก device</li>
                   <li>ไม่สามารถกู้คืนได้</li>
                 </ul>

@@ -60,6 +60,14 @@ export function rateStringFor(rate) {
   return `${ratePct >= 0 ? '+' : ''}${ratePct}%`;
 }
 
+// msedge-tts places the text inside its SSML template (<prosody>…</prosody>)
+// without escaping it. A question with "<", ">" or "&" in it (202 of them,
+// e.g. "Doxorubicin < DNA < Antibody", "ย้อม H&E") made malformed SSML, the
+// service returned no audio, and read-aloud restarted in the device voice.
+export function ssmlSafeText(text) {
+  return String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
 export default async function handler(req, res) {
   // The POST body may be user-authored text. Keep error/debug responses out of
   // caches; successful audio is browser-private (the app also caches it in
@@ -149,7 +157,7 @@ export default async function handler(req, res) {
   try {
     tts = new MsEdgeTTS();
     await tts.setMetadata(voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
-    const result = await tts.toStream(text, { rate: rateStr });
+    const result = await tts.toStream(ssmlSafeText(text), { rate: rateStr });
     const stream = result.audioStream || result;
 
     const chunks = [];

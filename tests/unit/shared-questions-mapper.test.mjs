@@ -216,7 +216,7 @@ test('DA-05: one malformed shared question no longer blanks the tab', async () =
   const tree = await renderSharedTab({
     getGroupMembers: async () => [],
     getSharedQuestions: api.getSharedQuestions, // the real read, over the fake table above
-    getLeaderboard: async () => [],
+    getGroupLeaderboard: async () => [],
     deleteSharedQuestion: async () => {},
     qualifiesForLeaderboard: () => true,
     copyText: async () => ({ ok: true }),

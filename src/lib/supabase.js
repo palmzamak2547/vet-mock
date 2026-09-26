@@ -429,13 +429,22 @@ export async function deleteAccountData() {
   // the student to "try again", a retry they could no longer perform without
   // logging back in first.
   const ok = !!report?.ok;
+  let devicePurged = false;
   if (ok) {
     try { await supabase.auth.signOut({ scope: 'global' }); } catch {}
     notifyAuthChanged();
+    // The server is purged; the device must not keep this account's answers,
+    // history, pending sync operations, in-flight exam or PDF ink for the next
+    // person on a shared machine. Only stores keyed to this account id.
+    try {
+      const { purgeLocalAccountData } = await import('./account-local-purge.js');
+      devicePurged = (await purgeLocalAccountData(userId)).ok;
+    } catch { devicePurged = false; }
   }
 
   return {
     ok,
+    devicePurged,
     deleted: report?.deleted || {},
     errors: report?.errors || [],
   };
