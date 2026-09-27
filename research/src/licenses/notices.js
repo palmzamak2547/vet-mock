@@ -46,11 +46,14 @@ export const NOTICES = Object.freeze([
  * Fonts shipped to the browser (review round 2: Sarabun was missing from the page). The woff2 files
  * are the main app's public/fonts; the licence text is public/Sarabun/OFL.txt, copied byte for byte
  * into this folder so the dev server serves it without reaching outside the app. Version: the font's
- * name table (ID 5) in public/fonts/sarabun-400.woff2 reads "Version 1.000".
+ * name table (ID 5) in public/fonts/sarabun-400.woff2 reads "Version 1.000". Newsreader is the opening
+ * film's face (research/public/fonts/newsreader-intro.woff2, a subset); its name table reads
+ * "Version 1.003" and its licence text is newsreader-OFL.txt beside this file.
  * @type {readonly Notice[]}
  */
 export const FONT_NOTICES = Object.freeze([
   { name: 'Sarabun', version: '1.000', license: 'OFL-1.1', url: 'https://github.com/cadsondemak/Sarabun', text: 'sarabun' },
+  { name: 'Newsreader', version: '1.003', license: 'OFL-1.1', url: 'https://github.com/productiontype/Newsreader', text: 'newsreader' },
 ]);
 
 /** Every @stdlib package in the lockfile's production tree (direct and indirect). */
@@ -75,4 +78,5 @@ export const LICENSE_TEXTS = Object.freeze({
   xlsx: () => import('../../node_modules/xlsx/LICENSE?raw'),
   stdlib: () => import('../../node_modules/@stdlib/math-base-special-gammainc/LICENSE?raw'),
   sarabun: () => import('./sarabun-OFL.txt?raw'),
+  newsreader: () => import('./newsreader-OFL.txt?raw'),
 });

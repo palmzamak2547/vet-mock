@@ -3,7 +3,7 @@
 // footer with sources. Header state (chapter, scrolled, footer reached) lives in data attributes on
 // the root, written only when they change, so CSS transitions do the motion and nothing re-renders
 // per frame. OWNER: landing role.
-import { useEffect, useMemo, useRef } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { registerArea, useT } from '../i18n/index.js';
 import landing from '../i18n/landing.js';
 import Story from './story/Story.jsx';
@@ -12,14 +12,21 @@ import SiteHeader from './shell/SiteHeader.jsx';
 import SiteFooter, { CtaSection } from './shell/SiteFooter.jsx';
 import { useMeta } from './shell/meta.js';
 import { useReducedMotion } from './shell/theme.js';
+import { introPending } from './intro/gate.js';
 import '../styles/landing.css';
 
 registerArea('landing', landing);
+
+// The opening film plays once per device (public/intro-gate.js decides before the first paint).
+const IntroFilm = lazy(() => import('./intro/IntroFilm.jsx'));
+const INTRO_HOLD = { position: 'fixed', inset: 0, zIndex: 1000, background: '#0b0f14' };
 
 export default function Landing() {
   const { t } = useT();
   const reduce = useReducedMotion();
   const rootRef = useRef(null);
+  const [intro, setIntro] = useState(introPending);
+  const endFilm = useCallback(() => setIntro(false), []);
   useMeta(t('landing.meta.title'), t('landing.meta.description'));
 
   // One writer for the header state. The story reports its chapter (-1 when it is off screen); the
@@ -82,6 +89,11 @@ export default function Landing() {
 
   return (
     <div className="rs-landing" ref={rootRef} data-chapter="0" data-scrolled="0" data-footer="0" data-reduce={reduce ? 'true' : 'false'}>
+      {intro ? (
+        <Suspense fallback={<div style={INTRO_HOLD} aria-hidden="true" />}>
+          <IntroFilm onDone={endFilm} />
+        </Suspense>
+      ) : null}
       <SiteHeader />
       <main id="rs-main" tabIndex={-1}>
         <Story chrome={chrome} />

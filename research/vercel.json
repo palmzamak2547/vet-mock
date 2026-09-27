@@ -6,7 +6,7 @@
   "ignoreCommand": "case \"$VERCEL_GIT_COMMIT_REF\" in claude/*|codex/*|agent/*|grok/*) exit 0;; esac; git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- . ':!*.md' ../src/data/glossary.js ../public/fonts || exit 1",
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/((?!assets/|fonts/|icons/|sw\\.js$|manifest\\.webmanifest$).*)", "destination": "/index.html" }
+    { "source": "/((?!assets/|fonts/|icons/|sw\\.js$|intro-gate\\.js$|manifest\\.webmanifest$).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
