@@ -1,0 +1,6 @@
+{
+  "_fixture": { "family": "nist-strd", "kind": "pin", "methods": ["reg.ols"] },
+  "source": "https://www.itl.nist.gov/div898/strd/lls/lls.shtml",
+  "files": ["Longley.dat", "Norris.dat", "Wampler4.dat", "nist.json"],
+  "minLRE": { "Norris": { "coef": 9, "se": 9 }, "Longley": { "coef": 12.0, "se": 13.1 }, "Wampler4": { "coef": 6.5, "se": 12.6 } }
+}

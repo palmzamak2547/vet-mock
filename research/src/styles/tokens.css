@@ -1,0 +1,75 @@
+/* Research Studio design tokens [M1-DESIGN.md 3]. Values are the palettes of the front-door design
+   (work/research-studio/design/story.js RS_PAL) and the workspace boards (workspace/build.mjs STYLE),
+   which follow the main VetMock app's cream/ink/sage/gold. Light = the design's "paper" stage, dark =
+   its "dark" stage. Every colour on the site comes from these tokens; no hex in JSX.
+   OWNER: workspace role (landing may add --rs-landing-* tokens in landing.css). */
+
+:root,
+:root[data-theme='light'] {
+  color-scheme: light;
+  --rs-bg: #f6efe4;
+  --rs-surface: #fdf8ef;
+  --rs-surface-2: #f0e6d2;
+  --rs-ink: #2b2419;
+  --rs-ink-soft: #5c4f3d;
+  --rs-line: #d8c9a8;
+  --rs-sage: #4a6b4a;
+  --rs-sage-soft: #a8c0a8;
+  --rs-sage-text: #355a39;
+  --rs-on-sage: #ffffff;
+  --rs-gold: #b88940;
+  --rs-gold-soft: #e8d4a8;
+  --rs-gold-text: #76511e;
+  --rs-rose: #b05555;
+  --rs-rose-soft: #e8b8b8;
+  --rs-rose-text: #93454b;
+  --rs-dot-neg: #928671;
+  --rs-nav-bg: rgba(246, 239, 228, 0.9);
+  --rs-shadow: 0 18px 40px rgba(43, 36, 25, 0.16);
+  /* WebGL colours as 0..1 triples for the herd shader (story.js RS_GL.paper) */
+  --rs-gl-pos: 0.541 0.353 0.110;
+  --rs-gl-neg: 0.573 0.525 0.443;
+  --rs-gl-ring: 0.290 0.420 0.290;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --rs-bg: #1a1612;
+  --rs-surface: #2b2419;
+  --rs-surface-2: #3a3126;
+  --rs-ink: #f0e6d2;
+  --rs-ink-soft: #b8a890;
+  --rs-line: #524332;
+  --rs-sage: #7ba87b;
+  --rs-sage-soft: #4a6b4a;
+  --rs-sage-text: #9bc99b;
+  --rs-on-sage: #1a1612;
+  --rs-gold: #d4a556;
+  --rs-gold-soft: #7b5d2a;
+  --rs-gold-text: #e4ba73;
+  --rs-rose: #d89090;
+  --rs-rose-soft: #8b4f4f;
+  --rs-rose-text: #edaaaa;
+  --rs-dot-neg: #857865;
+  --rs-nav-bg: rgba(26, 22, 18, 0.88);
+  --rs-shadow: 0 24px 48px rgba(0, 0, 0, 0.42);
+  --rs-gl-pos: 0.831 0.647 0.337;
+  --rs-gl-neg: 0.522 0.471 0.396;
+  --rs-gl-ring: 0.482 0.659 0.482;
+}
+
+:root {
+  --rs-font: 'Sarabun', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --rs-mono: ui-monospace, 'Cascadia Mono', Consolas, 'SFMono-Regular', Menlo, monospace;
+  --rs-radius: 12px;
+  --rs-radius-lg: 16px;
+  --rs-tap: 44px;
+  --rs-dur: 240ms;
+  --rs-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --rs-dur: 0ms;
+  }
+}

@@ -1,0 +1,104 @@
+/* Base styles for research.vetmock.com [M1-DESIGN.md 3]. Self-hosted Sarabun (the main app's files,
+   served at /fonts/ by build/shared-fonts.mjs and preloaded in index.html). No third-party fonts:
+   the CSP allows font-src 'self' only. Every selector outside :root/html/body is prefixed .rs-.
+   OWNER: workspace role. */
+@import './tokens.css';
+
+@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/sarabun-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/sarabun-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/sarabun-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Sarabun';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/sarabun-700.woff2') format('woff2');
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--rs-bg);
+  color: var(--rs-ink);
+  font-family: var(--rs-font);
+  font-size: 16px;
+  line-height: 1.6;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.25;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--rs-sage-text);
+}
+
+:focus-visible {
+  outline: 3px solid var(--rs-gold);
+  outline-offset: 2px;
+}
+
+.rs-num {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.rs-mono {
+  font-family: var(--rs-mono);
+  letter-spacing: 0;
+}
+
+.rs-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.rs-boot {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  color: var(--rs-ink-soft);
+}

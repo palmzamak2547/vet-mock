@@ -1,0 +1,883 @@
+{
+ "datasets": {
+  "two": {
+   "g1": [
+    5.1,
+    4.9,
+    6.2,
+    5.8,
+    6.0,
+    5.5,
+    5.3,
+    6.4
+   ],
+   "g2": [
+    6.8,
+    7.1,
+    6.5,
+    7.4,
+    6.9,
+    7.8,
+    6.25,
+    7.0,
+    7.3,
+    6.6
+   ]
+  },
+  "paired": {
+   "before": [
+    12.1,
+    14.3,
+    11.8,
+    13.5,
+    15.2,
+    12.9,
+    14.8,
+    13.1,
+    12.4,
+    14.0
+   ],
+   "after": [
+    11.4,
+    13.9,
+    11.9,
+    12.2,
+    14.1,
+    12.0,
+    14.5,
+    12.3,
+    12.6,
+    13.25
+   ]
+  },
+  "three": {
+   "A": [
+    23,
+    25,
+    21,
+    27,
+    24
+   ],
+   "B": [
+    30,
+    28,
+    33,
+    29,
+    31,
+    27
+   ],
+   "C": [
+    26,
+    24,
+    28,
+    25,
+    29,
+    30,
+    27
+   ]
+  },
+  "corr": {
+   "x": [
+    1.2,
+    2.3,
+    3.1,
+    4.8,
+    5.0,
+    6.7,
+    7.1,
+    8.4,
+    9.0,
+    10.5
+   ],
+   "y": [
+    2.1,
+    2.9,
+    3.8,
+    5.2,
+    4.9,
+    7.3,
+    6.8,
+    8.9,
+    9.5,
+    10.1
+   ]
+  },
+  "quantiles": [
+   2,
+   4,
+   4,
+   5,
+   7,
+   9,
+   10,
+   12
+  ]
+ },
+ "tTest.welch": {
+  "data": "two (x = g1, y = g2)",
+  "R": "t.test(g1, g2)",
+  "t": -5.493662518652961,
+  "df": 13.914408480898441,
+  "p": 8.088294107263273e-05,
+  "meanDiff": -1.3149999999999986,
+  "ci": [
+   -1.8286869946432929,
+   -0.8013130053567045
+  ]
+ },
+ "tTest.pooled": {
+  "data": "two",
+  "R": "t.test(g1, g2, var.equal = TRUE)",
+  "t": -5.593509717533816,
+  "df": 16,
+  "p": 4.037791979304387e-05,
+  "ci": [
+   -1.8133767990493503,
+   -0.8166232009506469
+  ]
+ },
+ "tTest.paired": {
+  "data": "paired (x = before, y = after)",
+  "R": "t.test(before, after, paired = TRUE)",
+  "t": 3.8387096774193568,
+  "df": 9,
+  "p": 0.003974368875812046,
+  "meanDiff": 0.5950000000000001,
+  "ci": [
+   0.24436563976627845,
+   0.9456343602337217
+  ]
+ },
+ "anova1": {
+  "data": "three",
+  "R": "summary(aov(y ~ g))",
+  "F": 9.211448598130833,
+  "df1": 2,
+  "df2": 15,
+  "p": 0.002456709156183406
+ },
+ "anova1.tukey": {
+  "data": "three",
+  "R": "TukeyHSD(aov(y ~ g)) (diff = later level minus earlier)",
+  "note": "SciPy reports mean(i) - mean(j) for row i, column j; R's TukeyHSD row B-A is mean(B) - mean(A).",
+  "pairs": {
+   "B-A": {
+    "diff": 5.666666666666668,
+    "p": 0.0017497860615449667,
+    "ci": [
+     2.2367234719001616,
+     9.096609861433175
+    ]
+   },
+   "C-A": {
+    "diff": 3.0,
+    "p": 0.0792444153924241,
+    "ci": [
+     -0.3167123899745139,
+     6.316712389974514
+    ]
+   },
+   "C-B": {
+    "diff": -2.666666666666668,
+    "p": 0.1039994678303412,
+    "ci": [
+     -5.818028299308976,
+     0.4846949659756401
+    ]
+   }
+  }
+ },
+ "mannWhitney.exact": {
+  "data": "two",
+  "R": "wilcox.test(g1, g2)  (exact: n < 50 and no ties)",
+  "W": 1.0,
+  "p": 9.141185611773847e-05
+ },
+ "mannWhitney.normalTiesCC": {
+  "data": "three: A vs B (ties)",
+  "R": "wilcox.test(A, B, exact = FALSE, correct = TRUE)",
+  "W": 0.5,
+  "p": 0.010411098147110422
+ },
+ "wilcoxonSignedRank.exact": {
+  "data": "paired",
+  "R": "wilcox.test(before, after, paired = TRUE)",
+  "V": 52.0,
+  "p": 0.009765625,
+  "note": "R's V is the sum of positive ranks; SciPy's two-sided statistic is min(V+, V-)."
+ },
+ "kruskalWallis": {
+  "data": "three",
+  "R": "kruskal.test(list(A, B, C))",
+  "H": 9.4433060515873,
+  "df": 2,
+  "p": 0.008900453701972453
+ },
+ "corr.pearson": {
+  "data": "corr",
+  "R": "cor.test(x, y)",
+  "r": 0.9919020726268372,
+  "p": 1.8631466008470498e-08,
+  "ciFisherZ": [
+   0.9648533512385278,
+   0.9981537652787887
+  ],
+  "df": 8
+ },
+ "corr.spearman": {
+  "data": "corr",
+  "R": "cor.test(x, y, method = 'spearman')",
+  "rho": 0.9757575757575757,
+  "pTApprox": 1.4675461874042192e-06,
+  "note": "R's default p for n < 1290 without ties comes from prho (AS 89), not the t approximation; pin p to R only."
+ },
+ "ols.simple": {
+  "data": "corr (y on x)",
+  "R": "summary(lm(y ~ x))",
+  "slope": 0.9128549130812948,
+  "intercept": 0.8463129549976767,
+  "slopeSE": 0.04132462264967751,
+  "interceptSE": 0.2682887945869892,
+  "r2": 0.9838697216814152,
+  "pSlope": 1.8631466008470504e-08
+ },
+ "desc.quantiles": {
+  "data": "quantiles",
+  "R": "quantile(v, c(.25,.5,.75), type = 7) and type = 6",
+  "mean": 6.625,
+  "sd": 3.4615231989895516,
+  "se": 1.2238332636200313,
+  "type7": [
+   4.0,
+   6.0,
+   9.25
+  ],
+  "type6": [
+   4.0,
+   6.0,
+   9.75
+  ]
+ },
+ "proportion.17of179": {
+  "R": "binom.test(17, 179); prop.test(17, 179, correct = FALSE) for Wilson",
+  "p": 0.09497206703910614,
+  "wilson": [
+   0.0601428000990762,
+   0.14682042949210666
+  ],
+  "exact": [
+   0.05630278147792903,
+   0.14770305111090992
+  ],
+  "wald": [
+   0.052023318615052994,
+   0.1379208154631593
+  ]
+ },
+ "proportion.0of20": {
+  "R": "binom.test(0, 20); prop.test(0, 20, correct = FALSE) for Wilson",
+  "p": 0.0,
+  "wilson": [
+   0.0,
+   0.16112515805281935
+  ],
+  "exact": [
+   0.0,
+   0.1684334709830855
+  ],
+  "wald": [
+   0.0,
+   0.0
+  ]
+ },
+ "proportion.20of20": {
+  "R": "binom.test(20, 20); prop.test(20, 20, correct = FALSE) for Wilson",
+  "p": 1.0,
+  "wilson": [
+   0.8388748419471808,
+   1.0
+  ],
+  "exact": [
+   0.8315665290169145,
+   1.0
+  ],
+  "wald": [
+   1.0,
+   1.0
+  ]
+ },
+ "incidenceRate.course107006": {
+  "source": "course item 107006; CI formula",
+  "R": "poisson.test(7, 1089)",
+  "rate": 0.006427915518824609,
+  "per1000": 6.4279155188246095,
+  "exact": [
+   0.002584355419210161,
+   0.013243962682922293
+  ]
+ },
+ "chisq.serosurvey2x2": {
+  "R": "chisq.test(m, correct = FALSE / TRUE)",
+  "pearson": {
+   "X2": 16.030928230129575,
+   "p": 6.231615503879597e-05
+  },
+  "yates": {
+   "X2": 15.244605862236085,
+   "p": 9.444611147584746e-05
+  },
+  "minExpected": 47.134078212290504
+ },
+ "chisq.rxc": {
+  "table": [
+   [
+    20,
+    15,
+    10
+   ],
+   [
+    10,
+    20,
+    25
+   ]
+  ],
+  "R": "chisq.test(m)",
+  "X2": 9.571909571909572,
+  "df": 2,
+  "p": 0.00834615115458955
+ },
+ "fisher.tea": {
+  "table": [
+   [
+    3,
+    1
+   ],
+   [
+    1,
+    3
+   ]
+  ],
+  "R": "fisher.test(m); fisher.test(m, alternative = 'greater')",
+  "pTwoSided": 0.48571428571428565,
+  "pGreater": 0.24285714285714283,
+  "conditionalMLE": 6.408319658199663,
+  "exactCI": [
+   0.21173559544657844,
+   626.2435305888141
+  ],
+  "closedForm": "pGreater = (C(4,3)C(4,1) + C(4,4)C(4,0)) / C(8,4) = 17/70"
+ },
+ "fisher.zeroCell": {
+  "table": [
+   [
+    7,
+    0
+   ],
+   [
+    2,
+    5
+   ]
+  ],
+  "R": "fisher.test(m); fisher.test(m, alternative = 'greater')",
+  "pTwoSided": 0.02097902097902098,
+  "pGreater": 0.01048951048951049,
+  "conditionalMLE": "Infinity",
+  "exactCI": [
+   1.4494783668421345,
+   "Infinity"
+  ]
+ },
+ "fisher.serosurvey": {
+  "table": [
+   [
+    116,
+    364
+   ],
+   [
+    27,
+    209
+   ]
+  ],
+  "R": "fisher.test(m); fisher.test(m, alternative = 'greater')",
+  "pTwoSided": 4.2061169585133306e-05,
+  "pGreater": 2.6654681168026765e-05,
+  "conditionalMLE": 2.46402572083957,
+  "exactCI": [
+   1.548581946222003,
+   4.033498510763611
+  ]
+ },
+ "mcnemar": {
+  "table": [
+   [
+    30,
+    15
+   ],
+   [
+    5,
+    50
+   ]
+  ],
+  "R": "mcnemar.test(m); mcnemar.test(m, correct = FALSE)",
+  "corrected": {
+   "X2": 4.05,
+   "p": 0.04417134490844271
+  },
+  "uncorrected": {
+   "X2": 5.0,
+   "p": 0.025347318677468325
+  },
+  "exactBinomial": {
+   "p": 0.04138946533203125
+  }
+ },
+ "trend": {
+  "x": [
+   15.0,
+   10.0,
+   8.0,
+   4.0
+  ],
+  "n": [
+   20.0,
+   20.0,
+   20.0,
+   20.0
+  ],
+  "score": [
+   1.0,
+   2.0,
+   3.0,
+   4.0
+  ],
+  "R": "prop.trend.test(x, n)",
+  "X2": 12.319296040226273,
+  "p": 0.0004482997378110536,
+  "formula": "weighted regression SS of x/n on score"
+ },
+ "twoByTwo.serosurvey": {
+  "table": [
+   [
+    116,
+    364
+   ],
+   [
+    27,
+    209
+   ]
+  ],
+  "risk1": 0.24166666666666667,
+  "risk0": 0.11440677966101695,
+  "RR": 2.112345679012346,
+  "RR.waldLog": [
+   1.431994065027821,
+   3.115937682015072
+  ],
+  "OR": 2.466829466829467,
+  "OR.woolf": [
+   1.569739153376983,
+   3.876597971915873
+  ],
+  "RD": 0.12725988700564972,
+  "RD.wald": [
+   0.07144003116402488,
+   0.18307974284727457
+  ],
+  "RD.newcombe10": [
+   0.06802150039664043,
+   0.1803240245853589
+  ],
+  "AFe": 0.5265926358854471,
+  "AFp": 0.42716605428469834,
+  "AFeFromOR": 0.5946213496122752,
+  "source": "numbers.json assoc.table (crudePR, crudePOR)"
+ },
+ "twoByTwo.small": {
+  "table": [
+   [
+    12,
+    8
+   ],
+   [
+    5,
+    15
+   ]
+  ],
+  "risk1": 0.6,
+  "risk0": 0.25,
+  "RR": 2.4,
+  "RR.waldLog": [
+   1.0369277932994065,
+   5.554870876468864
+  ],
+  "OR": 4.5,
+  "OR.woolf": [
+   1.1656343450444522,
+   17.372514876633765
+  ],
+  "RD": 0.35,
+  "RD.wald": [
+   0.06344951179183633,
+   0.6365504882081636
+  ],
+  "RD.newcombe10": [
+   0.04442262896591803,
+   0.5778448205440445
+  ],
+  "AFe": 0.5833333333333334,
+  "AFp": 0.4117647058823529,
+  "AFeFromOR": 0.7777777777777778,
+  "source": "defined here"
+ },
+ "mantelHaenszel.threeStrata": {
+  "strata": [
+   [
+    [
+     10,
+     20
+    ],
+    [
+     5,
+     25
+    ]
+   ],
+   [
+    [
+     8,
+     12
+    ],
+    [
+     6,
+     24
+    ]
+   ],
+   [
+    [
+     15,
+     5
+    ],
+    [
+     9,
+     11
+    ]
+   ]
+  ],
+  "R": "mantelhaen.test(array(...)); DescTools::BreslowDayTest(x, correct = TRUE)",
+  "ORmh": 2.8668767231193386,
+  "ciRGB": [
+   1.3748779953123802,
+   5.97797198994088
+  ],
+  "CMHcorrected": 7.02927293327764,
+  "pCMH": 0.008018790303037992,
+  "breslowDay": 0.19007413066610213,
+  "pBreslowDay": 0.909339228882206,
+  "tarone": 0.19003357094252898,
+  "pTarone": 0.9093576703430793
+ },
+ "dx.course107013": {
+  "TP": 90,
+  "FN": 10,
+  "FP": 60,
+  "TN": 120,
+  "Se": 0.9,
+  "Sp": 0.6666666666666666,
+  "PPV": 0.6,
+  "NPV": 0.9230769230769231,
+  "accuracy": 0.75,
+  "LRpos": 2.6999999999999997,
+  "LRpos.log": [
+   2.174001767463347,
+   3.3532631431602113
+  ],
+  "LRneg": 0.14999999999999997,
+  "LRneg.log": [
+   0.08256956466027612,
+   0.2724975006538292
+  ],
+  "Se.wilson": [
+   0.8256343384950865,
+   0.9447708629393249
+  ],
+  "Se.exact": [
+   0.8237774022598248,
+   0.9509953107785141
+  ],
+  "Sp.wilson": [
+   0.5949523288522202,
+   0.7314158385072421
+  ],
+  "Sp.exact": [
+   0.5927004355153477,
+   0.7350387743692702
+  ],
+  "PPV.wilson": [
+   0.52004915848891,
+   0.6749567926374747
+  ],
+  "PPV.exact": [
+   0.5169313081697556,
+   0.6790369902583189
+  ],
+  "NPV.wilson": [
+   0.8641853468446362,
+   0.9576825629139217
+  ],
+  "NPV.exact": [
+   0.8630848816479401,
+   0.9624966927529367
+  ],
+  "source": "course items 107013 and 107015 (same table)",
+  "R": "epiR::epi.tests(as.table(matrix(c(90, 10, 60, 120), 2)))"
+ },
+ "dx.course107014": {
+  "TP": 32,
+  "FN": 8,
+  "FP": 16,
+  "TN": 944,
+  "Se": 0.8,
+  "Sp": 0.9833333333333333,
+  "PPV": 0.6666666666666666,
+  "NPV": 0.9915966386554622,
+  "accuracy": 0.976,
+  "LRpos": 47.99999999999985,
+  "LRpos.log": [
+   28.823822419131385,
+   79.93388130474811
+  ],
+  "LRneg": 0.20338983050847453,
+  "LRneg.log": [
+   0.10942886915619487,
+   0.37803025356334086
+  ],
+  "Se.wilson": [
+   0.6524269365360051,
+   0.8950001027456229
+  ],
+  "Se.exact": [
+   0.6435219813207784,
+   0.9094775906000439
+  ],
+  "Sp.wilson": [
+   0.9730985477266887,
+   0.9897154000520798
+  ],
+  "Sp.exact": [
+   0.9730751662017874,
+   0.9904443240820501
+  ],
+  "PPV.wilson": [
+   0.5254010970594799,
+   0.7832321930518144
+  ],
+  "PPV.exact": [
+   0.5158916795538282,
+   0.7960402644190009
+  ],
+  "NPV.wilson": [
+   0.9835060413978997,
+   0.9957358520797338
+  ],
+  "NPV.exact": [
+   0.9835094864244867,
+   0.996365244734161
+  ],
+  "source": "course item 107014 (FeLV)"
+ },
+ "kappa.threeLevel": {
+  "table": [
+   [
+    20,
+    5,
+    1
+   ],
+   [
+    4,
+    15,
+    6
+   ],
+   [
+    1,
+    3,
+    25
+   ]
+  ],
+  "R": "irr::kappa2(ratings, weight = 'unweighted' / 'equal' / 'squared')",
+  "po": 0.75,
+  "kappa": 0.6232634801036026,
+  "kappa.linear": 0.6967608545830463,
+  "kappa.quadratic": 0.7667638483965014
+ },
+ "kappa.twoByTwo": {
+  "table": [
+   [
+    40,
+    9
+   ],
+   [
+    6,
+    45
+   ]
+  ],
+  "R": "epiR::epi.kappa(m)",
+  "po": 0.85,
+  "kappa": 0.6995192307692307,
+  "PABAK": 0.7,
+  "prevalenceIndex": 0.05,
+  "biasIndex": 0.03
+ },
+ "agreement.course107027": {
+  "source": "course item 107027",
+  "agree": 865,
+  "n": 986,
+  "po": 0.8772819472616633
+ },
+ "icc.continuous": {
+  "clusters": {
+   "F1": [
+    4.1,
+    3.8,
+    4.5,
+    4.0
+   ],
+   "F2": [
+    5.2,
+    5.0,
+    4.8
+   ],
+   "F3": [
+    3.1,
+    3.5,
+    3.3,
+    2.9,
+    3.6
+   ],
+   "F4": [
+    4.4,
+    4.9
+   ]
+  },
+  "R": "ICC::ICCest(cluster, y) (one-way ANOVA estimator); formula in base R",
+  "MSB": 2.130190476190477,
+  "MSW": 0.07930000000000004,
+  "n0": 3.380952380952381,
+  "ICC": 0.8843857163391446,
+  "DEFFmeanSize": 3.2109642908478615
+ },
+ "padjust": {
+  "p": [
+   0.01,
+   0.04,
+   0.03,
+   0.005
+  ],
+  "R": "p.adjust(p, 'holm'); p.adjust(p, 'bonferroni')",
+  "holm": [
+   0.03,
+   0.06,
+   0.06,
+   0.02
+  ],
+  "bonferroni": [
+   0.04,
+   0.16,
+   0.12,
+   0.02
+  ]
+ },
+ "truePrevalence.closedForm": {
+  "AP": 0.2,
+  "Se": 0.95,
+  "Sp": 0.98,
+  "TP": 0.19354838709677413
+ },
+ "sampleSize": {
+  "zAlpha975": 1.959963984540054,
+  "zBeta80": 0.8416212335729143,
+  "caseControl.course107029": {
+   "p1": 0.5,
+   "pooled": 58.86659800761816,
+   "fleiss": 57.673436738908386,
+   "fleissCC": 65.42889646903588,
+   "courseAnswer": 59
+  },
+  "paired.course107035": {
+   "d": 0.8,
+   "normal": 12.263874584920451,
+   "courseAnswer": 13
+  },
+  "oneMean.course107036": {
+   "sd": 0.5,
+   "margin": 0.1,
+   "zExact": 96.03647051735314,
+   "z196": 96.03999999999999,
+   "courseAnswer": 97
+  },
+  "fpc.course107038": {
+   "n0": 544,
+   "N": 2000,
+   "course": 427.84113252064486,
+   "epiR": 427.67295597484275,
+   "courseAnswer": 428
+  },
+  "deff.course107039": {
+   "m": 15,
+   "rho": 0.05,
+   "deff": 1.7000000000000002,
+   "n": 727.6,
+   "courseAnswer": 728
+  },
+  "nonResponse.course107040": {
+   "n": 200,
+   "rate": 0.4,
+   "adjusted": 333.33333333333337,
+   "courseAnswer": 334
+  },
+  "prevalence.p05d005": {
+   "p": 0.5,
+   "d": 0.05,
+   "n": 384.14588206941255
+  }
+ },
+ "_fixture": {
+  "family": "scipy-1.17.1",
+  "kind": "crosscheck",
+  "methods": [
+   "test.tTest",
+   "test.anova1",
+   "posthoc.tukey",
+   "test.mannWhitney",
+   "test.wilcoxonSignedRank",
+   "test.kruskalWallis",
+   "corr.pearson",
+   "corr.spearman",
+   "reg.ols",
+   "desc.summary",
+   "freq.proportion",
+   "freq.incidenceRate",
+   "test.chisq",
+   "test.fisher2x2",
+   "test.mcnemar",
+   "test.trend",
+   "epi.twoByTwo",
+   "epi.mantelHaenszel",
+   "dx.accuracy",
+   "agree.kappa",
+   "agree.percent",
+   "cluster.iccDeff",
+   "adjust.pValues",
+   "freq.truePrevalence",
+   "ss.caseControl",
+   "ss.paired",
+   "ss.mean",
+   "ss.proportion"
+  ]
+ },
+ "_meta": {
+  "written": "2026-09-27",
+  "python": "3.14.4",
+  "numpy": "2.4.4",
+  "scipy": "1.17.1",
+  "role": "cross-check, not the pin; see M1-DESIGN.md section 13"
+ }
+}

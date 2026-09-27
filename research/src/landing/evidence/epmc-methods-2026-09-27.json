@@ -1,0 +1,33 @@
+{
+ "checked": "2026-09-27",
+ "base": "AFF:\"Faculty of Veterinary Science, Chulalongkorn University\" AND PUB_YEAR:[2021 TO 2026]",
+ "with_full_text": 698,
+ "methods": {
+  "two-way ANOVA": 37,
+  "repeated-measures ANOVA": 12,
+  "Dunnett": 2,
+  "Dunn post hoc": 3,
+  "Friedman": 5,
+  "nonlinear/dose-response IC50 EC50": 14,
+  "standard curve / 4PL": 44,
+  "qPCR 2-ddCt": 27,
+  "Kaplan-Meier / log-rank": 21,
+  "Cox": 10,
+  "ROC / AUC": 33,
+  "Bland-Altman": 4,
+  "Passing-Bablok / Deming": 1,
+  "PCA / cluster / heatmap": 40,
+  "MIC50/MIC90": 3,
+  "noncompartmental PK": 7,
+  "Poisson / negative binomial": 4,
+  "meta-analysis": 6,
+  "map / GIS / spatial": 16,
+  "questionnaire / Cronbach": 21,
+  "randomization / blinding": 113,
+  "Shapiro-Wilk": 91,
+  "Excel": 24,
+  "REDCap / Kobo / ODK / Google Forms": 4,
+  "WHONET": 0,
+  "Bayesian latent class": 0
+ }
+}

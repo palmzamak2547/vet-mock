@@ -1,0 +1,47 @@
+// One term per concept [M1-DESIGN.md 4.4]. Statistics terms stay English in both languages and get a
+// short plain gloss the first time a screen uses them (term.<id>.gloss). Thai words taken from the
+// main app's src/data/glossary.js are marked; tests/unit/i18n-glossary.test.mjs checks they still
+// match it. Prefix 'term.'. OWNER: workspace role (add terms here before using a new Thai word).
+export default {
+  th: {
+    // from src/data/glossary.js (thai field)
+    'term.prevalence': 'ความชุก',
+    'term.incidence': 'อุบัติการณ์',
+    'term.relativeRisk': 'ความเสี่ยงสัมพัทธ์',
+    'term.sensitivity': 'ความไว',
+    'term.specificity': 'ความจำเพาะ',
+    'term.ppv': 'ค่าทำนายผลบวก',
+    'term.npv': 'ค่าทำนายผลลบ',
+    // fixed wording decided for the Studio (workspace/README.md, research-m1 brief)
+    'term.clusterAdjusted': 'ปรับตามฟาร์ม',
+    'term.download': 'ดาวน์โหลด',
+    'term.leavesDevice': 'ส่งออกนอกเครื่อง',
+    'term.student': 'นิสิต',
+    // English terms kept in English, with a plain gloss
+    'term.oddsRatio.gloss': 'อัตราส่วนระหว่าง odds ของกลุ่มที่มีปัจจัยกับ odds ของกลุ่มอ้างอิง',
+    'term.ci95.gloss': 'ช่วงของค่าที่ข้อมูลนี้ยังเข้ากันได้ ที่ระดับความเชื่อมั่น 95%',
+    'term.pValue.gloss': 'ถ้าไม่มีความต่างจริง โอกาสที่จะได้ผลห่างจากศูนย์เท่านี้หรือมากกว่า',
+    'term.icc.gloss': 'สัตว์ในฟาร์มเดียวกันคล้ายกันมากแค่ไหน ค่า 0 คือไม่คล้ายกันมากกว่าสัตว์ต่างฟาร์ม',
+    'term.deff.gloss': 'ตัวอย่างนี้มีค่าเท่ากับสัตว์ที่ไม่เกี่ยวข้องกันน้อยลงกี่เท่า เพราะสัตว์ในฟาร์มเดียวกันคล้ายกัน',
+    'term.effectiveN.gloss': 'จำนวนสัตว์ที่ข้อมูลนี้มีค่าเทียบเท่า เมื่อนับว่าสัตว์ในฟาร์มเดียวกันคล้ายกัน',
+  },
+  en: {
+    'term.prevalence': 'prevalence',
+    'term.incidence': 'incidence',
+    'term.relativeRisk': 'relative risk',
+    'term.sensitivity': 'sensitivity',
+    'term.specificity': 'specificity',
+    'term.ppv': 'positive predictive value',
+    'term.npv': 'negative predictive value',
+    'term.clusterAdjusted': 'accounting for farms',
+    'term.download': 'Download',
+    'term.leavesDevice': 'leaves this device',
+    'term.student': 'student',
+    'term.oddsRatio.gloss': 'the odds in the exposed group divided by the odds in the reference group',
+    'term.ci95.gloss': 'the range of values these data remain compatible with, at 95% confidence',
+    'term.pValue.gloss': 'if there were no real difference, the chance of a result at least this far from none',
+    'term.icc.gloss': 'how alike animals from the same farm are; 0 means no more alike than animals from different farms',
+    'term.deff.gloss': 'how many times fewer independent animals the sample is worth, because animals within a farm are alike',
+    'term.effectiveN.gloss': 'the number of independent animals the sample is worth once farm likeness is counted',
+  },
+};

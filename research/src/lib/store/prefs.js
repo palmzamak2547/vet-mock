@@ -1,0 +1,44 @@
+// Per-device preferences: the only localStorage key the app writes [M1-DESIGN.md 9.5].
+// Wrapped in try/catch (private windows throw); capped under 1 KB; never localStorage.clear().
+// OWNER: runtime role.
+
+export const PREFS_KEY = 'vmx-research-prefs-v1';
+
+/**
+ * @typedef {Object} Prefs
+ * @property {'th'|'en'} lang             default 'th'
+ * @property {'system'|'light'|'dark'} theme
+ * @property {boolean} entranceSeen       the workspace entrance has played on this device
+ * @property {string|null} lastProjectId  landing offers "ทำต่อ" when set and the project exists
+ */
+
+/** @type {Prefs} */
+export const DEFAULT_PREFS = Object.freeze({ lang: 'th', theme: 'system', entranceSeen: false, lastProjectId: null });
+
+/** @returns {Prefs} defaults merged with whatever valid fields are stored */
+export function readPrefs() {
+  try {
+    const raw = globalThis.localStorage?.getItem(PREFS_KEY);
+    if (!raw) return { ...DEFAULT_PREFS };
+    const v = JSON.parse(raw);
+    return {
+      lang: v.lang === 'en' ? 'en' : 'th',
+      theme: v.theme === 'light' || v.theme === 'dark' ? v.theme : 'system',
+      entranceSeen: v.entranceSeen === true,
+      lastProjectId: typeof v.lastProjectId === 'string' && v.lastProjectId.length <= 64 ? v.lastProjectId : null,
+    };
+  } catch {
+    return { ...DEFAULT_PREFS };
+  }
+}
+
+/** @param {Partial<Prefs>} patch @returns {Prefs} the merged prefs (stored when storage works) */
+export function writePrefs(patch) {
+  const next = { ...readPrefs(), ...patch };
+  try {
+    globalThis.localStorage?.setItem(PREFS_KEY, JSON.stringify(next));
+  } catch {
+    /* storage unavailable: prefs live for this page only */
+  }
+  return next;
+}

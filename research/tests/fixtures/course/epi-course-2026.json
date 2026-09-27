@@ -1,0 +1,269 @@
+{
+  "_fixture": {
+    "family": "course-2026",
+    "kind": "pin",
+    "methods": [
+      "agree.kappa",
+      "agree.percent",
+      "dx.accuracy",
+      "freq.incidenceRate",
+      "freq.incidenceRisk",
+      "freq.proportion",
+      "ss.caseControl",
+      "ss.mean",
+      "ss.paired",
+      "ss.proportion"
+    ]
+  },
+  "_about": "Worked examples from the CUVET year-5 epidemiology course (2026 decks), as transcribed into the VetMock question bank src/data/questions-y5-epidemiology-2026-c.js. Each entry names the bank item id and the deck title stored in that item's `source` field. Values are the course's own answers; the formulas are the ones the item explanation writes out. Course mode must reproduce `courseAnswer` exactly and name the formula; the other fields are the unrounded values of that formula. Copied by the architect on 2026-09-27 from the bank at worktree commit abb9b765. Owner after M1 scaffold: epi role.",
+  "source": {
+    "file": "src/data/questions-y5-epidemiology-2026-c.js",
+    "commit": "abb9b7653afdcee81035bb2f921379912b3950fc"
+  },
+  "items": [
+    {
+      "id": 107002,
+      "deck": "Measurement of disease frequency- measurement of association- diagnostic test",
+      "method": "freq.proportion",
+      "input": {
+        "x": 17,
+        "n": 179
+      },
+      "courseAnswer": "9.5%",
+      "value": 0.0949720670391061,
+      "formula": "prevalence = cases / animals studied"
+    },
+    {
+      "id": 107003,
+      "deck": "Measurement of disease frequency- measurement of association- diagnostic test",
+      "method": "freq.proportion",
+      "input": {
+        "period": {
+          "x": 10,
+          "n": 20
+        },
+        "point": {
+          "x": 7,
+          "n": 18
+        }
+      },
+      "courseAnswer": "period 50%, point 38.89%",
+      "value": {
+        "period": 0.5,
+        "point": 0.3888888888888889
+      },
+      "formula": "period prevalence over the whole window; point prevalence at one date with that date's denominator"
+    },
+    {
+      "id": 107004,
+      "deck": "Measurement of disease frequency- measurement of association- diagnostic test",
+      "method": "freq.incidenceRisk",
+      "input": {
+        "newCases": 20,
+        "startPopulation": 200,
+        "prevalentAtStart": 5
+      },
+      "courseAnswer": "10.26%",
+      "value": 0.10256410256410256,
+      "formula": "new cases / (population at start - animals already diseased)"
+    },
+    {
+      "id": 107006,
+      "deck": "Measurement of disease frequency- measurement of association- diagnostic test",
+      "method": "freq.incidenceRate",
+      "input": {
+        "cases": 7,
+        "animalTime": 1089,
+        "unit": "animal-month",
+        "per": 1000
+      },
+      "courseAnswer": "6.4 per 1,000 animal-month",
+      "value": 6.427915518824609,
+      "formula": "cases / animal-time, reported per 1,000"
+    },
+    {
+      "id": 107013,
+      "deck": "Measurement of disease frequency- measurement of association- diagnostic test",
+      "method": "dx.accuracy",
+      "input": {
+        "TP": 90,
+        "FN": 10,
+        "FP": 60,
+        "TN": 120
+      },
+      "courseAnswer": "Se 90%, Sp 66.67%, accuracy 75%",
+      "value": {
+        "Se": 0.9,
+        "Sp": 0.6666666666666666,
+        "accuracy": 0.75
+      },
+      "formula": "Se = TP/(TP+FN); Sp = TN/(TN+FP); accuracy = (TP+TN)/n"
+    },
+    {
+      "id": 107014,
+      "deck": "Measurement of disease frequency- measurement of association- diagnostic test",
+      "method": "dx.accuracy",
+      "input": {
+        "TP": 32,
+        "FN": 8,
+        "FP": 16,
+        "TN": 944
+      },
+      "courseAnswer": "Se 80%, Sp 98.33%",
+      "value": {
+        "Se": 0.8,
+        "Sp": 0.9833333333333333
+      },
+      "formula": "Se = TP/(TP+FN); Sp = TN/(TN+FP)"
+    },
+    {
+      "id": 107015,
+      "deck": "Measurement of disease frequency- measurement of association- diagnostic test",
+      "method": "dx.accuracy",
+      "input": {
+        "TP": 90,
+        "FN": 10,
+        "FP": 60,
+        "TN": 120
+      },
+      "courseAnswer": "PPV 60%, NPV 92.3%",
+      "value": {
+        "PPV": 0.6,
+        "NPV": 0.9230769230769231
+      },
+      "formula": "PPV = TP/(TP+FP); NPV = TN/(TN+FN)"
+    },
+    {
+      "id": 107023,
+      "deck": "Measurement of disease frequency- measurement of association- diagnostic test",
+      "method": "agree.kappa",
+      "input": {
+        "kappa": 0.65
+      },
+      "courseAnswer": "substantial agreement",
+      "value": "substantial",
+      "formula": "course bands: <0.20 poor, 0.20-0.39 fair, 0.40-0.59 moderate, 0.60-0.79 substantial, 0.80-1.00 almost perfect (the item's explanation lists poor 0.00-0.19, moderate 0.40-0.59, substantial 0.60-0.79, almost perfect 0.80-1.00)"
+    },
+    {
+      "id": 107027,
+      "deck": "Measurement of disease frequency- measurement of association- diagnostic test",
+      "method": "agree.percent",
+      "input": {
+        "agree": 865,
+        "n": 986
+      },
+      "courseAnswer": "87.7%",
+      "value": 0.8772819472616633,
+      "formula": "diagonal cells / all pairs"
+    },
+    {
+      "id": 107029,
+      "deck": "Sample size determination_TC",
+      "method": "ss.caseControl",
+      "input": {
+        "OR": 3,
+        "p0": 0.25,
+        "ratio": 1,
+        "confidence": 0.95,
+        "power": 0.8
+      },
+      "courseAnswer": "p1 = 0.50, 59 per group",
+      "value": {
+        "p1": 0.5,
+        "pooled": 58.86659800761816,
+        "fleiss": 57.673436738908386,
+        "fleissCC": 65.42889646903588
+      },
+      "formula": "p1 = p0 OR / (1 + p0 (OR - 1)); n = (z_a/2 + z_b)^2 pbar (1 - pbar) (r + 1) / (r (p1 - p0)^2), rounded up (course); Fleiss without and with continuity correction are the two alternatives shown",
+      "note": "methods.md 2.6: the course number matches the pooled-variance form; epiR::epi.sscc (Dupont) not yet run"
+    },
+    {
+      "id": 107035,
+      "deck": "Sample size determination_TC",
+      "method": "ss.paired",
+      "input": {
+        "d": 0.8,
+        "confidence": 0.95,
+        "power": 0.8
+      },
+      "courseAnswer": "13 cats",
+      "value": 12.263874584920451,
+      "formula": "n = (z_a/2 + z_b)^2 / d^2, rounded up (normal approximation)",
+      "note": "t-based methods (pwr::pwr.t.test) give more; show as the alternative with R's number from rparity"
+    },
+    {
+      "id": 107036,
+      "deck": "Sample size determination_TC",
+      "method": "ss.mean",
+      "input": {
+        "sd": 0.5,
+        "margin": 0.1,
+        "confidence": 0.95
+      },
+      "courseAnswer": "97",
+      "value": {
+        "z196": 96.04,
+        "zExact": 96.03647051735314
+      },
+      "formula": "n = z^2 SD^2 / d^2, rounded up; the course writes z = 1.96"
+    },
+    {
+      "id": 107037,
+      "deck": "Sample size determination_TC",
+      "method": "ss.proportion",
+      "input": {
+        "pUnknown": true
+      },
+      "courseAnswer": "p = 0.50",
+      "value": 0.5,
+      "formula": "p (1 - p) is largest at 0.5"
+    },
+    {
+      "id": 107038,
+      "deck": "Sample size determination_TC",
+      "method": "ss.proportion",
+      "input": {
+        "n0": 544,
+        "N": 2000
+      },
+      "courseAnswer": "428",
+      "value": {
+        "course": 427.84113252064486,
+        "epiR": 427.67295597484275
+      },
+      "formula": "course: n = n0 / (1 + (n0 - 1) / N); epiR epi.sssimpleestb: n / (1 + n / N)"
+    },
+    {
+      "id": 107039,
+      "deck": "Sample size determination_TC",
+      "method": "ss.proportion",
+      "input": {
+        "n": 428,
+        "m": 15,
+        "rho": 0.05
+      },
+      "courseAnswer": "DEFF = 1.70, n = 728",
+      "value": {
+        "deff": 1.7000000000000002,
+        "n": 727.6
+      },
+      "formula": "DEFF = 1 + (m - 1) rho; n x DEFF rounded up"
+    },
+    {
+      "id": 107040,
+      "deck": "Sample size determination_TC",
+      "method": "ss.proportion",
+      "input": {
+        "n": 200,
+        "nonResponse": 0.4
+      },
+      "courseAnswer": "334",
+      "value": 333.3333333333333,
+      "formula": "n / (1 - non-response), rounded up"
+    }
+  ],
+  "bench": {
+    "about": "Module 5 screening bench, pinned in the main app by tests/unit/screening.test.mjs to the slide: 585 flagged, 90 true positives, PPV 15.4%. Reuse through that test's numbers, not a new transcription.",
+    "file": "src/lib/screening.js"
+  }
+}
