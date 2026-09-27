@@ -3323,6 +3323,33 @@ export const GLOSSARY_RELATED = {
   100040,
   104014
  ],
+ "odds ratio|public-health": [
+  105089,
+  105090,
+  105091,
+  104014
+ ],
+ "95% ci|public-health": [
+  107028,
+  107029
+ ],
+ "kappa|public-health": [
+  107023,
+  107024,
+  107025,
+  101042,
+  104538,
+  104682
+ ],
+ "icc|public-health": [
+  107025,
+  107026,
+  107039
+ ],
+ "design effect|public-health": [
+  107038,
+  107039
+ ],
  "reservoir|public-health": [
   92506,
   92507,

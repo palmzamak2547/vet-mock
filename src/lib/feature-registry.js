@@ -55,6 +55,8 @@ export const FEATURE_FLAGS = {
 };
 
 export const IMAGING_PRO_URL = 'https://imaging.cuvetsmo.com';
+// The statistics workspace is its own app on its own origin; the palette opens it in a new tab.
+export const RESEARCH_STUDIO_URL = 'https://research.vetmock.com';
 
 export const FEATURE_CATEGORIES = [
   { id: 'practice', label: 'ฝึก & สอบ',        labelEn: 'Practice & Exam', icon: '📝' },
@@ -280,6 +282,13 @@ export const FEATURES = [
     hint: 'เครื่องมือ imaging เต็มรูปแบบ สำหรับ workflow ขั้นสูง',
     kw: 'cuvetsmo imaging pro dicom workstation advanced เครื่องมือ เต็ม ขั้นสูง',
     invoke: { kind: 'external', url: IMAGING_PRO_URL },
+  },
+  {
+    id: 'research-studio', category: 'tools',
+    label: 'วิเคราะห์ข้อมูลวิจัย', labelEn: 'Research Studio', icon: '📊',
+    hint: 'สถิติสำหรับงานวิจัยสัตวแพทย์ คำนวณในเครื่องนี้ ข้อมูลไม่ส่งออกนอกเครื่อง',
+    kw: 'research studio spss epi info winepiscope epitools สถิติ วิเคราะห์ข้อมูล วิจัย t-test chi-square odds ratio sample size ขนาดตัวอย่าง statistics',
+    invoke: { kind: 'external', url: RESEARCH_STUDIO_URL },
   },
   {
     id: 'image-occlusion', category: 'tools',
