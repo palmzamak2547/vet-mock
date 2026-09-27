@@ -1,0 +1,80 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["reg.ols"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/ols.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "R's R^2 without an intercept is computed against 0 (uncentred), as summary.lm does.",
+ "cases": {
+  "simple.corr": {
+   "call": "summary(lm(y ~ x, data = corr))",
+   "tol": "closed",
+   "data": "corr",
+   "values": {
+    "terms": ["(Intercept)", "x"],
+    "coef": [0.84631295499767578, 0.91285491308129485],
+    "se": [0.26828879458698779, 0.041324622649677296],
+    "t": [3.1544849135444384, 22.089854777861433],
+    "p": [0.013506806697841024, 1.8631466008469515e-08],
+    "df": 8,
+    "sigma": 0.37858632342515203,
+    "r2": 0.9838697216814154,
+    "adjR2": 0.98185343689159232,
+    "F": 487.96168410700767,
+    "pF": 1.8631466008469515e-08
+   }
+  },
+  "oneway.three": {
+   "call": "summary(lm(y ~ g, data = three_long))  (treatment contrasts, reference A)",
+   "tol": "closed",
+   "data": "three",
+   "reference": "A",
+   "values": {
+    "terms": ["(Intercept)", "gB", "gC"],
+    "coef": [24.000000000000007, 5.6666666666666634, 2.9999999999999956],
+    "se": [0.97524925588851952, 1.3204937348218291, 1.2769010104452849],
+    "t": [24.609093372887884, 4.2913241594677105, 2.3494381909478057],
+    "p": [1.5342657030563065e-13, 0.00064292910359721456, 0.032914102022380619],
+    "df": 15,
+    "sigma": 2.1807236311728158,
+    "r2": 0.55120587207270222,
+    "adjR2": 0.49136665501572918,
+    "F": 9.2114485981308523,
+    "pF": 0.0024567091561833853
+   }
+  },
+  "noIntercept.corr": {
+   "call": "summary(lm(y ~ x - 1, data = corr))",
+   "tol": "closed",
+   "data": "corr",
+   "intercept": false,
+   "values": {
+    "terms": ["x"],
+    "coef": [1.0295143419772712],
+    "se": [0.026043037184382466],
+    "t": [39.531270284967079],
+    "p": [2.1096030014425884e-11],
+    "df": 9,
+    "sigma": 0.5346693252014898,
+    "r2": 0.99427379407134775,
+    "adjR2": 0.99363754896816414,
+    "F": 1562.7213303431211,
+    "pF": 2.1096030014425884e-11
+   }
+  }
+ }
+}

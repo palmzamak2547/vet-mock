@@ -1,0 +1,5 @@
+# Fixture bytes are the test: never convert line endings (the CSV is CRLF windows-874, its sha256 is pinned in numbers.json).
+*.csv -text
+*.tsv -text
+*.txt -text
+*.bin -text

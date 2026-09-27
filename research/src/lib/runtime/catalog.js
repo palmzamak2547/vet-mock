@@ -3,7 +3,7 @@
 // what the page says stays true: `shipped` is derived from the registry (an implementation exists),
 // `verified` from tests/fixtures (regen-verified). Names live in the i18n dictionaries under
 // `nameKey`. OWNER: runtime role (rows for M2/M3 methods may be added by anyone through runtime).
-import { IMPLEMENTED } from './registry.js';
+import { REGISTERED } from './registered.js';
 import { VERIFIED } from './verified.generated.js';
 
 /**
@@ -142,13 +142,14 @@ export const METHODS = [
 
 /** @returns {CatalogEntry[]} */
 export function getCatalog() {
+  const shipped = new Set(REGISTERED);
   return METHODS.map((m) => ({
     id: m.id,
     families: m.families,
     milestone: m.milestone,
     nameKey: m.nameKey,
-    shipped: Boolean(IMPLEMENTED[m.id]),
-    verified: Boolean(IMPLEMENTED[m.id]) && (VERIFIED[m.id] || []).length > 0,
+    shipped: shipped.has(m.id),
+    verified: shipped.has(m.id) && (VERIFIED[m.id] || []).length > 0,
     validatedAgainst: VERIFIED[m.id] || [],
   }));
 }

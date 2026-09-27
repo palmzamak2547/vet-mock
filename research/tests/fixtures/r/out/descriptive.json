@@ -1,0 +1,153 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["desc.summary"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/descriptive.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "cases": {
+  "quantiles": {
+   "call": "mean(quantiles); sd(quantiles); quantile(quantiles, c(.25, .5, .75), type = 7 and 6)",
+   "tol": "closed",
+   "data": "quantiles",
+   "x": [2, 4, 4, 5, 7, 9, 10, 12],
+   "values": {
+    "n": 8,
+    "mean": 6.625,
+    "sd": 3.4615231989895516,
+    "se": 1.2238332636200313,
+    "min": 2,
+    "max": 12,
+    "q1Type7": 4,
+    "medianType7": 6,
+    "q3Type7": 9.25,
+    "q1Type6": 4,
+    "medianType6": 6,
+    "q3Type6": 9.75
+   }
+  },
+  "two.g1": {
+   "call": "mean(two$g1); sd(two$g1); quantile(two$g1, c(.25, .5, .75), type = 7 and 6)",
+   "tol": "closed",
+   "data": "two$g1",
+   "x": [5.0999999999999996, 4.9000000000000004, 6.2000000000000002, 5.7999999999999998, 6, 5.5, 5.2999999999999998, 6.4000000000000004],
+   "values": {
+    "n": 8,
+    "mean": 5.6500000000000004,
+    "sd": 0.53718844791323339,
+    "se": 0.1899247971472619,
+    "min": 4.9000000000000004,
+    "max": 6.4000000000000004,
+    "q1Type7": 5.25,
+    "medianType7": 5.6500000000000004,
+    "q3Type7": 6.0499999999999998,
+    "q1Type6": 5.1499999999999995,
+    "medianType6": 5.6500000000000004,
+    "q3Type6": 6.1500000000000004
+   }
+  },
+  "two.g2": {
+   "call": "mean(two$g2); sd(two$g2); quantile(two$g2, c(.25, .5, .75), type = 7 and 6)",
+   "tol": "closed",
+   "data": "two$g2",
+   "x": [6.7999999999999998, 7.0999999999999996, 6.5, 7.4000000000000004, 6.9000000000000004, 7.7999999999999998, 6.25, 7, 7.2999999999999998, 6.5999999999999996],
+   "values": {
+    "n": 10,
+    "mean": 6.9649999999999999,
+    "sd": 0.4607059799915777,
+    "se": 0.14568802284333465,
+    "min": 6.25,
+    "max": 7.7999999999999998,
+    "q1Type7": 6.6499999999999995,
+    "medianType7": 6.9500000000000002,
+    "q3Type7": 7.25,
+    "q1Type6": 6.5749999999999993,
+    "medianType6": 6.9500000000000002,
+    "q3Type6": 7.3249999999999993
+   }
+  },
+  "three.C": {
+   "call": "mean(three$C); sd(three$C); quantile(three$C, c(.25, .5, .75), type = 7 and 6)",
+   "tol": "closed",
+   "data": "three$C",
+   "x": [26, 24, 28, 25, 29, 30, 27],
+   "values": {
+    "n": 7,
+    "mean": 27,
+    "sd": 2.1602468994692869,
+    "se": 0.81649658092772603,
+    "min": 24,
+    "max": 30,
+    "q1Type7": 25.5,
+    "medianType7": 27,
+    "q3Type7": 28.5,
+    "q1Type6": 25,
+    "medianType6": 27,
+    "q3Type6": 29
+   }
+  },
+  "corr.x": {
+   "call": "mean(corr$x); sd(corr$x); quantile(corr$x, c(.25, .5, .75), type = 7 and 6)",
+   "tol": "closed",
+   "data": "corr$x",
+   "x": [1.2, 2.2999999999999998, 3.1000000000000001, 4.7999999999999998, 5, 6.7000000000000002, 7.0999999999999996, 8.4000000000000004, 9, 10.5],
+   "values": {
+    "n": 10,
+    "mean": 5.8099999999999996,
+    "sd": 3.0537590678448168,
+    "se": 0.96568340797822783,
+    "min": 1.2,
+    "max": 10.5,
+    "q1Type7": 3.5250000000000004,
+    "medianType7": 5.8499999999999996,
+    "q3Type7": 8.0750000000000011,
+    "q1Type6": 2.9000000000000004,
+    "medianType6": 5.8499999999999996,
+    "q3Type6": 8.5500000000000007
+   }
+  },
+  "odd11": {
+   "call": "mean(1:11); sd(1:11); quantile(1:11, c(.25, .5, .75), type = 7 and 6)",
+   "tol": "closed",
+   "data": "1:11",
+   "x": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+   "values": {
+    "n": 11,
+    "mean": 6,
+    "sd": 3.3166247903553998,
+    "se": 1,
+    "min": 1,
+    "max": 11,
+    "q1Type7": 3.5,
+    "medianType7": 6,
+    "q3Type7": 8.5,
+    "q1Type6": 3,
+    "medianType6": 6,
+    "q3Type6": 9
+   }
+  },
+  "quantiles.tails": {
+   "call": "quantile(quantiles, c(0, .05, .1, .9, .95, 1), type = 7 and 6)",
+   "tol": "closed",
+   "data": "quantiles",
+   "values": {
+    "probs": [0, 0.050000000000000003, 0.10000000000000001, 0.90000000000000002, 0.94999999999999996, 1],
+    "type7": [2, 2.7000000000000002, 3.4000000000000004, 10.6, 11.299999999999999, 12],
+    "type6": [2, 2, 2, 12, 12, 12]
+   }
+  }
+ }
+}

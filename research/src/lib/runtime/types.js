@@ -120,7 +120,7 @@
  * @property {number|[number, number]|null} [dfPair]
  * @property {number|null} p               never rounded; null when withheld (G1) or undefined
  * @property {'two.sided'|'less'|'greater'} alternative
- * @property {string} variant             e.g. 'pearson', 'yates', 'exact', 'normal-cc'
+ * @property {string} variant             e.g. 'pearsonX2', 'yates', 'exact', 'normal-cc'
  * @property {string} [reasonKey]
  */
 

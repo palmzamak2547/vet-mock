@@ -1,0 +1,70 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["corr.pearson", "corr.spearman"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/correlation.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "cases": {
+  "pearson.corr": {
+   "call": "cor.test(corr$x, corr$y)",
+   "tol": "closed",
+   "data": "corr",
+   "values": {
+    "r": 0.99190207262683705,
+    "t": 22.089854777861319,
+    "df": 8,
+    "p": 1.8631466008470312e-08,
+    "ci": [0.96485335123852733, 0.99815376527878874]
+   }
+  },
+  "pearson.weak.90": {
+   "call": "cor.test(two$g1, c(26.1, 24, 28.2, 25, 29.1, 30, 27.3, 26), conf.level = 0.9)",
+   "tol": "closed",
+   "x": "two$g1",
+   "y": [26.100000000000001, 24, 28.199999999999999, 25, 29.100000000000001, 30, 27.300000000000001, 26],
+   "confLevel": 0.90000000000000002,
+   "values": {
+    "r": 0.32707016041000236,
+    "t": 0.84778301976392234,
+    "df": 6,
+    "p": 0.42907524135105879,
+    "ci": [-0.37657012496098879, 0.7913916790040082]
+   }
+  },
+  "spearman.corr": {
+   "call": "cor.test(corr$x, corr$y, method = 'spearman')  (exact, AS 89)",
+   "tol": "closed",
+   "data": "corr",
+   "values": {
+    "rho": 0.9757575757575756,
+    "S": 4.0000000000000258,
+    "p": 0
+   }
+  },
+  "spearman.ties": {
+   "call": "cor.test(corr$x, c(2, 3, 3, 5, 4, 7, 6, 9, 9, 10), method = 'spearman')  (ties: t approximation)",
+   "tol": "closed",
+   "x": "corr$x",
+   "y": [2, 3, 3, 5, 4, 7, 6, 9, 9, 10],
+   "values": {
+    "rho": 0.96953021897737568,
+    "S": 5.0275138687330125,
+    "p": 3.6348514757856455e-06
+   }
+  }
+ }
+}

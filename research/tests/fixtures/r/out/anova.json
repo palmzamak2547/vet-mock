@@ -1,0 +1,145 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["test.anova1", "posthoc.tukey"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/anova.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "Tukey p-values and intervals use ptukey/qtukey (numerical integration), so they compare at the iterative tolerance. R computes the Tukey upper tail as 1 - ptukey (M1-DESIGN.md A8).",
+ "cases": {
+  "anova1.three": {
+   "call": "summary(aov(y ~ g, data = three_long))",
+   "tol": "closed",
+   "data": "three",
+   "values": {
+    "F": 9.2114485981308327,
+    "df1": 2,
+    "df2": 15,
+    "p": 0.0024567091561834052,
+    "ssBetween": 87.611111111110944,
+    "ssWithin": 71.333333333333272,
+    "msWithin": 4.7555555555555511,
+    "means": [24, 29.666666666666668, 27],
+    "ns": [5, 6, 7]
+   }
+  },
+  "tukey.three": {
+   "call": "TukeyHSD(aov(y ~ g, data = three_long))",
+   "tol": "iterative",
+   "data": "three",
+   "confLevel": 0.94999999999999996,
+   "values": {
+    "pairs": [
+     {
+      "pair": "B-A",
+      "diff": 5.6666666666666607,
+      "ci": [2.2367235035747508, 9.0966098297585702],
+      "p": 0.0017497860623924
+     },
+     {
+      "pair": "C-A",
+      "diff": 2.9999999999999929,
+      "ci": [-0.31671235934558073, 6.3167123593455665],
+      "p": 0.079244415392917933
+     },
+     {
+      "pair": "C-B",
+      "diff": -2.6666666666666679,
+      "ci": [-5.8180282702070052, 0.48469493687366905],
+      "p": 0.10399946783097336
+     }
+    ]
+   }
+  },
+  "tukey.three.90": {
+   "call": "TukeyHSD(aov(y ~ g, data = three_long), conf.level = 0.9)",
+   "tol": "iterative",
+   "data": "three",
+   "confLevel": 0.90000000000000002,
+   "values": {
+    "pairs": [
+     {
+      "pair": "B-A",
+      "diff": 5.6666666666666607,
+      "ci": [2.7350395392502698, 8.5982937940830517],
+      "p": 0.0017497860623924
+     },
+     {
+      "pair": "C-A",
+      "diff": 2.9999999999999929,
+      "ci": [0.16515304652172835, 5.834846953478257],
+      "p": 0.079244415392917933
+     },
+     {
+      "pair": "C-B",
+      "diff": -2.6666666666666679,
+      "ci": [-5.3601856918942321, 0.026852358560895961],
+      "p": 0.10399946783097336
+     }
+    ]
+   }
+  },
+  "pairwiseT.holm": {
+   "call": "pairwise.t.test(three_long$y, three_long$g, p.adjust.method = 'holm')",
+   "tol": "closed",
+   "data": "three",
+   "method": "holm",
+   "values": {
+    "B-A": 0.0019287873107916378,
+    "C-A": 0.065828204044761016,
+    "C-B": 0.065828204044761016
+   }
+  },
+  "pairwiseT.bonferroni": {
+   "call": "pairwise.t.test(three_long$y, three_long$g, p.adjust.method = 'bonferroni')",
+   "tol": "closed",
+   "data": "three",
+   "method": "bonferroni",
+   "values": {
+    "B-A": 0.0019287873107916378,
+    "C-A": 0.098742306067141516,
+    "C-B": 0.13219870185720192
+   }
+  },
+  "pairwiseT.none": {
+   "call": "pairwise.t.test(three_long$y, three_long$g, p.adjust.method = 'none')",
+   "tol": "closed",
+   "data": "three",
+   "method": "none",
+   "values": {
+    "B-A": 0.00064292910359721261,
+    "C-A": 0.032914102022380508,
+    "C-B": 0.044066233952400641
+   }
+  },
+  "anova1.four": {
+   "call": "summary(aov(y ~ g, data = four))",
+   "tol": "closed",
+   "groups": {
+    "W": [5.0999999999999996, 4.7999999999999998, 5.2999999999999998, 5],
+    "X": [4.9000000000000004, 5.2000000000000002, 5, 4.7000000000000002],
+    "Y": [5.4000000000000004, 5.0999999999999996, 4.9000000000000004, 5],
+    "Z": [5.2000000000000002, 4.7999999999999998, 5.0999999999999996, 5.2999999999999998]
+   },
+   "values": {
+    "F": 0.44444444444444303,
+    "df1": 3,
+    "df2": 12,
+    "p": 0.72562392019363431
+   }
+  }
+ }
+}

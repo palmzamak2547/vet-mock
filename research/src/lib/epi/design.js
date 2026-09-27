@@ -71,7 +71,7 @@ export const DESIGNS = [
   },
   {
     id: 'diagnostic', nameKey: 'epi.design.diagnostic.name', descKey: 'epi.design.diagnostic.desc',
-    offers: [{ method: 'dx.accuracy' }, { method: 'freq.proportion' }, { method: 'desc.summary' }],
+    offers: [{ method: 'dx.accuracy' }, { method: 'freq.proportion' }, { method: 'freq.truePrevalence' }, { method: 'desc.summary' }],
     blocked: [
       { what: 'association measures (OR, RR)', reasonKey: 'epi.design.blocked.diagnosticNotAssociation' },
       { what: 'ROC and cut-offs', reasonKey: 'epi.design.blocked.rocIsM2' },
@@ -104,6 +104,88 @@ export const DESIGN_FREE_METHODS = Object.freeze(['ss.proportion', 'ss.twoPropor
 /**
  * @param {string|null} designId
  * @param {string} methodId
- * @returns {{ allowed: boolean, reasonKey: string|null, measures: string[]|null }}
+ * @param {string[]|null} [requestedMeasures]  2x2 measures asked for (options.measures); each must be offered
+ * @returns {{ allowed: boolean, reasonKey: string|null, measures: string[]|null, measure?: string }}
  */
-export function checkDesign(designId, methodId) { void designId; void methodId; throw new Error('not implemented: epi/design.checkDesign'); }
+export function checkDesign(designId, methodId, requestedMeasures = null) {
+  if (DESIGN_FREE_METHODS.includes(methodId)) return { allowed: true, reasonKey: null, measures: null };
+  // Post hoc comparisons belong to the ANOVA they follow.
+  const lookup = methodId === 'posthoc.tukey' ? 'test.anova1' : methodId;
+  if (!designId) return { allowed: false, reasonKey: 'epi.design.needDesign', measures: null };
+  const design = DESIGNS.find((d) => d.id === designId);
+  if (!design) return { allowed: false, reasonKey: 'epi.design.unknown', measures: null };
+  const offer = design.offers.find((o) => o.method === lookup);
+  if (!offer) return { allowed: false, reasonKey: BLOCK_REASON[designId]?.[lookup] ?? 'epi.design.blocked.notOffered', measures: null };
+  const measures = offer.measures ?? null;
+  if (measures && Array.isArray(requestedMeasures) && requestedMeasures.length) {
+    const bad = requestedMeasures.find((m) => !measures.includes(m));
+    if (bad) return { allowed: false, reasonKey: MEASURE_BLOCK_REASON[designId]?.[bad] ?? 'epi.design.blocked.measureNotOffered', measures, measure: bad };
+  }
+  return { allowed: true, reasonKey: null, measures };
+}
+
+/** Why a method is missing from a design (the reason keys of DESIGNS[].blocked, per method). */
+export const BLOCK_REASON = Object.freeze({
+  'cross-sectional': {
+    'freq.incidenceRisk': 'epi.design.blocked.noFollowUp',
+    'freq.incidenceRate': 'epi.design.blocked.noAnimalTime',
+    'dx.accuracy': 'epi.design.blocked.notDiagnostic',
+    'agree.kappa': 'epi.design.blocked.notAgreement',
+    'agree.percent': 'epi.design.blocked.notAgreement',
+    'test.mcnemar': 'epi.design.blocked.notPaired',
+    'test.wilcoxonSignedRank': 'epi.design.blocked.notPaired',
+  },
+  cohort: {
+    'freq.proportion': 'epi.design.blocked.cohortNotPrevalence',
+    'freq.truePrevalence': 'epi.design.blocked.cohortNotPrevalence',
+    'dx.accuracy': 'epi.design.blocked.notDiagnostic',
+    'agree.kappa': 'epi.design.blocked.notAgreement',
+    'agree.percent': 'epi.design.blocked.notAgreement',
+  },
+  'case-control': {
+    'freq.proportion': 'epi.design.blocked.caseControlNoPrevalence',
+    'freq.truePrevalence': 'epi.design.blocked.caseControlNoPrevalence',
+    'freq.incidenceRisk': 'epi.design.blocked.caseControlNoRisk',
+    'freq.incidenceRate': 'epi.design.blocked.caseControlNoRisk',
+    'dx.accuracy': 'epi.design.blocked.notDiagnostic',
+    'agree.kappa': 'epi.design.blocked.notAgreement',
+    'agree.percent': 'epi.design.blocked.notAgreement',
+  },
+  trial: {
+    'freq.proportion': 'epi.design.blocked.trialNotPrevalence',
+    'freq.truePrevalence': 'epi.design.blocked.trialNotPrevalence',
+    'dx.accuracy': 'epi.design.blocked.notDiagnostic',
+    'agree.kappa': 'epi.design.blocked.notAgreement',
+    'agree.percent': 'epi.design.blocked.notAgreement',
+  },
+  diagnostic: {
+    'epi.twoByTwo': 'epi.design.blocked.diagnosticNotAssociation',
+    'epi.mantelHaenszel': 'epi.design.blocked.diagnosticNotAssociation',
+    'test.chisq': 'epi.design.blocked.diagnosticNotAssociation',
+    'test.fisher2x2': 'epi.design.blocked.diagnosticNotAssociation',
+  },
+  agreement: {
+    'corr.pearson': 'epi.design.blocked.correlationNotAgreement',
+    'corr.spearman': 'epi.design.blocked.correlationNotAgreement',
+    'epi.twoByTwo': 'epi.design.blocked.notAssociationDesign',
+    'test.chisq': 'epi.design.blocked.notAssociationDesign',
+  },
+  descriptive: {
+    'epi.twoByTwo': 'epi.design.blocked.descriptiveNoComparison',
+    'epi.mantelHaenszel': 'epi.design.blocked.descriptiveNoComparison',
+    'test.chisq': 'epi.design.blocked.descriptiveNoComparison',
+    'test.fisher2x2': 'epi.design.blocked.descriptiveNoComparison',
+    'test.tTest': 'epi.design.blocked.descriptiveNoComparison',
+    'test.anova1': 'epi.design.blocked.descriptiveNoComparison',
+    'test.mannWhitney': 'epi.design.blocked.descriptiveNoComparison',
+    'test.kruskalWallis': 'epi.design.blocked.descriptiveNoComparison',
+  },
+});
+
+/** Why a 2x2 measure is missing from a design. */
+export const MEASURE_BLOCK_REASON = Object.freeze({
+  'cross-sectional': { RR: 'epi.design.blocked.noFollowUp', RD: 'epi.design.blocked.noFollowUp', OR: 'epi.design.blocked.useCrossSectionalNames', AFe: 'epi.design.blocked.noFollowUp', AFp: 'epi.design.blocked.noFollowUp' },
+  cohort: { PR: 'epi.design.blocked.cohortNotPrevalence', POR: 'epi.design.blocked.cohortNotPrevalence', PD: 'epi.design.blocked.cohortNotPrevalence' },
+  'case-control': { RR: 'epi.design.blocked.caseControlNoRisk', RD: 'epi.design.blocked.caseControlNoRisk', PR: 'epi.design.blocked.caseControlNoPrevalence', PD: 'epi.design.blocked.caseControlNoPrevalence', AFe: 'epi.design.blocked.caseControlNoRisk', AFp: 'epi.design.blocked.caseControlNoRisk' },
+  trial: { PR: 'epi.design.blocked.trialNotPrevalence', POR: 'epi.design.blocked.trialNotPrevalence', PD: 'epi.design.blocked.trialNotPrevalence' },
+});

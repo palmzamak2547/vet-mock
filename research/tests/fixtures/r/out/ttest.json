@@ -1,0 +1,168 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["test.tTest"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/ttest.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "estimate is mean(x) - mean(y) for two samples, the mean difference for paired, the mean for one sample; se is t.test's stderr.",
+ "cases": {
+  "welch": {
+   "call": "t.test(two$g1, two$g2)",
+   "tol": "closed",
+   "variant": "welch",
+   "x": "two$g1",
+   "y": "two$g2",
+   "alternative": "two.sided",
+   "mu": 0,
+   "confLevel": 0.94999999999999996,
+   "values": {
+    "t": -5.4936625186529646,
+    "df": 13.914408480898441,
+    "p": 8.0882941072632055e-05,
+    "estimate": -1.3149999999999995,
+    "ci": [-1.8286869946432938, -0.80131300535670524],
+    "se": 0.23936672402702214
+   }
+  },
+  "pooled": {
+   "call": "t.test(two$g1, two$g2, var.equal = TRUE)",
+   "tol": "closed",
+   "variant": "pooled",
+   "x": "two$g1",
+   "y": "two$g2",
+   "alternative": "two.sided",
+   "mu": 0,
+   "confLevel": 0.94999999999999996,
+   "values": {
+    "t": -5.5935097175338209,
+    "df": 16,
+    "p": 4.0377919793043511e-05,
+    "estimate": -1.3149999999999995,
+    "ci": [-1.813376799049351, -0.81662320095064789],
+    "se": 0.23509389746439613
+   }
+  },
+  "paired": {
+   "call": "t.test(paired$before, paired$after, paired = TRUE)",
+   "tol": "closed",
+   "variant": "paired",
+   "x": "paired$before",
+   "y": "paired$after",
+   "alternative": "two.sided",
+   "mu": 0,
+   "confLevel": 0.94999999999999996,
+   "values": {
+    "t": 3.8387096774193568,
+    "df": 9,
+    "p": 0.0039743688758120477,
+    "estimate": 0.59500000000000008,
+    "ci": [0.24436563976627845, 0.9456343602337216],
+    "se": 0.15499999999999994
+   }
+  },
+  "oneSample": {
+   "call": "t.test(two$g1, mu = 5.5)",
+   "tol": "closed",
+   "variant": "one-sample",
+   "x": "two$g1",
+   "y": null,
+   "alternative": "two.sided",
+   "mu": 5.5,
+   "confLevel": 0.94999999999999996,
+   "values": {
+    "t": 0.78978628516683325,
+    "df": 7,
+    "p": 0.45556860925085174,
+    "estimate": 5.6500000000000004,
+    "ci": [5.2008992186867449, 6.0991007813132558],
+    "se": 0.1899247971472619
+   }
+  },
+  "welch.less": {
+   "call": "t.test(two$g1, two$g2, alternative = 'less')",
+   "tol": "closed",
+   "variant": "welch",
+   "x": "two$g1",
+   "y": "two$g2",
+   "alternative": "less",
+   "mu": 0,
+   "confLevel": 0.94999999999999996,
+   "values": {
+    "t": -5.4936625186529646,
+    "df": 13.914408480898441,
+    "p": 4.0441470536316028e-05,
+    "estimate": -1.3149999999999995,
+    "ci": ["-Infinity", -0.89321763845551405],
+    "se": 0.23936672402702214
+   }
+  },
+  "pooled.greater": {
+   "call": "t.test(two$g1, two$g2, var.equal = TRUE, alternative = 'greater')",
+   "tol": "closed",
+   "variant": "pooled",
+   "x": "two$g1",
+   "y": "two$g2",
+   "alternative": "greater",
+   "mu": 0,
+   "confLevel": 0.94999999999999996,
+   "values": {
+    "t": -5.5935097175338209,
+    "df": 16,
+    "p": 0.99997981104010347,
+    "estimate": -1.3149999999999995,
+    "ci": [-1.7254465979752509, "Infinity"],
+    "se": 0.23509389746439613
+   }
+  },
+  "paired.90": {
+   "call": "t.test(paired$before, paired$after, paired = TRUE, conf.level = 0.9)",
+   "tol": "closed",
+   "variant": "paired",
+   "x": "paired$before",
+   "y": "paired$after",
+   "alternative": "two.sided",
+   "mu": 0,
+   "confLevel": 0.90000000000000002,
+   "values": {
+    "t": 3.8387096774193568,
+    "df": 9,
+    "p": 0.0039743688758120477,
+    "estimate": 0.59500000000000008,
+    "ci": [0.31086749543828351, 0.87913250456171665],
+    "se": 0.15499999999999994
+   }
+  },
+  "welch.threeAB": {
+   "call": "t.test(three$A, three$B)",
+   "tol": "closed",
+   "variant": "welch",
+   "x": "three$A",
+   "y": "three$B",
+   "alternative": "two.sided",
+   "mu": 0,
+   "confLevel": 0.94999999999999996,
+   "values": {
+    "t": -4.2500000000000009,
+    "df": 8.5191347753743756,
+    "p": 0.0024264581281509263,
+    "estimate": -5.6666666666666679,
+    "ci": [-8.709029096500311, -2.6243042368330247],
+    "se": 1.3333333333333333
+   }
+  }
+ }
+}

@@ -1,0 +1,145 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["test.mannWhitney", "test.wilcoxonSignedRank", "test.kruskalWallis"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/rank.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "R 4.6.0 uses the exact distribution for n < 50 even with ties or zeros (conditional on the tied ranks); only exact = FALSE or n >= 50 gives the normal approximation. See the header of rank.R.",
+ "cases": {
+  "mannWhitney.exact": {
+   "call": "wilcox.test(two$g1, two$g2)",
+   "tol": "closed",
+   "x": "two$g1",
+   "y": "two$g2",
+   "exact": true,
+   "correct": true,
+   "values": {
+    "statistic": 1,
+    "p": 9.1411856117738465e-05
+   }
+  },
+  "mannWhitney.normalTiesCC": {
+   "call": "wilcox.test(three$A, three$B, exact = FALSE, correct = TRUE)",
+   "tol": "closed",
+   "x": "three$A",
+   "y": "three$B",
+   "exact": false,
+   "correct": true,
+   "values": {
+    "statistic": 0.5,
+    "p": 0.01041109814711042
+   }
+  },
+  "mannWhitney.autoTies": {
+   "call": "wilcox.test(three$A, three$B)  (ties; R 4.6.0 still uses the exact permutation distribution)",
+   "tol": "closed",
+   "x": "three$A",
+   "y": "three$B",
+   "exact": "auto",
+   "correct": true,
+   "values": {
+    "statistic": 0.5,
+    "p": 0.008658008658008658
+   }
+  },
+  "mannWhitney.normalNoCC": {
+   "call": "wilcox.test(two$g1, two$g2, exact = FALSE, correct = FALSE)",
+   "tol": "closed",
+   "x": "two$g1",
+   "y": "two$g2",
+   "exact": false,
+   "correct": false,
+   "values": {
+    "statistic": 1,
+    "p": 0.00052975664748989356
+   }
+  },
+  "mannWhitney.exact.less": {
+   "call": "wilcox.test(two$g1, two$g2, alternative = 'less')",
+   "tol": "closed",
+   "x": "two$g1",
+   "y": "two$g2",
+   "exact": true,
+   "correct": true,
+   "alternative": "less",
+   "values": {
+    "statistic": 1,
+    "p": 4.5705928058869233e-05
+   }
+  },
+  "signedRank.exact": {
+   "call": "wilcox.test(paired$before, paired$after, paired = TRUE)",
+   "tol": "closed",
+   "x": "paired$before",
+   "y": "paired$after",
+   "exact": true,
+   "correct": true,
+   "values": {
+    "statistic": 52,
+    "p": 0.009765625
+   }
+  },
+  "signedRank.normal": {
+   "call": "wilcox.test(paired$before, paired$after, paired = TRUE, exact = FALSE, correct = TRUE)",
+   "tol": "closed",
+   "x": "paired$before",
+   "y": "paired$after",
+   "exact": false,
+   "correct": true,
+   "values": {
+    "statistic": 52,
+    "p": 0.014432823938841821
+   }
+  },
+  "signedRank.zerosTies": {
+   "call": "wilcox.test(c(0, 1.5, -0.5, 2, 1.5, 3, -1, 0.5, 2.5, 4))  (exact, conditional on ties)",
+   "tol": "closed",
+   "x": "dz",
+   "y": null,
+   "d": [0, 1.5, -0.5, 2, 1.5, 3, -1, 0.5, 2.5, 4],
+   "exact": "auto",
+   "correct": true,
+   "values": {
+    "statistic": 47.5,
+    "p": 0.03515625
+   }
+  },
+  "signedRank.zerosTies.normal": {
+   "call": "wilcox.test(c(0, 1.5, -0.5, 2, 1.5, 3, -1, 0.5, 2.5, 4), exact = FALSE)",
+   "tol": "closed",
+   "x": "dz",
+   "y": null,
+   "d": [0, 1.5, -0.5, 2, 1.5, 3, -1, 0.5, 2.5, 4],
+   "exact": false,
+   "correct": true,
+   "values": {
+    "statistic": 40.5,
+    "p": 0.037813753008406392
+   }
+  },
+  "kruskalWallis.three": {
+   "call": "kruskal.test(list(three$A, three$B, three$C))",
+   "tol": "closed",
+   "groups": "three",
+   "values": {
+    "H": 9.4433060515873137,
+    "df": 2,
+    "p": 0.008900453701972396
+   }
+  }
+ }
+}

@@ -1,0 +1,58 @@
+{
+  "_fixture": {
+    "family": "nist-strd",
+    "kind": "pin",
+    "methods": [
+      "test.anova1",
+      "desc.summary",
+      "reg.ols"
+    ]
+  },
+  "source": [
+    "https://www.itl.nist.gov/div898/strd/anova/anova.html",
+    "https://www.itl.nist.gov/div898/strd/univ/homepage.html",
+    "https://www.itl.nist.gov/div898/strd/lls/data/LINKS/DATA/Pontius.dat"
+  ],
+  "downloaded": "2026-09-27",
+  "anova": {
+    "lower": [
+      "SiRstv",
+      "SmLs01",
+      "SmLs02",
+      "SmLs03"
+    ],
+    "average": [
+      "AtmWtAg",
+      "SmLs04",
+      "SmLs05",
+      "SmLs06"
+    ]
+  },
+  "univariate": {
+    "lower": [
+      "PiDigits",
+      "Lottery",
+      "Lew",
+      "Mavro",
+      "Michelso",
+      "NumAcc1"
+    ],
+    "average": [
+      "NumAcc2",
+      "NumAcc3"
+    ],
+    "higher": [
+      "NumAcc4"
+    ]
+  },
+  "minLRE": {
+    "lower": 9,
+    "average": 9,
+    "higher": 8
+  },
+  "lls": {
+    "lower": [
+      "Pontius"
+    ]
+  }
+}

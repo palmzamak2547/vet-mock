@@ -10,10 +10,12 @@ export const PREFS_KEY = 'vmx-research-prefs-v1';
  * @property {'system'|'light'|'dark'} theme
  * @property {boolean} entranceSeen       the workspace entrance has played on this device
  * @property {string|null} lastProjectId  landing offers "ทำต่อ" when set and the project exists
+ * @property {boolean} guestClaimDone     the first sign-in on this browser has happened; guest projects
+ *   made after it stay guest until the student moves them (auth/claim-guest.js)
  */
 
 /** @type {Prefs} */
-export const DEFAULT_PREFS = Object.freeze({ lang: 'th', theme: 'system', entranceSeen: false, lastProjectId: null });
+export const DEFAULT_PREFS = Object.freeze({ lang: 'th', theme: 'system', entranceSeen: false, lastProjectId: null, guestClaimDone: false });
 
 /** @returns {Prefs} defaults merged with whatever valid fields are stored */
 export function readPrefs() {
@@ -26,6 +28,7 @@ export function readPrefs() {
       theme: v.theme === 'light' || v.theme === 'dark' ? v.theme : 'system',
       entranceSeen: v.entranceSeen === true,
       lastProjectId: typeof v.lastProjectId === 'string' && v.lastProjectId.length <= 64 ? v.lastProjectId : null,
+      guestClaimDone: v.guestClaimDone === true,
     };
   } catch {
     return { ...DEFAULT_PREFS };

@@ -1,0 +1,99 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["test.mcnemar"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/mcnemar.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "cases": {
+  "b15.c5": {
+   "call": "mcnemar.test(matrix(c(30, 15, 5, 50), 2, byrow = TRUE), correct = TRUE / FALSE); binom.test(15, 20)",
+   "tol": "closed",
+   "b": 15,
+   "c": 5,
+   "values": {
+    "corrected": {
+     "X2": 4.0499999999999998,
+     "p": 0.044171344908442683
+    },
+    "uncorrected": {
+     "X2": 5,
+     "p": 0.025347318677468304
+    },
+    "exact": {
+     "p": 0.041389465332031285
+    }
+   }
+  },
+  "b8.c2": {
+   "call": "mcnemar.test(matrix(c(30, 8, 2, 50), 2, byrow = TRUE), correct = TRUE / FALSE); binom.test(8, 10)",
+   "tol": "closed",
+   "b": 8,
+   "c": 2,
+   "values": {
+    "corrected": {
+     "X2": 2.5,
+     "p": 0.11384629800665812
+    },
+    "uncorrected": {
+     "X2": 3.6000000000000001,
+     "p": 0.057779571123597537
+    },
+    "exact": {
+     "p": 0.10937499999999994
+    }
+   }
+  },
+  "b20.c22": {
+   "call": "mcnemar.test(matrix(c(30, 20, 22, 50), 2, byrow = TRUE), correct = TRUE / FALSE); binom.test(20, 42)",
+   "tol": "closed",
+   "b": 20,
+   "c": 22,
+   "values": {
+    "corrected": {
+     "X2": 0.023809523809523808,
+     "p": 0.87737055606414338
+    },
+    "uncorrected": {
+     "X2": 0.095238095238095233,
+     "p": 0.7576207236833965
+    },
+    "exact": {
+     "p": 0.87761432875231538
+    }
+   }
+  },
+  "b3.c0": {
+   "call": "mcnemar.test(matrix(c(30, 3, 0, 50), 2, byrow = TRUE), correct = TRUE / FALSE); binom.test(3, 3)",
+   "tol": "closed",
+   "b": 3,
+   "c": 0,
+   "values": {
+    "corrected": {
+     "X2": 1.3333333333333333,
+     "p": 0.24821307898992362
+    },
+    "uncorrected": {
+     "X2": 3,
+     "p": 0.083264516663550558
+    },
+    "exact": {
+     "p": 0.25000000000000006
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,146 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["freq.proportion", "freq.incidenceRisk", "freq.incidenceRate", "freq.truePrevalence"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/frequency.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "An undefined true prevalence (Se + Sp <= 1) is null. Per 1,000 values are the rate times 1,000.",
+ "cases": {
+  "prevalence.course107002": {
+   "call": "17/179; prop.test(17, 179, correct = FALSE); binom.test(17, 179)",
+   "tol": "closed",
+   "x": 17,
+   "n": 179,
+   "measure": "freq.proportion",
+   "values": {
+    "estimate": 0.094972067039106142,
+    "wilson": [0.060142800099076188, 0.14682042949210664],
+    "exact": [0.056302781477929206, 0.14770305111090987]
+   }
+  },
+  "periodPrevalence.course107003": {
+   "call": "10/20 with Wilson and exact",
+   "tol": "closed",
+   "x": 10,
+   "n": 20,
+   "measure": "freq.proportion",
+   "values": {
+    "estimate": 0.5,
+    "wilson": [0.2992980081982124, 0.70070199180178772],
+    "exact": [0.27195784956079183, 0.72804215043920817]
+   }
+  },
+  "pointPrevalence.course107003": {
+   "call": "7/18 with Wilson and exact",
+   "tol": "closed",
+   "x": 7,
+   "n": 18,
+   "measure": "freq.proportion",
+   "values": {
+    "estimate": 0.3888888888888889,
+    "wilson": [0.20305246572163627, 0.61380958397762087],
+    "exact": [0.17298585478975181, 0.64254879410693744]
+   }
+  },
+  "incidenceRisk.course107004": {
+   "call": "20/(200 - 5) with Wilson and exact",
+   "tol": "closed",
+   "x": 20,
+   "n": 195,
+   "measure": "freq.incidenceRisk",
+   "values": {
+    "estimate": 0.10256410256410256,
+    "wilson": [0.067379858284911193, 0.15310463765830298],
+    "exact": [0.06378268009266834, 0.15395242418773292]
+   }
+  },
+  "incidenceRate.7.1089": {
+   "call": "poisson.test(7, 1089)",
+   "tol": "closed",
+   "cases": 7,
+   "time": 1089,
+   "values": {
+    "rate": 0.0064279155188246093,
+    "ci": [0.0025843554192101627, 0.013243962682922295],
+    "per1000": 6.4279155188246095,
+    "ci1000": [2.5843554192101625, 13.243962682922295]
+   }
+  },
+  "incidenceRate.12.3650": {
+   "call": "poisson.test(12, 3650)",
+   "tol": "closed",
+   "cases": 12,
+   "time": 3650,
+   "values": {
+    "rate": 0.0032876712328767125,
+    "ci": [0.0016987877010197854, 0.0057429000131991653],
+    "per1000": 3.2876712328767126,
+    "ci1000": [1.6987877010197854, 5.742900013199165]
+   }
+  },
+  "truePrevalence.closedForm": {
+   "call": "(0.2 + 0.98 - 1)/(0.95 + 0.98 - 1)",
+   "tol": "closed",
+   "ap": 0.20000000000000001,
+   "se": 0.94999999999999996,
+   "sp": 0.97999999999999998,
+   "values": {
+    "tp": 0.19354838709677413
+   }
+  },
+  "truePrevalence.undefined": {
+   "call": "Se + Sp <= 1: undefined",
+   "tol": "closed",
+   "ap": 0.20000000000000001,
+   "se": 0.5,
+   "sp": 0.40000000000000002,
+   "values": {
+    "tp": null
+   }
+  },
+  "truePrevalence.clipped": {
+   "call": "3/200 with Se 0.9, Sp 0.97: the transformed lower bound falls below 0 and is clipped",
+   "tol": "closed",
+   "x": 3,
+   "n": 200,
+   "se": 0.90000000000000002,
+   "sp": 0.96999999999999997,
+   "values": {
+    "tp": -0.017241379310344841,
+    "tpClipped": 0,
+    "wilson": [0.0051142377932583156, 0.043165728792690254],
+    "transformed": [-0.028604324375565121, 0.015133021600793434],
+    "clipped": [0, 0.015133021600793434]
+   }
+  },
+  "truePrevalence.serosurvey": {
+   "call": "Rogan-Gladen on 146/728 with Se 0.95, Sp 0.98, bounds from the DEFF-widened Wald interval",
+   "tol": "closed",
+   "x": 146,
+   "n": 728,
+   "se": 0.94999999999999996,
+   "sp": 0.97999999999999998,
+   "deff": 1.7008739471241223,
+   "values": {
+    "ap": 0.20054945054945056,
+    "tp": 0.19413919413919409,
+    "waldDeff": [0.16261576788734927, 0.23848313321155185],
+    "tpCi": [0.15335028805091314, 0.23492810022747504]
+   }
+  }
+ }
+}

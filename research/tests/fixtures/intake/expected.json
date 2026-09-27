@@ -1,0 +1,166 @@
+{
+ "utf8-bom.csv": {
+  "encoding": "utf-8-bom",
+  "header": [
+   "ชนิด",
+   "จำนวน"
+  ],
+  "rows": [
+   [
+    "ไก่",
+    "3"
+   ],
+   [
+    "เป็ด",
+    "๕"
+   ]
+  ]
+ },
+ "utf8-nobom.csv": {
+  "encoding": "utf-8",
+  "header": [
+   "ชนิด",
+   "จำนวน"
+  ],
+  "rows": [
+   [
+    "ไก่",
+    "3"
+   ],
+   [
+    "เป็ด",
+    "๕"
+   ]
+  ]
+ },
+ "utf16le-tab.txt": {
+  "encoding": "utf-16le",
+  "delimiter": "\t",
+  "header": [
+   "ชนิด",
+   "จำนวน"
+  ],
+  "rows": [
+   [
+    "ไก่",
+    "3"
+   ],
+   [
+    "เป็ด",
+    "5"
+   ]
+  ]
+ },
+ "tis620.csv": {
+  "encoding": "windows-874",
+  "firstBadByte": 0,
+  "header": [
+   "ชนิด",
+   "จำนวน"
+  ],
+  "rows": [
+   [
+    "ไก่",
+    "3"
+   ],
+   [
+    "เป็ด",
+    "๕"
+   ]
+  ]
+ },
+ "tis620-late.csv": {
+  "encoding": "windows-874",
+  "firstBadByte": 15,
+  "header": [
+   "species",
+   "count"
+  ],
+  "rows": [
+   [
+    "ไก่",
+    "3"
+   ]
+  ]
+ },
+ "zero-width.csv": {
+  "invisibleCells": 1,
+  "levels": [
+   "ไก่",
+   "เป็ด"
+  ]
+ },
+ "sara-am.csv": {
+  "lookalike": {
+   "a": "น้ํา",
+   "b": "น้ำ"
+  }
+ },
+ "quotes-semicolon.csv": {
+  "delimiter": ";",
+  "header": [
+   "id",
+   "note",
+   "n"
+  ],
+  "rows": [
+   [
+    "1",
+    "line one\r\nline two",
+    "5"
+   ],
+   [
+    "2",
+    "he said \"hi\"",
+    "6"
+   ],
+   [
+    "3",
+    "plain",
+    "7"
+   ]
+  ]
+ },
+ "title-row.csv": {
+  "headerRow": 2,
+  "header": [
+   "ฟาร์ม",
+   "จำนวนโค",
+   "ผล"
+  ],
+  "rows": [
+   [
+    "F01",
+    "12",
+    "บวก"
+   ],
+   [
+    "F02",
+    "8",
+    "ลบ"
+   ]
+  ]
+ },
+ "excel-serials.csv": {
+  "type": "date",
+  "excelSerial": true,
+  "iso1900": [
+   "2023-03-15",
+   "2023-03-16",
+   "1900-03-01"
+  ],
+  "iso1904": [
+   "2027-03-16",
+   "2027-03-17",
+   "1904-03-02"
+  ]
+ },
+ "feb29-be.csv": {
+  "era": "BE",
+  "feb29OnlyBE": true,
+  "iso": [
+   "2024-02-29",
+   "2023-03-15"
+  ]
+ }
+}

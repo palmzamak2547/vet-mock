@@ -1,0 +1,627 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": []
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/dist.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "Distribution functions behind every Tier A method (a helper module, so no catalogue method is declared here). engine.md hard cases: pchisq(100, 1, lower.tail = FALSE) about 1.524e-23 must not come out as 0.",
+ "cases": {
+  "pnormUpper(0)": {
+   "call": "pnorm(0, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pnormUpper",
+   "args": [0],
+   "values": {
+    "value": 0.5
+   }
+  },
+  "pnormUpper(1.959964)": {
+   "call": "pnorm(1.959963984540054, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pnormUpper",
+   "args": [1.959963984540054],
+   "values": {
+    "value": 0.025000000000000012
+   }
+  },
+  "pnormUpper(3)": {
+   "call": "pnorm(3, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pnormUpper",
+   "args": [3],
+   "values": {
+    "value": 0.0013498980316300946
+   }
+  },
+  "pnormUpper(5)": {
+   "call": "pnorm(5, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pnormUpper",
+   "args": [5],
+   "values": {
+    "value": 2.8665157187919391e-07
+   }
+  },
+  "pnormUpper(10)": {
+   "call": "pnorm(10, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pnormUpper",
+   "args": [10],
+   "values": {
+    "value": 7.6198530241605269e-24
+   }
+  },
+  "pnormUpper(37.5)": {
+   "call": "pnorm(37.5, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pnormUpper",
+   "args": [37.5],
+   "values": {
+    "value": 4.6053530095819552e-308
+   }
+  },
+  "pnormLower(-3)": {
+   "call": "pnorm(-3)",
+   "tol": "closed",
+   "fn": "pnormLower",
+   "args": [-3],
+   "values": {
+    "value": 0.0013498980316300946
+   }
+  },
+  "pnormTwoSided(2.5)": {
+   "call": "2 * pnorm(-abs(2.5))",
+   "tol": "closed",
+   "fn": "pnormTwoSided",
+   "args": [2.5],
+   "values": {
+    "value": 0.01241933065155227
+   }
+  },
+  "qnorm(0.975)": {
+   "call": "qnorm(0.975)",
+   "tol": "closed",
+   "fn": "qnorm",
+   "args": [0.97499999999999998],
+   "values": {
+    "value": 1.9599639845400536
+   }
+  },
+  "qnorm(0.8)": {
+   "call": "qnorm(0.8)",
+   "tol": "closed",
+   "fn": "qnorm",
+   "args": [0.80000000000000004],
+   "values": {
+    "value": 0.84162123357291441
+   }
+  },
+  "qnorm(0.995)": {
+   "call": "qnorm(0.995)",
+   "tol": "closed",
+   "fn": "qnorm",
+   "args": [0.995],
+   "values": {
+    "value": 2.5758293035488999
+   }
+  },
+  "qnorm(1e-10)": {
+   "call": "qnorm(1e-10)",
+   "tol": "closed",
+   "fn": "qnorm",
+   "args": [1e-10],
+   "values": {
+    "value": -6.3613409024040557
+   }
+  },
+  "ptTwoSided(2.1, 8)": {
+   "call": "2 * pt(-abs(2.1000000000000001), 8)",
+   "tol": "closed",
+   "fn": "ptTwoSided",
+   "args": [2.1000000000000001, 8],
+   "values": {
+    "value": 0.068937524295312108
+   }
+  },
+  "ptUpper(2.1, 8)": {
+   "call": "pt(2.1000000000000001, 8, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "ptUpper",
+   "args": [2.1000000000000001, 8],
+   "values": {
+    "value": 0.034468762147656054
+   }
+  },
+  "ptTwoSided(6, 3)": {
+   "call": "2 * pt(-abs(6), 3)",
+   "tol": "closed",
+   "fn": "ptTwoSided",
+   "args": [6, 3],
+   "values": {
+    "value": 0.0092727148922846607
+   }
+  },
+  "ptUpper(6, 3)": {
+   "call": "pt(6, 3, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "ptUpper",
+   "args": [6, 3],
+   "values": {
+    "value": 0.0046363574461423303
+   }
+  },
+  "ptTwoSided(15, 30)": {
+   "call": "2 * pt(-abs(15), 30)",
+   "tol": "closed",
+   "fn": "ptTwoSided",
+   "args": [15, 30],
+   "values": {
+    "value": 1.7533296557484851e-15
+   }
+  },
+  "ptUpper(15, 30)": {
+   "call": "pt(15, 30, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "ptUpper",
+   "args": [15, 30],
+   "values": {
+    "value": 8.7666482787424256e-16
+   }
+  },
+  "ptTwoSided(-5.493663, 13.91441)": {
+   "call": "2 * pt(-abs(-5.4936625186529611), 13.914408480898441)",
+   "tol": "closed",
+   "fn": "ptTwoSided",
+   "args": [-5.4936625186529611, 13.914408480898441],
+   "values": {
+    "value": 8.0882941072632652e-05
+   }
+  },
+  "ptUpper(-5.493663, 13.91441)": {
+   "call": "pt(-5.4936625186529611, 13.914408480898441, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "ptUpper",
+   "args": [-5.4936625186529611, 13.914408480898441],
+   "values": {
+    "value": 0.99995955852946361
+   }
+  },
+  "ptTwoSided(0.5, 1)": {
+   "call": "2 * pt(-abs(0.5), 1)",
+   "tol": "closed",
+   "fn": "ptTwoSided",
+   "args": [0.5, 1],
+   "values": {
+    "value": 0.70483276469913358
+   }
+  },
+  "ptUpper(0.5, 1)": {
+   "call": "pt(0.5, 1, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "ptUpper",
+   "args": [0.5, 1],
+   "values": {
+    "value": 0.35241638234956679
+   }
+  },
+  "qt(0.975, 1)": {
+   "call": "qt(0.975, 1)",
+   "tol": "closed",
+   "fn": "qt",
+   "args": [0.97499999999999998, 1],
+   "values": {
+    "value": 12.706204736174694
+   }
+  },
+  "qt(0.975, 5)": {
+   "call": "qt(0.975, 5)",
+   "tol": "closed",
+   "fn": "qt",
+   "args": [0.97499999999999998, 5],
+   "values": {
+    "value": 2.5705818356363137
+   }
+  },
+  "qt(0.975, 9)": {
+   "call": "qt(0.975, 9)",
+   "tol": "closed",
+   "fn": "qt",
+   "args": [0.97499999999999998, 9],
+   "values": {
+    "value": 2.2621571627982049
+   }
+  },
+  "qt(0.975, 16)": {
+   "call": "qt(0.975, 16)",
+   "tol": "closed",
+   "fn": "qt",
+   "args": [0.97499999999999998, 16],
+   "values": {
+    "value": 2.1199052992212541
+   }
+  },
+  "qt(0.975, 13.91441)": {
+   "call": "qt(0.975, 13.914408480898441)",
+   "tol": "closed",
+   "fn": "qt",
+   "args": [0.97499999999999998, 13.914408480898441],
+   "values": {
+    "value": 2.1460250865333483
+   }
+  },
+  "qt(0.995, 3)": {
+   "call": "qt(0.995, 3)",
+   "tol": "closed",
+   "fn": "qt",
+   "args": [0.995, 3],
+   "values": {
+    "value": 5.8409093097333544
+   }
+  },
+  "qt(0.025, 30)": {
+   "call": "qt(0.025, 30)",
+   "tol": "closed",
+   "fn": "qt",
+   "args": [0.025000000000000001, 30],
+   "values": {
+    "value": -2.0422724563012382
+   }
+  },
+  "pchisqUpper(3.841459, 1)": {
+   "call": "pchisq(3.841459, 1, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pchisqUpper",
+   "args": [3.841459, 1],
+   "values": {
+    "value": 0.049999994653195726
+   }
+  },
+  "pchisqUpper(30, 1)": {
+   "call": "pchisq(30, 1, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pchisqUpper",
+   "args": [30, 1],
+   "values": {
+    "value": 4.3204630578274968e-08
+   }
+  },
+  "pchisqUpper(100, 1)": {
+   "call": "pchisq(100, 1, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pchisqUpper",
+   "args": [100, 1],
+   "values": {
+    "value": 1.5239706048321054e-23
+   }
+  },
+  "pchisqUpper(16.03093, 1)": {
+   "call": "pchisq(16.030928230129575, 1, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pchisqUpper",
+   "args": [16.030928230129575, 1],
+   "values": {
+    "value": 6.2316155038796042e-05
+   }
+  },
+  "pchisqUpper(9.57191, 2)": {
+   "call": "pchisq(9.5719095719095719, 2, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pchisqUpper",
+   "args": [9.5719095719095719, 2],
+   "values": {
+    "value": 0.0083461511545895525
+   }
+  },
+  "pchisqUpper(9.443306, 2)": {
+   "call": "pchisq(9.4433060515872995, 2, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pchisqUpper",
+   "args": [9.4433060515872995, 2],
+   "values": {
+    "value": 0.0089004537019724585
+   }
+  },
+  "pchisqUpper(0.5, 10)": {
+   "call": "pchisq(0.5, 10, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pchisqUpper",
+   "args": [0.5, 10],
+   "values": {
+    "value": 0.99999338828943896
+   }
+  },
+  "qchisq(0.025, 14)": {
+   "call": "qchisq(0.025, 14)",
+   "tol": "closed",
+   "fn": "qchisq",
+   "args": [0.025000000000000001, 14],
+   "values": {
+    "value": 5.6287261030397326
+   }
+  },
+  "qchisq(0.975, 16)": {
+   "call": "qchisq(0.975, 16)",
+   "tol": "closed",
+   "fn": "qchisq",
+   "args": [0.97499999999999998, 16],
+   "values": {
+    "value": 28.845350723404756
+   }
+  },
+  "qchisq(0.95, 1)": {
+   "call": "qchisq(0.95, 1)",
+   "tol": "closed",
+   "fn": "qchisq",
+   "args": [0.94999999999999996, 1],
+   "values": {
+    "value": 3.841458820694124
+   }
+  },
+  "qchisq(0.975, 2)": {
+   "call": "qchisq(0.975, 2)",
+   "tol": "closed",
+   "fn": "qchisq",
+   "args": [0.97499999999999998, 2],
+   "values": {
+    "value": 7.3777589082278707
+   }
+  },
+  "pfUpper(9.211449, 2, 15)": {
+   "call": "pf(9.2114485981308327, 2, 15, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pfUpper",
+   "args": [9.2114485981308327, 2, 15],
+   "values": {
+    "value": 0.0024567091561834052
+   }
+  },
+  "pfUpper(1, 3, 20)": {
+   "call": "pf(1, 3, 20, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pfUpper",
+   "args": [1, 3, 20],
+   "values": {
+    "value": 0.4132519140624602
+   }
+  },
+  "pfUpper(50, 1, 8)": {
+   "call": "pf(50, 1, 8, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pfUpper",
+   "args": [50, 1, 8],
+   "values": {
+    "value": 0.00010495362247997342
+   }
+  },
+  "qf(0.95, 2, 15)": {
+   "call": "qf(0.95, 2, 15)",
+   "tol": "closed",
+   "fn": "qf",
+   "args": [0.94999999999999996, 2, 15],
+   "values": {
+    "value": 3.6823203436732403
+   }
+  },
+  "qbeta(0.025, 1, 20)": {
+   "call": "qbeta(0.025, 1, 20)",
+   "tol": "closed",
+   "fn": "qbeta",
+   "args": [0.025000000000000001, 1, 20],
+   "values": {
+    "value": 0.0012650894979498041
+   }
+  },
+  "qbeta(0.975, 2, 19)": {
+   "call": "qbeta(0.975, 2, 19)",
+   "tol": "closed",
+   "fn": "qbeta",
+   "args": [0.97499999999999998, 2, 19],
+   "values": {
+    "value": 0.24873276277202772
+   }
+  },
+  "qbeta(0.025, 49, 2)": {
+   "call": "qbeta(0.025, 49, 2)",
+   "tol": "closed",
+   "fn": "qbeta",
+   "args": [0.025000000000000001, 49, 2],
+   "values": {
+    "value": 0.89353045428850009
+   }
+  },
+  "qbeta(0.025, 1, 5000)": {
+   "call": "qbeta(0.025, 1, 5000)",
+   "tol": "closed",
+   "fn": "qbeta",
+   "args": [0.025000000000000001, 1, 5000],
+   "values": {
+    "value": 5.0635487770515861e-06
+   }
+  },
+  "qbeta(0.025, 17, 163)": {
+   "call": "qbeta(0.025, 17, 163)",
+   "tol": "closed",
+   "fn": "qbeta",
+   "args": [0.025000000000000001, 17, 163],
+   "values": {
+    "value": 0.056302781477929199
+   }
+  },
+  "qbeta(0.975, 18, 162)": {
+   "call": "qbeta(0.975, 18, 162)",
+   "tol": "closed",
+   "fn": "qbeta",
+   "args": [0.97499999999999998, 18, 162],
+   "values": {
+    "value": 0.14770305111090987
+   }
+  },
+  "pbinomLower(5, 20, 0.5)": {
+   "call": "pbinom(5, 20, 0.5)",
+   "tol": "closed",
+   "fn": "pbinomLower",
+   "args": [5, 20, 0.5],
+   "values": {
+    "value": 0.020694732666015642
+   }
+  },
+  "pbinomUpper(5, 20, 0.5)": {
+   "call": "pbinom(5 - 1, 20, 0.5, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pbinomUpper",
+   "args": [5, 20, 0.5],
+   "values": {
+    "value": 0.99409103393554688
+   }
+  },
+  "pbinomLower(0, 20, 0.3)": {
+   "call": "pbinom(0, 20, 0.3)",
+   "tol": "closed",
+   "fn": "pbinomLower",
+   "args": [0, 20, 0.29999999999999999],
+   "values": {
+    "value": 0.00079792266297611851
+   }
+  },
+  "pbinomUpper(0, 20, 0.3)": {
+   "call": "pbinom(0 - 1, 20, 0.3, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pbinomUpper",
+   "args": [0, 20, 0.29999999999999999],
+   "values": {
+    "value": 1
+   }
+  },
+  "pbinomLower(3, 1000, 0.001)": {
+   "call": "pbinom(3, 1000, 0.001)",
+   "tol": "closed",
+   "fn": "pbinomLower",
+   "args": [3, 1000, 0.001],
+   "values": {
+    "value": 0.9810731665496395
+   }
+  },
+  "pbinomUpper(3, 1000, 0.001)": {
+   "call": "pbinom(3 - 1, 1000, 0.001, lower.tail = FALSE)",
+   "tol": "closed",
+   "fn": "pbinomUpper",
+   "args": [3, 1000, 0.001],
+   "values": {
+    "value": 0.080209342840201078
+   }
+  },
+  "ptukeyUpper(3.5, 3, 15)": {
+   "call": "ptukey(3.5, 3, 15, lower.tail = FALSE)",
+   "tol": "iterative",
+   "fn": "ptukeyUpper",
+   "args": [3.5, 3, 15],
+   "values": {
+    "value": 0.062915354644180077
+   }
+  },
+  "ptukeyUpper(5, 3, 15)": {
+   "call": "ptukey(5, 3, 15, lower.tail = FALSE)",
+   "tol": "iterative",
+   "fn": "ptukeyUpper",
+   "args": [5, 3, 15],
+   "values": {
+    "value": 0.007927976713775875
+   }
+  },
+  "ptukeyUpper(2, 4, 30)": {
+   "call": "ptukey(2, 4, 30, lower.tail = FALSE)",
+   "tol": "iterative",
+   "fn": "ptukeyUpper",
+   "args": [2, 4, 30],
+   "values": {
+    "value": 0.50060668285335752
+   }
+  },
+  "qtukey(0.95, 3, 15)": {
+   "call": "qtukey(0.95, 3, 15)",
+   "tol": "iterative",
+   "fn": "qtukey",
+   "args": [0.94999999999999996, 3, 15],
+   "values": {
+    "value": 3.6733776249744512
+   }
+  },
+  "qtukey(0.9, 3, 15)": {
+   "call": "qtukey(0.9, 3, 15)",
+   "tol": "iterative",
+   "fn": "qtukey",
+   "args": [0.90000000000000002, 3, 15],
+   "values": {
+    "value": 3.1396944446484185
+   }
+  },
+  "qtukey(0.95, 4, 30)": {
+   "call": "qtukey(0.95, 4, 30)",
+   "tol": "iterative",
+   "fn": "qtukey",
+   "args": [0.94999999999999996, 4, 30],
+   "values": {
+    "value": 3.8454013531276248
+   }
+  },
+  "lgamma(0.5)": {
+   "call": "lgamma(0.5)",
+   "tol": "closed",
+   "fn": "lgamma",
+   "args": [0.5],
+   "values": {
+    "value": 0.57236494292470008
+   }
+  },
+  "lgamma(10)": {
+   "call": "lgamma(10)",
+   "tol": "closed",
+   "fn": "lgamma",
+   "args": [10],
+   "values": {
+    "value": 12.801827480081469
+   }
+  },
+  "lgamma(100.5)": {
+   "call": "lgamma(100.5)",
+   "tol": "closed",
+   "fn": "lgamma",
+   "args": [100.5],
+   "values": {
+    "value": 361.43554046777757
+   }
+  },
+  "lchoose(20, 5)": {
+   "call": "lchoose(20, 5)",
+   "tol": "closed",
+   "fn": "lchoose",
+   "args": [20, 5],
+   "values": {
+    "value": 9.6488533341305498
+   }
+  },
+  "lchoose(1000, 500)": {
+   "call": "lchoose(1000, 500)",
+   "tol": "closed",
+   "fn": "lchoose",
+   "args": [1000, 500],
+   "values": {
+    "value": 689.4672615678511
+   }
+  }
+ }
+}

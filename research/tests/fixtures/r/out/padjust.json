@@ -1,0 +1,60 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["adjust.pValues"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/padjust.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "NA stays NA (null here) and does not count toward m, as in p.adjust(n = length(p[!is.na(p)])).",
+ "cases": {
+  "course": {
+   "call": "p.adjust(c(0.010, 0.040, 0.030, 0.005), method = 'holm' / 'bonferroni')",
+   "tol": "closed",
+   "p": [0.01, 0.040000000000000001, 0.029999999999999999, 0.0050000000000000001],
+   "values": {
+    "holm": [0.029999999999999999, 0.059999999999999998, 0.059999999999999998, 0.02],
+    "bonferroni": [0.040000000000000001, 0.16, 0.12, 0.02]
+   }
+  },
+  "ties": {
+   "call": "p.adjust(c(0.020, 0.020, 0.500, 0.001, 0.200), method = 'holm' / 'bonferroni')",
+   "tol": "closed",
+   "p": [0.02, 0.02, 0.5, 0.001, 0.20000000000000001],
+   "values": {
+    "holm": [0.080000000000000002, 0.080000000000000002, 0.5, 0.0050000000000000001, 0.40000000000000002],
+    "bonferroni": [0.10000000000000001, 0.10000000000000001, 1, 0.0050000000000000001, 1]
+   }
+  },
+  "big": {
+   "call": "p.adjust(c(0.30, 0.60, 0.90, 0.45), method = 'holm' / 'bonferroni')",
+   "tol": "closed",
+   "p": [0.29999999999999999, 0.59999999999999998, 0.90000000000000002, 0.45000000000000001],
+   "values": {
+    "holm": [1, 1, 1, 1],
+    "bonferroni": [1, 1, 1, 1]
+   }
+  },
+  "withNA": {
+   "call": "p.adjust(c(0.01, NA, 0.04, 0.03), method = 'holm' / 'bonferroni')",
+   "tol": "closed",
+   "p": [0.01, null, 0.040000000000000001, 0.029999999999999999],
+   "values": {
+    "holm": [0.029999999999999999, null, 0.059999999999999998, 0.059999999999999998],
+    "bonferroni": [0.029999999999999999, null, 0.12, 0.089999999999999997]
+   }
+  }
+ }
+}

@@ -1,0 +1,79 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["cluster.iccDeff"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/cluster.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "k = number of clusters, n = animals, meanSize = n/k. deff uses the mean size; deffN0 is the n0 option.",
+ "cases": {
+  "continuous.fourFarms": {
+   "call": "one-way ANOVA ICC on F1..F4",
+   "tol": "closed",
+   "clusters": {
+    "F1": [4.0999999999999996, 3.7999999999999998, 4.5, 4],
+    "F2": [5.2000000000000002, 5, 4.7999999999999998],
+    "F3": [3.1000000000000001, 3.5, 3.2999999999999998, 2.8999999999999999, 3.6000000000000001],
+    "F4": [4.4000000000000004, 4.9000000000000004]
+   },
+   "values": {
+    "msb": 2.1301904761904771,
+    "msw": 0.079300000000000037,
+    "n0": 3.3809523809523809,
+    "k": 4,
+    "n": 14,
+    "meanSize": 3.5,
+    "icc": 0.88438571633914465,
+    "deff": 3.2109642908478615,
+    "nEff": 4.3600609449017798,
+    "deffN0": 3.1056802769979632,
+    "aovMSB": 2.1301904761904757,
+    "aovMSW": 0.079299999999999954
+   }
+  },
+  "serosurvey.binary": {
+   "call": "one-way ANOVA ICC of ELISA positive over 49 farms; DEFF with the mean farm size; widened Wald",
+   "tol": "closed",
+   "sizes": [15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 8],
+   "positives": [8, 2, 2, 4, 2, 2, 0, 6, 6, 5, 1, 0, 2, 2, 2, 2, 0, 4, 1, 0, 3, 5, 3, 0, 6, 4, 5, 7, 5, 6, 1, 2, 1, 5, 3, 2, 2, 3, 6, 1, 4, 5, 2, 2, 3, 3, 3, 3, 0],
+   "values": {
+    "msb": 0.27332875457875461,
+    "msw": 0.15257731958762888,
+    "n0": 14.855769230769232,
+    "k": 49,
+    "n": 728,
+    "meanSize": 14.857142857142858,
+    "icc": 0.050578532266689236,
+    "deff": 1.7008739471241223,
+    "nEff": 428.01525723344724,
+    "deffN0": 1.7008044711182615,
+    "prevalence": 0.20054945054945056,
+    "waldDeff": [0.16261576788734927, 0.23848313321155185],
+    "pr": 2.1123456790123458,
+    "prCiDeff": [1.2722988915729461, 3.5070409140463386]
+   }
+  },
+  "deff.course107039": {
+   "call": "1 + (15 - 1) * 0.05",
+   "tol": "closed",
+   "m": 15,
+   "icc": 0.050000000000000003,
+   "values": {
+    "deff": 1.7000000000000002
+   }
+  }
+ }
+}

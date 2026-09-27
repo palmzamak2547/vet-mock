@@ -1,0 +1,84 @@
+# ============================================================
+# Research Studio: R parity (M1-DESIGN.md 13.2)
+# ============================================================
+# Runs only when something under research/ changes.
+#
+# Job "engine": the JavaScript engine against the committed R 4.6.0
+#   fixtures (research/tests/fixtures/r/out/*.json, made with webR 0.6.0).
+#   Closed forms 1e-10 relative, iterative fits 1e-6, uniroot values at
+#   R's own uniroot tolerance. Any mismatch fails.
+#
+# Job "native-r": the second check. Native R 4.6.0 reruns every
+#   research/tests/fixtures/r/*.R with the package versions recorded in
+#   the committed files and compares with them (compare.mjs NATIVE_REL:
+#   the same R source, a different C library underneath). A different
+#   package version fails the job instead of being compared.
+# ============================================================
+name: Research R parity
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'research/**'
+      - '.github/workflows/research-r-parity.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'research/**'
+      - '.github/workflows/research-r-parity.yml'
+
+concurrency:
+  group: research-r-parity-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  engine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: research
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: research/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Engine against the R 4.6.0 fixtures
+        run: node --test tests/unit/rparity-engine.test.mjs
+
+  native-r:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.6.0'
+          use-public-rspm: true
+
+      - name: Install the recorded package versions
+        run: |
+          export PKGS="$(node research/scripts/r-parity/run-native.mjs --packages)"
+          echo "packages: $PKGS"
+          Rscript -e 'install.packages("pak", repos = sprintf("https://r-lib.github.io/p/pak/stable/%s/%s/%s", .Platform$pkgType, R.Version()$os, R.Version()$arch))'
+          Rscript -e 'pak::pkg_install(strsplit(Sys.getenv("PKGS"), " ")[[1]], upgrade = FALSE, ask = FALSE)'
+        shell: bash
+
+      - name: Native R against the committed webR fixtures
+        run: node research/scripts/r-parity/run-native.mjs

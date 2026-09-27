@@ -1,0 +1,152 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["test.fisher2x2"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/fisher.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "estimate and ci come from uniroot inside fisher.test (tolerance .Machine$double.eps^0.25); p is a closed sum and is listed in closedValues.",
+ "cases": {
+  "tea": {
+   "call": "fisher.test(matrix(c(3, 1, 1, 3), 2, byrow = TRUE), alternative = 'two.sided', conf.level = 0.95)",
+   "tol": "uniroot",
+   "table": [
+    [3, 1],
+    [1, 3]
+   ],
+   "alternative": "two.sided",
+   "confLevel": 0.94999999999999996,
+   "closedValues": ["p"],
+   "values": {
+    "p": 0.4857142857142856,
+    "estimate": 6.4083088670057906,
+    "ci": [0.21173291530550312, 621.93375054541684]
+   }
+  },
+  "tea.greater": {
+   "call": "fisher.test(matrix(c(3, 1, 1, 3), 2, byrow = TRUE), alternative = 'greater', conf.level = 0.95)",
+   "tol": "uniroot",
+   "table": [
+    [3, 1],
+    [1, 3]
+   ],
+   "alternative": "greater",
+   "confLevel": 0.94999999999999996,
+   "closedValues": ["p"],
+   "values": {
+    "p": 0.24285714285714288,
+    "estimate": 6.4083088670057906,
+    "ci": [0.31356926411021802, "Infinity"]
+   }
+  },
+  "tea.less": {
+   "call": "fisher.test(matrix(c(3, 1, 1, 3), 2, byrow = TRUE), alternative = 'less', conf.level = 0.95)",
+   "tol": "uniroot",
+   "table": [
+    [3, 1],
+    [1, 3]
+   ],
+   "alternative": "less",
+   "confLevel": 0.94999999999999996,
+   "closedValues": ["p"],
+   "values": {
+    "p": 0.98571428571428577,
+    "estimate": 6.4083088670057906,
+    "ci": [0, 306.24686252085485]
+   }
+  },
+  "zeroCell": {
+   "call": "fisher.test(matrix(c(7, 0, 2, 5), 2, byrow = TRUE), alternative = 'two.sided', conf.level = 0.95)",
+   "tol": "uniroot",
+   "table": [
+    [7, 0],
+    [2, 5]
+   ],
+   "alternative": "two.sided",
+   "confLevel": 0.94999999999999996,
+   "closedValues": ["p"],
+   "values": {
+    "p": 0.020979020979020969,
+    "estimate": "Infinity",
+    "ci": [1.4494814670239329, "Infinity"]
+   }
+  },
+  "zeroCellOther": {
+   "call": "fisher.test(matrix(c(0, 7, 5, 2), 2, byrow = TRUE), alternative = 'two.sided', conf.level = 0.95)",
+   "tol": "uniroot",
+   "table": [
+    [0, 7],
+    [5, 2]
+   ],
+   "alternative": "two.sided",
+   "confLevel": 0.94999999999999996,
+   "closedValues": ["p"],
+   "values": {
+    "p": 0.020979020979020969,
+    "estimate": 0,
+    "ci": [0, 0.68990188750270398]
+   }
+  },
+  "serosurvey": {
+   "call": "fisher.test(matrix(c(116, 364, 27, 209), 2, byrow = TRUE), alternative = 'two.sided', conf.level = 0.95)",
+   "tol": "uniroot",
+   "table": [
+    [116, 364],
+    [27, 209]
+   ],
+   "alternative": "two.sided",
+   "confLevel": 0.94999999999999996,
+   "closedValues": ["p"],
+   "values": {
+    "p": 4.2061169585133238e-05,
+    "estimate": 2.463947896499231,
+    "ci": [1.5485832779951028, 4.0339186875733679]
+   }
+  },
+  "small.99": {
+   "call": "fisher.test(matrix(c(12, 8, 5, 15), 2, byrow = TRUE), alternative = 'two.sided', conf.level = 0.99)",
+   "tol": "uniroot",
+   "table": [
+    [12, 8],
+    [5, 15]
+   ],
+   "alternative": "two.sided",
+   "confLevel": 0.98999999999999999,
+   "closedValues": ["p"],
+   "values": {
+    "p": 0.053550992594374118,
+    "estimate": 4.3190635148588452,
+    "ci": [0.66850739081260102, 35.696879977211154]
+   }
+  },
+  "symmetric": {
+   "call": "fisher.test(matrix(c(5, 5, 5, 5), 2, byrow = TRUE), alternative = 'two.sided', conf.level = 0.95)",
+   "tol": "uniroot",
+   "table": [
+    [5, 5],
+    [5, 5]
+   ],
+   "alternative": "two.sided",
+   "confLevel": 0.94999999999999996,
+   "closedValues": ["p"],
+   "values": {
+    "p": 1,
+    "estimate": 1,
+    "ci": [0.12589161533593668, 7.9433407644467859]
+   }
+  }
+ }
+}

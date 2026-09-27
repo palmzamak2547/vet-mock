@@ -1,0 +1,72 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": []
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/rootfind.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "A helper module (no catalogue method). The root and the iteration count are compared as closed forms: the same algorithm on the same arithmetic gives the same bits. Functions: cubic x^3 - x - 1, cos x - x, exp(x) - 5.",
+ "cases": {
+  "cubic": {
+   "call": "uniroot(function(x) x^3 - x - 1, c(1, 2))",
+   "tol": "closed",
+   "fn": "uniroot",
+   "interval": [1, 2],
+   "tolUsed": 0.0001220703125,
+   "values": {
+    "root": 1.3247178251287683,
+    "iter": 7,
+    "estimPrec": 6.1035156250666134e-05
+   }
+  },
+  "cos": {
+   "call": "uniroot(function(x) cos(x) - x, c(0, 1))",
+   "tol": "closed",
+   "fn": "uniroot",
+   "interval": [0, 1],
+   "tolUsed": 0.0001220703125,
+   "values": {
+    "root": 0.73909105828536981,
+    "iter": 4,
+    "estimPrec": 6.1035156250333067e-05
+   }
+  },
+  "exp": {
+   "call": "uniroot(function(x) exp(x) - 5, c(0, 10))",
+   "tol": "closed",
+   "fn": "uniroot",
+   "interval": [0, 10],
+   "tolUsed": 0.0001220703125,
+   "values": {
+    "root": 1.6094457409993774,
+    "iter": 10,
+    "estimPrec": 6.1035156250666134e-05
+   }
+  },
+  "cubicTight": {
+   "call": "uniroot(function(x) x^3 - x - 1, c(1, 2), tol = 1e-12)",
+   "tol": "closed",
+   "fn": "uniroot",
+   "interval": [1, 2],
+   "tolUsed": 9.9999999999999998e-13,
+   "values": {
+    "root": 1.324717957244774,
+    "iter": 8,
+    "estimPrec": 5.0048853950102057e-13
+   }
+  }
+ }
+}
