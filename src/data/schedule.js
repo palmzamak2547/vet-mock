@@ -275,6 +275,48 @@ export const EXAM_SCHEDULE = {
   ],
 };
 
+// ── Bangkok's clock ──────────────────────────────────────────────────
+// Every date and time in these tables is Bangkok's (UTC+7 all year, no
+// daylight saving), so they are read on that clock, never the device's. A
+// phone set to another zone (travel, a misconfigured clock) otherwise gets
+// the wrong soonest paper and a countdown hours off, and new Date('YYYY-MM-DD')
+// is UTC midnight, the previous evening anywhere west of Greenwich.
+const BANGKOK_OFFSET_MS = 7 * 60 * 60 * 1000;
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+/** Epoch ms of a Bangkok wall-clock time on a 'YYYY-MM-DD' date. */
+export function bangkokMs(date, hour = 0, minute = 0) {
+  const [y, m, d] = String(date).split('-').map(Number);
+  return Date.UTC(y, m - 1, d, hour, minute) - BANGKOK_OFFSET_MS;
+}
+
+/** The 'YYYY-MM-DD' of the Bangkok day that holds an instant. */
+export function bangkokDate(at = new Date()) {
+  // Shifted by the offset, the UTC fields read Bangkok's wall clock.
+  const b = new Date(new Date(at).getTime() + BANGKOK_OFFSET_MS);
+  const two = (n) => String(n).padStart(2, '0');
+  return `${b.getUTCFullYear()}-${two(b.getUTCMonth() + 1)}-${two(b.getUTCDate())}`;
+}
+
+/**
+ * A calendar day as a Date whose UTC fields are that day, the same in every
+ * zone; read it with the getUTC* methods. A 'YYYY-MM-DD' label is taken as
+ * the day it names, not as an instant. Anything else (a Date, epoch ms, a
+ * full timestamp) is an instant, and gives the Bangkok day that holds it.
+ */
+export function calendarDay(value) {
+  const m = typeof value === 'string' && /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(value.trim());
+  if (m) return new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])));
+  const b = new Date(new Date(value).getTime() + BANGKOK_OFFSET_MS);
+  return new Date(Date.UTC(b.getUTCFullYear(), b.getUTCMonth(), b.getUTCDate()));
+}
+
+/** Whole calendar days from one day to another (see calendarDay); negative
+ *  when `to` is the earlier. */
+export function calendarDaysBetween(from, to) {
+  return Math.round((calendarDay(to) - calendarDay(from)) / DAY_MS);
+}
+
 // Helper: parse first time from "08:30-10:30" → { hour: 8, minute: 30 }
 export function parseExamStart(timeStr) {
   if (!timeStr) return null;
@@ -283,16 +325,16 @@ export function parseExamStart(timeStr) {
   return { hour: parseInt(m[1], 10), minute: parseInt(m[2], 10) };
 }
 
+// Epoch ms of the moment a paper starts, on Bangkok's clock. A paper whose
+// time does not parse is taken to start at 08:00.
+function examStartMs(exam) {
+  const start = parseExamStart(exam.time) || { hour: 8, minute: 0 };
+  return bangkokMs(exam.date, start.hour, start.minute);
+}
+
 // Helper: ms until exam start. Negative if already started/passed.
 export function msUntilExam(exam, now = new Date()) {
-  const start = parseExamStart(exam.time);
-  // Split the date: new Date('YYYY-MM-DD') is UTC midnight, which is the
-  // previous evening anywhere west of Greenwich.
-  const [y, m, d] = String(exam.date).split('-').map(Number);
-  const dt = new Date(y, m - 1, d);
-  if (start) dt.setHours(start.hour, start.minute, 0, 0);
-  else dt.setHours(8, 0, 0, 0);
-  return dt - now;
+  return examStartMs(exam) - now;
 }
 
 // Helper: epoch-ms timestamp of when the exam *ends*.
@@ -300,16 +342,9 @@ export function msUntilExam(exam, now = new Date()) {
 // at 08:30-10:30 has finished by 11:00 — should NOT still show as
 // "next exam" for the rest of the day).
 function examEndMs(exam) {
-  const start = parseExamStart(exam.time);
-  // Split the date: new Date('YYYY-MM-DD') is UTC midnight, which is the
-  // previous evening anywhere west of Greenwich.
-  const [y, m, d] = String(exam.date).split('-').map(Number);
-  const dt = new Date(y, m - 1, d);
-  if (start) dt.setHours(start.hour, start.minute, 0, 0);
-  else dt.setHours(8, 0, 0, 0);
   // Use declared duration if available; fall back to 3 hr (longest in y4)
   const durMin = exam.duration_min || 180;
-  return dt.getTime() + durMin * 60 * 1000;
+  return examStartMs(exam) + durMin * 60 * 1000;
 }
 
 // Helper: short countdown when exam is within ~36 hours
@@ -332,35 +367,36 @@ export function shortCountdown(exam, now = new Date()) {
   return { kind: 'soon', text: `อีก ${hours} ชม.` };
 }
 
-// Helper: get upcoming exams sorted by date
-export function getUpcomingExams(year = `y${CURRENT_YEAR}`) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+// Helper: get upcoming exams sorted by date. daysLeft counts Bangkok
+// calendar days from `now`: 0 on the paper's own day in Bangkok, whatever
+// zone the device is set to. dateObj is only the sort key.
+export function getUpcomingExams(year = `y${CURRENT_YEAR}`, now = new Date()) {
+  const today = bangkokDate(now);
   const list = EXAM_SCHEDULE[year] || [];
   return list
     .map((e) => ({
       ...e,
       dateObj: new Date(e.date),
-      daysLeft: Math.round((new Date(e.date) - today) / (1000 * 60 * 60 * 24)),
+      daysLeft: calendarDaysBetween(today, e.date),
     }))
     .sort((a, b) => a.dateObj - b.dateObj);
 }
 
-export function getNextExam(year = `y${CURRENT_YEAR}`) {
+export function getNextExam(year = `y${CURRENT_YEAR}`, now = new Date()) {
   // Filter by exam END time, not by date. Otherwise an exam that
   // finished hours ago today would still count as "next" for the
   // rest of the day and only roll over at midnight.
-  const nowMs = Date.now();
-  const upcoming = getUpcomingExams(year).filter((e) => examEndMs(e) > nowMs);
+  const nowMs = new Date(now).getTime();
+  const upcoming = getUpcomingExams(year, now).filter((e) => examEndMs(e) > nowMs);
   return upcoming[0] || null;
 }
 
 // Thai date formatter
 export function fmtThaiDate(dateStr) {
-  const d = new Date(dateStr);
+  const d = calendarDay(dateStr);
   const months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
   const days = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
-  return `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear() + 543}`;
+  return `${days[d.getUTCDay()]} ${d.getUTCDate()} ${months[d.getUTCMonth()]} ${d.getUTCFullYear() + 543}`;
 }
 
 // ============================================================
@@ -591,11 +627,11 @@ export function getTopMilestone(now = new Date()) {
 /** ฟอร์แมตช่วงวันแบบสั้น: "3 - 14 ส.ค. 69" / "11 ก.ย. 69" */
 export function fmtThaiRange(start, end) {
   const M = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
-  const a = new Date(start); const b = new Date(end);
-  const yy = String((b.getFullYear() + 543) % 100);
-  if (a.getTime() === b.getTime()) return `${a.getDate()} ${M[a.getMonth()]} ${yy}`;
-  if (a.getMonth() === b.getMonth()) return `${a.getDate()} - ${b.getDate()} ${M[b.getMonth()]} ${yy}`;
-  return `${a.getDate()} ${M[a.getMonth()]} - ${b.getDate()} ${M[b.getMonth()]} ${yy}`;
+  const a = calendarDay(start); const b = calendarDay(end);
+  const yy = String((b.getUTCFullYear() + 543) % 100);
+  if (a.getTime() === b.getTime()) return `${a.getUTCDate()} ${M[a.getUTCMonth()]} ${yy}`;
+  if (a.getUTCMonth() === b.getUTCMonth()) return `${a.getUTCDate()} - ${b.getUTCDate()} ${M[b.getUTCMonth()]} ${yy}`;
+  return `${a.getUTCDate()} ${M[a.getUTCMonth()]} - ${b.getUTCDate()} ${M[b.getUTCMonth()]} ${yy}`;
 }
 
 /** ชื่อวันไทยแบบสั้นจาก dow (1=จันทร์) */

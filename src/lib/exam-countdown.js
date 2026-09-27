@@ -11,7 +11,10 @@
 // rolls to the final on its own; when a year has no timetable it returns
 // null and the component renders nothing — that is the whole year gate.
 // ============================================================
-import { getUpcomingExams, msUntilExam, shortCountdown, fmtThaiRange, parseExamStart } from '../data/schedule.js';
+import {
+  getUpcomingExams, msUntilExam, shortCountdown, fmtThaiRange, parseExamStart,
+  bangkokMs, bangkokDate, calendarDay, calendarDaysBetween,
+} from '../data/schedule.js';
 import { SEMESTER } from '../data/semester.js';
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -21,25 +24,16 @@ export const TERM_LABEL = { midterm: 'สอบกลางภาค', final: '�
 // both under a week; the gap between them is not.
 export const STRIP_MAX_DAYS = 35;
 
-const startOfDay = (d) => { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; };
-const isoDate = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+// The timetable is Bangkok's (UTC+7 all year, no daylight saving), and all
+// of this reads it on that clock, not the device's: CI runs in UTC, where
+// local midnight falls at 07:00 in Bangkok, and a student's phone can be set
+// to any zone at all. Paper times arrive already on Bangkok's clock
+// (msUntilExam in schedule.js); a day is a Bangkok calendar day, named by
+// its 'YYYY-MM-DD' label and counted with the calendar helpers there.
 
 /** When a paper is over, from its start time and declared length. */
 export function examEndMs(exam) {
   return msUntilExam(exam, new Date(0)) + (exam.duration_min || 180) * 60 * 1000;
-}
-
-// The timetable is Bangkok's (UTC+7 all year, no daylight saving). What a
-// subject card says about its paper is read on that clock, not the device's:
-// CI runs in UTC, where local midnight falls at 07:00 in Bangkok, and a
-// day-boundary check written against local time passed here and failed there.
-const BANGKOK_OFFSET_MS = 7 * 60 * 60 * 1000;
-
-function bangkokEndMs(exam) {
-  const [y, m, d] = String(exam.date).split('-').map(Number);
-  const start = parseExamStart(exam.time) || { hour: 8, minute: 0 };
-  return Date.UTC(y, m - 1, d, start.hour, start.minute) - BANGKOK_OFFSET_MS
-    + (exam.duration_min || 180) * 60 * 1000;
 }
 
 /**
@@ -49,10 +43,8 @@ function bangkokEndMs(exam) {
  */
 export function subjectExamState(exam, now = new Date()) {
   if (!exam?.date) return null;
-  const nowMs = now.getTime();
-  if (bangkokEndMs(exam) <= nowMs) return 'done';
-  const today = new Date(nowMs + BANGKOK_OFFSET_MS).toISOString().slice(0, 10);
-  return exam.date === today ? 'today' : 'upcoming';
+  if (examEndMs(exam) <= now.getTime()) return 'done';
+  return exam.date === bangkokDate(now) ? 'today' : 'upcoming';
 }
 
 /** "08:30" from "08:30-11:30"; empty when the timetable gives no time. */
@@ -73,28 +65,30 @@ export function examWindow(exams, now = new Date()) {
   const first = papers[0].date;
   const last = papers[papers.length - 1].date;
 
-  const today = startOfDay(now);
+  const today = bangkokDate(now);
   // Inside the window the strip starts at the first paper, so the days
   // already sat show as done; before it, it starts today.
-  const firstDay = startOfDay(new Date(first));
-  const start = firstDay < today ? firstDay : today;
-  const end = startOfDay(new Date(last));
-  const span = Math.round((end - start) / DAY);
+  const inWindow = calendarDaysBetween(first, today) >= 0;
+  const start = inWindow ? first : today;
+  const span = calendarDaysBetween(start, last);
 
   const cells = [];
   if (span >= 0 && span <= STRIP_MAX_DAYS) {
     const byDate = new Map();
     for (const e of papers) { if (!byDate.has(e.date)) byDate.set(e.date, []); byDate.get(e.date).push(e); }
+    // Whole days in UTC fields: no daylight-saving step, the same in every zone.
+    const startMs = calendarDay(start).getTime();
     for (let i = 0; i <= span; i++) {
-      const d = new Date(start.getTime() + i * DAY);
-      const key = isoDate(d);
+      const d = new Date(startMs + i * DAY);
+      const key = d.toISOString().slice(0, 10);
+      const dow = d.getUTCDay();
       const dayExams = byDate.get(key) || [];
       cells.push({
         date: key,
-        day: d.getDate(),
-        dow: d.getDay(),
-        weekend: d.getDay() === 0 || d.getDay() === 6,
-        today: d.getTime() === today.getTime(),
+        day: d.getUTCDate(),
+        dow,
+        weekend: dow === 0 || dow === 6,
+        today: key === today,
         exams: dayExams,
         done: dayExams.length > 0 && dayExams.every((e) => examEndMs(e) <= nowMs),
       });
@@ -111,15 +105,15 @@ export function examWindow(exams, now = new Date()) {
     remaining: papers.length - done,
     first,
     last,
-    inWindow: firstDay <= today,
-    daysToNext: Math.round((startOfDay(new Date(next.date)) - today) / DAY),
+    inWindow,
+    daysToNext: calendarDaysBetween(today, next.date),
     countdown: shortCountdown(next, now),
     cells,
   };
 }
 
 export function examWindowFor(yearKey, now = new Date()) {
-  return examWindow(getUpcomingExams(yearKey), now);
+  return examWindow(getUpcomingExams(yearKey, now), now);
 }
 
 /**
@@ -128,18 +122,17 @@ export function examWindowFor(yearKey, now = new Date()) {
  * window for all of them), so this counts to the week itself rather than
  * to one cohort's first paper, which would read as nonsense to a first-year.
  * 08:30 is the first slot on both published timetables; 17:00 is after the
- * last one ends. Rolls from midterm to final on its own; null after finals.
+ * last one ends, both on Bangkok's clock. Rolls from midterm to final on its
+ * own; null after finals.
  */
 export function facultyExamWindow(now = new Date(), semester = SEMESTER) {
   const nowMs = now.getTime();
   for (const [term, period] of [['midterm', semester.midtermPeriod], ['final', semester.finalPeriod]]) {
     if (!period?.start || !period?.end) continue;
-    const [sy, sm, sd] = period.start.split('-').map(Number);
-    const [ey, em, ed] = period.end.split('-').map(Number);
-    const start = new Date(sy, sm - 1, sd, 8, 30, 0, 0);
-    const end = new Date(ey, em - 1, ed, 17, 0, 0, 0);
-    if (nowMs >= end.getTime()) continue;
-    const during = nowMs >= start.getTime();
+    const start = bangkokMs(period.start, 8, 30);
+    const end = bangkokMs(period.end, 17, 0);
+    if (nowMs >= end) continue;
+    const during = nowMs >= start;
     return {
       term,
       label: TERM_LABEL[term],
@@ -147,7 +140,7 @@ export function facultyExamWindow(now = new Date(), semester = SEMESTER) {
       start: period.start,
       end: period.end,
       during,
-      targetMs: during ? end.getTime() : start.getTime(),
+      targetMs: during ? end : start,
     };
   }
   return null;
