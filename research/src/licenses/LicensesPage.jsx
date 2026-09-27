@@ -9,6 +9,7 @@ import { registerArea, useT } from '../i18n/index.js';
 import runtimeDict from '../i18n/runtime.js';
 import TopBar from '../workspace/components/TopBar.jsx';
 import { NOTICES, FONT_NOTICES, STDLIB_TOTAL, STDLIB_BSL, LICENSE_TEXTS } from './notices.js';
+import { FILM_SOURCES } from './film.js';
 
 registerArea('runtime', runtimeDict);
 
@@ -72,6 +73,13 @@ export default function LicensesPage() {
             <LicenseText id={g} />
           </details>
         ))}
+        <h2 className="rs-h2">{t('runtime.licenses.filmTitle')}</h2>
+        <p className="rs-soft rs-small">{t('runtime.licenses.filmIntro')}</p>
+        <ul className="rs-licenses-film rs-small">
+          {FILM_SOURCES.map((f) => (
+            <li key={f.url}><a href={f.url} rel="noopener noreferrer" target="_blank">{f.title}</a>, {f.by} ({f.license})</li>
+          ))}
+        </ul>
         <p><a href="/">{t('runtime.licenses.back')}</a></p>
       </main>
     </div>

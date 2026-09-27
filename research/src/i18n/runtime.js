@@ -344,6 +344,8 @@ export default {
     'runtime.licenses.loading': 'กำลังโหลดข้อความ',
     'runtime.licenses.textFailed': 'โหลดข้อความไม่สำเร็จ ดูได้ที่หน้าโครงการของแพ็กเกจ',
     'runtime.licenses.back': 'กลับหน้าแรก',
+    'runtime.licenses.filmTitle': 'ภาพในวิดีโอเปิดพื้นที่ทำงาน',
+    'runtime.licenses.filmIntro': 'ฟุตเทจและภาพทุกภาพในวิดีโอนี้เป็นสาธารณสมบัติ (public domain) หรือ CC0 จาก Wikimedia Commons ใช้ได้โดยไม่ต้องขออนุญาต เราใส่ที่มาไว้ให้ครบตามลำดับที่ปรากฏ',
 
     // ---- method families (the landing chart) -------------------------------------------------
     'runtime.family.anova': 'ANOVA (เทียบค่าเฉลี่ยหลายกลุ่ม)',
@@ -739,6 +741,8 @@ export default {
     'runtime.licenses.loading': 'Loading the text',
     'runtime.licenses.textFailed': 'The text did not load. It is on the package’s project page.',
     'runtime.licenses.back': 'Back to the front page',
+    'runtime.licenses.filmTitle': 'Pictures in the workspace film',
+    'runtime.licenses.filmIntro': 'The footage and every picture in this film are public domain or CC0, from Wikimedia Commons. No permission is needed; the sources are listed anyway, in the order they appear.',
 
     'runtime.family.anova': 'ANOVA',
     'runtime.family.randomisation': 'Randomisation and blinding',

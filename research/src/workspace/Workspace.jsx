@@ -15,6 +15,7 @@ import { claimGuestProjects, claimOnFirstSignIn } from '../lib/auth/claim-guest.
 import { openResearchDb } from '../lib/store/db.js';
 import { listProjects } from '../lib/store/projects.js';
 import { readPrefs, writePrefs } from '../lib/store/prefs.js';
+import { workspaceFilmPending } from '../entrance/film-gate.js';
 import { createEngine } from '../lib/runtime/client.js';
 import { WsContext, errorInfo } from './ws-context.js';
 import '../styles/workspace.css';
@@ -35,6 +36,9 @@ registerArea('epi', epi);
 registerArea('runtime', runtime);
 
 const Entrance = lazy(() => import('../entrance/Entrance.jsx'));
+const WorkspaceFilm = lazy(() => import('../entrance/WorkspaceFilm.jsx'));
+// Dark from the first frame while the film's chunk loads (its stylesheet comes with the chunk).
+const FILM_HOLD = { position: 'fixed', inset: 0, zIndex: 1000, background: '#0b0f14' };
 
 /** Where the entrance's dots settle: the new-user drop zone, else the project list. */
 /**
@@ -163,6 +167,10 @@ function Root({ route, owner, user, authError }) {
   const [messages, setMessages] = useState([]);
   const [version, setVersion] = useState(0);
   const [entrance, setEntrance] = useState(() => !readPrefs().entranceSeen && route.name === 'projects');
+  // The workspace film plays first on a first visit; the entrance mounts as it fades (film-gate.js).
+  const [film, setFilm] = useState(() => (workspaceFilmPending(route) ? 'play' : 'done'));
+  const filmLeave = useCallback(() => setFilm('leaving'), []);
+  const filmGone = useCallback(() => setFilm('done'), []);
   const [projectCount, setProjectCount] = useState(0);
   const firstRoute = useRef(true);
 
@@ -249,7 +257,12 @@ function Root({ route, owner, user, authError }) {
       <Boundary key={route.projectId || route.name}>{body}</Boundary>
       {/* A plain veil from the first frame, so the bare workspace never flashes while the entrance
           chunk or the database is still loading (review round 1). */}
-      {entrance && db ? (
+      {film !== 'done' ? (
+        <Suspense fallback={<div style={FILM_HOLD} aria-hidden="true" />}>
+          <WorkspaceFilm onLeave={filmLeave} onGone={filmGone} />
+        </Suspense>
+      ) : null}
+      {entrance && db && film !== 'play' ? (
         <Suspense fallback={<div className="rs-entrance-hold" aria-hidden="true" />}>
           <Entrance projectCount={projectCount} target={entranceTarget} onDone={() => { writePrefs({ entranceSeen: true }); setEntrance(false); }} />
         </Suspense>

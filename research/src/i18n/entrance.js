@@ -7,6 +7,8 @@ export default {
     'entrance.first': 'เริ่มโปรเจกต์แรกจากไฟล์ที่คุณมีอยู่',
     'entrance.returning': 'โปรเจกต์ของคุณ {count} โปรเจกต์อยู่ในเครื่องนี้',
     'entrance.skip': 'ข้าม',
+    'entrance.film.skip': 'ข้าม',
+    'entrance.film.skipLabel': 'ข้ามวิดีโอเปิดพื้นที่ทำงาน',
 
     'entrance.welcome.eyebrow': 'ยินดีต้อนรับ',
     'entrance.welcome.title': 'เริ่มจากไฟล์ข้อมูลของคุณ',
@@ -38,6 +40,8 @@ export default {
     'entrance.first': 'Start your first project from the file you already have',
     'entrance.returning': 'Projects on this device: {count}',
     'entrance.skip': 'Skip',
+    'entrance.film.skip': 'Skip',
+    'entrance.film.skipLabel': 'Skip the workspace opening film',
 
     'entrance.welcome.eyebrow': 'Welcome',
     'entrance.welcome.title': 'Start from your data file',

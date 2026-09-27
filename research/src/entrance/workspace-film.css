@@ -1,0 +1,55 @@
+/* Workspace film (entrance/WorkspaceFilm.jsx). Dark until the first frame (the poster is the first
+   frame), the page's paper at the end, then a fade to whatever the entrance shows underneath. */
+.rs-wsfilm {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #0b0f14;
+  transition: opacity 0.45s ease;
+  touch-action: none;
+}
+.rs-wsfilm[data-phase='leaving'] {
+  opacity: 0;
+  pointer-events: none;
+}
+.rs-wsfilm video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.rs-wsfilm-skip {
+  position: absolute;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  min-height: 44px;
+  min-width: 64px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(246, 239, 228, 0.28);
+  background: rgba(8, 11, 16, 0.38);
+  color: rgba(246, 239, 228, 0.86);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: opacity 0.3s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.rs-wsfilm-skip:hover,
+.rs-wsfilm-skip:focus-visible {
+  border-color: rgba(246, 239, 228, 0.6);
+  color: #f6efe4;
+}
+.rs-wsfilm-skip:focus-visible {
+  outline: 2px solid #f6efe4;
+  outline-offset: 3px;
+}
+.rs-wsfilm[data-phase='leaving'] .rs-wsfilm-skip {
+  opacity: 0;
+  pointer-events: none;
+}
