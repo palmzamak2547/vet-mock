@@ -74,6 +74,11 @@ test.describe('phone width', () => {
     await noSideScroll(page, 'sample size');
     await page.goto('/licenses');
     await expect(page.locator('#rs-main h1')).toBeVisible();
+    // Review round 3: the route serves the page with the typeface rows and the licence texts.
+    await expect(page.locator('#rs-main tbody th[scope="row"]', { hasText: 'Sarabun' })).toBeVisible();
+    const ofl = page.locator('#rs-main details', { has: page.locator('summary', { hasText: /^Sarabun$/ }) });
+    await ofl.locator('summary').click();
+    await expect(ofl.locator('pre')).toContainText('SIL Open Font License, Version 1.1');
     await noSideScroll(page, 'licences');
   });
 });

@@ -116,7 +116,8 @@ export default function DataGrid({ ctx, cols, rows, onEdit, onRowAction, label }
                   style={{ width: widths[0] }}
                   onClick={() => setActive({ r: vr.index, c: 0 })}
                   onDoubleClick={() => onRowAction?.(i)}
-                  title={excluded ? t('ws.grid.excludedTitle') : rowId}
+                  // Only an excluded row carries a tooltip; the internal row id (r1, r2) is not for people (review round 3).
+                  title={excluded ? t('ws.grid.excludedTitle') : undefined}
                 >
                   {/^n\d+$/.test(rowId) ? rowId : i + 1}
                 </div>

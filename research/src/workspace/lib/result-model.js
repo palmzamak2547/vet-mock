@@ -87,6 +87,11 @@ export function pText(fmt, p) {
   return /^[<>≤≥]/.test(s) ? `p ${s}` : `p = ${s}`;
 }
 
+/** Values printed with a fixed number of decimals. */
+const VALUE_DIGITS = Object.freeze({ icc: 4 });
+/** Values that count animals and print as whole numbers. */
+const WHOLE_VALUES = new Set(['nEff']);
+
 /** The kind the stats formatter expects for a value name. */
 export function fmtKind(kind) {
   return kind === 'rate' ? 'statistic' : kind;
@@ -103,7 +108,12 @@ export function valueCells(row, fmt, lang, t) {
   if (row.value === null || row.value === undefined) {
     return { est: '—', ci: '', note: row.reasonKey ? t(row.reasonKey) : t('ws.result.undefinedNoReason') };
   }
-  const est = fmt.formatNumber(row.value, { kind: fmtKind(row.kind) });
+  // An ICC keeps four decimals everywhere it is printed, so the DEFF arithmetic shown beside it can be
+  // checked by hand; an effective n is a number of animals and prints whole (review round 3: ICC 0.0506
+  // beside 0.051 on one screen, effective n 428.02).
+  const digits = VALUE_DIGITS[row.name];
+  const shown = WHOLE_VALUES.has(row.name) && Number.isFinite(row.value) ? Math.round(row.value) : row.value;
+  const est = fmt.formatNumber(shown, { kind: fmtKind(row.kind), ...(digits === undefined ? {} : { digits }) });
   const ci = row.ci ? fmt.formatCi({ value: row.value, ci: row.ci, kind: fmtKind(row.kind) }, lang) : '';
   // A defined value can still carry a sentence: a limit held at 0..1, a herd-level reading, a Wald
   // interval that misbehaves. Shown beside the number and in every export.

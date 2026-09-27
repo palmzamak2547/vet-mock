@@ -1,6 +1,6 @@
 {
-  "name": "VetMock Research Studio",
-  "short_name": "Research Studio",
+  "name": "VetMock Research",
+  "short_name": "Research",
   "description": "วิเคราะห์ข้อมูลวิจัยสัตวแพทย์ในเบราว์เซอร์ ข้อมูลไม่ออกจากเครื่อง",
   "lang": "th",
   "dir": "ltr",

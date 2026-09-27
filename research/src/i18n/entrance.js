@@ -2,7 +2,7 @@
 // OWNER: landing role. Rules: docs/research/M1-DESIGN.md 4. Registered at load by the lazy root that uses it.
 export default {
   th: {
-    'entrance.eyebrow': 'Research Studio',
+    'entrance.eyebrow': 'VetMock Research',
     'entrance.opening': 'กำลังเปิดพื้นที่ทำงานของคุณ',
     'entrance.first': 'เริ่มโปรเจกต์แรกจากไฟล์ที่คุณมีอยู่',
     'entrance.returning': 'โปรเจกต์ของคุณ {count} โปรเจกต์อยู่ในเครื่องนี้',
@@ -10,7 +10,7 @@ export default {
 
     'entrance.welcome.eyebrow': 'ยินดีต้อนรับ',
     'entrance.welcome.title': 'เริ่มจากไฟล์ข้อมูลของคุณ',
-    'entrance.welcome.lead': 'ไม่ต้องแก้ไฟล์ก่อน Studio จะอ่าน ตรวจ และถามสิ่งที่ต้องรู้ แล้วพาไปทีละขั้นจนได้ผลที่ใช้เขียนรายงานได้',
+    'entrance.welcome.lead': 'ไม่ต้องแก้ไฟล์ก่อน VetMock Research จะอ่าน ตรวจ และถามสิ่งที่ต้องรู้ แล้วพาไปทีละขั้นจนได้ผลที่ใช้เขียนรายงานได้',
     'entrance.welcome.step1.title': 'เปิดไฟล์',
     'entrance.welcome.step1.body': 'Excel หรือ CSV ปี พ.ศ. เลขไทย และคำอย่าง ไม่ทราบ อ่านได้หมด คุณเห็นทุกการแปลงก่อนนำเข้า',
     'entrance.welcome.step2.title': 'ตอบคำถามของไฟล์ครั้งเดียว',
@@ -33,7 +33,7 @@ export default {
     'entrance.device.offline': 'ใช้ได้โดยไม่ต่ออินเทอร์เน็ต หลังเปิดหน้านี้ครั้งแรก',
   },
   en: {
-    'entrance.eyebrow': 'Research Studio',
+    'entrance.eyebrow': 'VetMock Research',
     'entrance.opening': 'Opening your workspace',
     'entrance.first': 'Start your first project from the file you already have',
     'entrance.returning': 'Projects on this device: {count}',
@@ -41,7 +41,7 @@ export default {
 
     'entrance.welcome.eyebrow': 'Welcome',
     'entrance.welcome.title': 'Start from your data file',
-    'entrance.welcome.lead': 'No need to tidy the file first. The Studio reads it, checks it and asks what it needs to know, then takes you step by step to results you can write up.',
+    'entrance.welcome.lead': 'No need to tidy the file first. VetMock Research reads it, checks it and asks what it needs to know, then takes you step by step to results you can write up.',
     'entrance.welcome.step1.title': 'Open a file',
     'entrance.welcome.step1.body': 'Excel or CSV. Buddhist Era years, Thai digits and words like ไม่ทราบ are all read, and you see every conversion before import.',
     'entrance.welcome.step2.title': 'Answer the file\'s questions once',

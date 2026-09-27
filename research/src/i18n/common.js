@@ -3,9 +3,9 @@
 // no ellipsis, no star glyph, นิสิต, Arabic digits).
 export default {
   th: {
-    'common.appName': 'VetMock Research Studio',
+    'common.appName': 'VetMock Research',
     'common.wordmark.a': 'VetMock',
-    'common.wordmark.b': 'Research Studio',
+    'common.wordmark.b': 'Research',
     'common.lang.group': 'ภาษา',
     'common.lang.th': 'ไทย',
     'common.lang.en': 'EN',
@@ -15,9 +15,9 @@ export default {
     'common.notFound.back': 'กลับหน้าแรก',
   },
   en: {
-    'common.appName': 'VetMock Research Studio',
+    'common.appName': 'VetMock Research',
     'common.wordmark.a': 'VetMock',
-    'common.wordmark.b': 'Research Studio',
+    'common.wordmark.b': 'Research',
     'common.lang.group': 'Language',
     'common.lang.th': 'ไทย',
     'common.lang.en': 'EN',

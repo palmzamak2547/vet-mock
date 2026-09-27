@@ -29,7 +29,7 @@ const hasKey = (t, k) => t(k) !== `[${k}]`;
 const pick = (t, ...keys) => { const k = keys.find((x) => hasKey(t, x)); return k ? t(k) : ''; };
 
 export default function SampleSize() {
-  const { t } = useT();
+  const { t, lang } = useT();
   const { engine, engineError } = useWs();
   const [menu, setMenu] = useState(false);
   const [method, setMethod] = useState('ss.proportion');
@@ -71,6 +71,16 @@ export default function SampleSize() {
   const missing = missingRequired(method, parsed.params);
   const paramsOk = parsed.ok && missing.length === 0;
   const fieldName = (k) => pick(t, `ws.ss.param.${keyPart(method)}.${keyPart(k)}`, `ws.ss.param.${keyPart(k)}`) || k;
+  // Field names inside a sentence: English lower-cases a label mid-sentence ("Enter expected proportion
+  // (p) and acceptable error (d)", review round 3), acronyms kept; the last two are joined with "and".
+  const fieldList = (keys) => {
+    const names = keys.map((k) => {
+      const x = fieldName(k);
+      return lang === 'en' && /^[A-Z][a-z]/.test(x) ? x[0].toLowerCase() + x.slice(1) : x;
+    });
+    if (names.length < 2) return names.join('');
+    return t('report.list.and', { a: names.slice(0, -1).join(lang === 'en' ? ', ' : ' '), b: names[names.length - 1] });
+  };
   // Tabs: one tab stop, arrows move between the kinds (roving tabindex).
   const onTabKey = (e) => {
     const i = SS.indexOf(method);
@@ -165,7 +175,7 @@ export default function SampleSize() {
                     <div className="rs-soft rs-small">
                       <p>{t('ws.ss.exampleFrom', { deck: t(`ws.ss.deck.${example.deck}`) })}</p>
                       <p>{t(`ws.ss.ex.${example.id}.formula`)}</p>
-                      {unused.length ? <p>{t('ws.ss.unused', { names: unused.join(', ') })}</p> : null}
+                      {unused.length ? <p>{t('ws.ss.unused', { names: fieldList(unused) })}</p> : null}
                     </div>
                   ) : null}
                   {example?.explain ? <Notice tone="info" title={t('ws.ss.explainTitle')}>{t(`ws.ss.ex.${example.id}.explain`)}</Notice> : null}
@@ -177,15 +187,15 @@ export default function SampleSize() {
                     <input id={`rs-ss-${k}`} className="rs-input rs-num" inputMode="decimal" aria-invalid={parsed.bad.includes(k) || undefined} value={params[k] ?? ''} onChange={(e) => setParams((x) => ({ ...x, [k]: e.target.value }))} />
                   </Field>
                 ))}
-                <Field label={t('ws.opt.confLevel.label')} htmlFor="rs-ss-conf">
+                <Field label={t('ws.opt.confLevel.labelPlan')} htmlFor="rs-ss-conf">
                   <select id="rs-ss-conf" className="rs-select" value={String(conf)} onChange={(e) => setConf(Number(e.target.value))}>
                     {[0.95, 0.9, 0.99].map((v) => <option key={v} value={String(v)}>{`${Math.round(v * 100)}%`}</option>)}
                   </select>
                 </Field>
               </div>
               {cat && !cat.shipped ? <Notice tone="info">{t('ws.analysis.notReadyBody')}</Notice> : null}
-              {parsed.bad.length ? <p className="rs-small rs-rose-text" role="status">{t('ws.ss.badFields', { names: parsed.bad.map(fieldName).join(', ') })}</p> : null}
-              {missing.length && !parsed.bad.length ? <p className="rs-soft rs-small" role="status">{t('ws.ss.needFields', { names: missing.map(fieldName).join(', ') })}</p> : null}
+              {parsed.bad.length ? <p className="rs-small rs-rose-text" role="status">{t('ws.ss.badFields', { names: fieldList(parsed.bad) })}</p> : null}
+              {missing.length && !parsed.bad.length ? <p className="rs-soft rs-small" role="status">{t('ws.ss.needFields', { names: fieldList(missing) })}</p> : null}
               <button type="button" className="rs-btn rs-btn--primary rs-btn--block" disabled={!engine || busy || !paramsOk || !cat?.shipped} onClick={run}>
                 <Icon name="calc" size={18} />
                 {t('ws.ss.run')}
@@ -196,9 +206,11 @@ export default function SampleSize() {
               {busy ? <Busy label={t('ws.analysis.running')} /> : null}
               <ErrorBox error={error} />
               {env && env.status === 'invalid' ? (
-                <Notice tone="stop" title={t('ws.ss.invalidTitle')}>{t('ws.ss.invalidBody', { names: (missing.length ? missing : Object.keys(parsed.params)).map(fieldName).join(', ') })}</Notice>
+                <Notice tone="stop" title={t('ws.ss.invalidTitle')}>{t('ws.ss.invalidBody', { names: fieldList(missing.length ? missing : Object.keys(parsed.params)) })}</Notice>
               ) : env ? (
-                <ResultView envelope={env} title={cat && hasKey(t, cat.nameKey) ? t(cat.nameKey) : method} paragraphs={false} primaryName="n" headlineLabel={pick(t, `ws.ss.headline.${keyPart(method)}`, 'ws.ss.headline')}>
+                // The setup panel's heading already names the method, so the result has its own heading
+                // (review round 3: two headings saying the same); copies and files keep the method's name.
+                <ResultView envelope={env} title={t('ws.ss.resultTitle')} caption={cat && hasKey(t, cat.nameKey) ? t(cat.nameKey) : method} paragraphs={false} primaryName="n" headlineLabel={pick(t, `ws.ss.headline.${keyPart(method)}`, 'ws.ss.headline')}>
                   {alts.length ? (
                     <div className="rs-tablewrap">
                       <table className="rs-table rs-num">

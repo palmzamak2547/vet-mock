@@ -46,13 +46,13 @@ const labelOf = (lang) => (k) => (k === 'c7' ? (lang === 'th' ? 'อายุ' :
 test('provenance line (Thai): method | CI | rows with reasons | data | engine, no verified claim', () => {
   const [first, second] = provenanceLines(envelope(), 'th', tt('th'), labelOf('th'));
   assert.ok(first.startsWith('[stats.method.test.tTest] | 95% CI | Welch') || first.includes(' | 95% CI | Welch'), first);
-  assert.equal(second, `ใช้ 716 แถว ตัดออก 12 แถว (อายุไม่มีค่า 12) | ข้อมูล 3f2a9c1b | Research Studio 0.1.0`);
+  assert.equal(second, `ใช้ 716 แถว ตัดออก 12 แถว (อายุไม่มีค่า 12) | ข้อมูล 3f2a9c1b | VetMock Research 0.1.0`);
   assert.ok(!second.includes('ตรวจเทียบ'));
 });
 
 test('provenance line (English) ends with the program version and says verified only when it is', () => {
   const [, second] = provenanceLines(envelope({ verified: true }), 'en', tt('en'), labelOf('en'));
-  assert.equal(second, `used 716 rows, left out 12 (age missing 12) | data 3f2a9c1b | verified against R 4.6.0 | Research Studio 0.1.0`);
+  assert.equal(second, `used 716 rows, left out 12 (age missing 12) | data 3f2a9c1b | verified against R 4.6.0 | VetMock Research 0.1.0`);
 });
 
 test('provenance names the CI method, one-sided tests and the farm route', () => {
@@ -136,7 +136,7 @@ test('a calculation from typed parameters has no rows line (review round 2)', ()
   });
   const [, second] = provenanceLines(env, 'en', tt('en'));
   assert.ok(!/rows/.test(second), second);
-  assert.ok(second.startsWith('Research Studio'), second);
+  assert.ok(second.startsWith('VetMock Research'), second);
 });
 
 test('the DEFF route names the interval it computed, not the CI option (review round 2)', () => {

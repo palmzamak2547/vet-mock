@@ -26,9 +26,10 @@ export default function G1Panel({ panel, stops, onChoose, busy = false, columnNa
   const routes = [...(panel?.routes || []).map((r) => ({ ...r }))].filter((r) => !single || r.id !== 'mh-within');
   for (const id of ['gee', 'mixed']) if (!routes.some((r) => r.id === id)) routes.push({ id, enabled: false, reasonKey: 'ws.route.m3' });
   routes.sort((a, b) => ROUTE_ORDER.indexOf(a.id) - ROUTE_ORDER.indexOf(b.id));
-  const stat = (v, labelKey, kind) => (
+  // The ICC keeps four decimals and the effective n prints whole, as in the result table (review round 3).
+  const stat = (v, labelKey, kind, { digits, whole = false } = {}) => (
     <div className="rs-stat">
-      <div className="rs-stat-num rs-num">{v && v.value !== null && v.value !== undefined ? formatNumber(v.value, { kind }) : '—'}</div>
+      <div className="rs-stat-num rs-num">{v && v.value !== null && v.value !== undefined ? formatNumber(whole && Number.isFinite(v.value) ? Math.round(v.value) : v.value, { kind, ...(digits === undefined ? {} : { digits }) }) : '—'}</div>
       <div className="rs-soft rs-small">{t(labelKey)}</div>
     </div>
   );
@@ -44,9 +45,9 @@ export default function G1Panel({ panel, stops, onChoose, busy = false, columnNa
       {panel ? (
         <>
           <div className="rs-stats3">
-            {stat(panel.icc, 'ws.g1.icc', 'statistic')}
+            {stat(panel.icc, 'ws.g1.icc', 'statistic', { digits: 4 })}
             {stat(panel.deff, 'ws.g1.deff', 'ratio')}
-            {stat(panel.nEff, 'ws.g1.nEff', 'count')}
+            {stat(panel.nEff, 'ws.g1.nEff', 'count', { whole: true })}
           </div>
           <dl className="rs-g1-glosses rs-small">
             <div><dt>{t('ws.g1.icc')}</dt><dd className="rs-soft">{t('term.icc.gloss')}</dd></div>

@@ -372,16 +372,6 @@ export default function AnalysisPane({ p, pane }) {
           {busy ? <Busy label={t('ws.analysis.running')} /> : null}
           <ErrorBox error={error} />
           {herd.length ? <Herd groups={herd} clusterName={cluster?.name || ''} /> : null}
-          {why ? (
-            <section className="rs-panel rs-pad" aria-labelledby="rs-h-why">
-              <h3 id="rs-h-why" className="rs-h3">{t('ws.prev.why.title')}</h3>
-              <dl className="rs-why">
-                <div><dt>{t('ws.prev.why.ideaLabel')}</dt><dd>{why.idea}</dd></div>
-                <div><dt>{t('ws.prev.why.dataLabel')}</dt><dd className="rs-num">{why.data}</dd></div>
-                <div><dt>{t('ws.prev.why.resultLabel')}</dt><dd className="rs-num">{why.result}</dd></div>
-              </dl>
-            </section>
-          ) : null}
           {clusterStop ? (
             <G1Panel panel={panel} stops={env.guard.stops} onChoose={(r) => run(r)} busy={busy} columnName={cluster?.name || ''} single={String(method || '').startsWith('freq.')} />
           ) : null}
@@ -393,6 +383,17 @@ export default function AnalysisPane({ p, pane }) {
               extraRows={extraRows}
               headlineLabel={deffShown ? t('ws.prev.adjustedHeadline') : undefined}
               primaryPlotLabel={deffShown ? t('ws.prev.adjustedRow') : undefined}
+              afterPlot={why ? (
+                // Under the headline and the CI plot, as the board has it (review round 3: it came first).
+                <section className="rs-panel rs-pad" aria-labelledby="rs-h-why">
+                  <h3 id="rs-h-why" className="rs-h3">{t('ws.prev.why.title')}</h3>
+                  <dl className="rs-why">
+                    <div><dt>{t('ws.prev.why.ideaLabel')}</dt><dd>{why.idea}</dd></div>
+                    <div><dt>{t('ws.prev.why.dataLabel')}</dt><dd className="rs-num">{why.data}</dd></div>
+                    <div><dt>{t('ws.prev.why.resultLabel')}</dt><dd className="rs-num">{why.result}</dd></div>
+                  </dl>
+                </section>
+              ) : null}
               labelOf={labelOf}
               codebook={codebook}
               onSnapshot={env.status === 'ok' ? () => p.saveSnapshot(spec, env) : null}

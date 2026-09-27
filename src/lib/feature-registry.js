@@ -286,7 +286,7 @@ export const FEATURES = [
   },
   {
     id: 'research-studio', category: 'tools',
-    label: 'วิเคราะห์ข้อมูลวิจัย', labelEn: 'Research Studio', icon: '📊',
+    label: 'วิเคราะห์ข้อมูลวิจัย', labelEn: 'VetMock Research', icon: '📊',
     hint: 'สถิติสำหรับงานวิจัยสัตวแพทย์ คำนวณในเครื่องนี้ ข้อมูลไม่ส่งออกนอกเครื่อง',
     kw: 'research studio spss epi info winepiscope epitools สถิติ วิเคราะห์ข้อมูล วิจัย t-test chi-square odds ratio sample size ขนาดตัวอย่าง statistics',
     invoke: { kind: 'external', url: RESEARCH_STUDIO_URL },

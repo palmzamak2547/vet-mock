@@ -94,7 +94,9 @@ test('a stopped result says it stopped; no numbers appear for it', () => {
   const stopped = { id: 's', spec, envelope: { status: 'stopped', spec, values: {}, tests: [], provenance: {} } };
   const s = resultsSentence(stopped, { t, fmt, lang: 'en', nameKeyOf, valueLabel: (n) => n });
   assert.match(s, /stopped/);
-  assert.equal((s.match(/\d/g) || []).join(''), '22', 'only the "2x2" in the method name');
+  // Review round 3: the sentence no longer carries the menu label ("2x2 table ... stopped").
+  assert.equal((s.match(/\d/g) || []).join(''), '', `no number and no menu label: ${s}`);
+  assert.ok(!s.includes(NAMES.en['m.twoByTwo']), s);
 });
 
 test('a methods sentence without a route or drops has neither', () => {
@@ -129,7 +131,8 @@ for (const lang of ['th', 'en']) {
     const t = tOf(lang);
     const mh = { ...spec, method: 'epi.mantelHaenszel', roles: { ...spec.roles, strata: ['c4'] } };
     const s = methodsSentence({ spec: mh, envelope: { status: 'ok', spec: mh, values: {}, tests: [], provenance: { rowsDropped: [{ count: 46 }] } } }, { t, lang, nameKeyOf: (id) => (id === 'epi.mantelHaenszel' ? 'mhName' : null), columnName: (k) => k });
-    assert.ok(!s.includes('Mantel-Haenszel'), `the route sentence does not repeat the method: ${s}`);
+    // The method's own sentence names Mantel-Haenszel; the within-farm route sentence does not repeat it.
+    assert.equal(s.split('Mantel-Haenszel').length - 1, 1, `Mantel-Haenszel named once: ${s}`);
     assert.equal(s.split('c4').length - 1, 1, `the farm column is named once: ${s}`);
     if (lang === 'en') assert.ok(s.endsWith('.') && !s.includes(';'), s);
   });
@@ -156,7 +159,8 @@ for (const lang of ['th', 'en']) {
     const pv = { method: 'freq.proportion', design: 'cross-sectional', roles: { outcome: 'c2' }, levels: { outcomePositive: 'บวก' }, options: { confLevel: 0.95 }, cluster: { route: 'deff', column: 'c4' } };
     const env = { status: 'ok', spec: pv, values: { prevalence: { value: 0.201, ci: [0.163, 0.238] } }, tests: [] };
     const s = resultsSentence({ envelope: env }, { t, fmt, lang, nameKeyOf, valueLabel: (n) => ws[lang][`ws.value.${n}`] || n, columnName: (k) => ({ c2: 'ELISA' }[k] || k) });
-    assert.equal(s, lang === 'th' ? 'ความชุกของELISA ที่เป็น "บวก" เท่ากับ 0.201 (95% CI 0.163 ถึง 0.238)' : 'The prevalence of ELISA "บวก" was 0.201 (95% CI 0.163 to 0.238).');
+    // Thai sets a name in another script apart with a space (review round 3: "ความชุกของc13").
+    assert.equal(s, lang === 'th' ? 'ความชุกของ ELISA ที่เป็น "บวก" เท่ากับ 0.201 (95% CI 0.163 ถึง 0.238)' : 'The prevalence of ELISA "บวก" was 0.201 (95% CI 0.163 to 0.238).');
   });
 
   test(`${lang}: the one-row-per-farm route says the animal rows were summarised, not missing`, () => {

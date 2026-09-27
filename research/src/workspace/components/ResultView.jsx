@@ -9,81 +9,42 @@ import { formatCi, formatNumber, formatP } from '../../lib/stats/format.js';
 import { provenanceLines } from '../../lib/runtime/provenance.js';
 import { copyTable, download, tableToCsv } from '../../lib/runtime/export.js';
 import { getMethod } from '../../lib/runtime/catalog.js';
-import { ciLevelText, exportTable, fmtKind, pText, plottable, primaryValueName, testLabel, valueCells, valueLabel, valueRows } from '../lib/result-model.js';
-import { keyPart } from '../lib/keys.js';
+import { ciLevelText, exportTable, pText, plottable, primaryValueName, testLabel, valueCells, valueLabel, valueRows } from '../lib/result-model.js';
 import { safeFileBase } from '../lib/files.js';
 import { useWs, errorInfo } from '../ws-context.js';
 import { Notice, VerifiedBadge } from './Bits.jsx';
 import CiPlot from './CiPlot.jsx';
 import Paragraphs from './Paragraphs.jsx';
-import { methodsSentence, resultsSentence } from '../report/build.js';
+import { columnNameFor, levelNameFor, resultParagraphs } from '../report/build.js';
+import { envTableText, guardText, optionItems, shownGuards, tableWord } from '../report/result-words.js';
 import { copyParagraph } from '../lib/clipboard.js';
 import Icon from './Icon.jsx';
 
-export { safeFileBase };
+export { safeFileBase, envTableText, guardText, tableWord };
 export const FMT = { formatNumber, formatP, formatCi };
 
 const hasKey = (t, key) => t(key) !== `[${key}]`;
 /** Tables longer than this are folded under a summary line. */
 const FOLD_ROWS = 12;
 
-
-/**
- * A guardrail finding: epi findings carry a title key and a body key; other findings (runtime notes)
- * carry one sentence in `key`.
- */
-export function guardText(g, t) {
-  // G25 names only the steps this sample size still misses (review round 2: the whole list was shown
-  // right after the design effect had been applied).
-  if (g.id === 'G25' && Array.isArray(g.params?.missing) && g.params.missing.length) {
-    return { title: t(g.key, g.params), body: g.params.missing.map((m) => t(`epi.guard.G25.step.${m}`)).join(' ') };
-  }
-  if (g.bodyKey) return { title: t(g.key, g.params), body: t(g.bodyKey, g.params) };
-  const titleKey = `epi.guard.${g.id}.title`;
-  return { title: g.key !== titleKey && hasKey(t, titleKey) ? t(titleKey, g.params) : undefined, body: t(g.key, g.params) };
-}
-
 function GuardList({ items, tone }) {
   const { t } = useT();
-  if (!items?.length) return null;
-  return items.map((g) => {
+  const shown = shownGuards(items);
+  if (!shown.length) return null;
+  return shown.map((g) => {
     const x = guardText(g, t);
     return <Notice key={`${g.id}-${g.key}`} tone={tone} title={x.title}>{x.body}</Notice>;
   });
 }
 
 /**
- * A word a method table carries (a column name such as 'unrounded', a step id such as 'fpc', or a
- * dictionary key such as 'epi.ss.formula.base'): the dictionary's text when it has one, else the
- * word itself (level names and farm ids are data, shown as they are).
+ * @param {{ table: any, note?: string, fileBase?: string, onDownloaded?: (kind: string) => void, words?: any }} props
+ * `words` names what the table was made from (spec, codebook), so a 2x2 table is labelled with its own levels.
  */
-export function tableWord(word, t, group) {
-  const s = String(word);
-  if (hasKey(t, s)) return t(s);
-  const k = `ws.${group}.${keyPart(s)}`;
-  return hasKey(t, k) ? t(k) : s;
-}
-
-/** Text of a table the method returned: numbers through the stats formatter, words through the dictionary. */
-export function envTableText(table, t) {
-  const columns = table.columns.map((c) => tableWord(c, t, 'col'));
-  const rows = table.rows.map((row) => row.map((cell) => {
-    if (cell === null || cell === undefined) return '—';
-    if (typeof cell === 'number') return Number.isFinite(cell) ? formatNumber(cell, { kind: Number.isInteger(cell) ? 'count' : 'statistic' }) : cell > 0 ? t('ws.result.noUpper') : t('ws.result.noLower');
-    return tableWord(cell, t, 'cell');
-  }));
-  const capKey = `ws.table.${keyPart(table.id)}`;
-  // A dash in a cell is explained under the table, and the 2x2 cell letters are named (review round 1).
-  const notes = [];
-  if (['a', 'b', 'c', 'd'].every((c) => table.columns.includes(c))) notes.push(t('ws.table.abcdLegend'));
-  if (rows.some((row) => row.slice(1).includes('—'))) notes.push(t('ws.table.dashNote'));
-  return { columns, rows, caption: hasKey(t, capKey) ? t(capKey) : table.id, notes };
-}
-
-export function EnvTable({ table, note = '', fileBase = 'table', onDownloaded }) {
+export function EnvTable({ table, note = '', fileBase = 'table', onDownloaded, words = {} }) {
   const { t } = useT();
   const { notify } = useWs();
-  const tx = envTableText(table, t);
+  const tx = envTableText(table, t, words);
   const copy = async () => {
     try {
       const how = await copyTable({ caption: tx.caption, columns: tx.columns, rows: tx.rows, note: [...tx.notes, note].filter(Boolean).join(' ') });
@@ -125,31 +86,17 @@ export function EnvTable({ table, note = '', fileBase = 'table', onDownloaded })
 /**
  * This result's methods and results sentences in Thai and English, built by the same functions the
  * Report draft uses (report/build.js), so the words under a result are the words the report will say.
+ * Columns are named from the codebook, as the report names them (review round 3: the column key c13 in a sentence).
  */
 function ResultParagraphs({ env, designRow, codebook, onDownloaded }) {
   const { t } = useT();
   const { notify } = useWs();
   const paras = useMemo(() => {
     if (!env || env.status !== 'ok') return null;
-    const analysis = { spec: env.spec, envelope: env };
     const nameKeyOf = (id) => getMethod(id)?.nameKey || null;
     const make = (lg) => {
-      const tl = (k, params) => translate(lg, k, params);
-      const has = (k) => tl(k) !== `[${k}]`;
-      const columnName = (key) => {
-        const c = codebook?.columns?.find((x) => x.key === key);
-        if (!c) return key;
-        return (lg === 'en' ? c.labelEn || c.name : c.labelTh || c.name) || key;
-      };
-      const valueLabel = (name) => {
-        for (const k of [`ws.value.${keyPart(env.method?.id || '')}.${name}`, `ws.value.${name}`]) if (has(k)) return tl(k);
-        return name;
-      };
       try {
-        return {
-          methods: methodsSentence(analysis, { t: tl, lang: lg, nameKeyOf, columnName }),
-          results: resultsSentence(analysis, { t: tl, fmt: FMT, lang: lg, nameKeyOf, designRow, valueLabel }),
-        };
+        return resultParagraphs(env, { t: (k, params) => translate(lg, k, params), fmt: FMT, lang: lg, codebook, designRow, nameKeyOf });
       } catch {
         return { methods: '', results: '' };
       }
@@ -172,9 +119,13 @@ function ResultParagraphs({ env, designRow, codebook, onDownloaded }) {
 }
 
 /**
- * @param {{ envelope: any, title?: string, designRow?: any, extraRows?: any[], onSnapshot?: (() => void) | null, onDownloaded?: (kind: string) => void, headlineLabel?: string, children?: any, stale?: boolean }} props
+ * @param {{ envelope: any, title?: string, caption?: string, designRow?: any, extraRows?: any[], onSnapshot?: (() => void) | null, onDownloaded?: (kind: string) => void, headlineLabel?: string, children?: any, afterPlot?: any, stale?: boolean }} props
+ * `title` is the heading; the method's name is shown under it only when it says something the heading
+ * does not (review round 3: the prevalence method name printed as both heading and subtitle). `caption` names the copied
+ * table and the downloaded files (the heading by default). `afterPlot` sits under the headline, the
+ * table and the CI plot, where the board puts an explanation of the result.
  */
-export default function ResultView({ envelope, title, designRow = null, extraRows = [], onSnapshot = null, onDownloaded, headlineLabel, children = null, stale = false, hideTables = false, labelOf, codebook = null, paragraphs = true, primaryName = null, primaryPlotLabel }) {
+export default function ResultView({ envelope, title, caption: captionProp = '', designRow = null, extraRows = [], onSnapshot = null, onDownloaded, headlineLabel, children = null, afterPlot = null, stale = false, hideTables = false, labelOf, codebook = null, paragraphs = true, primaryName = null, primaryPlotLabel }) {
   const { t, lang } = useT();
   const { notify } = useWs();
   const env = envelope;
@@ -192,9 +143,13 @@ export default function ResultView({ envelope, title, designRow = null, extraRow
   })];
   let lines = [];
   try { lines = provenanceLines(env, lang, t, labelOf); } catch { lines = []; }
-  const caption = title || methodName;
+  const heading = title || methodName;
+  const caption = captionProp || heading;
   const note = lines.join(' ');
   const fileBase = safeFileBase(`${caption}`);
+  const columnName = labelOf || columnNameFor(codebook, lang);
+  const words = { spec: env?.spec || null, codebook, columnName, levelName: levelNameFor(codebook, lang) };
+  const options = useMemo(() => (env ? optionItems(env, t, { columnName, lang }) : []), [env, t, columnName, lang]);
 
   const copy = async () => {
     try {
@@ -215,12 +170,19 @@ export default function ResultView({ envelope, title, designRow = null, extraRow
   const tests = env.tests || [];
   // The third column holds intervals and p-values; a result with neither (a sample size) has no such column.
   const thirdCol = tests.length > 0 || rows.some((r) => Array.isArray(r.ci));
+  // A result that only counts (Table 1: rows described, farms) has no answer to lead with; its counts
+  // stay in the table instead of a headline that the table repeats (review round 3).
+  const countsOnly = rows.length > 0 && !tests.length && rows.every((r) => r.kind === 'count' && !Array.isArray(r.ci));
+  const lead = countsOnly ? null : head;
+  // A table that would only repeat the headline's one value is left out, and so are its copy buttons.
+  const valuesTable = (rows.length || tests.length) && !(lead && rows.length === 1 && !tests.length);
   return (
     <section className="rs-result" aria-label={caption}>
       <div className="rs-result-head">
         <div className="rs-grow">
-          <h2 className="rs-h2">{caption}</h2>
-          {title && methodName ? <p className="rs-soft">{methodName}</p> : null}
+          <h2 className="rs-h2">{heading}</h2>
+          {/* The method name shows only when it says something the title does not (review round 3). */}
+          {title && methodName && !title.includes(methodName) && !methodName.includes(title) ? <p className="rs-soft">{methodName}</p> : null}
         </div>
         <VerifiedBadge show={Boolean(env.verified)} />
       </div>
@@ -228,7 +190,7 @@ export default function ResultView({ envelope, title, designRow = null, extraRow
       {env.status === 'invalid' ? <Notice tone="stop" title={t('ws.result.invalidTitle')}><GuardList items={env.guard?.stops} tone="stop" />{t('ws.result.invalidBody')}</Notice> : null}
       {env.status === 'stopped' ? <GuardList items={env.guard?.stops} tone="stop" /> : null}
 
-      {head ? (
+      {lead ? (
         <div className="rs-headline">
           <div className="rs-eyebrow">{headlineLabel || valueLabel(head.name, t, env?.method?.id)}</div>
           {head.value === null || head.value === undefined ? (
@@ -238,7 +200,7 @@ export default function ResultView({ envelope, title, designRow = null, extraRow
             </>
           ) : (
             <div className="rs-headline-row">
-              <span className="rs-bignum rs-num">{formatNumber(head.value, { kind: fmtKind(head.kind) })}</span>
+              <span className="rs-bignum rs-num">{valueCells(head, FMT, lang, t).est}</span>
               {head.ci ? <span className="rs-ci rs-num">{t('ws.result.ciInline', { level, ci: valueCells(head, FMT, lang, t).ci })}</span> : null}
             </div>
           )}
@@ -252,7 +214,7 @@ export default function ResultView({ envelope, title, designRow = null, extraRow
         </div>
       ) : null}
 
-      {rows.length || tests.length ? (
+      {valuesTable ? (
         <div className="rs-tablewrap">
           <table className="rs-table rs-num">
             <caption className="rs-table-cap">{t('ws.result.valuesCaption')}</caption>
@@ -290,6 +252,7 @@ export default function ResultView({ envelope, title, designRow = null, extraRow
       ) : null}
 
       {items.length ? <CiPlot items={items} log={plot.log} refValue={plot.ref} percent={plot.rows[0]?.kind === 'proportion'} title={caption} fileBase={fileBase} onDownloaded={onDownloaded} levelText={level} /> : null}
+      {afterPlot}
 
       <GuardList items={env.guard?.warnings} tone="warn" />
       <GuardList items={env.guard?.notes} tone="info" />
@@ -298,10 +261,10 @@ export default function ResultView({ envelope, title, designRow = null, extraRow
         // the paragraphs are not pushed a screen away (review round 2: 49 strata rows, 4374 px).
         (tb.rows?.length || 0) > FOLD_ROWS ? (
           <details key={tb.id} className="rs-foldtable">
-            <summary>{t('ws.table.folded', { caption: envTableText(tb, t).caption, n: tb.rows.length })}</summary>
-            <EnvTable table={tb} note={note} fileBase={fileBase} onDownloaded={onDownloaded} />
+            <summary>{t('ws.table.folded', { caption: envTableText(tb, t, words).caption, n: tb.rows.length })}</summary>
+            <EnvTable table={tb} note={note} fileBase={fileBase} onDownloaded={onDownloaded} words={words} />
           </details>
-        ) : <EnvTable key={tb.id} table={tb} note={note} fileBase={fileBase} onDownloaded={onDownloaded} />
+        ) : <EnvTable key={tb.id} table={tb} note={note} fileBase={fileBase} onDownloaded={onDownloaded} words={words} />
       ))}
       {children}
 
@@ -309,21 +272,23 @@ export default function ResultView({ envelope, title, designRow = null, extraRow
 
       <div className="rs-prov">
         {lines.map((l, i) => <p key={i} className="rs-prov-line">{l}</p>)}
-        <details className="rs-prov-more">
-          <summary>{t('ws.result.allOptions')}</summary>
-          <dl className="rs-deflist">
-            {Object.entries(env.provenance?.options || env.spec?.options || {}).map(([k, v]) => (
-              <div key={k} className="rs-defrow">
-                <dt>{hasKey(t, `ws.opt.${keyPart(k)}.label`) ? t(`ws.opt.${keyPart(k)}.label`) : k}</dt>
-                <dd className="rs-mono">{typeof v === 'object' ? JSON.stringify(v) : String(v)}</dd>
-              </div>
-            ))}
-          </dl>
-        </details>
+        {options.length ? (
+          <details className="rs-prov-more">
+            <summary>{t('ws.result.allOptions')}</summary>
+            <dl className="rs-deflist">
+              {options.map((o) => (
+                <div key={o.name} className="rs-defrow">
+                  <dt>{o.label}</dt>
+                  <dd>{o.text}</dd>
+                </div>
+              ))}
+            </dl>
+          </details>
+        ) : null}
       </div>
 
       <div className="rs-row-wrap">
-        {rows.length || tests.length ? (
+        {valuesTable ? (
           <>
             <button type="button" className="rs-btn" onClick={copy}>
               <Icon name="copy" size={18} />

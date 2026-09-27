@@ -59,7 +59,7 @@ p{margin-top:24px;font-size:26px;line-height:1.45;color:#5c4f3d;max-width:560px}
 .herd{position:absolute;right:40px;top:70px}
 .edge{position:absolute;left:0;right:0;bottom:0;height:10px;background:#4a6b4a}
 </style></head><body><div class="card">
-<div class="mark"><svg width="34" height="34" viewBox="0 0 26 26"><g fill="#5c4f3d"><circle cx="6" cy="6" r="2.6"/><circle cx="13" cy="6" r="2.6"/><circle cx="20" cy="6" r="2.6"/><circle cx="6" cy="13" r="2.6"/><circle cx="20" cy="13" r="2.6"/><circle cx="6" cy="20" r="2.6"/><circle cx="13" cy="20" r="2.6"/><circle cx="20" cy="20" r="2.6"/></g><circle cx="13" cy="13" r="3.2" fill="#8a5a1c"/></svg>VetMock<span class="rule"></span><small>Research Studio</small></div>
+<div class="mark"><svg width="34" height="34" viewBox="0 0 26 26"><g fill="#5c4f3d"><circle cx="6" cy="6" r="2.6"/><circle cx="13" cy="6" r="2.6"/><circle cx="20" cy="6" r="2.6"/><circle cx="6" cy="13" r="2.6"/><circle cx="20" cy="13" r="2.6"/><circle cx="6" cy="20" r="2.6"/><circle cx="13" cy="20" r="2.6"/><circle cx="20" cy="20" r="2.6"/></g><circle cx="13" cy="13" r="3.2" fill="#8a5a1c"/></svg>VetMock<span class="rule"></span><small>Research</small></div>
 <h1>จากข้อมูลดิบในฟาร์ม<br>ถึงผลที่ตีพิมพ์ได้</h1>
 <p>From raw farm data to publishable results. Your data stays on your device.</p>
 <div class="url">research.vetmock.com</div>
