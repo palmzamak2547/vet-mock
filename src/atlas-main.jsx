@@ -1,3 +1,5 @@
+// First: supplies .at(), Object.hasOwn and AbortSignal.timeout on iOS 14-15 before any module uses them.
+import './lib/platform-compat.js'
 // A direct Atlas link should not boot exam banks, account sync or the Home view.
 // The same AtlasView is also lazy-loaded inside the main VetMock app.
 import React, { useEffect } from 'react';

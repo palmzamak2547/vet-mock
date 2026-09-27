@@ -1,3 +1,5 @@
+// First: supplies .at(), Object.hasOwn and AbortSignal.timeout on iOS 14-15 before any module uses them.
+import './lib/platform-compat.js'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
