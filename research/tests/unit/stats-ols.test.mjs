@@ -118,7 +118,8 @@ test('a slope that is rounding noise shows 0 with the t, p and interval of 0 (re
   assert.equal(t, 0);
   assert.equal(p, 1);
   assert.equal(lo, -hi);
-  close(hi, 3.182446305284263 * s, 1e-12, 'interval of 0: qt(0.975, 3) x SE');
+  // qt(0.975, 3) = 3.1824463052837078 in R 4.6.0 (webR 0.6.0) and SciPy 1.17.1.
+  close(hi, 3.1824463052837078 * s, 1e-12, 'interval of 0: qt(0.975, 3) x SE');
   assert.equal(out.notes?.[0]?.key, 'stats.note.coefZero');
   close(out.tables[0].rows[0][1], 1.5, 1e-12, 'intercept = mean of y');
 });
