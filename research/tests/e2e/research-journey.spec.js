@@ -184,8 +184,7 @@ test('the student journey: import, clean, analyse with the farm guardrail, repor
   // Result: the CI plot and both paragraphs, each in Thai and English.
   await expect(page.locator('svg.rs-ciplot')).toBeVisible();
   // The plot is drawn at the width it is shown, so its labels stay readable (review round 1: 7 px).
-  const labelPx = await page.locator('svg.rs-ciplot text').first().evaluate((el) => el.getBoundingClientRect().height);
-  expect(labelPx, 'CI plot label height in CSS px').toBeGreaterThanOrEqual(11);
+  await expect.poll(() => page.locator('svg.rs-ciplot text').first().evaluate((el) => el.getBoundingClientRect().height), { message: 'CI plot label height in CSS px' }).toBeGreaterThanOrEqual(11);
   const paras = page.getByTestId('result-paragraphs');
   await expect(paras).toBeVisible();
   const texts = await paras.locator('.rs-para-text').allInnerTexts();

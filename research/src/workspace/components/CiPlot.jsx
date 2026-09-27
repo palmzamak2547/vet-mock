@@ -2,7 +2,7 @@
 // same numbers in a data table beside it and an aria-label that carries them, so the picture never
 // holds information the table does not. Colours are CSS variables on screen; the export inlines them.
 // Download as SVG, or PNG at 300 or 600 dpi for a chosen printed width. OWNER: workspace role.
-import { forwardRef, useEffect, useRef, useState } from 'react';
+import { forwardRef, useLayoutEffect, useRef, useState } from 'react';
 import { useT } from '../../i18n/index.js';
 import { ciPlotLayout, tickText } from '../lib/ci-plot.js';
 import ChartExport from './ChartExport.jsx';
@@ -56,16 +56,17 @@ export default function CiPlot({ items, log, refValue, title, fileBase, onDownlo
   // The plot is drawn at the width it is shown at, so its text stays 12 to 13 CSS px on a phone and
   // beside a table (review round 1: scaling a 560 px drawing into a narrow column gave 7 px labels).
   const [width, setWidth] = useState(560);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = boxRef.current;
-    if (!el || typeof ResizeObserver === 'undefined') return undefined;
-    const ro = new ResizeObserver(([e]) => {
-      const w = Math.floor(e.contentRect.width);
-      if (w > 0) setWidth((old) => (Math.abs(old - Math.max(200, Math.min(720, w))) >= 4 ? Math.max(200, Math.min(720, w)) : old));
-    });
+    if (!el) return undefined;
+    const fit = (w) => { if (w > 0) setWidth((old) => (Math.abs(old - Math.max(200, Math.min(720, w))) >= 4 ? Math.max(200, Math.min(720, w)) : old)); };
+    // Measured before the first paint, then kept in step with the column.
+    fit(Math.floor(el.clientWidth));
+    if (typeof ResizeObserver === 'undefined') return undefined;
+    const ro = new ResizeObserver(([e]) => fit(Math.floor(e.contentRect.width)));
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [items.length > 0]);
   if (!items.length) return null;
   const labelW = Math.round(Math.min(170, width * 0.36));
   const ariaLabel = t('ws.plot.aria', { title, rows: items.map((r) => (r.ciText ? t('ws.plot.ariaRowCi', { label: r.label, est: r.estText, level: levelText, ci: r.ciText }) : t('ws.plot.ariaRow', { label: r.label, est: r.estText }))).join('; ') });

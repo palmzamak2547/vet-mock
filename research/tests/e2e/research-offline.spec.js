@@ -23,9 +23,12 @@ test('visit, go offline, reload /app, open a project, run an analysis', async ({
   await page.evaluate((u) => fetch(u).then((r) => r.ok), workerUrl);
 
   const name = `ออฟไลน์ ${Date.now()}`;
-  await page.locator('#rs-newname').fill(name);
-  // The create button enables once the name reaches React state; Enter submits only then.
-  await expect(page.locator('#rs-newname').locator('xpath=following-sibling::button')).toBeEnabled();
+  // The create button enables once the name reaches React state; Enter submits only then. In WebKit a
+  // fill can land before the form has mounted its handler, so the fill is retried until the button enables.
+  await expect(async () => {
+    await page.locator('#rs-newname').fill(name);
+    await expect(page.locator('#rs-newname').locator('xpath=following-sibling::button')).toBeEnabled({ timeout: 2_000 });
+  }).toPass({ timeout: 20_000 });
   await page.locator('#rs-newname').press('Enter');
   await expect(page).toHaveURL(/\/app\/p\/[0-9a-f-]{36}/);
   const projectPath = new URL(page.url()).pathname.match(/\/app\/p\/[0-9a-f-]{36}/)[0];

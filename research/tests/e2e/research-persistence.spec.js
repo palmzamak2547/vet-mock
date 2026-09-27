@@ -20,9 +20,12 @@ test('a guest project survives a reload and a new tab, keyed by owner', async ({
   await seenEntrance(page);
   await page.goto('/app');
   const name = `ทดสอบเก็บในเครื่อง ${Date.now()}`;
-  await page.locator('#rs-newname').fill(name);
-  // The create button enables once the name reaches React state; Enter submits only then.
-  await expect(page.locator('#rs-newname').locator('xpath=following-sibling::button')).toBeEnabled();
+  // The create button enables once the name reaches React state; Enter submits only then. In WebKit a
+  // fill can land before the form has mounted its handler, so the fill is retried until the button enables.
+  await expect(async () => {
+    await page.locator('#rs-newname').fill(name);
+    await expect(page.locator('#rs-newname').locator('xpath=following-sibling::button')).toBeEnabled({ timeout: 2_000 });
+  }).toPass({ timeout: 20_000 });
   await page.locator('#rs-newname').press('Enter');
   await expect(page).toHaveURL(/\/app\/p\/[0-9a-f-]{36}\/import/);
   const id = new URL(page.url()).pathname.split('/')[3];
