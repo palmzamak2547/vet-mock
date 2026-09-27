@@ -287,11 +287,14 @@ export function runTwoByTwo(spec, table) {
         if (spec.cluster?.deff > 0) deff = spec.cluster.deff;
         else {
           // ICC of the outcome over every animal with the outcome and the farm (not only the rows
-          // with a known exposure); DEFF with the mean cluster size.
+          // with a known exposure; "the ICC of the whole set", M1-DESIGN.md 7.20); DEFF with the mean
+          // cluster size of those animals. nIcc says how many they are, because it can exceed the rows
+          // the 2x2 uses (review round 3: vaccine x ELISA uses 682 rows, the ICC and the mean farm
+          // size 14.86 come from 728 animals in 49 farms).
           const icc = outcomeIcc(table, spec.roles.outcome, spec.levels.outcomePositive, clusterKey);
           if (icc.icc === null) return invalidOutput(icc.reasonKey || 'epi.undefined.iccNotEstimable');
           deff = designEffect(icc.icc, icc.meanSize, icc.n).deff;
-          clusterValues = { icc: val(icc.icc), meanSize: val(icc.meanSize), clusters: val(icc.k) };
+          clusterValues = { icc: val(icc.icc), meanSize: val(icc.meanSize), clusters: val(icc.k), nIcc: val(icc.n) };
         }
       }
     }

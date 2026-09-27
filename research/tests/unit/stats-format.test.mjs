@@ -9,7 +9,8 @@ import dict from '../../src/i18n/stats.js';
 
 test('format: p-values', () => {
   assert.equal(formatP(0.0689), '0.069');
-  assert.equal(formatP(0.04998), '0.050');
+  // Below 0.05 never prints as 0.050 (review round 3): the decimals that keep it below.
+  assert.equal(formatP(0.04998), '0.04998');
   assert.equal(formatP(0.001), '0.001');
   assert.equal(formatP(0.00099), '< 0.001');
   assert.equal(formatP(6.23e-5), '< 0.001');
@@ -62,4 +63,53 @@ test('format: a share that is not 0 or 1 never prints as 0% or 100% (review roun
   assert.equal(formatNumber(1, { kind: 'proportion' }), '100.0%');
   assert.equal(formatNumber(0.00004, { kind: 'proportion' }), '< 0.01%');
   assert.equal(formatNumber(0.2005, { kind: 'proportion' }), '20.1%');
+});
+
+test('format: a p below 0.05 never prints at or above 0.05 (review round 3)', () => {
+  assert.equal(formatP(0.0496), '0.0496');
+  assert.equal(formatP(0.0495), '0.0495');
+  assert.equal(formatP(0.04996), '0.04996');
+  // Six decimals still round to 0.050000: the inequality, which is true, instead.
+  assert.equal(formatP(0.0499999), '< 0.050');
+  // At or above 0.05 it is on the same side as "0.050".
+  assert.equal(formatP(0.05), '0.050');
+  assert.equal(formatP(0.0500001), '0.050');
+  assert.equal(formatP(0.0504), '0.050');
+  assert.equal(formatP(0.0494), '0.049');
+  // Every p from 0.04 to 0.06 in steps of 1e-6: the printed p is below 0.05 exactly when p is.
+  for (let i = 40000; i <= 60000; i++) {
+    const p = i / 1e6;
+    const s = formatP(p);
+    const printedBelow = s.startsWith('<') || Number(s) < 0.05;
+    assert.equal(printedBelow, p < 0.05, `p ${p} printed ${s}`);
+  }
+});
+
+test('format: a percent above 100 is not "> 99.99%" (review round 3)', () => {
+  assert.equal(formatNumber(100.001, { kind: 'percent' }), '100.0%');
+  assert.equal(formatNumber(100.04, { kind: 'percent' }), '100.0%');
+  assert.equal(formatNumber(99.996, { kind: 'percent' }), '> 99.99%');
+  assert.equal(formatNumber(-99.996, { kind: 'percent' }), '< -99.99%');
+  assert.equal(formatNumber(1.00001, { kind: 'proportion' }), '100.0%');
+});
+
+test('format: a value judged against a threshold keeps its side of it (below / above, review round 3)', () => {
+  // Chi-square's smallest expected count against Cochran's 1 and 5 (G5).
+  const e = { kind: 'statistic', below: [1, 5] };
+  assert.equal(formatNumber(4.996, e), '4.996');
+  assert.equal(formatNumber(0.9996, e), '0.9996');
+  assert.equal(formatNumber(4.9999999, e), '< 5.00');
+  assert.equal(formatNumber(5.0004, e), '5.00');
+  assert.equal(formatNumber(47.134078212290504, e), '47.13');
+  // A share of cells above 20% never prints as 20.0%.
+  assert.equal(formatNumber(0.2004, { kind: 'proportion', above: [0.2] }), '20.04%');
+  assert.equal(formatNumber(0.2, { kind: 'proportion', above: [0.2] }), '20.0%');
+  // Kappa against the course's band edges: 0.5996 is still "moderate".
+  assert.equal(formatNumber(0.5996, { kind: 'statistic', below: [0.2, 0.4, 0.6, 0.8] }), '0.5996');
+  assert.equal(formatNumber(0.65, { kind: 'statistic', below: [0.2, 0.4, 0.6, 0.8] }), '0.650');
+  // The interval's bounds keep the same sides, and fixed digits too.
+  assert.equal(formatCi({ value: 4.996, ci: [3.2, 4.9996], kind: 'statistic', below: [5] }, 'en'), '4.996 (3.20 to 4.9996)');
+  assert.equal(formatNumber(4.996, { kind: 'statistic', digits: 2, below: [5] }), '4.996');
+  // Without thresholds nothing changes.
+  assert.equal(formatNumber(4.996, { kind: 'statistic' }), '5.00');
 });

@@ -155,6 +155,12 @@ test('runTwoByTwo on the rebuilt serosurvey: rows, the DEFF route and the within
   close(deff.values.PR.ci[0], SERO.assoc.deffPR.ci[0], 1e-7, 'DEFF PR lower (numbers.json z = 1.959964)');
   close(deff.values.PR.ci[1], SERO.assoc.deffPR.ci[1], 1e-7, 'DEFF PR upper');
   assert.equal(deff.values.PR.ciMethod, 'wald-log+deff');
+  // Where the ICC and the farm size come from (review round 3): 728 animals in 49 farms, mean
+  // 728 / 49 = 14.857, while the 2x2 uses the 716 with a known age.
+  assert.equal(deff.values.nIcc.value, SERO.n);
+  assert.equal(deff.values.clusters.value, 49);
+  close(deff.values.meanSize.value, SERO.mBar, CLOSED, 'mean farm size');
+  assert.equal(deff.used, SERO.assoc.nKnown);
 
   const within = runTwoByTwo(spec('epi.twoByTwo', ds, { ...SERO_ROLES, design: 'cross-sectional', route: 'mh-within' }), t);
   close(within.values.PR.value, SERO.assoc.mh.pr.est, CLOSED, 'MH PR');
@@ -192,3 +198,24 @@ test('a zero-width Wald interval is never printed as a 95% CI (review round 1)',
   const nc = twoByTwo([[0, 10], [0, 10]], { measures: ['RD'], rdCi: 'newcombe' });
   assert.ok(nc.RD.ci[0] < 0 && nc.RD.ci[1] > 0);
 });
+
+test('the DEFF route says where its ICC and farm size come from: 728 animals, while vaccine x ELISA uses 682 rows (review round 3)', async () => {
+  const { serosurveyTable: studioTable } = await import('./runtime-m1-specs.mjs');
+  const { handleRequest } = await import('../../src/lib/runtime/engine-core.js');
+  const { makeSpec } = await import('../../src/lib/runtime/spec.js');
+  const { table, codebook, steps, keys } = await studioTable();
+  const s = makeSpec('epi.twoByTwo', { kind: 'dataset', datasetId: 'd', recipeRev: 3 }, {
+    design: 'cross-sectional', roles: { exposure: keys.vaccine, outcome: keys.elisa },
+    levels: { outcomePositive: 'บวก', exposureLevel: 'ไม่ฉีด', referenceLevel: 'ฉีด' },
+    cluster: { route: 'deff', column: codebook.clusterKey },
+  });
+  const { result: env } = await handleRequest('run', { spec: s, table, codebook, steps }, { mode: 'worker' });
+  assert.equal(env.status, 'ok');
+  // 46 cows answered "ไม่ทราบ" for the vaccine (numbers.json conv.missing): 728 - 46 = 682 in the 2x2.
+  assert.equal(env.provenance.rowsUsed, 682);
+  assert.equal(env.values.nIcc.value, 728);
+  assert.equal(env.values.clusters.value, 49);
+  close(env.values.meanSize.value, 728 / 49, CLOSED, 'mean farm size of the ICC animals');
+  close(env.values.deff.value, SERO.deff, CLOSED, 'DEFF from the ICC of the whole set');
+});
+

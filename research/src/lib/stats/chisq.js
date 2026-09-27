@@ -6,7 +6,8 @@
 // weighted regression of x/n on the scores with weights n / (p (1 - p)); its statistic is the
 // regression sum of squares, written here in closed form.
 //
-// runChisq values: minExpected, shareBelow5 (share of cells with E < 5, for G5); test 'chisq'
+// runChisq values: minExpected, shareBelow5 (share of cells with E < 5, for G5; each carries the
+// thresholds G5 uses as below / above, for stats/format.js); test 'chisq'
 // (X2, df, p, variant 'pearsonX2' or 'yates'); tables 'observed' and 'expected'.
 // runTrend: test 'trend' (X2, df 1, p); table 'proportions' (level, x, n, proportion, score).
 import { pchisqUpper } from './dist.js';
@@ -96,8 +97,10 @@ export function runChisq(spec, table) {
   return {
     status: r.X2 === null ? 'invalid' : 'ok',
     values: {
-      minExpected: Number.isFinite(r.minExpected) ? val(r.minExpected) : nullVal('stats.undefined.noData'),
-      shareBelow5: val(r.shareBelow5),
+      // G5 judges these against Cochran's rule (any E below 1, more than 20% below 5): the thresholds
+      // travel with the values so the printed number keeps its side of each (stats/format.js).
+      minExpected: Number.isFinite(r.minExpected) ? val(r.minExpected, { below: [1, 5] }) : nullVal('stats.undefined.noData'),
+      shareBelow5: val(r.shareBelow5, { above: [0.2] }),
     },
     tests: [testRow({ id: 'chisq', name: 'X2', statistic: r.X2, df: r.df, p: r.p, variant: yates && is2x2 ? 'yates' : 'pearsonX2', reasonKey: r.reasonKey })],
     tables: [

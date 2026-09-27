@@ -59,6 +59,68 @@ test('OLS: SciPy cross-check', () => {
   close(f.coef[1], c.slope, 1e-12, 'scipy slope');
   close(f.se[1], c.slopeSE, 1e-12, 'scipy slope SE');
   close(f.r2, c.r2, 1e-12, 'scipy r2');
+  const b = SCIPY['ols.largeScaleX'];
+  const big = R.cases.largeScaleX;
+  const g = olsQr(big.x.map((x) => [1, x]), big.y);
+  close(g.coef[1], b.slope, 1e-12, 'scipy slope (x from 1e10 to 1e12)');
+  close(g.se[1], b.slopeSE, 1e-12, 'scipy slope SE (x from 1e10 to 1e12)');
+  close(g.t[1], b.t, 1e-12, 'scipy t (x from 1e10 to 1e12)');
+  close(g.p[1], b.pSlope, 1e-9, 'scipy p (x from 1e10 to 1e12)');
+});
+
+test('a real slope on a large-scale x is never taken for rounding (review round 3, R 4.6.0 largeScaleX)', () => {
+  // x from 1e10 to 1e12 copies/mL, y near 300,000 g: slope 9.95e-8 per copy, t 232. The old rule
+  // (|b| < 1e-12 max|y|) printed it as 0 with an interval of -8.8e-10 to 8.8e-10 beside that t.
+  const c = R.cases.largeScaleX;
+  const v = c.values;
+  const out = runOls(spec('reg.ols', { roles: { outcome: 'y', covariates: ['x'] } }), makeTable({ x: { kind: 'number', values: c.x }, y: { kind: 'number', values: c.y } }));
+  assert.equal(out.notes, undefined, 'no coefficient zeroed');
+  const [term, b, s, t, p, lo, hi] = out.tables[0].rows[1];
+  assert.equal(term, 'x');
+  close(b, v.coef[1], TOL.closed, 'R slope');
+  close(s, v.se[1], TOL.closed, 'R slope SE');
+  close(t, v.t[1], TOL.closed, 'R t');
+  close(p, v.p[1], 1e-9, 'R p');
+  close(lo, v.lower[1], TOL.closed, 'R confint lower');
+  close(hi, v.upper[1], TOL.closed, 'R confint upper');
+  close(out.tables[0].rows[0][1], v.coef[0], TOL.closed, 'R intercept');
+  // The rule does not depend on the units of x: the same data in 1e10 copies/mL gives slope x 1e10.
+  const scaled = runOls(spec('reg.ols', { roles: { outcome: 'y', covariates: ['x'] } }), makeTable({ x: { kind: 'number', values: c.x.map((x) => x / 1e10) }, y: { kind: 'number', values: c.y } }));
+  close(scaled.tables[0].rows[1][1], v.coef[1] * 1e10, 1e-9, 'slope per 1e10 copies');
+});
+
+test('the rounding rule sits below 1e-10 of the spread of y: a term that small is still shown (review round 3)', () => {
+  // y = x1 + 1e-14 x2 by construction, x2 in the millions: the x2 term is 1.5e-10 of the spread of y,
+  // 1e5 times the rounding of y itself, so the fit recovers 1e-14 to about 6 digits (rounding y to
+  // doubles moves it by ~1e-6 relative). A threshold of 1e-9 or the old |b| < 1e-12 max|y| zeroes it.
+  const x1 = [100, 250, 400, 550, 700, 1000];
+  const x2 = [3e6, -1e6, 4e6, -1e6, -5e6, 9e6];
+  const y = x1.map((v, i) => v + 1e-14 * x2[i]);
+  const f = olsQr(x1.map((v, i) => [1, v, x2[i]]), y);
+  assert.deepEqual(f.noise, [true, false, false], 'only the intercept (exactly 0 by construction) is rounding');
+  close(f.coef[2], 1e-14, 1e-4, 'x2 coefficient');
+  assert.ok(Math.abs(f.coef[2]) < 1e-12 * Math.max(...y), 'the old rule would have printed it as 0');
+});
+
+test('a slope that is rounding noise shows 0 with the t, p and interval of 0 (review round 3)', () => {
+  // y is symmetric about the middle x, so the exact least-squares slope is 0: sum (x - 0.3)(y - 1.5) =
+  // -0.2 x -0.4 - 0.1 x 0.8 + 0 + 0.1 x 0.8 + 0.2 x -0.4 = 0. QR gives about 5e-16.
+  const x = [0.1, 0.2, 0.3, 0.4, 0.5];
+  const y = [1.1, 2.3, 0.7, 2.3, 1.1];
+  const f = olsQr(x.map((v) => [1, v]), y);
+  assert.ok(f.coef[1] !== 0 && Math.abs(f.coef[1]) < 1e-14, `raw slope ${f.coef[1]}`);
+  assert.deepEqual(f.noise, [false, true]);
+  const out = runOls(spec('reg.ols', { roles: { outcome: 'y', covariates: ['x'] } }), makeTable({ x: { kind: 'number', values: x }, y: { kind: 'number', values: y } }));
+  const [, b, s, t, p, lo, hi] = out.tables[0].rows[1];
+  assert.equal(b, 0);
+  // By hand: residual SS = sum (y - 1.5)^2 = 2.24 on 3 df, Sxx = 0.1, so SE = sqrt(2.24 / 3 / 0.1).
+  close(s, Math.sqrt(2.24 / 3 / 0.1), 1e-12, 'slope SE by hand');
+  assert.equal(t, 0);
+  assert.equal(p, 1);
+  assert.equal(lo, -hi);
+  close(hi, 3.182446305284263 * s, 1e-12, 'interval of 0: qt(0.975, 3) x SE');
+  assert.equal(out.notes?.[0]?.key, 'stats.note.coefZero');
+  close(out.tables[0].rows[0][1], 1.5, 1e-12, 'intercept = mean of y');
 });
 
 test('OLS: an aliased column gets no coefficient, like R', () => {

@@ -104,7 +104,8 @@ function invUpper(R) {
  * @param {number[]} y
  * @param {{ intercept?: boolean|null }} [opts]  intercept: which column is the intercept is detected
  *   (a column of ones); pass false to fit without centring even if a column of ones is present
- * @returns {{ coef: (number|null)[], se: (number|null)[], t: (number|null)[], p: (number|null)[], df: number, sigma: number|null, r2: number|null, adjR2: number|null, F: number|null, pF: number|null, rank: number, rss: number, aliased: boolean[] }}
+ * @returns {{ coef: (number|null)[], se: (number|null)[], t: (number|null)[], p: (number|null)[], df: number, sigma: number|null, r2: number|null, adjR2: number|null, F: number|null, pF: number|null, rank: number, rss: number, aliased: boolean[], noise: boolean[], perfectFit: boolean }}
+ *   noise[j]: coef[j] is rounding left over from the arithmetic (the exact value is 0); runOls shows it as 0
  */
 export function olsQr(X, y, opts = {}) {
   const n = y.length;
@@ -158,6 +159,20 @@ export function olsQr(X, y, opts = {}) {
     coef[icol] = b0;
     se[icol] = Math.sqrt(v);
   }
+  // Rounding left over from the arithmetic, not an estimate: a slope whose part of the fitted values,
+  // |b| x the norm of its (centred) column, is below 1e-12 of the norm of (centred) y, the scales the
+  // QR works on, so the units of x do not matter; an intercept below 1e-12 of |ybar| + sum |xbar b|, the
+  // terms it is the difference of. Review round 3: the earlier rule |b| < 1e-12 max|y| ignored the
+  // scale of x and zeroed a real slope of 9.9e-8 per copy on x from 1e10 to 1e12 (t = 232).
+  const yScale = norm2(yc);
+  const noise = new Array(p).fill(false);
+  let parts = Math.abs(ybar);
+  keptIdx.forEach((a) => {
+    const j = others[a];
+    if (coef[j] !== 0 && Math.abs(coef[j]) * scale[a] < 1e-12 * yScale) noise[j] = true;
+    parts += Math.abs(xbar[a] * coef[j]);
+  });
+  if (hasInt && coef[icol] !== 0 && Math.abs(coef[icol]) < 1e-12 * parts) noise[icol] = true;
   const t = coef.map((b, j) => (b === null || !(se[j] > 0) ? null : b / se[j]));
   const pv = t.map((tv) => (tv === null || !(df > 0) ? null : ptTwoSided(tv, df)));
   const tss = hasInt ? ksum(yc.map((v) => v * v)) : ksum(y.map((v) => v * v));
@@ -176,9 +191,9 @@ export function olsQr(X, y, opts = {}) {
   const sdY = n > 1 ? Math.sqrt(tss / (n - (hasInt ? 1 : 0))) : 0;
   const perfectFit = df > 0 && sdY > 0 && Math.sqrt(sigma2) / sdY < 1e-10;
   if (perfectFit) {
-    return { coef, se: se.map((s) => (s === null || Number.isNaN(s) ? null : s)), t: t.map(() => null), p: pv.map(() => null), df, sigma: Math.sqrt(sigma2), r2, adjR2, F: null, pF: null, rank: rank + (hasInt ? 1 : 0), rss, aliased, perfectFit };
+    return { coef, se: se.map((s) => (s === null || Number.isNaN(s) ? null : s)), t: t.map(() => null), p: pv.map(() => null), df, sigma: Math.sqrt(sigma2), r2, adjR2, F: null, pF: null, rank: rank + (hasInt ? 1 : 0), rss, aliased, noise, perfectFit };
   }
-  return { coef, se: se.map((s) => (s === null || Number.isNaN(s) ? null : s)), t, p: pv, df, sigma: df > 0 ? Math.sqrt(sigma2) : null, r2, adjR2, F, pF, rank: rank + (hasInt ? 1 : 0), rss, aliased, perfectFit: false };
+  return { coef, se: se.map((s) => (s === null || Number.isNaN(s) ? null : s)), t, p: pv, df, sigma: df > 0 ? Math.sqrt(sigma2) : null, r2, adjR2, F, pF, rank: rank + (hasInt ? 1 : 0), rss, aliased, noise, perfectFit: false };
 }
 
 /**
@@ -218,15 +233,21 @@ export function runOls(spec, table) {
   if (rows.length <= X[0]?.length) return { status: 'invalid', values: { reason: nullVal('stats.undefined.noResidualDf') }, tests: [], tables: [], used: rows.length, dropped };
   const f = olsQr(X, y, { intercept });
   const q = f.df > 0 ? qt(1 - (1 - confLevel) / 2, f.df) : NaN;
-  // A coefficient below 1e-12 of the scale of y is rounding left over from the arithmetic, not an
-  // estimate (review round 2: -4.44e-16 printed in exponent form); it is shown as 0 with a note.
-  const scale = y.reduce((m, v) => Math.max(m, Math.abs(v)), 0);
+  // A coefficient that is rounding noise (olsQr's scale-free rule) is shown as 0 with a note (review
+  // round 2: -4.44e-16 printed in exponent form), and its t, p and interval are those of 0, so the row
+  // never pairs a 0 with the t of the noise (review round 3).
   let zeroed = 0;
   const coefRows = terms.map((term, j) => {
     let b = f.coef[j];
-    if (b !== null && b !== 0 && Math.abs(b) < 1e-12 * scale) { b = 0; zeroed++; }
+    let tv = f.t[j];
+    let pv = f.p[j];
+    if (b !== null && f.noise[j]) {
+      b = 0; zeroed++;
+      if (tv !== null) tv = 0;
+      if (pv !== null) pv = ptTwoSided(0, f.df);
+    }
     const s = f.se[j];
-    return [term, b, s, f.t[j], f.p[j], b === null || s === null || Number.isNaN(q) ? null : b - q * s, b === null || s === null || Number.isNaN(q) ? null : b + q * s];
+    return [term, b, s, tv, pv, b === null || s === null || Number.isNaN(q) ? null : b - q * s, b === null || s === null || Number.isNaN(q) ? null : b + q * s];
   });
   const values = {
     n: val(rows.length),

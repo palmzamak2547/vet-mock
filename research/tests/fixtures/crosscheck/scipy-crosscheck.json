@@ -241,6 +241,21 @@
   "r2": 0.9838697216814152,
   "pSlope": 1.8631466008470504e-08
  },
+ "ols.largeScaleX": {
+  "data": "x = 1e10 + 3.4e10 i (i = 0..29), y as in r/ols.R largeScaleX",
+  "R": "summary(lm(y ~ x)); confint()",
+  "slope": 9.945050767544095e-08,
+  "slopeSE": 4.2785925704676604e-10,
+  "t": 232.43743365957084,
+  "pSlope": 1.4965161953179685e-47,
+  "intercept": 300269.26422140456,
+  "interceptSE": 249.34052677645488,
+  "r2": 0.9994820106034893,
+  "slopeCi": [
+   9.857407771762316e-08,
+   1.0032693763325875e-07
+  ]
+ },
  "desc.quantiles": {
   "data": "quantiles",
   "R": "quantile(v, c(.25,.5,.75), type = 7) and type = 6",

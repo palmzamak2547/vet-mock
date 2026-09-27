@@ -85,6 +85,8 @@ export function kappa(table, opts = {}) {
       ci: se === null ? [null, null] : [kw - z * se, kw + z * se], ciLevel: confLevel, ciMethod: 'fleiss-cohen-everitt', se,
       ...(se === null ? { reasonKey: 'epi.undefined.kappaNoVariance' } : {}),
       ...(band ? { bandKey: `epi.kappa.band.${band}` } : {}),
+      // The band edges, so a kappa of 0.5996 ("moderate") never prints as 0.600 (stats/format.js below).
+      below: COURSE_KAPPA_BANDS.slice(1).map((b) => b.from),
     });
   }
   if (k === 2) {

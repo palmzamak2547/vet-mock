@@ -273,6 +273,14 @@ Longley (certified b0 = -3482258.63459582 with SD 890420.383607373, through b6 =
 SD 455.478499142212), Norris, Wampler4 (`published/nist/nist.json`, LRE thresholds in its README);
 simple regression on `corr`: slope 0.9128549130812948 (SE 0.04132462264967751), intercept
 0.8463129549976767 (SE 0.2682887945869892), R^2 0.9838697216814152 (SciPy; R `summary(lm())` via rparity).
+Rounding (review round 3): a coefficient is shown as 0 with the note `stats.note.coefZero` only when it
+is rounding left over from the arithmetic, judged without the units of x: a slope when |b| x the norm of
+its (centred) column is below 1e-12 of the norm of (centred) y, an intercept when |b0| is below 1e-12 of
+|ybar| + sum |xbar b|; its t, p and interval are then those of 0 (t 0, p 1, 0 +- t_q SE). Pin: R
+`largeScaleX` (x = 1e10 + 3.4e10 i for i = 0..29, y near 300,000, `r/ols.R`): slope 9.945050767544097e-08,
+SE 4.2785925704677054e-10, t 232.43743365956843, p 1.4965161953180205e-47, `confint` 9.857407771762316e-08
+to 1.0032693763325878e-07 (SciPy `ols.largeScaleX` agrees to 1e-13); the earlier rule |b| < 1e-12 max|y|
+printed that slope as 0.
 
 ### 7.12 Chi-square and trend (`stats/chisq.js`)
 `test.chisq`: Pearson r x c; option `yates` (default off; a visible switch for 2x2); expected counts and
@@ -281,6 +289,8 @@ scores `rank` = 1..k or typed). Fixtures:
 - Serosurvey 2x2 [[116, 364], [27, 209]]: Pearson X2 16.030928230129575, p 6.231615503879597e-05;
   Yates X2 15.244605862236085, p 9.444611147584746e-05; smallest expected 47.134078212290504
   (numbers.json and SciPy agree).
+- `minExpected` carries `below: [1, 5]` and `shareBelow5` carries `above: [0.2]`, the thresholds G5
+  judges them by, so the display keeps each value on its side (10.6).
 - [[20, 15, 10], [10, 20, 25]]: X2 9.571909571909572, df 2, p 0.00834615115458955.
 - Trend x = 15, 10, 8, 4 of n = 20 each, scores 1..4: X2 12.319296040226273, p 0.0004482997378110536
   (formula; R `prop.trend.test` via rparity).
@@ -324,7 +334,17 @@ Cross-check: epiR `epi.2by2` with `method` "cross.sectional", "cohort.count", "c
 ### 7.16 Mantel-Haenszel (`epi/mh.js`, method `epi.mantelHaenszel`)
 Options: `measure` OR or RR/PR (by design), `orCi` `rgb`, `rrCi` `greenland-robins`, `cmhContinuity`
 true (R default), homogeneity Breslow-Day with Tarone (OR) or Woolf (RR). Strata with fewer than two
-animals are skipped and counted. Fixtures:
+animals are skipped and counted. Homogeneity (review round 3): each test sums a named set of strata and
+its df is their number minus 1. Woolf (RR/PR over the strata with a positive in both groups, OR over the
+strata with no empty cell) is centred on the inverse-variance mean of the strata it sums (Jewell 2004
+eq 10.3; epiR `epi.2by2`, cran/epiR R/epi.2by2.R version 2.0.98 lines 1583-1602, the same code in
+webR's epiR 2.0.93), never on the MH estimate of every informative stratum, which adds
+sum(w) (ln E_w - ln E_MH)^2 to X2. Breslow-Day and Tarone sum the informative strata (a stratum whose
+a is fixed by its margins adds exactly 0), so df = informative - 1.
+Each homogeneity test row carries `strataIncluded` (stratum labels, the farm ids on the within-farm
+route) and `strataRule` (`positive-both-groups`, `no-zero-cell` or `informative`); the row
+`homogeneityUncorrected` (Breslow-Day before Tarone) repeats the question for the result table and is
+left out of G8, G12 and the report's test sentences. Fixtures:
 - Serosurvey, farm as stratum (the G1 "within-farm" route; numbers.json `assoc.mh`): 49 strata, 43
   informative; MH PR 2.17392147567125, CI 1.4682451741496192 to 3.218763913269349; MH OR
   2.6515688949522516, CI 1.6526404613060854 to 4.254293519548609; CMH with continuity
@@ -332,8 +352,16 @@ animals are skipped and counted. Fixtures:
 - Three strata [[10, 20], [5, 25]], [[8, 12], [6, 24]], [[15, 5], [9, 11]] (formula in Python):
   OR_MH 2.8668767231193386, RGB CI 1.3748779953123802 to 5.97797198994088; CMH corrected
   7.02927293327764, p 0.008018790303037992; Breslow-Day 0.19007413066610213 (p 0.909339228882206);
-  Tarone 0.19003357094252898. R pin: `mantelhaen.test` and Breslow-Day (DescTools
-  `BreslowDayTest(correct = TRUE)` when available in webR, else the formula in base R) via rparity.
+  Tarone 0.19003357094252898; Woolf RR 0.1769646047347643 (df 2, p 0.9153193095775255). R pin:
+  `mantelhaen.test`, Breslow-Day and Woolf in base R (DescTools does not load in webR 0.6.0), each
+  checked inside `r/mh.R` against epiR 2.0.93 `epi.2by2` (`wRR.homog`, `wOR.homog` after its 0.5 on every
+  cell, `bOR.homog`) on the strata with a positive in both groups.
+- Serosurvey farm strata (age): Woolf RR 13.600799848423206 on 19 df (p 0.8064455995654826; the MH-centred
+  version read 22.08); Breslow-Day 43.648640856186304 on 42 df (43 informative strata; p 0.4012290160477722).
+- Serosurvey farm strata, not vaccinated in the last 6 months vs vaccinated (682 cows with a known
+  answer; the within-farm route of the review): MH PR 1.320341109887577; Woolf 9.768765143802984 on 9 df
+  over the farms F02, F06, F08, F15, F18, F22, F29, F42, F43, F44, p 0.36952740725363953 (= epiR
+  `wRR.homog`); the MH-centred version read 30.75, p 0.0003, and raised G12.
 
 ### 7.17 Frequency (`epi/frequency.js`)
 - `freq.proportion` (apparent prevalence): 7.5; course 107002 17/179 = 9.5%; 107003 period 10/20 = 50%,
@@ -363,7 +391,8 @@ weighted 0.6967608545830463, quadratic weighted 0.7667638483965014 (formula; R `
 rparity). 2x2 [[40, 9], [6, 45]]: po 0.85, kappa 0.6995192307692307, PABAK 0.7, prevalence index
 0.05, bias index 0.03 (formula; epiR `epi.kappa` via rparity). Course 107027: 865/986 =
 0.8772819472616633. Course 107023: kappa 0.65 falls in the course's band "substantial" (0.60 to 0.79);
-the bands are shown as the course's, beside the number.
+the bands are shown as the course's, beside the number. The kappa value carries the band edges as
+`below: [0.2, 0.4, 0.6, 0.8]` so a kappa of 0.5996 ("moderate") never prints as 0.600 (10.6).
 
 ### 7.20 Guardrails (`epi/guardrails.js`)
 The M1 set and severities are listed in the file (G1 to G13, G16 to G20, G24 to G26). Behaviour:
@@ -381,6 +410,11 @@ The M1 set and severities are listed in the file (G1 to G13, G16 to G20, G24 to 
   m = 728/49 = 14.857142857142858, effective n 428.01525723344724; DEFF-widened Wald CI for the
   prevalence 0.1626157675881332 to 0.23848313351076791; DEFF-widened PR CI 1.272298891572946 to
   3.507040914046339.
+- The ICC, the mean farm size and so the DEFF come from every animal with the outcome and a farm ("the
+  ICC of the whole set"), which can be more than the rows a 2x2 uses. The DEFF route says so (review
+  round 3): its values carry `nIcc` (animals behind the ICC) beside `icc`, `meanSize`, `clusters`, and the
+  G1 panel carries `animals`. Vaccine x ELISA on the serosurvey: the 2x2 uses 682 rows, `nIcc` 728 in 49
+  farms, mean 14.86.
 
 ### 7.21 Clustering (`epi/cluster.js`, method `cluster.iccDeff`)
 ICC by the one-way ANOVA estimator with unequal cluster sizes (n0), DEFF = 1 + (m - 1) ICC with m the
@@ -602,7 +636,12 @@ and "ตรวจเทียบแล้ว" / "verified" only when `envelope.v
 
 ### 10.6 Number display (`stats/format.js`)
 p: never 0, 0.000 or .000; below 0.001 "< 0.001"; otherwise three decimals with a leading zero; no
-stars. Estimate and interval before p everywhere. Ratios below 10 with 2 decimals, 10 or more with 1;
+stars; a p below 0.05 never prints at or above 0.05 (0.0496 prints "0.0496"; closer than six decimals
+can show, "< 0.050"), because the report and G8/G12 word p < 0.05 differently (review round 3). The same
+care for any value a guard or a sentence judges against a threshold: `formatNumber(x, { below, above })`
+(thresholds in the value's own units), which a Value names when it has them (chi-square `minExpected`,
+`shareBelow5`; kappa's band edges). A percent above 100 prints as itself ("100.0%"), never "> 99.99%".
+Estimate and interval before p everywhere. Ratios below 10 with 2 decimals, 10 or more with 1;
 percentages with 1 decimal; never more digits than the method's fixture tolerance proves. Null prints
 "—" and its sentence. Arabic digits, en-US grouping. An open bound prints "ไม่มีขอบบน" / "no upper limit".
 

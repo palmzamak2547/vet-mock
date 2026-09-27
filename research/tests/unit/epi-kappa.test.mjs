@@ -88,3 +88,12 @@ test('kappa is null with a reason when chance agreement is 100%', () => {
   assert.equal(r.kappa.value, null);
   assert.equal(r.kappa.reasonKey, 'epi.undefined.kappaChanceIsOne');
 });
+
+test('kappa carries the course band edges, so 0.5996 ("moderate") never prints as 0.600 (review round 3)', async () => {
+  const { formatNumber } = await import('../../src/lib/stats/format.js');
+  const k = kappa([[20, 5, 1], [4, 15, 6], [1, 3, 25]]).kappa;
+  assert.deepEqual(k.below, [0.2, 0.4, 0.6, 0.8]);
+  assert.equal(courseKappaBand(0.5996), 'moderate');
+  assert.equal(formatNumber(0.5996, { kind: 'statistic', below: k.below }), '0.5996');
+});
+

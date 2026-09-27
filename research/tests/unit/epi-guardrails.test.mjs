@@ -67,6 +67,9 @@ test('G1 panel: ICC, DEFF and effective n come first (serosurvey-numbers)', () =
   close(p.nEff.value, SERO.nEff, CLOSED, 'effective n');
   close(p.meanSize, SERO.mBar, CLOSED, 'mean farm size');
   assert.equal(p.clusters, 49);
+  // The animals behind ICC, DEFF and effective n (review round 3): every one with an ELISA result.
+  assert.equal(p.animals, SERO.n);
+  close(p.nEff.value, p.animals / p.deff.value, CLOSED, 'effective n = animals / DEFF');
   const byId = Object.fromEntries(p.routes.map((r) => [r.id, r]));
   assert.equal(byId['mh-within'].enabled, true);
   assert.equal(byId.deff.enabled, true);
@@ -166,6 +169,12 @@ test('result guards: G8 for p above 0.05, G12 for strata that disagree', () => {
   assert.deepEqual(resultGuards({}, { status: 'stopped' }).warnings, []);
   // A null p (an undefined test) raises nothing.
   assert.deepEqual(resultGuards({}, { status: 'ok', tests: [{ id: 'cmh', p: null }] }).warnings, []);
+  // Breslow-Day before Tarone's correction repeats the homogeneity question (review round 3): it is
+  // not a test for G8 and does not raise G12 on its own.
+  const bd = { status: 'ok', tests: [{ id: 'cmh', p: 0.001 }, { id: 'homogeneity', p: 0.6 }, { id: 'homogeneityUncorrected', p: 0.6 }] };
+  assert.deepEqual(resultGuards({}, bd).warnings, []);
+  const bd2 = { status: 'ok', tests: [{ id: 'cmh', p: 0.3 }, { id: 'homogeneity', p: 0.6 }, { id: 'homogeneityUncorrected', p: 0.04 }] };
+  assert.deepEqual(resultGuards({}, bd2).warnings.map((f) => [f.id, f.params.tests]), [['G8', ['cmh']]]);
 });
 
 test('G5 warns on McNemar chi-square with few discordant pairs (review round 1)', () => {

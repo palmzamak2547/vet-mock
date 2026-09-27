@@ -7,8 +7,13 @@
 // OWNER: epi role.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mantelHaenszel, runMantelHaenszel, breslowDay, expectedAAtOr } from '../../src/lib/epi/mh.js';
+import { mantelHaenszel, runMantelHaenszel, breslowDay, expectedAAtOr, woolfHomogeneity } from '../../src/lib/epi/mh.js';
 import { SERO, SERO_STRATA, SERO_ROLES, serosurveyTable, spec, readFixture, close, CLOSED, ITER } from './epi-fixtures.mjs';
+import { serosurveyTable as studioTable } from './runtime-m1-specs.mjs';
+import { handleRequest } from '../../src/lib/runtime/engine-core.js';
+import { makeSpec } from '../../src/lib/runtime/spec.js';
+
+const plusHalf = (S) => S.map(([[a, b], [c, d]]) => [[a + 0.5, b + 0.5], [c + 0.5, d + 0.5]]);
 
 const THREE = [[[10, 20], [5, 25]], [[8, 12], [6, 24]], [[15, 5], [9, 11]]];
 
@@ -48,14 +53,105 @@ test('R pin: every case in r/out/mh.json (r-4.6.0)', (t) => {
     close(nc.cmh.p, v.cmhNoCorrection.p, CLOSED, `${name} CMH no correction p`);
     assert.equal(or.informative, v.informative, `${name} informative`);
     assert.equal(or.skipped, v.skipped, `${name} skipped`);
+    // Every homogeneity test sums a named set of strata and takes df from it (review round 3).
     close(or.homogeneity.X2, v.breslowDay.X2, ITER, `${name} Breslow-Day`);
     assert.equal(or.homogeneity.df, v.breslowDay.df, `${name} Breslow-Day df`);
     close(or.homogeneity.p, v.breslowDay.p, ITER, `${name} Breslow-Day p`);
-    if (v.tarone) close(or.homogeneity.tarone.X2, v.tarone.X2, ITER, `${name} Tarone`);
+    assert.deepEqual(or.homogeneity.included, v.breslowDay.strata, `${name} Breslow-Day strata`);
+    close(or.homogeneity.tarone.X2, v.tarone.X2, ITER, `${name} Tarone`);
+    close(or.homogeneity.tarone.p, v.tarone.p, ITER, `${name} Tarone p`);
     close(rr.homogeneity.X2, v.woolfRR.X2, CLOSED, `${name} Woolf RR`);
     assert.equal(rr.homogeneity.df, v.woolfRR.df, `${name} Woolf df`);
     close(rr.homogeneity.p, v.woolfRR.p, CLOSED, `${name} Woolf p`);
+    assert.deepEqual(rr.homogeneity.included, v.woolfRR.strata, `${name} Woolf RR strata`);
+    const wo = mantelHaenszel(c.strata, { measure: 'OR', homogeneity: 'woolf' }).homogeneity;
+    close(wo.X2, v.woolfOR.X2, CLOSED, `${name} Woolf OR`);
+    assert.equal(wo.df, v.woolfOR.df, `${name} Woolf OR df`);
+    close(wo.p, v.woolfOR.p, CLOSED, `${name} Woolf OR p`);
+    assert.deepEqual(wo.included, v.woolfOR.strata, `${name} Woolf OR strata`);
+    // epiR's epi.2by2 (the package's own code) on the strata with a positive in both groups.
+    const e = v.epiR;
+    const sub = e.strata.map((i) => c.strata[i]);
+    const w = woolfHomogeneity(sub, 'RR');
+    close(w.X2, e['wRR.homog'].X2, CLOSED, `${name} epiR wRR.homog`);
+    assert.equal(w.df, e['wRR.homog'].df, `${name} epiR wRR.homog df`);
+    close(w.p, e['wRR.homog'].p, CLOSED, `${name} epiR wRR.homog p`);
+    const wh = woolfHomogeneity(plusHalf(sub), 'OR');
+    close(wh.X2, e['wOR.homog'].X2, CLOSED, `${name} epiR wOR.homog (0.5 added to every cell)`);
+    close(wh.p, e['wOR.homog'].p, CLOSED, `${name} epiR wOR.homog p`);
+    const orSub = mantelHaenszel(sub, { measure: 'OR' }).estimate.value;
+    close(orSub, e['bOR.homog'].ORmh, CLOSED, `${name} epiR OR_MH`);
+    const bd = breslowDay(sub, orSub);
+    close(bd.X2, e['bOR.homog'].X2, CLOSED, `${name} epiR bOR.homog`);
+    assert.equal(bd.df, e['bOR.homog'].df, `${name} epiR bOR.homog df`);
+    close(bd.p, e['bOR.homog'].p, CLOSED, `${name} epiR bOR.homog p`);
   }
+});
+
+test('Woolf is centred on the inverse-variance mean of the strata it sums, not on the MH estimate (review round 3)', () => {
+  // Stratum 3 has no positive among the exposed: it counts for RR_MH but cannot enter Woolf's test.
+  const S = [[[10, 20], [5, 25]], [[15, 5], [9, 11]], [[0, 10], [9, 11]]];
+  const r = mantelHaenszel(S, { measure: 'RR', homogeneity: 'woolf' });
+  // RR_MH = sum(a n0 / T) / sum(c n1 / T) = (5 + 7.5 + 0) / (2.5 + 4.5 + 3) = 1.25.
+  close(r.estimate.value, 1.25, CLOSED, 'RR_MH by hand');
+  assert.deepEqual(r.homogeneity.included, [0, 1]);
+  assert.equal(r.homogeneity.left, 1);
+  assert.equal(r.homogeneity.rule, 'positive-both-groups');
+  // By hand: RR 2 with w = 1 / (1/10 - 1/30 + 1/5 - 1/30) = 30/7, RR 5/3 with w = 1 / (1/15 - 1/20 + 1/9 - 1/20) = 90/7;
+  // for two strata X2 = w1 w2 / (w1 + w2) (ln RR1 - ln RR2)^2 = (45/14) ln(1.2)^2 = 0.1069 on 1 df.
+  // Centred on ln 1.25 the same two strata read 2.011 (the old engine and the old R pin).
+  close(r.homogeneity.X2, (45 / 14) * Math.log(1.2) ** 2, CLOSED, 'two-stratum Woolf by hand');
+  assert.equal(r.homogeneity.df, 1);
+});
+
+test('the within-farm route, vaccine x ELISA on the serosurvey: Woolf over the 10 farms with a positive in both groups, no G12 (review round 3)', async () => {
+  const pin = readFixture('r/out/mh.json').cases['serosurvey.vaccineFarmStrata'];
+  const { table, codebook, steps, keys } = await studioTable();
+  const s = makeSpec('epi.twoByTwo', { kind: 'dataset', datasetId: 'd', recipeRev: 3 }, {
+    design: 'cross-sectional', roles: { exposure: keys.vaccine, outcome: keys.elisa },
+    levels: { outcomePositive: 'บวก', exposureLevel: 'ไม่ฉีด', referenceLevel: 'ฉีด' },
+    cluster: { route: 'mh-within', column: codebook.clusterKey },
+  });
+  const { result: env } = await handleRequest('run', { spec: s, table, codebook, steps }, { mode: 'worker' });
+  assert.equal(env.status, 'ok');
+  assert.equal(env.spec.method, 'epi.mantelHaenszel');
+  close(env.values.PR.value, pin.values.RR.value, CLOSED, 'MH PR (Greenland-Robins)');
+  assert.equal(env.provenance.rowsUsed, 682);
+  const hom = env.tests.find((x) => x.id === 'homogeneity');
+  assert.equal(hom.variant, 'woolf');
+  // R 4.6.0 formula and epiR 2.0.93 wRR.homog agree: 9.7688 on 9 df, p 0.370 (it was 30.75, p 0.0003).
+  close(hom.statistic.value, pin.values.woolfRR.X2, CLOSED, 'Woolf X2');
+  close(hom.statistic.value, pin.values.epiR['wRR.homog'].X2, CLOSED, 'Woolf X2 = epiR');
+  assert.equal(hom.df, 9);
+  close(hom.p, pin.values.woolfRR.p, CLOSED, 'Woolf p');
+  assert.deepEqual(hom.strataIncluded, pin.values.woolfRR.strata.map((i) => pin.farms[i]));
+  assert.deepEqual(hom.strataIncluded, ['F02', 'F06', 'F08', 'F15', 'F18', 'F22', 'F29', 'F42', 'F43', 'F44']);
+  assert.equal(hom.strataRule, 'positive-both-groups');
+  assert.ok(!env.guard.warnings.some((g) => g.id === 'G12'), 'G12 must not fire at p 0.37');
+});
+
+test('Breslow-Day counts only the informative strata in its df (review round 3)', () => {
+  // Strata 3 and 4 have no exposed animal and no positive: their a is fixed and adds exactly 0.
+  const S = [...THREE, [[0, 0], [3, 4]], [[2, 3], [0, 0]]];
+  const all = mantelHaenszel(S, { measure: 'OR' });
+  const base = mantelHaenszel(THREE, { measure: 'OR' });
+  assert.equal(all.informative, 3);
+  close(all.homogeneity.X2, base.homogeneity.X2, CLOSED, 'same statistic');
+  assert.equal(all.homogeneity.df, 2, 'df from the 3 strata summed, not the 5 given');
+  close(all.homogeneity.p, base.homogeneity.p, CLOSED, 'same p');
+  assert.deepEqual(all.homogeneity.included, [0, 1, 2]);
+  assert.equal(all.homogeneity.rule, 'informative');
+});
+
+test('runMantelHaenszel names the strata each homogeneity row summed; the uncorrected Breslow-Day row carries the same', () => {
+  const out = runMantelHaenszel(spec('epi.mantelHaenszel', { kind: 'counts', counts: { strata: [...THREE, [[0, 0], [3, 4]]] } }, { design: 'case-control', options: { measure: 'OR' } }), null);
+  const hom = out.tests.find((x) => x.id === 'homogeneity');
+  const unc = out.tests.find((x) => x.id === 'homogeneityUncorrected');
+  assert.deepEqual(hom.strataIncluded, ['1', '2', '3']);
+  assert.equal(hom.strataRule, 'informative');
+  assert.equal(hom.df, 2);
+  assert.deepEqual(unc.strataIncluded, hom.strataIncluded);
+  assert.equal(unc.df, 2);
 });
 
 test('serosurvey, farm as stratum (the G1 within-farm route): numbers.json assoc.mh', () => {

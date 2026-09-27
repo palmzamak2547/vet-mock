@@ -371,6 +371,9 @@ export function resultGuards(spec, output) {
       if (typeof t.p === 'number' && t.p < 0.05) out.warnings.push(finding('G12', { params: { p: t.p, test: t.variant }, routes: ['strata'] }));
       continue;
     }
+    // Breslow-Day before Tarone's correction is the homogeneity question again, shown in the table
+    // only: G12 judges the corrected row above, and it is no test of association for G8 (review round 3).
+    if (t.id === 'homogeneityUncorrected') continue;
     if (typeof t.p === 'number' && t.p > 0.05) above.push(t.id);
   }
   // One G8 per result, however many tests it prints (a chi-square and its continuity-corrected twin).
@@ -400,9 +403,12 @@ function routesFor(spec, table, codebook, groups) {
  * The G1 panel shown before any route: ICC, DEFF and effective n computed first (cluster.iccDeff),
  * with the routes the data allow: 'mh-within' (factor varies inside farms), 'deff', 'aggregate'
  * (disabled with a reason when the factor is measured on the animal), and GEE/mixed as M3.
- * ICC is of the outcome (0/1 at levels.outcomePositive, or the number) over the rows the method
- * would use; DEFF uses the mean cluster size. Null when the table has no cluster column.
- * @returns {{ icc: import('../runtime/types.js').Value, deff: import('../runtime/types.js').Value, nEff: import('../runtime/types.js').Value, clusters: number, meanSize: number, routes: { id: string, enabled: boolean, reasonKey: string|null }[] }|null}
+ * ICC is of the outcome (0/1 at levels.outcomePositive, or the number) over every animal with the
+ * outcome and the farm, which can be more than the rows the method uses when another role column has
+ * missing values; `animals` says how many (review round 3: 728 behind the ICC, 682 in the 2x2 of
+ * vaccine x ELISA). DEFF uses the mean cluster size of those animals, effective n = animals / DEFF.
+ * Null when the table has no cluster column.
+ * @returns {{ icc: import('../runtime/types.js').Value, deff: import('../runtime/types.js').Value, nEff: import('../runtime/types.js').Value, clusters: number, meanSize: number, animals: number, routes: { id: string, enabled: boolean, reasonKey: string|null }[] }|null}
  */
 export function clusterPanel(spec, table, codebook) {
   const clusterKey = clusterKeyOf(spec, codebook);
@@ -429,6 +435,7 @@ export function clusterPanel(spec, table, codebook) {
   }
   const k = r ? r.k : outcomeGroups.size;
   const meanSize = r ? r.meanSize : 0;
+  const animals = r ? r.n : 0;
   let icc, deff, nEff;
   if (!r || r.icc === null) {
     const key = r?.reasonKey || 'epi.undefined.iccNoOutcome';
@@ -439,5 +446,5 @@ export function clusterPanel(spec, table, codebook) {
     deff = { value: d.deff };
     nEff = { value: d.nEff };
   }
-  return { icc, deff, nEff, clusters: k, meanSize, routes: routesFor(spec, table, codebook, groups) };
+  return { icc, deff, nEff, clusters: k, meanSize, animals, routes: routesFor(spec, table, codebook, groups) };
 }

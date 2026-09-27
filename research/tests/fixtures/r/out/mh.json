@@ -10,7 +10,9 @@
   "webR": "0.6.0",
   "platform": "wasm32-unknown-emscripten",
   "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
-  "packages": {},
+  "packages": {
+   "epiR": "2.0.93"
+  },
   "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
   "tolerances": {
    "closed": "1e-10 relative",
@@ -18,10 +20,10 @@
    "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
   }
  },
- "notes": "Strata: [[a, b], [c, d]] per stratum, rows exposed then reference. Breslow-Day and Tarone need the expected cell under OR_MH, found by uniroot at tol 1e-12, so they compare at the iterative tolerance. informative = strata with both exposure groups and both outcomes present. The Woolf homogeneity test for the RR uses only strata with a positive in both groups.",
+ "notes": "Strata: [[a, b], [c, d]] per stratum, rows exposed then reference. Breslow-Day and Tarone need the expected cell under OR_MH, found by uniroot at tol 1e-12, so they compare at the iterative tolerance. informative = strata with both exposure groups and both outcomes present. Each homogeneity block lists the strata it summed (0-based indexes into strata) and its df is their number minus 1: Woolf RR over the strata with a positive in both groups, Woolf OR over the strata with no empty cell, Breslow-Day and Tarone over the informative strata. Woolf is centred on the inverse-variance mean of the strata it sums (Jewell 2004 eq 10.3, epiR). The epiR block is epi.2by2(method = 'cohort.count') on epiR.strata: wRR.homog as it is, wOR.homog after epiR adds 0.5 to every cell, bOR.homog at the MH odds ratio of those strata (ORmh); the script stops unless its own formulas give these numbers.",
  "cases": {
   "threeStrata": {
-   "call": "mantelhaen.test(array of [[10, 20], [5, 25]], [[8, 12], [6, 24]], [[15, 5], [9, 11]]) and the formulas in mh.R",
+   "call": "mantelhaen.test(array of [[10, 20], [5, 25]], [[8, 12], [6, 24]], [[15, 5], [9, 11]]), the formulas in mh.R and epiR::epi.2by2",
    "tol": "closed",
    "strata": [
     [
@@ -63,7 +65,8 @@
     "breslowDay": {
      "X2": 0.19007413066609058,
      "df": 2,
-     "p": 0.9093392288822113
+     "p": 0.9093392288822113,
+     "strata": [0, 1, 2]
     },
     "tarone": {
      "X2": 0.19003357094251713,
@@ -71,14 +74,40 @@
      "p": 0.90935767034308468
     },
     "woolfRR": {
-     "X2": 0.18926751180331097,
+     "X2": 0.1769646047347643,
      "df": 2,
-     "p": 0.9097060479353718
+     "p": 0.9153193095775255,
+     "strata": [0, 1, 2]
+    },
+    "woolfOR": {
+     "X2": 0.18983728003383463,
+     "df": 2,
+     "p": 0.90944692404465011,
+     "strata": [0, 1, 2]
+    },
+    "epiR": {
+     "strata": [0, 1, 2],
+     "wRR.homog": {
+      "X2": 0.1769646047347643,
+      "df": 2,
+      "p": 0.9153193095775255
+     },
+     "wOR.homog": {
+      "X2": 0.17647244154437144,
+      "df": 2,
+      "p": 0.91554458052972132
+     },
+     "bOR.homog": {
+      "X2": 0.19007413066609907,
+      "df": 2,
+      "p": 0.90933922888220731,
+      "ORmh": 2.8668767231193386
+     }
     }
    }
   },
   "continuityBelowHalf": {
-   "call": "mantelhaen.test(array of [[5, 5], [5, 6]], [[4, 6], [5, 5]]) and the formulas in mh.R",
+   "call": "mantelhaen.test(array of [[5, 5], [5, 6]], [[4, 6], [5, 5]]), the formulas in mh.R and epiR::epi.2by2",
    "tol": "closed",
    "strata": [
     [
@@ -116,7 +145,8 @@
     "breslowDay": {
      "X2": 0.21860934396774173,
      "df": 1,
-     "p": 0.64010157744960383
+     "p": 0.64010157744960383,
+     "strata": [0, 1]
     },
     "tarone": {
      "X2": 0.21860854054198023,
@@ -124,9 +154,35 @@
      "p": 0.64010219199154617
     },
     "woolfRR": {
-     "X2": 0.22115747292184107,
+     "X2": 0.2208991222765298,
      "df": 1,
-     "p": 0.63815939385200093
+     "p": 0.63835568468305282,
+     "strata": [0, 1]
+    },
+    "woolfOR": {
+     "X2": 0.21820620848637223,
+     "df": 1,
+     "p": 0.64041010961600342,
+     "strata": [0, 1]
+    },
+    "epiR": {
+     "strata": [0, 1],
+     "wRR.homog": {
+      "X2": 0.22089912227652983,
+      "df": 1,
+      "p": 0.63835568468305282
+     },
+     "wOR.homog": {
+      "X2": 0.1987403427898915,
+      "df": 1,
+      "p": 0.6557395319066337
+     },
+     "bOR.homog": {
+      "X2": 0.21860934396772108,
+      "df": 1,
+      "p": 0.64010157744961971,
+      "ORmh": 0.90265486725663724
+     }
     }
    }
   },
@@ -357,18 +413,314 @@
     },
     "breslowDay": {
      "X2": 43.648640856186304,
-     "df": 48,
-     "p": 0.65160290583483693
+     "df": 42,
+     "p": 0.40122901604777222,
+     "strata": [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 20, 21, 22, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]
     },
     "tarone": {
      "X2": 43.588662584195809,
-     "df": 48,
-     "p": 0.65401042894991179
+     "df": 42,
+     "p": 0.40369513328557399
     },
     "woolfRR": {
-     "X2": 22.076800059488686,
+     "X2": 13.600799848423206,
      "df": 19,
-     "p": 0.28045072220877781
+     "p": 0.80644559956548256,
+     "strata": [2, 3, 5, 7, 8, 9, 15, 17, 20, 22, 25, 26, 27, 28, 29, 31, 37, 38, 40, 45]
+    },
+    "woolfOR": {
+     "X2": 14.462624486354841,
+     "df": 19,
+     "p": 0.75608574620005919,
+     "strata": [2, 3, 5, 7, 8, 9, 15, 17, 20, 22, 25, 26, 27, 28, 29, 31, 37, 38, 40, 45]
+    },
+    "epiR": {
+     "strata": [2, 3, 5, 7, 8, 9, 15, 17, 20, 22, 25, 26, 27, 28, 29, 31, 37, 38, 40, 45],
+     "wRR.homog": {
+      "X2": 13.600799848423206,
+      "df": 19,
+      "p": 0.80644559956548256
+     },
+     "wOR.homog": {
+      "X2": 13.536358138541818,
+      "df": 19,
+      "p": 0.81001774767470158
+     },
+     "bOR.homog": {
+      "X2": 17.0178769900538,
+      "df": 19,
+      "p": 0.58865664267927875,
+      "ORmh": 1.3672491991499889
+     }
+    }
+   }
+  },
+  "serosurvey.vaccineFarmStrata": {
+   "call": "the same on the 49 farm strata of the serosurvey (not vaccinated in the last 6 months vs vaccinated, ELISA positive)",
+   "tol": "closed",
+   "strata": [
+    [
+     [0, 0],
+     [8, 7]
+    ],
+    [
+     [1, 0],
+     [1, 12]
+    ],
+    [
+     [0, 2],
+     [2, 8]
+    ],
+    [
+     [0, 0],
+     [4, 11]
+    ],
+    [
+     [0, 1],
+     [2, 11]
+    ],
+    [
+     [1, 1],
+     [1, 11]
+    ],
+    [
+     [0, 12],
+     [0, 3]
+    ],
+    [
+     [1, 0],
+     [5, 9]
+    ],
+    [
+     [6, 8],
+     [0, 1]
+    ],
+    [
+     [0, 0],
+     [5, 8]
+    ],
+    [
+     [1, 10],
+     [0, 1]
+    ],
+    [
+     [0, 13],
+     [0, 1]
+    ],
+    [
+     [0, 0],
+     [2, 12]
+    ],
+    [
+     [0, 1],
+     [1, 11]
+    ],
+    [
+     [1, 0],
+     [1, 10]
+    ],
+    [
+     [0, 0],
+     [2, 13]
+    ],
+    [
+     [0, 1],
+     [0, 14]
+    ],
+    [
+     [1, 2],
+     [2, 8]
+    ],
+    [
+     [0, 12],
+     [1, 2]
+    ],
+    [
+     [0, 0],
+     [0, 14]
+    ],
+    [
+     [0, 1],
+     [2, 10]
+    ],
+    [
+     [1, 0],
+     [4, 10]
+    ],
+    [
+     [0, 0],
+     [3, 11]
+    ],
+    [
+     [0, 1],
+     [0, 14]
+    ],
+    [
+     [0, 1],
+     [4, 8]
+    ],
+    [
+     [4, 9],
+     [0, 2]
+    ],
+    [
+     [0, 1],
+     [4, 9]
+    ],
+    [
+     [0, 0],
+     [7, 8]
+    ],
+    [
+     [1, 0],
+     [4, 10]
+    ],
+    [
+     [0, 0],
+     [6, 8]
+    ],
+    [
+     [0, 0],
+     [1, 13]
+    ],
+    [
+     [0, 3],
+     [2, 8]
+    ],
+    [
+     [0, 2],
+     [1, 11]
+    ],
+    [
+     [0, 0],
+     [5, 10]
+    ],
+    [
+     [0, 2],
+     [3, 10]
+    ],
+    [
+     [0, 1],
+     [2, 11]
+    ],
+    [
+     [0, 0],
+     [2, 12]
+    ],
+    [
+     [0, 1],
+     [3, 10]
+    ],
+    [
+     [0, 1],
+     [5, 8]
+    ],
+    [
+     [0, 0],
+     [1, 13]
+    ],
+    [
+     [0, 0],
+     [4, 11]
+    ],
+    [
+     [1, 1],
+     [4, 9]
+    ],
+    [
+     [1, 11],
+     [1, 2]
+    ],
+    [
+     [1, 1],
+     [1, 11]
+    ],
+    [
+     [0, 0],
+     [3, 11]
+    ],
+    [
+     [3, 9],
+     [0, 1]
+    ],
+    [
+     [0, 0],
+     [2, 11]
+    ],
+    [
+     [0, 1],
+     [3, 9]
+    ],
+    [
+     [0, 0],
+     [0, 7]
+    ]
+   ],
+   "farms": ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12", "F13", "F14", "F15", "F16", "F17", "F18", "F19", "F20", "F21", "F22", "F23", "F24", "F25", "F26", "F27", "F28", "F29", "F30", "F31", "F32", "F33", "F34", "F35", "F36", "F37", "F38", "F39", "F40", "F41", "F42", "F43", "F44", "F45", "F46", "F47", "F48", "F49"],
+   "confLevel": 0.94999999999999996,
+   "iterativeValues": ["breslowDay", "tarone"],
+   "values": {
+    "kept": 49,
+    "skipped": 0,
+    "informative": 28,
+    "OR": {
+     "value": 1.4165223761321257,
+     "ci": [0.66612462394524541, 3.0122526175341302]
+    },
+    "RR": {
+     "value": 1.320341109887577,
+     "seLog": 0.29071961604275981,
+     "ci": [0.74683585477903092, 2.3342487312355349]
+    },
+    "cmh": {
+     "X2": 0.534199330475431,
+     "p": 0.4648467046304855
+    },
+    "cmhNoCorrection": {
+     "X2": 0.87409700496410747,
+     "p": 0.34982357595401109
+    },
+    "breslowDay": {
+     "X2": 32.41619027954922,
+     "df": 27,
+     "p": 0.21702097734125322,
+     "strata": [1, 2, 4, 5, 7, 8, 10, 13, 14, 17, 18, 20, 21, 24, 25, 26, 28, 31, 32, 34, 35, 37, 38, 41, 42, 43, 45, 47]
+    },
+    "tarone": {
+     "X2": 32.402972270476823,
+     "df": 27,
+     "p": 0.21748859827527034
+    },
+    "woolfRR": {
+     "X2": 9.7687651438029839,
+     "df": 9,
+     "p": 0.36952740725363953,
+     "strata": [1, 5, 7, 14, 17, 21, 28, 41, 42, 43]
+    },
+    "woolfOR": {
+     "X2": 4.0787507724859786,
+     "df": 4,
+     "p": 0.39545299160217945,
+     "strata": [5, 17, 41, 42, 43]
+    },
+    "epiR": {
+     "strata": [1, 5, 7, 14, 17, 21, 28, 41, 42, 43],
+     "wRR.homog": {
+      "X2": 9.7687651438029839,
+      "df": 9,
+      "p": 0.36952740725363953
+     },
+     "wOR.homog": {
+      "X2": 7.5945877807298734,
+      "df": 9,
+      "p": 0.57546018761975049
+     },
+     "bOR.homog": {
+      "X2": 13.213888420294991,
+      "df": 9,
+      "p": 0.15316447070918637,
+      "ORmh": 4.5113636363636367
+     }
     }
    }
   }

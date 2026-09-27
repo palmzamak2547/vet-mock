@@ -24,7 +24,8 @@
 export function val(v, extra = {}) {
   if (typeof v !== 'number' || Number.isNaN(v)) return nullVal(extra.reasonKey || 'stats.undefined.notComputable');
   const out = { value: v };
-  for (const k of ['ci', 'ciLevel', 'ciMethod', 'se', 'reasonKey', 'noteKey']) if (extra[k] !== undefined) out[k] = extra[k];
+  // below / above: thresholds a guard or a sentence judges the value against, for stats/format.js.
+  for (const k of ['ci', 'ciLevel', 'ciMethod', 'se', 'reasonKey', 'noteKey', 'below', 'above']) if (extra[k] !== undefined) out[k] = extra[k];
   if (out.se !== undefined && out.se !== null && Number.isNaN(out.se)) out.se = null;
   if (out.ci) out.ci = [nanToNull(out.ci[0]), nanToNull(out.ci[1])];
   return out;

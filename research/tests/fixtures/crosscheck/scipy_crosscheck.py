@@ -123,6 +123,21 @@ lr = stats.linregress(x, y)
 OUT["ols.simple"] = {"data": "corr (y on x)", "R": "summary(lm(y ~ x))",
                      "slope": f(lr.slope), "intercept": f(lr.intercept), "slopeSE": f(lr.stderr),
                      "interceptSE": f(lr.intercept_stderr), "r2": f(lr.rvalue ** 2), "pSlope": f(lr.pvalue)}
+# Review round 3: a slope that is small only because x is large (x from 1e10 to 1e12, y near 300,000),
+# the same literal data as tests/fixtures/r/ols.R case largeScaleX (the review's fixed pseudo-random draw).
+xb = np.array([1e10 + i * 3.4e10 for i in range(30)])
+yb = np.array([301194.112110883, 303998.52957725525, 307884.58399772644, 312174.1837978363, 314944.37084198,
+               318058.40587615967, 322139.7871017456, 325630.6531906128, 327349.11937713623, 332594.74626779556,
+               334419.26765441895, 337786.7092728615, 342785.5202436447, 344318.0682182312, 348368.12893152237,
+               351060.5070590973, 354543.986992538, 359147.36850857735, 363048.0269908905, 366219.1575527191,
+               369482.44738578796, 371527.42590904236, 376036.237347126, 379191.9171333313, 382007.79733657837,
+               386784.6379876137, 388537.8262042999, 393405.46523332596, 395492.688369751, 398654.4109940529])
+lb = stats.linregress(xb, yb)
+qb = stats.t.ppf(0.975, len(xb) - 2)
+OUT["ols.largeScaleX"] = {"data": "x = 1e10 + 3.4e10 i (i = 0..29), y as in r/ols.R largeScaleX", "R": "summary(lm(y ~ x)); confint()",
+                          "slope": f(lb.slope), "slopeSE": f(lb.stderr), "t": f(lb.slope / lb.stderr), "pSlope": f(lb.pvalue),
+                          "intercept": f(lb.intercept), "interceptSE": f(lb.intercept_stderr), "r2": f(lb.rvalue ** 2),
+                          "slopeCi": [f(lb.slope - qb * lb.stderr), f(lb.slope + qb * lb.stderr)]}
 
 # ---------------------------------------------------------------- descriptives
 q = np.array(DS["quantiles"], dtype=float)

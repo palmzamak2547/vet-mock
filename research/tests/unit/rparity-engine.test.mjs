@@ -333,6 +333,7 @@ test('R parity: ols', async (t) => {
       let X; let y; let opts = {};
       if (id === 'simple.corr') { X = DATA.corr.x.map((x) => [1, x]); y = DATA.corr.y; }
       else if (id === 'noIntercept.corr') { X = DATA.corr.x.map((x) => [x]); y = DATA.corr.y; opts = { intercept: false }; }
+      else if (id === 'largeScaleX') { X = c.x.map((x) => [1, x]); y = c.y; }
       else if (id === 'oneway.three') {
         const g = groupsThree();
         X = g.flatMap((grp, k) => grp.map(() => [1, k === 1 ? 1 : 0, k === 2 ? 1 : 0]));
@@ -429,15 +430,33 @@ test('R parity: mh', async (t) => {
       const o = mh.mantelHaenszel(c.strata, { measure: 'OR', cmhContinuity: true, confLevel: c.confLevel, homogeneity: 'breslow-day-tarone' });
       const o0 = mh.mantelHaenszel(c.strata, { measure: 'OR', cmhContinuity: false, confLevel: c.confLevel, homogeneity: 'breslow-day-tarone' });
       const r = mh.mantelHaenszel(c.strata, { measure: 'RR', cmhContinuity: true, confLevel: c.confLevel, homogeneity: 'woolf' });
+      const wo = mh.mantelHaenszel(c.strata, { measure: 'OR', homogeneity: 'woolf' });
+      // The same strata summed: 1 when the engine names exactly R's set (0-based indexes), else 0.
+      const sameSet = (got, want) => (JSON.stringify(got) === JSON.stringify(want) ? 1 : 0);
+      // epiR's epi.2by2 on the strata with a positive in both groups (wOR.homog after its 0.5 on every cell).
+      const e = v.epiR;
+      const sub = e.strata.map((i) => c.strata[i]);
+      const half = sub.map(([[a, b], [cc, d]]) => [[a + 0.5, b + 0.5], [cc + 0.5, d + 0.5]]);
+      const ew = mh.woolfHomogeneity(sub, 'RR');
+      const eo = mh.woolfHomogeneity(half, 'OR');
+      const orSub = mh.mantelHaenszel(sub, { measure: 'OR' }).estimate.value;
+      const eb = mh.breslowDay(sub, orSub);
       return [
         ['informative strata', o.informative, v.informative], ['skipped strata', o.skipped, v.skipped],
         ['OR_MH', o.estimate, v.OR.value], ...ciRows('OR_MH RGB', o.estimate?.ci, v.OR.ci),
         ['CMH corrected', o.cmh.X2, v.cmh.X2], ['CMH corrected p', o.cmh.p, v.cmh.p],
         ['CMH uncorrected', o0.cmh.X2, v.cmhNoCorrection.X2], ['CMH uncorrected p', o0.cmh.p, v.cmhNoCorrection.p],
         ['Breslow-Day', o.homogeneity.X2, v.breslowDay.X2, 'iterative'], ['Breslow-Day p', o.homogeneity.p, v.breslowDay.p, 'iterative'],
+        ['Breslow-Day df', o.homogeneity.df, v.breslowDay.df], ['Breslow-Day strata', sameSet(o.homogeneity.included, v.breslowDay.strata), 1],
         ['Tarone', o.homogeneity.tarone?.X2, v.tarone.X2, 'iterative'], ['Tarone p', o.homogeneity.tarone?.p, v.tarone.p, 'iterative'],
         ['RR_MH', r.estimate, v.RR.value], ...ciRows('RR_MH Greenland-Robins', r.estimate?.ci, v.RR.ci),
         ['Woolf homogeneity (RR)', r.homogeneity.X2, v.woolfRR.X2], ['Woolf homogeneity df', r.homogeneity.df, v.woolfRR.df], ['Woolf homogeneity p', r.homogeneity.p, v.woolfRR.p],
+        ['Woolf RR strata', sameSet(r.homogeneity.included, v.woolfRR.strata), 1],
+        ['Woolf homogeneity (OR)', wo.homogeneity.X2, v.woolfOR.X2], ['Woolf OR df', wo.homogeneity.df, v.woolfOR.df], ['Woolf OR p', wo.homogeneity.p, v.woolfOR.p],
+        ['Woolf OR strata', sameSet(wo.homogeneity.included, v.woolfOR.strata), 1],
+        ['epiR wRR.homog', ew.X2, e['wRR.homog'].X2], ['epiR wRR.homog df', ew.df, e['wRR.homog'].df], ['epiR wRR.homog p', ew.p, e['wRR.homog'].p],
+        ['epiR wOR.homog (0.5 added)', eo.X2, e['wOR.homog'].X2], ['epiR wOR.homog p', eo.p, e['wOR.homog'].p],
+        ['epiR OR_MH', orSub, e['bOR.homog'].ORmh], ['epiR bOR.homog', eb.X2, e['bOR.homog'].X2, 'closed'], ['epiR bOR.homog df', eb.df, e['bOR.homog'].df], ['epiR bOR.homog p', eb.p, e['bOR.homog'].p, 'closed'],
       ];
     });
   }

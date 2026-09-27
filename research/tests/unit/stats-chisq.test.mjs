@@ -81,3 +81,17 @@ test('chi-square: runChisq and runTrend on a WorkingTable (missing rows counted,
   const bad = runTrend(spec('test.trend', { input: { kind: 'counts', counts: { x: [1, 2], n: [5, 5] } }, options: { scores: [1, 2, 3] } }), null);
   assert.equal(bad.status, 'invalid');
 });
+
+test('chi-square: the expected-count values carry the thresholds G5 judges them by (review round 3)', async () => {
+  const { formatNumber } = await import('../../src/lib/stats/format.js');
+  // [[3, 1], [1, 3]]: every expected count is 4 x 4 / 8 = 2.
+  const out = runChisq(spec('test.chisq', { roles: { exposure: 'e', outcome: 'o' } }), makeTable({
+    e: { kind: 'category', levels: ['x', 'y'], values: ['x', 'x', 'x', 'x', 'y', 'y', 'y', 'y'] },
+    o: { kind: 'category', levels: ['p', 'n'], values: ['p', 'p', 'p', 'n', 'p', 'n', 'n', 'n'] },
+  }));
+  assert.equal(out.values.minExpected.value, 2);
+  assert.deepEqual(out.values.minExpected.below, [1, 5]);
+  assert.deepEqual(out.values.shareBelow5.above, [0.2]);
+  // A smallest expected count of 4.996 then prints on its side of 5, not as 5.00.
+  assert.equal(formatNumber(4.996, { kind: 'statistic', below: out.values.minExpected.below }), '4.996');
+});

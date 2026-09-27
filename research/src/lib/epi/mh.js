@@ -9,10 +9,14 @@
 // 2 x 2 x K statistic, where the continuity correction is 0.5 when |sum(a) - sum(E(a))| >= 0.5 and 0
 // otherwise (YATES <- if (correct && abs(DELTA) >= .5) .5 else 0; pinned by mh.json continuityBelowHalf);
 // Breslow and Day 1980 (homogeneity of OR at OR_MH) with Tarone 1985 Biometrika 72:91-95 correction;
-// Woolf 1955 (inverse-variance homogeneity on the log scale).
+// Woolf 1955 (inverse-variance homogeneity on the log scale), in the form of Jewell 2004 eq 10.3.
 // Informative stratum: both exposure groups and both outcomes present; only these carry
 // information about the association (the same count as tests/fixtures/r/mh.R).
-// Woolf homogeneity is centred on the log of the MH estimate, as tests/fixtures/r/mh.R and epiR do.
+// Each homogeneity test names the strata it summed (`included`) and counts its degrees of freedom
+// from them. Woolf's test is centred on the inverse-variance mean of the strata it sums, as epiR's
+// epi.2by2 does (lnRR.s. <- sum(wRR. * lnRR.) / sum(wRR.)); centring it on the MH estimate of every
+// informative stratum made the serosurvey's 10 usable farms read 30.75 on 9 df instead of 9.77
+// (review round 3).
 
 import { qnorm, pchisqUpper } from '../stats/dist.js';
 import { asTwoByTwo, twoByTwoFromTable, invalidOutput, val, nul, guarded } from './_table.js';
@@ -47,7 +51,7 @@ export function expectedAAtOr(n1, n0, m1, psi) {
 /**
  * @param {[[number, number], [number, number]][]} strata
  * @param {{ measure?: 'OR'|'RR', cmhContinuity?: boolean, confLevel?: number, homogeneity?: 'breslow-day-tarone'|'woolf' }} opts
- * @returns {{ estimate: Value, cmh: { X2: number|null, p: number|null, continuity: boolean }, homogeneity: { test: string, X2: number|null, df: number|null, p: number|null, reasonKey?: string, tarone?: { X2: number, p: number } } (X2 and p are Breslow-Day's uncorrected values; tarone holds the corrected ones), informative: number, skipped: number, strata: Object<string, Value>[] }}
+ * @returns {{ estimate: Value, cmh: { X2: number|null, p: number|null, continuity: boolean }, homogeneity: { test: string, X2: number|null, df: number|null, p: number|null, reasonKey?: string, tarone?: { X2: number, p: number }, rule: string, included: number[], left?: number } (X2 and p are Breslow-Day's uncorrected values; tarone holds the corrected ones; included: indexes into `strata` of the strata the test summed, df = their number - 1), informative: number, skipped: number, strata: Object<string, Value>[] }}
  */
 export function mantelHaenszel(strata, opts = {}) {
   const measure = opts.measure === 'RR' || opts.measure === 'PR' ? 'RR' : 'OR';
@@ -55,13 +59,15 @@ export function mantelHaenszel(strata, opts = {}) {
   const continuity = opts.cmhContinuity ?? true;
   const z = qnorm(1 - (1 - confLevel) / 2);
   const used = [];
+  const usedAt = []; // index in `strata` of each used stratum
   let skipped = 0;
-  for (const s of strata) {
+  strata.forEach((s, i) => {
     const t = asTwoByTwo(s);
     const T = t[0][0] + t[0][1] + t[1][0] + t[1][1];
-    if (T < 2) { skipped++; continue; }
+    if (T < 2) { skipped++; return; }
     used.push(t);
-  }
+    usedAt.push(i);
+  });
   let informative = 0;
   // Sums for OR (RGB), RR (Greenland-Robins) and the CMH statistic.
   let R = 0, S = 0, PR = 0, PSQR = 0, QS = 0;
@@ -118,73 +124,95 @@ export function mantelHaenszel(strata, opts = {}) {
   }
 
   const homTest = opts.homogeneity ?? (measure === 'OR' ? 'breslow-day-tarone' : 'woolf');
-  const homogeneity = homTest === 'woolf' ? woolfHomogeneity(used, measure, estimate.value) : breslowDay(used, estimate.value);
+  const h = homTest === 'woolf' ? woolfHomogeneity(used, measure) : breslowDay(used, estimate.value);
+  // `included` indexes the strata as the caller gave them (strata of fewer than two animals were never passed on).
+  const homogeneity = { ...h, included: h.included.map((j) => usedAt[j]) };
   return { estimate, cmh, homogeneity, informative, skipped, strata: perStratum };
 }
 
 /**
- * Breslow-Day statistic at OR_MH (X2, p) with Tarone's corrected statistic beside it (tarone); strata
- * with a fixed a are left out. The report shows Tarone's value as the homogeneity test, as
- * DescTools::BreslowDayTest(correct = TRUE) does, and the uncorrected Breslow-Day under it.
+ * Breslow-Day statistic at OR_MH (X2, p) with Tarone's corrected statistic beside it (tarone). Only
+ * the informative strata enter: a stratum whose a is fixed by its margins adds exactly 0 and is no
+ * comparison, so df = strata summed - 1 (as epiR and DescTools count when every stratum given to them
+ * is informative; given the others too, epiR still sums only the informative ones but counts all in df).
+ * The report shows Tarone's value as the homogeneity test, as DescTools::BreslowDayTest(correct = TRUE)
+ * does, and the uncorrected Breslow-Day under it.
+ * @returns {{ test: 'breslow-day-tarone', X2: number|null, df: number|null, p: number|null, tarone?: { X2: number, p: number }, reasonKey?: string, rule: 'informative', included: number[] }}
+ *   included: indexes into `strata` of the strata summed
  */
 export function breslowDay(strata, orMh) {
-  if (!(orMh > 0) || !Number.isFinite(orMh)) return { test: 'breslow-day-tarone', X2: null, df: null, p: null, reasonKey: 'epi.undefined.homogeneityNoEstimate' };
-  let bd = 0, sumA = 0, sumEa = 0, sumVa = 0, k = 0;
-  for (const [[a, b], [c, d]] of strata) {
+  const none = (reasonKey, included = []) => ({ test: 'breslow-day-tarone', X2: null, df: null, p: null, reasonKey, rule: 'informative', included });
+  if (!(orMh > 0) || !Number.isFinite(orMh)) return none('epi.undefined.homogeneityNoEstimate');
+  let bd = 0, sumA = 0, sumEa = 0, sumVa = 0;
+  const included = [];
+  strata.forEach(([[a, b], [c, d]], i) => {
     const n1 = a + b, n0 = c + d, m1 = a + c;
     const ea = expectedAAtOr(n1, n0, m1, orMh);
-    if (ea === null) continue;
+    if (ea === null) return;
     const eb = n1 - ea, ec = m1 - ea, ed = n0 - m1 + ea;
     const va = 1 / (1 / ea + 1 / eb + 1 / ec + 1 / ed);
-    if (!(va > 0) || !Number.isFinite(va)) continue;
+    if (!(va > 0) || !Number.isFinite(va)) return;
     bd += (a - ea) ** 2 / va;
     sumA += a; sumEa += ea; sumVa += va;
-    k++;
-  }
-  if (k < 2) return { test: 'breslow-day-tarone', X2: null, df: null, p: null, reasonKey: 'epi.undefined.homogeneityTooFewStrata' };
+    included.push(i);
+  });
+  if (included.length < 2) return none('epi.undefined.homogeneityTooFewStrata', included);
   const tarone = bd - (sumA - sumEa) ** 2 / sumVa;
-  // Degrees of freedom: every stratum kept, minus 1, as DescTools::BreslowDayTest and the R pin
-  // (tests/fixtures/r/mh.R) count them; a stratum whose a is fixed by its margins adds 0 to X2.
-  const df = strata.length - 1;
-  return { test: 'breslow-day-tarone', X2: bd, df, p: pchisqUpper(bd, df), tarone: { X2: tarone, p: pchisqUpper(tarone, df) } };
+  const df = included.length - 1;
+  return { test: 'breslow-day-tarone', X2: bd, df, p: pchisqUpper(bd, df), tarone: { X2: tarone, p: pchisqUpper(tarone, df) }, rule: 'informative', included };
 }
 
 /**
- * Woolf's test on the log scale: sum w_i (ln E_i - ln E_MH)^2 with w_i the inverse variance of
- * ln E_i; strata with a zero cell in the needed places are left out and counted. Without an MH
- * estimate the inverse-variance weighted mean is the centre.
+ * Woolf's test on the log scale (Jewell 2004 eq 10.3; epiR epi.2by2 wRR.homog and wOR.homog):
+ * sum w_i (ln E_i - ln E_w)^2, w_i the inverse variance of ln E_i and ln E_w = sum w_i ln E_i / sum w_i,
+ * both over the same strata. Centring on any other value adds sum(w) (ln E_w - centre)^2 to X2, so only
+ * this centre gives the chi-square on (strata - 1) df. Strata with a zero where the log needs a count
+ * are left out and counted (`left`): for RR/PR a group with no positive ('positive-both-groups'), for
+ * OR any empty cell ('no-zero-cell'; epiR instead adds 0.5 to every cell, the Haldane correction).
+ * @returns {{ test: 'woolf', X2: number|null, df: number|null, p: number|null, left: number, reasonKey?: string, rule: string, included: number[] }}
+ *   included: indexes into `strata` of the strata summed
  */
-export function woolfHomogeneity(strata, measure, centre = null) {
-  const logs = [], w = [];
+export function woolfHomogeneity(strata, measure) {
+  const logs = [], w = [], included = [];
+  const rule = measure === 'OR' ? 'no-zero-cell' : 'positive-both-groups';
   let left = 0;
-  for (const [[a, b], [c, d]] of strata) {
+  strata.forEach(([[a, b], [c, d]], i) => {
     const n1 = a + b, n0 = c + d;
     let l, v;
     if (measure === 'OR') {
-      if (a === 0 || b === 0 || c === 0 || d === 0) { left++; continue; }
+      if (a === 0 || b === 0 || c === 0 || d === 0) { left++; return; }
       l = Math.log((a * d) / (b * c)); v = 1 / a + 1 / b + 1 / c + 1 / d;
     } else {
-      if (a === 0 || c === 0 || n1 === 0 || n0 === 0) { left++; continue; }
+      if (a === 0 || c === 0 || n1 === 0 || n0 === 0) { left++; return; }
       l = Math.log((a / n1) / (c / n0)); v = 1 / a - 1 / n1 + 1 / c - 1 / n0;
     }
-    if (!(v > 0)) { left++; continue; }
-    logs.push(l); w.push(1 / v);
-  }
-  if (logs.length < 2) return { test: 'woolf', X2: null, df: null, p: null, reasonKey: 'epi.undefined.homogeneityTooFewStrata', left };
+    if (!(v > 0)) { left++; return; }
+    logs.push(l); w.push(1 / v); included.push(i);
+  });
+  if (logs.length < 2) return { test: 'woolf', X2: null, df: null, p: null, reasonKey: 'epi.undefined.homogeneityTooFewStrata', left, rule, included };
   const sw = w.reduce((s, x) => s + x, 0);
-  const mean = centre > 0 && Number.isFinite(centre) ? Math.log(centre) : logs.reduce((s, x, i) => s + w[i] * x, 0) / sw;
-  const X2 = logs.reduce((s, x, i) => s + w[i] * (x - mean) ** 2, 0);
+  const centre = logs.reduce((s, x, i) => s + w[i] * x, 0) / sw;
+  const X2 = logs.reduce((s, x, i) => s + w[i] * (x - centre) ** 2, 0);
   const df = logs.length - 1;
-  return { test: 'woolf', X2, df, p: pchisqUpper(X2, df), left };
+  return { test: 'woolf', X2, df, p: pchisqUpper(X2, df), left, rule, included };
 }
 
-/** The homogeneity row of the report: Tarone's value for Breslow-Day, Woolf's value as it is. */
-function homogeneityTest(h) {
+/**
+ * The homogeneity rows of the report: Tarone's value for Breslow-Day, Woolf's value as it is. Each
+ * row says which strata it summed (strataIncluded: stratum labels, the farm ids on the within-farm
+ * route) and by which rule the others were left out (strataRule), so the text can name them.
+ */
+function homogeneityTests(h, labelOf) {
+  const which = { strataIncluded: h.included.map(labelOf), strataRule: h.rule };
   const t = h.tarone;
-  return {
+  const rows = [{
     id: 'homogeneity', statistic: { name: 'X2', value: t ? t.X2 : h.X2 }, df: h.df, p: t ? t.p : h.p,
-    alternative: 'two.sided', variant: h.test, ...(h.reasonKey ? { reasonKey: h.reasonKey } : {}),
-  };
+    alternative: 'two.sided', variant: h.test, ...which, ...(h.reasonKey ? { reasonKey: h.reasonKey } : {}),
+  }];
+  // Breslow-Day before Tarone's correction, for the result table. It is the same question as the row
+  // above: resultGuards leaves it out, and the report's test sentences are meant to (workspace role).
+  if (t) rows.push({ id: 'homogeneityUncorrected', statistic: { name: 'X2', value: h.X2 }, df: h.df, p: h.p, alternative: 'two.sided', variant: 'breslow-day', ...which });
+  return rows;
 }
 
 /**
@@ -224,11 +252,8 @@ export function runMantelHaenszel(spec, table) {
     };
     const tests = [
       { id: 'cmh', statistic: { name: 'X2', value: r.cmh.X2 }, df: 1, p: r.cmh.p, alternative: 'two.sided', variant: r.cmh.continuity ? 'cmh-continuity' : 'cmh', ...(r.cmh.reasonKey ? { reasonKey: r.cmh.reasonKey } : {}) },
-      homogeneityTest(r.homogeneity),
+      ...homogeneityTests(r.homogeneity, (i) => (labels ? labels[i] : String(i + 1))),
     ];
-    if (r.homogeneity.tarone) {
-      tests.push({ id: 'homogeneityUncorrected', statistic: { name: 'X2', value: r.homogeneity.X2 }, df: r.homogeneity.df, p: r.homogeneity.p, alternative: 'two.sided', variant: 'breslow-day' });
-    }
     const rows = [];
     let j = 0;
     strata.forEach((t, i) => {
