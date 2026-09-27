@@ -16,7 +16,7 @@ export default {
     'entrance.welcome.step2.title': 'ตอบคำถามของไฟล์ครั้งเดียว',
     'entrance.welcome.step2.body': 'หนึ่งแถวคืออะไร คอลัมน์ไหนคือฟาร์ม ค่าไหนคือค่าที่หายไป',
     'entrance.welcome.step3.title': 'เลือกรูปแบบการศึกษา แล้ววิเคราะห์',
-    'entrance.welcome.step3.body': 'เมนูเหลือแต่สถิติที่ใช้กับ design นั้นได้ และทุกผลบอกที่มา',
+    'entrance.welcome.step3.body': 'เมนูเหลือแต่สถิติที่ใช้กับรูปแบบการศึกษานั้นได้ และทุกผลบอกที่มา',
 
     'entrance.drop.title': 'วางไฟล์ข้อมูลของคุณที่นี่',
     'entrance.drop.types': 'Excel (.xlsx .xls), CSV หรือไฟล์ที่ดาวน์โหลดจาก Google Sheets',

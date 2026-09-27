@@ -1,4 +1,5 @@
-// Dates on the landing show their era [M1-DESIGN.md 4.3]: "25 ก.ย. 2569 (พ.ศ.)", "25 Sep 2026 CE".
+// Dates on the landing show their era [M1-DESIGN.md 4.3]: "25 ก.ย. พ.ศ. 2569", "25 Sep 2026 CE" (the
+// Thai era is written before the year, as Thai writes it).
 // ISO dates are read as calendar days in UTC so no time zone can move them. OWNER: landing role.
 
 function utc(iso) {
@@ -13,9 +14,9 @@ function utc(iso) {
  */
 export function formatDate(iso, lang, t) {
   const date = lang === 'th'
-    ? new Intl.DateTimeFormat('th-TH-u-ca-buddhist-nu-latn', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(utc(iso))
+    ? `${new Intl.DateTimeFormat('th-TH-u-nu-latn', { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(utc(iso))} พ.ศ. ${utc(iso).getUTCFullYear() + 543}`
     : `${utc(iso).getUTCDate()} ${new Intl.DateTimeFormat('en-US', { month: 'short', timeZone: 'UTC' }).format(utc(iso))} ${utc(iso).getUTCFullYear()}`;
-  return t('landing.date', { date: date.replace(/^(\D*)พ\.ศ\.\s*/, '$1') });
+  return t('landing.date', { date });
 }
 
 /** Day and month only ("2 เม.ย.", "2 April"). @param {string} iso @param {'th'|'en'} lang */

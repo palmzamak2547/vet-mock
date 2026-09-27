@@ -3,6 +3,7 @@
 // simulated herd copies, STROBE-Vet), the Studio's own pages and the rest of VetMock. The headline
 // words rise in once when the footer comes into view (data-footer on the landing root, set by an
 // IntersectionObserver); under reduced motion they are simply there. OWNER: landing role.
+import { Fragment } from 'react';
 import { useT } from '../../i18n/index.js';
 import { HERD_DESIGN } from '../herd/data.js';
 import { EVIDENCE_BASE_URL } from '../chart/rows.js';
@@ -33,13 +34,19 @@ export function CtaSection() {
   );
 }
 
+// The space sits outside the clipping word box: inside an inline-block with overflow hidden a trailing
+// space collapses, and the English headline read "Realdata. Numbersyoucancheck." (review round 1).
 function Words({ text }) {
-  return text.split(' ').map((w, i) => (
-    <span className="rs-l-wm" key={i}>
-      <span className="rs-l-w" style={{ transitionDelay: `${i * 60}ms` }}>
-        {w}
-      </span>{' '}
-    </span>
+  const words = text.split(' ');
+  return words.map((w, i) => (
+    <Fragment key={i}>
+      <span className="rs-l-wm">
+        <span className="rs-l-w" style={{ transitionDelay: `${i * 60}ms` }}>
+          {w}
+        </span>
+      </span>
+      {i < words.length - 1 ? ' ' : null}
+    </Fragment>
   ));
 }
 

@@ -993,7 +993,9 @@
   border: 1.5px solid var(--rs-ink-soft);
 }
 .rs-l-device-b {
-  background: var(--rs-surface);
+  /* No fill: the herd's dots form the screen behind this outline. A filled screen covered them as the
+     device faded in, so the story ended on an empty laptop (review round 1). */
+  background: transparent;
   border: 1px solid var(--rs-line);
 }
 
@@ -1521,14 +1523,15 @@
   min-height: 44px;
 }
 .rs-l-footer-ghost {
-  margin-top: 8px;
-  font-size: clamp(56px, 13vw, 200px);
+  /* The whole domain fits the width and is not cut at the bottom (review round 1: it read "vetmoc"). */
+  margin: 8px 0 0;
+  padding-bottom: 0.12em;
+  font-size: min(calc((100vw - 136px) / 11.4), 150px);
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.05;
   letter-spacing: -0.02em;
   white-space: nowrap;
   color: var(--rs-landing-ghost);
-  transform: translateY(22%);
 }
 .rs-l-footer-ghost span {
   color: var(--rs-landing-dot-pos);
@@ -1536,6 +1539,9 @@
 @media (max-width: 900px) {
   .rs-l-footer {
     padding: 64px 16px 0;
+  }
+  .rs-l-footer-ghost {
+    font-size: calc((100vw - 40px) / 11.4);
   }
   .rs-l-footer-grid {
     grid-template-columns: 1fr 1fr;

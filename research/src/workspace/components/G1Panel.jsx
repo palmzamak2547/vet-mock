@@ -10,16 +10,20 @@ import Icon from './Icon.jsx';
 import { keyPart } from '../lib/keys.js';
 
 const ROUTE_ORDER = ['mh-within', 'deff', 'aggregate', 'gee', 'mixed'];
+const hasSingle = (t, id) => { const k = `ws.route.${keyPart(id)}.descSingle`; return t(k) !== `[${k}]`; };
 
 /**
- * @param {{ panel: any|null, stops: any[], nFarmsText?: string, onChoose: (route: string) => void, busy?: boolean, columnName: string }} props
+ * @param {{ panel: any|null, stops: any[], nFarmsText?: string, onChoose: (route: string) => void, busy?: boolean, columnName: string, single?: boolean }} props
  *   panel: result of epi/guardrails.clusterPanel() or null when it could not be computed
+ *   single: one estimate (a prevalence), not a comparison: no groups, no p-value, no within-farm route
  */
-export default function G1Panel({ panel, stops, onChoose, busy = false, columnName }) {
+export default function G1Panel({ panel, stops, onChoose, busy = false, columnName, single = false }) {
   const { t } = useT();
   const [route, setRoute] = useState(null);
   const g1 = stops.find((s) => s.id === 'G1') || stops.find((s) => s.id === 'G2') || stops[0];
-  const routes = [...(panel?.routes || []).map((r) => ({ ...r }))];
+  // A prevalence has no groups to compare within a farm (review round 1): its routes are the widened
+  // interval and the farm-level prevalence, described for one estimate.
+  const routes = [...(panel?.routes || []).map((r) => ({ ...r }))].filter((r) => !single || r.id !== 'mh-within');
   for (const id of ['gee', 'mixed']) if (!routes.some((r) => r.id === id)) routes.push({ id, enabled: false, reasonKey: 'ws.route.m3' });
   routes.sort((a, b) => ROUTE_ORDER.indexOf(a.id) - ROUTE_ORDER.indexOf(b.id));
   const stat = (v, labelKey, kind) => (
@@ -33,8 +37,8 @@ export default function G1Panel({ panel, stops, onChoose, busy = false, columnNa
       <div className="rs-stop-head">
         <span className="rs-stop-icon"><Icon name="stop" size={22} /></span>
         <div>
-          <h2 id="rs-g1-title" className="rs-h2">{t('ws.g1.title')}</h2>
-          <p>{g1 ? t(g1.bodyKey || g1.key, g1.params) : t('ws.g1.body', { column: columnName })}</p>
+          <h2 id="rs-g1-title" className="rs-h2">{t(single ? 'ws.g1.titleSingle' : 'ws.g1.title')}</h2>
+          <p>{single ? t('ws.g1.bodySingle', { column: columnName }) : g1 ? t(g1.bodyKey || g1.key, g1.params) : t('ws.g1.body', { column: columnName })}</p>
         </div>
       </div>
       {panel ? (
@@ -44,7 +48,10 @@ export default function G1Panel({ panel, stops, onChoose, busy = false, columnNa
             {stat(panel.deff, 'ws.g1.deff', 'ratio')}
             {stat(panel.nEff, 'ws.g1.nEff', 'count')}
           </div>
-          <p className="rs-soft rs-small">{t('term.icc.gloss')} {t('term.deff.gloss')}</p>
+          <dl className="rs-g1-glosses rs-small">
+            <div><dt>{t('ws.g1.icc')}</dt><dd className="rs-soft">{t('term.icc.gloss')}</dd></div>
+            <div><dt>{t('ws.g1.deff')}</dt><dd className="rs-soft">{t('term.deff.gloss')}</dd></div>
+          </dl>
         </>
       ) : null}
       <fieldset className="rs-fieldset">
@@ -55,7 +62,7 @@ export default function G1Panel({ panel, stops, onChoose, busy = false, columnNa
               <input type="radio" name="rs-g1-route" value={r.id} disabled={!r.enabled} checked={route === r.id} onChange={() => setRoute(r.id)} />
               <span className="rs-choice-text">
                 <span className="rs-choice-title">{t(`ws.route.${keyPart(r.id)}.title`)}</span>
-                <span className="rs-soft rs-small">{t(`ws.route.${keyPart(r.id)}.desc`, { column: columnName })}</span>
+                <span className="rs-soft rs-small">{t(single && hasSingle(t, r.id) ? `ws.route.${keyPart(r.id)}.descSingle` : `ws.route.${keyPart(r.id)}.desc`, { column: columnName })}</span>
                 {!r.enabled && r.reasonKey ? <span className="rs-soft rs-small">{t(r.reasonKey)}</span> : null}
               </span>
             </label>

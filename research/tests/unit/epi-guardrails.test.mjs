@@ -179,3 +179,9 @@ test('G5 warns on McNemar chi-square with few discordant pairs (review round 1)'
   const many = spec('test.mcnemar', { kind: 'counts', counts: { table: [[30, 20], [10, 50]] } });
   assert.equal(evaluateGuards(many, null, null).warnings.some((f) => f.id === 'G5'), false);
 });
+
+test('G24 never fires for Table 1, which keeps every row and counts missing values per variable (review round 1)', () => {
+  const t = serosurveyTable();
+  const s = spec('desc.table1', { kind: 'dataset' }, { roles: { covariates: ['age'], group: 'elisa' }, design: 'cross-sectional' });
+  assert.equal(evaluateGuards(s, t, null).warnings.some((f) => f.id === 'G24'), false);
+});

@@ -75,6 +75,8 @@ export default function ImportPane({ p }) {
   const [sheets, setSheets] = useState(null);
   const [opts, setOpts] = useState({ encoding: 'auto', sheet: null, headerRow: 0 });
   const [preview, setPreview] = useState(null);
+  // Questions the student answered, so their card says so instead of "chosen from the file".
+  const [chosenByYou, setChosenByYou] = useState(() => new Set());
   const [phase, setPhase] = useState('pick');
   const [progress, setProgress] = useState(null);
   const [error, setError] = useState(null);
@@ -123,10 +125,12 @@ export default function ImportPane({ p }) {
     setSheets(null);
     setPreview(null);
     setOpts({ encoding: 'auto', sheet: null, headerRow: 0 });
+    setChosenByYou(new Set());
     setFile(f);
   };
 
   const answer = (questionId, value) => {
+    setChosenByYou((set) => new Set(set).add(questionId));
     try {
       setPreview((pv) => answerPreview(pv, { [questionId]: value }));
     } catch (err) {
@@ -158,7 +162,11 @@ export default function ImportPane({ p }) {
   const plain = plainConversions(preview);
   const pii = piiConversions(preview);
   const farmCols = (preview?.codebook?.columns || []).filter((c) => c.level === 'farm');
-  const found = (preview?.conversions || []).length;
+  // One count per concept, the same everywhere on this screen (review round 1): what was found is the
+  // cards shown; the questions, the automatic conversions, the notes and the hidden columns add up to it.
+  const answered = questions.filter((q) => !q.waiting).length;
+  const found = questions.length + plain.applied.length + plain.shown.length + pii.length;
+  const toApply = plain.applied.length + answered;
 
   return (
     <>
@@ -215,13 +223,13 @@ export default function ImportPane({ p }) {
                 </label>
               </div>
               <div className="rs-pad rs-bordertop">
-                <h3 className="rs-h3">{t('ws.import.readCheck')}</h3>
+                <h2 className="rs-h3">{t('ws.import.readCheck')}</h2>
                 <p>{t('ws.import.headerReads', { header: preview.raw.header.slice(0, 4).join(', ') })}</p>
                 <p className="rs-soft rs-small">{t('ws.import.encodingHint')}</p>
               </div>
             </div>
 
-            <h2 id="rs-h-found" className="rs-h2">{t('ws.import.found', { n: found, k: open })}</h2>
+            <h2 id="rs-h-found" className="rs-h2">{open ? t('ws.import.found', { n: found, k: open }) : t('ws.import.foundNone', { n: found })}</h2>
             {questions.length ? (
               <ul className="rs-convlist">
                 {questions.map((q) => (
@@ -244,7 +252,7 @@ export default function ImportPane({ p }) {
                           </button>
                         ))}
                       </div>
-                      <p className="rs-soft rs-small">{q.waiting ? t('ws.import.noGuess') : t('ws.import.answeredCanChange')}</p>
+                      <p className="rs-soft rs-small">{q.waiting ? t('ws.import.noGuess') : chosenByYou.has(q.questionId) ? t('ws.import.youChose') : t('ws.import.answeredCanChange')}</p>
                     </div>
                   </li>
                 ))}
@@ -285,6 +293,8 @@ export default function ImportPane({ p }) {
               </>
             ) : null}
             {pii.length ? (
+              <>
+              <h2 className="rs-h3 rs-soft">{t('ws.import.hiddenTitle', { n: pii.length })}</h2>
               <ul className="rs-convlist">
                 {pii.map((c, k) => (
                   <li key={k} className="rs-conv">
@@ -296,6 +306,7 @@ export default function ImportPane({ p }) {
                   </li>
                 ))}
               </ul>
+              </>
             ) : null}
           </section>
 
@@ -304,7 +315,7 @@ export default function ImportPane({ p }) {
               <h2 id="rs-h-recipe" className="rs-h3">{t('ws.import.stepsTitle')}</h2>
               <p className="rs-soft rs-small">{t('ws.import.stepsSub')}</p>
               <ol className="rs-steps">
-                <li className="rs-step"><span className="rs-step-n rs-num" aria-hidden="true">1</span><span>{t('ws.import.stepImport', { n: plain.applied.length + questions.filter((q) => !q.waiting).length })}</span></li>
+                <li className="rs-step"><span className="rs-step-n rs-num" aria-hidden="true">1</span><span>{t('ws.import.stepImport', { n: toApply })}</span></li>
                 {questions.filter((q) => q.waiting).map((q, k) => (
                   <li key={q.questionId} className="rs-step rs-step--wait">
                     <span className="rs-step-n rs-num" aria-hidden="true">{k + 2}</span>
@@ -322,7 +333,7 @@ export default function ImportPane({ p }) {
               </section>
             ) : null}
             <div className="rs-panel rs-pad rs-confirmbox">
-              <p><strong>{t('ws.import.summary', { done: found - open })}</strong> {open ? <span className="rs-soft">{t('ws.import.summaryOpen', { n: open })}</span> : null}</p>
+              <p><strong>{t('ws.import.summary', { answered, asked: questions.length, auto: plain.applied.length })}</strong> {open ? <span className="rs-soft">{t('ws.import.summaryOpen', { n: open })}</span> : null}</p>
               {open ? (preview.blocking || []).map((b, k) => <p key={k} className="rs-soft rs-small">{t(b.key, b.params)}</p>) : null}
               <button type="button" className="rs-btn rs-btn--primary rs-btn--block" disabled={!ok || phase === 'saving'} onClick={confirm}>
                 {open ? t('ws.import.confirmWait', { n: open }) : t('ws.import.confirm', { n: preview.raw.rowCount.toLocaleString('en-US') })}

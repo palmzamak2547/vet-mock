@@ -309,12 +309,12 @@ export function monthsBetween(birthDays, eventDays) {
 }
 
 /**
- * Display a date with its era named: th '25 ก.ย. 2569 (พ.ศ.)', en '25 Sep 2026 CE' (M1-DESIGN.md 4.3).
+ * Display a date with its era named: th '25 ก.ย. พ.ศ. 2569', en '25 Sep 2026 CE' (M1-DESIGN.md 4.3).
  * @param {number} days @param {'th'|'en'} lang @returns {string}
  */
 export function formatDate(days, lang) {
   if (!Number.isFinite(days)) return '—';
   const [y, m, d] = civilFromDays(days);
-  if (lang === 'th') return `${d} ${TH_ABBR[m - 1]} ${ceToBe(y, m)} (พ.ศ.)`;
+  if (lang === 'th') return `${d} ${TH_ABBR[m - 1]} พ.ศ. ${ceToBe(y, m)}`;
   return `${d} ${EN_ABBR[m - 1]} ${y} CE`;
 }

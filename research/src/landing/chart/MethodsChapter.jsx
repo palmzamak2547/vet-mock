@@ -120,8 +120,16 @@ export default function MethodsChapter() {
       const plan = layoutBarDots(bars, { total: herd.N, pointPx, pitch: pointPx + 1.5 });
       eng.setTarget(plan.grid, plan.sizes, plan.use, plan.pos);
     };
+    // Scroll starts the entrance; time finishes it. A reader who lands on the chapter from the header
+    // link or #rs-papers stops with the figure half way up the screen, and scrubbing by scroll depth
+    // left the bars short there (review round 1). Once the figure is in view the bars reach their true
+    // length within about 1.6 s whatever the reader does next.
+    let entered = 0;
     const draw = (now) => {
-      const p = progressOf(figure);
+      const sp = progressOf(figure);
+      if (!entered && sp > 0.12) entered = now;
+      const tp = entered ? Math.min(1, (now - entered) / 1600) : 0;
+      const p = Math.max(sp, tp);
       for (let i = 0; i < n; i++) {
         const b = barRefs.current[i];
         if (b) b.style.transform = `scaleX(${barScale(p, i, n).toFixed(4)})`;
@@ -245,9 +253,11 @@ export default function MethodsChapter() {
           {data ? <figcaption className="rs-papers-axis">{t('landing.papers.axisNote', { max: data.max, name: t(`landing.family.${data.rows[0].id}`) })}</figcaption> : null}
         </figure>
 
-        {data && data.rows.length > SHOWN_FIRST ? (
-          <button type="button" className="rs-l-btn rs-l-btn-ghost rs-papers-more" aria-expanded={all} onClick={() => setAll((x) => !x)}>
-            {all ? t('landing.papers.showFewer', { n: SHOWN_FIRST }) : t('landing.papers.showAll', { n: data.rows.length })}
+        {/* Rendered from the first paint (disabled until the rows load), so a keyboard reader tabbing past
+            the chart before it loads does not skip it (review round 1). The count is the joined table's. */}
+        {joined.families.length > SHOWN_FIRST ? (
+          <button type="button" className="rs-l-btn rs-l-btn-ghost rs-papers-more" aria-expanded={all} disabled={!data} onClick={() => setAll((x) => !x)}>
+            {all ? t('landing.papers.showFewer', { n: SHOWN_FIRST }) : t('landing.papers.showAll', { n: data ? data.rows.length : joined.families.length })}
           </button>
         ) : null}
 

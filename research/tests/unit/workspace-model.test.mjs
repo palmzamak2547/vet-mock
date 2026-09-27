@@ -42,7 +42,7 @@ test('dates: days since 1970 to calendar parts, Thai cells in BE, English in CE,
   assert.equal(eraTag('th'), 'พ.ศ.');
   assert.equal(eraTag('en'), 'CE');
   const when = new Date(2026, 8, 25, 14, 5);
-  assert.equal(formatMoment(when, 'th'), '25 ก.ย. 2569 (พ.ศ.)');
+  assert.equal(formatMoment(when, 'th'), '25 ก.ย. พ.ศ. 2569');
   assert.equal(formatMoment(when, 'en'), '25 Sep 2026 CE');
   assert.equal(formatMoment(when, 'en', { time: true }), '25 Sep 2026 CE 14:05');
   assert.equal(formatMoment('not a date', 'th'), '');

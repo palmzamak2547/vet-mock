@@ -102,3 +102,6 @@ a {
   place-items: center;
   color: var(--rs-ink-soft);
 }
+
+/* A heading focused by the route change (tabIndex -1) is not a control; no focus box (review round 1). */
+[tabindex="-1"]:focus { outline: none; }

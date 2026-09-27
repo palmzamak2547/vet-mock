@@ -142,13 +142,13 @@ export default function SampleSize() {
                   <div className="rs-row-wrap">
                     {examples.map((it) => (
                       <button key={it.id} type="button" className={`rs-btn rs-btn--sm${example?.id === it.id ? ' rs-btn--chosen' : ''}`} onClick={() => loadExample(it)}>
-                        {t('ws.ss.exampleItem', { id: it.id })}
+                        {t(`ws.ss.example.${it.id}`) !== `[ws.ss.example.${it.id}]` ? t(`ws.ss.example.${it.id}`) : t('ws.ss.exampleItem')}
                       </button>
                     ))}
                   </div>
                   {example ? (
                     <div className="rs-soft rs-small">
-                      <p>{t('ws.ss.exampleFrom', { id: example.id, deck: example.deck })}</p>
+                      <p>{t('ws.ss.exampleFrom', { deck: example.deck })}</p>
                       <p className="rs-mono">{example.formula}</p>
                       {unused.length ? <p>{t('ws.ss.unused', { names: unused.join(', ') })}</p> : null}
                     </div>
@@ -196,7 +196,7 @@ export default function SampleSize() {
                       <p className="rs-soft rs-small">{t('ws.ss.altNote')}</p>
                     </div>
                   ) : null}
-                  {spec && example ? <p className="rs-soft rs-small">{t('ws.ss.courseAnswer', { id: example.id, answer: example.courseAnswer })}</p> : null}
+                  {spec && example ? <p className="rs-soft rs-small">{t('ws.ss.courseAnswer', { answer: example.courseAnswer })}</p> : null}
                 </ResultView>
               ) : !busy ? <p className="rs-soft">{t('ws.ss.empty')}</p> : null}
             </section>

@@ -22,6 +22,7 @@ export default function Paragraphs({ label, th, en, onCopy }) {
           <button type="button" className="rs-btn rs-btn--sm" onClick={() => onCopy(en, 'en')} disabled={!en}><Icon name="copy" size={16} />{t('ws.action.copy')}</button>
         </div>
         <p className="rs-para-text rs-num">{en || translate('en', 'ws.report.nothingYet')}</p>
+        {/[\u0E00-\u0E7F]/.test(en || '') ? <p className="rs-soft rs-small" role="note">{t('ws.report.thaiInEnglish')}</p> : null}
       </div>
     </div>
   );

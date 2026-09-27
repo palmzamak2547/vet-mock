@@ -333,7 +333,7 @@ export default function AnalysisPane({ p, pane }) {
           <ErrorBox error={error} />
           {herd.length ? <Herd groups={herd} clusterName={cluster?.name || ''} /> : null}
           {clusterStop ? (
-            <G1Panel panel={panel} stops={env.guard.stops} onChoose={(r) => run(r)} busy={busy} columnName={cluster?.name || ''} />
+            <G1Panel panel={panel} stops={env.guard.stops} onChoose={(r) => run(r)} busy={busy} columnName={cluster?.name || ''} single={String(method || '').startsWith('freq.')} />
           ) : null}
           {env && !clusterStop ? (
             <ResultView

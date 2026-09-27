@@ -430,7 +430,6 @@
 .rs-figure { margin: 0; display: flex; flex-direction: column; gap: 10px; padding: 14px; border: 1px solid var(--rs-line); border-radius: var(--rs-radius-lg); background: var(--rs-surface); min-width: 0; }
 .rs-figcap { font-weight: 700; font-size: 15px; }
 .rs-figure-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; align-items: start; }
-@media (min-width: 1280px) { .rs-figure-row { grid-template-columns: minmax(0, 1fr) minmax(0, 18rem); } }
 .rs-figure-plot { min-width: 0; overflow-x: auto; }
 .rs-ciplot { display: block; max-width: 100%; height: auto; }
 .rs-export-body { display: flex; flex-direction: column; gap: 10px; padding-top: 6px; }
@@ -441,6 +440,10 @@
 .rs-stop-head { display: flex; gap: 10px; align-items: flex-start; }
 .rs-stop-icon { color: var(--rs-rose-text); padding-top: 2px; display: flex; }
 .rs-stats3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr)); gap: 8px; }
+.rs-g1-glosses { display: grid; gap: 6px; margin: 0; }
+.rs-g1-glosses div { display: grid; gap: 2px; }
+.rs-g1-glosses dt { font-weight: 600; }
+.rs-g1-glosses dd { margin: 0; }
 .rs-stat { padding: 10px 12px; border-radius: 12px; background: var(--rs-bg); border: 1px solid var(--rs-line); min-width: 0; }
 .rs-stat-num { font-size: 20px; font-weight: 700; white-space: nowrap; }
 .rs-herd { margin: 0; }
@@ -485,3 +488,6 @@
   .rs-main { padding: 0; }
   .rs-panel, .rs-figure { border-color: var(--rs-line); }
 }
+
+/* Held veil before the entrance chunk arrives (same place and colour as .rs-entrance-veil). */
+.rs-entrance-hold { position: fixed; inset: 0; z-index: 60; background: var(--rs-bg); pointer-events: none; }

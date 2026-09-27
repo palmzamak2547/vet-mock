@@ -323,8 +323,10 @@ export function evaluateGuards(spec, table, codebook, context = {}) {
   // G20: tests combined in series or parallel.
   if (o.combine === 'series' || o.combine === 'parallel') add(finding('G20'));
 
-  // G24: rows used below rows recorded (missing values in the columns named).
-  if (dataset) {
+  // G24: rows used below rows recorded (missing values in the columns named). Table 1 keeps every row
+  // and counts the missing values under each variable, so it drops none (review round 1: its banner
+  // said 650 of 728 while its provenance said 728).
+  if (dataset && method !== 'desc.table1') {
     const keys = roleKeys(spec).filter((k) => table.columns[k]);
     if (keys.length) {
       const byColumn = [];

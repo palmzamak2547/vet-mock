@@ -99,20 +99,20 @@ export default function CodebookPane({ p }) {
                       {c.key === draft.clusterKey ? <Chip tone="gold">{t('ws.codebook.isCluster')}</Chip> : null}
                       {issueFor(c.key).map((i, k) => <div key={k} className="rs-issue">{t(i.key, i.params)}</div>)}
                     </th>
-                    <td><input id={id('th')} aria-label={t('ws.codebook.col.labelTh')} className="rs-input" value={c.labelTh || ''} onChange={(e) => setCol(c.key, { labelTh: e.target.value })} /></td>
-                    <td><input id={id('en')} aria-label={t('ws.codebook.col.labelEn')} lang="en" className="rs-input" value={c.labelEn || ''} onChange={(e) => setCol(c.key, { labelEn: e.target.value })} /></td>
+                    <td><input id={id('th')} aria-label={t('ws.codebook.controlFor', { control: t('ws.codebook.col.labelTh'), column: c.name })} className="rs-input" value={c.labelTh || ''} onChange={(e) => setCol(c.key, { labelTh: e.target.value })} /></td>
+                    <td><input id={id('en')} aria-label={t('ws.codebook.controlFor', { control: t('ws.codebook.col.labelEn'), column: c.name })} lang="en" className="rs-input" value={c.labelEn || ''} onChange={(e) => setCol(c.key, { labelEn: e.target.value })} /></td>
                     <td>
-                      <select aria-label={t('ws.codebook.col.type')} className="rs-select" value={c.type} onChange={(e) => setCol(c.key, { type: e.target.value })}>
+                      <select aria-label={t('ws.codebook.controlFor', { control: t('ws.codebook.col.type'), column: c.name })} className="rs-select" value={c.type} onChange={(e) => setCol(c.key, { type: e.target.value })}>
                         {TYPES.map((v) => <option key={v} value={v}>{t(`ws.type.${v}`)}</option>)}
                       </select>
                     </td>
                     <td>
-                      <select aria-label={t('ws.codebook.col.role')} className="rs-select" value={c.role} onChange={(e) => setCol(c.key, { role: e.target.value })}>
+                      <select aria-label={t('ws.codebook.controlFor', { control: t('ws.codebook.col.role'), column: c.name })} className="rs-select" value={c.role} onChange={(e) => setCol(c.key, { role: e.target.value })}>
                         {ROLES.map((v) => <option key={v} value={v}>{t(`ws.cbrole.${v}`)}</option>)}
                       </select>
                     </td>
                     <td>
-                      <select aria-label={t('ws.codebook.col.level')} className="rs-select" value={c.level} onChange={(e) => setCol(c.key, { level: e.target.value })}>
+                      <select aria-label={t('ws.codebook.controlFor', { control: t('ws.codebook.col.level'), column: c.name })} className="rs-select" value={c.level} onChange={(e) => setCol(c.key, { level: e.target.value })}>
                         {LEVELS.map((v) => <option key={v} value={v}>{t(`ws.level.${v}`)}</option>)}
                       </select>
                     </td>

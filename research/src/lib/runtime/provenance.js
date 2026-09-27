@@ -85,7 +85,7 @@ export function provenanceLines(env, lang, t, labelOf = (k) => k) {
   if (p.dataFingerprint) second.push(t('runtime.prov.data', { hash: p.dataFingerprint.slice(0, 8) }));
   // The line always ends with the program version; the verification claim sits just before it.
   if (env.verified) second.push(t('runtime.prov.verified', { against: (p.validatedAgainst || []).map((f) => t(`runtime.family.fixture.${valueSlug(f)}`)).join(', ') }));
-  second.push(t('runtime.prov.engine', { version: p.engineVersion || '' }));
+  second.push(t('runtime.prov.engine', { version: String(p.engineVersion || '').replace(/^research-studio-m\d+-/, '') }));
   return [first.join(' | '), second.join(' | ')];
 }
 

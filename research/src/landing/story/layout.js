@@ -107,7 +107,9 @@ export function layoutValues(t, v, reduce, widen) {
       x = d * v.pp[0];
       y = d * v.pp[1];
       z = d * v.pp[2];
-      op = Math.max(0, 1 + d * v.fade);
+      // The panel being read stays fully opaque until it is well on its way out: at 0.96 the panels
+      // behind it showed through its cells (review round 1).
+      op = Math.max(0, 1 + Math.min(0, d + 0.3) * v.fade);
     }
     put(`p${i}`, Math.max(0, op) * vis, `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px)`);
     put(`c${i}`, Math.max(0, 1 - Math.abs(a - i) * 1.8) * vis, `translateY(${((i - a) * v.capShift * m).toFixed(1)}px)`);
@@ -143,14 +145,19 @@ export function layoutValues(t, v, reduce, widen) {
 /** Scroll progress t -> what the particle layer does. */
 export function scene(t) {
   const panelsIn = smooth(0.08, 0.14, t) * (1 - smooth(0.38, 0.46, t));
-  const resultIn = smooth(0.7, 0.76, t) * (1 - smooth(0.84, 0.9, t));
+  // The herd steps back before a caption rises over it (review round 1: the farm rings sat on the
+  // results and privacy captions at full strength). Results: dimmed from 0.66, before rcap at 0.71.
+  // Privacy: rings gone by 0.84 and the moving dots dimmed from 0.82 until they settle into the device
+  // at 0.97, while dcap rises from 0.85.
+  const resultIn = smooth(0.66, 0.71, t) * (1 - smooth(0.84, 0.9, t));
+  const crossing = smooth(0.82, 0.86, t) * (1 - smooth(0.93, 0.975, t));
   return {
     fold: smooth(0.44, 0.58, t),
     grid: smooth(0.86, 0.97, t),
     halo: 1 - smooth(0.03, 0.1, t),
-    dim: ((1 - 0.72 * panelsIn) * (1 - 0.6 * resultIn)) ** 2,
+    dim: ((1 - 0.72 * panelsIn) * (1 - 0.6 * resultIn) * (1 - 0.8 * crossing)) ** 2,
     posMix: 0.35 + 0.65 * smooth(0.46, 0.56, t),
-    ringAlpha: 0.55 * smooth(0.5, 0.62, t) * (1 - smooth(0.84, 0.9, t)) * (1 - 0.85 * resultIn),
+    ringAlpha: 0.55 * smooth(0.5, 0.62, t) * (1 - smooth(0.79, 0.84, t)) * (1 - 0.9 * resultIn),
   };
 }
 

@@ -55,7 +55,23 @@ export function translate(lang, key, params) {
     return `[${key}]`;
   }
   if (!params) return s;
-  return s.replace(/\{(\w+)\}/g, (m, name) => (params[name] === undefined ? m : String(params[name])));
+  const out = s.replace(/\{(\w+)\}/g, (m, name) => (params[name] === undefined ? m : String(params[name])));
+  return lang === 'en' ? singularEn(out) : out;
+}
+
+const IRREGULAR = { analyses: 'analysis', categories: 'category', strata: 'stratum', times: 'time' };
+const COUNTED = /(^|[^\d.,])1 ((?:[a-z]+ )?)(rows|cells|columns|projects|results|times|farms|animals|things|pairs|steps|conversions|questions|values|items|groups|levels|tests|analyses|files|days|months|years|categories|strata|entries|clusters|sheets|kept results)\b/g;
+
+/**
+ * English counts are written "{n} rows"; when n is 1 the noun is made singular ("1 row", "1 kept
+ * result"), so the dictionaries need no second key per count (review round 1: "1 kept results").
+ * @param {string} s
+ */
+export function singularEn(s) {
+  return s.replace(COUNTED, (m, pre, adj, noun) => {
+    const one = IRREGULAR[noun] || noun.replace(/s$/, '');
+    return `${pre}1 ${adj}${one}`;
+  });
 }
 
 const I18nContext = createContext({ lang: /** @type {'th'|'en'} */ ('th'), setLang: (_l) => {}, t: (key, params) => translate('th', key, params) });

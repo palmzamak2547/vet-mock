@@ -55,7 +55,7 @@ export function eraTag(lang) {
 }
 
 /**
- * A moment as a date with its era: "25 ก.ย. 2569 (พ.ศ.)" or "25 Sep 2026 CE". Local calendar day.
+ * A moment as a date with its era: "25 ก.ย. พ.ศ. 2569" or "25 Sep 2026 CE". Local calendar day.
  * @param {string|number|Date} when ISO 8601 string, epoch milliseconds or a Date
  * @param {'th'|'en'} lang
  * @param {{ time?: boolean }} [opts]
@@ -69,7 +69,7 @@ export function formatMoment(when, lang, opts = {}) {
   const y = dt.getFullYear();
   const time = opts.time ? ` ${pad2(dt.getHours())}:${pad2(dt.getMinutes())}` : '';
   const month = word(lang, `ws.date.month.${m + 1}`);
-  return lang === 'th' ? `${d} ${month} ${toBE(y)} (${eraTag('th')})${time}` : `${d} ${month} ${y} ${eraTag('en')}${time}`;
+  return lang === 'th' ? `${d} ${month} ${eraTag('th')} ${toBE(y)}${time}` : `${d} ${month} ${y} ${eraTag('en')}${time}`;
 }
 
 /** 'YYYY-MM-DD' of the local day, for file names (CE, the form file systems sort). */

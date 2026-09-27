@@ -50,9 +50,10 @@
   color: var(--rs-ink-soft);
 }
 .rs-entrance-skip {
+  /* Bottom right, clear of the workspace header's language and account buttons (review round 1). */
   position: absolute;
   right: 20px;
-  top: 20px;
+  bottom: max(20px, env(safe-area-inset-bottom));
   min-height: 44px;
   padding: 0 18px;
   border-radius: 12px;

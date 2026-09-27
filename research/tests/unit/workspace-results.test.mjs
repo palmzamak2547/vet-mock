@@ -66,7 +66,7 @@ test('export table: estimate and interval come before p; p gets "=" only when th
   assert.deepEqual(tb.columns, ['Measure', 'Estimate', '95% CI', 'Note']);
   assert.deepEqual(tb.rows[0], ['Prevalence ratio (PR)', '2.11', '1.43 to 3.12', '']);
   const last = tb.rows[tb.rows.length - 1];
-  assert.equal(last[0], 'Chi-square (X2)');
+  assert.equal(last[0], 'Chi-square (χ²)');
   assert.equal(last[2], 'p < 0.001');
   assert.equal(pText(fmt, 0.0123), 'p = 0.012');
   assert.equal(pText(fmt, null), 'p —');
@@ -78,7 +78,7 @@ test('labels: a value can mean something else per method; tests are named with t
   assert.equal(valueLabel('estimate', t, 'corr.pearson'), 'r');
   assert.equal(valueLabel('estimate', t, 'freq.proportion'), 'Estimate');
   assert.equal(valueLabel('somethingNew', t), 'somethingNew', 'an unknown value keeps its own name');
-  assert.equal(testLabel({ id: 'cmh', statistic: { name: 'X2' } }, t), 'Cochran-Mantel-Haenszel (X2)');
+  assert.equal(testLabel({ id: 'cmh', statistic: { name: 'X2' } }, t), 'Cochran-Mantel-Haenszel (χ²)');
   assert.equal(testLabel({ id: 'unknownTest', statistic: { name: 'Z' } }, t), 'Z');
 });
 

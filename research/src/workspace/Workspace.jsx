@@ -37,9 +37,23 @@ registerArea('runtime', runtime);
 const Entrance = lazy(() => import('../entrance/Entrance.jsx'));
 
 /** Where the entrance's dots settle: the new-user drop zone, else the project list. */
+/**
+ * The part of the drop zone (or the project list) the student can see: on a phone the drop zone sits
+ * mostly below the fold, and the dots gathered onto a border off screen (review round 1). The zone is
+ * brought into view first when less than 80 px of it shows, then the visible part is the target.
+ */
 function entranceTarget() {
   const el = document.querySelector('.rs-welcome-drop') || document.querySelector('.rs-projects-list');
-  return el ? el.getBoundingClientRect() : null;
+  if (!el) return null;
+  const vh = window.innerHeight || 1;
+  let r = el.getBoundingClientRect();
+  if (Math.min(r.bottom, vh) - Math.max(r.top, 0) < 80) {
+    el.scrollIntoView({ block: 'center' });
+    r = el.getBoundingClientRect();
+  }
+  const top = Math.max(r.top, 0);
+  const bottom = Math.min(r.bottom, vh);
+  return bottom > top ? new DOMRect(r.left, top, r.width, bottom - top) : r;
 }
 
 /** Anything a screen throws ends here instead of a blank page. */
@@ -101,7 +115,7 @@ function StatusLine({ items, onDismiss }) {
         <div key={m.id} className={`rs-status-item rs-status-item--${m.tone}`}>
           <Icon name={m.tone === 'error' ? 'stop' : m.tone === 'warn' ? 'alert' : 'check'} size={18} />
           <span className="rs-grow">{t(m.key, m.params)}</span>
-          <button type="button" className="rs-iconbtn rs-iconbtn--sm" onClick={() => onDismiss(m.id)} aria-label={t('ws.dialog.close')}>
+          <button type="button" className="rs-iconbtn rs-iconbtn--sm" onClick={() => onDismiss(m.id)} aria-label={t('ws.status.closeMessage')}>
             <Icon name="close" size={16} />
           </button>
         </div>
@@ -233,11 +247,13 @@ function Root({ route, owner, user, authError }) {
   return (
     <WsContext.Provider value={value}>
       <Boundary key={route.projectId || route.name}>{body}</Boundary>
+      {/* A plain veil from the first frame, so the bare workspace never flashes while the entrance
+          chunk or the database is still loading (review round 1). */}
       {entrance && db ? (
-        <Suspense fallback={null}>
+        <Suspense fallback={<div className="rs-entrance-hold" aria-hidden="true" />}>
           <Entrance projectCount={projectCount} target={entranceTarget} onDone={() => { writePrefs({ entranceSeen: true }); setEntrance(false); }} />
         </Suspense>
-      ) : null}
+      ) : entrance ? <div className="rs-entrance-hold" aria-hidden="true" /> : null}
       <StatusLine items={messages} onDismiss={(id) => setMessages((m) => m.filter((x) => x.id !== id))} />
     </WsContext.Provider>
   );

@@ -62,8 +62,12 @@ export function valueLabel(name, t, methodId = null) {
  * @param {{ id: string, statistic?: { name?: string } }} test
  * @param {(k: string, p?: object) => string} t
  */
+/** Statistic symbols as a manuscript prints them (the engine names chi-square 'X2'). */
+const STAT_SYMBOL = { X2: 'χ²', chisq: 'χ²' };
+
 export function testLabel(test, t) {
-  const stat = test?.statistic?.name || '';
+  const raw = test?.statistic?.name || '';
+  const stat = STAT_SYMBOL[raw] || raw;
   const key = `ws.test.${keyPart(test?.id || '')}`;
   const s = t(key);
   if (s === `[${key}]`) return stat || String(test?.id || '');

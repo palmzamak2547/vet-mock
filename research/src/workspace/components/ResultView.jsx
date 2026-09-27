@@ -66,7 +66,11 @@ export function envTableText(table, t) {
     return tableWord(cell, t, 'cell');
   }));
   const capKey = `ws.table.${keyPart(table.id)}`;
-  return { columns, rows, caption: hasKey(t, capKey) ? t(capKey) : table.id };
+  // A dash in a cell is explained under the table, and the 2x2 cell letters are named (review round 1).
+  const notes = [];
+  if (['a', 'b', 'c', 'd'].every((c) => table.columns.includes(c))) notes.push(t('ws.table.abcdLegend'));
+  if (rows.some((row) => row.slice(1).includes('—'))) notes.push(t('ws.table.dashNote'));
+  return { columns, rows, caption: hasKey(t, capKey) ? t(capKey) : table.id, notes };
 }
 
 export function EnvTable({ table, note = '', fileBase = 'table', onDownloaded }) {
@@ -75,14 +79,15 @@ export function EnvTable({ table, note = '', fileBase = 'table', onDownloaded })
   const tx = envTableText(table, t);
   const copy = async () => {
     try {
-      const how = await copyTable({ caption: tx.caption, columns: tx.columns, rows: tx.rows, note });
+      const how = await copyTable({ caption: tx.caption, columns: tx.columns, rows: tx.rows, note: [...tx.notes, note].filter(Boolean).join(' ') });
       notify(how === 'failed' ? 'ws.copy.failed' : 'ws.copy.table', {}, how === 'failed' ? 'error' : 'ok');
       if (how !== 'failed') onDownloaded?.('clipboard');
     } catch (err) { notify(errorInfo(err).key, {}, 'error'); }
   };
   const csv = () => {
     try {
-      download(new Blob([tableToCsv({ columns: tx.columns, rows: tx.rows })], { type: 'text/csv;charset=utf-8' }), `${safeFileBase(`${fileBase}-${table.id}`)}.csv`);
+      const noteRows = tx.notes.map((n) => [n, ...tx.columns.slice(1).map(() => '')]);
+      download(new Blob([tableToCsv({ columns: tx.columns, rows: [...tx.rows, ...noteRows] })], { type: 'text/csv;charset=utf-8' }), `${safeFileBase(`${fileBase}-${table.id}`)}.csv`);
       onDownloaded?.('csv');
     } catch (err) { notify(errorInfo(err).key, {}, 'error'); }
   };
@@ -101,6 +106,7 @@ export function EnvTable({ table, note = '', fileBase = 'table', onDownloaded })
           </tbody>
         </table>
       </div>
+      {tx.notes.map((n, i) => <p key={i} className="rs-soft rs-small">{n}</p>)}
       <div className="rs-row-wrap">
         <button type="button" className="rs-btn rs-btn--sm" onClick={copy}><Icon name="copy" size={16} />{t('ws.action.copyWord')}</button>
         <button type="button" className="rs-btn rs-btn--sm" onClick={csv}><Icon name="down" size={16} />{t('ws.action.downloadCsv')}</button>

@@ -14,8 +14,8 @@ import { keyPart } from '../lib/keys.js';
 
 const has = (t, key) => t(key) !== `[${key}]`;
 
-/** Punctuation differs by language: Thai joins clauses with a space and ends without a full stop. */
-const PUNCT = { th: { join: ' ', sep: ' ', end: '' }, en: { join: '; ', sep: ', ', end: '.' } };
+/** Punctuation differs by language: Thai lists with a space and ends a sentence without a full stop. */
+const PUNCT = { th: { sep: ' ', end: '' }, en: { sep: ', ', end: '.' } };
 const punct = (lang) => PUNCT[lang] || PUNCT.en;
 
 /** Method name from the catalogue key, or the id when the dictionary has no name yet. */
@@ -26,8 +26,25 @@ function methodName(t, nameKey, id) {
 /** "95%" from a spec. */
 const levelText = (spec) => `${Math.round((spec?.options?.confLevel ?? 0.95) * 1000) / 10}%`;
 
+/** Methods that describe a sample and give no interval or p-value (Table 1 and the descriptives). */
+const describes = (methodId) => /^desc\./.test(String(methodId || ''));
+
+/** The public version of the engine: 'research-studio-m1-0.1.0' is printed as '0.1.0'. */
+export function publicVersion(engine) {
+  return String(engine || '').replace(/^research-studio-m\d+-/, '');
+}
+
+/** Sentences ending as the language writes them, joined into one paragraph. */
+function sentences(list, lang) {
+  const { end } = punct(lang);
+  return list.filter(Boolean).map((x) => x.replace(/[.\s]+$/, '') + end).join(' ');
+}
+
+/** A reason sentence placed inside brackets loses its own full stop. */
+const inBrackets = (text) => String(text || '').replace(/[.\s]+$/, '');
+
 /**
- * One methods sentence for a saved analysis.
+ * The methods sentences for one saved analysis, each a full sentence ending as the language does.
  * @param {any} analysis saved analysis { spec, envelope }
  * @param {{ t: T, lang: 'th'|'en', nameKeyOf: (id: string) => string|null, columnName: (key: string) => string }} ctx
  */
@@ -36,16 +53,26 @@ export function methodsSentence(analysis, ctx) {
   const env = analysis.envelope;
   const spec = env?.spec || analysis.spec;
   const name = methodName(t, ctx.nameKeyOf(spec.method), spec.method);
-  const roles = Object.entries(spec.roles || {})
-    .filter(([, v]) => v && (!Array.isArray(v) || v.length))
-    .map(([role, v]) => t('report.methods.role', { role: has(t, `report.role.${role}`) ? t(`report.role.${role}`) : t(`ws.role.${role}`), column: (Array.isArray(v) ? v : [v]).map(ctx.columnName).join(', ') }));
-  const parts = [t('report.methods.analysis', { method: name, level: levelText(spec) })];
-  if (roles.length) parts.push(t('report.methods.roles', { roles: roles.join(punct(ctx.lang).sep) }));
   const route = spec.cluster?.route;
-  if (route && route !== 'none' && has(t, `report.methods.route.${keyPart(route)}`)) parts.push(t(`report.methods.route.${keyPart(route)}`, { column: spec.cluster.column ? ctx.columnName(spec.cluster.column) : '' }));
-  const dropped = (env?.provenance?.rowsDropped || []).reduce((s, d) => s + (d.count || 0), 0);
-  if (dropped > 0) parts.push(t('report.methods.dropped', { n: dropped }));
-  return parts.join(punct(ctx.lang).join);
+  const clusterColumn = spec.cluster?.column || null;
+  // Comparing within farms names the farm column in its own sentence; it is not listed again as strata.
+  const roleEntries = Object.entries(spec.roles || {})
+    .filter(([, v]) => v && (!Array.isArray(v) || v.length))
+    .filter(([role, v]) => !(route === 'mh-within' && role === 'strata' && [].concat(v).every((k) => k === clusterColumn)));
+  const roleName = (role) => {
+    if (role === 'covariates' && describes(spec.method)) return t('report.role.described');
+    return has(t, `report.role.${role}`) ? t(`report.role.${role}`) : t(`ws.role.${role}`);
+  };
+  const roles = roleEntries.map(([role, v]) => t('report.methods.role', { role: roleName(role), column: (Array.isArray(v) ? v : [v]).map(ctx.columnName).join(punct(ctx.lang).sep) }));
+  const out = [t(describes(spec.method) ? 'report.methods.analysisDescriptive' : 'report.methods.analysis', { method: name, level: levelText(spec) })];
+  if (roles.length) out.push(t('report.methods.roles', { roles: roles.join(punct(ctx.lang).sep) }));
+  // The Mantel-Haenszel name is said once: by the method when the method is Mantel-Haenszel, else here.
+  const routeKey = route === 'mh-within' && spec.method !== 'epi.mantelHaenszel' ? 'report.methods.route.mhWithinNamed' : `report.methods.route.${keyPart(route || '')}`;
+  if (route && route !== 'none' && has(t, routeKey)) out.push(t(routeKey, { column: clusterColumn ? ctx.columnName(clusterColumn) : '' }));
+  const dropped = (env?.provenance?.rowsDropped || []).reduce((sum, d) => sum + (d.count || 0), 0);
+  if (dropped === 1) out.push(t('report.methods.droppedOne'));
+  else if (dropped > 1) out.push(t('report.methods.dropped', { n: dropped }));
+  return sentences(out, ctx.lang);
 }
 
 /**
@@ -59,28 +86,35 @@ export function resultsSentence(analysis, ctx) {
   if (!env) return '';
   const spec = env.spec || analysis.spec;
   const name = methodName(t, ctx.nameKeyOf(spec.method), spec.method);
-  if (env.status === 'stopped') return t('report.results.stopped', { method: name });
+  if (env.status === 'stopped') return sentences([t('report.results.stopped', { method: name })], lang);
+  // A descriptive table is its own result; the sentence points to it instead of reading a row count.
+  if (describes(spec.method)) return sentences([t('report.results.tableOnly', { method: name })], lang);
   const primary = primaryValueName(env, ctx.designRow);
   const bits = [];
+  // English puts a label mid-sentence in lower case ("gave prevalence ratio (PR) 0.76"), acronyms kept.
+  const label = (n) => {
+    const x = ctx.valueLabel(n);
+    return lang === 'en' && /^[A-Z][a-z]/.test(x) ? x[0].toLowerCase() + x.slice(1) : x;
+  };
   // Counts (strata used, rows) belong in the table and the provenance line, not in the sentence.
   const worded = valueRows(env, primary).filter((r) => r.name === primary || r.kind !== 'count');
   for (const r of worded.slice(0, 4)) {
     if (r.value === null || r.value === undefined) {
-      bits.push(t('report.results.undefined', { label: ctx.valueLabel(r.name), reason: r.reasonKey ? t(r.reasonKey) : t('ws.result.undefinedNoReason') }));
+      bits.push(t('report.results.undefined', { label: label(r.name), reason: inBrackets(r.reasonKey ? t(r.reasonKey) : t('ws.result.undefinedNoReason')) }));
     } else if (r.ci) {
       const full = fmt.formatCi({ value: r.value, ci: r.ci, kind: fmtKind(r.kind) }, lang);
       const bounds = full.includes('(') ? full.replace(/^.*?\(/, '').replace(/\)$/, '') : full;
-      bits.push(t('report.results.valueCi', { label: ctx.valueLabel(r.name), value: fmt.formatNumber(r.value, { kind: fmtKind(r.kind) }), bounds, level: levelText(spec) }));
+      bits.push(t('report.results.valueCi', { label: label(r.name), value: fmt.formatNumber(r.value, { kind: fmtKind(r.kind) }), bounds, level: levelText(spec) }));
     } else {
-      bits.push(t('report.results.value', { label: ctx.valueLabel(r.name), value: fmt.formatNumber(r.value, { kind: fmtKind(r.kind) }) }));
+      bits.push(t('report.results.value', { label: label(r.name), value: fmt.formatNumber(r.value, { kind: fmtKind(r.kind) }) }));
     }
   }
   for (const test of (env.tests || []).slice(0, 2)) {
     if (test.p === null || test.p === undefined) bits.push(t('report.results.pWithheld', { test: testLabel(test, t) }));
     else bits.push(t('report.results.p', { test: testLabel(test, t), p: pText(fmt, test.p) }));
   }
-  if (!bits.length) return t('report.results.tableOnly', { method: name });
-  return t('report.results.lead', { method: name, parts: bits.join(punct(ctx.lang).sep) });
+  if (!bits.length) return sentences([t('report.results.tableOnly', { method: name })], lang);
+  return sentences([t('report.results.lead', { method: name, parts: bits.join(punct(ctx.lang).sep) })], lang);
 }
 
 /**
@@ -122,14 +156,17 @@ export function buildDraft(data, ctx) {
     if (lines.length) methods.push(t('report.methods.steps', { steps: lines.join(punct(ctx.lang).sep) }));
   }
   const sctx = { t, lang: ctx.lang, nameKeyOf: ctx.nameKeyOf, columnName };
-  for (const a of kept) methods.push(methodsSentence(a, sctx));
+  // Two kept results of the same analysis (an earlier and a current run) describe the method once.
+  for (const a of kept) {
+    const m = methodsSentence(a, sctx);
+    if (!methods.includes(m)) methods.push(m);
+  }
   const engine = kept[0]?.envelope?.provenance?.engineVersion;
-  if (engine) methods.push(t('report.methods.software', { engine }));
+  if (engine) methods.push(t('report.methods.software', { engine: publicVersion(engine) }));
   const results = kept.map((a) => resultsSentence(a, { t, fmt: ctx.fmt, lang: ctx.lang, nameKeyOf: ctx.nameKeyOf, designRow: ctx.designRow, valueLabel: valueLabelFor((a.envelope?.spec || a.spec)?.method) })).filter(Boolean);
-  const end = punct(ctx.lang).end;
   return {
-    methods: methods.map((s) => s + end).join(' '),
-    results: results.map((s) => s + end).join(' '),
+    methods: sentences(methods, ctx.lang),
+    results: results.join(' '),
     stale,
     used: kept.map((a) => a.id),
   };

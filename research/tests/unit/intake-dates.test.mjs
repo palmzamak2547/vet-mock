@@ -108,7 +108,7 @@ test('age in whole months as numbers.json computes it; dates print with their er
   assert.equal(monthsBetween(b, daysFromCivil(2026, 8, 3)), 32);
   assert.equal(monthsBetween(b, daysFromCivil(2026, 8, 15)), 33);
   assert.equal(monthsBetween(daysFromCivil(2024, 2, 29), daysFromCivil(2026, 8, 8)), 29);
-  assert.equal(formatDate(daysFromCivil(2026, 9, 25), 'th'), '25 ก.ย. 2569 (พ.ศ.)');
+  assert.equal(formatDate(daysFromCivil(2026, 9, 25), 'th'), '25 ก.ย. พ.ศ. 2569');
   assert.equal(formatDate(daysFromCivil(2026, 9, 25), 'en'), '25 Sep 2026 CE');
   assert.equal(formatDate(NaN, 'en'), '—');
 });

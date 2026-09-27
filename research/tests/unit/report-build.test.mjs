@@ -64,7 +64,9 @@ for (const lang of ['th', 'en']) {
     assert.ok(d.methods.includes(lang === 'th' ? 'ผล ELISA' : 'ELISA result'), 'columns by their label in the page language');
     assert.ok(d.methods.includes('Mantel-Haenszel'), 'the chosen farm route is written into the methods');
     assert.ok(d.methods.includes('12'), 'rows left out are counted');
-    assert.ok(d.methods.includes('research-studio-m1-0.1.0'));
+    assert.ok(d.methods.includes('0.1.0') && !d.methods.includes('research-studio-m1'), 'the public version, not the internal release name');
+    assert.equal(d.methods.split('Mantel-Haenszel').length - 1, 1, 'Mantel-Haenszel is named once');
+    if (lang === 'en') assert.ok(!d.methods.includes(';'), 'full sentences, not one semicolon run');
     assert.ok(!d.methods.includes('import-conversions'), 'the import step is not a data edit sentence');
     if (lang === 'en') assert.ok(d.methods.trim().endsWith('.'));
     else assert.ok(!d.methods.trim().endsWith('.'), 'Thai sentences end without a full stop');
@@ -113,3 +115,22 @@ test('STROBE-Vet check reads what was kept', () => {
   assert.equal(withT1.find((s) => s.key === 'cutpoints').ok, false, 'a cut-point taken from these data is flagged');
   assert.equal(withT1.find((s) => s.key === 'crudeAdjusted').ok, true, 'a 2x2 with a farm route counts as adjusted beside the crude');
 });
+
+for (const lang of ['th', 'en']) {
+  test(`${lang}: a Table 1 methods sentence never claims confidence intervals (review round 1 blocker)`, () => {
+    const t = tOf(lang);
+    const t1spec = { method: 'desc.table1', design: 'cross-sectional', roles: { covariates: ['c2'], group: 'c2' }, options: { confLevel: 0.95 }, cluster: { route: null, column: 'c4' } };
+    const s = methodsSentence({ spec: t1spec, envelope: { status: 'ok', spec: t1spec, values: {}, tests: [], provenance: {} } }, { t, lang, nameKeyOf, columnName: (k) => k });
+    assert.ok(!s.includes('[') , s);
+    assert.ok(!/95% CI|confidence intervals\b(?! )|พร้อม 95%/.test(s.replace(/without p-values or confidence intervals|โดยไม่รายงานค่า p และ CI/, '')), `no CI claimed: ${s}`);
+    assert.ok(lang === 'en' ? s.includes('without p-values or confidence intervals') : s.includes('ไม่รายงานค่า p และ CI'), s);
+  });
+  test(`${lang}: the MH result paragraph names the method once and ends as a sentence`, () => {
+    const t = tOf(lang);
+    const mh = { ...spec, method: 'epi.mantelHaenszel', roles: { ...spec.roles, strata: ['c4'] } };
+    const s = methodsSentence({ spec: mh, envelope: { status: 'ok', spec: mh, values: {}, tests: [], provenance: { rowsDropped: [{ count: 46 }] } } }, { t, lang, nameKeyOf: (id) => (id === 'epi.mantelHaenszel' ? 'mhName' : null), columnName: (k) => k });
+    assert.ok(!s.includes('Mantel-Haenszel'), `the route sentence does not repeat the method: ${s}`);
+    assert.equal(s.split('c4').length - 1, 1, `the farm column is named once: ${s}`);
+    if (lang === 'en') assert.ok(s.endsWith('.') && !s.includes(';'), s);
+  });
+}

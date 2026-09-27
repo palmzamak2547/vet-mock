@@ -183,6 +183,9 @@ test('the student journey: import, clean, analyse with the farm guardrail, repor
 
   // Result: the CI plot and both paragraphs, each in Thai and English.
   await expect(page.locator('svg.rs-ciplot')).toBeVisible();
+  // The plot is drawn at the width it is shown, so its labels stay readable (review round 1: 7 px).
+  const labelPx = await page.locator('svg.rs-ciplot text').first().evaluate((el) => el.getBoundingClientRect().height);
+  expect(labelPx, 'CI plot label height in CSS px').toBeGreaterThanOrEqual(11);
   const paras = page.getByTestId('result-paragraphs');
   await expect(paras).toBeVisible();
   const texts = await paras.locator('.rs-para-text').allInnerTexts();
@@ -213,6 +216,24 @@ test('the student journey: import, clean, analyse with the farm guardrail, repor
 
   // Keep the result, then download the project file and open it again as a second project.
   await page.getByRole('button', { name: W['ws.action.snapshot'] }).first().click();
+
+  // Prevalence of ELISA: one estimate, so the farm stop speaks of the prevalence's CI, never of
+  // comparing groups, and offers no within-farm comparison (review round 1).
+  await page.goto(`${projectPath}/prev`);
+  const prevOutcome = page.locator('#rs-role-outcome');
+  await prevOutcome.selectOption(await optionValue(prevOutcome, 'ผล ELISA'));
+  for (const sel of await page.locator('select[id^="rs-lv-"]').all()) {
+    if (!(await sel.inputValue())) {
+      const first = await sel.evaluate((el) => [...el.options].find((o) => o.value)?.value || '');
+      if (first) await sel.selectOption(first);
+    }
+  }
+  await page.getByRole('button', { name: W['ws.analysis.run'], exact: true }).click();
+  await expect(page.getByText(W['ws.g1.titleSingle'])).toBeVisible();
+  await expect(main).not.toContainText(W['ws.g1.title']);
+  await expect(page.locator('input[name="rs-g1-route"][value="mh-within"]')).toHaveCount(0);
+  await expect(page.locator('input[name="rs-g1-route"][value="deff"]')).toBeEnabled();
+
   await page.goto('/app');
   await expect(page.getByRole('heading', { level: 1, name: W['ws.projects.title'] })).toBeVisible();
   const [projectFile] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: W['ws.projects.downloadFile'] }).first().click()]);

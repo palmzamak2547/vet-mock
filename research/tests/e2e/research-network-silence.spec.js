@@ -34,9 +34,11 @@ test('a whole session stays on this origin', async ({ page, context, baseURL }) 
   const projectPath = new URL(page.url()).pathname.match(/\/app\/p\/[0-9a-f-]{36}/)[0];
 
   // Before the import is confirmed, a pane that reads the data sends the student back to Import
-  // instead of failing (review round 1).
+  // instead of failing (review round 1). The preview lived only in that page, so the file is dropped again.
   await page.goto(`${projectPath}/codebook`);
   await expect(page).toHaveURL(/\/import$/);
+  await expect(page.locator('#rs-main')).not.toContainText(W_BROKEN);
+  await page.locator('input[type="file"]').first().setInputFiles(fileURLToPath(SEROSURVEY_PATH));
   await expect(page.locator('.rs-confirmbox')).toBeVisible();
 
   // Confirm the import, so every pane below walks a real project.
