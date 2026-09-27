@@ -113,8 +113,9 @@ export function valueCells(row, fmt, lang, t) {
   // beside 0.051 on one screen, effective n 428.02).
   const digits = VALUE_DIGITS[row.name];
   const shown = WHOLE_VALUES.has(row.name) && Number.isFinite(row.value) ? Math.round(row.value) : row.value;
-  const est = fmt.formatNumber(shown, { kind: fmtKind(row.kind), ...(digits === undefined ? {} : { digits }) });
-  const ci = row.ci ? fmt.formatCi({ value: row.value, ci: row.ci, kind: fmtKind(row.kind) }, lang) : '';
+  const sides = { below: row.below, above: row.above };
+  const est = fmt.formatNumber(shown, { kind: fmtKind(row.kind), ...sides, ...(digits === undefined ? {} : { digits }) });
+  const ci = row.ci ? fmt.formatCi({ value: row.value, ci: row.ci, kind: fmtKind(row.kind), ...sides }, lang) : '';
   // A defined value can still carry a sentence: a limit held at 0..1, a herd-level reading, a Wald
   // interval that misbehaves. Shown beside the number and in every export.
   const note = [row.noteKey, row.reasonKey].filter(Boolean).map((k) => t(k)).join(' ');

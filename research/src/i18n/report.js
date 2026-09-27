@@ -128,7 +128,7 @@ const ROWS = [
   ['report.results.undefined', '{label} คำนวณไม่ได้ ({reason})', '{label} could not be computed ({reason})'],
   ['report.results.test', '{test} ได้ {stats}', '{test} gave {stats}'],
   ['report.results.pWithheld', '{test} ยังไม่แสดงค่า p', 'No p-value is shown for {test}'],
-  ['report.results.strataDiffer', 'ค่าของแต่ละชั้นต่างกัน ({test} {stats}) ค่ารวมข้ามชั้นจึงควรอ่านอย่างระมัดระวังคู่กับค่าของแต่ละชั้น', 'The strata gave different values ({test}, {stats}), so the pooled estimate should be read with care, alongside the estimate in each stratum'],
+  ['report.results.strataDiffer', 'ค่าของแต่ละชั้นต่างกัน ({test} ได้ {stats}) ค่ารวมข้ามชั้นจึงควรอ่านอย่างระมัดระวังคู่กับค่าของแต่ละชั้น', 'The strata gave different values ({test}: {stats}), so the pooled estimate should be read with care, alongside the estimate in each stratum'],
   ['report.results.strataTest', 'การทดสอบว่าทุกชั้นมีค่าเท่ากัน ({test}) ได้ {stats}', 'The test of homogeneity across strata ({test}) gave {stats}'],
   ['report.results.stopped', 'การวิเคราะห์นี้หยุดก่อนได้ผล ดูเหตุผลในผลที่เก็บไว้', 'This analysis stopped before giving a result; the kept result says why'],
   ['report.results.table1', 'ลักษณะของกลุ่มตัวอย่างแสดงใน Table 1', 'Characteristics of the sample are shown in Table 1'],
@@ -153,6 +153,12 @@ const ROWS = [
   ['report.homogeneity.breslowDayTarone', 'Breslow-Day test ที่ปรับตาม Tarone', "Breslow-Day test with Tarone's correction"],
   ['report.homogeneity.breslowDay', 'Breslow-Day test', 'Breslow-Day test'],
   ['report.homogeneity.generic', 'การทดสอบ', 'test'],
+  ['report.homogeneity.over.all', '{test} คิดจากทั้ง {n} ชั้น', '{test} over all {n} strata'],
+  ['report.homogeneity.over.some', '{test} คิดจาก {n} ชั้นที่{rule} จากทั้งหมด {of} ชั้น', '{test} over the {n} of {of} strata {rule}'],
+  ['report.homogeneity.over.these', '{test} คิดจาก {n} ชั้นที่{rule}', '{test} over the {n} strata {rule}'],
+  ['report.strataRule.positiveBothGroups', 'มีผลบวกในทั้งสองกลุ่ม', 'with a positive in both groups'],
+  ['report.strataRule.noZeroCell', 'ไม่มีช่องใดเป็นศูนย์', 'with no empty cell'],
+  ['report.strataRule.informative', 'มีทั้งสองกลุ่มและผลทั้งสองแบบ', 'with both groups and both outcomes'],
 ];
 
 const th = {};

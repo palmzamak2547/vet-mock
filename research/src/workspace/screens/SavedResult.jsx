@@ -54,7 +54,7 @@ export default function SavedResult({ p, analysisId }) {
           </button>
         )}
       />
-      <ResultView envelope={a.envelope} title={name} designRow={designRow} labelOf={labelOf} codebook={p.codebook || p.meta?.codebook} hideTables={isT1} stale={isStale(a, p.table?.fingerprint)} onDownloaded={(kind) => p.log('download', { what: kind, analysisId: a.id })}>
+      <ResultView envelope={a.envelope} title={t('ws.ss.resultTitle')} caption={name} designRow={designRow} labelOf={labelOf} codebook={p.codebook || p.meta?.codebook} hideTables={isT1} stale={isStale(a, p.table?.fingerprint)} onDownloaded={(kind) => p.log('download', { what: kind, analysisId: a.id })}>
         {isT1 && a.envelope?.status === 'ok' ? <Table1View envelope={a.envelope} labelOf={labelOf} note={note} fileBase={safeFileBase(name)} onDownloaded={(kind) => p.log('download', { what: kind, analysisId: a.id })} /> : null}
       </ResultView>
       <Link to={`/app/p/${p.project.id}/report`} className="rs-btn rs-btn--quiet">{t('ws.analysis.toReport')}<Icon name="arrow" size={16} /></Link>

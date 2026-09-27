@@ -49,6 +49,7 @@ export default function G1Panel({ panel, stops, onChoose, busy = false, columnNa
             {stat(panel.deff, 'ws.g1.deff', 'ratio')}
             {stat(panel.nEff, 'ws.g1.nEff', 'count', { whole: true })}
           </div>
+          {panel.animals > 0 ? <p className="rs-soft rs-small">{t('ws.g1.from', { animals: panel.animals, farms: panel.clusters })}</p> : null}
           <dl className="rs-g1-glosses rs-small">
             <div><dt>{t('ws.g1.icc')}</dt><dd className="rs-soft">{t('term.icc.gloss')}</dd></div>
             <div><dt>{t('ws.g1.deff')}</dt><dd className="rs-soft">{t('term.deff.gloss')}</dd></div>

@@ -123,6 +123,20 @@ const POINTS = new Set(['PD', 'RD']);
  */
 const NOT_WRITTEN = new Set(['homogeneityUncorrected']);
 
+/**
+ * A homogeneity test named with the strata it summed: Woolf leaves out the strata without a positive
+ * in both groups, so on sparse farm strata it may use 10 of 49 (review round 3). All strata: "over all".
+ */
+function strataOf(hom, env, name, t) {
+  const n = Array.isArray(hom.strataIncluded) ? hom.strataIncluded.length : 0;
+  if (!n) return name;
+  const of = env.values?.strataUsed?.value;
+  if (of === n) return t('report.homogeneity.over.all', { test: name, n });
+  const rule = has(t, `report.strataRule.${keyPart(hom.strataRule || '')}`) ? t(`report.strataRule.${keyPart(hom.strataRule || '')}`) : '';
+  if (!rule) return name;
+  return t(typeof of === 'number' && of > n ? 'report.homogeneity.over.some' : 'report.homogeneity.over.these', { test: name, n, of, rule });
+}
+
 /** The option of a method whose methods sentence depends on it, e.g. the t-test's variant. */
 function variantOf(spec) {
   const o = spec?.options || {};
@@ -280,9 +294,10 @@ export function resultsSentence(analysis, ctx) {
       if (!Array.isArray(r.ci) || !r.ci.every((x) => typeof x === 'number' && Number.isFinite(x))) return value;
       return t('report.results.valueCi', { value, bounds: t('report.results.range', { lo: pts(r.ci[0]), hi: pts(r.ci[1]) }), level: levelText(spec) });
     }
-    const value = minus(fmt.formatNumber(r.value, { kind: fmtKind(r.kind) }));
+    const sides = { below: r.below, above: r.above };
+    const value = minus(fmt.formatNumber(r.value, { kind: fmtKind(r.kind), ...sides }));
     if (!r.ci) return value;
-    const full = fmt.formatCi({ value: r.value, ci: r.ci, kind: fmtKind(r.kind) }, lang);
+    const full = fmt.formatCi({ value: r.value, ci: r.ci, kind: fmtKind(r.kind), ...sides }, lang);
     const bounds = minus(full.includes('(') ? full.replace(/^.*?\(/, '').replace(/\)$/, '') : full);
     return t('report.results.valueCi', { value, bounds, level: levelText(spec) });
   };
@@ -325,7 +340,8 @@ export function resultsSentence(analysis, ctx) {
   }
   const hom = tests.find((x) => x.id === 'homogeneity');
   if (hom && typeof hom.p === 'number') {
-    const which = has(t, `report.homogeneity.${keyPart(hom.variant || '')}`) ? t(`report.homogeneity.${keyPart(hom.variant || '')}`) : t('report.homogeneity.generic');
+    const name = has(t, `report.homogeneity.${keyPart(hom.variant || '')}`) ? t(`report.homogeneity.${keyPart(hom.variant || '')}`) : t('report.homogeneity.generic');
+    const which = strataOf(hom, env, name, t);
     out.push(t(hom.p < 0.05 ? 'report.results.strataDiffer' : 'report.results.strataTest', { test: which, stats: statsText(hom, fmt) }));
   }
   if (!out.length) return sentences([t('report.results.tableOnly')], lang);

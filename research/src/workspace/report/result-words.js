@@ -133,22 +133,6 @@ export function guardText(g, t) {
   const titleKey = `epi.guard.${g.id}.title`;
   return { title: g.key !== titleKey && has(t, titleKey) ? t(titleKey, g.params) : undefined, body: t(g.key, g.params) };
 }
-/** Tests that ask whether the strata agree; they are not the result's own test. */
-const STRATA_TESTS = new Set(['homogeneity', 'homogeneityUncorrected']);
-
-/**
- * The notices to show. A "p above 0.05" notice (G8) raised only by a test of whether the strata agree
- * (Breslow-Day before Tarone's correction) is not about the result, so it is not shown (review round 3).
- * @param {any[]} items
- */
-export function shownGuards(items) {
-  return (items || []).filter((g) => {
-    if (g?.id !== 'G8') return true;
-    const tests = Array.isArray(g.params?.tests) ? g.params.tests : g.params?.testId ? [g.params.testId] : [];
-    return !tests.length || tests.some((id) => !STRATA_TESTS.has(id));
-  });
-}
-
 /**
  * A word a method table carries (a column name such as 'unrounded', a step id such as 'fpc', or a
  * dictionary key such as 'epi.ss.formula.base'): the dictionary's text when it has one, else the

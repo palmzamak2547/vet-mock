@@ -16,7 +16,7 @@ import { Notice, VerifiedBadge } from './Bits.jsx';
 import CiPlot from './CiPlot.jsx';
 import Paragraphs from './Paragraphs.jsx';
 import { columnNameFor, levelNameFor, resultParagraphs } from '../report/build.js';
-import { envTableText, guardText, optionItems, shownGuards, tableWord } from '../report/result-words.js';
+import { envTableText, guardText, optionItems, tableWord } from '../report/result-words.js';
 import { copyParagraph } from '../lib/clipboard.js';
 import Icon from './Icon.jsx';
 
@@ -29,9 +29,8 @@ const FOLD_ROWS = 12;
 
 function GuardList({ items, tone }) {
   const { t } = useT();
-  const shown = shownGuards(items);
-  if (!shown.length) return null;
-  return shown.map((g) => {
+  if (!items?.length) return null;
+  return items.map((g) => {
     const x = guardText(g, t);
     return <Notice key={`${g.id}-${g.key}`} tone={tone} title={x.title}>{x.body}</Notice>;
   });

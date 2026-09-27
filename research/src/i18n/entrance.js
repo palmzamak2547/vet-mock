@@ -3,7 +3,7 @@
 export default {
   th: {
     'entrance.eyebrow': 'VetMock Research',
-    'entrance.opening': 'กำลังเปิดพื้นที่ทำงานของคุณ',
+    'entrance.opening': 'พื้นที่ทำงานของคุณ',
     'entrance.first': 'เริ่มโปรเจกต์แรกจากไฟล์ที่คุณมีอยู่',
     'entrance.returning': 'โปรเจกต์ของคุณ {count} โปรเจกต์อยู่ในเครื่องนี้',
     'entrance.skip': 'ข้าม',
@@ -34,7 +34,7 @@ export default {
   },
   en: {
     'entrance.eyebrow': 'VetMock Research',
-    'entrance.opening': 'Opening your workspace',
+    'entrance.opening': 'Your workspace',
     'entrance.first': 'Start your first project from the file you already have',
     'entrance.returning': 'Projects on this device: {count}',
     'entrance.skip': 'Skip',

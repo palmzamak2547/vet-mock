@@ -8,7 +8,7 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { envTableText, optionItems, shownGuards } from '../../src/workspace/report/result-words.js';
+import { envTableText, optionItems } from '../../src/workspace/report/result-words.js';
 import { METHOD_UI } from '../../src/workspace/lib/method-ui.js';
 import { DEFAULT_OPTIONS, COMMON_OPTIONS } from '../../src/lib/runtime/spec.js';
 import { keyPart } from '../../src/workspace/lib/keys.js';
@@ -138,13 +138,6 @@ for (const lang of ['th', 'en']) {
     assert.equal(valueCells({ name: 'nEff', kind: 'count', value: 428.02 }, FMT, lang, t).est, '428');
   });
 }
-
-test('a "p above 0.05" notice raised only by the uncorrected Breslow-Day test is not shown', () => {
-  const g8 = (tests) => ({ id: 'G8', key: 'epi.guard.G8.title', params: { testId: tests[0], tests } });
-  assert.deepEqual(shownGuards([g8(['homogeneityUncorrected'])]), []);
-  assert.equal(shownGuards([g8(['cmh', 'homogeneityUncorrected'])]).length, 1, 'kept when the result’s own test is above 0.05');
-  assert.equal(shownGuards([{ id: 'G12', key: 'k' }, g8(['chisq'])]).length, 2);
-});
 
 test('the product is called VetMock Research wherever a person reads it', () => {
   const dir = fileURLToPath(new URL('../../src/i18n/', import.meta.url));
