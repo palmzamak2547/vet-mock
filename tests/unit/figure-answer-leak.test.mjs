@@ -84,7 +84,7 @@ test('an explanation figure is drawn only after the answer is revealed', async (
   const review = read('src/views/ReviewView.jsx');
   assert.match(question, /const explainFigureSrc = safeImageUrl\(currentQ\?\.explainImage\);/);
   assert.equal((question.match(/figure=\{explainFigure\}/g) || []).length, 2, 'both instant-feedback panels carry the figure');
-  assert.match(question, /\{figure\}\n\s*\{coach\}/, 'the figure sits inside the verdict panel, after the reason');
+  assert.match(question, /\{figure\}\r?\n\s*\{coach\}/, 'the figure sits inside the verdict panel, after the reason');
   assert.doesNotMatch(question.slice(question.indexOf('{figureSrc && (')), /explainImage/, 'never next to the question figure');
   assert.match(review, /src=\{safeImageUrl\(q\.explainImage\)\}/, 'Review shows it with the explanation');
 });
