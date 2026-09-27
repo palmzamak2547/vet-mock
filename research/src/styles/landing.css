@@ -121,19 +121,22 @@
 }
 
 /* ---------- header ---------- */
+/* Parked well above the window with no shadow until it has focus: its shadow bled into the top-left
+   corner of every frame from 66 px up (review round 3). */
 .rs-l-skip {
   position: absolute;
   left: 12px;
-  top: -80px;
+  top: -200px;
   z-index: 40;
   padding: 10px 16px;
   border-radius: 10px;
   background: var(--rs-surface);
   color: var(--rs-ink);
-  box-shadow: var(--rs-shadow);
+  box-shadow: none;
 }
 .rs-l-skip:focus {
   top: 12px;
+  box-shadow: var(--rs-shadow);
 }
 .rs-l-header {
   position: fixed;
@@ -469,8 +472,17 @@
 }
 .rs-story-stack {
   position: absolute;
+  display: grid;
   transform-style: preserve-3d;
   will-change: transform;
+}
+/* Every panel sits in the stack's one grid cell, so the stack is as tall as its tallest panel and
+   every panel as tall as the stack: no panel cuts its own content at rest, in either language
+   (review round 3: the phone codebook lost its farm question, the English design note was cut). */
+.rs-story-stack > .rs-l-panel {
+  grid-area: 1 / 1;
+  position: relative;
+  height: auto;
 }
 
 /* hero */
@@ -1006,7 +1018,7 @@
 .rs-story[data-variant='desktop'] [data-rs='heroNote'] { left: 120px; bottom: 40px; }
 .rs-story[data-variant='desktop'] [data-rs='cue'] { right: 120px; bottom: 32px; }
 .rs-story[data-variant='desktop'] .rs-story-persp { perspective: 1800px; perspective-origin: 970px 470px; }
-.rs-story[data-variant='desktop'] .rs-story-stack { left: 670px; top: 280px; width: 600px; height: 380px; transform: translateY(140px) rotateY(-20deg) rotateX(7deg); }
+.rs-story[data-variant='desktop'] .rs-story-stack { left: 670px; top: 280px; width: 600px; min-height: 380px; transform: translateY(140px) rotateY(-20deg) rotateX(7deg); }
 .rs-story[data-variant='desktop'] .rs-l-cap { left: 120px; top: 250px; width: 470px; }
 .rs-story[data-variant='desktop'] [data-rs='rcap'],
 .rs-story[data-variant='desktop'] [data-rs='dcap'] { top: 270px; width: 480px; }
@@ -1027,8 +1039,10 @@
 .rs-story[data-variant='phone'] .rs-l-hero-actions .rs-l-btn { min-height: 48px; font-size: 16px; }
 .rs-story[data-variant='phone'] [data-rs='heroNote'] { left: 16px; right: 16px; bottom: 68px; text-align: center; font-size: 11px; line-height: 1.5; }
 .rs-story[data-variant='phone'] [data-rs='cue'] { left: 80px; right: 80px; bottom: 8px; justify-content: center; gap: 10px; font-size: 13px; }
-.rs-story[data-variant='phone'] .rs-story-persp { perspective: 1200px; perspective-origin: 195px 555px; }
-.rs-story[data-variant='phone'] .rs-story-stack { left: 25px; top: 430px; width: 340px; height: 250px; transform: translateY(90px) rotateY(-14deg) rotateX(8deg); }
+/* The stack is as tall as its tallest panel (about 290 to 305 px); it sits centred in the space below
+   the caption, as the design's 250 px stack did (centre about 550). */
+.rs-story[data-variant='phone'] .rs-story-persp { perspective: 1200px; perspective-origin: 195px 548px; }
+.rs-story[data-variant='phone'] .rs-story-stack { left: 25px; top: 396px; width: 340px; min-height: 250px; transform: translateY(90px) rotateY(-14deg) rotateX(8deg); }
 .rs-story[data-variant='phone'] .rs-l-panel { border-radius: 12px; }
 .rs-story[data-variant='phone'] .rs-l-panel-head { padding: 10px 14px; gap: 8px; }
 .rs-story[data-variant='phone'] .rs-l-file { font-size: 12px; }
@@ -1040,14 +1054,17 @@
 .rs-story[data-variant='phone'] .rs-l-table td:first-child { padding-left: 14px; }
 .rs-story[data-variant='phone'] .rs-l-table td.rs-mono { font-size: 11px; }
 .rs-story[data-variant='phone'] .rs-l-panel-foot { padding: 9px 14px; font-size: 11px; }
-.rs-story[data-variant='phone'] .rs-l-ask { padding: 10px 14px 0; font-size: 12px; gap: 6px; }
+/* The farm question on its own line, its two answers under it. */
+.rs-story[data-variant='phone'] .rs-l-ask { flex-wrap: wrap; padding: 12px 14px 14px; font-size: 12px; gap: 8px 6px; }
+.rs-story[data-variant='phone'] .rs-l-ask-q { flex-basis: 100%; font-weight: 600; }
+.rs-story[data-variant='phone'] .rs-l-ask .rs-l-grow { display: none; }
 .rs-story[data-variant='phone'] .rs-l-ask-yes,
 .rs-story[data-variant='phone'] .rs-l-ask-no { font-size: 11px; padding: 5px 8px; }
 .rs-story[data-variant='phone'] .rs-l-log { padding: 8px 14px; font-size: 11px; gap: 2px; }
 .rs-story[data-variant='phone'] .rs-l-design { padding: 10px 14px 0; gap: 8px; }
 .rs-story[data-variant='phone'] .rs-l-design > div { grid-template-columns: 96px minmax(0, 1fr); font-size: 12px; gap: 8px; }
 .rs-story[data-variant='phone'] .rs-l-design dt { font-size: 11px; }
-.rs-story[data-variant='phone'] .rs-l-design-note { margin: 10px 14px 0; font-size: 11px; padding: 7px 9px; }
+.rs-story[data-variant='phone'] .rs-l-design-note { margin: 10px 14px 14px; font-size: 11px; padding: 7px 9px; }
 .rs-story[data-variant='phone'] .rs-l-chip { font-size: 11px; padding: 3px 7px; }
 .rs-story[data-variant='phone'] .rs-l-cap { left: 16px; top: 84px; width: 358px; }
 .rs-story[data-variant='phone'] .rs-l-eyebrow { font-size: 12px; }
@@ -1055,23 +1072,25 @@
 .rs-story[data-variant='phone'] .rs-l-cap-body { margin-top: 12px; font-size: 15px; line-height: 1.6; }
 .rs-story[data-variant='phone'] .rs-l-checks { margin-top: 14px; font-size: 13px; gap: 8px; }
 .rs-story[data-variant='phone'] .rs-l-checks li { padding: 6px 10px; }
-.rs-story[data-variant='phone'] [data-rs='fold'] { left: 16px; top: 414px; width: 358px; padding: 18px 20px; border-radius: 14px; }
+/* The accuracy card ends inside the board in both languages (the English card ran 16 px past its
+   bottom edge, cutting its own border): a tighter CI block and spacing, nothing dropped. */
+.rs-story[data-variant='phone'] [data-rs='fold'] { left: 16px; top: 414px; width: 358px; padding: 16px 20px; border-radius: 14px; }
 .rs-story[data-variant='phone'] .rs-l-fold-title { margin-top: 6px; font-size: 22px; }
 .rs-story[data-variant='phone'] .rs-l-fold-body { margin-top: 8px; font-size: 14px; line-height: 1.55; }
-.rs-story[data-variant='phone'] .rs-l-ci { height: 116px; margin-top: 12px; }
+.rs-story[data-variant='phone'] .rs-l-ci { height: 106px; margin-top: 10px; }
 .rs-story[data-variant='phone'] .rs-l-ci-row { font-size: 12px; }
-.rs-story[data-variant='phone'] .rs-l-ci-row2 { top: 44px; }
-.rs-story[data-variant='phone'] .rs-l-ci-line { top: 25px; }
-.rs-story[data-variant='phone'] .rs-l-ci-tick { top: 20px; }
-.rs-story[data-variant='phone'] .rs-l-ci-dot-a { top: 22px; }
+.rs-story[data-variant='phone'] .rs-l-ci-row2 { top: 40px; }
+.rs-story[data-variant='phone'] .rs-l-ci-line { top: 23px; }
+.rs-story[data-variant='phone'] .rs-l-ci-tick { top: 18px; }
+.rs-story[data-variant='phone'] .rs-l-ci-dot-a { top: 20px; }
 .rs-story[data-variant='phone'] .rs-l-ci-dot-b,
-.rs-story[data-variant='phone'] .rs-l-ci-bar { top: 68px; }
-.rs-story[data-variant='phone'] .rs-l-ci-axis { top: 92px; height: 24px; font-size: 10px; }
-.rs-story[data-variant='phone'] .rs-l-ci-axis span { top: 6px; }
-.rs-story[data-variant='phone'] .rs-l-fold-n { height: 20px; margin-top: 8px; font-size: 13px; }
-.rs-story[data-variant='phone'] .rs-l-fold-math { margin-top: 8px; font-size: 12px; gap: 2px; }
-.rs-story[data-variant='phone'] .rs-l-legend { margin-top: 12px; gap: 14px; font-size: 12px; }
-.rs-story[data-variant='phone'] .rs-l-fold-note { margin-top: 10px; font-size: 11px; line-height: 1.5; }
+.rs-story[data-variant='phone'] .rs-l-ci-bar { top: 62px; }
+.rs-story[data-variant='phone'] .rs-l-ci-axis { top: 84px; height: 22px; font-size: 10px; }
+.rs-story[data-variant='phone'] .rs-l-ci-axis span { top: 5px; }
+.rs-story[data-variant='phone'] .rs-l-fold-n { height: 20px; margin-top: 6px; font-size: 13px; }
+.rs-story[data-variant='phone'] .rs-l-fold-math { margin-top: 6px; font-size: 12px; gap: 2px; }
+.rs-story[data-variant='phone'] .rs-l-legend { margin-top: 10px; gap: 14px; font-size: 12px; }
+.rs-story[data-variant='phone'] .rs-l-fold-note { margin-top: 8px; font-size: 11px; line-height: 1.5; }
 .rs-story[data-variant='phone'] [data-rs='rcard'] { left: 16px; top: 300px; width: 358px; padding: 18px 20px; border-radius: 14px; }
 .rs-story[data-variant='phone'] .rs-l-rcard-title { margin-top: 6px; font-size: 16px; }
 .rs-story[data-variant='phone'] .rs-l-rcard-big { margin-top: 8px; }
@@ -1097,26 +1116,48 @@
   flex-direction: column;
   gap: 72px;
 }
+/* Title, lead and buttons first, all inside the first screen; the still herd beside them on a wide
+   screen, under them on a phone (review round 3). */
 .rs-still-hero {
   position: relative;
   display: grid;
-  gap: 24px;
-  justify-items: center;
+  gap: 32px;
+  align-items: center;
+}
+.rs-still-hero-text {
+  min-width: 0;
 }
 .rs-still-herd {
-  width: min(420px, 80vw);
+  justify-self: center;
+  width: min(360px, 86vw);
   height: auto;
 }
 .rs-still-herd-sm {
   width: min(320px, 70vw);
   height: auto;
 }
+@media (min-width: 900px) {
+  .rs-still-hero {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+    gap: 56px;
+  }
+  .rs-still-herd {
+    width: min(420px, 100%);
+  }
+}
 .rs-still .rs-l-hero-title {
-  font-size: clamp(36px, 6vw, 72px);
+  font-size: clamp(36px, 5vw, 64px);
+}
+.rs-still .rs-l-hero-lead {
+  max-width: 640px;
+  font-size: clamp(17px, 1.2vw + 12px, 21px);
+}
+.rs-still .rs-l-hero-actions {
+  justify-content: flex-start;
 }
 .rs-still .rs-l-hero-note {
   position: static;
-  text-align: center;
+  margin-top: 20px;
 }
 .rs-still .rs-l-cue {
   display: none;
@@ -1404,8 +1445,10 @@
 }
 
 /* ---------- closing call and footer ---------- */
+/* The closing call and the footer headline share the page's last screen: 72 + 48 px between the
+   buttons and the headline, not the 208 px empty band of round 3. */
 .rs-l-cta {
-  padding: 140px 24px 120px;
+  padding: 140px 24px 72px;
   background: var(--rs-surface);
   border-top: 1px solid var(--rs-line);
 }
@@ -1432,7 +1475,7 @@
 }
 .rs-l-footer {
   position: relative;
-  padding: 88px 56px 0;
+  padding: 48px 56px 0;
   background: var(--rs-bg);
   overflow: hidden;
 }
@@ -1540,7 +1583,7 @@
 }
 @media (max-width: 900px) {
   .rs-l-footer {
-    padding: 64px 16px 0;
+    padding: 44px 16px 0;
   }
   .rs-l-footer-ghost {
     font-size: calc((100vw - 40px) / 11.4);
@@ -1554,7 +1597,7 @@
     grid-template-columns: 1fr;
   }
   .rs-l-cta {
-    padding: 80px 16px 72px;
+    padding: 80px 16px 56px;
   }
 }
 

@@ -5,6 +5,7 @@
 import { forwardRef, useLayoutEffect, useRef, useState } from 'react';
 import { useT } from '../../i18n/index.js';
 import { ciPlotLayout, tickText } from '../lib/ci-plot.js';
+import { ticksWithEnds } from './ci-ticks.js';
 import ChartExport from './ChartExport.jsx';
 
 /**
@@ -13,11 +14,14 @@ import ChartExport from './ChartExport.jsx';
 
 export const CiSvg = forwardRef(function CiSvg({ items, log, refValue, width, labelW, ariaLabel, title, percent = false }, ref) {
   const L = ciPlotLayout(items, { width, labelW, log, ref: refValue });
+  // A log axis gets a label near each interval end it would otherwise run past (review round 3: the
+  // interval ran to 1.34 on an axis labelled up to 1).
+  const ticks = ticksWithEnds(L);
   return (
     <svg ref={ref} className="rs-ciplot" width={L.width} height={L.height} viewBox={`0 0 ${L.width} ${L.height}`} role="img" aria-label={ariaLabel} xmlns="http://www.w3.org/2000/svg">
       <title>{title}</title>
       <rect x="0" y="0" width={L.width} height={L.height} fill="var(--rs-surface)" />
-      {L.ticks.map((tk) => (
+      {ticks.map((tk) => (
         <g key={tk.v}>
           <line x1={tk.x} x2={tk.x} y1={L.top} y2={L.bottom} stroke="var(--rs-line)" strokeWidth="1" strokeDasharray="2 4" />
           <text x={tk.x} y={L.height - 8} textAnchor="middle" fontSize="12" fill="var(--rs-ink-soft)" fontFamily="Sarabun, sans-serif">{tickText(tk.v, percent)}</text>

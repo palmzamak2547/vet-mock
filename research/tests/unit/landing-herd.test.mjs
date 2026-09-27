@@ -7,7 +7,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { HERD_DESIGN, HERD_LAYOUTS, herdData, herdStats, herdDisplay, herdFacts } from '../../src/landing/herd/data.js';
+import { HERD_DESIGN, HERD_LAYOUTS, STILL_STYLE, herdData, herdStats, herdDisplay, herdFacts, stillHalf } from '../../src/landing/herd/data.js';
 import { conversionCounts, cleanRows, markedCells, RAW_ROWS } from '../../src/landing/story/demo.js';
 import landing from '../../src/i18n/landing.js';
 import entrance from '../../src/i18n/entrance.js';
@@ -82,6 +82,23 @@ test('no herd or evidence number is typed into the landing or entrance dictionar
     }
   }
 });
+
+for (const [name, layout] of Object.entries(HERD_LAYOUTS)) {
+  test(`${name} still herd: every ring and every dot lies inside the viewBox (review round 3: edge rings cut)`, () => {
+    const d = herdData(layout);
+    const s = STILL_STYLE[name];
+    const half = stillHalf(name);
+    const ringOuter = layout.R + s.ringPad + s.ringStroke / 2;
+    for (let f = 0; f < d.FARMS; f++) {
+      for (const c of [d.centers[f * 2], d.centers[f * 2 + 1]]) {
+        assert.ok(Math.abs(c) + ringOuter <= half, `${name} farm ${f}: ring reaches ${Math.abs(c) + ringOuter} past ${half}`);
+      }
+    }
+    for (let j = 0; j < d.N; j++) {
+      for (const c of [d.farm[j * 2], d.farm[j * 2 + 1]]) assert.ok(Math.abs(c) + s.dot * 1.25 <= half, `${name} dot ${j}`);
+    }
+  });
+}
 
 test('sample cells: marked cells and conversion counts are derived from the cells', () => {
   assert.equal(RAW_ROWS.length, 5);

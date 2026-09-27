@@ -50,7 +50,9 @@
   color: var(--rs-ink-soft);
 }
 .rs-entrance-skip {
-  /* Bottom right, clear of the workspace header's language and account buttons (review round 1). */
+  /* Bottom right, clear of the workspace header's language and account buttons (review round 1).
+     Hidden until the first frame: the entrance's loop brings it in with the greeting and takes it
+     away once the dots have gathered (entrance-timing.js skipOpacity, review round 3). */
   position: absolute;
   right: 20px;
   bottom: max(20px, env(safe-area-inset-bottom));
@@ -64,6 +66,8 @@
   font-size: 15px;
   cursor: pointer;
   pointer-events: auto;
+  opacity: 0;
+  visibility: hidden;
 }
 /* On a phone the drop zone's list of file formats sits at the bottom; the button moves up, under the
    workspace header, so it covers neither (review round 2). */
@@ -247,6 +251,39 @@
   }
   .rs-welcome-steps {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* One column, or a short screen: the drop zone comes straight after the lead and the three steps
+   follow it, so the whole zone is on the first screen and the entrance's dots gather on a border the
+   student can see (review round 3: at 390 x 844 it sat half below the fold; 1024 x 768 and
+   1366 x 768 cut it too). The steps hold nothing to focus, so the tab order is unchanged. */
+@media (max-width: 900px), (max-height: 860px) {
+  .rs-welcome-main {
+    display: flex;
+    flex-direction: column;
+  }
+  .rs-welcome-drop {
+    order: 1;
+    margin-top: 20px;
+    padding: 28px 16px;
+  }
+  .rs-welcome-steps {
+    order: 2;
+    margin-top: 22px;
+  }
+}
+/* The smallest phones (320 x 640) still show the whole zone. */
+@media (max-width: 400px) {
+  .rs-welcome {
+    padding-top: 8px;
+  }
+  .rs-welcome-lead {
+    font-size: 16px;
+  }
+  .rs-welcome-drop {
+    gap: 8px;
+    margin-top: 16px;
+    padding: 22px 14px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

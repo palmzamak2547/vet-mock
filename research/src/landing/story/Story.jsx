@@ -11,7 +11,7 @@ import { useT } from '../../i18n/index.js';
 import { appLink } from '../shell/nav.js';
 import { readPrefs } from '../../lib/store/prefs.js';
 import { storedOwner } from '../../lib/auth/stored.js';
-import { HERD_LAYOUTS, herdData, herdFacts } from '../herd/data.js';
+import { HERD_LAYOUTS, herdData, herdFacts, stillHalf } from '../herd/data.js';
 import { createHerdEngine, readGlColours, webglAvailable, DPR_CAP } from '../herd/engine.js';
 import HerdStill from '../herd/HerdStill.jsx';
 import { applyValues, chapterAt, layoutValues, pickVariant, scene, stageScale } from './layout.js';
@@ -119,9 +119,14 @@ function StillStory({ chrome }) {
   }, [chrome]);
   return (
     <section className="rs-still" ref={ref} aria-label={t('landing.story.label')}>
+      {/* The title, lead and buttons come first and fit the first screen; the still herd sits beside
+          them on a wide screen and under them on a phone (review round 3: above the title it pushed
+          both buttons below the fold at 1440 x 900). */}
       <div id="rs-top" className="rs-still-hero">
+        <div className="rs-still-hero-text">
+          <Hero variant="desktop" />
+        </div>
         <HerdStill layout="desktop" className="rs-still-herd" />
-        <Hero variant="desktop" />
       </div>
       <div id="rs-how" className="rs-still-steps">
         {PANELS.map((Panel, i) => (
@@ -298,7 +303,7 @@ function PinnedStory({ chrome }) {
   }, [v, cssMode, widen, gl === 'on']); // eslint-disable-line react-hooks/exhaustive-deps
 
   const anchors = Object.entries(v.anchors);
-  const half = 3 * HERD_LAYOUTS[v.layout].S + HERD_LAYOUTS[v.layout].R + 4;
+  const half = stillHalf(v.layout);
   return (
     <section className="rs-story" data-variant={v.id} data-rs-mode={cssMode ? 'css' : 'js'} aria-label={t('landing.story.label')} style={{ '--rs-s': s, '--rs-track-ratio': v.trackH / v.H }}>
       {css ? <style>{css}</style> : null}
@@ -322,7 +327,7 @@ function PinnedStory({ chrome }) {
             <div className="rs-story-persp" aria-hidden="true">
               <div className="rs-story-stack" data-rs="stack" ref={reg('stack')}>
                 {PANELS.map((Panel, i) => (
-                  <Panel key={i} reg={reg} />
+                  <Panel key={i} reg={reg} compact={!v.wide} />
                 ))}
               </div>
             </div>

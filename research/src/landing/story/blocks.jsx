@@ -89,10 +89,14 @@ const CODEBOOK = [
   ['age_y', 'number', 'number'],
   ['elisa', 'binary', 'binary'],
 ];
+/** The phone board shows what one row is, the farm column and the outcome, then the farm question:
+ * the point of the chapter fits the panel at rest (review round 3: five rows cut the question off). */
+export const CODEBOOK_COMPACT = Object.freeze(['animal_id', 'farm_id', 'elisa']);
 
-export function Panel1({ reg }) {
+export function Panel1({ reg, compact = false }) {
   const { t } = useT();
   const d = herdFacts().display;
+  const rows = compact ? CODEBOOK.filter(([name]) => CODEBOOK_COMPACT.includes(name)) : CODEBOOK;
   return (
     <PanelShell
       reg={reg}
@@ -114,7 +118,7 @@ export function Panel1({ reg }) {
           </tr>
         </thead>
         <tbody>
-          {CODEBOOK.map(([name, type, note]) => (
+          {rows.map(([name, type, note]) => (
             <tr key={name} className={type === 'cluster' ? 'rs-l-hlrow' : undefined}>
               <td className="rs-mono">{name}</td>
               <td className={type === 'cluster' ? 'rs-l-strong' : undefined}>{t(`landing.p1.type.${type}`)}</td>
@@ -124,7 +128,7 @@ export function Panel1({ reg }) {
         </tbody>
       </table>
       <div className="rs-l-ask">
-        <span>{t('landing.p1.question')}</span>
+        <span className="rs-l-ask-q">{t('landing.p1.question')}</span>
         <span className="rs-l-grow" />
         <span className="rs-l-ask-yes">{t('landing.p1.yes')}</span>
         <span className="rs-l-ask-no">{t('landing.p1.no')}</span>

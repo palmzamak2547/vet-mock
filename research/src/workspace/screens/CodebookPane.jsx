@@ -2,7 +2,7 @@
 // groups (farms), and per column the Thai and English label, type, role, level of organisation,
 // reference and positive level, missing codes and personal-data hiding. Asked once at import,
 // editable later, saved compare-and-set, exported with every result. OWNER: workspace role.
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useT } from '../../i18n/index.js';
 import { checkCodebook } from '../../lib/intake/codebook.js';
 import { Chip, Notice, PageHead } from '../components/Bits.jsx';
@@ -17,11 +17,44 @@ const UNITS = ['animal', 'sample', 'visit', 'farm'];
 
 const clone = (v) => JSON.parse(JSON.stringify(v));
 
+/**
+ * Whether a sideways-scrolling box has more to show on either side. The codebook is wider than the
+ * page on every screen (review round 3: at 1440 its last column was clipped with no cue), so the box
+ * shows a shadow on each side that still hides columns. State changes only when a side flips.
+ */
+function useScrollEdges() {
+  const ref = useRef(null);
+  const [edges, setEdges] = useState({ left: false, right: false });
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const update = () => {
+      const left = el.scrollLeft > 2;
+      const right = el.scrollLeft + el.clientWidth < el.scrollWidth - 2;
+      setEdges((e) => (e.left === left && e.right === right ? e : { left, right }));
+    };
+    update();
+    el.addEventListener('scroll', update, { passive: true });
+    let ro = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(update);
+      ro.observe(el);
+      if (el.firstElementChild) ro.observe(el.firstElementChild);
+    }
+    return () => {
+      el.removeEventListener('scroll', update);
+      ro?.disconnect();
+    };
+  }, []);
+  return [ref, edges];
+}
+
 /** @param {{ p: any }} props */
 export default function CodebookPane({ p }) {
   const { t } = useT();
   const [draft, setDraft] = useState(() => clone(p.meta.codebook));
   const [issues, setIssues] = useState([]);
+  const [scrollRef, edges] = useScrollEdges();
   useEffect(() => { setDraft(clone(p.meta.codebook)); }, [p.meta.codebook]);
   const dirty = useMemo(() => JSON.stringify(draft) !== JSON.stringify(p.meta.codebook), [draft, p.meta.codebook]);
 
@@ -71,7 +104,8 @@ export default function CodebookPane({ p }) {
       {issues.length ? <Notice tone="stop" title={t('ws.codebook.issuesTitle')} role="alert">{issues.map((i, k) => <div key={k}>{t(i.key, i.params)}</div>)}</Notice> : null}
       <section className="rs-panel" aria-labelledby="rs-h-vars">
         <h2 id="rs-h-vars" className="rs-visually-hidden">{t('ws.codebook.variables')}</h2>
-        <div className="rs-tablewrap">
+        <div className="rs-tablescroll" data-more-left={edges.left ? 'true' : 'false'} data-more-right={edges.right ? 'true' : 'false'}>
+        <div className="rs-tablewrap" ref={scrollRef}>
           <table className="rs-table rs-table--form">
             <thead>
               <tr>
@@ -102,17 +136,17 @@ export default function CodebookPane({ p }) {
                     <td><input id={id('th')} aria-label={t('ws.codebook.controlFor', { control: t('ws.codebook.col.labelTh'), column: c.name })} className="rs-input" value={c.labelTh || ''} onChange={(e) => setCol(c.key, { labelTh: e.target.value })} /></td>
                     <td><input id={id('en')} aria-label={t('ws.codebook.controlFor', { control: t('ws.codebook.col.labelEn'), column: c.name })} lang="en" className="rs-input" value={c.labelEn || ''} onChange={(e) => setCol(c.key, { labelEn: e.target.value })} /></td>
                     <td>
-                      <select aria-label={t('ws.codebook.controlFor', { control: t('ws.codebook.col.type'), column: c.name })} className="rs-select" value={c.type} onChange={(e) => setCol(c.key, { type: e.target.value })}>
+                      <select aria-label={t('ws.codebook.controlFor', { control: t('ws.codebook.col.type'), column: c.name })} className="rs-select rs-select--type" value={c.type} onChange={(e) => setCol(c.key, { type: e.target.value })}>
                         {TYPES.map((v) => <option key={v} value={v}>{t(`ws.type.${v}`)}</option>)}
                       </select>
                     </td>
                     <td>
-                      <select aria-label={t('ws.codebook.controlFor', { control: t('ws.codebook.col.role'), column: c.name })} className="rs-select" value={c.role} onChange={(e) => setCol(c.key, { role: e.target.value })}>
+                      <select aria-label={t('ws.codebook.controlFor', { control: t('ws.codebook.col.role'), column: c.name })} className="rs-select rs-select--role" value={c.role} onChange={(e) => setCol(c.key, { role: e.target.value })}>
                         {ROLES.map((v) => <option key={v} value={v}>{t(`ws.cbrole.${v}`)}</option>)}
                       </select>
                     </td>
                     <td>
-                      <select aria-label={t('ws.codebook.controlFor', { control: t('ws.codebook.col.level'), column: c.name })} className="rs-select" value={c.level} onChange={(e) => setCol(c.key, { level: e.target.value })}>
+                      <select aria-label={t('ws.codebook.controlFor', { control: t('ws.codebook.col.level'), column: c.name })} className="rs-select rs-select--level" value={c.level} onChange={(e) => setCol(c.key, { level: e.target.value })}>
                         {LEVELS.map((v) => <option key={v} value={v}>{t(`ws.level.${v}`)}</option>)}
                       </select>
                     </td>
@@ -159,6 +193,7 @@ export default function CodebookPane({ p }) {
               })}
             </tbody>
           </table>
+        </div>
         </div>
       </section>
       <p className="rs-soft rs-small">{t('ws.codebook.derivedNote')}</p>

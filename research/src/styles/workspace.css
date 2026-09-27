@@ -259,6 +259,13 @@
 .rs-table--compact th, .rs-table--compact td { padding: 6px 8px; font-size: 13.5px; }
 .rs-table--form td, .rs-table--form th { padding: 8px; min-width: 9rem; }
 .rs-table--form .rs-input, .rs-table--form .rs-select { min-width: 8.5rem; }
+/* Each codebook select is as wide as its longest choice in either language, so a chosen value is
+   never cut (review round 3: "ไม่ได้ใช้วิเคราะห์" showed as "ไม่ได้ใช้วิเคราะ"). Longest labels at
+   16 px: type "Categories without order" 173 px, role "ตัวแปรกวน (confounder)" 167 px, level
+   "ครั้งที่เก็บตัวอย่าง" 112 px; a select needs about 46 px more for its padding, border and arrow. */
+.rs-table--form .rs-select--type { min-width: 13.75rem; }
+.rs-table--form .rs-select--role { min-width: 13.75rem; }
+.rs-table--form .rs-select--level { min-width: 10.5rem; }
 .rs-sticky-col { position: sticky; left: 0; background: var(--rs-surface); z-index: 1; }
 .rs-row--issue > * { background: var(--rs-rose-tint); }
 .rs-issue { color: var(--rs-rose-text); font-size: 13px; font-weight: 600; }
@@ -290,12 +297,18 @@
   position: fixed; left: 12px; right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); z-index: 90;
   display: flex; flex-direction: column; gap: 8px; pointer-events: none;
 }
-@media (min-width: 720px) { .rs-status { left: auto; right: 20px; width: 24rem; } }
 .rs-status-item {
   pointer-events: auto; display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 14px; border-radius: 12px;
   background: var(--rs-surface); border: 1px solid var(--rs-line); box-shadow: var(--rs-shadow); font-size: 14.5px;
   animation: rs-rise var(--rs-dur) var(--rs-ease-out);
 }
+/* On a wide screen the messages sit under the top bar, at the right, beside the page heading: at the
+   bottom they covered the codebook's last rows and its save bar right after an import (review round 3). */
+@media (min-width: 720px) {
+  .rs-status { left: auto; right: 20px; bottom: auto; top: calc(68px + env(safe-area-inset-top)); width: 24rem; }
+  .rs-status-item { animation-name: rs-drop; }
+}
+@keyframes rs-drop { from { transform: translateY(-12px); opacity: 0.002; } to { transform: translateY(0); opacity: 1; } }
 .rs-status-item--ok { border-color: var(--rs-sage-soft); }
 .rs-status-item--ok .rs-icon { color: var(--rs-sage-text); }
 .rs-status-item--warn { border-color: var(--rs-gold); }
@@ -497,19 +510,23 @@
 .rs-why > div { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--rs-line); }
 .rs-why dt { font-size: 13.5px; font-weight: 600; color: var(--rs-sage-text); }
 .rs-why dd { margin: 0; font-size: 14.5px; }
-.rs-skip { position: absolute; left: 12px; top: -80px; z-index: 60; padding: 10px 16px; border-radius: 10px; background: var(--rs-surface); color: var(--rs-ink); box-shadow: var(--rs-shadow); }
-.rs-skip:focus { top: 12px; }
+/* Parked well above the window with no shadow until it has focus (the landing's skip link bled a
+   shadow into the top-left corner, review round 3; this one did the same over the top bar). */
+.rs-skip { position: absolute; left: 12px; top: -200px; z-index: 60; padding: 10px 16px; border-radius: 10px; background: var(--rs-surface); color: var(--rs-ink); box-shadow: none; }
+.rs-skip:focus { top: 12px; box-shadow: var(--rs-shadow); }
 .rs-foldtable > summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 600; color: var(--rs-sage-text); }
-/* On a phone the codebook is wider than the screen: shadows at the edges that still hide columns say
-   that the table scrolls sideways (review round 2: a clipped edge was the only cue). The shadows are
-   backgrounds, painted once; nothing animates. */
-@media (max-width: 719px) {
-  .rs-tablewrap:has(> .rs-table--form) {
-    background:
-      linear-gradient(to right, var(--rs-surface) 30%, transparent) left center / 40px 100% no-repeat local,
-      linear-gradient(to left, var(--rs-surface) 30%, transparent) right center / 40px 100% no-repeat local,
-      radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.2), transparent) left center / 14px 100% no-repeat scroll,
-      radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.2), transparent) right center / 14px 100% no-repeat scroll;
-    background-color: var(--rs-surface);
-  }
+/* The codebook is wider than the page on every screen: a shadow on each side that still hides columns
+   says that the table scrolls sideways (review round 2 on the phone; round 3 at 1440, where the last
+   column was clipped with no cue). The right one lies over the cells, since the inputs and selects
+   would hide a background; the left one falls from the sticky first column. CodebookPane sets the
+   data attributes when a side flips; the shadows switch, they do not fade (no gradient on a fading
+   layer). */
+.rs-tablescroll { position: relative; }
+.rs-tablescroll::after {
+  content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 28px; z-index: 2; pointer-events: none;
+  border-radius: 0 var(--rs-radius) var(--rs-radius) 0;
+  background: linear-gradient(to left, color-mix(in srgb, var(--rs-scrim) 55%, transparent), transparent);
+  opacity: 0;
 }
+.rs-tablescroll[data-more-right='true']::after { opacity: 1; }
+.rs-tablescroll[data-more-left='true'] .rs-sticky-col { box-shadow: 10px 0 12px -10px var(--rs-scrim); }

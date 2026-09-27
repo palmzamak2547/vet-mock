@@ -13,8 +13,11 @@ export function smooth(a, b, t) {
 
 /**
  * Geometry per artboard. Origins are CSS px from the stage centre, y down. pd: offset per panel still
- * ahead in the stack; pp: offset per panel already passed (x, y, z). `anchors` are the chapter starts
- * in track px (the design's #rs-how, #rs-acc, #rs-res, #rs-priv).
+ * ahead in the stack; pp: offset per panel already passed (x, y, z): the panel that has been read slides
+ * out sideways past the board's right edge, still opaque, and leaves the one behind it clear. It used to
+ * lift and fade in place over the next panel, so two tables interleaved (review rounds 2 and 3); a
+ * shorter fade only made the double exposure briefer. `anchors` are the chapter starts in track px (the
+ * design's #rs-how, #rs-acc, #rs-res, #rs-priv).
  */
 export const VARIANTS = Object.freeze({
   desktop: Object.freeze({
@@ -22,7 +25,7 @@ export const VARIANTS = Object.freeze({
     layout: 'desktop',
     scatterOrigin: [0, 10], farmOrigin: [-230, 30], gridOrigin: [101.5, -127.5],
     heroLift: 60, stackEnter: 140, stackExit: 170, rot: 'rotateY(-20deg) rotateX(7deg)',
-    pd: [54, -34, -170], pp: [30, 280, -220], capShift: 26, cardShift: 48, wide: true, capRise: 24, fade: 2.6,
+    pd: [54, -34, -170], pp: [-920, 40, -60], capShift: 26, cardShift: 48, wide: true, capRise: 24,
     halo: [0, -25, 480, 250],
     anchors: { how: 1071, acc: 3906, res: 5166, priv: 5985 },
   }),
@@ -31,11 +34,36 @@ export const VARIANTS = Object.freeze({
     layout: 'phone',
     scatterOrigin: [0, 30], farmOrigin: [0, -172], gridOrigin: [-94.5, 50.5],
     heroLift: 40, stackEnter: 90, stackExit: 110, rot: 'rotateY(-14deg) rotateX(8deg)',
-    pd: [24, -20, -110], pp: [16, 190, -150], capShift: 18, cardShift: 36, wide: false, capRise: 18, fade: 4,
+    pd: [24, -20, -110], pp: [-440, 30, -40], capShift: 18, cardShift: 36, wide: false, capRise: 18,
     halo: [0, -92, 205, 225],
     anchors: { how: 843, acc: 3073, res: 4064, priv: 4708 },
   }),
 });
+
+/**
+ * Hand-offs between layers that share a place on the board [review round 3: the crossfades were the
+ * muddiest frames]. Each outgoing layer is gone (opacity 0) before the incoming one starts, with a
+ * short gap, so no still of the story is a double exposure. Values are story progress t.
+ */
+export const HANDOFF = Object.freeze({
+  heroOut: [0.03, 0.085],
+  deckIn: [0.088, 0.15],
+  // The front panel arrives first; the panels behind it only once it is opaque.
+  deckFront: [0.088, 0.125],
+  deckRear: [0.125, 0.15],
+  deckOut: [0.38, 0.45],
+  foldIn: [0.46, 0.53],
+  foldOut: [0.665, 0.7],
+  resIn: [0.71, 0.77],
+  resOut: [0.835, 0.865],
+  privIn: [0.87, 0.92],
+});
+
+/**
+ * A panel that has been read fades only once it has slid clear of the board (0.85 of the way out), over
+ * the last 0.15 of its way, so no part of it is ever half transparent over another panel.
+ */
+export const PANEL_FADE = Object.freeze({ start: 0.85, length: 0.15 });
 
 /** Pick the artboard for a viewport: the phone board below 820 CSS px wide or on a portrait screen. */
 export function pickVariant(width, height) {
@@ -70,6 +98,7 @@ export const LAYER_KEYS = Object.freeze(['hero', 'heroNote', 'cue', 'stack', 'p0
  */
 export function layoutValues(t, v, reduce, widen) {
   const S = smooth;
+  const H = HANDOFF;
   const out = {};
   const m = reduce ? 0 : 1;
   function put(key, op, tf) {
@@ -79,14 +108,18 @@ export function layoutValues(t, v, reduce, widen) {
     if (tf !== undefined) r.transform = tf;
     out[key] = r;
   }
-  const hero = 1 - S(0.03, 0.1, t);
+  const hero = 1 - S(H.heroOut[0], H.heroOut[1], t);
   put('hero', hero, `translateY(${(-v.heroLift * (1 - hero) * m).toFixed(1)}px)`);
   put('heroNote', hero);
   put('cue', 1 - S(0, 0.04, t));
 
-  const enter = S(0.08, 0.15, t);
-  const exit = S(0.38, 0.45, t);
+  const enter = S(H.deckIn[0], H.deckIn[1], t);
+  const exit = S(H.deckOut[0], H.deckOut[1], t);
   const vis = enter * (1 - exit);
+  // The deck arrives front panel first: a see-through front panel showed the tables behind it through
+  // its cells while the whole deck faded in together (review round 3).
+  const front = S(H.deckFront[0], H.deckFront[1], t) * (1 - exit);
+  const rear = S(H.deckRear[0], H.deckRear[1], t) * (1 - exit);
   const a = 3 * S(0.15, 0.37, t);
   out.stack = {
     transform: reduce ? 'none' : `translateY(${((1 - enter) * v.stackEnter - exit * v.stackExit).toFixed(1)}px) ${v.rot}`,
@@ -107,29 +140,29 @@ export function layoutValues(t, v, reduce, widen) {
       x = d * v.pp[0];
       y = d * v.pp[1];
       z = d * v.pp[2];
-      // The panel being read stays fully opaque until it is well on its way out: at 0.96 the panels
-      // behind it showed through its cells (review round 1).
-      // Once it starts to go it goes quickly, so two tables never interleave (review round 2: 0.79 over
-      // the next panel at 1600 px): below 0.35 by d = -0.43 on the desktop.
-      op = Math.max(0, 1 + Math.min(0, d + 0.3) * v.fade * 2);
+      // The panel being read stays fully opaque while it slides out (review round 1: at 0.96 the panels
+      // behind showed through its cells) and fades only past the board's edge (PANEL_FADE).
+      op = Math.max(0, 1 + Math.min(0, d + PANEL_FADE.start) / PANEL_FADE.length);
     }
-    put(`p${i}`, Math.max(0, op) * vis, `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px)`);
+    put(`p${i}`, Math.max(0, op) * (d < 0.5 ? front : rear), `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px)`);
     // Captions cross over a shorter window (review round 2: two headings double-exposed for ~100 px).
     put(`c${i}`, Math.max(0, 1 - Math.abs(a - i) * 2.6) * vis, `translateY(${((i - a) * v.capShift * m).toFixed(1)}px)`);
   }
 
-  const foldIn = S(0.46, 0.53, t);
+  const foldIn = S(H.foldIn[0], H.foldIn[1], t);
   const shift = ((1 - foldIn) * v.cardShift * m).toFixed(1);
-  put('fold', foldIn * (1 - S(0.68, 0.72, t)), v.wide ? `translateX(${shift}px)` : `translateY(${shift}px)`);
+  put('fold', foldIn * (1 - S(H.foldOut[0], H.foldOut[1], t)), v.wide ? `translateX(${shift}px)` : `translateY(${shift}px)`);
   const w = S(0.5, 0.6, t);
   out.ciBar = { transform: `scaleX(${(1 + (widen - 1) * w).toFixed(4)})` };
   put('ciRow2', 0.35 + 0.65 * w);
   put('n1', 1 - w);
   put('n2', w);
 
-  const resIn = S(0.71, 0.77, t);
-  const resOut = S(0.84, 0.88, t);
-  const settle = (1 - S(0.71, 0.78, t)) * m;
+  // The result chapter starts only once the accuracy card has gone, and ends before the privacy
+  // chapter starts (review round 3: a triple exposure at 4500 px and two headings at 5400 px).
+  const resIn = S(H.resIn[0], H.resIn[1], t);
+  const resOut = S(H.resOut[0], H.resOut[1], t);
+  const settle = (1 - S(H.resIn[0], H.resIn[1] + 0.01, t)) * m;
   put('rcap', resIn * (1 - resOut), `translateY(${((1 - resIn) * v.capRise * m).toFixed(1)}px)`);
   // 2D slide: a rotateY settling to 0 re-rasterised the card (49 ms in the traces).
   put('rcard', resIn * (1 - resOut), v.wide ? `translateX(${(settle * 60).toFixed(1)}px)` : `translateY(${(settle * 30).toFixed(1)}px)`);
@@ -139,9 +172,9 @@ export function layoutValues(t, v, reduce, widen) {
   put('provWin', reveal, `translateY(${((1 - reveal) * 8 * m).toFixed(1)}px)`);
   out.prov = { transform: 'translateX(0)' };
 
-  const dev = S(0.85, 0.91, t);
+  const dev = S(H.privIn[0], H.privIn[1], t);
   put('dcap', dev, `translateY(${((1 - dev) * v.capRise * m).toFixed(1)}px)`);
-  put('device', dev * (0.3 + 0.7 * S(0.88, 0.97, t)));
+  put('device', dev * (0.3 + 0.7 * S(H.privIn[0] + 0.02, 0.97, t)));
   return out;
 }
 
@@ -167,12 +200,13 @@ export function scene(t) {
   };
 }
 
-/** Which chapter the nav highlights: 0 hero, 1 how, 2 accuracy, 3 results, 4 anywhere. */
+/** Which chapter the nav highlights: 0 hero, 1 how, 2 accuracy, 3 results, 4 anywhere. Each switch
+ * falls in the gap between one chapter's layers leaving and the next one's arriving (HANDOFF). */
 export function chapterAt(t) {
   if (t < 0.08) return 0;
   if (t < 0.44) return 1;
-  if (t < 0.69) return 2;
-  if (t < 0.845) return 3;
+  if (t < (HANDOFF.foldOut[1] + HANDOFF.resIn[0]) / 2) return 2;
+  if (t < (HANDOFF.resOut[1] + HANDOFF.privIn[0]) / 2) return 3;
   return 4;
 }
 

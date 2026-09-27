@@ -39,6 +39,24 @@ export const HERD_LAYOUTS = Object.freeze({
   phone: Object.freeze({ S: 46, R: 16, cloud: [175, 300, 210], step: 7 }),
 });
 
+/** The still herd's drawing (herd/HerdStill.jsx): ring radius past the cluster, ring stroke, dot radius. */
+export const STILL_STYLE = Object.freeze({
+  desktop: Object.freeze({ ringPad: 7, ringStroke: 1.2, dot: 3.2 }),
+  phone: Object.freeze({ ringPad: 5, ringStroke: 1.2, dot: 2.1 }),
+});
+
+/**
+ * Half the side of the still herd's square viewBox: the outermost farm's centre, its ring radius and
+ * half its stroke, plus a pixel. The rings of the edge farms were cut straight when the box stopped at
+ * the dots (review round 3). The farm grid is 7 x 7, so the outermost centre is 3 spacings out.
+ * @param {'desktop'|'phone'} layout
+ */
+export function stillHalf(layout) {
+  const L = HERD_LAYOUTS[layout];
+  const s = STILL_STYLE[layout];
+  return 3 * L.S + L.R + s.ringPad + s.ringStroke / 2 + 1;
+}
+
 /**
  * @typedef {Object} HerdData
  * @property {number} N

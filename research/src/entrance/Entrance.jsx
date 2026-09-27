@@ -19,7 +19,7 @@ import { createHerdEngine, readGlColours, webglAvailable, DPR_CAP } from '../lan
 import { smooth } from '../landing/story/layout.js';
 import { useReducedMotion } from '../landing/shell/theme.js';
 import { gatherToBorders } from './gather.js';
-import { ENTRANCE_MS, CROSSFADE_MS } from './entrance-timing.js';
+import { ENTRANCE_MS, CROSSFADE_MS, skipOpacity } from './entrance-timing.js';
 import './entrance.css';
 
 registerArea('entrance', entrance);
@@ -135,13 +135,19 @@ export default function Entrance({ onDone, projectCount, target }) {
       if (textRef.current) {
         // The greeting is gone before the veil starts to lift, so it never ghosts over the workspace
         // heading (review round 2).
-        const tin = smooth(0, 200, e) * (1 - smooth(M.veilStart - 350, M.veilStart, e));
+        const tin = smooth(0, M.inEnd, e) * (1 - smooth(M.veilStart - 350, M.veilStart, e));
         textRef.current.style.opacity = String(Math.max(0, tin).toFixed(3));
-        textRef.current.style.transform = `translateY(${((1 - smooth(0, 400, e)) * 12).toFixed(1)}px)`;
+        textRef.current.style.transform = `translateY(${((1 - smooth(0, 300, e)) * 12).toFixed(1)}px)`;
+      }
+      if (skipRef.current) {
+        // With the greeting, and gone once the dots have gathered (review round 3).
+        const so = skipOpacity(e, M);
+        skipRef.current.style.opacity = so.toFixed(3);
+        skipRef.current.style.visibility = so < 0.01 ? 'hidden' : 'visible';
       }
       if (eng && !eng.lost()) {
         const g = smooth(M.gatherStart, M.gatherEnd, e);
-        const dim = smooth(0, 220, e) * (1 - smooth(M.fadeStart, M.end - 60, e));
+        const dim = smooth(0, M.inEnd, e) * (1 - smooth(M.fadeStart, M.end - 60, e));
         eng.draw({
           time: now / 1000, fold: 0, grid: g, dim, posMix: 0.35 + 0.65 * g, reduce: false, pointPx, posBoost: 0, stagger: 0.35,
           colPos: colours.pos, colNeg: colours.neg,
