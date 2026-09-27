@@ -388,3 +388,39 @@ test('cache quota failures cannot reject a successful network response', async (
   assert.equal(await (await load.response).text(), 'network');
   await assert.doesNotReject(() => load.settled());
 });
+
+// B57: an online navigation used to get the cached home page whenever the
+// server's answer was not 2xx, so a Vercel security check never ran its
+// script, a missing page looked like home, and /venipuncture never
+// followed its redirect to /venipuncture/.
+test('what the server answers to a navigation reaches the page as is', async () => {
+  const app = worker();
+  await (await app.caches.open(runtime)).put('/', response('cached home shell'));
+  const answers = [
+    response('security checkpoint', { status: 429, headers: { 'x-vercel-mitigated': 'challenge' } }),
+    response('forbidden', { status: 403 }),
+    response('missing page', { status: 404 }),
+  ];
+  for (const answer of answers) {
+    app.setNetwork(async () => answer.clone());
+    const res = await app.request('/blog/gone.html', { mode: 'navigate' }).response;
+    assert.equal(res.status, answer.status);
+    assert.equal(await res.text(), await answer.clone().text());
+  }
+  const redirect = Object.defineProperty(new Response(null, { status: 302 }), 'type', { value: 'opaqueredirect' });
+  app.setNetwork(async () => redirect);
+  const followed = await app.request('/venipuncture', { mode: 'navigate' }).response;
+  assert.equal(followed.type, 'opaqueredirect', 'the browser follows the redirect itself');
+  const stored = await (await app.caches.open(runtime)).match('/blog/gone.html');
+  assert.equal(stored, undefined, 'an error page is never cached');
+});
+
+test('offline or a server error still opens the cached home shell', async () => {
+  const app = worker({ network: offline });
+  await (await app.caches.open(runtime)).put('/', response('cached home shell'));
+  const whileOffline = await app.request('/app/notes', { mode: 'navigate' }).response;
+  assert.equal(await whileOffline.text(), 'cached home shell');
+  app.setNetwork(async () => response('bad gateway', { status: 502 }));
+  const duringOutage = await app.request('/app/notes', { mode: 'navigate' }).response;
+  assert.equal(await duringOutage.text(), 'cached home shell');
+});

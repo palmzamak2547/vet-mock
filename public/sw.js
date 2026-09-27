@@ -18,7 +18,7 @@
 // version-scoped, while immutable hashed assets survive across deploys.
 // ============================================================
 
-const SW_VERSION = 'v198-2026-09-27';
+const SW_VERSION = 'v199-2026-09-27';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = 'vmx-assets-v1';
 // Atlas verifies content hashes and owns a bounded public-model cache.
@@ -453,11 +453,16 @@ self.addEventListener('fetch', (event) => {
   if (request.mode === 'navigate' || (request.headers.get('Accept') || '').includes('text/html')) {
     event.respondWith(
       networkFirst(request, RUNTIME, NAV_TIMEOUT_MS, event).then((res) => {
-        // Offline + no cache match → serve cached root as fallback
-        if (!res || !res.ok) {
-          return runtimeMatch('/', RUNTIME).then((root) => root || res);
+        // What the server answered goes to the page as is: a redirect
+        // (/venipuncture -> /venipuncture/), a Vercel security check
+        // (403/429, whose script must run to set its cookie) and a 404 all
+        // break when the cached home page stands in for them. Only no
+        // answer, the offline 503 from networkFirst or a server error
+        // falls back to the cached shell.
+        if (res && (res.ok || res.type === 'opaqueredirect' || (res.status >= 400 && res.status < 500))) {
+          return res;
         }
-        return res;
+        return runtimeMatch('/', RUNTIME).then((root) => root || res);
       })
     );
     return;
