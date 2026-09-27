@@ -451,7 +451,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "telencephalon ด้าน balance และ metencephalon ด้าน smell"
     ],
     "answer": 0,
-    "explain": "mesencephalon คู่กับ vision และ telencephalon คู่กับ smell ส่วน metencephalon (cerebellum + medulla) คู่กับ balance\n\n❌ ทำไมข้ออื่นผิด\n— \"mesencephalon = smell, telencephalon = vision\" = สลับสองส่วนนี้กัน\n— \"metencephalon = vision, mesencephalon = balance\" = vision เป็นของ mesencephalon ส่วน balance เป็นของ metencephalon\n— \"telencephalon = balance, metencephalon = smell\" = smell เป็นของ telencephalon ส่วน balance เป็นของ metencephalon",
+    "explain": "mesencephalon คู่กับ vision และ telencephalon คู่กับ smell ส่วน metencephalon (cerebellum) คู่กับ balance ส่วน medulla oblongata อยู่ถัดลงไปและมาจาก myelencephalon\n\n❌ ทำไมข้ออื่นผิด\n— \"mesencephalon = smell, telencephalon = vision\" = สลับสองส่วนนี้กัน\n— \"metencephalon = vision, mesencephalon = balance\" = vision เป็นของ mesencephalon ส่วน balance เป็นของ metencephalon\n— \"telencephalon = balance, metencephalon = smell\" = smell เป็นของ telencephalon ส่วน balance เป็นของ metencephalon",
     "verified": "AP2_Fish_bio p.93"
   },
   {
