@@ -36,7 +36,18 @@ Custom Supabase email templates for VetMock auth flows.
 
 ---
 
-## 🚀 How to apply (one-time setup)
+## 🚀 How to apply
+
+Push them with the script, which sends only these five templates and their
+subjects, then reads them back and fails unless live matches the repo:
+
+```bash
+SUPABASE_ACCESS_TOKEN=<personal access token> node scripts/push-auth-emails.mjs
+SUPABASE_ACCESS_TOKEN=<personal access token> node scripts/push-auth-emails.mjs --check
+```
+
+The subjects live in `scripts/push-auth-emails.mjs` (`TEMPLATES`). The manual
+dashboard steps below still work as a fallback.
 
 ### 1. Login to Supabase Dashboard
 Go to https://supabase.com/dashboard → select VetMock project.
@@ -64,8 +75,8 @@ supabase/email-templates/01-magic-link.html
 | Template | Subject |
 |---|---|
 | Magic Link | `✨ ลิงก์เข้าสู่ระบบ VetMock` |
-| Confirm signup | `🎉 ยินดีต้อนรับสู่ VetMock — ยืนยันอีเมล` |
-| Reset Password | `🔑 รีเซ็ตรหัสผ่าน VetMock` |
+| Confirm signup | `🎉 ยินดีต้อนรับสู่ VetMock ยืนยันอีเมลของคุณ` |
+| Reset Password | `🔐 รีเซ็ตรหัสผ่าน VetMock` |
 | Change Email | `📧 ยืนยันอีเมลใหม่ของคุณ` |
 | Reauthentication | `🔐 รหัสยืนยัน VetMock: {{ .Token }}` |
 
@@ -127,9 +138,11 @@ You can use these in any template:
 
 When you change a template:
 1. Edit the HTML file in this repo (commits show what changed)
-2. Re-paste into Supabase dashboard (no automated sync — Supabase doesn't expose a public API for email templates)
+2. Run `node scripts/push-auth-emails.mjs` with `SUPABASE_ACCESS_TOKEN` set, in the same change.
 
-To partially automate: the [Supabase Management API](https://supabase.com/docs/reference/api/v1-update-a-project-config) does support config updates with a Personal Access Token, but it's overkill for 5 templates that change rarely.
+A link fixed in the repo reaches nobody until it is pushed: the 5.133.0 link
+fixes sat in the repo while every email still sent the old links, until the
+Management API push on 27 Sep 2026.
 
 ---
 
