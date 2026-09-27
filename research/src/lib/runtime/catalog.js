@@ -2,7 +2,8 @@
 // against. The landing chart, the design-first screen and the "ตรวจเทียบแล้ว" badge all read it, so
 // what the page says stays true: `shipped` is derived from the registry (an implementation exists),
 // `verified` from tests/fixtures (regen-verified). Names live in the i18n dictionaries under
-// `nameKey`. OWNER: runtime role (rows for M2/M3 methods may be added by anyone through runtime).
+// `nameKey`. OWNER: data role (M2; runtime in M1). The M2 rows were written by the architect with their
+// owners; a new method id goes through the data role [M2-DESIGN.md 2].
 import { REGISTERED } from './registered.js';
 import { VERIFIED } from './verified.generated.js';
 
@@ -59,7 +60,7 @@ export const FAMILIES = [
  * @property {string} id
  * @property {string[]} families        FAMILIES ids the landing chart counts it under (may be empty)
  * @property {'M1'|'M2'|'M3'|'later'} milestone
- * @property {'stats'|'epi'|'runtime'|null} owner   builder role that implements it (M1 only)
+ * @property {'stats'|'epi'|'runtime'|'lab'|'models'|'measure'|'ui-tools'|null} owner   builder role that implements it (M1 and M2 rows)
  * @property {string} nameKey
  * @property {string[]} [designs]        designs whose screen offers it (see lib/epi/design.js)
  */
@@ -99,21 +100,27 @@ export const METHODS = [
   { id: 'ss.mean', families: ['sampleSize'], milestone: 'M1', owner: 'epi', nameKey: 'epi.method.ss.mean' },
   { id: 'ss.twoMeans', families: ['sampleSize'], milestone: 'M1', owner: 'epi', nameKey: 'epi.method.ss.twoMeans' },
   { id: 'ss.paired', families: ['sampleSize'], milestone: 'M1', owner: 'epi', nameKey: 'epi.method.ss.paired' },
-  // ---- M2 (competitor-gaps.md D1, D2, D5, D6, D7) ------------------------------------------
-  { id: 'anova.twoWay', families: ['anova2'], milestone: 'M2', owner: null, nameKey: 'runtime.method.anova.twoWay' },
-  { id: 'anova.repeated', families: ['anovaRm'], milestone: 'M2', owner: null, nameKey: 'runtime.method.anova.repeated' },
-  { id: 'test.friedman', families: ['friedman'], milestone: 'M2', owner: null, nameKey: 'runtime.method.test.friedman' },
-  { id: 'posthoc.dunn', families: ['posthoc'], milestone: 'M2', owner: null, nameKey: 'runtime.method.posthoc.dunn' },
-  { id: 'posthoc.gamesHowell', families: ['posthoc'], milestone: 'M2', owner: null, nameKey: 'runtime.method.posthoc.gamesHowell' },
-  { id: 'posthoc.dunnett', families: ['dunnett'], milestone: 'M2', owner: null, nameKey: 'runtime.method.posthoc.dunnett' },
-  { id: 'diag.shapiro', families: ['normality'], milestone: 'M2', owner: null, nameKey: 'runtime.method.diag.shapiro' },
-  { id: 'reg.logistic', families: ['logistic'], milestone: 'M2', owner: null, nameKey: 'runtime.method.reg.logistic' },
-  { id: 'reg.poisson', families: ['counts'], milestone: 'M2', owner: null, nameKey: 'runtime.method.reg.poisson' },
-  { id: 'roc.delong', families: ['roc'], milestone: 'M2', owner: null, nameKey: 'runtime.method.roc.delong' },
-  { id: 'surv.kaplanMeier', families: ['survival'], milestone: 'M2', owner: null, nameKey: 'runtime.method.surv.kaplanMeier' },
-  { id: 'agree.blandAltman', families: ['blandAltman'], milestone: 'M2', owner: null, nameKey: 'runtime.method.agree.blandAltman' },
-  { id: 'rel.cronbach', families: ['questionnaire'], milestone: 'M2', owner: null, nameKey: 'runtime.method.rel.cronbach' },
-  { id: 'design.randomisation', families: ['randomisation'], milestone: 'M2', owner: null, nameKey: 'runtime.method.design.randomisation' },
+  // ---- M2 (competitor-gaps.md D1, D2, D5, D7; M2-DESIGN.md 3) -------------------------------
+  { id: 'anova.twoWay', families: ['anova2', 'anova'], milestone: 'M2', owner: 'lab', nameKey: 'runtime.method.anova.twoWay' },
+  { id: 'anova.repeated', families: ['anovaRm', 'anova'], milestone: 'M2', owner: 'lab', nameKey: 'runtime.method.anova.repeated' },
+  { id: 'test.friedman', families: ['friedman'], milestone: 'M2', owner: 'lab', nameKey: 'runtime.method.test.friedman' },
+  { id: 'posthoc.dunn', families: ['posthoc'], milestone: 'M2', owner: 'lab', nameKey: 'runtime.method.posthoc.dunn' },
+  { id: 'posthoc.gamesHowell', families: ['posthoc'], milestone: 'M2', owner: 'lab', nameKey: 'runtime.method.posthoc.gamesHowell' },
+  { id: 'posthoc.dunnett', families: ['dunnett', 'posthoc'], milestone: 'M2', owner: 'lab', nameKey: 'runtime.method.posthoc.dunnett' },
+  { id: 'diag.shapiro', families: ['normality'], milestone: 'M2', owner: 'lab', nameKey: 'runtime.method.diag.shapiro' },
+  { id: 'diag.brownForsythe', families: [], milestone: 'M2', owner: 'lab', nameKey: 'runtime.method.diag.brownForsythe' },
+  { id: 'power.anova', families: ['sampleSize'], milestone: 'M2', owner: 'lab', nameKey: 'runtime.method.power.anova' },
+  { id: 'power.tTest', families: ['sampleSize'], milestone: 'M2', owner: 'lab', nameKey: 'runtime.method.power.tTest' },
+  { id: 'power.correlation', families: ['sampleSize'], milestone: 'M2', owner: 'lab', nameKey: 'runtime.method.power.correlation' },
+  { id: 'power.regression', families: ['sampleSize'], milestone: 'M2', owner: 'lab', nameKey: 'runtime.method.power.regression' },
+  { id: 'reg.logistic', families: ['logistic'], milestone: 'M2', owner: 'models', nameKey: 'runtime.method.reg.logistic' },
+  { id: 'reg.poisson', families: ['counts'], milestone: 'M2', owner: 'models', nameKey: 'runtime.method.reg.poisson' },
+  { id: 'surv.kaplanMeier', families: ['survival'], milestone: 'M2', owner: 'models', nameKey: 'runtime.method.surv.kaplanMeier' },
+  { id: 'roc.delong', families: ['roc'], milestone: 'M2', owner: 'measure', nameKey: 'runtime.method.roc.delong' },
+  { id: 'agree.blandAltman', families: ['blandAltman'], milestone: 'M2', owner: 'measure', nameKey: 'runtime.method.agree.blandAltman' },
+  { id: 'rel.cronbach', families: ['questionnaire'], milestone: 'M2', owner: 'measure', nameKey: 'runtime.method.rel.cronbach' },
+  { id: 'design.randomisation', families: ['randomisation'], milestone: 'M2', owner: 'ui-tools', nameKey: 'runtime.method.design.randomisation' },
+  { id: 'design.sampling', families: [], milestone: 'M2', owner: 'ui-tools', nameKey: 'runtime.method.design.sampling' },
   // ---- M3 ------------------------------------------------------------------------------
   { id: 'reg.mixed', families: ['mixed'], milestone: 'M3', owner: null, nameKey: 'runtime.method.reg.mixed' },
   { id: 'reg.gee', families: ['gee'], milestone: 'M3', owner: null, nameKey: 'runtime.method.reg.gee' },

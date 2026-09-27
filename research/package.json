@@ -37,6 +37,7 @@
     "@stdlib/stats-base-dists-t-quantile": "0.2.3",
     "@supabase/supabase-js": "2.115.0",
     "@tanstack/react-virtual": "3.14.13",
+    "fflate": "0.7.5",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "valibot": "1.4.2",

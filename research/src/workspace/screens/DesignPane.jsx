@@ -44,7 +44,7 @@ export default function DesignPane({ p }) {
               <section className="rs-panel rs-pad" aria-labelledby="rs-h-can">
                 <h2 id="rs-h-can" className="rs-h3">{t('ws.design.canTitle', { design: t(chosen.nameKey) })}</h2>
                 <ul className="rs-checklist">
-                  {chosen.offers.map((o) => {
+                  {chosen.offers.filter((o) => getMethod(o.method)?.shipped).map((o) => {
                     const m = getMethod(o.method);
                     const ui = METHOD_UI[o.method];
                     const pane = ui ? PANE_OF[ui.pane] : null;

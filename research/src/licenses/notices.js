@@ -3,7 +3,7 @@
 // shows the licence text from each package's LICENSE file, bundled when the page is built. The
 // @stdlib packages pull in further @stdlib/* dependencies (same project, Apache-2.0; 12 of them add
 // the Boost Software License for code ported from Boost); STDLIB_TOTAL is their count in the lockfile.
-// OWNER: runtime role.
+// OWNER: trust role (M2; runtime in M1).
 
 /**
  * @typedef {{ name: string, version: string, license: string, url: string, text: string }} Notice
@@ -27,6 +27,8 @@ export const NOTICES = Object.freeze([
   { name: '@supabase/phoenix', version: '0.4.5', license: 'MIT', url: 'https://github.com/supabase/supabase-js', text: 'phoenix' },
   { name: 'iceberg-js', version: '0.8.1', license: 'MIT', url: 'https://github.com/supabase/iceberg-js', text: 'iceberg' },
   { name: 'tslib', version: '2.8.1', license: '0BSD', url: 'https://github.com/microsoft/tslib', text: 'tslib' },
+  // M2: .docx and .zsav (zip and zlib), loaded only with the Word export and the SPSS reader.
+  { name: 'fflate', version: '0.7.5', license: 'MIT', url: 'https://github.com/101arrowz/fflate', text: 'fflate' },
   { name: 'xlsx (SheetJS Community Edition)', version: '0.20.3', license: 'Apache-2.0', url: 'https://git.sheetjs.com/SheetJS/sheetjs', text: 'xlsx' },
   { name: '@stdlib/math-base-special-betainc', version: '0.2.3', license: 'Apache-2.0 AND BSL-1.0', url: 'https://github.com/stdlib-js/math-base-special-betainc', text: 'stdlib' },
   { name: '@stdlib/math-base-special-binomcoefln', version: '0.3.1', license: 'Apache-2.0', url: 'https://github.com/stdlib-js/math-base-special-binomcoefln', text: 'stdlib' },
@@ -75,6 +77,7 @@ export const LICENSE_TEXTS = Object.freeze({
   phoenix: () => import('../../node_modules/@supabase/phoenix/LICENSE.md?raw'),
   iceberg: () => import('../../node_modules/iceberg-js/LICENSE?raw'),
   tslib: () => import('../../node_modules/tslib/LICENSE.txt?raw'),
+  fflate: () => import('../../node_modules/fflate/LICENSE?raw'),
   xlsx: () => import('../../node_modules/xlsx/LICENSE?raw'),
   stdlib: () => import('../../node_modules/@stdlib/math-base-special-gammainc/LICENSE?raw'),
   sarabun: () => import('./sarabun-OFL.txt?raw'),

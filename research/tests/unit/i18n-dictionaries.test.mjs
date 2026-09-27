@@ -10,6 +10,7 @@ const dir = fileURLToPath(new URL('../../src/i18n/', import.meta.url));
 const PREFIX = {
   common: 'common.', terms: 'term.', workspace: 'ws.', report: 'report.', landing: 'landing.', entrance: 'entrance.',
   intake: 'intake.', stats: 'stats.', epi: 'epi.', runtime: 'runtime.',
+  lab: 'lab.', models: 'models.', measure: 'measure.', data: 'data.', graphs: 'graphs.', tools: 'tools.', trust: 'trust.',
 };
 
 const files = readdirSync(dir).filter((f) => f.endsWith('.js') && f !== 'index.js');

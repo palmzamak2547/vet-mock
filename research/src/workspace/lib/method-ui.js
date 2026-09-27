@@ -1,7 +1,9 @@
 // What the analysis panels ask for each M1 method [M1-DESIGN.md 10.1, 17]: which columns fill which
 // role, which level counts as positive or as the reference, which options the student may change
 // (the allowed values are the spec contract's lists), and which screen offers the method. Pure.
-// OWNER: workspace role.
+// OWNER: ui-analysis role (M2; workspace in M1). The planning tools' entries live in method-ui-tools.js
+// (ui-tools role) and are spread in below [M2-DESIGN.md 10].
+import { TOOL_METHOD_UI } from './method-ui-tools.js';
 
 /** Column types a role accepts (codebook `type`). */
 const CAT = ['binary', 'nominal', 'ordinal'];
@@ -48,6 +50,7 @@ export const METHOD_UI = {
   'ss.mean': { pane: 'tool', input: 'params', roles: [], params: ['sd', 'margin'], options: { z: ['exact', 'course-1.96'] } },
   'ss.twoMeans': { pane: 'tool', input: 'params', roles: [], params: ['sd', 'delta', 'ratio', 'power'], options: { z: ['exact', 'course-1.96'] } },
   'ss.paired': { pane: 'tool', input: 'params', roles: [], params: ['d', 'power'], options: { z: ['exact', 'course-1.96'] } },
+  ...TOOL_METHOD_UI,
 };
 
 /** Confidence levels offered everywhere (options.confLevel). */

@@ -4,12 +4,16 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { DESIGNS, DESIGN_FREE_METHODS, checkDesign, BLOCK_REASON, MEASURE_BLOCK_REASON } from '../../src/lib/epi/design.js';
-import dict from '../../src/i18n/epi.js';
+import epiDict from '../../src/i18n/epi.js';
+import labDict from '../../src/i18n/lab.js';
+
+// Design rows and reasons come from epi (M1) and from the areas that add a design (lab: experiment).
+const dict = { th: { ...epiDict.th, ...labDict.th }, en: { ...epiDict.en, ...labDict.en } };
 
 const offered = (id, method) => DESIGNS.find((d) => d.id === id).offers.find((o) => o.method === method) || null;
 
-test('seven designs, each with a name and description in Thai and English', () => {
-  assert.deepEqual(DESIGNS.map((d) => d.id), ['cross-sectional', 'cohort', 'case-control', 'trial', 'diagnostic', 'agreement', 'descriptive']);
+test('seven M1 designs and the M2 experiment design, each with a name and description in Thai and English', () => {
+  assert.deepEqual(DESIGNS.map((d) => d.id), ['cross-sectional', 'cohort', 'case-control', 'trial', 'diagnostic', 'agreement', 'descriptive', 'experiment']);
   for (const d of DESIGNS) for (const lang of ['th', 'en']) {
     assert.ok(dict[lang][d.nameKey], `${lang} ${d.nameKey}`);
     assert.ok(dict[lang][d.descKey], `${lang} ${d.descKey}`);

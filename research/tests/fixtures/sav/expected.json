@@ -1,0 +1,34 @@
+{
+  "_fixture": {
+    "family": "r-4.6.0",
+    "kind": "pin",
+    "methods": [],
+    "note": "What haven 2.5.5 read_sav(user_na = TRUE) returns for cows-byte.sav (R 4.6.0 in webR 0.6.0, 28 Sep 2026). The same values hold for cows-none.sav and cows-zsav.zsav; only the compression differs. Made-up data (ข้อมูลสมมุติ). The file header's creation date and time are not part of the fixture. Numbers written as R printed them with %.17g."
+  },
+  "files": {
+    "cows-none.sav": { "bytes": 11130, "sha256": "a652e1675500255583b79612f88b857e4ec77f88353b8d8cf95295c02fb7225f", "compression": "none" },
+    "cows-byte.sav": { "bytes": 7434, "sha256": "d496cfd55bba4db562dae6ca176aa539c3acbe9ad495262e7710cb4e83593fb4", "compression": "bytecode" },
+    "cows-zsav.zsav": { "bytes": 5449, "sha256": "4488ea69e14ecf03b9bdaf63d17488635b086ec867d35bb8eca0e17f74ff8c14", "compression": "zlib" }
+  },
+  "encoding": "UTF-8",
+  "rows": 6,
+  "variables": [
+    { "name": "id", "type": "numeric", "format": "F8.2", "label": null, "valueLabels": [], "userMissing": [], "values": [1, 2, 3, 4, 5, 6] },
+    { "name": "farm", "type": "string", "format": "A3", "label": null, "valueLabels": [], "userMissing": [], "values": ["F01", "F01", "F01", "F02", "F02", "F02"] },
+    { "name": "sex", "type": "numeric", "format": "F8.2", "label": "เพศ", "valueLabels": [{ "value": 1, "label": "เพศเมีย" }, { "value": 2, "label": "เพศผู้" }], "userMissing": [], "values": [1, 1, 2, 1, 2, 1] },
+    { "name": "elisa", "type": "numeric", "format": "F8.2", "label": "ผล ELISA", "valueLabels": [{ "value": 0, "label": "ลบ" }, { "value": 1, "label": "บวก" }, { "value": 9, "label": "ไม่ทราบ" }], "userMissing": [9], "values": [0, 1, 9, 1, 0, 0] },
+    { "name": "age_months", "type": "numeric", "format": "F8.2", "label": "อายุ (เดือน)", "valueLabels": [], "userMissing": [-99], "values": [30, 24, -99, 41, 18.5, 60] },
+    { "name": "weight_kg", "type": "numeric", "format": "F8.2", "label": "น้ำหนัก (กก.)", "valueLabels": [], "userMissing": [], "values": [452.5, 398.25, 510, null, 377.125, 601] },
+    { "name": "sampled", "type": "numeric", "format": "DATE11", "label": null, "valueLabels": [], "userMissing": [], "dates": ["2026-08-03", "2026-08-03", "2026-08-04", "2026-08-10", "2026-08-10", "2026-08-11"] },
+    { "name": "owner_th", "type": "string", "format": "A31", "label": null, "valueLabels": [], "userMissing": [], "values": ["สมชาย ใจดี", "สมชาย ใจดี", "สมชาย ใจดี", "มาลี รักวัว", "มาลี รักวัว", "มาลี รักวัว"] },
+    { "name": "vaccinated_in_last_six_months", "type": "numeric", "format": "F8.2", "label": null, "valueLabels": [{ "value": 1, "label": "ฉีด" }, { "value": 0, "label": "ไม่ฉีด" }], "userMissing": [], "values": [1, 0, 1, 1, 0, 1] },
+    { "name": "notes", "type": "string", "format": "A900", "label": null, "valueLabels": [], "userMissing": [], "characters": [300, 0, 5, 0, 319, 2], "describe": ["ก repeated 300 times", "", "โคซึม", "", "abc followed by a space, repeated 80 times, trailing spaces trimmed", "ok"] }
+  ],
+  "rules": [
+    "weight_kg row 4 is system-missing (SPSS SYSMIS): an empty cell with missing reason blank.",
+    "elisa 9 and age_months -99 are user-missing: the import proposes them as missing codes and asks the reason (G26), as it does for CSV codes.",
+    "notes is a very long string (record 7.14): 900 bytes in segments of 255, joined before decoding; trailing spaces are padding and are removed.",
+    "vaccinated_in_last_six_months is longer than 8 characters: the short name in record 2 is replaced by the long name from record 7.13.",
+    "sampled is seconds since 1582-10-14 in the file; DATE11 marks it as a date, read as days since 1970-01-01 (subtract 12219379200 seconds, divide by 86400)."
+  ]
+}

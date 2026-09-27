@@ -1,6 +1,6 @@
 // runAnalysis: the one entry point every result goes through [M1-DESIGN.md 10.3]. Runs inside the
 // worker (engine.worker.js) and in the main-thread fallback. Pure: no DOM, no storage, no network.
-// OWNER: runtime role.
+// OWNER: data role (M2; runtime in M1).
 //
 // Order: validateSpec -> normalizeSpec -> design check (epi/design.js allows the method?) ->
 // guardrails (epi/guardrails.js, plus the G1 safety net below) -> if no stop, the chosen cluster route
@@ -15,6 +15,7 @@ import { IMPLEMENTED } from './registry.js';
 import { checkDesign, DESIGN_FREE_METHODS } from '../epi/design.js';
 import { evaluateGuards, resultGuards, clusterPanel } from '../epi/guardrails.js';
 import { aggregateToCluster } from '../epi/cluster.js';
+import { AREA_G1_SUBJECT, AREA_ROUTES } from './areas/index.js';
 
 /**
  * Methods that treat every row as an independent animal and so must stop (G1) when the cluster column
@@ -26,15 +27,19 @@ export const G1_SUBJECT = Object.freeze(new Set([
   'epi.twoByTwo', 'epi.mantelHaenszel', 'test.chisq', 'test.fisher2x2', 'test.mcnemar', 'test.trend',
   'test.tTest', 'test.anova1', 'posthoc.tukey', 'test.mannWhitney', 'test.wilcoxonSignedRank',
   'test.kruskalWallis', 'corr.pearson', 'corr.spearman', 'reg.ols',
+  // M2 areas declare theirs in areas/<area>.options.js (g1Subject) [M2-DESIGN.md 2].
+  ...AREA_G1_SUBJECT,
 ]));
 
 /** Methods a within-farm Mantel-Haenszel route replaces (a 2x2 question, answered stratified by farm). */
 export const MH_WITHIN_FROM = Object.freeze(new Set(['epi.twoByTwo', 'test.chisq', 'test.fisher2x2']));
 
 /** Routes the G1 panel offers, in the order the boards show them (GEE and mixed models are M3). */
-export const CLUSTER_ROUTE_ORDER = Object.freeze(['mh-within', 'deff', 'aggregate', 'gee', 'mixed']);
+// Areas add a route here (areas/<area>.options.js `routes`) once the route runs and has its fixture.
+export const CLUSTER_ROUTE_ORDER = Object.freeze(['mh-within', 'deff', ...AREA_ROUTES, 'aggregate', 'gee', 'mixed']);
 
-const FARM_AWARE = new Set(['deff', 'mh-within', 'aggregate']);
+// 'survey' and 'robust' are carried out by the method itself, like 'deff' (M2-DESIGN.md 3.2, 3.3).
+const FARM_AWARE = new Set(['deff', 'mh-within', 'aggregate', 'survey', 'robust']);
 /** Data checks judged again on the farm table after the 'aggregate' route (G4 common outcome, G5 small expected counts). */
 const AGG_RECHECK = new Set(['G4', 'G5']);
 
@@ -159,6 +164,8 @@ export function runAnalysis(spec, table, codebook, env = {}) {
           notes.push({ id: 'auto', severity: 'note', key: 'runtime.note.autoResolved', params: { options: Object.keys(output.resolvedOptions).join(', ') } });
         }
         if (Array.isArray(output?.notes)) notes.push(...output.notes);
+        // M2: a method may raise its own warnings (G14 events per variable, G23 overdispersion).
+        if (Array.isArray(output?.warnings) && output.warnings.length) guard = mergeGuard(guard, { warnings: output.warnings });
         if (output && output.status === 'ok' && !output.values && !output.tests) error = { key: 'runtime.engine.methodFailed', detail: 'empty output' };
         // Guards that read the result: G8 (p > 0.05 is not "no difference") and G12 (strata disagree).
         if (output && output.status === 'ok') guard = mergeGuard(guard, deps.resultGuards(norm, output) || {});

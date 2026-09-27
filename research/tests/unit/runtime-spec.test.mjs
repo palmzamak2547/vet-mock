@@ -6,9 +6,9 @@ import { METHODS } from '../../src/lib/runtime/catalog.js';
 
 const base = (method, input = { kind: 'counts', counts: { table: [[1, 2], [3, 4]] } }) => ({ specVersion: 1, method, input, design: null, roles: {}, levels: {}, options: {}, cluster: { route: null, column: null } });
 
-test('every M1 catalogue method has defaults and allowed values, and nothing else does', () => {
-  const m1 = METHODS.filter((m) => m.milestone === 'M1').map((m) => m.id).sort();
-  assert.deepEqual([...METHOD_IDS].sort(), m1);
+test('every M1 and M2 catalogue method has defaults and allowed values, and nothing else does', () => {
+  const built = METHODS.filter((m) => m.milestone === 'M1' || m.milestone === 'M2').map((m) => m.id).sort();
+  assert.deepEqual([...METHOD_IDS].sort(), built);
   for (const id of METHOD_IDS) {
     assert.ok(ALLOWED[id], `no allowed values for ${id}`);
     for (const k of Object.keys(DEFAULT_OPTIONS[id])) assert.ok(ALLOWED[id][k], `${id}.${k} has a default but no allowed list`);

@@ -1,7 +1,7 @@
 // The workspace at /app [M1-DESIGN.md 17]: top bar (name, "คำนวณในเครื่องนี้", ไทย/EN, account),
 // rail (data, analysis, report, tools, project log), and the panes the 13 boards in
 // work/research-studio/workspace/ show. Starts the engine and requests every workspace chunk on
-// entry so an old tab never needs a chunk a later deploy removed. OWNER: workspace role.
+// entry so an old tab never needs a chunk a later deploy removed. OWNER: ui-analysis role (M2; workspace in M1).
 import { Component, Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { registerArea, useT } from '../i18n/index.js';
 import workspace from '../i18n/workspace.js';
@@ -10,6 +10,12 @@ import intake from '../i18n/intake.js';
 import stats from '../i18n/stats.js';
 import epi from '../i18n/epi.js';
 import runtime from '../i18n/runtime.js';
+import lab from '../i18n/lab.js';
+import models from '../i18n/models.js';
+import measure from '../i18n/measure.js';
+import data from '../i18n/data.js';
+import graphs from '../i18n/graphs.js';
+import tools from '../i18n/tools.js';
 import { useOwner } from '../lib/auth/session.js';
 import { claimGuestProjects, claimOnFirstSignIn } from '../lib/auth/claim-guest.js';
 import { openResearchDb } from '../lib/store/db.js';
@@ -26,6 +32,8 @@ import Icon from './components/Icon.jsx';
 import Projects from './screens/Projects.jsx';
 import Project from './screens/Project.jsx';
 import SampleSize from './screens/SampleSize.jsx';
+import PowerTool from './screens/tools/PowerTool.jsx';
+import RandomiseTool from './screens/tools/RandomiseTool.jsx';
 import Licenses from './screens/Licenses.jsx';
 
 registerArea('workspace', workspace);
@@ -34,6 +42,12 @@ registerArea('intake', intake);
 registerArea('stats', stats);
 registerArea('epi', epi);
 registerArea('runtime', runtime);
+registerArea('lab', lab);
+registerArea('models', models);
+registerArea('measure', measure);
+registerArea('data', data);
+registerArea('graphs', graphs);
+registerArea('tools', tools);
 
 const Entrance = lazy(() => import('../entrance/Entrance.jsx'));
 const WorkspaceFilm = lazy(() => import('../entrance/WorkspaceFilm.jsx'));
@@ -248,6 +262,10 @@ function Root({ route, owner, user, authError }) {
     );
   } else if (route.name === 'sampleSize') {
     body = <SampleSize />;
+  } else if (route.name === 'power') {
+    body = <PowerTool />;
+  } else if (route.name === 'randomise') {
+    body = <RandomiseTool />;
   } else {
     body = <Project key={route.projectId} route={route} />;
   }

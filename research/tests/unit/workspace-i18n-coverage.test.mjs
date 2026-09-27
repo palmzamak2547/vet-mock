@@ -16,6 +16,12 @@ import epi from '../../src/i18n/epi.js';
 import stats from '../../src/i18n/stats.js';
 import runtime from '../../src/i18n/runtime.js';
 import intake from '../../src/i18n/intake.js';
+import lab from '../../src/i18n/lab.js';
+import models from '../../src/i18n/models.js';
+import measure from '../../src/i18n/measure.js';
+import data from '../../src/i18n/data.js';
+import graphs from '../../src/i18n/graphs.js';
+import tools from '../../src/i18n/tools.js';
 import { METHOD_UI, ALTERNATIVES, rolesFor } from '../../src/workspace/lib/method-ui.js';
 import { keyPart } from '../../src/workspace/lib/keys.js';
 import { MISSING_KEYS } from '../../src/workspace/lib/grid-model.js';
@@ -33,8 +39,8 @@ const course = JSON.parse(readFileSync(path.resolve(here, '../fixtures/course/ep
 
 const OWN = { th: { ...workspace.th, ...report.th, ...common.th, ...terms.th }, en: { ...workspace.en, ...report.en, ...common.en, ...terms.en } };
 const ALL = {
-  th: { ...OWN.th, ...epi.th, ...stats.th, ...runtime.th, ...intake.th },
-  en: { ...OWN.en, ...epi.en, ...stats.en, ...runtime.en, ...intake.en },
+  th: { ...OWN.th, ...epi.th, ...stats.th, ...runtime.th, ...intake.th, ...lab.th, ...models.th, ...measure.th, ...data.th, ...graphs.th, ...tools.th },
+  en: { ...OWN.en, ...epi.en, ...stats.en, ...runtime.en, ...intake.en, ...lab.en, ...models.en, ...measure.en, ...data.en, ...graphs.en, ...tools.en },
 };
 
 function files(dir) {

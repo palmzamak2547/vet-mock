@@ -2,7 +2,7 @@
 // in IMPLEMENTED, so the catalogue (and the landing chart that reads it) cannot claim a method that does
 // not run. Each implementation takes (spec, table) and returns the partial envelope fields
 // { status, values, tests, tables, used, dropped } that run.js wraps with provenance and guardrails.
-// OWNER: runtime role. stats and epi export the functions; runtime adds the id to REGISTERED when the
+// OWNER: data role (M2; runtime in M1). stats and epi export the functions; runtime adds the id to REGISTERED when the
 // method's fixture test is green (tests/unit/runtime-registry.test.mjs checks that every registered
 // function has left its "not implemented" stub).
 import { runSummary } from '../stats/descriptive.js';
@@ -23,6 +23,7 @@ import { runDiagnostic } from '../epi/diagnostic.js';
 import { runKappa, runPercentAgreement } from '../epi/kappa.js';
 import { runIccDeff } from '../epi/cluster.js';
 import { REGISTERED } from './registered.js';
+import { AREA_CANDIDATES } from './areas/impl.js';
 import { runSsProportion, runSsTwoProportions, runSsCaseControl, runSsMean, runSsTwoMeans, runSsPaired } from '../epi/samplesize.js';
 
 /**
@@ -37,6 +38,7 @@ import { runSsProportion, runSsTwoProportions, runSsCaseControl, runSsMean, runS
  * @property {import('./types.js').Provenance['rowsDropped']} dropped
  * @property {Object} [resolvedOptions]        'auto' choices the method settled from the data (e.g. { exact: 'normal' })
  * @property {import('./types.js').GuardFinding[]} [notes]  sentences the method adds (e.g. why Wald degenerates at 0)
+ * @property {import('./types.js').GuardFinding[]} [warnings]  warnings the method raises from its own fit (M2: G14, G23)
  * @typedef {(spec: AnalysisSpec, table: WorkingTable|null) => MethodOutput} MethodImpl
  */
 
@@ -45,7 +47,7 @@ import { runSsProportion, runSsTwoProportions, runSsCaseControl, runSsMean, runS
  * src/lib/, used by the registry test to find the source.
  * @type {Record<string, { impl: MethodImpl, module: string, fn: string }>}
  */
-export const CANDIDATES = Object.freeze({
+const M1_CANDIDATES = {
   'desc.summary': { impl: runSummary, module: 'stats/descriptive.js', fn: 'runSummary' },
   'desc.table1': { impl: runTable1, module: 'stats/table1.js', fn: 'runTable1' },
   'freq.proportion': { impl: runProportion, module: 'epi/frequency.js', fn: 'runProportion' },
@@ -79,7 +81,15 @@ export const CANDIDATES = Object.freeze({
   'ss.mean': { impl: runSsMean, module: 'epi/samplesize.js', fn: 'runSsMean' },
   'ss.twoMeans': { impl: runSsTwoMeans, module: 'epi/samplesize.js', fn: 'runSsTwoMeans' },
   'ss.paired': { impl: runSsPaired, module: 'epi/samplesize.js', fn: 'runSsPaired' },
-});
+};
+
+/** M1's methods plus every area's (areas/impl.js); an id in both would be a mistake, caught at load. */
+export const CANDIDATES = Object.freeze(mergeCandidates(M1_CANDIDATES, AREA_CANDIDATES));
+
+function mergeCandidates(a, b) {
+  for (const id of Object.keys(b)) if (a[id]) throw new Error(`registry: ${id} is registered by M1 and by an area`);
+  return { ...a, ...b };
+}
 
 export { REGISTERED };
 

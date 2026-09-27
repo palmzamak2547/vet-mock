@@ -1,7 +1,9 @@
 // Design first [M1-DESIGN.md 6; research-m1-brief.md scope]. The student names the study design;
 // the Studio offers only the measures that design supports, and says why the others are missing.
 // This table is the single source for the design screen and for run.js's design check (G3).
-// OWNER: epi role.
+// OWNER: measure role (M2; epi in M1). The M2 areas add methods to these rows and new rows through
+// lib/runtime/areas/<area>.options.js (offers, designs, designFree) [M2-DESIGN.md 2], merged below.
+import { areaOffers, AREA_DESIGNS, AREA_DESIGN_FREE } from '../runtime/areas/index.js';
 
 /**
  * @typedef {Object} DesignRow
@@ -14,7 +16,7 @@
  */
 
 /** @type {DesignRow[]} */
-export const DESIGNS = [
+const M1_DESIGNS = [
   {
     id: 'cross-sectional', nameKey: 'epi.design.crossSectional.name', descKey: 'epi.design.crossSectional.desc',
     offers: [
@@ -98,8 +100,18 @@ export const DESIGNS = [
   },
 ];
 
+/**
+ * Every design: M1's rows, then the rows areas add, each with the methods areas add to it appended
+ * after its own offers (a method already offered keeps its place and its measures).
+ * @type {DesignRow[]}
+ */
+export const DESIGNS = [...M1_DESIGNS, ...AREA_DESIGNS].map((d) => ({
+  ...d,
+  offers: [...d.offers, ...areaOffers(d.id).filter((o) => !d.offers.some((x) => x.method === o.method))],
+}));
+
 /** Sample-size tools need no data file and no design; they are always offered. */
-export const DESIGN_FREE_METHODS = Object.freeze(['ss.proportion', 'ss.twoProportions', 'ss.caseControl', 'ss.mean', 'ss.twoMeans', 'ss.paired', 'adjust.pValues']);
+export const DESIGN_FREE_METHODS = Object.freeze(['ss.proportion', 'ss.twoProportions', 'ss.caseControl', 'ss.mean', 'ss.twoMeans', 'ss.paired', 'adjust.pValues', ...AREA_DESIGN_FREE]);
 
 /**
  * @param {string|null} designId

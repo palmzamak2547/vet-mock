@@ -73,3 +73,21 @@ Verification gates for these adoptions: `npm ls` in `research/` shows exactly th
 `research/tests/unit/no-egress.test.mjs` keeps Supabase inside `lib/auth`; a probe build on 27 Sep
 bundled the stdlib kernels and SheetJS into one module-worker chunk (820 KB, never on the landing) that
 evaluated and answered in Chromium.
+
+## VetMock Research M2 (research.vetmock.com), 2026-09-28
+
+Design and reasons: `docs/research/M2-DESIGN.md` sections 1 (B12) and 13.
+
+| Project | Version | License | VetMock Research use | Why it passes the rule |
+|---|---:|---|---|---|
+| [fflate](https://github.com/101arrowz/fflate) | 0.7.5 | MIT | Zip container for the Word (.docx) export; zlib inflate for SPSS `.zsav` files | The measured need the 27 Sep row above waited for: the M2 .docx export (competitor-gaps D5) and `.zsav` import. Same exact version as the main app's lockfile. Imported only by `lib/export/docx.js` and `lib/intake/sav.js`, both lazy chunks, never on the landing or the first workspace chunk. `npm ls fflate` in `research/` shows `fflate@0.7.5`; the notice is on /licenses (`research/src/licenses/notices.js`). |
+
+Not adopted for M2, written as small own implementations pinned by fixtures instead: the `docx` package (large,
+and Thai complex-script fonts and repeated table header rows need direct control of the XML), UTIF.js (a TIFF
+writer needs only an LZW encoder and a few tags), expression evaluators such as expr-eval (prototype-pollution
+advisories in their history; a fixed-grammar parser that never evaluates code is smaller and safer), npm SPSS
+readers (unmaintained, no `.zsav`, no encoding records), a PRNG package (PCG32 is a few lines with published
+reference output).
+
+Verification gates: `npm ls fflate` shows 0.7.5; `npm audit --audit-level=high` in `research/` reports 0
+vulnerabilities (28 Sep); `tests/unit/runtime-registry.test.mjs` checks the /licenses list against the lockfile.

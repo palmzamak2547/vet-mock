@@ -2,7 +2,7 @@
 // in the header writes prefs.lang (per device) and <html lang>. No visible string is hardcoded in a
 // component: components call t(key, params). Dictionaries are split by area so the landing never
 // downloads workspace strings; each lazy root registers its areas at module load.
-// OWNER: runtime role (this file). Each area file has one owner (M1-DESIGN.md 4.2).
+// OWNER: data role (this file; runtime in M1). Each area file has one owner (M1-DESIGN.md 4.2).
 import { createContext, createElement, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import common from './common.js';
 import terms from './terms.js';
@@ -14,6 +14,8 @@ export const LANGS = /** @type {const} */ (['th', 'en']);
 export const AREA_PREFIX = Object.freeze({
   common: 'common.', terms: 'term.', workspace: 'ws.', report: 'report.', landing: 'landing.', entrance: 'entrance.',
   intake: 'intake.', stats: 'stats.', epi: 'epi.', runtime: 'runtime.',
+  // M2 areas [M2-DESIGN.md 9]
+  lab: 'lab.', models: 'models.', measure: 'measure.', data: 'data.', graphs: 'graphs.', tools: 'tools.', trust: 'trust.',
 });
 
 /** @typedef {{ th: Record<string, string>, en: Record<string, string> }} Dictionary */

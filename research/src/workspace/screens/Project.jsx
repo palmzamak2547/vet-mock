@@ -1,6 +1,7 @@
 // A project [M1-DESIGN.md 2, 17]: top bar with the project crumb, the rail, and one pane. A project
 // with no dataset opens on import; otherwise on the data grid. A deep link to a project that is not in
-// this browser gets a plain sentence and the two ways to get it back, never an error. OWNER: workspace role.
+// this browser gets a plain sentence and the two ways to get it back, never an error. OWNER: ui-analysis role
+// (M2; workspace in M1). M2 panes are added below by the architect; each belongs to the role named in its file.
 import { useEffect, useState } from 'react';
 import { useT } from '../../i18n/index.js';
 import { navigate } from '../../router.js';
@@ -17,6 +18,18 @@ import AnalysisPane from './AnalysisPane.jsx';
 import Table1Pane from './Table1Pane.jsx';
 import ReportPane from './ReportPane.jsx';
 import SavedResult from './SavedResult.jsx';
+import LabPane from './LabPane.jsx';
+import ModelsPane from './ModelsPane.jsx';
+import SurvivalPane from './SurvivalPane.jsx';
+import MeasurePane from './MeasurePane.jsx';
+import FiguresPane from './FiguresPane.jsx';
+import MergePane from './tools/MergePane.jsx';
+import ReshapePane from './tools/ReshapePane.jsx';
+import AggregatePane from './tools/AggregatePane.jsx';
+import ComputePane from './tools/ComputePane.jsx';
+import CleanPane from './tools/CleanPane.jsx';
+import ComparePane from './tools/ComparePane.jsx';
+import SamplingPane from './tools/SamplingPane.jsx';
 
 export function ProjectMissing() {
   const { t } = useT();
@@ -33,7 +46,7 @@ export function ProjectMissing() {
   );
 }
 
-const NEEDS_DATA = new Set(['codebook', 'data', 'design', 'prev', 'assoc', 'table1']);
+const NEEDS_DATA = new Set(['codebook', 'data', 'design', 'prev', 'assoc', 'table1', 'lab', 'models', 'survival', 'measure', 'merge', 'reshape', 'aggregate', 'compute', 'clean', 'compare', 'sampling']);
 
 /** @param {{ route: import('../../router.js').Route }} props */
 export default function Project({ route }) {
@@ -85,6 +98,18 @@ export default function Project({ route }) {
       case 'assoc': body = <AnalysisPane key="assoc" p={p} pane="assoc" />; break;
       case 'table1': body = <Table1Pane p={p} />; break;
       case 'report': body = <ReportPane p={p} />; break;
+      case 'lab': body = <LabPane p={p} />; break;
+      case 'models': body = <ModelsPane p={p} />; break;
+      case 'survival': body = <SurvivalPane p={p} />; break;
+      case 'measure': body = <MeasurePane p={p} />; break;
+      case 'figures': body = <FiguresPane p={p} />; break;
+      case 'merge': body = <MergePane p={p} />; break;
+      case 'reshape': body = <ReshapePane p={p} />; break;
+      case 'aggregate': body = <AggregatePane p={p} />; break;
+      case 'compute': body = <ComputePane p={p} />; break;
+      case 'clean': body = <CleanPane p={p} />; break;
+      case 'compare': body = <ComparePane p={p} />; break;
+      case 'sampling': body = <SamplingPane p={p} />; break;
       default: body = <Busy label={t('common.loading')} />;
     }
   }

@@ -11,9 +11,9 @@ import { collect, render } from '../../scripts/regen-verified.mjs';
 
 const here = (p) => fileURLToPath(new URL(p, import.meta.url));
 
-test('every M1 method has exactly one candidate implementation, and nothing else does', () => {
-  const m1 = METHODS.filter((m) => m.milestone === 'M1').map((m) => m.id).sort();
-  assert.deepEqual(Object.keys(CANDIDATES).sort(), m1);
+test('every M1 and M2 method has exactly one candidate implementation, and nothing else does', () => {
+  const built = METHODS.filter((m) => m.milestone === 'M1' || m.milestone === 'M2').map((m) => m.id).sort();
+  assert.deepEqual(Object.keys(CANDIDATES).sort(), built);
   for (const c of Object.values(CANDIDATES)) assert.equal(typeof c.impl, 'function');
 });
 
@@ -52,7 +52,7 @@ test('the licences list matches the lockfile', () => {
     if (d.startsWith('@stdlib/') || d === 'xlsx') continue;
     assert.ok(NOTICES.some((n) => n.name === d), `direct dependency ${d} is missing from the licences page`);
   }
-  const files = { react: 'react/LICENSE', 'react-dom': 'react-dom/LICENSE', valibot: 'valibot/LICENSE.md', tanstack: '@tanstack/react-virtual/LICENSE', supabase: '@supabase/supabase-js/LICENSE', phoenix: '@supabase/phoenix/LICENSE.md', iceberg: 'iceberg-js/LICENSE', tslib: 'tslib/LICENSE.txt', xlsx: 'xlsx/LICENSE', stdlib: '@stdlib/math-base-special-gammainc/LICENSE' };
+  const files = { react: 'react/LICENSE', 'react-dom': 'react-dom/LICENSE', valibot: 'valibot/LICENSE.md', tanstack: '@tanstack/react-virtual/LICENSE', supabase: '@supabase/supabase-js/LICENSE', phoenix: '@supabase/phoenix/LICENSE.md', iceberg: 'iceberg-js/LICENSE', tslib: 'tslib/LICENSE.txt', fflate: 'fflate/LICENSE', xlsx: 'xlsx/LICENSE', stdlib: '@stdlib/math-base-special-gammainc/LICENSE' };
   for (const [id, f] of Object.entries(files)) {
     assert.ok(LICENSE_TEXTS[id], id);
     assert.ok(existsSync(here(`../../node_modules/${f}`)), f);

@@ -1,14 +1,26 @@
 // Path routes for research.vetmock.com [M1-DESIGN.md 2]. History API, no router dependency. URLs
 // carry only random ids (project and analysis UUIDs), never names or values, so nothing about the
-// data appears in a URL, a history entry or a referrer. OWNER: workspace role.
+// data appears in a URL, a history entry or a referrer. OWNER: ui-analysis role (M2; workspace in M1).
+// M2 adds analysis panes (lab, models, survival, measure), data-tool panes (merge, reshape, aggregate,
+// compute, clean, compare, sampling), the figures pane, two tools and three public pages [M2-DESIGN.md 10].
 import { useEffect, useState } from 'react';
 
-export const PANES = Object.freeze(['import', 'codebook', 'data', 'design', 'prev', 'assoc', 'table1', 'report']);
+export const PANES = Object.freeze([
+  'import', 'codebook', 'data', 'design', 'prev', 'assoc', 'table1', 'report',
+  'lab', 'models', 'survival', 'measure', 'merge', 'reshape', 'aggregate', 'compute', 'clean', 'compare', 'sampling', 'figures',
+]);
+
+/** Tools that need no project (M1: sample size; M2: power, randomisation). */
+export const TOOLS = Object.freeze({ 'sample-size': 'sampleSize', power: 'power', randomise: 'randomise' });
+
+/** Public pages outside the workspace (trust role). */
+export const PUBLIC_PAGES = Object.freeze({ '/methods': 'methods', '/cite': 'cite', '/guide': 'guide' });
 const ID = '[A-Za-z0-9-]{1,64}';
 
 /**
  * @typedef {{ name: 'landing' } | { name: 'projects' } | { name: 'project', projectId: string, pane: string|null }
- *   | { name: 'result', projectId: string, analysisId: string } | { name: 'sampleSize' } | { name: 'licenses' } | { name: 'notFound' }} Route
+ *   | { name: 'result', projectId: string, analysisId: string } | { name: 'sampleSize' } | { name: 'power' } | { name: 'randomise' }
+ *   | { name: 'methods' } | { name: 'cite' } | { name: 'guide' } | { name: 'licenses' } | { name: 'notFound' }} Route
  */
 
 /** @param {string} pathname @returns {Route} */
@@ -16,7 +28,9 @@ export function parseRoute(pathname) {
   const path = pathname.replace(/\/+$/, '') || '/';
   if (path === '/') return { name: 'landing' };
   if (path === '/app') return { name: 'projects' };
-  if (path === '/app/tools/sample-size') return { name: 'sampleSize' };
+  let t = /^\/app\/tools\/([a-z-]+)$/.exec(path);
+  if (t && TOOLS[t[1]]) return { name: TOOLS[t[1]] };
+  if (PUBLIC_PAGES[path]) return { name: PUBLIC_PAGES[path] };
   if (path === '/licenses') return { name: 'licenses' };
   let m = new RegExp(`^/app/p/(${ID})/r/(${ID})$`).exec(path);
   if (m) return { name: 'result', projectId: m[1], analysisId: m[2] };
@@ -31,6 +45,11 @@ export function routePath(route) {
     case 'landing': return '/';
     case 'projects': return '/app';
     case 'sampleSize': return '/app/tools/sample-size';
+    case 'power': return '/app/tools/power';
+    case 'randomise': return '/app/tools/randomise';
+    case 'methods': return '/methods';
+    case 'cite': return '/cite';
+    case 'guide': return '/guide';
     case 'licenses': return '/licenses';
     case 'project': return `/app/p/${route.projectId}${route.pane ? `/${route.pane}` : ''}`;
     case 'result': return `/app/p/${route.projectId}/r/${route.analysisId}`;
