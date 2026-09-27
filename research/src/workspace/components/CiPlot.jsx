@@ -11,7 +11,7 @@ import ChartExport from './ChartExport.jsx';
  * @typedef {{ label: string, est: number|null, lo: number|null, hi: number|null, muted?: boolean, accent?: boolean, estText: string, ciText: string }} PlotItem
  */
 
-export const CiSvg = forwardRef(function CiSvg({ items, log, refValue, width, labelW, ariaLabel, title }, ref) {
+export const CiSvg = forwardRef(function CiSvg({ items, log, refValue, width, labelW, ariaLabel, title, percent = false }, ref) {
   const L = ciPlotLayout(items, { width, labelW, log, ref: refValue });
   return (
     <svg ref={ref} className="rs-ciplot" width={L.width} height={L.height} viewBox={`0 0 ${L.width} ${L.height}`} role="img" aria-label={ariaLabel} xmlns="http://www.w3.org/2000/svg">
@@ -20,7 +20,7 @@ export const CiSvg = forwardRef(function CiSvg({ items, log, refValue, width, la
       {L.ticks.map((tk) => (
         <g key={tk.v}>
           <line x1={tk.x} x2={tk.x} y1={L.top} y2={L.bottom} stroke="var(--rs-line)" strokeWidth="1" strokeDasharray="2 4" />
-          <text x={tk.x} y={L.height - 8} textAnchor="middle" fontSize="12" fill="var(--rs-ink-soft)" fontFamily="Sarabun, sans-serif">{tickText(tk.v)}</text>
+          <text x={tk.x} y={L.height - 8} textAnchor="middle" fontSize="12" fill="var(--rs-ink-soft)" fontFamily="Sarabun, sans-serif">{tickText(tk.v, percent)}</text>
         </g>
       ))}
       {L.refX !== null ? <line x1={L.refX} x2={L.refX} y1={L.top} y2={L.bottom} stroke="var(--rs-ink-soft)" strokeWidth="1.4" /> : null}
@@ -49,7 +49,7 @@ export const CiSvg = forwardRef(function CiSvg({ items, log, refValue, width, la
 /**
  * @param {{ items: PlotItem[], log: boolean, refValue: number|null, title: string, fileBase: string, onDownloaded?: (kind: string) => void, levelText: string }} props
  */
-export default function CiPlot({ items, log, refValue, title, fileBase, onDownloaded, levelText }) {
+export default function CiPlot({ items, log, refValue, title, fileBase, onDownloaded, levelText, percent = false }) {
   const { t } = useT();
   const svgRef = useRef(null);
   const boxRef = useRef(null);
@@ -75,7 +75,7 @@ export default function CiPlot({ items, log, refValue, title, fileBase, onDownlo
       <figcaption className="rs-figcap">{title}</figcaption>
       <div className="rs-figure-row">
         <div className="rs-figure-plot" ref={boxRef}>
-          <CiSvg ref={svgRef} items={items} log={log} refValue={refValue} width={width} labelW={labelW} ariaLabel={ariaLabel} title={title} />
+          <CiSvg ref={svgRef} items={items} log={log} refValue={refValue} width={width} labelW={labelW} ariaLabel={ariaLabel} title={title} percent={percent} />
         </div>
         <table className="rs-table rs-table--compact rs-num">
           <caption className="rs-visually-hidden">{t('ws.plot.tableCaption', { title })}</caption>

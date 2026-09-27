@@ -47,3 +47,20 @@ for (const f of files) {
     }
   });
 }
+
+// Review round 2: a key written twice in one area file silently keeps only the later string.
+test('no dictionary key is written twice in its area file', async () => {
+  const { readdirSync, readFileSync } = await import('node:fs');
+  const dir = new URL('../../src/i18n/', import.meta.url);
+  for (const f of readdirSync(dir).filter((x) => x.endsWith('.js') && x !== 'index.js')) {
+    const src = readFileSync(new URL(f, dir), 'utf8');
+    const keys = [...src.matchAll(/^\s*\[?'([a-z]+\.[A-Za-z0-9_.-]+)'\s*[,:]/gm)].map((m) => m[1]);
+    const seen = new Map();
+    for (const k of keys) seen.set(k, (seen.get(k) || 0) + 1);
+    // Object-style files list each key once per language (th and en), row-style files once in all.
+    const perLang = /^\s*th:\s*\{/m.test(src) || /\bth:\s*\{/.test(src);
+    const limit = perLang ? 2 : 1;
+    const dup = [...seen].filter(([, c]) => c > limit).map(([k]) => k);
+    assert.deepEqual(dup, [], `${f}: ${dup.join(', ')}`);
+  }
+});

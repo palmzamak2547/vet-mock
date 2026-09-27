@@ -59,6 +59,12 @@ cases[["threeStrata"]] <- case("mantelhaen.test(array of [[10, 20], [5, 25]], [[
   mh(three), strata = lapply(three, function(s) list(arr(s[1:2]), arr(s[3:4]))), confLevel = 0.95,
   iterativeValues = arr(c("breslowDay", "tarone")))
 
+# Review round 2: |sum a - sum E| = 0.262, below 0.5, so the CMH continuity correction is that, not 0.5.
+small <- list(c(5, 5, 5, 6), c(4, 6, 5, 5))
+cases[["continuityBelowHalf"]] <- case("mantelhaen.test(array of [[5, 5], [5, 6]], [[4, 6], [5, 5]]) and the formulas in mh.R", "closed",
+  mh(small), strata = lapply(small, function(s) list(arr(s[1:2]), arr(s[3:4]))), confLevel = 0.95,
+  iterativeValues = arr(c("breslowDay", "tarone")))
+
 sero <- lapply(seq_along(sero_farm), function(i) c(sero_a[i], sero_b[i], sero_c[i], sero_d[i]))
 cases[["serosurvey.farmStrata"]] <- case("the same on the 49 farm strata of the serosurvey (age >= 24 months vs younger, ELISA positive)", "closed",
   mh(sero), strata = lapply(sero, function(s) list(arr(s[1:2]), arr(s[3:4]))), farms = arr(sero_farm), confLevel = 0.95,

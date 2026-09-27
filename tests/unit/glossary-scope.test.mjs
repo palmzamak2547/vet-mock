@@ -193,3 +193,13 @@ test('kappa casein in milk hygiene never opens the agreement card (Research Stud
   assert.equal(resolveGlossaryEntry('kappa', 'milk-meat-hygiene'), null);
   assert.ok(resolveGlossaryEntry('kappa', 'epidemiology'), 'the agreement card still opens in epidemiology');
 });
+
+test('ICC as immunocytochemistry in zoonoses and pathology never opens the intraclass correlation card (Research Studio review round 2)', () => {
+  for (const subject of ['zoonoses', 'livestock-pathology']) {
+    assert.deepEqual(termsOf('ตรวจด้วย IHC/ICC หรือ PCR', subject), []);
+    assert.equal(resolveGlossaryEntry('ICC', subject), null);
+    assert.equal(resolveGlossaryEntry('design effect', subject), null);
+  }
+  assert.ok(resolveGlossaryEntry('ICC', 'epidemiology'), 'the intraclass correlation card still opens in epidemiology');
+  assert.ok(resolveGlossaryEntry('design effect', 'epidemiology'));
+});

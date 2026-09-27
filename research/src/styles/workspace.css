@@ -149,6 +149,7 @@
 .rs-chip--sage { background: var(--rs-sage-tint); border-color: var(--rs-sage-soft); color: var(--rs-sage-text); }
 .rs-chip--rose { background: var(--rs-rose-tint); border-color: var(--rs-rose-soft); color: var(--rs-rose-text); }
 .rs-chip--inline { margin-left: 8px; min-height: 22px; font-size: 12px; }
+.rs-chip--badge { white-space: nowrap; overflow-wrap: normal; flex-shrink: 0; max-width: none; }
 
 .rs-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 16px;
@@ -229,7 +230,7 @@
 .rs-choice--on { border-color: var(--rs-sage); background: var(--rs-sage-tint); }
 .rs-choice--off { background: var(--rs-surface-2); cursor: not-allowed; color: var(--rs-ink-soft); }
 .rs-choice--soon .rs-choice-title { color: var(--rs-ink-soft); }
-.rs-choice-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.rs-choice-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 auto; }
 .rs-choice-title { font-weight: 600; font-size: 15px; }
 .rs-choice-en { font-weight: 500; }
 
@@ -491,3 +492,24 @@
 
 /* Held veil before the entrance chunk arrives (same place and colour as .rs-entrance-veil). */
 .rs-entrance-hold { position: fixed; inset: 0; z-index: 60; background: var(--rs-bg); pointer-events: none; }
+.rs-rose-text { color: var(--rs-rose-text); }
+.rs-why { margin: 0; }
+.rs-why > div { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--rs-line); }
+.rs-why dt { font-size: 13.5px; font-weight: 600; color: var(--rs-sage-text); }
+.rs-why dd { margin: 0; font-size: 14.5px; }
+.rs-skip { position: absolute; left: 12px; top: -80px; z-index: 60; padding: 10px 16px; border-radius: 10px; background: var(--rs-surface); color: var(--rs-ink); box-shadow: var(--rs-shadow); }
+.rs-skip:focus { top: 12px; }
+.rs-foldtable > summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 600; color: var(--rs-sage-text); }
+/* On a phone the codebook is wider than the screen: shadows at the edges that still hide columns say
+   that the table scrolls sideways (review round 2: a clipped edge was the only cue). The shadows are
+   backgrounds, painted once; nothing animates. */
+@media (max-width: 719px) {
+  .rs-tablewrap:has(> .rs-table--form) {
+    background:
+      linear-gradient(to right, var(--rs-surface) 30%, transparent) left center / 40px 100% no-repeat local,
+      linear-gradient(to left, var(--rs-surface) 30%, transparent) right center / 40px 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.2), transparent) left center / 14px 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.2), transparent) right center / 14px 100% no-repeat scroll;
+    background-color: var(--rs-surface);
+  }
+}

@@ -81,7 +81,10 @@ export function formatNumber(x, opts = {}) {
     case 'percent': {
       const v = kind === 'proportion' ? x * 100 : x;
       const av = Math.abs(v);
-      const s = av === 0 ? '0' : av < 1 ? v.toFixed(2) : group(v.toFixed(1));
+      let s = av === 0 ? '0' : av < 1 ? v.toFixed(2) : group(v.toFixed(1));
+      // A share that is not 100% or 0% never prints as one (review round 2: 0.9996 printed 100.0%).
+      if (av !== 100 && av > 99 && s.replace('-', '') === '100.0') s = v.toFixed(2) === '100.00' || v.toFixed(2) === '-100.00' ? (v > 0 ? '> 99.99' : '< -99.99') : v.toFixed(2);
+      else if (av > 0 && av < 1 && /^-?0\.00$/.test(s)) s = v > 0 ? '< 0.01' : '> -0.01';
       return clean(`${s}%`);
     }
     default: {

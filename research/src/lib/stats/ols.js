@@ -218,8 +218,13 @@ export function runOls(spec, table) {
   if (rows.length <= X[0]?.length) return { status: 'invalid', values: { reason: nullVal('stats.undefined.noResidualDf') }, tests: [], tables: [], used: rows.length, dropped };
   const f = olsQr(X, y, { intercept });
   const q = f.df > 0 ? qt(1 - (1 - confLevel) / 2, f.df) : NaN;
+  // A coefficient below 1e-12 of the scale of y is rounding left over from the arithmetic, not an
+  // estimate (review round 2: -4.44e-16 printed in exponent form); it is shown as 0 with a note.
+  const scale = y.reduce((m, v) => Math.max(m, Math.abs(v)), 0);
+  let zeroed = 0;
   const coefRows = terms.map((term, j) => {
-    const b = f.coef[j];
+    let b = f.coef[j];
+    if (b !== null && b !== 0 && Math.abs(b) < 1e-12 * scale) { b = 0; zeroed++; }
     const s = f.se[j];
     return [term, b, s, f.t[j], f.p[j], b === null || s === null || Number.isNaN(q) ? null : b - q * s, b === null || s === null || Number.isNaN(q) ? null : b + q * s];
   });
@@ -240,5 +245,6 @@ export function runOls(spec, table) {
     tables: [{ id: 'coefficients', columns: ['term', 'estimate', 'se', 't', 'p', 'lower', 'upper'], rows: coefRows }],
     used: rows.length,
     dropped,
+    ...(zeroed ? { notes: [{ id: 'coefZero', severity: 'note', key: 'stats.note.coefZero', params: { count: zeroed } }] } : {}),
   };
 }

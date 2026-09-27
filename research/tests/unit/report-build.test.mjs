@@ -81,7 +81,7 @@ for (const lang of ['th', 'en']) {
     assert.ok(iEst >= 0 && iP > iEst, `estimate before p in: ${one}`);
     assert.ok(one.includes('1.47') && one.includes('3.22'));
     assert.ok(one.includes(NAMES[lang]['why.noDen']), 'an undefined value says why');
-    const allowed = new Set(['2.17', '1.47', '3.22', '0.001', '95', '2', '0.95']);
+    const allowed = new Set(['2.17', '1.47', '3.22', '0.001', '95', '2', '0.95', '16.38', '1']);
     const numbers = d.results.match(/\d+(\.\d+)?/g) || [];
     for (const n of numbers) assert.ok(allowed.has(n), `number ${n} in the results is not from the envelope: ${d.results}`);
     assert.deepEqual(d.stale, ['a0'], 'the result computed on the earlier data is listed as not current');
@@ -134,3 +134,55 @@ for (const lang of ['th', 'en']) {
     if (lang === 'en') assert.ok(s.endsWith('.') && !s.includes(';'), s);
   });
 }
+
+// Review round 2: paste-ready sentences, the aggregate route counted as summarised rows, Table 1
+// described in its own words.
+for (const lang of ['th', 'en']) {
+  test(`${lang}: a comparison names the groups, the statistic, df and p, and says when strata differ`, () => {
+    const t = tOf(lang);
+    const mh = { method: 'epi.mantelHaenszel', design: 'cross-sectional', roles: { exposure: 'd1', outcome: 'c2', strata: ['c4'] }, levels: { exposureLevel: 'ฉีด', referenceLevel: 'ไม่ฉีด', outcomePositive: 'บวก' }, options: { confLevel: 0.95 }, cluster: { route: null, column: null } };
+    const env = { status: 'ok', spec: mh, values: { PR: { value: 0.76, ci: [0.43, 1.34] }, strataUsed: { value: 3 } },
+      tests: [{ id: 'cmh', statistic: { name: 'X2', value: 0.534 }, df: 1, p: 0.465 }, { id: 'homogeneity', statistic: { name: 'X2', value: 72 }, df: 2, p: 2.3e-16, variant: 'woolf' }] };
+    const s = resultsSentence({ envelope: env }, { t, fmt, lang, nameKeyOf, valueLabel: (n) => ws[lang][`ws.value.${n}`] || n, columnName: (k) => k });
+    assert.ok(s.includes('"ฉีด"') && s.includes('"ไม่ฉีด"'), `groups named: ${s}`);
+    assert.ok(s.includes('χ² = 0.534') && s.includes('df = 1') && s.includes('p = 0.465'), s);
+    assert.ok(s.includes(lang === 'th' ? 'ค่าของแต่ละชั้นต่างกัน' : 'The strata gave different values'), s);
+    assert.ok(s.includes('df = 2') && s.includes('p < 0.001'), s);
+    assert.ok(!s.includes('[') && !/ gave (prevalence|odds)/.test(s), s);
+  });
+
+  test(`${lang}: a prevalence sentence names the outcome and its positive level`, () => {
+    const t = tOf(lang);
+    const pv = { method: 'freq.proportion', design: 'cross-sectional', roles: { outcome: 'c2' }, levels: { outcomePositive: 'บวก' }, options: { confLevel: 0.95 }, cluster: { route: 'deff', column: 'c4' } };
+    const env = { status: 'ok', spec: pv, values: { prevalence: { value: 0.201, ci: [0.163, 0.238] } }, tests: [] };
+    const s = resultsSentence({ envelope: env }, { t, fmt, lang, nameKeyOf, valueLabel: (n) => ws[lang][`ws.value.${n}`] || n, columnName: (k) => ({ c2: 'ELISA' }[k] || k) });
+    assert.equal(s, lang === 'th' ? 'ความชุกของELISA ที่เป็น "บวก" เท่ากับ 0.201 (95% CI 0.163 ถึง 0.238)' : 'The prevalence of ELISA "บวก" was 0.201 (95% CI 0.163 to 0.238).');
+  });
+
+  test(`${lang}: the one-row-per-farm route says the animal rows were summarised, not missing`, () => {
+    const t = tOf(lang);
+    const pv = { method: 'freq.proportion', design: 'cross-sectional', roles: { outcome: 'c2' }, levels: { outcomePositive: 'บวก' }, options: { confLevel: 0.95 }, cluster: { route: 'aggregate', column: 'c4' } };
+    const env = { status: 'ok', spec: pv, provenance: { rowsUsed: 49, rowsDropped: [{ reason: 'aggregated', column: 'c4', count: 679 }] } };
+    const s = methodsSentence({ spec: pv, envelope: env }, { t, lang, nameKeyOf, columnName: (k) => k });
+    assert.ok(s.includes('728') && s.includes('49'), s);
+    assert.ok(!s.includes('679') && !/missing|หายไป/.test(s), `no missing-rows sentence: ${s}`);
+    assert.ok(s.includes(lang === 'th' ? 'อย่างน้อยหนึ่งตัว' : 'at least one'), s);
+  });
+
+  test(`${lang}: Table 1 is described in its own words, not by its display label`, () => {
+    const t = (key, params) => (key === 'm.table1' ? 'Table 1: who is in the sample' : tOf(lang)(key, params));
+    const t1spec = { method: 'desc.table1', design: 'cross-sectional', roles: { covariates: ['c2'] }, options: {}, cluster: { route: null, column: null } };
+    const a = { spec: t1spec, envelope: { status: 'ok', spec: t1spec, values: {}, tests: [], provenance: {} } };
+    const m = methodsSentence(a, { t, lang, nameKeyOf, columnName: (k) => k });
+    const r = resultsSentence(a, { t, fmt, lang, nameKeyOf, valueLabel: (n) => n });
+    for (const s of [m, r]) assert.ok(!s.includes('who is in the sample'), s);
+    assert.equal(r, lang === 'th' ? 'ลักษณะของกลุ่มตัวอย่างแสดงใน Table 1' : 'Characteristics of the sample are shown in Table 1.');
+  });
+}
+
+test('the methods draft says what the import converted (review round 2)', () => {
+  const t = tOf('en');
+  const imp = { kind: 'import-conversions', params: { perColumn: { a: { dates: { era: 'BE' }, missingCodes: [], cellFixes: [] }, b: { dates: null, missingCodes: [{ code: '999' }], cellFixes: [] }, c: { dates: null, missingCodes: [], cellFixes: [] } } } };
+  const d = buildDraft({ ...data, steps: [imp] }, { t, fmt, lang: 'en', nameKeyOf, designNameKey: 'd.cs', describeStep, designRow });
+  assert.ok(d.methods.includes('the format of 2 columns was converted'), d.methods);
+});

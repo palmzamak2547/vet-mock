@@ -292,7 +292,8 @@ export function FoldCard({ reg, short = false, still = false }) {
         </div>
       </div>
       <div className="rs-l-fold-n">
-        <span data-rs="n1" ref={reg?.('n1')}>{t('landing.fold.n1', { p: d.prevalence, n: d.n })}</span>
+        {/* The still shows the adjusted line only; both lines are two moments of the animation (review round 2). */}
+        {still ? null : <span data-rs="n1" ref={reg?.('n1')}>{t('landing.fold.n1', { p: d.prevalence, n: d.n })}</span>}
         <span data-rs="n2" ref={reg?.('n2')}>{t('landing.fold.n2', { p: d.prevalence, n: d.n, effN: d.effN })}</span>
       </div>
       <div className="rs-l-fold-math rs-mono">

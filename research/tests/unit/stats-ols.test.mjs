@@ -119,3 +119,17 @@ test('ols: an exact fit withholds t, F and p-values with a sentence (review roun
   assert.equal(out.tests[0].reasonKey, 'stats.note.perfectFit');
   assert.equal(olsQr([[1, 1], [1, 2], [1, 3], [1, 4]], [2, 4.1, 5.9, 8.2], { intercept: true }).perfectFit, false);
 });
+
+test('a coefficient that is rounding noise prints as 0 with a note (review round 2)', async () => {
+  const { runOls } = await import('../../src/lib/stats/ols.js');
+  const table = { n: 4, rowIds: ['a', 'b', 'c', 'd'], columns: {
+    y: { kind: 'number', values: new Float64Array([2, 4, 6, 8]), missing: new Uint8Array(4) },
+    x: { kind: 'number', values: new Float64Array([1, 2, 3, 4]), missing: new Uint8Array(4) },
+  } };
+  const out = runOls({ method: 'reg.ols', roles: { outcome: 'y', covariates: ['x'] }, options: { confLevel: 0.95 } }, table);
+  const intercept = out.tables[0].rows.find((r) => r[0] === '(Intercept)');
+  // olsQr gives -1.78e-15 here (the exact answer is 0).
+  assert.equal(intercept[1], 0, `intercept ${intercept[1]}`);
+  assert.equal(out.notes?.[0]?.key, 'stats.note.coefZero');
+  assert.ok(Math.abs(out.tables[0].rows.find((r) => r[0] === 'x')[1] - 2) < 1e-12);
+});

@@ -13,7 +13,7 @@ import { ENGINE_VERSION } from './protocol.js';
 import { getMethod, METHODS } from './catalog.js';
 import { IMPLEMENTED } from './registry.js';
 import { checkDesign, DESIGN_FREE_METHODS } from '../epi/design.js';
-import { evaluateGuards, clusterPanel } from '../epi/guardrails.js';
+import { evaluateGuards, resultGuards, clusterPanel } from '../epi/guardrails.js';
 import { aggregateToCluster } from '../epi/cluster.js';
 
 /**
@@ -35,6 +35,8 @@ export const MH_WITHIN_FROM = Object.freeze(new Set(['epi.twoByTwo', 'test.chisq
 export const CLUSTER_ROUTE_ORDER = Object.freeze(['mh-within', 'deff', 'aggregate', 'gee', 'mixed']);
 
 const FARM_AWARE = new Set(['deff', 'mh-within', 'aggregate']);
+/** Data checks judged again on the farm table after the 'aggregate' route (G4 common outcome, G5 small expected counts). */
+const AGG_RECHECK = new Set(['G4', 'G5']);
 
 /**
  * @param {import('./types.js').AnalysisSpec} spec
@@ -138,6 +140,12 @@ export function runAnalysis(spec, table, codebook, env = {}) {
         routeDrops.push({ reason: 'aggregated', column: norm.cluster.column, count: Math.max(0, merged) });
         runTable = agg;
         notes.push({ id: 'route', severity: 'note', key: 'runtime.note.routeAggregate' });
+        // The checks that read the data judged the animal rows; the method runs on the farm rows.
+        // Judge those again (review round 2: a farm table that fails Cochran's rule was printed
+        // with a chi-square p-value and no warning), replacing the animal-level findings.
+        const farm = deps.evaluateGuards(norm, runTable, codebook) || {};
+        guard.warnings = guard.warnings.filter((w) => !AGG_RECHECK.has(w.id))
+          .concat((farm.warnings || []).filter((w) => AGG_RECHECK.has(w.id)));
       } else if (norm.cluster.route === 'deff') {
         notes.push({ id: 'route', severity: 'note', key: 'runtime.note.routeDeff' });
       }
@@ -152,6 +160,8 @@ export function runAnalysis(spec, table, codebook, env = {}) {
         }
         if (Array.isArray(output?.notes)) notes.push(...output.notes);
         if (output && output.status === 'ok' && !output.values && !output.tests) error = { key: 'runtime.engine.methodFailed', detail: 'empty output' };
+        // Guards that read the result: G8 (p > 0.05 is not "no difference") and G12 (strata disagree).
+        if (output && output.status === 'ok') guard = mergeGuard(guard, deps.resultGuards(norm, output) || {});
       }
     }
   } catch (e) {
@@ -176,9 +186,9 @@ export function runAnalysis(spec, table, codebook, env = {}) {
   });
 }
 
-/** @typedef {{ checkDesign: typeof checkDesign, evaluateGuards: typeof evaluateGuards, clusterPanel: typeof clusterPanel, aggregateToCluster: typeof aggregateToCluster, implemented: Record<string, import('./registry.js').MethodImpl> }} Deps */
+/** @typedef {{ checkDesign: typeof checkDesign, evaluateGuards: typeof evaluateGuards, resultGuards: typeof resultGuards, clusterPanel: typeof clusterPanel, aggregateToCluster: typeof aggregateToCluster, implemented: Record<string, import('./registry.js').MethodImpl> }} Deps */
 /** @type {Deps} */
-const DEFAULT_DEPS = { checkDesign, evaluateGuards, clusterPanel, aggregateToCluster, implemented: IMPLEMENTED };
+const DEFAULT_DEPS = { checkDesign, evaluateGuards, resultGuards, clusterPanel, aggregateToCluster, implemented: IMPLEMENTED };
 
 function methodInfo(id) {
   const row = METHODS.find((m) => m.id === id);

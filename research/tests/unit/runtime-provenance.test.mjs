@@ -127,3 +127,25 @@ for (const lang of ['th', 'en']) {
     assert.ok(!r.methods.some((s) => s.includes('R 4.6.0')), 'no verification claim for an unverified result');
   });
 }
+
+test('a calculation from typed parameters has no rows line (review round 2)', () => {
+  const env = envelope({
+    method: { id: 'ss.proportion', family: 'sampleSize', milestone: 'M1' },
+    spec: { method: 'ss.proportion', input: { kind: 'params', params: { p: 0.2, d: 0.05 } }, options: {} },
+    provenance: { ...envelope().provenance, methodId: 'ss.proportion', rowsUsed: 0, rowsDropped: [], dataFingerprint: null, options: {} },
+  });
+  const [, second] = provenanceLines(env, 'en', tt('en'));
+  assert.ok(!/rows/.test(second), second);
+  assert.ok(second.startsWith('Research Studio'), second);
+});
+
+test('the DEFF route names the interval it computed, not the CI option (review round 2)', () => {
+  const env = envelope({
+    method: { id: 'freq.proportion', family: 'proportion', milestone: 'M1' },
+    values: { prevalence: { value: 0.2005, ci: [0.1626, 0.2385], ciLevel: 0.95, ciMethod: 'wald-deff' } },
+    provenance: { ...envelope().provenance, methodId: 'freq.proportion', route: 'deff', options: { confLevel: 0.95, ciMethod: 'wilson' } },
+  });
+  const [first] = provenanceLines(env, 'en', tt('en'));
+  assert.ok(first.includes('95% CI (Wald widened by the design effect)'), first);
+  assert.ok(!first.includes('Wilson'), first);
+});

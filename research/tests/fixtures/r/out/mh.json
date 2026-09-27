@@ -77,6 +77,59 @@
     }
    }
   },
+  "continuityBelowHalf": {
+   "call": "mantelhaen.test(array of [[5, 5], [5, 6]], [[4, 6], [5, 5]]) and the formulas in mh.R",
+   "tol": "closed",
+   "strata": [
+    [
+     [5, 5],
+     [5, 6]
+    ],
+    [
+     [4, 6],
+     [5, 5]
+    ]
+   ],
+   "confLevel": 0.94999999999999996,
+   "iterativeValues": ["breslowDay", "tarone"],
+   "values": {
+    "kept": 2,
+    "skipped": 0,
+    "informative": 2,
+    "OR": {
+     "value": 0.90265486725663724,
+     "ci": [0.26491081707573683, 3.0756985251725442]
+    },
+    "RR": {
+     "value": 0.94634146341463399,
+     "seLog": 0.3365655046925583,
+     "ci": [0.48928600278337608, 1.8303449522022144]
+    },
+    "cmh": {
+     "X2": 0.025647318689409733,
+     "p": 0.87276464602941617
+    },
+    "cmhNoCorrection": {
+     "X2": 0.025647318689409733,
+     "p": 0.87276464602941617
+    },
+    "breslowDay": {
+     "X2": 0.21860934396774173,
+     "df": 1,
+     "p": 0.64010157744960383
+    },
+    "tarone": {
+     "X2": 0.21860854054198023,
+     "df": 1,
+     "p": 0.64010219199154617
+    },
+    "woolfRR": {
+     "X2": 0.22115747292184107,
+     "df": 1,
+     "p": 0.63815939385200093
+    }
+   }
+  },
   "serosurvey.farmStrata": {
    "call": "the same on the 49 farm strata of the serosurvey (age >= 24 months vs younger, ELISA positive)",
    "tol": "closed",

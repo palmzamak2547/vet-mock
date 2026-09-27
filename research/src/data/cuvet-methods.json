@@ -57,9 +57,9 @@
   {
    "id": "normality",
    "count": 91,
-   "file": "epmc-methods-2026-09-25.json",
-   "path": "cuvet.Shapiro-Wilk",
-   "checked": "2026-09-25"
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.Shapiro-Wilk",
+   "checked": "2026-09-27"
   },
   {
    "id": "kruskal",
@@ -133,10 +133,10 @@
   },
   {
    "id": "roc",
-   "count": 35,
-   "file": "epmc-methods-2026-09-25.json",
-   "path": "cuvet.ROC",
-   "checked": "2026-09-25"
+   "count": 33,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.ROC / AUC",
+   "checked": "2026-09-27"
   },
   {
    "id": "linear",
@@ -202,13 +202,6 @@
    "checked": "2026-09-27"
   },
   {
-   "id": "counts",
-   "count": 13,
-   "file": "epmc-methods-2026-09-25.json",
-   "path": "cuvet.Poisson/negative binomial",
-   "checked": "2026-09-25"
-  },
-  {
    "id": "anovaRm",
    "count": 12,
    "file": "epmc-methods-2026-09-27.json",
@@ -256,6 +249,13 @@
    "file": "epmc-methods-2026-09-25.json",
    "path": "cuvet.intraclass/ICC or design effect",
    "checked": "2026-09-25"
+  },
+  {
+   "id": "counts",
+   "count": 4,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.Poisson / negative binomial",
+   "checked": "2026-09-27"
   },
   {
    "id": "dunnett",

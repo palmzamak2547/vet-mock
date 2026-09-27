@@ -98,6 +98,7 @@ export default function MethodsChapter() {
     let visible = false;
     let size = { w: 1, h: 1 };
     let finished = false;
+    let trackCentre = 0;
     const pointPx = window.innerWidth < 820 ? 4.5 : 6;
     const layout = () => {
       if (!eng) return;
@@ -119,6 +120,15 @@ export default function MethodsChapter() {
       });
       const plan = layoutBarDots(bars, { total: herd.N, pointPx, pitch: pointPx + 1.5 });
       eng.setTarget(plan.grid, plan.sizes, plan.use, plan.pos);
+      // The flowing dots stay over the bar tracks: never across the count and % columns or the
+      // column header (review round 2). A static clip set on layout, not an animated clip-path.
+      const tracks = bars.filter((b) => b.length > 0 || b.x > 0);
+      if (tracks.length) {
+        const left = Math.max(0, Math.min(...tracks.map((b) => b.x)) - 4);
+        const top = Math.max(0, Math.min(...tracks.map((b) => b.y - b.height)) - 6);
+        canvas.style.clipPath = `inset(${top.toFixed(0)}px 0 0 ${left.toFixed(0)}px)`;
+        trackCentre = left + (size.w - left) / 2 - size.w / 2;
+      }
     };
     // Scroll starts the entrance; time finishes it. A reader who lands on the chapter from the header
     // link or #rs-papers stops with the figure half way up the screen, and scrubbing by scroll depth
@@ -147,7 +157,7 @@ export default function MethodsChapter() {
           eng.draw({
             time: now / 1000, fold: 0, grid: flow, dim: fade, posMix: 1, reduce: false, pointPx, posBoost: 0, stagger: 0.4,
             colPos: colours.ring, colNeg: colours.neg,
-            scatterOrigin: [0, -size.h / 2 + Math.min(260, size.h * 0.3)], farmOrigin: [0, 0], gridOrigin: [-size.w / 2, -size.h / 2],
+            scatterOrigin: [trackCentre, -size.h / 2 + Math.min(260, size.h * 0.3)], farmOrigin: [0, 0], gridOrigin: [-size.w / 2, -size.h / 2],
           });
         }
       }

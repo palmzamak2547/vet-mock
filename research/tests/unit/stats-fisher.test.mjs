@@ -30,7 +30,7 @@ test('Fisher: R 4.6.0 pins (r/out/fisher.json), p closed, MLE and CI within unir
     unirootClose(got.ci[1], c.values.ci[1], `${name} ci upper`);
     n++;
   }
-  assert.equal(n, 8);
+  assert.equal(n, 10);
 });
 
 test('Fisher: closed forms and SciPy cross-check', () => {

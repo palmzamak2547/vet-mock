@@ -133,7 +133,9 @@ export default function Entrance({ onDone, projectCount, target }) {
       const veil = 1 - smooth(M.veilStart, M.veilEnd, e);
       if (veilRef.current) veilRef.current.style.opacity = String(Math.max(0.002, veil));
       if (textRef.current) {
-        const tin = smooth(0, 260, e) * (1 - smooth(M.veilStart - 150, M.veilStart + 300, e));
+        // The greeting is gone before the veil starts to lift, so it never ghosts over the workspace
+        // heading (review round 2).
+        const tin = smooth(0, 200, e) * (1 - smooth(M.veilStart - 350, M.veilStart, e));
         textRef.current.style.opacity = String(Math.max(0, tin).toFixed(3));
         textRef.current.style.transform = `translateY(${((1 - smooth(0, 400, e)) * 12).toFixed(1)}px)`;
       }

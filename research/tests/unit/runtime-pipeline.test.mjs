@@ -134,3 +134,39 @@ test('aggregate route is greyed out for an animal-level factor, and choosing it 
   assert.ok(env.clusterPanel.routes.find((r) => r.id === 'mh-within').enabled);
   for (const t of env.tests) assert.equal(t.p, null);
 });
+
+// Review round 2: guards that read the result, and the checks judged again on the farm table.
+test('G12 at run time: strata pointing opposite ways carry a warning beside the pooled number', async () => {
+  const env = await run(makeSpec('epi.mantelHaenszel', { kind: 'counts', counts: { strata: [[[40, 10], [10, 40]], [[10, 40], [40, 10]], [[20, 20], [20, 20]]] } }, {
+    design: 'case-control',
+    options: { measure: 'OR', homogeneity: 'breslow-day-tarone' },
+  }));
+  assert.equal(env.status, 'ok', JSON.stringify(env.guard.stops));
+  const hom = env.tests.find((t) => t.id === 'homogeneity');
+  assert.ok(hom.p < 0.05);
+  assert.ok(env.guard.warnings.some((w) => w.id === 'G12'), JSON.stringify(env.guard.warnings.map((w) => w.id)));
+  // CMH p = 1 is above 0.05: one G8, not one per test.
+  assert.equal(env.guard.warnings.filter((w) => w.id === 'G8').length, 1);
+});
+
+test('G8 at run time: a test with p above 0.05 warns that it is not "no difference"', async () => {
+  const env = await run(makeSpec('test.chisq', { kind: 'counts', counts: { table: [[20, 30], [22, 28]] } }, { design: 'cross-sectional' }));
+  assert.equal(env.status, 'ok');
+  assert.ok(env.tests.some((t) => t.p > 0.05));
+  assert.ok(env.guard.warnings.some((w) => w.id === 'G8'));
+});
+
+test('aggregate route: G5 is judged on the 49 farm rows the p-value is computed from', async () => {
+  const env = await run(makeSpec('test.chisq', input(), {
+    design: 'cross-sectional',
+    roles: { exposure: keyOf('ซื้อโคเข้าฝูงใน 12 เดือน'), outcome: keyOf('ผล ELISA') },
+    levels: { outcomePositive: 'บวก' },
+    cluster: { route: 'aggregate', column: codebook.clusterKey },
+  }));
+  assert.equal(env.status, 'ok', JSON.stringify(env.guard.stops));
+  assert.equal(env.provenance.rowsUsed, 49);
+  const g5 = env.guard.warnings.find((w) => w.id === 'G5');
+  assert.ok(g5, `G5 expected on the farm table, got ${JSON.stringify(env.guard.warnings.map((w) => w.id))}`);
+  assert.ok(Math.abs(g5.params.minExpected - 1.71) < 0.01, `min expected ${g5.params.minExpected}`);
+  assert.deepEqual(g5.routes, ['test.fisher2x2']);
+});

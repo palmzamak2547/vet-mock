@@ -11,7 +11,7 @@ export const OPTION_VALUES = Object.freeze([
   'haldane', 'rgb', 'greenland-robins', 'breslow-day-tarone', 'welch', 'pooled', 'paired', 'one-sample', 'tukey',
   'pairwise-t-holm', 'pairwise-t-bonferroni', 'holm', 'bonferroni', 'auto', 'normal', 'fisher-z', 'log', 'linear',
   'quadratic', 'anova-oneway', 'mean', 'n0', 'course', 'epiR', 'course-1.96', 'fleiss', 'fleiss-cc', 'course-pooled',
-  'rank', 'OR', 'RR',
+  'rank', 'OR', 'RR', 'wald-deff',
 ]);
 
 /** Option names that have a label in the dictionary (runtime.optName.*). */
@@ -57,7 +57,12 @@ export function provenanceLines(env, lang, t, labelOf = (k) => k) {
 
   if (!NO_CI.has(methodId) && typeof opts.confLevel === 'number') {
     const level = Math.round(opts.confLevel * 1000) / 10;
-    const ciMethods = CI_METHOD_OPTIONS.filter((k) => opts[k] !== undefined && opts[k] !== 'none').map((k) => valueText(opts[k], t));
+    // The interval a value actually carries wins over the option asked for: the DEFF route widens a
+    // Wald interval whatever the CI option says (review round 2: the line said Wilson).
+    const used = Object.values(env.values || {}).map((v) => v?.ciMethod).filter((m) => m === 'wald-deff');
+    const ciMethods = CI_METHOD_OPTIONS.filter((k) => opts[k] !== undefined && opts[k] !== 'none')
+      .map((k) => (k === 'ciMethod' && used.length ? used[0] : opts[k]))
+      .map((m) => valueText(m, t));
     first.push(ciMethods.length ? t('runtime.prov.ciWith', { level, methods: ciMethods.join(', ') }) : t('runtime.prov.ci', { level }));
   }
   if (opts.alternative && opts.alternative !== 'two.sided') first.push(t(`runtime.prov.alternative.${opts.alternative === 'less' ? 'less' : 'greater'}`));
@@ -77,7 +82,10 @@ export function provenanceLines(env, lang, t, labelOf = (k) => k) {
   const dropped = (p.rowsDropped || []).filter((d) => d.count > 0);
   const total = dropped.reduce((s, d) => s + d.count, 0);
   const used = typeof p.rowsUsed === 'number' ? p.rowsUsed : 0;
-  if (total === 0) second.push(t('runtime.prov.rowsNoneDropped', { used }));
+  // A calculation from typed parameters (sample size) reads no rows, so the rows line is left out
+  // (review round 2: "used 0 rows, none left out" under every sample size).
+  const noData = env.spec?.input?.kind === 'params';
+  if (noData) { /* no rows line */ } else if (total === 0) second.push(t('runtime.prov.rowsNoneDropped', { used }));
   else {
     const reasons = dropped.map((d) => t(`runtime.prov.drop.${d.reason}`, { column: d.column ? labelOf(d.column) : '', count: d.count }).trim()).join(', ');
     second.push(t('runtime.prov.rows', { used, dropped: total, reasons }));

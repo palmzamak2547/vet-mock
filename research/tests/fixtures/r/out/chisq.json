@@ -135,6 +135,25 @@
     "minExpected": 7.1875
    }
   },
+  "yatesBelowHalf": {
+   "call": "chisq.test(matrix(c(5, 5, 5, 6), nrow = 2, byrow = TRUE), correct = TRUE)",
+   "tol": "closed",
+   "table": [
+    [5, 5],
+    [5, 6]
+   ],
+   "yates": true,
+   "values": {
+    "X2": 0,
+    "df": 1,
+    "p": 1,
+    "expected": [
+     [4.7619047619047619, 5.2380952380952381],
+     [5.2380952380952381, 5.7619047619047619]
+    ],
+    "minExpected": 4.7619047619047619
+   }
+  },
   "trend.rank": {
    "call": "prop.trend.test(c(15, 10, 8, 4), c(20, 20, 20, 20), c(1, 2, 3, 4))",
    "tol": "closed",

@@ -58,3 +58,13 @@ test('the licences list matches the lockfile', () => {
     assert.ok(existsSync(here(`../../node_modules/${f}`)), f);
   }
 });
+
+test('the licences page lists the shipped font with its licence text (review round 2)', async () => {
+  const { FONT_NOTICES } = await import('../../src/licenses/notices.js');
+  const { readFileSync } = await import('node:fs');
+  const sarabun = FONT_NOTICES.find((n) => n.name === 'Sarabun');
+  assert.ok(sarabun && sarabun.license === 'OFL-1.1' && LICENSE_TEXTS[sarabun.text]);
+  const copy = readFileSync(here('../../src/licenses/sarabun-OFL.txt'));
+  const original = readFileSync(here('../../../public/Sarabun/OFL.txt'));
+  assert.ok(copy.equals(original), 'the licence text is the main app file byte for byte');
+});

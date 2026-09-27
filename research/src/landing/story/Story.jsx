@@ -85,10 +85,40 @@ function Hero({ reg, variant }) {
 }
 
 /** The reduced-motion story: every layer in the flow, all information, nothing moving. */
-function StillStory() {
+function StillStory({ chrome }) {
   const { t } = useT();
+  const ref = useRef(null);
+  // The still story reports the header state too (review round 2: under reduced motion the header
+  // pill stayed transparent, so text scrolled under the nav): scrolled past 24 px, and the chapter
+  // whose section has reached 40% of the window. One passive listener, one frame per burst.
+  useEffect(() => {
+    const root = ref.current;
+    if (!root) return undefined;
+    const ids = ['rs-how', 'rs-acc', 'rs-res', 'rs-priv'];
+    let queued = 0;
+    const report = () => {
+      queued = 0;
+      const line = window.innerHeight * 0.4;
+      const box = root.getBoundingClientRect();
+      let chapter = 0;
+      ids.forEach((id, i) => {
+        const el = root.querySelector(`#${id}`);
+        if (el && el.getBoundingClientRect().top <= line) chapter = i + 1;
+      });
+      chrome?.story(box.bottom < line ? -1 : chapter, window.scrollY > 24);
+    };
+    const onScroll = () => { if (!queued) queued = requestAnimationFrame(report); };
+    report();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      if (queued) cancelAnimationFrame(queued);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [chrome]);
   return (
-    <section className="rs-still" aria-label={t('landing.story.label')}>
+    <section className="rs-still" ref={ref} aria-label={t('landing.story.label')}>
       <div id="rs-top" className="rs-still-hero">
         <HerdStill layout="desktop" className="rs-still-herd" />
         <Hero variant="desktop" />
@@ -104,9 +134,12 @@ function StillStory() {
       <div id="rs-acc" className="rs-still-row">
         <div className="rs-still-col">
           <HerdStill layout="desktop" className="rs-still-herd-sm" />
-          <Glosses titled />
         </div>
         <FoldCard still />
+      </div>
+      {/* The glossary follows the accuracy card, so the farm rings sit next to the card they explain (review round 2). */}
+      <div className="rs-still-row rs-still-glosses">
+        <Glosses titled />
       </div>
       <div id="rs-res" className="rs-still-row">
         <ResultCaption />
@@ -124,7 +157,7 @@ function StillStory() {
  */
 export default function Story({ chrome }) {
   const reduce = useReducedMotion();
-  if (reduce) return <StillStory />;
+  if (reduce) return <StillStory chrome={chrome} />;
   return <PinnedStory chrome={chrome} />;
 }
 

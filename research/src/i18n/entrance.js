@@ -24,7 +24,7 @@ export default {
     'entrance.drop.busy': 'กำลังอ่านไฟล์',
     'entrance.drop.note': 'ไฟล์เดิมของคุณไม่ถูกแก้ไข และไม่ถูกส่งออกนอกเครื่อง',
 
-    'entrance.course.title': 'ตัวอย่างจากคอร์ส: วางแผนขนาดตัวอย่าง',
+    'entrance.course.title': 'ตัวอย่างจากรายวิชา: วางแผนขนาดตัวอย่าง',
     'entrance.course.body': 'ทำตามตัวอย่างในวิชาระบาดวิทยาทีละขั้น พร้อมชื่อสูตร ไม่ต้องใช้ไฟล์ข้อมูล',
 
     'entrance.device.title': 'เครื่องนี้',
@@ -43,7 +43,7 @@ export default {
     'entrance.welcome.title': 'Start from your data file',
     'entrance.welcome.lead': 'No need to tidy the file first. The Studio reads it, checks it and asks what it needs to know, then takes you step by step to results you can write up.',
     'entrance.welcome.step1.title': 'Open a file',
-    'entrance.welcome.step1.body': 'Excel or CSV. Buddhist-era years, Thai numerals and words like ไม่ทราบ are all read, and you see every conversion before import.',
+    'entrance.welcome.step1.body': 'Excel or CSV. Buddhist Era years, Thai digits and words like ไม่ทราบ are all read, and you see every conversion before import.',
     'entrance.welcome.step2.title': 'Answer the file\'s questions once',
     'entrance.welcome.step2.body': 'What one row is, which column is the farm, which values mean missing.',
     'entrance.welcome.step3.title': 'Choose the study design, then analyse',

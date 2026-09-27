@@ -4,7 +4,7 @@
 import { useEffect, useState } from 'react';
 import { registerArea, useT } from '../i18n/index.js';
 import runtimeDict from '../i18n/runtime.js';
-import { NOTICES, STDLIB_TOTAL, STDLIB_BSL, LICENSE_TEXTS } from './notices.js';
+import { NOTICES, FONT_NOTICES, STDLIB_TOTAL, STDLIB_BSL, LICENSE_TEXTS } from './notices.js';
 
 registerArea('runtime', runtimeDict);
 
@@ -26,7 +26,8 @@ function LicenseText({ id }) {
 
 export default function LicensesPage() {
   const { t } = useT();
-  const groups = [...new Set(NOTICES.map((n) => n.text))];
+  const all = [...NOTICES, ...FONT_NOTICES];
+  const groups = [...new Set(all.map((n) => n.text))];
   useEffect(() => {
     document.title = t('runtime.licenses.docTitle');
   }, [t]);
@@ -45,7 +46,7 @@ export default function LicensesPage() {
             </tr>
           </thead>
           <tbody>
-            {NOTICES.map((n) => (
+            {all.map((n) => (
               <tr key={n.name}>
                 <th scope="row"><a href={n.url} rel="noopener noreferrer" target="_blank">{n.name}</a></th>
                 <td className="rs-num">{n.version}</td>
@@ -59,7 +60,7 @@ export default function LicensesPage() {
       <h2>{t('runtime.licenses.textsTitle')}</h2>
       {groups.map((g) => (
         <details key={g} className="rs-licenses-group">
-          <summary>{NOTICES.filter((n) => n.text === g).map((n) => n.name).join(', ')}</summary>
+          <summary>{all.filter((n) => n.text === g).map((n) => n.name).join(', ')}</summary>
           <LicenseText id={g} />
         </details>
       ))}

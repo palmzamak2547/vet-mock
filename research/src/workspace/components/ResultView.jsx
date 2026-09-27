@@ -24,6 +24,8 @@ export { safeFileBase };
 export const FMT = { formatNumber, formatP, formatCi };
 
 const hasKey = (t, key) => t(key) !== `[${key}]`;
+/** Tables longer than this are folded under a summary line. */
+const FOLD_ROWS = 12;
 
 
 /**
@@ -31,6 +33,11 @@ const hasKey = (t, key) => t(key) !== `[${key}]`;
  * carry one sentence in `key`.
  */
 export function guardText(g, t) {
+  // G25 names only the steps this sample size still misses (review round 2: the whole list was shown
+  // right after the design effect had been applied).
+  if (g.id === 'G25' && Array.isArray(g.params?.missing) && g.params.missing.length) {
+    return { title: t(g.key, g.params), body: g.params.missing.map((m) => t(`epi.guard.G25.step.${m}`)).join(' ') };
+  }
   if (g.bodyKey) return { title: t(g.key, g.params), body: t(g.bodyKey, g.params) };
   const titleKey = `epi.guard.${g.id}.title`;
   return { title: g.key !== titleKey && hasKey(t, titleKey) ? t(titleKey, g.params) : undefined, body: t(g.key, g.params) };
@@ -167,20 +174,21 @@ function ResultParagraphs({ env, designRow, codebook, onDownloaded }) {
 /**
  * @param {{ envelope: any, title?: string, designRow?: any, extraRows?: any[], onSnapshot?: (() => void) | null, onDownloaded?: (kind: string) => void, headlineLabel?: string, children?: any, stale?: boolean }} props
  */
-export default function ResultView({ envelope, title, designRow = null, extraRows = [], onSnapshot = null, onDownloaded, headlineLabel, children = null, stale = false, hideTables = false, labelOf, codebook = null, paragraphs = true }) {
+export default function ResultView({ envelope, title, designRow = null, extraRows = [], onSnapshot = null, onDownloaded, headlineLabel, children = null, stale = false, hideTables = false, labelOf, codebook = null, paragraphs = true, primaryName = null, primaryPlotLabel }) {
   const { t, lang } = useT();
   const { notify } = useWs();
   const env = envelope;
   const method = env?.method?.id ? getMethod(env.method.id) : null;
   const methodName = method && hasKey(t, method.nameKey) ? t(method.nameKey) : env?.method?.id;
-  const primary = primaryValueName(env, designRow);
+  // The headline is the answer: a screen may name it (the sample size needed, not the first value).
+  const primary = primaryName && env?.values?.[primaryName] ? primaryName : primaryValueName(env, designRow);
   const rows = useMemo(() => valueRows(env, primary), [env, primary]);
   const head = rows.find((r) => r.name === primary);
   const level = ciLevelText(env);
   const plot = useMemo(() => plottable(env, primary), [env, primary]);
   const items = [...extraRows, ...plot.rows.map((r) => {
     const c = valueCells(r, FMT, lang, t);
-    return { label: valueLabel(r.name, t, env?.method?.id), est: r.value, lo: r.ci?.[0] ?? null, hi: r.ci?.[1] ?? null, estText: c.est, ciText: c.ci };
+    return { label: r.name === primary && primaryPlotLabel ? primaryPlotLabel : valueLabel(r.name, t, env?.method?.id), est: r.value, lo: r.ci?.[0] ?? null, hi: r.ci?.[1] ?? null, estText: c.est, ciText: c.ci };
   })];
   let lines = [];
   try { lines = provenanceLines(env, lang, t, labelOf); } catch { lines = []; }
@@ -205,6 +213,8 @@ export default function ResultView({ envelope, title, designRow = null, extraRow
 
   if (!env) return null;
   const tests = env.tests || [];
+  // The third column holds intervals and p-values; a result with neither (a sample size) has no such column.
+  const thirdCol = tests.length > 0 || rows.some((r) => Array.isArray(r.ci));
   return (
     <section className="rs-result" aria-label={caption}>
       <div className="rs-result-head">
@@ -250,7 +260,7 @@ export default function ResultView({ envelope, title, designRow = null, extraRow
               <tr>
                 <th scope="col">{t('ws.result.col.measure')}</th>
                 <th scope="col" className="rs-r">{t('ws.result.col.estimate')}</th>
-                <th scope="col" className="rs-r">{t('ws.result.col.ci', { level })}</th>
+                {thirdCol ? <th scope="col" className="rs-r">{t('ws.result.col.ci', { level })}</th> : null}
               </tr>
             </thead>
             <tbody>
@@ -260,7 +270,7 @@ export default function ResultView({ envelope, title, designRow = null, extraRow
                   <tr key={r.name}>
                     <th scope="row">{valueLabel(r.name, t, env?.method?.id)}{c.note ? <div className="rs-soft rs-small">{c.note}</div> : null}</th>
                     <td className="rs-r">{c.est}</td>
-                    <td className="rs-r">{c.ci}</td>
+                    {thirdCol ? <td className="rs-r">{c.ci}</td> : null}
                   </tr>
                 );
               })}
@@ -279,11 +289,20 @@ export default function ResultView({ envelope, title, designRow = null, extraRow
         </div>
       ) : null}
 
-      {items.length ? <CiPlot items={items} log={plot.log} refValue={plot.ref} title={caption} fileBase={fileBase} onDownloaded={onDownloaded} levelText={level} /> : null}
+      {items.length ? <CiPlot items={items} log={plot.log} refValue={plot.ref} percent={plot.rows[0]?.kind === 'proportion'} title={caption} fileBase={fileBase} onDownloaded={onDownloaded} levelText={level} /> : null}
 
       <GuardList items={env.guard?.warnings} tone="warn" />
       <GuardList items={env.guard?.notes} tone="info" />
-      {hideTables ? null : (env.tables || []).map((tb) => <EnvTable key={tb.id} table={tb} note={note} fileBase={fileBase} onDownloaded={onDownloaded} />)}
+      {hideTables ? null : (env.tables || []).map((tb) => (
+        // A long table (a stratum per farm) is folded under a one-line summary, so the estimate and
+        // the paragraphs are not pushed a screen away (review round 2: 49 strata rows, 4374 px).
+        (tb.rows?.length || 0) > FOLD_ROWS ? (
+          <details key={tb.id} className="rs-foldtable">
+            <summary>{t('ws.table.folded', { caption: envTableText(tb, t).caption, n: tb.rows.length })}</summary>
+            <EnvTable table={tb} note={note} fileBase={fileBase} onDownloaded={onDownloaded} />
+          </details>
+        ) : <EnvTable key={tb.id} table={tb} note={note} fileBase={fileBase} onDownloaded={onDownloaded} />
+      ))}
       {children}
 
       {paragraphs ? <ResultParagraphs env={env} designRow={designRow} codebook={codebook} onDownloaded={onDownloaded} /> : null}

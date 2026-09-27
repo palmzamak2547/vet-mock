@@ -18,6 +18,8 @@ chi("rxc.2x3", list(arr(c(20, 15, 10)), arr(c(10, 20, 25))), FALSE)
 chi("small.2x2.pearson", list(arr(c(3, 1)), arr(c(1, 3))), FALSE)
 chi("small.2x2.yates", list(arr(c(3, 1)), arr(c(1, 3))), TRUE)
 chi("rxc.3x3", list(arr(c(20, 5, 1)), arr(c(4, 15, 6)), arr(c(1, 3, 25))), FALSE)
+# Review round 2: |O - E| below 0.5, so Yates subtracts |O - E| rather than 0.5.
+chi("yatesBelowHalf", list(arr(c(5, 5)), arr(c(5, 6))), TRUE)
 
 tr <- function(id, x, n, score) {
   r <- prop.trend.test(x, n, score)

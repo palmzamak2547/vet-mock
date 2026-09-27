@@ -27,3 +27,14 @@ Re-run of epmc-methods-check-2026-09-25.mjs on 2026-09-28 (review round 1): deno
 GEE 1, post hoc 60, kappa 26, Se+Sp 45 and sample size 71 match the chart; mixed models 54 (chart 52),
 ICC/design effect 5 (chart 4) and survival 22 (chart 23) differ slightly, from new papers indexed since
 25 Sep or a term difference. The chart keeps the dated 25 Sep counts.
+
+Review round 2 (2026-09-28): every bar now has a query that reproduces it.
+- Correlation 38 (`("Pearson" OR "Spearman")`), linear regression 28 (`("linear regression")`), odds
+  ratio 16 (`("odds ratio")`), risk ratio 9 (`("risk ratio" OR "relative risk")`) and true prevalence 1
+  (`("true prevalence" OR "Rogan-Gladen" OR "Rogan and Gladen")`) reproduce the 25 Sep counts exactly on
+  28 Sep; the terms are added to epmc-methods-check-2026-09-25.mjs.
+- ROC, Poisson/negative binomial and Shapiro-Wilk are read from the scripted 27 Sep file instead
+  (ROC 33 with `("ROC curve" OR "receiver operating characteristic")`, Poisson/negative binomial 4 with
+  `("Poisson regression" OR "negative binomial")`, Shapiro-Wilk 91). The 25 Sep ROC 35 and Poisson 13
+  came from broader unsaved terms: the bare word "Poisson" gives 13 on 28 Sep and also catches Poisson
+  distributions, and `("ROC" OR "receiver operating characteristic")` gives 38 on 28 Sep.

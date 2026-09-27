@@ -108,7 +108,12 @@ export function ciPlotLayout(rows, opts = {}) {
 }
 
 /** Axis number text: integers as they are, others with up to 3 significant digits. */
-export function tickText(v) {
+export function tickText(v, percent = false) {
+  // A proportion's axis is read in percent, like every other number beside it (review round 2).
+  if (percent) {
+    const x = Number((v * 100).toPrecision(3));
+    return `${Number.isInteger(x) ? x : x}%`;
+  }
   if (Number.isInteger(v)) return String(v);
   return String(Number(v.toPrecision(3)));
 }

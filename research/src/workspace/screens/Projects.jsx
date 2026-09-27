@@ -217,6 +217,8 @@ export default function Projects({ version }) {
                   {t('ws.projects.delete')}
                 </button>
               </div>
+              {/* What the download holds, including the personal-data columns (review round 2). */}
+              <p className="rs-soft rs-small">{t('runtime.projectFile.contents')}</p>
             </article>
           ))}
           <article className="rs-panel rs-coursecard">

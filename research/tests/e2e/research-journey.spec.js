@@ -216,8 +216,9 @@ test('the student journey: import, clean, analyse with the farm guardrail, repor
   // Keep the result, then download the project file and open it again as a second project.
   await page.getByRole('button', { name: W['ws.action.snapshot'] }).first().click();
 
-  // Prevalence of ELISA: one estimate, so the farm stop speaks of the prevalence's CI, never of
-  // comparing groups, and offers no within-farm comparison (review round 1).
+  // Prevalence of ELISA: one estimate with no p-value, so it is shown farm-adjusted straight away
+  // (review round 2, the Prevalence board): the headline, the two-row CI plot on a % axis, and why
+  // the interval widens. No stop, no within-farm comparison.
   await page.goto(`${projectPath}/prev`);
   const prevOutcome = page.locator('#rs-role-outcome');
   await prevOutcome.selectOption(await optionValue(prevOutcome, 'ผล ELISA'));
@@ -228,10 +229,16 @@ test('the student journey: import, clean, analyse with the farm guardrail, repor
     }
   }
   await page.getByRole('button', { name: W['ws.analysis.run'], exact: true }).click();
-  await expect(page.getByText(W['ws.g1.titleSingle'])).toBeVisible();
+  await expect(page.getByText(W['ws.prev.adjustedHeadline'], { exact: true })).toBeVisible();
+  await expect(main).not.toContainText(W['ws.g1.titleSingle']);
   await expect(main).not.toContainText(W['ws.g1.title']);
-  await expect(page.locator('input[name="rs-g1-route"][value="mh-within"]')).toHaveCount(0);
-  await expect(page.locator('input[name="rs-g1-route"][value="deff"]')).toBeEnabled();
+  await expect(page.getByRole('heading', { name: W['ws.prev.why.title'] })).toBeVisible();
+  const prevPlot = page.locator('svg.rs-ciplot').first();
+  await expect(prevPlot).toContainText(W['ws.prev.independentRow']);
+  await expect(prevPlot).toContainText(W['ws.prev.adjustedRow']);
+  const ticks = await prevPlot.locator('text').allTextContents();
+  expect(ticks.filter((x) => /^\d/.test(x)).every((x) => x.endsWith('%')), ticks.join(' ')).toBe(true);
+  await expect(main).toContainText('20.1%');
 
   await page.goto('/app');
   await expect(page.getByRole('heading', { level: 1, name: W['ws.projects.title'] })).toBeVisible();

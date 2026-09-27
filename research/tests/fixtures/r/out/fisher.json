@@ -147,6 +147,38 @@
     "estimate": 1,
     "ci": [0.12589161533593668, 7.9433407644467859]
    }
+  },
+  "belowOne": {
+   "call": "fisher.test(matrix(c(3, 9, 8, 2), 2, byrow = TRUE), alternative = 'two.sided', conf.level = 0.95)",
+   "tol": "uniroot",
+   "table": [
+    [3, 9],
+    [8, 2]
+   ],
+   "alternative": "two.sided",
+   "confLevel": 0.94999999999999996,
+   "closedValues": ["p"],
+   "values": {
+    "p": 0.029973122852379783,
+    "estimate": 0.096119503971415984,
+    "ci": [0.0063481340771321323, 0.84056197367110264]
+   }
+  },
+  "belowOne.less": {
+   "call": "fisher.test(matrix(c(3, 9, 8, 2), 2, byrow = TRUE), alternative = 'less', conf.level = 0.95)",
+   "tol": "uniroot",
+   "table": [
+    [3, 9],
+    [8, 2]
+   ],
+   "alternative": "less",
+   "confLevel": 0.94999999999999996,
+   "closedValues": ["p"],
+   "values": {
+    "p": 0.01498656142618989,
+    "estimate": 0.096119503971415984,
+    "ci": [0, 0.64732145063758462]
+   }
   }
  }
 }

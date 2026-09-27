@@ -34,9 +34,9 @@ export function Notice({ tone = 'info', title, children, action = null, role }) 
 }
 
 /** @param {{ tone?: ''|'gold'|'sage'|'rose', icon?: string, children: any, title?: string }} props */
-export function Chip({ tone = '', icon, children, title }) {
+export function Chip({ tone = '', icon, children, title, className = '' }) {
   return (
-    <span className={`rs-chip${tone ? ` rs-chip--${tone}` : ''}`} title={title}>
+    <span className={`rs-chip${tone ? ` rs-chip--${tone}` : ''}${className ? ` ${className}` : ''}`} title={title}>
       {icon ? <Icon name={icon} size={15} /> : null}
       {children}
     </span>
@@ -47,7 +47,9 @@ export function Chip({ tone = '', icon, children, title }) {
 export function VerifiedBadge({ show }) {
   const { t } = useT();
   if (!show) return null;
-  return <Chip tone="sage" icon="check" title={t('ws.verified.title')}>{t('ws.verified.label')}</Chip>;
+  // Never wraps inside a word (review round 2: the Thai label broke into syllables at 390 px); the
+  // method name beside it takes the remaining width and wraps instead.
+  return <Chip tone="sage" icon="check" title={t('ws.verified.title')} className="rs-chip--badge">{t('ws.verified.label')}</Chip>;
 }
 
 /** @param {{ error: { key: string, detail?: string } | null, onRetry?: () => void }} props */

@@ -365,13 +365,16 @@ export function resultGuards(spec, output) {
   void spec;
   const out = { stops: [], warnings: [], notes: [] };
   if (!output || output.status !== 'ok') return out;
+  const above = [];
   for (const t of output.tests || []) {
     if (t.id === 'homogeneity') {
       if (typeof t.p === 'number' && t.p < 0.05) out.warnings.push(finding('G12', { params: { p: t.p, test: t.variant }, routes: ['strata'] }));
       continue;
     }
-    if (typeof t.p === 'number' && t.p > 0.05) out.warnings.push(finding('G8', { params: { testId: t.id } }));
+    if (typeof t.p === 'number' && t.p > 0.05) above.push(t.id);
   }
+  // One G8 per result, however many tests it prints (a chi-square and its continuity-corrected twin).
+  if (above.length) out.warnings.unshift(finding('G8', { params: { testId: above[0], tests: above } }));
   return out;
 }
 

@@ -129,7 +129,7 @@ export default function Table1Pane({ p }) {
           {env ? (
             <ResultView
               envelope={env}
-              title={t('ws.table1.title')}
+              title={t('ws.table1.resultTitle')}
               hideTables
               labelOf={labelOf}
               codebook={codebook}

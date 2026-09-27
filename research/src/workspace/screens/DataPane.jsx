@@ -90,7 +90,7 @@ export default function DataPane({ p }) {
 
   const chip = (id, n) => (
     <button key={id} type="button" className={`rs-btn rs-btn--sm${mode === id ? ' rs-btn--chosen' : ''}`} aria-pressed={mode === id} onClick={() => setMode(id)}>
-      {t(`ws.grid.filter.${id}`)} <span className="rs-num">{n.toLocaleString('en-US')}</span>
+      {t(`ws.grid.filter.${id}`)} <span className="rs-num">{t('ws.grid.filterCount', { n: n.toLocaleString('en-US') })}</span>
     </button>
   );
 

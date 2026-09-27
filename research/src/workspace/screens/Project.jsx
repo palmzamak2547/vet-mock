@@ -54,9 +54,13 @@ export default function Project({ route }) {
   useEffect(() => {
     if (p.status === 'ready' && route.name === 'project' && !route.pane) navigate(`/app/p/${route.projectId}/${p.meta ? 'data' : 'import'}`, { replace: true });
   }, [p.status, p.meta, route]);
+  // The tab title names the page, not the project: a project name is often a file name, and the
+  // title goes into browser history, which some browsers sync (review round 2).
   useEffect(() => {
-    if (p.project?.name) document.title = `${p.project.name} | ${t('common.appName')}`;
-  }, [p.project?.name, t]);
+    const key = route.pane ? `ws.rail.${route.pane}` : null;
+    const page = key && t(key) !== `[${key}]` ? t(key) : t('ws.project.docTitle');
+    document.title = `${page} | ${t('common.appName')}`;
+  }, [route.pane, t]);
 
   if (p.status === 'missing') {
     return (

@@ -169,3 +169,9 @@ test('sample size: the course examples map to the engine’s inputs and reproduc
   assert.deepEqual(exampleParams({ input: { n0: 544, N: 2000, rho: 0.05, confidence: 0.9, note: 'x' } }), { params: { baseN: '544', N: '2000', icc: '0.05' }, confidence: 0.9, unused: ['note'] });
   assert.deepEqual(parseParams({ a: '1.5', b: '', c: 'x' }), { ok: false, params: { a: 1.5 }, bad: ['c'] });
 });
+
+test('a proportion axis is labelled in percent (review round 2: 0.16 0.18 beside 20.1%)', () => {
+  assert.equal(tickText(0.16, true), '16%');
+  assert.equal(tickText(0.225, true), '22.5%');
+  assert.equal(tickText(0.3, false), '0.3');
+});

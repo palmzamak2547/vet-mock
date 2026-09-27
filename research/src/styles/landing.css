@@ -589,6 +589,8 @@
 }
 .rs-l-table td.rs-mono {
   font-size: 13px;
+  /* An ID such as C-0412 never breaks at its hyphen (review round 2, phone still). */
+  white-space: nowrap;
 }
 .rs-l-mark {
   background: var(--rs-landing-hl);

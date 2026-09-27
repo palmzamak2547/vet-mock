@@ -21,6 +21,9 @@ fi("zeroCellOther", list(arr(c(0, 7)), arr(c(5, 2))))
 fi("serosurvey", list(arr(c(116, 364)), arr(c(27, 209))))
 fi("small.99", list(arr(c(12, 8)), arr(c(5, 15))), conf = 0.99)
 fi("symmetric", list(arr(c(5, 5)), arr(c(5, 5))))
+# Review round 2: a finite conditional MLE below 1 with no zero cell (the root is searched below the observed count).
+fi("belowOne", list(arr(c(3, 9)), arr(c(8, 2))))
+fi("belowOne.less", list(arr(c(3, 9)), arr(c(8, 2))), "less")
 
 rs_emit("fisher", c("test.fisher2x2"), cases,
   notes = "estimate and ci come from uniroot inside fisher.test (tolerance .Machine$double.eps^0.25); p is a closed sum and is listed in closedValues.")

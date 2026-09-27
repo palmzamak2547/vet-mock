@@ -26,6 +26,8 @@ export default function TopBar({ crumb = null, onMenu = null, menuOpen = false }
   const [account, setAccount] = useState(false);
   return (
     <header className="rs-top">
+      {/* The first tab stop on every workspace page (review round 2; the landing already had one). */}
+      <a className="rs-skip" href="#rs-main">{t('ws.skip')}</a>
       {onMenu ? (
         <button type="button" className="rs-iconbtn rs-only-narrow" onClick={onMenu} aria-expanded={menuOpen} aria-controls="rs-rail" aria-label={t('ws.top.menu')}>
           <Icon name="menu" size={22} />

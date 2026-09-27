@@ -6,7 +6,8 @@
 //
 // Sources: Robins, Breslow and Greenland 1986 Biometrics 42:311-323 (variance of log OR_MH);
 // Greenland and Robins 1985 Biometrics 41:55-68 (variance of log RR_MH); R's mantelhaen.test for the
-// 2 x 2 x K statistic, where the continuity correction is min(0.5, |sum(a) - sum(E(a))|);
+// 2 x 2 x K statistic, where the continuity correction is 0.5 when |sum(a) - sum(E(a))| >= 0.5 and 0
+// otherwise (YATES <- if (correct && abs(DELTA) >= .5) .5 else 0; pinned by mh.json continuityBelowHalf);
 // Breslow and Day 1980 (homogeneity of OR at OR_MH) with Tarone 1985 Biometrika 72:91-95 correction;
 // Woolf 1955 (inverse-variance homogeneity on the log scale).
 // Informative stratum: both exposure groups and both outcomes present; only these carry
@@ -110,7 +111,8 @@ export function mantelHaenszel(strata, opts = {}) {
   if (sumV <= 0) cmh = { X2: null, p: null, continuity, reasonKey: 'epi.undefined.cmhNoVariance' };
   else {
     const delta = Math.abs(sumA - sumE);
-    const yates = continuity ? Math.min(0.5, delta) : 0;
+    // R: no correction at all when |DELTA| < 0.5 (review round 2 pin continuityBelowHalf, R 4.6.0).
+    const yates = continuity && delta >= 0.5 ? 0.5 : 0;
     const X2 = (delta - yates) ** 2 / sumV;
     cmh = { X2, p: pchisqUpper(X2, 1), continuity };
   }

@@ -1,19 +1,18 @@
 // Sample size and power without a data file [M1-DESIGN.md 7.22; workspace board "Course"]: course mode
 // reproduces the worked examples of the Veterinary Epidemiology course step by step with the formula
-// named, and shows the common alternatives beside it (never instead of it). The examples' inputs come
-// from the committed course fixture, which names the bank item and the deck. Post hoc power is refused
-// (G9). OWNER: workspace role.
-import { useEffect, useMemo, useState } from 'react';
+// named, and shows the common alternatives beside it (never instead of it). The examples' inputs are
+// in lib/course-examples.js (pinned to the committed course fixture by a test); every word about an
+// example is in the dictionaries. Post hoc power is refused (G9). OWNER: workspace role.
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useT } from '../../i18n/index.js';
 import { getMethod } from '../../lib/runtime/catalog.js';
 import { COMMON_OPTIONS, DEFAULT_OPTIONS } from '../../lib/runtime/spec.js';
 import { formatNumber } from '../../lib/stats/format.js';
-import course from '../../../tests/fixtures/course/epi-course-2026.json';
 import { useWs, errorInfo } from '../ws-context.js';
 import { METHOD_UI, buildSpec } from '../lib/method-ui.js';
 import { keyPart } from '../lib/keys.js';
-import { primaryValueName } from '../lib/result-model.js';
 import { exampleParams, parseParams } from '../lib/sample-size.js';
+import { COURSE_EXAMPLES, missingRequired } from '../lib/course-examples.js';
 import { Busy, ErrorBox, Field, Notice, PageHead, VerifiedBadge } from '../components/Bits.jsx';
 import Icon from '../components/Icon.jsx';
 import Rail from '../components/Rail.jsx';
@@ -46,7 +45,8 @@ export default function SampleSize() {
   const [error, setError] = useState(null);
   const ui = METHOD_UI[method];
   const cat = getMethod(method);
-  const examples = useMemo(() => (course.items || []).filter((i) => i.method === method), [method]);
+  const examples = useMemo(() => COURSE_EXAMPLES.filter((i) => i.method === method), [method]);
+  const tabRefs = useRef({});
   const fields = useMemo(() => {
     const keys = [...(ui?.params || [])];
     for (const k of Object.keys(params)) if (!keys.includes(k)) keys.push(k);
@@ -68,7 +68,18 @@ export default function SampleSize() {
 
   const parsed = parseParams(params);
   const numericParams = () => parsed.params;
-  const paramsOk = parsed.ok;
+  const missing = missingRequired(method, parsed.params);
+  const paramsOk = parsed.ok && missing.length === 0;
+  const fieldName = (k) => pick(t, `ws.ss.param.${keyPart(method)}.${keyPart(k)}`, `ws.ss.param.${keyPart(k)}`) || k;
+  // Tabs: one tab stop, arrows move between the kinds (roving tabindex).
+  const onTabKey = (e) => {
+    const i = SS.indexOf(method);
+    const next = e.key === 'ArrowRight' ? SS[(i + 1) % SS.length] : e.key === 'ArrowLeft' ? SS[(i - 1 + SS.length) % SS.length] : e.key === 'Home' ? SS[0] : e.key === 'End' ? SS[SS.length - 1] : null;
+    if (!next) return;
+    e.preventDefault();
+    setMethod(next);
+    tabRefs.current[next]?.focus();
+  };
 
   const optionsFor = (override = {}) => ({
     ...COMMON_OPTIONS,
@@ -88,14 +99,18 @@ export default function SampleSize() {
       setSpec(s);
       setEnv(e);
       const altName = ALT_OPTION[method];
-      if (altName && e?.status === 'ok') {
+      // One table of alternatives per result: a method that returns its own ('alternatives') is not
+      // given a second; the population correction is compared only when a population size was given.
+      const ownTable = (e?.tables || []).some((tb) => tb.id === 'alternatives');
+      const applies = altName !== 'fpc' || Number.isFinite(numericParams().N);
+      if (altName && e?.status === 'ok' && !ownTable && applies) {
         const rows = [];
         for (const v of ui.options[altName]) {
           const s2 = buildSpec({ method, params: numericParams(), options: optionsFor({ [altName]: v }) });
           const e2 = await engine.run(s2, null, null).catch(() => null);
           if (!e2 || e2.status !== 'ok') continue;
-          const name = primaryValueName(e2);
-          rows.push({ value: v, isDefault: v === s.options[altName], v: name ? e2.values[name] : null, name });
+          // Each formula's final sample size (review round 2: the first computed value was shown).
+          rows.push({ value: v, isDefault: v === s.options[altName], v: e2.values?.n || null, name: 'n' });
         }
         setAlts(rows);
       }
@@ -119,7 +134,7 @@ export default function SampleSize() {
             {SS.map((id) => {
               const m = getMethod(id);
               return (
-                <button key={id} type="button" role="tab" aria-selected={method === id} className={`rs-tab${method === id ? ' rs-tab--on' : ''}`} onClick={() => setMethod(id)}>
+                <button key={id} ref={(el) => { tabRefs.current[id] = el; }} type="button" role="tab" aria-selected={method === id} tabIndex={method === id ? 0 : -1} onKeyDown={onTabKey} className={`rs-tab${method === id ? ' rs-tab--on' : ''}`} onClick={() => setMethod(id)}>
                   {m && hasKey(t, m.nameKey) ? t(m.nameKey) : id}
                 </button>
               );
@@ -148,16 +163,17 @@ export default function SampleSize() {
                   </div>
                   {example ? (
                     <div className="rs-soft rs-small">
-                      <p>{t('ws.ss.exampleFrom', { deck: example.deck })}</p>
-                      <p className="rs-mono">{example.formula}</p>
+                      <p>{t('ws.ss.exampleFrom', { deck: t(`ws.ss.deck.${example.deck}`) })}</p>
+                      <p>{t(`ws.ss.ex.${example.id}.formula`)}</p>
                       {unused.length ? <p>{t('ws.ss.unused', { names: unused.join(', ') })}</p> : null}
                     </div>
                   ) : null}
+                  {example?.explain ? <Notice tone="info" title={t('ws.ss.explainTitle')}>{t(`ws.ss.ex.${example.id}.explain`)}</Notice> : null}
                 </fieldset>
               ) : null}
               <div className="rs-formgrid">
                 {fields.map((k) => (
-                  <Field key={k} label={pick(t, `ws.ss.param.${keyPart(method)}.${keyPart(k)}`, `ws.ss.param.${keyPart(k)}`)} hint={pick(t, `ws.ss.hint.${keyPart(method)}.${keyPart(k)}`, `ws.ss.hint.${keyPart(k)}`) || undefined} htmlFor={`rs-ss-${k}`}>
+                  <Field key={k} label={fieldName(k)} hint={pick(t, `ws.ss.hint.${keyPart(method)}.${keyPart(k)}`, `ws.ss.hint.${keyPart(k)}`) || undefined} htmlFor={`rs-ss-${k}`}>
                     <input id={`rs-ss-${k}`} className="rs-input rs-num" inputMode="decimal" aria-invalid={parsed.bad.includes(k) || undefined} value={params[k] ?? ''} onChange={(e) => setParams((x) => ({ ...x, [k]: e.target.value }))} />
                   </Field>
                 ))}
@@ -168,6 +184,8 @@ export default function SampleSize() {
                 </Field>
               </div>
               {cat && !cat.shipped ? <Notice tone="info">{t('ws.analysis.notReadyBody')}</Notice> : null}
+              {parsed.bad.length ? <p className="rs-small rs-rose-text" role="status">{t('ws.ss.badFields', { names: parsed.bad.map(fieldName).join(', ') })}</p> : null}
+              {missing.length && !parsed.bad.length ? <p className="rs-soft rs-small" role="status">{t('ws.ss.needFields', { names: missing.map(fieldName).join(', ') })}</p> : null}
               <button type="button" className="rs-btn rs-btn--primary rs-btn--block" disabled={!engine || busy || !paramsOk || !cat?.shipped} onClick={run}>
                 <Icon name="calc" size={18} />
                 {t('ws.ss.run')}
@@ -177,8 +195,10 @@ export default function SampleSize() {
             <section className="rs-analysis-result" aria-live="polite" aria-busy={busy || undefined}>
               {busy ? <Busy label={t('ws.analysis.running')} /> : null}
               <ErrorBox error={error} />
-              {env ? (
-                <ResultView envelope={env} title={cat && hasKey(t, cat.nameKey) ? t(cat.nameKey) : method} paragraphs={false}>
+              {env && env.status === 'invalid' ? (
+                <Notice tone="stop" title={t('ws.ss.invalidTitle')}>{t('ws.ss.invalidBody', { names: (missing.length ? missing : Object.keys(parsed.params)).map(fieldName).join(', ') })}</Notice>
+              ) : env ? (
+                <ResultView envelope={env} title={cat && hasKey(t, cat.nameKey) ? t(cat.nameKey) : method} paragraphs={false} primaryName="n" headlineLabel={pick(t, `ws.ss.headline.${keyPart(method)}`, 'ws.ss.headline')}>
                   {alts.length ? (
                     <div className="rs-tablewrap">
                       <table className="rs-table rs-num">
@@ -187,7 +207,7 @@ export default function SampleSize() {
                         <tbody>
                           {alts.map((r) => (
                             <tr key={String(r.value)}>
-                              <th scope="row">{t(`ws.opt.${altName}.${keyPart(r.value)}`)}{r.isDefault ? <span className="rs-chip rs-chip--sage rs-chip--inline">{t('ws.ss.courseChip')}</span> : null}</th>
+                              <th scope="row">{t(`ws.opt.${altName}.${keyPart(r.value)}`)}{r.isDefault ? ' ' : null}{r.isDefault ? <span className="rs-chip rs-chip--sage rs-chip--inline">{t('ws.ss.courseChip')}</span> : null}</th>
                               <td className="rs-r">{r.v && r.v.value !== null ? formatNumber(r.v.value, { kind: 'statistic' }) : '—'}</td>
                             </tr>
                           ))}
@@ -196,7 +216,7 @@ export default function SampleSize() {
                       <p className="rs-soft rs-small">{t('ws.ss.altNote')}</p>
                     </div>
                   ) : null}
-                  {spec && example ? <p className="rs-soft rs-small">{t('ws.ss.courseAnswer', { answer: example.courseAnswer })}</p> : null}
+                  {spec && example ? <p className="rs-soft rs-small">{t('ws.ss.courseAnswer', { answer: t(`ws.ss.ex.${example.id}.answer`) })}</p> : null}
                 </ResultView>
               ) : !busy ? <p className="rs-soft">{t('ws.ss.empty')}</p> : null}
             </section>

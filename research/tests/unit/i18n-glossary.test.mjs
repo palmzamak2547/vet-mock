@@ -16,6 +16,8 @@ test('glossary-sourced terms match src/data/glossary.js', () => {
   const pv = thaiOf('predictive value');
   assert.ok(pv.startsWith(terms.th['term.ppv']), `${pv} vs ${terms.th['term.ppv']}`);
   assert.ok(pv.endsWith('ผลลบ') && terms.th['term.npv'].endsWith('ผลลบ'));
+  // Review round 2: one Thai term for p-value across VetMock.
+  assert.equal(terms.th['term.pValue'], thaiOf('p-value'));
 });
 
 test('fixed Studio wording', () => {

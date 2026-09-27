@@ -48,7 +48,8 @@ export function plottable(env, primary = null) {
  * @param {string|null} [methodId]
  */
 export function valueLabel(name, t, methodId = null) {
-  const keys = methodId ? [`ws.value.${keyPart(methodId)}.${name}`, `ws.value.${name}`] : [`ws.value.${name}`];
+  // The epi area names the values its methods return (epi.value.nPooled); used when the workspace has no own word.
+  const keys = methodId ? [`ws.value.${keyPart(methodId)}.${name}`, `ws.value.${name}`, `epi.value.${name}`] : [`ws.value.${name}`, `epi.value.${name}`];
   for (const key of keys) {
     const s = t(key);
     if (s !== `[${key}]`) return s;

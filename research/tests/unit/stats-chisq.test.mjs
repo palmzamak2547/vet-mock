@@ -28,7 +28,7 @@ test('chi-square and trend: R 4.6.0 pins (r/out/chisq.json), every case', () => 
     }
     n++;
   }
-  assert.equal(n, 8);
+  assert.equal(n, 9);
 });
 
 test('chi-square: SciPy cross-check', () => {

@@ -15,6 +15,13 @@ export default function Table1View({ envelope, labelOf, note, fileBase, onDownlo
   const { t } = useT();
   const { notify } = useWs();
   const { blocks, inconsistent } = table1Blocks(envelope, { t, fmt: FMT, labelOf });
+  // Rows with no value in the grouping column count in the total but in no group column; say how many
+  // (review round 2: 46 rows without a vaccination record were in neither column, with no line saying so).
+  const groupRows = (envelope?.tables || []).find((tb) => tb.id === 'table1.groups')?.rows || [];
+  const all = groupRows.find((r) => r[0] === 'all')?.[1] ?? null;
+  const inGroups = groupRows.filter((r) => r[0] !== 'all').reduce((sum, r) => sum + (r[1] || 0), 0);
+  const noGroup = all !== null && groupRows.length > 1 ? all - inGroups : 0;
+  const groupKey = envelope?.spec?.roles?.group || null;
   const captionOf = (b) => (b.unit === 'cluster' ? t('ws.table1.block.cluster') : t('ws.table1.block.unit', { unit: t(`ws.level.${b.unit}`) }));
 
   const copy = async (b) => {
@@ -62,6 +69,7 @@ export default function Table1View({ envelope, labelOf, note, fileBase, onDownlo
           </div>
         </div>
       ))}
+      {noGroup > 0 ? <p className="rs-soft rs-small">{t('ws.table1.noGroupRows', { n: noGroup, group: groupKey ? labelOf(groupKey) : '' })}</p> : null}
       <p className="rs-soft rs-small">{t('ws.table1.noTests')}</p>
     </div>
   );

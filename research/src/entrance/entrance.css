@@ -65,6 +65,11 @@
   cursor: pointer;
   pointer-events: auto;
 }
+/* On a phone the drop zone's list of file formats sits at the bottom; the button moves up, under the
+   workspace header, so it covers neither (review round 2). */
+@media (max-width: 719px) {
+  .rs-entrance-skip { top: calc(64px + env(safe-area-inset-top)); bottom: auto; right: 12px; }
+}
 
 /* ---------- first screen for a new student ---------- */
 .rs-welcome {

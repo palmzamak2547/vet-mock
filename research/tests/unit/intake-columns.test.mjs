@@ -184,3 +184,10 @@ test('PII: phone numbers that lost their leading 0 and English names in any case
   assert.equal(detectPii(['Holstein', 'Brahman'], 'Breed name'), null);
   assert.equal(maskValue('812345678', 'phone'), '81xxxxx78');
 });
+
+test('PII shapes: a bracketed area code and a bracketed nickname (review round 2)', () => {
+  assert.ok(isThaiPhone('(02) 345 6789'));
+  assert.ok(!isThaiPhone('(ไม่มี)'));
+  const d = detectPii(['สมชาย ใจดี (ต้น)', 'สมหญิง รักษ์ดี (แดง)', 'บุญมี ศรีสุข (หนุ่ม)', 'วิชัย ทองดี'], 'ชื่อเจ้าของ');
+  assert.equal(d?.kind, 'name');
+});

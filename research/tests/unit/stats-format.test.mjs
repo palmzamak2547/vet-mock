@@ -55,3 +55,11 @@ test('format: intervals in both languages, open bounds in words from the diction
   assert.equal(formatCi({ value: -2, ci: [-Infinity, 1], kind: 'difference' }, 'en'), `-2 (${dict.en['stats.format.noLower']} to 1)`);
   for (const lang of ['th', 'en']) for (const k of ['stats.format.to', 'stats.format.noUpper', 'stats.format.noLower']) assert.ok(dict[lang][k], `${lang} ${k}`);
 });
+
+test('format: a share that is not 0 or 1 never prints as 0% or 100% (review round 2)', () => {
+  assert.equal(formatNumber(0.9996, { kind: 'proportion' }), '99.96%');
+  assert.equal(formatNumber(0.99996, { kind: 'proportion' }), '> 99.99%');
+  assert.equal(formatNumber(1, { kind: 'proportion' }), '100.0%');
+  assert.equal(formatNumber(0.00004, { kind: 'proportion' }), '< 0.01%');
+  assert.equal(formatNumber(0.2005, { kind: 'proportion' }), '20.1%');
+});

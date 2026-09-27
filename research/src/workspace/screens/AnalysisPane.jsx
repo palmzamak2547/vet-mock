@@ -4,6 +4,7 @@
 // chosen, the engine stops (G1) and this screen shows ICC, DEFF and effective n with the routes, before
 // any comparison; the chosen route is re-run and written into the methods paragraph. OWNER: workspace role.
 import { useEffect, useMemo, useState } from 'react';
+import { formatNumber } from '../../lib/stats/format.js';
 import { useT } from '../../i18n/index.js';
 import { DESIGNS } from '../../lib/epi/design.js';
 import { clusterPanel } from '../../lib/epi/guardrails.js';
@@ -23,6 +24,13 @@ import { primaryValueName, valueCells } from '../lib/result-model.js';
 import { valueKind } from '../lib/method-ui.js';
 
 const hasKey = (t, k) => t(k) !== `[${k}]`;
+
+/**
+ * A single prevalence has no p-value, so G1 has nothing to hold back: when the data have a farm
+ * column the screen shows the farm-adjusted prevalence straight away through the design effect, as
+ * the Prevalence board does, and the route stays switchable (review round 2). Comparisons still stop.
+ */
+const PREV_DEFAULT_DEFF = new Set(['freq.proportion', 'freq.truePrevalence']);
 
 function methodFromQuery() {
   try { return new URLSearchParams(window.location.search).get('m'); } catch { return null; }
@@ -82,6 +90,7 @@ export default function AnalysisPane({ p, pane }) {
   const [error, setError] = useState(null);
   const [busy, setBusy] = useState(false);
   const [compare, setCompare] = useState([]);
+  const [independent, setIndependent] = useState(null);
   const cluster = codebook.columns.find((c) => c.key === codebook.clusterKey) || null;
 
   useEffect(() => {
@@ -98,6 +107,7 @@ export default function AnalysisPane({ p, pane }) {
     setSpec(null);
     setError(null);
     setCompare([]);
+    setIndependent(null);
   }, [method, codebook]);
 
   const levelsFor = (key) => {
@@ -137,11 +147,22 @@ export default function AnalysisPane({ p, pane }) {
     setBusy(true);
     setError(null);
     setCompare([]);
+    setIndependent(null);
     try {
       const s = makeSpec(route);
       const e = await engine.run(s, p.table, codebook, steps);
       setSpec(s);
       setEnv(e);
+      // Beside a farm-adjusted prevalence, the same count read as if every animal were independent:
+      // the engine's Wald interval on x of n, so the plot shows how much the farms widen it.
+      if (route === 'deff' && method === 'freq.proportion' && e?.status === 'ok' && e.values?.x && e.values?.n) {
+        const ind = await engine.run({
+          specVersion: 1, method: 'freq.proportion', input: { kind: 'counts', counts: { x: e.values.x.value, n: e.values.n.value } },
+          design: p.project.design || null, roles: {}, levels: {}, options: { ...COMMON_OPTIONS, ciMethod: 'wald', confLevel: s.options.confLevel },
+          cluster: { route: null, column: null },
+        }, null, null).catch(() => null);
+        if (ind?.status === 'ok') setIndependent(ind);
+      }
       await p.log('analysis', { method, route: route || null, status: e?.status });
     } catch (err) {
       setError(errorInfo(err));
@@ -199,13 +220,32 @@ export default function AnalysisPane({ p, pane }) {
   }
 
   const title = cat && hasKey(t, cat.nameKey) ? t(cat.nameKey) : method;
-  const extraRows = compare.map((c) => {
+  const indRow = (() => {
+    const v = independent?.values?.prevalence;
+    if (!v || !env || spec?.cluster?.route !== 'deff') return null;
+    const cells = valueCells({ ...v, name: 'prevalence', kind: 'proportion' }, FMT, lang, t);
+    return { label: t('ws.prev.independentRow'), est: v.value, lo: v.ci?.[0] ?? null, hi: v.ci?.[1] ?? null, muted: true, estText: cells.est, ciText: cells.ci };
+  })();
+  const deffShown = env?.status === 'ok' && spec?.cluster?.route === 'deff' && method === 'freq.proportion';
+  const why = (() => {
+    if (!deffShown || !indRow) return null;
+    const v = env.values || {};
+    const main = v.prevalence;
+    if (!v.icc || !v.meanSize || !v.deff || !v.nEff || !main?.ci || indRow.lo === null) return null;
+    const pts = (a, b) => formatNumber((b - a) * 100, { kind: 'statistic', digits: 1 });
+    return {
+      idea: t('ws.prev.why.idea', { n: formatNumber(v.n?.value, { kind: 'count' }) }),
+      data: t('ws.prev.why.data', { icc: formatNumber(v.icc.value, { kind: 'statistic', digits: 4 }), m: formatNumber(v.meanSize.value, { kind: 'statistic', digits: 2 }), deff: formatNumber(v.deff.value, { kind: 'statistic', digits: 2 }), nEff: formatNumber(Math.round(v.nEff.value), { kind: 'count' }) }),
+      result: t('ws.prev.why.result', { from: pts(indRow.lo, indRow.hi), to: pts(main.ci[0], main.ci[1]), p: formatNumber(main.value, { kind: 'proportion' }) }),
+    };
+  })();
+  const extraRows = [indRow, ...compare.map((c) => {
     const k = primaryValueName(c.env, designRow);
     const v = k ? c.env.values?.[k] : null;
     if (!v) return null;
     const cells = valueCells({ ...v, name: k, kind: valueKind(k) }, FMT, lang, t);
     return { label: t(`ws.route.${keyPart(c.route)}.short`), est: v.value, lo: v.ci?.[0] ?? null, hi: v.ci?.[1] ?? null, muted: true, estText: cells.est, ciText: cells.ci };
-  }).filter(Boolean);
+  })].filter(Boolean);
 
   return (
     <>
@@ -320,7 +360,7 @@ export default function AnalysisPane({ p, pane }) {
               {cat && !cat.shipped ? <Notice tone="info">{t('ws.analysis.notReadyBody')}</Notice> : null}
               {gaps.length ? <p className="rs-soft rs-small">{t('ws.analysis.stillNeeds', { what: gaps.map((g) => t(hasKey(t, `ws.role.${g}`) ? `ws.role.${g}` : `ws.level.pick.${g}`)).join(', ') })}</p> : null}
               {cluster && !ui?.needsCluster && ui?.input === 'dataset' ? <p className="rs-soft rs-small">{t('ws.analysis.clusterAhead', { column: cluster.name })}</p> : null}
-              <button type="button" className="rs-btn rs-btn--primary rs-btn--block" disabled={!canRun} onClick={() => run(null)}>
+              <button type="button" className="rs-btn rs-btn--primary rs-btn--block" disabled={!canRun} onClick={() => run(pane === 'prev' && cluster && PREV_DEFAULT_DEFF.has(method) ? 'deff' : null)}>
                 <Icon name="play" size={18} />
                 {t('ws.analysis.run')}
               </button>
@@ -332,6 +372,16 @@ export default function AnalysisPane({ p, pane }) {
           {busy ? <Busy label={t('ws.analysis.running')} /> : null}
           <ErrorBox error={error} />
           {herd.length ? <Herd groups={herd} clusterName={cluster?.name || ''} /> : null}
+          {why ? (
+            <section className="rs-panel rs-pad" aria-labelledby="rs-h-why">
+              <h3 id="rs-h-why" className="rs-h3">{t('ws.prev.why.title')}</h3>
+              <dl className="rs-why">
+                <div><dt>{t('ws.prev.why.ideaLabel')}</dt><dd>{why.idea}</dd></div>
+                <div><dt>{t('ws.prev.why.dataLabel')}</dt><dd className="rs-num">{why.data}</dd></div>
+                <div><dt>{t('ws.prev.why.resultLabel')}</dt><dd className="rs-num">{why.result}</dd></div>
+              </dl>
+            </section>
+          ) : null}
           {clusterStop ? (
             <G1Panel panel={panel} stops={env.guard.stops} onChoose={(r) => run(r)} busy={busy} columnName={cluster?.name || ''} single={String(method || '').startsWith('freq.')} />
           ) : null}
@@ -341,6 +391,8 @@ export default function AnalysisPane({ p, pane }) {
               title={title}
               designRow={designRow}
               extraRows={extraRows}
+              headlineLabel={deffShown ? t('ws.prev.adjustedHeadline') : undefined}
+              primaryPlotLabel={deffShown ? t('ws.prev.adjustedRow') : undefined}
               labelOf={labelOf}
               codebook={codebook}
               onSnapshot={env.status === 'ok' ? () => p.saveSnapshot(spec, env) : null}

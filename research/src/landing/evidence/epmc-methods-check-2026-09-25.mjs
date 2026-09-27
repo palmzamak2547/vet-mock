@@ -21,6 +21,13 @@ const T = {
   sesp: '("sensitivity" AND "specificity")',
   samplesize: '("sample size")',
   spss: '("SPSS")',
+  // Added 2026-09-28 (review round 2): these terms reproduce the 25 Sep counts of the families whose
+  // terms were not saved that day (checked 28 Sep: 38, 28, 16, 9, 1 with 698 full texts).
+  correlation: '("Pearson" OR "Spearman")',
+  linear: '("linear regression")',
+  oddsRatio: '("odds ratio")',
+  riskRatio: '("risk ratio" OR "relative risk")',
+  truePrevalence: '("true prevalence" OR "Rogan-Gladen" OR "Rogan and Gladen")',
 };
 async function count(q) {
   const u = `${API}?${new URLSearchParams({ query: q, format: 'json', pageSize: '1', resultType: 'lite' })}`;

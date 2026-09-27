@@ -51,14 +51,16 @@ export function isThaiPhoneWithoutZero(value) {
  */
 export function isThaiPhone(value) {
   const s = thaiDigitsToArabic(String(value).trim());
-  if (!/^[+\d][\d\s().-]*$/.test(s)) return false;
+  // A landline written with its area code in brackets, '(02) 345 6789', starts with '(' (review round 2).
+  if (!/^[+\d(][\d\s().-]*$/.test(s)) return false;
   const d = s.replace(/\D/g, '');
   if (/^0\d{8,9}$/.test(d)) return true;
   return /^66\d{8,9}$/.test(d) && (s.startsWith('+66') || s.startsWith('66'));
 }
 
 function looksLikeName(v) {
-  const s = v.replace(TITLES, '').trim();
+  // A nickname in brackets after the name, 'สมชาย ใจดี (ต้น)', is part of a name, not a reason to miss it.
+  const s = v.replace(TITLES, '').replace(/\s*\([^()]{1,20}\)\s*$/, '').trim();
   if (!s) return false;
   const words = s.split(' ');
   if (words.length < 1 || words.length > 4) return false;

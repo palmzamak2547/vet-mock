@@ -109,10 +109,13 @@ export function layoutValues(t, v, reduce, widen) {
       z = d * v.pp[2];
       // The panel being read stays fully opaque until it is well on its way out: at 0.96 the panels
       // behind it showed through its cells (review round 1).
-      op = Math.max(0, 1 + Math.min(0, d + 0.3) * v.fade);
+      // Once it starts to go it goes quickly, so two tables never interleave (review round 2: 0.79 over
+      // the next panel at 1600 px): below 0.35 by d = -0.43 on the desktop.
+      op = Math.max(0, 1 + Math.min(0, d + 0.3) * v.fade * 2);
     }
     put(`p${i}`, Math.max(0, op) * vis, `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, ${z.toFixed(1)}px)`);
-    put(`c${i}`, Math.max(0, 1 - Math.abs(a - i) * 1.8) * vis, `translateY(${((i - a) * v.capShift * m).toFixed(1)}px)`);
+    // Captions cross over a shorter window (review round 2: two headings double-exposed for ~100 px).
+    put(`c${i}`, Math.max(0, 1 - Math.abs(a - i) * 2.6) * vis, `translateY(${((i - a) * v.capShift * m).toFixed(1)}px)`);
   }
 
   const foldIn = S(0.46, 0.53, t);
@@ -130,11 +133,11 @@ export function layoutValues(t, v, reduce, widen) {
   put('rcap', resIn * (1 - resOut), `translateY(${((1 - resIn) * v.capRise * m).toFixed(1)}px)`);
   // 2D slide: a rotateY settling to 0 re-rasterised the card (49 ms in the traces).
   put('rcard', resIn * (1 - resOut), v.wide ? `translateX(${(settle * 60).toFixed(1)}px)` : `translateY(${(settle * 30).toFixed(1)}px)`);
-  // The source line is revealed by a counter-translated wipe (two compositor-only transforms), not an
-  // animated clip-path, which repaints every frame.
-  const wipe = ((1 - S(0.75, 0.81, t)) * 100).toFixed(1);
-  out.provWin = { transform: `translateX(-${wipe}%)` };
-  out.prov = { transform: `translateX(${wipe}%)` };
+  // The source line fades in at its full width (review round 2: the counter-translated wipe showed a
+  // narrow sliver with its Thai text cut off for about 400 px of scroll). Opacity only, no clip-path.
+  const reveal = S(0.75, 0.81, t);
+  put('provWin', reveal, `translateY(${((1 - reveal) * 8 * m).toFixed(1)}px)`);
+  out.prov = { transform: 'translateX(0)' };
 
   const dev = S(0.85, 0.91, t);
   put('dcap', dev, `translateY(${((1 - dev) * v.capRise * m).toFixed(1)}px)`);
@@ -151,11 +154,14 @@ export function scene(t) {
   // at 0.97, while dcap rises from 0.85.
   const resultIn = smooth(0.66, 0.71, t) * (1 - smooth(0.84, 0.9, t));
   const crossing = smooth(0.82, 0.86, t) * (1 - smooth(0.93, 0.975, t));
+  // While the scattered animals travel into their farms they cross the DEFF card as it slides in
+  // (review round 2): dimmed on the way, full strength once they have settled into the rings.
+  const transit = smooth(0.44, 0.47, t) * (1 - smooth(0.55, 0.58, t));
   return {
     fold: smooth(0.44, 0.58, t),
     grid: smooth(0.86, 0.97, t),
     halo: 1 - smooth(0.03, 0.1, t),
-    dim: ((1 - 0.72 * panelsIn) * (1 - 0.6 * resultIn) * (1 - 0.8 * crossing)) ** 2,
+    dim: ((1 - 0.72 * panelsIn) * (1 - 0.6 * resultIn) * (1 - 0.8 * crossing) * (1 - 0.55 * transit)) ** 2,
     posMix: 0.35 + 0.65 * smooth(0.46, 0.56, t),
     ringAlpha: 0.55 * smooth(0.5, 0.62, t) * (1 - smooth(0.79, 0.84, t)) * (1 - 0.9 * resultIn),
   };
