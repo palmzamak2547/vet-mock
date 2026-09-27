@@ -16,3 +16,8 @@ matching includes co-authored papers. Keyword counts are a usage signal, not a c
 The landing prints the base query, the 698, the date of each file, and links to these files and the
 script. Bars are drawn to scale from these numbers; each bar's status (in the Studio now, coming in
 M2 or M3) is read from src/lib/runtime/catalog.js, never typed into the page.
+
+The chapter reads one joined table, `research/src/data/cuvet-methods.json` (query, denominator, both
+check dates, links, and one count per catalogue family with the file and key it came from). It is written
+by `build-cuvet-methods.mjs` in this folder; `tests/unit/landing-chart.test.mjs` fails when it differs
+from these files.

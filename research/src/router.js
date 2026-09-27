@@ -61,3 +61,18 @@ export function useRoute() {
   }, []);
   return route;
 }
+
+/**
+ * Click handler for an in-app <a href>: plain left clicks navigate without a reload; modified clicks
+ * (new tab, new window) keep the browser's own behaviour.
+ * @param {string} path
+ * @param {{ replace?: boolean }} [opts]
+ * @returns {(e: MouseEvent) => void}
+ */
+export function linkHandler(path, opts = {}) {
+  return (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    navigate(path, opts);
+  };
+}

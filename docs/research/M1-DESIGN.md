@@ -249,9 +249,10 @@ rparity may add SiRstv and SmLs01 with certified values (engine.md 6.1) and a no
 0.06, 0.06, 0.02 and Bonferroni 0.04, 0.16, 0.12, 0.02 (closed form; R `p.adjust` via rparity).
 
 ### 7.9 Rank tests (`stats/rank.js`)
-`test.mannWhitney` (options `exact` auto/exact/normal, `continuityCorrection` true), R's rule: exact
-when both n < 50 and no ties; W = rank sum of x minus n1(n1 + 1)/2. `test.wilcoxonSignedRank`: exact
-when n < 50 with no ties and no zeros; zeros dropped; V = sum of positive ranks. `test.kruskalWallis`:
+`test.mannWhitney` (options `exact` auto/exact/normal, `continuityCorrection` true), R 4.6.0's rule
+(the version the fixtures pin): exact when both n < 50, using the exact conditional distribution
+even with ties; W = rank sum of x minus n1(n1 + 1)/2. `test.wilcoxonSignedRank`: exact when n < 50,
+also with ties or zeros (R 4.6.0's conditional distribution); V = sum of positive ranks. `test.kruskalWallis`:
 tie-corrected H. Fixtures (SciPy; R `wilcox.test`, `kruskal.test` via rparity):
 - Mann-Whitney exact, `two`: W 1, p 9.141185611773847e-05.
 - Mann-Whitney normal with ties and continuity, A vs B of `three`: W 0.5, p 0.010411098147110422.
@@ -288,9 +289,10 @@ scores `rank` = 1..k or typed). Fixtures:
 Two-sided p sums tables with probability <= the observed times (1 + 1e-7) (R); conditional MLE odds
 ratio and exact interval by uniroot (7.2). Fixtures:
 - [[3, 1], [1, 3]]: p two-sided 0.48571428571428565 (= 34/70), p greater 0.24285714285714283
-  (= 17/70, closed form); conditional MLE 6.4083 and CI 0.2117 to 626.24 (SciPy 6.408319658199663,
-  0.21173559544657844, 626.2435305888141; R's values from rparity are the pin, they differ from SciPy
-  in the sixth digit because each stops its root search at its own tolerance).
+  (= 17/70, closed form); conditional MLE 6.4083 and CI 0.2117 to 621.93 (R's `fisher.test`, the pin;
+  SciPy gives 6.408319658199663, 0.21173559544657844, 626.2435305888141: the upper bound differs
+  because each stops its root search at its own tolerance, and the test compares with R within
+  R's uniroot tolerance).
 - [[7, 0], [2, 5]]: p two-sided 0.02097902097902098; MLE Infinity; CI 1.4494783668421345 to Infinity.
 - Serosurvey 2x2: p two-sided 4.2061169585133306e-05; MLE 2.46402572083957; CI 1.548581946222003 to
   4.033498510763611.
@@ -436,7 +438,7 @@ in `seq` order. Row ids: `r1`..`rN` in source order; typed rows `n1`, `n2`.
 
 | Kind | Params | Notes |
 |---|---|---|
-| `import-conversions` | `{ encoding, perColumn: { [key]: { thaiDigits, trim, nfc, invisible, dates: { order, era, twoDigitCentury, excelSystem } | null, missingCodes: [{code, reason}] } } }` | written by the confirm button |
+| `import-conversions` | `{ encoding, perColumn: { [key]: { thaiDigits, trim, nfc, invisible, dates: { order, era, twoDigitCentury, excelSystem } | null, missingCodes: [{code, reason}], cellFixes: [{ rowId, from, to, why }] } } }` | written by the confirm button; `cellFixes` carries accepted ID fixes (IDs Excel turned into dates or stripped of leading zeros) |
 | `set-type` | `{ column, type }` | |
 | `missing-code` | `{ column, code, reason }` | |
 | `cell-edit` | `{ rowId, column, from, to }` | D4(a); `from` must equal the current value or the step is rejected |
@@ -627,7 +629,9 @@ network-first with the cached `index.html` as the offline fallback; `/assets/*` 
 cache-first; POST, other origins (Supabase included) and IndexedDB never touched. No `skipWaiting`
 from the page and no reload of an open page: a new version takes over on the next visit. The plugin
 replaces `self.__RS_PRECACHE__` and `self.__RS_SW_VERSION__` (sha-256 of the sorted list plus the
-template, first 12 hex) and fails the build if either placeholder survives. Registered after first paint,
+template, first 12 hex) and fails the build if either placeholder survives. `index.html`, the manifest and
+the install icons are listed by name, because Vite's HTML plugin can emit `index.html` after this plugin
+runs and `public/` never enters the bundle (without them the offline reload of `/app` failed). Registered after first paint,
 only on https or localhost. E2E: `research-offline.spec.js` (visit, go offline, reload `/app`, open a
 project, run an analysis).
 
@@ -745,7 +749,8 @@ architect (this commit; handed over as shown): `research/package.json` and `pack
 | stats | `research/src/lib/stats/*`, `research/src/i18n/stats.js`, `research/tests/unit/stats-*.test.mjs` |
 | epi | `research/src/lib/epi/*`, `research/src/i18n/epi.js`, `research/tests/fixtures/course/*`, `research/tests/unit/epi-*.test.mjs` |
 | workspace | `research/src/App.jsx`, `research/src/router.js`, `research/src/workspace/**`, `research/src/styles/tokens.css`, `research/src/styles/base.css`, `research/src/styles/workspace.css`, `research/src/i18n/{common,terms,workspace,report}.js`, `research/tests/unit/{router,i18n-glossary,report-*,workspace-*}.test.mjs`, `research/tests/e2e/research-workspace-*.spec.js` |
-| landing | `research/src/landing/**` (including `evidence/`), `research/src/entrance/**`, `research/src/styles/landing.css`, `research/src/i18n/{landing,entrance}.js`, `research/public/icons/*`, `research/tests/unit/landing-*.test.mjs`, `research/tests/e2e/research-landing-*.spec.js` |
+| landing | `research/src/landing/**` (including `evidence/`), `research/src/entrance/**`, `research/src/styles/landing.css`, `research/src/i18n/{landing,entrance}.js`, `research/public/icons/*`, `research/src/data/*` (generated evidence tables, e.g. `cuvet-methods.json` from `landing/evidence/build-cuvet-methods.mjs`), `research/tests/unit/landing-*.test.mjs`, `research/tests/e2e/research-landing-*.spec.js` |
+| integrator | `research/tests/e2e/research-journey.spec.js` (the whole student journey on four browsers); cross-role fixes are recorded in `work/loop-2026-09-26/research-m1/integrator.md` |
 | rparity | `research/tests/fixtures/r/**`, `research/tests/fixtures/crosscheck/**`, `research/tests/fixtures/published/**`, `research/scripts/r-parity/**`, `.github/workflows/research-r-parity.yml`, `research/tests/unit/rparity-*.test.mjs` |
 
 Cross-role imports follow the direction runtime <- stats, epi, intake (pure libraries import only

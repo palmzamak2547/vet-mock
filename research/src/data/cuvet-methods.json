@@ -1,0 +1,289 @@
+{
+ "source": "Europe PMC",
+ "api": "https://www.ebi.ac.uk/europepmc/webservices/rest/search",
+ "query": "AFF:\"Faculty of Veterinary Science, Chulalongkorn University\" AND PUB_YEAR:[2021 TO 2026]",
+ "denominator": 698,
+ "denominatorMeans": "papers matching the query that have full text in Europe PMC (query AND HAS_FT:Y)",
+ "counted": "papers whose METHODS section matches the family terms; a paper can count in several families; a keyword count is a usage signal, not a census",
+ "checked": [
+  {
+   "file": "epmc-methods-2026-09-25.json",
+   "date": "2026-09-25",
+   "url": "https://github.com/palmzamak2547/vet-mock/blob/main/research/src/landing/evidence/epmc-methods-2026-09-25.json"
+  },
+  {
+   "file": "epmc-methods-2026-09-27.json",
+   "date": "2026-09-27",
+   "url": "https://github.com/palmzamak2547/vet-mock/blob/main/research/src/landing/evidence/epmc-methods-2026-09-27.json"
+  }
+ ],
+ "script": "https://github.com/palmzamak2547/vet-mock/blob/main/research/src/landing/evidence/epmc-methods-2026-09-27.py",
+ "families": [
+  {
+   "id": "anova",
+   "count": 220,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.ANOVA",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "randomisation",
+   "count": 113,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.randomization / blinding",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "ttest",
+   "count": 104,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.t-test",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "rankTwo",
+   "count": 102,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.Mann-Whitney/Wilcoxon",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "chisq",
+   "count": 92,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.chi-square",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "normality",
+   "count": 91,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.Shapiro-Wilk",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "kruskal",
+   "count": 82,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.Kruskal-Wallis",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "sampleSize",
+   "count": 71,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.sample size calculation",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "posthoc",
+   "count": 60,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.post hoc (Tukey/Bonferroni/Dunn)",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "mixed",
+   "count": 52,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.mixed/random effects",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "logistic",
+   "count": 49,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.logistic regression",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "sesp",
+   "count": 45,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.sensitivity AND specificity",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "standardCurve",
+   "count": 44,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.standard curve / 4PL",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "multivariate",
+   "count": 40,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.PCA / cluster / heatmap",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "correlation",
+   "count": 38,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.correlation (Pearson/Spearman)",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "anova2",
+   "count": 37,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.two-way ANOVA",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "roc",
+   "count": 35,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.ROC",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "linear",
+   "count": 28,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.linear regression",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "qpcr",
+   "count": 27,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.qPCR 2-ddCt",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "kappa",
+   "count": 26,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.kappa",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "survival",
+   "count": 23,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.survival (KM/log-rank/Cox)",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "questionnaire",
+   "count": 21,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.questionnaire / Cronbach",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "fisher",
+   "count": 16,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.Fisher's exact",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "oddsRatio",
+   "count": 16,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.odds ratio",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "spatial",
+   "count": 16,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.map / GIS / spatial",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "doseResponse",
+   "count": 14,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.nonlinear/dose-response IC50 EC50",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "counts",
+   "count": 13,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.Poisson/negative binomial",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "anovaRm",
+   "count": 12,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.repeated-measures ANOVA",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "riskRatio",
+   "count": 9,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.risk ratio/relative risk",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "pk",
+   "count": 7,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.noncompartmental PK",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "meta",
+   "count": 6,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.meta-analysis",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "friedman",
+   "count": 5,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.Friedman",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "blandAltman",
+   "count": 4,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.Bland-Altman",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "clustering",
+   "count": 4,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.intraclass/ICC or design effect",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "dunnett",
+   "count": 2,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.Dunnett",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "gee",
+   "count": 1,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.GEE",
+   "checked": "2026-09-25"
+  },
+  {
+   "id": "methodComparison",
+   "count": 1,
+   "file": "epmc-methods-2026-09-27.json",
+   "path": "methods.Passing-Bablok / Deming",
+   "checked": "2026-09-27"
+  },
+  {
+   "id": "truePrevalence",
+   "count": 1,
+   "file": "epmc-methods-2026-09-25.json",
+   "path": "cuvet.true prevalence (Rogan-Gladen)",
+   "checked": "2026-09-25"
+  }
+ ]
+}

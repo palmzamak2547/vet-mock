@@ -8,6 +8,7 @@
 const PRECACHE = self.__RS_PRECACHE__;
 const VERSION = self.__RS_SW_VERSION__;
 const CACHE = `rs-static-${VERSION}`;
+const SHELL = '/index.html';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(PRECACHE)));
@@ -19,11 +20,39 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// A navigation goes to the network first (so a new deploy is seen), with the cached shell when the
+// network fails. The shell is refreshed from successful navigations only when it is the SPA page.
+async function navigation(request) {
+  const cache = await caches.open(CACHE);
+  try {
+    const response = await fetch(request);
+    return response;
+  } catch {
+    const shell = await cache.match(SHELL);
+    return shell || Response.error();
+  }
+}
+
+// Hashed assets and fonts never change under the same URL: cache first, network to fill a miss.
+async function cacheFirst(request) {
+  const cache = await caches.open(CACHE);
+  const hit = await cache.match(request);
+  if (hit) return hit;
+  const response = await fetch(request);
+  if (response.ok && response.type === 'basic') cache.put(request, response.clone());
+  return response;
+}
+
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
-  // Implemented by the runtime role: navigations network-first with the cached /index.html as the
-  // offline fallback; /assets/* and /fonts/* cache-first; everything else passes through.
+  if (request.mode === 'navigate') {
+    event.respondWith(navigation(request));
+    return;
+  }
+  if (url.pathname.startsWith('/assets/') || url.pathname.startsWith('/fonts/') || url.pathname.startsWith('/icons/') || url.pathname === '/manifest.webmanifest') {
+    event.respondWith(cacheFirst(request));
+  }
 });

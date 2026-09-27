@@ -1,0 +1,250 @@
+/* The workspace entrance and the new-user first screen [M1-DESIGN.md 16]. Transform and opacity
+   only; the overlay takes no pointer input except its skip button. OWNER: landing role. */
+
+.rs-entrance {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+}
+.rs-entrance-veil {
+  position: absolute;
+  inset: 0;
+  background: var(--rs-bg);
+  will-change: opacity;
+}
+.rs-entrance-crossfade .rs-entrance-veil {
+  transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rs-entrance-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.rs-entrance-text {
+  position: absolute;
+  left: 50%;
+  top: 22%;
+  width: min(640px, calc(100vw - 32px));
+  margin-left: calc(min(640px, calc(100vw - 32px)) / -2);
+  text-align: center;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.rs-entrance-eyebrow {
+  margin: 0;
+  font-family: var(--rs-mono), var(--rs-font);
+  font-size: 13px;
+  color: var(--rs-gold-text);
+}
+.rs-entrance-title {
+  margin: 12px 0 0;
+  font-size: clamp(28px, 4.5vw, 48px);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.rs-entrance-sub {
+  margin: 10px 0 0;
+  font-size: 17px;
+  color: var(--rs-ink-soft);
+}
+.rs-entrance-skip {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 12px;
+  border: 1px solid var(--rs-line);
+  background: var(--rs-surface);
+  color: var(--rs-ink);
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* ---------- first screen for a new student ---------- */
+.rs-welcome {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 56px;
+}
+.rs-welcome-eyebrow {
+  margin: 0;
+  font-family: var(--rs-mono), var(--rs-font);
+  font-size: 13px;
+  color: var(--rs-gold-text);
+}
+.rs-welcome-title {
+  margin: 10px 0 0;
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+.rs-welcome-lead {
+  margin: 12px 0 0;
+  max-width: 680px;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--rs-ink-soft);
+}
+.rs-welcome-steps {
+  list-style: none;
+  margin: 26px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.rs-welcome-steps li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--rs-line);
+  background: var(--rs-surface);
+  font-size: 15px;
+}
+.rs-welcome-step-n {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--rs-surface-2);
+  font-weight: 700;
+  font-size: 14px;
+}
+.rs-welcome-step-body {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--rs-ink-soft);
+}
+.rs-welcome-drop {
+  margin-top: 22px;
+  border: 1.5px dashed var(--rs-sage-soft);
+  border-radius: 14px;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  background: var(--rs-bg);
+  transition: background-color var(--rs-dur), border-color var(--rs-dur);
+}
+.rs-welcome-drop-over {
+  border-color: var(--rs-sage);
+  background: color-mix(in srgb, var(--rs-sage) 10%, var(--rs-bg));
+}
+.rs-welcome-drop-icon {
+  color: var(--rs-sage-text);
+}
+.rs-welcome-drop-title {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+}
+.rs-welcome-drop-sub,
+.rs-welcome-drop-note {
+  margin: 0;
+  font-size: 14px;
+  color: var(--rs-ink-soft);
+}
+.rs-welcome-btn {
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.rs-welcome-btn-primary {
+  background: var(--rs-sage);
+  color: var(--rs-on-sage);
+}
+.rs-welcome-btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+.rs-welcome-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+}
+.rs-welcome-card {
+  padding: 18px 20px;
+  border-radius: 16px;
+  border: 1px solid var(--rs-line);
+  background: var(--rs-surface);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.rs-welcome-card-link {
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
+  color: var(--rs-ink);
+  text-decoration: none;
+  min-height: 44px;
+}
+.rs-welcome-card-icon,
+.rs-welcome-card-go {
+  color: var(--rs-sage-text);
+  flex-shrink: 0;
+}
+.rs-welcome-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  color: var(--rs-ink-soft);
+}
+.rs-welcome-card-text strong {
+  font-size: 16px;
+  color: var(--rs-ink);
+}
+.rs-welcome-card-h {
+  margin: 0;
+  font-size: 17px;
+}
+.rs-welcome-fact {
+  margin: 0;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 14.5px;
+}
+.rs-welcome-fact svg {
+  color: var(--rs-sage-text);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+@media (max-width: 900px) {
+  .rs-welcome {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 20px 16px 40px;
+  }
+  .rs-welcome-steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rs-welcome-drop {
+    transition: none;
+  }
+}

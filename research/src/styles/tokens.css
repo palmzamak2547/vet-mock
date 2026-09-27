@@ -24,6 +24,10 @@
   --rs-rose-soft: #e8b8b8;
   --rs-rose-text: #93454b;
   --rs-dot-neg: #928671;
+  --rs-sage-tint: #e8e7db;
+  --rs-gold-tint: #f3e9d7;
+  --rs-rose-tint: #f5e6de;
+  --rs-scrim: rgba(43, 36, 25, 0.42);
   --rs-nav-bg: rgba(246, 239, 228, 0.9);
   --rs-shadow: 0 18px 40px rgba(43, 36, 25, 0.16);
   /* WebGL colours as 0..1 triples for the herd shader (story.js RS_GL.paper) */
@@ -51,6 +55,10 @@
   --rs-rose-soft: #8b4f4f;
   --rs-rose-text: #edaaaa;
   --rs-dot-neg: #857865;
+  --rs-sage-tint: #353526;
+  --rs-gold-tint: #433622;
+  --rs-rose-tint: #3e3026;
+  --rs-scrim: rgba(0, 0, 0, 0.58);
   --rs-nav-bg: rgba(26, 22, 18, 0.88);
   --rs-shadow: 0 24px 48px rgba(0, 0, 0, 0.42);
   --rs-gl-pos: 0.831 0.647 0.337;
