@@ -167,3 +167,15 @@ test('result guards: G8 for p above 0.05, G12 for strata that disagree', () => {
   // A null p (an undefined test) raises nothing.
   assert.deepEqual(resultGuards({}, { status: 'ok', tests: [{ id: 'cmh', p: null }] }).warnings, []);
 });
+
+test('G5 warns on McNemar chi-square with few discordant pairs (review round 1)', () => {
+  const s = (options) => spec('test.mcnemar', { kind: 'counts', counts: { table: [[30, 3], [1, 50]] } }, { options });
+  const w = evaluateGuards(s({}), null, null).warnings;
+  const g = w.find((f) => f.id === 'G5');
+  assert.ok(g, 'G5 raised for b + c = 4');
+  assert.equal(g.params.discordant, 4);
+  assert.equal(g.bodyKey, 'epi.guard.G5.mcnemarBody');
+  assert.equal(evaluateGuards(s({ exact: true }), null, null).warnings.some((f) => f.id === 'G5'), false);
+  const many = spec('test.mcnemar', { kind: 'counts', counts: { table: [[30, 20], [10, 50]] } });
+  assert.equal(evaluateGuards(many, null, null).warnings.some((f) => f.id === 'G5'), false);
+});

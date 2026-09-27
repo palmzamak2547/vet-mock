@@ -186,3 +186,10 @@ test('related-question counts come from the build-time index', async () => {
   const live = new Set(GLOSSARY.map(entryKey));
   for (const k of keys) assert.ok(live.has(k), `${k} in the index has no entry`);
 });
+
+test('kappa casein in milk hygiene never opens the agreement card (Research Studio review round 1)', () => {
+  assert.deepEqual(termsOf('โปรตีนนมเป็น alpha, beta, gamma และ kappa casein', 'milk-meat-hygiene'), []);
+  assert.deepEqual(termsOf('ย่อย kappa-casein', 'milk-meat-hygiene'), []);
+  assert.equal(resolveGlossaryEntry('kappa', 'milk-meat-hygiene'), null);
+  assert.ok(resolveGlossaryEntry('kappa', 'epidemiology'), 'the agreement card still opens in epidemiology');
+});

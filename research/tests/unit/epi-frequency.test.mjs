@@ -122,3 +122,19 @@ test('no denominator is null with a reason, never 0', () => {
   assert.equal(runProportion(counts('freq.proportion', { x: 5, n: 3 }), null).status, 'invalid');
   assert.equal(SERO_ROLES.clusterColumn, 'farm');
 });
+
+test('a low prevalence on the DEFF route is never printed below 0 (review round 1, 2/100 with DEFF 2)', () => {
+  // unclipped: 0.02 +/- 1.959964 * sqrt(0.02 * 0.98 / 100) * sqrt(2) = [-0.0188, 0.0588]
+  const deffSpec = counts('freq.proportion', { x: 2, n: 100, deff: 2 }, { route: 'deff' });
+  deffSpec.cluster = { route: 'deff', deff: 2 };
+  const out = runProportion(deffSpec, null);
+  const v = out.values.prevalence;
+  assert.equal(v.ci[0], 0);
+  close(v.ci[1], 0.02 + 1.959963984540054 * Math.sqrt((0.02 * 0.98) / 100) * Math.SQRT2, 1e-12, 'upper kept');
+  assert.equal(v.noteKey, 'stats.note.ciTruncated');
+  const tpSpec = counts('freq.truePrevalence', { x: 2, n: 100, deff: 2 }, { options: { se: 0.95, sp: 0.98 } });
+  tpSpec.cluster = { route: 'deff', deff: 2 };
+  const tp = runTruePrevalence(tpSpec, null);
+  assert.equal(tp.values.apparent.ci[0], 0);
+  assert.equal(tp.values.apparent.noteKey, 'stats.note.ciTruncated');
+});

@@ -55,7 +55,8 @@ export const FEATURE_FLAGS = {
 };
 
 export const IMAGING_PRO_URL = 'https://imaging.cuvetsmo.com';
-// The statistics workspace is its own app on its own origin; the palette opens it in a new tab.
+// The statistics workspace is its own app on its own origin; the palette opens it in the same tab, as
+// it does Imaging Pro (window.location.assign).
 export const RESEARCH_STUDIO_URL = 'https://research.vetmock.com';
 
 export const FEATURE_CATEGORIES = [

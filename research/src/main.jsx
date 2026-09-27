@@ -1,12 +1,12 @@
 // Boot [M1-DESIGN.md 2]. Sets the theme before the first render (no inline script: the CSP is
-// script-src 'self'), mounts the app, then registers the service worker after the first paint.
+// script-src 'self'), mounts the app, then registers the service worker after the first paint on a Studio route.
 // OWNER: runtime role.
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles/base.css';
 import { App } from './App.jsx';
 import { readPrefs } from './lib/store/prefs.js';
-import { registerServiceWorker } from './lib/runtime/sw-register.js';
+import { registerWhenInStudio } from './lib/runtime/sw-register.js';
 
 function applyTheme() {
   const { theme, lang } = readPrefs();
@@ -26,6 +26,6 @@ createRoot(document.getElementById('root')).render(
 
 window.requestAnimationFrame(() => {
   window.setTimeout(() => {
-    registerServiceWorker();
+    registerWhenInStudio();
   }, 0);
 });

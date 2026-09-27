@@ -100,7 +100,10 @@ export function valueCells(row, fmt, lang, t) {
   }
   const est = fmt.formatNumber(row.value, { kind: fmtKind(row.kind) });
   const ci = row.ci ? fmt.formatCi({ value: row.value, ci: row.ci, kind: fmtKind(row.kind) }, lang) : '';
-  return { est, ci: ci ? ci.replace(/^.*?\(/, '').replace(/\)$/, '') : '', note: '' };
+  // A defined value can still carry a sentence: a limit held at 0..1, a herd-level reading, a Wald
+  // interval that misbehaves. Shown beside the number and in every export.
+  const note = [row.noteKey, row.reasonKey].filter(Boolean).map((k) => t(k)).join(' ');
+  return { est, ci: ci ? ci.replace(/^.*?\(/, '').replace(/\)$/, '') : '', note };
 }
 
 /**

@@ -31,7 +31,8 @@ const NETWORK_ALLOWED = new Set(['sw/sw-template.js']);
 test('no network API outside the service worker template', () => {
   for (const f of files) {
     const r = rel(f);
-    if (NETWORK_ALLOWED.has(r) || r.startsWith('lib/auth/')) continue;
+    // landing/evidence/ holds the Node scripts that counted the papers; the app never imports them.
+    if (NETWORK_ALLOWED.has(r) || r.startsWith('lib/auth/') || r.startsWith('landing/evidence/')) continue;
     const src = readFileSync(f, 'utf8').replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
     assert.ok(!NETWORK.test(src), `${r} uses a network API`);
   }
@@ -62,6 +63,12 @@ test('the only localStorage key is vmx-research-prefs-v1 and nothing calls local
   for (const f of files) {
     const src = readFileSync(f, 'utf8').replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
     assert.ok(!/localStorage\.clear\s*\(/.test(src), `${rel(f)} calls localStorage.clear`);
-    if (/localStorage/.test(src)) assert.equal(rel(f), 'lib/store/prefs.js', `${rel(f)} touches localStorage`);
+    if (!/localStorage/.test(src)) continue;
+    // lib/auth/stored.js only reads the auth client's own entry (never writes), to know whose device it is
+    if (rel(f) === 'lib/auth/stored.js') {
+      assert.ok(!/\b(setItem|removeItem)\s*\(/.test(src), 'lib/auth/stored.js only reads');
+      continue;
+    }
+    assert.equal(rel(f), 'lib/store/prefs.js', `${rel(f)} touches localStorage`);
   }
 });

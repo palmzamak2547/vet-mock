@@ -3333,13 +3333,10 @@ export const GLOSSARY_RELATED = {
   107028,
   107029
  ],
- "kappa|public-health": [
+ "kappa|epidemiology": [
   107023,
   107024,
-  107025,
-  101042,
-  104538,
-  104682
+  107025
  ],
  "icc|public-health": [
   107025,

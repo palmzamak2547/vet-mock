@@ -201,7 +201,9 @@ test('R parity: proportion', async (t) => {
         if (!v[key]) continue;
         const r = proportion.proportionCi(c.x, c.n, method, c.confLevel);
         if (v.p !== undefined) rows.push([`${method} estimate`, r, v.p]);
-        rows.push(...ciRows(method, r.ci, v[key]));
+        // the engine holds Wald and Agresti-Coull bounds inside 0..1 (stats.note.ciTruncated); R prints the formula
+        const want = key === 'wald' || key === 'agrestiCoull' ? v[key].map((w) => Math.max(0, Math.min(1, w))) : v[key];
+        rows.push(...ciRows(method, r.ci, want));
       }
       return rows;
     });

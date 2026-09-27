@@ -106,3 +106,16 @@ test('OLS: NIST StRD Pontius (quadratic, lower difficulty), LRE >= 9', () => {
   assert.ok(lre(f.sigma, sigma) >= 9, `Pontius sigma: LRE ${lre(f.sigma, sigma).toFixed(2)}`);
   assert.ok(lre(f.r2, r2) >= 9, `Pontius R2: LRE ${lre(f.r2, r2).toFixed(2)}`);
 });
+
+test('ols: an exact fit withholds t, F and p-values with a sentence (review round 1)', () => {
+  const f = olsQr([[1, 1], [1, 2], [1, 3]], [2, 4, 6], { intercept: true });
+  assert.equal(f.perfectFit, true);
+  assert.deepEqual(f.p, [null, null]);
+  assert.equal(f.F, null);
+  close(f.coef[1], 2, 1e-12, 'slope still reported');
+  const out = runOls(spec('reg.ols', { roles: { outcome: 'y', covariates: ['x'] } }), makeTable({ y: { kind: 'number', values: [2, 4, 6, 8] }, x: { kind: 'number', values: [1, 2, 3, 4] } }));
+  assert.equal(out.values.sigma.noteKey, 'stats.note.perfectFit');
+  assert.equal(out.tests[0].p, null);
+  assert.equal(out.tests[0].reasonKey, 'stats.note.perfectFit');
+  assert.equal(olsQr([[1, 1], [1, 2], [1, 3], [1, 4]], [2, 4.1, 5.9, 8.2], { intercept: true }).perfectFit, false);
+});

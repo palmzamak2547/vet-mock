@@ -10,6 +10,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useT } from '../../i18n/index.js';
 import { appLink } from '../shell/nav.js';
 import { readPrefs } from '../../lib/store/prefs.js';
+import { storedOwner } from '../../lib/auth/stored.js';
 import { HERD_LAYOUTS, herdData, herdFacts } from '../herd/data.js';
 import { createHerdEngine, readGlColours, webglAvailable, DPR_CAP } from '../herd/engine.js';
 import HerdStill from '../herd/HerdStill.jsx';
@@ -42,7 +43,10 @@ function useViewport() {
 function Hero({ reg, variant }) {
   const { t } = useT();
   const d = herdFacts().display;
-  const last = readPrefs().lastProjectId;
+  // "Continue" only for the owner that project belongs to (review round 1: after sign-out the guest
+  // was offered an account's project it cannot open).
+  const prefs = readPrefs();
+  const last = prefs.lastProjectId && prefs.lastProjectOwner === storedOwner() ? prefs.lastProjectId : null;
   return (
     <>
       <div className="rs-l-hero" data-rs="hero" ref={reg?.('hero')}>

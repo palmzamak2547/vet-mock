@@ -4,12 +4,25 @@
 //   as R does (a bound is 0 when p = 0 and 1 when p = 1).
 // - exact: Clopper-Pearson as R's binom.test: qbeta(alpha/2, x, n - x + 1) and qbeta(1 - alpha/2,
 //   x + 1, n - x), 0 and 1 at the ends.
-// - wald: p +/- z sqrt(p (1 - p) / n), the formula as written (it can leave 0..1 and it collapses to
-//   0 to 0 at p = 0); the value then carries reasonKey 'stats.note.waldPoor' so the page says why
-//   it is not the default.
-// - agresti-coull: n~ = n + z^2, p~ = (x + z^2 / 2) / n~, p~ +/- z sqrt(p~ (1 - p~) / n~), as written.
+// - wald: p +/- z sqrt(p (1 - p) / n) (it collapses to 0 to 0 at p = 0); the value carries reasonKey
+//   'stats.note.waldPoor' when it misbehaves, so the page says why it is not the default.
+// - agresti-coull: n~ = n + z^2, p~ = (x + z^2 / 2) / n~, p~ +/- z sqrt(p~ (1 - p~) / n~).
+// A proportion cannot be below 0 or above 1, so a Wald or Agresti-Coull bound that the formula puts
+// outside 0..1 is held at the edge and the value carries noteKey 'stats.note.ciTruncated' (review
+// round 1: "-2.4%" was printed for 0 of 25). The R pins are the formula as written; the tests clip them.
 // z = qnorm(1 - alpha / 2) with alpha = 1 - confLevel (two-sided intervals only).
 import { qnorm, qbeta, qchisq } from './dist.js';
+
+/**
+ * Hold an interval for a proportion inside 0..1.
+ * @param {number} lo
+ * @param {number} hi
+ * @returns {{ ci: [number, number], truncated: boolean }}
+ */
+export function clipCi01(lo, hi) {
+  const truncated = lo < 0 || hi > 1;
+  return { ci: [Math.max(0, Math.min(1, lo)), Math.min(1, Math.max(0, hi))], truncated };
+}
 
 /**
  * @param {number} x successes
@@ -53,8 +66,10 @@ export function proportionCi(x, n, method = 'wilson', confLevel = 0.95) {
     throw new Error(`stats: proportion interval ${method} is not offered`);
   }
   const se = Math.sqrt((p * (1 - p)) / n);
-  const out = { value: p, ci: [lo, hi], ciLevel: confLevel, ciMethod: method, se };
+  const clipped = clipCi01(lo, hi);
+  const out = { value: p, ci: clipped.ci, ciLevel: confLevel, ciMethod: method, se };
   if (reasonKey) out.reasonKey = reasonKey;
+  if (clipped.truncated) out.noteKey = 'stats.note.ciTruncated';
   return out;
 }
 

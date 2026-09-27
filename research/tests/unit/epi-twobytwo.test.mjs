@@ -175,3 +175,20 @@ test('a case-control design reports OR and the estimated fractions only', () => 
   assert.deepEqual(Object.keys(out.values).sort(), ['AFeEst', 'AFpEst', 'OR']);
   close(out.values.OR.value, 4.5, CLOSED, 'OR');
 });
+
+test('a zero-width Wald interval is never printed as a 95% CI (review round 1)', () => {
+  // a=10,b=0,c=10,d=0: both rows 100% positive, RR 1 and RD 0 with Wald SE 0
+  const all = twoByTwo([[10, 0], [10, 0]], { measures: ['RR', 'RD', 'AFe'] });
+  assert.deepEqual(all.RR.ci, [null, null]);
+  assert.equal(all.RR.reasonKey, 'epi.undefined.waldNoVariance');
+  assert.deepEqual(all.RD.ci, [null, null]);
+  assert.equal(all.RD.reasonKey, 'epi.undefined.waldNoVariance');
+  assert.equal(all.AFe.value, 0);
+  assert.deepEqual(all.AFe.ci, [null, null]);
+  const none = twoByTwo([[0, 10], [0, 10]], { measures: ['RD'] });
+  assert.equal(none.RD.value, 0);
+  assert.deepEqual(none.RD.ci, [null, null]);
+  // Newcombe still gives a real interval for the same table
+  const nc = twoByTwo([[0, 10], [0, 10]], { measures: ['RD'], rdCi: 'newcombe' });
+  assert.ok(nc.RD.ci[0] < 0 && nc.RD.ci[1] > 0);
+});

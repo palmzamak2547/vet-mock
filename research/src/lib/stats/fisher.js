@@ -23,6 +23,11 @@ export function fisher2x2(table, opts = {}) {
   const n = table[0][1] + table[1][1];
   const k = table[0][0] + table[0][1];
   const x = table[0][0];
+  // An empty row or column: every table with these margins is the same table, so the odds ratio is
+  // undefined (R prints 0 with an interval from 0 to Inf). Null with a sentence; p is 1 as in R.
+  if (m === 0 || n === 0 || k === 0 || k === m + n) {
+    return { p: 1, estimate: null, ci: [null, null], reasonKey: 'stats.undefined.emptyMarginOr' };
+  }
   const lo = Math.max(0, k - n);
   const hi = Math.min(k, m);
   const support = [];
@@ -130,7 +135,7 @@ export function runFisher(spec, table) {
   const f = fisher2x2(t, { alternative, confLevel });
   return {
     status: 'ok',
-    values: { estimate: val(f.estimate, { ci: f.ci, ciLevel: confLevel, ciMethod: 'conditional-mle-exact' }) },
+    values: { estimate: val(f.estimate, { ci: f.ci, ciLevel: confLevel, ciMethod: 'conditional-mle-exact', ...(f.reasonKey ? { reasonKey: f.reasonKey } : {}) }) },
     tests: [testRow({ id: 'fisher', name: 'OR', statistic: f.estimate, p: f.p, alternative, variant: 'exact' })],
     tables: [{ id: 'observed', columns: ['a', 'b', 'c', 'd'], rows: [[t[0][0], t[0][1], t[1][0], t[1][1]]] }],
     used,

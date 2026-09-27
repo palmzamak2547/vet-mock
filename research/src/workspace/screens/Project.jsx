@@ -33,15 +33,24 @@ export function ProjectMissing() {
   );
 }
 
+const NEEDS_DATA = new Set(['codebook', 'data', 'design', 'prev', 'assoc', 'table1']);
+
 /** @param {{ route: import('../../router.js').Route }} props */
 export default function Project({ route }) {
   const { t } = useT();
   const p = useProject(route.projectId);
   const [menu, setMenu] = useState(false);
   const hasData = Boolean(p.meta && p.table);
-  const pane = route.name === 'result' ? null : route.pane || (p.status === 'ready' ? (p.meta ? 'data' : 'import') : null);
+  const asked = route.name === 'result' ? null : route.pane || (p.status === 'ready' ? (p.meta ? 'data' : 'import') : null);
+  // A project whose import was never confirmed (a reload or Back during the conversion preview) has no
+  // dataset yet: every pane that reads the data sends the student to Import (review round 1).
+  const noData = p.status === 'ready' && !p.meta && NEEDS_DATA.has(asked);
+  const pane = noData ? 'import' : asked;
 
   useEffect(() => { setMenu(false); }, [route]);
+  useEffect(() => {
+    if (noData) navigate(`/app/p/${route.projectId}/import`, { replace: true });
+  }, [noData, route.projectId]);
   useEffect(() => {
     if (p.status === 'ready' && route.name === 'project' && !route.pane) navigate(`/app/p/${route.projectId}/${p.meta ? 'data' : 'import'}`, { replace: true });
   }, [p.status, p.meta, route]);

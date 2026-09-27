@@ -21,7 +21,7 @@ export const GUARDS = Object.freeze([
   { id: 'G2', severity: 'stop', what: 'exposure constant within every cluster while the outcome is per animal' },
   { id: 'G3', severity: 'stop', what: 'measure the declared design cannot support' },
   { id: 'G4', severity: 'warn', what: 'odds ratio shown for a common outcome (> 10%) in a cohort or cross-sectional study' },
-  { id: 'G5', severity: 'warn', what: 'any expected count below 5 (Cochran: more than 20% below 5, or any below 1)' },
+  { id: 'G5', severity: 'warn', what: 'any expected count below 5 (Cochran: more than 20% below 5, or any below 1); McNemar chi-square with fewer than 25 discordant pairs' },
   { id: 'G6', severity: 'stop', what: 'pair column present, independent-samples test requested' },
   { id: 'G7', severity: 'warn', what: 'more than one test in a family without an adjustment choice' },
   { id: 'G8', severity: 'warn', what: 'the results text would say "no difference" from p > 0.05' },
@@ -148,6 +148,26 @@ function outcomeShare(spec, table) {
   return all ? x / all : null;
 }
 
+/** b + c of a paired 2x2 (McNemar), from counts or the x and y columns; null when it cannot be read. */
+function discordantPairs(spec, table) {
+  const k = spec.input?.counts;
+  if (spec.input?.kind === 'counts' && k) {
+    if (Array.isArray(k.table) && k.table.length === 2) return (k.table[0]?.[1] ?? 0) + (k.table[1]?.[0] ?? 0);
+    if (typeof k.b === 'number' && typeof k.c === 'number') return k.b + k.c;
+    return null;
+  }
+  const xk = spec.roles?.x, yk = spec.roles?.y;
+  if (!table || !xk || !yk || !table.columns[xk] || !table.columns[yk]) return null;
+  const X = table.columns[xk], Y = table.columns[yk];
+  if (X.kind !== 'category' || Y.kind !== 'category' || X.levels.length !== 2 || Y.levels.length !== 2) return null;
+  let n = 0;
+  for (let r = 0; r < table.n; r++) {
+    if (missingCode(X, r) || missingCode(Y, r)) continue;
+    if (X.levels[X.values[r]] !== Y.levels[Y.values[r]]) n++;
+  }
+  return n;
+}
+
 /** r x c table for G5, from counts or the exposure/group and outcome columns. */
 function contingency(spec, table) {
   const c = spec.input?.counts;
@@ -250,6 +270,15 @@ export function evaluateGuards(spec, table, codebook, context = {}) {
     const e = t && t.length > 1 && t[0].length > 1 ? expectedCheck(t) : null;
     if (e && (e.minExpected < 1 || e.shareBelow5 > 0.2)) {
       add(finding('G5', { params: { minExpected: e.minExpected, shareBelow5: e.shareBelow5 }, routes: t.length === 2 && t[0].length === 2 ? ['test.fisher2x2'] : [] }));
+    }
+  }
+
+  // G5 for paired data: McNemar's chi-square on few discordant pairs (b + c below 25, the usual
+  // threshold) is an approximation the exact binomial version does not need (review round 1).
+  if (method === 'test.mcnemar' && !o.exact) {
+    const bc = discordantPairs(spec, table);
+    if (bc !== null && bc > 0 && bc < 25) {
+      add(finding('G5', { key: 'epi.guard.G5.mcnemarTitle', bodyKey: 'epi.guard.G5.mcnemarBody', params: { discordant: bc }, routes: [] }));
     }
   }
 

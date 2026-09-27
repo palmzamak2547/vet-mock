@@ -81,3 +81,13 @@ test('Fisher: runFisher on a WorkingTable puts the exposure level and positive o
   const three = makeTable({ a: { kind: 'category', levels: ['x', 'y', 'z'], values: ['x', 'y', 'z'] }, b: { kind: 'category', levels: ['p', 'q'], values: ['p', 'q', 'p'] } });
   assert.equal(runFisher(spec('test.fisher2x2', { roles: { exposure: 'a', outcome: 'b' } }), three).status, 'invalid');
 });
+
+test('fisher: an empty row or column gives no odds ratio, with a sentence (review round 1)', () => {
+  for (const t of [[[0, 0], [5, 5]], [[0, 5], [0, 7]]]) {
+    const f = fisher2x2(t);
+    assert.equal(f.estimate, null);
+    assert.deepEqual(f.ci, [null, null]);
+    assert.equal(f.p, 1);
+    assert.equal(f.reasonKey, 'stats.undefined.emptyMarginOr');
+  }
+});

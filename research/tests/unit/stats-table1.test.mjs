@@ -10,7 +10,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { table1, runTable1 } from '../../src/lib/stats/table1.js';
-import { makeTable, spec } from './stats-fixtures.mjs';
+import { makeTable, spec, pinned } from './stats-fixtures.mjs';
 
 const cell = (t, id, variable, level, stat, group) => {
   const rows = t.tables.find((x) => x.id === id).rows.filter((r) => r[0] === variable && r[1] === level && r[2] === stat && r[3] === group);
@@ -117,7 +117,7 @@ function loadSerosurvey(dir) {
 test('Table 1: serosurvey numbers (numbers.json table1)', (t) => {
   const dir = seroDir();
   if (!dir) { t.skip('serosurvey fixture not committed yet (intake role, M1-DESIGN.md 8.6); set RS_SEROSURVEY_DIR to run'); return; }
-  const N = JSON.parse(readFileSync(path.join(dir, 'numbers.json'), 'utf8')).table1;
+  const N = pinned(JSON.parse(readFileSync(path.join(dir, 'numbers.json'), 'utf8')).table1);
   const table = loadSerosurvey(dir);
   const r = table1(table, {
     variables: ['herd', 'buy', 'age', 'sex', 'breed', 'parity', 'vacc'],

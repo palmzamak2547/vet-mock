@@ -42,7 +42,7 @@ export function useProject(projectId) {
     try {
       const project = await getProject(db, owner, projectId);
       if (!project) { set({ status: 'missing', project: null }); return; }
-      writePrefs({ lastProjectId: project.id });
+      writePrefs({ lastProjectId: project.id, lastProjectOwner: owner });
       const datasetId = project.datasetIds?.[0] || null;
       let meta = null;
       let raw = null;

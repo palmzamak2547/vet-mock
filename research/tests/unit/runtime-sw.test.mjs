@@ -58,3 +58,22 @@ test('the emitted worker precaches the offline shell and install files even when
   assert.equal(list[0], '/index.html');
   for (const f of ['/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png', '/fonts/sarabun-400.woff2']) assert.ok(list.includes(f), f);
 });
+
+test('the service worker installs on the Studio, not on the front door (review round 1)', async () => {
+  const { wantsServiceWorker, registerWhenInStudio } = await import('../../src/lib/runtime/sw-register.js');
+  assert.equal(wantsServiceWorker('/'), false);
+  assert.equal(wantsServiceWorker('/#rs-papers'), false);
+  assert.equal(wantsServiceWorker('/app'), true);
+  assert.equal(wantsServiceWorker('/app/p/x/data'), true);
+  assert.equal(wantsServiceWorker('/licenses'), true);
+  assert.equal(wantsServiceWorker('/application'), false);
+  const listeners = {};
+  const win = { location: { pathname: '/' }, addEventListener: (e, f) => { listeners[e] = f; }, removeEventListener: (e) => { delete listeners[e]; } };
+  let calls = 0;
+  registerWhenInStudio(async () => { calls += 1; }, win);
+  assert.equal(calls, 0, 'nothing on the landing');
+  win.location.pathname = '/app';
+  listeners['rs:navigate']();
+  assert.equal(calls, 1, 'registered on the first navigation into /app');
+  assert.equal(listeners['rs:navigate'], undefined, 'and only once');
+});

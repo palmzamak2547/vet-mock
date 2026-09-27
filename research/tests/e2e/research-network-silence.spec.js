@@ -7,6 +7,8 @@ import { fileURLToPath } from 'node:url';
 import { seenEntrance, recordRequests, engineWorkerUrl, packTable, runInWorker } from './research-runtime-helpers.mjs';
 import { serosurveyTable, m1Specs, noFarm, SEROSURVEY_PATH } from '../unit/runtime-m1-specs.mjs';
 
+// The error boundary's sentence; a pane that crashed would show it.
+const W_BROKEN = 'หน้านี้มีปัญหา';
 const PANES = ['codebook', 'data', 'design', 'prev', 'assoc', 'table1', 'report'];
 
 test('a whole session stays on this origin', async ({ page, context, baseURL }) => {
@@ -31,9 +33,28 @@ test('a whole session stays on this origin', async ({ page, context, baseURL }) 
   await expect(page).toHaveURL(/\/app\/p\/[0-9a-f-]{36}/);
   const projectPath = new URL(page.url()).pathname.match(/\/app\/p\/[0-9a-f-]{36}/)[0];
 
+  // Before the import is confirmed, a pane that reads the data sends the student back to Import
+  // instead of failing (review round 1).
+  await page.goto(`${projectPath}/codebook`);
+  await expect(page).toHaveURL(/\/import$/);
+  await expect(page.locator('.rs-confirmbox')).toBeVisible();
+
+  // Confirm the import, so every pane below walks a real project.
+  const confirm = page.locator('.rs-confirmbox .rs-btn--primary');
+  for (let i = 0; i < 6; i += 1) {
+    const waiting = page.locator('.rs-conv--ask:not(.rs-conv--answered)');
+    if ((await waiting.count()) === 0) break;
+    await waiting.first().getByRole('radio').first().click();
+  }
+  await expect(confirm).toBeEnabled();
+  await confirm.click();
+  await expect(page).toHaveURL(/\/codebook$/);
+
   for (const pane of PANES) {
     await page.goto(`${projectPath}/${pane}`);
     await expect(page.locator('#rs-main')).toBeVisible();
+    await expect(page).toHaveURL(new RegExp(`/${pane}$`));
+    await expect(page.locator('#rs-main')).not.toContainText(W_BROKEN);
   }
   await page.goto('/app/tools/sample-size');
   await expect(page.locator('#rs-main')).toBeVisible();

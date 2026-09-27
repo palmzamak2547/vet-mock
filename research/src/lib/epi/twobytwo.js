@@ -128,7 +128,11 @@ export function twoByTwo(t, opts = {}) {
       if (a === 0) rr = val(est, { ci: [null, null], ciLevel: confLevel, se: null, reasonKey: 'epi.undefined.zeroCellCi' });
       else {
         const se = Math.sqrt(1 / a - 1 / n1 + 1 / c - 1 / n0);
-        if (deff != null || opts.rrCi !== 'score') {
+        if (!(se > 0) && (deff != null || opts.rrCi !== 'score')) {
+          // Every animal in both rows has the outcome: the Wald SE is 0 and the "interval" would be the
+          // estimate itself, which reads as certainty (review round 1). No interval, with the reason.
+          rr = val(est, { ci: [null, null], ciLevel: confLevel, ciMethod: tag('wald-log'), se: null, reasonKey: 'epi.undefined.waldNoVariance' });
+        } else if (deff != null || opts.rrCi !== 'score') {
           const h = z * se * widen;
           rr = val(est, { ci: [est * Math.exp(-h), est * Math.exp(h)], ciLevel: confLevel, ciMethod: tag('wald-log'), se: se * widen });
         } else {
@@ -146,7 +150,7 @@ export function twoByTwo(t, opts = {}) {
       // Fisher's conditional MLE and its exact interval (stats/fisher.js); computed on the observed
       // counts, so zeroCell does not apply and an infinite estimate or bound is Infinity.
       const f = fisher2x2([[a0, b0], [c0, d0]], { alternative: 'two.sided', confLevel });
-      or = val(f.estimate, { ci: f.ci, ciLevel: confLevel, ciMethod: 'exact-conditional', se: null });
+      or = f.estimate === null ? nul(f.reasonKey) : val(f.estimate, { ci: f.ci, ciLevel: confLevel, ciMethod: 'exact-conditional', se: null });
     } else if (b === 0 || c === 0) {
       or = nul('epi.undefined.zeroOddsDenominator');
     } else {
@@ -168,7 +172,10 @@ export function twoByTwo(t, opts = {}) {
     if (deff != null || opts.rdCi !== 'newcombe') {
       const se = Math.sqrt((r1 * (1 - r1)) / n1 + (r0 * (1 - r0)) / n0);
       const h = z * se * widen;
-      rd = val(est, { ci: [est - h, est + h], ciLevel: confLevel, ciMethod: tag('wald'), se: se * widen });
+      rd = se > 0
+        ? val(est, { ci: [est - h, est + h], ciLevel: confLevel, ciMethod: tag('wald'), se: se * widen })
+        // both row proportions are 0 or 1: the Wald SE is 0, so no interval (Newcombe gives one)
+        : val(est, { ci: [null, null], ciLevel: confLevel, ciMethod: tag('wald'), se: null, reasonKey: 'epi.undefined.waldNoVariance' });
     } else {
       rd = val(est, { ci: newcombeCi(a, n1, c, n0, confLevel), ciLevel: confLevel, ciMethod: tag('newcombe-10'), se: null });
     }
@@ -181,7 +188,7 @@ export function twoByTwo(t, opts = {}) {
     else if (rr.value < 1) out.AFe = nul('epi.undefined.afProtective');
     else {
       const ci = rr.ci && rr.ci[0] != null ? [af(rr.ci[0]), af(rr.ci[1])] : [null, null];
-      out.AFe = val(af(rr.value), { ci, ciLevel: confLevel, ciMethod: rr.ciMethod ? `from-rr-${rr.ciMethod}` : undefined });
+      out.AFe = val(af(rr.value), { ci, ciLevel: confLevel, ciMethod: rr.ciMethod ? `from-rr-${rr.ciMethod}` : undefined, ...(ci[0] == null && rr.reasonKey ? { reasonKey: rr.reasonKey } : {}) });
     }
   }
   if (measures.includes('AFp')) {

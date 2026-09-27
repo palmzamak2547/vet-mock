@@ -26,8 +26,22 @@ export function num(v) {
 export const TOL = { closed: 1e-10, iterative: 1e-6 };
 
 /** Assert |got - want| <= rel * max(|want|, tiny) (Infinity must match exactly). */
+// STATS_INJECT=1 shifts every finite, non-zero pinned value by a relative 1e-5 before comparing (and
+// the NIST certified value inside lre): every pin test that compares a number must then fail. This is
+// the injected-wrong-value proof for the NIST, course, serosurvey and Table 1 pins (review round 1),
+// alongside RPARITY_INJECT (R pins) and EPI_INJECT (epi pins).
+const INJECT = process.env.STATS_INJECT === '1';
+
+/** A pinned fixture object, with every number shifted under STATS_INJECT (integers by +1, others by 1e-5 relative). */
+export function pinned(obj) {
+  if (!INJECT) return obj;
+  const shift = (v) => (typeof v === 'number' ? (Number.isInteger(v) ? v + 1 : v * (1 + 1e-5)) : Array.isArray(v) ? v.map(shift) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, shift(x)])) : v);
+  return shift(obj);
+}
+
 export function close(got, want, rel, label) {
   want = num(want);
+  if (INJECT && typeof want === 'number' && Number.isFinite(want) && want !== 0) want *= 1 + 1e-5;
   if (want === null) { assert.equal(got, null, `${label}: expected null, got ${got}`); return; }
   if (!Number.isFinite(want)) { assert.equal(got, want, `${label}: expected ${want}, got ${got}`); return; }
   assert.equal(typeof got, 'number', `${label}: expected a number, got ${got}`);
@@ -38,6 +52,7 @@ export function close(got, want, rel, label) {
 
 /** Log relative error, capped at 15 (NIST StRD definition). */
 export function lre(est, cert) {
+  if (INJECT && cert !== 0) cert *= 1 + 1e-5;
   if (est === cert) return 15;
   if (cert === 0) return Math.min(15, -Math.log10(Math.abs(est)));
   return Math.min(15, -Math.log10(Math.abs(est - cert) / Math.abs(cert)));

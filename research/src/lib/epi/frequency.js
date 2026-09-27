@@ -9,7 +9,7 @@
 // herd-level proportion (clusters with at least one positive animal). Rogan and Gladen 1978
 // Am J Epidemiol 107:71-76.
 
-import { proportionCi, poissonRateCi } from '../stats/proportion.js';
+import { proportionCi, poissonRateCi, clipCi01 } from '../stats/proportion.js';
 import { qnorm } from '../stats/dist.js';
 import { iccOneWay, designEffect } from './cluster.js';
 import { getColumn, eachRow, binaryReader, groupReader, countPositive, invalidOutput, val, nul, guarded } from './_table.js';
@@ -92,12 +92,14 @@ function proportionWithRoute(spec, x, n, clusters, ciMethod, confLevel, name) {
     }
     const se = Math.sqrt((p * (1 - p)) / n);
     const h = qnorm(1 - (1 - confLevel) / 2) * se * Math.sqrt(Math.max(1, d.deff));
-    const ci = [p - h, p + h];
-    values[name] = val(p, { ci, ciLevel: confLevel, ciMethod: 'wald-deff', se: se * Math.sqrt(Math.max(1, d.deff)) });
+    // A widened Wald interval around a low prevalence leaves 0..1 (2 of 100 with DEFF 2 gives a
+    // lower bound of -1.9%): held at the edge with a note, as proportionCi does.
+    const { ci, truncated } = clipCi01(p - h, p + h);
+    values[name] = val(p, { ci, ciLevel: confLevel, ciMethod: 'wald-deff', se: se * Math.sqrt(Math.max(1, d.deff)), ...(truncated ? { noteKey: 'stats.note.ciTruncated' } : {}) });
     values.deff = val(d.deff);
     if (d.icc !== undefined) { values.icc = val(d.icc); values.nEff = val(d.nEff); values.clusters = val(d.k); values.meanSize = val(d.meanSize); }
     else values.nEff = val(n / d.deff);
-    return { values, apparentCi: ci, ciMethod: 'wald-deff' };
+    return { values, apparentCi: ci, apparentNoteKey: truncated ? 'stats.note.ciTruncated' : null, ciMethod: 'wald-deff' };
   }
   if (route === 'aggregate' && clusters) {
     // Herd level: a cluster counts as positive when at least one animal in it is positive. When
@@ -229,13 +231,15 @@ export function truePrevalence(x, n, se, sp, opts = {}) {
   if (!checkSeSp(se, sp)) return { truePrevalence: nul('epi.error.badSeSp') };
   if (n === 0) return { truePrevalence: nul('epi.undefined.noDenominator') };
   const ap = x / n;
-  let apCi = opts.apparentCi ?? null;
+  let apCi = opts.apparentCi ? clipCi01(opts.apparentCi[0], opts.apparentCi[1]).ci : null;
+  let apNote = opts.apparentCi ? (opts.apparentNoteKey || (clipCi01(opts.apparentCi[0], opts.apparentCi[1]).truncated ? 'stats.note.ciTruncated' : null)) : null;
   const method = opts.apparentCiMethod ?? 'wilson';
   if (!apCi) {
     const v = proportionCi(x, n, method, confLevel);
     apCi = v.ci;
+    apNote = v.noteKey || null;
   }
-  values.apparent = val(ap, { ci: apCi, ciLevel: confLevel, ciMethod: opts.apparentLabel ?? method });
+  values.apparent = val(ap, { ci: apCi, ciLevel: confLevel, ciMethod: opts.apparentLabel ?? method, ...(apNote ? { noteKey: apNote } : {}) });
   const tp = roganGladen(ap, se, sp);
   if (tp === null) {
     values.truePrevalence = nul('epi.undefined.seSpUninformative');
@@ -272,7 +276,7 @@ export function runTruePrevalence(spec, table) {
     let values;
     if (spec.cluster?.route === 'deff') {
       if (!pr.apparentCi) return { status: 'ok', values: { ...pr.values, truePrevalence: nul(pr.values.apparent?.reasonKey || 'epi.route.deffNeedsValue') }, tests: [], tables: [], used: r.used, dropped: r.dropped };
-      values = { ...pr.values, ...truePrevalence(r.x, r.n, se, sp, { confLevel, apparentCi: pr.apparentCi, apparentLabel: 'wald-deff', clip: o.clip }) };
+      values = { ...pr.values, ...truePrevalence(r.x, r.n, se, sp, { confLevel, apparentCi: pr.apparentCi, apparentNoteKey: pr.apparentNoteKey, apparentLabel: 'wald-deff', clip: o.clip }) };
     } else {
       values = truePrevalence(r.x, r.n, se, sp, { confLevel, apparentCiMethod: method, clip: o.clip });
     }

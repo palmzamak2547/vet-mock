@@ -79,11 +79,13 @@ export function mantelHaenszel(strata, opts = {}) {
     sumV += (n1 * n0 * m1 * m0) / (T * T * (T - 1));
     const est = measure === 'OR' ? (b * c > 0 ? (a * d) / (b * c) : null) : (c > 0 && n1 > 0 && n0 > 0 ? (a / n1) / (c / n0) : null);
     let ci = [null, null];
+    let ciReason = null;
     if (est !== null && est > 0) {
       const se = measure === 'OR' ? Math.sqrt(1 / a + 1 / b + 1 / c + 1 / d) : Math.sqrt(1 / a - 1 / n1 + 1 / c - 1 / n0);
-      if (Number.isFinite(se)) ci = [est * Math.exp(-z * se), est * Math.exp(z * se)];
+      if (Number.isFinite(se) && se > 0) ci = [est * Math.exp(-z * se), est * Math.exp(z * se)];
+      else if (se === 0) ciReason = 'epi.undefined.waldNoVariance';
     }
-    perStratum.push(est === null ? nul('epi.undefined.zeroCell') : val(est, { ci, ciLevel: confLevel, ciMethod: measure === 'OR' ? 'woolf' : 'wald-log' }));
+    perStratum.push(est === null ? nul('epi.undefined.zeroCell') : val(est, { ci, ciLevel: confLevel, ciMethod: measure === 'OR' ? 'woolf' : 'wald-log', ...(ciReason ? { reasonKey: ciReason } : {}) }));
   }
 
   let estimate;

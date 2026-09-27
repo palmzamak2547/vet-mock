@@ -26,6 +26,7 @@ export function value(value, extra = {}) {
   if (extra.ciMethod !== undefined) out.ciMethod = extra.ciMethod;
   if (extra.se !== undefined) out.se = typeof extra.se === 'number' && !Number.isNaN(extra.se) ? extra.se : null;
   if (extra.reasonKey !== undefined) out.reasonKey = extra.reasonKey;
+  if (extra.noteKey !== undefined) out.noteKey = extra.noteKey;
   return out;
 }
 

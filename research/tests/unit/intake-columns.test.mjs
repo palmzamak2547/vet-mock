@@ -170,3 +170,17 @@ test('checkCodebook catches what a student edit can break', () => {
   assert.equal(r.ok, false);
   for (const k of ['manyClusters', 'positiveUnknown', 'duplicateLevel', 'binaryLevels', 'missingReason']) assert.ok(keys.includes(`intake.codebook.issue.${k}`), k);
 });
+
+test('PII: phone numbers that lost their leading 0 and English names in any case (review round 1)', () => {
+  assert.equal(detectPii(['812345678', '891112222', '623334444'], 'เบอร์โทร').kind, 'phone');
+  assert.equal(detectPii(['812345678', '891112222', '623334444'], 'Phone').kind, 'phone');
+  assert.equal(detectPii(['23456789', '25551234'], 'โทรศัพท์บ้าน').kind, 'phone', 'a landline without its 0');
+  assert.equal(detectPii(['812345678', '891112222', '623334444'], 'จำนวนโค'), null, 'plain numbers without a phone header stay data');
+  assert.equal(detectPii(['john smith', 'mary jones'], 'name').kind, 'name');
+  assert.equal(detectPii(['JOHN SMITH', 'MARY JONES'], 'Owner').kind, 'name');
+  assert.equal(detectPii(['John A. Smith', 'Mary B. Jones'], 'Name').kind, 'name');
+  assert.equal(detectPii(['สมชาย ใจดี', 'มาลี มีสุข'], 'ชื่อ-นามสกุล').kind, 'name');
+  assert.equal(detectPii(['A', 'B'], 'Name'), null, 'initials alone are not a name');
+  assert.equal(detectPii(['Holstein', 'Brahman'], 'Breed name'), null);
+  assert.equal(maskValue('812345678', 'phone'), '81xxxxx78');
+});

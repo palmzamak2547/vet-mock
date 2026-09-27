@@ -14,7 +14,10 @@ const H_NATIONAL = /บัตรประชาชน|เลขประจำ�
 
 const TITLES = /^(นาย|นางสาว|นาง|น\.ส\.|ด\.ช\.|ด\.ญ\.|ดร\.|mr\.?|mrs\.?|ms\.?|miss|dr\.?)\s*/i;
 const THAI_WORD = /^[ก-๎]+$/u;
-const LATIN_NAME_WORD = /^[A-Z][a-z'-]+$/;
+// Any case (john smith, JOHN SMITH), and a middle initial (John A. Smith); only read under a person or
+// name header, or beside a title (review round 1: lower case, capitals and initials were missed).
+const LATIN_NAME_WORD = /^[A-Za-z][A-Za-z'-]+$/;
+const LATIN_INITIAL = /^[A-Za-z]\.?$/;
 const EMAIL = /^[^@\s]+@[^@\s]+\.[A-Za-z]{2,}$/;
 const LINE_ID = /^@?[A-Za-z0-9._-]{3,30}$/;
 const ADDRESS_WORDS = /(หมู่|ม\.\s?\d|ต\.|อ\.|จ\.|ตำบล|อำเภอ|จังหวัด|ถนน|ถ\.|ซอย|ซ\.|แขวง|เขต|\bmoo\b|\broad\b|\bsoi\b|district|province)/i;
@@ -30,6 +33,16 @@ export function isThaiNationalId(value) {
   let sum = 0;
   for (let i = 0; i < 12; i++) sum += Number(d[i]) * (13 - i);
   return (11 - (sum % 11)) % 10 === Number(d[12]);
+}
+
+/**
+ * A phone number whose leading 0 was dropped because the spreadsheet typed the column as a number
+ * (812345678 for 081-234-5678, 23456789 for 02-345-6789). Only read under a phone header, since
+ * eight or nine plain digits are also ordinary counts or codes.
+ */
+export function isThaiPhoneWithoutZero(value) {
+  const s = thaiDigitsToArabic(String(value).trim());
+  return /^[2-9]\d{7,8}$/.test(s);
 }
 
 /**
@@ -49,7 +62,8 @@ function looksLikeName(v) {
   if (!s) return false;
   const words = s.split(' ');
   if (words.length < 1 || words.length > 4) return false;
-  return words.every((w) => THAI_WORD.test(w)) || words.every((w) => LATIN_NAME_WORD.test(w));
+  if (words.every((w) => THAI_WORD.test(w))) return true;
+  return words.every((w) => LATIN_NAME_WORD.test(w) || LATIN_INITIAL.test(w)) && words.some((w) => LATIN_NAME_WORD.test(w));
 }
 
 const share = (vals, pred) => (vals.length ? vals.filter(pred).length / vals.length : 0);
@@ -69,7 +83,7 @@ export function detectPii(values, header) {
   if (nid >= 0.6 || (H_NATIONAL.test(h) && nid >= 0.3)) return { kind: 'national-id', share: nid };
   const email = share(vals, (v) => EMAIL.test(v));
   if (email >= 0.6) return { kind: 'email', share: email };
-  const phone = share(vals, isThaiPhone);
+  const phone = share(vals, H_PHONE.test(h) ? (v) => isThaiPhone(v) || isThaiPhoneWithoutZero(v) : isThaiPhone);
   if (phone >= 0.6 || (H_PHONE.test(h) && phone >= 0.3)) return { kind: 'phone', share: phone };
   if (H_LINE.test(h) && !H_PHONE.test(h)) {
     const line = share(vals, (v) => LINE_ID.test(v));

@@ -21,9 +21,14 @@ test('proportion: R 4.6.0 pins (r/out/proportion.json), every interval', () => {
   let n = 0;
   for (const [name, c] of Object.entries(R.cases)) {
     if (c.count !== undefined) continue; // rates below
-    for (const [m, want] of Object.entries(c.values)) {
+    for (let [m, want] of Object.entries(c.values)) {
       if (m === 'p') { close(proportionCi(c.x, c.n, 'wilson', c.confLevel).value, want, TOL.closed, `${name} p`); continue; }
       const got = proportionCi(c.x, c.n, METHOD_ID[m], c.confLevel);
+      // R prints the Wald and Agresti-Coull formulas as written; the engine holds a bound outside 0..1
+      // at the edge and says so (stats.note.ciTruncated).
+      const outside = want[0] < 0 || want[1] > 1;
+      assert.equal(got.noteKey === 'stats.note.ciTruncated', outside, `${name} ${m} truncation note`);
+      want = want.map((w) => Math.max(0, Math.min(1, w)));
       // a bound that is exactly 0 or 1 in R must be exactly 0 or 1 here
       want.forEach((w, i) => {
         if (w === 0 || w === 1) assert.equal(got.ci[i], w, `${name} ${m}[${i}] exact end`);
@@ -78,4 +83,18 @@ test('proportion: course numbers (fixtures/course/epi-course-2026.json, items 10
   close(proportionCi(i2.input.x, i2.input.n).value, i2.value, TOL.closed, 'course 107002');
   const i3 = course.items.find((i) => i.id === 107003);
   for (const k of ['period', 'point']) close(proportionCi(i3.input[k].x, i3.input[k].n).value, i3.value[k], TOL.closed, `course 107003 ${k}`);
+});
+
+test('proportion: a Wald or Agresti-Coull bound is never printed below 0 or above 1', () => {
+  // review round 1: agresti-coull 0/25 gave [-0.0244, 0.1576] and 25/25 an upper bound of 1.0244
+  for (const [x, n] of [[0, 25], [25, 25], [1, 5000], [2, 100]]) {
+    for (const m of ['wald', 'agresti-coull']) {
+      const r = proportionCi(x, n, m);
+      assert.ok(r.ci[0] >= 0 && r.ci[1] <= 1, `${m} ${x}/${n}: ${r.ci}`);
+    }
+  }
+  const ac = proportionCi(0, 25, 'agresti-coull');
+  assert.equal(ac.ci[0], 0);
+  assert.equal(ac.noteKey, 'stats.note.ciTruncated');
+  assert.equal(proportionCi(146, 728, 'agresti-coull').noteKey, undefined);
 });

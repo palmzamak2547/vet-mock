@@ -170,7 +170,15 @@ export function olsQr(X, y, opts = {}) {
     F = ((tss - rss) / dfModel) / (rss / df);
     pF = pfUpper(F, dfModel, df);
   }
-  return { coef, se: se.map((s) => (s === null || Number.isNaN(s) ? null : s)), t, p: pv, df, sigma: df > 0 ? Math.sqrt(sigma2) : null, r2, adjR2, F, pF, rank: rank + (hasInt ? 1 : 0), rss, aliased };
+  // An exact (or collinear to rounding) fit: the residual SD is rounding noise, so t, F and every
+  // p-value are artefacts (t near 6e15, p near 1e-16). R's summary.lm warns "essentially perfect fit";
+  // here the p-values are withheld with a sentence (review round 1).
+  const sdY = n > 1 ? Math.sqrt(tss / (n - (hasInt ? 1 : 0))) : 0;
+  const perfectFit = df > 0 && sdY > 0 && Math.sqrt(sigma2) / sdY < 1e-10;
+  if (perfectFit) {
+    return { coef, se: se.map((s) => (s === null || Number.isNaN(s) ? null : s)), t: t.map(() => null), p: pv.map(() => null), df, sigma: Math.sqrt(sigma2), r2, adjR2, F: null, pF: null, rank: rank + (hasInt ? 1 : 0), rss, aliased, perfectFit };
+  }
+  return { coef, se: se.map((s) => (s === null || Number.isNaN(s) ? null : s)), t, p: pv, df, sigma: df > 0 ? Math.sqrt(sigma2) : null, r2, adjR2, F, pF, rank: rank + (hasInt ? 1 : 0), rss, aliased, perfectFit: false };
 }
 
 /**
@@ -218,13 +226,13 @@ export function runOls(spec, table) {
   const values = {
     n: val(rows.length),
     df: val(f.df),
-    sigma: f.sigma === null ? nullVal('stats.undefined.noResidualDf') : val(f.sigma),
+    sigma: f.sigma === null ? nullVal('stats.undefined.noResidualDf') : val(f.sigma, f.perfectFit ? { noteKey: 'stats.note.perfectFit' } : {}),
     r2: f.r2 === null ? nullVal('stats.undefined.zeroVariance') : val(f.r2),
     adjR2: f.adjR2 === null ? nullVal('stats.undefined.noResidualDf') : val(f.adjR2),
   };
   if (f.aliased.some(Boolean)) values.aliased = val(f.aliased.filter(Boolean).length, { reasonKey: 'stats.undefined.aliased' });
   const tests = [];
-  if (intercept && f.rank > 1) tests.push(testRow({ id: 'overall', name: 'F', statistic: f.F, df: null, dfPair: [f.rank - 1, f.df], p: f.pF, variant: 'ols' }));
+  if (intercept && f.rank > 1) tests.push(testRow({ id: 'overall', name: 'F', statistic: f.F, df: null, dfPair: [f.rank - 1, f.df], p: f.pF, variant: 'ols', ...(f.perfectFit ? { reasonKey: 'stats.note.perfectFit' } : {}) }));
   return {
     status: 'ok',
     values,
