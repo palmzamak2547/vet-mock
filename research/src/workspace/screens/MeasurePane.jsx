@@ -1,8 +1,9 @@
-// Measurement quality: ROC and the DeLong comparison of two tests, Bland-Altman, Cronbach alpha [M2-DESIGN.md 10.2].
-// OWNER: ui-analysis role. STUB(m2): renders the placeholder until its owner builds the screen.
-import NotBuilt from '../components/NotBuilt.jsx';
+// Measurement quality: ROC curves with DeLong intervals, Bland-Altman agreement and Cronbach's alpha [M2-DESIGN.md 10.2]. The analysis screen with the methods listed under the student's question
+// (AnalysisPane with pane 'measure'): design first, columns for each role, options with a plain sentence each,
+// the farm stop before any result, the result with its charts. OWNER: ui-analysis role.
+import AnalysisPane from './AnalysisPane.jsx';
 
 /** @param {{ p: any }} props */
 export default function Pane({ p }) {
-  return <NotBuilt titleKey="ws.rail.measure" />;
+  return <AnalysisPane key="measure" p={p} pane="measure" />;
 }

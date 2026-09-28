@@ -3,7 +3,14 @@
 // program must not guess (era, two-digit years, missing reasons, identifiers Excel turned into dates)
 // block the confirm button until answered, and the confirm button saves the raw table once with the
 // recorded import step. Each answer re-runs intake's answerPreview, so the step, the codebook and the
-// list always agree with what will be saved. The student's file is never changed. OWNER: workspace role.
+// list always agree with what will be saved. The student's file is never changed.
+// OWNER: ui-tools role (M2; workspace in M1).
+//
+// M2 [M2-DESIGN.md 4.1, 4.6, 5, 10.3]: SPSS files (.sav, .zsav) go through the same preview (the engine
+// reads them; value labels, user-missing values and variable labels arrive as conversions and questions
+// like any other). ImportFlow also takes a second file into a project, with a purpose: 'merge' (a farm
+// file whose columns a merge step brings in) or 'double-entry' (a second typing of the same forms). The
+// merge and compare panes embed it; the import pane links to them once the first file is in.
 import { useEffect, useRef, useState } from 'react';
 import { useT } from '../../i18n/index.js';
 import { putDataset } from '../../lib/store/datasets.js';
@@ -11,14 +18,15 @@ import { answerPreview } from '../../lib/intake/preview.js';
 import { navigate } from '../../router.js';
 import { useWs, errorInfo } from '../ws-context.js';
 import { canConfirm, openCount, piiConversions, plainConversions, questionsOf } from '../lib/import-questions.js';
-import { takePendingFile } from './pending-file.js';
+import { applyHints, takePending } from './pending-file.js';
 import { Busy, Chip, ErrorBox, PageHead, formatBytes } from '../components/Bits.jsx';
 import Icon from '../components/Icon.jsx';
 import Link from '../components/Link.jsx';
 import { keyPart } from '../lib/keys.js';
 
-const DATA_ACCEPT = '.csv,.tsv,.txt,.xlsx,.xls,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel';
+export const DATA_ACCEPT = '.csv,.tsv,.txt,.xlsx,.xls,.sav,.zsav,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/x-spss-sav';
 const isXlsx = (name) => /\.xlsx?$/i.test(name || '');
+export const isSav = (name) => /\.z?sav$/i.test(name || '');
 const ENCODINGS = ['auto', 'utf-8', 'windows-874', 'utf-16le'];
 
 function Pair({ from, to }) {
@@ -63,13 +71,38 @@ function ImportDone({ p }) {
         <Link to={`/app/p/${p.project.id}/codebook`} className="rs-btn rs-btn--primary">{t('ws.import.next')}<Icon name="arrow" size={18} /></Link>
         <Link to={`/app/p/${p.project.id}/data`} className="rs-btn">{t('ws.rail.data')}</Link>
       </div>
+      <section className="rs-panel rs-pad rs-stack" aria-labelledby="rs-h-second">
+        <h2 id="rs-h-second" className="rs-h3">{t('tools.second.title')}</h2>
+        <p className="rs-soft rs-small">{t('tools.second.body')}</p>
+        {(p.others || []).length ? (
+          <ul className="rs-plainlist rs-small">
+            {p.others.map((o) => <li key={o.meta.id}><span className="rs-strong">{o.meta.source?.fileName || o.meta.id}</span>{o.meta.purpose ? <span className="rs-soft"> {t(`tools.purpose.${o.meta.purpose === 'double-entry' ? 'doubleEntry' : 'merge'}`)}</span> : null}</li>)}
+          </ul>
+        ) : null}
+        <div className="rs-row-wrap">
+          <Link to={`/app/p/${p.project.id}/merge`} className="rs-btn">{t('tools.second.toMerge')}</Link>
+          <Link to={`/app/p/${p.project.id}/compare`} className="rs-btn">{t('tools.second.toCompare')}</Link>
+        </div>
+      </section>
     </>
   );
 }
 
 /** @param {{ p: ReturnType<typeof import('./useProject.js').useProject> }} props */
 export default function ImportPane({ p }) {
+  if (p.meta) return <ImportDone p={p} />;
+  return <ImportFlow p={p} purpose="analysis" />;
+}
+
+/**
+ * Choose a file, read it, answer the questions, confirm. `purpose` 'analysis' is the project's first
+ * dataset (the page this pane shows); 'merge' and 'double-entry' add a second file and call onDone with
+ * its stored meta instead of moving to the codebook.
+ * @param {{ p: any, purpose?: 'analysis'|'merge'|'double-entry', onDone?: (meta: any) => void, onCancel?: () => void }} props
+ */
+export function ImportFlow({ p, purpose = 'analysis', onDone, onCancel }) {
   const { t, lang } = useT();
+  const second = purpose !== 'analysis';
   const { db, owner, engine, engineError, notify, bumpProjects } = useWs();
   const [file, setFile] = useState(null);
   const [sheets, setSheets] = useState(null);
@@ -82,11 +115,16 @@ export default function ImportPane({ p }) {
   const [error, setError] = useState(null);
   const [drag, setDrag] = useState(false);
   const input = useRef(null);
+  // An example dataset's codebook hints and the tool to open next (pending-file.js), when it came from one.
+  const extra = useRef({ hints: null, next: null });
 
   useEffect(() => {
-    const f = takePendingFile(p.project.id);
-    if (f) setFile(f);
-  }, [p.project.id]);
+    const got = takePending(p.project.id, second ? purpose : 'analysis');
+    if (got?.file) {
+      extra.current = { hints: got.hints, next: got.next };
+      setFile(got.file);
+    }
+  }, [p.project.id, second, purpose]);
 
   useEffect(() => {
     if (!file || !engine) return undefined;
@@ -118,8 +156,6 @@ export default function ImportPane({ p }) {
     return () => { live = false; };
   }, [file, engine, opts, sheets]);
 
-  if (p.meta) return <ImportDone p={p} />;
-
   const pick = (f) => {
     if (!f) return;
     setSheets(null);
@@ -144,13 +180,21 @@ export default function ImportPane({ p }) {
   const confirm = async () => {
     if (!ok) return;
     setPhase('saving');
+    if (second) {
+      const meta = await p.addDataset({ ...preview, codebook: applyHints(preview.codebook, extra.current.hints) }, purpose);
+      if (meta) {
+        notify('tools.second.saved', { n: preview.raw.rowCount.toLocaleString('en-US') }, 'ok');
+        onDone?.(meta);
+      } else setPhase('preview');
+      return;
+    }
     try {
       // putDataset links the dataset to the project and logs the import in one transaction.
-      await putDataset(db, owner, p.project.id, { raw: preview.raw, codebook: preview.codebook, steps: [preview.importStep] });
+      await putDataset(db, owner, p.project.id, { raw: preview.raw, codebook: applyHints(preview.codebook, extra.current.hints), steps: [preview.importStep] });
       notify('ws.import.saved', { n: preview.raw.rowCount.toLocaleString('en-US') }, 'ok');
       bumpProjects();
       await p.reload();
-      navigate(`/app/p/${p.project.id}/codebook`);
+      navigate(`/app/p/${p.project.id}/${extra.current.next || 'codebook'}`);
     } catch (err) {
       setError(errorInfo(err));
       setPhase('preview');
@@ -170,7 +214,12 @@ export default function ImportPane({ p }) {
 
   return (
     <>
-      <PageHead eyebrow={t('ws.import.eyebrow')} title={t('ws.import.title')} sub={t('ws.import.sub')} />
+      {second ? (
+        <div className="rs-stack">
+          <h2 className="rs-h2">{t(purpose === 'merge' ? 'tools.second.mergeTitle' : 'tools.second.compareTitle')}</h2>
+          <p className="rs-soft">{t(purpose === 'merge' ? 'tools.second.mergeSub' : 'tools.second.compareSub')}</p>
+        </div>
+      ) : <PageHead eyebrow={t('ws.import.eyebrow')} title={t('ws.import.title')} sub={t('ws.import.sub')} />}
       {engineError ? <ErrorBox error={engineError} /> : null}
       <ErrorBox error={error} />
       {phase === 'pick' || (!file && !preview) ? (
@@ -182,8 +231,9 @@ export default function ImportPane({ p }) {
         >
           <Icon name="upload" size={34} />
           <p className="rs-strong">{t('ws.projects.dropTitle')}</p>
-          <p className="rs-soft rs-small">{t('ws.projects.dropFormats')}</p>
+          <p className="rs-soft rs-small">{t('ws.projects.dropFormats')} {t('tools.import.savFormats')}</p>
           <button type="button" className="rs-btn rs-btn--primary" onClick={() => input.current?.click()}>{t('ws.projects.chooseFile')}</button>
+          {second && onCancel ? <button type="button" className="rs-btn rs-btn--quiet" onClick={onCancel}>{t('ws.action.cancel')}</button> : null}
           <input ref={input} type="file" accept={DATA_ACCEPT} className="rs-visually-hidden" tabIndex={-1} aria-hidden="true" onChange={(e) => { pick(e.target.files?.[0]); e.target.value = ''; }} />
           <p className="rs-soft rs-small">{t('ws.projects.dropNote')}</p>
         </div>
@@ -195,6 +245,7 @@ export default function ImportPane({ p }) {
         <div className="rs-import">
           <section className="rs-import-main" aria-labelledby="rs-h-found">
             <div className="rs-panel">
+              {isSav(src?.fileName) ? <p className="rs-pad rs-soft rs-small rs-bordertop">{t('tools.import.savNote')}</p> : null}
               <div className="rs-filecard rs-pad">
                 <Icon name="file" size={22} />
                 <div className="rs-grow">
@@ -335,8 +386,8 @@ export default function ImportPane({ p }) {
             <div className="rs-panel rs-pad rs-confirmbox">
               <p><strong>{t('ws.import.summary', { answered, asked: questions.length, auto: plain.applied.length })}</strong> {open ? <span className="rs-soft">{t('ws.import.summaryOpen', { n: open })}</span> : null}</p>
               {open ? (preview.blocking || []).map((b, k) => <p key={k} className="rs-soft rs-small">{t(b.key, b.params)}</p>) : null}
-              <button type="button" className="rs-btn rs-btn--primary rs-btn--block" disabled={!ok || phase === 'saving'} onClick={confirm}>
-                {open ? t('ws.import.confirmWait', { n: open }) : t('ws.import.confirm', { n: preview.raw.rowCount.toLocaleString('en-US') })}
+              <button type="button" className="rs-btn rs-btn--primary rs-btn--block" disabled={!ok || phase === 'saving' || p.busy} onClick={confirm}>
+                {open ? t('ws.import.confirmWait', { n: open }) : second ? t('tools.second.confirm', { n: preview.raw.rowCount.toLocaleString('en-US') }) : t('ws.import.confirm', { n: preview.raw.rowCount.toLocaleString('en-US') })}
               </button>
               <button type="button" className="rs-btn rs-btn--quiet" onClick={() => { setFile(null); setPreview(null); setPhase('pick'); }}>{t('ws.import.otherFile')}</button>
             </div>

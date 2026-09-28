@@ -1,0 +1,37 @@
+/* The tool screens: data tools (merge, reshape, aggregate, compute, clean, compare), sampling,
+   randomisation and power [M2-DESIGN.md 10.3]. Same layout rules as the M1 workspace: one column on a
+   phone, two from 1100 px, 44 px tap targets, tokens from tokens.css only, nothing animates.
+   OWNER: ui-tools role. Every class starts with rs-tl- so no other screen is touched. */
+
+.rs-tl-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (min-width: 1100px) { .rs-tl-cols { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 28px; } }
+
+.rs-tl-box { border: 1px solid var(--rs-line); border-radius: var(--rs-radius); padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
+
+.rs-tl-checks { display: flex; flex-wrap: wrap; gap: 0 18px; max-height: 18rem; overflow: auto; }
+.rs-tl-checks .rs-check { min-width: 10rem; }
+
+.rs-tl-ids { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 4px 0 0; }
+
+.rs-tl-expr { min-height: 5.5rem; resize: vertical; font-family: var(--rs-mono); line-height: 1.5; }
+.rs-tl-caret { white-space: pre-wrap; word-break: break-all; margin: 6px 0 0; }
+.rs-tl-caret mark { background: var(--rs-rose-tint); color: var(--rs-rose-text); outline: 1px solid var(--rs-rose); border-radius: 3px; }
+
+.rs-tl-details { border-top: 1px solid var(--rs-line); padding-top: 8px; }
+.rs-tl-details > summary { cursor: pointer; min-height: var(--rs-tap, 44px); display: flex; align-items: center; font-weight: 600; }
+.rs-tl-fnlist { display: flex; flex-direction: column; gap: 6px; }
+.rs-tl-fnlist li { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; }
+@media (min-width: 720px) { .rs-tl-fnlist li { grid-template-columns: 14rem minmax(0, 1fr); align-items: center; gap: 12px; } }
+
+.rs-tl-exclusion { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--rs-line); }
+
+.rs-tl-levels > summary { cursor: pointer; min-height: 32px; display: flex; align-items: center; }
+.rs-tl-levels .rs-table { min-width: 18rem; margin-top: 6px; }
+.rs-input--sm { min-height: 36px; padding: 4px 8px; }
+
+.rs-tl-examples { display: flex; flex-direction: column; gap: 0; }
+.rs-tl-example { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding: 10px 0; border-top: 1px solid var(--rs-line); }
+.rs-tl-example:first-child { border-top: 0; }
+
+.rs-tl-pair { grid-template-columns: minmax(0, 1fr) 6.5rem auto; align-items: center; }
+@media (min-width: 720px) { .rs-condrow.rs-tl-pair { grid-template-columns: minmax(0, 1fr) 6.5rem auto; } }

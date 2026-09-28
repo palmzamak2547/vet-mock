@@ -1,6 +1,7 @@
 // A kept result at /app/p/<id>/r/<analysisId> [M1-DESIGN.md 2, 9.2]: the frozen envelope exactly as it
 // was computed, marked when the data changed since (never recomputed silently), with the same exports
-// as a live result and a delete button. OWNER: workspace role.
+// as a live result and a delete button. OWNER: ui-analysis role (M2; workspace in M1). M2: the result's
+// charts, drawn again from the frozen envelope, with a pointer to the multi-panel figures.
 import { useState } from 'react';
 import { useT } from '../../i18n/index.js';
 import { DESIGNS } from '../../lib/epi/design.js';
@@ -15,6 +16,8 @@ import Link from '../components/Link.jsx';
 import ResultView, { safeFileBase } from '../components/ResultView.jsx';
 import Table1View from '../components/Table1View.jsx';
 import { provenanceLines } from '../../lib/runtime/provenance.js';
+import ResultCharts from '../components/ResultCharts.jsx';
+import { chartsForResult, repeatsCiPlot } from '../lib/chart-inputs.js';
 
 /** @param {{ p: any, analysisId: string }} props */
 export default function SavedResult({ p, analysisId }) {
@@ -41,6 +44,8 @@ export default function SavedResult({ p, analysisId }) {
   const m = getMethod(a.spec?.method);
   const name = m ? t(m.nameKey) : a.spec?.method;
   const designRow = DESIGNS.find((d) => d.id === (a.spec?.design || p.project.design)) || null;
+  const stale = isStale(a, p.table?.fingerprint);
+  const charts = chartsForResult(a, p.table || null, { labelOf, stale, t });
   return (
     <>
       <PageHead
@@ -54,7 +59,8 @@ export default function SavedResult({ p, analysisId }) {
           </button>
         )}
       />
-      <ResultView envelope={a.envelope} title={t('ws.ss.resultTitle')} caption={name} designRow={designRow} labelOf={labelOf} codebook={p.codebook || p.meta?.codebook} hideTables={isT1} stale={isStale(a, p.table?.fingerprint)} onDownloaded={(kind) => p.log('download', { what: kind, analysisId: a.id })}>
+      <ResultView envelope={a.envelope} title={t('ws.ss.resultTitle')} caption={name} designRow={designRow} labelOf={labelOf} codebook={p.codebook || p.meta?.codebook} hideTables={isT1} hidePlot={repeatsCiPlot(charts)} stale={stale} onDownloaded={(kind) => p.log('download', { what: kind, analysisId: a.id })}>
+        <ResultCharts charts={charts} caption={name} idBase="rs-charts-saved" madeUp={Boolean(p.project?.example)} figuresHref={`/app/p/${p.project.id}/figures`} onDownloaded={(kind, chart) => p.log('download', { what: kind, analysisId: a.id, chart })} />
         {isT1 && a.envelope?.status === 'ok' ? <Table1View envelope={a.envelope} labelOf={labelOf} note={note} fileBase={safeFileBase(name)} onDownloaded={(kind) => p.log('download', { what: kind, analysisId: a.id })} /> : null}
       </ResultView>
       <Link to={`/app/p/${p.project.id}/report`} className="rs-btn rs-btn--quiet">{t('ws.analysis.toReport')}<Icon name="arrow" size={16} /></Link>

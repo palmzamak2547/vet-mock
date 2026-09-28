@@ -1,7 +1,9 @@
 // Codebook [M1-DESIGN.md 8.3; workspace board "Codebook"]: what one row is, whether animals sit in
 // groups (farms), and per column the Thai and English label, type, role, level of organisation,
 // reference and positive level, missing codes and personal-data hiding. Asked once at import,
-// editable later, saved compare-and-set, exported with every result. OWNER: workspace role.
+// editable later, saved compare-and-set, exported with every result. OWNER: ui-tools role (M2; workspace
+// in M1). M2 [M2-DESIGN.md 12.4]: each category gets a Thai and an English label, so English paragraphs
+// and tables name a level as the student wrote it in English (the value itself when left empty).
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useT } from '../../i18n/index.js';
 import { checkCodebook } from '../../lib/intake/codebook.js';
@@ -9,6 +11,7 @@ import { Chip, Notice, PageHead } from '../components/Bits.jsx';
 import Icon from '../components/Icon.jsx';
 import Link from '../components/Link.jsx';
 import { keyPart } from '../lib/keys.js';
+import '../../styles/tools.css';
 
 const TYPES = ['continuous', 'count', 'binary', 'nominal', 'ordinal', 'date', 'id', 'text'];
 const ROLES = ['outcome', 'exposure', 'confounder', 'group', 'cluster', 'id', 'pair', 'rater', 'time', 'none'];
@@ -59,6 +62,7 @@ export default function CodebookPane({ p }) {
   const dirty = useMemo(() => JSON.stringify(draft) !== JSON.stringify(p.meta.codebook), [draft, p.meta.codebook]);
 
   const setCol = (key, patch) => setDraft((d) => ({ ...d, columns: d.columns.map((c) => (c.key === key ? { ...c, ...patch } : c)) }));
+  const setLevel = (key, value, patch) => setDraft((d) => ({ ...d, columns: d.columns.map((c) => (c.key === key ? { ...c, levels: (c.levels || []).map((l) => (l.value === value ? { ...l, ...patch } : l)) } : c)) }));
   const clusterCandidates = draft.columns.filter((c) => ['id', 'nominal'].includes(c.type) || c.role === 'cluster');
   const cluster = draft.columns.find((c) => c.key === draft.clusterKey);
 
@@ -171,7 +175,23 @@ export default function CodebookPane({ p }) {
                               </select>
                             </label>
                           ) : null}
-                          <span className="rs-soft rs-xsmall">{t('ws.codebook.levelCount', { n: lv.length })}</span>
+                          <details className="rs-tl-levels">
+                            <summary className="rs-soft rs-xsmall">{t('ws.codebook.levelCount', { n: lv.length })} {t('tools.codebook.labelsOpen')}</summary>
+                            <table className="rs-table rs-table--compact">
+                              <caption className="rs-visually-hidden">{t('tools.codebook.labelsCaption', { column: c.name })}</caption>
+                              <thead><tr><th scope="col">{t('tools.codebook.value')}</th><th scope="col">{t('ws.codebook.col.labelTh')}</th><th scope="col">{t('ws.codebook.col.labelEn')}</th></tr></thead>
+                              <tbody>
+                                {(c.levels || []).map((l) => (
+                                  <tr key={l.value}>
+                                    <th scope="row" className="rs-mono">{l.value}</th>
+                                    <td><input className="rs-input rs-input--sm" aria-label={t('tools.codebook.levelTh', { value: l.value, column: c.name })} value={l.labelTh || ''} onChange={(e) => setLevel(c.key, l.value, { labelTh: e.target.value })} /></td>
+                                    <td><input className="rs-input rs-input--sm" lang="en" aria-label={t('tools.codebook.levelEn', { value: l.value, column: c.name })} value={l.labelEn || ''} placeholder={l.value} onChange={(e) => setLevel(c.key, l.value, { labelEn: e.target.value })} /></td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                            <p className="rs-soft rs-xsmall">{t('tools.codebook.labelsHint')}</p>
+                          </details>
                         </div>
                       ) : <span className="rs-soft">—</span>}
                     </td>

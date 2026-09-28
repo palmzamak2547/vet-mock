@@ -530,3 +530,40 @@
 }
 .rs-tablescroll[data-more-right='true']::after { opacity: 1; }
 .rs-tablescroll[data-more-left='true'] .rs-sticky-col { box-shadow: 10px 0 12px -10px var(--rs-scrim); }
+
+/* ---- M2 analysis panes [M2-DESIGN.md 10.2] (ui-analysis) ---------------------------------------- */
+/* Methods listed under the student's question: a heading, the study layout as a small chip, one plain
+   sentence, then the methods. No card chrome around a group: a rule above each keeps them apart. */
+.rs-qgroup { display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid var(--rs-line); }
+.rs-qgroup:first-of-type { border-top: 0; padding-top: 0; }
+.rs-qhead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.rs-qhead p { flex-basis: 100%; margin: 0; }
+.rs-qtitle { font-weight: 700; font-size: 15.5px; overflow-wrap: anywhere; }
+.rs-choice-text { min-width: 0; }
+.rs-choice-title { overflow-wrap: anywhere; }
+
+/* Charts under a result: each chart is its own section; the kit draws the chart and its table. */
+.rs-charts { gap: 16px; }
+.rs-chartslot { display: flex; flex-direction: column; gap: 10px; padding: 14px; border: 1px solid var(--rs-line); border-radius: var(--rs-radius-lg); background: var(--rs-surface); min-width: 0; }
+.rs-chartslot > .rs-figure { padding: 0; border: 0; }
+.rs-chartslot-draw { min-width: 0; overflow-x: auto; }
+.rs-chartslot-draw svg { display: block; max-width: 100%; height: auto; }
+
+/* The folded diagnostics panel. */
+.rs-diag { border: 1px solid var(--rs-line); border-radius: var(--rs-radius-lg); background: var(--rs-surface); padding: 0 14px; min-width: 0; }
+.rs-diag-sum { cursor: pointer; min-height: 44px; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14.5px; color: var(--rs-sage-text); }
+.rs-diag-body { padding-bottom: 14px; }
+.rs-diag-item { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+
+/* The figure composer: panels, layout, preview; one column on a phone, three from 1200 px. */
+.rs-composer { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (min-width: 900px) { .rs-composer { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .rs-composer-preview { grid-column: 1 / -1; } }
+@media (min-width: 1200px) { .rs-composer { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr) minmax(0, 1.4fr); } .rs-composer-preview { grid-column: auto; } }
+.rs-composer-pick, .rs-composer-layout, .rs-composer-preview { min-width: 0; }
+.rs-composer-list { display: flex; flex-direction: column; gap: 6px; }
+.rs-composer-item { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; padding: 8px 10px; border: 1px solid var(--rs-line); border-radius: var(--rs-radius); min-width: 0; }
+.rs-composer-item--on { border-color: var(--rs-sage); background: var(--rs-sage-tint); }
+.rs-composer-item .rs-check { align-items: flex-start; min-width: 0; }
+.rs-composer-img { display: block; max-width: 100%; height: auto; background: var(--rs-print-paper); border: 1px solid var(--rs-line); border-radius: var(--rs-radius); }
+
+.rs-seg--wrap { display: flex; max-width: 100%; }

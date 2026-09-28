@@ -2,7 +2,169 @@
 // OWNER: graphs role. Rules: docs/research/M1-DESIGN.md 4.3 and M2-DESIGN.md 9 (plain words, one term per
 // concept, statistics terms in English with a Thai gloss once, no middle dot, no ellipsis, no star glyph,
 // นิสิต, Arabic digits). Registered by the lazy root that shows it.
-export default {
-  th: {},
-  en: {},
-};
+// One row per key: [key, Thai, English].
+const ROWS = [
+  // chart names
+  ['graphs.kind.dot', 'จุดของสัตว์ทุกตัว (dot plot)', 'Every animal (dot plot)'],
+  ['graphs.kind.box', 'Box plot', 'Box plot'],
+  ['graphs.kind.violin', 'Violin plot', 'Violin plot'],
+  ['graphs.kind.scatter', 'กราฟกระจาย (scatter plot)', 'Scatter plot'],
+  ['graphs.kind.timeCourse', 'ค่าตามเวลา', 'Time course'],
+  ['graphs.kind.epiCurve', 'เส้นโค้งการระบาด (epidemic curve)', 'Epidemic curve'],
+  ['graphs.kind.forest', 'Forest plot', 'Forest plot'],
+  ['graphs.kind.estimation', 'กราฟความต่าง (estimation plot)', 'Estimation plot'],
+  ['graphs.kind.ciFunction', 'ฟังก์ชันค่า p', 'p-value function'],
+  ['graphs.kind.kaplanMeier', 'Kaplan-Meier', 'Kaplan-Meier'],
+  ['graphs.kind.roc', 'ROC', 'ROC'],
+  ['graphs.kind.blandAltman', 'Bland-Altman', 'Bland-Altman'],
+  ['graphs.kind.ci', 'ค่าประมาณกับ CI', 'Estimates with their CI'],
+
+  // around every chart
+  ['graphs.tableCaption', 'ตัวเลขในกราฟ {title}', 'Numbers in the chart {title}'],
+  ['graphs.madeUp', 'ข้อมูลสมมุติ', 'made-up data'],
+
+  // data table columns
+  ['graphs.col.group', 'กลุ่ม', 'Group'],
+  ['graphs.col.n', 'n', 'n'],
+  ['graphs.col.mean', 'ค่าเฉลี่ย', 'Mean'],
+  ['graphs.col.ci', '{level} CI', '{level} CI'],
+  ['graphs.col.median', 'มัธยฐาน', 'Median'],
+  ['graphs.col.iqr', 'IQR (ควอร์ไทล์ที่ 1 ถึง 3)', 'IQR (first to third quartile)'],
+  ['graphs.col.q1', 'ควอร์ไทล์ที่ 1', 'First quartile'],
+  ['graphs.col.q3', 'ควอร์ไทล์ที่ 3', 'Third quartile'],
+  ['graphs.col.whiskerLow', 'ปลายหนวดล่าง', 'Lower whisker'],
+  ['graphs.col.whiskerHigh', 'ปลายหนวดบน', 'Upper whisker'],
+  ['graphs.col.beyond', 'ค่าที่อยู่นอกหนวด', 'Values beyond the whiskers'],
+  ['graphs.col.bandwidth', 'bandwidth', 'Bandwidth'],
+  ['graphs.col.term', 'ค่า', 'Term'],
+  ['graphs.col.estimate', 'ค่าประมาณ', 'Estimate'],
+  ['graphs.col.time', 'เวลา', 'Time'],
+  ['graphs.col.atRisk', 'ยังติดตามอยู่', 'At risk'],
+  ['graphs.col.events', 'เกิดเหตุการณ์', 'Events'],
+  ['graphs.col.censored', 'หยุดติดตาม (censored)', 'Censored'],
+  ['graphs.col.survival', 'สัดส่วนที่ยังไม่เกิดเหตุการณ์', 'Proportion without the event'],
+  ['graphs.col.test', 'ชุดตรวจ', 'Test'],
+  ['graphs.col.measure', 'ค่าที่วัด', 'Measure'],
+  ['graphs.col.effect', 'ค่าที่ทดสอบ', 'Value tested'],
+  ['graphs.col.p', 'ค่า p', 'p-value'],
+  ['graphs.col.row', 'แถว', 'Row'],
+  ['graphs.col.note', 'หมายเหตุ', 'Note'],
+  ['graphs.col.from', 'ตั้งแต่ (ปี ค.ศ.)', 'From (CE)'],
+  ['graphs.col.to', 'ถึง (ปี ค.ศ.)', 'To (CE)'],
+  ['graphs.col.count', 'จำนวนตัว', 'Animals'],
+
+  // numbers that cannot be computed
+  ['graphs.undefined.noData', 'ไม่มีค่าในกลุ่มนี้', 'no values in this group'],
+  ['graphs.undefined.oneValue', 'มีค่าเดียว จึงคำนวณช่วงไม่ได้', 'one value only, so no interval'],
+  ['graphs.undefined.constant', 'ทุกค่าเท่ากัน จึงคำนวณช่วงไม่ได้', 'every value is the same, so no interval'],
+  ['graphs.error.noData', 'ข้อมูลไม่พอสำหรับกราฟนี้', 'Not enough data for this chart'],
+  ['graphs.error.twoGroups', 'กราฟนี้ต้องมี 2 กลุ่มพอดี', 'This chart needs exactly two groups'],
+  ['graphs.error.noDates', 'ไม่มีวันที่ให้นับ', 'No dates to count'],
+  ['graphs.error.kind', 'ไม่มีกราฟชนิดนี้', 'There is no chart of this kind'],
+
+  // what each chart shows (the sentence under the chart)
+  ['graphs.note.dotMean', 'จุดแต่ละจุดคือสัตว์ 1 ตัว ขีดแนวนอนคือค่าเฉลี่ย เส้นแนวตั้งคือ {level} CI ของค่าเฉลี่ย จุดเรียงไม่ให้ทับกันด้วยกฎเดียวกันทุกครั้ง ไม่มีการสุ่ม', 'Each dot is one animal; the bar is the mean and the vertical line its {level} CI. Dots are spread by a fixed rule, never at random, so the same data give the same picture.'],
+  ['graphs.note.dotMedian', 'จุดแต่ละจุดคือสัตว์ 1 ตัว ขีดแนวนอนคือมัธยฐาน เส้นแนวตั้งคือ IQR (ควอร์ไทล์ที่ 1 ถึง 3) จุดเรียงไม่ให้ทับกันด้วยกฎเดียวกันทุกครั้ง ไม่มีการสุ่ม', 'Each dot is one animal; the bar is the median and the vertical line the IQR (first to third quartile). Dots are spread by a fixed rule, never at random.'],
+  ['graphs.note.box', 'กล่องคือควอร์ไทล์ที่ 1 ถึง 3 ขีดในกล่องคือมัธยฐาน (quantile type 7 ตัวเลขเดียวกับในตาราง) หนวดยาวถึงค่าที่ไกลที่สุดที่ยังอยู่ภายใน 1.5 เท่าของ IQR จากขอบกล่อง ค่าที่อยู่นอกหนวดวาดไว้ทุกค่า ไม่ตัดทิ้ง boxplot ของ R ใช้ hinge ของ Tukey ขอบกล่องจึงอาจต่างจากนี้เล็กน้อย', 'The box runs from the first to the third quartile and the line inside is the median (quantile type 7, the numbers the tables print). Whiskers reach the most extreme values within 1.5 IQR of the box; every value beyond them is drawn, never removed. R’s boxplot uses Tukey’s hinges, so its box edges can differ slightly.'],
+  ['graphs.note.violin', 'รูปทรงคือความหนาแน่นของข้อมูล (Gaussian kernel density) ใช้ bandwidth ตามกฎ bw.nrd0 ของ R คือ 0.9 คูณค่าที่น้อยกว่าระหว่าง SD กับ IQR หาร 1.34 คูณ n ยกกำลัง -0.2 วาดต่อจากค่าต่ำสุดและสูงสุดออกไป 3 bandwidth ทุกกลุ่มใช้สเกลความกว้างเดียวกัน จุดคือสัตว์แต่ละตัว ขีดคือมัธยฐาน', 'The shape is a Gaussian kernel density with R’s bw.nrd0 bandwidth, 0.9 times the smaller of the SD and IQR / 1.34, times n to the power -0.2, drawn to 3 bandwidths beyond the lowest and highest values. Every group uses the same width scale. Dots are the animals; the bar is the median.'],
+  ['graphs.note.estimation', 'ซ้าย: สัตว์ทุกตัวในสองกลุ่ม พร้อมค่าเฉลี่ยและ {level} CI ขวา: ความต่างของค่าเฉลี่ยกับ {level} CI บนแกนของตัวเอง ซึ่ง 0 อยู่ตรงค่าเฉลี่ยของกลุ่มแรก (Gardner-Altman) ตัวเลขความต่างมาจากผลการวิเคราะห์', 'Left: every animal in both groups with the mean and its {level} CI. Right: the difference in means and its {level} CI on its own axis, with 0 at the first group’s mean (Gardner-Altman). The difference comes from the analysis result.'],
+  ['graphs.note.scatterBand', 'เส้นคือเส้นตรงที่ได้จากวิธีกำลังสองน้อยที่สุด (OLS) แถบจางคือ {level} CI ของค่าเฉลี่ยตามเส้น ไม่ใช่ช่วงที่สัตว์ตัวใหม่หนึ่งตัวจะตกอยู่', 'The line is the least-squares (OLS) line; the band is the {level} CI of the mean along it, not the range a new animal would fall in.'],
+  ['graphs.note.scatterNoLine', 'ไม่ได้วาดเส้นตรง เพราะผลนี้ไม่ได้มาจากเส้นตรง (Spearman ใช้ลำดับที่ของค่า)', 'No line is drawn: this result does not come from a straight line (Spearman uses ranks).'],
+  ['graphs.note.timeCourse', 'จุดคือค่าเฉลี่ยในแต่ละเวลา เส้นแนวตั้งคือ {level} CI แบบ t ของเวลานั้นเพียงจุดเดียว เส้นจางคือสัตว์แต่ละตัว', 'Points are the means at each time and vertical lines the {level} t interval at that time alone; faint lines are the individual animals.'],
+  ['graphs.note.km', 'เส้นขั้นบันไดคือสัดส่วนที่ยังไม่เกิดเหตุการณ์ ขีดสั้นแนวตั้งคือสัตว์ที่หยุดติดตาม (censored) ในเวลานั้น ตัวเลขใต้แกนคือจำนวนที่ยังติดตามอยู่ ณ เวลานั้น', 'The steps are the proportion without the event; short vertical ticks are animals censored at that time. The numbers under the axis are the animals still at risk at each time.'],
+  ['graphs.note.kmBand', 'แถบจางคือ {level} CI', 'The shaded band is the {level} CI.'],
+  ['graphs.note.roc', 'เส้นคือความไวเทียบกับ 1 ลบความจำเพาะ ที่ทุกจุดตัด เส้นประทแยงคือการทายแบบสุ่ม (AUC 0.5)', 'The curve is sensitivity against 1 minus specificity at every cut-off; the dashed diagonal is guessing (AUC 0.5).'],
+  ['graphs.note.youden', 'จุดที่ทำเครื่องหมายคือจุดตัดที่ดีที่สุดตาม Youden บนสัตว์ชุดนี้ จุดตัดที่เลือกจากข้อมูลชุดเดียวกันมักให้ความไวและความจำเพาะสูงกว่าที่จะได้จริงในสัตว์ชุดใหม่', 'The marked points are the best Youden cut-offs on these animals; a cut-off chosen on the same data usually overstates the sensitivity and specificity new animals would give.'],
+  ['graphs.note.ba', 'จุดแต่ละจุดคือสัตว์ 1 ตัว แกนนอนคือค่าเฉลี่ยของสองวิธี แกนตั้งคือผลต่าง เส้นทึบคือ bias (ค่าเฉลี่ยของผลต่าง) เส้นประคือขอบเขตความสอดคล้อง (bias บวกลบ {multiplier} SD) แถบจางคือ {level} CI ของแต่ละเส้น', 'Each dot is one animal: the mean of the two methods across, their difference up. The solid line is the bias (mean difference), the dashed lines the limits of agreement (bias plus or minus {multiplier} SD), and the bands the {level} CI of each line.'],
+  ['graphs.note.baPercent', 'แกนตั้งคือผลต่างเป็นร้อยละของค่าเฉลี่ยของสองวิธี เส้นทึบคือ bias เส้นประคือขอบเขตความสอดคล้อง (bias บวกลบ {multiplier} SD) แถบจางคือ {level} CI ของแต่ละเส้น', 'The difference is shown as a percentage of the mean of the two methods. The solid line is the bias, the dashed lines the limits of agreement (bias plus or minus {multiplier} SD), and the bands the {level} CI of each line.'],
+  ['graphs.note.baRatio', 'แกนตั้งคืออัตราส่วน A หาร B บนสเกล log เส้นที่ 1 คือตรงกัน เส้นทึบคืออัตราส่วนเฉลี่ยแบบเรขาคณิต เส้นประคือขอบเขตความสอดคล้อง', 'The ratio A / B is on a log scale, where 1 means the methods agree. The solid line is the geometric mean ratio and the dashed lines the limits of agreement.'],
+  ['graphs.note.ciFunction', 'เส้นโค้งคือค่า p ของการทดสอบว่าค่าจริงเท่ากับค่าบนแกนนอน (Wald บนสเกล log) เส้นโค้งตัดเส้นประที่ค่า p = {alpha} ตรงขอบของ {level} CI พอดี เส้นแนวตั้งที่ 1 คือไม่มีความต่าง', 'The curve is the p-value for testing that the true value equals the value on the axis (Wald, log scale). It crosses the dashed line p = {alpha} exactly at the bounds of the {level} CI; the vertical line at 1 means no difference.'],
+  ['graphs.note.forest', 'สี่เหลี่ยมคือค่าประมาณในแต่ละชั้น (stratum) เส้นคือ CI รูปข้าวหลามตัดคือค่ารวม แกนเป็นสเกล log เส้นแนวตั้งที่ 1 คือไม่มีความต่าง ชั้นที่คำนวณไม่ได้แสดงเป็น —', 'Squares are the estimates per stratum and lines their CI; the diamond is the pooled estimate. The axis is on a log scale; the vertical line at 1 means no difference. A stratum that cannot be estimated shows —.'],
+  ['graphs.note.forestLinear', 'สี่เหลี่ยมคือค่าประมาณในแต่ละชั้น (stratum) เส้นคือ CI รูปข้าวหลามตัดคือค่ารวม เส้นแนวตั้งที่ 0 คือไม่มีความต่าง', 'Squares are the estimates per stratum and lines their CI; the diamond is the pooled estimate. The vertical line at 0 means no difference.'],
+  ['graphs.note.epi.day', 'แต่ละแท่งคือจำนวนสัตว์ในวันนั้น วันที่ไม่มีสัตว์ก็วาดไว้เป็น 0', 'Each bar counts the animals on that day; days with none are drawn as 0.'],
+  ['graphs.note.epi.isoWeek', 'แต่ละแท่งคือจำนวนสัตว์ในสัปดาห์นั้น สัปดาห์ตาม ISO 8601 เริ่มวันจันทร์ และนับเป็นของปีที่วันพฤหัสบดีของสัปดาห์นั้นอยู่ สัปดาห์ที่ไม่มีสัตว์ก็วาดไว้เป็น 0', 'Each bar counts the animals in that week. Weeks follow ISO 8601: they start on Monday and belong to the year of their Thursday. Weeks with none are drawn as 0.'],
+  ['graphs.note.epi.month', 'แต่ละแท่งคือจำนวนสัตว์ในเดือนนั้น เดือนที่ไม่มีสัตว์ก็วาดไว้เป็น 0', 'Each bar counts the animals in that month; months with none are drawn as 0.'],
+  ['graphs.note.epiMissing', 'ไม่ได้นับ {n} ตัวที่ไม่มีวันที่', '{n} animals without a date are not counted.'],
+  ['graphs.note.ciLog', 'แกนนอนเป็นสเกล log เส้นแนวตั้งที่ 1 คือไม่มีความต่าง ลูกศรปลายเส้นคือ CI ที่ไม่มีขอบด้านนั้น', 'The axis is on a log scale; the vertical line at 1 means no difference. An arrow means the CI has no limit on that side.'],
+  ['graphs.note.ciLinear', 'เส้นแนวนอนคือ CI จุดคือค่าประมาณ', 'Each line is a CI and each dot its estimate.'],
+
+  // axis and legend words
+  ['graphs.estimation.diffAxis', 'ความต่างของค่าเฉลี่ย ({b} ลบ {a})', 'Difference in means ({b} minus {a})'],
+  ['graphs.scatter.intercept', 'ค่าคงที่ (intercept)', 'Intercept'],
+  ['graphs.scatter.slope', 'ความชัน (slope)', 'Slope'],
+  ['graphs.km.atRisk', 'ยังติดตามอยู่', 'At risk'],
+  ['graphs.km.yTitle', 'สัดส่วนที่ยังไม่เกิดเหตุการณ์', 'Proportion without the event'],
+  ['graphs.roc.xTitle', '1 ลบความจำเพาะ', '1 minus specificity'],
+  ['graphs.roc.yTitle', 'ความไว', 'Sensitivity'],
+  ['graphs.roc.legend', '{label} AUC {auc}', '{label} AUC {auc}'],
+  ['graphs.roc.legendCi', '{label} AUC {auc} ({level} CI {ci})', '{label} AUC {auc} ({level} CI {ci})'],
+  ['graphs.roc.aucRow', 'AUC', 'AUC'],
+  ['graphs.roc.youdenRow', 'จุดตัด Youden {threshold}', 'Youden cut-off {threshold}'],
+  ['graphs.ba.bias', 'bias', 'Bias'],
+  ['graphs.ba.lower', 'ขอบล่าง', 'Lower limit'],
+  ['graphs.ba.upper', 'ขอบบน', 'Upper limit'],
+  ['graphs.ba.xTitle', 'ค่าเฉลี่ยของสองวิธี', 'Mean of the two methods'],
+  ['graphs.ba.yTitle.absolute', 'ผลต่าง (วิธี A ลบวิธี B)', 'Difference (method A minus method B)'],
+  ['graphs.ba.yTitle.percent', 'ผลต่างเป็นร้อยละของค่าเฉลี่ย', 'Difference as a percentage of the mean'],
+  ['graphs.ba.yTitle.ratio', 'อัตราส่วน A หาร B (สเกล log)', 'Ratio A / B (log scale)'],
+  ['graphs.ciFunction.yTitle', 'ค่า p', 'p-value'],
+  ['graphs.forest.pooled', '{name} รวม (Mantel-Haenszel)', 'Pooled {name} (Mantel-Haenszel)'],
+  ['graphs.forest.undefinedStratum', 'คำนวณไม่ได้ในชั้นนี้', 'cannot be estimated in this stratum'],
+  ['graphs.epi.yTitle', 'จำนวนสัตว์', 'Animals'],
+  ['graphs.epi.xTitle.day', 'วันที่ (พ.ศ.)', 'Date (CE)'],
+  ['graphs.epi.xTitle.isoWeek', 'สัปดาห์ตาม ISO 8601 (พ.ศ.)', 'ISO 8601 week (CE)'],
+  ['graphs.epi.xTitle.month', 'เดือน (พ.ศ.)', 'Month (CE)'],
+  ['graphs.epi.week', 'สัปดาห์ {week}', 'W{week}'],
+  ['graphs.epi.weekYear', 'สัปดาห์ {week} ปี {year}', 'W{week} {year}'],
+  ['graphs.epi.unit.day', 'วัน', 'Day'],
+  ['graphs.epi.unit.isoWeek', 'สัปดาห์ (ISO 8601)', 'Week (ISO 8601)'],
+  ['graphs.epi.unit.month', 'เดือน', 'Month'],
+
+  // the text a screen reader hears (aria-label), numbers included
+  ['graphs.summary.dot', 'สัตว์ {n} ตัวใน {k} กลุ่ม: {groups}', '{n} animals in {k} groups: {groups}'],
+  ['graphs.summary.groupMean', '{group} n = {n} ค่าเฉลี่ย {center} ({level} CI {ci})', '{group} n = {n}, mean {center} ({level} CI {ci})'],
+  ['graphs.summary.groupMedian', '{group} n = {n} มัธยฐาน {center} (IQR {ci})', '{group} n = {n}, median {center} (IQR {ci})'],
+  ['graphs.summary.box', 'Box plot: {groups}', 'Box plot: {groups}'],
+  ['graphs.summary.boxGroup', '{group} n = {n} มัธยฐาน {median} ควอร์ไทล์ {q1} ถึง {q3} ค่านอกหนวด {beyond} ค่า', '{group} n = {n}, median {median}, quartiles {q1} to {q3}, {beyond} values beyond the whiskers'],
+  ['graphs.summary.violin', 'Violin plot: {groups}', 'Violin plot: {groups}'],
+  ['graphs.summary.violinGroup', '{group} n = {n} มัธยฐาน {median} bandwidth {bw}', '{group} n = {n}, median {median}, bandwidth {bw}'],
+  ['graphs.summary.estimation', 'ความต่างของค่าเฉลี่ย {b} ลบ {a} เท่ากับ {diff} ({level} CI {ci})', 'Difference in means, {b} minus {a}: {diff} ({level} CI {ci})'],
+  ['graphs.summary.scatter', 'กราฟกระจายของสัตว์ {n} ตัว', 'Scatter plot of {n} animals'],
+  ['graphs.summary.scatterLine', 'กราฟกระจายของสัตว์ {n} ตัว เส้นตรง ค่าคงที่ {intercept} ความชัน {slope} พร้อมแถบ {level} CI', 'Scatter plot of {n} animals with the line intercept {intercept}, slope {slope}, and its {level} CI band'],
+  ['graphs.summary.timeCourse', 'ค่าตามเวลา {k} กลุ่ม {times} เวลา: {rows}', 'Time course, {k} groups at {times} times: {rows}'],
+  ['graphs.summary.km', 'Kaplan-Meier {k} กลุ่ม: {series}', 'Kaplan-Meier, {k} groups: {series}'],
+  ['graphs.summary.kmSeries', '{group} เริ่ม {n} ตัว เกิดเหตุการณ์ {events} ครั้ง สัดส่วนสุดท้าย {last}', '{group} starts with {n}, {events} events, last proportion {last}'],
+  ['graphs.summary.roc', 'ROC: {curves} จุดตัด: {youden}', 'ROC: {curves}. Cut-offs: {youden}'],
+  ['graphs.summary.ba', 'Bland-Altman สัตว์ {n} ตัว bias {bias} ขอบเขตความสอดคล้อง {lower} ถึง {upper}', 'Bland-Altman of {n} animals: bias {bias}, limits of agreement {lower} to {upper}'],
+  ['graphs.summary.ciFunction', 'ฟังก์ชันค่า p ของ {label} {est} ค่า p = {alpha} ที่ {lo} และ {hi} ({level} CI)', 'p-value function of {label} {est}; p = {alpha} at {lo} and {hi} (the {level} CI)'],
+  ['graphs.summary.forest', 'Forest plot {k} ชั้น: {rows}', 'Forest plot of {k} strata: {rows}'],
+  ['graphs.summary.epi', 'เส้นโค้งการระบาดของสัตว์ {n} ตัว {bins} ช่วง ตั้งแต่ {from} ถึง {to} มากที่สุด {peakCount} ตัวใน {peak}', 'Epidemic curve of {n} animals in {bins} bins from {from} to {to}; the most, {peakCount}, in {peak}'],
+
+  // downloads (the width, dpi, SVG and PNG words are ws.chart.*)
+  ['graphs.export.tiff', 'TIFF', 'TIFF'],
+  ['graphs.export.pdf', 'PDF (หน้าต่างพิมพ์)', 'PDF (print dialog)'],
+  ['graphs.export.hint', 'ไฟล์ใช้พื้นขาวตัวอักษรดำตามที่วารสารขอ TIFF เป็นภาพ RGB 8 บิต บีบอัดแบบ LZW ส่วน PDF จะเปิดหน้าต่างพิมพ์ของเบราว์เซอร์ที่ขนาดกระดาษเท่ารูป เลือกบันทึกเป็น PDF จะได้ไฟล์แบบเวกเตอร์ ทุกไฟล์ทำบนเครื่องนี้ ไม่มีข้อมูลส่งออกนอกเครื่อง', 'Files use white paper and black ink, as journals ask. TIFF is 8-bit RGB with LZW compression. PDF opens the browser’s print dialog at the figure’s size; choose Save as PDF for a vector file. Every file is made on this device; no data leaves this device.'],
+  ['graphs.export.failed', 'ทำไฟล์ไม่สำเร็จ ลองอีกครั้ง หรือเลือก 300 dpi', 'The file could not be made. Try again, or choose 300 dpi.'],
+  ['graphs.export.noPrint', 'เบราว์เซอร์นี้เปิดหน้าต่างพิมพ์ไม่ได้', 'This browser cannot open a print dialog'],
+
+  // figures pane
+  ['graphs.figures.eyebrow', 'รายงาน', 'Report'],
+  ['graphs.figures.title', 'รูปสำหรับวารสาร', 'Figures for a journal'],
+  ['graphs.figures.sub', 'เลือกกราฟจากผลที่เก็บไว้ วางเป็นแผง A B C ที่ความกว้างคอลัมน์ของวารสาร แล้วดาวน์โหลดเป็น SVG PNG TIFF หรือ PDF ด้านล่างมีเส้นโค้งการระบาดจากคอลัมน์วันที่ ทุกไฟล์ทำบนเครื่องนี้', 'Pick charts from your kept results, lay them out as panels A, B, C at a journal’s column width, and download SVG, PNG, TIFF or PDF. Below is the epidemic curve of a date column. Every file is made on this device.'],
+  ['graphs.figures.epi.title', 'เส้นโค้งการระบาดจากคอลัมน์วันที่', 'Epidemic curve from a date column'],
+  ['graphs.figures.epi.date', 'คอลัมน์วันที่', 'Date column'],
+  ['graphs.figures.epi.group', 'แยกสีตาม', 'Colour by'],
+  ['graphs.figures.epi.none', 'ไม่แยก', 'Nothing'],
+  ['graphs.figures.epi.unit', 'นับเป็นช่วงละ', 'Count by'],
+  ['graphs.figures.epi.noDate', 'ข้อมูลนี้ยังไม่มีคอลัมน์วันที่', 'This dataset has no date column yet'],
+  ['graphs.figure.panelCount', 'รูปหลายแผงต้องมี 2 ถึง 6 แผง', 'A figure holds 2 to 6 panels'],
+];
+
+const th = {};
+const en = {};
+for (const [k, a, b] of ROWS) {
+  th[k] = a;
+  en[k] = b;
+}
+
+export default { th, en };

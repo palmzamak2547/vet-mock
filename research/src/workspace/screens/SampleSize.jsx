@@ -2,7 +2,9 @@
 // reproduces the worked examples of the Veterinary Epidemiology course step by step with the formula
 // named, and shows the common alternatives beside it (never instead of it). The examples' inputs are
 // in lib/course-examples.js (pinned to the committed course fixture by a test); every word about an
-// example is in the dictionaries. Post hoc power is refused (G9). OWNER: workspace role.
+// example is in the dictionaries. Post hoc power is refused (G9). OWNER: ui-tools role (M2; workspace in
+// M1). M2: the rail reaches the power and randomisation tools [M2-DESIGN.md 10.3], and a line under the
+// kinds sends a student planning an experiment (ANOVA, t-test, correlation, regression) to power.
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useT } from '../../i18n/index.js';
 import { getMethod } from '../../lib/runtime/catalog.js';
@@ -18,9 +20,10 @@ import Icon from '../components/Icon.jsx';
 import Rail from '../components/Rail.jsx';
 import ResultView from '../components/ResultView.jsx';
 import TopBar from '../components/TopBar.jsx';
+import Link from '../components/Link.jsx';
+import { TOOL_RAIL } from './tools/tool-rail.js';
 
 const SS = ['ss.proportion', 'ss.caseControl', 'ss.twoProportions', 'ss.mean', 'ss.twoMeans', 'ss.paired'];
-const TOOL_RAIL = [{ h: 'ws.rail.group.tools' }, { id: 'sampleSize', label: 'ws.rail.sampleSize', icon: 'calc', href: '/app/tools/sample-size' }];
 /** Which option names the alternatives beside the course answer. */
 const ALT_OPTION = { 'ss.caseControl': 'formula', 'ss.twoProportions': 'formula', 'ss.proportion': 'fpc' };
 
@@ -150,6 +153,7 @@ export default function SampleSize() {
               );
             })}
           </div>
+          <p className="rs-soft rs-small">{t('tools.power.fromSampleSize')} <Link to="/app/tools/power" className="rs-plainlink">{t('tools.power.fromSampleSizeLink')}</Link></p>
           <div className="rs-analysis">
             <section className="rs-analysis-setup rs-panel rs-pad rs-stack" aria-labelledby="rs-h-ss">
               <div className="rs-row">

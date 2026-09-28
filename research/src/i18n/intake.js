@@ -40,6 +40,9 @@ export default {
     'intake.kind.type-conflict': 'ค่าที่อ่านเป็นชนิดของคอลัมน์ไม่ได้',
     'intake.kind.pii': 'ข้อมูลส่วนบุคคล',
     'intake.kind.question': 'คำถามที่ต้องตอบก่อนนำเข้า',
+    'intake.kind.value-labels': 'ชื่อกลุ่มที่ตั้งไว้ใน SPSS',
+    'intake.kind.sav-date': 'วันที่จากไฟล์ SPSS',
+    'intake.kind.sav-note': 'ส่วนของไฟล์ SPSS ที่ไม่ได้นำเข้า',
 
     // ---- conversion sentences
     'intake.conv.ragged': 'มี {count} แถวที่จำนวนช่องไม่เท่าหัวตาราง แถวที่สั้นกว่าเติมช่องว่างให้ครบ',
@@ -124,6 +127,7 @@ export default {
     'intake.missing.cell.3': 'ไม่เกี่ยวข้อง',
     'intake.missing.cell.4': 'ไม่ได้บันทึก',
     'intake.missing.cell.5': 'อ่านค่าไม่ได้',
+    'intake.missing.cell.6': 'ไม่พบคู่ในไฟล์ที่รวม',
 
     // ---- dates
     'intake.date.evidence.orderConflict': 'มีทั้งวันที่ที่ตัวแรกเกิน 12 ({dmy}) และตัวที่สองเกิน 12 ({mdy}) คอลัมน์นี้เขียนวันที่ปนกันสองแบบ',
@@ -292,6 +296,9 @@ export default {
     'intake.kind.type-conflict': 'Values that do not fit the column type',
     'intake.kind.pii': 'Personal data',
     'intake.kind.question': 'Questions to answer before importing',
+    'intake.kind.value-labels': 'Group names set in SPSS',
+    'intake.kind.sav-date': 'Dates from the SPSS file',
+    'intake.kind.sav-note': 'Parts of the SPSS file not imported',
 
     'intake.conv.ragged': '{count} rows have a different number of cells from the header; short rows are filled with blanks',
     'intake.conv.raggedExtra': '{count} rows have a different number of cells from the header. The extra cells hold data, so {extra} unnamed columns were added instead of cutting it',
@@ -372,6 +379,7 @@ export default {
     'intake.missing.cell.3': 'not applicable',
     'intake.missing.cell.4': 'not recorded',
     'intake.missing.cell.5': 'unreadable',
+    'intake.missing.cell.6': 'no match in the merged file',
 
     'intake.date.evidence.orderConflict': 'Some dates have a first number above 12 ({dmy}) and others a second number above 12 ({mdy}); this column mixes two ways of writing dates',
     'intake.date.evidence.dayFirst': 'Written day/month/year: dates such as {example} have a first number above 12',

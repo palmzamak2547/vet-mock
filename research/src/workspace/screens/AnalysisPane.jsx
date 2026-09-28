@@ -2,7 +2,12 @@
 // "PhoneResult"]: the methods the study design allows for this screen, the columns for each role, the
 // options that change numbers, and the result. When animals share farms and no farm-aware route is
 // chosen, the engine stops (G1) and this screen shows ICC, DEFF and effective n with the routes, before
-// any comparison; the chosen route is re-run and written into the methods paragraph. OWNER: workspace role.
+// any comparison; the chosen route is re-run and written into the methods paragraph. OWNER: ui-analysis role
+// (M2; workspace in M1). M2 [M2-DESIGN.md 10.2]: the same screen serves the lab, models, survival and measure
+// panes. There the methods are listed under the student's question and the study layout it comes from
+// (method-questions.js), every option carries a plain sentence on what it changes, the result is followed
+// by its charts (chart-inputs.js, drawn by the chart kit) and, after a t-test or ANOVA, a folded
+// diagnostics panel that never switches the test.
 import { useEffect, useMemo, useState } from 'react';
 import { formatNumber } from '../../lib/stats/format.js';
 import { useT } from '../../i18n/index.js';
@@ -11,7 +16,11 @@ import { clusterPanel } from '../../lib/epi/guardrails.js';
 import { getMethod } from '../../lib/runtime/catalog.js';
 import { COMMON_OPTIONS, DEFAULT_OPTIONS } from '../../lib/runtime/spec.js';
 import { useWs, errorInfo } from '../ws-context.js';
-import { ALTERNATIVES, CONF_LEVELS, METHOD_UI, buildSpec, columnsForRole, initialChoices, methodsForPane, missingRoles, rolesFor } from '../lib/method-ui.js';
+import { ALTERNATIVES, CONF_LEVELS, METHOD_UI, buildSpec, columnsForRole, initialChoices, methodsForPane, missingRoles, rolesFor, visibleOptions } from '../lib/method-ui.js';
+import { METHOD_TERMS, QUESTION_PANES, groupByQuestion } from '../lib/method-questions.js';
+import { chartsForResult, repeatsCiPlot } from '../lib/chart-inputs.js';
+import ResultCharts from '../components/ResultCharts.jsx';
+import DiagnosticsPanel from '../components/DiagnosticsPanel.jsx';
 import { herdGroups } from '../lib/herd.js';
 import { keyPart } from '../lib/keys.js';
 import { Busy, ErrorBox, Field, Notice, PageHead, VerifiedBadge } from '../components/Bits.jsx';
@@ -36,15 +45,29 @@ function methodFromQuery() {
   try { return new URLSearchParams(window.location.search).get('m'); } catch { return null; }
 }
 
+/**
+ * The plain sentence under an option (what choosing it changes), when the dictionary has one: the
+ * method's own sentence first (ws.optHelp.<method>.<option>), else the option's.
+ */
+function optionHelp(t, method, name) {
+  return [`ws.optHelp.${keyPart(method)}.${name}`, `ws.optHelp.${name}`].map((k) => (hasKey(t, k) ? t(k) : null)).find(Boolean) || undefined;
+}
+
+/** A role's label and hint: the method's own words when a role means something else there (time on a survival curve). */
+function roleWord(t, method, role, kind) {
+  const own = `ws.${kind}For.${keyPart(method)}.${role}`;
+  return hasKey(t, own) ? t(own) : t(`ws.${kind}.${role}`);
+}
+
 /** Option controls for one method: a select per option with more than one allowed value. */
 function OptionControls({ method, options, setOptions }) {
   const { t } = useT();
   const ui = METHOD_UI[method];
-  const entries = Object.entries(ui?.options || {}).filter(([, vals]) => vals.length > 1);
+  const entries = visibleOptions(method, DEFAULT_OPTIONS[method] || {});
   return (
     <div className="rs-formgrid">
       {entries.map(([name, vals]) => (
-        <Field key={name} label={t(`ws.opt.${name}.label`)} htmlFor={`rs-opt-${name}`}>
+        <Field key={name} label={t(`ws.opt.${name}.label`)} hint={optionHelp(t, method, name)} htmlFor={`rs-opt-${name}`}>
           <select id={`rs-opt-${name}`} className="rs-select" value={String(options[name])} onChange={(e) => {
             const raw = e.target.value;
             const v = vals.find((x) => String(x) === raw);
@@ -70,7 +93,7 @@ function OptionControls({ method, options, setOptions }) {
   );
 }
 
-/** @param {{ p: any, pane: 'prev'|'assoc' }} props */
+/** @param {{ p: any, pane: 'prev'|'assoc'|'lab'|'models'|'survival'|'measure' }} props */
 export default function AnalysisPane({ p, pane }) {
   const { t, lang } = useT();
   const { engine, engineError } = useWs();
@@ -91,6 +114,9 @@ export default function AnalysisPane({ p, pane }) {
   const [busy, setBusy] = useState(false);
   const [compare, setCompare] = useState([]);
   const [independent, setIndependent] = useState(null);
+  const [kept, setKept] = useState(false);
+  const byQuestion = QUESTION_PANES.includes(pane);
+  const groups = useMemo(() => (byQuestion ? groupByQuestion(pane, offered) : [{ id: null, layout: null, methods: offered.map((o) => o.method) }]), [byQuestion, pane, offered]);
   const cluster = codebook.columns.find((c) => c.key === codebook.clusterKey) || null;
 
   useEffect(() => {
@@ -108,6 +134,7 @@ export default function AnalysisPane({ p, pane }) {
     setError(null);
     setCompare([]);
     setIndependent(null);
+    setKept(false);
   }, [method, codebook]);
 
   const levelsFor = (key) => {
@@ -148,6 +175,7 @@ export default function AnalysisPane({ p, pane }) {
     setError(null);
     setCompare([]);
     setIndependent(null);
+    setKept(false);
     try {
       const s = makeSpec(route);
       const e = await engine.run(s, p.table, codebook, steps);
@@ -247,32 +275,52 @@ export default function AnalysisPane({ p, pane }) {
     return { label: t(`ws.route.${keyPart(c.route)}.short`), est: v.value, lo: v.ci?.[0] ?? null, hi: v.ci?.[1] ?? null, muted: true, estText: cells.est, ciText: cells.ci };
   })].filter(Boolean);
 
+  const charts = env && env.status === 'ok' ? chartsForResult({ spec, envelope: env }, p.table, { labelOf, t }) : [];
+
   return (
     <>
       <PageHead eyebrow={t(`ws.rail.${pane}`)} title={t(`ws.analysis.${pane}.title`)} sub={t(`ws.analysis.${pane}.sub`)} />
       {engineError ? <ErrorBox error={engineError} /> : null}
-      {offered.length === 0 ? <Notice tone="info">{t('ws.analysis.noneForDesign', { design: t(designRow.nameKey) })}</Notice> : null}
+      {offered.length === 0 ? (
+        <Notice tone="info" action={byQuestion ? <Link to={`/app/p/${p.project.id}/design`} className="rs-btn">{t('ws.rail.design')}</Link> : null}>
+          {t('ws.analysis.noneForDesign', { design: t(designRow.nameKey) })}
+          {byQuestion && hasKey(t, `ws.analysis.${pane}.whichDesign`) ? ` ${t(`ws.analysis.${pane}.whichDesign`)}` : ''}
+        </Notice>
+      ) : null}
       <div className="rs-analysis">
         <section className="rs-analysis-setup" aria-labelledby="rs-h-setup">
           <h2 id="rs-h-setup" className="rs-visually-hidden">{t('ws.analysis.setup')}</h2>
           <fieldset className="rs-fieldset">
-            <legend className="rs-eyebrow">{t('ws.analysis.method')}</legend>
-            <div className="rs-methodlist">
-              {offered.map((o) => {
-                const m = getMethod(o.method);
-                const name = m && hasKey(t, m.nameKey) ? t(m.nameKey) : o.method;
-                return (
-                  <label key={o.method} className={`rs-choice${method === o.method ? ' rs-choice--on' : ''}${m?.shipped ? '' : ' rs-choice--soon'}`}>
-                    <input type="radio" name={`rs-method-${pane}`} value={o.method} checked={method === o.method} onChange={() => setMethod(o.method)} />
-                    <span className="rs-choice-text">
-                      <span className="rs-choice-title">{name}</span>
-                      {m?.shipped ? null : <span className="rs-soft rs-xsmall">{t('ws.analysis.notReady')}</span>}
-                    </span>
-                    <VerifiedBadge show={Boolean(m?.verified)} />
-                  </label>
-                );
-              })}
-            </div>
+            <legend className="rs-eyebrow">{t(byQuestion ? 'ws.analysis.question' : 'ws.analysis.method')}</legend>
+            {groups.map((g) => (
+              <div key={g.id || 'all'} className={g.id ? 'rs-qgroup' : undefined} role={g.id ? 'group' : undefined} aria-labelledby={g.id ? `rs-q-${pane}-${g.id}` : undefined}>
+                {g.id ? (
+                  <div className="rs-qhead">
+                    <span id={`rs-q-${pane}-${g.id}`} className="rs-qtitle">{t(`ws.question.${g.id}.title`)}</span>
+                    {g.layout ? <span className="rs-chip rs-chip--inline">{t(`ws.layout.${g.layout}`)}</span> : null}
+                    <p className="rs-soft rs-small">{t(`ws.question.${g.id}.help`)}</p>
+                  </div>
+                ) : null}
+                <div className="rs-methodlist">
+                  {g.methods.map((id) => {
+                    const m = getMethod(id);
+                    const name = m && hasKey(t, m.nameKey) ? t(m.nameKey) : id;
+                    const blurb = byQuestion && hasKey(t, `ws.methodBlurb.${keyPart(id)}`) ? t(`ws.methodBlurb.${keyPart(id)}`) : null;
+                    return (
+                      <label key={id} className={`rs-choice${method === id ? ' rs-choice--on' : ''}${m?.shipped ? '' : ' rs-choice--soon'}`}>
+                        <input type="radio" name={`rs-method-${pane}`} value={id} checked={method === id} onChange={() => setMethod(id)} />
+                        <span className="rs-choice-text">
+                          <span className="rs-choice-title">{name}</span>
+                          {blurb ? <span className="rs-soft rs-small">{blurb}</span> : null}
+                          {m?.shipped ? null : <span className="rs-soft rs-xsmall">{t('ws.analysis.notReady')}</span>}
+                        </span>
+                        <VerifiedBadge show={Boolean(m?.verified)} />
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </fieldset>
 
           {method ? (
@@ -285,8 +333,10 @@ export default function AnalysisPane({ p, pane }) {
                 if (r.multiple) {
                   return (
                     <fieldset key={r.role} className="rs-fieldset">
-                      <legend className="rs-field-label">{t(`ws.role.${r.role}`)}</legend>
+                      <legend className="rs-field-label">{roleWord(t, method, r.role, 'role')}</legend>
+                      {hasKey(t, `ws.roleHint.${r.role}`) ? <p className="rs-field-hint">{roleWord(t, method, r.role, 'roleHint')}</p> : null}
                       <div className="rs-checkgrid">
+                        {fits.length === 0 ? <p className="rs-soft rs-small">{t('ws.analysis.noFitting')}</p> : null}
                         {fits.map((c) => (
                           <label key={c.key} className="rs-check">
                             <input type="checkbox" checked={(val || []).includes(c.key)} onChange={(e) => setChoices((ch) => ({ ...ch, roles: { ...ch.roles, [r.role]: e.target.checked ? [...(val || []), c.key] : (val || []).filter((x) => x !== c.key) } }))} />
@@ -300,7 +350,7 @@ export default function AnalysisPane({ p, pane }) {
                 const lv = val ? levelsFor(val) : [];
                 return (
                   <div key={r.role} className="rs-rolebox">
-                    <Field label={t(`ws.role.${r.role}`)} hint={t(`ws.roleHint.${r.role}`)} htmlFor={`rs-role-${r.role}`}>
+                    <Field label={roleWord(t, method, r.role, 'role')} hint={roleWord(t, method, r.role, 'roleHint')} htmlFor={`rs-role-${r.role}`}>
                       <select id={`rs-role-${r.role}`} className="rs-select" value={val || ''} onChange={(e) => {
                         const key = e.target.value || null;
                         const entry = codebook.columns.find((c) => c.key === key);
@@ -356,7 +406,15 @@ export default function AnalysisPane({ p, pane }) {
                 <summary>{t('ws.analysis.options')}</summary>
                 <OptionControls method={method} options={options} setOptions={setOptions} />
               </details>
+              {(METHOD_TERMS[method] || []).length ? (
+                <dl className="rs-g1-glosses rs-small" aria-label={t('ws.analysis.termsTitle')}>
+                  {METHOD_TERMS[method].map((k) => (
+                    <div key={k}><dt lang="en">{t(`term.${k}.name`)}</dt><dd className="rs-soft">{t(`term.${k}.gloss`)}</dd></div>
+                  ))}
+                </dl>
+              ) : null}
               {needsCluster ? <Notice tone="info">{t('ws.analysis.needsCluster')}</Notice> : null}
+              {hasKey(t, `ws.analysis.${pane}.before`) ? <p className="rs-soft rs-small">{t(`ws.analysis.${pane}.before`)}</p> : null}
               {cat && !cat.shipped ? <Notice tone="info">{t('ws.analysis.notReadyBody')}</Notice> : null}
               {gaps.length ? <p className="rs-soft rs-small">{t('ws.analysis.stillNeeds', { what: gaps.map((g) => t(hasKey(t, `ws.role.${g}`) ? `ws.role.${g}` : `ws.level.pick.${g}`)).join(', ') })}</p> : null}
               {cluster && !ui?.needsCluster && ui?.input === 'dataset' ? <p className="rs-soft rs-small">{t('ws.analysis.clusterAhead', { column: cluster.name })}</p> : null}
@@ -382,6 +440,7 @@ export default function AnalysisPane({ p, pane }) {
               designRow={designRow}
               extraRows={extraRows}
               headlineLabel={deffShown ? t('ws.prev.adjustedHeadline') : undefined}
+              hidePlot={repeatsCiPlot(charts)}
               primaryPlotLabel={deffShown ? t('ws.prev.adjustedRow') : undefined}
               afterPlot={why ? (
                 // Under the headline and the CI plot, as the board has it (review round 3: it came first).
@@ -396,9 +455,13 @@ export default function AnalysisPane({ p, pane }) {
               ) : null}
               labelOf={labelOf}
               codebook={codebook}
-              onSnapshot={env.status === 'ok' ? () => p.saveSnapshot(spec, env) : null}
+              onSnapshot={env.status === 'ok' ? async () => { const id = await p.saveSnapshot(spec, env); if (id) setKept(true); } : null}
               onDownloaded={(kind) => p.log('download', { what: kind, method })}
             >
+              <ResultCharts charts={charts} caption={title} idBase={`rs-charts-${pane}`} madeUp={Boolean(p.project?.example)} figuresHref={kept ? `/app/p/${p.project.id}/figures` : null} onDownloaded={(kind, chart) => p.log('download', { what: kind, method, chart })} />
+              {env.status === 'ok' && spec ? (
+                <DiagnosticsPanel spec={spec} table={p.table} codebook={codebook} steps={steps} datasetId={p.meta.id} labelOf={labelOf} onLog={(what) => p.log('analysis', { method, ...what })} />
+              ) : null}
               {spec?.cluster?.route && spec.cluster.route !== 'none' ? (
                 <div className="rs-panel rs-pad rs-stack">
                   <h3 className="rs-h3">{t('ws.analysis.routeUsed', { route: t(`ws.route.${keyPart(spec.cluster.route)}.title`) })}</h3>

@@ -1,7 +1,9 @@
 // Study design first [M1-DESIGN.md 6; workspace board "Design"]: the student names the design before
 // choosing a method, because the design decides which measures exist (no risk or relative risk from a
 // case-control study, prevalence ratio first for a cross-sectional 2x2). The screen lists what the
-// design can compute and what it cannot, with the reason, from lib/epi/design.js. OWNER: workspace role.
+// design can compute and what it cannot, with the reason, from lib/epi/design.js. OWNER: ui-analysis role
+// (M2; workspace in M1). M2: each offered method links to its own screen, the lab, models, survival and
+// measure panes included.
 import { useT } from '../../i18n/index.js';
 import { DESIGNS } from '../../lib/epi/design.js';
 import { getMethod } from '../../lib/runtime/catalog.js';
@@ -11,7 +13,9 @@ import { Notice, PageHead, VerifiedBadge } from '../components/Bits.jsx';
 import Icon from '../components/Icon.jsx';
 import Link from '../components/Link.jsx';
 
-const PANE_OF = { prev: 'prev', assoc: 'assoc', table1: 'table1' };
+const PANE_OF = { prev: 'prev', assoc: 'assoc', table1: 'table1', lab: 'lab', models: 'models', survival: 'survival', measure: 'measure' };
+/** Where "next" goes for a design: the screen that answers its first question. */
+const NEXT_PANE = { diagnostic: 'assoc', agreement: 'assoc', experiment: 'lab' };
 
 /** @param {{ p: any }} props */
 export default function DesignPane({ p }) {
@@ -79,7 +83,7 @@ export default function DesignPane({ p }) {
           )}
           {cluster ? <Notice tone="warn">{t('ws.design.clusterNote', { column: cluster.name })}</Notice> : null}
           {chosen && p.meta ? (
-            <Link to={`/app/p/${p.project.id}/${chosen.id === 'diagnostic' || chosen.id === 'agreement' ? 'assoc' : 'prev'}`} className="rs-btn rs-btn--primary">
+            <Link to={`/app/p/${p.project.id}/${NEXT_PANE[chosen.id] || 'prev'}`} className="rs-btn rs-btn--primary">
               {t('ws.design.next')}
               <Icon name="arrow" size={18} />
             </Link>

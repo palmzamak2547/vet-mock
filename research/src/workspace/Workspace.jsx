@@ -16,6 +16,7 @@ import measure from '../i18n/measure.js';
 import data from '../i18n/data.js';
 import graphs from '../i18n/graphs.js';
 import tools from '../i18n/tools.js';
+import termsM2 from '../i18n/terms-m2.js';
 import { useOwner } from '../lib/auth/session.js';
 import { claimGuestProjects, claimOnFirstSignIn } from '../lib/auth/claim-guest.js';
 import { openResearchDb } from '../lib/store/db.js';
@@ -48,6 +49,7 @@ registerArea('measure', measure);
 registerArea('data', data);
 registerArea('graphs', graphs);
 registerArea('tools', tools);
+registerArea('terms-m2', termsM2);
 
 const Entrance = lazy(() => import('../entrance/Entrance.jsx'));
 const WorkspaceFilm = lazy(() => import('../entrance/WorkspaceFilm.jsx'));

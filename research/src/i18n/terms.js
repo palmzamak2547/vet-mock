@@ -1,7 +1,7 @@
 // One term per concept [M1-DESIGN.md 4.4]. Statistics terms stay English in both languages and get a
 // short plain gloss the first time a screen uses them (term.<id>.gloss). Thai words taken from the
 // main app's src/data/glossary.js are marked; tests/unit/i18n-glossary.test.mjs checks they still
-// match it. Prefix 'term.'. OWNER: workspace role (add terms here before using a new Thai word).
+// match it. Prefix 'term.'. OWNER: ui-analysis role (M2; workspace in M1) (add terms here before using a new Thai word).
 export default {
   th: {
     // from src/data/glossary.js (thai field)

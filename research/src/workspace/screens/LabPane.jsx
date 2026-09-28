@@ -1,8 +1,9 @@
-// Several factors and repeated measures: two-way and repeated-measures ANOVA, Friedman, post hoc tests (Dunn, Games-Howell, Dunnett), with the diagnostics panel beside each result [M2-DESIGN.md 10.2].
-// OWNER: ui-analysis role. STUB(m2): renders the placeholder until its owner builds the screen.
-import NotBuilt from '../components/NotBuilt.jsx';
+// Several factors and repeated measures: two-way and repeated-measures ANOVA, Friedman, post hoc tests (Dunnett, Games-Howell, Dunn) and the diagnostics checks [M2-DESIGN.md 10.2]. The analysis screen with the methods listed under the student's question
+// (AnalysisPane with pane 'lab'): design first, columns for each role, options with a plain sentence each,
+// the farm stop before any result, the result with its charts. OWNER: ui-analysis role.
+import AnalysisPane from './AnalysisPane.jsx';
 
 /** @param {{ p: any }} props */
 export default function Pane({ p }) {
-  return <NotBuilt titleKey="ws.rail.lab" />;
+  return <AnalysisPane key="lab" p={p} pane="lab" />;
 }

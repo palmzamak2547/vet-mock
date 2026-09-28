@@ -67,6 +67,8 @@
 }
 
 :root {
+  /* Figures and exported charts are drawn on white paper in both themes, as a journal prints them. */
+  --rs-print-paper: #ffffff;
   --rs-font: 'Sarabun', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --rs-mono: ui-monospace, 'Cascadia Mono', Consolas, 'SFMono-Regular', Menlo, monospace;
   --rs-radius: 12px;
