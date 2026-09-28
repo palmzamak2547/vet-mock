@@ -1,7 +1,7 @@
 // Shared pieces of every chart model: the size and type of the drawing (screen pixels, or points for a
 // figure at its printed width), the plot frame, axes with ticks from niceTicks, tick text, legends and
 // the node helpers the kinds build marks from. Pure. OWNER: graphs role.
-import { niceTicks, textWidth, thinLabels } from './scale.js';
+import { niceTicks, textWidth } from './scale.js';
 import { seriesShape, seriesToken } from './palette.js';
 
 /** Points per millimetre (1 pt = 1/72 inch). */
@@ -102,14 +102,20 @@ export function margins(ctx, o = {}) {
  * figure, a rotated y title running past the plot height).
  * @returns {{ lines: string[], size: number }}
  */
-export function fitTitle(title, room, fs) {
+export function fitTitle(title, room, fs, floor = null) {
   const w = textWidth(title, fs);
   if (w <= room || room <= 0) return { lines: [String(title)], size: fs };
-  const min = fs * 0.75;
+  const min = floor ?? fs * 0.75;
   const size = Math.max(min, (fs * room) / w);
   if (textWidth(title, size) <= room) return { lines: [String(title)], size: r2(size) };
   const lines = wrapWords(title, room, min);
   return { lines: lines.length > 3 ? [lines[0], lines[1], lines.slice(2).join(' ')] : lines, size: r2(min) };
+}
+
+/** The smallest type a chart prints: 7 pt at print size (the floor journals set for 85 and 174 mm figures,
+ * review round 2: titles fitted down to 6 pt), three quarters of the screen font on screen. */
+export function minFont(ctx) {
+  return ctx.unit === 'pt' ? Math.min(ctx.fs, 7) : ctx.fs * 0.75;
 }
 
 /** Title nodes along an axis: one line centred, or two lines stacked around the same centre. */
@@ -124,10 +130,10 @@ export function titleNodes(cx, cy, fit, attrs, rotate = false) {
 }
 
 /** The x axis title centred under the plot, fitted to the room it has on both sides of that centre. */
-export function xTitleNodes(ctx, box, title) {
+export function xTitleNodes(ctx, box, title, extra = 0) {
   const cx = (box.left + box.right) / 2;
   const room = 2 * Math.min(cx, ctx.width - cx) - ctx.fs * 0.5;
-  return titleNodes(cx, box.bottom + ctx.fs * 2.9, fitTitle(title, room, ctx.fs), { 'text-anchor': 'middle', fill: 'ink' });
+  return titleNodes(cx, box.bottom + ctx.fs * 2.9 + extra, fitTitle(title, room, ctx.fs, minFont(ctx)), { 'text-anchor': 'middle', fill: 'ink' });
 }
 
 /**
@@ -146,9 +152,12 @@ export function yAxis(ctx, box, scale, ticks, labels, title, o = {}) {
   }
   nodes.push(line(box.left, box.top, box.left, box.bottom, { stroke: 'soft', 'stroke-width': r2(u) }));
   if (title) {
-    const cx = ctx.fs * 0.9;
     const cy = (box.top + box.bottom) / 2;
-    nodes.push(...titleNodes(cx, cy, fitTitle(title, box.bottom - box.top, ctx.fs), { 'text-anchor': 'middle', fill: 'ink' }, true));
+    const fit = fitTitle(title, box.bottom - box.top, ctx.fs, minFont(ctx));
+    // a rotated line's glyphs reach about 0.8 em to the left of its baseline: the first of two or three lines
+    // is moved in so it is not cut at the left edge (review round 2, a 390 px screen)
+    const cx = Math.max(ctx.fs * 0.9, ((fit.lines.length - 1) / 2) * fit.size * 1.05 + fit.size * 0.9);
+    nodes.push(...titleNodes(cx, cy, fit, { 'text-anchor': 'middle', fill: 'ink' }, true));
   }
   return nodes;
 }
@@ -173,15 +182,53 @@ export function xAxis(ctx, box, scale, ticks, labels, title, o = {}) {
 }
 
 /**
- * Category labels under a band axis, thinned so they never overlap.
+ * How group labels sit under a band axis: every label is printed (review round 2: thinning dropped a diet's
+ * name from a journal figure). A label that is too wide for its band is wrapped to two lines, then set in a
+ * smaller font down to the floor, then staggered so neighbours alternate between two rows.
+ * @param {string[]} labels @param {number} room width of one band minus the gap between labels
+ * @returns {{ size: number, lines: string[][], stagger: boolean, rows: number, extra: number }}
+ */
+export function categoryLayout(ctx, labels, room) {
+  const floor = minFont(ctx);
+  const fits = (size, width) => {
+    const lines = labels.map((l) => (textWidth(l, size) <= width ? [String(l)] : wrapWords(l, width, size)));
+    const ok = lines.every((ls) => ls.length <= 2 && ls.every((x) => textWidth(x, size) <= width));
+    return ok ? lines : null;
+  };
+  const sizes = [];
+  for (let s = ctx.fs; s > floor + 1e-9; s -= ctx.fs * 0.0625) sizes.push(s);
+  sizes.push(floor);
+  let size = ctx.fs;
+  let lines = null;
+  let stagger = false;
+  for (const s of sizes) { lines = fits(s, room); if (lines) { size = s; break; } }
+  if (!lines && labels.length > 1) {
+    size = floor;
+    stagger = true;
+    lines = labels.map((l) => (textWidth(l, size) <= 2 * room ? [String(l)] : wrapWords(l, 2 * room, size).slice(0, 2)));
+  }
+  if (!lines) { size = floor; lines = labels.map((l) => wrapWords(l, room, size)); }
+  const per = Math.max(1, ...lines.map((ls) => ls.length));
+  const rows = stagger ? 2 * per : per;
+  return { size: r2(size), lines, stagger, rows, extra: (rows - 1) * size * 1.2 };
+}
+
+/**
+ * Category labels under a band axis, all of them (see categoryLayout).
  * @param {{ pos: number, label: string }[]} cats
  */
 export function categoryAxis(ctx, box, cats, title) {
   const u = ctx.u;
   const nodes = [line(box.left, box.bottom, box.right, box.bottom, { stroke: 'soft', 'stroke-width': r2(u) })];
-  const keep = thinLabels(cats.map((c) => ({ pos: c.pos, width: textWidth(c.label, ctx.fs) })), 6 * u);
-  for (const i of keep) nodes.push(text(cats[i].pos, box.bottom + ctx.fs * 1.35, cats[i].label, { 'text-anchor': 'middle', 'font-size': ctx.fs, fill: 'ink' }));
-  if (title) nodes.push(...xTitleNodes(ctx, box, title));
+  const bw = cats.length > 1 ? Math.abs(cats[1].pos - cats[0].pos) : box.right - box.left;
+  const L = categoryLayout(ctx, cats.map((c) => c.label), bw - 6 * u);
+  const step = L.size * 1.2;
+  const per = L.stagger ? L.rows / 2 : L.rows;
+  cats.forEach((c, i) => {
+    const y0 = box.bottom + ctx.fs * 1.35 + (L.stagger && i % 2 ? per * step : 0);
+    L.lines[i].forEach((ln, k) => nodes.push(text(c.pos, y0 + k * step, ln, { 'text-anchor': 'middle', 'font-size': L.size, fill: 'ink' })));
+  });
+  if (title) nodes.push(...xTitleNodes(ctx, box, title, L.extra));
   return nodes;
 }
 

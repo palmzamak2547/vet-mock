@@ -46,7 +46,7 @@ function rssOf(y, blocks) {
  * @param {number[]} a     factor A level index per row (0..ka-1, every level present)
  * @param {number[]} b     factor B level index per row (0..kb-1, every level present)
  * @param {{ ssType: 'III'|'II'|'I', interaction: boolean }} opts
- * @returns {{ effects: { id: 'A'|'B'|'AB', ss: number, df: number, ms: number, F: number|null, p: number|null, etaPartial: number|null }[], residual: { ss: number, df: number, ms: number }, balanced: boolean, emptyCells: number, cellN: number[][], reasonKey?: string }}
+ * @returns {{ effects: { id: 'A'|'B'|'AB', ss: number, df: number, ms: number|null, F: number|null, p: number|null, etaPartial: number|null, reasonKey?: string }[], residual: { ss: number, df: number, ms: number }, balanced: boolean, emptyCells: number, cellN: number[][], connected?: boolean, reasonKey?: string }}
  */
 export function anovaTwoWay(y, a, b, opts) {
   const ssType = opts?.ssType ?? 'III';
@@ -67,33 +67,40 @@ export function anovaTwoWay(y, a, b, opts) {
   const A = a.map((l) => sumContrast(l, ka));
   const B = b.map((l) => sumContrast(l, kb));
   const AB = A.map((ra, i) => { const out = []; for (const u of ra) for (const w of B[i]) out.push(u * w); return out; });
-  const dfA = ka - 1;
-  const dfB = kb - 1;
-  const dfAB = dfA * dfB;
+  // Each term's df is the rank it adds to the model, never levels - 1: when the cells are not connected (a
+  // level of A seen with only one level of B) the model loses rank and levels - 1 would print a plausible but
+  // wrong df, F and p. R's drop1 and anova count the same way (tests/fixtures/r/anova2.R, disconnected.*).
   const full = interaction ? rssOf(y, [A, B, AB]) : rssOf(y, [A, B]);
   const dfRes = n - full.rank;
   const add = interaction ? rssOf(y, [A, B]) : full;
   let ssA;
   let ssB;
-  let ssAB = interaction ? add.rss - full.rss : null;
+  let dfA;
+  let dfB;
+  const ssAB = interaction ? add.rss - full.rss : null;
+  const dfAB = interaction ? full.rank - add.rank : null;
   if (ssType === 'III') {
     const noA = interaction ? rssOf(y, [B, AB]) : rssOf(y, [B]);
     const noB = interaction ? rssOf(y, [A, AB]) : rssOf(y, [A]);
-    ssA = noA.rss - full.rss;
-    ssB = noB.rss - full.rss;
+    ssA = noA.rss - full.rss; dfA = full.rank - noA.rank;
+    ssB = noB.rss - full.rss; dfB = full.rank - noB.rank;
   } else if (ssType === 'II') {
-    ssA = rssOf(y, [B]).rss - add.rss;
-    ssB = rssOf(y, [A]).rss - add.rss;
+    const onlyB = rssOf(y, [B]);
+    const onlyA = rssOf(y, [A]);
+    ssA = onlyB.rss - add.rss; dfA = add.rank - onlyB.rank;
+    ssB = onlyA.rss - add.rss; dfB = add.rank - onlyA.rank;
   } else {
-    const tss = rssOf(y, []).rss;
-    const onlyA = rssOf(y, [A]).rss;
-    ssA = tss - onlyA;
-    ssB = onlyA - add.rss;
+    const null0 = rssOf(y, []);
+    const onlyA = rssOf(y, [A]);
+    ssA = null0.rss - onlyA.rss; dfA = onlyA.rank - null0.rank;
+    ssB = onlyA.rss - add.rss; dfB = add.rank - onlyA.rank;
   }
   const rss = full.rss;
   const ms = dfRes > 0 ? rss / dfRes : NaN;
   const residual = { ss: rss, df: dfRes, ms };
   const eff = (id, ss, df) => {
+    // A term that adds no rank cannot be tested at all: F, p and partial eta squared are undefined, not 0.
+    if (!(df > 0)) return { id, ss: 0, df: 0, ms: null, F: null, p: null, etaPartial: null, reasonKey: 'lab.undefined.termNotEstimable' };
     const clamped = Math.max(0, ss);
     const msE = clamped / df;
     const ok = dfRes > 0 && ms > 0;
@@ -104,10 +111,12 @@ export function anovaTwoWay(y, a, b, opts) {
   };
   const effects = [eff('A', ssA, dfA), eff('B', ssB, dfB)];
   if (interaction) effects.push(eff('AB', ssAB, dfAB));
+  // Connected when the additive model has its full rank 1 + (ka - 1) + (kb - 1).
+  const connected = add.rank === ka + kb - 1;
   let reasonKey;
   if (!(dfRes > 0)) reasonKey = 'stats.undefined.noResidualDf';
   else if (!(ms > 0)) reasonKey = 'stats.undefined.zeroVariance';
-  return { ...base, effects, residual, ...(reasonKey ? { reasonKey } : {}) };
+  return { ...base, effects, residual, connected, ...(reasonKey ? { reasonKey } : {}) };
 }
 
 function pairsOrder(k) {
@@ -239,9 +248,13 @@ export function runAnovaTwoWay(spec, table) {
       ['residual', r.residual.df, r.residual.ss, Number.isNaN(r.residual.ms) ? null : r.residual.ms, null, null, null],
     ],
   });
-  const values = { ssResidual: val(r.residual.ss), dfResidual: val(r.residual.df), msResidual: Number.isNaN(r.residual.ms) ? nullVal('stats.undefined.noResidualDf') : val(r.residual.ms) };
-  for (const e of r.effects) values[`etaPartial${e.id}`] = e.etaPartial === null ? nullVal('stats.undefined.zeroVariance') : val(e.etaPartial);
-  const tests = r.effects.map((e) => testRow({ id: e.id, name: 'F', statistic: e.F, df: null, dfPair: [e.df, r.residual.df], p: e.p, variant: `type${ssType}`, reasonKey: r.reasonKey }));
+  // The effect sizes first, the residual's sums of squares after them (review round 2: residual SS led the list).
+  const values = {};
+  for (const e of r.effects) values[`etaPartial${e.id}`] = e.etaPartial === null ? nullVal(e.reasonKey || 'stats.undefined.zeroVariance') : val(e.etaPartial);
+  values.ssResidual = val(r.residual.ss);
+  values.dfResidual = val(r.residual.df);
+  values.msResidual = Number.isNaN(r.residual.ms) ? nullVal('stats.undefined.noResidualDf') : val(r.residual.ms);
+  const tests = r.effects.map((e) => testRow({ id: e.id, name: 'F', statistic: e.F, df: null, dfPair: [e.df, r.residual.df], p: e.p, variant: `type${ssType}`, reasonKey: e.reasonKey || r.reasonKey }));
 
   if (posthoc === 'tukey') {
     if (!r.balanced) notes.push({ id: 'posthoc', severity: 'note', key: 'lab.note.tukeyUnbalanced' });
@@ -254,5 +267,8 @@ export function runAnovaTwoWay(spec, table) {
   // G7: three F tests in one table; the note says each is read on its own and the interaction first.
   if (interaction) notes.push({ id: 'G7', severity: 'note', key: 'lab.note.twoWayFamily', params: { tests: 3 } });
   if (!r.balanced) notes.push({ id: 'ssType', severity: 'note', key: `lab.note.unbalanced${ssType}` });
+  // Not connected: some level of one factor is seen with only one level of the other, so the model cannot
+  // separate them there; the df above count only what the data can test.
+  if (r.connected === false) notes.push({ id: 'connected', severity: 'note', key: 'lab.note.notConnected' });
   return { status: r.reasonKey ? 'invalid' : 'ok', values, tests, tables, used: rows.length, dropped, warnings, notes };
 }

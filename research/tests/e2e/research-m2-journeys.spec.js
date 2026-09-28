@@ -92,15 +92,17 @@ test('two-way ANOVA on the feed-trial example, with the diagnostics panel', asyn
   await expect(result.locator('.rs-chart-madeup').first()).toBeVisible();
 });
 
-test('Kaplan-Meier on the calf-survival example, with its chart', async ({ page }) => {
+test('Kaplan-Meier on the calf-survival example, with its chart', async ({ page, context, baseURL }) => {
   test.setTimeout(120_000);
+  const net = recordRequests(context, baseURL);
   const project = await openExample(page, 'calf-survival');
   await page.goto(`${project}/survival`);
   await page.locator('input[name="rs-method-survival"][value="surv.kaplanMeier"]').check();
   await pick(page, '#rs-role-time', 'จำนวนวันที่ติดตาม');
   await pick(page, '#rs-role-event', 'สถานะเมื่อสิ้นสุด');
   const level = page.locator('#rs-lv-outcomePositive');
-  if (await level.count()) await pick(page, '#rs-lv-outcomePositive', 'ตาย');
+  // the option shows the codebook label; its value is the file's code (review round 2)
+  if (await level.count()) await level.selectOption('ตาย');
   await pick(page, '#rs-role-group', 'นมน้ำเหลือง');
   await runAnalysis(page);
   const result = page.locator('.rs-analysis-result');
@@ -109,6 +111,13 @@ test('Kaplan-Meier on the calf-survival example, with its chart', async ({ page 
   await expect(km.locator('svg path').first()).toBeAttached();
   // The log-rank test is named in the results.
   await expect(result.getByText(/log-rank/i).first()).toBeVisible();
+  // The figure downloads (PNG and TIFF) are drawn on the device: no request leaves the origin (review round 2).
+  await km.locator('summary.rs-export-sum').click();
+  for (const label of [th['ws.chart.png'], th['graphs.export.tiff']]) {
+    const [dl] = await Promise.all([page.waitForEvent('download'), km.getByRole('button', { name: label, exact: true }).click()]);
+    expect(dl.suggestedFilename()).toMatch(/\.(png|tiff?)$/);
+  }
+  expect(net.offOrigin()).toEqual([]);
 });
 
 test('paired ROC comparison on the rapid-test example, kept and exported as a Word file with its tables and figure', async ({ page, context, baseURL }) => {
@@ -122,7 +131,9 @@ test('paired ROC comparison on the rapid-test example, kept and exported as a Wo
   await pick(page, '#rs-role-test', 'ชุดทดสอบเร็ว');
   await pick(page, '#rs-role-reference', 'ผลเพาะเชื้อ');
   const pos = page.locator('#rs-lv-referencePositive');
-  if (await pos.count()) await pick(page, '#rs-lv-referencePositive', 'บวก');
+  // the picker shows the codebook label, not the raw code the file carries (review round 2)
+  if (await pos.count()) await expect(pos.locator('option[value="บวก"]')).toHaveText('พบเชื้อ');
+  if (await pos.count()) await pos.selectOption('บวก');
   await pick(page, '#rs-role-test2', 'เซลล์โซมาติก');
   await runAnalysis(page);
   const result = page.locator('.rs-analysis-result');
@@ -176,7 +187,7 @@ test('logistic regression on the goat example, accounting for farms with robust 
   await page.locator('input[name="rs-method-models"][value="reg.logistic"]').check();
   await pick(page, '#rs-role-outcome', 'ELISA');
   const pos = page.locator('#rs-lv-outcomePositive');
-  if (await pos.count()) await pick(page, '#rs-lv-outcomePositive', 'บวก');
+  if (await pos.count()) await pos.selectOption('บวก');
   await page.getByRole('checkbox', { name: 'อายุ (เดือน)' }).check();
   await page.getByRole('checkbox', { name: 'เพศ', exact: true }).check();
   const run = page.getByRole('button', { name: th['ws.analysis.run'] });

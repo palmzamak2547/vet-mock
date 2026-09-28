@@ -72,6 +72,18 @@ export function primaryTest(env) {
   const tests = env?.tests || [];
   const own = headlineOf(env);
   if (own) return own.test ? tests.find((x) => x.id === own.test) || null : null;
+  // A regression model: the likelihood-ratio test of the model when there is one; else (the farm-adjusted
+  // robust route drops it) the test of the headline term, never the intercept's Wald test (review round 2:
+  // "Wald test: intercept (t), p = 0.092" under the odds ratio for age).
+  const mid = env?.method?.id || env?.spec?.method || '';
+  if (mid === 'reg.logistic' || mid === 'reg.poisson') {
+    if (tests[0]?.id === 'lrNull') return tests[0];
+    const head = primaryValueName(env);
+    const term = head && head.includes(':') ? head.slice(head.indexOf(':') + 1) : null;
+    if (!term) return null;
+    const col = term.includes('=') ? term.slice(0, term.indexOf('=')) : term;
+    return tests.find((x) => x.id === `lr:${col}`) || tests.find((x) => x.id === `wald:${term}`) || null;
+  }
   return tests[0] || null;
 }
 
@@ -117,7 +129,30 @@ export function valueLabel(name, t, methodId = null, words = null) {
 
 /** Words a value label names by the columns chosen: Bland-Altman's difference is "<method 1> minus
  * <method 2>" (review round 1: "A minus B" beside "method 1" and "rater 1" on one screen). */
+/** What a power tool's n counts, from the method and the t-test type: per group, pairs, animals or the total. */
+export function powerUnit(methodId, spec) {
+  if (methodId === 'power.anova') return 'perGroup';
+  if (methodId === 'power.tTest') {
+    const type = spec?.options?.type ?? 'two-sample';
+    return type === 'paired' ? 'pairs' : type === 'one-sample' ? 'animals' : 'perGroup';
+  }
+  return 'total';
+}
+
 function labelParams(methodId, t, words) {
+  if (String(methodId).startsWith('power.')) return { unit: t(`lab.power.unit.${powerUnit(methodId, words?.spec || words?.env?.spec)}`) };
+  if (methodId === 'roc.delong') {
+    // each test by its column (review round 2: "the AUC of the second test")
+    const roles = words?.spec?.roles || {};
+    const name = (r) => (roles[r] && words?.columnName ? words.columnName(roles[r]) : t(`measure.word.${r}`));
+    return { test: name('test'), test2: name('test2') };
+  }
+  if (methodId === 'anova.twoWay') {
+    // the effects by the columns chosen (review round 2: "partial eta squared of the first factor")
+    const roles = words?.spec?.roles || {};
+    const name = (r, fallback) => (roles[r] && words?.columnName ? words.columnName(roles[r]) : t(fallback));
+    return { a: name('group', 'lab.word.firstFactor'), b: name('factorB', 'lab.word.secondFactor') };
+  }
   if (methodId !== 'agree.blandAltman') return undefined;
   const roles = words?.spec?.roles || {};
   const name = (r) => (roles[r] && words?.columnName ? words.columnName(roles[r]) : t(`ws.roleFor.agreeBlandAltman.${r}`));
@@ -197,7 +232,7 @@ const WHOLE_VALUES = new Set(['nEff']);
  * "1" and not "1.00" (M1 review round 3, M2-DESIGN.md 12.5). Estimated ratios (OR, RR, PR) have their
  * own names and keep their decimals.
  */
-const TYPED_WHOLE = new Set(['ratio', 'groups', 'iterations', 'dfResidual']);
+const TYPED_WHOLE = new Set(['ratio', 'groups', 'iterations', 'dfResidual', 'nTotal']);
 
 /** The kind the stats formatter expects for a value name. */
 export function fmtKind(kind) {
@@ -211,6 +246,16 @@ export function fmtKind(kind) {
  * @param {'th'|'en'} lang
  * @param {(k: string, p?: object) => string} t
  */
+const SUPS = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+/** "2.61e-14" as "2.61 × 10⁻¹⁴": the formatter's exponent for a number below 1e-12, written as a reader
+ * reads it (review round 2: the Dunnett integration error on screen and in the Word file). */
+export function sciText(s) {
+  const m = /^(-?[\d.]+)e([-+]?)(\d+)$/.exec(String(s));
+  if (!m) return s;
+  const exp = String(Number(m[3])).split('').map((d) => SUPS[Number(d)]).join('');
+  return `${m[1].replace('-', '−')} × 10${m[2] === '-' ? '⁻' : ''}${exp}`;
+}
+
 export function valueCells(row, fmt, lang, t) {
   if (row.value === null || row.value === undefined) {
     return { est: '—', ci: '', note: row.reasonKey ? t(row.reasonKey) : t('ws.result.undefinedNoReason') };
@@ -222,7 +267,7 @@ export function valueCells(row, fmt, lang, t) {
   const shown = WHOLE_VALUES.has(row.name) && Number.isFinite(row.value) ? Math.round(row.value) : row.value;
   const sides = { below: row.below, above: row.above };
   const kind = TYPED_WHOLE.has(row.name) && Number.isInteger(row.value) ? 'count' : fmtKind(row.kind);
-  const est = fmt.formatNumber(shown, { kind, ...sides, ...(digits === undefined ? {} : { digits }) });
+  const est = sciText(fmt.formatNumber(shown, { kind, ...sides, ...(digits === undefined ? {} : { digits }) }));
   const ci = row.ci ? fmt.formatCi({ value: row.value, ci: row.ci, kind: fmtKind(row.kind), ...sides }, lang) : '';
   // A defined value can still carry a sentence: a limit held at 0..1, a herd-level reading, a Wald
   // interval that misbehaves. Shown beside the number and in every export.

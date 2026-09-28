@@ -61,6 +61,40 @@ cases[["tukey.additive.tension"]] <- tk(breaks ~ wool + tension, "tension", "Tuk
 cases[["tukey.additive.wool"]] <- tk(breaks ~ wool + tension, "wool", "TukeyHSD(aov(breaks ~ wool + tension), 'wool')", FALSE)
 cases[["tukey.interaction.tension"]] <- tk(breaks ~ wool * tension, "tension", "TukeyHSD(aov(breaks ~ wool * tension), 'tension')", TRUE)
 
+# A disconnected layout (review round 2): housing a0/a1 on farms b0/b1 (all four cells), housing a2 only on
+# farm b2. The additive model loses rank (full model rank 4, not 5), so each term's df is the rank it adds,
+# not levels - 1: R's drop1 and anova print Df 1 for both factors. A 2x2 with only the diagonal cells is fully
+# confounded: the second term adds no rank and R prints Df 0 with no F.
+dsc <- data.frame(y = c(10.1, 11.3, 9.8, 12.0, 12.9, 13.4, 11.9, 12.2, 13.1, 14.2, 13.8, 15.0, 20.3, 19.1, 21.4, 20.0),
+  a = factor(rep(c("a0", "a0", "a1", "a1", "a2"), c(3, 3, 3, 3, 4)), levels = c("a0", "a1", "a2")),
+  b = factor(rep(c("b0", "b1", "b0", "b1", "b2"), c(3, 3, 3, 3, 4)), levels = c("b0", "b1", "b2")))
+options(contrasts = c("contr.sum", "contr.poly"))
+fd <- lm(y ~ a + b, data = dsc); dd <- drop1(fd, . ~ ., test = "F")
+cases[["disconnected.typeIII"]] <- case("drop1(lm(y ~ a + b, data = disconnected), . ~ ., test = 'F') under contr.sum", "closed",
+  list(effects = arr(c("a", "b")), ss = arr(dd[["Sum of Sq"]][-1]), df = arr(dd[["Df"]][-1]), F = arr(dd[["F value"]][-1]),
+    p = arr(dd[["Pr(>F)"]][-1]), residualSs = deviance(fd), residualDf = df.residual(fd), rank = fd$rank),
+  data = "disconnected", ssType = "III", interaction = FALSE)
+options(contrasts = c("contr.treatment", "contr.poly"))
+fd <- lm(y ~ a + b, data = dsc); mA <- lm(y ~ b, data = dsc); mB <- lm(y ~ a, data = dsc)
+ssd <- c(deviance(mA) - deviance(fd), deviance(mB) - deviance(fd)); dfd <- c(fd$rank - mA$rank, fd$rank - mB$rank)
+Fd <- ssd / dfd / (deviance(fd) / df.residual(fd))
+cases[["disconnected.typeII"]] <- case("model comparison on the disconnected layout, df = rank(y ~ a + b) - rank(without the term)", "closed",
+  list(effects = arr(c("a", "b")), ss = arr(ssd), df = arr(dfd), F = arr(Fd), p = arr(pf(Fd, dfd, df.residual(fd), lower.tail = FALSE)),
+    residualSs = deviance(fd), residualDf = df.residual(fd)),
+  data = "disconnected", ssType = "II", interaction = FALSE)
+ad <- anova(fd)
+cases[["disconnected.typeI"]] <- case("anova(lm(y ~ a + b, data = disconnected))", "closed",
+  list(effects = arr(c("a", "b")), ss = arr(ad[["Sum Sq"]][1:2]), df = arr(ad[["Df"]][1:2]), F = arr(ad[["F value"]][1:2]),
+    p = arr(ad[["Pr(>F)"]][1:2]), residualSs = deviance(fd), residualDf = df.residual(fd)),
+  data = "disconnected", ssType = "I", interaction = FALSE)
+cf <- data.frame(y = c(3.1, 2.9, 3.4, 5.2, 4.8, 5.5), a = factor(rep(c("x", "y"), each = 3)), b = factor(rep(c("p", "q"), each = 3)))
+fc <- lm(y ~ a + b, data = cf); ac <- anova(fc)
+cases[["confounded.typeI"]] <- case("anova(lm(y ~ a + b)) with b identical to a: b adds no rank", "closed",
+  list(effects = arr(c("a")), ss = arr(ac[["Sum Sq"]][1]), df = arr(ac[["Df"]][1]), F = arr(ac[["F value"]][1]), p = arr(ac[["Pr(>F)"]][1]),
+    residualSs = deviance(fc), residualDf = df.residual(fc), rank = fc$rank, aliased = arr(names(which(is.na(coef(fc)))))),
+  data = "confounded", ssType = "I", interaction = FALSE)
+options(old)
+
 cm <- aggregate(breaks ~ wool + tension, data = warpbreaks, FUN = function(v) c(n = length(v), mean = mean(v), sd = sd(v)))
 cases[["cellMeans.balanced"]] <- case("aggregate(breaks ~ wool + tension, warpbreaks, n / mean / sd)", "closed",
   list(wool = arr(as.character(cm$wool)), tension = arr(as.character(cm$tension)), n = arr(cm$breaks[, "n"]),
@@ -68,5 +102,7 @@ cases[["cellMeans.balanced"]] <- case("aggregate(breaks ~ wool + tension, warpbr
 
 rs_emit("anova2", c("anova.twoWay"), cases, packages = "car",
   datasets = list(warpbreaks = list(breaks = arr(warpbreaks$breaks), wool = arr(as.character(warpbreaks$wool)),
-    tension = arr(as.character(warpbreaks$tension)), woolLevels = arr(levels(warpbreaks$wool)), tensionLevels = arr(levels(warpbreaks$tension)))),
+    tension = arr(as.character(warpbreaks$tension)), woolLevels = arr(levels(warpbreaks$wool)), tensionLevels = arr(levels(warpbreaks$tension))),
+    disconnected = list(y = arr(dsc$y), a = arr(as.character(dsc$a)), b = arr(as.character(dsc$b))),
+    confounded = list(y = arr(cf$y), a = arr(as.character(cf$a)), b = arr(as.character(cf$b)))),
   notes = "Type III is drop1 under contr.sum (SPSS UNIANOVA); Type II by model comparison. car 3.1-5 Anova(type = 3) and Anova(type = 2) agree to 1e-10 (stopifnot in the script). Tukey rows are later level minus earlier, from ptukey/qtukey (iterative tolerance). Rows dropped for the unbalanced case are 1-based row numbers of warpbreaks.")

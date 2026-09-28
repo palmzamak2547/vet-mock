@@ -7,7 +7,7 @@ import { markerNode, seriesShape, seriesToken } from './palette.js';
 import { linearScale, paddedDomain } from './scale.js';
 import { beeswarm, boxStats, meanCi, medianIqr } from './helpers.js';
 import { violinDensity } from './density.js';
-import { categoryAxis, groupLegend, line, makeCtx, margins, minus, pathOf, r2, rect, text, tickLabels, ticksFor, yAxis } from './frame.js';
+import { categoryAxis, categoryLayout, groupLegend, line, makeCtx, margins, minus, pathOf, r2, rect, text, tickLabels, ticksFor, yAxis } from './frame.js';
 
 const num = (v) => typeof v === 'number' && Number.isFinite(v);
 
@@ -35,7 +35,11 @@ function bandFrame(ctx, labels, allY, yTitle, xTitle, opts = {}) {
   const approxPlotH = height - ctx.fs * 4;
   const ticks = ticksFor(ctx, domain, approxPlotH, { vertical: true });
   const labs = tickLabels(ticks);
-  const m = margins(ctx, { yLabels: labs, yTitle, xTitle, rightLabels: opts.rightLabels });
+  const m0 = margins(ctx, { yLabels: labs, yTitle, xTitle, rightLabels: opts.rightLabels });
+  // room for group labels on two lines or two staggered rows (every label printed, frame.categoryLayout)
+  const bw0 = (ctx.width - m0.right - m0.left) / Math.max(1, labels.length);
+  const extra = categoryLayout(ctx, labels, bw0 - 6 * ctx.u).extra;
+  const m = extra ? margins(ctx, { yLabels: labs, yTitle, xTitle, rightLabels: opts.rightLabels, bottomExtra: extra }) : m0;
   const box = { left: m.left, right: ctx.width - m.right, top: m.top, bottom: height - m.bottom };
   const y = linearScale(domain, [box.bottom, box.top]);
   const bw = (box.right - box.left) / Math.max(1, labels.length);

@@ -37,6 +37,9 @@ export const REFERENCES = Object.freeze([
   { id: 'cronbach1951', methods: ['rel.cronbach'], type: 'article', authors: ['Cronbach, Lee J.'], title: 'Coefficient alpha and the internal structure of tests', year: 1951, journal: 'Psychometrika', volume: '16', issue: '3', pages: '297-334', doi: '10.1007/BF02310555', checked: CHECKED },
   { id: 'feldt1965', methods: ['rel.cronbach'], type: 'article', authors: ['Feldt, Leonard S.'], title: 'The approximate sampling distribution of Kuder-Richardson reliability coefficient twenty', year: 1965, journal: 'Psychometrika', volume: '30', issue: '3', pages: '357-370', doi: '10.1007/BF02289499', checked: CHECKED },
   { id: 'strobeVet2016', methods: ['report.strobe'], type: 'article', authors: ["O'Connor, A. M.", 'Sargeant, J. M.', 'Dohoo, I. R.', 'Erb, H. N.', 'Cevallos, M.', 'Egger, M.', 'Ersbøll, A. K.', 'Martin, S. W.', 'Nielsen, L. R.', 'Pearl, D. L.', 'Pfeiffer, D. U.', 'Sanchez, J.', 'Torrence, M. E.', 'Vigre, H.', 'Waldner, C.', 'Ward, M. P.'], title: 'Explanation and elaboration document for the STROBE-Vet statement: Strengthening the Reporting of Observational Studies in Epidemiology, Veterinary Extension', year: 2016, journal: 'Journal of Veterinary Internal Medicine', volume: '30', issue: '6', pages: '1896-1928', doi: '10.1111/jvim.14592', checked: CHECKED },
+  // ARRIVE 2.0 (checked against PubMed 32663219 on 2026-09-28): the reporting guideline for animal experiments, cited
+  // instead of STROBE-Vet when the project's design is a laboratory or animal experiment (review round 2).
+  { id: 'arrive2020', methods: ['report.arrive'], type: 'article', authors: ['Percie du Sert, N.', 'Hurst, V.', 'Ahluwalia, A.', 'Alam, S.', 'Avey, M. T.', 'Baker, M.', 'Browne, W. J.', 'Clark, A.', 'Cuthill, I. C.', 'Dirnagl, U.', 'Emerson, M.', 'Garner, P.', 'Holgate, S. T.', 'Howells, D. W.', 'Karp, N. A.', 'Lazic, S. E.', 'Lidster, K.', 'MacCallum, C. J.', 'Macleod, M.', 'Pearl, E. J.', 'Petersen, O. H.', 'Rawle, F.', 'Reynolds, P.', 'Rooney, K.', 'Sena, E. S.', 'Silberberg, S. D.', 'Steckler, T.', 'Würbel, H.'], title: 'The ARRIVE guidelines 2.0: updated guidelines for reporting animal research', year: 2020, journal: 'PLoS Biology', volume: '18', issue: '7', pages: 'e3000410', doi: '10.1371/journal.pbio.3000410', checked: CHECKED },
 ]);
 
 /**
@@ -52,7 +55,8 @@ export function referencesFor(used, opts = {}) {
     if (u?.method) keys.push(u.method);
     if (u?.route && u.route !== 'none') keys.push(`route.${u.route}`);
   }
-  if (opts.flow) keys.push('report.strobe');
+  // An animal experiment reports against ARRIVE 2.0; an observational study against STROBE-Vet.
+  if (opts.flow) keys.push(opts.design === 'experiment' ? 'report.arrive' : 'report.strobe');
   const out = [];
   for (const k of keys) for (const r of REFERENCES) if (r.methods.includes(k) && !out.includes(r)) out.push(r);
   return out;

@@ -132,10 +132,21 @@ export function optionItems(env, t, { columnName = (k) => k, lang = 'th' } = {})
  * Dunnett error 2.605248285796423e-14 and the Huynh-Feldt epsilon 1.058414687576785 printed raw). */
 const NUMBER_PARAMS = new Set(['epsHF', 'error', 'ratio', 'epv']);
 
+const SUP = { '-': '⁻', 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹' };
+/** A very small number in a sentence as "2.6 × 10⁻¹⁴", never e-notation (review round 2: the Dunnett error). */
+function tinyText(x) {
+  if (!(Math.abs(x) > 0 && Math.abs(x) < 1e-4)) return null;
+  const [m, e] = x.toExponential(1).split('e');
+  const exp = String(Number(e)).split('').map((c) => SUP[c]).join('');
+  return `${m.replace('-', '−')} × 10${exp}`;
+}
+
 function wordParams(params, t, words) {
   if (!params) return params;
   const out = { ...params };
-  for (const k of NUMBER_PARAMS) if (typeof out[k] === 'number' && !Number.isInteger(out[k])) out[k] = formatNumber(out[k], { kind: 'statistic' });
+  for (const k of NUMBER_PARAMS) if (typeof out[k] === 'number' && !Number.isInteger(out[k])) out[k] = tinyText(out[k]) ?? formatNumber(out[k], { kind: 'statistic' });
+  // option ids a method settled from the data, by the option's own label
+  if (Array.isArray(params.optionIds) && t) out.options = params.optionIds.map((id) => (has(t, `ws.opt.${id}.label`) ? t(`ws.opt.${id}.label`) : id)).join(', ');
   if (!words) return out;
   const w = { t, ...words };
   const col = (k) => (words.columnName ? words.columnName(k) : k);

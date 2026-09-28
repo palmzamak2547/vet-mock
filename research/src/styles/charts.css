@@ -51,6 +51,21 @@
   overflow-x: auto;
 }
 
+/* The first column holds group names: wide enough that a Thai name breaks between words, not inside one
+   (review round 2: "หลังค / ลอด"). */
+.rs-chart-table th[scope='row'] {
+  min-width: 9em;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.rs-chart-table--folded > summary {
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
 .rs-chart-notes {
   margin: 0;
   display: grid;

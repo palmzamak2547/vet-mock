@@ -6,6 +6,9 @@
 // owners; a new method id goes through the data role [M2-DESIGN.md 2].
 import { REGISTERED } from './registered.js';
 import { VERIFIED } from './verified.generated.js';
+// The measure area's shipped ids, re-exported so the design and guard checks read them from the chunk the landing
+// already loads (a module of their own became one more request on the front door; review round 2).
+export { MEASURE_SHIPPED } from './areas/registered.js';
 
 /**
  * A family groups methods the way the Europe PMC counts do, so the landing chart can say which

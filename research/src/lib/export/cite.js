@@ -152,12 +152,12 @@ export function citationText(release, ctx) {
     name: SOFTWARE_NAME,
     version: release.version,
     year,
-    url: release.url || SOFTWARE_URL,
+    // one form everywhere (the /cite page, the report pane, the files): the DOI address stands for the web
+    // address once one is minted (review round 2: three different citation lines)
+    url: release.doi ? `https://doi.org/${release.doi}` : release.url || SOFTWARE_URL,
     accessed: dateWithEra(ctx.accessed, lang, t),
   };
-  let text = t(authors ? 'report.cite.lineAuthors' : 'report.cite.line', { ...parts, authors });
-  if (release.doi) text = `${text} ${t('report.cite.doi', { doi: release.doi })}`;
-  return text;
+  return t(authors ? 'report.cite.lineAuthors' : 'report.cite.line', { ...parts, authors });
 }
 
 /** One reference as it is printed in the list (Vancouver order: authors, title, journal, year;volume(issue):pages, DOI). */
@@ -174,7 +174,7 @@ export function referenceLine(ref, n, words) {
   if (ref.type === 'software') {
     parts.push(`${ref.title} [${words.software}].`);
     if (ref.version) parts.push(`${words.version} ${ref.version}.`);
-    parts.push(`${ref.year}.`);
+    parts.push(`${words.yearText ? words.yearText(ref.year) : ref.year}.`);
     parts.push(`${words.available} ${ref.url}${ref.accessed ? ` (${words.accessed} ${words.accessedDate})` : ''}.`);
     if (ref.doi) parts.push(`doi:${ref.doi}`);
   } else {

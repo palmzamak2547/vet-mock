@@ -223,6 +223,8 @@ export async function buildDocx(model, deps) {
   const words = {
     software: t('report.ref.software'), version: t('report.ref.version'), available: t('report.ref.available'), accessed: t('report.ref.accessed'),
     accessedDate: deps?.accessedText || today,
+    // the year with its era in Thai, as the /cite page writes it
+    yearText: (y) => (model.lang === 'th' ? t('report.cite.yearTh', { be: y + 543, ce: y }) : String(y)),
   };
   model.references.forEach((r, i) => body.push(para(referenceLine(r, i + 1, words), { style: 'Reference' })));
   for (const line of model.provenance || []) body.push(para(line, { style: 'TableNote' }));

@@ -39,7 +39,12 @@ function chartKindFor(env) {
     case 'roc.delong': return 'roc';
     case 'agree.blandAltman': return 'blandAltman';
     case 'epi.mantelHaenszel': return 'forest';
+    // the models' ratios by the kit's labelled forest (review round 2: the plottable fallback printed c2=, c4)
+    case 'reg.logistic':
+    case 'reg.poisson': return 'forest';
     case 'anova.repeated': return 'timeCourse';
+    // two-way ANOVA: the cell means from the envelope (review round 2: the Word file had no figure and no word why)
+    case 'anova.twoWay': return 'timeCourse';
     default: return plottable(env).rows.length ? 'ci' : null;
   }
 }
@@ -74,7 +79,7 @@ async function figuresFor(analyses, { lang, codebook }) {
         chosen = {
           kind: 'ci',
           input: {
-            rows: plot.rows.map((r) => ({ label: valueLabel(r.name, t, method), est: r.value, lo: r.ci?.[0] ?? null, hi: r.ci?.[1] ?? null })),
+            rows: plot.rows.map((r) => ({ label: valueLabel(r.name, t, method, { spec: env.spec, env, codebook, columnName, levelName: levelOf }), est: r.value, lo: r.ci?.[0] ?? null, hi: r.ci?.[1] ?? null })),
             log: plot.log, ref: plot.ref, percent: plot.rows[0]?.kind === 'proportion', level: plot.rows[0]?.ciLevel ?? 0.95,
           },
         };
@@ -124,7 +129,7 @@ export default function ReportPane({ p }) {
       return p.table ? strobeFlow({ rawRows, steps, analyses: p.analyses, codebook: p.codebook, excluded: p.table.excluded }) : null;
     } catch { return null; }
   }, [rawRows, steps, p.analyses, p.codebook, p.table]);
-  const strobe = strobeStatus({ analyses: p.analyses, steps, codebook: p.codebook, flow });
+  const strobe = strobeStatus({ analyses: p.analyses, steps, codebook: p.codebook, flow, design: p.project?.design || null });
   const fp = p.table?.fingerprint || '';
   const today = isoLocalDay();
   const engine = p.analyses.map((a) => a.envelope?.provenance?.engineVersion).find(Boolean);
@@ -137,7 +142,7 @@ export default function ReportPane({ p }) {
   const citeLine = citeRelease ? citationText(citeRelease, { lang, t, accessed: today }) : '';
   const refs = useMemo(() => {
     const used = p.analyses.filter((a) => a.envelope).map((a) => ({ method: a.envelope.spec?.method || a.spec?.method, route: a.envelope.spec?.cluster?.route || null }));
-    return [...referencesFor(used, { flow: Boolean(flow) }), ...(citeRelease ? [softwareRecord(citeRelease, today)] : [])];
+    return [...referencesFor(used, { flow: Boolean(flow), design: p.project?.design || null }), ...(citeRelease ? [softwareRecord(citeRelease, today)] : [])];
   }, [p.analyses, flow, citeRelease?.version, today]);
   const base = safeFileBase(p.project.name || 'report');
   const csvName = `${base}-analysed-data.csv`;
@@ -329,7 +334,8 @@ export default function ReportPane({ p }) {
             </ul>
           </section>
           <section className="rs-panel rs-pad" aria-labelledby="rs-h-strobe">
-            <h2 id="rs-h-strobe" className="rs-h3">{t('ws.report.strobe')}</h2>
+            <h2 id="rs-h-strobe" className="rs-h3">{t(p.project?.design === 'experiment' ? 'ws.report.strobeExperiment' : 'ws.report.strobe')}</h2>
+            {p.project?.design === 'experiment' ? <p className="rs-soft rs-small">{t('ws.report.arriveNote')}</p> : null}
             <ul className="rs-plainlist rs-strobe">
               {strobe.map((s) => (
                 <li key={s.item} className={`rs-strobe-item${s.ok ? '' : ' rs-strobe-item--open'}`}>

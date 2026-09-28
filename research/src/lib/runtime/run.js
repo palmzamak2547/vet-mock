@@ -13,7 +13,7 @@ import { ENGINE_VERSION } from './protocol.js';
 import { getMethod, METHODS } from './catalog.js';
 import { IMPLEMENTED } from './registry.js';
 import { checkDesign, DESIGN_FREE_METHODS } from '../epi/design.js';
-import { evaluateGuards, resultGuards, clusterPanel } from '../epi/guardrails.js';
+import { evaluateGuards, resultGuards, clusterPanel, FARM_AWARE } from '../epi/guardrails.js';
 import { aggregateToCluster } from '../epi/cluster.js';
 import { AREA_G1_SUBJECT, AREA_ROUTES } from './areas/index.js';
 
@@ -38,8 +38,8 @@ export const MH_WITHIN_FROM = Object.freeze(new Set(['epi.twoByTwo', 'test.chisq
 // Areas add a route here (areas/<area>.options.js `routes`) once the route runs and has its fixture.
 export const CLUSTER_ROUTE_ORDER = Object.freeze(['mh-within', 'deff', ...AREA_ROUTES, 'aggregate', 'gee', 'mixed']);
 
-// 'survey' and 'robust' are carried out by the method itself, like 'deff' (M2-DESIGN.md 3.2, 3.3).
-const FARM_AWARE = new Set(['deff', 'mh-within', 'aggregate', 'survey', 'robust']);
+// FARM_AWARE comes from guardrails.js: 'survey' and 'robust' are carried out by the method itself, like 'deff'
+// (M2-DESIGN.md 3.2, 3.3).
 /** Data checks judged again on the farm table after the 'aggregate' route (G4 common outcome, G5 small expected counts). */
 const AGG_RECHECK = new Set(['G4', 'G5']);
 
@@ -159,9 +159,18 @@ export function runAnalysis(spec, table, codebook, env = {}) {
         error = { key: 'runtime.engine.methodNotShipped', detail: norm.method };
       } else {
         output = impl(norm, runTable);
+        // An invalid result's reason is carried as a value, as the lab and model methods do, so the screen says
+        // why (review round 2: a text column ticked as a Cronbach item gave "Could not compute" and no reason).
+        if (output?.status === 'invalid' && typeof output.reasonKey === 'string' && !Object.values(output.values || {}).some((v) => v && v.reasonKey)) {
+          output = { ...output, values: { ...(output.values || {}), reason: { value: null, reasonKey: output.reasonKey } } };
+        }
         if (output?.resolvedOptions && Object.keys(output.resolvedOptions).length) {
           norm = { ...norm, options: { ...norm.options, ...output.resolvedOptions } };
-          notes.push({ id: 'auto', severity: 'note', key: 'runtime.note.autoResolved', params: { options: Object.keys(output.resolvedOptions).join(', ') } });
+          // The robust farm route forces Wald intervals: that is a consequence of the route the student chose,
+          // said as such; the rest was settled from the data (review round 2: raw option ids reached the screen).
+          const ids = Object.keys(output.resolvedOptions).filter((k) => !(k === 'ciMethod' && norm.cluster.route === 'robust'));
+          if (ids.length < Object.keys(output.resolvedOptions).length) notes.push({ id: 'autoRoute', severity: 'note', key: 'runtime.note.robustWald' });
+          if (ids.length) notes.push({ id: 'auto', severity: 'note', key: 'runtime.note.autoResolved', params: { options: ids.join(', '), optionIds: ids } });
         }
         if (Array.isArray(output?.notes)) notes.push(...output.notes);
         // M2: a method may raise its own warnings (G14 events per variable, G23 overdispersion).

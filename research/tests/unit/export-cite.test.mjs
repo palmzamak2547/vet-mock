@@ -74,9 +74,10 @@ test('the software record: version, year, address, access date, no DOI until one
 test('the citation line in Thai and English, with the era written', () => {
   const release = { version: '0.2.0', year: 2026 };
   const th = citationText(release, { lang: 'th', t: tOf('th'), accessed: '2026-09-28' });
-  assert.equal(th, `VetMock Research รุ่น 0.2.0 [ซอฟต์แวร์] พ.ศ. 2569 (ค.ศ. 2026) เข้าถึงได้จาก ${SOFTWARE_URL} (เข้าถึงเมื่อ 28 ก.ย. พ.ศ. 2569)`);
+  // the same line as the /cite page (review round 2: three different forms)
+  assert.equal(th, `VetMock Research. (พ.ศ. 2569). VetMock Research (รุ่น 0.2.0) [ซอฟต์แวร์]. ${SOFTWARE_URL} (เข้าถึงเมื่อ 28 ก.ย. พ.ศ. 2569)`);
   const en = citationText(release, { lang: 'en', t: tOf('en'), accessed: '2026-09-28' });
-  assert.equal(en, `VetMock Research, version 0.2.0 [software]. 2026. Available from ${SOFTWARE_URL} (accessed 28 Sep 2026 CE)`);
+  assert.equal(en, `VetMock Research. (2026). VetMock Research (Version 0.2.0) [Computer software]. ${SOFTWARE_URL} (accessed 28 Sep 2026 CE)`);
   assert.ok(!/doi/i.test(th + en));
   assert.equal(dateWithEra('2026-09-28', 'th', tOf('th')), '28 ก.ย. พ.ศ. 2569');
 });
@@ -85,6 +86,8 @@ test('a printed reference line in Vancouver order', () => {
   const words = { software: 'software', version: 'Version', available: 'Available from', accessed: 'accessed', accessedDate: '28 Sep 2026 CE' };
   assert.equal(referenceLine(DELONG, 1, words), '1. DeLong ER, DeLong DM, Clarke-Pearson DL. Comparing the areas under two or more correlated receiver operating characteristic curves: a nonparametric approach. Biometrics. 1988;44(3):837-845. doi:10.2307/2531595');
   assert.equal(referenceLine(softwareRecord({ version: '0.2.0', year: 2026 }, '2026-09-28'), 2, words), `2. VetMock Research [software]. Version 0.2.0. 2026. Available from ${SOFTWARE_URL} (accessed 28 Sep 2026 CE).`);
+  const th = { ...words, yearText: (y) => `พ.ศ. ${y + 543}` };
+  assert.ok(referenceLine(softwareRecord({ version: '0.2.0', year: 2026 }, '2026-09-28'), 3, th).includes('พ.ศ. 2569.'), 'the Thai reference list writes the year with its era');
 });
 
 test('every reference was checked, has a real-looking DOI or null, and names catalogue methods', () => {

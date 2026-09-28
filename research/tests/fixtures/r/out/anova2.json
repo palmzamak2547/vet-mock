@@ -28,6 +28,16 @@
    "tension": ["L", "L", "L", "L", "L", "L", "L", "L", "L", "M", "M", "M", "M", "M", "M", "M", "M", "M", "H", "H", "H", "H", "H", "H", "H", "H", "H", "L", "L", "L", "L", "L", "L", "L", "L", "L", "M", "M", "M", "M", "M", "M", "M", "M", "M", "H", "H", "H", "H", "H", "H", "H", "H", "H"],
    "woolLevels": ["A", "B"],
    "tensionLevels": ["L", "M", "H"]
+  },
+  "disconnected": {
+   "y": [10.1, 11.300000000000001, 9.8000000000000007, 12, 12.9, 13.4, 11.9, 12.199999999999999, 13.1, 14.199999999999999, 13.800000000000001, 15, 20.300000000000001, 19.100000000000001, 21.399999999999999, 20],
+   "a": ["a0", "a0", "a0", "a0", "a0", "a0", "a1", "a1", "a1", "a1", "a1", "a1", "a2", "a2", "a2", "a2"],
+   "b": ["b0", "b0", "b0", "b1", "b1", "b1", "b0", "b0", "b0", "b1", "b1", "b1", "b2", "b2", "b2", "b2"]
+  },
+  "confounded": {
+   "y": [3.1000000000000001, 2.8999999999999999, 3.3999999999999999, 5.2000000000000002, 4.7999999999999998, 5.5],
+   "a": ["x", "x", "x", "y", "y", "y"],
+   "b": ["p", "p", "p", "q", "q", "q"]
   }
  },
  "cases": {
@@ -179,6 +189,73 @@
       "p": 0.40494419624975098
      }
     ]
+   }
+  },
+  "disconnected.typeIII": {
+   "call": "drop1(lm(y ~ a + b, data = disconnected), . ~ ., test = 'F') under contr.sum",
+   "tol": "closed",
+   "data": "disconnected",
+   "ssType": "III",
+   "interaction": false,
+   "values": {
+    "effects": ["a", "b"],
+    "ss": [9.5408333333333424, 13.867500000000021],
+    "df": [1, 1],
+    "F": [17.257630950885599, 25.08378344429098],
+    "p": [0.0013364681093000202, 0.00030500717997398422],
+    "residualSs": 6.634166666666661,
+    "residualDf": 12,
+    "rank": 4
+   }
+  },
+  "disconnected.typeII": {
+   "call": "model comparison on the disconnected layout, df = rank(y ~ a + b) - rank(without the term)",
+   "tol": "closed",
+   "data": "disconnected",
+   "ssType": "II",
+   "interaction": false,
+   "values": {
+    "effects": ["a", "b"],
+    "ss": [9.5408333333333495, 13.867500000000017],
+    "df": [1, 1],
+    "F": [17.257630950885591, 25.083783444290944],
+    "p": [0.0013364681093000225, 0.00030500717997398595],
+    "residualSs": 6.6341666666666681,
+    "residualDf": 12
+   }
+  },
+  "disconnected.typeI": {
+   "call": "anova(lm(y ~ a + b, data = disconnected))",
+   "tol": "closed",
+   "data": "disconnected",
+   "ssType": "I",
+   "interaction": false,
+   "values": {
+    "effects": ["a", "b"],
+    "ss": [188.56770833333337, 13.867500000000017],
+    "df": [2, 1],
+    "F": [170.54233136540634, 25.083783444290944],
+    "p": [1.5410415824265034e-09, 0.00030500717997398595],
+    "residualSs": 6.6341666666666681,
+    "residualDf": 12
+   }
+  },
+  "confounded.typeI": {
+   "call": "anova(lm(y ~ a + b)) with b identical to a: b adds no rank",
+   "tol": "closed",
+   "data": "confounded",
+   "ssType": "I",
+   "interaction": false,
+   "values": {
+    "effects": ["a"],
+    "ss": [6.201666666666668],
+    "df": [1],
+    "F": [66.446428571428498],
+    "p": [0.0012326621872663841],
+    "residualSs": 0.37333333333333379,
+    "residualDf": 4,
+    "rank": 2,
+    "aliased": ["bq"]
    }
   },
   "cellMeans.balanced": {

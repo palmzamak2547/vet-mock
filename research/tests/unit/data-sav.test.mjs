@@ -122,6 +122,18 @@ function writeSav(o) {
     }
     i32(4); i32(1); i32(firstIndex[vi]);
   });
+  // a hand-made record 3/4 pair: numeric labels on the listed 1-based variable numbers (repeats kept as written)
+  if (o.labelSet) {
+    i32(3); i32(o.labelSet.labels.length);
+    for (const [value, label] of o.labelSet.labels) {
+      f64(value);
+      const b = enc(label);
+      const rec = new Uint8Array(Math.ceil((b.length + 1) / 8) * 8);
+      rec[0] = b.length; rec.set(b, 1); raw(rec);
+    }
+    i32(4); i32(o.labelSet.vars.length);
+    for (const x of o.labelSet.vars) i32(firstIndex[x - 1]);
+  }
   if (o.codePage != null) { i32(7); i32(3); i32(4); i32(8); for (const x of [20, 0, 0, -1, 1, 1, 2, o.codePage]) i32(x); }
   // record 7.13: a mixed-case or long name, as SPSS writes it (the short name is upper case)
   const longNames = o.vars.map((v) => [(v.short || v.name).toUpperCase().slice(0, 8), v.name]).filter(([sh, n]) => sh !== n).map(([sh, n]) => `${sh}=${n}`).join('\t');
@@ -339,4 +351,22 @@ test('a small compressed file that expands past the row cap is refused with its 
   const b = writeSav({ vars: [{ name: 'x', width: 0 }], rows, compression: 'bytecode', codePage: 65001 });
   assert.ok(b.length < 1_300_000);
   assert.equal(mustFailCleanly(b), 'data.sav.tooManyRows');
+});
+
+test('value labels: a variable index repeated in record 4 counts once, and a label flood is refused quickly', () => {
+  // Review round 2: one numeric variable, 1,000 labels, record 4 listing variable 1 a thousand times. The old
+  // reader kept every repeat and built 1,000,000 labels (287 MB); a 160 KB file crashed the tab out of memory.
+  const labels = Array.from({ length: 1000 }, (_, i) => [i, 'L' + i]);
+  const rep = writeSav({ vars: [{ name: 'x', width: 0 }], rows: [], codePage: 65001, labelSet: { labels, vars: new Array(1000).fill(1) } });
+  assert.ok(rep.length < 25_000, `crafted file is ${rep.length} B`);
+  let t0 = Date.now();
+  const r = readSavSync(rep);
+  assert.ok(Date.now() - t0 < 1000, `read in ${Date.now() - t0} ms`);
+  assert.equal(r.variables[0].valueLabels.length, 1000);
+  // 600 variables sharing 500 labels = 300,000 label assignments, over the cap: refused with its own message.
+  const vars = Array.from({ length: 600 }, (_, i) => ({ name: 'v' + i, width: 0 }));
+  const flood = writeSav({ vars, rows: [], codePage: 65001, labelSet: { labels: labels.slice(0, 500), vars: vars.map((_, i) => i + 1) } });
+  t0 = Date.now();
+  assert.equal(mustFailCleanly(flood), 'data.sav.tooManyLabels');
+  assert.ok(Date.now() - t0 < 1000, `refused in ${Date.now() - t0} ms`);
 });

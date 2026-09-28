@@ -4,9 +4,15 @@
 
 .rs-pub-top { position: sticky; top: 0; z-index: 5; }
 .rs-pub-open { white-space: nowrap; }
-@media (max-width: 380px) {
-  .rs-pub-top .rs-wordmark-b { display: inline; font-size: 13px; }
+/* Narrow phones: the header row must fit 320 px with the wordmark, the language switch and the way in
+   (review round 2: the button ran past the right edge and the row hides its overflow). The second half of
+   the wordmark goes as in the workspace bar, and the button keeps a short label (its accessible name stays
+   the full one). */
+.rs-pub-open-short { display: none; }
+@media (max-width: 400px) {
   .rs-pub-open { padding: 0 10px; font-size: 13.5px; }
+  .rs-pub-open-long { display: none; }
+  .rs-pub-open-short { display: inline; }
 }
 
 .rs-pub-nav {

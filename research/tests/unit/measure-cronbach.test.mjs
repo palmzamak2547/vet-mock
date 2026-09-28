@@ -124,6 +124,10 @@ test('undefined values are null with a sentence; negative alpha and reversed ite
   const neg = runCronbach(spec(['c1', 'c2']), numberTable([[1, 2, 3, 4], [4, 3, 1, 2]], ['c1', 'c2']));
   assert.ok(neg.values.alpha.value < 0);
   assert.ok(neg.notes.some((n) => n.key === 'measure.note.alphaNegative'));
+  // Two exactly opposed items (r = -1): 1 + (k - 1) r = 0, so standardized alpha is null with a reason, never -Infinity.
+  const opp = runCronbach(spec(['c1', 'c2']), numberTable([[1, 2, 3, 4, 5, 3], [5, 4, 3, 2, 1, 3]], ['c1', 'c2']));
+  assert.equal(opp.values.alphaStandardized.value, null);
+  assert.equal(opp.values.alphaStandardized.reasonKey, 'measure.undefined.itemsOpposed');
 });
 
 test('refusals: one item, the same item twice, no data', () => {

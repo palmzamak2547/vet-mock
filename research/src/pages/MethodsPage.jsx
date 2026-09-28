@@ -108,7 +108,7 @@ function MethodRow({ row }) {
       )}
       {row.fixtures.length ? (
         <details className="rs-pub-details" onToggle={(e) => setOpen(e.currentTarget.open)}>
-          <summary>{t('trust.methods.details', { count: row.fixtures.length })}</summary>
+          <summary aria-label={t('trust.methods.detailsLabel', { count: row.fixtures.length, method: t(row.nameKey) })}>{t('trust.methods.details', { count: row.fixtures.length })}</summary>
           {open ? (
             <ul className="rs-pub-fixtures">
               {row.fixtures.map((f) => <FixtureCard key={f.file} f={f} />)}

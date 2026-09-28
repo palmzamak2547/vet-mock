@@ -49,7 +49,12 @@ test('the lab screen lists methods under questions once the experiment design is
 
   await page.goto(`${project}/design`);
   await page.getByRole('radio', { name: new RegExp(lab.th['lab.design.experiment.name']) }).check();
-  await page.goto(`${project}/lab`);
+  // The choice is stored on the device a moment after the click; a full page load right away can read the
+  // store before it lands (WebKit, review round 2 run): load the lab screen until it has the design.
+  await expect(async () => {
+    await page.goto(`${project}/lab`);
+    await expect(page.getByText(ws.th['ws.question.twoFactors.title'], { exact: true })).toBeVisible({ timeout: 3000 });
+  }).toPass({ timeout: 30_000 });
   for (const q of ['twoFactors', 'sameAnimals', 'againstControl', 'whichPairs', 'assumptions']) {
     await expect(page.getByText(ws.th[`ws.question.${q}.title`], { exact: true })).toBeVisible();
   }
@@ -93,6 +98,27 @@ test.describe('phone width, light and dark', () => {
         await page.goto(`${project}/${pane}`);
         await expect(page.locator('#rs-main h1')).toBeVisible();
         await noSideScroll(page, `${pane} (${scheme})`);
+      }
+    });
+  }
+});
+
+test.describe('public pages at 320 px', () => {
+  test.use({ viewport: { width: 320, height: 700 } });
+
+  // Review round 2: the header's way into the workspace ran past the right edge on every public page; the
+  // row hides its overflow, so the page-level width check passed. The button itself must sit inside the view.
+  for (const lang of ['th', 'en']) {
+    test(`the header button stays inside the viewport (${lang})`, async ({ page }) => {
+      await page.addInitScript((l) => { try { localStorage.setItem('vmx-research-prefs-v1', JSON.stringify({ lang: l, entranceSeen: true, introSeen: true })); } catch { /* ignore */ } }, lang);
+      for (const path of ['/methods', '/guide', '/cite']) {
+        await page.goto(path);
+        const btn = page.locator('.rs-pub-open');
+        await expect(btn).toBeVisible();
+        const box = await btn.boundingBox();
+        expect(box, path).not.toBeNull();
+        expect(box.x, `${path} left`).toBeGreaterThanOrEqual(0);
+        expect(box.x + box.width, `${path} right edge`).toBeLessThanOrEqual(320);
       }
     });
   }

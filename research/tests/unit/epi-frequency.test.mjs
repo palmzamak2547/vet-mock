@@ -9,6 +9,8 @@
 // OWNER: epi role.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { roganGladen, runProportion, runIncidenceRisk, runIncidenceRate, runTruePrevalence } from '../../src/lib/epi/frequency.js';
 import { SERO, SERO_ROLES, serosurveyTable, spec, readFixture, close, CLOSED } from './epi-fixtures.mjs';
 
@@ -137,4 +139,23 @@ test('a low prevalence on the DEFF route is never printed below 0 (review round 
   const tp = runTruePrevalence(tpSpec, null);
   assert.equal(tp.values.apparent.ci[0], 0);
   assert.equal(tp.values.apparent.noteKey, 'stats.note.ciTruncated');
+});
+
+test('serosurvey through runAnalysis on the survey farm route: no G1 loop, the survey 4.5 logit interval (r-4.6.0 survey.json)', async () => {
+  // Review round 2: guardrails.js did not count 'survey' as accounting for farms, so choosing it raised G1 again
+  // and offered 'survey' in the same stop; the route could never produce a result.
+  const { runAnalysis } = await import('../../src/lib/runtime/run.js');
+  const pin = JSON.parse(readFileSync(fileURLToPath(new URL('../fixtures/r/out/survey.json', import.meta.url)), 'utf8')).cases.serosurvey.values;
+  const t = serosurveyTable();
+  const env = runAnalysis(spec('freq.proportion', ds, { ...seroProp, design: 'cross-sectional', route: 'survey' }), t, null);
+  assert.equal(env.status, 'ok');
+  assert.deepEqual(env.guard.stops, []);
+  close(env.values.prevalence.value, pin.p, CLOSED, 'survey p');
+  close(env.values.prevalence.ci[0], pin.logitLower, 1e-6, 'survey logit lower');
+  close(env.values.prevalence.ci[1], pin.logitUpper, 1e-6, 'survey logit upper');
+  close(env.values.prevalence.ci[0], 0.16443, 1e-4, 'survey logit lower (0.16443)');
+  close(env.values.prevalence.ci[1], 0.24230, 1e-4, 'survey logit upper (0.24230)');
+  // the robust route of the regression models is farm-aware for the same reason
+  const { FARM_AWARE } = await import('../../src/lib/epi/guardrails.js');
+  for (const r of ['survey', 'robust', 'deff', 'mh-within', 'aggregate']) assert.ok(FARM_AWARE.has(r), r);
 });

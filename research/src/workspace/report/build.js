@@ -111,7 +111,7 @@ const cap = (lang, s) => (lang === 'en' && s ? s[0].toUpperCase() + s.slice(1) :
 
 /** English puts a label mid-sentence in lower case ("the prevalence ratio (PR)"), acronyms kept. */
 /** Names of people keep their capital mid-sentence (review round 1: "The cronbach's alpha"). */
-const PROPER = /^(Cronbach|Dunnett|Youden|Greenhouse|Huynh|Mauchly|Shapiro|Brown|Friedman|Kaplan|DeLong|Wald|Pearson|Games|Bland|Spearman|Fisher|Mantel|Kruskal|Wilcoxon|Mann|McNemar|Cochran|Tukey|Holm|Bonferroni|Hodges|Welch|Kendall|Poisson|Feldt|Šidák|Levene)/;
+const PROPER = /^(Cronbach|Dunnett|Youden|Greenhouse|Huynh|Mauchly|Shapiro|Brown|Friedman|Kaplan|DeLong|Wald|Pearson|Games|Bland|Spearman|Fisher|Mantel|Kruskal|Wilcoxon|Mann|McNemar|Cochran|Tukey|Holm|Bonferroni|Hodges|Welch|Kendall|Poisson|Feldt|Šidák|Levene)\b/;
 const lowerLabel = (lang, x) => (lang === 'en' && /^[A-Z][a-z]/.test(x) && !PROPER.test(x) ? x[0].toLowerCase() + x.slice(1) : x);
 
 /** Values that compare an exposed with a reference group. */
@@ -252,7 +252,11 @@ export function methodsSentence(analysis, ctx) {
     const roles = roleEntries.map(([role, v]) => t('report.methods.role', { role: roleName(role), column: joinList([].concat(v).map(col), lang, t) }));
     // One column reads "The variable was", not "The variables were".
     const count = roleEntries.reduce((n, [, v]) => n + [].concat(v).length, 0);
-    if (roles.length) out.push(t(count === 1 ? 'report.methods.rolesOne' : 'report.methods.roles', { roles: joinList(roles, lang, t) }));
+    // 'and' once: when a role already lists several columns ("Age and Sex"), the roles are joined by the list
+    // separator only (review round 2: "ELISA result (outcome) and Age (months) and Sex (explanatory variables)").
+    const several = roleEntries.some(([, v]) => [].concat(v).length > 1);
+    const joined = several ? roles.join(punct(lang).sep) : joinList(roles, lang, t);
+    if (roles.length) out.push(t(count === 1 ? 'report.methods.rolesOne' : 'report.methods.roles', { roles: joined }));
   }
   // One-way ANOVA says how the groups were compared pairwise, when it did so.
   if (spec.method === 'test.anova1' && (env?.tables || []).some((tb) => tb.id === 'posthoc') && spec.options?.posthoc && spec.options.posthoc !== 'none') {

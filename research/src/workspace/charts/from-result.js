@@ -145,7 +145,14 @@ export function chartOptions(analysis, table, o = {}) {
   }
   const r = ratioValue(env);
   if (r && (method === 'epi.mantelHaenszel' || method === 'epi.twoByTwo' || method === 'reg.logistic' || method === 'reg.poisson')) {
-    const se = num(r.se) && r.ciMethod === 'wald-log' ? r.se : seFromLogCi(r.ci, r.ciLevel ?? level);
+    // The curve is a Wald curve on the log scale: it is drawn only when it passes through the interval the result
+    // reports, that is a Wald-log interval or one symmetric on the log scale. A profile-likelihood interval is not
+    // symmetric, and a curve built from its width would cross p = 0.05 away from the printed bounds and print a
+    // p at 1 that no test gave (review round 2: 1.09 and 8.88 against the reported 1.13 to 9.25).
+    const [lo, hi] = Array.isArray(r.ci) ? r.ci : [null, null];
+    const symmetric = num(lo) && num(hi) && lo > 0 && hi > 0 && r.value > 0
+      && Math.abs(Math.log(r.value / lo) - Math.log(hi / r.value)) <= 1e-6 * Math.max(1, Math.log(hi / lo));
+    const se = num(r.se) && r.ciMethod === 'wald-log' ? r.se : symmetric ? seFromLogCi(r.ci, r.ciLevel ?? level) : null;
     if (se) add('ciFunction', { est: r.value, se, label: nameOf(r.name), xTitle: nameOf(r.name), level: r.ciLevel ?? level }, false);
   }
   if (method === 'anova.repeated') {

@@ -88,9 +88,9 @@ export function buildReportModel(input) {
     : null;
   const hasFlow = Boolean(flow && analyses.some((a) => (a.envelope.spec || a.spec)?.input?.kind === 'dataset'));
   const used = analyses.map((a) => ({ method: a.envelope.spec?.method || a.spec?.method, route: a.envelope.spec?.cluster?.route || null }));
-  const refs = referencesFor(used, { flow: hasFlow });
+  const refs = referencesFor(used, { flow: hasFlow, design: project.design || null });
   if (refs.length) {
-    const cites = refs.filter((r) => r.id !== 'strobeVet2016').map((r) => shortCite(r, lang, t));
+    const cites = refs.filter((r) => r.id !== 'strobeVet2016' && r.id !== 'arrive2020').map((r) => shortCite(r, lang, t));
     if (cites.length) blocks.push({ kind: 'paragraph', text: t('report.doc.sources', { cites: cites.join(lang === 'th' ? ', ' : '; ') }) });
   }
 
@@ -117,7 +117,10 @@ export function buildReportModel(input) {
     const note = lines.join(' ') || null;
     if (env.status === 'ok') {
       const primary = primaryValueName(env, designRow);
-      const main = exportTable(env, { t, fmt, lang, caption: name, note: note || '', primary });
+      // The same words as the screen: model terms, levels and pairs by the codebook (review round 2: 'c2=หลัง 6
+      // ชม.', '(Intercept)' and raw Thai group codes reached the English Word file).
+      const words = { spec: env.spec, env, codebook, columnName, levelName };
+      const main = exportTable(env, { t, fmt, lang, caption: name, note: note || '', primary, columnName, words });
       // Effects of one model (two-way and repeated-measures ANOVA) are named by their columns, not "F".
       const nValues = Object.keys(env.values || {}).length;
       (env.tests || []).forEach((test, k) => {

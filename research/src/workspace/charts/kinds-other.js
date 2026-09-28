@@ -7,7 +7,7 @@ import { binDates, civil, isoDate, isoWeek } from './epiweek.js';
 import { finish } from './kinds-groups.js';
 import { ciPlotLayout, tickText } from '../lib/ci-plot.js';
 import { MIN_TICK_GAP, ticksWithEnds } from '../components/ci-ticks.js';
-import { groupLegend, legendNodes, line, makeCtx, margins, minus, pathOf, r2, rect, text, tickLabels, xAxis, yAxis, xTitleNodes, wrapWords, titleNodes, fitTitle } from './frame.js';
+import { groupLegend, legendNodes, line, makeCtx, margins, minus, pathOf, r2, rect, text, tickLabels, xAxis, yAxis, xTitleNodes, wrapWords, titleNodes, fitTitle, minFont } from './frame.js';
 
 const num = (v) => typeof v === 'number' && Number.isFinite(v);
 const levelText = (level) => `${Math.round((level ?? 0.95) * 1000) / 10}%`;
@@ -209,7 +209,7 @@ export function ciChart(input, opts) {
   const maxLines = Math.max(1, ...wrapped.map((l) => l.length));
   const L = ciPlotLayout(rows, { width: ctx.width, labelW, rowH: Math.max(40 * u, maxLines * lf * 1.15 + 10 * u), log: Boolean(input.log), ref: input.ref ?? null, minGapPx: MIN_TICK_GAP * u });
   const ticks = ticksWithEnds(L, MIN_TICK_GAP * u);
-  const xFit = input.xTitle ? fitTitle(input.xTitle, 2 * Math.min((L.plotLeft + L.plotRight) / 2, ctx.width - (L.plotLeft + L.plotRight) / 2) - fs * 0.5, fs) : null;
+  const xFit = input.xTitle ? fitTitle(input.xTitle, 2 * Math.min((L.plotLeft + L.plotRight) / 2, ctx.width - (L.plotLeft + L.plotRight) / 2) - fs * 0.5, fs, minFont(ctx)) : null;
   const height = L.height + (xFit ? fs * 1.6 + (xFit.lines.length - 1) * xFit.size * 1.05 : 0);
   const nodes = [];
   for (const tk of ticks) {

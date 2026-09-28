@@ -21,7 +21,7 @@ const raw = {
   header: ['farm', 'result'], columns: [['F1', 'F2'], ['pos', 'neg']], rowIds: ['r1', 'r2'], rowCount: 2,
   source: { fileName: 'x.csv', bytes: 10, sha256: 'aa', encoding: 'utf-8', format: 'csv', sheet: null, headerRow: 0, importedAt: '2026-09-27T00:00:00Z' },
 };
-const codebook = { unitOfAnalysis: 'animal', clusterKey: null, columns: [{ key: 'c1', name: 'farm', type: 'id' }, { key: 'c2', name: 'result', type: 'binary', levels: [{ value: 'pos' }, { value: 'neg' }] }] };
+const codebook = { unitOfAnalysis: 'animal', clusterKey: null, columns: [{ key: 'c1', name: 'farm', type: 'id' }, { key: 'c2', name: 'result', type: 'binary', levels: [{ value: 'pos' }, { value: 'neg' }] }, { key: 'c3', name: 'weight', type: 'continuous', labelTh: 'น้ำหนัก', labelEn: 'Weight', levels: [{ value: "1 'x') HOST COMMAND=['calc'] /c1 2", labelTh: 'lab', labelEn: 'lab' }, { value: '2', labelTh: 'สอง', labelEn: 'two' }] }] };
 
 async function exported() {
   const db = createMemoryDb();
@@ -79,5 +79,15 @@ for (const lang of ['th', 'en']) {
       const code = line.replace(/'(?:[^']|'')*'/g, "''");
       assert.ok(!code.includes('system('), `command line: ${line}`);
     }
+  });
+
+  test(`${lang}: a codebook level on a number column is a numeric literal only when it is a number`, () => {
+    // Review round 2: VALUE LABELS wrote the level of a number column raw, whatever its text.
+    const cb = { columns: [{ key: 'c3', name: 'weight', type: 'continuous', labelTh: 'น้ำหนัก', labelEn: 'Weight', levels: [{ value: "1 'x') HOST COMMAND=['calc'] /c1 2", labelTh: 'lab', labelEn: 'lab' }, { value: '2', labelTh: 'สอง', labelEn: 'two' }] }] };
+    const s = buildSps({ analyses: [], codebook: cb, csvName: 'd.csv', lang, t: tOf(lang) });
+    const rows = s.replace(/^\uFEFF/, '').split(/\r?\n/);
+    const line = rows.find((l) => /^\s*\/?weight /.test(l) && l.includes('lab'));
+    assert.ok(line && line.includes("'1 ''x'') HOST COMMAND=[''calc''] /c1 2' 'lab' 2 '"), `value labels line: ${line}`);
+    for (const l of rows) if (!l.startsWith('*')) assert.ok(!l.replace(/'(?:[^']|'')*'/g, "''").includes('HOST'), l);
   });
 }

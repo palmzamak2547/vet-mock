@@ -11,7 +11,7 @@ import { flowComplete } from './flow.js';
  * @param {{ analyses: any[], steps: any[], codebook: any, flow?: ReturnType<import('./flow.js').strobeFlow>|null }} input
  * @returns {{ item: string, key: string, ok: boolean, ns?: 'ws'|'report' }[]}
  */
-export function strobeStatus({ analyses, steps, codebook, flow = null }) {
+export function strobeStatus({ analyses, steps, codebook, flow = null, design = null }) {
   const specs = analyses.map((a) => a.envelope?.spec || a.spec).filter(Boolean);
   const routes = new Set(specs.map((s) => s.cluster?.route).filter((r) => r && r !== 'none'));
   const dropped = analyses.some((a) => (a.envelope?.provenance?.rowsDropped || []).some((d) => d.count > 0));
@@ -20,7 +20,7 @@ export function strobeStatus({ analyses, steps, codebook, flow = null }) {
   const flowOk = flow ? flowComplete(flow) : null;
   // Every analysis in the flow says which column each dropped row was missing in.
   const perColumn = Boolean(flowOk) && (flow.boxes || []).filter((b) => b.id.startsWith('analysis.')).every((b) => (b.params?.missingByColumn || []).every((d) => d.column));
-  return [
+  const items = [
     // Data without a farm column say so in their own words; data with one say whether a kept result
     // accounts for farms (review round 3: one line covering both read as a rule, not a status).
     codebook?.clusterKey
@@ -38,4 +38,9 @@ export function strobeStatus({ analyses, steps, codebook, flow = null }) {
       : { item: '16(b)', key: 'cutpoints', ok: bins.every((b) => b.params?.cutSource === 'typed' || b.params?.cutSource === 'literature') },
     { item: '12(e)', key: 'sensitivity', ok: routes.size > 1 },
   ];
+  // A laboratory or animal experiment reports against ARRIVE 2.0: the observational items (a crude and an
+  // adjusted 2x2, a second way of accounting for farms, farms at all when the data have none) do not apply
+  // (review round 2: "12(e) one farm route only" on a feed trial with no farm column).
+  if (design === 'experiment') return items.filter((x) => !['16(a)', '12(e)'].includes(x.item) && !(x.item === '12(a)' && !codebook?.clusterKey));
+  return items;
 }

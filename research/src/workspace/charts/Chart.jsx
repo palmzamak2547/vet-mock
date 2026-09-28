@@ -27,10 +27,33 @@ function toReact(node, key) {
 /**
  * @param {{ model: ReturnType<import('./model.js').buildChart>, title?: string, madeUp?: boolean, fileBase?: string, onDownloaded?: (kind: string) => void, exportModel?: (widthMm: number) => ReturnType<import('./model.js').buildChart>, plotRef?: any }} props
  */
+/** Chart number tables longer than this are folded. */
+const FOLD_ROWS = 12;
+
 export default function Chart({ model, title, madeUp = false, fileBase, onDownloaded, exportModel, plotRef }) {
   const { t } = useT();
   const tree = useMemo(() => renderTree(model, 'screen', { title: title || model.title || '' }), [model, title]);
   const heading = title || model.title || '';
+  // A long number table (a whole life table) is folded under the chart instead of standing beside it
+  // (review round 2: 32 rows, about 1,900 px, open under every Kaplan-Meier chart).
+  const long = (model.table?.rows?.length || 0) > FOLD_ROWS;
+  const tableEl = (
+    <table className="rs-table rs-table--compact rs-num">
+      <caption className="rs-visually-hidden">{t('graphs.tableCaption', { title: heading || t(`graphs.kind.${model.kind}`) })}</caption>
+      <thead>
+        <tr>{model.table.columns.map((c, i) => <th key={i} scope="col" className={i ? 'rs-r' : ''}>{c}</th>)}</tr>
+      </thead>
+      <tbody>
+        {model.table.rows.map((r, i) => (
+          <tr key={i}>
+            {r.map((c, j) => (j === 0
+              ? <th key={j} scope="row">{c === null || c === undefined ? '—' : String(c)}</th>
+              : <td key={j} className="rs-r">{c === null || c === undefined ? '—' : String(c)}</td>))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
   return (
     <figure className="rs-chart" data-chart={model.kind}>
       {heading || madeUp ? (
@@ -39,26 +62,16 @@ export default function Chart({ model, title, madeUp = false, fileBase, onDownlo
           {madeUp ? <> <span className="rs-chart-madeup">{t('graphs.madeUp')}</span></> : null}
         </figcaption>
       ) : null}
-      <div className="rs-chart-row rs-chart-row--side">
+      <div className={`rs-chart-row${long ? '' : ' rs-chart-row--side'}`}>
         <div className="rs-chart-plot" ref={plotRef}>{toReact(tree, 'svg')}</div>
-        <div className="rs-chart-table">
-          <table className="rs-table rs-table--compact rs-num">
-            <caption className="rs-visually-hidden">{t('graphs.tableCaption', { title: heading || t(`graphs.kind.${model.kind}`) })}</caption>
-            <thead>
-              <tr>{model.table.columns.map((c, i) => <th key={i} scope="col" className={i ? 'rs-r' : ''}>{c}</th>)}</tr>
-            </thead>
-            <tbody>
-              {model.table.rows.map((r, i) => (
-                <tr key={i}>
-                  {r.map((c, j) => (j === 0
-                    ? <th key={j} scope="row">{c === null || c === undefined ? '—' : String(c)}</th>
-                    : <td key={j} className="rs-r">{c === null || c === undefined ? '—' : String(c)}</td>))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {long ? null : <div className="rs-chart-table">{tableEl}</div>}
       </div>
+      {long ? (
+        <details className="rs-chart-table rs-chart-table--folded">
+          <summary className="rs-small">{t('ws.table.folded', { caption: t('graphs.tableCaption', { title: heading || t(`graphs.kind.${model.kind}`) }), n: model.table.rows.length })}</summary>
+          {tableEl}
+        </details>
+      ) : null}
       {model.notes?.length ? <div className="rs-chart-notes rs-soft rs-small">{model.notes.map((n, i) => <p key={i}>{n}</p>)}</div> : null}
       {exportModel && fileBase ? <ChartExport build={exportModel} fileBase={fileBase} onDownloaded={onDownloaded} title={heading} /> : null}
     </figure>

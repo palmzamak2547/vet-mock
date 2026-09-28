@@ -368,10 +368,10 @@ export default function AnalysisPane({ p, pane }) {
                       </select>
                     </Field>
                     {val && r.level ? (
-                      <Field label={t(`ws.level.pick.${r.level}`)} htmlFor={`rs-lv-${r.level}`}>
+                      <Field label={t(r.role === 'event' ? 'ws.level.pick.event' : `ws.level.pick.${r.level}`)} htmlFor={`rs-lv-${r.level}`}>
                         <select id={`rs-lv-${r.level}`} className="rs-select" value={choices.levels[r.level] || ''} onChange={(e) => setChoices((ch) => ({ ...ch, levels: { ...ch.levels, [r.level]: e.target.value || null } }))}>
                           <option value="">{t('ws.steps.chooseLevel')}</option>
-                          {lv.map((v) => <option key={v} value={v}>{v}</option>)}
+                          {lv.map((v) => <option key={v} value={v}>{levelOf(val, v)}</option>)}
                         </select>
                       </Field>
                     ) : null}
@@ -379,7 +379,7 @@ export default function AnalysisPane({ p, pane }) {
                       <Field label={t(`ws.level.pick.${r.reference}`)} htmlFor={`rs-lv-${r.reference}`}>
                         <select id={`rs-lv-${r.reference}`} className="rs-select" value={choices.levels[r.reference] || ''} onChange={(e) => setChoices((ch) => ({ ...ch, levels: { ...ch.levels, [r.reference]: e.target.value || null } }))}>
                           <option value="">{t('ws.steps.chooseLevel')}</option>
-                          {lv.filter((v) => v !== choices.levels[r.level]).map((v) => <option key={v} value={v}>{v}</option>)}
+                          {lv.filter((v) => v !== choices.levels[r.level]).map((v) => <option key={v} value={v}>{levelOf(val, v)}</option>)}
                         </select>
                       </Field>
                     ) : null}
@@ -433,7 +433,7 @@ export default function AnalysisPane({ p, pane }) {
           <ErrorBox error={error} />
           {herd.length ? <Herd groups={herd} clusterName={cluster?.name || ''} /> : null}
           {clusterStop ? (
-            <G1Panel panel={panel} stops={env.guard.stops} onChoose={(r) => run(r)} busy={busy} columnName={cluster?.name || ''} single={String(method || '').startsWith('freq.')} />
+            <G1Panel panel={panel} stops={env.guard.stops} onChoose={(r) => run(r)} busy={busy} columnName={cluster ? colName(cluster) : ''} single={String(method || '').startsWith('freq.')} />
           ) : null}
           {env && !clusterStop ? (
             <ResultView

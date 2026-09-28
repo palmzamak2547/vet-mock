@@ -16,7 +16,8 @@ export default {
     'runtime.note.routeMhWithin': 'ปรับตามฟาร์มด้วย Mantel-Haenszel โดยให้แต่ละฟาร์มเป็นหนึ่งชั้น (stratum) จึงเทียบกันเฉพาะสัตว์ในฟาร์มเดียวกัน',
     'runtime.note.routeAggregate': 'ปรับตามฟาร์มโดยรวมข้อมูลเป็นหนึ่งแถวต่อฟาร์ม ผลนี้จึงนับฟาร์ม ไม่ได้นับสัตว์',
     'runtime.note.routeDeff': 'ปรับตามฟาร์มโดยขยาย 95% CI ด้วย design effect ที่คำนวณจากข้อมูลนี้',
-    'runtime.note.autoResolved': 'วิธีนี้เลือกรูปแบบการคำนวณจากข้อมูลเอง ({options}) ค่าที่ใช้จริงบันทึกไว้ในรายละเอียดแล้ว',
+    'runtime.note.autoResolved': 'ค่าต่อไปนี้ตั้งจากข้อมูลโดยอัตโนมัติ: {options} ค่าที่ใช้จริงบันทึกไว้ในรายละเอียดแล้ว',
+    'runtime.note.robustWald': 'เพราะเลือก SE ปรับตามฟาร์ม (cluster-robust) CI จึงคำนวณแบบ Wald',
     'runtime.guard.routeUnavailable': 'วิธีปรับตามฟาร์มที่เลือกไว้ใช้กับคำถามและข้อมูลชุดนี้ไม่ได้ จึงยังไม่แสดงผล เลือกวิธีอื่นจากรายการด้านล่าง',
 
     // ---- engine -----------------------------------------------------------------------------
@@ -445,7 +446,8 @@ export default {
     'runtime.note.routeMhWithin': 'Farms accounted for with Mantel-Haenszel, each farm one stratum, so animals are compared only with animals on the same farm',
     'runtime.note.routeAggregate': 'Farms accounted for by reducing the data to one row per farm; this result counts farms, not animals',
     'runtime.note.routeDeff': 'Farms accounted for by widening the 95% CI with the design effect computed from these data',
-    'runtime.note.autoResolved': 'This method chose how to compute from the data ({options}); the choice it made is recorded in the details',
+    'runtime.note.autoResolved': 'Set automatically from the data: {options}. The values used are recorded in the details.',
+    'runtime.note.robustWald': 'Because farm-adjusted standard errors (cluster-robust) were chosen, the CIs are Wald intervals.',
     'runtime.guard.routeUnavailable': 'The way of accounting for farms you picked does not fit this question and these data, so no result is shown yet. Pick another one from the list below',
 
     'runtime.engine.failed': 'The calculation did not finish. Try again; if it keeps failing, download the project file first',

@@ -88,7 +88,7 @@ export function buildHtml(model, opts = {}) {
     }
   }
   if (model.references?.length) {
-    const words = { software: t('report.ref.software'), version: t('report.ref.version'), available: t('report.ref.available'), accessed: t('report.ref.accessed'), accessedDate: opts.accessedText || '' };
+    const words = { software: t('report.ref.software'), version: t('report.ref.version'), available: t('report.ref.available'), accessed: t('report.ref.accessed'), accessedDate: opts.accessedText || '', yearText: (y) => (model.lang === 'th' ? t('report.cite.yearTh', { be: y + 543, ce: y }) : String(y)) };
     out.push(`<ol class="refs">${model.references.map((r, i) => `<li>${text(referenceLine(r, i + 1, words).replace(/^\d+\.\s/, ''))}</li>`).join('')}</ol>`);
   }
   for (const line of model.provenance || []) out.push(`<p class="prov">${text(line)}</p>`);

@@ -4,7 +4,7 @@
 // OWNER: measure role (M2; epi in M1). The M2 areas add methods to these rows and new rows through
 // lib/runtime/areas/<area>.options.js (offers, designs, designFree) [M2-DESIGN.md 2], merged below.
 import { areaOffers, AREA_DESIGNS, AREA_DESIGN_FREE } from '../runtime/areas/index.js';
-import MEASURE_SHIPPED from '../runtime/areas/measure.registered.js';
+import { MEASURE_SHIPPED } from '../runtime/catalog.js';
 
 /** A 'comes in M2' row stays on the design board only until the method it names ships. */
 const untilShipped = (methodId, row) => (MEASURE_SHIPPED.includes(methodId) ? [] : [row]);

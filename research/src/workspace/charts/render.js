@@ -60,7 +60,7 @@ export function withMadeUpNote(model, note) {
     ...model,
     height,
     heightMm: model.unit === 'pt' ? r2((height / 72) * 25.4) : model.heightMm,
-    marks: [...model.marks, { t: 'text', a: { x: r2(fs * 0.5), y: r2(height - fs * 0.5), 'font-size': r2(fs * 0.9), fill: 'soft' }, text: String(note) }],
+    marks: [...model.marks, { t: 'text', a: { x: r2(fs * 0.5), y: r2(height - fs * 0.5), 'font-size': r2(model.unit === 'pt' ? Math.max(Math.min(fs, 7), fs * 0.9) : fs * 0.9), fill: 'soft' }, text: String(note) }],
     madeUpNote: String(note),
   };
 }

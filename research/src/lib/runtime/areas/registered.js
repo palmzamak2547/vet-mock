@@ -7,3 +7,6 @@ import plan from './plan.registered.js';
 
 /** @type {readonly string[]} */
 export const AREA_REGISTERED = Object.freeze([...lab, ...models, ...measure, ...plan]);
+
+// The measure area's ids on their own, for the design and guard checks (read through runtime/catalog.js).
+export const MEASURE_SHIPPED = measure;

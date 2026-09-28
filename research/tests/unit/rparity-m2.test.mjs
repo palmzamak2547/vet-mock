@@ -218,6 +218,28 @@ test('R parity M2: anova2', async (t) => {
     await runCase(t, 'anova2', id, c, () => {
       const v = c.values;
       const rows = rowsOf(c.dropRows || []);
+      if (id.startsWith('disconnected.') || id.startsWith('confounded.')) {
+        // Rank-deficient layouts: each term's df is the rank it adds (R drop1 / anova); a term that adds none
+        // prints no F, p or partial eta squared.
+        const d = doc.datasets[c.data];
+        const lv = (xs) => [...new Set(xs)].sort();
+        const la = lv(d.a); const lb = lv(d.b);
+        const r = anova2.anovaTwoWay(d.y, d.a.map((x) => la.indexOf(x)), d.b.map((x) => lb.indexOf(x)), { ssType: c.ssType, interaction: false });
+        const out = [];
+        v.effects.forEach((e, k) => {
+          const eff = r.effects[k];
+          out.push([`${e} SS`, eff.ss, v.ss[k]], [`${e} df`, eff.df, v.df[k]], [`${e} F`, eff.F, v.F[k]], [`${e} p`, eff.p, v.p[k]]);
+        });
+        if (id.startsWith('confounded.')) {
+          const b = r.effects[1];
+          assert.equal(b.df, 0);
+          assert.equal(b.F, null); assert.equal(b.p, null); assert.equal(b.etaPartial, null);
+          assert.equal(b.reasonKey, 'lab.undefined.termNotEstimable');
+          assert.equal(r.connected, false);
+        } else assert.equal(r.connected, false);
+        out.push(['residual SS', r.residual.ss, v.residualSs], ['residual df', r.residual.df, v.residualDf]);
+        return out;
+      }
       if (id.startsWith('typeI')) {
         const y = rows.map((i) => wb.breaks[i]);
         const a = rows.map((i) => wb.woolLevels.indexOf(wb.wool[i]));
@@ -517,6 +539,15 @@ test('R parity M2: glm', async (t) => {
         const fit = glm.fitGlm(X, Float64Array.from(D.sep.y), 'binomial');
         assert.equal(fit.separated, true, 'the fit must report separation (M2-DESIGN.md 3.2.1), not R\'s diverging estimates');
         return [['separation (evidence)', 1, 1, 'evidence'], ['separated flag', fit.separated ? 1 : 0, 1, 'closed']];
+      }
+      if (id === 'logistic.steepFinite') {
+        // A finite maximum with fitted values within 1e-8 of 1: the method prints the estimate, with no G14.
+        const tb = makeTable({ age: numc(D.steep.age), y: cat(['neg', 'pos'], D.steep.y.map((x) => (x ? 'pos' : 'neg'))) });
+        const out = glm.runLogistic(spec('reg.logistic', { design: 'cross-sectional', roles: { outcome: 'y', covariates: ['age'] }, levels: { outcomePositive: 'pos' } }), tb);
+        assert.ok(!out.warnings.some((w) => w.id === 'G14'), 'a steep finite fit is not separation');
+        assert.equal(out.tables.find((x) => x.id === 'separation'), undefined);
+        assert.ok(out.notes.some((n) => n.key === 'models.note.fittedExtreme'), 'the R warning is carried as a note');
+        return [['B age', out.values['b:age'].value, v.B[1]], ['SE age', out.values['b:age'].se, v.SE[1]]];
       }
       if (id === 'poisson.dobson') {
         const { X } = designOf(9, [{ values: c.outcome, levels: [1, 2, 3] }, { values: c.treatment, levels: [1, 2, 3] }]);

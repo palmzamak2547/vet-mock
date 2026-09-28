@@ -25,6 +25,10 @@ export const SAV_MAX_CELLS = 5_000_000;
 export const SAV_MAX_ROWS = 1_000_000;
 /** Codes proposed for one user-missing range; the note says how many values fall inside it. */
 export const SAV_MAX_RANGE_CODES = 200;
+/** Value labels a file may attach in total (labels in a set x distinct variables it names, summed over the sets).
+ * A crafted type 4 record repeating one variable index turned a 160 KB file into an out-of-memory crash that takes
+ * the tab down (review round 2); a large real questionnaire (2,000 variables x 100 labels) is 200,000. */
+export const SAV_MAX_VALUE_LABELS = 250_000;
 /** Days from 1582-10-14 (SPSS's day zero) to 1970-01-01. */
 export const SPSS_EPOCH_DAYS = 141428;
 /** Format type codes that hold a date as seconds since 1582-10-14 (DATE, ADATE, EDATE, SDATE, JDATE, DATETIME). */
@@ -140,6 +144,7 @@ export function readSavSync(bytes, opts = {}) {
   const segs = []; // one per variable record that is not a continuation
   let elements = 0;
   const labelSets = [];
+  let labelTotal = 0;
   const notes = [];
   const ext = { longNames: null, veryLong: null, encoding: null, codePage: null, sysmis: -Number.MAX_VALUE, highest: Number.MAX_VALUE, lowest: -Number.MAX_VALUE, measures: null, longLabels: [], longMissing: [] };
   let skipped = 0;
@@ -192,8 +197,12 @@ export function readSavSync(bytes, opts = {}) {
       if (r.i32() !== 4) throw new SavError('data.sav.badRecord', { type: 4, at: at4 });
       const nVars = r.i32();
       if (nVars < 1 || nVars > r.left() / 4) throw new SavError('data.sav.badRecord', { type: 4, at: at4 });
-      const vars = [];
-      for (let i = 0; i < nVars; i++) vars.push(r.i32());
+      // each variable once per set (a repeated index adds nothing but memory), and a cap on the total
+      const seen = new Set();
+      for (let i = 0; i < nVars; i++) seen.add(r.i32());
+      const vars = [...seen];
+      labelTotal += labels.length * vars.length;
+      if (labelTotal > SAV_MAX_VALUE_LABELS) throw new SavError('data.sav.tooManyLabels', { max: SAV_MAX_VALUE_LABELS.toLocaleString('en-US') });
       labelSets.push({ labels, vars });
       continue;
     }

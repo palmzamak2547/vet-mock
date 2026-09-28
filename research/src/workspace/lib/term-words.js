@@ -152,6 +152,10 @@ export function cellText(tableId, col, cell, row, ctx) {
     case 'roc.delong':
       if (col === 0 && (cell === 'test' || cell === 'test2')) return colName(ctx, roleOf(spec, cell));
       return undefined;
+    case 'agree.blandAltman':
+      // the row of the file the pair came from, as its number (the id 'r12' is internal; review round 2)
+      if (tableId === 'points' && col === 0) { const mm = /^r(\d+)$/.exec(cell); return mm ? mm[1] : cell; }
+      return undefined;
     case 'rel.cronbach':
       return tableId === 'items' && col === 0 ? colName(ctx, cell) : undefined;
     case 'design.sampling':

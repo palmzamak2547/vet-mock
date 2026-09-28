@@ -97,7 +97,7 @@ function deffOf(p) {
 /**
  * Shared shape: solving for n (nBase unrounded, n after rounding up and the design effect, chain table)
  * or for power (at the n given; divided by the design effect first).
- * @param {{ solveFor: 'n'|'power', target?: number, n?: number, nMin: number, lo: number, hi: number, powerAt: (n: number) => number, nToReported?: (x: number) => number, nameN?: string, extraValues?: object, deff: any, formulaKey: string }} o
+ * @param {{ solveFor: 'n'|'power', target?: number, n?: number, nMin: number, lo: number, hi: number, powerAt: (n: number) => number, nToReported?: (x: number) => number, nameN?: string, extraValues?: object, deff: any, formulaKey: string, groups?: number|null }} o
  */
 function solve(o) {
   const values = { ...(o.extraValues || {}) };
@@ -105,6 +105,7 @@ function solve(o) {
     if (!(o.n >= o.nMin)) return bad(o.nKey || 'lab.invalid.power.nTooSmall');
     const nEff = o.deff ? o.n / o.deff.deff : o.n;
     values.n = { value: o.n };
+    if (o.groups) values.nTotal = { value: o.n * o.groups };
     if (o.deff) { values.deff = { value: o.deff.deff }; values.nEff = { value: nEff }; }
     if (!(nEff >= o.nMin)) {
       values.power = { value: null, reasonKey: 'lab.undefined.power.nEffTooSmall' };
@@ -121,6 +122,9 @@ function solve(o) {
   const chain = adjustmentChain(nBase, o.deff ? { deff: o.deff.deff } : {}, { baseFormulaKey: o.formulaKey });
   values.nBase = { value: nBase, formulaKey: o.formulaKey };
   values.n = { value: chain.final };
+  // n is per group for the ANOVA and the two-sample t-test: the total is printed beside it so a per-group n is
+  // never read as the whole study (review round 2).
+  if (o.groups) values.nTotal = { value: chain.final * o.groups };
   values.power = { value: o.target };
   if (o.deff) values.deff = { value: o.deff.deff };
   const tables = [{ id: 'chain', columns: ['step', 'formula', 'unrounded', 'n'], rows: chain.steps.map((s) => [s.id, s.formulaKey, s.unrounded, s.n]) }];
@@ -158,7 +162,7 @@ export function runPowerAnova(spec, table) {
   return solve({
     solveFor, target: p.power, n: p.n, nMin: 2, lo: 2, hi: 1e5, deff, formulaKey: 'lab.power.formula.anova',
     powerAt: (n) => powerAnova(n, p.groups, p.betweenVar, p.withinVar, sigLevel),
-    extraValues: { groups: { value: p.groups } },
+    extraValues: { groups: { value: p.groups } }, groups: p.groups,
   });
 }
 
@@ -181,6 +185,7 @@ export function runPowerTTest(spec, table) {
   return solve({
     solveFor, target: p.power, n: p.n, nMin: 2, lo: 2, hi: 1e7, deff, formulaKey: `lab.power.formula.t.${o.type ?? 'two-sample'}`,
     powerAt: (n) => powerT(n, delta, sd, sigLevel, s),
+    groups: s === 2 ? 2 : null,
   });
 }
 

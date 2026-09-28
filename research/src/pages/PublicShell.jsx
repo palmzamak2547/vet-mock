@@ -49,8 +49,10 @@ export default function PublicShell({ current, children }) {
           onClick={linkHandler('/app')}
           onPointerDown={preloadWorkspace}
           onFocus={preloadWorkspace}
+          aria-label={t('trust.nav.open')}
         >
-          {t('trust.nav.open')}
+          <span className="rs-pub-open-long">{t('trust.nav.open')}</span>
+          <span className="rs-pub-open-short" aria-hidden="true">{t('trust.nav.openShort')}</span>
         </a>
       </header>
       <nav className="rs-pub-nav" aria-label={t('trust.nav.label')}>

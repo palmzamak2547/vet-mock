@@ -76,7 +76,11 @@ export function cronbach(cols, opts = {}) {
     let sum = 0, pairs = 0;
     for (let i = 0; i < k; i++) for (let j = i + 1; j < k; j++) { sum += pearsonR(cols[i], cols[j]); pairs++; }
     const rbar = sum / pairs;
-    out.standardized = (k * rbar) / (1 + (k - 1) * rbar);
+    const den = 1 + (k - 1) * rbar;
+    // Mean correlation at or below -1/(k - 1) leaves no finite standardized alpha: null with a reason, never -Infinity.
+    const sa = den > 0 ? (k * rbar) / den : NaN;
+    if (Number.isFinite(sa)) out.standardized = sa;
+    else out.standardizedReason = 'measure.undefined.itemsOpposed';
   }
   for (let j = 0; j < k; j++) {
     const rest = new Array(n).fill(0);

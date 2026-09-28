@@ -11,12 +11,12 @@ export default {
   th: {
     // reasons a result cannot be computed
     'models.error.needCluster': 'การปรับตามฟาร์มแบบ robust ต้องเลือกคอลัมน์ฟาร์มก่อน',
-    'models.error.robustFewFarms': 'การปรับตามฟาร์มแบบ robust ต้องมีอย่างน้อย 10 ฟาร์ม และมีจำนวนฟาร์มมากกว่าจำนวนค่าสัมประสิทธิ์ในโมเดล ถ้าฟาร์มน้อยกว่านี้ standard error จะเล็กเกินจริง',
+    'models.error.robustFewFarms': 'การปรับตามฟาร์มแบบ robust ต้องมีอย่างน้อย 10 ฟาร์ม และมีจำนวนฟาร์มมากกว่าจำนวนค่าสัมประสิทธิ์ในแบบจำลอง ถ้าฟาร์มน้อยกว่านี้ standard error จะเล็กเกินจริง',
     'models.error.needOutcomeLevel': 'เลือกก่อนว่าค่าไหนของตัวแปรผลลัพธ์นับเป็นผลบวก (เช่น ป่วย หรือ ตาย)',
     'models.error.outcomeNotBinary': 'logistic regression ใช้กับผลลัพธ์ที่มี 2 ค่าเท่านั้น (เช่น ป่วย กับ ไม่ป่วย หรือ 0 กับ 1)',
     'models.error.needCount': 'Poisson regression ใช้กับผลลัพธ์ที่เป็นจำนวนนับ คือจำนวนเต็มตั้งแต่ 0 ขึ้นไป',
-    'models.error.needEventLevel': 'เลือกก่อนว่าค่าไหนของตัวแปรเหตุการณ์หมายถึงเกิดเหตุการณ์ (เช่น ตาย) ค่าที่เหลือนับเป็นติดตามไม่ครบ',
-    'models.error.eventNotBinary': 'ตัวแปรเหตุการณ์ต้องมี 2 ค่า คือเกิดเหตุการณ์ กับติดตามไม่ครบ (หรือ 1 กับ 0)',
+    'models.error.needEventLevel': 'เลือกก่อนว่าค่าไหนของตัวแปรเหตุการณ์หมายถึงเกิดเหตุการณ์ (เช่น ตาย) ค่าที่เหลือนับเป็นหยุดติดตาม (censored)',
+    'models.error.eventNotBinary': 'ตัวแปรเหตุการณ์ต้องมี 2 ค่า คือเกิดเหตุการณ์ กับหยุดติดตาม (censored) (หรือ 1 กับ 0)',
     'models.invalid.notConverged': 'การคำนวณหาค่าสัมประสิทธิ์ไม่ลงตัวภายใน 25 รอบ จึงไม่แสดงผล ลองลดจำนวนตัวแปร หรือรวมกลุ่มที่มีสัตว์น้อยเข้าด้วยกัน',
     'models.undefined.oneOutcome': 'สัตว์ทุกตัวมีผลลัพธ์เหมือนกันหมด จึงไม่มีอะไรให้เปรียบเทียบ',
     'models.undefined.separation': 'มีกลุ่มที่ผลลัพธ์เป็นค่าเดียวทั้งกลุ่ม (เช่น ป่วยทุกตัว หรือไม่ป่วยเลย) ค่าประมาณของสมการจึงไม่มีขอบเขต และไม่แสดงตัวเลข',
@@ -27,6 +27,7 @@ export default {
     'models.undefined.noLower': 'เส้นขอบล่างของช่วงความเชื่อมั่นหาจุดที่ลดถึง 50% ไม่ได้ จึงไม่มีขอบล่าง',
     // notes
     'models.note.emptyLevels': 'ระดับเหล่านี้ไม่มีสัตว์ในแถวที่ใช้ จึงไม่อยู่ในสมการ: {levels}',
+    'models.note.fittedExtreme': 'บางตัวมีความน่าจะเป็นที่คำนวณได้ใกล้ 0 หรือ 1 มาก แต่ค่าประมาณยังนิ่งและหาค่าได้ ตรวจค่าของตัวเหล่านั้นว่าบันทึกถูกต้อง',
     'models.note.separation': 'ทางแก้ที่ทำได้: รวมระดับที่มีสัตว์น้อยเข้ากับระดับข้างเคียง หรือตัดตัวแปรนั้นออก',
     'models.note.robust': 'standard error ปรับตามฟาร์ม (cluster-robust คือคำนวณความคลาดเคลื่อนโดยนับสัตว์ในฟาร์มเดียวกันเป็นก้อนเดียว) ช่วงความเชื่อมั่นและค่า p ใช้วิธี Wald กับการแจกแจง t ที่ df เท่ากับจำนวนฟาร์มลบ 1',
     'models.note.robustWald': 'standard error ปรับตามฟาร์ม (cluster-robust คือคำนวณความคลาดเคลื่อนโดยนับสัตว์ในฟาร์มเดียวกันเป็นก้อนเดียว) วิธีนี้ไม่มี likelihood ให้ใช้ ช่วงความเชื่อมั่นจึงเปลี่ยนจาก profile likelihood เป็นแบบ Wald ค่า p และช่วงความเชื่อมั่นใช้การแจกแจง t ที่ df เท่ากับจำนวนฟาร์มลบ 1',
@@ -38,8 +39,8 @@ export default {
     'models.guard.G14.zeroCounts': 'กลุ่ม {levels} นับได้ 0 ทั้งหมด สมการจึงให้อัตราของกลุ่มนั้นเป็นศูนย์และค่าประมาณเป็นอนันต์ ลองรวมกลุ่มนั้นกับกลุ่มข้างเคียง',
     'models.guard.G23.title': 'ข้อมูลกระจายมากกว่าที่ Poisson คาดไว้',
     'models.guard.G23.overdispersion': 'ค่า Pearson chi-square หารด้วย df เท่ากับ {ratio} ซึ่งเกิน 1.5 (overdispersion คือจำนวนนับแปรปรวนมากกว่าค่าเฉลี่ย) standard error และช่วงความเชื่อมั่นจึงแคบเกินจริง ค่า p เล็กเกินจริง ควรใช้ negative binomial regression ซึ่งยังไม่มีในรุ่นนี้',
-    'models.guard.G22.title': 'เวลาของสัตว์ที่ติดตามไม่ครบก็เป็นข้อมูล',
-    'models.guard.G22.censoring': 'สัตว์ที่หายไปหรือยังไม่เกิดเหตุการณ์เมื่อจบการศึกษา (censored คือติดตามไม่ครบ) ถูกนับจนถึงเวลาสุดท้ายที่เห็น อย่าตัดสัตว์เหล่านี้ทิ้ง และอย่าเปลี่ยนเวลารอดเป็นแค่ รอด กับ ไม่รอด',
+    'models.guard.G22.title': 'เวลาของสัตว์ที่หยุดติดตามก็เป็นข้อมูล',
+    'models.guard.G22.censoring': 'สัตว์ที่หายไปหรือยังไม่เกิดเหตุการณ์เมื่อจบการศึกษา (หยุดติดตาม หรือ censored คือสัตว์ที่ยังไม่เกิดเหตุการณ์เมื่อจบการติดตาม รู้เพียงว่าเวลาของมันยาวกว่าที่ติดตาม) ถูกนับจนถึงเวลาสุดท้ายที่เห็น อย่าตัดสัตว์เหล่านี้ทิ้ง และอย่าเปลี่ยนเวลารอดเป็นแค่ รอด กับ ไม่รอด',
     // table words
     'models.col.z': 'z',
     'models.col.or': 'odds ratio',
@@ -100,6 +101,7 @@ export default {
     'models.undefined.noUpper': 'The upper confidence band does not fall to 50% within follow-up, so there is no upper limit.',
     'models.undefined.noLower': 'The lower confidence band never reaches 50%, so there is no lower limit.',
     'models.note.emptyLevels': 'These levels have no animals in the rows used, so they are not in the model: {levels}',
+    'models.note.fittedExtreme': 'Some animals have a fitted probability very close to 0 or 1, but the estimates are stable and finite. Check that those animals’ values were recorded correctly.',
     'models.note.separation': 'What can help: merge a level with few animals into its neighbour, or leave that variable out.',
     'models.note.robust': 'Standard errors account for farms (cluster-robust: animals on one farm count as one block when the error is estimated). Intervals and p-values use the Wald method with the t distribution on the number of farms minus 1 degrees of freedom.',
     'models.note.robustWald': 'Standard errors account for farms (cluster-robust: animals on one farm count as one block when the error is estimated). This has no likelihood to profile, so the interval is Wald instead of profile likelihood. Intervals and p-values use the t distribution on the number of farms minus 1 degrees of freedom.',

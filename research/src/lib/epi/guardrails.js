@@ -10,7 +10,7 @@
 import { checkDesign } from './design.js';
 import { iccOneWay, designEffect } from './cluster.js';
 import { missingCode, binaryReader, groupReader, levelIndex } from './_table.js';
-import MEASURE_SHIPPED from '../runtime/areas/measure.registered.js';
+import { MEASURE_SHIPPED } from '../runtime/catalog.js';
 
 /**
  * The M1 set. Severity and what each needs are fixed here; messages live in i18n/epi.js under
@@ -69,7 +69,9 @@ const DEFF_METHODS = new Set(['freq.proportion', 'freq.truePrevalence', 'epi.two
 const SURVEY_METHODS = new Set(['freq.proportion']);
 const ROBUST_METHODS = new Set(['reg.logistic', 'reg.poisson']);
 const NO_AGGREGATE_METHODS = new Set(['reg.logistic', 'reg.poisson', 'surv.kaplanMeier']);
-const FARM_AWARE = new Set(['deff', 'mh-within', 'aggregate']);
+/** Routes that account for farms, so G1 does not fire again once one is chosen. run.js shares this set: a route
+ * missing here stops at G1 forever and offers itself again (review round 2: 'survey' did). */
+export const FARM_AWARE = Object.freeze(new Set(['deff', 'mh-within', 'aggregate', 'survey', 'robust']));
 
 function clusterKeyOf(spec, codebook) {
   return spec.cluster?.column || spec.roles?.cluster || codebook?.clusterKey || null;

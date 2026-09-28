@@ -283,7 +283,7 @@ export const FIXTURES = [
     "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
    }
   ],
-  "sha": "b53836cf94dcb9bd",
+  "sha": "a1fd74304c8af89c",
   "lastPassed": "2026-09-28"
  },
  {
@@ -767,7 +767,7 @@ export const FIXTURES = [
     "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
    }
   ],
-  "sha": "9d790de94f6458a4",
+  "sha": "ebc8cb1b1c4f5e2c",
   "lastPassed": "2026-09-28"
  },
  {
@@ -1410,6 +1410,7 @@ export const FIXTURES = [
    "freq.proportion"
   ],
   "tests": [
+   "epi-frequency.test.mjs",
    "rparity-m2.test.mjs"
   ],
   "source": {

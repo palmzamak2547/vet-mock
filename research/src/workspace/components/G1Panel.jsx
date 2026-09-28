@@ -41,7 +41,7 @@ export default function G1Panel({ panel, stops, onChoose, busy = false, columnNa
         <span className="rs-stop-icon"><Icon name="stop" size={22} /></span>
         <div>
           <h2 id="rs-g1-title" className="rs-h2">{t(single ? 'ws.g1.titleSingle' : 'ws.g1.title')}</h2>
-          <p>{single ? t('ws.g1.bodySingle', { column: columnName }) : g1 ? t(g1.bodyKey || g1.key, g1.params) : t('ws.g1.body', { column: columnName })}</p>
+          <p>{single ? t('ws.g1.bodySingle', { column: columnName }) : g1 ? t(g1.bodyKey || g1.key, { ...g1.params, ...(columnName ? { cluster: columnName } : {}) }) : t('ws.g1.body', { column: columnName })}</p>
         </div>
       </div>
       {panel ? (

@@ -334,7 +334,7 @@ export function buildSps(input) {
   if (labelled.length) {
     out.push('VALUE LABELS');
     labelled.forEach((c, i) => {
-      const pairs = c.levels.filter((l) => c.levelLabels[l]).map((l) => `${c.type === 'number' ? l : sq(l)} ${sq(c.levelLabels[l])}`);
+      const pairs = c.levels.filter((l) => c.levelLabels[l]).map((l) => `${c.type === 'number' && NUMERIC_LIT.test(String(l)) ? String(l) : sq(l)} ${sq(c.levelLabels[l])}`);
       out.push(`  ${i ? '/' : ''}${c.name} ${pairs.join(' ')}${i === labelled.length - 1 ? '.' : ''}`);
     });
   }

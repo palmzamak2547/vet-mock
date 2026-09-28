@@ -15,6 +15,7 @@ import { Busy, ErrorBox, Field, Notice, PageHead, VerifiedBadge } from '../../co
 import Icon from '../../components/Icon.jsx';
 import Rail from '../../components/Rail.jsx';
 import ResultView from '../../components/ResultView.jsx';
+import { powerUnit } from '../../lib/result-model.js';
 import TopBar from '../../components/TopBar.jsx';
 import { TOOL_RAIL } from './tool-rail.js';
 import '../../../styles/tools.css';
@@ -177,7 +178,7 @@ export default function Tool() {
                   {!Object.values(env.values || {}).some((v) => v?.reasonKey) ? <p>{t('tools.power.invalidBody')}</p> : null}
                 </Notice>
               ) : env ? (
-                <ResultView envelope={env} title={t('tools.power.resultTitle')} caption={name(method)} paragraphs={false} primaryName={solveFor === 'n' ? 'n' : 'power'} headlineLabel={t(`tools.power.headline.${solveFor}`)} />
+                <ResultView envelope={env} title={t('tools.power.resultTitle')} caption={name(method)} paragraphs={false} primaryName={solveFor === 'n' ? 'n' : 'power'} headlineLabel={solveFor === 'n' ? t(`tools.power.headline.nUnit.${powerUnit(method, env.spec)}`) : t('tools.power.headline.power')} />
               ) : !busy ? <p className="rs-soft">{t('tools.power.empty')}</p> : null}
             </section>
           </div>

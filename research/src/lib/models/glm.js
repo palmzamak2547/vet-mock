@@ -356,7 +356,7 @@ function runGlm(spec, table, family) {
   const { X, names, terms } = design;
   const notes = [];
   const warnings = [];
-  if (design.emptyLevels.length) notes.push({ id: 'emptyLevels', severity: 'note', key: 'models.note.emptyLevels', params: { levels: design.emptyLevels.map((e) => `${e.column}=${e.level}`).join(', ') } });
+  if (design.emptyLevels.length) notes.push({ id: 'emptyLevels', severity: 'note', key: 'models.note.emptyLevels', params: { levels: design.emptyLevels.map((e) => `${e.column}=${e.level}`).join(', '), cells: design.emptyLevels.map((e) => [e.column, e.level]) } });
   // resolvedOptions are choices settled from the data (run.js records them in the envelope's options with a
   // note): the reference level each category covariate was compared against, and the interval method when
   // the farm route forces Wald.
@@ -392,6 +392,7 @@ function runGlm(spec, table, family) {
     };
   }
   if (!fit.converged) return invalid('models.invalid.notConverged', { used: n, dropped });
+  if (logistic && fit.separated) notes.push({ id: 'fittedExtreme', severity: 'note', key: 'models.note.fittedExtreme' });
 
   // ---- covariance: model-based, or cluster-robust on the farm route
   let V = fit.vcov;
@@ -494,7 +495,7 @@ function runGlm(spec, table, family) {
     if (predictors > 0) {
       const epv = smaller / predictors;
       values.epv = val(epv, { below: [10] });
-      if (epv < 10) warnings.push({ id: 'G14', severity: 'warn', key: 'models.guard.G14.title', bodyKey: 'models.guard.G14.epv', params: { epv: Math.round(epv * 10) / 10, events: smaller, predictors } });
+      if (epv < 10) warnings.push({ id: 'G14', severity: 'warn', key: 'models.guard.G14.title', bodyKey: 'models.guard.G14.epv', params: { epv, events: smaller, predictors } });
     }
   } else {
     const dispersion = fit.dfResidual > 0 ? fit.pearson / fit.dfResidual : NaN;
@@ -550,8 +551,15 @@ function separationTable(fit, design, y, family, diverging = null) {
   const { X, names, terms, rows } = design;
   const out = [];
   if (family === 'binomial') {
-    const extreme = Array.from(fit.fitted, (m, i) => (m < SEPARATION_TOL && y[i] === 0) || (m > 1 - SEPARATION_TOL && y[i] === 1) || Boolean(diverging?.[i]));
-    const flagged = fit.separated || extreme.some(Boolean);
+    // A number or a combination is separated only when its rows keep running off as the fit is pushed further
+    // (divergingRows). A fitted value within 1e-8 of 0 or 1 alone is not separation: a steep but finite fit (an
+    // age-seroprevalence curve, one animal with an extreme covariate) reaches it too and has a finite maximum
+    // (review round 2). R only warns there; the note models.note.fittedExtreme says the same. The 1e-8 rule is
+    // the fallback only when the refit itself failed.
+    const extreme = diverging
+      ? diverging.map(Boolean)
+      : Array.from(fit.fitted, (m, i) => (m < SEPARATION_TOL && y[i] === 0) || (m > 1 - SEPARATION_TOL && y[i] === 1));
+    const flagged = extreme.some(Boolean);
     // rows already accounted for by a separated category level do not make a number look separated too
     const explained = new Array(rows.length).fill(false);
     const catFirst = [...terms].sort((a, b) => Number(names[b.cols[0]]?.level != null) - Number(names[a.cols[0]]?.level != null));
