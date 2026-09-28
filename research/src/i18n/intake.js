@@ -19,6 +19,7 @@ export default {
     'intake.encoding.option.utf16be': 'UTF-16 BE',
     'intake.encoding.option.windows874': 'windows-874 (TIS-620)',
     'intake.xlsx.sheetMissing': 'ไม่พบชีตนี้ในไฟล์ เลือกชีตใหม่อีกครั้ง',
+    'intake.tooManyColumns': 'ไฟล์มีคอลัมน์มากเกินกว่าที่เปิดในเบราว์เซอร์ได้ (เกิน {max} คอลัมน์) ให้เก็บเฉพาะคอลัมน์ที่ใช้แล้วบันทึกเป็นไฟล์ใหม่',
     'intake.xlsx.sheetLabel': 'ชีต',
     'intake.headerRow.label': 'แถวหัวตาราง',
 
@@ -276,6 +277,7 @@ export default {
     'intake.encoding.option.utf16be': 'UTF-16 BE',
     'intake.encoding.option.windows874': 'windows-874 (TIS-620)',
     'intake.xlsx.sheetMissing': 'That sheet is not in the file; choose a sheet again',
+    'intake.tooManyColumns': 'The file has more columns than the browser can open (over {max}). Keep only the columns you need and save a new file.',
     'intake.xlsx.sheetLabel': 'Sheet',
     'intake.headerRow.label': 'Header row',
 

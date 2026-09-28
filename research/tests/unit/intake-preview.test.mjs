@@ -77,3 +77,17 @@ test('preview.js loads the xlsx reader (and SheetJS) only inside buildPreview', 
     assert.ok(!/from ['"](xlsx|\.\/xlsx\.js)['"]/.test(m), `${f}.js does not import SheetJS`);
   }
 });
+
+test('a CSV wider than the column cap is refused at once with its own message (review round 4)', async () => {
+  const { MAX_COLUMNS } = await import('../../src/lib/intake/preview.js');
+  const { toEngineError } = await import('../../src/lib/runtime/engine-core.js');
+  const head = Array.from({ length: MAX_COLUMNS + 1 }, (_, i) => `c${i}`).join(',');
+  const bytes = new TextEncoder().encode(`${head}\n${head.replace(/c/g, '')}\n`);
+  const t0 = Date.now();
+  let err = null;
+  try { await buildPreview(bytes, { fileName: 'wide.csv', now: '2026-09-28T00:00:00Z' }); } catch (e) { err = e; }
+  assert.ok(Date.now() - t0 < 5000, `refused in ${Date.now() - t0} ms`);
+  assert.equal(err?.key, 'intake.tooManyColumns');
+  // the number in the message crosses the engine boundary with the key
+  assert.deepEqual(toEngineError(err).params, { max: MAX_COLUMNS.toLocaleString('en-US') });
+});

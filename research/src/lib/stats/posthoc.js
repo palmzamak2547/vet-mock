@@ -169,10 +169,20 @@ export function runGamesHowell(spec, table) {
   if (r.groups.length < 2) return invalid('stats.undefined.needTwoGroups', { used: r.rows.length, dropped: r.dropped });
   if (r.groups.some((g) => g.length < 2)) return invalid('lab.undefined.groupTooSmall', { used: r.rows.length, dropped: r.dropped });
   const pairs = gamesHowell(r.groups, r.labels, confLevel);
-  const bad = pairs.some((x) => x.p === null);
+  // A pair can be undefined on its own: both groups without spread (SE 0), or a Welch df below 2, where the
+  // studentized range is not defined (R's ptukey gives NaN there too; a group of 2 animals reaches it easily).
+  // That pair keeps null p and interval with its own note; the other pairs stand. Only when no pair has a p
+  // is the whole result invalid, and then with the reason that is true.
+  const noSpread = pairs.filter((x) => x.se === 0).map((x) => x.pair);
+  const lowDf = pairs.filter((x) => x.p === null && x.se !== 0).map((x) => x.pair);
+  const none = pairs.every((x) => x.p === null);
+  const notes = [];
+  if (noSpread.length) notes.push({ id: 'pairNoSpread', severity: 'warning', key: 'lab.note.ghPairNoSpread', params: { pairs: noSpread.join(', ') } });
+  if (lowDf.length) notes.push({ id: 'pairLowDf', severity: 'warning', key: 'lab.note.ghPairLowDf', params: { pairs: lowDf.join(', ') } });
+  const reasonKey = lowDf.length ? 'lab.undefined.ghLowDf' : 'stats.undefined.zeroVariance';
   return {
-    status: bad ? 'invalid' : 'ok',
-    values: { groups: val(r.groups.length), comparisons: val(pairs.length), ...(bad ? { reason: nullVal('stats.undefined.zeroVariance') } : {}) },
+    status: none ? 'invalid' : 'ok',
+    values: { groups: val(r.groups.length), comparisons: val(pairs.length), ...(none ? { reason: nullVal(reasonKey) } : {}) },
     tests: [],
     tables: [
       { id: 'pairs', columns: ['pair', 'diff', 'se', 'df', 'q', 'pAdjusted', 'lower', 'upper'], rows: pairs.map((x) => [x.pair, x.diff, x.se, x.df, x.q, x.p, x.lower, x.upper]) },
@@ -180,6 +190,7 @@ export function runGamesHowell(spec, table) {
     ],
     used: r.rows.length,
     dropped: r.dropped,
+    notes,
   };
 }
 

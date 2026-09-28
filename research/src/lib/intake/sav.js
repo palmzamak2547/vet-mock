@@ -29,6 +29,13 @@ export const SAV_MAX_RANGE_CODES = 200;
  * A crafted type 4 record repeating one variable index turned a 160 KB file into an out-of-memory crash that takes
  * the tab down (review round 2); a large real questionnaire (2,000 variables x 100 labels) is 200,000. */
 export const SAV_MAX_VALUE_LABELS = 250_000;
+/** Variables a file may declare. A numeric variable record costs 32 bytes of file but about 1.5 KB of memory
+ * once read, so a 51 MB file of 1.6 million variables ran the tab out of memory (review round 4). 20,000 also
+ * keeps the preview, whose work grows with the square of the column count, well inside the watchdog. */
+export const SAV_MAX_VARIABLES = 20_000;
+/** Case elements (8-byte slots) the header or the dictionary may declare: a 255-byte string takes 32, so this
+ * allows SAV_MAX_VARIABLES variables of the widest ordinary string. */
+export const SAV_MAX_ELEMENTS = SAV_MAX_VARIABLES * 32;
 /** Days from 1582-10-14 (SPSS's day zero) to 1970-01-01. */
 export const SPSS_EPOCH_DAYS = 141428;
 /** Format type codes that hold a date as seconds since 1582-10-14 (DATE, ADATE, EDATE, SDATE, JDATE, DATETIME). */
@@ -139,6 +146,9 @@ export function readSavSync(bytes, opts = {}) {
   if (![0, 1, 2].includes(compressionCode)) throw new SavError('data.sav.badHeader');
   if ((compressionCode === 2) !== (magic === '$FL3')) throw new SavError('data.sav.badHeader');
   if (!Number.isFinite(bias)) throw new SavError('data.sav.badHeader');
+  const tooManyVariables = () => new SavError('data.sav.tooManyVariables', { max: SAV_MAX_VARIABLES.toLocaleString('en-US') });
+  // Refused before the dictionary is read when the header already says so.
+  if (nominalCaseSize > SAV_MAX_ELEMENTS) throw tooManyVariables();
 
   // ---- the dictionary
   const segs = []; // one per variable record that is not a continuation
@@ -171,12 +181,14 @@ export function readSavSync(bytes, opts = {}) {
       const missing = [];
       for (let i = 0; i < Math.abs(nMissing); i++) missing.push(r.bytes(8));
       elements += 1;
+      if (elements > SAV_MAX_ELEMENTS) throw tooManyVariables();
       if (width === -1) {
         if (!segs.length || segs[segs.length - 1].width === 0) throw new SavError('data.sav.badRecord', { type, at });
         segs[segs.length - 1].elems += 1;
         continue;
       }
       if (width < 0 || width > 255) throw new SavError('data.sav.badRecord', { type, at });
+      if (segs.length >= SAV_MAX_VARIABLES) throw tooManyVariables();
       segs.push({ dictIndex: elements, width, name, label, nMissing, missing, print, elems: 1 });
       continue;
     }

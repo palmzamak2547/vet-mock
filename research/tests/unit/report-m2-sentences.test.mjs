@@ -135,3 +135,20 @@ for (const lang of ['th', 'en']) {
 test('codebook helper still names columns (sanity for the sentences above)', () => {
   assert.equal(CODEBOOK.columns.length, 6);
 });
+
+test('Games-Howell with one pair undefined: that pair says why, the others keep their CI and p (review round 4)', async () => {
+  const { runGamesHowell } = await import('../../src/lib/stats/posthoc.js');
+  const { groupsTable } = await import('./stats-fixtures.mjs');
+  const s = spec('posthoc.gamesHowell', { outcome: 'y', group: 'g' });
+  const data = { A: [5.494, 7.741, 3.467, 6.36], B: [9.279, 6.567], C: [11.497, 4.355, 5.504, 6.153, 2.796, 0.558], D: [19.973, 17.581, 25.211, 9.007, 11.151] };
+  const out = runGamesHowell(s, groupsTable(data));
+  for (const lang of ['th', 'en']) {
+    const t = tOf(lang);
+    const e = { ...env(s, out.values, out.tests), tables: out.tables, guard: { stops: [], warnings: [], notes: out.notes } };
+    const text = resultsSentence({ spec: s, envelope: e }, { t, fmt, lang, columnName: (k) => k, levelName, valueLabel: (n) => n });
+    const ba = text.split(/(?<=[.])\s+|\s{2,}|\n/).find((x) => x.includes('B') && x.includes('A') && (x.includes('Welch') ));
+    assert.ok(ba, `${lang}: the B-A sentence names the Welch df: ${text}`);
+    assert.ok(!/ข้อมูลทุกค่าเท่ากัน|Every value is the same/.test(text), `${lang}: no false zero-spread reason`);
+    assert.ok(text.includes('0.050') || text.includes('0.05'), `${lang}: D-C p is still printed: ${text}`);
+  }
+});

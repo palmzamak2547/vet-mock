@@ -138,3 +138,23 @@ test('script comments name values by the script column and level, never an inter
   assert.ok(lines.some((l) => l.startsWith('OR bw = 1.03191')), lines.join(' | '));
   assert.ok(!lines.some((l) => /oddsRatio|c2=/.test(l)), lines.join(' | '));
 });
+
+test('script comments name tests by column and level, spell summary numbers out, and give every level its reference (review round 4)', async () => {
+  const { columnIndex, envNumbers, valueNamer } = await import('../../src/lib/export/script-common.js');
+  const cb = { columns: [{ key: 'c2', name: 'colostrum', type: 'binary', reference: 'within 6 h', levels: [{ value: 'within 6 h' }, { value: 'after 6 h' }] }, { key: 'c3', name: 'sex', type: 'binary', levels: [{ value: 'male' }, { value: 'female' }] }] };
+  const ix = columnIndex(cb, null, 'en');
+  const env = {
+    values: { 'oddsRatio:c3=female': { value: 0.8 }, nullDeviance: { value: 120.5 }, dfResidual: { value: 96 }, epv: { value: 7.3 } },
+    tests: [{ id: 'wald:c2=after 6 h', statistic: { name: 'z', value: 2.14206 }, p: 0.03 }, { id: 'lr:c3', statistic: { name: 'X2', value: 0.0396 }, df: 1, p: 0.84 }, { id: 'lrNull', statistic: { name: 'X2', value: 8.1 }, df: 3, p: 0.04 }],
+    tables: [{ id: 'references', rows: [['c2', 'within 6 h'], ['c3', 'male']] }],
+  };
+  const en = tOf('en');
+  const lines = envNumbers(env, valueNamer(ix, en, env));
+  const all = lines.join(' | ');
+  assert.ok(lines.some((l) => l.startsWith('OR sex: female vs male = 0.8')), all);
+  assert.ok(lines.some((l) => l.startsWith('Wald colostrum: after 6 h vs within 6 h: z = 2.14206')), all);
+  assert.ok(lines.some((l) => l.startsWith('LR test sex: X2 = 0.0396')), all);
+  assert.ok(lines.some((l) => l.startsWith('LR test of the whole model: X2 = 8.1')), all);
+  assert.ok(lines.some((l) => l.startsWith('null deviance = 120.5')) && lines.some((l) => l.startsWith('residual df = 96')) && lines.some((l) => l.startsWith('events per variable (EPV) = 7.3')), all);
+  assert.ok(!/wald:|lr:|lrNull|nullDeviance|dfResidual|epv =/.test(all), all);
+});

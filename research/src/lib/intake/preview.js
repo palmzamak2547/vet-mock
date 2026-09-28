@@ -60,6 +60,8 @@ import { applyRecipe } from './recipe.js';
  */
 
 const EXAMPLES = 5;
+/** Columns a file may have (CSV, TSV, XLSX and SPSS alike). */
+export const MAX_COLUMNS = 20_000;
 const NA_CANDIDATES = new Set(['', '-', '.', 'NA', 'N/A', 'n/a']);
 const EXCEL_ID_SCI = /^\d(\.\d+)?E\+\d+$/i;
 
@@ -133,6 +135,10 @@ export async function buildPreview(bytes, opts) {
   }
   if (ragged) fileConversions.push({ column: null, kind: 'ragged', count: ragged, examples: [], needsAnswer: false, applied: true, questionId: null, key: extraColumns ? 'intake.conv.raggedExtra' : 'intake.conv.ragged', params: { count: ragged, extra: extraColumns } });
 
+  // One column cap for every format: the preview's work grows with the square of the column count, so a very
+  // wide CSV ran into the watchdog after a minute instead of saying why (review round 4). An SPSS file is held
+  // to the same number by its own reader (SAV_MAX_VARIABLES).
+  if (header.length > MAX_COLUMNS) throw Object.assign(new Error('too many columns'), { key: 'intake.tooManyColumns', params: { max: MAX_COLUMNS.toLocaleString('en-US') } });
   header = header.map((h) => String(h).normalize('NFC'));
   const rowCount = direct ? (direct[0] ? direct[0].length : 0) : rows.length;
   const columns = direct || header.map((_, c) => rows.map((r) => r[c] ?? ''));

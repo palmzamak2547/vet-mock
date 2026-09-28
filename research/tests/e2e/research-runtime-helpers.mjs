@@ -100,3 +100,19 @@ export async function runInWorker(page, workerUrl, requests) {
     return out;
   }, { url: workerUrl, reqs: requests });
 }
+
+/**
+ * The design stored for the (only) project in this browser, read from IndexedDB. The design radio shows the
+ * choice at once and writes it a moment later; a full page load before the write lands aborts it in WebKit,
+ * so a spec waits for this before navigating away (review round 4).
+ */
+export const storedDesign = (page) => page.evaluate((name) => new Promise((resolve) => {
+  const req = indexedDB.open(name);
+  req.onerror = () => resolve(null);
+  req.onsuccess = () => {
+    const db = req.result;
+    const all = db.transaction('projects', 'readonly').objectStore('projects').getAll();
+    all.onsuccess = () => { resolve(all.result[0]?.design ?? null); db.close(); };
+    all.onerror = () => { resolve(null); db.close(); };
+  };
+}), DB_NAME);

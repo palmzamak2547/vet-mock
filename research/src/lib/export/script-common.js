@@ -71,7 +71,7 @@ export function envNumbers(env, nameOf = (x) => x) {
     const df = Array.isArray(test.dfPair) ? test.dfPair : Array.isArray(test.df) ? test.df : typeof test.df === 'number' ? [test.df] : null;
     if (df) parts.push(`df = ${df.map(num6).join(', ')}`);
     parts.push(`p = ${pComment(test.p)}`);
-    out.push(`${oneLine(test.id)}: ${parts.join(', ')}`);
+    out.push(`${oneLine(nameOf(test.id))}: ${parts.join(', ')}`);
   }
   return out;
 }
@@ -84,13 +84,21 @@ const MEASURE_SHORT = Object.freeze({ oddsRatio: 'OR', rateRatio: 'IRR', riskRat
  * @param {ReturnType<typeof columnIndex>} ix
  * @param {(k: string, p?: any) => string} t
  */
-export function valueNamer(ix, t) {
+export function valueNamer(ix, t, env = null) {
   const vs = t('report.script.versus');
   const versus = vs && !vs.startsWith('[') && vs !== 'report.script.versus' ? vs : 'vs';
+  // Summary numbers and test names in words ('nullDeviance', 'lrNull', 'wald:...'), when the dictionary has them.
+  const word = (k) => { const key = `report.script.name.${k}`; const s = t(key); return s && s !== key && !s.startsWith('[') ? s : null; };
+  // The level each category was compared against: the model's own references table, else the codebook's
+  // (review round 4: "OR sex: female" named no reference while the colostrum line did).
+  const refs = {};
+  for (const tb of env?.tables || []) if (tb?.id === 'references') for (const r of tb.rows || []) refs[r[0]] = r[1];
   return (name) => {
+    const plain = word(String(name));
+    if (plain) return plain;
     const m = /^([A-Za-z]+):(.+)$/.exec(String(name));
     if (!m) return name;
-    const head = MEASURE_SHORT[m[1]] || m[1];
+    const head = word(m[1]) || MEASURE_SHORT[m[1]] || m[1];
     const rest = m[2];
     const eq = rest.indexOf('=');
     if (eq <= 0) return `${head} ${ix.col(rest)?.name ?? rest}`;
@@ -98,7 +106,8 @@ export function valueNamer(ix, t) {
     const level = rest.slice(eq + 1);
     const c = ix.col(key);
     if (!c) return name;
-    return `${head} ${c.name}: ${level}${c.reference != null && c.reference !== level ? ` ${versus} ${c.reference}` : ''}`;
+    const ref = refs[key] ?? c.reference ?? null;
+    return `${head} ${c.name}: ${level}${ref != null && ref !== level ? ` ${versus} ${ref}` : ''}`;
   };
 }
 

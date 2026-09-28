@@ -9,7 +9,7 @@
 // OWNER: integrator.
 import { test, expect } from '@playwright/test';
 import { fileURLToPath } from 'node:url';
-import { seenEntrance, recordRequests } from './research-runtime-helpers.mjs';
+import { seenEntrance, recordRequests, storedDesign } from './research-runtime-helpers.mjs';
 import ws from '../../src/i18n/workspace.js';
 import landing from '../../src/i18n/landing.js';
 import entrance from '../../src/i18n/entrance.js';
@@ -153,9 +153,11 @@ test('the student journey: import, clean, analyse with the farm guardrail, repor
 
   // Design: cross-sectional.
   await page.goto(`${projectPath}/design`);
-  // The choice is saved to the store first, then the radio shows it: click, then wait for it.
+  // The radio shows the choice at once and the store takes it a moment later; wait for the store before
+  // the full page load below (WebKit aborts a write still open when the page unloads, review round 4).
   await page.locator('input[name="rs-design"][value="cross-sectional"]').click();
   await expect(page.locator('input[name="rs-design"][value="cross-sectional"]')).toBeChecked();
+  await expect.poll(() => storedDesign(page), { timeout: 15_000 }).toBe('cross-sectional');
 
   // Association: ELISA by vaccination. The farm column stops it before any p-value (G1).
   await page.goto(`${projectPath}/assoc`);

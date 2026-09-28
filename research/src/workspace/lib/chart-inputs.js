@@ -79,7 +79,7 @@ function cellMeansInput(table, { xTitle, yTitle, level, labelA = (x) => x, label
     label: labelA(label),
     points: table.rows.filter((r) => String(r[ai]) === label).map((r) => ({ time: times.indexOf(String(r[bi])), mean: num(r[mi]), lo: bound(r[li]), hi: bound(r[ui]), ...(ni >= 0 ? { n: num(r[ni]) } : {}) })),
   }));
-  return { times: times.map(labelB), series, xTitle, yTitle, level };
+  return { variant: 'cellMeans', times: times.map(labelB), series, xTitle, yTitle, level };
 }
 
 /** The ratios a regression table prints (the model's own OR or IRR column), intercept left out. */
@@ -140,7 +140,12 @@ export function extraCharts(env, labelOf = (k) => k, levelName = (k, v) => v, t 
     case 'posthoc.gamesHowell':
     case 'posthoc.dunnett': {
       const tb = findTable(env, 'pairs');
-      if (tb) add('pairs', 'ci', pairsInput(tb, diffTitle(roles.outcome), level, pairOf(roles.group)));
+      // Dunnett compares with the control group only: its own title, so a figure's list of charts never offers
+      // two with the same name (review round 4).
+      if (tb) {
+        add('pairs', 'ci', pairsInput(tb, diffTitle(roles.outcome), level, pairOf(roles.group)));
+        if (method === 'posthoc.dunnett' && out.length) out[out.length - 1].titleKey = 'ws.chart.title.pairsControl';
+      }
       break;
     }
     case 'reg.logistic':
@@ -188,8 +193,12 @@ export function chartsForResult(analysis, table, ctx = {}) {
   }
   const out = kit.map((c) => ({ id: c.id, kind: c.kind, titleKey: `ws.chart.title.${c.kind}`, input: c.input, needsRows: Boolean(c.needsRows) }));
   const base = analysis.id || env.method?.id || 'result';
-  for (const c of extraCharts(env, labelOf, levelOf, ctx.t || null)) out.push({ ...c, id: `${base}:${c.id}` });
-  return out;
+  const extra = extraCharts(env, labelOf, levelOf, ctx.t || null).map((c) => ({ ...c, id: `${base}:${c.id}` }));
+  // A two-way ANOVA is read from its cell means, and the report's figure is that chart (it needs no rows):
+  // the screen leads with it too, not with a one-way dot plot that ignores the second factor (review round 4).
+  const method = env.method?.id || env.spec?.method || '';
+  if (method === 'anova.twoWay') return [...extra.filter((c) => c.id.endsWith(':cellMeans')), ...out, ...extra.filter((c) => !c.id.endsWith(':cellMeans'))];
+  return [...out, ...extra];
 }
 
 /**

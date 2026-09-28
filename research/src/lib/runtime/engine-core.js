@@ -16,10 +16,20 @@ export class EngineError extends Error {
   }
 }
 
-/** @param {any} e @returns {{ code: string, key: string, detail?: string }} */
+/** The fill-ins of an error's message (a SavError's {max}), numbers and short strings only. */
+function safeParams(p) {
+  if (!p || typeof p !== 'object') return undefined;
+  const out = {};
+  for (const [k, v] of Object.entries(p)) if (typeof v === 'number' || (typeof v === 'string' && v.length <= 200)) out[k] = v;
+  return Object.keys(out).length ? out : undefined;
+}
+
+/** @param {any} e @returns {{ code: string, key: string, detail?: string, params?: Object<string, string|number> }} */
 export function toEngineError(e) {
-  if (e && typeof e === 'object' && typeof e.key === 'string' && typeof e.code === 'string') return { code: e.code, key: e.key, detail: String(e.detail || '').slice(0, 300) };
-  if (e && typeof e === 'object' && typeof e.key === 'string') return { code: 'failed', key: e.key, detail: String(e.message || '').slice(0, 300) };
+  if (e && typeof e === 'object' && typeof e.key === 'string' && typeof e.code === 'string') return { code: e.code, key: e.key, detail: String(e.detail || '').slice(0, 300), params: safeParams(e.params) };
+  // A reader's error (SavError, the column cap) carries the numbers its message names; they travel with the
+  // key so the notice reads "over 20,000", not "{max}" (review round 4).
+  if (e && typeof e === 'object' && typeof e.key === 'string') return { code: 'failed', key: e.key, detail: String(e.message || '').slice(0, 300), params: safeParams(e.params) };
   return { code: 'failed', key: 'runtime.engine.failed', detail: String(e?.message || e || '').slice(0, 300) };
 }
 

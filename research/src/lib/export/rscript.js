@@ -420,7 +420,7 @@ export function buildRScript(input) {
     for (const h of r.helpers) if (!helpers.includes(h)) helpers.push(h);
     const lines = ['', `## ${i + 1}. ${name}`];
     lines.push(`# ${t('report.script.ours', { numbers: '' }).trim()}`);
-    for (const n of envNumbers(a.env, valueNamer(ix, t))) lines.push(`#   ${n}`);
+    for (const n of envNumbers(a.env, valueNamer(ix, t, a.env))) lines.push(`#   ${n}`);
     if (r.note === 'list') {
       const p = a.spec?.input?.params || {};
       for (const l of wrapComment(t('report.script.list', { seed: p.seed ?? a.spec?.options?.seed ?? '', stream: p.stream ?? a.spec?.options?.stream ?? 54 }))) lines.push(`# ${l}`);

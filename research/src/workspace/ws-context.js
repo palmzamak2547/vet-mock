@@ -30,7 +30,7 @@ export function useWs() {
  * @returns {{ key: string, detail: string }}
  */
 export function errorInfo(err) {
-  if (err && typeof err === 'object' && typeof err.key === 'string') return { key: err.key, detail: String(err.detail || err.message || '') };
+  if (err && typeof err === 'object' && typeof err.key === 'string') return { key: err.key, detail: String(err.detail || err.message || ''), ...(err.params && typeof err.params === 'object' ? { params: err.params } : {}) };
   if (err && typeof err === 'object' && err.code === 'conflict') return { key: 'ws.error.conflict', detail: '' };
   if (err && typeof err === 'object' && err.code === 'quota') return { key: 'ws.error.quota', detail: '' };
   return { key: 'ws.error.generic', detail: String(err?.message || err || '') };

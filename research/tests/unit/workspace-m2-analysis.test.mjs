@@ -225,7 +225,7 @@ test('model effects are named by the student’s columns; model terms and group 
   assert.equal(effectLabel({ id: 'A' }, t, ctx), 'wool');
   assert.match(testLabel({ id: 'AB', statistic: { name: 'F' } }, t, ctx), /^wool by tension \(interaction\)/);
   assert.equal(effectLabel({ id: 'A' }, t, { ...ctx, methodId: 'test.anova1' }), null);
-  assert.match(testLabel({ id: 'wald:spontaneous', statistic: { name: 'z' } }, t), /^Wald test: spontaneous/);
+  assert.match(testLabel({ id: 'wald:spontaneous', statistic: { name: 'z' } }, t), /^Wald test for spontaneous/);
   assert.equal(valueLabel('median:Maintained', t), `${t('ws.value.median')} (Maintained)`);
   assert.equal(valueLabel('oddsRatio:age', t), 'OR (age)');
   assert.equal(valueKind('oddsRatio:age'), 'ratio');

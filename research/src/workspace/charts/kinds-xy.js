@@ -116,7 +116,7 @@ export function scatterChart(input, opts) {
 }
 
 /**
- * @param {{ times: string[], series: { label: string, points: { time: number, mean: number|null, lo: number|null, hi: number|null, n?: number }[] }[], animals?: { series: number, values: (number|null)[] }[], xTitle?: string, yTitle?: string, level?: number }} input
+ * @param {{ variant?: 'cellMeans', times: string[], series: { label: string, points: { time: number, mean: number|null, lo: number|null, hi: number|null, n?: number }[] }[], animals?: { series: number, values: (number|null)[] }[], xTitle?: string, yTitle?: string, level?: number }} input
  *   points[].time is the index into `times`.
  */
 export function timeCourseChart(input, opts) {
@@ -126,6 +126,7 @@ export function timeCourseChart(input, opts) {
   const series = input.series || [];
   if (!times.length || !series.length) throw Object.assign(new Error('no data'), { key: 'graphs.error.noData' });
   const level = input.level ?? 0.95;
+  const cells = input.variant === 'cellMeans';
   const allY = series.flatMap((s) => s.points.flatMap((p) => [p.mean, p.lo, p.hi])).concat((input.animals || []).flatMap((a) => a.values)).filter(num);
   const legend = groupLegend(series.map((s) => s.label));
   const f = xyFrame(ctx, { xDomain: [-0.5, times.length - 0.5], xCategories: times, yDomain: paddedDomain(allY, { pad: 0.06 }), xTitle: input.xTitle, yTitle: input.yTitle, legend, drawLegend: series.length > 1 });
@@ -160,9 +161,13 @@ export function timeCourseChart(input, opts) {
     axes: [{ id: 'x', title: input.xTitle || '', categories: times }, { id: 'y', title: input.yTitle || '', ticks: f.yTicks, labels: f.yLabs }],
     legend,
     drawLegend: series.length > 1,
-    table: { columns: [t('graphs.col.group'), t('graphs.col.time'), t('graphs.col.n'), t('graphs.col.mean'), t('graphs.col.ci', { level: lv })], rows },
-    summary: t('graphs.summary.timeCourse', { k: series.length, times: times.length, rows: rows.map((r) => `${r[0]} ${r[1]} ${r[3]} (${r[4]})`).join('; ') }),
-    notes: [t('graphs.note.timeCourse', { level: lv })],
+    // Cell means of a two-way ANOVA share this drawing but not its words: the x axis is the second factor,
+    // not time, and there are no animal lines (review round 4). Faint animal lines are named only when drawn.
+    table: { columns: [t('graphs.col.group'), cells ? (input.xTitle || t('graphs.col.level')) : t('graphs.col.time'), t('graphs.col.n'), t('graphs.col.mean'), t('graphs.col.ci', { level: lv })], rows },
+    summary: cells
+      ? t('graphs.summary.cellMeans', { k: series.length, levels: times.length, rows: rows.map((r) => `${r[0]} ${r[1]} ${r[3]} (${r[4]})`).join('; ') })
+      : t('graphs.summary.timeCourse', { k: series.length, times: times.length, rows: rows.map((r) => `${r[0]} ${r[1]} ${r[3]} (${r[4]})`).join('; ') }),
+    notes: [t(cells ? 'graphs.note.cellMeans' : (input.animals || []).length ? 'graphs.note.timeCourse' : 'graphs.note.timeCourseMeans', { level: lv })],
   });
 }
 

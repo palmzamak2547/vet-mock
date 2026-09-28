@@ -85,6 +85,24 @@ function sentences(list, lang) {
   return list.filter(Boolean).map((x) => x.replace(/\s{2,}/g, ' ').trim().replace(/[.\s]+$/, '') + end).join(' ');
 }
 
+/** The last top-level "(...)" that ends a text: { head, body }, or null when the text does not end in one. */
+function lastBracket(text) {
+  const s = String(text).trimEnd();
+  if (!s.endsWith(')')) return null;
+  let depth = 0;
+  for (let i = s.length - 1; i >= 0; i -= 1) {
+    if (s[i] === ')') depth += 1;
+    else if (s[i] === '(') {
+      depth -= 1;
+      if (depth === 0) {
+        const head = s.slice(0, i).trimEnd();
+        return head ? { head, body: s.slice(i + 1, -1) } : null;
+      }
+    }
+  }
+  return null;
+}
+
 /** A reason sentence placed inside brackets loses its own full stop. */
 const inBrackets = (text) => String(text || '').replace(/[.\s]+$/, '');
 
@@ -249,7 +267,12 @@ export function methodsSentence(analysis, ctx) {
       out.push(group ? t('report.methods.table1VarsBy', { columns, group: col(group) }) : t('report.methods.table1Vars', { columns }));
     }
   } else {
-    const roles = roleEntries.map(([role, v]) => t('report.methods.role', { role: roleName(role), column: joinList([].concat(v).map(col), lang, t) }));
+    // A column name that ends in its own brackets ("follow-up (days)") takes its role before it, so the
+    // sentence never nests brackets (review round 4: "จำนวนวันที่ติดตาม (วัน) (เวลาติดตาม)").
+    const roles = roleEntries.map(([role, v]) => {
+      const column = joinList([].concat(v).map(col), lang, t);
+      return t(/\)\s*$/.test(column) ? 'report.methods.roleBefore' : 'report.methods.role', { role: roleName(role), column });
+    });
     // One column reads "The variable was", not "The variables were".
     const count = roleEntries.reduce((n, [, v]) => n + [].concat(v).length, 0);
     // 'and' once: when a role already lists several columns ("Age and Sex"), the roles are joined by the list
@@ -381,7 +404,22 @@ export function resultsSentence(analysis, ctx) {
   const col = inLang(ctx.columnName || ((k) => k), lang);
   const levelName = ctx.levelName || ((k, v) => v);
   const primary = primaryValueName(env, ctx.designRow);
-  const label = (n) => lowerLabel(lang, ctx.valueLabel(n));
+  // A model term's value is named "OR of <term>", not "odds ratio (gloss) (<term>)": the measure's gloss is
+  // written once per paragraph and the term follows without a second pair of brackets (review round 4).
+  const glossed = new Set();
+  const label = (n) => {
+    const raw = lowerLabel(lang, ctx.valueLabel(n));
+    if (!String(n).includes(':')) return raw;
+    const split = lastBracket(raw);
+    if (!split) return raw;
+    let measure = split.head;
+    const inner = lastBracket(measure);
+    if (inner) {
+      if (glossed.has(measure)) measure = /^[A-Z]{2,5}$/.test(inner.body) ? inner.body : inner.head;
+      else glossed.add(measure);
+    }
+    return t('report.results.ofTerm', { measure, term: split.body });
+  };
   const noun = (n) => (has(t, `report.noun.${n}`) ? t(`report.noun.${n}`) : label(n));
   const valueText = (r) => {
     if (POINTS.has(r.name)) {
@@ -411,6 +449,11 @@ export function resultsSentence(analysis, ctx) {
     const lines = tb.rows.map((r) => {
       const pair = pairText(r[pi], roles.group, { ...w, columnName: ctx.columnName, levelName });
       const p = pText(fmt, r[qi]);
+      if (di >= 0 && r[qi] === null && r[li] === null && env.guard?.notes?.some((n) => n.id === 'pairLowDf' || n.id === 'pairNoSpread')) {
+        const why = (env.guard?.notes || []).find((n) => (n.id === 'pairLowDf' || n.id === 'pairNoSpread') && String(n.params?.pairs || '').split(', ').includes(String(r[pi])));
+        const reason = why?.id === 'pairNoSpread' ? t('stats.undefined.zeroVariance') : t('lab.undefined.ghPairLowDfShort');
+        return t('report.results.pairNoP', { pair, diff: num(r[di]), reason: reason.replace(/[.。]$/, '') });
+      }
       if (di >= 0 && li >= 0 && ui >= 0) return t('report.results.pairCi', { pair, diff: num(r[di]), level: levelText(spec), bounds: t('report.results.range', { lo: num(r[li]), hi: num(r[ui]) }), p });
       return t('report.results.pairRank', { pair, diff: num(r[ri]), p });
     });

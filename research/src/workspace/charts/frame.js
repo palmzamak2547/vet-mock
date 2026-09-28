@@ -205,7 +205,7 @@ export function categoryLayout(ctx, labels, room) {
   if (!lines && labels.length > 1) {
     size = floor;
     stagger = true;
-    lines = labels.map((l) => (textWidth(l, size) <= 2 * room ? [String(l)] : wrapWords(l, 2 * room, size).slice(0, 2)));
+    lines = labels.map((l) => (textWidth(l, size) <= 2 * room ? [String(l)] : wrapWords(l, 2 * room, size)));
   }
   if (!lines) { size = floor; lines = labels.map((l) => wrapWords(l, room, size)); }
   const per = Math.max(1, ...lines.map((ls) => ls.length));
@@ -255,14 +255,66 @@ export function groupLegend(labels) {
  */
 /** Words of a label on lines no wider than `room` (a word longer than the line keeps its own line). */
 export function wrapWords(label, room, fs) {
+  // Tokens carry the separator they had in the label (a space, or nothing inside a word), so a line is the
+  // label's own text. A word wider than the line is broken at Thai word boundaries (Intl.Segmenter), then
+  // at grapheme clusters, and the rest carries to the next line: no character is dropped and a vowel or
+  // tone mark never leaves its consonant (review round 4: Thai column names have no spaces, and the old cut
+  // added a dash and dropped the rest of the name).
+  const tokens = [];
+  for (const [i, w] of String(label).split(/\s+/).filter(Boolean).entries()) {
+    const first = i === 0 ? '' : ' ';
+    if (textWidth(w, fs) <= room) { tokens.push({ sep: first, text: w }); continue; }
+    splitWide(w, room, fs).forEach((piece, k) => tokens.push({ sep: k === 0 ? first : '', text: piece }));
+  }
   const out = [];
   let cur = '';
-  for (const w of String(label).split(/\s+/).filter(Boolean)) {
-    const next = cur ? `${cur} ${w}` : w;
-    if (cur && textWidth(next, fs) > room) { out.push(cur); cur = w; } else cur = next;
+  for (const tk of tokens) {
+    const next = cur ? `${cur}${tk.sep}${tk.text}` : tk.text;
+    if (cur && textWidth(next, fs) > room) { out.push(cur); cur = tk.text; } else cur = next;
   }
   if (cur) out.push(cur);
   return out.length ? out : [String(label)];
+}
+
+const segmenter = (granularity) => {
+  try { return typeof Intl !== 'undefined' && Intl.Segmenter ? new Intl.Segmenter('th', { granularity }) : null; } catch { return null; }
+};
+const WORDS = segmenter('word');
+const GRAPHEMES = segmenter('grapheme');
+
+/** Grapheme clusters of a string; without Intl.Segmenter, a base character with the marks that follow it. */
+export function graphemes(s) {
+  const raw = GRAPHEMES ? Array.from(GRAPHEMES.segment(s), (x) => x.segment) : String(s).match(/\P{M}\p{M}*/gu) || [];
+  // A Thai leading vowel (U+0E40 to U+0E44) is its own grapheme but is read with the consonant after it: keep them
+  // together so a line never ends on one.
+  const out = [];
+  for (let i = 0; i < raw.length; i += 1) {
+    const cp = raw[i].length === 1 ? raw[i].codePointAt(0) : 0;
+    if (cp >= 0x0e40 && cp <= 0x0e44 && i + 1 < raw.length) { out.push(raw[i] + raw[i + 1]); i += 1; } else out.push(raw[i]);
+  }
+  return out;
+}
+
+/** A space-free word wider than `room`, in pieces that each fit (word segments first, then graphemes). */
+function splitWide(word, room, fs) {
+  const segs = WORDS ? Array.from(WORDS.segment(word), (x) => x.segment) : [word];
+  const units = [];
+  for (const sg of segs) {
+    if (textWidth(sg, fs) <= room) { units.push(sg); continue; }
+    let cur = '';
+    for (const g of graphemes(sg)) {
+      if (cur && textWidth(cur + g, fs) > room) { units.push(cur); cur = g; } else cur += g;
+    }
+    if (cur) units.push(cur);
+  }
+  // Join neighbouring units while they still fit, so a word is only broken where it has to be.
+  const pieces = [];
+  let cur = '';
+  for (const un of units) {
+    if (cur && textWidth(cur + un, fs) > room) { pieces.push(cur); cur = un; } else cur += un;
+  }
+  if (cur) pieces.push(cur);
+  return pieces;
 }
 
 export function legendNodes(ctx, legend, x0, y0, maxWidth, markerFor) {

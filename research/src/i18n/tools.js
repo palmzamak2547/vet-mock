@@ -402,7 +402,7 @@ export default {
     'tools.invalid.stratumTooSmall': 'ชั้น {stratum} มีเพียง {frame} แถว แต่ต้องเลือก {n} แถว ลดจำนวนหรือใช้การแบ่งตามสัดส่วน',
 
     // power
-    'tools.power.crumb': 'Power',
+    'tools.power.crumb': 'Power และขนาดตัวอย่างสำหรับการทดลอง',
     'tools.power.title': 'Power และขนาดตัวอย่างสำหรับการทดลอง',
     'tools.power.sub': 'สำหรับวางแผนก่อนเก็บข้อมูล: ต้องใช้สัตว์กี่ตัว หรือจำนวนที่มีอยู่มีโอกาสพบความต่างเท่าไร',
     'tools.power.gloss': 'Power คือโอกาสที่การศึกษาจะพบความต่าง เมื่อความต่างขนาดที่ใส่มีอยู่จริง มักตั้งไว้ 0.8 หรือ 0.9',
@@ -866,7 +866,7 @@ export default {
     'tools.invalid.sizeTooLarge': 'The number to select is larger than the number of rows in the list',
     'tools.invalid.stratumTooSmall': 'Stratum {stratum} has only {frame} rows but {n} are to be selected. Select fewer or share in proportion to size.',
 
-    'tools.power.crumb': 'Power',
+    'tools.power.crumb': 'Power and sample size for experiments',
     'tools.power.title': 'Power and sample size for experiments',
     'tools.power.sub': 'For planning before the data are collected: how many animals you need, or what chance the animals you have give you of finding a difference.',
     'tools.power.gloss': 'Power is the chance that the study finds a difference when a difference of the size you give really exists. It is usually set at 0.8 or 0.9.',

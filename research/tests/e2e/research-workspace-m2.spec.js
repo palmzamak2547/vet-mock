@@ -7,7 +7,7 @@
 // OWNER: ui-analysis role.
 import { test, expect } from '@playwright/test';
 import { fileURLToPath } from 'node:url';
-import { seenEntrance } from './research-runtime-helpers.mjs';
+import { seenEntrance, storedDesign } from './research-runtime-helpers.mjs';
 import ws from '../../src/i18n/workspace.js';
 import lab from '../../src/i18n/lab.js';
 
@@ -49,8 +49,10 @@ test('the lab screen lists methods under questions once the experiment design is
 
   await page.goto(`${project}/design`);
   await page.getByRole('radio', { name: new RegExp(lab.th['lab.design.experiment.name']) }).check();
-  // The choice is stored on the device a moment after the click; a full page load right away can read the
-  // store before it lands (WebKit, review round 2 run): load the lab screen until it has the design.
+  // The choice is stored on the device a moment after the click. A full page load before it lands aborts the
+  // write (WebKit ends an open IndexedDB transaction when the page unloads), and no reload of the lab screen
+  // can bring it back: wait until the store holds the design (review round 4: 3 of 4 WebKit runs failed).
+  await expect.poll(() => storedDesign(page), { timeout: 15_000 }).toBe('experiment');
   await expect(async () => {
     await page.goto(`${project}/lab`);
     await expect(page.getByText(ws.th['ws.question.twoFactors.title'], { exact: true })).toBeVisible({ timeout: 3000 });
@@ -94,6 +96,7 @@ test.describe('phone width, light and dark', () => {
       const project = await serosurveyProject(page);
       await page.goto(`${project}/design`);
       await page.getByRole('radio', { name: new RegExp(lab.th['lab.design.experiment.name']) }).check();
+      await expect.poll(() => storedDesign(page), { timeout: 15_000 }).toBe('experiment');
       for (const pane of ['lab', 'models', 'survival', 'measure', 'figures']) {
         await page.goto(`${project}/${pane}`);
         await expect(page.locator('#rs-main h1')).toBeVisible();

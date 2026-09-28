@@ -8,7 +8,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
-import { readSav, readSavSync, SavError } from '../../src/lib/intake/sav.js';
+import { readSav, readSavSync, SavError, SAV_MAX_VARIABLES } from '../../src/lib/intake/sav.js';
 import { buildPreview, answerPreview } from '../../src/lib/intake/preview.js';
 import { applyRecipe } from '../../src/lib/intake/recipe.js';
 
@@ -387,4 +387,23 @@ test('long string value labels (record 7.21) count against the label cap: a floo
   const t0 = Date.now();
   assert.equal(mustFailCleanly(flood), 'data.sav.tooManyLabels');
   assert.ok(Date.now() - t0 < 1000, `refused in ${Date.now() - t0} ms`);
+});
+
+test('a file declaring 100,000 variables is refused in under a second, from the header or the dictionary', () => {
+  // Review round 4: a numeric variable record costs 32 bytes of file, so a 51 MB file declared 1.6 million
+  // variables and ran the tab out of memory (about 1.5 KB each once read). The cap is SAV_MAX_VARIABLES.
+  const vars = Array.from({ length: 100_000 }, (_, i) => ({ name: 'v' + (i % 1e7), width: 0 }));
+  const b = writeSav({ vars, rows: [], codePage: 65001 });
+  let t0 = Date.now();
+  assert.equal(mustFailCleanly(b), 'data.sav.tooManyVariables');
+  assert.ok(Date.now() - t0 < 1000, `refused from the header in ${Date.now() - t0} ms`);
+  // the same file with the header's element count unknown (-1): refused while the dictionary is read
+  new DataView(b.buffer, b.byteOffset, b.byteLength).setInt32(68, -1, true);
+  t0 = Date.now();
+  assert.equal(mustFailCleanly(b), 'data.sav.tooManyVariables');
+  assert.ok(Date.now() - t0 < 1000, `refused from the dictionary in ${Date.now() - t0} ms`);
+  try { readSavSync(b); } catch (e) { assert.equal(e.params.max, SAV_MAX_VARIABLES.toLocaleString('en-US')); }
+  // at the cap a file still opens
+  const ok = writeSav({ vars: vars.slice(0, SAV_MAX_VARIABLES), rows: [], codePage: 65001 });
+  assert.equal(readSavSync(ok).variables.length, SAV_MAX_VARIABLES);
 });

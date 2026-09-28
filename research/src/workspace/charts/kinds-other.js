@@ -43,21 +43,16 @@ export function forestChart(input, opts) {
   const wrap = labelW + textNeed > ctx.width * 0.62;
   const textW = wrap ? 0 : textNeed;
   const left = wrap ? Math.max(labelW, Math.min(ctx.width * 0.45, textNeed * 0.9)) : labelW;
-  // A row label wraps at its spaces to the label column and the row grows to fit, so no label ever runs
-  // under a mark (review round 3: a logistic term label ran under its OR marker at every width). A single
-  // word wider than the column is cut with a dash only as a last resort.
+  // A row label wraps to the label column and the row grows to fit, so no label ever runs under a mark
+  // (review round 3). Thai names have no spaces: wrapWords breaks them at word boundaries, then at grapheme
+  // clusters, and carries the rest to the next line; nothing is cut off (review round 4).
   const room = left - fs * 0.6;
-  const labelLines = rows.map((r) => {
-    const lines = textWidth(r.label, fs) <= room ? [r.label] : wrapWords(r.label, room, fs);
-    return lines.map((l) => {
-      if (textWidth(l, fs) <= room) return l;
-      let s = l;
-      while (s.length > 1 && textWidth(`${s}-`, fs) > room) s = s.slice(0, -1);
-      return `${s}-`;
-    });
-  });
+  const labelLines = rows.map((r) => (textWidth(r.label, fs) <= room ? [r.label] : wrapWords(r.label, room, fs)));
   const lineH = fs * 1.2;
-  const rowHs = labelLines.map((ls) => Math.max(wrap ? fs * 2.9 : fs * 1.9, (ls.length + (wrap ? 1 : 0)) * lineH + fs * 0.7));
+  // One mark size for every row: a square drawn from the row height grew with the length of its label, so
+  // the least precise term looked the heaviest (review round 4).
+  const baseH = wrap ? fs * 2.9 : fs * 1.9;
+  const rowHs = labelLines.map((ls) => Math.max(baseH, (ls.length + (wrap ? 1 : 0)) * lineH + fs * 0.7));
   const rowTop = [];
   let acc = fs * 0.6;
   for (const h of rowHs) { rowTop.push(acc); acc += h; }
@@ -95,14 +90,14 @@ export function forestChart(input, opts) {
     if (!inside(r.est)) return;
     const xe = x(r.est);
     if (summary) {
-      const h = rowH * 0.32;
+      const h = baseH * 0.32;
       if (xl !== null && xh !== null) nodes.push(pathOf([[xl, y], [xe, y - h], [xh, y], [xe, y + h]], { fill: r.kind === 'crude' ? 'paper' : 's0', stroke: 's0', 'stroke-width': r2(1.3 * u) }, true));
-      else nodes.push(markerNode('diamond', xe, y, rowH * 0.25, { fill: 's0' }));
+      else nodes.push(markerNode('diamond', xe, y, baseH * 0.25, { fill: 's0' }));
     } else {
       if (xl !== null && xh !== null) nodes.push(line(xl, y, xh, y, { stroke: 'ink', 'stroke-width': r2(1.4 * u) }));
       if (openHi) nodes.push(pathOf([[xh - 6 * u, y - 4 * u], [xh, y], [xh - 6 * u, y + 4 * u]], { fill: 'none', stroke: 'ink', 'stroke-width': r2(1.4 * u) }));
       if (openLo) nodes.push(pathOf([[xl + 6 * u, y - 4 * u], [xl, y], [xl + 6 * u, y + 4 * u]], { fill: 'none', stroke: 'ink', 'stroke-width': r2(1.4 * u) }));
-      nodes.push(rect(xe - rowH * 0.18, y - rowH * 0.18, rowH * 0.36, rowH * 0.36, { fill: 'ink' }));
+      nodes.push(rect(xe - baseH * 0.18, y - baseH * 0.18, baseH * 0.36, baseH * 0.36, { fill: 'ink' }));
     }
   });
   const lv = levelText(input.level);
@@ -117,7 +112,7 @@ export function forestChart(input, opts) {
     axes: [{ id: 'x', title: input.xTitle || '', ticks, labels: labs, log }],
     legend: [],
     table: {
-      columns: [t('graphs.col.row'), t('graphs.col.estimate'), t('graphs.col.ci', { level: lv })].concat(hasNote ? [t('graphs.col.note')] : []),
+      columns: [t(terms ? 'graphs.col.factor' : 'graphs.col.row'), t('graphs.col.estimate'), t('graphs.col.ci', { level: lv })].concat(hasNote ? [t('graphs.col.note')] : []),
       rows: rows.map((r, i) => [r.label, fmtN(ctx, r.est), ciCell(r, i)].concat(hasNote ? [r.note || ''] : [])),
     },
     summary: terms

@@ -124,6 +124,7 @@ export default {
     // SPSS files
     'data.sav.notSav': 'ไฟล์นี้ไม่ใช่ไฟล์ SPSS (.sav หรือ .zsav)',
     'data.sav.tooBig': 'ไฟล์ใหญ่เกิน {max} MB',
+    'data.sav.tooManyVariables': 'ไฟล์มีตัวแปรมากเกินกว่าที่เปิดในเบราว์เซอร์ได้ (เกิน {max} ตัวแปร) ถ้าเป็นไฟล์จริง ให้เลือกเฉพาะตัวแปรที่ใช้แล้วบันทึกเป็นไฟล์ใหม่จาก SPSS',
     'data.sav.tooManyLabels': 'ไฟล์มีป้ายค่า (value label) มากเกินกว่าที่เปิดในเบราว์เซอร์ได้ (เกิน {max} ป้ายรวมทุกตัวแปร) ไฟล์อาจเสีย ลองบันทึกไฟล์ใหม่จาก SPSS',
     'data.sav.tooManyRows': 'ไฟล์มีข้อมูลมากเกินกว่าที่เปิดในเบราว์เซอร์ได้ (เกิน {rows} แถว หรือเกิน {cells} ช่อง) ลองแบ่งไฟล์หรือเลือกเฉพาะคอลัมน์ที่ใช้',
     'data.sav.truncated': 'ไฟล์ SPSS จบก่อนครบ (ขาดที่ไบต์ {at}) อาจดาวน์โหลดไม่ครบหรือไฟล์เสีย ลองบันทึกจาก SPSS ใหม่',
@@ -249,6 +250,7 @@ export default {
 
     'data.sav.notSav': 'This is not an SPSS file (.sav or .zsav)',
     'data.sav.tooBig': 'The file is larger than {max} MB',
+    'data.sav.tooManyVariables': 'The file declares more variables than the browser can open (over {max}). If the file is genuine, keep only the variables you need and save a new file from SPSS.',
     'data.sav.tooManyLabels': 'The file carries more value labels than the browser can open (over {max} across all variables). The file may be damaged; try saving it again from SPSS.',
     'data.sav.tooManyRows': 'The file holds more data than the browser can open (over {rows} rows or {cells} cells). Try splitting the file or keeping only the columns you use.',
     'data.sav.truncated': 'The SPSS file ends too early (at byte {at}). It may be an incomplete download or a damaged file; save it from SPSS again',

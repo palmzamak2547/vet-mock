@@ -23,6 +23,7 @@ export class EngineCallError extends Error {
     this.code = e.code;
     this.key = e.key;
     this.detail = e.detail || '';
+    this.params = e.params || undefined;
   }
 }
 

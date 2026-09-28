@@ -356,7 +356,7 @@ export function buildSps(input) {
     const r = spssCode(a.spec, ix, t);
     out.push('', `* ${i + 1}. ${name}.`);
     out.push(...cmt(t('report.script.ours', { numbers: '' }).trim().replace(/:$/, '')));
-    for (const n of envNumbers(a.env, valueNamer(ix, t))) out.push(`*   ${n.replace(/\.\s*$/, '')}.`);
+    for (const n of envNumbers(a.env, valueNamer(ix, t, a.env))) out.push(`*   ${n.replace(/\.\s*$/, '')}.`);
     for (const n of r.notes) out.push(...cmt(n));
     if (r.none) out.push(...cmt(r.none));
     else out.push(...r.code);

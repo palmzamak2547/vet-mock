@@ -254,6 +254,9 @@
 .rs-table th, .rs-table td { padding: 9px 12px; border-bottom: 1px solid var(--rs-line); vertical-align: top; text-align: left; }
 .rs-table thead th { font-weight: 600; font-size: 13px; color: var(--rs-ink-soft); white-space: nowrap; }
 .rs-table tbody th { font-weight: 600; }
+/* A row label keeps a readable width in a wide table (a model's coefficient table has ten columns); the wrap
+   scrolls sideways instead of folding the term to one word a line (review round 4: nine lines at 1280 px). */
+.rs-table tbody th[scope="row"] { min-width: min(13rem, 45vw); }
 .rs-table tr:last-child td, .rs-table tr:last-child th { border-bottom: 0; }
 .rs-table .rs-r { text-align: right; white-space: nowrap; }
 .rs-table--compact th, .rs-table--compact td { padding: 6px 8px; font-size: 13.5px; }

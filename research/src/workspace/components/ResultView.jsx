@@ -76,8 +76,8 @@ export function EnvTable({ table, note = '', fileBase = 'table', onDownloaded, w
       </div>
       {tx.notes.map((n, i) => <p key={i} className="rs-soft rs-small">{n}</p>)}
       <div className="rs-row-wrap">
-        <button type="button" className="rs-btn rs-btn--sm" onClick={copy}><Icon name="copy" size={16} />{t('ws.action.copyWord')}</button>
-        <button type="button" className="rs-btn rs-btn--sm" onClick={csv}><Icon name="down" size={16} />{t('ws.action.downloadCsv')}</button>
+        <button type="button" className="rs-btn rs-btn--sm" onClick={copy} aria-label={t('ws.action.copyWordOf', { what: tx.caption })}><Icon name="copy" size={16} />{t('ws.action.copyWord')}</button>
+        <button type="button" className="rs-btn rs-btn--sm" onClick={csv} aria-label={t('ws.action.downloadCsvOf', { what: tx.caption })}><Icon name="down" size={16} />{t('ws.action.downloadCsv')}</button>
       </div>
     </div>
   );
@@ -304,11 +304,11 @@ export default function ResultView({ envelope, title, caption: captionProp = '',
       <div className="rs-row-wrap">
         {valuesTable ? (
           <>
-            <button type="button" className="rs-btn" onClick={copy}>
+            <button type="button" className="rs-btn" onClick={copy} aria-label={t('ws.action.copyWordOf', { what: t('ws.result.valuesCaption') })}>
               <Icon name="copy" size={18} />
               {t('ws.action.copyWord')}
             </button>
-            <button type="button" className="rs-btn" onClick={csv}>
+            <button type="button" className="rs-btn" onClick={csv} aria-label={t('ws.action.downloadCsvOf', { what: t('ws.result.valuesCaption') })}>
               <Icon name="down" size={18} />
               {t('ws.action.downloadCsv')}
             </button>

@@ -57,7 +57,7 @@ export function ErrorBox({ error, onRetry }) {
   const { t } = useT();
   if (!error) return null;
   return (
-    <Notice tone="stop" title={t(error.key)} role="alert" action={onRetry ? <button type="button" className="rs-btn" onClick={onRetry}>{t('ws.action.retry')}</button> : null}>
+    <Notice tone="stop" title={t(error.key, error.params)} role="alert" action={onRetry ? <button type="button" className="rs-btn" onClick={onRetry}>{t('ws.action.retry')}</button> : null}>
       {error.detail ? (
         <details className="rs-devdetail">
           <summary>{t('ws.error.detailSummary')}</summary>

@@ -80,6 +80,51 @@ test('Games-Howell: Welch SE and df, studentized range p and interval (R ptukey 
   assert.equal(runGamesHowell(spec('posthoc.gamesHowell', { roles: { outcome: 'y', group: 'g' } }), groupsTable({ A: [1], B: [2, 3], C: [4, 5] })).values.reason.reasonKey, 'lab.undefined.groupTooSmall');
 });
 
+test('Games-Howell: one pair with Welch df below 2 stays null on its own; the other five pairs stand', () => {
+  // Seed 777001 of the round 1 review harness (review-numbers-r4.md). Pair B-A: Welch df 1.938, where the
+  // studentized range is undefined and R's ptukey returns NaN (it refuses df < 2), so p and the interval are null.
+  // The other pairs are pinned to SciPy 1.17.1 studentized_range (sf and ppf) on the same data, computed
+  // 28 Sep 2026: d, SE and df closed form (1e-10), p and bounds from an independent integration (1e-5).
+  const data = { A: [5.494, 7.741, 3.467, 6.36], B: [9.279, 6.567], C: [11.497, 4.355, 5.504, 6.153, 2.796, 0.558], D: [19.973, 17.581, 25.211, 9.007, 11.151] };
+  const out = runGamesHowell(spec('posthoc.gamesHowell', { roles: { outcome: 'y', group: 'g' } }), groupsTable(data));
+  assert.equal(out.status, 'ok');
+  assert.equal(out.values.reason, undefined);
+  const rows = Object.fromEntries(out.tables[0].rows.map((r) => [r[0], r]));
+  const ba = rows['B-A'];
+  close(ba[3], 1.938486680048653, 1e-10, 'B-A df');
+  assert.equal(ba[5], null); assert.equal(ba[6], null); assert.equal(ba[7], null);
+  const scipy = {
+    'C-A': [-0.6216666666666661, 1.7579099648288148, 7.567234149526726, 0.9836864103241103, -6.325956999881321, 5.082623666547989],
+    'D-A': [10.819100000000002, 3.0810248581708435, 4.717868104020456, 0.06435044962533909, -0.8168334895251785, 22.455033489525185],
+    'C-B': [-2.779166666666667, 2.031726612459899, 3.847279968983337, 0.5767776776876511, -11.215830538579564, 5.65749720524623],
+    'D-B': [8.661600000000002, 3.245054662097389, 4.979939408220901, 0.14542170177344216, -3.331058586034697, 20.6542585860347],
+    'D-C': [11.440766666666669, 3.3137321538980453, 6.04881153369684, 0.050021617972011656, -0.0012336276804170154, 22.882766961013754],
+  };
+  for (const [pair, [d, se, df, p, lo, hi]] of Object.entries(scipy)) {
+    const r = rows[pair];
+    close(r[1], d, 1e-10, `${pair} diff`); close(r[2], se, 1e-10, `${pair} se`); close(r[3], df, 1e-10, `${pair} df`);
+    close(r[5], p, 1e-5, `${pair} p`);
+    close(r[6], lo, 1e-5, `${pair} lower`); close(r[7], hi, 1e-5, `${pair} upper`);
+  }
+  const note = out.notes.find((n) => n.id === 'pairLowDf');
+  assert.equal(note.key, 'lab.note.ghPairLowDf');
+  assert.equal(note.params.pairs, 'B-A');
+  assert.ok(!out.notes.some((n) => n.key === 'stats.undefined.zeroVariance'));
+});
+
+test('Games-Howell: zero spread is named only when a pair truly has SE 0; all pairs undefined makes the result invalid', () => {
+  const g = spec('posthoc.gamesHowell', { roles: { outcome: 'y', group: 'g' } });
+  const flat = runGamesHowell(g, groupsTable({ A: [2, 2, 2], B: [5, 5, 5] }));
+  assert.equal(flat.status, 'invalid');
+  assert.equal(flat.values.reason.reasonKey, 'stats.undefined.zeroVariance');
+  const mixed = runGamesHowell(g, groupsTable({ A: [2, 2, 2], B: [5, 5, 5], C: [1, 4, 6, 9] }));
+  assert.equal(mixed.status, 'ok');
+  assert.equal(mixed.notes.find((n) => n.id === 'pairNoSpread').params.pairs, 'B-A');
+  const tiny = runGamesHowell(g, groupsTable({ A: [1, 9], B: [4, 4.5] }));
+  assert.equal(tiny.status, 'invalid');
+  assert.equal(tiny.values.reason.reasonKey, 'lab.undefined.ghLowDf');
+});
+
 test('the integrator: Gauss-Kronrod 21 on a known integral', () => {
   const r = integrate((x) => Math.exp(-x * x), [-9, 0, 9], 1e-15);
   close(r.value, Math.sqrt(Math.PI), 1e-14, 'integral of exp(-x^2)');
