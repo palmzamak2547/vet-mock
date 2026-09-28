@@ -1,0 +1,22 @@
+{
+  "_fixture": {
+    "family": "hand",
+    "kind": "pin",
+    "methods": [],
+    "source": "Worked out by hand from double-a.csv and double-b.csv (made-up data, ข้อมูลสมมุติ): the same eight paper forms typed by two people, key column 'รหัสโค'. OWNER: data role (M2-DESIGN.md 4.6).",
+    "note": "C006 is typed twice in file 1, so it is listed and not compared. C007 is only in file 2. C๐๐๘ in file 2 matches C008 (keys are read with Thai digits as Arabic digits). ' ลบ ' in file 2 equals 'ลบ' after trimming. '398' against '398.0' is a difference: cells are compared as text, never as numbers."
+  },
+  "differences": [
+    { "key": "C002", "rowIdA": "r2", "rowIdB": "r2", "column": "c3", "columnB": "c3", "name": "อายุ (เดือน)", "a": "24", "b": "42" },
+    { "key": "C002", "rowIdA": "r2", "rowIdB": "r2", "column": "c5", "columnB": "c5", "name": "น้ำหนัก", "a": "398", "b": "398.0" },
+    { "key": "C004", "rowIdA": "r4", "rowIdB": "r4", "column": "c4", "columnB": "c4", "name": "ELISA", "a": "บวก", "b": "ลบ" }
+  ],
+  "onlyInA": [],
+  "onlyInB": ["C007"],
+  "duplicateKeys": { "a": ["C006"], "b": [] },
+  "blankKeys": { "a": [], "b": [] },
+  "unpairedColumns": { "a": [], "b": [] },
+  "rowsCompared": 6,
+  "cellsCompared": 24,
+  "cellsDiffering": 3
+}

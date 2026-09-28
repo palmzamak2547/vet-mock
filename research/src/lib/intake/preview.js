@@ -67,6 +67,8 @@ const pushExample = (list, rowId, from, to) => { if (list.length < EXAMPLES) lis
 
 function detectFormat(u8, fileName, format) {
   if (format && format !== 'auto') return format;
+  // SPSS system file: "$FL2" (.sav) or "$FL3" (.zsav)
+  if (u8.length >= 4 && u8[0] === 0x24 && u8[1] === 0x46 && u8[2] === 0x4c && (u8[3] === 0x32 || u8[3] === 0x33)) return 'sav';
   if (u8.length >= 4 && u8[0] === 0x50 && u8[1] === 0x4b && u8[2] === 0x03 && u8[3] === 0x04) return 'xlsx';
   if (u8.length >= 4 && u8[0] === 0xd0 && u8[1] === 0xcf && u8[2] === 0x11 && u8[3] === 0xe0) return 'xlsx';
   if (/\.tsv$|\.tab$/i.test(fileName || '')) return 'tsv';
@@ -77,7 +79,9 @@ function detectFormat(u8, fileName, format) {
  * Bytes to a preview: decode or read the sheet, detect the header, clean cells, infer types, find
  * missing codes, dates and PII, and propose the import step.
  * @param {ArrayBuffer|Uint8Array} bytes
- * @param {{ fileName: string, format?: 'auto'|'csv'|'tsv'|'xlsx', sheet?: string|null, headerRow?: number, encoding?: 'auto'|'utf-8'|'utf-16le'|'utf-16be'|'windows-874', now?: string }} opts
+ * @param {{ fileName: string, format?: 'auto'|'csv'|'tsv'|'xlsx'|'sav', sheet?: string|null, headerRow?: number, encoding?: 'auto'|'utf-8'|'utf-16le'|'utf-16be'|'windows-874', now?: string }} opts
+ *   an SPSS file (.sav, .zsav) is recognised by its first bytes; its value labels, variable labels,
+ *   measure levels and user-missing values become proposals in the same preview (M2-DESIGN.md 5)
  *   now: ISO time stamped on the raw table (tests pass a fixed one)
  * @returns {Promise<ParsePreview>}
  */
@@ -97,7 +101,24 @@ export async function buildPreview(bytes, opts) {
   let excelDateCells = [];
   let ragged = 0;
   let extraColumns = 0;
-  if (format === 'xlsx') {
+  let direct = null;
+  let sav = null;
+  if (format === 'sav') {
+    const { readSav } = await import('./sav.js');
+    const forced = opts?.encoding && opts.encoding !== 'auto' ? opts.encoding : null;
+    const s = await readSav(u8, { encoding: forced });
+    header = s.raw.header;
+    direct = s.raw.columns;
+    rows = [];
+    headerRow = 0;
+    encoding = s.encoding;
+    fileConversions.push({ column: null, kind: 'encoding', count: 0, examples: [], needsAnswer: false, applied: true, questionId: null, key: `data.sav.encoding.${s.encodingFrom}`, params: { encoding: s.encoding, compression: s.compression } });
+    for (const note of s.notes) fileConversions.push({ column: null, kind: 'sav-note', count: note.params.count ?? 0, examples: [], needsAnswer: false, applied: false, questionId: null, key: note.key, params: note.params });
+    sav = {
+      conversions: s.conversions,
+      variables: s.variables.map((v, i) => ({ key: keyForIndex(i), name: v.name, label: v.label, measure: v.measure, format: v.format, isDate: v.isDate, labels: v.valueLabels.map((l) => l.label), missingCodes: v.userMissing.codes })),
+    };
+  } else if (format === 'xlsx') {
     const { readSheet } = await import('./xlsx.js');
     const r = await readSheet(u8, { sheet: opts?.sheet ?? null, headerRow: opts?.headerRow });
     ({ header, rows, headerRow, dateSystem, excelDateCells, ragged, extraColumns } = r);
@@ -113,8 +134,8 @@ export async function buildPreview(bytes, opts) {
   if (ragged) fileConversions.push({ column: null, kind: 'ragged', count: ragged, examples: [], needsAnswer: false, applied: true, questionId: null, key: extraColumns ? 'intake.conv.raggedExtra' : 'intake.conv.ragged', params: { count: ragged, extra: extraColumns } });
 
   header = header.map((h) => String(h).normalize('NFC'));
-  const rowCount = rows.length;
-  const columns = header.map((_, c) => rows.map((r) => r[c] ?? ''));
+  const rowCount = direct ? (direct[0] ? direct[0].length : 0) : rows.length;
+  const columns = direct || header.map((_, c) => rows.map((r) => r[c] ?? ''));
   const rowIds = Array.from({ length: rowCount }, (_, i) => `r${i + 1}`);
   /** @type {import('../runtime/types.js').RawTable} */
   const raw = {
@@ -122,11 +143,12 @@ export async function buildPreview(bytes, opts) {
     source: { fileName, bytes: u8.length, sha256, encoding: /** @type {any} */ (encoding), format: /** @type {any} */ (format), sheet, headerRow, importedAt: opts?.now || new Date().toISOString() },
   };
 
-  const facts = analyse(raw, { excelDateCells, dateSystem });
+  const facts = analyse(raw, { excelDateCells, dateSystem, sav });
+  if (sav) for (const c of sav.conversions) facts.columns.find((f) => f.key === c.column)?.conversions.unshift(c);
   const preview = {
     raw,
     file: { fileName, format, encoding, sheet, sheets: null, dateSystem, delimiter, rows: rowCount, columns: header.length },
-    facts: { columns: facts.columns, cluster: facts.cluster, fileConversions },
+    facts: { columns: facts.columns, cluster: facts.cluster, fileConversions, sav: sav ? { variables: sav.variables } : null },
     questions: facts.questions,
     answers: {},
     conversions: [],
@@ -139,7 +161,7 @@ export async function buildPreview(bytes, opts) {
 
 // ------------------------------------------------------------------ static analysis (file read once)
 
-function analyse(raw, { excelDateCells, dateSystem }) {
+function analyse(raw, { excelDateCells, dateSystem, sav = null }) {
   const cleanedCols = raw.header.map((_, i) => raw.columns[i].map((c) => cleanCell(c).value));
   const dateCellsByCol = new Map();
   for (const d of excelDateCells) {
@@ -176,6 +198,15 @@ function analyse(raw, { excelDateCells, dateSystem }) {
     f.pii = detectPii(values, header);
     if (f.pii) piiKeys.add(key);
     f.found = findMissingCodes(values);
+    // SPSS user-missing values: proposed like any other code, their reason asked (G26)
+    const spss = sav ? sav.variables[i]?.missingCodes || [] : [];
+    for (const code of spss) {
+      const hit = f.found.find((m) => m.code === code);
+      if (hit) { hit.fromSpss = true; continue; }
+      const rows = [];
+      for (let r = 0; r < values.length; r++) if (values[r] === code) rows.push(r);
+      if (rows.length) f.found.push({ code, count: rows.length, suggestedReason: 'unknown', rows, fromSpss: true });
+    }
     return f;
   });
 
@@ -212,7 +243,7 @@ function analyse(raw, { excelDateCells, dateSystem }) {
       const qid = `q:${f.key}:missing:${m.code}`;
       const options = ['unknown', 'not-applicable', 'not-recorded'].map((r) => ({ value: r, key: `intake.missing.reason.${r}` }));
       if (m.code !== '') options.push({ value: 'keep', key: 'intake.question.missing.keep' });
-      questions.push({ id: qid, column: f.key, kind: 'missing-reason', key: m.code === '' ? 'intake.question.missing.blank' : 'intake.question.missing.code', params: { column: f.header, code: m.code, count: m.count, ...(m.evidence ? { evidenceColumn: m.evidence.column, evidenceValue: m.evidence.value } : {}) }, options, default: m.suggestedReason, answer: null });
+      questions.push({ id: qid, column: f.key, kind: 'missing-reason', key: m.fromSpss ? 'data.sav.question.userMissing' : m.code === '' ? 'intake.question.missing.blank' : 'intake.question.missing.code', params: { column: f.header, code: m.code, count: m.count, ...(m.evidence ? { evidenceColumn: m.evidence.column, evidenceValue: m.evidence.value } : {}) }, options, default: m.suggestedReason, answer: null });
       const ex = [];
       for (const r of m.rows) pushExample(ex, raw.rowIds[r], m.code, '');
       f.missingConv = f.missingConv || [];
@@ -381,6 +412,7 @@ export function answerPreview(preview, answers) {
   }));
   for (const cf of codebookFacts) cf.inference = inferColumn(cf.values, cf.header, { missingCodes: cf.missingCodes.map((m) => m.code) });
   const codebook = proposeCodebook(raw, { facts: codebookFacts, cluster: preview.facts.cluster });
+  if (preview.facts.sav) applySavHints(codebook, preview.facts.sav);
 
   // the import step
   const perColumn = {};
@@ -513,6 +545,29 @@ export function answerPreview(preview, answers) {
 
   const importStep = stepFor(perColumn);
   return { ...preview, answers: merged, questions: allQs, codebook, importStep, conversions, blocking };
+}
+
+/**
+ * What SPSS knew about each variable, as proposals the student sees in the codebook: the variable
+ * label as the Thai label when it is in Thai script (else the English label), the order of the value
+ * labels as the order of the levels, and "ordinal" when SPSS said so. Nothing here changes a cell.
+ */
+function applySavHints(codebook, sav) {
+  const thai = /[\u0e00-\u0e7f]/;
+  for (const v of sav.variables) {
+    const entry = codebook.columns.find((c) => c.key === v.key);
+    if (!entry) continue;
+    if (v.label) {
+      if (thai.test(v.label)) entry.labelTh = v.label;
+      else entry.labelEn = v.label;
+    }
+    if (['binary', 'nominal', 'ordinal'].includes(entry.type) && v.labels.length) {
+      const order = v.labels;
+      const rank = (x) => { const i = order.indexOf(x.value); return i < 0 ? order.length : i; };
+      if (entry.type !== 'binary') entry.levels = entry.levels.map((l, i) => ({ l, i })).sort((a, b) => rank(a.l) - rank(b.l) || a.i - b.i).map((x) => x.l);
+      if (v.measure === 'ordinal' && entry.type === 'nominal') entry.type = 'ordinal';
+    }
+  }
 }
 
 /** Unreadable cells, leaving out those that only wait for a date question (era, order, two-digit century). */

@@ -10,20 +10,45 @@
 // cell-edit whose `from` no longer matches, an unknown column) is skipped and reported in
 // `rejected`; a cell whose text cannot be read as its type becomes missing with reason 5 (invalid)
 // and is listed in `invalid`, so no value becomes missing silently.
+//
+// M2 [M2-DESIGN.md 4]. `compute` adds a derived column defined by a formula (expr.js), read like any
+// other derived column. `exclude-where` removes rows from the study with a category and a written
+// reason (a filter only narrows one analysis; the STROBE-Vet flow counts exclusions). The structural
+// steps `merge`, `reshape-long`, `reshape-wide` and `aggregate` change the rows or bring columns from
+// another dataset: at such a step the replay writes its current state out as text (transform.js,
+// TableState), the transform makes the new table, and the replay carries on over it, so a step after
+// a reshape names the new row ids and a step after a merge can use the brought columns. Missing
+// reasons survive the write-out. The other datasets a merge names come in `sources`.
 import { cleanCell, thaiDigitsToArabic, compareThai } from './thai.js';
 import { parseNumber, keyForIndex } from './infer.js';
-import { parseDate, monthsBetween } from './dates.js';
+import { parseDate, monthsBetween, isoFromDays } from './dates.js';
 import { MISSING, reasonCode } from './missing.js';
-import { CATEGORICAL, NUMERIC, TYPES } from './codebook.js';
+import { CATEGORICAL, NUMERIC, TYPES, LEVELS } from './codebook.js';
+import { parseExpression, evalRow, MAX_LENGTH as EXPR_MAX_LENGTH } from './expr.js';
+import { mergeTables, reshapeLong, reshapeWide, aggregateRows, SUMMARY_FNS, numText } from './transform.js';
 
-/** Step kinds and their params (M1-DESIGN.md 8.4 has the full table). */
-export const STEP_KINDS = Object.freeze([
+/** Step kinds of M1 (M1-DESIGN.md 8.4 has the full table). */
+export const M1_STEP_KINDS = Object.freeze([
   'import-conversions', 'set-type', 'missing-code', 'cell-edit', 'row-add', 'row-exclude',
   'recode', 'bin', 'reference', 'filter', 'derive-age',
 ]);
+/** Step kinds M2 adds (M2-DESIGN.md 4); their messages live in the data dictionary (data.step.*). */
+export const M2_STEP_KINDS = Object.freeze(['merge', 'reshape-long', 'reshape-wide', 'aggregate', 'compute', 'exclude-where']);
+/** Every step kind. */
+export const STEP_KINDS = Object.freeze([...M1_STEP_KINDS, ...M2_STEP_KINDS]);
+/** Steps that change the rows or bring columns from another dataset. */
+export const STRUCTURAL_KINDS = Object.freeze(['merge', 'reshape-long', 'reshape-wide', 'aggregate']);
+/** Why a row leaves the study (STROBE-Vet item 13, ARRIVE 2.0 item 3). */
+export const EXCLUSION_CATEGORIES = Object.freeze(['ineligible', 'lost', 'protocol-deviation', 'measurement-error', 'duplicate', 'other']);
+/** Codebook types a computed column may take, by the formula's type. */
+const COMPUTE_TYPES = Object.freeze({ number: ['continuous', 'count'], boolean: ['binary'], date: ['date'] });
 
 const FILTER_OPS = Object.freeze(['eq', 'ne', 'in', 'lt', 'le', 'gt', 'ge', 'between', 'missing', 'present']);
 const DERIVED_KEY = /^d\d+$/;
+const MAX_LIST = 10;
+// Dates written out by a structural step are ISO 8601 CE; a date typed later (a cell edit) is read
+// day first, with the era told from the year (2400 and later is BE).
+const BASE_DATES = Object.freeze({ order: 'dmy', era: 'mixed', twoDigitCentury: null, excelSystem: null });
 const ADDED_ROW = /^n\d+$/;
 const EXAMPLES = 5;
 
@@ -45,9 +70,11 @@ function fail(key) {
  */
 export function validateStep(kind, p, reason) {
   if (!STEP_KINDS.includes(kind)) fail('intake.step.invalid.kind');
-  if (!p || typeof p !== 'object') fail(`intake.step.invalid.${kind}`);
-  const bad = () => fail(`intake.step.invalid.${kind}`);
+  const area = M2_STEP_KINDS.includes(kind) ? 'data' : 'intake';
+  if (!p || typeof p !== 'object') fail(`${area}.step.invalid.${kind}`);
+  const bad = () => fail(`${area}.step.invalid.${kind}`);
   const str = (v) => typeof v === 'string' && v.length > 0;
+  const strList = (v, min = 1) => Array.isArray(v) && v.length >= min && v.every(str) && new Set(v).size === v.length;
   switch (kind) {
     case 'import-conversions':
       if (!p.perColumn || typeof p.perColumn !== 'object') bad();
@@ -67,6 +94,7 @@ export function validateStep(kind, p, reason) {
       break;
     case 'row-exclude':
       if (!str(p.rowId)) bad();
+      if (p.category != null && !EXCLUSION_CATEGORIES.includes(p.category)) fail('data.step.invalid.category');
       if (!str(reason)) fail('intake.step.reasonRequired');
       break;
     case 'recode':
@@ -106,6 +134,50 @@ export function validateStep(kind, p, reason) {
     case 'derive-age':
       if (!str(p.birth) || !str(p.event) || !['months', 'days', 'years'].includes(p.unit) || !str(p.target) || !DERIVED_KEY.test(p.target)) bad();
       break;
+    case 'exclude-where':
+      if (!Array.isArray(p.conditions) || !p.conditions.length || (p.combine !== 'and' && p.combine !== 'or')) bad();
+      for (const c of p.conditions) {
+        if (!c || !str(c.column) || !FILTER_OPS.includes(c.op)) bad();
+        if ((c.op === 'in' || c.op === 'between') && !Array.isArray(c.value)) bad();
+        if (c.op === 'between' && c.value.length !== 2) bad();
+      }
+      if (!EXCLUSION_CATEGORIES.includes(p.category)) fail('data.step.invalid.category');
+      if (!str(reason)) fail('intake.step.reasonRequired');
+      break;
+    case 'compute':
+      if (!str(p.target) || !DERIVED_KEY.test(p.target) || !str(p.expression) || p.expression.length > EXPR_MAX_LENGTH) bad();
+      if (p.type != null && !TYPES.includes(p.type)) bad();
+      break;
+    case 'merge':
+      if (!str(p.sourceDatasetId) || !str(p.leftKey) || !str(p.rightKey) || !strList(p.columns)) bad();
+      if (p.sourceRev != null && !Number.isInteger(p.sourceRev)) bad();
+      if (p.level != null && !LEVELS.includes(p.level)) bad();
+      break;
+    case 'reshape-long': {
+      if (!strList(p.idColumns) || !Array.isArray(p.stubs) || !p.stubs.length || !str(p.timeTarget) || !DERIVED_KEY.test(p.timeTarget)) bad();
+      if (!strList(p.times, 2)) bad();
+      for (const st of p.stubs) {
+        if (!st || !str(st.target) || !DERIVED_KEY.test(st.target) || !strList(st.columns, 2) || st.columns.length !== p.times.length) bad();
+      }
+      const targets = [p.timeTarget, ...p.stubs.map((st) => st.target)];
+      if (new Set(targets).size !== targets.length) bad();
+      break;
+    }
+    case 'reshape-wide':
+      if (!str(p.idColumn) || !str(p.timeColumn) || p.idColumn === p.timeColumn || !strList(p.valueColumns)) bad();
+      if (p.valueColumns.includes(p.idColumn) || p.valueColumns.includes(p.timeColumn)) bad();
+      break;
+    case 'aggregate': {
+      if (!str(p.by) || !Array.isArray(p.summaries) || !p.summaries.length) bad();
+      if (p.level != null && !LEVELS.includes(p.level)) bad();
+      for (const sm of p.summaries) {
+        if (!sm || !str(sm.column) || !SUMMARY_FNS.includes(sm.fn) || !str(sm.target) || !DERIVED_KEY.test(sm.target)) bad();
+        if (['proportion', 'any', 'all'].includes(sm.fn) && typeof sm.level !== 'string') bad();
+      }
+      const targets = p.summaries.map((sm) => sm.target);
+      if (new Set(targets).size !== targets.length) bad();
+      break;
+    }
     default:
       bad();
   }
@@ -136,7 +208,13 @@ export function nextDerivedKey(codebook, steps) {
   let max = 0;
   const see = (k) => { const m = DERIVED_KEY.exec(k || ''); if (m && Number(k.slice(1)) > max) max = Number(k.slice(1)); };
   for (const c of codebook?.columns || []) see(c.key);
-  for (const s of steps || []) see(s.params && s.params.target);
+  for (const s of steps || []) {
+    const p = s.params || {};
+    see(p.target);
+    see(p.timeTarget);
+    for (const st of Array.isArray(p.stubs) ? p.stubs : []) see(st && st.target);
+    for (const sm of Array.isArray(p.summaries) ? p.summaries : []) see(sm && sm.target);
+  }
   return `d${max + 1}`;
 }
 
@@ -181,19 +259,35 @@ function binIndex(cut, closed, x) {
  * @param {import('../runtime/types.js').RawTable} raw
  * @param {import('../runtime/types.js').Codebook} codebook
  * @param {import('../runtime/types.js').RecipeStep[]} steps
- * @returns {import('../runtime/types.js').WorkingTable & { codebook: import('../runtime/types.js').Codebook, excludedBy: Record<string, 'row-exclude'|'filter'>,
+ * @param {Record<string, { raw: import('../runtime/types.js').RawTable, codebook: import('../runtime/types.js').Codebook, steps: import('../runtime/types.js').RecipeStep[] }>|null} [sources]
+ *   the other datasets a merge step names, by dataset id (each is replayed with its own recipe first)
+ * @returns {import('../runtime/types.js').WorkingTable & { codebook: import('../runtime/types.js').Codebook, excludedBy: Record<string, 'row-exclude'|'filter'|'exclude-where'>,
  *   rejected: { stepId: string, key: string, params?: Object }[],
- *   invalid: Record<string, { count: number, examples: { rowId: string, value: string, key: string }[], byKey: Record<string, number>, values: { value: string, count: number, key: string }[] }> }}
+ *   invalid: Record<string, { count: number, examples: { rowId: string, value: string, key: string }[], byKey: Record<string, number>, values: { value: string, count: number, key: string }[] }>,
+ *   transforms: { stepId: string, kind: string, report: Object }[] }}
  *   fingerprint left '' (runtime fills it). codebook is the effective codebook after the steps
- *   (set types, references, levels merged by recodes, derived columns appended in creation order).
+ *   (set types, references, levels merged by recodes, derived columns appended in creation order;
+ *   after a structural step, the columns of the new table). `transforms` holds what each structural
+ *   step found (matched and unmatched keys, conflicts, groups) for the screens that show it.
  */
-export function applyRecipe(raw, codebook, steps) {
+export function applyRecipe(raw, codebook, steps, sources = null) {
+  return replay(raw, codebook, steps, sources, []);
+}
+
+const MAX_SOURCE_DEPTH = 4;
+
+function replay(raw, codebook, steps, sources, stack) {
   const ordered = (steps || []).slice().sort((a, b) => a.seq - b.seq || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
   const rowIds = raw.rowIds.slice();
   const rowIndex = new Map(rowIds.map((id, i) => [id, i]));
   const excluded = {};
   const excludedBy = {};
   const rejected = [];
+  const transforms = [];
+  const invalidAcc = new Map();
+  let unit = codebook?.unitOfAnalysis || 'animal';
+  let clusterKey = codebook?.clusterKey ?? null;
+  const storedAll = new Map((codebook?.columns || []).map((c) => [c.key, c]));
   const reject = (step, key, params) => rejected.push(params ? { stepId: step.id, key, params } : { stepId: step.id, key });
 
   /** @type {Map<string, any>} */
@@ -212,6 +306,15 @@ export function applyRecipe(raw, codebook, steps) {
   const storedDerived = new Map((codebook?.columns || []).filter((c) => DERIVED_KEY.test(c.key)).map((c) => [c.key, c]));
 
   const initText = (col) => {
+    if (col.base) {
+      col.text = col.base.text.slice();
+      col.forced = Uint8Array.from(col.base.miss);
+      col.carried = new Set();
+      col.base.miss.forEach((m, r) => { if (m === MISSING.invalid) col.carried.add(r); });
+      col.codes = new Map();
+      for (const m of col.entry.missingCodes || []) col.codes.set(m.code, reasonCode(m.reason));
+      return;
+    }
     const s = col.settings;
     const src = raw.columns[col.source] || [];
     const fixes = new Map((s.cellFixes || []).map((f) => [f.rowId, f]));
@@ -248,7 +351,7 @@ export function applyRecipe(raw, codebook, steps) {
   function read(key, r) {
     const col = cols.get(key);
     if (col.derived) return readDerived(col, r);
-    if (col.forced[r]) return { miss: col.forced[r], text: null, num: NaN };
+    if (col.forced[r]) return col.carried && col.carried.has(r) ? { miss: col.forced[r], text: null, num: NaN, carried: true } : { miss: col.forced[r], text: null, num: NaN };
     const t = col.text[r];
     if (col.codes.has(t)) return { miss: col.codes.get(t), text: t, num: NaN };
     if (t === '') return { miss: MISSING.blank, text: '', num: NaN };
@@ -288,6 +391,12 @@ export function applyRecipe(raw, codebook, steps) {
       if (src.miss) out = { miss: src.miss, text: null, num: NaN };
       else if (!Number.isFinite(src.num)) out = { miss: MISSING.invalid, text: src.text, num: NaN, key: 'intake.cell.invalid.number' };
       else out = { miss: 0, text: def.labels[binIndex(def.cutpoints, def.closed, src.num)], num: NaN };
+    } else if (def.kind === 'compute') {
+      const res = evalRow(def.ast, (k) => read(k, r));
+      if (res.m) out = res.key ? { miss: res.m, text: null, num: NaN, key: res.key } : { miss: res.m, text: null, num: NaN };
+      else if (def.type === 'date') { const d = Math.floor(res.v); out = { miss: 0, text: isoFromDays(d), num: d }; }
+      else if (def.type === 'boolean') out = { miss: 0, text: res.v !== 0 ? '1' : '0', num: NaN };
+      else out = { miss: 0, text: numText(res.v), num: res.v };
     } else {
       const b = read(def.birth, r);
       const e = read(def.event, r);
@@ -312,7 +421,7 @@ export function applyRecipe(raw, codebook, steps) {
     }
     if (out.miss === 0 && out.text != null) {
       if (CATEGORICAL.has(col.entry.type)) out.num = col.entry.levels.findIndex((l) => l.value === out.text);
-      else if (NUMERIC.has(col.entry.type) && def.kind !== 'derive-age') {
+      else if (NUMERIC.has(col.entry.type) && def.kind !== 'derive-age' && def.kind !== 'compute') {
         const x = parseNumber(out.text);
         out = Number.isFinite(x) ? { ...out, num: x } : { miss: MISSING.invalid, text: out.text, num: NaN, key: 'intake.cell.invalid.number' };
       }
@@ -498,6 +607,54 @@ export function applyRecipe(raw, codebook, steps) {
         }
         break;
       }
+      case 'exclude-where': {
+        const missingCol = p.conditions.find((c) => !cols.has(c.column));
+        if (missingCol) { reject(step, 'intake.step.rejected.unknownColumn', { column: missingCol.column }); continue; }
+        for (let r = 0; r < rowIds.length; r++) {
+          const id = rowIds[r];
+          if (id in excluded) continue;
+          const results = p.conditions.map((c) => testCondition(cols.get(c.column), read(c.column, r), c));
+          const hit = p.combine === 'and' ? results.every(Boolean) : results.some(Boolean);
+          if (hit) { excluded[id] = step.id; excludedBy[id] = 'exclude-where'; }
+        }
+        break;
+      }
+      case 'compute': {
+        if (cols.has(p.target)) { reject(step, 'intake.step.rejected.targetExists', { column: p.target }); continue; }
+        const refs = order.map((k) => { const e = cols.get(k).entry; return { key: k, name: e.name, type: e.type, positive: e.positive }; });
+        const parsed = parseExpression(p.expression, refs);
+        if (!parsed.ok) { reject(step, parsed.key, { ...(parsed.params || {}), at: parsed.at + 1 }); continue; }
+        const allowed = COMPUTE_TYPES[parsed.type];
+        const type = p.type == null ? allowed[0] : p.type;
+        if (!allowed.includes(type)) { reject(step, 'data.compute.typeMismatch', { type }); continue; }
+        const stored = storedAll.get(p.target);
+        const boolLevels = [{ value: '1', labelTh: '1', labelEn: '1' }, { value: '0', labelTh: '0', labelEn: '0' }];
+        const levels = type === 'binary' ? (stored && Array.isArray(stored.levels) && stored.levels.length === 2 ? clone(stored.levels) : boolLevels) : [];
+        const entry = {
+          key: p.target, name: p.name ?? stored?.name ?? p.target, labelTh: p.labelTh ?? stored?.labelTh ?? p.name ?? '', labelEn: p.labelEn ?? stored?.labelEn ?? '',
+          type, role: stored?.role ?? 'none', level: stored?.level ?? unit, unit: stored?.unit ?? null, levels,
+          reference: type === 'binary' ? '0' : null, positive: type === 'binary' ? '1' : null,
+          missingCodes: [], range: null, pii: null, hidden: false,
+          derivation: { kind: 'compute', expression: p.expression, refs: parsed.refs, step: step.id },
+        };
+        cols.set(p.target, { entry, derived: { kind: 'compute', ast: parsed.ast, type: parsed.type, post: [] } });
+        order.push(p.target);
+        break;
+      }
+      case 'merge':
+      case 'reshape-long':
+      case 'reshape-wide':
+      case 'aggregate': {
+        let res;
+        try {
+          res = structural(step, p);
+        } catch (e) {
+          reject(step, e.key || `data.step.invalid.${step.kind}`, e.params);
+          continue;
+        }
+        if (!res) continue;
+        break;
+      }
       case 'derive-age': {
         const b = need(p.birth);
         const e = need(p.event);
@@ -521,6 +678,128 @@ export function applyRecipe(raw, codebook, steps) {
     applied = Math.max(applied, step.seq);
   }
 
+  // ---- structural steps: write the state out, transform it, carry on over the new table
+
+  /** @returns {Object|null} the report, or null when the step was rejected */
+  function structural(step, p) {
+    let res;
+    let created;
+    if (step.kind === 'merge') {
+      const src = sources && Object.prototype.hasOwnProperty.call(sources, p.sourceDatasetId) ? sources[p.sourceDatasetId] : null;
+      if (!src || !src.raw) { reject(step, 'data.merge.sourceMissing'); return null; }
+      if (stack.includes(p.sourceDatasetId) || stack.length >= MAX_SOURCE_DEPTH) { reject(step, 'data.merge.sourceLoop'); return null; }
+      const other = replay(src.raw, src.codebook, src.steps || [], sources, [...stack, p.sourceDatasetId]);
+      res = mergeTables(snapshot(), tableToState(other), p);
+      res.report.sourceRev = other.recipeRev;
+      res.report.sourceChanged = p.sourceRev != null && p.sourceRev !== other.recipeRev;
+      if (!res.state) {
+        transforms.push({ stepId: step.id, kind: step.kind, report: res.report });
+        reject(step, 'data.merge.duplicateKeys', listParams(res.report.duplicateRightKeys));
+        return null;
+      }
+      created = Object.values(res.report.keys);
+    } else if (step.kind === 'reshape-long') {
+      res = { state: reshapeLong(snapshot(), p), report: null };
+      res.report = { rowsIn: rowIds.length, rowsOut: res.state.rowIds.length };
+      created = [p.timeTarget, ...p.stubs.map((st) => st.target)];
+    } else if (step.kind === 'reshape-wide') {
+      res = reshapeWide(snapshot(), p);
+      if (!res.state) {
+        transforms.push({ stepId: step.id, kind: step.kind, report: res.report });
+        reject(step, 'data.reshape.conflicts', listParams(res.report.conflicts.map((c) => `${c.id} (${c.time})`)));
+        return null;
+      }
+      created = Object.values(res.report.keys).flatMap((m) => Object.values(m));
+    } else {
+      const state = aggregateRows(snapshot(), p);
+      res = { state, report: state.report };
+      delete state.report;
+      created = p.summaries.map((sm) => sm.target);
+    }
+    transforms.push({ stepId: step.id, kind: step.kind, report: res.report });
+    install(res.state, new Set(created));
+    return res.report;
+  }
+
+  function listParams(list) {
+    return { count: list.length, list: list.slice(0, MAX_LIST).join(', ') };
+  }
+
+  function noteInvalid(key, rowId, x) {
+    if (!invalidAcc.has(key)) invalidAcc.set(key, { count: 0, examples: [], byKey: {}, values: new Map() });
+    const bad = invalidAcc.get(key);
+    const why = x.key || 'intake.cell.invalid.number';
+    const text = x.text ?? '';
+    bad.count += 1;
+    bad.byKey[why] = (bad.byKey[why] || 0) + 1;
+    if (bad.examples.length < EXAMPLES) bad.examples.push({ rowId, value: text, key: why });
+    const v = bad.values.get(text);
+    if (v) v.count += 1;
+    else if (bad.values.size < 200) bad.values.set(text, { value: text, count: 1, key: why });
+  }
+
+  /** levels: codebook order, then any value met that the codebook does not list, in Thai order */
+  function extendLevels(col, reads) {
+    if (!CATEGORICAL.has(col.entry.type)) return;
+    const known = new Set(levelValues(col));
+    const extra = new Set();
+    for (const x of reads) if (!x.miss && x.text != null && !known.has(x.text)) extra.add(x.text);
+    if (extra.size) col.entry.levels = col.entry.levels.concat([...extra].sort(compareThai).map((v) => ({ value: v, labelTh: v, labelEn: '' })));
+  }
+
+  /** The current state as text (transform.js TableState). */
+  function snapshot() {
+    const n = rowIds.length;
+    const st = { rowIds: rowIds.slice(), order: order.slice(), entries: {}, text: {}, miss: {}, excluded: { ...excluded }, excludedBy: { ...excludedBy }, unitOfAnalysis: unit, clusterKey };
+    for (const key of order) {
+      const col = cols.get(key);
+      const type = col.entry.type;
+      const reads = new Array(n);
+      for (let r = 0; r < n; r++) reads[r] = read(key, r);
+      extendLevels(col, reads);
+      const text = new Array(n);
+      const miss = new Uint8Array(n);
+      for (let r = 0; r < n; r++) {
+        const x = reads[r];
+        if (x.miss) {
+          text[r] = '';
+          miss[r] = x.miss;
+          if (x.miss === MISSING.invalid && !x.carried) noteInvalid(key, rowIds[r], x);
+          continue;
+        }
+        text[r] = NUMERIC.has(type) ? numText(x.num) : type === 'date' ? isoFromDays(x.num) : (x.text ?? '');
+      }
+      st.entries[key] = clone(col.entry);
+      st.text[key] = text;
+      st.miss[key] = miss;
+    }
+    return st;
+  }
+
+  /** Replace the working state with a new table; `created` keys take labels a student saved for them. */
+  function install(st, created) {
+    rowIds.length = 0;
+    for (const id of st.rowIds) rowIds.push(id);
+    rowIndex.clear();
+    rowIds.forEach((id, i) => rowIndex.set(id, i));
+    for (const k of Object.keys(excluded)) delete excluded[k];
+    for (const k of Object.keys(excludedBy)) delete excludedBy[k];
+    Object.assign(excluded, st.excluded);
+    Object.assign(excludedBy, st.excludedBy);
+    cols.clear();
+    order.length = 0;
+    for (const key of st.order) {
+      let entry = st.entries[key];
+      if (created.has(key) && storedAll.has(key)) entry = adoptStored(entry, storedAll.get(key));
+      const col = { entry, source: null, base: { text: st.text[key], miss: st.miss[key] }, settings: { ...DEFAULT_SETTINGS, dates: entry.type === 'date' ? { ...BASE_DATES } : null }, text: [], forced: null, codes: new Map(), derived: null, carried: null };
+      initText(col);
+      cols.set(key, col);
+      order.push(key);
+    }
+    unit = st.unitOfAnalysis;
+    clusterKey = st.clusterKey;
+  }
+
   // ---- final typing
   const n = rowIds.length;
   const columns = {};
@@ -531,13 +810,7 @@ export function applyRecipe(raw, codebook, steps) {
     const miss = new Uint8Array(n);
     const reads = new Array(n);
     for (let r = 0; r < n; r++) reads[r] = read(key, r);
-    // levels: codebook order, then any value met that the codebook does not list, in Thai order
-    if (CATEGORICAL.has(type)) {
-      const known = new Set(levelValues(col));
-      const extra = new Set();
-      for (const x of reads) if (!x.miss && x.text != null && !known.has(x.text)) extra.add(x.text);
-      if (extra.size) col.entry.levels = col.entry.levels.concat([...extra].sort(compareThai).map((v) => ({ value: v, labelTh: v, labelEn: '' })));
-    }
+    extendLevels(col, reads);
     let kind;
     let values;
     if (NUMERIC.has(type) || type === 'date') {
@@ -554,33 +827,26 @@ export function applyRecipe(raw, codebook, steps) {
       values = new Array(n);
       for (let r = 0; r < n; r++) values[r] = reads[r].miss ? null : reads[r].text;
     }
-    let bad = null;
     for (let r = 0; r < n; r++) {
       miss[r] = reads[r].miss;
-      if (reads[r].miss === MISSING.invalid) {
-        if (!bad) bad = { count: 0, examples: [], byKey: {}, values: new Map() };
-        const why = reads[r].key || 'intake.cell.invalid.number';
-        const text = reads[r].text ?? '';
-        bad.count += 1;
-        bad.byKey[why] = (bad.byKey[why] || 0) + 1;
-        if (bad.examples.length < EXAMPLES) bad.examples.push({ rowId: rowIds[r], value: text, key: why });
-        const v = bad.values.get(text);
-        if (v) v.count += 1;
-        else if (bad.values.size < 200) bad.values.set(text, { value: text, count: 1, key: why });
-      }
+      if (reads[r].miss === MISSING.invalid && !reads[r].carried) noteInvalid(key, rowIds[r], reads[r]);
     }
-    if (bad) invalid[key] = { count: bad.count, examples: bad.examples, byKey: bad.byKey, values: [...bad.values.values()] };
     const column = { key, kind, values, missing: miss };
     if (kind === 'category') column.levels = levelValues(col);
+    // The codebook's reference level travels with the column, so a model with several categorical
+    // terms uses each one's own (M2 models: treatment contrasts against the reference).
+    if (kind === 'category' && col.entry.reference != null && column.levels.includes(col.entry.reference)) column.reference = col.entry.reference;
     columns[key] = column;
   }
 
+  for (const [key, bad] of invalidAcc) invalid[key] = { count: bad.count, examples: bad.examples, byKey: bad.byKey, values: [...bad.values.values()] };
+
   const outCodebook = {
     columns: order.map((k) => cols.get(k).entry),
-    unitOfAnalysis: codebook?.unitOfAnalysis || 'animal',
-    clusterKey: codebook?.clusterKey ?? null,
+    unitOfAnalysis: unit,
+    clusterKey: clusterKey && cols.has(clusterKey) ? clusterKey : null,
   };
-  return { rowIds, columns, n, recipeRev: applied, excluded, excludedBy, rejected, invalid, fingerprint: '', codebook: outCodebook };
+  return { rowIds, columns, n, recipeRev: applied, excluded, excludedBy, rejected, invalid, transforms, fingerprint: '', codebook: outCodebook };
 
   function testCondition(col, cell, c) {
     if (c.op === 'missing') return cell.miss !== 0;
@@ -611,6 +877,48 @@ export function applyRecipe(raw, codebook, steps) {
       default: return false;
     }
   }
+}
+
+/** Labels, role and unit a student saved for a column a structural step makes; levels keep their values. */
+function adoptStored(entry, stored) {
+  const out = { ...entry };
+  for (const f of ['name', 'labelTh', 'labelEn', 'role', 'unit', 'hidden']) if (stored[f] !== undefined && stored[f] !== null && stored[f] !== '') out[f] = stored[f];
+  if (Array.isArray(entry.levels) && Array.isArray(stored.levels)) {
+    const byValue = new Map(stored.levels.map((l) => [l.value, l]));
+    out.levels = entry.levels.map((l) => ({ ...l, ...(byValue.has(l.value) ? { labelTh: byValue.get(l.value).labelTh || l.labelTh, labelEn: byValue.get(l.value).labelEn || l.labelEn } : {}) }));
+    const has = (v) => out.levels.some((l) => l.value === v);
+    if (stored.reference != null && has(stored.reference)) out.reference = stored.reference;
+    if (stored.positive != null && has(stored.positive)) out.positive = stored.positive;
+  }
+  return out;
+}
+
+/**
+ * A finished WorkingTable written out as a TableState (transform.js): numbers as their shortest text,
+ * dates as ISO 8601 CE, categories as their level value, missing cells as '' with their reason code.
+ * @param {ReturnType<typeof applyRecipe>} wt
+ */
+export function tableToState(wt) {
+  const entries = {};
+  const text = {};
+  const miss = {};
+  const order = wt.codebook.columns.map((c) => c.key).filter((k) => wt.columns[k]);
+  for (const key of order) {
+    const c = wt.columns[key];
+    entries[key] = clone(wt.codebook.columns.find((e) => e.key === key));
+    const t = new Array(wt.n);
+    for (let r = 0; r < wt.n; r++) {
+      if (c.missing[r]) { t[r] = ''; continue; }
+      const v = c.values[r];
+      t[r] = c.kind === 'number' ? numText(v) : c.kind === 'date' ? isoFromDays(v) : c.kind === 'category' ? (c.levels[v] ?? '') : (v ?? '');
+    }
+    text[key] = t;
+    miss[key] = Uint8Array.from(c.missing);
+  }
+  return {
+    rowIds: wt.rowIds.slice(), order, entries, text, miss, excluded: { ...wt.excluded }, excludedBy: { ...(wt.excludedBy || {}) },
+    unitOfAnalysis: wt.codebook.unitOfAnalysis, clusterKey: wt.codebook.clusterKey ?? null,
+  };
 }
 
 // ------------------------------------------------------------------ one line per step
@@ -648,6 +956,7 @@ export function describeStep(step, t, names = {}) {
     case 'row-add':
       return t('intake.step.describe.rowAdd', { rowId: p.rowId, count: Object.keys(p.values || {}).length });
     case 'row-exclude':
+      if (p.category) return t('data.step.describe.rowExcludeCategory', { rowId: p.rowId, category: t(`data.exclusion.category.${p.category}`), reason: step.reason || '' });
       return t('intake.step.describe.rowExclude', { rowId: p.rowId, reason: step.reason || '' });
     case 'recode': {
       const parts = (p.map || []).map((m) => t(m.to === null ? 'intake.step.describe.recodeToMissing' : 'intake.step.describe.recodePart', {
@@ -667,7 +976,64 @@ export function describeStep(step, t, names = {}) {
     }
     case 'derive-age':
       return t('intake.step.describe.deriveAge', { birth: name(p.birth), event: name(p.event), target: name(p.target), unit: t(`intake.unit.${p.unit}`) });
+    case 'exclude-where': {
+      const conds = (p.conditions || []).map((c) => t(`intake.step.op.${c.op}`, { column: name(c.column), value: Array.isArray(c.value) ? joinList(t, c.value.map((v) => quoted(v))) : quoted(c.value ?? '') }));
+      const joined = conds.join(t(p.combine === 'or' ? 'intake.step.combine.or' : 'intake.step.combine.and'));
+      return t('data.step.describe.excludeWhere', { conditions: joined, category: t(`data.exclusion.category.${p.category}`), reason: step.reason || '' });
+    }
+    case 'compute':
+      return t('data.step.describe.compute', { target: name(p.target), expression: p.expression });
+    case 'merge':
+      return t('data.step.describe.merge', { columns: joinList(t, (p.columns || []).map((c) => name(c))), key: name(p.leftKey), rightKey: name(p.rightKey), count: (p.columns || []).length });
+    case 'reshape-long':
+      return t('data.step.describe.reshapeLong', { stubs: joinList(t, (p.stubs || []).map((st) => name(st.target))), times: joinList(t, (p.times || []).map((v) => quoted(v))), count: (p.times || []).length });
+    case 'reshape-wide':
+      return t('data.step.describe.reshapeWide', { id: name(p.idColumn), time: name(p.timeColumn), columns: joinList(t, (p.valueColumns || []).map((c) => name(c))) });
+    case 'aggregate':
+      return t('data.step.describe.aggregate', { by: name(p.by), level: t(`data.level.${p.level || 'farm'}`), count: (p.summaries || []).length, summaries: joinList(t, (p.summaries || []).map((sm) => t(`data.aggregate.fn.${sm.fn}`, { column: name(sm.column), level: quoted(sm.level ?? '') }))) });
     default:
       return t('intake.step.describe.unknown');
   }
+}
+
+// ------------------------------------------------------------------ helpers for the data-tool panes
+
+/**
+ * Replay the recipe with one more step without saving it, so a pane can show what the step would do
+ * (matched and unmatched keys, conflicts, groups, rejected with its reason) before the student confirms
+ * [M2-DESIGN.md 4.1].
+ * @param {import('../runtime/types.js').RawTable} raw
+ * @param {import('../runtime/types.js').Codebook} codebook
+ * @param {import('../runtime/types.js').RecipeStep[]} steps
+ * @param {import('../runtime/types.js').RecipeStep} candidate   a step made with makeStep(steps, ...)
+ * @param {Parameters<typeof applyRecipe>[3]} [sources]
+ * @returns {{ table: ReturnType<typeof applyRecipe>, report: Object|null, rejected: { key: string, params?: Object }|null }}
+ */
+export function dryRunStep(raw, codebook, steps, candidate, sources = null) {
+  const table = applyRecipe(raw, codebook, [...(steps || []), candidate], sources);
+  const t = table.transforms.find((x) => x.stepId === candidate.id);
+  const r = table.rejected.find((x) => x.stepId === candidate.id);
+  return { table, report: t ? t.report : null, rejected: r ? (r.params ? { key: r.key, params: r.params } : { key: r.key }) : null };
+}
+
+/**
+ * Cells outside the range the codebook gives a number column (min and max), for the clean pane to show
+ * for review. Nothing is removed: there is no delete-by-outlier button (competitor-gaps D1); the student
+ * edits a cell or excludes a row with a written reason.
+ * @param {ReturnType<typeof applyRecipe>} table
+ * @returns {{ column: string, rowId: string, value: number, min: number|null, max: number|null }[]}
+ */
+export function outOfRange(table) {
+  const out = [];
+  for (const entry of table.codebook.columns) {
+    const col = table.columns[entry.key];
+    const range = entry.range;
+    if (!col || col.kind !== 'number' || !range || (range.min == null && range.max == null)) continue;
+    for (let r = 0; r < table.n; r++) {
+      if (col.missing[r]) continue;
+      const x = col.values[r];
+      if ((range.min != null && x < range.min) || (range.max != null && x > range.max)) out.push({ column: entry.key, rowId: table.rowIds[r], value: x, min: range.min, max: range.max });
+    }
+  }
+  return out;
 }

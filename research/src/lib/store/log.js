@@ -8,12 +8,15 @@ import { ownerKey, isOwner, StoreError } from './db.js';
  * @property {number} seq
  * @property {string} projectId
  * @property {string} at
- * @property {'import'|'recipe'|'analysis'|'freeze'|'download'|'project-import'|'claim'|'delete'} kind
+ * @property {'import'|'recipe'|'analysis'|'freeze'|'download'|'project-import'|'claim'|'delete'|'dataset-add'|'compare'|'randomise'|'sample'} kind
+ *   M2 [M2-DESIGN.md 4.7]: 'dataset-add' a second file (for a merge or a double-entry check), 'compare' a
+ *   double-entry comparison (counts only), 'randomise' and 'sample' a list drawn (seed and settings, never
+ *   the list); 'download' carries the export format in its detail
  * @property {Object} detail     ids, counts, step kinds, file names; never cell values
  * @property {'none'} egress
  */
 
-export const LOG_KINDS = Object.freeze(['import', 'recipe', 'analysis', 'freeze', 'download', 'project-import', 'claim', 'delete']);
+export const LOG_KINDS = Object.freeze(['import', 'recipe', 'analysis', 'freeze', 'download', 'project-import', 'claim', 'delete', 'dataset-add', 'compare', 'randomise', 'sample']);
 
 /** Detail fields that could carry a cell value; they never reach the log. */
 const CELL_FIELDS = new Set(['from', 'to', 'value', 'values', 'cell', 'cells', 'raw', 'data', 'map', 'conditions', 'examples']);

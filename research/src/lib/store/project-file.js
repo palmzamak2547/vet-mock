@@ -37,6 +37,7 @@ const datasetSchema = v.strictObject({
   columns: v.pipe(v.array(v.array(v.string())), v.maxLength(2000)),
   codebook: codebookSchema,
   steps: v.pipe(v.array(stepSchema), v.maxLength(10000)),
+  purpose: v.optional(v.picklist(['main', 'merge', 'double-entry'])),
 });
 const analysisSchema = v.strictObject({
   id: str(64),
@@ -54,11 +55,16 @@ export const PROJECT_FILE_SCHEMA = v.strictObject({
   version: v.literal(PROJECT_FILE_VERSION),
   exportedAt: str(40),
   engineVersion: str(80),
-  project: v.strictObject({ name: str(500), design: v.nullable(str(40)), createdAt: str(40) }),
+  project: v.strictObject({ name: str(500), design: v.nullable(str(40)), createdAt: str(40), example: v.optional(v.nullable(str(40))) }),
   datasets: v.pipe(v.array(datasetSchema), v.maxLength(50)),
   analyses: v.pipe(v.array(analysisSchema), v.maxLength(5000)),
   log: v.pipe(v.array(logSchema), v.maxLength(100000)),
 });
+
+/** A merge step names another dataset by id; the imported project gives every dataset a new id. */
+function remapSteps(steps, idMap) {
+  return (steps || []).map((s) => (s.kind === 'merge' && s.params && idMap.has(s.params.sourceDatasetId) ? { ...s, params: { ...s.params, sourceDatasetId: idMap.get(s.params.sourceDatasetId) } } : s));
+}
 
 /** `<project name>-<YYYY-MM-DD>.vmresearch.json`, with characters that break file names removed. */
 export function projectFileName(name, date = new Date()) {
@@ -97,7 +103,7 @@ export async function buildProjectFile(db, owner, projectId, now = new Date()) {
     if (!full) continue;
     datasets.push({
       id: m.id, source: m.source, header: full.raw.header, rowIds: full.raw.rowIds, rowCount: full.raw.rowCount,
-      columns: full.raw.columns, codebook: m.codebook, steps: m.steps || [],
+      columns: full.raw.columns, codebook: m.codebook, steps: m.steps || [], purpose: m.purpose || 'main',
     });
   }
   const analyses = (await listAnalyses(db, owner, projectId)).map((a) => ({
@@ -109,7 +115,7 @@ export async function buildProjectFile(db, owner, projectId, now = new Date()) {
     version: PROJECT_FILE_VERSION,
     exportedAt: now.toISOString(),
     engineVersion: ENGINE_VERSION,
-    project: { name: project.name, design: project.design ?? null, createdAt: project.createdAt },
+    project: { name: project.name, design: project.design ?? null, createdAt: project.createdAt, ...(project.example ? { example: project.example } : {}) },
     datasets,
     analyses,
     log,
@@ -193,7 +199,7 @@ export async function importProjectFile(db, owner, data, opts = {}) {
   const idMap = new Map(data.datasets.map((d) => [d.id, newId()]));
   const at = now.toISOString();
   const project = {
-    key: ownerKey(owner, projectId), owner, id: projectId, name: cleanName(data.project.name), design: data.project.design ?? null,
+    key: ownerKey(owner, projectId), owner, id: projectId, name: cleanName(data.project.name), design: data.project.design ?? null, example: data.project.example ?? null,
     datasetIds: [...idMap.values()], rev: 1, createdAt: at, updatedAt: at, lastExportAt: null, sizeBytes: bytes,
   };
   await db.tx(['projects', 'datasets', 'blocks', 'analyses', 'log'], 'readwrite', async (ops) => {
@@ -203,8 +209,8 @@ export async function importProjectFile(db, owner, data, opts = {}) {
       const blockCount = Math.max(1, Math.ceil(d.rowCount / BLOCK_ROWS));
       await ops.put('datasets', {
         key: ownerKey(owner, id), owner, project: projectId, id, projectId, source: d.source, header: d.header, rowIds: d.rowIds,
-        rowCount: d.rowCount, colCount: d.columns.length, blockCount, codebook: d.codebook, steps: d.steps, rev: 1, bytes: estimateRawBytes(d),
-        createdAt: at, updatedAt: at,
+        rowCount: d.rowCount, colCount: d.columns.length, blockCount, codebook: d.codebook, steps: remapSteps(d.steps, idMap), rev: 1, bytes: estimateRawBytes(d),
+        purpose: d.purpose || 'main', createdAt: at, updatedAt: at,
       });
       for (let c = 0; c < d.columns.length; c += 1) {
         for (let b = 0; b < blockCount; b += 1) {

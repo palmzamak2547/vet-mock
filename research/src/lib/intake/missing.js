@@ -6,8 +6,12 @@ import { thaiDigitsToArabic } from './thai.js';
 /** Codes offered as missing when seen in a column; the student confirms per column. */
 export const CANDIDATE_MISSING_CODES = Object.freeze(['', 'NA', 'N/A', 'n/a', '-', '.', '999', '9999', 'ไม่ทราบ', 'ไม่ระบุ', 'ไม่รู้', 'ไม่มีข้อมูล']);
 
-/** Reason codes stored in Column.missing (runtime/types.js): 0 present, 1 blank, 2 unknown, 3 not applicable, 4 not recorded, 5 invalid. */
-export const MISSING = Object.freeze({ present: 0, blank: 1, unknown: 2, 'not-applicable': 3, 'not-recorded': 4, invalid: 5 });
+/**
+ * Reason codes stored in Column.missing (runtime/types.js): 0 present, 1 blank, 2 unknown, 3 not
+ * applicable, 4 not recorded, 5 invalid, 6 unmatched (a column brought in by a merge, for a row whose
+ * key the other file does not have; M2-DESIGN.md 4.1).
+ */
+export const MISSING = Object.freeze({ present: 0, blank: 1, unknown: 2, 'not-applicable': 3, 'not-recorded': 4, invalid: 5, unmatched: 6 });
 export const MISSING_REASONS = Object.freeze(['unknown', 'not-applicable', 'not-recorded']);
 
 const NUMERIC_CODES = new Set(['999', '9999']);

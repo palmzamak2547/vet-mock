@@ -13,6 +13,7 @@ import { ownerKey, isOwner, newId, StoreError, STORE_NAMES, publicRecord } from 
  * @property {string} createdAt
  * @property {string} updatedAt
  * @property {string|null} lastExportAt   shown on the project card ("ดาวน์โหลดล่าสุด")
+ * @property {string|null} [example]       the example dataset's id when the project was opened from one (made-up data)
  * @property {number} sizeBytes           estimate of this project's stored bytes
  */
 
@@ -54,6 +55,8 @@ export async function createProject(db, owner, init, now = new Date()) {
     id,
     name: cleanName(init?.name),
     design: init?.design ?? null,
+    // Made-up data carries its label into every chart and export [M2-DESIGN.md 11.4].
+    example: init?.example ?? null,
     datasetIds: [],
     rev: 1,
     createdAt: at,

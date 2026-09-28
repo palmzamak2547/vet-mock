@@ -17,7 +17,11 @@ import { appendLogInTx } from './log.js';
  * @property {import('../runtime/types.js').Codebook} codebook
  * @property {import('../runtime/types.js').RecipeStep[]} steps
  * @property {number} rev
+ * @property {'main'|'merge'|'double-entry'} purpose   why the file is in the project (M2-DESIGN.md 4.1); 'main' when absent
  */
+
+/** Why a dataset is in a project: the file analysed, a second file to merge in, or a second typing to compare. */
+export const DATASET_PURPOSES = Object.freeze(['main', 'merge', 'double-entry']);
 
 function need(owner) {
   if (!isOwner(owner)) throw new StoreError('badOwner', 'runtime.store.failed', String(owner));
@@ -63,13 +67,16 @@ const blockKey = (owner, datasetId, col, block) => ownerKey(owner, `${datasetId}
  * @param {import('./db.js').ResearchDb} db
  * @param {string} owner
  * @param {string} projectId
- * @param {{ raw: import('../runtime/types.js').RawTable, codebook: import('../runtime/types.js').Codebook, steps: import('../runtime/types.js').RecipeStep[] }} data
- * @param {{ estimate?: () => Promise<{usage?: number, quota?: number}>, now?: Date, id?: string, log?: boolean }} [opts]
+ * @param {{ raw: import('../runtime/types.js').RawTable, codebook: import('../runtime/types.js').Codebook, steps: import('../runtime/types.js').RecipeStep[], purpose?: 'main'|'merge'|'double-entry' }} data
+ * @param {{ estimate?: () => Promise<{usage?: number, quota?: number}>, now?: Date, id?: string, log?: boolean, purpose?: 'main'|'merge'|'double-entry' }} [opts]
+ *   a second file (purpose 'merge' or 'double-entry') is logged as 'dataset-add', the first as 'import'
  * @returns {Promise<DatasetMeta>}
  */
-export async function putDataset(db, owner, projectId, { raw, codebook, steps }, opts = {}) {
+export async function putDataset(db, owner, projectId, { raw, codebook, steps, purpose: dataPurpose }, opts = {}) {
   need(owner);
   checkRaw(raw);
+  const purpose = opts.purpose ?? dataPurpose ?? 'main';
+  if (!DATASET_PURPOSES.includes(purpose)) throw new StoreError('invalid', 'runtime.store.badTable', `purpose ${purpose}`);
   const bytes = estimateRawBytes(raw);
   await checkSpace(bytes, opts.estimate);
   const now = opts.now || new Date();
@@ -91,6 +98,7 @@ export async function putDataset(db, owner, projectId, { raw, codebook, steps },
     codebook,
     steps: steps || [],
     rev: 1,
+    purpose,
     bytes,
     createdAt: now.toISOString(),
     updatedAt: now.toISOString(),
@@ -112,8 +120,8 @@ export async function putDataset(db, owner, projectId, { raw, codebook, steps },
     }
     if (opts.log !== false) {
       await appendLogInTx(ops, owner, projectId, {
-        kind: 'import',
-        detail: { datasetId: id, fileName: raw.source?.fileName || '', rows: raw.rowCount, columns: colCount, encoding: raw.source?.encoding || '', format: raw.source?.format || '', sha256: raw.source?.sha256 || '' },
+        kind: purpose === 'main' ? 'import' : 'dataset-add',
+        detail: { datasetId: id, fileName: raw.source?.fileName || '', rows: raw.rowCount, columns: colCount, encoding: raw.source?.encoding || '', format: raw.source?.format || '', sha256: raw.source?.sha256 || '', ...(purpose === 'main' ? {} : { purpose }) },
       }, now);
     }
   });
