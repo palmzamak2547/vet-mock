@@ -97,6 +97,40 @@ export function margins(ctx, o = {}) {
 }
 
 /**
+ * An axis title that fits the length of its axis: the full font when it fits, else a smaller font (down to
+ * 0.75 of it), else two or three lines at that font (review round 1: "...ใน 21 วั" cut at the panel edge of an 85 mm
+ * figure, a rotated y title running past the plot height).
+ * @returns {{ lines: string[], size: number }}
+ */
+export function fitTitle(title, room, fs) {
+  const w = textWidth(title, fs);
+  if (w <= room || room <= 0) return { lines: [String(title)], size: fs };
+  const min = fs * 0.75;
+  const size = Math.max(min, (fs * room) / w);
+  if (textWidth(title, size) <= room) return { lines: [String(title)], size: r2(size) };
+  const lines = wrapWords(title, room, min);
+  return { lines: lines.length > 3 ? [lines[0], lines[1], lines.slice(2).join(' ')] : lines, size: r2(min) };
+}
+
+/** Title nodes along an axis: one line centred, or two lines stacked around the same centre. */
+export function titleNodes(cx, cy, fit, attrs, rotate = false) {
+  const step = fit.size * 1.05;
+  return fit.lines.map((l, i) => {
+    const off = (i - (fit.lines.length - 1) / 2) * step;
+    const x = rotate ? cx + off : cx;
+    const y = rotate ? cy : cy + off;
+    return text(x, y, l, { ...attrs, 'font-size': fit.size, ...(rotate ? { transform: `rotate(-90 ${r2(x)} ${r2(y)})` } : {}) });
+  });
+}
+
+/** The x axis title centred under the plot, fitted to the room it has on both sides of that centre. */
+export function xTitleNodes(ctx, box, title) {
+  const cx = (box.left + box.right) / 2;
+  const room = 2 * Math.min(cx, ctx.width - cx) - ctx.fs * 0.5;
+  return titleNodes(cx, box.bottom + ctx.fs * 2.9, fitTitle(title, room, ctx.fs), { 'text-anchor': 'middle', fill: 'ink' });
+}
+
+/**
  * A numeric y axis on the left: line, ticks, labels, gridlines, title.
  * @returns {any[]} nodes
  */
@@ -114,7 +148,7 @@ export function yAxis(ctx, box, scale, ticks, labels, title, o = {}) {
   if (title) {
     const cx = ctx.fs * 0.9;
     const cy = (box.top + box.bottom) / 2;
-    nodes.push(text(cx, cy, title, { 'text-anchor': 'middle', 'font-size': ctx.fs, fill: 'ink', transform: `rotate(-90 ${r2(cx)} ${r2(cy)})` }));
+    nodes.push(...titleNodes(cx, cy, fitTitle(title, box.bottom - box.top, ctx.fs), { 'text-anchor': 'middle', fill: 'ink' }, true));
   }
   return nodes;
 }
@@ -134,7 +168,7 @@ export function xAxis(ctx, box, scale, ticks, labels, title, o = {}) {
     nodes.push(text(x, box.bottom + ctx.fs * 1.35, labels[i], { 'text-anchor': 'middle', 'font-size': ctx.fs, fill: 'soft' }));
   }
   nodes.push(line(box.left, box.bottom, box.right, box.bottom, { stroke: 'soft', 'stroke-width': r2(u) }));
-  if (title) nodes.push(text((box.left + box.right) / 2, box.bottom + ctx.fs * 2.9, title, { 'text-anchor': 'middle', 'font-size': ctx.fs, fill: 'ink' }));
+  if (title) nodes.push(...xTitleNodes(ctx, box, title));
   return nodes;
 }
 
@@ -147,7 +181,7 @@ export function categoryAxis(ctx, box, cats, title) {
   const nodes = [line(box.left, box.bottom, box.right, box.bottom, { stroke: 'soft', 'stroke-width': r2(u) })];
   const keep = thinLabels(cats.map((c) => ({ pos: c.pos, width: textWidth(c.label, ctx.fs) })), 6 * u);
   for (const i of keep) nodes.push(text(cats[i].pos, box.bottom + ctx.fs * 1.35, cats[i].label, { 'text-anchor': 'middle', 'font-size': ctx.fs, fill: 'ink' }));
-  if (title) nodes.push(text((box.left + box.right) / 2, box.bottom + ctx.fs * 2.9, title, { 'text-anchor': 'middle', 'font-size': ctx.fs, fill: 'ink' }));
+  if (title) nodes.push(...xTitleNodes(ctx, box, title));
   return nodes;
 }
 
@@ -172,20 +206,39 @@ export function groupLegend(labels) {
  * Legend nodes drawn in one or more rows above the plot, each a marker (or a line sample) and its label.
  * Returns the nodes and the height they take.
  */
+/** Words of a label on lines no wider than `room` (a word longer than the line keeps its own line). */
+export function wrapWords(label, room, fs) {
+  const out = [];
+  let cur = '';
+  for (const w of String(label).split(/\s+/).filter(Boolean)) {
+    const next = cur ? `${cur} ${w}` : w;
+    if (cur && textWidth(next, fs) > room) { out.push(cur); cur = w; } else cur = next;
+  }
+  if (cur) out.push(cur);
+  return out.length ? out : [String(label)];
+}
+
 export function legendNodes(ctx, legend, x0, y0, maxWidth, markerFor) {
   const nodes = [];
   const fs = ctx.fs;
   let x = x0;
   let y = y0 + fs * 0.9;
   for (const item of legend) {
-    const w = fs * 1.4 + textWidth(item.label, fs) + fs * 1.2;
-    if (x > x0 && x + w > x0 + maxWidth) {
+    // A label wider than the line is wrapped at its spaces onto lines of its own (review round 1: the ROC
+    // legend's "AUC 0.922 (95% CI ...)" ran past the right edge at 84 mm and on screen).
+    const room = maxWidth - fs * 1.4;
+    const lines = textWidth(item.label, fs) <= room ? [item.label] : wrapWords(item.label, room, fs);
+    const w = fs * 1.4 + Math.max(...lines.map((l) => textWidth(l, fs))) + fs * 1.2;
+    if (x > x0 && (lines.length > 1 || x + w > x0 + maxWidth)) {
       x = x0;
       y += fs * 1.5;
     }
     nodes.push(...markerFor(item, x + fs * 0.5, y - fs * 0.33));
-    nodes.push(text(x + fs * 1.3, y, item.label, { 'font-size': fs, fill: 'ink' }));
-    x += w;
+    lines.forEach((l, i) => nodes.push(text(x + fs * 1.3, y + i * fs * 1.25, l, { 'font-size': fs, fill: 'ink' })));
+    if (lines.length > 1) {
+      y += (lines.length - 1) * fs * 1.25;
+      x = x0 + maxWidth;
+    } else x += w;
   }
   return { nodes, height: legend.length ? y - y0 + fs * 0.7 : 0 };
 }

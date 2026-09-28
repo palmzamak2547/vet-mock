@@ -46,10 +46,12 @@ export default function Pane({ p }) {
       const params = { idColumns, stubs: stubs.map((s, i) => ({ target: keys[i + 1], columns: s.columns })), timeTarget: keys[0], times: tl };
       const first = cb.columns.find((c) => c.key === stubs[0].columns[0]);
       const entries = [
-        newEntry(keys[0], timeName.trim() || t('tools.reshape.timeDefault'), { type: 'ordinal', role: 'time', level: 'visit', levels: tl.map((v) => ({ value: v, labelTh: v, labelEn: v })) }),
+        // The typed name is the column's label in both languages: an empty English label would fall back to
+        // the first wide column's English label and misname the outcome in the English report (review round 1).
+        newEntry(keys[0], timeName.trim() || t('tools.reshape.timeDefault'), { labelEn: timeName.trim() || t('tools.reshape.timeDefault'), type: 'ordinal', role: 'time', level: 'visit', levels: tl.map((v) => ({ value: v, labelTh: v, labelEn: v })) }),
         ...stubs.map((s, i) => {
           const src = cb.columns.find((c) => c.key === s.columns[0]) || first;
-          return newEntry(keys[i + 1], s.name.trim(), { type: src?.type || 'continuous', unit: src?.unit ?? null, level: 'visit', role: src?.role === 'outcome' ? 'outcome' : 'none', levels: src?.levels || [] });
+          return newEntry(keys[i + 1], s.name.trim(), { labelEn: s.name.trim(), type: src?.type || 'continuous', unit: src?.unit ?? null, level: 'visit', role: src?.role === 'outcome' ? 'outcome' : 'none', levels: src?.levels || [] });
         }),
       ];
       return { kind: 'reshape-long', params, entries };
@@ -120,7 +122,7 @@ export default function Pane({ p }) {
               <Field label={t('tools.reshape.timeName')} htmlFor="rs-reshape-time">
                 <input id="rs-reshape-time" className="rs-input" value={timeName} maxLength={60} placeholder={t('tools.reshape.timeDefault')} onChange={(e) => setTimeName(e.target.value)} />
               </Field>
-              <Field label={t('tools.reshape.times')} hint={t('tools.reshape.timesHint', { n: width })} htmlFor="rs-reshape-times">
+              <Field label={t('tools.reshape.times')} hint={width ? t('tools.reshape.timesHint', { n: width }) : undefined} htmlFor="rs-reshape-times">
                 <input id="rs-reshape-times" className="rs-input" value={times} onChange={(e) => setTimes(e.target.value)} aria-invalid={!timesOk || undefined} />
               </Field>
               {!stubsOk && stubs.some((s) => s.columns.length) ? <p className="rs-small rs-rose-text" role="status">{t('tools.reshape.sameCount')}</p> : null}

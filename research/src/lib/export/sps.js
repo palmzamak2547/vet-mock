@@ -5,10 +5,12 @@
 // download; it never runs it. Every comment is its own command ending in a full stop, as SPSS reads
 // comments. OWNER: report role.
 import { getMethod } from '../runtime/catalog.js';
-import { columnIndex, envNumbers, rolesOf, scriptAnalyses, wrapComment } from './script-common.js';
+import { columnIndex, envNumbers, oneLine, rolesOf, scriptAnalyses, wrapComment } from './script-common.js';
 
 /** An SPSS string literal in single quotes. */
-export const sq = (s) => `'${String(s ?? '').replace(/'/g, "''")}'`;
+export const sq = (s) => `'${oneLine(s).replace(/'/g, "''")}'`;
+
+const NUMERIC_LIT = /^[-+]?(\d+(\.\d*)?|\.\d+)([eE][-+]?\d+)?$/;
 
 /** Comment lines, each a command of its own. */
 export const cmt = (text) => wrapComment(text, 80).map((l) => `* ${l.replace(/\.\s*$/, '')}.`);
@@ -39,7 +41,7 @@ function spssCode(spec, ix, t) {
   const one = (role) => rolesOf(spec, role)[0] || null;
   const V = (role) => v(one(role));
   const isNum = (role) => ix.col(one(role))?.type === 'number';
-  const lit = (role, value) => (isNum(role) ? String(value) : sq(value));
+  const lit = (role, value) => (isNum(role) && NUMERIC_LIT.test(String(value)) ? String(value) : sq(value));
   const cil = Math.round((o.confLevel ?? 0.95) * 100);
   const code = [];
   const notes = [];
@@ -353,5 +355,5 @@ export function buildSps(input) {
     if (r.none) out.push(...cmt(r.none));
     else out.push(...r.code);
   });
-  return `﻿${out.join('\r\n')}\r\n`;
+  return `﻿${out.map(oneLine).join('\r\n')}\r\n`;
 }

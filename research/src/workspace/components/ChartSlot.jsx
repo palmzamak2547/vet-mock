@@ -52,7 +52,7 @@ export default function ChartSlot({ chart, caption, madeUp = false, onDownloaded
   return (
     <section className="rs-chartslot" aria-label={title}>
       <Quiet fallback={<p className="rs-soft rs-small">{t('ws.chart.drawFailed')}</p>}>
-        <AutoChart kind={chart.kind} input={chart.input} title={title} madeUp={madeUp} fileBase={safeFileBase(`${caption}-${title}`)} onDownloaded={onDownloaded} fmt={CHART_FMT} />
+        <AutoChart kind={chart.kind} input={chart.input} title={title} madeUp={madeUp} fileBase={safeFileBase(madeUp ? `${caption}-${title}-${t('graphs.madeUp')}` : `${caption}-${title}`)} onDownloaded={onDownloaded} fmt={CHART_FMT} />
       </Quiet>
     </section>
   );

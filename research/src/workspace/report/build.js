@@ -6,6 +6,7 @@
 // Pure: `t` and `fmt` are passed in. OWNER: report role (M2; workspace role in M1).
 import { fmtKind, isStale, pText, primaryValueName, valueRows, valueLabel as valueWord } from '../lib/result-model.js';
 import { keyPart } from '../lib/keys.js';
+import { pairText, suffixText } from '../lib/term-words.js';
 
 /**
  * @typedef {{ formatNumber: Function, formatP: Function, formatCi: Function }} Fmt
@@ -109,7 +110,9 @@ const minus = (s) => String(s).replace(/(^|[\s(])-(?=\d)/g, '$1−');
 const cap = (lang, s) => (lang === 'en' && s ? s[0].toUpperCase() + s.slice(1) : s);
 
 /** English puts a label mid-sentence in lower case ("the prevalence ratio (PR)"), acronyms kept. */
-const lowerLabel = (lang, x) => (lang === 'en' && /^[A-Z][a-z]/.test(x) ? x[0].toLowerCase() + x.slice(1) : x);
+/** Names of people keep their capital mid-sentence (review round 1: "The cronbach's alpha"). */
+const PROPER = /^(Cronbach|Dunnett|Youden|Greenhouse|Huynh|Mauchly|Shapiro|Brown|Friedman|Kaplan|DeLong|Wald|Pearson|Games|Bland|Spearman|Fisher|Mantel|Kruskal|Wilcoxon|Mann|McNemar|Cochran|Tukey|Holm|Bonferroni|Hodges|Welch|Kendall|Poisson|Feldt|Šidák|Levene)/;
+const lowerLabel = (lang, x) => (lang === 'en' && /^[A-Z][a-z]/.test(x) && !PROPER.test(x) ? x[0].toLowerCase() + x.slice(1) : x);
 
 /** Values that compare an exposed with a reference group. */
 const COMPARISON = new Set(['PR', 'POR', 'OR', 'RR', 'RD', 'PD', 'IRR', 'IRD']);
@@ -278,6 +281,7 @@ export function methodsSentence(analysis, ctx) {
 }
 
 /** Tests that are effects of one model, written all together [M2-DESIGN.md 3.1.1, 3.1.2]. */
+const POSTHOC = new Set(['posthoc.dunnett', 'posthoc.gamesHowell', 'posthoc.dunn']);
 const EFFECT_TESTS = { 'anova.twoWay': ['A', 'B', 'AB'], 'anova.repeated': ['time', 'group', 'groupTime'] };
 /** Repeated-measures effects inside animals, whose p carries the sphericity correction. */
 const WITHIN = new Set(['time', 'groupTime']);
@@ -324,14 +328,19 @@ function correctionOf(test, spec, t) {
 }
 
 /** A test's name inside a sentence ("the chi-square test"), falling back to its table label. */
-function testName(test, t) {
+function testName(test, t, words = null) {
+  // One test per model term ('wald:c2=B'): the test's name with the term in the student's words, never
+  // the envelope id (review round 1: "No p-value is shown for wald:c2=B").
+  const id = String(test?.id || '');
+  const colon = id.indexOf(':');
+  if (colon > 0) return t('ws.test.ofTerm', { test: testName({ id: id.slice(0, colon) }, t), term: suffixText(words?.spec?.method || null, id.slice(colon + 1), words ? { t, ...words } : null) });
   const key = `report.test.${keyPart(test?.id || '')}`;
   if (has(t, key)) return t(key);
   const k2 = `ws.test.${keyPart(test?.id || '')}`;
   return has(t, k2) ? t(k2) : String(test?.id || '');
 }
 
-const STAT_SYMBOL = { X2: 'χ²', chisq: 'χ²' };
+const STAT_SYMBOL = { X2: 'χ²', chisq: 'χ²', 'chi-squared': 'χ²' };
 
 /** "χ² = 0.358, df = 1, p = 0.550": statistic, degrees of freedom and p, from the envelope. */
 function statsText(test, fmt) {
@@ -386,9 +395,29 @@ export function resultsSentence(analysis, ctx) {
   };
   const lv = spec.levels || {};
   const roles = spec.roles || {};
+  // A post hoc result reports its pairs, each with its difference, interval and adjusted p (review round 1:
+  // "The dunnett critical value (two-sided) was 2.28", "The groups was 3").
+  if (POSTHOC.has(spec.method)) {
+    const tb = (env.tables || []).find((x) => x.id === 'pairs');
+    if (!tb) return sentences([t('report.results.tableOnly')], lang);
+    const ix = (name) => tb.columns.indexOf(name);
+    const [pi, di, ri, li, ui, qi] = ['pair', 'diff', 'meanRankDiff', 'lower', 'upper', 'pAdjusted'].map(ix);
+    const w = ctx.words ? { t, ...ctx.words } : { t, spec };
+    const num = (x) => minus(fmt.formatNumber(x, { kind: 'statistic' }));
+    const lines = tb.rows.map((r) => {
+      const pair = pairText(r[pi], roles.group, { ...w, columnName: ctx.columnName, levelName });
+      const p = pText(fmt, r[qi]);
+      if (di >= 0 && li >= 0 && ui >= 0) return t('report.results.pairCi', { pair, diff: num(r[di]), level: levelText(spec), bounds: t('report.results.range', { lo: num(r[li]), hi: num(r[ui]) }), p });
+      return t('report.results.pairRank', { pair, diff: num(r[ri]), p });
+    });
+    return sentences(lines.map((x) => cap(lang, x)), lang);
+  }
   const strata = [].concat(roles.strata || []).filter(Boolean);
-  const rows = valueRows(env, primary);
-  const tests = (env.tests || []).filter((x) => !NOT_WRITTEN.has(x.id));
+  // A model's paragraph reports its ratios; the coefficients on the log scale and the intercept's test
+  // stay in the table (review round 1: the report wrote "the coefficient B (intercept)" and its z).
+  const model = spec.method === 'reg.logistic' || spec.method === 'reg.poisson';
+  const rows = valueRows(env, primary).filter((r) => !(model && r.name.startsWith('b:')));
+  const tests = (env.tests || []).filter((x) => !NOT_WRITTEN.has(x.id) && !(model && x.id === 'wald:(Intercept)'));
   const sentenceFor = (r) => {
     if (r.value === null || r.value === undefined) {
       return t('report.results.undefined', { label: cap(lang, label(r.name)), reason: inBrackets(r.reasonKey ? t(r.reasonKey) : t('ws.result.undefinedNoReason')) });
@@ -422,7 +451,7 @@ export function resultsSentence(analysis, ctx) {
   const effects = EFFECT_TESTS[spec.method];
   const written = tests.filter((x) => x.id !== 'homogeneity').filter((x) => !effects || effects.includes(x.id));
   for (const test of effects ? written : written.slice(0, 2)) {
-    const name = effects ? effectName(test, spec, col, t) : testName(test, t);
+    const name = effects ? effectName(test, spec, col, t) : testName(test, t, ctx.words || null);
     const correction = spec.method === 'anova.repeated' && WITHIN.has(test.id) ? correctionOf(test, spec, t) : '';
     if (test.p === null || test.p === undefined) out.push(cap(lang, t('report.results.pWithheld', { test: name })));
     else if (correction) out.push(cap(lang, t('report.results.testCorrected', { test: name, correction, stats: statsText(test, fmt) })));
@@ -456,10 +485,11 @@ export function resultParagraphs(env, ctx) {
   const levelName = levelNameFor(ctx.codebook, lang);
   const methodId = env?.method?.id || env?.spec?.method || '';
   // The same words the result view uses (an M2 method's area names its own values).
-  const valueLabel = (name) => valueWord(name, t, methodId);
+  const words = { spec: env?.spec || null, env, codebook: ctx.codebook || null, columnName, levelName };
+  const valueLabel = (name) => valueWord(name, t, methodId, words);
   return {
     methods: methodsSentence(analysis, { t, lang, nameKeyOf: ctx.nameKeyOf, columnName, levelName }),
-    results: resultsSentence(analysis, { t, fmt: ctx.fmt, lang, nameKeyOf: ctx.nameKeyOf, designRow: ctx.designRow, valueLabel, columnName, levelName }),
+    results: resultsSentence(analysis, { t, fmt: ctx.fmt, lang, nameKeyOf: ctx.nameKeyOf, designRow: ctx.designRow, valueLabel, columnName, levelName, words }),
   };
 }
 
@@ -473,7 +503,8 @@ export function buildDraft(data, ctx) {
   const { t } = ctx;
   const columnName = columnNameFor(data.codebook, ctx.lang);
   const levelName = levelNameFor(data.codebook, ctx.lang);
-  const valueLabelFor = (methodId) => (name) => valueWord(name, t, methodId || null);
+  const wordsFor = (a) => ({ spec: a.envelope?.spec || a.spec || null, env: a.envelope || null, codebook: data.codebook || null, columnName, levelName });
+  const valueLabelFor = (a) => (name) => valueWord(name, t, (a.envelope?.spec || a.spec)?.method || null, wordsFor(a));
   const fp = data.table?.fingerprint || null;
   const kept = (data.analyses || []).filter((a) => a.envelope);
   const stale = kept.filter((a) => isStale(a, fp)).map((a) => a.id);
@@ -512,7 +543,7 @@ export function buildDraft(data, ctx) {
   }
   const engine = kept[0]?.envelope?.provenance?.engineVersion;
   if (engine) methods.push(t('report.methods.software', { engine: publicVersion(engine) }));
-  const results = kept.map((a) => resultsSentence(a, { t, fmt: ctx.fmt, lang: ctx.lang, nameKeyOf: ctx.nameKeyOf, designRow: ctx.designRow, columnName, levelName, valueLabel: valueLabelFor((a.envelope?.spec || a.spec)?.method) })).filter(Boolean);
+  const results = kept.map((a) => resultsSentence(a, { t, fmt: ctx.fmt, lang: ctx.lang, nameKeyOf: ctx.nameKeyOf, designRow: ctx.designRow, columnName, levelName, valueLabel: valueLabelFor(a), words: wordsFor(a) })).filter(Boolean);
   return {
     methods: sentences(methods, ctx.lang),
     results: results.join(' '),

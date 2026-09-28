@@ -19,7 +19,12 @@ import { isoFromDays } from './dates.js';
 
 export const MAX_SAV_BYTES = 50 * 1024 * 1024;
 const MAX_INFLATED = 400 * 1024 * 1024;
-const MAX_CELLS = 30_000_000;
+/** Cells and rows a .sav may carry: bytecode compression lets a small file expand into a huge table, and a
+ * 29 MB file of one variable read as 29 million rows at 1.8 GB (review round 1). */
+export const SAV_MAX_CELLS = 5_000_000;
+export const SAV_MAX_ROWS = 1_000_000;
+/** Codes proposed for one user-missing range; the note says how many values fall inside it. */
+export const SAV_MAX_RANGE_CODES = 200;
 /** Days from 1582-10-14 (SPSS's day zero) to 1970-01-01. */
 export const SPSS_EPOCH_DAYS = 141428;
 /** Format type codes that hold a date as seconds since 1582-10-14 (DATE, ADATE, EDATE, SDATE, JDATE, DATETIME). */
@@ -287,7 +292,7 @@ export function readSavSync(bytes, opts = {}) {
   // per variable, so memory grows with the cells, not with the 8-byte elements.
   const nums = vars.map(() => []);
   const strs = vars.map(() => []);
-  const maxCases = Math.floor(MAX_CELLS / Math.max(1, vars.length));
+  const maxCases = Math.min(SAV_MAX_ROWS, Math.floor(SAV_MAX_CELLS / Math.max(1, vars.length)));
   const row = new Array(elements);
   let nRead = 0;
   let stringBytesTotal = 0;
@@ -295,7 +300,7 @@ export function readSavSync(bytes, opts = {}) {
     if (nCases >= 0 && nRead >= nCases) break;
     const first = stream.next();
     if (first === null) break;
-    if (nRead >= maxCases) throw new SavError('data.sav.tooBig', { max: 50 });
+    if (nRead >= maxCases) throw new SavError('data.sav.tooManyRows', { rows: SAV_MAX_ROWS.toLocaleString('en-US'), cells: SAV_MAX_CELLS.toLocaleString('en-US') });
     row[0] = first;
     for (let e = 1; e < elements; e++) {
       const el = stream.next();
@@ -441,18 +446,28 @@ export function readSavSync(bytes, opts = {}) {
   // labelled); for a range, every value in the data that falls inside it is proposed.
   variables.forEach((x, vi) => {
     const labelOf = new Map(x.valueLabels.map((l) => [l.value, l.label]));
-    const codes = x.userMissing.values.map((t) => labelOf.get(t) ?? t);
+    const codes = new Set(x.userMissing.values.map((t) => labelOf.get(t) ?? t));
     const range = x.userMissing.range;
     if (range && x.type === 'numeric') {
+      // A Set (a list with includes() was O(k^2): 100,000 distinct values took 10 s), and at most
+      // SAV_MAX_RANGE_CODES proposed codes; the rest are counted for the note (review round 1).
       const inRange = new Set();
       for (const num of nums[vi]) if (!Number.isNaN(num) && num !== ext.sysmis && num >= range[0] && num <= range[1]) inRange.add(num);
-      for (const num of [...inRange].sort((a, b) => a - b)) {
+      const sorted = [...inRange].sort((a, b) => a - b);
+      let left = 0;
+      for (const num of sorted) {
         const t = valueText(num, x);
         const c = labelOf.get(t) ?? t;
-        if (!codes.includes(c)) codes.push(c);
+        if (codes.has(c)) continue;
+        if (codes.size >= SAV_MAX_RANGE_CODES) { left += 1; continue; }
+        codes.add(c);
+      }
+      if (left) {
+        x.userMissing.inRange = sorted.length;
+        notes.push({ key: 'data.sav.note.rangeCodes', params: { column: x.name, count: sorted.length, shown: SAV_MAX_RANGE_CODES } });
       }
     }
-    x.userMissing.codes = codes;
+    x.userMissing.codes = [...codes];
     delete x._v;
   });
 

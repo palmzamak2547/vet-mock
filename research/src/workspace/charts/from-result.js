@@ -28,10 +28,10 @@ const colOf = (tb, ...names) => {
 };
 
 /** Numeric groups of `yKey` by the category `gKey` on complete rows. */
-function groupsFrom(table, yKey, gKey) {
+function groupsFrom(table, yKey, gKey, levelOf = (k, v) => v) {
   const { rows } = completeRows(table, [yKey, gKey]);
   const g = groupsAt(table, yKey, gKey, rows);
-  return g.labels.map((label, i) => ({ label, values: g.groups[i] }));
+  return g.labels.map((label, i) => ({ label: levelOf(gKey, label), values: g.groups[i] }));
 }
 
 function columnValues(table, key) {
@@ -51,7 +51,9 @@ function ratioValue(env) {
 /**
  * @param {{ id?: string, spec: any, envelope: any }} analysis
  * @param {import('../../lib/runtime/types.js').WorkingTable|null} table   the data now open
- * @param {{ labelOf?: (key: string) => string, stale?: boolean, t?: (k: string, p?: any) => string }} [o]
+ * @param {{ labelOf?: (key: string) => string, levelOf?: (key: string, value: string) => string, stale?: boolean, t?: (k: string, p?: any) => string }} [o]
+ *   levelOf: a level's codebook label in the page language (review round 1: charts printed raw codes, and
+ *   Thai level values in the English page)
  * @returns {{ id: string, kind: string, input: any, needsRows: boolean }[]}
  */
 export function chartOptions(analysis, table, o = {}) {
@@ -60,6 +62,9 @@ export function chartOptions(analysis, table, o = {}) {
   if (!env || env.status !== 'ok') return [];
   const method = env.method?.id || spec.method;
   const labelOf = o.labelOf || ((k) => k);
+  const levelOf = o.levelOf || ((k, v) => v);
+  // A value's name as the result view prints it ('oddsRatio:c2=B' -> "OR (Diet: B vs A)"), when the caller has one.
+  const nameOf = o.nameOf || ((nm) => nm);
   const rowsOk = Boolean(table) && !o.stale;
   const level = Object.values(env.values || {}).find((v) => v?.ciLevel)?.ciLevel ?? spec.options?.confLevel ?? 0.95;
   const out = [];
@@ -73,7 +78,7 @@ export function chartOptions(analysis, table, o = {}) {
   if (rowsOk) {
     if ((method === 'test.tTest' && variant !== 'paired' && variant !== 'one-sample') || method === 'test.anova1' || method === 'anova.twoWay') {
       safe(() => {
-        const groups = groupsFrom(table, yKey, gKey);
+        const groups = groupsFrom(table, yKey, gKey, levelOf);
         const base = { groups, yTitle: labelOf(yKey), xTitle: labelOf(gKey), level };
         add('dot', { ...base, center: 'mean' }, true);
         add('box', base, true);
@@ -87,7 +92,7 @@ export function chartOptions(analysis, table, o = {}) {
     }
     if (method === 'test.mannWhitney' || method === 'test.kruskalWallis') {
       safe(() => {
-        const base = { groups: groupsFrom(table, yKey, gKey), yTitle: labelOf(yKey), xTitle: labelOf(gKey), level };
+        const base = { groups: groupsFrom(table, yKey, gKey, levelOf), yTitle: labelOf(yKey), xTitle: labelOf(gKey), level };
         add('dot', { ...base, center: 'median' }, true);
         add('box', base, true);
         add('violin', base, true);
@@ -105,7 +110,7 @@ export function chartOptions(analysis, table, o = {}) {
       safe(() => {
         const x = role(spec, 'x') ?? role(spec, 'outcome');
         const g = role(spec, 'group');
-        const groups = g ? groupsFrom(table, x, g) : [{ label: labelOf(x), values: columnValues(table, x) }];
+        const groups = g ? groupsFrom(table, x, g, levelOf) : [{ label: labelOf(x), values: columnValues(table, x) }];
         const base = { groups, yTitle: labelOf(x), xTitle: g ? labelOf(g) : '', level };
         add('dot', { ...base, center: method === 'desc.summary' ? 'median' : 'mean' }, true);
         add('box', base, true);
@@ -132,15 +137,16 @@ export function chartOptions(analysis, table, o = {}) {
     const r = ratioValue(env);
     if (tb) {
       const [li, ei, lo, hi] = [colOf(tb, 'stratum'), colOf(tb, 'estimate'), colOf(tb, 'ciLow'), colOf(tb, 'ciHigh')];
-      const rows = tb.rows.map((row) => ({ label: String(row[li]), est: row[ei], lo: row[lo], hi: row[hi], kind: 'stratum', note: row[ei] === null ? (o.t ? o.t('graphs.forest.undefinedStratum') : '') : '' }));
-      if (r) rows.push({ label: o.t ? o.t('graphs.forest.pooled', { name: r.name }) : r.name, est: r.value, lo: r.ci[0], hi: r.ci[1], kind: 'pooled' });
-      add('forest', { rows, measure: r?.name, xTitle: r?.name || '', level }, false);
+      const sKey = [].concat(spec.roles?.strata || [])[0] || null;
+      const rows = tb.rows.map((row) => ({ label: sKey ? levelOf(sKey, String(row[li])) : String(row[li]), est: row[ei], lo: row[lo], hi: row[hi], kind: 'stratum', note: row[ei] === null ? (o.t ? o.t('graphs.forest.undefinedStratum') : '') : '' }));
+      if (r) rows.push({ label: o.t ? o.t('graphs.forest.pooled', { name: nameOf(r.name) }) : nameOf(r.name), est: r.value, lo: r.ci[0], hi: r.ci[1], kind: 'pooled' });
+      add('forest', { rows, measure: r?.name, xTitle: r ? nameOf(r.name) : '', level }, false);
     }
   }
   const r = ratioValue(env);
   if (r && (method === 'epi.mantelHaenszel' || method === 'epi.twoByTwo' || method === 'reg.logistic' || method === 'reg.poisson')) {
     const se = num(r.se) && r.ciMethod === 'wald-log' ? r.se : seFromLogCi(r.ci, r.ciLevel ?? level);
-    if (se) add('ciFunction', { est: r.value, se, label: r.name, xTitle: r.name, level: r.ciLevel ?? level }, false);
+    if (se) add('ciFunction', { est: r.value, se, label: nameOf(r.name), xTitle: nameOf(r.name), level: r.ciLevel ?? level }, false);
   }
   if (method === 'anova.repeated') {
     const tb = tableOf(env, 'means');
@@ -153,8 +159,9 @@ export function chartOptions(analysis, table, o = {}) {
         const g = gi >= 0 && row[gi] !== null ? String(row[gi]) : '';
         if (!groups.includes(g)) groups.push(g);
       }
-      const series = groups.map((g) => ({ label: g || labelOf(yKey), points: tb.rows.filter((row) => (gi >= 0 && row[gi] !== null ? String(row[gi]) : '') === g).map((row) => ({ time: times.indexOf(String(row[ti])), mean: row[mi], lo: row[li], hi: row[ui], n: ni >= 0 ? row[ni] : undefined })) }));
-      add('timeCourse', { times, series, yTitle: labelOf(yKey), xTitle: labelOf(role(spec, 'time')), level }, false);
+      const timeKey = role(spec, 'time');
+      const series = groups.map((g) => ({ label: g ? levelOf(gKey, g) : labelOf(yKey), points: tb.rows.filter((row) => (gi >= 0 && row[gi] !== null ? String(row[gi]) : '') === g).map((row) => ({ time: times.indexOf(String(row[ti])), mean: row[mi], lo: row[li], hi: row[ui], n: ni >= 0 ? row[ni] : undefined })) }));
+      add('timeCourse', { times: times.map((x) => levelOf(timeKey, x)), series, yTitle: labelOf(yKey), xTitle: labelOf(timeKey), level }, false);
     }
   }
   if (method === 'surv.kaplanMeier') {
@@ -168,7 +175,7 @@ export function chartOptions(analysis, table, o = {}) {
       const series = groups.map((g) => {
         const rows = tb.rows.filter((row) => (c.group >= 0 && row[c.group] !== null ? String(row[c.group]) : '') === g);
         const pick = (k) => rows.map((row) => (c[k] >= 0 ? row[c[k]] : null));
-        return { label: g || labelOf(role(spec, 'event')), time: pick('time'), nRisk: pick('nRisk'), nEvent: pick('nEvent'), nCensor: pick('nCensor').map((v) => v ?? 0), surv: pick('surv'), lower: pick('lower'), upper: pick('upper') };
+        return { label: g ? levelOf(role(spec, 'group'), g) : labelOf(role(spec, 'event')), time: pick('time'), nRisk: pick('nRisk'), nEvent: pick('nEvent'), nCensor: pick('nCensor').map((v) => v ?? 0), surv: pick('surv'), lower: pick('lower'), upper: pick('upper') };
       });
       add('kaplanMeier', { series, band: true, xTitle: labelOf(role(spec, 'time')), yTitle: o.t ? o.t('graphs.km.yTitle') : '', level }, false);
     }
@@ -199,7 +206,7 @@ export function chartOptions(analysis, table, o = {}) {
         // The bias is named by the scale: 'bias', 'biasPercent' or 'ratioGeoMean' (measure).
         bias: pick('bias', 'biasPercent', 'ratioGeoMean', 'meanDiff'), lower: pick('loaLower', 'lower'), upper: pick('loaUpper', 'upper'),
         scale: spec.options?.scale || 'absolute', multiplier: spec.options?.loaMultiplier ?? 1.96, level,
-        xTitle: o.t ? o.t('graphs.ba.xTitle') : '', yTitle: o.t ? o.t(`graphs.ba.yTitle.${spec.options?.scale || 'absolute'}`) : '',
+        xTitle: o.t ? o.t('graphs.ba.xTitle') : '', yTitle: o.t ? o.t(`graphs.ba.yTitle.${spec.options?.scale || 'absolute'}`, { a: labelOf(role(spec, 'raterA')), b: labelOf(role(spec, 'raterB')) }) : '',
       }, false);
     }
   }
@@ -210,7 +217,7 @@ export function chartOptions(analysis, table, o = {}) {
  * The epidemic curve of a date column of the data now open, optionally split by a category column.
  * @returns {{ series: { label: string, days: number[] }[], missing: number }}
  */
-export function epiCurveInput(table, dateKey, groupKey = null, labelOf = (k) => k) {
+export function epiCurveInput(table, dateKey, groupKey = null, labelOf = (k) => k, levelOf = (k, v) => v) {
   const d = table?.columns?.[dateKey];
   if (!d || d.kind !== 'date') return { series: [], missing: 0 };
   const g = groupKey ? table.columns[groupKey] : null;
@@ -231,5 +238,5 @@ export function epiCurveInput(table, dateKey, groupKey = null, labelOf = (k) => 
     byLevel.get(key).push(v);
   }
   const order = g && g.kind === 'category' ? g.levels.filter((l) => byLevel.has(l)) : [...byLevel.keys()];
-  return { series: order.map((label) => ({ label, days: byLevel.get(label) })), missing };
+  return { series: order.map((label) => ({ label: g ? levelOf(groupKey, label) : label, days: byLevel.get(label) })), missing };
 }

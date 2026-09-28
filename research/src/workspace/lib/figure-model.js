@@ -16,7 +16,7 @@ export const MAX_COLUMNS = 3;
  * animal is offered only when the result was computed on the data now open.
  * @param {{ id: string, createdAt?: string, spec?: any, envelope?: any, dataFingerprint?: string }[]} analyses
  * @param {any} table   the working table now open, or null
- * @param {{ labelOf?: (key: string) => string, fingerprint?: string|null, t?: any }} [ctx]
+ * @param {{ labelOf?: (key: string) => string, levelOf?: (key: string, value: string) => string, fingerprint?: string|null, t?: any }} [ctx]
  * @returns {{ key: string, analysisId: string, chartId: string, kind: string, titleKey: string, input: any, methodId: string, createdAt: string|null, stale: boolean }[]}
  */
 export function figureCandidates(analyses, table, ctx = {}) {
@@ -24,7 +24,7 @@ export function figureCandidates(analyses, table, ctx = {}) {
   const out = [];
   for (const a of sorted) {
     const stale = isStale(a, ctx.fingerprint ?? null);
-    for (const ch of chartsForResult(a, table, { labelOf: ctx.labelOf, stale, t: ctx.t })) {
+    for (const ch of chartsForResult(a, table, { labelOf: ctx.labelOf, levelOf: ctx.levelOf, stale, t: ctx.t })) {
       out.push({
         key: `${a.id}|${ch.id}`, analysisId: a.id, chartId: ch.id, kind: ch.kind, titleKey: ch.titleKey, input: ch.input,
         methodId: a?.envelope?.method?.id || a?.spec?.method || '', createdAt: a.createdAt || null, stale,

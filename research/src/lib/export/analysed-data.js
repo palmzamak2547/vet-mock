@@ -16,6 +16,13 @@ const CATEGORICAL = new Set(['binary', 'nominal', 'ordinal']);
  *   levels: string[], levelLabels: Record<string, string>, reference: string|null, positive: string|null, width: number }} ScriptColumn
  */
 
+/** A name valid in SPSS and R made from any text: other characters become _, a letter goes first. */
+export function safeIdent(key) {
+  let s = String(key ?? '').replace(/[^A-Za-z0-9_]/g, '_').slice(0, 30);
+  if (!/^[A-Za-z]/.test(s)) s = `v${s}`;
+  return RESERVED.has(s.toLowerCase()) ? `${s}_` : s;
+}
+
 /** Bytes a value takes in UTF-8 (SPSS string widths count bytes). */
 const utf8Bytes = (s) => new TextEncoder().encode(String(s)).length;
 
@@ -36,8 +43,9 @@ export function scriptColumns(codebook, table = null, lang = 'th') {
     const col = table?.columns?.[c.key];
     if (table && !col) continue;
     let name = String(c.name || '').trim();
-    if (!SAFE.test(name) || RESERVED.has(name.toLowerCase()) || used.has(name.toLowerCase())) name = c.key;
-    for (let i = 2; used.has(name.toLowerCase()); i += 1) name = `${c.key}_${i}`;
+    const key = safeIdent(c.key);
+    if (!SAFE.test(name) || RESERVED.has(name.toLowerCase()) || used.has(name.toLowerCase())) name = key;
+    for (let i = 2; used.has(name.toLowerCase()); i += 1) name = `${key}_${i}`;
     used.add(name.toLowerCase());
     const levels = (c.levels || []).map((l) => l?.value).filter((v) => typeof v === 'string');
     const levelLabels = Object.fromEntries((c.levels || []).filter((l) => l && typeof l.value === 'string').map((l) => [l.value, (lang === 'en' ? l.labelEn : l.labelTh) || '']));

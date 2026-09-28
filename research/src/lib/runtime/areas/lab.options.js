@@ -57,7 +57,7 @@ export default {
     'test.anova1': { posthoc: pick(['tukey', 'pairwise-t-holm', 'pairwise-t-bonferroni', 'pairwise-t-sidak', 'pairwise-t-bh', 'none']) },
   },
   // Methods that treat every row as an independent animal (G1 stops them on repeated farm ids).
-  g1Subject: ['anova.twoWay', 'anova.repeated', 'test.friedman', 'posthoc.dunn', 'posthoc.gamesHowell', 'posthoc.dunnett'],
+  g1Subject: ['anova.twoWay', 'anova.repeated', 'test.friedman', 'posthoc.dunn', 'posthoc.gamesHowell', 'posthoc.dunnett', 'diag.shapiro', 'diag.brownForsythe'],
   // No data file and no design needed.
   designFree: ['power.anova', 'power.tTest', 'power.correlation', 'power.regression'],
   // Which designs offer each method (appended to lib/epi/design.js rows).

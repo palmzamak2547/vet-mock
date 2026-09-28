@@ -165,3 +165,11 @@ test('runDunnett: control level from the spec, two-sided only, the error bound p
   assert.ok(first.notes.some((n) => n.key === 'lab.note.controlFirst'));
   assert.equal(typeof dunnettQuantile, 'function');
 });
+
+test('Dunnett at a huge residual df uses the df = Infinity form instead of throwing (review round 1)', async () => {
+  const { dunnettQuantile } = await import('../../src/lib/stats/mvt.js');
+  const inf = dunnettQuantile(0.95, [0.9, 0.9, 0.9], Infinity);
+  const big = dunnettQuantile(0.95, [0.9, 0.9, 0.9], 1e9);
+  assert.equal(big, inf);
+  assert.ok(Math.abs(dunnettQuantile(0.95, [0.9, 0.9, 0.9], 3e6) - inf) < 1e-5);
+});

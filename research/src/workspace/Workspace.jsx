@@ -31,10 +31,13 @@ import Link from './components/Link.jsx';
 import { Busy, ErrorBox, Notice } from './components/Bits.jsx';
 import Icon from './components/Icon.jsx';
 import Projects from './screens/Projects.jsx';
-import Project from './screens/Project.jsx';
-import SampleSize from './screens/SampleSize.jsx';
-import PowerTool from './screens/tools/PowerTool.jsx';
-import RandomiseTool from './screens/tools/RandomiseTool.jsx';
+// The project screen (every analysis pane, the tools, the figures and the report) and the planning tools
+// load on first use, so the project list the workspace opens on is a smaller first chunk (review round 1:
+// the first workspace chunk had grown from 706 kB to 1.56 MB).
+const Project = lazy(() => import('./screens/Project.jsx'));
+const SampleSize = lazy(() => import('./screens/SampleSize.jsx'));
+const PowerTool = lazy(() => import('./screens/tools/PowerTool.jsx'));
+const RandomiseTool = lazy(() => import('./screens/tools/RandomiseTool.jsx'));
 import Licenses from './screens/Licenses.jsx';
 
 registerArea('workspace', workspace);
@@ -274,7 +277,7 @@ function Root({ route, owner, user, authError }) {
 
   return (
     <WsContext.Provider value={value}>
-      <Boundary key={route.projectId || route.name}>{body}</Boundary>
+      <Boundary key={route.projectId || route.name}><Suspense fallback={<div className="rs-boot"><Busy label={t('common.loading')} /></div>}>{body}</Suspense></Boundary>
       {/* A plain veil from the first frame, so the bare workspace never flashes while the entrance
           chunk or the database is still loading (review round 1). */}
       {film !== 'done' ? (

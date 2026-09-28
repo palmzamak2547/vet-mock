@@ -91,8 +91,8 @@ export function formatNumber(x, opts = {}) {
   const kind = opts.kind || 'statistic';
   const ax = Math.abs(x);
   const pct = kind === 'proportion' ? 100 : 1;
-  const below = (opts.below || []).map((t) => t * pct);
-  const above = (opts.above || []).map((t) => t * pct);
+  const below = [].concat(opts.below ?? []).map((t) => t * pct);
+  const above = [].concat(opts.above ?? []).map((t) => t * pct);
   const fixed = (v, d) => {
     const s = fixedKeepingSide(v, d, below, above);
     return /^[<>]/.test(s) ? s : group(s);

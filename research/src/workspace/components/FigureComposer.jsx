@@ -19,6 +19,7 @@ import { Field, Notice } from './Bits.jsx';
 import { tryBuildChart } from './ChartSlot.jsx';
 import Icon from './Icon.jsx';
 import Link from './Link.jsx';
+import { levelNameFor } from '../report/build.js';
 
 /** @param {{ p: any }} props */
 export default function FigureComposer({ p }) {
@@ -30,7 +31,7 @@ export default function FigureComposer({ p }) {
     return c ? (lang === 'en' ? c.labelEn || c.name : c.labelTh || c.name) : key;
   };
   const candidates = useMemo(
-    () => figureCandidates(p.analyses || [], p.table || null, { labelOf, fingerprint: p.table?.fingerprint ?? null, t }),
+    () => figureCandidates(p.analyses || [], p.table || null, { labelOf, levelOf: levelNameFor(codebook, lang), fingerprint: p.table?.fingerprint ?? null, t }),
     // labelOf follows the codebook and the language
     [p.analyses, p.table, codebook, lang, t],
   );
@@ -57,7 +58,7 @@ export default function FigureComposer({ p }) {
     const models = chosen.map((c) => tryBuildChart(c, { lang, t, widthMm: panelWidthMm(layout), title: t(c.titleKey) }));
     if (models.some((m) => !m)) return { failed: true };
     try {
-      return composeFigure(models, { ...layout, theme: 'print' });
+      return composeFigure(models, { ...layout, theme: 'print', madeUpNote: p.project?.example ? t('graphs.madeUp') : '' });
     } catch {
       return { failed: true };
     }
@@ -70,7 +71,7 @@ export default function FigureComposer({ p }) {
     return () => URL.revokeObjectURL(url);
   }, [figure?.svg]);
 
-  const fileBase = safeFileBase(`${p.project?.name || 'figure'}-${t('ws.figure.fileWord')}`);
+  const fileBase = safeFileBase(`${p.project?.name || 'figure'}-${t('ws.figure.fileWord')}${p.project?.example ? `-${t('graphs.madeUp')}` : ''}`);
   const save = async (format) => {
     setBusy(true);
     try {

@@ -33,7 +33,8 @@ export function panelWidthMm(widthMm, columns) {
 
 /**
  * @param {ReturnType<import('./model.js').buildChart>[]} panels
- * @param {{ columns: number, widthMm: number, labels: boolean, theme?: 'print'|'light'|'dark' }} opts
+ * @param {{ columns: number, widthMm: number, labels: boolean, theme?: 'print'|'light'|'dark', madeUpNote?: string }} opts
+ *   madeUpNote: the words "made-up data" for a figure of made-up data, written under the panels
  * @returns {{ svg: string, widthMm: number, heightMm: number, cells: { x: number, y: number, w: number, h: number, scale: number, label: string }[], scaled: number[], fontPt: [number, number] }}
  */
 export function composeFigure(panels, opts) {
@@ -64,7 +65,8 @@ export function composeFigure(panels, opts) {
     });
     y += band + rowH + (r < rows - 1 ? gap : 0);
   }
-  const H = y;
+  const note = opts.madeUpNote ? String(opts.madeUpNote) : '';
+  const H = y + (note ? LABEL_BAND_PT * 1.4 : 0);
   const paper = resolveColor('paper', theme);
   const ink = resolveColor('ink', theme);
   const parts = [];
@@ -75,6 +77,8 @@ export function composeFigure(panels, opts) {
     parts.push(treeToString(tree));
     if (opts.labels) parts.push(`<text x="${round(c.x)}" y="${round(c.y - 3)}" font-size="${LABEL_PT}" font-weight="700" fill="${ink}">${c.label}</text>`);
   });
+  const esc0 = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  if (note) parts.push(`<text x="0" y="${round(H - 4)}" font-size="7" fill="${resolveColor('soft', theme)}">${esc0(note)}</text>`);
   const Hmm = Math.round((H / PT_PER_MM) * 100) / 100;
   const label = panels.map((m, k) => `${String.fromCharCode(65 + k)}: ${m.summary}`).join(' ');
   const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');

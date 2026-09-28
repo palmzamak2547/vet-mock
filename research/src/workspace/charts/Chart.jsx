@@ -7,7 +7,7 @@
 import { createElement, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useT } from '../../i18n/index.js';
 import { buildChart } from './model.js';
-import { renderTree } from './render.js';
+import { renderTree, withMadeUpNote } from './render.js';
 import ChartExport from '../components/ChartExport.jsx';
 import '../../styles/charts.css';
 
@@ -91,7 +91,11 @@ export function AutoChart({ kind, input, title, madeUp, fileBase, onDownloaded, 
       return { error: err?.key || 'graphs.error.noData' };
     }
   }, [kind, input, width, lang, t, fmt, title]);
-  const exportModel = useMemo(() => (widthMm) => buildChart(kind, input, { widthMm, lang, t, fmt, title }), [kind, input, lang, t, fmt, title]);
+  // Every file made from a chart of made-up data says so in its margin (withMadeUpNote).
+  const exportModel = useMemo(() => (widthMm) => {
+    const m = buildChart(kind, input, { widthMm, lang, t, fmt, title });
+    return madeUp ? withMadeUpNote(m, t('graphs.madeUp')) : m;
+  }, [kind, input, lang, t, fmt, title, madeUp]);
   if (result.error) return <p className="rs-soft" ref={boxRef}>{t(result.error)}</p>;
   return <Chart model={result.model} title={title} madeUp={madeUp} fileBase={fileBase} onDownloaded={onDownloaded} exportModel={exportModel} plotRef={boxRef} />;
 }

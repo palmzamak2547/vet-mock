@@ -41,9 +41,14 @@ function legendMarker(ctx) {
 /** Frame with numeric x and y axes and an optional legend block above the plot. */
 function xyFrame(ctx, o) {
   const height = o.height ?? heightFor(ctx, o.ratio);
-  const legendH = o.legend?.length && o.drawLegend ? legendNodes(ctx, o.legend, 0, 0, ctx.width - ctx.fs * 6, legendMarker(ctx)).height + ctx.fs * 0.4 : 0;
+  // The legend is measured and drawn over the same width, from the figure's left edge, so what is measured
+  // is what is drawn and nothing runs past the right edge.
+  const legendW = ctx.width - ctx.fs;
+  const legendH = o.legend?.length && o.drawLegend ? legendNodes(ctx, o.legend, 0, 0, legendW, legendMarker(ctx)).height + ctx.fs * 0.4 : 0;
   const yTicks = ticksFor(ctx, o.yDomain, height - ctx.fs * 4 - legendH, { vertical: true, log: o.yLog });
-  const yLabs = tickLabels(yTicks, { log: o.yLog, percent: o.yPercent });
+  // A chart whose axes both start at 0 (ROC) prints that 0 once, under the x axis (review round 1: the two
+  // "0.0" labels overlapped at the corner).
+  const yLabs = tickLabels(yTicks, { log: o.yLog, percent: o.yPercent }).map((l, i) => (o.sharedOrigin && yTicks[i] === 0 ? '' : l));
   const m = margins(ctx, { yLabels: yLabs, yTitle: o.yTitle, xTitle: o.xTitle, top: ctx.fs * 0.8 + legendH, bottomExtra: o.bottomExtra || 0, minLeft: o.minLeft });
   const box = { left: m.left, right: ctx.width - m.right, top: m.top, bottom: height - m.bottom };
   const x = (o.xLog ? logScale : linearScale)(o.xDomain, [box.left, box.right]);
@@ -59,7 +64,7 @@ function xyFrame(ctx, o) {
     xLabs = tickLabels(xTicks, { log: o.xLog, percent: o.xPercent });
   }
   const nodes = [...yAxis(ctx, box, y, yTicks, yLabs, o.yTitle), ...xAxis(ctx, box, x, xTicks, xLabs, o.xTitle)];
-  if (legendH) nodes.push(...legendNodes(ctx, o.legend, box.left, ctx.fs * 0.2, box.right - box.left, legendMarker(ctx)).nodes);
+  if (legendH) nodes.push(...legendNodes(ctx, o.legend, ctx.fs * 0.5, ctx.fs * 0.2, legendW, legendMarker(ctx)).nodes);
   return { height, box, x, y, nodes, xTicks, xLabs, yTicks, yLabs };
 }
 
@@ -269,7 +274,7 @@ export function rocChart(input, opts) {
     shape: seriesShape(i),
     line: true,
   }));
-  const f = xyFrame(ctx, { xDomain: [0, 1], yDomain: [0, 1], xTitle: t('graphs.roc.xTitle'), yTitle: t('graphs.roc.yTitle'), legend, drawLegend: true, height: ctx.heightHint });
+  const f = xyFrame(ctx, { xDomain: [0, 1], yDomain: [0, 1], xTitle: t('graphs.roc.xTitle'), yTitle: t('graphs.roc.yTitle'), legend, drawLegend: true, height: ctx.heightHint, sharedOrigin: true });
   const u = ctx.u;
   const nodes = [...f.nodes, line(f.x(0), f.y(0), f.x(1), f.y(1), { stroke: 'soft', 'stroke-width': r2(u), 'stroke-dasharray': `${r2(4 * u)} ${r2(3 * u)}` })];
   curves.forEach((c, ci) => {
@@ -280,7 +285,13 @@ export function rocChart(input, opts) {
   const rows = [];
   for (const c of curves) {
     rows.push([c.label, t('graphs.roc.aucRow'), fmtN(ctx, c.auc), fmtCi(ctx, c.auc, c.aucLo, c.aucHi)]);
-    for (const yd of c.youden || []) rows.push([c.label, t('graphs.roc.youdenRow', { threshold: fmtN(ctx, yd.threshold) }), `${t('term.sensitivity')} ${fmtN(ctx, yd.se, 'proportion')}`, `${t('term.specificity')} ${fmtN(ctx, yd.sp, 'proportion')}`]);
+    // Each Youden point gives two rows, so every number sits under the column that names it (review round 1:
+    // the specificity was printed under the CI heading). A point on the data has no interval.
+    for (const yd of c.youden || []) {
+      const th = fmtN(ctx, yd.threshold);
+      rows.push([c.label, t('graphs.roc.youdenSe', { threshold: th }), fmtN(ctx, yd.se, 'proportion'), null]);
+      rows.push([c.label, t('graphs.roc.youdenSp', { threshold: th }), fmtN(ctx, yd.sp, 'proportion'), null]);
+    }
   }
   return finish(ctx, {
     kind: 'roc',

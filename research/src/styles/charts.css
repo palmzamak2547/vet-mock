@@ -18,6 +18,10 @@
   margin: 0;
   display: grid;
   gap: 0.75rem;
+  /* The data table goes beside the chart only when the chart's own column is wide enough (review round 1:
+     a 524 px result column put a 287 px chart beside a 191 px scroll box). A browser without container
+     queries keeps the table under the chart. */
+  container-type: inline-size;
 }
 
 .rs-chart-row {
@@ -27,7 +31,7 @@
   align-items: start;
 }
 
-@media (min-width: 64rem) {
+@container (min-width: 44rem) {
   .rs-chart-row--side {
     grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
   }

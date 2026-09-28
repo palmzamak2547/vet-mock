@@ -28,7 +28,7 @@ export default {
     'data.step.describe.rowExcludeCategory': 'ตัดแถว {rowId} ออกจากการศึกษา ({category}) เหตุผล: {reason}',
 
     // why a row leaves the study (STROBE-Vet item 13, ARRIVE item 3)
-    'data.exclusion.category.ineligible': 'ไม่เข้าเกณฑ์การคัดเลือก',
+    'data.exclusion.category.ineligible': 'ไม่เข้าเกณฑ์คัดเข้า',
     'data.exclusion.category.lost': 'ติดตามไม่ได้',
     'data.exclusion.category.protocol-deviation': 'ไม่ได้ทำตามแผนการศึกษา',
     'data.exclusion.category.measurement-error': 'วัดหรือบันทึกผิดพลาด',
@@ -91,7 +91,7 @@ export default {
     'data.expr.unknownName': 'ไม่รู้จัก "{name}" ที่ตำแหน่ง {at} ชื่อคอลัมน์ต้องอยู่ในวงเล็บปีกกา และฟังก์ชันต้องอยู่ในรายการที่ใช้ได้',
     'data.expr.emptyColumn': 'วงเล็บปีกกาที่ตำแหน่ง {at} ว่างอยู่ ใส่ชื่อคอลัมน์ในนั้น',
     'data.expr.unknownColumn': 'ไม่พบคอลัมน์ "{name}" (ตำแหน่ง {at})',
-    'data.expr.binaryNoPositive': 'คอลัมน์ {name} (ตำแหน่ง {at}) ยังไม่ได้บอกว่ากลุ่มไหนนับเป็นใช่ ตั้งในสมุดรหัสก่อน',
+    'data.expr.binaryNoPositive': 'คอลัมน์ {name} (ตำแหน่ง {at}) ยังไม่ได้บอกว่ากลุ่มไหนนับเป็นใช่ ตั้งในรหัสตัวแปรก่อน',
     'data.expr.columnNotNumber': 'คอลัมน์ {name} (ตำแหน่ง {at}) ไม่ใช่ตัวเลขหรือวันที่ ใช้ในสูตรไม่ได้',
     'data.expr.unknownFunction': 'ไม่มีฟังก์ชัน {name} (ตำแหน่ง {at}) ในรายการที่ใช้ได้',
     'data.expr.tooManyArgs': '{name} รับค่าได้มากที่สุด {max} ค่า (ตำแหน่ง {at})',
@@ -124,6 +124,7 @@ export default {
     // SPSS files
     'data.sav.notSav': 'ไฟล์นี้ไม่ใช่ไฟล์ SPSS (.sav หรือ .zsav)',
     'data.sav.tooBig': 'ไฟล์ใหญ่เกิน {max} MB',
+    'data.sav.tooManyRows': 'ไฟล์มีข้อมูลมากเกินกว่าที่เปิดในเบราว์เซอร์ได้ (เกิน {rows} แถว หรือเกิน {cells} ช่อง) ลองแบ่งไฟล์หรือเลือกเฉพาะคอลัมน์ที่ใช้',
     'data.sav.truncated': 'ไฟล์ SPSS จบก่อนครบ (ขาดที่ไบต์ {at}) อาจดาวน์โหลดไม่ครบหรือไฟล์เสีย ลองบันทึกจาก SPSS ใหม่',
     'data.sav.badHeader': 'ส่วนหัวของไฟล์ SPSS อ่านไม่ได้ ไฟล์อาจเสีย',
     'data.sav.badRecord': 'ไฟล์ SPSS มีส่วนที่อ่านไม่ได้ (ที่ไบต์ {at}) ไฟล์อาจเสีย',
@@ -138,6 +139,7 @@ export default {
     'data.sav.conv.dates': '{column}: วันที่ใน SPSS ({format}) เก็บเป็นวินาทีนับจาก 14 ต.ค. ค.ศ. 1582 อ่านเป็นวันที่ ค.ศ. {count} ช่อง',
     'data.sav.note.documents': 'ไฟล์มีบันทึกข้อความ {count} บรรทัด ไม่ได้นำเข้า',
     'data.sav.note.skipped': 'ไฟล์มีข้อมูลเสริม {count} ส่วนที่ไม่เกี่ยวกับตาราง ข้ามไป',
+    'data.sav.note.rangeCodes': 'คอลัมน์ {column} มีค่าในช่วงค่าที่หายไปที่กำหนดไว้ {count} ค่า เสนอเป็นรหัสค่าที่หายไปเพียง {shown} ค่าแรก ค่าที่เหลือตรวจเองได้ที่รหัสตัวแปร',
     'data.sav.question.userMissing': '{column}: SPSS ตั้ง "{code}" ({count} ช่อง) เป็นค่าที่หายไป หมายถึงอะไร',
   },
   en: {
@@ -157,7 +159,7 @@ export default {
     'data.step.describe.excludeWhere': 'Excluded the rows where {conditions} from the study ({category}). Reason: {reason}',
     'data.step.describe.rowExcludeCategory': 'Excluded row {rowId} from the study ({category}). Reason: {reason}',
 
-    'data.exclusion.category.ineligible': 'did not meet the inclusion criteria',
+    'data.exclusion.category.ineligible': 'not eligible',
     'data.exclusion.category.lost': 'lost to follow-up',
     'data.exclusion.category.protocol-deviation': 'protocol not followed',
     'data.exclusion.category.measurement-error': 'measurement or recording error',
@@ -246,6 +248,7 @@ export default {
 
     'data.sav.notSav': 'This is not an SPSS file (.sav or .zsav)',
     'data.sav.tooBig': 'The file is larger than {max} MB',
+    'data.sav.tooManyRows': 'The file holds more data than the browser can open (over {rows} rows or {cells} cells). Try splitting the file or keeping only the columns you use.',
     'data.sav.truncated': 'The SPSS file ends too early (at byte {at}). It may be an incomplete download or a damaged file; save it from SPSS again',
     'data.sav.badHeader': 'The header of the SPSS file cannot be read; the file may be damaged',
     'data.sav.badRecord': 'Part of the SPSS file cannot be read (at byte {at}); the file may be damaged',
@@ -260,6 +263,7 @@ export default {
     'data.sav.conv.dates': '{column}: SPSS dates ({format}) are stored as seconds from 14 October 1582; {count} cells read as CE dates',
     'data.sav.note.documents': 'The file carries {count} lines of notes, which were not imported',
     'data.sav.note.skipped': 'The file carries {count} extra parts that are not about the table; they were skipped',
+    'data.sav.note.rangeCodes': 'Column {column} has {count} values inside its user-missing range; only the first {shown} are proposed as missing codes. Check the rest in the codebook.',
     'data.sav.question.userMissing': '{column}: SPSS marks "{code}" ({count} cells) as missing. What does it mean?',
   },
 };

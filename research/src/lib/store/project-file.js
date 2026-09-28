@@ -18,14 +18,20 @@ export const PROJECT_FILE_MAX_BYTES = 50 * 1024 * 1024;
 const str = (max) => v.pipe(v.string(), v.maxLength(max));
 const int = (min = 0) => v.pipe(v.number(), v.integer(), v.minValue(min));
 
+/** A column key as the app makes them (c3, m1, w2, d4): a letter, then letters, digits or underscore. An
+ * imported key is written into the SPSS syntax and the R script as a variable name, so anything else is
+ * refused at import (review round 1). */
+export const COLUMN_KEY_RE = /^[A-Za-z][A-Za-z0-9_]{0,63}$/;
+const columnKey = v.pipe(v.string(), v.regex(COLUMN_KEY_RE));
+
 const codebookEntry = v.looseObject({
-  key: str(64),
+  key: columnKey,
   name: str(500),
   type: str(32),
 });
 const codebookSchema = v.looseObject({
   columns: v.pipe(v.array(codebookEntry), v.maxLength(2000)),
-  clusterKey: v.nullish(str(64)),
+  clusterKey: v.nullish(columnKey),
 });
 const stepSchema = v.looseObject({ id: str(64), seq: int(0), kind: str(40), params: v.record(v.string(), v.unknown()), reason: v.nullish(str(2000)) });
 const datasetSchema = v.strictObject({
@@ -164,6 +170,9 @@ export async function parseProjectFile(file) {
   for (const a of data.analyses) {
     const s = validateSpec(a.spec);
     if (!s.ok) return { ok: false, key: 'runtime.projectFile.invalid' };
+    // A computed envelope carries its own copy of the spec (the report and the scripts read it): it must be
+    // a valid spec, not free JSON (review round 1).
+    if (a.envelope.status === 'ok' && a.envelope.spec != null && !validateSpec(a.envelope.spec).ok) return { ok: false, key: 'runtime.projectFile.invalid' };
     if (s.spec.input.kind === 'dataset' && !datasetIds.has(s.spec.input.datasetId)) return { ok: false, key: 'runtime.projectFile.invalid' };
   }
   try {

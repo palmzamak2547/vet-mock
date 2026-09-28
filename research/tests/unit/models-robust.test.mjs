@@ -4,7 +4,10 @@
 // read from the committed CSV with check.py's rules (models-fixtures.mjs). OWNER: models role.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { fitGlm, runLogistic } from '../../src/lib/models/glm.js';
+import { fitGlm, runLogistic, ROBUST_MIN_FARMS } from '../../src/lib/models/glm.js';
+import { ROBUST_MIN_FARMS as PANEL_MIN_FARMS } from '../../src/lib/epi/guardrails.js';
+import { runAnalysis } from '../../src/lib/runtime/run.js';
+import { makeSpec } from '../../src/lib/runtime/spec.js';
 import { clusterRobustVcov } from '../../src/lib/models/robust.js';
 import { makeTable, spec, near, nearAll, serosurveyRows } from './models-fixtures.mjs';
 
@@ -16,6 +19,7 @@ const R = {
   HC0: [0.31996387430171991, 0.23472541740711333, 0.33635775445723487, 0.0065955115084228464],
   HC0noAdj: [0.31668210678694814, 0.23231791358681853, 0.33290784013697594, 0.0065278634482820661],
   HC1: [0.32068370395009155, 0.23525348425542439, 0.33711446577236753, 0.0066103495733147105],
+  pT48: [0.00032266235374661797, 0.00020778543561015465, 0.34289388461323944, 0.007945085346894986],
 };
 
 const d = serosurveyRows().filter((r) => r.age !== null && (r.vaccine === 'ฉีด' || r.vaccine === 'ไม่ฉีด'));
@@ -56,12 +60,15 @@ test('runLogistic on the robust route: robust SE, Wald intervals forced with a n
   coef.forEach((r, j) => {
     near(r[1], R.B[j], TOL, `B ${j}`);
     near(r[2], R.HC0[j], TOL, `robust SE ${j}`);
-    near(r[5], R.B[j] - 1.959963984540054 * R.HC0[j], TOL, `Wald lower ${j}`);
+    // t on G - 1 = 48 df (review round 1): qt(0.975, 48) = 2.010634757624232 (R and SciPy agree);
+    // p = 2 pt(-|B / SE|, 48), SciPy 1.x t.sf on the R values of B and HC0.
+    near(r[5], R.B[j] - 2.010634757624232 * R.HC0[j], TOL, `Wald lower ${j}`);
+    near(r[4], R.pT48[j], TOL, `robust p ${j}`);
   });
   assert.equal(out.resolvedOptions.ciMethod, 'wald');
   assert.equal(out.values.clusters.value, 49);
   assert.ok(out.notes.some((x) => x.key === 'models.note.robustWald'));
-  assert.ok(out.tests.every((x) => x.id.startsWith('wald:') && x.variant === 'wald-robust'), 'Wald z tests only');
+  assert.ok(out.tests.every((x) => x.id.startsWith('wald:') && x.variant === 'wald-robust' && x.statistic.name === 't' && x.df === 48), 'Wald t tests on 48 df only');
   assert.ok(!out.tables.some((x) => x.id === 'lrTests'));
 });
 
@@ -69,4 +76,44 @@ test('the robust route without a farm column is refused', () => {
   const t = makeTable({ y: { kind: 'number', values: [0, 1, 0, 1] }, x: { kind: 'number', values: [1, 2, 3, 4] } });
   const out = runLogistic(spec('reg.logistic', { roles: { outcome: 'y', covariates: ['x'] }, cluster: { route: 'robust', column: null } }), t);
   assert.equal(out.values.reason.reasonKey, 'models.error.needCluster');
+});
+
+// Review round 1: with 2 or 3 farms the robust meat is rank-deficient and the normal z gave p 1e-62 and 4e-18
+// on clustered animals. The panel greys the route out and the engine refuses it.
+function lcg(seed) { let v = seed; return () => { v = (v * 1103515245 + 12345) % 2147483648; return v / 2147483648; }; }
+function farmData(G, m) {
+  const rnd = lcg(777);
+  const rn = () => Math.sqrt(-2 * Math.log(rnd() || 1e-9)) * Math.cos(2 * Math.PI * rnd());
+  const farm = [], y = [], x = [], g = [];
+  for (let f = 0; f < G; f++) {
+    const u = rn() * 1.2;
+    for (let i = 0; i < m; i++) {
+      farm.push('F' + f); const xi = Math.round(rn() * 1000) / 1000; x.push(xi);
+      y.push(rnd() < 1 / (1 + Math.exp(-(u + 0.3 * xi))) ? 'pos' : 'neg'); g.push(f % 2 ? 'b' : 'a');
+    }
+  }
+  return makeTable({
+    farm: { kind: 'category', levels: [...new Set(farm)], values: farm },
+    y: { kind: 'category', levels: ['neg', 'pos'], values: y }, x: { kind: 'number', values: x },
+    g: { kind: 'category', levels: ['a', 'b'], values: g },
+  });
+}
+const robustSpec = () => makeSpec('reg.logistic', { kind: 'dataset', datasetId: 'd1', recipeRev: 1 }, { design: 'cohort', roles: { outcome: 'y', covariates: ['x', 'g'] }, levels: { outcomePositive: 'pos' }, cluster: { route: 'robust', column: 'farm' } });
+
+test('the robust route is refused with 2 or 3 farms (and below the minimum), with its reason', () => {
+  assert.equal(ROBUST_MIN_FARMS, PANEL_MIN_FARMS);
+  for (const G of [2, 3, 9]) {
+    const env = runAnalysis(robustSpec(), farmData(G, 20), null);
+    assert.equal(env.status, 'stopped', `${G} farms`);
+    assert.ok(env.guard.stops.some((x) => x.id === 'G1' && x.params?.reasonKey === 'epi.route.robust.fewFarms'), `${G} farms: reason`);
+    assert.deepEqual(env.tests ?? [], [], `${G} farms: no p-value`);
+    const direct = runLogistic(spec('reg.logistic', { roles: { outcome: 'y', covariates: ['x', 'g'] }, levels: { outcomePositive: 'pos' }, cluster: { route: 'robust', column: 'farm' } }), farmData(G, 20));
+    assert.equal(direct.values.reason.reasonKey, 'models.error.robustFewFarms', `${G} farms: engine`);
+  }
+});
+
+test('the robust route runs from 10 farms and reads t on farms - 1 df', () => {
+  const env = runAnalysis(robustSpec(), farmData(12, 20), null);
+  assert.equal(env.status, 'ok');
+  assert.ok(env.tests.every((x) => x.df === 11 && x.statistic.name === 't'));
 });

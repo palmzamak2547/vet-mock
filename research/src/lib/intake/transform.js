@@ -218,6 +218,9 @@ export function reshapeLong(state, params) {
     entry.key = s.target;
     entry.name = s.name || entry.name;
     entry.labelTh = s.name || entry.labelTh;
+    // Named as one measure over time: the first wide column's English label ("Weight at week 0") would
+    // misname it; the typed name, or the column name, is the label in both languages (review round 1).
+    entry.labelEn = s.name || entry.name;
     entry.level = 'visit';
     entry.role = 'none';
     if (CATEGORICAL.has(entry.type)) {

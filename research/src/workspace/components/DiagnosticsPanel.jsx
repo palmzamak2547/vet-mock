@@ -15,6 +15,7 @@ import { pText, testLabel, valueCells, valueLabel, valueRows } from '../lib/resu
 import { Busy, ErrorBox } from './Bits.jsx';
 import ChartSlot from './ChartSlot.jsx';
 import { FMT } from './ResultView.jsx';
+import { levelNameFor } from '../report/build.js';
 
 /**
  * @param {{ spec: any, table: any, codebook: any, steps: any[], datasetId: string, labelOf: (k: string) => string, onLog?: (what: object) => void }} props
@@ -35,7 +36,7 @@ export default function DiagnosticsPanel({ spec, table, codebook, steps, dataset
         const s = buildSpec({
           method: c.method, datasetId, recipeRev: spec.input?.recipeRev ?? 0, design: spec.design,
           roles: c.roles, levels: {}, options: { ...COMMON_OPTIONS, ...(DEFAULT_OPTIONS[c.method] || {}), ...c.options, confLevel: spec.options?.confLevel ?? 0.95 },
-          cluster: { route: null, column: spec.cluster?.column ?? null },
+          cluster: { route: spec.cluster?.route ?? null, column: spec.cluster?.column ?? null },
         });
         runs.push({ method: c.method, env: await engine.run(s, table, codebook, steps) });
       }
@@ -90,7 +91,7 @@ export default function DiagnosticsPanel({ spec, table, codebook, steps, dataset
                   </tbody>
                 </table>
               </div>
-              {extraCharts(env, labelOf).map((ch) => <ChartSlot key={ch.id} chart={ch} caption={name} />)}
+              {extraCharts(env, labelOf, levelNameFor(codebook, lang), t).map((ch) => <ChartSlot key={ch.id} chart={ch} caption={name} />)}
             </section>
           );
         })}

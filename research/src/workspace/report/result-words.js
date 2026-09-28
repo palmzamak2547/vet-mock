@@ -4,10 +4,11 @@
 // direction was listed under a prevalence); the captions and labels of the tables a method returns
 // (a 2x2 table is labelled with its own columns and levels); the guardrail notices. Pure: `t` is
 // passed in. OWNER: workspace role.
-import { formatNumber } from '../../lib/stats/format.js';
+import { formatNumber, formatP } from '../../lib/stats/format.js';
 import { METHOD_UI } from '../lib/method-ui.js';
 import { keyPart } from '../lib/keys.js';
 import { valueLabel, wordAreaOf } from '../lib/result-model.js';
+import { cellText, termText } from '../lib/term-words.js';
 
 const has = (t, key) => t(key) !== `[${key}]`;
 /** The text of the first key the dictionary has, else null. */
@@ -123,7 +124,31 @@ export function optionItems(env, t, { columnName = (k) => k, lang = 'th' } = {})
  * A guardrail finding: epi findings carry a title key and a body key; other findings (runtime notes)
  * carry one sentence in `key`.
  */
-export function guardText(g, t) {
+/**
+ * A finding's parameters in the student's words: column keys by their labels, a separation finding's
+ * cells as "Column: level" (review round 1: "c3=เมีย, c4=models.cell.sideLow" reached the screen).
+ */
+/** Numbers a finding carries in its sentence, printed through the formatter (review round 1: the
+ * Dunnett error 2.605248285796423e-14 and the Huynh-Feldt epsilon 1.058414687576785 printed raw). */
+const NUMBER_PARAMS = new Set(['epsHF', 'error', 'ratio', 'epv']);
+
+function wordParams(params, t, words) {
+  if (!params) return params;
+  const out = { ...params };
+  for (const k of NUMBER_PARAMS) if (typeof out[k] === 'number' && !Number.isInteger(out[k])) out[k] = formatNumber(out[k], { kind: 'statistic' });
+  if (!words) return out;
+  const w = { t, ...words };
+  const col = (k) => (words.columnName ? words.columnName(k) : k);
+  if (Array.isArray(params.cells)) {
+    out.levels = params.cells.map(([c, l]) => (l === null || l === undefined ? termText(c, w) : String(l).startsWith('models.cell.') ? t('ws.term.level', { column: col(c), level: t(l) }) : t('ws.term.level', { column: col(c), level: words.levelName ? words.levelName(c, l) : l }))).join(', ');
+  }
+  if (Array.isArray(params.columns) && params.columns.every((c) => typeof c === 'string')) out.columns = params.columns.map(col).join(', ');
+  for (const k of ['column', 'cluster', 'exposure']) if (typeof params[k] === 'string') out[k] = col(params[k]);
+  return out;
+}
+
+export function guardText(g, t, words = null) {
+  if (g?.params) g = { ...g, params: wordParams(g.params, t, words) };
   // G25 names only the steps this sample size still misses (review round 2: the whole list was shown
   // right after the design effect had been applied).
   if (g.id === 'G25' && Array.isArray(g.params?.missing) && g.params.missing.length) {
@@ -131,7 +156,10 @@ export function guardText(g, t) {
   }
   if (g.bodyKey) return { title: t(g.key, g.params), body: t(g.bodyKey, g.params) };
   const titleKey = `epi.guard.${g.id}.title`;
-  return { title: g.key !== titleKey && has(t, titleKey) ? t(titleKey, g.params) : undefined, body: t(g.key, g.params) };
+  // An M2 area's own note keeps its own words: the epi title of the same id (G7 "no adjustment chosen")
+  // does not fit a two-way ANOVA, which has no adjustment option (review round 1).
+  const own = /^(lab|models|measure)\.note\./.test(String(g.key || ''));
+  return { title: !own && g.key !== titleKey && has(t, titleKey) ? t(titleKey, g.params) : undefined, body: t(g.key, g.params) };
 }
 /**
  * A word a method table carries (a column name such as 'unrounded', a step id such as 'fpc', or a
@@ -144,10 +172,14 @@ export function tableWord(word, t, group, ctx = {}) {
   const kp = keyPart(s);
   // An M2 method's area names its table columns (measure.table.items.itemRest, lab.col.levelA).
   const area = ctx.area || null;
-  const keys = [area && group === 'col' && ctx.tableId && `${area}.table.${keyPart(ctx.tableId)}.${kp}`, `ws.${group}.${kp}`, area && `${area}.${group}.${kp}`].filter(Boolean);
+  // The area's words come before the workspace's general ones, so an M1 word does not shadow them.
+  const keys = [area && group === 'col' && ctx.tableId && `${area}.table.${keyPart(ctx.tableId)}.${kp}`, area && `${area}.${group}.${kp}`, `ws.${group}.${kp}`].filter(Boolean);
   const k = keys.find((x) => has(t, x));
   return k ? t(k) : s;
 }
+
+/** Tables whose dashes mean something else than a zero cell. */
+const DASH_NOTE = Object.freeze({ anova: 'ws.table.dashNa', coefficients: 'ws.table.dashNa', lrTests: 'ws.table.dashNa', medians: 'ws.table.dashMedian', survival: 'ws.table.dashMedian', shapiro: 'ws.table.dashNa', qq: 'ws.table.dashNa' });
 
 /** A 2x2 table of counts as twobytwo returns it. */
 const isTwoByTwo = (table) => table?.id === 'counts' && Array.isArray(table.columns) && table.columns.join(',') === 'row,positive,negative,total';
@@ -184,16 +216,24 @@ export function envTableText(table, t, ctx = {}) {
   const labels = isTwoByTwo(table) ? twoByTwoLabels(ctx, t) : null;
   const area = wordAreaOf(ctx.spec?.method || null);
   const columns = table.columns.map((c, i) => labels?.columns?.[i] ?? tableWord(c, t, 'col', { area, tableId: table.id }));
+  // p-value columns print as p-values (< 0.001), not as small numbers (review round 1: 0.0000168, 3.83e-32).
+  const pCol = table.columns.map((c) => /(^|\.)p(Adjusted|GG|HF|Holm|Raw)?$/.test(String(c)));
+  const words = ctx.spec ? { t, ...ctx } : null;
   const rows = table.rows.map((row) => row.map((cell, ci) => {
     if (cell === null || cell === undefined) return '—';
+    if (typeof cell === 'number' && pCol[ci] && Number.isFinite(cell)) return formatP(cell);
     if (typeof cell === 'number') return Number.isFinite(cell) ? formatNumber(cell, { kind: Number.isInteger(cell) ? 'count' : 'statistic' }) : cell > 0 ? t('ws.result.noUpper') : t('ws.result.noLower');
     if (ci === 0 && labels?.rows?.[cell] !== undefined) return labels.rows[cell];
+    const named = words ? cellText(table.id, ci, cell, row, words) : undefined;
+    if (named !== undefined) return named;
     return tableWord(cell, t, 'cell', { area, tableId: table.id });
   }));
   const capKey = [isTwoByTwo(table) ? 'ws.table.twoByTwo' : null, `ws.table.${keyPart(table.id)}`, area && `${area}.table.${keyPart(table.id)}.caption`].find((k) => k && has(t, k));
   // A dash in a cell is explained under the table, and the 2x2 cell letters are named (review round 1).
   const notes = [];
   if (['a', 'b', 'c', 'd'].every((c) => table.columns.includes(c))) notes.push(t('ws.table.abcdLegend'));
-  if (rows.some((row) => row.slice(1).includes('—'))) notes.push(t('ws.table.dashNote'));
+  // The sentence says why for this table (review round 1: "a cell is zero" under an ANOVA residual row and
+  // under a median that was not reached).
+  if (rows.some((row) => row.slice(1).includes('—'))) notes.push(t(DASH_NOTE[table.id] || 'ws.table.dashNote'));
   return { columns, rows, caption: capKey ? t(capKey) : table.id, notes };
 }

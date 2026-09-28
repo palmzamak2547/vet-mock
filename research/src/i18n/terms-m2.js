@@ -9,7 +9,7 @@ export default {
     'term.typeIII.name': 'Type III sum of squares',
     'term.typeIII.gloss': 'วิธีแบ่งความแปรปรวนให้แต่ละปัจจัยเมื่อกลุ่มมีขนาดไม่เท่ากัน โดยคิดหลังหักปัจจัยอื่นทั้งหมดแล้ว',
     'term.sphericity.name': 'sphericity',
-    'term.sphericity.gloss': 'ข้อตกลงว่าค่าต่างระหว่างเวลาคู่ใดก็กระจายกว้างพอกัน ถ้าไม่จริง ค่า p ที่ไม่ปรับจะเล็กเกินจริง',
+    'term.sphericity.gloss': 'ข้อตกลงว่าผลต่างระหว่างเวลาคู่ใดก็กระจายกว้างพอกัน ถ้าไม่จริง ค่า p ที่ไม่ปรับจะเล็กเกินจริง',
     'term.posthoc.name': 'post hoc',
     'term.posthoc.gloss': 'การเทียบรายคู่หลังการทดสอบรวม โดยปรับค่า p ตามจำนวนคู่ที่เทียบ',
     'term.residual.name': 'residual',
@@ -23,8 +23,8 @@ export default {
     'term.youden.name': 'Youden index',
     'term.youden.gloss': 'ความไวบวกความจำเพาะลบ 1 จุดตัดที่ค่านี้สูงสุดคือจุดตัดที่ดีที่สุดของข้อมูลชุดนี้',
     'term.loa.name': 'limits of agreement',
-    'term.loa.gloss': 'ช่วงที่ค่าต่างระหว่างสองวิธีของสัตว์ราว 95% อยู่ ต้องตัดสินจากความรู้ทางคลินิกว่ากว้างเกินไปไหม',
-    'term.cronbachAlpha.name': 'Cronbach alpha',
+    'term.loa.gloss': 'ช่วงที่ผลต่างระหว่างสองวิธีของสัตว์ราว 95% อยู่ ต้องตัดสินจากความรู้ทางคลินิกว่ากว้างเกินไปไหม',
+    'term.cronbachAlpha.name': 'Cronbach’s alpha',
     'term.cronbachAlpha.gloss': 'ข้อคำถามในชุดไปทางเดียวกันมากแค่ไหน ค่ายิ่งใกล้ 1 ยิ่งไปทางเดียวกัน',
   },
   en: {
@@ -48,7 +48,7 @@ export default {
     'term.youden.gloss': 'sensitivity plus specificity minus 1; the cut-off where it is highest is the best cut-off in these data',
     'term.loa.name': 'limits of agreement',
     'term.loa.gloss': 'the range about 95% of the differences between the two methods fall in; whether it is too wide is a clinical judgement',
-    'term.cronbachAlpha.name': 'Cronbach alpha',
+    'term.cronbachAlpha.name': 'Cronbach’s alpha',
     'term.cronbachAlpha.gloss': 'how much the items of a scale move together; the closer to 1, the more they do',
   },
 };

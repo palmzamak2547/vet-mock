@@ -12,6 +12,7 @@ import { epiCurveInput } from '../charts/from-result.js';
 import { safeFileBase } from '../lib/files.js';
 import { Field, Notice, PageHead } from '../components/Bits.jsx';
 import FigureComposer from '../components/FigureComposer.jsx';
+import { levelNameFor } from '../report/build.js';
 
 const FMT = Object.freeze({ formatNumber, formatP, formatCi });
 const UNITS = ['day', 'isoWeek', 'month'];
@@ -36,7 +37,7 @@ export default function Pane({ p }) {
   const madeUp = Boolean(p.project?.madeUp || p.meta?.madeUp);
   const epi = useMemo(() => {
     if (!dk) return null;
-    const inp = epiCurveInput(table, dk, gk || null, labelOf);
+    const inp = epiCurveInput(table, dk, gk || null, labelOf, levelNameFor(codebook, lang));
     return inp.series.length ? { ...inp, unit } : null;
   }, [table, dk, gk, unit, lang]);
 

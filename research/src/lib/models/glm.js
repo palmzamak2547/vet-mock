@@ -14,7 +14,7 @@
 //
 // Numbers pinned in tests/unit/models-glm.test.mjs (R 4.6.0 values in docs/research/M2-DESIGN.md 3.2.1 and
 // the models role's own webR run, script in the test header).
-import { pnormTwoSided, pchisqUpper, qnorm, lgamma } from '../stats/dist.js';
+import { pnormTwoSided, pchisqUpper, qnorm, lgamma, ptTwoSided, qt } from '../stats/dist.js';
 import { val, nullVal, testRow, role, common, completeRows, column, invalid, ksum } from '../stats/common.js';
 import { buildDesign } from './design-matrix.js';
 import { profileCi } from './profile.js';
@@ -26,6 +26,8 @@ const THRESH = 30;
 const QR_TOL = 1e-11;
 /** Fitted probabilities (or rates) this close to 0 or 1 mark separation [M2-DESIGN.md 3.2.1]. */
 export const SEPARATION_TOL = 1e-8;
+/** Fewest farms for the cluster-robust route; the same number as epi/guardrails.js ROBUST_MIN_FARMS (a test pins both). */
+export const ROBUST_MIN_FARMS = 10;
 
 // ---------------------------------------------------------------- families (R's C code)
 
@@ -361,10 +363,12 @@ function runGlm(spec, table, family) {
   /** @type {Record<string, any>} */
   const resolvedOptions = Object.keys(design.references).length ? { references: design.references } : {};
 
-  // ---- separation (logistic: fitted probabilities within 1e-8 of 0 or 1; Poisson: a level whose counts are all 0)
-  const sep = separationTable(fit, design, y, family);
+  // ---- separation (logistic: a category level whose outcomes are all one value, or rows whose linear
+  // predictor keeps running off when the fit is pushed further, or fitted probabilities within 1e-8 of 0 or 1;
+  // Poisson: a level whose counts are all 0)
+  const sep = separationTable(fit, design, y, family, logistic ? divergingRows(design.X, y, family, fit) : null);
   if (sep.length) {
-    warnings.push({ id: 'G14', severity: 'warn', key: 'models.guard.G14.title', bodyKey: logistic ? 'models.guard.G14.separation' : 'models.guard.G14.zeroCounts', params: { levels: sep.map((r) => (r[1] == null ? r[0] : `${r[0]}=${r[1]}`)).join(', ') } });
+    warnings.push({ id: 'G14', severity: 'warn', key: 'models.guard.G14.title', bodyKey: logistic ? 'models.guard.G14.separation' : 'models.guard.G14.zeroCounts', params: { levels: sep.map((r) => (r[1] == null ? r[0] : `${r[0]}=${r[1]}`)).join(', '), cells: sep.map((r) => [r[0], r[1] ?? null]) } });
     const why = logistic ? 'models.undefined.separation' : 'models.undefined.zeroCounts';
     const values = {};
     names.forEach((nm) => { values[`b:${nm.term}`] = nullVal(why); });
@@ -410,8 +414,16 @@ function runGlm(spec, table, family) {
     if (ciMethod !== 'wald') resolvedOptions.ciMethod = 'wald';
     ciMethod = 'wald';
     clusters = ids.size;
+    // The panel greys this route out below ROBUST_MIN_FARMS farms or with no more farms than coefficients
+    // (epi/guardrails.js); the engine refuses the same fit when called directly.
+    if (clusters < ROBUST_MIN_FARMS || clusters <= kept.length) return invalid('models.error.robustFewFarms', { used: n, dropped });
   }
-  const zq = qnorm(1 - (1 - confLevel) / 2);
+  // Model-based: normal z, as R's summary.glm and confint.default. Farm route: t on G - 1 df for the Wald
+  // p-values and intervals, the usual small-sample reference for cluster-robust errors (review round 1:
+  // with the normal z a handful of farms gave extreme p-values).
+  const robustDf = robust ? clusters - 1 : null;
+  const zq = robust ? qt(1 - (1 - confLevel) / 2, robustDf) : qnorm(1 - (1 - confLevel) / 2);
+  const twoSided = (z) => (robust ? ptTwoSided(z, robustDf) : pnormTwoSided(z));
   const coefRows = [];
   const tests = [];
   const bValues = {};
@@ -427,7 +439,7 @@ function runGlm(spec, table, family) {
     const b = fit.beta[j];
     const se = Math.sqrt(V[j][j]);
     const z = b / se;
-    const p = pnormTwoSided(z);
+    const p = twoSided(z);
     let ci;
     if (ciMethod === 'profile') ci = profileCi([X, y, family, { offset }], j, confLevel, fit);
     else ci = [b - zq * se, b + zq * se];
@@ -444,7 +456,7 @@ function runGlm(spec, table, family) {
     }
     const isInt = nm.term === '(Intercept)';
     coefRows.push([nm.term, b, se, z, p, ci[0], ci[1], isInt ? null : Math.exp(b), isInt ? null : rl, isInt ? null : ru]);
-    tests.push(testRow({ id: `wald:${nm.term}`, name: 'z', statistic: z, p, variant: robust ? 'wald-robust' : 'wald' }));
+    tests.push(testRow({ id: `wald:${nm.term}`, name: robust ? 't' : 'z', statistic: z, df: robustDf, p, variant: robust ? 'wald-robust' : 'wald' }));
   });
 
   // ---- likelihood-ratio tests: each term dropped (drop1(test = 'LRT')) and the model against the null.
@@ -481,12 +493,12 @@ function runGlm(spec, table, family) {
     values.cases = val(events);
     if (predictors > 0) {
       const epv = smaller / predictors;
-      values.epv = val(epv, { below: 10 });
+      values.epv = val(epv, { below: [10] });
       if (epv < 10) warnings.push({ id: 'G14', severity: 'warn', key: 'models.guard.G14.title', bodyKey: 'models.guard.G14.epv', params: { epv: Math.round(epv * 10) / 10, events: smaller, predictors } });
     }
   } else {
     const dispersion = fit.dfResidual > 0 ? fit.pearson / fit.dfResidual : NaN;
-    values.dispersion = fit.dfResidual > 0 ? val(dispersion, { above: 1.5 }) : nullVal('stats.undefined.noResidualDf');
+    values.dispersion = fit.dfResidual > 0 ? val(dispersion, { above: [1.5] }) : nullVal('stats.undefined.noResidualDf');
     if (dispersion > 1.5) warnings.push({ id: 'G23', severity: 'warn', key: 'models.guard.G23.title', bodyKey: 'models.guard.G23.overdispersion', params: { ratio: Math.round(dispersion * 100) / 100 } });
     values.count = val(y.reduce((s, v) => s + v, 0));
   }
@@ -497,11 +509,32 @@ function runGlm(spec, table, family) {
   values.iterations = val(fit.iter);
   if (clusters !== null) values.clusters = val(clusters);
   const tables = [
-    { id: 'coefficients', columns: ['ws.col.term', 'ws.col.estimate', 'ws.col.se', 'models.col.z', 'ws.col.p', 'ws.col.lower', 'ws.col.upper', logistic ? 'models.col.or' : 'models.col.irr', 'models.col.ratioLower', 'models.col.ratioUpper'], rows: coefRows },
+    { id: 'coefficients', columns: ['ws.col.term', 'ws.col.estimate', 'ws.col.se', robust ? 'ws.col.t' : 'models.col.z', 'ws.col.p', 'ws.col.lower', 'ws.col.upper', logistic ? 'models.col.or' : 'models.col.irr', 'models.col.ratioLower', 'models.col.ratioUpper'], rows: coefRows },
     referencesTable(design.references),
   ];
   if (lrRows.length) tables.push({ id: 'lrTests', columns: ['ws.col.term', 'ws.col.df', 'models.col.lrStat', 'ws.col.p'], rows: lrRows });
   return { status: 'ok', values, tests, tables, used: n, dropped, notes, warnings, resolvedOptions };
+}
+
+export const DIVERGE_STEPS = 6;
+/**
+ * Rows whose linear predictor keeps moving when the fit is pushed a few more IRLS steps past R's stop.
+ * At a finite maximum Newton has converged and further steps move eta by far less than 1e-6; under
+ * separation each step moves the separated rows' eta by about 1 towards their outcome, whatever the
+ * deviance of the rest of the data (the 1e-8 fitted-value rule depends on it). Null when the refit fails.
+ * @returns {boolean[]|null}
+ */
+export function divergingRows(X, y, family, fit) {
+  let more;
+  try {
+    more = fitGlm(X, y, family, { etastart: fit.eta, maxIter: DIVERGE_STEPS, epsilon: -1, nullDeviance: false });
+  } catch {
+    return null;
+  }
+  return Array.from(fit.eta, (e, i) => {
+    const d = more.eta[i] - e;
+    return (y[i] === 0 && d < -1) || (y[i] === 1 && d > 1);
+  });
 }
 
 function referencesTable(refs) {
@@ -513,15 +546,21 @@ function referencesTable(refs) {
  * the end of its range that is separated), the one outcome of those rows (0 or 1), n]. Empty when the fit
  * is not separated.
  */
-function separationTable(fit, design, y, family) {
+function separationTable(fit, design, y, family, diverging = null) {
   const { X, names, terms, rows } = design;
   const out = [];
   if (family === 'binomial') {
-    if (!fit.separated) return out;
-    const extreme = Array.from(fit.fitted, (m, i) => (m < SEPARATION_TOL && y[i] === 0) || (m > 1 - SEPARATION_TOL && y[i] === 1));
-    for (const t of terms) {
+    const extreme = Array.from(fit.fitted, (m, i) => (m < SEPARATION_TOL && y[i] === 0) || (m > 1 - SEPARATION_TOL && y[i] === 1) || Boolean(diverging?.[i]));
+    const flagged = fit.separated || extreme.some(Boolean);
+    // rows already accounted for by a separated category level do not make a number look separated too
+    const explained = new Array(rows.length).fill(false);
+    const catFirst = [...terms].sort((a, b) => Number(names[b.cols[0]]?.level != null) - Number(names[a.cols[0]]?.level != null));
+    for (const t of catFirst) {
       if (t.cols.length && names[t.cols[0]].level !== null) {
-        // each level (the reference level is the rows with 0 in every column of the term)
+        // each level (the reference level is the rows with 0 in every column of the term). Checked exactly,
+        // whatever the fit: a level whose outcomes are all one value has no finite coefficient (its fitted
+        // value only creeps towards 0 or 1 as far as the deviance stop lets it, which on a large remainder
+        // is well above 1e-8; review round 1).
         const groups = new Map();
         for (let i = 0; i < rows.length; i++) {
           const j = t.cols.find((c) => X[c][i] === 1);
@@ -530,12 +569,15 @@ function separationTable(fit, design, y, family) {
           groups.get(lev).push(i);
         }
         for (const [lev, idx] of groups) {
-          if (idx.every((i) => extreme[i]) && idx.every((i) => y[i] === y[idx[0]])) out.push([t.column, lev, y[idx[0]], idx.length]);
+          if (idx.length && idx.every((i) => y[i] === y[idx[0]])) {
+            out.push([t.column, lev, y[idx[0]], idx.length]);
+            for (const i of idx) explained[i] = true;
+          }
         }
-      } else if (t.cols.length) {
+      } else if (t.cols.length && flagged) {
         // a number: the extreme rows sit at one end of its range with one outcome
         const x = X[t.cols[0]];
-        const ord = Array.from(x, (_, i) => i).sort((a, b) => x[a] - x[b]);
+        const ord = Array.from(x, (_, i) => i).filter((i) => !explained[i]).sort((a, b) => x[a] - x[b]);
         for (const [side, seq] of [['low', ord], ['high', [...ord].reverse()]]) {
           let k = 0;
           while (k < seq.length && extreme[seq[k]] && y[seq[k]] === y[seq[0]]) k++;
@@ -543,7 +585,7 @@ function separationTable(fit, design, y, family) {
         }
       }
     }
-    if (!out.length) out.push(['models.cell.combination', null, null, fit.fitted.filter((m) => m < SEPARATION_TOL || m > 1 - SEPARATION_TOL).length]);
+    if (!out.length && flagged) out.push(['models.cell.combination', null, null, extreme.filter(Boolean).length]);
     return out;
   }
   // Poisson: a category level whose counts are all 0 has no finite rate.

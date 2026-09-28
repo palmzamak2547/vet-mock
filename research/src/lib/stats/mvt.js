@@ -94,12 +94,19 @@ function dnorm(z) { return Math.exp(-0.5 * z * z - LOG_2PI_HALF); }
 /** Phi(x) from erfc (no 1 - cdf). */
 function pnormLow(x) { return 0.5 * erfc(-x * SQRT1_2); }
 
+/** Residual df from which the Dunnett integral uses its df = Infinity form. */
+export const DF_AS_INFINITE = 1e7;
+
 /**
  * 1 - P(|T_i| <= c for every i), with its error bound.
  * @param {number} c @param {number[]} lambda @param {number} df
  * @returns {{ value: number, error: number }}
  */
 export function dunnettUpper(c, lambda, df) {
+  // Past 1e7 df the chi density is narrower than the outer panels can find (review round 1: at 1e9 df the
+  // integral missed its peak and the quantile's root finder threw); the limit df = Infinity is then exact
+  // to far below the reported digits.
+  if (df > DF_AS_INFINITE) df = Infinity;
   if (!(c > 0)) return { value: 1, error: 0 };
   if (c === Infinity) return { value: 0, error: 0 };
   const lam = lambda.map(Number);

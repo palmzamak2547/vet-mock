@@ -17,7 +17,7 @@ import { RELEASES } from '../../data/cite.js';
 import { referencesFor } from '../../data/references.js';
 import { citationText, softwareRecord, toBibtex, toRis, dateWithEra } from '../../lib/export/cite.js';
 import { useWs } from '../ws-context.js';
-import { buildDraft, columnNameFor, publicVersion } from '../report/build.js';
+import { buildDraft, columnNameFor, levelNameFor, publicVersion } from '../report/build.js';
 import { strobeStatus } from '../report/strobe.js';
 import { strobeFlow } from '../report/flow.js';
 import { copyParagraph } from '../lib/clipboard.js';
@@ -59,13 +59,14 @@ async function figuresFor(analyses, { lang, codebook }) {
   } catch { return []; }
   const t = (k, params) => translate(lang, k, params);
   const columnName = columnNameFor(codebook, lang);
+  const levelOf = levelNameFor(codebook, lang);
   const out = [];
   for (const a of analyses) {
     const env = a.envelope;
     const kind = env?.status === 'ok' ? chartKindFor(env) : null;
     if (!kind) continue;
     try {
-      const charts = inputs.chartsForResult({ id: a.id, spec: a.spec || env.spec, envelope: env }, null, { labelOf: columnName, t }).filter((c) => !c.needsRows);
+      const charts = inputs.chartsForResult({ id: a.id, spec: a.spec || env.spec, envelope: env }, null, { labelOf: columnName, levelOf, t }).filter((c) => !c.needsRows);
       let chosen = charts.find((c) => c.kind === kind) || null;
       if (!chosen && kind === 'ci') {
         const plot = plottable(env);

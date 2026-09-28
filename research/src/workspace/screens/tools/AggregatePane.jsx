@@ -132,7 +132,7 @@ export default function Pane({ p }) {
         </section>
         <section className="rs-panel rs-pad rs-stack" aria-labelledby="rs-h-agg-pv" aria-live="polite">
           <h2 id="rs-h-agg-pv" className="rs-h3">{t('tools.previewTitle')}</h2>
-          <Notice tone="warn" title={t('tools.aggregate.unitTitle', { level: byCol ? t(`ws.level.${byCol.level}`) : '' })}>{t('tools.aggregate.unitBody')}</Notice>
+          {byCol ? <Notice tone="warn" title={t('tools.aggregate.unitTitle', { level: t(`ws.level.${byCol.level}`) })}>{t('tools.aggregate.unitBody')}</Notice> : null}
           <button type="button" className="rs-btn" disabled={!ready || busy} onClick={look}><Icon name="eye" size={18} />{t('tools.previewButton')}</button>
           {busy ? <Busy label={t('tools.previewing')} /> : null}
           {pv ? (

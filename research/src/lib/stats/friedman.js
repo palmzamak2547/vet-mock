@@ -15,14 +15,16 @@ import { quantile } from './descriptive.js';
 
 /**
  * @param {number[][]} blocks   one row per block, one column per treatment
- * @returns {{ statistic: number|null, df: number, p: number|null, rankSums: number[], reasonKey?: string }}
+ * @returns {{ statistic: number|null, df: number|null, p: number|null, rankSums: number[], reasonKey?: string }}
  */
 export function friedman(blocks) {
   const n = blocks.length;
   const k = n ? blocks[0].length : 0;
   const rankSums = new Array(k).fill(0);
-  if (k < 2) return { statistic: null, df: k - 1, p: null, rankSums, reasonKey: 'lab.undefined.needTwoTreatments' };
-  if (n < 1) return { statistic: null, df: k - 1, p: null, rankSums, reasonKey: 'stats.undefined.noData' };
+  // No complete block: nothing to rank, and no df (review round 1: "df -1" and "needs 2 groups" were shown
+  // although there were 3 groups; the real reason is that no animal has a value in every group).
+  if (n < 1) return { statistic: null, df: null, p: null, rankSums, reasonKey: 'lab.undefined.noCompleteBlock' };
+  if (k < 2) return { statistic: null, df: null, p: null, rankSums, reasonKey: 'lab.undefined.needTwoTreatments' };
   let tieSum = 0;
   for (const b of blocks) {
     const { ranks, ties } = rankAvg(b);

@@ -9,7 +9,7 @@ import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { unzipSync, strFromU8 } from 'fflate';
-import { seenEntrance } from './research-runtime-helpers.mjs';
+import { seenEntrance, recordRequests } from './research-runtime-helpers.mjs';
 import ws from '../../src/i18n/workspace.js';
 import tools from '../../src/i18n/tools.js';
 import trust from '../../src/i18n/trust.js';
@@ -17,8 +17,9 @@ import report from '../../src/i18n/report.js';
 import runtime from '../../src/i18n/runtime.js';
 import measure from '../../src/i18n/measure.js';
 import graphs from '../../src/i18n/graphs.js';
+import epi from '../../src/i18n/epi.js';
 
-const th = { ...ws.th, ...tools.th, ...trust.th, ...report.th, ...runtime.th, ...measure.th, ...graphs.th };
+const th = { ...ws.th, ...tools.th, ...trust.th, ...report.th, ...runtime.th, ...measure.th, ...graphs.th, ...epi.th };
 const fill = (s, p) => s.replace(/\{(\w+)\}/g, (m, n) => (p[n] === undefined ? m : String(p[n])));
 const ZSAV = fileURLToPath(new URL('../fixtures/sav/cows-zsav.zsav', import.meta.url));
 const GOLDEN = JSON.parse(readFileSync(fileURLToPath(new URL('../fixtures/plan/golden.json', import.meta.url)), 'utf8'));
@@ -110,8 +111,11 @@ test('Kaplan-Meier on the calf-survival example, with its chart', async ({ page 
   await expect(result.getByText(/log-rank/i).first()).toBeVisible();
 });
 
-test('paired ROC comparison on the rapid-test example, kept and exported as a Word file with its tables and figure', async ({ page }) => {
+test('paired ROC comparison on the rapid-test example, kept and exported as a Word file with its tables and figure', async ({ page, context, baseURL }) => {
   test.setTimeout(180_000);
+  // Every export is built in the browser: nothing leaves the origin (review round 1: the runtime no-egress
+  // evidence did not cover the M2 exports).
+  const net = recordRequests(context, baseURL);
   const project = await openExample(page, 'rapid-test');
   await page.goto(`${project}/measure`);
   await page.locator('input[name="rs-method-measure"][value="roc.delong"]').check();
@@ -152,6 +156,44 @@ test('paired ROC comparison on the rapid-test example, kept and exported as a Wo
   expect(png.length).toBeGreaterThan(2000);
   // The made-up data banner and the AUC are in the text.
   expect(doc).toContain('AUC');
+  // The single-page HTML, the SPSS syntax and the R script download too, built on the device.
+  for (const key of ['report.pane.html', 'report.pane.sps', 'report.pane.r']) {
+    const button = page.getByRole('button', { name: th[key] });
+    await expect(button.first(), key).toBeEnabled();
+    const [file] = await Promise.all([page.waitForEvent('download', { timeout: 60_000 }), button.first().click()]);
+    expect(readFileSync(await file.path()).length).toBeGreaterThan(100);
+  }
+  expect(net.offOrigin(), 'requests that left the origin').toEqual([]);
+});
+
+test('logistic regression on the goat example, accounting for farms with robust standard errors', async ({ page, context, baseURL }) => {
+  test.setTimeout(180_000);
+  const net = recordRequests(context, baseURL);
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(String(e)));
+  const project = await openExample(page, 'merge-farms');
+  await page.goto(`${project}/models`);
+  await page.locator('input[name="rs-method-models"][value="reg.logistic"]').check();
+  await pick(page, '#rs-role-outcome', 'ELISA');
+  const pos = page.locator('#rs-lv-outcomePositive');
+  if (await pos.count()) await pick(page, '#rs-lv-outcomePositive', 'บวก');
+  await page.getByRole('checkbox', { name: 'อายุ (เดือน)' }).check();
+  await page.getByRole('checkbox', { name: 'เพศ', exact: true }).check();
+  const run = page.getByRole('button', { name: th['ws.analysis.run'] });
+  await expect(run).toBeEnabled();
+  await run.click();
+  // The farm stop comes first; the robust route is one of its choices (12 farms: allowed).
+  const robust = page.locator('input[name="rs-g1-route"][value="robust"]');
+  await expect(robust).toBeEnabled({ timeout: 30_000 });
+  await robust.check();
+  await page.getByRole('button', { name: th['ws.g1.run'] }).click();
+  const result = page.locator('.rs-analysis-result');
+  await expect(result.locator('.rs-prov-line').first()).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByText(th['ws.crash.title'])).toHaveCount(0);
+  // Terms are named by column and level, never by the design matrix ('c3=ผู้').
+  await expect(result).not.toContainText(/c\d+=/);
+  expect(errors, 'no page errors').toEqual([]);
+  expect(net.offOrigin(), 'requests that left the origin').toEqual([]);
 });
 
 test('merge a farm file, reshape to one row per weighing, then add a computed column', async ({ page }) => {
@@ -209,8 +251,9 @@ test('merge a farm file, reshape to one row per weighing, then add a computed co
   await expect(page.getByText('herd_size').first()).toBeVisible();
 });
 
-test('an SPSS .zsav file imports with its labels', async ({ page }) => {
+test('an SPSS .zsav file imports with its labels', async ({ page, context, baseURL }) => {
   test.setTimeout(120_000);
+  const net = recordRequests(context, baseURL);
   await seenEntrance(page);
   await page.goto('/app');
   await page.locator('input[type="file"]').first().setInputFiles(ZSAV);
@@ -223,6 +266,7 @@ test('an SPSS .zsav file imports with its labels', async ({ page }) => {
   await expect(page.getByRole('textbox', { name: 'ชื่อไทย ของคอลัมน์ elisa' })).toHaveValue('ผล ELISA');
   await expect(page.getByRole('textbox', { name: 'ชื่อไทย ของคอลัมน์ sex' })).toHaveValue('เพศ');
   await expect(page.getByRole('option', { name: 'เพศเมีย' }).first()).toBeAttached();
+  expect(net.offOrigin(), 'requests that left the origin').toEqual([]);
 });
 
 test('a randomisation list with its seed, the same list as the independent Python generator', async ({ page }) => {

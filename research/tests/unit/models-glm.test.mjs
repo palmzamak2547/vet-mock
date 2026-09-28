@@ -158,6 +158,47 @@ test('a number that splits the outcome is reported by its side', () => {
   assert.deepEqual(rows, [['x', 'models.cell.sideLow', 0, 5], ['x', 'models.cell.sideHigh', 1, 5]]);
 });
 
+// Review round 1: on a large non-separated remainder R's deviance stop leaves the separated rows' fitted value
+// near 1e-8 x deviance / n_level, above the 1e-8 rule, and the absurd estimate (OR 5e-8, upper 1.5e14) was printed.
+function lcg(seed) { let s = seed; return () => { s = (s * 1103515245 + 12345) % 2147483648; return s / 2147483648; }; }
+
+test('separation on a large remainder: a level with one outcome is caught exactly, the estimate is withheld', () => {
+  for (const [n, nc] of [[400, 12], [60, 6], [200, 5]]) {
+    const rnd = lcg(12345);
+    const f = [], y = [], x = [];
+    for (let i = 0; i < n; i++) {
+      const fi = i < nc ? 'c' : (i % 2 ? 'b' : 'a');
+      f.push(fi); x.push(Math.round((rnd() * 4 - 2) * 1000) / 1000); y.push(fi === 'c' ? 0 : (rnd() < 0.5 ? 1 : 0));
+    }
+    const t = makeTable({ y: { kind: 'number', values: y }, f: { kind: 'category', levels: ['a', 'b', 'c'], values: f }, x: { kind: 'number', values: x } });
+    const out = runLogistic(spec('reg.logistic', { roles: { outcome: 'y', covariates: ['f', 'x'] } }), t);
+    assert.ok(out.warnings.some((w) => w.id === 'G14' && w.bodyKey === 'models.guard.G14.separation'), `${n}/${nc}: G14`);
+    assert.equal(out.values['oddsRatio:f=c'], undefined, `${n}/${nc}: no odds ratio`);
+    assert.equal(out.values['b:f=c'].value, null);
+    assert.deepEqual(out.tables.find((x) => x.id === 'separation').rows, [['f', 'c', 0, nc]]);
+  }
+});
+
+test('separation through a number on a large remainder is caught by pushing the fit further', () => {
+  const rnd = lcg(4242);
+  const y = [], z = [], f = [];
+  for (let i = 0; i < 400; i++) { const hot = i < 12; z.push(hot ? 1 + (i % 3) : 0); f.push(i % 2 ? 'a' : 'b'); y.push(hot ? 1 : (rnd() < 0.4 ? 1 : 0)); }
+  const t = makeTable({ y: { kind: 'number', values: y }, z: { kind: 'number', values: z }, f: { kind: 'category', levels: ['a', 'b'], values: f } });
+  const out = runLogistic(spec('reg.logistic', { roles: { outcome: 'y', covariates: ['f', 'z'] } }), t);
+  assert.ok(out.warnings.some((w) => w.bodyKey === 'models.guard.G14.separation'));
+  assert.deepEqual(out.tables.find((x) => x.id === 'separation').rows, [['z', 'models.cell.sideHigh', 1, 12]]);
+});
+
+test('a rare level that is not separated keeps its estimate (1 positive of 30)', () => {
+  const rnd = lcg(4242);
+  const y = [], f = [];
+  for (let i = 0; i < 400; i++) { const c = i < 30; f.push(c ? 'c' : (i % 2 ? 'a' : 'b')); y.push(c ? (i === 0 ? 1 : 0) : (rnd() < 0.5 ? 1 : 0)); }
+  const t = makeTable({ y: { kind: 'number', values: y }, f: { kind: 'category', levels: ['a', 'b', 'c'], values: f } });
+  const out = runLogistic(spec('reg.logistic', { roles: { outcome: 'y', covariates: ['f'] } }), t);
+  assert.ok(!out.warnings.some((w) => w.bodyKey === 'models.guard.G14.separation'));
+  assert.ok(out.values['oddsRatio:f=c'].value > 0.01 && out.values['oddsRatio:f=c'].value < 0.1);
+});
+
 test('logistic refuses an outcome without a positive level or with more than two values', () => {
   const t = makeTable({ y: { kind: 'category', levels: ['a', 'b', 'c'], values: ['a', 'b', 'c', 'a', 'b', 'c'] }, x: { kind: 'number', values: [1, 2, 3, 4, 5, 6] } });
   assert.equal(runLogistic(spec('reg.logistic', { roles: { outcome: 'y', covariates: ['x'] } }), t).values.reason.reasonKey, 'models.error.needOutcomeLevel');

@@ -4,10 +4,10 @@
 // whose envelope is verified against the 'r-4.6.0' fixtures; otherwise it asks the reader to compare. The
 // app shows the code and hands it over as a download; it never runs it [M2-DESIGN.md 6.4]. OWNER: report role.
 import { getMethod } from '../runtime/catalog.js';
-import { columnIndex, envNumbers, matchesR, rolesOf, scriptAnalyses, wrapComment } from './script-common.js';
+import { columnIndex, envNumbers, matchesR, oneLine, rolesOf, scriptAnalyses, wrapComment } from './script-common.js';
 
 /** An R string literal. */
-export const rq = (s) => `"${String(s ?? '').replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n')}"`;
+export const rq = (s) => `"${String(s ?? '').replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/[\u0000-\u001f\u007f\u2028\u2029]/g, ' ')}"`;
 const rvec = (xs) => `c(${xs.map(rq).join(', ')})`;
 const lvl = (spec) => spec?.options?.confLevel ?? 0.95;
 const alt = (spec) => (spec?.options?.alternative && spec.options.alternative !== 'two.sided' ? `, alternative = ${rq(spec.options.alternative)}` : '');
@@ -450,5 +450,6 @@ export function buildRScript(input) {
     }
   }
   for (const h of helpers) head.push('', ...HELPERS[h]);
-  return `${head.join('\n')}\n${blocks.join('\n')}\n`;
+  // Every element is one line: nothing read from the project can break a comment or a string onto a new line.
+  return `${head.map(oneLine).join('\n')}\n${blocks.map((b) => b.split('\n').map(oneLine).join('\n')).join('\n')}\n`;
 }

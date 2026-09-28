@@ -7,7 +7,7 @@ import { binDates, civil, isoDate, isoWeek } from './epiweek.js';
 import { finish } from './kinds-groups.js';
 import { ciPlotLayout, tickText } from '../lib/ci-plot.js';
 import { MIN_TICK_GAP, ticksWithEnds } from '../components/ci-ticks.js';
-import { groupLegend, legendNodes, line, makeCtx, margins, minus, pathOf, r2, rect, text, tickLabels, xAxis, yAxis } from './frame.js';
+import { groupLegend, legendNodes, line, makeCtx, margins, minus, pathOf, r2, rect, text, tickLabels, xAxis, yAxis, xTitleNodes, wrapWords, titleNodes, fitTitle } from './frame.js';
 
 const num = (v) => typeof v === 'number' && Number.isFinite(v);
 const levelText = (level) => `${Math.round((level ?? 0.95) * 1000) / 10}%`;
@@ -170,7 +170,7 @@ export function epiCurveChart(input, opts) {
   const keep = thinLabels(total.map((b, i) => ({ pos: box.left + (i + 0.5) * bw, width: textWidth(labels[i], ctx.fs) })), 6 * u);
   for (const i of keep) nodes.push(text(box.left + (i + 0.5) * bw, box.bottom + ctx.fs * 1.35, labels[i], { 'text-anchor': 'middle', 'font-size': ctx.fs, fill: 'soft' }));
   const xTitle = input.xTitle || t(`graphs.epi.xTitle.${unit}`);
-  nodes.push(text((box.left + box.right) / 2, box.bottom + ctx.fs * 2.9, xTitle, { 'text-anchor': 'middle', 'font-size': ctx.fs, fill: 'ink' }));
+  if (xTitle) nodes.push(...xTitleNodes(ctx, box, xTitle));
   if (drawLegend) nodes.push(...legendNodes(ctx, legend, box.left, ctx.fs * 0.2, box.right - box.left, (item, lx, ly) => [rect(lx - ctx.fs * 0.35, ly - ctx.fs * 0.35, ctx.fs * 0.7, ctx.fs * 0.7, { fill: item.color })]).nodes);
   const columns = [t('graphs.col.from'), t('graphs.col.to'), ...(series.length > 1 ? series.map((s) => s.label) : []), t('graphs.col.count')];
   const rows = total.map((b, si) => [isoDate(b.start), isoDate(b.end - 1), ...(series.length > 1 ? per.map((p) => p.get(b.start) || 0) : []), b.count]);
@@ -199,29 +199,42 @@ export function ciChart(input, opts) {
   const rows = input.rows || [];
   if (!rows.length) throw Object.assign(new Error('no rows'), { key: 'graphs.error.noData' });
   const u = ctx.u;
-  const L = ciPlotLayout(rows, { width: ctx.width, labelW: Math.round(Math.min(170 * u, ctx.width * 0.36)), rowH: 40 * u, log: Boolean(input.log), ref: input.ref ?? null, minGapPx: MIN_TICK_GAP * u });
-  const ticks = ticksWithEnds(L, MIN_TICK_GAP * u);
   const fs = ctx.fs;
-  const height = L.height + (input.xTitle ? fs * 1.6 : 0) + (ctx.unit === 'pt' ? 0 : 0);
+  // A label longer than its column is wrapped onto more lines and the row grows, so it never runs into
+  // the intervals (review round 1: the limits of agreement's label was drawn over its bar).
+  const labelW = Math.round(Math.min(170 * u, ctx.width * 0.36));
+  const lf = fs * 1.08;
+  const room = labelW - fs * 0.5;
+  const wrapped = rows.map((r) => (textWidth(r.label, lf) <= room ? [String(r.label)] : wrapWords(r.label, room, lf)));
+  const maxLines = Math.max(1, ...wrapped.map((l) => l.length));
+  const L = ciPlotLayout(rows, { width: ctx.width, labelW, rowH: Math.max(40 * u, maxLines * lf * 1.15 + 10 * u), log: Boolean(input.log), ref: input.ref ?? null, minGapPx: MIN_TICK_GAP * u });
+  const ticks = ticksWithEnds(L, MIN_TICK_GAP * u);
+  const xFit = input.xTitle ? fitTitle(input.xTitle, 2 * Math.min((L.plotLeft + L.plotRight) / 2, ctx.width - (L.plotLeft + L.plotRight) / 2) - fs * 0.5, fs) : null;
+  const height = L.height + (xFit ? fs * 1.6 + (xFit.lines.length - 1) * xFit.size * 1.05 : 0);
   const nodes = [];
   for (const tk of ticks) {
     nodes.push(line(tk.x, L.top, tk.x, L.bottom, { stroke: 'line', 'stroke-width': r2(u), 'stroke-dasharray': `${r2(2 * u)} ${r2(4 * u)}` }));
     nodes.push(text(tk.x, L.bottom + fs * 1.5, minus(tickText(tk.v, Boolean(input.percent))), { 'text-anchor': 'middle', 'font-size': fs, fill: 'soft' }));
   }
   if (L.refX !== null) nodes.push(line(L.refX, L.top, L.refX, L.bottom, { stroke: 'soft', 'stroke-width': r2(1.4 * u) }));
-  for (const r of L.rows) {
+  L.rows.forEach((r, ri) => {
     const col = r.muted ? 'soft' : r.accent ? 's4' : 's0';
-    nodes.push(text(0, r.y + fs * 0.37, r.label, { 'font-size': fs * 1.08, 'font-weight': r.muted ? 400 : 600, fill: r.muted ? 'soft' : 'ink' }));
+    const lines = wrapped[ri] || [String(r.label)];
+    lines.forEach((l, li) => nodes.push(text(0, r.y + fs * 0.37 + (li - (lines.length - 1) / 2) * lf * 1.15, l, { 'font-size': lf, 'font-weight': r.muted ? 400 : 600, fill: r.muted ? 'soft' : 'ink' })));
     if (r.xLo !== null && r.xHi !== null) nodes.push(line(r.xLo, r.y, r.xHi, r.y, { stroke: col, 'stroke-width': r2((r.muted ? 2 : 5) * u), 'stroke-linecap': r.openLo || r.openHi ? 'butt' : 'round' }));
     if (r.openHi && r.xHi !== null) nodes.push(pathOf([[r.xHi - 7 * u, r.y - 6 * u], [r.xHi, r.y], [r.xHi - 7 * u, r.y + 6 * u]], { fill: 'none', stroke: col, 'stroke-width': r2(2 * u) }));
     if (r.openLo && r.xLo !== null) nodes.push(pathOf([[r.xLo + 7 * u, r.y - 6 * u], [r.xLo, r.y], [r.xLo + 7 * u, r.y + 6 * u]], { fill: 'none', stroke: col, 'stroke-width': r2(2 * u) }));
     if (r.xEst !== null) nodes.push(r.muted
       ? markerNode('circle', r.xEst, r.y, 4.5 * u, { fill: 'paper', stroke: col, 'stroke-width': r2(2 * u) })
       : markerNode('circle', r.xEst, r.y, 7 * u, { fill: col, stroke: 'paper', 'stroke-width': r2(2 * u) }));
-  }
-  if (input.xTitle) nodes.push(text((L.plotLeft + L.plotRight) / 2, L.height + fs * 0.9, input.xTitle, { 'text-anchor': 'middle', 'font-size': fs, fill: 'ink' }));
+  });
+  if (xFit) nodes.push(...titleNodes((L.plotLeft + L.plotRight) / 2, L.height + fs * 0.9 + ((xFit.lines.length - 1) * xFit.size * 1.05) / 2, xFit, { 'text-anchor': 'middle', fill: 'ink' }));
   const lv = levelText(input.level);
-  const tableRows = rows.map((r) => [r.label, r.estText ?? fmtN(ctx, r.est, input.percent ? 'proportion' : 'ratio'), r.ciText ?? '']);
+  // The number table carries the interval the chart draws, formatted as the result's own tables format it
+  // (review round 1: pairwise charts left the CI column empty and printed 49.8 beside a table's 49.75).
+  const kind = input.percent ? 'proportion' : input.log ? 'ratio' : 'statistic';
+  const bounds = (r) => (num(r.est) && (num(r.lo) || num(r.hi)) ? ciText(ctx, r.est, r.lo, r.hi, kind).replace(/^.*?\(/, '').replace(/\)$/, '') : '');
+  const tableRows = rows.map((r) => [r.label, r.estText ?? fmtN(ctx, r.est, kind), r.ciText ?? bounds(r)]);
   return finish(ctx, {
     kind: 'ci',
     height,

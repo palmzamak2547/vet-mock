@@ -157,6 +157,9 @@ test('reshape long: one row per animal and time, row ids r7.1, times as an order
   assert.deepEqual(time.levels.map((l) => l.value), ['T1', 'T2', 'T3', 'T4']);
   assert.equal(wt.codebook.unitOfAnalysis, 'visit');
   assert.equal(wt.columns.c3, undefined);
+  // review round 1: the long column's English label is its own name, not the first wide column's label
+  const stub = wt.codebook.columns.find((c) => c.key === 'd2');
+  assert.equal(stub.labelEn, 'weight');
   // a later step names the new row ids
   const more = steps.slice();
   step(more, 'row-exclude', { rowId: 'r8.4', category: 'measurement-error' }, 'scale reset');

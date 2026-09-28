@@ -316,3 +316,27 @@ test('the import preview reads a .sav like a CSV: labels applied, user-missing a
   assert.deepEqual(Array.from(wt.columns.c7.missing), [0, 0, 0, 0, 0, 0]);
   assert.equal(wt.invalid.c7, undefined);
 });
+
+// ---------------------------------------------------------------- review round 1: bounded work and size
+
+test('a user-missing range over 100,000 distinct values reads quickly and proposes at most 200 codes', () => {
+  const n = 100000;
+  const rows = Array.from({ length: n }, (_, i) => [i + 0.5]);
+  const b = writeSav({ vars: [{ name: 'x', width: 0, range: [0, 1e9] }], rows, codePage: 65001 });
+  const t0 = Date.now();
+  const r = readSavSync(b);
+  const ms = Date.now() - t0;
+  assert.ok(ms < 3000, `read in ${ms} ms (the O(k^2) list took about 10 s)`);
+  assert.equal(r.variables[0].userMissing.codes.length, 200);
+  assert.equal(r.variables[0].userMissing.inRange, n);
+  assert.ok(r.notes.some((x) => x.key === 'data.sav.note.rangeCodes' && x.params.count === n && x.params.shown === 200));
+});
+
+test('a small compressed file that expands past the row cap is refused with its own message', () => {
+  // Bytecode 101 (value 1) stores each row of one variable in one byte: 1.2 million rows in 1.2 MB, which
+  // would be 9.6 MB of numbers once read.
+  const rows = Array.from({ length: 1_200_000 }, () => [1]);
+  const b = writeSav({ vars: [{ name: 'x', width: 0 }], rows, compression: 'bytecode', codePage: 65001 });
+  assert.ok(b.length < 1_300_000);
+  assert.equal(mustFailCleanly(b), 'data.sav.tooManyRows');
+});

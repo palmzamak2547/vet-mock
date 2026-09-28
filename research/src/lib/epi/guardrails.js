@@ -366,9 +366,11 @@ export function evaluateGuards(spec, table, codebook, context = {}) {
  * @param {import('../runtime/registry.js').MethodOutput|null} output
  */
 export function resultGuards(spec, output) {
-  void spec;
   const out = { stops: [], warnings: [], notes: [] };
   if (!output || output.status !== 'ok') return out;
+  // A diagnostic check (Shapiro-Wilk, Brown-Forsythe) has no difference and no CI to read instead; its
+  // p-value is never written as a finding (review round 1: G8's "look at the CI" was shown under it).
+  if (/^diag\./.test(String(spec?.method || ''))) return out;
   const above = [];
   for (const t of output.tests || []) {
     if (t.id === 'homogeneity') {
@@ -383,6 +385,27 @@ export function resultGuards(spec, output) {
   // One G8 per result, however many tests it prints (a chi-square and its continuity-corrected twin).
   if (above.length) out.warnings.unshift(finding('G8', { params: { testId: above[0], tests: above } }));
   return out;
+}
+
+/** The fewest farms the cluster-robust route accepts (it also needs more farms than coefficients). */
+export const ROBUST_MIN_FARMS = 10;
+
+/** Coefficients of the regression model on the rows the panel reads: the intercept, one per number
+ * covariate, and levels present minus one per category covariate. */
+function coefficientCount(spec, table, groups) {
+  const rows = [];
+  for (const list of groups.values()) rows.push(...list);
+  let p = 1;
+  for (const k of [].concat(spec.roles?.covariates ?? []).filter(Boolean)) {
+    const c = table.columns[k];
+    if (!c) continue;
+    if (c.kind === 'category') {
+      const seen = new Set();
+      for (const i of rows) if (c.values[i] !== null && c.values[i] !== undefined) seen.add(c.values[i]);
+      p += Math.max(0, seen.size - 1);
+    } else p += 1;
+  }
+  return p;
 }
 
 /** The routes the G1 panel lists, each enabled or disabled with a reason. */
@@ -401,7 +424,15 @@ function routesFor(spec, table, codebook, groups) {
   // prevalence (farms as sampling units) and cluster-robust standard errors for the regression models.
   // Listed only where they apply, so an M1 panel is unchanged.
   if (SURVEY_METHODS.has(method)) routes.push({ id: 'survey', enabled: true, reasonKey: null });
-  if (ROBUST_METHODS.has(method)) routes.push({ id: 'robust', enabled: true, reasonKey: null });
+  if (ROBUST_METHODS.has(method)) {
+    // The cluster-robust meat has rank at most the number of farms: with few farms (or no more farms than
+    // coefficients) the standard errors collapse and extreme p-values appear on clustered animals (review
+    // round 1: 2 farms gave p 1e-62, 3 farms 4e-18 on a weak effect). The route needs ROBUST_MIN_FARMS
+    // farms and more farms than coefficients; models/glm.js then uses t on G - 1 df.
+    const farms = groups.size;
+    const coefs = coefficientCount(spec, table, groups);
+    routes.push(farms >= ROBUST_MIN_FARMS && farms > coefs ? { id: 'robust', enabled: true, reasonKey: null } : { id: 'robust', enabled: false, reasonKey: 'epi.route.robust.fewFarms' });
+  }
   // A regression model or a survival curve is not answered by one row per farm (the outcome, the
   // follow-up time and every covariate would have to be summarised first): no aggregate route.
   if (NO_AGGREGATE_METHODS.has(method)) routes.push({ id: 'aggregate', enabled: false, reasonKey: 'epi.route.aggregate.notForModel' });

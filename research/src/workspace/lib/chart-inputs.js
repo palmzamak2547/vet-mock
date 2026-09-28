@@ -8,6 +8,8 @@
 // Used by the result views, the saved-result page and the figure composer, so a figure panel is the
 // chart the student saw under the result. Pure. OWNER: ui-analysis role.
 import { chartOptions } from '../charts/from-result.js';
+import { pairText, termText } from './term-words.js';
+import { valueLabel } from './result-model.js';
 
 /**
  * @typedef {{ id: string, kind: string, titleKey: string, input: any, needsRows: boolean }} ChartSpec
@@ -49,17 +51,17 @@ function levelOf(env) {
 }
 
 /** Pairwise differences with their intervals, for the kit's CI chart (reference line at 0). */
-function pairsInput(table, xTitle, level) {
+function pairsInput(table, xTitle, level, pairLabel = (x) => String(x)) {
   const pi = colIndex(table, 'pair', 'comparison');
   const di = colIndex(table, 'diff', 'estimate');
   const li = colIndex(table, 'lower', 'ciLow');
   const ui = colIndex(table, 'upper', 'ciHigh');
   if (pi < 0 || di < 0 || li < 0 || ui < 0) return null;
-  return { rows: table.rows.map((r) => ({ label: String(r[pi]), est: num(r[di]), lo: bound(r[li]), hi: bound(r[ui]) })), ref: 0, log: false, xTitle, level };
+  return { rows: table.rows.map((r) => ({ label: pairLabel(r[pi]), est: num(r[di]), lo: bound(r[li]), hi: bound(r[ui]) })), ref: 0, log: false, xTitle, level };
 }
 
 /** Means with their intervals, one line per level of the first factor, across the second factor's levels. */
-function cellMeansInput(table, { xTitle, yTitle, level }) {
+function cellMeansInput(table, { xTitle, yTitle, level, labelA = (x) => x, labelB = (x) => x }) {
   const bi = colIndex(table, 'levelB', 'b', 'factorB');
   const ai = colIndex(table, 'levelA', 'a', 'group');
   const ni = colIndex(table, 'n');
@@ -74,21 +76,29 @@ function cellMeansInput(table, { xTitle, yTitle, level }) {
     if (!labels.includes(String(r[ai]))) labels.push(String(r[ai]));
   }
   const series = labels.map((label) => ({
-    label,
+    label: labelA(label),
     points: table.rows.filter((r) => String(r[ai]) === label).map((r) => ({ time: times.indexOf(String(r[bi])), mean: num(r[mi]), lo: bound(r[li]), hi: bound(r[ui]), ...(ni >= 0 ? { n: num(r[ni]) } : {}) })),
   }));
-  return { times, series, xTitle, yTitle, level };
+  return { times: times.map(labelB), series, xTitle, yTitle, level };
 }
 
 /** The ratios a regression table prints (the model's own OR or IRR column), intercept left out. */
-function ratiosInput(table, measure, level) {
+function ratiosInput(table, measure, level, termLabel = (x) => String(x)) {
   const ti = colIndex(table, 'term');
   const ei = colIndex(table, 'ratio', 'OR', 'IRR');
   const li = colIndex(table, 'ratioLower');
   const ui = colIndex(table, 'ratioUpper');
   if (ti < 0 || ei < 0 || li < 0 || ui < 0) return null;
-  const rows = table.rows.filter((r) => r[ti] !== '(Intercept)').map((r) => ({ label: String(r[ti]), est: num(r[ei]), lo: bound(r[li]), hi: bound(r[ui]), kind: 'adjusted' }));
+  const rows = table.rows.filter((r) => r[ti] !== '(Intercept)').map((r) => ({ label: termLabel(r[ti]), est: num(r[ei]), lo: bound(r[li]), hi: bound(r[ui]), kind: 'adjusted' }));
   return rows.length ? { rows, measure, xTitle: measure, level, log: true } : null;
+}
+
+/** Without a dictionary (a test), pairs and terms read as plain text. */
+function fallbackT(k, p = {}) {
+  if (k === 'ws.term.pair') return `${p.a} - ${p.b}`;
+  if (k === 'ws.term.level' || k === 'ws.term.levelVsRef') return `${p.column}: ${p.level}`;
+  if (k === 'term.intercept') return '(Intercept)';
+  return k;
 }
 
 /** Chart ids this module adds, with their own title words. */
@@ -103,34 +113,40 @@ const OWN_TITLES = Object.freeze({
  * @param {(key: string) => string} [labelOf]
  * @returns {ChartSpec[]}
  */
-export function extraCharts(env, labelOf = (k) => k) {
+export function extraCharts(env, labelOf = (k) => k, levelName = (k, v) => v, t = null) {
   if (!env || env.status !== 'ok') return [];
   const method = env.method?.id || env.spec?.method || '';
   const roles = env.spec?.roles || {};
   const name = (k) => (k ? labelOf(k) : '');
+  // Levels, pairs and model terms by the codebook's words (review round 1: "B-A", "c2=B" on the charts).
+  const words = { t: t || fallbackT, spec: env.spec, env, columnName: labelOf, levelName };
+  const pairOf = (key) => (x) => pairText(x, key, words);
+  const lv = (key) => (x) => levelName(key, x);
+  // A pairwise chart's axis is a difference of the outcome, not the outcome (review round 1).
+  const diffTitle = (k) => (t ? t('ws.chart.diffOf', { outcome: name(k) }) : name(k));
   const level = levelOf(env);
   const out = [];
   const add = (id, kind, input) => { if (input) out.push({ id, kind, titleKey: OWN_TITLES[id], input, needsRows: false }); };
   switch (method) {
     case 'anova.twoWay': {
       const tb = findTable(env, 'cellMeans');
-      if (tb) add('cellMeans', 'timeCourse', cellMeansInput(tb, { xTitle: name(roles.factorB), yTitle: name(roles.outcome), level }));
+      if (tb) add('cellMeans', 'timeCourse', cellMeansInput(tb, { xTitle: name(roles.factorB), yTitle: name(roles.outcome), level, labelA: lv(roles.group), labelB: lv(roles.factorB) }));
       for (const id of ['tukeyA', 'tukeyB']) {
         const t2 = findTable(env, id);
-        if (t2) add(id, 'ci', pairsInput(t2, name(roles.outcome), level));
+        if (t2) add(id, 'ci', pairsInput(t2, diffTitle(roles.outcome), level, pairOf(id === 'tukeyB' ? roles.factorB : roles.group)));
       }
       break;
     }
     case 'posthoc.gamesHowell':
     case 'posthoc.dunnett': {
       const tb = findTable(env, 'pairs');
-      if (tb) add('pairs', 'ci', pairsInput(tb, name(roles.outcome), level));
+      if (tb) add('pairs', 'ci', pairsInput(tb, diffTitle(roles.outcome), level, pairOf(roles.group)));
       break;
     }
     case 'reg.logistic':
     case 'reg.poisson': {
       const tb = findTable(env, 'ratios', 'coefficients');
-      if (tb) add(method === 'reg.logistic' ? 'oddsRatios' : 'rateRatios', 'forest', ratiosInput(tb, method === 'reg.logistic' ? 'OR' : 'IRR', level));
+      if (tb) add(method === 'reg.logistic' ? 'oddsRatios' : 'rateRatios', 'forest', ratiosInput(tb, method === 'reg.logistic' ? 'OR' : 'IRR', level, (x) => termText(x, words)));
       break;
     }
     case 'diag.shapiro': {
@@ -161,15 +177,18 @@ export function chartsForResult(analysis, table, ctx = {}) {
   const env = analysis?.envelope;
   if (!env || env.status !== 'ok') return [];
   const labelOf = ctx.labelOf || ((k) => k);
+  const levelOf = ctx.levelOf || ((k, v) => v);
+  const words = { spec: env.spec || analysis.spec, env, columnName: labelOf, levelName: levelOf };
+  const nameOf = ctx.t ? (nm) => valueLabel(nm, ctx.t, env.method?.id || env.spec?.method || null, words) : undefined;
   let kit = [];
   try {
-    kit = chartOptions({ id: analysis.id, spec: analysis.spec || env.spec, envelope: env }, table, { labelOf, stale: Boolean(ctx.stale), t: ctx.t }) || [];
+    kit = chartOptions({ id: analysis.id, spec: analysis.spec || env.spec, envelope: env }, table, { labelOf, levelOf, nameOf, stale: Boolean(ctx.stale), t: ctx.t }) || [];
   } catch {
     kit = [];
   }
   const out = kit.map((c) => ({ id: c.id, kind: c.kind, titleKey: `ws.chart.title.${c.kind}`, input: c.input, needsRows: Boolean(c.needsRows) }));
   const base = analysis.id || env.method?.id || 'result';
-  for (const c of extraCharts(env, labelOf)) out.push({ ...c, id: `${base}:${c.id}` });
+  for (const c of extraCharts(env, labelOf, levelOf, ctx.t || null)) out.push({ ...c, id: `${base}:${c.id}` });
   return out;
 }
 

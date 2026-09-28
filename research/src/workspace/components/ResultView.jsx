@@ -9,11 +9,12 @@ import { formatCi, formatNumber, formatP } from '../../lib/stats/format.js';
 import { provenanceLines } from '../../lib/runtime/provenance.js';
 import { copyTable, download, tableToCsv } from '../../lib/runtime/export.js';
 import { getMethod } from '../../lib/runtime/catalog.js';
-import { ciLevelText, exportTable, pText, plottable, primaryValueName, testLabel, valueCells, valueLabel, valueRows } from '../lib/result-model.js';
+import { ciLevelText, wordAreaOf, exportTable, pText, plottable, primaryTest, primaryValueName, testLabel, valueCells, valueLabel, valueRows } from '../lib/result-model.js';
 import { safeFileBase } from '../lib/files.js';
 import { useWs, errorInfo } from '../ws-context.js';
 import { Notice, VerifiedBadge } from './Bits.jsx';
 import CiPlot from './CiPlot.jsx';
+import ChartSlot from './ChartSlot.jsx';
 import Paragraphs from './Paragraphs.jsx';
 import { columnNameFor, levelNameFor, resultParagraphs } from '../report/build.js';
 import { envTableText, guardText, optionItems, tableWord } from '../report/result-words.js';
@@ -27,11 +28,11 @@ const hasKey = (t, key) => t(key) !== `[${key}]`;
 /** Tables longer than this are folded under a summary line. */
 const FOLD_ROWS = 12;
 
-function GuardList({ items, tone }) {
+function GuardList({ items, tone, words = null }) {
   const { t } = useT();
   if (!items?.length) return null;
   return items.map((g) => {
-    const x = guardText(g, t);
+    const x = guardText(g, t, words);
     return <Notice key={`${g.id}-${g.key}`} tone={tone} title={x.title}>{x.body}</Notice>;
   });
 }
@@ -125,7 +126,7 @@ function ResultParagraphs({ env, designRow, codebook, onDownloaded }) {
  * table and the CI plot, where the board puts an explanation of the result. `hidePlot` leaves the CI plot
  * out when a chart below the result already draws the same intervals (a forest plot of a model's ratios).
  */
-export default function ResultView({ envelope, title, caption: captionProp = '', designRow = null, extraRows = [], onSnapshot = null, onDownloaded, headlineLabel, children = null, afterPlot = null, stale = false, hideTables = false, labelOf, codebook = null, paragraphs = true, primaryName = null, primaryPlotLabel, hidePlot = false }) {
+export default function ResultView({ envelope, title, caption: captionProp = '', designRow = null, extraRows = [], onSnapshot = null, onDownloaded, headlineLabel, children = null, afterPlot = null, stale = false, hideTables = false, labelOf, codebook = null, paragraphs = true, primaryName = null, primaryPlotLabel, hidePlot = false, madeUp = false }) {
   const { t, lang } = useT();
   const { notify } = useWs();
   const env = envelope;
@@ -136,10 +137,16 @@ export default function ResultView({ envelope, title, caption: captionProp = '',
   const rows = useMemo(() => valueRows(env, primary), [env, primary]);
   const head = rows.find((r) => r.name === primary);
   const level = ciLevelText(env);
-  const plot = useMemo(() => plottable(env, primary), [env, primary]);
+  const plot = useMemo(() => {
+    const pl = plottable(env, primary);
+    // Bland-Altman's slope is on another scale than the bias and the limits: it stays in the table.
+    return env?.method?.id === 'agree.blandAltman' ? { ...pl, rows: pl.rows.filter((r) => !/^proportional/.test(r.name)) } : pl;
+  }, [env, primary]);
+  const columnName = labelOf || columnNameFor(codebook, lang);
+  const words = { spec: env?.spec || null, env: env || null, codebook, columnName, levelName: levelNameFor(codebook, lang) };
   const items = [...extraRows, ...plot.rows.map((r) => {
     const c = valueCells(r, FMT, lang, t);
-    return { label: r.name === primary && primaryPlotLabel ? primaryPlotLabel : valueLabel(r.name, t, env?.method?.id), est: r.value, lo: r.ci?.[0] ?? null, hi: r.ci?.[1] ?? null, estText: c.est, ciText: c.ci };
+    return { label: r.name === primary && primaryPlotLabel ? primaryPlotLabel : valueLabel(r.name, t, env?.method?.id, words), est: r.value, lo: r.ci?.[0] ?? null, hi: r.ci?.[1] ?? null, estText: c.est, ciText: c.ci };
   })];
   let lines = [];
   try { lines = provenanceLines(env, lang, t, labelOf); } catch { lines = []; }
@@ -147,22 +154,20 @@ export default function ResultView({ envelope, title, caption: captionProp = '',
   const caption = captionProp || heading;
   const note = lines.join(' ');
   const fileBase = safeFileBase(`${caption}`);
-  const columnName = labelOf || columnNameFor(codebook, lang);
-  const words = { spec: env?.spec || null, codebook, columnName, levelName: levelNameFor(codebook, lang) };
   const options = useMemo(() => (env ? optionItems(env, t, { columnName, lang }) : []), [env, t, columnName, lang]);
   // A model's effects are named by the student's own columns ("breed x diet"), not by a letter.
-  const testCtx = { methodId: env?.method?.id || null, roles: env?.spec?.roles || null, columnName };
+  const testCtx = { methodId: env?.method?.id || null, roles: env?.spec?.roles || null, columnName, words };
 
   const copy = async () => {
     try {
-      const how = await copyTable(exportTable(env, { t, fmt: FMT, lang, caption, note, primary, columnName }));
+      const how = await copyTable(exportTable(env, { t, fmt: FMT, lang, caption, note, primary, columnName, words }));
       notify(how === 'failed' ? 'ws.copy.failed' : 'ws.copy.table', {}, how === 'failed' ? 'error' : 'ok');
       if (how !== 'failed') onDownloaded?.('clipboard');
     } catch (err) { notify(errorInfo(err).key, {}, 'error'); }
   };
   const csv = () => {
     try {
-      const text = tableToCsv(exportTable(env, { t, fmt: FMT, lang, caption, note, primary, columnName }));
+      const text = tableToCsv(exportTable(env, { t, fmt: FMT, lang, caption, note, primary, columnName, words }));
       download(new Blob([text], { type: 'text/csv;charset=utf-8' }), `${fileBase}.csv`);
       onDownloaded?.('csv');
     } catch (err) { notify(errorInfo(err).key, {}, 'error'); }
@@ -175,7 +180,8 @@ export default function ResultView({ envelope, title, caption: captionProp = '',
   // A result that only counts (Table 1: rows described, farms) has no answer to lead with; its counts
   // stay in the table instead of a headline that the table repeats (review round 3).
   const countsOnly = rows.length > 0 && !tests.length && rows.every((r) => r.kind === 'count' && !Array.isArray(r.ci));
-  const lead = countsOnly ? null : head;
+  const lead = countsOnly || !head ? null : head;
+  const leadTest = primaryTest(env);
   // A table that would only repeat the headline's one value is left out, and so are its copy buttons.
   const valuesTable = (rows.length || tests.length) && !(lead && rows.length === 1 && !tests.length);
   return (
@@ -194,7 +200,7 @@ export default function ResultView({ envelope, title, caption: captionProp = '',
 
       {lead ? (
         <div className="rs-headline">
-          <div className="rs-eyebrow">{headlineLabel || valueLabel(head.name, t, env?.method?.id)}</div>
+          <div className="rs-eyebrow">{headlineLabel || valueLabel(head.name, t, env?.method?.id, words)}</div>
           {head.value === null || head.value === undefined ? (
             <>
               <div className="rs-bignum rs-num" aria-hidden="true">—</div>
@@ -206,11 +212,11 @@ export default function ResultView({ envelope, title, caption: captionProp = '',
               {head.ci ? <span className="rs-ci rs-num">{t('ws.result.ciInline', { level, ci: valueCells(head, FMT, lang, t).ci })}</span> : null}
             </div>
           )}
-          {tests[0] ? (
+          {leadTest ? (
             <p className="rs-num">
-              {tests[0].p === null || tests[0].p === undefined
+              {leadTest.p === null || leadTest.p === undefined
                 ? t('ws.result.pWithheld')
-                : t('ws.result.pLine', { p: pText(FMT, tests[0].p), test: testLabel(tests[0], t, testCtx) })}
+                : t('ws.result.pLine', { p: pText(FMT, leadTest.p), test: testLabel(leadTest, t, testCtx) })}
             </p>
           ) : null}
         </div>
@@ -232,7 +238,7 @@ export default function ResultView({ envelope, title, caption: captionProp = '',
                 const c = valueCells(r, FMT, lang, t);
                 return (
                   <tr key={r.name}>
-                    <th scope="row">{valueLabel(r.name, t, env?.method?.id)}{c.note ? <div className="rs-soft rs-small">{c.note}</div> : null}</th>
+                    <th scope="row">{valueLabel(r.name, t, env?.method?.id, words)}{c.note ? <div className="rs-soft rs-small">{c.note}</div> : null}</th>
                     <td className="rs-r">{c.est}</td>
                     {thirdCol ? <td className="rs-r">{c.ci}</td> : null}
                   </tr>
@@ -253,11 +259,17 @@ export default function ResultView({ envelope, title, caption: captionProp = '',
         </div>
       ) : null}
 
-      {items.length && !hidePlot ? <CiPlot items={items} log={plot.log} refValue={plot.ref} percent={plot.rows[0]?.kind === 'proportion'} title={caption} fileBase={fileBase} onDownloaded={onDownloaded} levelText={level} /> : null}
+      {items.length && !hidePlot ? (
+        // An M2 result's interval plot is the chart kit's 'ci' chart (M2-DESIGN.md 8.2): its files follow the
+        // chosen width, white paper and black ink, and its labels stay out of the plot (review round 1).
+        wordAreaOf(env?.method?.id)
+          ? <ChartSlot chart={{ id: 'ci', kind: 'ci', titleKey: 'ws.chart.title.ci', input: { rows: items, log: plot.log, ref: plot.ref, percent: plot.rows[0]?.kind === 'proportion', level: plot.rows[0]?.ciLevel ?? env?.spec?.options?.confLevel ?? 0.95 } }} caption={caption} madeUp={madeUp} onDownloaded={onDownloaded} />
+          : <CiPlot items={items} log={plot.log} refValue={plot.ref} percent={plot.rows[0]?.kind === 'proportion'} title={caption} fileBase={fileBase} onDownloaded={onDownloaded} levelText={level} />
+      ) : null}
       {afterPlot}
 
-      <GuardList items={env.guard?.warnings} tone="warn" />
-      <GuardList items={env.guard?.notes} tone="info" />
+      <GuardList items={env.guard?.warnings} tone="warn" words={words} />
+      <GuardList items={env.guard?.notes} tone="info" words={words} />
       {hideTables ? null : (env.tables || []).map((tb) => (
         // A long table (a stratum per farm) is folded under a one-line summary, so the estimate and
         // the paragraphs are not pushed a screen away (review round 2: 49 strata rows, 4374 px).

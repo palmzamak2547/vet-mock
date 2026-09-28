@@ -32,7 +32,7 @@ export default {
     'lab.option.adjust.label': 'วิธีปรับค่า p เมื่อเทียบหลายคู่',
     'lab.option.adjust.holm': 'Holm',
     'lab.option.adjust.bonferroni': 'Bonferroni',
-    'lab.option.adjust.sidak': 'Sidak',
+    'lab.option.adjust.sidak': 'Šidák',
     'lab.option.adjust.bh': 'Benjamini-Hochberg (คุม false discovery rate)',
     'lab.option.adjust.none': 'ไม่ปรับ',
     'lab.option.on.label': 'ตรวจกับค่าไหน',
@@ -87,13 +87,13 @@ export default {
     'lab.col.W': 'W',
     'lab.source.A': 'ปัจจัยแรก',
     'lab.source.B': 'ปัจจัยที่สอง',
-    'lab.source.AB': 'interaction ของสองปัจจัย',
+    'lab.source.AB': 'ผลร่วมของสองปัจจัย (interaction)',
     'lab.source.residual': 'ค่าเหลือ',
     'lab.source.animals': 'ความต่างระหว่างสัตว์',
     'lab.source.animalsWithinGroups': 'ความต่างระหว่างสัตว์ในกลุ่มเดียวกัน',
     'lab.source.group': 'กลุ่ม',
     'lab.source.time': 'เวลา',
-    'lab.source.groupTime': 'กลุ่มกับเวลาร่วมกัน (interaction)',
+    'lab.source.groupTime': 'ผลร่วมของกลุ่มกับเวลา (interaction)',
 
     // ------------------------------------------------------------ undefined values
     'lab.undefined.needTwoLevels': 'แต่ละปัจจัยต้องมีข้อมูลอย่างน้อย 2 ระดับ',
@@ -104,6 +104,7 @@ export default {
     'lab.undefined.mauchlyTwoTimes': 'เมื่อวัดแค่ 2 ครั้ง sphericity เป็นจริงเสมอ จึงไม่มี Mauchly test ให้ดู',
     'lab.undefined.mauchlyFewAnimals': 'สัตว์น้อยเกินไปเมื่อเทียบกับจำนวนครั้งที่วัด จึงคำนวณ Mauchly test ไม่ได้',
     'lab.undefined.needTwoTreatments': 'ต้องมีอย่างน้อย 2 กลุ่มหรือ 2 ครั้งที่วัด',
+    'lab.undefined.noCompleteBlock': 'ไม่มีสัตว์หรือบล็อกที่มีค่าครบทุกกลุ่ม จึงเทียบภายในตัวเดียวกันไม่ได้',
     'lab.undefined.groupTooSmall': 'บางกลุ่มมีสัตว์ตัวเดียว จึงหาการกระจายของกลุ่มนั้นไม่ได้',
     'lab.undefined.shapiroN': 'Shapiro-Wilk ใช้ได้เมื่อมี 3 ถึง 5000 ค่า',
 
@@ -165,7 +166,7 @@ export default {
     'lab.invalid.power.nRegression': 'จำนวนสัตว์ต้องมากกว่าจำนวนตัวแปรที่ทดสอบอย่างน้อย 2 ตัว',
     'lab.invalid.power.noSolution': 'หาจำนวนสัตว์ที่ให้ power นี้ไม่ได้ในช่วงที่คำนวณได้ ลองลด power ที่ต้องการหรือเพิ่มขนาดผล',
     'lab.invalid.power.deffInputs': 'จำนวนสัตว์ต่อฟาร์มต้องตั้งแต่ 1 และ ICC ต้องอยู่ระหว่าง 0 ถึง 1',
-    'lab.undefined.power.nEffTooSmall': 'เมื่อปรับตามฟาร์มแล้ว จำนวนสัตว์ที่มีค่าเทียบเท่าน้อยเกินไปจะคำนวณ power ได้',
+    'lab.undefined.power.nEffTooSmall': 'เมื่อปรับตามฟาร์มแล้ว จำนวนสัตว์ที่มีค่าเทียบเท่าน้อยเกินกว่าจะคำนวณ power ได้',
     'lab.undefined.power.notComputable': 'คำนวณ power ไม่ได้ด้วยค่าที่กรอก',
   },
   en: {
@@ -186,7 +187,7 @@ export default {
     'lab.option.adjust.label': 'How p-values are adjusted for several pairs',
     'lab.option.adjust.holm': 'Holm',
     'lab.option.adjust.bonferroni': 'Bonferroni',
-    'lab.option.adjust.sidak': 'Sidak',
+    'lab.option.adjust.sidak': 'Šidák',
     'lab.option.adjust.bh': 'Benjamini-Hochberg (controls the false discovery rate)',
     'lab.option.adjust.none': 'No adjustment',
     'lab.option.on.label': 'Which values are checked',
@@ -255,6 +256,7 @@ export default {
     'lab.undefined.mauchlyTwoTimes': 'With only 2 times, sphericity always holds, so there is no Mauchly test to show',
     'lab.undefined.mauchlyFewAnimals': 'Too few animals for the number of times, so the Mauchly test cannot be computed',
     'lab.undefined.needTwoTreatments': 'Needs 2 or more groups or times',
+    'lab.undefined.noCompleteBlock': 'No animal or block has a value in every group, so nothing can be compared within an animal.',
     'lab.undefined.groupTooSmall': 'A group has a single animal, so its spread cannot be estimated',
     'lab.undefined.shapiroN': 'Shapiro-Wilk needs between 3 and 5000 values',
 

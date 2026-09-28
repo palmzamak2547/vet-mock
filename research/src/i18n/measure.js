@@ -1,4 +1,4 @@
-// Area 'measure', key prefix 'measure.' [M2-DESIGN.md 9]. Measurement track: ROC and DeLong, Bland-Altman, Cronbach alpha, the design-based prevalence interval, sparse-strata and design-effect notes.
+// Area 'measure', key prefix 'measure.' [M2-DESIGN.md 9]. Measurement track: ROC and DeLong, Bland-Altman, Cronbach’s alpha, the design-based prevalence interval, sparse-strata and design-effect notes.
 // OWNER: measure role. Rules: docs/research/M1-DESIGN.md 4.3 and M2-DESIGN.md 9 (plain words, one term per
 // concept, statistics terms in English with a Thai gloss once, no middle dot, no ellipsis, no star glyph,
 // นิสิต, Arabic digits). Registered by the lazy root that shows it.
@@ -13,9 +13,9 @@ export default {
   th: {
     // ---- Bland-Altman: values
     'measure.value.agreeBlandAltman.n': 'จำนวนตัวที่วัดครบทั้งสองวิธี',
-    'measure.value.agreeBlandAltman.bias': 'ผลต่างเฉลี่ย A ลบ B (bias)',
+    'measure.value.agreeBlandAltman.bias': 'ผลต่างเฉลี่ย {a} ลบ {b} (bias)',
     'measure.value.agreeBlandAltman.biasPercent': 'ผลต่างเฉลี่ยเป็นร้อยละของค่าเฉลี่ยสองวิธี (bias)',
-    'measure.value.agreeBlandAltman.ratioGeoMean': 'อัตราส่วน A ต่อ B เฉลี่ยแบบเรขาคณิต (bias)',
+    'measure.value.agreeBlandAltman.ratioGeoMean': 'อัตราส่วน {a} ต่อ {b} เฉลี่ยแบบเรขาคณิต (bias)',
     'measure.value.agreeBlandAltman.sdDifference': 'SD ของผลต่าง',
     'measure.value.agreeBlandAltman.sdPercent': 'SD ของผลต่างเป็นร้อยละ',
     'measure.value.agreeBlandAltman.sdLogRatio': 'SD ของ log อัตราส่วน',
@@ -33,7 +33,7 @@ export default {
     'measure.note.proportionalBiasInfo.ratio': 'เส้นถดถอยนี้ใช้ log ของอัตราส่วนเทียบกับ log ของค่าเฉลี่ยเรขาคณิต ใช้ดูเท่านั้น ไม่ได้เปลี่ยนวิธีวิเคราะห์',
     'measure.note.ratioBackTransformed': 'คำนวณบน log แล้วแปลงกลับเป็นอัตราส่วน อัตราส่วน 1 คือสองวิธีให้ค่าเท่ากัน ช่วงจึงไม่สมมาตรรอบค่าเฉลี่ย',
     'measure.note.loaMultiplierTwo': 'ใช้ 2 SD ตามบทความของ Bland และ Altman ค.ศ. 1986 งานส่วนใหญ่ในปัจจุบันใช้ 1.96 SD',
-    // ---- Cronbach's alpha: values
+    // ---- Cronbach’s alpha: values
     'measure.value.relCronbach.n': 'จำนวนผู้ตอบที่ตอบครบทุกข้อ',
     'measure.value.relCronbach.k': 'จำนวนข้อคำถาม',
     'measure.value.relCronbach.alpha': 'Cronbach\'s alpha (ความสอดคล้องภายในของชุดข้อคำถาม)',
@@ -96,7 +96,7 @@ export default {
     'measure.undefined.aucDifferenceNoVariance': 'ความแปรปรวนของความต่างเป็น 0 จึงทดสอบไม่ได้ สองชุดตรวจเรียงสัตว์เหมือนกันทุกตัว',
     'measure.undefined.noThreshold': 'ไม่มีจุดตัดที่แยกสองกลุ่มได้',
     'measure.undefined.surveyOneFarm': 'มีฟาร์มเดียว จึงคำนวณ CI ตามแบบการสุ่มฟาร์มไม่ได้',
-    'measure.undefined.surveyLogitAllSame': 'ทุกตัวให้ผลเหมือนกัน CI แบบ logit จึงคำนวณไม่ได้ ให้ใช้แบบ mean',
+    'measure.undefined.surveyLogitAllSame': 'ทุกตัวให้ผลเหมือนกัน CI แบบ logit จึงคำนวณไม่ได้ ให้เลือกแบบ Wald',
     'measure.error.needTestAndReference': 'เลือกคอลัมน์ผลของชุดตรวจ และคอลัมน์ผลอ้างอิง',
     'measure.error.needReferencePositive': 'เลือกว่าค่าใดในผลอ้างอิงหมายถึงมีภาวะนั้น',
     'measure.error.testNotNumber': 'ผลของชุดตรวจต้องเป็นตัวเลข หรือเป็นลำดับที่ชื่อคำตอบเป็นตัวเลข',
@@ -106,9 +106,9 @@ export default {
   en: {
     // ---- Bland-Altman: values
     'measure.value.agreeBlandAltman.n': 'Animals measured by both methods',
-    'measure.value.agreeBlandAltman.bias': 'Mean difference, A minus B (bias)',
+    'measure.value.agreeBlandAltman.bias': 'Mean difference, {a} minus {b} (bias)',
     'measure.value.agreeBlandAltman.biasPercent': 'Mean difference as a percent of the two methods\' mean (bias)',
-    'measure.value.agreeBlandAltman.ratioGeoMean': 'Geometric mean ratio of A to B (bias)',
+    'measure.value.agreeBlandAltman.ratioGeoMean': 'Geometric mean ratio of {a} to {b} (bias)',
     'measure.value.agreeBlandAltman.sdDifference': 'SD of the differences',
     'measure.value.agreeBlandAltman.sdPercent': 'SD of the percent differences',
     'measure.value.agreeBlandAltman.sdLogRatio': 'SD of the log ratios',
@@ -126,7 +126,7 @@ export default {
     'measure.note.proportionalBiasInfo.ratio': 'This regression uses the log ratio against the log of the geometric mean. It is for information only and does not change the analysis.',
     'measure.note.ratioBackTransformed': 'Computed on the log scale and back-transformed to ratios. A ratio of 1 means the two methods agree, so the limits are not symmetric around the mean.',
     'measure.note.loaMultiplierTwo': 'Uses 2 SD as in Bland and Altman\'s 1986 paper; most current work uses 1.96 SD.',
-    // ---- Cronbach's alpha: values
+    // ---- Cronbach’s alpha: values
     'measure.value.relCronbach.n': 'Respondents who answered every item',
     'measure.value.relCronbach.k': 'Items',
     'measure.value.relCronbach.alpha': 'Cronbach\'s alpha (internal consistency of the items)',
@@ -189,7 +189,7 @@ export default {
     'measure.undefined.aucDifferenceNoVariance': 'The difference has no variance, so it cannot be tested: the two tests order every animal the same way.',
     'measure.undefined.noThreshold': 'No cut-off separates the two groups.',
     'measure.undefined.surveyOneFarm': 'There is one farm only, so a design-based interval cannot be computed.',
-    'measure.undefined.surveyLogitAllSame': 'Every animal has the same result, so the logit interval cannot be computed. Use the mean interval instead.',
+    'measure.undefined.surveyLogitAllSame': 'Every animal has the same result, so the logit interval cannot be computed. Choose the Wald interval instead.',
     'measure.error.needTestAndReference': 'Choose the column with the test result and the column with the reference result.',
     'measure.error.needReferencePositive': 'Choose which reference value means the condition is present.',
     'measure.error.testNotNumber': 'The test result must be a number, or an ordered answer whose names are numbers.',

@@ -44,6 +44,27 @@ export function renderTree(model, theme = 'screen', o = {}) {
   return { t: 'svg', a, c };
 }
 
+/**
+ * A chart of made-up data carries the words "made-up data" in its bottom margin, in every file made from
+ * it (M2-DESIGN.md 3: made-up datasets are labelled wherever they are shown; review round 1 found SVG, PNG,
+ * TIFF and print files without it). The model grows by one line; nothing inside the plot moves.
+ * @param {any} model
+ * @param {string} note   the words, in the page language
+ */
+export function withMadeUpNote(model, note) {
+  if (!note) return model;
+  const fs = model.fontSize;
+  const extra = fs * 1.6;
+  const height = r2(model.height + extra);
+  return {
+    ...model,
+    height,
+    heightMm: model.unit === 'pt' ? r2((height / 72) * 25.4) : model.heightMm,
+    marks: [...model.marks, { t: 'text', a: { x: r2(fs * 0.5), y: r2(height - fs * 0.5), 'font-size': r2(fs * 0.9), fill: 'soft' }, text: String(note) }],
+    madeUpNote: String(note),
+  };
+}
+
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 /** Serialise a render tree to SVG text (no DOM needed; runs in tests and in the worker-free page). */

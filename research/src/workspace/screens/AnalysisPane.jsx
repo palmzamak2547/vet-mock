@@ -31,6 +31,7 @@ import Link from '../components/Link.jsx';
 import ResultView, { FMT } from '../components/ResultView.jsx';
 import { primaryValueName, valueCells } from '../lib/result-model.js';
 import { valueKind } from '../lib/method-ui.js';
+import { levelNameFor } from '../report/build.js';
 
 const hasKey = (t, k) => t(k) !== `[${k}]`;
 
@@ -235,6 +236,7 @@ export default function AnalysisPane({ p, pane }) {
     const c = codebook.columns.find((x) => x.key === key);
     return c ? colName(c) : key;
   };
+  const levelOf = levelNameFor(codebook, lang);
 
   if (!designRow) {
     return (
@@ -275,7 +277,7 @@ export default function AnalysisPane({ p, pane }) {
     return { label: t(`ws.route.${keyPart(c.route)}.short`), est: v.value, lo: v.ci?.[0] ?? null, hi: v.ci?.[1] ?? null, muted: true, estText: cells.est, ciText: cells.ci };
   })].filter(Boolean);
 
-  const charts = env && env.status === 'ok' ? chartsForResult({ spec, envelope: env }, p.table, { labelOf, t }) : [];
+  const charts = env && env.status === 'ok' ? chartsForResult({ spec, envelope: env }, p.table, { labelOf, levelOf, t }) : [];
 
   return (
     <>
@@ -441,6 +443,7 @@ export default function AnalysisPane({ p, pane }) {
               extraRows={extraRows}
               headlineLabel={deffShown ? t('ws.prev.adjustedHeadline') : undefined}
               hidePlot={repeatsCiPlot(charts)}
+              madeUp={Boolean(p.project?.example)}
               primaryPlotLabel={deffShown ? t('ws.prev.adjustedRow') : undefined}
               afterPlot={why ? (
                 // Under the headline and the CI plot, as the board has it (review round 3: it came first).

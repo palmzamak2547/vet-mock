@@ -18,6 +18,7 @@ import Table1View from '../components/Table1View.jsx';
 import { provenanceLines } from '../../lib/runtime/provenance.js';
 import ResultCharts from '../components/ResultCharts.jsx';
 import { chartsForResult, repeatsCiPlot } from '../lib/chart-inputs.js';
+import { levelNameFor } from '../report/build.js';
 
 /** @param {{ p: any, analysisId: string }} props */
 export default function SavedResult({ p, analysisId }) {
@@ -38,6 +39,7 @@ export default function SavedResult({ p, analysisId }) {
     const c = cols.find((x) => x.key === key);
     return c ? (lang === 'en' ? c.labelEn || c.name : c.labelTh || c.name) : key;
   };
+  const levelOf = levelNameFor(p.codebook || p.meta?.codebook, lang);
   const isT1 = a.envelope?.method?.id === 'desc.table1';
   let note = '';
   try { note = isT1 ? provenanceLines(a.envelope, lang, t, labelOf).join(' ') : ''; } catch { note = ''; }
@@ -45,7 +47,7 @@ export default function SavedResult({ p, analysisId }) {
   const name = m ? t(m.nameKey) : a.spec?.method;
   const designRow = DESIGNS.find((d) => d.id === (a.spec?.design || p.project.design)) || null;
   const stale = isStale(a, p.table?.fingerprint);
-  const charts = chartsForResult(a, p.table || null, { labelOf, stale, t });
+  const charts = chartsForResult(a, p.table || null, { labelOf, levelOf, stale, t });
   return (
     <>
       <PageHead
