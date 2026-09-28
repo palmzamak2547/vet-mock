@@ -56,7 +56,7 @@ test('a word cut by letters shares its line with nothing', () => {
 test('the effect of a number covariate is per one unit of it; a category term and the intercept are not', () => {
   const codebook = { columns: [
     { key: 'c3', type: 'continuous', unit: 'kg', labelTh: 'น้ำหนักแรกเกิด', labelEn: 'Birth weight' },
-    { key: 'c4', type: 'continuous', unit: 'kg', labelTh: 'น้ำหนักแม่ (kg)', labelEn: 'Dam weight (kg)' },
+    { key: 'c4', type: 'continuous', unit: '1-5', labelTh: 'คะแนนร่างกาย (1-5)', labelEn: 'Body condition (1-5)' },
     { key: 'c5', type: 'count', unit: null, labelTh: 'ลำดับท้อง', labelEn: 'Parity' },
     { key: 'c2', type: 'nominal', unit: null, labelTh: 'เพศ', labelEn: 'Sex' },
   ] };
@@ -64,15 +64,13 @@ test('the effect of a number covariate is per one unit of it; a category term an
     const t = (k, p) => translate(lang, k, p);
     const name = (k) => codebook.columns.find((c) => c.key === k)?.[lang === 'th' ? 'labelTh' : 'labelEn'] ?? k;
     const words = { codebook, columnName: name, levelName: (_c, v) => v, spec: { method: 'reg.logistic', roles: {} } };
-    const per = lang === 'th' ? 'ต่อ 1' : 'per 1';
-    const or3 = valueLabel('oddsRatio:c3', t, 'reg.logistic', words);
-    assert.ok(or3.includes(`${name('c3')} ${per} kg`), or3);
-    const or4 = valueLabel('oddsRatio:c4', t, 'reg.logistic', words);
-    assert.ok(or4.includes(`${per} kg`) && !or4.includes('(kg)'), `the unit is said once: ${or4}`);
-    const irr = valueLabel('rateRatio:c5', t, 'reg.poisson', { ...words, spec: { method: 'reg.poisson', roles: {} } });
-    assert.ok(irr.includes(`${per} ${t('ws.term.unit')}`), irr);
-    const b = valueLabel('b:c3', t, 'reg.logistic', words);
-    assert.ok(b.includes(`${per} kg`), b);
+    const per = t('ws.term.perUnit', { column: '' }).trim();
+    for (const [n, m] of [['oddsRatio:c3', 'reg.logistic'], ['oddsRatio:c4', 'reg.logistic'], ['rateRatio:c5', 'reg.poisson'], ['b:c3', 'reg.logistic']]) {
+      const s = valueLabel(n, t, m, { ...words, spec: { method: m, roles: {} } });
+      const col = name(n.split(':')[1]);
+      assert.ok(s.includes(`${col} ${per}`), `${lang} ${n}: ${s}`);
+      assert.ok(!/ต่อ 1 kg|per 1 kg|1 1-5/.test(s), `no guessed unit: ${s}`);
+    }
     for (const other of ['oddsRatio:c2=M', 'b:(Intercept)']) assert.ok(!valueLabel(other, t, 'reg.logistic', words).includes(per), other);
   }
 });

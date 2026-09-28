@@ -9,7 +9,7 @@ import { linearScale, logScale, paddedDomain, textWidth, thinLabels } from './sc
 import normalQuantile from '@stdlib/stats-base-dists-normal-quantile';
 import { olsBand, pFunction } from './helpers.js';
 import { finish } from './kinds-groups.js';
-import { groupLegend, legendNodes, line, makeCtx, margins, minus, pathOf, r2, rect, text, tickLabels, ticksFor, xAxis, yAxis } from './frame.js';
+import { groupLegend, legendNodes, line, makeCtx, margins, minFont, minus, pathOf, r2, rect, text, tickLabels, ticksFor, xAxis, yAxis } from './frame.js';
 
 const num = (v) => typeof v === 'number' && Number.isFinite(v);
 const levelText = (level) => `${Math.round((level ?? 0.95) * 1000) / 10}%`;
@@ -339,14 +339,24 @@ export function blandAltmanChart(input, opts) {
   for (const [k, v] of lines) {
     if (num(v?.lo) && num(v?.hi)) nodes.push(rect(f.box.left, f.y(v.hi), f.box.right - f.box.left, f.y(v.lo) - f.y(v.hi), { fill: k === 'bias' ? 's0' : 's1', 'fill-opacity': 0.12, stroke: 'none' }));
   }
+  const late = [];
   for (const [k, v] of lines) {
     if (!num(v?.value)) continue;
     const yv = f.y(v.value);
     nodes.push(line(f.box.left, yv, f.box.right, yv, { stroke: k === 'bias' ? 's0' : 's1', 'stroke-width': r2(1.8 * u), ...(k === 'bias' ? {} : { 'stroke-dasharray': `${r2(6 * u)} ${r2(3 * u)}` }) }));
-    if (inside) nodes.push(text(f.box.right - ctx.fs * 0.3, yv - ctx.fs * 0.35, `${labelOf[k]} ${fmtN(ctx, v.value)}`, { 'font-size': ctx.fs, 'text-anchor': 'end', fill: 'ink', stroke: 'paper', 'stroke-width': r2(3 * u), 'paint-order': 'stroke' }));
+    if (inside) {
+      // over the points, and no wider than the plot: smaller type first, then the value alone (the table under the
+      // chart names it; review round 8: the digits sat under the points and an English label crossed the y axis)
+      const room = f.box.right - f.box.left - ctx.fs * 0.6;
+      const full = `${labelOf[k]} ${fmtN(ctx, v.value)}`;
+      const size = Math.max(minFont(ctx), Math.min(ctx.fs, (ctx.fs * room) / textWidth(full, ctx.fs)));
+      const s = textWidth(full, size) <= room ? full : fmtN(ctx, v.value);
+      late.push(text(f.box.right - ctx.fs * 0.3, yv - size * 0.35, s, { 'font-size': r2(size), 'text-anchor': 'end', fill: 'ink', stroke: 'paper', 'stroke-width': r2(3 * u), 'paint-order': 'stroke' }));
+    }
     else nodes.push(text(f.box.right + ctx.fs * 0.4, yv + ctx.fs * 0.35, `${labelOf[k]} ${fmtN(ctx, v.value)}`, { 'font-size': ctx.fs, fill: 'ink' }));
   }
   for (const p of pts) nodes.push(markerNode('circle', f.x(p.mean), f.y(p.diff), ctx.unit === 'pt' ? 2 : 3.6, { fill: 'ink', 'fill-opacity': 0.72, stroke: 'paper', 'stroke-width': r2(0.6 * u) }));
+  nodes.push(...late);
   const lv = levelText(input.level);
   const rows = lines.map(([k, v]) => [labelOf[k], fmtN(ctx, v?.value), fmtCi(ctx, v?.value, v?.lo, v?.hi)]);
   return finish(ctx, {
