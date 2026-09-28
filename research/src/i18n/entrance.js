@@ -9,6 +9,8 @@ export default {
     'entrance.skip': 'ข้าม',
     'entrance.film.skip': 'ข้าม',
     'entrance.film.skipLabel': 'ข้ามวิดีโอเปิดพื้นที่ทำงาน',
+    'entrance.film.soundOn': 'เปิดเสียง',
+    'entrance.film.soundOff': 'ปิดเสียง',
 
     'entrance.welcome.eyebrow': 'ยินดีต้อนรับ',
     'entrance.welcome.title': 'เริ่มจากไฟล์ข้อมูลของคุณ',
@@ -42,6 +44,8 @@ export default {
     'entrance.skip': 'Skip',
     'entrance.film.skip': 'Skip',
     'entrance.film.skipLabel': 'Skip the workspace opening film',
+    'entrance.film.soundOn': 'Unmute',
+    'entrance.film.soundOff': 'Mute',
 
     'entrance.welcome.eyebrow': 'Welcome',
     'entrance.welcome.title': 'Start from your data file',

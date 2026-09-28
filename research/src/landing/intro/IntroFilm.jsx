@@ -1,12 +1,15 @@
 // The opening film on the front door. It plays over the landing, then flies into the sunrise and
 // floods to the page's own background, so the page arrives out of the light. Skip by button, click,
 // key or scroll: skipping jumps to the flight, so the handover always looks the same. The film is
-// film.js, the same renderer that made the social video. Loaded lazily by Landing.jsx only when
-// gate.js says it should play. OWNER: landing role.
+// film.js, the same renderer that made the social video. The score (public/film/intro.m4a, the same
+// score cut to this film) follows the film's clock; it starts muted where the browser refuses sound
+// before a click, and the sound button turns it on (lib/film-sound.js). Loaded lazily by Landing.jsx
+// only when gate.js says it should play. OWNER: landing role.
 import { useEffect, useRef, useState } from 'react';
 import { useT } from '../../i18n/index.js';
 import { createFilm } from './film.js';
 import { endIntro } from './gate.js';
+import { playWithSound, rememberSound } from '../../lib/film-sound.js';
 import './intro.css';
 
 // The flood colour is the page background of the current theme, read from the token.
@@ -26,8 +29,11 @@ export default function IntroFilm({ onDone }) {
   const { t } = useT();
   const glRef = useRef(null);
   const txRef = useRef(null);
+  const audioRef = useRef(/** @type {HTMLAudioElement|null} */ (null));
   const skipRef = useRef(() => {});
+  const soundRef = useRef(() => {});
   const [phase, setPhase] = useState('film'); // film | fly | leaving
+  const [sound, setSound] = useState(false);
 
   useEffect(() => {
     let film = null;
@@ -37,7 +43,9 @@ export default function IntroFilm({ onDone }) {
     let last = 0;
     let flyAt = Infinity;
     let flying = false;
+    let started = false; // the score starts with the clock
     const dts = [];
+    const audio = audioRef.current;
     const fit = () => film && film.resize(window.innerWidth, window.innerHeight);
     const finish = () => {
       if (!alive) return;
@@ -51,6 +59,17 @@ export default function IntroFilm({ onDone }) {
       if (!film) finish(); // still loading: go straight to the page
       else if (clock < flyAt) clock = flyAt;
     };
+    soundRef.current = () => {
+      if (!audio) return;
+      const on = audio.muted || audio.paused;
+      audio.muted = !on;
+      if (on && audio.paused) {
+        audio.currentTime = clock;
+        audio.play().catch(() => {});
+      }
+      setSound(on);
+      rememberSound(on);
+    };
     const frame = (now) => {
       if (!alive) return;
       const dt = last ? Math.min((now - last) / 1000, 0.1) : 0;
@@ -58,6 +77,13 @@ export default function IntroFilm({ onDone }) {
       // Shaders compile in the background; the clock waits for the programs a moment ahead rather
       // than stalling mid-shot on a compile.
       if (!document.hidden && film.ready(clock + 0.35)) clock += dt;
+      if (audio && clock > 0 && !started) {
+        started = true;
+        playWithSound(audio).then((on) => alive && setSound(on), () => {});
+      }
+      // The score follows the picture: the start, a skip or a stall puts it back in place. Never
+      // while a seek is still running, so a slow device cannot chase its own seeks.
+      if (audio && !audio.paused && !audio.seeking && Math.abs(audio.currentTime - clock) > 0.12) audio.currentTime = clock;
       if (!film.ready(clock)) {
         raf = requestAnimationFrame(frame);
         return;
@@ -115,6 +141,13 @@ export default function IntroFilm({ onDone }) {
       e.preventDefault();
       skipRef.current();
     };
+    // a hidden tab stops the clock, so it stops the score too
+    const onVisible = () => {
+      if (!audio || !started || !alive) return;
+      if (document.hidden) audio.pause();
+      else audio.play().catch(() => {});
+    };
+    document.addEventListener('visibilitychange', onVisible);
     window.addEventListener('resize', fit);
     window.addEventListener('keydown', onKey);
     window.addEventListener('wheel', onScroll, { passive: false });
@@ -126,6 +159,8 @@ export default function IntroFilm({ onDone }) {
       window.removeEventListener('keydown', onKey);
       window.removeEventListener('wheel', onScroll);
       window.removeEventListener('touchmove', onScroll);
+      document.removeEventListener('visibilitychange', onVisible);
+      audio?.pause();
     };
   }, [onDone]);
 
@@ -133,9 +168,15 @@ export default function IntroFilm({ onDone }) {
     <div className="rs-intro" data-phase={phase} onPointerDown={() => skipRef.current()}>
       <canvas ref={glRef} aria-hidden="true" />
       <canvas ref={txRef} aria-hidden="true" />
-      <button type="button" className="rs-intro-skip" aria-label={t('landing.intro.skipLabel')} onClick={() => skipRef.current()}>
-        {t('landing.intro.skip')}
-      </button>
+      <audio ref={audioRef} src="/film/intro.m4a?v=1" preload="auto" />
+      <div className="rs-intro-controls" onPointerDown={(e) => e.stopPropagation()}>
+        <button type="button" className="rs-intro-btn" onClick={() => soundRef.current()}>
+          {t(sound ? 'landing.intro.soundOff' : 'landing.intro.soundOn')}
+        </button>
+        <button type="button" className="rs-intro-btn" aria-label={t('landing.intro.skipLabel')} onClick={() => skipRef.current()}>
+          {t('landing.intro.skip')}
+        </button>
+      </div>
     </div>
   );
 }

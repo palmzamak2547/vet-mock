@@ -1,5 +1,5 @@
 /* Opening film (landing/intro/IntroFilm.jsx). Dark until the first frame, the page colour at the end
-   of the flight, then gone. The Skip button hides once the flight has started. */
+   of the flight, then gone. The sound and Skip buttons hide once the flight has started. */
 .rs-intro {
   position: fixed;
   inset: 0;
@@ -19,10 +19,15 @@
   height: 100%;
   display: block;
 }
-.rs-intro-skip {
+.rs-intro-controls {
   position: absolute;
   right: max(16px, env(safe-area-inset-right));
   bottom: max(16px, env(safe-area-inset-bottom));
+  display: flex;
+  gap: 8px;
+  transition: opacity 0.3s ease;
+}
+.rs-intro-btn {
   min-height: 44px;
   min-width: 64px;
   padding: 0 18px;
@@ -37,19 +42,20 @@
   cursor: pointer;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  transition: opacity 0.3s ease, border-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
-.rs-intro-skip:hover,
-.rs-intro-skip:focus-visible {
+.rs-intro-btn:hover,
+.rs-intro-btn:focus-visible {
   border-color: rgba(246, 239, 228, 0.6);
   color: #f6efe4;
 }
-.rs-intro-skip:focus-visible {
+.rs-intro-btn:focus-visible {
   outline: 2px solid #f6efe4;
   outline-offset: 3px;
 }
-.rs-intro[data-phase='fly'] .rs-intro-skip,
-.rs-intro[data-phase='leaving'] .rs-intro-skip {
+.rs-intro[data-phase='fly'] .rs-intro-controls,
+.rs-intro[data-phase='leaving'] .rs-intro-controls {
   opacity: 0;
   pointer-events: none;
 }

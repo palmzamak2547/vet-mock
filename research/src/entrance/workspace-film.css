@@ -20,10 +20,15 @@
   object-fit: cover;
   display: block;
 }
-.rs-wsfilm-skip {
+.rs-wsfilm-controls {
   position: absolute;
   right: max(16px, env(safe-area-inset-right));
   bottom: max(16px, env(safe-area-inset-bottom));
+  display: flex;
+  gap: 8px;
+  transition: opacity 0.3s ease;
+}
+.rs-wsfilm-btn {
   min-height: 44px;
   min-width: 64px;
   padding: 0 18px;
@@ -38,18 +43,19 @@
   cursor: pointer;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  transition: opacity 0.3s ease, border-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
-.rs-wsfilm-skip:hover,
-.rs-wsfilm-skip:focus-visible {
+.rs-wsfilm-btn:hover,
+.rs-wsfilm-btn:focus-visible {
   border-color: rgba(246, 239, 228, 0.6);
   color: #f6efe4;
 }
-.rs-wsfilm-skip:focus-visible {
+.rs-wsfilm-btn:focus-visible {
   outline: 2px solid #f6efe4;
   outline-offset: 3px;
 }
-.rs-wsfilm[data-phase='leaving'] .rs-wsfilm-skip {
+.rs-wsfilm[data-phase='leaving'] .rs-wsfilm-controls {
   opacity: 0;
   pointer-events: none;
 }
