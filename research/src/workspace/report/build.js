@@ -417,6 +417,11 @@ export function resultsSentence(analysis, ctx) {
   const label = (n) => {
     const raw = lowerLabel(lang, ctx.valueLabel(n));
     if (!String(n).includes(':')) return raw;
+    // A term with brackets of its own is written "measure: term" (valueLabel): the sentence splits at that colon,
+    // not at the term's brackets (review round 7: "The odds ratio: Age (months) per 1 unit was 1.01").
+    const colon = raw.indexOf(': ');
+    const paren = raw.indexOf('(');
+    if (colon > 0 && (paren < 0 || colon < paren)) return t('report.results.ofTerm', { measure: raw.slice(0, colon), term: raw.slice(colon + 2) });
     const split = lastBracket(raw);
     if (!split) return raw;
     let measure = split.head;

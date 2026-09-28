@@ -71,11 +71,15 @@ export function termText(term, ctx) {
 export function perUnitTerm(term, ctx) {
   const c = ctx.codebook?.columns?.find((x) => x.key === String(term));
   if (!c || !NUMBER_TYPES.has(c.type)) return termText(term, ctx);
-  const unit = c.unit || ctx.t('ws.term.unit');
+  // A label that ends in brackets names its unit ("อายุ (เดือน)", "Age (months)"): the unit comes from there when
+  // the codebook has none, and it is not said twice (review round 7: "Age (months) per 1 unit").
   const label = colName(ctx, c.key).trim();
-  const tail = `(${unit})`;
-  const column = label.endsWith(tail) && label.length > tail.length ? label.slice(0, -tail.length).trim() : label;
-  return ctx.t('ws.term.perUnit', { column, unit });
+  const open = label.lastIndexOf('(');
+  const inner = open > 0 && label.endsWith(')') ? label.slice(open + 1, -1).trim() : '';
+  const unit = c.unit || (inner && !inner.includes(')') ? inner : '') || ctx.t('ws.term.unit');
+  const column = inner && inner === unit ? label.slice(0, open).trim() : label;
+  // an English plural unit reads singular after "per 1" (months, month); Thai units have no plural
+  return ctx.t('ws.term.perUnit', { column, unit: /^[a-z]{3,}s$/i.test(unit) ? unit.slice(0, -1) : unit });
 }
 
 /**

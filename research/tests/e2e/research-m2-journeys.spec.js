@@ -332,3 +332,25 @@ test('double-entry check names columns and values by the codebook, not the raw h
   // a level is shown by its codebook label, the typed value beside it
   expect(cells.some((c) => /เพศ(ผู้|เมีย)/.test(c))).toBe(true);
 });
+
+// Review round 7: a role left from another t-test variant stayed in the spec, so after a Welch try a paired test on
+// the same column stopped on "Outcome", a role the paired screen does not show. Made-up data (ข้อมูลสมมุติ).
+test('a t-test switched from Welch to paired runs on the paired roles alone', async ({ page }) => {
+  test.setTimeout(120_000);
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(String(e)));
+  const project = await openExample(page, 'calf-survival');
+  await page.goto(`${project}/assoc`);
+  await page.locator('input[name="rs-method-assoc"][value="test.tTest"]').check();
+  await pick(page, '#rs-role-outcome', 'น้ำหนักแรกเกิด');
+  await pick(page, '#rs-role-group', 'เพศ');
+  await page.getByText(th['ws.analysis.options']).click();
+  await page.locator('#rs-opt-variant').selectOption('paired');
+  await pick(page, '#rs-role-x', 'น้ำหนักแรกเกิด');
+  await pick(page, '#rs-role-y', 'จำนวนวันที่ติดตาม');
+  await runAnalysis(page);
+  const result = page.locator('.rs-analysis-result');
+  await expect(result.locator('.rs-prov-line').first()).toBeVisible({ timeout: 30_000 });
+  await expect(result.getByText(th['runtime.guard.roleTwice'].split('} ')[1])).toHaveCount(0);
+  expect(errors, 'no page errors').toEqual([]);
+});

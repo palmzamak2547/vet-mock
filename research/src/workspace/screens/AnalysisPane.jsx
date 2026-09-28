@@ -155,7 +155,10 @@ export default function AnalysisPane({ p, pane }) {
   const makeSpec = (route) => {
     const opts = { ...options };
     if (ui?.params) for (const k of ui.params) opts[k] = Number(extra[k]) / (k === 'se' || k === 'sp' ? 100 : 1);
-    const r = { ...choices.roles };
+    // only the roles this method (and its variant) shows: a role left from another t-test variant stays in the
+    // choices for when the student comes back, not in the spec (review round 7: after Welch, a paired test
+    // stopped on "Outcome", a role the paired screen does not show, and a one-sample test listed Sex)
+    const r = Object.fromEntries(Object.entries(choices.roles).filter(([k]) => roles.some((x) => x.role === k)));
     if (ui?.needsCluster && cluster) r.cluster = cluster.key;
     return buildSpec({
       method,
@@ -439,7 +442,7 @@ export default function AnalysisPane({ p, pane }) {
               {needsCluster ? <Notice tone="info">{t('ws.analysis.needsCluster')}</Notice> : null}
               {hasKey(t, `ws.analysis.${pane}.before`) ? <p className="rs-soft rs-small">{t(`ws.analysis.${pane}.before`)}</p> : null}
               {cat && !cat.shipped ? <Notice tone="info">{t('ws.analysis.notReadyBody')}</Notice> : null}
-              {gaps.length ? <p className="rs-soft rs-small">{t('ws.analysis.stillNeeds', { what: gaps.map((g) => (hasKey(t, `ws.role.${g}`) ? roleWord(t, method, g, 'role') : t(`ws.level.pick.${g}`))).join(', ') })}</p> : null}
+              {gaps.length ? <p className="rs-soft rs-small">{t('ws.analysis.stillNeeds', { what: gaps.map((g) => (hasKey(t, `ws.role.${g}`) ? roleWord(t, method, g, 'role') : t(roles.some((x) => x.role === 'event' && x.level === g) ? 'ws.level.pick.event' : `ws.level.pick.${g}`))).join(', ') })}</p> : null}
               {cluster && !ui?.needsCluster && ui?.input === 'dataset' ? <p className="rs-soft rs-small">{t('ws.analysis.clusterAhead', { column: cluster.name })}</p> : null}
               <button type="button" className="rs-btn rs-btn--primary rs-btn--block" disabled={!canRun} onClick={() => run(pane === 'prev' && cluster && PREV_DEFAULT_DEFF.has(method) ? 'deff' : null)}>
                 <Icon name="play" size={18} />

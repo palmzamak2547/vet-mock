@@ -325,8 +325,12 @@ export function blandAltmanChart(input, opts) {
   const labelOf = { bias: t('graphs.ba.bias'), lower: t('graphs.ba.lower'), upper: t('graphs.ba.upper') };
   const rightLabels = lines.map(([k, v]) => `${labelOf[k]} ${fmtN(ctx, v?.value)}`);
   const f0 = xyFrame(ctx, { xDomain: paddedDomain(pts.map((p) => p.mean), { pad: 0.05 }), yDomain: paddedDomain(yVals, { pad: 0.06, log: ratio }), yLog: ratio, xTitle: input.xTitle, yTitle: input.yTitle });
-  // room on the right for the line labels
-  const extra = Math.max(...rightLabels.map((s) => textWidth(s, ctx.fs))) + ctx.fs;
+  // Room on the right for the line labels; in a narrow panel they sit inside the plot above their lines instead,
+  // so the points keep the width (review round 7: at 85 mm x 2 the plot collapsed to one column of points and the
+  // x title broke letter by letter).
+  const extraW = Math.max(...rightLabels.map((s) => textWidth(s, ctx.fs))) + ctx.fs;
+  const inside = f0.box.right - f0.box.left - extraW < ctx.width * 0.45;
+  const extra = inside ? 0 : extraW;
   const f = xyFrame({ ...ctx, width: ctx.width - extra }, { xDomain: paddedDomain(pts.map((p) => p.mean), { pad: 0.05 }), yDomain: paddedDomain(yVals, { pad: 0.06, log: ratio }), yLog: ratio, xTitle: input.xTitle, yTitle: input.yTitle, height: f0.height });
   const u = ctx.u;
   const nodes = [...f.nodes];
@@ -339,7 +343,8 @@ export function blandAltmanChart(input, opts) {
     if (!num(v?.value)) continue;
     const yv = f.y(v.value);
     nodes.push(line(f.box.left, yv, f.box.right, yv, { stroke: k === 'bias' ? 's0' : 's1', 'stroke-width': r2(1.8 * u), ...(k === 'bias' ? {} : { 'stroke-dasharray': `${r2(6 * u)} ${r2(3 * u)}` }) }));
-    nodes.push(text(f.box.right + ctx.fs * 0.4, yv + ctx.fs * 0.35, `${labelOf[k]} ${fmtN(ctx, v.value)}`, { 'font-size': ctx.fs, fill: 'ink' }));
+    if (inside) nodes.push(text(f.box.right - ctx.fs * 0.3, yv - ctx.fs * 0.35, `${labelOf[k]} ${fmtN(ctx, v.value)}`, { 'font-size': ctx.fs, 'text-anchor': 'end', fill: 'ink', stroke: 'paper', 'stroke-width': r2(3 * u), 'paint-order': 'stroke' }));
+    else nodes.push(text(f.box.right + ctx.fs * 0.4, yv + ctx.fs * 0.35, `${labelOf[k]} ${fmtN(ctx, v.value)}`, { 'font-size': ctx.fs, fill: 'ink' }));
   }
   for (const p of pts) nodes.push(markerNode('circle', f.x(p.mean), f.y(p.diff), ctx.unit === 'pt' ? 2 : 3.6, { fill: 'ink', 'fill-opacity': 0.72, stroke: 'paper', 'stroke-width': r2(0.6 * u) }));
   const lv = levelText(input.level);

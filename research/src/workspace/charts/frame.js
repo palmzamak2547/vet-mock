@@ -124,7 +124,11 @@ export function fitTitle(title, room, fs, floor = null) {
   const size = Math.max(min, (fs * room) / w);
   if (textWidth(title, size) <= room) return { lines: [String(title)], size: r2(size) };
   const lines = wrapWords(title, room, min);
-  return { lines: lines.length > 3 ? [lines[0], lines[1], lines.slice(2).join(' ')] : lines, size: r2(min) };
+  if (lines.length <= 3) return { lines, size: r2(min) };
+  // lines 3 and on become one line again, taken from the title itself so a Thai word cut between them gets no
+  // space (review round 7: "อุณหภูมิทาง ทวารหนัก")
+  const at = title.indexOf(lines[2], title.indexOf(lines[1], title.indexOf(lines[0]) + lines[0].length) + lines[1].length);
+  return { lines: [lines[0], lines[1], at >= 0 ? title.slice(at).trim() : lines.slice(2).join(' ')], size: r2(min) };
 }
 
 /** The smallest type a chart prints: 7 pt at print size (the floor journals set for 85 and 174 mm figures,
@@ -348,15 +352,48 @@ function splitWide(word, room, fs) {
   // often parts of one term); between two longer words 0. The fewest lines win, then the lowest cost, then the
   // most even lines (review round 6: the old rule glued every short segment to its neighbour, so น้ำหนักแรกเกิด
   // became one unit and was then cut by letters as 'น้ำหนักแรกเกิ / ด').
+  // A bracket and trailing punctuation belong to the segment they touch, also when that segment is cut by letters
+  // (review round 7: "หู (" ended a line and ")" stood alone).
+  for (let i = raw.length - 1; i > 0; i -= 1) if (raw[i].length === 1 && ')]:,;.'.includes(raw[i])) { raw[i - 1] += raw[i]; raw.splice(i, 1); }
+  for (let i = raw.length - 2; i >= 0; i -= 1) if (raw[i].length === 1 && '(['.includes(raw[i])) { raw[i + 1] = raw[i] + raw[i + 1]; raw.splice(i, 1); }
   const units = [];
   const cost = [];
   const seg = [];
   raw.forEach((sg, i) => {
     const whole = textWidth(sg, fs) <= room;
-    for (const part of whole ? [sg] : graphemes(sg)) { units.push(part); cost.push(4); seg.push(whole ? -1 : i); }
-    if (i + 1 < raw.length) cost[cost.length - 1] = sg === WATER ? 3 : graphemes(sg).length <= 2 || graphemes(raw[i + 1]).length <= 2 ? 1 : 0;
+    for (const part of whole ? [sg] : letters(sg)) { units.push(part); cost.push(4); seg.push(whole ? -1 : i); }
+    if (i + 1 < raw.length) cost[cost.length - 1] = breakCost(sg, raw[i + 1]);
   });
   return bestLines(units, cost, seg, room, fs);
+}
+
+/**
+ * The cost of a line break between two segments. A bracket keeps the segment it touches and punctuation does not
+ * start a line (5); after น้ำ 3 and before it 2 (น้ำหนัก, น้ำเหลือง, and นม|น้ำเหลือง, which is one word: colostrum);
+ * next to a segment of one or two letters 1; between two longer words 0.
+ */
+function breakCost(a, b) {
+  if ('(['.includes(a.slice(-1)) || ')]:,;.'.includes(b[0])) return 5;
+  if (a === WATER) return 3;
+  if (b === WATER) return 2;
+  return graphemes(a).length <= 2 || graphemes(b).length <= 2 ? 1 : 0;
+}
+
+/** Thai vowels written after their consonant (ะ า ำ ๅ): a line never starts with one. */
+const FOLLOWING = new Set([0x0e30, 0x0e32, 0x0e33, 0x0e45]);
+const SARA_II = String.fromCharCode(0x0e35);
+const SARA_UEE = String.fromCharCode(0x0e37);
+const TAIL = new Set([String.fromCharCode(0x0e2d), String.fromCharCode(0x0e22)]);
+
+/** Letters of a word cut to fit: a following vowel stays with the letter before it, and เ-ือ, เ-ีย stay whole. */
+function letters(sg) {
+  const out = [];
+  for (const g of graphemes(sg)) {
+    const prev = out[out.length - 1];
+    const joins = prev && (FOLLOWING.has(g.codePointAt(0)) || (prev.codePointAt(0) === 0x0e40 && (prev.includes(SARA_II) || prev.includes(SARA_UEE)) && TAIL.has(g)));
+    if (joins) out[out.length - 1] = prev + g; else out.push(g);
+  }
+  return out;
 }
 
 /**

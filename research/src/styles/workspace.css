@@ -253,6 +253,8 @@
 .rs-tablewrap[data-more='right'], .rs-chart-table[data-more='right'] { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 36px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 36px), transparent); }
 .rs-tablewrap[data-more='left'], .rs-chart-table[data-more='left'] { -webkit-mask-image: linear-gradient(to left, #000 calc(100% - 36px), transparent); mask-image: linear-gradient(to left, #000 calc(100% - 36px), transparent); }
 .rs-tablewrap[data-more='both'], .rs-chart-table[data-more='both'] { -webkit-mask-image: linear-gradient(to right, transparent, #000 36px, #000 calc(100% - 36px), transparent); mask-image: linear-gradient(to right, transparent, #000 36px, #000 calc(100% - 36px), transparent); }
+/* A scroller in keyboard focus drops the fade: the mask would clip its focus ring (review round 7). */
+.rs-tablewrap[data-more]:focus-visible, .rs-chart-table[data-more]:focus-visible { -webkit-mask-image: none; mask-image: none; outline-offset: -3px; }
 .rs-table { border-collapse: collapse; width: 100%; font-size: 14px; }
 .rs-table-cap { caption-side: top; text-align: left; font-weight: 700; font-size: 15px; padding: 4px 0 8px; }
 .rs-table th, .rs-table td { padding: 9px 12px; border-bottom: 1px solid var(--rs-line); vertical-align: top; text-align: left; }

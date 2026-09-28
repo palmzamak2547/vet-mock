@@ -21,8 +21,17 @@ function mark(el) {
   if (side) el.setAttribute('data-more', side); else el.removeAttribute('data-more');
   // A scroller that hides columns takes keyboard focus, so the arrow keys reach them where the browser does not
   // make scrollers focusable on its own (Safari; review round 6). Only a tabindex set here is taken back.
-  if (side && !el.hasAttribute('tabindex')) { el.setAttribute('tabindex', '0'); el.setAttribute('data-cue-tab', ''); }
-  else if (!side && el.hasAttribute('data-cue-tab')) { el.removeAttribute('tabindex'); el.removeAttribute('data-cue-tab'); }
+  if (side && !el.hasAttribute('tabindex')) {
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('data-cue-tab', '');
+    // a named region, so a screen reader says which table this stop scrolls (review round 7)
+    const name = el.querySelector('caption')?.textContent?.trim();
+    if (name && !el.hasAttribute('role')) { el.setAttribute('role', 'region'); el.setAttribute('aria-label', name); el.setAttribute('data-cue-name', ''); }
+  } else if (!side && el.hasAttribute('data-cue-tab')) {
+    el.removeAttribute('tabindex');
+    el.removeAttribute('data-cue-tab');
+    if (el.hasAttribute('data-cue-name')) { el.removeAttribute('role'); el.removeAttribute('aria-label'); el.removeAttribute('data-cue-name'); }
+  }
 }
 
 /**

@@ -471,7 +471,7 @@ const ROWS = [
   ['ws.role.time', 'เวลาที่สัตว์อยู่ในการศึกษา', 'Animal-time'],
   ['ws.role.factorB', 'ปัจจัยที่สอง', 'Second factor'],
   ['ws.role.subject', 'รหัสตัวสัตว์ที่วัดซ้ำ', 'Animal id (repeated measurements)'],
-  ['ws.role.event', 'เหตุการณ์ที่สนใจ เช่นตายหรือหาย', 'Event, for example death or recovery'],
+  ['ws.role.event', 'เหตุการณ์ที่สนใจ เช่นตายหรือหาย', 'Event (for example, death or recovery)'],
   ['ws.role.items', 'ข้อคำถามในแบบสอบถาม', 'Questionnaire items'],
   ['ws.role.test2', 'ชุดตรวจที่สอง ตรวจสัตว์ชุดเดียวกัน', 'Second test, on the same animals'],
   ['ws.roleHint.outcome', 'สิ่งที่วัดผล เช่นผลตรวจ ELISA', 'What was measured, for example the ELISA result'],
@@ -1513,7 +1513,7 @@ const ROWS = [
   ['ws.figure.size', 'ขนาด {width} x {height} มม.', '{width} x {height} mm'],
   ['ws.figure.tiff', 'TIFF', 'TIFF'],
   ['ws.figure.pdf', 'พิมพ์เป็น PDF', 'Print to PDF'],
-  ['ws.figure.onDevice', 'ไฟล์ทุกแบบสร้างในเครื่องนี้ ไม่มีข้อมูลส่งออกนอกเครื่อง PDF ใช้หน้าต่างพิมพ์ของเบราว์เซอร์ เลือกบันทึกเป็น PDF', 'Every file is made on this device; nothing leaves it. For PDF, the browser\u2019s print window opens: choose Save as PDF.'],
+  ['ws.figure.onDevice', 'ไฟล์ทุกแบบสร้างในเครื่องนี้ ไม่มีข้อมูลส่งออกนอกเครื่อง PDF ใช้หน้าต่างพิมพ์ของเบราว์เซอร์ เลือกบันทึกเป็น PDF', 'Every file is made on this device. No data leaves this device. For PDF, the browser\u2019s print window opens: choose Save as PDF.'],
   ['ws.figure.fileWord', 'figure', 'figure'],
 ];
 
