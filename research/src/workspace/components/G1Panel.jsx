@@ -9,7 +9,9 @@ import { formatNumber } from '../../lib/stats/format.js';
 import Icon from './Icon.jsx';
 import { keyPart } from '../lib/keys.js';
 
-const ROUTE_ORDER = ['mh-within', 'deff', 'aggregate', 'gee', 'mixed'];
+// M2 adds the design-based interval (a prevalence) and cluster-robust standard errors (the regression models)
+// [M2-DESIGN.md 3.2.2, 3.3.4]; each appears once its area lists the route.
+const ROUTE_ORDER = ['mh-within', 'deff', 'survey', 'aggregate', 'robust', 'gee', 'mixed'];
 const hasSingle = (t, id) => { const k = `ws.route.${keyPart(id)}.descSingle`; return t(k) !== `[${k}]`; };
 
 /**

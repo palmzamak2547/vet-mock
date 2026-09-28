@@ -7,7 +7,7 @@
 import { formatNumber } from '../../lib/stats/format.js';
 import { METHOD_UI } from '../lib/method-ui.js';
 import { keyPart } from '../lib/keys.js';
-import { valueLabel } from '../lib/result-model.js';
+import { valueLabel, wordAreaOf } from '../lib/result-model.js';
 
 const has = (t, key) => t(key) !== `[${key}]`;
 /** The text of the first key the dictionary has, else null. */
@@ -138,11 +138,15 @@ export function guardText(g, t) {
  * dictionary key such as 'epi.ss.formula.base'): the dictionary's text when it has one, else the
  * word itself (level names and farm ids are data, shown as they are).
  */
-export function tableWord(word, t, group) {
+export function tableWord(word, t, group, ctx = {}) {
   const s = String(word);
   if (has(t, s)) return t(s);
-  const k = `ws.${group}.${keyPart(s)}`;
-  return has(t, k) ? t(k) : s;
+  const kp = keyPart(s);
+  // An M2 method's area names its table columns (measure.table.items.itemRest, lab.col.levelA).
+  const area = ctx.area || null;
+  const keys = [area && group === 'col' && ctx.tableId && `${area}.table.${keyPart(ctx.tableId)}.${kp}`, `ws.${group}.${kp}`, area && `${area}.${group}.${kp}`].filter(Boolean);
+  const k = keys.find((x) => has(t, x));
+  return k ? t(k) : s;
 }
 
 /** A 2x2 table of counts as twobytwo returns it. */
@@ -178,14 +182,15 @@ function twoByTwoLabels({ spec = null, codebook = null, columnName = (k) => k, l
  */
 export function envTableText(table, t, ctx = {}) {
   const labels = isTwoByTwo(table) ? twoByTwoLabels(ctx, t) : null;
-  const columns = table.columns.map((c, i) => labels?.columns?.[i] ?? tableWord(c, t, 'col'));
+  const area = wordAreaOf(ctx.spec?.method || null);
+  const columns = table.columns.map((c, i) => labels?.columns?.[i] ?? tableWord(c, t, 'col', { area, tableId: table.id }));
   const rows = table.rows.map((row) => row.map((cell, ci) => {
     if (cell === null || cell === undefined) return '—';
     if (typeof cell === 'number') return Number.isFinite(cell) ? formatNumber(cell, { kind: Number.isInteger(cell) ? 'count' : 'statistic' }) : cell > 0 ? t('ws.result.noUpper') : t('ws.result.noLower');
     if (ci === 0 && labels?.rows?.[cell] !== undefined) return labels.rows[cell];
-    return tableWord(cell, t, 'cell');
+    return tableWord(cell, t, 'cell', { area, tableId: table.id });
   }));
-  const capKey = [isTwoByTwo(table) ? 'ws.table.twoByTwo' : null, `ws.table.${keyPart(table.id)}`].find((k) => k && has(t, k));
+  const capKey = [isTwoByTwo(table) ? 'ws.table.twoByTwo' : null, `ws.table.${keyPart(table.id)}`, area && `${area}.table.${keyPart(table.id)}.caption`].find((k) => k && has(t, k));
   // A dash in a cell is explained under the table, and the 2x2 cell letters are named (review round 1).
   const notes = [];
   if (['a', 'b', 'c', 'd'].every((c) => table.columns.includes(c))) notes.push(t('ws.table.abcdLegend'));

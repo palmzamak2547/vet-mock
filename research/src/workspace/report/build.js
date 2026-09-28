@@ -3,8 +3,8 @@
 // paragraph comes from an envelope value through the stats formatter. Thai and English are built from
 // the report dictionary with the same facts. When the data changed after an analysis was saved, the
 // draft keeps the old numbers and lists that analysis as not current, instead of recomputing silently.
-// Pure: `t` and `fmt` are passed in. OWNER: workspace role.
-import { fmtKind, isStale, pText, primaryValueName, valueRows } from '../lib/result-model.js';
+// Pure: `t` and `fmt` are passed in. OWNER: report role (M2; workspace role in M1).
+import { fmtKind, isStale, pText, primaryValueName, valueRows, valueLabel as valueWord } from '../lib/result-model.js';
 import { keyPart } from '../lib/keys.js';
 
 /**
@@ -145,6 +145,22 @@ function variantOf(spec) {
     case 'test.chisq': return o.yates === true ? 'yates' : null;
     case 'agree.kappa': return o.weights && o.weights !== 'none' ? o.weights : null;
     case 'adjust.pValues': return o.method === 'none' ? 'none' : null;
+    // M2 [M2-DESIGN.md 3]: the option that changes what the methods sentence must say.
+    case 'anova.twoWay': return o.ssType === 'II' ? 'typeII' : 'typeIII';
+    case 'anova.repeated': return o.sphericity === 'hf' ? 'hf' : o.sphericity === 'none' ? 'none' : 'gg';
+    case 'posthoc.dunn': return o.adjust === 'none' ? 'none' : null;
+    case 'diag.brownForsythe': return o.center === 'mean' ? 'mean' : null;
+    case 'diag.shapiro': return o.on === 'groups' ? 'groups' : null;
+    case 'test.mannWhitney':
+    case 'test.wilcoxonSignedRank': return o.estimate === 'hodges-lehmann' ? 'hodgesLehmann' : null;
+    case 'reg.logistic':
+    case 'reg.poisson': return spec.cluster?.route === 'robust' || o.ciMethod === 'wald' ? 'wald' : 'profile';
+    case 'agree.blandAltman': return o.scale === 'percent' ? 'percent' : o.scale === 'ratio' ? 'ratio' : null;
+    case 'rel.cronbach': return o.ciMethod === 'none' ? 'none' : null;
+    case 'roc.delong': return spec.roles?.test2 ? 'paired' : null;
+    case 'surv.kaplanMeier': return o.test === 'none' || !spec.roles?.group ? 'noTest' : null;
+    case 'power.tTest': return o.type === 'paired' ? 'paired' : o.type === 'one.sample' || o.type === 'one-sample' ? 'oneSample' : null;
+    case 'design.randomisation': return ['block', 'stratified-block'].includes(o.scheme) ? keyPart(o.scheme) : 'simple';
     default: return null;
   }
 }
@@ -169,12 +185,30 @@ function methodLead(spec, env, ctx) {
   const several = (n) => (has(t, `report.measures.${n}`) ? t(`report.measures.${n}`) : n);
   const one = (n) => (has(t, `report.measure.${n}`) ? t(`report.measure.${n}`) : n);
   const optionWord = (v) => (v !== undefined && v !== null && has(t, `runtime.optv.${keyPart(v)}`) ? t(`runtime.optv.${keyPart(v)}`) : String(v ?? ''));
+  const o = spec.options || {};
+  const lv = spec.levels || {};
+  const col = inLang(ctx.columnName || ((k) => k), lang);
+  const levelName = ctx.levelName || ((k, v) => v);
+  const input = spec.input?.kind === 'params' ? spec.input.params || {} : {};
   const params = {
     ci: hasCi ? t('report.methods.ci', { level: levelText(spec) }) : '',
     level: levelText(spec),
     measures: compared.length ? joinList(compared.map(several), lang, t) : t('report.measures.generic'),
     measure: compared.length ? one(compared[0]) : t('report.measure.generic'),
-    method: optionWord(spec.options?.method),
+    method: optionWord(o.method),
+    // M2 placeholders, each from the spec as saved (never typed): the p adjustment, the control group,
+    // the event level, the interval type, the limits multiplier, the seed of a list.
+    adjust: o.adjust ? (has(t, `report.adjust.${keyPart(o.adjust)}`) ? t(`report.adjust.${keyPart(o.adjust)}`) : String(o.adjust)) : '',
+    control: lv.controlLevel != null && spec.roles?.group ? levelName(spec.roles.group, lv.controlLevel) : '',
+    event: lv.outcomePositive != null && spec.roles?.event ? levelName(spec.roles.event, lv.outcomePositive) : '',
+    confType: o.confType ? (has(t, `report.confType.${keyPart(o.confType)}`) ? t(`report.confType.${keyPart(o.confType)}`) : String(o.confType)) : '',
+    multiplier: typeof o.loaMultiplier === 'number' ? String(o.loaMultiplier) : '1.96',
+    positive: lv.referencePositive != null && spec.roles?.reference ? levelName(spec.roles.reference, lv.referencePositive) : '',
+    direction: o.direction === 'lower-positive' ? t('report.direction.lower') : t('report.direction.higher'),
+    alpha: typeof o.sigLevel === 'number' ? String(o.sigLevel) : '0.05',
+    seed: input.seed ?? o.seed ?? '',
+    stream: input.stream ?? o.stream ?? 54,
+    within: spec.roles?.time ? col(spec.roles.time) : '',
   };
   const base = `report.methods.method.${keyPart(method)}`;
   const variant = variantOf(spec);
@@ -198,7 +232,9 @@ export function methodsSentence(analysis, ctx) {
   const roleEntries = Object.entries(spec.roles || {})
     .filter(([, v]) => v && (!Array.isArray(v) || v.length))
     .filter(([role, v]) => !(route === 'mh-within' && role === 'strata' && [].concat(v).every((k) => k === clusterColumn)));
-  const roleName = (role) => (has(t, `report.role.${role}`) ? t(`report.role.${role}`) : t(`ws.role.${role}`));
+  // A role can mean something else in one method (the time role is the follow-up time of a survival
+  // analysis and the time points of a repeated-measures ANOVA), so a method's own word wins.
+  const roleName = (role) => [`report.role.${keyPart(spec.method || '')}.${role}`, `report.role.${role}`].map((k) => (has(t, k) ? t(k) : null)).find(Boolean) || t(`ws.role.${role}`);
   const out = [methodLead(spec, env, ctx)];
   if (spec.method === 'desc.table1') {
     // Table 1 lists what it describes and what splits its columns, in its own words (review round 3:
@@ -241,6 +277,52 @@ export function methodsSentence(analysis, ctx) {
   return sentences(out, lang);
 }
 
+/** Tests that are effects of one model, written all together [M2-DESIGN.md 3.1.1, 3.1.2]. */
+const EFFECT_TESTS = { 'anova.twoWay': ['A', 'B', 'AB'], 'anova.repeated': ['time', 'group', 'groupTime'] };
+/** Repeated-measures effects inside animals, whose p carries the sphericity correction. */
+const WITHIN = new Set(['time', 'groupTime']);
+
+/** "the effect of <column>" / "the interaction of <A> and <B>", from the roles of the spec. */
+function effectName(test, spec, col, t) {
+  const r = spec.roles || {};
+  const one = (key) => (key ? t('report.effect.main', { column: col(key) }) : String(test.id));
+  switch (`${spec.method}|${test.id}`) {
+    case 'anova.twoWay|A': return one(r.group);
+    case 'anova.twoWay|B': return one(r.factorB);
+    case 'anova.twoWay|AB': return t('report.effect.interaction', { a: col(r.group || ''), b: col(r.factorB || '') });
+    case 'anova.repeated|time': return one(r.time);
+    case 'anova.repeated|group': return one(r.group);
+    case 'anova.repeated|groupTime': return t('report.effect.interaction', { a: col(r.group || ''), b: col(r.time || '') });
+    default: return String(test.id);
+  }
+}
+
+/**
+ * The row label of an effect test in a result table ("Effect of farm"), named from the spec's columns, for
+ * methods whose tests are effects of one model; null for any other test (its own label stays).
+ * @param {any} test
+ * @param {any} spec
+ * @param {{ t: T, lang: 'th'|'en', columnName?: (key: string) => string }} ctx
+ */
+export function effectLabel(test, spec, ctx) {
+  const effects = EFFECT_TESTS[spec?.method];
+  if (!effects || !effects.includes(test?.id)) return null;
+  const col = ctx.columnName || ((k) => k);
+  const name = effectName(test, spec, col, ctx.t).replace(/\s{2,}/g, ' ').trim();
+  const bare = ctx.lang === 'en' ? name.replace(/^the /i, '') : name;
+  return ctx.lang === 'en' && bare ? bare[0].toUpperCase() + bare.slice(1) : bare;
+}
+
+/**
+ * The sphericity correction a within-animal p-value used: the test's own variant when the method says it
+ * (gg, hf, none), else the option asked for. The sentence names it because the p can move across 0.05
+ * with the correction (M2-DESIGN.md 3.1.2: 0.049 uncorrected, 0.085 Greenhouse-Geisser on the split-plot pin).
+ */
+function correctionOf(test, spec, t) {
+  const v = ['gg', 'hf', 'none'].includes(test?.variant) ? test.variant : spec.options?.sphericity || 'gg';
+  return t(`report.correction.${v === 'hf' ? 'hf' : v === 'none' ? 'none' : 'gg'}`);
+}
+
 /** A test's name inside a sentence ("the chi-square test"), falling back to its table label. */
 function testName(test, t) {
   const key = `report.test.${keyPart(test?.id || '')}`;
@@ -258,7 +340,8 @@ function statsText(test, fmt) {
   if (st && typeof st.value === 'number' && Number.isFinite(st.value)) {
     out.push(`${STAT_SYMBOL[st.name] || st.name} = ${fmt.formatNumber(st.value, { kind: 'statistic' })}`);
   }
-  const df = test?.df;
+  // An F test carries its two degrees of freedom as dfPair (TestResult); df alone for the others.
+  const df = test?.df ?? test?.dfPair;
   if (Array.isArray(df)) out.push(`df = ${df.map((d) => (Number.isInteger(d) ? String(d) : fmt.formatNumber(d, { kind: 'statistic' }))).join(', ')}`);
   else if (typeof df === 'number' && Number.isFinite(df)) out.push(`df = ${Number.isInteger(df) ? String(df) : fmt.formatNumber(df, { kind: 'statistic' })}`);
   out.push(pText(fmt, test?.p));
@@ -334,10 +417,20 @@ export function resultsSentence(analysis, ctx) {
     out.push(strata.length ? t('report.results.compareAdjusted', { ...params, strata: joinList(strata.map(col), lang, t) }) : t('report.results.compare', params));
   }
   for (const r of chosen) if (!compared.includes(r)) out.push(sentenceFor(r));
-  for (const test of tests.filter((x) => x.id !== 'homogeneity').slice(0, 2)) {
-    if (test.p === null || test.p === undefined) out.push(cap(lang, t('report.results.pWithheld', { test: testName(test, t) })));
-    else out.push(cap(lang, t('report.results.test', { test: testName(test, t), stats: statsText(test, fmt) })));
+  // Methods whose tests are effects of one model (two-way and repeated-measures ANOVA) write every
+  // effect, named by its columns; other methods write their first two tests as in M1.
+  const effects = EFFECT_TESTS[spec.method];
+  const written = tests.filter((x) => x.id !== 'homogeneity').filter((x) => !effects || effects.includes(x.id));
+  for (const test of effects ? written : written.slice(0, 2)) {
+    const name = effects ? effectName(test, spec, col, t) : testName(test, t);
+    const correction = spec.method === 'anova.repeated' && WITHIN.has(test.id) ? correctionOf(test, spec, t) : '';
+    if (test.p === null || test.p === undefined) out.push(cap(lang, t('report.results.pWithheld', { test: name })));
+    else if (correction) out.push(cap(lang, t('report.results.testCorrected', { test: name, correction, stats: statsText(test, fmt) })));
+    else out.push(cap(lang, t('report.results.test', { test: name, stats: statsText(test, fmt) })));
   }
+  // Sentences a method owes its reader whatever the numbers are [M2-DESIGN.md 3.1.5, 3.3.1].
+  if (spec.method === 'diag.shapiro' || spec.method === 'diag.brownForsythe') out.push(t('report.results.diagnosticOnly'));
+  if (spec.method === 'roc.delong' && spec.options?.youden !== false && Object.keys(env.values || {}).some((n) => /youden|cutoff|threshold/i.test(n))) out.push(t('report.results.youdenCaution'));
   const hom = tests.find((x) => x.id === 'homogeneity');
   if (hom && typeof hom.p === 'number') {
     const name = has(t, `report.homogeneity.${keyPart(hom.variant || '')}`) ? t(`report.homogeneity.${keyPart(hom.variant || '')}`) : t('report.homogeneity.generic');
@@ -362,10 +455,8 @@ export function resultParagraphs(env, ctx) {
   const columnName = columnNameFor(ctx.codebook, lang);
   const levelName = levelNameFor(ctx.codebook, lang);
   const methodId = env?.method?.id || env?.spec?.method || '';
-  const valueLabel = (name) => {
-    for (const k of [`ws.value.${keyPart(methodId)}.${name}`, `ws.value.${name}`]) if (has(t, k)) return t(k);
-    return name;
-  };
+  // The same words the result view uses (an M2 method's area names its own values).
+  const valueLabel = (name) => valueWord(name, t, methodId);
   return {
     methods: methodsSentence(analysis, { t, lang, nameKeyOf: ctx.nameKeyOf, columnName, levelName }),
     results: resultsSentence(analysis, { t, fmt: ctx.fmt, lang, nameKeyOf: ctx.nameKeyOf, designRow: ctx.designRow, valueLabel, columnName, levelName }),
@@ -382,10 +473,7 @@ export function buildDraft(data, ctx) {
   const { t } = ctx;
   const columnName = columnNameFor(data.codebook, ctx.lang);
   const levelName = levelNameFor(data.codebook, ctx.lang);
-  const valueLabelFor = (methodId) => (name) => {
-    for (const key of [`ws.value.${keyPart(methodId || '')}.${name}`, `ws.value.${name}`]) if (has(t, key)) return t(key);
-    return name;
-  };
+  const valueLabelFor = (methodId) => (name) => valueWord(name, t, methodId || null);
   const fp = data.table?.fingerprint || null;
   const kept = (data.analyses || []).filter((a) => a.envelope);
   const stale = kept.filter((a) => isStale(a, fp)).map((a) => a.id);

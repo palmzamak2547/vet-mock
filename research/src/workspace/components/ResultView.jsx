@@ -122,9 +122,10 @@ function ResultParagraphs({ env, designRow, codebook, onDownloaded }) {
  * `title` is the heading; the method's name is shown under it only when it says something the heading
  * does not (review round 3: the prevalence method name printed as both heading and subtitle). `caption` names the copied
  * table and the downloaded files (the heading by default). `afterPlot` sits under the headline, the
- * table and the CI plot, where the board puts an explanation of the result.
+ * table and the CI plot, where the board puts an explanation of the result. `hidePlot` leaves the CI plot
+ * out when a chart below the result already draws the same intervals (a forest plot of a model's ratios).
  */
-export default function ResultView({ envelope, title, caption: captionProp = '', designRow = null, extraRows = [], onSnapshot = null, onDownloaded, headlineLabel, children = null, afterPlot = null, stale = false, hideTables = false, labelOf, codebook = null, paragraphs = true, primaryName = null, primaryPlotLabel }) {
+export default function ResultView({ envelope, title, caption: captionProp = '', designRow = null, extraRows = [], onSnapshot = null, onDownloaded, headlineLabel, children = null, afterPlot = null, stale = false, hideTables = false, labelOf, codebook = null, paragraphs = true, primaryName = null, primaryPlotLabel, hidePlot = false }) {
   const { t, lang } = useT();
   const { notify } = useWs();
   const env = envelope;
@@ -149,17 +150,19 @@ export default function ResultView({ envelope, title, caption: captionProp = '',
   const columnName = labelOf || columnNameFor(codebook, lang);
   const words = { spec: env?.spec || null, codebook, columnName, levelName: levelNameFor(codebook, lang) };
   const options = useMemo(() => (env ? optionItems(env, t, { columnName, lang }) : []), [env, t, columnName, lang]);
+  // A model's effects are named by the student's own columns ("breed x diet"), not by a letter.
+  const testCtx = { methodId: env?.method?.id || null, roles: env?.spec?.roles || null, columnName };
 
   const copy = async () => {
     try {
-      const how = await copyTable(exportTable(env, { t, fmt: FMT, lang, caption, note, primary }));
+      const how = await copyTable(exportTable(env, { t, fmt: FMT, lang, caption, note, primary, columnName }));
       notify(how === 'failed' ? 'ws.copy.failed' : 'ws.copy.table', {}, how === 'failed' ? 'error' : 'ok');
       if (how !== 'failed') onDownloaded?.('clipboard');
     } catch (err) { notify(errorInfo(err).key, {}, 'error'); }
   };
   const csv = () => {
     try {
-      const text = tableToCsv(exportTable(env, { t, fmt: FMT, lang, caption, note, primary }));
+      const text = tableToCsv(exportTable(env, { t, fmt: FMT, lang, caption, note, primary, columnName }));
       download(new Blob([text], { type: 'text/csv;charset=utf-8' }), `${fileBase}.csv`);
       onDownloaded?.('csv');
     } catch (err) { notify(errorInfo(err).key, {}, 'error'); }
@@ -207,7 +210,7 @@ export default function ResultView({ envelope, title, caption: captionProp = '',
             <p className="rs-num">
               {tests[0].p === null || tests[0].p === undefined
                 ? t('ws.result.pWithheld')
-                : t('ws.result.pLine', { p: pText(FMT, tests[0].p), test: testLabel(tests[0], t) })}
+                : t('ws.result.pLine', { p: pText(FMT, tests[0].p), test: testLabel(tests[0], t, testCtx) })}
             </p>
           ) : null}
         </div>
@@ -237,7 +240,7 @@ export default function ResultView({ envelope, title, caption: captionProp = '',
               })}
               {tests.map((test) => (
                 <tr key={test.id}>
-                  <th scope="row">{testLabel(test, t)}{test.p === null && test.reasonKey ? <div className="rs-soft rs-small">{t(test.reasonKey)}</div> : null}</th>
+                  <th scope="row">{testLabel(test, t, testCtx)}{test.p === null && test.reasonKey ? <div className="rs-soft rs-small">{t(test.reasonKey)}</div> : null}</th>
                   <td className="rs-r">
                     {test.statistic?.value === null || test.statistic?.value === undefined ? '—' : formatNumber(test.statistic.value, { kind: 'statistic' })}
                     {test.df !== null && test.df !== undefined ? <span className="rs-soft"> {t('ws.result.df', { df: formatNumber(test.df, { kind: 'statistic' }) })}</span> : null}
@@ -250,7 +253,7 @@ export default function ResultView({ envelope, title, caption: captionProp = '',
         </div>
       ) : null}
 
-      {items.length ? <CiPlot items={items} log={plot.log} refValue={plot.ref} percent={plot.rows[0]?.kind === 'proportion'} title={caption} fileBase={fileBase} onDownloaded={onDownloaded} levelText={level} /> : null}
+      {items.length && !hidePlot ? <CiPlot items={items} log={plot.log} refValue={plot.ref} percent={plot.rows[0]?.kind === 'proportion'} title={caption} fileBase={fileBase} onDownloaded={onDownloaded} levelText={level} /> : null}
       {afterPlot}
 
       <GuardList items={env.guard?.warnings} tone="warn" />

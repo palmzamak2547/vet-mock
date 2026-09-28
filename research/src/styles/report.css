@@ -1,0 +1,9 @@
+/* Report screen additions [M2-DESIGN.md 6]: the file language choice, the download rows, the shown code.
+   Tokens only from tokens.css. OWNER: report role. */
+.rs-report-lang { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; border: 0; padding: 0; margin: 0; }
+.rs-report-lang legend { padding: 0; margin-bottom: 4px; }
+.rs-report-lang label { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; cursor: pointer; }
+.rs-report-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.rs-report-code summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 600; color: var(--rs-sage-text); }
+.rs-report-code pre { margin: 8px 0 0; padding: 12px; max-height: 24rem; overflow: auto; white-space: pre; background: var(--rs-surface-2); border: 1px solid var(--rs-line); border-radius: 8px; }
+.rs-report-code pre:focus-visible { outline: 2px solid var(--rs-sage); outline-offset: 2px; }

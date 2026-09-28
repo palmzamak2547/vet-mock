@@ -1,0 +1,149 @@
+/* The chart kit [M2-DESIGN.md 8]: series colours (Okabe-Ito, the same values as charts/palette.js,
+   which tests/unit/graphs-palette.test.mjs checks), the figure with its data table beside it, the
+   figures pane, and the print view that isolates one figure at its physical size (vector PDF through
+   the browser's print dialog). Reduced motion: charts never animate. Every selector is prefixed .rs-.
+   OWNER: graphs role. */
+
+:root {
+  --rs-chart-s0: #0072b2;
+  --rs-chart-s1: #d55e00;
+  --rs-chart-s2: #009e73;
+  --rs-chart-s3: #cc79a7;
+  --rs-chart-s4: #e69f00;
+  --rs-chart-s5: #56b4e9;
+  --rs-chart-s6: #f0e442;
+}
+
+.rs-chart {
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.rs-chart-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (min-width: 64rem) {
+  .rs-chart-row--side {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  }
+}
+
+.rs-chart-plot {
+  min-width: 0;
+}
+
+.rs-chart-plot svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.rs-chart-table {
+  overflow-x: auto;
+}
+
+.rs-chart-notes {
+  margin: 0;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.rs-chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rs-chart-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.rs-chart-madeup {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: var(--rs-gold-tint);
+  color: var(--rs-gold-text);
+  font-size: 0.85em;
+}
+
+/* Figures pane */
+.rs-figures-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.rs-figures-panels {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.rs-figures-panel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.5rem 0.75rem;
+  align-items: center;
+  padding: 0.75rem;
+  border: 1px solid var(--rs-line);
+  border-radius: var(--rs-radius);
+  background: var(--rs-surface);
+}
+
+.rs-figures-letter {
+  font-weight: 700;
+  min-width: 1.5rem;
+}
+
+.rs-figures-preview {
+  overflow-x: auto;
+  padding: 0.75rem;
+  border: 1px solid var(--rs-line);
+  border-radius: var(--rs-radius);
+  background: #ffffff;
+}
+
+.rs-figures-preview svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Print view: only the figure, at its size in millimetres (the @page size is set by charts/print.js). */
+.rs-print-root {
+  display: none;
+}
+
+@media print {
+  html.rs-printing body > *:not(.rs-print-root) {
+    display: none !important;
+  }
+
+  html.rs-printing,
+  html.rs-printing body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  html.rs-printing .rs-print-root {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  html.rs-printing .rs-print-root svg {
+    display: block;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

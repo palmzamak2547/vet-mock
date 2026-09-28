@@ -4,7 +4,7 @@
 // more than a tenth of the axis past the outermost label, this adds the nice value nearest the data
 // end on that side, if it is inside the drawn domain and clear of the other labels. Pure: CiPlot.jsx
 // draws what this returns, so the screen and the downloaded chart are the same picture.
-// OWNER: landing role (art fix, round 3), used by workspace/components/CiPlot.jsx.
+// OWNER: graphs role (from the landing role's art fix, round 3), used by CiPlot.jsx and the chart kit's 'ci'.
 
 /** Nice mantissas for extra log-axis labels (1.4 and 0.7 pair up around 1, as forest plots do). */
 const NICE = [1, 1.2, 1.4, 1.5, 2, 2.5, 3, 4, 5, 6, 7, 8];
@@ -17,9 +17,10 @@ export const MIN_TICK_GAP = 36;
  * @param {{ log: boolean, domain: [number, number], plotLeft: number, plotRight: number,
  *   ticks: { v: number, x: number }[], rows: { est?: number|null, lo?: number|null, hi?: number|null }[] }} L
  *   the layout from ciPlotLayout
+ * @param {number} [minGap] smallest distance between two labels (MIN_TICK_GAP unless the chart is drawn in points)
  * @returns {{ v: number, x: number }[]} the ticks to draw, in order
  */
-export function ticksWithEnds(L) {
+export function ticksWithEnds(L, minGap = MIN_TICK_GAP) {
   const ticks = [...L.ticks];
   if (!L.log || !ticks.length) return ticks;
   const [min, max] = L.domain;
@@ -36,7 +37,7 @@ export function ticksWithEnds(L) {
       if (v >= min && v <= max) nice.push(v);
     }
   }
-  const clear = (v) => ticks.every((tk) => Math.abs(tk.x - xOf(v)) >= MIN_TICK_GAP);
+  const clear = (v) => ticks.every((tk) => Math.abs(tk.x - xOf(v)) >= minGap);
   const add = (end, beyond) => {
     const pick = nice
       .filter((v) => beyond(v) && clear(v))

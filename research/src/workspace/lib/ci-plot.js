@@ -2,7 +2,11 @@
 // interval as a line, the estimate as a dot, a reference line at no effect (1 for ratios, 0 for
 // differences). Open bounds (Infinity) run to the plot edge and are marked as open. Pure: the SVG
 // component draws what this returns, so the export and the screen are the same picture.
-// OWNER: workspace role.
+// Ticks come from the chart kit's niceTicks with a minimum label gap, so a narrow plot never crowds its
+// labels (M2 carried item 7); the fixed 1-2-5 lists below stay for callers that want them.
+// OWNER: graphs role (moved under the chart kit in M2).
+import { niceTicks } from '../charts/scale.js';
+import { MIN_TICK_GAP } from '../components/ci-ticks.js';
 
 /**
  * @typedef {{ label: string, est: number|null, lo: number|null, hi: number|null, muted?: boolean, accent?: boolean }} PlotRow
@@ -45,7 +49,8 @@ export function logTicks(min, max) {
 
 /**
  * @param {PlotRow[]} rows
- * @param {{ width?: number, labelW?: number, rowH?: number, log?: boolean, ref?: number|null }} [opts]
+ * @param {{ width?: number, labelW?: number, rowH?: number, log?: boolean, ref?: number|null, minGapPx?: number }} [opts]
+ *   minGapPx: smallest distance between two tick labels (default MIN_TICK_GAP, 36 px)
  */
 export function ciPlotLayout(rows, opts = {}) {
   const width = opts.width ?? 560;
@@ -74,7 +79,7 @@ export function ciPlotLayout(rows, opts = {}) {
   const x = (v) => L + Math.min(1, Math.max(0, t(v))) * (width - L - R);
   const bottom = top + rows.length * rowH;
   const height = bottom + 28;
-  const ticks = (log ? logTicks(min, max) : linearTicks(min, max, 5)).map((v) => ({ v, x: x(v) }));
+  const ticks = niceTicks(min, max, { pixels: width - L - R, minGapPx: opts.minGapPx ?? MIN_TICK_GAP, log }).map((v) => ({ v, x: x(v) }));
   const laid = rows.map((r, i) => {
     const y = top + i * rowH + rowH / 2;
     const openLo = r.lo === -Infinity || (log && r.lo === 0);
