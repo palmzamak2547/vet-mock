@@ -101,7 +101,7 @@ export default function CiPlot({ items, log, refValue, title, fileBase, onDownlo
           </tbody>
         </table>
       </div>
-      <p className="rs-soft rs-small">{log ? t('ws.plot.logNote') : t('ws.plot.linearNote')}</p>
+      <p className="rs-soft rs-small">{log ? t('ws.plot.logNote') : t('ws.plot.linearNote', { level: levelText })}</p>
       <ChartExport svgRef={svgRef} fileBase={fileBase} onDownloaded={onDownloaded} />
     </figure>
   );

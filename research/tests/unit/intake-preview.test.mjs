@@ -91,3 +91,24 @@ test('a CSV wider than the column cap is refused at once with its own message (r
   // the number in the message crosses the engine boundary with the key
   assert.deepEqual(toEngineError(err).params, { max: MAX_COLUMNS.toLocaleString('en-US') });
 });
+
+test('20,000 columns x 45 rows (first filled, the rest blank) give a preview in under 10 s (review round 5)', async () => {
+  // The "not applicable" evidence search cost columns x columns x rows: this file took minutes. Now linear.
+  const n = 20_000;
+  const head = Array.from({ length: n }, (_, i) => `c${i + 1}`).join(',');
+  const blanks = ','.repeat(n - 1);
+  const body = Array.from({ length: 45 }, (_, r) => `a${r + 1}${blanks}`).join('\n');
+  const t0 = Date.now();
+  const p = await buildPreview(csv(`${head}\n${body}\n`), { fileName: 'wide.csv', now: NOW });
+  const ms = Date.now() - t0;
+  assert.equal(p.file.columns, n);
+  assert.ok(ms < 10_000, `preview took ${ms} ms`);
+});
+
+test('the not-applicable evidence still finds the column that marks the rows (parity "-" on the males)', async () => {
+  const p = await buildPreview(csv('id,sex,parity,colour\na1,M,-,red\na2,F,2,red\na3,M,-,blue\na4,F,1,blue\na5,F,3,red\n'), { fileName: 'na.csv', now: NOW });
+  const q = p.questions.find((x) => x.kind === 'missing-reason' && x.params.code === '-');
+  assert.equal(q.default, 'not-applicable');
+  assert.equal(q.params.evidenceColumn, 'sex');
+  assert.equal(q.params.evidenceValue, 'M');
+});

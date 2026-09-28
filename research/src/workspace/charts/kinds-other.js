@@ -264,6 +264,6 @@ export function ciChart(input, opts) {
     legend: [],
     table: { columns: [t('graphs.col.measure'), t('graphs.col.estimate'), t('graphs.col.ci', { level: lv })], rows: tableRows },
     summary: tableRows.map((r) => (r[2] ? `${r[0]} ${r[1]} (${lv} CI ${r[2]})` : `${r[0]} ${r[1]}`)).join('; '),
-    notes: [t(input.log ? 'graphs.note.ciLog' : 'graphs.note.ciLinear')],
+    notes: [t(input.log ? 'graphs.note.ciLog' : 'graphs.note.ciLinear', { level: lv })],
   });
 }

@@ -269,9 +269,16 @@ export function methodsSentence(analysis, ctx) {
   } else {
     // A column name that ends in its own brackets ("follow-up (days)") takes its role before it, so the
     // sentence never nests brackets (review round 4: "จำนวนวันที่ติดตาม (วัน) (เวลาติดตาม)").
+    // Thai lists without commas, so once one role takes its word before the column, every role does and no
+    // "ตัวแปรที่ใช้ได้แก่" frames the list (review round 5: "ตัวแปรที่ใช้ได้แก่ ตัวแปรผลคือ X Y (offset) ..."
+    // read as if everything after it were the outcome).
+    const columnOf = (v) => joinList([].concat(v).map(col), lang, t);
+    const each = lang === 'th' && roleEntries.some(([, v]) => /\)\s*$/.test(columnOf(v)));
     const roles = roleEntries.map(([role, v]) => {
-      const column = joinList([].concat(v).map(col), lang, t);
-      return t(/\)\s*$/.test(column) ? 'report.methods.roleBefore' : 'report.methods.role', { role: roleName(role), column });
+      const column = columnOf(v);
+      const own = `report.methods.roleBefore.${keyPart(spec.method || '')}.${role}`;
+      if (each && has(t, own)) return t(own, { column });
+      return t(each || /\)\s*$/.test(column) ? 'report.methods.roleBefore' : 'report.methods.role', { role: roleName(role), column });
     });
     // One column reads "The variable was", not "The variables were".
     const count = roleEntries.reduce((n, [, v]) => n + [].concat(v).length, 0);
@@ -279,7 +286,7 @@ export function methodsSentence(analysis, ctx) {
     // separator only (review round 2: "ELISA result (outcome) and Age (months) and Sex (explanatory variables)").
     const several = roleEntries.some(([, v]) => [].concat(v).length > 1);
     const joined = several ? roles.join(punct(lang).sep) : joinList(roles, lang, t);
-    if (roles.length) out.push(t(count === 1 ? 'report.methods.rolesOne' : 'report.methods.roles', { roles: joined }));
+    if (roles.length) out.push(each ? roles.join(punct(lang).sep) : t(count === 1 ? 'report.methods.rolesOne' : 'report.methods.roles', { roles: joined }));
   }
   // One-way ANOVA says how the groups were compared pairwise, when it did so.
   if (spec.method === 'test.anova1' && (env?.tables || []).some((tb) => tb.id === 'posthoc') && spec.options?.posthoc && spec.options.posthoc !== 'none') {
@@ -449,10 +456,12 @@ export function resultsSentence(analysis, ctx) {
     const lines = tb.rows.map((r) => {
       const pair = pairText(r[pi], roles.group, { ...w, columnName: ctx.columnName, levelName });
       const p = pText(fmt, r[qi]);
-      if (di >= 0 && r[qi] === null && r[li] === null && env.guard?.notes?.some((n) => n.id === 'pairLowDf' || n.id === 'pairNoSpread')) {
+      if (di >= 0 && r[li] === null && env.guard?.notes?.some((n) => n.id === 'pairLowDf' || n.id === 'pairNoSpread')) {
         const why = (env.guard?.notes || []).find((n) => (n.id === 'pairLowDf' || n.id === 'pairNoSpread') && String(n.params?.pairs || '').split(', ').includes(String(r[pi])));
-        const reason = why?.id === 'pairNoSpread' ? t('stats.undefined.zeroVariance') : t('lab.undefined.ghPairLowDfShort');
-        return t('report.results.pairNoP', { pair, diff: num(r[di]), reason: reason.replace(/[.。]$/, '') });
+        const reason = (why?.id === 'pairNoSpread' ? t('stats.undefined.zeroVariance') : t('lab.undefined.ghPairLowDfShort')).replace(/[.。]$/, '');
+        // A Welch df below 2 with a difference of exactly 0 still has p = 1 (R's ptukey at q = 0); only its interval is missing.
+        if (r[qi] !== null) return t('report.results.pairNoCi', { pair, diff: num(r[di]), p, reason });
+        return t('report.results.pairNoP', { pair, diff: num(r[di]), reason });
       }
       if (di >= 0 && li >= 0 && ui >= 0) return t('report.results.pairCi', { pair, diff: num(r[di]), level: levelText(spec), bounds: t('report.results.range', { lo: num(r[li]), hi: num(r[ui]) }), p });
       return t('report.results.pairRank', { pair, diff: num(r[ri]), p });

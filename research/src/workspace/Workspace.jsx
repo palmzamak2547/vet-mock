@@ -25,6 +25,7 @@ import { readPrefs, writePrefs } from '../lib/store/prefs.js';
 import { workspaceFilmPending } from '../entrance/film-gate.js';
 import { createEngine } from '../lib/runtime/client.js';
 import { WsContext, errorInfo } from './ws-context.js';
+import { installScrollCue } from './lib/scroll-cue.js';
 import '../styles/workspace.css';
 import TopBar from './components/TopBar.jsx';
 import Link from './components/Link.jsx';
@@ -199,6 +200,8 @@ function Root({ route, owner, user, authError }) {
     window.setTimeout(() => setMessages((m) => m.filter((x) => x.id !== id)), tone === 'error' ? 9000 : 5000);
   }, []);
   const bumpProjects = useCallback(() => setVersion((v) => v + 1), []);
+  // Table scrollers fade the edge that still hides columns (lib/scroll-cue.js).
+  useEffect(() => installScrollCue(document.body), []);
 
   useEffect(() => {
     let live = true;

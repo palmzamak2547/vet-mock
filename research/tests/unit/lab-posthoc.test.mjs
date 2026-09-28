@@ -125,6 +125,22 @@ test('Games-Howell: zero spread is named only when a pair truly has SE 0; all pa
   assert.equal(tiny.values.reason.reasonKey, 'lab.undefined.ghLowDf');
 });
 
+test('Games-Howell: a low-df pair with a zero difference keeps p = 1 and still gets the low-df note; a mix of causes names both', () => {
+  const g = spec('posthoc.gamesHowell', { roles: { outcome: 'y', group: 'g' } });
+  // Review round 5: C-B has df 1 and a difference of exactly 0, so p = 1 (R: ptukey(0, 3, 1, lower.tail = FALSE) = 1)
+  // with a null interval; the note used to name only C-A because it was built from p === null.
+  const zero = runGamesHowell(g, groupsTable({ A: [2, 2, 2], B: [5, 5, 5], C: [1, 9] }));
+  assert.equal(zero.status, 'ok');
+  const cb = zero.tables[0].rows.find((r) => r[0] === 'C-B');
+  assert.equal(cb[5], 1); assert.equal(cb[6], null); assert.equal(cb[7], null);
+  assert.deepEqual(zero.notes.find((n) => n.id === 'pairLowDf').params.pairs.split(', ').sort(), ['C-A', 'C-B']);
+  assert.equal(zero.notes.find((n) => n.id === 'pairNoSpread').params.pairs, 'B-A');
+  // Every pair undefined, for two different causes: the reason names both, not "every pair has a low df".
+  const mixed = runGamesHowell(g, groupsTable({ A: [2, 2, 2], B: [5, 5, 5], C: [1, 8] }));
+  assert.equal(mixed.status, 'invalid');
+  assert.equal(mixed.values.reason.reasonKey, 'lab.undefined.ghMixed');
+});
+
 test('the integrator: Gauss-Kronrod 21 on a known integral', () => {
   const r = integrate((x) => Math.exp(-x * x), [-9, 0, 9], 1e-15);
   close(r.value, Math.sqrt(Math.PI), 1e-14, 'integral of exp(-x^2)');

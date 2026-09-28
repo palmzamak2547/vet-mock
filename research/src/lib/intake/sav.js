@@ -30,8 +30,12 @@ export const SAV_MAX_RANGE_CODES = 200;
  * the tab down (review round 2); a large real questionnaire (2,000 variables x 100 labels) is 200,000. */
 export const SAV_MAX_VALUE_LABELS = 250_000;
 /** Variables a file may declare. A numeric variable record costs 32 bytes of file but about 1.5 KB of memory
- * once read, so a 51 MB file of 1.6 million variables ran the tab out of memory (review round 4). 20,000 also
- * keeps the preview, whose work grows with the square of the column count, well inside the watchdog. */
+ * once read, so a 51 MB file of 1.6 million variables ran the tab out of memory (review round 4). 20,000 matches
+ * the preview's MAX_COLUMNS; the preview is linear in the cells since review round 5.
+ * Known limit, left on purpose: wide strings are where memory grows fastest. Every cap holds (rows, cells,
+ * MAX_INFLATED string bytes), but a 30 MB file of one A255 variable x 1,000,000 blank rows reaches about 1 GB
+ * in the reader and 1.3 GB in the preview. A real file of that size costs the same, so this is a design limit,
+ * not a hole; a lower cap on total string bytes would bound it on phones if it ever matters. */
 export const SAV_MAX_VARIABLES = 20_000;
 /** Case elements (8-byte slots) the header or the dictionary may declare: a 255-byte string takes 32, so this
  * allows SAV_MAX_VARIABLES variables of the widest ordinary string. */

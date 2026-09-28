@@ -14,7 +14,8 @@ import { printFigure } from '../charts/print.js';
 import { useWs, errorInfo } from '../ws-context.js';
 import Icon from './Icon.jsx';
 
-const WIDTHS = [84, 120, 174];
+// 85 mm, one column, as the figure composer says it (review round 5: '84 มม. (ครึ่งหน้า)' vs '85 mm (one column)').
+const WIDTHS = [85, 120, 174];
 
 /** Height in mm of an SVG drawn `widthMm` wide, from its viewBox. */
 function heightMmOf(svgText, widthMm) {

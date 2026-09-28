@@ -5,6 +5,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { anova1, tukeyHsd, pairwiseT, runAnova1 } from '../../src/lib/stats/anova.js';
+import { ptukeyUpper, qtukey } from '../../src/lib/stats/dist.js';
 import { readJson, readText, close, lre, TOL, groupsTable, spec } from './stats-fixtures.mjs';
 
 const R = readJson('r/out/anova.json');
@@ -109,4 +110,20 @@ test('ANOVA: runAnova1 on a WorkingTable with the post hoc table', () => {
   const one = runAnova1(spec('test.anova1', { roles: { outcome: 'y', group: 'g' } }), groupsTable({ A: [1, 2, 3] }));
   assert.equal(one.status, 'invalid');
   assert.equal(one.tests[0].p, null);
+});
+
+test('studentized range at a large df: the documented tolerance against R 4.6.0 (df 3000 and 2500)', () => {
+  // Source: R 4.6.0 (webR), review round 5 (work/loop-2026-09-26/research-m2/findings-r5.json, numbers lens):
+  //   1 - ptukey(3.5, 3, 3000) = 0.035687   qtukey(0.95, 3, 2500) = 3.31647
+  // The @stdlib studentized range switches to its df = Infinity form somewhere between df 2,001 and 2,500
+  // (R switches at 25,000). The written tolerance: relative 0.5% for an upper tail near 0.05 and 0.1% for
+  // the 95% quantile. Deeper tails drift further (q 4.5: 1.0%, q 5.5: 2.1%, so p near 1e-3 and below is
+  // off by a few per cent), which never moves a p across 0.05 by more than its last printed digit.
+  const p = ptukeyUpper(3.5, 3, 3000);
+  const want = 0.035687;
+  assert.ok(Math.abs(p - want) / want <= 0.005, `1 - ptukey(3.5, 3, 3000): got ${p}, R ${want}`);
+  const q = qtukey(0.95, 3, 2500);
+  assert.ok(Math.abs(q - 3.31647) / 3.31647 <= 0.001, `qtukey(0.95, 3, 2500): got ${q}, R 3.31647`);
+  // The pin is not loose enough to hide a wrong value: the df 30 tail is 0.049, far outside it.
+  assert.ok(Math.abs(ptukeyUpper(3.5, 3, 30) - want) / want > 0.005);
 });

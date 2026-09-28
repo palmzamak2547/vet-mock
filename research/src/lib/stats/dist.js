@@ -183,7 +183,12 @@ export function phyperUpper(x, m, n, k) {
 
 // ---------------------------------------------------------------- studentized range
 
-/** Studentized range upper tail, as R computes it: 1 - ptukey(q, nmeans, df) (M1-DESIGN.md A8). */
+/**
+ * Studentized range upper tail, as R computes it: 1 - ptukey(q, nmeans, df) (M1-DESIGN.md A8).
+ * Known limit: @stdlib uses its df = Infinity form above a df of roughly 2,000-2,500 (R does so at 25,000).
+ * At df 3000 the tail near 0.05 is within 0.5% of R, 1-2% for p near 1e-3 and below; the 95% quantile is
+ * within 0.1%. Pinned in tests/unit/stats-anova.test.mjs.
+ */
 export function ptukeyUpper(q, nmeans, df) {
   if (Number.isNaN(q)) return NaN;
   if (q <= 0) return 1;

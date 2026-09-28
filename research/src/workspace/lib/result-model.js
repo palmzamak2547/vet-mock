@@ -100,6 +100,13 @@ export function plottable(env, primary = null) {
   return { rows: same, log, ref };
 }
 
+/** 'odds ratio (อัตราส่วนออดส์)' -> 'odds ratio'; 'incidence rate ratio (IRR)' -> 'IRR'; no bracket: as it is. */
+function shortMeasure(v) {
+  const m = String(v).match(/^(.+?)\s*\(([^()]+)\)$/);
+  if (!m) return v;
+  return /^[A-Z][A-Za-z0-9]*$/.test(m[2]) ? m[2] : m[1];
+}
+
 /**
  * Label of a value: the method's own name for it when the dictionary has one (a t-test's 'estimate'
  * is a difference in means, a correlation's is r), else the general name, else the value's own name.
@@ -111,7 +118,15 @@ export function valueLabel(name, t, methodId = null, words = null) {
   // 'median:Maintained' reads "Median (Maintained)", 'oddsRatio:age' "Odds ratio (age)": the part after
   // the colon is a level or a model term, named by the codebook when `words` (term-words.js) is given.
   const colon = String(name).indexOf(':');
-  if (colon > 0) return t('ws.value.ofLevel', { value: valueLabel(String(name).slice(0, colon), t, methodId), level: suffixText(methodId, String(name).slice(colon + 1), words ? { t, ...words } : null) });
+  if (colon > 0) {
+    // One pair of brackets at most (review round 5: 'ค่าสัมประสิทธิ์ B (ค่าคงที่ (intercept))', and the gloss of
+    // 'odds ratio (อัตราส่วนออดส์)' repeated on every row): the measure drops its bracket (an abbreviation
+    // stands for it, a gloss is given where the measure is named alone), and a term with brackets of its own
+    // follows a colon.
+    const value = shortMeasure(valueLabel(String(name).slice(0, colon), t, methodId));
+    const level = suffixText(methodId, String(name).slice(colon + 1), words ? { t, ...words } : null);
+    return /[()]/.test(String(level)) ? `${value}: ${level}` : t('ws.value.ofLevel', { value, level });
+  }
   // The epi area names the values its methods return (epi.value.nPooled); used when the workspace has no own word.
   // An M2 method's area names its own values (measure.value.relCronbach.k, lab.value.epsGG): the
   // method's own word comes first, then the area's general one, then the workspace's and epi's general

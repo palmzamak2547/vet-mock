@@ -174,12 +174,15 @@ export function runGamesHowell(spec, table) {
   // That pair keeps null p and interval with its own note; the other pairs stand. Only when no pair has a p
   // is the whole result invalid, and then with the reason that is true.
   const noSpread = pairs.filter((x) => x.se === 0).map((x) => x.pair);
-  const lowDf = pairs.filter((x) => x.p === null && x.se !== 0).map((x) => x.pair);
+  // A Welch df below 2 is the cause even when that pair still has a p (a difference of exactly 0 gives
+  // p = 1, as R's ptukey(0, k, df) does); its interval is null all the same and needs the same note.
+  const lowDf = pairs.filter((x) => x.se !== null && x.se !== 0 && x.df !== null && x.df < 2).map((x) => x.pair);
   const none = pairs.every((x) => x.p === null);
   const notes = [];
   if (noSpread.length) notes.push({ id: 'pairNoSpread', severity: 'warning', key: 'lab.note.ghPairNoSpread', params: { pairs: noSpread.join(', ') } });
   if (lowDf.length) notes.push({ id: 'pairLowDf', severity: 'warning', key: 'lab.note.ghPairLowDf', params: { pairs: lowDf.join(', ') } });
-  const reasonKey = lowDf.length ? 'lab.undefined.ghLowDf' : 'stats.undefined.zeroVariance';
+  // The reason names the cause only when every pair shares it; a mix gets the sentence that names both.
+  const reasonKey = !lowDf.length ? 'stats.undefined.zeroVariance' : !noSpread.length ? 'lab.undefined.ghLowDf' : 'lab.undefined.ghMixed';
   return {
     status: none ? 'invalid' : 'ok',
     values: { groups: val(r.groups.length), comparisons: val(pairs.length), ...(none ? { reason: nullVal(reasonKey) } : {}) },

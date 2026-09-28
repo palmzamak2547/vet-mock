@@ -275,11 +275,23 @@ export function wrapWords(label, room, fs) {
   // at grapheme clusters, and the rest carries to the next line: no character is dropped and a vowel or
   // tone mark never leaves its consonant (review round 4: Thai column names have no spaces, and the old cut
   // added a dash and dropped the rest of the name).
+  // A number stays with the word after it ('6 ชั่วโมง', '21 วัน') whenever the pair fits (review round 5).
+  const words = [];
+  for (const w of String(label).split(/\s+/).filter(Boolean)) {
+    const prev = words[words.length - 1];
+    if (prev && /^[-+]?[\d.,]+%?$/.test(prev) && textWidth(`${prev} ${w}`, fs) <= room) words[words.length - 1] = `${prev} ${w}`;
+    else words.push(w);
+  }
   const tokens = [];
-  for (const [i, w] of String(label).split(/\s+/).filter(Boolean).entries()) {
+  for (const [i, w] of words.entries()) {
     const first = i === 0 ? '' : ' ';
     if (textWidth(w, fs) <= room) { tokens.push({ sep: first, text: w }); continue; }
     splitWide(w, room, fs).forEach((piece, k) => tokens.push({ sep: k === 0 ? first : '', text: piece }));
+  }
+  // ... and with the first piece of a long word after it when the whole word does not fit.
+  for (let i = tokens.length - 2; i >= 0; i -= 1) {
+    const a = tokens[i], b = tokens[i + 1];
+    if (/^[-+]?[\d.,]+%?$/.test(a.text) && b.sep === ' ' && textWidth(`${a.text} ${b.text}`, fs) <= room) tokens.splice(i, 2, { sep: a.sep, text: `${a.text} ${b.text}` });
   }
   const out = [];
   let cur = '';
@@ -312,7 +324,24 @@ export function graphemes(s) {
 
 /** A space-free word wider than `room`, in pieces that each fit (word segments first, then graphemes). */
 function splitWide(word, room, fs) {
-  const segs = WORDS ? Array.from(WORDS.segment(word), (x) => x.segment) : [word];
+  // A word without Thai letters is never broken: 'Da / ys' reads worse than a word that runs past the room
+  // (review round 5, 'Days followed' in an 85 mm two-column panel). Only Thai, which has no spaces, is cut.
+  if (!/[\u0e01-\u0e5b]/.test(word)) return [word];
+  const raw = WORDS ? Array.from(WORDS.segment(word), (x) => x.segment) : [word];
+  // ICU sometimes ends a segment on the first letter of the next word's initial cluster ('หลังค|ลอด' for
+  // หลัง|คลอด): a bare cluster initial after a bare consonant moves forward when the next segment starts with
+  // ร, ล or ว.
+  for (let i = 0; i + 1 < raw.length; i += 1) {
+    if (/[\u0e01-\u0e2e][\u0e01\u0e02\u0e04\u0e15\u0e1b\u0e1c\u0e1e]$/.test(raw[i]) && /^[\u0e23\u0e25\u0e27]/.test(raw[i + 1])) { raw[i + 1] = raw[i].slice(-1) + raw[i + 1]; raw[i] = raw[i].slice(0, -1); }
+  }
+  // A segment of one or two letters goes with its neighbour (the segmenter's 'หลังค|ลอด' style splits leave
+  // short fragments that read as nonsense on their own line).
+  const segs = [];
+  for (const sg of raw) {
+    const short = graphemes(sg).length <= 2;
+    if (segs.length && (short || graphemes(segs[segs.length - 1]).length <= 2)) segs[segs.length - 1] += sg;
+    else segs.push(sg);
+  }
   const units = [];
   for (const sg of segs) {
     if (textWidth(sg, fs) <= room) { units.push(sg); continue; }

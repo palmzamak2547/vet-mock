@@ -113,6 +113,7 @@ export default {
     'lab.undefined.needTwoTreatments': 'ต้องมีอย่างน้อย 2 กลุ่มหรือ 2 ครั้งที่วัด',
     'lab.undefined.noCompleteBlock': 'ไม่มีสัตว์หรือบล็อกที่มีค่าครบทุกกลุ่ม จึงเทียบภายในตัวเดียวกันไม่ได้',
     'lab.undefined.groupTooSmall': 'บางกลุ่มมีสัตว์ตัวเดียว จึงหาการกระจายของกลุ่มนั้นไม่ได้',
+    'lab.undefined.ghMixed': 'ไม่มีคู่ใดหาค่า p ได้ บางคู่ทั้งสองกลุ่มมีค่าเท่ากันทุกตัวจึงไม่มีการกระจาย ส่วนคู่ที่เหลือมี df ของ Welch ต่ำกว่า 2 (มักเพราะกลุ่มหนึ่งมีสัตว์แค่ 2 ตัว) ซึ่ง studentized range ไม่นิยาม เพิ่มจำนวนสัตว์ในกลุ่มที่เล็กที่สุด',
     'lab.undefined.ghLowDf': 'ทุกคู่มี df ของ Welch ต่ำกว่า 2 (มักเกิดเมื่อกลุ่มหนึ่งมีสัตว์แค่ 2 ตัว) ซึ่ง studentized range ไม่นิยามที่ df นี้ จึงหาค่า p และ CI ไม่ได้ เพิ่มจำนวนสัตว์ในกลุ่มที่เล็กที่สุด',
     'lab.undefined.shapiroN': 'Shapiro-Wilk ใช้ได้เมื่อมี 3 ถึง 5000 ค่า',
 
@@ -143,7 +144,7 @@ export default {
     'lab.note.dunnettIntegration': 'ค่า p และค่าวิกฤตของ Dunnett คำนวณเชิงตัวเลข (numerical integration) ไม่ได้สุ่มจำลอง ความคลาดเคลื่อนไม่เกิน {error}',
     'lab.note.diagnosticOnly': 'ผลตรวจนี้ใช้ประกอบการอ่านผลเท่านั้น ไม่ได้ใช้เลือกหรือเปลี่ยนวิธีทดสอบ',
     'lab.undefined.ghPairLowDfShort': 'df ของ Welch ต่ำกว่า 2 ซึ่ง studentized range ไม่นิยาม',
-    'lab.note.ghPairLowDf': 'คู่ {pairs} มี df ของ Welch ต่ำกว่า 2 (มักเพราะกลุ่มหนึ่งมีสัตว์แค่ 2 ตัว) ซึ่ง studentized range ไม่นิยามที่ df นี้ คู่นี้จึงไม่มีค่า p และ CI ส่วนคู่อื่นใช้ได้ตามปกติ',
+    'lab.note.ghPairLowDf': 'คู่ {pairs} มี df ของ Welch ต่ำกว่า 2 (มักเพราะกลุ่มหนึ่งมีสัตว์แค่ 2 ตัว) ซึ่ง studentized range ไม่นิยามที่ df นี้ คู่นี้จึงไม่มี CI และไม่มีค่า p (เว้นแต่ค่าเฉลี่ยสองกลุ่มเท่ากันพอดี ซึ่งได้ p = 1) ส่วนคู่อื่นใช้ได้ตามปกติ',
     'lab.note.ghPairNoSpread': 'คู่ {pairs} ทั้งสองกลุ่มมีค่าเท่ากันทุกตัว จึงไม่มีการกระจายให้คำนวณ คู่นี้จึงไม่มีค่า p และ CI ส่วนคู่อื่นใช้ได้ตามปกติ',
 
     // ------------------------------------------------------------ G21
@@ -285,6 +286,7 @@ export default {
     'lab.undefined.needTwoTreatments': 'Needs 2 or more groups or times',
     'lab.undefined.noCompleteBlock': 'No animal or block has a value in every group, so nothing can be compared within an animal.',
     'lab.undefined.groupTooSmall': 'A group has a single animal, so its spread cannot be estimated',
+    'lab.undefined.ghMixed': 'No pair has a p-value. In some pairs every value in both groups is the same, so there is no spread; the other pairs have a Welch df below 2 (usually a group of only 2 animals), where the studentized range is not defined. Add animals to the smallest group.',
     'lab.undefined.ghLowDf': 'Every pair has a Welch df below 2 (usually a group of only 2 animals), where the studentized range is not defined, so no p-value or CI can be given. Add animals to the smallest group.',
     'lab.undefined.shapiroN': 'Shapiro-Wilk needs between 3 and 5000 values',
 
@@ -313,7 +315,7 @@ export default {
     'lab.note.dunnettIntegration': 'Dunnett’s p-values and critical value come from numerical integration, not simulation, with an error below {error}.',
     'lab.note.diagnosticOnly': 'This check only helps you read the result; it never picks or changes the test.',
     'lab.undefined.ghPairLowDfShort': 'the Welch df is below 2, where the studentized range is not defined',
-    'lab.note.ghPairLowDf': 'Pair {pairs} has a Welch df below 2 (usually a group of only 2 animals), where the studentized range is not defined, so that pair has no p-value or CI. The other pairs stand.',
+    'lab.note.ghPairLowDf': 'Pair {pairs} has a Welch df below 2 (usually a group of only 2 animals), where the studentized range is not defined, so that pair has no CI and no p-value (except when the two means are exactly equal, which gives p = 1). The other pairs stand.',
     'lab.note.ghPairNoSpread': 'In pair {pairs} every value in both groups is the same, so there is no spread to work with and that pair has no p-value or CI. The other pairs stand.',
 
     'lab.guard.G21.title': 'The same animal is measured more than once',

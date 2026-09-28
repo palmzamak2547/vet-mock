@@ -135,9 +135,10 @@ export async function buildPreview(bytes, opts) {
   }
   if (ragged) fileConversions.push({ column: null, kind: 'ragged', count: ragged, examples: [], needsAnswer: false, applied: true, questionId: null, key: extraColumns ? 'intake.conv.raggedExtra' : 'intake.conv.ragged', params: { count: ragged, extra: extraColumns } });
 
-  // One column cap for every format: the preview's work grows with the square of the column count, so a very
-  // wide CSV ran into the watchdog after a minute instead of saying why (review round 4). An SPSS file is held
-  // to the same number by its own reader (SAV_MAX_VARIABLES).
+  // One column cap for every format, so a very wide file says why instead of running into the watchdog (review
+  // round 4). The preview's work is linear in the cells since review round 5 (20,000 columns x 45 rows in a
+  // few seconds, pinned in intake-preview.test.mjs). An SPSS file is held to the same number by its own reader
+  // (SAV_MAX_VARIABLES).
   if (header.length > MAX_COLUMNS) throw Object.assign(new Error('too many columns'), { key: 'intake.tooManyColumns', params: { max: MAX_COLUMNS.toLocaleString('en-US') } });
   header = header.map((h) => String(h).normalize('NFC'));
   const rowCount = direct ? (direct[0] ? direct[0].length : 0) : rows.length;
@@ -216,26 +217,41 @@ function analyse(raw, { excelDateCells, dateSystem, sav = null }) {
     return f;
   });
 
-  // "-" or blank exactly on the rows where another short column has one value (parity "-" on the males): not applicable
+  // "-" or blank exactly on the rows where another short column has one value (parity "-" on the males): not applicable.
+  // Test for a code m in column f: some other column g (at most 6 distinct values, blanks included) holds one
+  // non-blank value v on exactly m's rows and nowhere else. Every (g, v) row set is indexed once by a hash of its
+  // rows, so the search is linear in the cells; the pairwise loop it replaces cost columns x columns x rows and
+  // froze the page for minutes on a wide file of blank columns (review round 5).
+  const rowsHash = (list) => {
+    let h1 = 0x811c9dc5, h2 = list.length;
+    for (const r of list) { h1 = Math.imul(h1 ^ r, 0x01000193) >>> 0; h2 = (Math.imul(h2, 31) + r) >>> 0; }
+    return `${list.length}:${h1}:${h2}`;
+  };
+  const byRows = new Map();
+  cols.forEach((g, gi) => {
+    if (piiKeys.has(g.key)) return;
+    const at = new Map();
+    for (let r = 0; r < g.values.length; r++) {
+      const v = g.values[r];
+      let list = at.get(v);
+      if (!list) { if (at.size === 6) return; list = []; at.set(v, list); }
+      list.push(r);
+    }
+    for (const [v, list] of at) {
+      if (v === '') continue;
+      const key = rowsHash(list);
+      if (!byRows.has(key)) byRows.set(key, []);
+      byRows.get(key).push({ gi, g, v, list });
+    }
+  });
+  const sameRows = (a, b) => { if (a.length !== b.length) return false; for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false; return true; };
   for (const f of cols) {
     for (const m of f.found) {
-      if (!NA_CANDIDATES.has(m.code) || m.suggestedReason === 'not-applicable') continue;
-      const set = new Set(m.rows);
-      for (const g of cols) {
-        if (g === f || piiKeys.has(g.key)) continue;
-        const by = new Map();
-        for (const r of m.rows) by.set(g.values[r], (by.get(g.values[r]) || 0) + 1);
-        if (by.size !== 1) continue;
-        const [v] = [...by.keys()];
-        if (v === '') continue;
-        let total = 0;
-        const distinct = new Set();
-        for (let r = 0; r < g.values.length; r++) { distinct.add(g.values[r]); if (g.values[r] === v) total += 1; }
-        if (distinct.size > 6 || total !== set.size) continue;
-        m.suggestedReason = 'not-applicable';
-        m.evidence = { column: g.header, value: v };
-        break;
-      }
+      if (!NA_CANDIDATES.has(m.code) || m.suggestedReason === 'not-applicable' || !m.rows.length) continue;
+      const hit = (byRows.get(rowsHash(m.rows)) || []).find((x) => x.g !== f && sameRows(x.list, m.rows));
+      if (!hit) continue;
+      m.suggestedReason = 'not-applicable';
+      m.evidence = { column: hit.g.header, value: hit.v };
     }
   }
 
@@ -407,7 +423,9 @@ export function answerPreview(preview, answers) {
   const merged = { ...preview.answers };
   for (const [k, v] of Object.entries(answers || {})) { if (v == null) delete merged[k]; else merged[k] = String(v); }
   const qs = preview.questions.map((q) => ({ ...q, answer: merged[q.id] ?? q.default ?? null }));
-  const ans = (id) => qs.find((q) => q.id === id)?.answer ?? null;
+  // Lookups by id and key go through maps: a find per column made this columns x columns (review round 5).
+  const qById = new Map(qs.map((q) => [q.id, q]));
+  const ans = (id) => qById.get(id)?.answer ?? null;
   const { raw } = preview;
   const factCols = preview.facts.columns;
 
@@ -418,14 +436,17 @@ export function answerPreview(preview, answers) {
   }));
   for (const cf of codebookFacts) cf.inference = inferColumn(cf.values, cf.header, { missingCodes: cf.missingCodes.map((m) => m.code) });
   const codebook = proposeCodebook(raw, { facts: codebookFacts, cluster: preview.facts.cluster });
+  const cfByKey = new Map(codebookFacts.map((c) => [c.key, c]));
+  const entryByKey = new Map(codebook.columns.map((c) => [c.key, c]));
+  const factByKey = new Map(factCols.map((f) => [f.key, f]));
   if (preview.facts.sav) applySavHints(codebook, preview.facts.sav);
 
   // the import step
   const perColumn = {};
   for (const f of factCols) {
     const s = { thaiDigits: true, trim: true, nfc: true, invisible: true, dates: null, missingCodes: [], cellFixes: [] };
-    s.missingCodes = codebookFacts.find((c) => c.key === f.key).missingCodes;
-    const entry = codebook.columns.find((c) => c.key === f.key);
+    s.missingCodes = cfByKey.get(f.key).missingCodes;
+    const entry = entryByKey.get(f.key);
     if (entry.type === 'date') {
       const century = ans(`q:${f.key}:two-digit`);
       s.dates = {
@@ -448,8 +469,8 @@ export function answerPreview(preview, answers) {
   const conflictQs = [];
   let changed = false;
   for (const [key, bad] of Object.entries(table.invalid)) {
-    const f = factCols.find((x) => x.key === key);
-    const entry = codebook.columns.find((c) => c.key === key);
+    const f = factByKey.get(key);
+    const entry = entryByKey.get(key);
     const qid = `q:${key}:conflict`;
     const real = realConflicts(bad);
     if (!real.count) continue; // only cells waiting for a date question: answering it settles them
@@ -475,7 +496,7 @@ export function answerPreview(preview, answers) {
   // conversions
   const conversions = preview.facts.fileConversions.slice();
   for (const f of factCols) {
-    const entry = codebook.columns.find((c) => c.key === f.key);
+    const entry = entryByKey.get(f.key);
     for (const c of f.conversions) conversions.push({ ...c, needsAnswer: c.questionId ? ans(c.questionId) == null : c.needsAnswer, applied: c.questionId ? ans(c.questionId) === 'use-proposed' || ans(c.questionId) === 'pad' : c.applied });
     for (const m of f.missingConv || []) {
       const reason = ans(m.qid);
@@ -525,12 +546,13 @@ export function answerPreview(preview, answers) {
       if (f.inference.excelSerial) conversions.push({ column: f.key, kind: 'excel-serial', count: f.inference.present, examples: [], needsAnswer: false, applied: true, questionId: `q:${f.key}:excel-system`, key: 'intake.conv.excelSerials', params: { column: f.header, count: f.inference.present, system: rule.excelSystem || '' } });
     }
   }
+  const allQById = new Map(allQs.map((q) => [q.id, q]));
   for (const [key, bad] of Object.entries(table.invalid)) {
-    const f = factCols.find((x) => x.key === key);
+    const f = factByKey.get(key);
     const real = realConflicts(bad);
     if (!real.count) continue;
     const qid = `q:${key}:conflict`;
-    const q = allQs.find((x) => x.id === qid);
+    const q = allQById.get(qid);
     conversions.push({ column: key, kind: 'type-conflict', count: real.count, examples: real.examples.map((e) => ({ rowId: e.rowId, from: e.value, to: '' })), needsAnswer: !!q && q.answer == null, applied: true, questionId: q ? qid : null, key: 'intake.conv.typeConflict', params: { column: f.header, count: real.count, reasonKey: real.examples[0]?.key || '' } });
   }
 
@@ -538,8 +560,10 @@ export function answerPreview(preview, answers) {
   // every conversion that a question decides carries the question's options, so a screen that walks
   // the conversion list alone can ask each question (value -> answerPreview({ [questionId]: value })).
   const names = Object.fromEntries(factCols.map((f) => [f.key, f.header]));
+  const convByQ = new Map();
+  for (const c of conversions) if (c.questionId) { if (!convByQ.has(c.questionId)) convByQ.set(c.questionId, []); convByQ.get(c.questionId).push(c); }
   for (const q of allQs) {
-    const carried = conversions.filter((c) => c.questionId === q.id);
+    const carried = convByQ.get(q.id) || [];
     for (const c of carried) { c.options = q.options; c.answer = q.answer; }
     if (q.answer == null && !carried.some((c) => c.needsAnswer)) {
       conversions.push({ column: q.column, kind: 'question', count: 0, examples: [], needsAnswer: true, applied: false, questionId: q.id, key: q.key, params: { ...q.params, column: q.column ? names[q.column] : '' }, options: q.options, answer: null });
@@ -560,8 +584,9 @@ export function answerPreview(preview, answers) {
  */
 function applySavHints(codebook, sav) {
   const thai = /[\u0e00-\u0e7f]/;
+  const byKey = new Map(codebook.columns.map((c) => [c.key, c]));
   for (const v of sav.variables) {
-    const entry = codebook.columns.find((c) => c.key === v.key);
+    const entry = byKey.get(v.key);
     if (!entry) continue;
     if (v.label) {
       if (thai.test(v.label)) entry.labelTh = v.label;

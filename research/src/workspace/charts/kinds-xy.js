@@ -163,11 +163,11 @@ export function timeCourseChart(input, opts) {
     drawLegend: series.length > 1,
     // Cell means of a two-way ANOVA share this drawing but not its words: the x axis is the second factor,
     // not time, and there are no animal lines (review round 4). Faint animal lines are named only when drawn.
-    table: { columns: [t('graphs.col.group'), cells ? (input.xTitle || t('graphs.col.level')) : t('graphs.col.time'), t('graphs.col.n'), t('graphs.col.mean'), t('graphs.col.ci', { level: lv })], rows },
+    table: { columns: [cells && input.factorTitle ? input.factorTitle : t('graphs.col.group'), cells ? (input.xTitle || t('graphs.col.level')) : t('graphs.col.time'), t('graphs.col.n'), t('graphs.col.mean'), t('graphs.col.ci', { level: lv })], rows },
     summary: cells
       ? t('graphs.summary.cellMeans', { k: series.length, levels: times.length, rows: rows.map((r) => `${r[0]} ${r[1]} ${r[3]} (${r[4]})`).join('; ') })
       : t('graphs.summary.timeCourse', { k: series.length, times: times.length, rows: rows.map((r) => `${r[0]} ${r[1]} ${r[3]} (${r[4]})`).join('; ') }),
-    notes: [t(cells ? 'graphs.note.cellMeans' : (input.animals || []).length ? 'graphs.note.timeCourse' : 'graphs.note.timeCourseMeans', { level: lv })],
+    notes: [t(cells ? (input.factorTitle ? 'graphs.note.cellMeansNamed' : 'graphs.note.cellMeans') : (input.animals || []).length ? 'graphs.note.timeCourse' : 'graphs.note.timeCourseMeans', { level: lv, factor: input.factorTitle || '' })],
   });
 }
 

@@ -61,7 +61,7 @@ function pairsInput(table, xTitle, level, pairLabel = (x) => String(x)) {
 }
 
 /** Means with their intervals, one line per level of the first factor, across the second factor's levels. */
-function cellMeansInput(table, { xTitle, yTitle, level, labelA = (x) => x, labelB = (x) => x }) {
+function cellMeansInput(table, { xTitle, yTitle, factorTitle, level, labelA = (x) => x, labelB = (x) => x }) {
   const bi = colIndex(table, 'levelB', 'b', 'factorB');
   const ai = colIndex(table, 'levelA', 'a', 'group');
   const ni = colIndex(table, 'n');
@@ -79,7 +79,7 @@ function cellMeansInput(table, { xTitle, yTitle, level, labelA = (x) => x, label
     label: labelA(label),
     points: table.rows.filter((r) => String(r[ai]) === label).map((r) => ({ time: times.indexOf(String(r[bi])), mean: num(r[mi]), lo: bound(r[li]), hi: bound(r[ui]), ...(ni >= 0 ? { n: num(r[ni]) } : {}) })),
   }));
-  return { variant: 'cellMeans', times: times.map(labelB), series, xTitle, yTitle, level };
+  return { variant: 'cellMeans', times: times.map(labelB), series, xTitle, yTitle, factorTitle, level };
 }
 
 /** The ratios a regression table prints (the model's own OR or IRR column), intercept left out. */
@@ -130,7 +130,7 @@ export function extraCharts(env, labelOf = (k) => k, levelName = (k, v) => v, t 
   switch (method) {
     case 'anova.twoWay': {
       const tb = findTable(env, 'cellMeans');
-      if (tb) add('cellMeans', 'timeCourse', cellMeansInput(tb, { xTitle: name(roles.factorB), yTitle: name(roles.outcome), level, labelA: lv(roles.group), labelB: lv(roles.factorB) }));
+      if (tb) add('cellMeans', 'timeCourse', cellMeansInput(tb, { xTitle: name(roles.factorB), yTitle: name(roles.outcome), factorTitle: name(roles.group), level, labelA: lv(roles.group), labelB: lv(roles.factorB) }));
       for (const id of ['tukeyA', 'tukeyB']) {
         const t2 = findTable(env, id);
         if (t2) add(id, 'ci', pairsInput(t2, diffTitle(roles.outcome), level, pairOf(id === 'tukeyB' ? roles.factorB : roles.group)));

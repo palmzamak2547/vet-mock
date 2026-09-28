@@ -149,7 +149,7 @@ test('designs, routes, steps, log kinds, missing reasons, strobe items and other
   for (const f of ['all', 'missing', 'converted', 'excluded']) keys.push(`ws.grid.filter.${f}`);
   for (const e of ['auto', 'utf-8', 'windows-874', 'utf-16le']) keys.push(`ws.import.encoding.${keyPart(e)}`);
   for (const th of ['system', 'light', 'dark']) keys.push(`ws.account.theme.${th}`);
-  for (const w of [84, 120, 174]) keys.push(`ws.chart.width.${w}`);
+  for (const w of [85, 120, 174]) keys.push(`ws.chart.width.${w}`);
   for (const p of ['prev', 'assoc']) keys.push(`ws.rail.${p}`, `ws.analysis.${p}.title`, `ws.analysis.${p}.sub`);
   for (const k of ['levels', 'missing', 'noP', 'skewed', 'thaiOrder']) keys.push(`ws.table1.rule.${k}`);
   for (const s of ['typed', 'literature', 'median', 'quantile']) keys.push(`ws.steps.cutSource.${s}`);
