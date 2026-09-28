@@ -1,0 +1,2396 @@
+{
+ "_fixture": {
+  "family": "scipy-1.17.1",
+  "kind": "crosscheck",
+  "methods": [],
+  "note": "A second implementation of the M2 R pins; not a pin itself."
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/crosscheck/scipy_crosscheck_m2.py",
+  "python": "3.14.4",
+  "scipy": "1.17.1",
+  "numpy": "2.4.4"
+ },
+ "rows": [
+  {
+   "file": "friedman",
+   "case": "roundingTimes",
+   "key": "statistic",
+   "index": null,
+   "scipy": 11.142857142857132,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy"
+  },
+  {
+   "file": "friedman",
+   "case": "roundingTimes",
+   "key": "p",
+   "index": null,
+   "scipy": 0.003805040775511383,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy"
+  },
+  {
+   "file": "friedman",
+   "case": "rm",
+   "key": "statistic",
+   "index": null,
+   "scipy": 22.822784810126574,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy"
+  },
+  {
+   "file": "friedman",
+   "case": "rm",
+   "key": "p",
+   "index": null,
+   "scipy": 4.396745227566837e-05,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "shapiro.two.g1",
+   "key": "W",
+   "index": null,
+   "scipy": 0.9634429276034644,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "shapiro.two.g1",
+   "key": "p",
+   "index": null,
+   "scipy": 0.8421847885427357,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "shapiro.two.g2",
+   "key": "W",
+   "index": null,
+   "scipy": 0.99148531048111,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "shapiro.two.g2",
+   "key": "p",
+   "index": null,
+   "scipy": 0.9982886549075923,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "shapiro.quantiles",
+   "key": "W",
+   "index": null,
+   "scipy": 0.9522378057354886,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "shapiro.quantiles",
+   "key": "p",
+   "index": null,
+   "scipy": 0.7337596429624511,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "shapiro.three.residuals",
+   "key": "W",
+   "index": null,
+   "scipy": 0.9506992826629348,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "shapiro.three.residuals",
+   "key": "p",
+   "index": null,
+   "scipy": 0.43609214635667176,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "shapiro.n3",
+   "key": "W",
+   "index": null,
+   "scipy": 0.9642857142857142,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "shapiro.n3",
+   "key": "p",
+   "index": null,
+   "scipy": 0.6368868450289689,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "shapiro.roundingTimes1",
+   "key": "W",
+   "index": null,
+   "scipy": 0.9467775925511192,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "shapiro.roundingTimes1",
+   "key": "p",
+   "index": null,
+   "scipy": 0.27226113075220515,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "shapiro.n11",
+   "key": "W",
+   "index": null,
+   "scipy": 0.9645175854249087,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "shapiro.n11",
+   "key": "p",
+   "index": null,
+   "scipy": 0.8264686008950441,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "qq.two.g1",
+   "key": "theoretical",
+   "index": 0,
+   "scipy": -0.8524950342746941,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.two.g1",
+   "key": "theoretical",
+   "index": 1,
+   "scipy": -1.4342001596863792,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.two.g1",
+   "key": "theoretical",
+   "index": 2,
+   "scipy": 0.8524950342746939,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.two.g1",
+   "key": "theoretical",
+   "index": 3,
+   "scipy": 0.15250597424624424,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.two.g1",
+   "key": "theoretical",
+   "index": 4,
+   "scipy": 0.4727891209922672,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.two.g1",
+   "key": "theoretical",
+   "index": 5,
+   "scipy": -0.15250597424624437,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.two.g1",
+   "key": "theoretical",
+   "index": 6,
+   "scipy": -0.4727891209922674,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.two.g1",
+   "key": "theoretical",
+   "index": 7,
+   "scipy": 1.4342001596863792,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 0,
+   "scipy": -0.8254944909292358,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 1,
+   "scipy": 0.9982011721528863,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 2,
+   "scipy": -1.489470042327941,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 3,
+   "scipy": 0.17174708963751192,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 4,
+   "scipy": 1.4894700423279401,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 5,
+   "scipy": -0.537519106202773,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 6,
+   "scipy": -0.6744897501960817,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 7,
+   "scipy": -0.40998332218733696,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 8,
+   "scipy": -1.2074140502222022,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 9,
+   "scipy": 1.2074140502222022,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 10,
+   "scipy": -0.9982011721528863,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 11,
+   "scipy": 0.5375191062027732,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 12,
+   "scipy": 0.40998332218733674,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 13,
+   "scipy": -2.00042356910598,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 14,
+   "scipy": -0.056999674358374317,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 15,
+   "scipy": -0.2888093550744635,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 16,
+   "scipy": 0.2888093550744635,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 17,
+   "scipy": -0.17174708963751179,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 18,
+   "scipy": 0.056999674358374317,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 19,
+   "scipy": 0.6744897501960817,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 20,
+   "scipy": 0.8254944909292358,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "qq.roundingTimes1",
+   "key": "theoretical",
+   "index": 21,
+   "scipy": 2.00042356910598,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "normality",
+   "case": "brownForsythe.three",
+   "key": "F",
+   "index": null,
+   "scipy": 0.013312624805857513,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "brownForsythe.three",
+   "key": "p",
+   "index": null,
+   "scipy": 0.9867872413739025,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "levene.three",
+   "key": "F",
+   "index": null,
+   "scipy": 0.013416815742397094,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy"
+  },
+  {
+   "file": "normality",
+   "case": "levene.three",
+   "key": "p",
+   "index": null,
+   "scipy": 0.9866846153093218,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "dunn.three",
+   "key": "z",
+   "index": 0,
+   "scipy": 3.071648878177335,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "posthoc",
+   "case": "dunn.three",
+   "key": "z",
+   "index": 1,
+   "scipy": 1.6575109380998472,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "posthoc",
+   "case": "dunn.three",
+   "key": "z",
+   "index": 2,
+   "scipy": -1.598703890190544,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "posthoc",
+   "case": "dunn.three",
+   "key": "pRaw",
+   "index": 0,
+   "scipy": 0.002128799749286801,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "posthoc",
+   "case": "dunn.three",
+   "key": "pRaw",
+   "index": 1,
+   "scipy": 0.09741621930737991,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "posthoc",
+   "case": "dunn.three",
+   "key": "pRaw",
+   "index": 2,
+   "scipy": 0.10988641282605545,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "posthoc",
+   "case": "gamesHowell.three",
+   "key": "p",
+   "index": 0,
+   "scipy": 0.00612277754221946,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "gamesHowell.three",
+   "key": "p",
+   "index": 1,
+   "scipy": 0.10573006165620669,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "gamesHowell.three",
+   "key": "p",
+   "index": 2,
+   "scipy": 0.1129043545820051,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "gamesHowell.three",
+   "key": "lower",
+   "index": 0,
+   "scipy": 1.904975010042814,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "gamesHowell.three",
+   "key": "lower",
+   "index": 1,
+   "scipy": -0.6378978956439196,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "gamesHowell.three",
+   "key": "lower",
+   "index": 2,
+   "scipy": -5.926382427200144,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "gamesHowell.three",
+   "key": "upper",
+   "index": 0,
+   "scipy": 9.42835832329052,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "gamesHowell.three",
+   "key": "upper",
+   "index": 1,
+   "scipy": 6.63789789564392,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "gamesHowell.three",
+   "key": "upper",
+   "index": 2,
+   "scipy": 0.5930490938668083,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "dunnett.three.controlA",
+   "key": "t",
+   "index": 0,
+   "scipy": 4.291324159467712,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "dunnett.three.controlA",
+   "key": "t",
+   "index": 1,
+   "scipy": 2.3494381909478084,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "dunnett.three.controlA",
+   "key": "p",
+   "index": 0,
+   "scipy": 0.0012280279009680983,
+   "tol": "abs",
+   "bound": 0.0001,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "dunnett.three.controlA",
+   "key": "p",
+   "index": 1,
+   "scipy": 0.057939674895208126,
+   "tol": "abs",
+   "bound": 0.0001,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "dunnett.three.controlA",
+   "key": "lower",
+   "index": 0,
+   "scipy": 2.4593778296858546,
+   "tol": "abs",
+   "bound": 0.001,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "dunnett.three.controlA",
+   "key": "lower",
+   "index": 1,
+   "scipy": -0.10140839652167255,
+   "tol": "abs",
+   "bound": 0.001,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "dunnett.three.controlA",
+   "key": "upper",
+   "index": 0,
+   "scipy": 8.873955503647482,
+   "tol": "abs",
+   "bound": 0.001,
+   "how": "scipy"
+  },
+  {
+   "file": "posthoc",
+   "case": "dunnett.three.controlA",
+   "key": "upper",
+   "index": 1,
+   "scipy": 6.1014083965216726,
+   "tol": "abs",
+   "bound": 0.001,
+   "how": "scipy"
+  },
+  {
+   "file": "anova2",
+   "case": "typeIII.balanced",
+   "key": "ss",
+   "index": 0,
+   "scipy": 450.66666666666515,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "anova2",
+   "case": "typeIII.balanced",
+   "key": "ss",
+   "index": 1,
+   "scipy": 2034.2592592592582,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "anova2",
+   "case": "typeIII.balanced",
+   "key": "ss",
+   "index": 2,
+   "scipy": 1002.7777777777765,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "anova2",
+   "case": "typeIII.balanced",
+   "key": "residualSs",
+   "index": null,
+   "scipy": 5745.111111111112,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "anova2",
+   "case": "typeIII.unbalanced",
+   "key": "ss",
+   "index": 0,
+   "scipy": 667.8529411764721,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "anova2",
+   "case": "typeIII.unbalanced",
+   "key": "ss",
+   "index": 1,
+   "scipy": 2272.315359477124,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "anova2",
+   "case": "typeIII.unbalanced",
+   "key": "ss",
+   "index": 2,
+   "scipy": 1011.0506535947716,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "anova2",
+   "case": "typeIII.unbalanced",
+   "key": "residualSs",
+   "index": null,
+   "scipy": 5146.86111111111,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "anovarm",
+   "case": "oneWay",
+   "key": "epsGG",
+   "index": null,
+   "scipy": 0.7429558300744176,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "anovarm",
+   "case": "oneWay",
+   "key": "epsHF",
+   "index": null,
+   "scipy": 1.1060225141756956,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "anovarm",
+   "case": "splitPlot",
+   "key": "epsGG",
+   "index": null,
+   "scipy": 0.6082944625671984,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "anovarm",
+   "case": "splitPlot",
+   "key": "epsHF",
+   "index": null,
+   "scipy": 0.860190242525144,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "hodgeslehmann",
+   "case": "two.exact",
+   "key": "estimate",
+   "index": null,
+   "scipy": -1.2999999999999998,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "hodgeslehmann",
+   "case": "paired.exact",
+   "key": "estimate",
+   "index": null,
+   "scipy": 0.6000000000000005,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "noncentral",
+   "case": "pt.01",
+   "key": "p",
+   "index": null,
+   "scipy": 0.6695168482153548,
+   "tol": "absOrRel",
+   "bound": 1e-12,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pt.02",
+   "key": "p",
+   "index": null,
+   "scipy": 0.3430698214139275,
+   "tol": "absOrRel",
+   "bound": 1e-12,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pt.03",
+   "key": "p",
+   "index": null,
+   "scipy": 0.08244409105672348,
+   "tol": "absOrRel",
+   "bound": 1e-12,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pt.04",
+   "key": "p",
+   "index": null,
+   "scipy": 0.04263806175643956,
+   "tol": "absOrRel",
+   "bound": 1e-12,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pt.05",
+   "key": "p",
+   "index": null,
+   "scipy": 0.02275013194817922,
+   "tol": "absOrRel",
+   "bound": 1e-12,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pt.06",
+   "key": "p",
+   "index": null,
+   "scipy": 0.335823144295544,
+   "tol": "absOrRel",
+   "bound": 1e-12,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pt.07",
+   "key": "p",
+   "index": null,
+   "scipy": 0.8892282763831914,
+   "tol": "absOrRel",
+   "bound": 1e-12,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pt.08",
+   "key": "p",
+   "index": null,
+   "scipy": 0.8054515349841239,
+   "tol": "absOrRel",
+   "bound": 1e-12,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pt.09",
+   "key": "p",
+   "index": null,
+   "scipy": 0.0010017042535022664,
+   "tol": "absOrRel",
+   "bound": 1e-12,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pt.10",
+   "key": "p",
+   "index": null,
+   "scipy": 3.6477383831388735e-14,
+   "tol": "absOrRel",
+   "bound": 1e-12,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pt.11",
+   "key": "p",
+   "index": null,
+   "scipy": 1.036229306422561e-10,
+   "tol": "absOrRel",
+   "bound": 1e-12,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pf.01",
+   "key": "p",
+   "index": null,
+   "scipy": 0.5919306492361608,
+   "tol": "absOrRel",
+   "bound": 1e-09,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pf.02",
+   "key": "p",
+   "index": null,
+   "scipy": 0.40806935076383916,
+   "tol": "absOrRel",
+   "bound": 1e-09,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pf.03",
+   "key": "p",
+   "index": null,
+   "scipy": 0.4628172516341696,
+   "tol": "absOrRel",
+   "bound": 1e-09,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pf.04",
+   "key": "p",
+   "index": null,
+   "scipy": 0.2292238724072844,
+   "tol": "absOrRel",
+   "bound": 1e-09,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pf.05",
+   "key": "p",
+   "index": null,
+   "scipy": 2.2943518964145527e-13,
+   "tol": "absOrRel",
+   "bound": 1e-09,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pf.06",
+   "key": "p",
+   "index": null,
+   "scipy": 0.5777183705058188,
+   "tol": "absOrRel",
+   "bound": 1e-09,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pf.07",
+   "key": "p",
+   "index": null,
+   "scipy": 0.361038261598192,
+   "tol": "absOrRel",
+   "bound": 1e-09,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pf.08",
+   "key": "p",
+   "index": null,
+   "scipy": 0.9317045602199822,
+   "tol": "absOrRel",
+   "bound": 1e-09,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "noncentral",
+   "case": "pf.09",
+   "key": "p",
+   "index": null,
+   "scipy": 1.8184557560004e-06,
+   "tol": "absOrRel",
+   "bound": 1e-09,
+   "how": "scipy (Boost)"
+  },
+  {
+   "file": "power",
+   "case": "anova.power",
+   "key": "power",
+   "index": null,
+   "scipy": 0.3535594237229934,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (power.anova.test)"
+  },
+  {
+   "file": "power",
+   "case": "t.twoSample.power",
+   "key": "power",
+   "index": null,
+   "scipy": 0.8689528016921271,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (power.t.test, strict = FALSE)"
+  },
+  {
+   "file": "power",
+   "case": "regression.power",
+   "key": "power",
+   "index": null,
+   "scipy": 0.9170109447730725,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (pwr.f2.test)"
+  },
+  {
+   "file": "power",
+   "case": "correlation.power",
+   "key": "power",
+   "index": null,
+   "scipy": 0.571555841860208,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula (pwr.r.test)"
+  },
+  {
+   "file": "glm",
+   "case": "logistic.infert",
+   "key": "B",
+   "index": 0,
+   "scipy": -1.757527210963211,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "logistic.infert",
+   "key": "B",
+   "index": 1,
+   "scipy": 0.10993295391426992,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "logistic.infert",
+   "key": "B",
+   "index": 2,
+   "scipy": -0.024403746560737544,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "logistic.infert",
+   "key": "B",
+   "index": 3,
+   "scipy": 1.2035703573286496,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "logistic.infert",
+   "key": "B",
+   "index": 4,
+   "scipy": 0.4266617624270949,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "logistic.infert",
+   "key": "SE",
+   "index": 0,
+   "scipy": 0.7275552197593939,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "logistic.infert",
+   "key": "SE",
+   "index": 1,
+   "scipy": 0.7062774416622175,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "logistic.infert",
+   "key": "SE",
+   "index": 2,
+   "scipy": 0.7036978012484264,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "logistic.infert",
+   "key": "SE",
+   "index": 3,
+   "scipy": 0.21211275537657137,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "logistic.infert",
+   "key": "SE",
+   "index": 4,
+   "scipy": 0.20917388049877514,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "logistic.infert",
+   "key": "deviance",
+   "index": null,
+   "scipy": 279.40832678528,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "poisson.doctors",
+   "key": "B",
+   "index": 0,
+   "scipy": -7.919325711859466,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "poisson.doctors",
+   "key": "B",
+   "index": 1,
+   "scipy": 0.3545356372531905,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "poisson.doctors",
+   "key": "B",
+   "index": 2,
+   "scipy": 1.484007006347062,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "poisson.doctors",
+   "key": "B",
+   "index": 3,
+   "scipy": 2.627505118495139,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "poisson.doctors",
+   "key": "B",
+   "index": 4,
+   "scipy": 3.350492785198167,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "poisson.doctors",
+   "key": "B",
+   "index": 5,
+   "scipy": 3.700096451861808,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "poisson.doctors",
+   "key": "SE",
+   "index": 0,
+   "scipy": 0.19176181876513518,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "poisson.doctors",
+   "key": "SE",
+   "index": 1,
+   "scipy": 0.1073741181886721,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "poisson.doctors",
+   "key": "SE",
+   "index": 2,
+   "scipy": 0.19510337263715194,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "poisson.doctors",
+   "key": "SE",
+   "index": 3,
+   "scipy": 0.1837272694512494,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "poisson.doctors",
+   "key": "SE",
+   "index": 4,
+   "scipy": 0.18479918093619174,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "poisson.doctors",
+   "key": "SE",
+   "index": 5,
+   "scipy": 0.19221951212390093,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "poisson.doctors",
+   "key": "deviance",
+   "index": null,
+   "scipy": 12.132366396287901,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "glm",
+   "case": "poisson.doctors",
+   "key": "pearsonX2",
+   "index": null,
+   "scipy": 11.155333197479974,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula"
+  },
+  {
+   "file": "robust",
+   "case": "logistic.serosurvey",
+   "key": "B",
+   "index": 0,
+   "scipy": -1.2399476050812066,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "robust",
+   "case": "logistic.serosurvey",
+   "key": "B",
+   "index": 1,
+   "scipy": 0.9424636352135052,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "robust",
+   "case": "logistic.serosurvey",
+   "key": "B",
+   "index": 2,
+   "scipy": -0.3222101878113967,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "robust",
+   "case": "logistic.serosurvey",
+   "key": "B",
+   "index": 3,
+   "scipy": -0.018270420449348717,
+   "tol": "rel",
+   "bound": 1e-06,
+   "how": "formula (IRLS to 1e-14)"
+  },
+  {
+   "file": "robust",
+   "case": "logistic.serosurvey",
+   "key": "robustSE",
+   "index": 0,
+   "scipy": 0.3199638296941408,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (sandwich, HC0 with G/(G-1); R's last-iteration weights, see the glm note)"
+  },
+  {
+   "file": "robust",
+   "case": "logistic.serosurvey",
+   "key": "robustSE",
+   "index": 1,
+   "scipy": 0.23472566675145531,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (sandwich, HC0 with G/(G-1); R's last-iteration weights, see the glm note)"
+  },
+  {
+   "file": "robust",
+   "case": "logistic.serosurvey",
+   "key": "robustSE",
+   "index": 2,
+   "scipy": 0.33635638485534664,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (sandwich, HC0 with G/(G-1); R's last-iteration weights, see the glm note)"
+  },
+  {
+   "file": "robust",
+   "case": "logistic.serosurvey",
+   "key": "robustSE",
+   "index": 3,
+   "scipy": 0.006595520847398861,
+   "tol": "rel",
+   "bound": 1e-05,
+   "how": "formula (sandwich, HC0 with G/(G-1); R's last-iteration weights, see the glm note)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 0,
+   "scipy": 0.9090909090909091,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 1,
+   "scipy": 0.8181818181818181,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 2,
+   "scipy": 0.7159090909090908,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 3,
+   "scipy": 0.6136363636363635,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 4,
+   "scipy": 0.49090909090909085,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 5,
+   "scipy": 0.36818181818181817,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 6,
+   "scipy": 0.18409090909090908,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 0,
+   "scipy": 0.5080802057699295,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 0,
+   "scipy": 0.9866738226678231,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 1,
+   "scipy": 0.44742861468218115,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 1,
+   "scipy": 0.9511622285824917,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 2,
+   "scipy": 0.3501903859079384,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 2,
+   "scipy": 0.8990239741910534,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 3,
+   "scipy": 0.26575204000128605,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 3,
+   "scipy": 0.8352992432502214,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 4,
+   "scipy": 0.16733090977685078,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 4,
+   "scipy": 0.7533997903708113,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 5,
+   "scipy": 0.09282957493698518,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 5,
+   "scipy": 0.6570408323981638,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 6,
+   "scipy": 0.011738480123189591,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 6,
+   "scipy": 0.5250148427266416,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "lower",
+   "index": 0,
+   "scipy": 0.7392043331338484,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "lower",
+   "index": 1,
+   "scipy": 0.5902550587990166,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "lower",
+   "index": 2,
+   "scipy": 0.4421707787150773,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "upper",
+   "index": 2,
+   "scipy": 0.9896474031031044,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "lower",
+   "index": 3,
+   "scipy": 0.31448249194643657,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "upper",
+   "index": 3,
+   "scipy": 0.9127902353262904,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "lower",
+   "index": 4,
+   "scipy": 0.16909620065170367,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "upper",
+   "index": 4,
+   "scipy": 0.8127219811664781,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "lower",
+   "index": 5,
+   "scipy": 0.0493566605554544,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "upper",
+   "index": 5,
+   "scipy": 0.6870069758081819,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "upper",
+   "index": 6,
+   "scipy": 0.48493116272020687,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 7,
+   "scipy": 0.8333333333333334,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 8,
+   "scipy": 0.6666666666666667,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 9,
+   "scipy": 0.5833333333333334,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 10,
+   "scipy": 0.48611111111111116,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 11,
+   "scipy": 0.38888888888888895,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 12,
+   "scipy": 0.29166666666666674,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 13,
+   "scipy": 0.19444444444444448,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 14,
+   "scipy": 0.09722222222222224,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "surv",
+   "index": 15,
+   "scipy": 0.0,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.ecdf"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 7,
+   "scipy": 0.4817149421953787,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 7,
+   "scipy": 0.955509365728065,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 8,
+   "scipy": 0.3370189325414019,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 8,
+   "scipy": 0.8597117990844398,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 9,
+   "scipy": 0.2701389240854973,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 9,
+   "scipy": 0.8009401923333869,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 10,
+   "scipy": 0.19187661961872818,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 10,
+   "scipy": 0.7296715697794854,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 11,
+   "scipy": 0.1262720121953936,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 11,
+   "scipy": 0.6498174082893151,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 12,
+   "scipy": 0.07240160890777181,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 12,
+   "scipy": 0.5608860526714093,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 13,
+   "scipy": 0.031198642931211912,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 13,
+   "scipy": 0.461429476238114,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "lower",
+   "index": 14,
+   "scipy": 0.005746305695863835,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.log-log",
+   "key": "upper",
+   "index": 14,
+   "scipy": 0.3489038611107497,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (log-log)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "lower",
+   "index": 7,
+   "scipy": 0.6224747813530567,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "lower",
+   "index": 8,
+   "scipy": 0.39994935131359394,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "upper",
+   "index": 8,
+   "scipy": 0.9333839820197396,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "lower",
+   "index": 9,
+   "scipy": 0.3043936881578343,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "upper",
+   "index": 9,
+   "scipy": 0.8622729785088324,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "lower",
+   "index": 10,
+   "scipy": 0.19578152347861932,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "upper",
+   "index": 10,
+   "scipy": 0.776440698743603,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "lower",
+   "index": 11,
+   "scipy": 0.10080126212576518,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "upper",
+   "index": 11,
+   "scipy": 0.6769765156520127,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "lower",
+   "index": 12,
+   "scipy": 0.019789931052709375,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "upper",
+   "index": 12,
+   "scipy": 0.563543402280624,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "upper",
+   "index": 13,
+   "scipy": 0.43331408562375195,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "km.byGroup.plain",
+   "key": "upper",
+   "index": 14,
+   "scipy": 0.27727698894917463,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.ecdf (linear)"
+  },
+  {
+   "file": "survival",
+   "case": "logrank",
+   "key": "statistic",
+   "index": null,
+   "scipy": 3.396388698977599,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.logrank (z squared)"
+  },
+  {
+   "file": "survival",
+   "case": "logrank",
+   "key": "p",
+   "index": null,
+   "scipy": 0.06533932204050502,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.logrank"
+  },
+  {
+   "file": "roc",
+   "case": "marker1",
+   "key": "auc",
+   "index": null,
+   "scipy": 0.9398148148148148,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.mannwhitneyu"
+  },
+  {
+   "file": "roc",
+   "case": "marker1",
+   "key": "variance",
+   "index": null,
+   "scipy": 0.0015324358325447646,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula (DeLong 1988)"
+  },
+  {
+   "file": "roc",
+   "case": "marker2",
+   "key": "auc",
+   "index": null,
+   "scipy": 0.7962962962962963,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "scipy.stats.mannwhitneyu"
+  },
+  {
+   "file": "roc",
+   "case": "marker2",
+   "key": "variance",
+   "index": null,
+   "scipy": 0.007298841721499673,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula (DeLong 1988)"
+  },
+  {
+   "file": "roc",
+   "case": "paired.delong",
+   "key": "covariance",
+   "index": null,
+   "scipy": 0.00099281669270776,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula (DeLong 1988)"
+  },
+  {
+   "file": "roc",
+   "case": "paired.delong",
+   "key": "z",
+   "index": null,
+   "scipy": 1.7346057517933688,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula (DeLong 1988)"
+  },
+  {
+   "file": "roc",
+   "case": "paired.delong",
+   "key": "p",
+   "index": null,
+   "scipy": 0.08281066001212632,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula (DeLong 1988)"
+  },
+  {
+   "file": "blandaltman",
+   "case": "absolute.196",
+   "key": "meanDifference",
+   "index": null,
+   "scipy": -2.1176470588235294,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "blandaltman",
+   "case": "absolute.196",
+   "key": "sd",
+   "index": null,
+   "scipy": 38.76512987360738,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "blandaltman",
+   "case": "absolute.196",
+   "key": "loaLower",
+   "index": null,
+   "scipy": -78.097301611094,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "blandaltman",
+   "case": "proportionalBias",
+   "key": "slope",
+   "index": null,
+   "scipy": 0.02868744515254922,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.linregress"
+  },
+  {
+   "file": "blandaltman",
+   "case": "proportionalBias",
+   "key": "p",
+   "index": null,
+   "scipy": 0.7494985336492941,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "scipy.stats.linregress"
+  },
+  {
+   "file": "cronbach",
+   "case": "items",
+   "key": "alpha",
+   "index": null,
+   "scipy": 0.9461805555555556,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula"
+  },
+  {
+   "file": "cronbach",
+   "case": "items",
+   "key": "feldtLower",
+   "index": null,
+   "scipy": 0.8761332592991204,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula (Feldt 1965)"
+  },
+  {
+   "file": "cronbach",
+   "case": "items",
+   "key": "feldtUpper",
+   "index": null,
+   "scipy": 0.9823295015172577,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula (Feldt 1965)"
+  },
+  {
+   "file": "survey",
+   "case": "serosurvey",
+   "key": "p",
+   "index": null,
+   "scipy": 0.20054945054945056,
+   "tol": "rel",
+   "bound": 1e-12,
+   "how": "formula (ratio estimator)"
+  },
+  {
+   "file": "survey",
+   "case": "serosurvey",
+   "key": "se",
+   "index": null,
+   "scipy": 0.019357772665495487,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula (Taylor linearisation, clusters with replacement)"
+  },
+  {
+   "file": "survey",
+   "case": "serosurvey",
+   "key": "meanLower",
+   "index": null,
+   "scipy": 0.16162803999801706,
+   "tol": "rel",
+   "bound": 1e-10,
+   "how": "formula"
+  },
+  {
+   "file": "survey",
+   "case": "serosurvey",
+   "key": "logitLower",
+   "index": null,
+   "scipy": 0.16443086136743437,
+   "tol": "rel",
+   "bound": 1e-08,
+   "how": "formula (logit, delta method)"
+  },
+  {
+   "file": "survey",
+   "case": "serosurvey",
+   "key": "logitUpper",
+   "index": null,
+   "scipy": 0.2423011306761322,
+   "tol": "rel",
+   "bound": 1e-08,
+   "how": "formula (logit, delta method)"
+  }
+ ]
+}

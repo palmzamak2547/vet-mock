@@ -1,0 +1,55 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": []
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/sources.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {
+   "boot": "1.3.32",
+   "MethComp": "1.30.2",
+   "survival": "3.8.6"
+  },
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "Evidence only (tol 'evidence'): the literal datasets equal the package copies number for number. boot 1.3-32 breslow has the smokers and non-smokers in the architect's order; MethComp 1.30.2 PEFR replicate 1 is Table 1's first reading.",
+ "cases": {
+  "doctors": {
+   "call": "identical(doctors, boot::breslow)",
+   "tol": "evidence",
+   "source": "boot::breslow",
+   "values": {
+    "matches": true,
+    "rows": 10
+   }
+  },
+  "pefr": {
+   "call": "identical(pefr, MethComp::PEFR replicate 1)",
+   "tol": "evidence",
+   "source": "MethComp::PEFR",
+   "values": {
+    "matches": true,
+    "subjects": 17
+   }
+  },
+  "aml": {
+   "call": "identical(aml, survival::aml)",
+   "tol": "evidence",
+   "source": "survival::aml",
+   "values": {
+    "matches": true,
+    "rows": 23
+   }
+  }
+ }
+}

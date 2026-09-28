@@ -79,12 +79,16 @@ function iccFromGroups(groups, n, total) {
  * @param {string|number|null} positive   level (category) or value counted as 1; null for a number outcome
  * @param {string} clusterKey
  */
-export function outcomeIcc(table, outcomeKey, positive, clusterKey) {
+export function outcomeIcc(table, outcomeKey, positive, clusterKey, opts = {}) {
   const col = getColumn(table, outcomeKey);
   const read = col.kind === 'category' || positive != null ? binaryReader(col, positive ?? 1, null) : (r) => col.values[r];
   const g = groupReader(getColumn(table, clusterKey));
   const y = [], ids = [];
-  eachRow(table, [outcomeKey, clusterKey], (r) => {
+  // M2 carried item 12.2 (decision B9): `opts.keys` and `opts.keep` limit the ICC to the rows an analysis
+  // uses (a 2x2 reads only animals with a known exposure at the two levels compared).
+  const extra = (opts.keys || []).filter((k) => k !== outcomeKey && k !== clusterKey);
+  eachRow(table, [outcomeKey, clusterKey, ...extra], (r) => {
+    if (opts.keep && !opts.keep(r)) return { filter: extra[0] || outcomeKey };
     const v = read(r);
     if (v === null) return { filter: outcomeKey };
     y.push(v); ids.push(g(r));

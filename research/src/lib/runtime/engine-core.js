@@ -87,11 +87,14 @@ export async function handleRequest(op, payload, ctx) {
     }
 
     case OPS.APPLY: {
-      const { raw, codebook, steps } = payload || {};
+      const { raw, codebook, steps, sources = null } = payload || {};
       if (!raw || !codebook) throw new EngineError('bad-request', 'runtime.engine.badRequest', 'apply needs raw and codebook');
       if (small && raw.rowCount > FALLBACK_LIMITS.rows) throw new EngineError('too-large', 'runtime.engine.tooLargeForFallback');
+      if (sources != null && (typeof sources !== 'object' || Array.isArray(sources))) throw new EngineError('bad-request', 'runtime.engine.badRequest', 'sources must be an object');
+      if (small && sources) for (const s of Object.values(sources)) if (s?.raw?.rowCount > FALLBACK_LIMITS.rows) throw new EngineError('too-large', 'runtime.engine.tooLargeForFallback');
       const { applyRecipe } = await import('../intake/recipe.js');
-      const table = applyRecipe(raw, codebook, steps || []);
+      // The fingerprint hashes the finished table, so rows brought in by a merge are covered by it.
+      const table = applyRecipe(raw, codebook, steps || [], sources);
       table.fingerprint = await fingerprint(table, fingerprintKeys(table, codebook));
       return { result: table, transfer: ctx.mode === 'worker' ? tableTransferables(table) : [] };
     }

@@ -1,0 +1,86 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["test.mannWhitney", "test.wilcoxonSignedRank"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/hodgeslehmann.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "Exact intervals are order statistics of the Walsh averages (closed). Tied cases (made-up data, ข้อมูลสมมุติ / made-up data) use R's normal approximation with continuity correction and uniroot(tol = 1e-4) for the estimate and the bounds (uniroot tolerance); their W, V and p are closed forms.",
+ "cases": {
+  "two.exact": {
+   "call": "wilcox.test(two$g1, two$g2, conf.int = TRUE)",
+   "tol": "closed",
+   "data": "two",
+   "x": [5.0999999999999996, 4.9000000000000004, 6.2000000000000002, 5.7999999999999998, 6, 5.5, 5.2999999999999998, 6.4000000000000004],
+   "y": [6.7999999999999998, 7.0999999999999996, 6.5, 7.4000000000000004, 6.9000000000000004, 7.7999999999999998, 6.25, 7, 7.2999999999999998, 6.5999999999999996],
+   "confLevel": 0.94999999999999996,
+   "exact": true,
+   "closedValues": ["W", "p"],
+   "values": {
+    "estimate": -1.2999999999999998,
+    "ci": [-1.8999999999999995, -0.75],
+    "W": 1,
+    "p": 9.1411856117738465e-05
+   }
+  },
+  "paired.exact": {
+   "call": "wilcox.test(paired$before, paired$after, paired = TRUE, conf.int = TRUE)",
+   "tol": "closed",
+   "data": "paired",
+   "x": [12.1, 14.300000000000001, 11.800000000000001, 13.5, 15.199999999999999, 12.9, 14.800000000000001, 13.1, 12.4, 14],
+   "y": [11.4, 13.9, 11.9, 12.199999999999999, 14.1, 12, 14.5, 12.300000000000001, 12.6, 13.25],
+   "confLevel": 0.94999999999999996,
+   "closedValues": ["V", "p"],
+   "values": {
+    "estimate": 0.60000000000000053,
+    "ci": [0.27500000000000036, 0.94999999999999929],
+    "V": 52,
+    "p": 0.009765625
+   }
+  },
+  "two.ties": {
+   "call": "wilcox.test(tx, ty, conf.int = TRUE) with ties (normal approximation)",
+   "tol": "uniroot",
+   "data": "tied (made-up)",
+   "x": [1.5, 2.5, 2.5, 3, 4, 4, 5.5, 3],
+   "y": [3, 4, 4.5, 5.5, 6, 7, 7, 5.5, 6.5],
+   "confLevel": 0.94999999999999996,
+   "exact": false,
+   "closedValues": ["W", "p"],
+   "values": {
+    "estimate": -2.5,
+    "ci": [-4, -0.5],
+    "W": 8,
+    "p": 0.0054298642533936649
+   }
+  },
+  "paired.ties": {
+   "call": "wilcox.test(pb, pa, paired = TRUE, conf.int = TRUE) with tied differences and a zero",
+   "tol": "uniroot",
+   "data": "tied pairs (made-up)",
+   "x": [10, 12, 9, 13, 11, 12, 14, 10, 12, 11],
+   "y": [9, 11, 9, 12, 10, 11, 12, 9, 11, 10.5],
+   "confLevel": 0.94999999999999996,
+   "closedValues": ["V", "p"],
+   "values": {
+    "estimate": 1,
+    "ci": [0.75, 1.5],
+    "V": 54,
+    "p": 0.00390625
+   }
+  }
+ }
+}

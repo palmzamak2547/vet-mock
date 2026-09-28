@@ -27,10 +27,10 @@ export default {
     'power.regression': { solveFor: 'n', sigLevel: 0.05 },
   },
   allowed: {
-    'anova.twoWay': { ssType: pick(['III', 'II']), interaction: bool, posthoc: pick(['none', 'tukey']) },
+    'anova.twoWay': { ssType: pick(['III', 'II', 'I']), interaction: bool, posthoc: pick(['none', 'tukey']) },
     'anova.repeated': { sphericity: pick(['gg', 'hf', 'none']), mauchly: bool },
     'test.friedman': {},
-    'posthoc.dunn': { adjust: pick(['holm', 'bonferroni', 'bh', 'none']) },
+    'posthoc.dunn': { adjust: pick(['holm', 'bonferroni', 'sidak', 'bh', 'none']) },
     'posthoc.gamesHowell': {},
     'posthoc.dunnett': {},
     'diag.shapiro': { on: pick(['residuals', 'groups']) },
@@ -40,11 +40,22 @@ export default {
     'power.correlation': { solveFor, sigLevel: posNum },
     'power.regression': { solveFor, sigLevel: posNum },
   },
-  // Options the lab role adds to M1 methods (M2-DESIGN.md 3.1): Hodges-Lehmann on the rank tests,
-  // Sidak and Benjamini-Hochberg in adjust.pValues. Empty until the lab role lands them with tests,
-  // so M1 envelopes stay byte-identical until then.
-  extendDefaults: {},
-  extendAllowed: {},
+  // Options the lab role adds to M1 methods (M2-DESIGN.md 3.1): Sidak and Benjamini-Hochberg wherever an
+  // adjustment is offered (adjust.pValues, the pairwise t tests after one-way ANOVA). Only the allowed
+  // lists grow; no default changes, so M1 envelopes stay byte-identical. Hodges-Lehmann on the rank tests
+  // (an extendDefaults entry) lands with its own tests.
+  // Hodges-Lehmann estimate and interval on the M1 rank tests (3.1.6): a default, so their envelopes gain
+  // `estimate` in provenance.options and a hodgesLehmann value (the M1 pins that list options say so).
+  extendDefaults: {
+    'test.mannWhitney': { estimate: 'hodges-lehmann' },
+    'test.wilcoxonSignedRank': { estimate: 'hodges-lehmann' },
+  },
+  extendAllowed: {
+    'test.mannWhitney': { estimate: pick(['hodges-lehmann', 'none']) },
+    'test.wilcoxonSignedRank': { estimate: pick(['hodges-lehmann', 'none']) },
+    'adjust.pValues': { method: pick(['holm', 'bonferroni', 'sidak', 'bh', 'none']) },
+    'test.anova1': { posthoc: pick(['tukey', 'pairwise-t-holm', 'pairwise-t-bonferroni', 'pairwise-t-sidak', 'pairwise-t-bh', 'none']) },
+  },
   // Methods that treat every row as an independent animal (G1 stops them on repeated farm ids).
   g1Subject: ['anova.twoWay', 'anova.repeated', 'test.friedman', 'posthoc.dunn', 'posthoc.gamesHowell', 'posthoc.dunnett'],
   // No data file and no design needed.

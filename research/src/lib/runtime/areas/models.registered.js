@@ -3,4 +3,4 @@
 // injected-wrong-value proof is written in the role notes [M2-DESIGN.md 4]. OWNER: models role.
 
 /** @type {readonly string[]} */
-export default Object.freeze([]);
+export default Object.freeze(['reg.logistic', 'reg.poisson', 'surv.kaplanMeier']);

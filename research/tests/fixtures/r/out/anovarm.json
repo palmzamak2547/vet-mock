@@ -1,0 +1,110 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["anova.repeated"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/anovarm.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {
+   "car": "3.1.5"
+  },
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "Made-up data rm (ข้อมูลสมมุติ / made-up data). The Huynh-Feldt epsilon is printed uncapped (1.106 in the one-way case); anova.mlm caps it at 1 for its H-F p-value, which then equals the uncorrected p up to rounding. Epsilons, corrected p-values and Mauchly's test come from an eigen decomposition and compare at the iterative tolerance. car 3.1-5 gives the same Greenhouse-Geisser epsilon (stopifnot); its Huynh-Feldt epsilon is not the pin.",
+ "datasets": {
+  "rm": {
+   "wide": [
+    [45, 50, 55, 70],
+    [42, 42, 45, 60],
+    [36, 41, 43, 62],
+    [39, 35, 40, 53],
+    [51, 55, 59, 70],
+    [44, 49, 56, 65],
+    [40, 48, 51, 58],
+    [47, 53, 57, 71]
+   ],
+   "group": ["A", "A", "A", "A", "B", "B", "B", "B"],
+   "times": ["T1", "T2", "T3", "T4"]
+  }
+ },
+ "cases": {
+  "oneWay": {
+   "call": "summary(aov(y ~ time + Error(subj/time), data = rm_long)); anova(lm(W ~ 1), X = ~1, test = 'Spherical'); mauchly.test",
+   "tol": "closed",
+   "data": "rm",
+   "iterativeValues": ["epsGG", "epsHF", "timePGG", "timePHF", "mauchlyW", "mauchlyP"],
+   "values": {
+    "timeF": 102.72400756143638,
+    "timeDf1": 3,
+    "timeDf2": 21,
+    "timeP": 1.0361278220094827e-12,
+    "ssTime": 1940.7500000000011,
+    "ssError": 132.25000000000045,
+    "ssSubjects": 1004.9999999999983,
+    "dfSubjects": 7,
+    "epsGG": 0.74295583007441612,
+    "epsHF": 1.1060225141756919,
+    "timePGG": 6.3544922112661984e-10,
+    "timePHF": 1.0361278220094201e-12,
+    "mauchlyW": 0.3520329452001959,
+    "mauchlyP": 0.31497508421335702
+   }
+  },
+  "splitPlot": {
+   "call": "summary(aov(y ~ grp * time + Error(subj/time), data = rm_long)); anova(lm(W ~ grp), X = ~1, test = 'Spherical'); mauchly.test",
+   "tol": "closed",
+   "data": "rm",
+   "iterativeValues": ["epsGG", "epsHF", "timePGG", "groupTimePGG", "timePHF", "groupTimePHF", "mauchlyW", "mauchlyP"],
+   "values": {
+    "groupF": 4.3165098374679403,
+    "groupDf1": 1,
+    "groupDf2": 6,
+    "groupP": 0.083007513791233611,
+    "timeF": 134.61849710982574,
+    "timeDf1": 3,
+    "groupTimeF": 3.1734104046242431,
+    "groupTimeDf1": 3,
+    "withinDf2": 18,
+    "timeP": 1.619958068333379e-12,
+    "groupTimeP": 0.049394457641948691,
+    "ssGroup": 420.5000000000004,
+    "ssSubjects": 584.49999999999795,
+    "ssTime": 1940.7500000000011,
+    "ssGroupTime": 45.749999999999822,
+    "ssError": 86.500000000000611,
+    "epsGG": 0.60829446256719732,
+    "epsHF": 0.86019024252514142,
+    "timePGG": 2.5655093460439428e-08,
+    "groupTimePGG": 0.08498711332553617,
+    "timePHF": 5.0612477592230915e-11,
+    "groupTimePHF": 0.059819340748629969,
+    "mauchlyW": 0.34779913618299102,
+    "mauchlyP": 0.42625680860736054
+   }
+  },
+  "means": {
+   "call": "mean and t.test(v)$conf.int per time and group",
+   "tol": "closed",
+   "data": "rm",
+   "values": {
+    "time": ["T1", "T1", "T2", "T2", "T3", "T3", "T4", "T4"],
+    "group": ["A", "B", "A", "B", "A", "B", "A", "B"],
+    "n": [4, 4, 4, 4, 4, 4, 4, 4],
+    "mean": [40.5, 45.5, 42, 51.25, 45.75, 55.75, 61.25, 66],
+    "sd": [3.872983346207417, 4.6547466812563139, 6.164414002968976, 3.3040379335998349, 6.5, 3.4034296427770228, 6.9940450861190957, 5.9441848333756697],
+    "lower": [34.337219229718436, 38.093259311102123, 32.191041716006119, 45.992538342848995, 35.407049507827949, 50.334383954025611, 50.120913528346307, 56.541475469550072],
+    "upper": [46.662780770281564, 52.906740688897884, 51.808958283993881, 56.507461657151005, 56.092950492172051, 61.165616045974389, 72.379086471653693, 75.458524530449935]
+   }
+  }
+ }
+}

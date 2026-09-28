@@ -1,0 +1,333 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["power.anova", "power.tTest", "power.regression"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/noncentral.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "Every value is a series summed to R's own absolute error bound: errmax 1e-12 in pnt (AS 243), errmax 1e-9 in pnbeta (AS 226). Compared within 1e-6 relative OR within that absolute bound (tol kinds rAbs12, rAbs9): a tail smaller than the bound is as accurate in R as the bound, no more. Measured against Boost (SciPy 1.17.1): pt(1, 10, ncp = 7.5) = 1.0362243e-10 in R vs 1.0362293e-10 (4.8e-6 relative); pf(0.01, 10, 30, ncp = 20) = 2.2827e-13 in R vs 2.2944e-13 (5.1e-3 relative); pf(0.05, 6, 40, ncp = 12) = 1.81835e-6 in R vs 1.81846e-6 (5.6e-5 relative): R's values are within its stated absolute bounds, and a port of AS 243 / AS 226 reproduces them exactly.",
+ "cases": {
+  "pt.01": {
+   "call": "pt(1.5, 10, ncp = 1, lower.tail = TRUE)",
+   "tol": "iterative",
+   "fn": "pnt",
+   "q": 1.5,
+   "df": 10,
+   "ncp": 1,
+   "lowerTail": true,
+   "tolByValue": {
+    "p": "rAbs12"
+   },
+   "values": {
+    "p": 0.66951684821527746
+   }
+  },
+  "pt.02": {
+   "call": "pt(2.1, 25, ncp = 2.5, lower.tail = TRUE)",
+   "tol": "iterative",
+   "fn": "pnt",
+   "q": 2.1000000000000001,
+   "df": 25,
+   "ncp": 2.5,
+   "lowerTail": true,
+   "tolByValue": {
+    "p": "rAbs12"
+   },
+   "values": {
+    "p": 0.34306982141366954
+   }
+  },
+  "pt.03": {
+   "call": "pt(-1, 5, ncp = 0.5, lower.tail = TRUE)",
+   "tol": "iterative",
+   "fn": "pnt",
+   "q": -1,
+   "df": 5,
+   "ncp": 0.5,
+   "lowerTail": true,
+   "tolByValue": {
+    "p": "rAbs12"
+   },
+   "values": {
+    "p": 0.082444091056970814
+   }
+  },
+  "pt.04": {
+   "call": "pt(3, 15, ncp = 1, lower.tail = FALSE)",
+   "tol": "iterative",
+   "fn": "pnt",
+   "q": 3,
+   "df": 15,
+   "ncp": 1,
+   "lowerTail": false,
+   "tolByValue": {
+    "p": "rAbs12"
+   },
+   "values": {
+    "p": 0.042638061756531065
+   }
+  },
+  "pt.05": {
+   "call": "pt(0, 30, ncp = 2, lower.tail = TRUE)",
+   "tol": "iterative",
+   "fn": "pnt",
+   "q": 0,
+   "df": 30,
+   "ncp": 2,
+   "lowerTail": true,
+   "tolByValue": {
+    "p": "rAbs12"
+   },
+   "values": {
+    "p": 0.022750131948179212
+   }
+  },
+  "pt.06": {
+   "call": "pt(-2, 12, ncp = -1.5, lower.tail = TRUE)",
+   "tol": "iterative",
+   "fn": "pnt",
+   "q": -2,
+   "df": 12,
+   "ncp": -1.5,
+   "lowerTail": true,
+   "tolByValue": {
+    "p": "rAbs12"
+   },
+   "values": {
+    "p": 0.33582314429564253
+   }
+  },
+  "pt.07": {
+   "call": "pt(1.96, 38, ncp = 3.2, lower.tail = FALSE)",
+   "tol": "iterative",
+   "fn": "pnt",
+   "q": 1.96,
+   "df": 38,
+   "ncp": 3.2000000000000002,
+   "lowerTail": false,
+   "tolByValue": {
+    "p": "rAbs12"
+   },
+   "values": {
+    "p": 0.88922827638339119
+   }
+  },
+  "pt.08": {
+   "call": "pt(2.02, 18, ncp = 2.9, lower.tail = FALSE)",
+   "tol": "iterative",
+   "fn": "pnt",
+   "q": 2.02,
+   "df": 18,
+   "ncp": 2.8999999999999999,
+   "lowerTail": false,
+   "tolByValue": {
+    "p": "rAbs12"
+   },
+   "values": {
+    "p": 0.80545153498416955
+   }
+  },
+  "pt.09": {
+   "call": "pt(5, 8, ncp = 10, lower.tail = TRUE)",
+   "tol": "iterative",
+   "fn": "pnt",
+   "q": 5,
+   "df": 8,
+   "ncp": 10,
+   "lowerTail": true,
+   "tolByValue": {
+    "p": "rAbs12"
+   },
+   "values": {
+    "p": 0.0010017042529859794
+   }
+  },
+  "pt.10": {
+   "call": "pt(0.5, 20, ncp = 8, lower.tail = TRUE)",
+   "tol": "iterative",
+   "fn": "pnt",
+   "q": 0.5,
+   "df": 20,
+   "ncp": 8,
+   "lowerTail": true,
+   "tolByValue": {
+    "p": "rAbs12"
+   },
+   "values": {
+    "p": 3.6477346052201959e-14
+   }
+  },
+  "pt.11": {
+   "call": "pt(1, 10, ncp = 7.5, lower.tail = TRUE)",
+   "tol": "iterative",
+   "fn": "pnt",
+   "q": 1,
+   "df": 10,
+   "ncp": 7.5,
+   "lowerTail": true,
+   "tolByValue": {
+    "p": "rAbs12"
+   },
+   "values": {
+    "p": 1.0362243003298277e-10
+   }
+  },
+  "pf.01": {
+   "call": "pf(2.5, 3, 20, ncp = 4, lower.tail = TRUE)",
+   "tol": "iterative",
+   "fn": "pnf",
+   "q": 2.5,
+   "df1": 3,
+   "df2": 20,
+   "ncp": 4,
+   "lowerTail": true,
+   "tolByValue": {
+    "p": "rAbs9"
+   },
+   "values": {
+    "p": 0.59193064914317894
+   }
+  },
+  "pf.02": {
+   "call": "pf(2.5, 3, 20, ncp = 4, lower.tail = FALSE)",
+   "tol": "iterative",
+   "fn": "pnf",
+   "q": 2.5,
+   "df1": 3,
+   "df2": 20,
+   "ncp": 4,
+   "lowerTail": false,
+   "tolByValue": {
+    "p": "rAbs9"
+   },
+   "values": {
+    "p": 0.40806935085682106
+   }
+  },
+  "pf.03": {
+   "call": "pf(1.2, 2, 50, ncp = 1.5, lower.tail = TRUE)",
+   "tol": "iterative",
+   "fn": "pnf",
+   "q": 1.2,
+   "df1": 2,
+   "df2": 50,
+   "ncp": 1.5,
+   "lowerTail": true,
+   "tolByValue": {
+    "p": "rAbs9"
+   },
+   "values": {
+    "p": 0.46281725161929033
+   }
+  },
+  "pf.04": {
+   "call": "pf(5, 4, 30, ncp = 10, lower.tail = FALSE)",
+   "tol": "iterative",
+   "fn": "pnf",
+   "q": 5,
+   "df1": 4,
+   "df2": 30,
+   "ncp": 10,
+   "lowerTail": false,
+   "tolByValue": {
+    "p": "rAbs9"
+   },
+   "values": {
+    "p": 0.22922387279618889
+   }
+  },
+  "pf.05": {
+   "call": "pf(0.01, 10, 30, ncp = 20, lower.tail = TRUE)",
+   "tol": "iterative",
+   "fn": "pnf",
+   "q": 0.01,
+   "df1": 10,
+   "df2": 30,
+   "ncp": 20,
+   "lowerTail": true,
+   "tolByValue": {
+    "p": "rAbs9"
+   },
+   "values": {
+    "p": 2.2826793321090557e-13
+   }
+  },
+  "pf.06": {
+   "call": "pf(3.0983912121407813, 2, 15, ncp = 6, lower.tail = FALSE)",
+   "tol": "iterative",
+   "fn": "pnf",
+   "q": 3.0983912121407813,
+   "df1": 2,
+   "df2": 15,
+   "ncp": 6,
+   "lowerTail": false,
+   "tolByValue": {
+    "p": "rAbs9"
+   },
+   "values": {
+    "p": 0.57771837086086719
+   }
+  },
+  "pf.07": {
+   "call": "pf(0.5, 1, 10, ncp = 0.8, lower.tail = TRUE)",
+   "tol": "iterative",
+   "fn": "pnf",
+   "q": 0.5,
+   "df1": 1,
+   "df2": 10,
+   "ncp": 0.80000000000000004,
+   "lowerTail": true,
+   "tolByValue": {
+    "p": "rAbs9"
+   },
+   "values": {
+    "p": 0.36103826117064014
+   }
+  },
+  "pf.08": {
+   "call": "pf(2.6993545548395002, 3, 100, ncp = 16.5, lower.tail = FALSE)",
+   "tol": "iterative",
+   "fn": "pnf",
+   "q": 2.6993545548395002,
+   "df1": 3,
+   "df2": 100,
+   "ncp": 16.5,
+   "lowerTail": false,
+   "tolByValue": {
+    "p": "rAbs9"
+   },
+   "values": {
+    "p": 0.93170456049632222
+   }
+  },
+  "pf.09": {
+   "call": "pf(0.050000000000000003, 6, 40, ncp = 12, lower.tail = TRUE)",
+   "tol": "iterative",
+   "fn": "pnf",
+   "q": 0.050000000000000003,
+   "df1": 6,
+   "df2": 40,
+   "ncp": 12,
+   "lowerTail": true,
+   "tolByValue": {
+    "p": "rAbs9"
+   },
+   "values": {
+    "p": 1.8183541931846828e-06
+   }
+  }
+ }
+}

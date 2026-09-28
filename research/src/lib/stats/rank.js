@@ -26,6 +26,7 @@
 import { pnormLower, pnormUpper, pchisqUpper } from './dist.js';
 import { rankAvg, ksum, val, nullVal, testRow, role, common, completeRows, numbersAt, column, groupsAt } from './common.js';
 import { quantile } from './descriptive.js';
+import { hodgesLehmannTwo, hodgesLehmannPaired } from './hodges-lehmann.js';
 
 // ---------------------------------------------------------------- exact distributions
 
@@ -314,6 +315,22 @@ const bad = (reasonKey, used = 0, dropped = []) => ({ status: 'invalid', values:
 
 function variantOf(r) { return r.exact ? (r.conditional ? 'exact-conditional' : 'exact') : r.correct ? 'normal-cc' : 'normal'; }
 
+/**
+ * The Hodges-Lehmann estimate and interval (M2, options.estimate 'hodges-lehmann'; R wilcox.test(conf.int =
+ * TRUE)), shown before the p-value. Two-sided intervals only; a one-sided test keeps the estimate and names
+ * why the interval is not shown. Null when the option is 'none' or absent.
+ */
+function hlValue(o, alternative, compute) {
+  if ((o.estimate ?? 'none') !== 'hodges-lehmann') return null;
+  const confLevel = o.confLevel ?? 0.95;
+  const exact = o.exact === 'exact' ? true : o.exact === 'normal' ? false : undefined;
+  let r;
+  try { r = compute({ confLevel, exact, correct: o.continuityCorrection ?? true }); } catch { return nullVal('lab.undefined.hodgesLehmann'); }
+  if (!r || !Number.isFinite(r.estimate)) return nullVal('lab.undefined.hodgesLehmann');
+  if (alternative !== 'two.sided') return val(r.estimate, { ci: [null, null], ciLevel: confLevel, reasonKey: 'lab.undefined.hodgesLehmannOneSided' });
+  return val(r.estimate, { ci: r.ci, ciLevel: confLevel, ciMethod: r.exact ? 'hodges-lehmann-exact' : 'hodges-lehmann-normal' });
+}
+
 /** Implementation for 'test.mannWhitney'. Roles: outcome (number), group (two levels; x = the first level). @type {import('../runtime/registry.js').MethodImpl} */
 export function runMannWhitney(spec, table) {
   const yKey = role(spec, 'outcome');
@@ -325,9 +342,10 @@ export function runMannWhitney(spec, table) {
   const { labels, groups } = groupsAt(table, yKey, gKey, rows);
   if (groups.length !== 2) return bad('stats.undefined.needTwoGroups', rows.length, dropped);
   const r = rankSum(groups[0], groups[1], { exact: o.exact, continuityCorrection: o.continuityCorrection, alternative });
+  const hl = hlValue(o, alternative, (opts) => hodgesLehmannTwo(groups[0], groups[1], opts));
   return {
     status: r.p === null ? 'invalid' : 'ok',
-    values: { nX: val(groups[0].length), nY: val(groups[1].length), medianX: medVal(groups[0]), medianY: medVal(groups[1]) },
+    values: { ...(hl ? { hodgesLehmann: hl } : {}), nX: val(groups[0].length), nY: val(groups[1].length), medianX: medVal(groups[0]), medianY: medVal(groups[1]) },
     tests: [testRow({ id: 'mannWhitney', name: 'W', statistic: r.W, p: r.p, alternative, variant: variantOf(r), reasonKey: r.reasonKey })],
     tables: [{ id: 'groups', columns: ['first', 'second'], rows: [labels] }],
     used: rows.length,
@@ -347,9 +365,10 @@ export function runSignedRank(spec, table) {
   const xb = b ? numbersAt(table, b, rows) : null;
   const d = xb ? xa.map((v, i) => v - xb[i]) : xa;
   const r = signedRank(d, { exact: o.exact, continuityCorrection: o.continuityCorrection, alternative });
+  const hl = r.n > 0 ? hlValue(o, alternative, (opts) => hodgesLehmannPaired(d, opts)) : null;
   return {
     status: r.p === null ? 'invalid' : 'ok',
-    values: { n: val(r.n), zeros: val(r.zeros), medianDiff: medVal(d) },
+    values: { ...(hl ? { hodgesLehmann: hl } : {}), n: val(r.n), zeros: val(r.zeros), medianDiff: medVal(d) },
     tests: [testRow({ id: 'signedRank', name: 'V', statistic: r.V, p: r.p, alternative, variant: variantOf(r), reasonKey: r.reasonKey })],
     tables: [],
     used: rows.length,

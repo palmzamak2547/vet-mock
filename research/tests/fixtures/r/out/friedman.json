@@ -1,0 +1,99 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["test.friedman"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/friedman.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "RoundingTimes: R's help page prints chi-squared 11.143, p 0.003805. PMCMRplus does not load in webR (Rmpfr missing), so the base-R formula is the second source (stopifnot). Rows of the datasets are blocks, columns treatments (1-based row numbers in missingRow).",
+ "datasets": {
+  "roundingTimes": [
+   [5.4000000000000004, 5.5, 5.5499999999999998],
+   [5.8499999999999996, 5.7000000000000002, 5.75],
+   [5.2000000000000002, 5.5999999999999996, 5.5],
+   [5.5499999999999998, 5.5, 5.4000000000000004],
+   [5.9000000000000004, 5.8499999999999996, 5.7000000000000002],
+   [5.4500000000000002, 5.5499999999999998, 5.5999999999999996],
+   [5.4000000000000004, 5.4000000000000004, 5.3499999999999996],
+   [5.4500000000000002, 5.5, 5.3499999999999996],
+   [5.25, 5.1500000000000004, 5],
+   [5.8499999999999996, 5.7999999999999998, 5.7000000000000002],
+   [5.25, 5.2000000000000002, 5.0999999999999996],
+   [5.6500000000000004, 5.5499999999999998, 5.4500000000000002],
+   [5.5999999999999996, 5.3499999999999996, 5.4500000000000002],
+   [5.0499999999999998, 5, 4.9500000000000002],
+   [5.5, 5.5, 5.4000000000000004],
+   [5.4500000000000002, 5.5499999999999998, 5.5],
+   [5.5499999999999998, 5.5499999999999998, 5.3499999999999996],
+   [5.4500000000000002, 5.5, 5.5499999999999998],
+   [5.5, 5.4500000000000002, 5.25],
+   [5.6500000000000004, 5.5999999999999996, 5.4000000000000004],
+   [5.7000000000000002, 5.6500000000000004, 5.5499999999999998],
+   [6.2999999999999998, 6.2999999999999998, 6.25]
+  ],
+  "rm": [
+   [45, 50, 55, 70],
+   [42, 42, 45, 60],
+   [36, 41, 43, 62],
+   [39, 35, 40, 53],
+   [51, 55, 59, 70],
+   [44, 49, 56, 65],
+   [40, 48, 51, 58],
+   [47, 53, 57, 71]
+  ]
+ },
+ "cases": {
+  "roundingTimes": {
+   "call": "friedman.test(RoundingTimes)",
+   "tol": "closed",
+   "data": "roundingTimes",
+   "blocks": 22,
+   "treatments": 3,
+   "values": {
+    "statistic": 11.142857142857142,
+    "df": 2,
+    "p": 0.003805040775511363,
+    "rankSums": [53, 47, 32]
+   }
+  },
+  "rm": {
+   "call": "friedman.test(rm_wide)",
+   "tol": "closed",
+   "data": "rm",
+   "blocks": 8,
+   "treatments": 4,
+   "values": {
+    "statistic": 22.822784810126581,
+    "df": 3,
+    "p": 4.3967452275668252e-05,
+    "rankSums": [9.5, 14.5, 24, 32]
+   }
+  },
+  "roundingTimes.missing": {
+   "call": "friedman.test(RoundingTimes with row 5, column 2 missing): block 5 dropped whole",
+   "tol": "closed",
+   "data": "roundingTimes",
+   "missingRow": 5,
+   "missingColumn": 2,
+   "blocks": 21,
+   "values": {
+    "statistic": 9.6999999999999993,
+    "df": 2,
+    "p": 0.0078283775492257734
+   }
+  }
+ }
+}

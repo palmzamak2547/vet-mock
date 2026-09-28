@@ -1,4 +1,4 @@
-// Shared JSDoc types for Research Studio. No runtime code: every module imports types from here
+// Shared JSDoc types for VetMock Research. No runtime code: every module imports types from here
 // with `@typedef {import('../runtime/types.js').X} X`. The contract behind each type is written out
 // in docs/research/M1-DESIGN.md (section numbers in brackets). OWNER: runtime role.
 
@@ -22,8 +22,8 @@
  * @property {string} fileName
  * @property {number} bytes
  * @property {string} sha256              hex of the original bytes
- * @property {'utf-8'|'utf-8-bom'|'utf-16le'|'windows-874'|'xlsx'} encoding
- * @property {'csv'|'tsv'|'xlsx'|'paste'} format
+ * @property {'utf-8'|'utf-8-bom'|'utf-16le'|'windows-874'|'xlsx'|string} encoding   an SPSS file carries the TextDecoder name it was read with
+ * @property {'csv'|'tsv'|'xlsx'|'paste'|'sav'} format
  * @property {string|null} sheet          xlsx sheet name
  * @property {number} headerRow           0-based row of the header in the source
  * @property {string} importedAt          ISO 8601 UTC
@@ -61,9 +61,9 @@
  * @typedef {Object} RecipeStep
  * @property {string} id                  's1'.. unique within the dataset
  * @property {number} seq                 order of application
- * @property {'import-conversions'|'set-type'|'missing-code'|'cell-edit'|'row-add'|'row-exclude'|'recode'|'bin'|'reference'|'filter'|'derive-age'} kind
- * @property {Object} params              per kind, see M1-DESIGN.md 8.4
- * @property {string|null} reason         required for row-exclude and filter, optional otherwise
+ * @property {'import-conversions'|'set-type'|'missing-code'|'cell-edit'|'row-add'|'row-exclude'|'recode'|'bin'|'reference'|'filter'|'derive-age'|'merge'|'reshape-long'|'reshape-wide'|'aggregate'|'compute'|'exclude-where'} kind
+ * @property {Object} params              per kind, see M1-DESIGN.md 8.4 and M2-DESIGN.md 4
+ * @property {string|null} reason         required for row-exclude, filter and exclude-where, optional otherwise
  * @property {string} at                  ISO 8601 UTC
  */
 
@@ -75,7 +75,9 @@
  * @property {Float64Array|Int32Array|(string|null)[]} values  number: value or NaN; date: days since
  *   1970-01-01 (proleptic Gregorian, CE) or NaN; category: level index or -1; text: string or null
  * @property {string[]} [levels]          category only, in codebook order
- * @property {Uint8Array} missing         0 present, 1 blank, 2 unknown, 3 not applicable, 4 not recorded, 5 invalid
+ * @property {string} [reference]         category only: the codebook's reference level, when one is set
+ * @property {Uint8Array} missing         0 present, 1 blank, 2 unknown, 3 not applicable, 4 not recorded, 5 invalid,
+ *   6 unmatched (a column a merge brought in, for a row the other file has no key for)
  */
 
 /**
@@ -84,7 +86,7 @@
  * @property {Record<string, Column>} columns
  * @property {number} n
  * @property {number} recipeRev
- * @property {Record<string, string>} excluded   rowId -> step id that excluded or filtered it
+ * @property {Record<string, string>} excluded   rowId -> step id that excluded or filtered it (row-exclude, filter, exclude-where)
  * @property {string} fingerprint           sha-256 hex of the canonical CSV of the rows in use [10.4]
  */
 
@@ -154,7 +156,9 @@
  * @property {string} engineVersion       ENGINE_VERSION from protocol.js
  * @property {'A'} engineTier
  * @property {number} rowsUsed
- * @property {{reason: 'missing'|'excluded'|'filter'|'invalid'|'aggregated', column: string|null, count: number}[]} rowsDropped
+ * @property {{reason: 'missing'|'excluded'|'filter'|'invalid'|'aggregated'|'incomplete'|'unmatched', column: string|null, count: number}[]} rowsDropped
+ *   'incomplete': repeated measures, an animal without every time point; 'unmatched': a row a merge found no
+ *   match for, dropped because a brought column is a role (M2-DESIGN.md 2)
  * @property {string|null} dataFingerprint
  * @property {number|null} recipeRev
  * @property {string} computedAt          ISO 8601 UTC

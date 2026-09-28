@@ -263,10 +263,17 @@ export function runMantelHaenszel(spec, table) {
       const v = r.strata[j++];
       rows.push([label, t[0][0], t[0][1], t[1][0], t[1][1], v.value, v.ci ? v.ci[0] : null, v.ci ? v.ci[1] : null]);
     });
+    // M2 carried item 12.1 (decision B8, no new test): a homogeneity test that summed fewer than half of
+    // the strata, or fewer than 5, says so; a large p-value from so few farms does not show they agree.
+    const notes = [];
+    const summed = r.homogeneity.included?.length ?? 0;
+    if (r.homogeneity.p !== null && r.homogeneity.p !== undefined && (summed < strata.length / 2 || summed < 5)) {
+      notes.push({ id: 'sparseStrata', severity: 'note', key: 'measure.note.sparseStrata', params: { used: summed, total: strata.length } });
+    }
     return {
       status: 'ok', values, tests,
       tables: [{ id: 'strata', columns: ['stratum', 'a', 'b', 'c', 'd', 'estimate', 'ciLow', 'ciHigh'], rows }],
-      used, dropped,
+      used, dropped, ...(notes.length ? { notes } : {}),
     };
   });
 }

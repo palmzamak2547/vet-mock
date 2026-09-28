@@ -71,7 +71,8 @@ for r in rows:
     age = None
     if b:
         age = (s[0] - b[0]) * 12 + (s[1] - b[1]) - (1 if s[2] < b[2] else 0)
-    A.append(dict(farm=r[0], pos=r[C["ผล ELISA"]] == "บวก", age=age))
+    vac = r[C["วัคซีนใน 6 เดือน"]]
+    A.append(dict(farm=r[0], pos=r[C["ผล ELISA"]] == "บวก", age=age, vac=None if vac in MISS else vac))
 farms = sorted({a["farm"] for a in A})
 x, n = sum(a["pos"] for a in A), len(A)
 same("positives", x, N["prev"]["x"])
@@ -118,6 +119,43 @@ chi2, pchi, _, exp = stats.chi2_contingency([[a_, b_], [c_, d_]], correction=Fal
 same("naive chi-square", chi2, N["assoc"]["crudePR"]["chi"])
 same("naive p", pchi, N["assoc"]["crudePR"]["pNaive"], 1e-7)
 same("min expected", exp.min(), N["assoc"]["minExpected"])
+
+# --- DEFF route on the rows each 2x2 uses (M2 carried item 12.2, decision B9) ---
+def icc_rows(sub):
+    fs = sorted({q["farm"] for q in sub})
+    nn, kk = len(sub), len(fs)
+    sz = np.array([sum(1 for q in sub if q["farm"] == f) for f in fs])
+    yy = np.array([sum(q["pos"] for q in sub if q["farm"] == f) for f in fs])
+    pp = yy.sum() / nn
+    pfr = yy / sz
+    msb_ = np.sum(sz * (pfr - pp) ** 2) / (kk - 1)
+    msw_ = np.sum(sz * pfr * (1 - pfr)) / (nn - kk)
+    n0_ = (nn - np.sum(sz ** 2) / nn) / (kk - 1)
+    icc_ = (msb_ - msw_) / (msb_ + (n0_ - 1) * msw_)
+    m_ = nn / kk
+    return nn, kk, icc_, m_, 1 + (m_ - 1) * max(0.0, icc_)
+
+
+def deff_pr(sub, exposed):
+    nn, kk, icc_, m_, deff_ = icc_rows(sub)
+    a1 = sum(1 for q in sub if exposed(q) and q["pos"]); n1 = sum(1 for q in sub if exposed(q))
+    c1 = sum(1 for q in sub if not exposed(q) and q["pos"]); n0 = nn - n1
+    pr = (a1 / n1) / (c1 / n0)
+    se_log = math.sqrt(1 / a1 - 1 / n1 + 1 / c1 - 1 / n0)
+    h = z * se_log * math.sqrt(deff_)
+    return nn, kk, icc_, m_, deff_, pr, (pr * math.exp(-h), pr * math.exp(h))
+
+
+for label, sub, exposed, key in [
+    ("age", K, lambda q: q["age"] >= 24, "deffRows"),
+    ("vaccine", [q for q in A if q["vac"] is not None], lambda q: q["vac"] == "ไม่ฉีด", "deffRowsVaccine"),
+]:
+    nn, kk, icc_, m_, deff_, pr, (lo, hi) = deff_pr(sub, exposed)
+    W = N["assoc"][key]
+    same(f"{label}: rows", nn, W["n"]); same(f"{label}: farms", kk, W["clusters"])
+    same(f"{label}: ICC on the rows used", icc_, W["icc"]); same(f"{label}: mean farm size", m_, W["meanSize"])
+    same(f"{label}: DEFF", deff_, W["deff"]); same(f"{label}: crude PR", pr, W["pr"])
+    same(f"{label}: DEFF-widened PR lo", lo, W["ci"][0], 1e-7); same(f"{label}: DEFF-widened PR hi", hi, W["ci"][1], 1e-7)
 
 # --- Mantel-Haenszel across farms, written out again ---
 num = den = gr = R = S = PR = PSQR = QS = sa = se_a = va = 0.0

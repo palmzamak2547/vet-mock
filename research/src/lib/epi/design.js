@@ -4,6 +4,10 @@
 // OWNER: measure role (M2; epi in M1). The M2 areas add methods to these rows and new rows through
 // lib/runtime/areas/<area>.options.js (offers, designs, designFree) [M2-DESIGN.md 2], merged below.
 import { areaOffers, AREA_DESIGNS, AREA_DESIGN_FREE } from '../runtime/areas/index.js';
+import MEASURE_SHIPPED from '../runtime/areas/measure.registered.js';
+
+/** A 'comes in M2' row stays on the design board only until the method it names ships. */
+const untilShipped = (methodId, row) => (MEASURE_SHIPPED.includes(methodId) ? [] : [row]);
 
 /**
  * @typedef {Object} DesignRow
@@ -76,7 +80,7 @@ const M1_DESIGNS = [
     offers: [{ method: 'dx.accuracy' }, { method: 'freq.proportion' }, { method: 'freq.truePrevalence' }, { method: 'desc.summary' }],
     blocked: [
       { what: 'association measures (OR, RR)', reasonKey: 'epi.design.blocked.diagnosticNotAssociation' },
-      { what: 'ROC and cut-offs', reasonKey: 'epi.design.blocked.rocIsM2' },
+      ...untilShipped('roc.delong', { what: 'ROC and cut-offs', reasonKey: 'epi.design.blocked.rocIsM2' }),
     ],
     twoByTwoMeasures: {},
   },
@@ -85,7 +89,7 @@ const M1_DESIGNS = [
     offers: [{ method: 'agree.kappa' }, { method: 'agree.percent' }, { method: 'desc.summary' }],
     blocked: [
       { what: 'Pearson correlation as agreement', reasonKey: 'epi.design.blocked.correlationNotAgreement' },
-      { what: 'Bland-Altman', reasonKey: 'epi.design.blocked.blandAltmanIsM2' },
+      ...untilShipped('agree.blandAltman', { what: 'Bland-Altman', reasonKey: 'epi.design.blocked.blandAltmanIsM2' }),
     ],
     twoByTwoMeasures: {},
   },

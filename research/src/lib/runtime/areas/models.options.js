@@ -29,7 +29,8 @@ export default {
     experiment: ['reg.logistic', 'reg.poisson', 'surv.kaplanMeier'],
     descriptive: ['surv.kaplanMeier'],
   },
-  // 'robust' once cluster-robust SE for the GLMs passes its sandwich::vcovCL fixture.
-  routes: [],
+  // Cluster-robust SE for the GLMs: sandwich::vcovCL fixture green (tests/unit/models-robust.test.mjs).
+  // Kaplan-Meier has no farm route: on clustered animals G1 stops it.
+  routes: ['robust'],
   designs: [],
 };

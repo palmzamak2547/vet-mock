@@ -1,0 +1,105 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["posthoc.dunn", "posthoc.gamesHowell", "posthoc.dunnett", "adjust.pValues"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/posthoc.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {
+   "mvtnorm": "1.2.4",
+   "FSA": "0.10.1",
+   "dunn.test": "1.4.0",
+   "multcomp": "1.4.30"
+  },
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "Dunn: base-R formula, FSA 0.10.1 dunnTest and dunn.test 1.4.0 agree in |z| and p (stopifnot). Games-Howell: base-R formula (PMCMRplus::gamesHowellTest does not load in webR 0.6.0: Rmpfr is not in repo.r-wasm.org). Dunnett: TVPACK is deterministic; tolerance 1e-8 absolute on p and 1e-8 relative on the critical value and the interval (M2-DESIGN.md 3.1.4). DescTools::DunnettTest does not load in webR (rootSolve missing); multcomp 1.4-30 glht agrees within 1e-6 (randomised, seed 20260928), GenzBretz within 1e-9. Dataset three is M1-DESIGN.md section 7's (scipy-crosscheck.json datasets).",
+ "cases": {
+  "dunn.three": {
+   "call": "Dunn z = (mean rank later - earlier) / sqrt((N(N+1)/12 - sum(t^3 - t)/(12(N-1))) (1/n_i + 1/n_j)); p.adjust",
+   "tol": "closed",
+   "data": "three",
+   "values": {
+    "pairs": ["B-A", "C-A", "C-B"],
+    "z": [3.071648878177335, 1.6575109380998472, -1.5987038901905439],
+    "pRaw": [0.0021287997492868008, 0.097416219307379912, 0.10988641282605553],
+    "pHolm": [0.0063863992478604024, 0.19483243861475982, 0.19483243861475982],
+    "pBonferroni": [0.0063863992478604024, 0.29224865792213972, 0.32965923847816658],
+    "pBH": [0.0063863992478604024, 0.10988641282605553, 0.10988641282605553],
+    "meanRanks": [4.2000000000000002, 14.083333333333334, 9.3571428571428577],
+    "tieTerm": 28.235294117647058
+   }
+  },
+  "gamesHowell.three": {
+   "call": "Games-Howell in base R: ptukey(|d|/SE sqrt 2, k, Welch df, lower.tail = FALSE); CI d -/+ qtukey(0.95, k, df)/sqrt 2 SE",
+   "tol": "closed",
+   "data": "three",
+   "confLevel": 0.94999999999999996,
+   "iterativeValues": ["p", "lower", "upper", "crit"],
+   "values": {
+    "pairs": ["B-A", "C-A", "C-B"],
+    "diff": [5.6666666666666679, 3, -2.6666666666666679],
+    "se": [1.3333333333333333, 1.2909944487358056, 1.2018504251546631],
+    "df": [8.5191347753743756, 8.571428571428573, 10.69620253164557],
+    "q": [6.0104076400856554, 3.2863353450309969, 3.137858162210946],
+    "p": [0.0061227773509222594, 0.1057300616054494, 0.11290435458703274],
+    "lower": [1.9049750114342983, -0.63789789428938004, -5.926382425667188],
+    "upper": [9.4283583218990366, 6.63789789428938, 0.59304909233385228],
+    "crit": [2.8212687414242774, 2.81790359195716, 2.7122474567340902]
+   }
+  },
+  "dunnett.three.controlA": {
+   "call": "mvtnorm::pmvt(TVPACK(abseps = 1e-15)) by inclusion-exclusion; critical value by uniroot(tol = 1e-14)",
+   "tol": "closed",
+   "data": "three",
+   "controlLevel": "A",
+   "confLevel": 0.94999999999999996,
+   "tolByValue": {
+    "p": "dunnettP",
+    "crit": "dunnettCrit",
+    "lower": "dunnettCrit",
+    "upper": "dunnettCrit"
+   },
+   "values": {
+    "pairs": ["B-A", "C-A"],
+    "diff": [5.6666666666666679, 3],
+    "se": [1.3204937348218293, 1.2769010104452851],
+    "t": [4.2913241594677132, 2.3494381909478088],
+    "df": 15,
+    "lambda": [0.7385489458759964, 0.76376261582597338],
+    "p": [0.0012076754107012144, 0.05803904825531514],
+    "crit": 2.4281518529165904,
+    "lower": [2.4603073576942944, -0.10050955450378574],
+    "upper": [8.8730259756390417, 6.1005095545037857]
+   }
+  },
+  "adjust.sidakBH": {
+   "call": "-expm1(m log1p(-p)); p.adjust(p, 'BH')",
+   "tol": "closed",
+   "input": [0.01, 0.040000000000000001, 0.029999999999999999, 0.0050000000000000001],
+   "values": {
+    "sidak": [0.03940399, 0.15065344, 0.11470719, 0.019850499375],
+    "bh": [0.02, 0.040000000000000001, 0.039999999999999994, 0.02]
+   }
+  },
+  "adjust.sidakBH.six": {
+   "call": "-expm1(m log1p(-p)); p.adjust(p, 'BH')",
+   "tol": "closed",
+   "input": [0.20000000000000001, 0.001, 0.049000000000000002, 0.5, 0.012, 0.029999999999999999],
+   "values": {
+    "sidak": [0.73785600000000007, 0.0059850199850059989, 0.26025318899520677, 0.984375, 0.069874250450006017, 0.16702799507100002],
+    "bh": [0.23999999999999999, 0.0060000000000000001, 0.07350000000000001, 0.5, 0.036000000000000004, 0.059999999999999998]
+   }
+  }
+ }
+}

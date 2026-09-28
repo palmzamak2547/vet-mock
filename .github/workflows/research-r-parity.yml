@@ -1,12 +1,16 @@
 # ============================================================
-# Research Studio: R parity (M1-DESIGN.md 13.2)
+# VetMock Research: R parity (M1-DESIGN.md 13.2, M2-DESIGN.md 3)
 # ============================================================
 # Runs only when something under research/ changes.
 #
 # Job "engine": the JavaScript engine against the committed R 4.6.0
 #   fixtures (research/tests/fixtures/r/out/*.json, made with webR 0.6.0).
 #   Closed forms 1e-10 relative, iterative fits 1e-6, uniroot values at
-#   R's own uniroot tolerance. Any mismatch fails.
+#   R's own uniroot tolerance; M2 adds Dunnett (1e-8 absolute on p, 1e-8
+#   relative on the critical value) and the chart density (1e-3 absolute).
+#   Any mismatch fails. M1 methods: rparity-engine.test.mjs; M2 methods:
+#   rparity-m2.test.mjs (a case whose module still carries the STUB(m2)
+#   marker is skipped with its reason; M2 ships only with none left).
 #
 # Job "native-r": the second check. Native R 4.6.0 reruns every
 #   research/tests/fixtures/r/*.R with the package versions recorded in
@@ -55,11 +59,13 @@ jobs:
         run: npm ci --no-audit --no-fund
 
       - name: Engine against the R 4.6.0 fixtures
-        run: node --test tests/unit/rparity-engine.test.mjs
+        run: node --test tests/unit/rparity-engine.test.mjs tests/unit/rparity-m2.test.mjs
 
   native-r:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # M2 adds car, multcomp, FSA, pROC, survey, sandwich, psych, MethComp and boot at pinned versions;
+    # an archived version installs from source, so the job gets more time than M1's 30 minutes.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v7
 

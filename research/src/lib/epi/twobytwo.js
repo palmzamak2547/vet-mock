@@ -21,7 +21,7 @@ import { fisher2x2 } from '../stats/fisher.js';
 import { checkDesign } from './design.js';
 import { mantelHaenszel } from './mh.js';
 import { outcomeIcc, designEffect } from './cluster.js';
-import { asTwoByTwo, twoByTwoFromTable, invalidOutput, val, nul, guarded } from './_table.js';
+import { asTwoByTwo, twoByTwoFromTable, invalidOutput, val, nul, guarded, binaryReader, getColumn } from './_table.js';
 
 /** @typedef {import('../runtime/types.js').Value} Value */
 
@@ -286,12 +286,12 @@ export function runTwoByTwo(spec, table) {
       if (route === 'deff') {
         if (spec.cluster?.deff > 0) deff = spec.cluster.deff;
         else {
-          // ICC of the outcome over every animal with the outcome and the farm (not only the rows
-          // with a known exposure; "the ICC of the whole set", M1-DESIGN.md 7.20); DEFF with the mean
-          // cluster size of those animals. nIcc says how many they are, because it can exceed the rows
-          // the 2x2 uses (review round 3: vaccine x ELISA uses 682 rows, the ICC and the mean farm
-          // size 14.86 come from 728 animals in 49 farms).
-          const icc = outcomeIcc(table, spec.roles.outcome, spec.levels.outcomePositive, clusterKey);
+          // ICC of the outcome over the rows the 2x2 uses (M2 carried item 12.2, decision B9: every
+          // number a route prints is reproducible from the rows the result uses); DEFF with the mean
+          // cluster size of those rows. nIcc says how many they are (vaccine x ELISA: 682 animals in
+          // 49 farms; M1 used all 728 animals with the outcome).
+          const ex = binaryReader(getColumn(table, spec.roles.exposure), spec.levels.exposureLevel, spec.levels.referenceLevel ?? null);
+          const icc = outcomeIcc(table, spec.roles.outcome, spec.levels.outcomePositive, clusterKey, { keys: [spec.roles.exposure], keep: (r) => ex(r) !== null });
           if (icc.icc === null) return invalidOutput(icc.reasonKey || 'epi.undefined.iccNotEstimable');
           deff = designEffect(icc.icc, icc.meanSize, icc.n).deff;
           clusterValues = { icc: val(icc.icc), meanSize: val(icc.meanSize), clusters: val(icc.k), nIcc: val(icc.n) };

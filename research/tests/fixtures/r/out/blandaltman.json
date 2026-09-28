@@ -1,0 +1,107 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["agree.blandAltman"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/blandaltman.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "The paper prints mean difference -2.1 and SD 38.8, and limits -79.7 and 75.5 from those rounded numbers with multiplier 2. The limit SE is the approximate sqrt(3 s^2 / n) with t on n - 1 df (Bland and Altman 1986, 1999).",
+ "datasets": {
+  "pefr": {
+   "wright": [494, 395, 516, 434, 476, 557, 413, 442, 650, 433, 417, 656, 267, 478, 178, 423, 427],
+   "mini": [512, 430, 520, 428, 500, 600, 364, 380, 658, 445, 432, 626, 260, 477, 259, 350, 451]
+  }
+ },
+ "cases": {
+  "absolute.196": {
+   "call": "A - B (Wright minus mini Wright); limits mean -/+ 1.96 SD",
+   "tol": "closed",
+   "data": "pefr",
+   "scale": "absolute",
+   "loaMultiplier": 1.96,
+   "values": {
+    "n": 17,
+    "meanDifference": -2.1176470588235294,
+    "meanLower": -22.048837696645165,
+    "meanUpper": 17.813543578998107,
+    "sd": 38.765129873607378,
+    "loaLower": -78.097301611093997,
+    "loaUpper": 73.862007493446924,
+    "loaSe": 16.284611795031498,
+    "loaLowerCiLower": -112.61913645114221,
+    "loaLowerCiUpper": -43.575466771045782,
+    "loaUpperCiLower": 39.34017265339871,
+    "loaUpperCiUpper": 108.38384233349514
+   }
+  },
+  "absolute.2": {
+   "call": "limits mean -/+ 2 SD (the 1986 paper)",
+   "tol": "closed",
+   "data": "pefr",
+   "scale": "absolute",
+   "loaMultiplier": 2,
+   "values": {
+    "loaLower": -79.647906806038293,
+    "loaUpper": 75.412612688391221,
+    "loaLowerCiLower": -114.16974164608651,
+    "loaLowerCiUpper": -45.126071965990079,
+    "loaUpperCiLower": 40.890777848343006,
+    "loaUpperCiUpper": 109.93444752843943
+   }
+  },
+  "proportionalBias": {
+   "call": "summary(lm((A - B) ~ (A + B)/2))",
+   "tol": "closed",
+   "data": "pefr",
+   "values": {
+    "slope": 0.028687445152549246,
+    "intercept": -15.067497300038999,
+    "slopeSe": 0.088206408276546855,
+    "t": 0.32523085015101938,
+    "df": 15,
+    "p": 0.74949853364929397
+   }
+  },
+  "percent.196": {
+   "call": "100 (A - B) / ((A + B)/2); limits mean -/+ 1.96 SD",
+   "tol": "closed",
+   "data": "pefr",
+   "scale": "percent",
+   "loaMultiplier": 1.96,
+   "values": {
+    "meanDifference": -1.1583141283896237,
+    "sd": 12.098394716494981,
+    "loaLower": -24.871167772719787,
+    "loaUpper": 22.55453951594054,
+    "loaSe": 5.0823423510652868
+   }
+  },
+  "ratio.196": {
+   "call": "log(A / B); exp(mean -/+ 1.96 SD)",
+   "tol": "closed",
+   "data": "pefr",
+   "scale": "ratio",
+   "loaMultiplier": 1.96,
+   "values": {
+    "ratio": 0.98828462576765741,
+    "loaLower": 0.77826742885989553,
+    "loaUpper": 1.2549754304372234,
+    "logMean": -0.011784539961353153,
+    "logSd": 0.12188802806765506
+   }
+  }
+ }
+}

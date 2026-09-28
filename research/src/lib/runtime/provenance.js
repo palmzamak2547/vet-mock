@@ -1,5 +1,6 @@
 // The human provenance line under every result [M1-DESIGN.md 10.5; engine.md 7]. OWNER: runtime role.
 import { METHODS } from './catalog.js';
+import { AREA_OF } from './areas/index.js';
 
 /** Options printed on the line, in this order. confLevel and the CI method come first as "95% CI (Wilson)". */
 const CI_METHOD_OPTIONS = ['ciMethod', 'apparentCiMethod', 'orCi', 'rrCi', 'rdCi', 'lrCi'];
@@ -12,6 +13,8 @@ export const OPTION_VALUES = Object.freeze([
   'pairwise-t-holm', 'pairwise-t-bonferroni', 'holm', 'bonferroni', 'auto', 'normal', 'fisher-z', 'log', 'linear',
   'quadratic', 'anova-oneway', 'mean', 'n0', 'course', 'epiR', 'course-1.96', 'fleiss', 'fleiss-cc', 'course-pooled',
   'rank', 'OR', 'RR', 'wald-deff',
+  // M2 [M2-DESIGN.md 3]
+  'delong', 'feldt', 'profile', 'pairwise-t-sidak', 'pairwise-t-bh', 'sidak', 'bh', 'survey-logit', 'survey-mean', 'hodges-lehmann',
 ]);
 
 /** Option names that have a label in the dictionary (runtime.optName.*). */
@@ -55,11 +58,14 @@ export function provenanceLines(env, lang, t, labelOf = (k) => k) {
   const first = [];
   first.push(row ? t(row.nameKey) : methodId);
 
-  if (!NO_CI.has(methodId) && typeof opts.confLevel === 'number') {
+  // An M2 method names a confidence level only when it reports an interval (power, randomisation and the
+  // checks report none); the M1 lines are unchanged.
+  const m2NoInterval = Boolean(AREA_OF[methodId]) && !Object.values(env.values || {}).some((v) => Array.isArray(v?.ci));
+  if (!NO_CI.has(methodId) && !m2NoInterval && typeof opts.confLevel === 'number') {
     const level = Math.round(opts.confLevel * 1000) / 10;
     // The interval a value actually carries wins over the option asked for: the DEFF route widens a
     // Wald interval whatever the CI option says (review round 2: the line said Wilson).
-    const used = Object.values(env.values || {}).map((v) => v?.ciMethod).filter((m) => m === 'wald-deff');
+    const used = Object.values(env.values || {}).map((v) => v?.ciMethod).filter((m) => m === 'wald-deff' || m === 'survey-logit' || m === 'survey-mean');
     const ciMethods = CI_METHOD_OPTIONS.filter((k) => opts[k] !== undefined && opts[k] !== 'none')
       .map((k) => (k === 'ciMethod' && used.length ? used[0] : opts[k]))
       .map((m) => valueText(m, t));
@@ -69,6 +75,8 @@ export function provenanceLines(env, lang, t, labelOf = (k) => k) {
   for (const name of OTHER_OPTIONS) {
     if (opts[name] === undefined || opts[name] === null) continue;
     if (name === 'mu' && opts.variant !== 'one-sample') continue;
+    // "no pairwise comparisons" says nothing about the numbers shown
+    if (name === 'posthoc' && opts[name] === 'none') continue;
     // In a cross-sectional study the Mantel-Haenszel ratios are prevalence ratios, as the result says.
     if (name === 'measure' && env.spec?.design === 'cross-sectional' && (opts.measure === 'RR' || opts.measure === 'OR')) {
       first.push(t('runtime.opt.measure', { value: t(`runtime.optv.${opts.measure === 'RR' ? 'PR' : 'POR'}`) }));

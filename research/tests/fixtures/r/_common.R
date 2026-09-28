@@ -96,7 +96,9 @@ rs_require <- function(pkgs) {
 #            `tol` ("closed", "iterative" or "uniroot") and `values`
 #   packages non-base packages the script used
 #   notes    free text: formulas written in base R, papers cited
-rs_emit <- function(name, methods, cases, packages = character(0), notes = NULL) {
+#   datasets optional named list of the input data the cases name (M2: so the JavaScript test reads exactly
+#            the numbers R used; compared exactly by compare.mjs)
+rs_emit <- function(name, methods, cases, packages = character(0), notes = NULL, datasets = NULL) {
   si <- utils::sessionInfo()
   webr <- Sys.getenv("RS_WEBR", "")
   doc <- list(
@@ -116,9 +118,11 @@ rs_emit <- function(name, methods, cases, packages = character(0), notes = NULL)
       )
     ),
     notes = notes,
+    datasets = datasets,
     cases = cases
   )
   if (is.null(notes)) doc$notes <- NULL
+  if (is.null(datasets)) doc$datasets <- NULL
   txt <- paste0(rs_json(doc), "\n")
   path <- file.path(rs_out_dir(), paste0(name, ".json"))
   con <- file(path, open = "wb")

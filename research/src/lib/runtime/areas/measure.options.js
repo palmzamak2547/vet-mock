@@ -19,10 +19,13 @@ export default {
     'agree.blandAltman': { scale: pick(['absolute', 'percent', 'ratio']), loaMultiplier: pick([1.96, 2]), loaCi: pick(['approx', 'none']), proportionalBias: bool },
     'rel.cronbach': { ciMethod: pick(['feldt', 'none']) },
   },
-  // freq.proportion gains surveyCi (used only on the 'survey' farm route). Added by the measure role
-  // together with its tests; empty here so M1 envelopes stay identical until then.
+  // freq.proportion gains surveyCi (used only on the 'survey' farm route): allowed, with no default, so
+  // M1 envelopes stay identical; the route reads 'logit' (svyciprop's default) when the option is absent
+  // and every interval names its method ('survey-logit' or 'survey-mean').
   extendDefaults: {},
-  extendAllowed: {},
+  extendAllowed: {
+    'freq.proportion': { surveyCi: pick(['logit', 'mean']) },
+  },
   g1Subject: ['roc.delong', 'agree.blandAltman', 'rel.cronbach'],
   designFree: [],
   offers: {
@@ -32,7 +35,7 @@ export default {
     descriptive: ['rel.cronbach'],
     experiment: ['agree.blandAltman'],
   },
-  // 'survey' once the design-based interval passes its survey::svyciprop fixture.
-  routes: [],
+  // The design-based interval passes its survey::svyciprop fixture (rparity-m2 survey).
+  routes: ['survey'],
   designs: [],
 };

@@ -1,5 +1,6 @@
 // One-way ANOVA with Tukey HSD (Tukey-Kramer for unequal n) and pairwise t with Holm or Bonferroni
-// [M1-DESIGN.md 7.7]. OWNER: stats role.
+// [M1-DESIGN.md 7.7]. M2 adds the pairwise t options with Sidak and Benjamini-Hochberg
+// [M2-DESIGN.md 3.1.4]. OWNER: lab role (stats role in M1).
 //
 // Sums of squares are computed from deviations (group means with a second-pass correction), never
 // from sum(x^2) - n mean^2, so the NIST StRD ANOVA sets keep 9 or more correct digits at the lower
@@ -74,7 +75,7 @@ export function tukeyHsd(groups, labels, confLevel = 0.95) {
 /**
  * Pairwise t tests with the pooled SD of all groups, as R's pairwise.t.test(pool.sd = TRUE).
  * @param {number[][]} groups @param {string[]} labels
- * @param {'holm'|'bonferroni'|'none'} adjust
+ * @param {'holm'|'bonferroni'|'sidak'|'bh'|'none'} adjust
  * @param {'two.sided'|'less'|'greater'} [alternative]
  * @returns {{ pair: string, diff: number, t: number|null, p: number|null, pAdjusted: number|null }[]}
  */
@@ -101,6 +102,9 @@ export function pairwiseT(groups, labels, adjust = 'holm', alternative = 'two.si
   const adj = pAdjust(rows.map((r) => r.p), adjust);
   return rows.map((r, i) => ({ ...r, pAdjusted: adj[i] }));
 }
+
+/** posthoc option -> p.adjust method for the pairwise t tests. */
+const PAIRWISE_ADJUST = { 'pairwise-t-holm': 'holm', 'pairwise-t-bonferroni': 'bonferroni', 'pairwise-t-sidak': 'sidak', 'pairwise-t-bh': 'bh' };
 
 /** Implementation for 'test.anova1' (and 'posthoc.tukey' through options.posthoc). @type {import('../runtime/registry.js').MethodImpl} */
 export function runAnova1(spec, table) {
@@ -131,7 +135,7 @@ export function runAnova1(spec, table) {
     if (posthoc === 'tukey') {
       tables.push({ id: 'posthoc', columns: ['pair', 'diff', 'lower', 'upper', 'pAdjusted'], rows: tukeyHsd(groups, labels, confLevel).map((r) => [r.pair, r.diff, r.ci[0], r.ci[1], r.p]) });
     } else {
-      const method = posthoc === 'pairwise-t-bonferroni' ? 'bonferroni' : 'holm';
+      const method = PAIRWISE_ADJUST[posthoc] ?? 'holm';
       tables.push({ id: 'posthoc', columns: ['pair', 'diff', 't', 'p', 'pAdjusted'], rows: pairwiseT(groups, labels, method).map((r) => [r.pair, r.diff, r.t, r.p, r.pAdjusted]) });
     }
   }

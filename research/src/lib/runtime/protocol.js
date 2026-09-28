@@ -8,7 +8,7 @@ export const OPS = Object.freeze({
   HELLO: 'hello',     // -> { engineVersion, features: { xlsx: boolean } }
   SHEETS: 'sheets',   // { bytes: ArrayBuffer } -> { sheets: string[] }
   PARSE: 'parse',     // { bytes, fileName, format: 'auto'|'csv'|'tsv'|'xlsx', encoding: 'auto'|..., sheet, headerRow } -> ParsePreview
-  APPLY: 'apply',     // { raw: RawTable, codebook, steps } -> WorkingTable (typed arrays transferred)
+  APPLY: 'apply',     // { raw: RawTable, codebook, steps, sources? } -> WorkingTable (typed arrays transferred)
   RUN: 'run',         // { spec: AnalysisSpec, table: WorkingTable|null } -> ResultEnvelope
 });
 

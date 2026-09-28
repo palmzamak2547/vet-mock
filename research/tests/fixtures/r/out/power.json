@@ -1,0 +1,163 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["power.anova", "power.tTest", "power.correlation", "power.regression"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/power.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["grid", "stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {
+   "pwr": "1.3.0"
+  },
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "n and v are uniroot solutions (tol = .Machine$double.eps^0.25): compared at the uniroot tolerance; nCeiling is the n the screen reports (rounded up once at the end). Power at a given n uses the noncentral t (AS 243) or F (AS 226 with Frick's correction): iterative tolerance. pwr 1.3.0; the base-R formulas agree to 1e-12 (stopifnot).",
+ "cases": {
+  "anova.n": {
+   "call": "power.anova.test(groups = 3, between.var = 1, within.var = 3, power = 0.80)",
+   "tol": "uniroot",
+   "groups": 3,
+   "betweenVar": 1,
+   "withinVar": 3,
+   "power": 0.80000000000000004,
+   "sigLevel": 0.050000000000000003,
+   "closedValues": ["nCeiling"],
+   "values": {
+    "n": 15.495620170448651,
+    "nCeiling": 16
+   }
+  },
+  "anova.power": {
+   "call": "power.anova.test(groups = 4, n = 5, between.var = 1, within.var = 3)",
+   "tol": "iterative",
+   "groups": 4,
+   "n": 5,
+   "betweenVar": 1,
+   "withinVar": 3,
+   "sigLevel": 0.050000000000000003,
+   "values": {
+    "power": 0.35355942381530236
+   }
+  },
+  "anova.power.five": {
+   "call": "power.anova.test(groups = 5, n = 12, between.var = 0.4, within.var = 2.5)",
+   "tol": "iterative",
+   "groups": 5,
+   "n": 12,
+   "betweenVar": 0.40000000000000002,
+   "withinVar": 2.5,
+   "sigLevel": 0.050000000000000003,
+   "values": {
+    "power": 0.54352618014050702
+   }
+  },
+  "t.twoSample.n": {
+   "call": "power.t.test(delta = 1, sd = 1, power = 0.9)",
+   "tol": "uniroot",
+   "type": "two.sample",
+   "delta": 1,
+   "sd": 1,
+   "power": 0.90000000000000002,
+   "sigLevel": 0.050000000000000003,
+   "closedValues": ["nCeiling"],
+   "values": {
+    "n": 22.021097703851229,
+    "nCeiling": 23
+   }
+  },
+  "t.twoSample.power": {
+   "call": "power.t.test(n = 20, delta = 1, sd = 1)",
+   "tol": "iterative",
+   "type": "two.sample",
+   "n": 20,
+   "delta": 1,
+   "sd": 1,
+   "sigLevel": 0.050000000000000003,
+   "values": {
+    "power": 0.86895280169249778
+   }
+  },
+  "t.paired.n": {
+   "call": "power.t.test(delta = 0.8, sd = 1, power = 0.8, type = 'paired')",
+   "tol": "uniroot",
+   "type": "paired",
+   "delta": 0.80000000000000004,
+   "sd": 1,
+   "power": 0.80000000000000004,
+   "sigLevel": 0.050000000000000003,
+   "closedValues": ["nCeiling"],
+   "values": {
+    "n": 14.302803316243569,
+    "nCeiling": 15
+   }
+  },
+  "t.paired.power": {
+   "call": "power.t.test(n = 15, delta = 0.8, sd = 1.2, type = 'paired')",
+   "tol": "iterative",
+   "type": "paired",
+   "n": 15,
+   "delta": 0.80000000000000004,
+   "sd": 1.2,
+   "sigLevel": 0.050000000000000003,
+   "values": {
+    "power": 0.67085619820180931
+   }
+  },
+  "correlation.n": {
+   "call": "pwr::pwr.r.test(r = 0.3, power = 0.8)",
+   "tol": "uniroot",
+   "r": 0.29999999999999999,
+   "power": 0.80000000000000004,
+   "sigLevel": 0.050000000000000003,
+   "closedValues": ["nCeiling"],
+   "values": {
+    "n": 84.073639782287657,
+    "nCeiling": 85
+   }
+  },
+  "correlation.power": {
+   "call": "pwr::pwr.r.test(n = 50, r = 0.3); base R formula agrees",
+   "tol": "closed",
+   "r": 0.29999999999999999,
+   "n": 50,
+   "sigLevel": 0.050000000000000003,
+   "values": {
+    "power": 0.57155584186020802
+   }
+  },
+  "regression.v": {
+   "call": "pwr::pwr.f2.test(u = 3, f2 = 0.15, power = 0.8)",
+   "tol": "uniroot",
+   "u": 3,
+   "f2": 0.14999999999999999,
+   "power": 0.80000000000000004,
+   "sigLevel": 0.050000000000000003,
+   "closedValues": ["nCeiling"],
+   "values": {
+    "v": 72.705826559965331,
+    "n": 76.705826559965331,
+    "nCeiling": 77
+   }
+  },
+  "regression.power": {
+   "call": "pwr::pwr.f2.test(u = 3, v = 100, f2 = 0.15); base R formula agrees",
+   "tol": "iterative",
+   "u": 3,
+   "v": 100,
+   "f2": 0.14999999999999999,
+   "sigLevel": 0.050000000000000003,
+   "values": {
+    "power": 0.91701094492672186
+   }
+  }
+ }
+}

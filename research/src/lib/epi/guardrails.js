@@ -10,6 +10,7 @@
 import { checkDesign } from './design.js';
 import { iccOneWay, designEffect } from './cluster.js';
 import { missingCode, binaryReader, groupReader, levelIndex } from './_table.js';
+import MEASURE_SHIPPED from '../runtime/areas/measure.registered.js';
 
 /**
  * The M1 set. Severity and what each needs are fixed here; messages live in i18n/epi.js under
@@ -65,6 +66,9 @@ const G11_METHODS = new Set(['epi.twoByTwo', 'test.chisq', 'test.fisher2x2']);
 const MH_METHODS = new Set(['epi.twoByTwo', 'test.chisq', 'test.fisher2x2', 'epi.mantelHaenszel']);
 /** Methods that implement the DEFF-widened route themselves. */
 const DEFF_METHODS = new Set(['freq.proportion', 'freq.truePrevalence', 'epi.twoByTwo']);
+const SURVEY_METHODS = new Set(['freq.proportion']);
+const ROBUST_METHODS = new Set(['reg.logistic', 'reg.poisson']);
+const NO_AGGREGATE_METHODS = new Set(['reg.logistic', 'reg.poisson', 'surv.kaplanMeier']);
 const FARM_AWARE = new Set(['deff', 'mh-within', 'aggregate']);
 
 function clusterKeyOf(spec, codebook) {
@@ -252,7 +256,7 @@ export function evaluateGuards(spec, table, codebook, context = {}) {
   if (o.observedPower === true || spec.input?.params?.observedPower === true) add(finding('G9', { routes: ['ci', 'ss.detectableEffect'] }));
 
   // G16: correlation offered as agreement.
-  if ((method === 'corr.pearson' || method === 'corr.spearman') && spec.design === 'agreement') add(finding('G16', { routes: ['agree.kappa', 'blandAltman:M2', 'icc:M2'] }));
+  if ((method === 'corr.pearson' || method === 'corr.spearman') && spec.design === 'agreement') add(finding('G16', { routes: ['agree.kappa', MEASURE_SHIPPED.includes('agree.blandAltman') ? 'agree.blandAltman' : 'blandAltman:M2', 'icc:later'] }));
 
   // G4: odds ratio for a common outcome where a ratio of risks exists.
   if ((method === 'epi.twoByTwo' || method === 'epi.mantelHaenszel') && ['cross-sectional', 'cohort', 'trial'].includes(spec.design)) {
@@ -393,7 +397,15 @@ function routesFor(spec, table, codebook, groups) {
   else if (!exposureVaries) routes.push({ id: 'mh-within', enabled: false, reasonKey: 'epi.route.mhWithin.exposureConstant' });
   else routes.push({ id: 'mh-within', enabled: true, reasonKey: null });
   routes.push(DEFF_METHODS.has(method) ? { id: 'deff', enabled: true, reasonKey: null } : { id: 'deff', enabled: false, reasonKey: 'epi.route.deff.notForMethod' });
-  routes.push(exposureOnAnimal ? { id: 'aggregate', enabled: false, reasonKey: 'epi.route.aggregate.exposureOnAnimal' } : { id: 'aggregate', enabled: true, reasonKey: null });
+  // M2 routes carried out by the method itself [M2-DESIGN.md 3.2.2, 3.3.4]: a design-based interval for a
+  // prevalence (farms as sampling units) and cluster-robust standard errors for the regression models.
+  // Listed only where they apply, so an M1 panel is unchanged.
+  if (SURVEY_METHODS.has(method)) routes.push({ id: 'survey', enabled: true, reasonKey: null });
+  if (ROBUST_METHODS.has(method)) routes.push({ id: 'robust', enabled: true, reasonKey: null });
+  // A regression model or a survival curve is not answered by one row per farm (the outcome, the
+  // follow-up time and every covariate would have to be summarised first): no aggregate route.
+  if (NO_AGGREGATE_METHODS.has(method)) routes.push({ id: 'aggregate', enabled: false, reasonKey: 'epi.route.aggregate.notForModel' });
+  else routes.push(exposureOnAnimal ? { id: 'aggregate', enabled: false, reasonKey: 'epi.route.aggregate.exposureOnAnimal' } : { id: 'aggregate', enabled: true, reasonKey: null });
   routes.push({ id: 'gee', enabled: false, reasonKey: 'epi.route.m3' });
   routes.push({ id: 'mixed', enabled: false, reasonKey: 'epi.route.m3' });
   return routes;
@@ -413,12 +425,13 @@ function routesFor(spec, table, codebook, groups) {
 export function clusterPanel(spec, table, codebook) {
   const clusterKey = clusterKeyOf(spec, codebook);
   if (!table || !clusterKey || !table.columns[clusterKey]) return null;
-  // The panel's ICC uses every animal with the outcome and the farm ("the ICC of the whole set");
-  // the routes look at the rows the method would use.
+  // The panel's ICC, DEFF and effective n use the rows the method would use (every role column and the
+  // farm present), so they are the numbers the DEFF route then applies (M2 carried item 12.2, decision
+  // B9); for a prevalence those are every animal with the outcome and the farm, as in M1.
   const rows = presentRows(table, roleKeys(spec).concat([clusterKey]));
   const groups = byCluster(table, clusterKey, rows);
   const yk = outcomeKeyOf(spec);
-  const outcomeGroups = yk && table.columns[yk] ? byCluster(table, clusterKey, presentRows(table, [yk, clusterKey])) : groups;
+  const outcomeGroups = groups;
   let r = null;
   if (yk && table.columns[yk]) {
     const col = table.columns[yk];

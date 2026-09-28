@@ -13,6 +13,7 @@ import { proportionCi, poissonRateCi, clipCi01 } from '../stats/proportion.js';
 import { qnorm } from '../stats/dist.js';
 import { iccOneWay, designEffect } from './cluster.js';
 import { getColumn, eachRow, binaryReader, groupReader, countPositive, invalidOutput, val, nul, guarded } from './_table.js';
+import { surveyProportion } from './survey.js';
 
 /** @typedef {import('../runtime/types.js').Value} Value */
 
@@ -100,6 +101,20 @@ function proportionWithRoute(spec, x, n, clusters, ciMethod, confLevel, name) {
     if (d.icc !== undefined) { values.icc = val(d.icc); values.nEff = val(d.nEff); values.clusters = val(d.k); values.meanSize = val(d.meanSize); }
     else values.nEff = val(n / d.deff);
     return { values, apparentCi: ci, apparentNoteKey: truncated ? 'stats.note.ciTruncated' : null, ciMethod: 'wald-deff' };
+  }
+  if (route === 'survey' && clusters) {
+    // Design-based interval with the farms as sampling units (M2, measure's survey.js): the proportion
+    // is the same x / n, only the interval changes; 'logit' is svyciprop's default.
+    const positive = [], cluster = [];
+    clusters.sizes.forEach((m, g) => { for (let k = 0; k < m; k++) { positive.push(k < clusters.positives[g]); cluster.push(g); } });
+    const how = spec.options?.surveyCi === 'mean' ? 'mean' : 'logit';
+    const s = surveyProportion(positive, cluster, { method: how, confLevel });
+    const ciMethod2 = `survey-${how}`;
+    values[name] = s.ci[0] === null
+      ? val(p, { ci: [null, null], ciLevel: confLevel, ciMethod: ciMethod2, reasonKey: s.reasonKey })
+      : val(p, { ci: s.ci, ciLevel: confLevel, ciMethod: ciMethod2, se: s.se });
+    values.clusters = val(s.clusters);
+    return { values, apparentCi: s.ci[0] === null ? null : s.ci, ciMethod: ciMethod2 };
   }
   if (route === 'aggregate' && clusters) {
     // Herd level: a cluster counts as positive when at least one animal in it is positive. When

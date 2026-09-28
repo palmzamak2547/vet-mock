@@ -1,0 +1,197 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["anova.twoWay"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/anova2.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {
+   "car": "3.1.5"
+  },
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "Type III is drop1 under contr.sum (SPSS UNIANOVA); Type II by model comparison. car 3.1-5 Anova(type = 3) and Anova(type = 2) agree to 1e-10 (stopifnot in the script). Tukey rows are later level minus earlier, from ptukey/qtukey (iterative tolerance). Rows dropped for the unbalanced case are 1-based row numbers of warpbreaks.",
+ "datasets": {
+  "warpbreaks": {
+   "breaks": [26, 30, 54, 25, 70, 52, 51, 26, 67, 18, 21, 29, 17, 12, 18, 35, 30, 36, 36, 21, 24, 18, 10, 43, 28, 15, 26, 27, 14, 29, 19, 29, 31, 41, 20, 44, 42, 26, 19, 16, 39, 28, 21, 39, 29, 20, 21, 24, 17, 13, 15, 15, 16, 28],
+   "wool": ["A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B"],
+   "tension": ["L", "L", "L", "L", "L", "L", "L", "L", "L", "M", "M", "M", "M", "M", "M", "M", "M", "M", "H", "H", "H", "H", "H", "H", "H", "H", "H", "L", "L", "L", "L", "L", "L", "L", "L", "L", "M", "M", "M", "M", "M", "M", "M", "M", "M", "H", "H", "H", "H", "H", "H", "H", "H", "H"],
+   "woolLevels": ["A", "B"],
+   "tensionLevels": ["L", "M", "H"]
+  }
+ },
+ "cases": {
+  "typeIII.balanced": {
+   "call": "drop1(lm(breaks ~ wool * tension, data = warpbreaks), . ~ ., test = 'F') under contr.sum",
+   "tol": "closed",
+   "data": "warpbreaks",
+   "ssType": "III",
+   "interaction": true,
+   "dropRows": [],
+   "values": {
+    "effects": ["wool", "tension", "wool:tension"],
+    "ss": [450.6666666666697, 2034.2592592592646, 1002.777777777781],
+    "df": [1, 2, 2],
+    "F": [3.7652883611186607, 8.4980466483580539, 4.1890689668510595],
+    "p": [0.058212975959558919, 0.00069262093671342711, 0.02104419072786275],
+    "residualSs": 5745.1111111111059,
+    "residualDf": 48,
+    "partialEtaSq": [0.072737706681970313, 0.26149407502273414, 0.14860614842502234]
+   }
+  },
+  "typeIII.unbalanced": {
+   "call": "drop1(lm(breaks ~ wool * tension, data = warpbreaks[-c(1, 20, 37), ]), . ~ ., test = 'F') under contr.sum",
+   "tol": "closed",
+   "data": "warpbreaks[-c(1, 20, 37), ]",
+   "ssType": "III",
+   "interaction": true,
+   "dropRows": [1, 20, 37],
+   "values": {
+    "effects": ["wool", "tension", "wool:tension"],
+    "ss": [667.85294117646936, 2272.3153594771284, 1011.0506535947716],
+    "df": [1, 2, 2],
+    "F": [5.839167155309763, 9.9336458638570093, 4.4199054947824985],
+    "p": [0.019791796727819198, 0.00026711718104196493, 0.017678776764186867],
+    "residualSs": 5146.8611111111122,
+    "residualDf": 45,
+    "partialEtaSq": [0.11485568080750723, 0.30627595508547922, 0.16418725896490036]
+   }
+  },
+  "typeII.unbalanced": {
+   "call": "model comparison on warpbreaks[-c(1, 20, 37), ]; car::Anova(type = 2) agrees",
+   "tol": "closed",
+   "data": "warpbreaks[-c(1, 20, 37), ]",
+   "ssType": "II",
+   "interaction": true,
+   "dropRows": [1, 20, 37],
+   "values": {
+    "effects": ["wool", "tension", "wool:tension"],
+    "ss": [667.85294117646754, 2198.0020814479622, 1011.0506535947743],
+    "df": [1, 2, 2],
+    "F": [5.8391671553097506, 9.6087781980001292, 4.4199054947825127],
+    "p": [0.019791796727819323, 0.00033502067145797901, 0.017678776764186641],
+    "residualSs": 5146.8611111111095,
+    "residualDf": 45,
+    "partialEtaSq": [0.11485568080750701, 0.29925704860979746, 0.1641872589649008],
+    "typeISsWool": 628.90968325791857
+   }
+  },
+  "typeIII.additive": {
+   "call": "drop1(lm(breaks ~ wool + tension, data = warpbreaks), . ~ ., test = 'F')",
+   "tol": "closed",
+   "data": "warpbreaks",
+   "ssType": "III",
+   "interaction": false,
+   "dropRows": [],
+   "values": {
+    "effects": ["wool", "tension"],
+    "ss": [450.66666666666879, 2034.2592592592609],
+    "df": [1, 2],
+    "F": [3.3393160000658808, 7.5366506945931038],
+    "p": [0.073613668980603675, 0.0013777775226284908],
+    "residualSs": 6747.8888888888869,
+    "residualDf": 50
+   }
+  },
+  "tukey.additive.tension": {
+   "call": "TukeyHSD(aov(breaks ~ wool + tension), 'tension')",
+   "tol": "iterative",
+   "data": "warpbreaks",
+   "term": "tension",
+   "interaction": false,
+   "confLevel": 0.94999999999999996,
+   "values": {
+    "pairs": [
+     {
+      "pair": "M-L",
+      "diff": -9.9999999999999858,
+      "ci": [-19.353420726843524, -0.6465792731564477],
+      "p": 0.03362621891137918
+     },
+     {
+      "pair": "H-L",
+      "diff": -14.722222222222214,
+      "ci": [-24.075642949065752, -5.3688014953786762],
+      "p": 0.0011217877170325297
+     },
+     {
+      "pair": "H-M",
+      "diff": -4.7222222222222285,
+      "ci": [-14.075642949065767, 4.6311985046213096],
+      "p": 0.44742102143145668
+     }
+    ]
+   }
+  },
+  "tukey.additive.wool": {
+   "call": "TukeyHSD(aov(breaks ~ wool + tension), 'wool')",
+   "tol": "iterative",
+   "data": "warpbreaks",
+   "term": "wool",
+   "interaction": false,
+   "confLevel": 0.94999999999999996,
+   "values": {
+    "pairs": [
+     {
+      "pair": "B-A",
+      "diff": -5.7777777777777821,
+      "ci": [-12.128406051789142, 0.57285049623357853],
+      "p": 0.073613668976865054
+     }
+    ]
+   }
+  },
+  "tukey.interaction.tension": {
+   "call": "TukeyHSD(aov(breaks ~ wool * tension), 'tension')",
+   "tol": "iterative",
+   "data": "warpbreaks",
+   "term": "tension",
+   "interaction": true,
+   "confLevel": 0.94999999999999996,
+   "values": {
+    "pairs": [
+     {
+      "pair": "M-L",
+      "diff": -9.9999999999999858,
+      "ci": [-18.819647156951035, -1.1803528430489365],
+      "p": 0.022855398402122584
+     },
+     {
+      "pair": "H-L",
+      "diff": -14.722222222222214,
+      "ci": [-23.541869379173264, -5.902575065271165],
+      "p": 0.00055953922179385884
+     },
+     {
+      "pair": "H-M",
+      "diff": -4.7222222222222285,
+      "ci": [-13.541869379173278, 4.0974249347288207],
+      "p": 0.40494419624975098
+     }
+    ]
+   }
+  },
+  "cellMeans.balanced": {
+   "call": "aggregate(breaks ~ wool + tension, warpbreaks, n / mean / sd)",
+   "tol": "closed",
+   "data": "warpbreaks",
+   "values": {
+    "wool": ["A", "B", "A", "B", "A", "B"],
+    "tension": ["L", "L", "M", "M", "H", "H"],
+    "n": [9, 9, 9, 9, 9, 9],
+    "mean": [44.555555555555557, 28.222222222222221, 24, 28.777777777777779, 24.555555555555557, 18.777777777777779],
+    "sd": [18.097728525364108, 9.8587242807801676, 8.6602540378443873, 9.4310362338634057, 10.27267140415665, 4.8933060853010657]
+   }
+  }
+ }
+}

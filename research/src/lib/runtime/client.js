@@ -8,7 +8,8 @@ import { OPS, REPLY, WATCHDOG_MS } from './protocol.js';
  * @property {'worker'|'main-thread'} mode
  * @property {(bytes: ArrayBuffer) => Promise<{sheets: string[]}>} sheets
  * @property {(req: {bytes: ArrayBuffer, fileName: string, format?: string, encoding?: string, sheet?: string|null, headerRow?: number}, onProgress?: (p: {done: number, total: number}) => void) => Promise<import('../intake/preview.js').ParsePreview>} parse
- * @property {(raw: import('./types.js').RawTable, codebook: import('./types.js').Codebook, steps: import('./types.js').RecipeStep[]) => Promise<import('./types.js').WorkingTable>} apply
+ * @property {(raw: import('./types.js').RawTable, codebook: import('./types.js').Codebook, steps: import('./types.js').RecipeStep[], sources?: Record<string, { raw: import('./types.js').RawTable, codebook: import('./types.js').Codebook, steps: import('./types.js').RecipeStep[] }>|null) => Promise<import('./types.js').WorkingTable>} apply
+ *   `sources`: the other datasets a merge step names, by dataset id (M2-DESIGN.md 4)
  * @property {(spec: import('./types.js').AnalysisSpec, table: import('./types.js').WorkingTable|null, codebook: import('./types.js').Codebook|null, steps?: import('./types.js').RecipeStep[]) => Promise<import('./types.js').ResultEnvelope>} run
  * @property {() => void} cancel   terminates the current worker (a new one starts on the next call)
  * @property {() => void} dispose  terminates the worker and drops memory; call on unmount
@@ -153,7 +154,7 @@ export async function createEngine(opts = {}) {
     get mode() { return mode; },
     sheets: (bytes) => call(OPS.SHEETS, { bytes }, []),
     parse: (req, onProgress) => call(OPS.PARSE, { ...req }, mode === 'worker' && req?.bytes instanceof ArrayBuffer ? [req.bytes] : [], onProgress),
-    apply: (raw, codebook, steps) => call(OPS.APPLY, { raw, codebook, steps }, []),
+    apply: (raw, codebook, steps, sources = null) => call(OPS.APPLY, { raw, codebook, steps, sources }, []),
     run: (spec, table, codebook, steps = []) => call(OPS.RUN, { spec, table, codebook, steps }, []),
     cancel() {
       epoch += 1;
