@@ -149,17 +149,17 @@ test('runTwoByTwo on the rebuilt serosurvey: rows, the DEFF route and the within
   assert.equal(plain.values.RR, undefined, 'a cross-sectional design reports PR, not RR');
 
   const deff = runTwoByTwo(spec('epi.twoByTwo', ds, { ...SERO_ROLES, design: 'cross-sectional', route: 'deff' }), t);
-  // DEFF from every animal with an ELISA result (728), as the board says: "ICC of the whole set".
-  close(deff.values.deff.value, SERO.deff, CLOSED, 'DEFF');
+  // DEFF from the rows the 2x2 uses (716 with a known age; M2 carried item 12.2, decision B9).
+  close(deff.values.deff.value, SERO.assoc.deffRows.deff, CLOSED, 'DEFF');
+  close(deff.values.icc.value, SERO.assoc.deffRows.icc, CLOSED, 'ICC of the rows used');
   close(deff.values.PR.value, SERO.assoc.deffPR.est, CLOSED, 'PR');
   close(deff.values.PR.ci[0], SERO.assoc.deffPR.ci[0], 1e-7, 'DEFF PR lower (numbers.json z = 1.959964)');
   close(deff.values.PR.ci[1], SERO.assoc.deffPR.ci[1], 1e-7, 'DEFF PR upper');
   assert.equal(deff.values.PR.ciMethod, 'wald-log+deff');
-  // Where the ICC and the farm size come from (review round 3): 728 animals in 49 farms, mean
-  // 728 / 49 = 14.857, while the 2x2 uses the 716 with a known age.
-  assert.equal(deff.values.nIcc.value, SERO.n);
+  // Where the ICC and the farm size come from: the 716 animals of the 2x2 in 49 farms, mean 716 / 49.
+  assert.equal(deff.values.nIcc.value, SERO.assoc.deffRows.n);
   assert.equal(deff.values.clusters.value, 49);
-  close(deff.values.meanSize.value, SERO.mBar, CLOSED, 'mean farm size');
+  close(deff.values.meanSize.value, SERO.assoc.deffRows.meanSize, CLOSED, 'mean farm size');
   assert.equal(deff.used, SERO.assoc.nKnown);
 
   const within = runTwoByTwo(spec('epi.twoByTwo', ds, { ...SERO_ROLES, design: 'cross-sectional', route: 'mh-within' }), t);
@@ -172,7 +172,7 @@ test('runTwoByTwo on the rebuilt serosurvey: rows, the DEFF route and the within
 test('counts input: the DEFF route needs a DEFF given with the counts', () => {
   const s = spec('epi.twoByTwo', { kind: 'counts', counts: { table: SERO.assoc.table } }, { design: 'cross-sectional', route: 'deff' });
   assert.equal(runTwoByTwo(s, null).reasonKey, 'epi.route.deffNeedsValue');
-  const g = runTwoByTwo(spec('epi.twoByTwo', { kind: 'counts', counts: { table: SERO.assoc.table, deff: SERO.deff } }, { design: 'cross-sectional', route: 'deff' }), null);
+  const g = runTwoByTwo(spec('epi.twoByTwo', { kind: 'counts', counts: { table: SERO.assoc.table, deff: SERO.assoc.deffRows.deff } }, { design: 'cross-sectional', route: 'deff' }), null);
   close(g.values.PR.ci[1], SERO.assoc.deffPR.ci[1], 1e-7, 'DEFF PR upper from counts');
 });
 
@@ -199,7 +199,7 @@ test('a zero-width Wald interval is never printed as a 95% CI (review round 1)',
   assert.ok(nc.RD.ci[0] < 0 && nc.RD.ci[1] > 0);
 });
 
-test('the DEFF route says where its ICC and farm size come from: 728 animals, while vaccine x ELISA uses 682 rows (review round 3)', async () => {
+test('the DEFF route takes its ICC and farm size from the 682 rows vaccine x ELISA uses (M2 carried item 12.2)', async () => {
   const { serosurveyTable: studioTable } = await import('./runtime-m1-specs.mjs');
   const { handleRequest } = await import('../../src/lib/runtime/engine-core.js');
   const { makeSpec } = await import('../../src/lib/runtime/spec.js');
@@ -213,9 +213,14 @@ test('the DEFF route says where its ICC and farm size come from: 728 animals, wh
   assert.equal(env.status, 'ok');
   // 46 cows answered "ไม่ทราบ" for the vaccine (numbers.json conv.missing): 728 - 46 = 682 in the 2x2.
   assert.equal(env.provenance.rowsUsed, 682);
-  assert.equal(env.values.nIcc.value, 728);
-  assert.equal(env.values.clusters.value, 49);
-  close(env.values.meanSize.value, 728 / 49, CLOSED, 'mean farm size of the ICC animals');
-  close(env.values.deff.value, SERO.deff, CLOSED, 'DEFF from the ICC of the whole set');
+  const V = SERO.assoc.deffRowsVaccine;
+  assert.equal(env.values.nIcc.value, V.n);
+  assert.equal(env.values.clusters.value, V.clusters);
+  close(env.values.icc.value, V.icc, CLOSED, 'ICC of the rows used');
+  close(env.values.meanSize.value, V.meanSize, CLOSED, 'mean farm size of the rows used');
+  close(env.values.deff.value, V.deff, CLOSED, 'DEFF of the rows used');
+  close(env.values.PR.value, V.pr, CLOSED, 'crude PR');
+  close(env.values.PR.ci[0], V.ci[0], 1e-9, 'DEFF-widened PR lower');
+  close(env.values.PR.ci[1], V.ci[1], 1e-9, 'DEFF-widened PR upper');
 });
 

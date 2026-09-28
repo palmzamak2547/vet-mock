@@ -66,7 +66,11 @@ export const SERO = Object.freeze({
     risk1: 0.24166666666666667, risk0: 0.11440677966101695,
     crudePR: { est: 2.112345679012346, ci: [1.431994065027821, 3.1159376820150717], se: 0.19833583948263836 },
     crudePOR: { est: 2.466829466829467, ci: [1.569739153376983, 3.8765979719158725] },
-    deffPR: { est: 2.112345679012346, ci: [1.272298891572946, 3.507040914046339] },
+    // M2 carried item 12.2: the DEFF route takes ICC and farm size from the 716 rows the 2x2 uses
+    // (tests/fixtures/serosurvey/check.py recomputes these from the raw file).
+    deffPR: { est: 2.112345679012346, ci: [1.2725237769644218, 3.5064211360247777] },
+    deffRows: { n: 716, clusters: 49, icc: 0.05140138547901361, meanSize: 14.612244897959183, deff: 1.6996882472347363 },
+    deffRowsVaccine: { n: 682, clusters: 49, icc: 0.04322155871911217, meanSize: 13.918367346938776, deff: 1.5583519728407755, pr: 0.8690146418678274, ci: [0.5291898421963481, 1.4270614958260435] },
     mh: {
       strata: 49, informative: 43,
       pr: { est: 2.17392147567125, ci: [1.4682451741496192, 3.218763913269349], se: 0.2002407915579817 },

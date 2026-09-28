@@ -12,6 +12,7 @@ import workspace from '../../src/i18n/workspace.js';
 import report from '../../src/i18n/report.js';
 import common from '../../src/i18n/common.js';
 import terms from '../../src/i18n/terms.js';
+import termsM2 from '../../src/i18n/terms-m2.js';
 import epi from '../../src/i18n/epi.js';
 import stats from '../../src/i18n/stats.js';
 import runtime from '../../src/i18n/runtime.js';
@@ -37,7 +38,7 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const src = path.resolve(here, '../../src');
 const course = JSON.parse(readFileSync(path.resolve(here, '../fixtures/course/epi-course-2026.json'), 'utf8'));
 
-const OWN = { th: { ...workspace.th, ...report.th, ...common.th, ...terms.th }, en: { ...workspace.en, ...report.en, ...common.en, ...terms.en } };
+const OWN = { th: { ...workspace.th, ...report.th, ...common.th, ...terms.th, ...termsM2.th }, en: { ...workspace.en, ...report.en, ...common.en, ...terms.en, ...termsM2.en } };
 const ALL = {
   th: { ...OWN.th, ...epi.th, ...stats.th, ...runtime.th, ...intake.th, ...lab.th, ...models.th, ...measure.th, ...data.th, ...graphs.th, ...tools.th },
   en: { ...OWN.en, ...epi.en, ...stats.en, ...runtime.en, ...intake.en, ...lab.en, ...models.en, ...measure.en, ...data.en, ...graphs.en, ...tools.en },

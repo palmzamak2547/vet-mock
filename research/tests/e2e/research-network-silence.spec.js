@@ -5,7 +5,8 @@
 import { test, expect } from '@playwright/test';
 import { fileURLToPath } from 'node:url';
 import { seenEntrance, recordRequests, engineWorkerUrl, packTable, runInWorker } from './research-runtime-helpers.mjs';
-import { serosurveyTable, m1Specs, noFarm, SEROSURVEY_PATH } from '../unit/runtime-m1-specs.mjs';
+import { noFarm, SEROSURVEY_PATH } from '../unit/runtime-m1-specs.mjs';
+import { allSpecs } from '../unit/runtime-area-specs.mjs';
 
 // The error boundary's sentence; a pane that crashed would show it.
 const W_BROKEN = 'หน้านี้มีปัญหา';
@@ -63,16 +64,19 @@ test('a whole session stays on this origin', async ({ page, context, baseURL }) 
   await page.goto('/licenses');
   await page.waitForLoadState('load');
 
-  // Every M1 method on the shipped worker, with the serosurvey table the engine core builds.
+  // Every registered method (M1 and M2) on the shipped worker, with the serosurvey table the engine
+  // core builds or the made-up table the method's area supplies (runtime-area-specs.mjs).
   await page.goto('/app');
   const url = await engineWorkerUrl(page);
   expect(url, 'the module worker is built and reachable').toBeTruthy();
-  const { table, codebook, steps, keys } = await serosurveyTable();
-  const packed = packTable(table);
-  const requests = m1Specs(keys).map(({ spec, needsFarm }) => ({
-    op: 'run',
-    payload: { spec, table: spec.input.kind === 'dataset' ? packed : null, codebook: needsFarm ? codebook : noFarm(codebook), steps },
-  }));
+  const { base, cases } = await allSpecs();
+  const packedBase = packTable(base.table);
+  const requests = cases.map((c) => {
+    const { spec, needsFarm } = c;
+    const table = c.table ? packTable(c.table) : packedBase;
+    const codebook = c.codebook || (needsFarm ? base.codebook : noFarm(base.codebook));
+    return { op: 'run', payload: { spec, table: spec.input.kind === 'dataset' ? table : null, codebook, steps: c.steps || base.steps } };
+  });
   const replies = await runInWorker(page, url, requests);
   expect(replies[0].type).toBe('result');
   for (const r of replies.slice(1)) {

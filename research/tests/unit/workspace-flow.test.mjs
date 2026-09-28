@@ -71,9 +71,10 @@ test('serosurvey: the association panel stops at G1 with ICC, DEFF and effective
   assert.ok(stopped.guard.stops.some((s) => s.id === 'G1'));
   assert.ok((stopped.tests || []).every((x) => x.p === null), 'no p-value before a route is chosen');
   const panel = clusterPanel(spec, table, codebook);
-  close(panel.icc.value, numbers.prev.icc, 1e-9, 'ICC');
-  close(panel.deff.value, numbers.prev.deff, 1e-9, 'DEFF');
-  close(panel.nEff.value, numbers.prev.nEff, 1e-9, 'effective n');
+  // ICC, DEFF and effective n of the rows the 2x2 uses (716; M2 carried item 12.2), as the DEFF route applies them.
+  close(panel.icc.value, numbers.assoc.deffRows.icc, 1e-9, 'ICC');
+  close(panel.deff.value, numbers.assoc.deffRows.deff, 1e-9, 'DEFF');
+  close(panel.nEff.value, numbers.assoc.deffRows.n / numbers.assoc.deffRows.deff, 1e-9, 'effective n');
   assert.deepEqual(panel.routes.filter((r) => r.enabled).map((r) => r.id), ['mh-within', 'deff'], 'aggregate is off: age is measured on the animal');
 
   const chosen = { ...spec, cluster: { route: 'mh-within', column: codebook.clusterKey } };

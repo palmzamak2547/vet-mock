@@ -11,6 +11,8 @@ const PREFIX = {
   common: 'common.', terms: 'term.', workspace: 'ws.', report: 'report.', landing: 'landing.', entrance: 'entrance.',
   intake: 'intake.', stats: 'stats.', epi: 'epi.', runtime: 'runtime.',
   lab: 'lab.', models: 'models.', measure: 'measure.', data: 'data.', graphs: 'graphs.', tools: 'tools.', trust: 'trust.',
+  // the M2 statistics terms, kept apart from terms.js so the landing does not load them
+  'terms-m2': 'term.',
 };
 
 const files = readdirSync(dir).filter((f) => f.endsWith('.js') && f !== 'index.js');

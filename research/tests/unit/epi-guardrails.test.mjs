@@ -62,13 +62,14 @@ test('G1 on the serosurvey: stops with 49 farms and offers the within-farm and D
 test('G1 panel: ICC, DEFF and effective n come first (serosurvey-numbers)', () => {
   const t = serosurveyTable();
   const p = clusterPanel(spec('epi.twoByTwo', { kind: 'dataset' }, { ...SERO_ROLES, design: 'cross-sectional' }), t, null);
-  close(p.icc.value, SERO.icc, CLOSED, 'ICC');
-  close(p.deff.value, SERO.deff, CLOSED, 'DEFF');
-  close(p.nEff.value, SERO.nEff, CLOSED, 'effective n');
-  close(p.meanSize, SERO.mBar, CLOSED, 'mean farm size');
-  assert.equal(p.clusters, 49);
-  // The animals behind ICC, DEFF and effective n (review round 3): every one with an ELISA result.
-  assert.equal(p.animals, SERO.n);
+  // The animals behind ICC, DEFF and effective n: the rows the 2x2 would use (716 with a known age and
+  // an ELISA result; M2 carried item 12.2, decision B9), the numbers the DEFF route then applies.
+  const R = SERO.assoc.deffRows;
+  close(p.icc.value, R.icc, CLOSED, 'ICC');
+  close(p.deff.value, R.deff, CLOSED, 'DEFF');
+  close(p.meanSize, R.meanSize, CLOSED, 'mean farm size');
+  assert.equal(p.clusters, R.clusters);
+  assert.equal(p.animals, R.n);
   close(p.nEff.value, p.animals / p.deff.value, CLOSED, 'effective n = animals / DEFF');
   const byId = Object.fromEntries(p.routes.map((r) => [r.id, r]));
   assert.equal(byId['mh-within'].enabled, true);
