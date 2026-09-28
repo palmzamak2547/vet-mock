@@ -76,13 +76,15 @@ export function primaryTest(env) {
   // robust route drops it) the test of the headline term, never the intercept's Wald test (review round 2:
   // "Wald test: intercept (t), p = 0.092" under the odds ratio for age).
   const mid = env?.method?.id || env?.spec?.method || '';
+  // The p-value beside the headline OR/IRR is that term's own test; the whole-model LR test (p = 0.144 under
+  // OR 3.11 whose own tests gave 0.027 and 0.032, review round 3) stays in the tests table.
   if (mid === 'reg.logistic' || mid === 'reg.poisson') {
-    if (tests[0]?.id === 'lrNull') return tests[0];
     const head = primaryValueName(env);
     const term = head && head.includes(':') ? head.slice(head.indexOf(':') + 1) : null;
-    if (!term) return null;
-    const col = term.includes('=') ? term.slice(0, term.indexOf('=')) : term;
-    return tests.find((x) => x.id === `lr:${col}`) || tests.find((x) => x.id === `wald:${term}`) || null;
+    const col = term && term.includes('=') ? term.slice(0, term.indexOf('=')) : term;
+    const own = term ? tests.find((x) => x.id === `lr:${col}`) || tests.find((x) => x.id === `wald:${term}`) : null;
+    if (own) return own;
+    return tests[0]?.id === 'lrNull' ? tests[0] : null;
   }
   return tests[0] || null;
 }

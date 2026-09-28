@@ -24,7 +24,7 @@ function ciText(ctx, v, lo, hi, kind = 'ratio') {
 }
 
 /**
- * @param {{ rows: { label: string, est: number|null, lo: number|null, hi: number|null, kind?: 'stratum'|'pooled'|'crude'|'adjusted', note?: string }[], measure?: string, xTitle?: string, level?: number, log?: boolean }} input
+ * @param {{ rows: { label: string, est: number|null, lo: number|null, hi: number|null, kind?: 'stratum'|'pooled'|'crude'|'adjusted'|'term', note?: string }[], measure?: string, xTitle?: string, level?: number, log?: boolean }} input
  *   rows in the order to draw (strata first, then the summary rows); `note` is the sentence of a row
  *   whose estimate is undefined (null).
  */
@@ -42,11 +42,28 @@ export function forestChart(input, opts) {
   // on a narrow chart the interval text goes under the row label instead of in a column of its own
   const wrap = labelW + textNeed > ctx.width * 0.62;
   const textW = wrap ? 0 : textNeed;
-  const rowH = wrap ? fs * 2.9 : fs * 1.9;
   const left = wrap ? Math.max(labelW, Math.min(ctx.width * 0.45, textNeed * 0.9)) : labelW;
+  // A row label wraps at its spaces to the label column and the row grows to fit, so no label ever runs
+  // under a mark (review round 3: a logistic term label ran under its OR marker at every width). A single
+  // word wider than the column is cut with a dash only as a last resort.
+  const room = left - fs * 0.6;
+  const labelLines = rows.map((r) => {
+    const lines = textWidth(r.label, fs) <= room ? [r.label] : wrapWords(r.label, room, fs);
+    return lines.map((l) => {
+      if (textWidth(l, fs) <= room) return l;
+      let s = l;
+      while (s.length > 1 && textWidth(`${s}-`, fs) > room) s = s.slice(0, -1);
+      return `${s}-`;
+    });
+  });
+  const lineH = fs * 1.2;
+  const rowHs = labelLines.map((ls) => Math.max(wrap ? fs * 2.9 : fs * 1.9, (ls.length + (wrap ? 1 : 0)) * lineH + fs * 0.7));
+  const rowTop = [];
+  let acc = fs * 0.6;
+  for (const h of rowHs) { rowTop.push(acc); acc += h; }
   const right = ctx.width - textW;
   const top = fs * 0.6;
-  const plotBottom = top + rows.length * rowH;
+  const plotBottom = acc;
   const height = plotBottom + fs * (input.xTitle ? 3.6 : 2.3);
   const vals = rows.flatMap((r) => [r.est, r.lo, r.hi]).filter((v) => num(v) && (!log || v > 0));
   const domain = paddedDomain(vals, { log, pad: 0.08, include: [log ? 1 : 0] });
@@ -58,15 +75,18 @@ export function forestChart(input, opts) {
   const ref = log ? 1 : 0;
   nodes.push(line(x(ref), top, x(ref), plotBottom, { stroke: 'soft', 'stroke-width': r2(1.3 * u) }));
   rows.forEach((r, i) => {
-    const y = top + i * rowH + rowH / 2;
-    const summary = r.kind && r.kind !== 'stratum';
-    if (wrap) {
-      nodes.push(text(0, y - fs * 0.15, r.label, { 'font-size': fs, fill: summary ? 'ink' : 'soft', 'font-weight': summary ? 600 : 400 }));
-      nodes.push(text(0, y + fs * 0.95, texts[i], { 'font-size': fs * 0.9, fill: 'soft' }));
-    } else {
-      nodes.push(text(0, y + fs * 0.35, r.label, { 'font-size': fs, fill: summary ? 'ink' : 'soft', 'font-weight': summary ? 600 : 400 }));
-      nodes.push(text(ctx.width, y + fs * 0.35, texts[i], { 'font-size': fs, fill: summary ? 'ink' : 'soft', 'text-anchor': 'end' }));
-    }
+    const rowH = rowHs[i];
+    const y = rowTop[i] + rowH / 2;
+    // A pooled or adjusted summary of strata is a diamond; a model term ('term') is an estimate of its own,
+    // drawn as a square and its interval (review round 3: logistic ORs were drawn as pooled diamonds).
+    const summary = !!r.kind && r.kind !== 'stratum' && r.kind !== 'term';
+    const ls = labelLines[i];
+    const block = (ls.length + (wrap ? 1 : 0)) * lineH;
+    const y0 = y - block / 2 + fs * 0.85;
+    const attrs = { 'font-size': fs, fill: summary || r.kind === 'term' ? 'ink' : 'soft', 'font-weight': summary ? 600 : 400 };
+    ls.forEach((l, k) => nodes.push(text(0, y0 + k * lineH, l, attrs)));
+    if (wrap) nodes.push(text(0, y0 + ls.length * lineH, texts[i], { 'font-size': fs * 0.9, fill: 'soft' }));
+    else nodes.push(text(ctx.width, y + fs * 0.35, texts[i], { 'font-size': fs, fill: summary ? 'ink' : 'soft', 'text-anchor': 'end' }));
     const inside = (v) => num(v) && (!log || v > 0);
     const openLo = r.lo === -Infinity || (log && r.lo === 0);
     const openHi = r.hi === Infinity;
@@ -86,6 +106,10 @@ export function forestChart(input, opts) {
     }
   });
   const lv = levelText(input.level);
+  // Model terms (logistic ORs, Poisson IRRs) have no strata and nothing pooled: their own summary and note.
+  const terms = rows.every((r) => r.kind === 'term');
+  const hasNote = rows.some((r) => r.note);
+  const ciCell = (r, i) => (num(r.est) ? texts[i].replace(/^.*?\(/, '').replace(/\)$/, '') : '');
   return finish(ctx, {
     kind: 'forest',
     height,
@@ -93,11 +117,13 @@ export function forestChart(input, opts) {
     axes: [{ id: 'x', title: input.xTitle || '', ticks, labels: labs, log }],
     legend: [],
     table: {
-      columns: [t('graphs.col.row'), t('graphs.col.estimate'), t('graphs.col.ci', { level: lv }), t('graphs.col.note')],
-      rows: rows.map((r, i) => [r.label, fmtN(ctx, r.est), num(r.est) ? texts[i].replace(/^.*?\(/, '').replace(/\)$/, '') : '', r.note || '']),
+      columns: [t('graphs.col.row'), t('graphs.col.estimate'), t('graphs.col.ci', { level: lv })].concat(hasNote ? [t('graphs.col.note')] : []),
+      rows: rows.map((r, i) => [r.label, fmtN(ctx, r.est), ciCell(r, i)].concat(hasNote ? [r.note || ''] : [])),
     },
-    summary: t('graphs.summary.forest', { k: rows.filter((r) => !r.kind || r.kind === 'stratum').length, rows: rows.filter((r) => r.kind && r.kind !== 'stratum').map((r, i) => `${r.label} ${texts[rows.indexOf(r)] || i}`).join('; ') }),
-    notes: [t(log ? 'graphs.note.forest' : 'graphs.note.forestLinear')],
+    summary: terms
+      ? t('graphs.summary.forestTerms', { measure: input.measure || '', rows: rows.map((r, i) => `${r.label} ${texts[i]}`).join('; ') })
+      : t('graphs.summary.forest', { k: rows.filter((r) => !r.kind || r.kind === 'stratum').length, rows: rows.filter((r) => r.kind && r.kind !== 'stratum').map((r, i) => `${r.label} ${texts[rows.indexOf(r)] || i}`).join('; ') }),
+    notes: [t(terms ? 'graphs.note.forestTerms' : log ? 'graphs.note.forest' : 'graphs.note.forestLinear', { measure: input.measure || '' })],
   });
 }
 

@@ -69,6 +69,10 @@ const DEFF_METHODS = new Set(['freq.proportion', 'freq.truePrevalence', 'epi.two
 const SURVEY_METHODS = new Set(['freq.proportion']);
 const ROBUST_METHODS = new Set(['reg.logistic', 'reg.poisson']);
 const NO_AGGREGATE_METHODS = new Set(['reg.logistic', 'reg.poisson', 'surv.kaplanMeier']);
+/** Measurements of each animal (a test against a reference, two raters, several items): a farm mean of
+ * each reading is a different quantity, so limits of agreement narrow, alpha rises and the AUC reads
+ * farms (review round 3: limits 2.7 times narrower, alpha 0.80 -> 0.96, AUC 0.79 -> 1). No aggregate route. */
+const NO_AGGREGATE_MEASURE = new Set(['roc.delong', 'agree.blandAltman', 'rel.cronbach']);
 /** Routes that account for farms, so G1 does not fire again once one is chosen. run.js shares this set: a route
  * missing here stops at G1 forever and offers itself again (review round 2: 'survey' did). */
 export const FARM_AWARE = Object.freeze(new Set(['deff', 'mh-within', 'aggregate', 'survey', 'robust']));
@@ -437,8 +441,16 @@ function routesFor(spec, table, codebook, groups) {
   }
   // A regression model or a survival curve is not answered by one row per farm (the outcome, the
   // follow-up time and every covariate would have to be summarised first): no aggregate route.
+  // Any role column other than the outcome that takes more than one value inside a farm (a second factor,
+  // a time, a covariate) is lost or averaged away by one row per farm, so the route would answer another
+  // question (review round 3: two-way ANOVA with B on the animal ran on 8 of 16 farms).
+  const yk = outcomeKeyOf(spec);
+  const otherVaries = roleKeys(spec).some((k) => k !== yk && k !== ek && table.columns[k] && variesWithin(table.columns[k], groups));
   if (NO_AGGREGATE_METHODS.has(method)) routes.push({ id: 'aggregate', enabled: false, reasonKey: 'epi.route.aggregate.notForModel' });
-  else routes.push(exposureOnAnimal ? { id: 'aggregate', enabled: false, reasonKey: 'epi.route.aggregate.exposureOnAnimal' } : { id: 'aggregate', enabled: true, reasonKey: null });
+  else if (NO_AGGREGATE_MEASURE.has(method)) routes.push({ id: 'aggregate', enabled: false, reasonKey: 'epi.route.aggregate.notForMeasure' });
+  else if (exposureOnAnimal) routes.push({ id: 'aggregate', enabled: false, reasonKey: 'epi.route.aggregate.exposureOnAnimal' });
+  else if (otherVaries) routes.push({ id: 'aggregate', enabled: false, reasonKey: 'epi.route.aggregate.roleOnAnimal' });
+  else routes.push({ id: 'aggregate', enabled: true, reasonKey: null });
   routes.push({ id: 'gee', enabled: false, reasonKey: 'epi.route.m3' });
   routes.push({ id: 'mixed', enabled: false, reasonKey: 'epi.route.m3' });
   return routes;

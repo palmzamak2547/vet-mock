@@ -218,8 +218,8 @@ export default function Tool() {
                   {cutNotes.map((x, i) => <Notice key={i} tone="info">{t(x.key, x.params || {})}</Notice>)}
                   <PreviewTable
                     caption={t('tools.random.armsCaption')}
-                    head={[...(stratified ? [heads.stratum] : [t('tools.random.all')]), heads.arm, t('tools.random.count')]}
-                    rows={armTable.rows.map((r) => [...(stratified ? [r[0]] : [t('tools.random.all')]), r[1], r[2].toLocaleString('en-US')])}
+                    head={[...(stratified ? [heads.stratum] : []), heads.arm, t('tools.random.count')]}
+                    rows={armTable.rows.map((r) => [...(stratified ? [r[0]] : []), r[1], r[2].toLocaleString('en-US')])}
                   />
                   <PreviewTable
                     caption={t('tools.random.listCaption')}

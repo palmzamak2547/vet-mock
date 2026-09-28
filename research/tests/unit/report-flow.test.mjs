@@ -94,6 +94,7 @@ test('the flow marks STROBE-Vet items 13, 12(c) and 14(b)', () => {
   assert.equal(s.find((x) => x.item === '12(c)').ok, true);
   const b = s.find((x) => x.item === '14(b)');
   assert.deepEqual([b.key, b.ok, b.ns], ['missingPerVariableFlow', true, 'report']);
-  // Without a flow the M1 rows are unchanged (the workspace i18n coverage test reads these keys).
-  assert.deepEqual(strobeStatus({ analyses: [], steps: [], codebook: null }).map((x) => x.key), ['clusteringNoFarm', 'missing', 'flow', 'missingPerVariable', 'crudeAdjusted', 'cutpointsNone', 'sensitivity']);
+  // Without a flow and without a farm column: no farm route rows, and item 13 lists no farms (review round 3;
+  // the workspace i18n coverage test reads these keys).
+  assert.deepEqual(strobeStatus({ analyses: [], steps: [], codebook: null }).map((x) => x.key), ['clusteringNoFarm', 'missing', 'flowNoFarm', 'missingPerVariable', 'crudeAdjusted', 'cutpointsNone']);
 });

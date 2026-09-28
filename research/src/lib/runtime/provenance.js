@@ -92,7 +92,9 @@ export function provenanceLines(env, lang, t, labelOf = (k) => k) {
   const used = typeof p.rowsUsed === 'number' ? p.rowsUsed : 0;
   // A calculation from typed parameters (sample size) reads no rows, so the rows line is left out
   // (review round 2: "used 0 rows, none left out" under every sample size).
-  const noData = env.spec?.input?.kind === 'params';
+  // A result the method refused before counting rows has no row count of its own: printing "used 0 rows"
+  // beside the G24 note's "59 of 60 rows used" gave two counts for one result (review round 3).
+  const noData = env.spec?.input?.kind === 'params' || (env.status !== 'ok' && !(p.rowsUsed > 0));
   if (noData) { /* no rows line */ } else if (total === 0) second.push(t('runtime.prov.rowsNoneDropped', { used }));
   else {
     const reasons = dropped.map((d) => t(`runtime.prov.drop.${d.reason}`, { column: d.column ? labelOf(d.column) : '', count: d.count }).trim()).join(', ');

@@ -4,7 +4,7 @@
 // whose envelope is verified against the 'r-4.6.0' fixtures; otherwise it asks the reader to compare. The
 // app shows the code and hands it over as a download; it never runs it [M2-DESIGN.md 6.4]. OWNER: report role.
 import { getMethod } from '../runtime/catalog.js';
-import { columnIndex, envNumbers, matchesR, oneLine, rolesOf, scriptAnalyses, wrapComment } from './script-common.js';
+import { columnIndex, envNumbers, valueNamer, matchesR, oneLine, rolesOf, scriptAnalyses, wrapComment } from './script-common.js';
 
 /** An R string literal. */
 export const rq = (s) => `"${String(s ?? '').replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/[\u0000-\u001f\u007f\u2028\u2029]/g, ' ')}"`;
@@ -420,7 +420,7 @@ export function buildRScript(input) {
     for (const h of r.helpers) if (!helpers.includes(h)) helpers.push(h);
     const lines = ['', `## ${i + 1}. ${name}`];
     lines.push(`# ${t('report.script.ours', { numbers: '' }).trim()}`);
-    for (const n of envNumbers(a.env)) lines.push(`#   ${n}`);
+    for (const n of envNumbers(a.env, valueNamer(ix, t))) lines.push(`#   ${n}`);
     if (r.note === 'list') {
       const p = a.spec?.input?.params || {};
       for (const l of wrapComment(t('report.script.list', { seed: p.seed ?? a.spec?.options?.seed ?? '', stream: p.stream ?? a.spec?.options?.stream ?? 54 }))) lines.push(`# ${l}`);

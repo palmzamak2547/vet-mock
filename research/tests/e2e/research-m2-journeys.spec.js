@@ -128,7 +128,7 @@ test('paired ROC comparison on the rapid-test example, kept and exported as a Wo
   const project = await openExample(page, 'rapid-test');
   await page.goto(`${project}/measure`);
   await page.locator('input[name="rs-method-measure"][value="roc.delong"]').check();
-  await pick(page, '#rs-role-test', 'ชุดทดสอบเร็ว');
+  await pick(page, '#rs-role-test', 'ชุดตรวจเร็ว');
   await pick(page, '#rs-role-reference', 'ผลเพาะเชื้อ');
   const pos = page.locator('#rs-lv-referencePositive');
   // the picker shows the codebook label, not the raw code the file carries (review round 2)
@@ -297,4 +297,26 @@ test('a randomisation list with its seed, the same list as the independent Pytho
   for (const [unit, , , arm, code] of golden.expected.list) {
     expect(csv, `unit ${unit}`).toMatch(new RegExp(`(^|\\n)${unit},[^\\n]*${arm}[^\\n]*${code}`));
   }
+});
+
+test('double-entry check names columns and values by the codebook, not the raw headers (review round 3)', async ({ page }) => {
+  test.setTimeout(120_000);
+  const project = await openExample(page, 'double-entry');
+  if (!/\/compare$/.test(page.url())) await page.goto(`${project}/compare`);
+  // The second typing arrives as the example's pending file: answer its import questions when asked.
+  const found = page.locator('#rs-h-found');
+  const picker = page.locator('#rs-cmp-ka');
+  await expect(found.or(picker).first()).toBeVisible({ timeout: 30_000 });
+  if (await found.isVisible()) await answerAndConfirm(page);
+  await expect(picker).toBeVisible({ timeout: 30_000 });
+  await expect(picker.locator('option', { hasText: 'เลขที่แบบฟอร์ม' })).toHaveCount(1);
+  await expect(page.locator('#rs-cmp-kb option', { hasText: 'เลขที่แบบฟอร์ม' })).toHaveCount(1);
+  await page.getByRole('button', { name: th['tools.compare.run'] }).click();
+  const table = page.locator('table', { has: page.locator('caption.rs-table-cap') }).last();
+  await expect(table).toBeVisible();
+  const cells = await table.locator('tbody td').allInnerTexts();
+  expect(cells.some((c) => c.includes('น้ำหนัก'))).toBe(true);
+  expect(cells.some((c) => c === 'weight_kg')).toBe(false);
+  // a level is shown by its codebook label, the typed value beside it
+  expect(cells.some((c) => /เพศ(ผู้|เมีย)/.test(c))).toBe(true);
 });

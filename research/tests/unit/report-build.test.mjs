@@ -118,6 +118,20 @@ test('STROBE-Vet check reads what was kept', () => {
   assert.equal(withT1.find((s) => s.key === 'crudeAdjusted').ok, true, 'a 2x2 with a farm route counts as adjusted beside the crude');
 });
 
+test('STROBE-Vet check on data with no farm column (review round 3): no farm route rows, a flow without farms, a regression counted as adjusted', () => {
+  const noFarm = { unitOfAnalysis: 'animal', clusterKey: null, columns: [] };
+  const km = { method: 'surv.kaplanMeier', roles: { time: 't', event: 'e' } };
+  const logit = { method: 'reg.logistic', roles: { outcome: 'y', covariates: ['a', 'b', 'c'] } };
+  const one = { method: 'reg.logistic', roles: { outcome: 'y', covariates: ['a'] } };
+  const keep = (spec) => ({ spec, envelope: { spec } });
+  const rows = strobeStatus({ analyses: [keep(km), keep(logit)], steps: [], codebook: noFarm, design: 'cohort' });
+  assert.ok(!rows.some((r) => r.item === '12(e)'), 'no second farm route to ask for');
+  assert.equal(rows.find((r) => r.item === '13').key, 'flowNoFarm');
+  assert.equal(rows.find((r) => r.item === '16(a)').ok, false, 'adjusted ORs kept, no crude estimate yet');
+  assert.equal(strobeStatus({ analyses: [keep(one), keep(logit)], steps: [], codebook: noFarm, design: 'cohort' }).find((r) => r.item === '16(a)').ok, true);
+  for (const lang of ['th', 'en']) for (const r of rows) assert.ok(!tOf(lang)(`ws.strobe.${r.key}.ok`).startsWith('['), r.key);
+});
+
 for (const lang of ['th', 'en']) {
   test(`${lang}: a Table 1 methods sentence never claims confidence intervals (review round 1 blocker)`, () => {
     const t = tOf(lang);

@@ -29,7 +29,7 @@ export default {
   },
   {
    "name": "rapid_score",
-   "labelTh": "ค่าที่อ่านได้จากชุดทดสอบเร็ว (0 ถึง 100)",
+   "labelTh": "ค่าที่อ่านได้จากชุดตรวจเร็ว (0 ถึง 100)",
    "labelEn": "Rapid test reading (0 to 100)",
    "type": "continuous",
    "role": "none",

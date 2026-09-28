@@ -140,7 +140,9 @@ export function buildReportModel(input) {
     }
     for (const f of figures.filter((x) => x && x.analysisId === a.id && typeof x.svg === 'string' && x.svg)) {
       figureNo += 1;
-      blocks.push({ kind: 'figure', svg: f.svg, widthMm: f.widthMm || 140, caption: t('report.doc.figureCaption', { n: figureNo, title: f.caption || name }), altText: f.altText || f.caption || name });
+      const title = f.caption || (f.title ? `${name}: ${f.title}` : name);
+      const caption = f.note ? t('report.doc.figureCaptionNote', { n: figureNo, title, note: f.note }) : t('report.doc.figureCaption', { n: figureNo, title });
+      blocks.push({ kind: 'figure', svg: f.svg, widthMm: f.widthMm || 140, caption, altText: f.altText || title });
     }
   }
   if (left.length) blocks.push({ kind: 'paragraph', text: t('report.doc.leftOut', { n: left.length }), style: 'note' });

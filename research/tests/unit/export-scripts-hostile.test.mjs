@@ -90,4 +90,17 @@ for (const lang of ['th', 'en']) {
     assert.ok(line && line.includes("'1 ''x'') HOST COMMAND=[''calc''] /c1 2' 'lab' 2 '"), `value labels line: ${line}`);
     for (const l of rows) if (!l.startsWith('*')) assert.ok(!l.replace(/'(?:[^']|'')*'/g, "''").includes('HOST'), l);
   });
+
+  test(`${lang}: T-TEST GROUPS writes a level of a number column bare only when it is a number`, () => {
+    // Review round 3: the round-2 fix covered VALUE LABELS only; T-TEST GROUPS still printed the level raw.
+    const lvl = "1 2) /VARIABLES=w /CRITERIA=CI(.95). HOST COMMAND=['calc'] /X=(1";
+    const cb = { columns: [{ key: 'c3', name: 'grp', type: 'continuous', levels: [{ value: lvl }, { value: '2' }] }, { key: 'c4', name: 'w', type: 'continuous', levels: [] }] };
+    const spec = makeSpec('test.tTest', { kind: 'dataset', datasetId: 'd1', recipeRev: 0 }, { design: 'experiment', roles: { group: 'c3', outcome: 'c4' }, options: { variant: 'welch' } });
+    const env = { envelopeVersion: 1, status: 'ok', spec, values: {}, tests: [] };
+    const s = buildSps({ analyses: [{ id: 'a1', spec, envelope: env }], codebook: cb, csvName: 'd.csv', lang, t: tOf(lang) });
+    const line = s.replace(/^﻿/, '').split(/\r?\n/).find((l) => l.startsWith('T-TEST GROUPS'));
+    assert.ok(line, 'a T-TEST line');
+    assert.ok(!line.replace(/'(?:[^']|'')*'/g, "''").includes('HOST'), line);
+    assert.ok(/ 2\) \/VARIABLES=w /.test(line), line);
+  });
 }

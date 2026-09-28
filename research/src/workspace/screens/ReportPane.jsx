@@ -88,7 +88,11 @@ async function figuresFor(analyses, { lang, codebook }) {
       if (!chosen) continue;
       const model = kit.buildChart(chosen.kind, chosen.input, { widthMm: 140, lang, t, fmt: FMT });
       const svg = kit.chartToSvg(model, { theme: 'print' });
-      if (svg) out.push({ analysisId: a.id, svg, widthMm: 140, altText: model.summary || '' });
+      // The caption says what the figure shows and what its marks are (review round 3: "Figure 2. Two-way
+      // ANOVA" named the method only, never the cell means or the 95% CI).
+      const title = chosen.titleKey ? t(chosen.titleKey) : '';
+      const notes = (model.notes || []).filter(Boolean).join(' ');
+      if (svg) out.push({ analysisId: a.id, svg, widthMm: 140, altText: model.summary || '', title: title && !title.startsWith('[') ? title : '', note: notes });
     } catch { /* the chart kit has no drawing for this result yet */ }
   }
   return out;

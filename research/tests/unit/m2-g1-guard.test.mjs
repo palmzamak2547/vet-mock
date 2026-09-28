@@ -8,6 +8,7 @@ import { makeTable } from './stats-fixtures.mjs';
 import { runAnalysis } from '../../src/lib/runtime/run.js';
 import { makeSpec } from '../../src/lib/runtime/spec.js';
 import { AREA_G1_SUBJECT } from '../../src/lib/runtime/areas/index.js';
+import { clusterPanel } from '../../src/lib/epi/guardrails.js';
 
 function lcg(seed) { let v = seed; return () => { v = (v * 1103515245 + 12345) % 2147483648; return v / 2147483648; }; }
 function farmData(G, m) {
@@ -65,4 +66,41 @@ test('each stops at G1 on a repeating farm column with no route, with no p-value
     assert.ok(env.guard.stops.some((x) => x.id === 'G1'), `${m}: G1`);
     assert.ok((env.tests || []).every((x) => x.p === null), `${m}: no p-value`);
   }
+});
+
+// Review round 3 (blocker): the G1 panel offered 'aggregate' to ROC, Bland-Altman and Cronbach, and to two-way
+// ANOVA with the second factor on the animal. A farm mean of each reading answers another question (limits of
+// agreement 2.7 times narrower, alpha 0.80 -> 0.96, AUC 0.79 -> 1; the ANOVA ran on 8 of 16 farms). The panel
+// must never enable a route that changes what is being estimated.
+function specFor(m, roles) {
+  const design = m.startsWith('roc') ? 'diagnostic' : m.startsWith('agree') || m.startsWith('rel') ? 'agreement' : 'cohort';
+  const levels = m.startsWith('roc') ? { referencePositive: 'pos' } : m.startsWith('reg') ? { outcomePositive: 'pos' } : {};
+  return makeSpec(m, { kind: 'dataset', datasetId: 'd1', recipeRev: 1 }, { roles, design, levels, cluster: { route: null, column: 'farm' } });
+}
+
+test('the G1 panel never enables one row per farm when a role column other than the outcome varies inside farms, nor for measurements', () => {
+  const T = farmData(10, 8);
+  for (const [m, roles] of Object.entries(CASES)) {
+    const env = runAnalysis(specFor(m, roles), T, null);
+    const agg = (env.cluster?.panel?.routes || env.panel?.routes || clusterPanel(specFor(m, roles), T, null).routes).find((r) => r.id === 'aggregate');
+    assert.ok(agg, `${m}: aggregate listed`);
+    if (m === 'diag.shapiro') assert.equal(agg.enabled, true, m); // outcome only: the farm mean is the same question on farms
+    else assert.equal(agg.enabled, false, `${m}: aggregate must be off`);
+  }
+});
+
+test('measurement methods are refused one row per farm with their own reason, and two-way ANOVA with B on the animal is refused', () => {
+  const T = farmData(10, 8);
+  for (const m of ['roc.delong', 'agree.blandAltman', 'rel.cronbach']) {
+    const agg = clusterPanel(specFor(m, CASES[m]), T, null).routes.find((r) => r.id === 'aggregate');
+    assert.equal(agg.reasonKey, 'epi.route.aggregate.notForMeasure', m);
+  }
+  // A on the farm (g: a/b by farm), B on the animal (b2): the old check read A only and enabled the route.
+  const agg = clusterPanel(specFor('anova.twoWay', { outcome: 'sc', group: 'g', factorB: 'b2' }), T, null).routes.find((r) => r.id === 'aggregate');
+  assert.equal(agg.enabled, false);
+  assert.equal(agg.reasonKey, 'epi.route.aggregate.roleOnAnimal');
+  // Choosing the route anyway is refused by run.js (only routes the panel enables are accepted).
+  const s = makeSpec('anova.twoWay', { kind: 'dataset', datasetId: 'd1', recipeRev: 1 }, { roles: { outcome: 'sc', group: 'g', factorB: 'b2' }, design: 'cohort', cluster: { route: 'aggregate', column: 'farm' } });
+  const env = runAnalysis(s, T, null);
+  assert.ok((env.tests || []).every((x) => x.p === null), 'no p-value on a refused route');
 });

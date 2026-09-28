@@ -210,7 +210,7 @@ function rapidTest(seed) {
     files: [{ fileName: 'mastitis-rapid-test.csv', csv: toCsv(['cow_id', 'rapid_score', 'scc_k', 'culture'], rows) }],
     codebook: [
       col('cow_id', 'รหัสโค', 'Cow ID', 'id', { role: 'id', level: 'sample' }),
-      col('rapid_score', 'ค่าที่อ่านได้จากชุดทดสอบเร็ว (0 ถึง 100)', 'Rapid test reading (0 to 100)', 'continuous', { level: 'sample', range: { min: 0, max: 100 } }),
+      col('rapid_score', 'ค่าที่อ่านได้จากชุดตรวจเร็ว (0 ถึง 100)', 'Rapid test reading (0 to 100)', 'continuous', { level: 'sample', range: { min: 0, max: 100 } }),
       col('scc_k', 'จำนวนเซลล์โซมาติก (พันเซลล์ต่อ mL)', 'Somatic cell count (thousand cells per mL)', 'continuous', { level: 'sample', range: { min: 1, max: 20000 } }),
       col('culture', 'ผลเพาะเชื้อจากน้ำนม', 'Milk culture', 'binary', {
         role: 'outcome', level: 'sample', positive: 'บวก',

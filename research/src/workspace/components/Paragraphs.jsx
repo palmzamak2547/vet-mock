@@ -12,14 +12,14 @@ export default function Paragraphs({ label, th, en, onCopy }) {
       <div className="rs-para" lang="th">
         <div className="rs-para-head">
           <h3 className="rs-eyebrow">{t('ws.report.langTh', { label })}</h3>
-          <button type="button" className="rs-btn rs-btn--sm" onClick={() => onCopy(th, 'th')} disabled={!th}><Icon name="copy" size={16} />{t('ws.action.copy')}</button>
+          <button type="button" className="rs-btn rs-btn--sm" onClick={() => onCopy(th, 'th')} disabled={!th} aria-label={`${t('ws.action.copy')} ${t('ws.report.langTh', { label })}`}><Icon name="copy" size={16} />{t('ws.action.copy')}</button>
         </div>
         <p className="rs-para-text rs-num">{th || translate('th', 'ws.report.nothingYet')}</p>
       </div>
       <div className="rs-para" lang="en">
         <div className="rs-para-head">
           <h3 className="rs-eyebrow">{t('ws.report.langEn', { label })}</h3>
-          <button type="button" className="rs-btn rs-btn--sm" onClick={() => onCopy(en, 'en')} disabled={!en}><Icon name="copy" size={16} />{t('ws.action.copy')}</button>
+          <button type="button" className="rs-btn rs-btn--sm" onClick={() => onCopy(en, 'en')} disabled={!en} aria-label={`${t('ws.action.copy')} ${t('ws.report.langEn', { label })}`}><Icon name="copy" size={16} />{t('ws.action.copy')}</button>
         </div>
         <p className="rs-para-text rs-num">{en || translate('en', 'ws.report.nothingYet')}</p>
         {/[\u0E00-\u0E7F]/.test(en || '') ? <p className="rs-soft rs-small" role="note">{t('ws.report.thaiInEnglish')}</p> : null}

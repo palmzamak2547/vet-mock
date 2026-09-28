@@ -197,7 +197,7 @@ test('the student journey: import, clean, analyse with the farm guardrail, repor
   // Copy a paragraph and the table.
   // Headless WebKit refuses clipboard writes; the page must then say so instead of claiming success.
   const copied = (key) => (browserName === 'webkit' ? new RegExp(`${W[key]}|${W['ws.copy.failed']}`) : W[key]);
-  await paras.getByRole('button', { name: W['ws.action.copy'], exact: true }).first().click();
+  await paras.getByRole('button', { name: new RegExp(`^${W['ws.action.copy']} `) }).first().click();
   await expect(page.locator('.rs-status')).toContainText(copied('ws.copy.paragraph'));
   if (browserName === 'chromium') {
     const clip = await page.evaluate(() => navigator.clipboard.readText());

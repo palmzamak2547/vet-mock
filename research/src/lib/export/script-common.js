@@ -57,10 +57,11 @@ const pComment = (p) => (typeof p !== 'number' ? 'NA' : p === 0 ? '0' : p < 1e-1
  * @param {any} env
  * @returns {string[]}
  */
-export function envNumbers(env) {
+export function envNumbers(env, nameOf = (x) => x) {
   const out = [];
-  for (const [name, v] of Object.entries(env?.values || {})) {
+  for (const [key, v] of Object.entries(env?.values || {})) {
     if (!v || typeof v !== 'object') continue;
+    const name = nameOf(key);
     if (v.value === null || v.value === undefined) { out.push(`${oneLine(name)} = NA`); continue; }
     out.push(`${oneLine(name)} = ${num6(v.value)}${Array.isArray(v.ci) ? ` [${num6(v.ci[0])}, ${num6(v.ci[1])}]` : ''}`);
   }
@@ -73,6 +74,32 @@ export function envNumbers(env) {
     out.push(`${oneLine(test.id)}: ${parts.join(', ')}`);
   }
   return out;
+}
+
+const MEASURE_SHORT = Object.freeze({ oddsRatio: 'OR', rateRatio: 'IRR', riskRatio: 'RR', b: 'b', median: 'median' });
+
+/**
+ * A value's name in a script comment by the column names the script uses: "oddsRatio:c2=after 6 h" becomes
+ * "OR colostrum: after 6 h vs within 6 h" (review round 3: internal ids and raw values in the comments).
+ * @param {ReturnType<typeof columnIndex>} ix
+ * @param {(k: string, p?: any) => string} t
+ */
+export function valueNamer(ix, t) {
+  const vs = t('report.script.versus');
+  const versus = vs && !vs.startsWith('[') && vs !== 'report.script.versus' ? vs : 'vs';
+  return (name) => {
+    const m = /^([A-Za-z]+):(.+)$/.exec(String(name));
+    if (!m) return name;
+    const head = MEASURE_SHORT[m[1]] || m[1];
+    const rest = m[2];
+    const eq = rest.indexOf('=');
+    if (eq <= 0) return `${head} ${ix.col(rest)?.name ?? rest}`;
+    const key = rest.slice(0, eq);
+    const level = rest.slice(eq + 1);
+    const c = ix.col(key);
+    if (!c) return name;
+    return `${head} ${c.name}: ${level}${c.reference != null && c.reference !== level ? ` ${versus} ${c.reference}` : ''}`;
+  };
 }
 
 /** The envelope passed a fixture computed with R 4.6.0 (so the script may say the numbers matched). */

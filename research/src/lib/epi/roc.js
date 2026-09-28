@@ -171,9 +171,13 @@ export function runRoc(spec, table) {
     if (!c1.length || !k1.length) return invalidOutput(c1.length ? 'measure.error.noReferenceNegative' : 'measure.error.noReferencePositive', { used: res.used, dropped: res.dropped });
     const a = curve(c1, k1, direction, conf);
     const values = { nPositive: val(c1.length), nNegative: val(k1.length) };
+    // A DeLong variance of 0 (every positive reads above, or below, every negative) gives the interval
+    // [AUC, AUC]: not a real interval, so it is undefined with its reason (review round 3; pROC prints [1, 1]).
     const aucVal = (cv) => (cv.se === null
       ? val(cv.auc, { ci: [null, null], ciLevel: conf, ciMethod: 'delong', reasonKey: 'measure.undefined.aucNeedTwoEach' })
-      : val(cv.auc, { ci: cv.ci, ciLevel: conf, ciMethod: 'delong', se: cv.se }));
+      : cv.se === 0
+        ? val(cv.auc, { ci: [null, null], ciLevel: conf, ciMethod: 'delong', reasonKey: 'measure.undefined.aucNoVariance' })
+        : val(cv.auc, { ci: cv.ci, ciLevel: conf, ciMethod: 'delong', se: cv.se }));
     values.auc = aucVal(a);
     const notes = [];
     const warnings = [];

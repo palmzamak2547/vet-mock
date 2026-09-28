@@ -158,6 +158,23 @@ test('a number that splits the outcome is reported by its side', () => {
   assert.deepEqual(rows, [['x', 'models.cell.sideLow', 0, 5], ['x', 'models.cell.sideHigh', 1, 5]]);
 });
 
+// Review round 3: y = 1 exactly when a + b > 0. Neither a nor b separates the outcome alone, so the table names
+// the combination only, never a side of a or b (the old table listed 'a low side 19, a high side 13, b ...').
+test('separation that needs two numbers together is reported as a combination, not as each number', () => {
+  const rnd = lcg(99);
+  const a = [], b = [], y = [];
+  for (let i = 0; i < 60; i++) {
+    const ai = Math.round((rnd() * 4 - 2) * 1000) / 1000, bi = Math.round((rnd() * 4 - 2) * 1000) / 1000;
+    a.push(ai); b.push(bi); y.push(ai + bi > 0 ? 1 : 0);
+  }
+  const t = makeTable({ y: { kind: 'number', values: y }, a: { kind: 'number', values: a }, b: { kind: 'number', values: b } });
+  const out = runLogistic(spec('reg.logistic', { roles: { outcome: 'y', covariates: ['a', 'b'] } }), t);
+  assert.ok(out.warnings.some((w) => w.bodyKey === 'models.guard.G14.separation'));
+  const rows = out.tables.find((x) => x.id === 'separation').rows;
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0][0], 'models.cell.combination');
+});
+
 // Review round 1: on a large non-separated remainder R's deviance stop leaves the separated rows' fitted value
 // near 1e-8 x deviance / n_level, above the 1e-8 rule, and the absurd estimate (OR 5e-8, upper 1.5e14) was printed.
 function lcg(seed) { let s = seed; return () => { s = (s * 1103515245 + 12345) % 2147483648; return s / 2147483648; }; }

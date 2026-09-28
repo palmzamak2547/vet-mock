@@ -97,7 +97,6 @@ function MethodRow({ row }) {
         <h3 className="rs-pub-method-name">{t(row.nameKey)}</h3>
         <span className={`rs-chip rs-chip--badge ${row.status === 'verified' ? 'rs-chip--sage' : row.status === 'shipped' ? 'rs-chip--gold' : ''}`}>{t(`trust.methods.status.${row.status}`)}</span>
       </div>
-      <p className="rs-pub-method-id rs-mono rs-soft">{row.id}</p>
       {families.length ? (
         <p className="rs-pub-method-families">
           <span className="rs-soft">{t('trust.methods.col.checks')}: </span>

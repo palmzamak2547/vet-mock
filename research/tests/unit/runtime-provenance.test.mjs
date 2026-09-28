@@ -139,6 +139,17 @@ test('a calculation from typed parameters has no rows line (review round 2)', ()
   assert.ok(second.startsWith('VetMock Research'), second);
 });
 
+test('a result refused before counting rows has no rows line of its own (review round 3: two row counts)', () => {
+  const env = envelope({
+    status: 'invalid',
+    method: { id: 'rel.cronbach', family: 'reliability', milestone: 'M2' },
+    spec: { method: 'rel.cronbach', input: { kind: 'dataset', datasetId: 'd', recipeRev: 1 }, options: {} },
+    provenance: { ...envelope().provenance, methodId: 'rel.cronbach', rowsUsed: 0, rowsDropped: [], options: {} },
+  });
+  const [, second] = provenanceLines(env, 'en', tt('en'));
+  assert.ok(!/used 0 rows/.test(second), second);
+});
+
 test('the DEFF route names the interval it computed, not the CI option (review round 2)', () => {
   const env = envelope({
     method: { id: 'freq.proportion', family: 'proportion', milestone: 'M1' },

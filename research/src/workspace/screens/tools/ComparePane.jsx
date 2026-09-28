@@ -3,7 +3,8 @@
 // cleaned, before any conversion), so "1.0" against "1" shows. Columns are paired by header text. Each
 // difference is settled against the paper form: keep what this file has, or take the second typing's
 // value as a cell edit whose reason names the form. The log records the counts only, never a value.
-// Columns are named by their raw keys (c1, c2, ..), as lib/intake/double-entry.js reads them.
+// Columns are keyed by their raw keys (c1, c2, ..), as lib/intake/double-entry.js reads them, and shown by
+// their codebook labels in the page language.
 // OWNER: ui-tools role.
 import { useEffect, useMemo, useState } from 'react';
 import { useT } from '../../../i18n/index.js';
@@ -17,12 +18,14 @@ import Icon from '../../components/Icon.jsx';
 import { rawColumnIndex } from '../../lib/grid-model.js';
 import { safeFileBase } from '../../lib/files.js';
 import { IdList, SecondFile } from './ToolBits.jsx';
+import { colLabel } from './tools-model.js';
+import { levelNameFor } from '../../report/build.js';
 
 const SHOW = 200;
 
 /** @param {{ p: any }} props */
 export default function Pane({ p }) {
-  const { t } = useT();
+  const { t, lang } = useT();
   const { notify } = useWs();
   const steps = p.meta.steps || [];
   const [otherId, setOtherId] = useState(null);
@@ -97,7 +100,28 @@ export default function Pane({ p }) {
   const open = (result?.differences || []).filter((d) => !settled.has(`${d.key}|${d.column}`));
   const dup = result ? result.duplicateKeys.a.length + result.duplicateKeys.b.length : 0;
   const blanks = result ? result.blankKeys.a.length + result.blankKeys.b.length : 0;
-  const headerOf = (k) => headerA[Number(k.slice(1)) - 1] ?? k;
+  // Columns and values by the codebook's words in the page language, the file header in brackets when it
+  // differs (review round 3: the pickers and the table printed raw headers and raw Thai values in English).
+  const rawToCodebook = (codebook, raw) => {
+    const m = new Map();
+    for (const [key, i] of rawColumnIndex(codebook, raw)) m.set(keyForIndex(i), codebook.columns.find((c) => c.key === key));
+    return m;
+  };
+  const colsA = useMemo(() => rawToCodebook(p.meta.codebook, p.raw), [p.meta.codebook, p.raw]);
+  const colsB = useMemo(() => (other ? rawToCodebook(other.meta.codebook, other.raw) : new Map()), [other]);
+  const nameIn = (cols, header, rawKey) => {
+    const c = cols.get(rawKey);
+    const label = c ? colLabel(c, lang) : '';
+    const h = header[Number(rawKey.slice(1)) - 1] ?? rawKey;
+    return label && label !== h ? `${label} (${h})` : h;
+  };
+  const levelOf = levelNameFor(p.meta.codebook, lang);
+  const valueCell = (rawKey, v) => {
+    if (v === '') return <span className="rs-soft">{t('tools.blankValue')}</span>;
+    const key = colsA.get(rawKey)?.key;
+    const shown = key ? levelOf(key, v) : v;
+    return shown === v ? v : <>{shown} <span className="rs-soft rs-mono">({v})</span></>;
+  };
 
   return (
     <>
@@ -111,12 +135,12 @@ export default function Pane({ p }) {
             <div className="rs-formgrid">
               <Field label={t('tools.compare.keyA')} htmlFor="rs-cmp-ka">
                 <select id="rs-cmp-ka" className="rs-select" value={keyA} onChange={(e) => setKeyA(e.target.value)}>
-                  {headerA.map((h, i) => <option key={i} value={keyForIndex(i)}>{h}</option>)}
+                  {headerA.map((h, i) => <option key={i} value={keyForIndex(i)}>{nameIn(colsA, headerA, keyForIndex(i))}</option>)}
                 </select>
               </Field>
               <Field label={t('tools.compare.keyB', { file: other.meta.source?.fileName || '' })} htmlFor="rs-cmp-kb">
                 <select id="rs-cmp-kb" className="rs-select" value={keyB} onChange={(e) => setKeyB(e.target.value)}>
-                  {headerB.map((h, i) => <option key={i} value={keyForIndex(i)}>{h}</option>)}
+                  {headerB.map((h, i) => <option key={i} value={keyForIndex(i)}>{nameIn(colsB, headerB, keyForIndex(i))}</option>)}
                 </select>
               </Field>
             </div>
@@ -124,7 +148,7 @@ export default function Pane({ p }) {
             {pairing?.onlyA.length ? (
               <div>
                 <p className="rs-soft rs-small">{t('tools.compare.unpaired', { n: pairing.onlyA.length })}</p>
-                <IdList items={pairing.onlyA.map(headerOf)} />
+                <IdList items={pairing.onlyA.map((k) => nameIn(colsA, headerA, k))} />
               </div>
             ) : null}
             <button type="button" className="rs-btn rs-btn--primary" disabled={!keyA || !keyB || !pairing?.pairs.length} onClick={run}>
@@ -171,9 +195,9 @@ export default function Pane({ p }) {
                         {open.slice(0, SHOW).map((d) => (
                           <tr key={`${d.key}|${d.column}`}>
                             <th scope="row" className="rs-mono">{d.key}</th>
-                            <td>{d.name}</td>
-                            <td className="rs-mono">{d.a === '' ? <span className="rs-soft">{t('tools.blankValue')}</span> : d.a}</td>
-                            <td className="rs-mono">{d.b === '' ? <span className="rs-soft">{t('tools.blankValue')}</span> : d.b}</td>
+                            <td>{nameIn(colsA, headerA, d.column)}</td>
+                            <td>{valueCell(d.column, d.a)}</td>
+                            <td>{valueCell(d.column, d.b)}</td>
                             <td>
                               <div className="rs-row-wrap">
                                 <button type="button" className="rs-btn rs-btn--sm" onClick={() => keepA(d)}>{t('tools.compare.keepA')}</button>

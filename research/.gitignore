@@ -5,3 +5,6 @@ dist
 test-results/
 playwright-report/
 *.log
+# agents' scratch files and Python caches never ship (review round 3)
+.scratch/
+__pycache__/

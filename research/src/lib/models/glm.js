@@ -586,6 +586,15 @@ function separationTable(fit, design, y, family, diverging = null) {
         // a number: the extreme rows sit at one end of its range with one outcome
         const x = X[t.cols[0]];
         const ord = Array.from(x, (_, i) => i).filter((i) => !explained[i]).sort((a, b) => x[a] - x[b]);
+        // Named only when this number alone separates the outcome (every 0 on one side of every 1, ties at
+        // the cut allowed). A run of one outcome at an end is not enough: with y = 1 when a + b > 0 both a and
+        // b have such runs but neither separates alone (review round 3); that is the 'combination' row.
+        let min0 = Infinity, max0 = -Infinity, min1 = Infinity, max1 = -Infinity;
+        for (const i of ord) {
+          if (y[i] === 1) { min1 = Math.min(min1, x[i]); max1 = Math.max(max1, x[i]); } else { min0 = Math.min(min0, x[i]); max0 = Math.max(max0, x[i]); }
+        }
+        const alone = max0 <= min1 || max1 <= min0;
+        if (!alone) continue;
         for (const [side, seq] of [['low', ord], ['high', [...ord].reverse()]]) {
           let k = 0;
           while (k < seq.length && extreme[seq[k]] && y[seq[k]] === y[seq[0]]) k++;

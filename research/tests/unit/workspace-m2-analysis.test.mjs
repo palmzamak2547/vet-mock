@@ -146,7 +146,7 @@ test('charts: the odds ratios are the model table’s own column (never exponent
   assert.equal(colIndex(env.tables[0], 'OR'), 7);
   const [ch] = extraCharts(env);
   assert.equal(ch.kind, 'forest');
-  assert.deepEqual(ch.input.rows, [{ label: 'spontaneous', est: 3.3318, lo: 2.224, hi: 5.124, kind: 'adjusted' }]);
+  assert.deepEqual(ch.input.rows, [{ label: 'spontaneous', est: 3.3318, lo: 2.224, hi: 5.124, kind: 'term' }]);
   assert.equal(ch.input.log, true);
   assert.equal(ch.input.measure, 'OR');
   // An open bound (no upper limit) stays Infinity; it is never turned into a number.

@@ -127,3 +127,14 @@ test('M2 methods: each has its command, or says the program has none', () => {
   assert.ok(sps.includes(tOf('en')('report.script.spss.noCommand')), 'power in SPSS: said, not guessed');
   assert.ok(sps.includes(tOf('en')('report.script.spss.reference', { column: 'vaccine', level: 'no' })));
 });
+
+test('script comments name values by the script column and level, never an internal id (review round 3)', async () => {
+  const { columnIndex, envNumbers, valueNamer } = await import('../../src/lib/export/script-common.js');
+  const cb = { columns: [{ key: 'c2', name: 'colostrum', type: 'binary', reference: 'within 6 h', levels: [{ value: 'within 6 h' }, { value: 'after 6 h' }] }, { key: 'c4', name: 'bw', type: 'continuous', levels: [] }] };
+  const ix = columnIndex(cb, null, 'en');
+  const env = { values: { 'oddsRatio:c2=after 6 h': { value: 3.11015 }, 'oddsRatio:c4': { value: 1.03191 }, 'median:within 6 h': { value: null } } };
+  const lines = envNumbers(env, valueNamer(ix, (k) => (k === 'report.script.versus' ? 'vs' : k)));
+  assert.ok(lines.some((l) => l.startsWith('OR colostrum: after 6 h vs within 6 h = 3.11015')), lines.join(' | '));
+  assert.ok(lines.some((l) => l.startsWith('OR bw = 1.03191')), lines.join(' | '));
+  assert.ok(!lines.some((l) => /oddsRatio|c2=/.test(l)), lines.join(' | '));
+});

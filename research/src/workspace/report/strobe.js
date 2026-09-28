@@ -6,6 +6,9 @@
 // 'report' for rows added in M2). OWNER: report role.
 import { flowComplete } from './flow.js';
 
+const REGRESSION = new Set(['reg.logistic', 'reg.poisson']);
+const covariateCount = (s) => [].concat(s.roles?.covariates ?? []).filter(Boolean).length;
+
 /**
  * Which STROBE-Vet items the kept results and the recipe already cover.
  * @param {{ analyses: any[], steps: any[], codebook: any, flow?: ReturnType<import('./flow.js').strobeFlow>|null }} input
@@ -27,17 +30,25 @@ export function strobeStatus({ analyses, steps, codebook, flow = null, design = 
       ? { item: '12(a)', key: 'clustering', ok: routes.size > 0 }
       : { item: '12(a)', key: 'clusteringNoFarm', ok: true },
     { item: '12(c)', key: 'missing', ok: flowOk === null ? dropped || analyses.length > 0 : flowOk },
-    { item: '13', key: 'flow', ok: flowOk === null ? analyses.length > 0 : flowOk },
+    // Without a farm column the flow has no farms to list (review round 3: "Farms, rows and rows used are listed").
+    { item: '13', key: codebook?.clusterKey ? 'flow' : 'flowNoFarm', ok: flowOk === null ? analyses.length > 0 : flowOk },
     table1 || !perColumn
       ? { item: '14(b)', key: 'missingPerVariable', ok: table1 }
       : { item: '14(b)', key: 'missingPerVariableFlow', ok: true, ns: 'report' },
-    { item: '16(a)', key: 'crudeAdjusted', ok: specs.some((s) => s.method === 'epi.mantelHaenszel' || (s.cluster?.route && s.cluster.route !== 'none')) && specs.some((s) => s.method === 'epi.twoByTwo') },
+    // Adjusted: Mantel-Haenszel, a farm route, or a regression with more than one factor (its ORs or IRRs are
+    // adjusted for the others). Crude: a 2x2, a chi-square, or a regression with one factor (review round 3:
+    // a kept logistic model was not counted as adjusted).
+    { item: '16(a)', key: 'crudeAdjusted', ok: specs.some((s) => s.method === 'epi.mantelHaenszel' || (s.cluster?.route && s.cluster.route !== 'none') || (REGRESSION.has(s.method) && covariateCount(s) > 1))
+      && specs.some((s) => ['epi.twoByTwo', 'test.chisq', 'test.fisher2x2'].includes(s.method) || (REGRESSION.has(s.method) && covariateCount(s) === 1)) },
     // With no number cut into groups the row says so, instead of claiming every cut-point was set beforehand.
     bins.length === 0
       ? { item: '16(b)', key: 'cutpointsNone', ok: true }
       : { item: '16(b)', key: 'cutpoints', ok: bins.every((b) => b.params?.cutSource === 'typed' || b.params?.cutSource === 'literature') },
     { item: '12(e)', key: 'sensitivity', ok: routes.size > 1 },
   ];
+  // With no farm column there is no farm route to try a second way (review round 3: "Only one farm route so far"
+  // on data with no farms), whatever the design.
+  if (!codebook?.clusterKey) items.splice(items.findIndex((x) => x.item === '12(e)'), 1);
   // A laboratory or animal experiment reports against ARRIVE 2.0: the observational items (a crude and an
   // adjusted 2x2, a second way of accounting for farms, farms at all when the data have none) do not apply
   // (review round 2: "12(e) one farm route only" on a feed trial with no farm column).

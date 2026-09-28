@@ -146,7 +146,7 @@ export function readSavSync(bytes, opts = {}) {
   const labelSets = [];
   let labelTotal = 0;
   const notes = [];
-  const ext = { longNames: null, veryLong: null, encoding: null, codePage: null, sysmis: -Number.MAX_VALUE, highest: Number.MAX_VALUE, lowest: -Number.MAX_VALUE, measures: null, longLabels: [], longMissing: [] };
+  const ext = { longNames: null, veryLong: null, encoding: null, codePage: null, sysmis: -Number.MAX_VALUE, highest: Number.MAX_VALUE, lowest: -Number.MAX_VALUE, measures: null, longLabels: [], longMissing: [], longLabelCount: 0, baseLabelTotal: 0 };
   let skipped = 0;
   let documents = 0;
   for (;;) {
@@ -202,7 +202,7 @@ export function readSavSync(bytes, opts = {}) {
       for (let i = 0; i < nVars; i++) seen.add(r.i32());
       const vars = [...seen];
       labelTotal += labels.length * vars.length;
-      if (labelTotal > SAV_MAX_VALUE_LABELS) throw new SavError('data.sav.tooManyLabels', { max: SAV_MAX_VALUE_LABELS.toLocaleString('en-US') });
+      if (labelTotal + ext.longLabelCount > SAV_MAX_VALUE_LABELS) throw new SavError('data.sav.tooManyLabels', { max: SAV_MAX_VALUE_LABELS.toLocaleString('en-US') });
       labelSets.push({ labels, vars });
       continue;
     }
@@ -220,6 +220,7 @@ export function readSavSync(bytes, opts = {}) {
       const count = r.i32();
       if (size < 0 || count < 0 || (size > 0 && count > r.left() / size)) throw new SavError('data.sav.badRecord', { type, at });
       const data = r.bytes(size * count);
+      ext.baseLabelTotal = labelTotal;
       readExtension(subtype, size, count, data, r.le, ext, at);
       if (![3, 4, 11, 13, 14, 16, 20, 21, 22].includes(subtype)) skipped += 1;
       continue;
@@ -550,6 +551,10 @@ function readExtension(subtype, size, count, data, le, ext, at) {
         rr.i32(); // width
         const n = rr.i32();
         if (n < 0 || n > rr.left() / 8) bad();
+        // Long string labels count against the same cap as records 3/4: each costs only 8 bytes of file, so
+        // a 50 MB file could carry 6.5 million and exhaust the tab's memory (review round 3).
+        ext.longLabelCount += n;
+        if (ext.baseLabelTotal + ext.longLabelCount > SAV_MAX_VALUE_LABELS) throw new SavError('data.sav.tooManyLabels', { max: SAV_MAX_VALUE_LABELS.toLocaleString('en-US') });
         const labels = [];
         for (let i = 0; i < n; i++) {
           const value = rr.bytes(checkLen(rr.i32(), rr, bad));

@@ -54,7 +54,7 @@ function useScrollEdges() {
 
 /** @param {{ p: any }} props */
 export default function CodebookPane({ p }) {
-  const { t } = useT();
+  const { t, lang } = useT();
   const [draft, setDraft] = useState(() => clone(p.meta.codebook));
   const [issues, setIssues] = useState([]);
   const [scrollRef, edges] = useScrollEdges();
@@ -100,7 +100,7 @@ export default function CodebookPane({ p }) {
           <label className="rs-eyebrow" htmlFor="rs-cb-cluster">{t('ws.codebook.clusterLabel')}</label>
           <select id="rs-cb-cluster" className="rs-select" value={draft.clusterKey || ''} onChange={(e) => setDraft((d) => ({ ...d, clusterKey: e.target.value || null }))}>
             <option value="">{t('ws.codebook.clusterNone')}</option>
-            {clusterCandidates.map((c) => <option key={c.key} value={c.key}>{c.labelTh && c.labelTh !== c.name ? `${c.name} (${c.labelTh})` : c.name}</option>)}
+            {clusterCandidates.map((c) => { const label = lang === 'en' ? c.labelEn : c.labelTh; return <option key={c.key} value={c.key}>{label && label !== c.name ? `${c.name} (${label})` : c.name}</option>; })}
           </select>
           <p className="rs-soft rs-small">{cluster ? t('ws.codebook.clusterOn', { column: cluster.name }) : t('ws.codebook.clusterOff')}</p>
         </div>

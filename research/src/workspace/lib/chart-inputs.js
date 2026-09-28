@@ -89,7 +89,7 @@ function ratiosInput(table, measure, level, termLabel = (x) => String(x)) {
   const li = colIndex(table, 'ratioLower');
   const ui = colIndex(table, 'ratioUpper');
   if (ti < 0 || ei < 0 || li < 0 || ui < 0) return null;
-  const rows = table.rows.filter((r) => r[ti] !== '(Intercept)').map((r) => ({ label: termLabel(r[ti]), est: num(r[ei]), lo: bound(r[li]), hi: bound(r[ui]), kind: 'adjusted' }));
+  const rows = table.rows.filter((r) => r[ti] !== '(Intercept)').map((r) => ({ label: termLabel(r[ti]), est: num(r[ei]), lo: bound(r[li]), hi: bound(r[ui]), kind: 'term' }));
   return rows.length ? { rows, measure, xTitle: measure, level, log: true } : null;
 }
 

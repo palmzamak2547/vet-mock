@@ -110,3 +110,15 @@ test('one animal in a class: the AUC is shown, the interval is null with its sen
   assert.deepEqual(out.values.auc.ci, [null, null]);
   assert.equal(out.values.auc.reasonKey, 'measure.undefined.aucNeedTwoEach');
 });
+
+test('perfect separation: AUC 1, the zero-width DeLong interval is null with its sentence (review round 3)', () => {
+  const t = makeTable({
+    ref: { kind: 'category', levels: ['0', '1'], values: ['0', '0', '0', '0', '1', '1', '1', '1'] },
+    m: { kind: 'number', values: [1, 2, 3, 4, 5, 6, 7, 8] },
+  });
+  const out = runRoc(spec('roc.delong', { roles: { reference: 'ref', test: 'm' }, levels: { referencePositive: '1' }, options: { direction: 'higher-positive', youden: true } }), t);
+  assert.equal(out.status, 'ok');
+  assert.equal(out.values.auc.value, 1);
+  assert.deepEqual(out.values.auc.ci, [null, null]);
+  assert.equal(out.values.auc.reasonKey, 'measure.undefined.aucNoVariance');
+});

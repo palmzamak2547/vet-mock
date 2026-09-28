@@ -139,6 +139,15 @@ function writeSav(o) {
   const longNames = o.vars.map((v) => [(v.short || v.name).toUpperCase().slice(0, 8), v.name]).filter(([sh, n]) => sh !== n).map(([sh, n]) => `${sh}=${n}`).join('\t');
   if (longNames) { const b = utf8(longNames); i32(7); i32(13); i32(1); i32(b.length); raw(b); }
   if (o.encodingRecord) { const b = utf8(o.encodingRecord); i32(7); i32(20); i32(1); i32(b.length); raw(b); }
+  // record 7.21 (long string value labels): n labels on one variable, each a 0-byte value and a 0-byte label
+  if (o.longLabelFlood) {
+    const name = utf8(o.longLabelFlood.name);
+    const n = o.longLabelFlood.n;
+    const body = new Uint8Array(4 + name.length + 8 + 8 * n);
+    const dv = new DataView(body.buffer);
+    dv.setInt32(0, name.length, le); body.set(name, 4); dv.setInt32(4 + name.length, 8, le); dv.setInt32(8 + name.length, n, le);
+    i32(7); i32(21); i32(1); i32(body.length); raw(body);
+  }
   i32(999); i32(0);
   // data
   const cells = [];
@@ -367,6 +376,15 @@ test('value labels: a variable index repeated in record 4 counts once, and a lab
   const vars = Array.from({ length: 600 }, (_, i) => ({ name: 'v' + i, width: 0 }));
   const flood = writeSav({ vars, rows: [], codePage: 65001, labelSet: { labels: labels.slice(0, 500), vars: vars.map((_, i) => i + 1) } });
   t0 = Date.now();
+  assert.equal(mustFailCleanly(flood), 'data.sav.tooManyLabels');
+  assert.ok(Date.now() - t0 < 1000, `refused in ${Date.now() - t0} ms`);
+});
+
+test('long string value labels (record 7.21) count against the label cap: a flood is refused in under a second', () => {
+  // Review round 3: 7.21 labels were never counted; each costs 8 bytes, so a 52 MB file carried 6.5 million
+  // and ended the tab out of memory. 300,000 labels (2.4 MB) is past the 250,000 cap.
+  const flood = writeSav({ vars: [{ name: 'x', width: 0 }], rows: [], codePage: 65001, longLabelFlood: { name: 'X', n: 300_000 } });
+  const t0 = Date.now();
   assert.equal(mustFailCleanly(flood), 'data.sav.tooManyLabels');
   assert.ok(Date.now() - t0 < 1000, `refused in ${Date.now() - t0} ms`);
 });

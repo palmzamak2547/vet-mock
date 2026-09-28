@@ -5,12 +5,16 @@
 // download; it never runs it. Every comment is its own command ending in a full stop, as SPSS reads
 // comments. OWNER: report role.
 import { getMethod } from '../runtime/catalog.js';
-import { columnIndex, envNumbers, oneLine, rolesOf, scriptAnalyses, wrapComment } from './script-common.js';
+import { columnIndex, envNumbers, valueNamer, oneLine, rolesOf, scriptAnalyses, wrapComment } from './script-common.js';
 
 /** An SPSS string literal in single quotes. */
 export const sq = (s) => `'${oneLine(s).replace(/'/g, "''")}'`;
 
 const NUMERIC_LIT = /^[-+]?(\d+(\.\d*)?|\.\d+)([eE][-+]?\d+)?$/;
+
+/** A level as part of a CASESTOVARS variable name (y.<level>): only letters, digits and underscores, so a level
+ * text can never add a keyword or a bracket to the command. */
+const nameToken = (x) => String(x).replace(/[^\p{L}\p{N}_]/gu, '_');
 
 /** Comment lines, each a command of its own. */
 export const cmt = (text) => wrapComment(text, 80).map((l) => `* ${l.replace(/\.\s*$/, '')}.`);
@@ -97,7 +101,9 @@ function spssCode(spec, ix, t) {
       else {
         const g = one('group') || one('exposure');
         const levels = ix.col(g)?.levels || [];
-        const quote = ix.col(g)?.type === 'number' ? String : sq;
+        // A level of a number column is written bare only when it reads as a number (review round 3: a level
+        // with a bracket and a slash broke the command, the class VALUE LABELS already closed).
+        const quote = (l) => (ix.col(g)?.type === 'number' && NUMERIC_LIT.test(String(l)) ? String(l) : sq(l));
         code.push(`T-TEST GROUPS=${v(g)}(${levels.slice(0, 2).map(quote).join(' ')}) /VARIABLES=${V('outcome')} /CRITERIA=CI(.${cil}).`);
         notes.push(t(variant === 'pooled' ? 'report.script.spss.tPooled' : 'report.script.spss.tWelch'));
       }
@@ -185,7 +191,7 @@ function spssCode(spec, ix, t) {
       code.push('DATASET COPY rm_wide.', 'DATASET ACTIVATE rm_wide.');
       code.push(`SELECT IF NOT MISSING(${y}).`, `SORT CASES BY ${s} ${tm}.`);
       code.push(`CASESTOVARS /ID=${s}${g ? ` ${g}` : ''} /INDEX=${tm} /GROUPBY=VARIABLE.`);
-      code.push(`GLM ${times.map((x) => `${y}.${x}`).join(' ')}${g ? ` BY ${g}` : ''} /WSFACTOR=time ${times.length} Polynomial /METHOD=SSTYPE(3) /PRINT=DESCRIPTIVE ETASQ /WSDESIGN=time${g ? ` /DESIGN=${g}` : ''}.`);
+      code.push(`GLM ${times.map((x) => `${y}.${nameToken(x)}`).join(' ')}${g ? ` BY ${g}` : ''} /WSFACTOR=time ${times.length} Polynomial /METHOD=SSTYPE(3) /PRINT=DESCRIPTIVE ETASQ /WSDESIGN=time${g ? ` /DESIGN=${g}` : ''}.`);
       code.push('DATASET ACTIVATE analysed.', 'DATASET CLOSE rm_wide.');
       notes.push(t('report.script.spss.rm'));
       if (g) notes.push(t('report.script.spss.hf'));
@@ -199,7 +205,7 @@ function spssCode(spec, ix, t) {
       if (!levels.length) return { code: [], notes, none: t('report.script.spss.noTimes') };
       code.push('DATASET COPY fr_wide.', 'DATASET ACTIVATE fr_wide.');
       code.push(`SELECT IF NOT MISSING(${y}).`, `SORT CASES BY ${s} ${g}.`, `CASESTOVARS /ID=${s} /INDEX=${g} /GROUPBY=VARIABLE.`);
-      code.push(`NPAR TESTS /FRIEDMAN=${levels.map((x) => `${y}.${x}`).join(' ')}.`);
+      code.push(`NPAR TESTS /FRIEDMAN=${levels.map((x) => `${y}.${nameToken(x)}`).join(' ')}.`);
       code.push('DATASET ACTIVATE analysed.', 'DATASET CLOSE fr_wide.');
       break;
     }
@@ -350,7 +356,7 @@ export function buildSps(input) {
     const r = spssCode(a.spec, ix, t);
     out.push('', `* ${i + 1}. ${name}.`);
     out.push(...cmt(t('report.script.ours', { numbers: '' }).trim().replace(/:$/, '')));
-    for (const n of envNumbers(a.env)) out.push(`*   ${n.replace(/\.\s*$/, '')}.`);
+    for (const n of envNumbers(a.env, valueNamer(ix, t))) out.push(`*   ${n.replace(/\.\s*$/, '')}.`);
     for (const n of r.notes) out.push(...cmt(n));
     if (r.none) out.push(...cmt(r.none));
     else out.push(...r.code);

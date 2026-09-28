@@ -567,3 +567,26 @@
 .rs-composer-img { display: block; max-width: 100%; height: auto; background: var(--rs-print-paper); border: 1px solid var(--rs-line); border-radius: var(--rs-radius); }
 
 .rs-seg--wrap { display: flex; max-width: 100%; }
+
+/* A summary laid out as flex loses its disclosure marker in Chrome and Firefox, so a folded table or the
+   options list read as a heading with nothing under it (review round 3). One drawn caret for every such
+   summary, turned when open; the native marker is hidden so WebKit does not show two. */
+.rs-options > summary::before, .rs-prov-more > summary::before, .rs-foldtable > summary::before,
+.rs-chart-table--folded > summary::before, summary.rs-export-sum::before {
+  content: '';
+  flex: none;
+  width: 0;
+  height: 0;
+  border-left: 7px solid currentColor;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  transition: transform 0.15s ease;
+}
+.rs-options[open] > summary::before, .rs-prov-more[open] > summary::before, .rs-foldtable[open] > summary::before,
+.rs-chart-table--folded[open] > summary::before, details[open] > summary.rs-export-sum::before { transform: rotate(90deg); }
+.rs-options > summary::-webkit-details-marker, .rs-prov-more > summary::-webkit-details-marker, .rs-foldtable > summary::-webkit-details-marker,
+.rs-chart-table--folded > summary::-webkit-details-marker, summary.rs-export-sum::-webkit-details-marker { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .rs-options > summary::before, .rs-prov-more > summary::before, .rs-foldtable > summary::before,
+  .rs-chart-table--folded > summary::before, summary.rs-export-sum::before { transition: none; }
+}

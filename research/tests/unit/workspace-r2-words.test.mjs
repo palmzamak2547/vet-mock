@@ -88,6 +88,14 @@ for (const lang of ['th', 'en']) {
     assert.ok(allNotes(env).some((g) => g.key === 'runtime.note.robustWald'), notes);
   });
 
+  test(`${lang}: logistic without a route: the headline p is the headline term's own test, not the whole model's (review round 3)`, async () => {
+    const env = { status: 'ok', method: { id: 'reg.logistic' }, spec: { method: 'reg.logistic' },
+      values: { 'oddsRatio:c2=after': { value: 3.11, ci: [1.1, 8.8] }, 'oddsRatio:c1': { value: 1.03, ci: [0.95, 1.12] } },
+      tests: [{ id: 'lrNull', p: 0.144 }, { id: 'lr:c2', p: 0.027 }, { id: 'wald:c2=after', p: 0.032 }, { id: 'lr:c1', p: 0.5 }] };
+    assert.equal(primaryValueName(env), 'oddsRatio:c2=after');
+    assert.equal(primaryTest(env).id, 'lr:c2');
+  });
+
   test(`${lang}: a level with no animals is named by column and label, not by its code`, async () => {
     const tb = makeTable({ c1: { kind: 'number', values: gain.map((g) => Math.round(g)) }, c2: { kind: 'category', levels: ['A', 'B', 'C'], values: diet.map((d) => (d === 'C' ? 'B' : d)) } });
     const { env } = await run('reg.poisson', { outcome: 'c1', covariates: ['c2'] }, { design: 'cohort' }, tb);
