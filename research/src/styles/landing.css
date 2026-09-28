@@ -299,8 +299,11 @@
   .rs-l-wordmark {
     font-size: 17px;
   }
+  /* Both parts of the wordmark stay on a phone, the second one smaller (M1 round 3 carried item 8). */
+  .rs-l-brand .rs-l-wordmark-sub {
+    font-size: 12px;
+  }
   .rs-l-brand-rule,
-  .rs-l-brand .rs-l-wordmark-sub,
   .rs-l-hide-phone {
     display: none;
   }
@@ -1606,5 +1609,22 @@
   .rs-landing *::before,
   .rs-landing *::after {
     transition-duration: 1ms !important;
+  }
+}
+
+/* 320 px: the header keeps the mark, both words of the wordmark and the menu button on one line. */
+@media (max-width: 360px) {
+  .rs-l-header {
+    gap: 6px;
+    padding: 0 4px 0 10px;
+  }
+  .rs-l-brand {
+    gap: 6px;
+  }
+  .rs-l-wordmark {
+    font-size: 16px;
+  }
+  .rs-l-brand .rs-l-wordmark-sub {
+    font-size: 11px;
   }
 }

@@ -1,0 +1,70 @@
+/* The public pages /methods, /guide, /cite [M2-DESIGN.md 11], on top of workspace.css's tokens and
+   components (rs-main, rs-h1, rs-panel, rs-chip, rs-btn, rs-seg). Readable from 320 px up: long file names
+   and URLs wrap instead of widening the page. OWNER: trust role. */
+
+.rs-pub-top { position: sticky; top: 0; z-index: 5; }
+.rs-pub-open { white-space: nowrap; }
+@media (max-width: 380px) {
+  .rs-pub-top .rs-wordmark-b { display: inline; font-size: 13px; }
+  .rs-pub-open { padding: 0 10px; font-size: 13.5px; }
+}
+
+.rs-pub-nav {
+  display: flex; flex-wrap: wrap; gap: 4px 6px; padding: 8px 16px 0; max-width: 46rem; width: 100%; margin: 0 auto;
+}
+.rs-pub-navlink {
+  display: inline-flex; align-items: center; min-height: 40px; padding: 0 12px; border-radius: 10px;
+  color: var(--rs-ink-soft); text-decoration: none; font-weight: 500;
+}
+.rs-pub-navlink:hover { background: var(--rs-surface-2); color: var(--rs-ink); }
+.rs-pub-navlink[aria-current='page'] { color: var(--rs-sage-text); background: var(--rs-sage-tint); font-weight: 600; }
+.rs-pub-navlink:focus-visible, .rs-pub-toc-link:focus-visible { outline: 3px solid var(--rs-gold); outline-offset: 2px; }
+
+.rs-pub-main { line-height: 1.6; }
+.rs-pub-main p, .rs-pub-main li { overflow-wrap: anywhere; }
+.rs-pub-summary { font-weight: 600; }
+.rs-pub-h3 { font-size: 16.5px; font-weight: 700; margin: 0 0 6px; }
+
+.rs-pub-group { display: grid; gap: 10px; }
+.rs-pub-methods, .rs-pub-fixtures, .rs-pub-toc { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.rs-pub-method {
+  border: 1px solid var(--rs-line); border-radius: var(--rs-radius-lg); background: var(--rs-surface);
+  padding: 12px 14px; display: grid; gap: 4px; min-width: 0;
+}
+.rs-pub-method-head { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; justify-content: space-between; }
+.rs-pub-method-name { font-size: 16px; font-weight: 700; margin: 0; }
+.rs-pub-method-id { font-size: 12.5px; margin: 0; }
+.rs-pub-method-families { margin: 0; }
+.rs-pub-details summary { cursor: pointer; min-height: 40px; display: flex; align-items: center; color: var(--rs-sage-text); font-weight: 600; }
+.rs-pub-details summary:focus-visible { outline: 3px solid var(--rs-gold); outline-offset: 2px; }
+.rs-pub-fixture { border-top: 1px solid var(--rs-line); padding-top: 10px; }
+.rs-pub-fixture-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 6px; }
+.rs-pub-dl { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px 14px; margin: 0; font-size: 14.5px; }
+.rs-pub-dl dt { color: var(--rs-ink-soft); font-size: 13px; margin-top: 6px; }
+.rs-pub-dl dd { margin: 0; min-width: 0; }
+@media (min-width: 720px) {
+  .rs-pub-dl { grid-template-columns: 11rem minmax(0, 1fr); }
+  .rs-pub-dl dt { margin-top: 0; }
+}
+.rs-pub-facts { margin: 0; padding-left: 1.1em; }
+.rs-pub-facts li + li { margin-top: 2px; }
+.rs-pub-url { overflow-wrap: anywhere; word-break: break-word; }
+
+.rs-pub-toc-link {
+  display: grid; gap: 2px; padding: 12px 14px; border: 1px solid var(--rs-line); border-radius: var(--rs-radius-lg);
+  background: var(--rs-surface); color: var(--rs-ink); text-decoration: none;
+}
+.rs-pub-toc-link:hover { border-color: var(--rs-sage-soft); }
+.rs-pub-toc-title { font-weight: 700; color: var(--rs-sage-text); }
+.rs-pub-guide { display: grid; gap: 14px; }
+.rs-pub-guide-title { outline-offset: 4px; }
+.rs-pub-steps { margin: 0; padding-left: 1.4em; display: grid; gap: 8px; }
+.rs-pub-warnlist { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; }
+.rs-pub-watch { padding: 12px 14px; }
+.rs-pub-watch ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+.rs-pub-try { border-left: 3px solid var(--rs-gold-soft); padding-left: 12px; }
+.rs-pub-try p { margin: 4px 0; }
+
+.rs-pub-cite { padding: 14px 16px; display: grid; gap: 8px; }
+.rs-pub-citeline { font-size: 16px; margin: 0; user-select: all; }
+.rs-pub-actions { display: flex; flex-wrap: wrap; gap: 8px; }

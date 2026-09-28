@@ -5,7 +5,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useT } from '../../i18n/index.js';
 import { setTheme, useTheme } from './theme.js';
-import { appLink } from './nav.js';
+import { appLinkProps } from './nav.js';
 
 export const SECTIONS = Object.freeze([
   ['how', 'landing.nav.how'],
@@ -126,7 +126,7 @@ function Menu({ onClose }) {
         <ThemeSwitch />
       </div>
       <span className="rs-l-grow" />
-      <a className="rs-l-btn rs-l-btn-primary rs-l-menu-cta" href="/app" onClick={(e) => { onClose(); appLink('/app')(e); }}>
+      <a className="rs-l-btn rs-l-btn-primary rs-l-menu-cta" {...appLinkProps('/app', () => onClose())}>
         {t('landing.nav.open')}
       </a>
     </div>
@@ -165,7 +165,7 @@ export default function SiteHeader() {
       <div className="rs-l-header-tools">
         <LangSwitch className="rs-l-hide-phone" />
         <ThemeSwitch className="rs-l-hide-phone" />
-        <a className="rs-l-btn rs-l-btn-primary rs-l-btn-sm rs-l-hide-phone" href="/app" onClick={appLink('/app')}>
+        <a className="rs-l-btn rs-l-btn-primary rs-l-btn-sm rs-l-hide-phone" {...appLinkProps('/app')}>
           {t('landing.nav.open')}
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path d="M3 7 H11 M7.5 3.5 L11 7 L7.5 10.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />

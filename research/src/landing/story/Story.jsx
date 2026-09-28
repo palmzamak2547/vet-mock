@@ -8,7 +8,7 @@
 // OWNER: landing role.
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useT } from '../../i18n/index.js';
-import { appLink } from '../shell/nav.js';
+import { appLinkProps } from '../shell/nav.js';
 import { readPrefs } from '../../lib/store/prefs.js';
 import { storedOwner } from '../../lib/auth/stored.js';
 import { HERD_LAYOUTS, herdData, herdFacts, stillHalf } from '../herd/data.js';
@@ -57,11 +57,11 @@ function Hero({ reg, variant }) {
         <p className="rs-l-hero-lead">{t('landing.hero.lead')}</p>
         <div className="rs-l-hero-actions">
           {last ? (
-            <a className="rs-l-btn rs-l-btn-primary" href={`/app/p/${last}`} onClick={appLink(`/app/p/${last}`)}>
+            <a className="rs-l-btn rs-l-btn-primary" {...appLinkProps(`/app/p/${last}`)}>
               {t('landing.hero.continue')}
             </a>
           ) : null}
-          <a className={`rs-l-btn ${last ? 'rs-l-btn-ghost' : 'rs-l-btn-primary'}`} href="/app" onClick={appLink('/app')}>
+          <a className={`rs-l-btn ${last ? 'rs-l-btn-ghost' : 'rs-l-btn-primary'}`} {...appLinkProps('/app')}>
             {t('landing.hero.open')}
           </a>
           <a className="rs-l-btn rs-l-btn-ghost" href="#rs-how">

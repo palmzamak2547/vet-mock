@@ -9,7 +9,7 @@ import { HERD_DESIGN } from '../herd/data.js';
 import { EVIDENCE_BASE_URL } from '../chart/rows.js';
 import { currentYear } from './dates.js';
 import { Mark } from './SiteHeader.jsx';
-import { appLink } from './nav.js';
+import { appLinkProps } from './nav.js';
 
 const VETMOCK = 'https://vetmock.vercel.app';
 const COURSE_FIXTURE = 'https://github.com/palmzamak2547/vet-mock/blob/main/research/tests/fixtures/course/epi-course-2026.json';
@@ -23,10 +23,10 @@ export function CtaSection() {
       <h2 id="rs-cta-title" className="rs-l-cta-title">{t('landing.cta.title')}</h2>
       <p className="rs-l-cta-body">{t('landing.cta.body')}</p>
       <div className="rs-l-cta-actions">
-        <a className="rs-l-btn rs-l-btn-primary rs-l-btn-lg" href="/app" onClick={appLink('/app')}>
+        <a className="rs-l-btn rs-l-btn-primary rs-l-btn-lg" {...appLinkProps('/app')}>
           {t('landing.cta.open')}
         </a>
-        <a className="rs-l-btn rs-l-btn-ghost rs-l-btn-lg" href="/app/tools/sample-size" onClick={appLink('/app/tools/sample-size')}>
+        <a className="rs-l-btn rs-l-btn-ghost rs-l-btn-lg" {...appLinkProps('/app/tools/sample-size')}>
           {t('landing.cta.sampleSize')}
         </a>
       </div>
@@ -71,9 +71,12 @@ export default function SiteFooter() {
         </div>
         <nav aria-labelledby="rs-f-studio" className="rs-l-footer-col">
           <h2 id="rs-f-studio" className="rs-l-footer-h">{t('landing.footer.studio')}</h2>
-          <a href="/app" onClick={appLink('/app')}>{t('landing.footer.openStudio')}</a>
-          <a href="/app/tools/sample-size" onClick={appLink('/app/tools/sample-size')}>{t('landing.footer.sampleSize')}</a>
-          <a href="/licenses" onClick={appLink('/licenses')}>{t('landing.footer.licenses')}</a>
+          <a {...appLinkProps('/app')}>{t('landing.footer.openStudio')}</a>
+          <a {...appLinkProps('/app/tools/sample-size')}>{t('landing.footer.sampleSize')}</a>
+          <a {...appLinkProps('/methods')}>{t('landing.footer.methods')}</a>
+          <a {...appLinkProps('/guide')}>{t('landing.footer.guide')}</a>
+          <a {...appLinkProps('/cite')}>{t('landing.footer.cite')}</a>
+          <a {...appLinkProps('/licenses')}>{t('landing.footer.licenses')}</a>
         </nav>
         <nav aria-labelledby="rs-f-sources" className="rs-l-footer-col rs-l-footer-col-wide">
           <h2 id="rs-f-sources" className="rs-l-footer-h">{t('landing.footer.sources')}</h2>
