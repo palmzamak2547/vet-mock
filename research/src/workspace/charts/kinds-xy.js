@@ -49,7 +49,7 @@ function xyFrame(ctx, o) {
   // A chart whose axes both start at 0 (ROC) prints that 0 once, under the x axis (review round 1: the two
   // "0.0" labels overlapped at the corner).
   const yLabs = tickLabels(yTicks, { log: o.yLog, percent: o.yPercent }).map((l, i) => (o.sharedOrigin && yTicks[i] === 0 ? '' : l));
-  const m = margins(ctx, { yLabels: yLabs, yTitle: o.yTitle, xTitle: o.xTitle, top: ctx.fs * 0.8 + legendH, bottomExtra: o.bottomExtra || 0, minLeft: o.minLeft });
+  const m = margins(ctx, { yLabels: yLabs, yTitle: o.yTitle, xTitle: o.xTitle, top: ctx.fs * 0.8 + legendH, bottomExtra: o.bottomExtra || 0, minLeft: o.minLeft, height });
   const box = { left: m.left, right: ctx.width - m.right, top: m.top, bottom: height - m.bottom };
   const x = (o.xLog ? logScale : linearScale)(o.xDomain, [box.left, box.right]);
   const y = (o.yLog ? logScale : linearScale)(o.yDomain, [box.bottom, box.top]);

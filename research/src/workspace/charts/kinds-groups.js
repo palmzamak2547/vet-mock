@@ -7,7 +7,7 @@ import { markerNode, seriesShape, seriesToken } from './palette.js';
 import { linearScale, paddedDomain } from './scale.js';
 import { beeswarm, boxStats, meanCi, medianIqr } from './helpers.js';
 import { violinDensity } from './density.js';
-import { categoryAxis, categoryLayout, groupLegend, line, makeCtx, margins, minus, pathOf, r2, rect, text, tickLabels, ticksFor, yAxis } from './frame.js';
+import { categoryAxis, categoryLayout, groupLegend, line, makeCtx, margins, minus, pathOf, r2, rect, text, tickLabels, ticksFor, yAxis, ROTATED_REACH, fitTitle, minFont } from './frame.js';
 
 const num = (v) => typeof v === 'number' && Number.isFinite(v);
 
@@ -35,11 +35,11 @@ function bandFrame(ctx, labels, allY, yTitle, xTitle, opts = {}) {
   const approxPlotH = height - ctx.fs * 4;
   const ticks = ticksFor(ctx, domain, approxPlotH, { vertical: true });
   const labs = tickLabels(ticks);
-  const m0 = margins(ctx, { yLabels: labs, yTitle, xTitle, rightLabels: opts.rightLabels });
+  const m0 = margins(ctx, { yLabels: labs, yTitle, xTitle, rightLabels: opts.rightLabels, height });
   // room for group labels on two lines or two staggered rows (every label printed, frame.categoryLayout)
   const bw0 = (ctx.width - m0.right - m0.left) / Math.max(1, labels.length);
   const extra = categoryLayout(ctx, labels, bw0 - 6 * ctx.u).extra;
-  const m = extra ? margins(ctx, { yLabels: labs, yTitle, xTitle, rightLabels: opts.rightLabels, bottomExtra: extra }) : m0;
+  const m = extra ? margins(ctx, { yLabels: labs, yTitle, xTitle, rightLabels: opts.rightLabels, bottomExtra: extra, height }) : m0;
   const box = { left: m.left, right: ctx.width - m.right, top: m.top, bottom: height - m.bottom };
   const y = linearScale(domain, [box.bottom, box.top]);
   const bw = (box.right - box.left) / Math.max(1, labels.length);
@@ -259,8 +259,14 @@ export function estimationChart(input, opts) {
   // the difference axis: ticks in difference units at the positions base + d
   const dTicks = ticksFor(ctx, [domain[0] - base, domain[1] - base], approxH, { vertical: true });
   const dLabs = tickLabels(dTicks);
-  const m = margins(ctx, { yLabels: labs, yTitle: input.yTitle, xTitle: input.xTitle, rightLabels: dLabs.map((s) => `${s}  `) });
-  const box = { left: m.left, right: ctx.width - m.right - ctx.fs * 1.4, top: m.top, bottom: height - m.bottom };
+  const m = margins(ctx, { yLabels: labs, yTitle: input.yTitle, xTitle: input.xTitle, rightLabels: dLabs.map((s) => `${s}  `), height });
+  // The difference axis label runs down the right edge, fitted to the plot's height as the y title is (review
+  // round 6: at 85 mm the default label ran past the top and bottom of the figure); a second line takes room
+  // from the plot, not from the tick labels.
+  const dLabel = d.label || t('graphs.estimation.diffAxis', { a: groups[0].label, b: groups[1].label });
+  const dFit = fitTitle(dLabel, height - m.bottom - m.top, ctx.fs, minFont(ctx));
+  const dExtra = (dFit.lines.length - 1) * dFit.size * 1.05;
+  const box = { left: m.left, right: ctx.width - m.right - ctx.fs * 1.4 - dExtra, top: m.top, bottom: height - m.bottom };
   const y = linearScale(domain, [box.bottom, box.top]);
   const split = box.left + (box.right - box.left) * 0.68;
   const bw = (split - box.left) / 2;
@@ -288,10 +294,15 @@ export function estimationChart(input, opts) {
   if (num(sums[1].center)) nodes.push(line(cx[1] + bw * 0.38, y(sums[1].center), dx, y(sums[1].center), { stroke: 'soft', 'stroke-width': r2(0.9 * u), 'stroke-dasharray': `${r2(3 * u)} ${r2(3 * u)}` }));
   if (num(d.lo) && num(d.hi)) nodes.push(line(midX, dy(d.lo), midX, dy(d.hi), { stroke: 'ink', 'stroke-width': r2(2.2 * u) }));
   if (num(d.value)) nodes.push(markerNode('circle', midX, dy(d.value), 4.5 * u, { fill: 'ink', stroke: 'paper', 'stroke-width': r2(u) }));
-  const dLabel = d.label || t('graphs.estimation.diffAxis', { a: groups[0].label, b: groups[1].label });
-  const tx = dx + ctx.fs * 2.6 + Math.max(...dLabs.map((s) => s.length)) * ctx.fs * 0.3;
+  const tx = dx + ctx.fs * 2.6 + Math.max(...dLabs.map((s) => s.length)) * ctx.fs * 0.3 + dExtra;
   const ty = (box.top + box.bottom) / 2;
-  nodes.push(text(Math.min(ctx.width - ctx.fs * 0.6, tx), ty, dLabel, { 'text-anchor': 'middle', 'font-size': ctx.fs, fill: 'ink', transform: `rotate(90 ${r2(Math.min(ctx.width - ctx.fs * 0.6, tx))} ${r2(ty)})` }));
+  // rotated the other way, its marks reach right: the first line sits ROTATED_REACH in from the right edge and
+  // any second line stands to its left
+  const lx = Math.min(ctx.width - dFit.size * ROTATED_REACH, tx);
+  dFit.lines.forEach((l, i) => {
+    const x = lx - i * dFit.size * 1.05;
+    nodes.push(text(x, ty, l, { 'text-anchor': 'middle', 'font-size': dFit.size, fill: 'ink', transform: `rotate(90 ${r2(x)} ${r2(ty)})` }));
+  });
   const diffText = num(d.value) ? (num(d.lo) && num(d.hi) ? fmtCi(ctx, d.value, d.lo, d.hi, 'difference') : '—') : '—';
   const table = {
     columns: [t('graphs.col.group'), t('graphs.col.n'), t('graphs.col.mean'), t('graphs.col.ci', { level: lv })],

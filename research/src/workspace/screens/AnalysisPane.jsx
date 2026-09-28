@@ -333,19 +333,25 @@ export default function AnalysisPane({ p, pane }) {
                 const fits = columnsForRole(codebook, r);
                 const val = choices.roles[r.role];
                 if (r.multiple) {
+                  // a column holds one role: the outcome, time or event chosen here is not offered again as an
+                  // explanatory variable (review round 5: ticked twice, the model fitted and was badged verified)
+                  const taken = roles.filter((o) => !o.multiple).map((o) => choices.roles[o.role]).filter(Boolean);
+                  const offered = fits.filter((c) => !taken.includes(c.key));
+                  const left = fits.filter((c) => taken.includes(c.key));
                   return (
                     <fieldset key={r.role} className="rs-fieldset">
                       <legend className="rs-field-label">{roleWord(t, method, r.role, 'role')}</legend>
                       {hasKey(t, `ws.roleHint.${r.role}`) ? <p className="rs-field-hint">{roleWord(t, method, r.role, 'roleHint')}</p> : null}
                       <div className="rs-checkgrid">
                         {fits.length === 0 ? <p className="rs-soft rs-small">{t('ws.analysis.noFitting')}</p> : null}
-                        {fits.map((c) => (
+                        {offered.map((c) => (
                           <label key={c.key} className="rs-check">
                             <input type="checkbox" checked={(val || []).includes(c.key)} onChange={(e) => setChoices((ch) => ({ ...ch, roles: { ...ch.roles, [r.role]: e.target.checked ? [...(val || []), c.key] : (val || []).filter((x) => x !== c.key) } }))} />
                             {colName(c)}
                           </label>
                         ))}
                       </div>
+                      {left.length ? <p className="rs-field-hint">{t('ws.analysis.takenElsewhere', { columns: left.map(colName).join(', ') })}</p> : null}
                     </fieldset>
                   );
                 }
@@ -360,7 +366,10 @@ export default function AnalysisPane({ p, pane }) {
                           const levels = { ...ch.levels };
                           if (r.level) levels[r.level] = entry?.positive || null;
                           if (r.reference) levels[r.reference] = entry?.reference || null;
-                          return { roles: { ...ch.roles, [r.role]: key }, levels };
+                          // the column leaves any list it was ticked in (a column holds one role)
+                          const next = { ...ch.roles, [r.role]: key };
+                          if (key) for (const o of roles) if (o.multiple && Array.isArray(next[o.role])) next[o.role] = next[o.role].filter((x) => x !== key);
+                          return { roles: next, levels };
                         });
                       }}>
                         <option value="">{r.optional ? t('ws.analysis.optionalNone') : t('ws.steps.chooseColumn')}</option>

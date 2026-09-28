@@ -1179,6 +1179,7 @@ const ROWS = [
   ['ws.analysis.measure.sub', 'ชุดตรวจแยกสัตว์ป่วยจากสัตว์ปกติได้ดีแค่ไหน (ROC) สองวิธีวัดให้ค่าตรงกันไหม (Bland-Altman) และแบบสอบถามวัดเรื่องเดียวกันไหม (Cronbach’s alpha)', 'How well a test separates sick from healthy animals (ROC), whether two methods agree (Bland-Altman), and whether a questionnaire measures one thing (Cronbach’s alpha).'],
   ['ws.analysis.measure.whichDesign', 'ROC ใช้กับรูปแบบการศึกษา ประเมินชุดตรวจ Bland-Altman และ Cronbach’s alpha ใช้กับรูปแบบการศึกษา ความสอดคล้อง', 'ROC fits the design diagnostic test evaluation; Bland-Altman and Cronbach’s alpha fit the design agreement study.'],
   ['ws.analysis.question', 'คุณอยากรู้อะไร', 'What do you want to find out'],
+  ['ws.analysis.takenElsewhere', 'ไม่แสดง {columns} ในรายการนี้ เพราะเลือกไว้เป็นบทบาทอื่นแล้ว', '{columns} not listed here: already chosen for another role.'],
   ['ws.analysis.noFitting', 'ยังไม่มีคอลัมน์ชนิดที่ใช้ได้ ตั้งชนิดคอลัมน์ที่หน้ารหัสตัวแปร', 'No column of a suitable type yet. Set the column types on the codebook page.'],
   ['ws.analysis.termsTitle', 'คำที่ใช้ในหน้านี้', 'Words on this page'],
 

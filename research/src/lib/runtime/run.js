@@ -69,6 +69,20 @@ export function runAnalysis(spec, table, codebook, env = {}) {
   }
 
   let norm = normalizeSpec(valid.spec, codebook);
+  // A column holds one role (review round 5: the outcome ticked again as its own explanatory variable fitted,
+  // was badged verified, and the Methods listed it twice). The screen no longer offers it; this stops a spec that
+  // still carries it, before any check reads the data.
+  const twice = columnInTwoRoles(norm);
+  if (twice) {
+    return makeEnvelope({
+      spec: norm,
+      output: null,
+      guard: { stops: [{ id: 'roles', severity: 'stop', key: 'runtime.guard.roleTwice', bodyKey: 'runtime.guard.roleTwiceBody', params: { column: twice } }], warnings: [], notes: [] },
+      provenance: provenanceOf(norm, null, { used: 0, dropped: [] }, computedAt, []),
+      verified: false,
+      method: methodInfo(norm.method),
+    });
+  }
   const active = table ? activeTable(table) : null;
   const exclusionDrops = table ? exclusionCounts(table, env.steps) : [];
   const notes = [];
@@ -234,6 +248,19 @@ function provenanceOf(spec, table, { used, dropped }, computedAt, validatedAgain
   };
   if (requestedMethod) p.requestedMethod = requestedMethod;
   return p;
+}
+
+/** The first column a spec names under two roles, or null: a column holds one role. */
+export function columnInTwoRoles(spec) {
+  const seen = new Set();
+  for (const v of Object.values(spec.roles || {})) {
+    for (const k of new Set([].concat(v || []))) {
+      if (!k) continue;
+      if (seen.has(k)) return k;
+      seen.add(k);
+    }
+  }
+  return null;
 }
 
 /** Column keys the spec's roles name (for aggregation to the farm). */

@@ -188,6 +188,9 @@ test('logistic regression on the goat example, accounting for farms with robust 
   await pick(page, '#rs-role-outcome', 'ELISA');
   const pos = page.locator('#rs-lv-outcomePositive');
   if (await pos.count()) await pos.selectOption('บวก');
+  // A column holds one role: the outcome is not offered again as an explanatory variable (review round 5).
+  await expect(page.getByRole('checkbox', { name: 'ผล ELISA', exact: true })).toHaveCount(0);
+  await expect(page.getByText('ไม่แสดง ผล ELISA ในรายการนี้ เพราะเลือกไว้เป็นบทบาทอื่นแล้ว')).toBeVisible();
   await page.getByRole('checkbox', { name: 'อายุ (เดือน)' }).check();
   await page.getByRole('checkbox', { name: 'เพศ', exact: true }).check();
   const run = page.getByRole('button', { name: th['ws.analysis.run'] });

@@ -58,6 +58,13 @@ export function tickLabels(ticks, o = {}) {
 /** Round to 2 decimals for SVG attributes (keeps files small, sub-pixel exact enough). */
 export const r2 = (v) => Math.round(v * 100) / 100;
 
+/** How far a rotated line's glyphs reach from its baseline, in em: Thai stacks a tone mark on an upper vowel
+ * (ที่, ขึ้น) about 1.3 em above the baseline, where Latin reaches about 0.8 em (review round 5: the tone marks
+ * of 'น้ำหนักที่เพิ่มขึ้น' were cut at the left edge of every saved figure). */
+export const ROTATED_REACH = 1.3;
+/** How far Thai lower vowels (ุ ู) reach below the baseline, in em. */
+export const TITLE_DESCENT = 0.4;
+
 /** A text node. */
 export function text(x, y, s, a = {}) {
   return { t: 'text', a: { x: r2(x), y: r2(y), ...a }, text: String(s) };
@@ -84,15 +91,23 @@ export function rect(x, y, w, h, a = {}) {
 /**
  * Margins that fit the tick labels and titles.
  * @param {any} ctx
- * @param {{ yLabels?: string[], yTitle?: string, xTitle?: string, rightLabels?: string[], top?: number, bottomExtra?: number, minLeft?: number }} o
+ * @param {{ yLabels?: string[], yTitle?: string, xTitle?: string, rightLabels?: string[], top?: number, bottomExtra?: number, minLeft?: number, height?: number }} o
  */
 export function margins(ctx, o = {}) {
   const fs = ctx.fs;
   const yLab = Math.max(0, ...(o.yLabels || []).map((s) => textWidth(s, fs)));
-  const left = Math.ceil(Math.max(o.minLeft || 0, yLab + fs * 0.6 + (o.yTitle ? fs * 2 : 0) + 4 * ctx.u));
   const right = Math.ceil(Math.max(10 * ctx.u, ...(o.rightLabels || []).map((s) => textWidth(s, fs) + fs * 0.6)));
   const top = Math.ceil(o.top ?? fs * 0.8);
   const bottom = Math.ceil(fs * 1.9 + (o.xTitle ? fs * 1.5 : 0) + (o.bottomExtra || 0));
+  // The y title's room: ROTATED_REACH left of its first line, its other lines and their descenders to the right
+  // (review round 5: a three-line Thai title ran into the tick labels). With the chart height it is fitted as yAxis
+  // will fit it; the room is never less than the 2 em it always had.
+  let yRoom = 0;
+  if (o.yTitle) {
+    const fit = o.height ? fitTitle(o.yTitle, o.height - top - bottom, fs, minFont(ctx)) : { lines: [o.yTitle], size: fs };
+    yRoom = Math.max(fs * 2, ((fit.lines.length - 1) * 1.05 + ROTATED_REACH + TITLE_DESCENT) * fit.size);
+  }
+  const left = Math.ceil(Math.max(o.minLeft || 0, yLab + fs * 0.6 + yRoom + 4 * ctx.u));
   return { left, right, top, bottom };
 }
 
@@ -154,9 +169,9 @@ export function yAxis(ctx, box, scale, ticks, labels, title, o = {}) {
   if (title) {
     const cy = (box.top + box.bottom) / 2;
     const fit = fitTitle(title, box.bottom - box.top, ctx.fs, minFont(ctx));
-    // a rotated line's glyphs reach about 0.8 em to the left of its baseline: the first of two or three lines
-    // is moved in so it is not cut at the left edge (review round 2, a 390 px screen)
-    const cx = Math.max(ctx.fs * 0.9, ((fit.lines.length - 1) / 2) * fit.size * 1.05 + fit.size * 0.9);
+    // the first of one to three lines sits ROTATED_REACH in from the left edge, so no stacked Thai mark is cut
+    // (review round 2, a 390 px screen; round 5, every saved figure with a Thai y title)
+    const cx = Math.max(ctx.fs * ROTATED_REACH, ((fit.lines.length - 1) / 2) * fit.size * 1.05 + fit.size * ROTATED_REACH);
     nodes.push(...titleNodes(cx, cy, fit, { 'text-anchor': 'middle', fill: 'ink' }, true));
   }
   return nodes;

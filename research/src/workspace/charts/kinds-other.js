@@ -164,7 +164,7 @@ export function epiCurveChart(input, opts) {
   let yTicks = niceTicks(0, maxC * 1.05, { pixels: height - ctx.fs * 4 - legH, minGapPx: ctx.fs * 2.2 }).filter((v) => Number.isInteger(v));
   if (!yTicks.length) yTicks = [0, maxC];
   const yLabs = tickLabels(yTicks);
-  const m = margins(ctx, { yLabels: yLabs, yTitle: input.yTitle || t('graphs.epi.yTitle'), xTitle: input.xTitle || t(`graphs.epi.xTitle.${unit}`), top: ctx.fs * 0.8 + legH });
+  const m = margins(ctx, { yLabels: yLabs, yTitle: input.yTitle || t('graphs.epi.yTitle'), xTitle: input.xTitle || t(`graphs.epi.xTitle.${unit}`), top: ctx.fs * 0.8 + legH, height });
   const box = { left: m.left, right: ctx.width - m.right, top: m.top, bottom: height - m.bottom };
   const y = linearScale([0, Math.max(maxC * 1.05, yTicks[yTicks.length - 1])], [box.bottom, box.top]);
   const bw = (box.right - box.left) / total.length;
