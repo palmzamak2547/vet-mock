@@ -46,7 +46,8 @@ export default function WorkspaceFilm({ onLeave, onGone }) {
       const v0 = v.volume;
       const t0 = performance.now();
       const fade = (now) => {
-        const k = Math.min((now - t0) / 400, 1);
+        // a frame's timestamp can be a little earlier than t0: clamp, volume outside [0, 1] throws
+        const k = Math.min(Math.max((now - t0) / 400, 0), 1);
         v.volume = v0 * (1 - k);
         if (k < 1 && !v.paused) requestAnimationFrame(fade);
       };
