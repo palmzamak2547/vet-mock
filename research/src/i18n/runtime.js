@@ -20,7 +20,7 @@ export default {
     'runtime.note.robustWald': 'เพราะเลือก SE ปรับตามฟาร์ม (cluster-robust) CI จึงคำนวณแบบ Wald',
     'runtime.guard.routeUnavailable': 'วิธีปรับตามฟาร์มที่เลือกไว้ใช้กับคำถามและข้อมูลชุดนี้ไม่ได้ จึงยังไม่แสดงผล เลือกวิธีอื่นจากรายการด้านล่าง',
     'runtime.guard.roleTwice': 'คอลัมน์ {column} ถูกเลือกไว้สองบทบาท',
-    'runtime.guard.roleTwiceBody': 'คอลัมน์หนึ่งทำได้บทบาทเดียว เช่น ตัวแปรผลจะเป็นตัวแปรอธิบายด้วยไม่ได้ เอาออกจากบทบาทหนึ่งแล้วคำนวณใหม่',
+    'runtime.guard.roleTwiceBody': 'คอลัมน์หนึ่งใช้ได้บทบาทเดียว ตอนนี้ {column} ถูกเลือกเป็นทั้ง “{roleA}” และ “{roleB}” เอาออกจากบทบาทใดบทบาทหนึ่งแล้วคำนวณใหม่',
 
     // ---- engine -----------------------------------------------------------------------------
     'runtime.engine.failed': 'คำนวณไม่สำเร็จ ลองอีกครั้ง ถ้ายังไม่ได้ ให้ดาวน์โหลดไฟล์โปรเจกต์เก็บไว้ก่อน',
@@ -452,7 +452,7 @@ export default {
     'runtime.note.robustWald': 'Because farm-adjusted standard errors (cluster-robust) were chosen, the CIs are Wald intervals.',
     'runtime.guard.routeUnavailable': 'The way of accounting for farms you picked does not fit this question and these data, so no result is shown yet. Pick another one from the list below',
     'runtime.guard.roleTwice': 'The column {column} is chosen for two roles',
-    'runtime.guard.roleTwiceBody': 'A column can hold only one role: the outcome cannot also be an explanatory variable. Remove it from one role and run again',
+    'runtime.guard.roleTwiceBody': 'A column can hold only one role. {column} is chosen as both “{roleA}” and “{roleB}”: remove it from one of them and run again',
 
     'runtime.engine.failed': 'The calculation did not finish. Try again; if it keeps failing, download the project file first',
     'runtime.engine.methodFailed': 'This method could not compute on these data. No number is shown in its place',

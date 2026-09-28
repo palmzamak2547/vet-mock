@@ -364,15 +364,27 @@ export default function AnalysisPane({ p, pane }) {
                         const entry = codebook.columns.find((c) => c.key === key);
                         setChoices((ch) => {
                           const levels = { ...ch.levels };
+                          // The column leaves any other role it held, a list it was ticked in or another single
+                          // choice with its levels (a column holds one role; review round 6: the Poisson time
+                          // select still offered the outcome, and the run then stopped).
+                          const next = { ...ch.roles, [r.role]: key };
+                          if (key) {
+                            for (const o of roles) {
+                              if (o.role === r.role) continue;
+                              if (o.multiple && Array.isArray(next[o.role])) next[o.role] = next[o.role].filter((x) => x !== key);
+                              else if (!o.multiple && next[o.role] === key) {
+                                next[o.role] = null;
+                                if (o.level) levels[o.level] = null;
+                                if (o.reference) levels[o.reference] = null;
+                              }
+                            }
+                          }
                           if (r.level) levels[r.level] = entry?.positive || null;
                           if (r.reference) levels[r.reference] = entry?.reference || null;
-                          // the column leaves any list it was ticked in (a column holds one role)
-                          const next = { ...ch.roles, [r.role]: key };
-                          if (key) for (const o of roles) if (o.multiple && Array.isArray(next[o.role])) next[o.role] = next[o.role].filter((x) => x !== key);
                           return { roles: next, levels };
                         });
                       }}>
-                        <option value="">{r.optional ? t('ws.analysis.optionalNone') : t('ws.steps.chooseColumn')}</option>
+                        <option value="">{r.optional ? t(r.role === 'group' || r.role === 'strata' ? 'ws.analysis.optionalNone' : 'ws.analysis.optionalEmpty') : t('ws.steps.chooseColumn')}</option>
                         {fits.map((c) => <option key={c.key} value={c.key}>{colName(c)}</option>)}
                       </select>
                     </Field>
@@ -427,7 +439,7 @@ export default function AnalysisPane({ p, pane }) {
               {needsCluster ? <Notice tone="info">{t('ws.analysis.needsCluster')}</Notice> : null}
               {hasKey(t, `ws.analysis.${pane}.before`) ? <p className="rs-soft rs-small">{t(`ws.analysis.${pane}.before`)}</p> : null}
               {cat && !cat.shipped ? <Notice tone="info">{t('ws.analysis.notReadyBody')}</Notice> : null}
-              {gaps.length ? <p className="rs-soft rs-small">{t('ws.analysis.stillNeeds', { what: gaps.map((g) => t(hasKey(t, `ws.role.${g}`) ? `ws.role.${g}` : `ws.level.pick.${g}`)).join(', ') })}</p> : null}
+              {gaps.length ? <p className="rs-soft rs-small">{t('ws.analysis.stillNeeds', { what: gaps.map((g) => (hasKey(t, `ws.role.${g}`) ? roleWord(t, method, g, 'role') : t(`ws.level.pick.${g}`))).join(', ') })}</p> : null}
               {cluster && !ui?.needsCluster && ui?.input === 'dataset' ? <p className="rs-soft rs-small">{t('ws.analysis.clusterAhead', { column: cluster.name })}</p> : null}
               <button type="button" className="rs-btn rs-btn--primary rs-btn--block" disabled={!canRun} onClick={() => run(pane === 'prev' && cluster && PREV_DEFAULT_DEFF.has(method) ? 'deff' : null)}>
                 <Icon name="play" size={18} />

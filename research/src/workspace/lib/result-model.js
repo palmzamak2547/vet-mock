@@ -124,7 +124,7 @@ export function valueLabel(name, t, methodId = null, words = null) {
     // stands for it, a gloss is given where the measure is named alone), and a term with brackets of its own
     // follows a colon.
     const value = shortMeasure(valueLabel(String(name).slice(0, colon), t, methodId));
-    const level = suffixText(methodId, String(name).slice(colon + 1), words ? { t, ...words } : null);
+    const level = suffixText(methodId, String(name).slice(colon + 1), words ? { t, ...words } : null, String(name).slice(0, colon));
     return /[()]/.test(String(level)) ? `${value}: ${level}` : t('ws.value.ofLevel', { value, level });
   }
   // The epi area names the values its methods return (epi.value.nPooled); used when the workspace has no own word.

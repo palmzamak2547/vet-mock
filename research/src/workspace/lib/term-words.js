@@ -23,6 +23,11 @@ function referencesOf(env) {
   return new Map((tb?.rows || []).map((r) => [String(r[0]), r[1]]));
 }
 
+/** Codebook types that hold numbers (intake/codebook.js NUMERIC). */
+const NUMBER_TYPES = new Set(['continuous', 'count']);
+/** Model values that are the effect of a term (a test of the term is not). */
+const EFFECTS = new Set(['oddsRatio', 'rateRatio', 'b']);
+
 /** Column label, or the key when the codebook does not know it. */
 const colName = (ctx, key) => (ctx.columnName ? ctx.columnName(key) : key);
 /** Level label of a column, or the value as the file has it. */
@@ -56,14 +61,32 @@ export function termText(term, ctx) {
 }
 
 /**
+ * A model term as the effect it carries: the odds ratio, rate ratio or coefficient of a number covariate is per
+ * one unit of it, "น้ำหนักแรกเกิด ต่อ 1 kg" (review round 6: "odds ratio (น้ำหนักแรกเกิด) 1.03" did not say per
+ * what). The unit is the codebook's (the header's own brackets); without one the term reads "per 1 unit". A
+ * label that already ends in the unit's brackets drops them. Any other term reads as termText has it.
+ * @param {string} term
+ * @param {WordsCtx} ctx
+ */
+export function perUnitTerm(term, ctx) {
+  const c = ctx.codebook?.columns?.find((x) => x.key === String(term));
+  if (!c || !NUMBER_TYPES.has(c.type)) return termText(term, ctx);
+  const unit = c.unit || ctx.t('ws.term.unit');
+  const label = colName(ctx, c.key).trim();
+  const tail = `(${unit})`;
+  const column = label.endsWith(tail) && label.length > tail.length ? label.slice(0, -tail.length).trim() : label;
+  return ctx.t('ws.term.perUnit', { column, unit });
+}
+
+/**
  * The words of the part after the colon of a value or test name ('oddsRatio:c2=B', 'median:ผู้', 'lr:c10').
  * @param {string|null} methodId
  * @param {string} suffix
  * @param {WordsCtx|null} ctx
  */
-export function suffixText(methodId, suffix, ctx) {
+export function suffixText(methodId, suffix, ctx, measure = null) {
   if (!ctx) return suffix;
-  if (methodId === 'reg.logistic' || methodId === 'reg.poisson') return termText(suffix, ctx);
+  if (methodId === 'reg.logistic' || methodId === 'reg.poisson') return EFFECTS.has(measure) ? perUnitTerm(suffix, ctx) : termText(suffix, ctx);
   if (methodId === 'surv.kaplanMeier') return lvlName(ctx, roleOf(ctx.spec, 'group'), suffix);
   return suffix;
 }
@@ -142,7 +165,8 @@ export function cellText(tableId, col, cell, row, ctx) {
       return undefined;
     case 'reg.logistic':
     case 'reg.poisson':
-      if ((tableId === 'coefficients' || tableId === 'lrTests' || tableId === 'references') && col === 0) return termText(cell, ctx);
+      if (tableId === 'coefficients' && col === 0) return perUnitTerm(cell, ctx);
+      if ((tableId === 'lrTests' || tableId === 'references') && col === 0) return termText(cell, ctx);
       if (tableId === 'references' && col === 1) return lvlName(ctx, row[0], cell);
       if (tableId === 'separation' && col === 0) return termText(cell, ctx);
       if (tableId === 'separation' && col === 1) return cell.startsWith('models.cell.') ? ctx.t(cell) : lvlName(ctx, row[0], cell);

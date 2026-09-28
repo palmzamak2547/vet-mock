@@ -77,7 +77,7 @@ export function runAnalysis(spec, table, codebook, env = {}) {
     return makeEnvelope({
       spec: norm,
       output: null,
-      guard: { stops: [{ id: 'roles', severity: 'stop', key: 'runtime.guard.roleTwice', bodyKey: 'runtime.guard.roleTwiceBody', params: { column: twice } }], warnings: [], notes: [] },
+      guard: { stops: [{ id: 'roles', severity: 'stop', key: 'runtime.guard.roleTwice', bodyKey: 'runtime.guard.roleTwiceBody', params: { column: twice.column, roleIds: twice.roles } }], warnings: [], notes: [] },
       provenance: provenanceOf(norm, null, { used: 0, dropped: [] }, computedAt, []),
       verified: false,
       method: methodInfo(norm.method),
@@ -250,14 +250,19 @@ function provenanceOf(spec, table, { used, dropped }, computedAt, validatedAgain
   return p;
 }
 
-/** The first column a spec names under two roles, or null: a column holds one role. */
+/**
+ * The first column a spec names under two roles, and those two roles, or null: a column holds one role. The stop
+ * names both roles (review round 6: it named the column "c5" and always said the outcome cannot also be an
+ * explanatory variable, also when the outcome was the follow-up time or a test was its own second test).
+ * @returns {{ column: string, roles: string[] }|null}
+ */
 export function columnInTwoRoles(spec) {
-  const seen = new Set();
-  for (const v of Object.values(spec.roles || {})) {
+  const seen = new Map();
+  for (const [role, v] of Object.entries(spec.roles || {})) {
     for (const k of new Set([].concat(v || []))) {
       if (!k) continue;
-      if (seen.has(k)) return k;
-      seen.add(k);
+      if (seen.has(k)) return { column: k, roles: [seen.get(k), role] };
+      seen.set(k, role);
     }
   }
   return null;

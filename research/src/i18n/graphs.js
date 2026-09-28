@@ -153,7 +153,7 @@ const ROWS = [
   // downloads (the width, dpi, SVG and PNG words are ws.chart.*)
   ['graphs.export.tiff', 'TIFF', 'TIFF'],
   ['graphs.export.pdf', 'PDF (หน้าต่างพิมพ์)', 'PDF (print dialog)'],
-  ['graphs.export.hint', 'ไฟล์ใช้พื้นขาวตัวอักษรดำตามที่วารสารขอ TIFF เป็นภาพ RGB 8 บิต บีบอัดแบบ LZW ส่วน PDF จะเปิดหน้าต่างพิมพ์ของเบราว์เซอร์ที่ขนาดกระดาษเท่ารูป เลือกบันทึกเป็น PDF จะได้ไฟล์แบบเวกเตอร์ ทุกไฟล์ทำบนเครื่องนี้ ไม่มีข้อมูลส่งออกนอกเครื่อง', 'Files use white paper and black ink, as journals ask. TIFF is 8-bit RGB with LZW compression. PDF opens the browser’s print dialog at the figure’s size; choose Save as PDF for a vector file. Every file is made on this device; no data leaves this device.'],
+  ['graphs.export.hint', 'ไฟล์ใช้พื้นขาวตัวอักษรดำตามที่วารสารขอ TIFF เป็นภาพ RGB 8 บิต บีบอัดแบบ LZW ส่วน PDF จะเปิดหน้าต่างพิมพ์ของเบราว์เซอร์ที่ขนาดกระดาษเท่ารูป เลือกบันทึกเป็น PDF จะได้ไฟล์แบบเวกเตอร์ ทุกไฟล์ทำบนเครื่องนี้ ไม่มีข้อมูลส่งออกนอกเครื่อง', 'Files use white paper and black ink, as journals ask. TIFF is 8-bit RGB with LZW compression. PDF opens the browser’s print dialog at the figure’s size; choose Save as PDF for a vector file. Every file is made on this device. No data leaves this device.'],
   ['graphs.export.failed', 'ทำไฟล์ไม่สำเร็จ ลองอีกครั้ง หรือเลือก 300 dpi', 'The file could not be made. Try again, or choose 300 dpi.'],
   ['graphs.export.noPrint', 'เบราว์เซอร์นี้เปิดหน้าต่างพิมพ์ไม่ได้', 'This browser cannot open a print dialog'],
 

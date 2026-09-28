@@ -147,6 +147,12 @@ function wordParams(params, t, words) {
   for (const k of NUMBER_PARAMS) if (typeof out[k] === 'number' && !Number.isInteger(out[k])) out[k] = tinyText(out[k]) ?? formatNumber(out[k], { kind: 'statistic' });
   // option ids a method settled from the data, by the option's own label
   if (Array.isArray(params.optionIds) && t) out.options = params.optionIds.map((id) => (has(t, `ws.opt.${id}.label`) ? t(`ws.opt.${id}.label`) : id)).join(', ');
+  // the roles a column was chosen for, by the labels the analysis screen shows for this method
+  if (Array.isArray(params.roleIds) && t) {
+    const m = keyPart(words?.spec?.method || '');
+    const roleName = (r) => { const k = [`ws.roleFor.${m}.${r}`, `ws.role.${r}`].find((x) => has(t, x)); return k ? t(k) : r; };
+    [out.roleA, out.roleB] = params.roleIds.map(roleName);
+  }
   if (!words) return out;
   const w = { t, ...words };
   const col = (k) => (words.columnName ? words.columnName(k) : k);
@@ -226,7 +232,10 @@ function twoByTwoLabels({ spec = null, codebook = null, columnName = (k) => k, l
 export function envTableText(table, t, ctx = {}) {
   const labels = isTwoByTwo(table) ? twoByTwoLabels(ctx, t) : null;
   const area = wordAreaOf(ctx.spec?.method || null);
-  const columns = table.columns.map((c, i) => labels?.columns?.[i] ?? tableWord(c, t, 'col', { area, tableId: table.id }));
+  // The two-way ANOVA's cell means head their level columns with the factors' own names, as the chart table
+  // beside them does (review round 6: 'ระดับของปัจจัยแรก | ระดับของปัจจัยที่สอง' next to 'สูตรอาหาร | เพศ').
+  const factorKey = (c) => (c === 'levelA' ? ctx.spec?.roles?.group : c === 'levelB' ? ctx.spec?.roles?.factorB : null);
+  const columns = table.columns.map((c, i) => labels?.columns?.[i] ?? (factorKey(c) && ctx.columnName ? ctx.columnName(factorKey(c)) : null) ?? tableWord(c, t, 'col', { area, tableId: table.id }));
   // p-value columns print as p-values (< 0.001), not as small numbers (review round 1: 0.0000168, 3.83e-32).
   const pCol = table.columns.map((c) => /(^|\.)p(Adjusted|GG|HF|Holm|Raw)?$/.test(String(c)));
   const words = ctx.spec ? { t, ...ctx } : null;

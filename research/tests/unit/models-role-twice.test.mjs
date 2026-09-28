@@ -16,9 +16,9 @@ const cnt = Array.from({ length: n }, (_, i) => (i * 3) % 5);
 const T = makeTable({ y: { kind: 'category', levels: ['neg', 'pos'], values: y }, x: { kind: 'number', values: x }, days: { kind: 'number', values: days }, cnt: { kind: 'number', values: cnt } });
 const input = { kind: 'dataset', datasetId: 'd1', recipeRev: 1 };
 
-test('columnInTwoRoles names the first column held twice, and nothing else', () => {
-  assert.equal(columnInTwoRoles({ roles: { outcome: 'y', covariates: ['x', 'y'] } }), 'y');
-  assert.equal(columnInTwoRoles({ roles: { outcome: 'cnt', covariates: ['x'], time: 'x' } }), 'x');
+test('columnInTwoRoles names the first column held twice and its two roles, and nothing else', () => {
+  assert.deepEqual(columnInTwoRoles({ roles: { outcome: 'y', covariates: ['x', 'y'] } }), { column: 'y', roles: ['outcome', 'covariates'] });
+  assert.deepEqual(columnInTwoRoles({ roles: { outcome: 'cnt', covariates: ['x'], time: 'x' } }), { column: 'x', roles: ['covariates', 'time'] });
   assert.equal(columnInTwoRoles({ roles: { outcome: 'y', covariates: ['x', 'x'] } }), null);
   assert.equal(columnInTwoRoles({ roles: { outcome: 'y', covariates: ['x'], time: null } }), null);
 });
@@ -43,4 +43,32 @@ test('the same models with one role per column still run', () => {
   const b = runAnalysis(makeSpec('reg.poisson', input, { roles: { outcome: 'cnt', covariates: ['x'], time: 'days' }, design: 'cohort' }), T, null);
   assert.equal(a.status, 'ok');
   assert.equal(b.status, 'ok');
+});
+
+// Review round 6 (copy): the stop named the column by its key ("คอลัมน์ c5") and always said the outcome cannot also
+// be an explanatory variable, also for the outcome as its own follow-up time and a test as its own second test.
+test('the stop names the column by its label and both roles by the labels the analysis screen shows', async () => {
+  const { registerArea, translate } = await import('../../src/i18n/index.js');
+  registerArea('runtime', (await import('../../src/i18n/runtime.js')).default);
+  registerArea('workspace', (await import('../../src/i18n/workspace.js')).default);
+  const { guardText } = await import('../../src/workspace/report/result-words.js');
+  const cases = [
+    ['reg.poisson', { outcome: 'cnt', covariates: ['x'], time: 'cnt' }, {}, 'cnt', ['ws.role.outcome', 'ws.roleFor.regPoisson.time']],
+    ['roc.delong', { test: 'x', reference: 'y', test2: 'x' }, { referencePositive: 'pos' }, 'x', ['ws.roleFor.rocDelong.test', 'ws.role.test2']],
+  ];
+  for (const [method, roles, levels, key, roleKeys] of cases) {
+    const env = runAnalysis(makeSpec(method, input, { roles, levels, design: 'cohort' }), T, null);
+    assert.equal(env.status, 'stopped', method);
+    for (const lang of ['th', 'en']) {
+      const t = (k, p) => translate(lang, k, p);
+      const label = lang === 'th' ? 'คอลัมน์ทดสอบ' : 'Test column';
+      const x = guardText(env.guard.stops[0], t, { spec: env.spec, columnName: (k) => (k === key ? label : k) });
+      const all = `${x.title} ${x.body}`;
+      assert.ok(all.includes(label), all);
+      assert.ok(!all.split(' ').includes(key), `no column key in: ${all}`);
+      for (const rk of roleKeys) assert.ok(x.body.includes(t(rk)), `${lang} ${method}: "${t(rk)}" in "${x.body}"`);
+      assert.ok(!/explanatory|ตัวแปรอธิบาย/.test(x.body), x.body);
+      assert.ok(!/\{|\[runtime\./.test(all), all);
+    }
+  }
 });

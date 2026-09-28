@@ -19,6 +19,10 @@ function mark(el) {
   const side = moreSides(el);
   if ((el.getAttribute('data-more') || '') === side) return;
   if (side) el.setAttribute('data-more', side); else el.removeAttribute('data-more');
+  // A scroller that hides columns takes keyboard focus, so the arrow keys reach them where the browser does not
+  // make scrollers focusable on its own (Safari; review round 6). Only a tabindex set here is taken back.
+  if (side && !el.hasAttribute('tabindex')) { el.setAttribute('tabindex', '0'); el.setAttribute('data-cue-tab', ''); }
+  else if (!side && el.hasAttribute('data-cue-tab')) { el.removeAttribute('tabindex'); el.removeAttribute('data-cue-tab'); }
 }
 
 /**

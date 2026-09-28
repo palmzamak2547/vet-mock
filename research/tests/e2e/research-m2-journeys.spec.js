@@ -134,6 +134,15 @@ test('paired ROC comparison on the rapid-test example, kept and exported as a Wo
   // the picker shows the codebook label, not the raw code the file carries (review round 2)
   if (await pos.count()) await expect(pos.locator('option[value="บวก"]')).toHaveText('พบเชื้อ');
   if (await pos.count()) await pos.selectOption('บวก');
+  // A column holds one role: choosing the test's column as the second test moves it there, and the screen names
+  // what is still to choose by the field's own label (review round 6: the same column could fill both selects,
+  // and the run stopped naming it "c2").
+  await pick(page, '#rs-role-test2', 'ชุดตรวจเร็ว');
+  await expect(page.locator('#rs-role-test')).toHaveValue('');
+  await expect(page.getByText(th['ws.analysis.stillNeeds'].split('{')[0])).toContainText(th['ws.roleFor.rocDelong.test']);
+  await pick(page, '#rs-role-test', 'ชุดตรวจเร็ว');
+  await expect(page.locator('#rs-role-test2')).toHaveValue('');
+  await expect(page.locator('#rs-role-test2 option[value=""]')).toHaveText(th['ws.analysis.optionalEmpty']);
   await pick(page, '#rs-role-test2', 'เซลล์โซมาติก');
   await runAnalysis(page);
   const result = page.locator('.rs-analysis-result');

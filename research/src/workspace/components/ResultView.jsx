@@ -195,8 +195,8 @@ export default function ResultView({ envelope, title, caption: captionProp = '',
         <VerifiedBadge show={Boolean(env.verified)} />
       </div>
       {stale ? <Notice tone="warn" title={t('ws.result.staleTitle')}>{t('ws.result.staleBody')}</Notice> : null}
-      {env.status === 'invalid' ? <Notice tone="stop" title={t('ws.result.invalidTitle')}><GuardList items={env.guard?.stops} tone="stop" />{t('ws.result.invalidBody')}</Notice> : null}
-      {env.status === 'stopped' ? <GuardList items={env.guard?.stops} tone="stop" /> : null}
+      {env.status === 'invalid' ? <Notice tone="stop" title={t('ws.result.invalidTitle')}><GuardList items={env.guard?.stops} tone="stop" words={words} />{t('ws.result.invalidBody')}</Notice> : null}
+      {env.status === 'stopped' ? <GuardList items={env.guard?.stops} tone="stop" words={words} /> : null}
 
       {lead ? (
         <div className="rs-headline">

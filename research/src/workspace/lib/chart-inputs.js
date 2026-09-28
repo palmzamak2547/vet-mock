@@ -8,7 +8,7 @@
 // Used by the result views, the saved-result page and the figure composer, so a figure panel is the
 // chart the student saw under the result. Pure. OWNER: ui-analysis role.
 import { chartOptions } from '../charts/from-result.js';
-import { pairText, termText } from './term-words.js';
+import { pairText, perUnitTerm } from './term-words.js';
 import { valueLabel } from './result-model.js';
 
 /**
@@ -151,7 +151,7 @@ export function extraCharts(env, labelOf = (k) => k, levelName = (k, v) => v, t 
     case 'reg.logistic':
     case 'reg.poisson': {
       const tb = findTable(env, 'ratios', 'coefficients');
-      if (tb) add(method === 'reg.logistic' ? 'oddsRatios' : 'rateRatios', 'forest', ratiosInput(tb, method === 'reg.logistic' ? 'OR' : 'IRR', level, (x) => termText(x, words)));
+      if (tb) add(method === 'reg.logistic' ? 'oddsRatios' : 'rateRatios', 'forest', ratiosInput(tb, method === 'reg.logistic' ? 'OR' : 'IRR', level, (x) => perUnitTerm(x, words)));
       break;
     }
     case 'diag.shapiro': {

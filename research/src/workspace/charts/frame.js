@@ -286,16 +286,18 @@ export function wrapWords(label, room, fs) {
   for (const [i, w] of words.entries()) {
     const first = i === 0 ? '' : ' ';
     if (textWidth(w, fs) <= room) { tokens.push({ sep: first, text: w }); continue; }
-    splitWide(w, room, fs).forEach((piece, k) => tokens.push({ sep: k === 0 ? first : '', text: piece }));
+    splitWide(w, room, fs).forEach((piece, k) => tokens.push({ sep: k === 0 ? first : '', text: piece.text, solo: piece.solo }));
   }
   // ... and with the first piece of a long word after it when the whole word does not fit.
   for (let i = tokens.length - 2; i >= 0; i -= 1) {
     const a = tokens[i], b = tokens[i + 1];
-    if (/^[-+]?[\d.,]+%?$/.test(a.text) && b.sep === ' ' && textWidth(`${a.text} ${b.text}`, fs) <= room) tokens.splice(i, 2, { sep: a.sep, text: `${a.text} ${b.text}` });
+    if (/^[-+]?[\d.,]+%?$/.test(a.text) && b.sep === ' ' && !b.solo && textWidth(`${a.text} ${b.text}`, fs) <= room) tokens.splice(i, 2, { sep: a.sep, text: `${a.text} ${b.text}` });
   }
   const out = [];
   let cur = '';
   for (const tk of tokens) {
+    // a line cut out of one word by letters shares its line with nothing ('ชั่ว / โมง', never 'โมงหลัง')
+    if (tk.solo) { if (cur) out.push(cur); out.push(tk.text); cur = ''; continue; }
     const next = cur ? `${cur}${tk.sep}${tk.text}` : tk.text;
     if (cur && textWidth(next, fs) > room) { out.push(cur); cur = tk.text; } else cur = next;
   }
@@ -307,6 +309,8 @@ const segmenter = (granularity) => {
   try { return typeof Intl !== 'undefined' && Intl.Segmenter ? new Intl.Segmenter('th', { granularity }) : null; } catch { return null; }
 };
 const WORDS = segmenter('word');
+/** น้ำ, the head of น้ำหนัก, น้ำนม, น้ำเหลือง (escaped: workspace code carries no Thai text of its own). */
+const WATER = '\u0e19\u0e49\u0e33';
 const GRAPHEMES = segmenter('grapheme');
 
 /** Grapheme clusters of a string; without Intl.Segmenter, a base character with the marks that follow it. */
@@ -322,11 +326,15 @@ export function graphemes(s) {
   return out;
 }
 
-/** A space-free word wider than `room`, in pieces that each fit (word segments first, then graphemes). */
+/**
+ * A space-free word wider than `room`, in lines that each fit (word segments first, then graphemes). A line cut
+ * out of a single segment by letters is `solo`: nothing else joins it.
+ * @returns {{ text: string, solo: boolean }[]}
+ */
 function splitWide(word, room, fs) {
   // A word without Thai letters is never broken: 'Da / ys' reads worse than a word that runs past the room
   // (review round 5, 'Days followed' in an 85 mm two-column panel). Only Thai, which has no spaces, is cut.
-  if (!/[\u0e01-\u0e5b]/.test(word)) return [word];
+  if (!/[\u0e01-\u0e5b]/.test(word)) return [{ text: word, solo: false }];
   const raw = WORDS ? Array.from(WORDS.segment(word), (x) => x.segment) : [word];
   // ICU sometimes ends a segment on the first letter of the next word's initial cluster ('หลังค|ลอด' for
   // หลัง|คลอด): a bare cluster initial after a bare consonant moves forward when the next segment starts with
@@ -334,31 +342,46 @@ function splitWide(word, room, fs) {
   for (let i = 0; i + 1 < raw.length; i += 1) {
     if (/[\u0e01-\u0e2e][\u0e01\u0e02\u0e04\u0e15\u0e1b\u0e1c\u0e1e]$/.test(raw[i]) && /^[\u0e23\u0e25\u0e27]/.test(raw[i + 1])) { raw[i + 1] = raw[i].slice(-1) + raw[i + 1]; raw[i] = raw[i].slice(0, -1); }
   }
-  // A segment of one or two letters goes with its neighbour (the segmenter's 'หลังค|ลอด' style splits leave
-  // short fragments that read as nonsense on their own line).
-  const segs = [];
-  for (const sg of raw) {
-    const short = graphemes(sg).length <= 2;
-    if (segs.length && (short || graphemes(segs[segs.length - 1]).length <= 2)) segs[segs.length - 1] += sg;
-    else segs.push(sg);
-  }
+  // Where to break: between the segmenter's words, and inside one only when that word alone is wider than the
+  // line. Each place has a cost: inside a word 4; after น้ำ 3 (ICU splits น้ำ|หนัก and น้ำ|เหลือง, and a line
+  // ending in น้ำ cuts the compound); next to a segment of one or two letters 1 (แรก|เกิด, นม|น้ำ, ที่|ได้ are
+  // often parts of one term); between two longer words 0. The fewest lines win, then the lowest cost, then the
+  // most even lines (review round 6: the old rule glued every short segment to its neighbour, so น้ำหนักแรกเกิด
+  // became one unit and was then cut by letters as 'น้ำหนักแรกเกิ / ด').
   const units = [];
-  for (const sg of segs) {
-    if (textWidth(sg, fs) <= room) { units.push(sg); continue; }
-    let cur = '';
-    for (const g of graphemes(sg)) {
-      if (cur && textWidth(cur + g, fs) > room) { units.push(cur); cur = g; } else cur += g;
+  const cost = [];
+  const seg = [];
+  raw.forEach((sg, i) => {
+    const whole = textWidth(sg, fs) <= room;
+    for (const part of whole ? [sg] : graphemes(sg)) { units.push(part); cost.push(4); seg.push(whole ? -1 : i); }
+    if (i + 1 < raw.length) cost[cost.length - 1] = sg === WATER ? 3 : graphemes(sg).length <= 2 || graphemes(raw[i + 1]).length <= 2 ? 1 : 0;
+  });
+  return bestLines(units, cost, seg, room, fs);
+}
+
+/**
+ * Units on as few lines no wider than `room` as they fit on (a unit wider than the line keeps a line of its own);
+ * among those, the lowest total cost of the places broken, then the most even lines. cost[i] is the cost of
+ * breaking after units[i]; seg[i] >= 0 marks a letter of a word cut by letters, and such a line holds letters
+ * of that word only.
+ */
+function bestLines(units, cost, seg, room, fs) {
+  const mixes = (i, j) => { for (let u = i; u < j; u += 1) if ((seg[u] >= 0 || seg[j - 1] >= 0) && seg[u] !== seg[j - 1]) return true; return false; };
+  const best = [{ lines: 0, cost: 0, slack: 0, from: -1 }];
+  for (let j = 1; j <= units.length; j += 1) {
+    let pick = null;
+    for (let i = j - 1; i >= 0; i -= 1) {
+      const width = textWidth(units.slice(i, j).join(''), fs);
+      if (j - i > 1 && (width > room || mixes(i, j))) break;
+      const p = best[i];
+      const c = { lines: p.lines + 1, cost: p.cost + (i > 0 ? cost[i - 1] : 0), slack: p.slack + (room - Math.min(width, room)) ** 2, from: i };
+      if (!pick || c.lines < pick.lines || (c.lines === pick.lines && (c.cost < pick.cost || (c.cost === pick.cost && c.slack < pick.slack)))) pick = c;
     }
-    if (cur) units.push(cur);
+    best.push(pick);
   }
-  // Join neighbouring units while they still fit, so a word is only broken where it has to be.
-  const pieces = [];
-  let cur = '';
-  for (const un of units) {
-    if (cur && textWidth(cur + un, fs) > room) { pieces.push(cur); cur = un; } else cur += un;
-  }
-  if (cur) pieces.push(cur);
-  return pieces;
+  const lines = [];
+  for (let j = units.length; j > 0; j = best[j].from) lines.unshift({ text: units.slice(best[j].from, j).join(''), solo: seg[best[j].from] >= 0 });
+  return lines;
 }
 
 export function legendNodes(ctx, legend, x0, y0, maxWidth, markerFor) {

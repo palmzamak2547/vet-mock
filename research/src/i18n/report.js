@@ -12,7 +12,7 @@
 /** @type {[string, string, string][]} */
 const ROWS = [
   // methods
-  ['report.methods.design', 'รูปแบบการศึกษาเป็นแบบ{design}', 'The study design was: {design}'],
+  ['report.methods.design', 'รูปแบบการศึกษาเป็นแบบ{design}', 'Study design: {design}'],
   ['report.methods.cluster', 'สัตว์อยู่เป็นกลุ่มตาม{column} และแต่ละการวิเคราะห์ระบุว่าปรับตามฟาร์มด้วยวิธีใด', 'Animals were grouped by {column}, and each analysis states how farms were accounted for'],
   ['report.methods.importConverted', 'ตอนนำเข้าแปลงรูปแบบข้อมูลใน {count} คอลัมน์ (เช่น วันที่ที่เป็นปี พ.ศ. รหัสค่าที่หายไป และรหัสที่ Excel เปลี่ยนเป็นวันที่) ทุกรายการผ่านการยืนยันจากผู้วิจัยก่อน', 'At import, the format of {count} columns was converted (for example dates in Buddhist Era years, missing-value codes and IDs that Excel had turned into dates), each confirmed by the investigator first'],
   ['report.methods.steps', 'ก่อนวิเคราะห์ได้จัดการข้อมูลดังนี้ {steps}', 'Before analysis the data were prepared as follows: {steps}'],
@@ -367,7 +367,7 @@ const ROWS = [
   ['report.script.spss.noCommand', 'ยังไม่มีคำสั่ง SPSS ที่ตรวจเทียบแล้วสำหรับวิธีนี้ ให้เทียบกับตัวเลขข้างบน', 'There is no SPSS command checked for this method; compare with the numbers above'],
   // the Report screen: whole-report downloads, scripts and the citation
   ['report.pane.exportTitle', 'ดาวน์โหลดทั้งรายงาน', 'Download the whole report'],
-  ['report.pane.exportSub', 'ทุกไฟล์สร้างบนเครื่องนี้ ข้อมูลไม่ได้ส่งออกนอกเครื่อง', 'Every file is built on this device; no data leave it'],
+  ['report.pane.exportSub', 'ทุกไฟล์ทำบนเครื่องนี้ ไม่มีข้อมูลส่งออกนอกเครื่อง', 'Every file is made on this device. No data leaves this device.'],
   ['report.pane.lang', 'ภาษาของไฟล์', 'Language of the file'],
   ['report.pane.langTh', 'ไทย', 'Thai'],
   ['report.pane.langEn', 'อังกฤษ', 'English'],
