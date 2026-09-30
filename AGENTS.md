@@ -294,6 +294,10 @@ Avoid:
 
 ## Durable rules promoted from historical handoffs
 
+- Fixture semantics are part of the oracle: honor authored exact-zero and
+  non-pinned separation evidence with strict input/shape/signal guards. The real
+  method must return null inference/G14 on separation. Never repair replay drift
+  by globally widening tolerance or replacing the reference numbers.
 - A view that loads QB itself must invalidate its question memo when QB appends;
   parent qbReady/qbRevision may stay unchanged after a failed background load.
   Start review from the fresh scoped registry, and label any cached-card fallback.
@@ -341,18 +345,22 @@ Avoid:
   live study UI is 5.133.1. Candidate 5.133.2/SWv200 is
   [PR 18](https://github.com/palmzamak2547/vet-mock/pull/18), initial head b53b3bf2.
   Local data/unit gate 51/51, normal build/prerenders, three contrast audits and
-  audit 0 passed. CI Build 2103 units and both WebKit/Firefox halves passed;
-  Chromium was cancelled during browser installation before build/E2E began.
+  audit 0 passed. Exact 5e797a37 CI Build 2103 units and all smoke runners passed:
+  808 distinct successful cases, 44 skips and one retry-flaky pass. The original
+  Windows 426-case run has 23 failures, 3 not-run and 9 flaky cases under investigation;
+  they are not dismissed. The earlier b53 browser-install cancellation stays historical.
   No new production acceptance is implied. Current proof: docs/LAUNCH_READINESS.md.
-- Hosted native R now installs every recorded pin. Its six comparison failures
-  are proved analytic zeros, repaired under the existing 1e-10 zero contract;
-  local M1/M2/comparator 332/332 pass and wrong-value injection fails as expected.
+- Hosted native R installs every recorded pin; 5e resolves the six analytic zeros.
+  Its remaining separation SE replay difference was being treated as a pin despite
+  authored evidence metadata. The reviewed native-only B/SE repair keeps finite,
+  direction, shape and signal guards; local 335/335 pass and wrong-value injection fails.
   Fixtures/R scripts/reference numbers, strict webR and nonzero NATIVE_REL 1e-9
   remain unchanged. The follow-up hosted result is still required before release.
 - MCV catalog 2042 / current-term 115/115 / NEW 0 is complete for the authorized
   account. Eight restricted member bodies have matching complete byte counts;
-  the old production pointer still stalls before HTTP. Candidate reader positive
-  UI and exact temporary-test-UID cleanup/read-back remain explicit proof items.
+  the old production pointer still stalls before HTTP. Candidate pointer/logout/
+  anonymous-401/cache-absence flows passed on configured normal build port 41938.
+  Production acceptance and exact temporary-test-UID cleanup/read-back remain proof items.
 - Shared ownership: work/loop-20260930/COORDINATION.md. Grok is unavailable;
   use actually available harnesses and never infer acknowledgement from a branch.
 - Primary checkout bdfc2a46 is behind and has preserved curriculum/doc edits plus

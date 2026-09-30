@@ -15,7 +15,10 @@ export function revive(v) {
   return v;
 }
 
-function sameNumber(a, b, rel, absoluteZero) {
+function sameNumber(a, b, rel, absoluteZero, evidenceDirection) {
+  if (rel > 0 && evidenceDirection) {
+    return Number.isFinite(a) && Number.isFinite(b) && a * evidenceDirection > 0 && b * evidenceDirection > 0;
+  }
   if (rel > 0 && absoluteZero) {
     return Number.isFinite(a) && Number.isFinite(b) && Math.abs(a) <= 1e-10 && Math.abs(a - b) <= 1e-10;
   }
@@ -32,12 +35,13 @@ function sameNumber(a, b, rel, absoluteZero) {
  * @param {string} path
  * @param {string[]} out  collects one line per difference
  * @param {Set<string>} [absoluteZeroPaths] committed, analytically known zero slots only
+ * @param {Map<string, number>} [evidenceDirections] non-pinned separated-fit estimates only
  */
-export function diffValues(want, got, rel, path, out, absoluteZeroPaths) {
+export function diffValues(want, got, rel, path, out, absoluteZeroPaths, evidenceDirections) {
   want = revive(want);
   got = revive(got);
   if (typeof want === 'number' || typeof got === 'number') {
-    if (typeof want !== 'number' || typeof got !== 'number' || !sameNumber(want, got, rel, absoluteZeroPaths?.has(path))) {
+    if (typeof want !== 'number' || typeof got !== 'number' || !sameNumber(want, got, rel, absoluteZeroPaths?.has(path), evidenceDirections?.get(path))) {
       out.push(`${path}: committed ${String(want)}, now ${String(got)}`);
     }
     return;
@@ -50,11 +54,12 @@ export function diffValues(want, got, rel, path, out, absoluteZeroPaths) {
     out.push(`${path}: one side is an array, the other is not`);
     return;
   }
+  if (Array.isArray(want) && want.length !== got.length) out.push(`${path}: array length ${want.length}, now ${got.length}`);
   const keys = new Set([...Object.keys(want), ...Object.keys(got)]);
   for (const k of keys) {
     if (!(k in want)) { out.push(`${path}.${k}: new key`); continue; }
     if (!(k in got)) { out.push(`${path}.${k}: key disappeared`); continue; }
-    diffValues(want[k], got[k], rel, `${path}.${k}`, out, absoluteZeroPaths);
+    diffValues(want[k], got[k], rel, `${path}.${k}`, out, absoluteZeroPaths, evidenceDirections);
   }
 }
 
@@ -77,12 +82,32 @@ function analyticZeroPaths(committed) {
   return paths;
 }
 
+function separationEvidenceDirections(committed, out) {
+  const directions = new Map();
+  const c = committed.cases?.['logistic.separation'];
+  if (c?.tol !== 'evidence' || c.data !== 'sep' || c.values?.separation !== true) return directions;
+  // glm.R declares B/SE evidence, not pins: the separated likelihood has no finite MLE.
+  // For this dataset beta(t)=(-t,2t,t+log(1/2)); finite IRLS B has these directions, SE is positive.
+  for (const [key, signs] of [['B', [-1, 1, 1]], ['SE', [1, 1, 1]]]) {
+    const values = c.values[key];
+    if (!Array.isArray(values) || values.length !== 3 || Object.keys(values).length !== 3 ||
+        !signs.every((sign, i) => Number.isFinite(values[i]) && values[i] * sign > 0)) {
+      out.push(`cases.logistic.separation.values.${key}: invalid reference evidence vector`);
+      continue;
+    }
+    signs.forEach((sign, i) => directions.set(`cases.logistic.separation.values.${key}.${i}`, sign));
+  }
+  return directions;
+}
+
 /** @returns {string[]} differences in `cases`, `_fixture` and `datasets` (empty = same) */
 export function compareFixtureDocs(committed, fresh, rel) {
   const out = [];
   diffValues(committed._fixture, fresh._fixture, 0, '_fixture', out);
   // Input data (M2 files) must be identical: a dataset that moves is a different fixture, not noise.
   if ('datasets' in committed || 'datasets' in fresh) diffValues(committed.datasets ?? null, fresh.datasets ?? null, 0, 'datasets', out);
-  diffValues(committed.cases, fresh.cases, rel, 'cases', out, rel > 0 ? analyticZeroPaths(committed) : undefined);
+  diffValues(committed.cases, fresh.cases, rel, 'cases', out,
+    rel > 0 ? analyticZeroPaths(committed) : undefined,
+    rel > 0 ? separationEvidenceDirections(committed, out) : undefined);
   return out;
 }

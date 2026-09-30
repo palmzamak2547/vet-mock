@@ -2,6 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { compareFixtureDocs, NATIVE_REL } from '../../scripts/r-parity/compare.mjs';
+import { runLogistic } from '../../src/lib/models/glm.js';
+import { makeTable, spec } from './stats-fixtures.mjs';
 
 const load = name => JSON.parse(readFileSync(new URL(`../fixtures/r/out/${name}.json`, import.meta.url), 'utf8'));
 const glm = load('glm'), normality = load('normality');
@@ -78,4 +80,76 @@ test('raw inputs, metadata, shapes and ordinary numeric semantics remain exact',
   assert.deepEqual(compare(basic, changed(basic, doc => { doc.cases.basic.values.one = 1 + 5e-10; })), []);
   assert(compare(glm, changed(glm, doc => { doc.cases['poisson.dobson'].values.B.pop(); })).length > 0);
   assert(compare(glm, changed(glm, doc => { doc.cases['poisson.dobson'].absoluteZero[0] = 'B.3'; })).length > 0);
+});
+
+test('separated-fit B/SE are non-pinned evidence only in native replay', () => {
+  const native = changed(glm, doc => { doc.cases['logistic.separation'].values.SE[1] = 11893.893774444108; });
+  assert.deepEqual(compare(glm, native), []); // actual native R 4.6.0 pair on PR head 5e797a37
+  assert(compare(glm, native, 0).some(diff => diff.includes('logistic.separation.values.SE.1')));
+  for (const value of [0, -1, NaN, Infinity, '11893']) {
+    assert(compare(glm, changed(glm, doc => { doc.cases['logistic.separation'].values.SE[1] = value; })).length > 0);
+    const badReference = changed(glm, doc => { doc.cases['logistic.separation'].values.SE[1] = value; });
+    assert(compare(badReference, badReference).length > 0, 'invalid reference evidence fails closed');
+  }
+  for (const index of [0, 1, 2]) for (const value of [0, -glm.cases['logistic.separation'].values.B[index], NaN, Infinity, '1']) {
+    assert(compare(glm, changed(glm, doc => { doc.cases['logistic.separation'].values.B[index] = value; })).length > 0);
+    const badReference = changed(glm, doc => { doc.cases['logistic.separation'].values.B[index] = value; });
+    assert(compare(badReference, badReference).length > 0);
+  }
+  assert.deepEqual(compare(glm, changed(glm, doc => { doc.cases['logistic.separation'].values.B[1] *= 2; })), []);
+});
+
+test('separation evidence does not waive inputs, signals, metadata, shapes or source facts', () => {
+  for (const edit of [
+    doc => { doc.cases['logistic.separation'].values.SE.pop(); },
+    doc => { doc.cases['logistic.separation'].values.SE.length = 4; },
+    doc => { doc.cases['logistic.separation'].values.B.extra = 1; },
+    doc => { doc.cases['logistic.separation'].values.B = {}; },
+    doc => { doc.cases['logistic.separation'].values.separation = false; },
+    doc => { doc.cases['logistic.separation'].values.rWarned = true; },
+    doc => { doc.cases['logistic.separation'].values.converged = false; },
+    doc => { doc.cases['logistic.separation'].values.iter++; },
+    doc => { doc.cases['logistic.separation'].values.fittedA *= 2; },
+    doc => { doc.cases['logistic.separation'].values.fittedB = 0.5; },
+    doc => { doc.cases['logistic.separation'].tol = 'iterative'; },
+    doc => { doc.cases['logistic.separation'].data = 'other'; },
+    doc => { doc.datasets.sep.y[0] = 1; },
+  ]) assert(compare(glm, changed(glm, edit)).length > 0);
+  for (const key of ['B', 'SE']) {
+    const badReference = changed(glm, doc => { doc.cases['logistic.separation'].values[key].pop(); });
+    assert(compare(badReference, badReference).length > 0);
+    const sparseReference = changed(glm, doc => { delete doc.cases['logistic.separation'].values[key][1]; doc.cases['logistic.separation'].values[key].extra = 1; });
+    assert(compare(sparseReference, sparseReference).length > 0, 'a same-length sparse reference fails closed');
+  }
+  const sources = load('sources');
+  for (const [id, key] of [['doctors', 'rows'], ['pefr', 'subjects'], ['aml', 'rows']]) {
+    assert.equal(typeof sources.cases[id].values[key], 'number');
+    assert(compare(sources, changed(sources, doc => { doc.cases[id].values[key]++; })).length > 0);
+  }
+  const identifiable = changed(glm, doc => { doc.cases['logistic.infert'].values.SE[1] *= 1 + 1e-7; });
+  assert(compare(glm, identifiable).length > 0);
+});
+
+test('separation method reports null inference while steep finite fits remain usable', () => {
+  const d = glm.datasets.sep;
+  const margins = d.y.map((y, i) => (2 * y - 1) * (-1 + (d.x[i] === 'b' ? 2 : 0) + (d.x[i] === 'c' ? 1 : 0)));
+  assert(margins.every(value => value >= 0));
+  assert.equal(margins.filter(value => value > 0).length, 9);
+  assert.equal(margins.filter(value => value === 0).length, 3); // signed ±0 are the same mathematical boundary
+  const outcome = y => ({ kind: 'category', levels: ['neg', 'pos'], values: y.map(value => value ? 'pos' : 'neg') });
+  const out = runLogistic(spec('reg.logistic', { roles: { outcome: 'y', covariates: ['x'] }, levels: { outcomePositive: 'pos' } }),
+    makeTable({ y: outcome(d.y), x: { kind: 'category', levels: ['a', 'b', 'c'], values: d.x } }));
+  const coefficients = Object.entries(out.values).filter(([key]) => key.startsWith('b:'));
+  assert.equal(coefficients.length, 3);
+  assert(coefficients.every(([, value]) => value.value === null && value.reasonKey === 'models.undefined.separation'));
+  assert.equal(out.tests.length, 3);
+  assert(out.tests.every(value => value.p === null && (value.statistic === null || value.statistic?.value === null)));
+  assert(out.warnings.some(value => value.id === 'G14'));
+  assert.deepEqual(out.tables.find(value => value.id === 'separation').rows, [['x', 'a', 0, 5], ['x', 'b', 1, 4]]);
+  const finiteData = glm.datasets.steep;
+  const finite = runLogistic(spec('reg.logistic', { roles: { outcome: 'y', covariates: ['age'] }, levels: { outcomePositive: 'pos' } }),
+    makeTable({ y: outcome(finiteData.y), age: { kind: 'number', values: finiteData.age } }));
+  assert(!finite.warnings.some(value => value.id === 'G14'));
+  assert(Number.isFinite(finite.values['b:age'].value));
+  assert(finite.values['b:age'].value > 0);
 });
