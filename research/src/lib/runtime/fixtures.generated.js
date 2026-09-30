@@ -89,6 +89,7 @@ export const FIXTURES = [
    "epi-mh.test.mjs",
    "epi-samplesize.test.mjs",
    "epi-twobytwo.test.mjs",
+   "rparity-compare.test.mjs",
    "rparity-engine.test.mjs",
    "rparity-m2.test.mjs",
    "stats-anova.test.mjs",
@@ -739,6 +740,7 @@ export const FIXTURES = [
    "reg.poisson"
   ],
   "tests": [
+   "rparity-compare.test.mjs",
    "rparity-m2.test.mjs"
   ],
   "source": {
@@ -985,6 +987,7 @@ export const FIXTURES = [
    "diag.shapiro"
   ],
   "tests": [
+   "rparity-compare.test.mjs",
    "rparity-m2.test.mjs"
   ],
   "source": {

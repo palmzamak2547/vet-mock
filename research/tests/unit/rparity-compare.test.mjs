@@ -1,3 +1,6 @@
+// Fixture files (paths listed literally so scripts/regen-verified.mjs sees dynamic load):
+//   tests/fixtures/r/out/glm.json        tests/fixtures/r/out/normality.json
+//   tests/fixtures/r/out/sources.json
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';

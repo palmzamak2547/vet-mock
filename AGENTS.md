@@ -339,23 +339,31 @@ Avoid:
   quality intact. A measured improvement needs comparable evidence; fewer tokens,
   a passing build or a happy-path HTTP response cannot establish completion.
 
-## Current coordination checkpoint — 2026-09-30
+## Current coordination checkpoint — 2026-10-01
 
 - Baseline source and successful Production records are 6774daa1; the observed
   live study UI is 5.133.1. Candidate 5.133.2/SWv200 is
   [PR 18](https://github.com/palmzamak2547/vet-mock/pull/18), initial head b53b3bf2.
   Local data/unit gate 51/51, normal build/prerenders, three contrast audits and
-  audit 0 passed. Exact 5e797a37 CI Build 2103 units and all smoke runners passed:
-  808 distinct successful cases, 44 skips and one retry-flaky pass. The original
-  Windows 426-case run has 23 failures, 3 not-run and 9 flaky cases under investigation;
-  they are not dismissed. The earlier b53 browser-install cancellation stays historical.
+  audit 0 passed. Exact 6349b6ea CI Build 2103, engine 335, native R 37 files/
+  295 cases/16 pins and browser 808 successful/44 skipped passed. Windows evidence
+  reconciles to 404 successful/19 skipped/3 timing cases still open; original
+  failures/retries and earlier b53 setup cancellation remain retained.
   No new production acceptance is implied. Current proof: docs/LAUNCH_READINESS.md.
-- Hosted native R installs every recorded pin; 5e resolves the six analytic zeros.
-  Its remaining separation SE replay difference was being treated as a pin despite
-  authored evidence metadata. The reviewed native-only B/SE repair keeps finite,
-  direction, shape and signal guards; local 335/335 pass and wrong-value injection fails.
+- Hosted 6349 native R accepts both authored exact-zero and separated-fit B/SE
+  evidence contracts with finite/direction/shape/signal guards; wrong injection fails.
+  Research reader-index repair declares three actual reader links; all 39 fixture
+  hashes/dates remain unchanged. Repaired Bangkok/UTC 1316 each, build and four-profile
+  browser 119 passed/17 skipped/0 failed are accepted locally.
   Fixtures/R scripts/reference numbers, strict webR and nonzero NATIVE_REL 1e-9
-  remain unchanged. The follow-up hosted result is still required before release.
+  remain unchanged. The new metadata/dependency batch still requires exact-head CI.
+- A fresh audit found one High dependency finding in Axios (seven advisories)
+  after earlier audit 0. Only the
+  compatible transitive Node Axios 1.19→1.20 node was patched; SDK versions stay.
+  Fresh npm ci/audit 0, 60 consumer units and actual getVoices adapter check pass.
+  Final data gate 51/51/full timezone units, normal build/prerenders and all three
+  contrast audits pass; all 1239 main JS/CSS/HTML bytes match the prior artifact.
+  Final 17-file receipt preserves the prior 16-file 6349 receipt. No runtime speed claim.
 - MCV catalog 2042 / current-term 115/115 / NEW 0 is complete for the authorized
   account. Eight restricted member bodies have matching complete byte counts;
   the old production pointer still stalls before HTTP. Candidate pointer/logout/
