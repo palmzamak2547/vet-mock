@@ -271,7 +271,10 @@ transpile" — could emit syntax (top-level await, logical assignment
 `||=`) that older iOS Safari can't parse → blank screen on iPhone with
 no error in dev.
 
-Current setting: `target: 'es2020'` + `browserslist` includes `ios >= 14`.
+The current study build target is `es2020`; confirm `vite.config.js` and
+`package.json` before changing supported platforms. New APIs need a shim or a
+feature guard in `src/lib/platform-compat.js`; syntax transpilation alone does
+not cover missing runtime APIs.
 
 ---
 
@@ -282,7 +285,8 @@ Current setting: `target: 'es2020'` + `browserslist` includes `ios >= 14`.
 but indexes them by URL — without a bump, returning users get a mix
 of new code referencing old chunks → cryptic errors.
 
-Format: `vN-YYYY-MM-DD`. Current: `v89-2026-08-21`.
+Format: `vN-YYYY-MM-DD`. Read the version from `public/sw.js`; never freeze a
+current worker number in this guide. Preserve rule 0.1.1 during any version bump.
 
 ---
 
@@ -413,6 +417,13 @@ See migration `supabase/migrations/20260524000000_leaderboard_fk_to_profiles.sql
 for the full backfill + FK pattern.
 
 ---
+
+## 13. E2E calendars are pinned once
+
+Import test/expect from `tests/e2e/fixtures.js`; all projects use Asia/Bangkok.
+A test that owns page.clock opts out of pinCalendar explicitly. Verify day-boundary
+units in Bangkok and UTC. Preserve the original failure when an isolated rerun passes;
+a changing date or a busy machine is a hypothesis until the failing mechanism is checked.
 
 ## Process checklist before any commit touching UI / data layer
 

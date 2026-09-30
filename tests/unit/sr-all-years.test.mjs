@@ -18,6 +18,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
+import { parse } from '@babel/parser';
 
 import { isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
 import { isFlashcardCompatible, reviewQuestionsInContext } from '../../src/hooks/sr-filter.js';
@@ -34,32 +35,33 @@ let fresh = 0;
 const coldBank = async () => import(`../../src/data/questions.js?cold=${++fresh}`);
 
 // ── The pieces of the view ───────────────────────────────────────────
-const ALL_QUESTIONS = (() => {
-  const m = SR.match(/const allQuestions = useMemo\(\n\s*(\(\) => \[[\s\S]*?\n {4}\]),\n[\s\S]*?\n {4}(\[[^\]\n]*\]),\n {2}\);/);
-  assert.ok(m, 'SRSessionView no longer memoises allQuestions in the shape this test reads');
-  return { factory: m[1], deps: m[2] };
-})();
-const DUE_POOL = (() => {
-  const from = SR.indexOf('const { duePool');
-  const m = SR.slice(from).match(/= useMemo\(\(\) => \{([\s\S]*?)\n {2}\}, \[([^\]]*)\]\);/);
-  assert.ok(from >= 0 && m, 'SRSessionView no longer builds the due pool in one memo');
-  return { body: m[1], deps: `[${m[2]}]` };
-})();
-const STATS = (() => {
-  const from = SR.indexOf('const stats = useMemo');
-  const m = SR.slice(from).match(/= useMemo\(\(\) => \{([\s\S]*?)\n {2}\}, \[([^\]]*)\]\);/);
-  assert.ok(from >= 0 && m, 'SRSessionView no longer builds stats in one memo');
-  return { body: m[1], deps: `[${m[2]}]` };
-})();
-const EFFECTS = [...SR.matchAll(/useEffect\(\(\) => \{([\s\S]*?)\n {2}\}, \[([^\]]*)\]\);/g)]
-  .map((m) => ({ body: m[1], deps: `[${m[2]}]` }))
+// Read expression boundaries from the JSX AST: memo factories may delegate
+// to named functions without changing the behavior this harness exercises.
+const body = parse(SR, { sourceType: 'module', plugins: ['jsx'] }).program.body
+  .find((node) => node.type === 'ExportDefaultDeclaration').declaration.body.body;
+const sourceOf = (node) => SR.slice(node.start, node.end);
+const declarations = body.filter((node) => node.type === 'VariableDeclaration')
+  .flatMap((node) => node.declarations);
+const initializer = (name) => {
+  const declaration = declarations.find(({ id }) => id.type === 'Identifier' ? id.name === name
+    : id.type === 'ObjectPattern' && id.properties.some((property) => property.key?.name === name));
+  assert.ok(declaration?.init, `SRSessionView must still define ${name}`);
+  return declaration.init;
+};
+const memoExpression = (name) => {
+  const call = initializer(name);
+  assert.equal(call.callee?.name, 'useMemo', `${name} must still use its actual memo`);
+  return { factory: sourceOf(call.arguments[0]), deps: sourceOf(call.arguments[1]) };
+};
+const HELPERS = ['readQuestions', 'reviewPool'].map((name) => ({ name, source: sourceOf(initializer(name)) }));
+const ALL_QUESTIONS = memoExpression('allQuestions');
+const DUE_POOL = memoExpression('duePool');
+const STATS = memoExpression('stats');
+const EFFECTS = body.filter((node) => node.type === 'ExpressionStatement' && node.expression.callee?.name === 'useEffect')
+  .map(({ expression: call }) => ({ factory: sourceOf(call.arguments[0]), deps: sourceOf(call.arguments[1]) }))
   // The only effect this is about: the one that fetches the other years.
-  .filter((e) => e.body.includes('loadAllYears'));
-const CURRENT_Q = (() => {
-  const m = SR.match(/const currentQ = ([\s\S]*?);\n/);
-  assert.ok(m, 'SRSessionView no longer resolves the current card to a question');
-  return m[1];
-})();
+  .filter((e) => e.factory.includes('loadAllYears'));
+const CURRENT_Q = sourceOf(initializer('currentQ'));
 const APP_LOADER = APP.match(/const loadAllYears = useCallback\(([\s\S]*?), \[\]\);/)?.[1] ?? null;
 
 const same = (a, b) => a.length === b.length && a.every((x, i) => Object.is(x, b[i]));
@@ -101,14 +103,15 @@ async function openSR({ yearScope, network = 'up', selectedPhase = null, subject
       setAllYearsTry: (v) => { state.allYearsTry = typeof v === 'function' ? v(state.allYearsTry) : v; },
     });
     const at = (code) => vm.runInContext(code, scope);
+    for (const { name, source } of HELPERS) scope[name] = at(`(${source})`);
     scope.allQuestions = memo('allQuestions', at(ALL_QUESTIONS.deps), () => at(`(${ALL_QUESTIONS.factory})()`));
-    const pool = memo('duePool', at(DUE_POOL.deps), () => at(`(() => {${DUE_POOL.body}\n})()`));
-    const stats = memo('stats', at(STATS.deps), () => at(`(() => {${STATS.body}\n})()`));
+    const pool = memo('duePool', at(DUE_POOL.deps), () => at(`(${DUE_POOL.factory})()`));
+    const stats = memo('stats', at(STATS.deps), () => at(`(${STATS.factory})()`));
     EFFECTS.forEach((effect, i) => {
       const deps = at(effect.deps);
       if (effectDeps.has(i) && same(effectDeps.get(i), deps)) return;
       effectDeps.set(i, deps);
-      at(`(() => {${effect.body}\n})()`);
+      at(`(${effect.factory})()`);
     });
     return { ...pool, stats, allQuestions: scope.allQuestions, lookup: (card) => at(`((currentCard) => ${CURRENT_Q})`)(card) };
   }

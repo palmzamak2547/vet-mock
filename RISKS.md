@@ -1,5 +1,10 @@
 # RISKS
 
+> Status refreshed 2026-09-30: this register preserves dated risks and decisions.
+> Its older "today", rate-limit and "Planned" statements are historical inputs,
+> not current release proof. Recheck the live call sites and
+> [Launch Readiness](docs/LAUNCH_READINESS.md) before using them as present state.
+
 Live product with real students. Ranked by what would actually hurt.
 
 ---

@@ -123,6 +123,70 @@ const doc = (slug, status, sha, extra = {}) => ({
   mime: 'application/pdf', sha256_16: sha, status, ...extra,
 });
 
+test('restricted intent prefetch settles after its grant and respects mid-grant logout and owner changes', { timeout: 4000 }, async () => {
+  install();
+  const originalFetch = globalThis.fetch;
+  const navigatorDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'navigator');
+  let grant = Promise.resolve();
+  let grantAsked;
+  const requests = [];
+  let currentToken = 'fixture-owner-a';
+  let mintCount = 0;
+  Object.defineProperty(globalThis, 'navigator', { configurable: true, value: { serviceWorker: {
+    addEventListener() {},
+    controller: { postMessage(data, ports) {
+      grantAsked?.();
+      grant.then(() => ports[0].postMessage({ ready: true }));
+    } },
+  } } });
+  globalThis.__vmxTestSupabase = { auth: { getSession: async () => ({ data: { session: currentToken ? { access_token: currentToken } : null } }) } };
+  globalThis.fetch = async (url, options = {}) => {
+    const isRestricted = !String(url).includes('public-intent');
+    const authorized = Boolean(options.headers?.Authorization);
+    requests.push({ authorized, isRestricted });
+    if (isRestricted && !authorized) return Response.json({ error: 'login_required' }, { status: 401 });
+    return Response.json({ url: `/api/library-blob?fixture=${++mintCount}` });
+  };
+  try {
+    const lib = await freshLibrary();
+    const restricted = doc('restricted-intent', 'restricted', R_HASH);
+    let releaseGrant;
+    grant = new Promise(resolve => { releaseGrant = resolve; });
+    const asked = new Promise(resolve => { grantAsked = resolve; });
+    lib.prefetchDocUrl(restricted);
+    const open = lib.resolveDocUrl(restricted);
+    await asked;
+    assert.equal(requests.length, 0, 'the grant remains before the mint');
+    releaseGrant();
+    const first = await open;
+    assert.match(first, /fixture=1/);
+    assert.deepEqual(requests.map(r => r.authorized), [false, true], 'one anonymous mint then the authenticated retry');
+    assert.equal(await lib.resolveDocUrl(restricted), first, 'a later open reuses the settled intent');
+
+    const publicDoc = doc('public-intent', 'public', P_HASH);
+    lib.prefetchDocUrl(publicDoc);
+    assert.match(await lib.resolveDocUrl(publicDoc), /fixture=2/);
+
+    for (const nextToken of ['fixture-owner-b', null]) {
+      lib.prefetchDocUrl(restricted);
+      const cachedBeforeChange = await lib.resolveDocUrl(restricted);
+      grant = new Promise(resolve => { releaseGrant = resolve; });
+      const requested = new Promise(resolve => { grantAsked = resolve; });
+      const inFlight = lib.resolveDocUrl(restricted);
+      await requested;
+      currentToken = nextToken;
+      window.dispatchEvent(new CustomEvent('vmx-library-auth-changed', { detail: { signedIn: Boolean(nextToken) } }));
+      releaseGrant();
+      if (nextToken) assert.notEqual(await inFlight, cachedBeforeChange, 'an owner change invalidates the captured intent');
+      else await assert.rejects(inFlight, /ต้องเข้าสู่ระบบ/, 'logout cannot return the captured signed link');
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (navigatorDescriptor) Object.defineProperty(globalThis, 'navigator', navigatorDescriptor);
+    else delete globalThis.navigator;
+  }
+});
+
 /** A library_docs table behind PostgREST's paging and counting. */
 function catalogue(rows) {
   const log = [];

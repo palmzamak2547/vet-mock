@@ -1,5 +1,11 @@
 # VetMock — Design System (current spec)
 
+> Status 2026-09-30: the source tokens remain canonical. Candidate 5.133.2 adds
+> left-aligned SR passages and clear loading/retry/partial-review states; its
+> current visual and contrast evidence belongs in [LAUNCH_READINESS.md](LAUNCH_READINESS.md).
+> The production review date below is historical, not a claim that every surface
+> has been re-audited against the latest release.
+
 > Last verified against production: **v5.56.0 · 2026-08-31**. Notes loading,
 > offline error/retry, backup previews, and JSON validation dialogs follow the
 > same Thai-first hierarchy, shared dialog focus behavior, semantic colours,

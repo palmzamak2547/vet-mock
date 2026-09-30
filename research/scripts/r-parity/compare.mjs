@@ -15,7 +15,13 @@ export function revive(v) {
   return v;
 }
 
-function sameNumber(a, b, rel) {
+function sameNumber(a, b, rel, absoluteZero, evidenceDirection) {
+  if (rel > 0 && evidenceDirection) {
+    return Number.isFinite(a) && Number.isFinite(b) && a * evidenceDirection > 0 && b * evidenceDirection > 0;
+  }
+  if (rel > 0 && absoluteZero) {
+    return Number.isFinite(a) && Number.isFinite(b) && Math.abs(a) <= 1e-10 && Math.abs(a - b) <= 1e-10;
+  }
   if (Number.isNaN(a) && Number.isNaN(b)) return true;
   if (!Number.isFinite(a) || !Number.isFinite(b)) return a === b;
   if (rel === 0) return Object.is(a, b) || a === b;
@@ -28,12 +34,14 @@ function sameNumber(a, b, rel) {
  * @param {number} rel    relative tolerance for numbers (0 = identical)
  * @param {string} path
  * @param {string[]} out  collects one line per difference
+ * @param {Set<string>} [absoluteZeroPaths] committed, analytically known zero slots only
+ * @param {Map<string, number>} [evidenceDirections] non-pinned separated-fit estimates only
  */
-export function diffValues(want, got, rel, path, out) {
+export function diffValues(want, got, rel, path, out, absoluteZeroPaths, evidenceDirections) {
   want = revive(want);
   got = revive(got);
   if (typeof want === 'number' || typeof got === 'number') {
-    if (typeof want !== 'number' || typeof got !== 'number' || !sameNumber(want, got, rel)) {
+    if (typeof want !== 'number' || typeof got !== 'number' || !sameNumber(want, got, rel, absoluteZeroPaths?.has(path), evidenceDirections?.get(path))) {
       out.push(`${path}: committed ${String(want)}, now ${String(got)}`);
     }
     return;
@@ -46,12 +54,50 @@ export function diffValues(want, got, rel, path, out) {
     out.push(`${path}: one side is an array, the other is not`);
     return;
   }
+  if (Array.isArray(want) && want.length !== got.length) out.push(`${path}: array length ${want.length}, now ${got.length}`);
   const keys = new Set([...Object.keys(want), ...Object.keys(got)]);
   for (const k of keys) {
     if (!(k in want)) { out.push(`${path}.${k}: new key`); continue; }
     if (!(k in got)) { out.push(`${path}.${k}: key disappeared`); continue; }
-    diffValues(want[k], got[k], rel, `${path}.${k}`, out);
+    diffValues(want[k], got[k], rel, `${path}.${k}`, out, absoluteZeroPaths, evidenceDirections);
   }
+}
+
+function analyticZeroPaths(committed) {
+  const paths = new Set();
+  for (const [id, c] of Object.entries(committed.cases || {})) {
+    for (const key of c.absoluteZero || []) {
+      // The authored R keys are 1-based; diffValues' array paths are 0-based.
+      const valuePath = key.replace(/\.(\d+)$/, (_, index) => `.${Number(index) - 1}`);
+      paths.add(`cases.${id}.values.${valuePath}`);
+    }
+  }
+  if (committed.cases?.['shapiro.three.residuals']?.data === 'three residuals') {
+    // _data.R: A sums 120/5 = 24 (row 5 is 24); C sums 189/7 = 27 (row 18 is 27).
+    // lm(y ~ g) fits each group mean, so these two derived residuals are exactly zero.
+    // ponytail: only this proved fixture mask; replace with authored residual-zero metadata when available.
+    paths.add('cases.shapiro.three.residuals.x.4');
+    paths.add('cases.shapiro.three.residuals.x.17');
+  }
+  return paths;
+}
+
+function separationEvidenceDirections(committed, out) {
+  const directions = new Map();
+  const c = committed.cases?.['logistic.separation'];
+  if (c?.tol !== 'evidence' || c.data !== 'sep' || c.values?.separation !== true) return directions;
+  // glm.R declares B/SE evidence, not pins: the separated likelihood has no finite MLE.
+  // For this dataset beta(t)=(-t,2t,t+log(1/2)); finite IRLS B has these directions, SE is positive.
+  for (const [key, signs] of [['B', [-1, 1, 1]], ['SE', [1, 1, 1]]]) {
+    const values = c.values[key];
+    if (!Array.isArray(values) || values.length !== 3 || Object.keys(values).length !== 3 ||
+        !signs.every((sign, i) => Number.isFinite(values[i]) && values[i] * sign > 0)) {
+      out.push(`cases.logistic.separation.values.${key}: invalid reference evidence vector`);
+      continue;
+    }
+    signs.forEach((sign, i) => directions.set(`cases.logistic.separation.values.${key}.${i}`, sign));
+  }
+  return directions;
 }
 
 /** @returns {string[]} differences in `cases`, `_fixture` and `datasets` (empty = same) */
@@ -60,6 +106,8 @@ export function compareFixtureDocs(committed, fresh, rel) {
   diffValues(committed._fixture, fresh._fixture, 0, '_fixture', out);
   // Input data (M2 files) must be identical: a dataset that moves is a different fixture, not noise.
   if ('datasets' in committed || 'datasets' in fresh) diffValues(committed.datasets ?? null, fresh.datasets ?? null, 0, 'datasets', out);
-  diffValues(committed.cases, fresh.cases, rel, 'cases', out);
+  diffValues(committed.cases, fresh.cases, rel, 'cases', out,
+    rel > 0 ? analyticZeroPaths(committed) : undefined,
+    rel > 0 ? separationEvidenceDirections(committed, out) : undefined);
   return out;
 }

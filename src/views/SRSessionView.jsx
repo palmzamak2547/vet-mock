@@ -3,7 +3,7 @@ import { MotionEnter, MotionButton } from '../components/MotionFeedback.jsx';
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { createQuestionTiming, createReviewEvent, newStudySessionId } from '../lib/study-events.js';
 import { alertDialog } from '../lib/dialog.js';
-import { QB, SUBJECTS, isQBFullyLoaded } from '../data/questions.js';
+import { QB, SUBJECTS, loadQB, loadQBForYear, isQBYearLoaded, isQBFullyLoaded } from '../data/questions.js';
 import { updateCard, initCard, getDueCards, getCardStats, previewInterval } from '../hooks/sm2.js';
 import { isFlashcardCompatible, reviewQuestionsInContext } from '../hooks/sr-filter.js';
 import { EXAM_SCOPE_LABEL, scopeForPhase } from '../lib/exam-scope.js';
@@ -13,6 +13,7 @@ import { useLocalStorage } from '../hooks/useStorage.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
+import SmartPassage from '../components/SmartPassage.jsx';
 import { loadUserFlashcards, srCardFor } from '../lib/user-flashcards.js';
 // Wave-4 card types — each lib produces Q-shaped objects with a
 // distinct `type` so the renderer below can dispatch to the right
@@ -44,19 +45,20 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   // in SummaryModal). They live in localStorage and don't trigger
   // React updates by themselves — we read on mount and let the
   // session refresh on the next planning step.
-  const allQuestions = useMemo(
-    () => [
+  const readQuestions = () => [
       ...QB.filter(isQuestionDeliverable),
       ...customQuestions,
       ...loadUserFlashcards(),       // 'flashcard' + 'cloze' (mixed)
       ...loadOcclusionCards(),       // 'image-occlusion' (one per mask)
-    ],
+    ];
+  const allQuestions = useMemo(
+    readQuestions,
     // qbReady matters: QB is lazy-loaded and mutated IN PLACE, so without it
     // this memo keeps the empty snapshot for the whole mount and the view
     // reports "ไม่มีใบที่ต้องทบทวน" for a user who does have cards due.
     // qbRevision too: App bumps it each time more banks merge in (a year
     // switched on Home, every year for 'ทุกปี'), which qbReady never does.
-    [customQuestions, qbReady, qbRevision],
+    [customQuestions, qbReady, qbRevision, QB.length],
   );
 
   // Persist last-used preferences
@@ -113,8 +115,8 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     );
   }, [yearScope, loadAllYears, allYearsTry]);
 
-  const { duePool, dueReviewedCount, newCount, excludedCount, eligibleCount } = useMemo(() => {
-    const inSubject = reviewQuestionsInContext(allQuestions, {
+  const reviewPool = (questions) => {
+    const inSubject = reviewQuestionsInContext(questions, {
       selectedYear, selectedPhase, subjectFilter, yearScope, phaseScope,
     });
     const eligible = inSubject.filter(isFlashcardCompatible);
@@ -125,7 +127,9 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     // pick the right Q for display.
     eligible.forEach((q) => {
       const card = srCardFor(srCards, q) || initCard(q.id);
-      pool[q.id] = { ...card, subject: q.subject };
+      // Keep the question that the queue was built from: parent QB props can
+      // still be awaiting their render when a foreground bank load finishes.
+      pool[q.id] = { ...card, subject: q.subject, question: q };
     });
     const due = getDueCards(pool);
     return {
@@ -140,7 +144,11 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       excludedCount: inSubject.length - eligible.length,
       eligibleCount: eligible.length,
     };
-  }, [allQuestions, srCards, subjectFilter, yearScope, selectedYear, selectedPhase, phaseScope]);
+  };
+  const { duePool, dueReviewedCount, newCount, excludedCount, eligibleCount } = useMemo(
+    () => reviewPool(allQuestions),
+    [allQuestions, srCards, subjectFilter, yearScope, selectedYear, selectedPhase, phaseScope],
+  );
 
   // Stats only for cards belonging to SR-eligible questions in the
   // current subject filter — keeps Total/Mastered consistent with what
@@ -163,21 +171,56 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     return SUBJECTS.filter((s2) => s2.id === 'all' || s.has(s2.id));
   }, [allQuestions]);
 
-  const startSession = () => {
-    timingRef.current.reset();
-    setReviewSessionId(newStudySessionId());
-    gradedRef.current = null;
-    const cap = sessionSize === 'all' ? duePool.length : Math.min(sessionSize, duePool.length);
-    setSessionCards(duePool.slice(0, cap));
-    setCurrentIdx(0);
-    setShowAnswer(false);
-    setReviewedCount(0);
-    setCorrectCount(0);
+  const [starting, setStarting] = useState(false);
+  const [bankError, setBankError] = useState(false);
+  const [partialReview, setPartialReview] = useState(false);
+  const startRequestRef = useRef(null);
+  const startIntent = JSON.stringify([ownerId, selectedYear, selectedPhase, subjectFilter, yearScope, phaseScope, sessionSize]);
+  const latestStartRef = useRef(null);
+  latestStartRef.current = { intent: startIntent, queue: () => reviewPool(readQuestions()).duePool };
+  useEffect(() => {
+    startRequestRef.current = null;
+    setStarting(false);
+    setBankError(false);
+    return () => { startRequestRef.current = null; };
+  }, [startIntent]);
+
+  const startSession = async (allowPartial = false) => {
+    if (startRequestRef.current) return;
+    const ticket = { intent: startIntent };
+    startRequestRef.current = ticket;
+    const current = () => startRequestRef.current === ticket && latestStartRef.current.intent === ticket.intent;
+    setStarting(true);
+    setBankError(false);
+    try {
+      if (!allowPartial) await (yearScope === 'all' ? loadQB() : loadQBForYear(selectedYear));
+      if (!current()) return;
+      const queue = latestStartRef.current.queue();
+      if (!queue.length) return;
+      timingRef.current.reset();
+      setReviewSessionId(newStudySessionId());
+      gradedRef.current = null;
+      const cap = sessionSize === 'all' ? queue.length : Math.min(sessionSize, queue.length);
+      setSessionCards(queue.slice(0, cap));
+      setPartialReview(allowPartial);
+      setCurrentIdx(0);
+      setShowAnswer(false);
+      setReviewedCount(0);
+      setCorrectCount(0);
+    } catch {
+      if (current()) setBankError(true);
+    } finally {
+      if (current()) { startRequestRef.current = null; setStarting(false); }
+    }
   };
+  const partialNotice = partialReview && (
+    <div className="vmx-config-availability" role="status">รอบนี้ทบทวนเฉพาะการ์ดที่โหลดแล้ว คลังข้อสอบยังไม่ครบ</div>
+  );
 
   // ─── Planning step (before session starts) ──────────────────────
   if (!sessionCards) {
     const dueCount = duePool.length;
+    const scopeReady = yearScope === 'all' ? isQBFullyLoaded() : isQBYearLoaded(selectedYear);
     return (
       <>
         <div className="vmx-hero">
@@ -373,14 +416,24 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           </div>
         </div>
 
+        {bankError && (
+          <div className="vmx-config-availability" role="alert">
+            ยังโหลดคลังข้อสอบไม่ครบ ตรวจการเชื่อมต่อแล้วลองโหลดอีกครั้ง
+            {dueCount > 0 && (
+              <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => startSession(true)} disabled={starting}>
+                ทบทวนเฉพาะการ์ดที่โหลดแล้ว ({dueCount} ใบ)
+              </button>
+            )}
+          </div>
+        )}
         <div className="vmx-btn-row">
           <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← ย้อนกลับ</button>
           <button
             className="vmx-btn vmx-btn-primary"
-            onClick={startSession}
-            disabled={dueCount === 0}
+            onClick={() => startSession()}
+            disabled={starting || (dueCount === 0 && scopeReady)}
           >
-            {dueCount === 0 ? '🎉 ไม่มีใบที่ต้องทบทวน' : 'เริ่ม Session →'}
+            {starting ? 'กำลังโหลดคลังข้อสอบ…' : bankError ? 'ลองโหลดคลังอีกครั้ง' : dueCount === 0 && scopeReady ? '🎉 ไม่มีใบที่ต้องทบทวน' : 'เริ่ม Session →'}
           </button>
         </div>
       </>
@@ -389,15 +442,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
   // ─── Active session ─────────────────────────────────────────────
   const currentCard = sessionCards[currentIdx];
-  // Use compound (subject:id) match when available — pool building
-  // attaches q.subject to each card. Falls back to id-only match for
-  // legacy cards that pre-date the subject annotation.
-  const currentQ = currentCard
-    ? allQuestions.find((q) =>
-        q.id === currentCard.questionId
-        && (!currentCard.subject || q.subject === currentCard.subject)
-      ) || allQuestions.find((q) => q.id === currentCard.questionId)
-    : null;
+  const currentQ = currentCard?.question || null;
 
   // Pressing Again is the one moment the app has proof of a gap. Hiding the
   // card for 24 hours at exactly that moment is backwards — every other SRS
@@ -459,6 +504,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     const remaining = duePool.length;
     return (
       <>
+        {partialNotice}
         <div className="vmx-hero">
           <h1>ทบทวน <em>เสร็จแล้ว</em></h1>
           <p>ทบทวนเสร็จแล้ว, กลับมาทบทวนพรุ่งนี้นะ</p>
@@ -543,6 +589,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   if (currentQ.type === 'image-occlusion') {
     return (
       <>
+        {partialNotice}
         <div className="vmx-exam-top">
           <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
           <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
@@ -568,6 +615,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   if (currentQ.type === 'cloze') {
     return (
       <>
+        {partialNotice}
         <div className="vmx-exam-top">
           <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
           <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
@@ -592,6 +640,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
   return (
     <>
+      {partialNotice}
       <div className="vmx-exam-top">
         <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
         <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
@@ -608,6 +657,11 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             {SUBJECTS.find((s) => s.id === currentQ.subject)?.name || currentQ.subject}
             {', '}{typeLabel}
           </div>
+          {currentQ.passage && (
+            <div style={{ textAlign: 'left' }}>
+              <SmartPassage text={currentQ.passage} title={currentQ.passage_title} />
+            </div>
+          )}
           {currentQ.image && safeImageUrl(currentQ.image) && (
             <>
               <img
@@ -637,6 +691,13 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               {answerNode || answerText}
             </div>
             {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichText text={currentQ.explain} /></div>}
+            {safeImageUrl(currentQ.explainImage) && (
+              <ZoomableImage
+                src={safeImageUrl(currentQ.explainImage)}
+                alt={currentQ.explainImageAlt || `ภาพประกอบเฉลยข้อ ${currentQ.id}`}
+                maxHeight={320}
+              />
+            )}
             {/* The moment a card is revealed is the moment to offer the
                 checked summary — same judged mapping ReviewView uses, so
                 past-paper cards resolve to a real article too. Shown for
