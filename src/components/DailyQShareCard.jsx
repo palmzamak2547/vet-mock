@@ -164,6 +164,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
   const [busy, setBusy] = useState(false);
   const [imgUrl, setImgUrl] = useState(null);
   const imgUrlRef = useRef(null);
+  const imgBlobRef = useRef(null);
   const dialogRef = useModalFocus({ onClose });
 
   const shareText = useMemo(
@@ -178,6 +179,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
   // image preview and closes without downloading.
   useEffect(() => {
     return () => {
+      imgBlobRef.current = null;
       if (imgUrlRef.current) {
         URL.revokeObjectURL(imgUrlRef.current);
         imgUrlRef.current = null;
@@ -196,9 +198,14 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
     else flash('คัดลอกไม่ได้, ลองใหม่');
   }
 
+  async function ensureBlob() {
+    if (!imgBlobRef.current) imgBlobRef.current = await buildShareImage({ history, streak, todayDate, todayStatus });
+    return imgBlobRef.current;
+  }
+
   async function ensureImage() {
     if (imgUrl) return imgUrl;
-    const blob = await buildShareImage({ history, streak, todayDate, todayStatus });
+    const blob = await ensureBlob();
     if (!blob) throw new Error('canvas blob failed');
     const url = URL.createObjectURL(blob);
     imgUrlRef.current = url;
@@ -242,8 +249,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
     try {
       // Best path on mobile: navigator.share with a file — opens the
       // system share sheet, user picks IG Story / IG Direct / LINE / etc.
-      const built = imgUrl ? null : await buildShareImage({ history, streak, todayDate, todayStatus });
-      const blob = built;
+      const blob = await ensureBlob();
       let file = null;
       if (blob) {
         file = new File([blob], `vetmock-daily-q-${todayDate}.png`, { type: 'image/png' });

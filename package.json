@@ -1,7 +1,7 @@
 {
   "name": "vet-mock-exam",
   "private": true,
-  "version": "5.133.1",
+  "version": "5.133.2",
   "type": "module",
   "engines": {
     "node": ">=20"
@@ -76,8 +76,8 @@
     "gate:serial": "npm run lint:data && npm run test:unit && npm run test:unit:utc && npm run build && npm run lint:dist && npm run test:e2e:ci",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:prod": "node scripts/test-e2e-prod.mjs",
-    "test:unit": "node --test tests/unit/*.test.mjs",
-    "test:unit:utc": "node -e \"process.env.TZ='UTC';const r=require('child_process').spawnSync(process.execPath,['--test','tests/unit/*.test.mjs'],{stdio:'inherit'});process.exit(r.status??1)\"",
+    "test:unit": "node --test --test-concurrency=2 tests/unit/*.test.mjs",
+    "test:unit:utc": "node -e \"process.env.TZ='UTC';const r=require('child_process').spawnSync(process.execPath,['--test','--test-concurrency=2','tests/unit/*.test.mjs'],{stdio:'inherit'});process.exit(r.status??1)\"",
     "test": "npm run test:unit && npm run test:e2e",
     "stats": "node scripts/stats.mjs",
     "stats:check": "node scripts/stats.mjs --check",

@@ -698,6 +698,8 @@ function offlineDocUrl(doc, accessEpoch) {
 
 export async function resolveDocUrl(doc) {
   if (!doc) throw new Error('resolveDocUrl: missing doc');
+  // Prefetch stores this call's promise during the access check; never reuse it as its own result.
+  const intentAtStart = doc.slug ? _urlIntent.get(doc.slug) : null;
   const accessEpoch = doc.status !== 'public' ? await libraryAccessForRequest() : null;
   if (doc.storage_provider === 'google-drive') {
     const url = googleDriveSourceUrl(doc.external_url);
@@ -705,7 +707,7 @@ export async function resolveDocUrl(doc) {
     return url;
   }
   const hit = doc.slug ? _urlIntent.get(doc.slug) : null;
-  if (hit && Date.now() - hit.at < INTENT_TTL_MS) return hit.p;
+  if (hit && hit === intentAtStart && Date.now() - hit.at < INTENT_TTL_MS) return hit.p;
 
   if (doc.storage_provider === 'r2') {
     if (doc.status === 'public') {

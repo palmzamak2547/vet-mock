@@ -1,0 +1,5 @@
+# Preserve snapshot bytes and their SHA256 receipts across Windows/Linux checkouts.
+# Historical snapshots are opaque diffs; the manifest verifies their exact bytes.
+AGENTS-*.md -text -diff
+CLAUDE-primary.md -text -diff
+LAUNCH_READINESS-*.md -text -diff

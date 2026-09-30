@@ -3,10 +3,13 @@
 คลังข้อสอบ + ตารางเรียน/ตารางสอบ + สรุปคลิป + VetWiki สำหรับนิสิตสัตวแพทย์
 Made with ♡ by **Vet 86**
 
-🌐 **Live:** [vetmock.vercel.app](https://vetmock.vercel.app)
+🌐 **VetMock:** [vetmock.com](https://vetmock.com) (ปัจจุบัน redirect ไป [vetmock.vercel.app](https://vetmock.vercel.app))
+🔬 **VetMock Research:** [research.vetmock.com](https://research.vetmock.com)
 🔗 **Sister sites:** [cuvetsmo.com](https://cuvetsmo.com) (สโมสรนิสิต), [hanong.vercel.app](https://hanong.vercel.app) (stray welfare)
 
-**Current release:** v5.56.0 · production verified 2026-08-31
+**Study release:** v5.133.1 · ตรวจสถานะ 2026-09-30
+Source candidate v5.133.2 อยู่ระหว่างตรวจรับ; version ปัจจุบันของ source อยู่ใน `package.json`
+หลักฐาน deployment และข้อจำกัดของการตรวจ รวมถึง Research R parity: [`docs/LAUNCH_READINESS.md`](./docs/LAUNCH_READINESS.md)
 Maintainer map: [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE.md)
 
 > ตัวเลข content inventory ด้านล่าง auto-generated จาก source จริงด้วย `npm run stats -- --write`
@@ -52,7 +55,7 @@ npm run dev
 
 ## ✨ ฟีเจอร์
 
-31 ฟีเจอร์ลงทะเบียนไว้ที่ `src/lib/feature-registry.js` ซึ่งเป็น single source
+ฟีเจอร์ลงทะเบียนไว้ที่ `src/lib/feature-registry.js` ซึ่งเป็น single source
 ที่ป้อนทั้งหน้าแรก, ⌘K command palette และปุ่มเครื่องมือลอย
 
 ### ฝึก
@@ -65,7 +68,7 @@ npm run dev
 ### เรียน
 - **VetWiki** คลังความรู้ที่บอกที่มาได้ทุก section + ลิงก์ `/wiki/<subject>/<topic>` แชร์ได้
 - **Notes โหลดตามวิชา** Notes และ VetWiki ใช้ source map เดียวกัน ไม่ดาวน์โหลดทุกชั้นปีพร้อมกัน
-- **สรุปคลิป** 400 คลิปแยกตามวิชา
+- **สรุปคลิป** แยกตามวิชา พร้อมที่มาและตำแหน่งในคลิป
 - **ตารางเรียน & สอบ** ตารางรายสัปดาห์ + countdown + ปฏิทินลงทะเบียน/ชำระเงิน
 - **Reading Checklist**, **Pinboard**, **Notes**, **อาจารย์ผู้สอน**
 
@@ -120,7 +123,8 @@ vet-mock/
 ├── scripts/                        ← lint + regen + stats
 ├── tests/                          ← unit (node:test) + e2e (Playwright)
 ├── docs/                           ← content-inventory, UX audit, design system
-└── supabase-schema.sql
+├── research/                       ← VetMock Research บน research.vetmock.com
+└── supabase/migrations/             ← schema source of truth
 ```
 
 ---
@@ -130,15 +134,14 @@ vet-mock/
 ทุก commit ต้องผ่านทั้งหมดนี้:
 
 ```bash
-npm run lint:all    # consistency + content-quality gates
-npm run build
-npm run test:unit   # node:test suite
-npm run test:e2e    # Playwright (desktop + mobile)
-npm run stats:check # fail ถ้า README/docs inventory drift จาก source
+npm run gate       # data/unit ใน Bangkok + UTC, build, contrast และ E2E ทั้ง 4 profiles
+npm run stats:check # README/docs inventory ต้องตรงกับ source
 npm audit --audit-level=high
 ```
 
-`lint:all` fail = ห้าม push
+gate fail = ห้ามอ้างว่าพร้อม release; `npm run gate:data` ใช้ตรวจ data/unit รอบสั้นได้
+แต่ไม่แทน build, contrast หรือ cross-browser E2E. งานใน `research/` ต้องผ่าน unit/build/E2E
+ของแอปนั้นและ workflow Research R parity ด้วย
 ก่อนเพิ่มข้อสอบ อ่าน [`ADDING-QUESTIONS.md`](./ADDING-QUESTIONS.md) ก่อน
 
 ---
@@ -176,7 +179,7 @@ registry แล้วรัน gates
 
 ### เปิดชั้นปีใหม่
 1. เพิ่มวิชาใน `SUBJECTS_BY_YEAR` (`src/data/curriculum.js`)
-2. วาง Q bank แล้วรัน `npm run lint:registry` เพื่อ regen registry
+2. วาง Q bank แล้วรัน `npm run regen:registry` เพื่อ regen registry
 3. ปลด `scaffold: true` ของปีนั้นใน `YEARS`
    (`lint:curriculum` จะ fail ถ้าปีมีข้อสอบแล้วแต่ยังติด scaffold หรือกลับกัน)
 
@@ -185,16 +188,16 @@ registry แล้วรัน gates
 ## 🚀 Deploy
 
 ```bash
-npm run test:unit
-npm run lint:all
-npm run build
+npm run gate
 npm audit --audit-level=high
 git push origin main
 ```
 
 Vercel auto-deploys `main`, but a push is not production proof. Wait for the
 exact-SHA GitHub Build + Smoke E2E runs, confirm the Vercel **Production**
-deployment, then run a changed capability against `https://vetmock.vercel.app`.
+deployment, then verify the entry at `https://vetmock.com` and a changed capability on the
+actual study runtime (`https://vetmock.vercel.app` during the redirect phase).
+Research has a separate deployment and must be verified on `https://research.vetmock.com`.
 Full checklist: [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE.md#release-gate).
 
 ⚠️ ถ้า CSS/JS shape, lazy loading, route หรือ update behavior เปลี่ยน ต้องบัมพ์
@@ -223,7 +226,7 @@ Full checklist: [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE
 **Platform:**
 - Made with ♡ by **Vet 86**
 - React + Vite + Supabase
-- Free tier: $0/month
+- ค่าใช้งานจริงขึ้นกับ hosting, storage และบริการที่เปิดใช้; ตรวจ billing ก่อนอ้างค่าใช้จ่าย
 
 ---
 

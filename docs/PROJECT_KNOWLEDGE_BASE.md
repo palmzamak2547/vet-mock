@@ -1,8 +1,12 @@
 # VetMock project knowledge base
 
-Current source candidate: **2026-09-06 · v5.80.0**
-Last production baseline checked before this candidate: `fdff304` · v5.78.0.
-Production: [vetmock.vercel.app](https://vetmock.vercel.app)
+Current checkpoint: **2026-09-30 · study v5.133.1 · base 6774daa1**.
+Product entry: [vetmock.com](https://vetmock.com), currently a 307 to
+[vetmock.vercel.app](https://vetmock.vercel.app). Research is a separate app at
+[research.vetmock.com](https://research.vetmock.com).
+Exact-SHA proof, the Research parity failure and remaining validation live in
+[LAUNCH_READINESS.md](LAUNCH_READINESS.md). Source version, provider deployment,
+live runtime and browser acceptance are separate facts.
 
 VCA sources now have verified copies in owned storage. See
 [`vca-archive.md`](./vca-archive.md) for the independent recovery manifest,
@@ -25,35 +29,23 @@ Imaging Practical stays narrow; advanced DICOM workflows belong at
 
 ## Measured inventory
 
-Run `npm run stats` before quoting current scale. The 2026-09-05 source
-inventory is:
+Run `npm run stats` before quoting current scale. The maintained generated
+inventory is [content-inventory.md](content-inventory.md), also projected into
+README by `npm run stats -- --write`. Check drift with `npm run stats:check`.
+Do not duplicate totals in this map or treat a dated checkpoint as a live count.
 
-| Metric | Value |
-|---|---:|
-| Source questions | 4,890 |
-| Learner-ready questions | 4,825 |
-| Held pending answer, scope or figure review | 65 |
-| Question-bank files | 74 |
-| Subjects with questions | 43 |
-| Note files / topics / sections | 37 / 376 / 4,032 |
-| Note sections with source locator | 100% |
-| Video summaries | 400 |
-| Governed VetWiki topics / sections | 208 / 1,769 |
-| Verified claims / distinct external sources | 3,216 / 2,093 |
-
-Generated detail: [`content-inventory.md`](./content-inventory.md).
-
-VCA originals are projected from `src/data/vca-materials.js` into the existing
-library: 487 source-file links, 351 entries after duplicate reconciliation,
-plus 121 individually reviewed adapted practice questions. The originals stay
-on Drive. See [`vca-import-2026-09-05.md`](./vca-import-2026-09-05.md) for exact
-scope, provenance, the unavailable older shortcut, and the boundary between
-source access and scored practice.
+VCA material is projected from `src/data/vca-materials.js` into the existing
+library. Verified owned-storage copies retain the original Drive provenance;
+source access and adapted scored practice remain distinct. The dated ingest
+scope and unavailable older shortcut are in
+[`vca-import-2026-09-05.md`](./vca-import-2026-09-05.md); recovery is in
+[`vca-archive.md`](./vca-archive.md). Recount the source/catalog before quoting totals.
 
 ## System map
 
 | Concern | Source of truth | Consumers / projections |
 |---|---|---|
+| VetMock Research | `research/`, its package/config/worker/runtime and owner-scoped IndexedDB | separate subdomain; on-device datasets, computation and exports; optional Supabase Auth |
 | Curriculum | `src/data/curriculum.js` | selectors, schedule, study catalog |
 | Question bodies | `src/data/questions-*.js` | generated bank/count/delivery registries |
 | Note bodies | `src/data/notes-*.js` | `src/data/note-corpus.js` lazy subject map |
@@ -107,14 +99,29 @@ extra fields, normalize legacy SR defaults, respect explicit empty data, and
 show the exact overwrite scope. `streakData` is restored without inventing a
 last-study timestamp.
 
+## Research contracts
+
+VetMock Research lives under `research/` and builds separately. It does not
+share browser storage or sessions with the study origin. Datasets and exports
+stay on device; the lazy auth client is the specific network exception. The
+method/spec/registry/fixture pipeline owns verified numerical status.
+
+Read [research/M2-DESIGN.md](research/M2-DESIGN.md) and the applicable
+[M1 contract](research/M1-DESIGN.md) before changing statistical methods,
+intake, owner-scoped persistence, charts or reports. These are dated build
+contracts; their scaffold/stub descriptions are not today's release status.
+A native-R CI failure remains a finding until its cause is reproduced and checked.
+
 ## OSS decisions
 
 - Adopted: Vite literal dynamic imports and Valibot 1.4.2 in a lazy validation
   chunk.
 - Deferred: FSRS until a versioned review-event ledger supports shadow
   comparison and truthful migration.
-- Deferred: TanStack Virtual, FlexSearch, and IndexedDB until measured product
-  evidence justifies their UX/data-migration risk.
+- Study app: defer TanStack Virtual, FlexSearch and a storage migration until
+  measured evidence justifies their UX/data risk. Research already uses
+  owner-scoped IndexedDB and its own installed TanStack Virtual dependency;
+  its adoption does not migrate the study app.
 - Retained: the domain-specific service worker because its API privacy,
   controlled activation, and offline contracts are already explicit and tested.
 
@@ -123,23 +130,29 @@ Evidence and license matrix:
 
 ## Release gate
 
-Normal local baseline:
+Run the current gate from one stable checkout:
 
 ```powershell
-npm run test:unit
-npm run lint:all
-npm run build
+npm run gate
 npm audit --audit-level=high
 ```
 
-Then run targeted browser coverage. Production requires separate proof of the
-exact Git SHA, GitHub Build, GitHub Smoke E2E, Vercel Production deployment,
-and a live journey against the production alias.
+The gate covers data/unit in Bangkok and UTC, build, dist contrast, and all four
+browser profiles. Risk-specific failure-path checks supplement it. Production
+requires separate proof of exact SHA, GitHub Build + Smoke, Vercel Production
+deployment and a live changed journey on the actual origin. Research changes
+also require its own unit/build/E2E checks and Research R parity workflow.
+`gate:data` is diagnosis, not full acceptance. Keep broad gates quiet and
+retain original failures alongside isolated reruns.
 
 Vercel skips root/docs/internal Markdown-only, `.github/**`, `tests/**`, and
 Playwright-config-only commits. `wiki/**/*.md` is public prerender input and
 remains deploy-worthy. Do not broaden these exclusions without checking the
 resulting Git pathspec.
+
+## Historical release evidence
+
+The following receipts apply only to the named releases.
 
 v5.56.0 evidence (2026-08-31):
 
@@ -177,17 +190,17 @@ Historical v5.31.0 evidence (2026-08-21):
 - [`../AGENTS.md`](../AGENTS.md) — mandatory project/agent rules
 - [`../STABILITY.md`](../STABILITY.md) — recurring bug guardrails
 - [`LAUNCH_READINESS.md`](./LAUNCH_READINESS.md) — current release verdict
+- [CONTINUOUS-IMPROVEMENT.md](CONTINUOUS-IMPROVEMENT.md) — shared cross-harness ownership and loop acceptance
 - [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md) — visual and accessibility contract
 - [`UX_AUDIT.md`](./UX_AUDIT.md) — historical findings + implementation status
 - [`../ADDING-QUESTIONS.md`](../ADDING-QUESTIONS.md) — question intake crank
 - [`../SECURITY.md`](../SECURITY.md) — threat model and hardening history
 - [`../DECISIONS.md`](../DECISIONS.md) — durable architecture decisions
-- [`../RISKS.md`](../RISKS.md) — active product/technical risks
+- [`../RISKS.md`](../RISKS.md) — product/technical risk register; dated mitigations need reverification
+- [data-durability-and-operations.md](data-durability-and-operations.md) — durability and operations
+- [audit-remediation-2026-09-07.md](audit-remediation-2026-09-07.md) — dated repair register
+- [handoff/history-2026-09-30/](handoff/history-2026-09-30/) — lossless archived handoffs
 
 Durable cross-session context is mirrored in the MycOS VetMock project hub and
 the local `vetmock-project-operations` skill. Update those after a substantial
 release; do not rewrite dated historical evidence as though it were current.
-
-
-- v5.81 data storage, scoring, races and release gates: [data-durability-and-operations.md](data-durability-and-operations.md)
-- Audit repair register and evidence-dependent content queue: [audit-remediation-2026-09-07.md](audit-remediation-2026-09-07.md)

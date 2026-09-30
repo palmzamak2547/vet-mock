@@ -106,7 +106,7 @@ test('CI runs the data lints before the build and only lint:dist after it (STAB-
 test('phase A runs the unit suite in UTC and in Bangkok time (STAB-16)', () => {
   const units = phaseATasks(scripts).filter((t) => /^unit/.test(t.label));
   assert.deepEqual(units.map((u) => u.env.TZ).sort(), ['Asia/Bangkok', 'UTC']);
-  for (const u of units) assert.deepEqual(u.args, ['--test', 'tests/unit/*.test.mjs']);
+  for (const u of units) assert.deepEqual(u.args, ['--test', '--test-concurrency=2', 'tests/unit/*.test.mjs']);
   assert.match(scripts['test:unit:utc'], /TZ='UTC'/);
 });
 

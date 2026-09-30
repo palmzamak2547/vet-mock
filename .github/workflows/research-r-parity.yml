@@ -83,7 +83,22 @@ jobs:
           export PKGS="$(node research/scripts/r-parity/run-native.mjs --packages)"
           echo "packages: $PKGS"
           Rscript -e 'install.packages("pak", repos = sprintf("https://r-lib.github.io/p/pak/stable/%s/%s/%s", .Platform$pkgType, R.Version()$os, R.Version()$arch))'
-          Rscript -e 'pak::pkg_install(strsplit(Sys.getenv("PKGS"), " ")[[1]], upgrade = FALSE, ask = FALSE)'
+          # Resolve dependencies first; exact pins conflict with bundled packages in pak's solver.
+          # Restore every recorded version from CRAN, then let run-native enforce exact pins.
+          Rscript - <<'RSCRIPT'
+          refs <- strsplit(Sys.getenv("PKGS"), " ")[[1]]
+          pins <- strsplit(refs, "@", fixed = TRUE)
+          pak::pkg_install(c("remotes", vapply(pins, `[`, character(1), 1)), upgrade = FALSE, ask = FALSE)
+          for (pin in pins) {
+            pkg <- pin[[1]]
+            version <- pin[[2]]
+            if (as.character(packageVersion(pkg)) == version) next
+            # CRAN archive names may use hyphens (mvtnorm1.2-4); compare normalized versions.
+            remotes::install_version(pkg, version = version, repos = "https://cran.r-project.org",
+                                     dependencies = FALSE, upgrade = "never")
+            if (as.character(packageVersion(pkg)) != version) stop(sprintf("%s: expected %s", pkg, version))
+          }
+          RSCRIPT
         shell: bash
 
       - name: Native R against the committed webR fixtures

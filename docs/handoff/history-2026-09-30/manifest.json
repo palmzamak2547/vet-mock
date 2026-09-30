@@ -1,0 +1,30 @@
+{
+  "date": "2026-09-30",
+  "timezone": "Asia/Bangkok",
+  "records": [
+    {
+      "file": "AGENTS-primary.md",
+      "source": "Primary dirty checkout, bdfc2a46",
+      "bytes": 328271,
+      "sha256": "3b2c386196ae61d52bad9a545f176716333b50076b36ad8c94c2f1adca022394"
+    },
+    {
+      "file": "AGENTS-origin-6774daa1.md",
+      "source": "origin/main, 6774daa1d73bb54a81dab307d8175bcd7f55ad26",
+      "bytes": 329011,
+      "sha256": "731a3be6e89bbd6d7ac6c74300b89b2ea174d75d9407f4e84b40d7a63567d5b9"
+    },
+    {
+      "file": "CLAUDE-primary.md",
+      "source": "Primary dirty checkout, bdfc2a46",
+      "bytes": 1100,
+      "sha256": "9f3f44e28bbac1b8ea9bacd4b201c92a8371340fab245e5ecab14eed9b8557ce"
+    },
+    {
+      "file": "LAUNCH_READINESS-through-2026-09-05.md",
+      "source": "origin/main, 6774daa1d73bb54a81dab307d8175bcd7f55ad26",
+      "bytes": 10752,
+      "sha256": "5ecb66987df57bd5e36b10bb216e7aab7ed2fc0f1b8d0189f3a39ba30a3c666c"
+    }
+  ]
+}
