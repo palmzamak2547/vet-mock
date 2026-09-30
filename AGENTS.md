@@ -337,14 +337,24 @@ Avoid:
 
 ## Current coordination checkpoint — 2026-09-30
 
-- Candidate 5.133.2 restores full SR content and repeated image sharing, patches
-  two transitive dependencies and the native-R installation seam. Current local
-  checks, the eight restricted MCV additions and outstanding reader/hosted proof
-  are in docs/LAUNCH_READINESS.md. No new production acceptance is implied yet.
-- Fresh base: 6774daa1d73bb54a81dab307d8175bcd7f55ad26, study version 5.133.1;
-  study Build/Smoke and both production deployment records succeeded. Research
-  native-R parity was red on that exact base and is under investigation. Current
-  proof and limits: docs/LAUNCH_READINESS.md. Do not describe the whole system as green.
+- Baseline source and successful Production records are 6774daa1; the observed
+  live study UI is 5.133.1. Candidate 5.133.2/SWv200 is
+  [PR 18](https://github.com/palmzamak2547/vet-mock/pull/18), initial head b53b3bf2.
+  Local data/unit gate 51/51, normal build/prerenders, three contrast audits and
+  audit 0 passed. CI Build 2103 units and both WebKit/Firefox halves passed;
+  Chromium was cancelled during browser installation before build/E2E began.
+  No new production acceptance is implied. Current proof: docs/LAUNCH_READINESS.md.
+- Hosted native R now installs every recorded pin. Its six comparison failures
+  are proved analytic zeros, repaired under the existing 1e-10 zero contract;
+  local M1/M2/comparator 332/332 pass and wrong-value injection fails as expected.
+  Fixtures/R scripts/reference numbers, strict webR and nonzero NATIVE_REL 1e-9
+  remain unchanged. The follow-up hosted result is still required before release.
+- MCV catalog 2042 / current-term 115/115 / NEW 0 is complete for the authorized
+  account. Eight restricted member bodies have matching complete byte counts;
+  the old production pointer still stalls before HTTP. Candidate reader positive
+  UI and exact temporary-test-UID cleanup/read-back remain explicit proof items.
+- Shared ownership: work/loop-20260930/COORDINATION.md. Grok is unavailable;
+  use actually available harnesses and never infer acknowledgement from a branch.
 - Primary checkout bdfc2a46 is behind and has preserved curriculum/doc edits plus
   untracked design/scratchpad work. Work on the isolated current checkout and merge
   narrowly; never reset or replace the shared primary tree.

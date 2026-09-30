@@ -59,7 +59,7 @@ jobs:
         run: npm ci --no-audit --no-fund
 
       - name: Engine against the R 4.6.0 fixtures
-        run: node --test tests/unit/rparity-engine.test.mjs tests/unit/rparity-m2.test.mjs
+        run: node --test tests/unit/rparity-engine.test.mjs tests/unit/rparity-m2.test.mjs tests/unit/rparity-compare.test.mjs
 
   native-r:
     runs-on: ubuntu-latest
