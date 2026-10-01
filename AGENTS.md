@@ -339,34 +339,26 @@ Avoid:
   quality intact. A measured improvement needs comparable evidence; fewer tokens,
   a passing build or a happy-path HTTP response cannot establish completion.
 
-## ## Current coordination checkpoint — loop closed 2026-10-01
+## Current coordination checkpoint — production 5.133.3 · 2026-10-01
 
-- The owner requested closing this loop and stopping ongoing work. Development,
-  agents and the owned gate are stopped; no next wave, push, deployment or production
-  schema write is authorized by this checkpoint. Resume only on a new owner request.
-- Accepted production is 5.133.2/SWv200 at main41db8c9f, merged PR18. Exact Build,
-  Smoke attempt2 and Research pass; study and Research deployments succeed.
-  Actual study SR24/24, member PDF/return/logout/anonymous denial/cache absence,
-  repeated PNG payload equality and public Research reader/sample-size/CSV flows
-  have bounded proof. Physical OS/social delivery and hardware are not implied.
-- Candidate5.133.3/SWv201 is retained on codex/annotation-integrity-1001 in the
-  managed checkout, unmerged and not deployed. Atomic annotation merge migration
-  and one DB check preserve old writers/RLS; actual SQL36/36 passes on PostgreSQL18.3
-  WASM. Native17.6/four real backend barriers remain required. The checker now accepts
-  only the dedicated CI container; local native mode refuses before Docker/SQL.
-- Candidate data/unit gate51/51, normal build/prerenders and all three contrast audits
-  pass; fresh closeout npm audit0. Full E2E is incomplete: the first run retained
-  Chromium407/19 before a checker-isolation correction, and the final run was stopped
-  at the owner's request with a partial Atlas export observation. Retain all original
-  failures/interruptions. Windows sleep20:54:17Z→04:25:44Z explains elapsed wall time;
-  no runtime-speed claim follows from it.
-- Question8037 changes only dogcat→swine from its literal pig stem. Answer/source/review
-  remain; six domain checks pass; 6663ready/68held/wiki4292 unchanged. No held answer
-  was promoted. Held user_data sync7146f950 remains a separate unverified lane.
-- The exact disposable member fixture remains intact pending the unanswered final
-  account-deletion confirmation required by the Browser tool. Credentials stay private;
-  no cleanup success is claimed. No real-user data or session cleanup was performed.
-- Primary bdfc2a46 retains its unrelated curriculum/doc/design/scratchpad work.
-  Dashboard41936/PID58016 remains a read-only closed-loop artifact, with no active
-  improvement runner. Grok is unavailable; no cross-harness acknowledgement is inferred.
-  Evidence and next resume action: work/loop-20260930/CLOSEOUT.md.
+- The owner resumed for review and production. PR 19 merged as f90dcf33;
+  production is 5.133.3 / SWv201. Exact CI, deployment and live receipts are in
+  docs/LAUNCH_READINESS.md; the earlier CLOSEOUT remains dated history.
+- Atomic PDF annotation merge is installed as provider migration 20261001054615.
+  The source copy is supabase/migrations/20261001030000_pdf_annotations_atomic_merge.sql.
+  Native PostgreSQL 17.6 passed 40 cases, including four real lock races; ordinary
+  member API 5/5 and signed-in browser draw/reopen/erase/redo 4/4 passed.
+  New test rows were removed and existing Agenda metadata was preserved.
+- Main Build/Smoke passed: 806 passed, one retry-flaky, 45 skipped. Local data/unit
+  51/51, build/prerenders, three contrast audits and audit 0 passed. Full Windows
+  gate was not green: preserve its timeout/retries and the unchanged focused test's
+  18.6-second pass. Slow actionability's cause remains unproved; no timeout was raised.
+- Question 8037 changes only dogcat to swine; answer/source/review remain.
+  Fresh stats: 6,731 source, 6,663 ready, 68 held, 94 banks. No held answer was promoted.
+- The original disposable account still awaits the prior deletion confirmation.
+  Held sync 7146f950, provider maintenance and hardware/OAuth/social validation
+  remain separate; completed probe cleanup is not account cleanup.
+- Preserve the primary checkout's unrelated curriculum/design/scratchpad work.
+  One claim record: work/loop-20260930/COORDINATION.md. Current evidence:
+  work/loop-20261001-release/FINAL-RELEASE.md. Grok remains unavailable;
+  do not infer another harness's acknowledgement from a branch.

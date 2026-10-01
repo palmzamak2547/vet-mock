@@ -81,3 +81,14 @@ can be mistaken for current truth.
 **Mitigation:** `npm run stats` is the inventory authority;
 `docs/PROJECT_KNOWLEDGE_BASE.md`, `AGENTS.md`, MycOS, and the local VetMock skill
 form the maintained current layer. Dated records stay explicitly historical.
+
+### R12 · Stale annotation writes — mitigated at the database boundary
+
+Client-side merging alone allowed a later stale upload to replace acknowledged ink
+or tombstones. The deployed invoker trigger now merges at the existing table boundary,
+including old clients, while retaining ownership and size constraints.
+
+Native PostgreSQL 17.6 concurrency tests, ordinary-member API checks and signed-in
+draw/reopen/erase/redo all passed. The existing 4 MiB client and 8 MiB database limits
+still apply; work that cannot sync must remain local with an explicit failure.
+Exact rollout proof and separate outstanding risks: [Launch Readiness](docs/LAUNCH_READINESS.md).

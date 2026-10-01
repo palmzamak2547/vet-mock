@@ -2,12 +2,59 @@
 
 ## Current checkpoint — 2026-10-01 (Asia/Bangkok)
 
-The owner closed this loop on 2026-10-01. Production5.133.2 below is accepted.
-Candidate5.133.3/SWv201 is retained locally, unmerged, with no production schema write.
-Data/unit51/51, normal build/prerenders, three contrast audits and fresh audit0 pass;
-actual SQL36/36 passes on PostgreSQL18.3/WASM. Final full E2E stopped at the owner's
-request; native17.6/four-backend CI and fixture deletion confirmation remain pending.
-There is no active improvement runner. Evidence/resume: work/loop-20260930/CLOSEOUT.md.
+**Production 5.133.3 / SWv201 is accepted**, from source
+`f90dcf337f6515e097ca67402da635ef156d3e6b`
+([PR 19](https://github.com/palmzamak2547/vet-mock/pull/19)).
+Independent source review found no actionable issue.
+
+| Evidence | Verified result |
+|---|---|
+| Main Build | [36821746448](https://github.com/palmzamak2547/vet-mock/actions/runs/36821746448) succeeds, including PostgreSQL 17.6: 40/40 and four real backend-lock races |
+| Main Smoke | [36821746055](https://github.com/palmzamak2547/vet-mock/actions/runs/36821746055) succeeds: 806 passed, one retry-flaky, 45 skipped |
+| Production | Deployment 6777354252 succeeded at 06:01:26 UTC: [deployment](https://vetmock-3p7zymay8-palmzamak2547s-projects.vercel.app) |
+| Actual study origin | Entry main-7WHJR3FR.js reports 5.133.3; SWv201 equals source. vetmock.com retains its 307 to vetmock.vercel.app |
+| Member API | 5/5 real API checks: stale writes, tombstones, metadata, anonymous denial and identity guard |
+| Signed-in browser | 4/4: draw/save to cloud, restore the same visible ink in a fresh context, erase, then redo with a new ID |
+| Test-row cleanup | API probes and the browser's unique synthetic document were removed; read-back is zero and existing Agenda metadata is unchanged |
+
+The browser proof used two fresh desktop contexts and one tiny synthetic PDF.
+Both naturally used SWv201; no worker takeover or existing document reload was forced.
+It does not establish physical stylus/iOS or actual social-app delivery.
+
+The installed provider migration is `20261001054615` (`pdf_annotations_atomic_merge`).
+Its source copy remains
+`supabase/migrations/20261001030000_pdf_annotations_atomic_merge.sql`.
+Reviewed SQL SHA256:
+`82da6da9ede82f2044fa29970bed867cb55bc06d5aa73b2b334805eb930a9715`;
+installed function-body MD5: `29ae3d488046de7718c4ba75760c90a2`.
+Invoker, fixed search path, trigger, RLS and existing size constraints were verified.
+Aggregate-only preflight checked all 12 stored records; every compatibility counter was zero.
+SW source SHA256:
+`83e7294f97f7622ae3652c69a9763d7c9bd0af43cf81e61ef733b9bb477820b7`.
+
+Local data/unit 51/51, normal build/prerenders, three contrast audits and dependency
+audit 0 passed; 192 gradient backgrounds remain unmeasured. Chromium completed 426
+cases: 405 passed, two retry-flaky, 19 skipped. **The full Windows gate was not green**:
+software-GL hit a 30-second scroll budget, before its final active-navigation assertion.
+The unchanged focused test subsequently passed in 18.6 seconds. Trace comparison showed
+15.56 versus 0.926 seconds in an earlier theme action; the cause of that variable
+actionability remains unproved. Original failures and retries remain recorded, and no
+assertion or timeout was loosened. PR checks also passed on d89a3671 before merging.
+
+The original disposable account still awaits the earlier final-delete confirmation;
+probe cleanup is not account cleanup. Existing provider notices are unchanged (7 INFO,
+4 anonymous-definer, 30 authenticated-definer and one HIBP notice), with no annotation
+finding. The [PostgreSQL 17.11 provider upgrade](https://supabase.com/changelog/postgres-15-19-17-11-breaking-changes),
+held user-data sync, and hardware/OAuth/social validation remain separate work.
+Research source is unchanged; its new build was intentionally ignored, so prior
+Research receipts below remain dated evidence.
+
+Evidence: managed `work/loop-20261001-release/FINAL-RELEASE.md`,
+`MIGRATION-RECEIPT.json`, `live-http.json` and CI/failure logs. Primary browser/API
+receipts are under `work/loop-20261001-release/integrations/`.
+The shared claim remains `work/loop-20260930/COORDINATION.md`.
+
+## Accepted study baseline — 5.133.2 / SWv200 (dated receipt)
 
 Release source **5.133.2 / SW v200**: [PR 18](https://github.com/palmzamak2547/vet-mock/pull/18)
 merged as `41db8c9f6c4c38a0044922cbef0009b0551718ee`; its tree equals accepted
@@ -51,7 +98,7 @@ proof are separate from connector access.
 
 The original Windows 426-case failures reconciled to 404 successful/19 skipped/
 three timing cases. The unchanged original Notes recovery case now passes 1/1
-in 15.402s; two other timing cases remain open. Earlier online COM4 stayed pending
+in 15.402s; two other timing cases were open at that older checkpoint. Earlier COM4 stayed pending
 about 85s, not merely a 30s overall timeout; its cause is unproved. Original
 23 failures/three not-run/nine retry-flaky and rerun evidence remain retained.
 Managed receipts: `work/loop-20260930/backlog/CI-MAIN-41DB-CANCELLED-GL1.md`,
@@ -127,21 +174,24 @@ Managed receipts: `work/loop-20260930/backlog/CI-MAIN-41DB-CANCELLED-GL1.md`,
   `work/loop-20260930/release-functional-hashes-6349b6ea.json`, and original 14-file receipt
   `work/loop-20260930/release-functional-hashes-b53b3bf.json`.
 
-## Candidate 5.133.3 / SWv201 — not deployed
+## Content correction in 5.133.3
 
-`codex/annotation-integrity-1001` starts from released main41db. Actual-source B13r reproduction confirms concurrent stale cloud writes can lose acknowledged ink or retired tombstones. The candidate adds an invoker trigger at the existing table boundary, preserving legacy writers/RLS and the post-merge 8 MiB guard. Local actual SQL passes36/36 on PostgreSQL18.3/WASM, including JS-oracle, shape/identity/owner and failure-path checks; native PostgreSQL17.6/four real multi-backend barriers are required on CI before production DDL. No production schema write or release is claimed.
-
-Question8037 changes only dogcat to swine from the literal pig stem, retaining answer/source/review status; all six existing domain checks and the full68-held scan pass. Ready6663/held68/wiki4292 remain unchanged. Code/evidence: `supabase/migrations/20261001030000_pdf_annotations_atomic_merge.sql`, `scripts/test-annotation-db.mjs`, managed work/loop-20260930/annotation-pg-lab/REPORT.md and content-triage/REPORT.md. Main release gates and live account cleanup remain required.
+Question 8037 now uses the swine topic, matching its literal pig stem. Its answer,
+source and review flag are unchanged. Fresh inventory remains 6,731 source questions,
+6,663 ready and 68 held; no held answer was promoted. The current release receipt
+above records the annotation backend and frontend acceptance.
 
 ## Outstanding work and limits
 
 - Exact main CI and same app Production acceptance now succeed. Retain six original
   analytic-zero mismatches, separated SE evidence drift and installer/setup/checks
   failures. No global tolerance/reference replacement was used.
-- Windows connected-study176 and mobile-compat353 DOM-scan timing remain open after
-  Notes recovery's unchanged 1/1 pass. Preserve original/reconciliation/rerun evidence.
-  Initial 418-case stopped run is never counted as completed; hosted success does
-  not establish the cause of local timing failures.
+- Current Chromium completed all 426 cases: 405 passed / 2 retry-flaky / 19 skipped.
+  The current GL failure consumed the 30-second scroll budget before is-active;
+  quiet original-spec/trace rerun passed in 18.6 seconds. Theme action was 15.56 s
+  versus 0.926 s before progress; cause remains unproved, assertions/timeouts unchanged.
+  Full local gate remains incomplete. Earlier timing counts and the stopped
+  418-case run are dated evidence; preserve them without treating them as current.
 - Live SR/member flows and bounded PNG preview/download/share-payload acceptance pass.
   Actual OS/social delivery and broader hardware journeys remain outside proof.
   Preserve natural worker activation and active documents; no forced reload,

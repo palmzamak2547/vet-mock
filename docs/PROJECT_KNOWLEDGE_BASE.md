@@ -1,10 +1,12 @@
 # VetMock project knowledge base
 
-Current checkpoint: **2026-09-30 · study v5.133.1 · base 6774daa1**.
+Current checkpoint: **2026-10-01 · study 5.133.3 / SWv201**.
+Production source is f90dcf33, including the installed atomic annotation merge.
+The signed-in draw, cloud restore, erase and redo journey has live proof.
 Product entry: [vetmock.com](https://vetmock.com), currently a 307 to
 [vetmock.vercel.app](https://vetmock.vercel.app). Research is a separate app at
 [research.vetmock.com](https://research.vetmock.com).
-Exact-SHA proof, the Research parity failure and remaining validation live in
+Exact-SHA/backend/alias proof and remaining validation live in
 [LAUNCH_READINESS.md](LAUNCH_READINESS.md). Source version, provider deployment,
 live runtime and browser acceptance are separate facts.
 
@@ -52,6 +54,7 @@ scope and unavailable older shortcut are in
 | Note availability | `NOTE_SOURCES` in `note-corpus.js` | NotesView, VetWiki runtime, notes registry |
 | Governed knowledge | notes + evidence/review metadata | `src/lib/vetwiki/runtime*.js`, `/wiki/*` |
 | Stable URLs | `src/lib/view-route.js` | App history and Vercel rewrites |
+| PDF annotations | src/lib/pdf-annotations.js + src/lib/annotation-sync.js; atomic SQL source copy-of-record | owner-scoped IndexedDB + pdf_annotations; provider 20261001054615; separate backend/frontend proof |
 | User study data | `src/lib/user-data-sync.js` | local-first store + Supabase replica |
 | Imported JSON | `src/lib/user-data-schema.js` | backup + custom-question ingress |
 | Atlas specimens | `src/data/atlas-catalog.js`, per-specimen conversion ledgers | generated asset registry, shared AtlasView, `/atlas/` discovery page |
@@ -90,6 +93,16 @@ bytes (94.3%). Lecture sections stay first and Vet 85 sections append with
 their provenance. Failed imports are retryable; an online retry reloads with a
 one-shot destination because native ESM caches a failed import for the document
 lifetime.
+
+### Persisted PDF annotation merge
+
+`pdf-annotations.js` owns the client merge semantics; `annotation-sync.js` retains
+the existing authenticated table-write path. The invoker trigger in
+`supabase/migrations/20261001030000_pdf_annotations_atomic_merge.sql` merges each
+write with the locked stored row, preserving ink and tombstones from old clients.
+RLS, immutable row identity and the post-merge 8 MiB limit remain.
+Provider version and verification receipts are in [Launch Readiness](LAUNCH_READINESS.md).
+Other study-data sync is a separate contract.
 
 ### Backup and custom-question data
 

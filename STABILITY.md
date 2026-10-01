@@ -88,6 +88,17 @@ working local/cloud data. Validation must fail closed, respect explicit empty
 arrays, preserve legacy-safe defaults, cap file size, and preview the exact
 overwrite scope.
 
+## 0.4.1 Annotation merge is atomic at the persisted write boundary
+
+**Rule:** client-side mergeRecords algebra alone cannot preserve acknowledged ink
+against concurrent stale database writes. Every existing writer must pass the
+invoker database merge/identity/shape/8MiB boundary; preserve RLS and old clients.
+Verify true separate-backend lock races and ordinary-member failure paths.
+
+**Evidence:** supabase/migrations/20261001030000_pdf_annotations_atomic_merge.sql; provider 20261001054615,
+SQL SHA256 82da6da9ede82f2044fa29970bed867cb55bc06d5aa73b2b334805eb930a9715; receipts in work/loop-20261001-release/.
+Frontend deployment and backend installation are separate acceptance facts.
+
 ## 0.5 Internal Markdown can skip deploy; `wiki/**/*.md` cannot
 
 **Rule:** Vercel `ignoreCommand` may exclude root/docs/internal Markdown, but it

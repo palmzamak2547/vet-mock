@@ -7,8 +7,8 @@ Made with ♡ by **Vet 86**
 🔬 **VetMock Research:** [research.vetmock.com](https://research.vetmock.com)
 🔗 **Sister sites:** [cuvetsmo.com](https://cuvetsmo.com) (สโมสรนิสิต), [hanong.vercel.app](https://hanong.vercel.app) (stray welfare)
 
-**Study release:** v5.133.2 · ตรวจสถานะ 2026-10-01
-Version ของ source อยู่ใน `package.json`; สถานะ candidate และผลตรวจรับอยู่ใน release receipt ด้านล่าง
+**Study release:** v5.133.3 / SW v201 · ตรวจสถานะ 2026-10-01
+Source on main: v5.133.3/v201 (f90dcf33); ดูสถานะ backend/frontend ใน release receipt ที่ลิงก์ด้านล่าง
 หลักฐาน deployment และข้อจำกัดของการตรวจ รวมถึง Research R parity: [`docs/LAUNCH_READINESS.md`](./docs/LAUNCH_READINESS.md)
 Maintainer map: [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE.md)
 

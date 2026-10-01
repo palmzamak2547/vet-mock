@@ -26,6 +26,18 @@ exam UI does not collect it. Visible time excludes a hidden tab; it is not a
 measurement of attention or mastery. Existing compact history is retained and
 does not acquire invented historical answers or timings.
 
+## Atomic annotation write boundary — 2026-10-01
+
+The existing `pdf_annotations` write path now merges ink and tombstones atomically
+at the stored row, protecting retained clients that still use unconditional upserts.
+The trigger runs as invoker and keeps ownership, identity and post-merge size checks.
+
+Native PostgreSQL 17.6 races, normal-member API tests and the real signed-in
+draw/reopen/erase/redo journey passed. Temporary document rows were removed while
+existing Agenda metadata was retained. The original account deletion remains pending.
+See [Launch Readiness](LAUNCH_READINESS.md) for exact source/provider versions, hashes,
+deployment evidence and the separate validation limits.
+
 ## Score and race authority
 
 New standard exam results are recomputed against the canonical question

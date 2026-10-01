@@ -6,6 +6,11 @@ platform reliability. Work through verified, useful slices. New architecture
 needs an observed failure or a user need; reuse the existing curriculum, pool,
 source registries, runtime and fixtures before adding another system.
 
+Owner resumed on 2026-10-01 for review and real production. Keep the one claim
+record below; new evidence is work/loop-20261001-release/. The prior closed-loop
+receipt remains history. Production backend/schema, source, frontend alias and
+real journeys must be recorded separately; no new automation follows from resume.
+
 ## One protocol across harnesses
 
 Claude Code, Grok and other harnesses share [AGENTS.md](../AGENTS.md), this
