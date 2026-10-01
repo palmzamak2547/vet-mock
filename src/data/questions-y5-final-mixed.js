@@ -425,7 +425,7 @@ export const QB_Y5_FINAL_MIXED = [
     explain: '"พกพาสัตว์เลี้ยง" = นกแก้ว/ดอกไม้/สัตว์เลี้ยงต่างถิ่น → zoonosis ที่ต้องระวัง:\n• Psittacosis (Chlamydophila psittaci) — parrot/bird\n• Melioidosis (Burkholderia pseudomallei) — soil/water\n• Brucellosis (Brucella) — livestock + dog\n\n❌ ข้ออื่น mix wrong\n— Colibacillosis ไม่ใช่ zoonosis เด่น\n— Pseudorabies ไม่ติดคน\n— Tetanus ไม่ใช่ zoonosis classic\n— Botulinum = food poisoning ไม่ใช่ pet-borne',
     verified: 'สรุป 80 p.10 (Vet 83 marked D "Psittacosis, Meliodosis, Brucellosis")' },
 
-  { id: 8037, subject: 'vca', topic: 'dogcat', year: 5,
+  { id: 8037, subject: 'vca', topic: 'swine', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
     examOrigin: 'Vet 80 past paper · Vet 83 update commentary',
     tags: ['gastric-ulcer', 'pathophysiology'], type: 'mcq',

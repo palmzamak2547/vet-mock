@@ -29,6 +29,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  annotation-db:
+    name: Annotation PostgreSQL
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:17.6
+        env:
+          POSTGRES_PASSWORD: annotation-test-only
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Verify atomic annotation writes and account boundaries
+        env:
+          PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: node scripts/test-annotation-db.mjs --backend=postgres
+
   build:
     runs-on: ubuntu-latest
     # 2026-09-04: a cold-cache npm ci + build measured past 5m on the
