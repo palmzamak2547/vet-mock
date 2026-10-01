@@ -339,48 +339,34 @@ Avoid:
   quality intact. A measured improvement needs comparable evidence; fewer tokens,
   a passing build or a happy-path HTTP response cannot establish completion.
 
-## Current coordination checkpoint — 2026-10-01
+## ## Current coordination checkpoint — loop closed 2026-10-01
 
-- Baseline source and successful Production records are 6774daa1; the observed
-  live study UI is 5.133.1. Candidate 5.133.2/SWv200 is
-  [PR 18](https://github.com/palmzamak2547/vet-mock/pull/18), initial head b53b3bf2.
-  Local data/unit gate 51/51, normal build/prerenders, three contrast audits and
-  audit 0 passed. Exact 6349b6ea CI Build 2103, engine 335, native R 37 files/
-  295 cases/16 pins and browser 808 successful/44 skipped passed. Windows evidence
-  reconciles to 404 successful/19 skipped/3 timing cases still open; original
-  failures/retries and earlier b53 setup cancellation remain retained.
-  No new production acceptance is implied. Current proof: docs/LAUNCH_READINESS.md.
-- Hosted 6349 native R accepts both authored exact-zero and separated-fit B/SE
-  evidence contracts with finite/direction/shape/signal guards; wrong injection fails.
-  Research reader-index repair declares three actual reader links; all 39 fixture
-  hashes/dates remain unchanged. Repaired Bangkok/UTC 1316 each, build and four-profile
-  browser 119 passed/17 skipped/0 failed are accepted locally.
-  Fixtures/R scripts/reference numbers, strict webR and nonzero NATIVE_REL 1e-9
-  remain unchanged. The new metadata/dependency batch still requires exact-head CI.
-- A fresh audit found one High dependency finding in Axios (seven advisories)
-  after earlier audit 0. Only the
-  compatible transitive Node Axios 1.19→1.20 node was patched; SDK versions stay.
-  Fresh npm ci/audit 0, 60 consumer units and actual getVoices adapter check pass.
-  Final data gate 51/51/full timezone units, normal build/prerenders and all three
-  contrast audits pass; all 1239 main JS/CSS/HTML bytes match the prior artifact.
-  Final 17-file receipt preserves the prior 16-file 6349 receipt. No runtime speed claim.
-- MCV catalog 2042 / current-term 115/115 / NEW 0 is complete for the authorized
-  account. Eight restricted member bodies have matching complete byte counts;
-  the old production pointer still stalls before HTTP. Candidate pointer/logout/
-  anonymous-401/cache-absence flows passed on configured normal build port 41938.
-  Production acceptance and exact temporary-test-UID cleanup/read-back remain proof items.
-- Shared ownership: work/loop-20260930/COORDINATION.md. Grok is unavailable;
-  use actually available harnesses and never infer acknowledgement from a branch.
-- Primary checkout bdfc2a46 is behind and has preserved curriculum/doc edits plus
-  untracked design/scratchpad work. Work on the isolated current checkout and merge
-  narrowly; never reset or replace the shared primary tree.
-- Held sync/reland-0926 candidate 7146f950 is a separate lane. Before relanding:
-  named/livesim/random simulator + units + rollout review and account-local-purge
-  coverage for vmx-user-ack-v1:<uid>. No sync release is implied by this docs pass.
-- The 2026-09-27 OPEN-ITEMS ledger is historical input to reverify, not proof of
-  today's open count. Research, MyCourseVille coverage, physical iOS/assistive
-  hardware and new signed-in multi-device flows need their own current evidence.
-- The owner renewed the ongoing improvement loop on 2026-09-30. In-scope routine
-  reversible decisions and coordination are authorized; preserve security boundaries
-  and required release gates. The older per-action domain approval/loop-stop notes
-  describe prior sessions. Keep this checkpoint concise and replace superseded state.
+- The owner requested closing this loop and stopping ongoing work. Development,
+  agents and the owned gate are stopped; no next wave, push, deployment or production
+  schema write is authorized by this checkpoint. Resume only on a new owner request.
+- Accepted production is 5.133.2/SWv200 at main41db8c9f, merged PR18. Exact Build,
+  Smoke attempt2 and Research pass; study and Research deployments succeed.
+  Actual study SR24/24, member PDF/return/logout/anonymous denial/cache absence,
+  repeated PNG payload equality and public Research reader/sample-size/CSV flows
+  have bounded proof. Physical OS/social delivery and hardware are not implied.
+- Candidate5.133.3/SWv201 is retained on codex/annotation-integrity-1001 in the
+  managed checkout, unmerged and not deployed. Atomic annotation merge migration
+  and one DB check preserve old writers/RLS; actual SQL36/36 passes on PostgreSQL18.3
+  WASM. Native17.6/four real backend barriers remain required. The checker now accepts
+  only the dedicated CI container; local native mode refuses before Docker/SQL.
+- Candidate data/unit gate51/51, normal build/prerenders and all three contrast audits
+  pass; fresh closeout npm audit0. Full E2E is incomplete: the first run retained
+  Chromium407/19 before a checker-isolation correction, and the final run was stopped
+  at the owner's request with a partial Atlas export observation. Retain all original
+  failures/interruptions. Windows sleep20:54:17Z→04:25:44Z explains elapsed wall time;
+  no runtime-speed claim follows from it.
+- Question8037 changes only dogcat→swine from its literal pig stem. Answer/source/review
+  remain; six domain checks pass; 6663ready/68held/wiki4292 unchanged. No held answer
+  was promoted. Held user_data sync7146f950 remains a separate unverified lane.
+- The exact disposable member fixture remains intact pending the unanswered final
+  account-deletion confirmation required by the Browser tool. Credentials stay private;
+  no cleanup success is claimed. No real-user data or session cleanup was performed.
+- Primary bdfc2a46 retains its unrelated curriculum/doc/design/scratchpad work.
+  Dashboard41936/PID58016 remains a read-only closed-loop artifact, with no active
+  improvement runner. Grok is unavailable; no cross-harness acknowledgement is inferred.
+  Evidence and next resume action: work/loop-20260930/CLOSEOUT.md.
