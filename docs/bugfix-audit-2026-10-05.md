@@ -32,14 +32,26 @@ backend schemas or production data changed.
 
 ## Verification
 
-Verification continues in a draft PR on Linux CI. Local Windows results below remain a dated receipt; final hosted results will be recorded in the PR and local handoff.
-Current confirmed results: study data/unit gate 51/51 (2119 units per timezone),
-build/prerenders, three contrast checks with one unchanged retry, root and Research
-dependency audits zero; Chromium desktop/mobile 413 passed/19 declared skips with
-no retries; Research units 1319 per timezone, build, generated registry check and
-60 four-profile journeys passed. The original full gate did not complete green:
-its first contrast subprocess exited without diagnostics, then passed unchanged
-when run separately. Original failures are retained; assertions/timeouts are unchanged.
+[Draft PR20](https://github.com/palmzamak2547/vet-mock/pull/20) carries the repairs;
+production is unchanged. Local source tests: study data/unit gate 51/51 (2119
+units per timezone), build/prerenders, contrast checks, both dependency audits
+zero; Chromium desktop/mobile 413 passed/19 declared skips without retries.
+Research units 1319 per timezone, build/registry and 60 four-profile journeys pass.
+
+The full Windows gate is **not green**. Its first contrast subprocess exited
+without diagnostics and passed unchanged separately. The GL browser run was
+stopped after repeated timeouts and increasingly slow Firefox actions; preserve
+its failure/skip/partial coverage. Unchanged isolated runs pass: WebKit summary
+print1/1 (17.6s), Firefox Imaging + Question Manager + video6/6 (2.1m).
+Assertions and timeout budgets were not relaxed.
+
+Hosted Build37316823019 passes on application commit32650d3e. Native R initially
+failed before numerical comparisons: the newest dunn.test dropped scrutiny,
+while pinned1.4.0 still imports it and the downgrade disabled dependency install.
+The workflow now installs required archived dependencies (`dependencies=NA`)
+with `upgrade="never"`, retaining every package pin, fixture and tolerance.
+The updated PR requires a fresh hosted native-R and Smoke result; final receipts
+are recorded in the PR and local handoff rather than inferred from a build.
 
 ## Open P1: acknowledged multi-device study-data loss (DA-06)
 
