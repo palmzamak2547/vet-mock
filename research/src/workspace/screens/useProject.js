@@ -121,9 +121,11 @@ export function useProject(projectId) {
     const nextMeta = ds?.meta || meta;
     const raw = ds?.raw || state.raw;
     const table = await applyTable(raw, nextMeta, state.others);
-    set({ meta: nextMeta, raw, table });
+    // Dataset writes also advance the project's revision; the next design/rename must use it.
+    const project = await getProject(db, owner, projectId);
+    set({ project, meta: nextMeta, raw, table });
     return table;
-  }, [db, owner, state.meta, state.raw, state.others, applyTable, set]);
+  }, [db, owner, projectId, state.meta, state.raw, state.others, applyTable, set]);
 
   /** Replace the recipe (append a step, or remove the last one for undo). */
   const commitSteps = useCallback(async (steps, logDetail) => {
@@ -273,16 +275,15 @@ export function useProject(projectId) {
         createdAt: new Date().toISOString(),
       };
       await putAnalysis(db, owner, analysis);
-      await log('freeze', { analysisId: analysis.id, method: spec.method });
-      const analyses = await listAnalyses(db, owner, projectId);
-      set({ analyses: analyses || [] });
+      const [analyses, entries] = await Promise.all([listAnalyses(db, owner, projectId), listLog(db, owner, projectId)]);
+      set({ analyses: analyses || [], log: entries || [] });
       notify('ws.snapshot.saved', {}, 'ok');
       return analysis.id;
     } catch (err) {
       notify(errorInfo(err).key, {}, 'error');
       return null;
     }
-  }, [db, owner, projectId, state.table, log, notify, set]);
+  }, [db, owner, projectId, state.table, notify, set]);
 
   const removeSnapshot = useCallback(async (id) => {
     try {

@@ -65,19 +65,23 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
   // this so a single click wipes both Cornerstone annotations and
   // custom-overlay points without callback wiring.
   useEffect(() => {
+    const element = viewportRef?.()?.element;
+    if (!element) return;
     const onClear = () => setWorldPoints([]);
-    window.addEventListener('vmx-lab-clear-overlays', onClear);
-    return () => window.removeEventListener('vmx-lab-clear-overlays', onClear);
-  }, []);
+    element.addEventListener('vmx-lab-clear-overlays', onClear);
+    return () => element.removeEventListener('vmx-lab-clear-overlays', onClear);
+  }, [viewportRef]);
 
   // Undo — only when this overlay is the active one, so 2 viewports
   // don't both pop a point on the same U keypress.
   useEffect(() => {
     if (!active) return;
+    const element = viewportRef?.()?.element;
+    if (!element) return;
     const onUndo = () => setWorldPoints((prev) => prev.slice(0, -1));
-    window.addEventListener('vmx-lab-undo-point', onUndo);
-    return () => window.removeEventListener('vmx-lab-undo-point', onUndo);
-  }, [active]);
+    element.addEventListener('vmx-lab-undo-point', onUndo);
+    return () => element.removeEventListener('vmx-lab-undo-point', onUndo);
+  }, [active, viewportRef]);
 
   const undo = useCallback(() => {
     setWorldPoints((prev) => prev.slice(0, -1));

@@ -10,9 +10,10 @@ import { listAnalyses } from './analyses.js';
 import { listLog, appendLogInTx, logKey, sanitizeDetail, LOG_KINDS } from './log.js';
 import { validateSpec } from '../runtime/spec.js';
 import { ENGINE_VERSION } from '../runtime/protocol.js';
+import { reviveNumbers } from '../runtime/envelope.js';
 
 export const PROJECT_FILE_FORMAT = 'vetmock-research-project';
-export const PROJECT_FILE_VERSION = 1;
+export const PROJECT_FILE_VERSION = 2;
 export const PROJECT_FILE_MAX_BYTES = 50 * 1024 * 1024;
 
 const str = (max) => v.pipe(v.string(), v.maxLength(max));
@@ -58,7 +59,7 @@ const logSchema = v.strictObject({ seq: int(1), at: str(40), kind: v.picklist(LO
 
 export const PROJECT_FILE_SCHEMA = v.strictObject({
   format: v.literal(PROJECT_FILE_FORMAT),
-  version: v.literal(PROJECT_FILE_VERSION),
+  version: v.picklist([1, PROJECT_FILE_VERSION]),
   exportedAt: str(40),
   engineVersion: str(80),
   project: v.strictObject({ name: str(500), design: v.nullable(str(40)), createdAt: str(40), example: v.optional(v.nullable(str(40))) }),
@@ -81,8 +82,8 @@ export function projectFileName(name, date = new Date()) {
 
 function jsonReplacer(_k, val) {
   if (typeof val === 'number') {
-    if (val === Infinity) return 'Infinity';
-    if (val === -Infinity) return '-Infinity';
+    if (val === Infinity) return { $number: 'Infinity' };
+    if (val === -Infinity) return { $number: '-Infinity' };
     if (Number.isNaN(val)) return null;
   }
   if (ArrayBuffer.isView(val)) return Array.from(/** @type {any} */ (val));
@@ -90,8 +91,11 @@ function jsonReplacer(_k, val) {
 }
 
 function jsonReviver(_k, val) {
-  if (val === 'Infinity') return Infinity;
-  if (val === '-Infinity') return -Infinity;
+  // Version 2 distinguishes numeric bounds from literal text, including table labels.
+  if (val && typeof val === 'object' && Object.keys(val).length === 1) {
+    if (val.$number === 'Infinity') return Infinity;
+    if (val.$number === '-Infinity') return -Infinity;
+  }
   return val;
 }
 
@@ -104,9 +108,12 @@ export async function buildProjectFile(db, owner, projectId, now = new Date()) {
   if (!project) throw new StoreError('notFound', 'runtime.store.notFound');
   const metas = await listDatasets(db, owner, projectId);
   const datasets = [];
-  for (const m of metas) {
+  // The first dataset is the one analysed. An IndexedDB index sorts by random id, not this order.
+  for (const id of project.datasetIds) {
+    const m = metas.find((d) => d.id === id);
+    if (!m) throw new StoreError('corrupt', 'runtime.store.corrupt');
     const full = await getDataset(db, owner, m.id);
-    if (!full) continue;
+    if (!full) throw new StoreError('corrupt', 'runtime.store.corrupt');
     datasets.push({
       id: m.id, source: m.source, header: full.raw.header, rowIds: full.raw.rowIds, rowCount: full.raw.rowCount,
       columns: full.raw.columns, codebook: m.codebook, steps: m.steps || [], purpose: m.purpose || 'main',
@@ -168,6 +175,9 @@ export async function parseProjectFile(file) {
   const datasetIds = new Set(data.datasets.map((d) => d.id));
   if (datasetIds.size !== data.datasets.length) return { ok: false, key: 'runtime.projectFile.invalid' };
   for (const a of data.analyses) {
+    // Old files encoded bounds as strings. Keep that reading only inside their result envelopes;
+    // raw cells, codebooks, recipes and project names have always been text.
+    if (data.version === 1) a.envelope = reviveNumbers(a.envelope);
     const s = validateSpec(a.spec);
     if (!s.ok) return { ok: false, key: 'runtime.projectFile.invalid' };
     // A computed envelope carries its own copy of the spec (the report and the scripts read it): it must be

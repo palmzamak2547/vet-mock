@@ -582,7 +582,7 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
       })()}
 
       {showAdd && <AddEditModal {...{ form, setForm, save, onClose: () => setShowAdd(false), editing: editingIdx !== null }} />}
-      {playing && <PlayerModal video={playing} onClose={closePlayer} watched={watched} markWatched={markWatched} />}
+      {playing && <PlayerModal key={playing.url} video={playing} onClose={closePlayer} watched={watched} markWatched={markWatched} />}
 
       {filtered.length === 0 ? (
         <div className="vmx-empty">ยังไม่มีคลิปในวิชานี้ — กด "เพิ่มคลิป" เพื่อเพิ่ม</div>

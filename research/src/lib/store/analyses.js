@@ -37,6 +37,7 @@ export async function putAnalysis(db, owner, analysis, now = new Date()) {
     const cur = await ops.get('analyses', key);
     if (cur && cur.owner !== owner) throw new StoreError('notFound', 'runtime.store.notFound');
     if (cur && cur.frozen) throw new StoreError('frozen', 'runtime.store.frozen');
+    if (analysis.frozen && analysis.envelope?.status !== 'ok') throw new StoreError('invalid', 'runtime.store.freezeNotOk');
     const next = {
       key,
       owner,
@@ -45,8 +46,8 @@ export async function putAnalysis(db, owner, analysis, now = new Date()) {
       projectId: analysis.projectId,
       spec: analysis.spec,
       envelope: analysis.envelope,
-      frozen: false,
-      frozenAt: null,
+      frozen: Boolean(analysis.frozen),
+      frozenAt: analysis.frozen ? now.toISOString() : null,
       dataFingerprint: analysis.envelope?.provenance?.dataFingerprint ?? null,
       createdAt: cur?.createdAt || now.toISOString(),
       updatedAt: now.toISOString(),
@@ -62,6 +63,7 @@ export async function putAnalysis(db, owner, analysis, now = new Date()) {
         fingerprint: next.dataFingerprint ? next.dataFingerprint.slice(0, 8) : null,
       },
     }, now);
+    if (next.frozen) await appendLogInTx(ops, owner, analysis.projectId, { kind: 'freeze', detail: { analysisId: id, fingerprint: next.dataFingerprint ? next.dataFingerprint.slice(0, 8) : null } }, now);
     return next;
   });
   return publicRecord(rec);

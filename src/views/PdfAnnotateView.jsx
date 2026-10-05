@@ -1945,7 +1945,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         strokesByPage: l.strokesByPage,
         deleted: l.deleted,
         lastPage: l.currentPage,
-      }).then(() => flushPushes()).catch(() => {});
+      }).then((res) => {
+        // The first stroke may leave before autosave has queued any upload.
+        if (res?.ok) schedulePush(l.fileHash, peekAnnotations(l.fileHash));
+        return flushPushes();
+      }).catch(() => {});
     };
     flushRef.current = flush;
     const onHide = () => { if (document.visibilityState === 'hidden') flush(); };

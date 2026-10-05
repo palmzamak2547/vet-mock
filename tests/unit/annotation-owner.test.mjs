@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import vm from 'node:vm';
 
 let sequence = 0;
 async function fixture() {
@@ -61,4 +62,31 @@ test('exit flush sends the newest local strokes using the queued owner', async (
     assert.deepEqual(f.state.uploads[0].data.deleted, ['erased']);
     assert.equal(f.state.uploads[0].user_id, 'account-a');
   } finally { f.dispose(); }
+});
+
+test('leaving before the first autosave queues durable ink before flushing cloud', async () => {
+  const source = readFileSync(new URL('../../src/views/PdfAnnotateView.jsx', import.meta.url), 'utf8');
+  const start = source.indexOf('const flush = () => {');
+  const end = source.indexOf('flushRef.current = flush;', start);
+  assert.ok(start >= 0 && end > start);
+  for (const ok of [true, false]) {
+    const f = await fixture();
+    try {
+      const record = { hash: 'just-drawn', ownerId: 'account-a', fileName: 'notes.pdf', pageCount: 1,
+        strokesByPage: { 1: [{ id: 'last-stroke' }] }, deleted: [], currentPage: 1 };
+      let saved = false;
+      const ctx = {
+        clearTimeout() {}, saveTimerRef: { current: 1 }, latestRef: { current: { ...record, fileHash: record.hash } },
+        saveAnnotations: async () => { saved = true; return { ok, record }; },
+        peekAnnotations: () => record,
+        schedulePush: (hash, rec) => { assert.ok(saved); f.sync.schedulePush(hash, rec, 'account-a'); },
+        flushPushes: () => f.sync.flushPushes('account-a'),
+      };
+      vm.runInNewContext(`${source.slice(start, end)} flush();`, ctx);
+      await new Promise(resolve => setImmediate(resolve));
+      assert.equal(ctx.saveTimerRef.current, null);
+      assert.equal(f.state.uploads.length, ok ? 1 : 0, 'only successfully saved ink is queued');
+      if (ok) assert.equal(f.state.uploads[0].data.strokesByPage[1][0].id, 'last-stroke');
+    } finally { await f.sync.flushPushes('account-a'); f.dispose(); }
+  }
 });
