@@ -1,7 +1,7 @@
 {
   "name": "vet-mock-exam",
   "private": true,
-  "version": "5.134.0",
+  "version": "5.134.1",
   "type": "module",
   "engines": {
     "node": ">=20"
@@ -86,6 +86,7 @@
     "verify:sources": "node scripts/verify-wiki-sources.mjs",
     "audit:instructors": "node scripts/audit-instructors.mjs",
     "research:instructors": "node scripts/research-instructor-profiles.mjs",
+    "research:faculty-expansion": "node scripts/research-faculty-expansion.mjs",
     "generate:instructors": "node scripts/generate-instructor-directory.mjs",
     "wiki:coverage": "node scripts/wiki-coverage.mjs",
     "wiki:gap": "node scripts/wiki-gap.mjs",

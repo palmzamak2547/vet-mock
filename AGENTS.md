@@ -365,7 +365,7 @@ Avoid:
 
 ## ## Current release candidate — 2026-10-05
 
-- User authorized complete verification and production release. Isolated branch `codex/bugfix-1005`, PR20, base `9aa12da9`; preserve the primary checkout's unrelated edits. Candidate is study 5.134.0 / SW202 and Research 0.1.1. Production proof is still pending at this checkpoint.
+- User authorized complete verification and production release. Isolated branch `codex/bugfix-1005`, PR20, base `9aa12da9`; preserve the primary checkout's unrelated edits. Candidate is study 5.134.1 / SW202 and Research 0.1.1. Production proof is still pending at this checkpoint.
 - Repairs cover personal-question identity/import/edit/delete/account boundaries, weak-practice string IDs, PDF exit autosave, video clip identity, SVG backup, Imaging compare ownership, Research backup/dataset/freeze/revision and delayed-focus failures. See `docs/bugfix-audit-2026-10-05.md`.
 - DA-06 now has an immutable operation/receipt candidate: owner-scoped local intent, atomic row-locked RPC, per-key clocks/tombstones, explicit legacy recovery/export/archive, cancel barriers and stale-account request guards. Source migration `20261005140235_user_data_operation_sync.sql`; native harness `scripts/test-user-data-db.mjs`. Do not apply the earlier rejected CAS patch. See `docs/data-durability-and-operations.md` for rollout boundaries.
 - All-new simulator exact 10/10, random 200/200, C10 50/50 and named 10/10 pass. Raw mixed-version strict results remain 18/20 and 265/400: remaining failures explicitly refuse old writes and require recovery, not transparent mixed-version success. Clean old-reader projection regressions were fixed. No automatic document reload or worker takeover.

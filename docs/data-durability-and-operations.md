@@ -26,7 +26,7 @@ exam UI does not collect it. Visible time excludes a hidden tab; it is not a
 measurement of attention or mastery. Existing compact history is retained and
 does not acquire invented historical answers or timings.
 
-## Study-data operation boundary — 5.134.0 candidate
+## Study-data operation boundary — 5.134.1 candidate
 
 `useUserDataSync` uses `user-data-atomic.js` and `sync_user_data_v2` to send
 immutable per-action deltas, never a whole snapshot as new intent. The database

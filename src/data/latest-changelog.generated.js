@@ -63,7 +63,7 @@ export const SCOPE_LABELS = {
 };
 
 export const LATEST_CHANGELOG = {
-  "version": "5.134.0",
+  "version": "5.134.1",
   "date": "2026-10-05",
   "headline": "เก็บงานเรียนส่วนตัวและข้อมูลวิจัยได้ครบขึ้น",
   "changes": [

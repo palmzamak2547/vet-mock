@@ -1,7 +1,7 @@
-# System bug audit — 5.134.0 release candidate
+# System bug audit — 5.134.1 release candidate
 
 Candidate: `codex/bugfix-1005`, originally based on main `9aa12da9`.
-Source versions are **VetMock 5.134.0 / SW202** and **Research 0.1.1**.
+Source versions are **VetMock 5.134.1 / SW202** and **Research 0.1.1**.
 Production release is authorized and in progress; final exact-SHA CI, native
 PostgreSQL, provider migration and live production proof are still pending.
 The primary checkout's unrelated work remains preserved.
