@@ -58,6 +58,12 @@ test('a newly created custom ID reaches spaced review and keeps its review histo
     localStorage.setItem('vmx-sr-cards', JSON.stringify(srCards));
     const key = 'vmx-user-data-v1:anonymous';
     localStorage.setItem(key, JSON.stringify({ ...JSON.parse(localStorage.getItem(key)), srCards }));
+    // The real create above already initialized the current local-first store.
+    // Seed its authoritative snapshot too; a legacy raw-key write is not a v2 edit.
+    const currentKey = 'vmx-user-data-v2:anonymous';
+    const snapshot = JSON.parse(localStorage.getItem(currentKey));
+    if (!snapshot?.base) throw new Error('Custom creation did not persist its current snapshot');
+    localStorage.setItem(currentKey, JSON.stringify({ ...snapshot, base: { ...snapshot.base, srCards } }));
     localStorage.setItem('vmx-sr-phase-scope', JSON.stringify('all'));
   }, { id: created.id, card });
   await page.goto('/app/review', { waitUntil: 'domcontentloaded' });

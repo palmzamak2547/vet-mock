@@ -120,8 +120,11 @@ test('legacy version 1 backups restore numeric bounds without interpreting raw t
   legacy.version = 1;
   legacy.analyses[0].envelope.values.OR = { value: 'Infinity', ci: [1.449, 'Infinity'] };
   legacy.datasets[0].columns[0][0] = 'Infinity';
+  legacy.analyses[0].spec.levels = { outcomePositive: 'Infinity', exposureLevel: '-Infinity' };
+  legacy.analyses[0].envelope.spec = structuredClone(legacy.analyses[0].spec);
   const parsed = await parseProjectFile(asFile(JSON.stringify(legacy)));
   assert.equal(parsed.ok, true);
   assert.equal(parsed.data.datasets[0].columns[0][0], 'Infinity');
   assert.equal(parsed.data.analyses[0].envelope.values.OR.ci[1], Infinity);
+  assert.deepEqual(parsed.data.analyses[0].envelope.spec, legacy.analyses[0].spec);
 });

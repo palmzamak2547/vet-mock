@@ -177,7 +177,7 @@ export async function parseProjectFile(file) {
   for (const a of data.analyses) {
     // Old files encoded bounds as strings. Keep that reading only inside their result envelopes;
     // raw cells, codebooks, recipes and project names have always been text.
-    if (data.version === 1) a.envelope = reviveNumbers(a.envelope);
+    if (data.version === 1) a.envelope = { ...reviveNumbers(a.envelope), spec: a.envelope.spec };
     const s = validateSpec(a.spec);
     if (!s.ok) return { ok: false, key: 'runtime.projectFile.invalid' };
     // A computed envelope carries its own copy of the spec (the report and the scripts read it): it must be
@@ -212,10 +212,14 @@ export async function parseProjectFile(file) {
 export async function importProjectFile(db, owner, data, opts = {}) {
   if (!isOwner(owner)) throw new StoreError('badOwner', 'runtime.store.failed');
   const now = opts.now || new Date();
-  const bytes = data.datasets.reduce((s, d) => s + estimateRawBytes(d), 0);
+  // Old exports used index order. Restore the one declared main table first; do not guess
+  // when legacy metadata names more than one (or no) main table.
+  const mains = data.version === 1 ? data.datasets.filter((d) => (d.purpose || 'main') === 'main') : [];
+  const datasets = mains.length === 1 ? [mains[0], ...data.datasets.filter((d) => d !== mains[0])] : data.datasets;
+  const bytes = datasets.reduce((s, d) => s + estimateRawBytes(d), 0);
   await checkSpace(bytes, opts.estimate);
   const projectId = newId();
-  const idMap = new Map(data.datasets.map((d) => [d.id, newId()]));
+  const idMap = new Map(datasets.map((d) => [d.id, newId()]));
   const at = now.toISOString();
   const project = {
     key: ownerKey(owner, projectId), owner, id: projectId, name: cleanName(data.project.name), design: data.project.design ?? null, example: data.project.example ?? null,
@@ -223,7 +227,7 @@ export async function importProjectFile(db, owner, data, opts = {}) {
   };
   await db.tx(['projects', 'datasets', 'blocks', 'analyses', 'log'], 'readwrite', async (ops) => {
     await ops.put('projects', project);
-    for (const d of data.datasets) {
+    for (const d of datasets) {
       const id = idMap.get(d.id);
       const blockCount = Math.max(1, Math.ceil(d.rowCount / BLOCK_ROWS));
       await ops.put('datasets', {

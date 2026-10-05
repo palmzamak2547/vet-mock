@@ -10,10 +10,12 @@ import { thaiError } from '../lib/errors.js';
 import { EMPTY_ART } from '../data/art.js';
 import EmptyState from '../components/EmptyState.jsx';
 
-export default function QuestionManagerView({ customQuestions, setCustomQuestions, goHome }) {
+export default function QuestionManagerView({ customQuestions, setCustomQuestions, appendQuestions, goHome }) {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState(initForm());
+  const append = incoming => appendQuestions ? appendQuestions(incoming)
+    : setCustomQuestions(prev => [...prev, ...assignCustomQuestionIds(incoming, prev)]);
 
   // Bulk-select / lasso state — checkbox-based UX (cross-platform safe vs canvas lasso)
   const [selectMode, setSelectMode] = useState(false);
@@ -156,7 +158,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
     try {
       const result = editingId !== null
         ? setCustomQuestions((prev) => prev.map((q) => q.id === editingId ? { ...q, ...base } : q))
-        : setCustomQuestions((prev) => [...prev, ...assignCustomQuestionIds([parsed.data], prev)]);
+        : append([parsed.data]);
       if (result?.accepted === false) {
         alertDialog(thaiError(result.error, 'บันทึกไม่สำเร็จ กรุณาลองอีกครั้ง'));
         return;
@@ -219,7 +221,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
           // Always reassign IDs so importing the same file twice doesn't
           // duplicate IDs (was a silent bug — IDs collided with QB and the
           // app would render whichever came first in the array).
-          const result = setCustomQuestions((prev) => [...prev, ...assignCustomQuestionIds(valid, prev)]);
+          const result = append(valid);
           if (result?.accepted === false) alertDialog(thaiError(result.error, 'นำเข้าไม่สำเร็จ กรุณาลองอีกครั้ง'));
         }
         e.target.value = '';

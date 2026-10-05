@@ -64,3 +64,11 @@ test('backup parser fails closed before malformed data can overwrite local state
   assert.match(parseUserBackup({ srCards: { 1: 'bad' } }).reason, /การ์ดทบทวน/);
   assert.equal(parseUserBackup({ version: '5.1' }).success, false);
 });
+
+test('whole backups require stable distinct custom IDs while manager imports may omit them', () => {
+  const question = { type: 'tf', q: 'Question', subject: 'surg2', answer: false };
+  assert.equal(parseCustomQuestion(question).success, true);
+  assert.equal(parseUserBackup({ customQuestions: [question] }).success, false);
+  assert.equal(parseUserBackup({ customQuestions: [{ ...question, id: 60000 }, { ...question, id: '60000' }] }).success, false);
+  assert.equal(parseUserBackup({ customQuestions: [{ ...question, id: 0 }, { ...question, id: 'imported-id' }] }).success, true);
+});

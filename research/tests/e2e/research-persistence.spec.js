@@ -2,6 +2,7 @@
 // made as a guest survives a reload and a new tab, is keyed `guest/<id>`, and nothing but the one
 // preferences key is written to localStorage. OWNER: runtime role.
 import { test, expect } from '@playwright/test';
+import { readFile } from 'node:fs/promises';
 import { seenEntrance, storedDesign, PREFS_KEY, DB_NAME } from './research-runtime-helpers.mjs';
 import ws from '../../src/i18n/workspace.js';
 
@@ -60,6 +61,25 @@ test('a deep link to a project that is not in this browser is a sentence, never 
 
 test('saving a codebook then choosing a design in the same document keeps both changes and a frozen result', async ({ page }) => {
   test.setTimeout(60_000);
+  await page.addInitScript(() => {
+    // Release the route's deferred work after the first field receives focus, reproducing
+    // the frame ordering that previously sent the first keystrokes to the heading.
+    const raf = window.requestAnimationFrame;
+    const pending = [];
+    let released = false;
+    window.requestAnimationFrame = (callback) => {
+      if (!released && location.pathname.endsWith('/codebook')) {
+        pending.push(callback);
+        return raf(() => {});
+      }
+      return raf(callback);
+    };
+    document.addEventListener('focusin', (event) => {
+      if (event.target.id !== 'rs-cb-c1-th' || released) return;
+      released = true;
+      for (const callback of pending.splice(0)) queueMicrotask(() => callback(performance.now()));
+    });
+  });
   await seenEntrance(page);
   await page.goto('/app');
   await page.locator('input[type="file"]').first().setInputFiles({ name: 'weights.csv', mimeType: 'text/csv', buffer: Buffer.from('weight,group\n10,A\n12,A\n11,B\n14,B') });
@@ -73,6 +93,8 @@ test('saving a codebook then choosing a design in the same document keeps both c
   await expect(page).toHaveURL(/\/codebook$/);
   const firstLabel = page.locator('#rs-cb-c1-th');
   await firstLabel.fill('น้ำหนัก');
+  await expect(firstLabel).toBeFocused();
+  await expect(firstLabel).toHaveValue('น้ำหนัก');
   await page.getByRole('button', { name: ws.th['ws.codebook.save'], exact: true }).click();
   await expect(page.locator('.rs-status')).toContainText(ws.th['ws.codebook.saved']);
   // Follow the app link: a page.goto/reload would hide a stale in-memory project revision.
@@ -101,4 +123,31 @@ test('saving a codebook then choosing a design in the same document keeps both c
   expect(snapshots).toHaveLength(1);
   expect(snapshots[0].frozen).toBe(true);
   expect(snapshots[0].frozenAt).toBeTruthy();
+});
+
+test('a legacy backup opens its declared main dataset and exports it first', async ({ page }) => {
+  const dataset = (id, purpose, name, values) => ({
+    id, purpose, source: { fileName: `${name}.csv` }, header: [name], columns: [values],
+    rowIds: values.map((_, i) => `r${i + 1}`), rowCount: values.length, steps: [],
+    codebook: { unitOfAnalysis: 'animal', clusterKey: null, columns: [{ key: 'c1', name, type: 'text' }] },
+  });
+  const legacy = {
+    format: 'vetmock-research-project', version: 1, exportedAt: '2026-09-30T00:00:00Z', engineVersion: 'legacy',
+    project: { name: 'Legacy backup', design: null, createdAt: '2026-09-30T00:00:00Z' },
+    datasets: [dataset('a-farms', 'merge', 'farm', ['F1']), dataset('z-animals', 'main', 'weight', ['10', '12'])],
+    analyses: [], log: [],
+  };
+  await seenEntrance(page);
+  await page.goto('/app');
+  await page.locator('input[accept=".json,application/json"]').setInputFiles({ name: 'legacy.vmresearch.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(legacy)) });
+  await page.getByRole('dialog').getByRole('button', { name: ws.th['ws.projects.importConfirm'], exact: true }).click();
+  await expect(page).toHaveURL(/\/data$/);
+  await expect(page.getByRole('columnheader', { name: /weight/ })).toBeVisible();
+  await expect(page.getByRole('grid')).toContainText('12');
+  await page.goto('/app');
+  const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: ws.th['ws.projects.downloadFile'], exact: true }).click()]);
+  const saved = JSON.parse(await readFile(await download.path(), 'utf8'));
+  expect(saved.version).toBe(2);
+  expect(saved.datasets.map((d) => d.purpose)).toEqual(['main', 'merge']);
+  expect(saved.datasets[0].columns).toEqual([['10', '12']]);
 });

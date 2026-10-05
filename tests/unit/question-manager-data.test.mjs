@@ -5,7 +5,7 @@ import { loadModule, mount, findAll, textOf } from '../helpers/fake-react.mjs';
 import { parseCustomQuestion, parseUserBackup } from '../../src/lib/user-data-schema.js';
 import { buildExamPool, WEAK_POOL_CAP } from '../../src/lib/exam-pool.js';
 import { stillWrong } from '../../src/lib/wrong-pool.js';
-import { assignCustomQuestionIds, CUSTOM_QUESTION_ID_RANGE } from '../../src/lib/custom-question-ids.js';
+import { assignCustomQuestionIds, appendCustomQuestions, CUSTOM_QUESTION_ID_RANGE } from '../../src/lib/custom-question-ids.js';
 
 const alerts = [];
 let confirmation = async () => true;
@@ -174,5 +174,16 @@ test('custom ID allocation handles numeric strings, same-tick collisions and exh
     const batch = assignCustomQuestionIds([fixture(), fixture()], [{ id: min }]);
     const followup = assignCustomQuestionIds([fixture()], [{ id: min }, ...batch]);
     assert.deepEqual([...batch, ...followup].map(q => q.id), [min + 1, min + 2, min + 3]);
+  } finally { Math.random = random; }
+});
+
+test('a retired question ID is never reassigned while history, notes, bookmarks or SR still reference it', () => {
+  const random = Math.random;
+  try {
+    Math.random = () => 0;
+    const data = { customQuestions: [], history: [{ questionId: 60000 }], bookmarks: [60001],
+      notes: { 60002: 'old note' }, srCards: { 60003: { questionId: 60003 } } };
+    const [created] = appendCustomQuestions(data, [fixture()]);
+    assert.equal(created.id, 60004);
   } finally { Math.random = random; }
 });

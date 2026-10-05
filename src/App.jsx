@@ -27,6 +27,7 @@ import { useWakeLock } from './hooks/useWakeLock.js';
 import { useOnlineCount } from './hooks/useOnlineCount.js';
 import { useOnlineStatus } from './hooks/useOnlineStatus.js';
 import { useUserDataSync } from './hooks/useUserDataSync.js';
+import { appendCustomQuestions } from './lib/custom-question-ids.js';
 import ThemePicker from './components/ThemePicker.jsx';
 import UserMenu from './components/UserMenu.jsx';
 import HeaderBar from './components/HeaderBar.jsx';
@@ -2848,8 +2849,8 @@ export default function App() {
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions: replayWrongRound, challengeSender, sessionKind, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki }} />}
-              {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
-              {view === 'question-manager' && <QuestionManagerView key={user?.id || 'guest'} {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
+              {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} recoveryArchive={userDataSync.recoveryArchive} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
+              {view === 'question-manager' && <QuestionManagerView key={user?.id || 'guest'} appendQuestions={incoming => changeUserData(data => ({ customQuestions: appendCustomQuestions(data, incoming) }))} {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear, selectedPhase, setSelectedPhase, customQuestions }} />}
               {view === 'scores' && <ScoresView {...{ goHome }} />}
               {view === 'videos' && <VideoView goHome={goHome} initialSubject={videoSubject} selectedYear={selectedYear} />}

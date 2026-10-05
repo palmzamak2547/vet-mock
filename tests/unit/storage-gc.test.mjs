@@ -10,10 +10,20 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { sweepStaleKeys, sweepOldOperations, reclaim, isQuotaError } from '../../src/lib/storage-gc.js';
+import { sweepStaleKeys, sweepOldOperations, outboxPrefixes, reclaim, isQuotaError } from '../../src/lib/storage-gc.js';
 
 const NOW = 1_700_000_000_000;
 const DAY = 24 * 60 * 60 * 1000;
+
+test('immutable account intents are outside the old snapshot-outbox sweep namespace', () => {
+  const seed = Object.fromEntries(Array.from({ length: 9 }, (_, i) => [`vmx-user-intent-v2:A:${i}`, '{"clock":1}']));
+  const storage = makeStorage(seed);
+  // The old shipped build matched vmx-user-op-*; it must not discover these.
+  assert.ok(storage.keys().every(key => !key.startsWith('vmx-user-op-')));
+  assert.deepEqual(outboxPrefixes(storage), []);
+  sweepStaleKeys(storage, { now: NOW });
+  assert.equal(storage.length, 9);
+});
 
 function makeStorage(seed = {}) {
   const mem = new Map(Object.entries(seed));

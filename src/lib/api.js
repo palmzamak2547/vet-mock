@@ -1,6 +1,5 @@
 import { getSupabase } from './supabase.js';
-import { migrateHistoryArray } from './id-migration.js';
-import { yearForSubject } from '../data/curriculum.js';
+import { normalizeUserDataRow } from './user-data-row.js';
 import { LEADERBOARD_MIN_QUESTIONS } from './leaderboard-gate.js';
 import { thaiError } from './errors.js';
 
@@ -8,7 +7,7 @@ import { thaiError } from './errors.js';
 // pay the 190KB SDK download cost — the chunk only fetches once a
 // logged-in user actually performs a sync, group, or leaderboard op.
 //
-// Static imports above: id-migration + curriculum are tiny utility
+// Static imports above: row normalization + curriculum are tiny utility
 // modules already in the main bundle (statically imported by main.jsx
 // and most views) — using top-level static imports here avoids Vite's
 // "dynamic import will not move module into another chunk" warnings.
@@ -384,58 +383,37 @@ export async function getUserStats(userId, opts = {}) {
 // ==========================================================
 // CLOUD SYNC (user_data)
 // ==========================================================
+async function userDataRequest(supabase, userId, request) {
+  const checkPrincipal = async () => {
+    const { data: { session } = {} } = await supabase.auth.getSession();
+    if (!userId || session?.user?.id !== userId) {
+      throw Object.assign(new Error('กรุณาเข้าสู่บัญชีเดิมเพื่อซิงก์ข้อมูล'), { code: 'STALE_PRINCIPAL' });
+    }
+  };
+  await checkPrincipal();
+  // React's account effect may lag SDK sign-out/account deletion. Neither a
+  // successful receipt nor a rejected old request may restore the old owner.
+  try { return await request(); }
+  finally { await checkPrincipal(); }
+}
+
 export async function pullUserData(userId) {
   const supabase = await getSupabase();
   if (!supabase) return null;
-  const { data, error } = await supabase.from('user_data')
-    .select('*').eq('user_id', userId).maybeSingle();
+  const { data, error } = await userDataRequest(supabase, userId, () => supabase.from('user_data')
+    .select('*').eq('user_id', userId).abortSignal(AbortSignal.timeout(30_000)).maybeSingle());
   if (error) throw error;
-  if (!data) return null;
-  // Apply ID-migration v1 to cloud history on restore (mirrors the
-  // local-storage migration in src/lib/id-migration.js). Idempotent —
-  // already-migrated entries are no-ops.
-  // Palm build-warning audit 2026-05-24: id-migration.js + curriculum.js
-  // are statically imported by main.jsx / every view, so dynamic
-  // import() here added no chunk-split benefit and produced Vite
-  // warnings ("dynamic import will not move module into another chunk").
-  // Use the static imports added at the top of this file instead.
-  if (Array.isArray(data.history)) {
-    data.history = migrateHistoryArray(data.history);
-
-    // Year-enrich legacy cloud history rows (data-layer audit 2026-05-19).
-    // Cloud may hold rows written before App.jsx finishExam started
-    // tagging entries with `year`. Without enrichment, these rows
-    // would bypass DashboardView scopedHistory's year filter and
-    // appear in cross-year cards. Local-storage backfill runs once
-    // on mount but only against the local copy; cloud data restored
-    // later needs the same treatment.
-    const needs = data.history.some((h) => h && typeof h.year === 'undefined');
-    if (needs) {
-      data.history = data.history.map((h) =>
-        h && typeof h.year === 'undefined'
-          ? { ...h, year: yearForSubject(h.subject) ?? null, phase: h.phase ?? null }
-          : h
-      );
-    }
-  }
-  return data;
+  return normalizeUserDataRow(data);
 }
 
-export async function pushUserData(userId, patch) {
+/** One transaction applies immutable intent and records its receipt. */
+export async function applyUserDataOperations(userId, operations) {
   const supabase = await getSupabase();
-  if (!supabase) return;
-  const { error } = await supabase.from('user_data')
-    .upsert({ user_id: userId, ...patch, updated_at: new Date().toISOString() });
+  if (!supabase) throw new Error('ยังเชื่อมต่อบัญชีไม่ได้ ข้อมูลในเครื่องยังอยู่ครบ');
+  const { data, error } = await userDataRequest(supabase, userId, () => supabase.rpc('sync_user_data_v2', { p_operations: operations })
+    .abortSignal(AbortSignal.timeout(30_000)));
   if (error) throw error;
-}
-
-// Debounced push (avoid hitting API on every keystroke)
-let pushTimer = null;
-export function pushUserDataDebounced(userId, patch, delay = 2000) {
-  clearTimeout(pushTimer);
-  pushTimer = setTimeout(() => {
-    pushUserData(userId, patch).catch((e) => console.error('Sync error:', e));
-  }, delay);
+  return data ? { ...data, row: normalizeUserDataRow(data.row) } : data;
 }
 
 // ==========================================================

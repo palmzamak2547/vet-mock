@@ -168,6 +168,8 @@ export function sweepStaleKeys(storage, { now = Date.now(), today = null } = {})
  */
 export function sweepOldOperations(storage, prefix, { keep = KEEP_OPERATIONS, protectKey = null } = {}) {
   const tally = { removed: [], bytes: 0 };
+  // v2 records are immutable intent, not redundant whole-state recovery copies.
+  if (prefix?.startsWith('vmx-user-op-v2:')) return tally;
   if (!storage || !prefix || typeof storage.removeItem !== 'function') return tally;
 
   const records = [];
@@ -196,7 +198,7 @@ export function sweepOldOperations(storage, prefix, { keep = KEEP_OPERATIONS, pr
 export function outboxPrefixes(storage) {
   const out = new Set();
   for (const key of keysOf(storage)) {
-    if (!key.startsWith('vmx-user-op-')) continue;
+    if (!key.startsWith('vmx-user-op-v1:')) continue;
     const cut = key.lastIndexOf(':');
     if (cut > 0) out.add(key.slice(0, cut + 1));
   }

@@ -48,6 +48,24 @@ test('a second file keeps its purpose, is logged as dataset-add, and a merge ste
   assert.ok(main && second && second.id !== farms.id);
   assert.equal(copy.datasetIds[0], main.id, 'the analysis dataset remains first after restoring the backup');
   assert.equal(main.steps[0].params.sourceDatasetId, second.id);
+
+  // Version 1 exported index order, which could put the merge file first. Its purpose
+  // identifies the main table without guessing from a saved analysis or a random id.
+  data.version = 1;
+  data.datasets.reverse();
+  const legacy = await parseProjectFile(asFile(JSON.stringify(data)));
+  const restored = await importProjectFile(db, A, legacy.data, { estimate: bigSpace });
+  const restoredDatasets = await listDatasets(db, A, restored.id);
+  const restoredMain = restoredDatasets.find((d) => d.purpose === 'main');
+  assert.equal(restored.datasetIds[0], restoredMain.id);
+  assert.equal(restoredMain.steps[0].params.sourceDatasetId, restoredDatasets.find((d) => d.purpose === 'merge').id);
+
+  // Old files with no single declared main cannot be repaired reliably: retain their order.
+  data.datasets.forEach((d) => { delete d.purpose; });
+  const ambiguous = await parseProjectFile(asFile(JSON.stringify(data)));
+  const unchanged = await importProjectFile(db, A, ambiguous.data, { estimate: bigSpace });
+  const unchangedDatasets = await listDatasets(db, A, unchanged.id);
+  assert.deepEqual(unchanged.datasetIds.map((id) => unchangedDatasets.find((d) => d.id === id).header), data.datasets.map((d) => d.header));
 });
 
 test('the M2 log kinds are accepted and carry counts, never cell values', async () => {
