@@ -132,7 +132,18 @@ for (const instructor of ALL_INSTRUCTORS) {
   if (!instructor.department?.trim()) fail(`${label}: missing department/unit`);
   if (!instructor.institution?.trim()) fail(`${label}: missing institution`);
   if (!Array.isArray(instructor.areas) || instructor.areas.length === 0) fail(`${label}: missing research areas`);
-  if (!Array.isArray(instructor.papers) || instructor.papers.length === 0) fail(`${label}: missing source-verified research`);
+  // The Chula audit guarantees every profile has verified research. Expansion
+  // faculties (roster-verified from official university pages) keep members
+  // whose publication identity has not been resolved yet.
+  if (!Array.isArray(instructor.papers) || instructor.papers.length === 0) {
+    if (instructor.institution === 'คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย') {
+      fail(`${label}: missing source-verified research`);
+    } else if (instructor.verification?.sources?.some((source) => source.label === 'Kasetsart University' || source.label === 'Mahidol University')) {
+      warnings.push(`${label}: roster-verified with no matched publication yet`);
+    } else {
+      fail(`${label}: missing source-verified research`);
+    }
+  }
   if (instructor.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(instructor.email)) fail(`${label}: invalid email`);
 
   for (const paper of instructor.papers || []) {
