@@ -16,8 +16,8 @@
 // does not export them and belongs to the sync package.
 // ============================================================
 
-const USER_DATA_PREFIXES = ['vmx-user-data-v1:', 'vmx-user-sync-v1:'];
-const OPERATION_PREFIX = 'vmx-user-op-v1:';
+const USER_DATA_PREFIXES = ['vmx-user-data-v1:', 'vmx-user-sync-v1:', 'vmx-user-data-v2:'];
+const OPERATION_PREFIXES = ['vmx-user-op-v1:', 'vmx-user-intent-v2:'];
 const LEGACY_INFLIGHT = 'vmx-inflight-exam';
 
 async function defaults() {
@@ -41,11 +41,11 @@ export async function purgeLocalAccountData(userId, deps = {}) {
     const storage = d.storage;
     const id = encodeURIComponent(userId);
     const exact = new Set([...USER_DATA_PREFIXES.map((p) => `${p}${id}`), `vmx-inflight-exam:user:${userId}`]);
-    const ops = `${OPERATION_PREFIX}${id}:`;
+    const ops = OPERATION_PREFIXES.map(prefix => `${prefix}${id}:`);
     const doomed = [];
     for (let i = 0; i < storage.length; i++) {
       const key = storage.key(i);
-      if (exact.has(key) || (key && key.startsWith(ops))) doomed.push(key);
+      if (exact.has(key) || (key && ops.some(prefix => key.startsWith(prefix)))) doomed.push(key);
     }
     try {
       const legacy = JSON.parse(storage.getItem(LEGACY_INFLIGHT) || 'null');

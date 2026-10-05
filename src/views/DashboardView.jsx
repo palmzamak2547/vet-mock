@@ -284,7 +284,7 @@ function WebVitalsPanel() {
   );
 }
 
-export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak, streakData, customQuestions, selectedYear = 4, selectedPhase, readingChecklist = {}, restoreUserData, ownerId = null }) {
+export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak, streakData, customQuestions, selectedYear = 4, selectedPhase, readingChecklist = {}, restoreUserData, ownerId = null, recoveryArchive = null }) {
   const [archiveBusy, setArchiveBusy] = useState(false);
   const [eventArchiveParts, setEventArchiveParts] = useState([]);
   const mountedRef = useRef(true);
@@ -763,6 +763,10 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportData}>ส่งออกไฟล์สำรอง</button>
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" disabled={archiveBusy} onClick={exportDetails}>{archiveBusy ? 'กำลังอ่านประวัติ…' : 'สำรองประวัติแบบละเอียด'}</button>
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportExtras}>สำรองเครื่องมือในเครื่อง</button>
+          {ownerId && recoveryArchive && <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => {
+            try { downloadJSON({ ...recoveryArchive.local, syncRecovery: recoveryArchive }, `vetmock-sync-recovery-${Date.now()}.json`); }
+            catch (error) { alertDialog(thaiError(error, 'ดาวน์โหลดสำเนากู้คืนไม่สำเร็จ กรุณาลองอีกครั้ง')); }
+          }}>ดาวน์โหลดสำเนาก่อนเลือกข้อมูลซิงก์</button>}
           <label className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ cursor: 'pointer' }}>
             นำเข้าไฟล์สำรอง
             <input type="file" accept=".json" onChange={importData} style={{ display: 'none' }} />

@@ -7,7 +7,7 @@ import { createProject, getProject, listProjects } from '../../src/lib/store/pro
 import { putDataset, listDatasets, getDataset } from '../../src/lib/store/datasets.js';
 import { putAnalysis, listAnalyses } from '../../src/lib/store/analyses.js';
 import { listLog } from '../../src/lib/store/log.js';
-import { exportProjectFile, parseProjectFile, importProjectFile, projectFileName, PROJECT_FILE_MAX_BYTES } from '../../src/lib/store/project-file.js';
+import { exportProjectFile, parseProjectFile, importProjectFile, projectFileName, PROJECT_FILE_MAX_BYTES, PROJECT_FILE_VERSION } from '../../src/lib/store/project-file.js';
 import { makeSpec } from '../../src/lib/runtime/spec.js';
 
 const A = 'u.11111111-1111-4111-8111-111111111111';
@@ -72,7 +72,7 @@ test('untrusted files: too big, not JSON, wrong format, newer version, tampered'
   assert.deepEqual(await parseProjectFile(asFile('{not json')), { ok: false, key: 'runtime.projectFile.notJson' });
   assert.deepEqual(await parseProjectFile(asFile('{"format":"other"}')), { ok: false, key: 'runtime.projectFile.wrongFormat' });
   const obj = JSON.parse(text);
-  assert.deepEqual(await parseProjectFile(asFile(JSON.stringify({ ...obj, version: 2 }))), { ok: false, key: 'runtime.projectFile.newerVersion' });
+  assert.deepEqual(await parseProjectFile(asFile(JSON.stringify({ ...obj, version: PROJECT_FILE_VERSION + 1 }))), { ok: false, key: 'runtime.projectFile.newerVersion' });
   const short = structuredClone(obj);
   short.datasets[0].columns[1].pop();
   assert.equal((await parseProjectFile(asFile(JSON.stringify(short)))).key, 'runtime.projectFile.invalid');
@@ -92,4 +92,39 @@ test('import checks the storage estimate before writing', async () => {
   const before = (await listProjects(db, A)).length;
   await assert.rejects(importProjectFile(db, A, parsed.data, { estimate: async () => ({ usage: 999, quota: 1000 }) }), (e) => e.key === 'runtime.store.notEnoughSpace');
   assert.equal((await listProjects(db, A)).length, before);
+});
+
+test('a backup preserves literal Infinity text alongside infinite result bounds', async () => {
+  const db = createMemoryDb();
+  const p = await createProject(db, A, { name: 'Infinity' });
+  const textRaw = { ...raw, header: ['Infinity', 'result', 'phone'], columns: [['Infinity', '-Infinity', 'F2'], ...raw.columns.slice(1)] };
+  const cb = structuredClone(codebook);
+  cb.columns[0].name = 'Infinity';
+  const d = await putDataset(db, A, p.id, { raw: textRaw, codebook: cb, steps: [] }, { estimate: bigSpace });
+  const spec = makeSpec('test.fisher2x2', { kind: 'dataset', datasetId: d.id, recipeRev: 0 });
+  const envelope = { envelopeVersion: 1, status: 'ok', spec, values: { OR: { value: Infinity, ci: [-Infinity, Infinity] } }, tables: [{ id: 'labels', columns: ['group', 'estimate'], rows: [['Infinity', Infinity], ['-Infinity', -Infinity]] }] };
+  await putAnalysis(db, A, { projectId: p.id, spec, envelope });
+  const parsed = await parseProjectFile(await exportProjectFile(db, A, p.id));
+  assert.equal(parsed.ok, true);
+  assert.equal(parsed.data.project.name, 'Infinity');
+  assert.deepEqual(parsed.data.datasets[0].columns, textRaw.columns);
+  assert.deepEqual(parsed.data.datasets[0].header, textRaw.header);
+  assert.deepEqual(parsed.data.analyses[0].envelope, envelope);
+  const copy = await importProjectFile(db, A, parsed.data, { estimate: bigSpace });
+  assert.deepEqual((await getDataset(db, A, copy.datasetIds[0])).raw.columns, textRaw.columns);
+});
+
+test('legacy version 1 backups restore numeric bounds without interpreting raw text', async () => {
+  const { db, p } = await seeded();
+  const legacy = JSON.parse(await (await exportProjectFile(db, A, p.id)).text());
+  legacy.version = 1;
+  legacy.analyses[0].envelope.values.OR = { value: 'Infinity', ci: [1.449, 'Infinity'] };
+  legacy.datasets[0].columns[0][0] = 'Infinity';
+  legacy.analyses[0].spec.levels = { outcomePositive: 'Infinity', exposureLevel: '-Infinity' };
+  legacy.analyses[0].envelope.spec = structuredClone(legacy.analyses[0].spec);
+  const parsed = await parseProjectFile(asFile(JSON.stringify(legacy)));
+  assert.equal(parsed.ok, true);
+  assert.equal(parsed.data.datasets[0].columns[0][0], 'Infinity');
+  assert.equal(parsed.data.analyses[0].envelope.values.OR.ci[1], Infinity);
+  assert.deepEqual(parsed.data.analyses[0].envelope.spec, legacy.analyses[0].spec);
 });

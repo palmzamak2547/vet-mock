@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useSyncExternalStore } from 'react';
-import { pullUserData, pushUserData } from '../lib/api.js';
+import { pullUserData, applyUserDataOperations } from '../lib/api.js';
 import {
   createBrowserLifecycle,
   createEmptyUserData,
@@ -49,7 +49,7 @@ export function useUserDataSync(userId) {
       lifecycle: createBrowserLifecycle(),
       remote: {
         pull: (id) => pullUserData(id),
-        push: (id, payload) => pushUserData(id, payload),
+        apply: (id, operations) => applyUserDataOperations(id, operations),
       },
     });
   }
@@ -71,6 +71,8 @@ export function useUserDataSync(userId) {
     () => () => store.send({ type: 'REFRESH_REQUESTED' }),
     [store],
   );
+  const recoveryId = snapshot.sync.recovery?.id;
+  const resolveRecovery = useMemo(() => choice => store.send({ type: 'RECOVER_LEGACY', choice, principalId, recoveryId }), [store, principalId, recoveryId]);
   // One command owns the complete backup patch. A rejected local write must
   // leave every field unchanged, rather than applying half an import.
   const change = useMemo(() => patch => store.send({
@@ -92,6 +94,6 @@ export function useUserDataSync(userId) {
     data: isCurrentPrincipal ? snapshot.data : emptyData,
     set: setters,
     change,
-    sync: { ...visibleSync, retry },
+    sync: { ...visibleSync, retry, resolveRecovery },
   };
 }

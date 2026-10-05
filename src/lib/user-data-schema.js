@@ -272,6 +272,12 @@ export function parseUserBackup(value) {
       reason: firstIssueReason(result.issues, 'โครงสร้างไฟล์ backup ไม่ถูกต้อง'),
     };
   }
+  // Manager imports assign fresh IDs; a whole backup must preserve existing
+  // references instead. Missing/duplicate IDs cannot be restored safely.
+  const customIds = (result.output.customQuestions || []).map(question => question.id);
+  if (customIds.some(id => id === undefined) || new Set(customIds.map(String)).size !== customIds.length) {
+    return { success: false, reason: 'ข้อสอบส่วนตัวใน backup ต้องมีรหัสครบและไม่ซ้ำกัน' };
+  }
   return {
     success: true,
     data: result.output,

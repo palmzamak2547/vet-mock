@@ -362,3 +362,12 @@ Avoid:
   One claim record: work/loop-20260930/COORDINATION.md. Current evidence:
   work/loop-20261001-release/FINAL-RELEASE.md. Grok remains unavailable;
   do not infer another harness's acknowledgement from a branch.
+
+## ## Current release candidate — 2026-10-05
+
+- User authorized complete verification and production release. Isolated branch `codex/bugfix-1005`, PR20, base `9aa12da9`; preserve the primary checkout's unrelated edits. Candidate is study 5.134.1 / SW202 and Research 0.1.1. Production proof is still pending at this checkpoint.
+- Repairs cover personal-question identity/import/edit/delete/account boundaries, weak-practice string IDs, PDF exit autosave, video clip identity, SVG backup, Imaging compare ownership, Research backup/dataset/freeze/revision and delayed-focus failures. See `docs/bugfix-audit-2026-10-05.md`.
+- DA-06 now has an immutable operation/receipt candidate: owner-scoped local intent, atomic row-locked RPC, per-key clocks/tombstones, explicit legacy recovery/export/archive, cancel barriers and stale-account request guards. Source migration `20261005140235_user_data_operation_sync.sql`; native harness `scripts/test-user-data-db.mjs`. Do not apply the earlier rejected CAS patch. See `docs/data-durability-and-operations.md` for rollout boundaries.
+- All-new simulator exact 10/10, random 200/200, C10 50/50 and named 10/10 pass. Raw mixed-version strict results remain 18/20 and 265/400: remaining failures explicitly refuse old writes and require recovery, not transparent mixed-version success. Clean old-reader projection regressions were fixed. No automatic document reload or worker takeover.
+- Latest local SQL PGlite 69/69; real lock waiting is pending native PostgreSQL CI. Study data/unit 51/51, build and three contrast audits passed; full Windows browser gate remains incomplete. Research 1319/1319 in each timezone passed sequentially; first concurrent timing failures retained. Final auth/sync focused 38/38 and both dependency audits pass. No numerical fixtures or tolerances changed.
+- Next: push coherent candidate, require exact-head Build/Smoke/Research including native SQL races; apply migration once; verify new-fixture member API and browser, merge once, prove exact main CI/Production/live journeys, then clean only the new fixtures. The original retained account still has separate deletion authorization outstanding. Active claim: primary `work/loop-20260930/COORDINATION.md`; detailed receipts: `work/release-20261005/`.

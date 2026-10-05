@@ -34,6 +34,70 @@ const OVERLAYS = ['NorbergOverlay', 'VHSOverlay'].map((name) => ({
   name,
   src: readFileSync(join(resolve(process.cwd()), `src/components/lab/${name}.jsx`), 'utf8').replace(/\r\n/g, '\n'),
 }));
+const VIEWPORT = readFileSync(join(resolve(process.cwd()), 'src/components/lab/DicomViewport.jsx'), 'utf8').replace(/\r\n/g, '\n');
+
+function effectContaining(src, token) {
+  const at = src.indexOf(token);
+  assert.notEqual(at, -1);
+  const start = src.lastIndexOf('useEffect(', at) + 'useEffect('.length;
+  const end = src.indexOf('\n  }, [', at) + '\n  }'.length;
+  return src.slice(start, end);
+}
+
+function mountCommands(src, target, element) {
+  let points = [[1, 1, 0], [2, 2, 0], [3, 3, 0], [4, 4, 0]];
+  const context = {
+    active: true, window: target, viewportRef: () => ({ element }),
+    setWorldPoints: value => { points = typeof value === 'function' ? value(points) : value; },
+  };
+  const cleanups = ['const onClear = ', 'const onUndo = '].map(token =>
+    vm.runInNewContext('(' + effectContaining(src, token) + ')()', context));
+  return { points: () => points, cleanup: () => cleanups.forEach(fn => fn?.()) };
+}
+
+for (const { name, src } of OVERLAYS) {
+  test(`${name}: one U key in compare mode removes one point from each pane, not two`, () => {
+    const target = new EventTarget();
+    const elements = [new EventTarget(), new EventTarget()];
+    const overlays = elements.map(element => mountCommands(src, target, element));
+    const cleanups = elements.map(element => vm.runInNewContext('(' + effectContaining(VIEWPORT, 'const onKey = ') + ')()', {
+      status: 'ready', window: target, elRef: { current: element }, CustomEvent,
+    }));
+    const key = new Event('keydown', { cancelable: true });
+    Object.defineProperties(key, { key: { value: 'u' }, target: { value: { tagName: 'DIV' } } });
+    target.dispatchEvent(key);
+    assert.deepEqual(overlays.map(overlay => overlay.points().length), [3, 3]);
+    cleanups.forEach(fn => fn());
+    overlays.forEach(overlay => overlay.cleanup());
+    target.dispatchEvent(key);
+    assert.deepEqual(overlays.map(overlay => overlay.points().length), [3, 3]);
+  });
+
+  test(`${name}: the left Clear toolbar preserves right-pane overlay and native measurements`, () => {
+    const target = new EventTarget();
+    const left = new EventTarget(), right = new EventTarget();
+    const leftOverlay = mountCommands(src, target, left);
+    const rightOverlay = mountCommands(src, target, right);
+    const removed = [];
+    const native = [
+      { annotationUID: 'left-length', metadata: { referencedImageId: 'dicomfile:1' } },
+      { annotationUID: 'right-angle', metadata: { referencedImageId: 'dicomfile:2' } },
+    ];
+    const start = VIEWPORT.indexOf('const clearMeasurements = useCallback(') + 'const clearMeasurements = useCallback('.length;
+    const end = VIEWPORT.indexOf('\n  }, []);', start) + '\n  }'.length;
+    const clear = vm.runInNewContext('(' + VIEWPORT.slice(start, end) + ')', {
+      window: target, elRef: { current: left }, CustomEvent, console,
+      viewportIdRef: { current: 'left' },
+      engineRef: { current: { getViewport: () => ({ getCurrentImageId: () => 'dicomfile:1', render() {} }) } },
+      annotation: { state: { getAllAnnotations: () => native, removeAnnotation: id => removed.push(id) } },
+    });
+    clear();
+    assert.equal(leftOverlay.points().length, 0);
+    assert.equal(rightOverlay.points().length, 4, 'clearing one pane erased the other pane');
+    assert.deepEqual(removed, ['left-length']);
+    leftOverlay.cleanup(); rightOverlay.cleanup();
+  });
+}
 
 /** The `screenPoints` memo expression, exactly as written in the component. */
 function projectionExpression(src) {

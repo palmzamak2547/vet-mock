@@ -1,5 +1,6 @@
 
 import { isQuotaError, reclaim, describeUsage } from './storage-gc.js';
+import { createAtomicUserDataSync } from './user-data-atomic.js';
 import { todayKey } from './daily-q.js';// User-owned study data has two durability layers:
 //   1) localStorage is the immediate, offline-capable source
 //   2) Supabase is a remote replica for signed-in users
@@ -272,7 +273,7 @@ function meaningful(field, value) {
   return !sameValue(value, USER_DATA_FIELDS[field].initial);
 }
 
-function stableItemKey(item) {
+export function stableItemKey(item) {
   if (item && typeof item === 'object') {
     if (item.id !== undefined) return `id:${item.id}`;
     if (item.questionId !== undefined && item.date !== undefined) {
@@ -792,6 +793,8 @@ export function createBrowserLifecycle() {
           key?.startsWith(OPERATION_PREFIX) ||
           key?.startsWith(DATA_PREFIX) ||
           key?.startsWith(META_PREFIX) ||
+          key?.startsWith('vmx-user-intent-v2:') ||
+          key?.startsWith('vmx-user-data-v2:') ||
           Object.values(USER_DATA_FIELDS).some(({ localKey }) => localKey === key)
         ) {
           listener('storage');
@@ -826,9 +829,30 @@ export function createUserDataSync({
   if (!storage?.getItem || !storage?.setItem || !storage?.removeItem) {
     throw new TypeError('createUserDataSync requires a storage adapter');
   }
-  if (!remote?.pull || !remote?.push) {
+  if (!remote?.pull || (!remote?.push && !remote?.apply)) {
     throw new TypeError('createUserDataSync requires a remote adapter');
   }
+
+  if (remote.apply) return createAtomicUserDataSync({ storage, remote, lifecycle, scheduler, now, debounceMs,
+    readLegacy: (id) => {
+      const owner = parseJson(storage, CURRENT_OWNER_KEY, null);
+      const snapshot = readPrincipalData(storage, id);
+      const visible = id ? snapshot.found || owner === id : !owner || owner === ANONYMOUS;
+      const data = snapshot.found ? snapshot.data : visible ? readLocalData(storage).data : createEmptyUserData();
+      const operations = readPendingOperations(storage, id);
+      const meta = normalizeMeta(parseJson(storage, metaKey(id), null));
+      const recoverable = { ...data };
+      for (const [field, change] of Object.entries(meta.dirty)) {
+        if (!USER_DATA_FIELDS[field]?.remoteKey) continue;
+        try { recoverable[field] = reconcileDirty(field, change, recoverable[field]); }
+        catch { /* Original malformed metadata is preserved in the recovery evidence. */ }
+      }
+      const fingerprint = JSON.stringify({ dirty: meta.dirty, operations: operations.map(op => [op.key, op.token]) });
+      return { data: replayOperations(recoverable, operations).data, found: snapshot.found, visible,
+        pending: Boolean(id && (Object.keys(meta.dirty).length || operations.some(operationTouchesRemote))),
+        fingerprint, evidence: { meta, operations } };
+    },
+  });
 
   // A device that filled up under the previous build cannot free itself:
   // every write that would replace its oversized records fails for lack of

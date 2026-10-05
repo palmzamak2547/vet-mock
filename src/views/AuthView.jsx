@@ -13,7 +13,6 @@ import {
   sendPasswordReset,
   updatePassword,
   isUsernameAvailable,
-  migrateLocalToCloud,
   getSupabase,
 } from '../lib/supabase.js';
 
@@ -295,27 +294,15 @@ export default function AuthView({ onBack, onSuccess, user }) {
         if (password.length < 8) throw new Error('รหัสผ่านต้องยาว 8 ตัวขึ้นไป');
         const result = await signUpWithEmail(email, password, username.trim());
         // If Supabase returned a session → email confirmation is OFF, user is in.
-        // Run the anon→cloud migration FIRST (before any pullUserData fires
-        // and overwrites their local progress with an empty cloud row).
+        // The owner-scoped store retains guest work and owns any transfer.
+        // A second direct upsert here races its receipt-backed enrollment.
         if (result?.session) {
-          try {
-            const migration = await migrateLocalToCloud();
-            if (migration?.migrated) {
-              console.info('[auth] migrated local progress to cloud:', migration.counts);
-            }
-          } catch (mErr) {
-            // Migration failure is non-fatal — local data still exists.
-            console.warn('[auth] migration failed:', mErr);
-          }
           if (onSuccess) onSuccess();
           return;
         }
         // No session → either email-confirmation is ON, or sign-in needed
         try {
           await signInWithEmail(email, password);
-          // Migrate after the immediate post-signup sign-in succeeds so the
-          // session exists when the upsert runs.
-          try { await migrateLocalToCloud(); } catch {}
           if (onSuccess) onSuccess();
         } catch (signInErr) {
           // Most common reason: email confirmation pending

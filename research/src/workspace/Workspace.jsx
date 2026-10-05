@@ -240,6 +240,8 @@ function Root({ route, owner, user, authError }) {
     if (firstRoute.current) { firstRoute.current = false; return undefined; }
     const id = window.requestAnimationFrame(() => {
       const h = document.querySelector('#rs-main h1');
+      // A student may already be editing the new pane before this frame runs.
+      if (document.activeElement !== h && document.activeElement?.closest('#rs-main')) return;
       if (h) h.focus({ preventScroll: false });
       window.scrollTo({ top: 0 });
     });

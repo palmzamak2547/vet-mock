@@ -27,6 +27,7 @@ import { useWakeLock } from './hooks/useWakeLock.js';
 import { useOnlineCount } from './hooks/useOnlineCount.js';
 import { useOnlineStatus } from './hooks/useOnlineStatus.js';
 import { useUserDataSync } from './hooks/useUserDataSync.js';
+import { appendCustomQuestions } from './lib/custom-question-ids.js';
 import ThemePicker from './components/ThemePicker.jsx';
 import UserMenu from './components/UserMenu.jsx';
 import HeaderBar from './components/HeaderBar.jsx';
@@ -1533,7 +1534,7 @@ export default function App() {
     if (!history.length) return null;
     const bySubject = {};
     const byTag = {};
-    const questionStats = {};
+    const questionStats = new Map();
     SUBJECTS.forEach((s) => { if (s.id !== 'all') bySubject[s.id] = { correct: 0, total: 0 }; });
     let totalCorrect = 0;
     // Entries whose question resolved in the currently-loaded bank. The
@@ -1570,10 +1571,11 @@ export default function App() {
         byTag[tag].total++;
         if (h.correct) byTag[tag].correct++;
       });
-      if (!questionStats[h.questionId]) questionStats[h.questionId] = { correct: 0, total: 0, wrong: 0 };
-      questionStats[h.questionId].total++;
-      if (h.correct) questionStats[h.questionId].correct++;
-      else questionStats[h.questionId].wrong++;
+      if (!questionStats.has(q.id)) questionStats.set(q.id, { correct: 0, total: 0, wrong: 0 });
+      const stats = questionStats.get(q.id);
+      stats.total++;
+      if (h.correct) stats.correct++;
+      else stats.wrong++;
     });
     // "หัวข้อที่อ่อน" has to mean weak. Every tag with 2+ attempts used to
     // qualify, sorted by accuracy, so a topic answered 100% correctly appeared
@@ -1584,16 +1586,14 @@ export default function App() {
       .filter((t) => t.pct < WEAK_TAG_MAX_PCT)
       .sort((a, b) => a.pct - b.pct).slice(0, 8);
     // Same rule as the 'wrong' pool: a question the student has since got
-    // right is not a weak question any more. questionStats is keyed by bare id
-    // (that is what history rows carry), so reduce the compound keys to ids.
+    // right is not a weak question any more. Keep each question's original ID
+    // type: imported custom questions may use strings rather than numbers.
     const stillWrongIds = new Set();
     for (const key of stillWrong(history).keys) {
-      const id = Number(key.slice(key.indexOf(':') + 1));
-      if (Number.isFinite(id)) stillWrongIds.add(id);
+      stillWrongIds.add(key.slice(key.indexOf(':') + 1));
     }
-    const weakQuestions = Object.entries(questionStats).filter(([_, s]) => s.wrong >= 1)
-      .sort((a, b) => b[1].wrong - a[1].wrong).map(([id]) => parseInt(id))
-      .filter((id) => stillWrongIds.has(id)).slice(0, WEAK_POOL_CAP);
+    const weakQuestions = [...questionStats].filter(([id, s]) => s.wrong >= 1 && stillWrongIds.has(String(id)))
+      .sort((a, b) => b[1].wrong - a[1].wrong).map(([id]) => id).slice(0, WEAK_POOL_CAP);
     const overallPct = totalScored ? Math.round((totalCorrect / totalScored) * 100) : 0;
     return { bySubject, weakTags, weakQuestions, totalAttempts: history.length, totalScored, overallPct };
   }, [history, allQuestions]);
@@ -2849,8 +2849,8 @@ export default function App() {
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions: replayWrongRound, challengeSender, sessionKind, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki }} />}
-              {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
-              {view === 'question-manager' && <QuestionManagerView {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
+              {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} recoveryArchive={userDataSync.recoveryArchive} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
+              {view === 'question-manager' && <QuestionManagerView key={user?.id || 'guest'} appendQuestions={incoming => changeUserData(data => ({ customQuestions: appendCustomQuestions(data, incoming) }))} {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear, selectedPhase, setSelectedPhase, customQuestions }} />}
               {view === 'scores' && <ScoresView {...{ goHome }} />}
               {view === 'videos' && <VideoView goHome={goHome} initialSubject={videoSubject} selectedYear={selectedYear} />}

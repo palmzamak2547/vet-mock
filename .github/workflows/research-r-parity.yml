@@ -94,8 +94,10 @@ jobs:
             version <- pin[[2]]
             if (as.character(packageVersion(pkg)) == version) next
             # CRAN archive names may use hyphens (mvtnorm1.2-4); compare normalized versions.
+            # Archived pins can require imports the latest release dropped (dunn.test 1.4.0: scrutiny).
+            # NA installs required dependencies only; never upgrade the versions already installed.
             remotes::install_version(pkg, version = version, repos = "https://cran.r-project.org",
-                                     dependencies = FALSE, upgrade = "never")
+                                     dependencies = NA, upgrade = "never")
             if (as.character(packageVersion(pkg)) != version) stop(sprintf("%s: expected %s", pkg, version))
           }
           RSCRIPT

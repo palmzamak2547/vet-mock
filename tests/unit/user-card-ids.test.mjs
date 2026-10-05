@@ -16,6 +16,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { BANK_REGISTRY } from '../../src/data/bank-registry.generated.js';
+import { CUSTOM_QUESTION_ID_RANGE } from '../../src/lib/custom-question-ids.js';
 
 const KEY = 'vmx-user-flashcards';
 
@@ -52,6 +53,8 @@ test('no bank question id falls in a namespace students write into', async () =>
   }
   // Image-occlusion decks allocate below 90000 (image-occlusion.js).
   assert.deepEqual([...ids].filter((id) => id >= 80000 && id <= 89999), [], 'occlusion window overlaps bank ids');
+  const [customMin, customMax] = CUSTOM_QUESTION_ID_RANGE;
+  assert.deepEqual([...ids].filter(id => id >= customMin && id <= customMax), [], 'custom-question window overlaps bank ids');
 });
 
 test('the legacy collision list is exactly the bank ids between 70000 and 79999', async () => {

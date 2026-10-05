@@ -21,8 +21,9 @@ const asFile = (text) => ({ size: text.length, text: async () => text });
 test('a second file keeps its purpose, is logged as dataset-add, and a merge step follows it through export and import', async () => {
   const db = createMemoryDb();
   const p = await createProject(db, A, { name: 'สองไฟล์', design: 'cross-sectional' });
-  const animals = await putDataset(db, A, p.id, { raw: rawOf(['id', 'farm'], [['a1', 'a2'], ['F1', 'F2']]), codebook: cb(2), steps: [] }, { estimate: bigSpace });
-  const farms = await putDataset(db, A, p.id, { raw: rawOf(['farm', 'herd'], [['F1', 'F2'], ['10', '20']]), codebook: cb(2), steps: [] }, { estimate: bigSpace, purpose: 'merge' });
+  // IndexedDB sorts index matches by primary key, not insertion order.
+  const animals = await putDataset(db, A, p.id, { raw: rawOf(['id', 'farm'], [['a1', 'a2'], ['F1', 'F2']]), codebook: cb(2), steps: [] }, { estimate: bigSpace, id: 'z-animals' });
+  const farms = await putDataset(db, A, p.id, { raw: rawOf(['farm', 'herd'], [['F1', 'F2'], ['10', '20']]), codebook: cb(2), steps: [] }, { estimate: bigSpace, purpose: 'merge', id: 'a-farms' });
   assert.equal(animals.purpose, 'main');
   assert.equal(farms.purpose, 'merge');
   const log = await listLog(db, A, p.id);
@@ -35,7 +36,7 @@ test('a second file keeps its purpose, is logged as dataset-add, and a merge ste
   const mergeStep = { id: 's1', seq: 1, kind: 'merge', params: { sourceDatasetId: farms.id, leftKey: 'c2', rightKey: 'c1', columns: ['c2'] }, reason: null, at: 'x' };
   const blob = await exportProjectFile(db, A, p.id, new Date('2026-09-28T10:00:00Z'));
   const data = JSON.parse(await blob.text());
-  assert.deepEqual(data.datasets.map((d) => d.purpose).sort(), ['main', 'merge']);
+  assert.deepEqual(data.datasets.map((d) => d.purpose), ['main', 'merge']);
   // put the step into the exported file the way a saved recipe would carry it
   data.datasets.find((d) => d.purpose === 'main').steps = [mergeStep];
   const parsed = await parseProjectFile(asFile(JSON.stringify(data)));
@@ -45,7 +46,26 @@ test('a second file keeps its purpose, is logged as dataset-add, and a merge ste
   const main = ds.find((d) => d.purpose === 'main');
   const second = ds.find((d) => d.purpose === 'merge');
   assert.ok(main && second && second.id !== farms.id);
+  assert.equal(copy.datasetIds[0], main.id, 'the analysis dataset remains first after restoring the backup');
   assert.equal(main.steps[0].params.sourceDatasetId, second.id);
+
+  // Version 1 exported index order, which could put the merge file first. Its purpose
+  // identifies the main table without guessing from a saved analysis or a random id.
+  data.version = 1;
+  data.datasets.reverse();
+  const legacy = await parseProjectFile(asFile(JSON.stringify(data)));
+  const restored = await importProjectFile(db, A, legacy.data, { estimate: bigSpace });
+  const restoredDatasets = await listDatasets(db, A, restored.id);
+  const restoredMain = restoredDatasets.find((d) => d.purpose === 'main');
+  assert.equal(restored.datasetIds[0], restoredMain.id);
+  assert.equal(restoredMain.steps[0].params.sourceDatasetId, restoredDatasets.find((d) => d.purpose === 'merge').id);
+
+  // Old files with no single declared main cannot be repaired reliably: retain their order.
+  data.datasets.forEach((d) => { delete d.purpose; });
+  const ambiguous = await parseProjectFile(asFile(JSON.stringify(data)));
+  const unchanged = await importProjectFile(db, A, ambiguous.data, { estimate: bigSpace });
+  const unchangedDatasets = await listDatasets(db, A, unchanged.id);
+  assert.deepEqual(unchanged.datasetIds.map((id) => unchangedDatasets.find((d) => d.id === id).header), data.datasets.map((d) => d.header));
 });
 
 test('the M2 log kinds are accepted and carry counts, never cell values', async () => {

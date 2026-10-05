@@ -115,7 +115,7 @@ export function parseLocalExtras(value) {
       && typeof card.q === 'string' && typeof card.front === 'string' && typeof card.back === 'string'
       && (card.type !== 'cloze' || (typeof card.fullText === 'string' && Number.isInteger(card.clozeIdx) && card.clozeIdx > 0 && typeof card.deckGroupId === 'string')));
     if (key === 'vmx-image-occlusion-decks') valid = data.every(deck => object(deck) && positiveId(deck.id)
-      && typeof deck.imageDataUrl === 'string' && /^data:image\/(png|jpeg|webp|gif);base64,/.test(deck.imageDataUrl)
+      && typeof deck.imageDataUrl === 'string' && /^data:image\/(png|jpeg|webp|gif|svg\+xml);base64,/.test(deck.imageDataUrl)
       && Array.isArray(deck.masks) && deck.masks.every(mask => object(mask) && mask.w > 0 && mask.h > 0 && ['x', 'y', 'w', 'h'].every(k => Number.isFinite(mask[k]) && mask[k] >= 0 && mask[k] <= 1)));
     // A custom clip needs the two fields the list renders from; anything else
     // on the object is the student's own metadata and is carried as-is.

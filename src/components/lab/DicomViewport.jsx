@@ -379,18 +379,20 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
     // overlays (Norberg/VHS) by dispatching a custom event that the
     // overlay components listen for. Simpler than threading a callback
     // through every overlay child.
+    const engine = engineRef.current;
+    const viewport = engine?.getViewport(viewportIdRef.current);
+    const imageId = viewport?.getCurrentImageId();
     try {
       const all = annotation.state.getAllAnnotations();
-      all.forEach((a) => annotation.state.removeAnnotation(a.annotationUID));
+      all.filter((a) => imageId && a.metadata?.referencedImageId === imageId)
+        .forEach((a) => annotation.state.removeAnnotation(a.annotationUID));
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('[clearMeasurements] error:', err);
     }
     try {
-      window.dispatchEvent(new CustomEvent('vmx-lab-clear-overlays'));
+      elRef.current?.dispatchEvent(new CustomEvent('vmx-lab-clear-overlays'));
     } catch { /* noop */ }
-    const engine = engineRef.current;
-    const viewport = engine?.getViewport(viewportIdRef.current);
     viewport?.render();
   }, []);
 
@@ -476,7 +478,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
         u: () => {
           // Send to whichever overlay is currently active (Norberg or VHS).
           // The overlay's own `active` check filters out stale instances.
-          try { window.dispatchEvent(new CustomEvent('vmx-lab-undo-point')); } catch { /* noop */ }
+          try { elRef.current?.dispatchEvent(new CustomEvent('vmx-lab-undo-point')); } catch { /* noop */ }
         },
         '1': () => applyPreset(PRESETS[0]),  // 🪄 Auto
         '2': () => applyPreset(PRESETS[1]),  // DICOM

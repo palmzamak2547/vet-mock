@@ -1,17 +1,21 @@
 import Mochi from '../components/Mochi.jsx';
 import { useState } from 'react';
-import { QB, SUBJECTS } from '../data/questions.js';
+import { SUBJECTS } from '../data/questions.js';
 import { yearForSubject } from '../data/curriculum.js';
 import { downloadJSON } from '../hooks/utils.js';
 import { confirmDialog, alertDialog, promptDialog } from '../lib/dialog.js';
 import { parseCustomQuestion, USER_DATA_IMPORT_MAX_BYTES } from '../lib/user-data-schema.js';
+import { assignCustomQuestionIds } from '../lib/custom-question-ids.js';
+import { thaiError } from '../lib/errors.js';
 import { EMPTY_ART } from '../data/art.js';
 import EmptyState from '../components/EmptyState.jsx';
 
-export default function QuestionManagerView({ customQuestions, setCustomQuestions, goHome }) {
+export default function QuestionManagerView({ customQuestions, setCustomQuestions, appendQuestions, goHome }) {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState(initForm());
+  const append = incoming => appendQuestions ? appendQuestions(incoming)
+    : setCustomQuestions(prev => [...prev, ...assignCustomQuestionIds(incoming, prev)]);
 
   // Bulk-select / lasso state — checkbox-based UX (cross-platform safe vs canvas lasso)
   const [selectMode, setSelectMode] = useState(false);
@@ -138,28 +142,36 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
       type: formData.type,
       q: formData.q,
       explain: formData.explain,
+      image: formData.image,
     };
-    if (formData.image) base.image = formData.image;
     if (formData.type === 'mcq') { base.options = formData.options; base.answer = parseInt(formData.answer); }
     else if (formData.type === 'tf') { base.answer = formData.answer === true || formData.answer === 'true'; }
     else if (formData.type === 'fill') { base.blanks = formData.blanks.filter((b) => b.trim()); }
     else if (formData.type === 'match') {
       base.pairs = formData.pairs.filter((p) => p.left.trim() && p.right.trim());
       const d = (formData.distractors || []).map((s) => String(s).trim()).filter(Boolean);
-      if (d.length) base.distractors = d;
+      base.distractors = d;
     }
 
-    if (editingId) {
-      setCustomQuestions(customQuestions.map((q) => q.id === editingId ? { ...base, id: editingId } : q));
-    } else {
-      const maxId = Math.max(500, ...customQuestions.map((q) => q.id), ...QB.map((q) => q.id));
-      setCustomQuestions([...customQuestions, { ...base, id: maxId + 1 }]);
+    const parsed = parseCustomQuestion({ ...customQuestions.find((q) => q.id === editingId), ...base });
+    if (!parsed.success) { alertDialog(parsed.reason); return; }
+    try {
+      const result = editingId !== null
+        ? setCustomQuestions((prev) => prev.map((q) => q.id === editingId ? { ...q, ...base } : q))
+        : append([parsed.data]);
+      if (result?.accepted === false) {
+        alertDialog(thaiError(result.error, 'บันทึกไม่สำเร็จ กรุณาลองอีกครั้ง'));
+        return;
+      }
+    } catch (error) {
+      alertDialog(thaiError(error, 'บันทึกไม่สำเร็จ กรุณาลองอีกครั้ง'));
+      return;
     }
     setShowForm(false);
   };
 
   const deleteQ = async (id) => {
-    if (await confirmDialog({ title: 'ลบข้อนี้?', confirmLabel: 'ลบ', tone: 'danger' })) setCustomQuestions(customQuestions.filter((q) => q.id !== id));
+    if (await confirmDialog({ title: 'ลบข้อนี้?', confirmLabel: 'ลบ', tone: 'danger' })) setCustomQuestions((prev) => prev.filter((q) => q.id !== id));
   };
 
   const exportCustom = () => downloadJSON(customQuestions, `custom-questions-${Date.now()}.json`);
@@ -206,18 +218,16 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
             Object.entries(invalidReasons).map(([r, n]) => `• ${n} ข้อ: ${r}`).join('\n');
 
         if (await confirmDialog({ title: summary.split('\n')[0], body: summary.split('\n').slice(1).join('\n').trim(), confirmLabel: 'นำเข้า' })) {
-          const allIds = new Set([...customQuestions.map((q) => q.id), ...QB.map((q) => q.id)]);
-          let nextId = Math.max(500, ...allIds);
           // Always reassign IDs so importing the same file twice doesn't
           // duplicate IDs (was a silent bug — IDs collided with QB and the
           // app would render whichever came first in the array).
-          const withNewIds = valid.map((q) => ({ ...q, id: ++nextId }));
-          setCustomQuestions([...customQuestions, ...withNewIds]);
+          const result = append(valid);
+          if (result?.accepted === false) alertDialog(thaiError(result.error, 'นำเข้าไม่สำเร็จ กรุณาลองอีกครั้ง'));
         }
         e.target.value = '';
       } catch (err) {
         e.target.value = '';
-        alertDialog('ไฟล์ JSON ไม่ถูกต้อง — ' + (err?.message || 'อ่านไฟล์ไม่ได้'));
+        alertDialog(thaiError(err, 'อ่านข้อสอบจากไฟล์นี้ไม่ได้ กรุณาเลือกไฟล์ JSON ที่ส่งออกจาก VetMock'));
       }
     };
     reader.onerror = () => {
@@ -232,7 +242,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
       <>
         <div className="vmx-hero">
         <Mochi state="think" size={44} slot="page-intro" className="vmx-hero-mochi" />
-          <h1>{editingId ? 'แก้ไข' : 'เพิ่ม'} <em>ข้อสอบ</em></h1>
+          <h1>{editingId !== null ? 'แก้ไข' : 'เพิ่ม'} <em>ข้อสอบ</em></h1>
         </div>
 
         <div className="vmx-config-panel">
@@ -252,6 +262,8 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
               <option value="tf">True / False</option>
               <option value="fill">Fill in the Blank</option>
               <option value="match">Matching</option>
+              {formData.type === 'short' && <option value="short">Short Answer</option>}
+              {formData.type === 'essay' && <option value="essay">Essay</option>}
             </select>
           </div>
 

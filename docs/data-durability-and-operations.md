@@ -1,4 +1,4 @@
-# Data durability and operations — v5.81
+# Data durability and operations
 
 Exam answers can outlive a network failure, an account switch, or a failed
 storage write. A completion is cleared from recovery only after both compact
@@ -25,6 +25,34 @@ Detailed events record only measured fields. Confidence is null because the
 exam UI does not collect it. Visible time excludes a hidden tab; it is not a
 measurement of attention or mastery. Existing compact history is retained and
 does not acquire invented historical answers or timings.
+
+## Study-data operation boundary — 5.134.1 candidate
+
+`useUserDataSync` uses `user-data-atomic.js` and `sync_user_data_v2` to send
+immutable per-action deltas, never a whole snapshot as new intent. The database
+locks the account row and records operation receipts in the same transaction.
+Retries after a lost response cannot replay an acknowledged edit or deletion.
+Per-key clocks and tombstones resolve concurrent writes deterministically; they
+do not establish wall-clock order between devices with skewed clocks.
+
+The browser persists owner-scoped snapshots under `vmx-user-data-v2:` and
+immutable intent under `vmx-user-intent-v2:`. That intent prefix survives retained
+v1 garbage collection. Receipt persistence precedes removal of local intent;
+auth checks before and after requests reject stale account responses.
+
+Enrollment is per account on the first v2 RPC. Thereafter legacy blind writes
+are refused. Already-open old documents are not reloaded: their unsent local work
+remains recoverable. Ambiguous legacy work requires an explicit local/account
+choice, with both copies exportable. Custom-question ID collisions require
+account recovery and reimport with fresh IDs. Canceled pending work remains in
+the downloadable recovery archive; delayed canceled requests cannot restore it.
+Unenrolled accounts retain the prior protocol until a v2 client enrolls them.
+
+The additive source migration is
+`supabase/migrations/20261005140235_user_data_operation_sync.sql`.
+`scripts/test-user-data-db.mjs` checks SQL contracts, with native PostgreSQL
+lock races and 8-second history-write probes in CI. Provider installation and
+live evidence are separate release gates in [Launch Readiness](LAUNCH_READINESS.md).
 
 ## Atomic annotation write boundary — 2026-10-01
 

@@ -138,6 +138,19 @@ test('analyses: save, list, freeze, frozen is never overwritten, stale is detect
   assert.deepEqual(kinds, ['analysis', 'freeze', 'analysis']);
 });
 
+test('saving a snapshot freezes it atomically and rejects non-ok snapshots', async () => {
+  const db = createMemoryDb();
+  const p = await createProject(db, A, { name: 'snapshot' });
+  const now = new Date('2026-10-05T03:00:00Z');
+  const saved = await putAnalysis(db, A, { projectId: p.id, spec: {}, envelope: env('fp1'), frozen: true }, now);
+  assert.equal(saved.frozen, true);
+  assert.equal(saved.frozenAt, now.toISOString());
+  await assert.rejects(putAnalysis(db, A, { ...saved, envelope: env('fp2') }), (e) => e.key === 'runtime.store.frozen');
+  await assert.rejects(putAnalysis(db, A, { projectId: p.id, spec: {}, envelope: env('fp2', 'stopped'), frozen: true }), (e) => e.key === 'runtime.store.freezeNotOk');
+  assert.equal((await listAnalyses(db, A, p.id)).length, 1);
+  assert.deepEqual((await listLog(db, A, p.id)).map((e) => e.kind), ['analysis', 'freeze']);
+});
+
 test('deleting a project removes its datasets, blocks, analyses and log, and nothing of other owners', async () => {
   const db = createMemoryDb();
   const p = await createProject(db, A, { name: 'x' });

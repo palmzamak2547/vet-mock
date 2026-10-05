@@ -72,17 +72,21 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
   }, [active, worldPoints.length, viewportRef]);
 
   useEffect(() => {
+    const element = viewportRef?.()?.element;
+    if (!element) return;
     const onClear = () => setWorldPoints([]);
-    window.addEventListener('vmx-lab-clear-overlays', onClear);
-    return () => window.removeEventListener('vmx-lab-clear-overlays', onClear);
-  }, []);
+    element.addEventListener('vmx-lab-clear-overlays', onClear);
+    return () => element.removeEventListener('vmx-lab-clear-overlays', onClear);
+  }, [viewportRef]);
 
   useEffect(() => {
     if (!active) return;
+    const element = viewportRef?.()?.element;
+    if (!element) return;
     const onUndo = () => setWorldPoints((prev) => prev.slice(0, -1));
-    window.addEventListener('vmx-lab-undo-point', onUndo);
-    return () => window.removeEventListener('vmx-lab-undo-point', onUndo);
-  }, [active]);
+    element.addEventListener('vmx-lab-undo-point', onUndo);
+    return () => element.removeEventListener('vmx-lab-undo-point', onUndo);
+  }, [active, viewportRef]);
 
   const undo = useCallback(() => {
     setWorldPoints((prev) => prev.slice(0, -1));
