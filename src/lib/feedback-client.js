@@ -37,6 +37,52 @@ function failure(status, reason) {
   return { ok: false, status, reason, messageTh: FEEDBACK_MESSAGES[reason] };
 }
 
+// ── The unsent draft ──
+// A send that fails, a tab that closes or a view the student leaves must not
+// cost their words. One localStorage key mirrors what the feedback page holds;
+// restoring is the page's choice, the client only owns the storage shape.
+// `storage` is injectable so tests pass an in-memory store.
+
+export const FEEDBACK_DRAFT_KEY = 'vmx-feedback-draft';
+
+export function loadFeedbackDraft(storage) {
+  const store = storage ?? globalThis.localStorage;
+  if (!store) return null;
+  try {
+    const draft = JSON.parse(store.getItem(FEEDBACK_DRAFT_KEY) || 'null');
+    if (!draft || typeof draft !== 'object') return null;
+    const saved = {
+      type: String(draft.type || '').slice(0, 60),
+      subject: String(draft.subject || '').slice(0, 200),
+      message: String(draft.message || '').slice(0, 5000),
+    };
+    // A type alone is not a draft anyone needs rescuing.
+    if (!saved.subject.trim() && !saved.message.trim()) return null;
+    return saved;
+  } catch {
+    return null;
+  }
+}
+
+export function saveFeedbackDraft(draft, storage) {
+  const store = storage ?? globalThis.localStorage;
+  if (!store) return;
+  try {
+    const text = {
+      type: String(draft?.type || '').slice(0, 60),
+      subject: String(draft?.subject || '').slice(0, 200),
+      message: String(draft?.message || '').slice(0, 5000),
+    };
+    if (!text.subject.trim() && !text.message.trim()) {
+      store.removeItem(FEEDBACK_DRAFT_KEY);
+      return;
+    }
+    store.setItem(FEEDBACK_DRAFT_KEY, JSON.stringify(text));
+  } catch {
+    // Storage can be denied or full; the form still works in memory.
+  }
+}
+
 /**
  * POST one message. `payload` is the body the endpoint reads:
  * { type, subject, message, fromEmail?, fromName? }.

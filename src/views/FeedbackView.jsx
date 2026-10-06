@@ -1,22 +1,43 @@
 import { useState, useEffect, useRef } from 'react';
 import BackBar from '../components/BackBar.jsx';
-import { sendFeedback, FEEDBACK_EMAIL as CONTACT_EMAIL } from '../lib/feedback-client.js';
+import {
+  sendFeedback,
+  FEEDBACK_EMAIL as CONTACT_EMAIL,
+  loadFeedbackDraft,
+  saveFeedbackDraft,
+} from '../lib/feedback-client.js';
 
 export default function FeedbackView({ goHome, user, profile, prefill, clearPrefill }) {
-  // Prefill arrives from contextual entry points (e.g. clicking a
-  // scaffold subject card on HomeView). Apply once on mount, then
-  // tell App to clear so a manual revisit doesn't reuse stale context.
-  const [formData, setFormData] = useState(() => ({
-    type: prefill?.type || 'Bug',
-    subject: prefill?.subject || '',
-    message: prefill?.message || '',
-    fromEmail: user?.email || '',
-    fromName: profile?.username || '',
-  }));
+  // An unsent draft survives the view: what the student typed before a failed
+  // send, a reload or a switch of view is mirrored to localStorage and
+  // restored here. The draft is the student's own words, so it wins over a
+  // contextual prefill, which fills only the fields the draft left empty.
+  const [draftRestored, setDraftRestored] = useState(() => Boolean(loadFeedbackDraft()));
+  const [formData, setFormData] = useState(() => {
+    const draft = loadFeedbackDraft();
+    return {
+      type: draft?.type || prefill?.type || 'Bug',
+      subject: draft?.subject || prefill?.subject || '',
+      message: draft?.message || prefill?.message || '',
+      fromEmail: user?.email || '',
+      fromName: profile?.username || '',
+    };
+  });
+  // One door for the inputs, so the "restored" notice retires itself the
+  // moment the student changes anything and the mirror stays current.
+  const updateForm = (patch) => {
+    setFormData((prev) => ({ ...prev, ...patch }));
+    if (draftRestored) setDraftRestored(false);
+  };
   useEffect(() => {
     if (prefill && clearPrefill) clearPrefill();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- only on mount
   }, []);
+  // Mirror every edit; the mirror clears itself when the form empties,
+  // including the success timer's reset of what was sent.
+  useEffect(() => {
+    saveFeedbackDraft(formData);
+  }, [formData]);
   // status: 'idle' | 'sending' | 'success' | 'api-error' | 'network-error'
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
@@ -27,6 +48,28 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
   // unmounted component (React warns + can leak the closure).
   const resetTimerRef = useRef(null);
   useEffect(() => () => { if (resetTimerRef.current) clearTimeout(resetTimerRef.current); }, []);
+
+  // The copy button is the way out when sending failed AND the mail app is
+  // not an option (shared device, no mail account): the composed text goes
+  // to the clipboard ready for email or a chat.
+  const [copied, setCopied] = useState(false);
+  const copyTimerRef = useRef(null);
+  useEffect(() => () => { if (copyTimerRef.current) clearTimeout(copyTimerRef.current); }, []);
+  const copyDraft = async () => {
+    try {
+      const signature = (formData.fromName || formData.fromEmail)
+        ? `\n— ${formData.fromName || 'ไม่ระบุชื่อ'}${formData.fromEmail ? ` <${formData.fromEmail}>` : ''}`
+        : '';
+      await navigator.clipboard.writeText(
+        `[VetMock ${formData.type}] ${formData.subject || 'Feedback'}\n\n${formData.message}${signature}`,
+      );
+      setCopied(true);
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+      copyTimerRef.current = setTimeout(() => setCopied(false), 2500);
+    } catch {
+      // Clipboard can be denied; the mailto fallback below still works.
+    }
+  };
 
   const submit = async (e) => {
     e.preventDefault();
@@ -78,11 +121,21 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
       </div>
 
       <div className="vmx-config-panel" style={{ maxWidth: 600, margin: '0 auto' }}>
+        {draftRestored && status !== 'success' && (
+          <div
+            role="status"
+            style={{ padding: 10, borderRadius: 8, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 16 }}
+          >
+            📝 กู้คืนข้อความที่พิมพ์ค้างไว้จากครั้งก่อนให้แล้ว แก้ต่อหรือส่งได้เลย
+          </div>
+        )}
+
         {status === 'success' && (
           <div style={{ padding: 16, borderRadius: 12, background: 'rgba(74, 107, 74, 0.15)', border: '1px solid var(--clr-sage)', marginBottom: 16, textAlign: 'center' }}>
             ✅ <strong>ส่งสำเร็จ!</strong><br/>
             <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
               ข้อความถูกส่งไปที่ {CONTACT_EMAIL} แล้ว, ขอบคุณมาก! 🙏
+              {formData.fromEmail ? ' ใส่อีเมลไว้ ทีมงานตอบกลับทางอีเมลได้' : ''}
             </span>
           </div>
         )}
@@ -110,6 +163,13 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
               <button
                 type="button"
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                onClick={copyDraft}
+              >
+                {copied ? '📋 คัดลอกแล้ว' : '📋 คัดลอกข้อความ'}
+              </button>
+              <button
+                type="button"
+                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
                 onClick={openMailto}
               >
                 💌 เปิดแอปอีเมลแทน
@@ -121,7 +181,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
         <form onSubmit={submit} noValidate>
           <div className="vmx-form-group">
             <label htmlFor="vmx-feedback-type">ประเภท</label>
-            <select id="vmx-feedback-type" value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })}>
+            <select id="vmx-feedback-type" value={formData.type} onChange={(e) => updateForm({ type: e.target.value })}>
               <option value="Bug">🐛 Bug Report</option>
               <option value="Feature">Feature Request</option>
               <option value="Question">❓ Question</option>
@@ -132,7 +192,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
 
           <div className="vmx-form-group">
             <label htmlFor="vmx-feedback-name">ชื่อ (optional)</label>
-            <input id="vmx-feedback-name" type="text" value={formData.fromName} onChange={(e) => setFormData({ ...formData, fromName: e.target.value })} placeholder="เช่น Vet86_PingP" maxLength={100} />
+            <input id="vmx-feedback-name" type="text" value={formData.fromName} onChange={(e) => updateForm({ fromName: e.target.value })} placeholder="เช่น Vet86_PingP" maxLength={100} />
           </div>
 
           <div className="vmx-form-group">
@@ -143,7 +203,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
               inputMode="email"
               autoComplete="email"
               value={formData.fromEmail}
-              onChange={(e) => setFormData({ ...formData, fromEmail: e.target.value })}
+              onChange={(e) => updateForm({ fromEmail: e.target.value })}
               placeholder="you@example.com"
               maxLength={254}
             />
@@ -151,7 +211,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
 
           <div className="vmx-form-group">
             <label htmlFor="vmx-feedback-subject">หัวข้อ</label>
-            <input id="vmx-feedback-subject" type="text" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} placeholder="เช่น ข้อสอบ COM IV ตอบไม่ถูก" maxLength={200} />
+            <input id="vmx-feedback-subject" type="text" value={formData.subject} onChange={(e) => updateForm({ subject: e.target.value })} placeholder="เช่น ข้อสอบ COM IV ตอบไม่ถูก" maxLength={200} />
           </div>
 
           <div className="vmx-form-group">
@@ -159,7 +219,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
             <textarea
               id="vmx-feedback-message"
               value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value.slice(0, 5000) })}
+              onChange={(e) => updateForm({ message: e.target.value.slice(0, 5000) })}
               placeholder="อธิบายปัญหา/ข้อเสนอแนะ..."
               style={{ minHeight: 140 }}
               maxLength={5000}
