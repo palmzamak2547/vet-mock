@@ -2709,8 +2709,8 @@ export default function App() {
       {/* Global CSS now loaded via `import './styles.css'` at the top of
           this file (Vite injects it) — no more <style>{STYLES}</style>. */}
       <TopLoadingBar />
-      {/* One mounted dialog for every confirmDialog()/alertDialog() caller. */}
-      <DialogHost />
+      {/* A pending decision belongs to the view and account that opened it. */}
+      <DialogHost scope={`${user?.id || 'guest'}:${view}`} />
       {/* `is-focus` = the bottom nav is not rendered for this view, so the
           space normally reserved for it is dead weight (58px of it, on every
           exam screen). See the .vmx-app padding rule in styles.css. */}

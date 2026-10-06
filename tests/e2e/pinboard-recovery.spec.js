@@ -44,3 +44,51 @@ for (const kind of ['question', 'note']) test(`Pinboard opens ${kind === 'questi
   await expect(page.locator('.vmx-question-card .vmx-qtext')).toHaveText(question.q);
   await expect(page.locator('.vmx-progress')).toContainText('1 / 1');
 });
+
+test('a pending Pinboard clear cancels on browser Back and a fresh keyboard confirmation still clears', async ({ page }) => {
+  const pins = [{ id: 1, type: 'question', label: 'พินที่ต้องอยู่หลังยกเลิก',
+    payload: { id: 901, subject: 'surg2', stem: 'Local lifecycle fixture' }, addedAt: 1 }];
+  expect(parseLocalExtras({ format: 'vetmock-local-extras-v1', data: { 'vmx-pinboard': pins } }).success).toBe(true);
+  await page.addInitScript(pins => {
+    if (localStorage.getItem('pinboard-lifecycle-seeded')) return;
+    localStorage.setItem('pinboard-lifecycle-seeded', '1');
+    localStorage.setItem('vmx-selected-year', '4');
+    localStorage.setItem('vmx-selected-phase', JSON.stringify('2-final'));
+    localStorage.setItem('vmx-seen-landing', '1');
+    localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+    localStorage.setItem('vmx-pinboard', JSON.stringify(pins));
+  }, pins);
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  const learn = page.getByRole('region', { name: 'เรียน & ทบทวน', exact: true });
+  await expect(learn).toBeVisible();
+  const more = learn.getByRole('button', { expanded: false });
+  if (await more.count()) await more.click();
+  await learn.getByRole('button', { name: /^กระดานทบทวน / }).click();
+  await expect(page).toHaveURL(/\/app\/pinboard$/);
+  const clear = page.locator('main').getByRole('button', { name: 'ล้างทั้งหมด', exact: true });
+  await clear.click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await page.goBack();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-pinboard')))).toEqual(pins);
+  await page.keyboard.press('Tab');
+  expect(await page.evaluate(() => {
+    const element = document.activeElement;
+    return { connected: !!element?.isConnected, visible: !!element?.getClientRects().length, inDialog: !!element?.closest('[role="dialog"]') };
+  })).toEqual({ connected: true, visible: true, inDialog: false });
+
+  await page.goForward();
+  await expect(page).toHaveURL(/\/app\/pinboard$/);
+  await clear.focus();
+  await expect(clear).toBeFocused();
+  await clear.press('Enter');
+  await expect(page.getByRole('dialog')).toBeVisible();
+  const confirm = page.getByRole('dialog').getByRole('button', { name: 'ล้างทั้งหมด', exact: true });
+  await confirm.focus();
+  await expect(confirm).toBeFocused();
+  await confirm.press('Enter');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.getByText('ไม่มีรายการบันทึก', { exact: true })).toBeVisible();
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-pinboard')))).toEqual([]);
+});
