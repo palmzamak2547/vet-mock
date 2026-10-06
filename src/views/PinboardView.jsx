@@ -126,8 +126,9 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
       // nothing at all if they had never bookmarked anything.
       case 'question':
       case 'note': {
-        if (p.id && typeof onOpenQuestion === 'function') {
-          const opened = await onOpenQuestion(p.id);
+        const id = p.id ?? (pin.type === 'note' ? p.qKey : null);
+        if (id != null && id !== '' && typeof onOpenQuestion === 'function') {
+          const opened = await onOpenQuestion(id);
           if (opened) return;
           // Say it plainly rather than silently showing a different set: a
           // question can disappear when a bank is revised.

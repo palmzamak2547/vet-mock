@@ -52,7 +52,9 @@ test('no hook memoised on [] reaches for the session object directly', () => {
 test('replayQuestions reaches the session through the ref', () => {
   const start = APP.indexOf('const replayQuestions = useCallback');
   assert.ok(start > 0, 'replayQuestions moved — re-point this guard');
-  const body = APP.slice(start, start + 1800);
+  const end = APP.indexOf('\n  }, []);', start);
+  assert.ok(end > start, 'replayQuestions callback must be read in full');
+  const body = APP.slice(start, end);
   assert.match(body, /sessionRef\.current\.replayQuestions\(qs\)/,
     'replayQuestions must call through sessionRef, or a redo round stamps sessionOwner=null');
   assert.doesNotMatch(body, /(^|[^.\w])session\.replayQuestions\(/,
