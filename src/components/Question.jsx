@@ -792,9 +792,6 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
           >
             <div className="vmx-option-indicator">
               <div className="vmx-option-letter">{chip}</div>
-              {!locked && (
-                <span className="vmx-option-kbd" aria-hidden="true">[{displayIdx + 1}]</span>
-              )}
             </div>
             <div className="vmx-option-text"><RichText text={opt} /></div>
           </button>

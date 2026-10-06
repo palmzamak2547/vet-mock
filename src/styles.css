@@ -2667,14 +2667,6 @@ html.dark .vmx-panic-scrim {
   color: var(--clr-surface);
   border-color: var(--clr-ink);
 }
-.vmx-option-kbd {
-  font-family: var(--vmx-mono);
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--clr-ink-soft);
-  letter-spacing: 0.02em;
-  opacity: 0.75;
-}
 .vmx-option-text {
   font-size: 15px;
   line-height: 1.45;
