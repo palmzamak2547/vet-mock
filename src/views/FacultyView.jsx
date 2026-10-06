@@ -20,6 +20,7 @@ import { lazy, memo, Suspense, useEffect, useMemo, useState } from 'react';
 import { ALL_INSTRUCTORS } from '../data/instructors.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
+import NavIcon from '../components/NavIcon.jsx';
 
 const InstructorModal = lazy(() => import('../components/InstructorModal.jsx'));
 
@@ -73,6 +74,9 @@ export default function FacultyView({ goHome }) {
   const [subjectFilter, setSubjectFilter] = useState('all');
   const [deptFilter, setDeptFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
+  // 13+ dept chips wrap into a label-less third row; collapsed by default
+  // the row stays one line and the rest live behind this toggle.
+  const [showAllDepts, setShowAllDepts] = useState(false);
 
   useEffect(() => {
     if (filter === debouncedFilter) return;
@@ -152,6 +156,29 @@ export default function FacultyView({ goHome }) {
     { id: 'poultry', label: 'Poultry', icon: '🐔' },
   ];
 
+  // Collapsed = the six busiest depts; the active one is always kept
+  // visible even when it falls outside the top six.
+  const visibleDeptChips = useMemo(() => {
+    if (showAllDepts) return departmentChips;
+    const top = departmentChips.slice(0, 6);
+    if (deptFilter !== 'all' && !top.some((dc) => dc.id === deptFilter)) {
+      const active = departmentChips.find((dc) => dc.id === deptFilter);
+      if (active) top.push(active);
+    }
+    return top;
+  }, [departmentChips, showAllDepts, deptFilter]);
+  const hiddenDeptCount = departmentChips.length - visibleDeptChips.length;
+  const hasActiveFilters =
+    subjectFilter !== 'all' || deptFilter !== 'all' || statusFilter !== 'all' || filter.trim() !== '';
+
+  const clearAllFilters = () => {
+    setFilter('');
+    setDebouncedFilter('');
+    setSubjectFilter('all');
+    setDeptFilter('all');
+    setStatusFilter('all');
+  };
+
   return (
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
@@ -161,155 +188,129 @@ export default function FacultyView({ goHome }) {
         <p>{ALL_INSTRUCTORS.length} โปรไฟล์, ผลงานวิจัยคัดเลือก {ALL_INSTRUCTORS.reduce((sum, ins) => sum + (ins.papers?.length || 0), 0)} รายการ, ตรวจสอบล่าสุด 12 ส.ค. 2569</p>
       </div>
 
-      {/* Search */}
-      <div style={{ marginBottom: 12 }}>
-        <input
-          type="text"
-          aria-label="ค้นหาอาจารย์"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          placeholder="ค้นชื่อ / ตำแหน่ง / ภาควิชา / สาขาวิจัย"
-          style={{
-            width: '100%',
-            boxSizing: 'border-box',
-            padding: '10px 14px',
-            border: '1px solid var(--clr-border)',
-            borderRadius: 999,
-            background: 'var(--clr-surface)',
-            color: 'var(--clr-ink)',
-            fontFamily: 'inherit',
-            fontSize: 14,
-          }}
-          autoComplete="off"
-        />
-      </div>
-
-      {/* Subject filter chip row */}
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 8, alignItems: 'center' }}>
-        <span style={{
-          fontSize: 11, fontFamily: 'var(--vmx-mono)',
-          color: 'var(--clr-ink-soft)', textTransform: 'uppercase',
-          letterSpacing: '0.08em', marginRight: 4, minWidth: 60,
-        }}>by subject</span>
-        {subjectFilters.map((sf) => {
-          const active = subjectFilter === sf.id;
-          return (
+      <div className="vmx-fac-toolbar">
+        {/* Search */}
+        <div className="vmx-fac-search">
+          <span className="vmx-fac-search-icon" aria-hidden="true"><NavIcon name="search" size={16} /></span>
+          <input
+            type="text"
+            aria-label="ค้นหาอาจารย์"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            placeholder="ค้นชื่อ / ตำแหน่ง / ภาควิชา / สาขาวิจัย"
+            autoComplete="off"
+          />
+          {filter && (
             <button
-              key={sf.id}
-              onClick={() => setSubjectFilter(sf.id)}
-              className="vmx-nav-btn"
-              style={{
-                padding: '4px 10px',
-                fontSize: 12,
-                background: active ? 'var(--clr-ink)' : 'transparent',
-                color: active ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
-                borderColor: active ? 'var(--clr-ink)' : 'var(--clr-border)',
-              }}
+              type="button"
+              className="vmx-fac-search-clear"
+              onClick={() => setFilter('')}
+              aria-label="ล้างคำค้นหา"
+              title="ล้างคำค้นหา"
             >
-              {sf.icon} {sf.label}
+              <NavIcon name="close" size={13} />
             </button>
-          );
-        })}
-      </div>
+          )}
+        </div>
 
-      {/* Department filter chip row */}
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16, alignItems: 'center' }}>
-        <span style={{
-          fontSize: 11, fontFamily: 'var(--vmx-mono)',
-          color: 'var(--clr-ink-soft)', textTransform: 'uppercase',
-          letterSpacing: '0.08em', marginRight: 4, minWidth: 60,
-        }}>by dept</span>
-        <button
-          onClick={() => setDeptFilter('all')}
-          className="vmx-nav-btn"
-          style={{
-            padding: '4px 10px',
-            fontSize: 12,
-            background: deptFilter === 'all' ? 'var(--clr-ink)' : 'transparent',
-            color: deptFilter === 'all' ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
-            borderColor: deptFilter === 'all' ? 'var(--clr-ink)' : 'var(--clr-border)',
-          }}
-        >
-          🏛️ ทุกภาค
-        </button>
-        {departmentChips.map((dc) => {
-          const active = deptFilter === dc.id;
-          return (
+        {/* Subject filter */}
+        <div className="vmx-fac-filter-group">
+          <span className="vmx-fac-filter-label">วิชา</span>
+          <div className="vmx-chip-row" role="group" aria-label="กรองตามวิชา">
+            {subjectFilters.map((sf) => (
+              <button
+                key={sf.id}
+                type="button"
+                className={`vmx-chip${subjectFilter === sf.id ? ' active' : ''}`}
+                aria-pressed={subjectFilter === sf.id}
+                onClick={() => setSubjectFilter(sf.id)}
+              >
+                {sf.icon} {sf.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Department filter */}
+        <div className="vmx-fac-filter-group">
+          <span className="vmx-fac-filter-label">ภาควิชา</span>
+          <div className="vmx-chip-row" role="group" aria-label="กรองตามภาควิชา">
             <button
-              key={dc.id}
-              onClick={() => setDeptFilter(dc.id)}
-              className="vmx-nav-btn"
-              style={{
-                padding: '4px 10px',
-                fontSize: 12,
-                background: active ? 'var(--clr-ink)' : 'transparent',
-                color: active ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
-                borderColor: active ? 'var(--clr-ink)' : 'var(--clr-border)',
-              }}
+              type="button"
+              className={`vmx-chip${deptFilter === 'all' ? ' active' : ''}`}
+              aria-pressed={deptFilter === 'all'}
+              onClick={() => setDeptFilter('all')}
             >
-              {dc.icon} {dc.label} <span style={{ opacity: 0.6 }}>{dc.count}</span>
+              🏛️ ทุกภาค
             </button>
-          );
-        })}
-      </div>
+            {visibleDeptChips.map((dc) => (
+              <button
+                key={dc.id}
+                type="button"
+                className={`vmx-chip${deptFilter === dc.id ? ' active' : ''}`}
+                aria-pressed={deptFilter === dc.id}
+                onClick={() => setDeptFilter(dc.id)}
+              >
+                {dc.icon} {dc.label} <span style={{ opacity: 0.6 }}>{dc.count}</span>
+              </button>
+            ))}
+            {hiddenDeptCount > 0 && (
+              <button
+                type="button"
+                className="vmx-fac-chip-toggle"
+                onClick={() => setShowAllDepts(true)}
+                aria-label={`แสดงภาควิชาที่ซ่อนอีก ${hiddenDeptCount} ภาค`}
+              >
+                แสดงอีก {hiddenDeptCount} ภาค…
+              </button>
+            )}
+          </div>
+        </div>
 
-      {/* Source/status filter chip row */}
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16, alignItems: 'center' }}>
-        <span style={{
-          fontSize: 11, fontFamily: 'var(--vmx-mono)',
-          color: 'var(--clr-ink-soft)', textTransform: 'uppercase',
-          letterSpacing: '0.08em', marginRight: 4, minWidth: 60,
-        }}>by status</span>
-        <button
-          onClick={() => setStatusFilter('all')}
-          className="vmx-nav-btn"
-          style={{
-            padding: '4px 10px', fontSize: 12,
-            background: statusFilter === 'all' ? 'var(--clr-ink)' : 'transparent',
-            color: statusFilter === 'all' ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
-            borderColor: statusFilter === 'all' ? 'var(--clr-ink)' : 'var(--clr-border)',
-          }}
-        >
-          👥 ทุกสถานะ
-        </button>
-        {statusChips.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => setStatusFilter(item.id)}
-            className="vmx-nav-btn"
-            style={{
-              padding: '4px 10px', fontSize: 12,
-              background: statusFilter === item.id ? 'var(--clr-ink)' : 'transparent',
-              color: statusFilter === item.id ? 'var(--clr-bg)' : 'var(--clr-ink-soft)',
-              borderColor: statusFilter === item.id ? 'var(--clr-ink)' : 'var(--clr-border)',
-            }}
-          >
-            {item.icon} {item.label} <span style={{ opacity: 0.6 }}>{item.count}</span>
-          </button>
-        ))}
-      </div>
+        {/* Status filter */}
+        <div className="vmx-fac-filter-group">
+          <span className="vmx-fac-filter-label">สถานะ</span>
+          <div className="vmx-chip-row" role="group" aria-label="กรองตามสถานะ">
+            <button
+              type="button"
+              className={`vmx-chip${statusFilter === 'all' ? ' active' : ''}`}
+              aria-pressed={statusFilter === 'all'}
+              onClick={() => setStatusFilter('all')}
+            >
+              👥 ทุกสถานะ
+            </button>
+            {statusChips.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className={`vmx-chip${statusFilter === item.id ? ' active' : ''}`}
+                aria-pressed={statusFilter === item.id}
+                onClick={() => setStatusFilter(item.id)}
+              >
+                {item.icon} {item.label} <span style={{ opacity: 0.6 }}>{item.count}</span>
+              </button>
+            ))}
+          </div>
+        </div>
 
-      {/* Result count */}
-      <div style={{
-        fontSize: 12,
-        fontFamily: 'var(--vmx-mono)',
-        color: 'var(--clr-ink-soft)',
-        textTransform: 'uppercase',
-        letterSpacing: '0.08em',
-        marginBottom: 12,
-      }}>
-        แสดง {filtered.length} / {ALL_INSTRUCTORS.length} โปรไฟล์
+        {/* Result count + reset */}
+        <div className="vmx-fac-toolbar-foot">
+          <span className="vmx-fac-count" role="status">
+            แสดง {filtered.length} / {ALL_INSTRUCTORS.length} โปรไฟล์
+          </span>
+          {hasActiveFilters && (
+            <button type="button" className="vmx-fac-clear" onClick={clearAllFilters}>
+              ล้างตัวกรองทั้งหมด
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Faculty grid */}
       {filtered.length === 0 ? (
         <div className="vmx-empty">ไม่พบอาจารย์ที่ตรงกับ "{filter}"</div>
       ) : (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: 12,
-        }}>
+        <div className="vmx-fac-grid">
           {filtered.map((ins) => (
             <FacultyCard
               key={ins.slug}
@@ -341,140 +342,66 @@ const FacultyCard = memo(function FacultyCard({ instructor, onOpen }) {
   const deptId = classifyDept(department);
   const deptMeta = DEPT_META[deptId];
 
+  // One compact tag top-right: the first subject carries the identity,
+  // the rest collapse into "+N" (the modal lists them all). Departments
+  // without subject mapping keep the dept tag instead.
+  const firstSubject = subjects?.length ? SUBJECT_META[subjects[0]] : null;
+  const extraSubjects = Math.max((subjects?.length || 1) - 1, 0);
+  const tag = firstSubject
+    ? { label: `${firstSubject.icon || '📚'} ${firstSubject.name || subjects[0]}`, title: firstSubject.name || subjects[0], isSubject: true }
+    : (deptMeta ? { label: `${deptMeta.icon} ${deptMeta.label}`, title: deptMeta.label, isSubject: false } : null);
+
   return (
     <button
+      type="button"
+      className="vmx-fac-card"
       onClick={() => onOpen(instructor)}
-      style={{
-        all: 'unset',
-        cursor: 'pointer',
-        background: 'var(--clr-surface)',
-        border: '1px solid var(--clr-border)',
-        borderRadius: 12,
-        padding: '16px 18px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 8,
-        textAlign: 'left',
-        transition: 'all 0.15s',
-        position: 'relative',
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = 'var(--clr-ink-soft)';
-        e.currentTarget.style.transform = 'translateY(-2px)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = 'var(--clr-border)';
-        e.currentTarget.style.transform = '';
-      }}
     >
-      {/* Top-right pills: subjects + dept */}
-      <div style={{ position: 'absolute', top: 10, right: 12, display: 'flex', gap: 4, flexWrap: 'wrap', justifyContent: 'flex-end', maxWidth: 110 }}>
-        {(subjects || []).map((sid) => {
-          const meta = SUBJECT_META[sid];
-          return (
-            <span
-              key={sid}
-              style={{
-                fontSize: 11,
-                fontFamily: 'var(--vmx-mono)',
-                // The subject's own colour identifies the tag, but as 11px
-                // text on cream several of them land at 2.7-3.2:1. It carries
-                // the identity just as well as the border and a faint fill,
-                // with the label in readable ink.
-                color: 'var(--clr-ink)',
-                background: meta?.color ? `color-mix(in srgb, ${meta.color} 12%, var(--clr-bg))` : 'var(--clr-bg)',
-                padding: '2px 6px',
-                borderRadius: 999,
-                border: `1px solid ${meta?.color || 'var(--clr-border)'}`,
-                fontWeight: 600,
-                maxWidth: 104,
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
-              title={meta?.name || sid}
-            >
-              {/* The Thai name, not the raw internal id — students read
-                  "สุขศาสตร์น้ำนม + เนื้อ", never "milk-meat-hygiene". */}
-              {meta?.icon || '📚'} {meta?.name || sid}
-            </span>
-          );
-        })}
-        {/* Dept pill — only show if no subjects (avoid clutter) */}
-        {(!subjects || subjects.length === 0) && deptMeta && (
+      <div className="vmx-fac-card-head">
+        <div className="vmx-fac-card-names">
+          {nameTh && <div className="vmx-fac-card-name-th">{nameTh}</div>}
+          <div className="vmx-fac-card-name-en">{nameEn}</div>
+        </div>
+        {tag && (
           <span
-            style={{
-              fontSize: 11,
-              fontFamily: 'var(--vmx-mono)',
-              color: 'var(--clr-ink-soft)',
-              background: 'var(--clr-surface-2)',
-              padding: '2px 6px',
-              borderRadius: 999,
-              border: '1px solid var(--clr-border)',
-            }}
+            className={`vmx-fac-card-tag${tag.isSubject ? ' is-subject' : ''}`}
+            title={tag.title}
           >
-            {deptMeta.icon} {deptMeta.label}
+            {tag.label}
+          </span>
+        )}
+        {extraSubjects > 0 && (
+          <span className="vmx-fac-card-tag-more" title={(subjects || []).slice(1).map((sid) => SUBJECT_META[sid]?.name || sid).join(', ')}>
+            +{extraSubjects}
           </span>
         )}
       </div>
 
-      {/* Name */}
-      <div style={{ marginRight: 110 /* room for pills */ }}>
-        {nameTh && (
-          <div style={{ fontSize: 17, fontWeight: 650, color: 'var(--clr-ink)', lineHeight: 1.3 }}>
-            {nameTh}
-          </div>
-        )}
-        <div style={{ fontFamily: 'var(--vmx-display)', fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2, lineHeight: 1.2 }}>
-          {nameEn}
-        </div>
-      </div>
-
       {/* Position */}
       {position && (
-        <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.4 }}>
-          {position}
-        </div>
+        <div className="vmx-fac-card-position">{position}</div>
       )}
 
       {/* Research areas (max 3 visible) */}
       {areas && areas.length > 0 && (
-        <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginTop: 4 }}>
+        <div className="vmx-fac-card-areas">
           {areas.slice(0, 3).map((a) => (
-            <span
-              key={a}
-              style={{
-                fontSize: 11,
-                padding: '2px 8px',
-                background: 'var(--clr-surface-2)',
-                borderRadius: 999,
-                color: 'var(--clr-ink)',
-              }}
-            >
-              {a}
-            </span>
+            <span key={a} className="vmx-fac-card-area">{a}</span>
           ))}
           {areas.length > 3 && (
-            <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', padding: '2px 4px' }}>
-              +{areas.length - 3}
-            </span>
+            <span className="vmx-fac-card-areas-more">+{areas.length - 3}</span>
           )}
         </div>
       )}
 
-      {/* Paper count */}
-      <div style={{
-        fontSize: 11,
-        fontFamily: 'var(--vmx-mono)',
-        color: 'var(--clr-ink-soft)',
-        marginTop: 4,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 6,
-      }}>
+      {/* Paper count + verification */}
+      <div className="vmx-fac-card-foot">
         <span>📑 ผลงานคัดเลือก {papers?.length || 0}</span>
-        <span aria-hidden="true">—</span>
-        <span>{verification?.status === 'verified' ? '✓ ยืนยันตัวตนและผลงาน' : STATUS_META[status]?.label || 'ตรวจสอบบางส่วน'}</span>
+        <span
+          className={`vmx-fac-card-foot-status${verification?.status === 'verified' ? ' is-verified' : ''}`}
+        >
+          {verification?.status === 'verified' ? '✓ ยืนยันแล้ว' : STATUS_META[status]?.label || 'ตรวจสอบบางส่วน'}
+        </span>
       </div>
     </button>
   );
