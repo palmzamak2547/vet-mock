@@ -81,6 +81,7 @@ export function buildExamPool({
   onlyPastPaper = false,
   bookmarks = [],
   weakQuestions = [],
+  weakQuestionKeys = null,
   history = [],
 }) {
   const curated = USER_CURATED_MODES.has(practiceMode);
@@ -98,10 +99,26 @@ export function buildExamPool({
     // Filtering the bank by membership kept BANK order instead, so a 10-
     // question set was whichever ten weak questions loaded first, not the
     // student's ten most missed.
-    const rank = new Map(weakQuestions.map((id, i) => [id, i]));
-    pool = deliverableQuestions.filter((q) => rank.has(q.id)
-      && (q.year == null || !selectedYear || q.year === selectedYear))
-      .sort((a, b) => rank.get(a.id) - rank.get(b.id));
+    if (history.length) {
+      // A foreground bank load can finish before App's analytics rerenders.
+      // Read the durable attempts against this fresh pool, using subject:id.
+      const qById = new Map();
+      for (const q of deliverableQuestions) if (!qById.has(q.id)) qById.set(q.id, q);
+      const namedHistory = history.map(entry => !entry?.subject && qById.has(entry?.questionId)
+        ? { ...entry, subject: qById.get(entry.questionId).subject } : entry);
+      const { keys, counts } = stillWrong(namedHistory);
+      pool = deliverableQuestions.filter((q) => keys.has(`${q.subject}:${q.id}`)
+        && (q.year == null || !selectedYear || q.year === selectedYear))
+        .sort((a, b) => (counts.get(`${b.subject}:${b.id}`) || 0) - (counts.get(`${a.subject}:${a.id}`) || 0))
+        .slice(0, WEAK_POOL_CAP);
+    } else {
+      const compound = Array.isArray(weakQuestionKeys);
+      const rank = new Map((compound ? weakQuestionKeys : weakQuestions).map((id, i) => [id, i]));
+      const key = q => compound ? `${q.subject}:${q.id}` : q.id;
+      pool = deliverableQuestions.filter((q) => rank.has(key(q))
+        && (q.year == null || !selectedYear || q.year === selectedYear))
+        .sort((a, b) => rank.get(key(a)) - rank.get(key(b)));
+    }
   } else if (practiceMode === 'wrong') {
     // Still wrong, not ever wrong: see lib/wrong-pool.js. A question answered
     // wrong once and then correctly ten times used to stay here permanently.

@@ -22,9 +22,12 @@
 import { getLibraryCatalog, subjectMeta, formatBytes } from './library.js';
 
 const cache = new Map(); // sourceId → entries[]
+let cacheEpoch = 0;
+const invalidate = () => { cacheEpoch++; cache.clear(); };
 
 if (typeof window !== 'undefined') {
-  window.addEventListener('vmx-palette-invalidate', () => cache.clear());
+  window.addEventListener('vmx-palette-invalidate', invalidate);
+  window.addEventListener('vmx-library-auth-changed', invalidate);
 }
 
 function lowered(entry) {
@@ -72,10 +75,12 @@ export const OMNI_SOURCES = [
     icon: '📚',
     async load() {
       if (cache.has('library')) return cache.get('library');
+      const epoch = cacheEpoch;
       // fetchLibraryDocs resolves { docs, configured } — the same contract
       // LibraryView consumes (and the .map-on-an-object TypeError that
       // shipped as "ออฟไลน์" the first time this assumed a bare array).
       const { docs } = await getLibraryCatalog();
+      if (epoch !== cacheEpoch) return this.load();
       const entries = (docs || []).map(libraryDocEntry);
       cache.set('library', entries);
       return entries;

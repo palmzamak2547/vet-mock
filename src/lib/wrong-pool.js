@@ -43,7 +43,8 @@ export function stillWrong(history) {
     // whatever their date, so a laptop answer from 09:00 can sit behind a
     // phone answer from 20:00 for the same question. Trusting position there
     // served back a question the student had most recently got right.
-    const at = Number(item.date);
+    const numericAt = Number(item.date);
+    const at = typeof item.date === 'string' && !Number.isFinite(numericAt) ? Date.parse(item.date) : numericAt;
     const dated = Number.isFinite(at);
     const prev = latest.get(key);
     if (!prev

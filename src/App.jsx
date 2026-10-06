@@ -1535,6 +1535,7 @@ export default function App() {
     const bySubject = {};
     const byTag = {};
     const questionStats = new Map();
+    const scoredHistory = [];
     SUBJECTS.forEach((s) => { if (s.id !== 'all') bySubject[s.id] = { correct: 0, total: 0 }; });
     let totalCorrect = 0;
     // Entries whose question resolved in the currently-loaded bank. The
@@ -1559,9 +1560,11 @@ export default function App() {
       if (!qById.has(q.id)) qById.set(q.id, q);
     }
     history.forEach((h) => {
-      const q = qByCompound.get((h.subject || '') + ':' + h.questionId)
-        || qById.get(h.questionId); // fallback for legacy history without subject
+      const q = h.subject
+        ? qByCompound.get(h.subject + ':' + h.questionId)
+        : qById.get(h.questionId); // only legacy rows without a subject may fall back
       if (!q) return;
+      scoredHistory.push({ ...h, subject: q.subject });
       totalScored++;
       if (!bySubject[q.subject]) bySubject[q.subject] = { correct: 0, total: 0 };
       bySubject[q.subject].total++;
@@ -1571,8 +1574,9 @@ export default function App() {
         byTag[tag].total++;
         if (h.correct) byTag[tag].correct++;
       });
-      if (!questionStats.has(q.id)) questionStats.set(q.id, { correct: 0, total: 0, wrong: 0 });
-      const stats = questionStats.get(q.id);
+      const key = q.subject + ':' + q.id;
+      if (!questionStats.has(key)) questionStats.set(key, { questionId: q.id, correct: 0, total: 0, wrong: 0 });
+      const stats = questionStats.get(key);
       stats.total++;
       if (h.correct) stats.correct++;
       else stats.wrong++;
@@ -1588,14 +1592,13 @@ export default function App() {
     // Same rule as the 'wrong' pool: a question the student has since got
     // right is not a weak question any more. Keep each question's original ID
     // type: imported custom questions may use strings rather than numbers.
-    const stillWrongIds = new Set();
-    for (const key of stillWrong(history).keys) {
-      stillWrongIds.add(key.slice(key.indexOf(':') + 1));
-    }
-    const weakQuestions = [...questionStats].filter(([id, s]) => s.wrong >= 1 && stillWrongIds.has(String(id)))
-      .sort((a, b) => b[1].wrong - a[1].wrong).map(([id]) => id).slice(0, WEAK_POOL_CAP);
+    const stillWrongKeys = stillWrong(scoredHistory).keys;
+    const weakEntries = [...questionStats].filter(([key, s]) => s.wrong >= 1 && stillWrongKeys.has(key))
+      .sort((a, b) => b[1].wrong - a[1].wrong).slice(0, WEAK_POOL_CAP);
+    const weakQuestions = weakEntries.map(([, stats]) => stats.questionId);
+    const weakQuestionKeys = weakEntries.map(([key]) => key);
     const overallPct = totalScored ? Math.round((totalCorrect / totalScored) * 100) : 0;
-    return { bySubject, weakTags, weakQuestions, totalAttempts: history.length, totalScored, overallPct };
+    return { bySubject, weakTags, weakQuestions, weakQuestionKeys, totalAttempts: history.length, totalScored, overallPct };
   }, [history, allQuestions]);
 
   // Panic sends the student through the ordinary config screen, so the
@@ -1637,6 +1640,7 @@ export default function App() {
       selectedPhase,
       bookmarks,
       weakQuestions: analytics?.weakQuestions || [],
+      weakQuestionKeys: analytics?.weakQuestionKeys,
       history,
     });
     // Panic keeps only the questions closest to a paper, so counting the whole
@@ -1773,6 +1777,7 @@ export default function App() {
       onlyPastPaper: _onlyPastPaper,
       bookmarks,
       weakQuestions: analytics?.weakQuestions || [],
+      weakQuestionKeys: analytics?.weakQuestionKeys,
       history,
       // "ต่ออีก 5 ข้อ" asks for MORE questions, so the ones just answered are
       // excluded. Without this a topic holding a single question re-served
@@ -2731,7 +2736,7 @@ export default function App() {
               dedicated button so a stray tap on the banner text doesn't
               navigate accidentally (used to be a div-wide onClick which
               hijacked any tap, including swipe-to-scroll on iOS). */}
-          {view !== 'offline-game' && view !== 'exam' && (
+          {view !== 'offline-game' && (view !== 'exam' || ['LOCAL_READ_FAILED', 'LOCAL_WRITE_FAILED'].includes(userDataSync.error?.code)) && (
             <SyncStatusNotice
               online={networkOnline}
               justChanged={networkJustChanged}
@@ -2849,7 +2854,7 @@ export default function App() {
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions: replayWrongRound, challengeSender, sessionKind, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki }} />}
-              {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} recoveryArchive={userDataSync.recoveryArchive} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
+              {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} recoveryArchive={userDataSync.recoveryArchive} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
               {view === 'question-manager' && <QuestionManagerView key={user?.id || 'guest'} appendQuestions={incoming => changeUserData(data => ({ customQuestions: appendCustomQuestions(data, incoming) }))} {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear, selectedPhase, setSelectedPhase, customQuestions }} />}
               {view === 'scores' && <ScoresView {...{ goHome }} />}
@@ -2938,6 +2943,8 @@ export default function App() {
         <OptionalFeature label="การค้นหา" onClose={() => setPaletteOpen(false)}>
           <CommandPalette
             open={paletteOpen}
+            ownerId={user?.id || null}
+            notes={notes}
             onClose={() => setPaletteOpen(false)}
             goView={setView}
             setSubject={setSubject}

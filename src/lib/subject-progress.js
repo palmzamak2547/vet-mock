@@ -37,7 +37,7 @@ function isPoolQuestion(q) {
 export function answeredKeysBySubject(history) {
   const bySubject = new Map();
   for (const h of history || []) {
-    if (!h?.questionId || !h.subject) continue;
+    if (h?.questionId == null || !h.subject) continue;
     if (!bySubject.has(h.subject)) bySubject.set(h.subject, new Set());
     bySubject.get(h.subject).add(`${h.subject}:${h.questionId}`);
   }

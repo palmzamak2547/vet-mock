@@ -1,5 +1,6 @@
 import { useMemo, useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS, QB } from '../data/questions.js';
+import { buildExamPool } from '../lib/exam-pool.js';
 import { yearForSubject } from '../data/curriculum.js';
 import { downloadJSON, subjectText } from '../hooks/utils.js';
 import {
@@ -284,7 +285,7 @@ function WebVitalsPanel() {
   );
 }
 
-export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, history, notes, srCards, streak, streakData, customQuestions, selectedYear = 4, selectedPhase, readingChecklist = {}, restoreUserData, ownerId = null, recoveryArchive = null }) {
+export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak, streakData, customQuestions, selectedYear = 4, selectedPhase, readingChecklist = {}, restoreUserData, ownerId = null, recoveryArchive = null }) {
   const [archiveBusy, setArchiveBusy] = useState(false);
   const [eventArchiveParts, setEventArchiveParts] = useState([]);
   const mountedRef = useRef(true);
@@ -344,13 +345,11 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
     if (!analytics) return null;
     if (yearScope === 'all') return analytics;
     let correct = 0;
-    const wrongIdSet = new Set();
     // Per-subject scoped accuracy — rebuild from scopedHistory so the
     // "ความแม่นยำตามวิชา" card respects the year toggle.
     const bySubject = {};
     for (const h of scopedHistory) {
       if (h?.correct === true) correct++;
-      else if (h && h.correct === false) wrongIdSet.add(h.questionId);
       const sid = h?.subject;
       if (!sid) continue;
       if (!bySubject[sid]) bySubject[sid] = { correct: 0, total: 0 };
@@ -358,16 +357,20 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       if (h.correct) bySubject[sid].correct++;
     }
     const total = scopedHistory.length;
+    const weakPool = buildExamPool({ questions: [...QB, ...customQuestions], practiceMode: 'weak',
+      selectedYear, history: scopedHistory, weakQuestions: analytics.weakQuestions,
+      weakQuestionKeys: analytics.weakQuestionKeys });
     return {
       ...analytics,
       totalAttempts: total,
       overallPct: total ? Math.round((correct / total) * 100) : 0,
       bySubject,
-      // Filter the precomputed weakQuestions list to IDs that also
-      // appear in scoped history (proxy for "weak in current year").
-      weakQuestions: analytics.weakQuestions.filter((id) => wrongIdSet.has(id)),
+      // Count the actual launch pool: scope precedes the cap and keeps
+      // same-ID questions in different subjects separate.
+      weakQuestions: weakPool.map(q => q.id),
+      weakQuestionKeys: weakPool.map(q => `${q.subject}:${q.id}`),
     };
-  }, [analytics, scopedHistory, yearScope]);
+  }, [analytics, scopedHistory, yearScope, selectedYear, customQuestions, QB.length]);
   const [osceOpen, setOsceOpen] = useState(false);
   const [diagramOpen, setDiagramOpen] = useState(false);
   const exportData = () => {
@@ -577,7 +580,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             <h2>ทางลัด</h2>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 12 }}>
               {scopedAnalytics.weakQuestions.length > 0 && (
-                <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => { setPracticeMode('weak'); setMode('quick'); setView('config'); }}
+                <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => { setSubject('all'); setTopic(null); setPracticeMode('weak'); setMode('quick'); setView('config'); }}
                   title={yearScope === 'all' ? 'การฝึกจะใช้เฉพาะข้อของปีที่เลือกอยู่' : undefined}>
                   {/* The practice engine is year-scoped, so the number the
                       button promises must be too — in "ทุกปี" stats view the
@@ -586,7 +589,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
                 </button>
               )}
               {bookmarks.length > 0 && (
-                <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => { setPracticeMode('bookmarks'); setMode('quick'); setView('config'); }}>
+                <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setSubject('all'); setTopic(null); setPracticeMode('bookmarks'); setMode('quick'); setView('config'); }}>
                   ทำ Bookmarks ({bookmarks.length})
                 </button>
               )}
