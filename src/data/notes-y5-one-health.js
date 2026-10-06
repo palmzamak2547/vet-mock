@@ -967,6 +967,17 @@ export const NOTES_Y5_ONE_HEALTH = {
         ],
       },
       {
+        "heading": "งานวิจัย One Health ที่ถูกอ้างถึงมาก",
+        "source": "docs/vet-standards/README.md + PubMed abstract ของแต่ละงาน",
+        "body": [
+          { bullets: [
+            '**Gibbs, Vet Rec 2014** — ทบทวน 10 ปีของ One Health หลังยุค OIE/FAO/WHO ร่วมมือ พร้อมความท้าทายสู่อนาคต',
+            '**Destoumieux-Garzón et al., Front Vet Sci 2018** — รีวิวแนวคิด One Health อายุ 10 ปี รวมข้อจำกัดในการนำไปปฏิบัติจริง',
+            '**McEwen, Microbiol Spectr 2018** — AMR ในมุมมอง One Health เชื่อมการใช้ยาต้านจุดชีพในสัตว์ คน และสิ่งแวดล้อม',
+          ] },
+        ],
+      },
+      {
         "heading": "ใช้กับวิชาในหลักสูตร",
         "source": "การจับคู่เอกสารมาตรฐานกับวิชาในหลักสูตรของ VetMock",
         "body": [

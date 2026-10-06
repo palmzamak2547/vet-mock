@@ -2589,6 +2589,61 @@ const CURATED = {
         },
       ],
     },
+    'com5--reference-textbooks--ตำรามาตรฐานแยกสาย': {
+      claims: [
+        {
+          id: 'com5--reference-textbooks--ตำรามาตรฐานแยกสาย--bibliographic-records',
+          statement: 'ตำรามาตรฐานของแต่ละสาย ได้แก่ Merck Veterinary Manual (ออนไลน์ อัปเดตต่อเนื่อง), Nelson & Couto Small Animal Internal Medicine 6th ed. (2019), Thrall Textbook of Veterinary Diagnostic Radiology 7th ed. (2018), Fossum Small Animal Surgery 5th ed. (2021), Constable et al. Veterinary Medicine 11th ed. (2017) และ Zachary Pathologic Basis of Veterinary Disease 7th ed. (2022) ทั้งหมดจัดพิมพ์โดย Elsevier ยกเว้น Merck',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [
+            { sourceId: 'merck-vet-manual', kind: 'textbook' },
+            { sourceId: 'nelson-couto-saim-6-2019', kind: 'textbook' },
+            { sourceId: 'thrall-tvdr-7-2018', kind: 'textbook' },
+            { sourceId: 'fossum-sas-5-2021', kind: 'textbook' },
+            { sourceId: 'constable-vet-med-11-2017', kind: 'textbook' },
+            { sourceId: 'zachary-pbvd-7-2022', kind: 'textbook' },
+          ],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: "Bibliographic records (authors, editions, publishers, years) confirmed against the publishers' catalogue pages for each named textbook — no passage quoted." },
+        },
+      ],
+    },
+    'com5--reference-textbooks--งานวิจัยสำคัญในสายสัตว์เล็ก': {
+      claims: [
+        {
+          id: 'com5--reference-textbooks--งานวิจัยสำคัญในสายสัตว์เล็ก--crawford-civ',
+          statement: 'Crawford et al. (Science, 2005) รายงานการติดเชื้อไข้หวัดใหญ่สายพันธุ์ม้า (H3N8) ไปสู่สุนัข ซึ่งเป็นจุดเริ่มต้นของ canine influenza virus ในสหรัฐอเมริกา',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [{ sourceId: 'pmid-16186182', kind: 'primary-literature' }],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'PubMed record and abstract confirm the Science 2005 report of equine H3N8 transmission to dogs; PMID/DOI resolved by verify:sources.' },
+        },
+        {
+          id: 'com5--reference-textbooks--งานวิจัยสำคัญในสายสัตว์เล็ก--decaro-cpv',
+          statement: 'Decaro และ Buonavoglia (Vet Microbiol, 2012) รีวิวระบาดวิทยาและการวินิจฉัยของ CPV โดยไล่วิวัฒนาการจาก type 2 เดิมสู่ antigenic variants 2a/2b และ type 2c',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [{ sourceId: 'pmid-21962408', kind: 'primary-literature' }],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'PubMed record and abstract confirm the CPV review scope and the 2a/2b/2c emphasis; PMID/DOI resolved by verify:sources.' },
+        },
+        {
+          id: 'com5--reference-textbooks--งานวิจัยสำคัญในสายสัตว์เล็ก--inthong-thai-cpv',
+          statement: 'Inthong et al. (Vet World, 2020) สำรวจ CPV ที่ระบาดในประเทศไทย พบ type 2a และ 2b พร้อม mutant ใหม่ และพบ feline panleukopenia virus ในตัวอย่างสุนัขท้องเสีย',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [{ sourceId: 'pmid-32255965', kind: 'primary-literature' }],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'PubMed record and abstract confirm the Thai CPV survey findings incl. FPV in a diarrhoeic sample; PMID/DOI resolved by verify:sources.' },
+        },
+        {
+          id: 'com5--reference-textbooks--งานวิจัยสำคัญในสายสัตว์เล็ก--fooks-rabies',
+          statement: 'Fooks et al. (Nat Rev Dis Primers, 2017) รวบรวมความรู้โรคพิษสุนัขบ้าครบวงจร ตั้งแต่ไวรัสวิทยาและระบาดวิทยา ถึงการวินิจฉัย การป้องกันด้วยวัคซีน และการจัดการผู้ป่วย',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [{ sourceId: 'pmid-29188797', kind: 'primary-literature' }],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'PubMed record and abstract confirm the Rabies disease primer scope; PMID/DOI resolved by verify:sources.' },
+        },
+      ],
+    },
   },
   'one-health--vet-standards-catalog': {
     'one-health--vet-standards-catalog--woah-world-organisation-for-animal-health': {
@@ -2675,6 +2730,34 @@ const CURATED = {
           reviewStatus: 'verified',
           sourceRefs: [{ sourceId: 'eaeve-day1-competencies-2019', kind: 'guideline' }],
           review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Document identity of the EAEVE Day One Competencies list against the named official source — no passage quoted.' },
+        },
+      ],
+    },
+    'one-health--vet-standards-catalog--งานวิจัย-one-health-ที่ถูกอ้างถึงมาก': {
+      claims: [
+        {
+          id: 'one-health--vet-standards-catalog--งานวิจัย-one-health-ที่ถูกอ้างถึงมาก--gibbs-evolution',
+          statement: 'Gibbs (Vet Rec, 2014) ทบทวนความก้าวหน้าหนึ่งทศวรรษของแนวคิด One Health พร้อมความท้าทายที่ยังเหลืออยู่สำหรับอนาคต',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [{ sourceId: 'pmid-24464377', kind: 'primary-literature' }],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'PubMed record and abstract confirm the One Health decade review; PMID/DOI resolved by verify:sources.' },
+        },
+        {
+          id: 'one-health--vet-standards-catalog--งานวิจัย-one-health-ที่ถูกอ้างถึงมาก--destoumieux-concept',
+          statement: 'Destoumieux-Garzón et al. (Front Vet Sci, 2018) รีวิวแนวคิด One Health ที่ผ่านมาแล้ว 10 ปี รวมถึงอุปสรรคของการนำแนวคิดนี้ไปปฏิบัติจริง',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [{ sourceId: 'pmid-29484301', kind: 'primary-literature' }],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'PubMed record and abstract confirm the One Health concept review and its implementation-barriers theme; PMID/DOI resolved by verify:sources.' },
+        },
+        {
+          id: 'one-health--vet-standards-catalog--งานวิจัย-one-health-ที่ถูกอ้างถึงมาก--mcewen-amr',
+          statement: 'McEwen (Microbiol Spectr, 2018) อธิบายการดื้อยาต้านจุดชีพ (AMR) ในมุมมอง One Health ที่เชื่อมการใช้ยาและการดื้อยาในสัตว์ คน และสิ่งแวดล้อมเข้าด้วยกัน',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [{ sourceId: 'pmid-29600770', kind: 'primary-literature' }],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'PubMed record for the already-registered source confirms the One Health AMR perspective paper; PMID resolved by verify:sources.' },
         },
       ],
     },

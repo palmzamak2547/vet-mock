@@ -70,14 +70,14 @@ export const LATEST_CHANGELOG = {
     {
       "kind": "content",
       "scope": "com5",
-      "title": "บทความแนะนำตำรา Ettinger",
-      "desc": "หน้า VetWiki ใหม่แนะนำตำราอายุรศาสตร์สัตว์เล็กที่ใช้อ้างอิงในคำอธิบายข้อสอบ COM พร้อมรูปแบบการเขียนอ้างอิงและตำราอื่นที่จะเติมต่อ"
+      "title": "บทความแนะนำตำราและงานวิจัย",
+      "desc": "หน้า VetWiki ใหม่รวมตำรามาตรฐานสายสัตว์เล็กที่ใช้อ้างอิงในคำอธิบายข้อสอบ COM พร้อมงานวิจัยสำคัญที่กดดู PubMed ต่อได้ เช่น CPV ในไทยและไข้หวัดใหญ่ม้าสู่สุนัข"
     },
     {
       "kind": "content",
       "scope": "multi",
-      "title": "สารบัญมาตรฐานสากล",
-      "desc": "หน้า VetWiki ใหม่รวมเอกสารมาตรฐานที่วิชา One Health, Zoonoses และ Food Safety ยึดใช้ เช่น WOAH Code, มาตรฐานอาหาร Codex และ IHR ของ WHO พร้อมบอกว่าเอกสารไหนใช้กับวิชาไหน"
+      "title": "สารบัญมาตรฐานสากลและงานวิจัย One Health",
+      "desc": "หน้า VetWiki ใหม่รวมเอกสารมาตรฐานที่วิชา One Health, Zoonoses และ Food Safety ยึดใช้ เช่น WOAH Code, Codex และ IHR ของ WHO พร้อมงานวิจัย One Health ที่ถูกอ้างถึงมาก"
     }
   ]
 };

@@ -1178,14 +1178,38 @@ export const NOTES_COM5 = {
         ],
       },
       {
+        heading: 'ตำรามาตรฐานแยกสาย',
+        source: 'ข้อมูลพิมพ์เขียวของตำราแต่ละเล่มจากสำนักพิมพ์ (Elsevier / Merck)',
+        body: [
+          { bullets: [
+            '**Merck Veterinary Manual** (MSD Veterinary Manual) — คู่มือโรคสัตว์ออนไลน์ฟรี อัปเดตต่อเนื่อง ครอบคลุมเกือบทุกสาย',
+            '**Nelson & Couto, Small Animal Internal Medicine** 6th ed. (2019) — อายุรศาสตร์สัตว์เล็กเรียงตามระบบร่างกาย',
+            '**Thrall, Textbook of Veterinary Diagnostic Radiology** 7th ed. (2018) — หลักการถ่ายภาพรังสีและการอ่านภาพ สุนัข แมว ม้า',
+            '**Fossum, Small Animal Surgery** 5th ed. (2021) — ศาสตร์ผ่าตัดสัตว์เล็กมาตรฐาน',
+            '**Constable et al., Veterinary Medicine** (เดิม Radostits) 11th ed. (2017) — โรคสัตว์ใหญ่ โค ม้า สุกร แกะ 2 เล่มจบ',
+            '**Zachary, Pathologic Basis of Veterinary Disease** 7th ed. (2022) — พยาธิสภาพโรคสัตว์เชิงกลไก',
+          ] },
+        ],
+      },
+      {
+        heading: 'งานวิจัยสำคัญในสายสัตว์เล็ก',
+        source: 'PubMed abstract ของแต่ละงาน (PMID ระบุใน sourceRefs ของ claim)',
+        body: [
+          { bullets: [
+            '**Crawford et al., Science 2005** — รายงานการติดเชื้อไข้หวัดใหญ่จากม้า (H3N8) สู่สุนัข เป็นจุดกำเนิด canine influenza ในสหรัฐฯ',
+            '**Decaro & Buonavoglia, Vet Microbiol 2012** — รีวิววิวัฒนาการของ CPV จาก type 2 → 2a/2b → 2c พร้อมแนวทางวินิจฉัย',
+            '**Inthong et al., Vet World 2020** — สำรวจ CPV ที่ระบาดในไทย พบ 2a/2b และ variant ใหม่ รวมถึงพบ FPV ในสุนัขท้องเสีย (งานจากไทย)',
+            '**Fooks et al., Nat Rev Dis Primers 2017** — บทความรวมโรคพิษสุนัขบ้า ครบทั้งระบาดวิทยา วินิจฉัย และการป้องกัน',
+          ] },
+          { callout: 'งานวิจัยทุกชิ้นในหัวข้อนี้มี PMID และ DOI ผ่านการตรวจกับ PubMed/Crossref แล้ว — กดดูแหล่งอ้างอิงเพื่ออ่าน abstract เองได้', kind: 'tip' },
+        ],
+      },
+      {
         heading: 'ตำราอ้างอิงอื่นในสายสัตวแพทย์',
         source: 'รายการตำราที่วางแผนจะเติมเป็นแหล่งอ้างอิงใน VetMock',
         body: [
           { bullets: [
-            '**Merck Veterinary Manual** — คู่มือโรคสัตว์ออนไลน์มาตรฐาน',
-            '**Nelson & Couto, Small Animal Internal Medicine**',
-            '**Thrall, Textbook of Veterinary Diagnostic Radiology**',
-            '**WSAVA / AAHA guidelines** — มาตรฐานการดูแลสัตว์',
+            '**WSAVA / AAHA guidelines** — มาตรฐานการดูแลสัตว์ (WSAVA vaccination guidelines 2024 มีในคลังอ้างอิงแล้ว)',
           ] },
         ],
       },

@@ -29,8 +29,8 @@ Consistency: source banks **6731**, learner-ready **6663**, fail-closed **68**, 
 |---|---|
 | Note files | 37 |
 | Topics | 379 |
-| Sections | 4049 |
-| Sections carrying a source locator | 4049 (100%) |
+| Sections | 4053 |
+| Sections carrying a source locator | 4053 (100%) |
 
 ## Video summaries
 
@@ -45,10 +45,10 @@ Consistency: source banks **6731**, learner-ready **6663**, fail-closed **68**, 
 | | |
 |---|---|
 | Governed topics | 210 |
-| Governed sections | 1779 |
-| Claims verified against an external source | 3223 |
-| Distinct external sources cited | 2104 |
-| Share of note sections governed | 43.9% |
+| Governed sections | 1782 |
+| Claims verified against an external source | 3231 |
+| Distinct external sources cited | 2114 |
+| Share of note sections governed | 44.0% |
 
 ## VetWiki coverage of questions
 
