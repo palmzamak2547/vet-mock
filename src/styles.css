@@ -2914,7 +2914,7 @@ html.dark .vmx-panic-scrim {
 .vmx-note-panel { background: var(--clr-surface-2); border: 1px solid var(--clr-border); border-radius: 12px; padding: 14px; margin-bottom: 16px; }
 .vmx-note-textarea { width: 100%; min-height: 80px; padding: 10px; border-radius: 8px; border: 1px solid var(--clr-border); background: var(--clr-surface); font-family: inherit; font-size: 14px; resize: vertical; color: var(--clr-ink); }
 
-.vmx-results-hero { text-align: center; padding: 40px 20px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); margin-bottom: 24px; box-shadow: var(--shadow-md); position: relative; isolation: isolate; overflow: hidden; }
+.vmx-results-hero { text-align: center; padding: 36px 20px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); margin-bottom: 24px; box-shadow: var(--shadow-workbench, var(--shadow-md)); position: relative; isolation: isolate; overflow: hidden; }
 /* ── Score burst ─────────────────────────────────────────────────────────
    A strong result (≥80% over at least three auto-graded questions) gets a
    one-shot scatter of confetti behind the score, timed to start as the digit
@@ -2946,6 +2946,116 @@ html.dark .vmx-panic-scrim {
 @media (prefers-reduced-motion: reduce) {
   .vmx-burst { display: none; }
 }
+
+/* ── Clinical Evaluator Seal ──────────────────────────────────────────────────
+   Elevates Mochi from a cartoon sticker into an authentic clinical accreditation seal. */
+.vmx-results-seal-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-bottom: 12px;
+}
+.vmx-clinical-seal {
+  margin-top: 10px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 14px;
+  border-radius: 4px;
+  font-family: var(--vmx-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  line-height: 1.35;
+  user-select: none;
+}
+.vmx-clinical-seal .vmx-seal-title { font-weight: 700; }
+.vmx-clinical-seal .vmx-seal-sub { font-size: 9.5px; opacity: 0.85; }
+.vmx-clinical-seal.is-pass {
+  color: var(--clr-sage-text);
+  background: rgba(74, 107, 74, 0.08);
+  border-color: var(--clr-sage);
+}
+.vmx-clinical-seal.is-review {
+  color: var(--clr-rose-text);
+  background: rgba(194, 109, 109, 0.08);
+  border-color: var(--clr-rose);
+}
+.vmx-clinical-seal.is-writing {
+  color: var(--clr-gold-text);
+  background: rgba(184, 137, 64, 0.08);
+  border-color: var(--clr-gold);
+}
+
+/* ── Benchmark Telemetry ────────────────────────────────────────────────────
+   Direct clinical comparison against the standard 60% faculty/practice pass line. */
+.vmx-benchmark-container {
+  max-width: 320px;
+  margin: 18px auto 6px;
+  text-align: left;
+}
+.vmx-benchmark-track {
+  position: relative;
+  height: 8px;
+  background: var(--clr-surface-2);
+  border-radius: 999px;
+  border: 1px solid var(--clr-border);
+  overflow: visible;
+}
+.vmx-benchmark-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.vmx-benchmark-fill.is-pass { background: var(--clr-sage); }
+.vmx-benchmark-fill.is-review { background: var(--clr-rose); }
+.vmx-benchmark-target {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 2px;
+  background: var(--clr-ink-soft);
+  transform: translateX(-50%);
+  z-index: 2;
+}
+.vmx-benchmark-flag {
+  position: absolute;
+  top: -20px;
+  transform: translateX(-50%);
+  font-family: var(--vmx-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--clr-ink-soft);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.vmx-benchmark-legend {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--clr-ink-soft);
+  margin-top: 6px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Pacing Telemetry ───────────────────────────────────────────────────────
+   Clinical session pacing data (elapsed time + speed per case). */
+.vmx-pacing-telemetry {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  margin-top: 14px;
+  border-radius: 999px;
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  font-size: 12px;
+  color: var(--clr-ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
 .vmx-score-big { font-family: var(--vmx-display); font-weight: 800; font-size: 96px; line-height: 1; letter-spacing: -0.04em; margin: 0; color: var(--clr-ink); }
 .vmx-score-big.pass { color: var(--clr-sage-text); }
 .vmx-score-big.fail { color: var(--clr-rose-text); }
@@ -2954,7 +3064,19 @@ html.dark .vmx-panic-scrim {
 .vmx-score-msg { font-family: inherit; font-size: 17px; line-height: 1.55; color: var(--clr-ink-soft); margin-top: 16px; }
 
 .vmx-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
-.vmx-stat-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-md); padding: 16px; text-align: center; }
+.vmx-stat-card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  padding: 16px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+.vmx-stat-card:hover {
+  border-color: var(--clr-border-strong, var(--clr-ink-soft));
+  box-shadow: var(--shadow-md);
+}
 .vmx-stat-num { font-family: inherit; font-weight: 700; font-size: 32px; line-height: 1; color: var(--clr-ink); }
 /* The line icon that leads each Results action card (NavIcon, not an emoji):
    rose on the retry card, sage on the one that offers more. */

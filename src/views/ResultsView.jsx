@@ -53,6 +53,14 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
     ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
   }
 
+  // Academic Credential double hairline border
+  ctx.strokeStyle = 'rgba(43, 36, 25, 0.12)';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(40, 40, W - 80, H - 80);
+  ctx.strokeStyle = 'rgba(43, 36, 25, 0.05)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(48, 48, W - 96, H - 96);
+
   // Top label row: VetMock + mode tag
   ctx.fillStyle = '#2b2419';
   ctx.font = '600 64px "Fraunces", "Sarabun", "IBM Plex Sans Thai", Georgia, serif';
@@ -371,7 +379,20 @@ export default function ResultsView({
 
       <div className="vmx-results-hero">
         {celebrate && <ScoreBurst strong={perfect} />}
-        <Mochi state={mochiResultPose(score, autoQs.length)} size={84} animate slot="result" className="vmx-result-mochi" />
+        <div className="vmx-results-seal-wrapper">
+          <Mochi state={mochiResultPose(score, autoQs.length)} size={84} animate slot="result" className="vmx-result-mochi" />
+          {autoQs.length > 0 ? (
+            <div className={`vmx-clinical-seal ${reached ? 'is-pass' : 'is-review'}`}>
+              <span className="vmx-seal-title">{reached ? 'CLINICAL BENCHMARK ATTAINED' : 'DIAGNOSTIC REFINEMENT NEEDED'}</span>
+              <span className="vmx-seal-sub">ACCURACY {reached ? '≥' : '<'} {PRACTICE_PASS_PCT}% STANDARD</span>
+            </div>
+          ) : (
+            <div className="vmx-clinical-seal is-writing">
+              <span className="vmx-seal-title">RUBRIC SELF-EVALUATION</span>
+              <span className="vmx-seal-sub">SELF-SCORING REQUIRED</span>
+            </div>
+          )}
+        </div>
         {autoQs.length > 0 ? (
           <>
             <h2 className={`vmx-score-big ${reached ? 'pass' : 'fail'}`}>
@@ -379,6 +400,24 @@ export default function ResultsView({
             </h2>
             <div className="vmx-score-label">คะแนนตรวจอัตโนมัติ</div>
             <div className="vmx-score-frac">{score.correct} / {autoQs.length} ถูก</div>
+
+            {/* Clinical Benchmark Telemetry */}
+            <div className="vmx-benchmark-container" aria-label={`เกณฑ์ซ้อมของแอป ${PRACTICE_PASS_PCT}% ทำได้ ${score.pct}%`}>
+              <div className="vmx-benchmark-track">
+                <div
+                  className={`vmx-benchmark-fill ${reached ? 'is-pass' : 'is-review'}`}
+                  style={{ width: `${Math.min(100, Math.max(0, score.pct))}%` }}
+                />
+                <div className="vmx-benchmark-target" style={{ left: `${PRACTICE_PASS_PCT}%` }}>
+                  <div className="vmx-benchmark-flag">{PRACTICE_PASS_PCT}% PASS</div>
+                </div>
+              </div>
+              <div className="vmx-benchmark-legend">
+                <span>0%</span>
+                <span>เกณฑ์ผ่าน {PRACTICE_PASS_PCT}%</span>
+                <span>100%</span>
+              </div>
+            </div>
           </>
         ) : (
           <>
@@ -395,6 +434,17 @@ export default function ResultsView({
           </div>
         )}
         <div className="vmx-score-msg">{msg}</div>
+
+        {/* Pacing Telemetry */}
+        {receiverDurationSec != null && receiverDurationSec > 0 && (
+          <div className="vmx-pacing-telemetry">
+            <NavIcon name="exam" size={13} />
+            <span>เวลารวม {fmtTimeSec(receiverDurationSec)}</span>
+            {questions?.length > 0 && (
+              <span>• เฉลี่ย {Math.max(1, Math.round(receiverDurationSec / questions.length))} วิ/ข้อ</span>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="vmx-stat-grid">
@@ -412,7 +462,7 @@ export default function ResultsView({
         </div>
         {writingQs.length > 0 && (
           <div className="vmx-stat-card">
-            <div className="vmx-stat-num" style={{ color: 'var(--clr-plum-text, #7d4a7d)' }}>{writingAttempted}/{writingQs.length}</div>
+            <div className="vmx-stat-num" style={{ color: 'var(--clr-plum-text)' }}>{writingAttempted}/{writingQs.length}</div>
             <div className="vmx-stat-lbl">ข้อเขียน</div>
           </div>
         )}
@@ -638,7 +688,7 @@ function NextPlayPanel({
               padding: '14px 16px',
               borderRadius: 14,
               background: 'var(--clr-surface)',
-              border: '2px solid var(--clr-rose, #a73d4a)',
+              border: '2px solid var(--clr-rose)',
               display: 'flex',
               alignItems: 'center',
               gap: 14,
@@ -658,7 +708,7 @@ function NextPlayPanel({
             <div style={{
               padding: '6px 12px',
               borderRadius: 999,
-              background: 'var(--clr-rose, #a73d4a)',
+              background: 'var(--clr-rose)',
               color: 'var(--clr-rose-on)',
               fontSize: 12,
               fontWeight: 700,
@@ -677,7 +727,7 @@ function NextPlayPanel({
               padding: '14px 16px',
               borderRadius: 14,
               background: 'var(--clr-surface)',
-              border: '2px solid var(--clr-sage, #4a6b4a)',
+              border: '2px solid var(--clr-sage)',
               display: 'flex',
               alignItems: 'center',
               gap: 14,
@@ -697,7 +747,7 @@ function NextPlayPanel({
             <div style={{
               padding: '6px 12px',
               borderRadius: 999,
-              background: 'var(--clr-sage, #4a6b4a)',
+              background: 'var(--clr-sage)',
               color: 'var(--clr-sage-on)',
               fontSize: 12,
               fontWeight: 700,
@@ -854,9 +904,9 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
       padding: '12px 14px',
       borderRadius: 12,
       background: 'rgba(184, 137, 64, 0.06)',
-      border: '1px dashed var(--clr-gold, #b88940)',
+      border: '1px dashed var(--clr-gold)',
     }}>
-      <div className="vmx-kicker" style={{ color: 'var(--clr-gold-text, #b88940)', marginBottom: 8 }}>
+      <div className="vmx-kicker" style={{ color: 'var(--clr-gold-text)', marginBottom: 8 }}>
         ต่อจากนี้แนะนำ
       </div>
       <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -908,7 +958,7 @@ function ShareQuizButton({ questions }) {
       title="แชร์ชุดโจทย์นี้ให้เพื่อน — เปิดลิงก์แล้วได้ข้อเดียวกัน เรียงเดียวกัน"
     >
       แชร์ชุดนี้
-      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text, #4a6b4a)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text)' }}>{hint}</span>}
     </button>
   );
 }
@@ -974,7 +1024,7 @@ function ChallengeQuizButton({ questions, label = 'ท้าเพื่อน�
       title="แชร์ลิงก์ชุดโจทย์ + ข้อความท้าทาย — เพื่อนเปิดลิงก์แล้วทำชุดเดียวกัน"
     >
       {label}
-      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text, #4a6b4a)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text)' }}>{hint}</span>}
     </button>
   );
 }
@@ -1025,7 +1075,7 @@ function SendToGroupButton({ questions, score, senderTimeSec }) {
       title="ส่งลิงก์ชุดโจทย์เข้ากลุ่ม LINE / IG / chat"
     >
       ส่งเข้ากลุ่ม
-      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text, #4a6b4a)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text)' }}>{hint}</span>}
     </button>
   );
 }
@@ -1112,7 +1162,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
               {s.correct}/{s.total}, เวลา {fmtTimeSec(sender.senderTimeSec)}
-              {fasterSender && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-gold-text, #b88940)' }}>เร็วกว่า</span>}
+              {fasterSender && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-gold-text)' }}>เร็วกว่า</span>}
             </div>
           </div>
           <div>
@@ -1121,7 +1171,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
               {r.correct}/{r.total}, เวลา {fmtTimeSec(receiverTimeSec)}
-              {fasterReceiver && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-sage-text, #4a6b4a)' }}>เร็วกว่า</span>}
+              {fasterReceiver && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-sage-text)' }}>เร็วกว่า</span>}
             </div>
           </div>
         </div>
