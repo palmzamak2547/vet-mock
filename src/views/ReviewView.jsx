@@ -10,6 +10,7 @@ import { MatchReview } from '../components/AnswerReveal.jsx';
 import BackBar from '../components/BackBar.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import { copyShareUrl } from '../lib/share-link.js';
+import NavIcon from '../components/NavIcon.jsx';
 
 // Annotator is heavy (canvas + image processing) and only mounts on
 // demand — lazy so the review view stays light.
@@ -58,12 +59,12 @@ function ReviewNoteEditor({ qId, noteText, setNote }) {
   };
 
   return (
-    <div className="vmx-note-panel" style={{ marginTop: 14, padding: 12, borderRadius: 10, background: 'var(--clr-surface-2, #f5f0eb)', border: '1px solid var(--clr-border)' }}>
+    <div className="vmx-note-panel" style={{ marginTop: 14, padding: 12, borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4, flexWrap: 'wrap', gap: 6 }}>
         <label htmlFor={textareaId} style={{ fontWeight: 600, fontSize: 13, color: 'var(--clr-ink)' }}>
           บันทึกส่วนตัว
         </label>
-        <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }} aria-live="polite">
+        <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink-soft)' }} aria-live="polite">
           {currentText.length}/500
         </span>
       </div>
@@ -88,7 +89,7 @@ function ReviewNoteEditor({ qId, noteText, setNote }) {
           fontSize: 13,
           lineHeight: 1.5,
           resize: 'vertical',
-          background: 'var(--clr-bg, #fff)',
+          background: 'var(--clr-bg)',
           color: 'var(--clr-ink)',
         }}
       />
@@ -101,7 +102,7 @@ function ReviewNoteEditor({ qId, noteText, setNote }) {
                 type="button"
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"
                 onClick={handleClear}
-                style={{ color: 'var(--clr-rose-text, #d9534f)', minHeight: 28, padding: '2px 8px', fontSize: 12 }}
+                style={{ color: 'var(--clr-rose-text)', minHeight: 28, padding: '2px 8px', fontSize: 12 }}
               >
                 ยืนยันลบ
               </button>
@@ -209,13 +210,13 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
   const visible = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
 
   const tabs = [
-    { id: 'all',        label: 'ทั้งหมด',  icon: '📋', color: 'var(--clr-ink)' },
-    { id: 'wrong',      label: 'ผิด',      icon: '✗',  color: 'var(--clr-rose-text)' },
-    { id: 'correct',    label: 'ถูก',      icon: '✓',  color: 'var(--clr-sage-text)' },
-    { id: 'self',       label: 'ประเมินเอง', icon: '✎', color: 'var(--clr-gold-text)' },
-    { id: 'skipped',    label: 'ข้าม',     icon: '⏭', color: 'var(--clr-ink-soft)' },
-    { id: 'bookmarked', label: 'บันทึกไว้', icon: '★',  color: 'var(--clr-gold-text)' },
-    { id: 'noted',      label: 'มีโน้ต',   icon: '📝', color: 'var(--clr-plum-text, #7d4a7d)' },
+    { id: 'all',        label: 'ทั้งหมด',    iconName: 'practice', color: 'var(--clr-ink)' },
+    { id: 'wrong',      label: 'ผิด',        iconName: 'close',    color: 'var(--clr-rose-text)' },
+    { id: 'correct',    label: 'ถูก',        iconName: 'check',    color: 'var(--clr-sage-text)' },
+    { id: 'self',       label: 'ประเมินเอง', iconName: 'pen',      color: 'var(--clr-gold-text)' },
+    { id: 'skipped',    label: 'ข้าม',       iconName: 'repeat',   color: 'var(--clr-ink-soft)' },
+    { id: 'bookmarked', label: 'บันทึกไว้',   iconName: 'bookmark', color: 'var(--clr-gold-text)' },
+    { id: 'noted',      label: 'มีโน้ต',     iconName: 'note',     color: 'var(--clr-plum-text)' },
   ];
 
   return (
@@ -268,11 +269,12 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                   boxSizing: 'border-box',
                 }}
               >
-                <span>{t.icon}</span>
+                <NavIcon name={t.iconName} size={13} />
                 <span>{t.label}</span>
                 <span style={{
                   fontSize: 11,
                   fontFamily: 'var(--vmx-mono)',
+                  fontVariantNumeric: 'tabular-nums',
                   padding: '1px 6px',
                   borderRadius: 999,
                   background: active ? 'rgba(255,255,255,0.25)' : 'var(--clr-surface-2)',
@@ -366,27 +368,31 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                     title="ข้อนี้มีโน้ตของคุณ — เลื่อนลงไปดู"
                     style={{
                       fontSize: 11,
-                      padding: '2px 7px',
+                      padding: '2px 8px',
                       borderRadius: 999,
-                      background: 'rgba(125, 74, 125, 0.15)',
-                      color: 'var(--clr-plum-text, #7d4a7d)',
-                      border: '1px solid var(--clr-plum, #7d4a7d)',
+                      background: 'color-mix(in srgb, var(--clr-plum) 15%, transparent)',
+                      color: 'var(--clr-plum-text)',
+                      border: '1px solid var(--clr-plum)',
                       fontWeight: 600,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 4,
                     }}
                   >
-                    มีโน้ต
+                    <NavIcon name="note" size={11} />
+                    <span>มีโน้ต</span>
                   </span>
                 )}
                 <button className={`vmx-bookmark-btn ${bookmarks.includes(q.id) ? 'active' : ''}`}
                   type="button"
-                  style={{ position: 'static' }}
+                  style={{ position: 'static', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
                   aria-label={bookmarks.includes(q.id) ? 'ยกเลิกบันทึกข้อนี้' : 'บันทึกข้อนี้ไว้ทบทวน'}
                   aria-pressed={bookmarks.includes(q.id)}
                   onClick={() => toggleBookmark(q.id)}>
-                  {bookmarks.includes(q.id) ? '★' : '☆'}
+                  <NavIcon name="star" size={16} filled={bookmarks.includes(q.id)} />
                 </button>
                 <span className={`vmx-review-result ${correct ? 'ok' : (outcome === 'self' || isPartial ? '' : 'no')}`}
-                  style={outcome === 'self' ? { background: 'rgba(184, 137, 64, 0.15)', color: 'var(--clr-gold-text)' } : isPartial ? { background: 'rgba(184,137,64,.15)', color: 'var(--clr-gold-text)' } : undefined}>
+                  style={outcome === 'self' ? { background: 'var(--clr-gold-soft)', color: 'var(--clr-gold-text)' } : isPartial ? { background: 'var(--clr-gold-soft)', color: 'var(--clr-gold-text)' } : undefined}>
                   {!answered ? 'ข้าม' : outcome === 'self' ? 'ประเมินเอง' : (correct ? '✓ ถูก' : (isPartial ? `◐ ${ms.correct}/${ms.total}` : '✗ ผิด'))}
                 </span>
               </div>
@@ -448,16 +454,16 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                   )}
                 </div>
                 {q.model_answer && (
-                  <div style={{ marginBottom: 6, padding: 10, borderRadius: 8, background: 'rgba(74, 107, 74, 0.08)', border: '1px solid var(--clr-sage)' }}>
-                    <div style={{ fontSize: 12, color: 'var(--clr-sage-text)', marginBottom: 4, fontWeight: 600 }}>คำตอบตัวอย่างจากเฉลย</div>
+                  <div style={{ marginBottom: 6, padding: '10px 14px', borderRadius: 8, background: 'var(--clr-sage-soft)', border: '1px solid color-mix(in srgb, var(--clr-sage) 35%, transparent)' }}>
+                    <div style={{ fontSize: 12, color: 'var(--clr-sage-text)', marginBottom: 4, fontWeight: 700 }}>คำตอบตัวอย่างจากเฉลย</div>
                     <div style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>
                       <RichText text={q.model_answer} />
                     </div>
                   </div>
                 )}
                 {q.rubric && (
-                  <div style={{ marginBottom: 6, padding: 10, borderRadius: 8, background: 'rgba(184, 137, 64, 0.08)', border: '1px solid var(--clr-gold)' }}>
-                    <div style={{ fontSize: 12, color: 'var(--clr-gold-text)', marginBottom: 4, fontWeight: 600 }}>เกณฑ์ให้คะแนน</div>
+                  <div style={{ marginBottom: 6, padding: '10px 14px', borderRadius: 8, background: 'var(--clr-gold-soft)', border: '1px solid color-mix(in srgb, var(--clr-gold) 35%, transparent)' }}>
+                    <div style={{ fontSize: 12, color: 'var(--clr-gold-text)', marginBottom: 4, fontWeight: 700 }}>เกณฑ์ให้คะแนน</div>
                     <div style={{ fontSize: 12, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>
                       <RichText text={q.rubric} />
                     </div>
@@ -471,8 +477,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               <MatchReview q={q} userAns={userAns} answered={answered} />
             ) : (
               <>
-                <div className="vmx-review-ans"><span className="k">คำตอบของคุณ:</span>{userDisplay}</div>
-                {!correct && <div className="vmx-review-ans correct-ans"><span className="k">เฉลย:</span>{correctDisplay}</div>}
+                <div className={`vmx-review-ans ${correct ? 'correct-ans' : 'wrong-ans'}`}><span className="k">{correct ? 'คำตอบของคุณ (ถูกต้อง):' : 'คำตอบของคุณ:'}</span>{userDisplay}</div>
+                {!correct && <div className="vmx-review-ans correct-ans"><span className="k">เกณฑ์วินิจฉัยจริง (เฉลย):</span>{correctDisplay}</div>}
               </>
             )}
             {q.explain && q.type !== 'match' && <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichText text={q.explain} /></div>}
