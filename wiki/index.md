@@ -55,5 +55,8 @@ lastReviewed: 2026-07-23
 ## 🛠️ ปฏิบัติการและการทดสอบ (Operations & Testing)
 - [Testing & CI Quality Gates](./operations/testing-and-ci.md) - คำสั่งทดสอบระบบ, สคริปต์ Lint และ CI Validation
 
+## 📖 ตำราอ้างอิง (Reference Texts)
+- [Ettinger's Textbook of Veterinary Internal Medicine](./reference/ettingers-textbook-of-veterinary-internal-medicine.md)
+
 ## 📚 คู่มือการดำเนินงาน (Guides)
 - [Content Pipeline Guide](./guides/content-pipeline.md) - ขั้นตอนการจัดทำสรุปวิดีโอและกระบวนการนำเข้าข้อสอบ
