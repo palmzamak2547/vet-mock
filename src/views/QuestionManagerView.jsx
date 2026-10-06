@@ -1,6 +1,6 @@
 import Mochi from '../components/Mochi.jsx';
 import NavIcon from '../components/NavIcon.jsx';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { SUBJECTS } from '../data/questions.js';
 import { yearForSubject } from '../data/curriculum.js';
 import { downloadJSON } from '../hooks/utils.js';
@@ -12,6 +12,8 @@ import { EMPTY_ART } from '../data/art.js';
 import EmptyState from '../components/EmptyState.jsx';
 
 export default function QuestionManagerView({ customQuestions, setCustomQuestions, appendQuestions, goHome }) {
+  const mountedRef = useRef(true);
+  useEffect(() => { mountedRef.current = true; return () => { mountedRef.current = false; }; }, []);
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [formData, setFormData] = useState(initForm());
@@ -58,7 +60,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
   const bulkDelete = async () => {
     const n = selectedIds.size;
     if (n === 0) return;
-    if (!(await confirmDialog({ title: `ลบ ${n} ข้อ?`, note: 'ลบแล้วกู้คืนไม่ได้', confirmLabel: 'ลบ', tone: 'danger' }))) return;
+    if (!(await confirmDialog({ title: `ลบ ${n} ข้อ?`, note: 'ลบแล้วกู้คืนไม่ได้', confirmLabel: 'ลบ', tone: 'danger' })) || !mountedRef.current) return;
     setCustomQuestions((prev) => prev.filter((q) => !selectedIds.has(q.id)));
     clearSelection();
   };
@@ -72,7 +74,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
       maxLength: 30,
       confirmLabel: 'เพิ่ม tag',
     });
-    if (raw == null) return;
+    if (raw == null || !mountedRef.current) return;
     const tag = raw.trim();
     if (!tag) { alertDialog('tag ว่างไม่ได้'); return; }
     if (tag.length >= 30) { alertDialog('tag ยาวเกินไป (< 30 ตัวอักษร)'); return; }
@@ -172,7 +174,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
   };
 
   const deleteQ = async (id) => {
-    if (await confirmDialog({ title: 'ลบข้อนี้?', confirmLabel: 'ลบ', tone: 'danger' })) setCustomQuestions((prev) => prev.filter((q) => q.id !== id));
+    if (await confirmDialog({ title: 'ลบข้อนี้?', confirmLabel: 'ลบ', tone: 'danger' }) && mountedRef.current) setCustomQuestions((prev) => prev.filter((q) => q.id !== id));
   };
 
   const exportCustom = () => downloadJSON(customQuestions, `custom-questions-${Date.now()}.json`);
@@ -187,6 +189,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
     }
     const reader = new FileReader();
     reader.onload = async (ev) => {
+      if (!mountedRef.current) return;
       try {
         const data = JSON.parse(ev.target.result);
         if (!Array.isArray(data)) throw new Error('top-level is not an array');
@@ -218,7 +221,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
           : `นำเข้า ${valid.length}/${data.length} ข้อ (ข้าม ${skipped} ข้อที่ไม่ครบ)\n\nสาเหตุที่ข้าม:\n` +
             Object.entries(invalidReasons).map(([r, n]) => `• ${n} ข้อ: ${r}`).join('\n');
 
-        if (await confirmDialog({ title: summary.split('\n')[0], body: summary.split('\n').slice(1).join('\n').trim(), confirmLabel: 'นำเข้า' })) {
+        if (await confirmDialog({ title: summary.split('\n')[0], body: summary.split('\n').slice(1).join('\n').trim(), confirmLabel: 'นำเข้า' }) && mountedRef.current) {
           // Always reassign IDs so importing the same file twice doesn't
           // duplicate IDs (was a silent bug — IDs collided with QB and the
           // app would render whichever came first in the array).
@@ -228,11 +231,13 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
         e.target.value = '';
       } catch (err) {
         e.target.value = '';
+        if (!mountedRef.current) return;
         alertDialog(thaiError(err, 'อ่านข้อสอบจากไฟล์นี้ไม่ได้ กรุณาเลือกไฟล์ JSON ที่ส่งออกจาก VetMock'));
       }
     };
     reader.onerror = () => {
       e.target.value = '';
+      if (!mountedRef.current) return;
       alertDialog('อ่านไฟล์ไม่สำเร็จ กรุณาลองเลือกไฟล์อีกครั้ง');
     };
     reader.readAsText(file);

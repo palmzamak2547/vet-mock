@@ -196,13 +196,20 @@ test.describe('connected study experience', () => {
     // student picked, so asking for these topics under กลางภาค was asking to
     // see a subject on a paper it is not on.
     await page.getByRole('button', { name: /เทอม 1 ปลายภาค/ }).click();
-    const headerContextBox = await page.locator('.vmx-header-context').boundingBox();
-    const headerToolsBox = await page.locator('.vmx-header-right').boundingBox();
+    const epidemiology = page.locator('.vmx-subject-card').filter({ hasText: /ระบาดวิทยา/ }).first();
+    await expect(epidemiology).toBeVisible({ timeout: 15_000 });
+    // Home must commit before measuring; both boxes belong to the same frame.
+    const [headerContextBox, headerToolsBox] = await page.locator('.vmx-header').evaluate(header =>
+      ['.vmx-header-context', '.vmx-header-right'].map(selector => {
+        const nodes = header.querySelectorAll(selector);
+        if (nodes.length !== 1) return null;
+        const rect = nodes[0].getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0 && getComputedStyle(nodes[0]).visibility === 'visible'
+          ? { y: rect.y } : null;
+      }));
     expect(headerContextBox).not.toBeNull();
     expect(headerToolsBox).not.toBeNull();
     expect(Math.abs(headerContextBox.y - headerToolsBox.y)).toBeLessThan(6);
-    const epidemiology = page.locator('.vmx-subject-card').filter({ hasText: /ระบาดวิทยา/ }).first();
-    await expect(epidemiology).toBeVisible({ timeout: 15_000 });
     const epidemiologyBox = await epidemiology.boundingBox();
     expect(epidemiologyBox.y).toBeLessThan(650);
     await expect(page.locator('.vmx-tools-fab')).not.toBeVisible();

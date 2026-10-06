@@ -118,6 +118,26 @@ test('a rejected storage write retains the editable draft', () => {
   assert.match(alerts.at(-1), /พื้นที่จัดเก็บเต็ม/);
 });
 
+test('a retired question import cannot append or show a late read error', async () => {
+  const state = setup([]);
+  const previousReader = globalThis.FileReader;
+  let reader, approve;
+  globalThis.FileReader = class { constructor() { reader = this; } readAsText() {} };
+  confirmation = () => new Promise(resolve => { approve = resolve; });
+  try {
+    findAll(state.view.tree, n => n.props.type === 'file')[0].props.onChange({
+      target: { files: [{ size: 20 }], value: 'questions.json' },
+    });
+    const pending = reader.onload({ target: { result: JSON.stringify([fixture()]) } });
+    state.view.unmount();
+    approve(true);
+    await pending;
+    assert.equal(state.questions.length, 0, 'confirmation from a retired view cannot admit a write');
+    reader.onerror();
+    assert.equal(alerts.length, 0, 'a retired reader cannot show an error in the new view');
+  } finally { globalThis.FileReader = previousReader; }
+});
+
 test('editing can clear matching distractors while keeping unedited shuffle metadata', () => {
   const original = fixture({ type: 'match', pairs: [{ left: 'A', right: 'B' }], distractors: ['C'], shuffle: false });
   const state = setup([original]);
