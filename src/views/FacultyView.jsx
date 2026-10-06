@@ -310,7 +310,7 @@ export default function FacultyView({ goHome }) {
       {filtered.length === 0 ? (
         <div className="vmx-empty">ไม่พบอาจารย์ที่ตรงกับ "{filter}"</div>
       ) : (
-        <div className="vmx-fac-grid">
+        <div className="vmx-fac-grid" style={{ display: 'grid' }}>
           {filtered.map((ins) => (
             <FacultyCard
               key={ins.slug}
