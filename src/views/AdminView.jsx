@@ -35,7 +35,7 @@ const RANGES = [[7, '7 วัน'], [30, '30 วัน'], [90, '90 วัน'], 
 const rangeName = (days) => RANGES.find(([d]) => d === days)?.[1] || '';
 const SECTIONS = [
   ['overview', 'ภาพรวม'], ['questions', 'โจทย์'], ['subjects', 'วิชา'], ['people', 'คน'], ['exams', 'ชุดสอบ'],
-  ['content', 'คลัง'], ['community', 'ชุมชน'], ['errors', 'ข้อผิดพลาด'], ['notes', 'บันทึก'], ['database', 'ฐานข้อมูล'], ['releases', 'เวอร์ชัน'],
+  ['content', 'คลัง'], ['community', 'ชุมชน'], ['feedback', 'ระบบแจ้งปัญหา'], ['errors', 'ข้อผิดพลาด'], ['notes', 'บันทึก'], ['database', 'ฐานข้อมูล'], ['releases', 'เวอร์ชัน'],
 ];
 const KIND_LABEL = { feature: 'ฟีเจอร์', add: 'เพิ่ม', fix: 'แก้บั๊ก', content: 'เนื้อหา', change: 'ปรับ' };
 const KIND_TONE = { feature: 'info', add: 'info', fix: 'warn', content: 'good', change: 'good' };
@@ -357,6 +357,12 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
   const [openQ, setOpenQ] = useState(null);
   const [openU, setOpenU] = useState(null);
   const [tick, setTick] = useState(0);
+  // Feedback usage lives outside the Promise.all above on purpose: it is a
+  // newer RPC than the rest of the page, so until its migration lands on the
+  // database a missing function would fail the whole load. Its own fetch
+  // fails alone, into its own note, and the page keeps its numbers.
+  const [fb, setFb] = useState(null);
+  const [fbErr, setFbErr] = useState(null);
 
   useEffect(() => {
     if (!hasSupabase) return undefined;
@@ -389,6 +395,15 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
     }).catch((e) => { if (alive) { setErr({ range, error: e }); if (isForbidden(e)) setGate('denied'); } });
     return () => { alive = false; };
   }, [gate, range, tick]);
+
+  useEffect(() => {
+    if (gate !== 'ok') return undefined;
+    let alive = true;
+    adminRpc('admin_feedback_usage')
+      .then((usage) => { if (alive) { setFb(usage); setFbErr(null); } })
+      .catch((e) => { if (alive) setFbErr(e); });
+    return () => { alive = false; };
+  }, [gate, tick]);
 
   const bank = useBank(gate === 'ok');
 
@@ -458,6 +473,41 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
           <section className="ad-card">
             <div className="ad-card-head"><h2>ข้อที่ตอบต่อวัน</h2><p>ทุกคนรวมกัน เอาเมาส์วางเพื่อดูวันนั้น</p></div>
             <DailyChart daily={o.daily} days={data.range} />
+          </section>
+
+          <section id="ad-feedback" className="ad-card">
+            <div className="ad-card-head">
+              <h2>ระบบแจ้งปัญหา</h2>
+              <p>ตัวเลขสะสมจากหน้าแจ้งปัญหา ธงบนข้อสอบ และกล่อง VetWiki — นับทุกความพยายามส่ง แต่ตารางไม่เก็บเนื้อความข้อความ มีแต่ชนิด ผลลัพธ์ และ fingerprint สำหรับนับไม่ซ้ำ</p>
+            </div>
+            {fbErr ? (
+              <div className="ad-empty">
+                ยังอ่านตัวเลขนี้ไม่ได้ ({fbErr.message})
+                {/404|pgrst202|not found/i.test(String(fbErr.code || fbErr.message)) ? ' — ฐานข้อมูลยังไม่มีฟังก์ชัน admin_feedback_usage ต้องรัน migration feedback_usage_log ก่อน' : ''}
+              </div>
+            ) : !fb ? (
+              <div className="ad-skeleton" style={{ width: '55%' }} />
+            ) : (
+              <>
+                <div className="ad-kpis">
+                  <Kpi label="ส่งสำเร็จสะสม" value={n(fb.sent_total)} sub={`จากความพยายามทั้งหมด ${n(fb.attempts_total)} ครั้ง`} focus />
+                  <Kpi label="7 วันล่าสุด" value={n(fb.sent_last_7_days)} sub={`30 วันล่าสุด ${n(fb.sent_last_30_days)} ครั้ง`} />
+                  <Kpi label="ผู้รายงานไม่ซ้ำ" value={n(fb.unique_reporters)} sub="นับจากอีเมลที่ใส่มา" />
+                  <Kpi label="เครื่องไม่ซ้ำ" value={n(fb.unique_devices)} sub="ประมาณการจาก fingerprint ของผู้ส่ง" />
+                  <Kpi label="โดนจำกัด" value={n(fb.capped_total)} sub="ความพยายามที่โควตาไม่ยอม" />
+                </div>
+                {Object.keys(fb.sent_by_type || {}).length > 0 && (
+                  <p className="ad-muted" style={{ marginTop: 10 }}>
+                    ส่งสำเร็จตามชนิด: {Object.entries(fb.sent_by_type).map(([type, cnt]) => `${type} ${n(cnt)}`).join(', ')}
+                  </p>
+                )}
+                {(fb.recent || []).length > 0 && (
+                  <p className="ad-muted" style={{ marginTop: 6 }}>
+                    ล่าสุด: {fb.recent.map((r) => `${r.at} ${r.type} (${r.outcome})`).slice(0, 8).join(', ')}
+                  </p>
+                )}
+              </>
+            )}
           </section>
 
           <section id="ad-questions" className="ad-card">

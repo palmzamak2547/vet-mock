@@ -5,15 +5,19 @@
 // Env vars required (set in Vercel Dashboard → Settings → Env):
 //   RESEND_API_KEY = re_xxxxxxxxxxxxx
 //   FEEDBACK_EMAIL = palmzamak2547@gmail.com
+//   SUPABASE_SERVICE_ROLE_KEY (+ SUPABASE_URL) — optional, enables the
+//     usage counter the back-office reads (api/_lib/feedback-usage.js)
 //
 // Security:
 //   • Rate-limited: 3 requests per 10 minutes per IP
 //   • CORS: only known origins (vetmock.vercel.app + previews + localhost)
 //   • Input length capped (subject 200, message 5000 chars)
 //   • All HTML output escaped via escapeHtml()
+//   • The usage log stores counts and fingerprints only, never the message
 // ============================================================
 
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { feedbackUsageRow, logFeedbackUsage } from './_lib/feedback-usage.js';
 
 const MAX_SUBJECT = 200;
 const MAX_MESSAGE = 5000;
@@ -55,7 +59,10 @@ export default async function handler(req, res) {
   // ── Rate limit: 3 / 10 minutes / IP ──
   const ip = clientIP(req);
   const rl = await rateLimit(`feedback:${ip}`, 3, 10 * 60 * 1000);
-  if (!rl.ok) return sendRateLimitFailure(res, rl);
+  if (!rl.ok) {
+    await logFeedbackUsage(feedbackUsageRow({ type: req.body?.type, ip }, 'capped_burst'));
+    return sendRateLimitFailure(res, rl);
+  }
 
   try {
     const body = req.body || {};
@@ -94,6 +101,7 @@ export default async function handler(req, res) {
     if (providerBudget.unavailable) return sendRateLimitFailure(res, providerBudget);
     if (!providerBudget.ok) {
       res.setHeader('Retry-After', String(providerBudget.retryAfter));
+      await logFeedbackUsage(feedbackUsageRow({ type, ip }, 'capped_daily'));
       // Distinct from the per-IP 3-per-10-minutes limit above: this one is
       // platform-wide, so telling the sender to wait ten minutes is wrong.
       return res.status(429).json({ error: 'Daily feedback capacity reached', reason: 'daily_cap', retryAfter: providerBudget.retryAfter });
@@ -147,6 +155,7 @@ Sent from VetMock · ${new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bang
     if (!resp.ok) {
       const errText = await resp.text();
       console.error('Resend error:', resp.status, errText);
+      await logFeedbackUsage(feedbackUsageRow({ type, fromEmail, ip }, 'mailer_error'));
       // Surface Resend's error so client can show diagnostic
       let detail = '';
       try {
@@ -163,6 +172,7 @@ Sent from VetMock · ${new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bang
       });
     }
     const data = await resp.json();
+    await logFeedbackUsage(feedbackUsageRow({ type, fromEmail, ip }, 'sent'));
     return res.status(200).json({ ok: true, id: data.id });
   } catch (err) {
     console.error('Handler error:', err);
