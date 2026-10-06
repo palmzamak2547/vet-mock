@@ -23,6 +23,7 @@ import ImageAnnotator from '../components/ImageAnnotator.jsx';
 import TemplateLibrary from '../components/TemplateLibrary.jsx';
 import { saveNoteRetryTarget } from '../lib/note-retry.js';
 import { recordQuestEvent, todayKey } from '../lib/quests.js';
+import NavIcon from '../components/NavIcon.jsx';
 
 // One topic can only count once a day towards the reading quests, so
 // re-opening the same page cannot tick the counter three times. The day is
@@ -394,7 +395,10 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
             );
           })}
           <div className="vmx-btn-row" style={{ marginTop: 12, flexDirection: 'column' }}>
-            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => window.print()} style={{ justifyContent: 'center' }}>🖨 พิมพ์</button>
+            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => window.print()} style={{ justifyContent: 'center', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              <NavIcon name="files" size={14} />
+              <span>พิมพ์</span>
+            </button>
             {goBack && <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goBack} style={{ justifyContent: 'center' }}>← ย้อนกลับ</button>}
             <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goHome} style={{ justifyContent: 'center' }}>หน้าแรก</button>
           </div>
@@ -402,7 +406,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
 
         {/* Main content */}
         <div ref={mainRef}>
-          <div style={{ marginBottom: 16, padding: 16, borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)' }}>
+          <div style={{ marginBottom: 16, padding: 16, borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', boxShadow: 'var(--shadow-sm)' }}>
             <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
               {topic.lecturer ? `หัวข้อ — ผู้สอน ${topic.lecturer}` : 'หัวข้อ'}
             </div>
@@ -410,8 +414,19 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
               {topic.icon} {topic.title}
             </h2>
             {topic.summary && (
-              <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6, marginBottom: 12 }}>
-                💡 <strong>สรุปสั้น —</strong> {topic.summary}
+              <div style={{
+                fontSize: 13,
+                color: 'var(--clr-ink)',
+                lineHeight: 1.6,
+                marginBottom: 12,
+                padding: '10px 14px',
+                borderRadius: 8,
+                background: 'var(--clr-surface-2)',
+                border: '1px solid var(--clr-border)',
+                borderLeft: '3px solid var(--clr-gold)',
+              }}>
+                <span style={{ fontWeight: 700, color: 'var(--clr-gold-text)', marginRight: 6 }}>สรุปสั้น:</span>
+                {topic.summary}
               </div>
             )}
             {/* Cross-link to the governed VetWiki version — only for topics
@@ -422,9 +437,10 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                 className="vmx-chip"
                 onClick={() => onOpenWiki(subject, validTopic)}
                 title="ดูหัวข้อนี้แบบบอกที่มาได้ทุกส่วน"
-                style={{ marginBottom: 10, cursor: 'pointer' }}
+                style={{ marginBottom: 10, cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6 }}
               >
-                🧬 ดูฉบับตรวจสอบได้ใน VetWiki
+                <NavIcon name="wiki" size={14} />
+                <span>ดูฉบับตรวจสอบได้ใน VetWiki</span>
               </button>
             )}
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
@@ -432,10 +448,11 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                 type="button"
                 onClick={() => setShowTemplateLibrary(true)}
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-                style={{ minHeight: 44 }}
+                style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', gap: 6 }}
                 title="เปิดแบบฝึกวาดโครงกระดูก ECG ทันตกรรม และผลตรวจ"
               >
-                🩻 วาดบนแบบฝึก
+                <NavIcon name="pen" size={14} />
+                <span>วาดบนแบบฝึก</span>
               </button>
             </div>
             <input
@@ -506,7 +523,7 @@ const SectionBlock = memo(function SectionBlock({ section, number, highlight, co
   const hasConflict = conflicts.length > 0;
 
   return (
-    <div style={{ marginBottom: 16, borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', overflow: 'hidden' }}>
+    <div style={{ marginBottom: 16, borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', boxShadow: 'var(--shadow-sm)', overflow: 'hidden' }}>
       {/* The ARIA accordion pattern: the heading WRAPS the button. These
           section titles were styled divs inside the button, so they looked like
           headings but a screen reader could not jump between them the way it
@@ -520,7 +537,7 @@ const SectionBlock = memo(function SectionBlock({ section, number, highlight, co
         style={{ all: 'unset', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', width: '100%', boxSizing: 'border-box', borderBottom: open ? '1px solid var(--clr-border)' : 'none' }}
       >
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>
+          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>
             §{number}
           </div>
           <div style={{ fontFamily: 'var(--vmx-display)', fontSize: 17, fontWeight: 600, lineHeight: 1.3 }}>
