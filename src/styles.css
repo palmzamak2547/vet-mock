@@ -1544,8 +1544,8 @@ html, body {
 /* Mode + subject cards are ONE component — the two blocks used to be
    verbatim copies that could (and did) drift. Shared anatomy lives in
    the combined selectors; per-name extras sit below. */
-.vmx-mode-card, .vmx-subject-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-lg); padding: 16px; cursor: pointer; transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast); text-align: left; display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden; color: var(--clr-ink); font-family: inherit; }
-.vmx-mode-card:hover, .vmx-subject-card:hover { border-color: var(--clr-sage); background: var(--clr-surface-2); box-shadow: var(--shadow-sm); }
+.vmx-mode-card, .vmx-subject-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-lg); padding: 16px; cursor: pointer; transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast); text-align: left; display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden; color: var(--clr-ink); font-family: inherit; box-shadow: var(--shadow-sm); }
+.vmx-mode-card:hover, .vmx-subject-card:hover { border-color: var(--clr-sage); background: var(--clr-surface-2); box-shadow: var(--shadow-workbench, var(--shadow-sm)); }
 .vmx-mode-card:disabled { cursor: not-allowed; }
 .vmx-mode-card:disabled:hover { border-color: var(--clr-border); background: var(--clr-surface); }
 .vmx-mode-card .icon, .vmx-subject-card .icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: var(--r-md); background: var(--clr-surface-2); color: var(--clr-sage-text); font-size: 20px; line-height: 1; }
@@ -1598,11 +1598,13 @@ html, body {
   border-radius: var(--r-lg);
   background: var(--clr-surface);
   color: var(--clr-ink);
+  box-shadow: var(--shadow-sm);
   transition: border-color .15s, background .15s, box-shadow .15s;
 }
 .vmx-topic-card:hover {
   border-color: var(--clr-ink);
   background: var(--clr-surface-2);
+  box-shadow: var(--shadow-workbench, var(--shadow-sm));
 }
 .vmx-topic-main {
   position: relative;
@@ -1636,7 +1638,7 @@ html, body {
   height: 22px;
   border-radius: 50%;
   background: var(--clr-sage);
-  color: var(--clr-bg);
+  color: var(--clr-sage-on);
   box-shadow: 0 1px 2px rgba(0,0,0,.1);
   font-size: 12px;
   font-weight: 800;

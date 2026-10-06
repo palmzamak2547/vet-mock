@@ -9,6 +9,7 @@ import { librarySubjectCounts } from '../lib/library.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
 import { takeViewIntent, rememberViewIntent } from '../lib/feature-registry.js';
 import { SUBJECT_MOCHI } from '../data/art.js';
+import NavIcon from '../components/NavIcon.jsx';
 
 export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear, selectedPhase = null, qbReady = true, history = [] }) {
   const allQuestions = [...QB, ...customQuestions];
@@ -155,15 +156,34 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
       </div>
 
       <div style={{ padding: '0 20px', marginBottom: 16 }}>
-        <input
-          type="text"
-          aria-label="ค้นหาวิชา"
-          placeholder="ค้นหาวิชา (ชื่อวิชา, รหัสวิชา)..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="vmx-input"
-          style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1px solid var(--clr-border)', background: 'var(--clr-surface)', fontSize: 16 }}
-        />
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+          <span style={{ position: 'absolute', left: 14, color: 'var(--clr-ink-soft)', display: 'inline-flex', pointerEvents: 'none' }} aria-hidden="true">
+            <NavIcon name="search" size={18} />
+          </span>
+          <input
+            type="text"
+            aria-label="ค้นหาวิชา"
+            placeholder="ค้นหาวิชา (ชื่อวิชา, รหัสวิชา)..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="vmx-input"
+            style={{ width: '100%', padding: '12px 16px 12px 42px', borderRadius: 12, border: '1px solid var(--clr-border)', background: 'var(--clr-surface)', fontSize: 15 }}
+          />
+          {searchQuery && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery('')}
+              aria-label="ล้างการค้นหา"
+              style={{
+                position: 'absolute', right: 12, background: 'none', border: 0,
+                color: 'var(--clr-ink-soft)', cursor: 'pointer', padding: 4, display: 'inline-flex',
+                fontSize: 16, lineHeight: 1,
+              }}
+            >
+              ×
+            </button>
+          )}
+        </div>
       </div>
 
       {visibleSubjects.length === 0 && (
@@ -176,13 +196,12 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
         <div key={group.key}>
           {group.label && (
             <div style={{
-              margin: '20px 20px 8px', display: 'flex', alignItems: 'baseline', gap: 10,
-              fontSize: 13, fontFamily: 'var(--vmx-mono)', letterSpacing: '0.06em',
-              textTransform: 'uppercase', color: 'var(--clr-ink-soft)',
+              margin: '24px 20px 10px', display: 'flex', alignItems: 'baseline', gap: 10,
+              fontSize: 13, color: 'var(--clr-ink-soft)',
             }}>
-              <span>{group.label}</span>
+              <span style={{ fontWeight: 700, color: 'var(--clr-ink)' }}>{group.label}</span>
               <span style={{ flex: 1, height: 1, background: 'var(--clr-border)' }} />
-              <span style={{ fontSize: 11 }}>{group.items.length} วิชา</span>
+              <span style={{ fontSize: 11, fontVariantNumeric: 'tabular-nums' }}>{group.items.length} วิชา</span>
             </div>
           )}
           <div className="vmx-subject-grid">
@@ -304,7 +323,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 return (
                   <div
                     title={`ทำข้อสอบไปแล้ว ${cov.covered}/${cov.total} ข้อ (${cov.pct}%)`}
-                    style={{ marginTop: 6, height: 4, borderRadius: 999, background: 'var(--clr-surface-2)', overflow: 'hidden' }}
+                    style={{ marginTop: 6, height: 4, borderRadius: 999, background: 'var(--clr-surface-2)', overflow: 'hidden', border: '1px solid var(--clr-border)' }}
                   >
                     <div style={{
                       width: `${cov.pct}%`,
@@ -330,13 +349,16 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                     padding: '3px 8px',
                     borderRadius: 999,
                     background: 'var(--clr-surface-2)',
+                    border: '1px solid var(--clr-border)',
                     fontSize: 11,
-                    fontFamily: 'var(--vmx-mono)',
+                    fontVariantNumeric: 'tabular-nums',
                     color: 'var(--clr-ink-soft)',
-                    display: 'inline-block',
-                    letterSpacing: '0.05em',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 5,
                   }}>
-                    📝 {[w, c && `${c} ช้อยส์`].filter(Boolean).join(', ')}
+                    <NavIcon name="pen" size={11} />
+                    <span>{[w, c && `${c} ช้อยส์`].filter(Boolean).join(', ')}</span>
                   </div>
                 );
               })()}
