@@ -47,6 +47,15 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.138.0',
+    date: '2026-10-06',
+    headline: 'VetWiki เปิดบทความแหล่งอ้างอิงใหม่สองหน้า',
+    changes: [
+      { kind: 'content', scope: 'com5', title: 'บทความแนะนำตำรา Ettinger', desc: 'หน้า VetWiki ใหม่แนะนำตำราอายุรศาสตร์สัตว์เล็กที่ใช้อ้างอิงในคำอธิบายข้อสอบ COM พร้อมรูปแบบการเขียนอ้างอิงและตำราอื่นที่จะเติมต่อ' },
+      { kind: 'content', scope: 'multi', title: 'สารบัญมาตรฐานสากล', desc: 'หน้า VetWiki ใหม่รวมเอกสารมาตรฐานที่วิชา One Health, Zoonoses และ Food Safety ยึดใช้ เช่น WOAH Code, มาตรฐานอาหาร Codex และ IHR ของ WHO พร้อมบอกว่าเอกสารไหนใช้กับวิชาไหน' },
+    ],
+  },
+  {
     version: '5.137.1',
     date: '2026-10-06',
     headline: 'ฝึกต่อได้ตรงชุด เก็บข้อมูลที่เลือกไว้ได้แน่นอนขึ้น',

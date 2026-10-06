@@ -891,6 +891,94 @@ export const NOTES_Y5_ONE_HEALTH = {
         ]
       }
     ]
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // เอกสารมาตรฐานสากล — รวบรวมจาก docs/vet-standards/README.md
+  // (editorial layer: wiki/domain/food-safety/vet-standards-reference.md)
+  // ไม่ใช่เนื้อหาเลกเชอร์ ทุก section อ้างเอกสารทางการของแต่ละองค์กร
+  // ─────────────────────────────────────────────────────────────
+  "vet-standards-catalog": {
+    topic: "vet-standards-catalog",
+    title: "Vet Standards Reference — มาตรฐานสากลที่ต้องรู้ (WOAH, Codex, WHO, EAEVE)",
+    icon: "🌐",
+    summary: "เอกสารอ้างอิงทางการที่วิชา One Health, Zoonoses และ Food Safety ยึดใช้ — Terrestrial/Aquatic Code และ Terrestrial Manual ของ WOAH, มาตรฐานอาหารของ Codex, IHR ของ WHO, แผน One Health ร่วม 4 องค์กร และ Day-1 Competencies ของ EAEVE",
+    sections: [
+      {
+        "heading": "WOAH (World Organisation for Animal Health)",
+        "source": "docs/vet-standards/README.md — เอกสารทางการของ WOAH (woah.org)",
+        "body": [
+          { bullets: [
+            '**Terrestrial Animal Health Code** (2024, ปรับปรุงปีละครั้ง) — มาตรฐานการค้าสัตว์และผลิตภัณฑ์สัตว์ปลอดโรค โรคติดต่อจากสัตว์สู่คน และหลัก biosecurity',
+            '**Aquatic Animal Health Code** (2024) — มาตรฐานสำหรับสัตว์น้ำและโรคสัตว์น้ำที่กระทบการค้าและ One Health',
+            '**Manual of Diagnostic Tests and Vaccines for Terrestrial Animals** (2024) — วิธีตรวจวินิจฉัยและวัคซีนมาตรฐานสำหรับโรคสัตว์',
+            '**PVS Pathway** — เครื่องมือประเมินสมรรถนะของ veterinary services ระดับประเทศ',
+          ] },
+        ],
+      },
+      {
+        "heading": "Codex Alimentarius (FAO/WHO)",
+        "source": "docs/vet-standards/README.md — เอกสารทางการของ Codex Alimentarius (fao.org)",
+        "body": [
+          { bullets: [
+            '**General Principles of Food Hygiene (CXC 1-1969)** rev. 2022 — หลักสุขลักษณะอาหารทั่วไปตั้งแต่ production ถึง consumption',
+            '**HACCP Guidelines** (ภาคผนวกของ CXC 1-1969) — ระบบวิเคราะห์อันตรายและจุดวิกฤตที่ใช้ทั้งโรงงานและฟาร์ม',
+            '**MRLs for Veterinary Drugs** — ระดับตกค้างสูงสุดของยาในสัตว์ที่ใช้เป็นอาหาร',
+            '**Code of Practice to Minimize and Contain AMR (CXC 67-2009)** rev. 2022 — แนวปฏิบัติลดการดื้อยาในสัตว์ผลิตอาหาร',
+          ] },
+        ],
+      },
+      {
+        "heading": "WHO (World Health Organization)",
+        "source": "docs/vet-standards/README.md — เอกสารทางการของ WHO (who.int)",
+        "body": [
+          { bullets: [
+            '**International Health Regulations (IHR 2005)** — กฎอนามัยระหว่างประเทศ การรายงานโรคระบาด',
+            '**หน้า One Health ของ WHO** — ภาพรวม One Health, rabies, zoonoses และ foodborne diseases จากมุมสาธารณสุข',
+          ] },
+        ],
+      },
+      {
+        "heading": "One Health — Quadripartite (FAO, UNEP, WHO, WOAH)",
+        "source": "docs/vet-standards/README.md — เอกสารร่วมของ 4 องค์กร (Quadripartite)",
+        "body": [
+          { bullets: [
+            '**One Health Joint Plan of Action (2022–2026)** — แผนปฏิบัติการร่วม 4 องค์กรเรื่อง One Health ระดับโลก',
+            '**One Health Definition (OHHLEP, 2021)** — นิยาม One Health ที่ใช้อ้างอิงอย่างเป็นทางการ',
+          ] },
+        ],
+      },
+      {
+        "heading": "FAO",
+        "source": "docs/vet-standards/README.md — เอกสารทางการของ FAO (fao.org)",
+        "body": [
+          { bullets: [
+            '**Food Safety and Quality resources** — เครื่องมือ food safety ตั้งแต่ฟาร์มถึงโต๊ะอาหาร รวม food control systems',
+          ] },
+        ],
+      },
+      {
+        "heading": "EAEVE",
+        "source": "docs/vet-standards/README.md — เอกสารทางการของ EAEVE (eaeve.net)",
+        "body": [
+          { bullets: [
+            '**Day-1 Competencies** (2019) — สมรรถนะขั้นต่ำของผู้สำเร็จการศึกษาแพทย์สัตว์ในยุโรป (เทียบเคียงหลักสูตรทั่วโลก)',
+          ] },
+        ],
+      },
+      {
+        "heading": "ใช้กับวิชาในหลักสูตร",
+        "source": "การจับคู่เอกสารมาตรฐานกับวิชาในหลักสูตรของ VetMock",
+        "body": [
+          { bullets: [
+            '**One Health** — One Health Joint Plan of Action, OHHLEP Definition, หน้า One Health ของ WHO',
+            '**Zoonoses** — WOAH Terrestrial/Aquatic Codes, WHO IHR (2005), Codex AMR Code of Practice',
+            '**Milk & Meat Hygiene** — Codex General Principles of Food Hygiene, HACCP, MRLs, FAO Food Safety resources',
+            '**มาตรฐาน/การรับรอง** — EAEVE Day-1 Competencies, WOAH PVS Pathway, WOAH Codes',
+          ] },
+        ],
+      },
+    ],
   }
 };
 

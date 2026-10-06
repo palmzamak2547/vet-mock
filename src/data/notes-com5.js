@@ -1142,4 +1142,53 @@ export const NOTES_COM5 = {
       },
     ],
   },
+
+  // ─────────────────────────────────────────────────────────────
+  // ตำราอ้างอิง — ข้อมูลตำราเพื่อการอ้างอิง ไม่ใช่เนื้อหาเลกเชอร์
+  // (editorial layer: wiki/reference/ettingers-textbook-of-veterinary-internal-medicine.md)
+  // ─────────────────────────────────────────────────────────────
+  'reference-textbooks': {
+    topic: 'reference-textbooks',
+    title: "ตำราอ้างอิง — Ettinger's Textbook of Veterinary Internal Medicine",
+    icon: '📕',
+    summary: 'ตำราอายุรศาสตร์สัตว์เล็กมาตรฐานที่ VetMock ใช้อ้างอิงในคำอธิบายข้อสอบ COM/VCA และ clinical reasoning — รู้จักตัวตำรา วิธีอ้างอิง และตำราอื่นในสายสัตวแพทย์ที่วางแผนจะเติม',
+    sections: [
+      {
+        heading: 'ข้อมูลตำรา',
+        source: 'Textbook of Veterinary Internal Medicine, 8th ed. (Elsevier, 2017) — ข้อมูลพิมพ์เขียวของตำรา',
+        body: [
+          { bullets: [
+            '**Textbook of Veterinary Internal Medicine** — ตำราอายุรศาสตร์สัตว์เล็ก (small animal internal medicine) ที่นิยมใช้อ้างอิงมากที่สุดเล่มหนึ่งในวงการสัตวแพทย์',
+            'บรรณาธิการ: **Stephen J. Ettinger, Edward C. Feldman, Étienne Côté**',
+            'สำนักพิมพ์: **Elsevier** (เดิม W.B. Saunders / Saunders Veterinary)',
+            'ฉบับล่าสุดที่อ้างอิงกันบ่อย: **8th edition (2017)** — 2 เล่ม',
+            'เนื้อหา: อายุรศาสตร์สุนัข-แมวเกือบทุกระบบ — ระบบหายใจ หัวใจ ทางเดินอาหาร ตับไต ระบบประสาท ต่อมไร้ท่อ โรคติดเชื้อ ฯลฯ พร้อมอัลกอริทึมการวินิจฉัยและการรักษา',
+          ] },
+        ],
+      },
+      {
+        heading: 'ใช้ใน VetMock อย่างไร',
+        source: 'แนวปฏิบัติการอ้างอิงภายในของ VetMock (ContributeView และคำอธิบายข้อสอบ COM/VCA)',
+        body: [
+          { bullets: [
+            'ใช้เป็นแหล่งอ้างอิงสำหรับ clinical reasoning และ localization rules (เช่น การแยก respiratory pattern ของ upper vs lower airway)',
+            'อ้างอิงใน explanation ของข้อสอบ COM/VCA บางข้อในคลัง',
+            'placeholder ในหน้า Contribute แนะนำการอ้างอิงแบบ **"Ettinger 8th ed., Ch. N"**',
+          ] },
+        ],
+      },
+      {
+        heading: 'ตำราอ้างอิงอื่นในสายสัตวแพทย์',
+        source: 'รายการตำราที่วางแผนจะเติมเป็นแหล่งอ้างอิงใน VetMock',
+        body: [
+          { bullets: [
+            '**Merck Veterinary Manual** — คู่มือโรคสัตว์ออนไลน์มาตรฐาน',
+            '**Nelson & Couto, Small Animal Internal Medicine**',
+            '**Thrall, Textbook of Veterinary Diagnostic Radiology**',
+            '**WSAVA / AAHA guidelines** — มาตรฐานการดูแลสัตว์',
+          ] },
+        ],
+      },
+    ],
+  },
 };

@@ -537,6 +537,15 @@ export const VETWIKI_TOPICS = [
     "flagship": false
   },
   {
+    "id": "com5--reference-textbooks",
+    "subject": "com5",
+    "topic": "reference-textbooks",
+    "title": "ตำราอ้างอิง — Ettinger's Textbook of Veterinary Internal Medicine",
+    "icon": "📕",
+    "summary": "ตำราอายุรศาสตร์สัตว์เล็กมาตรฐานที่ VetMock ใช้อ้างอิงในคำอธิบายข้อสอบ COM/VCA และ clinical reasoning — รู้จักตัวตำรา วิธีอ้างอิง และตำราอื่นในสายสัตวแพทย์ที่วางแผนจะเติม",
+    "flagship": false
+  },
+  {
     "id": "com5--sporo-crypto",
     "subject": "com5",
     "topic": "sporo-crypto",
@@ -1362,6 +1371,15 @@ export const VETWIKI_TOPICS = [
     "title": "บทบาทสัตวแพทย์ใน One Health",
     "icon": "🩺",
     "summary": "เลกเชอร์วันที่ 5 ส.ค. 2569 ว่าด้วยบทบาทของสัตวแพทย์ใน One Health โดยไล่ตาม 8 ประเด็นหลักที่สไลด์วางไว้ ตั้งแต่โรคติดเชื้ออุบัติใหม่ สาธารณสุข ความปลอดภัยอาหาร สัตว์เลี้ยง AMR การก่อการร้ายชีวภาพ มลพิษสิ่งแวดล้อม จนถึงการเปลี่ยนแปลงสภาพภูมิอากาศ ทั้งเลกเชอร์เป็นภาษาอังกฤษ มีตัวเลขอ้างอิงพร้อมแหล่งที่มาแทบทุกสไลด์ และมีแผนปฏิบัติการ AMR ของไทย 2023-2027 เป็นเนื้อหาเฉพาะประเทศไทยชิ้นเดียวในเลกเชอร์นี้",
+    "flagship": false
+  },
+  {
+    "id": "one-health--vet-standards-catalog",
+    "subject": "one-health",
+    "topic": "vet-standards-catalog",
+    "title": "Vet Standards Reference — มาตรฐานสากลที่ต้องรู้ (WOAH, Codex, WHO, EAEVE)",
+    "icon": "🌐",
+    "summary": "เอกสารอ้างอิงทางการที่วิชา One Health, Zoonoses และ Food Safety ยึดใช้ — Terrestrial/Aquatic Code และ Terrestrial Manual ของ WOAH, มาตรฐานอาหารของ Codex, IHR ของ WHO, แผน One Health ร่วม 4 องค์กร และ Day-1 Competencies ของ EAEVE",
     "flagship": false
   },
   {

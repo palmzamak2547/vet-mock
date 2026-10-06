@@ -288,6 +288,19 @@ export const METADATA_SECTIONS = new Set([
   // source could confirm or contradict.
   "vet-neuroanat--neuroanat--visual-vestibular-systems--สไลด์ท้ายเด็ค-strabismus-และ-nystagmus",
 
+  // Reference-catalog metadata, 2026-10-06. How VetMock itself uses a textbook
+  // (citation style, which explanations cite it) and which books are planned
+  // for future coverage are product information, not veterinary science — the
+  // bibliographic facts of the textbook itself are verified in the same
+  // section against the named Elsevier record.
+  "com5--reference-textbooks--ใช้ใน-vetmock-อย่างไร",
+  "com5--reference-textbooks--ตำราอ้างอิงอื่นในสายสัตวแพทย์",
+
+  // The mapping of each standards document onto the curriculum's own subjects
+  // is a local teaching decision, like the past-exam mappings above. The
+  // documents themselves are verified in their per-organisation sections.
+  "one-health--vet-standards-catalog--ใช้กับวิชาในหลักสูตร",
+
 ]);
 
 /** Sections with no body yet. These need CONTENT before they need a source. */

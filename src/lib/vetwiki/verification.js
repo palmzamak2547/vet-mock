@@ -2571,6 +2571,114 @@ const CURATED = {
       ],
     },
   },
+
+  // ---- references catalog, 2026-10-06 -------------------------------------
+  // Document-identity claims only: the work exists, who publishes it, what it
+  // covers. No passage is quoted anywhere, every cited source is a 'named'
+  // well-known reference, and the rationales say exactly that.
+  'com5--reference-textbooks': {
+    'com5--reference-textbooks--ข้อมูลตำรา': {
+      claims: [
+        {
+          id: 'com5--reference-textbooks--ข้อมูลตำรา--bibliographic-record',
+          statement: "Textbook of Veterinary Internal Medicine ฉบับที่ 8 (2017) บรรณาธิการ Stephen J. Ettinger, Edward C. Feldman และ Étienne Côté จัดพิมพ์โดย Elsevier เป็นตำราอายุรศาสตร์สัตว์เล็กจัดพิมพ์เป็น 2 เล่ม ครอบคลุมอายุรศาสตร์สุนัข-แมวเกือบทุกระบบ",
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [{ sourceId: 'ettinger-tvim-8-2017', kind: 'textbook' }],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: "Bibliographic record (editors, edition, publisher, two-volume scope) of the named well-known textbook — no passage quoted." },
+        },
+      ],
+    },
+  },
+  'one-health--vet-standards-catalog': {
+    'one-health--vet-standards-catalog--woah-world-organisation-for-animal-health': {
+      claims: [
+        {
+          id: 'one-health--vet-standards-catalog--woah-world-organisation-for-animal-health--document-identity',
+          statement: 'WOAH จัดทำ Terrestrial Animal Health Code (ปรับปรุงปีละครั้ง), Aquatic Animal Health Code และ Manual of Diagnostic Tests and Vaccines for Terrestrial Animals เป็นมาตรฐานการค้าสัตว์ การควบคุมโรคติดต่อ และวิธีวินิจฉัย/วัคซีนมาตรฐาน พร้อมเครื่องมือ PVS Pathway สำหรับประเมิน veterinary services ระดับประเทศ',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [
+            { sourceId: 'guide-world-organisation-for-2024', kind: 'guideline' },
+            { sourceId: 'woah-aquatic-code-2024', kind: 'guideline' },
+            { sourceId: 'woah-terrestrial-manual-2024', kind: 'guideline' },
+            { sourceId: 'woah-pvs-pathway', kind: 'guideline' },
+          ],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Document identity and scope of the WOAH codes, manual and PVS Pathway against the named official sources — no passage quoted.' },
+        },
+      ],
+    },
+    'one-health--vet-standards-catalog--codex-alimentarius-fao-who': {
+      claims: [
+        {
+          id: 'one-health--vet-standards-catalog--codex-alimentarius-fao-who--document-identity',
+          statement: 'Codex Alimentarius (FAO/WHO) จัดทำ General Principles of Food Hygiene (CXC 1-1969, rev. 2022) พร้อมภาคผนวก HACCP, ระดับตกค้างสูงสุด MRLs for Veterinary Drugs และ Code of Practice to Minimize and Contain Foodborne Antimicrobial Resistance (CXC 67-2009)',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [
+            { sourceId: 'guide-codex-alimentarius-com-2022', kind: 'guideline' },
+            { sourceId: 'codex-mrls-vet-drugs', kind: 'guideline' },
+            { sourceId: 'codex-cxc-67-2009-amr', kind: 'guideline' },
+          ],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Document identity and scope of the Codex hygiene code, MRL list and AMR code of practice against the named official sources — no passage quoted.' },
+        },
+      ],
+    },
+    'one-health--vet-standards-catalog--who-world-health-organization': {
+      claims: [
+        {
+          id: 'one-health--vet-standards-catalog--who-world-health-organization--document-identity',
+          statement: 'WHO กำกับดูแลด้านอนามัยระหว่างประเทศผ่าน International Health Regulations (2005) ซึ่งรวมการรายงานเหตุการณ์โรคระบาด และให้ภาพรวม One Health, zoonoses และ foodborne diseases ในหน้า One Health ขององค์กร',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [
+            { sourceId: 'who-ihr-2005', kind: 'guideline' },
+            { sourceId: 'who-one-health-page', kind: 'guideline' },
+          ],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Document identity of IHR (2005) and the WHO One Health page against the named official sources — no passage quoted.' },
+        },
+      ],
+    },
+    'one-health--vet-standards-catalog--one-health-quadripartite-fao-unep-who-woah': {
+      claims: [
+        {
+          id: 'one-health--vet-standards-catalog--one-health-quadripartite-fao-unep-who-woah--document-identity',
+          statement: 'FAO, UNEP, WHO และ WOAH (Quadripartite) ร่วมกันจัดทำ One Health Joint Plan of Action (2022–2026) และ OHHLEP เผยแพร่นิยาม One Health ที่ใช้อ้างอิงอย่างเป็นทางการ (2021)',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [
+            { sourceId: 'guide-fao-unep-who-and-woah--2022', kind: 'guideline' },
+            { sourceId: 'ohhlep-one-health-definition-2021', kind: 'guideline' },
+          ],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Document identity of the Quadripartite joint plan and the OHHLEP definition against the named official sources — no passage quoted.' },
+        },
+      ],
+    },
+    'one-health--vet-standards-catalog--fao': {
+      claims: [
+        {
+          id: 'one-health--vet-standards-catalog--fao--document-identity',
+          statement: 'FAO รวมเครื่องมือ Food Safety and Quality resources ที่ครอบคลุมตั้งแต่ฟาร์มถึงโต๊ะอาหาร รวมถึง food control systems',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [{ sourceId: 'fao-food-safety-resources', kind: 'guideline' }],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Resource-portal identity against the named FAO food-safety portal — no passage quoted.' },
+        },
+      ],
+    },
+    'one-health--vet-standards-catalog--eaeve': {
+      claims: [
+        {
+          id: 'one-health--vet-standards-catalog--eaeve--document-identity',
+          statement: 'EAEVE กำหนด Day One Competencies ของผู้สำเร็จการศึกษาแพทย์สัตว์ (ฉบับ 2019) เป็นสมรรถนะขั้นต่ำที่ผู้จบหลักสูตรต้องมี',
+          evidenceStatus: 'established',
+          reviewStatus: 'verified',
+          sourceRefs: [{ sourceId: 'eaeve-day1-competencies-2019', kind: 'guideline' }],
+          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-10-06', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Document identity of the EAEVE Day One Competencies list against the named official source — no passage quoted.' },
+        },
+      ],
+    },
+  },
 };
 
 // Curated overlays and generated ones are merged in CODE, at topic and section
