@@ -790,7 +790,12 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
             aria-disabled={locked || undefined}
             onClick={() => { if (locked) return; answerCurrent(originalIdx); }}
           >
-            <div className="vmx-option-letter">{chip}</div>
+            <div className="vmx-option-indicator">
+              <div className="vmx-option-letter">{chip}</div>
+              {!locked && (
+                <span className="vmx-option-kbd" aria-hidden="true">[{displayIdx + 1}]</span>
+              )}
+            </div>
             <div className="vmx-option-text"><RichText text={opt} /></div>
           </button>
         );
@@ -806,19 +811,29 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
 function InstantFeedback({ ok, correctNode, explain, figure = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
   return (
     <MotionEnter effect="reveal" className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
-      <Mochi state={ok ? 'correct' : 'encourage'} size={48} slot="feedback" animate className="vmx-feedback-mochi" />
+      <div className="vmx-feedback-header">
+        <div className="vmx-feedback-headline">
+          <span className="vmx-feedback-kicker">{ok ? 'CLINICAL VERDICT • ACCURATE' : 'CLINICAL VERDICT • REVIEW REQUIRED'}</span>
+          <div className="v">{ok ? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง'}</div>
+        </div>
+        <div className="vmx-feedback-stamp-wrapper">
+          <div className={`vmx-mochi-stamp--${ok ? 'pass' : 'revise'}`} title={ok ? 'Mochi Clinical Stamp: Verified' : 'Mochi Clinical Stamp: Needs Review'}>
+            <Mochi state={ok ? 'correct' : 'encourage'} size={40} slot="feedback" animate className="vmx-feedback-mochi" />
+            <span className="vmx-stamp-label">{ok ? 'APPROVED' : 'REVISE'}</span>
+          </div>
+        </div>
+      </div>
       {/* "คุณตอบถูก", not "ถูกต้อง". On a true/false question the
           second reads as a verdict on the STATEMENT, and it sat directly above
           an explanation opening with "ไม่ถูกต้อง" — which is about the statement.
           Two lines, opposite words, neither saying whose.
           A miss points at the เฉลย row below rather than at a ✓: a false
           true/false statement's answer is "✗ False". */}
-      <div className="v">{ok ? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง'}</div>
       {(alwaysShowCorrect || !ok) && correctNode != null && (
-        <div className="a"><span className="k">เฉลย</span>{correctNode}</div>
+        <div className="a"><span className="k">เฉลย</span><div className="vmx-feedback-correct-val">{correctNode}</div></div>
       )}
       {explain && (
-        <div className="w"><span className="k">เหตุผล</span><TermLinkedRichText text={explain} subject={subject} /></div>
+        <div className="w"><span className="k">เหตุผล</span><div className="vmx-feedback-explain-body"><TermLinkedRichText text={explain} subject={subject} /></div></div>
       )}
       {figure}
       {coach}

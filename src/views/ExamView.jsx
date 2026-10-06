@@ -88,6 +88,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         )}
         </div>
         <div className="vmx-progress">
+          <span className="vmx-progress-case" aria-hidden="true">CASE</span>
           <strong>{currentIdx + 1}</strong> / {questions.length}
           {(currentQ?.type === 'essay' || currentQ?.type === 'short') && (
             <span className="vmx-exam-type-chip" style={{
@@ -123,6 +124,18 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
             </div>
           );
         })()}
+        {jumpToQ && (
+          <button
+            type="button"
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            onClick={() => setShowNav(true)}
+            title="ดูแผนผังข้อสอบทั้งหมด"
+            style={{ padding: '4px 8px', fontSize: 12, display: 'inline-flex', alignItems: 'center', gap: 4 }}
+          >
+            <NavIcon name="practice" size={14} />
+            <span>แผนผัง</span>
+          </button>
+        )}
         </div>
       </div>
       <div className="vmx-progress-bar">
@@ -280,9 +293,14 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
         data-vmx-modal="true"
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 16, gap: 12, flexWrap: 'wrap' }}>
-          <h2 id="vmx-nav-grid-title" style={{ margin: 0 }}>ข้ามไปข้อ</h2>
-          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontVariantNumeric: 'tabular-nums' }}>
-            ตอบแล้ว {answered}/{questions.length}, เหลือ {remaining}
+          <div>
+            <h2 id="vmx-nav-grid-title" style={{ margin: 0, fontSize: 18 }}>แผนผังข้อสอบ (EXAM MAP)</h2>
+            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+              เลือกข้อที่ต้องการตรวจคำตอบหรือทำต่อ
+            </div>
+          </div>
+          <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', fontVariantNumeric: 'tabular-nums' }}>
+            ตอบแล้ว <strong style={{ color: 'var(--clr-sage-text)' }}>{answered}</strong>/{questions.length}, เหลือ {remaining}
           </div>
         </div>
 
@@ -320,7 +338,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
                   background: isCurrent
                     ? 'var(--clr-rose)'
                     : answeredHere
-                      ? 'var(--clr-sage-soft, #c8d8c0)'
+                      ? 'var(--clr-sage-soft)'
                       : 'var(--clr-surface-2)',
                   color: isCurrent ? 'white' : 'var(--clr-ink)',
                   border: isCurrent ? '2px solid var(--clr-rose)' : '1px solid var(--clr-border)',
@@ -341,7 +359,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
 
         <div style={{ marginTop: 12, display: 'flex', gap: 12, fontSize: 11, color: 'var(--clr-ink-soft)', flexWrap: 'wrap' }}>
           <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-rose)', borderRadius: 3, verticalAlign: 'middle', marginRight: 4 }} /> ข้อปัจจุบัน</span>
-          <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-sage-soft, #c8d8c0)', borderRadius: 3, verticalAlign: 'middle', marginRight: 4 }} /> ตอบแล้ว</span>
+          <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-sage-soft)', borderRadius: 3, verticalAlign: 'middle', marginRight: 4 }} /> ตอบแล้ว</span>
           <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-surface-2)', borderRadius: 3, border: '1px solid var(--clr-border)', verticalAlign: 'middle', marginRight: 4 }} /> ยังไม่ตอบ</span>
           <span>★ Bookmark</span>
         </div>

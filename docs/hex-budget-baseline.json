@@ -2,8 +2,7 @@
   "budget": {
     "views/AccountSettingsView.jsx": 1,
     "views/AuthView.jsx": 10,
-    "views/ExamView.jsx": 2,
-    "views/HomeView.jsx": 5,
+    "views/HomeView.jsx": 1,
     "views/IgCardStudioView.jsx": 10,
     "views/ImageOcclusionView.jsx": 4,
     "views/LabView.jsx": 2,
@@ -14,7 +13,7 @@
     "views/PomodoroView.jsx": 1,
     "views/QuestionManagerView.jsx": 7,
     "views/RaceView.jsx": 2,
-    "views/ResultsView.jsx": 31,
+    "views/ResultsView.jsx": 28,
     "views/ReviewView.jsx": 6,
     "views/TopicSelectView.jsx": 4,
     "views/VideoView.jsx": 9,
@@ -61,7 +60,8 @@
     "lib/motion-kit/mochi/model-3d.js": 13,
     "lib/motion-kit/mochi/renderer-3d.js": 5,
     "lib/motion-kit/mochi/svg-art.js": 50,
-    "lib/motion-kit/particles.js": 21
+    "lib/motion-kit/particles.js": 21,
+    "components/HandwritingInput.jsx": 3
   },
   "exempt": {
     "views/ResultsView.jsx": "Canvas IG-story export needs literal colors (ctx.fillStyle cannot resolve CSS vars; shared image must not follow dark mode) + alpha-suffix gradient literals.",
