@@ -5,6 +5,8 @@ is [docs/PROJECT_KNOWLEDGE_BASE.md](docs/PROJECT_KNOWLEDGE_BASE.md); dated relea
 proof and remaining work live in [docs/LAUNCH_READINESS.md](docs/LAUNCH_READINESS.md).
 Shared coordination across Claude Code, Grok and other harnesses follows
 [docs/CONTINUOUS-IMPROVEMENT.md](docs/CONTINUOUS-IMPROVEMENT.md) and its one active claim file.
+Branching, commits and parallel-harness discipline are in
+[docs/GITFLOW.md](docs/GITFLOW.md).
 MycOS is additional context when available, not a requirement for another host.
 Historical handoffs are preserved in [docs/handoff/history-2026-09-30/](docs/handoff/history-2026-09-30/).
 
@@ -146,6 +148,26 @@ Rules that follow from it, and they are not negotiable:
 
 ---
 
+## 🔀 Gitflow & parallel harnesses
+
+Full rules: [docs/GITFLOW.md](docs/GITFLOW.md). The short form:
+
+- **A `main` push is the deploy.** One coordinated real commit; no `vercel --prod`
+  on top, no empty redeploy commits. A push is not production proof.
+- **Disjoint file ownership across harnesses.** Check the one claim record
+  (`work/loop-20260930/COORDINATION.md`) and the working tree before touching a
+  file; shared surfaces need explicit hunk ownership. Never stage or commit
+  another lane's files or untracked work — stage exact paths only.
+- **Competing lanes use separate worktrees**, each with its own `npm ci` after
+  lockfile changes (a node_modules junction silently bundles the primary
+  checkout's packages).
+- **Integrate with the checklist**, not from memory: recheck main, build,
+  applicable gates, exact-path staging, one push, verify the live journey,
+  update the claim record.
+- **Bad commit on main → revert forward.** Never force-push or rewrite history.
+
+---
+
 ## 🗂️ Where Things Live
 
 | What | Where |
@@ -156,6 +178,7 @@ Rules that follow from it, and they are not negotiable:
 | Mochi / Motion | `src/components/Mochi.jsx` + `src/lib/mochi-presence.js` embed contextual companions in existing views; one device preference hides all; 3D stays on demand in `/app/mochi`. Exam feedback requires a revealed practice answer; focused drawing/imaging workspaces stay clear. |
 | Motion in real flows | `MotionFeedback.jsx` owns visual responses on real controls; `ReadingEffects.jsx` enhances actual Notes/VetWiki text; `FocusBackdrop.jsx` + `StudyBreak.jsx` follow Pomodoro state. Global settings live in ThemePicker. See `docs/motion-kit-real-usage.md`; preview actions are never evidence of a real save or answer. |
 | Vercel serverless functions | `api/*.js` (wiki-explain, study-coach, grade-summary, tts, library-file/blob, send-feedback, …) · shared model chain in `api/_lib/llm.js`, output guards in `api/_lib/grounding.js` |
+| Gitflow / parallel-harness discipline | `docs/GITFLOW.md` |
 | DB schema | `supabase/migrations/*.sql` is the schema source of truth |
 | Supabase edge functions | `supabase/functions/*` (LINE auth, account deletion — TS) |
 | Question banks / loader | `src/data/questions-*.js` + `bank-registry.generated.js` |
