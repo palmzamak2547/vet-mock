@@ -44,6 +44,7 @@ lastReviewed: 2026-07-23
   - [Milk & Meat Hygiene Standards](./domain/food-safety/food-safety-milk-and-meat-hygiene.md)
   - [Major Zoonoses & Public Health](./domain/food-safety/food-safety-major-zoonoses-and-public-health.md)
   - 📋 [Domain Owner Review & Approval Pack (FOOD-SAFETY)](./reviews/food-safety-domain-owner-review.md)
+  - [Vet Standards Reference (WOAH, FAO, Codex, WHO, EAEVE)](./domain/food-safety/vet-standards-reference.md)
 
 ## ⚡ ฟีเจอร์และส่วนประสานงาน (Features & Protocols)
 - [AI Question Source Citation Protocol](./features/ai-question-source-citation.md) - ข้อกำหนดการระบุแหล่งอ้างอิงสำหรับ AI และ UI Citation Chip
