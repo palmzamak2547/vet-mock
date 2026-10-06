@@ -13,7 +13,7 @@
 // Driven through the real LecturerSets source (fake-react harness).
 // ============================================================
 
-import test, { before, after } from 'node:test';
+import test, { before, after, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { loadModule, mount, settle, findAll } from '../helpers/fake-react.mjs';
 
@@ -22,6 +22,7 @@ const DOC = { slug: SLUG, title: 'Role of Veterinarians', storage_provider: 'r2'
 
 let LecturerSets;
 const saved = {};
+const activeTimers = new Set();
 before(async () => {
   globalThis.__deckDoc = DOC;
   LecturerSets = (await loadModule('src/components/LecturerSets.jsx', {
@@ -35,10 +36,23 @@ before(async () => {
     }],
   })).default;
   for (const k of ['window', 'document', 'fetch', 'URL', 'setTimeout']) saved[k] = globalThis[k];
-  // The component's revoke/fade timers (60 s, 6 s) must not hold the run open.
-  globalThis.setTimeout = (fn, ms, ...a) => { const t = saved.setTimeout(fn, ms, ...a); t?.unref?.(); return t; };
+  globalThis.setTimeout = (fn, ms, ...a) => {
+    let t;
+    t = saved.setTimeout(() => {
+      activeTimers.delete(t);
+      fn(...a);
+    }, ms);
+    activeTimers.add(t);
+    return t;
+  };
+});
+afterEach(() => {
+  for (const t of activeTimers) clearTimeout(t);
+  activeTimers.clear();
 });
 after(() => {
+  for (const t of activeTimers) clearTimeout(t);
+  activeTimers.clear();
   for (const [k, v] of Object.entries(saved)) { if (v === undefined) delete globalThis[k]; else globalThis[k] = v; }
   delete globalThis.__deckDoc;
 });
@@ -65,7 +79,7 @@ async function pressDownload() {
   await settle(inst);
   const btn = findAll(inst.tree, (n) => n.type === 'button' && n.props['aria-label'] === 'ดาวน์โหลดสไลด์ Role of Veterinarians in One Health')[0];
   assert.ok(btn, 'the deck download button did not render');
-  btn.props.onClick();
+  await btn.props.onClick();
   await settle(inst);
   const note = findAll(inst.tree, (n) => n.type === 'p' && n.props.className === 'vmx-lect-dl-note');
   inst.unmount();
