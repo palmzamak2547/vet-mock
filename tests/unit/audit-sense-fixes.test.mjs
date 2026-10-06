@@ -160,7 +160,7 @@ test('every surface that shows "wrong" uses the one definition', () => {
   assert.deepEqual(served({ questions: [relearnt, lost], practiceMode: 'wrong', history, selectedYear: 5 }), [lost.id],
     'the pool must use the shared rule');
   assert.ok(APP.includes("from './lib/wrong-pool.js'"), 'the weak list must import the shared rule');
-  assert.ok(APP.includes('stillWrong(history).keys'), 'the weak list must use it too');
+  assert.ok(APP.includes('stillWrong(scoredHistory).keys'), 'the weak list must apply the shared latest-wrong rule to subject-resolved history');
   // The home chip once kept its own copy of the rule and it drifted: it read
   // array order while the pool read the latest attempt by date, so two synced
   // devices saw a count that did not match the set. One function, everywhere.

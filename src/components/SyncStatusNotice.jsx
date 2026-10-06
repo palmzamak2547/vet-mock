@@ -13,11 +13,17 @@ export default function SyncStatusNotice({
   onOfflineGame,
 }) {
   const [resolving, setResolving] = useState(false);
+  const localReadFailure = sync?.error?.code === 'LOCAL_READ_FAILED';
+  const localFailure = localReadFailure || sync?.error?.code === 'LOCAL_WRITE_FAILED';
+  const localMessage = sync?.error?.message || (localReadFailure
+    ? 'อ่านข้อมูลในเครื่องไม่สำเร็จ ยังไม่ยืนยันว่าซิงก์แล้ว กรุณาลองอ่านอีกครั้ง'
+    : 'บันทึกลงเครื่องไม่สำเร็จ การเปลี่ยนแปลงล่าสุดอาจไม่ถูกเก็บไว้');
+  const readRetryLabel = 'ลองอ่านข้อมูลในเครื่องอีกครั้ง';
   const recovery = signedIn ? sync?.recovery : null;
   if (recovery) {
     const choose = async (choice) => {
       const resolve = sync.resolveRecovery;
-      if (resolving || !online || typeof resolve !== 'function') return;
+      if (localReadFailure || resolving || !online || typeof resolve !== 'function') return;
       setResolving(true);
       try {
         const agreed = await confirmDialog({
@@ -43,33 +49,28 @@ export default function SyncStatusNotice({
       } catch (error) { alertDialog(thaiError(error, 'ดาวน์โหลดสำเนาไม่สำเร็จ กรุณาลองอีกครั้ง')); }
     };
     return <section className="vmx-config-panel" aria-label="ตรวจข้อมูลก่อนซิงก์">
-      <p role="status">{recovery.message || 'มีข้อมูลในเครื่องกับบัญชีต่างกัน กรุณาสำรองและเลือกข้อมูลที่ต้องการใช้'}</p>
+      <p role="status">{localFailure ? localMessage : recovery.message || 'มีข้อมูลในเครื่องกับบัญชีต่างกัน กรุณาสำรองและเลือกข้อมูลที่ต้องการใช้'}</p>
       {recovery.kind === 'custom-id' && <p>สำรองข้อมูลและการแก้ไขค้างทั้งหมดก่อนใช้ข้อมูลบัญชี จากนั้นนำข้อสอบที่ต้องการเข้าใหม่ผ่านหน้าจัดการข้อสอบเพื่อเก็บเป็นคนละข้อ</p>}
       <div className="vmx-btn-row">
         <button type="button" className="vmx-btn vmx-btn-ghost" onClick={exportCopies}>ดาวน์โหลดสำเนาทั้งสองชุด</button>
         {recovery.kind !== 'custom-id' && <button type="button" className="vmx-btn vmx-btn-ghost"
-          disabled={!online || resolving || !recovery.account} onClick={() => choose('local')}>ใช้ข้อมูลในเครื่อง</button>}
+          disabled={localReadFailure || !online || resolving || !recovery.account} onClick={() => choose('local')}>ใช้ข้อมูลในเครื่อง</button>}
         <button type="button" className="vmx-btn vmx-btn-ghost"
-          disabled={!online || resolving || !recovery.account} onClick={() => choose('account')}>ใช้ข้อมูลบัญชี</button>
-        {!recovery.account && online && <button type="button" className="vmx-btn vmx-btn-ghost" onClick={onRetry}>ลองอ่านข้อมูลบัญชีอีกครั้ง</button>}
+          disabled={localReadFailure || !online || resolving || !recovery.account} onClick={() => choose('account')}>ใช้ข้อมูลบัญชี</button>
+        {(localReadFailure ? sync?.error?.retryable !== false : !recovery.account && online) &&
+          <button type="button" className="vmx-btn vmx-btn-ghost" onClick={onRetry}>{localReadFailure ? readRetryLabel : 'ลองอ่านข้อมูลบัญชีอีกครั้ง'}</button>}
       </div>
       {!online && <p>ออฟไลน์อยู่ สำรองข้อมูลได้ทันที และเลือกข้อมูลเมื่อเชื่อมต่ออีกครั้ง</p>}
     </section>;
   }
-  // Storage failures are not an account matter. LOCAL_WRITE_FAILED means the
-  // change was NOT saved anywhere — the student's finished set is gone — and
-  // it can happen to anyone, because the write is to this device. Every error
-  // used to be gated behind `signedIn`, so a signed-out student who was
-  // online saw nothing at all: the component returned null and the loss went
-  // unannounced. Cloud problems still require an account to be worth
-  // mentioning; local ones never did.
-  const localFailure = sync?.error?.code === 'LOCAL_WRITE_FAILED';
+  // Local read/write failures apply to guests too and take priority over an
+  // offline message that would otherwise claim the changes were saved.
   const hasSyncProblem = (signedIn && (sync?.phase === 'offline' || sync?.phase === 'error'))
-    || (sync?.phase === 'error' && localFailure);
+    || localFailure;
   if (online && !justChanged && !hasSyncProblem) return null;
 
   const syncing = signedIn && ['hydrating', 'pending', 'syncing'].includes(sync?.phase);
-  const message = !online
+  const message = localFailure ? `● ${localMessage}` : !online
     ? (
       signedIn
         ? (sync?.pending
@@ -78,11 +79,7 @@ export default function SyncStatusNotice({
         : '● ออฟไลน์ — ใช้งานส่วนที่เปิดไว้แล้วได้ตามปกติ'
     )
     : hasSyncProblem
-      // The generic fallback promises the local copy is intact, which is the
-      // one thing that is NOT true when the local write is what failed.
-      ? `● ${sync?.error?.message || (localFailure
-        ? 'บันทึกลงเครื่องไม่สำเร็จ การเปลี่ยนแปลงล่าสุดอาจไม่ถูกเก็บไว้'
-        : 'ยังซิงก์ข้อมูลกับบัญชีไม่ได้ ข้อมูลในเครื่องยังอยู่ครบ')}`
+      ? `● ${sync?.error?.message || 'ยังซิงก์ข้อมูลกับบัญชีไม่ได้ ข้อมูลในเครื่องยังอยู่ครบ'}`
       : syncing
         ? '● กลับมาออนไลน์แล้ว — กำลังตรวจสอบและซิงก์ข้อมูล'
         : '● กลับมาออนไลน์แล้ว';
@@ -122,7 +119,7 @@ export default function SyncStatusNotice({
         )}
       </span>
       <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
-        {online && hasSyncProblem && sync?.error?.retryable !== false && (
+        {(online || localReadFailure) && hasSyncProblem && sync?.error?.retryable !== false && (
           <button
             type="button"
             onClick={onRetry}
@@ -135,7 +132,7 @@ export default function SyncStatusNotice({
               background: 'transparent',
             }}
           >
-            ลองซิงก์อีกครั้ง
+            {localReadFailure ? readRetryLabel : 'ลองซิงก์อีกครั้ง'}
           </button>
         )}
         {!online && (

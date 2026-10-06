@@ -4,6 +4,7 @@ import { useState, useMemo, useRef, useEffect } from 'react';
 import { createQuestionTiming, createReviewEvent, newStudySessionId } from '../lib/study-events.js';
 import { alertDialog } from '../lib/dialog.js';
 import { QB, SUBJECTS, loadQB, loadQBForYear, isQBYearLoaded, isQBFullyLoaded } from '../data/questions.js';
+import { yearForSubject } from '../data/curriculum.js';
 import { updateCard, initCard, getDueCards, getCardStats, previewInterval } from '../hooks/sm2.js';
 import { isFlashcardCompatible, reviewQuestionsInContext } from '../hooks/sr-filter.js';
 import { EXAM_SCOPE_LABEL, scopeForPhase } from '../lib/exam-scope.js';
@@ -64,6 +65,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   // Persist last-used preferences
   const [sessionSize, setSessionSize] = useLocalStorage('vmx-sr-session-size', 25);
   const [subjectFilter, setSubjectFilter] = useLocalStorage('vmx-sr-subject-filter', 'all');
+  const reviewYear = subjectFilter === 'all' ? selectedYear : (yearForSubject(subjectFilter) ?? selectedYear);
   const [phaseScope, setPhaseScope] = useLocalStorage('vmx-sr-phase-scope', 'current');
   const selectedPaper = scopeForPhase(selectedPhase);
 
@@ -193,7 +195,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     setStarting(true);
     setBankError(false);
     try {
-      if (!allowPartial) await (yearScope === 'all' ? loadQB() : loadQBForYear(selectedYear));
+      if (!allowPartial) await (yearScope === 'all' ? loadQB() : loadQBForYear(reviewYear));
       if (!current()) return;
       const queue = latestStartRef.current.queue();
       if (!queue.length) return;
@@ -220,7 +222,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   // ─── Planning step (before session starts) ──────────────────────
   if (!sessionCards) {
     const dueCount = duePool.length;
-    const scopeReady = yearScope === 'all' ? isQBFullyLoaded() : isQBYearLoaded(selectedYear);
+    const scopeReady = yearScope === 'all' ? isQBFullyLoaded() : isQBYearLoaded(reviewYear);
     return (
       <>
         <div className="vmx-hero">
@@ -393,7 +395,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             </div>
           )}
 
-          {dueCount === 0 && selectedPaper && phaseScope !== 'all' && (
+          {dueCount === 0 && scopeReady && selectedPaper && phaseScope !== 'all' && (
             <div className="vmx-config-availability" role="status">
               ไม่มีการ์ดถึงรอบในขอบเขตนี้ เลือก “ทุกช่วง” เพื่อดูเนื้อหาช่วงอื่น
             </div>
@@ -481,7 +483,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       if (!saved.ok) alertDialog('บันทึกตารางทบทวนแล้ว แต่รายละเอียดรอบนี้ยังเก็บถาวรไม่ได้');
       else if (ownerId) (await import('../lib/study-event-sync.js')).syncStudyEvents(ownerId);
     }).catch(() => alertDialog('บันทึกตารางทบทวนแล้ว แต่รายละเอียดรอบนี้ยังเก็บถาวรไม่ได้'));
-    if (quality >= 2) setCorrectCount(correctCount + 1);
+    if (quality >= 1) setCorrectCount(correctCount + 1);
     setReviewedCount(reviewedCount + 1);
     setShowAnswer(false);
 

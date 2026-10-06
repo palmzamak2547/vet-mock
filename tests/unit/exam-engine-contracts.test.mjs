@@ -90,7 +90,7 @@ test("the 'wrong' pool means still wrong, sorted most-missed-first", () => {
 test('the legacy-history fallback is an index lookup, not a scan of the bank', () => {
   const memo = between('const analytics = useMemo(() => {', 'const configPracticeMode =');
   assert.match(memo, /const qById = new Map\(\);/);
-  assert.match(memo, /\|\| qById\.get\(h\.questionId\);/);
+  assert.match(memo, /const q = h\.subject\s*\? qByCompound\.get\(h\.subject \+ ':' \+ h\.questionId\)\s*:\s*qById\.get\(h\.questionId\);/);
   assert.doesNotMatch(memo, /allQuestions\.find\(\(x\) => x\.id === h\.questionId\)/, 'the per-row bank scan is back');
   // "first question carrying that id" is what Array.find returned; the map
   // must be filled the same way or a colliding id resolves differently.

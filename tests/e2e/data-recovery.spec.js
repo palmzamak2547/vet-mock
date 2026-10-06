@@ -66,3 +66,58 @@ test('privacy choice persists and daily time plan remains usable at 320px', asyn
   expect(await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-consent')))).toBe('essential');
   expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
 });
+
+test('an active guest exam exposes local-read failure and retries without losing its note', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('vmx-selected-year', '4');
+    localStorage.setItem('vmx-selected-phase', JSON.stringify('2-final'));
+    localStorage.setItem('vmx-seen-landing', '1');
+    localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+    localStorage.setItem('vmx-inflight-exam:guest', JSON.stringify({
+      ownerId: null, sessionId: '94b969f9-cafe-4a5a-b3ad-fffb8ee007e4',
+      questions: [{ id: 6011, subject: 'vca', year: 4, type: 'mcq', q: 'ตรวจโน้ตในชุดที่กำลังทำ', options: ['A', 'B', 'C'], answer: 1 }],
+      answers: {}, currentIdx: 0, useTimer: false, mode: 'quick', submitted: false,
+      savedAt: Date.now(), selectedYear: 4, selectedPhase: '2-final',
+    }));
+  });
+  await page.goto('/app');
+  await page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ }).click();
+  await expect(page.locator('.vmx-exam-top')).toBeVisible();
+  await expect(page.locator('.vmx-qtext')).toContainText('ตรวจโน้ตในชุดที่กำลังทำ');
+  await page.getByRole('button', { name: 'เปิดโน้ตของข้อนี้', exact: true }).click();
+  const note = page.getByRole('textbox', { name: 'บันทึกส่วนตัวสำหรับข้อนี้', exact: true });
+  await page.evaluate(() => {
+    const prefix = 'vmx-user-intent-v2:anonymous:';
+    const get = Storage.prototype.getItem, set = Storage.prototype.setItem;
+    const probe = { active: false, failures: 0 }; window.__vmxGuestReadProbe = probe;
+    Storage.prototype.getItem = function(key) {
+      if (this === localStorage && probe.active && String(key).startsWith(prefix)) {
+        probe.failures++; throw new DOMException('Controlled guest intent read failure', 'SecurityError');
+      }
+      return get.call(this, key);
+    };
+    Storage.prototype.setItem = function(key, value) {
+      const result = set.call(this, key, value);
+      if (this === localStorage && String(key).startsWith(prefix)) probe.active = true;
+      return result;
+    };
+  });
+  const marker = 'โน้ตที่รับไว้ก่อนอ่านงานค้างไม่สำเร็จ';
+  await note.fill(marker);
+  await expect.poll(() => page.evaluate(() => window.__vmxGuestReadProbe.failures)).toBeGreaterThan(0);
+  const notice = page.getByRole('status').filter({ hasText: 'ยังอ่านงานค้างในเครื่องไม่สำเร็จ กรุณาลองซิงก์อีกครั้ง' }).first();
+  await expect(notice).toBeVisible();
+  await expect(notice).not.toContainText('บันทึกการเปลี่ยนแปลงไว้ในเครื่องแล้ว');
+  await expect(page.locator('.vmx-exam-top')).toBeVisible();
+  await expect(note).toHaveValue(marker);
+  const retry = page.getByRole('button', { name: 'ลองอ่านข้อมูลในเครื่องอีกครั้ง', exact: true });
+  await page.evaluate(() => { window.__vmxGuestReadProbe.active = false; });
+  await retry.click();
+  await expect(retry).toHaveCount(0);
+  await expect(note).toHaveValue(marker);
+  await page.reload();
+  await page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ }).click();
+  await expect(page.locator('.vmx-exam-top')).toBeVisible();
+  await page.getByRole('button', { name: 'เปิดโน้ตของข้อนี้', exact: true }).click();
+  await expect(note).toHaveValue(marker);
+});

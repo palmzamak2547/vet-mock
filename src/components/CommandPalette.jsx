@@ -106,9 +106,9 @@ function trunc(s) {
 // any failure (corrupted JSON, disabled storage, SSR, …). Palette
 // should never crash because the user's localStorage is dirty.
 function safeReadLS(key, fallback) {
-  if (typeof window === 'undefined' || !window.localStorage) return fallback;
+  if (typeof window === 'undefined') return fallback;
   try {
-    const raw = window.localStorage.getItem(key);
+    const raw = window.localStorage?.getItem(key);
     if (!raw) return fallback;
     const parsed = JSON.parse(raw);
     return parsed == null ? fallback : parsed;
@@ -127,12 +127,17 @@ function safeReadLS(key, fallback) {
 //   _labelLc  label.toLowerCase() — used by fuzzyFilter so we don't
 //             re-lowercase 1700 strings per keystroke
 //   _hayLc    (label + ' ' + kw).toLowerCase() — same idea
-function buildStaticItems() {
+function buildStaticItems(ownerId, notes) {
   // The cache is keyed on the bank size: QB is lazy-loaded and mutated in
   // place, so a cache built before the load (or before a year switch pulls a
   // different bank) held stale question rows for the rest of the session —
   // search results and their counts disagreed with the app.
-  if (_staticItemsCache && _staticItemsCache.qbLen === QB.length) return _staticItemsCache.items;
+  const notesOwner = notes === undefined ? safeReadLS('vmx-user-sync-owner-v1', null) : ownerId;
+  const ownerMatches = ownerId === undefined || notesOwner === (ownerId || 'anonymous') || (!ownerId && !notesOwner);
+  const notesMap = notes !== undefined ? notes : ownerMatches ? safeReadLS(NOTES_LS_KEY, null) : null;
+  const notesKey = JSON.stringify(notesMap);
+  if (_staticItemsCache && _staticItemsCache.qbLen === QB.length
+    && _staticItemsCache.notesOwner === notesOwner && _staticItemsCache.notesKey === notesKey) return _staticItemsCache.items;
   const items = [];
 
   const push = (it) => {
@@ -276,7 +281,6 @@ function buildStaticItems() {
   // 'vmx-notes'. We surface each non-empty note as its own row so the
   // user can fuzzy-search their own annotations and jump back to the
   // Q. Key shape is opaque to us; we pass it through as the payload.
-  const notesMap = safeReadLS(NOTES_LS_KEY, null);
   if (notesMap && typeof notesMap === 'object' && !Array.isArray(notesMap)) {
     for (const [key, raw] of Object.entries(notesMap)) {
       const text = typeof raw === 'string' ? raw : (raw && typeof raw === 'object' ? (raw.text || raw.note || '') : '');
@@ -293,7 +297,7 @@ function buildStaticItems() {
     }
   }
 
-  _staticItemsCache = { qbLen: QB.length, items };
+  _staticItemsCache = { qbLen: QB.length, notesOwner, notesKey, items };
   return items;
 }
 
@@ -428,15 +432,36 @@ const looksLikeQuestion = (q) => q.length >= 8 && (QUESTION_RE.test(q) || /^(why
 
 const RECENTS_KEY = 'vmx-omni-recents';
 const MAX_RECENTS = 8;
+const UNAVAILABLE_ACTION_MESSAGE = 'เมนูนี้ไม่พร้อมใช้สำหรับบัญชีหรือชั้นปีที่เลือก กรุณาเลือกเมนูที่แสดงอยู่';
 
+function recentKey(item) {
+  if (item.featureId) return `${item.type}:feature:${item.featureId}`;
+  const payload = item.payload;
+  if (payload?.id != null) return `${item.type}:id:${payload.id}`;
+  if (item.type === 'summary' && payload?.videoId) return `${item.type}:video:${payload.videoId}`;
+  if (item.type === 'wiki') return `${item.type}:${payload?.subject}:${payload?.topic}`;
+  if (item.type !== 'exam' && (typeof payload === 'string' || typeof payload === 'number')) return `${item.type}:${payload}`;
+  return `${item.type}:label:${item.label}`;
+}
 function readRecents() {
-  return safeReadLS(RECENTS_KEY, []).filter((r) => r && r.type && r.label);
+  const records = safeReadLS(RECENTS_KEY, []);
+  return Array.isArray(records) ? records.filter((r) => r && r.type && r.label) : [];
+}
+function currentRecents(items) {
+  const current = new Map();
+  for (const item of items) {
+    current.set(recentKey(item), item);
+    // Older recordings have no feature ID. Their label may select only a
+    // currently visible action; its saved payload never becomes authority.
+    if (item.type === 'action') current.set(`action:label:${item.label}`, item);
+  }
+  return readRecents().map(item => current.get(recentKey(item))).filter(Boolean);
 }
 function pushRecent(item) {
   try {
-    const slim = { type: item.type, label: item.label, hint: item.hint, icon: item.icon, payload: item.payload };
+    const slim = { type: item.type, featureId: item.featureId, label: item.label, hint: item.hint, icon: item.icon, payload: item.payload };
     if (JSON.stringify(slim).length > 4000) return; // an instructor bio etc. — not worth persisting
-    const next = [slim, ...readRecents().filter((r) => !(r.type === slim.type && r.label === slim.label))]
+    const next = [slim, ...readRecents().filter((r) => recentKey(r) !== recentKey(slim))]
       .slice(0, MAX_RECENTS);
     localStorage.setItem(RECENTS_KEY, JSON.stringify(next));
   } catch { /* storage full or disabled — recents are a nicety */ }
@@ -680,6 +705,8 @@ export default function CommandPalette({
   onClose,
   setTopic,
   signedIn = false,
+  ownerId,
+  notes,
   scaffold = false,
   hasSupabase = true,
   selectedYear,
@@ -693,8 +720,35 @@ export default function CommandPalette({
   const [placeholderIdx, setPlaceholderIdx] = useState(0);
   // sourceState: { [id]: { status: 'loading'|'ready'|'error', entries } }
   const [sourceState, setSourceState] = useState({});
-  const [ask, setAsk] = useState(null); // null | loading | done | error
-  const [agent, setAgent] = useState(null); // null | loading | confirm | refused | error
+  const [askResult, setAsk] = useState(null); // null | loading | done | error
+  const [agentResult, setAgent] = useState(null); // null | loading | confirm | refused | error
+  const requestContext = JSON.stringify([open, ownerId, signedIn, scaffold, hasSupabase, selectedYear, isAdmin]);
+  const requestScopeRef = useRef({ context: null, query: null, generation: 0, sequence: 0, tokens: {} });
+  const scope = requestScopeRef.current;
+  if (scope.context !== requestContext || scope.query !== query.trim()) {
+    scope.context = requestContext; scope.query = query.trim(); scope.generation++;
+  }
+  const requestCurrent = request => request && request.context === scope.context
+    && request.generation === scope.generation && request.token === scope.tokens[request.kind];
+  const ask = requestCurrent(askResult?.request) ? askResult : null;
+  const agent = requestCurrent(agentResult?.request) ? agentResult : null;
+  const beginRequest = (kind, text, spoken = false) => {
+    if (!open || requestContext !== scope.context) return null;
+    // Voice sets the text and starts its request in one event, before React
+    // renders that text. Record the same query now so that render keeps it.
+    if (scope.query !== text) {
+      if (!spoken) return null;
+      scope.query = text; scope.generation++;
+    }
+    const request = { kind, query: text, context: scope.context, generation: scope.generation, token: ++scope.sequence };
+    scope.tokens[kind] = request.token;
+    return request;
+  };
+  const respond = (request, value) => {
+    if (requestCurrent(request)) (request.kind === 'ask' ? setAsk : setAgent)({ ...value, request });
+  };
+  useEffect(() => { setAsk(null); setAgent(null); }, [requestContext]);
+  useEffect(() => () => { requestScopeRef.current.context = null; requestScopeRef.current.generation++; }, []);
   // Touch has no Ctrl — the chip and hints must speak tap, not keys.
   const coarsePointer = useMemo(() => typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches, []);
   const inputRef = useRef(null);
@@ -744,10 +798,13 @@ export default function CommandPalette({
   const dialogRef = useModalFocus({ active: open, onClose, initialFocusRef: inputRef });
   const listRef = useRef(null);
 
-  const staticItems = useMemo(() => buildStaticItems(), []);
+  const notesOwner = notes === undefined ? safeReadLS('vmx-user-sync-owner-v1', null) : ownerId;
+  const staticItems = useMemo(() => buildStaticItems(ownerId, notes), [QB.length, signedIn, ownerId, notesOwner, notes]);
   const visibleFeatureIds = useMemo(() => new Set(
     visibleFeatures(FEATURES, { signedIn, scaffold, hasSupabase, selectedYear, isAdmin }).map((feature) => feature.id),
   ), [signedIn, scaffold, hasSupabase, selectedYear, isAdmin]);
+  const visibleFeatureIdsRef = useRef(visibleFeatureIds);
+  visibleFeatureIdsRef.current = visibleFeatureIds;
 
   // Async sources stream in while the palette is open. Each one caches at
   // module level (omni-sources), so the spinner shows once per session.
@@ -755,19 +812,19 @@ export default function CommandPalette({
     if (!open) return undefined;
     let alive = true;
     for (const src of OMNI_SOURCES) {
-      setSourceState((s) => (s[src.id]?.status === 'ready' ? s : { ...s, [src.id]: { status: 'loading', entries: [] } }));
+      setSourceState((s) => ({ ...s, [src.id]: { status: 'loading', entries: [], ownerId } }));
       src.load().then(
-        (entries) => { if (alive) setSourceState((s) => ({ ...s, [src.id]: { status: 'ready', entries } })); },
+        (entries) => { if (alive) setSourceState((s) => ({ ...s, [src.id]: { status: 'ready', entries, ownerId } })); },
         (err) => {
           // The chip says "ออฟไลน์"; the console says why. A silent error
           // state cost 20 minutes of guessing the first time this shipped.
           console.error('[omni-source]', src.id, err);
-          if (alive) setSourceState((s) => ({ ...s, [src.id]: { status: 'error', entries: [] } }));
+          if (alive) setSourceState((s) => ({ ...s, [src.id]: { status: 'error', entries: [], ownerId } }));
         },
       );
     }
     return () => { alive = false; };
-  }, [open]);
+  }, [open, signedIn, ownerId]);
 
   const items = useMemo(() => {
     const base = staticItems.filter((item) => {
@@ -777,9 +834,10 @@ export default function CommandPalette({
       }
       return true;
     });
-    const async_ = Object.values(sourceState).flatMap((s) => s.entries || []);
+    const async_ = Object.values(sourceState).filter(s => s.ownerId === ownerId).flatMap((s) => s.entries || [])
+      .filter(item => item.type !== 'library-doc' || signedIn || item.payload?.status === 'public');
     return base.concat(async_);
-  }, [staticItems, visibleFeatureIds, selectedYear, sourceState]);
+  }, [staticItems, visibleFeatureIds, selectedYear, sourceState, signedIn, ownerId]);
 
   const handlersRef = useRef(handlers);
   handlersRef.current = handlers;
@@ -806,7 +864,7 @@ export default function CommandPalette({
   // by type, order groups by their best-ranked hit. Without: recents first,
   // then the curated group order.
   const view = useMemo(() => {
-    const recents = hasQuery ? [] : readRecents().map((r) => ({
+    const recents = hasQuery ? [] : currentRecents(items).map((r) => ({
       ...r,
       _labelLc: (r.label || '').toLowerCase(),
       _hayLc: (r.label || '').toLowerCase(),
@@ -950,29 +1008,33 @@ export default function CommandPalette({
   const runAsk = async (spoken) => {
     const question = (typeof spoken === 'string' ? spoken : query).trim();
     if (question.length < 8 || ask?.phase === 'loading') return;
-    setAsk({ phase: 'loading' });
+    const request = beginRequest('ask', question, typeof spoken === 'string');
+    if (!request) return;
+    respond(request, { phase: 'loading' });
     try {
       const res = await fetch('/api/wiki-explain', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ question }),
       });
+      if (!requestCurrent(request)) return;
       if (res.status === 503) {
         // 503 covers both "no model key" and "today's quota is spent". Printing
         // the first for both told a student who merely hit the cap that the
         // feature does not exist, so they would never come back to it.
         const why = await res.json().catch(() => null);
-        setAsk({ phase: 'error', message: why?.reason === 'budget'
+        respond(request, { phase: 'error', message: why?.reason === 'budget'
           ? 'วันนี้ถามครบโควตาแล้ว พรุ่งนี้ถามได้อีก — เนื้อหาในคลังความรู้ยังอ่านได้ตามปกติ'
           : 'ยังไม่ได้เปิดใช้การถามจากคลังความรู้ — เนื้อหาทั้งหมดยังอ่านได้ตามปกติ' });
         return;
       }
-      if (res.status === 429) { setAsk({ phase: 'error', message: 'ถามบ่อยเกินไป ลองใหม่ในอีกสักครู่' }); return; }
+      if (res.status === 429) { respond(request, { phase: 'error', message: 'ถามบ่อยเกินไป ลองใหม่ในอีกสักครู่' }); return; }
       if (!(res.headers.get('content-type') || '').includes('application/json')) {
-        setAsk({ phase: 'error', message: 'การถามใช้ได้เฉพาะบนเว็บจริง (vetmock.vercel.app)' }); return;
+        respond(request, { phase: 'error', message: 'การถามใช้ได้เฉพาะบนเว็บจริง (vetmock.vercel.app)' }); return;
       }
-      if (!res.ok) { setAsk({ phase: 'error', message: 'ตอบไม่สำเร็จ ลองใหม่อีกครั้ง' }); return; }
+      if (!res.ok) { respond(request, { phase: 'error', message: 'ตอบไม่สำเร็จ ลองใหม่อีกครั้ง' }); return; }
       const data = await res.json();
+      if (!requestCurrent(request)) return;
       // Isomorphic guard: rebuild the allowed-citation map from THIS
       // build's own generated citation index and validate again. The index
       // carries exactly what validateAnswer consumes (topicId + verified per
@@ -992,10 +1054,10 @@ export default function CommandPalette({
         allowed.set(id, { sectionId: id, topicId: hit[0], verified: !!hit[1] });
       }
       const { claims } = validateAnswer(data.claims, allowed);
-      if (!claims.length) { setAsk({ phase: 'error', message: 'ยังตอบจากเนื้อหาที่มีไม่ได้' }); return; }
-      setAsk({ phase: 'done', claims, sections: data.meta?.sections || [], labels: ANSWER_SUPPORT_LABEL });
+      if (!claims.length) { respond(request, { phase: 'error', message: 'ยังตอบจากเนื้อหาที่มีไม่ได้' }); return; }
+      respond(request, { phase: 'done', claims, sections: data.meta?.sections || [], labels: ANSWER_SUPPORT_LABEL });
     } catch {
-      setAsk({ phase: 'error', message: 'เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง' });
+      respond(request, { phase: 'error', message: 'เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง' });
     }
   };
 
@@ -1003,36 +1065,44 @@ export default function CommandPalette({
   const runAgent = async (spoken) => {
     const utterance = (typeof spoken === 'string' ? spoken : query).trim();
     if (utterance.length < 6 || agent?.phase === 'loading') return;
-    setAgent({ phase: 'loading' });
+    const request = beginRequest('agent', utterance, typeof spoken === 'string');
+    if (!request) return;
+    respond(request, { phase: 'loading' });
     try {
       const res = await fetch('/api/agent-action', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ utterance }),
       });
+      if (!requestCurrent(request)) return;
       if (res.status === 503) {
         const why = await res.json().catch(() => null);
-        setAgent({ phase: 'error', message: why?.reason === 'budget'
+        respond(request, { phase: 'error', message: why?.reason === 'budget'
           ? 'วันนี้สั่งงานครบโควตาแล้ว พรุ่งนี้ใช้ได้อีก'
           : 'ยังไม่ได้เปิดใช้ผู้ช่วยสั่งงาน' });
         return;
       }
-      if (res.status === 429) { setAgent({ phase: 'error', message: 'สั่งบ่อยเกินไป ลองใหม่ในอีกสักครู่' }); return; }
+      if (res.status === 429) { respond(request, { phase: 'error', message: 'สั่งบ่อยเกินไป ลองใหม่ในอีกสักครู่' }); return; }
       if (!(res.headers.get('content-type') || '').includes('application/json')) {
-        setAgent({ phase: 'error', message: 'ผู้ช่วยสั่งงานใช้ได้เฉพาะบนเว็บจริง (vetmock.vercel.app)' }); return;
+        respond(request, { phase: 'error', message: 'ผู้ช่วยสั่งงานใช้ได้เฉพาะบนเว็บจริง (vetmock.vercel.app)' }); return;
       }
-      if (!res.ok) { setAgent({ phase: 'error', message: 'สั่งไม่สำเร็จ ลองใหม่อีกครั้ง' }); return; }
+      if (!res.ok) { respond(request, { phase: 'error', message: 'สั่งไม่สำเร็จ ลองใหม่อีกครั้ง' }); return; }
       const data = await res.json();
-      if (!data.action) { setAgent({ phase: 'refused', message: data.reason || 'ยังไม่มีสิ่งที่ตรงกับคำสั่งนี้ในแอป' }); return; }
-      // The server already validated every id against the live catalog —
-      // the student still confirms before anything runs.
-      setAgent({ phase: 'confirm', action: data.action, say: data.say });
+      if (!requestCurrent(request)) return;
+      if (!data.action) { respond(request, { phase: 'refused', message: data.reason || 'ยังไม่มีสิ่งที่ตรงกับคำสั่งนี้ในแอป' }); return; }
+      if (data.action.type === 'feature' && !visibleFeatureIdsRef.current.has(data.action.id)) {
+        respond(request, { phase: 'refused', message: UNAVAILABLE_ACTION_MESSAGE }); return;
+      }
+      // Catalog membership and current visibility must both allow the plan.
+      // The student still confirms before anything runs.
+      respond(request, { phase: 'confirm', action: data.action, say: data.say });
     } catch {
-      setAgent({ phase: 'error', message: 'เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง' });
+      respond(request, { phase: 'error', message: 'เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง' });
     }
   };
 
   const executeAgent = (action) => {
+    if (!requestCurrent(agent?.request)) return;
     const h = handlersRef.current;
     if (action.type === 'practice') { h.onPractice?.(action.invoke); onClose(); return; }
     if (action.type === 'library') {
@@ -1047,6 +1117,10 @@ export default function CommandPalette({
     }
     if (action.type === 'wiki') { h.onOpenWiki?.(action.subject, action.topic); onClose(); return; }
     if (action.type === 'feature') {
+      if (!visibleFeatureIdsRef.current.has(action.id)) {
+        respond(agent.request, { phase: 'refused', message: UNAVAILABLE_ACTION_MESSAGE });
+        return;
+      }
       const f = FEATURES.find((x) => x.id === action.id);
       if (f) runItem({ type: 'action', payload: f.invoke }, h);
       onClose();

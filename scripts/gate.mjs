@@ -340,8 +340,8 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
   } else {
     log('\n── phase D (e2e): test:e2e:chromium, then test:e2e:gl');
     e2e = [
-      await runStreaming(npmRun('test:e2e:chromium'), { cwd }),
-      await runStreaming(npmRun('test:e2e:gl'), { cwd }),
+      await runStreaming(npmRun('test:e2e:chromium'), { cwd, env: { PLAYWRIGHT_OUTPUT_DIR: 'test-results/chromium' } }),
+      await runStreaming(npmRun('test:e2e:gl'), { cwd, env: { PLAYWRIGHT_OUTPUT_DIR: 'test-results/gl' } }),
     ];
   }
   timings.push(['D e2e', Date.now() - t]);

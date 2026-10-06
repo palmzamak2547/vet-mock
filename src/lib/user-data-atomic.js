@@ -11,7 +11,6 @@ const clone = value => JSON.parse(JSON.stringify(value));
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 const remoteFields = () => new Set(Object.values(USER_DATA_FIELDS).map(field => field.remoteKey).filter(Boolean));
 const errorOf = (code, message, retryable = true) => ({ code, message, retryable });
-const read = (storage, key) => { try { return JSON.parse(storage.getItem(key) || 'null'); } catch { return null; } };
 const bytes = value => new TextEncoder().encode(JSON.stringify(value)).byteLength;
 
 /** Immutable local intent plus server receipts. Snapshots never become intent. */
@@ -24,59 +23,111 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
   let closed = false;
   let retries = 0;
   let ready = false;
+  let intentReadError = null;
+  const knownIntentIds = new Map();
   const listeners = new Set();
   const dataKey = id => DATA + ownerKey(id);
   const opPrefix = id => OPS + ownerKey(id) + ':';
   const blank = data => ({ version: 2, revision: 0, clock: 0, base: data, acknowledged: [],
     legacyFingerprint: null, recovery: null, archive: null });
   const readSnapshot = id => {
-    const value = read(storage, dataKey(id));
-    return value?.version === 2 && value.base && Number.isSafeInteger(value.revision) ? value : null;
+    try {
+      const raw = storage.getItem(dataKey(id));
+      if (raw === null) return null;
+      const value = JSON.parse(raw);
+      if (value?.version !== 2 || !value.base || typeof value.base !== 'object' || Array.isArray(value.base)
+        || !Number.isSafeInteger(value.revision)) throw new Error('Invalid owner snapshot');
+      return value;
+    } catch { readFailure(); return null; }
   };
-  const readOperations = (id = userId) => {
+  const readFailure = () => { intentReadError = errorOf('LOCAL_READ_FAILED', 'ยังอ่านงานค้างในเครื่องไม่สำเร็จ กรุณาลองซิงก์อีกครั้ง'); };
+  const readOperations = (id = userId, snapshot = current) => {
     const result = [];
-    for (let i = 0; i < storage.length; i++) {
-      const key = storage.key(i);
-      if (!key?.startsWith(opPrefix(id))) continue;
-      const record = read(storage, key);
-      for (const op of record?.operations || [record]) {
-        if (op?.version !== 2 || !validSessionId(op.id) || !Number.isSafeInteger(op.clock) || !op.changes) continue;
-        result.push({ ...op, key });
+    try {
+      for (let i = 0; i < storage.length; i++) {
+        const key = storage.key(i);
+        if (!key?.startsWith(opPrefix(id))) continue;
+        try {
+          const raw = storage.getItem(key);
+          if (raw === null) continue; // A peer may have removed its acknowledged row.
+          const record = JSON.parse(raw);
+          const operations = record?.preparedOperations ?? record?.operations ?? [record];
+          if (!Array.isArray(operations) || !operations.length || operations.some(op =>
+            op?.version !== 2 || !validSessionId(op.id) || !Number.isSafeInteger(op.clock)
+            || !op.changes || typeof op.changes !== 'object' || Array.isArray(op.changes))) throw new Error('Invalid immutable intent');
+          if (record.preparedOperations && !validSessionId(record.recoveryCommit)) throw new Error('Invalid recovery commit');
+          knownIntentIds.set(key, operations.map(op => op.id));
+          for (const op of operations) result.push({ ...op, key, recoveryCommit: record.recoveryCommit });
+        } catch {
+          // Only previously read immutable rows whose every operation has a
+          // receipt can be ignored safely. An unknown row is never empty work.
+          const known = knownIntentIds.get(key);
+          if (!known || !known.every(opId => snapshot?.acknowledged?.includes(opId))) readFailure();
+        }
       }
-    }
+    } catch { readFailure(); }
     return result;
   };
   const pending = (id = userId, snapshot = current) => {
     const acknowledged = new Set(snapshot?.acknowledged || []);
-    const result = readOperations(id).filter(op => !acknowledged.has(op.id));
+    const result = readOperations(id, snapshot).filter(op => !acknowledged.has(op.id)
+      && (!op.recoveryCommit || snapshot?.recoveryCommits?.includes(op.recoveryCommit)));
     const canceled = new Set(result.flatMap(op => op.cancel || []));
     return result.filter(op => !canceled.has(op.id)).sort((a, b) => a.clock - b.clock || a.id.localeCompare(b.id));
   };
   const retainedAcknowledgements = () => {
-    const existing = new Set(readOperations().map(op => op.id));
+    const operations = readOperations();
+    const readable = new Set(operations.map(op => op.key));
+    for (let i = 0; i < storage.length; i++) {
+      const key = storage.key(i);
+      if (key?.startsWith(opPrefix(userId)) && !readable.has(key)) return current.acknowledged;
+    }
+    const existing = new Set(operations.map(op => op.id));
     return current.acknowledged.filter(id => existing.has(id));
   };
+  const retainedRecoveryCommits = (acknowledged = current.acknowledged) => {
+    const completed = new Set(acknowledged);
+    return (current.recoveryCommits || []).filter(id => {
+      try {
+        const raw = storage.getItem(opPrefix(userId) + id);
+        if (raw === null) return false;
+        const operations = JSON.parse(raw)?.preparedOperations;
+        return !Array.isArray(operations) || operations.some(op => !completed.has(op.id));
+      } catch { return true; } // A failed read cannot revoke a committed choice.
+    });
+  };
   const removeAcknowledged = () => {
-    const remainingKeys = new Set(readOperations().filter(op => !current.acknowledged.includes(op.id)).map(op => op.key));
-    for (const key of new Set(readOperations().map(op => op.key))) if (!remainingKeys.has(key)) {
-      try { storage.removeItem(key); } catch { /* The persisted receipt still suppresses replay. */ }
+    const operations = readOperations();
+    const remainingKeys = new Set(operations.filter(op => !current.acknowledged.includes(op.id)).map(op => op.key));
+    for (const key of new Set(operations.map(op => op.key))) if (!remainingKeys.has(key)) {
+      try { storage.removeItem(key); knownIntentIds.delete(key); } catch { /* The persisted receipt still suppresses replay. */ }
     }
   };
   const replay = (snapshot, operations) => operations.reduce((data, operation) => applyUserDataChanges(data, operation.changes), snapshot.base);
-  const guest = readLegacy(null);
+  const committedData = snapshot => snapshot.recoveryCommits?.length && ['local', 'account'].includes(snapshot.archive?.resolvedAs)
+    ? snapshot.archive[snapshot.archive.resolvedAs] || snapshot.base : snapshot.recovery?.local || snapshot.base;
+  let guest;
+  try { guest = readLegacy(null); }
+  catch { readFailure(); guest = { visible: false, data: createEmptyUserData() }; }
   let current = readSnapshot(null) || blank(guest.visible ? guest.data : createEmptyUserData());
-  let state = { principalId: null, data: guest.visible ? replay(current, pending(null, current)) : createEmptyUserData(),
-    sync: { phase: 'local-only', pending: false, dirtyFields: [], error: null, lastSyncedAt: null, recovery: null } };
+  const guestOperations = pending(null, current);
+  let state = { principalId: null, data: intentReadError ? committedData(current)
+    : guest.visible ? replay(current, guestOperations) : createEmptyUserData(),
+    sync: { phase: intentReadError ? 'error' : 'local-only', pending: !!intentReadError,
+      dirtyFields: [], error: intentReadError, lastSyncedAt: null, recovery: null } };
   const nextClock = (serverClock = 0) => pending().reduce((clock, op) => Math.max(clock, op.clock + 1),
     Math.max(Math.trunc(now()), current.clock + 1, serverClock + 1));
 
   const publish = (phase, error = null) => {
     const queued = pending();
-    state = { principalId: userId, data: replay(current, queued), sync: {
-      phase, error, pending: queued.length > 0 || Boolean(current.recovery),
-      dirtyFields: [...new Set(queued.flatMap(op => Object.keys(op.changes)))],
+    const sameOwner = state.principalId === userId;
+    const data = intentReadError ? sameOwner ? state.data : committedData(current) : replay(current, queued);
+    state = { principalId: userId, data, sync: {
+      phase: intentReadError ? 'error' : phase, error: intentReadError || error,
+      pending: !!intentReadError || queued.length > 0 || Boolean(current.recovery),
+      dirtyFields: intentReadError ? sameOwner ? state.sync.dirtyFields : [] : [...new Set(queued.flatMap(op => Object.keys(op.changes)))],
       lastSyncedAt: current.lastSyncedAt ?? null,
-      recovery: current.recovery ? { ...current.recovery, local: current.recovery.kind === 'conflict'
+      recovery: current.recovery ? { ...current.recovery, local: intentReadError ? data : current.recovery.kind === 'conflict'
         ? queued.reduce((data, op) => applyUserDataChanges(data, op.changes), current.recovery.local)
         : replay(current, queued) } : null,
       recoveryArchive: current.archive || null,
@@ -106,12 +157,13 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
   const saveSnapshot = snapshot => {
     write(dataKey(userId), snapshot);
     current = snapshot;
-    mirror(replay(current, pending()));
+    const queued = pending();
+    if (!intentReadError) mirror(replay(current, queued));
   };
   const clearTimer = () => { if (timer !== null) scheduler.clearTimeout(timer); timer = null; };
   const schedule = delay => {
     clearTimer();
-    if (!closed && userId && (!current.recovery || current.recovery.kind === 'conflict')) timer = scheduler.setTimeout(() => { timer = null; flush(); }, delay);
+    if (!closed && userId && !intentReadError && (!current.recovery || current.recovery.kind === 'conflict')) timer = scheduler.setTimeout(() => { timer = null; flush(); }, delay);
   };
   const failed = (error, captured = []) => {
     const permanent = ['INVALID_REMOTE_DATA', 'VMX_CUSTOM_ID_CONFLICT'].some(code => String(error?.message || error?.code).includes(code));
@@ -145,7 +197,7 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
     if (legacy.pending && legacy.fingerprint !== current.legacyFingerprint) archiveLegacy(legacy);
   };
   const previewRecovery = async () => {
-    if (!userId || !current.recovery || lifecycle.isOnline() === false) return;
+    if (intentReadError || !userId || !current.recovery || lifecycle.isOnline() === false) return;
     const expected = generation;
     try {
       const row = await remote.pull(userId);
@@ -158,10 +210,14 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
 
   async function flush() {
     if (closed || !userId || active !== null) return;
+    if (intentReadError) { publish('error', intentReadError); return; }
     latest();
+    if (intentReadError) { publish('error', intentReadError); return; }
     try { checkLegacy(); } catch (error) { failed(error); return; }
     if (current.recovery && current.recovery.kind !== 'conflict') { publish('error', errorOf('LEGACY_RECOVERY_REQUIRED', current.recovery.message, false)); previewRecovery(); return; }
     if (lifecycle.isOnline() === false) { publish('offline'); return; }
+    const queued = pending();
+    if (intentReadError) { publish('error', intentReadError); return; }
     const expected = generation;
     const selectedUser = userId;
     const operation = {};
@@ -169,7 +225,7 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
     const fields = remoteFields();
     const captured = [], outgoing = [];
     let batchBytes = 2, cancelCount = 0;
-    for (const op of pending()) {
+    for (const op of queued) {
       const payload = { id: op.id, clock: op.clock,
         ...(op.cancel?.length ? { cancel: op.cancel } : {}),
         changes: Object.fromEntries(Object.entries(op.changes).filter(([field]) => fields.has(field))) };
@@ -178,6 +234,7 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
       captured.push(op); outgoing.push(payload); batchBytes += size; cancelCount += op.cancel?.length || 0;
     }
     publish('syncing');
+    if (intentReadError) { active = null; return; }
     try {
       const result = await remote.apply(selectedUser, outgoing);
       if (closed || expected !== generation) return;
@@ -192,6 +249,7 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
       }
       latest();
       const visibleBeforeAck = replay(current, pending());
+      if (intentReadError) { publish('error', intentReadError); return; }
       const localOnly = Object.fromEntries(Object.entries(USER_DATA_FIELDS).filter(([, field]) => !field.remoteKey)
         .map(([field]) => [field, visibleBeforeAck[field]]));
       const newer = result.row.sync_revision >= current.revision;
@@ -200,7 +258,8 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
         ...result.acknowledged, ...captured.filter(op => result.acknowledged.includes(op.id)).flatMap(op => op.cancel || [])])];
       const suppressed = result.conflicts?.length ? captured.filter(op => result.conflicts.some(conflict => conflict.id === op.id)) : [];
       const snapshot = { ...current, base, revision: Math.max(current.revision, result.row.sync_revision),
-        clock: Math.max(current.clock, result.row.sync_clock), acknowledged, lastSyncedAt: now() };
+        clock: Math.max(current.clock, result.row.sync_clock), acknowledged,
+        recoveryCommits: retainedRecoveryCommits(acknowledged), lastSyncedAt: now() };
       if (current.recovery && current.recovery.kind !== 'conflict') {
         snapshot.base = visibleBeforeAck;
         snapshot.recovery = { ...current.recovery, local: visibleBeforeAck, account: base };
@@ -211,13 +270,14 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
           message: 'มีข้อมูลจากอีกเครื่องใหม่กว่า กรุณาสำรองและเลือกข้อมูลที่ต้องการใช้' };
         snapshot.archive = { ...snapshot.recovery, previous: current.archive };
       }
+      if (intentReadError) { publish('error', intentReadError); return; }
       saveSnapshot(snapshot); // Persist receipts before removing immutable records.
       removeAcknowledged();
       ready = true;
       retries = 0;
       publish(current.recovery ? 'error' : pending().length ? 'pending' : 'synced',
         current.recovery ? errorOf('SYNC_CONFLICT', current.recovery.message, false) : null);
-      mirror(state.data);
+      if (!intentReadError) mirror(state.data);
       if (pending().length) schedule(0);
     } catch (error) { if (!closed && expected === generation) failed(error, captured); }
     finally { if (active === operation) active = null; }
@@ -229,6 +289,7 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
     }
     latest();
     const before = replay(current, pending());
+    if (intentReadError) { publish('error', intentReadError); return { accepted: false, error: intentReadError }; }
     const patch = command.derive(before);
     if (!patch || typeof patch !== 'object' || Array.isArray(patch)
       || Object.keys(patch).some(field => !Object.prototype.hasOwnProperty.call(USER_DATA_FIELDS, field))) {
@@ -237,6 +298,7 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
     const changes = userDataChanges(before, patch, true);
     if (!Object.keys(changes).length) return { accepted: true };
     const clock = nextClock();
+    if (intentReadError) { publish('error', intentReadError); return { accepted: false, error: intentReadError }; }
     if (!Number.isSafeInteger(clock)) throw new Error('Synchronization clock limit reached');
     const op = { version: 2, id: newStudySessionId(), clock, changes };
     const key = opPrefix(userId) + op.id;
@@ -250,17 +312,22 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
       publish('error', errorOf('LOCAL_WRITE_FAILED', 'พื้นที่จัดเก็บในเครื่องไม่พอ จึงยังไม่บันทึกการเปลี่ยนแปลงนี้', false));
       return { accepted: false, error: { code: 'LOCAL_WRITE_FAILED' } };
     }
+    state = { ...state, data: applyUserDataChanges(before, changes) };
     if (!userId) {
       try {
         const queued = pending();
-        saveSnapshot({ ...current, base: replay(current, queued), clock,
-          acknowledged: [...new Set([...retainedAcknowledgements(), ...queued.map(item => item.id)])] });
-        removeAcknowledged();
+        if (!intentReadError) {
+          const acknowledged = [...new Set([...retainedAcknowledgements(), ...queued.map(item => item.id)])];
+          if (!intentReadError) {
+            saveSnapshot({ ...current, base: replay(current, queued), clock, acknowledged });
+            removeAcknowledged();
+          }
+        }
       } catch { /* The immutable operation remains durable if the snapshot mirror is full. */ }
     }
     publish(userId ? current.recovery ? 'error' : lifecycle.isOnline() === false ? 'offline' : 'pending' : 'local-only',
       current.recovery ? errorOf('LEGACY_RECOVERY_REQUIRED', current.recovery.message, false) : null);
-    mirror(state.data);
+    if (!intentReadError) mirror(state.data);
     if (userId) schedule(debounceMs);
     return { accepted: true, generation: clock };
   };
@@ -268,6 +335,8 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
   const recover = async (choice, principalId, recoveryId) => {
     latest();
     if (principalId !== undefined && (principalId || null) !== userId) return { accepted: false, error: { code: 'STALE_PRINCIPAL' } };
+    pending();
+    if (intentReadError) { publish('error', intentReadError); return { accepted: false, error: intentReadError }; }
     if (recoveryId !== undefined && current.recovery?.id !== recoveryId) return { accepted: false, error: { code: 'RECOVERY_CHANGED' } };
     if (!userId || !current.recovery || !['local', 'account'].includes(choice) || lifecycle.isOnline() === false) return { accepted: false };
     const expected = generation;
@@ -278,12 +347,16 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
     latest();
     if (current.recovery?.id !== selectedRecovery) return { accepted: false, error: { code: 'RECOVERY_CHANGED' } };
     if (choice === 'local' && current.recovery.kind === 'custom-id') return { accepted: false, error: { code: 'CUSTOM_ID_CONFLICT' } };
+    const queued = pending();
+    if (intentReadError) { publish('error', intentReadError); return { accepted: false, error: intentReadError }; }
     const desired = current.recovery.kind === 'conflict'
-      ? pending().reduce((data, op) => applyUserDataChanges(data, op.changes), current.recovery.local)
-      : replay(current, pending());
+      ? queued.reduce((data, op) => applyUserDataChanges(data, op.changes), current.recovery.local)
+      : replay(current, queued);
     const account = { ...dataFromSyncRow(row, createEmptyUserData), ...Object.fromEntries(Object.entries(USER_DATA_FIELDS)
       .filter(([, field]) => !field.remoteKey).map(([field]) => [field, desired[field]])) };
-    const legacy = readLegacy(selected);
+    let legacy;
+    try { legacy = readLegacy(selected); }
+    catch { readFailure(); publish('error', intentReadError); return { accepted: false, error: intentReadError }; }
     if (current.recovery.kind === 'legacy' && legacy.pending && legacy.fingerprint !== current.legacyFingerprint) {
       archiveLegacy(legacy);
       publish('error', errorOf('RECOVERY_CHANGED', 'มีข้อมูลค้างใหม่จากอีกหน้าต่าง กรุณาตรวจสำเนาล่าสุดก่อนเลือก', false));
@@ -291,23 +364,41 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
       return { accepted: false, error: { code: 'RECOVERY_CHANGED' } };
     }
     const clock = nextClock(row?.sync_clock || 0);
+    if (intentReadError) { publish('error', intentReadError); return { accepted: false, error: intentReadError }; }
     if (!Number.isSafeInteger(clock)) return { accepted: false, error: { code: 'INVALID_REMOTE_DATA' } };
-    const discarded = current.recovery.kind === 'custom-id' ? pending() : [];
+    const discarded = current.recovery.kind === 'custom-id' ? queued : [];
     const resolutions = [];
     for (let i = 0; i < discarded.length; i += 200) resolutions.push({ version: 2, id: newStudySessionId(),
       clock: clock + resolutions.length, changes: {}, cancel: discarded.slice(i, i + 200).map(op => op.id) });
     resolutions.push({ version: 2, id: newStudySessionId(), clock: clock + resolutions.length,
       changes: discarded.length ? accountRestoreChanges(account, discarded) : choice === 'local' ? userDataChanges(account, desired, true) : {} });
-    const envelope = { version: 2, operations: resolutions };
+    const recoveryCommit = resolutions[0].id;
+    const resolutionKey = opPrefix(selected) + recoveryCommit;
+    // The snapshot commits this choice; a prepared envelope cannot replay or
+    // cancel work if that write fails or the page closes between the writes.
+    // Retained v2 readers ignore preparedOperations and cannot publish a
+    // choice whose snapshot has not committed.
+    const envelope = { version: 2, preparedOperations: resolutions, recoveryCommit };
     try {
       if (bytes(envelope) > MAX_BATCH_BYTES - 1024 || !Number.isSafeInteger(resolutions.at(-1).clock)) throw new Error('Recovery operation is too large');
-      write(opPrefix(selected) + resolutions[0].id, envelope);
+      write(resolutionKey, envelope);
+      const recoveryCommits = [...retainedRecoveryCommits(), recoveryCommit];
+      const acknowledged = [...new Set([...retainedAcknowledgements(), ...discarded.map(op => op.id)])];
+      if (intentReadError) {
+        try { storage.removeItem(resolutionKey); } catch { /* A prepared choice stays inactive without its snapshot marker. */ }
+        publish('error', intentReadError);
+        return { accepted: false, error: intentReadError };
+      }
       saveSnapshot({ ...current, base: account, recovery: null, legacyFingerprint: legacy.fingerprint,
+        recoveryCommits, acknowledged,
         archive: { ...(current.archive || {}), local: desired, account, resolvedAs: choice, at: now() },
         revision: row?.sync_revision || 0, clock: resolutions.at(-1).clock });
+      state = { ...state, data: choice === 'local' ? desired : account };
     } catch {
-      publish('error', errorOf('LOCAL_WRITE_FAILED', 'ยังจัดเก็บการเลือกนี้ไม่สำเร็จ ข้อมูลเดิมยังอยู่ครบ กรุณาลองอีกครั้ง', false));
-      return { accepted: false, error: { code: 'LOCAL_WRITE_FAILED' } };
+      try { storage.removeItem(resolutionKey); } catch { /* Uncommitted intent stays inactive across reload. */ }
+      const error = intentReadError || errorOf('LOCAL_WRITE_FAILED', 'ยังจัดเก็บการเลือกนี้ไม่สำเร็จ ข้อมูลเดิมยังอยู่ครบ กรุณาลองอีกครั้ง', false);
+      publish('error', error);
+      return { accepted: false, error: { code: error.code } };
     }
     publish('pending');
     schedule(0);
@@ -320,10 +411,14 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
     clearTimer(); generation++; active = null; ready = false; retries = 0;
     const previous = state.data;
     const fromGuest = userId === null;
+    if (selected !== userId) { intentReadError = null; knownIntentIds.clear(); }
     userId = selected;
-    const legacy = readLegacy(selected);
-    current = readSnapshot(selected) || blank(legacy.visible ? legacy.data : createEmptyUserData());
-    if (selected && !readSnapshot(selected)) {
+    let legacy;
+    try { legacy = readLegacy(selected); }
+    catch { readFailure(); legacy = { visible: false, found: false, pending: false, data: createEmptyUserData() }; }
+    const snapshot = readSnapshot(selected);
+    current = snapshot || blank(legacy.visible ? legacy.data : createEmptyUserData());
+    if (!intentReadError && selected && !snapshot) {
       const guestImport = fromGuest && !same(previous, createEmptyUserData()) && !legacy.found;
       if (legacy.pending || guestImport) {
         try { archiveLegacy(guestImport ? { ...legacy, data: previous } : legacy); }
@@ -332,7 +427,7 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
     }
     publish(selected ? current.recovery ? 'error' : 'hydrating' : 'local-only',
       current.recovery ? errorOf('LEGACY_RECOVERY_REQUIRED', current.recovery.message, false) : null);
-    mirror(state.data);
+    if (!intentReadError) mirror(state.data);
     if (selected) { if (current.recovery) previewRecovery(); else schedule(0); }
     else ready = true;
     return { accepted: true };
@@ -355,7 +450,11 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
       if (command.type === 'CHANGE') return change(command);
       if (command.type === 'SESSION_CHANGED') return session(command.userId);
       if (command.type === 'RECOVER_LEGACY') return recover(command.choice, command.principalId, command.recoveryId);
-      if (command.type === 'REFRESH_REQUESTED') { retries = 0; flush(); return { accepted: Boolean(userId) }; }
+      if (command.type === 'REFRESH_REQUESTED') {
+        retries = 0; intentReadError = null;
+        if (!userId) { latest(); publish('local-only'); return { accepted: !intentReadError }; }
+        flush(); return { accepted: true };
+      }
       throw new TypeError(`Unknown UserDataSync command: ${command.type}`);
     },
     close() { closed = true; generation++; clearTimer(); stopLifecycle?.(); listeners.clear(); },
