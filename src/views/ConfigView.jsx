@@ -4,6 +4,7 @@ import { SEMESTER } from '../data/schedule.js';
 import { EXAM_SCOPE_LABELS, examScopeForPhase } from '../lib/question-prediction.js';
 import BackBar from '../components/BackBar.jsx';
 import { wholeSetTime, wholeSetTimeLabel } from '../hooks/utils.js';
+import NavIcon from '../components/NavIcon.jsx';
 
 // ============================================================
 // ConfigView — ตั้งค่าก่อนเริ่มฝึก/สอบ
@@ -28,9 +29,9 @@ const SECONDS_PRESETS = [30, 60, 120];
 // fill-in-the-blank is typed, so it sits with the written chip, and matching
 // is marked automatically, so it sits with the other one.
 const CATEGORIES = [
-  { id: 'all',     label: 'ทุกประเภท',           icon: '🎯', desc: 'รวมทุกแบบ — เหมือนสอบจริง' },
-  { id: 'mcq',     label: 'ปรนัย ถูก-ผิด จับคู่', icon: '📝', desc: 'ตรวจอัตโนมัติ — ฝึกความรู้เร็วๆ' },
-  { id: 'writing', label: 'ข้อเขียนเท่านั้น',    icon: '✍️', desc: 'ตอบสั้น เขียนบรรยาย และเติมคำ — พิมพ์คำตอบเอง' },
+  { id: 'all',     label: 'ทุกประเภท',           iconName: 'exam',     desc: 'รวมทุกแบบ — เหมือนสอบจริง' },
+  { id: 'mcq',     label: 'ปรนัย ถูก-ผิด จับคู่', iconName: 'practice', desc: 'ตรวจอัตโนมัติ — ฝึกความรู้เร็วๆ' },
+  { id: 'writing', label: 'ข้อเขียนเท่านั้น',    iconName: 'pen',      desc: 'ตอบสั้น เขียนบรรยาย และเติมคำ — พิมพ์คำตอบเอง' },
 ];
 
 export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, showCategoryPicker = false, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, availablePool = null, mode, selectedPhase = null }) {
@@ -109,11 +110,23 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
           marginBottom: 16,
           padding: 14,
           borderRadius: 12,
-          background: 'rgba(74, 107, 74, 0.08)',
-          border: '1px solid var(--clr-sage)',
+          background: 'var(--clr-sage-soft)',
+          border: '1px solid color-mix(in srgb, var(--clr-sage) 35%, transparent)',
         }}>
-          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8, fontWeight: 700 }}>
-            ✍️ Quick strategy ก่อนเริ่มเขียน
+          <div style={{
+            fontSize: 11,
+            fontFamily: 'var(--vmx-mono)',
+            color: 'var(--clr-sage-text)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
+            marginBottom: 8,
+            fontWeight: 700,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+          }}>
+            <NavIcon name="pen" size={13} />
+            <span>Quick Strategy ก่อนเริ่มเขียน</span>
           </div>
           <ul style={{ margin: 0, paddingLeft: 20, fontSize: 12.5, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
             <li><strong>อ่าน 2 รอบ:</strong> 1 = gist, 2 = ขีดเส้น main idea + 4-5 details</li>
@@ -143,21 +156,36 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
                   style={{
                     all: 'unset',
                     cursor: 'pointer',
-                    padding: '10px 14px',
+                    padding: '12px 16px',
                     borderRadius: 12,
                     border: `1px solid ${(cat || 'all') === c.id ? 'var(--clr-sage)' : 'var(--clr-border)'}`,
-                    background: (cat || 'all') === c.id ? 'rgba(74, 107, 74, 0.10)' : 'var(--clr-bg)',
+                    background: (cat || 'all') === c.id ? 'var(--clr-sage-soft)' : 'var(--clr-surface)',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 10,
+                    gap: 12,
+                    transition: 'border-color var(--dur-fast), background var(--dur-fast)',
                   }}
                 >
-                  <span style={{ fontSize: 20 }}>{c.icon}</span>
-                  <span style={{ flex: 1 }}>
-                    <span style={{ display: 'block', fontWeight: 600, fontSize: 13 }}>{c.label}</span>
-                    <span style={{ display: 'block', fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 2 }}>{c.desc}</span>
+                  <span style={{
+                    width: 36,
+                    height: 36,
+                    display: 'grid',
+                    placeItems: 'center',
+                    borderRadius: 'var(--r-md)',
+                    background: (cat || 'all') === c.id ? 'var(--clr-sage)' : 'var(--clr-surface-2)',
+                    color: (cat || 'all') === c.id ? 'var(--clr-sage-on)' : 'var(--clr-ink)',
+                  }}>
+                    <NavIcon name={c.iconName} size={18} />
                   </span>
-                  {(cat || 'all') === c.id && <span style={{ fontSize: 14, color: 'var(--clr-sage-text)' }}>✓</span>}
+                  <span style={{ flex: 1 }}>
+                    <span style={{ display: 'block', fontWeight: 600, fontSize: 13.5, color: 'var(--clr-ink)' }}>{c.label}</span>
+                    <span style={{ display: 'block', fontSize: 11.5, color: 'var(--clr-ink-soft)', marginTop: 2 }}>{c.desc}</span>
+                  </span>
+                  {(cat || 'all') === c.id && (
+                    <span style={{ color: 'var(--clr-sage-text)' }}>
+                      <NavIcon name="check" size={16} />
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
@@ -281,6 +309,45 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
             )}
           </div>
         )}
+      </div>
+
+      {/* Protocol Telemetry Summary Bar */}
+      <div style={{
+        marginTop: 20,
+        marginBottom: 16,
+        padding: '14px 18px',
+        borderRadius: 12,
+        background: 'var(--clr-surface)',
+        border: '1px solid var(--clr-border)',
+        boxShadow: 'var(--shadow-sm)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: 12,
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+          <div>
+            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>ขนาดชุดข้อสอบ</div>
+            <div style={{ fontSize: 15, fontWeight: 700, fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink)' }}>
+              {knownAvailableCount ? Math.min(numQuestions, knownAvailableCount) : numQuestions} ข้อ
+            </div>
+          </div>
+          <div style={{ width: 1, height: 24, background: 'var(--clr-border)' }} />
+          <div>
+            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>งบเวลารวม</div>
+            <div style={{ fontSize: 15, fontWeight: 700, fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink)' }}>
+              {!useTimer ? 'ไม่จำกัดเวลา' : isExamMode ? examBudgetLabel : `${Math.ceil((numQuestions * timePerQ) / 60)} นาที`}
+            </div>
+          </div>
+          <div style={{ width: 1, height: 24, background: 'var(--clr-border)' }} />
+          <div>
+            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>รูปแบบการตรวจ</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>
+              {isExamMode ? 'สรุปผลเมื่อส่ง' : instantFeedback ? 'เฉลยทันทีรายข้อ' : 'ตรวจหลังส่ง'}
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="vmx-btn-row">
