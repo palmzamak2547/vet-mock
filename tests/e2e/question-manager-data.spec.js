@@ -73,3 +73,30 @@ test('a newly created custom ID reaches spaced review and keeps its review histo
   await page.getByRole('button', { name: /Good/ }).click();
   await expect.poll(() => page.evaluate(id => JSON.parse(localStorage.getItem('vmx-sr-cards'))[id]?.totalReviews, created.id)).toBe(1);
 });
+
+test('a retired question import stops after browser navigation; a fresh import still saves', async ({ page }) => {
+  const file = { name: 'custom.json', mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify([imported])) };
+  await page.goto('/app/questions', { waitUntil: 'domcontentloaded' });
+  await page.getByRole('button', { name: '← กลับหน้าแรก', exact: true }).click();
+  await expect(page).toHaveURL(/\/$/);
+  await page.goBack();
+  await expect(page).toHaveURL(/\/app\/questions$/);
+  await expect(page.locator('input[type=file]')).toHaveCount(1);
+  const before = await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-custom-q')));
+  expect(before).toHaveLength(1);
+  expect(before[0]).toMatchObject(imported);
+  await page.locator('input[type=file]').setInputFiles(file);
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await page.goForward();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.locator('input[type=file]')).toHaveCount(0);
+  await page.getByRole('dialog').getByRole('button', { name: 'นำเข้า', exact: true }).click();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-custom-q')))).toEqual(before);
+
+  await page.goBack();
+  await page.locator('input[type=file]').setInputFiles(file);
+  await page.getByRole('dialog').getByRole('button', { name: 'นำเข้า', exact: true }).click();
+  await expect(page.getByText(imported.q, { exact: true })).toHaveCount(2);
+});
