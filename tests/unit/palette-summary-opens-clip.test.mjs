@@ -62,7 +62,7 @@ function env(now = 1_000_000) {
     ${cut(PALETTE, 'function runItem(item, handlers) {', '\n}\n')}
     ${cut(VIEW, 'function knownClip(', '\n}\n')}
     ${cut(VIEW, 'function citedMoment(', '\n}\n')}
-    ${cut(VIEW, "const PENDING_CLIP_KEY", 'function takePendingClip() {')} ${cut(VIEW, 'let raw = null;', '\n}\n')}
+    ${cut(VIEW, "const PENDING_CLIP_KEY", 'function takePendingClip(captureRef = null) {')} ${cut(VIEW, 'let raw = null;', '\n}\n')}
     this.runItem = runItem; this.takePendingClip = takePendingClip; this.knownClip = knownClip;
   `, ctx);
   return ctx;
@@ -105,7 +105,7 @@ test('an unknown clip id opens nothing, and a hit without an id still opens the 
 });
 
 test('the view opens the pending clip on mount and through vmx-view-intent', () => {
-  assert.match(VIEW, /useState\(\(\) => citedMoment\(\) \|\| takePendingClip\(\)\)/);
+  assert.match(VIEW, /useState\(\(\) => citedMoment\(\) \|\| takePendingClip\(initialPendingRef\)\)/);
   const intent = cut(VIEW, 'const followIntent = (event) => {', '\n    };\n');
   assert.match(intent, /typeof detail\.navigationState\?\.videoId === 'string'/);
   assert.match(intent, /setPlaying\(clip\)/);

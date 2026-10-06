@@ -170,7 +170,7 @@ function Inline({ text }) {
 // ─────────────────────────────────────────────────────────────
 // Component
 // ─────────────────────────────────────────────────────────────
-export default function SummaryModal({ summary, onClose }) {
+export default function SummaryModal({ summary, onClose, onReload }) {
   const html = useMemo(() => renderMarkdown(summary?.summary || ''), [summary]);
   const dialogRef = useModalFocus({ active: Boolean(summary), onClose });
   const { reduced } = useMotionPreferences();
@@ -438,6 +438,11 @@ export default function SummaryModal({ summary, onClose }) {
           }}
         >
           <div ref={proseRef} dangerouslySetInnerHTML={{ __html: html }} />
+          {typeof onReload === 'function' && (
+            <button type="button" className="vmx-btn vmx-btn-primary" onClick={onReload} style={{ marginTop: 12 }}>
+              โหลดหน้าใหม่แล้วเปิดสรุป
+            </button>
+          )}
           <RecallQuiz videoId={summary.videoId} />
         </div>
 
