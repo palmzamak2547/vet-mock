@@ -1549,6 +1549,10 @@ html, body {
 .vmx-mode-card:disabled { cursor: not-allowed; }
 .vmx-mode-card:disabled:hover { border-color: var(--clr-border); background: var(--clr-surface); }
 .vmx-mode-card .icon, .vmx-subject-card .icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: var(--r-md); background: var(--clr-surface-2); color: var(--clr-sage-text); font-size: 20px; line-height: 1; }
+/* Subject cards are the directory's face — give their icon chip more
+   presence than the shared 36px mode-card chip; the Mochi <img> inside
+   is sized in SubjectSelectView (40px) to stay inside this chip. */
+.vmx-subject-card .icon { width: 48px; height: 48px; font-size: 28px; }
 .vmx-mode-card .title, .vmx-subject-card .title { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; font-weight: 600; font-size: 16px; color: var(--clr-ink); }
 .vmx-mode-card .sub, .vmx-subject-card .sub { font-size: 12px; color: var(--clr-ink-soft); line-height: 1.4; }
 /* The card accent arrives as --badge-accent, not as a background fill.
@@ -6152,11 +6156,17 @@ body.vmx-reading .vmx-pdf-body {
   border-color: var(--clr-sage);
 }
 .vmx-mochi-seal {
+  /* Fixed circular badge: the img inside is sized 100%/100%, so an
+     unconstrained box lets the PNG's 512px intrinsic size inflate the
+     card until it overflows the viewport (home companion card). */
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 4px 12px 4px 6px;
-  border-radius: var(--r-pill);
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
   border: 1px solid var(--clr-border);
   background: var(--clr-surface);
   font-size: var(--text-xs);
@@ -6285,3 +6295,247 @@ body.vmx-reading .vmx-pdf-body {
   flex-shrink: 0;
 }
 
+
+/* ============================================================
+   Faculty Directory — Clinical Staff Registry (FacultyView)
+   One toolbar panel owns search + the three filter groups, so
+   the directory opens with its content instead of a pill wall.
+   ============================================================ */
+.vmx-fac-toolbar {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.vmx-fac-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.vmx-fac-search-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--clr-ink-soft);
+  pointer-events: none;
+  display: inline-flex;
+}
+.vmx-fac-search input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 10px 40px 10px 40px;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-pill);
+  background: var(--clr-bg);
+  color: var(--clr-ink);
+  font-family: inherit;
+  font-size: 16px; /* iOS no-zoom floor */
+}
+.vmx-fac-search input:focus-visible {
+  outline: 2px solid var(--clr-sage);
+  outline-offset: 1px;
+  border-color: var(--clr-sage);
+}
+.vmx-fac-search-clear {
+  position: absolute;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: var(--clr-surface-2);
+  color: var(--clr-ink-soft);
+  cursor: pointer;
+}
+.vmx-fac-search-clear:hover { color: var(--clr-ink); }
+.vmx-fac-filter-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.vmx-fac-filter-label {
+  flex: 0 0 64px;
+  padding-top: 10px; /* optical centre against the 44px chips */
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--clr-ink-soft);
+  letter-spacing: 0.02em;
+}
+.vmx-fac-filter-group .vmx-chip-row { flex: 1; min-width: 0; gap: 6px; }
+.vmx-fac-filter-group .vmx-chip { padding: 8px 14px; font-size: 13px; }
+.vmx-fac-chip-toggle {
+  align-self: center;
+  border: none;
+  background: transparent;
+  color: var(--clr-sage-text);
+  font-family: var(--vmx-mono);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 10px;
+  min-height: 44px;
+}
+.vmx-fac-chip-toggle:hover { text-decoration: underline; }
+.vmx-fac-toolbar-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--clr-border);
+  padding-top: 12px;
+}
+.vmx-fac-count {
+  font-family: var(--vmx-mono);
+  font-size: 11.5px;
+  color: var(--clr-ink-soft);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+.vmx-fac-clear {
+  border: none;
+  background: transparent;
+  color: var(--clr-rose-text);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 10px;
+  min-height: 44px;
+  border-radius: var(--r-sm);
+}
+.vmx-fac-clear:hover { text-decoration: underline; }
+
+.vmx-fac-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+.vmx-fac-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  padding: 16px 18px;
+  cursor: pointer;
+  color: var(--clr-ink);
+  font-family: inherit;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast), transform var(--dur-fast);
+}
+.vmx-fac-card:hover {
+  border-color: var(--clr-sage);
+  box-shadow: var(--shadow-workbench, var(--shadow-md));
+  transform: translateY(-2px);
+}
+.vmx-fac-card:focus-visible {
+  outline: 2px solid var(--clr-sage);
+  outline-offset: 2px;
+}
+.vmx-fac-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.vmx-fac-card-names { flex: 1; min-width: 0; }
+.vmx-fac-card-name-th {
+  font-size: 17px;
+  font-weight: 650;
+  color: var(--clr-ink);
+  line-height: 1.3;
+}
+.vmx-fac-card-name-en {
+  font-family: var(--vmx-display);
+  font-size: 14px;
+  color: var(--clr-ink-soft);
+  margin-top: 2px;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vmx-fac-card-tag {
+  flex-shrink: 0;
+  max-width: 46%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+  font-family: var(--vmx-mono);
+  font-weight: 600;
+  color: var(--clr-ink);
+  background: var(--clr-surface-2);
+  padding: 3px 9px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--clr-border);
+}
+.vmx-fac-card-tag.is-subject {
+  background: var(--clr-bg);
+}
+.vmx-fac-card-tag-more {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-family: var(--vmx-mono);
+  color: var(--clr-ink-soft);
+  align-self: center;
+}
+.vmx-fac-card-position {
+  font-size: 12.5px;
+  color: var(--clr-ink-soft);
+  line-height: 1.4;
+}
+.vmx-fac-card-areas {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+.vmx-fac-card-area {
+  font-size: 11px;
+  padding: 2px 9px;
+  background: var(--clr-surface-2);
+  border-radius: var(--r-pill);
+  color: var(--clr-ink);
+}
+.vmx-fac-card-areas-more {
+  font-size: 11px;
+  font-family: var(--vmx-mono);
+  color: var(--clr-ink-soft);
+  padding: 2px 4px;
+}
+.vmx-fac-card-foot {
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px dashed var(--clr-border);
+  font-size: 11px;
+  font-family: var(--vmx-mono);
+  color: var(--clr-ink-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.vmx-fac-card-foot-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vmx-fac-card-foot-status.is-verified { color: var(--clr-sage-text); }
+.vmx-fac-filter-group .vmx-chip > span { margin-left: 5px; }
