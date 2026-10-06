@@ -146,6 +146,12 @@ export function proposeCodebook(raw, opts = {}) {
   return { columns, unitOfAnalysis: unit, clusterKey: cluster ? cluster.key : null };
 }
 
+/** Defaults inherit hiding; only a valid choice authored for this column overrides it. */
+export function resolveColumnVisibility(entry, inherited = false) {
+  const explicit = entry?.hiddenExplicit === true && typeof entry.hidden === 'boolean';
+  return { hidden: explicit ? entry.hidden : Boolean(entry?.hidden || inherited), ...(explicit ? { hiddenExplicit: true } : {}) };
+}
+
 /**
  * Validate a codebook the student edited (one cluster column at most, levels unique, reference a
  * known level, binary outcome has a positive level).
@@ -162,6 +168,10 @@ export function checkCodebook(codebook) {
     if (!TYPES.includes(c.type)) issues.push({ column: c.key, key: 'intake.codebook.issue.unknownType' });
     if (!ROLES.includes(c.role)) issues.push({ column: c.key, key: 'intake.codebook.issue.unknownRole' });
     if (!LEVELS.includes(c.level)) issues.push({ column: c.key, key: 'intake.codebook.issue.unknownLevel' });
+    if ((c.hiddenExplicit !== undefined && typeof c.hiddenExplicit !== 'boolean')
+      || (c.hiddenExplicit === true && typeof c.hidden !== 'boolean')) {
+      issues.push({ column: c.key, key: 'intake.codebook.issue.visibilityChoice' });
+    }
     const values = (c.levels || []).map((l) => l.value);
     if (new Set(values).size !== values.length) issues.push({ column: c.key, key: 'intake.codebook.issue.duplicateLevel' });
     if (CATEGORICAL.has(c.type)) {

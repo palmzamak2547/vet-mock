@@ -6,6 +6,7 @@
 import { FIGURE_WIDTHS, FIGURE_WIDTH_RANGE, PANEL_RANGE, panelWidthMm as kitPanelWidth } from '../charts/figure.js';
 import { chartsForResult } from './chart-inputs.js';
 import { isStale } from './result-model.js';
+import { usesHiddenColumns } from '../../lib/runtime/export.js';
 
 export { FIGURE_WIDTHS, FIGURE_WIDTH_RANGE, PANEL_RANGE };
 /** Most columns a figure may have. */
@@ -23,7 +24,8 @@ export function figureCandidates(analyses, table, ctx = {}) {
   const sorted = [...(analyses || [])].sort((a, b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
   const out = [];
   for (const a of sorted) {
-    const stale = isStale(a, ctx.fingerprint ?? null);
+    if (usesHiddenColumns(a.envelope?.spec || a.spec, table?.codebook)) continue;
+    const stale = isStale(a, ctx.fingerprint ?? table?.fingerprint ?? null, table?.codebookFingerprint);
     for (const ch of chartsForResult(a, table, { labelOf: ctx.labelOf, levelOf: ctx.levelOf, stale, t: ctx.t })) {
       out.push({
         key: `${a.id}|${ch.id}`, analysisId: a.id, chartId: ch.id, kind: ch.kind, titleKey: ch.titleKey, input: ch.input,

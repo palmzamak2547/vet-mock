@@ -19,6 +19,7 @@ import { provenanceLines } from '../../lib/runtime/provenance.js';
 import ResultCharts from '../components/ResultCharts.jsx';
 import { chartsForResult, repeatsCiPlot } from '../lib/chart-inputs.js';
 import { levelNameFor } from '../report/build.js';
+import { usesHiddenColumns } from '../../lib/runtime/export.js';
 
 /** @param {{ p: any, analysisId: string }} props */
 export default function SavedResult({ p, analysisId }) {
@@ -46,7 +47,8 @@ export default function SavedResult({ p, analysisId }) {
   const m = getMethod(a.spec?.method);
   const name = m ? t(m.nameKey) : a.spec?.method;
   const designRow = DESIGNS.find((d) => d.id === (a.spec?.design || p.project.design)) || null;
-  const stale = isStale(a, p.table?.fingerprint);
+  const stale = isStale(a, p.table?.fingerprint, p.table?.codebookFingerprint);
+  const hidden = usesHiddenColumns(a.envelope?.spec || a.spec, p.codebook || p.meta?.codebook);
   const charts = chartsForResult(a, p.table || null, { labelOf, levelOf, stale, t });
   return (
     <>
@@ -61,10 +63,10 @@ export default function SavedResult({ p, analysisId }) {
           </button>
         )}
       />
-      <ResultView envelope={a.envelope} title={t('ws.ss.resultTitle')} caption={name} designRow={designRow} labelOf={labelOf} codebook={p.codebook || p.meta?.codebook} hideTables={isT1} hidePlot={repeatsCiPlot(charts)} stale={stale} onDownloaded={(kind) => p.log('download', { what: kind, analysisId: a.id })}>
+      {hidden ? <Notice tone="info" title={t('runtime.export.piiLeftOut')}>{t('ws.import.piiNote')} <Link to={`/app/p/${p.project.id}/codebook`}>{t('ws.rail.codebook')}</Link></Notice> : <ResultView envelope={a.envelope} title={t('ws.ss.resultTitle')} caption={name} designRow={designRow} labelOf={labelOf} codebook={p.codebook || p.meta?.codebook} hideTables={isT1} hidePlot={repeatsCiPlot(charts)} stale={stale} onDownloaded={(kind) => p.log('download', { what: kind, analysisId: a.id })}>
         <ResultCharts charts={charts} caption={name} idBase="rs-charts-saved" madeUp={Boolean(p.project?.example)} figuresHref={`/app/p/${p.project.id}/figures`} onDownloaded={(kind, chart) => p.log('download', { what: kind, analysisId: a.id, chart })} />
         {isT1 && a.envelope?.status === 'ok' ? <Table1View envelope={a.envelope} labelOf={labelOf} note={note} fileBase={safeFileBase(name)} onDownloaded={(kind) => p.log('download', { what: kind, analysisId: a.id })} /> : null}
-      </ResultView>
+      </ResultView>}
       <Link to={`/app/p/${p.project.id}/report`} className="rs-btn rs-btn--quiet">{t('ws.analysis.toReport')}<Icon name="arrow" size={16} /></Link>
       <Dialog
         open={confirm}

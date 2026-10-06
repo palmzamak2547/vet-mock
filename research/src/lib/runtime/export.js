@@ -4,6 +4,12 @@
 // and every function here drops those columns first. OWNER: report role (M2; runtime role in M1).
 import { appendLog } from '../store/log.js';
 
+/** A result that names a currently hidden column must not reveal its old numbers through another export. */
+export function usesHiddenColumns(spec, codebook) {
+  const hidden = new Set((codebook?.columns || []).filter((c) => c.hidden).map((c) => c.key));
+  return [...Object.values(spec?.roles || {}).flat(), spec?.cluster?.column].some((key) => hidden.has(key));
+}
+
 /**
  * @typedef {Object} ExportTable
  * @property {string} [caption]

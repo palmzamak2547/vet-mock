@@ -147,8 +147,7 @@ export function useProject(projectId) {
   }, [db, owner, state.meta, refreshDataset, log, notify, load, set]);
 
   /**
-   * A step that creates a derived column also adds that column to the codebook: the recipe is saved
-   * first, then the codebook against the dataset's new revision.
+   * A step and the codebook columns it creates share one compare-and-set transaction.
    */
   const commitStepsWithColumn = useCallback(async (steps, entry, logDetail) => {
     if (!state.meta) return false;
@@ -156,13 +155,11 @@ export function useProject(projectId) {
     const entries = [].concat(entry || []);
     set({ busy: true });
     try {
-      await saveRecipe(db, owner, state.meta.id, steps, state.meta.rev);
-      const ds = await getDataset(db, owner, state.meta.id);
-      const cb = ds.meta.codebook;
+      const cb = state.meta.codebook;
       const keys = new Set(entries.map((e) => e.key));
       const codebook = { ...cb, columns: [...cb.columns.filter((c) => !keys.has(c.key)), ...entries] };
-      await saveCodebook(db, owner, state.meta.id, codebook, ds.meta.rev);
-      await refreshDataset(null);
+      const saved = await saveRecipe(db, owner, state.meta.id, steps, state.meta.rev, { codebook });
+      await refreshDataset(saved);
       await log('recipe', logDetail || { steps: steps.length });
       set({ busy: false });
       return true;

@@ -408,7 +408,7 @@ export function buildRScript(input) {
   const t = input.t || ((k) => k);
   const lang = input.lang || 'th';
   const ix = columnIndex(input.codebook, input.columns || null, lang);
-  const list = scriptAnalyses(input.analyses);
+  const list = scriptAnalyses(input.analyses, input.codebook);
   const blocks = [];
   const packages = [];
   const helpers = [];

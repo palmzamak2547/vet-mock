@@ -6,7 +6,7 @@
 // and tables name a level as the student wrote it in English (the value itself when left empty).
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useT } from '../../i18n/index.js';
-import { checkCodebook } from '../../lib/intake/codebook.js';
+import { checkCodebook, resolveColumnVisibility } from '../../lib/intake/codebook.js';
 import { Chip, Notice, PageHead } from '../components/Bits.jsx';
 import Icon from '../components/Icon.jsx';
 import Link from '../components/Link.jsx';
@@ -65,6 +65,7 @@ export default function CodebookPane({ p }) {
   const setLevel = (key, value, patch) => setDraft((d) => ({ ...d, columns: d.columns.map((c) => (c.key === key ? { ...c, levels: (c.levels || []).map((l) => (l.value === value ? { ...l, ...patch } : l)) } : c)) }));
   const clusterCandidates = draft.columns.filter((c) => ['id', 'nominal'].includes(c.type) || c.role === 'cluster');
   const cluster = draft.columns.find((c) => c.key === draft.clusterKey);
+  const effectiveColumns = new Map((p.codebook?.columns || []).map((c) => [c.key, c]));
 
   const save = async () => {
     let res;
@@ -128,12 +129,15 @@ export default function CodebookPane({ p }) {
               {draft.columns.map((c) => {
                 const lv = (c.levels || []).map((l) => l.value);
                 const id = (f) => `rs-cb-${c.key}-${f}`;
+                const effective = effectiveColumns.get(c.key);
+                const hidden = resolveColumnVisibility(c, effective?.hidden).hidden;
+                const pii = c.pii || effective?.pii;
                 return (
                   <tr key={c.key} className={issueFor(c.key).length ? 'rs-row--issue' : ''}>
                     <th scope="row" className="rs-sticky-col">
                       <div className="rs-strong">{c.name}</div>
                       {/^d\d+$/.test(c.key) ? <Chip>{t('ws.codebook.derived')}</Chip> : null}
-                      {c.pii ? <Chip icon="eyeOff">{t(`ws.pii.${keyPart(c.pii)}`)}</Chip> : null}
+                      {pii ? <Chip icon="eyeOff">{t(`ws.pii.${keyPart(pii)}`)}</Chip> : null}
                       {c.key === draft.clusterKey ? <Chip tone="gold">{t('ws.codebook.isCluster')}</Chip> : null}
                       {issueFor(c.key).map((i, k) => <div key={k} className="rs-issue">{t(i.key, i.params)}</div>)}
                     </th>
@@ -204,8 +208,8 @@ export default function CodebookPane({ p }) {
                     </td>
                     <td>
                       <label className="rs-switch">
-                        <input type="checkbox" checked={Boolean(c.hidden)} onChange={(e) => setCol(c.key, { hidden: e.target.checked })} />
-                        <span>{c.hidden ? t('ws.codebook.hiddenYes') : t('ws.codebook.hiddenNo')}</span>
+                        <input type="checkbox" checked={hidden} onChange={(e) => setCol(c.key, { hidden: e.target.checked, hiddenExplicit: true })} />
+                        <span>{hidden ? t('ws.codebook.hiddenYes') : t('ws.codebook.hiddenNo')}</span>
                       </label>
                     </td>
                   </tr>

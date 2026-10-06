@@ -122,7 +122,11 @@ export async function deleteAnalysis(db, owner, id, now = new Date()) {
  * of the data" and never recomputes it silently.
  * @param {SavedAnalysis} analysis
  * @param {string|null} currentFingerprint
+ * @param {string|null} [currentCodebookFingerprint]  effective codebook interpretation and visibility
  */
-export function isStale(analysis, currentFingerprint) {
-  return Boolean(analysis?.dataFingerprint && currentFingerprint && analysis.dataFingerprint !== currentFingerprint);
+export function isStale(analysis, currentFingerprint, currentCodebookFingerprint = null) {
+  const fp = analysis?.dataFingerprint ?? analysis?.envelope?.provenance?.dataFingerprint ?? null;
+  const cb = analysis?.envelope?.provenance?.codebookFingerprint;
+  return Boolean((fp && currentFingerprint && fp !== currentFingerprint)
+    || (cb && currentCodebookFingerprint && cb !== currentCodebookFingerprint));
 }

@@ -350,7 +350,7 @@ export function buildSps(input) {
   const levels = [[nominal, 'NOMINAL'], [ordinal, 'ORDINAL'], [scale, 'SCALE']].filter(([l]) => l.length);
   if (levels.length) out.push(`VARIABLE LEVEL ${levels.map(([l, w]) => `${l.map((c) => c.name).join(' ')} (${w})`).join(' /')}.`);
 
-  scriptAnalyses(input.analyses).forEach((a, i) => {
+  scriptAnalyses(input.analyses, input.codebook).forEach((a, i) => {
     const row = getMethod(a.spec?.method);
     const name = row && t(row.nameKey) !== `[${row.nameKey}]` ? t(row.nameKey) : a.spec?.method;
     const r = spssCode(a.spec, ix, t);

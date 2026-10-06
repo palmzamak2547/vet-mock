@@ -25,11 +25,12 @@ const int = (min = 0) => v.pipe(v.number(), v.integer(), v.minValue(min));
 export const COLUMN_KEY_RE = /^[A-Za-z][A-Za-z0-9_]{0,63}$/;
 const columnKey = v.pipe(v.string(), v.regex(COLUMN_KEY_RE));
 
-const codebookEntry = v.looseObject({
+const codebookEntry = v.pipe(v.looseObject({
   key: columnKey,
   name: str(500),
   type: str(32),
-});
+  hiddenExplicit: v.optional(v.boolean()),
+}), v.check((entry) => entry.hiddenExplicit !== true || typeof entry.hidden === 'boolean'));
 const codebookSchema = v.looseObject({
   columns: v.pipe(v.array(codebookEntry), v.maxLength(2000)),
   clusterKey: v.nullish(columnKey),

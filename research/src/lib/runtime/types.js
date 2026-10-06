@@ -47,6 +47,7 @@
  * @property {{min: number|null, max: number|null}|null} range
  * @property {'name'|'phone'|'national-id'|'address'|'line-id'|'email'|null} pii
  * @property {boolean} hidden             hidden from the grid and every export by default when pii
+ * @property {boolean} [hiddenExplicit]  true only for a Show/Hide choice authored for this column
  */
 
 /**
@@ -86,6 +87,7 @@
  * @property {Record<string, Column>} columns
  * @property {number} n
  * @property {number} recipeRev
+ * @property {string} [codebookFingerprint] effective interpretation and export visibility
  * @property {Record<string, string>} excluded   rowId -> step id that excluded or filtered it (row-exclude, filter, exclude-where)
  * @property {string} fingerprint           sha-256 hex of the canonical CSV of the rows in use [10.4]
  */
@@ -161,6 +163,7 @@
  *   match for, dropped because a brought column is a role (M2-DESIGN.md 2)
  * @property {string|null} dataFingerprint
  * @property {number|null} recipeRev
+ * @property {string} [codebookFingerprint] effective interpretation and export visibility
  * @property {string} computedAt          ISO 8601 UTC
  * @property {string[]} validatedAgainst  fixture family ids from verified.generated.js
  */
