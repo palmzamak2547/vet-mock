@@ -264,6 +264,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
               style={{
                 opacity: qbLoading ? 0.75 : (isEmpty && shelfDocs === 0 ? 0.5 : 1),
                 cursor: (isEmpty && !qbLoading && shelfDocs === 0) ? 'not-allowed' : 'pointer',
+                '--subject-accent': s.color,
               }}
               title={qbLoading ? 'กำลังโหลดคลังข้อสอบ'
                 : (shelfDocs > 0 ? `เปิดชั้นเอกสารจริงของวิชานี้ (${shelfDocs} ไฟล์)`

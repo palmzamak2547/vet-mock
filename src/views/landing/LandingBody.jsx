@@ -464,7 +464,7 @@ function SubjectsSection({ p }) {
               <div key={s.id || s.name} className="vmx-subject-card" tabIndex={clickable ? 0 : undefined} role={clickable ? 'button' : undefined}
                 onClick={clickable ? () => p.onPickSubject(s.year, s.id) : undefined}
                 onKeyDown={clickable ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); p.onPickSubject(s.year, s.id); } } : undefined}
-                style={clickable ? { cursor: 'pointer' } : undefined}>
+                style={{ cursor: clickable ? 'pointer' : undefined, '--subject-accent': s.color }}>
                 <span className="accent" style={{ background: s.color }} />
                 <span className="icon">{s.emoji}</span>
                 <span className="title">{s.name}</span>

@@ -1983,7 +1983,7 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
             // 4.5:1 contrast floor.
             className={`vmx-subject-card${hasUsableContent || shelfDocs > 0 ? '' : ' is-quiet'}`}
             onClick={() => onPick && onPick(s)}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: 'pointer', '--subject-accent': s.color }}
             title={
               hasNotes(s.id) && count === 0 ? 'มีสรุปเนื้อหาให้อ่าน — ข้อสอบยังไม่มี'
               : shelfDocs > 0 ? `เปิดชั้นเอกสารจริงของวิชานี้ (${shelfDocs} ไฟล์)`
@@ -1993,7 +1993,7 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
             }
           >
             <div className="accent" style={{ background: s.color }}></div>
-            <div className="icon">{s.icon}</div>
+            <div className="icon" style={s.color ? { background: `color-mix(in srgb, ${s.color} 14%, var(--clr-surface-2))` } : undefined}>{s.icon}</div>
             <div className="title">{s.name}</div>
             {/* Only show English subtitle when it adds info beyond the
                 Thai title. Avoids "COM III / C ANI CLI SCI III, Companion

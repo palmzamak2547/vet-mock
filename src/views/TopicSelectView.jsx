@@ -547,7 +547,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           className="vmx-subject-card"
           disabled={!resources.questions?.available}
           onClick={() => choose('all')}
-          style={{ opacity: resources.questions?.available ? 1 : 0.5, cursor: resources.questions?.available ? 'pointer' : 'not-allowed' }}
+          style={{ opacity: resources.questions?.available ? 1 : 0.5, cursor: resources.questions?.available ? 'pointer' : 'not-allowed', '--subject-accent': subjectMeta?.color || 'var(--clr-ink)' }}
         >
           <div className="accent" style={{ background: subjectMeta?.color || 'var(--clr-ink)' }}></div>
           <div className="icon"><NavIcon name="practice" size={22} /></div>
@@ -565,7 +565,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               className="vmx-subject-card"
               disabled={cnt === 0}
               onClick={() => { if (cnt > 0) choose(c.id); }}
-              style={{ opacity: cnt === 0 ? 0.5 : 1, cursor: cnt === 0 ? 'not-allowed' : 'pointer' }}
+              style={{ opacity: cnt === 0 ? 0.5 : 1, cursor: cnt === 0 ? 'not-allowed' : 'pointer', '--subject-accent': c.accent || subjectMeta?.color || 'var(--clr-ink)' }}
             >
               <div className="accent" style={{ background: c.accent || subjectMeta?.color || 'var(--clr-ink)' }}></div>
               <div className="icon">{c.label.match(/^\p{Emoji}/u)?.[0] || '📦'}</div>

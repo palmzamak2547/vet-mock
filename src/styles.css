@@ -518,7 +518,10 @@ html, body {
 .vmx-app {
   font-family: 'Sarabun', 'IBM Plex Sans Thai', 'Fraunces', system-ui, sans-serif;
   color: var(--clr-ink);
-  background: var(--clr-bg);
+  background:
+    radial-gradient(640px 320px at 8% -4%, color-mix(in srgb, var(--clr-sage) 10%, transparent), transparent 70%),
+    radial-gradient(720px 360px at 96% 2%, color-mix(in srgb, var(--clr-gold) 10%, transparent), transparent 70%),
+    var(--clr-bg);
   min-height: 100vh;
   min-height: 100dvh;  /* dynamic viewport (excludes URL bar on iOS 15.4+) */
   padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(48px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
@@ -1546,6 +1549,10 @@ html, body {
    the combined selectors; per-name extras sit below. */
 .vmx-mode-card, .vmx-subject-card { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-lg); padding: 16px; cursor: pointer; transition: border-color var(--dur-fast), background var(--dur-fast), box-shadow var(--dur-fast); text-align: left; display: flex; flex-direction: column; gap: 6px; position: relative; overflow: hidden; color: var(--clr-ink); font-family: inherit; box-shadow: var(--shadow-sm); }
 .vmx-mode-card:hover, .vmx-subject-card:hover { border-color: var(--clr-sage); background: var(--clr-surface-2); box-shadow: var(--shadow-workbench, var(--shadow-sm)); }
+/* Subject cards carry their own colour: tinted wash + coloured edge so each
+   box reads as a distinct tile instead of one long stripy list. */
+.vmx-subject-card { background: linear-gradient(165deg, color-mix(in srgb, var(--subject-accent, var(--clr-surface-2)) 18%, var(--clr-surface)) 0%, var(--clr-surface) 78%); border-color: color-mix(in srgb, var(--subject-accent, var(--clr-border)) 45%, var(--clr-border)); box-shadow: 0 2px 12px color-mix(in srgb, var(--subject-accent, transparent) 14%, transparent); }
+.vmx-subject-card:hover { border-color: color-mix(in srgb, var(--subject-accent, var(--clr-sage)) 70%, var(--clr-border)); background: linear-gradient(165deg, color-mix(in srgb, var(--subject-accent, var(--clr-surface-2)) 26%, var(--clr-surface)) 0%, var(--clr-surface-2) 78%); }
 .vmx-mode-card:disabled { cursor: not-allowed; }
 .vmx-mode-card:disabled:hover { border-color: var(--clr-border); background: var(--clr-surface); }
 .vmx-mode-card .icon, .vmx-subject-card .icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: var(--r-md); background: var(--clr-surface-2); color: var(--clr-sage-text); font-size: 20px; line-height: 1; }
@@ -1554,7 +1561,7 @@ html, body {
    the name. Emoji cards scale with font-size; the Mochi <img> inside is
    sized in SubjectSelectView (52px) to stay inside this chip. Tinting
    comes from the subject's own colour via inline color-mix. */
-.vmx-subject-card .icon { width: 64px; height: 64px; font-size: 34px; border-radius: var(--r-lg); }
+.vmx-subject-card .icon { width: 64px; height: 64px; font-size: 34px; border-radius: var(--r-lg); background: color-mix(in srgb, var(--subject-accent, var(--clr-sage)) 14%, var(--clr-surface-2)); }
 .vmx-subject-head { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
 .vmx-subject-id { min-width: 0; display: flex; flex-direction: column; gap: 2px; padding-top: 3px; padding-right: 26px; /* clear the absolute accent dot */ }
 .vmx-mode-card .title, .vmx-subject-card .title { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; font-weight: 600; font-size: 16px; color: var(--clr-ink); }
@@ -1569,10 +1576,9 @@ html, body {
 
 .vmx-subject-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 32px; }
 .vmx-subject-card .count { font-size: 12px; color: var(--clr-ink-soft); margin-top: 2px; }
-/* The subject's colour, once, as a small swatch in the top corner. It used to
-   be a 4px full-height stripe that the 16px corner clipped into a curved
-   sliver, the same rail every list in the app wore. */
-.vmx-subject-card .accent { position: absolute; top: 18px; right: 16px; width: 8px; height: 8px; border-radius: 50%; }
+/* The subject's colour, once, as a bold strip across the top edge of the
+   card — reads as identity at a glance instead of an 8px corner dot. */
+.vmx-subject-card .accent { position: absolute; top: 0; left: 0; right: 0; width: auto; height: 5px; border-radius: 0; }
 /* Cards without usable content yet: a dashed edge and a quieter icon and
    accent carry the "not ready" signal. The text keeps its full tokens — the
    old whole-card opacity took the subtitle and count under 4.5:1. */

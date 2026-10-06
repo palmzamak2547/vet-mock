@@ -86,6 +86,7 @@ export default function PanicCard({ subjectId, subjectName, onStart, questionCou
       onPointerEnter={(e) => { if (e.pointerType === 'mouse') play(); }}
       aria-label={`Panic Mode เริ่มทบทวนเร่งด่วน ${questionCount} ข้อ วิชา${subjectName || card.th}`}
       style={{
+        '--subject-accent': card.ink,
         '--panic-ink': card.ink,
         '--panic-paper': card.paper,
         '--panic-cut': `${m.cut}%`,
