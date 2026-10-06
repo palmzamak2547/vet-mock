@@ -1,4 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
+import NavIcon from '../components/NavIcon.jsx';
 // ============================================================
 // PinboardView — personal study workspace
 // ============================================================
@@ -23,10 +24,10 @@ import { EMPTY_ART } from '../data/art.js';
 import EmptyState from '../components/EmptyState.jsx';
 
 const TYPE_META = {
-  question:  { label: 'ข้อสอบ',     icon: '❓', color: '#c26d6d' },
-  summary:   { label: 'สรุปคลิป',    icon: '🎬', color: '#4a6b4a' },
-  flashcard: { label: 'Flashcard',  icon: '🃏', color: '#7d4a7d' },
-  note:      { label: 'โน้ตข้อ',     icon: '📝', color: '#c8a64b' },
+  question:  { label: 'ข้อสอบ',     iconName: 'practice', color: '#c26d6d' },
+  summary:   { label: 'สรุปคลิป',    iconName: 'video',    color: '#4a6b4a' },
+  flashcard: { label: 'Flashcard',  iconName: 'repeat',   color: '#7d4a7d' },
+  note:      { label: 'โน้ตข้อ',     iconName: 'note',     color: '#c8a64b' },
 };
 
 // Thai relative time. Falls back to a manual format if RTF is missing.
@@ -202,8 +203,8 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
 
       {/* Year-scope chips */}
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginBottom: 10 }}>
-        <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-          📅
+        <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.08em', textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center' }}>
+          <NavIcon name="calendar" size={14} />
         </span>
         <button
           type="button"
@@ -241,11 +242,11 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
       {/* Filter chips */}
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 18 }}>
         {[
-          { id: 'all',       label: 'ทั้งหมด',    icon: '✦' },
-          { id: 'question',  label: 'ข้อสอบ',     icon: TYPE_META.question.icon },
-          { id: 'summary',   label: 'สรุปคลิป',    icon: TYPE_META.summary.icon },
-          { id: 'flashcard', label: 'Flashcard', icon: TYPE_META.flashcard.icon },
-          { id: 'note',      label: 'โน้ตข้อ',     icon: TYPE_META.note.icon },
+          { id: 'all',       label: 'ทั้งหมด',    iconName: 'more' },
+          { id: 'question',  label: 'ข้อสอบ',     iconName: TYPE_META.question.iconName },
+          { id: 'summary',   label: 'สรุปคลิป',    iconName: TYPE_META.summary.iconName },
+          { id: 'flashcard', label: 'Flashcard', iconName: TYPE_META.flashcard.iconName },
+          { id: 'note',      label: 'โน้ตข้อ',     iconName: TYPE_META.note.iconName },
         ].map((chip) => {
           const active = filter === chip.id;
           const n = counts[chip.id] || 0;
@@ -263,13 +264,16 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
                 color: active ? 'var(--clr-surface, #fff)' : 'var(--clr-ink)',
                 fontSize: 13,
                 cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
                 touchAction: 'manipulation',
                 WebkitTapHighlightColor: 'transparent',
               }}
             >
-              <span style={{ marginRight: 6 }}>{chip.icon}</span>
-              {chip.label}
-              <span style={{ marginLeft: 6, opacity: 0.7, fontFamily: 'var(--vmx-mono)', fontSize: 11 }}>{n}</span>
+              <NavIcon name={chip.iconName} size={13} />
+              <span>{chip.label}</span>
+              <span style={{ opacity: 0.7, fontFamily: 'var(--vmx-mono)', fontSize: 11 }}>{n}</span>
             </button>
           );
         })}
@@ -304,7 +308,7 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
           }}
         >
           {filtered.map((pin) => {
-            const meta = TYPE_META[pin.type] || { label: pin.type, icon: '•', color: 'var(--clr-ink-soft)' };
+            const meta = TYPE_META[pin.type] || { label: pin.type, iconName: 'more', color: 'var(--clr-ink-soft)' };
             const snip = snippetFor(pin);
             return (
               <div
@@ -330,7 +334,9 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontSize: 16 }} aria-hidden="true">{meta.icon}</span>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', color: meta.color }} aria-hidden="true">
+                    <NavIcon name={meta.iconName} size={15} />
+                  </span>
                   <span
                     style={{
                       fontSize: 11,
@@ -358,14 +364,15 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
                       border: '1px solid var(--clr-border)',
                       borderRadius: 8,
                       cursor: 'pointer',
-                      fontSize: 14,
-                      lineHeight: 1,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       color: 'var(--clr-ink-soft)',
                       WebkitTapHighlightColor: 'transparent',
                       touchAction: 'manipulation',
                     }}
                   >
-                    🗑
+                    <NavIcon name="trash" size={15} />
                   </button>
                 </div>
                 <div

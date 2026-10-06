@@ -237,6 +237,28 @@ const PATHS = {
       <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8" />
     </>
   ),
+  lightning: (
+    <path d="M13 2 4 14h7l-1 8 10-13h-7l2-7Z" />
+  ),
+  target: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="5" />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+    </>
+  ),
+  finish: (
+    <>
+      <path d="M4 22V4" />
+      <path d="M4 4h14l-2 4 2 4H4" />
+    </>
+  ),
+  bulb: (
+    <>
+      <path d="M9 18h6M10 21h4" />
+      <path d="M12 2a7 7 0 0 0-4.5 12.4c.8.7 1.5 1.8 1.5 2.6h6c0-.8.7-1.9 1.5-2.6A7 7 0 0 0 12 2Z" />
+    </>
+  ),
 };
 
 /** `filled` gives an on/off pair from ONE path — a bookmarked question or an

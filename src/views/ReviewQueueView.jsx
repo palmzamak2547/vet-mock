@@ -30,6 +30,7 @@ import {
 } from '../lib/contributions.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
+import NavIcon from '../components/NavIcon.jsx';
 import { thaiError } from '../lib/errors.js';
 import StatePanel from '../components/StatePanel.jsx';
 import { EMPTY_ART } from '../data/art.js';
@@ -246,10 +247,10 @@ export default function ReviewQueueView({ goHome, setView, user }) {
           className="vmx-btn vmx-btn-ghost vmx-btn-sm"
           onClick={loadQueue}
           disabled={queueLoading}
-          style={{ flexShrink: 0 }}
+          style={{ flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: 6 }}
           aria-label="Refresh"
         >
-          {queueLoading ? '⏳' : '🔄'} Refresh
+          <NavIcon name="repeat" size={13} /> {queueLoading ? 'กำลังโหลด…' : 'Refresh'}
         </button>
       </div>
 
@@ -727,16 +728,16 @@ function FeedbackPrompt({ mode, feedback, onFeedbackChange, onCancel, onSubmit, 
 // ─── Past review row ───────────────────────────────────────────
 function PastReviewRow({ review }) {
   const verdictMeta = {
-    approve: { icon: '✅', label: 'Approved', color: 'var(--clr-sage-text)' },
-    nudge: { icon: '✏️', label: 'Nudge', color: 'var(--clr-gold-text)' },
-    reject: { icon: '❌', label: 'Rejected', color: 'var(--clr-rose-text)' },
-  }[review.verdict] || { icon: '?', label: review.verdict, color: 'var(--clr-ink-soft)' };
+    approve: { icon: 'check', label: 'Approved', color: 'var(--clr-sage-text)' },
+    nudge: { icon: 'pen', label: 'Nudge', color: 'var(--clr-gold-text)' },
+    reject: { icon: 'close', label: 'Rejected', color: 'var(--clr-rose-text)' },
+  }[review.verdict] || { icon: 'more', label: review.verdict, color: 'var(--clr-ink-soft)' };
 
   return (
     <div style={{ padding: 10, background: 'var(--clr-bg)', borderRadius: 8, fontSize: 12, lineHeight: 1.6 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: review.feedback ? 4 : 0 }}>
-        <span style={{ color: verdictMeta.color, fontWeight: 600 }}>
-          {verdictMeta.icon} {verdictMeta.label}
+        <span style={{ color: verdictMeta.color, fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+          <NavIcon name={verdictMeta.icon} size={13} /> {verdictMeta.label}
         </span>
         {review.is_palm_review && (
           <span style={{ fontSize: 11, padding: '1px 6px', borderRadius: 4, background: 'rgba(167, 61, 74, 0.15)', color: 'var(--clr-rose-text)', fontFamily: 'var(--vmx-mono)' }}>

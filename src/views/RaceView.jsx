@@ -281,7 +281,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
         </ol>
         <div className="vmx-btn-row" style={{ marginTop: 16 }}>
           <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← หน้าแรก</button>
-          <button className="vmx-btn vmx-btn-primary" onClick={() => { setPhase('lobby'); setCode(''); setParticipants({}); setIdx(0); setCorrect(0); setFinished(false); setQuestions([]); progressRef.current = {}; }}>🔄 race อีกรอบ</button>
+          <button className="vmx-btn vmx-btn-primary" onClick={() => { setPhase('lobby'); setCode(''); setParticipants({}); setIdx(0); setCorrect(0); setFinished(false); setQuestions([]); progressRef.current = {}; }}>แข่งอีกรอบ</button>
         </div>
       </>
     );

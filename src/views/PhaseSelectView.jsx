@@ -1,4 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
+import NavIcon from '../components/NavIcon.jsx';
 import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 import { detectCurrentPhase } from '../lib/current-phase.js';
@@ -23,10 +24,10 @@ import { detectCurrentPhase } from '../lib/current-phase.js';
 // paper we KNOW belongs to the other exam is removed, and a topic whose paper
 // is not yet mapped is still shown rather than silently withheld.
 const PHASES = [
-  { id: '1-mid',   semester: 1, label: 'เทอม 1 กลางภาค',   sub: 'วิชาเทอม 1 ไม่รวมเนื้อหาปลายภาค', icon: '📚' },
-  { id: '1-final', semester: 1, label: 'เทอม 1 ปลายภาค',   sub: 'วิชาเทอม 1 ไม่รวมเนื้อหากลางภาค', icon: '🎯' },
-  { id: '2-mid',   semester: 2, label: 'เทอม 2 กลางภาค',   sub: 'วิชาเทอม 2 ไม่รวมเนื้อหาปลายภาค', icon: '📖' },
-  { id: '2-final', semester: 2, label: 'เทอม 2 ปลายภาค',   sub: 'วิชาเทอม 2 ไม่รวมเนื้อหากลางภาค', icon: '🏁' },
+  { id: '1-mid',   semester: 1, label: 'เทอม 1 กลางภาค',   sub: 'วิชาเทอม 1 ไม่รวมเนื้อหาปลายภาค', iconName: 'practice' },
+  { id: '1-final', semester: 1, label: 'เทอม 1 ปลายภาค',   sub: 'วิชาเทอม 1 ไม่รวมเนื้อหากลางภาค', iconName: 'exam' },
+  { id: '2-mid',   semester: 2, label: 'เทอม 2 กลางภาค',   sub: 'วิชาเทอม 2 ไม่รวมเนื้อหาปลายภาค', iconName: 'practice' },
+  { id: '2-final', semester: 2, label: 'เทอม 2 ปลายภาค',   sub: 'วิชาเทอม 2 ไม่รวมเนื้อหากลางภาค', iconName: 'exam' },
 ];
 
 export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, setSelectedPhase, setView }) {
@@ -71,7 +72,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
               }}
               title={isCurrent ? 'ช่วงสอบที่กำลังจะมาถึงตามตารางสอบ' : ''}
             >
-              <div className="icon">{p.icon}</div>
+              <div className="icon"><NavIcon name={p.iconName} size={20} /></div>
               <div className="title">{p.label}</div>
               <div className="sub">{p.sub}</div>
               <div style={{

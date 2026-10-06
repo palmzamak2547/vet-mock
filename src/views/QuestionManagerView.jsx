@@ -1,4 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
+import NavIcon from '../components/NavIcon.jsx';
 import { useState } from 'react';
 import { SUBJECTS } from '../data/questions.js';
 import { yearForSubject } from '../data/curriculum.js';
@@ -392,9 +393,10 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
           <button
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             onClick={() => selectMode ? exitSelectMode() : setSelectMode(true)}
-            style={{ minHeight: 44 }}
+            style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', gap: 6 }}
           >
-            {selectMode ? '✕ ปิดการเลือก' : '☑ เลือกหลายข้อ'}
+            <NavIcon name={selectMode ? 'close' : 'practice'} size={14} />
+            {selectMode ? 'ปิดการเลือก' : 'เลือกหลายข้อ'}
           </button>
         )}
       </div>
@@ -515,11 +517,11 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
           <button
             onClick={bulkAddTag}
             style={bulkBtn}
-          >🏷 เปลี่ยน tag</button>
+          >เปลี่ยน tag</button>
           <button
             onClick={() => setShowSubjectPicker((v) => !v)}
             style={bulkBtn}
-          >📂 ย้ายวิชา</button>
+          >ย้ายวิชา</button>
           <button
             onClick={clearSelection}
             style={{ ...bulkBtn, opacity: 0.7 }}

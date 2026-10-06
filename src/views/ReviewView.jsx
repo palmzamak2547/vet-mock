@@ -436,8 +436,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             )}
             {q.passage && (
               <div style={{ margin: '8px 0 12px', padding: '10px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 13, lineHeight: 1.65, whiteSpace: 'pre-wrap', maxHeight: 220, overflowY: 'auto' }}>
-                <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
-                  📄 {q.passage_title || 'Passage'}
+                <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', marginBottom: 6, display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+                  <NavIcon name="files" size={12} /> {q.passage_title || 'Passage'}
                 </div>
                 <RichText text={q.passage} />
               </div>
@@ -448,8 +448,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                   <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', marginBottom: 4 }}>คำตอบของคุณ</div>
                   <div style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--clr-ink)', whiteSpace: 'pre-wrap' }}>{userDisplay}</div>
                   {q.type === 'essay' && answered && typeof userAns === 'string' && userAns.trim() && (
-                    <div style={{ marginTop: 6, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
-                      📊 {userAns.trim().split(/\s+/).length} words
+                    <div style={{ marginTop: 6, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                      <NavIcon name="pen" size={11} /> {userAns.trim().split(/\s+/).length} words
                     </div>
                   )}
                 </div>
@@ -532,8 +532,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               <div style={{ marginTop: 8, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-rose-soft)', border: `1px solid ${q.flag.severity === 'major' ? 'var(--clr-rose)' : 'var(--clr-gold)'}`, fontSize: 12, color: 'var(--clr-ink)' }}>
                 <strong>{q.flag.severity === 'major' ? 'ข้อควรระวังสำคัญ' : 'หมายเหตุ'}:</strong> {q.flag.note}
                 {q.flag.sources?.length > 0 && (
-                  <div style={{ marginTop: 4, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
-                    📖 {q.flag.sources.join(', ')}
+                  <div style={{ marginTop: 4, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+                    <NavIcon name="wiki" size={11} /> {q.flag.sources.join(', ')}
                   </div>
                 )}
               </div>
@@ -554,10 +554,10 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                     type="button"
                     onClick={() => toggleComments(key)}
                     className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-                    style={{ fontSize: 12, padding: '4px 10px' }}
+                    style={{ fontSize: 12, padding: '4px 10px', display: 'inline-flex', alignItems: 'center', gap: 6 }}
                     aria-expanded={isOpen}
                   >
-                    💬 {isOpen ? 'ปิดความเห็น' : 'ดูความเห็น'}
+                    <NavIcon name="user" size={12} /> {isOpen ? 'ปิดความเห็น' : 'ดูความเห็น'}
                   </button>
                   {isOpen && (
                     <Suspense fallback={<div style={{ marginTop: 8, fontSize: 12, color: 'var(--clr-ink-soft)' }}>กำลังโหลด…</div>}>

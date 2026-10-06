@@ -74,8 +74,9 @@ export default function ScoresView({ goHome }) {
               </div>
 
               {s.note && (
-                <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8 }}>
-                  💡 {s.note}
+                <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
+                  <span className="vmx-kicker" style={{ color: 'var(--clr-ink)', flexShrink: 0, marginTop: 1 }}>จุดเน้น:</span>
+                  <span>{s.note}</span>
                 </div>
               )}
             </div>

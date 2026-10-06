@@ -370,7 +370,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
           {dueReviewedCount > 100 && sessionSize !== 'all' && (
             <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 10, background: 'rgba(184, 137, 64, 0.10)', border: '1px solid var(--clr-gold)', fontSize: 12, lineHeight: 1.6 }}>
-              💡 <strong>มีใบค้างทบทวน {dueReviewedCount} ใบ — เยอะหน่อย</strong>
+              <strong>มีใบค้างทบทวน {dueReviewedCount} ใบ — เยอะหน่อย</strong>
               <br />
               <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
                 Algorithm จะหยิบ "ใบที่ค้างนานสุด" มาก่อน, ทำ {sessionSize} วันนี้ + ทำต่อพรุ่งนี้ดีกว่ายัดทีเดียว, ทำต่อเนื่องสำคัญสุด
@@ -379,7 +379,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           )}
           {stats.total === 0 && newCount > 0 && (
             <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 10, background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)', fontSize: 12, lineHeight: 1.6 }}>
-              🌱 <strong>เริ่มจาก 0 — มี {newCount} ใบใหม่รอเปิด</strong>
+              <strong>เริ่มจาก 0 — มี {newCount} ใบใหม่รอเปิด</strong>
               <br />
               <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
                 ทำ {Math.min(sessionSize === 'all' ? 25 : sessionSize, 25)} ใบวันนี้ก่อน, พรุ่งนี้ค่อยกลับมา review ใบเดิม + เปิดใบใหม่อีก, ติดต่อกันทุกวันสำคัญสุด
@@ -433,7 +433,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             onClick={() => startSession()}
             disabled={starting || (dueCount === 0 && scopeReady)}
           >
-            {starting ? 'กำลังโหลดคลังข้อสอบ…' : bankError ? 'ลองโหลดคลังอีกครั้ง' : dueCount === 0 && scopeReady ? '🎉 ไม่มีใบที่ต้องทบทวน' : 'เริ่ม Session →'}
+            {starting ? 'กำลังโหลดคลังข้อสอบ…' : bankError ? 'ลองโหลดคลังอีกครั้ง' : dueCount === 0 && scopeReady ? 'ไม่มีใบที่ต้องทบทวน' : 'เริ่ม Session →'}
           </button>
         </div>
       </>
@@ -575,7 +575,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     tf: 'True/False',
     fill: 'เติมคำ',
     match: 'จับคู่',
-    flashcard: '⚡ Flashcard',
+    flashcard: 'Flashcard',
     cloze: 'Cloze',
     'image-occlusion': 'Image Occlusion',
   }[currentQ.type] || currentQ.type;

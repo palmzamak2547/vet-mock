@@ -412,7 +412,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           The standard "สอบจริง 50" above already handles the 50-question case. */}
       {subject === 'vca' && (
         <>
-          <div className="vmx-section-label" style={{ marginTop: 24 }}>🩵 VCA Mock Exam Presets (cross-species)</div>
+          <div className="vmx-section-label" style={{ marginTop: 24 }}>VCA Mock Exam Presets (cross-species)</div>
           <div className="vmx-mode-grid" style={{ marginBottom: 20 }}>
             <button
               className="vmx-mode-card"
@@ -426,7 +426,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               }}
               style={{ borderColor: '#5db4d3' }}
             >
-              <div className="icon">⚡</div>
+              <div className="icon"><NavIcon name="lightning" size={20} /></div>
               <div className="title">Quick 25</div>
               <div className="sub">25 ข้อ × 60 วิ, ทำ 25 นาที</div>
             </button>
@@ -443,7 +443,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               }}
               style={{ borderColor: '#5db4d3' }}
             >
-              <div className="icon">🎯</div>
+              <div className="icon"><NavIcon name="target" size={20} /></div>
               <div className="title">Mock 100</div>
               <div className="sub">100 ข้อ × 60 วิ, ~100 นาที</div>
             </button>
@@ -460,7 +460,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               }}
               style={{ borderColor: '#5db4d3' }}
             >
-              <div className="icon">🏁</div>
+              <div className="icon"><NavIcon name="finish" size={20} /></div>
               <div className="title">Marathon 200</div>
               <div className="sub">200 ข้อ × 60 วิ, stamina training</div>
             </button>
@@ -476,7 +476,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               }}
               style={{ borderColor: '#5db4d3' }}
             >
-              <div className="icon">📚</div>
+              <div className="icon"><NavIcon name="book" size={20} /></div>
               <div className="title">All {countFor('all')}</div>
               <div className="sub">ทุกข้อ, ไม่จับเวลา, ฝึกล้วน</div>
             </button>
@@ -588,7 +588,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             the control that changes it. */}
         {paperScope && topics.length === 0 && (subjectPage.topics || []).length > 0 && (
           <div className="vmx-empty-state">
-            <span className="icon" aria-hidden="true">🗓</span>
+            <span className="icon" aria-hidden="true"><NavIcon name="calendar" size={24} /></span>
             <div>
               วิชานี้ไม่มีหัวข้อที่อยู่ใน{paperScope === 'midterm' ? 'ช่วงกลางภาค' : 'ช่วงปลายภาค'}
               <br />

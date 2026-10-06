@@ -77,7 +77,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
         <span>ตารางสอบ ปี {selectedYear} ({exams.length})</span>
         {pastCount > 0 && (
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowPast(!showPast)}>
-            {showPast ? `🙈 ซ่อนสอบที่ผ่านแล้ว (${pastCount})` : `แสดงสอบที่ผ่านแล้ว (${pastCount})`}
+            {showPast ? `ซ่อนสอบที่ผ่านแล้ว (${pastCount})` : `แสดงสอบที่ผ่านแล้ว (${pastCount})`}
           </button>
         )}
       </div>
@@ -152,8 +152,9 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
                     </div>
                   )}
                   {exam.notes && (
-                    <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 8 }}>
-                      💡 {exam.notes}
+                    <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 8, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
+                      <span className="vmx-kicker" style={{ color: 'var(--clr-ink)', flexShrink: 0 }}>จุดเน้น:</span>
+                      <span>{exam.notes}</span>
                     </div>
                   )}
 
@@ -189,9 +190,9 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
       </div>
 
       <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
-        💡 <strong>Tip:</strong> เลือกวิชาเพื่อฝึกตามช่วงสอบ หรือเปิดสรุปที่มีให้อ่าน<br/>
+        <strong>คำแนะนำ:</strong> เลือกวิชาเพื่อฝึกตามช่วงสอบ หรือเปิดสรุปที่มีให้อ่าน<br/>
         ข้อมูลตารางอาจเปลี่ยนแปลง — เช็คกับเพื่อนในห้องอีกครั้งก่อนสอบ<br/>
-        🔄 ถ้าข้อมูลผิด/ล้าสมัย → ส่งไปที่ <button type="button" className="vmx-inline-action" onClick={() => setView('feedback')}>ฟอร์มแจ้ง</button>
+        หากข้อมูลผิดหรือล้าสมัย → ส่งไปที่ <button type="button" className="vmx-inline-action" onClick={() => setView('feedback')}>ฟอร์มแจ้ง</button>
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>
