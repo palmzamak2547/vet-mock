@@ -438,18 +438,25 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
         if (!mountedRef.current) return;
         if (decoded?.format === 'vetmock-study-events-v1') {
           const { parseStudyEventArchive } = await import('../lib/study-event-archive.js');
+          if (!mountedRef.current) return;
           const parsedEvents = parseStudyEventArchive(decoded);
           if (!parsedEvents.success) { alertDialog(parsedEvents.reason); return; }
           if (!(await confirmDialog({ title: 'นำเข้าประวัติแบบละเอียด?', body: `เพิ่ม ${parsedEvents.events.length} รายการให้บัญชีที่เปิดอยู่นี้ รายการเดิมที่มีรหัสเดียวกันจะคงเดิม`, confirmLabel: 'นำเข้า' })) || !mountedRef.current) return;
           const { appendStudyEvents } = await import('../lib/study-event-log.js');
+          if (!mountedRef.current) return;
           const result = await appendStudyEvents(ownerId, parsedEvents.events, { keepOnFailure: false });
+          if (!mountedRef.current) return;
           alertDialog(result.ok ? 'นำเข้าประวัติแบบละเอียดแล้ว' : 'นำเข้าไม่สำเร็จ ข้อมูลเดิมยังอยู่ กรุณาลองใหม่');
-          if (result.ok && ownerId) (await import('../lib/study-event-sync.js')).syncStudyEvents(ownerId);
+          if (result.ok && ownerId) {
+            const { syncStudyEvents } = await import('../lib/study-event-sync.js');
+            if (mountedRef.current) syncStudyEvents(ownerId);
+          }
           e.target.value = '';
           return;
         }
         if (decoded?.format === 'vetmock-local-extras-v1') {
           const { parseLocalExtras, restoreLocalExtras } = await import('../lib/local-extras.js');
+          if (!mountedRef.current) return;
           const parsedExtras = parseLocalExtras(decoded);
           if (!parsedExtras.success) { alertDialog(parsedExtras.reason); return; }
           if (!(await confirmDialog({ title: 'นำเข้าข้อมูลเครื่องมือในเครื่อง?', body: `แทนที่: ${parsedExtras.labels.join(', ')} ข้อมูลส่วนนี้อยู่ในเบราว์เซอร์ ไม่ได้ย้ายตามบัญชี`, confirmLabel: 'นำเข้าและแทนที่', tone: 'danger' })) || !mountedRef.current) return;
@@ -485,6 +492,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
         e.target.value = '';
       } catch (error) {
         e.target.value = '';
+        if (!mountedRef.current) return;
         // JSON.parse's own words ("Unexpected token < in JSON at position 0")
         // tell a student nothing; a file that is not JSON is not a backup.
         const why = error instanceof SyntaxError ? 'ไฟล์นี้ไม่ใช่ไฟล์สำรองของ VetMock' : thaiError(error, 'กรุณาลองเลือกไฟล์อีกครั้ง');
@@ -493,6 +501,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
     };
     reader.onerror = () => {
       e.target.value = '';
+      if (!mountedRef.current) return;
       alertDialog('อ่านไฟล์ไม่สำเร็จ กรุณาลองเลือกไฟล์อีกครั้ง ข้อมูลในเครื่องยังไม่ถูกเปลี่ยน');
     };
     reader.readAsText(file);
