@@ -2432,12 +2432,13 @@ export default function App() {
   // opened, and carried over it compared an unrelated score with theirs.
   const replayQuestions = useCallback(async (qs, { redo = false } = {}) => {
     if (!Array.isArray(qs) || qs.length === 0) return;
+    const requestOwner = eventContextRef.current?.owner ?? null;
     // A parked mock (the Home "ทำต่อ" card) sits under the very key this round
     // is about to autosave to. Ask before throwing it away, as goHome does.
     // Owner and view come from refs: this callback is memoised once.
     if (viewRef.current !== 'exam') {
       let work = null;
-      try { work = unfinishedWork(readOwnedExam(window.localStorage, eventContextRef.current?.owner ?? null)); } catch { work = null; }
+      try { work = unfinishedWork(readOwnedExam(window.localStorage, requestOwner)); } catch { work = null; }
       if (work) {
         const ok = await confirmDialog({
           title: 'มีชุดข้อสอบที่ทำค้างไว้',
@@ -2447,6 +2448,8 @@ export default function App() {
         if (!ok) return;
       }
     }
+    // The chosen questions belong to the owner who opened the confirmation.
+    if ((eventContextRef.current?.owner ?? null) !== requestOwner) return;
     finishingRef.current = false; // arm the finish latch for the redo round
     setSessionKind(redo ? 'redo' : 'normal');
     if (redo) setMode('quick');
@@ -2479,7 +2482,8 @@ export default function App() {
   const replayWrongRound = useCallback((qs) => replayQuestions(qs, { redo: true }), [replayQuestions]);
 
   const openQuestionById = async (id) => {
-    if (!id) return false;
+    if (id == null || id === '') return false;
+    const requestOwner = eventContextRef.current?.owner ?? null;
     // Compare as strings. Bank ids are numbers, but the callers are storage
     // keys: a note is keyed by question id in a localStorage OBJECT, so it
     // comes back as "900" and never matched the numeric 900 — every note in
@@ -2494,6 +2498,9 @@ export default function App() {
     // bank before concluding it is gone.
     if (!q && !isQBFullyLoaded()) {
       try { await loadQB(); } catch { /* fall through to the not-found answer */ }
+      // Consume an obsolete request so its caller cannot navigate the next
+      // account to a not-found fallback, just as cancelling a replay does.
+      if ((eventContextRef.current?.owner ?? null) !== requestOwner) return true;
       q = find();
     }
     if (!q) return false;

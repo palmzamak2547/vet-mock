@@ -45,7 +45,7 @@ test('a pin or a palette hit on a question opens that question, and any pool fal
   const pin = src('src/views/PinboardView.jsx');
   assert.ok(pin.includes('setTopic,'), 'PinboardView must receive setTopic');
   assert.ok(pin.includes('onOpenQuestion'), 'PinboardView must be able to open the pinned question itself');
-  assert.ok(pin.includes('await onOpenQuestion(p.id)'), 'the pinned id must be what is opened');
+  assert.ok(pin.includes('await onOpenQuestion(id)'), 'the resolved pinned id must be what is opened');
   assert.ok(pin.includes('setTopic(null)'), 'the pool fallback must still clear the topic');
   assert.ok(APP.includes('<PinboardView {...{ goHome, setView, setSubject, setTopic,'), 'App must pass setTopic to PinboardView');
   assert.ok(APP.includes('onOpenQuestion: openQuestionById'), 'App must give PinboardView a way to open one question');
