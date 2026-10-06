@@ -1549,10 +1549,14 @@ html, body {
 .vmx-mode-card:disabled { cursor: not-allowed; }
 .vmx-mode-card:disabled:hover { border-color: var(--clr-border); background: var(--clr-surface); }
 .vmx-mode-card .icon, .vmx-subject-card .icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: var(--r-md); background: var(--clr-surface-2); color: var(--clr-sage-text); font-size: 20px; line-height: 1; }
-/* Subject cards are the directory's face — give their icon chip more
-   presence than the shared 36px mode-card chip; the Mochi <img> inside
-   is sized in SubjectSelectView (40px) to stay inside this chip. */
-.vmx-subject-card .icon { width: 48px; height: 48px; font-size: 28px; }
+/* Subject cards are the directory's face — the icon chip leads the card
+   as its wayfinding element, so it is the largest thing on the card after
+   the name. Emoji cards scale with font-size; the Mochi <img> inside is
+   sized in SubjectSelectView (52px) to stay inside this chip. Tinting
+   comes from the subject's own colour via inline color-mix. */
+.vmx-subject-card .icon { width: 64px; height: 64px; font-size: 34px; border-radius: var(--r-lg); }
+.vmx-subject-head { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
+.vmx-subject-id { min-width: 0; display: flex; flex-direction: column; gap: 2px; padding-top: 3px; padding-right: 26px; /* clear the absolute accent dot */ }
 .vmx-mode-card .title, .vmx-subject-card .title { font-family: 'Sarabun', 'IBM Plex Sans Thai', sans-serif; font-weight: 600; font-size: 16px; color: var(--clr-ink); }
 .vmx-mode-card .sub, .vmx-subject-card .sub { font-size: 12px; color: var(--clr-ink-soft); line-height: 1.4; }
 /* The card accent arrives as --badge-accent, not as a background fill.
@@ -1574,6 +1578,21 @@ html, body {
    old whole-card opacity took the subtitle and count under 4.5:1. */
 .vmx-subject-card.is-quiet { border-style: dashed; }
 .vmx-subject-card.is-quiet .icon, .vmx-subject-card.is-quiet .accent { opacity: 0.55; }
+.vmx-subject-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--clr-surface-2);
+  overflow: hidden;
+  pointer-events: none;
+}
+.vmx-subject-progress-fill {
+  height: 100%;
+  border-radius: 0 var(--r-full, 999px) var(--r-full, 999px) 0;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
 .vmx-topic-progress {
   min-height: var(--touch-min);
   margin-top: var(--space-2);
@@ -6236,6 +6255,109 @@ body.vmx-reading .vmx-pdf-body {
   font-size: 12px;
   color: var(--clr-ink-soft);
   line-height: 1.4;
+}
+
+/* ── Unified Clinical Command Bridge (Hero Command Console) ── */
+.vmx-command-bridge {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-md), 0 12px 28px rgba(43, 36, 25, 0.07);
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: box-shadow var(--dur-med, 0.25s) ease, border-color var(--dur-med, 0.25s) ease;
+}
+
+@media (min-width: 1024px) {
+  .vmx-command-bridge {
+    grid-template-columns: minmax(0, 1.15fr) 1px minmax(0, 1fr);
+    align-items: stretch;
+  }
+}
+
+.vmx-command-bridge-divider {
+  background: var(--clr-border);
+  height: 1px;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .vmx-command-bridge-divider {
+    height: 100%;
+    width: 1px;
+  }
+}
+
+.vmx-command-bridge-left {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.vmx-command-bridge-right {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  background: color-mix(in srgb, var(--clr-surface-2) 35%, transparent);
+}
+
+@media (max-width: 640px) {
+  .vmx-command-bridge-left {
+    padding: 14px 16px;
+  }
+  .vmx-command-bridge-right {
+    padding: 14px 16px;
+  }
+}
+
+/* Flatten cards docked inside the unified bridge console */
+.vmx-command-bridge .vmx-countdown {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 1024px) {
+  .vmx-command-bridge .vmx-countdown {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: stretch;
+  }
+}
+
+.vmx-command-bridge .vmx-next-actions {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Study Rhythm Console in Left Zone (out of exam season) */
+.vmx-rhythm-console {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.vmx-rhythm-strip {
+  border: none;
+  background: transparent;
+  padding: 0;
 }
 
 /* ── Clinical Command Center (2-Zone Workbench) ── */
