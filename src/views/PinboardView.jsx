@@ -143,10 +143,16 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
         return;
       }
       case 'summary': {
-        // v1 — drop the user on the videos list; they tap the card
-        // to re-open the summary modal themselves. Deep-link is
-        // intentionally deferred (no shared video registry yet).
-        if (typeof setView === 'function') setView('videos');
+        if (typeof p.videoId === 'string' && p.videoId) {
+          try { sessionStorage.setItem('vmx-video-pending-clip', JSON.stringify({ videoId: p.videoId, openSummary: true, at: Date.now() })); }
+          catch {
+            alertDialog('เปิดสรุปคลิปนี้ไม่สำเร็จ พินยังอยู่ กรุณาลองอีกครั้ง');
+            try { sessionStorage.removeItem('vmx-video-pending-clip'); } catch { return; }
+            if (typeof setView === 'function') setView('videos');
+            return;
+          }
+          if (typeof setView === 'function') setView('videos', { videoId: p.videoId, openSummary: true, ...(p.subject ? { subject: p.subject } : {}) });
+        } else if (typeof setView === 'function') setView('videos');
         return;
       }
       case 'flashcard': {

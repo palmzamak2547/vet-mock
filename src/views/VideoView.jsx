@@ -330,11 +330,12 @@ function citedMoment() {
 // later visit.
 const PENDING_CLIP_KEY = 'vmx-video-pending-clip';
 const PENDING_CLIP_MAX_AGE_MS = 30_000;
-function takePendingClip() {
+function takePendingClip(captureRef = null) {
   let raw = null;
   try {
     raw = sessionStorage.getItem(PENDING_CLIP_KEY);
-    if (raw) sessionStorage.removeItem(PENDING_CLIP_KEY);
+    if (captureRef) captureRef.current = raw;
+    else if (raw) sessionStorage.removeItem(PENDING_CLIP_KEY);
   } catch { return null; }
   if (!raw) return null;
   let pending = null;
@@ -342,7 +343,8 @@ function takePendingClip() {
   if (!pending || typeof pending.videoId !== 'string') return null;
   const age = Date.now() - Number(pending.at);
   if (!(age >= 0 && age <= PENDING_CLIP_MAX_AGE_MS)) return null;
-  return knownClip(pending.videoId, 0);
+  const clip = knownClip(pending.videoId, 0);
+  return clip && pending.openSummary === true ? { ...clip, openSummary: true } : clip;
 }
 
 // A stable key per shelf card. Two entries can share subject, url and topic
@@ -358,7 +360,40 @@ function videoCardKeys(list) {
 }
 
 export default function VideoView({ goHome, initialSubject = null, selectedYear = null }) {
-  const [playing, setPlaying] = useState(() => citedMoment() || takePendingClip());
+  const initialPendingRef = useRef(null);
+  const [initialClip] = useState(() => citedMoment() || takePendingClip(initialPendingRef));
+  useEffect(() => {
+    const raw = initialPendingRef.current;
+    if (!raw) return;
+    // A discarded render must leave its intent for the surviving mount.
+    try { if (sessionStorage.getItem(PENDING_CLIP_KEY) === raw) sessionStorage.removeItem(PENDING_CLIP_KEY); } catch { /* retain the ticket */ }
+  }, []);
+  const [playing, setPlaying] = useState(() => initialClip?.openSummary === true ? null : initialClip);
+  const [summaryClip, setSummaryClip] = useState(() => initialClip?.openSummary === true ? initialClip : null);
+  const [pinnedSummary, setPinnedSummary] = useState(null);
+  const [summaryLoadFailed, setSummaryLoadFailed] = useState(false);
+  useEffect(() => {
+    if (!summaryClip) return undefined;
+    let cancelled = false;
+    const videoId = getVideoId(summaryClip.url);
+    setPinnedSummary(null);
+    setSummaryLoadFailed(false);
+    loadVideoSummaryEntry(videoId).then(entry => {
+      if (cancelled) return;
+      if (!entry || entry.videoId !== videoId) {
+        setSummaryClip(null);
+        alertDialog('ไม่พบสรุปคลิปนี้แล้ว กรุณาเลือกคลิปอื่น');
+        return;
+      }
+      setPinnedSummary(entry);
+    }).catch(() => {
+      if (cancelled) return;
+      setSummaryLoadFailed(true);
+      setPinnedSummary({ ...VIDEO_META[videoId], videoId, title: summaryClip.topic,
+        summary: 'โหลดสรุปคลิปไม่สำเร็จ — โหลดหน้าใหม่เพื่อเปิดสรุปนี้อีกครั้ง' });
+    });
+    return () => { cancelled = true; };
+  }, [summaryClip]);
   // Closing a clip a citation opened drops the moment from the address, so a
   // reload or Back lands on the shelf rather than reopening it.
   const closePlayer = () => {
@@ -370,6 +405,17 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
       url.searchParams.delete(MOMENT_SECOND_PARAM);
       window.history.replaceState(window.history.state, '', url);
     } catch { /* the address is a nicety */ }
+  };
+  const reloadSummary = () => {
+    if (!summaryClip || !summaryLoadFailed) return;
+    try {
+      sessionStorage.setItem(PENDING_CLIP_KEY, JSON.stringify({ videoId: getVideoId(summaryClip.url), openSummary: true, at: Date.now() }));
+    } catch {
+      alertDialog('เตรียมเปิดสรุปใหม่ไม่สำเร็จ พินยังอยู่ กรุณาลองอีกครั้ง');
+      return;
+    }
+    closePlayer();
+    window.location.reload();
   };
   const [showAdd, setShowAdd] = useState(false);
   const [editingIdx, setEditingIdx] = useState(null);
@@ -383,8 +429,8 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
   const allVideos = useMemo(() => [...VIDEO_LIBRARY, ...customVideos], [customVideos]);
   const availableSubjects = useMemo(() => new Set(allVideos.map((video) => video.subject)), [allVideos]);
   const [filter, setFilter] = useState(() => videoSubjectForNavigation(
-    typeof window === 'undefined' ? '' : window.location.search,
-    initialSubject,
+    initialClip?.openSummary === true || typeof window === 'undefined' ? '' : window.location.search,
+    initialClip?.openSummary === true ? initialClip.subject : initialSubject,
     availableSubjects,
   ));
 
@@ -411,8 +457,21 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
       // The shelf is already open: a palette hit for one clip arrives here
       // instead of through a fresh mount.
       if (typeof detail.navigationState?.videoId === 'string') {
-        const clip = takePendingClip() || knownClip(detail.navigationState.videoId, 0);
-        if (clip) setPlaying(clip);
+        const pending = takePendingClip();
+        const clip = pending && getVideoId(pending.url) === detail.navigationState.videoId
+          ? pending : knownClip(detail.navigationState.videoId, 0);
+        if (clip) {
+          const summaryOnly = detail.navigationState.openSummary === true;
+          setPinnedSummary(null);
+          if (summaryOnly) {
+            setSummaryClip(clip);
+            setPlaying(null);
+            setFilter(videoSubjectForNavigation('', clip.subject, availableSubjects));
+            return;
+          }
+          setSummaryClip(null);
+          setPlaying(clip);
+        } else if (detail.navigationState.openSummary === true) return;
       }
       if (!Object.prototype.hasOwnProperty.call(detail.navigationState || {}, 'subject')) return;
       setFilter(videoSubjectForNavigation('', detail.navigationState.subject, availableSubjects));
@@ -582,6 +641,8 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
       })()}
 
       {showAdd && <AddEditModal {...{ form, setForm, save, onClose: () => setShowAdd(false), editing: editingIdx !== null }} />}
+      {summaryClip && !pinnedSummary && <div className="vmx-loading" role="status">กำลังโหลดสรุปคลิป…</div>}
+      {pinnedSummary && <SummaryModal summary={pinnedSummary} onReload={summaryLoadFailed ? reloadSummary : undefined} onClose={() => { setSummaryClip(null); setPinnedSummary(null); }} />}
       {playing && <PlayerModal key={playing.url} video={playing} onClose={closePlayer} watched={watched} markWatched={markWatched} />}
 
       {filtered.length === 0 ? (
