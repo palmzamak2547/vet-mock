@@ -206,17 +206,17 @@ export default function NextActionCard({
             The picture belongs WITH the title, not beside it as a peer. */}
         <div className="vmx-next-actions-lead">
           {seasonal && (
-            // Changes the picture, never the words — and only inside a window
-            // the schedule actually puts the student in.
-            <img
-              className="vmx-next-actions-mochi"
-              src={seasonal.src}
-              alt={seasonal.alt}
-              width={512}
-              height={512}
-              loading="lazy"
-              decoding="async"
-            />
+            <div className="vmx-mochi-stamp">
+              <img
+                className="vmx-next-actions-mochi"
+                src={seasonal.src}
+                alt={seasonal.alt}
+                width={512}
+                height={512}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
           )}
           <div>
             <span className="vmx-next-actions-kicker">แผนฝึกวันนี้</span>

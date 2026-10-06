@@ -14,6 +14,8 @@ import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
 import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/latest-changelog.generated.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
+import { seasonalMochiKey } from '../lib/seasonal-mochi.js';
+import { SEASONAL_MOCHI } from '../data/art.js';
 import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } from '../lib/daily-q.js';
 // Phase Wrapped banner — surfaces a Spotify-Wrapped-style recap once
 // a phase ends. Cheap helpers; the heavy canvas + card UI is lazy.
@@ -295,6 +297,13 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
     const id = setInterval(() => setTick((n) => n + 1), intervalMs);
     return () => clearInterval(id);
   }, [nextExam, countdown]);
+
+  const companionMochi = useMemo(() => {
+    const key = seasonalMochiKey({ daysLeft: nextExam?.daysLeft ?? null, lastExamDate });
+    return key ? SEASONAL_MOCHI[key] || null : null;
+  }, [nextExam?.daysLeft, lastExamDate]);
+  const companionImg = companionMochi?.src || '/motion/assets/mochi.png';
+  const companionAlt = companionMochi?.alt || 'โมจิ เพื่อนร่วมติว';
 
   // ─── Quick stats: study streak + today count + wrong Q pool ────
   // Computed from history (date + correct flag). Streak counts
@@ -854,39 +863,6 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         </div>
       )}
 
-      {!isScaffoldYear && (
-        <NextActionCard
-          nextExam={nextExam}
-          lastExamDate={lastExamDate}
-          examContext={!examWindow}
-          quickStats={quickStats}
-          cardStats={cardStats}
-          accBySubject={accBySubject}
-          subjects={yearSubjects}
-          practiceCounts={practiceCounts}
-          history={history}
-          pendingResume={pendingResume}
-          countdown={countdown}
-          onPickResume={() => resumePendingExam && resumePendingExam()}
-          onDismissResume={dismissPendingExam ? () => dismissPendingExam() : null}
-          onPickExamPrep={(exam) => {
-            if (exam?.subject) {
-              setSubject && setSubject(exam.subject);
-              setView('topic-select');
-            } else {
-              setView('schedule');
-            }
-          }}
-          onPickPanic={onStartPanic}
-          onPickSR={launchSR}
-          onPickPlannedPractice={(subjectId, count) => startExam?.({ mode: 'quick', subject: subjectId,
-            topic: null, practiceMode: 'all', questionCategory: 'all', numQuestions: count, useTimer: false })}
-          onPickWrong={launchWrongReview}
-          onPickRandom={launchRandomQ}
-          onOpenSchedule={() => setView('schedule')}
-        />
-      )}
-
       {bannerWinner === 'welcome' && (
         <div className="vmx-welcome-banner" style={{
           marginBottom: 16,
@@ -1047,209 +1023,42 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           )}
         </div>
       )}
-
-      {hasQuickChips && (
-        <div className="vmx-home-quick-actions" style={{
-          display: 'flex',
-          gap: 10,
-          flexWrap: 'wrap',
-          marginBottom: 18,
-          alignItems: 'center',
-        }}>
-          {freezeNotice && (
-            <div
-              className="vmx-pop-in"
-              role="status"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: '6px 12px',
-                borderRadius: 999,
-                background: 'var(--clr-surface-2)',
-                border: '1px solid var(--clr-border)',
-                fontSize: 12,
-                color: 'var(--clr-ink-soft)',
-              }}
-            >
-              เว้นไป 1 วัน แต่ยังนับต่อเนื่องให้ {freezeNotice.streak} วัน
-            </div>
-          )}
-          {quickStats.streak > 0 && (
-            <div
-              className={`vmx-pop-in vmx-streak-card-home ${quickStats.streak >= 7 ? 'vmx-streak-hot' : quickStats.streak >= 3 ? 'vmx-streak-warm' : ''}`}
-              title={`ทำข้อสอบติดต่อกัน ${quickStats.streak} วัน`}
-            >
-              <span className="vmx-streak-fire" aria-hidden="true"><NavIcon name="flame" size={22} /></span>
-              <div className="vmx-streak-info">
-                <span className="vmx-streak-num">{quickStats.streak}</span>
-                <span className="vmx-streak-unit">วันต่อเนื่อง</span>
-              </div>
-              <div className="vmx-streak-week">
-                {[...Array(7)].map((_, i) => (
-                  <span key={i} className={`vmx-streak-dot ${i < Math.min(quickStats.streak, 7) ? 'vmx-streak-dot-active' : ''}`} />
-                ))}
-              </div>
-              {quickStats.streak >= 7 && (
-                <span className="vmx-streak-milestone">
-                  {quickStats.streak >= 30 ? 'เทพ!' : quickStats.streak >= 14 ? 'แข็งแกร่ง!' : 'สุดยอด!'}
-                </span>
-              )}
-              {quickStats.todayCount > 0 && (
-                <span className="vmx-streak-today-count">+{quickStats.todayCount} วันนี้</span>
-              )}
-            </div>
-          )}
-
-          {allQuestionsPool > 0 && history.length > 0 && (
-            <button
-              className="vmx-chip-quick vmx-pop-in"
-              onClick={launchRandomQ}
-              disabled={quickActionPending}
-              title={quickActionPending ? 'กำลังเตรียมข้อสอบ...' : `สุ่ม 1 ข้อจากคลังทั้งหมด ${allQuestionsPool} ข้อ`}
-              style={{
-                all: 'unset',
-                cursor: quickActionPending ? 'wait' : 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-                padding: '6px 12px',
-                borderRadius: 999,
-                background: 'var(--clr-surface)',
-                border: '1px solid var(--clr-border)',
-                fontSize: 12,
-                color: 'var(--clr-ink)',
-                opacity: quickActionPending ? 0.65 : 1,
-              }}
-            >
-              {quickActionPending ? 'กำลังเตรียมข้อแรก...' : 'สุ่มฝึก 1 ข้อด่วน'}
-            </button>
-          )}
-          {history.length === 0 && quickActionPending && (
-            <span
-              role="status"
-              aria-live="polite"
-              style={{
-                fontSize: 11,
-                color: 'var(--clr-ink-soft)',
-                marginLeft: 6,
-              }}
-            >
-              โหลดคลังโจทย์ครั้งแรก, ครั้งต่อไปจะเร็วขึ้น
-            </span>
-          )}
-
-          {quickStats.wrongCount > 0 && (
-            <button
-              className="vmx-chip-quick vmx-pop-in"
-              onClick={launchWrongReview}
-              title={`ทบทวนข้อที่เคยตอบผิด — เรียงตามความถี่ (ผิดบ่อยขึ้นก่อน)`}
-              style={{
-                all: 'unset',
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-                padding: '8px 14px',
-                borderRadius: 999,
-                background: 'rgba(167, 61, 74, 0.12)',
-                border: '1px solid var(--clr-rose)',
-                fontSize: 13,
-                color: 'var(--clr-rose-text)',
-                transition: 'transform 0.12s, background 0.15s',
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(167, 61, 74, 0.20)'}
-              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(167, 61, 74, 0.12)'}
-            >
-              ทบทวนข้อที่ตอบผิด ({quickStats.wrongCount})
-            </button>
-          )}
-          {/* Today's next class + any open registration/payment window. Both
-              come from the faculty's own published schedule, so they answer
-              "เรียนอะไร ที่ไหน" and "ต้องจ่าย/ลงทะเบียนภายในเมื่อไหร่" without
-              the student digging for the PDF. Tapping opens the full page. */}
-          {nextClassToday && (
-            <button
-              type="button"
-              onClick={() => setView('schedule')}
-              className="vmx-chip-quick vmx-home-quick-context"
-              title={`${nextClassToday.code}, ${nextClassToday.room}, ${nextClassToday.start}-${nextClassToday.end}`}
-              style={{
-                all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
-                padding: '6px 12px', borderRadius: 999,
-                background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)',
-                fontSize: 12, color: 'var(--clr-sage-text)',
-                minHeight: 44, boxSizing: 'border-box',
-              }}
-            >
-              {currentClassNow ? 'กำลังเรียน' : `${nextClassToday.dayOffset === 1 ? 'พรุ่งนี้ ' : nextClassToday.dayOffset > 1 ? `วัน${DOW_TH[nextClassToday.dow]} ` : ''}${nextClassToday.start} น.`} {truncateThai(nextClassToday.title, 26)}, {nextClassToday.room}
-            </button>
-          )}
-          {nextEvent && (
-            <button
-              type="button"
-              onClick={() => setView('schedule')}
-              className="vmx-chip-quick vmx-home-quick-context"
-              title={`${nextEvent.titleTh}, ${nextEvent.start}-${nextEvent.end} น., ${nextEvent.location}`}
-              style={{
-                all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
-                padding: '6px 12px', borderRadius: 999,
-                background: 'rgba(184, 137, 64, 0.10)', border: '1px solid var(--clr-gold)',
-                fontSize: 12, color: 'var(--clr-gold-text)',
-                minHeight: 44, boxSizing: 'border-box',
-              }}
-            >
-              {truncateThai(nextEvent.titleTh.replace(/^บริษัทนำ /, ''), 30)}
-              {', '}
-              {nextEvent.daysLeft === 0 ? 'วันนี้' : nextEvent.daysLeft === 1 ? 'พรุ่งนี้' : `อีก ${nextEvent.daysLeft} วัน`}
-            </button>
-          )}
-          {topMilestone && (
-            <button
-              type="button"
-              onClick={() => setView('schedule')}
-              className="vmx-chip-quick vmx-home-quick-context"
-              title={`${topMilestone.titleTh}${topMilestone.endTimeTh ? `, ${topMilestone.endTimeTh}` : ''}`}
-              style={{
-                all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
-                padding: '6px 12px', borderRadius: 999,
-                background: 'rgba(194, 109, 109, 0.10)', border: '1px solid var(--clr-rose)',
-                fontSize: 12, color: 'var(--clr-rose-text)',
-                minHeight: 44, boxSizing: 'border-box',
-              }}
-            >
-              {truncateThai(topMilestone.titleTh, 22)}
-              {', '}
-              {topMilestone.active
-                ? (topMilestone.daysLeftToEnd === 0 ? 'วันสุดท้ายวันนี้' : `เหลือ ${topMilestone.daysLeftToEnd} วัน`)
-                : `อีก ${topMilestone.daysLeft} วัน`}
-            </button>
-          )}
-          {showChangelogChip && (
-            <button
-              type="button"
-              onClick={() => setForceChangelogOpen(true)}
-              className="vmx-chip-quick vmx-home-quick-context"
-              style={{
-                all: 'unset',
-                cursor: 'pointer',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-                padding: '6px 12px',
-                borderRadius: 999,
-                background: 'rgba(184, 137, 64, 0.10)',
-                border: '1px solid var(--clr-gold, #b88940)',
-                fontSize: 12,
-                color: 'var(--clr-gold-text, var(--clr-gold, #b88940))',
-              }}
-              title="ดูรายละเอียดอัปเดตล่าสุด"
-            >
-              อัปเดตใหม่{LATEST_CHANGELOG?.changes?.length ? ` ${LATEST_CHANGELOG.changes.length} รายการ` : ''}
-            </button>
-          )}
-        </div>
-      )}
+      <div className="vmx-command-center">
+        <div className="vmx-command-center-layout">
+          {/* ZONE 1: Active Duty Stream (Next Actions -> Subjects -> Mode Grid) */}
+          <div className="vmx-duty-stream">
+            {!isScaffoldYear && (
+              <NextActionCard
+                nextExam={nextExam}
+                lastExamDate={lastExamDate}
+                examContext={!examWindow}
+                quickStats={quickStats}
+                cardStats={cardStats}
+                accBySubject={accBySubject}
+                subjects={yearSubjects}
+                practiceCounts={practiceCounts}
+                history={history}
+                pendingResume={pendingResume}
+                countdown={countdown}
+                onPickResume={() => resumePendingExam && resumePendingExam()}
+                onDismissResume={dismissPendingExam ? () => dismissPendingExam() : null}
+                onPickExamPrep={(exam) => {
+                  if (exam?.subject) {
+                    setSubject && setSubject(exam.subject);
+                    setView('topic-select');
+                  } else {
+                    setView('schedule');
+                  }
+                }}
+                onPickPanic={onStartPanic}
+                onPickSR={launchSR}
+                onPickPlannedPractice={(subjectId, count) => startExam?.({ mode: 'quick', subject: subjectId,
+                  topic: null, practiceMode: 'all', questionCategory: 'all', numQuestions: count, useTimer: false })}
+                onPickWrong={launchWrongReview}
+                onPickRandom={launchRandomQ}
+                onOpenSchedule={() => setView('schedule')}
+              />
+            )}
 
       {/* Gamification + community block (QuestsPanel + DailyGoal + Daily Q
           + Race + StudyBuddies + PWA install) — Phase 1 (2026-05-18):
@@ -1547,128 +1356,270 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           </div>
         </>
       )}
+          </div>{/* /vmx-duty-stream */}
 
-      {/* ─── Gamification + community block — Phase 1 (2026-05-18) ────
-          Quests + DailyGoal + StudyBuddies + DailyQ + Race + PWA install.
-          Lives BELOW the core Subject + Practice mode grids so first-
-          paint mobile real-estate goes to studying, not gamification.
-          Quests now have per-quest "▶️ ลุย" action buttons (Phase 4)
-          wired to handleQuestStart. */}
-
-      {/* Quests + daily goal, behind ONE disclosure. Both are "what to do
-          today" surfaces, and stacked open they were two of seven such
-          surfaces competing on the same screen — the audit's point was that
-          a student who opens the app to study scrolls past a progress report
-          to reach the subject they came for. Folded, they stay one tap away
-          for the people who use them and cost nothing to everyone else.
-          Quests are hidden on scaffold years (no Q bank to act against) and
-          the goal card only mounts once there is history, so the whole
-          disclosure disappears when it would be empty. */}
-      {(!isScaffoldYear || history.length > 0) && (
-        <details className="vmx-home-extras">
-          <summary>เป้าหมายและภารกิจวันนี้</summary>
-          {!isScaffoldYear && (
-            <Suspense fallback={null}>
-              <div style={{ marginTop: 14 }}>
-                <QuestsPanel onStart={handleQuestStart} year={selectedYear} />
+          {/* ZONE 2: Clinical Vitals Rail (Mochi Companion, Vitals & Quick Context, Extras, Buddies) */}
+          <aside className="vmx-vitals-rail" aria-label="สถานะและเพื่อนร่วมติว">
+            {/* Mochi Clinical Companion Card */}
+            <div className="vmx-companion-card">
+              <div className="vmx-mochi-seal">
+                <img
+                  src={companionImg}
+                  alt={companionAlt}
+                  width={48}
+                  height={48}
+                  loading="lazy"
+                  decoding="async"
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                />
               </div>
-            </Suspense>
-          )}
-          {history.length > 0 && (
-            <Suspense fallback={null}>
-              <div style={{ marginBottom: 18 }}>
-                <DailyGoalCard history={history} selectedYear={selectedYear} />
+              <div className="vmx-companion-card-info">
+                <span className="vmx-companion-card-kicker">Clinical Companion</span>
+                <strong className="vmx-companion-card-name">Mochi</strong>
+                <span className="vmx-companion-card-status">
+                  {countdown?.text ? `เป้าหมาย: สอบใน ${countdown.text}` : 'พร้อมช่วยติวและทบทวน'}
+                </span>
               </div>
-            </Suspense>
-          )}
-        </details>
-      )}
-
-      {/* Study buddies — Supabase presence list. Hidden when no buddies
-          are present (StudyBuddiesPanel returns null). */}
-      {user && (
-        <StudyBuddiesSection
-          selfUserId={user.id}
-          onJumpToSubject={(subjectId) => {
-            setSubject?.(subjectId);
-            setMode?.('quick');
-            setView('subject-select');
-          }}
-        />
-      )}
-
-      {/* Daily Q + Race + PWA install — entry points share one row */}
-      <DailyQRow user={user} setView={setView} selectedYear={selectedYear} />
-      <div style={{ marginBottom: 18, display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' }}>
-        {user && (
-          <button
-            type="button"
-            onClick={() => setView('race')}
-            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
-          >
-            แข่งกับเพื่อน (Race mode)
-          </button>
-        )}
-        <Suspense fallback={null}>
-          <PWAInstallChip />
-        </Suspense>
-      </div>
-
-      {/* Group preview — Round 3 (2026-05-18). When the user isn't
-          logged in, show a value-proposition card describing what
-          groups unlock: room leaderboard, shared Q sets, daily
-          challenge. Tapping → AuthView. Hides for signed-in users
-          (they already have direct entry via UserMenu → groups). */}
-      {!user && hasSupabase && (
-        <div
-          className="vmx-group-preview"
-          style={{
-            marginBottom: 22,
-            padding: '14px 16px',
-            borderRadius: 14,
-            background: 'var(--clr-surface)',
-            border: '1px dashed var(--clr-sage, #4a6b4a)',
-            display: 'flex',
-            gap: 14,
-            alignItems: 'center',
-            flexWrap: 'wrap',
-          }}
-        >
-          <div className="vmx-group-preview-icon" aria-hidden="true"><NavIcon name="users" size={24} /></div>
-          <div style={{ flex: 1, minWidth: 180 }}>
-            <div className="vmx-kicker" style={{ color: 'var(--clr-sage-text, #4a6b4a)' }}>
-              สร้างกลุ่มกับเพื่อน
             </div>
-            <div style={{
-              fontFamily: 'inherit',
-              fontWeight: 600,
-              fontSize: 15,
-              marginTop: 2,
-              lineHeight: 1.4,
-              color: 'var(--clr-ink)',
-            }}>
-              ดูอันดับคะแนนในกลุ่ม แชร์โจทย์ และโจทย์ท้าทายรายวัน
+
+            {/* Vitals Panel */}
+            {hasQuickChips && (
+              <div className="vmx-vitals-panel">
+                <div className="vmx-vitals-panel-head">
+                  <span>Vitals & Schedule</span>
+                  <span style={{ fontSize: 10, textTransform: 'none', color: 'var(--clr-ink-soft)' }}>รอบวันนี้</span>
+                </div>
+                {freezeNotice && (
+                  <div
+                    className="vmx-pop-in"
+                    role="status"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      padding: '6px 12px',
+                      borderRadius: 999,
+                      background: 'var(--clr-surface-2)',
+                      border: '1px solid var(--clr-border)',
+                      fontSize: 12,
+                      color: 'var(--clr-ink-soft)',
+                    }}
+                  >
+                    เว้นไป 1 วัน แต่ยังนับต่อเนื่องให้ {freezeNotice.streak} วัน
+                  </div>
+                )}
+                {quickStats.streak > 0 && (
+                  <div
+                    className={`vmx-pop-in vmx-streak-card-home ${quickStats.streak >= 7 ? 'vmx-streak-hot' : quickStats.streak >= 3 ? 'vmx-streak-warm' : ''}`}
+                    title={`ทำข้อสอบติดต่อกัน ${quickStats.streak} วัน`}
+                  >
+                    <span className="vmx-streak-fire" aria-hidden="true"><NavIcon name="flame" size={22} /></span>
+                    <div className="vmx-streak-info">
+                      <span className="vmx-streak-num">{quickStats.streak}</span>
+                      <span className="vmx-streak-unit">วันต่อเนื่อง</span>
+                    </div>
+                    <div className="vmx-streak-week">
+                      {[...Array(7)].map((_, i) => (
+                        <span key={i} className={`vmx-streak-dot ${i < Math.min(quickStats.streak, 7) ? 'vmx-streak-dot-active' : ''}`} />
+                      ))}
+                    </div>
+                    {quickStats.streak >= 7 && (
+                      <span className="vmx-streak-milestone">
+                        {quickStats.streak >= 30 ? 'เทพ!' : quickStats.streak >= 14 ? 'แข็งแกร่ง!' : 'สุดยอด!'}
+                      </span>
+                    )}
+                    {quickStats.todayCount > 0 && (
+                      <span className="vmx-streak-today-count">+{quickStats.todayCount} วันนี้</span>
+                    )}
+                  </div>
+                )}
+                {history.length === 0 && quickActionPending && (
+                  <div
+                    className="vmx-vitals-row"
+                    title="โหลดคลังโจทย์ครั้งแรก, ครั้งต่อไปจะเร็วขึ้น"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    <span>ดาวน์โหลดโจทย์ครั้งแรก</span>
+                    <span className="vmx-vitals-row-meta">โหลดคลังโจทย์</span>
+                  </div>
+                )}
+                {quickStats.wrongCount > 0 && (
+                  <button
+                    type="button"
+                    className="vmx-vitals-row"
+                    onClick={launchWrongReview}
+                    title="ทบทวนข้อที่เคยตอบผิด — เรียงตามความถี่ (ผิดบ่อยขึ้นก่อน)"
+                    style={{ color: 'var(--clr-rose-text)', border: '1px solid var(--clr-rose)' }}
+                  >
+                    <span>ทบทวนข้อที่ตอบผิด</span>
+                    <span className="vmx-badge" style={{ background: 'var(--clr-rose)', color: 'var(--clr-surface)', borderRadius: 'var(--r-pill)', padding: '2px 8px', fontSize: 11, fontWeight: 700 }}>{quickStats.wrongCount}</span>
+                  </button>
+                )}
+                {nextClassToday && (
+                  <button
+                    type="button"
+                    onClick={() => setView('schedule')}
+                    className="vmx-vitals-row"
+                    title={`${nextClassToday.code}, ${nextClassToday.room}, ${nextClassToday.start}-${nextClassToday.end}`}
+                  >
+                    <span style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {currentClassNow ? 'กำลังเรียน' : `${nextClassToday.dayOffset === 1 ? 'พรุ่งนี้ ' : nextClassToday.dayOffset > 1 ? `วัน${DOW_TH[nextClassToday.dow]} ` : ''}${nextClassToday.start} น.`} {truncateThai(nextClassToday.title, 20)}
+                    </span>
+                    <span className="vmx-vitals-row-meta">{nextClassToday.room}</span>
+                  </button>
+                )}
+                {nextEvent && (
+                  <button
+                    type="button"
+                    onClick={() => setView('schedule')}
+                    className="vmx-vitals-row"
+                    title={`${nextEvent.titleTh}, ${nextEvent.start}-${nextEvent.end} น., ${nextEvent.location}`}
+                  >
+                    <span style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {truncateThai(nextEvent.titleTh.replace(/^บริษัทนำ /, ''), 22)}
+                    </span>
+                    <span className="vmx-vitals-row-meta" style={{ color: 'var(--clr-gold-text)' }}>
+                      {nextEvent.daysLeft === 0 ? 'วันนี้' : nextEvent.daysLeft === 1 ? 'พรุ่งนี้' : `อีก ${nextEvent.daysLeft} วัน`}
+                    </span>
+                  </button>
+                )}
+                {topMilestone && (
+                  <button
+                    type="button"
+                    onClick={() => setView('schedule')}
+                    className="vmx-vitals-row"
+                    title={`${topMilestone.titleTh}${topMilestone.endTimeTh ? `, ${topMilestone.endTimeTh}` : ''}`}
+                  >
+                    <span style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {truncateThai(topMilestone.titleTh, 20)}
+                    </span>
+                    <span className="vmx-vitals-row-meta" style={{ color: 'var(--clr-rose-text)' }}>
+                      {topMilestone.active
+                        ? (topMilestone.daysLeftToEnd === 0 ? 'วันสุดท้าย' : `เหลือ ${topMilestone.daysLeftToEnd} วัน`)
+                        : `อีก ${topMilestone.daysLeft} วัน`}
+                    </span>
+                  </button>
+                )}
+                {showChangelogChip && (
+                  <button
+                    type="button"
+                    onClick={() => setForceChangelogOpen(true)}
+                    className="vmx-vitals-row"
+                    title="ดูรายละเอียดอัปเดตล่าสุด"
+                  >
+                    <span>อัปเดตระบบ</span>
+                    <span className="vmx-vitals-row-meta" style={{ color: 'var(--clr-gold-text)' }}>
+                      {LATEST_CHANGELOG?.changes?.length ? `${LATEST_CHANGELOG.changes.length} รายการ` : 'ใหม่'}
+                    </span>
+                  </button>
+                )}
+              </div>
+            )}
+
+            {/* Quests + daily goal, behind ONE disclosure */}
+            {(!isScaffoldYear || history.length > 0) && (
+              <details className="vmx-home-extras">
+                <summary>เป้าหมายและภารกิจวันนี้</summary>
+                {!isScaffoldYear && (
+                  <Suspense fallback={null}>
+                    <div style={{ marginTop: 14 }}>
+                      <QuestsPanel onStart={handleQuestStart} year={selectedYear} />
+                    </div>
+                  </Suspense>
+                )}
+                {history.length > 0 && (
+                  <Suspense fallback={null}>
+                    <div style={{ marginBottom: 18 }}>
+                      <DailyGoalCard history={history} selectedYear={selectedYear} />
+                    </div>
+                  </Suspense>
+                )}
+              </details>
+            )}
+
+            {/* Study buddies — Supabase presence list */}
+            {user && (
+              <StudyBuddiesSection
+                selfUserId={user.id}
+                onJumpToSubject={(subjectId) => {
+                  setSubject?.(subjectId);
+                  setMode?.('quick');
+                  setView('subject-select');
+                }}
+              />
+            )}
+
+            {/* Daily Q + Race + PWA install */}
+            <DailyQRow user={user} setView={setView} selectedYear={selectedYear} />
+            <div style={{ marginBottom: 18, display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' }}>
+              {user && (
+                <button
+                  type="button"
+                  onClick={() => setView('race')}
+                  className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
+                >
+                  แข่งกับเพื่อน (Race mode)
+                </button>
+              )}
+              <Suspense fallback={null}>
+                <PWAInstallChip />
+              </Suspense>
             </div>
-            <div style={{
-              fontSize: 12,
-              color: 'var(--clr-ink-soft)',
-              marginTop: 4,
-              lineHeight: 1.45,
-            }}>
-              เข้าสู่ระบบเพื่อสร้างกลุ่มติวและแชร์โจทย์กับเพื่อน
-            </div>
-          </div>
-          <button
-            type="button"
-            className="vmx-btn vmx-btn-primary vmx-btn-sm"
-            onClick={() => setView('auth')}
-            style={{ minHeight: 40, flexShrink: 0 }}
-          >
-            เข้าสู่ระบบ
-          </button>
-        </div>
-      )}
+
+            {/* Group preview */}
+            {!user && hasSupabase && (
+              <div
+                className="vmx-group-preview"
+                style={{
+                  marginBottom: 22,
+                  padding: '14px 16px',
+                  borderRadius: 14,
+                  background: 'var(--clr-surface)',
+                  border: '1px dashed var(--clr-sage)',
+                  display: 'flex',
+                  gap: 14,
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                }}
+              >
+                <div className="vmx-group-preview-icon" aria-hidden="true"><NavIcon name="users" size={24} /></div>
+                <div style={{ flex: 1, minWidth: 180 }}>
+                  <div className="vmx-kicker" style={{ color: 'var(--clr-sage-text)' }}>
+                    สร้างกลุ่มกับเพื่อน
+                  </div>
+                  <div style={{
+                    fontFamily: 'inherit',
+                    fontWeight: 600,
+                    fontSize: 15,
+                    marginTop: 2,
+                    lineHeight: 1.4,
+                    color: 'var(--clr-ink)',
+                  }}>
+                    ดูอันดับคะแนนในกลุ่ม แชร์โจทย์ และโจทย์ท้าทายรายวัน
+                  </div>
+                  <div style={{
+                    fontSize: 12,
+                    color: 'var(--clr-ink-soft)',
+                    marginTop: 4,
+                    lineHeight: 1.45,
+                  }}>
+                    เข้าสู่ระบบเพื่อสร้างกลุ่มติวและแชร์โจทย์กับเพื่อน
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="vmx-btn vmx-btn-primary vmx-btn-sm"
+                  onClick={() => setView('auth')}
+                  style={{ minHeight: 40, flexShrink: 0 }}
+                >
+                  เข้าสู่ระบบ
+                </button>
+              </div>
+            )}
+          </aside>
+        </div>{/* /vmx-command-center-layout */}
 
       {/* Categorized feature menu — practice / learn / progress / tools,
           all derived from the shared feature registry (lib/feature-registry.js).
@@ -1706,6 +1657,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           setView('config');
         }}
       />
+      </div>{/* /vmx-command-center */}
 
       {/* Tips footer — only for first-time users (pre-welcome-dismiss).
           Returning users have absorbed these already; hiding declutters

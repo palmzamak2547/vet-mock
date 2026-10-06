@@ -82,6 +82,7 @@
   --shadow-sm: 0 1px 2px rgba(43, 36, 25, 0.08);
   --shadow-md: 0 4px 12px rgba(43, 36, 25, 0.08), 0 2px 4px rgba(43, 36, 25, 0.05);
   --shadow-lg: 0 12px 32px rgba(43, 36, 25, 0.14), 0 4px 8px rgba(43, 36, 25, 0.08);
+  --shadow-workbench: 0 1px 3px 0 rgba(43, 36, 25, 0.04), 0 1px 2px -1px rgba(43, 36, 25, 0.04);
   /* Shared gold halo for streak/live indicators — one definition so the
      glow can't drift out of sync across surfaces. */
   --shadow-glow-gold: 0 0 4px 0 rgba(184, 137, 64, 0.32);
@@ -180,6 +181,7 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.35);
+  --shadow-workbench: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
   --shadow-glow-gold: 0 0 4px 0 rgba(212, 165, 86, 0.4);
 
   /* Interaction tokens (dark) — harmonized to the warm-editorial palette. */
@@ -5685,3 +5687,159 @@ body.vmx-reading .vmx-pdf-body {
 @media (max-width: 600px) {
   .vmx-match-bank { grid-template-columns: 1fr 1fr; font-size: 12px; gap: 1px 10px; }
 }
+
+/* ============================================================
+   Clinical & Academic Workbench (Phase 1 — Primer/Catalyst)
+   ============================================================ */
+
+/* ── Mochi Clinical Companion & Stamp Framework ── */
+.vmx-mochi-stamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--clr-border);
+  background: var(--clr-surface);
+  box-shadow: var(--shadow-sm);
+  padding: 4px;
+  flex-shrink: 0;
+  vertical-align: middle;
+  transition: border-color var(--dur-fast), transform var(--dur-fast);
+}
+.vmx-mochi-stamp:hover {
+  border-color: var(--clr-sage);
+}
+.vmx-mochi-seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 4px 6px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--clr-border);
+  background: var(--clr-surface);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--clr-ink-soft);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Companion Card (Vitals Rail) ── */
+.vmx-companion-card {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-lg);
+  background: var(--clr-surface);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--shadow-workbench);
+  position: relative;
+  overflow: hidden;
+}
+.vmx-companion-card-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.vmx-companion-card-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--clr-sage-text);
+}
+.vmx-companion-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--clr-ink);
+  line-height: 1.25;
+}
+.vmx-companion-card-status {
+  font-size: 12px;
+  color: var(--clr-ink-soft);
+  line-height: 1.4;
+}
+
+/* ── Clinical Command Center (2-Zone Workbench) ── */
+.vmx-command-center {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+@media (min-width: 1024px) {
+  .vmx-command-center-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(320px, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+}
+.vmx-duty-stream {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+.vmx-vitals-rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+.vmx-vitals-panel {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-lg);
+  background: var(--clr-surface);
+  padding: 16px;
+  box-shadow: var(--shadow-workbench);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.vmx-vitals-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--clr-ink);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--clr-border);
+}
+.vmx-vitals-panel-head span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.vmx-vitals-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: 8px 12px;
+  border-radius: var(--r-md);
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  font-size: 13px;
+  color: var(--clr-ink);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+  text-decoration: none;
+  transition: background var(--duration-fast), border-color var(--duration-fast);
+}
+.vmx-vitals-row:hover {
+  background: var(--clr-surface);
+  border-color: var(--clr-border-strong);
+}
+.vmx-vitals-row-meta {
+  font-size: 11px;
+  font-family: var(--vmx-mono);
+  color: var(--clr-ink-soft);
+  flex-shrink: 0;
+}
+
