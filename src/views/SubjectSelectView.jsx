@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { QB, isQBYearLoaded, isQBFullyLoaded } from '../data/questions.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount, announced } from '../data/curriculum.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
@@ -7,7 +7,7 @@ import BackBar from '../components/BackBar.jsx';
 import Mochi from '../components/Mochi.jsx';
 import { librarySubjectCounts } from '../lib/library.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
-import { takeViewIntent, rememberViewIntent } from '../lib/feature-registry.js';
+import { takeViewIntent, rememberViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { SUBJECT_MOCHI } from '../data/art.js';
 import NavIcon from '../components/NavIcon.jsx';
 
@@ -15,7 +15,9 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
   const allQuestions = [...QB, ...customQuestions];
   // Read once, on mount: someone who chose สรุปบทเรียน is here to read, and
   // this screen used to describe practice to them regardless.
-  const [readingIntent, setReadingIntent] = useState(() => takeViewIntent() === 'notes');
+  const initialIntentRef = useRef(null);
+  const [readingIntent, setReadingIntent] = useState(() => takeViewIntent(initialIntentRef) === 'notes');
+  useEffect(() => { consumeViewIntent(initialIntentRef.current); }, []);
   useEffect(() => {
     const receiveIntent = (event) => {
       if (event.detail?.view !== 'subject-select') return;
@@ -103,7 +105,8 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
   })), [baseSubjects]);
   const normalizedSearch = searchQuery.trim().toLowerCase();
   const visibleSubjects = indexedSubjects
-    .filter(({ item, searchText }) => !normalizedSearch || item.id === 'all' || searchText.includes(normalizedSearch))
+    .filter(({ item, searchText }) => (!readingIntent || item.id !== 'all')
+      && (!normalizedSearch || item.id === 'all' || searchText.includes(normalizedSearch)))
     .map(({ item }) => item);
 
   // Year and term are the layer a student thinks in — "ปี 2 เทอม 1" is one

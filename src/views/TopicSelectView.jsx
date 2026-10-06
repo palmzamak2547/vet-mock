@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import PanicCard from '../components/PanicCard.jsx';
 import { PANIC_CARD_SCOPE, panicCardFor } from '../data/panic-cards.js';
@@ -8,7 +8,7 @@ import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
 import { announced } from '../data/curriculum.js';
 import { librarySubjectCounts } from '../lib/library.js';
-import { takeViewIntent } from '../lib/feature-registry.js';
+import { takeViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
 import { hasLecturerSet, LECTURER_SETS } from '../data/lecturer-sets.js';
 import { topicLecturerLabel } from '../lib/lecturer-name.js';
@@ -70,10 +70,12 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // Open on the reading tab when the student came here from สรุปบทเรียน. The
   // per-topic summary buttons were always on this screen, but under the
   // practice tab, so the reading intent quietly became a practice flow.
+  const initialIntentRef = useRef(null);
   const [activeSection, setActiveSection] = useState(() => {
     if (initialSection === 'resources') return 'resources';
-    return takeViewIntent() === 'notes' ? 'resources' : 'topics';
+    return takeViewIntent(initialIntentRef) === 'notes' ? 'resources' : 'topics';
   });
+  useEffect(() => { consumeViewIntent(initialIntentRef.current); }, []);
   // Preserve the tab that actually opened Notes, including topic-card entry.
   useEffect(() => { onSectionChange?.(activeSection); }, [activeSection, onSectionChange]);
   // Palm bug 2026-05-20: subjects with 50+ topics in curriculum but only
