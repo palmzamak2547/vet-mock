@@ -16,7 +16,7 @@ import { registerDialogHost } from '../lib/dialog.js';
 
 const cancelValue = (req) => req.mode === 'alert' ? true : (req.mode === 'prompt' ? null : false);
 
-export default function DialogHost({ scope } = {}) {
+export default function DialogHost({ scope, owner } = {}) {
   const [req, setReq] = useState(null);
   const reqRef = useRef(null);
   useEffect(() => {
@@ -33,6 +33,15 @@ export default function DialogHost({ scope } = {}) {
       reqRef.current = null;
       if (pending) pending.resolve(cancelValue(pending));
     };
+  }, [owner]);
+
+  useEffect(() => {
+    const pending = reqRef.current;
+    // Notices can explain a navigation result; decisions belong to their page.
+    if (!pending || pending.mode === 'alert') return;
+    reqRef.current = null;
+    setReq(null);
+    pending.resolve(cancelValue(pending));
   }, [scope]);
 
   if (!req) return null;

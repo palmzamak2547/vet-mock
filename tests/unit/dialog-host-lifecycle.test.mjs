@@ -48,19 +48,29 @@ test('dialog replacement and retirement cancel pending decisions; accepted decis
   const pending = confirmDialog({ title: 'Before render' });
   unrendered.unmount();
   assert.equal(await pending, false);
-  const scoped = mount(DialogHost, { scope: 'owner-a:pinboard' });
-  for (const scope of ['owner-a:home', 'owner-b:home']) {
+  const scoped = mount(DialogHost, { owner: 'a', scope: 'pinboard' });
+  for (const next of [{ scope: 'home' }, { owner: 'b' }]) {
     const retired = confirmDialog({ title: 'Retired' });
     scoped.flush();
-    scoped.update({ scope });
+    scoped.update(next);
     assert.equal(await retired, false);
     assert.equal(scoped.tree, null);
   }
   const sameScope = confirmDialog({ title: 'Still current' });
   scoped.flush();
-  scoped.update({ scope: 'owner-b:home' });
+  scoped.update({ owner: 'b', scope: 'home' });
   assert.equal(scoped.tree.props.title, 'Still current');
   scoped.tree.props.onConfirm();
   assert.equal(await sameScope, true);
+  let noticeSettled = false;
+  const notice = alertDialog({ title: 'Navigation result' }).then(value => { noticeSettled = true; return value; });
+  scoped.flush();
+  scoped.update({ scope: 'library' });
+  await Promise.resolve();
+  assert.equal(noticeSettled, false);
+  assert.equal(scoped.tree.props.title, 'Navigation result');
+  scoped.update({ owner: 'c' });
+  assert.equal(await notice, true);
+  assert.equal(scoped.tree, null);
   scoped.unmount();
 });
