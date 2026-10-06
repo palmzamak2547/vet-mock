@@ -37,7 +37,7 @@ on:
 jobs:
   e2e:
     name: e2e (${{ matrix.label }})
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       # One engine failing must not cancel the others: the report of every
       # engine is what makes a red run readable.
@@ -149,7 +149,7 @@ jobs:
     name: smoke
     needs: e2e
     if: always()
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
       - name: Every e2e runner passed

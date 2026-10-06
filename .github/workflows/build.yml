@@ -31,7 +31,7 @@ concurrency:
 jobs:
   annotation-db:
     name: Annotation PostgreSQL
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     services:
       postgres:
@@ -58,7 +58,7 @@ jobs:
         run: node scripts/test-user-data-db.mjs --backend=postgres
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # 2026-09-04: a cold-cache npm ci + build measured past 5m on the
     # standard runner, and the old cap killed the job mid-audit while
     # the Vercel deploy (which has its own pipeline) kept shipping —
@@ -115,4 +115,4 @@ jobs:
       - name: Security audit (warn-only)
         continue-on-error: true
         timeout-minutes: 2
-        run: npm audit --omit=dev --audit-level=high
+        run: npm audit --omit=dev --audit-level=high || echo "::warning title=Security audit::npm audit found high-severity advisories (warn-only step, does not block)"

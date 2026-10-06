@@ -41,7 +41,7 @@ permissions:
 
 jobs:
   engine:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     defaults:
       run:
@@ -62,7 +62,7 @@ jobs:
         run: node --test tests/unit/rparity-engine.test.mjs tests/unit/rparity-m2.test.mjs tests/unit/rparity-compare.test.mjs
 
   native-r:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # M2 adds car, multcomp, FSA, pROC, survey, sandwich, psych, MethComp and boot at pinned versions;
     # an archived version installs from source, so the job gets more time than M1's 30 minutes.
     timeout-minutes: 45
