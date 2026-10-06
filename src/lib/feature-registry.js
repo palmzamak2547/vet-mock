@@ -403,12 +403,19 @@ export function rememberViewIntent(intent) {
   } catch { /* storage disabled: the screen just uses its default wording */ }
 }
 
-export function takeViewIntent() {
+export function takeViewIntent(captureRef = null) {
   try {
     const v = sessionStorage.getItem(VIEW_INTENT_KEY);
-    if (v) sessionStorage.removeItem(VIEW_INTENT_KEY);
+    if (captureRef) captureRef.current = v;
+    else if (v) sessionStorage.removeItem(VIEW_INTENT_KEY);
     return v || null;
   } catch { return null; }
+}
+
+export function consumeViewIntent(capturedIntent) {
+  try {
+    if (capturedIntent && sessionStorage.getItem(VIEW_INTENT_KEY) === capturedIntent) sessionStorage.removeItem(VIEW_INTENT_KEY);
+  } catch { /* retain the intent */ }
 }
 
 export function featuresByCategory(categoryId) {
