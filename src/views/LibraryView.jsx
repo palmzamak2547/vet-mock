@@ -246,12 +246,13 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
   const [error, setError] = useState(null);
   const [busyId, setBusyId] = useState(null);
 
+  const initialTicketsRef = useRef({});
   const [query, setQuery] = useState(() => {
     // A hand-off from the AI search ("เปิดชั้นเอกสารวิชานี้") arrives here.
     // Read-once: coming back to the shelf later must not re-apply it.
     try {
       const q = sessionStorage.getItem('vmx-library-q');
-      if (q) { sessionStorage.removeItem('vmx-library-q'); return q; }
+      if (q) { initialTicketsRef.current['vmx-library-q'] = q; return q; }
     } catch { /* storage disabled — the shelf just opens unfiltered */ }
     // A shared /app/library?q=… link lands with the search prefilled.
     try {
@@ -274,12 +275,18 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
   const [subjectFilter, setSubjectFilter] = useState(() => {
     try {
       const sid = sessionStorage.getItem('vmx-library-subject');
-      if (sid) { sessionStorage.removeItem('vmx-library-subject'); return sid; }
+      if (sid) { initialTicketsRef.current['vmx-library-subject'] = sid; return sid; }
     } catch { /* storage disabled */ }
     // The sessionStorage hand-off is read-once, so without the URL copy a
     // subject-scoped shelf was unrecoverable after a reader round-trip.
     return paramOr('subject', null);
   });
+  useEffect(() => {
+    // A render can be discarded before the selected filters reach the URL.
+    for (const [key, raw] of Object.entries(initialTicketsRef.current)) {
+      try { if (sessionStorage.getItem(key) === raw) sessionStorage.removeItem(key); } catch { /* retain the handoff */ }
+    }
+  }, []);
   const [openYears, setOpenYears] = useState(() => new Set());
 
   // Tracks whether the reader has taken control of the accordion. Until then
