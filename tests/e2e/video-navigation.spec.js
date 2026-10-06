@@ -71,12 +71,22 @@ test('video shelf follows Back/Forward within the mounted view and rejects unkno
   await expect(page).toHaveURL(/\/app\/videos$/);
 });
 
-test('playlist switching and a new clip intent keep the player on the selected clip', async ({ page }) => {
+test('playlist switching retires stale note decisions and a new clip intent selects the player', async ({ page }) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   // Match the documented iframe API boundary: it replaces its target, and
   // destroy removes the iframe. React must own a separate stable container.
   await page.addInitScript(() => {
+    if (window === window.top) localStorage.setItem('vmx-video-notes', JSON.stringify({
+      clipOne0001: { lastUpdated: Date.now(), notes: [
+        { id: 1, t: 0, text: 'A delete', createdAt: Date.now() },
+        { id: 2, t: 5, text: 'A keep', createdAt: Date.now() },
+      ] },
+      clipTwo0002: { lastUpdated: Date.now(), notes: [
+        { id: 1, t: 0, text: 'B delete', createdAt: Date.now() },
+        { id: 2, t: 5, text: 'B keep', createdAt: Date.now() },
+      ] },
+    }));
     window.YT = { Player: function (target, options) {
       const frame = document.createElement('iframe');
       frame.dataset.testVideo = options.videoId;
@@ -98,6 +108,30 @@ test('playlist switching and a new clip intent keep the player on the selected c
   await expect(page.locator('iframe[data-test-video="clipTwo0002"]')).toBeVisible();
   await player.getByRole('button', { name: '← ก่อนหน้า', exact: true }).click();
   await expect(page.locator('iframe[data-test-video="clipOne0001"]')).toBeVisible();
+  const savedNotes = await page.evaluate(() => localStorage.getItem('vmx-video-notes'));
+  await player.getByText('A delete', { exact: true }).locator('..').getByRole('button', { name: 'ลบโน้ต', exact: true }).click();
+  const confirmation = page.getByRole('dialog', { name: 'ลบโน้ตนี้?', exact: true });
+  await expect(confirmation).toBeVisible();
+  const accept = confirmation.getByRole('button', { name: 'ลบ', exact: true });
+  await accept.focus();
+  await expect(accept).toBeFocused();
+  await accept.press('ArrowRight');
+  await expect(page.locator('iframe[data-test-video="clipTwo0002"]')).toBeVisible();
+  await expect(confirmation).toBeVisible();
+  await accept.click();
+  await expect(confirmation).toHaveCount(0);
+  await expect(player.locator('[title="คลิกเพื่อแก้ไข"]')).toHaveText(['B delete', 'B keep']);
+  expect(await page.evaluate(() => localStorage.getItem('vmx-video-notes'))).toBe(savedNotes);
+  await player.getByText('B delete', { exact: true }).locator('..').getByRole('button', { name: 'ลบโน้ต', exact: true }).click();
+  await expect(confirmation).toBeVisible();
+  await confirmation.getByRole('button', { name: 'ลบ', exact: true }).click();
+  await expect(confirmation).toHaveCount(0);
+  await expect(player.locator('[title="คลิกเพื่อแก้ไข"]')).toHaveText(['B keep']);
+  const afterDeletion = JSON.parse(await page.evaluate(() => localStorage.getItem('vmx-video-notes')));
+  const beforeDeletion = JSON.parse(savedNotes);
+  expect(afterDeletion.clipOne0001).toEqual(beforeDeletion.clipOne0001);
+  expect(afterDeletion.clipTwo0002.notes).toEqual(beforeDeletion.clipTwo0002.notes.slice(1));
+  expect(Object.keys(afterDeletion)).toEqual(Object.keys(beforeDeletion));
   await page.evaluate(() => dispatchEvent(new CustomEvent('vmx-view-intent', {
     detail: { view: 'videos', navigationState: { videoId: 'WRttiWQ7D9s' } },
   })));
