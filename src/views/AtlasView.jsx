@@ -4,6 +4,7 @@ import {
   ArrowLeftRight,
   BookOpen,
   Check,
+  ChevronDown,
   ChevronRight,
   Eye,
   Focus,
@@ -423,7 +424,8 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
               aria-expanded={systemsExpanded} aria-controls="atlas-system-options"
               onClick={() => setSystemsExpanded(value => !value)}>
               <Layers size={16} aria-hidden="true" />
-              ชั้นโครงสร้าง ({systems.length} ระบบ) {systemsExpanded ? '−' : '+'}
+              ชั้นโครงสร้าง ({systems.length} ระบบ)
+              {systemsExpanded ? <ChevronDown size={16} aria-hidden="true" /> : <ChevronRight size={16} aria-hidden="true" />}
             </button>
           )}
         <div id="atlas-system-options" className="vmx-atlas-systems" role="group" aria-label="ชั้นโครงสร้าง"
@@ -536,6 +538,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
             <div className="vmx-atlas-failure" role="alert">
               <p>{status.message || 'ยังแสดงโมเดลไม่ได้'}</p>
               <button type="button" onClick={retry}>
+                <RotateCcw size={16} aria-hidden="true" />
                 ลองใหม่
               </button>
             </div>
@@ -544,6 +547,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
             <div className="vmx-atlas-failure" role="alert">
               <p>ภาพเปรียบเทียบเปิดไม่ได้: {status.views[1].message}</p>
               <button type="button" onClick={retry}>
+                <RotateCcw size={16} aria-hidden="true" />
                 ลองใหม่ทั้งสองภาพ
               </button>
             </div>
@@ -552,6 +556,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
             <div className="vmx-atlas-failure" role="status">
               <p>ซ่อนชิ้นส่วนทั้งหมดแล้ว</p>
               <button type="button" onClick={reset}>
+                <Eye size={16} aria-hidden="true" />
                 แสดงทั้งหมด
               </button>
             </div>
@@ -727,6 +732,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
               <p>หมุนดูรูปร่าง แล้วลองนึกชื่อก่อนเปิดคำตอบ</p>
               {hideAnswer ? (
                 <button type="button" className="vmx-btn vmx-btn-primary" onClick={() => setRevealed(true)}>
+                  <Eye size={16} aria-hidden="true" />
                   แสดงคำตอบ
                 </button>
               ) : (
@@ -897,7 +903,10 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
           )}
         </div>
         <details>
-          <summary>แหล่งที่มา ตำราอ่านต่อ และสิทธิ์ใช้งาน</summary>
+          <summary>
+            <BookOpen size={16} aria-hidden="true" />
+            แหล่งที่มา ตำราอ่านต่อ และสิทธิ์ใช้งาน
+          </summary>
           <div className="vmx-atlas-source-body">
             {[specimen, comparison].filter(Boolean).map((item) => (
               <p key={item.id}>

@@ -75,7 +75,10 @@ export default function AtlasPartDirectory({ parts, total, selected, visibleIds,
         );
       })}
       {!parts.length && <p role="status">ไม่พบชื่อในชุดนี้</p>}
-      <button type="button" className="vmx-atlas-show-all" onClick={onReset}>แสดงทุกชิ้นร่วมกัน</button>
+      <button type="button" className="vmx-atlas-show-all" onClick={onReset}>
+        <Eye size={16} aria-hidden="true" />
+        แสดงทุกชิ้นร่วมกัน
+      </button>
     </section>
   );
 }
