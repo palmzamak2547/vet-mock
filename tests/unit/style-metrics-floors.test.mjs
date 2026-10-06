@@ -688,18 +688,22 @@ test('UI-06: a stacked button row keeps DOM order on a phone; a Back/Next pair s
 
 // ── UI-05: the subject colour has one home, and it is not a clipped rail ──
 // Every list was a rounded card with a 4px absolute left stripe that the
-// 16px corner clipped into a curved sliver (_c1, _d1, _t4 in the audit). On
-// a subject card the colour is now a small swatch in the top corner; on the
-// topic screen, where every card had the SAME subject colour, the stripe
-// said nothing and is gone. The topic card's three bordered boxes (lecturer,
-// สรุป, VetWiki) become one row of text actions, each still a 44px target.
-test('UI-05: the subject colour is a corner swatch, not a clipped full-height stripe', () => {
+// 16px corner clipped into a curved sliver (_c1, _d1, _t4 in the audit). The
+// left-edge rail stayed banned, but a full-width 5px strip along the TOP edge
+// is now the subject colour's home: adjacent cards carry different subject
+// hues, so the strip differentiates them instead of repeating one rail. The
+// topic screen keeps the stripe-free layout — there every card shared the
+// SAME subject colour, so it said nothing. The topic card's three bordered
+// boxes (lecturer, สรุป, VetWiki) become one row of text actions, each still
+// a 44px target.
+test('UI-05: the subject colour is a full-width top strip, not a side rail', () => {
   const accent = chain('div.vmx-subject-grid', 'button.vmx-subject-card', 'div.accent');
   for (const env of [PHONE, DESKTOP]) {
-    assert.equal(computed(accent, 'width', env), '8px');
-    assert.equal(computed(accent, 'height', env), '8px');
-    assert.equal(computed(accent, 'border-radius', env), '50%');
-    assert.equal(computed(accent, 'left', env), null, 'pinned to the left edge again');
+    assert.equal(computed(accent, 'top', env), '0');
+    assert.equal(computed(accent, 'left', env), '0');
+    assert.equal(computed(accent, 'right', env), '0');
+    assert.equal(computed(accent, 'height', env), '5px');
+    assert.equal(computed(accent, 'border-radius', env), '0');
   }
 });
 

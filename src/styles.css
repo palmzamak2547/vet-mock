@@ -1576,10 +1576,11 @@ html, body {
 
 .vmx-subject-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 32px; }
 .vmx-subject-card .count { font-size: 12px; color: var(--clr-ink-soft); margin-top: 2px; }
-/* The subject's colour, once, as a small swatch in the top corner. It used to
-   be a 4px full-height stripe that the 16px corner clipped into a curved
-   sliver, the same rail every list in the app wore. */
-.vmx-subject-card .accent { position: absolute; top: 18px; right: 16px; width: 8px; height: 8px; border-radius: 50%; }
+/* The subject's colour, once, as a bold strip across the top edge of the
+   card — reads as identity at a glance. The old 4px left rail stayed banned:
+   every card wore it, so it said nothing; adjacent subject cards carry
+   different hues, so a top strip now differentiates them. */
+.vmx-subject-card .accent { position: absolute; top: 0; left: 0; right: 0; width: auto; height: 5px; border-radius: 0; }
 /* Cards without usable content yet: a dashed edge and a quieter icon and
    accent carry the "not ready" signal. The text keeps its full tokens — the
    old whole-card opacity took the subtitle and count under 4.5:1. */
