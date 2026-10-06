@@ -200,7 +200,7 @@ export function olsQr(X, y, opts = {}) {
  * Implementation for 'reg.ols'. Roles: `outcome` (number); `covariates` (numbers, or categories
  * expanded to treatment contrasts). The reference level of a category covariate is, in order:
  * `spec.levels.references[col]` when normalizeSpec provides it, `spec.levels.referenceLevel` when
- * there is a single category covariate, else the first level in codebook order.
+ * there is a single category covariate, then the column's effective codebook reference, else its first level.
  * @type {import('../runtime/registry.js').MethodImpl}
  */
 export function runOls(spec, table) {
@@ -220,7 +220,7 @@ export function runOls(spec, table) {
     if (c.kind === 'number') { terms.push(k); builders.push((i) => [c.values[i]]); }
     else if (c.kind === 'category') {
       const levels = c.levels || [];
-      let ref = spec?.levels?.references?.[k] ?? (catCovs.length === 1 ? spec?.levels?.referenceLevel : null);
+      let ref = spec?.levels?.references?.[k] ?? (catCovs.length === 1 ? spec?.levels?.referenceLevel : null) ?? c.reference;
       let refIdx = ref != null ? levels.indexOf(ref) : 0;
       if (refIdx < 0) refIdx = 0;
       const others = levels.map((_, j) => j).filter((j) => j !== refIdx);

@@ -17,6 +17,7 @@ import { describeStep } from '../intake/recipe.js';
 import { formatNumber, formatP, formatCi } from '../stats/format.js';
 import { referencesFor } from '../../data/references.js';
 import { softwareRecord, dateWithEra } from './cite.js';
+import { usesHiddenColumns } from '../runtime/export.js';
 
 const DEFAULT_FMT = { formatNumber, formatP, formatCi };
 const has = (t, key) => t(key) !== `[${key}]`;
@@ -28,12 +29,6 @@ const has = (t, key) => t(key) !== `[${key}]`;
  *   | { kind: 'figure', caption: string, svg: string, widthMm: number, altText: string }
  *   | { kind: 'flow', model: any, caption: string, svg: string, widthMm: number, altText: string }} Block
  */
-
-/** Role values of a spec as a flat list of column keys. */
-const roleColumns = (spec) => Object.values(spec?.roles || {}).flat().filter((x) => typeof x === 'string');
-
-/** The column keys the codebook hides (PII). */
-const hiddenKeys = (codebook) => new Set((codebook?.columns || []).filter((c) => c.hidden).map((c) => c.key));
 
 /** A method's name in the page language, else its id. */
 function methodName(id, t) {
@@ -61,10 +56,9 @@ export function buildReportModel(input) {
   const { project = {}, dataset = {}, lang, t } = input;
   const fmt = input.fmt || DEFAULT_FMT;
   const codebook = dataset.codebook || null;
-  const hidden = hiddenKeys(codebook);
   const all = (input.analyses || []).filter((a) => a && a.envelope);
   // Hidden columns stay on the device screen only: an analysis built on one is left out of every export.
-  const left = all.filter((a) => roleColumns(a.envelope.spec || a.spec).some((k) => hidden.has(k))).map((a) => a.id);
+  const left = all.filter((a) => usesHiddenColumns(a.envelope.spec || a.spec, codebook)).map((a) => a.id);
   const analyses = all.filter((a) => !left.includes(a.id));
   const columnName = columnNameFor(codebook, lang);
   const levelName = levelNameFor(codebook, lang);

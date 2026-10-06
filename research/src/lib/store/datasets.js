@@ -190,10 +190,11 @@ export function stepLogDetail(step) {
 /**
  * Compare-and-set on meta.rev; replaces steps (append-only in practice, undo removes the last). Each
  * step that is new since the stored list gets a 'recipe' log entry; a removed step gets one too.
- * @param {{ counts?: Record<string, number> }} [opts]  rows each new exclude/filter step removed, by step id
+ * @param {{ counts?: Record<string, number>, codebook?: import('../runtime/types.js').Codebook }} [opts]
+ *   rows each new exclude/filter step removed, by step id; derived columns commit with their recipe
  */
 export async function saveRecipe(db, owner, datasetId, steps, expectedRev, opts = {}) {
-  return casMeta(db, owner, datasetId, expectedRev, { steps }, (cur) => {
+  return casMeta(db, owner, datasetId, expectedRev, { steps, ...(opts.codebook ? { codebook: opts.codebook } : {}) }, (cur) => {
     const before = new Set((cur.steps || []).map((s) => s.id));
     const after = new Set(steps.map((s) => s.id));
     const added = steps.filter((s) => !before.has(s.id)).map((s) => ({ kind: 'recipe', detail: { ...stepLogDetail(s), count: opts.counts?.[s.id] ?? null, change: 'add' } }));

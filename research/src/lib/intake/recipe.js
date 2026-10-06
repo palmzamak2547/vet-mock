@@ -23,7 +23,7 @@ import { cleanCell, thaiDigitsToArabic, compareThai } from './thai.js';
 import { parseNumber, keyForIndex } from './infer.js';
 import { parseDate, monthsBetween, isoFromDays } from './dates.js';
 import { MISSING, reasonCode } from './missing.js';
-import { CATEGORICAL, NUMERIC, TYPES, LEVELS } from './codebook.js';
+import { CATEGORICAL, NUMERIC, TYPES, LEVELS, resolveColumnVisibility } from './codebook.js';
 import { parseExpression, evalRow, MAX_LENGTH as EXPR_MAX_LENGTH } from './expr.js';
 import { mergeTables, reshapeLong, reshapeWide, aggregateRows, SUMMARY_FNS, numText } from './transform.js';
 
@@ -557,7 +557,7 @@ function replay(raw, codebook, steps, sources, stack) {
             levels: levels.map((v) => ({ value: v, labelTh: v, labelEn: '' })),
             reference: stored?.reference && levels.includes(stored.reference) ? stored.reference : null,
             positive: stored?.positive && levels.includes(stored.positive) ? stored.positive : null,
-            missingCodes: [], range: null, pii: srcEntry.pii, hidden: srcEntry.hidden,
+            missingCodes: [], range: null, pii: stored?.pii || srcEntry.pii, ...resolveColumnVisibility(stored, srcEntry.hidden),
             derivation: { kind: 'recode', from: p.column, step: step.id },
           };
           cols.set(p.target, { entry, derived: { kind: 'recode', column: p.column, lookup, post: [] } });
@@ -581,7 +581,7 @@ function replay(raw, codebook, steps, sources, stack) {
           levels: labels.map((v) => ({ value: v, labelTh: v, labelEn: '' })),
           reference: stored?.reference && labels.includes(stored.reference) ? stored.reference : labels[0],
           positive: stored?.positive && labels.includes(stored.positive) ? stored.positive : null,
-          missingCodes: [], range: null, pii: null, hidden: false,
+          missingCodes: [], range: null, pii: stored?.pii || col.entry.pii, ...resolveColumnVisibility(stored, col.entry.hidden),
           derivation: { kind: 'bin', from: p.column, cutpoints: p.cutpoints.slice(), closed: p.closed, cutSource: p.cutSource, step: step.id },
         };
         cols.set(p.target, { entry, derived: { kind: 'bin', column: p.column, cutpoints: p.cutpoints.slice(), closed: p.closed, labels, post: [] } });
@@ -634,7 +634,8 @@ function replay(raw, codebook, steps, sources, stack) {
           key: p.target, name: p.name ?? stored?.name ?? p.target, labelTh: p.labelTh ?? stored?.labelTh ?? p.name ?? '', labelEn: p.labelEn ?? stored?.labelEn ?? '',
           type, role: stored?.role ?? 'none', level: stored?.level ?? unit, unit: stored?.unit ?? null, levels,
           reference: type === 'binary' ? '0' : null, positive: type === 'binary' ? '1' : null,
-          missingCodes: [], range: null, pii: null, hidden: false,
+          missingCodes: [], range: null, pii: stored?.pii || parsed.refs.map((k) => cols.get(k)?.entry.pii).find(Boolean) || null,
+          ...resolveColumnVisibility(stored, parsed.refs.some((k) => cols.get(k)?.entry.hidden)),
           derivation: { kind: 'compute', expression: p.expression, refs: parsed.refs, step: step.id },
         };
         cols.set(p.target, { entry, derived: { kind: 'compute', ast: parsed.ast, type: parsed.type, post: [] } });
@@ -665,7 +666,8 @@ function replay(raw, codebook, steps, sources, stack) {
         const entry = {
           key: p.target, name: p.name ?? stored?.name ?? '', labelTh: p.labelTh ?? stored?.labelTh ?? '', labelEn: p.labelEn ?? stored?.labelEn ?? '',
           type: 'continuous', role: stored?.role ?? 'none', level: b.entry.level, unit: p.unit, levels: [], reference: null, positive: null,
-          missingCodes: [], range: null, pii: null, hidden: false,
+          missingCodes: [], range: null, pii: stored?.pii || b.entry.pii || e.entry.pii || null,
+          ...resolveColumnVisibility(stored, b.entry.hidden || e.entry.hidden),
           derivation: { kind: 'derive-age', birth: p.birth, event: p.event, unit: p.unit, step: step.id },
         };
         cols.set(p.target, { entry, derived: { kind: 'derive-age', birth: p.birth, event: p.event, unit: p.unit, post: [] } });
@@ -790,7 +792,11 @@ function replay(raw, codebook, steps, sources, stack) {
     order.length = 0;
     for (const key of st.order) {
       let entry = st.entries[key];
-      if (created.has(key) && storedAll.has(key)) entry = adoptStored(entry, storedAll.get(key));
+      if (created.has(key)) {
+        entry = { ...entry };
+        delete entry.hiddenExplicit; // A source's choice is not an authored choice for a new identity.
+        if (storedAll.has(key)) entry = adoptStored(entry, storedAll.get(key));
+      }
       const col = { entry, source: null, base: { text: st.text[key], miss: st.miss[key] }, settings: { ...DEFAULT_SETTINGS, dates: entry.type === 'date' ? { ...BASE_DATES } : null }, text: [], forced: null, codes: new Map(), derived: null, carried: null };
       initText(col);
       cols.set(key, col);
@@ -882,7 +888,9 @@ function replay(raw, codebook, steps, sources, stack) {
 /** Labels, role and unit a student saved for a column a structural step makes; levels keep their values. */
 function adoptStored(entry, stored) {
   const out = { ...entry };
-  for (const f of ['name', 'labelTh', 'labelEn', 'role', 'unit', 'hidden']) if (stored[f] !== undefined && stored[f] !== null && stored[f] !== '') out[f] = stored[f];
+  for (const f of ['name', 'labelTh', 'labelEn', 'role', 'unit']) if (stored[f] !== undefined && stored[f] !== null && stored[f] !== '') out[f] = stored[f];
+  Object.assign(out, resolveColumnVisibility(stored, entry.hidden));
+  out.pii = stored.pii || entry.pii || null;
   if (Array.isArray(entry.levels) && Array.isArray(stored.levels)) {
     const byValue = new Map(stored.levels.map((l) => [l.value, l]));
     out.levels = entry.levels.map((l) => ({ ...l, ...(byValue.has(l.value) ? { labelTh: byValue.get(l.value).labelTh || l.labelTh, labelEn: byValue.get(l.value).labelEn || l.labelEn } : {}) }));

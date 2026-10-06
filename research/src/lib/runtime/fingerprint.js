@@ -77,6 +77,13 @@ export async function fingerprint(table, keys) {
   return sha256Hex(new TextEncoder().encode(canonicalCsv(table, keys)));
 }
 
+/** Interpretation and export visibility are not cell values; keep their hash separate from the canonical CSV. */
+export async function fingerprintCodebook(codebook) {
+  const text = JSON.stringify(codebook, (_key, value) => value && typeof value === 'object' && !Array.isArray(value)
+    ? Object.fromEntries(Object.keys(value).sort().map((key) => [key, value[key]])) : value);
+  return sha256Hex(new TextEncoder().encode(text));
+}
+
 /** @param {Uint8Array|ArrayBuffer} bytes @returns {Promise<string>} */
 export async function sha256Hex(bytes) {
   const data = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);

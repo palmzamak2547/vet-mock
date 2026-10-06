@@ -215,6 +215,8 @@ export function reshapeLong(state, params) {
       for (let j = 0; j < k; j++) { text[r * k + j] = state.text[s.columns[j]][r]; miss[r * k + j] = state.miss[s.columns[j]][r]; }
     }
     const entry = clone(state.entries[s.columns[0]]);
+    entry.hidden = s.columns.some((c) => state.entries[c].hidden);
+    entry.pii = s.columns.map((c) => state.entries[c].pii).find(Boolean) || null;
     entry.key = s.target;
     entry.name = s.name || entry.name;
     entry.labelTh = s.name || entry.labelTh;
@@ -455,7 +457,7 @@ function summaryEntry(s, src, level) {
   const name = s.name || `${src.name} (${s.fn})`;
   const base = {
     key: s.target, name, labelTh: name, labelEn: '', role: 'none', level, unit: null, levels: [], reference: null, positive: null,
-    missingCodes: [], range: null, pii: null, hidden: false, derivation: { kind: 'aggregate', from: s.column, fn: s.fn, level: s.level ?? null },
+    missingCodes: [], range: null, pii: src.pii || null, hidden: Boolean(src.hidden), derivation: { kind: 'aggregate', from: s.column, fn: s.fn, level: s.level ?? null },
   };
   switch (s.fn) {
     case 'count': return { ...base, type: 'count' };

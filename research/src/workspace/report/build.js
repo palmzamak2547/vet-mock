@@ -7,6 +7,7 @@
 import { fmtKind, isStale, pText, primaryValueName, valueRows, valueLabel as valueWord } from '../lib/result-model.js';
 import { keyPart } from '../lib/keys.js';
 import { pairText, suffixText } from '../lib/term-words.js';
+import { usesHiddenColumns } from '../../lib/runtime/export.js';
 
 /**
  * @typedef {{ formatNumber: Function, formatP: Function, formatCi: Function }} Fmt
@@ -567,8 +568,8 @@ export function buildDraft(data, ctx) {
   const wordsFor = (a) => ({ spec: a.envelope?.spec || a.spec || null, env: a.envelope || null, codebook: data.codebook || null, columnName, levelName });
   const valueLabelFor = (a) => (name) => valueWord(name, t, (a.envelope?.spec || a.spec)?.method || null, wordsFor(a));
   const fp = data.table?.fingerprint || null;
-  const kept = (data.analyses || []).filter((a) => a.envelope);
-  const stale = kept.filter((a) => isStale(a, fp)).map((a) => a.id);
+  const kept = (data.analyses || []).filter((a) => a.envelope && !usesHiddenColumns(a.envelope.spec || a.spec, data.codebook));
+  const stale = kept.filter((a) => isStale(a, fp, data.table?.codebookFingerprint)).map((a) => a.id);
   const methods = [];
   if (ctx.designNameKey && has(t, ctx.designNameKey)) {
     // English writes the design mid-sentence in lower case ("was cross-sectional"), acronyms kept.

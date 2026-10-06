@@ -329,8 +329,4 @@ export function plotSummary(rows, fmt, lang, t, methodId = null) {
   }).join('; ');
 }
 
-/** Whether a saved analysis was computed on another version of the data than the one open now. */
-export function isStale(analysis, currentFingerprint) {
-  const fp = analysis?.dataFingerprint ?? analysis?.envelope?.provenance?.dataFingerprint ?? null;
-  return Boolean(fp && currentFingerprint && fp !== currentFingerprint);
-}
+export { isStale } from '../../lib/store/analyses.js';

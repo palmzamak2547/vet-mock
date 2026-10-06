@@ -3,7 +3,7 @@
 // no storage, no network. OWNER: runtime role.
 import { OPS, ENGINE_VERSION, FALLBACK_LIMITS } from './protocol.js';
 import { runAnalysis } from './run.js';
-import { fingerprint } from './fingerprint.js';
+import { fingerprint, fingerprintCodebook } from './fingerprint.js';
 
 /** An engine failure with an i18n key (runtime.engine.*) and a short technical detail. */
 export class EngineError extends Error {
@@ -106,6 +106,7 @@ export async function handleRequest(op, payload, ctx) {
       // The fingerprint hashes the finished table, so rows brought in by a merge are covered by it.
       const table = applyRecipe(raw, codebook, steps || [], sources);
       table.fingerprint = await fingerprint(table, fingerprintKeys(table, codebook));
+      table.codebookFingerprint = await fingerprintCodebook(table.codebook);
       return { result: table, transfer: ctx.mode === 'worker' ? tableTransferables(table) : [] };
     }
 

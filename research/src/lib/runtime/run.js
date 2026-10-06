@@ -246,6 +246,7 @@ function provenanceOf(spec, table, { used, dropped }, computedAt, validatedAgain
     validatedAgainst: [...validatedAgainst],
     route: spec?.cluster?.route ?? null,
   };
+  if (table?.codebookFingerprint) p.codebookFingerprint = table.codebookFingerprint;
   if (requestedMethod) p.requestedMethod = requestedMethod;
   return p;
 }

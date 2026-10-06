@@ -126,7 +126,7 @@ export default function ReportPane({ p }) {
     };
     return { th: make('th'), en: make('en') };
   }, [p.analyses, steps, p.project, p.table, p.codebook, designRow]);
-  const stale = p.analyses.filter((a) => isStale(a, p.table?.fingerprint));
+  const stale = p.analyses.filter((a) => isStale(a, p.table?.fingerprint, p.table?.codebookFingerprint));
   const rawRows = p.raw?.rowIds?.length ?? null;
   const flow = useMemo(() => {
     try {
@@ -332,7 +332,7 @@ export default function ReportPane({ p }) {
               {p.analyses.map((a) => (
                 <li key={a.id} className="rs-kept-item">
                   <Link to={`/app/p/${p.project.id}/r/${a.id}`}>{methodName(a.spec?.method)}</Link>
-                  <span className="rs-soft rs-xsmall">{formatMoment(a.createdAt, lang, { time: true })}{isStale(a, p.table?.fingerprint) ? ` ${t('ws.report.notCurrent')}` : ''}</span>
+                  <span className="rs-soft rs-xsmall">{formatMoment(a.createdAt, lang, { time: true })}{isStale(a, p.table?.fingerprint, p.table?.codebookFingerprint) ? ` ${t('ws.report.notCurrent')}` : ''}</span>
                 </li>
               ))}
             </ul>

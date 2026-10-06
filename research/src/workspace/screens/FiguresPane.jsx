@@ -26,7 +26,8 @@ export default function Pane({ p }) {
     const c = codebook?.columns?.find((x) => x.key === key);
     return c ? (lang === 'en' ? c.labelEn || c.name : c.labelTh || c.name) : key;
   };
-  const cols = Object.entries(table?.columns || {});
+  const hidden = new Set((codebook?.columns || []).filter((c) => c.hidden).map((c) => c.key));
+  const cols = Object.entries(table?.columns || {}).filter(([key]) => !hidden.has(key));
   const dateKeys = cols.filter(([, c]) => c?.kind === 'date').map(([k]) => k);
   const groupKeys = cols.filter(([, c]) => c?.kind === 'category' && (c.levels?.length || 0) >= 2 && c.levels.length <= 8).map(([k]) => k);
   const [dateKey, setDateKey] = useState('');

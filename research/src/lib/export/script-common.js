@@ -4,6 +4,7 @@
 // verified against the 'r-4.6.0' fixture family). OWNER: report role.
 import { scriptColumns, safeIdent } from './analysed-data.js';
 import { validateSpec } from '../runtime/spec.js';
+import { usesHiddenColumns } from '../runtime/export.js';
 
 /**
  * One line of text: control characters and line or paragraph separators become spaces, so a name or an
@@ -122,7 +123,7 @@ export function matchesR(env) {
  * (they re-run from their parameters, not from the CSV).
  * @param {any[]} analyses
  */
-export function scriptAnalyses(analyses) {
+export function scriptAnalyses(analyses, codebook = null) {
   const seen = new Set();
   const out = [];
   for (const a of analyses || []) {
@@ -131,7 +132,7 @@ export function scriptAnalyses(analyses) {
     // The envelope's spec (it carries a route's resolved method) when it validates, else the analysis's own;
     // never an unchecked one: an imported file's envelope is only loosely validated (review round 1).
     const spec = scriptSpec(env.spec) || scriptSpec(a.spec);
-    if (!spec) continue;
+    if (!spec || usesHiddenColumns(spec, codebook)) continue;
     const sig = JSON.stringify([spec?.method, spec?.roles, spec?.levels, spec?.options, spec?.cluster, spec?.input?.kind === 'params' ? spec.input.params : null]);
     if (seen.has(sig)) continue;
     seen.add(sig);
