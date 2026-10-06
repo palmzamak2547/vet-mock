@@ -105,7 +105,8 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
   })), [baseSubjects]);
   const normalizedSearch = searchQuery.trim().toLowerCase();
   const visibleSubjects = indexedSubjects
-    .filter(({ item, searchText }) => !normalizedSearch || item.id === 'all' || searchText.includes(normalizedSearch))
+    .filter(({ item, searchText }) => (!readingIntent || item.id !== 'all')
+      && (!normalizedSearch || item.id === 'all' || searchText.includes(normalizedSearch)))
     .map(({ item }) => item);
 
   // Year and term are the layer a student thinks in — "ปี 2 เทอม 1" is one

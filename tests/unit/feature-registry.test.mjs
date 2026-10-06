@@ -37,6 +37,8 @@ test('Subject notes intent survives an abandoned render, preserves replacement a
   let view = mount(SubjectSelectView, props);
   await settle(view);
   assert.equal(values.has('vmx-view-intent'), false);
+  assert.equal(findAll(view.tree, node => node.props.className === 'vmx-subject-card' && textOf(node).includes('รวมทุกวิชา')).length, 0,
+    'a reading choice must not offer the practice-only aggregate');
   const card = findAll(view.tree, node => node.props.className === 'vmx-subject-card' && textOf(node).includes(subject.name))[0];
   assert.ok(card);
   card.props.onClick();
@@ -46,6 +48,10 @@ test('Subject notes intent survives an abandoned render, preserves replacement a
   listeners.get('vmx-view-intent')({ detail: { view: 'subject-select' } });
   view.flush();
   assert.equal(values.has('vmx-view-intent'), false, 'the same-view event retains default single-use consumption');
+  const aggregate = findAll(view.tree, node => node.props.className === 'vmx-subject-card' && textOf(node).includes('รวมทุกวิชา'));
+  assert.equal(aggregate.length, 1, 'ordinary practice restores the aggregate');
+  aggregate[0].props.onClick();
+  assert.equal(calls.at(-1), 'config', 'the normal aggregate keeps its existing destination');
   findAll(view.tree, node => node.props.className === 'vmx-subject-card' && textOf(node).includes(subject.name))[0].props.onClick();
   assert.equal(registry.takeViewIntent(), null, 'a normal practice selection does not forward notes');
   view.unmount();
