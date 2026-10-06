@@ -797,24 +797,6 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         )}
       </div>
 
-      {examWindow && (
-        <ExamCountdown
-          window={examWindow}
-          subjects={yearSubjects}
-          onOpenSchedule={() => setView('schedule')}
-        />
-      )}
-      {examWindow && onOpenWrapUp && wrapSubjects.length > 0 && (
-        <div className="vmx-wrap-strip" role="group" aria-label="Wrap-up ก่อนสอบ">
-          <span className="vmx-wrap-strip-label">Wrap-up ก่อนสอบ</span>
-          {wrapSubjects.map((s) => (
-            <button key={s.id} type="button" className="vmx-wrap-strip-btn" onClick={() => onOpenWrapUp(s.id, s.name)}>
-              {s.name}
-            </button>
-          ))}
-        </div>
-      )}
-
       {bannerWinner === 'wrapped' && (
         <div
           style={{
@@ -1024,14 +1006,30 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         </div>
       )}
       <div className="vmx-command-center">
-        <div className="vmx-command-center-layout">
-          {/* ZONE 1: Active Duty Stream (Next Actions -> Subjects -> Mode Grid) */}
-          <div className="vmx-duty-stream">
-            {!isScaffoldYear && (
+        {!isScaffoldYear && (
+          <div className="vmx-command-bridge">
+            <div className="vmx-command-bridge-left">
+              {examWindow ? (
+                <ExamCountdown
+                  window={examWindow}
+                  subjects={yearSubjects}
+                  onOpenSchedule={() => setView('schedule')}
+                />
+              ) : (
+                <StudyRhythmConsole
+                  quickStats={quickStats}
+                  streakData={streakData}
+                  history={history}
+                  onOpenSchedule={() => setView('schedule')}
+                />
+              )}
+            </div>
+            <div className="vmx-command-bridge-divider" aria-hidden="true" />
+            <div className="vmx-command-bridge-right">
               <NextActionCard
                 nextExam={nextExam}
                 lastExamDate={lastExamDate}
-                examContext={!examWindow}
+                examContext={false}
                 quickStats={quickStats}
                 cardStats={cardStats}
                 accBySubject={accBySubject}
@@ -1058,7 +1056,24 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 onPickRandom={launchRandomQ}
                 onOpenSchedule={() => setView('schedule')}
               />
-            )}
+            </div>
+          </div>
+        )}
+
+        {examWindow && onOpenWrapUp && wrapSubjects.length > 0 && (
+          <div className="vmx-wrap-strip" role="group" aria-label="Wrap-up ก่อนสอบ">
+            <span className="vmx-wrap-strip-label">Wrap-up ก่อนสอบ</span>
+            {wrapSubjects.map((s) => (
+              <button key={s.id} type="button" className="vmx-wrap-strip-btn" onClick={() => onOpenWrapUp(s.id, s.name)}>
+                {s.name}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className="vmx-command-center-layout">
+          {/* ZONE 1: Active Duty Stream (Next Actions -> Subjects -> Mode Grid) */}
+          <div className="vmx-duty-stream">
 
       {/* Gamification + community block (QuestsPanel + DailyGoal + Daily Q
           + Race + StudyBuddies + PWA install) — Phase 1 (2026-05-18):
@@ -1777,6 +1792,84 @@ function StudyBuddiesSection({ selfUserId, onJumpToSubject }) {
   );
 }
 
+// ── Study Rhythm Console ──────────────────────────────────────
+// Left Zone of the Unified Command Bridge when out of exam season.
+// Displays streak, today's questions, and an interactive 7-day rhythm strip.
+function StudyRhythmConsole({ quickStats, streakData, history = [], onOpenSchedule }) {
+  const streak = streakData?.lastDate ? (streakData.streak || 0) : (quickStats?.streak || 0);
+  const todayCount = quickStats?.todayCount || 0;
+
+  const daysTrack = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const ymd = (d) => new Date(d).toLocaleDateString('en-CA');
+    const historyDates = new Set(
+      (history || []).map((h) => (h?.date ? ymd(h.date) : null)).filter(Boolean),
+    );
+    const track = [];
+    const DOW_SHORT = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(today.getDate() - i);
+      const key = ymd(d);
+      const isToday = i === 0;
+      const studied = historyDates.has(key);
+      track.push({
+        date: key,
+        day: d.getDate(),
+        dow: d.getDay(),
+        dowLabel: DOW_SHORT[d.getDay()],
+        isToday,
+        studied,
+      });
+    }
+    return track;
+  }, [history]);
+
+  return (
+    <section className="vmx-rhythm-console" aria-label={`จังหวะการเรียน ความต่อเนื่อง ${streak} วัน`}>
+      <div className="vmx-countdown-lead">
+        <span className="vmx-countdown-eyebrow">
+          จังหวะการเรียนรู้ <span>{streak > 0 ? `ต่อเนื่อง ${streak} วัน` : 'เริ่มสะสมจังหวะ'}</span>
+        </span>
+        <span className="vmx-countdown-num" aria-hidden="true">
+          {streak > 0 ? streak : (todayCount > 0 ? todayCount : 1)}
+          <span className="vmx-countdown-unit">
+            {streak > 0 ? 'วันต่อเนื่อง' : (todayCount > 0 ? 'ข้อวันนี้' : 'ข้อแรก')}
+          </span>
+        </span>
+        <span className="vmx-countdown-caption" aria-hidden="true">
+          {todayCount > 0
+            ? `วันนี้ฝึกสำเร็จแล้ว ${todayCount} ข้อ รักษาความต่อเนื่องไว้`
+            : streak > 0
+              ? `รักษาจังหวะต่อเนื่อง ${streak} วัน ทำโจทย์วันนี้เพื่อไม่ให้ขาดช่วง`
+              : 'เริ่มทำโจทย์ 1 ข้อวันนี้เพื่อเริ่มบันทึกสถิติความต่อเนื่อง'}
+        </span>
+      </div>
+
+      <div className="vmx-countdown-strip vmx-rhythm-strip" role="group" aria-label="สถิติ 7 วันล่าสุด">
+        {daysTrack.map((c) => (
+          <span
+            key={c.date}
+            className={`vmx-countdown-day${c.studied ? ' is-exam is-done' : ''}${c.isToday ? ' is-today' : ''}`}
+            title={`${c.dowLabel} ที่ ${c.day}: ${c.studied ? 'ฝึกแล้ว' : (c.isToday ? 'วันนี้' : 'ยังไม่ได้ฝึก')}`}
+          >
+            <span className="vmx-countdown-dow">{c.dowLabel}</span>
+            <span className="vmx-countdown-daynum">{c.day}</span>
+            {c.studied ? (
+              <span className="vmx-countdown-pill" style={{ '--exam-color': 'var(--clr-sage)' }}>
+                ✓
+              </span>
+            ) : (
+              <span className="vmx-countdown-dot" />
+            )}
+          </span>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 // ── Subject Grid ──────────────────────────────────────────────
 // Primary content of HomeView (across all years). Each card represents
 // a subject in the current year, with LIVE state (counts, exam format)
@@ -1878,6 +1971,8 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
         // O(1) lookup using bookmarksBySubject precomputed above
         const bookmarkCount = isScaffold ? 0 : (bookmarksBySubject[s.id] || 0);
         const readPct = topics.length > 0 ? Math.round((readDone / topics.length) * 100) : 0;
+        const cov = progressBySubject[s.id];
+        const completionPct = Math.max(cov?.pct || 0, readPct || 0);
 
         return (
           <button
@@ -1999,6 +2094,14 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
                 display: 'inline-block',
               }}>
                 {s.examFormat.choiceCount} ตัวเลือก
+              </div>
+            )}
+            {completionPct > 0 && (
+              <div className="vmx-subject-progress-bar" aria-hidden="true">
+                <div
+                  className="vmx-subject-progress-fill"
+                  style={{ width: `${Math.min(100, completionPct)}%`, background: s.color }}
+                />
               </div>
             )}
           </button>
