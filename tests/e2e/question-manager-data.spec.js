@@ -91,7 +91,6 @@ test('a retired question import stops after browser navigation; a fresh import s
   await page.goForward();
   await expect(page).toHaveURL(/\/$/);
   await expect(page.locator('input[type=file]')).toHaveCount(0);
-  await page.getByRole('dialog').getByRole('button', { name: 'นำเข้า', exact: true }).click();
   await expect(page.getByRole('dialog')).toHaveCount(0);
   expect(await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-custom-q')))).toEqual(before);
 

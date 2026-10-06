@@ -1,8 +1,8 @@
 // ============================================================
 // DialogHost — the single mounted dialog that lib/dialog.js drives
 // ============================================================
-// Mounted once at the App root. Everything else calls confirmDialog() /
-// alertDialog() and awaits a boolean, so no view has to carry open/close
+// Mounted for the current view/account at the App root. Callers use confirmDialog() /
+// promptDialog()/alertDialog(), so no view has to carry open/close
 // state for a one-off confirmation.
 //
 // One request at a time: a second open() while one is showing resolves the
@@ -14,20 +14,41 @@ import { useEffect, useState, useRef } from 'react';
 import ConfirmDialog from './ConfirmDialog.jsx';
 import { registerDialogHost } from '../lib/dialog.js';
 
-export default function DialogHost() {
+const cancelValue = (req) => req.mode === 'alert' ? true : (req.mode === 'prompt' ? null : false);
+
+export default function DialogHost({ scope, owner } = {}) {
   const [req, setReq] = useState(null);
   const reqRef = useRef(null);
-  reqRef.current = req;
+  useEffect(() => {
+    setReq(null);
+    const unregister = registerDialogHost((next) => {
+      const prev = reqRef.current;
+      reqRef.current = next;
+      if (prev) prev.resolve(cancelValue(prev));
+      setReq(next);
+    });
+    return () => {
+      unregister();
+      const pending = reqRef.current;
+      reqRef.current = null;
+      if (pending) pending.resolve(cancelValue(pending));
+    };
+  }, [owner]);
 
-  useEffect(() => registerDialogHost((next) => {
-    const prev = reqRef.current;
-    if (prev) prev.resolve(false);
-    setReq(next);
-  }), []);
+  useEffect(() => {
+    const pending = reqRef.current;
+    // Notices can explain a navigation result; decisions belong to their page.
+    if (!pending || pending.mode === 'alert') return;
+    reqRef.current = null;
+    setReq(null);
+    pending.resolve(cancelValue(pending));
+  }, [scope]);
 
   if (!req) return null;
 
   const settle = (value) => {
+    if (reqRef.current !== req) return;
+    reqRef.current = null;
     setReq(null);
     req.resolve(value);
   };
@@ -35,8 +56,6 @@ export default function DialogHost() {
   // Cancelling means different things per mode: a notice resolves (it was
   // only ever "ok"), a confirm is a no, and a prompt returns null so callers
   // can keep the null check they wrote against window.prompt().
-  const cancelValue = req.mode === 'alert' ? true : (req.mode === 'prompt' ? null : false);
-
   return (
     <ConfirmDialog
       open
@@ -49,7 +68,7 @@ export default function DialogHost() {
       hideCancel={req.mode === 'alert'}
       input={req.input || null}
       onConfirm={(value) => settle(req.mode === 'prompt' ? value : true)}
-      onCancel={() => settle(cancelValue)}
+      onCancel={() => settle(cancelValue(req))}
     />
   );
 }
