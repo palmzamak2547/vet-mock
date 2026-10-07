@@ -539,3 +539,30 @@ Repo paths cited: `AGENTS.md`, `docs/PROJECT_KNOWLEDGE_BASE.md`,
 `src/App.jsx`, `src/lib/user-data-schema.js`, `api/_lib/llm.js`,
 `api/_lib/rate-limit.js`, `api/_lib/r2.js`, `api/wiki-explain.js`,
 `api/send-feedback.js`, `api/library-file.js`, `vercel.json`.
+
+---
+
+## Shipped deviations (2026-10-07, recorded after review)
+
+The shipped reader (commit 25c47a48) deviates from this document in three
+recorded ways, each deliberate:
+
+1. **Pasted URLs, not source keys.** The recommended architecture had the
+   function accepting only source keys, so no user input ever shapes an
+   upstream request. The owner's ask was a paste-a-link feature for
+   students, so the door is instead `normalizeExternalDocUrl` — an exact-host
+   allowlist whose output is rebuilt from templates (the raw pasted string
+   never reaches `fetch`), with the post-redirect landing host re-checked
+   before any body is read. The SSRF property the source-key design was
+   protecting still holds.
+2. **The undocumented Google `/export` endpoint is the only Google path.**
+   This document says never to ship it as the only path; v0 does, because no
+   `GOOGLE_API_KEY` infrastructure exists yet and zero-config public links
+   are the feature's value. Failure degrades honestly to 422 `not_public`.
+   Follow-up once a key is provisioned: add Drive `files.export`
+   (text/markdown) behind `GOOGLE_API_KEY` ahead of the `/export` chain.
+3. **Redirects are followed, then re-checked.** Rather than disabling
+   redirect following (which would break the export endpoints' legitimate
+   hops), every response's final URL must pass the same host check — Google
+   answers are read only from `docs.google.com`, Notion answers only from
+   `api.notion.com` — or the body is never read.

@@ -24,8 +24,8 @@ export const MAX_UPSTREAM_BYTES = 2_000_000;
 export const MAX_MARKDOWN_CHARS = 200_000;
 
 const HEX32 = /^[0-9a-f]{32}$/i;
-const DOCS_PATH = /^\/document\/d\/([\w-]+)/;
-const SHEETS_PATH = /^\/spreadsheets\/d\/([\w-]+)/;
+const DOCS_PATH = /^\/document\/d\/([\w-]{20,})/; // Google ids run 20+ chars (docs/external-content-sources-2026-10-07.md)
+const SHEETS_PATH = /^\/spreadsheets\/d\/([\w-]{20,})/;
 
 /**
  * Where a fetch may LAND. The pasted URL decides where the request starts;

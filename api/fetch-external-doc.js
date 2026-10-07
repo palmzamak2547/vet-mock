@@ -7,9 +7,10 @@
 //
 // Trust boundaries, in order of importance:
 //   1. SSRF — the pasted URL is untrusted input to a server-side fetch.
-//      normalizeExternalDocUrl is an exact-host allowlist (the only door),
-//      and the FINAL upstream URL after redirects must pass the same
-//      allowlist or the body is never read.
+//      normalizeExternalDocUrl is an exact-host allowlist (the only door)
+//      and every fetch re-checks where it LANDED: a Google answer is read
+//      only from docs.google.com, a Notion answer only from api.notion.com.
+//      Anything else and the body is never read.
 //   2. Public only — this endpoint holds no per-user Google OAuth, so a
 //      link must be shared "anyone with the link" (Notion additionally
 //      needs the page shared with the integration behind NOTION_TOKEN).
@@ -41,6 +42,20 @@ const MAX_NOTION_PAGES = 10;
 /** A login/consent wall comes back as 200 with an HTML shell — never read it as content. */
 function looksLikeHtml(text) {
   return /^\s*<(?:!doctype\s+html|html[\s>])/i.test(String(text || ''));
+}
+
+/**
+ * Where a request to the Notion API may LAND. The token rides every Notion
+ * call; if a redirect walks one onto another host, that answer is refused
+ * before its body is read, exactly like the Google path.
+ */
+function notionLanded(resp) {
+  if (!resp.url) return true;
+  try {
+    return new URL(resp.url).hostname === 'api.notion.com';
+  } catch {
+    return false;
+  }
 }
 
 /**
@@ -89,15 +104,17 @@ function notionTitleFromPage(page) {
 
 async function fetchNotionMarkdown(id, token) {
   const headers = { 'Authorization': `Bearer ${token}`, 'Notion-Version': NOTION_VERSION };
-  // The dated markdown endpoint answers prose directly. If it is ever
-  // unavailable (older workspace posture, changed contract), the block
-  // children walk below still serves the page.
+  // The dated markdown endpoint answers prose directly and is the COMPLETE
+  // path: nested blocks (toggles, columns, child pages) arrive inside its
+  // markdown. The block-children walk below is the degraded fallback and
+  // flattens TOP-LEVEL blocks only — nested content is left out there, so
+  // a page only the fallback can read renders thinner, not wrong.
   let markdown = null;
   try {
     const resp = await fetch(`${NOTION_API}/pages/${id}/markdown`, {
       headers, signal: AbortSignal.timeout(TIMEOUT_MS),
     });
-    if (resp.ok) {
+    if (resp.ok && notionLanded(resp)) {
       const raw = await resp.text();
       if (raw && !looksLikeHtml(raw)) {
         // Tolerant of both response shapes: raw markdown text, or a JSON
@@ -125,6 +142,7 @@ async function fetchNotionMarkdown(id, token) {
         headers, signal: AbortSignal.timeout(TIMEOUT_MS),
       });
       if (!resp.ok) return { status: resp.status, markdown: null, title: null };
+      if (!notionLanded(resp)) return { status: resp.status, markdown: null, title: null };
       const data = await resp.json().catch(() => null);
       if (!data || !Array.isArray(data.results)) return { status: resp.status, markdown: null, title: null };
       blocks.push(...data.results);
@@ -141,7 +159,7 @@ async function fetchNotionMarkdown(id, token) {
     const resp = await fetch(`${NOTION_API}/pages/${id}`, {
       headers, signal: AbortSignal.timeout(TIMEOUT_MS),
     });
-    if (resp.ok) title = notionTitleFromPage(await resp.json().catch(() => null));
+    if (resp.ok && notionLanded(resp)) title = notionTitleFromPage(await resp.json().catch(() => null));
   } catch { /* title is optional */ }
 
   return { status: 200, markdown, title };
@@ -179,9 +197,11 @@ export default async function handler(req, res) {
       });
     }
 
-    // Exact-match cache on the normalized link — the same shared sheet
-    // re-opened by twenty students should not cost twenty upstream reads.
-    const cacheKey = `extdoc:${createHash('sha1').update(`${target.provider}:${target.id}`).digest('hex')}`;
+    // Exact-match cache on the validated source link — the link carries
+    // the gid, so a second sheet of the same spreadsheet is its own entry,
+    // and the same shared sheet re-opened by twenty students still costs
+    // one upstream read, not twenty.
+    const cacheKey = `extdoc:${createHash('sha1').update(`${target.provider}:${target.sourceUrl}`).digest('hex')}`;
     const cached = await kvGetJSON(cacheKey);
     if (cached && typeof cached.markdown === 'string') {
       return res.status(200).json({ ...cached, cached: true });

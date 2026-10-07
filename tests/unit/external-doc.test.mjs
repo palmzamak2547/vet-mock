@@ -21,18 +21,18 @@ const HEX = 'a1b2c3d4e5f60123456789abcdef0123';
 const DASHED = 'a1b2c3d4-e5f6-0123-4567-89abcdef0123';
 
 test('a Google Docs link yields markdown-then-text export URLs', () => {
-  const n = normalizeExternalDocUrl('https://docs.google.com/document/d/DOC123/edit?usp=sharing');
+  const n = normalizeExternalDocUrl('https://docs.google.com/document/d/DOCA1b2C3d4E5f6G7h8I9j0/edit?usp=sharing');
   assert.equal(n.provider, 'gdocs');
-  assert.equal(n.id, 'DOC123');
+  assert.equal(n.id, 'DOCA1b2C3d4E5f6G7h8I9j0');
   assert.equal(n.exportUrls.length, 2);
   assert.match(n.exportUrls[0], /\/export\?format=md$/);
   assert.match(n.exportUrls[1], /\/export\?format=txt$/);
 });
 
 test('a Google Sheets link exports CSV and keeps its sheet gid', () => {
-  const n = normalizeExternalDocUrl('https://docs.google.com/spreadsheets/d/SHEET9/edit#gid=42');
+  const n = normalizeExternalDocUrl('https://docs.google.com/spreadsheets/d/SHEETA1b2C3d4E5f6G7h8I9/edit#gid=42');
   assert.equal(n.provider, 'gsheets');
-  assert.equal(n.id, 'SHEET9');
+  assert.equal(n.id, 'SHEETA1b2C3d4E5f6G7h8I9');
   assert.match(n.exportUrls[0], /\/export\?format=csv&gid=42$/);
   assert.match(n.exportUrls[1], /gviz\/tq\?tqx=out:csv&gid=42$/);
 });
@@ -51,8 +51,8 @@ test('a Notion page id is the trailing 32 hex characters, dashes stripped', () =
 
 test('lookalike hosts, other products and non-https links are refused', () => {
   for (const raw of [
-    'http://docs.google.com/document/d/DOC123/edit',          // not https
-    'https://evil-docs.google.com/document/d/DOC123/edit',    // host is not docs.google.com
+    'http://docs.google.com/document/d/DOCA1b2C3d4E5f6G7h8I9j0/edit',          // not https
+    'https://evil-docs.google.com/document/d/DOCA1b2C3d4E5f6G7h8I9j0/edit',    // host is not docs.google.com
     'https://docs.google.com.evil.test/document/d/X/edit',    // suffix trick
     'https://docs.google.com/presentation/d/PRE/edit',        // slides are not in scope
     'https://drive.google.com/file/d/FIL123/view',            // binary drive files have a reader already
@@ -182,7 +182,7 @@ test('a public Google Doc comes back as markdown in one fetch', async () => {
   await withFetch(async (url) => {
     calls.push(String(url));
     return { ok: true, status: 200, url: String(url), text: async () => '# หัวข้อ\nเนื้อหา' };
-  }, () => handler(req({ url: 'https://docs.google.com/document/d/DOC123/edit' }), res));
+  }, () => handler(req({ url: 'https://docs.google.com/document/d/DOCA1b2C3d4E5f6G7h8I9j0/edit' }), res));
   assert.equal(res.statusCode, 200, JSON.stringify(res.body));
   assert.equal(res.body.provider, 'gdocs');
   assert.equal(res.body.markdown, '# หัวข้อ\nเนื้อหา');
@@ -200,7 +200,7 @@ test('a private-looking markdown export falls back to the text export', async ()
       ok: true, status: 200, url: String(url),
       text: async () => (isMd ? '<!DOCTYPE html><html><body>Sign in</body></html>' : 'บรรทัดเดียว'),
     };
-  }, () => handler(req({ url: 'https://docs.google.com/document/d/DOC123/edit' }), res));
+  }, () => handler(req({ url: 'https://docs.google.com/document/d/DOCA1b2C3d4E5f6G7h8I9j0/edit' }), res));
   assert.equal(res.statusCode, 200);
   assert.equal(res.body.markdown, 'บรรทัดเดียว');
   assert.equal(calls.length, 2);
@@ -211,7 +211,7 @@ test('a doc that is not shared publicly is a 422 the client can explain', async 
   await withFetch(async (url) => ({
     ok: true, status: 200, url: String(url),
     text: async () => '<!DOCTYPE html><html><body>Sign in required</body></html>',
-  }), () => handler(req({ url: 'https://docs.google.com/document/d/PRIVATE/edit' }), res));
+  }), () => handler(req({ url: 'https://docs.google.com/document/d/PRIVATEA1b2C3d4E5f6G7h8/edit' }), res));
   assert.equal(res.statusCode, 422);
   assert.equal(res.body.reason, 'not_public');
 });
@@ -221,7 +221,7 @@ test('a redirect that leaves the allowlist never gets read', async () => {
   await withFetch(async () => ({
     ok: true, status: 200, url: 'https://evil.test/stolen',
     text: async () => 'secret',
-  }), () => handler(req({ url: 'https://docs.google.com/document/d/DOC123/edit' }), res));
+  }), () => handler(req({ url: 'https://docs.google.com/document/d/DOCA1b2C3d4E5f6G7h8I9j0/edit' }), res));
   assert.equal(res.statusCode, 422);
   assert.equal(res.body.reason, 'not_public');
 });
@@ -231,7 +231,7 @@ test('a document larger than the cap is refused, not truncated silently', async 
   await withFetch(async (url) => ({
     ok: true, status: 200, url: String(url),
     text: async () => 'a'.repeat(200_001),
-  }), () => handler(req({ url: 'https://docs.google.com/document/d/BIG/edit' }), res));
+  }), () => handler(req({ url: 'https://docs.google.com/document/d/BIGA1b2C3d4E5f6G7h8I9j0K/edit' }), res));
   assert.equal(res.statusCode, 413);
   assert.equal(res.body.reason, 'too_large');
 });
@@ -298,5 +298,23 @@ test('the Notion markdown endpoint answers directly without the block walk', asy
   assert.equal(res.body.markdown, '# เพจสาธารณะ\nเนื้อหาจาก endpoint');
   assert.equal(res.body.title, 'ชื่อเพจ');
   assert.ok(!calls.some((c) => c.includes('/blocks/')), 'the block walk must not run when markdown answered');
+  delete process.env.NOTION_TOKEN;
+});
+
+test('Google ids below the documented floor are refused', () => {
+  assert.equal(normalizeExternalDocUrl('https://docs.google.com/document/d/short/edit'), null);
+  assert.equal(normalizeExternalDocUrl('https://docs.google.com/spreadsheets/d/shortid/edit'), null);
+});
+
+test('a Notion answer that lands off api.notion.com is never read', async () => {
+  process.env.NOTION_TOKEN = 'test-token';
+  const res = fakeRes();
+  await withFetch(async () => ({
+    ok: true, status: 200, url: 'https://evil.test/answer',
+    text: async () => '# stolen',
+    json: async () => ({ results: [], next_cursor: null }),
+  }), () => handler(req({ url: `https://notion.so/${'c'.repeat(32)}` }), res));
+  assert.equal(res.statusCode, 422);
+  assert.equal(res.body.reason, 'not_public');
   delete process.env.NOTION_TOKEN;
 });
