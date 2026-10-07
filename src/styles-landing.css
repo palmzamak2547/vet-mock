@@ -886,7 +886,10 @@ html.lp-active { background: var(--clr-bg); }
    ================================================================ */
 .lp-reveal, .lp-in { transition: opacity .9s var(--lp-ease), transform 1s var(--lp-ease); transition-delay: calc(var(--i, 0) * 70ms); }
 .lp-motion-ready .lp-reveal:not(.in) { opacity: 0; transform: translateY(28px); }
-.lp-motion-ready:not(.lp-entered) .lp-in { opacity: 0; transform: translateY(16px); }
+/* Hero copy and the question card are painted at once and only slide: a
+   fade held back the largest text on the page, so a throttled phone counted
+   the hero as drawn 1.5-1.8 s after it first painted (2026-10-08). */
+.lp-motion-ready:not(.lp-entered) .lp-in { transform: translateY(16px); }
 .lp-motion-ready:not(.lp-entered) .lp-w-in { transform: translateY(112%); }
 .lp-w-in { transition: transform 1.05s var(--lp-ease) calc(var(--i, 0) * 60ms + 60ms); }
 .lp-motion-ready:not(.lp-entered) .lp-mark { background-size: 0% 100%; }
