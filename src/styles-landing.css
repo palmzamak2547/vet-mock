@@ -319,14 +319,13 @@ html.lp-active { background: var(--clr-bg); }
   width: min(760px, 100%);
   max-height: min(72dvh, 620px);
   overflow: auto;
+  /* Solid surface: the sheet overlaps live page text, and WebKit renders
+     translucent+blur here without the blur, letting it bleed through. */
   background: var(--clr-surface);
-  background: color-mix(in srgb, var(--clr-surface) 96%, transparent);
   border: 1px solid var(--clr-border);
   border-radius: 16px;
   box-shadow: var(--shadow-lg);
   padding: 14px 16px;
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
 }
 .lp-cookie-summary {
   display: flex;
