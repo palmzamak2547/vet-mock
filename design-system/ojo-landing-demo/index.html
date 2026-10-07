@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VetMock — คลังข้อสอบสัตวแพทย์ จุฬาฯ</title>
+<meta name="description" content="คลังข้อสอบสัตวแพทย์ จุฬาฯ เรียงตามหลักสูตร พร้อมเฉลยและอ้างอิง สำหรับนักศึกษาสัตวแพทย์ Vet 86">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=IBM+Plex+Mono:wght@400;600&family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   VetMock landing demo — Direction A: Warm Paper Calm (full)
+   Convention Track (Things 3-style) · hero tier B (product artifact)
+   ============================================================ */
+:root {
+  /* light — warm cream paper, sage primary, ocean counter-hue */
+  --clr-bg: #f6efe4;
+  --clr-bg-deep: #eee4d0;
+  --clr-surface: #fdf8ef;
+  --clr-surface-raised: #fffdf8;
+  --clr-ink: #2b2419;
+  --clr-ink-soft: #6b5c45;
+  --clr-sage: #3f6340;
+  --clr-sage-deep: #335233;
+  --clr-sage-tint: #e7eede;
+  --clr-gold-text: #76511e;
+  --clr-gold-tint: #f3e7cd;
+  --clr-ocean: #38627a;
+  --clr-ocean-tint: #e2ebf0;
+  --clr-rose: #93454b;
+  --clr-rose-tint: #f6e3e0;
+  --clr-border: #e6dabd;
+  --clr-border-strong: #d5c4a0;
+  /* dark — warm stone "night study" (from VetMock dark tokens) */
+  --dk-bg: #1a1612;
+  --dk-surface: #262019;
+  --dk-raised: #2f2820;
+  --dk-ink: #f0e6d2;
+  --dk-ink-soft: #b8a890;
+  --dk-sage: #8fbb8f;
+  --dk-gold: #d4a556;
+  --dk-border: #45392a;
+
+  /* spacing — 8px base grid */
+  --sp-1: 8px;  --sp-2: 16px; --sp-3: 24px; --sp-4: 32px;
+  --sp-6: 48px; --sp-8: 64px; --sp-12: 96px;
+  --w-content: 1120px;
+
+  /* radius + shadow (warm-tinted) */
+  --r-btn: 12px;
+  --r-card: 16px;
+  --sh-1: 0 1px 2px rgba(43,36,25,.05);
+  --sh-2: 0 2px 6px rgba(43,36,25,.05), 0 12px 28px rgba(43,36,25,.07);
+  --sh-3: 0 4px 10px rgba(43,36,25,.06), 0 24px 48px rgba(43,36,25,.10);
+
+  /* type */
+  --font-display: 'Fraunces', 'Sarabun', serif;
+  --font-body: 'Sarabun', 'IBM Plex Sans Thai', sans-serif;
+  --fs-display: clamp(2.55rem, 4.8vw, 3.7rem);
+  --fs-h2: clamp(1.5rem, 2.4vw, 1.9rem);
+  --fs-body: 1.03rem;
+  --fs-caption: .82rem;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  color: var(--clr-ink);
+  background: var(--clr-bg);
+  -webkit-font-smoothing: antialiased;
+}
+/* paper grain — barely there */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .028;
+  pointer-events: none;
+  z-index: 60;
+}
+
+.wrap { max-width: var(--w-content); margin: 0 auto; padding-inline: var(--sp-4); position: relative; z-index: 1; }
+a { color: inherit; }
+img { -webkit-user-drag: none; }
+
+/* ============================== nav ============================== */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--clr-bg) 82%, transparent);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--clr-border);
+}
+.nav-row { display: flex; align-items: center; gap: var(--sp-2); padding-block: 12px; }
+.wordmark {
+  font-family: var(--font-display); font-weight: 800; font-size: 1.42rem;
+  letter-spacing: -.02em; text-decoration: none; margin-right: var(--sp-2);
+}
+.wordmark em { font-style: normal; color: var(--clr-sage); }
+.nav-links { display: flex; gap: 4px; margin-left: auto; list-style: none; }
+.nav-links a {
+  text-decoration: none; color: var(--clr-ink-soft); font-weight: 600; font-size: .93rem;
+  padding: 7px 12px; border-radius: 9px;
+  transition: color 150ms ease-out, background-color 150ms ease-out;
+}
+.nav-links a:hover { color: var(--clr-ink); background: var(--clr-bg-deep); }
+.nav-links a:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+
+/* ============================== buttons ============================== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--font-body); font-weight: 700; font-size: .98rem;
+  border: none; cursor: pointer; text-decoration: none;
+  border-radius: var(--r-btn); min-height: 46px;
+  padding: 11px 22px; white-space: nowrap;
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out, background-color 200ms ease-out, border-color 200ms ease-out;
+}
+.btn-primary { background: var(--clr-sage); color: #fff; box-shadow: var(--sh-1); }
+.btn-primary:hover { background: var(--clr-sage-deep); transform: translateY(-1px); box-shadow: var(--sh-2); }
+.btn-primary:active { transform: scale(.98); box-shadow: var(--sh-1); }
+.btn-primary:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.btn-ghost { background: transparent; color: var(--clr-ink); border: 1px solid var(--clr-border-strong); }
+.btn-ghost:hover { border-color: var(--clr-ink-soft); background: var(--clr-surface-raised); transform: translateY(-1px); }
+.btn-ghost:active { transform: scale(.98); }
+.btn-ghost:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.btn-lg { min-height: 52px; padding: 13px 28px; font-size: 1.05rem; border-radius: 14px; }
+
+/* ============================== hero ============================== */
+.hero { padding: var(--sp-8) 0 var(--sp-8); overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr); gap: var(--sp-6); align-items: center; }
+.hero-eyebrow {
+  font-size: var(--fs-caption); font-weight: 700; letter-spacing: .09em;
+  color: var(--clr-gold-text); text-transform: uppercase; margin-bottom: var(--sp-2);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.hero-eyebrow::before { content: ""; width: 22px; height: 2px; background: var(--clr-gold-text); border-radius: 2px; }
+.hero h1 {
+  font-weight: 800; font-size: var(--fs-display);
+  line-height: 1.13; letter-spacing: -.015em; max-width: 14ch; text-wrap: balance;
+}
+.hero h1 .hl { color: var(--clr-sage); }
+.hero .sub { margin-top: var(--sp-2); max-width: 40ch; color: var(--clr-ink-soft); font-size: 1.1rem; }
+.hero-cta { margin-top: var(--sp-3); display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; }
+.hero-trust { margin-top: var(--sp-3); display: flex; align-items: center; gap: 10px; }
+.trust-avatars { display: flex; }
+.trust-avatars img {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 2px solid var(--clr-surface-raised); background: var(--clr-sage-tint);
+  margin-left: -8px;
+}
+.trust-avatars img:first-child { margin-left: 0; }
+.hero-trust p { font-size: .88rem; color: var(--clr-ink-soft); }
+.hero-trust b { color: var(--clr-ink); }
+
+/* --- hero artifact composition --- */
+.artifact { position: relative; min-height: 520px; }
+.blob {
+  position: absolute; top: 0; right: -4%; bottom: 6%; left: 10%;
+  background: var(--clr-sage-tint);
+  border-radius: 58% 42% 55% 45% / 52% 55% 45% 48%;
+  z-index: 0;
+}
+.blob-dot { position: absolute; border-radius: 50%; background: var(--clr-gold-tint); z-index: 0; }
+.blob-dot.b1 { width: 56px; height: 56px; top: 4%; right: 10%; }
+.blob-dot.b2 { width: 26px; height: 26px; bottom: 8%; left: 4%; background: var(--clr-ocean-tint); }
+
+.qcard {
+  position: relative; z-index: 2;
+  background: var(--clr-surface-raised);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-card);
+  box-shadow: var(--sh-3);
+  max-width: 460px;
+  padding: var(--sp-3);
+  margin: 8% auto 0;
+}
+.qcard-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: .74rem; font-weight: 700; line-height: 1.4;
+  padding: 3px 10px; border-radius: 999px;
+  background: var(--clr-sage-tint); color: var(--clr-sage-deep);
+}
+.chip.gold { background: var(--clr-gold-tint); color: var(--clr-gold-text); }
+.qcard q {
+  display: block; quotes: none;
+  font-size: .96rem; font-weight: 600; line-height: 1.55; margin-bottom: 12px;
+}
+.qcard q .sig { font-weight: 400; color: var(--clr-ink-soft); }
+.opts { display: grid; gap: 8px; list-style: none; }
+.opt {
+  width: 100%; text-align: left; cursor: pointer;
+  font-family: var(--font-body); font-size: .9rem; font-weight: 500; color: var(--clr-ink);
+  background: var(--clr-surface); border: 1px solid var(--clr-border);
+  border-radius: 10px; min-height: 42px;
+  padding: 8px 12px;
+  display: flex; align-items: baseline; gap: 9px;
+  transition: border-color 200ms ease-out, background-color 200ms ease-out, transform 150ms ease-out, box-shadow 200ms ease-out;
+}
+.opt .key { font-weight: 800; font-size: .76rem; color: var(--clr-ink-soft); min-width: 16px; }
+.opt:hover:not(:disabled) { border-color: var(--clr-border-strong); background: var(--clr-surface-raised); transform: translateY(-1px); box-shadow: var(--sh-1); }
+.opt:active:not(:disabled) { transform: scale(.985); }
+.opt:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.opt:disabled { cursor: default; opacity: .6; }
+.opt.picked { border-color: var(--clr-sage); box-shadow: 0 0 0 1px var(--clr-sage); }
+.opt.picked:not(.correct):not(.wrong) { opacity: 1; }
+.opt.correct { background: var(--clr-sage-tint); border-color: var(--clr-sage); opacity: 1; }
+.opt.correct .key { color: var(--clr-sage-deep); }
+.opt.wrong { background: var(--clr-rose-tint); border-color: var(--clr-rose); opacity: 1; }
+.opt.wrong .key { color: var(--clr-rose); }
+.opt .mark { margin-left: auto; opacity: 0; flex: none; align-self: center; }
+.opt .mark svg { width: 16px; height: 16px; display: block; }
+.opt.correct .mark { opacity: 1; color: var(--clr-sage); }
+.opt.wrong .mark { opacity: 1; color: var(--clr-rose); }
+
+.explain { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 300ms ease-out; }
+.explain.open { grid-template-rows: 1fr; }
+.explain > div { overflow: hidden; }
+.explain-inner {
+  margin-top: 10px; padding: 10px 14px;
+  border-left: 3px solid var(--clr-sage);
+  background: var(--clr-sage-tint); border-radius: 0 10px 10px 0;
+  font-size: .86rem; line-height: 1.55;
+}
+.explain-inner .verdict { font-weight: 800; display: block; margin-bottom: 2px; }
+.explain-inner .verdict.no { color: var(--clr-rose); }
+.explain-inner .src { display: block; margin-top: 5px; font-size: .74rem; color: var(--clr-ink-soft); }
+
+.mascot-float {
+  position: absolute; z-index: 3; bottom: -4%; right: 2%;
+  width: 168px; filter: drop-shadow(0 14px 18px rgba(43,36,25,.16));
+}
+.float-chip {
+  position: absolute; z-index: 4;
+  display: flex; align-items: center; gap: 9px;
+  background: var(--clr-surface-raised);
+  border: 1px solid var(--clr-border);
+  border-radius: 14px; box-shadow: var(--sh-2);
+  padding: 9px 14px 9px 10px;
+}
+.float-chip img { width: 34px; height: 34px; }
+.float-chip .t { font-size: .78rem; font-weight: 800; line-height: 1.25; }
+.float-chip .s { font-size: .7rem; color: var(--clr-ink-soft); font-weight: 500; line-height: 1.25; }
+.fc-badge { top: 5%; right: 0; }
+.fc-stat { bottom: 16%; left: -2%; }
+
+/* ============================== sections ============================== */
+section { padding: var(--sp-8) 0; }
+.section-head { margin-bottom: var(--sp-4); max-width: 640px; }
+.kicker {
+  font-size: var(--fs-caption); font-weight: 800; letter-spacing: .1em;
+  color: var(--clr-sage); text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 8px;
+}
+.kicker::before { content: attr(data-n); font-family: var(--font-display); font-weight: 800; color: var(--clr-gold-text); }
+.section-head h2 { font-size: var(--fs-h2); font-weight: 800; letter-spacing: -.01em; line-height: 1.28; text-wrap: balance; }
+.section-head p { color: var(--clr-ink-soft); margin-top: 8px; }
+
+/* --- coverage strip --- */
+.coverage { padding-block: var(--sp-3) var(--sp-6); }
+.cov-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.cov {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--clr-surface); border: 1px solid var(--clr-border);
+  border-radius: 999px; padding: 7px 16px 7px 8px; text-decoration: none;
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
+}
+.cov:hover { transform: translateY(-2px); box-shadow: var(--sh-2); border-color: var(--clr-border-strong); }
+.cov:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.cov img { width: 30px; height: 30px; border-radius: 50%; background: var(--clr-sage-tint); }
+.cov span { font-size: .87rem; font-weight: 700; }
+
+/* --- bento --- */
+.bento { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: minmax(150px, auto); gap: var(--sp-2); }
+.bcard {
+  background: var(--clr-surface); border: 1px solid var(--clr-border);
+  border-radius: var(--r-card); padding: var(--sp-3);
+  display: flex; flex-direction: column; gap: 6px;
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
+}
+.bcard:hover { transform: translateY(-3px); box-shadow: var(--sh-2); border-color: var(--clr-border-strong); }
+.bcard:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.bcard h3 { font-size: 1.06rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+.bcard p { font-size: .9rem; color: var(--clr-ink-soft); }
+.bcard .ic {
+  width: 38px; height: 38px; border-radius: 11px; flex: none;
+  display: grid; place-items: center;
+  background: var(--clr-sage-tint); color: var(--clr-sage-deep);
+}
+.bcard .ic svg { width: 19px; height: 19px; }
+.bcard.ocean .ic { background: var(--clr-ocean-tint); color: var(--clr-ocean); }
+.bcard.gold .ic { background: var(--clr-gold-tint); color: var(--clr-gold-text); }
+.bcard.span2 { grid-column: span 2; }
+.bcard .mini {
+  margin-top: auto; padding: 10px 14px;
+  background: var(--clr-surface-raised); border: 1px solid var(--clr-border);
+  border-radius: 12px; font-size: .84rem;
+}
+.bcard .mini .q { font-weight: 700; margin-bottom: 7px; }
+.pill-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.pill {
+  font-size: .76rem; font-weight: 600; padding: 3px 11px; border-radius: 999px;
+  background: var(--clr-bg); border: 1px solid var(--clr-border); color: var(--clr-ink-soft);
+}
+.pill.ok { background: var(--clr-sage-tint); border-color: transparent; color: var(--clr-sage-deep); font-weight: 700; }
+.pill.no { background: var(--clr-rose-tint); border-color: transparent; color: var(--clr-rose); font-weight: 700; }
+.bcard .num-big {
+  margin-top: auto; font-family: var(--font-display); font-weight: 800;
+  font-size: 2.1rem; letter-spacing: -.02em; line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.bcard .num-big small { font-size: .95rem; font-family: var(--font-body); font-weight: 600; color: var(--clr-ink-soft); margin-left: 4px; letter-spacing: 0; }
+
+/* --- modes --- */
+.modes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-2); }
+.mode {
+  background: var(--clr-surface); border: 1px solid var(--clr-border);
+  border-radius: var(--r-card); padding: var(--sp-3);
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+.mode:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
+.mode .ic {
+  width: 42px; height: 42px; border-radius: 12px;
+  display: grid; place-items: center; margin-bottom: var(--sp-2);
+  background: var(--clr-sage-tint); color: var(--clr-sage-deep);
+}
+.mode.ocean .ic { background: var(--clr-ocean-tint); color: var(--clr-ocean); }
+.mode.gold .ic { background: var(--clr-gold-tint); color: var(--clr-gold-text); }
+.mode .ic svg { width: 21px; height: 21px; }
+.mode h3 { font-size: 1.08rem; font-weight: 800; }
+.mode > p { font-size: .92rem; color: var(--clr-ink-soft); margin-top: 4px; min-height: 3.1em; }
+.mode .meta { margin-top: var(--sp-2); padding-top: 10px; border-top: 1px dashed var(--clr-border); font-size: .8rem; color: var(--clr-ink-soft); display: flex; gap: 6px; align-items: center; }
+.mode .meta svg { width: 14px; height: 14px; flex: none; }
+
+/* --- imaging lab station --- */
+.mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+.lab-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--sp-3); align-items: stretch; }
+.lab-film-col { display: flex; flex-direction: column; gap: 12px; }
+.lab-toprow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.station-badge {
+  display: inline-flex; align-items: center;
+  font-size: .76rem; font-weight: 800; letter-spacing: .02em; white-space: nowrap;
+  background: var(--clr-ink); color: var(--clr-bg);
+  padding: 4px 12px; border-radius: 999px;
+}
+.lab-note { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .68rem; color: var(--clr-ink-soft); font-style: italic; }
+.lab-timer {
+  margin-left: auto; font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: .78rem; font-weight: 600; color: var(--clr-ink);
+  background: var(--clr-bg-deep); border: 1px solid var(--clr-border);
+  padding: 3px 10px; border-radius: 999px; font-variant-numeric: tabular-nums;
+}
+.film {
+  position: relative; aspect-ratio: 4 / 3;
+  background: #0a0a0c; border: 1px solid var(--clr-border-strong);
+  border-radius: 14px; overflow: hidden;
+}
+.film-inner {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .25s ease; transform-origin: center;
+}
+.film img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.film-info {
+  position: absolute; top: 10px; left: 10px; pointer-events: none; z-index: 3;
+  background: rgba(0,0,0,.8); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.12); border-radius: 7px;
+  padding: 5px 9px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 9.5px; line-height: 1.55;
+  color: rgba(255,255,255,.85);
+  display: flex; flex-direction: column; gap: 1px;
+}
+.film-info .wl { color: #7fd18a; }
+.film-zoom {
+  position: absolute; right: 10px; bottom: 10px; z-index: 3;
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(0,0,0,.55); -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
+  border: 1px solid rgba(255,255,255,.12); border-radius: 999px;
+  padding: 4px 6px;
+}
+.zbtn {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.25); background: rgba(0,0,0,.5); color: #fff;
+  font-size: 17px; cursor: pointer; display: grid; place-items: center; line-height: 1;
+  transition: background-color 150ms ease-out, transform 150ms ease-out;
+}
+.zbtn:hover { background: rgba(0,0,0,.75); }
+.zbtn:active { transform: scale(.94); }
+.zbtn:focus-visible { outline: 2px solid #7fd18a; outline-offset: 2px; }
+.zpct {
+  display: flex; align-items: center; height: 28px; padding: 0 10px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; color: #fff;
+  background: rgba(0,0,0,.5); border-radius: 999px; font-variant-numeric: tabular-nums;
+}
+/* annotations — viewer colors sit on near-black film, intentionally not app tokens */
+.roi {
+  position: absolute; top: 40%; left: 38%; width: 96px; height: 96px; z-index: 2;
+  border-radius: 50%; border: 2px dashed #4ade80;
+  box-shadow: 0 0 12px rgba(74,222,128,.45);
+  pointer-events: none; display: none;
+  animation: pulse 2s ease-in-out infinite;
+}
+.roi.show, .vhs.show { display: block; }
+.roi .tag, .vhs .tag {
+  position: absolute; white-space: nowrap;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px;
+  background: rgba(0,0,0,.85); border: 1px solid; padding: 2px 7px; border-radius: 5px;
+}
+.roi .tag { top: -22px; left: 50%; transform: translateX(-50%); color: #4ade80; border-color: #4ade80; }
+.vhs {
+  position: absolute; top: 33%; left: 32%; width: 148px; height: 2px; z-index: 2;
+  background: #f59e0b; pointer-events: none; display: none;
+}
+.vhs::before, .vhs::after { content: ""; position: absolute; top: -4px; width: 2px; height: 10px; background: #f59e0b; }
+.vhs::before { left: 0; } .vhs::after { right: 0; }
+.vhs .tag { top: 8px; left: 50%; transform: translateX(-50%); color: #f59e0b; border-color: #f59e0b; }
+@keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.06); opacity: .85; } }
+.lab-tools { display: flex; gap: 8px; flex-wrap: wrap; }
+.tool {
+  padding: 9px 15px; min-height: 40px; cursor: pointer;
+  border-radius: 10px; border: 1px solid var(--clr-border);
+  background: var(--clr-surface); color: var(--clr-ink);
+  font-family: var(--font-body); font-size: .82rem; font-weight: 600;
+  transition: border-color 150ms ease-out, background-color 150ms ease-out, color 150ms ease-out, transform 150ms ease-out;
+}
+.tool:hover { border-color: var(--clr-border-strong); transform: translateY(-1px); }
+.tool:active { transform: scale(.97); }
+.tool:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.tool.active { border-color: var(--clr-sage); background: var(--clr-sage-tint); color: var(--clr-sage-deep); }
+.lab-side {
+  background: var(--clr-surface); border: 1px solid var(--clr-border);
+  border-radius: var(--r-card); padding: var(--sp-3);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.lab-side .prompt { font-size: 1.02rem; font-weight: 600; line-height: 1.55; }
+.lab-hint { font-size: .82rem; color: var(--clr-ink-soft); margin-top: -6px; }
+.lab-side .opts { gap: 8px; }
+.lab-side .opt { min-height: 44px; }
+.lab-actions { margin-top: auto; display: flex; align-items: center; gap: 10px; }
+.lab-verdict { font-weight: 800; font-size: .9rem; display: none; }
+.lab-verdict.ok { color: var(--clr-sage-deep); display: inline; }
+.lab-verdict.no { color: var(--clr-rose); display: inline; }
+.lab-actions .btn { margin-left: auto; min-height: 40px; padding: 8px 18px; font-size: .9rem; }
+
+/* --- dark gamification --- */
+.night { background: var(--dk-bg); color: var(--dk-ink); }
+.night .section-head h2 { color: var(--dk-ink); }
+.night .section-head p { color: var(--dk-ink-soft); }
+.night .kicker { color: var(--dk-sage); }
+.night .kicker::before { color: var(--dk-gold); }
+.night-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: var(--sp-4); align-items: stretch; }
+.night-card {
+  background: var(--dk-surface); border: 1px solid var(--dk-border);
+  border-radius: var(--r-card); padding: var(--sp-3);
+}
+.night-card h3 { font-size: 1.02rem; font-weight: 800; color: var(--dk-ink); display: flex; align-items: center; gap: 8px; }
+.night-card h3 svg { width: 18px; height: 18px; color: var(--dk-gold); }
+.night-card .hint { font-size: .84rem; color: var(--dk-ink-soft); margin-bottom: var(--sp-2); }
+.streak-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; }
+.streak-grid i {
+  aspect-ratio: 1; border-radius: 7px; background: var(--dk-raised);
+  border: 1px solid var(--dk-border); display: block;
+}
+.streak-grid i.f1 { background: color-mix(in srgb, var(--dk-sage) 30%, var(--dk-raised)); border-color: transparent; }
+.streak-grid i.f2 { background: color-mix(in srgb, var(--dk-sage) 58%, var(--dk-raised)); border-color: transparent; }
+.streak-grid i.f3 { background: var(--dk-sage); border-color: transparent; }
+.streak-grid i.today { border-color: var(--dk-gold); box-shadow: 0 0 0 1px var(--dk-gold); }
+.streak-legend { margin-top: 12px; display: flex; align-items: center; gap: 14px; font-size: .76rem; color: var(--dk-ink-soft); }
+.streak-legend b { color: var(--dk-ink); font-variant-numeric: tabular-nums; }
+.badge-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.badge {
+  background: var(--dk-raised); border: 1px solid var(--dk-border);
+  border-radius: 13px; padding: 12px 10px; text-align: center;
+  transition: transform 200ms ease-out, border-color 200ms ease-out;
+}
+.badge:hover { transform: translateY(-3px); border-color: var(--dk-gold); }
+.badge img { width: 52px; height: 52px; margin-bottom: 6px; }
+.badge .n { font-size: .8rem; font-weight: 800; line-height: 1.3; color: var(--dk-ink); }
+.badge .d { font-size: .7rem; color: var(--dk-ink-soft); line-height: 1.3; margin-top: 2px; }
+.badge.locked img { filter: grayscale(1); opacity: .45; }
+.badge .n .lock { color: var(--dk-ink-soft); font-weight: 600; }
+.night-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+.nstat { background: var(--dk-raised); border: 1px solid var(--dk-border); border-radius: 13px; padding: 12px 14px; }
+.nstat .v { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; font-variant-numeric: tabular-nums; color: var(--dk-gold); line-height: 1.1; }
+.nstat .l { font-size: .74rem; color: var(--dk-ink-soft); }
+
+/* --- quotes --- */
+.quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-2); }
+.quote {
+  background: var(--clr-surface); border: 1px solid var(--clr-border);
+  border-radius: var(--r-card); padding: var(--sp-3);
+  display: flex; flex-direction: column; gap: var(--sp-2);
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+.quote:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
+.quote p { font-size: .95rem; line-height: 1.6; }
+.quote p::before { content: "“"; font-family: var(--font-display); font-size: 1.8rem; line-height: 0; vertical-align: -.35em; color: var(--clr-sage); margin-right: 2px; }
+.quote .who { display: flex; align-items: center; gap: 10px; margin-top: auto; }
+.quote .who .av {
+  width: 38px; height: 38px; border-radius: 50%; flex: none;
+  background: var(--clr-sage-tint); color: var(--clr-sage-deep);
+  display: grid; place-items: center; font-weight: 800; font-size: .9rem;
+}
+.quote .who .nm { font-size: .88rem; font-weight: 800; line-height: 1.3; }
+.quote .who .yr { font-size: .76rem; color: var(--clr-ink-soft); }
+
+/* --- subject shelf --- */
+.shelf { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-2); }
+.subj {
+  background: var(--clr-surface); border: 1px solid var(--clr-border);
+  border-radius: var(--r-card); padding: var(--sp-3);
+  text-decoration: none; position: relative; overflow: hidden;
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
+}
+.subj::after {
+  content: ""; position: absolute; right: -18px; bottom: -18px;
+  width: 74px; height: 74px; border-radius: 50%;
+  background: var(--clr-sage-tint); opacity: .55;
+  transition: transform 240ms ease-out;
+}
+.subj:hover { transform: translateY(-3px); box-shadow: var(--sh-2); border-color: var(--clr-border-strong); }
+.subj:hover::after { transform: scale(1.25); }
+.subj:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.subj .tag { font-size: .7rem; font-weight: 800; letter-spacing: .06em; color: var(--clr-gold-text); text-transform: uppercase; }
+.subj h3 { font-size: 1.02rem; font-weight: 700; line-height: 1.4; margin-top: 3px; }
+.subj .cnt { font-size: .85rem; color: var(--clr-ink-soft); margin-top: 7px; font-variant-numeric: tabular-nums; }
+.subj .cnt b { color: var(--clr-sage-deep); font-weight: 800; }
+
+/* --- changelog --- */
+.changelog { background: var(--clr-bg-deep); border-block: 1px solid var(--clr-border); }
+.log-list { list-style: none; display: grid; gap: 10px; max-width: 680px; }
+.log-list li { display: flex; gap: 10px; align-items: baseline; font-size: .95rem; }
+.log-tag {
+  flex: none; font-size: .72rem; font-weight: 800; letter-spacing: .04em;
+  padding: 2px 9px; border-radius: 999px;
+  background: var(--clr-ocean-tint); color: var(--clr-ocean);
+}
+.log-list .when { color: var(--clr-ink-soft); font-size: .8rem; margin-left: auto; flex: none; font-variant-numeric: tabular-nums; }
+
+/* --- CTA finale --- */
+.cta { text-align: center; padding: var(--sp-12) 0; position: relative; overflow: hidden; }
+.cta .trio { display: flex; justify-content: center; align-items: flex-end; gap: 6px; margin-bottom: var(--sp-2); }
+.cta .trio img { width: 92px; filter: drop-shadow(0 12px 14px rgba(43,36,25,.15)); }
+.cta .trio img.side { width: 74px; opacity: .92; }
+.cta h2 { font-size: clamp(1.7rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -.01em; }
+.cta p { color: var(--clr-ink-soft); margin: 8px 0 var(--sp-3); }
+.cta .row { display: flex; justify-content: center; gap: var(--sp-2); flex-wrap: wrap; }
+
+/* --- footer --- */
+footer { border-top: 1px solid var(--clr-border); padding: var(--sp-6) 0 var(--sp-6); }
+.foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: var(--sp-3); }
+.foot-brand p { font-size: .88rem; color: var(--clr-ink-soft); margin-top: 8px; max-width: 30ch; }
+.foot-col .h { font-size: .8rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--clr-gold-text); margin-bottom: 10px; }
+.foot-col ul { list-style: none; display: grid; gap: 7px; }
+.foot-col a { color: var(--clr-ink-soft); text-decoration: none; font-size: .92rem; }
+.foot-col a:hover { color: var(--clr-ink); text-decoration: underline; }
+.foot-base {
+  margin-top: var(--sp-4); padding-top: var(--sp-2);
+  border-top: 1px solid var(--clr-border);
+  display: flex; justify-content: space-between; gap: var(--sp-2); flex-wrap: wrap;
+  font-size: .8rem; color: var(--clr-ink-soft);
+}
+
+/* ============================== motion ============================== */
+.rise { opacity: 0; transform: translateY(14px); animation: rise 340ms ease-out forwards; }
+.rise.d1 { animation-delay: 50ms; } .rise.d2 { animation-delay: 100ms; }
+.rise.d3 { animation-delay: 150ms; } .rise.d4 { animation-delay: 200ms; }
+.rise.d5 { animation-delay: 260ms; }
+@keyframes rise { to { opacity: 1; transform: none; } }
+
+.reveal { transition: opacity 380ms ease-out, transform 380ms ease-out; transition-delay: var(--rd, 0ms); }
+.js .reveal { opacity: 0; transform: translateY(18px); }
+.js .reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .rise, .reveal { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ============================== responsive ============================== */
+@media (max-width: 980px) {
+  .hero-grid { grid-template-columns: 1fr; gap: var(--sp-6); }
+  .hero h1 { max-width: 18ch; }
+  .artifact { min-height: 480px; max-width: 560px; margin-inline: auto; }
+  .bento { grid-template-columns: repeat(2, 1fr); }
+  .night-grid { grid-template-columns: 1fr; }
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+  .lab-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  .bcard.span2 { grid-column: span 1; }
+  .modes { grid-template-columns: 1fr; }
+  .quotes { grid-template-columns: 1fr; }
+  .shelf { grid-template-columns: repeat(2, 1fr); }
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .badge-row { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 560px) {
+  .bento { grid-template-columns: 1fr; }
+  .shelf { grid-template-columns: 1fr; }
+  section { padding: var(--sp-6) 0; }
+  .hero { padding-top: var(--sp-4); }
+  .artifact { min-height: 440px; }
+  .mascot-float { width: 128px; right: 0; }
+  .float-chip.fc-stat { left: 0; }
+  .badge-row { grid-template-columns: repeat(2, 1fr); }
+  .foot-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-row">
+    <a class="wordmark" href="#">Vet<em>Mock</em></a>
+    <ul class="nav-links">
+      <li><a href="#คลัง">คลังข้อสอบ</a></li>
+      <li><a href="#โหมด">โหมดฝึก</a></li>
+      <li><a href="#lab">ห้องซ้อมภาพ</a></li>
+      <li><a href="#กิจกรรม">ระบบกิจกรรม</a></li>
+      <li><a href="#อัปเดต">อัปเดต</a></li>
+    </ul>
+    <a class="btn btn-primary" href="#">เข้าแอป</a>
+  </div>
+</header>
+
+<main>
+  <!-- ============ HERO — product artifact composition ============ -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="hero-eyebrow rise">คลังข้อสอบสัตวแพทย์ จุฬาฯ · Vet 86</p>
+        <h1 class="rise d1">ข้อสอบจริง <span class="hl">เรียงตามหลักสูตร</span> เฉลยพร้อมอ้างอิง</h1>
+        <p class="sub rise d2">MCQ ถูกผิด เติมคำ จับคู่ และข้อสอบเขียน — เก็บทุกข้อไว้ให้ทบทวนก่อนเข้าห้องสอบ</p>
+        <div class="hero-cta rise d3">
+          <a class="btn btn-primary btn-lg" href="#คลัง">เริ่มทบทวนฟรี
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost btn-lg" href="#โหมด">ดูโหมดฝึก</a>
+        </div>
+        <div class="hero-trust rise d4">
+          <div class="trust-avatars" aria-hidden="true">
+            <img src="art/characters/moocha.webp" alt="">
+            <img src="art/characters/clover.webp" alt="">
+            <img src="art/characters/glidy.webp" alt="">
+            <img src="art/characters/oto.webp" alt="">
+          </div>
+          <p><b>ทำโดยรุ่นพี่</b> — อัปเดตทุกสัปดาห์ ล่าสุด 7 ต.ค. 2569</p>
+        </div>
+      </div>
+
+      <div class="artifact rise d2" aria-label="ตัวอย่างข้อสอบในแอป">
+        <div class="blob" aria-hidden="true"></div>
+        <span class="blob-dot b1" aria-hidden="true"></span>
+        <span class="blob-dot b2" aria-hidden="true"></span>
+
+        <article class="qcard">
+          <div class="qcard-top">
+            <span class="chip">อายุรศาสตร์สัตว์เล็ก I</span>
+            <span class="chip gold">MCQ · กลางภาค</span>
+          </div>
+          <q>สุนัขพูเดิ้ลอายุ 6 ปี ดื่มน้ำมาก ปัสสาวะบ่อย น้ำหนักลด ตรวจเลือดพบ hypercalcemia เล็กน้อย <span class="sig">— ข้อใดควรกันไว้เป็นการวินิจฉัยอันดับแรก?</span></q>
+          <ul class="opts" id="opts">
+            <li><button class="opt" data-ok="0"><span class="key">A</span> โรคไตวายเรื้อรัง
+              <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></button></li>
+            <li><button class="opt" data-ok="1"><span class="key">B</span> มะเร็งต่อมน้ำเหลือง (lymphoma)
+              <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span></button></li>
+            <li><button class="opt" data-ok="0"><span class="key">C</span> การได้รับวิตามินดีมากเกิน
+              <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></button></li>
+            <li><button class="opt" data-ok="0"><span class="key">D</span> Hyperparathyroidism ปฐมภูมิ
+              <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></button></li>
+          </ul>
+          <div class="explain" id="explain">
+            <div><div class="explain-inner">
+              <span class="verdict" id="verdict"></span>
+              <span id="explain-text"></span>
+              <span class="src">ที่มาและอ้างอิงฉบับเต็มแสดงในแอป</span>
+            </div></div>
+          </div>
+        </article>
+
+        <div class="float-chip fc-badge">
+          <img src="art/badges/streak-7.webp" alt="เหรียญสตรีก 7 วัน">
+          <div><div class="t">สตรีก 7 วัน</div><div class="s">ทำข้อต่อเนื่องทุกวัน</div></div>
+        </div>
+        <div class="float-chip fc-stat">
+          <img src="art/badges/questions-1000.webp" alt="เหรียญ 1,000 ข้อแรก">
+          <div><div class="t">1,000 ข้อแรก</div><div class="s">เก็บเหรียญใหม่ในสัปดาห์นี้</div></div>
+        </div>
+        <img class="mascot-float" src="art/characters/moocha.webp" alt="มาสคอตโคนางพยาบาลของ VetMock ยกมือทักทาย">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ coverage strip ============ -->
+  <section class="coverage" aria-label="กลุ่มวิชาที่ครอบคลุม">
+    <div class="wrap">
+      <div class="cov-row reveal">
+        <a class="cov" href="#"><img src="art/subjects/swine.webp" alt=""><span>สุกร</span></a>
+        <a class="cov" href="#"><img src="art/subjects/ruminant.webp" alt=""><span>โค-กระบือ</span></a>
+        <a class="cov" href="#"><img src="art/subjects/poultry.webp" alt=""><span>สัตว์ปีก</span></a>
+        <a class="cov" href="#"><img src="art/subjects/equine.webp" alt=""><span>ม้า</span></a>
+        <a class="cov" href="#"><img src="art/subjects/aquatic.webp" alt=""><span>สัตว์น้ำ</span></a>
+        <a class="cov" href="#"><img src="art/subjects/milk.webp" alt=""><span>ผลิตภัณฑ์นม</span></a>
+        <a class="cov" href="#"><img src="art/subjects/food-industry.webp" alt=""><span>ความปลอดภัยอาหาร</span></a>
+        <a class="cov" href="#"><img src="art/subjects/epidemiology.webp" alt=""><span>ระบาดวิทยา</span></a>
+        <a class="cov" href="#"><img src="art/subjects/one-health.webp" alt=""><span>One Health</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ bento — ครบทุกอย่างในที่เดียว ============ -->
+  <section id="คลัง">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker" data-n="01">ครบทุกอย่างในที่เดียว</span>
+        <h2>เตรียมสอบไม่ต้องเปิดหลายที่</h2>
+        <p>ข้อสอบ สรุปคลิป โน้ต และสารานุกรม — เชื่อมถึงกันหมด เจอหัวข้อไหนก็ลงลึกได้จากจุดเดียว</p>
+      </div>
+      <div class="bento">
+        <article class="bcard span2 reveal">
+          <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>คลังข้อสอบเก่าทุกรอบ</h3>
+          <p>แยกตามวิชาและหัวข้อตามหลักสูตรจริง รู้ทันทีว่าปีนี้ข้อไหนออกช่วงไหน</p>
+          <div class="mini">
+            <div class="q">ข้อสอบหน้าตาเป็นแบบนี้ — ลองเลือกตอบดู</div>
+            <div class="pill-row">
+              <span class="pill">A. ไตวายเรื้อรัง</span>
+              <span class="pill ok">B. lymphoma ✓</span>
+              <span class="pill no">C. วิตามินดีเกิน ✗</span>
+              <span class="pill">D. hyperparathyroidism</span>
+            </div>
+          </div>
+        </article>
+        <article class="bcard gold reveal" style="--rd:60ms">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg></span>
+          <h3>สรุปคลิปอาจารย์</h3>
+          <p>คลิปเรียนยาว ๆ ย่อเป็นสรุปพร้อมจุดที่น่าออกสอบ อ่านเร็ว เข้าใจเร็ว</p>
+          <div class="num-big">30+<small>วิชาที่มีสรุปคลิป</small></div>
+        </article>
+        <article class="bcard ocean reveal">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>
+          <h3>โน้ตและสไลด์รวม</h3>
+          <p>เอกสารประกอบการเรียนจัดเก็บครบ ค้นตามวิชาได้ทันที</p>
+          <div class="num-big">ครบทุกวิชา<small>ในหลักสูตร</small></div>
+        </article>
+        <article class="bcard ocean reveal" style="--rd:60ms">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span>
+          <h3>VetWiki</h3>
+          <p>สารานุกรมเชิงคลินิกเขียนเพื่อการทบทวน อ่านสั้น เข้าใจง่าย อ้างอิงครบ</p>
+          <div class="num-big">เปิดอ่านฟรี<small>ไม่ต้องสมัคร</small></div>
+        </article>
+          <a href="#lab" class="bcard reveal" style="--rd:120ms">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span>
+            <h3>Imaging Practical</h3>
+            <p>ซ้อมอ่านภาพรังสีจากเคสจริง พร้อมคำอธิบายจุดที่ต้องเห็น</p>
+            <div class="num-big">เคสสอนอ่านภาพ<small>แบบมีครูข้าง ๆ</small></div>
+          </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ modes ============ -->
+  <section id="โหมด">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker" data-n="02">โหมดฝึก</span>
+        <h2>ฝึกได้ตามเวลาที่มี</h2>
+      </div>
+      <div class="modes">
+        <div class="mode reveal">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg></div>
+          <h3>ไล่ข้อเร็ว</h3>
+          <p>เหมาะกับช่วงพักระหว่างเรียน — ข้ามข้อได้ เฉลยทันทีที่เลือก</p>
+          <div class="meta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            โดยเฉลี่ยใช้เวลาวันละ 10 นาที
+          </div>
+        </div>
+        <div class="mode ocean reveal" style="--rd:60ms">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5"/><path d="M9 2h6"/></svg></div>
+          <h3>โหมดสอบ</h3>
+          <p>จับเวลา ไม่เฉลยระหว่างทำ สรุปคะแนนให้ตอนจบเหมือนห้องสอบจริง</p>
+          <div class="meta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            ตั้งจำนวนข้อและเวลาเองได้
+          </div>
+        </div>
+        <div class="mode gold reveal" style="--rd:120ms">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></div>
+          <h3>ทบทวนตามรอบจำ (SM-2)</h3>
+          <p>ข้อที่ทำผิดจะวนกลับมาตามช่วงเวลาที่สมองกำลังจะลืม</p>
+          <div class="meta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            ระบบจัดคิวให้เองทุกเช้า
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ imaging lab station ============ -->
+  <section id="lab">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker" data-n="03">ห้องซ้อมอ่านภาพ</span>
+        <h2>เปิดฟิล์มจริง วงจริง วัดจริง</h2>
+        <p>เดโม่สถานีเดียวจาก Imaging Practical — ใช้เครื่องมือบนฟิล์มแล้วตอบคำถามดู</p>
+      </div>
+      <div class="lab-grid">
+        <div class="lab-film-col reveal">
+          <div class="lab-toprow">
+            <span class="station-badge">สถานีที่ 3 · ภาพทรวงอก</span>
+            <span class="lab-note">demo — จากเคสสอนอ่านภาพ</span>
+            <span class="lab-timer">04:59</span>
+          </div>
+          <div class="film">
+            <div class="film-inner" id="filmInner">
+              <img src="images/thoracic-xray.jpg" alt="ภาพเอกซเรย์ทรวงอกสุนัขฉายด้าน ผู้ป่วย Buster อายุ 8 ปี">
+              <div class="roi" id="roi"><span class="tag">ROI 1: Cardiomegaly</span></div>
+              <div class="vhs" id="vhs"><span class="tag">VHS = 11.4v (Elevated)</span></div>
+            </div>
+            <div class="film-info" aria-hidden="true">
+              <span>PATIENT: BUSTER (CANINE, 8Y MN)</span>
+              <span>VIEW: LATERAL THORAX (DR)</span>
+              <span class="wl">W: 350 L: 40 (CHEST WINDOW)</span>
+            </div>
+            <div class="film-zoom">
+              <button class="zbtn" data-zoom="-0.25" aria-label="ซูมออก">−</button>
+              <span class="zpct" id="zoomPct">100%</span>
+              <button class="zbtn" data-zoom="0.25" aria-label="ซูมเข้า">+</button>
+            </div>
+          </div>
+          <div class="lab-tools">
+            <button class="tool" data-tool="roi" aria-pressed="false">วงจุดที่สนใจ</button>
+            <button class="tool" data-tool="vhs" aria-pressed="false">วัด VHS</button>
+            <button class="tool" data-tool="reset">รีเซ็ต</button>
+          </div>
+        </div>
+
+        <div class="lab-side reveal" style="--rd:80ms">
+          <p class="prompt">ดูภาพทรวงอกฉายด้านของ Buster อายุ 8 ปี — ข้อใดตรงกับความผิดปกติที่พบ?</p>
+          <p class="lab-hint">ลองปุ่ม "วงจุดที่สนใจ" หรือ "วัด VHS" บนฟิล์มก่อนตอบ</p>
+          <ul class="opts" id="labOpts">
+            <li><button class="opt" data-ok="0"><span class="key">A</span> Pleural effusion — ช่องหูดำหายไป
+              <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></button></li>
+            <li><button class="opt" data-ok="1"><span class="key">B</span> Cardiomegaly — หัวใจโต VHS สูง
+              <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span></button></li>
+            <li><button class="opt" data-ok="0"><span class="key">C</span> Diaphragmatic hernia — อวัยวะเลื่อนเข้าช่องอก
+              <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></button></li>
+          </ul>
+          <div class="explain" id="labExplain">
+            <div><div class="explain-inner">
+              <span>VHS วัดได้ 11.4 กระดูกสันหลัง (ปกติ ≤ 10.5v) ร่วมกับ trachea ถูกยกขึ้น — สอดคล้องกับ cardiomegaly ลองกด "วัด VHS" บนฟิล์มดู</span>
+            </div></div>
+          </div>
+          <div class="lab-actions">
+            <span class="lab-verdict" id="labVerdictMark"></span>
+            <button class="btn btn-primary" id="labCheck" disabled>ตรวจคำตอบ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ dark gamification ============ -->
+  <section class="night" id="กิจกรรม">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker" data-n="04">ระบบกิจกรรม</span>
+        <h2>เตรียมตัวทุกวัน แบบมีเกมช่วยลุย</h2>
+        <p>สตรีก เหรียญ และความคืบหน้า — เห็นตัวเองใกล้พร้อมขึ้นทุกวัน</p>
+      </div>
+      <div class="night-grid">
+        <div class="night-card reveal">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>สตรีกการทบทวน</h3>
+          <p class="hint">ทำข้อวันละนิด รอบจำไม่สะดุด</p>
+          <div class="streak-grid" role="img" aria-label="ตารางความต่อเนื่อง 28 วันล่าสุด ทำต่อเนื่อง 24 วัน">
+            <i class="f2"></i><i class="f1"></i><i class="f2"></i><i class="f3"></i><i class="f2"></i><i class="f1"></i><i class="f2"></i>
+            <i class="f3"></i><i class="f2"></i><i class="f3"></i><i class="f3"></i><i class="f2"></i><i class="f3"></i><i class="f1"></i>
+            <i class="f2"></i><i class="f3"></i><i class="f1"></i><i class="f2"></i><i class="f3"></i><i class="f3"></i><i class="f2"></i>
+            <i class="f3"></i><i class="f3"></i><i class="f2"></i><i class="f3"></i><i class="today"></i><i></i><i></i>
+          </div>
+          <div class="streak-legend">
+            <span><b>24</b> วันต่อเนื่อง</span>
+            <span>ยาวที่สุด <b>31</b> วัน</span>
+            <span>เดือนนี้ <b>87%</b></span>
+          </div>
+        </div>
+        <div class="night-card reveal" style="--rd:80ms">
+          <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>เหรียญรวบรวม</h3>
+          <p class="hint">ทำสำเร็จแล้ว 4 / 6 เหรียญ</p>
+          <div class="badge-row">
+            <div class="badge"><img src="art/badges/streak-7.webp" alt=""><div class="n">สตรีก 7 วัน</div><div class="d">ทำข้อต่อเนื่อง</div></div>
+            <div class="badge"><img src="art/badges/streak-30.webp" alt=""><div class="n">สตรีก 30 วัน</div><div class="d">ไม่ขาดเป็นเดือน</div></div>
+            <div class="badge"><img src="art/badges/questions-1000.webp" alt=""><div class="n">1,000 ข้อแรก</div><div class="d">สะสมความเคยชิน</div></div>
+            <div class="badge"><img src="art/badges/night-owl.webp" alt=""><div class="n">นกฮูกตัวจริง</div><div class="d">ทบทวนหลังเที่ยงคืน</div></div>
+            <div class="badge"><img src="art/badges/exam-finished.webp" alt=""><div class="n">ผ่านสนามสอบ</div><div class="d">จบโหมดสอบครบชุด</div></div>
+            <div class="badge locked"><img src="art/badges/perfect.webp" alt=""><div class="n">ทำถูกหมดชุด <span class="lock">· ยังไม่ปลดล็อก</span></div><div class="d">เก็บโบนัสถ้าไม่พลาดสักข้อ</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="night-stats reveal">
+        <div class="nstat"><div class="v">6,731</div><div class="l">ข้อสอบในระบบ</div></div>
+        <div class="nstat"><div class="v">94</div><div class="l">คลังรายวิชา</div></div>
+        <div class="nstat"><div class="v">4</div><div class="l">ประเภทข้อสอบ</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ quotes ============ -->
+  <section>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker" data-n="05">เสียงจากรุ่นพี่</span>
+        <h2>คนใช้จริงพูดถึงอะไร</h2>
+      </div>
+      <div class="quotes">
+        <div class="quote reveal">
+          <p>กลางภาคศัลยะอาศัยคลังข้อนี้แหละ ไล่ข้อเก่าทีละหัวข้อ ไปสอบแล้วเจอแนวเดิมเยอะมาก</p>
+          <div class="who"><span class="av">ม</span><div><div class="nm">มิ้นท์</div><div class="yr">Vet 86 · สายการศัลยกรรม</div></div></div>
+        </div>
+        <div class="quote reveal" style="--rd:60ms">
+          <p>ชอบที่โหมดสอบจับเวลาจริง ๆ นะ ไม่เฉลยระหว่างทำ กะจังหวะได้เหมือนของจริงเลย</p>
+          <div class="who"><span class="av">ป</span><div><div class="nm">เปรม</div><div class="yr">Vet 86 · สายการอายุรกรรม</div></div></div>
+        </div>
+        <div class="quote reveal" style="--rd:120ms">
+          <p>พอเริ่มจะลืม ระบบดันให้กลับมาทบทวนข้อที่เคยผิดพอดี ๆ เหมือนรู้ก้าวเรามาก 555</p>
+          <div class="who"><span class="av">ต</span><div><div class="nm">ต้นกล้า</div><div class="yr">Vet 86 · สายสัตว์ใหญ่</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ subject shelf ============ -->
+  <section>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker" data-n="06">คลังรายวิชา</span>
+        <h2>เรียงตามหลักสูตรจริง ไม่ใช่แค่ชื่อวิชา</h2>
+        <p>แต่ละวิชาแยกหัวข้อตามเนื้อหาที่สอน และแยกช่วงกลางภาค–ปลายภาคให้ชัดเจน</p>
+      </div>
+      <div class="shelf">
+        <a class="subj reveal" href="#"><span class="tag">กลุ่มอายุร</span><h3>อายุรศาสตร์สัตว์เล็ก II</h3><p class="cnt"><b>412</b> ข้อ · 10 หัวข้อ</p></a>
+        <a class="subj reveal" href="#" style="--rd:50ms"><span class="tag">กลุ่มผลิต</span><h3>สุขศาสตร์ฝูงสุกร</h3><p class="cnt"><b>287</b> ข้อ · 8 หัวข้อ</p></a>
+        <a class="subj reveal" href="#" style="--rd:100ms"><span class="tag">กลุ่มภาพวินิจฉัย</span><h3>การถ่ายภาพทางสัตวแพทย์</h3><p class="cnt"><b>168</b> ข้อ · 6 หัวข้อ</p></a>
+        <a class="subj reveal" href="#" style="--rd:150ms"><span class="tag">กลุ่มศัลยกรรม</span><h3>ปฏิบัติศัลยศาสตร์ I</h3><p class="cnt"><b>134</b> ข้อ · 5 หัวข้อ</p></a>
+        <a class="subj reveal" href="#" style="--rd:200ms"><span class="tag">วิชาเลือก</span><h3>สัตวแพทย์ปริทรรศน์</h3><p class="cnt"><b>96</b> ข้อ · 4 หัวข้อ</p></a>
+        <a class="subj reveal" href="#" style="--rd:250ms"><span class="tag">วิชาการชีวิต</span><h3>กฎหมาย จริยธรรม + สวัสดิภาพสัตว์</h3><p class="cnt"><b>73</b> ข้อ · 3 หัวข้อ</p></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ changelog ============ -->
+  <section class="changelog" id="อัปเดต">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker" data-n="07">อัปเดตล่าสุด</span>
+        <h2>แก้จริง อัปเดตบ่อย</h2>
+      </div>
+      <ul class="log-list">
+        <li class="reveal"><span class="log-tag">แก้</span> คำสั่งล้างไม่ตามไป passage ใหม่ — รอยจดเดิมยังอยู่ครบ <span class="when">5.138.9</span></li>
+        <li class="reveal" style="--rd:50ms"><span class="log-tag">แก้</span> เปลี่ยนคลิปแล้วหยุดคำสั่งลบโน้ตที่ค้างอยู่ <span class="when">5.138.8</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ CTA finale ============ -->
+  <section class="cta">
+    <div class="wrap">
+      <div class="trio reveal" aria-hidden="true">
+        <img class="side" src="art/characters/clover.webp" alt="">
+        <img src="art/characters/moocha.webp" alt="">
+        <img class="side" src="art/characters/porky.webp" alt="">
+      </div>
+      <h2 class="reveal">พร้อมเริ่มทบทวนหรือยัง</h2>
+      <p class="reveal" style="--rd:50ms">ไม่ต้องตั้งค่าอะไร เปิดแล้วทำข้อแรกได้เลย</p>
+      <div class="row reveal" style="--rd:100ms">
+        <a class="btn btn-primary btn-lg" href="#">เปิด VetMock</a>
+        <a class="btn btn-ghost btn-lg" href="#คลัง">ดูคลังข้อสอบ</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="wordmark" href="#" style="font-size:1.2rem">Vet<em>Mock</em></a>
+        <p>คลังข้อสอบและเครื่องมือทบทวนสำหรับนักศึกษาสัตวแพทย์ จุฬาลงกรณ์มหาวิทยาลัย</p>
+      </div>
+      <div class="foot-col">
+        <div class="h">เนื้อหา</div>
+        <ul>
+          <li><a href="#คลัง">คลังข้อสอบ</a></li>
+          <li><a href="#">สรุปคลิป</a></li>
+          <li><a href="#">VetWiki</a></li>
+          <li><a href="#">Imaging Practical</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <div class="h">ชุมชน</div>
+        <ul>
+          <li><a href="#">Research</a></li>
+          <li><a href="#">กลุ่มติว</a></li>
+          <li><a href="#">ส่งความคิดเห็น</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <div class="h">เกี่ยวกับ</div>
+        <ul>
+          <li><a href="#">บันทึกเวอร์ชัน</a></li>
+          <li><a href="#">แนวทางการเขียนข้อสอบ</a></li>
+          <li><a href="#">ทีมผู้ทำ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>ทำโดยนักศึกษา เพื่อรุ่นน้องทุกคน</span>
+      <span>อัปเดตล่าสุด 7 ต.ค. 2569 · v5.138.9</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // enable JS-gated reveal styles only when scripting is available
+  document.documentElement.classList.add('js');
+
+  // MCQ feedback — one live question, both outcomes reveal the explanation
+  const opts = Array.from(document.querySelectorAll('#opts .opt'));
+  const explain = document.getElementById('explain');
+  const verdict = document.getElementById('verdict');
+  const explainText = document.getElementById('explain-text');
+  let done = false;
+  opts.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (done) return;
+      done = true;
+      opts.forEach(b => {
+        b.disabled = true;
+        if (b.dataset.ok === '1') b.classList.add('correct');
+      });
+      const right = btn.dataset.ok === '1';
+      if (!right) btn.classList.add('wrong');
+      verdict.textContent = right ? 'ถูกต้อง' : 'ยังไม่ใช่ — คำตอบคือ B';
+      verdict.classList.toggle('no', !right);
+      explainText.textContent = 'Hypercalcemia ร่วมกับ PU/PD ในสุนัขวัยกลางคน ต้องกัน hypercalcemia of malignancy ไว้ก่อนเสมอ โดยเฉพาะ lymphoma — คลำต่อมน้ำเหลืองและส่งตรวจ cytology ก่อนสรุปสาเหตุอื่น';
+      explain.classList.add('open');
+    });
+  });
+
+  // scroll reveal — ≤400ms, transform+opacity only, first-view stagger
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // imaging lab station — tools, zoom, check-answer
+  const filmInner = document.getElementById('filmInner');
+  const roi = document.getElementById('roi');
+  const vhs = document.getElementById('vhs');
+  const zoomPct = document.getElementById('zoomPct');
+  let zoom = 1;
+  const setZoom = z => {
+    zoom = Math.min(3, Math.max(1, Math.round(z * 100) / 100));
+    filmInner.style.transform = `scale(${zoom})`;
+    zoomPct.textContent = `${Math.round(zoom * 100)}%`;
+  };
+  document.querySelectorAll('.zbtn').forEach(b =>
+    b.addEventListener('click', () => setZoom(zoom + parseFloat(b.dataset.zoom))));
+
+  const toolButtons = Array.from(document.querySelectorAll('.tool'));
+  const setTool = name => {
+    roi.classList.toggle('show', name === 'roi');
+    vhs.classList.toggle('show', name === 'vhs');
+    toolButtons.forEach(b => {
+      const on = b.dataset.tool === name && name !== 'reset';
+      b.classList.toggle('active', on);
+      if (b.dataset.tool !== 'reset') b.setAttribute('aria-pressed', String(on));
+    });
+  };
+  toolButtons.forEach(b => b.addEventListener('click', () => setTool(b.dataset.tool === 'reset' ? 'reset' : b.dataset.tool)));
+
+  // lab answer flow — pick (re-pickable) then check, same feedback contract as the hero card
+  const labOpts = Array.from(document.querySelectorAll('#labOpts .opt'));
+  const labCheck = document.getElementById('labCheck');
+  const labExplain = document.getElementById('labExplain');
+  const labVerdictMark = document.getElementById('labVerdictMark');
+  let labPicked = null;
+  labOpts.forEach(btn => btn.addEventListener('click', () => {
+    labOpts.forEach(b => b.classList.remove('picked'));
+    btn.classList.add('picked');
+    labPicked = btn;
+    labCheck.disabled = false;
+  }));
+  labCheck.addEventListener('click', () => {
+    if (!labPicked) return;
+    labOpts.forEach(b => { b.disabled = true; b.classList.remove('picked'); if (b.dataset.ok === '1') b.classList.add('correct'); });
+    const right = labPicked.dataset.ok === '1';
+    if (!right) labPicked.classList.add('wrong');
+    labVerdictMark.textContent = right ? '✓ ถูกต้อง' : '✗ ยังไม่ใช่ — คำตอบคือ B';
+    labVerdictMark.classList.add(right ? 'ok' : 'no');
+    labExplain.classList.add('open');
+    labCheck.disabled = true;
+    setTool('roi');
+  });
+</script>
+</body>
+</html>
