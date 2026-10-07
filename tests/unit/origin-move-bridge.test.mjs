@@ -177,11 +177,11 @@ test('changed data is POSTed as a form, never put in a URL, and leaves the app u
   assert.deepEqual(env.replaced, [], 'no navigation carries data');
   assert.equal(env.submitted.method, 'POST');
   assert.equal(env.submitted.action, `${NEW}/api/move-in`);
-  assert.deepEqual(Object.keys(env.submitted.fields).sort(), ['enc', 'h', 'p', 'to']);
+  assert.deepEqual(Object.keys(env.submitted.fields).sort(), ['enc', 'h', 'p']);
   assert.equal(env.submitted.fields.enc, 'gz64');
   assert.match(env.submitted.fields.p, /^[A-Za-z0-9_-]+$/);
   assert.match(env.submitted.fields.h, /^[0-9a-f]{16}$/);
-  assert.equal(env.submitted.fields.to, HERE);
+  assert.equal(sessionStorage.getItem('vmx-move-to'), HERE, 'where the learner was stays in this tab');
   const payload = payloadOf(env.submitted);
   assert.equal(payload.v, 1);
   assert.equal(payload.from, OLD);
@@ -284,7 +284,7 @@ test('coming straight back from vetmock.com means it still redirects here: hold,
 test('retry forgets the last ACK and the hold, then moves', async () => {
   const first = run({ local: STUDY });
   await settle(first.env);
-  const { env, localStorage } = run({
+  const { env, localStorage, sessionStorage } = run({
     url: `${OLD}/?vmx-move=retry`,
     local: { ...STUDY, 'vmx-move-sent': first.env.submitted.fields.h },
     session: { 'vmx-move-hold': '1', 'vmx-move-out': String(Date.now()) },
@@ -292,7 +292,7 @@ test('retry forgets the last ACK and the hold, then moves', async () => {
   await settle(env);
   assert.equal(localStorage.getItem('vmx-move-sent'), null);
   assert.ok(env.submitted);
-  assert.equal(env.submitted.fields.to, '/', 'our own parameters are not carried');
+  assert.equal(sessionStorage.getItem('vmx-move-to'), '/', 'our own parameters are not carried');
 });
 
 test('other hosts behave exactly as before: previews, vetmock.com, localhost, no meta', async () => {
@@ -336,8 +336,8 @@ test('localStorage too large on its own holds as well, PDF ink and events or not
   await settle(tooBig.env);
   assert.equal(tooBig.env.submitted, null, 'never lose data to a size limit');
   assert.equal(tooBig.env.replaced.length, 1);
-  assert.match(tooBig.env.replaced[0], /^https:\/\/vetmock\.vercel\.app\/\?vmx-move=hold&to=/);
-  assert.equal(new URL(tooBig.env.replaced[0]).searchParams.get('to'), HERE, 'the reload keeps the learner where they were');
+  assert.deepEqual(tooBig.env.replaced, ['https://vetmock.vercel.app/?vmx-move=hold']);
+  assert.equal(tooBig.sessionStorage.getItem('vmx-move-to'), HERE, 'the reload keeps the learner where they were');
   assert.ok(holdStarted(tooBig.sessionStorage));
 });
 
@@ -493,7 +493,7 @@ test('a shared quiz link of 200 questions keeps its path through every hop', asy
   assert.deepEqual(run({ url: `${OLD}/?vmx-moved=abc&to=${encodeURIComponent(long)}` }).env.replaced, [`${NEW}${long}`], 'the ACK hop');
   const moving = run({ url: `${OLD}${long}`, local: STUDY });
   await settle(moving.env);
-  assert.equal(moving.env.submitted.fields.to, long, 'the form carries it whole');
+  assert.equal(moving.sessionStorage.getItem('vmx-move-to'), long, 'the tab keeps it whole');
   const tooLong = `/${'a'.repeat(16384)}`;
   assert.deepEqual(run({ url: `${OLD}/?vmx-moved=abc&to=${encodeURIComponent(tooLong)}` }).env.replaced, [`${NEW}/`], 'past 16 KB it is not a path this app makes');
 });
@@ -509,7 +509,8 @@ test('too much for one POST: nothing is sent, the tab holds and says why, and th
   const back = new URL(first.env.replaced[0]);
   assert.equal(back.origin, OLD);
   assert.equal(back.searchParams.get('vmx-move'), 'hold');
-  assert.equal(back.searchParams.get('to'), HERE, 'the reload keeps the learner where they were');
+  assert.equal(back.searchParams.get('to'), null, 'not in the URL');
+  assert.equal(first.sessionStorage.getItem('vmx-move-to'), HERE, 'the reload keeps the learner where they were');
   assert.match(first.localStorage.getItem('vmx-move-big') || '', /^[0-9a-f]{16}$/, 'remembered for this data');
 
   // The reload into the old app says why it is still here.
@@ -567,27 +568,51 @@ test('a move vetmock.com could not finish comes back with its hash: that data is
   assert.equal(junk.localStorage.getItem('vmx-move-failed'), null, 'only a hash is stored');
 });
 
-test('an installed app never moves: it holds, boots, and says where VetMock lives now', async () => {
-  for (const installed of [{ standalone: true }, { display: 'standalone' }, { display: 'fullscreen' }, { display: 'minimal-ui' }]) {
-    const label = JSON.stringify(installed);
-    const { env, sandbox, localStorage } = run({ local: STUDY, installed });
-    await new Promise((r) => setTimeout(r, 10));
-    assert.deepEqual(env.replaced, [], label);
-    assert.equal(env.submitted, null, label);
-    assert.equal(env.stopped, 0, label);
-    assert.notEqual(sandbox.__vmxMoving, true, label);
-    assert.match(sandbox.__vmxMoveNote || '', /vetmock\.com/, label);
-    assert.match(sandbox.__vmxMoveNote, /ติดตั้ง/, label);
-    assert.doesNotMatch(sandbox.__vmxMoveNote, /·/, label);
-    assert.deepEqual(Object.fromEntries(localStorage.values), STUDY, label);
-  }
+// iOS keeps a home-screen app's storage apart from Safari's, and leaving its
+// scope opens a browser sheet. Android and desktop installed apps share the
+// browser's storage, and one that held would stay a second writer forever.
+test('only an iOS home-screen app stays: it boots, and says once per device that VetMock is moving', async () => {
+  const NOTE = 'VetMock กำลังย้ายไปที่ vetmock.com แอปที่ติดตั้งไว้บนหน้าจอใช้ต่อได้ตามปกติ ข้อมูลยังอยู่ครบ';
+  const ios = run({ local: STUDY, installed: { standalone: true } });
+  await new Promise((r) => setTimeout(r, 10));
+  assert.deepEqual(ios.env.replaced, []);
+  assert.equal(ios.env.submitted, null);
+  assert.equal(ios.env.stopped, 0);
+  assert.notEqual(ios.sandbox.__vmxMoving, true);
+  assert.equal(ios.sandbox.__vmxMoveNote, NOTE);
+  const shown = Object.fromEntries(ios.localStorage.values);
+  const again = run({ local: shown, installed: { standalone: true } });
+  assert.deepEqual(again.env.replaced, []);
+  assert.equal(again.sandbox.__vmxMoveNote, undefined, 'once per device, not once per launch');
   assert.deepEqual(run({ installed: { standalone: true } }).env.replaced, [], 'nothing stored: still stays');
-  const ack = run({ url: `${OLD}/?vmx-moved=0123456789abcdef&to=%2Fapp`, installed: { display: 'standalone' } });
+  const ack = run({ url: `${OLD}/?vmx-moved=0123456789abcdef&to=%2Fapp`, installed: { standalone: true } });
   assert.deepEqual(ack.env.replaced, [], 'not even the ACK leaves the app');
   assert.equal(ack.env.stayedAt, '/app');
-  const tab = run({ local: STUDY, installed: { display: 'browser' } });
-  await settle(tab.env);
-  assert.ok(tab.env.submitted, 'a browser tab moves as before');
+  for (const display of ['standalone', 'fullscreen', 'minimal-ui', 'browser']) {
+    const other = run({ local: STUDY, installed: { display } });
+    await settle(other.env);
+    assert.ok(other.env.submitted, `display-mode ${display}: shares the browser's storage, so it moves`);
+  }
+});
+
+test('where the learner was stays in this tab, never in a URL: the form does not carry it and each hop back finds it', async () => {
+  const long = quizPath(200);
+  const moving = run({ url: `${OLD}${long}`, local: STUDY });
+  await settle(moving.env);
+  assert.deepEqual(Object.keys(moving.env.submitted.fields).sort(), ['enc', 'h', 'p']);
+  assert.equal(moving.sessionStorage.getItem('vmx-move-to'), long);
+  const tab = () => Object.fromEntries(moving.sessionStorage.values);
+  const ack = run({ url: `${OLD}/?vmx-moved=0123456789abcdef`, session: tab() });
+  assert.deepEqual(ack.env.replaced, [`${NEW}${long}`]);
+  assert.equal(ack.sessionStorage.getItem('vmx-move-to'), null, 'used once');
+  const failed = run({ url: `${OLD}/?vmx-move=hold&failed=0123456789abcdef`, local: STUDY, session: tab() });
+  assert.equal(failed.env.stayedAt, long, 'back from a failed move, the old app opens there');
+  // A reload into the old app does not carry it in the URL either.
+  const big = 'x'.repeat(3_400_000);
+  const tooBig = run({ url: `${OLD}${long}`, local: { ...STUDY, 'vmx-notes': JSON.stringify({ q1: big }) }, compression: false });
+  await settle(tooBig.env);
+  assert.deepEqual(tooBig.env.replaced, [`${OLD}/?vmx-move=hold`]);
+  assert.equal(tooBig.sessionStorage.getItem('vmx-move-to'), long);
 });
 
 test('a hold lasts half an hour, not the whole life of the tab', async () => {

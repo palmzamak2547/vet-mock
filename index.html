@@ -31,8 +31,8 @@
          stores to vetmock.com/api/move-in in one POST (nothing in a URL, the
          Supabase session never), or goes straight on when there is nothing new
          to carry. Every failure keeps the old app, data untouched, and an
-         installed app never moves. It must run before the app module; the
-         hosts live only in this meta tag. -->
+         iOS home-screen app never moves. It must run before the app module;
+         the hosts live only in this meta tag. -->
     <meta name="vmx-origin-move" content="vetmock.vercel.app https://vetmock.com" />
     <style>
       .vmx-move{position:fixed;top:0;right:0;bottom:0;left:0;z-index:2147483647;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;background:#f6efe4;color:#2b2419;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;text-align:center}
@@ -55,12 +55,14 @@
         var HOLD = 'vmx-move-hold', OUT = 'vmx-move-out', SENT = 'vmx-move-sent';
         // Data that could not move (too large for one POST, or refused) is not sent again until it changes.
         var FAILED = 'vmx-move-failed', BIG = 'vmx-move-big';
-        var NOTE = 'vmx-move-note', NOTED = 'vmx-move-noted', BACK = 'vmx-move-back';
+        var NOTE = 'vmx-move-note', NOTED = 'vmx-move-noted', BACK = 'vmx-move-back', APP_NOTED = 'vmx-move-app-noted';
+        // Where the learner was, kept in this tab while a move is under way: never in a URL.
+        var TO = 'vmx-move-to';
         var LIMIT = 4.2 * 1024 * 1024, MAX_TO = 16384, HOLD_MS = 30 * 60 * 1000, LOOP_MS = 30000;
         var TOKEN = /^[0-9a-z]{1,32}$/;
         // One calm line in the old app's own notice card (src/lib/origin-move.js).
         var NOTES = {
-          installed: 'ตอนนี้ VetMock อยู่ที่ ' + HOST + ' แล้ว ส่วนแอปที่ติดตั้งไว้จะย้ายตามไปภายหลัง ใช้ต่อได้ตามปกติ',
+          installed: 'VetMock กำลังย้ายไปที่ ' + HOST + ' แอปที่ติดตั้งไว้บนหน้าจอใช้ต่อได้ตามปกติ ข้อมูลยังอยู่ครบ',
           big: 'ข้อมูลในเครื่องนี้มากเกินกว่าจะย้ายไป ' + HOST + ' ได้ในตอนนี้ ใช้ที่นี่ต่อได้ตามปกติ ข้อมูลยังอยู่ครบ',
           failed: 'ยังย้ายข้อมูลไป ' + HOST + ' ไม่สำเร็จ ใช้ที่นี่ต่อได้ตามปกติ ข้อมูลยังอยู่ครบ'
         };
@@ -73,10 +75,14 @@
           return typeof to === 'string' && to.length <= MAX_TO && to.charAt(0) === '/' && to.charAt(1) !== '/'
             && !/[\u0000-\u001f\u007f\\]/.test(to) ? to : '/';
         }
-        // Where the learner is, without this script's own parameters.
+        function kept() { try { return w.sessionStorage.getItem(TO); } catch (e) { return null; } }
+        function forget() { try { w.sessionStorage.removeItem(TO); } catch (e) {} }
+        // Where the learner is, without this script's own parameters. On this
+        // script's own hops it comes from this tab's sessionStorage.
         function here() {
           if (!ours) return loc.pathname + loc.search + loc.hash;
           if (params.get('to') !== null) return safe(params.get('to'));
+          if (kept() !== null) return safe(kept());
           var rest = new URLSearchParams(loc.search);
           rest['delete']('vmx-move'); rest['delete']('vmx-moved');
           rest = String(rest);
@@ -91,13 +97,14 @@
         function stay() {
           if (!ours) return;
           try { w.history.replaceState(w.history.state, '', here()); } catch (e) {}
+          forget();
         }
         // Hold for this tab and reload into the old app where the learner was.
         // `why` (big, failed) marks this data so later sessions do not pack it again, and says so.
         function fallback(why) {
           try { if (why) { w.localStorage.setItem(why === 'big' ? BIG : FAILED, hash); w.sessionStorage.setItem(NOTE, why); } } catch (e) {}
-          try { w.sessionStorage.setItem(HOLD, String(Date.now())); } catch (e) {}
-          loc.replace(OLD + '/?vmx-move=hold&to=' + encodeURIComponent(here()));
+          try { w.sessionStorage.setItem(TO, here()); w.sessionStorage.setItem(HOLD, String(Date.now())); } catch (e) {}
+          loc.replace(OLD + '/?vmx-move=hold');
         }
         function authCallback() {
           var s = loc.search + loc.hash;
@@ -111,19 +118,25 @@
           }
           return false;
         }
-        // At most one line per tab, shown by the old app once it boots.
+        // At most one line per tab (the installed app's: one per device), shown by the old app once it boots.
         function note(kind) {
           if (!Object.prototype.hasOwnProperty.call(NOTES, kind)) return;
-          try { if (w.sessionStorage.getItem(NOTED) === kind) return; w.sessionStorage.setItem(NOTED, kind); } catch (e) {}
+          try {
+            if (kind === 'installed') {
+              if (w.localStorage.getItem(APP_NOTED) === '1') return;
+              w.localStorage.setItem(APP_NOTED, '1');
+            } else {
+              if (w.sessionStorage.getItem(NOTED) === kind) return;
+              w.sessionStorage.setItem(NOTED, kind);
+            }
+          } catch (e) {}
           w.__vmxMoveNote = NOTES[kind];
         }
+        // An iOS home-screen app only. Android and desktop installed apps share
+        // the browser's storage and move like a tab; one that stayed would be
+        // a second writer on the old address for good.
         function installed() {
-          try {
-            if (w.navigator.standalone === true) return true;
-            var modes = ['standalone', 'fullscreen', 'minimal-ui'];
-            for (var i = 0; i < modes.length; i++) if (w.matchMedia && w.matchMedia('(display-mode: ' + modes[i] + ')').matches) return true;
-          } catch (e) {}
-          return false;
+          try { return w.navigator.standalone === true; } catch (e) { return false; }
         }
         function backForward() {
           try {
@@ -153,17 +166,18 @@
           return body;
         }
 
-        // An installed app never moves. iOS keeps a home-screen app's storage
-        // apart from Safari's, and leaving the app's scope opens a browser
-        // sheet, so nobody can say where the data would land. It boots here
-        // and says where VetMock lives now; its own move comes later.
+        // An iOS home-screen app never moves. iOS keeps its storage apart from
+        // Safari's, and leaving the app's scope opens a browser sheet, so
+        // nobody can say where the data would land. It boots here as always.
         var app = installed();
         if (app) note('installed');
 
         // The ACK from vetmock.com: remember what arrived and go there. Never move from this hop.
         if (params.has('vmx-moved') && !app) {
           try { if (TOKEN.test(params.get('vmx-moved'))) w.localStorage.setItem(SENT, params.get('vmx-moved')); } catch (e) {}
-          leave(params.get('to'));
+          var back = here();
+          forget();
+          leave(back);
           return;
         }
 
@@ -292,7 +306,9 @@
           form.method = 'POST';
           form.action = NEW + '/api/move-in';
           form.setAttribute('hidden', '');
-          var fields = { p: out.p, enc: out.enc, h: hash, to: here() };
+          // Where the learner was stays in this tab for the hop back; a URL that long could be refused on the way.
+          try { w.sessionStorage.setItem(TO, here()); } catch (e) {}
+          var fields = { p: out.p, enc: out.enc, h: hash };
           for (var name in fields) {
             var input = d.createElement('input');
             input.type = 'hidden'; input.name = name; input.value = fields[name];

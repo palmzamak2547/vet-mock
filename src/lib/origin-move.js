@@ -124,7 +124,10 @@ function memoryStorage(values) {
 
 // What the old origin's own store showed its guest, read by that store's code
 // over a copy of the keys the old origin sent, so no rule is restated here.
-// Used only when the old address had no guest snapshot of its own.
+// Used only when the old address had no guest snapshot of its own. `known`
+// is the fields whose value travelled in that copy, read as that store reads
+// them (its v1 snapshot first, else the field keys); any other field reads
+// as empty there without having been emptied.
 function oldGuestData(storage, inbox) {
   const values = new Map();
   for (const key of Array.isArray(inbox.copied) ? inbox.copied : []) {
@@ -133,9 +136,16 @@ function oldGuestData(storage, inbox) {
   }
   for (const [key, value] of Object.entries(inbox.fields)) if (typeof value === 'string') values.set(key, value);
   if (typeof inbox.owner === 'string') values.set(OWNER_KEY, inbox.owner); else values.delete(OWNER_KEY);
+  const known = new Set();
+  if (principal(inbox.owner) === 'anonymous') {
+    const v1 = parse(values.get(`${V1_DATA}anonymous`));
+    for (const [field, d] of Object.entries(USER_DATA_FIELDS)) {
+      if (plain(v1) ? validFor(field, v1[field]) : values.has(d.localKey)) known.add(field);
+    }
+  }
   const refuse = async () => { throw new Error('not connected'); };
   const store = createUserDataSync({ storage: memoryStorage(values), remote: { pull: refuse, apply: refuse } });
-  try { return store.getSnapshot().data; } finally { store.close(); }
+  try { return { data: store.getSnapshot().data, known }; } finally { store.close(); }
 }
 
 function readBase(storage) {
@@ -145,7 +155,16 @@ function readBase(storage) {
     keys: plain(b?.keys) ? b.keys : {},
     slots: plain(b?.slots) ? b.slots : {},
     extras: plain(b?.extras) ? b.extras : {},
+    owner: typeof b?.owner === 'string' ? b.owner : null,
   };
+}
+
+// The plain field keys' fingerprints describe one principal's data; another
+// principal's replace them all (the page /api/move-in serves does the same).
+function claimFieldPrints(base, owner) {
+  if (base.owner === owner) return;
+  for (const { localKey } of Object.values(USER_DATA_FIELDS)) delete base.slots[localKey];
+  base.owner = owner;
 }
 
 /** Merge the staged inbox into this origin's storage. Never throws. Each
@@ -186,8 +205,13 @@ export function applyMoveInbox(storage) {
         steps.push({ key: GUEST_V2, value: staged, done: [GUEST_V2], settled: true });
       } else drop(GUEST_V2); // an unreadable side is left exactly as it is
     } else if (mine && inbox.oldGuest !== true) {
+      // Three ways against what that guest showed at the last move, for the
+      // fields that travelled; any other keeps this side's, as before.
+      const old = oldGuestData(storage, inbox);
+      const prints = plain(inbox.guestBase)
+        ? Object.fromEntries(Object.entries(inbox.guestBase).filter(([field]) => old.known.has(field))) : null;
       steps.push({ key: GUEST_V2, done: [], settled: false,
-        value: JSON.stringify(mergeSnapshots(mine, null, mergeData(mine.base, oldGuestData(storage, inbox)))) });
+        value: JSON.stringify(mergeSnapshots(mine, null, mergeData(mine.base, old.data, prints))) });
     }
 
     // Field keys mirror whoever was signed in. Another account's copy never
@@ -232,6 +256,7 @@ export function applyMoveInbox(storage) {
         // The old address's value at that move is now the one the next move compares against.
         if (step.settled && has(pending.keys, key)) {
           base.keys[key] = pending.keys[key];
+          if (FIELD_BY_KEY.has(key) && has(pending.slots, key)) claimFieldPrints(base, principal(inbox.owner));
           if (has(pending.slots, key)) base.slots[key] = pending.slots[key]; else delete base.slots[key];
         }
         delete pending.keys[key];

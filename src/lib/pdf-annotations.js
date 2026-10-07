@@ -56,6 +56,8 @@
 // build must still find their work there.
 // ============================================================
 
+import { touchStudyStores } from './idb-touch.js';
+
 const DB_NAME = 'vmx-pdf-annotations';
 const DB_VERSION = 1;
 const STORE = 'docs';
@@ -373,6 +375,7 @@ export async function claimLegacyAnnotations(fileHash, ownerId = null) {
     });
     if (!recovered) return { ok: false };
     mirror.set(key, recovered);
+    touchStudyStores();
     return { ok: true, record: recovered };
   } catch { return { ok: false }; }
 }
@@ -428,6 +431,7 @@ async function writeMergedRecord(rec, ownerId) {
     });
     mirror.set(key, mergeRecords(mirror.get(key), committed));
     idbUsable = true;
+    touchStudyStores();
     return { ok: true, record: committed };
   } catch {
     idbUsable = false;
@@ -509,6 +513,7 @@ export async function deleteAnnotations(fileHash, ownerId = null) {
   try {
     await tx('readwrite', (s) => s.delete(key));
     mirror.delete(key);
+    touchStudyStores();
     return { ok: true };
   } catch { idbUsable = false; return { ok: false }; }
 }

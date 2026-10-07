@@ -14,7 +14,7 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 
 import handler, {
-  createMoveInHandler, safeTo, FIELD_KEYS, OLD_ORIGIN, NEW_HOST, MAX_PAYLOAD,
+  createMoveInHandler, FIELD_KEYS, OLD_ORIGIN, NEW_HOST, MAX_PAYLOAD,
 } from '../../api/move-in.js';
 import { USER_DATA_FIELDS } from '../../src/lib/user-data-sync.js';
 import { MemoryStorage, inboxIndexedDb, encodePayload, pageParts, runMovePage } from '../helpers/move-in-page.mjs';
@@ -71,12 +71,12 @@ test('a POST that reached the old host (vetmock.com still redirects) goes back t
   for (const origin of [OLD, 'null', undefined]) {
     const res = await call(request({ host: 'vetmock.vercel.app', origin, body: goodBody() }));
     assert.equal(res.statusCode, 303, String(origin));
-    assert.equal(res.headers.location, `${OLD}/?vmx-move=hold&to=${encodeURIComponent('/app/notes?x=1#n')}`);
+    assert.equal(res.headers.location, `${OLD}/?vmx-move=hold`, 'where the learner was stays in the old tab');
     assert.equal(res.headers['cache-control'], 'no-store');
   }
   const preview = await call(request({ host: 'vetmock-git-x.vercel.app', body: goodBody({ to: '//evil.example' }) }));
   assert.equal(preview.statusCode, 303);
-  assert.equal(preview.headers.location, `${OLD}/?vmx-move=hold&to=%2F`);
+  assert.equal(preview.headers.location, `${OLD}/?vmx-move=hold`, 'a `to` in the body is never echoed');
   const forwarded = await call(request({ host: 'internal', forwarded: 'vetmock.com', body: goodBody() }));
   assert.equal(forwarded.statusCode, 200, 'x-forwarded-host names the public host');
 });
@@ -104,14 +104,6 @@ test('an oversized payload is 413, a malformed one 400', async () => {
   }
 });
 
-test('`to` is a path on this site or it is /', () => {
-  for (const ok of ['/', '/app/notes?x=1#n', '/wiki/com5/heart', '/app/x?q=a%20b']) assert.equal(safeTo(ok), ok);
-  for (const bad of ['', 'app', '//evil.example', '/\\evil.example', 'https://evil.example', 'javascript:alert(1)',
-    '/a\nb', '/a\u0000', '/a\u007f', `/${'a'.repeat(16384)}`, null, undefined, 42, ['/x']]) {
-    assert.equal(safeTo(bad), '/', JSON.stringify(bad));
-  }
-});
-
 test('the page is private, unindexed, referrer-free, and runs one nonce-bound script', async () => {
   const a = await call(request({ body: goodBody() }));
   const b = await call(request({ body: goodBody() }));
@@ -131,13 +123,14 @@ test('the page is private, unindexed, referrer-free, and runs one nonce-bound sc
   assert.match(a.body, /<html lang="th">/);
 });
 
-test('`to` is sanitised and `<` cannot close the data block', async () => {
-  const res = await call(request({ body: goodBody({ to: '/app/x?q=</script><script>alert(1)</script>' }) }));
+test('`<` cannot close the data block, and a `to` sent anyway is not used', async () => {
+  const odd = createMoveInHandler({ oldOrigin: 'https://old.example/</script><script>alert(1)</script>', limit: async () => ({ ok: true }) });
+  const res = await call(request({ origin: 'https://old.example/</script><script>alert(1)</script>', body: goodBody() }), odd);
   const { json } = pageParts(res.body);
   assert.ok(!json.includes('<'), 'every < in the embedded JSON is escaped');
-  assert.equal(JSON.parse(json).to, '/app/x?q=</script><script>alert(1)</script>');
+  assert.equal(JSON.parse(json).old, 'https://old.example/</script><script>alert(1)</script>');
   const evil = await call(request({ body: goodBody({ to: '//evil.example/x' }) }));
-  assert.equal(JSON.parse(pageParts(evil.body).json).to, '/');
+  assert.equal(JSON.parse(pageParts(evil.body).json).to, undefined);
 });
 
 test('the body is never logged, on any path', async (t) => {
@@ -158,7 +151,7 @@ test('the body is never logged, on any path', async (t) => {
 test('a urlencoded string body is read the same way', async () => {
   const res = await call(request({ body: new URLSearchParams(goodBody()).toString() }));
   assert.equal(res.statusCode, 200);
-  assert.equal(JSON.parse(pageParts(res.body).json).to, '/app/notes?x=1#n');
+  assert.equal(JSON.parse(pageParts(res.body).json).h, '0123456789abcdef');
 });
 
 // ── the page itself ─────────────────────────────────────────────
@@ -187,7 +180,7 @@ test('on a fresh vetmock.com every key is copied as it was, then the ACK goes ba
   assert.equal(received.events, 1);
   assert.equal(received.signedIn, true);
   assert.ok(Number.isFinite(received.at));
-  assert.deepEqual(run.replaced, [`${OLD}/?vmx-moved=0123456789abcdef&to=${encodeURIComponent('/app/notes?x=1#n')}`]);
+  assert.deepEqual(run.replaced, [`${OLD}/?vmx-moved=0123456789abcdef`]);
 });
 
 test('js64 payloads decode too', async () => {
@@ -246,7 +239,7 @@ test('a payload that is not this app\'s data writes nothing', async () => {
     const storage = new MemoryStorage();
     const run = await runMovePage(await served(bad), { storage });
     assert.equal(run.failed, true, JSON.stringify(bad).slice(0, 80));
-    assert.deepEqual(run.replaced, [`${OLD}/?vmx-move=hold&failed=0123456789abcdef&to=${encodeURIComponent('/app/notes?x=1#n')}`], 'back, never an ACK');
+    assert.deepEqual(run.replaced, [`${OLD}/?vmx-move=hold&failed=0123456789abcdef`], 'back, never an ACK');
     assert.deepEqual(storage.snapshot(), {});
   }
 });
@@ -264,7 +257,7 @@ test('storage that refuses a write shows the way back instead of an ACK', async 
 
 const H = '0123456789abcdef';
 const TO = '/app/notes?x=1#n';
-const holdUrl = (failed, to = TO) => `${OLD}/?vmx-move=hold${failed ? `&failed=${failed}` : ''}&to=${encodeURIComponent(to)}`;
+const holdUrl = (failed) => `${OLD}/?vmx-move=hold${failed ? `&failed=${failed}` : ''}`;
 function quizPath(n) {
   const rows = Array.from({ length: n }, (_, i) => ({ s: 'com5', i: 1000 + i }));
   return `/?qset=${Buffer.from(JSON.stringify(rows)).toString('base64url')}`;
@@ -285,18 +278,6 @@ async function moveOnce(storage, local) {
   assert.equal(run.failed, false);
   return run;
 }
-
-test('`to` keeps a shared quiz link of 200 questions, up to 16 KB', async () => {
-  const long = quizPath(200);
-  assert.equal(safeTo(long), long);
-  assert.equal(safeTo(`/${'a'.repeat(16383)}`).length, 16384);
-  assert.equal(safeTo(`/${'a'.repeat(16384)}`), '/');
-  const res = await call(request({ body: goodBody({ to: long }) }));
-  const run = await runMovePage(res.body, { storage: new MemoryStorage() });
-  assert.equal(new URL(run.replaced[0]).searchParams.get('to'), long, 'the ACK carries it back');
-  const wrongHost = await call(request({ host: 'vetmock.vercel.app', body: goodBody({ to: long }) }));
-  assert.equal(new URL(wrongHost.headers.location).searchParams.get('to'), long);
-});
 
 test('one large value, a photo deck say, moves: only the payload limit bounds the size', async () => {
   const deck = JSON.stringify([{ id: 80001, name: 'x', imageDataUrl: `data:image/jpeg;base64,${'A'.repeat(3 * 1024 * 1024)}`, masks: [] }]);
@@ -337,7 +318,7 @@ test('the old host answers any method with the way back, before anything else', 
   for (const method of ['GET', 'HEAD', 'PUT']) {
     const res = await call(request({ method, host: 'vetmock.vercel.app' }));
     assert.equal(res.statusCode, 303, method);
-    assert.equal(res.headers.location, `${OLD}/?vmx-move=hold&to=%2F`);
+    assert.equal(res.headers.location, `${OLD}/?vmx-move=hold`);
   }
 });
 
@@ -427,4 +408,31 @@ test('a tools bundle on either side never hides the other side\'s tools: their l
   await moveOnce(two, { 'vmx-user-flashcards': JSON.stringify([card(9100001)]) });
   assert.deepEqual(JSON.parse(two.getItem('vmx-local-extras-v1'))['vmx-user-flashcards'].map((c) => c.id), [9100002, 9100001]);
   assert.equal(two.getItem('vmx-user-flashcards'), null, 'written where vetmock.com reads it');
+});
+
+// ── second review round (2026-10-08) ────────────────────────────────────────
+
+test('a field cleared on vetmock.com stays cleared when the old address did not change it', async () => {
+  const storage = new MemoryStorage();
+  const local = { 'vmx-user-sync-owner-v1': '"anonymous"', 'vmx-bookmarks': '[1,2]' }; // field keys only
+  await moveOnce(storage, local);
+  storage.setItem('vmx-bookmarks', '[]');
+  await moveOnce(storage, local);
+  assert.equal(storage.getItem('vmx-bookmarks'), '[]');
+  await moveOnce(storage, { ...local, 'vmx-bookmarks': '[1,2,3]' });
+  assert.equal(storage.getItem('vmx-bookmarks'), '[1,2,3]', 'changed there since: nothing here to keep, the old value comes');
+});
+
+test('the server never sends `to` back: where the learner was stays in the old tab', async () => {
+  const res = await call(request({ body: goodBody({ to: quizPath(200) }) }));
+  assert.ok(!res.body.includes('qset'), 'not even in the page');
+  const run = await runMovePage(res.body, { storage: new MemoryStorage() });
+  assert.deepEqual(run.replaced, [`${OLD}/?vmx-moved=${H}`]);
+  const wrongHost = await call(request({ host: 'vetmock.vercel.app', body: goodBody() }));
+  assert.equal(wrongHost.headers.location, `${OLD}/?vmx-move=hold`);
+  const refusedRes = await call(request({ origin: 'https://evil.example', body: goodBody() }));
+  assert.deepEqual(followRefusal(refusedRes.body), [`${OLD}/?vmx-move=hold&failed=${H}`]);
+  const storage = new MemoryStorage();
+  storage.refuse = (k) => k === 'vmx-selected-year';
+  assert.deepEqual((await runMovePage(await served(PAYLOAD), { storage })).replaced, [`${OLD}/?vmx-move=hold&failed=${H}`]);
 });

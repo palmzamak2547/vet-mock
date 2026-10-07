@@ -506,3 +506,206 @@ test('a note the old address leaves for its own app shows once in the app\'s not
   assert.equal(mod.showOldAddressNote(win, doc, () => {}), false, 'once');
   assert.equal(mod.showOldAddressNote({}, doc, () => {}), false, 'nothing to say');
 });
+
+// ── second review round (2026-10-08) ────────────────────────────────────────
+
+// Through the real page, without the asserts of move(): it may fail on purpose.
+async function moveWith(oldStorage, newStorage, { idb, pdf = [], h = 'abcdef0123456789' } = {}) {
+  const local = Object.fromEntries([...oldStorage.values].filter(([k]) => k.startsWith('vmx-') && !k.startsWith('vmx-move-')));
+  const handler = createMoveInHandler({ oldOrigin: OLD, newHost: 'vetmock.com' });
+  const res = { statusCode: 0, headers: {}, body: '', setHeader(k, v) { this.headers[k] = v; }, end(b) { this.body = String(b); } };
+  await handler({ method: 'POST', headers: { host: 'vetmock.com', origin: OLD }, body: {
+    p: encodePayload({ v: 1, from: OLD, at: 1, signedIn: false, local, idb: { pdf, events: [] } }), enc: 'gz64', h,
+  } }, res);
+  const page = await runMovePage(res.body, idb ? { storage: newStorage, idb } : { storage: newStorage });
+  return { page, inbox: applyMoveInbox(newStorage) };
+}
+// Last active before 5.134: field keys only, so no study snapshot travels at the first move.
+const fieldKeysOnlyGuest = () => new MemoryStorage({
+  'vmx-user-sync-owner-v1': '"anonymous"',
+  [key('srCards')]: JSON.stringify({ 101: { interval: 1 }, 102: { interval: 2 } }),
+  [key('notes')]: JSON.stringify({ q101: 'first draft' }),
+});
+
+test('a guest with field keys only at the first move gets its old-address reviews when its snapshot first travels', async () => {
+  const old = fieldKeysOnlyGuest();
+  const fresh = new MemoryStorage();
+  await move(old, fresh);
+  guestView(fresh);
+  guestEdit(fresh, (c) => ({ srCards: { ...c.srCards, 102: { interval: 9 } } }));
+  guestEdit(old, (c) => ({ srCards: { ...c.srCards, 101: { interval: 30 } }, notes: { ...c.notes, q101: 'second draft' } }));
+  assert.ok(old.getItem('vmx-user-data-v2:anonymous'), 'the old store keeps a snapshot now');
+  await move(old, fresh);
+  const seen = guestView(fresh);
+  assert.deepEqual(seen.srCards, { 101: { interval: 30 }, 102: { interval: 9 } });
+  assert.equal(seen.notes.q101, 'second draft');
+});
+
+test('a v1-era guest (field keys and a v1 snapshot) at the first move: the same', async () => {
+  const data = { srCards: { 101: { interval: 1 }, 102: { interval: 2 } }, notes: { q101: 'first draft' } };
+  const old = new MemoryStorage({
+    'vmx-user-sync-owner-v1': '"anonymous"',
+    [key('srCards')]: JSON.stringify(data.srCards), [key('notes')]: JSON.stringify(data.notes),
+    'vmx-user-data-v1:anonymous': JSON.stringify(data),
+  });
+  const fresh = new MemoryStorage();
+  await move(old, fresh);
+  guestEdit(fresh, (c) => ({ srCards: { ...c.srCards, 102: { interval: 9 } } }));
+  guestEdit(old, (c) => ({ srCards: { ...c.srCards, 101: { interval: 30 } } }));
+  await move(old, fresh);
+  assert.deepEqual(guestView(fresh).srCards, { 101: { interval: 30 }, 102: { interval: 9 } });
+});
+
+test('an old tab that still writes field keys only: the fold into vetmock.com\'s snapshot is three-way, and only for what travelled', async () => {
+  const old = fieldKeysOnlyGuest();
+  const fresh = new MemoryStorage();
+  await move(old, fresh);
+  guestEdit(fresh, (c) => ({ srCards: { ...c.srCards, 102: { interval: 9 } } }));
+  old.setItem(key('srCards'), JSON.stringify({ 101: { interval: 30 }, 102: { interval: 2 } })); // a build from before the snapshot
+  await move(old, fresh);
+  const seen = guestView(fresh);
+  assert.deepEqual(seen.srCards, { 101: { interval: 30 }, 102: { interval: 9 } });
+  assert.deepEqual(seen.notes, { q101: 'first draft' }, 'notes did not travel again, so they are not read as emptied there');
+});
+
+const brokenIdb = () => ({ open() {
+  const req = { result: null, error: new Error('QuotaExceededError'), onsuccess: null, onerror: null, onupgradeneeded: null };
+  queueMicrotask(() => req.onerror?.());
+  return req;
+} });
+
+test('a move that fails at IndexedDB still fingerprints what it wrote, so the next move carries a later review', async () => {
+  const old = new MemoryStorage();
+  guestEdit(old, () => ({ srCards: { 101: { interval: 1 } } }));
+  const fresh = new MemoryStorage();
+  const first = await moveWith(old, fresh, { idb: brokenIdb(), pdf: [{ hash: 'doc1', strokesByPage: {} }] });
+  assert.equal(first.page.failed, true);
+  assert.ok(fresh.getItem('vmx-user-data-v2:anonymous'), 'what it wrote before the failure is there');
+  assert.ok(JSON.parse(fresh.getItem('vmx-move-base')).keys['vmx-user-data-v2:anonymous'], 'and fingerprinted');
+  guestEdit(old, (c) => ({ srCards: { ...c.srCards, 101: { interval: 30 } } }));
+  await moveWith(old, fresh, { h: 'abcdef0123456780' });
+  assert.equal(guestView(fresh).srCards[101].interval, 30);
+});
+
+test('a write that fails halfway still fingerprints the writes before it', async () => {
+  const old = new MemoryStorage({ 'vmx-a-first': '"1"', 'vmx-z-last': '"1"' });
+  const fresh = new MemoryStorage();
+  fresh.refuse = (k) => k === 'vmx-z-last';
+  assert.equal((await moveWith(old, fresh)).page.failed, true);
+  fresh.refuse = null;
+  assert.ok(JSON.parse(fresh.getItem('vmx-move-base')).keys['vmx-a-first']);
+  old.setItem('vmx-a-first', '"2"');
+  await moveWith(old, fresh, { h: 'abcdef0123456780' });
+  assert.equal(fresh.getItem('vmx-a-first'), '"2"', 'changed only on the old address since: carried');
+});
+
+test('when the fingerprints do not fit, the keys alone are kept', async () => {
+  const old = new MemoryStorage({ 'vmx-pass-1-hl': '[1]' });
+  guestEdit(old, () => ({ notes: { q1: 'a' } }));
+  const fresh = new MemoryStorage();
+  fresh.refuse = (k, v) => k === 'vmx-move-base' && !v.includes('"slots":{}');
+  await move(old, fresh);
+  fresh.refuse = null;
+  const base = JSON.parse(fresh.getItem('vmx-move-base'));
+  assert.ok(base.keys['vmx-pass-1-hl']);
+  assert.deepEqual(base.slots, {});
+  old.setItem('vmx-pass-1-hl', '[1,2]');
+  await move(old, fresh);
+  assert.equal(fresh.getItem('vmx-pass-1-hl'), '[1,2]');
+});
+
+test('the owner key is copied only where vetmock.com has none: signing in on the old address never relabels this workspace', async () => {
+  const old = new MemoryStorage({
+    'vmx-user-sync-owner-v1': '"anonymous"',
+    [key('notes')]: JSON.stringify({ q1: 'guest note' }),
+  });
+  const fresh = new MemoryStorage();
+  await move(old, fresh);
+  const signIn = store(old);
+  signIn.send({ type: 'SESSION_CHANGED', userId: 'user-A' });
+  signIn.close();
+  assert.equal(old.getItem('vmx-user-sync-owner-v1'), '"user-A"');
+  await move(old, fresh);
+  assert.equal(fresh.getItem('vmx-user-sync-owner-v1'), '"anonymous"');
+  assert.deepEqual(guestView(fresh).notes, { q1: 'guest note' }, 'the guest workspace here keeps its notes');
+});
+
+test('signed out on the old address while signed in here: the guest workspace never shows the account\'s notes', async () => {
+  const snap = { version: 2, revision: 3, clock: 5, base: { notes: { secret: 'account A private note' } }, acknowledged: [], legacyFingerprint: null, recovery: null, archive: null };
+  const old = new MemoryStorage({
+    'vmx-user-sync-owner-v1': '"user-A"',
+    [key('notes')]: JSON.stringify(snap.base.notes),
+    'vmx-user-data-v2:user-A': JSON.stringify(snap),
+  });
+  const fresh = new MemoryStorage();
+  await move(old, fresh);
+  const here = store(fresh);
+  here.send({ type: 'SESSION_CHANGED', userId: 'user-A' });
+  here.close();
+  const out = store(old);
+  out.send({ type: 'SESSION_CHANGED', userId: null });
+  out.close();
+  old.setItem('vmx-theme', '"dark"');
+  await move(old, fresh);
+  assert.equal(fresh.getItem('vmx-user-sync-owner-v1'), '"user-A"');
+  assert.deepEqual(guestView(fresh).notes, {}, 'never account A\'s');
+});
+
+test('the sync journal is never carried: replaying it would rewrite this origin\'s owner and field keys', async () => {
+  const journal = JSON.stringify({ version: 1, patch: { notes: { q: 'from the journal' } }, owner: 'user-B', writtenAt: 1 });
+  const old = new MemoryStorage({ 'vmx-user-sync-journal-v1': journal, 'vmx-theme': '"dark"' });
+  const fresh = new MemoryStorage();
+  await move(old, fresh);
+  assert.equal(fresh.getItem('vmx-user-sync-journal-v1'), null);
+  assert.equal(fresh.getItem('vmx-theme'), '"dark"');
+});
+
+test('a key an earlier, unapplied move copied does not stop a later move\'s staged copy from merging', async () => {
+  const old = new MemoryStorage();
+  guestEdit(old, () => ({ srCards: { 101: { interval: 1 }, 102: { interval: 2 } } }));
+  const fresh = new MemoryStorage({ 'vmx-theme': '"dark"' }); // visited once: not fresh
+  const pageOnly = async (h) => {
+    const local = Object.fromEntries([...old.values].filter(([k]) => k.startsWith('vmx-') && !k.startsWith('vmx-move-')));
+    const res = { statusCode: 0, headers: {}, body: '', setHeader(k, v) { this.headers[k] = v; }, end(b) { this.body = String(b); } };
+    await createMoveInHandler({ oldOrigin: OLD, newHost: 'vetmock.com' })({ method: 'POST', headers: { host: 'vetmock.com', origin: OLD },
+      body: { p: encodePayload({ v: 1, from: OLD, at: 1, signedIn: false, local, idb: { pdf: [], events: [] } }), enc: 'gz64', h } }, res);
+    assert.equal((await runMovePage(res.body, { storage: fresh })).failed, false);
+  };
+  await pageOnly('aaaaaaaaaaaaaab1'); // vetmock.com has not booted since
+  guestEdit(fresh, (c) => ({ srCards: { ...c.srCards, 102: { interval: 9 } } })); // an open vetmock.com tab studies
+  guestEdit(old, (c) => ({ srCards: { ...c.srCards, 101: { interval: 30 } } }));
+  await pageOnly('aaaaaaaaaaaaaab2');
+  assert.ok(!JSON.parse(fresh.getItem(MOVE_INBOX)).copied.includes('vmx-user-data-v2:anonymous'), 're-decided, no longer a copy');
+  applyMoveInbox(fresh);
+  assert.deepEqual(guestView(fresh).srCards, { 101: { interval: 30 }, 102: { interval: 9 } });
+});
+
+// The bridge's hash covers localStorage only; ink, a reading position and
+// study events live in IndexedDB. Each write there bumps one small key.
+test('ink, a reading position or an answer saved only in IndexedDB still counts as new data for the next move', async () => {
+  const values = new Map();
+  const storage = { getItem: (k) => values.get(k) ?? null, setItem: (k, v) => values.set(k, String(v)), removeItem: (k) => values.delete(k) };
+  globalThis.localStorage = storage;
+  globalThis.window = { localStorage: storage };
+  globalThis.indexedDB = memoryIndexedDb();
+  try {
+    const pdf = await import('../../src/lib/pdf-annotations.js?idb-touch=1');
+    const log = await import('../../src/lib/study-event-log.js?idb-touch=1');
+    const marks = [];
+    const mark = () => { marks.push(values.get('vmx-idb-touched') ?? null); };
+    mark();
+    await pdf.saveAnnotations('doc9', { fileName: 'a.pdf', pageCount: 3, lastPage: 3 });
+    mark();
+    await pdf.saveAnnotations('doc9', { strokesByPage: { 1: [{ id: 's1', mode: 'pen', points: [[0, 0]] }] } });
+    mark();
+    const question = { id: 10, type: 'mcq', q: 'Example?', options: ['a', 'b'], answer: 1, subject: 'com5', year: 4 };
+    const [event] = createAttemptEntries({ questions: [question], answers: { 10: 1 }, sessionId: newStudySessionId(), questionTimes: {}, now: 5 });
+    assert.equal((await log.appendStudyEvents(null, [event])).ok, true);
+    mark();
+    assert.equal((await log.markStudyEventsSynced(null, [event.id])).ok, true);
+    mark();
+    assert.equal(marks[0], null);
+    for (let i = 1; i < marks.length; i++) assert.ok(marks[i] && marks[i] !== marks[i - 1], `write ${i} moved the marker`);
+    assert.ok(marks.every((m) => m === null || m.length < 20), 'one short value');
+  } finally { delete globalThis.localStorage; delete globalThis.window; delete globalThis.indexedDB; }
+});

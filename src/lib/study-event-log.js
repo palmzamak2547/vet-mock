@@ -1,4 +1,5 @@
 import { parseStudyEventArchive } from './study-event-archive.js';
+import { touchStudyStores } from './idb-touch.js';
 
 // Detailed study events live outside the small localStorage quota. Core
 // history remains compact; this append-only log keeps the original answers,
@@ -67,6 +68,7 @@ export async function appendStudyEvents(owner, events, { synced = false, keepOnF
       }
     });
     for (const row of committed) memory.delete(row.key);
+    touchStudyStores();
     return { ok: true };
   } catch {
     if (!keepOnFailure) for (const row of rows) if (!beforeMemory.has(row.key)) memory.delete(row.key);
@@ -138,6 +140,7 @@ export async function markStudyEventsSynced(owner, ids) {
       }
     });
     for (const key of keys) memory.delete(key);
+    touchStudyStores();
     return { ok: true };
   } catch { return { ok: false }; }
 }

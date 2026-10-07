@@ -184,8 +184,33 @@ test('a second move carries a value the old address changed since the first', as
 
 // iOS keeps a home-screen app's storage apart from Safari's, and leaving the
 // app's scope opens a browser sheet, so nobody can say where the data would
-// land. The installed app stays, boots, and says where VetMock lives now.
-test('an installed app on the old address stays, boots, and says where VetMock lives now', async ({ context }) => {
+// land. That app stays, boots, and says once that VetMock is moving.
+test('an iOS home-screen app on the old address stays, boots, and says once that VetMock is moving', async ({ context }) => {
+  const posts = await twoOrigins(context);
+  await context.addInitScript(() => {
+    if (location.hostname !== 'localhost') return;
+    try { Object.defineProperty(Navigator.prototype, 'standalone', { get: () => true, configurable: true }); }
+    catch { Object.defineProperty(navigator, 'standalone', { value: true, configurable: true }); }
+  });
+  await seedOld(context, { 'vmx-seen-landing': '1', 'vmx-bookmarks': '[90001]' });
+  const page = await context.newPage();
+  await page.goto(`${OLD}/app/about`, { waitUntil: 'domcontentloaded' });
+  await expect(page.getByRole('status').filter({ hasText: 'แอปที่ติดตั้งไว้บนหน้าจอใช้ต่อได้ตามปกติ' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1 }).first()).toBeVisible();
+  expect(page.url(), 'never leaves the app').toBe(`${OLD}/app/about`);
+  expect(posts).toEqual([]);
+  expect(await page.evaluate(() => localStorage.getItem('vmx-bookmarks'))).toBe('[90001]');
+  // Once per device: the next launch says nothing.
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  expect(await page.evaluate(() => window.__vmxMoveNote ?? null)).toBeNull();
+  expect(page.url()).toBe(`${OLD}/app/about`);
+  // The app goes on loading lazy files through the old-origin route; let them go with the context.
+  await context.unrouteAll({ behavior: 'ignoreErrors' });
+});
+
+// Android and desktop installed apps share the browser's storage; one that
+// held would leave a second writer on the old address for good.
+test('an installed app that shares the browser\'s storage moves like a tab', async ({ context }) => {
   const posts = await twoOrigins(context);
   await context.addInitScript(() => {
     if (location.hostname !== 'localhost') return;
@@ -196,14 +221,10 @@ test('an installed app on the old address stays, boots, and says where VetMock l
   });
   await seedOld(context, { 'vmx-seen-landing': '1', 'vmx-bookmarks': '[90001]' });
   const page = await context.newPage();
-  await page.goto(`${OLD}/app/about`, { waitUntil: 'domcontentloaded' });
-  await expect(page.getByRole('status').filter({ hasText: 'แอปที่ติดตั้งไว้' })).toBeVisible();
-  await expect(page.getByRole('heading', { level: 1 }).first()).toBeVisible();
-  expect(page.url(), 'never leaves the app').toBe(`${OLD}/app/about`);
-  expect(posts).toEqual([]);
-  expect(await page.evaluate(() => localStorage.getItem('vmx-bookmarks'))).toBe('[90001]');
-  // The app goes on loading lazy files through the old-origin route; let them go with the context.
-  await context.unrouteAll({ behavior: 'ignoreErrors' });
+  await page.goto(`${OLD}/app/about`, { waitUntil: 'commit' });
+  await page.waitForURL(`${NEW}/app/about`, { timeout: 30_000 });
+  expect(posts).toEqual(['POST']);
+  expect(JSON.parse(await page.evaluate(() => localStorage.getItem('vmx-bookmarks')))).toEqual([90001]);
 });
 
 // The live worker caches every navigation, so after a visit that went straight
