@@ -36,12 +36,30 @@ export const EMPTY_ART = {
   'sr-session': { src: base('empty-states', 'sr-session'), alt: 'กล่องบัตรคำที่มีแผ่นคั่นแต่ยังไม่มีบัตร' },
 };
 
-/** Mochi in each discipline's working kit. Keys are subject ids. */
+/** The VetMock study companion squad representing specialized veterinary clinics. */
+export const SQUAD_MASCOTS = {
+  moocha: { id: 'moocha', name: 'Moocha', nameTh: 'มูชา', species: 'ลูกวัวโคนม (Holstein Calf)', role: 'สัตว์ใหญ่ & โค-ปศุสัตว์', src: base('characters', 'moocha'), alt: 'มูชา ลูกวัวโคนม มาสคอตประจำหมวดสัตว์ใหญ่' },
+  glidy: { id: 'glidy', name: 'Glidy', nameTh: 'ไกลดี้', species: 'ชูการ์ไกลเดอร์ (Sugar Glider)', role: 'สัตว์แปลก & สัตว์ป่า (Exotic)', src: base('characters', 'glidy'), alt: 'ไกลดี้ ชูการ์ไกลเดอร์ มาสคอตประจำหมวดสัตว์แปลก' },
+  porky: { id: 'porky', name: 'Porky', nameTh: 'พอร์กี้', species: 'ลูกหมูชมพู (Piglet)', role: 'อายุรศาสตร์สุกร (Swine)', src: base('characters', 'porky'), alt: 'พอร์กี้ ลูกหมูน้อย มาสคอตประจำหมวดสุกร' },
+  oto: { id: 'oto', name: 'Oto', nameTh: 'โอโตะ', species: 'นากทะเล (Sea Otter)', role: 'คลินิกสัตว์น้ำ (Aquatic)', src: base('characters', 'oto'), alt: 'โอโตะ นากทะเล มาสคอตประจำหมวดสัตว์น้ำ' },
+  clover: { id: 'clover', name: 'Clover', nameTh: 'โคลเวอร์', species: 'ลูกม้าเกาลัด (Baby Pony)', role: 'เวชปฏิบัติม้า (Equine)', src: base('characters', 'clover'), alt: 'โคลเวอร์ ลูกม้า มาสคอตประจำหมวดม้า' },
+};
+
+/** Alternate/archival mochi variants to ensure assets remain cleanly indexed. */
+export const ARCHIVED_MOCHI_SUBJECTS = {
+  aquatic: base('mochi-subjects', 'aquatic'),
+  equine: base('mochi-subjects', 'equine'),
+  ruminant: base('mochi-subjects', 'ruminant'),
+  swine: base('mochi-subjects', 'swine'),
+};
+
+/** Mochi and specialized clinic mascots in each discipline's working kit. Keys are subject ids. */
 export const SUBJECT_MOCHI = {
-  'aquatic-clinic': { src: base('mochi-subjects', 'aquatic'), alt: 'โมจิใส่หน้ากากดำน้ำถือสวิง' },
+  'aquatic-clinic': SQUAD_MASCOTS.oto,
   epidemiology: { src: base('mochi-subjects', 'epidemiology'), alt: 'โมจิใส่แว่นถือคลิปบอร์ด' },
-  'equine-medicine': { src: base('mochi-subjects', 'equine'), alt: 'โมจิใส่หมวกขี่ม้า' },
-  'equine-repro': { src: base('mochi-subjects', 'equine'), alt: 'โมจิใส่หมวกขี่ม้า' },
+  'equine-medicine': SQUAD_MASCOTS.clover,
+  'equine-repro': SQUAD_MASCOTS.clover,
+  exotic: SQUAD_MASCOTS.glidy,
   'food-industry': { src: base('mochi-subjects', 'food-industry'), alt: 'โมจิใส่หมวกเชฟถือถาด' },
   'food-safety-y4': { src: base('mochi-subjects', 'food-industry'), alt: 'โมจิใส่หมวกเชฟถือถาด' },
   'milk-meat-hygiene': { src: base('mochi-subjects', 'milk'), alt: 'โมจิใส่ผ้ากันเปื้อนถือถังนม' },
@@ -49,13 +67,14 @@ export const SUBJECT_MOCHI = {
   zoonoses: { src: base('mochi-subjects', 'one-health'), alt: 'โมจิกอดลูกโลกไว้กับอก' },
   'avian-medicine': { src: base('mochi-subjects', 'poultry'), alt: 'โมจิมีลูกเจี๊ยบเกาะอยู่บนหัว' },
   poultry: { src: base('mochi-subjects', 'poultry'), alt: 'โมจิมีลูกเจี๊ยบเกาะอยู่บนหัว' },
-  cliapprum: { src: base('mochi-subjects', 'ruminant'), alt: 'โมจิใส่หมวกปีกกว้างและถุงมือยาว' },
-  practrum: { src: base('mochi-subjects', 'ruminant'), alt: 'โมจิใส่หมวกปีกกว้างและถุงมือยาว' },
-  'herd-health-rum': { src: base('mochi-subjects', 'ruminant'), alt: 'โมจิใส่หมวกปีกกว้างและถุงมือยาว' },
-  'ruminant-clinical': { src: base('mochi-subjects', 'ruminant'), alt: 'โมจิใส่หมวกปีกกว้างและถุงมือยาว' },
-  'swine-clinic': { src: base('mochi-subjects', 'swine'), alt: 'โมจิใส่รองเท้าบูทถือคลิปบอร์ด' },
-  'swine-herd': { src: base('mochi-subjects', 'swine'), alt: 'โมจิใส่รองเท้าบูทถือคลิปบอร์ด' },
-  'swine-repro': { src: base('mochi-subjects', 'swine'), alt: 'โมจิใส่รองเท้าบูทถือคลิปบอร์ด' },
+  cliapprum: SQUAD_MASCOTS.moocha,
+  practrum: SQUAD_MASCOTS.moocha,
+  'herd-health-rum': SQUAD_MASCOTS.moocha,
+  'ruminant-clinical': SQUAD_MASCOTS.moocha,
+  'livestock-pathology': SQUAD_MASCOTS.moocha,
+  'swine-clinic': SQUAD_MASCOTS.porky,
+  'swine-herd': SQUAD_MASCOTS.porky,
+  'swine-repro': SQUAD_MASCOTS.porky,
 };
 
 /** Earned marks. `test` runs against the numbers the app already keeps, so
@@ -240,7 +259,7 @@ export const LECTURE_COVERS = {
 export function allArtPaths() {
   const out = new Set();
   const take = (v) => { if (typeof v === 'string') out.add(v); else if (v && v.src) out.add(v.src); };
-  for (const group of [EMPTY_ART, SUBJECT_MOCHI, BADGE_ART, LOADING_ART, SEASONAL_MOCHI, GAME_ART]) {
+  for (const group of [EMPTY_ART, SUBJECT_MOCHI, SQUAD_MASCOTS, ARCHIVED_MOCHI_SUBJECTS, BADGE_ART, LOADING_ART, SEASONAL_MOCHI, GAME_ART]) {
     for (const v of Object.values(group)) take(v);
   }
   for (const v of IG_BACKGROUNDS) take(v);
