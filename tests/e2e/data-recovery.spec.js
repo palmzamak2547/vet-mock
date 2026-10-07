@@ -61,7 +61,7 @@ for (const failure of ['core', 'details']) {
 test('privacy choice persists and daily time plan remains usable at 320px', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 740 });
   await page.goto('/app/privacy');
-  await expect(page.getByRole('heading', { name: /ข้อมูลและ.*ความเป็นส่วนตัว/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /ข้อตกลงการใช้งาน.*ความเป็นส่วนตัว/ })).toBeVisible();
   await page.getByRole('button', { name: 'ใช้เฉพาะที่จำเป็น' }).click();
   expect(await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-consent')))).toBe('essential');
   expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);

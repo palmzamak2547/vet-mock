@@ -523,6 +523,11 @@ export default function LandingView({
               <button type="button" aria-pressed={lang === 'en'} onClick={(e) => chooseLang('en', e)}>EN</button>
               <button type="button" aria-pressed={lang === 'th'} onClick={(e) => chooseLang('th', e)}>ไทย</button>
             </div>
+            {/* On a phone the nav row has no room for the theme button, so it lives here. */}
+            <button type="button" onClick={onToggleTheme} className="vmx-btn vmx-btn-ghost lp-mobile-menu-theme">
+              <NavIcon name={theme === 'dark' ? 'sun' : 'moon'} size={16} />
+              {theme === 'dark' ? t.menuThemeLight : t.menuThemeDark}
+            </button>
           </div>
         </div>
       </div>
