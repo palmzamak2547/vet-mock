@@ -1,8 +1,9 @@
 # VetMock project knowledge base
 
-Current checkpoint: **2026-10-01 · study 5.133.3 / SWv201**.
-Production source is f90dcf33, including the installed atomic annotation merge.
-The signed-in draw, cloud restore, erase and redo journey has live proof.
+Source checkpoint: **2026-10-08 · study 5.139.0 / SWv214**.
+Subject cards share 85 course bookplates, with names, counts and availability
+remaining live text. Source versions do not establish a production deployment;
+use the dated acceptance receipts below for the deployed SHA and live checks.
 Product entry: [vetmock.com](https://vetmock.com), currently a 307 to
 [vetmock.vercel.app](https://vetmock.vercel.app). Research is a separate app at
 [research.vetmock.com](https://research.vetmock.com).
@@ -49,6 +50,7 @@ scope and unavailable older shortcut are in
 |---|---|---|
 | VetMock Research | `research/`, its package/config/worker/runtime and owner-scoped IndexedDB | separate subdomain; on-device datasets, computation and exports; optional Supabase Auth |
 | Curriculum | `src/data/curriculum.js` | selectors, schedule, study catalog |
+| Subject bookplates | `src/data/subject-covers.js`, `src/components/SubjectCover.jsx` | Home/SubjectSelect; `lint:art` checks exact course coverage and the per-file budget |
 | Question bodies | `src/data/questions-*.js` | generated bank/count/delivery registries |
 | Note bodies | `src/data/notes-*.js` | `src/data/note-corpus.js` lazy subject map |
 | Note availability | `NOTE_SOURCES` in `note-corpus.js` | NotesView, VetWiki runtime, notes registry |

@@ -469,3 +469,12 @@ a changing date or a busy machine is a hypothesis until the failing mechanism is
 _Append a rule whenever a repeatable architectural fragility is proven. Include
 the bug it caught and the stable replacement so the next maintainer does not
 have to rediscover it._
+
+
+## Subject cover contract — 2026-10-07
+
+- A course cover is decorative. Its failed request must not remove the course name, availability, count or keyboard destination. Reserve its dimensions and contain the full silhouette.
+- `src/data/subject-covers.js` covers each curriculum course exactly once; the synthetic All action reuses the open-book art. `lint:art` protects coverage, file existence, unique paths and size.
+- Keep the illustrated-card modifier scoped to Home/SubjectSelect. Topic cards and Panic cards keep their existing layout and behavior. Regression: `tests/e2e/subject-covers.spec.js`.
+
+- Cover filenames must be portable: COM I–V use `companion-1.webp` through `companion-5.webp`. Windows device names remain reserved even with an extension; `lint:art` rejects them.

@@ -22,11 +22,11 @@ const nightRank = read('../../src/components/NightRankCard.jsx');
 test('a subject card is never dimmed as a whole; the quiet state is a class', () => {
   const grid = home.slice(home.indexOf('function SubjectGrid('));
   assert.doesNotMatch(grid, /opacity: hasUsableContent/);
-  assert.match(grid, /className=\{`vmx-subject-card\$\{hasUsableContent \|\| shelfDocs > 0 \? '' : ' is-quiet'\}`\}/);
+  assert.match(grid, /className=\{`vmx-subject-card(?: [a-z][a-z0-9-]*)*\$\{hasUsableContent \|\| shelfDocs > 0 \? '' : ' is-quiet'\}`\}/);
   assert.match(css, /\.vmx-subject-card\.is-quiet \{ border-style: dashed; \}/);
   assert.match(css, /\.vmx-subject-card\.is-quiet \.icon, \.vmx-subject-card\.is-quiet \.accent \{ opacity: 0\.55; \}/);
   // Text never gets an opacity: contrast is decided by its colour tokens.
-  assert.doesNotMatch(css, /\.vmx-subject-card\.is-quiet (\.title|\.sub|\.count)[^{]*\{[^}]*opacity/);
+  assert.doesNotMatch(css, /\.vmx-subject-card(?:--[a-z-]+)?\.is-quiet (\.title|\.sub|\.count)[^{]*\{[^}]*opacity/);
 });
 
 test('dashboard and schedule card titles are h2 under the page h1', () => {

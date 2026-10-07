@@ -174,3 +174,13 @@ patterns can still converge further.
 - Never let a required gate depend on a third party (youtube.com in the
   geometry audit) — abort those routes in the spec; a red gate nobody can fix
   teaches everyone to ignore the gate.
+
+
+## Subject bookplates (2026-10-07)
+
+- `src/data/subject-covers.js` maps curriculum IDs to one decorative print and its paper tone; shared `SubjectCover` renders it in Home and SubjectSelect. Names, counts, exam scope and availability remain live text.
+- Use distinct restrained engravings, with transparent WebP silhouettes contained rather than cropped. The 9 matching Panic illustrations retain their original paths and behavior.
+- The illustrated-card modifier reserves art height, preserves native buttons/focus, and uses theme tokens for the text surface. Failed art hides without removing the course action. No motion or new dependency.
+- `npm run lint:art` enforces exact curriculum coverage, unique paths, existing WebP files, paper colors and the 120 KiB per-cover ceiling. Originals and the local visual gallery are in `work/subject-covers-20261007/`.
+
+- Cover filenames must be portable: COM I–V use `companion-1.webp` through `companion-5.webp`. Windows device names remain reserved even with an extension; `lint:art` rejects them.

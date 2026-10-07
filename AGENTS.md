@@ -448,3 +448,13 @@ Avoid:
 - Current focused25/25 includes2 actual mounted cases plus existing20 adjacent; data/build pass. Native actual feature→subject→resources/normal-practice Chrome/WK2/2 pass0retries15.0s; contrast3 pass. Dependency records unchanged except root version metadata, existing moderate8 limit retained. Root owns release metadata/reconciliation; runtime300 stays public until verified release.
 - Evidence/checkpoint: work/notes-intent-20261007/{red,green-first,adjacent,build,lint-data}.log; current broader loop checkpoint work/library-intent-20261006/CHECKPOINT.md. No new account/provider/schema/forced worker/automation or repeated old SDK/Research suites.
 - Confirmed same-flow aggregate trap folded before release: hide only All under reading intent; ordinary practice All remains visible/enabled and its actual handler stillconfig. Mounted All red4/5 corrected5/5 plus adjacent20; updated same native scenario Chrome/WK2/2 pass0retries25.3s, finalbuild/copy gates pass. No aggregate Notes/type invention. Olda48 CI is superseded by one substantive follow-up commit; require latesthead gates.
+
+
+## Subject covers source checkpoint — 2026-10-08
+
+- Study5.139.0/SW214, based on main4fc69665: 85 distinct course bookplates (76 new WebP +9 unchanged Panic assets), shared by Home/SubjectSelect. All Subjects reuses the open-book print. Source: `src/data/subject-covers.js`, `src/components/SubjectCover.jsx`; names/counts/scopes/callbacks and Panic behavior remain intact.
+- Asset gate85/85; Chromium all85 Home cards across6years at375px, desktop/light/dark, missing-image keyboard navigation and All-to-config verified. Regression: `tests/e2e/subject-covers.spec.js`. Detailed source-art/check receipts: `work/subject-covers-20261007/`.
+- Preserve ignored original PNGs and diagnostics separately from shipped WebP. Source version is not deployment proof; require exact-SHA CI/READY aliases/live checks in `docs/LAUNCH_READINESS.md`. Other lanes and primary dirty work remain outside this patch.
+
+- Release checks: full data/unit51/51 across Bangkok/UTC, build/prerenders and contrast3 passed; Chromium447passed/21skipped. New cover regression also passes WebKit/Firefox; their focused cover/resources run4/4. Original Windows core-journey30s failures retained; unchanged isolated control passed29.9s. Require exact-head Linux4profile CI before release.
+- COM artwork uses portable `companion-1..5.webp` filenames; keep Windows device names out of asset paths. Sharp0.35.5/rsvg2.63.2 closes GHSA-wq5f-xc86-pv6w; audit0high/critical,8existing moderate Imaging dependencies remain.
