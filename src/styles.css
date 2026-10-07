@@ -6728,3 +6728,14 @@ body.vmx-reading .vmx-pdf-body {
 }
 .vmx-fac-card-foot-status.is-verified { color: var(--clr-sage-text); }
 .vmx-fac-filter-group .vmx-chip > span { margin-left: 5px; }
+
+/* Moved here from styles-landing.css (2026-10-07) when the landing sheet
+   became a lazy chunk of LandingView. Both rules were app-wide by accident
+   of where they sat, and the app's small buttons and subject cards have been
+   tuned against them since, so they keep applying everywhere. */
+@media (max-width: 430px) {
+  .vmx-btn-sm { padding: 8px 11px !important; font-size: 11px !important; }
+}
+@media (hover: none) {
+  .vmx-subject-card:hover { transform: none; }
+}

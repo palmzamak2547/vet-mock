@@ -1,43 +1,49 @@
 // ============================================================
 // LandingView — VetMock marketing landing (signed-out front door)
 // ============================================================
-// Recreates design_handoff_vetmock_landing in the app's real stack
-// (React 19 + Vite + the existing vmx-* design system in styles.css).
-//
-// Integration model (per the production brief):
+// Redesigned 2026-10-07 (LandingBody.jsx has the story). This file stays the
+// single state owner and keeps every contract the old page earned:
 //   • REAL, wired to existing systems:
 //       - Sign In  → real signInWithGoogle / signInWithMagicLink (App props)
 //       - Subjects → real curriculum (SUBJECTS_BY_YEAR) + real q-counts;
 //                    each card enters the real practice flow
-//       - "Start Practicing" / hero / CTA → enter the real app
+//       - Every CTA runs its real destination (practice, Panic Mode, lab)
 //       - Cookie consent → real gate for @vercel/analytics (App owns it)
 //       - Theme / language toggles → real
-//   • INTERACTIVE EXAMPLES:
-//       - hero question, lab station, panic mode, readiness, and insights.
-//     They are clearly non-scoring, never touch real progress, and every
-//     CTA bridges into a feature that ships in the real app.
+//   • INTERACTIVE EXAMPLES that never touch progress: the hero question
+//     (bank item 202358, word for word) and the radiograph station.
+//   • Entering the app opens through a View Transition that grows from the
+//     button that was pressed; browsers without the API, and reduced motion,
+//     get the plain state change.
 //
-// State: local component state only, matching the design's state model.
+// The landing stylesheet travels with this lazy view, so students who never
+// see the landing never download it (tests/unit/boot-weight.test.mjs).
 // ============================================================
 
 import { useState, useEffect, useLayoutEffect, useRef, useMemo, useCallback } from 'react';
+import { flushSync } from 'react-dom';
 import { subjectText } from '../hooks/utils.js';
 import { SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
-import { DICT } from './landing/dict.js';
+import { DICT, HERO_QUESTION } from './landing/dict.js';
 import LandingBody from './landing/LandingBody.jsx';
 import { useLandingMotion } from './landing/useLandingMotion.js';
 import NavIcon from '../components/NavIcon.jsx';
+import { EMPTY_ART } from '../data/art.js';
+import { inAppBrowser, externalUrl, APP_NAMES } from '../lib/inapp.js';
+import '../styles-landing.css';
 
-// ---- Demo fixtures for the interactive examples (isolated, non-scoring) ----
-const HERO_OPTIONS = ['Abdominal radiographs', 'Low-dose dexamethasone suppression test (LDDST)', 'Serum fructosamine', 'Total T4 (thyroid panel)'];
-const HERO_ANSWER = 1;
-const LAB_OPTIONS = ['Left atrial enlargement with cardiogenic pulmonary oedema', 'Pleural effusion', 'Spontaneous pneumothorax', 'Megaesophagus'];
-const LAB_ANSWER = 0;
+// Every iOS browser is WebKit, which can crash while snapshotting a large
+// React view for a View Transition, so the transitions below stay off there.
+// Same test as App's withTransition (desktop Chromium also says AppleWebKit).
+const WEBKIT = typeof navigator !== 'undefined'
+  && /AppleWebKit/i.test(navigator.userAgent || '')
+  && !/(Chrome|Chromium|Edg|OPR|SamsungBrowser)/i.test(navigator.userAgent || '');
+
 const FOCUSABLE_SELECTOR = 'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])';
 
-// Real subjects (year-4 default = current cohort) with REAL question
-// counts. Each is a working destination into the practice flow.
+// Real subjects with REAL question counts. Each is a working destination
+// into the practice flow.
 function buildRealSubjects(year) {
   const list = SUBJECTS_BY_YEAR[year] || [];
   return list.map((s) => ({
@@ -45,27 +51,14 @@ function buildRealSubjects(year) {
     year,
     name: s.name,
     sub: s.name_en || s.code || '',
-    emoji: s.icon || '📘',
     color: subjectText(s.color),
     count: Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0,
-    hasQ: (Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0) > 0,
-  })).filter((s) => s.hasQ);
-}
-
-function buildOptions(texts, ans, picked, revealed) {
-  const markBase = { marginLeft: 'auto', fontFamily: 'var(--vmx-mono)', fontWeight: 700, fontSize: 16 };
-  return texts.map((text, i) => {
-    let cls = '', style = {}, mark = '', markStyle = markBase;
-    if (!revealed) { if (picked === i) cls = 'selected'; }
-    else if (i === ans) { style = { background: 'var(--clr-sage)', color: 'var(--clr-surface)', borderColor: 'var(--clr-sage)' }; mark = '✓'; markStyle = { ...markBase, color: 'var(--clr-surface)' }; }
-    else if (picked === i) { style = { borderColor: 'var(--clr-rose)', background: 'var(--clr-rose-soft)' }; mark = '✗'; markStyle = { ...markBase, color: 'var(--clr-rose-text)' }; }
-    return { letter: String.fromCharCode(65 + i), text, cls, style, mark, markStyle };
-  });
+  })).filter((s) => s.count > 0);
 }
 
 export default function LandingView({
   onEnterApp,          // () => enter the real practice app
-  onStartMockExam,     // () => run the REAL timed mock exam this page advertises
+  onStartMockExam,     // () => run the REAL timed mock exam
   onStartPanic,        // (timeKey) => run a REAL cram session sized to the time left
   onOpenLab,           // () => open the REAL imaging lab
   onPickSubject,       // (year, subjectId) => enter real practice for that subject
@@ -84,9 +77,7 @@ export default function LandingView({
   const L = DICT[lang];
   const reduce = useRef(false);
 
-  // Full motion layer (scroll rail + scroll-spy underline + magnetic
-  // buttons + card tilt + spotlight). Progressive enhancement — self-
-  // disables on touch / reduced-motion, fully cleaned on unmount.
+  // Scroll-spy for the nav, observer-driven (no scroll listener).
   useLandingMotion();
 
   // ---- UI state ----
@@ -94,24 +85,19 @@ export default function LandingView({
   const [muted, setMuted] = useState(true);
   const [navScrolled, setNavScrolled] = useState(false);
 
-  // hero exam demo
+  // hero question (non-scoring)
   const [heroPicked, setHeroPicked] = useState(null);
   const [heroRevealed, setHeroRevealed] = useState(false);
   const [heroBookmarked, setHeroBookmarked] = useState(false);
   const [heroConfidence, setHeroConfidence] = useState(null);
 
-  // subjects
-  const [subjectTab, setSubjectTab] = useState('all');
-  const [showcaseMode, setShowcaseMode] = useState(false); // false = real subjects, true = full breadth showcase
-
   // panic
   const [panicTime, setPanicTime] = useState('30');
 
-  // lab
+  // radiograph station (non-scoring)
   const [labPicked, setLabPicked] = useState(null);
   const [labRevealed, setLabRevealed] = useState(false);
   const [labZoom, setLabZoom] = useState(1);
-  const [labTool, setLabTool] = useState(null);
 
   // cookie + login
   const [cookieOpen, setCookieOpen] = useState(consent === 'ask');
@@ -130,15 +116,18 @@ export default function LandingView({
   const mobileMenuRef = useRef(null);
   const navSentinelRef = useRef(null);
   const closeLogin = useCallback(() => setLoginOpen(false), []);
+  // LINE, Facebook, Instagram and TikTok open links in their own browsers,
+  // where Google often refuses sign-in; the dialog says so up front.
+  const inApp = useMemo(() => (typeof navigator === 'undefined' ? null : inAppBrowser(navigator.userAgent)), []);
+  const inAppExit = useMemo(() => (inApp && typeof window !== 'undefined' ? externalUrl(inApp, window.location.href) : null), [inApp]);
   const closeMobileMenu = useCallback(() => setMobileOpen(false), []);
 
   // sync language from prop
   useEffect(() => { if (langProp && langProp !== lang) setLang(langProp); }, [langProp]); // eslint-disable-line
 
-  // Progressive enhancement: the page remains fully visible when JS or the
-  // observer is unavailable. With motion enabled, this class adds only a
-  // gentle translate that the reveal observer removes before each section
-  // enters the viewport.
+  // Progressive enhancement: the page is fully visible without JS or the
+  // observer. With motion enabled, this class arms the entrance and reveal
+  // transitions; the observer below removes them section by section.
   useLayoutEffect(() => {
     reduce.current = !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const motionReady = !reduce.current && 'IntersectionObserver' in window;
@@ -156,30 +145,25 @@ export default function LandingView({
     return () => window.cancelAnimationFrame(frame);
   }, [cookieOpen, cookiePrefs]);
 
-  // ---- mount-only: flag <html> so it paints the landing background
-  // (the landing renders before .vmx-app, which normally paints it) and
-  // lock scroll to the top so we never open mid-page. Cleaned on unmount
-  // so the practice app isn't left with the class. ----
+  // Flag <html> so it paints the landing background (the landing renders
+  // before .vmx-app, which normally paints it). Cleaned on unmount so the
+  // practice app is not left with the class.
   useEffect(() => {
     document.documentElement.classList.add('lp-active');
     return () => document.documentElement.classList.remove('lp-active');
   }, []);
 
-  // ---- mount: motion prefs, reveal, nav scroll, rotating word ----
+  // Reveal sections as they arrive; the nav knows when the page left its top.
   useEffect(() => {
     reduce.current = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // The hero's entrance plays on the next frame so its first paint is the
+    // resting layout (no flash of hidden text if this effect runs late).
+    const raf = window.requestAnimationFrame(() => document.documentElement.classList.add('lp-entered'));
     const els = Array.from(document.querySelectorAll('.lp-reveal'));
     let io;
     if (reduce.current || !('IntersectionObserver' in window)) {
       els.forEach((e) => e.classList.add('in'));
     } else {
-      // Immediately reveal all elements near or above fold
-      els.forEach((e) => {
-        const r = e.getBoundingClientRect();
-        if (e.closest('#lp-top') || e.closest('header') || r.top < window.innerHeight * 1.5) {
-          e.classList.add('in');
-        }
-      });
       io = new IntersectionObserver((ents) => {
         ents.forEach((en) => {
           if (en.isIntersecting) {
@@ -187,14 +171,12 @@ export default function LandingView({
             io.unobserve(en.target);
           }
         });
-      }, { threshold: 0, rootMargin: '200px 0px 200px 0px' });
+      }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
       els.forEach((e) => {
         if (!e.classList.contains('in')) io.observe(e);
       });
     }
     // One 1px sentinel replaces a React state update on every scroll event.
-    // The sticky nav only needs to know whether the page left its top edge;
-    // IntersectionObserver reports that state transition without frame work.
     let navObserver;
     const sentinel = navSentinelRef.current;
     if (sentinel && 'IntersectionObserver' in window) {
@@ -206,6 +188,8 @@ export default function LandingView({
       setNavScrolled(window.scrollY > 8);
     }
     return () => {
+      window.cancelAnimationFrame(raf);
+      document.documentElement.classList.remove('lp-entered');
       if (io) io.disconnect();
       if (navObserver) navObserver.disconnect();
     };
@@ -215,9 +199,8 @@ export default function LandingView({
   // The landing menu is a real modal navigation surface on compact screens.
   // It stays mounted while closed so links remain in the document, then
   // visibility + inert keep it out of interaction until opened. Opening moves
-  // focus inside, locks the actual page scroller, traps Tab, and closing always
-  // returns focus to the trigger. The visual curtain is only progressive
-  // enhancement; the navigation contract does not depend on animation.
+  // focus inside, locks the page scroller, traps Tab, and closing returns
+  // focus to the trigger.
   useEffect(() => {
     if (!mobileOpen) return undefined;
     const menu = mobileMenuRef.current;
@@ -245,10 +228,8 @@ export default function LandingView({
       const first = items[0];
       const last = items[items.length - 1];
       if (!menu.contains(document.activeElement)) {
-        // The trigger is intentionally part of the compact menu's focus
-        // circuit even though it sits in the sticky header above the dialog.
-        // From it, Tab must enter the first menu destination instead of
-        // continuing into the page behind the modal surface.
+        // The trigger is part of the compact menu's focus circuit even though
+        // it sits in the sticky header above the dialog.
         if (!event.shiftKey && document.activeElement === mobileMenuButtonRef.current && items[1]) {
           event.preventDefault();
           items[1].focus();
@@ -279,9 +260,8 @@ export default function LandingView({
   }, [closeMobileMenu, mobileOpen]);
 
   // CSS owns the compact breakpoint. Observe whether that stylesheet has
-  // actually hidden the trigger instead of duplicating its pixel value here;
-  // rotating a phone or widening a tablet must never leave body scroll locked
-  // after both the curtain and its trigger disappear.
+  // hidden the trigger instead of duplicating its pixel value here; rotating a
+  // phone or widening a tablet must never leave body scroll locked.
   useEffect(() => {
     if (!mobileOpen) return undefined;
     const trigger = mobileMenuButtonRef.current;
@@ -338,7 +318,7 @@ export default function LandingView({
       }
     };
 
-    // Listen at document scope too: changing from the email form to the
+    // Listen at document scope: changing from the email form to the
     // confirmation step unmounts the focused submit button, and browsers may
     // briefly place focus on <body>. The trap still recovers on the next Tab.
     document.addEventListener('keydown', onDialogKeyDown);
@@ -349,9 +329,7 @@ export default function LandingView({
     };
   }, [closeLogin, loginOpen]);
 
-  // Put focus on the meaningful control for each dialog step. This is kept
-  // separate from the trap lifecycle so changing steps does not restore focus
-  // to the opener before the dialog has actually closed.
+  // Put focus on the meaningful control for each dialog step.
   useEffect(() => {
     if (!loginOpen) return undefined;
     const frame = window.requestAnimationFrame(() => {
@@ -365,33 +343,63 @@ export default function LandingView({
     return () => window.cancelAnimationFrame(frame);
   }, [loginOpen, loginStep]);
 
-  const beep = useCallback(() => {
+  const beep = useCallback((good) => {
     if (muted) return;
     try {
       const A = window.AudioContext || window.webkitAudioContext; if (!A) return;
-      const ac = new A(); const o = ac.createOscillator(), g = ac.createGain();
-      o.frequency.value = 660; g.gain.value = 0.05; o.connect(g); g.connect(ac.destination); o.start();
-      g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 0.18); o.stop(ac.currentTime + 0.2);
+      const ac = new A();
+      // Two soft partials a fifth apart for a right answer, one lower for a miss.
+      (good ? [660, 990] : [440]).forEach((f, i) => {
+        const o = ac.createOscillator(), g = ac.createGain();
+        o.type = 'sine'; o.frequency.value = f;
+        g.gain.setValueAtTime(0, ac.currentTime);
+        g.gain.linearRampToValueAtTime(0.045 / (i + 1), ac.currentTime + 0.012);
+        g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 0.32);
+        o.connect(g); g.connect(ac.destination); o.start(); o.stop(ac.currentTime + 0.34);
+      });
     } catch { /* no-op */ }
   }, [muted]);
 
-  const chooseLang = (l) => { setLang(l); onSetLang && onSetLang(l); setMobileOpen(false); };
+  // Runs a state change inside a View Transition that grows from the point
+  // that was pressed. Used for every way into the app and for the language
+  // switch; without the API, with reduced motion, or on WebKit it is a plain call.
+  const transition = useCallback((run, event, kind = 'portal') => {
+    const doc = document;
+    if (!doc.startViewTransition || reduce.current || WEBKIT) { run(); return; }
+    const root = doc.documentElement;
+    const x = event?.clientX || window.innerWidth / 2;
+    const y = event?.clientY || window.innerHeight / 2;
+    root.style.setProperty('--lp-vt-x', `${Math.round(x)}px`);
+    root.style.setProperty('--lp-vt-y', `${Math.round(y)}px`);
+    root.classList.add(`lp-vt-${kind}`);
+    try {
+      const vt = doc.startViewTransition(() => { flushSync(run); });
+      // A transition that starts while this one runs (the app's own, on the
+      // next screen) skips it and rejects these. That is a normal skip, not
+      // an error, as in App's withTransition.
+      vt.ready?.catch(() => {});
+      vt.updateCallbackDone?.catch(() => {});
+      vt.finished.catch(() => {}).then(() => root.classList.remove(`lp-vt-${kind}`));
+    } catch {
+      root.classList.remove(`lp-vt-${kind}`);
+      run();
+    }
+  }, []);
+  const portal = useCallback((fn) => (event) => transition(() => fn && fn(), event, 'portal'), [transition]);
+
+  const chooseLang = (l, event) => {
+    setMobileOpen(false);
+    if (l === lang) return;
+    transition(() => { setLang(l); onSetLang && onSetLang(l); }, event, 'fade');
+  };
 
   // ---- derived ----
-  const heroOptions = useMemo(() => buildOptions(HERO_OPTIONS, HERO_ANSWER, heroPicked, heroRevealed), [heroPicked, heroRevealed]);
-  const labOptions = useMemo(() => buildOptions(LAB_OPTIONS, LAB_ANSWER, labPicked, labRevealed), [labPicked, labRevealed]);
-
   const liveYears = YEARS.filter((y) => !y.scaffold).map((y) => y.id);
-  // Real subjects are CUVET year-based (no preclinical/paraclinical/clinical
-  // grouping in the data), so they always show every live year's subjects.
-  // The subjectTab (all/preclinical/…) is a SHOWCASE-only filter — reusing
-  // it here would call buildRealSubjects(NaN) for a category tab and blank
-  // the grid. Kept independent so switching modes never empties the list.
   const realSubjects = useMemo(() => liveYears.flatMap((y) => buildRealSubjects(y)), []); // eslint-disable-line
 
-  // ---- interactions (all sims respect reduced-motion) ----
-  const onCheckHero = () => { if (heroPicked === null) return; setHeroRevealed(true); beep(); };
-  const onCheckLab = () => { if (labPicked === null) return; setLabRevealed(true); beep(); };
+  // ---- interactions (all non-scoring) ----
+  const onCheckHero = () => { if (heroPicked === null) return; setHeroRevealed(true); beep(heroPicked === HERO_QUESTION.answer); };
+  const onCheckLab = () => { if (labPicked === null) return; setLabRevealed(true); beep(labPicked === 0); };
 
   // ---- real login ----
   const openLogin = (event) => {
@@ -433,39 +441,24 @@ export default function LandingView({
   const t = L; // alias
   // ================= RENDER =================
   return (
-    <div className="lp-root">
+    <div className="lp-root" lang={lang}>
       <span ref={navSentinelRef} className="lp-nav-sentinel" aria-hidden="true" />
       <a className="lp-skip" href="#lp-main">{t.skip}</a>
 
       {/* ---- NAV ---- */}
       <header id="vm-nav" className={`lp-nav ${navScrolled ? 'is-scrolled' : ''}`}>
-        {/* gap 12, not 16: the Thai row sits right on the 1200px cap, and the
-            four extra pixels per gap were enough to keep the context chip
-            permanently ellipsised. Three gaps buy back 12px, which is more than
-            the 7px it was short by. */}
-        <div className="lp-pad" style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 12, padding: '11px 24px' }}>
-          <a href="#lp-top" style={{ display: 'inline-flex', alignItems: 'center', gap: 9, fontFamily: 'var(--vmx-display)', fontWeight: 800, fontSize: 22, letterSpacing: '-.02em', color: 'var(--clr-ink)' }}>
-            <img src="/vetmock-logo.svg" width={30} height={30} style={{ borderRadius: 7, display: 'block' }} alt="VetMock logo" />
-            <span className="lp-wordmark">Vet<span style={{ color: 'var(--clr-rose-text)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span></span>
+        <div className="lp-pad lp-nav-row">
+          <a href="#lp-top" className="lp-brand">
+            <img src="/vetmock-logo.svg" width={30} height={30} alt="VetMock logo" />
+            <span className="lp-wordmark">Vet<span>Mock</span></span>
           </a>
-          {/* The one item in this row allowed to give way. Everything else is a
-              control and stays rigid, so without an elastic member the row's
-              width is fixed by its text — and that text is not a fixed width:
-              the same Thai string measures wider on Linux than on Windows, which
-              burst the 1200px cap on CI while fitting locally. This chip is
-              context, not a control, and it is repeated in the mobile drawer,
-              so it is the right thing to compress. */}
-          <span className="lp-only-desktop lp-ctx" title="Your study context" style={{ display: 'inline-flex', alignItems: 'center', gap: 7, flexShrink: 1, minWidth: 0, overflow: 'hidden', whiteSpace: 'nowrap', padding: '6px 11px', marginLeft: 2, border: '1px solid var(--clr-border)', borderRadius: 10, background: 'var(--clr-surface)', fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--clr-sage)', flexShrink: 0 }} />
-            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{t.ctxChip}</span>
-          </span>
-          <nav className="lp-only-desktop" style={{ display: 'flex', alignItems: 'center', gap: 2, marginLeft: 10 }}>
+          <nav className="lp-only-desktop lp-nav-links" aria-label={t.menuNavLabel}>
             {t.nav.map((l) => <a key={l.href} href={l.href} className="lp-navlink">{l.label}</a>)}
           </nav>
-          <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 9 }}>
-            <div className="lp-only-desktop" style={{ flexShrink: 0, display: 'inline-flex', border: '1px solid var(--clr-border)', borderRadius: 999, overflow: 'hidden' }}>
-              <button type="button" aria-pressed={lang === 'en'} onClick={() => chooseLang('en')} style={segStyle(lang === 'en')}>EN</button>
-              <button type="button" aria-pressed={lang === 'th'} onClick={() => chooseLang('th')} style={segStyle(lang === 'th')}>ไทย</button>
+          <div className="lp-nav-actions">
+            <div className="lp-only-desktop lp-lang" role="group" aria-label={t.menuLanguageLabel}>
+              <button type="button" aria-pressed={lang === 'en'} onClick={(e) => chooseLang('en', e)}>EN</button>
+              <button type="button" aria-pressed={lang === 'th'} onClick={(e) => chooseLang('th', e)}>ไทย</button>
             </div>
             <button type="button" onClick={() => setMuted((current) => !current)} aria-label={muted ? t.soundOn : t.soundOff} className="lp-only-desktop lp-iconbtn lp-sound-toggle">
               <NavIcon name={muted ? 'speaker-off' : 'speaker'} size={17} />
@@ -473,8 +466,8 @@ export default function LandingView({
             <button type="button" onClick={onToggleTheme} aria-label={theme === 'dark' ? t.themeToLight : t.themeToDark} className="lp-iconbtn lp-theme-toggle">
               <NavIcon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
             </button>
-            <button type="button" onClick={openLogin} className="lp-only-desktop vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ flexShrink: 0 }}>{t.signIn}</button>
-            <button type="button" onClick={onEnterApp} className="vmx-btn vmx-btn-primary vmx-btn-sm" style={{ flexShrink: 0 }}>{t.start}</button>
+            <button type="button" onClick={openLogin} className="lp-only-desktop vmx-btn vmx-btn-ghost vmx-btn-sm lp-nav-signin">{t.signIn}</button>
+            <button type="button" onClick={portal(onEnterApp)} className="vmx-btn vmx-btn-primary vmx-btn-sm lp-nav-start">{t.start}</button>
             <button
               ref={mobileMenuButtonRef}
               type="button"
@@ -491,8 +484,7 @@ export default function LandingView({
       </header>
 
       {/* Always mounted: visibility + inert close this curtain without
-          deleting the navigation tree. The sticky header remains above it,
-          so opening the menu never pushes the hero or changes scroll height. */}
+          deleting the navigation tree. */}
       <div
         ref={mobileMenuRef}
         id="lp-mobile-menu"
@@ -506,18 +498,17 @@ export default function LandingView({
       >
         <div className="lp-mobile-menu-inner">
           <div className="lp-mobile-menu-head">
-            <div>
-              <p id="lp-mobile-menu-title" className="lp-mobile-menu-title">{t.menuTitle}</p>
-              <p className="lp-mobile-menu-context"><span>{t.menuContext}</span>{t.ctxChip}</p>
-            </div>
+            <p id="lp-mobile-menu-title" className="lp-mobile-menu-title">{t.menuTitle}</p>
+            <p className="lp-mobile-menu-context"><span>{t.menuContext}</span>{t.ctxChip}</p>
           </div>
 
           <nav className="lp-mobile-menu-nav" aria-label={t.menuNavLabel}>
-            {t.nav.map((link) => (
+            {t.nav.map((link, i) => (
               <a
                 key={link.href}
                 href={link.href}
                 className="lp-mobile-menu-link"
+                style={{ '--i': i }}
                 onClick={closeMobileMenu}
               >
                 <span>{link.label}</span>
@@ -528,29 +519,29 @@ export default function LandingView({
 
           <div className="lp-mobile-menu-foot">
             <button type="button" onClick={openLogin} className="vmx-btn vmx-btn-ghost">{t.signIn}</button>
-            <div className="lp-mobile-menu-language" aria-label={t.menuLanguageLabel}>
-              <button type="button" aria-pressed={lang === 'en'} onClick={() => chooseLang('en')} style={segStyle(lang === 'en')}>EN</button>
-              <button type="button" aria-pressed={lang === 'th'} onClick={() => chooseLang('th')} style={segStyle(lang === 'th')}>ไทย</button>
+            <div className="lp-lang lp-mobile-menu-language" role="group" aria-label={t.menuLanguageLabel}>
+              <button type="button" aria-pressed={lang === 'en'} onClick={(e) => chooseLang('en', e)}>EN</button>
+              <button type="button" aria-pressed={lang === 'th'} onClick={(e) => chooseLang('th', e)}>ไทย</button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* body sections rendered from a dedicated module for readability */}
       <LandingBody
-        {...{ t, lang, heroOptions, heroPicked, heroRevealed, heroBookmarked, heroConfidence,
-          setHeroPicked, setHeroBookmarked, setHeroConfidence, onCheckHero,
-          subjectTab, setSubjectTab, showcaseMode, setShowcaseMode, realSubjects,
+        {...{ t, lang,
+          heroPicked, heroRevealed, heroBookmarked, heroConfidence,
+          setHeroPicked, setHeroRevealed, setHeroBookmarked, setHeroConfidence, onCheckHero,
+          realSubjects,
           panicTime, setPanicTime,
-          labOptions, labPicked, labRevealed, labZoom, labTool, setLabPicked, setLabZoom, setLabTool, onCheckLab,
-          onEnterApp, onPickSubject, openLogin,
+          labPicked, labRevealed, labZoom, setLabPicked, setLabZoom, onCheckLab,
+          portal, onEnterApp, onPickSubject, openLogin,
           onStartMockExam, onStartPanic, onOpenLab }}
       />
 
       {/* ---- Cookie consent (real) ---- */}
       {cookieOpen && (
         <div className="lp-cookie-dock" role="region" aria-labelledby="lp-cookie-title">
-          <div ref={cookiePanelRef} className="lp-cookie-card" style={{ animation: reduce.current ? 'none' : 'lp-rise .5s cubic-bezier(.16,1,.3,1)' }}>
+          <div ref={cookiePanelRef} className="lp-cookie-card">
             {!cookiePrefs ? (
               <div className="lp-cookie-summary">
                 <svg className="lp-cookie-icon" width={38} height={38} viewBox="0 0 44 44" fill="none" aria-hidden="true">
@@ -571,14 +562,14 @@ export default function LandingView({
               </div>
             ) : (
               <div>
-                <div id="lp-cookie-title" className="lp-cookie-title" style={{ marginBottom: 8 }}>{t.ckPrefs}</div>
-                <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '12px 0', borderTop: '1px dashed var(--clr-border)' }}>
-                  <div style={{ flex: 1 }}><div style={{ fontSize: 13.5, fontWeight: 600, color: 'var(--clr-ink)' }}>{t.ckEssentialT}</div><div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>{t.ckEssentialD}</div></div>
-                  <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-sage-text)', flexShrink: 0, marginTop: 3 }}>{t.ckAlways}</span>
+                <div id="lp-cookie-title" className="lp-cookie-title lp-cookie-title-prefs">{t.ckPrefs}</div>
+                <div className="lp-cookie-row">
+                  <div><div className="lp-cookie-row-t">{t.ckEssentialT}</div><div className="lp-cookie-row-d">{t.ckEssentialD}</div></div>
+                  <span className="lp-cookie-always">{t.ckAlways}</span>
                 </div>
                 <CookieRow title={t.ckAnalyticsT} desc={t.ckAnalyticsD} on={cAnalytics} onToggle={() => setCAnalytics((v) => !v)} />
-                <CookieRow title={t.ckPersonalT} desc={t.ckPersonalD} on={cPersonal} onToggle={() => setCPersonal((v) => !v)} border />
-                <div style={{ display: 'flex', gap: 8, marginTop: 14 }}>
+                <CookieRow title={t.ckPersonalT} desc={t.ckPersonalD} on={cPersonal} onToggle={() => setCPersonal((v) => !v)} last />
+                <div className="lp-cookie-actions">
                   <button type="button" onClick={cookieSave} className="vmx-btn vmx-btn-primary vmx-btn-sm">{t.ckSave}</button>
                   <button type="button" onClick={cookieAccept} className="vmx-btn vmx-btn-ghost vmx-btn-sm">{t.ckAccept}</button>
                 </div>
@@ -590,52 +581,55 @@ export default function LandingView({
 
       {/* ---- Login modal (real auth) ---- */}
       {loginOpen && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 'var(--z-modal)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'max(var(--space-5), env(safe-area-inset-top, 0px)) var(--space-5) max(var(--space-5), env(safe-area-inset-bottom, 0px))' }}>
-          <div aria-hidden="true" onClick={closeLogin} style={{ position: 'absolute', inset: 0, background: 'color-mix(in srgb, var(--clr-ink) 50%, transparent)', cursor: 'default' }} />
-          <div ref={loginDialogRef} tabIndex={-1} className="lp-stack" role="dialog" aria-modal="true" aria-labelledby="vmx-login-title" style={{ position: 'relative', zIndex: 'var(--z-raised)', width: 800, maxWidth: '100%', maxHeight: '92dvh', overflow: 'auto', background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 'var(--r-xl)', boxShadow: 'var(--shadow-lg)', display: 'grid', gridTemplateColumns: '1fr 1fr', animation: reduce.current ? 'none' : 'lp-rise var(--dur-slow) var(--ease-out)' }}>
-            <div className="lp-hide-md" style={{ background: 'var(--clr-bg)', borderRight: '1px solid var(--clr-border)', padding: 26, display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', color: 'var(--clr-ink-soft)' }}>{t.lgReturn}</span>
-              <div style={{ background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', borderRadius: 14, padding: 18 }}>
-                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)', marginBottom: 10 }}>Canine Endocrinology</div>
-                <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>{t.lgReturnCase}</div>
-                <div className="vmx-bar"><div className="vmx-bar-fill" style={{ width: '58%' }} /></div>
-              </div>
-              <div style={{ fontFamily: 'var(--vmx-display)', fontStyle: 'italic', fontSize: 13, color: 'var(--clr-ocean-text)' }}>“I always mix these two up.”</div>
-              <div style={{ marginTop: 'auto', fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{t.lgCtx}</div>
+        <div className="lp-login">
+          <div aria-hidden="true" onClick={closeLogin} className="lp-login-scrim" />
+          <div ref={loginDialogRef} tabIndex={-1} className="lp-login-card" role="dialog" aria-modal="true" aria-labelledby="vmx-login-title">
+            <div className="lp-login-side lp-hide-md">
+              <p className="lp-login-side-head">{t.lgPerksHead}</p>
+              <ul>
+                {t.lgPerks.map((perk) => <li key={perk}><NavIcon name="check" size={15} /><span>{perk}</span></li>)}
+              </ul>
+              <img src={EMPTY_ART['sr-session'].src} alt="" width={240} height={180} loading="lazy" decoding="async" className="lp-login-art" />
             </div>
-            <div style={{ padding: 26, display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span style={{ fontFamily: 'var(--vmx-display)', fontWeight: 800, fontSize: 20 }}>Vet<span style={{ color: 'var(--clr-rose-text)', fontStyle: 'italic', fontWeight: 500 }}>Mock</span></span>
-                <button type="button" onClick={closeLogin} aria-label={t.lgClose} className="lp-iconbtn" style={{ background: 'var(--clr-bg)' }}>
+            <div className="lp-login-main">
+              <div className="lp-login-top">
+                <span className="lp-wordmark">Vet<span>Mock</span></span>
+                <button type="button" onClick={closeLogin} aria-label={t.lgClose} className="lp-iconbtn">
                   <NavIcon name="close" size={17} />
                 </button>
               </div>
               {loginStep === 'email' ? (
                 <div>
-                  <h3 id="vmx-login-title" style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 22, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: '0 0 6px' }}>{t.lgHead}</h3>
-                  <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--clr-ink-soft)', margin: '0 0 18px' }}>{t.lgBody}</p>
-                  <button type="button" onClick={doGoogle} className="vmx-btn vmx-btn-ghost" style={{ width: '100%', justifyContent: 'center' }}>{t.lgGoogle}</button>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '14px 0', color: 'var(--clr-ink-soft)', fontSize: 11, fontFamily: 'var(--vmx-mono)' }}><span style={{ flex: 1, height: 1, background: 'var(--clr-border)' }} />{t.lgOr}<span style={{ flex: 1, height: 1, background: 'var(--clr-border)' }} /></div>
-                  <label htmlFor="vm-login-email" style={{ fontSize: 12, fontWeight: 600, color: 'var(--clr-ink)', display: 'block', marginBottom: 6 }}>{t.lgEmailLabel}</label>
-                  <input id="vm-login-email" type="email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="you@example.com" className="vmx-fill-input" style={{ marginBottom: loginError ? 6 : 12 }} aria-invalid={Boolean(loginError)} aria-describedby={loginError ? 'vm-login-error' : undefined} onKeyDown={(e) => { if (e.key === 'Enter') doMagic(); }} />
-                  {loginError && <div id="vm-login-error" role="alert" style={{ fontSize: 12, color: 'var(--clr-rose-text)', margin: '0 0 12px', lineHeight: 1.4 }}>{loginError}</div>}
-                  <button type="button" onClick={doMagic} disabled={loginSending} className="vmx-btn vmx-btn-primary" style={{ width: '100%', justifyContent: 'center', marginBottom: 10 }}>{loginSending ? t.lgSending : t.lgSend}</button>
-                  <button type="button" onClick={() => { closeLogin(); onOpenAuth && onOpenAuth(); }} className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ width: '100%', justifyContent: 'center', marginBottom: 6 }}>{t.lgPassword}</button>
-                  <button type="button" onClick={closeLogin} className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ width: '100%', justifyContent: 'center' }}>{t.lgGuest}</button>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginTop: 14, fontSize: 11, color: 'var(--clr-sage-text)', fontFamily: 'var(--vmx-mono)' }}><span>✓</span>{t.lgSaved}</div>
-                  <p style={{ fontSize: 11, color: 'var(--clr-ink-soft)', margin: '8px 0 0', lineHeight: 1.5 }}>{t.lgIndependent}</p>
+                  <h3 id="vmx-login-title" className="lp-login-title">{t.lgHead}</h3>
+                  <p className="lp-login-body">{t.lgBody}</p>
+                  {inApp && (
+                    <div className="lp-inapp" role="note">
+                      <b>{t.inAppHead(APP_NAMES[inApp])}</b>
+                      <p>{t.inAppBody}</p>
+                      {inAppExit
+                        ? <a className="vmx-btn vmx-btn-ghost" href={inAppExit}>{t.inAppOpen}</a>
+                        : <p>{t.inAppSteps}</p>}
+                    </div>
+                  )}
+                  <button type="button" onClick={doGoogle} className="vmx-btn vmx-btn-ghost lp-login-wide">{t.lgGoogle}</button>
+                  <div className="lp-login-or"><span />{t.lgOr}<span /></div>
+                  <label htmlFor="vm-login-email" className="lp-login-label">{t.lgEmailLabel}</label>
+                  <input id="vm-login-email" type="email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="you@example.com" className="vmx-fill-input lp-login-input" aria-invalid={Boolean(loginError)} aria-describedby={loginError ? 'vm-login-error' : undefined} onKeyDown={(e) => { if (e.key === 'Enter') doMagic(); }} />
+                  {loginError && <div id="vm-login-error" role="alert" className="lp-login-error">{loginError}</div>}
+                  <button type="button" onClick={doMagic} disabled={loginSending} className="vmx-btn vmx-btn-primary lp-login-wide">{loginSending ? t.lgSending : t.lgSend}</button>
+                  <button type="button" onClick={() => { closeLogin(); onOpenAuth && onOpenAuth(); }} className="vmx-btn vmx-btn-ghost vmx-btn-sm lp-login-wide">{t.lgPassword}</button>
+                  <button type="button" onClick={closeLogin} className="vmx-btn vmx-btn-ghost vmx-btn-sm lp-login-wide">{t.lgGuest}</button>
+                  <p className="lp-login-fine">{t.lgIndependent}</p>
+                  <p className="lp-login-fine">{t.lgTermsPre}<a href="/app/privacy#terms">{t.lgTerms}</a>{t.lgTermsMid}<a href="/app/privacy#privacy">{t.lgPrivacy}</a>{t.lgTermsPost}</p>
                 </div>
               ) : (
                 <div>
-                  <h3 id="vmx-login-title" tabIndex={-1} style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 22, letterSpacing: '-.01em', color: 'var(--clr-ink)', margin: '0 0 6px', outline: 'none' }}>{t.lgSentHead}</h3>
-                  <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--clr-ink-soft)', margin: '0 0 18px' }}>{t.lgSentBody} <strong style={{ color: 'var(--clr-ink)' }}>{loginEmail}</strong>. {t.lgSentHint}</p>
-                  <div style={{ display: 'flex', gap: 12, alignItems: 'center', padding: '16px 18px', borderRadius: 12, background: 'var(--clr-bg)', border: '1px solid var(--clr-border)', marginBottom: 16 }}>
-                    <span style={{ fontSize: 26 }}>📬</span>
-                    <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>{t.lgSentTip}</span>
-                  </div>
-                  <div style={{ display: 'flex', gap: 16 }}>
-                    <button type="button" onClick={doMagic} disabled={loginSending} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12.5, fontWeight: 600, color: 'var(--clr-sage-text)', padding: 0, fontFamily: 'inherit' }}>{loginSending ? t.lgSending : t.lgResend}</button>
-                    <button type="button" onClick={() => { setLoginStep('email'); setLoginError(''); }} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12.5, color: 'var(--clr-ink-soft)', padding: 0, fontFamily: 'inherit' }}>{t.lgBack}</button>
+                  <h3 id="vmx-login-title" tabIndex={-1} className="lp-login-title">{t.lgSentHead}</h3>
+                  <p className="lp-login-body">{t.lgSentBody} <strong>{loginEmail}</strong>. {t.lgSentHint}</p>
+                  <div className="lp-login-tip">{t.lgSentTip}</div>
+                  <div className="lp-login-links">
+                    <button type="button" onClick={doMagic} disabled={loginSending} className="lp-link-btn">{loginSending ? t.lgSending : t.lgResend}</button>
+                    <button type="button" onClick={() => { setLoginStep('email'); setLoginError(''); }} className="lp-link-btn is-quiet">{t.lgBack}</button>
                   </div>
                 </div>
               )}
@@ -647,15 +641,11 @@ export default function LandingView({
   );
 }
 
-// small helpers kept local to the view
-function segStyle(active) {
-  return { padding: '6px 12px', border: 'none', background: active ? 'var(--clr-ink)' : 'transparent', color: active ? 'var(--clr-bg)' : 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', fontSize: 11, fontWeight: 600, cursor: 'pointer', minHeight: 32 };
-}
-function CookieRow({ title, desc, on, onToggle, border }) {
+function CookieRow({ title, desc, on, onToggle, last }) {
   return (
-    <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '12px 0', borderTop: '1px dashed var(--clr-border)', ...(border ? { borderBottom: '1px dashed var(--clr-border)', marginBottom: 14 } : {}) }}>
-      <div style={{ flex: 1 }}><div style={{ fontSize: 13.5, fontWeight: 600, color: 'var(--clr-ink)' }}>{title}</div><div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>{desc}</div></div>
-      <button type="button" role="switch" aria-checked={on} aria-label={title} onClick={onToggle} className={`vmx-toggle ${on ? 'on' : ''}`} style={{ flexShrink: 0, marginTop: 2 }} />
+    <div className={`lp-cookie-row${last ? ' is-last' : ''}`}>
+      <div><div className="lp-cookie-row-t">{title}</div><div className="lp-cookie-row-d">{desc}</div></div>
+      <button type="button" role="switch" aria-checked={on} aria-label={title} onClick={onToggle} className={`vmx-toggle ${on ? 'on' : ''}`} />
     </div>
   );
 }

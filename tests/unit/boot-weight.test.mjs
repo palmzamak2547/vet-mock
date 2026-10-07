@@ -14,10 +14,10 @@
 //
 // A sheet may leave the boot path only when every rule in it is scoped to a
 // class used by nothing else, because until its chunk loads it applies to
-// nothing. The admin sheet is. The landing sheet is not: it also carries
-// two app-wide rules (the small-button size on phones up to 430 px, the
-// subject-card hover on touch screens), so it stays in the boot stylesheet,
-// and the guard below fails if it is moved without splitting those out.
+// nothing. The admin sheet is. The landing sheet left too (2026-10-07), once
+// its two app-wide rules (the small-button size on phones up to 430 px, the
+// subject-card hover on touch screens) moved into styles.css; the guard below
+// fails if an app-wide rule creeps back into it.
 //
 // The idle prefetch no longer pulls the sign-in screen for a student who is
 // already signed in.
@@ -105,7 +105,11 @@ function sheetParts(css) {
     if (head.startsWith('@')) {
       const kf = head.match(/^@(?:-webkit-)?keyframes\s+([\w-]+)/);
       if (kf) keyframes.push(kf[1]);
-      else if (!/^@(media|supports|container|layer)\b/.test(head)) globals.push(head);
+      else if (head === '@font-face') {
+        // Named by the family it declares, which is what other rules use.
+        const family = text.slice(m.index + m[0].length).match(/^[^}]*?font-family\s*:\s*['"]?([^'";}]+)/);
+        globals.push(`@font-face ${family ? family[1].trim() : ''}`);
+      } else if (!/^@(media|supports|container|layer)\b/.test(head)) globals.push(head);
       continue;
     }
     if (/^(from|to|[\d.]+%)(\s*,\s*(from|to|[\d.]+%))*$/.test(head)) continue; // keyframe steps
@@ -115,13 +119,19 @@ function sheetParts(css) {
 }
 // Selectors in `css` that can match an element outside the classes named by
 // `prefixes` (an .ad-x ancestor or subject is inside; anything else is not).
+// A font face or a registered property is global, but only rules that name
+// it can use it, so one whose name carries the prefix is inside too.
 function unscoped(css, prefixes) {
   const scoped = (s) => prefixes.some((p) => s.includes(`.${p}`) || s.includes(`#${p}`));
+  const named = (g) => {
+    const m = g.match(/^@property\s+--(\S+)$/) || g.match(/^@font-face\s+(\S+)$/);
+    return !!m && prefixes.some((p) => m[1].startsWith(p));
+  };
   const { selectors, keyframes, globals } = sheetParts(css);
   return [
     ...selectors.filter((s) => !scoped(s)),
     ...keyframes.filter((k) => !prefixes.some((p) => k.startsWith(p))).map((k) => `@keyframes ${k}`),
-    ...globals,
+    ...globals.filter((g) => !named(g)),
   ];
 }
 
@@ -180,6 +190,12 @@ test('the landing sheet leaves the boot path only once it holds nothing the app 
   assert.deepEqual(
     unscoped('@media (max-width: 430px) { .vmx-btn-sm { padding: 8px; } } .lp-root .vmx-btn { overflow: visible; }', ['lp-']),
     ['.vmx-btn-sm'],
+  );
+  // A face or property only the landing names is inside; one the app could
+  // name is not.
+  assert.deepEqual(
+    unscoped("@font-face { font-family: 'lp-serif'; } @property --lp-a { syntax: '*'; } @font-face { font-family: 'Sarabun'; } @property --clr-x { syntax: '*'; }", ['lp-']),
+    ['@font-face Sarabun', '@property --clr-x'],
   );
   if (staticReach('src/main.jsx').has('src/styles-landing.css')) return;
   assert.deepEqual(unscoped(read('src/styles-landing.css'), ['lp-', 'cta']), [],

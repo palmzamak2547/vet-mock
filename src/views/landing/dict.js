@@ -1,19 +1,23 @@
 // ============================================================
 // Landing i18n dictionary (en / th)
 // ============================================================
-// Rewritten 2026-09-15. The previous copy was lifted from a design handoff
-// and read like a translated SaaS template — twelve sections in one rhythm,
-// a fake 72% readiness gauge, a fake dashboard, invented weakness cards, and
-// it called the reader "นักศึกษา" on a page for Chula นิสิต.
-//
-// Rules for every string here:
+// Rewritten 2026-10-07 with the redesign. Copy rules:
 //   - นิสิต, never นักศึกษา. This is Chula.
-//   - Say it the way a fifth-year would say it to a first-year. No feature
-//     lists translated from English, no section labels ("ทางออก", "ใช้งานยังไง").
-//   - Every number on the page is read from q-counts.js or the timetable in
-//     LandingBody. Nothing here is a typed-in statistic.
+//   - Say it the way a fifth-year would say it to a first-year.
+//   - No "ข้อสอบเก่า" / "past papers" (Palm, 2026-10-07): the bank is practice
+//     questions written and compiled from what students study, not exam
+//     papers, and the page must not suggest otherwise. The terms page says
+//     the same thing in full (PrivacyView, section "ข้อตกลงการใช้งาน").
+//   - Every number on the page is read from the data modules in LandingBody
+//     (q-counts, the faculty timetable, PANIC_SIZE, the SM-2 schedule, the
+//     notes registry). Nothing here is a typed-in statistic.
 //   - Clinical and technical terms stay English in both languages.
-//   - No middle dots, no emoji as icons.
+//   - No middle dots, no emoji as icons. A line break inside a heading is
+//     written as \n and rendered as a line, so Thai never breaks mid-phrase.
+//   - The hero question and the radiograph are real: the question is
+//     bank item 105304 word for word (tests/unit/landing-real-content.test.mjs
+//     holds it to the bank), the radiograph is a CC BY 4.0 teaching image whose
+//     label is the dataset's, and the page says both things out loud.
 // ============================================================
 
 export const DICT = {
@@ -24,88 +28,135 @@ export const DICT = {
     bookmark: 'Save question', unbookmark: 'Remove saved question',
     menuOpen: 'Open menu', menuClose: 'Close menu', menuTitle: 'Explore VetMock',
     menuContext: 'Study context', menuNavLabel: 'Landing sections', menuLanguageLabel: 'Language',
-    nav: [{ label: 'Practice', href: '#solution' }, { label: 'Panic Mode', href: '#panic' }, { label: 'Subjects', href: '#subjects' }, { label: 'Lab', href: '#lab' }, { label: 'Your home', href: '#progress' }],
-    // No year in the chip: the reader has not picked one yet.
+    nav: [{ label: 'Practice', href: '#solution' }, { label: 'Panic Mode', href: '#panic' }, { label: 'Lab', href: '#lab' }, { label: 'Subjects', href: '#subjects' }, { label: 'Your home', href: '#progress' }],
     ctxChip: 'CUVET / Semester 1, 2026',
 
-    heroEyebrow: 'Made by a Chula vet student, for Chula vet students',
-    heroPre: 'Past papers from the years above you, ', heroEm: 'before exam day.', heroPost: '',
-    heroSub: 'Practise the kind of questions that actually get asked, read an explanation that says why the other options are wrong, then open the lecturer\'s slide the question came from. Free.',
+    heroEyebrow: 'Made by Chula vet students, for Chula vet students',
+    heroL1: 'Practise every subject', heroL2: '', heroEm: 'before exam day.',
+    heroSub: 'Practice questions written from what you study. Every explanation says why the other options are wrong and where the answer comes from. Free, and you can start without an account.',
     heroCta1: 'Start Practicing', heroCta2: 'Browse subjects',
-    heroBankLabel: 'Question bank', heroBankLine: 'A real question from the shipped bank',
-    heroTag: 'Small Animal Med — Endocrine',
-    heroQ: 'A 7-year-old Labrador Retriever presents with polyuria, polydipsia, abdominal distension, and bilateral symmetrical alopecia. Which diagnostic test is the most appropriate next step?',
-    heroExplain: 'The signalment and signs — PU/PD, a pot-bellied abdomen, and endocrine (bilaterally symmetrical) alopecia — point to hyperadrenocorticism (Cushing\'s). The LDDST is the screening test of choice, with the highest sensitivity for spontaneous disease.',
-    heroConfQ: 'How confident are you?', conf: ['Guessing', 'Unsure', 'Confident'],
-    check: 'Check answer', reset: 'Reset demo', demoNote: 'Interactive demo — this does not touch your progress.',
-    previewBadge: 'Example', labDemoNote: 'Sample station, for demonstration.',
-    correct: 'Correct', wrong: 'Not quite', why: 'Why',
-    navTitle: 'Exam progress', legAnswered: 'Answered', legCurrent: 'Current', legFlagged: 'Flagged',
+    statOpen: 'questions open today', statSubjects: 'subjects', statNotes: 'topics with sourced notes',
+    statsLabel: 'What is in the app today',
 
-    // Countdown under the hero. The dates, the paper and the counts come from
-    // the faculty timetable; only these labels live here.
-    // No cohort here: a signed-out reader may be any year, and every year
-    // sits the same week.
+    cardLabel: 'A real question from the bank',
+    cardThaiNote: 'Shown in Thai, the way it appears in the app.',
+    cardTopic: 'Equine nutrition',
+    heroConfQ: 'How sure are you?', conf: ['Guessing', 'Unsure', 'Sure'],
+    check: 'Check answer', reset: 'Try again', demoNote: 'Try it. This does not touch your progress.',
+    correct: 'Correct', wrong: 'Not this one', why: 'Answer',
+    wrongHead: 'Why the others are wrong', tipLabel: 'Easy to remember',
+    sourceLabel: 'From', sourceDoc: 'the Equine Medicine lecture slides, page 8',
+    noteHead: 'Why some sources say 2-3 days',
+    shelfLabel: 'In the app', shelfLine: 'the subject\'s document shelf opens from under the answer',
+    keptLine: 'In the app, a question you get wrong is kept so you can come back to it.',
+    skullLabel: 'A horse skull from a CT scan, drawn as an X-ray. Drag to turn it.',
+    skullCredit: 'Horse skull: CT by Dr. Tobias Schwarz, prepared by The University of Edinburgh, CC BY 4.0',
+    keepGoing: 'Practise this subject',
+
+    wallKicker: 'Sound familiar?',
+    wallHead: 'Everyone has a pile of\nthese the week before.',
+    wallNotes: [
+      'Three versions of the year-group summary. Which one is right?',
+      'I read it all, then froze at the first question.',
+      'The answer key says C. It never says why.',
+      'The files are spread over five LINE groups.',
+      'Exam tomorrow. There is no way I can finish.',
+      'The practical is images, and I have never read a real one.',
+    ],
+    wallDrag: 'You can move the notes.',
+    wallAnswerHead: 'VetMock keeps it in one place.',
+    wallAnswers: [
+      'Practice questions in every subject, written from what you study',
+      'Every wrong option explained, with where the answer comes from',
+      'Panic Mode for the night before, sized to the time you have',
+      'A radiograph lab and a 3D Atlas built from real scans',
+    ],
+    wallFreePre: 'And it is ', wallFree: 'free', wallFreePost: '.',
+
+    howHead: 'Every question in the bank works like this',
+    howSteps: [
+      { key: 'bank', title: 'Written from what you study', body: 'Questions written and compiled from lecture slides, textbooks and the year-group sheets students share, from year 1 to year 5. Timed or untimed, by subject or by topic, on your phone while you wait for the bus.' },
+      { key: 'why', title: 'Every wrong option, explained', body: 'Not just which answer is right. Each wrong option gets the line that says why, so the next time two answers look alike you can tell them apart yourself.' },
+      { key: 'source', title: 'The source sits under every answer', body: 'Every question says where it came from. One written from a class recording opens that recording at the minute it cites, and the subject\'s document shelf opens from under the answer, so you can check for yourself instead of trusting anyone\'s summary.' },
+      { key: 'review', title: 'Missed questions come back as you start to forget', body: 'What you get wrong or are unsure about goes into review and returns on a spaced schedule. Keep getting it right and the gaps grow.' },
+    ],
+    howBankLabel: 'Subjects with the most questions right now',
+    howReviewLabel: 'If you keep answering correctly',
+    howReviewDays: (d) => (d === 1 ? 'tomorrow' : `in ${d} days`),
+
+    panicKicker: 'The night before',
+    panicHead: 'Exam tomorrow,\nhalf an hour left?',
+    panicCalm: 'Breathe. Half an hour used well is worth more than a whole night used badly.',
+    panicDesc: 'Say how much time you have. Panic Mode builds a set that fits it and, once there is enough history, puts the questions you keep getting wrong first. When the time is up, it stops.',
+    panicTimeQ: 'How long do you have?',
+    panicTimes: [{ key: '15', label: '15 minutes' }, { key: '30', label: '30 minutes' }, { key: '60', label: '1 hour' }, { key: 'tonight', label: 'Tonight' }],
+    panicSize: (n, timed) => (timed ? `${n} questions, a minute each` : `${n} questions, no clock`),
+    panicCta: 'Open Panic Mode',
+
+    labKicker: 'The reading room',
+    labSecHead: 'A practical exam needs\npractical practice.',
+    labSecSub: 'Open a real radiograph, zoom, measure, then answer, the way you would at an exam station.',
+    labStation: 'Sample station: canine thorax, lateral',
+    labPrompt: 'The people who built this dataset gave this image one label. Which one?',
+    labOptions: ['Cardiomegaly', 'Pleural effusion', 'Pneumothorax', 'No finding (normal)'],
+    labExplain: 'This image comes from the VetXRay dataset, whose annotators labelled it cardiomegaly: the cardiac silhouette takes up much of the middle of the thorax. In the app\'s lab you can measure the VHS against the vertebrae yourself.',
+    labCredit: 'Image: VetXRay, Zenodo, CC BY 4.0',
+    labImgAlt: 'Lateral thoracic radiograph of a dog, labelled cardiomegaly in the VetXRay dataset',
+    labZoomOut: 'Zoom out', labZoomIn: 'Zoom in', labZoomReset: 'Reset zoom',
+    labNext: 'Open the lab', labTimer: 'Station clock',
+    atlasHead: 'A skull from a real CT scan.\nTurn it any way you like.',
+    atlasBody: 'The app\'s 3D Atlas holds anatomy models built from real scans, each with its source and licence.',
+    atlasCta: 'Open the 3D Atlas',
+    atlasCredit: 'Dog skull: NIH 3D 3DPX-000282, public domain (CC0)',
+    atlasHint: 'Drag to turn',
+    atlasLabel: 'A 3D dog skull from a CT scan, drawn as an X-ray. Drag to turn it.',
+
+    moreHead: 'And in the app, there is more',
+    more: [
+      { key: 'exam', title: 'A full mock exam on the clock', body: 'Pick the subjects, the count and the time per question, then sit it like the real thing.' },
+      { key: 'notes', title: 'Study notes that cite every section', body: (topics, subjects) => `${topics} topics across ${subjects} subjects, and every section says where it came from.` },
+      { key: 'videos', title: 'Lecture recordings, summarised', body: 'Read the summary first, then jump to the part of the recording you need.' },
+      { key: 'library', title: 'Slides and sheets in one place', body: 'Lecture decks and year-group sheets, opened in the app with your own pen and highlighter.' },
+      { key: 'groups', title: 'Practise with friends', body: 'Make a group, race through the same set, and see who needs which topic again.' },
+      { key: 'badges', title: 'Streaks and badges', body: 'Small wins for showing up: seven days in a row, a thousand questions, fifty answered after ten at night, fifty in Panic Mode.' },
+    ],
+    demoExamQ: (i, n) => `Question ${i} of ${n}`,
+
+    subjHeadPre: 'Pick ', subjHeadPost: ' and start.', subjHeadPlain: 'Pick a subject and start.',
+    subjSub: 'Grouped by year. The number on each card is the real count of questions you can open today.',
+    subjAll: 'All years', subjYear: (y) => `Year ${y}`,
+    subjSearch: 'Search subjects', subjSearchTry: (name) => `Search: ${name}`, subjEmpty: 'No subject matches that.',
+    subjMore: (n) => `Show all ${n} subjects`, subjLess: 'Show fewer',
+    subjNames: { vca: 'VCA practice' },
+    qWord: 'questions', startPractice: 'Start',
+
+    progHead: 'Your home page knows how long is left, and what to do next.',
+    progSub: 'The countdown runs on the faculty timetable. Under it, one suggested next step, sized to the time you say you have today.',
+    progCaption: 'The real app, recorded at phone size. Desktop screenshot: year 5, 15 September 2026.',
+    progAlt: 'VetMock home page showing the midterm countdown and the suggested next step',
+    progVideoLabel: 'A short recording of the real app: opening a subject, answering a question and reading the explanation.',
+
+    ctaPre: 'The first time you meet a question like this\nshould not be in the ', ctaEm: 'exam room.', ctaPost: '',
+    cta1: 'Start Practicing', cta2: 'Browse subjects',
+    footTagline: 'Made by Chula vet students.',
+    footIndependent: 'VetMock is an independent study tool. Not affiliated with any faculty, university, or examination board. Its questions are practice questions, not official exam papers.',
+    footRelease: (v, date) => `Version ${v}, updated ${date}`,
+    footCredits: 'Image and model credits',
+    footLinks: [{ label: 'Practice', href: '#solution' }, { label: 'Panic Mode', href: '#panic' }, { label: 'Lab', href: '#lab' }, { label: 'Subjects', href: '#subjects' }],
+    footPrivacy: 'Privacy', footTerms: 'Terms of use',
+    copyright: '© 2026 VetMock',
+
     cdUnits: ['days', 'hours', 'min', 'sec'], cdDuring: 'Now sitting: ',
     cdTerm: { midterm: 'Midterm exams', final: 'Final exams' }, cdSemester: 'Semester 1, 2026',
     cdRange: (a, b) => {
       const f = (s) => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); };
       return `${f(a)} to ${f(b)}`;
     },
-    footPrivacy: 'Data and privacy', footTagline: 'Practice before the real exam.',
-    labImgAlt: 'Canine lateral thoracic radiograph', labZoomOut: 'Zoom out', labZoomIn: 'Zoom in',
     cdLine: 'Every year sits the same week. Pick your year inside the app to see your own papers.',
     cdPanicLine: 'Pick your year inside the app and Panic Mode knows which paper is next for you.',
     cdDuringLine: 'Exam week is under way. Counting to its last day.',
 
-    proofQuestions: 'questions you can open today', proofPast: 'from real past papers', proofSubjects: 'subjects',
-    proofMarqueeLabel: 'Every subject with questions, with its real count. Tap one to start.',
-
-    threeHead: 'Three things you can do here',
-    three: [
-      { title: 'Work through real past papers', body: 'Questions the years above you actually sat, plus the ones written from what they marked as examined. Timed or untimed, by subject or by topic, on the phone in the queue for the bus.' },
-      { title: 'Read why the other options are wrong, then open the slide', body: 'Every explanation names the wrong options and says why. Where the question came from a lecture, the slide is one tap away, so you check the source instead of trusting a summary.' },
-      { title: 'The night before, Panic Mode', body: 'Tell it how much time you have. It picks past-paper questions and the ones you keep getting wrong, sized to fit, and stops when the time is up.' },
-    ],
-    threePastLabel: 'Most past-paper questions right now',
-    threeSlideBtn: 'Open the lecturer\'s slide',
-    threePanicLine: (n, subjects) => `${n.toLocaleString('en-US')} past-paper questions across ${subjects} subjects, ready to revise`,
-
-    panicHead: 'Exam tomorrow, half an hour left?',
-    panicCalm: 'Breathe. Half an hour used well is worth more than a whole night used badly.',
-    panicDesc: 'Say how much time you have. Panic Mode fills it with past-paper questions and, once there is enough history, the ones you have been getting wrong.',
-    panicTimeQ: 'How long do you have?',
-    panicTimes: [{ key: '15', label: '15 minutes' }, { key: '30', label: '30 minutes' }, { key: '60', label: '1 hour' }, { key: 'tonight', label: 'Tonight' }],
-    panicCta: 'Open Panic Mode',
-
-    subjLabel: 'Question bank',
-    subjPre: 'Questions from ', subjEm: 'preclinical to clinical.', subjPost: '',
-    subjSub: 'Grouped by the curriculum. The count on each card is the real number of questions you can open.',
-    subjRealNote: 'Open now, real counts. Pick a subject to start.',
-    subjShowcaseNote: 'The full subject map VetMock is built around.',
-    subjToggleReal: 'Practise now', subjToggleShowcase: 'See all subjects',
-    tabs: [{ key: 'all', label: 'All' }, { key: 'preclinical', label: 'Preclinical' }, { key: 'paraclinical', label: 'Paraclinical' }, { key: 'clinical', label: 'Clinical' }],
-    qWord: 'questions', startPractice: 'Start practising',
-
-    labSecHead: 'A practical exam needs practical practice.',
-    labSecSub: 'OSPE-style stations built like the real bench: an image, a prompt, a clock. Then the next station.',
-    labStation: 'Station 3 — Diagnostic Imaging',
-    labPrompt: 'Identify the radiographic abnormality and select the most likely diagnosis.',
-    labExplain: 'A dorsally elevated cardiac silhouette with left atrial enlargement and a caudodorsal interstitial-to-alveolar pattern is classic for cardiogenic pulmonary oedema in the dog.',
-    labNext: 'Next station', labImgPlaceholder: 'Radiograph preview',
-    toolAnnotate: 'Annotate', toolMeasure: 'Measure', toolReset: 'Reset view',
-
-    progHead: 'Your home page knows how long is left, and what to do next.',
-    progSub: 'The countdown runs on the faculty timetable. Under it, one suggested next step, sized to the time you say you have today.',
-    progCaption: 'Screenshot of the real app, year 5, 15 September 2026.',
-    progAlt: 'VetMock home page showing the midterm countdown and the suggested next step',
-
-    ctaPre: 'The first time you meet a question like this should not be in the ', ctaEm: 'exam room.', ctaPost: '',
-    cta1: 'Start Practicing',
-    footTagline: 'Made by a Chula vet student.',
-    footIndependent: 'VetMock is an independent study tool. Not affiliated with any faculty, university, or examination board.',
-    footLinks: [{ label: 'Practice', href: '#solution' }, { label: 'Panic Mode', href: '#panic' }, { label: 'Subjects', href: '#subjects' }, { label: 'Lab', href: '#lab' }],
-    copyright: '© 2026 VetMock',
+    marqueeLabel: 'Every subject with questions, with its real count. Tap one to start.',
 
     ckHead: 'Can we remember where you left off?',
     ckBody: 'VetMock uses essential cookies to keep the platform working and remember your study context. Optional cookies help us improve the learning experience.',
@@ -113,18 +164,23 @@ export const DICT = {
     ckEssentialT: 'Essential', ckEssentialD: 'Sign-in, security, and remembering your study context.',
     ckAnalyticsT: 'Product analytics', ckAnalyticsD: 'Helps us see which features actually help students learn.',
     ckPersonalT: 'Personalisation', ckPersonalD: 'Remembers your year, semester, exam period, and interface preferences.',
-    lgHead: 'Pick up where you left off.', lgBody: 'Your curriculum, recent cases, saved mistakes, and study context will be ready.',
+    lgHead: 'Pick up where you left off.', lgBody: 'Sign in to keep your study on every device.',
+    lgPerksHead: 'What signing in adds',
+    lgPerks: ['Your history, saved questions and review cards follow you to every device.', 'No account? Everything still works, and stays on this device.', 'We keep your study data, never patient records.'],
     lgGoogle: 'Continue with Google', lgGuest: 'Continue as guest', lgPassword: 'Sign in with a password', lgEmailLabel: 'Email',
     lgSend: 'Email me a sign-in link', lgSending: 'Sending…', lgOr: 'or',
-    lgCtx: 'CUVET / Semester 1, 2026', lgSaved: 'Your study context will be saved',
-    lgReturn: 'Continue where you stopped', lgReturnCase: 'Decision 7 of 12',
     lgSentHead: 'Check your inbox', lgSentBody: 'We sent a sign-in link to', lgSentHint: 'Open it on this device to continue.',
-    lgSentTip: 'The link signs you in — no code to type. It expires shortly, so use it soon.',
-    lgResend: 'Resend link', lgBack: 'Use another email', lgVerify: 'Verify and continue',
-    lgIndependent: 'Independent platform — not an official university sign-in. We store your study context, never patient records.',
+    lgSentTip: 'The link signs you in, no code to type. It expires soon, so use it now.',
+    lgResend: 'Resend link', lgBack: 'Use another email',
+    lgIndependent: 'Independent platform, not an official university sign-in.',
+    lgTermsPre: 'By continuing you agree to the ', lgTerms: 'terms of use', lgTermsMid: ' and the ', lgPrivacy: 'privacy notice', lgTermsPost: '.',
     lgClose: 'Close sign in',
-    lgErrEmail: 'Enter a valid email address.', lgErrRate: 'Too many attempts — wait a moment and try again.',
+    lgErrEmail: 'Enter a valid email address.', lgErrRate: 'Too many attempts. Wait a moment and try again.',
     lgErrNoUser: 'No account for this email yet. Use "Sign in with a password" to create one.', lgErrGeneric: 'Couldn\'t send the link. Please try again.',
+    inAppHead: (app) => `You opened this inside ${app}`,
+    inAppBody: 'Google often blocks sign-in inside app browsers. Open this page in Safari or Chrome to sign in with Google, or use the email link below.',
+    inAppOpen: 'Open in the browser',
+    inAppSteps: 'Tap the menu (⋯ or ⋮) at the top or bottom of the screen and choose to open in the browser.',
   },
   th: {
     start: 'เริ่มฝึกเลย', signIn: 'เข้าสู่ระบบ', skip: 'ข้ามไปเนื้อหาหลัก',
@@ -133,79 +189,131 @@ export const DICT = {
     bookmark: 'บันทึกข้อนี้', unbookmark: 'เลิกบันทึกข้อนี้',
     menuOpen: 'เปิดเมนู', menuClose: 'ปิดเมนู', menuTitle: 'สำรวจ VetMock',
     menuContext: 'บริบทการเรียน', menuNavLabel: 'ส่วนต่าง ๆ ในหน้าแนะนำ', menuLanguageLabel: 'ภาษา',
-    nav: [{ label: 'ฝึกทำโจทย์', href: '#solution' }, { label: 'Panic Mode', href: '#panic' }, { label: 'รายวิชา', href: '#subjects' }, { label: 'แล็บ', href: '#lab' }, { label: 'หน้าแรกของคุณ', href: '#progress' }],
+    nav: [{ label: 'ฝึกทำโจทย์', href: '#solution' }, { label: 'Panic Mode', href: '#panic' }, { label: 'แล็บ', href: '#lab' }, { label: 'รายวิชา', href: '#subjects' }, { label: 'หน้าแรกของคุณ', href: '#progress' }],
     ctxChip: 'CUVET / ภาคต้น 2569',
 
     heroEyebrow: 'ทำโดยนิสิตสัตวแพทย์จุฬา ให้นิสิตสัตวแพทย์จุฬา',
-    heroPre: 'ข้อสอบเก่าของรุ่นพี่ ทำได้', heroEm: 'ก่อนถึงวันสอบ', heroPost: '',
-    heroSub: 'ทำโจทย์แนวเดียวกับที่ออกจริง อ่านเฉลยที่บอกว่าทำไมข้ออื่นถึงผิด แล้วเปิดสไลด์อาจารย์ที่ออกข้อนั้นได้เลย ฟรี ไม่มีค่าใช้จ่าย',
+    heroL1: 'ซ้อมโจทย์ทุกวิชา', heroL2: '', heroEm: 'ก่อนถึงวันสอบ',
+    heroSub: 'โจทย์ฝึกที่เขียนจากเนื้อหาที่เรียน ทุกเฉลยบอกว่าทำไมข้ออื่นถึงผิด และคำตอบมาจากไหน ฟรี ไม่ต้องสมัครก็เริ่มได้',
     heroCta1: 'เริ่มฝึกเลย', heroCta2: 'ดูรายวิชา',
-    heroBankLabel: 'คลังข้อสอบ', heroBankLine: 'โจทย์จริงจากคลังที่เปิดใช้อยู่',
-    heroTag: 'Small Animal Med — Endocrine',
-    heroQ: 'สุนัขพันธุ์ Labrador Retriever อายุ 7 ปี มาด้วยอาการ polyuria, polydipsia, ท้องกาง และ bilateral symmetrical alopecia ควรส่งตรวจอะไรเป็นลำดับถัดไป',
-    heroExplain: 'อาการ PU/PD ท้องกางแบบ pot-belly และ endocrine alopecia ที่สมมาตรสองข้าง ชี้ไปที่ hyperadrenocorticism (Cushing\'s) ซึ่ง LDDST เป็น screening test ที่ไวที่สุด และเป็น test of choice สำหรับโรคที่เกิดเอง',
+    statOpen: 'ข้อ ให้ฝึกวันนี้', statSubjects: 'วิชา', statNotes: 'หัวข้อมีโน้ตพร้อมที่มา',
+    statsLabel: 'ในแอปตอนนี้มี',
+
+    cardLabel: 'โจทย์จริงจากคลัง',
+    cardThaiNote: '',
+    cardTopic: 'โภชนาการม้า',
     heroConfQ: 'มั่นใจแค่ไหน', conf: ['เดา', 'ไม่แน่ใจ', 'มั่นใจ'],
     check: 'ตรวจคำตอบ', reset: 'ลองใหม่', demoNote: 'ลองเล่นได้ ไม่มีผลกับความคืบหน้าของคุณ',
-    previewBadge: 'ตัวอย่าง', labDemoNote: 'สถานีตัวอย่าง เพื่อการสาธิต',
     correct: 'ถูกต้อง', wrong: 'ยังไม่ใช่', why: 'เฉลย',
-    navTitle: 'ความคืบหน้า', legAnswered: 'ตอบแล้ว', legCurrent: 'ข้อนี้', legFlagged: 'ปักหมุด',
+    wrongHead: 'ทำไมข้ออื่นผิด', tipLabel: 'จำง่าย ๆ',
+    sourceLabel: 'ที่มา', sourceDoc: 'สไลด์บรรยาย Equine Medicine หน้า 8',
+    noteHead: 'ทำไมบางแหล่งตอบ 2-3 วัน',
+    shelfLabel: 'ในแอป', shelfLine: 'เปิดชั้นเอกสารของวิชาได้จากใต้เฉลย',
+    keptLine: 'ในแอป ข้อที่ตอบผิดจะถูกเก็บไว้ให้กลับมาทวนได้',
+    skullLabel: 'กะโหลกม้าจากภาพ CT แสดงแบบภาพรังสี ลากเพื่อหมุนดูได้',
+    skullCredit: 'กะโหลกม้า: ภาพ CT โดย Dr. Tobias Schwarz จัดทำโดย The University of Edinburgh, CC BY 4.0',
+    keepGoing: 'ฝึกวิชานี้ต่อ',
+
+    wallKicker: 'คุ้น ๆ ไหม',
+    wallHead: 'สัปดาห์ก่อนสอบ\nใคร ๆ ก็มีโน้ตแบบนี้',
+    wallNotes: [
+      'สรุปของรุ่นมีสามฉบับ\nเชื่ออันไหนดี',
+      'อ่านจบแล้ว\nแต่เจอโจทย์ข้อแรก\nก็ตอบไม่ได้',
+      'เฉลยบอกแค่ข้อ ค.\nไม่บอกว่าทำไม',
+      'ไฟล์อยู่กระจาย\nในห้าแชตไลน์',
+      'พรุ่งนี้สอบ\nอ่านไม่ทันแน่ ๆ',
+      'สอบปฏิบัติเป็นภาพ\nแต่ไม่เคยอ่านฟิล์มจริงเลย',
+    ],
+    wallDrag: 'ลากโน้ตไปมาได้',
+    wallAnswerHead: 'VetMock รวมไว้ให้ในที่เดียว',
+    wallAnswers: [
+      'โจทย์ฝึกทุกวิชา เขียนจากเนื้อหาที่เรียน',
+      'เฉลยทุกตัวเลือกที่ผิด พร้อมบอกว่าคำตอบมาจากไหน',
+      'Panic Mode สำหรับคืนก่อนสอบ จัดชุดให้พอดีเวลาที่มี',
+      'แล็บภาพรังสีและ Atlas 3D จากภาพสแกนจริง',
+    ],
+    wallFreePre: 'และใช้ได้', wallFree: 'ฟรี', wallFreePost: '',
+
+    howHead: 'ทุกข้อในคลัง ทำงานแบบนี้',
+    howSteps: [
+      { key: 'bank', title: 'เขียนจากเนื้อหาที่เรียนจริง', body: 'โจทย์เขียนและเรียบเรียงจากสไลด์เลกเชอร์ ตำรา และชีตสรุปที่นิสิตแบ่งปันกัน ครบตั้งแต่ปี 1 ถึงปี 5 จะจับเวลาหรือไม่จับก็ได้ เลือกเป็นวิชาหรือเป็นหัวข้อ ทำบนมือถือตอนรอรถก็ได้' },
+      { key: 'why', title: 'เฉลยไล่ทีละตัวเลือก', body: 'ไม่ได้บอกแค่ข้อไหนถูก ตัวเลือกที่ผิดทุกข้อมีเหตุผลว่าผิดตรงไหน รอบหน้าเจอสองข้อที่หน้าตาคล้ายกัน จะแยกออกได้เอง' },
+      { key: 'source', title: 'ที่มาอยู่ใต้ทุกเฉลย', body: 'ทุกข้อบอกว่ามาจากไหน ข้อที่เขียนจากคลิปคาบเรียนเปิดคลิปตรงนาทีนั้นได้ และเปิดชั้นเอกสารของวิชาได้จากใต้เฉลย เช็กเองได้ ไม่ต้องเชื่อสรุปของใคร' },
+      { key: 'review', title: 'ข้อที่พลาด กลับมาเองตอนใกล้ลืม', body: 'ข้อที่ตอบผิดหรือไม่มั่นใจจะเข้ารอบทบทวน แล้วกลับมาตามรอบความจำ ยิ่งตอบถูกต่อกัน ยิ่งเว้นห่างขึ้น' },
+    ],
+    howBankLabel: 'วิชาที่มีโจทย์มากที่สุดตอนนี้',
+    howReviewLabel: 'ถ้าตอบถูกต่อกัน ข้อนี้จะกลับมา',
+    howReviewDays: (d) => (d === 1 ? 'พรุ่งนี้' : `อีก ${d} วัน`),
+
+    panicKicker: 'คืนก่อนสอบ',
+    panicHead: 'พรุ่งนี้สอบ\nเหลืออีกครึ่งชั่วโมง?',
+    panicCalm: 'หายใจก่อน ครึ่งชั่วโมงที่ใช้ถูก มีค่ากว่าทั้งคืนที่ใช้ผิด',
+    panicDesc: 'บอกว่ามีเวลาเท่าไหร่ Panic Mode จะจัดชุดโจทย์ให้พอดีเวลา และถ้าเคยทำมาพอ จะหยิบข้อที่คุณยังตอบผิดมาก่อน หมดเวลาก็หยุด ไม่ลากคุณอ่านต่อจนสว่าง',
+    panicTimeQ: 'มีเวลาเท่าไหร่',
+    panicTimes: [{ key: '15', label: '15 นาที' }, { key: '30', label: '30 นาที' }, { key: '60', label: '1 ชั่วโมง' }, { key: 'tonight', label: 'คืนนี้' }],
+    panicSize: (n, timed) => (timed ? `${n} ข้อ ข้อละ 1 นาที` : `${n} ข้อ ไม่จับเวลา`),
+    panicCta: 'เข้า Panic Mode',
+
+    labKicker: 'ห้องอ่านฟิล์ม',
+    labSecHead: 'สอบปฏิบัติ\nต้องซ้อมแบบปฏิบัติ',
+    labSecSub: 'เปิดภาพรังสีจริง ซูม วัด แล้วตอบ เหมือนยืนอยู่หน้าสถานีสอบ',
+    labStation: 'สถานีตัวอย่าง ทรวงอกสุนัข ด้านข้าง',
+    labPrompt: 'คนทำชุดข้อมูลนี้ติดป้ายภาพนี้ไว้ว่าอะไร',
+    labOptions: ['Cardiomegaly', 'Pleural effusion', 'Pneumothorax', 'ไม่พบความผิดปกติ (normal)'],
+    labExplain: 'ภาพนี้มาจากชุดข้อมูล VetXRay ซึ่งคนทำติดป้ายไว้ว่า cardiomegaly เงาหัวใจกินพื้นที่กลางทรวงอกไปมาก ในแล็บของแอปลองวัด VHS เทียบกับกระดูกสันหลังได้เอง',
+    labCredit: 'ภาพ: VetXRay, Zenodo, CC BY 4.0',
+    labImgAlt: 'ภาพรังสีทรวงอกสุนัขด้านข้าง ชุดข้อมูล VetXRay ติดป้ายว่า cardiomegaly',
+    labZoomOut: 'ย่อภาพ', labZoomIn: 'ขยายภาพ', labZoomReset: 'คืนขนาดภาพ',
+    labNext: 'เปิดแล็บ', labTimer: 'เวลาสถานี',
+    atlasHead: 'กะโหลกจากภาพ CT จริง\nหมุนดูได้รอบทิศ',
+    atlasBody: 'Atlas 3D ในแอปมีโมเดลกายวิภาคที่สร้างจากภาพสแกนจริง ทุกชิ้นบอกที่มาและสัญญาอนุญาต',
+    atlasCta: 'เปิด Atlas 3D',
+    atlasCredit: 'กะโหลกสุนัข: NIH 3D 3DPX-000282 สาธารณสมบัติ (CC0)',
+    atlasHint: 'ลากเพื่อหมุน',
+    atlasLabel: 'กะโหลกสุนัขสามมิติจากภาพ CT แสดงแบบภาพรังสี ลากเพื่อหมุน',
+
+    moreHead: 'ในแอปยังมีอีก',
+    more: [
+      { key: 'exam', title: 'จำลองสนามสอบ จับเวลาจริง', body: 'เลือกวิชา จำนวนข้อ และเวลาต่อข้อ แล้วทำเหมือนนั่งสอบจริง' },
+      { key: 'notes', title: 'โน้ตที่บอกที่มาทุกย่อหน้า', body: (topics, subjects) => `${topics} หัวข้อ ใน ${subjects} วิชา ทุกย่อหน้าบอกว่ามาจากไหน` },
+      { key: 'videos', title: 'สรุปคลิปเลกเชอร์', body: 'อ่านสรุปก่อน แล้วกระโดดไปช่วงในคลิปที่ต้องการ' },
+      { key: 'library', title: 'สไลด์และชีตรวมไว้ที่เดียว', body: 'เปิดสไลด์เลกเชอร์และชีตของรุ่นในแอป ขีดเขียนและไฮไลต์ได้เอง' },
+      { key: 'groups', title: 'ติวกับเพื่อน', body: 'ตั้งกลุ่ม แข่งทำชุดเดียวกัน แล้วดูว่าใครต้องทวนหัวข้อไหนอีก' },
+      { key: 'badges', title: 'สตรีคและเหรียญ', body: 'รางวัลเล็ก ๆ ของการมาทุกวัน ทำต่อเนื่อง 7 วัน ครบพันข้อ ทำหลังสี่ทุ่มครบ 50 ข้อ หรือครบ 50 ข้อใน Panic Mode' },
+    ],
+    demoExamQ: (i, n) => `ข้อ ${i} จาก ${n}`,
+
+    subjHeadPre: 'เลือก', subjHeadPost: ' แล้วเริ่มได้เลย', subjHeadPlain: 'เลือกวิชา แล้วเริ่มได้เลย',
+    subjSub: 'จัดตามชั้นปี ตัวเลขบนการ์ดคือจำนวนข้อจริงที่เปิดทำได้วันนี้',
+    subjAll: 'ทุกปี', subjYear: (y) => `ปี ${y}`,
+    subjSearch: 'ค้นหาวิชา', subjSearchTry: (name) => `ค้นหา: ${name}`, subjEmpty: 'ไม่พบวิชาที่ค้นหา',
+    subjMore: (n) => `ดูทั้งหมด ${n} วิชา`, subjLess: 'ย่อรายการ',
+    subjNames: { vca: 'โจทย์ฝึก VCA' },
+    qWord: 'ข้อ', startPractice: 'เริ่มฝึก',
+
+    progHead: 'หน้าแรกของคุณรู้ว่าเหลือเวลาเท่าไหร่ และควรทำอะไรต่อ',
+    progSub: 'นาฬิกานับถอยหลังเดินตามตารางสอบของคณะ ข้างใต้มีข้อแนะนำหนึ่งอย่างว่าวันนี้ควรทำอะไร ปรับตามเวลาที่คุณบอกว่ามี',
+    progCaption: 'แอปจริง อัดหน้าจอขนาดมือถือ ภาพจอใหญ่: ชั้นปี 5 วันที่ 15 ก.ย. 2569',
+    progAlt: 'หน้าแรกของ VetMock แสดงนาฬิกานับถอยหลังสอบกลางภาคและข้อแนะนำสิ่งที่ควรทำต่อ',
+    progVideoLabel: 'คลิปสั้นจากแอปจริง เปิดวิชา ตอบโจทย์ แล้วอ่านเฉลย',
+
+    ctaPre: 'ครั้งแรกที่เจอโจทย์แบบนี้\nไม่ควรเป็นตอนอยู่ใน', ctaEm: 'ห้องสอบ', ctaPost: '',
+    cta1: 'เริ่มฝึกเลย', cta2: 'ดูรายวิชา',
+    footTagline: 'ทำโดยนิสิตสัตวแพทย์จุฬา',
+    footIndependent: 'VetMock เป็นเครื่องมือฝึกอิสระ ไม่ได้สังกัดคณะ มหาวิทยาลัย หรือหน่วยงานจัดสอบใด ๆ โจทย์ในแอปเป็นโจทย์ฝึก ไม่ใช่ข้อสอบฉบับทางการ',
+    footRelease: (v, date) => `เวอร์ชัน ${v} อัปเดต ${date}`,
+    footCredits: 'ที่มาของภาพและโมเดล',
+    footLinks: [{ label: 'ฝึกทำโจทย์', href: '#solution' }, { label: 'Panic Mode', href: '#panic' }, { label: 'แล็บ', href: '#lab' }, { label: 'รายวิชา', href: '#subjects' }],
+    footPrivacy: 'ความเป็นส่วนตัว', footTerms: 'ข้อตกลงการใช้งาน',
+    copyright: '© 2026 VetMock',
 
     cdUnits: ['วัน', 'ชม.', 'นาที', 'วินาที'], cdDuring: 'กำลัง',
     cdTerm: { midterm: 'สอบกลางภาค', final: 'สอบปลายภาค' },
-    footPrivacy: 'ข้อมูลและความเป็นส่วนตัว', footTagline: 'ซ้อมก่อนถึงวันสอบจริง',
-    labImgAlt: 'ภาพรังสีทรวงอกสุนัข มุมด้านข้าง', labZoomOut: 'ย่อภาพ', labZoomIn: 'ขยายภาพ',
     cdLine: 'ทุกชั้นปีสอบสัปดาห์เดียวกัน เข้าแอปแล้วเลือกปีของคุณ จะเห็นตารางวิชาของตัวเอง',
     cdPanicLine: 'เลือกปีของคุณในแอป แล้ว Panic Mode จะรู้เองว่าวิชาถัดไปของคุณคืออะไร',
     cdDuringLine: 'สัปดาห์สอบกำลังดำเนินอยู่ นับถอยหลังถึงวันสุดท้าย',
 
-    proofQuestions: 'ข้อ เปิดทำได้วันนี้', proofPast: 'ข้อ จากข้อสอบเก่าจริง', proofSubjects: 'วิชา',
-    proofMarqueeLabel: 'ทุกวิชาที่มีข้อสอบ พร้อมจำนวนข้อจริง กดวิชาไหนก็เริ่มได้เลย',
-
-    threeHead: 'สามอย่างที่ทำได้ที่นี่',
-    three: [
-      { title: 'ทำข้อสอบเก่าของจริง', body: 'ข้อที่รุ่นพี่สอบมาแล้วจริง ๆ กับข้อที่เขียนจากจุดที่รุ่นพี่บอกว่าออก จะจับเวลาหรือไม่จับก็ได้ เลือกเป็นวิชาหรือเป็นหัวข้อ ทำบนมือถือตอนรอรถก็ได้' },
-      { title: 'อ่านว่าทำไมข้ออื่นผิด แล้วเปิดสไลด์', body: 'เฉลยทุกข้อไล่ตัวเลือกที่ผิดทีละข้อว่าผิดตรงไหน ข้อไหนมาจากเลกเชอร์ กดเดียวเปิดสไลด์อาจารย์หน้านั้นได้เลย ไม่ต้องเชื่อสรุปใครทั้งนั้น' },
-      { title: 'คืนก่อนสอบ เข้า Panic Mode', body: 'บอกว่ามีเวลาเท่าไหร่ มันจะเลือกข้อสอบเก่ากับข้อที่คุณยังผิดอยู่มาให้พอดีเวลา หมดเวลาก็หยุด ไม่ลากคุณอ่านต่อจนสว่าง' },
-    ],
-    threePastLabel: 'วิชาที่มีข้อสอบเก่ามากที่สุดตอนนี้',
-    threeSlideBtn: 'เปิดสไลด์อาจารย์',
-    threePanicLine: (n, subjects) => `ข้อสอบเก่า ${n.toLocaleString('en-US')} ข้อ ใน ${subjects} วิชา พร้อมให้ทบทวน`,
-
-    panicHead: 'พรุ่งนี้สอบ เหลืออีกครึ่งชั่วโมง?',
-    panicCalm: 'หายใจก่อน ครึ่งชั่วโมงที่ใช้ถูก มีค่ากว่าทั้งคืนที่ใช้ผิด',
-    panicDesc: 'บอกว่ามีเวลาเท่าไหร่ Panic Mode จะเติมให้เต็มด้วยข้อสอบเก่า และถ้าเคยทำมาพอ จะหยิบข้อที่คุณยังตอบผิดมาก่อน',
-    panicTimeQ: 'มีเวลาเท่าไหร่',
-    panicTimes: [{ key: '15', label: '15 นาที' }, { key: '30', label: '30 นาที' }, { key: '60', label: '1 ชั่วโมง' }, { key: 'tonight', label: 'คืนนี้' }],
-    panicCta: 'เข้า Panic Mode',
-
-    subjLabel: 'คลังข้อสอบ',
-    subjPre: 'โจทย์ตั้งแต่ ', subjEm: 'preclinical ถึง clinical', subjPost: '',
-    subjSub: 'จัดตามหลักสูตร ตัวเลขบนการ์ดคือจำนวนข้อจริงที่เปิดทำได้',
-    subjRealNote: 'เปิดให้ฝึกแล้ว จำนวนข้อจริง เลือกวิชาเพื่อเริ่ม',
-    subjShowcaseNote: 'ภาพรวมรายวิชาทั้งหมดที่ VetMock ออกแบบไว้',
-    subjToggleReal: 'ฝึกเลย', subjToggleShowcase: 'ดูรายวิชาทั้งหมด',
-    tabs: [{ key: 'all', label: 'ทั้งหมด' }, { key: 'preclinical', label: 'Preclinical' }, { key: 'paraclinical', label: 'Paraclinical' }, { key: 'clinical', label: 'Clinical' }],
-    qWord: 'ข้อ', startPractice: 'เริ่มฝึก',
-
-    labSecHead: 'สอบปฏิบัติ ต้องซ้อมแบบปฏิบัติ',
-    labSecSub: 'สถานีแบบ OSPE ที่ทำเหมือนโต๊ะแล็บจริง มีภาพ มีโจทย์ มีเวลานับถอยหลัง เสร็จแล้วไปสถานีถัดไป',
-    labStation: 'สถานีที่ 3 — Diagnostic Imaging',
-    labPrompt: 'ระบุความผิดปกติในภาพรังสี แล้วเลือก diagnosis ที่เป็นไปได้มากที่สุด',
-    labExplain: 'เงาหัวใจยกตัวติด sternum ร่วมกับ left atrial enlargement และ interstitial-to-alveolar pattern บริเวณ caudodorsal เป็นภาพคลาสสิกของ cardiogenic pulmonary oedema ในสุนัข',
-    labNext: 'สถานีถัดไป', labImgPlaceholder: 'ตัวอย่างภาพรังสี',
-    toolAnnotate: 'ทำเครื่องหมาย', toolMeasure: 'วัดระยะ', toolReset: 'รีเซ็ตภาพ',
-
-    progHead: 'หน้าแรกของคุณรู้ว่าเหลือเวลาเท่าไหร่ และควรทำอะไรต่อ',
-    progSub: 'นาฬิกานับถอยหลังเดินตามตารางสอบของคณะ ข้างใต้มีข้อแนะนำหนึ่งอย่างว่าวันนี้ควรทำอะไร ปรับตามเวลาที่คุณบอกว่ามี',
-    progCaption: 'ภาพจากแอปจริง ชั้นปี 5 วันที่ 15 ก.ย. 2569',
-    progAlt: 'หน้าแรกของ VetMock แสดงนาฬิกานับถอยหลังสอบกลางภาคและข้อแนะนำสิ่งที่ควรทำต่อ',
-
-    ctaPre: 'ครั้งแรกที่เจอโจทย์แบบนี้ ไม่ควรเป็นตอนอยู่ใน', ctaEm: 'ห้องสอบ', ctaPost: '',
-    cta1: 'เริ่มฝึกเลย',
-    footTagline: 'ทำโดยนิสิตสัตวแพทย์จุฬา',
-    footIndependent: 'VetMock เป็นเครื่องมือฝึกอิสระ ไม่ได้สังกัดคณะ มหาวิทยาลัย หรือหน่วยงานจัดสอบใด ๆ',
-    footLinks: [{ label: 'ฝึกทำโจทย์', href: '#solution' }, { label: 'Panic Mode', href: '#panic' }, { label: 'รายวิชา', href: '#subjects' }, { label: 'แล็บ', href: '#lab' }],
-    copyright: '© 2026 VetMock',
+    marqueeLabel: 'ทุกวิชาที่มีโจทย์ พร้อมจำนวนข้อจริง กดวิชาไหนก็เริ่มได้เลย',
 
     ckHead: 'ให้เราจำที่ที่คุณค้างไว้ได้ไหม?',
     ckBody: 'VetMock ใช้คุกกี้ที่จำเป็นเพื่อให้ระบบทำงานและจำบริบทการเรียนของคุณ ส่วนคุกกี้เสริมช่วยให้เราปรับปรุงประสบการณ์การเรียนให้ดีขึ้น',
@@ -213,17 +321,48 @@ export const DICT = {
     ckEssentialT: 'จำเป็น', ckEssentialD: 'การเข้าสู่ระบบ ความปลอดภัย และการจำบริบทการเรียนของคุณ',
     ckAnalyticsT: 'วิเคราะห์การใช้งาน', ckAnalyticsD: 'ช่วยให้เราเห็นว่าฟีเจอร์ไหนช่วยการเรียนได้จริง',
     ckPersonalT: 'ปรับแต่งเฉพาะคุณ', ckPersonalD: 'จำปี เทอม ช่วงสอบ และการตั้งค่าหน้าจอของคุณ',
-    lgHead: 'กลับมาต่อจากที่ค้างไว้', lgBody: 'หลักสูตร เคสล่าสุด ข้อที่พลาด และบริบทการเรียนของคุณ พร้อมแล้ว',
+    lgHead: 'กลับมาต่อจากที่ค้างไว้', lgBody: 'เข้าสู่ระบบเพื่อให้การเรียนของคุณตามไปทุกเครื่อง',
+    lgPerksHead: 'เข้าสู่ระบบแล้วได้อะไร',
+    lgPerks: ['ประวัติการทำ ข้อที่บันทึก และการ์ดทบทวน ตามไปทุกเครื่อง', 'ไม่มีบัญชีก็ใช้ได้ทุกอย่าง ข้อมูลจะอยู่ในเครื่องนี้', 'เราเก็บข้อมูลการเรียนของคุณ ไม่เก็บข้อมูลผู้ป่วย'],
     lgGoogle: 'เข้าสู่ระบบด้วย Google', lgGuest: 'ใช้งานแบบผู้เยี่ยมชม', lgPassword: 'เข้าสู่ระบบด้วยรหัสผ่าน', lgEmailLabel: 'อีเมล',
     lgSend: 'ส่งลิงก์เข้าสู่ระบบให้ฉัน', lgSending: 'กำลังส่ง…', lgOr: 'หรือ',
-    lgCtx: 'CUVET / ภาคต้น 2569', lgSaved: 'บริบทการเรียนของคุณจะถูกบันทึกไว้',
-    lgReturn: 'ไปต่อจากที่หยุดไว้', lgReturnCase: 'ตัดสินใจข้อ 7 จาก 12',
     lgSentHead: 'เช็กอีเมลของคุณ', lgSentBody: 'เราส่งลิงก์เข้าสู่ระบบไปที่', lgSentHint: 'เปิดลิงก์บนเครื่องนี้เพื่อไปต่อ',
     lgSentTip: 'ลิงก์จะพาเข้าสู่ระบบเลย ไม่ต้องกรอกรหัส ลิงก์มีอายุจำกัด ใช้ให้เร็วนะ',
-    lgResend: 'ส่งลิงก์ใหม่', lgBack: 'ใช้อีเมลอื่น', lgVerify: 'ยืนยันและไปต่อ',
-    lgIndependent: 'แพลตฟอร์มอิสระ — ไม่ใช่การเข้าสู่ระบบทางการของมหาวิทยาลัย เราเก็บบริบทการเรียนของคุณ ไม่เก็บข้อมูลผู้ป่วย',
+    lgResend: 'ส่งลิงก์ใหม่', lgBack: 'ใช้อีเมลอื่น',
+    lgIndependent: 'แพลตฟอร์มอิสระ ไม่ใช่การเข้าสู่ระบบทางการของมหาวิทยาลัย',
+    lgTermsPre: 'เมื่อใช้งานต่อ ถือว่ายอมรับ', lgTerms: 'ข้อตกลงการใช้งาน', lgTermsMid: ' และ', lgPrivacy: 'นโยบายความเป็นส่วนตัว', lgTermsPost: '',
     lgClose: 'ปิดหน้าต่างเข้าสู่ระบบ',
     lgErrEmail: 'กรอกอีเมลให้ถูกต้อง', lgErrRate: 'ลองบ่อยเกินไป รอสักครู่แล้วลองใหม่',
     lgErrNoUser: 'ยังไม่มีบัญชีสำหรับอีเมลนี้ ใช้ "เข้าสู่ระบบด้วยรหัสผ่าน" เพื่อสมัคร', lgErrGeneric: 'ส่งลิงก์ไม่สำเร็จ ลองอีกครั้ง',
+    inAppHead: (app) => `ตอนนี้เปิดอยู่ในแอป ${app}`,
+    inAppBody: 'Google มักไม่ให้เข้าสู่ระบบในเบราว์เซอร์ของแอป เปิดหน้านี้ใน Safari หรือ Chrome เพื่อใช้ปุ่ม Google หรือใช้ลิงก์ทางอีเมลด้านล่างแทนได้',
+    inAppOpen: 'เปิดในเบราว์เซอร์',
+    inAppSteps: 'กดปุ่มเมนู (⋯ หรือ ⋮) ที่มุมจอ แล้วเลือกเปิดในเบราว์เซอร์',
   },
+};
+
+// Bank item 105304 (questions-y5-equine-2026.js), written from the Equine
+// Medicine lecture slides, page 8. Every Thai string here is cut from that
+// item as it stands in the bank; tests/unit/landing-real-content.test.mjs
+// fails the build if one drifts. `wrong` maps each wrong option to the line
+// the bank's explanation gives it; `note` is the bank's own note on why
+// another source says 2-3 days.
+export const HERO_QUESTION = {
+  id: 105304,
+  subject: 'equine-medicine',
+  year: 5,
+  page: 8,
+  tag: 'Equine Medicine',
+  q: 'เมื่อเปลี่ยนชนิดอาหารหยาบ ประชากรจุลชีพในทางเดินอาหารม้าต้องใช้เวลาปรับตัวประมาณเท่าใด',
+  options: ['2-3 ชั่วโมง', '2-3 สัปดาห์', '2-3 วัน', '2-3 เดือน'],
+  answer: 1,
+  why: 'microbial population ใช้เวลา 2-3 สัปดาห์ในการปรับตัวกับอาหารชนิดใหม่ แม้จะเป็นหญ้าคนละล็อตก็ตาม จึงเป็นเหตุผลที่การเปลี่ยนอาหารต้องค่อยเป็นค่อยไป และเป็นที่มาของวิธีปล่อยแปลงที่ให้ไล่เพิ่มวันละ 15 นาทีจนครบ 20 วัน',
+  wrong: {
+    0: 'เป็นระดับเวลาของการผ่านของอาหาร ไม่ใช่การเปลี่ยนประชากรจุลชีพ',
+    2: 'สั้นกว่าเกณฑ์ที่ใช้ ดูหมายเหตุด้านล่าง',
+    3: 'ยาวเกินเกณฑ์ที่ใช้จริง',
+  },
+  noteLead: 'ตัวเลขทั้งสองมาจากการวัดคนละอย่าง',
+  note: 'ตัวเลขทั้งสองมาจากการวัดคนละอย่าง งานที่เปลี่ยนจากหญ้าแห้งไปแปลงหญ้าสด ซึ่งเป็นหยาบไปหยาบแบบเดียวกัน พบว่ากลุ่มแบคทีเรียเข้าที่ภายในราว 4 วันแล้วนิ่งยาวถึงวันที่ 21 และผู้วิจัยเองระบุว่าเร็วกว่าที่เคยรายงานไว้ ส่วนงานที่เปลี่ยนจากหยาบไปอาหารข้นแบบกะทันหันพบว่าชุมชนจุลชีพถูกรบกวนชัดภายใน 2 วัน แต่กว่าจะกลับสู่ระดับเดิมใช้เวลา 3-4 สัปดาห์ เกณฑ์ 2-3 สัปดาห์จึงเป็นค่าที่เผื่อกรณีหนักไว้แล้ว',
+  tip: 'ค่ามาตรฐานที่ใช้อยู่ในระดับสัปดาห์ ส่วนเวลาจริงขึ้นกับว่าเปลี่ยนจากอะไรไปเป็นอะไร',
 };

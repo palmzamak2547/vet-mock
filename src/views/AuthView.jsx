@@ -1,5 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import {
   signUpWithEmail,
   signInWithEmail,
@@ -18,6 +18,7 @@ import {
 
 import { isWebAuthnDismissal, thaiAuthError } from '../lib/auth-errors.js';
 import { STAY_SIGNED_IN_KEY } from '../lib/auth-storage.js';
+import { inAppBrowser, externalUrl, APP_NAMES } from '../lib/inapp.js';
 import {
   deriveUsernameFromEmail,
   sanitizeUsername,
@@ -57,6 +58,10 @@ export default function AuthView({ onBack, onSuccess, user }) {
     return 'signin';
   })();
   const [mode, setMode] = useState(initialMode); // signin | signup | reset | update-password | magic-link
+  // A link opened from LINE, Facebook, Instagram and the like lands in that
+  // app's own browser, where Google usually refuses to sign anyone in.
+  const inApp = useMemo(() => (typeof navigator === 'undefined' ? null : inAppBrowser(navigator.userAgent)), []);
+  const inAppExit = useMemo(() => (inApp && typeof window !== 'undefined' ? externalUrl(inApp, window.location.href) : null), [inApp]);
 
   // Stay signed in (persist session). Default true (most users want).
   // Stored in localStorage so the choice survives refresh / OAuth bounce, and
@@ -499,6 +504,15 @@ export default function AuthView({ onBack, onSuccess, user }) {
         {/* Google OAuth + Magic Link — hide on reset / update / magic-link itself */}
         {mode !== 'reset' && mode !== 'update-password' && mode !== 'magic-link' && (
           <>
+            {inApp && (
+              <div role="note" style={{ marginBottom: 12, padding: '12px 14px', borderRadius: 12, border: '1px solid var(--clr-gold)', background: 'var(--clr-surface)', fontSize: 13.5, lineHeight: 1.65 }}>
+                <b>ตอนนี้เปิดอยู่ในแอป {APP_NAMES[inApp]}</b>
+                <p style={{ margin: '4px 0 0' }}>Google มักไม่ให้เข้าสู่ระบบในเบราว์เซอร์ของแอป เปิดหน้านี้ใน Safari หรือ Chrome ก่อน แล้วค่อยเข้าสู่ระบบ</p>
+                {inAppExit
+                  ? <a className="vmx-btn vmx-btn-ghost" href={inAppExit} style={{ marginTop: 8, minHeight: 44 }}>เปิดในเบราว์เซอร์</a>
+                  : <p style={{ margin: '4px 0 0' }}>กดปุ่มเมนู (⋯ หรือ ⋮) ที่มุมจอ แล้วเลือกเปิดในเบราว์เซอร์</p>}
+              </div>
+            )}
             {/* Official Google Identity Services button — renders inline
                 when VITE_GOOGLE_CLIENT_ID is configured. Triggers a
                 Google-hosted popup that returns an ID token directly to
