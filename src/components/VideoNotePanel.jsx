@@ -33,12 +33,14 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
   const panelRef = useRef(null);
   const composeRef = useRef(null);
   const editRef = useRef(null);
+  const resourceEpoch = useRef(0);
 
   // Reload when video changes
   useEffect(() => {
     setNotes(videoId ? loadNotes(videoId) : []);
     setComposing(false);
     setEditingId(null);
+    return () => { resourceEpoch.current += 1; };
   }, [videoId]);
 
   // Focus the textarea when it opens
@@ -139,7 +141,8 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
   };
 
   const removeNote = async (id) => {
-    if (!(await confirmDialog({ title: 'ลบโน้ตนี้?', confirmLabel: 'ลบ', tone: 'danger' }))) return;
+    const epoch = resourceEpoch.current;
+    if (!(await confirmDialog({ title: 'ลบโน้ตนี้?', confirmLabel: 'ลบ', tone: 'danger' })) || resourceEpoch.current !== epoch) return;
     if (!deleteNote(videoId, id)) {
       alertDialog('ลบโน้ตไม่สำเร็จ กรุณาลองใหม่');
       return;
