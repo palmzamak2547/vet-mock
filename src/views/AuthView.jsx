@@ -19,6 +19,7 @@ import {
 import { isWebAuthnDismissal, thaiAuthError } from '../lib/auth-errors.js';
 import { STAY_SIGNED_IN_KEY } from '../lib/auth-storage.js';
 import { inAppBrowser, externalUrl, APP_NAMES } from '../lib/inapp.js';
+import { isLiffAvailable } from '../lib/line-liff.js';
 import {
   deriveUsernameFromEmail,
   sanitizeUsername,
@@ -570,9 +571,10 @@ export default function AuthView({ onBack, onSuccess, user }) {
               </button>
             )}
 
-            {/* LINE OAuth — Thailand-popular. Provider config in Supabase
-                Dashboard → Auth → Providers → Line; until then the click
-                surfaces a friendly Thai message. */}
+            {/* LINE OAuth — Thailand-popular, through LIFF (src/lib/line-liff.js).
+                Shown only where LIFF can log in: its endpoint is one origin, and
+                vetmock.com waits for the owner to move it there. */}
+            {isLiffAvailable() && (
             <button
               type="button"
               className="vmx-btn vmx-btn-ghost"
@@ -591,6 +593,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                 เข้าสู่ระบบด้วย LINE
               </span>
             </button>
+            )}
 
             {/* Discord OAuth — replaces Apple ($99/yr) with a free
                 option popular in the student community. Supabase

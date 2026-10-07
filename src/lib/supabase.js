@@ -235,10 +235,10 @@ export async function updatePassword(newPassword, nonce) {
 //   • The upstream API is experimental and may change without notice. Every
 //     call here is wrapped so a change degrades to "passkey unavailable"
 //     rather than breaking the sign-in screen for everyone.
-//   • Passkeys are cryptographically bound to the relying-party ID, which is
-//     currently vetmock.vercel.app. Moving VetMock to a custom domain later
-//     invalidates every passkey already registered and everyone has to enrol
-//     again. Worth settling the domain before pushing enrolment hard.
+//   • Passkeys are cryptographically bound to the relying-party ID set in
+//     Supabase Auth. It moves from vetmock.vercel.app to vetmock.com with the
+//     domain switch (a dashboard step, not code); a passkey registered under
+//     the old ID does not work under the new one, so its owner enrols again.
 //
 // WebAuthn also needs a secure origin, so this is dead on http://localhost —
 // the origin allow-list cannot contain localhost when the RP ID is the Vercel
@@ -515,8 +515,9 @@ export async function updateUsername(newUsername) {
 // CALLBACK URL to whitelist in LINE Developer Console:
 //   https://<your-supabase-project>.supabase.co/auth/v1/callback
 // Plus in Supabase Dashboard → Auth → URL Configuration →
-//   Site URL: https://vetmock.vercel.app
-//   Redirect URLs: https://vetmock.vercel.app, http://localhost:5173
+//   Site URL: https://vetmock.com
+//   Redirect URLs: https://vetmock.com, https://vetmock.vercel.app (the old
+//   address, while learners move), http://localhost:5173
 // Pre-flight check: query Supabase's public auth settings endpoint to
 // see which external providers are enabled BEFORE asking the SDK to
 // build an authorize URL. The SDK's signInWithOAuth redirects the

@@ -466,6 +466,6 @@ export function statsToText(stats) {
   }
   if (stats.masteredCards > 0) lines.push(`🧠 ${stats.masteredCards} cards mastered`);
   lines.push('');
-  lines.push('vetmock.vercel.app, @vetmock.cu');
+  lines.push('vetmock.com, @vetmock.cu');
   return lines.join('\n');
 }

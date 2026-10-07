@@ -11,7 +11,7 @@
 // ============================================================
 
 const API_KEY = 'e1e4e0feff0c42b1a0cb1118045ff82f';
-const HOST = 'vetmock.vercel.app';
+const HOST = 'vetmock.com';
 const URLS = [
   `https://${HOST}/`,
   `https://${HOST}/blog/`,

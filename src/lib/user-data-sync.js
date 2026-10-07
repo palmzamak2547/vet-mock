@@ -651,6 +651,15 @@ function reconcileDirty(field, entry, remote) {
   return local;
 }
 
+/** Fold `incoming`, a value this device never synced (the old origin's copy,
+ *  src/lib/origin-move.js), into `current` by the field's own policy above.
+ *  `current` is the change made since the field's initial value, the same
+ *  shape hydrate() records for unsynced local data: a key both sides hold
+ *  keeps current's value, anything only `incoming` has is added. */
+export function mergeFieldValue(field, current, incoming) {
+  return reconcileDirty(field, { base: clone(USER_DATA_FIELDS[field].initial), value: current }, incoming);
+}
+
 function readPendingOperations(storage, userId) {
   if (!Number.isFinite(storage.length) || typeof storage.key !== 'function') return [];
   const prefix = operationKeyPrefix(userId);

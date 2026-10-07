@@ -25,7 +25,7 @@ import { buildOgHead, wikiArticleTitle } from './lib/og-head.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
-const ORIGIN = process.env.VETMOCK_ORIGIN || 'https://vetmock.vercel.app';
+const ORIGIN = process.env.VETMOCK_ORIGIN || 'https://vetmock.com';
 
 if (!fs.existsSync(path.join(DIST, 'index.html'))) {
   console.error('prerender-wiki: dist/index.html not found — run vite build first');

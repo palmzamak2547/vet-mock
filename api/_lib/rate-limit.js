@@ -210,7 +210,8 @@ export function allowedOrigin(req) {
 
   // (2) Static allowlist (for legitimate cross-origin scenarios)
   const allow = [
-    'https://vetmock.vercel.app',
+    'https://vetmock.com',
+    'https://vetmock.vercel.app',                 // the old address, while learners move
     'https://vet-mock.vercel.app',
     /^https:\/\/vetmock-[\w-]+\.vercel\.app$/,    // Preview deployments
     /^https:\/\/vet-mock-[\w-]+\.vercel\.app$/,   // Legacy preview pattern

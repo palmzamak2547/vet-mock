@@ -1,5 +1,7 @@
 // First: supplies .at(), Object.hasOwn and AbortSignal.timeout on iOS 14-15 before any module uses them.
 import './lib/platform-compat.js'
+// Second: study data carried over from vetmock.vercel.app is merged before any module reads it.
+import './lib/origin-move.js'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
@@ -41,7 +43,8 @@ window.addEventListener('pointerdown', _unlockOnce, { capture: true, passive: tr
 window.addEventListener('keydown', _unlockOnce, { capture: true, passive: true })
 window.addEventListener('touchstart', _unlockOnce, { capture: true, passive: true })
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+// index.html's bridge is handing this learner's data to vetmock.com: no app on this page.
+if (!window.__vmxMoving) ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,

@@ -1,7 +1,9 @@
-const PRODUCTION_ORIGIN = 'https://vetmock.vercel.app';
+const PRODUCTION_ORIGIN = 'https://vetmock.com';
 
 const ALLOWED_ORIGINS = new Set([
   PRODUCTION_ORIGIN,
+  // The old address stays allowed while learners move to vetmock.com.
+  'https://vetmock.vercel.app',
   'http://localhost:5173',
   'http://localhost:4173',
   'http://localhost:4174',

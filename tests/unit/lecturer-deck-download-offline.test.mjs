@@ -61,7 +61,7 @@ function fakeBrowser({ response }) {
   const clicked = [];
   const fetched = [];
   const body = { appendChild() {}, removeChild() {} };
-  globalThis.window = { location: { href: 'https://vetmock.vercel.app/app/topics', origin: 'https://vetmock.vercel.app' }, open() {} };
+  globalThis.window = { location: { href: 'https://vetmock.com/app/topics', origin: 'https://vetmock.com' }, open() {} };
   globalThis.document = {
     body,
     createElement: () => ({ click() { clicked.push(this.href); }, remove() {} }),

@@ -25,6 +25,245 @@
       })();
     </script>
 
+    <!-- Origin move: vetmock.vercel.app -> vetmock.com. Storage belongs to an
+         origin, so a redirect alone would open vetmock.com empty. On the old
+         host only, this script carries every vmx- key and the two IndexedDB
+         stores to vetmock.com/api/move-in in one POST (nothing in a URL, the
+         Supabase session never), or goes straight on when there is nothing new
+         to carry. Every failure keeps the old app, data untouched. It must run
+         before the app module; the hosts live only in this meta tag. -->
+    <meta name="vmx-origin-move" content="vetmock.vercel.app https://vetmock.com" />
+    <style>
+      .vmx-move{position:fixed;top:0;right:0;bottom:0;left:0;z-index:2147483647;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;background:#f6efe4;color:#2b2419;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;text-align:center}
+      .vmx-move p{margin:0;max-width:22rem;font-weight:600}
+      .vmx-move .vmx-move__sub{margin-top:6px;font-size:14px;font-weight:400;color:#5c4f3d}
+      .vmx-move i{display:block;width:10px;height:10px;margin-bottom:16px;border-radius:50%;background:#4a6b4a;animation:vmx-move 1.2s ease-in-out infinite}
+      [data-theme="dark"] .vmx-move{background:#1a1612;color:#f0e6d2}
+      [data-theme="dark"] .vmx-move .vmx-move__sub{color:#b8a890}
+      [data-theme="dark"] .vmx-move i{background:#7ba87b}
+      @keyframes vmx-move{50%{opacity:.35;transform:scale(.8)}}
+      @media (prefers-reduced-motion:reduce){.vmx-move i{animation:none}}
+    </style>
+    <script id="vmx-origin-move">
+      (function (w, d) {
+        var meta = d.querySelector('meta[name="vmx-origin-move"]');
+        var hosts = meta ? String(meta.getAttribute('content') || '').split(/\s+/) : [];
+        var loc = w.location;
+        if (!hosts[0] || !hosts[1] || loc.hostname !== hosts[0]) return;
+        var NEW = hosts[1], OLD = loc.origin;
+        var HOLD = 'vmx-move-hold', OUT = 'vmx-move-out', SENT = 'vmx-move-sent';
+        var LIMIT = 4.2 * 1024 * 1024;
+        var params = new URLSearchParams(loc.search);
+        var ours = params.has('vmx-move') || params.has('vmx-moved');
+        var mode = params.get('vmx-move');
+
+        // A path on this site; never another host (/\x reads as //x) or a control character.
+        function safe(to) {
+          return typeof to === 'string' && to.length <= 2048 && to.charAt(0) === '/' && to.charAt(1) !== '/'
+            && !/[\u0000-\u001f\u007f\\]/.test(to) ? to : '/';
+        }
+        // Where the learner is, without this script's own parameters.
+        function here() {
+          if (!ours) return loc.pathname + loc.search + loc.hash;
+          if (params.get('to') !== null) return safe(params.get('to'));
+          var rest = new URLSearchParams(loc.search);
+          rest['delete']('vmx-move'); rest['delete']('vmx-moved');
+          rest = String(rest);
+          return loc.pathname + (rest ? '?' + rest : '') + loc.hash;
+        }
+        function leave(path) {
+          // Marked first: if vetmock.com still redirects here, the tab comes straight back and holds.
+          try { w.sessionStorage.setItem(OUT, String(Date.now())); } catch (e) {}
+          try { w.stop(); } catch (e) {}
+          loc.replace(NEW + safe(path));
+        }
+        function stay() {
+          if (!ours) return;
+          try { w.history.replaceState(w.history.state, '', here()); } catch (e) {}
+        }
+        // Hold for this tab and reload into the old app where the learner was.
+        function fallback() {
+          try { w.sessionStorage.setItem(HOLD, '1'); } catch (e) {}
+          loc.replace(OLD + '/?vmx-move=hold&to=' + encodeURIComponent(here()));
+        }
+        function authCallback() {
+          var s = loc.search + loc.hash;
+          return /[?&#](code|token_hash|access_token|refresh_token|provider_token|error_code|error_description)=/.test(s)
+            || /[?&#]type=recovery(&|$)/.test(s) || /[?&]auth=(reset|verify)(&|#|$)/.test(loc.search + '#');
+        }
+        function hasToken(store) {
+          for (var i = 0; i < store.length; i++) {
+            var k = store.key(i);
+            if (k && k.indexOf('sb-') === 0 && /-auth-token$/.test(k)) return true;
+          }
+          return false;
+        }
+        // A calm full page of its own (the style block above); nothing from the app.
+        function screen(text, note, busy) {
+          var body = d.body || d.documentElement.appendChild(d.createElement('body'));
+          var box = d.createElement('div');
+          box.className = 'vmx-move';
+          box.setAttribute('role', 'status');
+          if (busy) {
+            var dot = d.createElement('i');
+            dot.setAttribute('aria-hidden', 'true');
+            box.appendChild(dot);
+          }
+          var title = d.createElement('p');
+          title.textContent = text;
+          var sub = d.createElement('p');
+          sub.className = 'vmx-move__sub';
+          sub.textContent = note;
+          box.appendChild(title); box.appendChild(sub);
+          body.appendChild(box);
+          return body;
+        }
+
+        // The ACK from vetmock.com: remember what arrived and go there. Never move from this hop.
+        if (params.has('vmx-moved')) {
+          try { if (/^[0-9a-z]{1,32}$/.test(params.get('vmx-moved'))) w.localStorage.setItem(SENT, params.get('vmx-moved')); } catch (e) {}
+          leave(params.get('to'));
+          return;
+        }
+
+        var held = mode === 'hold';
+        try {
+          var ss = w.sessionStorage;
+          if (mode === 'retry') { w.localStorage.removeItem(SENT); ss.removeItem(HOLD); ss.removeItem(OUT); }
+          if (held) ss.setItem(HOLD, '1');
+          else if (ss.getItem(HOLD) === '1') held = true;
+          else if (Date.now() - Number(ss.getItem(OUT)) < 30000) { held = true; ss.setItem(HOLD, '1'); }
+          w.localStorage.getItem(SENT);
+        } catch (e) { held = true; }
+        if (held || w.navigator.onLine === false || authCallback()) {
+          stay();
+          // Offline, the worker may hand back a copy of this page from a visit that went
+          // straight on to vetmock.com, whose app files it never fetched. The old app is
+          // tried as always; if its files cannot load, say so instead of a blank page.
+          if (w.navigator.onLine === false) {
+            var shown = false;
+            w.addEventListener('error', function (e) {
+              var t = e && e.target;
+              if (shown || !t || t.tagName !== 'SCRIPT' || String(t.src || '').indexOf(OLD + '/assets/') !== 0) return;
+              shown = true;
+              screen('ตอนนี้ออฟไลน์อยู่', 'ต่ออินเทอร์เน็ตแล้วเปิดอีกครั้ง ข้อมูลในเครื่องนี้ยังอยู่ครบ', false);
+            }, true);
+          }
+          return;
+        }
+
+        var keys = [], local = {}, signedIn = false;
+        try {
+          var ls = w.localStorage;
+          for (var i = 0; i < ls.length; i++) {
+            var k = ls.key(i);
+            if (k && k.indexOf('vmx-') === 0 && k.indexOf('vmx-move-') !== 0) keys.push(k);
+          }
+          keys.sort();
+          for (var j = 0; j < keys.length; j++) { var v = ls.getItem(keys[j]); if (v !== null) local[keys[j]] = v; }
+          keys = Object.keys(local).sort();
+          signedIn = hasToken(ls) || hasToken(w.sessionStorage);
+        } catch (e) { stay(); return; }
+        if (!keys.length) { leave(here()); return; }
+
+        // 64-bit FNV-style digest of the snapshot, the same on every visit until a byte changes.
+        var a = 0x811c9dc5, b = 0x9e3779b9;
+        function feed(s) {
+          for (var n = 0; n < s.length; n++) {
+            var c = s.charCodeAt(n);
+            a = Math.imul(a ^ c, 0x01000193);
+            b = Math.imul(b ^ c, 0x5bd1e995);
+          }
+        }
+        for (var m = 0; m < keys.length; m++) { feed(keys[m]); feed('\u0000'); feed(local[keys[m]]); feed('\u0001'); }
+        a = Math.imul(a ^ (a >>> 15), 0x2c1b3c6d) ^ b;
+        b = Math.imul(b ^ (b >>> 13), 0x297a2d39) ^ a;
+        var hash = ('0000000' + (a >>> 0).toString(16)).slice(-8) + ('0000000' + (b >>> 0).toString(16)).slice(-8);
+        var sent = null;
+        try { sent = w.localStorage.getItem(SENT); } catch (e) {}
+        if (sent === hash) { leave(here()); return; }
+
+        // Moving. The app must not start: its own writes would change what is being carried.
+        w.__vmxMoving = true;
+        try { w.stop(); } catch (e) {}
+        var body = screen('กำลังพาข้อมูลไป ' + NEW.replace(/^https?:\/\//, ''), 'ใช้เวลาไม่กี่วินาที ข้อมูลในเครื่องนี้ยังอยู่ครบ', true);
+        // Back from vetmock.com can restore this page from the back-forward cache: decide again.
+        w.addEventListener('pageshow', function (e) { if (e.persisted) loc.reload(); });
+
+        // Every record of one store, without creating a database that is not there
+        // (the app would then never upgrade it).
+        function read(name, store) {
+          return new Promise(function (resolve, reject) {
+            if (!w.indexedDB) { resolve([]); return; }
+            var done = false, absent = false;
+            var timer = w.setTimeout(function () { finish(reject, new Error('idb-timeout')); }, 5000);
+            function finish(fn, value) { if (done) return; done = true; w.clearTimeout(timer); fn(value); }
+            var req = w.indexedDB.open(name);
+            req.onupgradeneeded = function () { absent = true; try { req.transaction.abort(); } catch (e) {} };
+            req.onerror = function (e) {
+              if (absent) { if (e && e.preventDefault) e.preventDefault(); finish(resolve, []); }
+              else finish(reject, req.error || new Error('idb-open'));
+            };
+            req.onsuccess = function () {
+              var db = req.result;
+              if (absent || !db.objectStoreNames.contains(store)) { db.close(); finish(resolve, []); return; }
+              var all = db.transaction(store, 'readonly').objectStore(store).getAll();
+              all.onsuccess = function () { db.close(); finish(resolve, all.result || []); };
+              all.onerror = function () { db.close(); finish(reject, all.error || new Error('idb-read')); };
+            };
+          });
+        }
+        function base64url(bytes) {
+          var s = '';
+          for (var i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+          return w.btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+        }
+        function pack(payload) {
+          var bytes = new w.TextEncoder().encode(JSON.stringify(payload));
+          if (typeof w.CompressionStream !== 'function') return Promise.resolve({ enc: 'js64', p: base64url(bytes) });
+          var gz = new w.Blob([bytes]).stream().pipeThrough(new w.CompressionStream('gzip'));
+          return new w.Response(gz).arrayBuffer().then(function (buf) { return { enc: 'gz64', p: base64url(new Uint8Array(buf)) }; });
+        }
+        function submit(out) {
+          var form = d.createElement('form');
+          form.method = 'POST';
+          form.action = NEW + '/api/move-in';
+          form.setAttribute('hidden', '');
+          var fields = { p: out.p, enc: out.enc, h: hash, to: here() };
+          for (var name in fields) {
+            var input = d.createElement('input');
+            input.type = 'hidden'; input.name = name; input.value = fields[name];
+            form.appendChild(input);
+          }
+          body.appendChild(form);
+          // A policy that refuses the form, or a network that never answers: back to the old app.
+          d.addEventListener('securitypolicyviolation', function (e) {
+            if (e.effectiveDirective === 'form-action' || e.violatedDirective === 'form-action') fallback();
+          });
+          w.setTimeout(fallback, 60000);
+          try { w.sessionStorage.setItem(OUT, String(Date.now())); } catch (e) {}
+          form.submit();
+        }
+
+        Promise.all([read('vmx-pdf-annotations', 'docs'), read('vmx-study-events-v1', 'events')]).then(function (idb) {
+          var payload = { v: 1, from: OLD, at: Date.now(), signedIn: signedIn, local: local, idb: { pdf: idb[0], events: idb[1] } };
+          // Over the limit: events first, then PDF ink. They stay here; localStorage always travels whole.
+          return pack(payload).then(function (out) {
+            if (out.p.length <= LIMIT) return out;
+            payload.idb.events = []; payload.dropped = ['events'];
+            return pack(payload);
+          }).then(function (out) {
+            if (out.p.length <= LIMIT) return out;
+            payload.idb.pdf = []; payload.dropped = ['events', 'pdf'];
+            return pack(payload);
+          });
+        }).then(function (out) {
+          if (out.p.length > LIMIT) throw new Error('too-large'); // never lose data to a size limit
+          submit(out);
+        })['catch'](fallback);
+      })(window, document);
+    </script>
+
     <!-- Search engine verification -->
     <meta name="google-site-verification" content="14yg3AaHe91BC8VgVxjhxTrJsHCgvDSUIKetsJozHX0" />
 
@@ -107,15 +346,15 @@
     <meta name="keywords" content="VetMock, โจทย์ฝึกสัตวแพทย์, แบบฝึกหัดสัตวแพทย์ จุฬา, สรุปวิชาสัตวแพทย์, Vet 86, COM III, COM IV, COM V, vet practice questions, Chulalongkorn veterinary" />
     <meta name="author" content="Palm (Vet 86)" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
-    <link rel="canonical" href="https://vetmock.vercel.app/" />
+    <link rel="canonical" href="https://vetmock.com/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="VetMock" />
     <meta property="og:title" content="VetMock — คลังโจทย์ฝึกสัตวแพทย์ จุฬา, MCQ + แนวข้อสอบ + สรุปคลิป" />
     <meta property="og:description" content="คลังโจทย์ MCQ + แนวข้อสอบ + สรุปคลิปย้อนหลัง, นิสิตสัตวแพทย์จุฬา, กำลังขยายให้ครบทุกชั้นปี" />
-    <meta property="og:url" content="https://vetmock.vercel.app/" />
-    <meta property="og:image" content="https://vetmock.vercel.app/og/home.png" />
+    <meta property="og:url" content="https://vetmock.com/" />
+    <meta property="og:image" content="https://vetmock.com/og/home.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
@@ -126,7 +365,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="VetMock — คลังโจทย์ฝึกสัตวแพทย์ จุฬา" />
     <meta name="twitter:description" content="คลังโจทย์ MCQ + แนวข้อสอบ + สรุปคลิปย้อนหลัง, นิสิตสัตวแพทย์จุฬา, ขยายครบทุกชั้นปี" />
-    <meta name="twitter:image" content="https://vetmock.vercel.app/og/home.png" />
+    <meta name="twitter:image" content="https://vetmock.com/og/home.png" />
     <meta name="twitter:image:alt" content="อ่านให้เข้าใจ ฝึกให้มั่นใจ — VetMock คลังโจทย์ฝึกสัตวแพทย์ จุฬา" />
 
     <!-- Instagram social profile linkage -->
@@ -140,7 +379,7 @@
       "@type": "WebApplication",
       "name": "VetMock",
       "alternateName": "คลังโจทย์ฝึกสัตวแพทย์ จุฬา",
-      "url": "https://vetmock.vercel.app/",
+      "url": "https://vetmock.com/",
       "description": "คลังโจทย์ฝึกสัตวแพทย์จุฬา, MCQ + แนวข้อสอบ + โน้ตที่อ้างอิงแหล่งที่มาได้ + สรุปคลิปย้อนหลัง, ครอบคลุมปี 1-5 + spaced repetition, กำลังขยายให้ครบปี 6",
       "applicationCategory": "EducationalApplication",
       "applicationSubCategory": "Veterinary Medicine Practice Questions",

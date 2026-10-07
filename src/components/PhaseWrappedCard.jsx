@@ -181,7 +181,7 @@ async function buildPhaseCanvas(stats) {
   // Watermark
   ctx.font = '600 50px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#2b2419';
-  ctx.fillText('vetmock.vercel.app', W / 2, 1820);
+  ctx.fillText('vetmock.com', W / 2, 1820);
   ctx.font = '500 36px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = '#b88940';
   ctx.fillText('📷 @vetmock.cu', W / 2, 1870);
@@ -468,7 +468,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
           <div style={{ marginTop: 18, padding: 12, borderRadius: 12, background: 'rgba(184, 137, 64, 0.10)', border: '1px solid var(--clr-gold, #b88940)', textAlign: 'center', fontSize: 14, lineHeight: 1.6, color: 'var(--clr-ink, #2b2419)' }}>
             {pickWrappedMessage(stats)}
             <div style={{ marginTop: 6, fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft, #6b6055)' }}>
-              vetmock.vercel.app, 📷 @vetmock.cu
+              vetmock.com, 📷 @vetmock.cu
             </div>
           </div>
         </>

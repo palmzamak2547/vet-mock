@@ -74,6 +74,26 @@ export async function appendStudyEvents(owner, events, { synced = false, keepOnF
   }
 }
 
+/** Rows the old origin kept (src/lib/origin-move.js). Each keeps its own
+ *  synced flag; appendStudyEvents never writes a stored key twice, only marks
+ *  it synced. Pull marks and invalid events stay where they were. */
+export async function importStudyEventRows(rows) {
+  const groups = new Map();
+  for (const row of Array.isArray(rows) ? rows : []) {
+    if (!row || typeof row.owner !== 'string' || !row.owner || !row.event) continue;
+    if (!parseStudyEventArchive({ format: 'vetmock-study-events-v1', events: [row.event] }).success) continue;
+    const synced = !row.pending;
+    const group = `${synced ? 1 : 0}:${row.owner}`;
+    if (!groups.has(group)) groups.set(group, { owner: row.owner === 'guest' ? null : row.owner, synced, events: [] });
+    groups.get(group).events.push(row.event);
+  }
+  let ok = true;
+  for (const { owner, synced, events } of groups.values()) {
+    if (!(await appendStudyEvents(owner, events, { synced, keepOnFailure: false })).ok) ok = false;
+  }
+  return { ok };
+}
+
 async function rowsFor(owner) {
   try {
     const rows = await transaction('readonly', store => store.index('owner').getAll(ownerKey(owner)));

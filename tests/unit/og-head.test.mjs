@@ -29,8 +29,8 @@ const named = (html, name) => meta(html, 'name', name);
 const ROUTE_ARGS = {
   title: 'จับเวลาโฟกัส',
   description: 'โฟกัสครั้งละ 25 นาที',
-  url: 'https://vetmock.vercel.app/app/focus',
-  image: 'https://vetmock.vercel.app/og/pomodoro.png',
+  url: 'https://vetmock.com/app/focus',
+  image: 'https://vetmock.com/og/pomodoro.png',
   imageAlt: 'อยู่กับ หน้าตรงนี้ — จับเวลาโฟกัส บน VetMock',
 };
 

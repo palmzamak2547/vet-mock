@@ -21,8 +21,8 @@
 // caller's token only to identify them (auth.getUser), then switch
 // to service_role for the actual deletion.
 //
-// CORS allowlist mirrors line-auth — vetmock.vercel.app + localhost
-// + Vercel preview deploys.
+// CORS allowlist mirrors line-auth — vetmock.com, the old address
+// vetmock.vercel.app while learners move, localhost + Vercel preview deploys.
 //
 // Deploy:  supabase functions deploy delete-account
 //          (this file does NOT ship with the web build)
@@ -32,6 +32,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const ALLOWED_ORIGINS = new Set([
+  'https://vetmock.com',
   'https://vetmock.vercel.app',
   'http://localhost:5173',
   'http://localhost:4174',
@@ -45,7 +46,7 @@ function isOriginAllowed(origin: string | null): boolean {
 }
 
 function corsHeaders(origin: string | null) {
-  const allow = isOriginAllowed(origin) ? origin! : 'https://vetmock.vercel.app';
+  const allow = isOriginAllowed(origin) ? origin! : 'https://vetmock.com';
   return {
     'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',

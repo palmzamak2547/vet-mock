@@ -133,7 +133,7 @@ async function buildShareImage({ history, streak, todayDate, todayStatus }) {
   // Bottom watermark — vetmock URL + IG handle
   ctx.font = '600 56px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#2b2419';
-  ctx.fillText('vetmock.vercel.app', W / 2, 1700);
+  ctx.fillText('vetmock.com', W / 2, 1700);
   ctx.font = '500 40px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = '#b88940';
   ctx.fillText('📷 @vetmock.cu', W / 2, 1770);
@@ -382,7 +382,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
               {correct}/{history.length} days{streak > 0 ? `, streak ${streak} 🔥` : ''}
             </div>
             <div style={{ marginTop: 8, fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-              https://vetmock.vercel.app
+              https://vetmock.com
             </div>
           </div>
         ) : (

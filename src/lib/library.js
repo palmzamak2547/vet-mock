@@ -108,7 +108,7 @@ export function formatBytes(bytes) {
 // Reject anything that is not an absolute https origin, and strip trailing
 // slashes so joining never produces a double slash. A misconfigured base that
 // silently became a relative path would make every object URL resolve against
-// vetmock.vercel.app and 404 — worth failing loudly at the boundary instead.
+// the app's own origin and 404 — worth failing loudly at the boundary instead.
 export function normalizeCdnBase(base) {
   if (typeof base !== 'string' || !base.trim()) return '';
   const trimmed = base.trim().replace(/\/+$/, '');

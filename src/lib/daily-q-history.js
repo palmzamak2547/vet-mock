@@ -106,7 +106,7 @@ export function buildShareText({ history, streak, todayDate, todayStatus }) {
   return [
     `VetMock, ข้อวันนี้, ${dateStr}${todayTag}`,
     `${grid}, ${correct}/${total} days${streakLine}`,
-    'https://vetmock.vercel.app',
+    'https://vetmock.com',
   ].join('\n');
 }
 

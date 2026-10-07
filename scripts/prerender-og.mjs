@@ -32,7 +32,7 @@ import { buildOgHead } from './lib/og-head.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
-const ORIGIN = process.env.VETMOCK_ORIGIN || 'https://vetmock.vercel.app';
+const ORIGIN = process.env.VETMOCK_ORIGIN || 'https://vetmock.com';
 
 const { OG_COVERS, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } =
   await import(pathToFileURL(path.join(ROOT, 'src/data/og-covers.js')).href);

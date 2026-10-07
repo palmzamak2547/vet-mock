@@ -11,7 +11,7 @@ import { currentYear } from './dates.js';
 import { Mark } from './SiteHeader.jsx';
 import { appLinkProps } from './nav.js';
 
-const VETMOCK = 'https://vetmock.vercel.app';
+const VETMOCK = 'https://vetmock.com';
 const COURSE_FIXTURE = 'https://github.com/palmzamak2547/vet-mock/blob/main/research/tests/fixtures/course/epi-course-2026.json';
 const STROBE_VET = 'https://doi.org/10.1111/jvim.14592';
 

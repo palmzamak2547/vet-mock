@@ -1030,7 +1030,7 @@ export default function CommandPalette({
       }
       if (res.status === 429) { respond(request, { phase: 'error', message: 'ถามบ่อยเกินไป ลองใหม่ในอีกสักครู่' }); return; }
       if (!(res.headers.get('content-type') || '').includes('application/json')) {
-        respond(request, { phase: 'error', message: 'การถามใช้ได้เฉพาะบนเว็บจริง (vetmock.vercel.app)' }); return;
+        respond(request, { phase: 'error', message: 'การถามใช้ได้เฉพาะบนเว็บจริง (vetmock.com)' }); return;
       }
       if (!res.ok) { respond(request, { phase: 'error', message: 'ตอบไม่สำเร็จ ลองใหม่อีกครั้ง' }); return; }
       const data = await res.json();
@@ -1084,7 +1084,7 @@ export default function CommandPalette({
       }
       if (res.status === 429) { respond(request, { phase: 'error', message: 'สั่งบ่อยเกินไป ลองใหม่ในอีกสักครู่' }); return; }
       if (!(res.headers.get('content-type') || '').includes('application/json')) {
-        respond(request, { phase: 'error', message: 'ผู้ช่วยสั่งงานใช้ได้เฉพาะบนเว็บจริง (vetmock.vercel.app)' }); return;
+        respond(request, { phase: 'error', message: 'ผู้ช่วยสั่งงานใช้ได้เฉพาะบนเว็บจริง (vetmock.com)' }); return;
       }
       if (!res.ok) { respond(request, { phase: 'error', message: 'สั่งไม่สำเร็จ ลองใหม่อีกครั้ง' }); return; }
       const data = await res.json();

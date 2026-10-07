@@ -442,6 +442,32 @@ export async function putRecord(rec, ownerId = null) {
   return writeMergedRecord({ ...rec, ownerId: ownerId || null }, ownerId);
 }
 
+/** Records carried over from the old origin (src/lib/origin-move.js). Each
+ *  joins the same-owner record already here through putRecord, so the local
+ *  record wins every tie. A legacy record keeps its own key, still unclaimed,
+ *  and is only added where nothing is stored under that key. */
+export async function importAnnotationRecords(records) {
+  let ok = true;
+  for (const raw of Array.isArray(records) ? records : []) {
+    if (!raw || typeof raw !== 'object' || typeof raw.hash !== 'string') continue;
+    if (raw.docHash === undefined) {
+      try {
+        await tx('readwrite', (store) => {
+          const get = store.get(raw.hash);
+          get.onsuccess = () => { if (!get.result) store.put(raw); };
+          return null;
+        });
+      } catch { ok = false; }
+      continue;
+    }
+    const ownerId = raw.ownerId || null;
+    if (typeof raw.docHash !== 'string' || raw.hash !== annotationKey(raw.docHash, ownerId)) continue;
+    const { docHash, ...rest } = raw;
+    if (!(await putRecord({ ...rest, hash: docHash, ownerId }, ownerId)).ok) ok = false;
+  }
+  return { ok };
+}
+
 function packAll(byPage) {
   const out = {};
   for (const [page, arr] of Object.entries(byPage)) {
