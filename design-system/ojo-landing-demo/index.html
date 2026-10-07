@@ -104,7 +104,7 @@ img { -webkit-user-drag: none; }
 .nav-links { display: flex; gap: 4px; margin-left: auto; list-style: none; }
 .nav-links a {
   text-decoration: none; color: var(--clr-ink-soft); font-weight: 600; font-size: .93rem;
-  padding: 7px 12px; border-radius: 9px;
+  padding: 10px 12px; border-radius: 9px;
   transition: color 150ms ease-out, background-color 150ms ease-out;
 }
 .nav-links a:hover { color: var(--clr-ink); background: var(--clr-bg-deep); }
@@ -231,7 +231,7 @@ img { -webkit-user-drag: none; }
 .explain-inner .src { display: block; margin-top: 5px; font-size: .74rem; color: var(--clr-ink-soft); }
 
 .mascot-float {
-  position: absolute; z-index: 3; bottom: -4%; right: 2%;
+  position: absolute; z-index: 1; bottom: -4%; right: 2%;
   width: 168px; filter: drop-shadow(0 14px 18px rgba(43,36,25,.16));
 }
 .float-chip {
@@ -383,8 +383,9 @@ section { padding: var(--sp-8) 0; }
   padding: 4px 6px;
 }
 .zbtn {
-  width: 32px; height: 32px; border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.25); background: rgba(0,0,0,.5); color: #fff;
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 6px solid transparent; background-clip: padding-box;
+  background-color: rgba(0,0,0,.5); color: #fff;
   font-size: 17px; cursor: pointer; display: grid; place-items: center; line-height: 1;
   transition: background-color 150ms ease-out, transform 150ms ease-out;
 }
@@ -555,8 +556,8 @@ footer { border-top: 1px solid var(--clr-border); padding: var(--sp-6) 0 var(--s
 .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: var(--sp-3); }
 .foot-brand p { font-size: .88rem; color: var(--clr-ink-soft); margin-top: 8px; max-width: 30ch; }
 .foot-col .h { font-size: .8rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--clr-gold-text); margin-bottom: 10px; }
-.foot-col ul { list-style: none; display: grid; gap: 7px; }
-.foot-col a { color: var(--clr-ink-soft); text-decoration: none; font-size: .92rem; }
+.foot-col ul { list-style: none; display: grid; gap: 4px; }
+.foot-col a { color: var(--clr-ink-soft); text-decoration: none; font-size: .92rem; display: inline-block; padding-block: 4px; }
 .foot-col a:hover { color: var(--clr-ink); text-decoration: underline; }
 .foot-base {
   margin-top: var(--sp-4); padding-top: var(--sp-2);
@@ -600,6 +601,11 @@ footer { border-top: 1px solid var(--clr-border); padding: var(--sp-6) 0 var(--s
   .shelf { grid-template-columns: repeat(2, 1fr); }
   .stats-row { grid-template-columns: repeat(2, 1fr); }
   .badge-row { grid-template-columns: repeat(3, 1fr); }
+  /* artifact: float chips cover real card content at narrow widths — hide them,
+     and reserve ground space so the mascot stands below the card, never over text */
+  .fc-badge, .fc-stat { display: none; }
+  .artifact { padding-bottom: 88px; }
+  .mascot-float { bottom: 0; right: 4px; width: 118px; }
 }
 @media (max-width: 560px) {
   .bento { grid-template-columns: 1fr; }
