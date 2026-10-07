@@ -10,7 +10,9 @@
 
 import { useEffect } from 'react';
 
-export function useLandingMotion() {
+/** `ready` turns true once every section has rendered (LandingView renders
+ *  the hero first), and the observer is rebuilt then. */
+export function useLandingMotion(ready = true) {
   useEffect(() => {
     if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return undefined;
 
@@ -54,5 +56,5 @@ export function useLandingMotion() {
       observer.disconnect();
       links.forEach((link) => link.classList.remove('is-active'));
     };
-  }, []);
+  }, [ready]);
 }

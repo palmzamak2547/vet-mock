@@ -208,6 +208,8 @@ html.lp-active { background: var(--clr-bg); }
 /* ================================================================
    NAV — a quiet bar that becomes a floating pill once you scroll
    ================================================================ */
+/* A section scrolled to lands below the sticky nav, not under it. */
+.lp-root section[id] { scroll-margin-top: calc(var(--lp-nav-clearance) + env(safe-area-inset-top, 0px)); }
 .lp-nav { position: sticky; top: 0; z-index: var(--z-nav); padding: 10px 0; padding-top: max(10px, env(safe-area-inset-top, 0px)); }
 .lp-nav-row {
   width: min(var(--lp-max), 100% - 2 * var(--lp-gutter)); margin-inline: auto;

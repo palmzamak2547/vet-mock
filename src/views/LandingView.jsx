@@ -20,7 +20,7 @@
 // see the landing never download it (tests/unit/boot-weight.test.mjs).
 // ============================================================
 
-import { useState, useEffect, useLayoutEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef, useMemo, useCallback, startTransition } from 'react';
 import { flushSync } from 'react-dom';
 import { subjectText } from '../hooks/utils.js';
 import { SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
@@ -78,7 +78,33 @@ export default function LandingView({
   const reduce = useRef(false);
 
   // Scroll-spy for the nav, observer-driven (no scroll listener).
-  useLandingMotion();
+  // The hero paints first and the rest of the page renders after that frame.
+  // Measured 2026-10-08 on a throttled phone (4x CPU, 1.6 Mbps): rendering all
+  // eleven sections in the first commit put the hero's first paint about 1 s
+  // later (LCP 4.9-6.0 s against 3.8-4.4 s for the hero alone). The rest
+  // renders in a transition, so a tap on the hero is not held up by it.
+  const [restReady, setRestReady] = useState(false);
+  // A same-page tap that comes before the rest has rendered waits here.
+  const pendingSection = useRef('');
+  useEffect(() => {
+    let timer = 0;
+    const raf = window.requestAnimationFrame(() => {
+      timer = window.setTimeout(() => startTransition(() => setRestReady(true)), 0);
+    });
+    return () => { window.cancelAnimationFrame(raf); window.clearTimeout(timer); };
+  }, []);
+  // A link straight to a section (/#subjects), or a tap on the nav before the
+  // rest rendered, had nothing to land on at first.
+  useEffect(() => {
+    if (!restReady) return;
+    let id = pendingSection.current;
+    pendingSection.current = '';
+    if (!id && window.location.hash.length > 1) {
+      try { id = decodeURIComponent(window.location.hash.slice(1)); } catch { id = ''; }
+    }
+    if (id) document.getElementById(id)?.scrollIntoView({ behavior: reduce.current ? 'auto' : 'smooth', block: 'start' });
+  }, [restReady]);
+  useLandingMotion(restReady);
 
   // ---- UI state ----
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -122,6 +148,35 @@ export default function LandingView({
   const inAppExit = useMemo(() => (inApp && typeof window !== 'undefined' ? externalUrl(inApp, window.location.href) : null), [inApp]);
   const closeMobileMenu = useCallback(() => setMobileOpen(false), []);
 
+  // Same-page links (the nav, the menu, the footer, the logo, "ดูรายวิชา", the
+  // skip link) scroll here and leave the address alone. App reads every
+  // history step as a route, so letting the browser change the fragment sent a
+  // new visitor from any of them to the year picker (found 2026-10-08; the old
+  // landing had the same plain links). Ctrl/Cmd-click still opens a new tab.
+  const onSamePageLink = (event) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const link = event.target instanceof Element ? event.target.closest('a[href^="#"]') : null;
+    const id = link ? link.getAttribute('href').slice(1) : '';
+    if (!id) return;
+    event.preventDefault();
+    const target = document.getElementById(id);
+    if (!target) {
+      pendingSection.current = id;
+      if (mobileOpen) setMobileOpen(false);
+      return;
+    }
+    const go = () => {
+      target.scrollIntoView({ behavior: reduce.current ? 'auto' : 'smooth', block: 'start' });
+      if (id === 'lp-main') {
+        if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+      }
+    };
+    // The open menu locks the page; scroll once it has closed and let go.
+    if (mobileOpen) window.requestAnimationFrame(() => window.requestAnimationFrame(go));
+    else go();
+  };
+
   // sync language from prop
   useEffect(() => { if (langProp && langProp !== lang) setLang(langProp); }, [langProp]); // eslint-disable-line
 
@@ -159,23 +214,6 @@ export default function LandingView({
     // The hero's entrance plays on the next frame so its first paint is the
     // resting layout (no flash of hidden text if this effect runs late).
     const raf = window.requestAnimationFrame(() => document.documentElement.classList.add('lp-entered'));
-    const els = Array.from(document.querySelectorAll('.lp-reveal'));
-    let io;
-    if (reduce.current || !('IntersectionObserver' in window)) {
-      els.forEach((e) => e.classList.add('in'));
-    } else {
-      io = new IntersectionObserver((ents) => {
-        ents.forEach((en) => {
-          if (en.isIntersecting) {
-            en.target.classList.add('in');
-            io.unobserve(en.target);
-          }
-        });
-      }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
-      els.forEach((e) => {
-        if (!e.classList.contains('in')) io.observe(e);
-      });
-    }
     // One 1px sentinel replaces a React state update on every scroll event.
     let navObserver;
     const sentinel = navSentinelRef.current;
@@ -190,11 +228,30 @@ export default function LandingView({
     return () => {
       window.cancelAnimationFrame(raf);
       document.documentElement.classList.remove('lp-entered');
-      if (io) io.disconnect();
       if (navObserver) navObserver.disconnect();
     };
     // eslint-disable-next-line
   }, [lang]);
+
+  // Reveal sections as they arrive. Its own effect, run again once the rest of
+  // the page has rendered, so the hero's entrance above is not replayed.
+  useEffect(() => {
+    const els = Array.from(document.querySelectorAll('.lp-reveal')).filter((e) => !e.classList.contains('in'));
+    if (reduce.current || !('IntersectionObserver' in window)) {
+      els.forEach((e) => e.classList.add('in'));
+      return undefined;
+    }
+    const io = new IntersectionObserver((ents) => {
+      ents.forEach((en) => {
+        if (en.isIntersecting) {
+          en.target.classList.add('in');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
+    els.forEach((e) => io.observe(e));
+    return () => io.disconnect();
+  }, [lang, restReady]);
 
   // The landing menu is a real modal navigation surface on compact screens.
   // It stays mounted while closed so links remain in the document, then
@@ -441,7 +498,7 @@ export default function LandingView({
   const t = L; // alias
   // ================= RENDER =================
   return (
-    <div className="lp-root" lang={lang}>
+    <div className="lp-root" lang={lang} onClick={onSamePageLink}>
       <span ref={navSentinelRef} className="lp-nav-sentinel" aria-hidden="true" />
       <a className="lp-skip" href="#lp-main">{t.skip}</a>
 
@@ -533,7 +590,7 @@ export default function LandingView({
       </div>
 
       <LandingBody
-        {...{ t, lang,
+        {...{ t, lang, restReady,
           heroPicked, heroRevealed, heroBookmarked, heroConfidence,
           setHeroPicked, setHeroRevealed, setHeroBookmarked, setHeroConfidence, onCheckHero,
           realSubjects,

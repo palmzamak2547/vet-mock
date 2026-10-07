@@ -1105,16 +1105,21 @@ export default function LandingBody(p) {
   return (
     <main id="lp-main">
       <Hero p={p} />
-      <Marquee p={p} />
-      <Wall p={p} />
-      <HowItWorks p={p} />
-      <NightPanic p={p} />
-      <ReadingRoom p={p} />
-      <More p={p} />
-      <Subjects p={p} />
-      <YourHome p={p} />
-      <FinalCta p={p} />
-      <Footer p={p} />
+      {/* Everything below the hero renders after its first paint (LandingView). */}
+      {p.restReady && (
+        <>
+          <Marquee p={p} />
+          <Wall p={p} />
+          <HowItWorks p={p} />
+          <NightPanic p={p} />
+          <ReadingRoom p={p} />
+          <More p={p} />
+          <Subjects p={p} />
+          <YourHome p={p} />
+          <FinalCta p={p} />
+          <Footer p={p} />
+        </>
+      )}
     </main>
   );
 }
