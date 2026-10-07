@@ -47,6 +47,14 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.138.9',
+    date: '2026-10-07',
+    headline: 'รอยจดอยู่กับ passage เดิม',
+    changes: [
+      { kind: 'fix', scope: 'system', title: 'คำสั่งล้างไม่ตามไป passage ใหม่', desc: 'เปลี่ยน passage ก่อนยืนยันล้าง รอยจดเดิมและรอยจดของ passage ใหม่จะยังอยู่ พร้อมรักษารอยจดที่เก็บไว้ระหว่างเปิดหรือเปลี่ยนข้อ' },
+    ],
+  },
+  {
     version: '5.138.8',
     date: '2026-10-07',
     headline: 'โน้ตอยู่กับคลิปที่เลือก',
