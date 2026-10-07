@@ -70,6 +70,9 @@ import {
   normalizePracticeMode, categoryPickerShown, appliedCategory, buildExamPool,
 } from './lib/exam-pool.js';
 import { panicPool } from './lib/question-metadata.js';
+import { adaptiveSelect, computeAbility } from './lib/adaptive-select.js';
+import { questionDifficulty } from './lib/elo.js';
+import { loadQuestionDifficulty } from './lib/question-difficulty.js';
 
 // Eager — needed for first paint
 import ErrorBoundary from './components/ErrorBoundary.jsx';
@@ -1875,20 +1878,39 @@ export default function App() {
     // ten random ones from everything they had ever missed, not their ten
     // weakest. Ordinary practice still shuffles.
     const ordered = USER_CURATED_MODES.has(_practiceMode);
-    let ranked = ordered ? pool : shuffle(pool);
-    // Panic Mode is opened the day before a paper, so it narrows to the
-    // questions closest to one — a real paper first, then the ones written
-    // from what a senior cohort marked — and inside each band puts what this
-    // student keeps getting wrong at the top. panicPool owns both rules and
-    // the fallback for a subject that holds neither kind.
-    if (overrides.panicPool) {
-      const { keys: missedKeys, counts: missedCounts } = stillWrong(history);
-      ranked = panicPool(ranked, (q) => {
-        const key = `${q.subject}:${q.id}`;
-        return missedKeys.has(key) ? (missedCounts.get(key) || 1) : 0;
+    const isAdaptive = _practiceMode === 'adaptive';
+    let picked;
+    if (isAdaptive) {
+      // The adaptive set picks where ordinary practice shuffles: from the same
+      // pool, serve the questions nearest the difficulty that predicts a ~70%
+      // success rate for this student, ramped easy → hard. Ability is rebuilt
+      // from the synced answer history, so nothing about it needs storing.
+      // Panic ranking is skipped — its paper-proximity order is a different
+      // feature, and panicPending never survives leaving the config screen
+      // for an ordinary run anyway.
+      const difficultyData = await loadQuestionDifficulty();
+      const ability = computeAbility(history, difficultyData);
+      picked = adaptiveSelect(pool, {
+        ability,
+        difficultyOf: (q) => questionDifficulty(q, difficultyData),
+        count: Math.min(qCount, pool.length),
       });
+    } else {
+      let ranked = ordered ? pool : shuffle(pool);
+      // Panic Mode is opened the day before a paper, so it narrows to the
+      // questions closest to one — a real paper first, then the ones written
+      // from what a senior cohort marked — and inside each band puts what this
+      // student keeps getting wrong at the top. panicPool owns both rules and
+      // the fallback for a subject that holds neither kind.
+      if (overrides.panicPool) {
+        const { keys: missedKeys, counts: missedCounts } = stillWrong(history);
+        ranked = panicPool(ranked, (q) => {
+          const key = `${q.subject}:${q.id}`;
+          return missedKeys.has(key) ? (missedCounts.get(key) || 1) : 0;
+        });
+      }
+      picked = ranked.slice(0, Math.min(qCount, pool.length));
     }
-    let picked = ranked.slice(0, Math.min(qCount, pool.length));
     // Mock-tagged questions (examOrigin set) belong to a structured
     // exam — passage Q1 must come before Q2, etc. Re-sort by ID
     // after the random pick so passage flow is preserved while still
@@ -1899,7 +1921,7 @@ export default function App() {
     // of the 493 questions Panic can serve carry examOrigin, so this line
     // silently re-sorted the whole cram by id and threw all of that away. It
     // was doing so for nothing: not one of those questions has a passage.
-    if (!overrides.panicPool && picked.some((q) => q.examOrigin)) {
+    if ((!overrides.panicPool || isAdaptive) && picked.some((q) => q.examOrigin)) {
       // Nor for a curated set, for the same reason: weak and wrong are most-
       // missed first, and most past-paper questions carry examOrigin, so the
       // re-sort put 'ทบทวนข้อที่ตอบผิด' back in id order under a screen that
@@ -2855,7 +2877,7 @@ export default function App() {
               )}
 {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={NOTES_RETURN_LABELS.get(notesReturnRef.current.view) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam }} />}
-              {view === 'config' && <ConfigView {...{ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
+              {view === 'config' && <ConfigView {...{ practiceMode, setPracticeMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, questionDeadline, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions: replayWrongRound, challengeSender, sessionKind, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
