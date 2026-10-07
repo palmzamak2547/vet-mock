@@ -47,6 +47,14 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.140.0',
+    date: '2026-10-07',
+    headline: 'เปิดลิงก์ Notion และ Google เป็นหน้าอ่าน',
+    changes: [
+      { kind: 'feature', scope: 'system', title: 'เอกสารภายนอก: อ่านลิงก์ Notion และ Google ในแอป', desc: 'วางลิงก์เอกสารหรือชีตของ Google หรือหน้า Notion ที่แชร์แบบสาธารณะ แล้วอ่านต่อในหน้าอ่านเดิม พร้อมรายการลิงก์ที่เปิดล่าสุด' },
+    ],
+  },
+  {
     version: '5.139.1',
     date: '2026-10-07',
     headline: 'ไอคอนตรงกันและ Mochi ปิดได้จริงทุกจุด',

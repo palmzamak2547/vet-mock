@@ -94,6 +94,7 @@ import {
   KnowledgeView, ReadingChecklistView, FacultyView, PrivacyView,
   AccountSettingsView, OfflineGameView, MochiView, PomodoroView,
   RaceView, PdfAnnotateView, ImageOcclusionView, PhaseWrappedView,
+  ExternalDocView,
   useIdlePrefetch,
 } from './app/lazy-views.js';
 
@@ -2906,6 +2907,7 @@ export default function App() {
               {view === 'lab' && <LabView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} />}
               {view === 'atlas' && <AtlasView goHome={() => setView(selectedYearStored == null ? 'landing' : 'home')} theme={theme} onToggleTheme={() => setTheme(current => current === 'dark' ? 'light' : 'dark')} />}
               {view === 'library' && <LibraryView goHome={goHome} selectedYear={selectedYear} onOpenDoc={openLibraryReader} onOpenLocalPdf={() => openLibraryReader()} />}
+              {view === 'external-docs' && <ExternalDocView goHome={goHome} />}
               {view === 'pdf-annotate' && (
                 <PdfAnnotateView
                   key={user?.id || 'guest'}

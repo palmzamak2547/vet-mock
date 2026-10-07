@@ -134,6 +134,13 @@ export const FEATURES = [
     invoke: { kind: 'view', view: 'library' },
   },
   {
+    id: 'external-docs', category: 'learn',
+    label: 'เอกสารภายนอก', labelEn: 'External docs', icon: '🔗',
+    hint: 'เปิดลิงก์ Notion หรือเอกสารและชีตของ Google เป็นหน้าอ่าน',
+    kw: 'external docs notion google doc sheet เอกสารภายนอก ลิงก์ link วาง paste นำเข้า',
+    invoke: { kind: 'view', view: 'external-docs' },
+  },
+  {
     id: 'notes', category: 'learn',
     label: 'สรุปบทเรียน', labelEn: 'Lecture notes', icon: '📓',
     hint: 'สรุปจากสไลด์พร้อมแหล่งอ้างอิง เลือกวิชาก่อน',

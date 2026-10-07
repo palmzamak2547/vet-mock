@@ -20,6 +20,7 @@ const VIEW_TO_PATH = Object.freeze({
   'phase-select': '/app/phase',
   'reading-checklist': '/app/reading',
   library: '/app/library',
+  'external-docs': '/app/external-docs',
   atlas: '/app/atlas',
   faculty: '/app/faculty',
   'account-settings': '/app/account',

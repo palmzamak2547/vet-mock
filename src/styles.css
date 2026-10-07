@@ -6685,3 +6685,115 @@ body.vmx-reading .vmx-pdf-body {
 }
 .vmx-fac-card-foot-status.is-verified { color: var(--clr-sage-text); }
 .vmx-fac-filter-group .vmx-chip > span { margin-left: 5px; }
+
+/* ── ExternalDocView — เอกสารภายนอก (vmx-extdoc-*) ────────────────
+   หน้าอ่านลิงก์ Notion / Google เอกสารและชีต เนื้อหาใช้คลาสกลาง
+   vmx-summary-body + vmx-md-* เหมือนหน้าสรุปคลิป */
+.vmx-extdoc {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.vmx-extdoc-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.vmx-extdoc-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+.vmx-extdoc-sub {
+  margin: 0;
+  color: var(--clr-ink-soft);
+  font-size: 13px;
+}
+.vmx-extdoc-form {
+  display: flex;
+  gap: 8px;
+}
+.vmx-extdoc-input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--clr-border);
+  border-radius: 10px;
+  background: var(--clr-surface);
+  color: var(--clr-ink);
+  padding: 10px 12px;
+  font-size: 14px;
+}
+.vmx-extdoc-input:focus-visible {
+  outline: 2px solid var(--clr-ocean);
+  outline-offset: 1px;
+}
+.vmx-extdoc-recents {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.vmx-extdoc-recents-label {
+  font-size: 12px;
+  color: var(--clr-ink-soft);
+}
+.vmx-extdoc-recent {
+  border: 1px solid var(--clr-border);
+  border-radius: 999px;
+  background: var(--clr-surface-2);
+  color: var(--clr-ink);
+  font-size: 12px;
+  padding: 4px 10px;
+  cursor: pointer;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vmx-extdoc-recent:hover { border-color: var(--clr-border-strong); }
+.vmx-extdoc-loading {
+  margin: 0;
+  color: var(--clr-ink-soft);
+  font-size: 13px;
+}
+.vmx-extdoc-error {
+  border: 1px solid var(--clr-rose);
+  border-radius: 10px;
+  background: var(--clr-rose-soft);
+  color: var(--clr-rose-text);
+  padding: 10px 12px;
+  font-size: 13px;
+}
+.vmx-extdoc-doc {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.vmx-extdoc-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.vmx-extdoc-provider {
+  font-size: 11px;
+  font-family: var(--vmx-mono);
+  color: var(--clr-ocean-text);
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  border-radius: 999px;
+  padding: 3px 8px;
+}
+.vmx-extdoc-source {
+  font-size: 12px;
+  color: var(--clr-ocean-text);
+  text-decoration: underline;
+}
+.vmx-extdoc-doc-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+}
