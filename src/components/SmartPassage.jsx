@@ -52,12 +52,14 @@ export default function SmartPassage({ text, title, defaultOpen = true }) {
   const [penColor, setPenColor] = useState('black');
   const [highlights, setHighlights] = useState([]);
   const [strokes, setStrokes] = useState([]);
+  const [loadedKey, setLoadedKey] = useState(null);
   const [showHelp, setShowHelp] = useState(false);
 
   const textRef = useRef(null);
   const canvasRef = useRef(null);
   const wrapperRef = useRef(null);
   const drawingRef = useRef(null);
+  const resourceEpoch = useRef(0);
 
   const storageKey = useMemo(() => `vmx-pass-${hashPassage(text || '')}`, [text]);
 
@@ -66,28 +68,35 @@ export default function SmartPassage({ text, title, defaultOpen = true }) {
     try {
       const hl = localStorage.getItem(`${storageKey}-hl`);
       const dr = localStorage.getItem(`${storageKey}-dr`);
-      setHighlights(hl ? JSON.parse(hl) : []);
-      setStrokes(dr ? JSON.parse(dr) : []);
+      const loadedHighlights = hl ? JSON.parse(hl) : [];
+      const loadedStrokes = dr ? JSON.parse(dr) : [];
+      setHighlights(loadedHighlights);
+      setStrokes(loadedStrokes);
+      setLoadedKey(storageKey);
     } catch {
+      setLoadedKey(null);
       setHighlights([]); setStrokes([]);
     }
+    return () => { resourceEpoch.current += 1; };
   }, [storageKey]);
 
   // ── Persist highlights ──
   useEffect(() => {
+    if (loadedKey !== storageKey) return;
     try {
       if (highlights.length === 0) localStorage.removeItem(`${storageKey}-hl`);
       else localStorage.setItem(`${storageKey}-hl`, JSON.stringify(highlights));
     } catch {}
-  }, [highlights, storageKey]);
+  }, [highlights, storageKey, loadedKey]);
 
   // ── Persist strokes ──
   useEffect(() => {
+    if (loadedKey !== storageKey) return;
     try {
       if (strokes.length === 0) localStorage.removeItem(`${storageKey}-dr`);
       else localStorage.setItem(`${storageKey}-dr`, JSON.stringify(strokes));
     } catch {}
-  }, [strokes, storageKey]);
+  }, [strokes, storageKey, loadedKey]);
 
   // ── Resize canvas to match text container; redraw on every resize
   //    or when strokes / open change. We use devicePixelRatio so the
@@ -277,7 +286,8 @@ export default function SmartPassage({ text, title, defaultOpen = true }) {
   }, [text, highlights]);
 
   const clearAll = async () => {
-    if (!(await confirmDialog({ title: 'ล้าง highlight ทั้งหมด?', body: 'ทั้ง highlight และเส้นวาดของ passage นี้จะถูกลบ', confirmLabel: 'ล้างทั้งหมด', tone: 'danger' }))) return;
+    const epoch = resourceEpoch.current;
+    if (!(await confirmDialog({ title: 'ล้าง highlight ทั้งหมด?', body: 'ทั้ง highlight และเส้นวาดของ passage นี้จะถูกลบ', confirmLabel: 'ล้างทั้งหมด', tone: 'danger' })) || resourceEpoch.current !== epoch) return;
     setHighlights([]); setStrokes([]);
   };
 
