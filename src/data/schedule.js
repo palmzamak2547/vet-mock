@@ -426,10 +426,10 @@ export { SEMESTER } from './semester.js';
 // คือ 21 ก.ย. จึงใช้วันนั้น ส่วน 25 ก.ย. ในตารางของรายวิชาเป็นวันที่ผู้ประสานกรอกไว้ก่อน (ปิดข้อสงสัย 2026-09-19)
 EXAM_SCHEDULE.y5 = [
   // ─── สอบกลางภาค ───
-  { id: 'y5-one-health-mid', code: '3109502', subject: 'one-health', title: 'ONE HEALTH VPH — กลางภาค', date: '2026-09-21', time: '08:30-09:30', duration_min: 60, credits: 1, location: 'VET6 202/203', term: 'midterm', icon: '🌍', color: '#4a6b4a' },
-  { id: 'y5-avian-mid', code: '3107510', subject: 'avian-medicine', title: 'AVIAN MEDICINE — กลางภาค', date: '2026-09-21', time: '13:00-15:00', duration_min: 120, credits: 2, location: 'VET6 B01-03', term: 'midterm', icon: '🐔', color: '#c2924a' },
+  { id: 'y5-one-health-mid', code: '3109502', subject: 'one-health', title: 'ONE HEALTH VPH — กลางภาค', date: '2026-09-21', time: '08:30-09:30', duration_min: 60, credits: 1, location: 'VET6 202/203', term: 'midterm', icon: '🌐', color: '#4a6b4a' },
+  { id: 'y5-avian-mid', code: '3107510', subject: 'avian-medicine', title: 'AVIAN MEDICINE — กลางภาค', date: '2026-09-21', time: '13:00-15:00', duration_min: 120, credits: 2, location: 'VET6 B01-03', term: 'midterm', icon: '🦅', color: '#c2924a' },
   { id: 'y5-food-ind-mid', code: '3109501', subject: 'food-industry', title: 'FOOD IND QUAL CONT — กลางภาค', date: '2026-09-22', time: '08:30-09:30', duration_min: 60, credits: 1, location: 'VET6 807', term: 'midterm', icon: '🏭', color: '#b88940' },
-  { id: 'y5-milk-meat-mid', code: '3109503', subject: 'milk-meat-hygiene', title: 'MILK HYG MEAT INSP — กลางภาค', date: '2026-09-22', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 202/203', term: 'midterm', icon: '🥛', color: '#5c7d4a' },
+  { id: 'y5-milk-meat-mid', code: '3109503', subject: 'milk-meat-hygiene', title: 'MILK HYG MEAT INSP — กลางภาค', date: '2026-09-22', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 202/203', term: 'midterm', icon: '🥩', color: '#5c7d4a' },
   { id: 'y5-equine-med-mid', code: '3106510', subject: 'equine-medicine', title: 'EQUINE MED SURG — กลางภาค', date: '2026-09-23', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 807', term: 'midterm', icon: '🐎', color: '#7d5a44' },
   { id: 'y5-equine-repro-mid', code: '3108515', subject: 'equine-repro', title: 'EQUINE REPROD — กลางภาค', date: '2026-09-23', time: '13:00-14:00', duration_min: 60, credits: 1, location: 'VET6 807', term: 'midterm', icon: '🐴', color: '#b88940' },
   { id: 'y5-swine-mid', code: '3107507', subject: 'swine-clinic', title: 'SWINE MEDICINE — กลางภาค', date: '2026-09-24', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 202/203', term: 'midterm', icon: '🐖', color: '#c26d6d' },
@@ -439,14 +439,14 @@ EXAM_SCHEDULE.y5 = [
   // ─── สอบปลายภาค สัปดาห์ที่ 1 ───
   { id: 'y5-swine-final', code: '3107507', subject: 'swine-clinic', title: 'SWINE MEDICINE — ปลายภาค', date: '2026-11-23', time: '13:00-15:00', duration_min: 120, credits: 2, location: 'VET6 807', term: 'final', icon: '🐖', color: '#c26d6d' },
   { id: 'y5-equine-med-final', code: '3106510', subject: 'equine-medicine', title: 'EQUINE MED SURG — ปลายภาค', date: '2026-11-24', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 202/203', term: 'final', icon: '🐎', color: '#7d5a44' },
-  { id: 'y5-one-health-final', code: '3109502', subject: 'one-health', title: 'ONE HEALTH VPH — ปลายภาค', date: '2026-11-25', time: '13:00-14:30', duration_min: 90, credits: 1, location: 'VET6 807', term: 'final', icon: '🌍', color: '#4a6b4a' },
+  { id: 'y5-one-health-final', code: '3109502', subject: 'one-health', title: 'ONE HEALTH VPH — ปลายภาค', date: '2026-11-25', time: '13:00-14:30', duration_min: 90, credits: 1, location: 'VET6 807', term: 'final', icon: '🌐', color: '#4a6b4a' },
   { id: 'y5-zoonoses-final', code: '3109504', subject: 'zoonoses', title: 'ZOONOSES — ปลายภาค', date: '2026-11-26', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 807', term: 'final', icon: '🦠', color: '#7d4a7d' },
   { id: 'y5-aqua-final', code: '3107520', subject: 'aquatic-clinic', title: 'AQUA ANL MED — ปลายภาค', date: '2026-11-27', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 B01-03', term: 'final', icon: '🐟', color: '#3d6b82' },
 
   // ─── สอบปลายภาค สัปดาห์ที่ 2 ───
-  { id: 'y5-milk-meat-final', code: '3109503', subject: 'milk-meat-hygiene', title: 'MILK HYG MEAT INSP — ปลายภาค', date: '2026-11-30', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 807', term: 'final', icon: '🥛', color: '#5c7d4a' },
+  { id: 'y5-milk-meat-final', code: '3109503', subject: 'milk-meat-hygiene', title: 'MILK HYG MEAT INSP — ปลายภาค', date: '2026-11-30', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 807', term: 'final', icon: '🥩', color: '#5c7d4a' },
   { id: 'y5-equine-repro-final', code: '3108515', subject: 'equine-repro', title: 'EQUINE REPROD — ปลายภาค', date: '2026-12-01', time: '08:30-10:00', duration_min: 90, credits: 1, location: 'VET6 807', term: 'final', icon: '🐴', color: '#b88940' },
-  { id: 'y5-avian-final', code: '3107510', subject: 'avian-medicine', title: 'AVIAN MEDICINE — ปลายภาค', date: '2026-12-02', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 807', term: 'final', icon: '🐔', color: '#c2924a' },
+  { id: 'y5-avian-final', code: '3107510', subject: 'avian-medicine', title: 'AVIAN MEDICINE — ปลายภาค', date: '2026-12-02', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 807', term: 'final', icon: '🦅', color: '#c2924a' },
   { id: 'y5-food-ind-final', code: '3109501', subject: 'food-industry', title: 'FOOD IND QUAL CONT — ปลายภาค', date: '2026-12-03', time: '13:00-14:30', duration_min: 90, credits: 1, location: 'VET6 807', term: 'final', icon: '🏭', color: '#b88940' },
   { id: 'y5-epid-final', code: '3107508', subject: 'epidemiology', title: 'VET EPID PREV MED — ปลายภาค', date: '2026-12-04', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 807', term: 'final', icon: '📊', color: '#3d6b82' },
 ];
@@ -462,24 +462,24 @@ EXAM_SCHEDULE.y4 = [...(EXAM_SCHEDULE.y4 || []),
   { id: 'y4-com1-mid', code: '3107415', subject: 'com1', title: 'C ANI CLI SCI I — กลางภาค', date: '2026-09-21', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 702', term: 'midterm', icon: '🐕', color: '#3d6b82' },
   { id: 'y4-juris-mid', code: '3100403', subject: 'vet-juris', title: 'JURIS ETH WELFARE — กลางภาค', date: '2026-09-22', time: '08:30-09:30', duration_min: 60, credits: 1, location: 'VET6 B01-03', term: 'midterm', icon: '⚖️', color: '#5c6b7d' },
   { id: 'y4-imaging-mid', code: '3106413', subject: 'vet-imaging', title: 'VET IMAGING (LECT/LAB) — กลางภาค', date: '2026-09-22', time: '13:00-15:00', duration_min: 120, credits: 2, location: 'VET6 807', term: 'midterm', icon: '🩻', color: '#6b5b8e' },
-  { id: 'y4-com2-mid', code: '3106414', subject: 'com2', title: 'C ANI CLI SCI II — กลางภาค', date: '2026-09-23', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 B01-03', term: 'midterm', icon: '🩺', color: '#6b5b8e' },
-  { id: 'y4-swinerepro-mid', code: '3108404', subject: 'swine-repro', title: 'SWINE REPRODUCTION — กลางภาค', date: '2026-09-24', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 807', term: 'midterm', icon: '🐖', color: '#c26d6d' },
-  { id: 'y4-swineherd-mid', code: '3107408', subject: 'swine-herd', title: 'SWI HERD HLTH MGT — กลางภาค', date: '2026-09-24', time: '13:00-15:00', duration_min: 120, credits: 2, location: 'VET6 807', term: 'midterm', icon: '🐷', color: '#c2924a' },
-  { id: 'y4-herdrum-mid', code: '3107407', subject: 'herd-health-rum', title: 'HERD HLTH MGT RUM — กลางภาค', date: '2026-09-25', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 702', term: 'midterm', icon: '🐄', color: '#7d5a44' },
-  { id: 'y4-foodsafety-mid', code: '3109401', subject: 'food-safety-y4', title: 'FOOD SAFETY — กลางภาค', date: '2026-09-25', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 702', term: 'midterm', icon: '🍖', color: '#5c7d4a' },
+  { id: 'y4-com2-mid', code: '3106414', subject: 'com2', title: 'C ANI CLI SCI II — กลางภาค', date: '2026-09-23', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 B01-03', term: 'midterm', icon: '🐩', color: '#6b5b8e' },
+  { id: 'y4-swinerepro-mid', code: '3108404', subject: 'swine-repro', title: 'SWINE REPRODUCTION — กลางภาค', date: '2026-09-24', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 807', term: 'midterm', icon: '🐷', color: '#c26d6d' },
+  { id: 'y4-swineherd-mid', code: '3107408', subject: 'swine-herd', title: 'SWI HERD HLTH MGT — กลางภาค', date: '2026-09-24', time: '13:00-15:00', duration_min: 120, credits: 2, location: 'VET6 807', term: 'midterm', icon: '🐖', color: '#c2924a' },
+  { id: 'y4-herdrum-mid', code: '3107407', subject: 'herd-health-rum', title: 'HERD HLTH MGT RUM — กลางภาค', date: '2026-09-25', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 702', term: 'midterm', icon: '🐂', color: '#7d5a44' },
+  { id: 'y4-foodsafety-mid', code: '3109401', subject: 'food-safety-y4', title: 'FOOD SAFETY — กลางภาค', date: '2026-09-25', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 702', term: 'midterm', icon: '🥩', color: '#5c7d4a' },
 
   // ─── สอบปลายภาค สัปดาห์ที่ 1 (23-27 พ.ย. 69) ───
-  { id: 'y4-herdrum-final', code: '3107407', subject: 'herd-health-rum', title: 'HERD HLTH MGT RUM — ปลายภาค', date: '2026-11-23', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 B01-03', term: 'final', icon: '🐄', color: '#7d5a44' },
+  { id: 'y4-herdrum-final', code: '3107407', subject: 'herd-health-rum', title: 'HERD HLTH MGT RUM — ปลายภาค', date: '2026-11-23', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 B01-03', term: 'final', icon: '🐂', color: '#7d5a44' },
   { id: 'y4-engprof-final', code: '5500418', subject: 'engprof1', title: 'ENG VET PROF I — ปลายภาค', date: '2026-11-24', time: '13:00-16:00', duration_min: 180, credits: 3, location: 'VET6 807', term: 'final', icon: '🗣️', color: '#5c6b7d' },
   { id: 'y4-imaging-final', code: '3106413', subject: 'vet-imaging', title: 'VET IMAGING (LECT/LAB) — ปลายภาค', date: '2026-11-25', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 807', term: 'final', icon: '🩻', color: '#6b5b8e' },
-  { id: 'y4-foodsafety-final', code: '3109401', subject: 'food-safety-y4', title: 'FOOD SAFETY — ปลายภาค', date: '2026-11-26', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 807', term: 'final', icon: '🍖', color: '#5c7d4a' },
-  { id: 'y4-swineherd-final', code: '3107408', subject: 'swine-herd', title: 'SWI HERD HLTH MGT — ปลายภาค', date: '2026-11-27', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 807', term: 'final', icon: '🐷', color: '#c2924a' },
+  { id: 'y4-foodsafety-final', code: '3109401', subject: 'food-safety-y4', title: 'FOOD SAFETY — ปลายภาค', date: '2026-11-26', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 807', term: 'final', icon: '🥩', color: '#5c7d4a' },
+  { id: 'y4-swineherd-final', code: '3107408', subject: 'swine-herd', title: 'SWI HERD HLTH MGT — ปลายภาค', date: '2026-11-27', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 807', term: 'final', icon: '🐖', color: '#c2924a' },
 
   // ─── สอบปลายภาค สัปดาห์ที่ 2 (30 พ.ย. - 4 ธ.ค. 69) ───
-  { id: 'y4-swinerepro-final', code: '3108404', subject: 'swine-repro', title: 'SWINE REPRODUCTION — ปลายภาค', date: '2026-11-30', time: '08:30-11:30', duration_min: 180, credits: 2, location: 'VET6 B01-03', term: 'final', icon: '🐖', color: '#c26d6d' },
+  { id: 'y4-swinerepro-final', code: '3108404', subject: 'swine-repro', title: 'SWINE REPRODUCTION — ปลายภาค', date: '2026-11-30', time: '08:30-11:30', duration_min: 180, credits: 2, location: 'VET6 B01-03', term: 'final', icon: '🐷', color: '#c26d6d' },
   { id: 'y4-juris-final', code: '3100403', subject: 'vet-juris', title: 'JURIS ETH WELFARE — ปลายภาค', date: '2026-12-01', time: '08:30-10:00', duration_min: 90, credits: 1, location: 'VET6 B01-03', term: 'final', icon: '⚖️', color: '#5c6b7d' },
   { id: 'y4-com1-final', code: '3107415', subject: 'com1', title: 'C ANI CLI SCI I — ปลายภาค', date: '2026-12-02', time: '08:30-11:30', duration_min: 180, credits: 3, location: 'VET6 B01-03', term: 'final', icon: '🐕', color: '#3d6b82' },
-  { id: 'y4-com2-final', code: '3106414', subject: 'com2', title: 'C ANI CLI SCI II — ปลายภาค', date: '2026-12-03', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 B01-03', term: 'final', icon: '🩺', color: '#6b5b8e' },
+  { id: 'y4-com2-final', code: '3106414', subject: 'com2', title: 'C ANI CLI SCI II — ปลายภาค', date: '2026-12-03', time: '08:30-10:30', duration_min: 120, credits: 2, location: 'VET6 B01-03', term: 'final', icon: '🐩', color: '#6b5b8e' },
 ];
 
 /** ทะเบียนกลุ่มรายวิชา — ลงทะเบียนทั้งชุดด้วยรหัสกลุ่มเดียว */

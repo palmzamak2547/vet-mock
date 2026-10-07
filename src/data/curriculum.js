@@ -1994,7 +1994,7 @@ export const SUBJECTS_BY_YEAR = {
     // Source: @Fukfangfluffy_channel (VCA ผ่านชัวร์ series — แจกฟรี)
     { id: 'vca', code: 'VCA-Y5', name: 'แนวข้อสอบเก่า VCA',
         name_en: 'VCA Practice — Clinical and Basic Veterinary Sciences',
-      icon: '🩵', color: '#5db4d3', semester: 0, has_questions: true,
+      icon: '💙', color: '#5db4d3', semester: 0, has_questions: true,
       examFormat: {
         weight: 'ใบประกอบวิชาชีพ — ครอบคลุมทุกรายวิชาคลินิก Y5',
           perSession: 'เลือกฝึกตามหัวข้อหรือจำนวนข้อที่มีเวลา',

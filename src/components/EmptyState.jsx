@@ -17,6 +17,7 @@
 // ============================================================
 
 import Mochi from './Mochi.jsx';
+import { artImgFallback } from '../lib/art-fallback.js';
 
 // `art` takes an entry from EMPTY_ART (src/data/art.js): an illustration of
 // the thing that is missing — an empty shelf, a podium with nobody on it. It
@@ -45,6 +46,7 @@ export default function EmptyState({
           height={480}
           loading="lazy"
           decoding="async"
+          onError={artImgFallback}
         />
       ) : (
         <span className="icon" aria-hidden="true" style={{ color: 'var(--clr-sage-text)' }}>

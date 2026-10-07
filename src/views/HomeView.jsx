@@ -59,6 +59,8 @@ import { scopeForPhase } from '../lib/exam-scope.js';
 // "เครื่องมือปีX" + "Multiplayer" grids + bottom text-link strip.
 import FeatureMenu from '../components/FeatureMenu.jsx';
 import Mochi from '../components/Mochi.jsx';
+import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
+import { artImgFallback } from '../lib/art-fallback.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { truncateThai } from '../lib/thai-text.js';
 import { practicePreset } from '../lib/app-flow.js';
@@ -309,6 +311,8 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   }, [nextExam?.daysLeft, lastExamDate]);
   const companionImg = companionMochi?.src || '/motion/assets/mochi.png';
   const companionAlt = companionMochi?.alt || 'โมจิ เพื่อนร่วมติว';
+  const { preferences } = useMotionPreferences();
+  const companionOn = preferences.companion && preferences.mode !== 'off';
 
   // ─── Quick stats: study streak + today count + wrong Q pool ────
   // Computed from history (date + correct flag). Streak counts
@@ -1380,7 +1384,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
 
           {/* ZONE 2: Clinical Vitals Rail (Mochi Companion, Vitals & Quick Context, Extras, Buddies) */}
           <aside className="vmx-vitals-rail" aria-label="สถานะและเพื่อนร่วมติว">
-            {/* Mochi Clinical Companion Card */}
+            {/* Mochi Clinical Companion Card — the single companion
+                preference hides this card with the mascot on it. */}
+            {companionOn && (
             <div className="vmx-companion-card">
               <div className="vmx-mochi-seal">
                 <img
@@ -1391,6 +1397,8 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                   loading="lazy"
                   decoding="async"
                   style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                  data-mochi-slot="companion"
+                  onError={artImgFallback}
                 />
               </div>
               <div className="vmx-companion-card-info">
@@ -1401,6 +1409,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 </span>
               </div>
             </div>
+            )}
 
             {/* Vitals Panel */}
             {hasQuickChips && (

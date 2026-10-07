@@ -6,6 +6,7 @@ import StudyBreak from '../components/StudyBreak.jsx';
 import { MotionButton } from '../components/MotionFeedback.jsx';
 import { EFFECTS, GROUPS } from '../lib/motion-kit/catalog.js';
 import { SQUAD_MASCOTS } from '../data/art.js';
+import { artImgFallback } from '../lib/art-fallback.js';
 
 export default function MochiView({ goHome, onOpenFocus }) {
   const [examplesOpen, setExamplesOpen] = useState(false);
@@ -19,7 +20,7 @@ export default function MochiView({ goHome, onOpenFocus }) {
   return <div className="vmx-mochi-page">
     <BackBar onBack={goHome} label="กลับไปเรียน" />
     <header className="vmx-mochi-heading">
-      <div><img src="/motion/assets/mochi.png" width="64" height="64" className="vmx-mochi-rest-portrait" alt="" /><p className="vmx-eyebrow">MOCHI / STUDY BREAK</p><h1>พักกับ Mochi</h1><p>พื้นที่เล็ก ๆ ให้พักมือ พักสายตา แล้วกลับไปเรียนในจังหวะของตัวเอง</p></div>
+      <div><img src="/motion/assets/mochi.png" width="64" height="64" className="vmx-mochi-rest-portrait" alt="" onError={artImgFallback} /><p className="vmx-eyebrow">MOCHI / STUDY BREAK</p><h1>พักกับ Mochi</h1><p>พื้นที่เล็ก ๆ ให้พักมือ พักสายตา แล้วกลับไปเรียนในจังหวะของตัวเอง</p></div>
       {onOpenFocus && <MotionButton className="vmx-btn vmx-btn-ghost" onClick={onOpenFocus}>จับเวลาอ่านพร้อมช่วงพัก</MotionButton>}
     </header>
     <StudyBreak />
@@ -51,11 +52,12 @@ export default function MochiView({ goHome, onOpenFocus }) {
             <img
               src={m.src}
               alt={m.alt}
-              width={100}
-              height={100}
+              width={84}
+              height={84}
               loading="lazy"
               decoding="async"
               style={{ width: '84px', height: '84px', objectFit: 'contain', borderRadius: '10px', marginBottom: '8px' }}
+              onError={artImgFallback}
             />
             <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--clr-ink)' }}>
               {m.nameTh}

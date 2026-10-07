@@ -10,6 +10,8 @@ import { buildDailyPlan } from '../lib/daily-plan.js';
 import { fmtThaiDate } from '../data/schedule.js';
 import { seasonalMochiKey } from '../lib/seasonal-mochi.js';
 import { SEASONAL_MOCHI } from '../data/art.js';
+import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
+import { artImgFallback } from '../lib/art-fallback.js';
 
 export default function NextActionCard({
   nextExam,
@@ -35,6 +37,8 @@ export default function NextActionCard({
 }) {
   const [confirmDiscard, setConfirmDiscard] = useState(false);
   const [minutes, setMinutes] = useLocalStorage('vmx-daily-minutes', 30);
+  const { preferences } = useMotionPreferences();
+  const companionOn = preferences.companion && preferences.mode !== 'off';
 
   const { actions, plan } = useMemo(() => {
     const out = [];
@@ -205,7 +209,7 @@ export default function NextActionCard({
             children — a third one pushes the title into the middle of the row.
             The picture belongs WITH the title, not beside it as a peer. */}
         <div className="vmx-next-actions-lead">
-          {seasonal && (
+          {seasonal && companionOn && (
             <div className="vmx-mochi-stamp">
               <img
                 className="vmx-next-actions-mochi"
@@ -215,6 +219,8 @@ export default function NextActionCard({
                 height={512}
                 loading="lazy"
                 decoding="async"
+                data-mochi-slot="plan-stamp"
+                onError={artImgFallback}
               />
             </div>
           )}

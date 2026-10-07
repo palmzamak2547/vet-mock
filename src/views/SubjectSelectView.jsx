@@ -9,6 +9,7 @@ import { librarySubjectCounts } from '../lib/library.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
 import { takeViewIntent, rememberViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { SUBJECT_MOCHI } from '../data/art.js';
+import { artImgFallback } from '../lib/art-fallback.js';
 import NavIcon from '../components/NavIcon.jsx';
 
 export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear, selectedPhase = null, qbReady = true, history = [] }) {
@@ -297,6 +298,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                       loading="lazy"
                       decoding="async"
                       style={{ width: 52, height: 52, objectFit: 'contain', display: 'block' }}
+                      onError={artImgFallback}
                     />
                   </div>
                 ) : (
