@@ -47,6 +47,14 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.141.0',
+    date: '2026-10-07',
+    headline: 'เชื่อมบัญชี Notion และ Google ของคุณเอง',
+    changes: [
+      { kind: 'feature', scope: 'system', title: 'อ่านเอกสารส่วนตัวจาก Notion และ Google ได้', desc: 'กดเชื่อมต่อบัญชีของคุณในหน้าเอกสารภายนอก แล้วเปิดเอกสารและชีตส่วนตัวที่คุณให้สิทธิ์ได้ แอปอ่านอย่างเดียว ยกเลิกการเชื่อมต่อได้ทุกเมื่อ ลิงก์สาธารณะยังเปิดได้เหมือนเดิม' },
+    ],
+  },
+  {
     version: '5.140.0',
     date: '2026-10-07',
     headline: 'เปิดลิงก์ Notion และ Google เป็นหน้าอ่าน',

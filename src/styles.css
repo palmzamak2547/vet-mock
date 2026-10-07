@@ -6797,3 +6797,57 @@ body.vmx-reading .vmx-pdf-body {
   font-size: 17px;
   font-weight: 700;
 }
+
+/* ── ExternalDocView — แผงเชื่อมบัญชี (OAuth) ───────────────────── */
+.vmx-extdoc-connect {
+  border: 1px solid var(--clr-border);
+  border-radius: 12px;
+  background: var(--clr-surface-2);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.vmx-extdoc-connect-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--clr-ink);
+}
+.vmx-extdoc-connect-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.vmx-extdoc-connect-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.vmx-extdoc-connect-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--clr-ink);
+}
+.vmx-extdoc-connect-detail {
+  font-size: 12px;
+  color: var(--clr-ink-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vmx-extdoc-connect-hint {
+  margin: 0;
+  font-size: 12px;
+  color: var(--clr-ink-soft);
+}
+.vmx-extdoc-notice {
+  border: 1px solid var(--clr-sage);
+  border-radius: 10px;
+  background: var(--clr-sage-soft);
+  color: var(--clr-sage-text);
+  padding: 10px 12px;
+  font-size: 13px;
+}

@@ -566,3 +566,55 @@ recorded ways, each deliberate:
    hops), every response's final URL must pass the same host check — Google
    answers are read only from `docs.google.com`, Notion answers only from
    `api.notion.com` — or the body is never read.
+
+---
+
+## Per-user OAuth (owner decision, 2026-10-07)
+
+The owner then asked for the posture the open questions had left open: the
+STUDENT connects their own Notion / Google account with OAuth 2.0, so the
+reader can open the documents that account can read — private ones
+included. This supersedes the "per-student Google OAuth — do not build"
+line above for the reader feature.
+
+Shaped like the rest of the app:
+
+- `GET /api/external-connect/start?provider=` — signed-in students only;
+  answers the provider consent URL and sets an HttpOnly state cookie
+  scoped to this endpoint's path.
+- `GET /api/external-connect/callback?provider=` — the query state must
+  equal the start cookie (so one student cannot complete a consent that
+  stores tokens under another student's account); exchanges the code;
+  stores the tokens server-side; redirects back to
+  `/app/external-docs?connected=…` or `?connect_error=…`.
+- `POST /api/external-connect` — `{ action: 'status' | 'disconnect' }`.
+  Status answers provider, display label, scope and expiry — token
+  columns never leave the server.
+- `api/fetch-external-doc.js` reads through the student's own connection
+  when they have one (Google: Drive `files.export`, markdown or csv, one
+  refresh on a stale token; Notion: their token against the markdown
+  endpoint) and skips the shared answer cache entirely — one student's
+  private document must never be served to another from a shared key.
+  Without a connection, the public path and its cache apply as before.
+- Tokens live in `public.external_connections`: RLS enabled with NO
+  policies (every client role denied; only the service role inside Vercel
+  functions touches rows), FK cascade on the account so the existing
+  deletion flow cleans up. Migration:
+  `supabase/migrations/20261007150000_external_connections.sql`.
+
+Owner setup, once, before this goes live:
+
+1. Google Cloud console → OAuth client (Web application) with redirect
+   URI `https://vetmock.vercel.app/api/external-connect/callback?provider=google`;
+   scopes openid, email, drive.readonly. Set `GOOGLE_OAUTH_CLIENT_ID` +
+   `GOOGLE_OAUTH_CLIENT_SECRET` on Vercel.
+2. Notion → new public integration with redirect URI
+   `https://vetmock.vercel.app/api/external-connect/callback?provider=notion`
+   and read-content capability only. Set `NOTION_OAUTH_CLIENT_ID` +
+   `NOTION_OAUTH_CLIENT_SECRET` on Vercel.
+3. Apply the migration on the provider once. `EXTERNAL_OAUTH_STATE_SECRET`
+   is optional — state signing falls back to the service role key.
+
+A provider whose variable pair is missing answers 503 `not_configured`;
+the reader keeps working for public links and for whichever provider IS
+configured.

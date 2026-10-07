@@ -32,6 +32,7 @@ import {
   MAX_MARKDOWN_CHARS,
 } from './_lib/external-doc.js';
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
+import { getUserFromRequest, getConnection, googleTokenStale, refreshGoogleAccess, isGoogleApiHost } from './_lib/external-connections.js';
 import { createHash } from 'node:crypto';
 
 const NOTION_VERSION = '2026-03-11'; // the dated version that serves /pages/{id}/markdown
@@ -100,6 +101,61 @@ function notionTitleFromPage(page) {
   } catch {
     return null;
   }
+}
+
+/**
+ * The connected path: the student's own Google account reads the file, so
+ * private documents work the same way public ones do. One refresh is tried
+ * when the stored access token has aged out. Null means "unusable — let
+ * the public path try", which keeps a public doc readable even when the
+ * connection hiccups.
+ */
+async function fetchConnectedGoogle(id, kind, row) {
+  let token = row.access_token;
+  if (googleTokenStale(row)) {
+    const refreshed = await refreshGoogleAccess(row);
+    if (!refreshed) return null;
+    token = refreshed.accessToken;
+  }
+  const mimeType = kind === 'gsheets' ? 'text/csv' : 'text/markdown';
+  let resp;
+  try {
+    resp = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(id)}/export?mimeType=${encodeURIComponent(mimeType)}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+  } catch (err) {
+    if (err?.name === 'TimeoutError' || err?.name === 'AbortError') throw err;
+    return null;
+  }
+  let landed = true;
+  if (resp.url) {
+    try {
+      landed = isGoogleApiHost(new URL(resp.url).hostname);
+    } catch {
+      landed = false;
+    }
+  }
+  if (!resp.ok || !landed) return null;
+  let text;
+  try {
+    text = await resp.text();
+  } catch {
+    return null;
+  }
+  if (typeof text !== 'string' || text.length > MAX_UPSTREAM_BYTES || looksLikeHtml(text)) return null;
+  let title = null;
+  try {
+    const meta = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(id)}?fields=name`, {
+      headers: { Authorization: `Bearer ${token}` },
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+    });
+    if (meta.ok) {
+      const data = await meta.json().catch(() => null);
+      title = data?.name ? String(data.name).slice(0, 200) : null;
+    }
+  } catch { /* title is optional */ }
+  return { text, title };
 }
 
 async function fetchNotionMarkdown(id, token) {
@@ -195,6 +251,52 @@ export default async function handler(req, res) {
         reason: 'unsupported_link',
         hint: 'Supported: docs.google.com documents and spreadsheets, notion.so pages.',
       });
+    }
+
+    // A signed-in student with a connected account reads through their OWN
+    // credentials — private documents work — and the shared answer cache
+    // is skipped entirely: one student's private doc must never be served
+    // to another from a shared key.
+    const userId = await getUserFromRequest(req);
+    const connection = userId ? await getConnection({ userId, provider: target.provider }) : null;
+
+    if (connection?.access_token) {
+      let markdown = null;
+      let title = null;
+      try {
+        if (target.provider === 'gdocs' || target.provider === 'gsheets') {
+          const result = await fetchConnectedGoogle(target.id, target.provider, connection);
+          if (result) {
+            markdown = target.provider === 'gsheets' ? csvToMarkdownTable(result.text) : result.text;
+            title = result.title;
+          }
+        } else {
+          const result = await fetchNotionMarkdown(target.id, connection.access_token);
+          if (result.markdown != null) {
+            markdown = result.markdown;
+            title = result.title;
+          }
+        }
+      } catch (err) {
+        if (err?.name === 'TimeoutError' || err?.name === 'AbortError') {
+          return res.status(504).json({ error: 'Upstream request timed out' });
+        }
+        throw err;
+      }
+      if (markdown) {
+        if (markdown.length > MAX_MARKDOWN_CHARS) {
+          return res.status(413).json({ error: 'Document too large for the reader', reason: 'too_large' });
+        }
+        return res.status(200).json({
+          provider: target.provider,
+          title: title || null,
+          markdown,
+          sourceUrl: target.sourceUrl,
+        });
+      }
+      // The connected attempt found nothing usable — a PUBLIC doc should
+      // still open through the shared path below rather than dying with
+      // the connection.
     }
 
     // Exact-match cache on the validated source link — the link carries
