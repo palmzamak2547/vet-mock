@@ -13,7 +13,7 @@
 // under their own session, so a large document never has to travel any other
 // way, and rebuilding it locally is one click to re-import.
 // ============================================================
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { adminRpc } from '../lib/admin-api.js';
 import { confirmDialog } from '../lib/dialog.js';
 import { splitKey, slugify } from '../lib/private-notes.js';
@@ -67,27 +67,45 @@ export default function PrivateNotes() {
   const [open, setOpen] = useState(null);
   const [busy, setBusy] = useState('');
   const [err, setErr] = useState(null);
+  const [reading, setReading] = useState('');
+  const [readerErr, setReaderErr] = useState(null);
   const [filter, setFilter] = useState('');
+  const mountedRef = useRef(false);
+  const readerRef = useRef(null);
 
   const reload = () => adminRpc('admin_private_notes')
-    .then((rows) => setList(Array.isArray(rows) ? rows : []))
-    .catch((e) => { setList([]); setErr(e); });
+    .then((rows) => { if (mountedRef.current) setList(Array.isArray(rows) ? rows : []); })
+    .catch((e) => { if (mountedRef.current) { setList([]); setErr(e); } });
 
-  useEffect(() => { reload(); }, []);
+  useEffect(() => {
+    mountedRef.current = true;
+    reload();
+    return () => { mountedRef.current = false; readerRef.current = null; };
+  }, []);
 
-  const view = async (slug) => {
-    if (open?.slug === slug) { setOpen(null); return; }
-    setBusy(`กำลังเปิด ${slug}`); setErr(null); setFilter('');
-    try { setOpen(await adminRpc('admin_private_note', { note_slug: slug })); }
-    catch (e) { setErr(e); }
-    finally { setBusy(''); }
+  const view = async (slug, expectedReader = readerRef.current) => {
+    if (!mountedRef.current || readerRef.current !== expectedReader) return;
+    const request = { slug: open?.slug === slug ? null : slug };
+    readerRef.current = request;
+    setReaderErr(null);
+    if (request.slug === null) { setOpen(null); setReading(''); return; }
+    setReading(`กำลังเปิด ${slug}`); setFilter('');
+    try {
+      const note = await adminRpc('admin_private_note', { note_slug: slug });
+      if (mountedRef.current && readerRef.current === request) setOpen(note);
+    } catch (e) {
+      if (mountedRef.current && readerRef.current === request) setReaderErr(e);
+    } finally {
+      if (mountedRef.current && readerRef.current === request) setReading('');
+    }
   };
 
   const onFile = async (event) => {
     const file = event.target.files?.[0];
     event.target.value = '';
     if (!file) return;
-    setErr(null);
+    const admittedReader = readerRef.current;
+    if (mountedRef.current) setErr(null);
     try {
       // ponytail: a re-import overwrites parts 1..N and leaves any part
       // above N behind, which only happens if the same document loses a
@@ -98,16 +116,16 @@ export default function PrivateNotes() {
       const title = String(key.title || file.name).slice(0, 200);
       if (!slug) throw new Error('ตั้งชื่อ slug จากไฟล์นี้ไม่ได้');
       for (const p of parts) {
-        setBusy(`กำลังอัปโหลด ${p.part}/${parts.length}`);
+        if (mountedRef.current) setBusy(`กำลังอัปโหลด ${p.part}/${parts.length}`);
         await adminRpc('admin_private_note_put', {
           note_slug: slug, note_part: p.part, note_title: title,
           note_kind: key.kind || 'exam-key', note_payload: p.payload,
         });
       }
-      setBusy('');
+      if (mountedRef.current) setBusy('');
       await reload();
-      await view(slug);
-    } catch (e) { setBusy(''); setErr(e); }
+      await view(slug, admittedReader);
+    } catch (e) { if (mountedRef.current) { setBusy(''); setErr(e); } }
   };
 
   const remove = async (slug) => {
@@ -117,10 +135,19 @@ export default function PrivateNotes() {
       confirmLabel: 'ลบ',
       tone: 'danger',
     }))) return;
-    setBusy(`กำลังลบ ${slug}`); setErr(null);
-    try { await adminRpc('admin_private_note_delete', { note_slug: slug }); setOpen(null); await reload(); }
-    catch (e) { setErr(e); }
-    finally { setBusy(''); }
+    if (mountedRef.current) { setBusy(`กำลังลบ ${slug}`); setErr(null); }
+    try {
+      await adminRpc('admin_private_note_delete', { note_slug: slug });
+      if (mountedRef.current) {
+        if (readerRef.current?.slug === slug) {
+          readerRef.current = { slug: null };
+          setReading(''); setReaderErr(null);
+        }
+        setOpen(current => current?.slug === slug ? null : current);
+      }
+      await reload();
+    } catch (e) { if (mountedRef.current) setErr(e); }
+    finally { if (mountedRef.current) setBusy(''); }
   };
 
   // The parts come back ordered, so the questions concatenate straight into
@@ -137,6 +164,7 @@ export default function PrivateNotes() {
 
   const shown = sections.reduce((t, s) => t + s.questions.length, 0);
   const total = (open?.parts || []).reduce((t, p) => t + (p.questions?.length || 0), 0);
+  const visibleError = err || readerErr;
 
   return (
     <section id="ad-notes" className="ad-card">
@@ -150,8 +178,8 @@ export default function PrivateNotes() {
           เพิ่มจากไฟล์
           <input type="file" accept="application/json,.json" onChange={onFile} hidden />
         </label>
-        {busy ? <span className="ad-muted">{busy}</span> : null}
-        {err ? <span className="ad-pn-err">ทำไม่สำเร็จ: {err.message}</span> : null}
+        {busy || reading ? <span className="ad-muted">{busy || reading}</span> : null}
+        {visibleError ? <span className="ad-pn-err">ทำไม่สำเร็จ: {visibleError.message}</span> : null}
       </div>
 
       {list === null ? <div className="ad-skeleton" style={{ width: '45%' }} /> : null}
