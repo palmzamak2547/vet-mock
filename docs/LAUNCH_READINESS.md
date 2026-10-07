@@ -1,6 +1,33 @@
 # VetMock — Launch Readiness
 
-## Current checkpoint — 2026-10-01 (Asia/Bangkok)
+## Source checkpoint — 2026-10-08 · subject bookplates
+
+Study source **5.139.0 / SWv214** adds 85 course covers to Home and subject
+selection. Seventy-six new transparent WebP files and nine matching Panic
+illustrations are indexed by curriculum identity; All Subjects reuses the
+open-book print. Names, question counts, paper scope, availability, Notes intent
+and navigation retain their existing contracts.
+
+`lint:art` checks complete course coverage, distinct paths, real WebP bytes,
+paper colors and a 120 KiB ceiling per cover. Source PNGs and detailed local
+receipts are retained in `work/subject-covers-20261007/`; they are not public
+runtime assets. The shared cover reserves its space and hides failed decorative
+images without hiding the course or its keyboard action. The ordinary worker
+update lifecycle remains unchanged.
+
+Production acceptance requires exact-head Build/Smoke, a matching READY
+Production deployment and live changed-flow checks. The dated receipts below
+remain evidence for their own releases; they are not the current source version.
+
+### Local acceptance for this source
+
+- Full data/unit gate: 51 checks passed, including the entire unit suite in Bangkok and UTC; build/prerenders and all three contrast audits passed.
+- Chromium desktop/mobile: 447 passed, 21 skipped. New cover failure/keyboard checks passed in both, plus WebKit and Firefox. Focused WebKit/Firefox cover/resource flows passed 4/4.
+- The full Windows browser gate was stopped after a core-journey WebKit timeout and its retry; its trace reached Home after recorded answers. The identical isolated test passed in 29.9s with the original 30s budget. Preserve the earlier failures; this does not establish a timing root cause or full local-green acceptance. Linux exact-head CI remains the full four-profile gate.
+- Sharp is patched to 0.35.5 with librsvg2.63.2 for [GHSA-wq5f-xc86-pv6w](https://github.com/advisories/GHSA-wq5f-xc86-pv6w). Fresh audit: high/critical0; the eight moderate Cornerstone/VTK-chain findings require separate major-version remediation.
+- COM cover filenames were changed to companion-1..5.webp before commit; the Windows-reserved-name guard now prevents checkout/staging failures. The 85 artwork hashes and course IDs remain unchanged.
+
+## Historical production checkpoint — 2026-10-01 (Asia/Bangkok)
 
 **Production 5.133.3 / SWv201 is accepted**, from source
 `f90dcf337f6515e097ca67402da635ef156d3e6b`
