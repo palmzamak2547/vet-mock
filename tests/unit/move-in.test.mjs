@@ -11,6 +11,7 @@
 // ============================================================
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import vm from 'node:vm';
 
 import handler, {
   createMoveInHandler, safeTo, FIELD_KEYS, OLD_ORIGIN, NEW_HOST, MAX_PAYLOAD,
@@ -106,7 +107,7 @@ test('an oversized payload is 413, a malformed one 400', async () => {
 test('`to` is a path on this site or it is /', () => {
   for (const ok of ['/', '/app/notes?x=1#n', '/wiki/com5/heart', '/app/x?q=a%20b']) assert.equal(safeTo(ok), ok);
   for (const bad of ['', 'app', '//evil.example', '/\\evil.example', 'https://evil.example', 'javascript:alert(1)',
-    '/a\nb', '/a\u0000', '/a\u007f', `/${'a'.repeat(2048)}`, null, undefined, 42, ['/x']]) {
+    '/a\nb', '/a\u0000', '/a\u007f', `/${'a'.repeat(16384)}`, null, undefined, 42, ['/x']]) {
     assert.equal(safeTo(bad), '/', JSON.stringify(bad));
   }
 });
@@ -140,6 +141,7 @@ test('`to` is sanitised and `<` cannot close the data block', async () => {
 });
 
 test('the body is never logged, on any path', async (t) => {
+  await call(request({ body: goodBody() })); // the rate limiter names its backend once per process
   const seen = [];
   for (const level of ['log', 'info', 'warn', 'error', 'debug', 'trace']) t.mock.method(console, level, (...args) => seen.push(args));
   const marker = encodePayload({ ...PAYLOAD, local: { 'vmx-notes': '{"q":"private note text"}' } });
@@ -215,15 +217,15 @@ test('keys vetmock.com already has: user data goes to the inbox, everything else
   const run = await runMovePage(await served({ ...PAYLOAD, local }), { storage });
   assert.equal(run.failed, false);
   assert.equal(storage.getItem('vmx-theme'), '"light"', 'vetmock.com is the newer side');
-  assert.equal(storage.getItem('vmx-bookmarks'), '[9]', 'merged later by the app, not overwritten here');
+  assert.equal(storage.getItem('vmx-bookmarks'), '[9]', 'a mirror of the snapshot below, which carries the data');
   assert.equal(storage.getItem('vmx-selected-year'), '4', 'absent keys are copied');
   const inbox = JSON.parse(storage.getItem('vmx-move-inbox'));
   assert.deepEqual(inbox.fields, {
     'vmx-notes': '{"q1":"earlier"}',
-    'vmx-bookmarks': '[1,2]',
     'vmx-user-data-v1:anonymous': '{"bookmarks":[1,2]}',
     'vmx-user-data-v2:anonymous': '{"version":2,"revision":3,"clock":9,"base":{"bookmarks":[1,2]}}',
-  }, 'an existing inbox is merged, never overwritten');
+  }, 'an existing inbox is merged, never overwritten; field keys travel inside the owner\'s snapshot');
+  assert.equal(inbox.oldGuest, true);
   assert.equal(inbox.owner, '"anonymous"');
   assert.deepEqual(inbox.copied.sort(), ['vmx-a', 'vmx-selected-year']);
   assert.equal(inbox.from, OLD);
@@ -237,7 +239,6 @@ test('a payload that is not this app\'s data writes nothing', async () => {
     { ...PAYLOAD, local: { 'other-key': 'x' } },
     { ...PAYLOAD, local: { 'sb-x-auth-token': 'x' } },
     { ...PAYLOAD, local: { 'vmx-a': 1 } },
-    { ...PAYLOAD, local: { 'vmx-a': 'x'.repeat(2 * 1024 * 1024 + 1) } },
     { ...PAYLOAD, local: [] },
     { ...PAYLOAD, idb: { pdf: 'x', events: [] } },
     { ...PAYLOAD, idb: { pdf: [1], events: [] } },
@@ -245,7 +246,7 @@ test('a payload that is not this app\'s data writes nothing', async () => {
     const storage = new MemoryStorage();
     const run = await runMovePage(await served(bad), { storage });
     assert.equal(run.failed, true, JSON.stringify(bad).slice(0, 80));
-    assert.deepEqual(run.replaced, []);
+    assert.deepEqual(run.replaced, [`${OLD}/?vmx-move=hold&failed=0123456789abcdef&to=${encodeURIComponent('/app/notes?x=1#n')}`], 'back, never an ACK');
     assert.deepEqual(storage.snapshot(), {});
   }
 });
@@ -255,6 +256,175 @@ test('storage that refuses a write shows the way back instead of an ACK', async 
   storage.refuse = (k) => k === 'vmx-selected-year';
   const run = await runMovePage(await served(PAYLOAD), { storage });
   assert.equal(run.failed, true);
-  assert.deepEqual(run.replaced, []);
+  assert.ok(run.replaced.every((url) => !url.includes('vmx-moved')), 'no ACK');
   assert.equal(storage.getItem('vmx-move-received'), null, 'no receipt for a move that did not finish');
+});
+
+// ── review fixes (2026-10-08) ───────────────────────────────────────────────
+
+const H = '0123456789abcdef';
+const TO = '/app/notes?x=1#n';
+const holdUrl = (failed, to = TO) => `${OLD}/?vmx-move=hold${failed ? `&failed=${failed}` : ''}&to=${encodeURIComponent(to)}`;
+function quizPath(n) {
+  const rows = Array.from({ length: n }, (_, i) => ({ s: 'com5', i: 1000 + i }));
+  return `/?qset=${Buffer.from(JSON.stringify(rows)).toString('base64url')}`;
+}
+// Runs the nonce-bound script of a refusal page; returns where it sends the browser.
+function followRefusal(html) {
+  const script = /<script nonce="[^"]+">([\s\S]*?)<\/script>/.exec(html)?.[1];
+  if (!script) return [];
+  const replaced = [];
+  const sandbox = { location: { replace: (url) => replaced.push(String(url)) } };
+  sandbox.window = sandbox;
+  vm.createContext(sandbox);
+  vm.runInContext(script, sandbox);
+  return replaced;
+}
+async function moveOnce(storage, local) {
+  const run = await runMovePage(await served({ ...PAYLOAD, local }), { storage });
+  assert.equal(run.failed, false);
+  return run;
+}
+
+test('`to` keeps a shared quiz link of 200 questions, up to 16 KB', async () => {
+  const long = quizPath(200);
+  assert.equal(safeTo(long), long);
+  assert.equal(safeTo(`/${'a'.repeat(16383)}`).length, 16384);
+  assert.equal(safeTo(`/${'a'.repeat(16384)}`), '/');
+  const res = await call(request({ body: goodBody({ to: long }) }));
+  const run = await runMovePage(res.body, { storage: new MemoryStorage() });
+  assert.equal(new URL(run.replaced[0]).searchParams.get('to'), long, 'the ACK carries it back');
+  const wrongHost = await call(request({ host: 'vetmock.vercel.app', body: goodBody({ to: long }) }));
+  assert.equal(new URL(wrongHost.headers.location).searchParams.get('to'), long);
+});
+
+test('one large value, a photo deck say, moves: only the payload limit bounds the size', async () => {
+  const deck = JSON.stringify([{ id: 80001, name: 'x', imageDataUrl: `data:image/jpeg;base64,${'A'.repeat(3 * 1024 * 1024)}`, masks: [] }]);
+  const storage = new MemoryStorage();
+  await moveOnce(storage, { ...PAYLOAD.local, 'vmx-image-occlusion-decks': deck });
+  assert.equal(storage.getItem('vmx-image-occlusion-decks'), deck);
+});
+
+test('every refusal of a move sends the learner back to the old address by itself, naming the data that failed', async () => {
+  for (const [req, status] of [
+    [request({ origin: 'https://evil.example', body: goodBody() }), 403],
+    [request({ body: goodBody({ p: 'A'.repeat(MAX_PAYLOAD + 1) }) }), 413],
+    [request({ body: goodBody({ enc: 'br64' }) }), 400],
+  ]) {
+    const res = await call(req);
+    assert.equal(res.statusCode, status);
+    assert.deepEqual(followRefusal(res.body), [holdUrl(H)], String(status));
+    assert.match(res.body, /vmx-move=retry/, 'the manual links stay');
+    assert.equal(pageParts(res.body).json, null, 'nothing to write');
+  }
+  const noHash = await call(request({ body: goodBody({ h: 'NOT-HEX' }) }));
+  assert.deepEqual(followRefusal(noHash.body), [holdUrl(null)], 'without a usable hash it goes back all the same');
+  const get = await call(request({ method: 'GET' }));
+  assert.deepEqual(followRefusal(get.body), [], 'a GET has no move behind it');
+});
+
+test('a page that cannot finish goes back to the old address with the hash it could not move', async () => {
+  const storage = new MemoryStorage();
+  storage.refuse = (k) => k === 'vmx-selected-year';
+  const run = await runMovePage(await served(PAYLOAD), { storage });
+  assert.equal(run.failed, true, 'the failure section shows while it goes');
+  assert.deepEqual(run.replaced, [holdUrl(H)]);
+  const broken = await runMovePage(await served({ ...PAYLOAD, v: 2 }), { storage: new MemoryStorage() });
+  assert.deepEqual(broken.replaced, [holdUrl(H)]);
+});
+
+test('the old host answers any method with the way back, before anything else', async () => {
+  for (const method of ['GET', 'HEAD', 'PUT']) {
+    const res = await call(request({ method, host: 'vetmock.vercel.app' }));
+    assert.equal(res.statusCode, 303, method);
+    assert.equal(res.headers.location, `${OLD}/?vmx-move=hold&to=%2F`);
+  }
+});
+
+test('posts are rate limited per address; a limited learner goes back to the old address to try another time', async () => {
+  const seen = [];
+  const limited = createMoveInHandler({ limit: async (req) => { seen.push(req.headers['x-vercel-forwarded-for']); return { ok: false, retryAfter: 42 }; } });
+  const req = request({ body: goodBody() });
+  req.headers['x-vercel-forwarded-for'] = '203.0.113.9';
+  const res = await call(req, limited);
+  assert.equal(res.statusCode, 429);
+  assert.equal(res.headers['retry-after'], '42');
+  assert.deepEqual(seen, ['203.0.113.9']);
+  assert.deepEqual(followRefusal(res.body), [holdUrl(null)], 'no failure is recorded: it was not this data');
+  const unavailable = await call(request({ body: goodBody() }), createMoveInHandler({ limit: async () => ({ ok: false, unavailable: true, retryAfter: 30 }) }));
+  assert.equal(unavailable.statusCode, 503);
+  assert.deepEqual(followRefusal(unavailable.body), [holdUrl(null)]);
+
+  // The shipped handler counts by client address.
+  const statuses = [];
+  for (let i = 0; i < 125; i++) {
+    const one = request({ body: goodBody() });
+    one.headers['x-vercel-forwarded-for'] = '198.51.100.23';
+    statuses.push((await call(one)).statusCode);
+  }
+  assert.ok(statuses.slice(0, 100).every((s) => s === 200));
+  assert.equal(statuses.at(-1), 429);
+});
+
+test('a later move takes what only the old address changed and keeps what only vetmock.com changed', async () => {
+  const storage = new MemoryStorage();
+  const first = { 'vmx-pass-abc-hl': '[{"s":1,"e":4}]', 'vmx-theme': '"dark"', 'vmx-flag-x': '1', 'vmx-osce': '{"a":1}' };
+  await moveOnce(storage, first);
+  const base = JSON.parse(storage.getItem('vmx-move-base'));
+  assert.deepEqual(Object.keys(base.keys).sort(), Object.keys(first).sort(), 'every carried key is fingerprinted');
+  storage.setItem('vmx-theme', '"light"');
+  storage.setItem('vmx-osce', '{"a":2}');
+  const second = { ...first, 'vmx-pass-abc-hl': '[{"s":1,"e":9}]', 'vmx-osce': '{"a":3}' };
+  await moveOnce(storage, second);
+  assert.equal(storage.getItem('vmx-pass-abc-hl'), '[{"s":1,"e":9}]', 'changed only on the old address: carried');
+  assert.equal(storage.getItem('vmx-theme'), '"light"', 'changed only here: kept');
+  assert.equal(storage.getItem('vmx-osce'), '{"a":2}', 'changed on both: vetmock.com keeps its own, as before');
+  storage.setItem('vmx-pass-abc-hl', '[]');
+  await moveOnce(storage, second);
+  assert.equal(storage.getItem('vmx-pass-abc-hl'), '[]', 'a change made here after the last move is not undone');
+});
+
+test('vetmock.com\'s empty mirrors take the old values at once; field keys are never staged beside the owner\'s snapshot', async () => {
+  const empties = Object.fromEntries(Object.values(USER_DATA_FIELDS).map((f) => [f.localKey, JSON.stringify(f.initial)]));
+  const history = Array.from({ length: 40 }, (_, i) => ({ id: `h${i}`, questionId: i, date: 1, correct: true }));
+  const v2 = (base) => JSON.stringify({ version: 2, revision: 0, clock: 3, base, acknowledged: [] });
+  const local = {
+    'vmx-user-sync-owner-v1': '"anonymous"', 'vmx-bookmarks': '[1,2]', 'vmx-history': JSON.stringify(history),
+    'vmx-user-data-v2:anonymous': v2({ bookmarks: [1, 2], history }),
+  };
+  // One earlier visit to vetmock.com: the eight mirrors, all empty.
+  const visited = new MemoryStorage({ ...empties, 'vmx-user-sync-owner-v1': '"anonymous"', 'vmx-theme': '"light"' });
+  await moveOnce(visited, local);
+  assert.equal(visited.getItem('vmx-history'), local['vmx-history']);
+  assert.equal(visited.getItem('vmx-bookmarks'), '[1,2]');
+  assert.equal(visited.getItem('vmx-user-data-v2:anonymous'), local['vmx-user-data-v2:anonymous']);
+  assert.deepEqual(Object.keys(JSON.parse(visited.getItem('vmx-move-inbox') || '{"fields":{}}').fields), [], 'nothing is staged twice');
+
+  // vetmock.com has study data of its own: the old snapshot is staged for the merge, its mirrors are not.
+  const studied = new MemoryStorage({ 'vmx-user-sync-owner-v1': '"anonymous"', 'vmx-bookmarks': '[9]', 'vmx-user-data-v2:anonymous': v2({ bookmarks: [9] }) });
+  await moveOnce(studied, local);
+  assert.deepEqual(Object.keys(JSON.parse(studied.getItem('vmx-move-inbox')).fields), ['vmx-user-data-v2:anonymous']);
+
+  // Another owner's mirrors never fill this one's empty workspace.
+  const other = new MemoryStorage({ ...empties, 'vmx-user-sync-owner-v1': '"anonymous"' });
+  await moveOnce(other, { 'vmx-user-sync-owner-v1': '"user-9"', 'vmx-history': local['vmx-history'], 'vmx-user-data-v2:user-9': v2({ history }) });
+  assert.equal(other.getItem('vmx-history'), '[]');
+});
+
+test('a tools bundle on either side never hides the other side\'s tools: their lists join by id', async () => {
+  const card = (id) => ({ id, type: 'flashcard', q: `q${id}`, front: `q${id}`, back: 'a' });
+  const ids = (raw) => JSON.parse(raw).map((c) => c.id);
+  // The old address restored a backup (a bundle); vetmock.com made a card of its own.
+  const one = new MemoryStorage({ 'vmx-user-flashcards': JSON.stringify([card(9100002)]) });
+  await moveOnce(one, {
+    'vmx-local-extras-v1': JSON.stringify({ 'vmx-user-flashcards': [card(9100001)], 'vmx-pinboard': [] }),
+    'vmx-user-flashcards': JSON.stringify([card(9100099)]), // hidden behind the old bundle: not the learner's view
+  });
+  assert.equal(one.getItem('vmx-local-extras-v1'), null, 'the bundle itself is not carried over');
+  assert.deepEqual(ids(one.getItem('vmx-user-flashcards')), [9100002, 9100001]);
+  // vetmock.com restored a backup; the old address made a card in its plain key.
+  const two = new MemoryStorage({ 'vmx-local-extras-v1': JSON.stringify({ 'vmx-user-flashcards': [card(9100002)] }) });
+  await moveOnce(two, { 'vmx-user-flashcards': JSON.stringify([card(9100001)]) });
+  assert.deepEqual(JSON.parse(two.getItem('vmx-local-extras-v1'))['vmx-user-flashcards'].map((c) => c.id), [9100002, 9100001]);
+  assert.equal(two.getItem('vmx-user-flashcards'), null, 'written where vetmock.com reads it');
 });

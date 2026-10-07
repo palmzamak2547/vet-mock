@@ -22,7 +22,7 @@ import {
 } from '../../src/lib/origin-move.js';
 import { createAttemptEntries, newStudySessionId } from '../../src/lib/study-events.js';
 import { createMoveInHandler } from '../../api/move-in.js';
-import { MemoryStorage, encodePayload, runMovePage } from '../helpers/move-in-page.mjs';
+import { MemoryStorage, encodePayload, runMovePage, inboxIndexedDb } from '../helpers/move-in-page.mjs';
 import { memoryIndexedDb } from '../helpers/memory-indexed-db.mjs';
 
 const OLD = 'https://vetmock.vercel.app';
@@ -248,13 +248,17 @@ test('carried records are imported through their own modules, then the inbox goe
   const calls = [];
   const result = await importMovedRecords({
     storage,
-    readInbox: async () => [{ db: 'pdf', value: { hash: 'p' } }, { db: 'events', value: { key: 'e' } }, { db: 'other', value: 1 }],
+    readInbox: async () => [
+      { key: 1, record: { db: 'pdf', value: { hash: 'p' } } },
+      { key: 2, record: { db: 'events', value: { key: 'e' } } },
+      { key: 3, record: { db: 'other', value: 1 } },
+    ],
     importPdf: async (rows) => { calls.push(['pdf', rows]); return { ok: true }; },
     importEvents: async (rows) => { calls.push(['events', rows]); return { ok: true }; },
-    deleteInbox: async () => { calls.push(['delete']); return true; },
+    deleteInbox: async (keys) => { calls.push(['delete', keys]); return true; },
   });
   assert.equal(result.ok, true);
-  assert.deepEqual(calls, [['pdf', [{ hash: 'p' }]], ['events', [{ key: 'e' }]], ['delete']]);
+  assert.deepEqual(calls, [['pdf', [{ hash: 'p' }]], ['events', [{ key: 'e' }]], ['delete', [1, 2, 3]]], 'exactly the records read');
   assert.equal(json(storage, MOVE_RECEIVED).idbDone, true);
   const again = await importMovedRecords({ storage, readInbox: async () => { throw new Error('should not read'); } });
   assert.equal(again.ok, true, 'nothing left to do');
@@ -265,7 +269,7 @@ test('an import that fails keeps the inbox for the next boot', async () => {
   let deleted = false;
   const result = await importMovedRecords({
     storage,
-    readInbox: async () => [{ db: 'pdf', value: { hash: 'p' } }],
+    readInbox: async () => [{ key: 1, record: { db: 'pdf', value: { hash: 'p' } } }],
     importPdf: async () => ({ ok: false }),
     importEvents: async () => ({ ok: true }),
     deleteInbox: async () => { deleted = true; return true; },
@@ -354,4 +358,151 @@ test('the notice shows once, only right after a move, and asks a signed-in learn
   assert.match(nodes[0].className, /vmx-update-notice/, 'the app\'s existing notice card');
   assert.equal(showMoveNotice(doc, storage, at + 2000, () => {}), false, 'once');
   assert.equal(nodes.length, 1);
+});
+
+// ── review fixes (2026-10-08) ───────────────────────────────────────────────
+
+const card = (id, q = `q${id}`) => ({ id, type: 'flashcard', q, front: q, back: 'a', createdAt: id });
+
+test('a second move carries what the learner did on the old address after the first', async () => {
+  const old = new MemoryStorage();
+  guestEdit(old, () => ({ srCards: { 101: { interval: 1, ease: 2.5 } }, notes: { q101: 'first draft' } }));
+  old.setItem('vmx-user-flashcards', JSON.stringify([card(9100001)]));
+  const fresh = new MemoryStorage();
+  await move(old, fresh);
+  guestView(fresh); // vetmock.com boots once
+
+  // An old tab that was never reloaded keeps studying on the old address.
+  guestEdit(old, (cur) => ({ srCards: { ...cur.srCards, 101: { interval: 30, ease: 2.6 } }, notes: { ...cur.notes, q101: 'second draft' } }));
+  old.setItem('vmx-user-flashcards', JSON.stringify([card(9100001), card(9100002)]));
+  await move(old, fresh);
+
+  const seen = guestView(fresh);
+  assert.equal(seen.srCards[101].interval, 30, 'the review made there');
+  assert.equal(seen.notes.q101, 'second draft', 'the note rewritten there');
+  assert.deepEqual(JSON.parse(fresh.getItem('vmx-user-flashcards')).map((c) => c.id), [9100001, 9100002], 'the card made there');
+});
+
+test('when both addresses studied since the last move, each keeps what only it changed, card by card', async () => {
+  const old = new MemoryStorage();
+  guestEdit(old, () => ({ srCards: { 101: { interval: 1 }, 102: { interval: 2 } }, notes: { q101: 'first draft' }, bookmarks: [101] }));
+  old.setItem('vmx-user-flashcards', JSON.stringify([card(9100001)]));
+  const fresh = new MemoryStorage();
+  await move(old, fresh);
+
+  guestEdit(fresh, (cur) => ({ srCards: { ...cur.srCards, 102: { interval: 9 }, 103: { interval: 1 } }, notes: { ...cur.notes, q103: 'here' }, bookmarks: [...cur.bookmarks, 103] }));
+  fresh.setItem('vmx-user-flashcards', JSON.stringify([card(9100001), card(9100003)]));
+  guestEdit(old, (cur) => ({ srCards: { ...cur.srCards, 101: { interval: 30 } }, notes: { ...cur.notes, q101: 'second draft' }, bookmarks: [...cur.bookmarks, 104] }));
+  old.setItem('vmx-user-flashcards', JSON.stringify([card(9100001), card(9100002)]));
+  await move(old, fresh);
+
+  const seen = guestView(fresh);
+  assert.deepEqual(seen.srCards, { 101: { interval: 30 }, 102: { interval: 9 }, 103: { interval: 1 } });
+  assert.deepEqual(seen.notes, { q101: 'second draft', q103: 'here' });
+  assert.deepEqual([...seen.bookmarks].sort((a, b) => a - b), [101, 103, 104]);
+  assert.deepEqual(JSON.parse(fresh.getItem('vmx-user-flashcards')).map((c) => c.id), [9100001, 9100003, 9100002], 'cards made on both sides are all kept');
+});
+
+test('what vetmock.com changed alone is kept, a deletion there included', async () => {
+  const old = new MemoryStorage();
+  guestEdit(old, () => ({ notes: { q1: 'a', q2: 'b' }, srCards: { 1: { interval: 1 } } }));
+  const fresh = new MemoryStorage();
+  await move(old, fresh);
+  guestEdit(fresh, (cur) => { const notes = { ...cur.notes }; delete notes.q1; return { notes }; });
+  guestEdit(old, (cur) => ({ srCards: { ...cur.srCards, 1: { interval: 5 } } }));
+  await move(old, fresh);
+  const seen = guestView(fresh);
+  assert.deepEqual(seen.notes, { q2: 'b' }, 'the note deleted here stays deleted');
+  assert.equal(seen.srCards[1].interval, 5);
+  // Nothing new on either side: a third move changes nothing.
+  await move(old, fresh);
+  assert.deepEqual(guestView(fresh), seen);
+});
+
+test('the inbox shrinks as each entry is merged, so a write that fails leaves only what is left', () => {
+  const storage = inboxStorage({
+    current: { [key('bookmarks')]: [1], [key('notes')]: { a: 'here' }, [key('readingChecklist')]: { t1: true } },
+    fields: { [key('bookmarks')]: [2], [key('notes')]: { b: 'there' }, [key('readingChecklist')]: { t2: true } },
+  });
+  storage.refuse = (k) => k === key('notes');
+  assert.equal(applyMoveInbox(storage).applied, false);
+  assert.deepEqual(json(storage, key('bookmarks')), [2, 1], 'merged before the failure');
+  assert.deepEqual(Object.keys(json(storage, MOVE_INBOX).fields), [key('notes'), key('readingChecklist')], 'only what is left stays staged');
+  storage.refuse = null;
+  assert.equal(applyMoveInbox(storage).applied, true);
+  assert.equal(storage.getItem(MOVE_INBOX), null);
+  assert.deepEqual(json(storage, key('bookmarks')), [2, 1]);
+  assert.deepEqual(json(storage, key('notes')), { a: 'here', b: 'there' });
+  assert.deepEqual(json(storage, key('readingChecklist')), { t1: true, t2: true });
+});
+
+test('carried events import even when the inbox holds one twice, or more than 100,000', async () => {
+  globalThis.indexedDB = memoryIndexedDb();
+  try {
+    const log = await import('../../src/lib/study-event-log.js?origin-move=2');
+    const question = { id: 10, type: 'mcq', q: 'Example?', options: ['a', 'b'], answer: 1, subject: 'com5', year: 4 };
+    const entries = (n) => createAttemptEntries({ questions: [{ ...question, id: n }], answers: { [n]: 1 }, sessionId: newStudySessionId(), questionTimes: {}, now: 1000 + n });
+    const [a] = entries(1), [b] = entries(2);
+    const rows = [
+      { key: `guest:${a.id}`, owner: 'guest', event: a, pending: 1, durable: true },
+      { key: `guest:${a.id}`, owner: 'guest', event: a, pending: 0, durable: true }, // synced before a later move
+      { key: `guest:${b.id}`, owner: 'guest', event: b, pending: 1, durable: true },
+      { key: `guest:${b.id}`, owner: 'guest', event: b, pending: 1, durable: true }, // two moves before an import
+    ];
+    assert.equal((await log.importStudyEventRows(rows)).ok, true);
+    assert.deepEqual((await log.listStudyEvents(null)).map((e) => e.id).sort(), [a.id, b.id].sort());
+    assert.deepEqual((await log.pendingStudyEvents(null)).map((e) => e.id), [b.id], 'the synced copy wins');
+
+    const many = Array.from({ length: 100_001 }, (_, i) => ({ key: `u:${i}`, owner: 'user-7', event: { ...a, id: `${a.id}-${i}` }, pending: 0 }));
+    assert.equal((await log.importStudyEventRows(many)).ok, true);
+    assert.equal((await log.listStudyEvents('user-7')).length, 100_001);
+  } finally { delete globalThis.indexedDB; }
+});
+
+test('an import deletes the inbox records it read, never one a newer move added meanwhile', async () => {
+  const idb = inboxIndexedDb();
+  const add = (records) => new Promise((resolve, reject) => {
+    const req = idb.open('vmx-move-inbox', 1);
+    req.onupgradeneeded = () => req.result.createObjectStore('records', { autoIncrement: true });
+    req.onerror = () => reject(req.error);
+    req.onsuccess = () => {
+      const tx = req.result.transaction('records', 'readwrite');
+      for (const record of records) tx.objectStore('records').add(record);
+      tx.oncomplete = () => resolve();
+    };
+  });
+  await add([{ db: 'pdf', value: { hash: 'p1' } }]);
+  globalThis.indexedDB = idb;
+  try {
+    const storage = new MemoryStorage({ [MOVE_RECEIVED]: JSON.stringify({ at: 5, hash: 'h', keys: 1, pdf: 1, events: 0 }) });
+    const imported = [];
+    const result = await importMovedRecords({
+      storage,
+      importPdf: async (rows) => { imported.push(...rows.map((r) => r.hash)); await add([{ db: 'pdf', value: { hash: 'p2' } }]); return { ok: true }; },
+      importEvents: async () => ({ ok: true }),
+    });
+    assert.equal(result.ok, true);
+    assert.deepEqual(imported, ['p1']);
+    assert.deepEqual(idb.rows().map((r) => r.value.hash), ['p2'], 'the newer record waits for its own import');
+  } finally { delete globalThis.indexedDB; }
+});
+
+test('a note the old address leaves for its own app shows once in the app\'s notice card', async () => {
+  const mod = await import('../../src/lib/origin-move.js');
+  assert.equal(typeof mod.showOldAddressNote, 'function');
+  const nodes = [];
+  const doc = {
+    body: { appendChild: (n) => { nodes.push(n); return n; } },
+    createElement: (tag) => ({ tag, children: [], attributes: {}, textContent: '', className: '',
+      setAttribute(k, v) { this.attributes[k] = v; }, appendChild(c) { this.children.push(c); return c; },
+      addEventListener() {}, remove() {} }),
+  };
+  const win = { __vmxMoveNote: 'ตอนนี้ VetMock อยู่ที่ vetmock.com แล้ว' };
+  assert.equal(mod.showOldAddressNote(win, doc, () => {}), true);
+  assert.equal(nodes.length, 1);
+  assert.match(nodes[0].className, /vmx-update-notice/);
+  assert.equal(nodes[0].attributes.role, 'status');
+  assert.equal(nodes[0].children[0].textContent, win.__vmxMoveNote ?? 'ตอนนี้ VetMock อยู่ที่ vetmock.com แล้ว');
+  assert.equal(mod.showOldAddressNote(win, doc, () => {}), false, 'once');
+  assert.equal(mod.showOldAddressNote({}, doc, () => {}), false, 'nothing to say');
 });

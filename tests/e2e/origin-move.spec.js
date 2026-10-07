@@ -155,6 +155,57 @@ test('the old address with nothing stored goes straight to the new one', async (
   expect(posts).toEqual([]);
 });
 
+const seedOld = async (context, local) => {
+  const seed = await context.newPage();
+  await seed.goto(`${OLD}/robots.txt`);
+  await seed.evaluate((entries) => { for (const [k, v] of Object.entries(entries)) localStorage.setItem(k, v); }, local);
+  await seed.close();
+};
+
+// A learner who keeps an old tab studies there after the first move; the next
+// visit carries what changed there instead of keeping vetmock.com's first copy.
+test('a second move carries a value the old address changed since the first', async ({ context }) => {
+  test.setTimeout(90_000);
+  const posts = await twoOrigins(context);
+  await seedOld(context, { 'vmx-seen-landing': '1', 'vmx-pass-e2emove-hl': '[{"s":1,"e":2}]' });
+  const page = await context.newPage();
+  await page.goto(`${OLD}/app/about`, { waitUntil: 'commit' });
+  await page.waitForURL(`${NEW}/app/about`, { timeout: 30_000 });
+  await expect(page.getByRole('heading', { level: 1 }).first()).toBeVisible();
+  expect(posts).toEqual(['POST']);
+
+  await seedOld(context, { 'vmx-pass-e2emove-hl': '[{"s":1,"e":9}]' });
+  const again = await context.newPage();
+  await again.goto(`${OLD}/app/about`, { waitUntil: 'commit' });
+  await again.waitForURL(`${NEW}/app/about`, { timeout: 30_000 });
+  expect(posts).toEqual(['POST', 'POST']);
+  expect(await again.evaluate(() => localStorage.getItem('vmx-pass-e2emove-hl'))).toBe('[{"s":1,"e":9}]');
+});
+
+// iOS keeps a home-screen app's storage apart from Safari's, and leaving the
+// app's scope opens a browser sheet, so nobody can say where the data would
+// land. The installed app stays, boots, and says where VetMock lives now.
+test('an installed app on the old address stays, boots, and says where VetMock lives now', async ({ context }) => {
+  const posts = await twoOrigins(context);
+  await context.addInitScript(() => {
+    if (location.hostname !== 'localhost') return;
+    const real = window.matchMedia.bind(window);
+    window.matchMedia = (query) => (query === '(display-mode: standalone)'
+      ? { matches: true, media: query, onchange: null, addListener() {}, removeListener() {}, addEventListener() {}, removeEventListener() {}, dispatchEvent: () => false }
+      : real(query));
+  });
+  await seedOld(context, { 'vmx-seen-landing': '1', 'vmx-bookmarks': '[90001]' });
+  const page = await context.newPage();
+  await page.goto(`${OLD}/app/about`, { waitUntil: 'domcontentloaded' });
+  await expect(page.getByRole('status').filter({ hasText: 'แอปที่ติดตั้งไว้' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1 }).first()).toBeVisible();
+  expect(page.url(), 'never leaves the app').toBe(`${OLD}/app/about`);
+  expect(posts).toEqual([]);
+  expect(await page.evaluate(() => localStorage.getItem('vmx-bookmarks'))).toBe('[90001]');
+  // The app goes on loading lazy files through the old-origin route; let them go with the context.
+  await context.unrouteAll({ behavior: 'ignoreErrors' });
+});
+
 // The live worker caches every navigation, so after a visit that went straight
 // on to the new address it can hand this page back offline with app files it
 // never fetched. The old app is still tried; when its files cannot load, the
@@ -172,4 +223,5 @@ test('offline on the old address with no app files: a calm notice, not a blank p
   await expect(page.getByRole('status').filter({ hasText: 'ตอนนี้ออฟไลน์อยู่' })).toBeVisible();
   expect(page.url(), 'offline stays on the old address').toBe(`${OLD}/app/about`);
   expect(await page.evaluate(() => localStorage.getItem('vmx-bookmarks')), 'nothing touched').toBe('[1]');
+  await context.unrouteAll({ behavior: 'ignoreErrors' });
 });

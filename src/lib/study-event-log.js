@@ -76,20 +76,29 @@ export async function appendStudyEvents(owner, events, { synced = false, keepOnF
 
 /** Rows the old origin kept (src/lib/origin-move.js). Each keeps its own
  *  synced flag; appendStudyEvents never writes a stored key twice, only marks
- *  it synced. Pull marks and invalid events stay where they were. */
-export async function importStudyEventRows(rows) {
-  const groups = new Map();
+ *  it synced. Pull marks and invalid events stay where they were. Two moves
+ *  before an import carry an event twice, so each owner keeps one copy per
+ *  event id, the synced one where there is one, and a batch stays under the
+ *  archive's 100,000-event ceiling. */
+export async function importStudyEventRows(rows, { batch = 50_000 } = {}) {
+  const owners = new Map();
   for (const row of Array.isArray(rows) ? rows : []) {
     if (!row || typeof row.owner !== 'string' || !row.owner || !row.event) continue;
     if (!parseStudyEventArchive({ format: 'vetmock-study-events-v1', events: [row.event] }).success) continue;
     const synced = !row.pending;
-    const group = `${synced ? 1 : 0}:${row.owner}`;
-    if (!groups.has(group)) groups.set(group, { owner: row.owner === 'guest' ? null : row.owner, synced, events: [] });
-    groups.get(group).events.push(row.event);
+    if (!owners.has(row.owner)) owners.set(row.owner, new Map());
+    const byId = owners.get(row.owner), prior = byId.get(row.event.id);
+    if (!prior || (synced && !prior.synced)) byId.set(row.event.id, { event: row.event, synced });
   }
   let ok = true;
-  for (const { owner, synced, events } of groups.values()) {
-    if (!(await appendStudyEvents(owner, events, { synced, keepOnFailure: false })).ok) ok = false;
+  for (const [owned, byId] of owners) {
+    const owner = owned === 'guest' ? null : owned;
+    for (const synced of [true, false]) {
+      const events = [...byId.values()].filter((entry) => entry.synced === synced).map((entry) => entry.event);
+      for (let i = 0; i < events.length; i += batch) {
+        if (!(await appendStudyEvents(owner, events.slice(i, i + batch), { synced, keepOnFailure: false })).ok) ok = false;
+      }
+    }
   }
   return { ok };
 }

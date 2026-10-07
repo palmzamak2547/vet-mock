@@ -18,26 +18,43 @@ export class MemoryStorage {
   snapshot() { return Object.fromEntries(this.values); }
 }
 
-/** The move-in inbox database: one autoIncrement store, rows kept in order. */
+/** The move-in inbox database: one autoIncrement store, rows kept in order.
+ *  Keys are never reused, as in a real autoIncrement store. */
 export function inboxIndexedDb() {
   const databases = new Map();
+  const counters = new Map();
+  const answer = (result) => {
+    const req = { result, error: null, onsuccess: null, onerror: null };
+    queueMicrotask(() => req.onsuccess?.());
+    return req;
+  };
   return {
     databases,
     rows: (name = 'vmx-move-inbox', store = 'records') => [...(databases.get(name)?.get(store)?.values() || [])],
     open(name) {
-      const req = { result: null, error: null, onupgradeneeded: null, onsuccess: null, onerror: null, onblocked: null };
+      const req = { result: null, error: null, transaction: null, onupgradeneeded: null, onsuccess: null, onerror: null, onblocked: null };
       queueMicrotask(() => {
         const fresh = !databases.has(name);
         if (fresh) databases.set(name, new Map());
         const stores = databases.get(name);
-        let next = 1;
         const db = {
           objectStoreNames: { contains: (s) => stores.has(s) },
           createObjectStore(s) { stores.set(s, new Map()); return {}; },
           close() {},
           transaction(s) {
             const tx = { oncomplete: null, onerror: null, onabort: null, error: null };
-            tx.objectStore = () => ({ add(value) { const rows = stores.get(s); while (rows.has(next)) next += 1; rows.set(next, structuredClone(value)); return {}; } });
+            const rows = stores.get(s);
+            tx.objectStore = () => ({
+              add(value) {
+                const next = (counters.get(name) || 0) + 1;
+                counters.set(name, next);
+                rows.set(next, structuredClone(value));
+                return answer(next);
+              },
+              getAll: () => answer([...rows.values()].map((v) => structuredClone(v))),
+              getAllKeys: () => answer([...rows.keys()]),
+              delete: (key) => { rows.delete(key); return answer(undefined); },
+            });
             setTimeout(() => tx.oncomplete?.(), 0);
             return tx;
           },
@@ -46,6 +63,11 @@ export function inboxIndexedDb() {
         if (fresh) req.onupgradeneeded?.();
         req.onsuccess?.();
       });
+      return req;
+    },
+    deleteDatabase(name) {
+      const req = { onsuccess: null, onerror: null, onblocked: null };
+      queueMicrotask(() => { databases.delete(name); req.onsuccess?.(); });
       return req;
     },
   };
