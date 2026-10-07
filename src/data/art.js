@@ -43,6 +43,7 @@ export const SQUAD_MASCOTS = {
   porky: { id: 'porky', name: 'Porky', nameTh: 'พอร์กี้', species: 'ลูกหมูชมพู (Piglet)', role: 'อายุรศาสตร์สุกร (Swine)', src: base('characters', 'porky'), alt: 'พอร์กี้ ลูกหมูน้อย มาสคอตประจำหมวดสุกร' },
   oto: { id: 'oto', name: 'Oto', nameTh: 'โอโตะ', species: 'นากทะเล (Sea Otter)', role: 'คลินิกสัตว์น้ำ (Aquatic)', src: base('characters', 'oto'), alt: 'โอโตะ นากทะเล มาสคอตประจำหมวดสัตว์น้ำ' },
   clover: { id: 'clover', name: 'Clover', nameTh: 'โคลเวอร์', species: 'ลูกม้าเกาลัด (Baby Pony)', role: 'เวชปฏิบัติม้า (Equine)', src: base('characters', 'clover'), alt: 'โคลเวอร์ ลูกม้า มาสคอตประจำหมวดม้า' },
+  chicky: { id: 'chicky', name: 'Chicky', nameTh: 'ชิกกี้', species: 'ลูกเจี๊ยบขนปุย (Fluffy Chick)', role: 'สัตว์ปีก & นก (Poultry & Avian)', src: base('characters', 'chicky'), alt: 'ชิกกี้ ลูกเจี๊ยบ มาสคอตประจำหมวดสัตว์ปีก' },
 };
 
 /** Alternate/archival mochi variants to ensure assets remain cleanly indexed. */
@@ -51,11 +52,13 @@ export const ARCHIVED_MOCHI_SUBJECTS = {
   equine: base('mochi-subjects', 'equine'),
   ruminant: base('mochi-subjects', 'ruminant'),
   swine: base('mochi-subjects', 'swine'),
+  poultry: base('mochi-subjects', 'poultry'),
 };
 
 /** Mochi and specialized clinic mascots in each discipline's working kit. Keys are subject ids. */
 export const SUBJECT_MOCHI = {
   'aquatic-clinic': SQUAD_MASCOTS.oto,
+  'rotation-aquatic-wildlife': SQUAD_MASCOTS.oto,
   epidemiology: { src: base('mochi-subjects', 'epidemiology'), alt: 'โมจิใส่แว่นถือคลิปบอร์ด' },
   'equine-medicine': SQUAD_MASCOTS.clover,
   'equine-repro': SQUAD_MASCOTS.clover,
@@ -65,13 +68,14 @@ export const SUBJECT_MOCHI = {
   'milk-meat-hygiene': { src: base('mochi-subjects', 'milk'), alt: 'โมจิใส่ผ้ากันเปื้อนถือถังนม' },
   'one-health': { src: base('mochi-subjects', 'one-health'), alt: 'โมจิกอดลูกโลกไว้กับอก' },
   zoonoses: { src: base('mochi-subjects', 'one-health'), alt: 'โมจิกอดลูกโลกไว้กับอก' },
-  'avian-medicine': { src: base('mochi-subjects', 'poultry'), alt: 'โมจิมีลูกเจี๊ยบเกาะอยู่บนหัว' },
-  poultry: { src: base('mochi-subjects', 'poultry'), alt: 'โมจิมีลูกเจี๊ยบเกาะอยู่บนหัว' },
+  'avian-medicine': SQUAD_MASCOTS.chicky,
+  poultry: SQUAD_MASCOTS.chicky,
   cliapprum: SQUAD_MASCOTS.moocha,
   practrum: SQUAD_MASCOTS.moocha,
   'herd-health-rum': SQUAD_MASCOTS.moocha,
   'ruminant-clinical': SQUAD_MASCOTS.moocha,
   'livestock-pathology': SQUAD_MASCOTS.moocha,
+  'rotation-livestock-farm': SQUAD_MASCOTS.moocha,
   'swine-clinic': SQUAD_MASCOTS.porky,
   'swine-herd': SQUAD_MASCOTS.porky,
   'swine-repro': SQUAD_MASCOTS.porky,

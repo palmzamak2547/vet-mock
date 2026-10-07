@@ -13,6 +13,9 @@ import { lessonsForSubject } from '../data/lessons.js';
 import { hasLecturerSet, LECTURER_SETS } from '../data/lecturer-sets.js';
 import { topicLecturerLabel } from '../lib/lecturer-name.js';
 import { hasWrapUp } from '../data/exam-wrapups.js';
+import Mochi from '../components/Mochi.jsx';
+import { SUBJECT_MOCHI } from '../data/art.js';
+import { artImgFallback } from '../lib/art-fallback.js';
 
 // Lazy — pulls instructors data (~30KB) only when user clicks an
 // instructor name to view their profile. Most users browse topics
@@ -258,11 +261,28 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   const panicPaper = scopeForPhase(selectedPhase);
   const panicScoped = panicPaper ? Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE[panicPaper]?.[subject] : undefined;
   const panicCount = panicScoped ?? Q_PANIC_COUNTS_BY_SUBJECT[subject] ?? countFor('all');
+  const mascot = SUBJECT_MOCHI[subject];
 
   return (
     <>
       <BackBar onBack={goHome} label="หน้าแรก" subtitle={subjectMeta?.name || ''} />
       <div className="vmx-hero">
+        {mascot ? (
+          <img
+            src={mascot.src}
+            alt={mascot.alt || ''}
+            width={56}
+            height={56}
+            className="vmx-hero-mochi"
+            loading="lazy"
+            decoding="async"
+            style={{ width: 56, height: 56, objectFit: 'contain' }}
+            data-mochi-slot="topic-select"
+            onError={artImgFallback}
+          />
+        ) : (
+          <Mochi state="curious" size={56} slot="topic-select" className="vmx-hero-mochi" />
+        )}
         <h1>เลือก <em>หัวข้อ</em></h1>
         <p>{subjectMeta?.name}, เลือกเฉพาะหัวข้อที่จะสอบ หรือเลือกทำรวมทั้งวิชา</p>
         {topics.length > 0 && (

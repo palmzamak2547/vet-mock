@@ -24,6 +24,8 @@ import TemplateLibrary from '../components/TemplateLibrary.jsx';
 import { saveNoteRetryTarget } from '../lib/note-retry.js';
 import { recordQuestEvent, todayKey } from '../lib/quests.js';
 import NavIcon from '../components/NavIcon.jsx';
+import { SUBJECT_MOCHI } from '../data/art.js';
+import { artImgFallback } from '../lib/art-fallback.js';
 
 // One topic can only count once a day towards the reading quests, so
 // re-opening the same page cannot tick the counter three times. The day is
@@ -303,6 +305,22 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
     <>
       <BackBar onBack={goBack || goHome} label={goBack ? backLabel : 'หน้าแรก'} subtitle={`${subjectMeta?.icon || ''} ${subjectMeta?.name || ''}`} />
       <div className="vmx-hero">
+        {SUBJECT_MOCHI[subject] ? (
+          <img
+            src={SUBJECT_MOCHI[subject].src}
+            alt={SUBJECT_MOCHI[subject].alt || ''}
+            width={56}
+            height={56}
+            className="vmx-hero-mochi"
+            loading="lazy"
+            decoding="async"
+            style={{ width: 56, height: 56, objectFit: 'contain' }}
+            data-mochi-slot="notes-hero"
+            onError={artImgFallback}
+          />
+        ) : (
+          <Mochi state="read" size={56} slot="notes-hero" className="vmx-hero-mochi" />
+        )}
         <h1>ทวน <em>เนื้อหา</em></h1>
         <p>
           {subjectMeta?.icon} {subjectMeta?.name} — เนื้อหาจากสไลด์เลกเชอร์ปี 2569 และสรุปรุ่นพี่ โดยระบุแหล่งที่มาในแต่ละส่วน

@@ -20,6 +20,8 @@ import { hasTopic, articleForQuestion } from '../lib/vetwiki/registry-lite.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import WeakSpots from '../components/WeakSpots.jsx';
 import NavIcon from '../components/NavIcon.jsx';
+import { SUBJECT_MOCHI } from '../data/art.js';
+import { artImgFallback } from '../lib/art-fallback.js';
 
 // Render a 1080×1920 portrait score card (IG Story aspect 9:16) onto a
 // canvas and return a Blob. Pure-canvas, no external deps. Designed to
@@ -225,6 +227,10 @@ export default function ResultsView({
   // Personal-best tracking — per-subject highest pct ever recorded in
   // a 5+ Q session. Surfaced as a "🏆 NEW PERSONAL BEST" banner +
   // independent confetti burst on top of the score-based celebration.
+  const primarySubj = questions?.[0]?.subject;
+  const isSingleSubj = Boolean(primarySubj && questions.every((q) => q.subject === primarySubj));
+  const clinicMascot = isSingleSubj ? SUBJECT_MOCHI[primarySubj] : null;
+
   const [personalBest, setPersonalBest] = useState(null);
   const firedRef = useRef(false);
   useEffect(() => {
@@ -390,6 +396,34 @@ export default function ResultsView({
             <div className="vmx-clinical-seal is-writing">
               <span className="vmx-seal-title">RUBRIC SELF-EVALUATION</span>
               <span className="vmx-seal-sub">SELF-SCORING REQUIRED</span>
+            </div>
+          )}
+          {clinicMascot && clinicMascot.id && (
+            <div className="vmx-clinic-specialist-stamp" style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              marginTop: 10,
+              padding: '6px 14px',
+              borderRadius: 20,
+              background: 'var(--clr-surface-2)',
+              border: '1px solid var(--clr-border)',
+              boxShadow: '0 2px 6px rgba(0,0,0,0.04)'
+            }}>
+              <img
+                src={clinicMascot.src}
+                alt={clinicMascot.alt || ''}
+                width={36}
+                height={36}
+                loading="lazy"
+                decoding="async"
+                style={{ width: 36, height: 36, objectFit: 'contain' }}
+                onError={artImgFallback}
+              />
+              <div style={{ textAlign: 'left', lineHeight: 1.2 }}>
+                <div style={{ fontSize: '0.7rem', fontWeight: 600, color: 'var(--clr-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Clinical Specialist</div>
+                <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--clr-ink)' }}>{clinicMascot.nameTh} ({clinicMascot.name})</div>
+              </div>
             </div>
           )}
         </div>
