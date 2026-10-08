@@ -1,11 +1,11 @@
 # VetMock project knowledge base
 
-Source checkpoint: **2026-10-08 · study 5.139.0 / SWv214**.
+Source checkpoint: **2026-10-08 · study 5.141.5 / SWv216 candidate, not released**.
 Subject cards share 85 course bookplates, with names, counts and availability
 remaining live text. Source versions do not establish a production deployment;
 use the dated acceptance receipts below for the deployed SHA and live checks.
-Product entry: [vetmock.com](https://vetmock.com), currently a 307 to
-[vetmock.vercel.app](https://vetmock.vercel.app). Research is a separate app at
+Product entry and study runtime: [vetmock.com](https://vetmock.com).
+The legacy [vetmock.vercel.app](https://vetmock.vercel.app) retains the origin-migration relay. Research is a separate app at
 [research.vetmock.com](https://research.vetmock.com).
 Exact-SHA/backend/alias proof and remaining validation live in
 [LAUNCH_READINESS.md](LAUNCH_READINESS.md). Source version, provider deployment,

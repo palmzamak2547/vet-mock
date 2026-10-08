@@ -17,7 +17,7 @@ a harness does not have to re-derive them (or learn them by causing a regression
   another lane is mid-work on `src/` unless the change is independent of it.
   When in doubt, commit locally and let the owner time the push.
 - Production proof stays multi-step (exact-SHA CI + smoke E2E, successful Vercel
-  deployment, live flow against `vetmock.vercel.app`), recorded in
+  deployment, live flow against `vetmock.com`), recorded in
   [LAUNCH_READINESS.md](LAUNCH_READINESS.md). A push is not proof.
 
 ## 2. Lanes and the one claim record

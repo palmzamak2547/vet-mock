@@ -56,7 +56,7 @@ export default defineConfig({
     // calendar itself is pinned in tests/e2e/fixtures.js.
     timezoneId: 'Asia/Bangkok',
     // Tests default to a local Vite preview server (see webServer
-    // below). Override via PLAYWRIGHT_BASE_URL=https://vetmock.vercel.app
+    // below). Override via PLAYWRIGHT_BASE_URL=https://vetmock.com
     // to smoke-test the actual production build.
     baseURL: process.env.PLAYWRIGHT_BASE_URL || localE2eUrl,
     // Run against the app, not against the app plus its update banner.

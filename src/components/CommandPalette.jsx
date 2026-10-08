@@ -703,7 +703,6 @@ function AskAnswerCard({ ask, onOpenWiki, onClose }) {
 export default function CommandPalette({
   open,
   onClose,
-  setTopic,
   signedIn = false,
   ownerId,
   notes,
@@ -716,7 +715,7 @@ export default function CommandPalette({
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
   const [activeIdx, setActiveIdx] = useState(0);
-  const [expandedGroups, setExpandedGroups] = useState(() => new Set());
+  const [expandedGroups, setExpandedGroups] = useState(() => new Map());
   const [placeholderIdx, setPlaceholderIdx] = useState(0);
   // sourceState: { [id]: { status: 'loading'|'ready'|'error', entries } }
   const [sourceState, setSourceState] = useState({});
@@ -900,7 +899,7 @@ export default function CommandPalette({
     const askInFlow = hasQuery && looksLikeQuestion(debouncedQuery.trim());
     if (askInFlow) flat.push({ type: 'ask' });
     const sections = groups.map(({ type, list }) => {
-      const cap = expandedGroups.has(type) ? GROUP_CAP_EXPANDED : GROUP_CAP;
+      const cap = expandedGroups.get(type) || GROUP_CAP;
       const shown = list.slice(0, cap);
       const startIdx = flat.length;
       flat.push(...shown);
@@ -918,7 +917,7 @@ export default function CommandPalette({
       setQuery('');
       setDebouncedQuery('');
       setActiveIdx(0);
-      setExpandedGroups(new Set());
+      setExpandedGroups(new Map());
       setAsk(null);
       setAgent(null);
       setVoice(null);
@@ -1139,6 +1138,7 @@ export default function CommandPalette({
   };
 
   const handleKey = (e) => {
+    if (e.nativeEvent?.isComposing || e.keyCode === 229) return;
     if (e.key === 'Escape') { e.preventDefault(); onClose(); }
     else if (e.key === 'ArrowDown') {
       e.preventDefault();
@@ -1151,7 +1151,14 @@ export default function CommandPalette({
       runAsk();
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      const item = view.flat[activeIdx];
+      let item = view.flat[activeIdx];
+      // Enter can arrive before the debounce; only the current query may navigate.
+      if (query !== debouncedQuery) {
+        const currentQuery = query.trim();
+        if (!currentQuery) item = currentRecents(items)[0] || items[0];
+        else if (looksLikeQuestion(currentQuery)) item = { type: 'ask' };
+        else item = rankItems(items, currentQuery)[0]?.item;
+      }
       if (item) fire(item);
     }
   };
@@ -1194,6 +1201,7 @@ export default function CommandPalette({
               setVoice((v) => (v === 'denied' || v === 'error' ? null : v));
             }}
             onKeyDown={handleKey}
+            data-vmx-owns-escape="true"
             placeholder={PLACEHOLDERS[placeholderIdx]}
             aria-label="ค้นหาใน VetMock"
             style={{
@@ -1464,7 +1472,7 @@ export default function CommandPalette({
               {section.shown < section.total && (
                 <button
                   type="button"
-                  onClick={() => setExpandedGroups((prev) => new Set(prev).add(section.type))}
+                  onClick={() => setExpandedGroups((prev) => new Map(prev).set(section.type, (prev.get(section.type) || 0) + GROUP_CAP_EXPANDED))}
                   style={{
                     all: 'unset',
                     cursor: 'pointer',

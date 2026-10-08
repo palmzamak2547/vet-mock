@@ -128,7 +128,7 @@ export default function XraySkull({ model, poster, label, hint, tint = DEFAULT_T
       gl.drawElements(gl.TRIANGLES, count, gl.UNSIGNED_SHORT, 0);
       if (moving) frame = requestAnimationFrame(loop);
     };
-    const kick = () => { if (!frame && gl && onScreen && !document.hidden) { last = 0; frame = requestAnimationFrame(loop); } };
+    const kick = () => { if (!frame && gl && count > 0 && onScreen && !document.hidden) { last = 0; frame = requestAnimationFrame(loop); } };
 
     async function start() {
       started = true;

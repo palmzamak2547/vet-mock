@@ -16,10 +16,8 @@ async function client() {
 
 /** True only for accounts listed in admin_users, decided server-side. */
 export async function checkIsAdmin() {
-  const sb = await client();
-  if (!sb) return false;
-  const { data, error } = await sb.rpc('is_admin');
-  return !error && data === true;
+  if (!hasSupabase) return false;
+  return (await adminRpc('is_admin')) === true;
 }
 
 /** Call one admin_* function. Throws with `.code` on refusal or failure. */

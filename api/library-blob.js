@@ -13,6 +13,8 @@
 // 18 MB deck is bandwidth, not a bill.
 
 import { verifyBlobToken } from './_lib/blob-token.js';
+import { Readable } from 'node:stream';
+import { pipeline } from 'node:stream/promises';
 
 // What the browser is told the bytes are. The catalog is curated under the
 // service role, but this route answers on the app's OWN origin — a row whose
@@ -83,11 +85,14 @@ export default async function handler(req, res) {
   const upstreamHeaders = { Authorization: `Bearer ${apiToken}` };
   if (req.headers.range) upstreamHeaders.Range = req.headers.range;
 
+  const disconnected = new AbortController();
+  const timeout = setTimeout(() => disconnected.abort(), 60_000);
+  res.once('close', () => { clearTimeout(timeout); disconnected.abort(); });
   let upstream;
   try {
     upstream = await fetch(
       `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${objectPath}`,
-      { method: req.method, headers: upstreamHeaders, signal: AbortSignal.timeout(60_000) },
+      { method: req.method, headers: upstreamHeaders, signal: disconnected.signal },
     );
   } catch {
     res.statusCode = 502;
@@ -132,17 +137,9 @@ export default async function handler(req, res) {
 
   // Stream, not buffer: an 18 MB deck must not sit in function memory
   // twice, and first bytes should reach the tab before last bytes leave R2.
-  const reader = upstream.body.getReader();
   try {
-    for (;;) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      if (!res.write(Buffer.from(value))) {
-        await new Promise((resolve) => res.once('drain', resolve));
-      }
-    }
+    await pipeline(Readable.fromWeb(upstream.body), res);
   } catch {
-    // Client went away mid-stream — nothing useful left to do.
+    // Pipeline cancels abandoned reads and terminates incomplete downloads.
   }
-  res.end();
 }

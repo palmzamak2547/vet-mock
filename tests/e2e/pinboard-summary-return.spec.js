@@ -85,3 +85,66 @@ test('a failed summary body request offers explicit reload into the same authore
   await expect(page.locator('iframe[src*="youtube"]')).toHaveCount(0);
   expect(playbackRequests).toEqual([]);
 });
+
+test('a failed pin write shows an actionable notice above the summary and returns focus to the reader', async ({ page }, testInfo) => {
+  const reader = page.locator('.vmx-summary-modal');
+  await page.goto('/app/pinboard', { waitUntil: 'domcontentloaded' });
+  await page.getByRole('button').filter({ has: page.getByText(pin.label, { exact: true }) }).click();
+  await expect(reader).toBeVisible();
+  const toggle = reader.getByRole('button', { name: 'ปลดหมุดจาก Pinboard', exact: true });
+  const saved = await page.evaluate(() => localStorage.getItem('vmx-pinboard'));
+  await page.evaluate(() => {
+    const original = Storage.prototype.setItem;
+    window.__denyDialogPinWrites = true;
+    Storage.prototype.setItem = function (key, value) {
+      if (this === localStorage && window.__denyDialogPinWrites
+        && ['vmx-pinboard', 'vmx-local-extras-v1'].includes(key)) {
+        throw new DOMException('Fixture storage full', 'QuotaExceededError');
+      }
+      return original.call(this, key, value);
+    };
+  });
+  await toggle.click();
+  const notice = page.getByRole('dialog', { name: 'บันทึก Pinboard ไม่สำเร็จ พื้นที่ในเครื่องอาจเต็ม กรุณาลองใหม่', exact: true });
+  const acknowledge = notice.getByRole('button', { name: 'เข้าใจแล้ว', exact: true });
+  await expect(acknowledge).toBeFocused();
+  const layers = await notice.evaluate(element => {
+    const button = element.querySelector('button');
+    const rect = button.getBoundingClientRect();
+    return {
+      notice: Number(getComputedStyle(element.closest('.vmx-modal-overlay')).zIndex),
+      reader: Number(getComputedStyle(document.querySelector('.vmx-summary-modal').closest('.vmx-modal-overlay')).zIndex),
+      hitNotice: element.contains(document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2)),
+    };
+  });
+  await page.keyboard.press('Tab');
+  const focusInNotice = await notice.evaluate(element => element.contains(document.activeElement));
+  await page.keyboard.press('Escape');
+  const afterEscape = await page.evaluate(() => ({
+    noticeOpen: !!document.querySelector('#vmx-confirm-title'),
+    readerOpen: !!document.querySelector('.vmx-summary-modal'),
+  }));
+  const restoredFocus = await toggle.evaluate(button => ({
+    activeName: document.activeElement?.getAttribute('aria-label'),
+    launcherFocused: document.activeElement === button,
+    documentFocused: document.hasFocus(),
+  }));
+  await testInfo.attach('nested-notice-layers', {
+    body: JSON.stringify({ layers, focusInNotice, afterEscape, restoredFocus }, null, 2), contentType: 'application/json',
+  });
+  expect(layers.notice).toBeGreaterThan(layers.reader);
+  expect(layers.hitNotice).toBe(true);
+  expect(focusInNotice).toBe(true);
+  expect(afterEscape).toEqual({ noticeOpen: false, readerOpen: true });
+  await expect(toggle).toBeFocused();
+  expect(await page.evaluate(() => localStorage.getItem('vmx-pinboard'))).toBe(saved);
+
+  await toggle.click();
+  await acknowledge.click();
+  await expect(notice).toHaveCount(0);
+  await expect(reader).toBeVisible();
+  await page.evaluate(() => { window.__denyDialogPinWrites = false; });
+  await toggle.click();
+  await expect(reader.getByRole('button', { name: 'เพิ่มเข้า Pinboard', exact: true })).toBeVisible();
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-pinboard')))).toEqual([]);
+});

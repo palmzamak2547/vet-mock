@@ -42,6 +42,116 @@ function setup({ recents = [], notes = {}, owner = 'A', entries = [], props = {}
 const recent = feature => ({ type: 'action', featureId: feature.id, label: feature.label,
   hint: feature.hint, icon: feature.icon, payload: feature.invoke });
 const resultRows = view => findAll(view.tree, node => node.type === 'button' && node.props['data-flat-idx'] != null);
+const searchInput = view => findAll(view.tree, node => node.type === 'input' && node.props['aria-label'] === 'ค้นหาใน VetMock')[0];
+
+for (const [query, expected] of [['schedule', 'schedule'], ['no-matching-palette-result', null]]) {
+  test(`rapid Enter resolves the current query ${query} before debounce`, async () => {
+    let destination = null;
+    const view = setup({ props: { goView: value => { destination = value; } } });
+    try {
+      await settle(view);
+      searchInput(view).props.onChange({ target: { value: query } });
+      view.flush();
+      assert.equal(searchInput(view).props.value, query, 'input echoes immediately');
+      searchInput(view).props.onKeyDown({ key: 'Enter', preventDefault() {} });
+      assert.equal(destination, expected);
+    } finally { view.unmount(); }
+  });
+}
+
+test('rapid Enter after clearing a query uses current recents instead of the old result', async () => {
+  let destination = null;
+  const view = setup({ props: { goView: value => { destination = value; } } });
+  try {
+    await settle(view);
+    searchInput(view).props.onChange({ target: { value: 'schedule' } });
+    view.flush();
+    await new Promise(resolve => setTimeout(resolve, 70));
+    view.flush();
+    assert.ok(textOf(resultRows(view)[0]).includes('ตารางเรียน'));
+    searchInput(view).props.onChange({ target: { value: '' } });
+    view.flush();
+    searchInput(view).props.onKeyDown({ key: 'Enter', preventDefault() {} });
+    assert.equal(destination, 'home');
+  } finally { view.unmount(); }
+});
+
+test('rapid Enter on a question asks the current text once without opening an old result', async () => {
+  const previousFetch = globalThis.fetch, requests = [];
+  globalThis.fetch = async (url, options) => {
+    requests.push([url, JSON.parse(options.body).question]);
+    return { ok: true, headers: { get: () => 'application/json' }, json: async () => ({ answer: 'Fixture answer' }) };
+  };
+  let destination = null;
+  const view = setup({ props: { goView: value => { destination = value; } } });
+  try {
+    await settle(view);
+    searchInput(view).props.onChange({ target: { value: 'why is rabies fatal?' } });
+    view.flush();
+    searchInput(view).props.onKeyDown({ key: 'Enter', preventDefault() {} });
+    await settle(view);
+    assert.deepEqual(requests, [['/api/wiki-explain', 'why is rabies fatal?']]);
+    assert.equal(destination, null);
+  } finally { view.unmount(); globalThis.fetch = previousFetch; }
+});
+
+for (const event of [
+  { key: 'Enter', nativeEvent: { isComposing: true } },
+  { key: 'Enter', keyCode: 229 },
+  { key: 'Escape', nativeEvent: { isComposing: true } },
+]) {
+  test(`composition ${event.key} (${event.keyCode || 'native'}) cannot select or close search`, async () => {
+    let destination = null, closes = 0, prevented = false;
+    const view = setup({ props: { goView: value => { destination = value; }, onClose: () => { closes++; } } });
+    try {
+      await settle(view);
+      searchInput(view).props.onKeyDown({ ...event, preventDefault: () => { prevented = true; } });
+      assert.equal(destination, null);
+      assert.equal(closes, 0);
+      assert.equal(prevented, false, 'the input method keeps its native key behavior');
+    } finally { view.unmount(); }
+  });
+}
+
+test('bookmark and missing-note fallback dispatch the supplied topic reset', async () => {
+  for (const note of [false, true]) {
+    const calls = [];
+    const view = setup({ notes: note ? { 100: 'A note on a removed question' } : {}, props: {
+      setTopic: value => calls.push(['topic', value]),
+      setPracticeMode: value => calls.push(['mode', value]),
+      goView: value => calls.push(['view', value]),
+      onOpenQuestion: async () => false,
+    } });
+    try {
+      await settle(view);
+      const row = resultRows(view).find(row => textOf(row).includes(note ? 'A note on a removed question' : 'Bookmarks'));
+      assert.ok(row);
+      row.props.onClick();
+      await settle(view);
+      assert.deepEqual(calls, [['topic', null], ['mode', 'bookmarks'], ['view', 'config']]);
+    } finally { view.unmount(); }
+  }
+});
+
+test('show more reveals the remaining search matches after the first expanded page', async () => {
+  const entries = Array.from({ length: 45 }, (_, id) => ({ type: 'library-doc', label: `polishlibrary ${id}`,
+    _labelLc: `polishlibrary ${id}`, _hayLc: `polishlibrary ${id}`, payload: { id: String(id), status: 'public' } }));
+  const view = setup({ entries });
+  const more = () => findAll(view.tree, node => node.type === 'button' && textOf(node).includes('แสดงเพิ่ม'))[0];
+  try {
+    await settle(view);
+    searchInput(view).props.onChange({ target: { value: 'polishlibrary' } });
+    view.flush();
+    await new Promise(resolve => setTimeout(resolve, 70));
+    view.flush();
+    assert.equal(resultRows(view).length, 6);
+    more().props.onClick(); view.flush();
+    assert.equal(resultRows(view).length, 30);
+    more().props.onClick(); view.flush();
+    assert.equal(resultRows(view).length, 45);
+    assert.equal(more(), undefined);
+  } finally { view.unmount(); }
+});
 
 test('recent actions obey current auth and year visibility; removed library hits disappear', async () => {
   const account = FEATURES.find(feature => feature.id === 'account-settings');

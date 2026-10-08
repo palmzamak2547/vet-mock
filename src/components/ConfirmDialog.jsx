@@ -46,11 +46,8 @@ export default function ConfirmDialog({
 
   const titleId = 'vmx-confirm-title';
   return (
-    // z 1080: a confirm is always raised ON TOP of whatever asked for it.
-    // At the shared modal rung (1000) it lost to any .vmx-modal-overlay that
-    // came later in DOM order — e.g. a confirm raised from inside the
-    // command palette painted BEHIND the palette.
-    <div className="vmx-modal-overlay" style={{ zIndex: 1080 }} onClick={onCancel}>
+    // Decisions and notices must stay above nested readers on the overlay rung.
+    <div className="vmx-modal-overlay" style={{ zIndex: 'var(--z-toast)' }} onClick={onCancel}>
       <div
         ref={dialogRef}
         className="vmx-modal"
