@@ -203,7 +203,7 @@
       "permanent": false
     },
     {
-      "source": "/:path*",
+      "source": "/:path(.*)",
       "has": [
         {
           "type": "host",
@@ -215,7 +215,7 @@
           "value": ".*(Googlebot|Google-InspectionTool|bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|facebookexternalhit|Twitterbot|LinkedInBot|WhatsApp|TelegramBot|Discordbot|Applebot|Linespider|line-poker|[A-Za-z0-9][Bb]ot[-/;)]|[Cc]rawler|[Ss]pider).*"
         }
       ],
-      "destination": "https://vetmock.com/:path*",
+      "destination": "https://vetmock.com/:path",
       "permanent": true
     }
   ],
@@ -229,7 +229,7 @@
       "destination": "https://venipuncture.vercel.app/:path*"
     },
     {
-      "source": "/wiki/:path*",
+      "source": "/wiki(/.*)?",
       "destination": "/"
     },
     {
@@ -241,7 +241,7 @@
       "destination": "/atlas.html"
     },
     {
-      "source": "/app/:path*",
+      "source": "/app(/.*)?",
       "destination": "/"
     }
   ]

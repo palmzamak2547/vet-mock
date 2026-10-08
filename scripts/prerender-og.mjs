@@ -12,7 +12,7 @@
 // Why a file per route rather than client-side meta: Facebook, LINE, X and
 // Google's preview fetchers do not run our JavaScript, so anything the app
 // sets after boot is invisible to them. Vercel checks the filesystem before
-// applying the /app/:path* rewrite, so a shared link gets the right card and
+// applying the /app(/.*)? rewrite, so a shared link gets the right card and
 // the normal app still boots and takes over. prerender-wiki.mjs has shipped
 // on exactly this mechanism since the wiki launched.
 //

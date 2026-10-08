@@ -44,7 +44,7 @@ export async function serveDist({ root = process.cwd(), config } = {}) {
       if ((await stat(file)).isDirectory()) file = join(file, 'index.html');
       await stat(file);
     } catch {
-      file = join(dist, 'index.html'); // the /app/:path* and /wiki/:path* rewrites
+      file = join(dist, 'index.html'); // the /app(/.*)? and /wiki(/.*)? rewrites
     }
     const headers = vercelHeadersFor(pathname, cfg);
     // The test origin is plain http on 127.0.0.1; upgrading its requests would

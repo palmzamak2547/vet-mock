@@ -375,8 +375,11 @@ test('crawlers on the old host are sent to vetmock.com permanently; browsers, th
   const moves = (VERCEL.redirects || []).filter((r) => r.has?.some((h) => h.type === 'host'));
   assert.equal(moves.length, 1);
   const [rule] = moves;
-  assert.equal(rule.source, '/:path*');
-  assert.equal(rule.destination, 'https://vetmock.com/:path*');
+  // Vercel compiles sources strictly (path-to-regexp 6, strict: true), where `/:path*` matches
+  // neither `/` nor a path ending in `/`: production kept serving the old home page to Googlebot
+  // (measured 2026-10-08). `/:path(.*)` compiles to ^(?:\/(.*))$ and matches every path.
+  assert.equal(rule.source, '/:path(.*)');
+  assert.equal(rule.destination, 'https://vetmock.com/:path');
   assert.equal(rule.permanent, true);
   assert.deepEqual(rule.has.find((h) => h.type === 'host'), { type: 'host', value: 'vetmock.vercel.app' });
   const ua = rule.has.find((h) => h.type === 'header' && h.key === 'user-agent');
