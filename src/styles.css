@@ -1820,7 +1820,7 @@ html, body {
 .vmx-focus-atmosphere { position: absolute; inset: 0; overflow: hidden; border-radius: 50%; pointer-events: none; opacity: .4; }
 .vmx-focus-atmosphere canvas { position: absolute; inset: 0; pointer-events: none; }
 .vmx-focus-scene-picker { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); color: var(--clr-ink-soft); font-size: var(--text-sm); }
-.vmx-focus-scene-picker select, .vmx-study-break select { min-height: var(--touch-min); max-width: 100%; padding: var(--space-2); border: 1px solid var(--clr-border); border-radius: var(--r-sm); background: var(--clr-surface); color: var(--clr-ink); font: inherit; }
+.vmx-focus-scene-picker select, .vmx-study-break select { min-height: var(--touch-min); max-width: 100%; padding: var(--space-2); border: 1px solid var(--clr-border); border-radius: var(--r-sm); background: var(--clr-surface); color: var(--clr-ink); font: inherit; -webkit-appearance: none; appearance: none; }
 .vmx-study-break { width: 100%; max-width: 680px; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); padding: var(--space-4); }
 .vmx-study-break-heading { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-3); }
 .vmx-study-break-heading h2 { font-size: var(--text-lg); margin: 0; }
@@ -5441,7 +5441,7 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-motion-settings summary { min-height: 48px; padding: 12px 16px; cursor: pointer; font-weight: 600; }
 .vmx-motion-settings-body { padding: 8px 16px 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .vmx-motion-settings label, .vmx-mochi-select { display: flex; flex-direction: column; gap: 8px; font-size: 14px; min-width: 0; }
-.vmx-motion-settings select, .vmx-mochi-select select { min-height: 44px; width: 100%; min-width: 0; font: inherit; border: 1px solid var(--clr-border); border-radius: var(--r-sm); background: var(--clr-surface-2); color: var(--clr-ink); padding: 8px; }
+.vmx-motion-settings select, .vmx-mochi-select select { min-height: 44px; width: 100%; min-width: 0; font: inherit; border: 1px solid var(--clr-border); border-radius: var(--r-sm); background: var(--clr-surface-2); color: var(--clr-ink); padding: 8px; -webkit-appearance: none; appearance: none; }
 .vmx-motion-settings .vmx-motion-checkbox { flex-direction: row; align-items: center; min-height: 44px; }
 .vmx-motion-checkbox input { width: 20px; height: 20px; accent-color: var(--clr-sage); }
 .vmx-motion-settings-body p { grid-column: 1 / -1; margin: 0; color: var(--clr-ink-soft); font-size: 13px; line-height: 1.7; }
