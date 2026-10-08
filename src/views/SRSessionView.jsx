@@ -536,7 +536,6 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   const relearnLeft = RELEARN_CAP - (currentCard?._relearn || 0);
   // Each grade button labels itself from the selected scheduler's own
   // arithmetic — SM-2 previewInterval or the FSRS equivalent.
-  const intervalPreviews = previewIntervals(liveCard, scheduler);
 
   // Session complete
   if (!currentQ || currentIdx >= sessionCards.length) {
@@ -573,6 +572,8 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       </>
     );
   }
+
+  const intervalPreviews = previewIntervals(liveCard, scheduler);
 
   // Show question as flashcard
   // (Match type is excluded by isFlashcardCompatible — branch kept for safety)
