@@ -116,7 +116,7 @@ export function isNotionLandingHost(hostname) {
  * is "not configured" (503, honest), never a half-working flow.
  */
 export function oauthProviderConfig(provider, origin, env = process.env) {
-  const redirectUri = `${origin}/api/external-connect/callback?provider=${provider}`;
+  const redirectUri = `${origin}/api/external-connect-callback?provider=${provider}`;
   if (provider === 'google') {
     const clientId = env.GOOGLE_OAUTH_CLIENT_ID || '';
     const clientSecret = env.GOOGLE_OAUTH_CLIENT_SECRET || '';

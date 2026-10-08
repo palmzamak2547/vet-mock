@@ -66,7 +66,7 @@ export default async function handler(req, res) {
       return res.status(503).json({ error: 'OAuth state signing is not configured', reason: 'not_configured' });
     }
     res.setHeader('Set-Cookie',
-      `${OAUTH_STATE_COOKIE}=${state}; Max-Age=${STATE_TTL_SECONDS}; Path=/api/external-connect; HttpOnly; Secure; SameSite=Lax`);
+      `${OAUTH_STATE_COOKIE}=${state}; Max-Age=${STATE_TTL_SECONDS}; Path=/api/external-connect-callback; HttpOnly; Secure; SameSite=Lax`);
     return res.status(200).json({ url: config.buildAuthorizeUrl(state), provider });
 
   } catch (err) {
