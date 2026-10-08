@@ -118,7 +118,7 @@ function renderQCard({ question, brand = '@vetmock.cu', backdrop = null }) {
   ctx.fillStyle = '#2b2419';
   ctx.font = '500 32px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.textAlign = 'center';
-  ctx.fillText('vetmock.vercel.app, 📷 ' + brand, W / 2, 1280);
+  ctx.fillText('vetmock.com, 📷 ' + brand, W / 2, 1280);
 
   return new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 0.95));
 }

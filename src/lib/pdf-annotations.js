@@ -56,6 +56,8 @@
 // build must still find their work there.
 // ============================================================
 
+import { touchStudyStores } from './idb-touch.js';
+
 const DB_NAME = 'vmx-pdf-annotations';
 const DB_VERSION = 1;
 const STORE = 'docs';
@@ -373,6 +375,7 @@ export async function claimLegacyAnnotations(fileHash, ownerId = null) {
     });
     if (!recovered) return { ok: false };
     mirror.set(key, recovered);
+    touchStudyStores();
     return { ok: true, record: recovered };
   } catch { return { ok: false }; }
 }
@@ -428,6 +431,7 @@ async function writeMergedRecord(rec, ownerId) {
     });
     mirror.set(key, mergeRecords(mirror.get(key), committed));
     idbUsable = true;
+    touchStudyStores();
     return { ok: true, record: committed };
   } catch {
     idbUsable = false;
@@ -440,6 +444,32 @@ export async function putRecord(rec, ownerId = null) {
   if (!rec?.hash) return { ok: false };
   if (rec.ownerId !== undefined && rec.ownerId !== (ownerId || null)) return { ok: false };
   return writeMergedRecord({ ...rec, ownerId: ownerId || null }, ownerId);
+}
+
+/** Records carried over from the old origin (src/lib/origin-move.js). Each
+ *  joins the same-owner record already here through putRecord, so the local
+ *  record wins every tie. A legacy record keeps its own key, still unclaimed,
+ *  and is only added where nothing is stored under that key. */
+export async function importAnnotationRecords(records) {
+  let ok = true;
+  for (const raw of Array.isArray(records) ? records : []) {
+    if (!raw || typeof raw !== 'object' || typeof raw.hash !== 'string') continue;
+    if (raw.docHash === undefined) {
+      try {
+        await tx('readwrite', (store) => {
+          const get = store.get(raw.hash);
+          get.onsuccess = () => { if (!get.result) store.put(raw); };
+          return null;
+        });
+      } catch { ok = false; }
+      continue;
+    }
+    const ownerId = raw.ownerId || null;
+    if (typeof raw.docHash !== 'string' || raw.hash !== annotationKey(raw.docHash, ownerId)) continue;
+    const { docHash, ...rest } = raw;
+    if (!(await putRecord({ ...rest, hash: docHash, ownerId }, ownerId)).ok) ok = false;
+  }
+  return { ok };
 }
 
 function packAll(byPage) {
@@ -483,6 +513,7 @@ export async function deleteAnnotations(fileHash, ownerId = null) {
   try {
     await tx('readwrite', (s) => s.delete(key));
     mirror.delete(key);
+    touchStudyStores();
     return { ok: true };
   } catch { idbUsable = false; return { ok: false }; }
 }

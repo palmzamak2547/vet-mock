@@ -123,7 +123,7 @@ function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, wri
   // Bottom watermark — persistent IG handle
   ctx.font = '600 56px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
   ctx.fillStyle = '#2b2419';
-  ctx.fillText('vetmock.vercel.app', W / 2, 1700);
+  ctx.fillText('vetmock.com', W / 2, 1700);
   ctx.font = '500 40px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
   ctx.fillStyle = '#b88940';
   ctx.fillText('📷 @vetmock.cu', W / 2, 1770);
@@ -1197,7 +1197,7 @@ function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writi
         await navigator.share({
           files: [file],
           title: 'VetMock score',
-          text: `ทำข้อสอบ VetMock ได้ ${isWritingOnly ? 'writing ' + writingDone + '/' + writingTotal : pct + '% (' + correct + '/' + total + ')'} 📚, ลองดูที่ vetmock.vercel.app, IG @vetmock.cu`,
+          text: `ทำข้อสอบ VetMock ได้ ${isWritingOnly ? 'writing ' + writingDone + '/' + writingTotal : pct + '% (' + correct + '/' + total + ')'} 📚, ลองดูที่ vetmock.com, IG @vetmock.cu`,
         });
         setHint('แชร์เรียบร้อย เลือก Instagram Story หรือ Direct ได้เลย');
       } else {

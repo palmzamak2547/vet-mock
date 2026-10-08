@@ -51,7 +51,7 @@ function safeSourceUrl(raw) {
   const v = raw.trim();
   if (!v || v === 'internal') return null;
   try {
-    const u = new URL(v, 'https://vetmock.vercel.app');
+    const u = new URL(v, 'https://vetmock.com');
     return (u.protocol === 'https:' || u.protocol === 'http:') ? u.href : null;
   } catch { return null; }
 }

@@ -29,7 +29,7 @@ test('every VetMock link in the auth emails lands on a real app page', () => {
     for (const [, href] of html.matchAll(/href="([^"]+)"/g)) {
       if (href.includes('{{')) continue; // the Supabase confirmation link
       const url = new URL(href);
-      if (url.hostname !== 'vetmock.vercel.app') continue;
+      if (url.hostname !== 'vetmock.com') continue;
       checked++;
       assert.equal(url.search, '', `${file}: ${href} relies on a ?view= the app ignores`);
       if (url.pathname !== '/') assert.ok(viewForAppPath(url.pathname), `${file}: ${href} is not an app page`);
@@ -41,6 +41,6 @@ test('every VetMock link in the auth emails lands on a real app page', () => {
 test('the security warnings open Account settings', () => {
   for (const file of ['03-reset-password.html', '04-change-email.html']) {
     const html = readFileSync(new URL(file, DIR), 'utf8');
-    assert.match(html, /href="https:\/\/vetmock\.vercel\.app\/app\/account"/, file);
+    assert.match(html, /href="https:\/\/vetmock\.com\/app\/account"/, file);
   }
 });

@@ -63,7 +63,7 @@ export const SCOPE_LABELS = {
 };
 
 export const LATEST_CHANGELOG = {
-  "version": "5.141.0",
+  "version": "5.141.4",
   "date": "2026-10-07",
   "headline": "เชื่อมบัญชี Notion และ Google ของคุณเอง",
   "changes": [

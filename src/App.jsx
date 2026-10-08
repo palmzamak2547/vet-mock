@@ -45,12 +45,10 @@ import { keyAnswerLocked, answeredCount, practicePreset, leavesReader, questionP
 // class (STABILITY rule 5) and removes a runtime <style> injection —
 // the sheet now loads in <head> before JS runs (better FOUC behavior).
 import './styles.css';
-// The landing sheet stays here although only the landing draws most of it:
-// it also carries two app-wide rules (the small-button size on phones up to
-// 430 px, the subject-card hover on touch screens). The back-office sheet is
-// imported by AdminView, so its chunk carries it and a student's boot does
-// not (tests/unit/boot-weight.test.mjs).
-import './styles-landing.css';
+// The landing and back-office sheets are imported by LandingView and
+// AdminView, so their lazy chunks carry them and a student's boot does not
+// (tests/unit/boot-weight.test.mjs). The two app-wide rules the landing sheet
+// used to hold now live in styles.css.
 import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
 import { checkIsAdmin } from './lib/admin-api.js';
 import { parseWikiPath, wikiPath } from './lib/vetwiki/url.js';

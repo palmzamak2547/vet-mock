@@ -25,7 +25,8 @@
 //   │  2. "Create a new channel" → LINE Login.
 //   │  3. Set scopes: openid, profile, email.
 //   │  4. Tab "LIFF" → "Add":
-//   │       - Endpoint URL: https://vetmock.vercel.app
+//   │       - Endpoint URL: https://vetmock.vercel.app (moving to
+//   │         https://vetmock.com: see LIFF_ENDPOINT_ON_VETMOCK_COM)
 //   │       - Scope: openid profile email
 //   │       - Size: Full
 //   │     Copy the LIFF ID (format: 1234567890-abcdefgh).
@@ -72,13 +73,27 @@ async function getLiff() {
   return _liffPromise;
 }
 
+// LIFF logs in only under the Endpoint URL set in the LINE Developers
+// console (step 4 above), which only the owner can change. It is still the
+// old address, so the LINE button stays hidden on vetmock.com. Flip to true
+// once the endpoint is https://vetmock.com.
+export const LIFF_ENDPOINT_ON_VETMOCK_COM = false;
+
+/** Whether LIFF can log in on this origin. */
+export function liffOriginAllowed(origin) {
+  if (origin === 'https://vetmock.vercel.app') return !LIFF_ENDPOINT_ON_VETMOCK_COM;
+  if (origin === 'https://vetmock.com') return LIFF_ENDPOINT_ON_VETMOCK_COM;
+  return typeof origin === 'string' && /^http:\/\/localhost(:\d+)?$/.test(origin);
+}
+
 /**
- * True iff LIFF is configured (env var present + browser context).
- * Used by AuthView to decide whether to render the LINE button.
+ * True iff LIFF is configured (env var present + browser context) on an
+ * origin its endpoint covers. Used by AuthView to decide whether to render
+ * the LINE button.
  */
 export function isLiffAvailable() {
   if (typeof window === 'undefined') return false;
-  return Boolean(import.meta.env.VITE_LINE_LIFF_ID);
+  return Boolean(import.meta.env.VITE_LINE_LIFF_ID) && liffOriginAllowed(window.location.origin);
 }
 
 /**

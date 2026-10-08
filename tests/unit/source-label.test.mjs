@@ -328,7 +328,7 @@ const memoryStorage = () => {
   return { getItem: (k) => (m.has(k) ? m.get(k) : null), setItem: (k, v) => m.set(k, String(v)), removeItem: (k) => m.delete(k) };
 };
 globalThis.window = {
-  location: { search: '', href: 'https://vetmock.vercel.app/app/videos', pathname: '/app/videos' },
+  location: { search: '', href: 'https://vetmock.com/app/videos', pathname: '/app/videos' },
   history: { state: null, replaceState() {}, pushState() {} },
   localStorage: memoryStorage(),
   addEventListener() {},
@@ -340,7 +340,7 @@ const { default: VideoView } = await import('vetmock-test:video-view');
 
 function renderVideoView(search) {
   window.location.search = search;
-  window.location.href = `https://vetmock.vercel.app/app/videos${search}`;
+  window.location.href = `https://vetmock.com/app/videos${search}`;
   globalThis.__vmxHooks = hooks();
   return VideoView({ goHome() {} });
 }
@@ -413,11 +413,11 @@ test('closing a cited clip takes the moment out of the address, and nothing else
   window.history.replaceState = (state, _title, url) => writes.push(String(url));
   try {
     playerIn(renderVideoView('?subject=food-industry&v=WRttiWQ7D9s&at=1608')).props.onClose();
-    assert.deepEqual(writes, ['https://vetmock.vercel.app/app/videos?subject=food-industry']);
+    assert.deepEqual(writes, ['https://vetmock.com/app/videos?subject=food-industry']);
     // A clip opened from a card leaves the address alone, as before.
     writes.length = 0;
     const modal = playerIn(renderVideoView('?v=WRttiWQ7D9s&at=1608'));
-    window.location.href = 'https://vetmock.vercel.app/app/videos?subject=food-industry';
+    window.location.href = 'https://vetmock.com/app/videos?subject=food-industry';
     modal.props.onClose();
     assert.deepEqual(writes, []);
   } finally {

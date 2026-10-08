@@ -58,7 +58,8 @@ async function pick(page, selector, text) {
 }
 
 async function runAnalysis(page) {
-  const run = page.getByRole('button', { name: th['ws.analysis.run'] });
+  // exact: once a result shows, its copy buttons carry the same word (คัดลอกไปวางใน Word: ค่าที่คำนวณได้)
+  const run = page.getByRole('button', { name: th['ws.analysis.run'], exact: true });
   await expect(run).toBeEnabled();
   await run.click();
   await expect(page.locator('.rs-analysis-result .rs-prov-line').first()).toBeVisible({ timeout: 30_000 });
@@ -352,5 +353,40 @@ test('a t-test switched from Welch to paired runs on the paired roles alone', as
   const result = page.locator('.rs-analysis-result');
   await expect(result.locator('.rs-prov-line').first()).toBeVisible({ timeout: 30_000 });
   await expect(result.getByText(th['runtime.guard.roleTwice'].split('} ')[1])).toHaveCount(0);
+  expect(errors, 'no page errors').toEqual([]);
+});
+
+// The one-sample t-test always tested against 0, with no box to change it (open since M1, found in the M2 review).
+// The box appears with the variant, an empty box holds the run back, and the typed value reaches the numbers and
+// the options line. Made-up data (ข้อมูลสมมุติ).
+test('a one-sample t-test compares the mean with the value the student types', async ({ page }) => {
+  test.setTimeout(120_000);
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(String(e)));
+  const project = await openExample(page, 'calf-survival');
+  await page.goto(`${project}/assoc`);
+  await page.locator('input[name="rs-method-assoc"][value="test.tTest"]').check();
+  await expect(page.locator('#rs-opt-mu')).toHaveCount(0);
+  await page.getByText(th['ws.analysis.options']).click();
+  await page.locator('#rs-opt-variant').selectOption('one-sample');
+  await pick(page, '#rs-role-outcome', 'น้ำหนักแรกเกิด');
+  const box = page.locator('#rs-opt-mu');
+  await expect(box).toHaveValue('0');
+  const run = page.getByRole('button', { name: th['ws.analysis.run'], exact: true });
+
+  await box.fill('');
+  await expect(run).toBeDisabled();
+  await expect(page.getByText(th['ws.opt.mu.invalid'])).toBeVisible();
+
+  await box.fill('0');
+  await runAnalysis(page);
+  const result = page.locator('.rs-analysis-result');
+  const values = result.locator('table.rs-table').first();
+  const atZero = await values.innerText();
+
+  await box.fill('35');
+  await runAnalysis(page);
+  await expect(result.locator('.rs-prov-line').first()).toContainText(fill(th['runtime.opt.mu'], { value: '35' }));
+  await expect.poll(async () => values.innerText()).not.toBe(atZero);
   expect(errors, 'no page errors').toEqual([]);
 });

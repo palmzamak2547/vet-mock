@@ -56,7 +56,7 @@ const ROWS = [
   ['report.methods.method.testTTest.welch', 'เทียบค่าเฉลี่ยของสองกลุ่มด้วย Welch t-test (ไม่ถือว่าความแปรปรวนเท่ากัน){ci}', "The means of the two groups were compared with Welch's t-test (unequal variances){ci}"],
   ['report.methods.method.testTTest.pooled', 'เทียบค่าเฉลี่ยของสองกลุ่มด้วย t-test แบบ pooled variance (ถือว่าความแปรปรวนเท่ากัน){ci}', "The means of the two groups were compared with Student's t-test (pooled variance){ci}"],
   ['report.methods.method.testTTest.paired', 'เทียบค่าที่วัดซ้ำในตัวเดิมด้วย paired t-test{ci}', 'Repeated measurements on the same animals were compared with the paired t-test{ci}'],
-  ['report.methods.method.testTTest.oneSample', 'เทียบค่าเฉลี่ยกับค่าที่กำหนดด้วย one-sample t-test{ci}', 'The mean was compared with a set value with the one-sample t-test{ci}'],
+  ['report.methods.method.testTTest.oneSample', 'เทียบค่าเฉลี่ยกับ {mu} ด้วย one-sample t-test{ci}', 'The mean was tested against {mu} with the one-sample t-test{ci}'],
   ['report.methods.method.testAnova1', 'เทียบค่าเฉลี่ยของหลายกลุ่มด้วย one-way ANOVA', 'The means of the groups were compared with one-way ANOVA'],
   ['report.methods.method.posthocTukey', 'เทียบค่าเฉลี่ยรายคู่ด้วย Tukey HSD{ci}', "Pairwise differences in means were tested with Tukey's HSD{ci}"],
   ['report.methods.method.adjustPValues', 'ปรับค่า p เพราะทดสอบหลายครั้ง ด้วยวิธี {method}', 'Multiple testing was accounted for by adjusting the p-values with the {method} method'],

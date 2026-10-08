@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://vetmock.vercel.app/</loc>
+    <loc>https://vetmock.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://vetmock.vercel.app/blog/</loc>
+    <loc>https://vetmock.com/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vetmock.vercel.app/blog/about-vetmock.html</loc>
+    <loc>https://vetmock.com/blog/about-vetmock.html</loc>
     <lastmod>2026-04-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://vetmock.vercel.app/blog/clip-summary.html</loc>
+    <loc>https://vetmock.com/blog/clip-summary.html</loc>
     <lastmod>2026-04-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://vetmock.vercel.app/blog/spaced-repetition.html</loc>
+    <loc>https://vetmock.com/blog/spaced-repetition.html</loc>
     <lastmod>2026-04-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

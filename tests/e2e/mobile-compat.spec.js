@@ -477,7 +477,8 @@ test.describe('whole-app mobile compatibility', () => {
     const mobileDrawer = page.locator('#lp-mobile-menu');
     await mobileDrawer.waitFor({ state: 'visible' });
     await recordStage(page, testInfo, failures, 'landing-mobile-drawer');
-    await mobileDrawer.locator('.vmx-btn-ghost').click();
+    // By name: the drawer also holds the theme button (2026-10-08), same style.
+    await mobileDrawer.getByRole('button', { name: /^(เข้าสู่ระบบ|Sign In)$/ }).click();
     await page.getByRole('dialog').waitFor({ state: 'visible' });
     await recordStage(page, testInfo, failures, 'landing-login-dialog');
 

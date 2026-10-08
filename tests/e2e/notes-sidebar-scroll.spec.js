@@ -15,9 +15,12 @@ test.setTimeout(90_000);
 test('the topic picker holds still instead of scrolling the page with it', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
   // ทวนเนื้อหา has no URL of its own, so it is reached the way a student
-  // reaches it: a subject card, then สรุป on a topic that has notes.
+  // reaches it: a subject, then สรุป on a topic that has notes. A fresh
+  // visitor starts on the landing, whose subject list (2026-10-08) shows the
+  // largest subjects first and finds the rest by search.
   await page.goto('/');
-  const card = page.locator('.vmx-subject-card').filter({ hasText: /COM V/ }).first();
+  await page.getByRole('searchbox', { name: /ค้นหาวิชา|Search subjects/ }).fill('COM V');
+  const card = page.locator('.lp-subject').filter({ hasText: /COM V/ }).first();
   await expect(card).toBeVisible({ timeout: 20000 });
   await card.click();
   const topic = page.locator('.vmx-topic-card').filter({ hasText: /Rabies/ }).first();

@@ -16,7 +16,7 @@ import { clusterPanel } from '../../lib/epi/guardrails.js';
 import { getMethod } from '../../lib/runtime/catalog.js';
 import { COMMON_OPTIONS, DEFAULT_OPTIONS } from '../../lib/runtime/spec.js';
 import { useWs, errorInfo } from '../ws-context.js';
-import { ALTERNATIVES, CONF_LEVELS, METHOD_UI, buildSpec, columnsForRole, initialChoices, methodsForPane, missingRoles, rolesFor, visibleOptions } from '../lib/method-ui.js';
+import { ALTERNATIVES, CONF_LEVELS, METHOD_UI, buildSpec, columnsForRole, initialChoices, methodsForPane, missingRoles, rolesFor, testValue, visibleOptions } from '../lib/method-ui.js';
 import { METHOD_TERMS, QUESTION_PANES, groupByQuestion } from '../lib/method-questions.js';
 import { chartsForResult, repeatsCiPlot } from '../lib/chart-inputs.js';
 import ResultCharts from '../components/ResultCharts.jsx';
@@ -150,11 +150,17 @@ export default function AnalysisPane({ p, pane }) {
   const needsCluster = ui?.needsCluster && !cluster;
   const extraOk = !ui?.params || ui.params.every((k) => Number.isFinite(Number(extra[k])) && String(extra[k]).trim() !== '');
   const countsOk = !ui?.counts || ui.counts.every((k) => Number.isFinite(Number(extra[k])) && Number(extra[k]) >= 0 && String(extra[k]).trim() !== '');
-  const canRun = Boolean(method && engine && cat?.shipped && gaps.length === 0 && !needsCluster && extraOk && countsOk && !busy);
+  // The one-sample t-test compares the mean with a value the student types (R's mu, 0 until changed).
+  // It used to stay at 0 with no box to change it (open since M1).
+  const oneSample = method === 'test.tTest' && options.variant === 'one-sample';
+  const muText = extra.mu ?? '0';
+  const muOk = !oneSample || testValue(muText) !== null;
+  const canRun = Boolean(method && engine && cat?.shipped && gaps.length === 0 && !needsCluster && extraOk && countsOk && muOk && !busy);
 
   const makeSpec = (route) => {
     const opts = { ...options };
     if (ui?.params) for (const k of ui.params) opts[k] = Number(extra[k]) / (k === 'se' || k === 'sp' ? 100 : 1);
+    if (oneSample) opts.mu = testValue(muText);
     // only the roles this method (and its variant) shows: a role left from another t-test variant stays in the
     // choices for when the student comes back, not in the spec (review round 7: after Welch, a paired test
     // stopped on "Outcome", a role the paired screen does not show, and a one-sample test listed Sex)
@@ -426,6 +432,14 @@ export default function AnalysisPane({ p, pane }) {
                       <div className="rs-row"><input id={`rs-x-${k}`} className="rs-input rs-input--num rs-num" inputMode="decimal" value={extra[k] ?? ''} onChange={(e) => setExtra((x) => ({ ...x, [k]: e.target.value }))} /><span>%</span></div>
                     </Field>
                   ))}
+                </div>
+              ) : null}
+              {oneSample ? (
+                <div className="rs-formgrid">
+                  <Field label={t('ws.opt.mu.label')} hint={t(muOk ? 'ws.optHelp.mu' : 'ws.opt.mu.invalid')} htmlFor="rs-opt-mu">
+                    {/* ponytail: no inputMode="decimal": the iPhone decimal pad has no minus sign, and a test value can be negative */}
+                    <input id="rs-opt-mu" className="rs-input rs-input--num rs-num" autoComplete="off" aria-invalid={muOk ? undefined : true} value={muText} onChange={(e) => setExtra((x) => ({ ...x, mu: e.target.value }))} />
+                  </Field>
                 </div>
               ) : null}
               <details className="rs-options">

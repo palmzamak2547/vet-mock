@@ -8,8 +8,7 @@ import Mochi from '../components/Mochi.jsx';
 import { librarySubjectCounts } from '../lib/library.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
 import { takeViewIntent, rememberViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
-import { SUBJECT_MOCHI } from '../data/art.js';
-import { artImgFallback } from '../lib/art-fallback.js';
+import SubjectCover from '../components/SubjectCover.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 
 export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear, selectedPhase = null, qbReady = true, history = [] }) {
@@ -239,7 +238,8 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           return (
             <button
               key={s.id}
-              className="vmx-subject-card"
+              className={`vmx-subject-card vmx-subject-card--illustrated${isEmpty && !qbLoading && shelfDocs === 0 ? ' is-quiet' : ''}`}
+              data-subject={s.id}
               disabled={isEmpty && !qbLoading && shelfDocs === 0}
               onClick={() => {
                 if (isEmpty && !qbLoading) {
@@ -266,7 +266,6 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 setView(hasTopics ? 'topic-select' : 'config');
               }}
               style={{
-                opacity: qbLoading ? 0.75 : (isEmpty && shelfDocs === 0 ? 0.5 : 1),
                 cursor: (isEmpty && !qbLoading && shelfDocs === 0) ? 'not-allowed' : 'pointer',
                 '--subject-accent': s.color,
               }}
@@ -274,46 +273,9 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 : (shelfDocs > 0 ? `เปิดชั้นเอกสารจริงของวิชานี้ (${shelfDocs} ไฟล์)`
                   : (isEmpty ? 'ยังไม่มีเนื้อหาของวิชานี้ในแอป' : ''))}
             >
-              <div className="accent" style={{ background: s.color }}></div>
-              <div className="vmx-subject-head">
-                {SUBJECT_MOCHI[s.id] ? (
-                  // The disciplines with their own kit get Mochi wearing it; the
-                  // rest keep the emoji they have always had, because a card with
-                  // a stand-in illustration reads worse than one without.
-                  // `.icon` is a 64px tinted chip leading the card — it is the
-                  // wayfinding element students scan the grid by, so it leads
-                  // the layout instead of floating above the name. The image
-                  // goes INSIDE it rather than replacing it, so the card keeps
-                  // the same chip as every card that still uses an emoji.
-                  <div
-                    className="icon"
-                    style={{ background: s.color ? `color-mix(in srgb, ${s.color} 10%, var(--clr-surface-2))` : undefined }}
-                  >
-                    <img
-                      src={SUBJECT_MOCHI[s.id].src}
-                      alt=""
-                      aria-hidden="true"
-                      width={512}
-                      height={512}
-                      loading="lazy"
-                      decoding="async"
-                      style={{ width: 52, height: 52, objectFit: 'contain', display: 'block' }}
-                      onError={artImgFallback}
-                    />
-                  </div>
-                ) : (
-                  <div
-                    className="icon"
-                    style={{ background: s.color ? `color-mix(in srgb, ${s.color} 10%, var(--clr-surface-2))` : undefined }}
-                  >
-                    {s.icon}
-                  </div>
-                )}
-                <div className="vmx-subject-id">
-                  <div className="title">{s.name}</div>
-                  <div className="sub">{s.name_en}</div>
-                </div>
-              </div>
+              <SubjectCover subjectId={s.id} />
+              <div className="title">{s.name}</div>
+              <div className="sub">{s.name_en}</div>
               <div className="count" style={{ color: (isEmpty && !qbLoading && shelfDocs === 0) ? 'var(--clr-rose-text)' : (shelfDocs > 0 ? 'var(--clr-sage-text)' : 'var(--clr-ink-soft)') }}>
                 {qbLoading
                   ? 'กำลังโหลด…'

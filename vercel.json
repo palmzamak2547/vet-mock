@@ -43,7 +43,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://*.line-scdn.net https://accounts.google.com/gsi/client https://www.youtube.com https://s.ytimg.com https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; media-src 'self' https: blob: data:; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com/gsi/ https://access.line.me https://liff.line.me; connect-src 'self' https://vetmock-library-archive.palmzamak2547.workers.dev https://*.r2.cloudflarestorage.com https://mpovsdzdggvksmeehqfj.supabase.co wss://mpovsdzdggvksmeehqfj.supabase.co https://api.github.com https://www.googleapis.com https://i.ytimg.com https://*.line.me https://*.line-scdn.net https://accounts.google.com/gsi/ https://vitals.vercel-insights.com https://va.vercel-scripts.com; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://*.line-scdn.net https://accounts.google.com/gsi/client https://www.youtube.com https://s.ytimg.com https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; media-src 'self' https: blob: data:; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://accounts.google.com/gsi/ https://access.line.me https://liff.line.me; connect-src 'self' https://vetmock-library-archive.palmzamak2547.workers.dev https://*.r2.cloudflarestorage.com https://mpovsdzdggvksmeehqfj.supabase.co wss://mpovsdzdggvksmeehqfj.supabase.co https://api.github.com https://www.googleapis.com https://i.ytimg.com https://*.line.me https://*.line-scdn.net https://accounts.google.com/gsi/ https://vitals.vercel-insights.com https://va.vercel-scripts.com; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self' https://vetmock.com; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests"
         }
       ]
     },
@@ -120,6 +120,15 @@
       ]
     },
     {
+      "source": "/landing/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
       "source": "/og/(.*)",
       "headers": [
         {
@@ -192,6 +201,22 @@
       "source": "/venipuncture",
       "destination": "/venipuncture/",
       "permanent": false
+    },
+    {
+      "source": "/:path(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "vetmock.vercel.app"
+        },
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(Googlebot|Google-InspectionTool|bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|facebookexternalhit|Twitterbot|LinkedInBot|WhatsApp|TelegramBot|Discordbot|Applebot|Linespider|line-poker|[A-Za-z0-9][Bb]ot[-/;)]|[Cc]rawler|[Ss]pider).*"
+        }
+      ],
+      "destination": "https://vetmock.com/:path",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -204,7 +229,7 @@
       "destination": "https://venipuncture.vercel.app/:path*"
     },
     {
-      "source": "/wiki/:path*",
+      "source": "/wiki(/.*)?",
       "destination": "/"
     },
     {
@@ -216,7 +241,7 @@
       "destination": "/atlas.html"
     },
     {
-      "source": "/app/:path*",
+      "source": "/app(/.*)?",
       "destination": "/"
     }
   ]

@@ -26,6 +26,7 @@
 //      → Authorized JavaScript origins:
 //         https://vetmock.vercel.app
 //         http://localhost:5173
+//      (and https://vetmock.com, then flip GIS_AUTHORISED_ON_VETMOCK_COM)
 //   2. Vercel env vars → VITE_GOOGLE_CLIENT_ID = the OAuth client ID
 //      (the one ending in .apps.googleusercontent.com — public, safe
 //      in client code).
@@ -75,13 +76,26 @@ function loadGisScript() {
   return _gisPromise;
 }
 
+// Google answers GIS only on the Authorized JavaScript origins above, which
+// only the owner can edit. vetmock.com is not listed yet, so sign-in there
+// keeps the Supabase redirect flow. Flip to true once it is listed.
+export const GIS_AUTHORISED_ON_VETMOCK_COM = false;
+
+/** Whether Google lets this origin use the popup flow. */
+export function gisOriginAllowed(origin) {
+  if (origin === 'https://vetmock.vercel.app') return true;
+  if (origin === 'https://vetmock.com') return GIS_AUTHORISED_ON_VETMOCK_COM;
+  return typeof origin === 'string' && /^http:\/\/localhost(:\d+)?$/.test(origin);
+}
+
 /**
- * True iff GIS is configured (env var present + browser context).
- * Caller uses this to decide between GIS popup and redirect flow.
+ * True iff GIS is configured (env var present + browser context) on an
+ * origin Google accepts. Caller uses this to decide between GIS popup and
+ * redirect flow.
  */
 export function isGoogleGisAvailable() {
   if (typeof window === 'undefined') return false;
-  return !!import.meta.env.VITE_GOOGLE_CLIENT_ID;
+  return !!import.meta.env.VITE_GOOGLE_CLIENT_ID && gisOriginAllowed(window.location.origin);
 }
 
 // Hash a raw nonce with SHA-256, return hex string. Supabase expects

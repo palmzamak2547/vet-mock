@@ -76,7 +76,7 @@ export function decodeQuizSet(qsetParam) {
 export function buildShareUrl(questions, opts = {}) {
   const qset = encodeQuizSet(questions);
   if (!qset) return null;
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://vetmock.vercel.app';
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://vetmock.com';
   let url = `${origin}/?qset=${qset}`;
   if (opts.senderScore && Number.isFinite(opts.senderScore.correct) && Number.isFinite(opts.senderScore.total)) {
     url += `&sc=${opts.senderScore.correct}_${opts.senderScore.total}`;

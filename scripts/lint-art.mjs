@@ -19,6 +19,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const { allArtPaths } = await import(pathToFileURL(path.join(ROOT, 'src/data/art.js')).href);
+const { SUBJECT_COVERS } = await import(pathToFileURL(path.join(ROOT, 'src/data/subject-covers.js')).href);
+const { SUBJECTS_BY_YEAR } = await import(pathToFileURL(path.join(ROOT, 'src/data/curriculum.js')).href);
 
 // A decorative asset that costs more than this is competing with the question
 // bank for a student's data allowance.
@@ -27,14 +29,33 @@ const MAX_KB = 120;
 const errors = [];
 const warnings = [];
 
+// A cover must describe one actual course, including scaffold courses. The
+// synthetic "all" action reuses a bookplate, not a curriculum entry. Check both directions.
+const subjectIds = new Set(Object.values(SUBJECTS_BY_YEAR).flat().map((s) => s.id));
+for (const id of subjectIds) {
+  if (!SUBJECT_COVERS[id]?.src) errors.push(`${id} has no subject cover`);
+}
+const coverPaths = new Set();
+for (const [id, cover] of Object.entries(SUBJECT_COVERS)) {
+  if (!subjectIds.has(id)) errors.push(`${id} is not a curriculum subject`);
+  if (!/^#[0-9a-f]{6}$/i.test(cover.paper)) errors.push(`${id} has no valid print-paper color`);
+  if (!/^\/(?:subject-art|panic-art)\/[a-z0-9-]+\.webp$/.test(cover.src)) errors.push(`${id} has an invalid cover path`);
+  // Windows reserves these names even with an extension (for example COM1.webp).
+  if (/^(con|prn|aux|nul|com[1-9]|lpt[1-9])$/i.test(path.posix.basename(cover.src, '.webp'))) errors.push(`${id} uses a Windows-reserved cover filename`);
+  if (coverPaths.has(cover.src)) errors.push(`${id} repeats another subject's cover`);
+  coverPaths.add(cover.src);
+  const file = path.join(ROOT, 'public', cover.src.replace(/^\//, ''));
+  if (fs.existsSync(file) && fs.statSync(file).size > MAX_KB * 1024) errors.push(`${id} cover exceeds ${MAX_KB} KB`);
+}
+
 const referenced = new Set();
 let bytes = 0;
 
-for (const url of allArtPaths()) {
+for (const url of [...allArtPaths(), ...coverPaths]) {
   referenced.add(url);
   const file = path.join(ROOT, 'public', url.replace(/^\//, ''));
   if (!fs.existsSync(file)) {
-    errors.push(`${url} is referenced by src/data/art.js but does not exist`);
+    errors.push(`${url} is referenced by an art registry but does not exist`);
     continue;
   }
   const buf = fs.readFileSync(file);
@@ -46,6 +67,13 @@ for (const url of allArtPaths()) {
   }
   const kb = buf.length / 1024;
   if (kb > MAX_KB) warnings.push(`${url} is ${kb.toFixed(0)} KB (over ${MAX_KB} KB)`);
+}
+
+const subjectArtDir = path.join(ROOT, 'public', 'subject-art');
+if (fs.existsSync(subjectArtDir)) {
+  for (const name of fs.readdirSync(subjectArtDir)) {
+    if (!coverPaths.has(`/subject-art/${name}`)) errors.push(`subject-art/${name} is not a shipped subject cover; keep originals in work/`);
+  }
 }
 
 // The blog is static HTML, not React, so its headers are referenced by markup

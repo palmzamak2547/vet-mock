@@ -7,8 +7,8 @@ Made with ♡ by **Vet 86**
 🔬 **VetMock Research:** [research.vetmock.com](https://research.vetmock.com)
 🔗 **Sister sites:** [cuvetsmo.com](https://cuvetsmo.com) (สโมสรนิสิต), [hanong.vercel.app](https://hanong.vercel.app) (stray welfare)
 
-**Study release:** v5.133.3 / SW v201 · ตรวจสถานะ 2026-10-01
-Source on main: v5.133.3/v201 (f90dcf33); ดูสถานะ backend/frontend ใน release receipt ที่ลิงก์ด้านล่าง
+**Study source:** v5.139.0 / SW v214 · อัปเดต 2026-10-08
+ปกรายวิชา 85 วิชาในหน้าแรกและหน้าเลือกวิชา; สถานะข้อสอบและสรุปยังแสดงตามเนื้อหาที่มีจริง
 หลักฐาน deployment และข้อจำกัดของการตรวจ รวมถึง Research R parity: [`docs/LAUNCH_READINESS.md`](./docs/LAUNCH_READINESS.md)
 Maintainer map: [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE.md)
 
@@ -66,6 +66,7 @@ npm run dev
 - **Review Queue** คิวตรวจข้อที่มีคนส่งเข้ามา
 
 ### เรียน
+- **ปกประจำวิชา** ภาพพิมพ์แยกรายวิชาครบปี 1–6 บนการ์ดเลือกวิชา รองรับจอเล็กและโหมดมืด
 - **VetWiki** คลังความรู้ที่บอกที่มาได้ทุก section + ลิงก์ `/wiki/<subject>/<topic>` แชร์ได้
 - **Notes โหลดตามวิชา** Notes และ VetWiki ใช้ source map เดียวกัน ไม่ดาวน์โหลดทุกชั้นปีพร้อมกัน
 - **สรุปคลิป** แยกตามวิชา พร้อมที่มาและตำแหน่งในคลิป

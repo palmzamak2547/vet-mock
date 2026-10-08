@@ -590,6 +590,13 @@ test.describe('landing accessibility', () => {
     // final state at once, and the scroll observers this test checks do not
     // depend on it (useLandingMotion.js, the nav sentinel in LandingView.jsx).
     // If WebKit is still slow here, the trace is the next thing to read.
+    // Read 2026-10-08: the webkit-mobile project keeps the iPhone's 3x scale,
+    // so this 1280x800 viewport is 3840x2400 pixels, painted in software on
+    // the Windows WebKit build. Each frame took about a second, so every
+    // click and the stability wait cost seconds (sound 3.1 s, theme 4.1 s,
+    // #progress 5.5 s); alone the test took 20.7 s, under parallel load more
+    // than 30. A phone paints on its GPU, so the test gets a minute here.
+    test.setTimeout(60_000);
     await page.emulateMedia({ reducedMotion: 'reduce' });
     await page.goto('/?e2e-fresh=1');
 

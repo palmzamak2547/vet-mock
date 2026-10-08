@@ -31,6 +31,7 @@ import { loadOcclusionCards } from '../lib/image-occlusion.js';
 import { alertDialog } from '../lib/dialog.js';
 import { stillWrong } from '../lib/wrong-pool.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
+import SubjectCover from '../components/SubjectCover.jsx';
 
 // DailyGoalCard is lazy-loaded — it only renders if there's history,
 // and most users will see it after some interaction. Keeps HomeView's
@@ -1995,7 +1996,8 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
             // edge, quieter icon and accent) rather than by dimming the
             // whole card, which pushed its subtitle and count below the
             // 4.5:1 contrast floor.
-            className={`vmx-subject-card${hasUsableContent || shelfDocs > 0 ? '' : ' is-quiet'}`}
+            className={`vmx-subject-card vmx-subject-card--illustrated${hasUsableContent || shelfDocs > 0 ? '' : ' is-quiet'}`}
+            data-subject={s.id}
             onClick={() => onPick && onPick(s)}
             style={{ cursor: 'pointer', '--subject-accent': s.color }}
             title={
@@ -2006,8 +2008,7 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
               : ''
             }
           >
-            <div className="accent" style={{ background: s.color }}></div>
-            <div className="icon" style={s.color ? { background: `color-mix(in srgb, ${s.color} 14%, var(--clr-surface-2))` } : undefined}>{s.icon}</div>
+            <SubjectCover subjectId={s.id} />
             <div className="title">{s.name}</div>
             {/* Only show English subtitle when it adds info beyond the
                 Thai title. Avoids "COM III / C ANI CLI SCI III, Companion

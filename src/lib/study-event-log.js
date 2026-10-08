@@ -1,4 +1,5 @@
 import { parseStudyEventArchive } from './study-event-archive.js';
+import { touchStudyStores } from './idb-touch.js';
 
 // Detailed study events live outside the small localStorage quota. Core
 // history remains compact; this append-only log keeps the original answers,
@@ -67,11 +68,41 @@ export async function appendStudyEvents(owner, events, { synced = false, keepOnF
       }
     });
     for (const row of committed) memory.delete(row.key);
+    touchStudyStores();
     return { ok: true };
   } catch {
     if (!keepOnFailure) for (const row of rows) if (!beforeMemory.has(row.key)) memory.delete(row.key);
     return { ok: false, reason: 'storage-unavailable' };
   }
+}
+
+/** Rows the old origin kept (src/lib/origin-move.js). Each keeps its own
+ *  synced flag; appendStudyEvents never writes a stored key twice, only marks
+ *  it synced. Pull marks and invalid events stay where they were. Two moves
+ *  before an import carry an event twice, so each owner keeps one copy per
+ *  event id, the synced one where there is one, and a batch stays under the
+ *  archive's 100,000-event ceiling. */
+export async function importStudyEventRows(rows, { batch = 50_000 } = {}) {
+  const owners = new Map();
+  for (const row of Array.isArray(rows) ? rows : []) {
+    if (!row || typeof row.owner !== 'string' || !row.owner || !row.event) continue;
+    if (!parseStudyEventArchive({ format: 'vetmock-study-events-v1', events: [row.event] }).success) continue;
+    const synced = !row.pending;
+    if (!owners.has(row.owner)) owners.set(row.owner, new Map());
+    const byId = owners.get(row.owner), prior = byId.get(row.event.id);
+    if (!prior || (synced && !prior.synced)) byId.set(row.event.id, { event: row.event, synced });
+  }
+  let ok = true;
+  for (const [owned, byId] of owners) {
+    const owner = owned === 'guest' ? null : owned;
+    for (const synced of [true, false]) {
+      const events = [...byId.values()].filter((entry) => entry.synced === synced).map((entry) => entry.event);
+      for (let i = 0; i < events.length; i += batch) {
+        if (!(await appendStudyEvents(owner, events.slice(i, i + batch), { synced, keepOnFailure: false })).ok) ok = false;
+      }
+    }
+  }
+  return { ok };
 }
 
 async function rowsFor(owner) {
@@ -109,6 +140,7 @@ export async function markStudyEventsSynced(owner, ids) {
       }
     });
     for (const key of keys) memory.delete(key);
+    touchStudyStores();
     return { ok: true };
   } catch { return { ok: false }; }
 }

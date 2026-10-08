@@ -231,6 +231,8 @@ function methodLead(spec, env, ctx) {
     seed: input.seed ?? o.seed ?? '',
     stream: input.stream ?? o.stream ?? 54,
     within: spec.roles?.time ? col(spec.roles.time) : '',
+    // the one-sample t-test's test value, as saved in the spec (R's mu; 0 when absent)
+    mu: typeof o.mu === 'number' ? String(o.mu) : '0',
   };
   const base = `report.methods.method.${keyPart(method)}`;
   const variant = variantOf(spec);

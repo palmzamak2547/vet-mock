@@ -26,7 +26,7 @@ function removeHandler() {
   assert.ok(start > 0, 'PrivateNotes still has its remove handler');
   const bodyStart = start + marker.length;
   const body = source.slice(bodyStart, source.indexOf('\n  };', bodyStart));
-  return new AsyncFunction('slug', 'confirmDialog', 'window', 'adminRpc', 'setBusy', 'setErr', 'setOpen', 'reload', body);
+  return new AsyncFunction('slug', 'confirmDialog', 'window', 'adminRpc', 'setBusy', 'setErr', 'setOpen', 'reload', 'mountedRef', 'readerRef', 'setReading', 'setReaderErr', body);
 }
 
 function harness(answer) {
@@ -37,6 +37,7 @@ function harness(answer) {
     async (name, params) => { calls.rpc.push([name, params]); },
     () => {}, () => {}, () => {},
     async () => { calls.reloads++; },
+    { current: true }, { current: null }, () => {}, () => {},
   ];
   return { calls, args };
 }

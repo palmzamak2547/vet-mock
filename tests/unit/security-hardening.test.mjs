@@ -14,7 +14,7 @@ import {
   isAllowedAppOrigin,
   resolveAppRedirect,
 } from '../../supabase/functions/_shared/app-origins.js';
-import { clientIP } from '../../api/_lib/rate-limit.js';
+import { allowedOrigin, clientIP } from '../../api/_lib/rate-limit.js';
 import { vercelHeadersFor } from '../helpers/vercel-static.mjs';
 import { presign } from '../../api/_lib/r2.js';
 
@@ -41,13 +41,21 @@ test('rendered links allow HTTPS and same-origin targets only', () => {
 });
 
 test('LINE auth redirects stay on production, approved previews, or local development', () => {
+  // vetmock.com is production; the old address stays allowed while learners move.
+  assert.equal(isAllowedAppOrigin('https://vetmock.com'), true);
   assert.equal(isAllowedAppOrigin('https://vetmock.vercel.app'), true);
   assert.equal(
     isAllowedAppOrigin('https://vetmock-fix-123-palmzamak2547s-projects.vercel.app'),
     true,
   );
   assert.equal(isAllowedAppOrigin('https://vetmock.vercel.app.evil.example'), false);
+  assert.equal(isAllowedAppOrigin('https://vetmock.com.evil.example'), false);
+  assert.equal(isAllowedAppOrigin('https://www.vetmock.com'), false, 'www redirects to the apex; no page runs there');
 
+  assert.equal(
+    resolveAppRedirect('https://vetmock.com/app/home?from=line', null),
+    'https://vetmock.com/app/home?from=line',
+  );
   assert.equal(
     resolveAppRedirect('https://vetmock.vercel.app/app/home?from=line', null),
     'https://vetmock.vercel.app/app/home?from=line',
@@ -57,13 +65,26 @@ test('LINE auth redirects stay on production, approved previews, or local develo
     'https://vetmock.vercel.app',
   );
   assert.equal(
-    resolveAppRedirect('https://vetmock.vercel.app@evil.example/steal', null),
-    'https://vetmock.vercel.app',
+    resolveAppRedirect('https://vetmock.com@evil.example/steal', null),
+    'https://vetmock.com',
   );
   assert.equal(
     resolveAppRedirect('http://localhost:5173/app/home', null),
     'http://localhost:5173/app/home',
   );
+});
+
+test('both addresses may call the API and account deletion while learners move', () => {
+  const from = (origin, host = 'api.example') => allowedOrigin({ headers: { origin, host } });
+  assert.equal(from('https://vetmock.com'), 'https://vetmock.com');
+  assert.equal(from('https://vetmock.vercel.app'), 'https://vetmock.vercel.app');
+  assert.equal(from('https://vetmock.com', 'vetmock.com'), 'https://vetmock.com', 'same origin');
+  assert.equal(from('https://vetmock.com.evil.example'), null);
+  assert.equal(from('https://evil.example'), null);
+  const deletion = readFileSync(resolve('supabase/functions/delete-account/index.ts'), 'utf8');
+  const allowed = /const ALLOWED_ORIGINS = new Set\(\[([\s\S]*?)\]\)/.exec(deletion)?.[1] || '';
+  assert.match(allowed, /'https:\/\/vetmock\.com'/);
+  assert.match(allowed, /'https:\/\/vetmock\.vercel\.app'/);
 });
 
 test('a challenge link whose sender name holds a percent sign still shows the score', () => {
@@ -72,7 +93,7 @@ test('a challenge link whose sender name holds a percent sign still shows the sc
   // went with it, inside one try/catch.
   const had = Object.prototype.hasOwnProperty.call(globalThis, 'window');
   const prev = globalThis.window;
-  globalThis.window = { location: { search: '?qset=x&sc=3_5&by=100%25%20club&t=90', origin: 'https://vetmock.vercel.app' } };
+  globalThis.window = { location: { search: '?qset=x&sc=3_5&by=100%25%20club&t=90', origin: 'https://vetmock.com' } };
   try {
     assert.deepEqual(readSenderInfoFromLocation(), {
       senderScore: { correct: 3, total: 5 },
@@ -224,7 +245,7 @@ const directive = (csp, name) => {
 };
 // CSP host-source matching for the forms this file uses: 'self', an exact
 // https origin, and a leading *. wildcard.
-const cspAllowsUrl = (sources, url, selfOrigin = 'https://vetmock.vercel.app') => {
+const cspAllowsUrl = (sources, url, selfOrigin = 'https://vetmock.com') => {
   const u = new URL(url, selfOrigin);
   return sources.some((s) => {
     if (s === "'self'") return u.origin === selfOrigin;
@@ -273,7 +294,7 @@ test('every origin the library endpoint can hand the reader is in connect-src (B
   const archive = /const ARCHIVE_ORIGIN = '([^']+)'/.exec(readFileSync(resolve('api/library-file.js'), 'utf8'))?.[1];
   assert.ok(archive, 'library-file still names its archive origin');
   for (const url of [presigned, `${archive}/?t=x&s=y`, '/api/library-blob?t=x&s=y']) {
-    assert.ok(cspAllowsUrl(connect, url), `connect-src allows ${new URL(url, 'https://vetmock.vercel.app').origin}`);
+    assert.ok(cspAllowsUrl(connect, url), `connect-src allows ${new URL(url, 'https://vetmock.com').origin}`);
   }
   // Only connect-src widened: no other directive learns about R2.
   assert.equal(cspFor('/app/library').match(/r2\.cloudflarestorage\.com/g)?.length, 1);
