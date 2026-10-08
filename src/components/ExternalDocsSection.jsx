@@ -27,6 +27,7 @@ import {
   fetchExternalConnections,
   disconnectExternalConnection,
   startExternalConnection,
+  listExternalFiles,
   loadRecentExternalDocs,
   rememberRecentExternalDoc,
 } from '../lib/external-doc-client.js';
@@ -49,6 +50,8 @@ export default function ExternalDocsSection({ user }) {
   const [recents, setRecents] = useState(() => loadRecentExternalDocs());
   const [connections, setConnections] = useState([]);
   const [connectBusy, setConnectBusy] = useState('');
+  const [providerFiles, setProviderFiles] = useState({});
+  const [loadingFiles, setLoadingFiles] = useState({});
   const [notice, setNotice] = useState('');
 
   // One request in flight at a time: an older answer never lands after a
@@ -78,10 +81,21 @@ export default function ExternalDocsSection({ user }) {
   const refreshConnections = useCallback(async (signedIn) => {
     if (!signedIn) {
       setConnections([]);
+      setProviderFiles({});
       return;
     }
     const result = await fetchExternalConnections();
-    if (result.ok) setConnections(result.connections);
+    if (result.ok) {
+      setConnections(result.connections);
+      for (const conn of result.connections) {
+        setLoadingFiles(prev => ({ ...prev, [conn.provider]: true }));
+        const filesRes = await listExternalFiles(conn.provider);
+        setLoadingFiles(prev => ({ ...prev, [conn.provider]: false }));
+        if (filesRes.ok) {
+          setProviderFiles(prev => ({ ...prev, [conn.provider]: filesRes.files }));
+        }
+      }
+    }
   }, []);
 
   useEffect(() => {
@@ -143,9 +157,42 @@ export default function ExternalDocsSection({ user }) {
     await refreshConnections(Boolean(user));
   }, [user, refreshConnections]);
 
+  
+  const importAsNote = (url) => {
+    alert('เพิ่มลิงก์นี้เป็นไฟล์โน๊ตแล้ว (รอกำหนดในอัปเดตถัดไป): ' + url);
+  };
+  const importAsExam = (url) => {
+    alert('เพิ่มลิงก์นี้เป็นข้อสอบแล้ว (รอกำหนดในอัปเดตถัดไป): ' + url);
+  };
+
   const providerLabel = doc ? (PROVIDER_LABELS[doc.provider] || 'ลิงก์') : '';
   const sourceHref = doc ? safeLinkUrl(doc.sourceUrl) : null;
   const connectedFor = (p) => connections.find((c) => c.provider === p) || null;
+
+  
+  const renderFiles = (provider) => {
+    if (loadingFiles[provider]) return <div className="vmx-extdoc-connect-hint" style={{marginTop: 8}}>กำลังโหลดไฟล์...</div>;
+    const files = providerFiles[provider] || [];
+    if (files.length === 0) return null;
+    return (
+      <div style={{ marginTop: 12, borderTop: '1px solid var(--clr-border)', paddingTop: 12 }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>ไฟล์ของคุณ</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {files.map(f => (
+            <div key={f.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 6 }}>
+              <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 14 }}>
+                <a href={f.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ink)', textDecoration: 'none' }}>{f.title}</a>
+              </div>
+              <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => importAsNote(f.url)}>+ โน๊ต</button>
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => importAsExam(f.url)}>+ ข้อสอบ</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="vmx-extdoc">
@@ -187,6 +234,7 @@ export default function ExternalDocsSection({ user }) {
                 </button>
               )}
             </div>
+            {connectedFor('google') && renderFiles('google')}
             <div className="vmx-extdoc-connect-row">
               <div className="vmx-extdoc-connect-info">
                 <span className="vmx-extdoc-connect-name">Notion</span>
@@ -214,6 +262,7 @@ export default function ExternalDocsSection({ user }) {
                 </button>
               )}
             </div>
+            {connectedFor('notion') && renderFiles('notion')}
             <p className="vmx-extdoc-connect-hint">
               แอปจะอ่านอย่างเดียว ไม่แก้ไขและไม่ลบ ยกเลิกได้ที่ปุ่มด้านบนหรือหน้าตั้งค่าของผู้ให้บริการ
             </p>
@@ -266,9 +315,13 @@ export default function ExternalDocsSection({ user }) {
           <div className="vmx-extdoc-meta">
             <span className="vmx-extdoc-provider">{providerLabel}</span>
             {sourceHref && (
-              <a className="vmx-extdoc-source" href={sourceHref} target="_blank" rel="noopener noreferrer">
-                เปิดต้นฉบับ
-              </a>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                <button type="button" className="vmx-btn vmx-btn-sm vmx-btn-ghost" onClick={() => importAsNote(doc.sourceUrl)}>+ ไฟล์โน๊ต</button>
+                <button type="button" className="vmx-btn vmx-btn-sm vmx-btn-ghost" onClick={() => importAsExam(doc.sourceUrl)}>+ ข้อสอบ</button>
+                <a className="vmx-extdoc-source" href={sourceHref} target="_blank" rel="noopener noreferrer">
+                  เปิดต้นฉบับ
+                </a>
+              </div>
             )}
           </div>
           {doc.title && <h2 className="vmx-extdoc-doc-title">{doc.title}</h2>}

@@ -241,14 +241,7 @@ function paramOr(key, fallback) {
 }
 
 export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selectedYear = null, user }) {
-  const [activeTab, setActiveTab] = useState(() => {
-    try {
-      const search = new URLSearchParams(window.location.search);
-      if (search.has('connected') || search.has('connect_error')) return 'external';
-    } catch { /* ignored */ }
-    return 'internal';
-  });
-  const [docs, setDocs] = useState([]);
+    const [docs, setDocs] = useState([]);
   const [configured, setConfigured] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -580,26 +573,9 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
         )}
       </div>
 
-      <div className="vmx-chip-row" style={{ marginBottom: 16 }}>
-        <button
-          type="button"
-          className={`vmx-chip ${activeTab === 'internal' ? 'active' : ''}`}
-          onClick={() => setActiveTab('internal')}
-        >
-          เอกสารในระบบ
-        </button>
-        <button
-          type="button"
-          className={`vmx-chip ${activeTab === 'external' ? 'active' : ''}`}
-          onClick={() => setActiveTab('external')}
-        >
-          เอกสารภายนอก
-        </button>
-      </div>
-
-      {activeTab === 'external' && <ExternalDocsSection user={user} />}
-
-      <div style={{ display: activeTab === 'internal' ? 'block' : 'none' }}>
+      
+      
+      <div>
         {(subjectFilter === 'vca' || /vca/i.test(debouncedQuery)) && (
         <p style={{ fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink-soft)', margin: '0 0 16px' }}>
           ชุดนี้รวมเอกสารและบันทึกข้อสอบย้อนหลัง เฉลยในต้นฉบับบางข้อยังต้องตรวจเทียบ

@@ -175,3 +175,18 @@ export function rememberRecentExternalDoc(entry) {
   } catch { /* storage full or blocked — the reader works without it */ }
   return next;
 }
+
+export async function listExternalFiles(provider) {
+  try {
+    const token = await accessToken();
+    if (!token) return { ok: false, error: 'เข้าสู่ระบบก่อนจึงจะดูไฟล์ได้' };
+    const res = await fetch(`/api/list-external-files?provider=${encodeURIComponent(provider)}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json().catch(() => null);
+    if (res.ok && data?.files) return { ok: true, files: data.files };
+    return { ok: false, error: 'ดึงข้อมูลไฟล์ไม่สำเร็จ' };
+  } catch {
+    return { ok: false, error: 'ดึงข้อมูลไฟล์ไม่สำเร็จ' };
+  }
+}
