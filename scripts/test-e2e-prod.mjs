@@ -14,7 +14,7 @@ const result = spawnSync(
     stdio: 'inherit',
     env: {
       ...process.env,
-      PLAYWRIGHT_BASE_URL: 'https://vetmock.vercel.app',
+      PLAYWRIGHT_BASE_URL: 'https://vetmock.com',
     },
   },
 );

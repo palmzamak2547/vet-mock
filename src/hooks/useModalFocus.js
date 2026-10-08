@@ -26,6 +26,8 @@ if (typeof document !== 'undefined') {
   // the pointerdown the desktop path relies on. Capture both at the same phase;
   // duplicate delivery is harmless because both events name the same launcher.
   document.addEventListener('touchstart', rememberLauncher, { capture: true, passive: true });
+  // Keyboard openings must not inherit a launcher from an earlier tap.
+  document.addEventListener('keydown', () => { lastPointerLauncher = null; }, true);
 }
 
 function isAvailable(element) {
@@ -60,9 +62,9 @@ export function useModalFocus({ active = true, onClose, initialFocusRef, returnF
     const activeElement = document.activeElement instanceof HTMLElement
       ? document.activeElement
       : null;
-    const returnTarget = explicitReturnTarget || (activeElement && activeElement !== document.body
-      ? activeElement
-      : lastPointerLauncher?.isConnected ? lastPointerLauncher : null);
+    const returnTarget = explicitReturnTarget || (lastPointerLauncher?.isConnected
+      ? lastPointerLauncher
+      : activeElement && activeElement !== document.body ? activeElement : null);
     lastPointerLauncher = null;
 
     const focusDialog = () => {

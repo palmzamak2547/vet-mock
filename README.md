@@ -3,11 +3,11 @@
 คลังข้อสอบ + ตารางเรียน/ตารางสอบ + สรุปคลิป + VetWiki สำหรับนิสิตสัตวแพทย์
 Made with ♡ by **Vet 86**
 
-🌐 **VetMock:** [vetmock.com](https://vetmock.com) (ปัจจุบัน redirect ไป [vetmock.vercel.app](https://vetmock.vercel.app))
+🌐 **VetMock:** [vetmock.com](https://vetmock.com)
 🔬 **VetMock Research:** [research.vetmock.com](https://research.vetmock.com)
 🔗 **Sister sites:** [cuvetsmo.com](https://cuvetsmo.com) (สโมสรนิสิต), [hanong.vercel.app](https://hanong.vercel.app) (stray welfare)
 
-**Study source:** v5.139.0 / SW v214 · อัปเดต 2026-10-08
+**Study source:** v5.141.5 / SW v216 · candidate 2026-10-08 (ยังไม่เผยแพร่)
 ปกรายวิชา 85 วิชาในหน้าแรกและหน้าเลือกวิชา; สถานะข้อสอบและสรุปยังแสดงตามเนื้อหาที่มีจริง
 หลักฐาน deployment และข้อจำกัดของการตรวจ รวมถึง Research R parity: [`docs/LAUNCH_READINESS.md`](./docs/LAUNCH_READINESS.md)
 Maintainer map: [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE.md)
@@ -197,7 +197,7 @@ git push origin main
 Vercel auto-deploys `main`, but a push is not production proof. Wait for the
 exact-SHA GitHub Build + Smoke E2E runs, confirm the Vercel **Production**
 deployment, then verify the entry at `https://vetmock.com` and a changed capability on the
-actual study runtime (`https://vetmock.vercel.app` during the redirect phase).
+actual study runtime (`https://vetmock.com`).
 Research has a separate deployment and must be verified on `https://research.vetmock.com`.
 Full checklist: [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE.md#release-gate).
 

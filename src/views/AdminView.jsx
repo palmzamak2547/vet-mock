@@ -20,6 +20,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { checkIsAdmin, adminRpc, isForbidden } from '../lib/admin-api.js';
+import { confirmDialog } from '../lib/dialog.js';
 import { qualityFlags, rankQuestions, answerDistribution, fillDaily, wrongRate } from '../lib/question-quality.js';
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { QB_TOTAL, QB_BLOCKED_TOTAL, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR, Q_PANIC_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
@@ -68,18 +69,19 @@ const rowKeys = (toggle) => (e) => { if (e.key === 'Enter' || e.key === ' ') { e
  *  as the last chunk lands. */
 function useBank(enabled) {
   const [bank, setBank] = useState(null);
+  const [failed, setFailed] = useState(false);
   useEffect(() => {
     if (!enabled || bank) return undefined;
     let alive = true;
     import('../data/bank-registry.generated.js').then(async ({ BANK_REGISTRY }) => {
-      const lists = await Promise.all(BANK_REGISTRY.map((entry) => entry.load().catch(() => [])));
+      const results = await Promise.allSettled(BANK_REGISTRY.map((entry) => entry.load()));
       const map = new Map();
-      for (const list of lists) for (const q of list) map.set(Number(q.id), q);
-      if (alive) setBank(map);
-    }).catch(() => { if (alive) setBank(new Map()); });
+      for (const result of results) if (result.status === 'fulfilled') for (const q of result.value) map.set(Number(q.id), q);
+      if (alive) { setBank(map); setFailed(results.some((result) => result.status === 'rejected')); }
+    }).catch(() => { if (alive) { setBank(new Map()); setFailed(true); } });
     return () => { alive = false; };
   }, [enabled, bank]);
-  return bank;
+  return { bank, failed };
 }
 
 function Kpi({ label, value, sub, focus, live }) {
@@ -154,7 +156,7 @@ function KeyValues({ map, label }) {
   return <span className="ad-kv">{label ? <span className="ad-muted">{label}</span> : null}{entries.map(([k, v]) => <span key={k}><span>{k}</span><b>{n(v)}</b></span>)}</span>;
 }
 
-function QuestionDetail({ row, question, onOpen, onClose }) {
+function QuestionDetail({ row, question, missingText, onOpen, onClose }) {
   const [detail, setDetail] = useState(null);
   const [err, setErr] = useState(null);
   useEffect(() => {
@@ -180,7 +182,7 @@ function QuestionDetail({ row, question, onOpen, onClose }) {
       <div className="ad-detail-head">
         <div>
           <div className="ad-id">ข้อ {row.question_id}, {subjectName(row.subject)}{question?.topic ? `, ${question.topic}` : ''}</div>
-          <h3>{question?.q || 'ไม่พบข้อนี้ในคลังของ build นี้ (อาจถูกลบหรือย้าย id)'}</h3>
+          <h3>{question?.q || missingText}</h3>
         </div>
         <div className="ad-actions">
           {question && <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => onOpen?.(row.question_id)}>เปิดข้อนี้</button>}
@@ -348,6 +350,9 @@ function Releases() {
 
 export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 0, onlineStatus = 'disabled' }) {
   const [gate, setGate] = useState(hasSupabase ? 'checking' : 'nobackend');
+  const [gateAttempt, setGateAttempt] = useState(0);
+  const lifetime = useRef(null);
+  useEffect(() => { lifetime.current = {}; return () => { lifetime.current = null; }; }, [user?.id]);
   // `range` is the chip that is pressed; `data.range` is the range the numbers
   // on screen were loaded for. They differ while a switch is loading or after
   // it failed, and every label next to a number follows `data.range`.
@@ -369,9 +374,9 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
     if (!user?.id) { setGate('signedout'); return undefined; }
     let alive = true;
     setGate('checking');
-    checkIsAdmin().then((ok) => { if (alive) setGate(ok ? 'ok' : 'denied'); }).catch(() => { if (alive) setGate('denied'); });
+    checkIsAdmin().then((ok) => { if (alive) setGate(ok ? 'ok' : 'denied'); }).catch((e) => { if (alive) setGate(isForbidden(e) ? 'denied' : 'error'); });
     return () => { alive = false; };
-  }, [user?.id]);
+  }, [user?.id, gateAttempt]);
 
   useEffect(() => {
     if (gate !== 'ok') return undefined;
@@ -405,18 +410,26 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
     return () => { alive = false; };
   }, [gate, tick]);
 
-  const bank = useBank(gate === 'ok');
+  const { bank, failed: bankFailed } = useBank(gate === 'ok');
+  const missingText = bankFailed ? 'โหลดข้อความโจทย์ไม่สำเร็จ' : bank ? 'ไม่พบใน build นี้' : 'กำลังโหลดคลัง';
+  const reloadBank = async () => {
+    const current = lifetime.current;
+    const accepted = await confirmDialog({ title: 'โหลดหน้านี้ใหม่?', body: 'บันทึกงานที่ค้างก่อน เอกสารที่เปิดอยู่จะปิดเมื่อโหลดหน้าใหม่', confirmLabel: 'โหลดหน้าใหม่' });
+    if (accepted && current && lifetime.current === current) window.location.reload();
+  };
 
   if (gate !== 'ok') {
     return (
       <div className="ad-locked" aria-live="polite">
         <span aria-hidden="true" style={{ fontSize: 34 }}>🐾</span>
-        <h1>{gate === 'checking' ? 'กำลังตรวจสิทธิ์' : 'หน้านี้เปิดให้เฉพาะผู้ดูแล'}</h1>
+        <h1>{gate === 'checking' ? 'กำลังตรวจสิทธิ์' : gate === 'error' ? 'ตรวจสิทธิ์ไม่สำเร็จ' : 'หน้านี้เปิดให้เฉพาะผู้ดูแล'}</h1>
         <p>{gate === 'nobackend'
           ? 'เครื่องนี้ไม่ได้ต่อกับฐานข้อมูล จึงไม่มีอะไรให้ดู'
           : gate === 'checking' ? 'ถามฐานข้อมูลอยู่ว่าบัญชีนี้เปิดดูได้ไหม'
+            : gate === 'error' ? 'ตรวจการเชื่อมต่ออินเทอร์เน็ต แล้วลองตรวจสิทธิ์อีกครั้ง'
             : gate === 'signedout' ? 'ยังไม่ได้ล็อกอิน หน้านี้ตรวจสิทธิ์จากบัญชี ไม่ใช่จากเครื่อง'
               : 'บัญชีที่ล็อกอินอยู่ไม่มีสิทธิ์ ข้อมูลไม่ได้ถูกส่งมาที่เครื่องนี้'}</p>
+        {gate === 'error' && <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => setGateAttempt((n) => n + 1)}>ลองอีกครั้ง</button>}
         <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goHome}>กลับหน้าแรก</button>
       </div>
     );
@@ -455,6 +468,7 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
       </nav>
 
       {failed && !rangeStatus && !isForbidden(failed) && <div className="ad-card"><p className="ad-muted">โหลดไม่สำเร็จ: {failed.message}</p></div>}
+      {bankFailed && <div className="ad-card" role="status"><p className="ad-muted">โหลดข้อความโจทย์ไม่ครบ สถิติและโจทย์ที่โหลดได้ยังแสดงตามเดิม ตรวจการเชื่อมต่อแล้วโหลดหน้าใหม่เพื่อลองอีกครั้ง</p><button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={reloadBank}>โหลดหน้าใหม่</button></div>}
       {!data && !failed && <div className="ad-card"><div className="ad-skeleton" style={{ width: '40%', marginBottom: 10 }} /><div className="ad-skeleton" style={{ width: '70%' }} /></div>}
 
       {data && (
@@ -526,7 +540,7 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
                       const open = openQ?.question_id === row.question_id;
                       return (
                         <tr key={row.question_id} className={`is-row${open ? ' is-open' : ''}`} role="button" aria-expanded={open} tabIndex={0} onClick={() => toggleQ(row)} onKeyDown={rowKeys(() => toggleQ(row))}>
-                          <td><span className="ad-id">{row.question_id}</span><span className="ad-stem" title={q?.q || ''}>{q?.q || (bank ? 'ไม่พบใน build นี้' : 'กำลังโหลดคลัง')}</span></td>
+                          <td><span className="ad-id">{row.question_id}</span><span className="ad-stem" title={q?.q || ''}>{q?.q || missingText}</span></td>
                           <td>{subjectName(row.subject)}</td>
                           <td className="num">{n(row.attempts)}</td>
                           <td><span className="ad-bar"><span><span style={{ width: `${Math.round(wrongRate(row) * 100)}%` }} /></span><span className="num">{Math.round(wrongRate(row) * 100)}%</span></span></td>
@@ -540,7 +554,7 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
                 </table>
               </div>
             )}
-            {openQ && <QuestionDetail row={openQ} question={bank?.get(Number(openQ.question_id))} onOpen={onOpenQuestion} onClose={() => setOpenQ(null)} />}
+            {openQ && <QuestionDetail row={openQ} question={bank?.get(Number(openQ.question_id))} missingText={missingText} onOpen={onOpenQuestion} onClose={() => setOpenQ(null)} />}
           </section>
 
           <section id="ad-subjects" className="ad-card">

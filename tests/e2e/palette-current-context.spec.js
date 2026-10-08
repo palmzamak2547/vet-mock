@@ -54,3 +54,50 @@ test('a stale saved recent opens the current exam preset', async ({ page }) => {
   await expect(page.getByRole('spinbutton', { name: 'จำนวนข้อแบบกำหนดเอง' })).toHaveValue('50');
   await expect(page.getByRole('button', { name: '50', exact: true })).toHaveAttribute('aria-pressed', 'true');
 });
+
+test.describe('search input timing', () => {
+  test.use({ pinCalendar: false });
+
+  test('Enter during the search debounce opens the newly typed destination', async ({ page }) => {
+    await page.goto('/app');
+    await page.getByRole('button', { name: 'ค้นหา', exact: true }).click();
+    const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
+    const input = dialog.getByRole('textbox', { name: 'ค้นหาใน VetMock' });
+    await expect(input).toBeFocused();
+    await expect(dialog.locator('[data-flat-idx="0"]')).toContainText('หน้าแรก');
+    await page.clock.install({ time: new Date('2026-09-25T18:15:00+07:00') });
+    await page.clock.pauseAt(new Date('2026-09-25T18:15:01+07:00'));
+    await input.fill('schedule');
+    await expect(input).toHaveValue('schedule');
+    await expect(dialog.locator('[data-flat-idx="0"]')).toContainText('หน้าแรก');
+    await input.press('Enter');
+    await page.clock.resume();
+    await expect(dialog).toBeHidden();
+    await expect(page).toHaveURL(/\/app\/schedule$/);
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('ตาราง');
+  });
+});
+
+test('composition keys keep search open, then ordinary keyboard selection and Escape still work', async ({ page }) => {
+  await page.goto('/app');
+  const launch = page.getByRole('button', { name: 'ค้นหา', exact: true });
+  await launch.click();
+  const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
+  const input = dialog.getByRole('textbox', { name: 'ค้นหาใน VetMock' });
+  await expect(input).toBeFocused();
+  for (const key of ['Enter', 'ArrowDown', 'Escape']) {
+    // Synthetic composition proves the browser event path, not a physical IME.
+    await input.dispatchEvent('keydown', { key, isComposing: true });
+    await expect(dialog).toBeVisible();
+    await expect(input).toBeFocused();
+  }
+  await input.fill('schedule');
+  await expect(dialog.locator('[data-flat-idx="0"]')).toContainText('ตารางเรียน');
+  await input.press('Enter');
+  await expect(page).toHaveURL(/\/app\/schedule$/);
+  await launch.click();
+  await expect(input).toBeFocused();
+  await input.press('Escape');
+  await expect(dialog).toBeHidden();
+  await expect(launch).toBeFocused();
+});

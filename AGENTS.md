@@ -1,5 +1,12 @@
 # AGENTS.md — VetMock Project Guide
 
+## Study polish candidate — 2026-10-08 (Codex)
+
+- Isolated `codex/polish-1008`, refreshed from `63c16f36` to main `35e25c53`; candidate 5.141.5 / SW216 is not released. Latest adaptive-review/external-document work, primary edits and the active Research M3 lane are preserved.
+- Confirmed search input/topic/show-more defects, obscured nested reader notices, WebKit pointer focus return, pre-ready landing GPU work and abandoned backend downloads are fixed in the candidate. Shared focus tracking retains keyboard/explicit-return behavior. Native Node Web Streams/pipeline cancels abandoned requests without new dependencies.
+- Evidence in `work/polish-20261008/`: final data/unit52/52, fresh build/prerenders, modeled changed/adjacent browser48/48 across4profiles with0retries, native HTTP4/4. Earlier contrast3 passed; full Windows gate remains incomplete and every original failure is retained. Admin outage/retry and partial-bank recovery are modeled, not live admin/RLS proof. No provider/schema/auth configuration changes.
+- Study origin is `https://vetmock.com`; production tests and current host guidance use that origin. Historical receipts retain their original URLs. This candidate is not production proof. Next: exact-head Linux Build/Smoke and database checks, then review/release under existing authorization. Eight moderate Imaging dependency advisories and physical-IME/provider limits remain.
+
 Read this guide before changing VetMock. The portable current architecture map
 is [docs/PROJECT_KNOWLEDGE_BASE.md](docs/PROJECT_KNOWLEDGE_BASE.md); dated release
 proof and remaining work live in [docs/LAUNCH_READINESS.md](docs/LAUNCH_READINESS.md).
@@ -30,7 +37,7 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 - **Stack**: React 18 + Vite 6.4.3 + Supabase (auth/DB) + PWA · plain JSX app code, TS only at the edges (`supabase/functions/*`)
 - **Current source version**: `version` in `package.json`; the newest release note is the top entry of `src/data/changelog.js`. Verify exact-SHA CI/deployment and live flow before describing production as current.
 - **Hosting**: Vercel (auto-deploy on push to `main` · `api/*.js` are Vercel serverless functions · `vercel.json` also CSP-rewrites `/venipuncture/*` to a separate app and `/wiki/*` + `/app/*` to the SPA)
-- **Production**: https://vetmock.com currently redirects to https://vetmock.vercel.app; Research runs separately at https://research.vetmock.com. Recheck the dated release record before changing an origin.
+- **Production**: https://vetmock.com serves the study app; Research runs separately at https://research.vetmock.com. The legacy vetmock.vercel.app host retains the migration relay. Recheck the dated release record before changing an origin.
 - **Audience**: Thai-speaking veterinary students; curriculum cohorts are data, not a fixed public landing audience. User totals require a fresh measurement.
 
 ---
@@ -93,7 +100,7 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 - Respect explicit empty arrays/objects, preserve legacy-safe defaults, and preview exact overwrite scope.
 
 ### 9. Production proof is multi-step
-- A build or push is not production proof. Require exact-SHA GitHub Build + Smoke E2E, successful Vercel Production deployment, and a live flow against `vetmock.vercel.app`.
+- A build or push is not production proof. Require exact-SHA GitHub Build + Smoke E2E, successful Vercel Production deployment, and a live flow against `vetmock.com`.
 - Push one real commit; avoid burst pushes and empty redeploy commits.
 
 ### 10. A paper examines TOPICS — never mix กลางภาค with ปลายภาค
@@ -209,7 +216,7 @@ npm run test:unit         # Node contract suite (tests/unit/*.test.mjs)
 npm run gate             # Data/unit in Bangkok + UTC, build, contrast, all four E2E profiles
 npm run gate:data        # Fast data/unit diagnosis; does not replace the full release gate
 npm run test:e2e          # Cross-browser Playwright suite
-npm run test:e2e:prod     # Live flows against vetmock.vercel.app
+npm run test:e2e:prod     # Live flows against vetmock.com
 npm run lint:all          # All generated/data/content integrity gates (release gate)
 npm run stats             # Authoritative current inventory
 npm run stats:check       # Fail if README/docs inventory drifted
@@ -246,7 +253,7 @@ notes/wiki/citation registries (`regen:notes-registry`, `regen:wiki-registry`,
 
 | Item | Value |
 |------|-------|
-| Product entry / study runtime | `vetmock.com` / `vetmock.vercel.app` (current 307 redirect) |
+| Product entry / study runtime | `vetmock.com` (legacy `vetmock.vercel.app` has the migration relay) |
 | Research domain | `research.vetmock.com` |
 | GitHub repo | `palmzamak2547/vet-mock` |
 | IndexNow API key | `e1e4e0feff0c42b1a0cb1118045ff82f` |
