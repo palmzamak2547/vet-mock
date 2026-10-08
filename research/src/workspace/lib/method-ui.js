@@ -104,6 +104,17 @@ export const CONF_LEVELS = Object.freeze([0.95, 0.9, 0.99]);
 /** Alternatives offered on tests that have a direction. */
 export const ALTERNATIVES = Object.freeze(['two.sided', 'less', 'greater']);
 
+/**
+ * The one-sample t-test's test value as the student typed it (R's `mu`): Thai digits read as digits;
+ * an empty box or anything that is not a finite number gives null, and the analysis waits for a number.
+ * @param {string} text
+ * @returns {number|null}
+ */
+export function testValue(text) {
+  const s = String(text ?? '').trim().replace(/[\u0e50-\u0e59]/g, (d) => String(d.charCodeAt(0) - 0x0e50));
+  return s !== '' && Number.isFinite(Number(s)) ? Number(s) : null;
+}
+
 /** Roles the t-test needs depend on its variant. */
 export function rolesFor(methodId, options = {}) {
   const ui = METHOD_UI[methodId];

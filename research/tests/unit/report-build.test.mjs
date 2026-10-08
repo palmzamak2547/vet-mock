@@ -204,3 +204,14 @@ test('the methods draft says what the import converted (review round 2)', () => 
   const d = buildDraft({ ...data, steps: [imp] }, { t, fmt, lang: 'en', nameKeyOf, designNameKey: 'd.cs', describeStep, designRow });
   assert.ok(d.methods.includes('the format of 2 columns was converted'), d.methods);
 });
+
+// The methods sentence named no value ("compared with a set value"), so a paper could not say what the mean was tested against.
+test('a one-sample t-test methods sentence names the value the mean was tested against', () => {
+  for (const [mu, want] of [[38.5, '38.5'], [-2, '-2'], [undefined, '0']]) {
+    const sp = { method: 'test.tTest', design: 'cross-sectional', roles: { outcome: 'c2' }, options: { variant: 'one-sample', confLevel: 0.95, ...(mu === undefined ? {} : { mu }) }, cluster: { route: null, column: null } };
+    for (const lang of ['th', 'en']) {
+      const s = methodsSentence({ spec: sp, envelope: { status: 'ok', spec: sp, values: {}, tests: [], provenance: { rowsDropped: [] } } }, { t: tOf(lang), lang, nameKeyOf, columnName: (k) => k });
+      assert.ok(s.includes(lang === 'th' ? `เทียบค่าเฉลี่ยกับ ${want} ด้วย one-sample t-test` : `tested against ${want} with the one-sample t-test`), s);
+    }
+  }
+});

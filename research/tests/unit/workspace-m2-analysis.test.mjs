@@ -10,7 +10,7 @@ import assert from 'node:assert/strict';
 import workspace from '../../src/i18n/workspace.js';
 import terms from '../../src/i18n/terms.js';
 import termsM2 from '../../src/i18n/terms-m2.js';
-import { METHOD_UI, EXTRA_OPTIONS, initialChoices, methodsForPane, valueKind, visibleOptions } from '../../src/workspace/lib/method-ui.js';
+import { METHOD_UI, EXTRA_OPTIONS, initialChoices, methodsForPane, testValue, valueKind, visibleOptions } from '../../src/workspace/lib/method-ui.js';
 import { METHOD_TERMS, QUESTIONS, QUESTION_PANES, groupByQuestion, questionOf, unquestioned } from '../../src/workspace/lib/method-questions.js';
 import { chartsForResult, colIndex, extraCharts, repeatsCiPlot } from '../../src/workspace/lib/chart-inputs.js';
 import { FIGURE_WIDTHS, FIGURE_WIDTH_RANGE, PANEL_RANGE, figureCandidates, figureLayout, movePanel, panelCountOk, panelLetter, panelWidthMm, parseWidth, togglePanel } from '../../src/workspace/lib/figure-model.js';
@@ -261,4 +261,15 @@ test('a whole number the student typed prints whole; an estimated ratio keeps it
   assert.equal(valueCells({ name: 'ratio', kind: valueKind('ratio'), value: 1 }, fmt, 'en', t).est, '1');
   assert.equal(valueCells({ name: 'ratio', kind: valueKind('ratio'), value: 2.5 }, fmt, 'en', t).est, '2.50');
   assert.equal(valueCells({ name: 'OR', kind: valueKind('OR'), value: 2, ci: [1.2, 3.4] }, fmt, 'en', t).est, '2.00');
+});
+
+// The one-sample t-test always tested against 0, with no box to change it (open since M1, found in the M2 review).
+test('the one-sample test value is read from what the student typed; anything that is not a number waits', () => {
+  assert.equal(testValue('38.5'), 38.5);
+  assert.equal(testValue(' -2 '), -2);
+  assert.equal(testValue('0'), 0);
+  assert.equal(testValue('.5'), 0.5);
+  assert.equal(testValue('๓๘.๕'), 38.5, 'Thai digits read as digits');
+  for (const bad of ['', '   ', '38,5', 'abc', '1e400', 'Infinity', null, undefined]) assert.equal(testValue(bad), null, String(bad));
+  for (const k of ['ws.opt.mu.label', 'ws.opt.mu.invalid', 'ws.optHelp.mu']) for (const lang of ['th', 'en']) assert.ok(DICT[lang][k], `${lang} ${k}`);
 });
