@@ -53,13 +53,27 @@ test('a curated set is picked in order; ordinary practice still shuffles', () =>
   // Panic Mode narrows and re-orders `ranked` between the shuffle and the
   // slice. That step must stay AFTER the curated check, or a most-missed-first
   // set would be re-sorted by provenance and stop being most-missed-first.
-  assert.match(fn, /let picked = ranked\.slice\(/, 'the pick no longer comes from the ranked list');
+  assert.match(fn, /picked = ranked\.slice\(/, 'the pick no longer comes from the ranked list');
   assert.ok(
     fn.indexOf('let ranked = ordered') < fn.indexOf('overrides.panicPool')
-      && fn.indexOf('overrides.panicPool') < fn.indexOf('let picked = ranked.slice('),
+      && fn.indexOf('overrides.panicPool') < fn.indexOf('picked = ranked.slice('),
     'the Panic narrowing must sit between the curated check and the slice',
   );
-  assert.doesNotMatch(fn, /let picked = shuffle\(pool\)\.slice/, 'the unconditional shuffle is back');
+  assert.doesNotMatch(fn, /picked = shuffle\(pool\)\.slice/, 'the unconditional shuffle is back');
+});
+
+test('the adaptive set is selected, never shuffled, and skips the Panic narrowing', () => {
+  const fn = between('const startExam = async (overrides = {}) => {', 'const finishExam = async () => {');
+  assert.match(fn, /const isAdaptive = _practiceMode === 'adaptive';/);
+  // The adaptive pick replaces the shuffle+slice for its mode and must come
+  // from the shared selector over the SAME pool the config screen counts.
+  assert.match(fn, /picked = adaptiveSelect\(pool, \{/, 'the adaptive pick must come from the shared selector');
+  assert.match(fn, /count: Math\.min\(qCount, pool\.length\)/, 'the adaptive pick must respect the requested count against the pool');
+  // The Panic narrowing lives in the non-adaptive branch only: its
+  // paper-proximity order is a different feature and must not silently
+  // narrow an adaptive set.
+  const adaptive = fn.slice(fn.indexOf('if (isAdaptive) {'), fn.indexOf('} else {'));
+  assert.ok(adaptive.length > 0 && !adaptive.includes('panicPool'), 'the adaptive branch must not run the Panic narrowing');
 });
 
 test("the 'wrong' pool means still wrong, sorted most-missed-first", () => {

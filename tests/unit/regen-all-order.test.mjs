@@ -102,7 +102,13 @@ test('regen:all runs every generator once, and rewrites the stats last', () => {
   const names = steps.map((s) => s.name);
   assert.equal(new Set(names).size, names.length, 'no generator runs twice');
   const generators = Object.keys(scripts).filter((k) => k.startsWith('regen:') && k !== 'regen:all');
-  assert.deepEqual(generators.filter((g) => !names.includes(g)), [], 'every regen:* script belongs in regen:all');
+  // regen:question-difficulty is the one generator whose source is the live
+  // database rather than an in-repo corpus: it needs provider credentials, so
+  // it deliberately stays out of the offline regen:all chain (its header
+  // documents this). Anything else new must join the chain.
+  const CREDENTIAL_GATED = new Set(['regen:question-difficulty']);
+  assert.deepEqual(generators.filter((g) => !names.includes(g) && !CREDENTIAL_GATED.has(g)), [],
+    'every regen:* script belongs in regen:all unless it is credential-gated');
   // stats reads the bank registry and the q-counts tables through a template
   // import this test cannot follow, so it goes after everything.
   assert.deepEqual(steps.at(-1), { name: 'stats', args: '--write' });

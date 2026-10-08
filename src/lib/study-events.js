@@ -51,16 +51,19 @@ export function createAttemptEntries({ questions, answers, sessionId, questionTi
 // because the detailed log and the leaderboard payload need all of them.
 export const answeredAttempts = entries => entries.filter(entry => isAnswered(entry.answer));
 
-export function createReviewEvent({ question, quality, before, after, sessionId, elapsedMs = null, now = Date.now() }) {
+export function createReviewEvent({ question, quality, before, after, sessionId, elapsedMs = null, algorithm = 'vetmock-sm2-v1', now = Date.now() }) {
   if (!Number.isInteger(quality) || quality < 0 || quality > 3) throw new Error('Invalid review rating');
+  // The fsrs snapshot rides along only when the card carries one; event
+  // consumers treat unknown fields as absent, so this stays additive.
   const state = card => ({
     easeFactor: card.easeFactor, interval: card.interval, repetitions: card.repetitions,
     nextReview: card.nextReview, lastReview: card.lastReview ?? null,
+    ...(card.fsrs ? { fsrs: { stability: card.fsrs.stability, difficulty: card.fsrs.difficulty } } : {}),
   });
   return {
     id: `review:${newStudySessionId()}`, schemaVersion: 1, kind: 'review', sessionId,
     questionId: question.id, questionVersion: questionRevision(question), date: now,
-    quality, ratingScale: 'again-hard-good-easy-0-3', algorithm: 'vetmock-sm2-v1',
+    quality, ratingScale: 'again-hard-good-easy-0-3', algorithm,
     elapsedMs, before: state(before), after: state(after),
   };
 }

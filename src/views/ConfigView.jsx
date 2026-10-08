@@ -34,7 +34,7 @@ const CATEGORIES = [
   { id: 'writing', label: 'ข้อเขียนเท่านั้น',    iconName: 'pen',      desc: 'ตอบสั้น เขียนบรรยาย และเติมคำ — พิมพ์คำตอบเอง' },
 ];
 
-export default function ConfigView({ practiceMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, showCategoryPicker = false, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, availablePool = null, mode, selectedPhase = null }) {
+export default function ConfigView({ practiceMode, setPracticeMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, showCategoryPicker = false, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, availablePool = null, mode, selectedPhase = null }) {
   const knownAvailableCount = Number.isFinite(availableCount)
     ? Math.max(0, Math.floor(availableCount))
     : null;
@@ -90,6 +90,7 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
     : practiceMode === 'wrong' ? 'ทบทวนข้อที่ตอบผิด — เรียงตามความถี่ (ผิดบ่อยขึ้นก่อน)'
     : practiceMode === 'current-scope' ? `ตามสไลด์ปัจจุบัน — ${scopeLabel}, เฉลยตรวจแล้ว ตรง ${SEMESTER.id}`
     : practiceMode === 'predicted' ? `ชุดน่าจะออก — ${scopeLabel}, หลักฐานอย่างน้อย 2 ทาง ไม่ใช่ข้อสอบยืนยัน`
+    : practiceMode === 'adaptive' ? 'ปรับระดับ — เลือกข้อให้พอดีกับระดับของคุณจากประวัติการตอบ เรียงง่ายไปยาก'
     : topicMeta ? `${subjMeta?.icon} ${subjMeta?.name} → ${topicMeta.icon} ${topicMeta.label}`
     : `${subjMeta?.icon} ${subjMeta?.name}`;
 
@@ -188,6 +189,29 @@ export default function ConfigView({ practiceMode, subject, topic, numQuestions,
                   )}
                 </button>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* Pool mode — ordinary random set vs the adaptive set. Shown only
+            inside the plain-pool family: curated chips (bookmarks/weak/wrong)
+            and the scope modes keep their own launchers, so this toggle can
+            never quietly redirect what one of those screens promised. */}
+        {(practiceMode === 'all' || practiceMode === 'adaptive') && setPracticeMode && (
+          <div className="vmx-config-row" role="group" aria-labelledby="vmx-config-mode-label">
+            <div id="vmx-config-mode-label" className="vmx-label">ลักษณะชุดข้อสอบ</div>
+            <div className="vmx-chip-row">
+              <button className={`vmx-chip ${practiceMode !== 'adaptive' ? 'active' : ''}`} aria-pressed={practiceMode !== 'adaptive'} onClick={() => setPracticeMode('all')}>
+                สุ่มทั่วไป
+              </button>
+              <button className={`vmx-chip ${practiceMode === 'adaptive' ? 'active' : ''}`} aria-pressed={practiceMode === 'adaptive'} onClick={() => setPracticeMode('adaptive')}>
+                ปรับระดับ
+              </button>
+            </div>
+            <div className="vmx-config-availability">
+              {practiceMode === 'adaptive'
+                ? 'เลือกข้อให้ตรงระดับของคุณจากประวัติการตอบ เรียงจากง่ายไปยาก'
+                : 'สุ่มจากทั้งชุด กด "ปรับระดับ" ให้ชุดข้อสอบจับระดับให้เอง'}
             </div>
           </div>
         )}

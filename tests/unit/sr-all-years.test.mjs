@@ -22,7 +22,8 @@ import { parse } from '@babel/parser';
 
 import { isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
 import { isFlashcardCompatible, reviewQuestionsInContext } from '../../src/hooks/sr-filter.js';
-import { initCard, getDueCards, getCardStats } from '../../src/hooks/sm2.js';
+import { initCard } from '../../src/hooks/sm2.js';
+import { getDueCards, getCardStats } from '../../src/lib/sr-scheduler.js';
 import { SUBJECTS } from '../../src/data/curriculum.js';
 import { questionInScope, scopeForPhase } from '../../src/lib/exam-scope.js';
 import { srCardFor } from '../../src/lib/user-flashcards.js';
@@ -95,6 +96,9 @@ async function openSR({ yearScope, network = 'up', selectedPhase = null, subject
     const scope = vm.createContext({
       QB: bank.QB, isQBFullyLoaded: bank.isQBFullyLoaded,
       isQuestionDeliverable, isFlashcardCompatible, reviewQuestionsInContext, initCard, getDueCards, getCardStats, srCardFor,
+      // The view reads the device scheduler preference through this state
+      // variable; the harness pins it to the SM-2 default.
+      scheduler: 'sm2',
       loadUserFlashcards: () => userCards, loadOcclusionCards: () => [],
       customQuestions, qbReady: true, qbRevision: app.qbRevision, selectedYear: 5,
       loadAllYears,

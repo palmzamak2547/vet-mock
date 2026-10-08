@@ -110,7 +110,10 @@ test('Home review mode resets old filters and scope chips fit at 320px', async (
   expect(escapes).toBe(false);
   const startTop = await page.getByRole('button', { name: 'เริ่ม Session →', exact: true })
     .evaluate(el => el.getBoundingClientRect().top + window.scrollY);
-  expect(startTop).toBeLessThan(1150);
+  // Budget allows the SM-2/FSRS scheduler row added with the scheduler
+  // preference (2026-10-08); the contract being guarded is that the scope
+  // chips fit 320px, asserted above by the escapes check.
+  expect(startTop).toBeLessThan(1250);
   await page.screenshot({ path: info.outputPath('review-320.png'), fullPage: true });
 });
 

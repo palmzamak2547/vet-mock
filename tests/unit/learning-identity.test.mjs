@@ -7,6 +7,7 @@ import { buildExamPool, normalizePracticeMode, WEAK_POOL_CAP } from '../../src/l
 import { stillWrong } from '../../src/lib/wrong-pool.js';
 import { SUBJECTS, yearForSubject } from '../../src/data/curriculum.js';
 import { initCard, updateCard } from '../../src/hooks/sm2.js';
+import { gradeCard, algorithmFor } from '../../src/lib/sr-scheduler.js';
 import { computeSubjectProgress } from '../../src/lib/subject-progress.js';
 import { normalizeUserHistory } from '../../src/lib/user-data-row.js';
 
@@ -208,6 +209,7 @@ function grade(quality, accepted = true) {
     sessionCards: [cards[questionId]], correctCount: 0, reviewedCount: 0, RELEARN_CAP: 2,
     timingRef: { current: { snapshot: () => ({}) } },
     srCardFor: (value, q) => value[q.id], initCard, updateCard, createReviewEvent: () => null,
+    gradeCard, algorithmFor, scheduler: 'sm2',
     setSrCards: updater => { if (accepted) cards = updater(cards); return { accepted }; },
     alertDialog: () => { state.errors++; }, window: { dispatchEvent() {} }, CustomEvent: class {},
     setCorrectCount: value => { state.correct = value; }, setReviewedCount: value => { state.reviewed = value; },

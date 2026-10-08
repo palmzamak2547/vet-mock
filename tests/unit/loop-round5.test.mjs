@@ -13,8 +13,12 @@ const src = (p) => readFileSync(new URL(`../../${p}`, import.meta.url), 'utf8');
 
 test('SR previews read the live record, grading dispatches the event once, the backlog is honest', () => {
   const s = src('src/views/SRSessionView.jsx');
-  assert.equal((s.match(/previewInterval\(liveCard, /g) || []).length, 4, 'all four previews read the live card');
+  // All four grade buttons read one preview set computed from the live card
+  // (the active scheduler's own arithmetic), never the stale relearn snapshot.
+  assert.equal((s.match(/previewIntervals\(liveCard, /g) || []).length, 1, 'the previews read the live card');
+  assert.equal((s.match(/intervalPreviews\[/g) || []).length, 4, 'all four buttons serve from that one preview set');
   assert.equal(s.includes('previewInterval(currentCard,'), false);
+  assert.equal(s.includes('previewInterval(liveCard,'), false, 'the old per-button sm2 preview call is gone');
   assert.ok(s.includes("new CustomEvent('vmx-sr-card-graded'"), 'the App-level listener finally has a dispatcher');
   assert.ok(s.includes('if (!currentCard._relearn) {'), 'a relearn copy earns no second credit');
   assert.ok(s.includes('const remaining = duePool.length;'), 'the backlog is the live pool, not pool minus session');

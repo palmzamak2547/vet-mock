@@ -5,7 +5,12 @@ import { createQuestionTiming, createReviewEvent, newStudySessionId } from '../l
 import { alertDialog } from '../lib/dialog.js';
 import { QB, SUBJECTS, loadQB, loadQBForYear, isQBYearLoaded, isQBFullyLoaded } from '../data/questions.js';
 import { yearForSubject } from '../data/curriculum.js';
-import { updateCard, initCard, getDueCards, getCardStats, previewInterval } from '../hooks/sm2.js';
+import { initCard } from '../hooks/sm2.js';
+import {
+  algorithmFor, gradeCard, getCardStats, getDueCards, previewIntervals,
+  readSchedulerPreference, saveSchedulerPreference, subscribeSchedulerPreference,
+  SCHEDULER_CHOICES, SCHEDULER_LABELS,
+} from '../lib/sr-scheduler.js';
 import { isFlashcardCompatible, reviewQuestionsInContext } from '../hooks/sr-filter.js';
 import { EXAM_SCOPE_LABEL, scopeForPhase } from '../lib/exam-scope.js';
 import { fmtDate } from '../hooks/utils.js';
@@ -71,6 +76,11 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
   const [sessionCards, setSessionCards] = useState(null);  // null = planning step
   const [currentIdx, setCurrentIdx] = useState(0);
+  // Device preference, mirrored on motion-preferences: SM-2 stays the default,
+  // FSRS is opt-in. The subscription re-renders the counts and the interval
+  // labels the moment the scheduler is switched (or changed in another tab).
+  const [scheduler, setSchedulerState] = useState(readSchedulerPreference());
+  useEffect(() => subscribeSchedulerPreference(() => setSchedulerState(readSchedulerPreference())), []);
   const [showAnswer, setShowAnswer] = useState(false);
   const [reviewedCount, setReviewedCount] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
@@ -133,7 +143,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       // still be awaiting their render when a foreground bank load finishes.
       pool[q.id] = { ...card, subject: q.subject, question: q };
     });
-    const due = getDueCards(pool);
+    const due = getDueCards(pool, 0, scheduler);
     return {
       duePool: due,
       // An auto-promoted card is not new: the app promoted it because the
@@ -149,7 +159,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   };
   const { duePool, dueReviewedCount, newCount, excludedCount, eligibleCount } = useMemo(
     () => reviewPool(allQuestions),
-    [allQuestions, srCards, subjectFilter, yearScope, selectedYear, selectedPhase, phaseScope],
+    [allQuestions, srCards, subjectFilter, yearScope, selectedYear, selectedPhase, phaseScope, scheduler],
   );
 
   // Stats only for cards belonging to SR-eligible questions in the
@@ -163,8 +173,8 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     inSubject.filter(isFlashcardCompatible).forEach((q) => { if (!eligible.has(q.id)) eligible.set(q.id, q); });
     const filtered = {};
     for (const [id, q] of eligible) { const card = srCardFor(srCards, q); if (card) filtered[id] = card; }
-    return getCardStats(filtered);
-  }, [srCards, allQuestions, subjectFilter, yearScope, selectedYear, selectedPhase, phaseScope]);
+    return getCardStats(filtered, scheduler);
+  }, [srCards, allQuestions, subjectFilter, yearScope, selectedYear, selectedPhase, phaseScope, scheduler]);
 
   // Subjects that actually have at least one card in the bank
   const subjectsWithCards = useMemo(() => {
@@ -334,6 +344,30 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             </div>
           </div>
 
+          {/* Scheduler — device preference, SM-2 default, FSRS opt-in.
+              Both schedules advance on every grade, so switching never
+              discards history in either direction. */}
+          <div className="vmx-config-row" role="group" aria-labelledby="vmx-srs-scheduler-label">
+            <div id="vmx-srs-scheduler-label" className="vmx-label">ระบบจัดตารางทบทวน</div>
+            <div className="vmx-chip-row">
+              {SCHEDULER_CHOICES.map((s) => (
+                <button
+                  key={s}
+                  className={`vmx-chip ${scheduler === s ? 'active' : ''}`}
+                  aria-pressed={scheduler === s}
+                  onClick={() => saveSchedulerPreference(s)}
+                >
+                  {s === 'fsrs' ? 'FSRS' : 'SM-2'}
+                </button>
+              ))}
+            </div>
+            <div className="vmx-config-availability">
+              {scheduler === 'fsrs'
+                ? 'FSRS จัดตารางจากประวัติการตอบของคุณเอง ให้ทบทวนน้อยลงแต่จำได้นานขึ้น'
+                : 'SM-2 ระบบเดิม กด FSRS เพื่อเปลี่ยนได้ทุกเมื่อ ประวัติการทบทวนไม่หาย'}
+            </div>
+          </div>
+
           {/* Status — separate "Due" (reviewed before, time to revisit)
               from "New" (unseen). Fresh user sees Due 0 + New 1842
               instead of misleading "Due 1842". Both feed the session. */}
@@ -465,9 +499,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     let event;
     const result = setSrCards(current => {
       const { _relearn: _runtime, ...before } = srCardFor(current, { ...currentQ, id: currentCard.questionId }) || initCard(currentCard.questionId);
-      const updated = updateCard(before, quality);
+      // Both schedulers advance on every grade (dual-write), so switching the
+      // preference never restarts a schedule from a stale snapshot.
+      const updated = gradeCard(before, quality, { scheduler });
       event = createReviewEvent({ question: currentQ, quality, before, after: updated,
-        sessionId: reviewSessionId, elapsedMs: timingRef.current.snapshot()[currentQ.id] || 0 });
+        sessionId: reviewSessionId, elapsedMs: timingRef.current.snapshot()[currentQ.id] || 0,
+        algorithm: algorithmFor(scheduler) });
       return { ...current, [currentCard.questionId]: updated };
     });
     if (result?.accepted === false) { alertDialog('บันทึกการทบทวนไม่สำเร็จ กรุณาลองใหม่ก่อนข้ามไปข้อถัดไป'); return; }
@@ -497,6 +534,8 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   };
 
   const relearnLeft = RELEARN_CAP - (currentCard?._relearn || 0);
+  // Each grade button labels itself from the selected scheduler's own
+  // arithmetic — SM-2 previewInterval or the FSRS equivalent.
 
   // Session complete
   if (!currentQ || currentIdx >= sessionCards.length) {
@@ -533,6 +572,8 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       </>
     );
   }
+
+  const intervalPreviews = previewIntervals(liveCard, scheduler);
 
   // Show question as flashcard
   // (Match type is excluded by isFlashcardCompatible — branch kept for safety)
@@ -724,19 +765,19 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         <div className="vmx-sr-grade">
           <button className="vmx-sr-btn again" onClick={() => handleGrade(0)}>
             <div className="label">Again</div>
-            <div className="sub">{relearnLeft > 0 ? 'ท้ายรอบนี้' : `${previewInterval(liveCard, 0)} วัน`}</div>
+            <div className="sub">{relearnLeft > 0 ? 'ท้ายรอบนี้' : `${intervalPreviews[0]} วัน`}</div>
           </button>
           <button className="vmx-sr-btn hard" onClick={() => handleGrade(1)}>
             <div className="label">Hard</div>
-            <div className="sub">{previewInterval(liveCard, 1)} วัน</div>
+            <div className="sub">{intervalPreviews[1]} วัน</div>
           </button>
           <button className="vmx-sr-btn good" onClick={() => handleGrade(2)}>
             <div className="label">Good</div>
-            <div className="sub">{previewInterval(liveCard, 2)} วัน</div>
+            <div className="sub">{intervalPreviews[2]} วัน</div>
           </button>
           <button className="vmx-sr-btn easy" onClick={() => handleGrade(3)}>
             <div className="label">Easy</div>
-            <div className="sub">{previewInterval(liveCard, 3)} วัน</div>
+            <div className="sub">{intervalPreviews[3]} วัน</div>
           </button>
         </div>
       )}

@@ -68,6 +68,7 @@ export default function Sidebar({
     schedule: 'calendar',
     pinboard: 'pin',
     library: 'files',
+    'external-docs': 'book',
     atlas: 'atlas',
     bench: 'grid2x2',
   };

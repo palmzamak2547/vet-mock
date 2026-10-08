@@ -175,7 +175,9 @@ test('the mock re-sort cannot undo the Panic order', () => {
   // examOrigin — so without this guard the cram came back in id order and the
   // priority work was invisible. Caught on the real screen: สุขศาสตร์น้ำนม
   // opened on an อิงแนวข้อสอบ question while 80 past-paper ones waited.
-  assert.match(APP, /if \(!overrides\.panicPool && picked\.some\(\(q\) => q\.examOrigin\)\)/,
+  // The adaptive mode is the one explicit exception: it never runs the Panic
+  // narrowing and owns its own easy-to-hard ordering, so it may re-sort.
+  assert.match(APP, /if \(\(!overrides\.panicPool \|\| isAdaptive\) && picked\.some\(\(q\) => q\.examOrigin\)\)/,
     'the id re-sort is unguarded again and will flatten the Panic order');
 });
 
