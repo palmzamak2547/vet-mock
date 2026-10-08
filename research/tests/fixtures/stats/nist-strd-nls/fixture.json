@@ -1,0 +1,19 @@
+{
+  "_fixture": {
+    "family": "nist-strd",
+    "kind": "pin",
+    "methods": [
+      "nls.fourPL",
+      "nls.doseResponse",
+      "nls.equation"
+    ],
+    "source": "NIST/ITL Statistical Reference Datasets, nonlinear regression (public domain), downloaded 2026-10-08"
+  },
+  "source": [
+    "https://www.itl.nist.gov/div898/strd/nls/nls_main.shtml"
+  ],
+  "downloaded": "2026-10-08",
+  "lower": ["Misra1a", "Chwirut2", "DanWood", "Misra1b"],
+  "higher": ["Rat42", "Rat43", "MGH09", "Thurber", "BoxBOD", "Eckerle4"],
+  "minLre": { "lower": 6, "higher": 5 }
+}
