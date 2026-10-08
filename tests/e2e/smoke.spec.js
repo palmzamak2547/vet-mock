@@ -123,6 +123,16 @@ test.describe('VetMock smoke flow', () => {
     //  vmx-selected-year is absent → fresh Playwright context hits
     //  that page, not home.)
     await context.addInitScript(() => {
+      // Disable WebGL to prevent Firefox crash in headless mode
+      // (The XraySkull and Atlas will gracefully fallback to posters)
+      const originalGetContext = HTMLCanvasElement.prototype.getContext;
+      HTMLCanvasElement.prototype.getContext = function(type, ...args) {
+        if (type === 'webgl' || type === 'webgl2' || type === 'experimental-webgl') {
+          return null;
+        }
+        return originalGetContext.call(this, type, ...args);
+      };
+
       try {
         // Tests that exercise the real first-run experience opt out via
         // a query flag. All other tests keep the deterministic home seed.
