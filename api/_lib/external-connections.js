@@ -175,8 +175,6 @@ export function googleTokenRequest({ code, redirectUri, env = process.env }) {
     client_secret: clientSecret,
     redirect_uri: redirectUri,
     grant_type: 'authorization_code',
-    access_type: 'offline',
-    prompt: 'consent',
   });
   return {
     url: 'https://oauth2.googleapis.com/token',
