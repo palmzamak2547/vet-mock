@@ -201,6 +201,7 @@ export default function ExternalDocsSection({ user }) {
         ลิงก์ที่แชร์แบบทุกคนที่มีลิงก์เปิดได้เลย เอกสารส่วนตัวต้องเชื่อมบัญชีของคุณก่อน
       </p>
 
+      {/* Connection section temporarily disabled
       <section className="vmx-extdoc-connect" aria-label="เชื่อมต่อบัญชี">
         <p className="vmx-extdoc-connect-title">เชื่อมบัญชีของคุณ</p>
         {!user ? (
@@ -269,6 +270,7 @@ export default function ExternalDocsSection({ user }) {
           </>
         )}
       </section>
+      */}
 
       <form
         className="vmx-extdoc-form"
@@ -315,13 +317,9 @@ export default function ExternalDocsSection({ user }) {
           <div className="vmx-extdoc-meta">
             <span className="vmx-extdoc-provider">{providerLabel}</span>
             {sourceHref && (
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                <button type="button" className="vmx-btn vmx-btn-sm vmx-btn-ghost" onClick={() => importAsNote(doc.sourceUrl)}>+ ไฟล์โน๊ต</button>
-                <button type="button" className="vmx-btn vmx-btn-sm vmx-btn-ghost" onClick={() => importAsExam(doc.sourceUrl)}>+ ข้อสอบ</button>
-                <a className="vmx-extdoc-source" href={sourceHref} target="_blank" rel="noopener noreferrer">
-                  เปิดต้นฉบับ
-                </a>
-              </div>
+              <a className="vmx-extdoc-source" href={sourceHref} target="_blank" rel="noopener noreferrer">
+                เปิดต้นฉบับ
+              </a>
             )}
           </div>
           {doc.title && <h2 className="vmx-extdoc-doc-title">{doc.title}</h2>}
