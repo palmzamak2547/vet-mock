@@ -620,13 +620,8 @@ export default function App() {
     setTourStep(0);
     // Mirror HomeView's "ฝึก 1 ข้อด่วน": a single random untimed question from
     // the whole pool — the lowest-friction first touch with the product.
-    setMode('quick');
-    setSubject('all');
-    setTopic(null);
-    setPracticeMode('all');
-    setNumQuestions(1);
-    setUseTimer(false);
     startExam({
+      mode: 'quick',
       practiceMode: 'all',
       subject: 'all',
       topic: null,
@@ -677,6 +672,7 @@ export default function App() {
   // a stale/completed session; browser Back while still in an exam asks first.
   const setView = useCallback((next, navigationState = null) => {
     if (!next) return;
+    examStartRequestRef.current = null;
     if (next === viewRef.current) {
       // A palette result can carry a new subject/query even when its
       // destination is already open. Deliver it without remounting the view,
@@ -775,6 +771,7 @@ export default function App() {
       );
     } catch {}
     const onPopState = (event) => {
+      examStartRequestRef.current = null;
       // The restored URL names the article, not just the view. Reading only
       // `isWiki` to pick 'knowledge' threw the subject and topic away, so Back
       // out of an article landed on the index instead of the article — the page
@@ -881,6 +878,7 @@ export default function App() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const onHash = () => {
+      examStartRequestRef.current = null;
       if (window.location.hash === '#lab') {
         setView('lab');
         return;
@@ -1662,6 +1660,18 @@ export default function App() {
   // the tour's last button, the Home launchers, the palette and a glossary
   // card's related questions (from inside an exam, too) did not. Nothing
   // answered means nothing to lose, and then nobody is asked.
+  const examStartRequestRef = useRef(null);
+  const examStartContext = JSON.stringify([view, user?.id ?? null, authLoading, examSessionId,
+    selectedYear, selectedPhase, subject, topic, practiceMode, questionCategory, mode,
+    numQuestions, useTimer, timePerQ, panicPending]);
+  const examStartContextRef = useRef(examStartContext);
+  // Retire on every context change, including a change away and back while loading.
+  if (examStartContextRef.current !== examStartContext) {
+    examStartContextRef.current = examStartContext;
+    examStartRequestRef.current = null;
+  }
+  useEffect(() => () => { examStartRequestRef.current = null; }, []);
+
   const confirmReplaceUnfinished = async () => {
     let work = null;
     if (viewRef.current === 'exam') {
@@ -1684,16 +1694,14 @@ export default function App() {
   };
 
   const startExam = async (overrides = {}) => {
-    if (!(await confirmReplaceUnfinished())) return;
-    finishingRef.current = false; // arm the finish latch for a fresh session
-    // A new set replaces whatever was saved, so the resume card's numbers
-    // (captured once at boot) would otherwise describe a session that no
-    // longer exists — and its "ทำต่อ" button would find nothing to resume.
-    setPendingResume(null);
-    setSessionKind('normal');
-    // A friend's challenge is about the set their link opened. Carried into
-    // the next set, it compared an unrelated score with theirs.
-    setChallengeSender(null);
+    const ticket = { context: examStartContextRef.current, view: viewRef.current,
+      owner: eventContextRef.current?.owner ?? null, sessionId: eventContextRef.current?.sessionId };
+    examStartRequestRef.current = ticket;
+    const current = () => examStartRequestRef.current === ticket
+      && examStartContextRef.current === ticket.context && viewRef.current === ticket.view
+      && (eventContextRef.current?.owner ?? null) === ticket.owner
+      && eventContextRef.current?.sessionId === ticket.sessionId;
+    if (!(await confirmReplaceUnfinished()) || !current()) return;
     let _practiceMode = 'practiceMode' in overrides ? overrides.practiceMode : practiceMode;
     const _subject = 'subject' in overrides ? overrides.subject : subject;
     const _topic = 'topic' in overrides ? overrides.topic : topic;
@@ -1749,10 +1757,15 @@ export default function App() {
       try {
         if (needsFullRegistry) await loadQB();
         else await loadQBForYear(selectedYear);
+        if (!current()) return;
         setQbReady(true);
         setQbRevision((revision) => revision + 1);
       } catch {
-        if (await offerBankRetry()) return startExam(overrides);
+        if (!current()) return;
+        if (await offerBankRetry()) {
+          if (!current()) return;
+          return startExam(overrides);
+        }
         return;
       }
     }
@@ -1799,6 +1812,7 @@ export default function App() {
           confirmLabel: 'ทำซ้ำ',
           cancelLabel: 'ไว้ก่อน',
         });
+        if (!current()) return;
         if (again) {
           const { excludeIds: _drop, ...rest } = overrides;
           return startExam(rest);
@@ -1816,11 +1830,16 @@ export default function App() {
       if (!isQBFullyLoaded() && !overrides.__retriedFullLoad) {
         try {
           await loadQB();
+          if (!current()) return;
           setQbReady(true);
           setQbRevision((revision) => revision + 1);
           return startExam({ ...overrides, __retriedFullLoad: true });
         } catch {
-          if (await offerBankRetry()) return startExam(overrides);
+          if (!current()) return;
+          if (await offerBankRetry()) {
+            if (!current()) return;
+            return startExam(overrides);
+          }
           return;
         }
       }
@@ -1841,6 +1860,7 @@ export default function App() {
           confirmLabel: 'ฝึกทั้งวิชา',
           cancelLabel: 'ไว้ก่อน',
         });
+        if (!current()) return;
         if (goSubject) return startExam({ ...overrides, topic: null, __retriedFullLoad: true });
         return;
       }
@@ -1850,24 +1870,6 @@ export default function App() {
 
     const qCount = onlyIds ? pool.length : Math.max(1, _numQuestions);
     const baseTime = _useTimer ? Math.max(5, _timePerQ) : 0;
-
-    // The timer overrides have to reach the thing that actually ticks.
-    // useExamSession is constructed with the App-level useTimer/timePerQ, not
-    // with these locals, so an override only shortened the FIRST timeLeft and
-    // left the tick running on ambient state. "ฝึกจากหัวข้อนี้" in VetWiki
-    // passes useTimer:false, and useTimer defaults to true — so timeLeft
-    // started at 0 while the tick still believed it was timing, and the tick's
-    // time-up branch advanced past question one before it could be read.
-    // Syncing only when the caller actually overrode keeps a normal
-    // ConfigView run from touching the student's own setting.
-    if ('useTimer' in overrides) setUseTimer(_useTimer);
-    if ('timePerQ' in overrides) setTimePerQ(_timePerQ);
-    // Same for mode. VetWiki's "ฝึกจากหัวข้อนี้" asks for a quick practice,
-    // and this function read every other override key but never this one —
-    // so after a visit to โหมดสอบ (which sets mode to 'exam' and stays set
-    // until something resets it) the practice ran as a graded 50-question
-    // exam with no instant feedback and a pass/fail verdict.
-    if ('mode' in overrides) setMode(_mode);
 
     // A curated set keeps its order. 'weak' is built most-missed-first and
     // 'wrong' is sorted the same way below, and both screens that offer them
@@ -1886,7 +1888,14 @@ export default function App() {
       // Panic ranking is skipped — its paper-proximity order is a different
       // feature, and panicPending never survives leaving the config screen
       // for an ordinary run anyway.
-      const difficultyData = await loadQuestionDifficulty();
+      let difficultyData;
+      try {
+        difficultyData = await loadQuestionDifficulty();
+      } catch {
+        if (current()) alertDialog('ยังโหลดข้อมูลสำหรับชุดปรับระดับไม่สำเร็จ เลือก “สุ่มทั่วไป” เพื่อฝึกต่อ หรือโหลดหน้านี้ใหม่แล้วลองอีกครั้ง');
+        return;
+      }
+      if (!current()) return;
       const ability = computeAbility(history, difficultyData);
       picked = adaptiveSelect(pool, {
         ability,
@@ -1930,6 +1939,21 @@ export default function App() {
     // short answers 3 min minimum, MCQ/TF stay at the user's base setting
     const firstTime = picked[0] ? timeForQuestion(picked[0], baseTime) : baseTime;
 
+    if (!current()) return;
+    examStartRequestRef.current = null;
+    // Keep the current/parked set and its configuration until its replacement is ready.
+    finishingRef.current = false;
+    setPendingResume(null);
+    setSessionKind('normal');
+    setChallengeSender(null);
+    if ('subject' in overrides) setSubject(_subject);
+    if ('topic' in overrides) setTopic(_onlyTopics?.size === 1 ? [..._onlyTopics][0] : _topic);
+    if ('practiceMode' in overrides) setPracticeModeRaw(_practiceMode);
+    if ('numQuestions' in overrides) setNumQuestions(_numQuestions);
+    if ('useTimer' in overrides) setUseTimer(_useTimer);
+    if ('timePerQ' in overrides) setTimePerQ(_timePerQ);
+    if ('mode' in overrides) setMode(_mode);
+
     // useExamSession owns the runtime state shape; this single call
     // primes questions/answers/currentIdx/timeLeft/examStartTime in
     // one synchronous batch (was 5 inline setters pre-refactor).
@@ -1939,6 +1963,7 @@ export default function App() {
     // a set, before a single answer. That inflated the header counter and made
     // it disagree with HomeView's streak, which is derived from real answer
     // history. It now happens in finishExam, where practice actually happened.
+    return true;
   };
   startExamRef.current = startExam;
 
@@ -2586,12 +2611,7 @@ export default function App() {
   // empty pool.
   const startPanicSession = (timeKey = '30') => {
     const n = PANIC_SIZE[timeKey] || PANIC_SIZE['30'];
-    setMode('quick');
-    setSubject('all');
     startExam({
-      // Named here, not left to state: setMode above reaches the NEXT render,
-      // and startExam reads this one's. After สอบจริง 50 and a Back, that was
-      // still 'exam', and Panic ran on one clock for the whole set.
       mode: 'quick',
       subject: 'all',
       topic: null,
@@ -2639,15 +2659,7 @@ export default function App() {
   // to ask. A single deck keeps `topic` set so the results screen names it.
   const startLecturerPractice = ({ subjectId, topics, questionCategory: category, numQuestions: wanted, pastPaperOnly = false }) => {
     if (!subjectId || !Array.isArray(topics) || !topics.length) return;
-    const single = topics.length === 1 ? topics[0] : null;
-    setMode('quick');
-    setSubject(subjectId);
-    setTopic(single);
-    setPracticeMode('all');
     startExam({
-      // The same stale-mode trap as Panic: without it, a lecturer card opened
-      // after สอบจริง 50 and Back ran the whole set on one exam clock instead
-      // of 45 seconds per true/false item.
       mode: 'quick',
       subject: subjectId,
       // The pool comes from onlyTopics, not the single-topic branch: a

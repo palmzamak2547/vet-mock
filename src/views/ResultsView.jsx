@@ -640,13 +640,8 @@ function NextPlayPanel({
 
   const handleContinueMore = (n) => {
     if (!startExam) return;
-    setMode?.('quick');
-    setSubject?.(ctx.subj || 'all');
-    setTopic?.(ctx.topic || null);
-    setPracticeMode?.('all');
-    setNumQuestions?.(n);
-    setUseTimer?.(false);
     startExam({
+      mode: 'quick',
       practiceMode: 'all',
       subject: ctx.subj || 'all',
       topic: ctx.topic || null,

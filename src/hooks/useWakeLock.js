@@ -22,8 +22,11 @@ export function useWakeLock(active) {
     if (typeof navigator === 'undefined' || !('wakeLock' in navigator)) return;
 
     let cancelled = false;
+    let acquiring = false;
 
     const acquire = async () => {
+      if (cancelled || acquiring) return;
+      acquiring = true;
       try {
         const sentinel = await navigator.wakeLock.request('screen');
         if (cancelled) {
@@ -37,6 +40,8 @@ export function useWakeLock(active) {
       } catch (err) {
         // Common: page not active, permission policy denies, etc.
         // No-op — just means screen will time out normally.
+      } finally {
+        acquiring = false;
       }
     };
 

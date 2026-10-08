@@ -10,6 +10,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { parse } from '@babel/parser';
 import {
   keyAnswerLocked, answeredCount, resumedDeadline, practicePreset,
   leavesReader, srPoolQuestions, questionPinPayload, unfinishedWork, PARKED_MAX_AGE_MS,
@@ -19,6 +20,12 @@ import { isFlashcardCompatible } from '../../src/hooks/sr-filter.js';
 
 const read = (rel) => readFileSync(new URL(`../../${rel}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const APP = read('src/App.jsx');
+const appBody = parse(APP, { sourceType: 'module', plugins: ['jsx'] }).program.body
+  .find(node => node.type === 'ExportDefaultDeclaration').declaration.body.body;
+const startDeclaration = appBody.find(node => node.type === 'VariableDeclaration'
+  && node.declarations.some(item => item.id.name === 'startExam'));
+assert.ok(startDeclaration, 'startExam must remain findable in App');
+const START_EXAM = APP.slice(startDeclaration.start, startDeclaration.end);
 const SESSION = read('src/hooks/useExamSession.js');
 const HOME = read('src/views/HomeView.jsx');
 const EXAM = read('src/views/ExamView.jsx');
@@ -91,7 +98,7 @@ test('B07: a redo round is review: practice mode, no leaderboard row, flagged fo
   assert.match(APP, /replayQuestions: replayWrongRound, challengeSender, sessionKind,/, 'ResultsView redoes through the flagged round and is told the kind');
   assert.match(APP, /clock: session\.clockKind\(\),\s*\n\s*sessionKind,/, 'the parked record keeps the kind, so a resumed redo stays a redo');
   assert.match(APP, /setSessionKind\(saved\.sessionKind === 'redo' \? 'redo' : 'normal'\);/);
-  assert.match(block(APP, 'const startExam = async', 1600), /setSessionKind\('normal'\);/);
+  assert.match(START_EXAM, /setSessionKind\('normal'\);/);
   const results = read('src/views/ResultsView.jsx');
   assert.match(results, /if \(sessionKind !== 'redo' && allSameSubj && score\.total >= 5\) \{/,
     'a redo round must not write or announce a personal best');
@@ -164,10 +171,22 @@ test('B25/B63: starting a set asks before throwing away unfinished work', () => 
     'a set parked past the six-hour window is not offered back on Home, so it is nothing to ask about');
   assert.equal(unfinishedWork({ questions: [{}], answers: { 1: 0 }, savedAt: now - 60 * 60 * 1000 }, now)?.answered, 1);
   assert.equal(PARKED_MAX_AGE_MS, 6 * 60 * 60 * 1000);
-  const start = block(APP, 'const startExam = async', 900);
-  const askAt = start.indexOf('if (!(await confirmReplaceUnfinished())) return;');
+  const start = START_EXAM;
+  const askAt = start.indexOf('await confirmReplaceUnfinished()');
   assert.ok(askAt >= 0, 'startExam must ask first: the tour, Home launchers and the palette all start through it');
+  assert.match(start, /if \(!\(await confirmReplaceUnfinished\(\)\) \|\| !current\(\)\) return;/,
+    'both consent and the still-current request must survive the confirmation');
   assert.ok(askAt < start.indexOf('setPendingResume(null);'), 'ask before the resume card is dropped');
+  const selectionAt = start.indexOf('const firstTime = picked[0]');
+  const currentAt = start.indexOf('if (!current()) return;', selectionAt);
+  const sessionAt = start.indexOf('session.startNewSession(');
+  assert.ok(selectionAt > askAt && currentAt > selectionAt && sessionAt > currentAt,
+    'complete selection must pass the current-request check before starting the session');
+  for (const clear of ['setPendingResume(null);', "setSessionKind('normal');", 'setChallengeSender(null);']) {
+    const at = start.indexOf(clear);
+    assert.ok(at > currentAt && at < sessionAt, `${clear} belongs only to the successful start`);
+    assert.equal(start.indexOf(clear, at + clear.length), -1, `${clear} must not also run before selection succeeds`);
+  }
 });
 
 test('B25: the glossary related-questions listener starts through the current startExam', () => {
@@ -180,7 +199,7 @@ test('B25: the glossary related-questions listener starts through the current st
 
 // ── B64 ───────────────────────────────────────────────────────────────
 test('B64: a challenge belongs to the set the link started, not to the next one', () => {
-  assert.match(block(APP, 'const startExam = async', 1600), /setChallengeSender\(null\);/);
+  assert.match(START_EXAM, /setChallengeSender\(null\);/);
   assert.match(block(APP, 'const replayQuestions = useCallback', 3200), /setChallengeSender\(null\);/);
 });
 

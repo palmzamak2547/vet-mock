@@ -437,14 +437,14 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
     // start). replayQuestions sets state in one shot, view='exam', no
     // batching gap. Side-effect: still call setMode/setSubject/etc.
     // so downstream resume + analytics see consistent state.
-    if (setMode) setMode('quick');
-    if (setSubject) setSubject('all');
-    if (setTopic) setTopic(null);
-    if (setPracticeMode) setPracticeMode('all');
-    if (setNumQuestions) setNumQuestions(1);
-    if (setUseTimer) setUseTimer(false);
     const cachedQ = prefetchedRandomQRef.current;
     if (cachedQ && typeof replayQuestions === 'function') {
+      if (setMode) setMode('quick');
+      if (setSubject) setSubject('all');
+      if (setTopic) setTopic(null);
+      if (setPracticeMode) setPracticeMode('all');
+      if (setNumQuestions) setNumQuestions(1);
+      if (setUseTimer) setUseTimer(false);
       prefetchedRandomQRef.current = null; // consume; next idle re-pick
       replayQuestions([cachedQ]);
       return;
@@ -452,6 +452,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
     // Fallback: original startExam pool-assembly path.
     if (startExam) {
       startExam({
+        mode: 'quick',
         practiceMode: 'all',
         subject: 'all',
         topic: null,
@@ -562,14 +563,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   const launchWrongReview = (requestedCount) => {
     if (quickStats.wrongCount === 0) return;
     const n = Math.min(quickStats.wrongCount, Number.isInteger(requestedCount) ? requestedCount : 50);
-    if (setMode) setMode('quick');
-    if (setSubject) setSubject('all');
-    if (setTopic) setTopic(null);
-    if (setPracticeMode) setPracticeMode('wrong');
-    if (setNumQuestions) setNumQuestions(n);
-    if (setUseTimer) setUseTimer(false);
     if (startExam) {
       startExam({
+        mode: 'quick',
         practiceMode: 'wrong',
         subject: 'all',
         topic: null,
@@ -586,14 +582,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
     if (count === 0 || quickActionPending) return;
     setQuickActionPending(true);
     const n = Math.min(count, 50);
-    if (setMode) setMode('quick');
-    if (setSubject) setSubject('all');
-    if (setTopic) setTopic(null);
-    if (setPracticeMode) setPracticeMode(mode);
-    if (setNumQuestions) setNumQuestions(n);
-    if (setUseTimer) setUseTimer(false);
     if (startExam) {
       startExam({
+        mode: 'quick',
         practiceMode: mode,
         subject: 'all',
         topic: null,

@@ -128,7 +128,7 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
   useEffect(() => {
     const onChange = () => setDecks(loadDecks());
     const onStorage = (e) => {
-      if (e.key === null || e.key === 'vmx-image-occlusion-decks') onChange();
+      if (e.key === null || e.key === 'vmx-image-occlusion-decks' || e.key === 'vmx-local-extras-v1') onChange();
     };
     window.addEventListener(IMAGE_OCCLUSION_EVENT, onChange);
     window.addEventListener('storage', onStorage);

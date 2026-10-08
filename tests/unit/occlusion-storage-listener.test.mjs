@@ -21,6 +21,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import { loadDecks } from '../../src/lib/image-occlusion.js';
 
 const SRC = readFileSync(join(resolve(process.cwd()), 'src/views/ImageOcclusionView.jsx'), 'utf8');
 const DECK_KEY = 'vmx-image-occlusion-decks';
@@ -79,6 +80,32 @@ test('while mounted, a deck-store change in another tab reloads the decks', () =
   assert.equal(loads, 2, 'an unrelated key must not reload');
   win.dispatch(EVENT, {});
   assert.equal(loads, 3, 'the in-tab change event must still reload');
+});
+
+test('a bundle restore in another tab refreshes the open list after invalidating its cached data', () => {
+  const win = fakeWindow(), values = new Map();
+  const previousWindow = globalThis.window;
+  win.localStorage = { getItem: key => values.get(key) ?? null };
+  globalThis.window = win;
+  const deck = name => ({ id: 80000, name, masks: [], imageDataUrl: 'data:image/png;base64,AAAA', createdAt: 1 });
+  values.set(DECK_KEY, JSON.stringify([deck('Original image')]));
+  try {
+    // The initial render installs local-extras' cache invalidator before the view effect.
+    let shown = loadDecks(), updates = 0;
+    const cleanup = storeEffect()(win, next => { shown = next; updates++; }, loadDecks, EVENT);
+    values.set('vmx-local-extras-v1', JSON.stringify({ [DECK_KEY]: [deck('Restored image')] }));
+    win.dispatch('storage', { key: 'vmx-local-extras-v1' });
+    assert.equal(shown[0].name, 'Restored image', 'opening a stale card could overwrite the restored image');
+    assert.equal(updates, 1);
+    win.dispatch('storage', { key: 'unrelated-preference' });
+    assert.equal(updates, 1);
+    cleanup();
+    win.dispatch('storage', { key: 'vmx-local-extras-v1' });
+    assert.equal(updates, 1, 'leaving the view must remove its bundle listener too');
+  } finally {
+    if (previousWindow === undefined) delete globalThis.window;
+    else globalThis.window = previousWindow;
+  }
 });
 
 test('leaving the view removes the storage listener, not just the in-tab one', () => {

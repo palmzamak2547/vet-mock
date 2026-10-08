@@ -16,7 +16,7 @@
 // does not export them and belongs to the sync package.
 // ============================================================
 
-const USER_DATA_PREFIXES = ['vmx-user-data-v1:', 'vmx-user-sync-v1:', 'vmx-user-data-v2:'];
+const USER_DATA_PREFIXES = ['vmx-user-data-v1:', 'vmx-user-sync-v1:', 'vmx-user-data-v2:', 'vmx-external-docs-v2:'];
 const OPERATION_PREFIXES = ['vmx-user-op-v1:', 'vmx-user-intent-v2:'];
 const LEGACY_INFLIGHT = 'vmx-inflight-exam';
 

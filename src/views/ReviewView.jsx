@@ -192,13 +192,15 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
   const sentinelRef = useRef(null);
   // Reset on filter change so the user always sees from the top
   useEffect(() => { setVisibleCount(PAGE); }, [filter]);
+  // Resetting an equal-size filter replaces the sentinel; each page must re-arm it.
   useEffect(() => {
     const node = sentinelRef.current;
-    if (!node || typeof IntersectionObserver === 'undefined') {
+    if (typeof IntersectionObserver === 'undefined') {
       // Fallback: just show everything (older browsers)
       setVisibleCount(filtered.length);
       return;
     }
+    if (!node) return;
     const obs = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) {
         setVisibleCount((c) => Math.min(c + PAGE, filtered.length));
@@ -206,7 +208,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
     }, { rootMargin: '600px 0px' });
     obs.observe(node);
     return () => obs.disconnect();
-  }, [filtered.length]);
+  }, [filtered.length, visibleCount]);
   const visible = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
 
   const tabs = [

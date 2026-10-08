@@ -231,6 +231,7 @@ async function restFetch(path, { method = 'GET', body, url, key, fetch = globalT
       Authorization: `Bearer ${key}`,
       'Content-Type': 'application/json',
       ...(method === 'POST' ? { Prefer: 'resolution=merge-duplicates,return=minimal' } : {}),
+      ...(method === 'PATCH' ? { Prefer: 'return=representation' } : {}),
     },
     body: body === undefined ? undefined : JSON.stringify(body),
     signal: AbortSignal.timeout(IO_TIMEOUT_MS),
@@ -264,7 +265,7 @@ export async function getConnection({ userId, provider }, deps = {}) {
   if (!url || !key) return null;
   try {
     const res = await restFetch(
-      `/rest/v1/external_connections?user_id=eq.${encodeURIComponent(userId)}&provider=eq.${encodeURIComponent(provider)}&select=provider,account_label,scope,access_token,refresh_token,expires_at`,
+      `/rest/v1/external_connections?user_id=eq.${encodeURIComponent(userId)}&provider=eq.${encodeURIComponent(provider)}&select=user_id,provider,account_label,scope,access_token,refresh_token,expires_at`,
       { url, key, fetch },
     );
     if (!res.ok) return null;
@@ -277,17 +278,17 @@ export async function getConnection({ userId, provider }, deps = {}) {
 
 export async function listConnections({ userId }, deps = {}) {
   const { url, key, fetch = globalThis.fetch } = { ...supabaseEnv(), ...deps };
-  if (!url || !key) return [];
+  if (!url || !key) return null;
   try {
     const res = await restFetch(
       `/rest/v1/external_connections?user_id=eq.${encodeURIComponent(userId)}&select=provider,account_label,scope,expires_at&order=provider.asc`,
       { url, key, fetch },
     );
-    if (!res.ok) return [];
+    if (!res.ok) return null;
     const rows = await res.json().catch(() => null);
-    return (Array.isArray(rows) ? rows : []).map(sanitizeConnection).filter(Boolean);
+    return Array.isArray(rows) ? rows.map(sanitizeConnection).filter(Boolean) : null;
   } catch {
-    return [];
+    return null;
   }
 }
 
@@ -324,12 +325,12 @@ export async function deleteConnection({ userId, provider }, deps = {}) {
 
 /**
  * A Google connection whose access token has aged out is refreshed once.
- * The row is updated first-best-effort; a failed write still answers the
- * fresh token for this request (the next consent re-issues one anyway).
+ * Only the connection we read may receive the refreshed token. A concurrent
+ * disconnect or reconnect must not be undone by an older refresh.
  */
 export async function refreshGoogleAccess(row, deps = {}) {
   const { env = process.env, ...rest } = deps;
-  if (!row?.refresh_token) return null;
+  if (!row?.user_id || !row?.refresh_token || !row?.access_token) return null;
   const req = googleRefreshRequest({ refreshToken: row.refresh_token, env });
   const fetch = rest.fetch || globalThis.fetch;
   try {
@@ -343,15 +344,22 @@ export async function refreshGoogleAccess(row, deps = {}) {
     const data = await res.json().catch(() => null);
     if (!data?.access_token) return null;
     const expiresAt = data.expires_in ? new Date(Date.now() + data.expires_in * 1000).toISOString() : null;
-    await upsertConnection({
-      user_id: row.user_id,
-      provider: 'google',
-      account_label: row.account_label,
-      scope: row.scope,
-      access_token: data.access_token,
-      refresh_token: data.refresh_token || row.refresh_token,
-      expires_at: expiresAt,
-    }, rest);
+    const { url, key } = { ...supabaseEnv(), ...rest };
+    const saved = await restFetch(
+      `/rest/v1/external_connections?user_id=eq.${encodeURIComponent(row.user_id)}&provider=eq.google&access_token=eq.${encodeURIComponent(JSON.stringify(row.access_token))}&refresh_token=eq.${encodeURIComponent(JSON.stringify(row.refresh_token))}&select=user_id`,
+      { url, key, fetch, method: 'PATCH', body: {
+        access_token: data.access_token, refresh_token: data.refresh_token || row.refresh_token, expires_at: expiresAt,
+      } },
+    );
+    if (!saved.ok) return null;
+    const updated = await saved.json().catch(() => null);
+    if (Array.isArray(updated) && updated.length === 0) {
+      const current = await getConnection({ userId: row.user_id, provider: 'google' }, rest);
+      return current?.user_id === row.user_id && current.provider === 'google' && current.refresh_token === row.refresh_token
+        && current.access_token && Date.parse(current.expires_at) > Date.now() + 30_000
+        ? { accessToken: current.access_token } : null;
+    }
+    if (!Array.isArray(updated) || updated.length !== 1 || updated[0].user_id !== row.user_id) return null;
     return { accessToken: data.access_token };
   } catch {
     return null;

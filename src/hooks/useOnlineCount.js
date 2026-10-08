@@ -36,6 +36,7 @@ export function useOnlineCount() {
     let channel = null;
     let cancelled = false;
     let retries = 0;
+    let retryTimer;
 
     const start = async () => {
       // ── Defer SDK load so it doesn't block initial paint ──
@@ -60,20 +61,22 @@ export function useOnlineCount() {
       // Random anon ID per tab (regenerated on refresh — that's OK for a counter)
       const id = `anon-${Math.random().toString(36).slice(2, 10)}-${Date.now()}`;
 
-      channel = supabase.channel(CHANNEL_NAME, {
+      const joined = supabase.channel(CHANNEL_NAME, {
         config: { presence: { key: id } },
       });
+      channel = joined;
 
-      channel
+      joined
         .on('presence', { event: 'sync' }, () => {
-          if (cancelled || !channel) return;
-          const state = channel.presenceState();
+          if (cancelled || channel !== joined) return;
+          const state = joined.presenceState();
           setCount(Object.keys(state).length);
         })
         .subscribe(async (subStatus) => {
-          if (cancelled) return;
+          if (cancelled || channel !== joined) return;
           if (subStatus === 'SUBSCRIBED') {
-            await channel.track({ online_at: new Date().toISOString() });
+            await joined.track({ online_at: new Date().toISOString() });
+            if (cancelled || channel !== joined) return;
             setStatus('connected');
           } else if (subStatus === 'CHANNEL_ERROR' || subStatus === 'TIMED_OUT') {
             setStatus('error');
@@ -84,7 +87,7 @@ export function useOnlineCount() {
               retries += 1;
               const old = channel; channel = null;
               try { old?.unsubscribe(); } catch {}
-              setTimeout(() => { if (!cancelled) start(); }, 8000);
+              retryTimer = setTimeout(() => { if (!cancelled) start(); }, 8000);
             }
           }
         });
@@ -94,6 +97,7 @@ export function useOnlineCount() {
 
     return () => {
       cancelled = true;
+      clearTimeout(retryTimer);
       if (channel) {
         try {
           channel.unsubscribe();

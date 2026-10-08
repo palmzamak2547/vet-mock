@@ -11,9 +11,9 @@
 //      and every fetch re-checks where it LANDED: a Google answer is read
 //      only from docs.google.com, a Notion answer only from api.notion.com.
 //      Anything else and the body is never read.
-//   2. Public only — this endpoint holds no per-user Google OAuth, so a
-//      link must be shared "anyone with the link" (Notion additionally
-//      needs the page shared with the integration behind NOTION_TOKEN).
+//   2. Connected documents use only the request owner's OAuth connection.
+//      Otherwise a link must be shared "anyone with the link" (Notion
+//      additionally needs the page shared with NOTION_TOKEN).
 //      A login page or 4xx upstream answers 422 not_public, never a
 //      partial render.
 //   3. Size — an upstream answer that cannot fit the reader is refused
@@ -148,12 +148,43 @@ function notionTitleFromPage(page) {
  * the public path try", which keeps a public doc readable even when the
  * connection hiccups.
  */
-async function fetchConnectedGoogle(id, kind, row) {
+async function fetchConnectedGoogle(target, row) {
+  const { id, provider: kind } = target;
   let token = row.access_token;
   if (googleTokenStale(row)) {
     const refreshed = await refreshGoogleAccess(row);
     if (!refreshed) return null;
     token = refreshed.accessToken;
+  }
+  const gid = kind === 'gsheets' ? new URL(target.exportUrls[0]).searchParams.get('gid') : null;
+  if (gid !== null) {
+    // Drive CSV export always reads the first tab; resolve the linked tab by id.
+    if (!/^\d+$/.test(gid) || !Number.isSafeInteger(Number(gid))) return null;
+    try {
+      const base = `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(id)}`;
+      const headers = { Authorization: `Bearer ${token}` };
+      const meta = await fetch(`${base}?fields=properties(title),sheets(properties(sheetId,title))`, {
+        headers, signal: AbortSignal.timeout(TIMEOUT_MS), redirect: 'error',
+      });
+      if (!meta.ok) return null;
+      const data = await meta.json().catch(() => null);
+      const sheet = data?.sheets?.find(s => s?.properties?.sheetId === Number(gid))?.properties;
+      if (typeof sheet?.title !== 'string') return null;
+      const range = `'${sheet.title.replace(/'/g, "''")}'`;
+      const values = await fetch(`${base}/values/${encodeURIComponent(range)}?majorDimension=ROWS`, {
+        headers, signal: AbortSignal.timeout(TIMEOUT_MS), redirect: 'error',
+      });
+      if (!values.ok) return null;
+      const raw = await values.text();
+      if (raw.length > MAX_UPSTREAM_BYTES) return null;
+      const cells = JSON.parse(raw).values || [];
+      if (!Array.isArray(cells) || cells.some(r => !Array.isArray(r) || r.some(c => !['string', 'number', 'boolean'].includes(typeof c)))) return null;
+      const text = cells.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+      return { text, title: typeof data.properties?.title === 'string' ? data.properties.title.slice(0, 200) : sheet.title };
+    } catch (err) {
+      if (err?.name === 'TimeoutError' || err?.name === 'AbortError') throw err;
+      return null;
+    }
   }
   const mimeType = kind === 'gsheets' ? 'text/csv' : 'text/markdown';
   let resp;
@@ -269,7 +300,7 @@ export default async function handler(req, res) {
   }
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     return res.status(204).end();
   }
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -296,14 +327,14 @@ export default async function handler(req, res) {
     // is skipped entirely: one student's private doc must never be served
     // to another from a shared key.
     const userId = await getUserFromRequest(req);
-    const connection = userId ? await getConnection({ userId, provider: target.provider }) : null;
+    const connection = userId ? await getConnection({ userId, provider: target.provider === 'notion' ? 'notion' : 'google' }) : null;
 
     if (connection?.access_token) {
       let markdown = null;
       let title = null;
       try {
         if (target.provider === 'gdocs' || target.provider === 'gsheets') {
-          const result = await fetchConnectedGoogle(target.id, target.provider, connection);
+          const result = await fetchConnectedGoogle(target, connection);
           if (result) {
             markdown = target.provider === 'gsheets' ? csvToMarkdownTable(result.text) : result.text;
             title = result.title;
@@ -317,7 +348,7 @@ export default async function handler(req, res) {
         }
       } catch (err) {
         if (err?.name === 'TimeoutError' || err?.name === 'AbortError') {
-          return res.status(504).json({ error: 'Upstream request timed out' });
+          return res.status(504).json({ error: 'Upstream request timed out', reason: 'timeout' });
         }
         throw err;
       }
@@ -386,7 +417,7 @@ export default async function handler(req, res) {
           if (result) markdown = result.text;
         } catch (err) {
           if (err?.name === 'TimeoutError' || err?.name === 'AbortError') {
-            return res.status(504).json({ error: 'Upstream request timed out' });
+            return res.status(504).json({ error: 'Upstream request timed out', reason: 'timeout' });
           }
           throw err;
         }
@@ -398,7 +429,7 @@ export default async function handler(req, res) {
             result = await fetchText(url);
           } catch (err) {
             if (err?.name === 'TimeoutError' || err?.name === 'AbortError') {
-              return res.status(504).json({ error: 'Upstream request timed out' });
+              return res.status(504).json({ error: 'Upstream request timed out', reason: 'timeout' });
             }
             throw err;
           }
@@ -416,7 +447,7 @@ export default async function handler(req, res) {
         // not reachable without being signed in to its owner account.
         return res.status(422).json({
           error: 'The document is not publicly readable',
-          reason: 'not_public',
+          reason: connection && target.provider === 'gsheets' && new URL(target.exportUrls[0]).searchParams.has('gid') ? 'sheet_unavailable' : 'not_public',
           ...(upstreamStatus && upstreamStatus !== 200 ? { status: upstreamStatus } : {}),
           ...(upstreamBlocked && !upstreamStatus ? { hint: 'The link answered a sign-in page.' } : {}),
         });
@@ -441,7 +472,7 @@ export default async function handler(req, res) {
 
   } catch (err) {
     if (err?.name === 'AbortError' || err?.name === 'TimeoutError') {
-      return res.status(504).json({ error: 'Upstream request timed out' });
+      return res.status(504).json({ error: 'Upstream request timed out', reason: 'timeout' });
     }
     if (/invalid json/i.test(String(err?.message || ''))) {
       return res.status(400).json({ error: 'Invalid JSON body' });

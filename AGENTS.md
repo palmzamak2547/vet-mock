@@ -1,12 +1,16 @@
 # AGENTS.md — VetMock Project Guide
 
-## Study polish candidate — 2026-10-08 (Codex)
+## System stability candidate — 2026-10-09 (Codex)
 
-- Isolated `codex/polish-1008`, refreshed from `63c16f36` to main `35e25c53`; candidate 5.141.5 / SW216 is not released. Latest adaptive-review/external-document work, primary edits and the active Research M3 lane are preserved.
-- Confirmed search input/topic/show-more defects, obscured nested reader notices, WebKit pointer focus return, pre-ready landing GPU work and abandoned backend downloads are fixed in the candidate. Shared focus tracking retains keyboard/explicit-return behavior. Native Node Web Streams/pipeline cancels abandoned requests without new dependencies.
-- Evidence in `work/polish-20261008/`: final data/unit52/52, fresh build/prerenders, modeled changed/adjacent browser48/48 across4profiles with0retries, native HTTP4/4. Earlier contrast3 passed; full Windows gate remains incomplete and every original failure is retained. Admin outage/retry and partial-bank recovery are modeled, not live admin/RLS proof. No provider/schema/auth configuration changes.
-- Study origin is `https://vetmock.com`; production tests and current host guidance use that origin. Historical receipts retain their original URLs. This candidate is not production proof. Next: exact-head Linux Build/Smoke and database checks, then review/release under existing authorization. Eight moderate Imaging dependency advisories and physical-IME/provider limits remain.
+- Isolated `codex/system-stability-1009`, base main `14a62d02`; candidate Study5.141.6/SW217 is not released. Primary dirty work and Research M3a are preserved. Root is sole release owner; shared claim remains primary `work/loop-20260930/COORDINATION.md`.
+- Confirmed fixes cover retired exam-start intent, equal-size review pagination, repeated offline PDF deletion, cross-tab restored image decks, duplicate wake locks/realtime retries, and external-document account isolation, connection recovery, Google provider/token renewal and selected-sheet reads. Existing controls/imports/normal learning paths remain required checks.
+- Evidence and current status: `work/system-20261009/CHECKPOINT.md`; portable scope: `docs/system-audit-2026-10-09.md`. Focused failure regressions, data/unit52/52, production build, contrast3 and configured native40/40 across4profiles with0retries pass. Windows full gate stopped before browsers on its retained preview port; exact Linux CI and production proof remain pending. External provider/account traffic is modeled; no real OAuth, schema or provider-configuration mutation is claimed.
+- Own locked dependencies installed; audit high0/critical0/moderate8 in the existing Imaging chain. The upstream sprintf advisory has no patched version; do not claim dependency zero or replace the Imaging major version without its own verification.
 
+## Previous study polish — released 2026-10-08 (Codex)
+
+- PR35/main `14a62d029dd5af40902751cf9892cc49dbdbed00`, Study5.141.5/SW216, exact Build/Smoke pass and READY Vercel `dpl_3DsTPoVbSgyycUnt4QzbBEMwRCmw` with all five aliases; rechecked 2026-10-09. Previous changed public flows48/48 across4profiles passed with0retries.
+- Receipt in retained `vetmock-polish-1008/vet-mock`, `work/polish-20261008/RELEASE.md`. Windows full-gate and original Firefox failures remain retained; no permanent-cause or zero-flake claim. Study origin is `https://vetmock.com`; old host keeps its migration relay.
 Read this guide before changing VetMock. The portable current architecture map
 is [docs/PROJECT_KNOWLEDGE_BASE.md](docs/PROJECT_KNOWLEDGE_BASE.md); dated release
 proof and remaining work live in [docs/LAUNCH_READINESS.md](docs/LAUNCH_READINESS.md).

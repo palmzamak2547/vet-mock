@@ -16,7 +16,7 @@
 // The view says what each path needs instead of showing a broken render.
 // ============================================================
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { renderMarkdown } from '../lib/markdown-render.js';
 import { safeLinkUrl } from '../lib/safe-url.js';
 import {
@@ -43,66 +43,96 @@ function readCallbackIntent() {
 }
 
 export default function ExternalDocsSection({ user }) {
+  const ownerId = user?.id || null;
   const [url, setUrl] = useState('');
   const [status, setStatus] = useState('idle'); // idle | loading | ready | error
   const [doc, setDoc] = useState(null);
   const [error, setError] = useState('');
-  const [recents, setRecents] = useState(() => loadRecentExternalDocs());
+  const [recents, setRecents] = useState(() => loadRecentExternalDocs(ownerId));
   const [connections, setConnections] = useState([]);
+  const [connectionsLoading, setConnectionsLoading] = useState(false);
+  const [connectionError, setConnectionError] = useState('');
   const [connectBusy, setConnectBusy] = useState('');
   const [providerFiles, setProviderFiles] = useState({});
   const [loadingFiles, setLoadingFiles] = useState({});
+  const [fileErrors, setFileErrors] = useState({});
   const [notice, setNotice] = useState('');
 
   // One request in flight at a time: an older answer never lands after a
   // newer paste, and unmounting cancels what is still running.
   const requestRef = useRef(0);
   const abortRef = useRef(null);
-  useEffect(() => () => abortRef.current?.abort(), []);
+  const scopeRef = useRef(null);
 
   // The OAuth callback lands here with its outcome in the query string.
   // Read it once, say it once, strip the URL — a refresh should not
   // re-announce a finished flow.
   const callbackIntentRef = useRef(readCallbackIntent());
+
+  const loadFiles = useCallback(async (provider, scope) => {
+    const version = scope.version;
+    setLoadingFiles(prev => ({ ...prev, [provider]: true }));
+    setFileErrors(prev => ({ ...prev, [provider]: '' }));
+    const result = await listExternalFiles(provider, { ownerId: scope.ownerId, signal: scope.controller.signal });
+    if (!scope.active || version !== scope.version) return;
+    setLoadingFiles(prev => ({ ...prev, [provider]: false }));
+    if (result.ok) setProviderFiles(prev => ({ ...prev, [provider]: result.files }));
+    else setFileErrors(prev => ({ ...prev, [provider]: result.error }));
+  }, []);
+
+  const refreshConnections = useCallback(async (scope) => {
+    if (!scope?.active || !scope.ownerId) return;
+    const version = ++scope.statusVersion;
+    setConnectionsLoading(true);
+    setConnectionError('');
+    const result = await fetchExternalConnections({ ownerId: scope.ownerId, signal: scope.controller.signal });
+    if (!scope.active || version !== scope.statusVersion) return;
+    setConnectionsLoading(false);
+    if (!result.ok) { setConnectionError(result.error); return; }
+    ++scope.version;
+    setConnections(result.connections);
+    setProviderFiles({});
+    setLoadingFiles({});
+    setFileErrors({});
+    await Promise.all(result.connections.map(conn => loadFiles(conn.provider, scope)));
+  }, [loadFiles]);
+
+  useLayoutEffect(() => {
+    const scope = { ownerId, active: true, version: 0, statusVersion: 0, busy: false, controller: new AbortController() };
+    scopeRef.current = scope;
+    setUrl(''); setStatus('idle'); setDoc(null); setError(''); setNotice('');
+    setRecents(loadRecentExternalDocs(ownerId));
+    setConnections([]); setProviderFiles({}); setLoadingFiles({}); setFileErrors({});
+    setConnectionError(''); setConnectionsLoading(false); setConnectBusy('');
+    refreshConnections(scope);
+    return () => {
+      scope.active = false;
+      scope.controller.abort();
+      ++requestRef.current;
+      abortRef.current?.abort();
+    };
+  }, [ownerId, refreshConnections]);
+
   useEffect(() => {
     const intent = callbackIntentRef.current;
     if (!intent) return;
-    if (intent.connected) {
-      setNotice(`เชื่อมต่อ${CONNECT_PROVIDER_LABELS[intent.connected] || ''}สำเร็จแล้ว`);
+    if (intent.connected && Object.hasOwn(CONNECT_PROVIDER_LABELS, intent.connected)) {
+      setNotice(`เชื่อมต่อ${CONNECT_PROVIDER_LABELS[intent.connected]}สำเร็จแล้ว`);
     } else if (intent.connectError) {
       setError(connectMessageFor(intent.connectError));
       setStatus('error');
     }
     if (typeof window !== 'undefined' && window.history?.replaceState) {
-      window.history.replaceState(window.history.state, '', window.location.pathname);
+      const next = new URL(window.location.href);
+      next.searchParams.delete('connected');
+      next.searchParams.delete('connect_error');
+      window.history.replaceState(window.history.state, '', next);
     }
   }, []);
-
-  const refreshConnections = useCallback(async (signedIn) => {
-    if (!signedIn) {
-      setConnections([]);
-      setProviderFiles({});
-      return;
-    }
-    const result = await fetchExternalConnections();
-    if (result.ok) {
-      setConnections(result.connections);
-      for (const conn of result.connections) {
-        setLoadingFiles(prev => ({ ...prev, [conn.provider]: true }));
-        const filesRes = await listExternalFiles(conn.provider);
-        setLoadingFiles(prev => ({ ...prev, [conn.provider]: false }));
-        if (filesRes.ok) {
-          setProviderFiles(prev => ({ ...prev, [conn.provider]: filesRes.files }));
-        }
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    refreshConnections(Boolean(user));
-  }, [user, refreshConnections]);
 
   const open = useCallback(async (raw) => {
+    const scope = scopeRef.current;
+    if (!scope?.active) return;
     const target = String(raw || '').trim();
     if (!target) {
       setStatus('error');
@@ -116,8 +146,8 @@ export default function ExternalDocsSection({ user }) {
     setStatus('loading');
     setError('');
     setDoc(null);
-    const result = await fetchExternalDoc(target, { signal: controller.signal });
-    if (id !== requestRef.current || result.aborted) return;
+    const result = await fetchExternalDoc(target, { ownerId: scope.ownerId, signal: controller.signal });
+    if (!scope.active || id !== requestRef.current || result.aborted) return;
     if (!result.ok) {
       setStatus('error');
       setError(result.error);
@@ -129,41 +159,50 @@ export default function ExternalDocsSection({ user }) {
       url: result.doc.sourceUrl || target,
       provider: result.doc.provider,
       title: result.doc.title || '',
-    }));
+    }, scope.ownerId));
   }, []);
 
   const connect = useCallback(async (provider) => {
+    const scope = scopeRef.current;
+    if (!scope?.active || scope.busy) return;
+    scope.busy = true;
     setConnectBusy(provider);
-    setError('');
+    setConnectionError('');
     setNotice('');
-    const result = await startExternalConnection(provider);
+    const result = await startExternalConnection(provider, { ownerId: scope.ownerId, signal: scope.controller.signal });
+    if (!scope.active) return;
+    scope.busy = false;
     setConnectBusy('');
     if (!result.ok) {
-      setError(result.error);
+      setConnectionError(result.error);
       return;
     }
     if (typeof window !== 'undefined') window.location.assign(result.url);
   }, []);
 
   const disconnect = useCallback(async (provider) => {
+    const scope = scopeRef.current;
+    if (!scope?.active || scope.busy) return;
+    scope.busy = true;
     setConnectBusy(provider);
-    const result = await disconnectExternalConnection(provider);
+    setConnectionError('');
+    setNotice('');
+    const result = await disconnectExternalConnection(provider, { ownerId: scope.ownerId, signal: scope.controller.signal });
+    if (!scope.active) return;
+    scope.busy = false;
     setConnectBusy('');
     if (!result.ok) {
-      setError(result.error);
+      setConnectionError(result.error);
       return;
     }
     setNotice(`ยกเลิกการเชื่อมต่อ${CONNECT_PROVIDER_LABELS[provider] || ''}แล้ว`);
-    await refreshConnections(Boolean(user));
-  }, [user, refreshConnections]);
-
-  
-  const importAsNote = (url) => {
-    alert('เพิ่มลิงก์นี้เป็นไฟล์โน๊ตแล้ว (รอกำหนดในอัปเดตถัดไป): ' + url);
-  };
-  const importAsExam = (url) => {
-    alert('เพิ่มลิงก์นี้เป็นข้อสอบแล้ว (รอกำหนดในอัปเดตถัดไป): ' + url);
-  };
+    ++requestRef.current;
+    abortRef.current?.abort();
+    setDoc(null); setStatus('idle'); setError('');
+    setConnections(prev => prev.filter(conn => conn.provider !== provider));
+    setProviderFiles(prev => ({ ...prev, [provider]: [] }));
+    await refreshConnections(scope);
+  }, [refreshConnections]);
 
   const providerLabel = doc ? (PROVIDER_LABELS[doc.provider] || 'ลิงก์') : '';
   const sourceHref = doc ? safeLinkUrl(doc.sourceUrl) : null;
@@ -172,20 +211,25 @@ export default function ExternalDocsSection({ user }) {
   
   const renderFiles = (provider) => {
     if (loadingFiles[provider]) return <div className="vmx-extdoc-connect-hint" style={{marginTop: 8}}>กำลังโหลดไฟล์...</div>;
+    if (fileErrors[provider]) return (
+      <div className="vmx-extdoc-error" role="alert">
+        {fileErrors[provider]}{' '}
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => loadFiles(provider, scopeRef.current)}>ลองโหลดไฟล์อีกครั้ง</button>
+      </div>
+    );
     const files = providerFiles[provider] || [];
-    if (files.length === 0) return null;
+    if (files.length === 0) return <p className="vmx-extdoc-connect-hint">ไม่พบเอกสารที่บัญชีนี้เปิดได้</p>;
     return (
       <div style={{ marginTop: 12, borderTop: '1px solid var(--clr-border)', paddingTop: 12 }}>
-        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>ไฟล์ของคุณ</div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--clr-ink-soft)', marginBottom: 8 }}>เอกสารล่าสุดที่เปิดได้ (สูงสุด 20 รายการ)</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {files.map(f => (
             <div key={f.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 6 }}>
               <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 14 }}>
-                <a href={f.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ink)', textDecoration: 'none' }}>{f.title}</a>
+                <a href={safeLinkUrl(f.url) || undefined} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ink)', textDecoration: 'none' }}>{f.title}</a>
               </div>
               <div style={{ display: 'flex', gap: 6, flexShrink: 0 }}>
-                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => importAsNote(f.url)}>+ โน๊ต</button>
-                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => importAsExam(f.url)}>+ ข้อสอบ</button>
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setUrl(f.url); open(f.url); }}>เปิดอ่าน</button>
               </div>
             </div>
           ))}
@@ -218,7 +262,7 @@ export default function ExternalDocsSection({ user }) {
                 <button
                   type="button"
                   className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-                  disabled={connectBusy === 'google'}
+                  disabled={!!connectBusy || connectionsLoading}
                   onClick={() => disconnect('google')}
                 >
                   ยกเลิกการเชื่อมต่อ
@@ -227,7 +271,7 @@ export default function ExternalDocsSection({ user }) {
                 <button
                   type="button"
                   className="vmx-btn vmx-btn-sm"
-                  disabled={connectBusy === 'google'}
+                  disabled={!!connectBusy || connectionsLoading}
                   onClick={() => connect('google')}
                 >
                   เชื่อมต่อ
@@ -246,7 +290,7 @@ export default function ExternalDocsSection({ user }) {
                 <button
                   type="button"
                   className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-                  disabled={connectBusy === 'notion'}
+                  disabled={!!connectBusy || connectionsLoading}
                   onClick={() => disconnect('notion')}
                 >
                   ยกเลิกการเชื่อมต่อ
@@ -255,7 +299,7 @@ export default function ExternalDocsSection({ user }) {
                 <button
                   type="button"
                   className="vmx-btn vmx-btn-sm"
-                  disabled={connectBusy === 'notion'}
+                  disabled={!!connectBusy || connectionsLoading}
                   onClick={() => connect('notion')}
                 >
                   เชื่อมต่อ
@@ -263,6 +307,11 @@ export default function ExternalDocsSection({ user }) {
               )}
             </div>
             {connectedFor('notion') && renderFiles('notion')}
+            {connectionsLoading && <p className="vmx-extdoc-connect-hint" role="status">กำลังตรวจการเชื่อมต่อ…</p>}
+            {connectionError && <div className="vmx-extdoc-error" role="alert">
+              {connectionError}{' '}
+              <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" disabled={connectionsLoading || !!connectBusy} onClick={() => refreshConnections(scopeRef.current)}>ตรวจการเชื่อมต่ออีกครั้ง</button>
+            </div>}
             <p className="vmx-extdoc-connect-hint">
               แอปจะอ่านอย่างเดียว ไม่แก้ไขและไม่ลบ ยกเลิกได้ที่ปุ่มด้านบนหรือหน้าตั้งค่าของผู้ให้บริการ
             </p>
@@ -304,7 +353,7 @@ export default function ExternalDocsSection({ user }) {
         </div>
       )}
 
-      {notice && <div className="vmx-extdoc-notice">{notice}</div>}
+      {notice && <div className="vmx-extdoc-notice" role="status">{notice}</div>}
       {status === 'loading' && <p className="vmx-extdoc-loading" aria-busy="true">กำลังเปิดเอกสาร…</p>}
       {status === 'error' && error && (
         <div className="vmx-extdoc-error" role="alert">{error}</div>
@@ -316,8 +365,6 @@ export default function ExternalDocsSection({ user }) {
             <span className="vmx-extdoc-provider">{providerLabel}</span>
             {sourceHref && (
               <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                <button type="button" className="vmx-btn vmx-btn-sm vmx-btn-ghost" onClick={() => importAsNote(doc.sourceUrl)}>+ ไฟล์โน๊ต</button>
-                <button type="button" className="vmx-btn vmx-btn-sm vmx-btn-ghost" onClick={() => importAsExam(doc.sourceUrl)}>+ ข้อสอบ</button>
                 <a className="vmx-extdoc-source" href={sourceHref} target="_blank" rel="noopener noreferrer">
                   เปิดต้นฉบับ
                 </a>

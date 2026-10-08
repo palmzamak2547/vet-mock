@@ -1852,7 +1852,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       for (const page of Object.values(record?.strokesByPage || {})) {
         for (const stroke of page || []) if (stroke?.id) ids.push(stroke.id);
       }
-      if (ids.length) {
+      if (ids.length || record?.deleted?.length) {
         const saved = await saveAnnotations(hash, {
           ...record,
           strokesByPage: {},
@@ -1863,7 +1863,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           const pushed = await pushNow(hash, peekAnnotations(hash));
           if (!pushed?.ok) {
             refreshRecent();
-            showToast('ลบรอยเขียนออกจากเครื่องแล้ว จะลบออกจากบัญชีให้เมื่อเชื่อมต่อได้', 5000);
+            showToast('ลบรอยเขียนออกจากเครื่องแล้ว เชื่อมต่อแล้วกดลบอีกครั้งเพื่อลบออกจากบัญชี', 5000);
             return;
           }
         }

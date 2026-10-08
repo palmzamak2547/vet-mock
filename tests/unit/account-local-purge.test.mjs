@@ -45,6 +45,7 @@ test('every device store keyed to the deleted account is purged, and nothing els
     [`vmx-user-op-v1:${UID}:tab-2`]: '{}',
     [`vmx-user-data-v2:${UID}`]: '{"archive":{"local":{"notes":{"private":"keep until deletion"}}}}',
     [`vmx-user-intent-v2:${UID}:pending-id`]: '{}',
+    [`vmx-external-docs-v2:${UID}`]: '[{"title":"Private recent"}]',
     [`vmx-inflight-exam:user:${UID}`]: '{}',
     'vmx-inflight-exam': JSON.stringify({ ownerId: UID, questions: [1] }),
     // Not this account's: another account, the signed-out workspace, device tools.
@@ -52,6 +53,8 @@ test('every device store keyed to the deleted account is purged, and nothing els
     [`vmx-user-op-v1:${OTHER}:tab-1`]: '{}',
     [`vmx-user-data-v2:${OTHER}`]: '{}',
     [`vmx-user-intent-v2:${OTHER}:pending-id`]: '{}',
+    [`vmx-external-docs-v2:${OTHER}`]: '[]',
+    'vmx-external-docs-v2:guest': '[]',
     'vmx-user-data-v1:anonymous': '{}',
     [`vmx-inflight-exam:user:${OTHER}`]: '{}',
     'vmx-user-flashcards': '[]',
@@ -69,6 +72,8 @@ test('every device store keyed to the deleted account is purged, and nothing els
   assert.deepEqual(cleared, [UID]);
   assert.deepEqual(deletedPdfs, [['deck-a', UID], ['deck-b', UID]]);
   assert.deepEqual(storage.keys(), [
+    `vmx-external-docs-v2:${OTHER}`,
+    'vmx-external-docs-v2:guest',
     `vmx-inflight-exam:user:${OTHER}`,
     `vmx-user-data-v1:${OTHER}`,
     'vmx-user-data-v1:anonymous',

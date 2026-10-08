@@ -41,6 +41,7 @@ export default async function handler(req, res) {
     const action = String(req.body?.action || '');
     if (action === 'status') {
       const connections = await listConnections({ userId });
+      if (!connections) return res.status(503).json({ error: 'Could not read connections', reason: 'storage' });
       return res.status(200).json({ connections });
     }
     if (action === 'disconnect') {

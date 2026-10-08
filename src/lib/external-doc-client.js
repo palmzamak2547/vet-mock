@@ -14,8 +14,9 @@
 // ============================================================
 
 import { getSupabase } from './supabase.js';
+import { safeLinkUrl } from './safe-url.js';
 
-const RECENT_KEY = 'vmx-external-docs-v1';
+const RECENT_KEY = 'vmx-external-docs-v2:';
 const RECENT_MAX = 8;
 
 export const PROVIDER_LABELS = { notion: 'Notion', gdocs: 'Google Docs', gsheets: 'Google Sheets' };
@@ -30,6 +31,8 @@ const ERROR_MESSAGES = {
   temporarily_unavailable: 'ระบบขัดข้องชั่วคราว ลองใหม่อีกครั้ง',
   timeout: 'หมดเวลาเชื่อมต่อ ลองใหม่อีกครั้ง',
   offline: 'ออฟไลน์อยู่ เปิดเอกสารภายนอกไม่ได้ตอนนี้',
+  login_required: 'เซสชันเปลี่ยนแล้ว เข้าสู่บัญชีเดิมแล้วลองอีกครั้ง',
+  sheet_unavailable: 'ยังเปิดแท็บชีตนี้ไม่ได้ ลองใหม่หรือเปิดต้นฉบับ',
   default: 'เปิดเอกสารไม่สำเร็จ ลองใหม่อีกครั้ง',
 };
 
@@ -48,6 +51,12 @@ const CONNECT_MESSAGES = {
   code: 'การเชื่อมต่อไม่สมบูรณ์ ลองกดเชื่อมต่อใหม่อีกครั้ง',
   store: 'บันทึกการเชื่อมต่อไม่สำเร็จ ลองใหม่อีกครั้ง',
   unexpected: 'เชื่อมต่อไม่สำเร็จ ลองใหม่อีกครั้ง',
+  timeout: 'หมดเวลาเชื่อมต่อ ลองใหม่อีกครั้ง',
+  offline: 'ออฟไลน์อยู่ ลองอีกครั้งเมื่อเชื่อมต่ออินเทอร์เน็ต',
+  rate_limited: 'พยายามหลายครั้งเกินไป พักสักครู่แล้วลองใหม่',
+  temporarily_unavailable: 'ระบบขัดข้องชั่วคราว ลองใหม่อีกครั้ง',
+  not_connected: 'ยังไม่ได้เชื่อมบัญชีนี้ หรือการเชื่อมต่อถูกยกเลิกแล้ว',
+  token_expired: 'การเชื่อมต่อหมดอายุ ยกเลิกแล้วเชื่อมบัญชีนี้ใหม่',
   default: 'เชื่อมต่อไม่สำเร็จ ลองใหม่อีกครั้ง',
 };
 
@@ -56,137 +65,118 @@ export function connectMessageFor(reason) {
 }
 
 /** The signed-in student's Supabase access token, or null. */
-async function accessToken() {
+async function accessToken(ownerId) {
+  if (!ownerId) return null;
   try {
     const supabase = await getSupabase();
     if (!supabase) return null;
     const { data } = await supabase.auth.getSession();
-    return data?.session?.access_token || null;
+    return data?.session?.user?.id === ownerId ? data.session.access_token || null : null;
   } catch {
     return null;
   }
 }
 
-/** POST one link to the reader endpoint. Never throws — answers { ok, doc } or { ok:false, error, reason }. */
-export async function fetchExternalDoc(url, { signal } = {}) {
+async function request(path, { ownerId = null, signal, body } = {}) {
+  const controller = new AbortController();
+  let timedOut = false;
+  const abort = () => controller.abort();
+  signal?.addEventListener('abort', abort, { once: true });
+  if (signal?.aborted) abort();
+  const timer = setTimeout(() => { timedOut = true; abort(); }, 45_000);
   try {
-    const token = await accessToken();
-    const res = await fetch('/api/fetch-external-doc', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-      body: JSON.stringify({ url }),
-      signal,
-    });
-    const data = await res.json().catch(() => null);
-    if (res.ok && data && typeof data.markdown === 'string') {
-      return { ok: true, doc: data };
-    }
-    return { ok: false, error: messageFor(data?.reason), reason: data?.reason };
+    const pending = (async () => {
+      const token = await accessToken(ownerId);
+      if (controller.signal.aborted) throw new Error('aborted');
+      if (ownerId && !token) return { ok: false, reason: 'login_required' };
+      const res = await fetch(path, {
+        method: body === undefined ? 'GET' : 'POST',
+        headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        body: body === undefined ? undefined : JSON.stringify(body), signal: controller.signal,
+      });
+      const data = await res.json().catch(() => null);
+      return { ok: res.ok, data, reason: data?.reason || data?.error };
+    })();
+    return await Promise.race([pending, new Promise((_, reject) => {
+      if (controller.signal.aborted) reject(new Error('aborted'));
+      else controller.signal.addEventListener('abort', () => reject(new Error('aborted')), { once: true });
+    })]);
   } catch (err) {
-    if (err?.name === 'AbortError') return { ok: false, error: messageFor('timeout'), reason: 'timeout', aborted: true };
-    if (typeof navigator !== 'undefined' && navigator.onLine === false) {
-      return { ok: false, error: messageFor('offline'), reason: 'offline' };
-    }
-    return { ok: false, error: messageFor(), reason: 'unexpected' };
+    return { ok: false, reason: timedOut ? 'timeout' : typeof navigator !== 'undefined' && navigator.onLine === false ? 'offline' : 'unexpected',
+      aborted: !!signal?.aborted };
+  } finally {
+    clearTimeout(timer);
+    signal?.removeEventListener('abort', abort);
   }
+}
+
+/** POST one link; the initiating account supplies the token for the entire request. */
+export async function fetchExternalDoc(url, options = {}) {
+  const result = await request('/api/fetch-external-doc', { ...options, body: { url } });
+  const doc = result.data;
+  if (result.ok && typeof doc?.markdown === 'string' && Object.hasOwn(PROVIDER_LABELS, doc.provider)
+      && safeLinkUrl(doc.sourceUrl) && (doc.title == null || typeof doc.title === 'string')) return { ok: true, doc };
+  return { ...result, ok: false, error: messageFor(result.reason) };
 }
 
 /** Begin the OAuth consent flow for one provider — the view navigates to `url`. */
-export async function startExternalConnection(provider) {
-  try {
-    const token = await accessToken();
-    if (!token) return { ok: false, error: connectMessageFor('login_required'), reason: 'login_required' };
-    const res = await fetch(`/api/external-connect-start?provider=${encodeURIComponent(provider)}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await res.json().catch(() => null);
-    if (res.ok && data?.url) return { ok: true, url: data.url };
-    return { ok: false, error: connectMessageFor(data?.reason), reason: data?.reason };
-  } catch {
-    if (typeof navigator !== 'undefined' && navigator.onLine === false) {
-      return { ok: false, error: connectMessageFor('unexpected') };
-    }
-    return { ok: false, error: connectMessageFor() };
-  }
+export async function startExternalConnection(provider, options = {}) {
+  const result = await request(`/api/external-connect-start?provider=${encodeURIComponent(provider)}`, options);
+  const url = safeLinkUrl(result.data?.url);
+  if (result.ok && url) return { ok: true, url };
+  return { ...result, ok: false, error: connectMessageFor(result.reason) };
 }
 
 /** What this account has connected — never carries tokens, only display fields. */
-export async function fetchExternalConnections() {
-  try {
-    const token = await accessToken();
-    if (!token) return { ok: true, connections: [] };
-    const res = await fetch('/api/external-connect', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ action: 'status' }),
-    });
-    const data = await res.json().catch(() => null);
-    if (res.ok && Array.isArray(data?.connections)) return { ok: true, connections: data.connections };
-    return { ok: false, error: connectMessageFor(data?.reason) };
-  } catch {
-    return { ok: false, error: connectMessageFor() };
-  }
+export async function fetchExternalConnections(options = {}) {
+  const result = await request('/api/external-connect', { ...options, body: { action: 'status' } });
+  const connections = result.data?.connections;
+  if (result.ok && Array.isArray(connections) && connections.every(c => c && Object.hasOwn(CONNECT_PROVIDER_LABELS, c.provider)
+      && (c.accountLabel == null || typeof c.accountLabel === 'string'))) return { ok: true, connections };
+  return { ...result, ok: false, error: connectMessageFor(result.reason) };
 }
 
 /** Revoke one connection — the stored tokens are deleted server-side. */
-export async function disconnectExternalConnection(provider) {
-  try {
-    const token = await accessToken();
-    if (!token) return { ok: false, error: connectMessageFor('login_required') };
-    const res = await fetch('/api/external-connect', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ action: 'disconnect', provider }),
-    });
-    const data = await res.json().catch(() => null);
-    if (res.ok && data?.ok) return { ok: true };
-    return { ok: false, error: connectMessageFor(data?.reason) };
-  } catch {
-    return { ok: false, error: connectMessageFor() };
-  }
+export async function disconnectExternalConnection(provider, options = {}) {
+  const result = await request('/api/external-connect', { ...options, body: { action: 'disconnect', provider } });
+  if (result.ok && result.data?.ok === true) return { ok: true };
+  return { ...result, ok: false, error: connectMessageFor(result.reason) };
 }
 
-function readRecents() {  try {
-    const raw = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
+function readRecents(ownerId) {
+  try {
+    const raw = JSON.parse(localStorage.getItem(RECENT_KEY + encodeURIComponent(ownerId || 'guest')) || '[]');
     if (!Array.isArray(raw)) return [];
     return raw
-      .filter((e) => e && typeof e.url === 'string' && typeof e.provider === 'string')
+      .filter((e) => e && safeLinkUrl(e.url) && Object.hasOwn(PROVIDER_LABELS, e.provider) && typeof e.title === 'string')
       .slice(0, RECENT_MAX);
   } catch {
     return [];
   }
 }
 
-export function loadRecentExternalDocs() {
+export function loadRecentExternalDocs(ownerId = null) {
   if (typeof localStorage === 'undefined') return [];
-  return readRecents();
+  return readRecents(ownerId);
 }
 
 /** Most-recent first, deduped by URL, clamped. Write failures stay silent — recents are sugar. */
-export function rememberRecentExternalDoc(entry) {
+export function rememberRecentExternalDoc(entry, ownerId = null) {
   if (typeof localStorage === 'undefined') return [];
-  const next = [{ ...entry, at: Date.now() }, ...readRecents().filter((e) => e.url !== entry.url)]
+  const url = safeLinkUrl(entry?.url);
+  if (!url || !Object.hasOwn(PROVIDER_LABELS, entry.provider)) return readRecents(ownerId);
+  const next = [{ url, provider: entry.provider, title: typeof entry.title === 'string' ? entry.title.slice(0, 200) : '', at: Date.now() }, ...readRecents(ownerId).filter((e) => e.url !== url)]
     .slice(0, RECENT_MAX);
   try {
-    localStorage.setItem(RECENT_KEY, JSON.stringify(next));
+    localStorage.setItem(RECENT_KEY + encodeURIComponent(ownerId || 'guest'), JSON.stringify(next));
   } catch { /* storage full or blocked — the reader works without it */ }
   return next;
 }
 
-export async function listExternalFiles(provider) {
-  try {
-    const token = await accessToken();
-    if (!token) return { ok: false, error: 'เข้าสู่ระบบก่อนจึงจะดูไฟล์ได้' };
-    const res = await fetch(`/api/list-external-files?provider=${encodeURIComponent(provider)}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const data = await res.json().catch(() => null);
-    if (res.ok && data?.files) return { ok: true, files: data.files };
-    return { ok: false, error: 'ดึงข้อมูลไฟล์ไม่สำเร็จ' };
-  } catch {
-    return { ok: false, error: 'ดึงข้อมูลไฟล์ไม่สำเร็จ' };
-  }
+export async function listExternalFiles(provider, options = {}) {
+  const result = await request(`/api/list-external-files?provider=${encodeURIComponent(provider)}`, options);
+  const files = result.data?.files;
+  if (result.ok && Array.isArray(files) && files.every(f => f && typeof f.id === 'string' && typeof f.title === 'string'
+      && safeLinkUrl(f.url))) return { ok: true, files };
+  return { ...result, ok: false, error: result.reason ? connectMessageFor(result.reason) : 'ดึงข้อมูลไฟล์ไม่สำเร็จ ลองใหม่อีกครั้ง' };
 }

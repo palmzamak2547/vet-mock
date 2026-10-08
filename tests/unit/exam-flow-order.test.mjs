@@ -116,12 +116,14 @@ function appAt(state = {}) {
     selectedYear: 5, selectedPhase: null,
     customQuestions: [], bookmarks: [], analytics: null, history: [], QB: [],
     finishingRef: { current: false },
+    examStartRequestRef: { current: null }, examStartContextRef: { current: 'config' },
+    viewRef: { current: 'config' }, eventContextRef: { current: { owner: null, sessionId: 'fixture' } },
     // App's own guard (it reads refs this harness does not model). Here the
     // student has nothing unfinished, or agreed to drop it.
     confirmReplaceUnfinished: async () => true,
     setSessionKind() {}, setChallengeSender() {},
     setPendingResume() {}, setQbReady() {}, setQbRevision() {},
-    setSubject() {}, setTopic() {}, setPracticeMode() {}, setUseTimer() {}, setTimePerQ() {},
+    setSubject() {}, setTopic() {}, setPracticeMode() {}, setPracticeModeRaw() {}, setNumQuestions() {}, setUseTimer() {}, setTimePerQ() {},
     setMode: record('setMode'),
     setView: record('setView'),
     session: {
