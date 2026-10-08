@@ -1,5 +1,9 @@
 # VetMock — Launch Readiness
 
+## Source checkpoint — 2026-10-08 · External Docs and iOS WebKit fix
+
+Study source **5.141.4** adds the external doc reader for Notion and Google Docs, per-user OAuth integration, and iOS WebKit mobile fixes. The release gate has passed with full Playwright E2E suites verifying the 320px WebKit mobile layout. Merged `codex/external-oauth-1007` and pushed to GitHub main for Vercel production deployment.
+
 ## Source checkpoint — 2026-10-08 · subject bookplates
 
 Study source **5.139.0 / SWv214** adds 85 course covers to Home and subject
