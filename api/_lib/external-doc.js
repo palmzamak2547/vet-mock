@@ -35,8 +35,10 @@ const SHEETS_PATH = /^\/spreadsheets\/d\/([\w-]{20,})/;
 export function isAllowedUpstreamHost(hostname) {
   const host = String(hostname || '').toLowerCase();
   return host === 'docs.google.com'
+    || host.endsWith('.googleusercontent.com')
     || host === 'notion.so' || host === 'www.notion.so'
-    || host === 'notion.site' || host.endsWith('.notion.site');
+    || host === 'notion.site' || host.endsWith('.notion.site')
+    || host.endsWith('.amazonaws.com');
 }
 
 /**

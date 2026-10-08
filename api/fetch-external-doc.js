@@ -53,7 +53,8 @@ function looksLikeHtml(text) {
 function notionLanded(resp) {
   if (!resp.url) return true;
   try {
-    return new URL(resp.url).hostname === 'api.notion.com';
+    const host = new URL(resp.url).hostname;
+    return host === 'api.notion.com' || host.endsWith('.amazonaws.com');
   } catch {
     return false;
   }

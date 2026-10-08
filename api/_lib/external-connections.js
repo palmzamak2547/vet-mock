@@ -103,7 +103,8 @@ export function isGoogleLandingHost(hostname) {
 
 /** The host a Drive/Sheets export answer may land on. */
 export function isGoogleApiHost(hostname) {
-  return String(hostname || '').toLowerCase() === GOOGLE_API_HOST;
+  const host = String(hostname || '').toLowerCase();
+  return host === GOOGLE_API_HOST || host.endsWith('.googleusercontent.com');
 }
 
 export function isNotionLandingHost(hostname) {
