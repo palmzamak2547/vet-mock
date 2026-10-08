@@ -41,7 +41,7 @@ function readCallbackIntent() {
   return { connected, connectError };
 }
 
-export default function ExternalDocView({ goHome, user }) {
+export default function ExternalDocsSection({ user }) {
   const [url, setUrl] = useState('');
   const [status, setStatus] = useState('idle'); // idle | loading | ready | error
   const [doc, setDoc] = useState(null);
@@ -149,10 +149,6 @@ export default function ExternalDocView({ goHome, user }) {
 
   return (
     <div className="vmx-extdoc">
-      <div className="vmx-extdoc-head">
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goHome} aria-label="กลับหน้าแรก">←</button>
-        <h1 className="vmx-extdoc-title">เอกสารภายนอก</h1>
-      </div>
       <p className="vmx-extdoc-sub">
         วางลิงก์เอกสารหรือชีตของ Google หรือหน้าของ Notion แล้วอ่านต่อในหน้านี้
         ลิงก์ที่แชร์แบบทุกคนที่มีลิงก์เปิดได้เลย เอกสารส่วนตัวต้องเชื่อมบัญชีของคุณก่อน

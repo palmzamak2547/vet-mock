@@ -96,10 +96,7 @@ export const PhaseSelectView = lazy(() => import('../views/PhaseSelectView.jsx')
 export const TopicSelectView = lazy(() => import('../views/TopicSelectView.jsx'));
 export const NotesView = lazy(() => import('../views/NotesView.jsx'));
 export const LibraryView = lazy(() => import('../views/LibraryView.jsx'));
-// ExternalDocView — reads a pasted Notion / Google Docs / Google Sheets
-// link through /api/fetch-external-doc. Lazy: most sessions never paste
-// a link, so the reader and its renderer stay out of the boot path.
-export const ExternalDocView = lazy(() => import('../views/ExternalDocView.jsx'));
+// ExternalDocView is removed
 export const KnowledgeView = lazy(() => import('../views/KnowledgeView.jsx'));
 export const ReadingChecklistView = lazy(() => import('../views/ReadingChecklistView.jsx'));
 export const FacultyView = lazy(() => import('../views/FacultyView.jsx'));

@@ -22,6 +22,7 @@ import Mochi from '../components/Mochi.jsx';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
+import ExternalDocsSection from '../components/ExternalDocsSection.jsx';
 import { thaiError } from '../lib/errors.js';
 import { googleDriveSourceUrl, mergeLibrarySources, vcaFileDoc } from '../lib/vca-library.js';
 import { EMPTY_ART } from '../data/art.js';
@@ -239,7 +240,14 @@ function paramOr(key, fallback) {
   } catch { return fallback; } // no window in tests
 }
 
-export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selectedYear = null }) {
+export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selectedYear = null, user }) {
+  const [activeTab, setActiveTab] = useState(() => {
+    try {
+      const search = new URLSearchParams(window.location.search);
+      if (search.has('connected') || search.has('connect_error')) return 'external';
+    } catch { /* ignored */ }
+    return 'internal';
+  });
   const [docs, setDocs] = useState([]);
   const [configured, setConfigured] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -572,7 +580,27 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
         )}
       </div>
 
-      {(subjectFilter === 'vca' || /vca/i.test(debouncedQuery)) && (
+      <div className="vmx-chip-row" style={{ marginBottom: 16 }}>
+        <button
+          type="button"
+          className={`vmx-chip ${activeTab === 'internal' ? 'active' : ''}`}
+          onClick={() => setActiveTab('internal')}
+        >
+          เอกสารในระบบ
+        </button>
+        <button
+          type="button"
+          className={`vmx-chip ${activeTab === 'external' ? 'active' : ''}`}
+          onClick={() => setActiveTab('external')}
+        >
+          เอกสารภายนอก
+        </button>
+      </div>
+
+      {activeTab === 'external' && <ExternalDocsSection user={user} />}
+
+      <div style={{ display: activeTab === 'internal' ? 'block' : 'none' }}>
+        {(subjectFilter === 'vca' || /vca/i.test(debouncedQuery)) && (
         <p style={{ fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink-soft)', margin: '0 0 16px' }}>
           ชุดนี้รวมเอกสารและบันทึกข้อสอบย้อนหลัง เฉลยในต้นฉบับบางข้อยังต้องตรวจเทียบ
           {' '}เปิดอ่านจากสำเนาที่เก็บไว้ในคลัง VetMock ได้ แม้ลิงก์ต้นทางจะใช้งานไม่ได้
@@ -839,6 +867,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
           })()}
         </div>
       )}
+      </div>
     </div>
   );
 }

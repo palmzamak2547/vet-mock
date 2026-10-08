@@ -8,6 +8,7 @@ globalThis.__libraryIntentCatalogCalls = 0;
 const { default: LibraryView } = await loadModule('src/views/LibraryView.jsx', { stubs: [
   { match: '\\.css$', contents: '' },
   { match: '/components/Mochi\\.jsx$', contents: 'export default () => null;' },
+  { match: '/components/ExternalDocsSection\\.jsx$', contents: 'export default () => null;' },
   { match: '/hooks/useMotionPreferences\\.js$', contents: 'export const useMotionPreferences = () => ({ reduced: true });' },
   { match: '/lib/library\\.js$', contents: `
     export const { LIBRARY_KINDS, SEMESTERS, buddhistYear, docOpenMode, prefetchDocUrl, docTypeLabel,

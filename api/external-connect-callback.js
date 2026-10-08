@@ -49,7 +49,7 @@ export default async function handler(req, res) {
     // The state cookie has served its purpose either way — clear it so a
     // stale flow cannot be replayed from this browser later.
     res.setHeader('Set-Cookie', `${OAUTH_STATE_COOKIE}=; Max-Age=0; Path=/api/external-connect; HttpOnly; Secure; SameSite=Lax`);
-    return res.status(302).setHeader('Location', `/app/external-docs?${search}`).end();
+    return res.status(302).setHeader('Location', `/app/library?${search}`).end();
   };
   const fail = (reason) => finish(`connect_error=${reason}`);
 

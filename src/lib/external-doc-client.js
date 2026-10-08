@@ -99,7 +99,7 @@ export async function startExternalConnection(provider) {
   try {
     const token = await accessToken();
     if (!token) return { ok: false, error: connectMessageFor('login_required'), reason: 'login_required' };
-    const res = await fetch(`/api/external-connect/start?provider=${encodeURIComponent(provider)}`, {
+    const res = await fetch(`/api/external-connect-start?provider=${encodeURIComponent(provider)}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json().catch(() => null);
