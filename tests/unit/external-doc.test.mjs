@@ -146,6 +146,16 @@ async function withFetch(stub, fn) {
   try { return await fn(); } finally { globalThis.fetch = real; }
 }
 
+async function withEnv(key, value, fn) {
+  const before = process.env[key];
+  if (value === undefined) delete process.env[key];
+  else process.env[key] = value;
+  try { return await fn(); } finally {
+    if (before === undefined) delete process.env[key];
+    else process.env[key] = before;
+  }
+}
+
 const req = (body, method = 'POST') => ({
   method,
   headers: { host: 'vetmock.test' },
@@ -179,10 +189,10 @@ test('only same-origin POST with a supported link gets through the door', async 
 test('a public Google Doc comes back as markdown in one fetch', async () => {
   const calls = [];
   const res = fakeRes();
-  await withFetch(async (url) => {
+  await withEnv('GOOGLE_API_KEY', undefined, () => withFetch(async (url) => {
     calls.push(String(url));
     return { ok: true, status: 200, url: String(url), text: async () => '# หัวข้อ\nเนื้อหา' };
-  }, () => handler(req({ url: 'https://docs.google.com/document/d/DOCA1b2C3d4E5f6G7h8I9j0/edit' }), res));
+  }, () => handler(req({ url: 'https://docs.google.com/document/d/DOCA1b2C3d4E5f6G7h8I9j0/edit' }), res)));
   assert.equal(res.statusCode, 200, JSON.stringify(res.body));
   assert.equal(res.body.provider, 'gdocs');
   assert.equal(res.body.markdown, '# หัวข้อ\nเนื้อหา');
@@ -190,17 +200,53 @@ test('a public Google Doc comes back as markdown in one fetch', async () => {
   assert.match(calls[0], /format=md$/);
 });
 
+test('a configured server-only key prefers documented Drive markdown export', async () => {
+  const calls = [];
+  const res = fakeRes();
+  await withEnv('GOOGLE_API_KEY', 'server-only-test-key', () =>
+    withFetch(async (url) => {
+      calls.push(String(url));
+      return { ok: true, status: 200, url: String(url), text: async () => '# จาก Drive API' };
+    }, () => handler(req({ url: 'https://docs.google.com/document/d/DOCA1b2C3d4E5f6G7h8I9j0/edit' }), res)),
+  );
+  assert.equal(res.statusCode, 200, JSON.stringify(res.body));
+  assert.equal(res.body.markdown, '# จาก Drive API');
+  assert.equal(calls.length, 1);
+  assert.match(calls[0], /^https:\/\/www\.googleapis\.com\/drive\/v3\/files\//);
+  assert.match(calls[0], /mimeType=text%2Fmarkdown/);
+  assert.match(calls[0], /key=server-only-test-key/);
+});
+
+test('a failed documented Drive export keeps the compatible public fallback', async () => {
+  const calls = [];
+  const res = fakeRes();
+  await withEnv('GOOGLE_API_KEY', 'server-only-test-key', () =>
+    withFetch(async (url) => {
+      calls.push(String(url));
+      if (String(url).startsWith('https://www.googleapis.com/')) {
+        return { ok: false, status: 403, url: String(url), text: async () => '' };
+      }
+      return { ok: true, status: 200, url: String(url), text: async () => '# จาก fallback' };
+    }, () => handler(req({ url: 'https://docs.google.com/document/d/DOCA1b2C3d4E5f6G7h8I9j0/edit' }), res)),
+  );
+  assert.equal(res.statusCode, 200, JSON.stringify(res.body));
+  assert.equal(res.body.markdown, '# จาก fallback');
+  assert.equal(calls.length, 2);
+  assert.match(calls[0], /^https:\/\/www\.googleapis\.com\//);
+  assert.match(calls[1], /format=md$/);
+});
+
 test('a private-looking markdown export falls back to the text export', async () => {
   const calls = [];
   const res = fakeRes();
-  await withFetch(async (url) => {
+  await withEnv('GOOGLE_API_KEY', undefined, () => withFetch(async (url) => {
     calls.push(String(url));
     const isMd = /format=md$/.test(String(url));
     return {
       ok: true, status: 200, url: String(url),
       text: async () => (isMd ? '<!DOCTYPE html><html><body>Sign in</body></html>' : 'บรรทัดเดียว'),
     };
-  }, () => handler(req({ url: 'https://docs.google.com/document/d/DOCA1b2C3d4E5f6G7h8I9j0/edit' }), res));
+  }, () => handler(req({ url: 'https://docs.google.com/document/d/DOCA1b2C3d4E5f6G7h8I9j0/edit' }), res)));
   assert.equal(res.statusCode, 200);
   assert.equal(res.body.markdown, 'บรรทัดเดียว');
   assert.equal(calls.length, 2);

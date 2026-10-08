@@ -93,6 +93,43 @@ async function fetchText(url) {
   return { text };
 }
 
+/**
+ * The documented public-Google-Doc path. A key is server-only and optional:
+ * when it is not provisioned (or the provider refuses it), the existing
+ * zero-config export chain remains the compatible fallback for public links.
+ */
+async function fetchPublicGoogleDoc(id) {
+  const key = process.env.GOOGLE_API_KEY || '';
+  if (!key) return null;
+  const query = new URLSearchParams({ mimeType: 'text/markdown', key });
+  let resp;
+  try {
+    resp = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(id)}/export?${query}`, {
+      signal: AbortSignal.timeout(TIMEOUT_MS),
+      redirect: 'follow',
+    });
+  } catch (err) {
+    if (err?.name === 'TimeoutError' || err?.name === 'AbortError') throw err;
+    return null;
+  }
+  if (!resp.ok) return null;
+  if (resp.url) {
+    try {
+      if (!isGoogleApiHost(new URL(resp.url).hostname)) return null;
+    } catch {
+      return null;
+    }
+  }
+  let text;
+  try {
+    text = await resp.text();
+  } catch {
+    return null;
+  }
+  if (typeof text !== 'string' || text.length > MAX_UPSTREAM_BYTES || looksLikeHtml(text)) return null;
+  return { text };
+}
+
 /** Extract the page title from a /v1/pages response, or null. */
 function notionTitleFromPage(page) {
   try {
@@ -342,22 +379,35 @@ export default async function handler(req, res) {
       markdown = result.markdown;
       title = result.title;
     } else {
-      for (const url of target.exportUrls) {
-        let result;
+      if (target.provider === 'gdocs') {
         try {
-          result = await fetchText(url);
+          const result = await fetchPublicGoogleDoc(target.id);
+          if (result) markdown = result.text;
         } catch (err) {
           if (err?.name === 'TimeoutError' || err?.name === 'AbortError') {
             return res.status(504).json({ error: 'Upstream request timed out' });
           }
           throw err;
         }
-        if (result && result.failed) { upstreamStatus = result.status; continue; }
-        if (!result) { upstreamBlocked = true; continue; }
-        markdown = target.provider === 'gsheets'
-          ? csvToMarkdownTable(result.text)
-          : result.text;
-        if (markdown) break;
+      }
+      if (!markdown) {
+        for (const url of target.exportUrls) {
+          let result;
+          try {
+            result = await fetchText(url);
+          } catch (err) {
+            if (err?.name === 'TimeoutError' || err?.name === 'AbortError') {
+              return res.status(504).json({ error: 'Upstream request timed out' });
+            }
+            throw err;
+          }
+          if (result && result.failed) { upstreamStatus = result.status; continue; }
+          if (!result) { upstreamBlocked = true; continue; }
+          markdown = target.provider === 'gsheets'
+            ? csvToMarkdownTable(result.text)
+            : result.text;
+          if (markdown) break;
+        }
       }
       if (!markdown) {
         // A real 4xx/5xx from the export path, or a login shell on every

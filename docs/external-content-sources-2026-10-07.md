@@ -25,10 +25,11 @@ following the existing kebab-case + dated-suffix convention in `docs/`
    returns CSV from any "Public on the web" or "Anyone with the link" sheet
    with no credential at all.
 3. **Google Docs: near-zero-config.** The official documented path
-   (Drive API `files.export`, now including `text/markdown`) needs a key only
-   for private-ish access; a link-shared doc can be fetched with an API key, or
-   via the well-known-but-**undocumented** `/export` URL with no credential
-   (stability unverified by Google).
+   (Drive API `files.export`, now including `text/markdown`) uses a server-only
+   API key for a public/link-shared doc. The reader prefers it when
+   `GOOGLE_API_KEY` is configured, then degrades to the well-known but
+   **undocumented** `/export` URL with no credential when it is not (stability
+   of that fallback is unverified by Google).
 4. **Notion: never zero-config.** Every official Notion API request needs a
    bearer token, and pages must be explicitly shared with the integration —
    even public pages cannot be read with zero credentials via the API. Cost of
@@ -412,8 +413,10 @@ if freshness must be minutes, not releases.
   (`kvGetJSON`/`kvSetJSON`) with a TTL, so a repeat open costs zero provider
   calls and keeps Notion's 3 rps comfortably irrelevant.
 - **Env vars** (server-only Secrets): `NOTION_TOKEN` (only if Notion is used);
-  optionally `GOOGLE_API_KEY` for Drive `files.export` on private-to-owner
-  docs. Absent key ⇒ 503 degrade, per the send-feedback precedent.
+  optionally `GOOGLE_API_KEY` for Drive `files.export` on public/link-shared
+  Google Docs. The public reader falls back to the zero-config path when the
+  key is absent; a private document instead requires the student's own OAuth
+  connection.
 - **Render surface**: same as notes today — either ingest into the corpus, or
   a small reader view registered the established way: entry in `VIEW_TO_PATH`
   (`src/lib/view-route.js`), lazy export in `src/app/lazy-views.js` (which
@@ -555,12 +558,12 @@ recorded ways, each deliberate:
    never reaches `fetch`), with the post-redirect landing host re-checked
    before any body is read. The SSRF property the source-key design was
    protecting still holds.
-2. **The undocumented Google `/export` endpoint is the only Google path.**
-   This document says never to ship it as the only path; v0 does, because no
-   `GOOGLE_API_KEY` infrastructure exists yet and zero-config public links
-   are the feature's value. Failure degrades honestly to 422 `not_public`.
-   Follow-up once a key is provisioned: add Drive `files.export`
-   (text/markdown) behind `GOOGLE_API_KEY` ahead of the `/export` chain.
+2. **The documented Google Drive export path now leads when configured.**
+   `api/fetch-external-doc.js` calls `files.export` with `text/markdown` and
+   the server-only `GOOGLE_API_KEY` before trying the undocumented public
+   `/export` fallback. The fallback remains only so existing public links
+   keep working until that optional key is provisioned; failure still degrades
+   honestly to 422 `not_public`.
 3. **Redirects are followed, then re-checked.** Rather than disabling
    redirect following (which would break the export endpoints' legitimate
    hops), every response's final URL must pass the same host check — Google
