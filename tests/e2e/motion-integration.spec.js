@@ -156,8 +156,23 @@ test('Pomodoro uses the ambience and opens playable activities only during a rea
   await expect(page.locator('[data-focus-ambience="rain"] canvas')).toBeVisible({ timeout: 20_000 });
   await expect(page.locator('.vmx-study-break')).toHaveCount(0);
   await page.getByRole('button', { name: 'เริ่ม focus session', exact: true }).click();
+  // The click dispatches an event; it does NOT wait for React to commit the
+  // state change. Under the installed clock nothing advances until the test
+  // advances it, so a click whose commit is still pending would fast-forward
+  // against a still-idle timer: the interval effect never mounts, no tick
+  // ever fires, and the break never starts — a red that only a slow engine
+  // (webkit-mobile under CI load) produces. The start button renders only in
+  // the idle state, so its removal plus the pause control is the commit
+  // signal, and it costs nothing on a fast engine.
+  await expect(page.getByRole('button', { name: 'เริ่ม focus session', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'หยุดชั่วคราว', exact: true })).toBeVisible();
   await page.clock.fastForward(301_000);
-  await expect(page.locator('[data-break-activity="breath"]')).toBeVisible();
+  // fastForward replays 301 ticks of the one-second interval in one burst:
+  // each is a re-render of the ring SVG and the chick. On the WebKit mobile
+  // runner under load that burst is seconds of real time, not microseconds,
+  // so the break-visible wait gets the same measured budget the cold-load
+  // waits already use — a step budget, not a weaker assertion.
+  await expect(page.locator('[data-break-activity="breath"]')).toBeVisible({ timeout: 15_000 });
   await page.getByRole('combobox', { name: 'กิจกรรมระหว่างพัก', exact: true }).selectOption('bubbles');
   // Bubbles intentionally float. Keyboard activation tests the accessible
   // interaction without asking Playwright to wait for a stationary target.

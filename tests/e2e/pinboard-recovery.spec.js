@@ -71,15 +71,24 @@ test('a pending Pinboard clear cancels on browser Back and a fresh keyboard conf
   await page.goBack();
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole('dialog')).toHaveCount(0);
-  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-pinboard')))).toEqual(pins);
+  // Firefox may restore the back entry from the back-forward cache before the
+  // app's popstate handling has finished cancelling the dialog, and a restored
+  // snapshot can carry a pending storage write. Both reads below therefore
+  // poll until the settled state: same contract, no clock race. The strict
+  // equality is unchanged — a normalized or half-written pinboard still fails.
+  await expect.poll(async () => JSON.parse(await page.evaluate(() => localStorage.getItem('vmx-pinboard')))).toEqual(pins);
   await page.keyboard.press('Tab');
-  expect(await page.evaluate(() => {
+  await expect.poll(async () => page.evaluate(() => {
     const element = document.activeElement;
     return { connected: !!element?.isConnected, visible: !!element?.getClientRects().length, inDialog: !!element?.closest('[role="dialog"]') };
   })).toEqual({ connected: true, visible: true, inDialog: false });
 
   await page.goForward();
   await expect(page).toHaveURL(/\/app\/pinboard$/);
+  // The forward entry was captured with the dialog open, so a cache restore
+  // can bring it back; the app must have cancelled it before the fresh
+  // keyboard confirmation runs, or the second open below would be ambiguous.
+  await expect(page.getByRole('dialog')).toHaveCount(0);
   await clear.focus();
   await expect(clear).toBeFocused();
   await clear.press('Enter');
