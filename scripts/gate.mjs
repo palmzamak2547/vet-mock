@@ -10,6 +10,14 @@
 // Flags: --e2e-concurrent   run both e2e steps at once (second on its own port)
 //        --data-only        stop after phase A: no build, no browsers
 //        --jobs=N           phase A runs N steps at a time (default 6)
+//        --with-research    force the Research phase (it is auto-detected
+//                           anyway: any change under research/ turns it on)
+//        --with-sql         force the two pglite SQL harnesses (auto-detected
+//                           too: supabase/migrations, the RPC-backed libs and
+//                           the harnesses themselves)
+//        --no-sql           never run the pglite harnesses
+//        --audit            append npm audit as a warn-only step (never
+//                           changes the verdict, like CI's soft check)
 //
 // The old gate was one && chain: build, then 44 lint steps in a row, then the
 // unit suite, then Playwright. It stopped at the first failure, and 41 of the
@@ -22,12 +30,19 @@
 //             `node <script> <args>` without the npm wrapper, plus the unit
 //             suite twice: in UTC, as CI runs it, and in Asia/Bangkok, as this
 //             machine does (a day-boundary test once passed here and failed on
-//             CI). Everything runs to the end and every failure is printed
+//             CI). When a SQL-touching file moved and a pglite module is
+//             reachable, the two disposable-database harnesses join this phase
+//             (they write their receipts under the gitignored work/).
+//             Everything runs to the end and every failure is printed
 //             together, so one pass lists every stale file. A failure here
 //             stops the gate before the build.
 //   B  build  npm run build
 //   C  dist   lint:dist, one step at a time: the contrast audits read the
 //             built bundle and each starts its own preview on one port.
+//   E  research (only when research/ moved, or --with-research)  the Research
+//             origin's unit suite in Bangkok and UTC, then its own build. A
+//             research/ change with no research/node_modules fails here with
+//             the one-line fix, instead of shipping on a suite nobody ran.
 //   D  e2e    test:e2e:chromium, then test:e2e:gl: the two CI Smoke steps with
 //             CI's projects, workers, retry and forbid-only. --e2e-concurrent
 //             runs them together, the second on PLAYWRIGHT_PORT=41733 (41732
@@ -96,7 +111,7 @@ function withArgs(leaf, extra) {
 }
 
 /** Phase A: every lint:data leaf, plus the unit suite in UTC and in Bangkok time. */
-export function phaseATasks(scripts) {
+export function phaseATasks(scripts, { extra = [] } = {}) {
   const unit = resolveSteps(scripts, 'test:unit');
   if (unit.length !== 1 || unit[0].shell) {
     throw new Error('test:unit must be a single `node --test <glob>` command');
@@ -107,7 +122,78 @@ export function phaseATasks(scripts) {
     { ...u, label: 'unit tests (TZ=Asia/Bangkok)', env: { TZ: 'Asia/Bangkok' } },
   ];
   // The unit suite is the longest step, so it starts first.
-  return [...units, ...resolveSteps(scripts, 'lint:data')];
+  return [...units, ...resolveSteps(scripts, 'lint:data'), ...extra];
+}
+
+// ── The Research origin (research/, its own vite app + package) ─────────
+/**
+ * Has anything under research/ moved? Tracked edits and brand-new files both
+ * count: an untracked research file is exactly the case where nobody would
+ * remember to run its suite.
+ */
+export function researchChanged(cwd = process.cwd()) {
+  try {
+    const out = execFileSync('git', ['status', '--porcelain=v1', '--untracked-files=all', '--', 'research'],
+      { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+    return out.trim().length > 0;
+  } catch { return false; }
+}
+
+/**
+ * The Research phase's steps, run from research/. The unit suite twice, the
+ * same UTC/Bangkok parity the root suite gets (CI runs node --test in UTC);
+ * then its own build, so a research/ source break never waits for the other
+ * origin's Vercel pipeline to notice.
+ */
+export function researchTasks() {
+  return [
+    { label: 'research unit (TZ=Asia/Bangkok)', command: 'npm test', shell: true },
+    { label: 'research unit (TZ=UTC, as CI)', command: 'npm test', shell: true, env: { TZ: 'UTC' } },
+    { label: 'research build', command: 'npm run build', shell: true },
+  ];
+}
+
+// ── The disposable-database SQL harnesses (pglite locally, postgres on CI) ─
+/** Files whose change must be proven against a real database before shipping. */
+const SQL_TOUCHING_PATHS = [
+  'supabase/migrations',
+  'src/lib/user-data-sync.js',
+  'src/lib/user-data-row.js',
+  'src/lib/pdf-annotations.js',
+  'src/lib/shape-fit.js',
+  'scripts/test-user-data-db.mjs',
+  'scripts/test-annotation-db.mjs',
+];
+
+/** The pglite module the harnesses load, from $PGLITE_MODULE or node_modules; null when neither exists. */
+export function pgliteModule(cwd = process.cwd(), env = process.env) {
+  if (env.PGLITE_MODULE) return env.PGLITE_MODULE;
+  const bundled = path.join(cwd, 'node_modules', '@electric-sql', 'pglite', 'dist', 'index.js');
+  return fs.existsSync(bundled) ? bundled : null;
+}
+
+/** A SQL-touching file moved in the working tree. */
+export function sqlChanged(cwd = process.cwd()) {
+  try {
+    const out = execFileSync('git', ['status', '--porcelain=v1', '--untracked-files=all', '--', ...SQL_TOUCHING_PATHS],
+      { cwd, encoding: 'utf8', maxBuffer: 16 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] });
+    return out.trim().length > 0;
+  } catch { return false; }
+}
+
+/**
+ * The two harnesses as plain `node <file>` leaves for phase A. Empty when no
+ * pglite module is reachable: the repo does not ship one, and native
+ * PostgreSQL on CI remains the concurrent-lock proof (the harnesses say so in
+ * their own receipts).
+ */
+export function sqlTasks(cwd = process.cwd(), env = process.env) {
+  const module = pgliteModule(cwd, env);
+  if (!module) return [];
+  return [
+    { label: 'sql harness (user-data, pglite)', command: 'node scripts/test-user-data-db.mjs --backend=pglite', file: process.execPath, args: ['scripts/test-user-data-db.mjs', '--backend=pglite'], env: { PGLITE_MODULE: module } },
+    { label: 'sql harness (annotations, pglite)', command: 'node scripts/test-annotation-db.mjs --backend=pglite', file: process.execPath, args: ['scripts/test-annotation-db.mjs', '--backend=pglite'], env: { PGLITE_MODULE: module } },
+  ];
 }
 
 // ── Running things ─────────────────────────────────────────────────────
@@ -241,8 +327,18 @@ const seconds = (ms) => `${(ms / 1000).toFixed(1)} s`;
 export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2), log = console.log } = {}) {
   const concurrentE2e = argv.includes('--e2e-concurrent');
   const dataOnly = argv.includes('--data-only');
+  const withResearch = argv.includes('--with-research');
+  const noSql = argv.includes('--no-sql');
+  const withSql = argv.includes('--with-sql');
+  const audit = argv.includes('--audit');
   const jobsArg = argv.find((a) => a.startsWith('--jobs='));
   const jobs = Math.max(1, Number(jobsArg?.slice(7)) || Math.min(DEFAULT_JOBS, os.availableParallelism?.() || DEFAULT_JOBS));
+  const sqlTouched = sqlChanged(cwd);
+  const wantSql = !noSql && (withSql || sqlTouched);
+  const sql = wantSql ? sqlTasks(cwd) : [];
+  // The research origin runs when it moved or was asked for; never under
+  // --data-only, which is a fast diagnosis of the root tree only.
+  const researchRequired = !dataOnly && (withResearch || researchChanged(cwd));
   const { scripts } = JSON.parse(fs.readFileSync(path.join(cwd, 'package.json'), 'utf8'));
   const t0 = Date.now();
   const timings = [];
@@ -267,7 +363,12 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
   };
 
   // A — data, lints and unit tests
-  const tasks = phaseATasks(scripts);
+  if (wantSql && !sql.length) {
+    log('⚠ a SQL-touching file changed, but no pglite module is reachable from this checkout.');
+    log('  The disposable-database proof needs PGLITE_MODULE=<path>/index.js or @electric-sql/pglite in node_modules;');
+    log('  CI postgres remains the concurrent-lock proof (the harness receipts say the same).');
+  }
+  const tasks = phaseATasks(scripts, { extra: sql });
   log(`── phase A (data): ${tasks.length} steps, ${jobs} at a time`);
   let t = Date.now();
   const results = await runPool(tasks, jobs, {
@@ -288,6 +389,15 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
   }
   if (moved('phase A')) return finish('tree changed', 1);
   if (dataOnly) return finish('phase A green (--data-only: no build, no e2e)', 0);
+
+  // The research phase's only precondition, checked before the build it would
+  // otherwise run behind: a research/ change with no research/node_modules is
+  // a one-command fix, not a reason to wait for a build to fail.
+  if (researchRequired && !fs.existsSync(path.join(cwd, 'research', 'node_modules'))) {
+    log('\n✗ research/ has no node_modules. Research owns its dependencies in research/package.json:');
+    log('  run `npm ci` inside research/ once, then this gate again. Shipping research/ green-by-omission is the bug this phase exists for.');
+    return finish('research dependencies are missing', 1);
+  }
 
   const found = await strays;
   if (found === null) {
@@ -324,6 +434,29 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
   if (distFailed) return finish(`${distFailed} lint:dist step(s) failed`, 1);
   if (moved('phase C')) return finish('tree changed', 1);
 
+  // E — the Research origin, when research/ moved or was asked for
+  if (researchRequired) {
+    const researchDir = path.join(cwd, 'research');
+    const researchSteps = researchTasks();
+    log(`\n── phase E (research): ${researchSteps.length} steps, ${jobs} at a time`);
+    t = Date.now();
+    const researchResults = await runPool(researchSteps, jobs, {
+      cwd: researchDir,
+      onDone: (r) => log(`   ${r.status === 0 ? '✓' : '✗'} ${r.label.padEnd(44)} ${seconds(r.ms)}`),
+    });
+    timings.push(['E research', Date.now() - t]);
+    const researchFailed = researchResults.filter((r) => r.status !== 0);
+    log(`── phase E (research): ${seconds(Date.now() - t)}, ${researchResults.length - researchFailed.length} passed, ${researchFailed.length} failed`);
+    if (researchFailed.length) {
+      for (const r of researchFailed) {
+        log(`\n✗ ${r.label}   (${r.command})`);
+        log(r.output.trimEnd().split(/\r?\n/).slice(-40).map((l) => `   ${l}`).join('\n'));
+      }
+      return finish(`${researchFailed.length} research step(s) failed`, 1);
+    }
+    if (moved('phase E')) return finish('tree changed', 1);
+  }
+
   // D — the two CI Smoke steps
   t = Date.now();
   let e2e;
@@ -349,6 +482,16 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
   log(`── phase D (e2e): ${seconds(Date.now() - t)}${e2eFailed.length ? `, failed: ${e2eFailed.join(', ')}` : ''}`);
   if (moved('phase D')) return finish('tree changed', 1);
   if (e2eFailed.length) return finish(`${e2eFailed.join(' and ')} failed`, 1);
+  // Warn-only, exactly like the CI step it mirrors: advisories that upstream
+  // has not fixed must not turn a proven-green tree red. Ask for it with
+  // --audit; the verdict above is already settled by the time it runs.
+  if (audit) {
+    log('\n── audit (warn-only): npm audit --omit=dev --audit-level=high');
+    t = Date.now();
+    await runStreaming({ label: 'npm audit', command: 'npm audit --omit=dev --audit-level=high', shell: true }, { cwd });
+    timings.push(['audit', Date.now() - t]);
+    log(`── audit: ${seconds(Date.now() - t)} (warn-only; the gate verdict does not depend on it)`);
+  }
   return finish('green', 0);
 }
 

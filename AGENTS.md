@@ -185,8 +185,7 @@ Full rules: [docs/GITFLOW.md](docs/GITFLOW.md). The short form:
 |------|-------|
 | Routing/state | `src/App.jsx` + `src/lib/view-route.js` (`view` state; readable stable `/app/*` routes) |
 | Views (lazy) | `src/views/*.jsx` |
-| VetMock Research | `research/` is a separate Vite app/origin; `docs/research/M1-DESIGN.md` + `M2-DESIGN.md` define contracts. Computation and datasets stay on device; optional auth has its own session. |
-| Mochi / Motion | `src/components/Mochi.jsx` + `src/lib/mochi-presence.js` embed contextual companions in existing views; one device preference hides all; 3D stays on demand in `/app/mochi`. Exam feedback requires a revealed practice answer; focused drawing/imaging workspaces stay clear. |
+| VetMock Research | `research/` is a separate Vite app/origin; `docs/research/M1-DESIGN.md` + `M2-DESIGN.md` define contracts. Computation and datasets stay on device; optional auth has its own session. Its full unit suite + build run as gate phase E when `research/` moves. || Mochi / Motion | `src/components/Mochi.jsx` + `src/lib/mochi-presence.js` embed contextual companions in existing views; one device preference hides all; 3D stays on demand in `/app/mochi`. Exam feedback requires a revealed practice answer; focused drawing/imaging workspaces stay clear. |
 | Motion in real flows | `MotionFeedback.jsx` owns visual responses on real controls; `ReadingEffects.jsx` enhances actual Notes/VetWiki text; `FocusBackdrop.jsx` + `StudyBreak.jsx` follow Pomodoro state. Global settings live in ThemePicker. See `docs/motion-kit-real-usage.md`; preview actions are never evidence of a real save or answer. |
 | Vercel serverless functions | `api/*.js` (wiki-explain, study-coach, grade-summary, tts, library-file/blob, send-feedback, …) · shared model chain in `api/_lib/llm.js`, output guards in `api/_lib/grounding.js` |
 | Gitflow / parallel-harness discipline | `docs/GITFLOW.md` |
@@ -217,11 +216,16 @@ npm run dev               # Vite dev server (predev regenerates latest-changelog
 npm run build             # Production build + wiki prerender (always run before commit)
 npm run preview           # Preview built dist
 npm run test:unit         # Node contract suite (tests/unit/*.test.mjs)
-npm run gate             # Data/unit in Bangkok + UTC, build, contrast, all four E2E profiles
+npm run gate             # THE release gate: data lints + unit in Bangkok/UTC (+ SQL harnesses when a
+                         # DB-touching file moved and pglite is reachable), build, contrast, Research
+                         # (auto when research/ moved), then all four E2E profiles
+npm run gate:fast        # Same gate with the two e2e steps concurrent
 npm run gate:data        # Fast data/unit diagnosis; does not replace the full release gate
+npm run gate:serial      # The same steps as one && chain, no orchestrator script
 npm run test:e2e          # Cross-browser Playwright suite
 npm run test:e2e:prod     # Live flows against vetmock.com
-npm run lint:all          # All generated/data/content integrity gates (release gate)
+npm run lint:all          # All generated/data/content integrity gates — a SUBSET of the gate:
+                         # no unit suite, no build, no e2e. The release gate is `npm run gate`
 npm run stats             # Authoritative current inventory
 npm run stats:check       # Fail if README/docs inventory drifted
 npm run lint:questions    # Detect bias issues (release gate: 0 errors; warnings tracked separately)
@@ -232,6 +236,13 @@ npm run fetch:videos      # Fetch YouTube transcripts to data-cache/transcripts/
 npm run flat:transcript   # Flatten transcript JSON → text (with timestamps)
 npm run ping:indexnow     # Notify Bing/Yandex/Naver after deploy
 ```
+
+Gate flags (`node scripts/gate.mjs ...`): `--with-research` (force the Research phase),
+`--with-sql` / `--no-sql` (the pglite SQL harnesses — auto-run when a file under
+`supabase/migrations/`, the RPC-backed libs or a harness script moved; without a reachable
+pglite module the gate prints why and CI postgres remains the concurrent-lock proof),
+`--audit` (append a warn-only dependency audit that never changes the verdict).
+A mid-run working-tree change is a failure, never green: `gate` is the proof of the tree.
 
 Generated files — never hand-edit; the matching `lint:*` or `regen:*` script owns them:
 `bank-registry.generated.js`, `latest-changelog.generated.js`, `docs/content-inventory.md`,

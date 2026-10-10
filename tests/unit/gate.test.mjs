@@ -24,6 +24,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   resolveSteps, phaseATasks, runPool, strayProcesses, treeChange, CONCURRENT_E2E_PORT,
+  researchChanged, sqlChanged, sqlTasks,
 } from '../../scripts/gate.mjs';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -110,6 +111,103 @@ test('phase A runs the unit suite in UTC and in Bangkok time (STAB-16)', () => {
   assert.match(scripts['test:unit:utc'], /TZ='UTC'/);
 });
 
+// ── Research and the SQL harnesses (gaps found 2026-10-10) ─────────────
+// The Research origin shipped with only its R-parity in CI: its 1,342-test
+// unit suite ran solely when a human remembered, and a research/ source break
+// therefore could not fail any gate. The SQL harnesses were CI-postgres-only.
+// Both now run from the gate, on the same evidence rules as the root phases.
+test('a moved research/ file turns on the Research phase, which runs its unit suite in both timezones and its build', () => {
+  const f = fixture();
+  try {
+    fs.mkdirSync(path.join(f.dir, 'research', 'tests', 'unit'), { recursive: true });
+    fs.mkdirSync(path.join(f.dir, 'research', 'node_modules'), { recursive: true });
+    f.put('research/package.json', `${JSON.stringify({
+      type: 'module',
+      scripts: {
+        test: 'node --test tests/unit/*.test.mjs',
+        build: 'node scripts/build.mjs',
+      },
+    }, null, 2)}\n`);
+    f.put('research/tests/unit/ok.test.mjs', "import test from 'node:test';\ntest('research ok', () => {});\n");
+    f.put('research/scripts/build.mjs', "console.log('RESEARCH BUILD RAN');\n");
+    execFileSync('git', ['add', '-A'], { cwd: f.dir, stdio: 'pipe' });
+    execFileSync('git', ['commit', '-q', '-m', 'research fixture'], { cwd: f.dir, stdio: 'pipe' });
+
+    assert.equal(researchChanged(f.dir), false, 'a clean tree does not drag the research phase along');
+    f.put('research/tests/unit/ok.test.mjs', "import test from 'node:test';\ntest('research ok 2', () => {});\n");
+    assert.equal(researchChanged(f.dir), true);
+
+    const r = gate(f.dir);
+    assert.equal(r.status, 0, r.out);
+    assert.match(r.out, /✓ research unit \(TZ=Asia\/Bangkok\)/);
+    assert.match(r.out, /✓ research unit \(TZ=UTC, as CI\)/);
+    assert.match(r.out, /✓ research build/, 'the research build runs only because the phase exists');
+    assert.match(r.out, /^\s+E research\s+\d+\.\d s$/m, 'timing line for the research phase');
+  } finally { f.done(); }
+});
+
+test('--with-research forces the phase, and a research/ without node_modules fails with the one-line fix instead of shipping silent', () => {
+  const f = fixture();
+  try {
+    fs.mkdirSync(path.join(f.dir, 'research'), { recursive: true });
+    f.put('research/package.json', '{ "type": "module" }\n');
+    // --with-research without research/node_modules: the honest failure.
+    const r = gate(f.dir, '--with-research');
+    assert.equal(r.status, 1, r.out);
+    assert.match(r.out, /research dependencies are missing/);
+    assert.match(r.out, /npm ci.*inside research\//);
+    assert.doesNotMatch(r.out, /BUILD RAN|E2E /);
+
+    fs.mkdirSync(path.join(f.dir, 'research', 'node_modules'), { recursive: true });
+    fs.mkdirSync(path.join(f.dir, 'research', 'tests', 'unit'), { recursive: true });
+    f.put('research/package.json', `${JSON.stringify({
+      type: 'module', scripts: { test: 'node --test tests/unit/*.test.mjs', build: 'node scripts/build.mjs' },
+    }, null, 2)}\n`);
+    f.put('research/tests/unit/ok.test.mjs', "import test from 'node:test';\ntest('research ok', () => {});\n");
+    f.put('research/scripts/build.mjs', "console.log('RESEARCH BUILD RAN');\n");
+    const forced = gate(f.dir, '--with-research');
+    assert.equal(forced.status, 0, forced.out);
+    assert.match(forced.out, /✓ research build/);
+  } finally { f.done(); }
+});
+
+test('a moved SQL file joins phase A when pglite is reachable, and says so when it is not (--no-sql opts out)', () => {
+  const f = fixture();
+  try {
+    fs.mkdirSync(path.join(f.dir, 'supabase', 'migrations'), { recursive: true });
+    f.put('supabase/migrations/20261010000000_probe.sql', '-- a migration under test\n');
+
+    // Without a pglite module there is nothing to run: the gate says why
+    // instead of staying quiet, and phase A keeps its 2 steps.
+    assert.deepEqual(sqlTasks(f.dir, {}), []);
+    const warned = gate(f.dir, '--data-only');
+    assert.equal(warned.status, 0, warned.out);
+    assert.match(warned.out, /no pglite module is reachable/);
+    assert.match(warned.out, /CI postgres remains the concurrent-lock proof/);
+
+    // --no-sql is an opt-out even when a module exists.
+    const module = path.join('node_modules', '@electric-sql', 'pglite', 'dist', 'index.js');
+    const tasks = sqlTasks(f.dir, { PGLITE_MODULE: module });
+    assert.deepEqual(tasks.map((t) => t.args), [
+      ['scripts/test-user-data-db.mjs', '--backend=pglite'],
+      ['scripts/test-annotation-db.mjs', '--backend=pglite'],
+    ]);
+    for (const t of tasks) assert.equal(t.env.PGLITE_MODULE, module);
+    assert.equal(sqlChanged(f.dir), true);
+  } finally { f.done(); }
+});
+
+test('--audit is a warn-only tail step that never changes a green verdict', () => {
+  const f = fixture();
+  try {
+    const r = gate(f.dir, '--audit');
+    assert.equal(r.status, 0, r.out);
+    assert.match(r.out, /── audit \(warn-only\)/);
+    assert.match(r.out, /the gate verdict does not depend on it/);
+    assert.match(r.out, /✓ gate: green/);
+  } finally { f.done(); }
+});
+
 // ── A throwaway repository for the end-to-end cases ───────────────────
 function fixture({ stale = false, tzBound = false, e2eWrites = false } = {}) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'vetmock-gate-'));
@@ -161,7 +259,7 @@ function fixture({ stale = false, tzBound = false, e2eWrites = false } = {}) {
   git('config', 'core.autocrlf', 'false');
   git('add', '-A');
   git('commit', '-q', '-m', 'fixture');
-  return { dir, done: () => fs.rmSync(dir, { recursive: true, force: true }) };
+  return { dir, done: () => fs.rmSync(dir, { recursive: true, force: true }), put };
 }
 
 // node --test marks its children with NODE_TEST_CONTEXT, and a `node --test`
