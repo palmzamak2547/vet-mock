@@ -398,3 +398,20 @@ test('nls.equation growth over widely spaced days with a 1e8-fold rise converges
   close(rows[0][3], w.se[0], tol, 'SE Y0');
   close(rows[1][3], w.se[1], tol, 'SE k');
 });
+
+test("words: the 5PL's e is its location parameter, and a singular fit says no estimates are reported (fix-stats findings 4, 5)", () => {
+  // f = c + (d - c)(1 + e^t)^-g, t = b(ln x - e): at ln x = e the response is c + (d - c)/2^g; the inflection point is
+  // at ln x = e - ln(g)/b, so for g not 1 e is neither the inflection point nor the IC50 or EC50.
+  for (const lang of ['th', 'en']) {
+    const words = lab[lang] || lab;
+    const e = words['lab.param.logMidpoint5'];
+    assert.ok(e.includes('c + (d − c)/2^g'), `${lang}: ${e}`);
+    assert.ok(!/at the inflection point|ที่จุดเปลี่ยนความโค้ง \(/.test(e), `${lang}: e is not the inflection point: ${e}`);
+    const sing = words['lab.invalid.singular'];
+    assert.ok(/no estimates|ไม่รายงานค่าประมาณ/.test(sing), `${lang}: ${sing}`);
+  }
+  // the claim itself, on the ryegrass 5PL estimates of the R fixture: the response at x = exp(e) is c + (d - c)/2^g
+  const p = [3.930, 0.3215, 7.761, 0.7951, 0.4679];
+  const f = MODELS.ll5.value(Math.exp(p[3]), p, null);
+  close(f, p[1] + (p[2] - p[1]) / 2 ** p[4], 1e-12, 'response at exp(e)');
+});
