@@ -117,6 +117,12 @@ export const ImageOcclusionView = lazy(() => import('../views/ImageOcclusionView
 // Only shown after a phase ends or opened via command palette,
 // so lazy-load is appropriate.
 export const PhaseWrappedView = lazy(() => import('../views/PhaseWrappedView.jsx'));
+// ProfileView — the personal hub behind the bottom bar's fifth tab. It reads
+// study data App already holds, so the split buys no second network round trip
+// on Home; it keeps the hub and the installer chip it mounts out of the entry
+// chunk, which is what tests/unit/boot-weight.test.mjs holds every declaration
+// here to.
+export const ProfileView = lazy(() => import('../views/ProfileView.jsx'));
 // (Removed MockExamView/MockResultsView — an unwired English "DEMO ONLY" stub.
 //  "Mock Exam" nav now routes into the real config → exam engine. 2026-07-24)
 
@@ -149,6 +155,10 @@ export function useIdlePrefetch() {
       import('../views/SubjectSelectView.jsx').catch(() => {});
       import('../views/ConfigView.jsx').catch(() => {});
       import('../views/ScheduleView.jsx').catch(() => {});
+      // The bottom bar's fifth tab. One tap from every screen, and small, so
+      // the hub opens without the Suspense fallback the lazy split otherwise
+      // shows on its first tap.
+      import('../views/ProfileView.jsx').catch(() => {});
       // The offline banner's "เล่นเกม" opens this view, and it only appears
       // once the device is offline: a chunk first asked for then cannot load,
       // and the tap landed on "หน้านี้ขัดข้อง". Warmed now, the worker's

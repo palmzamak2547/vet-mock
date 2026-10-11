@@ -38,10 +38,16 @@
 //   years: [4]            → only meaningful for the listed curriculum years
 //   primary: true         → big hero card on home (the 3 study modes)
 //
-// Categories (the 4 Palm approved):
+// Categories (Palm's 2026-10-11 feedback: group by what the student is
+// trying to do — เรียน / ปรับแต่งการเรียน / ความคืบหน้า / สังคม&เกม /
+// เสริมสมาธิ — not by which code module owns a feature). The 3 PRIMARY
+// study modes stay hero cards, so FeatureMenu hides the practice group.
 //   practice  📝 ฝึก & สอบ
 //   learn     📚 เรียน & ทบทวน
+//   tune      🎚 ปรับแต่งการเรียน (แก้ข้อสอบเอง เสียงพากย์ การ์ด)
 //   progress  📊 ความคืบหน้า
+//   social    🎮 สังคม & เกม
+//   focus     🧘 พักใจ & โฟกัส
 //   tools     🛠 เครื่องมือ & อื่นๆ
 // ============================================================
 
@@ -60,10 +66,13 @@ export const IMAGING_PRO_URL = 'https://imaging.cuvetsmo.com';
 export const RESEARCH_STUDIO_URL = 'https://research.vetmock.com';
 
 export const FEATURE_CATEGORIES = [
-  { id: 'practice', label: 'ฝึก & สอบ',        labelEn: 'Practice & Exam', icon: '📝' },
-  { id: 'learn',    label: 'เรียน & ทบทวน',     labelEn: 'Learn & Review',  icon: '📚' },
-  { id: 'progress', label: 'ความคืบหน้า',       labelEn: 'Progress',        icon: '📊' },
-  { id: 'tools',    label: 'เครื่องมือ & อื่นๆ', labelEn: 'Tools & More',    icon: '🛠' },
+  { id: 'practice', label: 'ฝึก & สอบ',          labelEn: 'Practice & Exam',  icon: '📝' },
+  { id: 'learn',    label: 'เรียน & ทบทวน',       labelEn: 'Learn & Review',   icon: '📚' },
+  { id: 'tune',     label: 'ปรับแต่งการเรียน',      labelEn: 'Tune your study',  icon: '🎚' },
+  { id: 'progress', label: 'ความคืบหน้า',         labelEn: 'Progress',         icon: '📊' },
+  { id: 'social',   label: 'สังคม & เกม',         labelEn: 'Social & Games',   icon: '🎮' },
+  { id: 'focus',    label: 'พักใจ & โฟกัส',       labelEn: 'Rest & Focus',     icon: '🧘' },
+  { id: 'tools',    label: 'เครื่องมือ & อื่นๆ',     labelEn: 'Tools & More',     icon: '🛠' },
 ];
 
 export const FEATURES = [
@@ -107,7 +116,7 @@ export const FEATURES = [
     invoke: { kind: 'panic', timeKey: '30' },
   },
   {
-    id: 'race', category: 'practice',
+    id: 'race', category: 'social',
     label: 'แข่งกับเพื่อน', labelEn: 'Race with friends', icon: '🏁',
     hint: 'แข่งทำข้อสอบกับเพื่อน',
     kw: 'race แข่ง เพื่อน multiplayer compete versus',
@@ -293,35 +302,35 @@ export const FEATURES = [
     invoke: { kind: 'external', url: RESEARCH_STUDIO_URL },
   },
   {
-    id: 'image-occlusion', category: 'tools',
+    id: 'image-occlusion', category: 'tune',
     label: 'แฟลชการ์ดปิดภาพ', labelEn: 'Image Occlusion', icon: '🖼',
     hint: 'ทำแฟลชการ์ดจากรูปด้วยการปิดบางส่วน',
     kw: 'image occlusion mask anatomy รูป ปกปิด anki flashcard',
     invoke: { kind: 'view', view: 'image-occlusion' },
   },
   {
-    id: 'pdf-annotate', category: 'tools',
+    id: 'pdf-annotate', category: 'tune',
     label: 'เขียนบน PDF', labelEn: 'PDF annotate', icon: '📑',
     hint: 'อัปโหลดเอกสารแล้วขีดเขียนได้ทันที',
     kw: 'pdf annotate lecture slide สไลด์ เขียนทับ มาร์ก',
     invoke: { kind: 'view', view: 'pdf-annotate' },
   },
   {
-    id: 'mochi', category: 'tools', fab: true, fabHint: 'พักสมอง',
+    id: 'mochi', category: 'focus', fab: true, fabHint: 'พักสมอง',
     label: 'พักกับ Mochi', labelEn: 'Mochi break', icon: '♡',
     hint: 'เล่น พักสายตา และตั้งค่าการเคลื่อนไหว',
     kw: 'mochi motion effect animation มอจิ โมจิ พัก สงบ เคลื่อนไหว เกม หายใจ 3d',
     invoke: { kind: 'view', view: 'mochi' },
   },
   {
-    id: 'pomodoro', category: 'tools', fab: true, fabHint: 'focus timer',
+    id: 'pomodoro', category: 'focus', fab: true, fabHint: 'focus timer',
     label: 'จับเวลาโฟกัส', labelEn: 'Pomodoro', icon: '🍅',
     hint: 'โฟกัสครั้งละ 25 นาที',
     kw: 'pomodoro focus timer 25 chick ลูกไก่ จับเวลา โฟกัส',
     invoke: { kind: 'view', view: 'pomodoro' },
   },
   {
-    id: 'groups', category: 'tools',
+    id: 'groups', category: 'social',
     label: 'กลุ่มติว', labelEn: 'Study groups', icon: '👥',
     hint: 'แชร์ข้อสอบและอันดับคะแนนกลุ่ม',
     kw: 'group กลุ่ม ติว study room แชร์ share เพื่อน',
@@ -336,28 +345,28 @@ export const FEATURES = [
     invoke: { kind: 'view', view: 'contribute' },
   },
   {
-    id: 'question-manager', category: 'tools',
+    id: 'question-manager', category: 'tune',
     label: 'เพิ่ม/แก้ข้อสอบเอง', labelEn: 'Question Manager', icon: '✏️',
     hint: 'สร้างข้อสอบ custom',
     kw: 'manage edit custom question จัดการ เพิ่ม แก้ ข้อสอบ สร้าง',
     invoke: { kind: 'view', view: 'question-manager' },
   },
   {
-    id: 'ig-cards', category: 'tools',
+    id: 'ig-cards', category: 'tune',
     label: 'IG Card Studio', labelEn: 'IG Card Studio', icon: '📷',
     hint: 'สร้างโพสต์ @vetmock.cu',
     kw: 'ig instagram card studio post export admin',
     invoke: { kind: 'view', view: 'ig-cards' },
   },
   {
-    id: 'voice-settings', category: 'tools',
+    id: 'voice-settings', category: 'tune',
     label: 'ตั้งค่าเสียงอ่าน', labelEn: 'Voice settings', icon: '🎚',
     hint: 'ปรับเสียงพูดข้อสอบ',
     kw: 'voice tts เสียง อ่าน พูด ความเร็ว pace speed',
     invoke: { kind: 'voice' },
   },
   {
-    id: 'offline-game', category: 'tools',
+    id: 'offline-game', category: 'social',
     label: 'มินิเกม', labelEn: 'Mini game', icon: '🎮',
     hint: 'ลูกไก่หนีเชื้อโรค (เล่นตอนออฟไลน์ได้)',
     kw: 'game เกม มินิเกม ลูกไก่ offline เล่น สนุก',
@@ -389,7 +398,6 @@ export const FEATURES = [
 
 // ── Helpers ──────────────────────────────────────────────
 
-/** Features in one category, in registry order. */
 // One-shot hand-off for a view invoke's `intent`. sessionStorage rather than a
 // prop because four separate surfaces invoke features (the feature menu, the
 // command palette, the sidebar and the tools button) and all of them just call
@@ -419,6 +427,12 @@ export function consumeViewIntent(capturedIntent) {
   } catch { /* retain the intent */ }
 }
 
+// One category, in registry order. FeatureMenu renders these in
+// FEATURE_CATEGORIES order — เรียน → ปรับแต่งการเรียน → ความคืบหน้า →
+// สังคม&เกม → พักใจ&โฟกัส → เครื่องมือ — without skipping any group:
+// Home's hero owns the primary study modes, so those are filtered out
+// inside each group, and a group left empty after that filter renders
+// nothing at all.
 export function featuresByCategory(categoryId) {
   return FEATURES.filter((f) => f.category === categoryId);
 }

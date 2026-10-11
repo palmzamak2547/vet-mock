@@ -42,6 +42,7 @@ import { copyText } from '../lib/clipboard.js';
 import BackBar from '../components/BackBar.jsx';
 import SummaryModal from '../components/SummaryModal.jsx';
 import VideoNotePanel from '../components/VideoNotePanel.jsx';
+import FeatureTip from '../components/FeatureTip.jsx';
 
 // ── Lazy video-summaries body loader (one module per clip) ────────
 // Every summary is its own module behind the barrel's loadVideoSummaryClip,
@@ -559,6 +560,19 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
           {watchedCount > 0 && <>, ดูแล้ว <strong>{watchedCount}</strong> คลิป</>}
         </p>
       </div>
+
+      {/* The once-a-day usage hint. Same component the library, notes and
+          article pages use, so the hint looks and behaves identically
+          whichever reading surface a student opens it on. */}
+      <FeatureTip id="videos" title="คลิปที่เปิดมีสรุปให้อ่าน" icon="🎬">
+        <p style={{ margin: '0 0 6px' }}>
+          เปิดคลิปแล้วกดอ่านสรุปได้ที่ท้ายหน้าเครื่องเล่น
+        </p>
+        <ul style={{ margin: 0, paddingLeft: 22, lineHeight: 1.7 }}>
+          <li>จดโน้ต ณ เวลานี้ได้ แล้วกดเวลาในโน้ตเพื่อกระโดดกลับไปฟัง</li>
+          <li>สรุปด้านในบันทึกเป็น PDF เก็บไว้ทบทวนทีหลังได้</li>
+        </ul>
+      </FeatureTip>
 
       {/* Subject filter — grouped by year + semester. Only subjects that
           actually have videos appear (74 total subjects flat would be

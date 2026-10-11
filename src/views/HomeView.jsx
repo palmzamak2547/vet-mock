@@ -234,7 +234,11 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
 
   // Changelog announcement banner — show until user dismisses this version
   const [lastSeenChangelog, setLastSeenChangelog] = useLocalStorage('vmx-last-seen-changelog', null);
-  const [expanded, setExpanded] = useState(false);
+  // Release details start OPEN, not collapsed. The old false default hid
+  // what was new behind a second tap, so the banner read as a headline
+  // with nothing behind it — "ไม่บอกว่ามีอะไรใหม่ กดเข้าไปเช็คไม่ได้".
+  // One tap (the chip that opens the banner) now yields the whole list.
+  const [expanded, setExpanded] = useState(true);
   const showAnnouncement = LATEST_CHANGELOG && lastSeenChangelog !== LATEST_CHANGELOG.version;
 
   // Onboarding tour — opt-in via a friendly banner.
@@ -644,8 +648,8 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // changelog affordances on screen at once read as a glitch.
   const showChangelogChip = showAnnouncement && !forceChangelogOpen;
 
-  // Whether the quick-action chip row has anything to show.
-  // ⚠️ This MUST list every child of .vmx-home-quick-actions. The condition
+  // Whether the vitals rail's chip row has anything to show.
+  // ⚠️ This MUST list every child of the rail's chip row. The condition
   // used to live inline at the render site, 400 lines below the chips it
   // gated, and drifted: the schedule chips were added later and never got
   // added here, so a student with no history saw today's class and the
@@ -940,7 +944,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
             <button
               type="button"
               className="vmx-icon-close vmx-tap"
-              onClick={() => setLastSeenChangelog(LATEST_CHANGELOG.version)}
+              onClick={() => { setLastSeenChangelog(LATEST_CHANGELOG.version); setForceChangelogOpen(false); }}
               aria-label="ปิดประกาศ"
               title="ปิดประกาศ"
               style={{
@@ -1523,13 +1527,22 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                   </button>
                 )}
                 {showChangelogChip && (
+                  /* The label used to be "อัปเดตระบบ" — that names a system,
+                     not a change, so the row could not say what was new and
+                     nobody tapped it. The release's own headline is the
+                     label; truncateThai keeps the Thai cut clean and the
+                     ellipsis styles keep the chip inside the rail exactly
+                     like the class rows above it. The untruncated headline
+                     plus the date stay on the tooltip. */
                   <button
                     type="button"
                     onClick={() => setForceChangelogOpen(true)}
                     className="vmx-vitals-row"
-                    title="ดูรายละเอียดอัปเดตล่าสุด"
+                    title={`${LATEST_CHANGELOG.headline}, ${fmtThaiDate(LATEST_CHANGELOG.date)}`}
                   >
-                    <span>อัปเดตระบบ</span>
+                    <span style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {truncateThai(LATEST_CHANGELOG.headline, 30)}
+                    </span>
                     <span className="vmx-vitals-row-meta" style={{ color: 'var(--clr-gold-text)' }}>
                       {LATEST_CHANGELOG?.changes?.length ? `${LATEST_CHANGELOG.changes.length} รายการ` : 'ใหม่'}
                     </span>
@@ -1691,12 +1704,28 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         </div>
       )}
 
-      {/* Bottom strip — only the changelog re-open remains here. The old
+      {/* Bottom strip — the changelog re-open lives here. The old
           about / feedback / Q-manager / contribute / review-queue links are
           now first-class cards in the FeatureMenu (🛠 Tools + Practice),
           so this strip shrank to the one action the registry doesn't model:
-          re-surfacing the latest changelog announcement. */}
-      {!showAnnouncement && LATEST_CHANGELOG && (
+          re-surfacing the latest changelog announcement.
+
+          This is also the escape hatch for the banner's own ✕: that button
+          writes the version into lastSeenChangelog, which makes
+          showAnnouncement false, and this link then sits below the fold-out
+          menu waiting to be tapped. Setting lastSeenChangelog back to null
+          returns the reader to the same list (the banner when forceChangelog
+          is already open, the chip otherwise) — details open, since
+          `expanded` now starts true.
+
+          It renders whenever there is a release, on every screen size. The
+          chip itself sits in the vitals rail next to the countdown and the
+          class rows, a container no viewport hides — so this strip is a
+          second, permanent way back to the note rather than the only route
+          on a phone. While the release is still unread (showAnnouncement)
+          the label says so, which also keeps a re-open of an old note from
+          looking like new news. */}
+      {LATEST_CHANGELOG && (
         <div style={{
           marginTop: 28,
           paddingTop: 16,
@@ -1707,7 +1736,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           color: 'var(--clr-ink-soft)',
         }}>
           <button type="button" className="vmx-link-btn" onClick={() => setLastSeenChangelog(null)} style={linkStyle}>
-            อัปเดตล่าสุด ({LATEST_CHANGELOG.version})
+            {showAnnouncement ? `มีอะไรใหม่ (${LATEST_CHANGELOG.version})` : `อัปเดตล่าสุด (${LATEST_CHANGELOG.version})`}
           </button>
         </div>
       )}

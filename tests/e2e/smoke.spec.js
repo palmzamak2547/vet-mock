@@ -397,10 +397,12 @@ test.describe('VetMock smoke flow', () => {
     await page.goto('/');
     await page.waitForLoadState('networkidle', { timeout: 15_000 });
 
-    // Sidebar and bottom navigation share the same label; only one is visible
-    // at a given breakpoint. Pick the visible control instead of relying on
-    // DOM order, which differs between desktop and mobile layouts.
-    const wikiEntries = page.getByRole('button', { name: 'VetWiki', exact: true });
+    // VetWiki is reachable from the desktop rail's "เรียน & ทบทวน" group,
+    // from mobile Home's feature card and from ⌘K. The label differs per
+    // surface (the home card appends its hint), so match the name, not an
+    // exact string, and click whichever instance this viewport actually
+    // shows — DOM order differs between desktop and mobile layouts.
+    const wikiEntries = page.getByRole('button', { name: /VetWiki/ });
     const wikiEntryCount = await wikiEntries.count();
     let openedWiki = false;
     for (let i = 0; i < wikiEntryCount; i++) {

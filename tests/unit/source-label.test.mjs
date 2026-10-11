@@ -96,6 +96,10 @@ const STUBS = {
   '../components/BackBar.jsx': 'export default function BackBar() { return null; }',
   '../components/SummaryModal.jsx': 'export default function SummaryModal() { return null; }',
   '../components/VideoNotePanel.jsx': 'export default function VideoNotePanel() { return null; }',
+  // The once-a-day usage hint. Stubbed by name like the others: the test
+  // compiles VideoView through Node's loader, which has no JSX transform,
+  // so every .jsx child is replaced before it is ever resolved.
+  '../components/FeatureTip.jsx': 'export default function FeatureTip() { return null; }',
   '../hooks/useModalFocus.js': 'export const useModalFocus = () => ({ current: null });',
   // The chip's line icon. A named function, so the tree can say which glyph.
   './NavIcon.jsx': 'export default function NavIcon() { return null; }',
