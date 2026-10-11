@@ -2,7 +2,7 @@
  "_fixture": {
   "family": "r-4.6.0",
   "kind": "pin",
-  "methods": ["multi.pca"]
+  "methods": ["mv.pca"]
  },
  "_meta": {
   "script": "research/tests/fixtures/r/pca.R",

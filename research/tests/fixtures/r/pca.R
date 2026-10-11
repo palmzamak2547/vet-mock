@@ -22,7 +22,7 @@ cases[["usarrestsScaled"]] <- case("prcomp(USArrests, scale. = TRUE), signs fixe
   one(USArrests, TRUE), data = "USArrests")
 cases[["irisCovariance"]] <- case("prcomp(iris[, 1:4], scale. = FALSE), signs fixed", "iterative", one(iris[, 1:4], FALSE), data = "iris")
 
-rs_emit("pca", c("multi.pca"), cases,
+rs_emit("pca", c("mv.pca"), cases,
   datasets = list(USArrests = list(rows = arr(rownames(USArrests)), columns = arr(colnames(USArrests)), values = unname(as.matrix(USArrests))),
                   iris = list(columns = arr(colnames(iris)[1:4]), values = unname(as.matrix(iris[, 1:4])))),
   notes = "Signs fixed so the largest absolute loading of each component is positive. Eigenvalues are sdev^2 (divisor n - 1). Loadings and scores compare at the iterative tolerance.")
