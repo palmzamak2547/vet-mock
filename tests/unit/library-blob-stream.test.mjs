@@ -168,3 +168,78 @@ test('upstream refusals retain their error status and are never cached', async (
     assert.deepEqual(JSON.parse(res.bytes().toString()), { error: 'object_unavailable' });
   }
 });
+
+// A fetch whose body stays open until the test feeds it, and which errors the
+// body when the request is aborted, as undici does.
+function openUpstream(t, { size = 0 } = {}) {
+  const state = { controller: null, signal: null };
+  const req = storage(t, async (_url, { signal }) => {
+    state.signal = signal;
+    return new Response(new ReadableStream({
+      start(controller) {
+        state.controller = controller;
+        signal.addEventListener('abort', () => controller.error(signal.reason), { once: true });
+      },
+    }), size ? { headers: { 'Content-Length': String(size) } } : {});
+  });
+  return { req, state };
+}
+async function until(check, what) {
+  for (let i = 0; i < 500 && !check(); i++) await new Promise((resolve) => setImmediate(resolve));
+  assert.ok(check(), `never reached: ${what}`);
+}
+
+test('a download whose bytes keep arriving is not cut off by the 60 s header limit', { timeout: 10_000 }, async (t) => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const { req, state } = openUpstream(t, { size: 9 });
+  const res = response();
+  const pending = handler(req, res);
+  await until(() => state.controller, 'upstream headers answered');
+  state.controller.enqueue(new Uint8Array([1, 2, 3]));
+  await until(() => res.bytes().length === 3, 'first chunk written');
+  t.mock.timers.tick(59_000);
+  state.controller.enqueue(new Uint8Array([4, 5, 6]));
+  await until(() => res.bytes().length === 6, 'second chunk written');
+  t.mock.timers.tick(59_000); // 118 s in total: past the 60 s header limit, still moving
+  assert.equal(state.signal.aborted, false, 'the header timer must be gone once headers arrived');
+  state.controller.enqueue(new Uint8Array([7, 8, 9]));
+  state.controller.close();
+  await pending;
+  await finished(res);
+  assert.equal(res.writableFinished, true);
+  assert.deepEqual([...res.bytes()], [1, 2, 3, 4, 5, 6, 7, 8, 9]);
+});
+
+test('storage that goes silent mid-body for 60 s ends the download without claiming completion', { timeout: 10_000 }, async (t) => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const { req, state } = openUpstream(t, { size: 9 });
+  const res = response();
+  const pending = handler(req, res);
+  await until(() => state.controller, 'upstream headers answered');
+  state.controller.enqueue(new Uint8Array([1, 2, 3]));
+  await until(() => res.bytes().length === 3, 'first chunk written');
+  t.mock.timers.tick(60_000);
+  await pending;
+  await finished(res).catch(() => {});
+  assert.equal(state.signal.aborted, true, 'the stalled storage request is released');
+  assert.equal(res.destroyed, true);
+  assert.equal(res.writableFinished, false, 'a truncated body is not a completed download');
+});
+
+test('time spent waiting on a slow client never counts as silence from storage', { timeout: 10_000 }, async (t) => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const { req, state } = openUpstream(t);
+  const res = response((_chunk, _encoding, _done) => {}); // the client never drains
+  const pending = handler(req, res);
+  await until(() => state.controller, 'upstream headers answered');
+  for (let i = 0; i < 200; i++) state.controller.enqueue(new Uint8Array(1024));
+  await until(() => res.writableNeedDrain, 'client backpressure');
+  await new Promise((resolve) => setImmediate(resolve));
+  t.mock.timers.tick(120_000);
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(state.signal.aborted, false);
+  assert.equal(res.destroyed, false);
+  res.destroy();
+  await pending;
+  assert.equal(state.signal.aborted, true, 'closing the client still releases storage');
+});

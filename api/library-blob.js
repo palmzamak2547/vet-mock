@@ -38,6 +38,39 @@ const rfc5987 = (s) => encodeURIComponent(s).replace(/[!'()*]/g, (c) => `%${c.ch
 // no quotes.
 const asciiName = (s) => (String(s).replace(/[^\x20-\x7E]/g, '_').replace(/"/g, '').trim() || 'document');
 
+// Waiting for storage's response headers, and the longest silence tolerated
+// mid-body. Neither is a cap on the whole transfer: a slow link may take as long
+// as it needs while bytes keep arriving.
+const UPSTREAM_HEADERS_MS = 60_000;
+const UPSTREAM_IDLE_MS = 60_000;
+
+// Re-arms an idle timer on every read from storage. pull() runs only when the
+// consumer wants more (highWaterMark 0), so time spent waiting on a slow client
+// never counts; only silence from storage does. A stall aborts the fetch and
+// errors the stream, which truncates the download rather than claiming it done.
+function stallGuard(body, disconnected) {
+  const reader = body.getReader();
+  return new ReadableStream({
+    async pull(controller) {
+      const timer = setTimeout(() => {
+        const stalled = new Error('storage_stalled');
+        disconnected.abort(stalled);
+        reader.cancel(stalled).catch(() => {});
+        try { controller.error(stalled); } catch { /* already finished */ }
+      }, UPSTREAM_IDLE_MS);
+      try {
+        const { done, value } = await reader.read();
+        if (done) controller.close(); else controller.enqueue(value);
+      } catch (error) {
+        try { controller.error(error); } catch { /* already finished */ }
+      } finally {
+        clearTimeout(timer);
+      }
+    },
+    cancel(reason) { return reader.cancel(reason); },
+  }, { highWaterMark: 0 });
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     res.statusCode = 405;
@@ -86,8 +119,11 @@ export default async function handler(req, res) {
   if (req.headers.range) upstreamHeaders.Range = req.headers.range;
 
   const disconnected = new AbortController();
-  const timeout = setTimeout(() => disconnected.abort(), 60_000);
-  res.once('close', () => { clearTimeout(timeout); disconnected.abort(); });
+  // This limit covers the upstream HEADERS only. The same signal governs the body
+  // once fetch resolves, so a timer left running would cut off a slow client's
+  // download while bytes are still moving. The body has its own stall guard below.
+  const headersTimeout = setTimeout(() => disconnected.abort(), UPSTREAM_HEADERS_MS);
+  res.once('close', () => { clearTimeout(headersTimeout); disconnected.abort(); });
   let upstream;
   try {
     upstream = await fetch(
@@ -97,6 +133,8 @@ export default async function handler(req, res) {
   } catch {
     res.statusCode = 502;
     return res.end(JSON.stringify({ error: 'storage_unavailable' }));
+  } finally {
+    clearTimeout(headersTimeout);
   }
 
   if (!upstream.ok && upstream.status !== 206) {
@@ -138,7 +176,7 @@ export default async function handler(req, res) {
   // Stream, not buffer: an 18 MB deck must not sit in function memory
   // twice, and first bytes should reach the tab before last bytes leave R2.
   try {
-    await pipeline(Readable.fromWeb(upstream.body), res);
+    await pipeline(Readable.fromWeb(stallGuard(upstream.body, disconnected)), res);
   } catch {
     // Pipeline cancels abandoned reads and terminates incomplete downloads.
   }
