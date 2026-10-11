@@ -69,7 +69,7 @@ test('the workspace opens without the project screen, the analysis panes or the 
     assert.ok(!rel.includes(heavy), `${heavy} is reached statically from Workspace.jsx`);
   }
   // A byte budget on the source the first chunk carries: 1.28 MB of source here (built chunk 729 kB); 2.08 MB
-  // before the split (built chunk 1.56 MB).
-  const bytes = [...closure].filter((f) => f.startsWith(SRC) && existsSync(f) && /\.(m?js|jsx)$/.test(f)).reduce((s, f) => s + readFileSync(f).length, 0);
+  // before the split (built chunk 1.56 MB). Counted with LF line ends, so a Windows checkout (CRLF) and CI agree.
+  const bytes = [...closure].filter((f) => f.startsWith(SRC) && existsSync(f) && /\.(m?js|jsx)$/.test(f)).reduce((s, f) => s + Buffer.byteLength(readFileSync(f, 'utf8').replace(/\r\n/g, '\n')), 0);
   assert.ok(bytes < 1_450_000, `Workspace.jsx reaches ${bytes} bytes of source statically`);
 });
