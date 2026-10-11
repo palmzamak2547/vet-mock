@@ -3,10 +3,13 @@
 // when its id is also in models.registered.js. OWNER: models role.
 import { runLogistic, runPoisson } from '../../models/glm.js';
 import { runKaplanMeier } from '../../models/survival.js';
+import { runNegbin } from '../../models/negbin.js';
 
 /** @type {Record<string, { impl: import('../registry.js').MethodImpl, module: string, fn: string }>} */
 export default {
   'reg.logistic': { impl: runLogistic, module: 'models/glm.js', fn: 'runLogistic' },
   'reg.poisson': { impl: runPoisson, module: 'models/glm.js', fn: 'runPoisson' },
   'surv.kaplanMeier': { impl: runKaplanMeier, module: 'models/survival.js', fn: 'runKaplanMeier' },
+  // M3a: reg.logistic's Firth option runs inside runLogistic (glm.js -> firth.js).
+  'reg.negbin': { impl: runNegbin, module: 'models/negbin.js', fn: 'runNegbin' },
 };

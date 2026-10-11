@@ -12,7 +12,12 @@
 //   approx(z, par, xout = qnorm(a)) (linear interpolation of the spline's points).
 // A bound that the profile never reaches is null (R prints NA). If a refit finds a smaller deviance than
 // the original fit (R stops: "profiling has found a better solution"), both bounds are null.
-import { qchisq } from '../stats/dist.js';
+//
+// Negative binomial fits (negbin.js, theta held at its estimate): profile.glm switches on family$family, and
+// MASS names that family "Negative Binomial(<theta>)", which matches none of its cases, so R takes the default
+// branch zmax = sqrt(qf(1 - alpha, 1, n - p)) (checked in R 4.6.0: family(glm.nb(...))$family). That moves
+// del = zmax / 5 and so the profile's points; the caller asks for it with { fDf: n - p }.
+import { qchisq, qf } from '../stats/dist.js';
 import { qnorm } from '../stats/qnorm.js';
 import { fitGlm } from './glm.js';
 
@@ -23,16 +28,18 @@ const MAXSTEPS = 10;
  * @param {number} j            coefficient index
  * @param {number} confLevel
  * @param {ReturnType<import('./glm.js').fitGlm>} [base]  the fit of fitArgs, when the caller has it
+ * @param {{ fDf?: number }} [prof]  fDf: zmax from the F distribution on (1, fDf) degrees of freedom (R's default
+ *   branch, taken for the negative binomial family) instead of the chi-square
  * @returns {[number|null, number|null]}
  */
-export function profileCi(fitArgs, j, confLevel, base) {
+export function profileCi(fitArgs, j, confLevel, base, prof = {}) {
   const [X, y, family, opts = {}] = fitArgs;
   const fit = base ?? fitGlm(X, y, family, opts);
   if (fit.aliased[j] || !Number.isFinite(fit.beta[j])) return [null, null];
-  const prof = profilePoints(X, y, family, opts, fit, j, (1 - confLevel) / 4);
-  if (!prof) return [null, null];
+  const points = profilePoints(X, y, family, opts, fit, j, (1 - confLevel) / 4, prof.fDf);
+  if (!points) return [null, null];
   const a = (1 - confLevel) / 2;
-  const sp = splineFmm(prof.par, prof.z);
+  const sp = splineFmm(points.par, points.z);
   const cut = [qnorm(a), qnorm(1 - a)];
   return cut.map((c) => approxLinear(sp.y, sp.x, c));
 }
@@ -41,13 +48,13 @@ export function profileCi(fitArgs, j, confLevel, base) {
  * The profile of coefficient j as profile.glm builds it, sorted by z. Null when a refit beats the fit.
  * @returns {{ z: number[], par: number[] } | null}
  */
-export function profilePoints(X, y, family, opts, fit, j, alpha) {
+export function profilePoints(X, y, family, opts, fit, j, alpha, fDf = null) {
   const n = y.length;
   const O = opts.offset ?? new Float64Array(n);
   const nonA = X.map((_, k) => !fit.aliased[k]);
   const B0 = fit.beta;
   const se = Math.sqrt(fit.vcov[j][j]);
-  const zmax = Math.sqrt(qchisq(1 - alpha, 1));
+  const zmax = Math.sqrt(fDf ? qf(1 - alpha, 1, fDf) : qchisq(1 - alpha, 1));
   const del = zmax / 5;
   const others = X.map((_, k) => k).filter((k) => nonA[k] && k !== j);
   const Xi = others.map((k) => X[k]);

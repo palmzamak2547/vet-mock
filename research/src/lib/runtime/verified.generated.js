@@ -34,6 +34,7 @@ export const VERIFIED = {
   "power.regression": ["r-4.6.0"],
   "power.tTest": ["r-4.6.0"],
   "reg.logistic": ["r-4.6.0"],
+  "reg.negbin": ["r-4.6.0"],
   "reg.ols": ["nist-strd","r-4.6.0"],
   "reg.poisson": ["r-4.6.0"],
   "rel.cronbach": ["r-4.6.0"],
