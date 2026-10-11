@@ -15,6 +15,9 @@
 //      shared_questions.
 //   3) Returns an audit report {deleted: {table: count}, errors: []}.
 //   4) Calls admin.deleteUser at the end so auth.users row is gone.
+//   5) First ends any Google / Notion grant the student connected for the
+//      external-document reader (external_connections), then deletes the
+//      rows with the rest.
 //
 // JWT verification (verify_jwt=true) is enforced by Supabase BEFORE
 // our code runs — so the caller MUST be authenticated. We use the
@@ -54,6 +57,69 @@ function corsHeaders(origin: string | null) {
     'Access-Control-Max-Age': '86400',
     'Vary': 'Origin',
   } as Record<string, string>;
+}
+
+// A connected Google or Notion account is a grant at the provider, not just
+// a row here. The row cascades away with auth.users, but the grant (Google:
+// read access to the whole Drive) would stay live and VetMock would stay on
+// the student's third-party access list. End each grant before the purge.
+// Best effort: a provider that is down never blocks the deletion.
+// Google needs only the token; Notion needs the client's Basic credentials,
+// so its revocation runs only when NOTION_OAUTH_CLIENT_ID and
+// NOTION_OAUTH_CLIENT_SECRET are set as secrets on this function.
+const REVOKE_TIMEOUT_MS = 4000;
+
+async function revokeExternalGrants(
+  admin: ReturnType<typeof createClient>,
+  userId: string,
+): Promise<Record<string, boolean>> {
+  const revoked: Record<string, boolean> = {};
+  let rows: Array<{ provider: string; access_token: string | null; refresh_token: string | null }> = [];
+  try {
+    const { data, error } = await admin
+      .from('external_connections')
+      .select('provider, access_token, refresh_token')
+      .eq('user_id', userId);
+    if (error || !Array.isArray(data)) return revoked;
+    rows = data;
+  } catch {
+    return revoked;
+  }
+  for (const row of rows) {
+    try {
+      if (row.provider === 'google') {
+        const token = row.refresh_token || row.access_token;
+        if (!token) { revoked.google = false; continue; }
+        const res = await fetch('https://oauth2.googleapis.com/revoke', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({ token }).toString(),
+          redirect: 'error',
+          signal: AbortSignal.timeout(REVOKE_TIMEOUT_MS),
+        });
+        revoked.google = res.ok;
+      } else if (row.provider === 'notion') {
+        const clientId = Deno.env.get('NOTION_OAUTH_CLIENT_ID') || '';
+        const clientSecret = Deno.env.get('NOTION_OAUTH_CLIENT_SECRET') || '';
+        if (!clientId || !clientSecret || !row.access_token) { revoked.notion = false; continue; }
+        const res = await fetch('https://api.notion.com/v1/oauth/revoke', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Notion-Version': '2026-03-11',
+            Authorization: `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
+          },
+          body: JSON.stringify({ token: row.access_token }),
+          redirect: 'error',
+          signal: AbortSignal.timeout(REVOKE_TIMEOUT_MS),
+        });
+        revoked.notion = res.ok;
+      }
+    } catch {
+      revoked[row.provider] = false;
+    }
+  }
+  return revoked;
 }
 
 function json(payload: unknown, status: number, origin: string | null) {
@@ -110,10 +176,14 @@ Deno.serve(async (req: Request) => {
     auth: { autoRefreshToken: false, persistSession: false },
   });
 
+  // End the student's Google / Notion grants while their tokens still exist.
+  const revoked = await revokeExternalGrants(admin, userId);
+
   // Order: child tables (FK referrers) first, then parent tables.
   // profiles is last because some tables FK to profiles.id, not auth.users.
   // auth.users is removed via admin.deleteUser at the very end.
   const targets: Array<{ table: string; column: string }> = [
+    { table: 'external_connections', column: 'user_id' },
     { table: 'imaging_attempts', column: 'user_id' },
     { table: 'submission_reviews', column: 'reviewer_id' },
     { table: 'q_submissions', column: 'contributor_id' },
@@ -172,6 +242,7 @@ Deno.serve(async (req: Request) => {
     ok: errors.length === 0,
     user_id: userId,
     deleted,
+    revoked,
     errors,
     timestamp: new Date().toISOString(),
   }, 200, origin);

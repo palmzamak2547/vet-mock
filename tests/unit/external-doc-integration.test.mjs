@@ -538,3 +538,15 @@ test('disconnect deletes the row, then ends the grant at Google or Notion, and a
   assert.deepEqual(res.body, { ok: true, revoked: false }, 'the student is disconnected here even when Google is down');
 });
 
+test('account deletion ends the Google and Notion grants before the connection rows go', async () => {
+  // Deno code, deployed separately; this pins the order it runs in.
+  const { readFileSync } = await import('node:fs');
+  const fn = readFileSync(new URL('../../supabase/functions/delete-account/index.ts', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+  const call = fn.indexOf('await revokeExternalGrants(admin, userId)');
+  assert.ok(call !== -1, 'the purge revokes connected grants');
+  assert.ok(call < fn.indexOf('for (const { table, column } of targets)'), 'revoked while the tokens still exist');
+  assert.ok(call < fn.indexOf('admin.auth.admin.deleteUser(userId)'));
+  assert.match(fn, /'https:\/\/oauth2\.googleapis\.com\/revoke'/);
+  assert.match(fn, /'https:\/\/api\.notion\.com\/v1\/oauth\/revoke'/);
+  assert.match(fn, /\{ table: 'external_connections', column: 'user_id' \}/);
+});
