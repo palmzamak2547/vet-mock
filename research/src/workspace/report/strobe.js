@@ -6,7 +6,8 @@
 // 'report' for rows added in M2). OWNER: report role.
 import { flowComplete } from './flow.js';
 
-const REGRESSION = new Set(['reg.logistic', 'reg.poisson']);
+// Negative binomial regression (M3a) adjusts its ratios for the other factors as Poisson regression does.
+const REGRESSION = new Set(['reg.logistic', 'reg.poisson', 'reg.negbin']);
 const covariateCount = (s) => [].concat(s.roles?.covariates ?? []).filter(Boolean).length;
 
 /**

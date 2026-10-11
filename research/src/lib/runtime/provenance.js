@@ -6,6 +6,28 @@ import { AREA_OF } from './areas/index.js';
 const CI_METHOD_OPTIONS = ['ciMethod', 'apparentCiMethod', 'orCi', 'rrCi', 'rdCi', 'lrCi'];
 const OTHER_OPTIONS = ['variant', 'measure', 'posthoc', 'method', 'exact', 'weights', 'zeroCell', 'yates', 'continuityCorrection', 'cmhContinuity', 'homogeneity', 'quantileType', 'clusterSize', 'formula', 'z', 'fpc', 'per', 'scores', 'mu', 'intercept', 'roundUp'];
 
+/**
+ * Options only the M3a methods carry, and the options of theirs whose name an M1 or M2 method uses for something
+ * else. `method` is adjust.pValues' p-value adjustment ("p-values adjusted by Holm"), but on reg.logistic it is the
+ * Firth switch and on qpcr.relative it is Livak or Pfaffl; `test` is Kaplan-Meier's log-rank switch (never printed),
+ * but on qpcr.relative it picks Welch or pooled variance. Per method: option name -> the dictionary slug its words
+ * live under. A slug owns whole phrases, one per value (`runtime.opt.<slug>.<value>`, `.on` and `.off` for a boolean)
+ * and a panel label (`runtime.optName.<slug>`). The phrases are not added to OPTION_VALUES, so a level someone
+ * named "first" or "all" in a reference record is never rewritten in the options panel.
+ */
+export const SCOPED_OPTIONS = Object.freeze({
+  'reg.logistic': Object.freeze({ method: 'logisticMethod' }),
+  'qpcr.relative': Object.freeze({ method: 'qpcrMethod', test: 'qpcrTest', efficiency: 'efficiency' }),
+  'nls.fourPL': Object.freeze({ model: 'model' }),
+  'nls.doseResponse': Object.freeze({ model: 'model', compare: 'compare' }),
+  'nls.equation': Object.freeze({ equation: 'equation' }),
+  'calc.auc': Object.freeze({ baseline: 'baseline' }),
+  'mv.pca': Object.freeze({ scale: 'scale' }),
+});
+
+/** Values that are what the method does when the option is absent, so the line does not announce them. */
+const UNMARKED = Object.freeze({ 'reg.logistic:method': 'ml' });
+
 /** Option values that have a display name (statistics names stay English in both languages). */
 export const OPTION_VALUES = Object.freeze([
   'wilson', 'exact', 'wald', 'agresti-coull', 'exact-poisson', 'woolf', 'wald-log', 'score', 'newcombe', 'none',
@@ -15,6 +37,8 @@ export const OPTION_VALUES = Object.freeze([
   'rank', 'OR', 'RR', 'wald-deff',
   // M2 [M2-DESIGN.md 3]
   'delong', 'feldt', 'profile', 'pairwise-t-sidak', 'pairwise-t-bh', 'sidak', 'bh', 'survey-logit', 'survey-mean', 'hodges-lehmann',
+  // M3a: the interval Firth's correction reports
+  'profile-penalised',
 ]);
 
 /** Option names that have a label in the dictionary (runtime.optName.*). */
@@ -36,6 +60,12 @@ function valueText(val, t) {
 function optionValueText(name, val, t) {
   if (typeof val === 'boolean') return t(`runtime.opt.${name}.${val ? 'on' : 'off'}`);
   return t(`runtime.opt.${name}`, { value: valueText(val, t) });
+}
+
+/** The phrase for a value of a scoped option (SCOPED_OPTIONS): runtime.opt.<slug>.<value>, .on/.off for a boolean. */
+function scopedOptionText(slug, val, t) {
+  if (typeof val === 'boolean') return t(`runtime.opt.${slug}.${val ? 'on' : 'off'}`);
+  return t(`runtime.opt.${slug}.${valueSlug(val)}`);
 }
 
 /**
@@ -65,14 +95,17 @@ export function provenanceLines(env, lang, t, labelOf = (k) => k) {
     const level = Math.round(opts.confLevel * 1000) / 10;
     // The interval a value actually carries wins over the option asked for: the DEFF route widens a
     // Wald interval whatever the CI option says (review round 2: the line said Wilson).
-    const used = Object.values(env.values || {}).map((v) => v?.ciMethod).filter((m) => m === 'wald-deff' || m === 'survey-logit' || m === 'survey-mean');
+    // Firth's correction (M3a) reports its intervals from the penalised likelihood, not the plain profile.
+    const used = Object.values(env.values || {}).map((v) => v?.ciMethod).filter((m) => m === 'wald-deff' || m === 'survey-logit' || m === 'survey-mean' || m === 'profile-penalised');
     const ciMethods = CI_METHOD_OPTIONS.filter((k) => opts[k] !== undefined && opts[k] !== 'none')
       .map((k) => (k === 'ciMethod' && used.length ? used[0] : opts[k]))
       .map((m) => valueText(m, t));
     first.push(ciMethods.length ? t('runtime.prov.ciWith', { level, methods: ciMethods.join(', ') }) : t('runtime.prov.ci', { level }));
   }
   if (opts.alternative && opts.alternative !== 'two.sided') first.push(t(`runtime.prov.alternative.${opts.alternative === 'less' ? 'less' : 'greater'}`));
+  const scoped = SCOPED_OPTIONS[methodId] || {};
   for (const name of OTHER_OPTIONS) {
+    if (scoped[name]) continue; // this method's own words, below
     if (opts[name] === undefined || opts[name] === null) continue;
     if (name === 'mu' && opts.variant !== 'one-sample') continue;
     // "no pairwise comparisons" says nothing about the numbers shown
@@ -83,6 +116,17 @@ export function provenanceLines(env, lang, t, labelOf = (k) => k) {
       continue;
     }
     first.push(optionValueText(name, opts[name], t));
+  }
+  // M3a options, each in the words of the method that carries it (a Firth result is not "adjusted" in any way).
+  for (const [name, slug] of Object.entries(scoped)) {
+    const val = opts[name];
+    if (val === undefined || val === null || typeof val === 'object') continue; // a record (efficiency) is in the panel
+    if (UNMARKED[`${methodId}:${name}`] === val) continue;
+    // "no comparison between curves" says nothing about the numbers shown
+    if (name === 'compare' && val === 'none') continue;
+    // the two-group test is only a fact of the result when a t-test ran (three groups run the F test)
+    if (slug === 'qpcrTest' && !(env.tests || []).some((x) => x.id === 'tTest')) continue;
+    first.push(scopedOptionText(slug, val, t));
   }
   if (p.route && p.route !== 'none') first.push(t('runtime.prov.route', { route: t(`runtime.route.${valueSlug(p.route)}`) }));
 
@@ -115,8 +159,18 @@ export function provenanceLines(env, lang, t, labelOf = (k) => k) {
  */
 export function provenanceOptions(env, t) {
   const opts = env.provenance?.options || env.spec?.options || {};
+  const scoped = SCOPED_OPTIONS[env.provenance?.methodId || env.method?.id] || {};
   const out = [];
   for (const [name, val] of Object.entries(opts)) {
+    const slug = scoped[name];
+    if (slug) {
+      let words;
+      if (val && typeof val === 'object') {
+        words = Object.keys(val).length === 0 ? t(`runtime.opt.${slug}.empty`) : Object.entries(val).map(([k, x]) => `${k}: ${x}`).join(', ');
+      } else words = scopedOptionText(slug, val, t);
+      out.push([t(`runtime.optName.${slug}`), words]);
+      continue;
+    }
     let shown;
     if (typeof val === 'boolean') shown = t(val ? 'runtime.prov.yes' : 'runtime.prov.no');
     else if (val && typeof val === 'object' && !Array.isArray(val)) shown = Object.entries(val).map(([k, x]) => `${k}: ${valueText(x, t)}`).join(', ');

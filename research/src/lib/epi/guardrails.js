@@ -48,6 +48,18 @@ function finding(id, extra = {}) {
   return { id, severity: SEVERITY[id], key: `epi.guard.${id}.title`, bodyKey: `epi.guard.${id}.body`, ...extra };
 }
 
+/**
+ * G24 counts a row as not used when a role column is blank in it, which is right for nearly every method. These
+ * methods use a row although one of their role columns is blank, so G24 asks only about the columns that drop a row:
+ * - nls.fourPL: a blank concentration beside a response is an unknown to read off the curve, not a dropped row
+ *   (M3-DESIGN.md C4); only a blank response drops the row. ("24 of 26 rows used" on a plate that used all 26.)
+ * - mv.pca: the rows are listwise on the items; a blank label (subject) or colour (group) leaves the point unlabelled.
+ */
+const G24_DROPPED_BY = Object.freeze({
+  'nls.fourPL': (spec) => [].concat(spec.roles?.outcome ?? []),
+  'mv.pca': (spec) => [].concat(spec.roles?.items ?? []),
+});
+
 /** Methods that treat rows as independent animals (the same list as run.js G1_SUBJECT). */
 export const G1_METHODS = Object.freeze(new Set([
   'freq.proportion', 'freq.truePrevalence', 'freq.incidenceRisk', 'freq.incidenceRate',
@@ -68,7 +80,7 @@ const MH_METHODS = new Set(['epi.twoByTwo', 'test.chisq', 'test.fisher2x2', 'epi
 const DEFF_METHODS = new Set(['freq.proportion', 'freq.truePrevalence', 'epi.twoByTwo']);
 const SURVEY_METHODS = new Set(['freq.proportion']);
 const ROBUST_METHODS = new Set(['reg.logistic', 'reg.poisson']);
-const NO_AGGREGATE_METHODS = new Set(['reg.logistic', 'reg.poisson', 'surv.kaplanMeier']);
+const NO_AGGREGATE_METHODS = new Set(['reg.logistic', 'reg.poisson', 'reg.negbin', 'surv.kaplanMeier']);
 /** Measurements of each animal (a test against a reference, two raters, several items): a farm mean of
  * each reading is a different quantity, so limits of agreement narrow, alpha rises and the AUC reads
  * farms (review round 3: limits 2.7 times narrower, alpha 0.80 -> 0.96, AUC 0.79 -> 1). No aggregate route. */
@@ -337,7 +349,7 @@ export function evaluateGuards(spec, table, codebook, context = {}) {
   // and counts the missing values under each variable, so it drops none (review round 1: its banner
   // said 650 of 728 while its provenance said 728).
   if (dataset && method !== 'desc.table1') {
-    const keys = roleKeys(spec).filter((k) => table.columns[k]);
+    const keys = (G24_DROPPED_BY[method]?.(spec) ?? roleKeys(spec)).filter((k) => k && table.columns[k]);
     if (keys.length) {
       const byColumn = [];
       let dropped = 0;

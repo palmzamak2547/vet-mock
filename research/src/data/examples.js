@@ -93,6 +93,37 @@ export const EXAMPLES = Object.freeze([
     rows: 30, columns: 6, secondRows: 30,
     load: () => import('./examples/double-entry.js'),
   },
+  // M3a [M3-DESIGN.md 7]: one example per lab family. They name methods the lab role registers in M3a.
+  {
+    id: 'elisa-plate', titleKey: 'trust.example.elisa-plate.title', descKey: 'trust.example.elisa-plate.story',
+    design: 'experiment', methods: ['nls.fourPL'], tool: null, guide: 'assays',
+    rows: 28, columns: 4, secondRows: null,
+    load: () => import('./examples/elisa-plate.js'),
+  },
+  {
+    id: 'dose-arms', titleKey: 'trust.example.dose-arms.title', descKey: 'trust.example.dose-arms.story',
+    design: 'experiment', methods: ['nls.doseResponse'], tool: null, guide: 'assays',
+    rows: 42, columns: 4, secondRows: null,
+    load: () => import('./examples/dose-arms.js'),
+  },
+  {
+    id: 'glucose-tolerance', titleKey: 'trust.example.glucose-tolerance.title', descKey: 'trust.example.glucose-tolerance.story',
+    design: 'experiment', methods: ['calc.auc'], tool: null, guide: 'assays',
+    rows: 60, columns: 4, secondRows: null,
+    load: () => import('./examples/glucose-tolerance.js'),
+  },
+  {
+    id: 'qpcr-two-references', titleKey: 'trust.example.qpcr-two-references.title', descKey: 'trust.example.qpcr-two-references.story',
+    design: 'experiment', methods: ['qpcr.relative'], tool: null, guide: 'assays',
+    rows: 12, columns: 5, secondRows: null,
+    load: () => import('./examples/qpcr-two-references.js'),
+  },
+  {
+    id: 'herd-panel', titleKey: 'trust.example.herd-panel.title', descKey: 'trust.example.herd-panel.story',
+    design: 'cross-sectional', methods: ['mv.pca'], tool: null, guide: 'assays',
+    rows: 60, columns: 8, secondRows: null,
+    load: () => import('./examples/herd-panel.js'),
+  },
 ]);
 
 /** @param {string} id @returns {Example|undefined} */

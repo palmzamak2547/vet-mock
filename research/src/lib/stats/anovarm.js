@@ -15,6 +15,9 @@
 // between factor; it is capped at 1 for the p-value and printed uncapped with a note. Mauchly's W =
 // det(U) / (tr(U) / (p - 1))^(p - 1) with R's chi-square approximation and its second-order term.
 // Mauchly is shown beside the result and never chooses the correction (methods.md anti-pattern 2).
+//
+// M3 adds a second within factor (role factorB, M3-DESIGN.md 3.1.5): its own code path at the end of this file;
+// without factorB nothing below changes.
 import { pfUpper, pchisqUpper, qt } from './dist.js';
 import { mean, ksum, variance, val, nullVal, testRow, role, common, completeRows, column, numbersAt, invalid } from './common.js';
 
@@ -142,12 +145,14 @@ function fp(ss1, df1, ss2, df2, eps = 1) {
 
 /**
  * roles outcome, subject, time (within), group (between, optional); data in long form (one row per animal and time).
+ * With factorB (a second within factor, M3) the two-within path runTwoWithin answers instead (end of this file).
  * Animals missing any time are dropped with reason 'incomplete' and counted. options sphericity (which corrected p the sentence uses), mauchly.
  * @param {import('../runtime/types.js').AnalysisSpec} spec
  * @param {import('../runtime/types.js').WorkingTable|null} table
  * @returns {import('../runtime/registry.js').MethodOutput}
  */
 export function runAnovaRepeated(spec, table) {
+  if (role(spec, 'factorB')) return runTwoWithin(spec, table);
   const yKey = role(spec, 'outcome');
   const sKey = role(spec, 'subject');
   const tKey = role(spec, 'time');
@@ -277,6 +282,300 @@ export function runAnovaRepeated(spec, table) {
     tables: [
       { id: 'anova', columns: ['source', 'df', 'ss', 'ms', 'F', 'p', 'pGG', 'pHF', 'etaPartial'], rows: rowsTable },
       { id: 'means', columns: ['time', 'group', 'n', 'mean', 'sd', 'lower', 'upper'], rows: meansRows },
+    ],
+    used,
+    dropped: allDropped,
+    notes,
+  };
+}
+
+// ---------------------------------------------------------------- two within factors (M3)
+// [M3-DESIGN.md 3.1.5, C11] The role factorB is a second within-animal factor: long data, one row per animal and
+// combination of the two within factors (`time` is the first, A; `factorB` the second, B), optionally one between
+// factor (`group`). The rows are reshaped to one row per animal with a column per combination (column index
+// iA * b + iB); an animal missing a combination is dropped whole, reason 'incomplete'.
+//
+// Each within effect is tested on its own orthonormal contrasts (C11): A averaged over B (Helmert contrasts of A
+// times the averaging vector of B), B averaged over A, and their product (A x B). For one effect with contrast
+// scores z_i (q of them per animal) and n = animals - groups residual df:
+//   SS(effect)          = N |mean z|^2 (the mean over all animals, as R's anova.mlm: sequential, the within main
+//                         effect entered first; with unequal group sizes this is not SPSS's Type III, which weights
+//                         the groups equally, and a note says so)
+//   SS(group x effect)  = sum_h n_h |mean z in h - mean z|^2
+//   SS(error)           = trace of U, the residual SSP matrix of z around the group means
+//   F = (SS / q) / (SS(error) / (n q)); Greenhouse-Geisser epsilon tr(U)^2 / (q tr(U^2)); Huynh-Feldt as M2,
+//   ((n + 1) q GG - 2) / (q (n - q GG)), capped at 1 for the p-value and printed uncapped; Mauchly's W =
+//   det(U) / (tr(U) / q)^q with R's chi-square approximation. R's mauchly.test.SSD puts the number of columns of
+//   the whole SSD matrix (here a b) in its second-order term, where the one-factor method has the number of times;
+//   both follow R, so the p-values agree with mauchly.test (r/out/anovarm2.json). The between effect is tested on
+//   the animals' means over every combination (the averaging contrast), as in M2's split-plot.
+//
+// runAnovaRepeated with factorB returns:
+//   values  nAnimals, nIncomplete; epsGG<E>, epsHF<E> (HF uncapped) for E in Time, FactorB, TimeFactorB;
+//           etaPartial<E> and, with a group, etaPartialGroup and etaPartialGroup<E>
+//   tests   'time', 'factorB', 'timeFactorB' (F, dfPair corrected by the epsilon the `sphericity` option names, the p
+//           it names, variant 'gg' | 'hf' | 'none'); with a group 'group' (variant 'between') and 'groupTime',
+//           'groupFactorB', 'groupTimeFactorB' (corrected by their within effect's epsilon); with `mauchly`
+//           'mauchlyTime', 'mauchlyFactorB', 'mauchlyTimeFactorB' (W, df, p; null with a reason for a 2-level effect)
+//   tables  'anova' [source, df, ss, ms, F, p, pGG, pHF, etaPartial]: 'animals' (no group) or 'group' and
+//           'animalsWithinGroups', then per within effect E: E, 'group' + E (with a group), 'residual' + E
+//           'sphericity' [effect, epsGG, epsHF, mauchlyW, mauchlyP], effect 'time' | 'factorB' | 'timeFactorB'
+//           'means' [time, factorB, group, n, mean, sd, lower, upper], one row per combination (and group)
+//   notes   lab.note.sphericity.<gg|hf|none>, lab.note.hfCapped<E> {epsHF}, lab.note.incompleteCombinations
+//           {animals, rows}, lab.note.rmSequential (unequal group sizes)
+
+/** Orthonormal contrast columns of k levels: k rows x (k - 1) columns, each orthogonal to the ones vector. */
+function helmertColumns(k) {
+  const T = helmert(k);
+  return Array.from({ length: k }, (_, j) => T.map((row) => row[j]));
+}
+
+/** The averaging column of k levels: k rows x 1 column, 1 / sqrt(k) each. */
+function averaging(k) {
+  return Array.from({ length: k }, () => [1 / Math.sqrt(k)]);
+}
+
+/** Kronecker product of two matrices (arrays of rows). */
+function kron(A, B) {
+  const rb = B.length;
+  const cb = B[0].length;
+  const out = Array.from({ length: A.length * rb }, () => new Array(A[0].length * cb).fill(0));
+  for (let i = 0; i < A.length; i++) for (let j = 0; j < A[0].length; j++) for (let k = 0; k < rb; k++) for (let l = 0; l < cb; l++) out[i * rb + k][j * cb + l] = A[i][j] * B[k][l];
+  return out;
+}
+
+/**
+ * The orthonormal contrasts of each within effect of an a x b layout, combination columns A-major (iA * b + iB).
+ * @param {number} a  levels of the first within factor
+ * @param {number} b  levels of the second
+ * @returns {{ time: number[][], factorB: number[][], timeFactorB: number[][] }}  each (a b) rows x q columns
+ */
+export function withinContrasts(a, b) {
+  return {
+    time: kron(helmertColumns(a), averaging(b)),
+    factorB: kron(averaging(a), helmertColumns(b)),
+    timeFactorB: kron(helmertColumns(a), helmertColumns(b)),
+  };
+}
+
+/** Mauchly's W and R's chi-square approximation for a q x q residual SSP matrix on n df; m = columns of the whole SSD. */
+function mauchlyOf(U, n, m) {
+  const q = U.length;
+  if (q < 2) return { W: null, stat: null, df: null, p: null, reasonKey: 'lab.undefined.mauchlyTwoLevels' };
+  const d = n >= q ? det(U) : 0;
+  if (!(d > 0)) return { W: null, stat: null, df: null, p: null, reasonKey: 'lab.undefined.mauchlyFewAnimals' };
+  const tr = ksum(U.map((r, i) => r[i]));
+  const logW = Math.log(d) - q * Math.log(tr / q);
+  const rho = 1 - (2 * q * q + q + 2) / (6 * q * n);
+  const w2 = ((q + 2) * (q - 1) * (q - 2) * (2 * q ** 3 + 6 * q * q + 3 * m + 2)) / (288 * (n * q * rho) ** 2);
+  const z = -n * rho * logW;
+  const f = (q * (q + 1)) / 2 - 1;
+  const pr1 = pchisqUpper(z, f);
+  const pr2 = pchisqUpper(z, f + 4);
+  return { W: Math.exp(logW), stat: z, df: f, p: pr1 + w2 * (pr2 - pr1) };
+}
+
+/**
+ * One within effect on its own orthonormal contrasts (C11).
+ * @param {number[][]} W  one row per animal, one column per combination, complete
+ * @param {number[]} g    between-group index per animal (all 0 without a group)
+ * @param {number[][]} C  contrast columns of the effect, (columns of W) x q, orthonormal
+ * @returns {{ q: number, ss: number, ssBy: number, ssError: number, df: number, dfBy: number, dfError: number, gg: number, hf: number, hfCapped: number, mauchly: ReturnType<typeof mauchlyOf> }}
+ */
+export function withinEffect(W, g, C) {
+  const N = W.length;
+  const m = W[0].length;
+  const q = C[0].length;
+  const k = Math.max(...g) + 1;
+  const Z = W.map((w) => Array.from({ length: q }, (_, c) => ksum(w.map((v, t) => v * C[t][c]))));
+  const ng = Array.from({ length: k }, (_, h) => g.filter((x) => x === h).length);
+  const zbar = Array.from({ length: q }, (_, c) => mean(Z.map((z) => z[c])));
+  const zg = Array.from({ length: k }, (_, h) => Array.from({ length: q }, (_, c) => mean(Z.filter((_, i) => g[i] === h).map((z) => z[c]))));
+  const ss = N * ksum(zbar.map((z) => z * z));
+  const ssBy = ksum(zg.map((row, h) => ng[h] * ksum(row.map((z, c) => (z - zbar[c]) ** 2))));
+  const R = Z.map((z, i) => z.map((v, c) => v - zg[g[i]][c]));
+  const U = Array.from({ length: q }, (_, a) => Array.from({ length: q }, (_, b) => ksum(R.map((r) => r[a] * r[b]))));
+  const n = N - k;
+  const tr = ksum(U.map((r, a) => r[a]));
+  let tr2 = 0;
+  for (let a = 0; a < q; a++) for (let b = 0; b < q; b++) tr2 += U[a][b] * U[b][a];
+  const gg = (tr * tr) / (q * tr2);
+  const hf = ((n + 1) * q * gg - 2) / (q * (n - q * gg));
+  return { q, ss, ssBy, ssError: tr, df: q, dfBy: (k - 1) * q, dfError: n * q, gg, hf, hfCapped: Math.min(1, hf), mauchly: mauchlyOf(U, n, m) };
+}
+
+/**
+ * Sums of squares, F tests and sphericity of a two-within-factor layout (optionally with one between factor).
+ * @param {number[][]} W  one row per animal, a b columns (A-major), complete
+ * @param {number[]|null} g  between-group index per animal (null: one group)
+ * @param {number} a @param {number} b
+ */
+export function anovaRepeated2(W, g, a, b) {
+  const N = W.length;
+  const grp = g || new Array(N).fill(0);
+  const k = Math.max(...grp) + 1;
+  const ng = Array.from({ length: k }, (_, h) => grp.filter((x) => x === h).length);
+  // between animals: the averaging contrast over every combination
+  const z0 = W.map((w) => ksum(w) / Math.sqrt(a * b));
+  const z0bar = mean(z0);
+  const z0g = Array.from({ length: k }, (_, h) => mean(z0.filter((_, i) => grp[i] === h)));
+  const ssGroup = ksum(z0g.map((z, h) => ng[h] * (z - z0bar) ** 2));
+  const ssSubj = ksum(z0.map((z, i) => (z - z0g[grp[i]]) ** 2));
+  const C = withinContrasts(a, b);
+  const effects = {};
+  for (const id of ['time', 'factorB', 'timeFactorB']) effects[id] = withinEffect(W, grp, C[id]);
+  return { N, k, ng, ssGroup, dfGroup: k - 1, ssSubj, dfSubj: N - k, effects };
+}
+
+const EFFECTS = ['time', 'factorB', 'timeFactorB'];
+const cap = (s) => s[0].toUpperCase() + s.slice(1);
+
+/** Long data with two within factors (factorB set): the reshape, the tests and the tables listed above. */
+function runTwoWithin(spec, table) {
+  const yKey = role(spec, 'outcome');
+  const sKey = role(spec, 'subject');
+  const aKey = role(spec, 'time');
+  const bKey = role(spec, 'factorB');
+  const gKey = role(spec, 'group');
+  if (!yKey || !sKey || !aKey || !bKey) return invalid('stats.error.missingRole');
+  const o = spec.options || {};
+  const which = o.sphericity ?? 'gg';
+  const showMauchly = o.mauchly !== false;
+  const { confLevel } = common(spec);
+  const yc = column(table, yKey);
+  const ac = column(table, aKey);
+  const bc = column(table, bKey);
+  const gc = gKey ? column(table, gKey) : null;
+  const sc = column(table, sKey);
+  if (yc.kind !== 'number') return invalid('stats.error.needsNumber');
+  if (ac.kind !== 'category' || bc.kind !== 'category' || (gc && gc.kind !== 'category')) return invalid('stats.error.needsCategory');
+  const keys = gKey ? [yKey, sKey, aKey, bKey, gKey] : [yKey, sKey, aKey, bKey];
+  const { rows, dropped } = completeRows(table, keys);
+
+  // levels present, in codebook order
+  const present = (c) => {
+    const seen = new Set(rows.map((i) => c.values[i]));
+    const lv = (c.levels || []).map((l, j) => [l, j]).filter(([, j]) => seen.has(j));
+    return { labels: lv.map(([l]) => l), index: new Map(lv.map(([, j], x) => [j, x])) };
+  };
+  const A = present(ac);
+  const B = present(bc);
+  const a = A.labels.length;
+  const b = B.labels.length;
+  if (a < 2 || b < 2) return invalid('lab.undefined.needTwoLevels', { used: rows.length, dropped });
+  const m = a * b;
+
+  // one record per animal, in order of first appearance
+  const animals = new Map();
+  for (const i of rows) {
+    const id = sc.values[i];
+    if (!animals.has(id)) animals.set(id, { values: new Array(m).fill(null), group: gc ? gc.values[i] : 0, rows: 0 });
+    const rec = animals.get(id);
+    rec.rows += 1;
+    const cell = A.index.get(ac.values[i]) * b + B.index.get(bc.values[i]);
+    if (rec.values[cell] !== null) return invalid('lab.invalid.duplicateCell', { used: rows.length, dropped });
+    if (gc && rec.group !== gc.values[i]) return invalid('lab.invalid.groupChanges', { used: rows.length, dropped });
+    rec.values[cell] = yc.values[i];
+  }
+  const complete = [];
+  let incompleteRows = 0;
+  let incompleteAnimals = 0;
+  for (const rec of animals.values()) {
+    if (rec.values.every((v) => v !== null)) complete.push(rec);
+    else { incompleteRows += rec.rows; incompleteAnimals += 1; }
+  }
+  const allDropped = incompleteRows ? [...dropped, { reason: 'incomplete', column: sKey, count: incompleteRows }] : dropped;
+  const used = complete.length * m;
+  let gLabels = [null];
+  let gIdx = complete.map(() => 0);
+  if (gc) {
+    const seen = new Set(complete.map((rec) => rec.group));
+    const lv = (gc.levels || []).map((l, j) => [l, j]).filter(([, j]) => seen.has(j));
+    const map = new Map(lv.map(([, j], x) => [j, x]));
+    gLabels = lv.map(([l]) => l);
+    gIdx = complete.map((rec) => map.get(rec.group));
+  }
+  const k = gLabels.length;
+  const W = complete.map((rec) => rec.values);
+  const N = W.length;
+  const base = { used, dropped: allDropped };
+  if (gc && k < 2) return invalid('lab.undefined.needTwoGroups', base);
+  if (N - k < 1) return invalid('lab.undefined.fewAnimals', base);
+
+  const r = anovaRepeated2(W, gc ? gIdx : null, a, b);
+  const values = { nAnimals: val(N), nIncomplete: val(incompleteAnimals) };
+  const tests = [];
+  const rowsTable = [];
+  const sphRows = [];
+  const notes = [{ id: 'sphericity', severity: 'note', key: `lab.note.sphericity.${which}` }];
+  if (gc) {
+    const between = fp(r.ssGroup, r.dfGroup, r.ssSubj, r.dfSubj);
+    const eta = r.ssGroup + r.ssSubj > 0 ? r.ssGroup / (r.ssGroup + r.ssSubj) : null;
+    rowsTable.push(['group', r.dfGroup, r.ssGroup, r.ssGroup / r.dfGroup, between.F, between.p, null, null, eta]);
+    rowsTable.push(['animalsWithinGroups', r.dfSubj, r.ssSubj, r.ssSubj / r.dfSubj, null, null, null, null, null]);
+    tests.push(testRow({ id: 'group', name: 'F', statistic: between.F, dfPair: [r.dfGroup, r.dfSubj], p: between.p, variant: 'between', reasonKey: r.ssSubj > 0 ? undefined : 'stats.undefined.zeroVariance' }));
+    values.etaPartialGroup = eta === null ? nullVal('stats.undefined.zeroVariance') : val(eta);
+  } else {
+    rowsTable.push(['animals', r.dfSubj, r.ssSubj, r.dfSubj > 0 ? r.ssSubj / r.dfSubj : null, null, null, null, null, null]);
+  }
+  let anyF = false;
+  for (const id of EFFECTS) {
+    const e = r.effects[id];
+    const E = cap(id);
+    const eps = { none: 1, gg: e.gg, hf: e.hfCapped };
+    const reason = e.ssError > 0 ? undefined : 'stats.undefined.zeroVariance';
+    const row = (source, ss, df) => {
+      const u = fp(ss, df, e.ssError, e.dfError);
+      const pg = fp(ss, df, e.ssError, e.dfError, eps.gg);
+      const ph = fp(ss, df, e.ssError, e.dfError, eps.hf);
+      const eta = ss + e.ssError > 0 ? ss / (ss + e.ssError) : null;
+      rowsTable.push([source, df, ss, ss / df, u.F, u.p, pg.p, ph.p, eta]);
+      const pUsed = which === 'gg' ? pg.p : which === 'hf' ? ph.p : u.p;
+      tests.push(testRow({ id: source, name: 'F', statistic: u.F, dfPair: [df * eps[which], e.dfError * eps[which]], p: pUsed, variant: which, reasonKey: reason }));
+      if (u.F !== null) anyF = true;
+      return eta;
+    };
+    const eta = row(id, e.ss, e.df);
+    values[`etaPartial${E}`] = eta === null ? nullVal('stats.undefined.zeroVariance') : val(eta);
+    if (gc) {
+      const etaBy = row(`group${E}`, e.ssBy, e.dfBy);
+      values[`etaPartialGroup${E}`] = etaBy === null ? nullVal('stats.undefined.zeroVariance') : val(etaBy);
+    }
+    rowsTable.push([`residual${E}`, e.dfError, e.ssError, e.dfError > 0 ? e.ssError / e.dfError : null, null, null, null, null, null]);
+    values[`epsGG${E}`] = val(e.gg);
+    values[`epsHF${E}`] = val(e.hf);
+    if (e.hf > 1) notes.push({ id: `hfCapped${E}`, severity: 'note', key: `lab.note.hfCapped${E}`, params: { epsHF: e.hf } });
+    const mc = e.mauchly;
+    sphRows.push([id, e.gg, e.hf, mc.W, mc.p]);
+    if (showMauchly) {
+      if (mc.p === null) tests.push(testRow({ id: `mauchly${E}`, name: 'W', statistic: null, p: null, variant: 'sphericity', reasonKey: mc.reasonKey }));
+      else tests.push(testRow({ id: `mauchly${E}`, name: 'W', statistic: mc.W, df: mc.df, p: mc.p, variant: 'sphericity' }));
+    }
+  }
+  if (incompleteAnimals) notes.push({ id: 'incomplete', severity: 'note', key: 'lab.note.incompleteCombinations', params: { animals: incompleteAnimals, rows: incompleteRows } });
+  if (gc && new Set(r.ng).size > 1) notes.push({ id: 'sequential', severity: 'note', key: 'lab.note.rmSequential' });
+
+  // means per combination (and group) with t intervals
+  const meansRows = [];
+  for (let h = 0; h < k; h++) {
+    for (let i = 0; i < a; i++) {
+      for (let j = 0; j < b; j++) {
+        const x = W.filter((_, n) => gIdx[n] === h).map((w) => w[i * b + j]);
+        const mu = mean(x);
+        const sd = x.length > 1 ? Math.sqrt(variance(x)) : null;
+        const half = sd === null ? null : qt(1 - (1 - confLevel) / 2, x.length - 1) * sd / Math.sqrt(x.length);
+        meansRows.push([A.labels[i], B.labels[j], gLabels[h], x.length, mu, sd, half === null ? null : mu - half, half === null ? null : mu + half]);
+      }
+    }
+  }
+  return {
+    status: anyF ? 'ok' : 'invalid',
+    values,
+    tests,
+    tables: [
+      { id: 'anova', columns: ['source', 'df', 'ss', 'ms', 'F', 'p', 'pGG', 'pHF', 'etaPartial'], rows: rowsTable },
+      { id: 'sphericity', columns: ['effect', 'epsGG', 'epsHF', 'mauchlyW', 'mauchlyP'], rows: sphRows },
+      { id: 'means', columns: ['time', 'factorB', 'group', 'n', 'mean', 'sd', 'lower', 'upper'], rows: meansRows },
     ],
     used,
     dropped: allDropped,

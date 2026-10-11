@@ -151,6 +151,134 @@ test('the gaps and mistakes written in on purpose are exactly what the files hol
   assert.deepEqual(found, planted);
   assert.equal(found.length, 4);
   assert.ok(found.some((f) => f.column === 'age_years' && f.b === `${f.a}.0`), 'the "1" against "1.0" case is present');
+
+  // ELISA: two sera read outside the curve, P05 below every zero-standard well and P11 above every standard
+  // well; no other serum does, and the planted list names exactly their wells (M3-DESIGN.md C5).
+  const elisaData = await load('elisa-plate');
+  const elisa = parse(elisaData.csv);
+  const standards = elisa.rows.filter((r) => r[2] !== '');
+  const zero = standards.filter((r) => Number(r[2]) === 0).map((r) => Number(r[3]));
+  const sera = elisa.rows.filter((r) => r[2] === '');
+  assert.deepEqual(sera.filter((r) => Number(r[3]) < Math.min(...zero)).map((r) => r[1]), ['P05']);
+  assert.deepEqual(sera.filter((r) => Number(r[3]) > Math.max(...standards.map((s) => Number(s[3])))).map((r) => r[1]), ['P11']);
+  assert.deepEqual(elisaData.planted.map((p) => `${p.row}.${p.column}`), sera.filter((r) => ['P05', 'P11'].includes(r[1])).map((r) => `${r[0]}.od450`));
+  // Every other M3a example is complete: no blank cell anywhere.
+  for (const id of ['dose-arms', 'glucose-tolerance', 'qpcr-two-references', 'herd-panel']) {
+    const t = parse((await load(id)).csv);
+    assert.ok(t.rows.every((r) => r.every((v) => v !== '')), `${id}: a blank cell`);
+    assert.deepEqual((await load(id)).planted, [], id);
+  }
+});
+
+const mean = (v) => v.reduce((s, x) => s + x, 0) / v.length;
+function pearson(a, b) {
+  const ma = mean(a);
+  const mb = mean(b);
+  let sab = 0;
+  let saa = 0;
+  let sbb = 0;
+  for (let i = 0; i < a.length; i++) {
+    sab += (a[i] - ma) * (b[i] - mb);
+    saa += (a[i] - ma) ** 2;
+    sbb += (b[i] - mb) ** 2;
+  }
+  return sab / Math.sqrt(saa * sbb);
+}
+
+test('the M3a examples have the shapes their lab methods need (M3-DESIGN.md 3.1, 7)', async () => {
+  // Standard curve: eight standards in duplicate, the zero standard among them, and twelve sera with an OD
+  // and no concentration (the rows to interpolate, C4); the mean OD rises with every step of concentration.
+  const elisa = parse((await load('elisa-plate')).csv);
+  assert.deepEqual(elisa.header, ['well', 'sample', 'conc_pg_ml', 'od450']);
+  const standards = elisa.rows.filter((r) => r[2] !== '');
+  const levels = [...new Set(standards.map((r) => Number(r[2])))].sort((a, b) => a - b);
+  assert.deepEqual(levels, [0, 15.6, 31.3, 62.5, 125, 250, 500, 1000]);
+  for (const x of levels) assert.equal(standards.filter((r) => Number(r[2]) === x).length, 2, `standard ${x} in duplicate`);
+  const odAt = levels.map((x) => mean(standards.filter((r) => Number(r[2]) === x).map((r) => Number(r[3]))));
+  for (let k = 1; k < odAt.length; k++) assert.ok(odAt[k] > odAt[k - 1], `OD rises from ${levels[k - 1]} to ${levels[k]}`);
+  const sera = elisa.rows.filter((r) => r[2] === '');
+  assert.equal(sera.length, 12);
+  assert.ok(sera.every((r) => /^P\d\d$/.test(r[1]) && Number.isFinite(Number(r[3])) && r[3] !== ''));
+  assert.equal(new Set(elisa.rows.map((r) => r[0])).size, 28, 'one row per well');
+
+  // Dose-response: two arms, seven concentrations including 0, three wells at each. Growth falls below the
+  // drug-free wells at every concentration in both arms, and the exposed arm needs about three times the
+  // concentration to halve it (read where the mean crosses half-way, on a log scale between neighbours).
+  const dose = parse((await load('dose-arms')).csv);
+  const concs = [...new Set(dose.rows.map((r) => Number(r[2])))].sort((a, b) => a - b);
+  assert.deepEqual(concs, [0, 0.5, 1, 2, 4, 8, 16]);
+  const half = {};
+  for (const arm of ['ควบคุม', 'ผ่านยา']) {
+    const at = concs.map((x) => {
+      const wells = dose.rows.filter((r) => r[1] === arm && Number(r[2]) === x);
+      assert.equal(wells.length, 3, `${arm} ${x}`);
+      return mean(wells.map((r) => Number(r[3])));
+    });
+    for (let k = 1; k < at.length; k++) assert.ok(at[k] < at[0], `${arm}: growth at ${concs[k]} below the drug-free wells`);
+    assert.ok(at[at.length - 1] < 15, `${arm}: little growth at the top concentration`);
+    const mid = (at[0] + at[at.length - 1]) / 2;
+    const k = at.findIndex((y) => y < mid);
+    assert.ok(k >= 2, `${arm}: half-way is crossed above the lowest concentration`);
+    const f = (at[k - 1] - mid) / (at[k - 1] - at[k]);
+    half[arm] = Math.exp(Math.log(concs[k - 1]) + f * (Math.log(concs[k]) - Math.log(concs[k - 1])));
+  }
+  const ratio = half['ผ่านยา'] / half['ควบคุม'];
+  assert.ok(ratio > 2 && ratio < 4.5, `the exposed arm's IC50 is about three times the control's: ${ratio}`);
+
+  // Area under the curve: ten dogs, five per group, each measured once at
+  // each of the six times, long; the mean area under the curve (trapezoid rule) is larger with prednisolone.
+  const gtt = parse((await load('glucose-tolerance')).csv);
+  assert.deepEqual(gtt.header, ['dog_id', 'group', 'minute', 'glucose_mg_dl']);
+  const dogs = new Map();
+  for (const r of gtt.rows) {
+    if (!dogs.has(r[0])) dogs.set(r[0], { group: r[1], t: [], y: [] });
+    const d = dogs.get(r[0]);
+    assert.equal(d.group, r[1], `${r[0]} keeps one group`);
+    d.t.push(Number(r[2]));
+    d.y.push(Number(r[3]));
+  }
+  assert.equal(dogs.size, 10);
+  for (const [id, d] of dogs) assert.deepEqual(d.t, [0, 15, 30, 60, 90, 120], id);
+  const inGroup = (g) => [...dogs.values()].filter((d) => d.group === g);
+  assert.equal(inGroup('ยาหลอก').length, 5);
+  assert.equal(inGroup('เพรดนิโซโลน').length, 5);
+  const area = (d) => d.t.slice(1).reduce((s, ti, i) => s + (ti - d.t[i]) * (d.y[i] + d.y[i + 1]) / 2, 0);
+  assert.ok(mean(inGroup('เพรดนิโซโลน').map(area)) > mean(inGroup('ยาหลอก').map(area)));
+
+  // qPCR: twelve birds, six per feed, one row each; the reference genes do not move with the feed (group means
+  // within half a cycle), and MUC2's ΔCt against both references is about two cycles lower with the probiotic.
+  const q = parse((await load('qpcr-two-references')).csv);
+  assert.deepEqual(q.header, ['bird_id', 'group', 'ct_muc2', 'ct_gapdh', 'ct_actb']);
+  const birds = (g) => q.rows.filter((r) => r[1] === g);
+  assert.equal(birds('ควบคุม').length, 6);
+  assert.equal(birds('โปรไบโอติก').length, 6);
+  for (const i of [3, 4]) {
+    const shift = mean(birds('โปรไบโอติก').map((r) => Number(r[i]))) - mean(birds('ควบคุม').map((r) => Number(r[i])));
+    assert.ok(Math.abs(shift) < 0.5, `${q.header[i]} moves ${shift} with the feed`);
+  }
+  const dCt = (r) => Number(r[2]) - (Number(r[3]) + Number(r[4])) / 2;
+  const ddCt = mean(birds('โปรไบโอติก').map(dCt)) - mean(birds('ควบคุม').map(dCt));
+  assert.ok(ddCt > -2.5 && ddCt < -1.5, `ΔΔCt about -2: ${ddCt}`);
+
+  // PCA: sixty cows, all six measures on every cow, three lactation groups; two patterns, the energy measures
+  // moving together (BHB with NEFA and milk up, glucose down) and haptoglobin with SCC, more strongly than any
+  // pair across the two patterns.
+  const h = parse((await load('herd-panel')).csv);
+  assert.deepEqual(h.header, ['cow_id', 'parity', 'bhb', 'nefa', 'glucose', 'milk_kg', 'hp', 'scc_k']);
+  const counts = {};
+  for (const r of h.rows) counts[r[1]] = (counts[r[1]] || 0) + 1;
+  assert.deepEqual(counts, { 1: 18, 2: 20, '3+': 22 });
+  const v = (name) => h.rows.map((r) => Number(r[h.header.indexOf(name)]));
+  const r = (a, b) => pearson(v(a), v(b));
+  const energy = ['bhb', 'nefa', 'glucose', 'milk_kg'];
+  for (let i = 0; i < energy.length; i++) {
+    for (let j = i + 1; j < energy.length; j++) {
+      const sign = (energy[i] === 'glucose' || energy[j] === 'glucose') ? -1 : 1;
+      assert.ok(sign * r(energy[i], energy[j]) > 0.6, `${energy[i]} with ${energy[j]}: ${r(energy[i], energy[j])}`);
+    }
+  }
+  assert.ok(r('hp', 'scc_k') > 0.6);
+  for (const a of energy) for (const b of ['hp', 'scc_k']) assert.ok(Math.abs(r(a, b)) < 0.45, `${a} with ${b}: ${r(a, b)}`);
 });
 
 test('each example has the shape its method needs', async () => {

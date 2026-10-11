@@ -24,7 +24,9 @@ rk <- rank(y); ni <- as.numeric(table(g)); Rbar <- as.numeric(tapply(rk, g, mean
 ties <- table(y); s2 <- N * (N + 1) / 12 - sum(ties^3 - ties) / (12 * (N - 1))
 z <- apply(pr, 2, function(ij) (Rbar[ij[2]] - Rbar[ij[1]]) / sqrt(s2 * (1 / ni[ij[1]] + 1 / ni[ij[2]])))
 praw <- 2 * pnorm(-abs(z))
-invisible(capture.output(fsa <- FSA::dunnTest(y ~ g, method = "none")$res))
+# the (x, g) form, not the formula one: once logistf (firth.R) has loaded formula.tools in the shared webR session, its
+# as.character.formula breaks FSA's formula handling (seq_len(nchar(fcLHS)))
+invisible(capture.output(suppressMessages(fsa <- FSA::dunnTest(y, g, method = "none")$res)))
 stopifnot(isTRUE(all.equal(sort(abs(fsa$Z)), sort(abs(z)), tolerance = 1e-12)), isTRUE(all.equal(sort(fsa$P.unadj), sort(praw), tolerance = 1e-12)))
 invisible(capture.output(dd <- suppressWarnings(dunn.test::dunn.test(y, g, method = "none", altp = TRUE))))
 stopifnot(isTRUE(all.equal(sort(abs(dd$Z)), sort(abs(z)), tolerance = 1e-12)), isTRUE(all.equal(sort(dd$altP), sort(praw), tolerance = 1e-12)))

@@ -1,0 +1,63 @@
+{
+ "_fixture": {
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": ["calc.auc"]
+ },
+ "_meta": {
+  "script": "research/tests/fixtures/r/auc.R",
+  "r": "R version 4.6.0 (2026-04-24)",
+  "webR": "0.6.0",
+  "platform": "wasm32-unknown-emscripten",
+  "basePackages": ["stats", "graphics", "grDevices", "utils", "datasets", "methods", "base"],
+  "packages": {},
+  "numberFormat": "sprintf('%.17g'); Inf, -Inf and NaN as the strings Infinity, -Infinity, NaN; NA as null",
+  "tolerances": {
+   "closed": "1e-10 relative",
+   "iterative": "1e-6 relative",
+   "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+  }
+ },
+ "notes": "Made-up data gtt (ข้อมูลสมมุติ / made-up data). The net area is the trapezoid area of y - y[first], negative parts kept; it is not Wolever's incremental area, which drops the area below baseline.",
+ "datasets": {
+  "gtt": {
+   "times": [0, 15, 30, 60, 90, 120],
+   "animal": ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4"],
+   "group": ["control", "control", "control", "control", "treated", "treated", "treated", "treated"],
+   "glucose": [
+    [5.2000000000000002, 11.800000000000001, 10.1, 8.3000000000000007, 6.5999999999999996, 5.7000000000000002],
+    [4.9000000000000004, 12.6, 11.4, 9, 7.0999999999999996, 5.9000000000000004],
+    [5.5, 10.9, 9.6999999999999993, 7.7999999999999998, 6.4000000000000004, 5.5999999999999996],
+    [5, 12.199999999999999, 10.800000000000001, 8.9000000000000004, 6.9000000000000004, 5.4000000000000004],
+    [5.2999999999999998, 9.4000000000000004, 8.1999999999999993, 6.9000000000000004, 5.9000000000000004, 5.4000000000000004],
+    [5.0999999999999996, 9.9000000000000004, 8.8000000000000007, 7.2000000000000002, 6, 5.2000000000000002],
+    [5.5999999999999996, 8.8000000000000007, 7.9000000000000004, 6.5, 5.7999999999999998, 5.5],
+    [4.7999999999999998, 9.5999999999999996, 8.5, 7, 5.7000000000000002, 5.0999999999999996]
+   ]
+  }
+ },
+ "cases": {
+  "gtt": {
+   "call": "sum(diff(t) * (head(y, -1) + tail(y, -1)) / 2) per animal; t.test(treated, control)",
+   "tol": "closed",
+   "data": "gtt",
+   "values": {
+    "animal": ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4"],
+    "total": [975.75, 1053.75, 933, 1018.5, 830.25, 858.75, 803.25, 828.75],
+    "net": [351.75, 465.74999999999994, 273, 418.50000000000006, 194.25000000000003, 246.75000000000009, 131.25000000000006, 252.75],
+    "totalDiff": -165,
+    "totalLower": -243.51655862337483,
+    "totalUpper": -86.483441376625137,
+    "totalT": -5.7851351242759357,
+    "totalDf": 4.0885023948324832,
+    "totalP": 0.0041457185180377261,
+    "netDiff": -170.99999999999994,
+    "netLower": -298.94662142956446,
+    "netUpper": -43.053378570435434,
+    "netT": -3.3849981402560254,
+    "netDf": 5.2606392556434365,
+    "netP": 0.018085962897315382
+   }
+  }
+ }
+}

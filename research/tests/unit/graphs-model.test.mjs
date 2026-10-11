@@ -15,12 +15,13 @@ import { OKABE_ITO, THEMES } from '../../src/workspace/charts/palette.js';
 import { chartOptions, epiCurveInput } from '../../src/workspace/charts/from-result.js';
 import { formatCi, formatNumber, formatP } from '../../src/lib/stats/format.js';
 import graphs from '../../src/i18n/graphs.js';
+import graphsM3 from '../../src/i18n/graphs-m3.js';
 import workspace from '../../src/i18n/workspace.js';
 import terms from '../../src/i18n/terms.js';
 
 const FMT = { formatNumber, formatP, formatCi };
 const tFor = (lang) => {
-  const d = { ...workspace[lang], ...terms[lang], ...graphs[lang] };
+  const d = { ...workspace[lang], ...terms[lang], ...graphs[lang], ...graphsM3[lang] };
   return (k, p) => {
     let s = d[k] ?? `[${k}]`;
     for (const [a, b] of Object.entries(p || {})) s = s.split(`{${a}}`).join(String(b));
@@ -34,7 +35,28 @@ const corr = { x: [1.2, 2.3, 3.1, 4.8, 5.0, 6.7, 7.1, 8.4, 9.0, 10.5], y: [2.1, 
 const wr = [494, 395, 516, 434, 476, 557, 413, 442, 650, 433, 417, 656, 267, 478, 178, 423, 427];
 const mw = [512, 430, 520, 428, 500, 600, 364, 380, 658, 445, 432, 626, 260, 477, 259, 350, 451];
 
+// M3: 4PL curves with a band on a log grid (and a row at a dose of 0), engine-shaped (dose-response.js JSDoc)
+const ll4 = (x, b, c, d, e) => c + (d - c) / (1 + Math.exp(b * (Math.log(x) - Math.log(e))));
+const curve4 = (b, c, d, e, lo, hi) => [{ x: 0, fitted: d, lower: d - 2, upper: d + 2 }, ...Array.from({ length: 40 }, (_v, i) => {
+  const x = lo * (hi / lo) ** (i / 39);
+  const f = ll4(x, b, c, d, e);
+  return { x, fitted: f, lower: f - 2.5, upper: f + 2.5 };
+})];
+const doses = [0, 0.5, 1, 2, 4, 8, 16];
+const pts4 = (b, c, d, e) => doses.flatMap((x, i) => [-1.5, 1.2].map((j) => ({ x, y: (x ? ll4(x, b, c, d, e) : d) + j * (1 + (i % 3) * 0.4) })));
+
 const INPUTS = {
+  doseResponse: { curves: [
+    { label: 'ควบคุม', curve: curve4(2.2, 2, 99, 1.0, 0.5, 16), potency: { kind: 'ic50', estimate: 1.0, lower: 0.95, upper: 1.05, response: 50.5 }, points: pts4(2.2, 2, 99, 1.0) },
+    { label: 'ผ่านยา', curve: curve4(1.8, 3, 98, 3.1, 0.5, 16), potency: { kind: 'ic50', estimate: 3.13, lower: 2.78, upper: 3.52, response: 50.5 }, points: pts4(1.8, 3, 98, 3.1) },
+  ], xTitle: 'ความเข้มข้น (µg/mL)', yTitle: 'การเจริญ (%)' },
+  standardCurve: { curves: [{ curve: curve4(-1.1, 0.06, 2.59, 150, 7.8, 1000).map((r, i) => (i ? { ...r, lower: r.fitted - 0.06, upper: r.fitted + 0.06 } : { x: 0, fitted: 0.06, lower: 0.02, upper: 0.1 })), potency: { kind: 'ec50', estimate: 150.8, lower: 131.5, upper: 173.0, response: 1.33 }, points: [0, 7.8, 15.6, 31.3, 62.5, 125, 250, 500, 1000].flatMap((x) => [0.98, 1.02].map((k) => ({ x, y: (x ? ll4(x, -1.1, 0.06, 2.59, 150) : 0.06) * k }))) }],
+    unknowns: [{ label: 'r21', response: 0.4, x: 26.6, lower: 22.1, upper: 31.5 }, { label: 'r22', response: 2.1, x: 690.6, lower: 560.2, upper: 870.4 }, { label: 'r25', response: 0.031, x: null, lower: null, upper: null, reason: 'lab.undefined.outsideCurve' }],
+    xTitle: 'IL-6 (pg/mL)', yTitle: 'OD450' },
+  fittedCurve: { curves: [{ curve: Array.from({ length: 50 }, (_v, i) => { const x = (24 * i) / 49; const f = 5 + 95 * Math.exp(-0.21 * x); return { x, fitted: f, lower: f - 3, upper: f + 3 }; }), points: [0, 1, 2, 4, 8, 12, 24].map((x, i) => ({ x, y: 5 + 95 * Math.exp(-0.21 * x) + (i % 2 ? 1.5 : -1.2) })) }], xTitle: 'Hours', yTitle: 'Concentration' },
+  scree: { components: [['PC1', 2.4802415791494927, 0.6200603947873733, 0.6200603947873733], ['PC2', 0.9897651525398413, 0.24744128813496039, 0.8675016829223338], ['PC3', 0.35656318058082986, 0.08914079514520748, 0.9566424780675412], ['PC4', 0.17343008772983534, 0.04335752193245884, 1]].map(([label, eigenvalue, proportion, cumulative]) => ({ label, eigenvalue, proportion, cumulative })), reference: true },
+  biplot: { points: [[0.0876, -0.1595], [0.1734, -0.151], [0.1209, 0.0101], [-0.0296, -0.1806], [0.2289, 0.2023], [0.1176, 0.1484], [-0.1534, 0.1083], [0.0062, -0.0154]].map(([pc1, pc2], i) => ({ label: `F${i + 1}`, group: i % 2 ? 'ท้องแรก' : 'ท้องที่สองขึ้นไป', pc1, pc2 })), arrows: [['BHB', 5.97, -2.94], ['NEFA', 6.49, -1.32], ['Milk', 3.1, 6.14], ['Glucose', -6.05, 1.18]].map(([label, pc1, pc2]) => ({ label, pc1, pc2 })), xTitle: 'PC1 (62.0%)', yTitle: 'PC2 (24.7%)' },
+  qpcrFold: { calibrator: 'control', groups: [{ label: 'control', folds: [1.05, 0.98, 1.09, 0.77, 1.02, 1.13], center: 1, lo: 0.83, hi: 1.2 }, { label: 'treated', folds: [4.1, 3.3, 4.3, 2.9, 3.9, 4.4], center: 3.86, lo: 3.2, hi: 4.6 }], xTitle: 'Group' },
   dot: { groups: three, yTitle: 'Weight (kg)', xTitle: 'Group', center: 'mean' },
   box: { groups: [...three, { label: 'D', values: [1, 2, 3, 4, 5, 6, 7, 30] }], yTitle: 'Weight' },
   violin: { groups: two, yTitle: 'Value' },
@@ -194,7 +216,11 @@ test('every graphs.* word the kit and its screens use exists in Thai and English
   for (const k of CHART_KINDS) keys.add(`graphs.kind.${k}`);
   for (const u of ['day', 'isoWeek', 'month']) keys.add(`graphs.epi.xTitle.${u}`).add(`graphs.note.epi.${u}`).add(`graphs.epi.unit.${u}`);
   for (const s of ['absolute', 'percent', 'ratio']) keys.add(`graphs.ba.yTitle.${s}`);
-  const missing = [...keys].filter((k) => !graphs.th[k] || !graphs.en[k]);
+  // the M3 kinds' words live in graphs-m3.js (lazily registered with the chart kit); no key in both files
+  const th = { ...graphs.th, ...graphsM3.th };
+  const en = { ...graphs.en, ...graphsM3.en };
+  assert.deepEqual(Object.keys(graphsM3.th).filter((k) => k in graphs.th), [], 'a key in graphs.js and graphs-m3.js');
+  const missing = [...keys].filter((k) => !th[k] || !en[k]);
   assert.deepEqual(missing, []);
   assert.ok(keys.size > 80, `scan found ${keys.size} keys`);
 });

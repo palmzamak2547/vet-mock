@@ -9,6 +9,7 @@ import { linearScale, logScale, paddedDomain, textWidth, thinLabels } from './sc
 import normalQuantile from '@stdlib/stats-base-dists-normal-quantile';
 import { olsBand, pFunction } from './helpers.js';
 import { finish } from './kinds-groups.js';
+import { plotBox } from './common.js';
 import { groupLegend, legendNodes, line, makeCtx, margins, minFont, minus, pathOf, r2, rect, text, tickLabels, ticksFor, xAxis, yAxis } from './frame.js';
 
 const num = (v) => typeof v === 'number' && Number.isFinite(v);
@@ -112,12 +113,16 @@ export function scatterChart(input, opts) {
       ? t('graphs.summary.scatterLine', { n: pts.length, intercept: table.rows[0][1], slope: table.rows[1][1], level: lv })
       : t('graphs.summary.scatter', { n: pts.length }),
     notes: [band ? t('graphs.note.scatterBand', { level: lv }) : t('graphs.note.scatterNoLine')],
+    extras: { plot: plotBox(f.box), ...(band ? { line: { intercept: band.intercept, slope: band.slope } } : {}) },
   });
 }
 
 /**
- * @param {{ variant?: 'cellMeans', times: string[], series: { label: string, points: { time: number, mean: number|null, lo: number|null, hi: number|null, n?: number }[] }[], animals?: { series: number, values: (number|null)[] }[], xTitle?: string, yTitle?: string, level?: number }} input
- *   points[].time is the index into `times`.
+ * @param {{ variant?: 'cellMeans', times: string[], timeValues?: number[], series: { label: string, points: { time: number, mean: number|null, lo: number|null, hi: number|null, n?: number }[] }[], animals?: { series: number, values: (number|null)[] }[], xTitle?: string, yTitle?: string, level?: number, yDomain?: [number, number], noLegend?: boolean }} input
+ *   points[].time is the index into `times`. `timeValues` (the times as numbers, M3 calc.auc) puts the times on a
+ *   linear axis at their real spacing, so the area each animal's line encloses is the area the result computed;
+ *   without it the times are evenly spaced categories. `yDomain` fixes the value axis (panels that share it) and
+ *   `noLegend` leaves the legend to the caller (time-panels.js draws one legend for every panel).
  */
 export function timeCourseChart(input, opts) {
   const ctx = makeCtx(opts);
@@ -129,24 +134,38 @@ export function timeCourseChart(input, opts) {
   const cells = input.variant === 'cellMeans';
   const allY = series.flatMap((s) => s.points.flatMap((p) => [p.mean, p.lo, p.hi])).concat((input.animals || []).flatMap((a) => a.values)).filter(num);
   const legend = groupLegend(series.map((s) => s.label));
-  const f = xyFrame(ctx, { xDomain: [-0.5, times.length - 0.5], xCategories: times, yDomain: paddedDomain(allY, { pad: 0.06 }), xTitle: input.xTitle, yTitle: input.yTitle, legend, drawLegend: series.length > 1 });
+  const tv = input.timeValues;
+  const numeric = Array.isArray(tv) && tv.length === times.length && tv.every(num);
+  const drawLegend = series.length > 1 && !input.noLegend;
+  // the area of calc.auc with baseline 0 is measured from 0: the value axis shows 0, so the area drawn is the area computed
+  const aucFromZero = input.variant === 'auc' && input.baseline !== 'first';
+  const yDomain = Array.isArray(input.yDomain) && input.yDomain.every(num) ? input.yDomain : paddedDomain(allY, { pad: 0.06, include: aucFromZero ? [0] : [] });
+  const f = xyFrame(ctx, numeric
+    ? { xDomain: paddedDomain(tv, { pad: 0.04 }), yDomain, xTitle: input.xTitle, yTitle: input.yTitle, legend, drawLegend }
+    : { xDomain: [-0.5, times.length - 0.5], xCategories: times, yDomain, xTitle: input.xTitle, yTitle: input.yTitle, legend, drawLegend });
   const nodes = [...f.nodes];
   const u = ctx.u;
   const k = series.length;
   const dodge = k > 1 ? Math.min(0.18, 0.5 / k) : 0;
+  // a time's position: its index on a category axis, its value on a numeric one (dodged by a share of the
+  // smallest gap between times)
+  const sorted = numeric ? [...tv].sort((a, b) => a - b) : [];
+  const gaps = sorted.slice(1).map((v, i) => v - sorted[i]).filter((g) => g > 0);
+  const unit = numeric ? (gaps.length ? Math.min(...gaps) : 1) : 1;
+  const xOf = (i, off = 0) => f.x((numeric ? tv[i] : i) + off * unit);
   for (const a of input.animals || []) {
-    const pts = a.values.map((v, i) => (num(v) ? [f.x(i), f.y(v)] : null)).filter(Boolean);
+    const pts = a.values.map((v, i) => (num(v) ? [xOf(i), f.y(v)] : null)).filter(Boolean);
     const p = pathOf(pts, { fill: 'none', stroke: seriesToken(a.series), 'stroke-width': r2(0.7 * u), 'stroke-opacity': 0.35 });
     if (p) nodes.push(p);
   }
   series.forEach((s, si) => {
     const off = (si - (k - 1) / 2) * dodge;
     const color = seriesToken(si);
-    const pts = s.points.filter((p) => num(p.mean)).map((p) => [f.x(p.time + off), f.y(p.mean)]);
+    const pts = s.points.filter((p) => num(p.mean)).map((p) => [xOf(p.time, off), f.y(p.mean)]);
     const pl = pathOf(pts, { fill: 'none', stroke: color, 'stroke-width': r2(1.8 * u) });
     if (pl) nodes.push(pl);
     for (const p of s.points) {
-      const x = f.x(p.time + off);
+      const x = xOf(p.time, off);
       if (num(p.lo) && num(p.hi)) nodes.push(line(x, f.y(p.lo), x, f.y(p.hi), { stroke: color, 'stroke-width': r2(1.4 * u) }));
       if (num(p.mean)) nodes.push(markerNode(seriesShape(si), x, f.y(p.mean), ctx.unit === 'pt' ? 2.4 : 4.2, { fill: color, stroke: 'paper', 'stroke-width': r2(0.8 * u) }));
     }
@@ -158,16 +177,22 @@ export function timeCourseChart(input, opts) {
     kind: 'timeCourse',
     height: f.height,
     nodes,
-    axes: [{ id: 'x', title: input.xTitle || '', categories: times }, { id: 'y', title: input.yTitle || '', ticks: f.yTicks, labels: f.yLabs }],
+    axes: [numeric ? { id: 'x', title: input.xTitle || '', ticks: f.xTicks, labels: f.xLabs } : { id: 'x', title: input.xTitle || '', categories: times }, { id: 'y', title: input.yTitle || '', ticks: f.yTicks, labels: f.yLabs }],
     legend,
-    drawLegend: series.length > 1,
+    drawLegend,
     // Cell means of a two-way ANOVA share this drawing but not its words: the x axis is the second factor,
     // not time, and there are no animal lines (review round 4). Faint animal lines are named only when drawn.
     table: { columns: [cells && input.factorTitle ? input.factorTitle : t('graphs.col.group'), cells ? (input.xTitle || t('graphs.col.level')) : t('graphs.col.time'), t('graphs.col.n'), t('graphs.col.mean'), t('graphs.col.ci', { level: lv })], rows },
     summary: cells
       ? t('graphs.summary.cellMeans', { k: series.length, levels: times.length, rows: rows.map((r) => `${r[0]} ${r[1]} ${r[3]} (${r[4]})`).join('; ') })
       : t('graphs.summary.timeCourse', { k: series.length, times: times.length, rows: rows.map((r) => `${r[0]} ${r[1]} ${r[3]} (${r[4]})`).join('; ') }),
-    notes: [t(cells ? (input.factorTitle ? 'graphs.note.cellMeansNamed' : 'graphs.note.cellMeans') : (input.animals || []).length ? 'graphs.note.timeCourse' : 'graphs.note.timeCourseMeans', { level: lv, factor: input.factorTitle || '' })],
+    notes: [
+      t(cells ? (input.factorTitle ? 'graphs.note.cellMeansNamed' : 'graphs.note.cellMeans') : (input.animals || []).length ? 'graphs.note.timeCourse' : 'graphs.note.timeCourseMeans', { level: lv, factor: input.factorTitle || '' }),
+      // area under the curve (calc.auc): the times at their real spacing; the zero-baseline sentence is about the animals'
+      // lines, so it is printed only when those lines are drawn
+      ...(input.variant === 'auc' && numeric ? (input.baseline === 'first' ? [t('graphs.note.aucCourseFirst')] : (input.animals || []).length ? [t('graphs.note.aucCourse')] : []) : []),
+    ],
+    extras: { plot: plotBox(f.box) },
   });
 }
 

@@ -1,0 +1,654 @@
+// Firth's penalised likelihood logistic regression [M3-DESIGN.md 3.2.1, C9]: reg.logistic with options.method
+// 'firth', never switched on by the engine (glm.js runLogistic sends a spec here only when the student chose it).
+// OWNER: models role.
+//
+// The estimate maximises l*(beta) = l(beta) + 0.5 log|X'WX| (Firth 1993; Heinze and Schemper 2002), which has a
+// finite maximum also when the outcome is separated, where ordinary maximum likelihood (M2) has none and stops.
+// Fitting: from beta = 0, steps on the hat-adjusted score U*_r = sum_i x_ir (y_i - pi_i + h_i (1/2 - pi_i)), h_i the
+// diagonal of W^1/2 X (X'WX)^-1 X' W^1/2 (U* is the exact gradient of l*). Each step is logistf 1.26.1's own
+// (its "NR" fit: the inverse of X' diag(w (1 + h)) X times U*) while that step shrinks fast, and Newton's with the
+// exact Hessian of l* once it shrinks slowly, as it does near a separated direction (see fisherStep, newtonStep);
+// both climb to the same maximum. A step is scaled so no coefficient moves by more than 5 (logistf's maxstep) and
+// halved while l* falls. Converged when logistf's step moves no coefficient by more than 1e-10 (relative to the
+// coefficient once it is above 1) and every score is below 1e-10 times the sum of |x| in its column (the size of
+// that sum's own rounding error, so a column of herd sizes converges as a column of 0 and 1 does). logistf's
+// fixture run used 1e-12 controls; 1e-10 changes no printed digit. Before 0.2.0 the step used X'WX alone and
+// crawled on separated data with a continuous separator, declaring non-convergence at the maximum.
+//
+// The penalty always uses the information of the whole model, also when some coefficients are held fixed: that
+// is logistf's convention for its profile intervals (logistpl), its test per coefficient (prob) and drop1/anova
+// (logistftest), and for loglik['null'] (the intercept alone, every other coefficient at 0).
+//   - Intervals (ciMethod 'profile', the default): the b where 2 (l*(beta hat) - l*_j(b)) = qchisq(level, 1), with
+//     l*_j(b) the penalised log-likelihood maximised over the other coefficients with beta_j = b. logistpl solves
+//     the same two equations by Venzon and Moolgavkar's method; here a safeguarded Newton search on b, whose
+//     derivative dl*_j/db is U*_j at the restricted maximum (the other scores are 0 there). Far from the estimate
+//     the restricted l* can have more than one local maximum; the search fits a point from several starts, keeps
+//     the highest, and accepts a limit only when the branch joined to the estimate (followed in small steps, as
+//     logistpl follows it) is not above the cut-off there either (profileBound). On such data logistpl can stop
+//     on a lower local maximum where the profile is still above the cut-off; the fixture case `pair` pins one. A
+//     peak that none of these starts reaches can still be missed, as logistpl can miss one: the limit is then the
+//     crossing of a lower branch, nearer the estimate than the profile's own.
+//     ciMethod 'wald': b +- z SE, with logistf's SE: the inverse of X' diag(w (1 + h)) X at the estimate (the
+//     information of the augmented data Firth's estimate is the maximum likelihood fit of; see augmentedVcov).
+//   - Tests: penalised likelihood ratio 2 (l*(beta hat) - l*_0), l*_0 the fit with the coefficient (or every column
+//     of a factor, as drop1.logistf) held at 0, on 1 (or the factor's) df; the model against the intercept alone
+//     likewise. With ciMethod 'wald' the test per coefficient is Wald's z, as logistf(pl = FALSE).
+// Aliased columns (a combination of earlier columns, glm.js keptColumns) are left out of the fit and reported as
+// in M2. The farm route 'robust' is refused: there is no pinned sandwich estimator for the penalised fit.
+//
+// Pins: tests/unit/models-firth.test.mjs against tests/fixtures/r/out/firth.json (logistf 1.26.1 on sex2, sep and
+// three made-up six-row sets with a continuous separator).
+import { pnormTwoSided, pchisqUpper, qnorm, qchisq } from '../stats/dist.js';
+import { val, nullVal, testRow, invalid } from '../stats/common.js';
+import { glmData, keptColumns, referencesTable } from './glm.js';
+
+/** Controls of the penalised fit (see the header). */
+export const FIRTH_CONTROL = Object.freeze({ maxIter: 100, maxStep: 5, maxHalvings: 30, xconv: 1e-10, gconv: 1e-10 });
+const PROFILE_MAX_EXPAND = 60;
+const PROFILE_MAX_ITER = 100;
+const PROFILE_MAX_RESTART = 20;
+const PROFILE_WALK_STEPS = 24;
+
+// ---------------------------------------------------------------- small dense algebra
+
+/** Lower Cholesky factor of a symmetric matrix (rows of numbers), or null when it is not positive definite. */
+function cholesky(A) {
+  const k = A.length;
+  const L = Array.from({ length: k }, () => new Float64Array(k));
+  for (let a = 0; a < k; a++) {
+    for (let b = 0; b <= a; b++) {
+      let s = A[a][b];
+      for (let c = 0; c < b; c++) s -= L[a][c] * L[b][c];
+      if (a === b) {
+        if (!(s > 0) || !Number.isFinite(s)) return null;
+        L[a][a] = Math.sqrt(s);
+      } else L[a][b] = s / L[b][b];
+    }
+  }
+  return L;
+}
+
+/** Solve (L L') x = rhs. */
+function cholSolve(L, rhs) {
+  const k = L.length;
+  const z = new Float64Array(k);
+  for (let a = 0; a < k; a++) {
+    let s = rhs[a];
+    for (let c = 0; c < a; c++) s -= L[a][c] * z[c];
+    z[a] = s / L[a][a];
+  }
+  const x = new Float64Array(k);
+  for (let a = k - 1; a >= 0; a--) {
+    let s = z[a];
+    for (let c = a + 1; c < k; c++) s -= L[c][a] * x[c];
+    x[a] = s / L[a][a];
+  }
+  return x;
+}
+
+/** (L L')^-1 as rows. */
+function cholInverse(L) {
+  const k = L.length;
+  const out = Array.from({ length: k }, () => new Array(k).fill(0));
+  for (let j = 0; j < k; j++) {
+    const e = new Float64Array(k);
+    e[j] = 1;
+    const col = cholSolve(L, e);
+    for (let i = 0; i < k; i++) out[i][j] = col[i];
+  }
+  return out;
+}
+
+// ---------------------------------------------------------------- the penalised likelihood
+
+/**
+ * l*, its score U* and Fisher's information at beta, or null where the information is singular.
+ * @returns {{ pll: number, ll: number, info: number[][], U: Float64Array, pi: Float64Array } | null}
+ */
+function evaluate(X, y, offset, beta) {
+  const k = X.length;
+  const n = y.length;
+  const pi = new Float64Array(n);
+  const w = new Float64Array(n);
+  let ll = 0;
+  let comp = 0;
+  for (let i = 0; i < n; i++) {
+    let e = offset ? offset[i] : 0;
+    for (let j = 0; j < k; j++) e += X[j][i] * beta[j];
+    // log pi and log(1 - pi) without cancellation for any eta
+    const t = Math.exp(-Math.abs(e));
+    const l1 = Math.log1p(t);
+    let lp;
+    let lq;
+    if (e >= 0) { pi[i] = 1 / (1 + t); lp = -l1; lq = -e - l1; } else { pi[i] = t / (1 + t); lp = e - l1; lq = -l1; }
+    w[i] = t / ((1 + t) * (1 + t));
+    const term = y[i] === 1 ? lp : lq;
+    const s = ll + term;
+    comp += Math.abs(ll) >= Math.abs(term) ? (ll - s) + term : (term - s) + ll;
+    ll = s;
+  }
+  ll += comp;
+  if (!Number.isFinite(ll)) return null;
+  const info = Array.from({ length: k }, () => new Array(k).fill(0));
+  for (let a = 0; a < k; a++) {
+    for (let b = 0; b <= a; b++) {
+      let s = 0;
+      const xa = X[a];
+      const xb = X[b];
+      for (let i = 0; i < n; i++) s += w[i] * xa[i] * xb[i];
+      info[a][b] = s;
+      info[b][a] = s;
+    }
+  }
+  const L = cholesky(info);
+  if (!L) return null;
+  let logdet = 0;
+  for (let a = 0; a < k; a++) logdet += 2 * Math.log(L[a][a]);
+  const U = new Float64Array(k);
+  const v = new Float64Array(k);
+  const hat = new Float64Array(n);
+  for (let i = 0; i < n; i++) {
+    let q = 0;
+    for (let a = 0; a < k; a++) {
+      let s = X[a][i];
+      for (let c = 0; c < a; c++) s -= L[a][c] * v[c];
+      v[a] = s / L[a][a];
+      q += v[a] * v[a];
+    }
+    const h = w[i] * q;
+    hat[i] = h;
+    const r = y[i] - pi[i] + h * (0.5 - pi[i]);
+    for (let j = 0; j < k; j++) U[j] += X[j][i] * r;
+  }
+  const pll = ll + 0.5 * logdet;
+  if (!Number.isFinite(pll)) return null;
+  return { pll, ll, info, L, U, pi, w, hat };
+}
+
+/**
+ * logistf's covariance of the estimate: the inverse of X' diag(w_i (1 + h_i)) X, the information of the
+ * augmented data whose maximum likelihood fit is Firth's (each animal counted 1 + h_i times, response
+ * (y_i + h_i / 2) / (1 + h_i)). It is smaller than (X'WX)^-1: on sep the intercept's variance is 1 / (6 p (1 - p))
+ * where X'WX gives 1 / (5 p (1 - p)), 5 animals in the reference level. The fixture's SE and Wald intervals pin it.
+ */
+function augmentedVcov(X, st) {
+  const k = X.length;
+  const n = st.w.length;
+  const A = Array.from({ length: k }, () => new Array(k).fill(0));
+  for (let a = 0; a < k; a++) {
+    for (let b = 0; b <= a; b++) {
+      let s = 0;
+      for (let i = 0; i < n; i++) s += st.w[i] * (1 + st.hat[i]) * X[a][i] * X[b][i];
+      A[a][b] = s;
+      A[b][a] = s;
+    }
+  }
+  const L = cholesky(A);
+  return L ? cholInverse(L) : null;
+}
+
+/** Solve A x = rhs on the free columns and spread x back over every column; null when A is not positive definite. */
+function solveFree(A, st, free) {
+  const L = cholesky(A);
+  if (!L) return null;
+  const x = cholSolve(L, free.map((j) => st.U[j]));
+  const delta = new Float64Array(st.U.length);
+  free.forEach((j, a) => { delta[j] = x[a]; });
+  return delta;
+}
+
+/**
+ * The step directions on the free columns (zero elsewhere).
+ *  - fisherStep, logistf's: (J_FF)^-1 U*_F with J = X' diag(w (1 + h)) X, the information of the augmented data
+ *    (augmentedVcov), always positive definite. logistf 1.26.1's "NR" fit steps with it (checked in webR:
+ *    logistf(maxit = m) reproduces these steps to 12 digits). It converges only linearly, and slowly where the
+ *    penalty's curvature dominates, near a separated direction: there it needed 130 steps to reach the maximum to
+ *    1e-10, and X'WX alone (the step before 0.2.0) crawled further still.
+ *  - newtonStep: (-H_FF)^-1 U*_F with H the exact Hessian of l*, null where -H_FF is not positive definite. With
+ *    c_i = 1/2 - pi_i, v_i = L^-1 x_i (L L' = X'WX) and Q_il = v_i . v_l,
+ *      -H = X' diag(w (1 + h) - 2 c^2 h) X + 2 X' diag(c w) (Q o Q) diag(c w) X,
+ *    the last term summed as 2 sum_ab z_ab z_ab', z_ab = sum_i c_i w_i v_ia v_ib x_i over every pair of columns
+ *    (the penalty uses the whole model's information), checked against finite differences of l*. It converges
+ *    quadratically near the maximum.
+ * Both climb to the same maximum.
+ */
+function fisherStep(X, st, free) {
+  const n = st.w.length;
+  const f = free.length;
+  const Xf = free.map((j) => X[j]);
+  const J = free.map(() => new Array(f).fill(0));
+  for (let a = 0; a < f; a++) {
+    const xa = Xf[a];
+    for (let b = 0; b <= a; b++) {
+      const xb = Xf[b];
+      let sj = 0;
+      for (let i = 0; i < n; i++) sj += st.w[i] * (1 + st.hat[i]) * xa[i] * xb[i];
+      J[a][b] = sj;
+      J[b][a] = sj;
+    }
+  }
+  return solveFree(J, st, free);
+}
+
+function newtonStep(X, st, free) {
+  const n = st.w.length;
+  const k = X.length;
+  const f = free.length;
+  const Xf = free.map((j) => X[j]);
+  const N = free.map(() => new Array(f).fill(0));
+  const c2h = new Float64Array(n);
+  const cw = new Float64Array(n);
+  for (let i = 0; i < n; i++) {
+    const c = 0.5 - st.pi[i];
+    c2h[i] = st.w[i] * (1 + st.hat[i]) - 2 * c * c * st.hat[i];
+    cw[i] = c * st.w[i];
+  }
+  for (let a = 0; a < f; a++) {
+    const xa = Xf[a];
+    for (let b = 0; b <= a; b++) {
+      const xb = Xf[b];
+      let sn = 0;
+      for (let i = 0; i < n; i++) sn += c2h[i] * xa[i] * xb[i];
+      N[a][b] = sn;
+      N[b][a] = sn;
+    }
+  }
+  // v_i = L^-1 x_i, stored by column of the model
+  const { L } = st;
+  const V = Array.from({ length: k }, () => new Float64Array(n));
+  for (let a = 0; a < k; a++) {
+    const va = V[a];
+    const xa = X[a];
+    for (let i = 0; i < n; i++) {
+      let s = xa[i];
+      for (let c = 0; c < a; c++) s -= L[a][c] * V[c][i];
+      va[i] = s / L[a][a];
+    }
+  }
+  const g = new Float64Array(n);
+  const z = new Float64Array(f);
+  for (let a = 0; a < k; a++) {
+    for (let b = a; b < k; b++) {
+      const va = V[a];
+      const vb = V[b];
+      for (let i = 0; i < n; i++) g[i] = cw[i] * va[i] * vb[i];
+      for (let r = 0; r < f; r++) {
+        const xr = Xf[r];
+        let s = 0;
+        for (let i = 0; i < n; i++) s += g[i] * xr[i];
+        z[r] = s;
+      }
+      const m = a === b ? 2 : 4;
+      for (let r = 0; r < f; r++) for (let q = 0; q <= r; q++) N[r][q] += m * z[r] * z[q];
+    }
+  }
+  for (let r = 0; r < f; r++) for (let q = 0; q < r; q++) N[q][r] = N[r][q];
+  return solveFree(N, st, free);
+}
+
+/**
+ * Maximise l* over the free columns, the others held at their start values.
+ * @returns {{ converged: boolean, beta: Float64Array, st: NonNullable<ReturnType<typeof evaluate>>, iter: number } | null}
+ */
+function maximise(model, start, free) {
+  const { X, y, offset, scale } = model;
+  const C = FIRTH_CONTROL;
+  let beta = Float64Array.from(start);
+  let st = evaluate(X, y, offset, beta);
+  if (!st) return null;
+  let lastMx = Infinity;
+  for (let iter = 0; ; iter++) {
+    if (!free.length) return { converged: true, beta, st, iter };
+    // The convergence rule reads logistf's step (always defined, and cheap), so it means the same whichever
+    // direction then climbs; Newton's is worked out only when the fit has not converged.
+    const ref = fisherStep(X, st, free);
+    if (!ref) return null;
+    let mx = 0;
+    for (const j of free) mx = Math.max(mx, Math.abs(ref[j]) / Math.max(1, Math.abs(beta[j])));
+    if (mx <= C.xconv && free.every((j) => Math.abs(st.U[j]) <= C.gconv * scale[j])) return { converged: true, beta, st, iter };
+    if (iter >= C.maxIter) return { converged: false, beta, st, iter };
+    // logistf's step while it shrinks fast; Newton's once it shrinks by less than a factor of 4 a step
+    const newton = iter > 0 && mx > 0.25 * lastMx ? newtonStep(X, st, free) : null;
+    lastMx = mx;
+    const dirs = newton ? [newton, ref] : [ref];
+    // Halve while l* falls; a fall within rounding of l* itself (1e-12 relative) is not a fall. Newton's direction
+    // first; logistf's when no halving of Newton's raises l*.
+    const tol = 1e-12 * Math.max(1, Math.abs(st.pll));
+    let next = null;
+    let nst = null;
+    for (const delta of dirs) {
+      let big = 0;
+      for (const j of free) big = Math.max(big, Math.abs(delta[j]));
+      const cap = big > C.maxStep ? C.maxStep / big : 1;
+      let fr = cap;
+      for (let h = 0; h <= C.maxHalvings; h++, fr /= 2) {
+        const cand = Float64Array.from(beta);
+        for (const j of free) cand[j] += fr * delta[j];
+        const cst = evaluate(X, y, offset, cand);
+        if (cst && cst.pll >= st.pll - tol) { next = cand; nst = cst; break; }
+      }
+      if (next) break;
+    }
+    if (!next) return { converged: false, beta, st, iter };
+    beta = next;
+    st = nst;
+  }
+}
+
+/**
+ * Firth's fit of y (0/1) on the columns X (full column rank: drop aliased columns first).
+ * @param {Float64Array[]} X
+ * @param {Float64Array} y
+ * @param {{ offset?: Float64Array }} [opts]
+ * @returns {{ converged: boolean, beta: number[], vcov: number[][], se: number[], logLik: number, iter: number,
+ *   model: any }} logLik is the penalised log-likelihood l*; vcov as logistf's var (augmentedVcov); `model` carries
+ *   what the intervals and tests refit with.
+ *   null when the information is singular at the start.
+ */
+export function fitFirth(X, y, opts = {}) {
+  const k = X.length;
+  const model = { X, y, offset: opts.offset ?? null, scale: X.map((c) => { let s = 0; for (let i = 0; i < c.length; i++) s += Math.abs(c[i]); return Math.max(1, s); }) };
+  const r = maximise(model, new Float64Array(k), X.map((_, j) => j));
+  if (!r) return null;
+  const vcov = augmentedVcov(X, r.st);
+  const se = vcov ? vcov.map((row, j) => Math.sqrt(row[j])) : new Array(k).fill(NaN);
+  model.beta = r.beta;
+  model.st = r.st;
+  return { converged: r.converged && Boolean(vcov), beta: Array.from(r.beta), vcov, se, logLik: r.st.pll, iter: r.iter, model };
+}
+
+/**
+ * l* maximised with the columns `fixed` held at the given values (0 for a test), from the fit's estimate.
+ * @param {any} model  fitFirth(...).model
+ * @param {Map<number, number>} fixed
+ * @param {Float64Array} [start]
+ */
+function restricted(model, fixed, start = model.beta) {
+  const beta = Float64Array.from(start);
+  for (const [j, v] of fixed) beta[j] = v;
+  const free = model.X.map((_, j) => j).filter((j) => !fixed.has(j));
+  const r = maximise(model, beta, free);
+  return r && r.converged ? r : null;
+}
+
+/**
+ * Penalised likelihood ratio test of the columns `cols` held at 0 (logistftest): 2 (l*(beta hat) - l*_0).
+ * @param {ReturnType<typeof fitFirth>} fit
+ * @param {number[]} cols
+ * @returns {{ chisq: number|null, df: number, p: number|null, logLik0: number|null }}
+ */
+export function firthTest(fit, cols) {
+  const r = restricted(fit.model, new Map(cols.map((j) => [j, 0])));
+  if (!r) return { chisq: null, df: cols.length, p: null, logLik0: null };
+  const chisq = Math.max(0, 2 * (fit.logLik - r.st.pll));
+  return { chisq, df: cols.length, p: pchisqUpper(chisq, cols.length), logLik0: r.st.pll };
+}
+
+/**
+ * Profile penalised likelihood interval of coefficient j: where 2 (l* - l*_j(b)) = qchisq(confLevel, 1).
+ * A bound the search cannot reach is null.
+ * @param {ReturnType<typeof fitFirth>} fit
+ * @param {number} j
+ * @param {number} confLevel
+ * @returns {[number|null, number|null]}
+ */
+export function firthProfileCi(fit, j, confLevel) {
+  const q = qchisq(confLevel, 1);
+  const target = fit.logLik - q / 2;
+  return [-1, 1].map((side) => profileBound(fit, j, side, target, q));
+}
+
+function profileBound(fit, j, side, target, q) {
+  const { model } = fit;
+  const bhat = fit.beta[j];
+  const gTol = 1e-12 * Math.max(1, Math.abs(target));
+  // l*_j(b) is the maximum over the other coefficients, and away from the estimate l* can have more than one local
+  // maximum there (the penalty is not concave): a fit started from one point can settle on a lower peak and make
+  // the profile seem to cross the target where it does not. So each point is fitted from several starts (the
+  // nearest points already fitted, a straight-line prediction along the path, the estimate) and keeps the highest
+  // maximum; a start that does not converge is skipped, and the point is lost only when none converges. And when
+  // the refinement moves the inner point, the outer one is fitted again from the inner one's coefficients: if it
+  // then lies above the target the bracket was false, and the search goes on outwards from there.
+  // A point clearly inside (g above rounding of the cut-off) stays inside whatever higher peak the other starts
+  // might find, so they are tried only when the first start says g <= 0 (or fails).
+  // On one branch g(b) is smooth, so the slope of the chord between two points lies between (or near) their
+  // derivatives U*_j; a chord far outside them marks a jump to another branch.
+  let jumped = false;
+  const jump = (A, B) => {
+    const s = (B.g - A.g) / (B.b - A.b);
+    const lo = Math.min(A.d, B.d);
+    const hi = Math.max(A.d, B.d);
+    const margin = 0.25 * (hi - lo) + 0.05 * Math.max(Math.abs(A.d), Math.abs(B.d)) + 1e-9;
+    const out = !(s >= lo - margin && s <= hi + margin);
+    if (out) jumped = true;
+    return out;
+  };
+  // A point clearly inside (g above rounding of the cut-off) stays inside whatever higher peak another start might
+  // find, and a point reached smoothly from `from` (no jump) is on that point's branch: the other starts are tried
+  // only for a point that is neither.
+  const at = (b, starts, from) => {
+    let best = null;
+    const seen = [];
+    for (const start of starts) {
+      if (!start || seen.includes(start)) continue;
+      seen.push(start);
+      const r = restricted(model, new Map([[j, b]]), start);
+      if (r && (!best || r.st.pll > best.st.pll)) best = r;
+      if (!best) continue;
+      const pt = { b, g: best.st.pll - target, d: best.st.U[j], beta: best.beta };
+      if (pt.g > gTol || (from && !jump(from, pt))) return pt;
+    }
+    return best ? { b, g: best.st.pll - target, d: best.st.U[j], beta: best.beta } : null;
+  };
+  // coefficients predicted at b on the straight line through the last two points of the path
+  const predict = (a, c, b) => {
+    if (!a || a.b === c.b) return null;
+    const t = (b - c.b) / (c.b - a.b);
+    const out = Float64Array.from(c.beta, (v, i) => v + t * (v - a.beta[i]));
+    out[j] = b;
+    return out;
+  };
+  // The branch joined to the estimate, followed in small steps (as logistpl follows it): a root is accepted only
+  // when this branch is not above the cut-off there either.
+  const walk = (b) => {
+    let a = null;
+    let c = { b: bhat, beta: model.beta };
+    for (let t = 1; t <= PROFILE_WALK_STEPS; t++) {
+      const bt = bhat + ((b - bhat) * t) / PROFILE_WALK_STEPS;
+      const pt = at(bt, [c.beta, predict(a, c, bt)]);
+      if (!pt) return null;
+      a = c;
+      c = pt;
+    }
+    return c;
+  };
+  const accept = (b, pt) => {
+    const w = walk(b);
+    return w && w.g > gTol && (!pt || w.g > pt.g) ? w : null;
+  };
+  let prev = null;
+  let inner = { b: bhat, g: fit.logLik - target, d: 0, beta: model.beta };
+  let step = Math.sqrt(q) * fit.se[j];
+  if (!(step > 0) || !Number.isFinite(step)) step = 1;
+  let base = bhat;
+  for (let round = 0; round < PROFILE_MAX_RESTART; round++) {
+    // Bracket: from `base` outwards, doubling, until g < 0 (the first round from the estimate, g = q / 2 > 0).
+    let outer = null;
+    for (let e = 0; e < PROFILE_MAX_EXPAND && !outer; e++, step *= 2) {
+      const b = base + side * step;
+      const pt = at(b, [inner.beta, predict(prev, inner, b), model.beta], inner);
+      if (!pt) return null;
+      if (pt.g <= 0) outer = pt; else { prev = inner; inner = pt; }
+    }
+    if (!outer) return null;
+    if (outer.g === 0) {
+      const w = accept(outer.b, outer);
+      if (!w) return outer.b;
+      prev = inner; inner = w; base = inner.b; step = Math.max(Math.abs(inner.b - prev.b), 1e-8 * Math.max(1, Math.abs(inner.b)));
+      continue;
+    }
+    // Safeguarded Newton (dg/db = U*_j at the restricted maximum), bisecting when Newton leaves the bracket or the
+    // bracket fails to halve over two steps.
+    let cur = inner.b !== bhat && Math.abs(inner.g) < Math.abs(outer.g) ? inner : outer;
+    let width = Math.abs(outer.b - inner.b);
+    let widthBefore = Infinity;
+    let falseBracket = null;
+    for (let it = 0; it < PROFILE_MAX_ITER; it++) {
+      const lo = Math.min(inner.b, outer.b);
+      const hi = Math.max(inner.b, outer.b);
+      let b = cur.d !== 0 ? cur.b - cur.g / cur.d : NaN;
+      if (!(b > lo && b < hi) || width > widthBefore / 2) b = (lo + hi) / 2;
+      const near = Math.abs(b - inner.b) < Math.abs(b - outer.b) ? inner : outer;
+      const pt = at(b, [near.beta, near === inner ? outer.beta : inner.beta, model.beta], near);
+      if (!pt) return null;
+      if (Math.abs(pt.g) <= gTol || (pt.d !== 0 && Math.abs(pt.g / pt.d) <= 1e-12 * Math.max(1, Math.abs(b)))) {
+        falseBracket = accept(b, pt);
+        if (!falseBracket) return b;
+        break;
+      }
+      if (pt.g > 0) {
+        prev = inner;
+        inner = pt;
+        if (jump(inner, outer)) {
+          const o = at(outer.b, [inner.beta, predict(prev, inner, outer.b)]);
+          if (o && o.g > 0) { falseBracket = o; break; }
+          if (o && o.g > outer.g) outer = o;
+        }
+      } else outer = pt;
+      widthBefore = width;
+      width = Math.abs(outer.b - inner.b);
+      if (width <= 1e-12 * Math.max(1, Math.abs(b))) {
+        falseBracket = accept(b, pt);
+        if (!falseBracket) return b;
+        break;
+      }
+      cur = pt;
+    }
+    if (!falseBracket) return null;
+    prev = inner;
+    inner = falseBracket;
+    base = inner.b;
+    step = Math.max(Math.abs(inner.b - prev.b), 1e-8 * Math.max(1, Math.abs(inner.b)));
+  }
+  return null;
+}
+
+// ---------------------------------------------------------------- the method
+
+/**
+ * reg.logistic with options.method 'firth' (glm.js runLogistic calls this). Roles and outcome as M2's logistic
+ * regression; options ciMethod 'profile' (profile penalised likelihood intervals, penalised likelihood ratio tests
+ * per coefficient) or 'wald' (Wald intervals and z tests); the term tests are penalised likelihood ratio tests in
+ * both.
+ * @param {import('../runtime/types.js').AnalysisSpec} spec
+ * @param {import('../runtime/types.js').WorkingTable|null} table
+ * @returns {import('../runtime/registry.js').MethodOutput}
+ */
+export function runFirth(spec, table) {
+  if (spec?.cluster?.route === 'robust') return invalid('models.error.firthNoRobust');
+  const data = glmData(spec, table, 'binomial');
+  if (data.fail) return data.fail;
+  const { confLevel, dropped, design, n, y } = data;
+  const { X, names, terms } = design;
+  const wald = spec?.options?.ciMethod === 'wald';
+  const ciMethod = wald ? 'wald' : 'profile-penalised';
+  const kept = keptColumns(X);
+  const pos = new Map(kept.map((j, a) => [j, a]));
+  const fit = fitFirth(kept.map((j) => X[j]), y);
+  if (!fit || !fit.converged) return invalid('models.invalid.firthNotConverged', { used: n, dropped });
+
+  const notes = [];
+  const warnings = [];
+  if (design.emptyLevels.length) notes.push({ id: 'emptyLevels', severity: 'note', key: 'models.note.emptyLevels', params: { levels: design.emptyLevels.map((e) => `${e.column}=${e.level}`).join(', '), cells: design.emptyLevels.map((e) => [e.column, e.level]) } });
+  notes.push({ id: 'firth', severity: 'note', key: wald ? 'models.note.firthWald' : 'models.note.firth' });
+  /** @type {Record<string, any>} */
+  const resolvedOptions = Object.keys(design.references).length ? { references: design.references } : {};
+
+  const zq = qnorm(1 - (1 - confLevel) / 2);
+  const tests = [];
+  const coefRows = [];
+  const bValues = {};
+  const ratioValues = {};
+  // one restricted fit per set of columns held at 0, shared by the coefficient and term tests
+  const cache = new Map();
+  const plr = (cols) => {
+    const key = cols.join(',');
+    if (!cache.has(key)) cache.set(key, firthTest(fit, cols));
+    return cache.get(key);
+  };
+  names.forEach((nm, j) => {
+    const isInt = nm.term === '(Intercept)';
+    if (!pos.has(j)) {
+      bValues[`b:${nm.term}`] = nullVal('stats.undefined.aliased');
+      coefRows.push([nm.term, null, null, null, null, null, null, null, null, null]);
+      if (wald) tests.push(testRow({ id: `wald:${nm.term}`, name: 'z', statistic: null, p: null, variant: 'wald', reasonKey: 'stats.undefined.aliased' }));
+      return;
+    }
+    const a = pos.get(j);
+    const b = fit.beta[a];
+    const se = fit.se[a];
+    let ci;
+    let stat;
+    let p;
+    if (wald) {
+      ci = [b - zq * se, b + zq * se];
+      stat = b / se;
+      p = pnormTwoSided(stat);
+      tests.push(testRow({ id: `wald:${nm.term}`, name: 'z', statistic: stat, p, variant: 'wald' }));
+    } else {
+      ci = firthProfileCi(fit, a, confLevel);
+      const t = plr([a]);
+      stat = t.chisq;
+      p = t.p;
+    }
+    const bExtra = { se, ci: [ci[0], ci[1]], ciLevel: confLevel, ciMethod };
+    if (ci[0] === null || ci[1] === null) bExtra.noteKey = 'models.undefined.profileBound';
+    bValues[`b:${nm.term}`] = val(b, bExtra);
+    const rl = ci[0] === null ? null : Math.exp(ci[0]);
+    const ru = ci[1] === null ? null : Math.exp(ci[1]);
+    if (!isInt) {
+      const rExtra = { ci: [rl, ru], ciLevel: confLevel, ciMethod };
+      if (ci[0] === null || ci[1] === null) rExtra.noteKey = 'models.undefined.profileBound';
+      ratioValues[`oddsRatio:${nm.term}`] = val(Math.exp(b), rExtra);
+    }
+    coefRows.push([nm.term, b, se, stat ?? null, p ?? null, ci[0], ci[1], isInt ? null : Math.exp(b), isInt ? null : rl, isInt ? null : ru]);
+  });
+
+  // The model against the intercept alone (logistf's likelihood ratio test, loglik['full'] - loglik['null']).
+  const hasInt = names[0]?.term === '(Intercept)' && pos.has(0);
+  const others = kept.map((_, a) => a).filter((a) => !(hasInt && a === 0));
+  let logLikNull = null;
+  if (others.length) {
+    const t = plr(others);
+    logLikNull = t.logLik0;
+    tests.unshift(testRow({ id: 'lrNull', name: 'X2', statistic: t.chisq, df: t.df, p: t.p, variant: 'plr' }));
+  }
+  // Each term held at 0 (drop1.logistf).
+  const lrRows = [];
+  for (const t of terms) {
+    const cols = t.cols.filter((j) => pos.has(j)).map((j) => pos.get(j));
+    if (!cols.length) { lrRows.push([t.column, 0, null, null]); continue; }
+    const r = plr(cols);
+    lrRows.push([t.column, r.df, r.chisq, r.p]);
+    tests.push(testRow({ id: `lr:${t.column}`, name: 'X2', statistic: r.chisq, df: r.df, p: r.p, variant: 'plr' }));
+  }
+
+  const values = { ...ratioValues, ...bValues, n: val(n) };
+  const events = y.reduce((s, v) => s + v, 0);
+  const smaller = Math.min(events, n - events);
+  values.cases = val(events);
+  const predictors = kept.length - (hasInt ? 1 : 0);
+  if (predictors > 0) {
+    const epv = smaller / predictors;
+    values.epv = val(epv, { below: [10] });
+    if (epv < 10) warnings.push({ id: 'G14', severity: 'warn', key: 'models.guard.G14.title', bodyKey: 'models.guard.G14.epvFirth', params: { epv, events: smaller, predictors } });
+  }
+  values.logLikPenalised = val(fit.logLik);
+  values.logLikPenalisedNull = logLikNull === null ? nullVal('stats.undefined.notComputable') : val(logLikNull);
+  const tables = [
+    { id: 'coefficients', columns: ['ws.col.term', 'ws.col.estimate', 'ws.col.se', wald ? 'models.col.z' : 'models.col.plrStat', 'ws.col.p', 'ws.col.lower', 'ws.col.upper', 'models.col.or', 'models.col.ratioLower', 'models.col.ratioUpper'], rows: coefRows },
+    referencesTable(design.references),
+  ];
+  if (lrRows.length) tables.push({ id: 'lrTests', columns: ['ws.col.term', 'ws.col.df', 'models.col.plrStat', 'ws.col.p'], rows: lrRows });
+  return { status: 'ok', values, tests, tables, used: n, dropped, notes, warnings, resolvedOptions };
+}

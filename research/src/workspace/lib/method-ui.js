@@ -56,7 +56,10 @@ export const METHOD_UI = {
   // ---- M2 [M2-DESIGN.md 3, 10.2]: the lab, models, survival and measure panes. Option lists are the
   // area files' allowed values; an option the spec does not know yet is never shown (visibleOptions).
   'anova.twoWay': { pane: 'lab', input: 'dataset', roles: [{ role: 'outcome', accept: NUM }, { role: 'group', accept: CAT }, { role: 'factorB', accept: CAT }], options: { ssType: ['III', 'II', 'I'], interaction: [true, false], posthoc: ['none', 'tukey'] }, test: true },
-  'anova.repeated': { pane: 'lab', input: 'dataset', roles: [{ role: 'outcome', accept: NUM }, { role: 'subject', accept: SUBJECT }, { role: 'time', accept: [...CAT, 'count'] }, { role: 'group', accept: CAT, optional: true }], options: { sphericity: ['gg', 'hf', 'none'], mauchly: [true, false] }, test: true },
+  // M3a [M3-DESIGN.md C11]: factorB is a second within-animal factor here (one row per animal per combination).
+  // time and factorB are read as categories by the engine (anovarm.js), so a column of numbers coded 1 to 5 is not listed
+  // until it is set to Ordered categories in the codebook (the role hints say so).
+  'anova.repeated': { pane: 'lab', input: 'dataset', roles: [{ role: 'outcome', accept: NUM }, { role: 'subject', accept: SUBJECT }, { role: 'time', accept: CAT }, { role: 'factorB', accept: CAT, optional: true }, { role: 'group', accept: CAT, optional: true }], options: { sphericity: ['gg', 'hf', 'none'], mauchly: [true, false] }, test: true },
   'test.friedman': { pane: 'lab', input: 'dataset', roles: [{ role: 'outcome', accept: [...NUM, 'ordinal'] }, { role: 'group', accept: CAT }, { role: 'subject', accept: SUBJECT }], options: {}, test: true },
   'posthoc.dunnett': { pane: 'lab', input: 'dataset', roles: [{ role: 'outcome', accept: NUM }, { role: 'group', accept: CAT, level: 'controlLevel' }], options: {}, test: true },
   'posthoc.dunn': { pane: 'lab', input: 'dataset', roles: [{ role: 'outcome', accept: [...NUM, 'ordinal'] }, { role: 'group', accept: CAT }], options: { adjust: ['holm', 'bonferroni', 'sidak', 'bh', 'none'] }, test: true },
@@ -66,12 +69,26 @@ export const METHOD_UI = {
 
   'reg.logistic': { pane: 'models', input: 'dataset', roles: [{ role: 'outcome', accept: BIN, level: 'outcomePositive' }, { role: 'covariates', accept: [...NUM, ...CAT], multiple: true }], options: { ciMethod: ['profile', 'wald'] }, test: true },
   'reg.poisson': { pane: 'models', input: 'dataset', roles: [{ role: 'outcome', accept: ['count'] }, { role: 'covariates', accept: [...NUM, ...CAT], multiple: true }, { role: 'time', accept: NUM, optional: true }], options: { ciMethod: ['profile', 'wald'] }, test: true },
+  // M3a [M3-DESIGN.md C10]: the same roles and offset as Poisson. Firth's correction is not listed here: it is the
+  // switch beside the separation stop (isSeparationStop, withFirth), and reg.logistic's `method` has no default.
+  'reg.negbin': { pane: 'models', input: 'dataset', roles: [{ role: 'outcome', accept: ['count'] }, { role: 'covariates', accept: [...NUM, ...CAT], multiple: true }, { role: 'time', accept: NUM, optional: true }], options: { ciMethod: ['profile', 'wald'] }, test: true },
 
   'surv.kaplanMeier': { pane: 'survival', input: 'dataset', roles: [{ role: 'time', accept: NUM }, { role: 'event', accept: BIN, level: 'outcomePositive' }, { role: 'group', accept: CAT, optional: true }], options: { confType: ['log', 'log-log', 'plain'], test: ['logrank', 'none'] }, test: true },
 
   'roc.delong': { pane: 'measure', input: 'dataset', roles: [{ role: 'test', accept: [...NUM, 'ordinal'] }, { role: 'reference', accept: BIN, level: 'referencePositive' }, { role: 'test2', accept: [...NUM, 'ordinal'], optional: true }], options: { direction: ['higher-positive', 'lower-positive'], youden: [true, false] }, test: true },
   'agree.blandAltman': { pane: 'measure', input: 'dataset', roles: [{ role: 'raterA', accept: NUM }, { role: 'raterB', accept: NUM }], options: { scale: ['absolute', 'percent', 'ratio'], loaMultiplier: [1.96, 2], loaCi: ['approx', 'none'], proportionalBias: [true, false] } },
   'rel.cronbach': { pane: 'measure', input: 'dataset', roles: [{ role: 'items', accept: [...NUM, 'ordinal'], multiple: true }], options: { ciMethod: ['feldt', 'none'] } },
+
+  // ---- M3a [M3-DESIGN.md 2, 6]: standard curves, dose-response, curve equations, area under the curve, qPCR, PCA.
+  // A blank concentration with a response is an unknown to read off the standard curve (C4). qPCR's
+  // efficiencies are typed in boxes (efficiencyRecord), not listed among the options.
+  'nls.fourPL': { pane: 'lab', input: 'dataset', roles: [{ role: 'x', accept: NUM }, { role: 'outcome', accept: NUM }], options: { model: ['4pl', '5pl'] } },
+  'nls.doseResponse': { pane: 'lab', input: 'dataset', roles: [{ role: 'x', accept: NUM }, { role: 'outcome', accept: NUM }, { role: 'group', accept: CAT, optional: true }], options: { model: ['4pl', '5pl'], compare: ['none', 'ec50', 'all'] }, test: true },
+  'nls.equation': { pane: 'lab', input: 'dataset', roles: [{ role: 'x', accept: NUM }, { role: 'outcome', accept: NUM }], options: { equation: ['michaelisMenten', 'decay', 'growth'] } },
+  'calc.auc': { pane: 'lab', input: 'dataset', roles: [{ role: 'outcome', accept: NUM }, { role: 'subject', accept: SUBJECT }, { role: 'time', accept: NUM }, { role: 'group', accept: CAT, optional: true }], options: { baseline: ['zero', 'first'] }, test: true },
+  'qpcr.relative': { pane: 'lab', input: 'dataset', roles: [{ role: 'outcome', accept: NUM }, { role: 'items', accept: NUM, multiple: true }, { role: 'group', accept: CAT, level: 'controlLevel' }], options: { method: ['livak', 'pfaffl'], test: ['welch', 'pooled'] }, test: true },
+  'qpcr.efficiency': { pane: 'lab', input: 'dataset', roles: [{ role: 'x', accept: NUM }, { role: 'outcome', accept: NUM }], options: {} },
+  'mv.pca': { pane: 'lab', input: 'dataset', roles: [{ role: 'items', accept: NUM, multiple: true }, { role: 'subject', accept: SUBJECT, optional: true }, { role: 'group', accept: CAT, optional: true }], options: { scale: [true, false] } },
   ...TOOL_METHOD_UI,
 };
 
@@ -98,6 +115,16 @@ export function visibleOptions(methodId, defaults = {}) {
   const all = { ...(ui?.options || {}), ...(EXTRA_OPTIONS[methodId] || {}) };
   return Object.entries(all).filter(([name, vals]) => vals.length > 1 && Object.prototype.hasOwnProperty.call(defaults || {}, name));
 }
+
+/**
+ * Registered methods without a screen entry: each is reached through another method's option (Tukey pairs are
+ * one-way ANOVA's post hoc choice; the p-value adjustment is the post hoc tests' `adjust`). Every other
+ * registered method has a METHOD_UI entry (workspace-m3.test.mjs).
+ */
+export const NO_SCREEN = Object.freeze(new Set(['posthoc.tukey', 'adjust.pValues']));
+
+/** Methods whose x is a concentration, a dose or a time: it starts as the codebook's numeric exposure. */
+const X_FROM_EXPOSURE = new Set(['nls.fourPL', 'nls.doseResponse', 'nls.equation', 'qpcr.efficiency']);
 
 /** Confidence levels offered everywhere (options.confLevel). */
 export const CONF_LEVELS = Object.freeze([0.95, 0.9, 0.99]);
@@ -176,6 +203,12 @@ export function initialChoices(methodId, codebook, options = {}) {
     if (spec.role === 'event') pick = byRole('outcome').find((c) => fits.includes(c)) || null;
     if (spec.role === 'subject') pick = [...byRole('id'), ...byRole('pair')].find((c) => fits.includes(c) && c.key !== codebook.clusterKey) || null;
     if (spec.role === 'time' && !spec.optional) pick = byRole('time').find((c) => fits.includes(c)) || null;
+    if (spec.role === 'x' && X_FROM_EXPOSURE.has(methodId)) pick = byRole('exposure').find((c) => fits.includes(c)) || null;
+    // PCA describes every measured outcome at once: they all start ticked.
+    if (spec.multiple && methodId === 'mv.pca' && spec.role === 'items') {
+      roles[spec.role] = byRole('outcome').filter((c) => fits.includes(c)).map((c) => c.key);
+      continue;
+    }
     if (spec.multiple) {
       roles[spec.role] = pick ? [pick.key] : [];
       continue;
@@ -215,6 +248,10 @@ export function buildSpec({ method, datasetId = null, recipeRev = 0, design = nu
   else if (ui?.input === 'counts') input = { kind: 'counts', counts: { ...(counts || {}) } };
   else input = { kind: 'dataset', datasetId, recipeRev };
   const keep = Object.fromEntries(Object.entries(roles).filter(([, v]) => v && (!Array.isArray(v) || v.length)));
+  // a dose-response comparison needs a group: with none, the spec says no comparison, not a shared EC50 that the
+  // result would then list as applied beside a note that only one curve was fitted
+  const opts = { ...options };
+  if (method === 'nls.doseResponse' && !keep.group && opts.compare !== undefined) opts.compare = 'none';
   return {
     specVersion: 1,
     method,
@@ -222,7 +259,7 @@ export function buildSpec({ method, datasetId = null, recipeRev = 0, design = nu
     design: design || null,
     roles: keep,
     levels: { ...levels },
-    options: { ...options },
+    options: opts,
     cluster: { route: cluster?.route ?? null, column: cluster?.column ?? null },
   };
 }
@@ -239,4 +276,107 @@ export function valueKind(fullName) {
   if (/^(n|nEff|count|clusters|cases|rows)$/.test(name) || /^strata[A-Z]/.test(name)) return 'count';
   if (/^(rate|incidenceRate)$/.test(name)) return 'rate';
   return 'statistic';
+}
+
+
+// ---- M3a [M3-DESIGN.md 2, 6]: what the screen adds around the new methods. Pure.
+
+/** Amplification factors the qPCR spec accepts (lab.options.js: 1.5 to 2.5; 2 doubles every cycle). */
+export const EFFICIENCY_RANGE = Object.freeze([1.5, 2.5]);
+
+/**
+ * One Pfaffl efficiency box as the student typed it: an amplification factor (1.95) as it is, or a percent
+ * (96.5, 96.5%) read as 1 + percent / 100. A number above 2.5 can only be a percent (an amplification above 2.5
+ * is impossible), so 96.96 reads 1.9696; a trailing % always means a percent. Thai digits read as digits.
+ * @param {string|null|undefined} text
+ * @returns {{ ok: true, value: number, percent: boolean } | { ok: false, key: string }}
+ */
+export function parseEfficiency(text) {
+  let s = String(text ?? '').trim().replace(/[\u0e50-\u0e59]/g, (d) => String(d.charCodeAt(0) - 0x0e50));
+  if (s === '') return { ok: false, key: 'ws.qpcr.effMissing' };
+  const marked = s.endsWith('%');
+  if (marked) s = s.slice(0, -1).trim();
+  if (!/^[0-9]*\.?[0-9]+$/.test(s)) return { ok: false, key: 'ws.qpcr.effNotNumber' };
+  const x = Number(s);
+  const percent = marked || x > EFFICIENCY_RANGE[1];
+  const value = percent ? 1 + x / 100 : x;
+  if (!(value >= EFFICIENCY_RANGE[0] && value <= EFFICIENCY_RANGE[1])) return { ok: false, key: 'ws.qpcr.effRange' };
+  return { ok: true, value, percent };
+}
+
+/** The genes a Pfaffl run needs an efficiency for: the gene of interest, then each reference gene, each once. */
+export function efficiencyGenes(roles = {}) {
+  const items = Array.isArray(roles.items) ? roles.items : [];
+  return [...new Set([roles.outcome, ...items].filter(Boolean))];
+}
+
+/**
+ * The `efficiency` option of qpcr.relative: under Pfaffl one amplification factor per chosen gene from its box
+ * (every gene is required, M3-DESIGN.md 2); under Livak none (every efficiency is 2).
+ * @param {string} method   options.method ('livak' | 'pfaffl')
+ * @param {Record<string, any>} roles
+ * @param {Record<string, string>} texts   box text per column key
+ * @returns {{ ok: boolean, efficiency: Record<string, number>, bad: string[] }}
+ */
+export function efficiencyRecord(method, roles, texts = {}) {
+  if (method !== 'pfaffl') return { ok: true, efficiency: {}, bad: [] };
+  const efficiency = {};
+  const bad = [];
+  for (const key of efficiencyGenes(roles)) {
+    const r = parseEfficiency(texts[key]);
+    if (r.ok) efficiency[key] = r.value;
+    else bad.push(key);
+  }
+  return { ok: bad.length === 0, efficiency, bad };
+}
+
+/**
+ * Dose-response curves are compared only when there are groups: choosing a group sets the comparison to a
+ * shared EC50 (M3-DESIGN.md 2), removing it sets no comparison. A comparison the student chose stays while a
+ * group is chosen. Other methods' options come back as they are.
+ * @param {string} method
+ * @param {boolean} hadGroup
+ * @param {boolean} hasGroup
+ * @param {Record<string, any>} options
+ */
+export function optionsOnGroupChange(method, hadGroup, hasGroup, options) {
+  if (method !== 'nls.doseResponse') return options;
+  if (!hasGroup && options.compare !== 'none') return { ...options, compare: 'none' };
+  if (hasGroup && !hadGroup && options.compare === 'none') return { ...options, compare: 'ec50' };
+  return options;
+}
+
+/**
+ * Whether the screen offers an option for the roles chosen: the comparison of dose-response curves needs a group.
+ * @param {string} method
+ * @param {string} name
+ * @param {Record<string, any>} roles
+ */
+export function optionShown(method, name, roles) {
+  if (method === 'nls.doseResponse' && name === 'compare') return Boolean(roles?.group);
+  return true;
+}
+
+/**
+ * A logistic regression stopped by separation on maximum likelihood (glm.js: the 'separation' table, every
+ * estimate undefined): the screen offers Firth's correction beside it. Never for Poisson's zero-count levels
+ * (Firth is a logistic option) or for a result already fitted with Firth.
+ */
+export function isSeparationStop(env) {
+  if (!env || env.status !== 'ok') return false;
+  const id = env.method?.id || env.spec?.method;
+  if (id !== 'reg.logistic' || env.spec?.options?.method === 'firth') return false;
+  return (env.tables || []).some((t) => t.id === 'separation');
+}
+
+/**
+ * The options with Firth's correction switched on (method 'firth') or off (the option removed, so the spec is
+ * maximum likelihood exactly as before M3, M3-DESIGN.md C9). Only the student's switch calls this.
+ * @param {Record<string, any>} options
+ * @param {boolean} on
+ */
+export function withFirth(options, on) {
+  const rest = { ...(options || {}) };
+  delete rest.method;
+  return on ? { ...rest, method: 'firth' } : rest;
 }

@@ -7,7 +7,7 @@
 import { formatNumber, formatP } from '../../lib/stats/format.js';
 import { METHOD_UI } from '../lib/method-ui.js';
 import { keyPart } from '../lib/keys.js';
-import { valueLabel, wordAreaOf } from '../lib/result-model.js';
+import { ownOptionLabel, valueLabel, wordAreaOf } from '../lib/result-model.js';
 import { cellText, termText } from '../lib/term-words.js';
 
 const has = (t, key) => t(key) !== `[${key}]`;
@@ -68,20 +68,22 @@ export function optionApplies(name, value, env) {
 function optionValueText(name, value, env, t, columnName, lang) {
   const k = keyPart(name);
   const method = methodOf(env);
+  // the same words the result view passes, so a value named after the student's columns reads the same here
+  const words = { spec: env?.spec || null, env, codebook: null, columnName };
   if (name === 'confLevel' && typeof value === 'number') return `${Math.round(value * 1000) / 10}%`;
   if (name === 'measures' && Array.isArray(value)) {
     // English reads the list as one phrase: the first word keeps its capital, the rest go lower case
     // (acronyms such as OR keep theirs).
     return value
       .map((v, i) => {
-        const x = valueLabel(String(v), t, method);
+        const x = valueLabel(String(v), t, method, words);
         return lang === 'en' && i > 0 && /^[A-Z][a-z]/.test(x) ? x[0].toLowerCase() + x.slice(1) : x;
       })
       .join(', ');
   }
   if (name === 'measure') {
     const shown = Object.keys(env?.values || {}).find((n) => MH_RATIOS.includes(n));
-    if (shown) return valueLabel(shown, t, method);
+    if (shown) return valueLabel(shown, t, method, words);
   }
   if (name === 'summaries' && value && typeof value === 'object') {
     const parts = Object.entries(value).map(([key, code]) => `${columnName(key)}: ${firstOf(t, [SUMMARY_KEY[code]]) || code}`);
@@ -111,7 +113,9 @@ export function optionItems(env, t, { columnName = (k) => k, lang = 'th' } = {})
     if (!optionApplies(name, value, env)) continue;
     // A sample size has no interval: its confidence level is the plan's, not a CI's.
     const labelKeys = name === 'confLevel' && method.startsWith('ss.') ? ['ws.opt.confLevel.labelPlan'] : [`ws.opt.${keyPart(name)}.label`, `runtime.optName.${keyPart(name)}`];
-    const label = firstOf(t, labelKeys);
+    // One option name can mean different things across methods (M3a: qPCR's and Firth's `method` is not a p-value
+    // adjustment, PCA's `scale` is its matrix): the method's own word first, as the screen shows it.
+    const label = (name === 'confLevel' ? null : ownOptionLabel(t, method, name)) || firstOf(t, labelKeys);
     if (!label) continue;
     const text = optionValueText(name, value, env, t, columnName, lang);
     if (text === null || text === undefined || text === '') continue;
@@ -248,7 +252,10 @@ export function envTableText(table, t, ctx = {}) {
     if (named !== undefined) return named;
     return tableWord(cell, t, 'cell', { area, tableId: table.id });
   }));
-  const capKey = [isTwoByTwo(table) ? 'ws.table.twoByTwo' : null, `ws.table.${keyPart(table.id)}`, area && `${area}.table.${keyPart(table.id)}.caption`].find((k) => k && has(t, k));
+  // The most specific caption first: the method's own (report.tableFor.<method>.<table>, M3a: PCA's `items` is not
+  // Cronbach's), then the method's area, then the workspace's general one.
+  const method = ctx.spec?.method || null;
+  const capKey = [isTwoByTwo(table) ? 'ws.table.twoByTwo' : null, method && `report.tableFor.${keyPart(method)}.${keyPart(table.id)}`, area && `${area}.table.${keyPart(table.id)}.caption`, `ws.table.${keyPart(table.id)}`].find((k) => k && has(t, k));
   // A dash in a cell is explained under the table, and the 2x2 cell letters are named (review round 1).
   const notes = [];
   if (['a', 'b', 'c', 'd'].every((c) => table.columns.includes(c))) notes.push(t('ws.table.abcdLegend'));

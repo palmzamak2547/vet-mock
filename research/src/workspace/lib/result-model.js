@@ -57,6 +57,9 @@ export function headlineOf(env) {
     case 'anova.twoWay':
       return v.etaPartialAB ? { value: 'etaPartialAB', test: 'AB' } : { value: 'etaPartialA', test: 'A' };
     case 'anova.repeated':
+      // Two within factors (M3a): the highest interaction leads, as two-way ANOVA leads with A by B.
+      if (v.etaPartialGroupTimeFactorB) return { value: 'etaPartialGroupTimeFactorB', test: 'groupTimeFactorB' };
+      if (v.etaPartialTimeFactorB) return { value: 'etaPartialTimeFactorB', test: 'timeFactorB' };
       return v.etaPartialGroupTime ? { value: 'etaPartialGroupTime', test: 'groupTime' } : { value: 'etaPartialTime', test: 'time' };
     case 'posthoc.dunnett':
     case 'posthoc.gamesHowell':
@@ -78,7 +81,7 @@ export function primaryTest(env) {
   const mid = env?.method?.id || env?.spec?.method || '';
   // The p-value beside the headline OR/IRR is that term's own test; the whole-model LR test (p = 0.144 under
   // OR 3.11 whose own tests gave 0.027 and 0.032, review round 3) stays in the tests table.
-  if (mid === 'reg.logistic' || mid === 'reg.poisson') {
+  if (mid === 'reg.logistic' || mid === 'reg.poisson' || mid === 'reg.negbin') {
     const head = primaryValueName(env);
     const term = head && head.includes(':') ? head.slice(head.indexOf(':') + 1) : null;
     const col = term && term.includes('=') ? term.slice(0, term.indexOf('=')) : term;
@@ -87,6 +90,19 @@ export function primaryTest(env) {
     return tests[0]?.id === 'lrNull' ? tests[0] : null;
   }
   return tests[0] || null;
+}
+
+/**
+ * An option's label when one option name means different things across methods (M3a: qPCR's `method` is its
+ * ΔΔCt method, reg.logistic's its estimation, Firth or maximum likelihood; PCA's `scale` is its matrix): the
+ * method's own word (ws.optFor.<method>.<option>.label), else null and the option's general word applies.
+ * @param {(k: string) => string} t
+ * @param {string|null|undefined} methodId
+ * @param {string} name
+ */
+export function ownOptionLabel(t, methodId, name) {
+  const k = `ws.optFor.${keyPart(methodId || '')}.${keyPart(name)}.label`;
+  return t(k) !== `[${k}]` ? t(k) : null;
 }
 
 /** Values that can be drawn on the CI plot: an estimate or an interval exists, one scale (ratio or not). */
@@ -133,8 +149,10 @@ export function valueLabel(name, t, methodId = null, words = null) {
   // ones. The area comes before the general words so an M1 word does not shadow it (review round 1: a
   // logistic model's count of positive outcomes read "new cases" through ws.value.cases).
   const area = wordAreaOf(methodId);
+  // two within factors: the values the one-factor screen words by 'time' name the student's columns instead
+  const two = methodId === 'anova.repeated' && words?.spec?.roles?.factorB;
   const keys = methodId
-    ? [`ws.value.${keyPart(methodId)}.${name}`, area && `${area}.value.${keyPart(methodId)}.${name}`, area && `${area}.value.${name}`, `ws.value.${name}`, `epi.value.${name}`].filter(Boolean)
+    ? [`ws.value.${keyPart(methodId)}.${name}`, area && two && `${area}.value.two.${name}`, area && `${area}.value.${keyPart(methodId)}.${name}`, area && `${area}.value.${name}`, `ws.value.${name}`, `epi.value.${name}`].filter(Boolean)
     : [`ws.value.${name}`, `epi.value.${name}`];
   const params = labelParams(methodId, t, words);
   for (const key of keys) {
@@ -170,6 +188,13 @@ function labelParams(methodId, t, words) {
     const name = (r, fallback) => (roles[r] && words?.columnName ? words.columnName(roles[r]) : t(fallback));
     return { a: name('group', 'lab.word.firstFactor'), b: name('factorB', 'lab.word.secondFactor') };
   }
+  if (methodId === 'anova.repeated') {
+    // the effects of a repeated-measures model by the columns chosen (two within factors: "phase by hour", not
+    // "time by second within factor"); the generic words stand in where no column is known
+    const roles = words?.spec?.roles || {};
+    const name = (r, fallback) => (roles[r] && words?.columnName ? words.columnName(roles[r]) : t(fallback));
+    return { a: name('time', 'lab.word.time'), b: name('factorB', 'lab.word.secondWithin'), g: name('group', 'lab.word.group') };
+  }
   if (methodId !== 'agree.blandAltman') return undefined;
   const roles = words?.spec?.roles || {};
   const name = (r) => (roles[r] && words?.columnName ? words.columnName(roles[r]) : t(`ws.roleFor.agreeBlandAltman.${r}`));
@@ -191,7 +216,11 @@ const STAT_SYMBOL = { X2: 'χ²', chisq: 'χ²', 'chi-squared': 'χ²' };
  */
 const EFFECT_ROLES = Object.freeze({
   'anova.twoWay': { A: ['group'], B: ['factorB'], AB: ['group', 'factorB'] },
-  'anova.repeated': { time: ['time'], group: ['group'], groupTime: ['group', 'time'] },
+  'anova.repeated': {
+    time: ['time'], group: ['group'], groupTime: ['group', 'time'],
+    // M3a: the second within factor and its interactions [M3-DESIGN.md C11]
+    factorB: ['factorB'], timeFactorB: ['time', 'factorB'], groupFactorB: ['group', 'factorB'], groupTimeFactorB: ['group', 'time', 'factorB'],
+  },
 });
 
 /**
@@ -205,6 +234,7 @@ export function effectLabel(test, t, ctx = {}) {
   if (!roles || !ctx.roles || !ctx.columnName) return null;
   const names = roles.map((r) => (ctx.roles[r] ? ctx.columnName(ctx.roles[r]) : null));
   if (names.some((n) => !n)) return null;
+  if (names.length === 3) return t('ws.test.interaction3', { a: names[0], b: names[1], c: names[2] });
   return names.length === 1 ? t('ws.test.effect', { a: names[0] }) : t('ws.test.interaction', { a: names[0], b: names[1] });
 }
 
@@ -218,6 +248,15 @@ export function testLabel(test, t, ctx = {}) {
   if (colon > 0) {
     const base = testLabel({ ...test, id: test.id.slice(0, colon), statistic: null }, t, {});
     const named = t('ws.test.ofTerm', { test: base, term: suffixText(ctx.methodId || null, test.id.slice(colon + 1), ctx.words ? { t, ...ctx.words } : null) });
+    return stat ? t('ws.result.testWithStat', { test: named, stat }) : named;
+  }
+  // Two within factors give one Mauchly test per within effect (mauchlyTime, mauchlyFactorB, mauchlyTimeFactorB):
+  // each is named by its effect, as the effect rows are, so three rows never read just "W".
+  const mauchly = /^mauchly(Time|FactorB|TimeFactorB)$/.exec(String(test?.id || ''));
+  if (mauchly) {
+    const effectId = mauchly[1][0].toLowerCase() + mauchly[1].slice(1);
+    const term = effectLabel({ id: effectId }, t, ctx) || t(`lab.test.mauchlyPart.${effectId}`);
+    const named = t('ws.test.ofTerm', { test: t('ws.test.mauchly'), term });
     return stat ? t('ws.result.testWithStat', { test: named, stat }) : named;
   }
   const area = wordAreaOf(ctx.methodId);

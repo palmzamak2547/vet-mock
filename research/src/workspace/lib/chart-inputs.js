@@ -149,7 +149,8 @@ export function extraCharts(env, labelOf = (k) => k, levelName = (k, v) => v, t 
       break;
     }
     case 'reg.logistic':
-    case 'reg.poisson': {
+    case 'reg.poisson':
+    case 'reg.negbin': {
       const tb = findTable(env, 'ratios', 'coefficients');
       if (tb) add(method === 'reg.logistic' ? 'oddsRatios' : 'rateRatios', 'forest', ratiosInput(tb, method === 'reg.logistic' ? 'OR' : 'IRR', level, (x) => perUnitTerm(x, words)));
       break;
@@ -191,7 +192,7 @@ export function chartsForResult(analysis, table, ctx = {}) {
   } catch {
     kit = [];
   }
-  const out = kit.map((c) => ({ id: c.id, kind: c.kind, titleKey: `ws.chart.title.${c.kind}`, input: c.input, needsRows: Boolean(c.needsRows) }));
+  const out = kit.map((c) => ({ id: c.id, kind: c.kind, titleKey: c.titleKey || `ws.chart.title.${c.kind}`, input: c.input, needsRows: Boolean(c.needsRows) }));
   const base = analysis.id || env.method?.id || 'result';
   const extra = extraCharts(env, labelOf, levelOf, ctx.t || null).map((c) => ({ ...c, id: `${base}:${c.id}` }));
   // A two-way ANOVA is read from its cell means, and the report's figure is that chart (it needs no rows):

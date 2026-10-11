@@ -21,8 +21,10 @@ import epi from '../../src/i18n/epi.js';
 import stats from '../../src/i18n/stats.js';
 import runtime from '../../src/i18n/runtime.js';
 import intake from '../../src/i18n/intake.js';
+import workspaceM3 from '../../src/i18n/workspace-m3.js';
 
-for (const [area, dict] of Object.entries({ workspace, report, epi, stats, runtime, intake })) registerArea(area, dict);
+// workspace-m3 holds the M3a option words; the project screen registers it before any result shows.
+for (const [area, dict] of Object.entries({ workspace, report, epi, stats, runtime, intake, 'workspace-m3': workspaceM3 })) registerArea(area, dict);
 const tOf = (lang) => (key, params) => translate(lang, key, params);
 const FMT = { formatNumber, formatP, formatCi };
 

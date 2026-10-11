@@ -214,6 +214,8 @@ export const FIXTURES = [
    "test.anova1"
   ],
   "tests": [
+   "lab-auc.test.mjs",
+   "lab-qpcr.test.mjs",
    "rparity-engine.test.mjs",
    "stats-anova.test.mjs"
   ],
@@ -327,6 +329,88 @@ export const FIXTURES = [
   ],
   "sha": "b80009d847ee24f0",
   "lastPassed": "2026-09-28"
+ },
+ {
+  "file": "r/out/anovarm2.json",
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": [
+   "anova.repeated"
+  ],
+  "tests": [
+   "graphs-m3.test.mjs",
+   "lab-anovarm2.test.mjs"
+  ],
+  "source": {
+   "text": null,
+   "r": "R version 4.6.0 (2026-04-24)",
+   "webR": "0.6.0",
+   "packages": {
+    "car": "3.1.5"
+   },
+   "python": null,
+   "script": "research/tests/fixtures/r/anovarm2.R",
+   "urls": [],
+   "file": null,
+   "commit": null,
+   "date": null
+  },
+  "tolerance": [
+   {
+    "scope": "closed",
+    "rel": "1e-10"
+   },
+   {
+    "scope": "iterative",
+    "rel": "1e-6"
+   },
+   {
+    "scope": "uniroot",
+    "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+   }
+  ],
+  "sha": "1c74f4a6920a6069",
+  "lastPassed": "2026-10-11"
+ },
+ {
+  "file": "r/out/auc.json",
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": [
+   "calc.auc"
+  ],
+  "tests": [
+   "graphs-m3.test.mjs",
+   "lab-auc.test.mjs"
+  ],
+  "source": {
+   "text": null,
+   "r": "R version 4.6.0 (2026-04-24)",
+   "webR": "0.6.0",
+   "packages": null,
+   "python": null,
+   "script": "research/tests/fixtures/r/auc.R",
+   "urls": [],
+   "file": null,
+   "commit": null,
+   "date": null
+  },
+  "tolerance": [
+   {
+    "scope": "closed",
+    "rel": "1e-10"
+   },
+   {
+    "scope": "iterative",
+    "rel": "1e-6"
+   },
+   {
+    "scope": "uniroot",
+    "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+   }
+  ],
+  "sha": "06fb16f623626e7f",
+  "lastPassed": "2026-10-11"
  },
  {
   "file": "r/out/blandaltman.json",
@@ -609,6 +693,47 @@ export const FIXTURES = [
   ],
   "sha": "3cce5bc9beff6e13",
   "lastPassed": "2026-09-28"
+ },
+ {
+  "file": "r/out/firth.json",
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": [
+   "reg.logistic"
+  ],
+  "tests": [
+   "models-firth.test.mjs"
+  ],
+  "source": {
+   "text": null,
+   "r": "R version 4.6.0 (2026-04-24)",
+   "webR": "0.6.0",
+   "packages": {
+    "logistf": "1.26.1"
+   },
+   "python": null,
+   "script": "research/tests/fixtures/r/firth.R",
+   "urls": [],
+   "file": null,
+   "commit": null,
+   "date": null
+  },
+  "tolerance": [
+   {
+    "scope": "closed",
+    "rel": "1e-10"
+   },
+   {
+    "scope": "iterative",
+    "rel": "1e-6"
+   },
+   {
+    "scope": "uniroot",
+    "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+   }
+  ],
+  "sha": "67ca992ea129c9ed",
+  "lastPassed": "2026-10-12"
  },
  {
   "file": "r/out/fisher.json",
@@ -938,6 +1063,47 @@ export const FIXTURES = [
   "lastPassed": "2026-09-28"
  },
  {
+  "file": "r/out/negbin.json",
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": [
+   "reg.negbin"
+  ],
+  "tests": [
+   "models-negbin.test.mjs"
+  ],
+  "source": {
+   "text": null,
+   "r": "R version 4.6.0 (2026-04-24)",
+   "webR": "0.6.0",
+   "packages": {
+    "MASS": "7.3.65"
+   },
+   "python": null,
+   "script": "research/tests/fixtures/r/negbin.R",
+   "urls": [],
+   "file": null,
+   "commit": null,
+   "date": null
+  },
+  "tolerance": [
+   {
+    "scope": "closed",
+    "rel": "1e-10"
+   },
+   {
+    "scope": "iterative",
+    "rel": "1e-6"
+   },
+   {
+    "scope": "uniroot",
+    "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+   }
+  ],
+  "sha": "1d5754422f3810b1",
+  "lastPassed": "2026-10-11"
+ },
+ {
   "file": "r/out/noncentral.json",
   "family": "r-4.6.0",
   "kind": "pin",
@@ -977,6 +1143,51 @@ export const FIXTURES = [
   ],
   "sha": "8cc345a9048c4665",
   "lastPassed": "2026-09-28"
+ },
+ {
+  "file": "r/out/nonlinear.json",
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": [
+   "nls.doseResponse",
+   "nls.equation",
+   "nls.fourPL"
+  ],
+  "tests": [
+   "graphs-m3.test.mjs",
+   "lab-curves.test.mjs",
+   "stats-nls-curves.test.mjs"
+  ],
+  "source": {
+   "text": null,
+   "r": "R version 4.6.0 (2026-04-24)",
+   "webR": "0.6.0",
+   "packages": {
+    "drc": "3.0.1"
+   },
+   "python": null,
+   "script": "research/tests/fixtures/r/nonlinear.R",
+   "urls": [],
+   "file": null,
+   "commit": null,
+   "date": null
+  },
+  "tolerance": [
+   {
+    "scope": "closed",
+    "rel": "1e-10"
+   },
+   {
+    "scope": "iterative",
+    "rel": "1e-6"
+   },
+   {
+    "scope": "uniroot",
+    "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+   }
+  ],
+  "sha": "add6b11a105d891f",
+  "lastPassed": "2026-10-12"
  },
  {
   "file": "r/out/normality.json",
@@ -1102,6 +1313,46 @@ export const FIXTURES = [
   "lastPassed": "2026-09-28"
  },
  {
+  "file": "r/out/pca.json",
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": [
+   "mv.pca"
+  ],
+  "tests": [
+   "graphs-m3.test.mjs",
+   "lab-pca.test.mjs"
+  ],
+  "source": {
+   "text": null,
+   "r": "R version 4.6.0 (2026-04-24)",
+   "webR": "0.6.0",
+   "packages": null,
+   "python": null,
+   "script": "research/tests/fixtures/r/pca.R",
+   "urls": [],
+   "file": null,
+   "commit": null,
+   "date": null
+  },
+  "tolerance": [
+   {
+    "scope": "closed",
+    "rel": "1e-10"
+   },
+   {
+    "scope": "iterative",
+    "rel": "1e-6"
+   },
+   {
+    "scope": "uniroot",
+    "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+   }
+  ],
+  "sha": "b065ba80096838b4",
+  "lastPassed": "2026-10-11"
+ },
+ {
   "file": "r/out/posthoc.json",
   "family": "r-4.6.0",
   "kind": "pin",
@@ -1112,6 +1363,7 @@ export const FIXTURES = [
    "posthoc.gamesHowell"
   ],
   "tests": [
+   "lab-qpcr.test.mjs",
    "rparity-m2.test.mjs"
   ],
   "source": {
@@ -1232,6 +1484,47 @@ export const FIXTURES = [
   ],
   "sha": "789af52a7f8d5d19",
   "lastPassed": "2026-09-28"
+ },
+ {
+  "file": "r/out/qpcr.json",
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": [
+   "qpcr.efficiency",
+   "qpcr.relative"
+  ],
+  "tests": [
+   "graphs-m3.test.mjs",
+   "lab-qpcr.test.mjs"
+  ],
+  "source": {
+   "text": null,
+   "r": "R version 4.6.0 (2026-04-24)",
+   "webR": "0.6.0",
+   "packages": null,
+   "python": null,
+   "script": "research/tests/fixtures/r/qpcr.R",
+   "urls": [],
+   "file": null,
+   "commit": null,
+   "date": null
+  },
+  "tolerance": [
+   {
+    "scope": "closed",
+    "rel": "1e-10"
+   },
+   {
+    "scope": "iterative",
+    "rel": "1e-6"
+   },
+   {
+    "scope": "uniroot",
+    "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+   }
+  ],
+  "sha": "22d3a58b71b4a9e2",
+  "lastPassed": "2026-10-11"
  },
  {
   "file": "r/out/rank.json",
@@ -1606,6 +1899,45 @@ export const FIXTURES = [
   "tolerance": [],
   "sha": "ba0f985ebde6ddc3",
   "lastPassed": "2026-09-28"
+ },
+ {
+  "file": "stats/nist-strd-nls/fixture.json",
+  "family": "nist-strd",
+  "kind": "crosscheck",
+  "methods": [
+   "nls.doseResponse",
+   "nls.equation",
+   "nls.fourPL"
+  ],
+  "tests": [
+   "stats-nls.test.mjs"
+  ],
+  "source": {
+   "text": "NIST/ITL Statistical Reference Datasets, nonlinear regression (public domain), downloaded 2026-10-08. They check the shared nonlinear least-squares core (its steps, stopping rule and covariance) with NIST's own models, not the 4PL, 5PL or curve equations, their EC50 or read-off concentrations; those are pinned by R 4.6.0 (r/out/nonlinear.json), so this file is a second check and does not count toward verified.",
+   "r": null,
+   "webR": null,
+   "packages": null,
+   "python": null,
+   "script": null,
+   "urls": [
+    "https://www.itl.nist.gov/div898/strd/nls/nls_main.shtml"
+   ],
+   "file": null,
+   "commit": null,
+   "date": "2026-10-08"
+  },
+  "tolerance": [
+   {
+    "scope": "lower",
+    "lre": 6
+   },
+   {
+    "scope": "higher",
+    "lre": 5
+   }
+  ],
+  "sha": "07153d5d3ffc25fa",
+  "lastPassed": "2026-10-12"
  },
  {
   "file": "stats/nist-strd/fixture.json",

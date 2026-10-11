@@ -3,7 +3,9 @@
 // this browser gets a plain sentence and the two ways to get it back, never an error. OWNER: ui-analysis role
 // (M2; workspace in M1). M2 panes are added below by the architect; each belongs to the role named in its file.
 import { useEffect, useState } from 'react';
-import { useT } from '../../i18n/index.js';
+import { registerArea, useT } from '../../i18n/index.js';
+import workspaceM3 from '../../i18n/workspace-m3.js';
+import termsM3 from '../../i18n/terms-m3.js';
 import { navigate } from '../../router.js';
 import TopBar from '../components/TopBar.jsx';
 import Rail from '../components/Rail.jsx';
@@ -30,6 +32,11 @@ import ComputePane from './tools/ComputePane.jsx';
 import CleanPane from './tools/CleanPane.jsx';
 import ComparePane from './tools/ComparePane.jsx';
 import SamplingPane from './tools/SamplingPane.jsx';
+
+// M3a's screen words and glosses load with the project screen, the lazy root of every analysis, report, figure and
+// kept-result pane, so they are registered before any M3 screen renders and stay out of the first workspace chunk.
+registerArea('workspace-m3', workspaceM3);
+registerArea('terms-m3', termsM3);
 
 export function ProjectMissing() {
   const { t } = useT();

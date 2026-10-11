@@ -3,4 +3,5 @@
 // injected-wrong-value proof is written in the role notes [M2-DESIGN.md 4]. OWNER: models role.
 
 /** @type {readonly string[]} */
-export default Object.freeze(['reg.logistic', 'reg.poisson', 'surv.kaplanMeier']);
+// reg.negbin (M3a): fixture green and the injected-wrong-value proof in work/loop-2026-10-08/research-m3/models.md.
+export default Object.freeze(['reg.logistic', 'reg.poisson', 'surv.kaplanMeier', 'reg.negbin']);

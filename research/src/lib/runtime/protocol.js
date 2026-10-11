@@ -1,7 +1,7 @@
 // Engine version and the worker message protocol [M1-DESIGN.md 11]. OWNER: runtime role.
 
 /** Printed on every provenance line and stored in every envelope. Bump on any change to a method's numbers. */
-export const ENGINE_VERSION = 'research-studio-m1-0.1.0';
+export const ENGINE_VERSION = 'research-studio-m3-0.2.0';
 
 /** Operations the engine accepts (worker and main-thread fallback share them). */
 export const OPS = Object.freeze({

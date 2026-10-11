@@ -94,14 +94,59 @@ test('every word the public pages show exists in Thai and English', () => {
 });
 
 test('the guide has one page per workflow, the guardrails the design names, and a made-up example for each', () => {
-  assert.deepEqual(GUIDE.map((p) => p.id), ['start', 'farms', 'lab', 'repeated', 'survival', 'diagnostic', 'agreement', 'prepare', 'warnings']);
+  assert.deepEqual(GUIDE.map((p) => p.id), ['start', 'farms', 'lab', 'repeated', 'assays', 'models', 'survival', 'diagnostic', 'agreement', 'prepare', 'warnings']);
   assert.deepEqual(GUIDE.find((p) => p.id === 'warnings').warnings, ['G1', 'G3', 'G5', 'G7', 'G8', 'G14', 'G26']);
   const ids = new Set(EXAMPLES.map((e) => e.id));
-  for (const p of GUIDE) if (p.example) assert.ok(ids.has(p.example), `${p.id}: ${p.example}`);
-  for (const e of EXAMPLES) assert.ok(GUIDE.some((p) => p.id === e.guide), `${e.id}: guide ${e.guide}`);
+  for (const p of GUIDE) {
+    assert.ok(Array.isArray(p.examples), p.id);
+    for (const x of p.examples) assert.ok(ids.has(x), `${p.id}: ${x}`);
+  }
+  // Every example is offered on the page its `guide` names, so no example is left without a walk-through.
+  for (const e of EXAMPLES) assert.ok(GUIDE.find((p) => p.id === e.guide)?.examples.includes(e.id), `${e.id}: guide ${e.guide}`);
+  // The M3a lab page walks through one example per family: standard curve, dose-response, area under the
+  // curve, qPCR, PCA (M3-DESIGN.md 7).
+  const fam = (id) => EXAMPLES.find((e) => e.id === id).methods;
+  assert.deepEqual(GUIDE.find((p) => p.id === 'assays').examples.map(fam).flat().filter((m) => m !== 'anova.repeated'),
+    ['nls.fourPL', 'nls.doseResponse', 'calc.auc', 'qpcr.relative', 'mv.pca']);
   assert.equal(guidePageFromHash('#lab').id, 'lab');
+  assert.equal(guidePageFromHash('#assays').id, 'assays');
   assert.equal(guidePageFromHash(''), null);
   assert.equal(guidePageFromHash('#nothing'), null);
+});
+
+test('the M3a guide pages say what M3-DESIGN.md 7 asks, in Thai and in English', () => {
+  const page = (id, lang) => {
+    const p = GUIDE.find((x) => x.id === id);
+    const keys = [`trust.guide.${id}.lead`, ...Array.from({ length: p.steps }, (_, k) => `trust.guide.${id}.step${k + 1}`),
+      ...Array.from({ length: p.watch }, (_, k) => `trust.guide.${id}.watch${k + 1}`)];
+    return keys.map((k) => trust[lang][k]).join('\n');
+  };
+  // Each point once per language: the words a student will meet on the result screens.
+  const points = {
+    assays: {
+      both: [/EC50/, /IC50/, /4PL/, /extra sum-of-squares F test/, /AICc/, /ΔCt/, /fold change/, /dilution series/, /90 ถึง 110%|90 to 110%/, /Pfaffl/, /loading/, /biplot/, /eigenvalue/],
+      th: [/นอกช่วงของ standard curve/, /ไม่ต่อเส้นออกไปเดาค่า/, /เฉพาะความไม่แน่นอนของตัวเส้น/, /ตัวเลขเดียว/, /ไม่ได้นำมาทดสอบ/, /ไม่ใช่กฎ/],
+      en: [/outside the standard curve/, /does not extend the curve/, /uncertainty of the curve only/, /one number/, /never tested/, /not a rule/],
+    },
+    models: {
+      both: [/Firth's correction/, /separation/, /negative binomial regression/, /overdispersion/, /theta/, /G14/, /G23/],
+      th: [/ไม่เปลี่ยนไปใช้ Firth's correction ให้เอง/],
+      en: [/never switches to Firth's correction/],
+    },
+  };
+  for (const [id, p] of Object.entries(points)) {
+    for (const lang of ['th', 'en']) {
+      const text = page(id, lang);
+      for (const re of [...p.both, ...p[lang]]) assert.match(text, re, `${id} ${lang}`);
+    }
+  }
+});
+
+test('a fixture\'s tolerance is read under either spelling of its minimum-digits field (the NIST nonlinear sets say minLre)', () => {
+  const nls = describe(JSON.parse(readFileSync(here(`../fixtures/${fx('stats', 'nist-strd-nls', 'fixture.json')}`), 'utf8')));
+  assert.deepEqual(nls.tolerance, [{ scope: 'lower', lre: 6 }, { scope: 'higher', lre: 5 }]);
+  assert.match(nls.source.text, /NIST\/ITL Statistical Reference Datasets, nonlinear regression/);
+  assert.deepEqual(describe({ _fixture: {}, minLre: { a: 7 } }).tolerance, [{ scope: 'a', lre: 7 }]);
 });
 
 test('dates show their era', () => {

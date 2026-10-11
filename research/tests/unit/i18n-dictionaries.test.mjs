@@ -13,6 +13,11 @@ const PREFIX = {
   lab: 'lab.', models: 'models.', measure: 'measure.', data: 'data.', graphs: 'graphs.', tools: 'tools.', trust: 'trust.',
   // the M2 statistics terms, kept apart from terms.js so the landing does not load them
   'terms-m2': 'term.',
+  'graphs-m3': 'graphs.',
+  // the M3a report words, kept apart from report.js so the workspace's first chunk does not carry them
+  'report-m3': 'report.',
+  // M3a's analysis-screen words and statistics terms, loaded with the project screen (not in the first workspace chunk)
+  'workspace-m3': 'ws.', 'terms-m3': 'term.',
 };
 
 const files = readdirSync(dir).filter((f) => f.endsWith('.js') && f !== 'index.js');

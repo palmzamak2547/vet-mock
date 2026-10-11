@@ -8,6 +8,9 @@ const bool = v.boolean();
 const pick = (/** @type {readonly any[]} */ list) => v.picklist(list);
 const posNum = v.pipe(v.number(), v.finite(), v.gtValue(0));
 const solveFor = pick(['n', 'power']);
+// M3a auc, qpcr, pca: an amplification factor per gene column (2 = doubling every cycle), Pfaffl's method
+const amplification = v.pipe(v.number(), v.finite(), v.minValue(1.5), v.maxValue(2.5));
+const colKey = v.pipe(v.string(), v.maxLength(64));
 
 /** @type {import('./index.js').AreaOptions} */
 export default {
@@ -25,6 +28,15 @@ export default {
     'power.tTest': { type: 'two-sample', solveFor: 'n', sigLevel: 0.05 },
     'power.correlation': { solveFor: 'n', sigLevel: 0.05 },
     'power.regression': { solveFor: 'n', sigLevel: 0.05 },
+    // M3a curves (M3-DESIGN.md 2, 3.1.1)
+    'nls.fourPL': { model: '4pl' },
+    'nls.doseResponse': { model: '4pl', compare: 'none' },
+    'nls.equation': { equation: 'michaelisMenten' },
+    // M3a auc, qpcr, pca [M3-DESIGN.md 2]
+    'calc.auc': { baseline: 'zero' },
+    'qpcr.relative': { method: 'livak', efficiency: {}, test: 'welch' },
+    'qpcr.efficiency': {},
+    'mv.pca': { scale: true },
   },
   allowed: {
     'anova.twoWay': { ssType: pick(['III', 'II', 'I']), interaction: bool, posthoc: pick(['none', 'tukey']) },
@@ -39,6 +51,15 @@ export default {
     'power.tTest': { type: pick(['two-sample', 'paired', 'one-sample']), solveFor, sigLevel: posNum },
     'power.correlation': { solveFor, sigLevel: posNum },
     'power.regression': { solveFor, sigLevel: posNum },
+    // M3a curves
+    'nls.fourPL': { model: pick(['4pl', '5pl']) },
+    'nls.doseResponse': { model: pick(['4pl', '5pl']), compare: pick(['none', 'ec50', 'all']) },
+    'nls.equation': { equation: pick(['michaelisMenten', 'decay', 'growth']) },
+    // M3a auc, qpcr, pca
+    'calc.auc': { baseline: pick(['zero', 'first']) },
+    'qpcr.relative': { method: pick(['livak', 'pfaffl']), efficiency: v.record(colKey, amplification), test: pick(['welch', 'pooled']) },
+    'qpcr.efficiency': {},
+    'mv.pca': { scale: bool },
   },
   // Options the lab role adds to M1 methods (M2-DESIGN.md 3.1): Sidak and Benjamini-Hochberg wherever an
   // adjustment is offered (adjust.pValues, the pairwise t tests after one-way ANOVA). Only the allowed
@@ -57,19 +78,41 @@ export default {
     'test.anova1': { posthoc: pick(['tukey', 'pairwise-t-holm', 'pairwise-t-bonferroni', 'pairwise-t-sidak', 'pairwise-t-bh', 'none']) },
   },
   // Methods that treat every row as an independent animal (G1 stops them on repeated farm ids).
-  g1Subject: ['anova.twoWay', 'anova.repeated', 'test.friedman', 'posthoc.dunn', 'posthoc.gamesHowell', 'posthoc.dunnett', 'diag.shapiro', 'diag.brownForsythe'],
+  g1Subject: [
+    'anova.twoWay', 'anova.repeated', 'test.friedman', 'posthoc.dunn', 'posthoc.gamesHowell', 'posthoc.dunnett', 'diag.shapiro', 'diag.brownForsythe',
+    // M3a auc, qpcr, pca: the comparisons of areas and of dCt assume independent animals (PCA describes, so it stays out)
+    'calc.auc', 'qpcr.relative',
+  ],
   // No data file and no design needed.
   designFree: ['power.anova', 'power.tTest', 'power.correlation', 'power.regression'],
   // Which designs offer each method (appended to lib/epi/design.js rows).
   offers: {
-    'cross-sectional': ['anova.twoWay', 'test.friedman', 'posthoc.dunn', 'posthoc.gamesHowell', 'diag.shapiro', 'diag.brownForsythe'],
-    cohort: ['anova.twoWay', 'anova.repeated', 'posthoc.dunn', 'posthoc.gamesHowell', 'diag.shapiro', 'diag.brownForsythe'],
-    trial: ['anova.twoWay', 'anova.repeated', 'test.friedman', 'posthoc.dunn', 'posthoc.gamesHowell', 'posthoc.dunnett', 'diag.shapiro', 'diag.brownForsythe'],
+    'cross-sectional': [
+      'anova.twoWay', 'test.friedman', 'posthoc.dunn', 'posthoc.gamesHowell', 'diag.shapiro', 'diag.brownForsythe',
+      // M3a auc, qpcr, pca
+      'mv.pca',
+    ],
+    cohort: [
+      'anova.twoWay', 'anova.repeated', 'posthoc.dunn', 'posthoc.gamesHowell', 'diag.shapiro', 'diag.brownForsythe',
+      // M3a auc, qpcr, pca
+      'mv.pca',
+    ],
+    trial: [
+      'anova.twoWay', 'anova.repeated', 'test.friedman', 'posthoc.dunn', 'posthoc.gamesHowell', 'posthoc.dunnett', 'diag.shapiro', 'diag.brownForsythe',
+      // M3a auc, qpcr, pca
+      'mv.pca',
+    ],
     experiment: [
       'desc.summary', 'desc.table1', 'test.tTest', 'test.anova1', 'test.mannWhitney', 'test.wilcoxonSignedRank', 'test.kruskalWallis',
       'corr.pearson', 'corr.spearman', 'reg.ols', 'test.chisq', 'test.fisher2x2', 'cluster.iccDeff',
       'anova.twoWay', 'anova.repeated', 'test.friedman', 'posthoc.dunn', 'posthoc.gamesHowell', 'posthoc.dunnett', 'diag.shapiro', 'diag.brownForsythe',
+      // M3a curves (descriptive fits within one assay: not in g1Subject, M3-DESIGN.md 2)
+      'nls.fourPL', 'nls.doseResponse', 'nls.equation',
+      // M3a auc, qpcr, pca
+      'calc.auc', 'qpcr.relative', 'qpcr.efficiency', 'mv.pca',
     ],
+    // M3a auc, qpcr, pca
+    descriptive: ['mv.pca'],
   },
   // A design this area adds (laboratory or animal experiment, ARRIVE 2.0). Its words live in i18n/lab.js.
   routes: [],

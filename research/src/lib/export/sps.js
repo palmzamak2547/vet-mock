@@ -1,11 +1,15 @@
 // SPSS syntax (.sps) that re-runs each analysis of the report on the exported analysed-data CSV, with
 // VetMock Research's numbers and SPSS's known differences as comments above each command (engine.md 6.2:
 // the reference level, the Levene centre, Yates, profile against Wald intervals) [M2-DESIGN.md 6.3].
-// Methods SPSS has no command for say so in a comment. The app shows the syntax and hands it over as a
+// Methods SPSS has no command for say so in a comment (M3a: Firth's correction). M3a adds NLR for the curves (started at
+// VetMock Research's estimates), the per-animal areas, ΔCt with T-TEST or ONEWAY Dunnett, REGRESSION for a dilution
+// series, FACTOR, GLM with two within factors and GENLIN negative binomial. The app shows the syntax and hands it over as a
 // download; it never runs it. Every comment is its own command ending in a full stop, as SPSS reads
 // comments. OWNER: report role.
 import { getMethod } from '../runtime/catalog.js';
 import { columnIndex, envNumbers, valueNamer, oneLine, rolesOf, scriptAnalyses, wrapComment } from './script-common.js';
+// The M3a script comments (i18n/report-m3.js), registered when this lazily loaded writer loads.
+import '../../workspace/report/words-m3.js';
 
 /** An SPSS string literal in single quotes. */
 export const sq = (s) => `'${oneLine(s).replace(/'/g, "''")}'`;
@@ -34,11 +38,114 @@ function sortedIndex(levels, level, numeric) {
   return i < 0 ? null : i + 1;
 }
 
+/** A finite number from an envelope for syntax (ten significant digits), else null: nothing else is printed as code. */
+const snum = (x) => (typeof x === 'number' && Number.isFinite(x) ? String(Number(x.toPrecision(10))) : null);
+
+/** The rows of an envelope table as objects by column name. */
+const rowsOf = (env, id) => {
+  const tb = (env?.tables || []).find((x) => x.id === id);
+  return tb ? tb.rows.map((r) => Object.fromEntries(tb.columns.map((c, i) => [c, r[i]]))) : [];
+};
+
+/** A 4PL or 5PL prediction in the log-EC50 form on the parameter names given; x = 0 takes the level the curve approaches. */
+function curvePred(xv, p, five) {
+  const core = `${p.c} + (${p.d} - ${p.c}) / (1 + EXP(${p.b} * (LN(${xv}) - ${p.e})))${five ? `**${p.g}` : ''}`;
+  return { pos: core, zero: `(${p.b} > 0) * ${p.d} + (${p.b} <= 0) * ${p.c}` };
+}
+
+/**
+ * SPSS commands for the M3a curve fits [M3-DESIGN.md 6]: NLR with a model program in the log-EC50 form, started at
+ * VetMock Research's estimates (snum), parameters named nl_* so no data column can clash with one.
+ * @returns {{ code: string[], notes: string[], none?: string }}
+ */
+function spssCurves(spec, env, ix, t, lit) {
+  const v = ix.v;
+  const o = spec.options || {};
+  const one = (role) => rolesOf(spec, role)[0] || null;
+  const code = [];
+  const notes = [t('report.script.spss.nlrStart'), t('report.script.spss.nlrSe')];
+  const nlr = (y) => `NLR ${y} /PRED PRED_ /CRITERIA SSCONVERGENCE 1E-12 PCON 1E-10 ITER 200.`;
+  const params = rowsOf(env, 'parameters');
+  const est = (term, group) => snum(params.find((r) => r.term === term && (group === undefined || r.group === group))?.estimate);
+  const x = v(one('x'));
+  const y = v(one('outcome'));
+  if (spec.method === 'nls.equation') {
+    const eq = ['decay', 'growth'].includes(o.equation) ? o.equation : 'michaelisMenten';
+    const map = eq === 'michaelisMenten' ? [['Vmax', 'nl_vmax'], ['Km', 'nl_km']] : eq === 'decay' ? [['Y0', 'nl_y0'], ['Plateau', 'nl_plat'], ['K', 'nl_k']] : [['Y0', 'nl_y0'], ['k', 'nl_k']];
+    const starts = map.map(([term, name]) => [name, est(term)]);
+    if (starts.some(([, x0]) => x0 === null)) return { code: [], notes, none: t('report.script.noCode') };
+    code.push(`MODEL PROGRAM ${starts.map(([n, x0]) => `${n}=${x0}`).join(' ')}.`);
+    if (eq === 'michaelisMenten') code.push(`COMPUTE PRED_ = nl_vmax * ${x} / (nl_km + ${x}).`);
+    else if (eq === 'decay') code.push(`COMPUTE PRED_ = (nl_y0 - nl_plat) * EXP(-nl_k * ${x}) + nl_plat.`);
+    else code.push(`COMPUTE PRED_ = nl_y0 * EXP(nl_k * ${x}).`);
+    code.push(nlr(y));
+    return { code, notes };
+  }
+  const five = o.model === '5pl';
+  const terms = five ? ['b', 'c', 'd', 'e', 'g'] : ['b', 'c', 'd', 'e'];
+  const g = spec.method === 'nls.doseResponse' ? one('group') : null;
+  notes.push(t('report.script.spss.nlrZero'));
+  notes.push(t(five ? 'report.script.spss.nlr5pl' : 'report.script.spss.nlrEc50'));
+  if (!g) {
+    const starts = terms.map((k) => [`nl_${k}`, est(k)]);
+    if (starts.some(([, x0]) => x0 === null)) return { code: [], notes, none: t('report.script.noCode') };
+    const pr = curvePred(x, { b: 'nl_b', c: 'nl_c', d: 'nl_d', e: 'nl_e', g: 'nl_g' }, five);
+    code.push(`COMPUTE nl_std = NOT MISSING(${x}).`, 'FILTER BY nl_std.');
+    code.push(`MODEL PROGRAM ${starts.map(([n, x0]) => `${n}=${x0}`).join(' ')}.`);
+    code.push(`DO IF (${x} > 0).`, `COMPUTE PRED_ = ${pr.pos}.`, 'ELSE.', `COMPUTE PRED_ = ${pr.zero}.`, 'END IF.');
+    code.push(nlr(y), 'FILTER OFF.');
+    if (spec.method === 'nls.fourPL' && (env?.values?.nUnknowns?.value || 0) > 0) {
+      notes.push(t('report.script.spss.nlrUnknown'));
+      const [b, c, d, e, gg] = terms.map((k) => est(k));
+      const lo = Math.min(Number(c), Number(d));
+      const hi = Math.max(Number(c), Number(d));
+      const inner = five ? `((${d} - ${c}) / (${y} - ${c}))**(1 / ${gg})` : `(${d} - ${c}) / (${y} - ${c})`;
+      code.push(`IF (MISSING(${x}) AND ${y} > ${snum(lo)} AND ${y} < ${snum(hi)}) conc_read = EXP(${e} + LN(${inner} - 1) / ${b}).`, 'EXECUTE.');
+    }
+    return { code, notes };
+  }
+  // One curve per group with one residual variance: every group's parameters in one model program.
+  const levels = ix.col(g)?.levels || [];
+  const groups = levels.length ? levels : [...new Set(params.map((r) => r.group))];
+  const starts = [];
+  groups.forEach((lv, j) => terms.forEach((k) => starts.push([`nl_${k}${j + 1}`, est(k, lv)])));
+  if (!groups.length || starts.some(([, x0]) => x0 === null)) return { code: [], notes, none: t('report.script.noCode') };
+  const body = (shared) => {
+    const out = [];
+    groups.forEach((lv, j) => {
+      const n = (k) => `nl_${k}${j + 1}`;
+      let e = n('e');
+      if (shared) e = five ? `(nl_l50 - LN(2**(1 / ${n('g')}) - 1) / ${n('b')})` : 'nl_e';
+      const pr = curvePred(x, { b: n('b'), c: n('c'), d: n('d'), e, g: n('g') }, five);
+      const is = `${v(g)} = ${lit('group', lv)}`;
+      out.push(`${j ? 'ELSE IF' : 'DO IF'} (${is} AND ${x} > 0).`, `COMPUTE PRED_ = ${pr.pos}.`, `ELSE IF (${is}).`, `COMPUTE PRED_ = ${pr.zero}.`);
+    });
+    out.push('END IF.');
+    return out;
+  };
+  code.push(`MODEL PROGRAM ${starts.map(([n, x0]) => `${n}=${x0}`).join(' ')}.`, ...body(false), nlr(y));
+  if (o.compare === 'ec50') {
+    const logs = rowsOf(env, 'potency').map((r) => r.estimate).filter((z) => typeof z === 'number' && z > 0).map(Math.log);
+    const start0 = logs.length ? snum(logs.reduce((a, z) => a + z, 0) / logs.length) : null;
+    if (start0 !== null) {
+      const restricted = starts.filter(([n]) => !/^nl_e\d+$/.test(n));
+      code.push(`MODEL PROGRAM ${restricted.map(([n, x0]) => `${n}=${x0}`).join(' ')} ${five ? 'nl_l50' : 'nl_e'}=${start0}.`, ...body(true), nlr(y));
+      notes.push(t('report.script.spss.nlrCompare'));
+    }
+  } else if (o.compare === 'all') {
+    const mean = (k) => snum(groups.map((lv) => Number(est(k, lv))).reduce((a, z) => a + z, 0) / groups.length);
+    const pr = curvePred(x, { b: 'nl_b', c: 'nl_c', d: 'nl_d', e: 'nl_e', g: 'nl_g' }, five);
+    code.push(`MODEL PROGRAM ${terms.map((k) => `nl_${k}=${mean(k)}`).join(' ')}.`, `DO IF (${x} > 0).`, `COMPUTE PRED_ = ${pr.pos}.`, 'ELSE.', `COMPUTE PRED_ = ${pr.zero}.`, 'END IF.', nlr(y));
+    notes.push(t('report.script.spss.nlrCompare'));
+  }
+  return { code, notes };
+}
+
 /**
  * SPSS commands for one analysis, the differences to state above them, and whether SPSS has a command.
  * @returns {{ code: string[], notes: string[], none?: string }}
  */
-function spssCode(spec, ix, t) {
+function spssCode(spec, ix, t, env = null) {
   const v = ix.v;
   const o = spec.options || {};
   const lv = spec.levels || {};
@@ -188,6 +295,22 @@ function spssCode(spec, ix, t) {
       const g = one('group') ? V('group') : null;
       const times = ix.col(one('time'))?.levels || [];
       if (!times.length) return { code: [], notes, none: t('report.script.spss.noTimes') };
+      if (one('factorB')) {
+        // Two within factors (M3a, C11): one column per combination, the second factor changing fastest.
+        const B = V('factorB');
+        const lb = ix.col(one('factorB'))?.levels || [];
+        if (!lb.length) return { code: [], notes, none: t('report.script.spss.noTimes') };
+        code.push('DATASET COPY rm_wide.', 'DATASET ACTIVATE rm_wide.');
+        code.push(`SELECT IF NOT MISSING(${y}).`, `SORT CASES BY ${s} ${tm} ${B}.`);
+        code.push(`CASESTOVARS /ID=${s}${g ? ` ${g}` : ''} /INDEX=${tm} ${B} /GROUPBY=VARIABLE.`);
+        const cols = times.flatMap((a) => lb.map((b) => `${y}.${nameToken(a)}.${nameToken(b)}`));
+        code.push(`GLM ${cols.join(' ')}${g ? ` BY ${g}` : ''} /WSFACTOR=${tm} ${times.length} Polynomial ${B} ${lb.length} Polynomial /METHOD=SSTYPE(3) /PRINT=DESCRIPTIVE ETASQ /WSDESIGN=${tm} ${B} ${tm}*${B}${g ? ` /DESIGN=${g}` : ''}.`);
+        code.push('DATASET ACTIVATE analysed.', 'DATASET CLOSE rm_wide.');
+        notes.push(t('report.script.spss.rm2'));
+        if (g) notes.push(t('report.script.spss.hf'));
+        if ((env?.guard?.notes || []).some((n) => n.id === 'sequential')) notes.push(t('report.script.spss.rmSequential'));
+        break;
+      }
       code.push('DATASET COPY rm_wide.', 'DATASET ACTIVATE rm_wide.');
       code.push(`SELECT IF NOT MISSING(${y}).`, `SORT CASES BY ${s} ${tm}.`);
       code.push(`CASESTOVARS /ID=${s}${g ? ` ${g}` : ''} /INDEX=${tm} /GROUPBY=VARIABLE.`);
@@ -223,6 +346,8 @@ function spssCode(spec, ix, t) {
       break;
     }
     case 'reg.logistic': {
+      // Firth's correction (M3a, C9): SPSS has no command for it, and the syntax says so instead of fitting ML.
+      if (o.method === 'firth') return { code: [], notes, none: t('report.script.spss.firth') };
       const covs = rolesOf(spec, 'covariates');
       const cats = covs.filter((k) => ['binary', 'nominal', 'ordinal'].includes(ix.col(k)?.codebookType));
       code.push(`COMPUTE y01 = (${V('outcome')} = ${lit('outcome', lv.outcomePositive)}).`, 'EXECUTE.');
@@ -277,6 +402,92 @@ function spssCode(spec, ix, t) {
       const items = rolesOf(spec, 'items').map(v);
       code.push(`RELIABILITY /VARIABLES=${items.join(' ')} /SCALE('ALL') ALL /MODEL=ALPHA /STATISTICS=DESCRIPTIVE /SUMMARY=TOTAL /ICC=MODEL(MIXED) TYPE(CONSISTENCY) CIN=${cil}.`);
       notes.push(t('report.script.spss.cronbach'));
+      break;
+    }
+    // M3a [M3-DESIGN.md 6]
+    case 'nls.fourPL':
+    case 'nls.doseResponse':
+    case 'nls.equation':
+      return spssCurves(spec, env, ix, t, lit);
+    case 'calc.auc': {
+      const y = V('outcome');
+      const s = V('subject');
+      const tm = V('time');
+      const g = one('group') ? V('group') : null;
+      code.push('DATASET COPY auc_animal.', 'DATASET ACTIVATE auc_animal.');
+      code.push(`SELECT IF NOT MISSING(${y}) AND NOT MISSING(${tm}).`, `SORT CASES BY ${s} ${tm}.`);
+      code.push('COMPUTE auc_new = 1.', `IF ($CASENUM > 1) auc_new = (${s} <> LAG(${s})).`);
+      if (o.baseline === 'first') code.push('DO IF (auc_new).', `COMPUTE auc_y0 = ${y}.`, 'ELSE.', 'COMPUTE auc_y0 = LAG(auc_y0).', 'END IF.');
+      else code.push('COMPUTE auc_y0 = 0.');
+      code.push('COMPUTE auc_piece = 0.', `IF (NOT auc_new) auc_piece = (${tm} - LAG(${tm})) * ((${y} - auc_y0) + (LAG(${y}) - auc_y0)) / 2.`);
+      code.push(`AGGREGATE /OUTFILE=* MODE=REPLACE /BREAK=${s}${g ? ` ${g}` : ''} /auc_area=SUM(auc_piece) /auc_times=N.`, 'SELECT IF (auc_times >= 2).');
+      const gl = g ? ix.col(one('group'))?.levels || [] : [];
+      const quote = (l) => (isNum('group') && NUMERIC_LIT.test(String(l)) ? String(l) : sq(l));
+      if (!g) code.push(`T-TEST /TESTVAL=0 /VARIABLES=auc_area /CRITERIA=CI(.${cil}).`);
+      else if ((env?.tests || []).some((x) => x.id === 'tTest') && gl.length >= 2) {
+        code.push(`T-TEST GROUPS=${g}(${gl.slice(0, 2).map(quote).join(' ')}) /VARIABLES=auc_area /CRITERIA=CI(.${cil}).`);
+        notes.push(t('report.script.spss.aucDirection'), t('report.script.spss.tWelch'));
+      } else {
+        if (!isNum('group')) code.push(`AUTORECODE VARIABLES=${g} /INTO ${g}_n /PRINT.`);
+        code.push(`ONEWAY auc_area BY ${isNum('group') ? g : `${g}_n`} /STATISTICS DESCRIPTIVES.`);
+      }
+      code.push('DATASET ACTIVATE analysed.', 'DATASET CLOSE auc_animal.');
+      notes.push(t('report.script.spss.auc'));
+      break;
+    }
+    case 'qpcr.relative': {
+      const target = V('outcome');
+      const refs = rolesOf(spec, 'items');
+      const control = lv.controlLevel ?? ix.col(one('group'))?.levels?.[0] ?? null;
+      if (!refs.length || control == null) return { code: [], notes, none: t('report.script.noCode') };
+      if (o.method === 'pfaffl') {
+        const eff = (k) => {
+          const e = env?.spec?.options?.efficiency;
+          return e && typeof e === 'object' ? snum(e[k]) : null;
+        };
+        const all = [one('outcome'), ...refs];
+        if (all.some((k) => eff(k) === null)) return { code: [], notes, none: t('report.script.noCode') };
+        code.push(`COMPUTE qpcr_dct = ${target} * LN(${eff(one('outcome'))}) / LN(2) - MEAN.${refs.length}(${refs.map((k) => `${v(k)} * LN(${eff(k)}) / LN(2)`).join(', ')}).`);
+      } else code.push(`COMPUTE qpcr_dct = ${target} - MEAN.${refs.length}(${refs.map(v).join(', ')}).`);
+      code.push('EXECUTE.');
+      const levels = ix.col(one('group'))?.levels || [];
+      if ((env?.tests || []).some((x) => x.id === 'anova')) {
+        const k = sortedIndex(levels, control, isNum('group'));
+        const g = numericGroup('group');
+        code.push(`ONEWAY qpcr_dct BY ${g} /STATISTICS DESCRIPTIVES /POSTHOC=DUNNETT${k ? `(${k})` : ''} ALPHA(0.05).`);
+        notes.push(t('report.script.spss.dunnett', { control }));
+      } else {
+        const other = levels.find((l) => l !== control) ?? null;
+        const quote = (l) => (isNum('group') && NUMERIC_LIT.test(String(l)) ? String(l) : sq(l));
+        if (other == null) return { code: [], notes, none: t('report.script.noCode') };
+        code.push(`T-TEST GROUPS=${V('group')}(${quote(other)} ${quote(control)}) /VARIABLES=qpcr_dct /CRITERIA=CI(.${cil}).`);
+        notes.push(t(o.test === 'pooled' ? 'report.script.spss.tPooled' : 'report.script.spss.tWelch'));
+      }
+      notes.push(t('report.script.spss.qpcr'));
+      break;
+    }
+    case 'qpcr.efficiency':
+      code.push(`REGRESSION /STATISTICS COEFF CI(${cil}) R ANOVA /DEPENDENT ${V('outcome')} /METHOD=ENTER ${V('x')}.`);
+      notes.push(t('report.script.spss.efficiency'));
+      break;
+    case 'mv.pca': {
+      const items = rolesOf(spec, 'items').map(v);
+      const k = typeof env?.values?.nComponents?.value === 'number' && Number.isInteger(env.values.nComponents.value) ? env.values.nComponents.value : items.length;
+      code.push(`FACTOR /VARIABLES ${items.join(' ')} /MISSING LISTWISE /PRINT INITIAL EXTRACTION /CRITERIA FACTORS(${k}) ITERATE(25) /EXTRACTION PC /ROTATION NOROTATE /METHOD=${o.scale === false ? 'COVARIANCE' : 'CORRELATION'}.`);
+      notes.push(t('report.script.spss.factor'));
+      break;
+    }
+    case 'reg.negbin': {
+      const covs = rolesOf(spec, 'covariates');
+      const cats = covs.filter((k) => ['binary', 'nominal', 'ordinal'].includes(ix.col(k)?.codebookType));
+      const nums = covs.filter((k) => !cats.includes(k));
+      if (one('time')) code.push(`COMPUTE ln_time = LN(${V('time')}).`, 'EXECUTE.');
+      const genlin = (dist, ci) => `GENLIN ${V('outcome')}${cats.length ? ` BY ${cats.map(v).join(' ')} (ORDER=ASCENDING)` : ''}${nums.length ? ` WITH ${nums.map(v).join(' ')}` : ''}`
+        + ` /MODEL ${covs.map(v).join(' ')} INTERCEPT=YES${one('time') ? ' OFFSET=ln_time' : ''} DISTRIBUTION=${dist} LINK=LOG`
+        + `${ci ? ` /CRITERIA CILEVEL=${cil} CITYPE=${o.ciMethod === 'wald' ? 'WALD' : 'PROFILE'} /PRINT CPS DESCRIPTIVES MODELINFO FIT SUMMARY SOLUTION (EXPONENTIATED)` : ' /PRINT FIT'}.`;
+      code.push(genlin('NEGBIN(MLE)', true), genlin('POISSON', false));
+      notes.push(t('report.script.spss.negbin'), t('report.script.spss.negbinVsPoisson'));
+      if (cats.length) notes.push(t('report.script.spss.lastReference'));
       break;
     }
     case 'freq.incidenceRate':
@@ -353,7 +564,7 @@ export function buildSps(input) {
   scriptAnalyses(input.analyses, input.codebook).forEach((a, i) => {
     const row = getMethod(a.spec?.method);
     const name = row && t(row.nameKey) !== `[${row.nameKey}]` ? t(row.nameKey) : a.spec?.method;
-    const r = spssCode(a.spec, ix, t);
+    const r = spssCode(a.spec, ix, t, a.env);
     out.push('', `* ${i + 1}. ${name}.`);
     out.push(...cmt(t('report.script.ours', { numbers: '' }).trim().replace(/:$/, '')));
     for (const n of envNumbers(a.env, valueNamer(ix, t, a.env))) out.push(`*   ${n.replace(/\.\s*$/, '')}.`);
