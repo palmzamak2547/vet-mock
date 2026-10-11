@@ -86,8 +86,10 @@ export function describe(json) {
   };
   if (typeof decl.tolerance === 'string') tol('all', decl.tolerance);
   if (meta.tolerances && typeof meta.tolerances === 'object') for (const [k, v] of Object.entries(meta.tolerances)) tol(k, v);
-  if (json && json.minLRE && typeof json.minLRE === 'object') {
-    for (const [name, v] of Object.entries(json.minLRE)) {
+  // The minimum log relative error per dataset group: minLRE in the M1/M2 NIST files, minLre in the M3 nonlinear one.
+  const minLre = json && typeof json === 'object' ? (json.minLRE ?? json.minLre) : null;
+  if (minLre && typeof minLre === 'object') {
+    for (const [name, v] of Object.entries(minLre)) {
       if (typeof v === 'number') tol(name, v);
       else if (v && typeof v === 'object') for (const [part, n] of Object.entries(v)) tol(`${name} ${part}`, n);
     }
