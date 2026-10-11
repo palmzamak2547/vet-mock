@@ -25,7 +25,9 @@
 //     the restricted l* can have more than one local maximum; the search fits a point from several starts, keeps
 //     the highest, and accepts a limit only when the branch joined to the estimate (followed in small steps, as
 //     logistpl follows it) is not above the cut-off there either (profileBound). On such data logistpl can stop
-//     on a lower local maximum where the profile is still above the cut-off; the fixture case `pair` pins one.
+//     on a lower local maximum where the profile is still above the cut-off; the fixture case `pair` pins one. A
+//     peak that none of these starts reaches can still be missed, as logistpl can miss one: the limit is then the
+//     crossing of a lower branch, nearer the estimate than the profile's own.
 //     ciMethod 'wald': b +- z SE, with logistf's SE: the inverse of X' diag(w (1 + h)) X at the estimate (the
 //     information of the augmented data Firth's estimate is the maximum likelihood fit of; see augmentedVcov).
 //   - Tests: penalised likelihood ratio 2 (l*(beta hat) - l*_0), l*_0 the fit with the coefficient (or every column
