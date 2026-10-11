@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import MotionSettings from '../components/MotionSettings.jsx';
 import MotionSurface from '../components/MotionSurface.jsx';
@@ -7,7 +7,8 @@ import { MotionButton } from '../components/MotionFeedback.jsx';
 import { EFFECTS, GROUPS } from '../lib/motion-kit/catalog.js';
 import { SQUAD_MASCOTS } from '../data/art.js';
 import { artImgFallback } from '../lib/art-fallback.js';
-import MascotSquad3DViewer from '../components/MascotSquad3DViewer.jsx';
+
+const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer.jsx'));
 
 export default function MochiView({ goHome, onOpenFocus }) {
   const [squadViewMode, setSquadViewMode] = useState('2d');
@@ -41,8 +42,11 @@ export default function MochiView({ goHome, onOpenFocus }) {
             type="button"
             onClick={() => setSquadViewMode('2d')}
             style={{
-              padding: '4px 10px',
-              fontSize: '0.8rem',
+              minHeight: '44px',
+              padding: '8px 12px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              fontSize: '0.85rem',
               fontWeight: squadViewMode === '2d' ? 600 : 400,
               borderRadius: '6px',
               border: 'none',
@@ -58,8 +62,11 @@ export default function MochiView({ goHome, onOpenFocus }) {
             type="button"
             onClick={() => setSquadViewMode('3d')}
             style={{
-              padding: '4px 10px',
-              fontSize: '0.8rem',
+              minHeight: '44px',
+              padding: '8px 12px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              fontSize: '0.85rem',
               fontWeight: squadViewMode === '3d' ? 600 : 400,
               borderRadius: '6px',
               border: 'none',
@@ -74,7 +81,9 @@ export default function MochiView({ goHome, onOpenFocus }) {
         </div>
       </div>
       {squadViewMode === '3d' ? (
-        <MascotSquad3DViewer initialId="moocha" />
+        <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: 'var(--clr-ink-soft)' }}>กำลังโหลดโมเดล 3D...</div>}>
+          <MascotSquad3DViewer initialId="moocha" />
+        </Suspense>
       ) : (
       <div style={{
         display: 'grid',
