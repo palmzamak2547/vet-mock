@@ -10,4 +10,7 @@ export default Object.freeze([
   // power.*: rparity-m2 power and noncentral (R 4.6.0 power.anova.test, power.t.test; pwr 1.3.0), injected
   // proof in work/loop-2026-09-26/research-m2/integrator.md.
   'power.anova', 'power.tTest', 'power.correlation', 'power.regression',
+  // M3a curves: stats-nls (NIST StRD nonlinear), stats-nls-curves and lab-curves (R 4.6.0 nonlinear.json); injected
+  // proof in work/loop-2026-10-08/research-m3/curves.md.
+  'nls.fourPL', 'nls.doseResponse', 'nls.equation',
 ]);

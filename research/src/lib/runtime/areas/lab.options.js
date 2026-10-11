@@ -25,6 +25,10 @@ export default {
     'power.tTest': { type: 'two-sample', solveFor: 'n', sigLevel: 0.05 },
     'power.correlation': { solveFor: 'n', sigLevel: 0.05 },
     'power.regression': { solveFor: 'n', sigLevel: 0.05 },
+    // M3a curves (M3-DESIGN.md 2, 3.1.1)
+    'nls.fourPL': { model: '4pl' },
+    'nls.doseResponse': { model: '4pl', compare: 'none' },
+    'nls.equation': { equation: 'michaelisMenten' },
   },
   allowed: {
     'anova.twoWay': { ssType: pick(['III', 'II', 'I']), interaction: bool, posthoc: pick(['none', 'tukey']) },
@@ -39,6 +43,10 @@ export default {
     'power.tTest': { type: pick(['two-sample', 'paired', 'one-sample']), solveFor, sigLevel: posNum },
     'power.correlation': { solveFor, sigLevel: posNum },
     'power.regression': { solveFor, sigLevel: posNum },
+    // M3a curves
+    'nls.fourPL': { model: pick(['4pl', '5pl']) },
+    'nls.doseResponse': { model: pick(['4pl', '5pl']), compare: pick(['none', 'ec50', 'all']) },
+    'nls.equation': { equation: pick(['michaelisMenten', 'decay', 'growth']) },
   },
   // Options the lab role adds to M1 methods (M2-DESIGN.md 3.1): Sidak and Benjamini-Hochberg wherever an
   // adjustment is offered (adjust.pValues, the pairwise t tests after one-way ANOVA). Only the allowed
@@ -69,6 +77,8 @@ export default {
       'desc.summary', 'desc.table1', 'test.tTest', 'test.anova1', 'test.mannWhitney', 'test.wilcoxonSignedRank', 'test.kruskalWallis',
       'corr.pearson', 'corr.spearman', 'reg.ols', 'test.chisq', 'test.fisher2x2', 'cluster.iccDeff',
       'anova.twoWay', 'anova.repeated', 'test.friedman', 'posthoc.dunn', 'posthoc.gamesHowell', 'posthoc.dunnett', 'diag.shapiro', 'diag.brownForsythe',
+      // M3a curves (descriptive fits within one assay: not in g1Subject, M3-DESIGN.md 2)
+      'nls.fourPL', 'nls.doseResponse', 'nls.equation',
     ],
   },
   // A design this area adds (laboratory or animal experiment, ARRIVE 2.0). Its words live in i18n/lab.js.

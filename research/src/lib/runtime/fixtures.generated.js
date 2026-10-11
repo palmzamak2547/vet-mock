@@ -979,6 +979,50 @@ export const FIXTURES = [
   "lastPassed": "2026-09-28"
  },
  {
+  "file": "r/out/nonlinear.json",
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": [
+   "nls.doseResponse",
+   "nls.equation",
+   "nls.fourPL"
+  ],
+  "tests": [
+   "lab-curves.test.mjs",
+   "stats-nls-curves.test.mjs"
+  ],
+  "source": {
+   "text": null,
+   "r": "R version 4.6.0 (2026-04-24)",
+   "webR": "0.6.0",
+   "packages": {
+    "drc": "3.0.1"
+   },
+   "python": null,
+   "script": "research/tests/fixtures/r/nonlinear.R",
+   "urls": [],
+   "file": null,
+   "commit": null,
+   "date": null
+  },
+  "tolerance": [
+   {
+    "scope": "closed",
+    "rel": "1e-10"
+   },
+   {
+    "scope": "iterative",
+    "rel": "1e-6"
+   },
+   {
+    "scope": "uniroot",
+    "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+   }
+  ],
+  "sha": "3312204fd2480806",
+  "lastPassed": "2026-10-11"
+ },
+ {
   "file": "r/out/normality.json",
   "family": "r-4.6.0",
   "kind": "pin",
@@ -1606,6 +1650,36 @@ export const FIXTURES = [
   "tolerance": [],
   "sha": "ba0f985ebde6ddc3",
   "lastPassed": "2026-09-28"
+ },
+ {
+  "file": "stats/nist-strd-nls/fixture.json",
+  "family": "nist-strd",
+  "kind": "pin",
+  "methods": [
+   "nls.doseResponse",
+   "nls.equation",
+   "nls.fourPL"
+  ],
+  "tests": [
+   "stats-nls.test.mjs"
+  ],
+  "source": {
+   "text": "NIST/ITL Statistical Reference Datasets, nonlinear regression (public domain), downloaded 2026-10-08",
+   "r": null,
+   "webR": null,
+   "packages": null,
+   "python": null,
+   "script": null,
+   "urls": [
+    "https://www.itl.nist.gov/div898/strd/nls/nls_main.shtml"
+   ],
+   "file": null,
+   "commit": null,
+   "date": "2026-10-08"
+  },
+  "tolerance": [],
+  "sha": "07e401356738f4a9",
+  "lastPassed": "2026-10-11"
  },
  {
   "file": "stats/nist-strd/fixture.json",

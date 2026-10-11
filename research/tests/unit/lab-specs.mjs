@@ -4,6 +4,8 @@
 // lab-*.test.mjs. OWNER: lab role.
 import { makeSpec } from '../../src/lib/runtime/spec.js';
 import { WARPBREAKS, WB_WOOL, WB_TENSION, RM, RM_GROUP, ROUNDING, THREE } from './lab-fixtures.mjs';
+// M3a curves: the datasets of the R fixture (ryegrass, the made-up two-arm curves, Puromycin)
+import { readJson } from './stats-fixtures.mjs';
 
 /** @param {{ smallTable: Function }} ctx */
 export function specs({ smallTable }) {
@@ -40,6 +42,21 @@ export function specs({ smallTable }) {
     { name: 'dose', type: 'nominal', levels: ['A', 'B', 'C'], values: g },
   ]);
   const grp = { outcome: 'c1', group: 'c2' };
+  // M3a curves: ryegrass with two unknowns (blank concentration), the two-arm curves, Puromycin
+  const NL = readJson('r/out/nonlinear.json').datasets;
+  const elisa = smallTable([
+    { name: 'conc', type: 'continuous', values: [...NL.ryegrass.conc, null, null] },
+    { name: 'root', type: 'continuous', values: [...NL.ryegrass.rootl, 2, 4] },
+  ]);
+  const arms = smallTable([
+    { name: 'arm', type: 'nominal', levels: ['control', 'drug'], values: NL.curves.arm },
+    { name: 'dose', type: 'continuous', values: NL.curves.dose },
+    { name: 'resp', type: 'continuous', values: NL.curves.resp },
+  ]);
+  const enzyme = smallTable([
+    { name: 'conc', type: 'continuous', values: NL.puromycin.conc },
+    { name: 'rate', type: 'continuous', values: NL.puromycin.rate },
+  ]);
 
   return [
     { spec: d('anova.twoWay', { roles: { outcome: 'c1', group: 'c2', factorB: 'c3' } }), ...wb },
@@ -55,5 +72,9 @@ export function specs({ smallTable }) {
     { spec: p('power.tTest', { delta: 1, sd: 1, n: 20 }, { solveFor: 'power', sigLevel: 0.05, type: 'two-sample' }) },
     { spec: p('power.correlation', { r: 0.3, power: 0.8, m: 10, icc: 0.05 }, { solveFor: 'n', sigLevel: 0.05 }) },
     { spec: p('power.regression', { u: 3, f2: 0.15, power: 0.8 }, { solveFor: 'n', sigLevel: 0.05 }) },
+    // M3a curves
+    { spec: d('nls.fourPL', { roles: { x: 'c1', outcome: 'c2' }, options: { model: '4pl' } }), ...elisa },
+    { spec: d('nls.doseResponse', { roles: { x: 'c2', outcome: 'c3', group: 'c1' }, options: { model: '4pl', compare: 'ec50' } }), ...arms },
+    { spec: d('nls.equation', { roles: { x: 'c1', outcome: 'c2' }, options: { equation: 'michaelisMenten' } }), ...enzyme },
   ];
 }
