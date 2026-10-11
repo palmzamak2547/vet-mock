@@ -12,6 +12,8 @@
 
 /** @type {readonly Release[]} */
 export const RELEASES = Object.freeze([
+  // M3a: standard and dose-response curves, AUC, qPCR, PCA, two within factors, Firth, negative binomial (pushed 12 Oct 2026).
+  { version: '0.2.0', year: 2026, released: '2026-10-12', url: 'https://research.vetmock.com', doi: null, authors: [] },
   // M1: the first public release (deploy commit fd09a0cc, 28 Sep 2026 05:25 +07:00).
   { version: '0.1.0', year: 2026, released: '2026-09-28', url: 'https://research.vetmock.com', doi: null, authors: [] },
 ]);

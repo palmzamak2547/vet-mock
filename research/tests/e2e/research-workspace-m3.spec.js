@@ -95,7 +95,11 @@ async function compute(page) {
 }
 
 /** The row of a result table whose heading cell contains `label`. */
+// rowExact: the row whose header is exactly the label. Two-within value rows name the student's columns
+// ("partial eta squared ... phase ... hour"), so a substring match on 'phase' would find those first.
+const exact = (label) => new RegExp(`^\\s*${label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*$`);
 const row = (scope, label) => scope.locator('tr', { has: scope.page().locator('th', { hasText: label }) }).first();
+const rowExact = (scope, label) => scope.locator('tr', { has: scope.page().locator('th', { hasText: exact(label) }) }).first();
 /** A table the method returned, by its caption. */
 const table = (scope, caption) => scope.locator('table', { has: scope.page().locator('caption', { hasText: caption }) }).first();
 
@@ -227,8 +231,8 @@ test('two within factors: phase and hour measured on the same animals', async ({
   await pick(page, '#rs-role-factorB', 'hour');
   const result = await compute(page);
   // phase F 14.85 (GG epsilon 0.772), hour F 21.63 (0.498), phase by hour F 1.35 (0.513), as car on the same data.
-  await expect(row(result, 'phase')).toContainText('14.85');
-  await expect(row(result, 'hour')).toContainText('21.63');
+  await expect(rowExact(result, 'phase')).toContainText('14.85');
+  await expect(rowExact(result, 'hour')).toContainText('21.63');
   await expect(row(result, th['ws.test.interaction'].replace('{a}', 'phase').replace('{b}', 'hour'))).toContainText('1.35');
   const sph = table(result, th['lab.table.sphericity.caption']);
   await expect(sph.locator('tbody th')).toHaveText(['phase', 'hour', th['ws.test.interaction'].replace('{a}', 'phase').replace('{b}', 'hour')]);
