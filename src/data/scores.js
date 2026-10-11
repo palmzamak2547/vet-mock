@@ -110,3 +110,30 @@ export const SCORE_BREAKDOWN = {
 export function getAllScores() {
   return Object.values(SCORE_BREAKDOWN);
 }
+
+// A cell is a percentage (a number), a word that carries its percentage
+// ('OSCE 50'), a word with none ('Paper'), or empty. Only a number that is
+// already in the cell counts; nothing is inferred.
+function cellPercent(cell) {
+  if (typeof cell === 'number') return cell;
+  const m = typeof cell === 'string' ? /(\d+(?:\.\d+)?)\s*$/.exec(cell) : null;
+  return m ? Number(m[1]) : 0;
+}
+
+/** The percentage the row's own cells add up to. */
+export function knownScoreTotal(row) {
+  return cellPercent(row?.midterm) + cellPercent(row?.final) + cellPercent(row?.free) + cellPercent(row?.work);
+}
+
+/**
+ * What to tell the reader when a row's shares do not add up to about 100%
+ * (95-105 leaves room for rounding). Null when they do. Below 95 the rest is
+ * simply not in the source; above 105 the source disagrees with itself.
+ */
+export function scoreTotalNote(total) {
+  if (total >= 95 && total <= 105) return null;
+  const shown = Number(total.toFixed(1));
+  return total < 95
+    ? `สัดส่วนที่ทราบรวม ${shown}% ส่วนที่เหลือยังไม่มีข้อมูล`
+    : `สัดส่วนที่ทราบรวม ${shown}% เกิน 100% ข้อมูลอาจคลาดเคลื่อน`;
+}

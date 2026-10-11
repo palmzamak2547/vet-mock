@@ -191,7 +191,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
 
       <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
         <strong>คำแนะนำ:</strong> เลือกวิชาเพื่อฝึกตามช่วงสอบ หรือเปิดสรุปที่มีให้อ่าน<br/>
-        ข้อมูลตารางอาจเปลี่ยนแปลง — เช็คกับเพื่อนในห้องอีกครั้งก่อนสอบ<br/>
+        ข้อมูลตารางอาจเปลี่ยนแปลง — เช็กกับเพื่อนในห้องอีกครั้งก่อนสอบ<br/>
         หากข้อมูลผิดหรือล้าสมัย → ส่งไปที่ <button type="button" className="vmx-inline-action" onClick={() => setView('feedback')}>ฟอร์มแจ้ง</button>
       </div>
 

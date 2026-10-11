@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { getAllScores } from '../data/scores.js';
+import { getAllScores, knownScoreTotal, scoreTotalNote } from '../data/scores.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
 
@@ -51,7 +51,7 @@ export default function ScoresView({ goHome }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
         {scores.map((s, idx) => {
           const subject = SUBJECTS.find((sub) => sub.id === s.subject_id);
-          const total = (typeof s.midterm === 'number' ? s.midterm : 0) + (s.final || 0) + (s.free || 0) + (s.work || 0);
+          const totalNote = scoreTotalNote(knownScoreTotal(s));
 
           return (
             <div key={idx} className="vmx-dash-card">
@@ -59,9 +59,13 @@ export default function ScoresView({ goHome }) {
                 <h3 style={{ margin: 0, fontSize: 17 }}>
                   {subject?.icon || '📚'} {s.name}
                 </h3>
-                {total >= 95 && total <= 105 && (
+                {totalNote === null ? (
                   <span style={{ fontSize: 11, fontFamily: 'var(--vmx-sans)', fontVariantNumeric: 'tabular-nums', color: 'var(--clr-sage-text)', padding: '2px 8px', background: 'var(--clr-surface-2)', borderRadius: 999 }}>
-                    รวม ~{Math.round(total)}%
+                    รวม ~{Math.round(knownScoreTotal(s))}%
+                  </span>
+                ) : (
+                  <span style={{ fontSize: 11, fontFamily: 'var(--vmx-sans)', fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink-soft)', padding: '2px 8px', background: 'var(--clr-surface-2)', borderRadius: 10 }}>
+                    {totalNote}
                   </span>
                 )}
               </div>
@@ -75,7 +79,7 @@ export default function ScoresView({ goHome }) {
 
               {s.note && (
                 <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
-                  <span className="vmx-kicker" style={{ color: 'var(--clr-ink)', flexShrink: 0, marginTop: 1 }}>จุดเน้น:</span>
+                  <span className="vmx-kicker" style={{ color: 'var(--clr-ink)', flexShrink: 0, marginTop: 1 }}>หมายเหตุ:</span>
                   <span>{s.note}</span>
                 </div>
               )}
