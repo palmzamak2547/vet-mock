@@ -15,9 +15,9 @@ import { SQUAD_MASCOTS } from '../data/art.js';
  *   - Confetti particle burst upon celebration
  *   - 100% Tokenized CSS with zero hex budget violation
  */
-export default function MascotSquad3DViewer({ initialId = 'moocha', onSelectCharacter }) {
+export default function MascotSquad3DViewer({ initialId = 'moocha', initialAction = 'idle', onSelectCharacter }) {
   const [currentId, setCurrentId] = useState(initialId);
-  const [currentAction, setCurrentAction] = useState('idle');
+  const [currentAction, setCurrentAction] = useState(initialAction);
   const [isLoading, setIsLoading] = useState(true);
   const [isCelebrated, setIsCelebrated] = useState(false);
   const containerRef = useRef(null);
@@ -232,8 +232,13 @@ export default function MascotSquad3DViewer({ initialId = 'moocha', onSelectChar
             if (name.includes('wave')) actionsRef.current.wave = mixer.clipAction(clip);
             if (name.includes('celebrat')) actionsRef.current.celebrate = mixer.clipAction(clip);
           });
-          if (actionsRef.current.idle) {
-            actionsRef.current.idle.play();
+          const startAct = actionsRef.current[currentAction] ? currentAction : 'idle';
+          if (actionsRef.current[startAct]) {
+            actionsRef.current[startAct].play();
+            if (startAct === 'celebrate') {
+              setIsCelebrated(true);
+              setTimeout(() => setIsCelebrated(false), 2000);
+            }
           }
         }
         setIsLoading(false);

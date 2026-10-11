@@ -91,7 +91,7 @@ function formatClock(ms) {
 // (statusLabel lives in lib/pomodoro-run.js: the break lines used to be the
 // literals "5 นาที" / "15 นาที" whatever the student had set.)
 
-export default function PomodoroTimer({ config, onSessionComplete }) {
+export default function PomodoroTimer({ config, avatar, onSessionComplete }) {
   const reduced = usePrefersReducedMotion();
 
   // A session that was running when the student opened another screen comes
@@ -439,18 +439,38 @@ export default function PomodoroTimer({ config, onSessionComplete }) {
               width: 'clamp(84px, 24vw, 118px)',
               height: 'clamp(84px, 24vw, 118px)',
               filter: state === 'failed' ? 'grayscale(60%)' : 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
             aria-hidden="true"
           >
-            <PomodoroChick
-              progress={state === 'idle' ? 0 : progress}
-              state={
-                state === 'failed' ? 'escaped'
-                  : paused ? 'paused'
-                    : (state === 'focus' || state === 'shortBreak' || state === 'longBreak') ? 'running'
-                      : 'idle'
-              }
-            />
+            {avatar ? (
+              <img
+                src={avatar.src}
+                alt={avatar.alt || ''}
+                style={{
+                  width: '90%',
+                  height: '90%',
+                  objectFit: 'contain',
+                  transform:
+                    (state === 'focus' || state === 'shortBreak' || state === 'longBreak') && !paused && !reduced
+                      ? 'scale(1.05)'
+                      : 'scale(1)',
+                  transition: 'transform 0.4s ease',
+                }}
+              />
+            ) : (
+              <PomodoroChick
+                progress={state === 'idle' ? 0 : progress}
+                state={
+                  state === 'failed' ? 'escaped'
+                    : paused ? 'paused'
+                      : (state === 'focus' || state === 'shortBreak' || state === 'longBreak') ? 'running'
+                        : 'idle'
+                }
+              />
+            )}
           </div>
           <div
             style={{

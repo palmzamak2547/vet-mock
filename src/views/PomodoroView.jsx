@@ -12,9 +12,12 @@
 //   {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
 // alongside the existing view branches.
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import PomodoroTimer from '../components/PomodoroTimer.jsx';
+import BuddySelector from '../components/BuddySelector.jsx';
+import { getSelectedBuddy, recordBuddyFocus } from '../lib/buddy-stats.js';
+import { SQUAD_MASCOTS } from '../data/art.js';
 import {
   loadConfig,
   saveConfig,
@@ -25,7 +28,11 @@ import {
   POMODORO_DEFAULTS,
 } from '../lib/pomodoro.js';
 
+const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer.jsx'));
+
 export default function PomodoroView({ goHome }) {
+  const [selectedBuddyId, setSelectedBuddyId] = useState(() => getSelectedBuddy());
+  const [showCelebration, setShowCelebration] = useState(false);
   const [config, setConfig] = useState(() => loadConfig());
   const [stats, setStats] = useState(() => ({
     today: getTotalMinutesToday(),
@@ -83,8 +90,14 @@ export default function PomodoroView({ goHome }) {
   // Persist + reflect timer outcomes
   const onSessionComplete = useCallback(({ durationMin, completed }) => {
     recordSession({ durationMin, completed });
+    if (completed) {
+      if (selectedBuddyId && durationMin > 0) {
+        recordBuddyFocus(selectedBuddyId, durationMin);
+      }
+      setShowCelebration(true);
+    }
     refreshStats();
-  }, [refreshStats]);
+  }, [refreshStats, selectedBuddyId]);
 
   // Slider handler (debounced through setState since saveConfig is cheap)
   const setConfigField = useCallback((field, value) => {
@@ -98,6 +111,9 @@ export default function PomodoroView({ goHome }) {
   }, []);
 
   // --- Styling helpers ---------------------------------------------------
+  const selectedBuddy = SQUAD_MASCOTS[selectedBuddyId] || SQUAD_MASCOTS.moocha;
+  const buddyAvatar = selectedBuddyId && selectedBuddyId !== 'chicky' ? selectedBuddy : null;
+
   const statsRow = useMemo(
     () => [
       { label: 'นาทีวันนี้', value: stats.today, suffix: 'นาที' },
@@ -122,7 +138,7 @@ export default function PomodoroView({ goHome }) {
         gap: 16,
       }}
     >
-      <BackBar onBack={goHome} label="หน้าหลัก" subtitle="Pomodoro, 🐤 ฟักลูกไก่" />
+      <BackBar onBack={goHome} label="หน้าหลัก" subtitle="Pomodoro โฟกัสกับคู่หู" />
 
       {/* Title — short, no clutter; the ring is the hero. */}
       <h1
@@ -136,6 +152,11 @@ export default function PomodoroView({ goHome }) {
       >
         🍅 Pomodoro
       </h1>
+
+      {/* Buddy selector */}
+      <div style={{ maxWidth: 440, width: '100%', margin: '0 auto' }}>
+        <BuddySelector selectedId={selectedBuddyId} onSelect={setSelectedBuddyId} />
+      </div>
 
       {/* Escape banner — appears for 6 s after a failed session */}
       {escapeNotice && (
@@ -159,7 +180,7 @@ export default function PomodoroView({ goHome }) {
 
       {/* Timer */}
       <div style={{ flex: '1 0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <PomodoroTimer config={config} onSessionComplete={onSessionComplete} />
+        <PomodoroTimer config={config} avatar={buddyAvatar} onSessionComplete={onSessionComplete} />
       </div>
 
       {/* Stats panel */}
@@ -282,6 +303,80 @@ export default function PomodoroView({ goHome }) {
           ? 'Strict Mode: เปลี่ยนแท็บ พับหน้าต่าง หรือล็อกหน้าจอเกิน 5 วินาที ลูกไก่จะหนี'
           : 'Relaxed Mode: สลับแอปอ่าน PDF/สรุปได้ โดยไม่พัง session'}
       </div>
+
+      {/* 3D Mascot Celebration Modal on Focus Completion */}
+      {showCelebration && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 9999,
+            background: 'rgba(0, 0, 0, 0.65)',
+            backdropFilter: 'blur(6px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 16,
+          }}
+        >
+          <div
+            style={{
+              background: 'var(--clr-surface)',
+              borderRadius: 20,
+              border: '1px solid var(--clr-border)',
+              padding: '24px 16px',
+              maxWidth: 440,
+              width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              boxShadow: 'var(--shadow-lg)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <div style={{ textAlign: 'center', marginBottom: 12 }}>
+              <div style={{ fontSize: 28, marginBottom: 4 }}>🎉</div>
+              <h2 style={{ margin: 0, fontSize: 18, fontWeight: 700, color: 'var(--clr-ink)' }}>
+                สำเร็จแล้ว! โฟกัสครบเวลา
+              </h2>
+              <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--clr-sage-text)', fontWeight: 500 }}>
+                {selectedBuddy?.nameTh || 'คู่หู'} ร่วมฉลองความสำเร็จกับคุณ!
+              </p>
+            </div>
+
+            <Suspense
+              fallback={
+                <div style={{ padding: 40, fontSize: 13, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
+                  กำลังโหลดโมเดล 3D...
+                </div>
+              }
+            >
+              <MascotSquad3DViewer initialId={selectedBuddyId} initialAction="celebrate" />
+            </Suspense>
+
+            <button
+              type="button"
+              onClick={() => setShowCelebration(false)}
+              style={{
+                marginTop: 16,
+                padding: '10px 28px',
+                borderRadius: 999,
+                background: 'var(--clr-sage)',
+                color: 'var(--clr-sage-on)',
+                border: 'none',
+                fontWeight: 600,
+                fontSize: 14,
+                cursor: 'pointer',
+              }}
+            >
+              พักผ่อนสักครู่ / ปิด
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
