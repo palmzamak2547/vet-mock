@@ -6,8 +6,11 @@ import StudyBreak from '../components/StudyBreak.jsx';
 import { MotionButton } from '../components/MotionFeedback.jsx';
 import { EFFECTS, GROUPS } from '../lib/motion-kit/catalog.js';
 import { SQUAD_MASCOTS } from '../data/art.js';
+import { artImgFallback } from '../lib/art-fallback.js';
+import MascotSquad3DViewer from '../components/MascotSquad3DViewer.jsx';
 
 export default function MochiView({ goHome, onOpenFocus }) {
+  const [squadViewMode, setSquadViewMode] = useState('2d');
   const [examplesOpen, setExamplesOpen] = useState(false);
   const [selected, setSelected] = useState('mochi-hello');
   const [group, setGroup] = useState('mochi');
@@ -19,19 +22,60 @@ export default function MochiView({ goHome, onOpenFocus }) {
   return <div className="vmx-mochi-page">
     <BackBar onBack={goHome} label="กลับไปเรียน" />
     <header className="vmx-mochi-heading">
-      <div><img src="/motion/assets/mochi.png" width="64" height="64" className="vmx-mochi-rest-portrait" alt="" /><p className="vmx-eyebrow">MOCHI / STUDY BREAK</p><h1>พักกับ Mochi</h1><p>พื้นที่เล็ก ๆ ให้พักมือ พักสายตา แล้วกลับไปเรียนในจังหวะของตัวเอง</p></div>
+      <div><img src="/motion/assets/mochi.png" width="64" height="64" className="vmx-mochi-rest-portrait" alt="" onError={artImgFallback} /><p className="vmx-eyebrow">MOCHI / STUDY BREAK</p><h1>พักกับ Mochi</h1><p>พื้นที่เล็ก ๆ ให้พักมือ พักสายตา แล้วกลับไปเรียนในจังหวะของตัวเอง</p></div>
       {onOpenFocus && <MotionButton className="vmx-btn vmx-btn-ghost" onClick={onOpenFocus}>จับเวลาอ่านพร้อมช่วงพัก</MotionButton>}
     </header>
     <StudyBreak />
     <MotionSettings />
     <section className="vmx-squad-showcase" style={{ marginTop: 'var(--space-4)', paddingTop: 'var(--space-4)', borderTop: '1px solid var(--clr-border)' }}>
-      <div style={{ marginBottom: 'var(--space-3)' }}>
-        <p className="vmx-eyebrow" style={{ color: 'var(--clr-sage-text)' }}>VETMOCK STUDY SQUAD</p>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: 600, margin: '4px 0', color: 'var(--clr-ink)' }}>ผองเพื่อนประจำคลินิก</h2>
-        <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--clr-ink-soft)' }}>
-          คู่หูตัวการ์ตูนประจำแต่ละหมวดวิชา ที่พร้อมร่วมอ่านและเป็นกำลังใจให้ทุกการทบทวน
-        </p>
+      <div style={{ marginBottom: 'var(--space-3)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
+        <div>
+          <p className="vmx-eyebrow" style={{ color: 'var(--clr-sage-text)' }}>VETMOCK STUDY SQUAD</p>
+          <h2 style={{ fontSize: '1.25rem', fontWeight: 600, margin: '4px 0', color: 'var(--clr-ink)' }}>ผองเพื่อนประจำคลินิก</h2>
+          <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--clr-ink-soft)' }}>
+            คู่หูตัวการ์ตูนประจำแต่ละหมวดวิชา ที่พร้อมร่วมอ่านและเป็นกำลังใจให้ทุกการทบทวน
+          </p>
+        </div>
+        <div style={{ display: 'inline-flex', background: 'var(--clr-surface-2)', padding: '3px', borderRadius: '8px', border: '1px solid var(--clr-border)' }}>
+          <button
+            type="button"
+            onClick={() => setSquadViewMode('2d')}
+            style={{
+              padding: '4px 10px',
+              fontSize: '0.8rem',
+              fontWeight: squadViewMode === '2d' ? 600 : 400,
+              borderRadius: '6px',
+              border: 'none',
+              background: squadViewMode === '2d' ? 'var(--clr-surface)' : 'transparent',
+              color: squadViewMode === '2d' ? 'var(--clr-ink)' : 'var(--clr-ink-soft)',
+              boxShadow: squadViewMode === '2d' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+              cursor: 'pointer',
+            }}
+          >
+            🖼️ การ์ด 2D
+          </button>
+          <button
+            type="button"
+            onClick={() => setSquadViewMode('3d')}
+            style={{
+              padding: '4px 10px',
+              fontSize: '0.8rem',
+              fontWeight: squadViewMode === '3d' ? 600 : 400,
+              borderRadius: '6px',
+              border: 'none',
+              background: squadViewMode === '3d' ? 'var(--clr-surface)' : 'transparent',
+              color: squadViewMode === '3d' ? 'var(--clr-ink)' : 'var(--clr-ink-soft)',
+              boxShadow: squadViewMode === '3d' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+              cursor: 'pointer',
+            }}
+          >
+            ✨ 3D Chibi (Three.js)
+          </button>
+        </div>
       </div>
+      {squadViewMode === '3d' ? (
+        <MascotSquad3DViewer initialId="moocha" />
+      ) : (
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
@@ -51,11 +95,12 @@ export default function MochiView({ goHome, onOpenFocus }) {
             <img
               src={m.src}
               alt={m.alt}
-              width={100}
-              height={100}
+              width={84}
+              height={84}
               loading="lazy"
               decoding="async"
               style={{ width: '84px', height: '84px', objectFit: 'contain', borderRadius: '10px', marginBottom: '8px' }}
+              onError={artImgFallback}
             />
             <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--clr-ink)' }}>
               {m.nameTh}
@@ -69,6 +114,7 @@ export default function MochiView({ goHome, onOpenFocus }) {
           </div>
         ))}
       </div>
+      )}
     </section>
     <details className="vmx-motion-examples" onToggle={event => setExamplesOpen(event.currentTarget.open)}>
     <summary>ดูตัวอย่างเอฟเฟกต์และท่า Mochi</summary>

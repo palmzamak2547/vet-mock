@@ -43,12 +43,19 @@ export const SQUAD_MASCOTS = {
   porky: { id: 'porky', name: 'Porky', nameTh: 'พอร์กี้', species: 'ลูกหมูชมพู (Piglet)', role: 'อายุรศาสตร์สุกร (Swine)', src: base('characters', 'porky'), alt: 'พอร์กี้ ลูกหมูน้อย มาสคอตประจำหมวดสุกร' },
   oto: { id: 'oto', name: 'Oto', nameTh: 'โอโตะ', species: 'นากทะเล (Sea Otter)', role: 'คลินิกสัตว์น้ำ (Aquatic)', src: base('characters', 'oto'), alt: 'โอโตะ นากทะเล มาสคอตประจำหมวดสัตว์น้ำ' },
   clover: { id: 'clover', name: 'Clover', nameTh: 'โคลเวอร์', species: 'ลูกม้าเกาลัด (Baby Pony)', role: 'เวชปฏิบัติม้า (Equine)', src: base('characters', 'clover'), alt: 'โคลเวอร์ ลูกม้า มาสคอตประจำหมวดม้า' },
+  chicky: { id: 'chicky', name: 'Chicky', nameTh: 'ชิคกี้', species: 'ลูกเจี๊ยบขนปุย (Fluffy Chick)', role: 'เวชศาสตร์สัตว์ปีก (Avian & Poultry)', src: base('characters', 'chicky'), alt: 'ชิคกี้ ลูกเจี๊ยบ มาสคอตประจำหมวดสัตว์ปีก' },
+  pawsy: { id: 'pawsy', name: 'Pawsy', nameTh: 'พาวซี่', species: 'ลูกสุนัขโกลเด้น (Golden Puppy)', role: 'คลินิกสัตว์เล็ก & ศัลยศาสตร์', src: base('characters', 'pawsy'), alt: 'พาวซี่ ลูกสุนัข มาสคอตประจำหมวดสัตว์เล็ก' },
+  mimi: { id: 'mimi', name: 'Mimi', nameTh: 'มีมี่', species: 'ลูกแมวสามสี (Calico Kitten)', role: 'เวชศาสตร์แมว (Feline Practice)', src: base('characters', 'mimi'), alt: 'มีมี่ ลูกแมวสามสี มาสคอตประจำหมวดแมว' },
+  hootie: { id: 'hootie', name: 'Hootie', nameTh: 'ฮูตตี้', species: 'นกฮูกนักสืบ (Barn Owl Detective)', role: 'ระบาดวิทยา & สุขภาพหนึ่งเดียว', src: base('characters', 'hootie'), alt: 'ฮูตตี้ นกฮูก มาสคอตประจำหมวดระบาดวิทยาและวันเฮลธ์' },
 };
 
 /** Alternate/archival mochi variants to ensure assets remain cleanly indexed. */
 export const ARCHIVED_MOCHI_SUBJECTS = {
   aquatic: base('mochi-subjects', 'aquatic'),
+  epidemiology: base('mochi-subjects', 'epidemiology'),
   equine: base('mochi-subjects', 'equine'),
+  'one-health': base('mochi-subjects', 'one-health'),
+  poultry: base('mochi-subjects', 'poultry'),
   ruminant: base('mochi-subjects', 'ruminant'),
   swine: base('mochi-subjects', 'swine'),
 };
@@ -56,17 +63,17 @@ export const ARCHIVED_MOCHI_SUBJECTS = {
 /** Mochi and specialized clinic mascots in each discipline's working kit. Keys are subject ids. */
 export const SUBJECT_MOCHI = {
   'aquatic-clinic': SQUAD_MASCOTS.oto,
-  epidemiology: { src: base('mochi-subjects', 'epidemiology'), alt: 'โมจิใส่แว่นถือคลิปบอร์ด' },
+  epidemiology: SQUAD_MASCOTS.hootie,
   'equine-medicine': SQUAD_MASCOTS.clover,
   'equine-repro': SQUAD_MASCOTS.clover,
   exotic: SQUAD_MASCOTS.glidy,
   'food-industry': { src: base('mochi-subjects', 'food-industry'), alt: 'โมจิใส่หมวกเชฟถือถาด' },
   'food-safety-y4': { src: base('mochi-subjects', 'food-industry'), alt: 'โมจิใส่หมวกเชฟถือถาด' },
   'milk-meat-hygiene': { src: base('mochi-subjects', 'milk'), alt: 'โมจิใส่ผ้ากันเปื้อนถือถังนม' },
-  'one-health': { src: base('mochi-subjects', 'one-health'), alt: 'โมจิกอดลูกโลกไว้กับอก' },
-  zoonoses: { src: base('mochi-subjects', 'one-health'), alt: 'โมจิกอดลูกโลกไว้กับอก' },
-  'avian-medicine': { src: base('mochi-subjects', 'poultry'), alt: 'โมจิมีลูกเจี๊ยบเกาะอยู่บนหัว' },
-  poultry: { src: base('mochi-subjects', 'poultry'), alt: 'โมจิมีลูกเจี๊ยบเกาะอยู่บนหัว' },
+  'one-health': SQUAD_MASCOTS.hootie,
+  zoonoses: SQUAD_MASCOTS.hootie,
+  'avian-medicine': SQUAD_MASCOTS.chicky,
+  poultry: SQUAD_MASCOTS.chicky,
   cliapprum: SQUAD_MASCOTS.moocha,
   practrum: SQUAD_MASCOTS.moocha,
   'herd-health-rum': SQUAD_MASCOTS.moocha,
@@ -75,6 +82,9 @@ export const SUBJECT_MOCHI = {
   'swine-clinic': SQUAD_MASCOTS.porky,
   'swine-herd': SQUAD_MASCOTS.porky,
   'swine-repro': SQUAD_MASCOTS.porky,
+  com3: SQUAD_MASCOTS.pawsy,
+  surg2: SQUAD_MASCOTS.pawsy,
+  'feline-uri': SQUAD_MASCOTS.mimi,
 };
 
 /** Earned marks. `test` runs against the numbers the app already keeps, so
