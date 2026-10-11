@@ -10,8 +10,11 @@ certified parameter values with their standard deviations, the residual sum of s
 deviation and the degrees of freedom; the tests parse them from the file, so no number is typed twice. Each test
 codes the model and its analytic Jacobian as the file states it.
 
-Fixture declaration for scripts/regen-verified.mjs (`fixture.json`): family `nist-strd`, kind `pin`, methods
-`nls.fourPL`, `nls.doseResponse`, `nls.equation` (they share the core).
+Fixture declaration for scripts/regen-verified.mjs (`fixture.json`): family `nist-strd`, kind `crosscheck`, methods
+`nls.fourPL`, `nls.doseResponse`, `nls.equation` (they share the core). It is a second check, not a pin: the sets
+exercise the shared least-squares core with NIST's own models, never the 4PL, 5PL or curve equations, their EC50 or
+the concentrations read off a curve, so they do not make those methods "verified against NIST" (fix-stats finding
+14). R 4.6.0 (tests/fixtures/r/out/nonlinear.json) remains their pin.
 
 Assertions (tests/unit/stats-nls.test.mjs): log relative error (LRE, capped at 15) of every certified value from
 both starting points, at least 6 for the lower sets and at least 5 for the higher sets that converge. A higher set

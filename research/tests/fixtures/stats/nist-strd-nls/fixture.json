@@ -1,13 +1,13 @@
 {
   "_fixture": {
     "family": "nist-strd",
-    "kind": "pin",
+    "kind": "crosscheck",
     "methods": [
       "nls.fourPL",
       "nls.doseResponse",
       "nls.equation"
     ],
-    "source": "NIST/ITL Statistical Reference Datasets, nonlinear regression (public domain), downloaded 2026-10-08"
+    "source": "NIST/ITL Statistical Reference Datasets, nonlinear regression (public domain), downloaded 2026-10-08. They check the shared nonlinear least-squares core (its steps, stopping rule and covariance) with NIST's own models, not the 4PL, 5PL or curve equations, their EC50 or read-off concentrations; those are pinned by R 4.6.0 (r/out/nonlinear.json), so this file is a second check and does not count toward verified."
   },
   "source": [
     "https://www.itl.nist.gov/div898/strd/nls/nls_main.shtml"
