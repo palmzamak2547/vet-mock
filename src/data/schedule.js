@@ -298,6 +298,19 @@ export function bangkokDate(at = new Date()) {
   return `${b.getUTCFullYear()}-${two(b.getUTCMonth() + 1)}-${two(b.getUTCDate())}`;
 }
 
+/** Bangkok's wall clock at an instant: the day, the weekday (0 = Sunday) and
+ *  'HH:MM'. The class timetable is Bangkok's, so "today" and "now" for it are
+ *  read here, never from the device's zone. */
+export function bangkokClock(at = new Date()) {
+  const b = new Date(new Date(at).getTime() + BANGKOK_OFFSET_MS);
+  const two = (n) => String(n).padStart(2, '0');
+  return {
+    ymd: `${b.getUTCFullYear()}-${two(b.getUTCMonth() + 1)}-${two(b.getUTCDate())}`,
+    dow: b.getUTCDay(),
+    hhmm: `${two(b.getUTCHours())}:${two(b.getUTCMinutes())}`,
+  };
+}
+
 /**
  * A calendar day as a Date whose UTC fields are that day, the same in every
  * zone; read it with the getUTC* methods. A 'YYYY-MM-DD' label is taken as
@@ -559,16 +572,38 @@ export const ACADEMIC_MILESTONES = [
 /** คาบเรียนของวันนั้น (default = วันนี้) เรียงตามเวลา. เสาร์-อาทิตย์ = [] */
 /** True inside สอบกลางภาค or สอบปลายภาค — the faculty suspends classes for the
  *  whole period, so the weekly timetable must not claim a lecture that day. */
+const inExamPeriodOn = (ymd) => [SEMESTER.midtermPeriod, SEMESTER.finalPeriod]
+  .some((p) => p?.start && p?.end && ymd >= p.start && ymd <= p.end);
+
 export function isExamPeriodDay(date = new Date()) {
-  const ymd = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-  return [SEMESTER.midtermPeriod, SEMESTER.finalPeriod].some((p) => p?.start && p?.end && ymd >= p.start && ymd <= p.end);
+  return inExamPeriodOn(`${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`);
+}
+
+function classesOn(year, ymd, dow) {
+  // No classes in an exam period, and none once the last paper's day is over:
+  // the timetable describes a term that has ended.
+  if (inExamPeriodOn(ymd) || (SEMESTER.finalPeriod?.end && ymd > SEMESTER.finalPeriod.end)) return [];
+  const rows = CLASS_TIMETABLE[`y${year}`] || [];
+  return rows.filter((r) => r.dow === dow).sort((a, b) => a.start.localeCompare(b.start));
 }
 
 export function getClassesForDay(year = 5, date = new Date()) {
-  if (isExamPeriodDay(date)) return [];
-  const rows = CLASS_TIMETABLE[`y${year}`] || [];
-  const dow = date.getDay(); // 0=Sun
-  return rows.filter((r) => r.dow === dow).sort((a, b) => a.start.localeCompare(b.start));
+  return classesOn(year, `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`, date.getDay()); // 0=Sun
+}
+
+/**
+ * Where a Bangkok day sits in the term: 'classes', 'midterm' or 'final' (the
+ * faculty suspends classes for the whole of those two periods), or 'after'
+ * once the last paper's day is over, when the timetable describes a term that
+ * has ended. `labelTh` names the exam period.
+ */
+export function termPhase(at = new Date()) {
+  const ymd = bangkokDate(at);
+  const { midtermPeriod: mid, finalPeriod: fin } = SEMESTER;
+  if (mid?.start && mid?.end && ymd >= mid.start && ymd <= mid.end) return { phase: 'midterm', labelTh: mid.labelTh };
+  if (fin?.start && fin?.end && ymd >= fin.start && ymd <= fin.end) return { phase: 'final', labelTh: fin.labelTh };
+  if (fin?.end && ymd > fin.end) return { phase: 'after', labelTh: null };
+  return { phase: 'classes', labelTh: null };
 }
 
 /** คาบถัดไปของวันนี้ (ยังไม่จบ) — ใช้โชว์ "คาบต่อไป" */
@@ -590,10 +625,10 @@ export function getNextClass(year = 5, now = new Date()) {
   return null;
 }
 
-/** คาบที่กำลังเรียนอยู่ตอนนี้ (ถ้ามี) */
+/** คาบที่กำลังเรียนอยู่ตอนนี้ (ถ้ามี) — ตารางเป็นเวลากรุงเทพฯ จึงอ่านวัน ช่วงสอบ และเวลาจากนาฬิกากรุงเทพฯ ไม่ใช่ของเครื่อง */
 export function getCurrentClass(year = 5, date = new Date()) {
-  const hhmm = `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
-  return getClassesForDay(year, date).find((c) => c.start <= hhmm && hhmm < c.end) || null;
+  const { ymd, dow, hhmm } = bangkokClock(date);
+  return classesOn(year, ymd, dow).find((c) => c.start <= hhmm && hhmm < c.end) || null;
 }
 
 /** หมุดปฏิทินที่ "เกี่ยวกับตอนนี้" — กำลังเปิดอยู่ หรือจะถึงใน N วัน

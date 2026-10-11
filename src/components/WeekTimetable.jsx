@@ -9,16 +9,38 @@
 //
 // Data: CLASS_TIMETABLE in src/data/schedule.js (transcribed from the
 // official ตารางสอน). Rooms/times are shown exactly as published.
+//
+// The timetable is for the term's class weeks only. In the midterm and final
+// periods the faculty suspends classes, so the grid gives way to a line
+// saying so; once the last paper is over it describes a term that has ended,
+// so the section is hidden. "Today" is Bangkok's day, whatever the device's
+// zone. `now` is for tests; the app never passes it.
 // ============================================================
 
-import { CLASS_TIMETABLE, DOW_TH, getCurrentClass } from '../data/schedule.js';
+import { CLASS_TIMETABLE, DOW_TH, bangkokClock, getCurrentClass, termPhase } from '../data/schedule.js';
 
-export default function WeekTimetable({ year = 5, onOpenSubject, hasContent }) {
+export default function WeekTimetable({ year = 5, onOpenSubject, hasContent, now = new Date() }) {
   const rows = CLASS_TIMETABLE[`y${year}`] || [];
   if (rows.length === 0) return null;
 
-  const now = new Date();
-  const todayDow = now.getDay();
+  const term = termPhase(now);
+  if (term.phase === 'after') return null;
+
+  if (term.phase !== 'classes') {
+    return (
+      <section aria-labelledby="vmx-week-title" style={{ marginBottom: 28 }}>
+        <div className="vmx-section-label" style={{ marginBottom: 12 }}>
+          <span id="vmx-week-title">ตารางเรียนสัปดาห์นี้</span>
+        </div>
+        <p role="status" style={{ margin: 0, padding: '12px 14px', border: '1px solid var(--clr-border)', borderRadius: 'var(--r-md, 12px)', fontSize: 13.5, lineHeight: 1.5 }}>
+          <strong>ช่วงสอบ งดเรียนตามตาราง</strong>
+          <span style={{ display: 'block', fontSize: 11.5, color: 'var(--clr-ink-soft)' }}>{term.labelTh}</span>
+        </p>
+      </section>
+    );
+  }
+
+  const todayDow = bangkokClock(now).dow;
   const current = getCurrentClass(year, now);
   const days = [1, 2, 3, 4, 5];
 
