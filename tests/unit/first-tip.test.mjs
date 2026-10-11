@@ -33,7 +33,7 @@ beforeEach(() => {
   };
 });
 
-const { shouldShowTip, markTipSeen, dismissTip, todayKey, TIP_STORAGE_KEY } =
+const { shouldShowTip, markTipSeen, dismissTip, decideTip, todayKey, TIP_STORAGE_KEY } =
   await import('../../src/lib/first-tip.js');
 
 test('the first open of a day shows the hint', () => {
@@ -117,6 +117,36 @@ test('no store at all shows the tip', () => {
   delete globalThis.localStorage;
   assert.equal(shouldShowTip('library', DAY_1), true, 'a missing store threw instead of showing the tip');
   assert.doesNotThrow(() => dismissTip('library', DAY_1), 'a missing store threw on dismiss');
+});
+
+test('the decision is made once per id: the record the card wrote cannot hide that same card', () => {
+  const decision = decideTip(null, 'library', DAY_1);
+  assert.equal(decision.show, true, 'the first open of the day must show the hint');
+
+  // What the card's effect does after it paints, and what React.StrictMode
+  // does a second time in development. Asking again used to re-read the
+  // record the first run had just written and hide the hint it was showing.
+  markTipSeen('library', DAY_1);
+  markTipSeen('library', DAY_1);
+
+  assert.equal(decideTip(decision, 'library', DAY_1), decision, 'the same id must keep the same decision');
+  assert.equal(decideTip(decision, 'library', DAY_1).show, true, 'the hint hid itself after writing its own record');
+});
+
+test('a new id is a new decision, read from the record', () => {
+  markTipSeen('notes', DAY_1);
+  const shown = decideTip(null, 'library', DAY_1);
+  assert.equal(shown.show, true);
+  const quiet = decideTip(shown, 'notes', DAY_1);
+  assert.notEqual(quiet, shown, 'a different feature reused the decision of the first one');
+  assert.deepEqual(quiet, { id: 'notes', show: false });
+});
+
+test('a hint that was already quiet stays quiet for that id', () => {
+  markTipSeen('videos', DAY_1);
+  const decision = decideTip(null, 'videos', DAY_1);
+  assert.equal(decision.show, false);
+  assert.equal(decideTip(decision, 'videos', DAY_1).show, false);
 });
 
 // The stub must not leak into the other suites.

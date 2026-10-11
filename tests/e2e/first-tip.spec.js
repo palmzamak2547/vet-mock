@@ -51,7 +51,6 @@ test('every wired view greets a first-time student with its own tip', async ({ p
     const tip = page.locator('.vmx-feature-tip');
     await expect(tip, `${view.id} shows its once-a-day tip`).toHaveCount(1);
     await expect(tip).toContainText(view.title);
-    await expect(tip).toHaveAttribute('role', 'status');
   }
 });
 
@@ -75,7 +74,8 @@ test('dismissing writes today\'s date, survives a reload and leaves the other id
   await expect(tip).toHaveCount(0);
   expect(await page.evaluate(() => localStorage.getItem('vmx-first-tip')))
     .toBe(JSON.stringify({ videos: TODAY }));
-  // The record outlives the mount, so a reload does not bring the hint back.
+  // The hint was already on record from being shown; dismissing leaves that
+  // record standing, so a reload does not bring it back.
   await page.reload();
   await expect(page.locator('.vmx-hero h1')).toContainText('คลิป');
   await expect(page.locator('.vmx-feature-tip')).toHaveCount(0);
@@ -84,14 +84,33 @@ test('dismissing writes today\'s date, survives a reload and leaves the other id
   await expect(page.locator('.vmx-feature-tip')).toBeVisible();
 });
 
-test('no tip card appears while an exam is running', async ({ page }) => {
+test('being shown ends the day: leaving without pressing ✕ keeps the hint away on the next visit', async ({ page }) => {
+  await openVideos(page);
+  await expect(page.locator('.vmx-feature-tip')).toBeVisible();
+  // Nothing has been dismissed, so the show alone has to have written today's
+  // record. Polled because the card writes it in an effect right after it paints.
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('vmx-first-tip')))
+    .toBe(JSON.stringify({ videos: TODAY }));
+  // Leave for Home the way a student does, then come back to the same shelf.
+  await page.goto('/');
+  await expect(page.locator('.vmx-command-center')).toBeVisible();
+  await openVideos(page);
+  await expect(page.locator('.vmx-feature-tip')).toHaveCount(0);
+});
+
+test('no tip card appears while an exam is running, and none was spent on the way', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('.vmx-command-center')).toBeVisible();
   // Config → start, the way a student reaches a running set from Home.
   await page.locator('.vmx-mode-card').filter({ hasText: 'ฝึกแบบเลือกจำนวน' }).click();
   await page.getByRole('button', { name: /^เริ่ม/ }).click();
   await expect(page.getByRole('progressbar', { name: 'ความคืบหน้าของชุดข้อสอบ' })).toBeVisible();
-  // Nothing has been dismissed today, so any tip that a view mounted during the
-  // exam would be on screen here. A running set stays clean of them.
   await expect(page.locator('.vmx-feature-tip')).toHaveCount(0);
+  // The count above only sees this instant, and no tip-bearing view is on the
+  // path from Home to a running set, so on its own it could never fail. A tip
+  // that mounted anywhere on the way would have marked itself seen the moment
+  // it was shown, so an untouched record is the proof that none did. The first
+  // test in this file is the control: on a clean day every wired view does
+  // show its tip.
+  expect(await page.evaluate(() => localStorage.getItem('vmx-first-tip'))).toBeNull();
 });

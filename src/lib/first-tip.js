@@ -88,6 +88,19 @@ export function shouldShowTip(id, now = new Date()) {
   return readTipStore()[id] !== todayKey(now);
 }
 
+/**
+ * One decision per id, kept for as long as the id is. The card holds the
+ * result in state and asks again only when its id changes: re-reading the
+ * record after the card's own effect has written it would hide the very hint
+ * that wrote it, which is what React.StrictMode's second effect run did.
+ * Pass the previous decision (or null); get back the same object while the
+ * id is unchanged, a fresh { id, show } otherwise.
+ */
+export function decideTip(previous, id, now = new Date()) {
+  if (previous && previous.id === id) return previous;
+  return { id, show: shouldShowTip(id, now) };
+}
+
 /** Record today as the day this tip was last seen. */
 export function markTipSeen(id, now = new Date()) {
   if (!id || typeof id !== 'string') return;

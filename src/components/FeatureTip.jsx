@@ -12,8 +12,11 @@
 // surface here respects prefers-reduced-motion by not adding any.
 //
 // Accessibility, deliberately:
-//   • role="status" (an implicit polite live region) announces the hint to
-//     screen readers instead of it silently appearing.
+//   • No live-region role. The card enters the page already holding its text,
+//     and a live region only announces changes made to a region that was
+//     there first, so a role here would promise an announcement that most
+//     screen readers never make. It is ordinary in-flow content that a reader
+//     meets in reading order.
 //   • The ✕ is a real <button>, so Tab reaches it and Enter/Space dismisses.
 //   • No focus trap, no autofocus: dismissal hands focus nowhere, and the
 //     page stays exactly where the student left it.
@@ -22,7 +25,7 @@
 // ============================================================
 
 import { useEffect, useState } from 'react';
-import { dismissTip, markTipSeen, shouldShowTip } from '../lib/first-tip.js';
+import { decideTip, dismissTip, markTipSeen } from '../lib/first-tip.js';
 
 const cardStyle = {
   padding: 'var(--space-3) var(--space-4)',
@@ -45,28 +48,32 @@ const closeStyle = {
 };
 
 export default function FeatureTip({ id, title, children, icon = '💡' }) {
-  const [visible, setVisible] = useState(() => shouldShowTip(id));
+  // Whether to show is decided ONCE per id, before the first paint, and kept.
+  // Re-reading the record after the effect below has written it would hide
+  // the very card that wrote it (React.StrictMode runs the effect twice in
+  // development), so the decision is only taken again when the id changes.
+  const [decision, setDecision] = useState(() => decideTip(null, id));
+  const current = decideTip(decision, id);
+  if (current !== decision) setDecision(current);
 
-  // Re-check when the feature itself changes. Being SHOWN is itself the
-  // record: the day's hint ends the moment the student has seen it, exactly
-  // like a dismissal, so it never returns on the next visit. Without this the
-  // ✕ alone would gate the day and the hint would reappear every visit.
+  // Being SHOWN is itself the record: the day's hint ends the moment the
+  // student has seen it, exactly like a dismissal, so it never returns on the
+  // next visit. Without this the ✕ alone would gate the day and the hint
+  // would reappear every visit. A hint that was not shown marks nothing.
   useEffect(() => {
-    const show = shouldShowTip(id);
-    setVisible(show);
-    if (show) markTipSeen(id);
-  }, [id]);
+    if (current.show) markTipSeen(id);
+  }, [id, current.show]);
 
   const dismiss = () => {
     if (!id) return;
     dismissTip(id);
-    setVisible(false);
+    setDecision({ id, show: false });
   };
 
-  if (!visible) return null;
+  if (!current.show) return null;
 
   return (
-    <div className="vmx-feature-tip" role="status" style={cardStyle}>
+    <div className="vmx-feature-tip" style={cardStyle}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 }}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <strong style={{ fontSize: '0.95rem' }}>
