@@ -9,6 +9,7 @@
  *
  * Checks: every path the registry can hand out exists under public/, is a real
  * WebP, and is not so large that it costs more than the empty space it fills.
+ * Every study-squad mascot has its 3D model (a real GLB within its budget).
  * Also flags files shipped in public/art that nothing references.
  *
  * Usage:  node scripts/lint-art.mjs
@@ -18,13 +19,32 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const { allArtPaths } = await import(pathToFileURL(path.join(ROOT, 'src/data/art.js')).href);
+const { allArtPaths, SQUAD_MASCOTS } = await import(pathToFileURL(path.join(ROOT, 'src/data/art.js')).href);
 const { SUBJECT_COVERS } = await import(pathToFileURL(path.join(ROOT, 'src/data/subject-covers.js')).href);
 const { SUBJECTS_BY_YEAR } = await import(pathToFileURL(path.join(ROOT, 'src/data/curriculum.js')).href);
 
 // A decorative asset that costs more than this is competing with the question
 // bank for a student's data allowance.
 const MAX_KB = 120;
+
+// 3D study-squad models. MascotSquad3DViewer requests /art/models/<id>.glb for
+// every SQUAD_MASCOTS id, so a missing or renamed model is the same silent
+// breakage as a missing picture: an empty pedestal on a student's screen.
+//
+// The ceiling comes from docs/squad-3d-blueprints.md, which caps a character at
+// 6,000 triangles for mobile web. The eight models built to it weigh 33-40 bytes
+// per triangle (untextured, KHR_materials_unlit; porky 91,820 B for 2,304 tris,
+// oto 133,644 B for 4,020), so a model at the cap is 200-240 KB. Anything over
+// 240 KB is over the blueprint, and on a phone it is a first download several
+// times any other mascot.
+const GLB_MAX_KB = 240;
+// ponytail: moocha.glb has been 624,896 B (21,872 triangles, 46 meshes) since the
+// 2026-10-11 vinyl sculpt, and it is the default buddy. It is held at exactly that
+// size as a ratchet: it may only shrink, and a smaller file must lower this number.
+// Upgrade path: rebuild Moocha in scripts/generate-squad-3d-glb.mjs with fewer
+// sphere/curve segments until it is under 6,000 triangles (or post-process it with
+// gltfpack and meshopt decoding in the loader), then delete this entry.
+const GLB_RATCHET_BYTES = { moocha: 624896 };
 
 const errors = [];
 const warnings = [];
@@ -50,6 +70,36 @@ for (const [id, cover] of Object.entries(SUBJECT_COVERS)) {
 
 const referenced = new Set();
 let bytes = 0;
+
+for (const id of Object.keys(GLB_RATCHET_BYTES)) {
+  if (!SQUAD_MASCOTS[id]) errors.push(`GLB_RATCHET_BYTES names ${id}, which is not a squad mascot; remove it`);
+}
+for (const id of Object.keys(SQUAD_MASCOTS)) {
+  const url = `/art/models/${id}.glb`;
+  referenced.add(url);
+  const file = path.join(ROOT, 'public', url.replace(/^\//, ''));
+  if (!fs.existsSync(file)) {
+    errors.push(`${url} is missing: the 3D viewer loads it for the ${id} mascot`);
+    continue;
+  }
+  const buf = fs.readFileSync(file);
+  if (buf.subarray(0, 4).toString('ascii') !== 'glTF' || buf.readUInt32LE(4) !== 2) {
+    errors.push(`${url} is not a binary glTF 2.0 file`);
+    continue;
+  }
+  const size = buf.length;
+  const ratchet = GLB_RATCHET_BYTES[id];
+  const limit = ratchet ?? GLB_MAX_KB * 1024;
+  if (size > limit) {
+    errors.push(ratchet
+      ? `${url} grew to ${size} B, over its held size of ${ratchet} B; it may only shrink (budget ${GLB_MAX_KB} KB)`
+      : `${url} is ${(size / 1024).toFixed(0)} KB, over the ${GLB_MAX_KB} KB model budget (6,000 triangles in docs/squad-3d-blueprints.md)`);
+  } else if (ratchet && size <= GLB_MAX_KB * 1024) {
+    errors.push(`${url} is now ${(size / 1024).toFixed(0)} KB, within the ${GLB_MAX_KB} KB budget: delete its GLB_RATCHET_BYTES entry`);
+  } else if (ratchet && size < ratchet) {
+    errors.push(`${url} shrank to ${size} B: lower GLB_RATCHET_BYTES.${id} from ${ratchet} to ${size}`);
+  }
+}
 
 for (const url of [...allArtPaths(), ...coverPaths]) {
   referenced.add(url);
@@ -102,7 +152,6 @@ if (fs.existsSync(artDir)) {
       const full = path.join(dir, f);
       if (fs.statSync(full).isDirectory()) { walk(full, `${rel}/${f}`); continue; }
       const url = `${rel}/${f}`;
-      if (f.endsWith('.glb')) continue;
       if (!referenced.has(url)) warnings.push(`${url} ships but nothing references it`);
     }
   };
