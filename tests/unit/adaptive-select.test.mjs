@@ -7,7 +7,7 @@ import {
   targetDifficultyFor,
   ADAPTIVE_TARGET,
 } from '../../src/lib/adaptive-select.js';
-import { expectedScore, DEFAULT_RATING } from '../../src/lib/elo.js';
+import { expectedScore, DEFAULT_RATING, questionDifficulty } from '../../src/lib/elo.js';
 import { buildExamPool } from '../../src/lib/exam-pool.js';
 import { yearForSubject } from '../../src/data/curriculum.js';
 
@@ -80,6 +80,26 @@ test('the same rng serves the same set; identical difficulties vary members', ()
   assert.ok(sets.size >= 2, `ten seeds served ${sets.size} distinct sets from a uniform pool`);
 });
 
+test('distinct measured ratings still vary the set across seeds', () => {
+  // Once real ratings exist they are whole numbers that rarely tie exactly.
+  // The in-band shuffle must survive the nearness ordering, or two sessions
+  // back to back serve the identical set whatever the rng says.
+  const spaced = [];
+  for (let d = 1200; d <= 1500; d += 3) spaced.push(q('equine-medicine', d, { topic: `spaced-${d % 8}` }));
+  const sets = new Set();
+  for (let seed = 0; seed < 20; seed++) {
+    const rng = (() => { let s = seed * 7919 + 17; return () => { s = (s * 9301 + 49297) % 233280; return s / 233280; }; })();
+    const picked = adaptiveSelect(spaced, { ability: 1500, difficultyOf, count: 10, rng });
+    assert.equal(picked.length, 10);
+    const target = targetDifficultyFor(1500);
+    for (const item of picked) {
+      assert.ok(Math.abs(difficultyOf(item) - target) < 100, `${difficultyOf(item)} strayed from target ${Math.round(target)}`);
+    }
+    sets.add(picked.map((x) => x.id).join(','));
+  }
+  assert.ok(sets.size > 1, `twenty seeds served ${sets.size} distinct set(s) from distinct ratings`);
+});
+
 test('ability rises on correct answers and falls on misses, from the neutral start', () => {
   assert.equal(computeAbility([], {}), DEFAULT_RATING, 'no history is a neutral ability');
 
@@ -115,6 +135,43 @@ test('ability uses the trust ladder: thin samples read as neutral, not as their 
   const got = computeAbility(attempts, thin);
   assert.ok(got < DEFAULT_RATING, 'a miss against a neutral-1500 question still lowers ability');
   assert.ok(Math.abs(got - DEFAULT_RATING) < 40, 'but the bogus 2100 rating never touched the estimate');
+});
+
+test('selection and the ability estimate rate every question on one ladder', () => {
+  // Selection resolves the full question; the ability estimate only has the
+  // id from the answer history. Any rung that reads more than the id makes the
+  // two disagree about the same question.
+  const data = { '107612': { rating: 1440, n: 40 } };
+  for (const id of [107605, 107612]) {
+    for (const predictionTier of [undefined, 'high', 'medium', 'low']) {
+      const full = { id, subject: 'zoonoses', topic: 'zoo-vbz', predictionTier, examOrigin: 'fixture' };
+      const selection = questionDifficulty(full, data);
+      assert.equal(selection, questionDifficulty({ id }, data), `question ${id} (${predictionTier}) rated twice`);
+      const afterOneWin = computeAbility([{ questionId: id, correct: true, date: 1 }], data);
+      assert.equal(afterOneWin, Math.round(DEFAULT_RATING + 16 * (1 - expectedScore(DEFAULT_RATING, selection))),
+        `ability moved against a different difficulty than selection used for ${id} (${predictionTier})`);
+    }
+  }
+});
+
+test('with no measured ratings yet the set is still a full, varied, topic-spread draw', () => {
+  // The shipped snapshot can be empty (no regen has run). Every question then
+  // sits at the neutral rating and adaptive practice must behave like an
+  // ordinary shuffled set, spread across topics, never short.
+  const pool = [];
+  for (let i = 0; i < 60; i++) pool.push(q('equine-medicine', null, { topic: `t-${i % 6}`, predictionTier: i % 9 === 0 ? 'high' : undefined }));
+  const resolve = (question) => questionDifficulty(question, {});
+  const sets = new Set();
+  for (let seed = 0; seed < 10; seed++) {
+    const rng = (() => { let s = seed * 104729 + 3; return () => { s = (s * 9301 + 49297) % 233280; return s / 233280; }; })();
+    const picked = adaptiveSelect(pool, { ability: computeAbility([], {}), difficultyOf: resolve, count: 10, rng });
+    assert.equal(picked.length, 10);
+    const perTopic = new Map();
+    for (const item of picked) perTopic.set(item.topic, (perTopic.get(item.topic) || 0) + 1);
+    assert.ok(Math.max(...perTopic.values()) <= 2, 'one topic took more than its share');
+    sets.add(picked.map((x) => x.id).join(','));
+  }
+  assert.ok(sets.size >= 5, `ten seeds served only ${sets.size} distinct sets`);
 });
 
 test('adaptive mode draws from the same pool the config screen counts', () => {

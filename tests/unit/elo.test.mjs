@@ -8,6 +8,7 @@ import {
   updateElo,
   clampRating,
   questionDifficulty,
+  hasMeasuredDifficulty,
 } from '../../src/lib/elo.js';
 
 // The adaptive mode asks these numbers to pick a student's next question. A
@@ -46,23 +47,52 @@ test('clampRating keeps ability inside the servable band', () => {
 });
 
 test('difficulty ladder: real attempts win once they are trustworthy', () => {
-  const question = { id: 8037, predictionTier: 'high' };
+  const question = { id: 8037 };
   const data = { '8037': { rating: 1380, n: DIFFICULTY_MIN_ATTEMPTS } };
   assert.equal(questionDifficulty(question, data), 1380,
-    'enough real attempts outrank the authored tier');
+    'enough real attempts decide the rating');
 
   const thin = { '8037': { rating: 1380, n: DIFFICULTY_MIN_ATTEMPTS - 1 } };
-  assert.equal(questionDifficulty(question, thin), 1650,
-    'a thin sample falls through to the tier');
+  assert.equal(questionDifficulty(question, thin), DEFAULT_RATING,
+    'a thin sample falls through to the neutral default');
 });
 
-test('difficulty ladder: tier then neutral default — unknown is never missing', () => {
-  assert.equal(questionDifficulty({ id: 1, predictionTier: 'high' }), 1650);
-  assert.equal(questionDifficulty({ id: 2, predictionTier: 'medium' }), 1500);
-  assert.equal(questionDifficulty({ id: 3, predictionTier: 'low' }), 1400);
+test('difficulty ladder: the exam-likelihood tier is not a difficulty', () => {
+  // predictionTier says how likely a question is to sit on the current paper
+  // (docs/QUESTION-STANDARD.md D6 keeps that a separate axis). Reading it as
+  // difficulty pushed the questions curators flagged as most likely on the
+  // paper away from every average student in adaptive practice.
+  for (const predictionTier of ['high', 'medium', 'low']) {
+    assert.equal(questionDifficulty({ id: 107605, predictionTier }), DEFAULT_RATING,
+      `a ${predictionTier}-tier question with no measured rating is a neutral question`);
+  }
+  const data = { '107605': { rating: 1420, n: DIFFICULTY_MIN_ATTEMPTS } };
+  assert.equal(questionDifficulty({ id: 107605, predictionTier: 'high' }, data), 1420,
+    'only measured attempts move it');
+});
+
+test('difficulty ladder: unknown is never missing', () => {
   assert.equal(questionDifficulty({ id: 4 }), DEFAULT_RATING,
-    'most questions carry no tier; they must still resolve to a difficulty');
+    'most questions carry no measured rating; they must still resolve to a difficulty');
   assert.equal(questionDifficulty(null), DEFAULT_RATING);
+  assert.equal(questionDifficulty({ id: 5 }, { '5': { rating: Number.NaN, n: 99 } }), DEFAULT_RATING,
+    'a malformed entry is ignored, not trusted');
+});
+
+test('hasMeasuredDifficulty answers exactly when the ladder uses a measured rating', () => {
+  const data = {
+    '1': { rating: 1380, n: DIFFICULTY_MIN_ATTEMPTS },
+    '2': { rating: 1380, n: DIFFICULTY_MIN_ATTEMPTS - 1 },
+    '3': { rating: 'hard', n: 99 },
+  };
+  for (const id of [1, 2, 3, 4]) {
+    const measured = hasMeasuredDifficulty({ id }, data);
+    assert.equal(measured, questionDifficulty({ id }, data) !== DEFAULT_RATING || data[id]?.rating === DEFAULT_RATING,
+      `question ${id}`);
+  }
+  assert.equal(hasMeasuredDifficulty({ id: 1 }, data), true);
+  assert.equal(hasMeasuredDifficulty({ id: 2 }, data), false);
+  assert.equal(hasMeasuredDifficulty({ id: 1 }, undefined), false);
 });
 
 test('the shipped generated snapshot is structurally sound', async () => {
@@ -75,6 +105,6 @@ test('the shipped generated snapshot is structurally sound', async () => {
   for (const [id, entry] of Object.entries(mod.QUESTION_DIFFICULTY)) {
     assert.match(id, /^[A-Za-z0-9_-]+$/);
     assert.ok(Number.isFinite(entry.rating) && entry.rating >= 800 && entry.rating <= 2200, `rating of ${id}`);
-    assert.ok(Number.isInteger(entry.n) && entry.n >= 5, `n of ${id}`);
+    assert.ok(Number.isInteger(entry.n) && entry.n >= DIFFICULTY_MIN_ATTEMPTS, `n of ${id}`);
   }
 });

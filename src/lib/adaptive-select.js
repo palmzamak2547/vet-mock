@@ -45,15 +45,20 @@ export function adaptiveSelect(pool, {
   }
 
   const targetDifficulty = targetDifficultyFor(ability, target);
-  const byGap = pool
-    .map((q) => ({ q, difficulty: difficultyOf(q), gap: Math.abs(difficultyOf(q) - targetDifficulty) }))
-    // Light shuffle inside each 50-point band first: a stable sort then keeps
-    // bands ordered by nearness while varying who represents each band.
-    .map((entry) => ({ ...entry, band: Math.floor(entry.difficulty / NEARNESS_BAND) }))
-    .sort((a, b) => a.band - b.band || a.gap - b.gap);
+  // Bands are cut on distance from the target, not on absolute difficulty, so
+  // a band holds questions equally near on either side. Members of a band are
+  // shuffled and the bands are walked nearest first. Ordering by the exact
+  // gap afterwards would undo the shuffle whenever ratings differ (real
+  // ratings are whole numbers that rarely tie), so the band is the only key.
+  const byBand = pool
+    .map((q) => {
+      const difficulty = difficultyOf(q);
+      return { q, difficulty, band: Math.floor(Math.abs(difficulty - targetDifficulty) / NEARNESS_BAND) };
+    })
+    .sort((a, b) => a.band - b.band);
 
   const bands = new Map();
-  for (const entry of byGap) {
+  for (const entry of byBand) {
     if (!bands.has(entry.band)) bands.set(entry.band, []);
     bands.get(entry.band).push(entry);
   }
@@ -65,7 +70,6 @@ export function adaptiveSelect(pool, {
     }
     ranked.push(...members);
   }
-  ranked.sort((a, b) => a.gap - b.gap);
 
   // Diversity walk: nearest first, but a topic (fallback subject) holds at
   // most its cap until the walk runs dry and a second pass relaxes it —

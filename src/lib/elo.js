@@ -9,7 +9,8 @@
 export const DEFAULT_RATING = 1500;
 
 // Below this many recorded attempts a question's observed correct rate is too
-// thin to trust; its rating falls through to cheaper signals (prediction tier).
+// thin to trust; its rating falls through to the neutral default. The regen
+// script writes nothing below this count (scripts/regen-question-difficulty.mjs).
 export const DIFFICULTY_MIN_ATTEMPTS = 20;
 
 // Ability is clamped so a hot streak or a disaster session cannot fling a
@@ -37,19 +38,25 @@ export function clampRating(rating) {
   return Math.min(ABILITY_MAX, Math.max(ABILITY_MIN, rating));
 }
 
-// Difficulty fallback ladder. First hit wins, mirroring the exam-scope model:
+// Difficulty ladder. First hit wins:
 // 1. Aggregated real attempts (question-difficulty.generated.js) once there
-//    are enough of them to trust — the data decides.
-// 2. The authored prediction tier — the curator's judgement, better than
-//    nothing for the few hundred questions that carry one.
-// 3. The neutral default — an unknown question is a mid-tier question, never
+//    are enough of them to trust: the data decides.
+// 2. The neutral default: an unknown question is a mid-scale question, never
 //    a missing one (unknown is never filtered out).
-const TIER_RATINGS = { high: 1650, medium: 1500, low: 1400 };
-
+// Only the question id is read, so the adaptive picker (full question) and the
+// ability estimate (an id from the answer history) always agree. predictionTier
+// is deliberately NOT a rung: it says how likely a question is to sit on the
+// current paper, which is a different axis from how hard it is
+// (docs/QUESTION-STANDARD.md D6). A curator difficulty would need its own field.
 export function questionDifficulty(question, difficultyData) {
+  return hasMeasuredDifficulty(question, difficultyData)
+    ? difficultyData[String(question.id)].rating
+    : DEFAULT_RATING;
+}
+
+// Whether a question has a measured rating the ladder trusts (rung 1). Lets a
+// screen say honestly how much of a pool adaptive practice can actually place.
+export function hasMeasuredDifficulty(question, difficultyData) {
   const entry = difficultyData?.[String(question?.id)];
-  if (entry && Number.isFinite(entry.rating) && Number.isFinite(entry.n) && entry.n >= DIFFICULTY_MIN_ATTEMPTS) {
-    return entry.rating;
-  }
-  return TIER_RATINGS[question?.predictionTier] ?? DEFAULT_RATING;
+  return !!entry && Number.isFinite(entry.rating) && Number.isFinite(entry.n) && entry.n >= DIFFICULTY_MIN_ATTEMPTS;
 }
