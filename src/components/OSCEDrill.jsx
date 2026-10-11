@@ -43,36 +43,63 @@ export default function OSCEDrill({ onClose }) {
   const [running, setRunning] = useState(false);
   const [done, setDone] = useState(false);
   const [elapsed, setElapsed] = useState(0);
+  // True once the bell ended the attempt, as opposed to the student pressing stop.
+  const [timedOut, setTimedOut] = useState(false);
   const startRef = useRef(0);
   const tickRef = useRef(null);
+  // One attempt is graded once, whichever of the bell and a stop click comes
+  // first. A click handed to React just before the bell still runs afterwards.
+  const gradedRef = useRef(false);
   const [attempts, setAttempts] = useState({});
   const dialogRef = useModalFocus({ onClose });
 
   useEffect(() => { setAttempts(readAttempts()); }, []);
 
+  // A station lasts station.minutes and no longer. The readout stops there,
+  // however late a tick arrives.
+  const limitMs = station ? station.minutes * 60_000 : 0;
+
   useEffect(() => {
     if (!running) return;
     startRef.current = Date.now() - elapsed;
-    tickRef.current = setInterval(() => setElapsed(Date.now() - startRef.current), 250);
+    tickRef.current = setInterval(() => {
+      const ms = Date.now() - startRef.current;
+      setElapsed(limitMs > 0 ? Math.min(ms, limitMs) : ms);
+    }, 250);
     return () => { if (tickRef.current) clearInterval(tickRef.current); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [running]);
+
+  // The bell: grade the attempt with what is ticked now, as a real station is.
+  useEffect(() => {
+    if (!running || !station || limitMs <= 0 || elapsed < limitMs) return;
+    setTimedOut(true);
+    finish(limitMs);
+    // finish reads this render's ticks, so it is fresh each time the effect runs.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [running, station, elapsed, limitMs]);
 
   function pickStation(id) {
     setStationId(id);
     setChecked({});
     setDone(false);
+    setTimedOut(false);
+    gradedRef.current = false;
     setElapsed(0);
     setRunning(false);
   }
 
   function start() {
     if (!station) return;
+    gradedRef.current = false;
+    setTimedOut(false);
     setRunning(true);
     setDone(false);
   }
 
-  function finish() {
+  function finish(ms = elapsed) {
+    if (gradedRef.current) return;
+    gradedRef.current = true;
     setRunning(false);
     setDone(true);
     if (!station) return;
@@ -83,13 +110,15 @@ export default function OSCEDrill({ onClose }) {
       .map((it, i) => ({ ...it, i }))
       .filter((it) => it.weight >= 2 && !checked[it.i])
       .map((it) => it.text);
-    saveAttempt(station.id, score, elapsed, missedCriticals);
+    saveAttempt(station.id, score, ms, missedCriticals);
     setAttempts(readAttempts());
   }
 
   function reset() {
     setChecked({});
     setDone(false);
+    setTimedOut(false);
+    gradedRef.current = false;
     setElapsed(0);
     setRunning(false);
   }
@@ -153,9 +182,14 @@ export default function OSCEDrill({ onClose }) {
               </button>
             )}
             {running && !done && (
-              <button type="button" onClick={finish} className="vmx-btn vmx-btn-primary" style={{ width: '100%', marginBottom: 12, background: 'var(--clr-rose, #c0392b)' }}>
+              <button type="button" onClick={() => finish()} className="vmx-btn vmx-btn-primary" style={{ width: '100%', marginBottom: 12, background: 'var(--clr-rose, #c0392b)' }}>
                 🛑 จบและให้คะแนน
               </button>
+            )}
+            {timedOut && (
+              <div role="status" style={{ width: '100%', boxSizing: 'border-box', marginBottom: 12, padding: '10px 14px', borderRadius: 10, textAlign: 'center', fontWeight: 700, color: 'var(--clr-rose-text, #c0392b)', background: 'rgba(192, 57, 43, 0.08)', border: '1px solid var(--clr-rose, #c0392b)' }}>
+                หมดเวลา ให้คะแนนจากขั้นที่ติ๊กไว้แล้ว
+              </div>
             )}
 
             <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -174,6 +208,7 @@ export default function OSCEDrill({ onClose }) {
                       <input
                         type="checkbox"
                         checked={isChecked}
+                        disabled={timedOut}
                         onChange={(e) => {
                           const nextChecked = e.target.checked;
                           setChecked((c) => ({ ...c, [i]: nextChecked }));
