@@ -85,8 +85,9 @@ export function perUnitTerm(term, ctx) {
  */
 export function suffixText(methodId, suffix, ctx, measure = null) {
   if (!ctx) return suffix;
-  if (methodId === 'reg.logistic' || methodId === 'reg.poisson') return EFFECTS.has(measure) ? perUnitTerm(suffix, ctx) : termText(suffix, ctx);
-  if (methodId === 'surv.kaplanMeier') return lvlName(ctx, roleOf(ctx.spec, 'group'), suffix);
+  if (methodId === 'reg.logistic' || methodId === 'reg.poisson' || methodId === 'reg.negbin') return EFFECTS.has(measure) ? perUnitTerm(suffix, ctx) : termText(suffix, ctx);
+  // a curve's EC50 or IC50 per group ('ic50:drug'), as Kaplan-Meier's median per group
+  if (methodId === 'surv.kaplanMeier' || methodId === 'nls.doseResponse') return lvlName(ctx, roleOf(ctx.spec, 'group'), suffix);
   return suffix;
 }
 
@@ -111,14 +112,21 @@ function groupLevels(ctx, key, env) {
   return out;
 }
 
-/** An effect row of an ANOVA table. */
+/** Interactions of repeated measures by their roles (M2 group by time; M3a the second within factor). */
+const RM_INTERACTIONS = Object.freeze({ groupTime: ['group', 'time'], timeFactorB: ['time', 'factorB'], groupFactorB: ['group', 'factorB'], groupTimeFactorB: ['group', 'time', 'factorB'] });
+
+/** An effect row of an ANOVA table (also the effect cells of the sphericity table). */
 function effectText(cell, ctx) {
   const { t, spec } = ctx;
   const m = spec?.method;
-  const byRole = m === 'anova.twoWay' ? { A: 'group', B: 'factorB' } : { group: 'group', time: 'time' };
+  const byRole = m === 'anova.twoWay' ? { A: 'group', B: 'factorB' } : { group: 'group', time: 'time', factorB: 'factorB' };
   if (byRole[cell] && roleOf(spec, byRole[cell])) return colName(ctx, roleOf(spec, byRole[cell]));
   if ((cell === 'A:B' || cell === 'AB') && roleOf(spec, 'group') && roleOf(spec, 'factorB')) return t('ws.test.interaction', { a: colName(ctx, roleOf(spec, 'group')), b: colName(ctx, roleOf(spec, 'factorB')) });
-  if (cell === 'groupTime' && roleOf(spec, 'group') && roleOf(spec, 'time')) return t('ws.test.interaction', { a: colName(ctx, roleOf(spec, 'group')), b: colName(ctx, roleOf(spec, 'time')) });
+  const inter = m === 'anova.repeated' ? RM_INTERACTIONS[cell] : null;
+  if (inter && inter.every((r) => roleOf(spec, r))) {
+    const [a, b, c] = inter.map((r) => colName(ctx, roleOf(spec, r)));
+    return c ? t('ws.test.interaction3', { a, b, c }) : t('ws.test.interaction', { a, b });
+  }
   const k = `lab.source.${keyPart(cell)}`;
   return has(t, k) ? t(k) : cell;
 }
@@ -149,8 +157,12 @@ export function cellText(tableId, col, cell, row, ctx) {
       if ((tableId === 'tukeyA' || tableId === 'tukeyB') && col === 0) return pairText(cell, tableId === 'tukeyB' ? roleOf(spec, 'factorB') : group, ctx);
       return undefined;
     case 'anova.repeated':
-      if (tableId === 'anova' && col === 0) return effectText(cell, ctx);
-      if (tableId === 'means') return col === 0 ? lvlName(ctx, roleOf(spec, 'time'), cell) : col === 1 ? lvlName(ctx, group, cell) : undefined;
+      if ((tableId === 'anova' || tableId === 'sphericity') && col === 0) return effectText(cell, ctx);
+      if (tableId === 'means') {
+        // [time, group, ...] with one within factor; [time, factorB, group, ...] with two (M3a)
+        const keys = roleOf(spec, 'factorB') ? [roleOf(spec, 'time'), roleOf(spec, 'factorB'), group] : [roleOf(spec, 'time'), group];
+        return col < keys.length ? lvlName(ctx, keys[col], cell) : undefined;
+      }
       return undefined;
     case 'test.friedman':
     case 'diag.brownForsythe':
@@ -164,6 +176,7 @@ export function cellText(tableId, col, cell, row, ctx) {
       return undefined;
     case 'reg.logistic':
     case 'reg.poisson':
+    case 'reg.negbin':
       if (tableId === 'coefficients' && col === 0) return perUnitTerm(cell, ctx);
       if ((tableId === 'lrTests' || tableId === 'references') && col === 0) return termText(cell, ctx);
       if (tableId === 'references' && col === 1) return lvlName(ctx, row[0], cell);
@@ -181,12 +194,42 @@ export function cellText(tableId, col, cell, row, ctx) {
       return undefined;
     case 'rel.cronbach':
       return tableId === 'items' && col === 0 ? colName(ctx, cell) : undefined;
+    // ---- M3a [M3-DESIGN.md 3.1]: the file's row ids as row numbers (as Bland-Altman's points), group cells by
+    // their level labels, item cells by their column labels.
+    case 'nls.fourPL':
+      return tableId === 'unknowns' && col === 0 ? rowNumber(cell) : undefined;
+    case 'nls.doseResponse':
+      return ['parameters', 'potency', 'curve'].includes(tableId) && col === 0 ? lvlName(ctx, group, cell) : undefined;
+    case 'calc.auc':
+      if (tableId === 'areas' && col === 1) return lvlName(ctx, group, cell);
+      if (tableId === 'groups' && col === 0) return lvlName(ctx, group, cell);
+      if (tableId === 'means' && col === 1) return lvlName(ctx, group, cell);
+      return undefined;
+    case 'qpcr.relative':
+      if (tableId === 'samples') return col === 0 ? rowNumber(cell) : col === 1 ? lvlName(ctx, group, cell) : undefined;
+      if (tableId === 'groups' && col === 0) return lvlName(ctx, group, cell);
+      if (tableId === 'comparisons' && col === 0) return pairText(cell, group, ctx);
+      return undefined;
+    case 'mv.pca':
+      if (['loadings', 'items', 'biplotArrows'].includes(tableId) && col === 0) return colName(ctx, cell);
+      if (tableId === 'scores' || tableId === 'biplotPoints') {
+        if (col === 0) return rowNumber(cell);
+        if (col === 1) return lvlName(ctx, roleOf(spec, 'subject'), cell);
+        if (col === 2) return lvlName(ctx, group, cell);
+      }
+      return undefined;
     case 'design.sampling':
       if ((tableId === 'selected' && col === 1) || (tableId === 'strata' && col === 0)) return lvlName(ctx, roleOf(spec, 'strata'), cell);
       return undefined;
     default:
       return undefined;
   }
+}
+
+/** A file row id ('r12') as its row number, as the data table numbers it. */
+function rowNumber(cell) {
+  const m = /^r(\d+)$/.exec(String(cell));
+  return m ? m[1] : String(cell);
 }
 
 /** A pair 'B-A' as "label of B minus label of A". */

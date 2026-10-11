@@ -9,7 +9,7 @@ import { formatCi, formatNumber, formatP } from '../../lib/stats/format.js';
 import { provenanceLines } from '../../lib/runtime/provenance.js';
 import { copyTable, download, tableToCsv } from '../../lib/runtime/export.js';
 import { getMethod } from '../../lib/runtime/catalog.js';
-import { ciLevelText, wordAreaOf, exportTable, pText, plottable, primaryTest, primaryValueName, testLabel, valueCells, valueLabel, valueRows } from '../lib/result-model.js';
+import { ciLevelText, wordAreaOf, exportTable, ownOptionLabel, pText, plottable, primaryTest, primaryValueName, testLabel, valueCells, valueLabel, valueRows } from '../lib/result-model.js';
 import { safeFileBase } from '../lib/files.js';
 import { useWs, errorInfo } from '../ws-context.js';
 import { Notice, VerifiedBadge } from './Bits.jsx';
@@ -154,7 +154,8 @@ export default function ResultView({ envelope, title, caption: captionProp = '',
   const caption = captionProp || heading;
   const note = lines.join(' ');
   const fileBase = safeFileBase(`${caption}`);
-  const options = useMemo(() => (env ? optionItems(env, t, { columnName, lang }) : []), [env, t, columnName, lang]);
+  // An option name another method uses differently keeps this method's own label (M3a: qPCR's and Firth's `method`).
+  const options = useMemo(() => (env ? optionItems(env, t, { columnName, lang }).map((it) => ({ ...it, label: ownOptionLabel(t, env.method?.id || env.spec?.method, it.name) || it.label })) : []), [env, t, columnName, lang]);
   // A model's effects are named by the student's own columns ("breed x diet"), not by a letter.
   const testCtx = { methodId: env?.method?.id || null, roles: env?.spec?.roles || null, columnName, words };
 

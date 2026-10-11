@@ -16,6 +16,8 @@ const PREFIX = {
   'graphs-m3': 'graphs.',
   // the M3a report words, kept apart from report.js so the workspace's first chunk does not carry them
   'report-m3': 'report.',
+  // M3a's analysis-screen words and statistics terms, loaded with the project screen (not in the first workspace chunk)
+  'workspace-m3': 'ws.', 'terms-m3': 'term.',
 };
 
 const files = readdirSync(dir).filter((f) => f.endsWith('.js') && f !== 'index.js');
