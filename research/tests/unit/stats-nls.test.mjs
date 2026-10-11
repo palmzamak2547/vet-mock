@@ -85,8 +85,9 @@ function nlsModel(name, d) {
 }
 
 // The higher sets that do not converge from NIST's Start 1 (each refuses with no number; recorded in the notes):
-// MGH09 and Eckerle4 run out of the 200 steps; BoxBOD takes b2 to 8e47, where it no longer moves any fitted value.
-const REFUSE_FROM_START1 = ['BoxBOD', 'Eckerle4', 'MGH09'];
+// MGH09 and Eckerle4 run out of the 200 steps. BoxBOD Start 1 refused before 0.2.0 (b2 ran away to 8e47); with
+// Gauss-Newton step halving first it converges to the certified values (LRE 8.4), and is checked like the rest.
+const REFUSE_FROM_START1 = ['Eckerle4', 'MGH09'];
 
 test('the fixture declares the ten sets with their difficulty and LRE thresholds', () => {
   assert.equal(FIXTURE._fixture.family, 'nist-strd');

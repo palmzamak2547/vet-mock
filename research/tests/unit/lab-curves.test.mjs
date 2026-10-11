@@ -382,3 +382,19 @@ test('a rising curve is an EC50; groups going opposite ways are each named by th
   assert.deepEqual(both.tables.find((x) => x.id === 'potency').rows.map((r) => r[1]), ['ic50', 'ec50']);
   wordsExist('nls.doseResponse', both);
 });
+
+test('nls.equation growth over widely spaced days with a 1e8-fold rise converges to R\'s minimum (fix-stats finding 2)', () => {
+  // The grid start sits across a long narrow valley; before 0.2.0 Levenberg-Marquardt swung between overshooting and
+  // crawling steps and refused after 200. Gauss-Newton with step halving from the log-linear start reaches it.
+  const w = R.cases.growthWide.values;
+  const D = R.datasets.growthWide;
+  const g = runEquation(spec('nls.equation', { roles: { x: 'x', outcome: 'y' }, options: { equation: 'growth' } }), makeTable({ x: { kind: 'number', values: D.time }, y: { kind: 'number', values: D.count } }));
+  assert.equal(g.status, 'ok', g.values?.reason?.reasonKey);
+  close(g.values.ssResidual.value, w.rss, tol, 'residual SS');
+  close(g.values.doublingTime.value, w.doubling, tol, 'doubling time');
+  const rows = g.tables.find((t) => t.id === 'parameters').rows;
+  close(rows[0][2], w.y0, tol, 'Y0');
+  close(rows[1][2], w.k, tol, 'k');
+  close(rows[0][3], w.se[0], tol, 'SE Y0');
+  close(rows[1][3], w.se[1], tol, 'SE k');
+});

@@ -370,6 +370,21 @@ export function startEquation(equation, x, y) {
   return best ? best.p : null;
 }
 
+/** Y0 and k of the least-squares line through (x, ln y), or null when x does not vary. */
+function logLinearStart(x, y) {
+  const n = x.length;
+  const ly = y.map((v) => Math.log(v));
+  const mx = x.reduce((a, b) => a + b, 0) / n;
+  const my = ly.reduce((a, b) => a + b, 0) / n;
+  let sxy = 0;
+  let sxx = 0;
+  for (let i = 0; i < n; i++) { sxy += (x[i] - mx) * (ly[i] - my); sxx += (x[i] - mx) ** 2; }
+  if (!(sxx > 0)) return null;
+  const k = sxy / sxx;
+  const p = [Math.exp(my - k * mx), k];
+  return p.every(Number.isFinite) ? p : null;
+}
+
 // ---------------------------------------------------------------- fitting and what is reported from a fit
 
 /**
@@ -396,6 +411,16 @@ export function fitCurve(id, x, y, start = null) {
     return { ...fit, model: id, four };
   }
   const s = start || startEquation(id, x, y);
+  // Exponential growth over a wide range of x is a long, narrow valley in (Y0, k): the grid's best point can sit
+  // across it where no step gets along it (R's nls fails from there too). The straight line through log y (every
+  // y above 0) starts inside it; both starts are fitted and the converged one with the smaller RSS is kept.
+  if (!start && id === 'growth' && s && y.every((v) => v > 0)) {
+    const a = nlsFit(model, y, s);
+    const l = logLinearStart(x, y);
+    const b = l ? nlsFit(model, y, l) : null;
+    const best = [a, b].filter((f) => f && f.status === 'ok').sort((u, v) => u.rss - v.rss)[0] || a;
+    return { ...best, model: id };
+  }
   if (!s) return { status: 'invalid', reasonKey: 'lab.invalid.notConverged', p: [], rss: NaN, n: y.length, k: def.k, df: y.length - def.k, sigma: NaN, cov: null, xtxInv: null, se: null, fitted: new Float64Array(y.length), iterations: 0, offset: null, perfect: false, model: id };
   return { ...nlsFit(model, y, s), model: id };
 }

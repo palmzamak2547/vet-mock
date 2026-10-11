@@ -3,15 +3,19 @@
 // file knows only fitted values, Jacobians and sums of squares. OWNER: lab role.
 //
 // Minimises RSS(p) = sum (y_i - f_i(p))^2 with analytic Jacobians J = df/dp (n x k):
-// - Each trial step solves min || [Js; sqrt(lambda) I] u - [r; 0] || by Householder QR (never the normal
-//   equations), where Js is J with every column scaled to unit length (Marquardt's damping lambda diag(J'J)) and
-//   the step is delta = u / ||J_j||. lambda starts at 1e-3, x10 on a rejected step, /10 on an accepted one.
-// - Converged when one trial step changes every parameter by less than 1e-10 of its size and the RSS by less
-//   than 1e-12 relative (accepted or not: a step that small that cannot lower the RSS means the minimum is
-//   reached to rounding). The size of a parameter is |p_j| plus its resolution sigma / ||J_j|| (the change that
+// - Each step solves min || [Js; sqrt(lambda) I] u - [r; 0] || by Householder QR (never the normal equations),
+//   where Js is J with every column scaled to unit length (Marquardt's damping lambda diag(J'J)) and the step is
+//   delta = u / ||J_j||. Every iteration first tries the Gauss-Newton step (lambda at its floor) with R's nls step
+//   factor: halved until the RSS falls, down to 1/1024, and doubled (to at most 1) after a success. Only when no
+//   factor lowers the RSS does Levenberg-Marquardt take over: lambda starts at 1e-3, x10 on a rejected step, /10
+//   on an accepted one. Damping alone crawls along a long narrow valley (exponential growth over widely spaced
+//   x, fix-stats finding 2), swinging between an overshooting step and a tiny one until the steps run out.
+// - Converged when one step changes every parameter by less than 1e-10 of its size and the RSS by less than
+//   1e-12 relative (accepted or not: a step that small that cannot lower the RSS means the minimum is reached to
+//   rounding); for Gauss-Newton the whole step is judged, never a halved one. The size of a parameter is |p_j| plus its resolution sigma / ||J_j|| (the change that
 //   moves the fitted values by one residual SD), so a parameter whose estimate is near 0 is judged on its own
-//   scale. At most 200 trial steps; then status 'invalid', lab.invalid.notConverged. A start or a step whose
-//   fitted values are not finite is rejected like any other.
+//   scale. At most 200 steps (a Gauss-Newton step with its halvings counts once); then status 'invalid',
+//   lab.invalid.notConverged. A start or a step whose fitted values are not finite is rejected like any other.
 // - Safety net (R's nls criterion, Bates and Watts 1981): at the stopping point the Gauss-Newton increment, the
 //   projection of the residuals on the columns of J, must be below 1e-5 of the residual SD (the "relative
 //   offset"); otherwise the fit stopped at a point that is not a minimum and says notConverged, never a number.
@@ -19,8 +23,8 @@
 //   column whose remaining norm after the earlier columns falls below 1e-7 of its own norm (R's qr tolerance,
 //   used by nls for its "singular gradient") is a parameter the data cannot determine: lab.invalid.singular. A
 //   column that is exactly 0 at the stopping point but was not at the start is a parameter that ran away to where
-//   it no longer moves any fitted value (NIST BoxBOD from Start 1 takes b2 to 8e47): that fit never settled, so
-//   it says notConverged.
+//   it no longer moves any fitted value (NIST BoxBOD from Start 1 did, b2 to 8e47, under damping alone): that fit
+//   never settled, so it says notConverged.
 // - Parameter intervals est +- qt(1 - alpha/2, df) SE with df = n - k; delta-method SEs sqrt(g' V g).
 // Pinned by the NIST StRD nonlinear sets (tests/unit/stats-nls.test.mjs) and R 4.6.0 nls (stats-curves).
 import { qt, pfUpper } from './dist.js';
@@ -36,6 +40,8 @@ const LAMBDA_MIN = 1e-25;
 const LAMBDA_MAX = 1e25;
 const RANK_TOL = 1e-7;
 const OFFSET_TOL = 1e-5;
+// R's nls minFactor: the smallest Gauss-Newton step factor tried before Levenberg-Marquardt takes over
+const MIN_FACTOR = 1 / 1024;
 
 /**
  * @typedef {Object} NlsModel
@@ -198,20 +204,18 @@ export function nlsFit(model, y, start, opts = {}) {
   let lambda = LAMBDA0;
   let iter = 0;
   let converged = rss === 0;
+  let fac = 1;
   outer: while (!converged) {
     const J = model.jacobian(p);
     if (!J.every(allFinite)) break;
     const d = J.map((c) => { const s = norm2(c); return s > 0 ? s : 1; });
     const Js = J.map((c, j) => { const out = new Float64Array(n); for (let i = 0; i < n; i++) out[i] = c[i] / d[j]; return out; });
     const sigmaHat = Math.sqrt(rss / (n - k));
-    for (;;) {
-      if (iter >= maxIter) break outer;
-      iter += 1;
-      const u = lmStep(Js, r, lambda);
+    const trial = (u, scale) => {
       const delta = new Float64Array(k);
       let small = true;
       for (let j = 0; j < k; j++) {
-        delta[j] = u[j] / d[j];
+        delta[j] = (scale * u[j]) / d[j];
         if (!(Math.abs(delta[j]) <= PTOL * (Math.abs(p[j]) + sigmaHat / d[j]))) small = false;
       }
       const pNew = new Float64Array(k);
@@ -223,15 +227,43 @@ export function nlsFit(model, y, start, opts = {}) {
         fNew = model.fitted(pNew);
         if (allFinite(fNew)) { rNew = residuals(y, fNew); rssNew = sumSq(rNew); }
       }
-      if (rssNew < rss) {
-        const rel = (rss - rssNew) / rss;
-        p = pNew; f = fNew; r = rNew; rss = rssNew;
-        lambda = Math.max(lambda / 10, LAMBDA_MIN);
-        if ((small && rel <= FTOL) || rss === 0) { converged = true; break outer; }
+      return { small, pNew, fNew, rNew, rssNew };
+    };
+    // 1. Gauss-Newton with R's step factor: halved until the RSS falls (down to 1/1024), doubled after a success.
+    if (iter >= maxIter) break;
+    iter += 1;
+    const g = lmStep(Js, r, LAMBDA_MIN);
+    // the parameter test reads the whole Gauss-Newton step, never a halved one
+    let gSmall = true;
+    for (let j = 0; j < k; j++) if (!(Math.abs(g[j] / d[j]) <= PTOL * (Math.abs(p[j]) + sigmaHat / d[j]))) gSmall = false;
+    for (let f0 = gSmall ? 1 : fac; f0 >= MIN_FACTOR; f0 /= 2) {
+      const t = trial(g, f0);
+      if (gSmall && Number.isFinite(t.rssNew) && Math.abs(t.rssNew - rss) <= FTOL * rss) {
+        if (t.rssNew < rss) { p = t.pNew; f = t.fNew; r = t.rNew; rss = t.rssNew; }
+        converged = true;
+        break outer;
+      }
+      if (t.rssNew < rss) {
+        p = t.pNew; f = t.fNew; r = t.rNew; rss = t.rssNew;
+        fac = Math.min(1, 2 * f0);
+        if (rss === 0) { converged = true; break outer; }
         continue outer;
       }
-      // Rejected: if even this step was negligible and the RSS cannot move, the minimum is reached.
-      if (small && Number.isFinite(rssNew) && Math.abs(rssNew - rss) <= FTOL * rss) { converged = true; break outer; }
+    }
+    fac = 1;
+    // 2. Levenberg-Marquardt when no factor of the Gauss-Newton step lowers the RSS.
+    for (;;) {
+      if (iter >= maxIter) break outer;
+      iter += 1;
+      const t = trial(lmStep(Js, r, lambda), 1);
+      if (t.rssNew < rss) {
+        const rel = (rss - t.rssNew) / rss;
+        p = t.pNew; f = t.fNew; r = t.rNew; rss = t.rssNew;
+        lambda = Math.max(lambda / 10, LAMBDA_MIN);
+        if ((t.small && rel <= FTOL) || rss === 0) { converged = true; break outer; }
+        continue outer;
+      }
+      if (t.small && Number.isFinite(t.rssNew) && Math.abs(t.rssNew - rss) <= FTOL * rss) { converged = true; break outer; }
       lambda *= 10;
       if (lambda > LAMBDA_MAX) break outer;
     }

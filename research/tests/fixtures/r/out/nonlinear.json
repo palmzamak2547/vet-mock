@@ -20,7 +20,7 @@
    "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
   }
  },
- "notes": "Every fit runs to the least-squares minimum (nls.control tol 1e-10, 1e-9 or 1e-8, the tightest each model reaches with central differences), not to nls's default tol of 1e-5, which stops a Gauss-Newton step short by up to 5e-5 relative. Gauss-Newton covariance (vcov.nls), as NIST StRD and Prism's asymptotic standard errors; drc's numerical-Hessian SEs differ by about 1% and are not the pin. A zero dose sits on an asymptote (log 0 = -Inf), and the gradient's u (L - e) term is 0 there. Interpolated concentrations cover the curve's uncertainty only, not the unknown's own measurement error. curves, decay and growth are made-up (ข้อมูลสมมุติ / made-up data).",
+ "notes": "Every fit runs to the least-squares minimum (nls.control tol 1e-10, 1e-9 or 1e-8, the tightest each model reaches with central differences), not to nls's default tol of 1e-5, which stops a Gauss-Newton step short by up to 5e-5 relative. Gauss-Newton covariance (vcov.nls), as NIST StRD and Prism's asymptotic standard errors; drc's numerical-Hessian SEs differ by about 1% and are not the pin. A zero dose sits on an asymptote (log 0 = -Inf), and the gradient's u (L - e) term is 0 there. Interpolated concentrations cover the curve's uncertainty only, not the unknown's own measurement error. curves, decay, growth and growthWide are made-up (ข้อมูลสมมุติ / made-up data).",
  "datasets": {
   "ryegrass": {
    "conc": [0, 0, 0, 0, 0, 0, 0.93999999999999995, 0.93999999999999995, 0.93999999999999995, 1.8799999999999999, 1.8799999999999999, 1.8799999999999999, 3.75, 3.75, 3.75, 7.5, 7.5, 7.5, 15, 15, 15, 30, 30, 30],
@@ -37,6 +37,10 @@
   "growth": {
    "time": [0, 2, 4, 6, 8, 10],
    "count": [1.1000000000000001, 2, 4.2999999999999998, 8.0999999999999996, 16.899999999999999, 33.200000000000003]
+  },
+  "growthWide": {
+   "time": [0, 30, 60, 90, 120, 180, 365],
+   "count": [2.8499999999999996, 14.117320571564905, 57.243780231084848, 283.55396359664377, 1149.772061454295, 25524.714371862465, 240280847.30910537]
   },
   "curves": {
    "arm": ["control", "control", "control", "control", "control", "control", "control", "control", "control", "control", "control", "control", "control", "control", "control", "control", "control", "control", "control", "control", "control", "drug", "drug", "drug", "drug", "drug", "drug", "drug", "drug", "drug", "drug", "drug", "drug", "drug", "drug", "drug", "drug", "drug", "drug", "drug", "drug", "drug"],
@@ -159,6 +163,19 @@
     "doubling": 2.0087425011582809,
     "doublingLower": 1.9499366524376149,
     "doublingUpper": 2.0712055562836658
+   }
+  },
+  "growthWide": {
+   "call": "nls(count ~ y0 * exp(k * time), growthWide)",
+   "tol": "iterative",
+   "data": "growthWide",
+   "values": {
+    "y0": 3.4691333185081139,
+    "k": 0.049461408755172548,
+    "se": [0.01956753955476111, 1.5453340247295636e-05],
+    "rss": 26732.666838126344,
+    "df": 5,
+    "doubling": 14.013898876009222
    }
   },
   "compare": {

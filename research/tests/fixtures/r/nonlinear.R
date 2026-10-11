@@ -132,6 +132,17 @@ cases[["growth"]] <- case("nls(count ~ y0 * exp(k * time), growth)", "iterative"
        rss = vg$rss, df = vg$df, r2 = r2(fg, growth$count),
        doubling = log(2) / kg, doublingLower = log(2) / vg$upper[["k"]], doublingUpper = log(2) / vg$lower[["k"]]), data = "growth")
 
+# exponential growth over widely spaced days with a 1e8-fold rise (fix-stats finding 2): made-up, 3 exp(0.05 x) with
+# every other point 5% low or high. The least-squares minimum is a long narrow valley; nls from the true values
+# reaches it in a few Gauss-Newton steps, the engine before 0.2.0 refused it.
+gw <- data.frame(time = c(0, 30, 60, 90, 120, 180, 365))
+gw$count <- 3 * exp(0.05 * gw$time) * rep(c(0.95, 1.05), length.out = nrow(gw))
+fw <- tight(function(ct) nls(count ~ y0 * exp(k * time), data = gw, start = list(y0 = 3, k = 0.05), control = ct))
+vw <- vfit(fw)
+cases[["growthWide"]] <- case("nls(count ~ y0 * exp(k * time), growthWide)", "iterative",
+  list(y0 = coef(fw)[["y0"]], k = coef(fw)[["k"]], se = arr(unname(vw$se)), rss = vw$rss, df = vw$df,
+       doubling = log(2) / coef(fw)[["k"]]), data = "growthWide")
+
 # Curve comparison on `curves`: separate 4PLs (one residual variance), one curve for both, and a shared EC50
 cv <- curves; cv$arm <- factor(cv$arm, levels = c("control", "drug")); cv$a <- as.integer(cv$arm); n <- nrow(cv)
 fs <- tight(function(ct) nls(resp ~ c[a] + (d[a] - c[a]) / (1 + exp(b[a] * (log(dose) - e[a]))), data = cv,
@@ -158,5 +169,6 @@ rs_emit("nonlinear", c("nls.fourPL", "nls.doseResponse", "nls.equation"), cases,
                   puromycin = list(conc = arr(pur$conc), rate = arr(pur$rate)),
                   decay = list(time = arr(decay$time), conc = arr(decay$conc)),
                   growth = list(time = arr(growth$time), count = arr(growth$count)),
+                  growthWide = list(time = arr(gw$time), count = arr(gw$count)),
                   curves = list(arm = arr(curves$arm), dose = arr(curves$dose), resp = arr(curves$resp))),
-  notes = "Every fit runs to the least-squares minimum (nls.control tol 1e-10, 1e-9 or 1e-8, the tightest each model reaches with central differences), not to nls's default tol of 1e-5, which stops a Gauss-Newton step short by up to 5e-5 relative. Gauss-Newton covariance (vcov.nls), as NIST StRD and Prism's asymptotic standard errors; drc's numerical-Hessian SEs differ by about 1% and are not the pin. A zero dose sits on an asymptote (log 0 = -Inf), and the gradient's u (L - e) term is 0 there. Interpolated concentrations cover the curve's uncertainty only, not the unknown's own measurement error. curves, decay and growth are made-up (ข้อมูลสมมุติ / made-up data).")
+  notes = "Every fit runs to the least-squares minimum (nls.control tol 1e-10, 1e-9 or 1e-8, the tightest each model reaches with central differences), not to nls's default tol of 1e-5, which stops a Gauss-Newton step short by up to 5e-5 relative. Gauss-Newton covariance (vcov.nls), as NIST StRD and Prism's asymptotic standard errors; drc's numerical-Hessian SEs differ by about 1% and are not the pin. A zero dose sits on an asymptote (log 0 = -Inf), and the gradient's u (L - e) term is 0 there. Interpolated concentrations cover the curve's uncertainty only, not the unknown's own measurement error. curves, decay, growth and growthWide are made-up (ข้อมูลสมมุติ / made-up data).")

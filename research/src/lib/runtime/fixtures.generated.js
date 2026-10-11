@@ -1186,8 +1186,8 @@ export const FIXTURES = [
     "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
    }
   ],
-  "sha": "e7d463f11aa2d8e6",
-  "lastPassed": "2026-10-11"
+  "sha": "add6b11a105d891f",
+  "lastPassed": "2026-10-12"
  },
  {
   "file": "r/out/normality.json",
