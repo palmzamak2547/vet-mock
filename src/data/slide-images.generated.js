@@ -3800,9 +3800,6 @@ export const SLIDE_IMAGES = {
   "vet-neuroanat--neuroanat--basal-nuclei--claustrum": [
     "/figures/vet-neuroanat/neuroanat--basal-nuclei/p13-0.webp"
   ],
-  "vet-neuroanat--neuroanat--diencephalon--แผนผัง-diencephalon-สไลด์เติมคำ": [
-    "/figures/vet-neuroanat/neuroanat--diencephalon/p5-0.webp"
-  ],
   "vet-neuroanat--neuroanat--limbic-system-nonolfactory-rhinencephalon--ทำไมถึงเรียกว่า-limbic-system": [
     "/figures/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p2-0.webp",
     "/figures/vet-neuroanat/neuroanat--limbic-system-nonolfactory-rhinencephalon/p2-1.webp",
@@ -4237,29 +4234,19 @@ export const SLIDE_IMAGES = {
     "/figures/vet-physio-lab-1/physio-lab-1--pbl-blood-system/p2-1.webp"
   ],
   "vet-physio-lab-1--physio-lab-1--pbl-case-6-endocrinology--โจทย์เคส-signalment-และอาการที่เจ้าของแจ้ง": [
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-0.webp",
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-1.webp",
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-2.webp"
+    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-1.webp"
   ],
   "vet-physio-lab-1--physio-lab-1--pbl-case-6-endocrinology--physical-examination": [
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-0.webp",
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-1.webp",
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-2.webp"
+    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-1.webp"
   ],
   "vet-physio-lab-1--physio-lab-1--pbl-case-6-endocrinology--ผล-cbc-serum-chemistry-radiograph-และ-ultrasonography": [
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-0.webp",
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-1.webp",
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-2.webp"
+    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-1.webp"
   ],
   "vet-physio-lab-1--physio-lab-1--pbl-case-6-endocrinology--low-dose-dexamethasone-suppression-test-lddst": [
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-0.webp",
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-1.webp",
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-2.webp"
+    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-1.webp"
   ],
   "vet-physio-lab-1--physio-lab-1--pbl-case-6-endocrinology--การรักษา-และคำถามท้ายเคสที่สไลด์ไม่ได้เฉลย": [
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-0.webp",
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-1.webp",
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-2.webp"
+    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-1.webp"
   ],
   "vet-physio-lab-1--physio-lab-1--pbl-neuro-down-frenchie--โจทย์-pbl-ตัวเคสและประวัติ": [
     "/figures/vet-physio-lab-1/physio-lab-1--pbl-neuro-down-frenchie/p1-0.webp"
@@ -4504,6 +4491,9 @@ export const SLIDE_IMAGES = {
   ],
   "vet-histo--histo--bone-marrow--ความต่างหลักระหว่างเซลล์ต้นกำเนิดของ-erythropoiesis-กับ-granulop": [
     "/figures/vet-histo/histo--bone-marrow/p39-0.webp"
+  ],
+  "vet-neuroanat--neuroanat--diencephalon--obesity-และ-narcolepsy": [
+    "/figures/vet-neuroanat/neuroanat--diencephalon/p5-0.webp"
   ]
 };
 

@@ -48,7 +48,9 @@ const WRITE = process.argv.includes('--write');
 // ── Figures placed by hand ───────────────────────────────────────────
 // Page matching files a figure under every section whose source cites its
 // page. Some figures land nowhere because their section was cut (B35, 2026-09:
-// 11 keys, 24 figures), and some are not teaching figures at all. Each entry
+// 11 keys, 24 figures), some land under the wrong section because the PDF
+// matched by name was a handout rather than the deck the note follows, and
+// some are not teaching figures at all. Each entry
 // below is a content call made from the words printed on the figure, or the
 // slide text the note records, and `label` says which. The table is applied
 // after every extraction, so a re-run cannot undo it, and `--rekey` applies it
@@ -92,6 +94,11 @@ const REKEYS = [
   { figure: '/figures/vet-histo/histo--bone-marrow/p39-1.webp', drop: 'blank dark vignette from the slide template, byte-identical to 33 other figure files' },
   { figure: '/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p2-0.webp', drop: 'a web text snippet pasted onto the source copy, not part of the PBL handout; it names the diagnosis the case leaves open' },
   { figure: '/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p2-1.webp', drop: 'a web text snippet pasted onto the source copy, not part of the PBL handout; it names the diagnosis the case leaves open' },
+  // Live sections showing the wrong picture, found while doing the above.
+  { figure: '/figures/vet-neuroanat/neuroanat--diencephalon/p5-0.webp', to: ['neuroanat--diencephalon', 'Obesity และ Narcolepsy'],
+    label: 'printed on the figure: Obesity, Narcolepsy, lateral hypothalamic area, paraventricular nucleus; it came from handout p.5, not the fill-in diagram on deck p.5' },
+  { figure: '/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-0.webp', drop: 'a web page snippet (Clinical Findings of Endocrine Diseases in Animals) pasted onto the source copy; it names the diagnosis the case leaves open' },
+  { figure: '/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-2.webp', drop: 'a web text snippet on diabetes symptoms pasted onto the source copy, not part of the PBL handout' },
 ];
 
 const MAP_FILE = 'src/data/slide-images.generated.js';

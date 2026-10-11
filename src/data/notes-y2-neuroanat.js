@@ -568,6 +568,9 @@ export const NOTES_Y2_NEUROANAT = {
             ]
           },
           {
+            "text": "รูปที่แนบในหัวข้อนี้พิมพ์คำว่า Obesity และ Narcolepsy ไว้มุมล่าง ชี้ชื่อ lateral hypothalamic area, supraoptic nucleus, paraventricular nucleus, periventricular zone, IIIrd ventricle, optic tract, ant. pituitary และ post. pituitary และมีกล่อง Inputs include: nucleus of the solitary tract, reticular formation, retina กับ Outputs: to autonomic systems"
+          },
+          {
             "callout": "สไลด์หน้านี้ต่อจากตาราง hypothalamus และมีแค่สองหัวข้อนี้กับรูป ไม่ได้เขียนกลไก ไม่ได้เขียนว่าเชื่อมกับนิวเคลียสตัวไหน สไลด์ไม่ได้บอก ตรงนี้ต้องฟังจากที่อาจารย์พูดในคาบ",
             "kind": "warn"
           }
