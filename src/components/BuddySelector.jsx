@@ -41,7 +41,7 @@ export default function BuddySelector({ onSelect, selectedId }) {
     <div style={{ margin: 'var(--space-3) 0', width: '100%' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
         <span style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--clr-ink)' }}>
-          🐾 เลือกคู่หูอ่านหนังสือ (Study Buddy)
+          🐾 เลือกคู่หูอ่านหนังสือ
         </span>
         <span style={{ fontSize: '0.75rem', color: 'var(--clr-sage-text)' }}>
           อ่านด้วยกัน {formatBuddyTime(statsMap[activeId]?.minutes || 0)}
@@ -65,8 +65,10 @@ export default function BuddySelector({ onSelect, selectedId }) {
               key={mascot.id}
               type="button"
               onClick={() => handlePick(mascot.id)}
+              aria-pressed={isSelected}
               style={{
                 display: 'inline-flex',
+                minHeight: 'var(--touch-min)',
                 alignItems: 'center',
                 gap: '8px',
                 padding: '6px 12px',

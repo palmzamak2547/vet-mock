@@ -44,6 +44,8 @@ export default function PomodoroView({ goHome }) {
     const picked = getPickedBuddy();
     return picked && SQUAD_MASCOTS[picked] ? picked : POMODORO_BUDDY;
   });
+  // The chick keeps its hatching story; a buddy the student picked is named instead.
+  const buddyName = selectedBuddyId === POMODORO_BUDDY ? null : SQUAD_MASCOTS[selectedBuddyId]?.nameTh || null;
   const [showCelebration, setShowCelebration] = useState(false);
   // The celebration is a companion moment: it follows the same device
   // preference as Mochi, and reduced motion gets a still picture.
@@ -194,13 +196,13 @@ export default function PomodoroView({ goHome }) {
             fontSize: 14,
           }}
         >
-          💔 ลูกไก่หนีไปแล้ว — อยู่ในหน้านี้ตลอด session นะ
+          💔 {buddyName || 'ลูกไก่'}หนีไปแล้ว — อยู่ในหน้านี้ตลอด session นะ
         </div>
       )}
 
       {/* Timer */}
       <div style={{ flex: '1 0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <PomodoroTimer config={config} avatar={buddyAvatar} onSessionComplete={onSessionComplete} />
+        <PomodoroTimer config={config} avatar={buddyAvatar} buddyName={buddyName} onSessionComplete={onSessionComplete} />
       </div>
 
       {/* Stats panel */}
@@ -320,7 +322,7 @@ export default function PomodoroView({ goHome }) {
       {/* Hint footer */}
       <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center', padding: '4px 8px' }}>
         {config.strictFocus !== false
-          ? 'Strict Mode: เปลี่ยนแท็บ พับหน้าต่าง หรือล็อกหน้าจอเกิน 5 วินาที ลูกไก่จะหนี'
+          ? `Strict Mode: เปลี่ยนแท็บ พับหน้าต่าง หรือล็อกหน้าจอเกิน 5 วินาที ${buddyName || 'ลูกไก่'}จะหนี`
           : 'Relaxed Mode: สลับแอปอ่าน PDF/สรุปได้ โดยไม่พัง session'}
       </div>
 

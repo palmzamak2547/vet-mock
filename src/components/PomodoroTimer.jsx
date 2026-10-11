@@ -91,7 +91,7 @@ function formatClock(ms) {
 // (statusLabel lives in lib/pomodoro-run.js: the break lines used to be the
 // literals "5 นาที" / "15 นาที" whatever the student had set.)
 
-export default function PomodoroTimer({ config, avatar, onSessionComplete }) {
+export default function PomodoroTimer({ config, avatar, buddyName, onSessionComplete }) {
   const reduced = usePrefersReducedMotion();
 
   // A session that was running when the student opened another screen comes
@@ -315,7 +315,7 @@ export default function PomodoroTimer({ config, avatar, onSessionComplete }) {
   const RADIUS = (RING_SIZE - STROKE) / 2;
   const CIRC = 2 * Math.PI * RADIUS;
   const dashOffset = CIRC * (1 - Math.max(0, Math.min(1, progress)));
-  const status = statusLabel(state, config?.strictFocus !== false, runMin);
+  const status = statusLabel(state, config?.strictFocus !== false, runMin, buddyName);
 
   // Ring color reflects state
   const ringColor =

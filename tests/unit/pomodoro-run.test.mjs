@@ -288,3 +288,12 @@ test('a stored run that cannot be read is ignored', () => {
   assert.equal(run.loadRun(), null);
   assert.equal(clock(mount(props)), '25:00');
 });
+
+test('statusLabel names a picked buddy and keeps the hatching chick otherwise', () => {
+  assert.match(run.statusLabel('idle', true), /ฟักลูกไก่/);
+  assert.match(run.statusLabel('idle', true, 25, 'พอร์กี้'), /โฟกัสกับพอร์กี้/);
+  assert.doesNotMatch(run.statusLabel('idle', true, 25, 'พอร์กี้'), /ไก่/);
+  assert.match(run.statusLabel('focus', true, 25, 'พอร์กี้'), /พอร์กี้จะหนี/);
+  assert.equal(run.statusLabel('failed', true, 25, 'มีมี่'), 'มีมี่หนีไปแล้ว! เริ่มใหม่อีกครั้ง');
+  assert.equal(run.statusLabel('failed'), 'ลูกไก่หนีไปแล้ว! เริ่มใหม่อีกครั้ง');
+});

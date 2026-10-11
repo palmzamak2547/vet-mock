@@ -22,7 +22,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const load = (rel) => import(pathToFileURL(path.join(ROOT, rel)).href);
 
 const { OG_COVERS, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } = await load('src/data/og-covers.js');
-const { APP_VIEW_ROUTES } = await load('src/lib/view-route.js');
+const { APP_VIEW_ROUTES, APP_PATH_ALIASES } = await load('src/lib/view-route.js');
 
 const errors = [];
 const warnings = [];
@@ -77,7 +77,8 @@ for (const c of OG_COVERS) {
 }
 
 // ── covers nobody can reach ──────────────────────────────────────
-const routeSet = new Set(Object.values(APP_VIEW_ROUTES));
+// An alias (an old address that still opens its view) is a real way in, so its cover counts.
+const routeSet = new Set([...Object.values(APP_VIEW_ROUTES), ...Object.keys(APP_PATH_ALIASES || {})]);
 for (const c of OG_COVERS) {
   if (c.route.startsWith('/app/') && !routeSet.has(c.route)) {
     warn(c.id, `route ${c.route} is not in APP_VIEW_ROUTES — the shell would be written but nothing links to it`);
