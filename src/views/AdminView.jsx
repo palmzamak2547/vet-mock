@@ -429,7 +429,9 @@ export default function AdminView({ goHome, user, onOpenQuestion, onlineCount = 
             : gate === 'error' ? 'ตรวจการเชื่อมต่ออินเทอร์เน็ต แล้วลองตรวจสิทธิ์อีกครั้ง'
             : gate === 'signedout' ? 'ยังไม่ได้ล็อกอิน หน้านี้ตรวจสิทธิ์จากบัญชี ไม่ใช่จากเครื่อง'
               : 'บัญชีที่ล็อกอินอยู่ไม่มีสิทธิ์ ข้อมูลไม่ได้ถูกส่งมาที่เครื่องนี้'}</p>
-        {gate === 'error' && <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => setGateAttempt((n) => n + 1)}>ลองอีกครั้ง</button>}
+        {/* Stays mounted while a retry runs: unmounting the pressed button drops keyboard focus to the page.
+            aria-disabled, not disabled, so the button also keeps focus while it waits. */}
+        {(gate === 'error' || (gate === 'checking' && gateAttempt > 0)) && <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" aria-disabled={gate === 'checking' ? 'true' : undefined} onClick={() => { if (gate === 'error') setGateAttempt((n) => n + 1); }}>ลองอีกครั้ง</button>}
         <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goHome}>กลับหน้าแรก</button>
       </div>
     );

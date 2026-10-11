@@ -62,6 +62,25 @@ test('a failed role check shows a retry and recovers without fetching reports be
   assert.match(textOf(panel.tree), /สถิติทั้งหมดของ VetMock/);
 });
 
+test('the retry control stays in place while a retry runs, so keyboard focus is not dropped', async t => {
+  const { state, calls, open } = setup(t);
+  state.gate = async () => ({ data: null, error: { code: 'FETCH_ERROR', message: 'Failed to fetch' } });
+  const panel = open(); await settle(panel);
+  const askedRoles = () => calls.filter(c => c.name === 'is_admin').length;
+  let answer;
+  state.gate = () => new Promise(resolve => { answer = resolve; });
+  button(panel, 'ลองอีกครั้ง').props.onClick(); await settle(panel, 1);
+  assert.match(textOf(panel.tree), /กำลังตรวจสิทธิ์/);
+  const waiting = button(panel, 'ลองอีกครั้ง');
+  assert.ok(waiting, 'unmounting the pressed button would drop focus to the page');
+  assert.equal(waiting.props['aria-disabled'], 'true');
+  waiting.props.onClick(); await settle(panel, 1);
+  assert.equal(askedRoles(), 2, 'a press while the check runs asks nothing more');
+  answer({ data: null, error: { code: 'FETCH_ERROR', message: 'Failed to fetch' } }); await settle(panel);
+  assert.match(textOf(panel.tree), /ตรวจสิทธิ์ไม่สำเร็จ/);
+  assert.equal(button(panel, 'ลองอีกครั้ง').props['aria-disabled'], undefined, 'usable again after a second failure');
+});
+
 test('denied users stay locked and a retired role response cannot reopen the page', async t => {
   const { state, calls, open } = setup(t);
   let answerOld;
@@ -93,7 +112,9 @@ test('partial bank failure preserves available questions and offers an explicit 
   assert.doesNotMatch(textOf(panel.tree), /ไม่พบใน build นี้/);
   const failedRow = findAll(panel.tree, n => n.type === 'tr' && textOf(n).includes('123'))[0];
   failedRow.props.onClick(); panel.flush();
-  assert.doesNotMatch(textOf(panel.tree), /อาจถูกลบหรือย้าย id/);
+  const detailHeading = findAll(panel.tree, n => n.type === 'h3').map(textOf);
+  assert.deepEqual(detailHeading, ['โหลดข้อความโจทย์ไม่สำเร็จ'], 'the opened detail says the text failed to load');
+  assert.doesNotMatch(detailHeading.join(' '), /ไม่พบใน build นี้/, 'and does not blame missing content');
   await button(panel, 'โหลดหน้าใหม่').props.onClick();
   assert.equal(state.reloads, 0, 'cancel preserves the current page');
   state.confirm = async () => true;
