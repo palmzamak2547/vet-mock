@@ -641,6 +641,10 @@ export const NOTES_85_SWINE_CLINIC = {
         "source": "Swine Med mid น.6",
         "body": [
           {
+            "callout": "หัวข้อนี้รุ่นพี่เขียนรวมไว้ว่า type A และ D แต่ในคาบ Swine Medicine II (4) ปี 2569 อาจารย์แยกว่า pneumonic pasteurellosis **ส่วนใหญ่เป็น type A** ส่วน **type D เป็นของ atrophic rhinitis (AR)** และย้ำว่าอย่าจำสลับกัน (นาที 38:17-38:30)",
+            "kind": "warn"
+          },
+          {
             "sub": "Pathogenesis",
             "body": [
               {

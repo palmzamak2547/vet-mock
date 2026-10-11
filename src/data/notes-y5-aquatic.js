@@ -5500,6 +5500,10 @@ export const NOTES_Y5_AQUATIC = {
                       "2. **mesencephalon** กำกับว่า (vision)",
                       "3. **telencephalon** กำกับว่า (smell)"
                     ]
+                  },
+                  {
+                    "callout": "ข้อ 1 บนสไลด์รวม medulla ไว้กับ metencephalon แต่เด็ค Metencephalon ของวิชา neuroanatomy ปี 2 (หน้า 2) แบ่งว่า metencephalon คือ **cerebellum (dorsal) กับ pons (ventral)** ส่วน **medulla oblongata อยู่ใน myelencephalon**",
+                    "kind": "warn"
                   }
                 ]
               }
