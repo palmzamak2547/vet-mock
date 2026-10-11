@@ -232,136 +232,499 @@ function buildStandardClips(hasTail = false, defaultHeadY = 0.56, defaultArmAngl
 }
 
 // -------------------------------------------------------------
-// 1. Moocha (มูชา) — Holstein Calf
+// Pop Mart / Art Toy Sculpting Helpers
+// -------------------------------------------------------------
+function createChibiHeadGeometry() {
+  const pts = [
+    new THREE.Vector2(0.001, -0.22),
+    new THREE.Vector2(0.09, -0.215),
+    new THREE.Vector2(0.18, -0.19),
+    new THREE.Vector2(0.25, -0.14),
+    new THREE.Vector2(0.285, -0.05), // Chubby cheek apex
+    new THREE.Vector2(0.282, 0.03),  // Eye line
+    new THREE.Vector2(0.262, 0.11),  // Temple
+    new THREE.Vector2(0.22, 0.18),   // Forehead
+    new THREE.Vector2(0.15, 0.23),   // Crown
+    new THREE.Vector2(0.001, 0.245), // Top
+  ];
+  const geo = new THREE.LatheGeometry(pts, 48);
+  geo.computeVertexNormals();
+  return geo;
+}
+
+function createChibiTorsoGeometry() {
+  const pts = [
+    new THREE.Vector2(0.001, -0.18),
+    new THREE.Vector2(0.10, -0.175),
+    new THREE.Vector2(0.19, -0.14),
+    new THREE.Vector2(0.24, -0.06),  // Potbelly curve
+    new THREE.Vector2(0.242, 0.01),  // Chubby waist
+    new THREE.Vector2(0.22, 0.08),   // Chest
+    new THREE.Vector2(0.175, 0.15),  // Shoulders
+    new THREE.Vector2(0.13, 0.175),  // Neck
+    new THREE.Vector2(0.001, 0.18),
+  ];
+  const geo = new THREE.LatheGeometry(pts, 40);
+  geo.computeVertexNormals();
+  return geo;
+}
+
+function addPopMartEyes(headGroup, eyeY = 0.025, eyeZ = 0.25, eyeSpacing = 0.118) {
+  // 3D Glossy Acrylic Eyeball (Black resin)
+  const eyeBallGeo = new THREE.SphereGeometry(0.044, 32, 24);
+  eyeBallGeo.scale(1.0, 1.15, 0.5);
+  const eyeBallMat = new THREE.MeshStandardMaterial({
+    color: 0x0a0f1d,
+    roughness: 0.03,
+    metalness: 0.05,
+  });
+
+  // Dual-Layer 3D Sparkle / Catchlights
+  const shineBigGeo = new THREE.SphereGeometry(0.014, 16, 16);
+  const shineMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const shineSmallGeo = new THREE.SphereGeometry(0.0068, 12, 12);
+
+  // Left Eye
+  const eyeLGroup = new THREE.Group();
+  eyeLGroup.name = 'Eye_L';
+  eyeLGroup.position.set(-eyeSpacing, eyeY, eyeZ);
+
+  const ballL = new THREE.Mesh(eyeBallGeo, eyeBallMat);
+  eyeLGroup.add(ballL);
+
+  const shineBigL = new THREE.Mesh(shineBigGeo, shineMat);
+  shineBigL.position.set(0.014, 0.015, 0.018);
+  eyeLGroup.add(shineBigL);
+
+  const shineSmallL = new THREE.Mesh(shineSmallGeo, shineMat);
+  shineSmallL.position.set(-0.012, -0.014, 0.018);
+  eyeLGroup.add(shineSmallL);
+
+  // Right Eye
+  const eyeRGroup = new THREE.Group();
+  eyeRGroup.name = 'Eye_R';
+  eyeRGroup.position.set(eyeSpacing, eyeY, eyeZ);
+
+  const ballR = new THREE.Mesh(eyeBallGeo, eyeBallMat);
+  eyeRGroup.add(ballR);
+
+  const shineBigR = new THREE.Mesh(shineBigGeo, shineMat);
+  shineBigR.position.set(0.014, 0.015, 0.018);
+  eyeRGroup.add(shineBigR);
+
+  const shineSmallR = new THREE.Mesh(shineSmallGeo, shineMat);
+  shineSmallR.position.set(-0.012, -0.014, 0.018);
+  eyeRGroup.add(shineSmallR);
+
+  headGroup.add(eyeLGroup, eyeRGroup);
+
+  // 3D Soft Cheeks Blush
+  const blushGeo = new THREE.SphereGeometry(0.052, 24, 16);
+  blushGeo.scale(1.3, 0.7, 0.25);
+  const blushMat = new THREE.MeshStandardMaterial({
+    color: 0xf472b6,
+    roughness: 0.7,
+    transparent: true,
+    opacity: 0.65,
+  });
+  const bL = new THREE.Mesh(blushGeo, blushMat);
+  bL.name = 'Blush_L';
+  bL.position.set(-eyeSpacing - 0.068, eyeY - 0.055, eyeZ - 0.02);
+  bL.rotation.y = -0.35;
+  bL.rotation.z = -0.15;
+
+  const bR = new THREE.Mesh(blushGeo, blushMat);
+  bR.name = 'Blush_R';
+  bR.position.set(eyeSpacing + 0.068, eyeY - 0.055, eyeZ - 0.02);
+  bR.rotation.y = 0.35;
+  bR.rotation.z = 0.15;
+
+  headGroup.add(bL, bR);
+}
+
+function buildCurvedHorn(isLeft = true) {
+  const sign = isLeft ? -1 : 1;
+  const curve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(sign * 0.025, 0.035, 0.01),
+    new THREE.Vector3(sign * 0.06, 0.075, 0.018),
+    new THREE.Vector3(sign * 0.085, 0.105, 0.012),
+  ]);
+  const tubeGeo = new THREE.TubeGeometry(curve, 20, 0.025, 16, false);
+  const hornMat = clayMat(0xffe89e, { roughness: 0.28, metalness: 0.05 });
+  const hornMesh = new THREE.Mesh(tubeGeo, hornMat);
+
+  const tipGeo = new THREE.SphereGeometry(0.024, 16, 12);
+  const tipMesh = new THREE.Mesh(tipGeo, hornMat);
+  tipMesh.position.set(sign * 0.085, 0.105, 0.012);
+  hornMesh.add(tipMesh);
+
+  return hornMesh;
+}
+
+function buildCalfEar(isLeft = true) {
+  const earGroup = new THREE.Group();
+  const sign = isLeft ? -1 : 1;
+
+  const earGeo = new THREE.SphereGeometry(0.088, 24, 16);
+  earGeo.scale(1.2, 0.6, 0.35);
+  const earColor = isLeft ? 0x1e1b2e : 0xfcfcfc;
+  const earMat = clayMat(earColor, { roughness: 0.4 });
+  const earMesh = new THREE.Mesh(earGeo, earMat);
+  earGroup.add(earMesh);
+
+  const innerGeo = new THREE.SphereGeometry(0.068, 20, 14);
+  innerGeo.scale(1.1, 0.5, 0.25);
+  const innerMat = clayMat(0xfbcfe8, { roughness: 0.65 });
+  const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+  innerMesh.position.set(0, 0, 0.02);
+  earGroup.add(innerMesh);
+
+  earGroup.rotation.z = sign * 0.55;
+  earGroup.rotation.y = sign * 0.25;
+  earGroup.rotation.x = 0.1;
+
+  return earGroup;
+}
+
+function buildWellingtonBoot() {
+  const bootGroup = new THREE.Group();
+  const bootColor = 0x2d6a4f; // Emerald green satin rubber
+  const bootMat = clayMat(bootColor, { roughness: 0.32 });
+  const soleMat = clayMat(0x1b4332, { roughness: 0.45 });
+
+  // Shaft
+  const shaftGeo = new THREE.CylinderGeometry(0.062, 0.065, 0.13, 24);
+  const shaft = new THREE.Mesh(shaftGeo, bootMat);
+  shaft.position.y = 0.065;
+  bootGroup.add(shaft);
+
+  // Top Collar Rim (Beveled Cuff)
+  const collarGeo = new THREE.TorusGeometry(0.063, 0.01, 12, 24);
+  collarGeo.rotateX(Math.PI / 2);
+  const collar = new THREE.Mesh(collarGeo, bootMat);
+  collar.position.y = 0.125;
+  bootGroup.add(collar);
+
+  // Puffy Rounded Toe Box
+  const toeGeo = new THREE.SphereGeometry(0.066, 24, 16);
+  toeGeo.scale(1.05, 0.85, 1.35);
+  const toe = new THREE.Mesh(toeGeo, bootMat);
+  toe.position.set(0, 0.04, 0.05);
+  bootGroup.add(toe);
+
+  // Thick Outsole Sole
+  const soleGeo = new THREE.CylinderGeometry(0.072, 0.075, 0.024, 24);
+  soleGeo.scale(1.0, 1.0, 1.45);
+  const sole = new THREE.Mesh(soleGeo, soleMat);
+  sole.position.set(0, 0.012, 0.04);
+  bootGroup.add(sole);
+
+  return bootGroup;
+}
+
+// -------------------------------------------------------------
+// 1. Moocha (มูชา) — Holstein Calf (Pop Mart / Art Toy Edition)
 // -------------------------------------------------------------
 function buildMoocha() {
   const root = new THREE.Group();
   root.name = 'Mascot_Root';
 
-  // Torso / Overalls
-  const bodyGeo = new THREE.CylinderGeometry(0.18, 0.22, 0.32, 24);
-  const bodyMesh = new THREE.Mesh(bodyGeo, clayMat(0x4a7c9b));
-  bodyMesh.name = 'Body';
-  bodyMesh.position.y = 0.32;
-  root.add(bodyMesh);
+  // Body Group
+  const bodyGroup = new THREE.Group();
+  bodyGroup.name = 'Body';
+  bodyGroup.position.y = 0.32;
+  root.add(bodyGroup);
 
-  // Overalls straps
-  const strapGeo = new THREE.BoxGeometry(0.04, 0.30, 0.02);
-  const strapMat = clayMat(0x365c75);
-  const strapL = new THREE.Mesh(strapGeo, strapMat);
-  strapL.position.set(-0.11, 0.34, 0.17);
-  const strapR = new THREE.Mesh(strapGeo, strapMat);
-  strapR.position.set(0.11, 0.34, 0.17);
-  bodyMesh.add(strapL, strapR);
+  // Torso Mesh (White Satin Calf Skin)
+  const torsoGeo = createChibiTorsoGeometry();
+  const bodyMat = clayMat(0xfcfcfc, { roughness: 0.38 });
+  const torsoMesh = new THREE.Mesh(torsoGeo, bodyMat);
+  bodyGroup.add(torsoMesh);
+
+  // Denim Overalls (Dungarees)
+  const dungareeMat = clayMat(0x3b82f6, { roughness: 0.68 });
+  const dungareePts = [
+    new THREE.Vector2(0.001, -0.175),
+    new THREE.Vector2(0.105, -0.17),
+    new THREE.Vector2(0.195, -0.135),
+    new THREE.Vector2(0.245, -0.055),
+    new THREE.Vector2(0.246, 0.015),
+    new THREE.Vector2(0.222, 0.07),
+    new THREE.Vector2(0.001, 0.07),
+  ];
+  const dungareeGeo = new THREE.LatheGeometry(dungareePts, 40);
+  const dungareeMesh = new THREE.Mesh(dungareeGeo, dungareeMat);
+  bodyGroup.add(dungareeMesh);
+
+  // Front Overalls Bib (Curved plate covering chest)
+  const bibGeo = new THREE.CylinderGeometry(0.19, 0.22, 0.12, 24, 1, false, -Math.PI / 3.2, Math.PI / 1.6);
+  const bibMesh = new THREE.Mesh(bibGeo, dungareeMat);
+  bibMesh.position.set(0, 0.065, 0.038);
+  bodyGroup.add(bibMesh);
+
+  // Kangaroo Front Pocket
+  const pocketGeo = new THREE.BoxGeometry(0.13, 0.075, 0.018);
+  const pocketMat = clayMat(0x2563eb, { roughness: 0.72 });
+  const pocketMesh = new THREE.Mesh(pocketGeo, pocketMat);
+  pocketMesh.position.set(0, 0.03, 0.245);
+  bodyGroup.add(pocketMesh);
+
+  // Overalls Shoulder Straps
+  const strapCurveL = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(-0.11, 0.11, 0.18),
+    new THREE.Vector3(-0.13, 0.17, 0.08),
+    new THREE.Vector3(-0.11, 0.11, -0.18),
+  ]);
+  const strapGeoL = new THREE.TubeGeometry(strapCurveL, 20, 0.016, 12, false);
+  const strapL = new THREE.Mesh(strapGeoL, dungareeMat);
+
+  const strapCurveR = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0.11, 0.11, 0.18),
+    new THREE.Vector3(0.13, 0.17, 0.08),
+    new THREE.Vector3(0.11, 0.11, -0.18),
+  ]);
+  const strapGeoR = new THREE.TubeGeometry(strapCurveR, 20, 0.016, 12, false);
+  const strapR = new THREE.Mesh(strapGeoR, dungareeMat);
+  bodyGroup.add(strapL, strapR);
+
+  // Metallic Gold Buttons
+  const btnGeo = new THREE.SphereGeometry(0.016, 16, 16);
+  btnGeo.scale(1.0, 1.0, 0.5);
+  const btnMat = clayMat(0xf59e0b, { metalness: 0.85, roughness: 0.2 });
+  const btnL = new THREE.Mesh(btnGeo, btnMat);
+  btnL.position.set(-0.10, 0.105, 0.198);
+  const btnR = new THREE.Mesh(btnGeo, btnMat);
+  btnR.position.set(0.10, 0.105, 0.198);
+  bodyGroup.add(btnL, btnR);
+
+  // Holstein Black Cow Spots on Torso
+  const spotGeo1 = new THREE.SphereGeometry(0.095, 20, 16);
+  spotGeo1.scale(1.1, 0.7, 0.4);
+  const spotMat = clayMat(0x1e1b2e, { roughness: 0.42 });
+  const spot1 = new THREE.Mesh(spotGeo1, spotMat);
+  spot1.position.set(0.13, 0.04, 0.18);
+  spot1.rotation.y = 0.5;
+  bodyGroup.add(spot1);
+
+  const spotGeo2 = new THREE.SphereGeometry(0.11, 20, 16);
+  spotGeo2.scale(1.2, 0.9, 0.4);
+  const spot2 = new THREE.Mesh(spotGeo2, spotMat);
+  spot2.position.set(-0.12, 0.08, -0.17);
+  spot2.rotation.y = -0.5;
+  bodyGroup.add(spot2);
 
   // Stethoscope around neck
-  const stethTorus = new THREE.TorusGeometry(0.16, 0.015, 12, 32, Math.PI * 1.3);
-  const stethMat = clayMat(0x0284c7);
-  const stethMesh = new THREE.Mesh(stethTorus, stethMat);
-  stethMesh.rotation.x = Math.PI / 2.3;
-  stethMesh.position.set(0, 0.44, 0.08);
-  bodyMesh.add(stethMesh);
+  const stethCurve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(-0.13, 0.20, 0.04),
+    new THREE.Vector3(-0.08, 0.16, 0.18),
+    new THREE.Vector3(0, 0.11, 0.235), // Y-joint
+    new THREE.Vector3(0.08, 0.16, 0.18),
+    new THREE.Vector3(0.13, 0.20, 0.04),
+  ]);
+  const stethTubeGeo = new THREE.TubeGeometry(stethCurve, 24, 0.012, 12, false);
+  const stethMat = clayMat(0x0284c7, { roughness: 0.35 });
+  const stethMesh = new THREE.Mesh(stethTubeGeo, stethMat);
+  bodyGroup.add(stethMesh);
 
-  // Stethoscope Disc
-  const discGeo = new THREE.CylinderGeometry(0.03, 0.03, 0.01, 16);
-  const discMat = clayMat(0x94a3b8, { metalness: 0.5, roughness: 0.2 });
-  const discMesh = new THREE.Mesh(discGeo, discMat);
-  discMesh.position.set(0, 0.29, 0.21);
-  discMesh.rotation.x = Math.PI / 2;
-  bodyMesh.add(discMesh);
+  // Stethoscope Chestpiece (Double-tier metallic bell)
+  const chestpieceGroup = new THREE.Group();
+  const bellGeo = new THREE.CylinderGeometry(0.034, 0.036, 0.012, 24);
+  const bellMat = clayMat(0xe2e8f0, { metalness: 0.88, roughness: 0.15 });
+  const bellMesh = new THREE.Mesh(bellGeo, bellMat);
+  chestpieceGroup.add(bellMesh);
 
+  const diaphragmGeo = new THREE.CylinderGeometry(0.028, 0.028, 0.005, 24);
+  const diaphragmMat = clayMat(0x38bdf8, { roughness: 0.4 });
+  const diaMesh = new THREE.Mesh(diaphragmGeo, diaphragmMat);
+  diaMesh.position.y = 0.007;
+  chestpieceGroup.add(diaMesh);
+
+  chestpieceGroup.rotation.x = Math.PI / 2.1;
+  chestpieceGroup.position.set(0, 0.065, 0.245);
+  bodyGroup.add(chestpieceGroup);
+
+  // -------------------------------------------------------------
   // Head Group
+  // -------------------------------------------------------------
   const headGroup = new THREE.Group();
   headGroup.name = 'Head';
   headGroup.position.y = 0.56;
 
-  const headGeo = new THREE.SphereGeometry(0.24, 32, 24);
-  headGeo.scale(1.15, 0.96, 1.0);
-  const headMesh = new THREE.Mesh(headGeo, clayMat(0xfdfdfd));
+  // Head Mesh (Chubby Cheek Vinyl Sculpture)
+  const headGeo = createChibiHeadGeometry();
+  const headMesh = new THREE.Mesh(headGeo, bodyMat);
   headGroup.add(headMesh);
 
-  // Black cow patch
-  const patchGeo = new THREE.SphereGeometry(0.13, 20, 16);
-  patchGeo.scale(1.0, 0.8, 0.6);
-  const patchMat = clayMat(0x2b2d42);
-  const patchMesh = new THREE.Mesh(patchGeo, patchMat);
-  patchMesh.position.set(-0.11, 0.09, 0.18);
-  headGroup.add(patchMesh);
+  // Holstein Black Cow Spot over Left Eye / Forehead
+  const headSpotGeo = new THREE.SphereGeometry(0.145, 24, 20);
+  headSpotGeo.scale(1.15, 0.95, 0.55);
+  const headSpotMesh = new THREE.Mesh(headSpotGeo, spotMat);
+  headSpotMesh.position.set(-0.12, 0.07, 0.17);
+  headSpotMesh.rotation.z = 0.35;
+  headGroup.add(headSpotMesh);
 
-  // Snout
-  const snoutGeo = new THREE.SphereGeometry(0.09, 20, 16);
-  snoutGeo.scale(1.3, 0.8, 0.8);
-  const snoutMesh = new THREE.Mesh(snoutGeo, clayMat(0xffb4a2));
-  snoutMesh.position.set(0, -0.05, 0.21);
+  // Secondary spot on top right rear
+  const rearSpotGeo = new THREE.SphereGeometry(0.09, 16, 14);
+  rearSpotGeo.scale(1.0, 0.8, 0.5);
+  const rearSpotMesh = new THREE.Mesh(rearSpotGeo, spotMat);
+  rearSpotMesh.position.set(0.14, 0.12, -0.14);
+  headGroup.add(rearSpotMesh);
+
+  // Cute Peach-Cream Snout / Muzzle
+  const snoutGeo = new THREE.SphereGeometry(0.11, 32, 24);
+  snoutGeo.scale(1.4, 0.85, 0.95);
+  const snoutMat = clayMat(0xffcad4, { roughness: 0.42 });
+  const snoutMesh = new THREE.Mesh(snoutGeo, snoutMat);
+  snoutMesh.position.set(0, -0.055, 0.205);
   headGroup.add(snoutMesh);
 
-  // Horns
-  const hornGeo = new THREE.ConeGeometry(0.035, 0.08, 16);
-  const hornMat = clayMat(0xfef08a);
-  const hornL = new THREE.Mesh(hornGeo, hornMat);
-  hornL.position.set(-0.13, 0.23, 0.02);
-  hornL.rotation.z = 0.25;
-  const hornR = new THREE.Mesh(hornGeo, hornMat);
-  hornR.position.set(0.13, 0.23, 0.02);
-  hornR.rotation.z = -0.25;
+  // 3D Nostrils
+  const nosMat = clayMat(0xde7a8d, { roughness: 0.55 });
+  const nosGeo = new THREE.SphereGeometry(0.016, 16, 12);
+  nosGeo.scale(1.0, 0.75, 0.5);
+  const nosL = new THREE.Mesh(nosGeo, nosMat);
+  nosL.position.set(-0.048, -0.042, 0.29);
+  nosL.rotation.z = 0.25;
+  const nosR = new THREE.Mesh(nosGeo, nosMat);
+  nosR.position.set(0.048, -0.042, 0.29);
+  nosR.rotation.z = -0.25;
+  headGroup.add(nosL, nosR);
+
+  // 3D Happy Mouth Smile Line
+  const smileCurve = new THREE.QuadraticBezierCurve3(
+    new THREE.Vector3(-0.042, -0.088, 0.265),
+    new THREE.Vector3(0, -0.104, 0.278),
+    new THREE.Vector3(0.042, -0.088, 0.265)
+  );
+  const smileGeo = new THREE.TubeGeometry(smileCurve, 16, 0.0042, 8, false);
+  const smileMat = clayMat(0xb91c1c, { roughness: 0.4 });
+  const smileMesh = new THREE.Mesh(smileGeo, smileMat);
+  headGroup.add(smileMesh);
+
+  // Curved Baby Horns
+  const hornL = buildCurvedHorn(true);
+  hornL.position.set(-0.13, 0.22, 0.02);
+  const hornR = buildCurvedHorn(false);
+  hornR.position.set(0.13, 0.22, 0.02);
   headGroup.add(hornL, hornR);
 
-  // Ears
-  const earGeo = new THREE.ConeGeometry(0.07, 0.18, 16);
-  earGeo.scale(1.0, 1.0, 0.4);
-  const earL = new THREE.Mesh(earGeo, clayMat(0x2b2d42));
-  earL.position.set(-0.25, 0.10, 0);
-  earL.rotation.z = 1.2;
-  const earR = new THREE.Mesh(earGeo, clayMat(0xfdfdfd));
-  earR.position.set(0.25, 0.10, 0);
-  earR.rotation.z = -1.2;
+  // Floppy Baby Calf Ears
+  const earL = buildCalfEar(true);
+  earL.position.set(-0.25, 0.08, 0.01);
+  const earR = buildCalfEar(false);
+  earR.position.set(0.25, 0.08, 0.01);
   headGroup.add(earL, earR);
 
-  // Yellow Ear Tag
-  const tagGeo = new THREE.BoxGeometry(0.045, 0.065, 0.008);
-  const tagMat = clayMat(0xffd166);
+  // Yellow Clinic Ear Tag on Right Ear
+  const tagGroup = new THREE.Group();
+  const tagGeo = new THREE.BoxGeometry(0.048, 0.072, 0.008);
+  const tagMat = clayMat(0xfbbf24, { roughness: 0.35 });
   const tagMesh = new THREE.Mesh(tagGeo, tagMat);
-  tagMesh.position.set(0.28, 0.06, 0.03);
-  tagMesh.rotation.z = -0.4;
-  headGroup.add(tagMesh);
+  tagGroup.add(tagMesh);
 
-  addCuteFace(headGroup, 0.04, 0.245, 0.11, -0.02);
+  // Gold Ring Piercing Ear
+  const ringGeo = new THREE.TorusGeometry(0.014, 0.0035, 12, 20);
+  const ringMat = clayMat(0xf59e0b, { metalness: 0.9, roughness: 0.18 });
+  const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+  ringMesh.position.y = 0.034;
+  tagGroup.add(ringMesh);
+
+  tagGroup.position.set(0.285, 0.05, 0.035);
+  tagGroup.rotation.z = -0.4;
+  tagGroup.rotation.y = 0.2;
+  headGroup.add(tagGroup);
+
+  // 3D Eyes, Catchlights & Blush
+  addPopMartEyes(headGroup, 0.025, 0.245, 0.118);
+
   root.add(headGroup);
 
+  // -------------------------------------------------------------
   // Arms
-  const armGeo = new THREE.CylinderGeometry(0.045, 0.04, 0.18, 16);
-  const armMat = clayMat(0xfdfdfd);
+  // -------------------------------------------------------------
+  const armColor = 0xfcfcfc;
+  const armMat = clayMat(armColor, { roughness: 0.38 });
 
-  const armL = new THREE.Mesh(armGeo, armMat);
+  // Left Arm (Chubby baby arm)
+  const armL = new THREE.Group();
   armL.name = 'Arm_L';
-  armL.position.set(-0.22, 0.32, 0.02);
+  armL.position.set(-0.20, 0.34, 0.02);
+
+  const armGeoL = new THREE.CylinderGeometry(0.042, 0.052, 0.18, 20);
+  const armMeshL = new THREE.Mesh(armGeoL, armMat);
+  armMeshL.position.y = -0.09;
+  armL.add(armMeshL);
+
+  const handGeoL = new THREE.SphereGeometry(0.052, 20, 16);
+  const handMeshL = new THREE.Mesh(handGeoL, armMat);
+  handMeshL.position.y = -0.17;
+  armL.add(handMeshL);
+
   armL.rotation.z = 0.35;
+  root.add(armL);
 
-  const armR = new THREE.Mesh(armGeo, armMat);
+  // Right Arm
+  const armR = new THREE.Group();
   armR.name = 'Arm_R';
-  armR.position.set(0.22, 0.32, 0.02);
+  armR.position.set(0.20, 0.34, 0.02);
+
+  const armGeoR = new THREE.CylinderGeometry(0.042, 0.052, 0.18, 20);
+  const armMeshR = new THREE.Mesh(armGeoR, armMat);
+  armMeshR.position.y = -0.09;
+  armR.add(armMeshR);
+
+  const handGeoR = new THREE.SphereGeometry(0.052, 20, 16);
+  const handMeshR = new THREE.Mesh(handGeoR, armMat);
+  handMeshR.position.y = -0.17;
+  armR.add(handMeshR);
+
   armR.rotation.z = -0.35;
+  root.add(armR);
 
-  root.add(armL, armR);
+  // -------------------------------------------------------------
+  // Legs & Boots
+  // -------------------------------------------------------------
+  const legL = new THREE.Group();
+  legL.name = 'Leg_L';
+  legL.position.set(-0.11, 0.13, 0.02);
+  const bootL = buildWellingtonBoot();
+  bootL.position.y = -0.13;
+  legL.add(bootL);
+  root.add(legL);
 
-  // Boots
-  const bootGeo = new THREE.CylinderGeometry(0.065, 0.07, 0.16, 16);
-  const bootMat = clayMat(0x386641);
-  const bL = new THREE.Mesh(bootGeo, bootMat);
-  bL.name = 'Leg_L';
-  bL.position.set(-0.11, 0.08, 0.02);
-  const bR = new THREE.Mesh(bootGeo, bootMat);
-  bR.name = 'Leg_R';
-  bR.position.set(0.11, 0.08, 0.02);
-  root.add(bL, bR);
+  const legR = new THREE.Group();
+  legR.name = 'Leg_R';
+  legR.position.set(0.11, 0.13, 0.02);
+  const bootR = buildWellingtonBoot();
+  bootR.position.y = -0.13;
+  legR.add(bootR);
+  root.add(legR);
 
+  // -------------------------------------------------------------
   // Tail
-  const tailGeo = new THREE.CylinderGeometry(0.02, 0.03, 0.16, 12);
-  const tailMesh = new THREE.Mesh(tailGeo, armMat);
-  tailMesh.name = 'Tail';
-  tailMesh.position.set(0, 0.18, -0.16);
-  tailMesh.rotation.x = -Math.PI / 4;
-  root.add(tailMesh);
+  // -------------------------------------------------------------
+  const tailGroup = new THREE.Group();
+  tailGroup.name = 'Tail';
+  tailGroup.position.set(0, 0.26, -0.18);
+
+  const tailCurve = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(0, -0.04, -0.06),
+    new THREE.Vector3(0.03, -0.08, -0.11),
+    new THREE.Vector3(0.05, -0.05, -0.15),
+  ]);
+  const tailTubeGeo = new THREE.TubeGeometry(tailCurve, 16, 0.014, 12, false);
+  const tailTube = new THREE.Mesh(tailTubeGeo, bodyMat);
+  tailGroup.add(tailTube);
+
+  const tuftGeo = new THREE.SphereGeometry(0.028, 16, 12);
+  tuftGeo.scale(1.0, 1.4, 0.8);
+  const tuftMesh = new THREE.Mesh(tuftGeo, spotMat);
+  tuftMesh.position.set(0.05, -0.05, -0.15);
+  tailGroup.add(tuftMesh);
+
+  root.add(tailGroup);
 
   return { root, clips: buildStandardClips(true, 0.56, 0.35) };
 }
@@ -1360,24 +1723,35 @@ async function exportCharacter(name, buildFn, outputDirs) {
 }
 
 async function main() {
-  console.log('>>> Baking 3D GLB Character Models with Embedded Animations...');
+  const target = process.argv[2]?.toLowerCase();
+  console.log(`>>> Baking 3D GLB Character Models (Target: ${target || 'all'})...`);
 
   const outputDirs = [
     '/Users/kasem/Documents/vet-mock-main/public/art/models',
     '/Users/kasem/Documents/vet-mock-landing-demo/public/art/models',
   ];
 
-  await exportCharacter('moocha', buildMoocha, outputDirs);
-  await exportCharacter('glidy', buildGlidy, outputDirs);
-  await exportCharacter('porky', buildPorky, outputDirs);
-  await exportCharacter('oto', buildOto, outputDirs);
-  await exportCharacter('clover', buildClover, outputDirs);
-  await exportCharacter('chicky', buildChicky, outputDirs);
-  await exportCharacter('pawsy', buildPawsy, outputDirs);
-  await exportCharacter('mimi', buildMimi, outputDirs);
-  await exportCharacter('hootie', buildHootie, outputDirs);
+  const builders = {
+    moocha: buildMoocha,
+    glidy: buildGlidy,
+    porky: buildPorky,
+    oto: buildOto,
+    clover: buildClover,
+    chicky: buildChicky,
+    pawsy: buildPawsy,
+    mimi: buildMimi,
+    hootie: buildHootie,
+  };
 
-  console.log('>>> All 9 Animated Mascot GLBs generated and exported successfully!');
+  if (target && builders[target]) {
+    await exportCharacter(target, builders[target], outputDirs);
+  } else {
+    for (const [name, fn] of Object.entries(builders)) {
+      await exportCharacter(name, fn, outputDirs);
+    }
+  }
+
+  console.log('>>> Finished baking GLB models successfully!');
 }
 
 main().catch(console.error);

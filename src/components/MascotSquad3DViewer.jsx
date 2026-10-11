@@ -140,31 +140,61 @@ export default function MascotSquad3DViewer({ initialId = 'moocha', initialActio
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // 4. Studio Lighting matching Blender
-    const ambientLight = new THREE.AmbientLight(0xfff8f0, 0.85);
+    // 4. Studio Toy Showcase Lighting & Pedestal Stage
+    const ambientLight = new THREE.AmbientLight(0xfff8f0, 0.7);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(0xfff3e0, 1.8);
-    keyLight.position.set(1.5, 2.5, 1.8);
+    const hemiLight = new THREE.HemisphereLight(0xfffbf0, 0xdcfce7, 0.5);
+    scene.add(hemiLight);
+
+    const keyLight = new THREE.DirectionalLight(0xfff5eb, 2.0);
+    keyLight.position.set(1.6, 2.6, 1.8);
     keyLight.castShadow = true;
     keyLight.shadow.mapSize.width = 1024;
     keyLight.shadow.mapSize.height = 1024;
+    keyLight.shadow.bias = -0.0005;
+    keyLight.shadow.radius = 3;
     scene.add(keyLight);
 
-    const fillLight = new THREE.DirectionalLight(0xdbeafe, 0.9);
+    const fillLight = new THREE.DirectionalLight(0xdbeafe, 1.0);
     fillLight.position.set(-1.8, 1.5, 1.0);
     scene.add(fillLight);
 
-    const rimLight = new THREE.DirectionalLight(0xffffff, 1.2);
-    rimLight.position.set(0, 2.0, -1.8);
+    // Striking Rim Light for glowing Art Toy outline
+    const rimLight = new THREE.DirectionalLight(0xffffff, 2.2);
+    rimLight.position.set(0.6, 2.0, -2.0);
     scene.add(rimLight);
+
+    // Elegant Display Pedestal (ฐานวางฟิกเกอร์)
+    const pedGeo = new THREE.CylinderGeometry(0.55, 0.58, 0.035, 36);
+    const pedMat = new THREE.MeshStandardMaterial({
+      color: 0xf8fafc,
+      roughness: 0.35,
+      metalness: 0.05,
+    });
+    const pedestal = new THREE.Mesh(pedGeo, pedMat);
+    pedestal.position.y = -0.018;
+    pedestal.receiveShadow = true;
+    scene.add(pedestal);
+
+    // Pedestal accent ring
+    const ringGeo = new THREE.TorusGeometry(0.555, 0.004, 12, 36);
+    ringGeo.rotateX(Math.PI / 2);
+    const ringMat = new THREE.MeshStandardMaterial({
+      color: 0x94a3b8,
+      roughness: 0.3,
+      metalness: 0.2,
+    });
+    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+    ringMesh.position.y = 0;
+    scene.add(ringMesh);
 
     // Subtle Ground Shadow Disk
     const shadowGeo = new THREE.PlaneGeometry(1.4, 1.4);
-    const shadowMat = new THREE.ShadowMaterial({ opacity: 0.18 });
+    const shadowMat = new THREE.ShadowMaterial({ opacity: 0.22 });
     const shadowPlane = new THREE.Mesh(shadowGeo, shadowMat);
     shadowPlane.rotation.x = -Math.PI / 2;
-    shadowPlane.position.y = 0;
+    shadowPlane.position.y = 0.002;
     shadowPlane.receiveShadow = true;
     scene.add(shadowPlane);
 
@@ -211,9 +241,6 @@ export default function MascotSquad3DViewer({ initialId = 'moocha', initialActio
           if (child.isMesh) {
             child.castShadow = true;
             child.receiveShadow = true;
-            if (child.material) {
-              child.material.roughness = 0.52;
-            }
           }
           if (child.name === 'Head' || child.name.toLowerCase().includes('head')) {
             headBoneRef.current = child;
