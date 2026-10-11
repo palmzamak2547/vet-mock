@@ -6952,11 +6952,12 @@ body.vmx-reading .vmx-pdf-body {
 
 /* The global `:focus-visible` rule at the top of this file draws the ring
    with !important (59 controls inline `all: unset`, which erases any outline
-   a stylesheet rule asks for), so that rule is what actually renders. This
-   restates the row's own so the ring follows the sage accent the rest of the
-   navigation surfaces use, and sits inside the row rather than outside it —
-   an offset ring on a row stacked inside a card's 20px padding overlaps the
-   card's border. */
+   a stylesheet rule asks for), so the global ink ring is what renders on a
+   row. The outline colour declared below loses to it and never shows. Only
+   `outline-offset` takes effect, because the global rule does not mark its
+   offset !important. That inset is the point: it keeps the ring inside the
+   row, since an offset ring on a row stacked inside a card's 20px padding
+   overlaps the card's border. */
 .vmx-profile-row:focus-visible {
   outline: 2px solid var(--clr-sage-text);
   outline-offset: -2px;
@@ -7003,9 +7004,9 @@ body.vmx-reading .vmx-pdf-body {
    in px either, so the ≤480px promise the component makes — push the page
    down, never cover it — holds at every width without a media query.
 
-   Left alone deliberately: the ✕ is a 28px box, under the 44px floor. It is
-   the component's own inline style and growing it changes the card's look,
-   which is not this batch's call to make. */
+   The ✕ asks for a 28px box in the component's inline style, but it carries
+   `.vmx-tap`, whose 44px min-width and min-height beat the inline width and
+   height, so it renders at 44px and already meets the touch floor. */
 .vmx-feature-tip {
   /* In flow, at every width. The component's own contract: plain in-flow
      content, never fixed or absolute, so a phone gets the hint above the

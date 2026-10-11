@@ -41,7 +41,8 @@
 // Categories (Palm's 2026-10-11 feedback: group by what the student is
 // trying to do — เรียน / ปรับแต่งการเรียน / ความคืบหน้า / สังคม&เกม /
 // เสริมสมาธิ — not by which code module owns a feature). The 3 PRIMARY
-// study modes stay hero cards, so FeatureMenu hides the practice group.
+// study modes stay hero cards, so FeatureMenu filters them out inside each
+// group. No group is skipped, and a group left empty renders nothing.
 //   practice  📝 ฝึก & สอบ
 //   learn     📚 เรียน & ทบทวน
 //   tune      🎚 ปรับแต่งการเรียน (แก้ข้อสอบเอง เสียงพากย์ การ์ด)
