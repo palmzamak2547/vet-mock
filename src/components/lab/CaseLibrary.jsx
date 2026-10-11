@@ -348,7 +348,7 @@ function CaseCard({ caseData, onOpen, opening }) {
         className="vmx-btn vmx-btn-primary vmx-btn-sm"
         style={{ marginTop: 6, width: '100%' }}
       >
-        {opening ? 'กำลังโหลด...' : 'เปิด case'}
+        {opening ? 'กำลังโหลด…' : 'เปิด case'}
       </button>
     </div>
   );

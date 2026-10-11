@@ -293,7 +293,7 @@ export default function AtlasScene({
         ctx.font = '14px sans-serif';
         viewData.forEach((view, index) => {
           const y = imageHeight + 56 + index * 54;
-          ctx.fillText(`${view.titleEn} — ${view.authors} — ${view.license}`, 20, y, output.width - 40);
+          ctx.fillText(`${view.titleEn}, ${view.authors}, ${view.license}`, 20, y, output.width - 40);
           ctx.fillText(view.sourceUrl, 20, y + 20, output.width - 40);
         });
         ctx.fillText(

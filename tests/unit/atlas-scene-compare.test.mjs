@@ -92,7 +92,7 @@ const LAYOUTS = {
 function world(layout = 'desktop') {
   const w = {
     renderers: [], controls: [], loads: [], parsed: [], disposed: [], statuses: [], frames: new Map(),
-    resizeObservers: [], nextFrame: 1, layout: LAYOUTS[layout],
+    resizeObservers: [], nextFrame: 1, layout: LAYOUTS[layout], captions: [],
   };
   class Renderer {
     constructor() {
@@ -163,9 +163,13 @@ function world(layout = 'desktop') {
   const doc = Object.assign(new Events(), {
     hidden: false,
     documentElement: {},
-    // exportView draws onto a 2D canvas and hands onExport its PNG blob.
+    // exportView draws onto a 2D canvas and hands onExport its PNG blob. Every
+    // fillText line is kept in w.captions so a test can read the caption.
     createElement: () => ({
-      getContext: () => new Proxy({}, { get: () => () => {}, set: () => true }),
+      getContext: () => new Proxy({}, {
+        get: (_, name) => (...args) => { if (name === 'fillText') w.captions.push(args[0]); },
+        set: () => true,
+      }),
       toBlob: (done) => done({ type: 'image/png' }),
     }),
   });
@@ -540,6 +544,24 @@ test('a quality switch, a specimen restore or a retry after export downloads not
   scene.render({ command: { kind: 'export', seq: 2 } });
   await w.settle();
   assert.equal(exports, 2, 'a new tap still exports');
+  scene.unmount();
+});
+
+// ── OV-media-13: the credit line reads as one sentence of commas ────────────
+// The title line above it separates with ', ' and ' / '; the credit line used
+// em dashes, so a saved PNG carried two punctuation styles in a row.
+test('the saved PNG credits each view as title, authors, licence with commas', async () => {
+  const w = world();
+  const dog = specimen('dog'), horse = specimen('horse');
+  const scene = loadScene(w);
+  scene.render(baseProps(w, dog, horse));
+  await w.settle();
+  scene.render({ command: { kind: 'export', seq: 1 } });
+  await w.settle();
+  assert.ok(w.captions.length >= 5, `the export drew its caption (${w.captions.length} lines)`);
+  assert.ok(w.captions.includes('dog specimen, authors, licence'), `credit line for the first view in ${JSON.stringify(w.captions)}`);
+  assert.ok(w.captions.includes('horse specimen, authors, licence'), 'credit line for the compared view');
+  assert.deepEqual(w.captions.filter((line) => line.includes('—')), [], 'no em dash anywhere in the PNG caption');
   scene.unmount();
 });
 

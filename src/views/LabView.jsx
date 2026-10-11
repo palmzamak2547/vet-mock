@@ -1,13 +1,12 @@
 import { useState, useCallback, useEffect, Suspense, lazy } from 'react';
 import { thaiError } from '../lib/errors.js';
 import { useMediaQuery } from '../lib/dicom/use-media-query.js';
+import { readRecentFiles, writeRecentFiles, dropSavedRecentFiles, RECENT_MAX } from '../lib/dicom/recent-files.js';
 
 const DicomViewport = lazy(() => import('../components/lab/DicomViewport.jsx'));
 const CaseLibrary = lazy(() => import('../components/lab/CaseLibrary.jsx'));
 const TagInspector = lazy(() => import('../components/lab/TagInspector.jsx'));
 
-const RECENT_KEY = 'vmx-lab-recent-files';
-const RECENT_MAX = 5;
 const MAX_FILES = 2;  // Phase 9 — 2-up compare. Future phases may raise this.
 const IMAGING_PRO_URL = 'https://imaging.cuvetsmo.com';
 
@@ -56,10 +55,10 @@ export default function LabView({ goHome }) {
   const [retryTick, setRetryTick] = useState(0);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(RECENT_KEY);
-      if (raw) setRecent(JSON.parse(raw));
-    } catch { /* corrupt JSON; ignore */ }
+    // The list lives for this tab only (file names are often a patient's or an
+    // owner's name). Remove the copy an older version left on the device.
+    dropSavedRecentFiles();
+    setRecent(readRecentFiles());
     try {
       // One-time first-visit hint. Suppressed forever once dismissed.
       const seen = localStorage.getItem('vmx-lab-onboarded');
@@ -104,7 +103,7 @@ export default function LabView({ goHome }) {
     const entry = { name: f.name, size: f.size, lastModified: f.lastModified || Date.now() };
     setRecent((prev) => {
       const next = [entry, ...prev.filter((p) => !(p.name === entry.name && p.size === entry.size))].slice(0, RECENT_MAX);
-      try { localStorage.setItem(RECENT_KEY, JSON.stringify(next)); } catch { /* quota or private mode */ }
+      writeRecentFiles(next);
       return next;
     });
   }, []);
@@ -156,16 +155,13 @@ export default function LabView({ goHome }) {
 
   const clearRecent = useCallback(() => {
     setRecent([]);
-    try { localStorage.removeItem(RECENT_KEY); } catch { /* noop */ }
+    writeRecentFiles([]);
   }, []);
 
   const removeRecentAt = useCallback((idx) => {
     setRecent((prev) => {
       const next = prev.filter((_, i) => i !== idx);
-      try {
-        if (next.length === 0) localStorage.removeItem(RECENT_KEY);
-        else localStorage.setItem(RECENT_KEY, JSON.stringify(next));
-      } catch { /* noop */ }
+      writeRecentFiles(next);
       return next;
     });
   }, []);
@@ -346,7 +342,7 @@ export default function LabView({ goHome }) {
               title={`เปิด: ${demoCases[0].title}`}
             >
               {demoLoading ? (
-                'กำลังโหลดเคสจริง...'
+                'กำลังโหลดเคสจริง…'
               ) : (
                 <>
                   <span style={{ fontSize: isMobile ? '1.05rem' : '1.15rem' }}>
@@ -374,7 +370,7 @@ export default function LabView({ goHome }) {
               color: 'var(--clr-ink-soft)',
             }}>
               {catalogState === 'loading' ? (
-                'กำลังเช็คเคสตัวอย่าง…'
+                'กำลังเช็กเคสตัวอย่าง…'
               ) : catalogState === 'unavailable' ? (
                 <>
                   <div>โหลดรายการเคสตัวอย่างไม่ได้ตอนนี้</div>
@@ -454,7 +450,7 @@ export default function LabView({ goHome }) {
           {recent.length > 0 && (
             <div style={recentBoxStyle}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <strong style={{ fontSize: '0.85rem', color: 'var(--clr-ink-soft)' }}>🕘 Recent files</strong>
+                <strong style={{ fontSize: '0.85rem', color: 'var(--clr-ink-soft)' }}>🕘 ไฟล์ที่เปิดล่าสุด</strong>
                 <button
                   onClick={clearRecent}
                   className="vmx-tap"
@@ -464,7 +460,7 @@ export default function LabView({ goHome }) {
                 </button>
               </div>
               <div style={{ fontSize: '0.75rem', color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
-                File blobs ไม่ persist ข้าม session, เห็นรายการที่นี่แล้วลากไฟล์เดิมจาก disk เพื่อ re-open
+                รายการนี้อยู่จนกว่าจะปิดแท็บ และไม่เก็บตัวไฟล์ ลากไฟล์เดิมจากเครื่องมาเปิดอีกครั้ง
               </div>
               <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
                 {recent.map((r, i) => (
@@ -488,7 +484,7 @@ export default function LabView({ goHome }) {
       )}
 
       {subView === 'cases' && (
-        <Suspense fallback={<div style={loadingFallbackStyle}>กำลังโหลด case library...</div>}>
+        <Suspense fallback={<div style={loadingFallbackStyle}>กำลังโหลด case library…</div>}>
           <CaseLibrary onOpenCase={handleOpenCase} onBack={() => setShowCases(false)} />
         </Suspense>
       )}
@@ -607,7 +603,7 @@ function ViewerPane({ file, index, canRemove, onRemove, caseId, syncEnabled }) {
           )}
         </div>
       </div>
-      <Suspense fallback={<div style={loadingFallbackStyle}>กำลังโหลด viewer...</div>}>
+      <Suspense fallback={<div style={loadingFallbackStyle}>กำลังโหลด viewer…</div>}>
         <DicomViewport file={file} caseId={caseId} syncEnabled={syncEnabled} />
       </Suspense>
       {showTags && (
@@ -648,7 +644,7 @@ function AnonymizeButton({ file }) {
         className="vmx-btn vmx-btn-ghost vmx-btn-sm"
         title="Strip PII tags + download anonymized copy"
       >
-        {status === 'working' ? 'anon...' : status === 'done' ? 'Downloaded' : 'Anonymize'}
+        {status === 'working' ? 'anon…' : status === 'done' ? 'Downloaded' : 'Anonymize'}
       </button>
       {summary && status !== 'working' && (
         <div style={anonSummaryStyle}>
