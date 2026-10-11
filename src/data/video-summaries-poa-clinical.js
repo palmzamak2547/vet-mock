@@ -29,7 +29,7 @@ export const VIDEO_SUMMARIES_POA_CLINICAL = {
 - Improper: diet, housing, temperature, humidity
 - ⭐ Fix husbandry → fix disease
 
-> 💡 ถามเจ้าของก่อนเสมอ: **อาหาร · กรง · อุณหภูมิ · ความชื้น** เป็นยังไง
+> 💡 ถามเจ้าของก่อนเสมอ: **อาหาร, กรง, อุณหภูมิ, ความชื้น** เป็นยังไง
 
 ---
 
@@ -419,7 +419,7 @@ export const VIDEO_SUMMARIES_POA_CLINICAL = {
 - ⭐ **Rhinoscopy**
 - ⭐ **CT scan** = gold standard
 
-> 💡 **Unilateral** discharge → คิด foreign body หรือ tumor ก่อน · **Bilateral** → คิด infection, allergic
+> 💡 **Unilateral** discharge → คิด foreign body หรือ tumor ก่อน, **Bilateral** → คิด infection, allergic
 
 ---
 
@@ -453,7 +453,7 @@ export const VIDEO_SUMMARIES_POA_CLINICAL = {
 | **Crackles** | Lower — alveolar |
 | **Cyanosis** | Severe lower หรือ cardiac |
 
-> 💡 **Trick**: stertor + stridor มาจากบน · wheeze + crackle มาจากล่าง
+> 💡 **Trick**: stertor + stridor มาจากบน, wheeze + crackle มาจากล่าง
 
 ---
 
@@ -667,7 +667,7 @@ export const VIDEO_SUMMARIES_POA_CLINICAL = {
 - ⭐ **Egg binding**
 - Parasites
 
-> 💡 **MBD** = poor UV + low calcium · ป้องกันด้วย UV-B + calcium supplement
+> 💡 **MBD** = poor UV + low calcium, ป้องกันด้วย UV-B + calcium supplement
 
 ---
 
@@ -725,7 +725,7 @@ export const VIDEO_SUMMARIES_POA_CLINICAL = {
     summary: `# POA — 12 Alopecia and Pruritus
 
 > 🎯 **Skin disease workup** — alopecia + pruritus. Common but complex → systematic approach ⭐⭐⭐
-> ⚠️ Atopic dermatitis = diagnosis of exclusion · rule out other causes ก่อน
+> ⚠️ Atopic dermatitis = diagnosis of exclusion, rule out other causes ก่อน
 
 ---
 

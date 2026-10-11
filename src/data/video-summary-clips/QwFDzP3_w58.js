@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก aquatic product quality control, DOF",
   summary: `# Food Industry 6 — การควบคุมคุณภาพสัตว์น้ำและผลิตภัณฑ์สัตว์น้ำ
 
-> 🎯 **DOF (Department of Fisheries) = lead authority** สำหรับ aquatic products · ไทย = major exporter (กุ้ง, ปลานิล, ornamental) · **HACCP + cold chain = backbone**
+> 🎯 **DOF (Department of Fisheries) = lead authority** สำหรับ aquatic products, ไทย = major exporter (กุ้ง, ปลานิล, ornamental), **HACCP + cold chain = backbone**
 > ⚠️ **Chloramphenicol = banned** สำหรับสัตว์ที่ใช้เป็นอาหาร (carcinogen + aplastic anemia ในคน)
 
 ---

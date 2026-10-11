@@ -28,6 +28,7 @@ import { takeViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { thaiError } from '../lib/errors.js';
 import { googleDriveSourceUrl, mergeLibrarySources, vcaFileDoc } from '../lib/vca-library.js';
 import { EMPTY_ART } from '../data/art.js';
+import { cardDescription, ownYearFirst, prefersCompactReading } from '../lib/reading-layout.js';
 import {
   LIBRARY_KINDS,
   SEMESTERS,
@@ -95,10 +96,12 @@ function subjectIcon(id) {
 function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
   const mode = docOpenMode(doc);
 
+  // In browse mode the year and the term are already the headings above the
+  // card, so the card says only what they do not: the academic year.
   const meta = [
     showSubject ? subjectName(doc.subject) : null,
-    doc.year != null ? `ปี ${doc.year}` : null,
-    semesterLabel(doc.semester),
+    showSubject && doc.year != null ? `ปี ${doc.year}` : null,
+    showSubject ? semesterLabel(doc.semester) : null,
     doc.academic_year != null ? `ปีการศึกษา ${buddhistYear(doc.academic_year)}` : null,
   ].filter(Boolean).join(', ');
 
@@ -110,27 +113,25 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
     doc.page_count ? `${doc.page_count} หน้า` : null,
     formatBytes(doc.byte_size),
   ].filter(Boolean).join(', ');
+  const description = cardDescription(doc, kindLabel(doc.kind));
 
   return (
     <article className="vmx-lib-card" style={cardStyle}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, justifyContent: 'space-between' }}>
-        <h3 style={{ fontSize: 15, margin: 0, lineHeight: 1.5, minWidth: 0, overflowWrap: 'anywhere' }}>{doc.title}</h3>
-        <span style={{ ...mono, fontSize: 10, whiteSpace: 'nowrap', color: KIND_TONE[doc.kind] || KIND_TONE.other }}>
+        <h3 className="vmx-lib-card-title">{doc.title}</h3>
+        <span className="vmx-lib-card-kind" style={{ color: KIND_TONE[doc.kind] || KIND_TONE.other }}>
           {kindLabel(doc.kind)}
         </span>
       </div>
 
-      {doc.description && (
-        <p style={{ fontSize: 12.5, color: 'var(--clr-ink-soft)', margin: 0, lineHeight: 1.5 }}>
-          {doc.description}
-        </p>
+      {description && <p className="vmx-lib-card-desc">{description}</p>}
+
+      {(meta || physical) && (
+        <div className="vmx-lib-card-meta">{[physical, meta].filter(Boolean).join(', ')}</div>
       )}
 
-      {meta && <div style={{ ...mono, fontSize: 11.5, color: 'var(--clr-ink-soft)' }}>{meta}</div>}
-      {physical && <div style={{ ...mono, fontSize: 11, color: 'var(--clr-ink-soft)' }}>{physical}</div>}
-
       {(doc.lecturer || doc.attribution || doc.cohort) && (
-        <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
+        <div className="vmx-lib-card-meta">
           {doc.lecturer ? `ผู้สอน: ${doc.lecturer}` : null}
           {doc.lecturer && (doc.attribution || doc.cohort) ? ', ' : null}
           {doc.cohort || doc.attribution}
@@ -202,11 +203,10 @@ function intentProps(doc) {
 function ChipRow({ label, options, value, onChange, allLabel = 'ทั้งหมด' }) {
   if (options.length < 2) return null;
   return (
-    <div>
-      <div style={{ ...mono, fontSize: 10.5, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>
-        {label}
-      </div>
-      <div className="vmx-chip-row" role="group" aria-label={label}>
+    <div className="vmx-lib-filter">
+      <div className="vmx-lib-filter-label">{label}</div>
+      {/* One scrolling line on a phone (CSS), the wrapping row elsewhere. */}
+      <div className="vmx-chip-row vmx-lib-filter-chips" role="group" aria-label={label}>
         <button
           type="button"
           className={`vmx-chip ${value === 'all' ? 'active' : ''}`}
@@ -459,10 +459,34 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
     [docIndex, debouncedQuery, kind, semester, academicYear, subjectFilter],
   );
 
+  // The reader's own year first, as the clip shelf already does: it is the
+  // one that opens, and on a phone it used to sit under four closed years.
   const groups = useMemo(
-    () => (searching ? [] : groupByYearSubject(filtered)),
-    [filtered, searching],
+    () => (searching ? [] : ownYearFirst(groupByYearSubject(filtered), (g) => g.year, selectedYear)),
+    [filtered, searching, selectedYear],
   );
+
+  // Inside an open year, each subject folds on a phone: the year's 400-odd
+  // cards in one column were a 37,000px page. Wider screens keep every subject
+  // open, as before. A subject the student picked, or a year with only one,
+  // opens anyway; a tap always wins over the default.
+  const [subjectsOpenByDefault] = useState(() => !prefersCompactReading());
+  const [subjectToggles, setSubjectToggles] = useState(() => new Map());
+  const subjectOpen = (year, sg, count) => {
+    const key = `${year}|${sg.subject}`;
+    if (subjectToggles.has(key)) return subjectToggles.get(key);
+    return subjectsOpenByDefault || subjectFilter === sg.subject || count === 1;
+  };
+  const toggleSubject = (year, sg, count) => {
+    const key = `${year}|${sg.subject}`;
+    const open = subjectOpen(year, sg, count);
+    setSubjectToggles((prev) => new Map(prev).set(key, !open));
+  };
+  const showOnlySubject = (subject) => {
+    setSubjectFilter(subject);
+    touchedRef.current = false;
+    try { document.querySelector('.vmx-lib-search')?.scrollIntoView({ block: 'start' }); } catch { /* the filter still applies */ }
+  };
 
   // Filter options come from the shelf itself, so a dimension nobody has filled
   // in never renders a row.
@@ -587,16 +611,13 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
 
       <div className="vmx-library-intro">
         <div className="vmx-library-intro-copy">
-        <div style={{ ...mono, fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-          📚 Study library
-        </div>
-        <h1 style={{ margin: '6px 0 4px', fontSize: 22 }}>คลังเอกสารการเรียน</h1>
+        <h1 style={{ margin: '0 0 4px', fontSize: 22 }}>คลังเอกสารการเรียน</h1>
         <p style={{ color: 'var(--clr-ink-soft)', fontSize: 13, margin: 0 }}>
           ค้นหาเอกสารตามชั้นปี วิชา และหัวข้อ เปิดอ่าน PDF ในแอปพร้อมขีดเขียน
           หรือเปิดเอกสาร VCA จาก Google Drive ต้นฉบับ
         </p>
         {docs.length > 0 && (
-          <div style={{ ...mono, fontSize: 11.5, color: 'var(--clr-ink-soft)', marginTop: 6 }}>
+          <div className="vmx-lib-result-count" style={{ marginTop: 6, marginBottom: 0 }}>
             {docs.length.toLocaleString()} รายการ จาก {subjectTotal} วิชา
           </div>
         )}
@@ -608,15 +629,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
         )}
       </div>
 
-      <FeatureTip id="library" title="มีไฟล์ของตัวเอง? เปิดตรงนี้เลย" icon="📄">
-        <p style={{ margin: '0 0 6px' }}>
-          ไฟล์จากเครื่องเองก็เปิดอ่านและส่งออกไปปริ้นต่อได้เหมือนกัน
-        </p>
-        <ul style={{ margin: 0, paddingLeft: 22, lineHeight: 1.7 }}>
-          <li>กด <strong>เปิด PDF ของฉัน</strong> แล้วเลือกไฟล์ในเครื่อง</li>
-          <li>เขียนหรือขีดได้ตามใจ แล้วส่งออกทั้งเล่มพร้อมรอยเขียน</li>
-        </ul>
-      </FeatureTip>
+      <FeatureTip id="library" />
 
       <div className="vmx-chip-row" role="group" aria-label="แหล่งเอกสาร" style={{ marginBottom: 16 }}>
         <button
@@ -657,6 +670,8 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
           onChange={(e) => setQuery(e.target.value)}
           placeholder="ค้นหาชื่อเอกสาร วิชา ผู้สอน หรือหัวข้อ…"
           aria-label="ค้นหาเอกสารในคลัง"
+          className="vmx-lib-search"
+          enterKeyHint="search"
           style={{
             // fontSize omitted deliberately: the inline 14px overrode the
             // max(16px, 1em) input floor in styles.css, and iOS zooms the whole
@@ -757,7 +772,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
       {/* Search mode — one flat list */}
       {!loading && searching && filtered.length > 0 && (
         <>
-          <div style={{ ...mono, fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 10 }}>
+          <div className="vmx-lib-result-count" role="status">
             พบ {filtered.length} รายการ
           </div>
           <div className="vmx-stagger" style={gridStyle}>
@@ -783,9 +798,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
       {/* Recently opened — continue where you left off, ahead of the hunt */}
       {!loading && !searching && recentOnShelf.length > 0 && (
         <div style={{ marginBottom: 16 }}>
-          <div style={{ ...mono, fontSize: 10.5, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>
-            เปิดล่าสุด
-          </div>
+          <div className="vmx-lib-filter-label">เปิดล่าสุด</div>
           <div className="vmx-stagger" style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 4 }}>
             {recentOnShelf.map((doc) => (
               <button
@@ -832,14 +845,14 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
                         {open ? '▾' : '▸'}
                       </span>
                       <span>{yearLabel}</span>
-                      <span style={{ ...mono, marginLeft: 'auto', fontSize: 12, fontWeight: 400, color: 'var(--clr-ink-soft)' }}>
+                      <span className="vmx-lib-year-count">
                         {group.count} ไฟล์, {group.subjects.length} วิชา
                       </span>
                     </button>
                   </h2>
 
                   {open && (
-                    <div style={{ padding: '4px 16px 16px', display: 'flex', flexDirection: 'column', gap: 18 }}>
+                    <div className="vmx-lib-year-body">
                       {group.subjects.map((sg) => {
                         // The render budget is shared across the whole tree, so
                         // expanding a second year can leave nothing for a
@@ -849,27 +862,32 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
                         // heading and the count line; only the card grid is
                         // skipped, so nothing extra is mounted.
                         const budget = Math.max(0, MAX_BROWSE_CARDS - rendered);
-                        const shown = sg.docs.slice(0, budget);
+                        const subjectIsOpen = subjectOpen(group.year, sg, group.subjects.length);
+                        const shown = subjectIsOpen ? sg.docs.slice(0, budget) : [];
                         rendered += shown.length;
+                        const code = subjectMeta(sg.subject)?.code;
                         return (
-                          <div key={sg.subject}>
-                            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, margin: '14px 0 10px' }}>
-                              <span aria-hidden="true">{subjectIcon(sg.subject)}</span>
-                              <h3 style={{ fontSize: 14, margin: 0 }}>{subjectName(sg.subject)}</h3>
-                              {subjectMeta(sg.subject)?.code && (
-                                <span style={{ ...mono, fontSize: 10.5, color: 'var(--clr-ink-soft)' }}>
-                                  {subjectMeta(sg.subject).code}
+                          <div key={sg.subject} className="vmx-lib-subject">
+                            <h3 className="vmx-lib-subject-heading">
+                              <button
+                                type="button"
+                                className="vmx-lib-subject-toggle"
+                                aria-expanded={subjectIsOpen}
+                                onClick={() => toggleSubject(group.year, sg, group.subjects.length)}
+                              >
+                                <span aria-hidden="true" className="vmx-lib-subject-icon">{subjectIcon(sg.subject)}</span>
+                                <span className="vmx-lib-subject-text">
+                                  <span className="vmx-lib-subject-name">{subjectName(sg.subject)}</span>
+                                  {(code || sg.semester != null) && (
+                                    <span className="vmx-lib-subject-meta">
+                                      {[code, sg.semester != null ? semesterLabel(sg.semester) : null].filter(Boolean).join(', ')}
+                                    </span>
+                                  )}
                                 </span>
-                              )}
-                              {sg.semester != null && (
-                                <span style={{ ...mono, fontSize: 11, color: 'var(--clr-ink-soft)' }}>
-                                  {semesterLabel(sg.semester)}
-                                </span>
-                              )}
-                              <span style={{ ...mono, marginLeft: 'auto', fontSize: 11.5, color: 'var(--clr-ink-soft)' }}>
-                                {sg.count} ไฟล์
-                              </span>
-                            </div>
+                                <span className="vmx-lib-subject-count">{sg.count} ไฟล์</span>
+                                <span aria-hidden="true" className="vmx-lib-subject-chevron">{subjectIsOpen ? '▾' : '▸'}</span>
+                              </button>
+                            </h3>
                             {shown.length > 0 && (
                               <div className="vmx-stagger" style={gridStyle}>
                                 {shown.map((doc) => (
@@ -884,17 +902,24 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
                                 ))}
                               </div>
                             )}
-                            {shown.length < sg.docs.length && (
-                              <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 10 }}>
-                                {/* Do not blame open years. One year is open by
-                                    default and a single year's shelf already
-                                    passes the card budget on its own, so the
-                                    old wording told a student with nothing else
-                                    open to go and close it. */}
-                                {shown.length === 0
-                                  ? `ยังไม่ได้แสดง ${sg.docs.length} ไฟล์ของวิชานี้ ใช้ช่องค้นหาเพื่อเปิดดูได้เลย`
-                                  : `แสดง ${shown.length} จาก ${sg.docs.length} — ใช้ช่องค้นหาเพื่อดูที่เหลือ`}
-                              </p>
+                            {subjectIsOpen && shown.length < sg.docs.length && (
+                              <div className="vmx-lib-capped">
+                                <p>
+                                  {/* Do not blame open years. One year is open by
+                                      default and a single year's shelf already
+                                      passes the card budget on its own, so the
+                                      old wording told a student with nothing else
+                                      open to go and close it. */}
+                                  {shown.length === 0
+                                    ? `ยังไม่ได้แสดง ${sg.docs.length} ไฟล์ของวิชานี้ กดแสดงเฉพาะวิชานี้ หรือใช้ช่องค้นหาเพื่อเปิดดูได้เลย`
+                                    : `แสดง ${shown.length} จาก ${sg.docs.length} ไฟล์ กดแสดงเฉพาะวิชานี้เพื่อดูที่เหลือ`}
+                                </p>
+                                {subjectFilter !== sg.subject && (
+                                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => showOnlySubject(sg.subject)}>
+                                    แสดงเฉพาะวิชานี้
+                                  </button>
+                                )}
+                              </div>
                             )}
                           </div>
                         );

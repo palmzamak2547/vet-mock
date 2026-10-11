@@ -13,6 +13,13 @@ a harness does not have to re-derive them (or learn them by causing a regression
   no separate deploy step. **A main push is a production event, not a save.**
 - Push **one coordinated real commit**. Never add `vercel --prod` on top of it,
   never push an empty redeploy commit, never burst-push a series.
+- **A release lands as a squashed `main`: one commit, or a handful.** Integrate
+  the lanes on a release branch, then put the result on `main` squashed
+  (`git merge --squash`, or a soft reset onto `origin/main` and one commit); the
+  lane history stays on its branches. One push of 88 commits (5.143.0,
+  2026-10-11) sent Vercel's GitHub fetch into a secondary rate limit (403), and
+  the production deploy failed with `git_info_fail` before it built anything.
+  Recovery is in section 6.
 - Docs-only commits deploy too, which is harmless — but do not push while
   another lane is mid-work on `src/` unless the change is independent of it.
   When in doubt, commit locally and let the owner time the push.
@@ -91,3 +98,13 @@ Before a lane's work lands on `main`:
   with a second sweeping commit.
 - **Gate failed after push:** the deploy is still live; revert forward (revert
   commit) rather than re-running the deploy hoping it passes.
+- **Vercel reports `git_info_fail` for the push** (the deploy fails before any
+  build step, e.g. "GitHub fetch error 403 secondary rate limit"): do not push
+  again and do not add an empty commit. Create one production deployment of the
+  same SHA through the Vercel API (`POST /v13/deployments` with a `gitSource`
+  naming this repo, `ref: main` and that `sha`). It builds as usual but lands
+  **STAGED**, not serving the domains, so promote it with
+  `POST /v10/projects/{projectId}/promote/{deploymentId}`, confirm every
+  production alias points at that deployment, then run the usual proof chain on
+  the exact SHA. It replaces the failed deploy, so it is not a second deploy on
+  top of a good one.

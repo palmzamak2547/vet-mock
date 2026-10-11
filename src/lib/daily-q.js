@@ -28,11 +28,17 @@
 // daily-Q UI is a quick "tap the right answer" loop.
 // ============================================================
 
-import { yearForSubject } from '../data/curriculum.js';
+import { yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { sweepStaleKeys } from './storage-gc.js';
 import { isTextOnlyQuestion } from './question-surfaces.js';
 
 export const TODAY_KEY_PREFIX = 'vmx-todays-q-';
+
+// One question, one key, whatever type its id arrived as (banks carry
+// numbers, a restored record may carry the same id as text).
+const questionKey = (subject, id) => `${subject}:${String(id)}`;
+const sameQuestion = (record, q) => !!record && !!q
+  && record.qSubject === q.subject && String(record.qId) === String(q.id);
 
 export function todayKey() {
   const d = new Date();
@@ -65,6 +71,20 @@ export function pickTodaysQ(qb, dateStr = todayKey(), { year = null } = {}) {
   if (year != null) {
     pool = pool.filter((q) => yearForSubject(q.subject) === year);
   }
+  // Hidden topics are excluded from every advertised count and every pool
+  // (exam-pool.js does the same), so the class question must not come from
+  // one: the app would be handing out a question it says does not exist.
+  // Once per subject, not once per question, like exam-pool.js.
+  const hiddenBySubject = new Map();
+  const hiddenFor = (subject) => {
+    let hidden = hiddenBySubject.get(subject);
+    if (!hidden) {
+      hidden = hiddenTopicIdsFor(subject);
+      hiddenBySubject.set(subject, hidden);
+    }
+    return hidden;
+  };
+  pool = pool.filter((q) => !hiddenFor(q.subject).has(q.topic));
   if (pool.length === 0) return null;
   // Stable order, so the pick depends only on (year, date) — never on the
   // order the lazy bank chunks happened to resolve in.
@@ -73,11 +93,29 @@ export function pickTodaysQ(qb, dateStr = todayKey(), { year = null } = {}) {
   return pool[idx];
 }
 
-export function readTodaysQStatus(dateStr = todayKey()) {
+// The day's record. Its top level is the FIRST answer of the day (the streak
+// walk and the share grid read it); `byQuestion` holds every answer of the
+// day under "subject:id". The pick is per year, so a student who switches
+// year mid-day meets a second question: without the per-question entries
+// the other year's question wore the first one's ✓, and answering it
+// overwrote the record (OV-tools-41).
+//
+// With `q`, the status is that question's own: done only if it was answered.
+// Without `q`, the day's: done if anything was answered (what the streak asks).
+export function readTodaysQStatus(dateStr = todayKey(), q = null) {
   try {
     const raw = window.localStorage.getItem(TODAY_KEY_PREFIX + dateStr);
     if (!raw) return { completed: false };
-    return { completed: true, ...JSON.parse(raw) };
+    const record = JSON.parse(raw);
+    if (!record || typeof record !== 'object') return { completed: false };
+    const { byQuestion, ...day } = record;
+    if (!q) return { completed: true, ...day };
+    const own = byQuestion && typeof byQuestion === 'object' ? byQuestion[questionKey(q.subject, q.id)] : null;
+    if (own) return { completed: true, ...own };
+    // A record written before per-question entries carries one answer, at
+    // the top level: it marks its own question and no other.
+    if (sameQuestion(day, q)) return { completed: true, ...day };
+    return { completed: false };
   } catch {
     return { completed: false };
   }
@@ -85,8 +123,18 @@ export function readTodaysQStatus(dateStr = todayKey()) {
 
 export function recordTodaysQAnswer({ qSubject, qId, choice, correct, dateStr = todayKey() }) {
   try {
-    const payload = JSON.stringify({ qSubject, qId, choice, correct, ts: Date.now() });
-    window.localStorage.setItem(TODAY_KEY_PREFIX + dateStr, payload);
+    const storageKey = TODAY_KEY_PREFIX + dateStr;
+    const answer = { qSubject, qId, choice, correct, ts: Date.now() };
+    let existing = null;
+    try { existing = JSON.parse(window.localStorage.getItem(storageKey) || 'null'); } catch { existing = null; }
+    if (!existing || typeof existing !== 'object' || existing.qSubject == null) existing = null;
+    const byQuestion = { ...(existing?.byQuestion || {}) };
+    byQuestion[questionKey(qSubject, qId)] = answer;
+    // Keep the day's first answer on top unless it was this question's own.
+    const day = existing && !sameQuestion(existing, { subject: qSubject, id: qId })
+      ? { qSubject: existing.qSubject, qId: existing.qId, choice: existing.choice, correct: existing.correct, ts: existing.ts }
+      : answer;
+    window.localStorage.setItem(storageKey, JSON.stringify({ ...day, byQuestion }));
     // One key was written per calendar day and none was ever removed, so a
     // term of daily questions is hundreds of dead entries. Yesterday's answer
     // is read by nothing; clear the other days as today's lands.

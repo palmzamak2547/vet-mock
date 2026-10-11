@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก stallion anatomy, semen production",
   summary: `# Equine Repro — 3 Male Reproductive Anatomy
 
-> 🎯 Stallion anatomy + function — **spermatogenesis 57 days** · year-round vs mare seasonal ⭐⭐
+> 🎯 Stallion anatomy + function — **spermatogenesis 57 days**, year-round vs mare seasonal ⭐⭐
 > ⚠️ ออกแน่: spermatogenesis timing, semen parameters, hormones (high estrogen!)
 
 ---

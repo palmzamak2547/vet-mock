@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก equine infectious diseases, vaccination programs",
   summary: `# Equine — 8 Infectious Disease and Vaccination
 
-> 🎯 **Tetanus = essential** ทุกตัว · Coggins test สำหรับ EIA · EHV-1 > EHV-4 ในความรุนแรง ⭐⭐⭐
+> 🎯 **Tetanus = essential** ทุกตัว, Coggins test สำหรับ EIA, EHV-1 > EHV-4 ในความรุนแรง ⭐⭐⭐
 > ⚠️ ออกแน่: core vaccines, EIA = no treatment + reportable, vaccination schedule
 
 ---

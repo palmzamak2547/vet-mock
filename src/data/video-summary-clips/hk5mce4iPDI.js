@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก semen collection, AI techniques, timing",
   summary: `# Equine Repro — 5 Semen Collection and AI
 
-> 🎯 AV = most common collection · **Conventional AI standard** · timing within 24h before ovulation ⭐⭐⭐
+> 🎯 AV = most common collection, **Conventional AI standard**, timing within 24h before ovulation ⭐⭐⭐
 > ⚠️ ออกแน่: AV technique, conventional vs deep horn AI, timing critical
 
 ---

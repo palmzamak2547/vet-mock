@@ -12,8 +12,20 @@ test.beforeEach(async ({ page }) => {
   await page.route(/\/rest\/v1\/library_docs(?:\?|$)/, route => route.fulfill({ json: [], headers: { 'access-control-allow-origin': '*' } }));
 });
 
-test('a feedback draft survives update signals, tab hiding, stale imports and subsequent navigation', async ({ page }) => {
+// The app hands focus to <main> on the first frame after a navigation
+// (App.jsx). Playwright can focus the draft box before that frame is drawn;
+// the hand-off then pulls focus out between fill's focus and its typing, and
+// the text goes nowhere (no input event at all). WebKit lost the draft that
+// way in 6 of 60 local runs of the two tests below and in the 2026-10-11
+// release gate. A student cannot type into a page that was never drawn, so
+// the tests wait for the hand-off: the page as a student first sees it.
+async function openFeedback(page) {
   await page.goto('/app/feedback');
+  await expect(page.locator('#main')).toBeFocused();
+}
+
+test('a feedback draft survives update signals, tab hiding, stale imports and subsequent navigation', async ({ page }) => {
+  await openFeedback(page);
   const draft = page.locator('#vmx-feedback-message');
   await draft.fill('ยังเขียนไม่เสร็จ ขอเก็บข้อความนี้ไว้');
   const identity = await page.evaluate(() => window.__documentIdentity);
@@ -35,7 +47,7 @@ test('a feedback draft survives update signals, tab hiding, stale imports and su
 test('an actually failed optional chunk leaves the draft intact and its retry can be dismissed', async ({ page }) => {
   let chunkFailed = false;
   await page.route(/\/assets\/VetCalculator-[^/]+\.js/, route => { chunkFailed = true; return route.abort(); });
-  await page.goto('/app/feedback');
+  await openFeedback(page);
   const draft = page.locator('#vmx-feedback-message');
   await draft.fill('เก็บงานไว้ก่อน ลองเครื่องคิดเลขภายหลัง');
   const identity = await page.evaluate(() => window.__documentIdentity);
@@ -63,7 +75,7 @@ test('choosing notes from the palette while already choosing a subject changes t
   await page.goto('/app/study');
   await expect(page.getByRole('textbox', { name: 'ค้นหาวิชา' })).toBeVisible();
   const historyLength = await page.evaluate(() => history.length);
-  await page.getByRole('button', { name: 'ค้นหา', exact: true }).click();
+  await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
   await page.getByRole('textbox', { name: 'ค้นหาใน VetMock' }).fill('สรุปบทเรียน');
   // The ask-the-corpus button repeats the query and appears before results.
   // Select the actual Quick Action, rather than asking about its label.

@@ -44,7 +44,7 @@ const entries = Object.entries(ALL).map(([id, v]) => {
 
 let out = `// ============================================================
 // VIDEO_META — lightweight index of video summaries (no full text).
-// Auto-derived from video-summaries.js · used by CommandPalette /
+// Auto-derived from video-summaries.js, used by CommandPalette /
 // other consumers that only need {videoId, title, subject, date,
 // durationMin, instructor, examFormat} for search/list — NOT the
 // markdown body.

@@ -12,7 +12,7 @@ export default {
   summary: `# Lameness in Cattle (Digital Lameness, Hoof Anatomy + Trimming + Common Diseases)
 
 > 🎯 **Lameness = #3 dairy disease** (after mastitis + reproduction). ⭐⭐⭐ **>90% of cattle lameness originates in the FOOT/HOOF/DIGIT** — hence "Digital Lameness"
-> 💡 Hindlimb >> forelimb (3 reasons) · Lateral claw > medial (grows ~10% faster)
+> 💡 Hindlimb >> forelimb (3 reasons), Lateral claw > medial (grows ~10% faster)
 > ⚠️ Locomotion Score 3+ <5% herd = healthy farm
 
 Diseases divided into **Infectious** (Footrot, Digital Dermatitis) and **Non-infectious** (Sole Ulcer, White Line Disease, Laminitis).

@@ -24,6 +24,7 @@ import PomodoroChick from './PomodoroChick.jsx';
 import FocusBackdrop from './FocusBackdrop.jsx';
 import StudyBreak from './StudyBreak.jsx';
 import { MotionButton } from './MotionFeedback.jsx';
+import { buddyArt } from '../lib/buddy.js';
 import {
   VISIBILITY_GRACE_MS, phaseMinutes, statusLabel, runEndsAt, escapedWhileAway,
   loadRun, saveRun, markRunAway,
@@ -342,9 +343,12 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
 
   // --- Buttons ------------------------------------------------------------
   const btnBase = {
-    minHeight: 44,
+    minHeight: 'var(--touch-min)',
     minWidth: 96,
     padding: '10px 18px',
+    // A bare <button> takes the platform font (MS Shell Dlg on Windows,
+    // SF on iOS), not Sarabun like the rest of the screen.
+    fontFamily: 'inherit',
     fontSize: 15,
     fontWeight: 600,
     borderRadius: 12,
@@ -358,12 +362,18 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
     color: '#fff',
     boxShadow: `0 2px 6px ${primaryBg}55`,
   };
+  // Theme tokens: the fixed white button was a bright block in dark mode.
   const ghostBtn = {
     ...btnBase,
-    background: '#fff',
-    color: '#444',
-    border: '1px solid #ddd',
+    background: 'var(--clr-surface)',
+    color: 'var(--clr-ink)',
+    border: '1px solid var(--clr-border)',
   };
+  // The ring's track and the cycle dots' empty state: a pale gold in the
+  // light theme, a deep one in the dark (the fixed #fff3bf stays as the
+  // fallback where color-mix is missing; alone it was a bright ring on a
+  // dark screen).
+  const trackColor = 'color-mix(in srgb, var(--clr-gold) 20%, var(--clr-surface))';
 
   return (
     <div
@@ -397,6 +407,7 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
             r={RADIUS}
             fill="none"
             stroke="#fff3bf"
+            style={{ stroke: trackColor }}
             strokeWidth={STROKE}
           />
           {/* Progress */}
@@ -446,8 +457,12 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
             aria-hidden="true"
           >
             {avatar ? (
+              // Mochi reads along during a focus (its drawn 'read' pose); a
+              // clinic mascot shows its one picture throughout. key={src}:
+              // the art fallback keeps its state on the element.
               <img
-                src={avatar.src}
+                key={buddyArt(avatar, state === 'focus' ? 'read' : 'rest')}
+                src={buddyArt(avatar, state === 'focus' ? 'read' : 'rest')}
                 alt={avatar.alt || ''}
                 style={{
                   width: '90%',
@@ -512,8 +527,8 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
 
       {/* Cycle dots */}
       {focusCount > 0 && state !== 'idle' && (
-        <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12, color: '#888' }}>
-          <span>Cycle:</span>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+          <span>รอบ</span>
           {[0, 1, 2, 3].map((i) => (
             <span
               key={i}
@@ -521,7 +536,7 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
                 width: 8,
                 height: 8,
                 borderRadius: '50%',
-                background: i < focusCount % FOCUS_PER_CYCLE ? '#f59f00' : '#fff3bf',
+                background: i < focusCount % FOCUS_PER_CYCLE ? 'var(--clr-gold)' : trackColor,
               }}
               aria-hidden="true"
             />
@@ -536,22 +551,22 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
         {state === 'idle' && (
           <MotionButton type="button" onClick={startFocus} style={primaryBtn} aria-label="เริ่ม focus session">
-            ▶ Start
+            เริ่ม
           </MotionButton>
         )}
         {isTimerActive && !paused && (
           <button type="button" onClick={pause} style={ghostBtn} aria-label="หยุดชั่วคราว">
-            ⏸ Pause
+            หยุดชั่วคราว
           </button>
         )}
         {paused && (
           <button type="button" onClick={resume} style={primaryBtn} aria-label="ทำต่อ">
-            ▶ Resume
+            ทำต่อ
           </button>
         )}
         {(isTimerActive || state === 'failed') && (
-          <button type="button" onClick={reset} style={ghostBtn} aria-label="รีเซ็ต">
-            🔄 Reset
+          <button type="button" onClick={reset} style={ghostBtn} aria-label="เริ่มใหม่">
+            เริ่มใหม่
           </button>
         )}
       </div>

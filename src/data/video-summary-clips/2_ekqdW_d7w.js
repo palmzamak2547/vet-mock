@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice + calculation, ออก Cohort, Case-Control, Cross-Sectional, OR, RR, Confounding, Selection bias",
   summary: `# Veterinary Epidemiology — 3.3 Observation Study Designs
 
-> 🎯 3 main observational designs — **Cohort** (exposure→outcome) · **Case-Control** (outcome→exposure) · **Cross-Sectional** (both at once) ⭐⭐⭐
+> 🎯 3 main observational designs — **Cohort** (exposure→outcome), **Case-Control** (outcome→exposure), **Cross-Sectional** (both at once) ⭐⭐⭐
 > ⚠️ ออกแน่: RR (cohort), OR = ad/bc (case-control), bias types, confounding control
 
 ---

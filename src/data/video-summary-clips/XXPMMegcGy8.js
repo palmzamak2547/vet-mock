@@ -43,7 +43,7 @@ export default {
 - ⭐ Endoscopy
 - ⭐ Surgery — tumor removal, sex change (!)
 
-> 💡 **MS-222** (tricaine) = anesthetic มาตรฐานสำหรับปลา · ทำให้หมดสติด้วยการ immersion
+> 💡 **MS-222** (tricaine) = anesthetic มาตรฐานสำหรับปลา, ทำให้หมดสติด้วยการ immersion
 
 ---
 

@@ -1,6 +1,6 @@
 # VetMock project knowledge base
 
-Source checkpoint: **2026-10-12, study 5.143.0 / SW v218** (pushed to main; the deployed receipt is in docs/LAUNCH_READINESS.md).
+Source checkpoint: **2026-10-12, study 5.144.0 / SW v219** (pushed to main; the deployed receipt is in docs/LAUNCH_READINESS.md).
 Subject cards share 85 course bookplates, with names, counts and availability
 remaining live text. Source versions do not establish a production deployment;
 use the dated acceptance receipts below for the deployed SHA and live checks.

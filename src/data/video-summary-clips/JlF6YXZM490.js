@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก MG, MS, vertical transmission, vaccination, monitoring",
   summary: `# Avian Medicine 2 — Mycoplasmosis (MG + MS)
 
-> 🎯 **2 ตัวหลักของไก่** — **MG (M. gallisepticum)** = CRD (Chronic Respiratory Disease) · **MS (M. synoviae)** = synovitis + eggshell apex abnormality
+> 🎯 **2 ตัวหลักของไก่** — **MG (M. gallisepticum)** = CRD (Chronic Respiratory Disease), **MS (M. synoviae)** = synovitis + eggshell apex abnormality
 > ⚠️ **Vertical transmission (egg-borne)** = key challenge → Mycoplasma-free breeders เท่านั้นที่ตัดวงจรได้
 
 ---

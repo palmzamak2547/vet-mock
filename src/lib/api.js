@@ -54,7 +54,13 @@ export async function joinGroupByCode(code, _userId) {
   const { data, error } = await supabase.rpc('join_study_group', {
     invite_code: String(code || '').trim().toUpperCase(),
   });
-  if (error) throw new Error('ไม่พบกลุ่มรหัสนี้');
+  if (error) {
+    // Only a bad code is "not found" (22023); signed out is 42501. A dropped
+    // connection or timeout goes up as-is so the caller's thaiError says so.
+    if (error.code === '22023') throw new Error('ไม่พบกลุ่มรหัสนี้');
+    if (error.code === '42501') throw new Error('ต้องเข้าสู่ระบบก่อน');
+    throw error;
+  }
   const group = rpcRow(data);
   if (!group) throw new Error('ไม่พบกลุ่มรหัสนี้');
   return group;

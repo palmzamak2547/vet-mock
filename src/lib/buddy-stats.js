@@ -14,13 +14,17 @@
 // to src/lib/account-local-purge.js).
 
 const BUDDY_STATS_KEY = 'vmx-buddy-stats';
-const SELECTED_BUDDY_KEY = 'vmx-selected-buddy';
+export const SELECTED_BUDDY_KEY = 'vmx-selected-buddy';
+// Fired on window after the pick or the stats change; useBuddy listens.
+export const BUDDY_CHANGED_EVENT = 'vmx-buddy-changed';
+// The answer getSelectedBuddy gives when nothing was picked. Screens that show
+// "your buddy" read lib/buddy.js instead, where no pick means Mochi.
 export const DEFAULT_BUDDY = 'moocha';
 
 function broadcast() {
   try {
     if (typeof window !== 'undefined') {
-      window.dispatchEvent(new Event('vmx-buddy-changed'));
+      window.dispatchEvent(new Event(BUDDY_CHANGED_EVENT));
     }
   } catch {
     /* ignore outside browser */

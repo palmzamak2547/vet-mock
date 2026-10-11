@@ -125,6 +125,9 @@ test('a replay confirmation consumes the pin request but cannot carry A private 
     let answerConfirmation, pendingReplay, confirmations = 0;
     const replay = callback('src/App.jsx', 'replayQuestions', {
       eventContextRef, sessionRef, finishingRef, viewRef: { current: 'pinboard' }, window,
+      // The unsaved-result guard (App.protectUnsavedResult) has nothing to
+      // protect here: the parked set is unfinished, not an unsaved result.
+      unsavedGuardRef: { current: async () => true },
       readOwnedExam, unfinishedWork, confirmDialog: () => {
         confirmations++;
         return new Promise(resolve => { answerConfirmation = resolve; });

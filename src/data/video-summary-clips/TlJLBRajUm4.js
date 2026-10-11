@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก พรบ. สาธารณสุข, food regulations",
   summary: `# Food Industry 1.2 — พระราชบัญญัติการสาธารณสุข (Public Health Act)
 
-> 🎯 **พรบ. การสาธารณสุข** = กฎหมายหลักควบคุม food safety, hygiene, vendors ในไทย · enforcement ระดับ local government
+> 🎯 **พรบ. การสาธารณสุข** = กฎหมายหลักควบคุม food safety, hygiene, vendors ในไทย, enforcement ระดับ local government
 > 💡 Vet มี role indirect — สนับสนุน zoonotic disease control + sanitary inspection
 
 ---

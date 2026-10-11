@@ -57,6 +57,25 @@ test('group RPCs reject PostgreSQL NULL composites and retain real rows', async 
   }
 });
 
+// OV-data-8: every RPC failure used to read "code not found", so a dropped
+// connection told a student their friend's code was wrong. The RPC raises
+// 22023 for a bad code and 42501 when signed out; anything else is passed on
+// for GroupsView's thaiError to word (network, timeout, generic).
+test('joining a group says "not found" only when the code is really not found', async () => {
+  const failWith = (error) => { globalThis.__vmxTestSupabase = { rpc: async () => ({ data: null, error }) }; };
+  failWith({ code: '22023', message: 'INVALID_GROUP_CODE' });
+  await assert.rejects(api.joinGroupByCode('AAAAAA'), /ไม่พบกลุ่มรหัสนี้/);
+  failWith({ code: '42501', message: 'NOT_AUTHENTICATED' });
+  await assert.rejects(api.joinGroupByCode('AAAAAA'), /เข้าสู่ระบบก่อน/);
+  const offline = { message: 'TypeError: Failed to fetch' };
+  failWith(offline);
+  await assert.rejects(api.joinGroupByCode('AAAAAA'), (err) => {
+    assert.doesNotMatch(String(err?.message), /ไม่พบกลุ่มรหัสนี้/);
+    assert.equal(err, offline);
+    return true;
+  });
+});
+
 /** A Supabase client whose reads and inserts answer with what the test says. */
 function fakeClient({ select = { data: [], error: null }, insert = { error: null } } = {}) {
   const calls = { selects: 0, inserts: 0 };

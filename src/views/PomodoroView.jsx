@@ -18,10 +18,11 @@ import PomodoroTimer from '../components/PomodoroTimer.jsx';
 import BuddySelector from '../components/BuddySelector.jsx';
 import ErrorBoundary from '../components/ErrorBoundary.jsx';
 import MascotStill from '../components/MascotStill.jsx';
-import { getPickedBuddy, recordBuddyFocus } from '../lib/buddy-stats.js';
+import { recordBuddyFocus } from '../lib/buddy-stats.js';
+import { buddyArt, canShow3D } from '../lib/buddy.js';
+import { useBuddy } from '../hooks/useBuddy.js';
 import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
-import { SQUAD_MASCOTS } from '../data/art.js';
 import {
   loadConfig,
   saveConfig,
@@ -40,12 +41,11 @@ const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer
 const POMODORO_BUDDY = 'chicky';
 
 export default function PomodoroView({ goHome }) {
-  const [selectedBuddyId, setSelectedBuddyId] = useState(() => {
-    const picked = getPickedBuddy();
-    return picked && SQUAD_MASCOTS[picked] ? picked : POMODORO_BUDDY;
-  });
+  // The buddy is the one kept for every screen (lib/buddy.js), live; with no
+  // pick Pomodoro keeps its chick.
+  const { id: selectedBuddyId, buddy: selectedBuddy } = useBuddy(POMODORO_BUDDY);
   // The chick keeps its hatching story; a buddy the student picked is named instead.
-  const buddyName = selectedBuddyId === POMODORO_BUDDY ? null : SQUAD_MASCOTS[selectedBuddyId]?.nameTh || null;
+  const buddyName = selectedBuddyId === POMODORO_BUDDY ? null : selectedBuddy.nameTh;
   const [showCelebration, setShowCelebration] = useState(false);
   // The celebration is a companion moment: it follows the same device
   // preference as Mochi, and reduced motion gets a still picture.
@@ -133,15 +133,22 @@ export default function PomodoroView({ goHome }) {
   }, []);
 
   // --- Styling helpers ---------------------------------------------------
-  const selectedBuddy = SQUAD_MASCOTS[selectedBuddyId] || SQUAD_MASCOTS.moocha;
-  const buddyAvatar = selectedBuddyId && selectedBuddyId !== 'chicky' ? selectedBuddy : null;
+  const buddyAvatar = selectedBuddyId !== POMODORO_BUDDY ? selectedBuddy : null;
+  // The celebration picture: Mochi has a drawn celebrate pose, a clinic
+  // mascot its one picture. Used for reduced motion, no WebGL2, and while the
+  // 3D chunk loads, so the moment never opens on loading text.
+  const celebrationStill = useMemo(
+    () => ({ ...selectedBuddy, src: buddyArt(selectedBuddy, 'celebrate') }),
+    [selectedBuddy]
+  );
+  const celebrate3D = celebrationOpen && !reduced && canShow3D();
 
   const statsRow = useMemo(
     () => [
       { label: 'นาทีวันนี้', value: stats.today, suffix: 'นาที' },
-      { label: 'Session วันนี้', value: stats.counts.today, suffix: 'ครั้ง' },
+      { label: 'รอบวันนี้', value: stats.counts.today, suffix: 'ครั้ง' },
       { label: '7 วันล่าสุด', value: stats.counts.week, suffix: 'ครั้ง' },
-      { label: 'Streak', value: stats.streak, suffix: 'วัน' },
+      { label: 'วันต่อเนื่อง', value: stats.streak, suffix: 'วัน' },
     ],
     [stats]
   );
@@ -175,9 +182,9 @@ export default function PomodoroView({ goHome }) {
         🍅 Pomodoro
       </h1>
 
-      {/* Buddy selector */}
+      {/* Buddy selector: a pick here is the buddy on every screen */}
       <div style={{ maxWidth: 440, width: '100%', margin: '0 auto' }}>
-        <BuddySelector selectedId={selectedBuddyId} onSelect={setSelectedBuddyId} />
+        <BuddySelector selectedId={selectedBuddyId} />
       </div>
 
       {/* Escape banner — appears for 6 s after a failed session */}
@@ -190,13 +197,13 @@ export default function PomodoroView({ goHome }) {
             borderRadius: 12,
             background: 'color-mix(in srgb, var(--clr-rose) 12%, var(--clr-surface))',
             color: 'var(--clr-rose-text)',
-            border: '1px solid #ffd8d8',
+            border: '1px solid var(--clr-rose-soft)',
             textAlign: 'center',
             fontWeight: 600,
             fontSize: 14,
           }}
         >
-          💔 {buddyName || 'ลูกไก่'}หนีไปแล้ว — อยู่ในหน้านี้ตลอด session นะ
+          💔 {buddyName || 'ลูกไก่'}หนีไปแล้ว รอบหน้าอยู่ในหน้านี้จนครบเวลานะ
         </div>
       )}
 
@@ -256,7 +263,7 @@ export default function PomodoroView({ goHome }) {
             color: 'var(--clr-ink)',
           }}
         >
-          <span>ปรับเวลา (focus / break)</span>
+          <span>ปรับเวลาโฟกัสและพัก</span>
           <span aria-hidden="true">{settingsOpen ? '▾' : '▸'}</span>
         </button>
         {settingsOpen && (
@@ -341,9 +348,10 @@ export default function PomodoroView({ goHome }) {
           style={{
             position: 'fixed',
             inset: 0,
-            zIndex: 9999,
-            background: 'rgba(0, 0, 0, 0.65)',
-            backdropFilter: 'blur(6px)',
+            zIndex: 'var(--z-modal)',
+            // A flat scrim: a blur under a full-screen dialog re-runs on
+            // every frame of the 3D canvas above it.
+            background: 'rgba(0, 0, 0, 0.6)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -408,20 +416,16 @@ export default function PomodoroView({ goHome }) {
                 </p>
               </div>
 
-              {reduced ? (
-                <MascotStill mascot={selectedBuddy} />
-              ) : (
-                <ErrorBoundary fallback={<MascotStill mascot={selectedBuddy} note="เปิดโมเดล 3D ไม่สำเร็จ จึงแสดงเป็นภาพนิ่งแทน" />}>
-                  <Suspense
-                    fallback={
-                      <div style={{ padding: 40, fontSize: 13, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
-                        กำลังโหลดโมเดล 3D...
-                      </div>
-                    }
-                  >
-                    <MascotSquad3DViewer initialId={selectedBuddyId} initialAction="celebrate" />
+              {celebrate3D ? (
+                <ErrorBoundary fallback={<MascotStill mascot={celebrationStill} />}>
+                  {/* While the 3D chunk loads, the buddy's picture holds the
+                      place: no loading text in a moment of celebration. */}
+                  <Suspense fallback={<MascotStill mascot={celebrationStill} />}>
+                    <MascotSquad3DViewer id={selectedBuddyId} initialAction="celebrate" />
                   </Suspense>
                 </ErrorBoundary>
+              ) : (
+                <MascotStill mascot={celebrationStill} />
               )}
 
               <button

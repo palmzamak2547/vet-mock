@@ -2,6 +2,17 @@ import { test, expect } from './fixtures.js';
 
 test.use({ reducedMotion: 'reduce' });
 
+// Up to 880px the notes page switches subjects with a native picker (the
+// sidebar and its subject chips are hidden there since 2026-10-12); wider,
+// with the sidebar chip. Either way it is the same switchSubject call.
+async function switchNotesSubject(page, chipName, optionLabel) {
+  if ((page.viewportSize()?.width ?? 1280) <= 880) {
+    await page.getByRole('combobox', { name: 'วิชา', exact: true }).selectOption({ label: optionLabel });
+  } else {
+    await page.getByRole('button', { name: chipName, exact: true }).click();
+  }
+}
+
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => {
     localStorage.setItem('vmx-selected-year', '5');
@@ -59,7 +70,7 @@ test('a Notes entry keeps its selected topic after opening an unrelated Wiki res
   await page.getByRole('button', { name: 'เปิด Notes Storage of raw milk', exact: true }).click();
   await expect(page.locator('[data-reading-content]')).toBeVisible();
   await expect(page.locator('[data-reading-content]')).toContainText('Storage of raw milk');
-  await page.getByRole('button', { name: 'ค้นหา', exact: true }).click();
+  await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
   await page.getByRole('textbox', { name: 'ค้นหาใน VetMock' }).fill('Rabies');
   const result = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' }).getByRole('button', { name: /Rabies — โรคพิษสุนัขบ้า VetWiki/ });
   await result.click();
@@ -77,7 +88,7 @@ test('a delayed view does not take focus from the search dialog', async ({ page 
     await route.continue();
   });
   await page.goto('/app/progress', { waitUntil: 'domcontentloaded' });
-  await page.getByRole('button', { name: 'ค้นหา', exact: true }).click();
+  await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
   const search = page.getByRole('textbox', { name: 'ค้นหาใน VetMock' });
   await expect(search).toBeFocused();
   releaseView();
@@ -93,7 +104,7 @@ test('a view that finishes while search is downloading keeps the search return f
   await page.route('**/assets/HomeView-*.js', async route => { await viewReady; await route.continue(); });
   await page.route('**/assets/CommandPalette-*.js', async route => { await searchReady; await route.continue(); });
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  const launch = page.getByRole('button', { name: 'ค้นหา', exact: true });
+  const launch = page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first();
   await launch.click();
   releaseView();
   await expect(page.locator('.vmx-subject-card').first()).toBeVisible();
@@ -110,7 +121,7 @@ test('a failed Notes download retains the intended subject on browser Forward', 
   await page.getByRole('button', { name: 'เปิด Notes Storage of raw milk', exact: true }).click();
   await expect(page.locator('[data-reading-content]')).toContainText('Storage of raw milk');
   await context.setOffline(true);
-  await page.getByRole('button', { name: '🩺 COM IV', exact: true }).click();
+  await switchNotesSubject(page, '🩺 COM IV', 'COM IV');
   await expect(page.getByRole('heading', { name: /เปิดโน้ต.*ไม่สำเร็จ/ })).toBeVisible();
   await context.setOffline(false);
   await page.locator('.vmx-back-chip').click();

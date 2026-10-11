@@ -38,7 +38,7 @@ import AuthRequiredState, { AuthUnavailableState } from './components/AuthRequir
 import { useStudyBuddies } from './hooks/useStudyBuddies.js';
 import { useExamSession } from './hooks/useExamSession.js';
 import { shuffle, isCorrect, downloadJSON, updateStreak, timeForQuestion, isWritingType } from './hooks/utils.js';
-import { keyAnswerLocked, answeredCount, practicePreset, leavesReader, questionPinPayload, unfinishedWork } from './lib/app-flow.js';
+import { keyAnswerLocked, answeredCount, practicePreset, leavesReader, questionPinPayload, unfinishedWork, unsavedResult, runSubjectFor } from './lib/app-flow.js';
 // Global stylesheet. 2026-05-27: converted from a JS template-literal
 // export (src/styles.js, injected via <style>{STYLES}</style>) to a real
 // CSS file Vite handles natively. Kills the backtick-in-comment fragility
@@ -69,6 +69,7 @@ import {
 } from './lib/exam-pool.js';
 import { panicPool } from './lib/question-metadata.js';
 import { adaptiveSelect, computeAbility, keepPassageOrder } from './lib/adaptive-select.js';
+import { gentlePick } from './lib/practice-ladder.js';
 import { questionDifficulty } from './lib/elo.js';
 import { loadQuestionDifficulty } from './lib/question-difficulty.js';
 
@@ -333,6 +334,9 @@ export default function App() {
       const shared = readShareUrlFromLocation();
         if (shared.length === 0) {
           sharedResolvedRef.current = true;
+          // A link that decodes to nothing (or only to questions the sender
+          // wrote, which never travel) used to land here in silence.
+          alertDialog('ลิงก์นี้ไม่มีข้อที่เปิดได้ในคลัง');
           setView('home');
           setChallengeSender(null);
           return;
@@ -348,7 +352,9 @@ export default function App() {
         setView('exam');
       } else {
         // URL referenced Q IDs that no longer exist — drop to home
-        // gracefully instead of leaving the user staring at empty exam.
+        // gracefully instead of leaving the user staring at empty exam,
+        // and say why, instead of a Home screen with no message.
+        alertDialog('ลิงก์นี้ไม่มีข้อที่เปิดได้ในคลัง');
         setView('home');
         setChallengeSender(null);
       }
@@ -608,6 +614,18 @@ export default function App() {
     setTourStep(0);
     setTourOpen(true);
   }, []);
+  // A usage hint's "ดูวิธีใช้เรื่องนี้ทั้งหมด" opens the guide at its goal
+  // (lib/guide-progress.js). The attribute tells hints someone is listening,
+  // so the link never renders as a control that does nothing.
+  useEffect(() => {
+    const onOpenGuide = (event) => openTour(event?.detail?.launcher);
+    window.addEventListener('vmx-open-guide', onOpenGuide);
+    document.documentElement.setAttribute('data-vmx-guide', 'ready');
+    return () => {
+      window.removeEventListener('vmx-open-guide', onOpenGuide);
+      document.documentElement.removeAttribute('data-vmx-guide');
+    };
+  }, [openTour]);
   // NOT memoized on purpose. startExam is rebuilt every render (it closes over
   // session, selectedYear, selectedPhase), so an empty-dep useCallback pinned
   // this to the FIRST render's copy — whose session.startNewSession was built
@@ -1128,6 +1146,8 @@ export default function App() {
   const finishedEntriesRef = useRef(null);
   const completedAtRef = useRef(null);
   const localSaveFailedRef = useRef(false);
+  // protectUnsavedResult, reachable from the memoised replayQuestions callback.
+  const unsavedGuardRef = useRef(async () => true);
   useEffect(() => {
     setExamSaveError(null);
     setDetailSaveError(null);
@@ -1343,7 +1363,7 @@ export default function App() {
       saved = readOwnedExam(window.localStorage, owner);
       if (!saved && readUnclaimedExam(window.localStorage)) {
         if (!(await confirmDialog({ title: 'ชุดที่ค้างไว้นี้เป็นของคุณหรือไม่?',
-          body: 'ชุดรุ่นก่อนยังไม่ระบุเจ้าของ กู้คืนเฉพาะเมื่อเป็นคำตอบของคุณ ข้อมูลจะผูกกับบัญชีหรือโหมดผู้เยี่ยมชมที่เปิดอยู่นี้',
+          body: 'ชุดที่ค้างจากเวอร์ชันก่อนยังไม่ระบุเจ้าของ กู้คืนเฉพาะเมื่อเป็นคำตอบของคุณ ข้อมูลจะผูกกับบัญชีหรือโหมดผู้เยี่ยมชมที่เปิดอยู่นี้',
           confirmLabel: 'เป็นของฉัน กู้คืน', cancelLabel: 'ยังไม่กู้คืน' }))) return;
         if (eventContextRef.current.owner !== owner) return;
         saved = claimLegacyExam(window.localStorage, owner);
@@ -1701,6 +1721,7 @@ export default function App() {
         confirmLabel: 'เริ่มชุดใหม่ ทิ้งชุดเดิม', cancelLabel: 'กลับไปทำชุดเดิม',
       });
     }
+    if (!(await protectUnsavedResult(eventContextRef.current?.owner ?? null))) return false;
     try { work = unfinishedWork(readOwnedExam(window.localStorage, eventContextRef.current?.owner ?? null)); } catch { work = null; }
     if (!work) return true;
     return confirmDialog({
@@ -1898,8 +1919,21 @@ export default function App() {
     // weakest. Ordinary practice still shuffles.
     const ordered = USER_CURATED_MODES.has(_practiceMode);
     const isAdaptive = _practiceMode === 'adaptive';
+    // Rung 1 of the practice ladder (lib/practice-ladder.js): the config
+    // screen asks for the gentle order only for an untimed practice set from a
+    // plain or scope pool. Never over a curated set (most-missed-first is what
+    // those screens promise) and never over a Panic set (paper-proximity is
+    // the feature); the adaptive pick already ramps easy to hard on its own.
+    const isGentle = overrides.gentle === true && !isAdaptive && !ordered && !overrides.panicPool;
     let picked;
-    if (isAdaptive) {
+    if (isGentle) {
+      // Measured difficulty decides where it exists; the snapshot is a tiny
+      // lazy chunk, and when it cannot load the format proxy still serves.
+      let difficultyData = null;
+      try { difficultyData = await loadQuestionDifficulty(); } catch { difficultyData = null; }
+      if (!current()) return;
+      picked = gentlePick(pool, Math.min(qCount, pool.length), { difficultyData });
+    } else if (isAdaptive) {
       // The adaptive set picks where ordinary practice shuffles: from the same
       // pool, serve the questions nearest the difficulty that predicts a ~70%
       // success rate for this student, ramped easy → hard. Ability is rebuilt
@@ -1953,8 +1987,10 @@ export default function App() {
       // re-sort put 'ทบทวนข้อที่ตอบผิด' back in id order under a screen that
       // says ผิดบ่อยขึ้นก่อน.
       // An adaptive set keeps its easy-to-hard ramp: only passage questions go back
-      // into id order, inside the slots they already hold.
+      // into id order, inside the slots they already hold. A gentle set (rung 1 of
+      // the practice ladder) keeps its ramp the same way.
       if (isAdaptive) picked = keepPassageOrder(picked);
+      else if (isGentle) picked = keepPassageOrder(picked);
       else if (!ordered) picked = picked.sort((a, b) => a.id - b.id);
     }
     // Per-question time uses timeForQuestion(): essays get 25 min minimum,
@@ -2034,10 +2070,15 @@ export default function App() {
       }
     });
     const years = new Set(autoQs.map(q => q.year ?? yearForSubject(q.subject) ?? selectedYear));
+    // The subject of the set that was graded, not the one on screen: a resumed
+    // set, a share link or a Home launcher can leave App's subject state on
+    // something else. One subject names the run; a mix is 'all', as the server
+    // itself decides it.
+    const runSubject = runSubjectFor(autoQs);
     // A redo round answers questions whose key was on screen a moment ago.
     // Its history still counts; a leaderboard run it is not.
     const runResult = user && autoQs.length && sessionKind !== 'redo' ? {
-      id: examSessionId, user_id: user.id, mode, subject,
+      id: examSessionId, user_id: user.id, mode, subject: runSubject,
       total: autoQs.length, correct, pct: Math.round(correct / autoQs.length * 100),
       duration_sec: examStartTime ? Math.max(0, Math.round((completedAt - examStartTime) / 1000)) : 0,
       year: years.size === 1 ? [...years][0] : null, phase: selectedPhase ?? null,
@@ -2129,7 +2170,7 @@ export default function App() {
     // these — only auto-graded session settings need preservation.
     try {
       window.localStorage?.setItem('vmx-last-session-config', JSON.stringify({
-        mode, subject, topic, practiceMode, selectedYear, selectedPhase,
+        mode, subject: runSubject, topic, practiceMode, selectedYear, selectedPhase,
         numQuestions, useTimer, timePerQ, questionCategory,
         savedAt: Date.now(),
         score: { correct, total: autoQs.length, pct: autoQs.length ? Math.round((correct / autoQs.length) * 100) : 0 },
@@ -2182,6 +2223,48 @@ export default function App() {
     downloadJSON({ version: '5.2', exportDate: new Date().toISOString(), bookmarks, history: [...entries.values()],
       notes, srCards, streakData, customQuestions, readingChecklist }, `vetmock-recovery-${Date.now()}.json`);
   };
+  // A finished set whose result never reached the local store (changeUserData
+  // refused: localSaved false on the in-flight record) has exactly one copy,
+  // that record, and every path that starts another set under the same key
+  // used to overwrite it without a word: แก้ข้อที่ผิด, ทำต่ออีก 5 ข้อ, a new
+  // set from Home. Before any of those, offer another try at saving (while the
+  // finished entries are still in memory) or a backup, and discard only on an
+  // explicit second confirmation. Resolves true when the start may go ahead.
+  const protectUnsavedResult = async (owner) => {
+    let record = null;
+    try { record = readOwnedExam(window.localStorage, owner); } catch { record = null; }
+    const unsaved = unsavedResult(record);
+    if (!unsaved) return true;
+    const canRetry = localSaveFailedRef.current && finishedEntriesRef.current?.owner === owner;
+    const first = await confirmDialog({
+      title: 'ผลชุดก่อนยังไม่ได้บันทึก',
+      body: `ชุดที่แล้ว ${unsaved.answered}/${unsaved.total} ข้อ ยังบันทึกในเครื่องไม่สำเร็จ และนี่คือสำเนาเดียว ถ้าเริ่มชุดใหม่ตอนนี้ ผลชุดนั้นจะหายไป`,
+      confirmLabel: canRetry ? 'ลองบันทึกอีกครั้ง' : 'ดาวน์โหลดข้อมูลสำรอง',
+      cancelLabel: canRetry ? 'ดาวน์โหลดข้อมูลสำรอง' : 'ยังไม่เริ่ม',
+    });
+    if ((eventContextRef.current?.owner ?? null) !== owner) return false;
+    if (canRetry && first) {
+      retryFinishedSave();
+      let again = null;
+      try { again = readOwnedExam(window.localStorage, owner); } catch { again = null; }
+      if (!unsavedResult(again)) return true;
+      await alertDialog('ยังบันทึกไม่ได้ ผลชุดนั้นยังเก็บไว้ในเครื่อง กลับไปหน้าผลเพื่อลองใหม่หรือดาวน์โหลดข้อมูลสำรอง');
+      return false;
+    }
+    if (!canRetry && !first) return false;
+    // The backup: the recovery export while the finished entries are still in
+    // memory, else the record itself, which holds every answer.
+    if (finishedEntriesRef.current?.owner === owner) await exportFinishedRecovery();
+    else downloadJSON({ format: 'vetmock-unsaved-result-v1', exportDate: new Date().toISOString(), record }, `vetmock-unsaved-${Date.now()}.json`);
+    if ((eventContextRef.current?.owner ?? null) !== owner) return false;
+    return confirmDialog({
+      title: 'เริ่มชุดใหม่ ทิ้งผลที่ยังไม่บันทึก?',
+      body: 'ดาวน์โหลดข้อมูลสำรองแล้ว ถ้าเริ่มชุดใหม่ตอนนี้ สำเนาในเครื่องของผลชุดก่อนจะถูกแทนที่',
+      confirmLabel: 'เริ่มชุดใหม่', cancelLabel: 'ยังไม่เริ่ม',
+    });
+  };
+  unsavedGuardRef.current = protectUnsavedResult;
+
   const retryDetails = async () => {
     const finished = finishedEntriesRef.current;
     if (!finished || finished.owner !== (user?.id ?? null)) return;
@@ -2504,6 +2587,9 @@ export default function App() {
     // is about to autosave to. Ask before throwing it away, as goHome does.
     // Owner and view come from refs: this callback is memoised once.
     if (viewRef.current !== 'exam') {
+      // The result just shown may be the only copy of itself (a refused local
+      // save); the guard offers a retry or a backup before this round replaces it.
+      if (!(await unsavedGuardRef.current(requestOwner))) return;
       let work = null;
       try { work = unfinishedWork(readOwnedExam(window.localStorage, requestOwner)); } catch { work = null; }
       if (work) {
@@ -2909,10 +2995,10 @@ export default function App() {
               )}
 {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={NOTES_RETURN_LABELS.get(notesReturnRef.current.view) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam }} />}
-              {view === 'config' && <ConfigView {...{ practiceMode, setPracticeMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, selectedYear, selectedPhase }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
+              {view === 'config' && <ConfigView {...{ practiceMode, setPracticeMode, subject, setSubject, topic, setTopic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, setMode, selectedYear, selectedPhase, panicPending, setPanicPending }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, questionDeadline, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
-              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions: replayWrongRound, challengeSender, sessionKind, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
+              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, useTimer, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions: replayWrongRound, challengeSender, sessionKind, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki }} />}
               {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} recoveryArchive={userDataSync.recoveryArchive} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak: streakData.streak, streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
@@ -2941,6 +3027,7 @@ export default function App() {
                   palette={palette}
                   setPalette={setPalette}
                   hasSupabase={hasSupabase}
+                  openSubject={(id) => { setSubject(id); setTopic(null); setPracticeMode('all'); setView('topic-select'); }}
                 />
               )}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile, prefill: feedbackPrefill, clearPrefill: () => setFeedbackPrefill(null) }} />}
@@ -2951,7 +3038,7 @@ export default function App() {
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
               {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist }} {...{ user, goHome, onSignedOut: goHome }} />}
               {view === 'offline-game' && <OfflineGameView goBack={goHome} online={networkOnline} />}
-              {view === 'mochi' && <MochiView goHome={goHome} onOpenFocus={() => setView('pomodoro')} />}
+              {view === 'mochi' && <MochiView goHome={goHome} onOpenFocus={() => setView('pomodoro')} onOpenGame={() => setView('offline-game')} />}
               {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
               {view === 'bench' && <BenchView goHome={goHome} />}
               {view === 'admin' && <AdminView goHome={goHome} user={user} onOpenQuestion={openQuestionById} onlineCount={onlineCount} onlineStatus={onlineStatus} />}
@@ -3088,7 +3175,7 @@ export default function App() {
           fragment (outside .vmx-app) so it overlays any view, exactly like
           ShortcutSheet. */}
       {tourOpen && (
-        <OptionalFeature label="คู่มือเริ่มต้น" onClose={() => { setTourOpen(false); setTourStep(0); }}>
+        <OptionalFeature label="วิธีใช้" onClose={() => { setTourOpen(false); setTourStep(0); }}>
           <OnboardingTour
             step={tourStep}
             onNext={() => setTourStep((s) => s + 1)}
@@ -3096,6 +3183,8 @@ export default function App() {
             onDismiss={() => { setTourOpen(false); setTourStep(0); }}
             onStart={finishTourStart}
             returnFocusRef={tourReturnRef}
+            navHandlers={navHandlers}
+            onOpenSearch={() => setPaletteOpen(true)}
           />
         </OptionalFeature>
       )}

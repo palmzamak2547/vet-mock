@@ -2,7 +2,8 @@
 // llm.js — one place that talks to a language model
 // ============================================================
 // Provider order:
-//   1. DeepSeek `deepseek-v4-flash` with thinking DISABLED — probed
+//   1. DeepSeek `deepseek-flash` (was `deepseek-v4-flash`, still accepted
+//      as an alias) with thinking DISABLED — probed
 //      2026-08-29: 0.75 s for a Thai JSON answer. Left thinking on, the
 //      model spends the whole max_tokens budget inside reasoning_content
 //      and returns an EMPTY content string (the reasoning-model
@@ -244,7 +245,7 @@ export async function chatJSON({ system, user, maxTokens = 1200, timeoutMs = 25_
     const attempts = [];
     if (env.DEEPSEEK_API_KEY) {
       attempts.push(() => callDeepSeek({
-        apiKey: env.DEEPSEEK_API_KEY, model: env.LLM_MODEL || 'deepseek-v4-flash',
+        apiKey: env.DEEPSEEK_API_KEY, model: env.LLM_MODEL || 'deepseek-flash',
         thinkingOff: true, system, user, maxTokens, signal: ac.signal,
       }));
       attempts.push(() => callDeepSeek({

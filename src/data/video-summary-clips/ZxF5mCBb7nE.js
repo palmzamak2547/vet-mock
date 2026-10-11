@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก Clostridium perfringens, NE, risk factors",
   summary: `# Avian Medicine 6.3 — Necrotic Enteritis (NE)
 
-> 🎯 **NE = Clostridium perfringens type A** · ปัญหาขึ้นโดดเด่นหลัง **AGP (Antimicrobial Growth Promoter) ban**
+> 🎯 **NE = Clostridium perfringens type A**, ปัญหาขึ้นโดดเด่นหลัง **AGP (Antimicrobial Growth Promoter) ban**
 > ⚠️ **Coccidiosis predisposes** — มัก co-infect → manage coccidia ก่อน NE จะหายตาม
 
 ---

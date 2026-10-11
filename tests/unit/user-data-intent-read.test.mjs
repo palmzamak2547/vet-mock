@@ -94,6 +94,7 @@ for (const failure of ['read', 'malformed-json', 'malformed-shape', 'length', 'k
   });
 }
 
+// Choosing the device copy keeps the account's own notes (2026-10-11): the row's `cloud` note survives the choice.
 test('committed local recovery remains visible and blocked through unreadable reload, then explicit retry sends it', async () => {
   const storage = new Storage();
   const local = { ...createEmptyUserData(), notes: { local: 'chosen work' } };
@@ -108,19 +109,19 @@ test('committed local recovery remains visible and blocked through unreadable re
     storage.failure = 'read';
     await until(() => ['error', 'synced'].includes(sync.getSnapshot().sync.phase));
     blocked(sync);
-    assert.deepEqual(sync.getSnapshot().data.notes, local.notes);
+    assert.deepEqual(sync.getSnapshot().data.notes, { cloud: 'A account', ...local.notes });
     assert.equal(f.calls.length, calls);
     assert.equal(JSON.parse(storage.getItem('vmx-user-data-v2:A')).recoveryCommits.length, 1);
     sync.close(); sync = f.open();
     await until(() => ['error', 'synced'].includes(sync.getSnapshot().sync.phase));
     blocked(sync);
-    assert.deepEqual(sync.getSnapshot().data.notes, local.notes);
+    assert.deepEqual(sync.getSnapshot().data.notes, { cloud: 'A account', ...local.notes });
     assert.equal(f.calls.length, calls, 'opening does not automatically replay a blocked choice');
     storage.failure = null;
     sync.send({ type: 'REFRESH_REQUESTED' });
     await until(() => sync.getSnapshot().sync.phase === 'synced');
-    assert.deepEqual(f.rows.A.notes, local.notes);
-    assert.deepEqual(sync.getSnapshot().data.notes, local.notes);
+    assert.deepEqual(f.rows.A.notes, { cloud: 'A account', ...local.notes });
+    assert.deepEqual(sync.getSnapshot().data.notes, { cloud: 'A account', ...local.notes });
     assert.deepEqual(JSON.parse(storage.getItem('vmx-user-data-v2:A')).recoveryCommits, []);
   } finally { sync.close(); }
 });
@@ -146,11 +147,12 @@ for (const failure of ['snapshot-read', 'snapshot-json']) test(`an unreadable ow
     blocked(sync);
     assert.equal(storage.values.get('vmx-user-data-v2:A'), unreadable, 'a failed read never overwrites a present snapshot as if absent');
     assert.equal(f.calls.length, calls);
+    // While the owner snapshot is unreadable the device shows its readable v1 copy, not the committed merged view.
     assert.deepEqual(sync.getSnapshot().data.notes, local.notes);
     storage.failure = null; storage.values.set('vmx-user-data-v2:A', original);
     sync.send({ type: 'REFRESH_REQUESTED' });
     await until(() => sync.getSnapshot().sync.phase === 'synced');
-    assert.deepEqual(f.rows.A.notes, local.notes);
+    assert.deepEqual(f.rows.A.notes, { cloud: 'A account', ...local.notes });
     assert.deepEqual(JSON.parse(storage.getItem('vmx-user-data-v2:A')).recoveryCommits, []);
   } finally { sync.close(); }
 });
@@ -172,7 +174,7 @@ for (const choice of ['local', 'account']) test(`the ${choice} choice stays visi
   const f = fixture(storage); let sync = f.open();
   try {
     await until(() => sync.getSnapshot().sync.recovery?.account);
-    const expected = choice === 'local' ? local.notes : f.rows.A.notes;
+    const expected = choice === 'local' ? { ...f.rows.A.notes, ...local.notes } : f.rows.A.notes;
     storage.failAfterCommit = true;
     const result = await sync.send({ type: 'RECOVER_LEGACY', principalId: 'A',
       recoveryId: sync.getSnapshot().sync.recovery.id, choice });

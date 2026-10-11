@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก ET, OPU, ICSI, cloning",
   summary: `# Equine Repro — 2.1 Reproductive Biotechnology
 
-> 🎯 **ET (embryo transfer) = most common ART** ในม้า · OPU + ICSI + cloning + frozen semen ⭐⭐⭐
+> 🎯 **ET (embryo transfer) = most common ART** ในม้า, OPU + ICSI + cloning + frozen semen ⭐⭐⭐
 > ⚠️ ออกแน่: ET timing (D6-8), OPU+ICSI for poor mares, frozen semen lower fertility
 
 ---

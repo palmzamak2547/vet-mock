@@ -521,26 +521,29 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       {/* Year-scope toggle — sets context for trend chart, heatmap,
           and learning curve. Stat cards above still show lifetime
           totals (from `analytics` which is computed cross-year). */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 14 }}>
-        <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-          ขอบเขต:
-        </span>
+      {/* A plain Thai label and two chips at the touch floor: the label used
+          to be a tracked mono "ขอบเขต:" (a Latin eyebrow on a Thai page) and
+          the chips were pinned to 32px under a globe emoji. */}
+      <div className="vmx-dash-scope" role="group" aria-label="ดูข้อมูลของปีไหน">
+        <span className="vmx-dash-scope-label">ดูข้อมูลของ</span>
         <button
+          type="button"
           className={`vmx-chip ${yearScope === 'current' ? 'active' : ''}`}
+          aria-pressed={yearScope === 'current'}
           onClick={() => setYearScope('current')}
-          style={{ minHeight: 32, fontSize: 12 }}
         >
-          ปี {selectedYear} เท่านั้น
+          ปี {selectedYear}
         </button>
         <button
+          type="button"
           className={`vmx-chip ${yearScope === 'all' ? 'active' : ''}`}
+          aria-pressed={yearScope === 'all'}
           onClick={() => setYearScope('all')}
-          style={{ minHeight: 32, fontSize: 12 }}
         >
-          🌐 ทุกปี
+          ทุกปี
         </button>
         {yearScope === 'current' && (
-          <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+          <span className="vmx-dash-scope-note">
             {scopedHistory.length}/{history?.length || 0} ข้อที่ทำ
           </span>
         )}
@@ -585,6 +588,9 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             </div>
           </div>
 
+          {/* Only when it has a shortcut to offer: with no weak questions and
+              no bookmarks this card was a heading over nothing. */}
+          {(scopedAnalytics.weakQuestions.length > 0 || bookmarks.length > 0) && (
           <div className="vmx-dash-card" style={{ marginTop: 16 }}>
             <h2>ทางลัด</h2>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 12 }}>
@@ -604,6 +610,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
               )}
             </div>
           </div>
+          )}
 
           {trend && (
             <div className="vmx-dash-card" style={{ marginTop: 16 }}>
@@ -627,13 +634,17 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 8 }}>
                 <h2 style={{ margin: 0 }}>กราฟความแม่นยำรายวิชา</h2>
                 <div style={{ display: 'flex', gap: 4 }}>
+                  {/* "7 วัน", not "7d": the one Thai word the page already
+                      uses, at the chip's own padding so the target stays 44px. */}
                   {[7, 14, 30].map((d) => (
                     <button
                       key={d}
+                      type="button"
                       onClick={() => setCurveDays(d)}
                       className={`vmx-chip ${curveDays === d ? 'active' : ''}`}
-                      style={{ fontSize: 11, padding: '3px 10px' }}
-                    >{d}d</button>
+                      aria-pressed={curveDays === d}
+                      style={{ fontSize: 12 }}
+                    >{d} วัน</button>
                   ))}
                 </div>
               </div>

@@ -10,6 +10,7 @@ import { Q_COUNTS_BY_TOPIC } from '../../src/data/q-counts.js';
 // live, so freezing the August wording here made the test fail the day ปี 3
 // opened — the app becoming more correct broke its own guard.
 import { YEARS } from '../../src/data/curriculum.js';
+import { GUIDE_PATHS } from '../../src/data/how-to.js';
 import { readFile } from 'node:fs/promises';
 import dicomParser from 'dicom-parser';
 
@@ -210,8 +211,10 @@ test.describe('connected study experience', () => {
     expect(headerContextBox).not.toBeNull();
     expect(headerToolsBox).not.toBeNull();
     expect(Math.abs(headerContextBox.y - headerToolsBox.y)).toBeLessThan(6);
+    // Search, the icon grid and today's plan come first on a phone Home
+    // (owner review 2026-10-12); the first subject card starts at the fold.
     const epidemiologyBox = await epidemiology.boundingBox();
-    expect(epidemiologyBox.y).toBeLessThan(650);
+    expect(epidemiologyBox.y).toBeLessThan(900);
     await expect(page.locator('.vmx-tools-fab')).not.toBeVisible();
     await epidemiology.click();
 
@@ -355,7 +358,9 @@ test.describe('connected study experience', () => {
     await expect(page.locator('.vmx-chip').first()).not.toHaveClass(/active/);
 
     await page.locator('.vmx-back-chip').first().click();
-    const globalVideos = page.locator('.vmx-feature-card').filter({ hasText: /เพลย์ลิสต์ YouTube|YouTube playlist/ }).first();
+    // Home's global clips entry: a feature-menu card on desktop, a quick-grid
+    // tile on a phone (2026-10-12), whichever this viewport draws.
+    const globalVideos = page.locator('.vmx-feature-card, .vmx-quick-tile').filter({ hasText: /เพลย์ลิสต์ YouTube|YouTube playlist/ }).filter({ visible: true }).first();
     await expect(globalVideos).toBeVisible();
     await globalVideos.click();
     await expect(page.locator('.vmx-chip').first()).toHaveClass(/active/);
@@ -643,15 +648,17 @@ test.describe('landing accessibility', () => {
     await expect(launcher).toBeVisible();
     await launcher.click();
 
-    const dialog = page.getByRole('dialog', { name: 'ยินดีต้อนรับสู่ VetMock' });
+    // The guide opens on its list of goals with the first goal in focus.
+    const dialog = page.getByRole('dialog', { name: 'วิธีใช้ VetMock' });
     await expect(dialog).toBeVisible();
-    await expect(dialog.getByRole('button', { name: 'ข้าม' }).first()).toBeFocused();
+    await expect(dialog.getByRole('button', { name: new RegExp(GUIDE_PATHS[0].title) })).toBeFocused();
     await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe('hidden');
 
+    // Tab from the last control wraps to the first one in the dialog.
     const focusables = dialog.locator('button:not([disabled]), a[href]');
     await focusables.last().focus();
     await page.keyboard.press('Tab');
-    await expect(dialog.getByRole('button', { name: 'ข้าม' }).first()).toBeFocused();
+    await expect(dialog.getByRole('button', { name: 'ปิดวิธีใช้' })).toBeFocused();
 
     await page.keyboard.press('Escape');
     await expect(dialog).toBeHidden();
@@ -679,21 +686,48 @@ test.describe('landing accessibility', () => {
     await expect(heroButton).toBeVisible();
     await heroButton.click();
 
-    const dialog = page.getByRole('dialog', { name: 'ยินดีต้อนรับสู่ VetMock' });
+    const dialog = page.getByRole('dialog', { name: 'วิธีใช้ VetMock' });
     await expect(dialog).toBeVisible();
-    // The dialog's accessible name follows the current step title, so for
-    // the walk-through use a step-agnostic locator.
+    // The dialog's accessible name follows the screen it shows, so for the
+    // walk-through use a screen-agnostic locator.
     const tour = page.locator('.vmx-tour-dialog');
 
-    // Walk all 7 steps and land on the final CTA.
-    for (let i = 0; i < 6; i++) {
-      await tour.getByRole('button', { name: 'ถัดไป' }).click();
+    // Open the first goal and walk every goal to the last one.
+    await tour.getByRole('button', { name: new RegExp(GUIDE_PATHS[0].title) }).click();
+    for (let i = 1; i < GUIDE_PATHS.length; i++) {
+      await tour.getByRole('button', { name: /^เรื่องถัดไป/ }).click();
+      await expect(tour.getByRole('heading', { level: 2 })).toHaveText(GUIDE_PATHS[i].title);
     }
-    await expect(tour.getByRole('button', { name: 'เริ่มฝึกซ้อม' })).toBeVisible();
+    await expect(tour.getByRole('button', { name: 'เสร็จแล้ว' })).toBeVisible();
+
+    // Back on the list, every goal now counts as read.
+    await tour.getByRole('button', { name: 'ทุกเรื่อง' }).click();
+    await expect(tour).toContainText('ดูครบทุกเรื่องแล้ว');
 
     // Escape closes and returns focus to the button that opened the tour.
     await page.keyboard.press('Escape');
     await expect(tour).toBeHidden();
     await expect(heroButton).toBeFocused();
+  });
+
+  test('a step in the guide takes the student to the place it names', async ({ page, context }) => {
+    await context.addInitScript(() => {
+      try {
+        window.localStorage.setItem('vmx-seen-landing', '1');
+        window.localStorage.setItem('vmx-selected-year', '5');
+        window.localStorage.setItem('vmx-selected-phase', JSON.stringify('1-mid'));
+        window.localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+        window.localStorage.setItem('vmx-welcome-dismissed', JSON.stringify(true));
+      } catch {}
+    });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+    await page.getByRole('button', { name: 'เปิดทัวร์วิธีใช้งาน' }).click();
+    const tour = page.locator('.vmx-tour-dialog');
+    await tour.getByRole('button', { name: /ทบทวนข้อที่ตอบผิด/ }).click();
+    // The same destination the bottom bar's ความคืบหน้า opens.
+    await tour.getByRole('button', { name: 'ไปที่ ความคืบหน้า' }).click();
+    await expect(tour).toBeHidden();
+    await expect(page).toHaveURL(/\/app\/progress$/);
   });
 });

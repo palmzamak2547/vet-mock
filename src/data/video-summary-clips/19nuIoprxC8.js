@@ -168,5 +168,5 @@ export default {
 - ⭐⭐ **4 vaccination strategies**: Mass, Ring, Targeted, Marker
 - ⭐⭐ **Marker vaccines** = trade requirement
 - ⭐ **Wildlife reservoirs** complicate eradication
-- ⭐ **HPAI Thailand** = success story · **ASF Thailand** = failure story`,
+- ⭐ **HPAI Thailand** = success story, **ASF Thailand** = failure story`,
 };

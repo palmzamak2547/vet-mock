@@ -12,7 +12,7 @@ export default {
   summary: `# โรคระบบทางเดินหายใจในวัว — BRD Complex (IBR, BVD, PI3, BRSV + 2° bacteria)
 
 > 🎯 **BRD Complex** = #1 cause of morbidity/mortality in young cattle. Triangle: **Host (stress, weaning) + Environment (poor ventilation, mixing) + Pathogen (4 viruses → 2° bacteria)**. ⭐⭐⭐
-> ⚠️ Early = virus catchable (yellow flag) · Late = bacteria dominant (red flag, irreversible damage)
+> ⚠️ Early = virus catchable (yellow flag), Late = bacteria dominant (red flag, irreversible damage)
 
 4 viruses: **IBR, BVD, PI3, BRSV** rarely fatal alone — แต่ immune-suppress → bacterial complications (**Mannheimia haemolytica, Pasteurella multocida, Histophilus somni, Mycoplasma**) cause death. Key concepts: **Early detection = yellow flag, Late = red flag (irreversible damage), BVD PI animal = "Time Bomb", IBR marker vaccine = eradication tool**.
 

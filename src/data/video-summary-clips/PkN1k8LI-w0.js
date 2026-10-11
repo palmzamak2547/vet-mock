@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice + scenario, ออก surveillance types, monitoring vs surveillance, syndromic surveillance, WAHIS reporting",
   summary: `# Veterinary Epidemiology — 3.2 Animal Disease Surveillance and Monitoring
 
-> 🎯 **Surveillance ≠ Monitoring** — surveillance = action-oriented · monitoring = tracking only ⭐⭐⭐
+> 🎯 **Surveillance ≠ Monitoring** — surveillance = action-oriented, monitoring = tracking only ⭐⭐⭐
 > ⚠️ ออกแน่: 5 surveillance types, WAHIS reporting, DLD role
 
 ---

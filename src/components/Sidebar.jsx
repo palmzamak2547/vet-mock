@@ -37,12 +37,21 @@
 // would put two rows next to each other that go to the same place. Wiring
 // notes to open notes directly is a product change, not a nav change, so it
 // is not smuggled in here.
+//
+// ── Which rows, in which order (2026-10-12) ─────────────────────────────
+// The group used to rank itself by how often this student opened each
+// destination. The owner's review of 5.141.6 starred four of them for the
+// first level — VetWiki, คลังเอกสาร, รายการอ่าน, ตารางเรียน & สอบ — and
+// crossed Atlas, the clips and the faculty index out of it (not out of the
+// app). A starred, fixed list beats a per-student ranking here: the rows
+// stay where the hand learned them, and the order is one the owner chose.
+// The order and the overflow split live in lib/nav.js, which the phone's
+// quick grid reads too, so the two surfaces show one list.
 // ============================================================
 
-import React, { useMemo } from 'react';
-import { NAV_ITEMS, runNav, isNavActive } from '../lib/nav.js';
+import React from 'react';
+import { NAV_ITEMS, navItemsFor, runNav, isNavActive, splitLearnForRail, featureLineIcon } from '../lib/nav.js';
 import { featuresByCategory, visibleFeatures } from '../lib/feature-registry.js';
-import { splitForSidebar, readUsage } from '../lib/nav-usage.js';
 import { LATEST_CHANGELOG } from '../data/latest-changelog.generated.js';
 import NavIcon from './NavIcon.jsx';
 import Wordmark from './Wordmark.jsx';
@@ -54,28 +63,10 @@ export default function Sidebar({
   setPaletteOpen,
 }) {
   const handlers = { setView, goHome, setSubject, setPracticeMode, setMode, onMockExam };
-  const activeIndex = NAV_ITEMS.findIndex((item) => isNavActive(item.id, view));
-
-  // The rail draws line icons, not emoji — a decision made when the mobile
-  // bottom bar was built and one this group has to keep, or the two halves
-  // of the same list would speak two visual languages. Anything not mapped
-  // falls back to the registry's emoji, so a newly registered learn feature
-  // still appears instead of vanishing.
-  const LINE_ICON = {
-    videos: 'video',
-    faculty: 'users',
-    'reading-checklist': 'bookmark',
-    schedule: 'calendar',
-    pinboard: 'pin',
-    library: 'files',
-    // VetWiki came back to this group when it left the bottom bar, and the
-    // rail speaks line icons — the emoji fallback is a last resort for a
-    // feature whose icon was never mapped, not a look to give a row back.
-    vetwiki: 'wiki',
-
-    atlas: 'atlas',
-    bench: 'grid2x2',
-  };
+  // The rail's own slice of the one list; the marker's row index comes from
+  // this slice, so it lands on the row that is actually drawn.
+  const railItems = navItemsFor('rail');
+  const activeIndex = railItems.findIndex((item) => isNavActive(item.id, view));
 
   // Destinations the primary rows already own. 'profile' is one of the
   // canonical nav items now, so it drops out of the learn group by the same
@@ -92,14 +83,8 @@ export default function Sidebar({
     && f.rail !== false);
 
   // The rail is a shortcut list, not a site map — the palette is the site
-  // map. Read the counts ONCE per mount and freeze the order: a list that
-  // re-sorts while it is on screen moves the row out from under the cursor
-  // of the person reaching for it.
-  const { visible: learn, rest: learnRest } = useMemo(
-    () => splitForSidebar(learnAll, readUsage()),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [learnAll.map((f) => f.id).join(',')],
-  );
+  // map. The starred rows are the list; everything else is one row away.
+  const { visible: learn, rest: learnRest } = splitLearnForRail(learnAll);
 
   return (
     <aside className="vmx-sidebar">
@@ -123,7 +108,7 @@ export default function Sidebar({
           style={activeIndex >= 0 ? { '--vmx-nav-active': activeIndex } : undefined}
         >
           {activeIndex >= 0 && <span className="vmx-sidebar-marker" aria-hidden="true" />}
-          {NAV_ITEMS.map((item) => {
+          {railItems.map((item) => {
             const active = isNavActive(item.id, view);
             return (
               <button
@@ -146,6 +131,13 @@ export default function Sidebar({
             <div className="vmx-sidebar-list">
               {learn.map((f) => {
                 const active = view === f.invoke.view;
+                // The rail draws line icons, not emoji — a decision made when
+                // the mobile bottom bar was built and one this group has to
+                // keep, or the two halves of the same list would speak two
+                // visual languages. Anything not mapped falls back to the
+                // registry's emoji, so a newly registered learn feature still
+                // appears instead of vanishing.
+                const icon = featureLineIcon(f.id);
                 return (
                   <button
                     key={f.id}
@@ -156,9 +148,7 @@ export default function Sidebar({
                     onClick={() => setView(f.invoke.view)}
                   >
                     <span className="vmx-sidebar-icon" aria-hidden="true">
-                      {LINE_ICON[f.id]
-                        ? <NavIcon name={LINE_ICON[f.id]} size={17} />
-                        : f.icon}
+                      {icon ? <NavIcon name={icon} size={17} /> : f.icon}
                     </span>
                     <span className="vmx-sidebar-label">{f.label}</span>
                   </button>

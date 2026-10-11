@@ -12,7 +12,7 @@ export default {
   summary: `# POA — 12 Alopecia and Pruritus
 
 > 🎯 **Skin disease workup** — alopecia + pruritus. Common but complex → systematic approach ⭐⭐⭐
-> ⚠️ Atopic dermatitis = diagnosis of exclusion · rule out other causes ก่อน
+> ⚠️ Atopic dermatitis = diagnosis of exclusion, rule out other causes ก่อน
 
 ---
 

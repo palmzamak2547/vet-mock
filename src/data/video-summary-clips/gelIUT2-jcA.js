@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก HPAI vs LPAI, H5N1, pandemic potential, Thai 2547 outbreak",
   summary: `# Avian Medicine 4.2 — Avian Influenza (AI)
 
-> 🎯 **AI = Influenza A virus** — แบ่งเป็น **HPAI (High Pathogenic)** vs **LPAI (Low Pathogenic)** · subtypes ที่กลัวสุด = **H5, H7**
+> 🎯 **AI = Influenza A virus** — แบ่งเป็น **HPAI (High Pathogenic)** vs **LPAI (Low Pathogenic)**, subtypes ที่กลัวสุด = **H5, H7**
 > ⚠️ **Thailand 2547 (2004) H5N1 outbreak** = success story ระดับโลก — stamping out + NO HPAI ตั้งแต่นั้น 20+ ปี
 
 ---
@@ -82,7 +82,7 @@ export default {
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ **HPAI H5/H7 = most lethal · Thailand 2547 stamping out success**
+- ⭐⭐⭐ **HPAI H5/H7 = most lethal, Thailand 2547 stamping out success**
 - ⭐⭐⭐ **NO HPAI in Thailand 20+ years**
 - ⭐⭐ **Zoonotic + pandemic potential** (H5N1 case fatality สูง)
 - ⭐ **No vaccination in Thailand** (stamping out policy)

@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก surgical principles, wound management, proud flesh",
   summary: `# Equine — 9 Concept of Equine Surgery + Wound Management
 
-> 🎯 ม้าตัวใหญ่ → anesthesia challenges · **Proud flesh** common บน lower legs · tetanus status ก่อน surgery ⭐⭐⭐
+> 🎯 ม้าตัวใหญ่ → anesthesia challenges, **Proud flesh** common บน lower legs, tetanus status ก่อน surgery ⭐⭐⭐
 > ⚠️ ออกแน่: wound closure decisions, proud flesh management, castration most common
 
 ---

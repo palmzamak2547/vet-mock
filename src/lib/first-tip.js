@@ -7,11 +7,13 @@
 // decision: a dependency-free, pure, testable store so the component stays
 // dumb.
 //
-// Storage: ONE localStorage key `vmx-first-tip` holding
+// Storage: localStorage key `vmx-first-tip` holding
 //   { [tipId]: 'YYYY-MM-DD' }
 // The value is the LOCAL calendar day the tip was last SEEN — being shown
-// once or dismissed, both end the day the same way. Nothing else about the
-// student is recorded here.
+// once or dismissed, both end the day the same way. A second key,
+// `vmx-first-tip-turn` { [tipId]: n }, counts the days each feature's hint
+// has been shown, so a feature with several hints (data/how-to.js) offers
+// the next one tomorrow. Nothing else about the student is recorded here.
 //
 // Deliberate choices:
 //   • Local date, built from getFullYear/getMonth/getDate. toISOString() is
@@ -88,25 +90,67 @@ export function shouldShowTip(id, now = new Date()) {
   return readTipStore()[id] !== todayKey(now);
 }
 
+// ── Which of a feature's hints is today's ────────────────────────────────
+// A feature may carry several hints (data/how-to.js). The turn is how many
+// distinct days this feature's hint has been shown before today, kept under
+// its own key so the day record above keeps its { id: 'YYYY-MM-DD' } shape.
+// Day one is turn 0, so the first hint in the list is the first one a student
+// ever meets; the caller takes the turn modulo the list length.
+const TURN_KEY = 'vmx-first-tip-turn';
+
+function readTurns() {
+  try {
+    const raw = localStorage.getItem(TURN_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {};
+    return parsed;
+  } catch {
+    return {};
+  }
+}
+
+const validTurn = (v) => Number.isInteger(v) && v >= 0;
+
+/** Today's turn for a feature: the turn it was shown at today, else the next one. */
+export function tipTurn(id, now = new Date()) {
+  if (!id || typeof id !== 'string') return 0;
+  const last = readTurns()[id];
+  if (!validTurn(last)) return 0;
+  return readTipStore()[id] === todayKey(now) ? last : last + 1;
+}
+
 /**
  * One decision per id, kept for as long as the id is. The card holds the
  * result in state and asks again only when its id changes: re-reading the
  * record after the card's own effect has written it would hide the very hint
  * that wrote it, which is what React.StrictMode's second effect run did.
  * Pass the previous decision (or null); get back the same object while the
- * id is unchanged, a fresh { id, show } otherwise.
+ * id is unchanged, a fresh { id, show, turn } otherwise. The turn is chosen
+ * here too, before the record moves, so the hint on screen cannot change
+ * under the student when the card marks itself seen.
  */
 export function decideTip(previous, id, now = new Date()) {
   if (previous && previous.id === id) return previous;
-  return { id, show: shouldShowTip(id, now) };
+  return { id, show: shouldShowTip(id, now), turn: tipTurn(id, now) };
 }
 
-/** Record today as the day this tip was last seen. */
+/** Record today as the day this tip was last seen, and its turn as used. */
 export function markTipSeen(id, now = new Date()) {
   if (!id || typeof id !== 'string') return;
   const map = readTipStore();
+  const firstTimeToday = map[id] !== todayKey(now);
+  const turn = tipTurn(id, now);
   map[id] = todayKey(now);
   writeTipStore(map);
+  if (!firstTimeToday) return;
+  const turns = readTurns();
+  turns[id] = turn;
+  try {
+    localStorage.setItem(TURN_KEY, JSON.stringify(turns));
+  } catch {
+    // A refused write only means tomorrow repeats today's hint.
+  }
 }
 
 /**
@@ -118,3 +162,4 @@ export function dismissTip(id, now = new Date()) {
 }
 
 export const TIP_STORAGE_KEY = STORAGE_KEY;
+export const TIP_TURN_KEY = TURN_KEY;

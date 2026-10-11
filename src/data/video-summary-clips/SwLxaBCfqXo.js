@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก equine nutrition, forage requirements, supplementation",
   summary: `# Equine — 2 Basic Nutrition
 
-> 🎯 ม้า = **hindgut fermenter** (cecum) ที่มี monogastric stomach เล็ก · **CANNOT VOMIT** = colic risk ⭐⭐⭐
+> 🎯 ม้า = **hindgut fermenter** (cecum) ที่มี monogastric stomach เล็ก, **CANNOT VOMIT** = colic risk ⭐⭐⭐
 > ⚠️ ออกแน่: forage 1-3% body weight, BCS 1-9 Henneke, EMS/PPID, laminitis
 
 ---

@@ -1,6 +1,6 @@
 // ============================================================
 // VIDEO_META — lightweight index of video summaries (no full text).
-// Auto-derived from video-summaries.js · used by CommandPalette /
+// Auto-derived from video-summaries.js, used by CommandPalette /
 // other consumers that only need {videoId, title, subject, date,
 // durationMin, instructor, examFormat} for search/list — NOT the
 // markdown body.
@@ -4072,7 +4072,7 @@ export const VIDEO_META = {
     "subject": "poultry",
     "date": "25 Feb 68",
     "durationMin": 107,
-    "instructor": "คุณหมอจากเบทาโกร สำนักประกันคุณภาพและสุขภาพสัตว์ (ชื่อในคลิปฟังไม่ชัด — \"เอกสิท/เอกสิน\") · เปิดคาบโดย อ.สมศักดิ์",
+    "instructor": "คุณหมอจากเบทาโกร สำนักประกันคุณภาพและสุขภาพสัตว์ (ชื่อในคลิปฟังไม่ชัด — \"เอกสิท/เอกสิน\"), เปิดคาบโดย อ.สมศักดิ์",
     "examFormat": "พาร์ทนี้มีข้อสอบถูก-ผิด 10 ข้อ สอบวันจันทร์ที่ 4 มีนาคม 13:00 น. (2 ชั่วโมง) แต่ละคาบราว 6.5 คะแนน จาก 15 คาบรวม 100 คะแนน"
   },
   'xYO4_1o4-ic': {

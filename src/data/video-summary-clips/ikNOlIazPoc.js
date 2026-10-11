@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก meat hygiene principles, slaughter to consumer",
   summary: `# Milk-Meat — 9.1 Introduction to Meat Hygiene
 
-> 🎯 Meat hygiene = chain ตั้งแต่ farm → slaughter → processing → consumer · **vet ต้อง supervise ตลอด**
+> 🎯 Meat hygiene = chain ตั้งแต่ farm → slaughter → processing → consumer, **vet ต้อง supervise ตลอด**
 > ⚠️ Antemortem + postmortem inspection = vet duty หลัก
 
 ---

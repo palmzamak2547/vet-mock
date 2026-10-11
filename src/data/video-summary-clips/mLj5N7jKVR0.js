@@ -11,8 +11,8 @@ export default {
   examFormat: "Multiple choice, ออก inspection procedures, diseases identified, disposition",
   summary: `# Milk-Meat — 14 Antemortem and Postmortem Inspection
 
-> 🎯 Vet มี 2 inspection: **antemortem** (live animal) + **postmortem** (carcass) · ตัดสินใจ disposition ทุกตัว
-> ⚠️ 5 antemortem dispositions: Pass · Hold · Suspect · Condemned · Emergency slaughter
+> 🎯 Vet มี 2 inspection: **antemortem** (live animal) + **postmortem** (carcass), ตัดสินใจ disposition ทุกตัว
+> ⚠️ 5 antemortem dispositions: Pass, Hold, Suspect, Condemned, Emergency slaughter
 
 ---
 

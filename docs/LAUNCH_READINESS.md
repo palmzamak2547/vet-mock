@@ -1,5 +1,9 @@
 # VetMock — Launch Readiness
 
+## Release 5.144.0 / SW v219 — 2026-10-12 (Claude Code night lane)
+
+The owner review's open slices (phone Home and profile, exam-mode subject picker, practice ladder, how-to rewrite, phone reading surfaces, one buddy everywhere, the installed-app guide), search read as concepts, the reviewed atomic-sync fixes, the CI failures on 919d96b2 (native R nls tolerance, a real lost click on clip cards) and the 2b ledger items listed in AGENTS.md. Gate before the push: unit (Asia/Bangkok and UTC), lint:data, build, lint:dist and e2e on four profiles; production proof follows in this section after the deploy.
+
 ## Release 5.143.0 / SW v218 — 2026-10-12 (Claude Code polish sweep)
 
 Review of every commit pushed 2026-10-08 to 2026-10-11 (Codex and Kasem) and the 09-27 open-items ledger, fixed in one release: Google token refresh that never saved, the 3D mascot viewer rebuilding its scene every 2 s, adaptive-practice honesty, FSRS-6 reference fixes, external-docs security and in-app-browser handling, counts and provenance, plain-Thai copy, practice tools, library and offline, imaging, account settings, six server migrations (applied separately, see work/polish-1011/round2/H.md). Gate results, the deploy id and the production checks are recorded in work/polish-1011/RELEASE.md and the COORDINATION log once the deploy is READY.

@@ -175,7 +175,7 @@ export const VIDEO_SUMMARIES_EPIDEMIOLOGY = {
 - ⭐⭐ **4 vaccination strategies**: Mass, Ring, Targeted, Marker
 - ⭐⭐ **Marker vaccines** = trade requirement
 - ⭐ **Wildlife reservoirs** complicate eradication
-- ⭐ **HPAI Thailand** = success story · **ASF Thailand** = failure story`,
+- ⭐ **HPAI Thailand** = success story, **ASF Thailand** = failure story`,
   },
   "2_ekqdW_d7w": {
     videoId: "2_ekqdW_d7w",
@@ -187,7 +187,7 @@ export const VIDEO_SUMMARIES_EPIDEMIOLOGY = {
     examFormat: "Multiple choice + calculation, ออก Cohort, Case-Control, Cross-Sectional, OR, RR, Confounding, Selection bias",
     summary: `# Veterinary Epidemiology — 3.3 Observation Study Designs
 
-> 🎯 3 main observational designs — **Cohort** (exposure→outcome) · **Case-Control** (outcome→exposure) · **Cross-Sectional** (both at once) ⭐⭐⭐
+> 🎯 3 main observational designs — **Cohort** (exposure→outcome), **Case-Control** (outcome→exposure), **Cross-Sectional** (both at once) ⭐⭐⭐
 > ⚠️ ออกแน่: RR (cohort), OR = ad/bc (case-control), bias types, confounding control
 
 ---
@@ -369,7 +369,7 @@ export const VIDEO_SUMMARIES_EPIDEMIOLOGY = {
 | Reproductive failure | Lameness |
 
 > 💡 **กฎทอง**: "ต้องรู้ปกติก่อน → ถึงจะรู้ผิดปกติ"
-> ตัวอย่าง baseline: Layer hen feed 100-110 g/day · peak egg production ~90-95% · ducks normal water consumption
+> ตัวอย่าง baseline: Layer hen feed 100-110 g/day, peak egg production ~90-95%, ducks normal water consumption
 
 ---
 
@@ -421,12 +421,12 @@ export const VIDEO_SUMMARIES_EPIDEMIOLOGY = {
 ## C. Epidemic
 - SUDDEN INCREASE above expected level
 - Outbreak situation
-- Examples: HPAI 2547 · ASF entry · LSD 2021 outbreak
+- Examples: HPAI 2547, ASF entry, LSD 2021 outbreak
 
 ## D. Pandemic
 - GLOBAL spread (worldwide)
 - Multiple countries simultaneously
-- Examples: **COVID-19** (classic) · FMD 2566 · HPAI globally
+- Examples: **COVID-19** (classic), FMD 2566, HPAI globally
 
 > 💡 **Memorize Trick**:
 > Sporadic = **occasional** (sometimes)
@@ -887,7 +887,7 @@ Retrospective study revealed:
     examFormat: "Multiple choice + scenario, ออก surveillance types, monitoring vs surveillance, syndromic surveillance, WAHIS reporting",
     summary: `# Veterinary Epidemiology — 3.2 Animal Disease Surveillance and Monitoring
 
-> 🎯 **Surveillance ≠ Monitoring** — surveillance = action-oriented · monitoring = tracking only ⭐⭐⭐
+> 🎯 **Surveillance ≠ Monitoring** — surveillance = action-oriented, monitoring = tracking only ⭐⭐⭐
 > ⚠️ ออกแน่: 5 surveillance types, WAHIS reporting, DLD role
 
 ---
@@ -1082,7 +1082,7 @@ Retrospective study revealed:
 8. **Experimental evidence** — controlled studies confirm
 9. **Analogy** — similar known causes
 
-> 💡 **Most Important: Temporality** — cause ต้องมาก่อน effect · vaccination ต้องมาก่อน protection · common error คือ correlation แต่ไม่ระบุ direction
+> 💡 **Most Important: Temporality** — cause ต้องมาก่อน effect, vaccination ต้องมาก่อน protection, common error คือ correlation แต่ไม่ระบุ direction
 
 ---
 
@@ -1127,7 +1127,7 @@ Retrospective study revealed:
 - RR/OR > 1: positive association (risk factor)
 - RR/OR < 1: negative association (protective factor)
 
-> 💡 Vet พบ OR=5 ระหว่าง stress + mastitis → focus on stress reduction · effect size drives intervention
+> 💡 Vet พบ OR=5 ระหว่าง stress + mastitis → focus on stress reduction, effect size drives intervention
 
 ---
 
@@ -1161,7 +1161,7 @@ Retrospective study revealed:
     examFormat: "Multiple choice + calculation, ออก Sensitivity, Specificity, PPV, NPV, 2x2 table, screening vs diagnostic",
     summary: `# Veterinary Epidemiology — 3.1 Screening and Diagnostic Tests
 
-> 🎯 **Sensitivity** หา sick · **Specificity** confirm healthy · **PPV** depends on prevalence ⭐⭐⭐
+> 🎯 **Sensitivity** หา sick, **Specificity** confirm healthy, **PPV** depends on prevalence ⭐⭐⭐
 > ⚠️ ออกแน่: 2x2 table, formulas, screening vs diagnostic, prevalence trap
 
 ---
@@ -1740,7 +1740,7 @@ Retrospective study revealed:
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **Variable types** drive test choice
-- ⭐⭐⭐ **t-test** for 2 means · **ANOVA** for 3+ · **Chi-square** for categorical
+- ⭐⭐⭐ **t-test** for 2 means, **ANOVA** for 3+, **Chi-square** for categorical
 - ⭐⭐ **Mean, Median, Mode** + SD
 - ⭐⭐ **p-value < 0.05** convention (not law!)
 - ⭐⭐ **CI** more informative than p-value alone
@@ -2010,7 +2010,7 @@ Retrospective study revealed:
 - ⭐⭐⭐ **Population focus** = key difference from pathology
 - ⭐⭐ **Qualitative**: Natural History, Causation, Microbe characterization
 - ⭐⭐ **Quantitative**: Disease Measuring, Observational, Modelling, Clinical, Economic
-- ⭐⭐⭐ **3 study designs**: Cross-sectional (snapshot) · Retrospective (disease→exposure) · Prospective (exposure→disease)
+- ⭐⭐⭐ **3 study designs**: Cross-sectional (snapshot), Retrospective (disease→exposure), Prospective (exposure→disease)
 - ⭐⭐ **Multiple causation** = norm (not single causes)
 - ⭐ **R-value** = reproduction number for disease spread
 - ⭐ **Mixing vessel** concept (HPAI in pigs example)`,
@@ -2203,7 +2203,7 @@ Retrospective study revealed:
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **Disease Triangle**: Agent + Host + Environment
-- ⭐⭐⭐ **5 Host types** — Primary (sexual stage) · Intermediate (asexual) · Transport · Reservoir · Definitive
+- ⭐⭐⭐ **5 Host types** — Primary (sexual stage), Intermediate (asexual), Transport, Reservoir, Definitive
 - ⭐⭐⭐ **Mosquito = PRIMARY for malaria** (sexual stage occurs there)
 - ⭐⭐ **4 Agent properties**: Infectivity, Pathogenicity, Virulence, CFR
 - ⭐⭐ **ID50 = infection dose 50%**, LD50 = lethal dose 50%

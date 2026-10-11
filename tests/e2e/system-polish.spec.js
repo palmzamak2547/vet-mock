@@ -65,7 +65,7 @@ test('unknown app destinations canonicalize safely to home', async ({ page }) =>
 
 test('shared modal behavior traps focus, closes on Escape and restores focus', async ({ page }) => {
   await page.goto('/');
-  const searchButton = page.getByRole('button', { name: 'ค้นหา', exact: true });
+  const searchButton = page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first();
   await expect(searchButton).toBeVisible();
   await searchButton.click();
 

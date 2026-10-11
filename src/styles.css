@@ -3333,122 +3333,9 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 .vmx-modal h2 { font-family: var(--vmx-display); margin: 0 0 16px; font-size: 24px; color: var(--clr-ink); }
 
-/* ── Onboarding tour ─────────────────────────────────────────────────
-   First-time walkthrough (7 steps), mounted at App level so any view can
-   open it. Class family replaces the old inline-styled tour that lived in
-   HomeView — keep tokens only, no raw hex. */
-.vmx-tour-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: var(--z-modal);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-4);
-  padding-top: max(var(--space-4), env(safe-area-inset-top, 0px));
-  padding-right: max(var(--space-4), env(safe-area-inset-right, 0px));
-  padding-bottom: max(var(--space-4), env(safe-area-inset-bottom, 0px));
-  padding-left: max(var(--space-4), env(safe-area-inset-left, 0px));
-}
-.vmx-tour-backdrop {
-  position: absolute;
-  inset: 0;
-  border: none;
-  background: color-mix(in srgb, var(--clr-ink) 45%, transparent);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  cursor: default;
-}
-.vmx-tour-dialog {
-  position: relative;
-  z-index: var(--z-raised);
-  background: var(--clr-bg);
-  border: 1px solid color-mix(in srgb, var(--clr-border) 75%, transparent);
-  border-radius: var(--r-lg);
-  padding: var(--space-6);
-  max-width: 460px;
-  width: 100%;
-  box-shadow: var(--shadow-lg), 0 16px 36px rgba(43, 36, 25, 0.12);
-  max-height: min(90vh, calc(100dvh - 24px));
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  outline: none;
-  animation: vmx-card-in var(--dur-slow) var(--ease-out);
-}
-.vmx-tour-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  appearance: none;
-  background: transparent;
-  border: none;
-  color: var(--clr-ink-soft);
-  cursor: pointer;
-  padding: 0;
-}
-.vmx-tour-icon {
-  display: inline-block;
-  font-size: 26px;
-  line-height: 1;
-  margin-bottom: var(--space-2);
-}
-.vmx-tour-title {
-  font-family: var(--vmx-display);
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 1.2;
-  margin: 0 0 10px;
-  color: var(--clr-ink);
-}
-.vmx-tour-body {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--clr-ink);
-  white-space: pre-line;
-  margin-bottom: var(--space-4);
-}
-.vmx-tour-dots {
-  display: flex;
-  gap: 6px;
-  margin-bottom: var(--space-4);
-}
-.vmx-tour-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 8px;
-  background: var(--clr-border);
-  transition: all var(--dur);
-}
-.vmx-tour-dot.is-active {
-  width: 18px;
-  background: var(--clr-sage);
-}
-.vmx-tour-actions {
-  display: flex;
-  gap: 10px;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.vmx-tour-skip {
-  all: unset;
-  cursor: pointer;
-  font-size: 13px;
-  color: var(--clr-ink-soft);
-  font-family: var(--vmx-sans);
-  padding: 8px 0;
-  min-height: 24px;
-}
-.vmx-tour-nav {
-  display: flex;
-  gap: 8px;
-}
-@media (max-width: 480px) {
-  .vmx-tour-dialog { padding: var(--space-5); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .vmx-tour-dialog { animation: none; }
-}
+/* ── วิธีใช้ guide ────────────────────────────────────────────────────
+   The guide (components/OnboardingTour.jsx) and the once-a-day hint are
+   styled in the night-b block at the end of this file. */
 
 /* ── Footer ──────────────────────────────────────────────────────────
    Grouped, left-aligned, plain type. (Was one italic centred blob of
@@ -5584,7 +5471,7 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-bench-sizes { display: flex; flex-direction: column; gap: var(--space-2); }
 .vmx-bench-sizes__row { display: flex; gap: var(--space-2); }
 .vmx-bench-size {
-  flex: 1 1 0; padding: 6px 8px; cursor: pointer; font-size: 13px; font-variant-numeric: tabular-nums;
+  flex: 1 1 0; min-height: var(--touch-min); padding: 6px 8px; cursor: pointer; font-size: 13px; font-variant-numeric: tabular-nums;
   background: var(--clr-surface); border: 1px solid var(--clr-border);
   border-radius: var(--r-sm); color: var(--clr-ink-soft);
 }
@@ -5610,8 +5497,9 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-bench-guess { display: flex; flex-direction: column; gap: var(--space-2); align-items: flex-start; }
 .vmx-bench-guess__value { font-family: var(--vmx-display); font-size: clamp(38px, 8vw, 56px); line-height: 1; color: var(--clr-gold-text); font-variant-numeric: tabular-nums; }
 .vmx-bench-guess__start {
-  align-self: flex-start; padding: 0; background: none; border: 0; cursor: pointer;
-  font-size: 13px; font-weight: 700; color: var(--clr-gold-text); text-decoration: underline;
+  align-self: flex-start; min-height: var(--touch-min); padding: 0 var(--space-2); margin-left: calc(-1 * var(--space-2));
+  background: none; border: 0; border-radius: var(--r-sm); cursor: pointer;
+  font-size: 13px; font-weight: 700; color: var(--clr-gold-text); text-decoration: underline; text-underline-offset: 3px;
 }
 .vmx-bench-guess__verdict { margin: 0; font-size: 13px; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
 
@@ -7021,3 +6909,1368 @@ body.vmx-reading .vmx-pdf-body {
      accident of wherever the view happened to mount it. Name it. */
   color: var(--clr-ink);
 }
+
+/* === night-d === */
+/* Night-d (2026-10-12): the practice ladder, the exam-mode subject pick, the
+   config screen and the exam screen on a phone. Values come from the tokens
+   in :root; the two sticky bars read the same bottom-nav variable the footer
+   already reads, so they sit above the bar where it exists and at the safe
+   area where it does not (focus views zero the variable). */
+
+/* The ladder strip: three rungs in one row, the active one in ink. Hick
+   caps the choice at three; each rung is a 56px target. */
+.vmx-ladder { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-1); }
+.vmx-ladder-step {
+  position: relative; min-height: 56px; padding: var(--space-2) 10px;
+  display: flex; align-items: center; gap: 10px;
+  border: 1px solid var(--clr-border); border-radius: var(--r-md);
+  background: var(--clr-bg); color: var(--clr-ink-soft);
+  font: inherit; font-size: 13px; line-height: 1.3; text-align: left;
+  transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+button.vmx-ladder-step { cursor: pointer; }
+button.vmx-ladder-step:hover { border-color: var(--clr-ink); }
+button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-ladder-n {
+  flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--vmx-mono); font-size: 13px; font-weight: 700;
+  background: var(--clr-surface-2); color: var(--clr-ink); border: 1px solid var(--clr-border);
+}
+.vmx-ladder-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.vmx-ladder-label { font-weight: 600; }
+.vmx-ladder-tag { font-size: 11px; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-ladder-step.is-active { background: var(--clr-ink); color: var(--clr-bg); border-color: var(--clr-ink); }
+.vmx-ladder-step.is-active .vmx-ladder-n { background: var(--clr-bg); color: var(--clr-ink); border-color: var(--clr-bg); }
+.vmx-ladder-step.is-done { border-color: var(--clr-sage); background: var(--clr-sage-soft); color: var(--clr-ink); }
+.vmx-ladder-step.is-done .vmx-ladder-n { background: var(--clr-sage); color: var(--clr-sage-on); border-color: var(--clr-sage); }
+.vmx-ladder-step.is-done .vmx-ladder-tag { color: var(--clr-ink); }
+.vmx-ladder-step.is-next { border-color: var(--clr-ink); border-style: dashed; color: var(--clr-ink); }
+.vmx-ladder-tag.is-next { color: var(--clr-sage-text); font-weight: 700; }
+/* Under 420px the label sits under the number so three rungs fit untruncated. */
+@media (max-width: 419px) {
+  .vmx-ladder-step { flex-direction: column; align-items: flex-start; gap: 6px; padding: var(--space-2); font-size: 12px; }
+}
+
+/* The config screen */
+/* Helper lines that are not the availability count: the e2e specs read
+   .vmx-config-availability as the one count line on the screen. */
+.vmx-config-hint { color: var(--clr-ink-soft); font-size: var(--text-sm); line-height: 1.5; }
+/* The switch keeps its 44px width inside its flex row (it measured 41px on a 390px phone). */
+.vmx-toggle { flex: 0 0 auto; }
+.vmx-config-ladder-hint { margin-top: var(--space-2); }
+.vmx-config-note { padding: 10px 12px; border-radius: var(--r-sm); background: var(--clr-surface-2); color: var(--clr-ink); font-size: 13px; line-height: 1.5; }
+.vmx-config-subrow { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--clr-border); }
+.vmx-config-sublabel { font-size: 12px; font-weight: 600; color: var(--clr-ink-soft); margin-bottom: var(--space-2); }
+.vmx-config-actions { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-4); }
+.vmx-config-summary { font-size: 13px; color: var(--clr-ink-soft); line-height: 1.5; }
+/* Back and start as one row: the start is the wide target (Fitts), the back
+   stays a full 44px control that never wraps. */
+.vmx-config-actions-row { display: flex; align-items: center; gap: var(--space-2); }
+.vmx-config-back { flex: 0 1 auto; white-space: nowrap; }
+.vmx-config-start { flex: 1 1 auto; }
+@media (min-width: 641px) {
+  .vmx-config-actions { flex-direction: row; align-items: center; justify-content: space-between; gap: var(--space-4); }
+  .vmx-config-start { flex: 0 1 auto; min-width: 240px; }
+}
+@media (max-width: 640px) {
+  .vmx-config-hero { margin-bottom: var(--space-3); }
+  .vmx-config-hero h1 { font-size: 24px; margin-bottom: 2px; }
+  .vmx-config-panel { padding: var(--space-4); }
+  .vmx-config-row { margin-bottom: 18px; }
+  /* The start bar stays in the thumb's reach: sticky above the bottom nav,
+     a card inside the content column (no bleed, so a wide safe-area inset
+     can never push it sideways). Scrolling to the end puts it back in flow. */
+  .vmx-config-actions {
+    position: sticky;
+    bottom: calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px) + 8px);
+    z-index: var(--z-raised);
+    margin-top: var(--space-3);
+    padding: 10px 12px 12px;
+    border: 1px solid var(--clr-border);
+    border-radius: var(--r-lg);
+    background: var(--clr-surface);
+    box-shadow: var(--shadow-md);
+  }
+  .vmx-config-summary { font-size: 12px; }
+}
+
+/* The exam screen */
+.vmx-progress.is-opener {
+  appearance: none; -webkit-appearance: none;
+  font: inherit; font-family: var(--vmx-mono); font-size: 13px;
+  cursor: pointer; min-height: var(--touch-min); padding: 0 14px;
+}
+.vmx-progress.is-opener:hover { border-color: var(--clr-ink); }
+.vmx-progress.is-opener:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+/* The position word is Thai: the sans stack, no tracking (the mono stack has no Thai glyphs). */
+.vmx-progress-case { font-family: var(--vmx-sans); letter-spacing: 0; }
+.vmx-progress-map { display: inline-flex; align-items: center; color: var(--clr-ink-soft); margin-left: 2px; }
+@media (max-width: 640px) {
+  .vmx-exam-top { margin-bottom: 12px; }
+  /* Previous and next in one row at the bottom of the screen: the next
+     question is one thumb away under the answer and under the explanation.
+     Fitts: the frequent action gets the wider target. */
+  .vmx-exam-actions {
+    position: sticky;
+    bottom: calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px) + 8px);
+    z-index: var(--z-raised);
+    flex-direction: row; flex-wrap: nowrap; gap: var(--space-2);
+    margin-top: var(--space-3); padding: var(--space-2);
+    border: 1px solid var(--clr-border); border-radius: var(--r-lg);
+    background: var(--clr-surface); box-shadow: var(--shadow-md);
+  }
+  .vmx-exam-actions .vmx-btn { width: auto; }
+  .vmx-exam-actions .vmx-exam-prev { flex: 0 1 38%; padding-inline: 10px; font-size: 13px; white-space: nowrap; }
+  .vmx-exam-actions .vmx-exam-next { flex: 1 1 62%; }
+  /* The explanation is read on this screen more than anywhere: Thai body
+     at 15px with the stacked-marks line height. */
+  .vmx-instant-feedback { font-size: 15px; line-height: 1.65; padding: 14px; }
+  .vmx-instant-feedback .w { line-height: 1.65; }
+  .vmx-question-card { margin-bottom: 12px; }
+}
+
+/* The results screen */
+.vmx-next-ladder { margin: 0 0 12px; padding: 12px 14px; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); }
+.vmx-next-ladder-title { margin: 0 0 var(--space-2); font-size: 13px; font-weight: 700; color: var(--clr-ink); }
+.vmx-next-ladder-note { margin: 10px 0 0; font-size: 13px; line-height: 1.55; color: var(--clr-ink); }
+.vmx-next-primary {
+  appearance: none; -webkit-appearance: none; width: 100%; box-sizing: border-box; cursor: pointer;
+  padding: 14px 16px; border-radius: var(--r-lg); background: var(--clr-surface); border: 2px solid var(--clr-sage);
+  display: flex; align-items: center; gap: 14px; min-height: 56px; text-align: left; font: inherit; color: var(--clr-ink);
+}
+.vmx-next-primary:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-next-primary-go { padding: 6px 12px; border-radius: var(--r-pill); background: var(--clr-sage); color: var(--clr-sage-on); font-size: 12px; font-weight: 700; flex-shrink: 0; }
+/* The seal and the bar's flag speak Thai now: the sans stack, no tracking,
+   no uppercase, text at full opacity. */
+.vmx-clinical-seal { font-family: var(--vmx-sans); letter-spacing: 0; text-transform: none; font-size: 12px; }
+.vmx-clinical-seal .vmx-seal-sub { font-size: 11px; opacity: 1; }
+.vmx-benchmark-flag { font-family: var(--vmx-sans); font-size: 11px; }
+
+/* The topic screen: a subject with nothing on the paper in scope */
+.vmx-paper-empty {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 12px; align-items: start;
+  padding: 14px 16px; margin-bottom: var(--space-4);
+  border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface);
+}
+.vmx-paper-empty-icon { display: inline-flex; width: 36px; height: 36px; align-items: center; justify-content: center; border-radius: var(--r-md); background: var(--clr-surface-2); color: var(--clr-sage-text); }
+.vmx-paper-empty-text { display: flex; flex-direction: column; gap: 4px; font-size: 14px; line-height: 1.5; color: var(--clr-ink); }
+.vmx-paper-empty-text span { color: var(--clr-ink-soft); font-size: 13px; }
+.vmx-paper-empty-actions { grid-column: 2; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+@media (max-width: 640px) {
+  .vmx-paper-empty-actions .vmx-btn { flex: 1 1 auto; }
+}
+/* === end night-d === */
+/* === night-d (2) === */
+/* The reason a link cannot be made, inside the invite disclosure. */
+.vmx-invite-note { display: block; font-size: 12px; line-height: 1.5; color: var(--clr-ink-soft); padding: 4px 2px; }
+/* === end night-d (2) === */
+
+/* === night-a1 === */
+/* Phone pass for Home, the navigation shell, the profile hub and the
+   progress page (owner review of 5.141.6: phone 4/10 against iPad 8/10).
+   Tablet and desktop keep the layout that already works: every rule here
+   is gated to the widths that have no rail, or is additive. Values are
+   tokens or derived from one, with the derivation beside the value. */
+
+/* ── Home search field (HeaderBar, Home only, widths without the rail) ──
+   The ⌘K pill at a width a thumb can hit, under the header the way a
+   super-app home opens (search first, then the icon grid, then the plan). */
+.vmx-home-search { display: none; }
+@media (max-width: 1023px) {
+  .vmx-home-search {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    width: 100%;
+    min-height: var(--touch-min);
+    margin: 0 0 var(--space-4);
+    padding: 0 var(--space-4);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--r-pill);
+    background: var(--clr-surface);
+    color: var(--clr-ink-soft);
+    font: inherit;
+    font-size: var(--text-base);
+    text-align: left;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+  }
+  .vmx-home-search:hover { border-color: var(--clr-ink); color: var(--clr-ink); }
+  .vmx-home-search:active { background: var(--clr-surface-2); }
+  .vmx-home-search-text { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  /* One search affordance on Home: the field replaces the round button. */
+  .vmx-header--home .vmx-cmdk-btn { display: none; }
+  /* The field is the header's second row, so the dashed rule between them goes. */
+  .vmx-header--home { border-bottom: 0; padding-bottom: var(--space-1); margin-bottom: var(--space-2); }
+}
+
+/* ── Compact hero on a phone ──────────────────────────────────────────
+   The greeting and the tour button share one line (22px, the --text-xl
+   step, instead of 26px over two blocks): the header pill already says the
+   term, so the hero should cost one line, not three. */
+.vmx-home-tour { margin-top: 10px; }
+@media (max-width: 640px) {
+  .vmx-home-hero { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin-bottom: var(--space-3); }
+  .vmx-home-hero h1 { flex: 1 1 auto; min-width: 0; margin: 0; font-size: var(--text-xl); line-height: 1.3; }
+  .vmx-home-hero p { flex: 1 1 100%; order: 3; margin: 0; font-size: var(--text-sm); }
+  .vmx-home-tour { margin-top: 0; }
+}
+
+/* ── Quick grid: the rail's learn group, for screens without the rail ──
+   Four tiles a row at phone width (the shape of the owner's CUNEX and
+   Trip.com references; seven tiles sit as 4 + 3, as CUNEX's own grid
+   does), one row on a tablet. Tile height derives from its parts:
+   10 + 40 icon + 6 + two 12.5px lines at 1.25 (31) + 10 = 97, rounded
+   to the 4px grid. */
+.vmx-quick-grid { display: none; }
+@media (max-width: 1023px) {
+  .vmx-quick-grid { display: block; margin: 0 0 var(--space-5); }
+  .vmx-quick-grid-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+  .vmx-quick-tile {
+    width: 100%;
+    min-height: 96px;
+    padding: 10px var(--space-1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    border: 1px solid var(--clr-border);
+    border-radius: var(--r-md);
+    background: var(--clr-surface);
+    color: var(--clr-ink);
+    font: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+  }
+  .vmx-quick-tile:hover { border-color: var(--clr-sage); }
+  /* Press: the tile gives under the thumb, 4% (a chip-sized spring, no bounce). */
+  .vmx-quick-tile:active { transform: scale(0.96); background: var(--clr-surface-2); }
+  .vmx-quick-tile:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+  .vmx-quick-tile-icon {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--clr-sage) 12%, var(--clr-surface-2));
+    color: var(--clr-sage-text);
+    font-size: 20px;
+    line-height: 1;
+  }
+  .vmx-quick-tile-label {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    max-width: 100%;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    line-height: 1.25;
+    text-align: center;
+    /* Thai marks sit above and below the line; the clamp box must not shave them. */
+    padding: 0.2em 0 0.1em;
+    overflow-wrap: anywhere;
+  }
+  .vmx-quick-tile.is-more { border-style: dashed; }
+  .vmx-quick-tile.is-more .vmx-quick-tile-icon { background: var(--clr-surface-2); color: var(--clr-ink-soft); }
+  /* The feature menu's learn group is this grid, drawn at the top instead;
+     one tile per destination on a phone. */
+  .vmx-feature-group[data-category="learn"] { display: none; }
+}
+@media (min-width: 640px) and (max-width: 1023px) {
+  .vmx-quick-grid-list { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+}
+@media (max-width: 360px) {
+  /* A 76px tile holds a 12-glyph Thai word (กระดานทบทวน, คลิปย้อนหลัง) at
+     the 11px floor, not at 12.5px; the inner width grows 4px to match. */
+  .vmx-quick-tile { padding-inline: 2px; }
+  .vmx-quick-tile-label { font-size: var(--text-xs); }
+}
+
+/* ── Subjects: two columns down to 320px ──────────────────────────────
+   One column at 360px (the most common phone width here) made the grid
+   2,717px tall on its own. Two 166px cards hold a 15px title and a
+   shorter plate: 96px (a 512px engraving contained at 166px wide needs
+   no more; 116px spent 120px of scroll over six rows on air). */
+@media (max-width: 600px) {
+  .vmx-subject-section-head .vmx-subject-scope { width: auto; justify-content: flex-end; }
+}
+@media (max-width: 640px) {
+  .vmx-subject-card--illustrated { --subject-cover-height: 96px; }
+}
+@media (max-width: 360px) {
+  .vmx-subject-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+  .vmx-subject-card .title { font-size: 15px; }
+}
+
+/* ── Header: the year pill at the touch floor ──────────────────────────
+   "ปี 5" measured 37px wide; a target narrower than 44px beside a wider
+   one is the one the thumb misses. */
+.vmx-context-pill.is-quiet { min-width: var(--touch-min); justify-content: center; }
+
+/* ── Practice modes: two columns on a phone ───────────────────────────
+   Eight single-column cards were 803px; two columns halve the scroll and
+   keep every card. The badge leaves its corner (it collided with a title
+   at 139px) and sits as a tag under the text. */
+@media (max-width: 640px) {
+  .vmx-mode-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); margin-bottom: var(--space-6); }
+  .vmx-mode-card .icon { width: 32px; height: 32px; }
+  .vmx-mode-card .title { font-size: var(--text-base); }
+  .vmx-mode-card .sub { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+  .vmx-mode-card .badge { position: static; align-self: flex-start; }
+}
+@media (max-width: 359px) {
+  .vmx-mode-grid { grid-template-columns: 1fr; }
+}
+
+/* ── วันนี้ panel: rows at the touch floor, Thai in the page's face ──── */
+.vmx-vitals-row { min-height: var(--touch-min); }
+.vmx-vitals-row-meta { font-family: var(--vmx-sans); font-size: var(--text-sm); }
+.vmx-vitals-panel-date { font-size: var(--text-sm); font-weight: 500; color: var(--clr-ink-soft); }
+.vmx-vitals-mochi { display: none; }
+@media (max-width: 640px) {
+  /* The companion card is a 94px card of decoration on a phone; Mochi keeps
+     a 26px seat in the panel head instead (same preference hides both). */
+  .vmx-companion-card { display: none; }
+  .vmx-vitals-mochi { display: inline-flex; margin-right: 2px; }
+}
+
+/* ── Streak, one line, phone only (the card above it is desktop's) ────
+   The real last seven days as dots; today is ringed until it is done. */
+.vmx-streak-mini { display: none; }
+@media (max-width: 600px) {
+  .vmx-streak-mini {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    min-height: var(--touch-min);
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--r-md);
+    background: var(--clr-surface-2);
+    color: var(--clr-ink);
+    font: inherit;
+    font-size: var(--text-sm);
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .vmx-streak-mini.is-warm { border-color: var(--clr-gold-soft); }
+  .vmx-streak-mini.is-hot { border-color: var(--clr-gold); background: color-mix(in srgb, var(--clr-gold) 16%, var(--clr-surface)); }
+  .vmx-streak-mini-fire { display: inline-flex; flex: 0 0 auto; color: var(--clr-gold-text); }
+  .vmx-streak-mini-text { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .vmx-streak-mini-text strong { font-size: var(--text-md); font-variant-numeric: tabular-nums; }
+  .vmx-streak-mini-week { display: inline-flex; gap: 3px; flex: 0 0 auto; }
+  .vmx-streak-mini-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--clr-border); }
+  .vmx-streak-mini-dot.is-on { background: var(--clr-sage); }
+  .vmx-streak-mini-dot.is-today:not(.is-on) { background: transparent; box-shadow: inset 0 0 0 1.5px var(--clr-sage); }
+}
+
+/* ── Feature menu: compact rows on a phone ────────────────────────────
+   The menu alone was 2,339px: 92px cards, four per group. 56px rows (one
+   title, one hint line) keep every item and halve the menu. */
+@media (max-width: 640px) {
+  .vmx-feature-menu { margin-top: var(--space-6); padding-top: var(--space-4); }
+  .vmx-feature-group { margin-bottom: var(--space-4); }
+  .vmx-feature-card { min-height: 56px; padding: var(--space-2) var(--space-3); grid-template-columns: minmax(0, 1fr); align-items: center; }
+  .vmx-feature-card-title { font-size: var(--text-sm); }
+  .vmx-feature-card-sub { font-size: var(--text-xs); -webkit-line-clamp: 1; }
+}
+@media (max-width: 360px) {
+  .vmx-feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ── Subject bookplates in dark mode ──────────────────────────────────
+   The plates are ink engravings on a light paper tone; in dark mode that
+   paper was a light tile on a dark page. The paper is darkened to the
+   theme's muted surface with a 14% hint of its own tone (enough to keep
+   the per-subject tint, not enough to glow), and the ink is inverted so
+   the engraving reads as a white-line print; hue-rotate(180deg) returns
+   the hue that inversion flips. */
+[data-theme="dark"] .vmx-subject-cover { background: color-mix(in srgb, var(--subject-paper, var(--clr-surface-2)) 14%, var(--clr-surface-2)); }
+[data-theme="dark"] .vmx-subject-cover img { filter: invert(1) hue-rotate(180deg); }
+
+/* ── Profile hub ──────────────────────────────────────────────────────── */
+.vmx-profile-card { margin-bottom: var(--space-4); }
+.vmx-profile-identity { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-2) var(--space-3); align-items: center; }
+.vmx-profile-avatar {
+  width: var(--touch-min);
+  height: var(--touch-min);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--clr-surface-2);
+  color: var(--clr-sage-text);
+  font-size: 24px;
+  line-height: 1;
+}
+.vmx-profile-who { min-width: 0; }
+.vmx-profile-name { font-size: var(--text-md); font-weight: 600; line-height: 1.45; color: var(--clr-ink); }
+.vmx-profile-note { margin-top: 2px; font-size: var(--text-sm); line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-profile-signin { margin-top: var(--space-2); }
+.vmx-level {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-1) var(--space-2);
+  align-items: center;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--clr-border);
+}
+.vmx-level-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--clr-sage);
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--clr-sage) 12%, var(--clr-surface));
+  color: var(--clr-sage-text);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.vmx-level-meta { font-size: var(--text-sm); color: var(--clr-ink-soft); }
+.vmx-level-bar { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--clr-surface-2); overflow: hidden; }
+.vmx-level-bar > span { display: block; height: 100%; border-radius: inherit; background: var(--clr-sage); }
+.vmx-profile-stats { margin-bottom: var(--space-3); }
+.vmx-week { margin: var(--space-3) 0 var(--space-2); }
+.vmx-week-head { display: flex; justify-content: space-between; margin-bottom: var(--space-2); font-size: var(--text-sm); color: var(--clr-ink-soft); }
+.vmx-week-strip { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--space-1); }
+.vmx-week-strip li { display: grid; justify-items: center; gap: 3px; }
+.vmx-week-dow { font-size: var(--text-xs); color: var(--clr-ink-soft); }
+.vmx-week-day {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--clr-surface-2);
+  color: var(--clr-ink-soft);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+.vmx-week-strip li.is-on .vmx-week-day { background: var(--clr-sage); color: var(--clr-sage-on); font-weight: 700; }
+.vmx-week-strip li.is-today .vmx-week-day { box-shadow: 0 0 0 2px var(--clr-surface), 0 0 0 4px var(--clr-sage); }
+.vmx-week-count { min-height: 1.2em; font-size: var(--text-xs); color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-activity { list-style: none; margin: 0; padding: 0; }
+.vmx-activity-row {
+  display: grid;
+  grid-template-columns: minmax(96px, auto) minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: baseline;
+  padding: var(--space-2) 0;
+  border-top: 1px solid var(--clr-border);
+  font-size: var(--text-base);
+}
+.vmx-activity-row:first-child { border-top: 0; padding-top: 0; }
+/* A row that opens its subject: the li keeps the list rhythm, the button
+   (which also carries .vmx-activity-row for the grid) fills it. */
+.vmx-activity-item { border-top: 1px solid var(--clr-border); }
+.vmx-activity-item:first-child { border-top: 0; }
+.vmx-activity-item > .vmx-activity-open { border-top: 0; padding: var(--space-2) 0; }
+.vmx-activity-item:first-child > .vmx-activity-open { padding-top: 0; }
+.vmx-activity-open {
+  width: 100%; min-height: var(--touch-min);
+  background: none; border: 0; border-radius: 8px;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+}
+@media (hover: hover) { .vmx-activity-open:hover .vmx-activity-what strong { text-decoration: underline; text-underline-offset: 3px; } }
+.vmx-activity-when { font-size: var(--text-sm); color: var(--clr-ink-soft); white-space: nowrap; }
+.vmx-activity-what { min-width: 0; color: var(--clr-ink); }
+.vmx-activity-what strong { font-weight: 600; }
+.vmx-profile-theme { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-2) 0; font-size: var(--text-base); color: var(--clr-ink); }
+.vmx-profile-install { margin-bottom: var(--space-3); }
+@media (max-width: 640px) {
+  .vmx-profile-hero { margin-bottom: var(--space-3); }
+  .vmx-profile-hero h1 { font-size: var(--text-xl); }
+  .vmx-profile-hero p { font-size: var(--text-sm); }
+}
+
+/* ── Home extras: the quest and goal buttons at the touch floor ─────────
+   ลุย measured 39-42px wide and เพิ่ม 43px (both 44px tall). Scoped to
+   Home's own disclosure, so the panels themselves are untouched. */
+.vmx-home-extras .vmx-press,
+.vmx-home-extras .vmx-btn-sm { min-width: var(--touch-min); }
+
+/* ── Progress: the scope control ──────────────────────────────────────── */
+.vmx-dash-scope { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-4); }
+.vmx-dash-scope-label, .vmx-dash-scope-note { font-size: var(--text-sm); color: var(--clr-ink-soft); }
+
+/* ── Motion: per effect, never a blanket kill ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .vmx-quick-tile, .vmx-home-search { transition: none; }
+  .vmx-quick-tile:active { transform: none; }
+}
+/* === end night-a1 === */
+
+/* === night-c === */
+/* ถามคลังความรู้ and the study card in the search palette (CommandPalette).
+   No new motion: these sit inside .vmx-omni-card, whose entrance is already
+   switched off under prefers-reduced-motion above. Every control is a real
+   button at the 44px floor, coloured from theme tokens so dark mode and the
+   palettes flip it. */
+
+.vmx-omni-fallback-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-size: 13.5px;
+  color: var(--clr-ink);
+}
+.vmx-omni-fallback-mark {
+  flex: 0 0 auto;
+  color: var(--clr-ink-soft);
+  font-weight: 700;
+}
+.vmx-omni-fallback-mark.is-error { color: var(--clr-rose-text); }
+.vmx-omni-fallback-body,
+.vmx-omni-fallback-hint,
+.vmx-omni-empty-hint {
+  margin: var(--space-1) 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--clr-ink-soft);
+}
+.vmx-omni-fallback-hint { margin-top: var(--space-2); font-size: 12px; }
+.vmx-omni-empty-hint { margin-top: var(--space-2); }
+
+.vmx-omni-next {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+.vmx-omni-next-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  max-width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-sm);
+  background: var(--clr-surface-2);
+  color: var(--clr-ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.vmx-omni-next-btn:hover { border-color: color-mix(in srgb, var(--clr-sage) 45%, var(--clr-border)); }
+.vmx-omni-next-btn.is-primary {
+  border-color: color-mix(in srgb, var(--clr-sage) 55%, var(--clr-border));
+  background: color-mix(in srgb, var(--clr-sage) 14%, var(--clr-surface));
+  color: var(--clr-sage-text);
+  font-weight: 700;
+}
+.vmx-omni-next-count {
+  font-weight: 400;
+  color: var(--clr-ink-soft);
+  white-space: nowrap;
+}
+
+.vmx-omni-related { margin-top: var(--space-3); }
+.vmx-omni-related-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--clr-ink-soft);
+  margin-bottom: var(--space-1);
+}
+.vmx-omni-related-link {
+  /* Block, not flex: a long title wraps after the arrow like a sentence
+     instead of dropping onto its own line. */
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-2);
+  line-height: 1.45;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--clr-ocean-text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.vmx-omni-related-link:hover { background: var(--clr-surface-2); }
+.vmx-omni-related-heading {
+  font-weight: 400;
+  color: var(--clr-ink-soft);
+}
+.vmx-omni-empty-related {
+  max-width: 420px;
+  margin: var(--space-3) auto 0;
+  text-align: left;
+}
+
+.vmx-omni-go-missing {
+  margin: 0 0 var(--space-2);
+  font-size: 12.5px;
+  color: var(--clr-ink-soft);
+}
+.vmx-omni-go-primary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: 52px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--clr-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.vmx-omni-go-primary:hover,
+.vmx-omni-go-primary.is-active {
+  background: var(--clr-surface-2);
+  border-color: var(--clr-border);
+}
+.vmx-omni-go-icon { flex: 0 0 auto; font-size: 22px; line-height: 1; }
+.vmx-omni-go-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.vmx-omni-go-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.vmx-omni-go-sub {
+  font-size: 12px;
+  color: var(--clr-ink-soft);
+}
+.vmx-omni-go-enter {
+  flex: 0 0 auto;
+  font-family: var(--vmx-mono);
+  font-size: 11px;
+  color: var(--clr-ink-soft);
+}
+.vmx-omni-go-others { align-items: center; }
+.vmx-omni-go-or {
+  font-size: 12px;
+  color: var(--clr-ink-soft);
+}
+
+.vmx-omni-next-btn:focus-visible,
+.vmx-omni-related-link:focus-visible,
+.vmx-omni-go-primary:focus-visible {
+  outline: 2px solid var(--clr-sage-text);
+  outline-offset: 2px;
+}
+/* === end night-c === */
+
+/* === night-b === */
+/* ── วิธีใช้ guide + once-a-day hint (night lane 2026-10-12, package B) ──
+   components/OnboardingTour.jsx: the goals a student has, each a few steps
+   that name the exact button and a button that goes there.
+   components/FeatureTip.jsx: one hint per feature per day.
+   Every value is a token, or derived in the comment beside it
+   (physics-math-design). Theme purity: tokens only, so light stays light and
+   dark stays dark; the one literal is the app's own neutral modal scrim. */
+
+/* ── Shell: a bottom sheet on a phone, a centred dialog from 640px ── */
+.vmx-tour-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  /* Phone: the sheet rises from the bottom edge, where the thumb already is
+     (Fitts: the actions sit in the reach zone, not under the notch). */
+  align-items: flex-end;
+  justify-content: center;
+  padding-top: max(var(--space-3), env(safe-area-inset-top, 0px));
+  overscroll-behavior: contain;
+}
+.vmx-tour-backdrop {
+  position: absolute;
+  inset: 0;
+  /* The app's modal scrim (.vmx-modal-overlay): neutral, so dark mode stays
+     dark. The old tour tinted with --clr-ink, which is cream in dark mode and
+     laid a pale veil over a dark page. No blur: a full-screen backdrop-filter
+     is the most expensive surface a phone can composite. */
+  background: rgba(0, 0, 0, 0.45);
+}
+.vmx-tour-dialog.vmx-guide {
+  position: relative;
+  z-index: var(--z-raised);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  max-height: calc(100dvh - max(var(--space-3), env(safe-area-inset-top, 0px)) - var(--space-2));
+  background: var(--clr-bg);
+  color: var(--clr-ink);
+  border: 1px solid var(--clr-border);
+  border-bottom: 0;
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  outline: none;
+  /* A 24px rise: sqrt-distance gives 71ms, under the 120ms floor for a
+     surface this size, so it takes the large-surface token with the float
+     ease (critically damped feel, no overshoot on a big panel). */
+  animation: vmx-guide-rise var(--dur-slow) var(--ease-out) backwards;
+}
+@media (min-width: 640px) {
+  .vmx-tour-overlay {
+    align-items: center;
+    padding: max(var(--space-6), env(safe-area-inset-top, 0px)) var(--space-6) max(var(--space-6), env(safe-area-inset-bottom, 0px));
+  }
+  .vmx-tour-dialog.vmx-guide {
+    max-width: 560px;
+    max-height: min(88vh, calc(100dvh - 48px));
+    border-bottom: 1px solid var(--clr-border);
+    border-radius: var(--r-xl);
+  }
+}
+@keyframes vmx-guide-rise { from { opacity: 0; transform: translateY(24px); } }
+
+/* One screen at a time (the list, or one goal). Re-keyed on every move, so
+   the swap is a fresh entrance: 12px of travel toward where the student is
+   going, forward from the right and back from the left. */
+.vmx-guide-screen {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.vmx-guide-screen.is-forward { animation: vmx-guide-forward var(--dur) var(--ease-out) backwards; }
+.vmx-guide-screen.is-back { animation: vmx-guide-back var(--dur) var(--ease-out) backwards; }
+@keyframes vmx-guide-forward { from { opacity: 0; transform: translateX(12px); } }
+@keyframes vmx-guide-back { from { opacity: 0; transform: translateX(-12px); } }
+
+.vmx-guide-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--touch-min);
+  padding: var(--space-2) var(--space-3) 0 var(--space-5);
+}
+.vmx-guide-mochi { display: inline-flex; align-items: center; min-height: var(--touch-min); }
+.vmx-guide-close {
+  appearance: none;
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: var(--clr-ink-soft);
+  cursor: pointer;
+}
+.vmx-guide-close:hover { background: var(--clr-surface-2); color: var(--clr-ink); }
+.vmx-guide-back {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  margin-left: calc(-1 * var(--space-2));
+  padding: 0 var(--space-3) 0 var(--space-2);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--clr-ink);
+  font: inherit;
+  font-family: var(--vmx-sans);
+  font-size: var(--text-base);
+  font-weight: 600;
+  cursor: pointer;
+}
+.vmx-guide-back > span { font-size: var(--text-lg); line-height: 1; }
+.vmx-guide-back:hover { background: var(--clr-surface-2); }
+.vmx-guide-back:focus-visible,
+.vmx-guide-close:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+
+.vmx-guide-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: var(--space-1) var(--space-5) var(--space-5);
+}
+.vmx-guide-foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-3) var(--space-5) max(var(--space-3), env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--clr-border);
+  background: var(--clr-bg);
+}
+@media (min-width: 640px) {
+  .vmx-guide-foot { padding-bottom: var(--space-4); }
+}
+@media (max-width: 639.98px) {
+  /* One full-width action at the bottom of a phone: the biggest, nearest
+     target for the thumb. */
+  .vmx-guide-next { flex: 1 1 100%; }
+}
+
+/* Type: Sarabun throughout (DESIGN_SYSTEM: headings are Sarabun; Fraunces is
+   the wordmark's alone). Thai headings keep 1.2+ line height for stacked
+   marks; body copy 1.6. */
+.vmx-guide-title {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--clr-ink);
+  text-wrap: balance;
+}
+.vmx-guide-title:focus { outline: none; }
+.vmx-guide-title:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 4px; border-radius: var(--r-sm); }
+.vmx-guide-intro {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  color: var(--clr-ink-soft);
+  text-wrap: pretty;
+}
+.vmx-guide-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-1) 0 var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--clr-sage-text);
+}
+.vmx-guide-progress {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: calc(-1 * var(--space-1)) 0 var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--clr-ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+.vmx-guide-pips { display: inline-flex; gap: var(--space-1); }
+.vmx-guide-pips > i { width: 14px; height: 4px; border-radius: var(--r-pill); background: var(--clr-border); }
+.vmx-guide-pips > i.is-seen { background: var(--clr-sage); }
+
+/* ── The list of goals ── */
+.vmx-guide-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+.vmx-guide-row {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 64px;
+  padding: var(--space-3);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  background: var(--clr-surface);
+  color: var(--clr-ink);
+  font: inherit;
+  font-family: var(--vmx-sans);
+  text-align: left;
+  cursor: pointer;
+  /* Press feedback lands inside 100ms (the instant threshold): 120ms is
+     the fast token, and only transform and border colour move. */
+  transition: transform var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.vmx-guide-row:hover { border-color: var(--clr-sage); }
+.vmx-guide-row:active { transform: scale(0.985); }
+.vmx-guide-row:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-guide-row-icon {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  /* 14% sage over the surface: sage text on it measures 6.1:1 in light. */
+  background: color-mix(in srgb, var(--clr-sage) 14%, var(--clr-surface));
+  color: var(--clr-sage-text);
+}
+.vmx-guide-row.is-seen .vmx-guide-row-icon { background: var(--clr-sage); color: var(--clr-sage-on); }
+/* The goal just read gets its tick with a small spring: response 0.30s,
+   damping 0.70 (peak 1.046, settles in 491ms), the "cute" row of the
+   physics table, sampled into linear(). */
+.vmx-guide-row.is-fresh .vmx-guide-row-icon {
+  animation: vmx-guide-tick 491ms linear(0, 0.151, 0.436, 0.701, 0.887, 0.992, 1.037, 1.046, 1.037, 1.024, 1.012, 1.004, 1, 0.998, 0.998, 0.998, 1) backwards;
+}
+@keyframes vmx-guide-tick { from { transform: scale(0.6); } }
+.vmx-guide-row-copy { flex: 1 1 auto; min-width: 0; display: grid; gap: 2px; }
+.vmx-guide-row-title { font-size: var(--text-md); font-weight: 700; line-height: 1.4; }
+.vmx-guide-row-sub { font-size: var(--text-base); line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-guide-row-arrow { flex: none; color: var(--clr-ink-soft); font-size: var(--text-xl); line-height: 1; }
+.vmx-guide-reopen {
+  flex: 1 1 200px;
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--clr-ink-soft);
+}
+
+/* ── One goal: numbered steps ── */
+.vmx-guide-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+.vmx-guide-step {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+  padding: var(--space-3) var(--space-3) var(--space-2);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  background: var(--clr-surface);
+}
+.vmx-guide-step-num {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--clr-ink);
+  color: var(--clr-bg);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.vmx-guide-step-body { min-width: 0; padding-bottom: var(--space-1); }
+.vmx-guide-step-text { margin: 2px 0 0; font-size: var(--text-md); line-height: 1.6; text-wrap: pretty; }
+.vmx-guide-step-note { margin: var(--space-1) 0 0; font-size: var(--text-base); line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-guide-step-keys { margin: var(--space-1) 0 0; font-size: var(--text-sm); color: var(--clr-ink-soft); }
+/* A keyboard shortcut is noise on a touch-only phone. */
+@media (hover: none) and (pointer: coarse) {
+  .vmx-guide-step-keys { display: none; }
+}
+.vmx-guide-go {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  margin: var(--space-1) 0 0 calc(-1 * var(--space-2));
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--clr-sage-text);
+  font: inherit;
+  font-family: var(--vmx-sans);
+  font-size: var(--text-base);
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+.vmx-guide-go > span { transition: transform var(--dur-fast) var(--ease-out); }
+.vmx-guide-go:hover { background: color-mix(in srgb, var(--clr-sage) 10%, transparent); }
+.vmx-guide-go:hover > span { transform: translateX(2px); }
+.vmx-guide-go:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-guide-start { margin-top: var(--space-3); }
+
+/* A button's name inside a sentence. Deliberately not button-shaped (no
+   border, no shadow, no pointer): it cannot be pressed, and the real way
+   there is the step's own button. Kept whole: a name split over two lines
+   ("เริ่ม" / "Session") reads as two buttons. The longest name quoted
+   (26 Thai characters, about 230px at 16px) fits the narrowest step column
+   at 360px (256px); below that it may wrap, keeping its tint per line. */
+.vmx-guide-ui {
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--clr-sage) 12%, var(--clr-surface));
+  color: var(--clr-ink);
+  font-weight: 600;
+  white-space: nowrap;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+@media (max-width: 340px) {
+  .vmx-guide-ui { white-space: normal; }
+}
+.vmx-guide-ui > svg { display: inline-block; margin-right: 4px; vertical-align: -2px; color: var(--clr-sage-text); }
+@media (forced-colors: active) {
+  .vmx-guide-ui { border: 1px solid CanvasText; }
+}
+
+/* ── FeatureTip: the once-a-day hint ──
+   Supersedes the inline card styles the FeatureTip block above describes;
+   that block's in-flow contract (static, max-width 100%) still holds. */
+.vmx-feature-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+  padding: var(--space-2) var(--space-1) var(--space-2) var(--space-3);
+  border: 1px solid var(--clr-border);
+  border-left: 3px solid var(--clr-sage);
+  border-radius: var(--r-md);
+  background: var(--clr-surface);
+  /* 4px of rise: below the sqrt-distance floor, so the fast-to-medium token. */
+  animation: vmx-tip-in var(--dur) var(--ease-out) backwards;
+}
+@keyframes vmx-tip-in { from { opacity: 0; transform: translateY(4px); } }
+.vmx-feature-tip-icon {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--clr-sage) 14%, var(--clr-surface));
+  color: var(--clr-sage-text);
+}
+.vmx-feature-tip-copy { flex: 1 1 auto; min-width: 0; padding-top: var(--space-1); }
+.vmx-feature-tip-title { margin: 0; font-size: var(--text-md); font-weight: 700; line-height: 1.45; color: var(--clr-ink); }
+.vmx-feature-tip-text { margin: 2px 0 0; font-size: var(--text-base); line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-feature-tip-text .vmx-guide-ui { color: var(--clr-ink); }
+.vmx-feature-tip-more {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--touch-min);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--clr-sage-text);
+  font: inherit;
+  font-family: var(--vmx-sans);
+  font-size: var(--text-base);
+  font-weight: 700;
+  cursor: pointer;
+}
+.vmx-feature-tip-more:hover { text-decoration: underline; text-underline-offset: 3px; }
+.vmx-feature-tip-more:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: var(--r-sm); }
+.vmx-feature-tip-close {
+  appearance: none;
+  flex: none;
+  border: 0;
+  background: transparent;
+  color: var(--clr-ink-soft);
+  cursor: pointer;
+}
+.vmx-feature-tip-close:hover { background: var(--clr-surface-2); color: var(--clr-ink); }
+
+/* Reduced motion, per effect. The global rules (prefers-reduced-motion and
+   the in-app quiet/off setting) already shorten every animation to an
+   instant; what is left to say is that a pressed row does not shrink. */
+@media (prefers-reduced-motion: reduce) {
+  .vmx-guide-row:active { transform: none; }
+}
+:root[data-vmx-motion=quiet] .vmx-guide-row:active,
+:root[data-vmx-motion=off] .vmx-guide-row:active { transform: none; }
+
+/* Print. The notes page's "พิมพ์" button is what the notes hint teaches. Its
+   section titles live in <h3><button> (the accordion pattern) and the print
+   sheet hides every button, so a printed topic lost every heading. Show the
+   title, drop the open/closed arrow. The guide and the hint never print. */
+@media print {
+  .vmx-notes-grid h3 > button { display: flex !important; }
+  .vmx-notes-grid h3 > button > div:last-child { display: none !important; }
+  .vmx-tour-overlay, .vmx-feature-tip { display: none !important; }
+}
+/* === end night-b === */
+
+/* === night-a2 === */
+/* Phone reading pass, night 2026-10-12 (package A2): the library, VetWiki,
+   notes, clips and timetable on a phone first, desktop and iPad unchanged
+   unless a rule says otherwise. Every size here comes from the token scale
+   (--space-*, --text-*, --touch-min); prose is --text-md (16px), the type
+   scale's own mobile minimum for reading, at line-height 1.75 because Thai
+   stacks a vowel and a tone mark above the line and needs the room. */
+
+/* External reader. The library already pads the page 16px a side; the
+   reader's own 16px used to indent it a second time on a phone. */
+.vmx-extdoc { padding: 0 0 var(--space-12); }
+.vmx-extdoc-sub { font-size: var(--text-base); line-height: 1.7; }
+/* The input has no type attribute, so the global 16px floor
+   (input[type="url"], ...) never reached it and iOS zoomed the whole page on
+   focus. The class sets its own floor. */
+.vmx-extdoc-input { font-size: max(16px, 1em); min-height: var(--touch-min); font-family: inherit; }
+/* WebKit does not let form controls inherit the page font: the link box and
+   the recent-link pills rendered in Times on an iPhone. */
+.vmx-extdoc-recent { font-family: inherit; }
+.vmx-extdoc-doc { scroll-margin-top: var(--space-4); }
+.vmx-extdoc-form .vmx-btn { flex-shrink: 0; }
+.vmx-extdoc-source { display: inline-flex; align-items: center; min-height: var(--touch-min); }
+.vmx-extdoc-connect-block { display: flex; flex-direction: column; gap: var(--space-2); }
+.vmx-extdoc-connect-row > .vmx-btn { flex-shrink: 0; }
+.vmx-extdoc-files { margin-top: var(--space-1); padding-top: var(--space-3); border-top: 1px solid var(--clr-border); }
+.vmx-extdoc-files-label { margin: 0 0 var(--space-2); font-size: var(--text-sm); font-weight: 600; color: var(--clr-ink-soft); }
+.vmx-extdoc-file-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.vmx-extdoc-file {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-3);
+  border-radius: var(--r-sm); background: var(--clr-surface);
+}
+.vmx-extdoc-file-title {
+  min-width: 0; flex: 1; display: block; padding: var(--space-2) 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  color: var(--clr-ink); text-decoration: none; font-size: var(--text-base);
+}
+.vmx-extdoc-file > .vmx-btn { flex-shrink: 0; }
+.vmx-extdoc-body { font-size: var(--text-md); line-height: 1.75; }
+.vmx-extdoc-body .vmx-md-ul li, .vmx-extdoc-body .vmx-md-ol li { line-height: 1.75; }
+
+/* Notes (ทวนเนื้อหา). The sidebar's layout moved here from an inline style
+   so the narrow screens below can hand its job to the picker without
+   fighting it. */
+.vmx-notes-sidebar { position: sticky; top: var(--space-4); display: flex; flex-direction: column; gap: 6px; }
+.vmx-notes-picker { display: none; }
+.vmx-notes-topic-head { scroll-margin-top: var(--space-4); }
+.vmx-notes-topic-head:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-notes-topic-head:focus:not(:focus-visible) { outline: none; }
+/* The lecturer's name was set in the mono face, upper-cased: Thai has no
+   capitals and fell back to another font mid-line. Body face, real case. */
+.vmx-notes-topic-kicker { margin-bottom: var(--space-1); font-size: var(--text-sm); color: var(--clr-ink-soft); line-height: 1.5; font-variant-numeric: tabular-nums; }
+.vmx-notes-search { min-height: var(--touch-min); }
+.vmx-notes-section-body { padding: var(--space-4) var(--space-5); font-size: var(--text-base); line-height: 1.65; }
+.vmx-notes-pager { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin: var(--space-6) 0 var(--space-2); }
+.vmx-notes-pager-btn {
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-1);
+  min-height: var(--touch-min); min-width: 0; padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--clr-border); border-radius: var(--r-md);
+  background: var(--clr-surface); color: var(--clr-ink); font: inherit; text-align: start; cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+.vmx-notes-pager-btn.is-next { grid-column: 2; align-items: flex-end; text-align: end; }
+.vmx-notes-pager-btn:hover { border-color: var(--clr-sage); }
+.vmx-notes-pager-btn:active { background: var(--clr-surface-2); }
+.vmx-notes-pager-kicker { font-size: var(--text-sm); font-weight: 600; color: var(--clr-sage-text); }
+.vmx-notes-pager-title { font-size: var(--text-base); line-height: 1.5; overflow-wrap: anywhere; }
+@media (max-width: 880px) {
+  .vmx-notes-sidebar { display: none; }
+  .vmx-notes-picker {
+    display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+  .vmx-notes-picker-field { display: grid; grid-template-columns: 3.5em minmax(0, 1fr); align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--clr-ink-soft); }
+  .vmx-notes-picker-field select {
+    min-height: var(--touch-min); width: 100%; min-width: 0; padding: 0 var(--space-3);
+    border: 1px solid var(--clr-border); border-radius: var(--r-sm);
+    background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: max(16px, 1em);
+    text-overflow: ellipsis;
+  }
+  /* Prose at the mobile minimum the type scale names (16px), with room for
+     Thai's stacked marks. */
+  .vmx-notes-section-body { padding: var(--space-4); font-size: var(--text-md); line-height: 1.75; }
+}
+@media (max-width: 420px) {
+  .vmx-notes-pager { grid-template-columns: minmax(0, 1fr); }
+  .vmx-notes-pager-btn.is-next { grid-column: auto; }
+}
+@media print {
+  .vmx-notes-picker, .vmx-notes-pager, .vmx-reading-return { display: none !important; }
+}
+
+/* Library. Thai labels were set in the mono face (it has no Thai, so each
+   fell back to another font mid-line) at 10 to 11.5px; they are body face at
+   the scale's caption size now, numbers in tabular figures. */
+.vmx-lib-filter-label { margin-bottom: 6px; font-size: var(--text-sm); color: var(--clr-ink-soft); }
+.vmx-lib-result-count { margin-bottom: 10px; font-size: var(--text-sm); color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-lib-search { min-height: var(--touch-min); }
+.vmx-lib-card-title { margin: 0; min-width: 0; font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
+.vmx-lib-card-kind { flex-shrink: 0; font-size: var(--text-xs); font-weight: 600; white-space: nowrap; }
+.vmx-lib-card-desc { margin: 0; font-size: var(--text-sm); line-height: 1.55; color: var(--clr-ink-soft); }
+.vmx-lib-card-meta { font-size: var(--text-sm); line-height: 1.55; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-lib-year-count { margin-left: auto; font-size: var(--text-sm); font-weight: 400; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-lib-year-body { padding: var(--space-1) var(--space-4) var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); }
+.vmx-lib-subject-heading { margin: 0; font: inherit; }
+.vmx-lib-subject-toggle {
+  width: 100%; min-height: var(--touch-min); display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: var(--space-2) var(--space-3);
+  padding: var(--space-2) 0; border: 0; border-bottom: 1px solid var(--clr-border);
+  background: none; color: var(--clr-ink); font: inherit; text-align: start; cursor: pointer;
+}
+.vmx-lib-subject-text { display: flex; flex-direction: column; min-width: 0; }
+.vmx-lib-subject-name { font-size: var(--text-base); font-weight: 600; line-height: 1.45; overflow-wrap: anywhere; }
+.vmx-lib-subject-meta { font-size: var(--text-xs); color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-lib-subject-count { font-size: var(--text-sm); color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vmx-lib-subject-chevron { font-size: var(--text-sm); color: var(--clr-ink-soft); }
+.vmx-lib-subject > .vmx-stagger { margin-top: var(--space-3); }
+.vmx-lib-capped { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin-top: var(--space-3); }
+.vmx-lib-capped p { margin: 0; flex: 1 1 16em; font-size: var(--text-sm); color: var(--clr-ink-soft); }
+@media (max-width: 640px) {
+  /* Each filter is one line that scrolls sideways (the way Google Drive and
+     Apple Fitness+ lay out filter chips) instead of three wrapped rows that
+     pushed the first document a screen down. Padding keeps the focus ring
+     inside the scroller's clip. */
+  .vmx-lib-filter-chips {
+    flex-wrap: nowrap; overflow-x: auto;
+    scroll-snap-type: x proximity; scroll-padding-inline: var(--space-4); scrollbar-width: none;
+    margin-inline: calc(-1 * var(--space-4)); padding: 3px var(--space-4);
+  }
+  .vmx-lib-filter-chips::-webkit-scrollbar { display: none; }
+  .vmx-lib-filter-chips > .vmx-chip { flex-shrink: 0; scroll-snap-align: start; }
+  .vmx-lib-year-body { padding-inline: var(--space-3); }
+}
+
+/* VetWiki index: each subject is a row that folds (on a phone it starts
+   folded); the topics under it are unchanged. */
+.vmx-wiki-subject { margin-bottom: var(--space-3); }
+.vmx-wiki-subject-heading { margin: 0 0 var(--space-2); font: inherit; }
+.vmx-wiki-subject-row {
+  width: 100%; min-height: var(--touch-min); display: grid; grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center; gap: var(--space-2) var(--space-3); padding: var(--space-2) 0;
+  border: 0; border-bottom: 1px solid var(--clr-border); background: none; color: var(--clr-ink); text-align: start; font: inherit;
+}
+.vmx-wiki-subject-toggle { cursor: pointer; }
+.vmx-wiki-subject-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--space-2); min-width: 0; }
+.vmx-wiki-subject-name { font-family: var(--vmx-display); font-size: 17px; font-weight: 700; }
+.vmx-wiki-subject-code { font-family: var(--vmx-mono); font-size: var(--text-xs); color: var(--clr-ink-soft); }
+.vmx-wiki-subject-count { font-size: var(--text-sm); white-space: nowrap; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-wiki-subject-chevron { font-size: var(--text-sm); color: var(--clr-ink-soft); }
+/* VetWiki article. */
+.vmx-wiki-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-3); margin-bottom: 14px;
+  font-size: var(--text-sm); color: var(--clr-ink-soft); font-variant-numeric: tabular-nums;
+}
+.vmx-wiki-meta-link { display: inline-flex; align-items: center; min-height: var(--touch-min); }
+.vmx-wiki-toc { scroll-margin-top: var(--space-4); }
+.vmx-wiki-toc:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-wiki-toc:focus:not(:focus-visible) { outline: none; }
+/* Back to the contents: one small pill, bottom centre (the tools button owns
+   the right corner on wide screens), above the tab bar and the home
+   indicator. It fades and rises 8px in 180ms; with reduced motion it only
+   fades, because where you can go is information but the rise is not. */
+.vmx-wiki-toc-return {
+  position: fixed; left: 50%; z-index: var(--z-fab);
+  bottom: calc(var(--vmx-bottom-nav-h, 0px) + max(var(--space-4), env(safe-area-inset-bottom)));
+  min-height: var(--touch-min); padding: 0 var(--space-5);
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  border: 1px solid var(--clr-border); border-radius: var(--r-pill);
+  background: var(--clr-surface); color: var(--clr-ink); box-shadow: var(--shadow-md);
+  font: inherit; font-size: var(--text-base); font-weight: 600; cursor: pointer;
+  transform: translateX(-50%);
+  animation: vmx-a2-pill-in var(--dur) var(--ease-out) backwards;
+}
+.vmx-wiki-toc-return:hover { border-color: var(--clr-sage); }
+@keyframes vmx-a2-pill-in { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@keyframes vmx-a2-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .vmx-wiki-toc-return { animation-name: vmx-a2-fade-in; }
+}
+@media (max-width: 640px) {
+  /* Contents entries are where the thumb goes on a long article: full-height
+     rows instead of 22px lines of text. */
+  .vmx-wiki-toc-link { display: inline-block; padding: 11px 0; }
+}
+@media print {
+  .vmx-wiki-toc-return { display: none !important; }
+}
+/* Reading tools: the pointer picker's summary was a 26px line of text. */
+.vmx-reading-pointer-picker > summary {
+  padding: 12px var(--space-3); line-height: 1.6; border-radius: var(--r-sm);
+  font-size: var(--text-sm); color: var(--clr-ink-soft); cursor: pointer;
+}
+
+/* Clips (คลิปย้อนหลัง). */
+.vmx-video-group { margin-bottom: var(--space-3); }
+.vmx-video-other-toggle {
+  display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--touch-min);
+  margin: 0 0 var(--space-3); padding: 0 var(--space-4);
+  border: 1px dashed var(--clr-border); border-radius: var(--r-pill);
+  background: none; color: var(--clr-ink-soft); font: inherit; font-size: var(--text-sm); font-weight: 600; cursor: pointer;
+}
+.vmx-video-other-toggle:hover { border-color: var(--clr-ink); color: var(--clr-ink); }
+.vmx-video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: var(--space-4); }
+/* Its own class family, not .vmx-mode-card: that one is padded 18px
+   !important on a phone, which inset every cover from its card edge. */
+.vmx-video-card {
+  position: relative; overflow: hidden; text-align: left; color: var(--clr-ink);
+  background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-lg); box-shadow: var(--shadow-sm);
+}
+.vmx-video-card:hover { border-color: var(--clr-sage); }
+.vmx-video-card-open:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: -2px; border-radius: var(--r-lg); }
+.vmx-video-card-open {
+  display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit;
+  font: inherit; text-align: inherit; cursor: pointer;
+}
+.vmx-video-thumb { width: 100%; }
+.vmx-video-play { width: 56px; height: 56px; font-size: 22px; }
+.vmx-video-thumb-glyph { font-size: 50px; line-height: 1; }
+.vmx-video-card-body { padding: 14px; min-width: 0; }
+.vmx-video-card-title { font-family: var(--vmx-display); font-weight: 600; font-size: 15px; margin-bottom: var(--space-1); line-height: 1.35; overflow-wrap: anywhere; }
+.vmx-video-card-author { font-size: var(--text-sm); color: var(--clr-ink-soft); font-style: italic; }
+.vmx-video-card-actions { position: absolute; top: var(--space-2); right: var(--space-2); display: flex; gap: var(--space-1); }
+/* Edit and delete were 28px emoji buttons with no name a screen reader
+   could say; 44px now, named after the clip they act on. */
+.vmx-video-card-action {
+  width: var(--touch-min); height: var(--touch-min); display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--clr-border); border-radius: var(--r-md); background: var(--clr-surface);
+  color: var(--clr-ink); font-size: 16px; cursor: pointer;
+}
+@media (hover: hover) and (pointer: fine) {
+  .vmx-video-card { transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out); }
+  .vmx-video-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .vmx-video-thumb-img { transition: transform var(--dur-slow) var(--ease-out); }
+  .vmx-video-card:hover .vmx-video-thumb-img { transform: scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vmx-video-card:hover, .vmx-video-card:hover .vmx-video-thumb-img { transform: none; }
+}
+@media (max-width: 640px) {
+  .vmx-video-chips {
+    flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-inline: var(--space-4); scrollbar-width: none;
+    margin-inline: calc(-1 * var(--space-4)); padding: 3px var(--space-4);
+  }
+  .vmx-video-chips::-webkit-scrollbar { display: none; }
+  .vmx-video-chips > .vmx-chip { flex-shrink: 0; scroll-snap-align: start; }
+  /* A shelf, not a feed: one row per clip with the cover on the left (the
+     MasterClass and Apple Podcasts library pattern), about a third of the
+     height of a full-width card. */
+  .vmx-video-grid { gap: var(--space-2); }
+  .vmx-video-card-open { display: grid; grid-template-columns: 128px minmax(0, 1fr); align-items: center; }
+  .vmx-video-card-open .vmx-video-thumb { width: 128px; border-radius: var(--r-sm) 0 0 var(--r-sm); }
+  .vmx-video-play { width: 36px; height: 36px; font-size: 15px; }
+  .vmx-video-thumb-glyph { font-size: 28px; }
+  .vmx-video-card-body { padding: var(--space-2) var(--space-3); }
+  .vmx-video-card-title { font-size: var(--text-base); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; padding-top: 0.3em; margin-top: -0.3em; }
+  .vmx-video-card:has(.vmx-video-card-actions) .vmx-video-card-body { padding-right: calc(2 * var(--touch-min) + var(--space-3)); }
+}
+/* Keyboard shortcuts mean nothing on a touch screen; the hint was also
+   dimmed with opacity, under the contrast floor. */
+@media (hover: none) and (pointer: coarse) { .vmx-player-kbd-hint { display: none; } }
+
+/* Timetable and exams (ตารางเรียนและสอบ). */
+.vmx-exam-row { display: flex; align-items: flex-start; gap: var(--space-4); }
+.vmx-exam-date { flex: 0 0 auto; min-width: 76px; padding: 10px var(--space-2); border-radius: var(--r-md); text-align: center; }
+/* The month in Thai (พ.ย.), not "NOV" in the mono face. */
+.vmx-exam-date-month { font-size: var(--text-sm); font-weight: 600; color: var(--clr-ink-soft); }
+.vmx-exam-date-day { font-family: var(--vmx-display); font-weight: 700; font-size: 32px; line-height: 1; color: var(--clr-ink); font-variant-numeric: tabular-nums; }
+.vmx-exam-date-left { margin-top: var(--space-1); font-size: var(--text-xs); color: var(--clr-ink-soft); }
+.vmx-exam-info { flex: 1; min-width: 0; }
+.vmx-exam-meta {
+  display: flex; flex-wrap: wrap; gap: 2px 10px; margin-bottom: 10px;
+  font-size: var(--text-sm); color: var(--clr-ink-soft); font-variant-numeric: tabular-nums;
+}
+.vmx-exam-card.is-past { background: var(--clr-surface-2); box-shadow: none; }
+.vmx-exam-link { display: inline-flex; align-items: center; min-height: var(--touch-min); padding: 0 var(--space-3); font-size: var(--text-sm); }
+.vmx-schedule-report { display: inline-flex; align-items: center; min-height: var(--touch-min); padding: 0 var(--space-1); }
+@media (max-width: 420px) {
+  .vmx-exam-row { gap: var(--space-3); }
+  .vmx-exam-date { min-width: 64px; padding: var(--space-2) 6px; }
+  .vmx-exam-date-day { font-size: 28px; }
+}
+/* === end night-a2 === */

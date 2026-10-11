@@ -15,10 +15,30 @@
 // the receiver's side.
 // ============================================================
 
+import { CUSTOM_QUESTION_ID_RANGE } from './custom-question-ids.js';
+
 const MAX_Q = 200;
 // 200 compact {subject,id} entries are far below this. Reject an oversized
 // query before atob/JSON.parse so a crafted URL cannot force a large decode.
 const MAX_QSET_CHARS = 32_000;
+
+// A link carries subject and id, and the friend's app looks the id up in the
+// bank. A question the student wrote (Question Manager, ids inside
+// CUSTOM_QUESTION_ID_RANGE) lives only in the author's own store, so it can
+// never be found on the other side; a link made of such questions landed the
+// friend on Home with nothing to show. Those stay out of every link, and the
+// screens that make links say so when nothing shareable is left.
+export function isShareableQuestion(q) {
+  if (!q?.subject) return false;
+  const id = Number(q.id);
+  if (!Number.isFinite(id)) return false;
+  const [min, max] = CUSTOM_QUESTION_ID_RANGE;
+  return !(id >= min && id <= max);
+}
+
+export function shareableQuestions(questions) {
+  return Array.isArray(questions) ? questions.filter(isShareableQuestion) : [];
+}
 
 // Base64URL — RFC 4648 §5: replaces +/= with -_ (no padding) so the
 // string is safe in URL params without percent-encoding.
@@ -34,8 +54,8 @@ function b64UrlDecode(str) {
 export function encodeQuizSet(questions) {
   if (!Array.isArray(questions) || questions.length === 0) return '';
   const slim = questions
+    .filter(isShareableQuestion)
     .slice(0, MAX_Q)
-    .filter((q) => q?.subject && typeof q?.id !== 'undefined')
     .map((q) => ({ s: q.subject, i: q.id }));
   if (!slim.length) return '';
   try {

@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก equine skin diseases, pruritus, sweet itch",
   summary: `# Equine — 7.2 Dermatology
 
-> 🎯 ม้าผิวมีหลายโรค — pruritic + non-pruritic · **Sarcoid = most common skin tumor** ⭐⭐⭐
+> 🎯 ม้าผิวมีหลายโรค — pruritic + non-pruritic, **Sarcoid = most common skin tumor** ⭐⭐⭐
 > ⚠️ ออกแน่: Sweet itch (Culicoides), Sarcoid (BPV), Habronema, Ringworm zoonotic
 
 ---

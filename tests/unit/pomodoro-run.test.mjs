@@ -47,6 +47,7 @@ globalThis.document = {
 test.after(() => { Date.now = realNow; });
 
 const run = await import('../../src/lib/pomodoro-run.js');
+const buddyLib = await import('../../src/lib/buddy.js');
 
 // ── Harness ───────────────────────────────────────────────────────────────
 const h = (type, props, ...children) => ({ type, props: props || {}, children: children.flat(Infinity) });
@@ -63,6 +64,7 @@ async function compileTimer() {
     const scope = {
       h, Fragment: 'Fragment', ...hooks, ...Object.fromEntries(fromRun.map((n) => [n, run[n]])),
       PomodoroChick: 'PomodoroChick', FocusBackdrop: 'FocusBackdrop', StudyBreak: 'StudyBreak', MotionButton: 'MotionButton',
+      buddyArt: buddyLib.buddyArt,
     };
     return new Function(...Object.keys(scope), `${code}\nreturn PomodoroTimer;`)(...Object.values(scope));
   };
@@ -210,7 +212,7 @@ test('reset and a finished break leave nothing to restore', () => {
   button(view, 'เริ่ม focus session').props.onClick();
   view.render();
   assert.equal(rows.has(run.POMODORO_RUN_KEY), true);
-  button(view, 'รีเซ็ต').props.onClick();
+  button(view, 'เริ่มใหม่').props.onClick();
   view.render();
   view.unmount();
   assert.equal(rows.has(run.POMODORO_RUN_KEY), false);
@@ -296,4 +298,51 @@ test('statusLabel names a picked buddy and keeps the hatching chick otherwise', 
   assert.match(run.statusLabel('focus', true, 25, 'พอร์กี้'), /พอร์กี้จะหนี/);
   assert.equal(run.statusLabel('failed', true, 25, 'มีมี่'), 'มีมี่หนีไปแล้ว! เริ่มใหม่อีกครั้ง');
   assert.equal(run.statusLabel('failed'), 'ลูกไก่หนีไปแล้ว! เริ่มใหม่อีกครั้ง');
+});
+
+// A picked buddy sits in the ring. Mochi reads along during a focus (its drawn
+// 'read' pose) and shows its portrait otherwise; a clinic mascot keeps its one
+// picture. The <img> is keyed on its source, as lib/art-fallback.js requires.
+test('the buddy in the ring: Mochi reads during a focus, a clinic mascot keeps its picture', () => {
+  const ringImg = (view) => findAll(view.tree, (n) => n.type === 'img')[0];
+  const { props } = fresh({ strictFocus: true });
+  const mochi = mount({ ...props, avatar: buddyLib.MOCHI_BUDDY, buddyName: 'โมจิ' });
+  assert.equal(ringImg(mochi).props.src, buddyLib.MOCHI_BUDDY.src, 'idle: the portrait');
+  button(mochi, 'เริ่ม focus session').props.onClick();
+  mochi.render();
+  assert.equal(ringImg(mochi).props.src, buddyLib.MOCHI_BUDDY.poses.read, 'focus: Mochi reads along');
+  assert.equal(ringImg(mochi).props.key, buddyLib.MOCHI_BUDDY.poses.read, 'keyed on its source');
+  assert.match(status(mochi), /โมจิจะหนี/, 'the status line talks about the buddy');
+  mochi.unmount();
+  const porky = buddyLib.BUDDIES.find((b) => b.id === 'porky');
+  const view = mount({ ...fresh().props, avatar: porky, buddyName: porky.nameTh });
+  button(view, 'เริ่ม focus session').props.onClick();
+  view.render();
+  assert.equal(ringImg(view).props.src, porky.src, 'a clinic mascot keeps its picture in focus');
+  view.unmount();
+});
+
+// Dark mode: the timer's own buttons and ring track came with fixed light
+// colours (a white Reset/Pause block and a pale yellow ring on a dark screen)
+// and the platform's button font. They follow the theme now, and say what
+// they do in Thai.
+test('the timer follows the theme and speaks Thai', () => {
+  const { props } = fresh();
+  const view = mount(props);
+  const start = button(view, 'เริ่ม focus session');
+  assert.equal(textOf(start).trim(), 'เริ่ม', 'the visible label is part of its name (label in name)');
+  start.props.onClick();
+  view.render();
+  const pause = button(view, 'หยุดชั่วคราว');
+  assert.equal(textOf(pause).trim(), 'หยุดชั่วคราว');
+  assert.equal(pause.props.style.background, 'var(--clr-surface)', 'a themed surface, not a fixed white');
+  assert.equal(pause.props.style.color, 'var(--clr-ink)');
+  assert.equal(pause.props.style.fontFamily, 'inherit', 'the screen font, not the platform button font');
+  assert.equal(pause.props.style.minHeight, 'var(--touch-min)');
+  const reset = button(view, 'เริ่มใหม่');
+  assert.equal(textOf(reset).trim(), 'เริ่มใหม่');
+  const track = findAll(view.tree, (n) => n.type === 'circle')[0];
+  assert.match(track.props.style?.stroke || '', /color-mix\(in srgb, var\(--clr-gold\)/, 'the track mixes theme tokens');
+  assert.doesNotMatch(textOf(view.tree), /Start|Pause|Resume|Reset|Cycle/, 'no English button text');
+  view.unmount();
 });

@@ -17,7 +17,7 @@ export default {
 > - ***C. perfringens*** = calf pulpy kidney
 > - **Tetanus** + **Botulism** = neuro extremes (spastic vs flaccid)
 
-Common theme: **Exotoxin damage > antibiotic protection** · prevention = vaccination + clean injection technique.
+Common theme: **Exotoxin damage > antibiotic protection**, prevention = vaccination + clean injection technique.
 
 ---
 

@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก hoof anatomy, navicular, laminitis, sole bruising",
   summary: `# Equine — 13.1 Pathological Conditions of Foot
 
-> 🎯 **"No foot, no horse"** — foot pathology = major source of lameness · **Laminitis = inflammation of laminae** ⭐⭐⭐
+> 🎯 **"No foot, no horse"** — foot pathology = major source of lameness, **Laminitis = inflammation of laminae** ⭐⭐⭐
 > ⚠️ ออกแน่: laminitis causes + rotation, navicular = heel pain forelimb, sole abscess drainage
 
 ---

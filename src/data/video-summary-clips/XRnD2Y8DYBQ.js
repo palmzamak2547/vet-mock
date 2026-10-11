@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก vaccine types, routes, maternal Ab, poultry vaccination programs",
   summary: `# Avian Medicine 13.1 — Vaccines, Methods, Programs
 
-> 🎯 **Vaccination = backbone ของ poultry health** · vaccine types + administration routes + **maternal antibody timing** = หัวใจของ program
+> 🎯 **Vaccination = backbone ของ poultry health**, vaccine types + administration routes + **maternal antibody timing** = หัวใจของ program
 > ⚠️ Live vaccine + high MDA = neutralized → vaccinate ตอน MDA drop พอดี
 
 ---

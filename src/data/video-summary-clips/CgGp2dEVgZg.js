@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก agricultural standards, livestock product standards",
   summary: `# Food Industry 4 — มาตรฐานสินค้าเกษตรและผลิตภัณฑ์จากปศุสัตว์
 
-> 🎯 **มาตรฐาน + certification ของอาหารไทย** — multiple bodies (TIS, MAS, Q Mark, organic, Halal) · international standards = key สำหรับ export
+> 🎯 **มาตรฐาน + certification ของอาหารไทย** — multiple bodies (TIS, MAS, Q Mark, organic, Halal), international standards = key สำหรับ export
 > 💡 Certification = ใบเบิกทางสู่ตลาด — แต่ละ trading partner ต้องการ standard ต่างกัน
 
 ---

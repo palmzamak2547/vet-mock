@@ -48,7 +48,13 @@ import ErrorBoundary from './ErrorBoundary.jsx';
 // Async sources (library shelf, drug DB) + deterministic intent cards —
 // the pieces that turn the palette into the app's AI search surface.
 import { OMNI_SOURCES } from '../lib/omni-sources.js';
-import { detectIntents } from '../lib/omni-intents.js';
+import { detectIntents, detectStudyIntent, studyActions } from '../lib/omni-intents.js';
+// What a knowledge-base reply means for the student, and where to go when
+// there is no answer: pure, so every state is unit-tested (omni-ask.test).
+import {
+  ASK_COPY, classifyAskResponse, shouldAutoRetry, AUTO_RETRY_DELAY_MS, isEmptyAnswer,
+  relatedSections, relatedTopicsFor, libraryTerms, unmatchedLine,
+} from '../lib/omni-ask.js';
 import { docOpenMode, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
 
 // localStorage keys for user-authored content surfaced in the palette.
@@ -327,7 +333,10 @@ function runItem(item, handlers) {
         default: return;
       }
     }
-    case 'subject':    setSubject?.(item.payload); goView?.('topic-select'); return;
+    // A subject picked in search is a fresh start (OV-exam-3). The topic screen
+    // keeps whatever topic and practice scope were left in App, so Home's
+    // ซ้อมใกล้สอบ ('current-scope') used to narrow the next set for this subject.
+    case 'subject':    setTopic?.(null); setPracticeMode?.('all'); setSubject?.(item.payload); goView?.('topic-select'); return;
     case 'summary': {
       // One clip was chosen: leave its id for VideoView, which opens it (on a
       // fresh mount, or through vmx-view-intent when the shelf is already open).
@@ -688,7 +697,7 @@ function CourseCard({ intent, onOpenLibraryShelf, onPracticeSubject }) {
 
 const ASK_STATUS = ['อ่านคลังความรู้ที่เกี่ยวข้อง…', 'เรียบเรียงคำตอบพร้อมที่มา…', 'ตรวจที่มาของทุกประโยค…'];
 
-function AskAnswerCard({ ask, onOpenWiki, onClose }) {
+function AskAnswerCard({ ask, onOpenWiki, onClose, fallback }) {
   const [statusIdx, setStatusIdx] = useState(0);
   useEffect(() => {
     if (ask?.phase !== 'loading') return undefined;
@@ -704,7 +713,7 @@ function AskAnswerCard({ ask, onOpenWiki, onClose }) {
       <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '14px 16px' }} aria-live="polite">
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span className="vmx-omni-spark" aria-hidden="true" style={{ color: 'var(--clr-sage-text)' }}>✦</span>
-          <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>{ASK_STATUS[statusIdx]}</span>
+          <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>{ask.retrying ? ASK_COPY.retrying : ASK_STATUS[statusIdx]}</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 12 }}>
           {[0, 1, 2].map((i) => (
@@ -715,12 +724,8 @@ function AskAnswerCard({ ask, onOpenWiki, onClose }) {
     );
   }
 
-  if (ask.phase === 'error') {
-    return (
-      <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '14px 16px' }}>
-        <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>{ask.message}</div>
-      </div>
-    );
+  if (ask.phase === 'error' || ask.phase === 'empty') {
+    return <AskFallbackCard ask={ask} onOpenWiki={onOpenWiki} onClose={onClose} {...fallback} />;
   }
 
   const sectionMeta = new Map((ask.sections || []).map((s) => [s.sectionId, s]));
@@ -775,6 +780,110 @@ function AskAnswerCard({ ask, onOpenWiki, onClose }) {
           );
         })}
       </div>
+    </div>
+  );
+}
+
+// No answer to show is never a dead end. One line says what happened; then
+// only places that exist: ask again (when a second try can help), the
+// nearest VetWiki sections, one real word for the document shelf, and the
+// ordinary results below when there are any.
+function AskFallbackCard({ ask, onOpenWiki, onClose, onRetry, nearby = [], library = null, onOpenLibrary, hasResults = false }) {
+  const empty = ask.phase === 'empty';
+  const transient = !empty && ask.kind === 'transient';
+  const title = empty ? ASK_COPY.emptyTitle : transient ? ASK_COPY.failedTitle : ask.message;
+  const body = empty ? (unmatchedLine(ask.unmatched) || ASK_COPY.emptyBody) : transient ? ask.message : '';
+  const canRetry = !empty && ask.retryable && typeof onRetry === 'function';
+  return (
+    <div className="vmx-omni-card vmx-omni-fallback" role="status" style={{ margin: '10px 12px 4px', padding: '14px 16px' }}>
+      <div className="vmx-omni-fallback-head">
+        <span aria-hidden="true" className={empty ? 'vmx-omni-fallback-mark' : 'vmx-omni-fallback-mark is-error'}>{empty ? '✦' : '!'}</span>
+        <strong>{title}</strong>
+      </div>
+      {body && <p className="vmx-omni-fallback-body">{body}</p>}
+      {(canRetry || library) && (
+        <div className="vmx-omni-next">
+          {canRetry && (
+            <button type="button" className="vmx-omni-next-btn is-primary" onClick={onRetry}>{ASK_COPY.retry}</button>
+          )}
+          {library && (
+            <button type="button" className="vmx-omni-next-btn" onClick={() => onOpenLibrary?.(library.term)}>
+              {ASK_COPY.library} “{library.term}” <span className="vmx-omni-next-count">{library.count.toLocaleString()} ไฟล์</span>
+            </button>
+          )}
+        </div>
+      )}
+      {nearby.length > 0 && (
+        <div className="vmx-omni-related">
+          <div className="vmx-omni-related-label">{ASK_COPY.related}</div>
+          {nearby.map((n) => (
+            <button
+              key={n.sectionId || `${n.subject}/${n.topic}`}
+              type="button"
+              className="vmx-omni-related-link"
+              onClick={() => { onOpenWiki?.(n.subject, n.topic, n.sectionId); onClose(); }}
+            >
+              <span aria-hidden="true">→ </span>{n.topicTitle || n.title}
+              {n.heading ? <span className="vmx-omni-related-heading">, {n.heading}</span> : null}
+            </button>
+          ))}
+        </div>
+      )}
+      {hasResults && <p className="vmx-omni-fallback-hint">{ASK_COPY.results}</p>}
+    </div>
+  );
+}
+
+// "คลิป COM5": the course and the shelf asked for, first in the keyboard
+// order, with the course's other shelves beside it. Counts come from the same
+// catalog as the topic screen, and only shelves with something on them show.
+function GoCard({ intent, active, flatIdx, onHover, onOpen, selectedYear, libraryCounts }) {
+  const [main, ...others] = intent.subjects;
+  const { actions, missing } = studyActions(main, intent.want, libraryCounts[main.meta.id] || 0);
+  if (!actions.length) return null;
+  const [primary, ...rest] = actions;
+  const otherYear = main.year != null && selectedYear != null && Number(main.year) !== Number(selectedYear);
+  return (
+    <div className="vmx-omni-card vmx-omni-go" style={{ margin: '10px 12px 4px', padding: '12px 14px' }}>
+      {missing && <p className="vmx-omni-go-missing">{missing}</p>}
+      <button
+        type="button"
+        data-flat-idx={flatIdx}
+        onMouseEnter={onHover}
+        onClick={() => onOpen(main.meta.id, primary.target)}
+        className={active ? 'vmx-omni-go-primary is-active' : 'vmx-omni-go-primary'}
+      >
+        <span className="vmx-omni-go-icon" aria-hidden="true">{main.meta.icon || '📚'}</span>
+        <span className="vmx-omni-go-text">
+          <span className="vmx-omni-go-title">{primary.label} {main.meta.name}</span>
+          <span className="vmx-omni-go-sub">
+            {primary.count.toLocaleString()} {primary.unit}{otherYear ? `, ปี ${main.year}` : ''}
+          </span>
+        </span>
+        {active && <span className="vmx-omni-go-enter" aria-hidden="true">↵</span>}
+      </button>
+      {rest.length > 0 && (
+        <div className="vmx-omni-next">
+          {rest.map((a) => (
+            <button key={a.target} type="button" className="vmx-omni-next-btn" onClick={() => onOpen(main.meta.id, a.target)}>
+              {a.label} <span className="vmx-omni-next-count">{a.count.toLocaleString()} {a.unit}</span>
+            </button>
+          ))}
+        </div>
+      )}
+      {others.length > 0 && (
+        <div className="vmx-omni-next vmx-omni-go-others">
+          <span className="vmx-omni-go-or">หรือ</span>
+          {others.map((o) => {
+            const first = studyActions(o, intent.want, libraryCounts[o.meta.id] || 0).actions[0];
+            return first ? (
+              <button key={o.meta.id} type="button" className="vmx-omni-next-btn" onClick={() => onOpen(o.meta.id, first.target)}>
+                {first.label} {o.meta.name}
+              </button>
+            ) : null;
+          })}
+        </div>
+      )}
     </div>
   );
 }
@@ -938,7 +1047,28 @@ export default function CommandPalette({
   }, [open]);
 
   const hasQuery = !!debouncedQuery.trim();
-  const intents = useMemo(() => (hasQuery ? detectIntents(debouncedQuery) : []), [hasQuery, debouncedQuery]);
+  const intents = useMemo(
+    () => (hasQuery ? detectIntents(debouncedQuery, { selectedYear }) : []),
+    [hasQuery, debouncedQuery, selectedYear],
+  );
+  const study = intents.find((i) => i.kind === 'study') || null;
+  // Documents the student can open, per course: the shelf button on a study
+  // card only appears when this is above zero.
+  const libraryCounts = useMemo(() => {
+    const out = {};
+    for (const it of items) {
+      const sid = it.type === 'library-doc' ? it.payload?.subject : null;
+      if (sid) out[sid] = (out[sid] || 0) + 1;
+    }
+    return out;
+  }, [items]);
+  // The study card's main button as a keyboard row: first, so Enter opens it.
+  const goFor = (intent) => {
+    const main = intent?.subjects?.[0];
+    const first = main && studyActions(main, intent.want, libraryCounts[main.meta.id] || 0).actions[0];
+    return first ? { type: 'go', subject: main.meta.id, target: first.target } : null;
+  };
+  const go = useMemo(() => goFor(study), [study, libraryCounts]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Grouped result model. With a query: rank everything flat, then bucket
   // by type, order groups by their best-ranked hit. Without: recents first,
@@ -966,7 +1096,10 @@ export default function CommandPalette({
     } else {
       const ranked = rankItems(items, debouncedQuery);
       const buckets = new Map();
+      // A course already on the study card is not listed again below it.
+      const onCard = new Set((study?.subjects || []).map((x) => x.meta.id));
       for (const { item } of ranked) {
+        if (item.type === 'subject' && onCard.has(item.payload)) continue;
         const key = item.type;
         if (!buckets.has(key)) buckets.set(key, []);
         buckets.get(key).push(item);
@@ -974,10 +1107,13 @@ export default function CommandPalette({
       groups = [...buckets.entries()].map(([type, list]) => ({ type, list }));
     }
 
-    // Apply per-group caps and lay out the flat keyboard order. A
-    // question-shaped query puts the ask row first, so plain Enter asks.
+    // Apply per-group caps and lay out the flat keyboard order. A study card
+    // leads ("คลิป COM5" + Enter opens the clips); a question-shaped query
+    // puts the ask row next, so plain Enter asks when there is no card.
     const flat = [];
+    if (go) flat.push(go);
     const askInFlow = hasQuery && looksLikeQuestion(debouncedQuery.trim());
+    const askIdx = askInFlow ? flat.length : -1;
     if (askInFlow) flat.push({ type: 'ask' });
     const sections = groups.map(({ type, list }) => {
       const cap = expandedGroups.get(type) || GROUP_CAP;
@@ -986,10 +1122,38 @@ export default function CommandPalette({
       flat.push(...shown);
       return { type, items: shown, startIdx, total: list.length, shown: shown.length };
     });
-    return { sections, flat, askInFlow };
-  }, [items, debouncedQuery, hasQuery, expandedGroups]);
+    return { sections, flat, askInFlow, askIdx };
+  }, [items, debouncedQuery, hasQuery, expandedGroups, go, study]);
 
   const sourcesLoading = Object.values(sourceState).some((s) => s.status === 'loading');
+
+  // Where a question with no answer can still go. Sections the server named
+  // first; without them (or without the server) the VetWiki articles the
+  // question is near, read from titles alone.
+  const askOpen = ask && (ask.phase === 'error' || ask.phase === 'empty');
+  const askNearby = useMemo(() => {
+    if (!askOpen) return [];
+    if (ask.phase === 'empty' && ask.related?.length) return ask.related;
+    return relatedTopicsFor(ask.question || '', listTopics());
+  }, [ask, askOpen]);
+  // One word the document shelf really contains, so the shelf link never
+  // opens on an empty search.
+  const askLibrary = useMemo(() => {
+    if (!askOpen) return null;
+    const docs = items.filter((it) => it.type === 'library-doc');
+    for (const term of [...(ask.unmatched || []), ...libraryTerms(ask.question || '')]) {
+      const t = String(term).toLowerCase();
+      const n = docs.filter((d) => (d._hayLc || '').includes(t)).length;
+      if (n) return { term: t, count: n };
+    }
+    return null;
+  }, [ask, askOpen, items]);
+  // A search that found nothing still points at the nearest articles.
+  const emptyNearby = useMemo(() => {
+    const q = debouncedQuery.trim();
+    if (q.length < 3 || view.flat.some((it) => it.type !== 'ask')) return [];
+    return relatedTopicsFor(q, listTopics());
+  }, [debouncedQuery, view]);
 
   const indexTotal = items.length;
 
@@ -1037,6 +1201,9 @@ export default function CommandPalette({
     // and spent the hourly cap on four or five real ones.
     if (lastAutoAsk.current && q.startsWith(lastAutoAsk.current)) return;
     const t = setTimeout(() => {
+      // A typed ask of the same text may have started while this waited; the
+      // timer's runAsk is from an older render and cannot see it as loading.
+      if (lastAutoAsk.current === q) return;
       lastAutoAsk.current = q;
       runAsk();
     }, 900);
@@ -1048,6 +1215,7 @@ export default function CommandPalette({
 
   const fire = (item) => {
     if (item.type === 'ask') { runAsk(); return; }
+    if (item.type === 'go') { openStudy(item.subject, item.target); return; }
     pushRecent(item);
     if (item.type === 'library-doc') {
       // Same open logic as the shelf: PDFs navigate to the reader instantly
@@ -1085,36 +1253,50 @@ export default function CommandPalette({
     onClose();
   };
 
-  const runAsk = async (spoken) => {
-    const question = (typeof spoken === 'string' ? spoken : query).trim();
-    if (question.length < 8 || ask?.phase === 'loading') return;
-    const request = beginRequest('ask', question, typeof spoken === 'string');
-    if (!request) return;
-    respond(request, { phase: 'loading' });
+  // One request, read into an outcome (omni-ask.classifyAskResponse). 503
+  // covers "no model key", "today's quota is spent" and "the limiter is
+  // down"; printing the first for all of them told a student who merely hit
+  // the cap that the feature does not exist, so they never came back to it.
+  const askOnce = async (question) => {
+    let res;
     try {
-      const res = await fetch('/api/wiki-explain', {
+      res = await fetch('/api/wiki-explain', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ question }),
       });
+    } catch {
+      return classifyAskResponse({ networkError: true });
+    }
+    const contentType = res.headers?.get?.('content-type') || '';
+    const body = contentType.includes('application/json') ? await res.json().catch(() => null) : null;
+    return classifyAskResponse({ status: res.status, contentType, body });
+  };
+
+  const runAsk = async (spoken, { manual = false } = {}) => {
+    const question = (typeof spoken === 'string' ? spoken : query).trim();
+    if (question.length < 8 || ask?.phase === 'loading') return;
+    const request = beginRequest('ask', question, typeof spoken === 'string');
+    if (!request) return;
+    // Any ask of this text counts as its one automatic ask: otherwise the
+    // settled-question timer asked again after a typed ask had failed, and
+    // with the retry below that became four requests for one question.
+    lastAutoAsk.current = question;
+    respond(request, { phase: 'loading', question });
+    try {
+      let outcome = await askOnce(question);
       if (!requestCurrent(request)) return;
-      if (res.status === 503) {
-        // 503 covers both "no model key" and "today's quota is spent". Printing
-        // the first for both told a student who merely hit the cap that the
-        // feature does not exist, so they would never come back to it.
-        const why = await res.json().catch(() => null);
-        respond(request, { phase: 'error', message: why?.reason === 'budget'
-          ? 'วันนี้ถามครบโควตาแล้ว พรุ่งนี้ถามได้อีก — เนื้อหาในคลังความรู้ยังอ่านได้ตามปกติ'
-          : 'ยังไม่ได้เปิดใช้การถามจากคลังความรู้ — เนื้อหาทั้งหมดยังอ่านได้ตามปกติ' });
-        return;
+      // A dropped connection or a server hiccup gets exactly one more try by
+      // itself; after that the student decides. Never a loop.
+      if (!manual && shouldAutoRetry(outcome)) {
+        respond(request, { phase: 'loading', retrying: true, question });
+        await new Promise((resolve) => setTimeout(resolve, AUTO_RETRY_DELAY_MS));
+        if (!requestCurrent(request)) return;
+        outcome = await askOnce(question);
+        if (!requestCurrent(request)) return;
       }
-      if (res.status === 429) { respond(request, { phase: 'error', message: 'ถามบ่อยเกินไป ลองใหม่ในอีกสักครู่' }); return; }
-      if (!(res.headers.get('content-type') || '').includes('application/json')) {
-        respond(request, { phase: 'error', message: 'การถามใช้ได้เฉพาะบนเว็บจริง (vetmock.com)' }); return;
-      }
-      if (!res.ok) { respond(request, { phase: 'error', message: 'ตอบไม่สำเร็จ ลองใหม่อีกครั้ง' }); return; }
-      const data = await res.json();
-      if (!requestCurrent(request)) return;
+      if (outcome.kind !== 'reply') { respond(request, { phase: 'error', ...outcome, question }); return; }
+      const data = outcome.body || {};
       // Isomorphic guard: rebuild the allowed-citation map from THIS
       // build's own generated citation index and validate again. The index
       // carries exactly what validateAnswer consumes (topicId + verified per
@@ -1134,10 +1316,14 @@ export default function CommandPalette({
         allowed.set(id, { sectionId: id, topicId: hit[0], verified: !!hit[1] });
       }
       const { claims } = validateAnswer(data.claims, allowed);
-      if (!claims.length) { respond(request, { phase: 'error', message: 'ยังตอบจากเนื้อหาที่มีไม่ได้' }); return; }
-      respond(request, { phase: 'done', claims, sections: data.meta?.sections || [], labels: ANSWER_SUPPORT_LABEL });
+      // "Nothing on this" is an answer with somewhere to go, not an error.
+      if (isEmptyAnswer(claims, data.meta)) {
+        respond(request, { phase: 'empty', question, unmatched: data.meta?.unmatched || [], related: relatedSections(data.meta) });
+        return;
+      }
+      respond(request, { phase: 'done', claims, sections: data.meta?.sections || [], labels: ANSWER_SUPPORT_LABEL, question });
     } catch {
-      respond(request, { phase: 'error', message: 'เชื่อมต่อไม่ได้ ลองใหม่อีกครั้ง' });
+      respond(request, { phase: 'error', ...classifyAskResponse({ networkError: true }), question });
     }
   };
 
@@ -1207,14 +1393,34 @@ export default function CommandPalette({
     }
   };
 
+  // A shelf of one course, the same way its own topic screen opens it.
+  const openStudy = (subjectId, target) => {
+    const h = handlersRef.current;
+    if (target === 'practice') runItem({ type: 'subject', payload: subjectId }, h);
+    else if (target === 'notes') { h.setSubject?.(subjectId); h.setTopic?.(null); h.goView?.('notes'); }
+    else if (target === 'videos') h.goView?.('videos', { subject: subjectId });
+    else if (target === 'wiki') h.onOpenWiki?.(subjectId, null);
+    else if (target === 'library') {
+      try { sessionStorage.setItem('vmx-library-subject', subjectId); } catch { /* the shelf still opens */ }
+      h.goView?.('library');
+    }
+    onClose();
+  };
+  // The document shelf searched for one word the palette saw in it.
+  const openLibrarySearch = (term) => {
+    try { sessionStorage.setItem('vmx-library-q', term); } catch { /* the shelf still opens */ }
+    handlersRef.current.goView?.('library');
+    onClose();
+  };
+
   const openLibraryShelf = (meta) => {
     try { sessionStorage.setItem('vmx-library-subject', meta.id || ''); } catch { /* nicety */ }
     handlersRef.current.goView?.('library');
     onClose();
   };
+  // The same fresh start as a subject row: no leftover topic or scope.
   const practiceSubject = (subjectId) => {
-    handlersRef.current.setSubject?.(subjectId);
-    handlersRef.current.goView?.('topic-select');
+    runItem({ type: 'subject', payload: subjectId }, handlersRef.current);
     onClose();
   };
 
@@ -1243,7 +1449,9 @@ export default function CommandPalette({
       // Enter can arrive before the debounce; only the current query may navigate.
       if (query !== debouncedQuery) {
         const currentQuery = query.trim();
+        const goNow = currentQuery ? goFor(detectStudyIntent(currentQuery, { selectedYear })) : null;
         if (!currentQuery) item = currentRecents(items)[0] || items[0];
+        else if (goNow) item = goNow;
         else if (looksLikeQuestion(currentQuery)) item = { type: 'ask' };
         else item = rankItems(items, currentQuery)[0]?.item;
       }
@@ -1350,22 +1558,37 @@ export default function CommandPalette({
           </div>
         )}
 
-        {/* Ask-the-corpus. Question-shaped queries put this row FIRST in
-            the keyboard order (plain Enter asks); other queries keep it as
-            a tap/click affordance so Enter still opens the top result. */}
-        {hasQuery && debouncedQuery.trim().length >= 8 && (
+        {/* "คลิป COM5": the course's shelf first, Enter opens it. */}
+        {go && study && (
+          <GoCard
+            intent={study}
+            active={activeIdx === 0}
+            flatIdx={0}
+            onHover={() => setActiveIdx(0)}
+            onOpen={openStudy}
+            selectedYear={selectedYear}
+            libraryCounts={libraryCounts}
+          />
+        )}
+
+        {/* Ask-the-corpus. Question-shaped queries put this row in the
+            keyboard order (plain Enter asks when no study card leads); other
+            queries keep it as a tap/click affordance so Enter still opens the
+            top result. A query that names a course and a shelf is a request to
+            go there, so it gets no ask row unless it is phrased as a question. */}
+        {hasQuery && debouncedQuery.trim().length >= 8 && !(go && !view.askInFlow) && (
           <button
             type="button"
             onClick={runAsk}
-            data-flat-idx={view.askInFlow ? 0 : undefined}
-            onMouseEnter={view.askInFlow ? () => setActiveIdx(0) : undefined}
+            data-flat-idx={view.askInFlow ? view.askIdx : undefined}
+            onMouseEnter={view.askInFlow ? () => setActiveIdx(view.askIdx) : undefined}
             className="vmx-omni-row"
             style={{
               all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10,
               boxSizing: 'border-box', width: 'calc(100% - 24px)', margin: '8px 12px 0',
               padding: '10px 12px', minHeight: 44, borderRadius: 10,
               border: '1px dashed color-mix(in srgb, var(--clr-sage) 55%, var(--clr-border))',
-              background: view.askInFlow && activeIdx === 0 ? 'var(--clr-surface-2)' : 'transparent',
+              background: view.askInFlow && activeIdx === view.askIdx ? 'var(--clr-surface-2)' : 'transparent',
               color: 'var(--clr-ink)', fontSize: 13,
             }}
           >
@@ -1374,12 +1597,23 @@ export default function CommandPalette({
               ถามคลังความรู้: “{debouncedQuery.trim()}”
             </span>
             <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10.5, color: 'var(--clr-ink-soft)', padding: '2px 6px', border: '1px solid var(--clr-border)', borderRadius: 4, whiteSpace: 'nowrap' }}>
-              {coarsePointer ? 'แตะถาม' : view.askInFlow ? '↵' : 'ctrl ↵'}
+              {coarsePointer ? 'แตะถาม' : view.askInFlow && activeIdx === view.askIdx ? '↵' : 'ctrl ↵'}
             </span>
           </button>
         )}
         <ErrorBoundary fallback={null}>
-          <AskAnswerCard ask={ask} onOpenWiki={handlersRef.current.onOpenWiki} onClose={onClose} />
+          <AskAnswerCard
+            ask={ask}
+            onOpenWiki={handlersRef.current.onOpenWiki}
+            onClose={onClose}
+            fallback={{
+              onRetry: () => runAsk(undefined, { manual: true }),
+              nearby: askNearby,
+              library: askLibrary,
+              onOpenLibrary: openLibrarySearch,
+              hasResults: view.flat.some((it) => it.type !== 'ask' && it.type !== 'go'),
+            }}
+          />
         </ErrorBoundary>
 
         {/* Agentic action — the model picks from a validated catalog, the
@@ -1440,7 +1674,9 @@ export default function CommandPalette({
         {intents.map((intent) => (
           intent.kind === 'dose'
             ? <DoseCard key="dose" intent={intent} onOpenCalc={() => { try { window.dispatchEvent(new Event('vmx-open-vetcalc')); } catch { /* no-op */ } onClose(); }} />
-            : <CourseCard key="course" intent={intent} onOpenLibraryShelf={openLibraryShelf} onPracticeSubject={practiceSubject} />
+            : intent.kind === 'course'
+              ? <CourseCard key="course" intent={intent} onOpenLibraryShelf={openLibraryShelf} onPracticeSubject={practiceSubject} />
+              : null
         ))}
 
         {/* Source status — what the index knows right now */}
@@ -1480,6 +1716,22 @@ export default function CommandPalette({
               {debouncedQuery.trim().length >= 8
                 ? <>ไม่พบรายการที่ตรง — ลองถามคลังความรู้ด้านบนได้เลย</>
                 : <>ไม่พบที่ตรงกับ "{query}"</>}
+              <p className="vmx-omni-empty-hint">ลองพิมพ์ชื่อวิชา ชื่อโรค หรือรหัสวิชา</p>
+              {emptyNearby.length > 0 && (
+                <div className="vmx-omni-related vmx-omni-empty-related">
+                  <div className="vmx-omni-related-label">{ASK_COPY.related}</div>
+                  {emptyNearby.map((t) => (
+                    <button
+                      key={`${t.subject}/${t.topic}`}
+                      type="button"
+                      className="vmx-omni-related-link"
+                      onClick={() => { handlersRef.current.onOpenWiki?.(t.subject, t.topic); onClose(); }}
+                    >
+                      <span aria-hidden="true">→ </span>{t.title}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           )}
           {view.sections.map((section) => (

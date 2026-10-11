@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก gestation, parturition stages, foal care, IgG",
   summary: `# Equine Repro — 7+8 Pregnancy, Parturition + Foal Care
 
-> 🎯 Gestation **~340 days** · **Stage 2 = 15-30 min FAST** · **IgG <400 = failure** ต้องให้ plasma ⭐⭐⭐
+> 🎯 Gestation **~340 days**, **Stage 2 = 15-30 min FAST**, **IgG <400 = failure** ต้องให้ plasma ⭐⭐⭐
 > ⚠️ ออกแน่: gestation length, stage 2 fast, retained placenta = emergency, IgG cutoffs
 
 ---

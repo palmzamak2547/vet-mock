@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก farming systems, technology, biofloc",
   summary: `# Aquatic Clinic — 1.2 Aquaculture Industry & Technology
 
-> 🎯 ระบบเลี้ยงจาก **extensive → intensive** · เทคโนโลยีสมัยใหม่: **Biofloc** + **RAS** ลด water exchange / เพิ่ม density / คุม disease ได้ดีขึ้น
+> 🎯 ระบบเลี้ยงจาก **extensive → intensive**, เทคโนโลยีสมัยใหม่: **Biofloc** + **RAS** ลด water exchange / เพิ่ม density / คุม disease ได้ดีขึ้น
 
 ---
 
@@ -59,7 +59,7 @@ export default {
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **5 farming systems** จาก extensive → RAS
-- ⭐⭐ **Biofloc** = no water exchange · bacteria recycle N · เป็น feed ในตัว
+- ⭐⭐ **Biofloc** = no water exchange, bacteria recycle N, เป็น feed ในตัว
 - ⭐ **RAS** = 99% water reuse แต่ capital สูง
 - ⭐ Future: precision aquaculture + AI`,
 };

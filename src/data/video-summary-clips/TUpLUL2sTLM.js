@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก lameness exam, grading, localization",
   summary: `# Equine — 12.1 Lameness Introduction
 
-> 🎯 Lameness = common + complex · **Trot = most diagnostic gait** · head bob = forelimb · hip hike = hindlimb ⭐⭐⭐
+> 🎯 Lameness = common + complex, **Trot = most diagnostic gait**, head bob = forelimb, hip hike = hindlimb ⭐⭐⭐
 > ⚠️ ออกแน่: AAEP 0-5 grading, head bob/hip hike rule, diagnostic analgesia
 
 ---

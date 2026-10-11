@@ -29,7 +29,7 @@ function render({ phase = '1-mid', examId, countOverrides = {}, noteSubjects, cu
     hasNotes: noteSubjects ? id => noteSubjects.includes(id) : hasNotes,
     useState: init => [typeof init === 'function' ? init() : init, () => {}],
     useEffect: () => {},
-    WeekTimetable: 'WeekTimetable', AcademicCalendar: 'AcademicCalendar', BackBar: 'BackBar',
+    WeekTimetable: 'WeekTimetable', AcademicCalendar: 'AcademicCalendar', BackBar: 'BackBar', FeatureTip: 'FeatureTip',
     getUpcomingExams: () => exam ? [{ ...exam, daysLeft: 1 }] : [],
   };
   const View = new Function(...Object.keys(deps), `${code}\nreturn ScheduleView;`)(...Object.values(deps));
@@ -128,4 +128,14 @@ test('custom-only midterm practice is available for midterm, never advertised fo
   const final = render({ ...options, examId: 'y5-equine-med-final', phase: '1-mid' });
   assert.equal(action(final.card, 'ฝึกข้อสอบ'), null,
     'the engine\'s never-empty named-subject fallback cannot advertise another paper');
+});
+
+// Phone pass 2026-10-12: the date tile spoke English ("NOV" in the mono face)
+// and a past paper faded to half opacity, under the contrast floor.
+test('an exam card names its month in Thai and never fades its text', () => {
+  const view = render({ examId: 'y5-equine-med-final', phase: '1-final' });
+  const month = find(view.card, (node) => node.props.className === 'vmx-exam-date-month');
+  assert.match(textOf(month), /^[฀-๿.\s]+$/, 'a Thai short month such as พ.ย.');
+  assert.equal(view.card.props.style.opacity, undefined, 'no opacity on the card at all');
+  assert.match(source, /className="vmx-inline-action vmx-schedule-report"/, 'the report link gets its 44px class');
 });

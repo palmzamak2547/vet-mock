@@ -1,4 +1,4 @@
-import { USER_DATA_FIELDS, createEmptyUserData } from './user-data-sync.js';
+import { USER_DATA_FIELDS, createEmptyUserData, mergeFieldValue, stableItemKey } from './user-data-sync.js';
 import { userDataChanges, applyUserDataChanges, dataFromSyncRow, accountRestoreChanges } from './user-data-operations.js';
 import { newStudySessionId, validSessionId } from './study-events.js';
 import { isQuotaError, sweepStaleKeys } from './storage-gc.js';
@@ -12,6 +12,38 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 const remoteFields = () => new Set(Object.values(USER_DATA_FIELDS).map(field => field.remoteKey).filter(Boolean));
 const errorOf = (code, message, retryable = true) => ({ code, message, retryable });
 const bytes = value => new TextEncoder().encode(JSON.stringify(value)).byteLength;
+const fieldsWhere = (data, keep) => Object.fromEntries(Object.entries(USER_DATA_FIELDS).filter(([, field]) => keep(field)).map(([field]) => [field, data[field]]));
+const remoteFieldsOf = data => fieldsWhere(data, field => field.remoteKey);
+const localFieldsOf = data => fieldsWhere(data, field => !field.remoteKey);
+/** A workspace with no change records (a guest's) onto the account: what it holds is kept, what only the account holds stays. */
+const mergeWorkspace = (workspace, account) => ({ ...account, ...Object.fromEntries(Object.entries(USER_DATA_FIELDS)
+  .filter(([, field]) => field.remoteKey).map(([field]) => [field, mergeFieldValue(field, workspace[field], account[field])])) });
+/** The keys (per remote field) the given operations change. */
+const touchedKeys = operations => {
+  const keys = {};
+  for (const op of operations) for (const [name, change] of Object.entries(op.changes)) {
+    const set = keys[name] || (keys[name] = new Set());
+    if ('value' in change) set.add('value');
+    for (const key of Object.keys(change.set || {})) set.add(key);
+    for (const item of change.put || []) set.add(stableItemKey(item));
+    for (const key of change.remove || []) set.add(key);
+  }
+  return keys;
+};
+/** `changes` without the keys in `keys` (per remote field); a field left empty is dropped. */
+const withoutKeys = (changes, keys) => {
+  const out = {};
+  for (const [name, change] of Object.entries(changes)) {
+    const drop = keys[name];
+    if (!drop) { out[name] = change; continue; }
+    if ('value' in change) { if (!drop.has('value')) out[name] = change; continue; }
+    const next = change.set ? { set: Object.fromEntries(Object.entries(change.set).filter(([key]) => !drop.has(key))), remove: change.remove.filter(key => !drop.has(key)) }
+      : { put: change.put.filter(item => !drop.has(stableItemKey(item))), remove: change.remove.filter(key => !drop.has(key)) };
+    if (change.created) next.created = change.created.filter(key => !drop.has(key));
+    if ((next.set ? Object.keys(next.set).length : next.put.length) || next.remove.length) out[name] = next;
+  }
+  return out;
+};
 
 /** Immutable local intent plus server receipts. Snapshots never become intent. */
 export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler, now, debounceMs, readLegacy }) {
@@ -185,17 +217,25 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
     const stored = readSnapshot(userId);
     if (stored && stored.revision >= current.revision) current = stored;
   };
-  const archiveLegacy = legacy => {
-    const recovery = { id: newStudySessionId(), kind: 'legacy', local: legacy.data, account: null,
+  const archiveLegacy = (legacy, source = 'legacy') => {
+    const recovery = { id: newStudySessionId(), kind: 'legacy', source, local: legacy.data, account: null,
       message: 'มีข้อมูลค้างจากเวอร์ชันก่อน กรุณาสำรองและเลือกข้อมูลที่ต้องการใช้ก่อนซิงก์' };
     saveSnapshot({ ...current, base: legacy.data, recovery,
       archive: { kind: 'legacy', local: legacy.data, legacy: legacy.evidence, previous: current.archive }, legacyFingerprint: legacy.fingerprint });
   };
+  /** Whether the previous build's pending work is still what the learner last saw or answered. */
+  const legacyUnchanged = legacy => (typeof legacy.unchangedSince === 'function'
+    ? legacy.unchangedSince(current.legacyFingerprint) : legacy.fingerprint === current.legacyFingerprint);
   const checkLegacy = () => {
     if (!userId || current.recovery) return;
     const legacy = readLegacy(userId);
-    if (legacy.pending && legacy.fingerprint !== current.legacyFingerprint) archiveLegacy(legacy);
+    if (legacy.pending && !legacyUnchanged(legacy)) archiveLegacy(legacy);
   };
+  /** Where a legacy prompt came from. A snapshot written before `source` existed says so through
+   *  its archived evidence: pending entries or records of the old build mean 'legacy', none means
+   *  a guest workspace brought to the account at sign-in. */
+  const recoverySource = () => current.recovery.source || (current.archive?.kind === 'legacy' && current.archive.legacy
+    && (Object.keys(current.archive.legacy.meta?.dirty || {}).length || (current.archive.legacy.operations || []).length) ? 'legacy' : 'workspace');
   const previewRecovery = async () => {
     if (intentReadError || !userId || !current.recovery || lifecycle.isOnline() === false) return;
     const expected = generation;
@@ -349,20 +389,36 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
     if (choice === 'local' && current.recovery.kind === 'custom-id') return { accepted: false, error: { code: 'CUSTOM_ID_CONFLICT' } };
     const queued = pending();
     if (intentReadError) { publish('error', intentReadError); return { accepted: false, error: intentReadError }; }
-    const desired = current.recovery.kind === 'conflict'
+    const view = current.recovery.kind === 'conflict'
       ? queued.reduce((data, op) => applyUserDataChanges(data, op.changes), current.recovery.local)
       : replay(current, queued);
-    const account = { ...dataFromSyncRow(row, createEmptyUserData), ...Object.fromEntries(Object.entries(USER_DATA_FIELDS)
-      .filter(([, field]) => !field.remoteKey).map(([field]) => [field, desired[field]])) };
+    const accountRow = dataFromSyncRow(row, createEmptyUserData);
+    const account = { ...accountRow, ...localFieldsOf(view) };
     let legacy;
     try { legacy = readLegacy(selected); }
     catch { readFailure(); publish('error', intentReadError); return { accepted: false, error: intentReadError }; }
-    if (current.recovery.kind === 'legacy' && legacy.pending && legacy.fingerprint !== current.legacyFingerprint) {
+    if (current.recovery.kind === 'legacy' && legacy.pending && !legacyUnchanged(legacy)) {
       archiveLegacy(legacy);
       publish('error', errorOf('RECOVERY_CHANGED', 'มีข้อมูลค้างใหม่จากอีกหน้าต่าง กรุณาตรวจสำเนาล่าสุดก่อนเลือก', false));
       previewRecovery();
       return { accepted: false, error: { code: 'RECOVERY_CHANGED' } };
     }
+    // Choosing the device's copy keeps the device's own changes and nothing else: the old
+    // build's dirty entries and records (or a guest workspace, since empty) are merged onto
+    // the row just read, a suppressed operation is re-applied onto it. Diffing the device's
+    // whole stale view against the account deleted every note another device had synced
+    // since that view was taken.
+    // An old build's pending work that is no longer pending was synced or withdrawn by that
+    // build itself since the prompt opened; the archived copy is stale and is not written.
+    // Edits queued on this device keep their own operations and clocks: the choice never
+    // carries them, so it cannot lift an older edit over a newer acknowledged value.
+    const kept = choice !== 'local' ? null
+      : current.recovery.kind === 'conflict' ? (current.recovery.operations || []).reduce((data, op) => applyUserDataChanges(data, op.changes), accountRow)
+      : current.recovery.kind === 'legacy' ? (legacy.pending && typeof legacy.merge === 'function' ? legacy.merge(accountRow)
+        : recoverySource() === 'workspace' ? mergeWorkspace(current.recovery.local, accountRow) : accountRow)
+      : null;
+    const desired = kept ? { ...view, ...remoteFieldsOf(kept) } : view;
+    const queuedKeys = touchedKeys(queued);
     const clock = nextClock(row?.sync_clock || 0);
     if (intentReadError) { publish('error', intentReadError); return { accepted: false, error: intentReadError }; }
     if (!Number.isSafeInteger(clock)) return { accepted: false, error: { code: 'INVALID_REMOTE_DATA' } };
@@ -371,7 +427,7 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
     for (let i = 0; i < discarded.length; i += 200) resolutions.push({ version: 2, id: newStudySessionId(),
       clock: clock + resolutions.length, changes: {}, cancel: discarded.slice(i, i + 200).map(op => op.id) });
     resolutions.push({ version: 2, id: newStudySessionId(), clock: clock + resolutions.length,
-      changes: discarded.length ? accountRestoreChanges(account, discarded) : choice === 'local' ? userDataChanges(account, desired, true) : {} });
+      changes: discarded.length ? accountRestoreChanges(account, discarded) : choice === 'local' ? withoutKeys(userDataChanges(account, desired, true), queuedKeys) : {} });
     const recoveryCommit = resolutions[0].id;
     const resolutionKey = opPrefix(selected) + recoveryCommit;
     // The snapshot commits this choice; a prepared envelope cannot replay or
@@ -391,7 +447,8 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
       }
       saveSnapshot({ ...current, base: account, recovery: null, legacyFingerprint: legacy.fingerprint,
         recoveryCommits, acknowledged,
-        archive: { ...(current.archive || {}), local: desired, account, resolvedAs: choice, at: now() },
+        // `local` is what the choice yields, `offered` the device copy as it was shown: both stay exportable.
+        archive: { ...(current.archive || {}), local: desired, offered: view, account, resolvedAs: choice, at: now() },
         revision: row?.sync_revision || 0, clock: resolutions.at(-1).clock });
       state = { ...state, data: choice === 'local' ? desired : account };
     } catch {
@@ -421,8 +478,8 @@ export function createAtomicUserDataSync({ storage, remote, lifecycle, scheduler
     if (!intentReadError && selected && !snapshot) {
       const guestImport = fromGuest && !same(previous, createEmptyUserData()) && !legacy.found;
       if (legacy.pending || guestImport) {
-        try { archiveLegacy(guestImport ? { ...legacy, data: previous } : legacy); }
-        catch { current.recovery = { id: newStudySessionId(), kind: 'legacy', local: previous, account: null, message: 'กรุณาสำรองข้อมูลในเครื่องก่อนเลือกข้อมูลบัญชี' }; }
+        try { archiveLegacy(guestImport ? { ...legacy, data: previous } : legacy, guestImport ? 'workspace' : 'legacy'); }
+        catch { current.recovery = { id: newStudySessionId(), kind: 'legacy', source: 'workspace', local: previous, account: null, message: 'กรุณาสำรองข้อมูลในเครื่องก่อนเลือกข้อมูลบัญชี' }; }
       } else current.legacyFingerprint = legacy.fingerprint;
     }
     publish(selected ? current.recovery ? 'error' : 'hydrating' : 'local-only',

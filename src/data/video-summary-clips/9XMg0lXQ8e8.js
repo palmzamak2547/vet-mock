@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก specific surgeries, postoperative care",
   summary: `# Equine — 11 Surgery and Pre/Post Surgery Management
 
-> 🎯 Common equine surgeries — **Castration #1** · colic surgery via ventral midline · post-op pain mgmt essential ⭐⭐
+> 🎯 Common equine surgeries — **Castration #1**, colic surgery via ventral midline, post-op pain mgmt essential ⭐⭐
 > ⚠️ ออกแน่: castration techniques, colic surgery approach, perioperative care
 
 ---

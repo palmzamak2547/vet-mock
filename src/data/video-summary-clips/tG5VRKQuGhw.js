@@ -34,7 +34,7 @@ export default {
 | **Lentogenic** | Mild | vaccine strain (LaSota, B1) |
 | **Asymptomatic enteric** | None | subclinical |
 
-> 💡 จำง่าย: **Velogenic = ฆ่า · Lentogenic = วัคซีน · Mesogenic = อยู่กลาง**
+> 💡 จำง่าย: **Velogenic = ฆ่า, Lentogenic = วัคซีน, Mesogenic = อยู่กลาง**
 
 ---
 

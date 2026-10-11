@@ -18,7 +18,7 @@ export const VIDEO_SUMMARIES_EQUINE_REPRO = {
     examFormat: "Multiple choice, ออก mare infertility, differential, workup",
     summary: `# Equine Repro — 2.2 Infertility/Subfertility in Mare
 
-> 🎯 **Endometritis = #1 cause of mare infertility** · multiple categories require systematic workup ⭐⭐⭐
+> 🎯 **Endometritis = #1 cause of mare infertility**, multiple categories require systematic workup ⭐⭐⭐
 > ⚠️ ออกแน่: endometritis #1, PMIE, granulosa cell tumor, workup order
 
 ---
@@ -746,7 +746,7 @@ barrier ที่ 2 อยู่ด้านในเราทำอะไรไ
     examFormat: "Multiple choice, ออก mare repro exam, ultrasound, palpation",
     summary: `# Equine Repro — 1.2 Examination of Reproductive Organs in Mare
 
-> 🎯 **Ultrasound (transrectal) = gold standard** สำหรับ mare repro · pregnancy detection จาก 12+ days ⭐⭐⭐
+> 🎯 **Ultrasound (transrectal) = gold standard** สำหรับ mare repro, pregnancy detection จาก 12+ days ⭐⭐⭐
 > ⚠️ ออกแน่: rectal palpation, US gold standard, Kenney's biopsy grading
 
 ---
@@ -1539,7 +1539,7 @@ barrier ที่ 2 อยู่ด้านในเราทำอะไรไ
     examFormat: "Multiple choice, ออก stallion anatomy, semen production",
     summary: `# Equine Repro — 3 Male Reproductive Anatomy
 
-> 🎯 Stallion anatomy + function — **spermatogenesis 57 days** · year-round vs mare seasonal ⭐⭐
+> 🎯 Stallion anatomy + function — **spermatogenesis 57 days**, year-round vs mare seasonal ⭐⭐
 > ⚠️ ออกแน่: spermatogenesis timing, semen parameters, hormones (high estrogen!)
 
 ---
@@ -1611,7 +1611,7 @@ barrier ที่ 2 อยู่ด้านในเราทำอะไรไ
     examFormat: "Multiple choice, ออก mare anatomy, estrous cycle, seasonality",
     summary: `# Equine Repro — 1.1 Female Reproductive Anatomy + Estrous Cycle
 
-> 🎯 ม้าตัวเมีย = **SEASONAL polyestrous** (long-day breeder) · cycle ~21 days · ovulation 24-48h ก่อน estrus end ⭐⭐⭐
+> 🎯 ม้าตัวเมีย = **SEASONAL polyestrous** (long-day breeder), cycle ~21 days, ovulation 24-48h ก่อน estrus end ⭐⭐⭐
 > ⚠️ ออกแน่: seasonal polyestrous, cycle phases, ovulation timing, ovulation fossa
 
 ---
@@ -1685,7 +1685,7 @@ barrier ที่ 2 อยู่ด้านในเราทำอะไรไ
     examFormat: "Multiple choice, ออก stallion infertility, breeding soundness exam",
     summary: `# Equine Repro — 6.1 Stallion Infertility
 
-> 🎯 **Breeding Soundness Examination (BSE) essential** · ⚠️ Anabolic steroids = sterile! ⭐⭐⭐
+> 🎯 **Breeding Soundness Examination (BSE) essential**, ⚠️ Anabolic steroids = sterile! ⭐⭐⭐
 > ⚠️ ออกแน่: BSE components, anabolic steroids effect, cryptorchid, multiple ejaculates
 
 ---
@@ -1757,7 +1757,7 @@ barrier ที่ 2 อยู่ด้านในเราทำอะไรไ
     examFormat: "Multiple choice, ออก semen collection, AI techniques, timing",
     summary: `# Equine Repro — 5 Semen Collection and AI
 
-> 🎯 AV = most common collection · **Conventional AI standard** · timing within 24h before ovulation ⭐⭐⭐
+> 🎯 AV = most common collection, **Conventional AI standard**, timing within 24h before ovulation ⭐⭐⭐
 > ⚠️ ออกแน่: AV technique, conventional vs deep horn AI, timing critical
 
 ---
@@ -1843,7 +1843,7 @@ barrier ที่ 2 อยู่ด้านในเราทำอะไรไ
     examFormat: "Multiple choice, ออก ET, OPU, ICSI, cloning",
     summary: `# Equine Repro — 2.1 Reproductive Biotechnology
 
-> 🎯 **ET (embryo transfer) = most common ART** ในม้า · OPU + ICSI + cloning + frozen semen ⭐⭐⭐
+> 🎯 **ET (embryo transfer) = most common ART** ในม้า, OPU + ICSI + cloning + frozen semen ⭐⭐⭐
 > ⚠️ ออกแน่: ET timing (D6-8), OPU+ICSI for poor mares, frozen semen lower fertility
 
 ---
@@ -1911,7 +1911,7 @@ barrier ที่ 2 อยู่ด้านในเราทำอะไรไ
     examFormat: "Multiple choice, ออก gestation, parturition stages, foal care, IgG",
     summary: `# Equine Repro — 7+8 Pregnancy, Parturition + Foal Care
 
-> 🎯 Gestation **~340 days** · **Stage 2 = 15-30 min FAST** · **IgG <400 = failure** ต้องให้ plasma ⭐⭐⭐
+> 🎯 Gestation **~340 days**, **Stage 2 = 15-30 min FAST**, **IgG <400 = failure** ต้องให้ plasma ⭐⭐⭐
 > ⚠️ ออกแน่: gestation length, stage 2 fast, retained placenta = emergency, IgG cutoffs
 
 ---
@@ -2012,7 +2012,7 @@ barrier ที่ 2 อยู่ด้านในเราทำอะไรไ
     examFormat: "Multiple choice, ออก mare + stallion repro surgery",
     summary: `# Equine Repro — 6.2 Reproductive Surgery
 
-> 🎯 **Caslick's = most common mare procedure** · **Castration = most common stallion surgery** · cryptorchid = always remove ⭐⭐⭐
+> 🎯 **Caslick's = most common mare procedure**, **Castration = most common stallion surgery**, cryptorchid = always remove ⭐⭐⭐
 > ⚠️ ออกแน่: Caslick's purpose, castration techniques, cryptorchid cancer risk, C-section emergency only
 
 ---

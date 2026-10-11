@@ -29,7 +29,7 @@ export const QB_EXOTIC = [
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['bird', 'handling'], type: 'mcq',
     q: 'เจาะเลือดนกที่ตำแหน่งใด',
     options: ['ปีก, คอ, ขา', 'หัว, หาง', 'ท้อง, ก้น', 'ลิ้น'],
-    answer: 0, explain: 'ปีก (basilic vein), คอ (jugular), ขา (medial metatarsal)',
+    answer: 0, explain: 'ปีก (basilic vein), คอ (jugular), ขา (medial metatarsal)\nJugular ได้เลือดปริมาณมาก basilic เป็นตำแหน่งที่นิยม ส่วน medial metatarsal มักไม่เห็น hematoma แต่หาตำแหน่งยาก',
     wikiRefs: [{
       pageId: 'exotic-avian-and-reptile-medicine',
       anchorId: 'avian-anatomy-and-common-diseases',
@@ -43,7 +43,7 @@ export const QB_EXOTIC = [
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['bird', 'anesthesia'], type: 'mcq',
     q: 'ยาสลบนิยมในนก',
     options: ['Ketamine', 'Isoflurane', 'Propofol', 'Thiopental'],
-    answer: 1, explain: 'Isoflurane safety ดี, rapid induction + recovery',
+    answer: 1, explain: 'Isoflurane safety ดี, rapid induction + recovery\nIsoflurane เป็น drug of choice ส่วน sevoflurane มีราคาแพงจึงไม่ใช้เป็น routine',
     wikiRefs: [{
       pageId: 'exotic-avian-and-reptile-medicine',
       anchorId: 'avian-anatomy-and-common-diseases',
@@ -85,7 +85,7 @@ export const QB_EXOTIC = [
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['bird', 'cloacal'], type: 'mcq',
     q: 'รักษา Cloacal papilloma ใช้',
     options: ['Silver nitrate', 'Povidone iodine', 'Formalin', 'Hydrogen peroxide'],
-    answer: 0, explain: 'AgNO3 จี้ — chemical cauterization',
+    answer: 0, explain: 'AgNO3 จี้ — chemical cauterization\nใช้ silver nitrate จี้สัปดาห์ละครั้งนาน 2-6 สัปดาห์แทนการผ่าตัดตัดก้อน เพราะ surgical excision ทำให้เลือดออกมาก',
     wikiRefs: [{
       pageId: 'exotic-avian-and-reptile-medicine',
       anchorId: 'avian-anatomy-and-common-diseases',
@@ -159,7 +159,7 @@ export const QB_EXOTIC = [
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['conservation'], type: 'mcq',
     q: 'One Health เชื่อมอะไรบ้าง',
     options: ['Wildlife + Human', 'Wildlife + Ecosystem + Human', 'Domestic + Wildlife', 'Human + Environment'],
-    answer: 1, explain: 'Wildlife + Ecosystem + Human (3-pillar)' },
+    answer: 1, explain: 'Wildlife + Ecosystem + Human (3-pillar)\nเพราะ One Health มองความเชื่อมโยงของสุขภาพคน สัตว์ และสิ่งแวดล้อมหรือระบบนิเวศ เมื่อสิ่งใดเปลี่ยนไป ย่อมส่งผลถึงทุกสิ่งที่มีชีวิตในระบบนั้น' },
   { id: 173, subject: 'exotic', topic: 'zoo-vet', year: 4,
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['welfare'], type: 'mcq',
     q: 'Five Domains ไม่รวม domain ใด',
@@ -169,7 +169,7 @@ export const QB_EXOTIC = [
     source: 'ข้อสอบเก่า_pp_s_exotic_Kimchii.pdf', tags: ['quarantine'], type: 'mcq',
     q: 'Quarantine period zoo animal',
     options: ['7 วัน', '14 วัน', '30 วัน', '60 วัน'],
-    answer: 2, explain: '30 วัน (standard zoo quarantine)' },
+    answer: 2, explain: '30 วัน (standard zoo quarantine)\nระยะกักโรคขึ้นกับชนิดสัตว์ ประเทศต้นทาง และระยะฟักตัวของโรค ซึ่งตามกฎหมายโดยทั่วไปอยู่ที่ประมาณ 30 วัน' },
 
   // ── Field vet (vaccine) ───────────────────────────────────────
   { id: 172, subject: 'exotic', topic: 'field-vet', year: 4,

@@ -71,6 +71,7 @@ test('connected files recover independently and private reading disappears on si
   let statusCalls = 0, googleCalls = 0, releaseGoogle;
   const google = new Promise(resolve => { releaseGoogle = resolve; });
   await page.route('**/api/external-connect', route => {
+    if (route.request().method() === 'GET') return route.fulfill({ json: { connect: { google: true, notion: true } } });
     const action = route.request().postDataJSON().action;
     if (action === 'disconnect') return route.fulfill({ status: 503, json: { reason: 'storage' } });
     statusCalls++;
@@ -116,14 +117,35 @@ test('connected files recover independently and private reading disappears on si
   expect(errors).toEqual([]);
 });
 
-test('failed connection start is visible and releases both provider controls', async ({ page, context }) => {
+test('a provider the server cannot connect loses its button and leaves the other usable', async ({ page, context }) => {
   const errors = await prepare(page, context, true);
-  await page.route('**/api/external-connect', route => route.fulfill({ json: { connections: [] } }));
+  await page.route('**/api/external-connect', route => route.fulfill(route.request().method() === 'GET'
+    ? { json: { connect: { google: true, notion: true } } } : { json: { connections: [] } }));
   await page.route('**/api/external-connect-start?provider=*', route => route.fulfill({ status: 503, json: { reason: 'not_configured' } }));
   await openExternal(page);
   const buttons = page.getByRole('button', { name: 'เชื่อมต่อ', exact: true });
+  await expect(buttons).toHaveCount(2);
   await buttons.first().click();
-  await expect(page.getByRole('alert')).toContainText('ยังไม่เปิดใช้การเชื่อมต่อผู้ให้บริการนี้');
-  await expect(buttons.first()).toBeEnabled(); await expect(buttons.last()).toBeEnabled();
+  await expect(page.getByRole('status').filter({ hasText: 'ตอนนี้ยังเชื่อมบัญชี Google ไม่ได้' })).toBeVisible();
+  await expect(buttons).toHaveCount(1);
+  await expect(buttons.first()).toBeEnabled();
+  await expect(page.getByRole('alert')).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
+test('where no account can be connected, the reader offers only the link box and never asks for one', async ({ page, context }) => {
+  const errors = await prepare(page, context, true);
+  let statusReads = 0;
+  await page.route('**/api/external-connect', route => {
+    if (route.request().method() === 'GET') return route.fulfill({ json: { connect: { google: false, notion: false } } });
+    statusReads++;
+    return route.fulfill({ json: { connections: [] } });
+  });
+  await openExternal(page);
+  await expect(page.getByText('วางลิงก์เอกสารหรือชีตของ Google ที่แชร์แบบทุกคนที่มีลิงก์', { exact: false })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'เปิดเอกสาร', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'เชื่อมต่อ', exact: true })).toHaveCount(0);
+  await expect(page.getByText(/เชื่อมบัญชี/)).toHaveCount(0);
+  expect(statusReads).toBe(0);
   expect(errors).toEqual([]);
 });

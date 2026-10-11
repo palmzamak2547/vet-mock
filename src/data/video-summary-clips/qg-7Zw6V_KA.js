@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก nerve blocks, joint blocks, diagnostic technique",
   summary: `# Equine — 12.2 Diagnostic Analgesia
 
-> 🎯 **Nerve + joint blocks = key tool** สำหรับ localizing lameness · distal → proximal approach ⭐⭐⭐
+> 🎯 **Nerve + joint blocks = key tool** สำหรับ localizing lameness, distal → proximal approach ⭐⭐⭐
 > ⚠️ ออกแน่: PD block = hoof, ASN = pastern/fetlock, lidocaine 2%, joint blocks
 
 ---

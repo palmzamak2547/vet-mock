@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก meat quality factors, grading",
   summary: `# Milk-Meat — 11.2 Meat Quality and Wholesomeness
 
-> 🎯 **Quality** (sensory + appearance) ≠ **Wholesomeness** (safety) — ทั้งคู่ต้องผ่าน · stress = ตัวการของ DFD / PSE
+> 🎯 **Quality** (sensory + appearance) ≠ **Wholesomeness** (safety) — ทั้งคู่ต้องผ่าน, stress = ตัวการของ DFD / PSE
 
 ---
 
@@ -34,7 +34,7 @@ export default {
 | ⭐⭐ **DFD** (Dark Firm Dry) | **High pH** | stress **ก่อน** slaughter (long-term) |
 | ⭐⭐ **PSE** (Pale Soft Exudative) | **Low pH** | stress **ที่** slaughter (acute) |
 
-> 💡 **DFD** = ม้า/วัว/หมูที่ stress นานก่อนตาย → glycogen หมด → lactic acid น้อย → pH สูง · เนื้อแห้ง คล้ำ
+> 💡 **DFD** = ม้า/วัว/หมูที่ stress นานก่อนตาย → glycogen หมด → lactic acid น้อย → pH สูง, เนื้อแห้ง คล้ำ
 > **PSE** = หมูที่ acute stress (genetic Halothane gene) → glycolysis เร็วเกิน → pH ตกเร็ว ที่อุณหภูมิยังสูง → เนื้อขาวซีด แฉะ
 
 ---
@@ -58,8 +58,8 @@ export default {
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **Quality vs Wholesomeness** — concept ต่างกัน
-- ⭐⭐ **DFD** = stress ก่อน slaughter (long-term) · pH สูง
-- ⭐⭐ **PSE** = stress ที่ slaughter (acute) · pH ต่ำ
+- ⭐⭐ **DFD** = stress ก่อน slaughter (long-term), pH สูง
+- ⭐⭐ **PSE** = stress ที่ slaughter (acute), pH ต่ำ
 - ⭐ Normal pH 5.3-5.6
 - ⭐ Multiple grading systems`,
 };

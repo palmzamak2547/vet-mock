@@ -1,114 +1,101 @@
-import { useEffect, useState } from 'react';
-import { SQUAD_MASCOTS } from '../data/art.js';
-import {
-  getSelectedBuddy,
-  setSelectedBuddy,
-  getBuddyStats,
-  formatBuddyTime,
-} from '../lib/buddy-stats.js';
+import { useEffect, useId, useRef, useState } from 'react';
+import { BUDDIES, pickBuddy } from '../lib/buddy.js';
+import { BUDDY_CHANGED_EVENT, formatBuddyTime, getBuddyStats } from '../lib/buddy-stats.js';
+import { artImgFallback } from '../lib/art-fallback.js';
+import '../styles-buddy.css';
 
-export default function BuddySelector({ onSelect, selectedId }) {
-  const [activeId, setActiveId] = useState(() => selectedId || getSelectedBuddy());
-  const [statsMap, setStatsMap] = useState({});
-
-  useEffect(() => {
-    if (selectedId) setActiveId(selectedId);
-  }, [selectedId]);
-
-  // Load stats for all mascots
-  const refreshStats = () => {
-    const map = {};
-    Object.keys(SQUAD_MASCOTS).forEach((id) => {
-      map[id] = getBuddyStats(id);
-    });
-    setStatsMap(map);
-  };
+/**
+ * The buddy row: Mochi and the nine clinic mascots, the same on Pomodoro and
+ * the Mochi page. A tap keeps that buddy (lib/buddy.js) for every screen and
+ * the avatar gives a small hop; the chosen chip carries a ring and a check.
+ * On a phone the row scrolls sideways and opens with the chosen buddy in view.
+ */
+export default function BuddySelector({ selectedId, onSelect, label = 'เลือกคู่หูอ่านหนังสือ', showTime = true }) {
+  const labelId = useId();
+  const row = useRef(null);
+  const [minutes, setMinutes] = useState(readMinutes);
+  // The id that was just picked and a counter, so picking it again hops again.
+  const [hello, setHello] = useState({ id: null, n: 0 });
 
   useEffect(() => {
-    refreshStats();
-    const handleUpdate = () => refreshStats();
-    window.addEventListener('vmx-buddy-changed', handleUpdate);
-    return () => window.removeEventListener('vmx-buddy-changed', handleUpdate);
+    const refresh = () => setMinutes(readMinutes());
+    window.addEventListener(BUDDY_CHANGED_EVENT, refresh);
+    return () => window.removeEventListener(BUDDY_CHANGED_EVENT, refresh);
   }, []);
 
-  const handlePick = (id) => {
-    setActiveId(id);
-    setSelectedBuddy(id);
+  // A chosen buddy past the edge of a phone row is brought into view, with
+  // no animation and only sideways: this corrects where the row starts.
+  useEffect(() => {
+    const el = row.current;
+    const chip = el?.querySelector?.('[aria-pressed="true"]');
+    if (el && chip) el.scrollLeft = scrollToReveal(el, chip);
+  }, [selectedId]);
+
+  const pick = (id) => {
+    pickBuddy(id);
+    setHello((h) => ({ id, n: h.n + 1 }));
     onSelect?.(id);
   };
 
   return (
-    <div style={{ margin: 'var(--space-3) 0', width: '100%' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-        <span style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--clr-ink)' }}>
-          🐾 เลือกคู่หูอ่านหนังสือ
-        </span>
-        <span style={{ fontSize: '0.75rem', color: 'var(--clr-sage-text)' }}>
-          อ่านด้วยกัน {formatBuddyTime(statsMap[activeId]?.minutes || 0)}
-        </span>
+    <div className="vmx-buddy-picker">
+      <div className="vmx-buddy-picker-head">
+        <span className="vmx-buddy-picker-label" id={labelId}>{label}</span>
+        {showTime && selectedId && (
+          <span className="vmx-buddy-picker-time">อ่านด้วยกัน {formatBuddyTime(minutes[selectedId] || 0)}</span>
+        )}
       </div>
-
-      <div
-        style={{
-          display: 'flex',
-          gap: '8px',
-          overflowX: 'auto',
-          paddingBottom: '6px',
-          scrollbarWidth: 'thin',
-        }}
-      >
-        {Object.values(SQUAD_MASCOTS).map((mascot) => {
-          const isSelected = mascot.id === activeId;
-          const buddyTime = statsMap[mascot.id]?.minutes || 0;
+      <div ref={row} className="vmx-buddy-row" role="group" aria-labelledby={labelId}>
+        {BUDDIES.map((buddy) => {
+          const selected = buddy.id === selectedId;
+          const mins = minutes[buddy.id] || 0;
           return (
             <button
-              key={mascot.id}
+              key={buddy.id}
               type="button"
-              onClick={() => handlePick(mascot.id)}
-              aria-pressed={isSelected}
-              style={{
-                display: 'inline-flex',
-                minHeight: 'var(--touch-min)',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '6px 12px',
-                borderRadius: '999px',
-                border: isSelected ? '2px solid var(--clr-sage)' : '1px solid var(--clr-border)',
-                background: isSelected ? 'var(--clr-sage-soft)' : 'var(--clr-surface)',
-                color: isSelected ? 'var(--clr-sage-text)' : 'var(--clr-ink)',
-                fontSize: '0.8rem',
-                fontWeight: isSelected ? 600 : 400,
-                cursor: 'pointer',
-                whiteSpace: 'nowrap',
-                flexShrink: 0,
-                transition: 'all 0.15s ease',
-              }}
+              className="vmx-buddy-chip"
+              aria-pressed={selected}
+              onClick={() => pick(buddy.id)}
             >
-              <img
-                src={mascot.src}
-                alt=""
-                width={24}
-                height={24}
-                style={{ width: '24px', height: '24px', objectFit: 'contain', borderRadius: '50%' }}
-              />
-              <span>{mascot.nameTh}</span>
-              {buddyTime > 0 && (
-                <span
-                  style={{
-                    fontSize: '0.7rem',
-                    opacity: 0.8,
-                    background: isSelected ? 'var(--clr-surface)' : 'var(--clr-surface-2)',
-                    padding: '2px 6px',
-                    borderRadius: '8px',
-                  }}
-                >
-                  {formatBuddyTime(buddyTime)}
-                </span>
-              )}
+              {/* Two alternating animation names restart the hop on a second
+                  tap without remounting the picture. */}
+              <span
+                className="vmx-buddy-chip-avatar"
+                data-hello={hello.id === buddy.id ? (hello.n % 2 ? 'a' : 'b') : undefined}
+                aria-hidden="true"
+              >
+                <img src={buddy.src} alt="" width={28} height={28} decoding="async" onError={artImgFallback} />
+                {selected && (
+                  <svg className="vmx-buddy-check" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M4.5 8.3 7 10.7 11.5 5.6" />
+                  </svg>
+                )}
+              </span>
+              <span className="vmx-buddy-chip-name">{buddy.nameTh}</span>
+              {showTime && mins > 0 && <span className="vmx-buddy-chip-time">{formatBuddyTime(mins)}</span>}
             </button>
           );
         })}
       </div>
     </div>
   );
+}
+
+function readMinutes() {
+  const out = {};
+  for (const buddy of BUDDIES) out[buddy.id] = getBuddyStats(buddy.id).minutes;
+  return out;
+}
+
+/** The scrollLeft for `row` so `chip` shows: a chip already in full view
+ *  stays put (a tap never moves the row under the finger); one cut by an edge
+ *  is brought to the middle, with buddies on both sides of it. Clamped to the
+ *  row. Pure, for tests. */
+export function scrollToReveal(row, chip, margin = 8) {
+  const left = chip.offsetLeft - margin;
+  const right = chip.offsetLeft + chip.offsetWidth + margin;
+  const max = Math.max(0, row.scrollWidth - row.clientWidth);
+  if (left >= row.scrollLeft && right <= row.scrollLeft + row.clientWidth) return row.scrollLeft;
+  const centred = chip.offsetLeft + chip.offsetWidth / 2 - row.clientWidth / 2;
+  return Math.min(max, Math.max(0, centred));
 }

@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก GMP, HACCP, 7 principles, CCP",
   summary: `# Milk-Meat — 5 GMP and HACCP Standards
 
-> 🎯 **GMP = pre-requisite · HACCP = systematic hazard control** — ทั้งคู่บังคับสำหรับ export
+> 🎯 **GMP = pre-requisite, HACCP = systematic hazard control** — ทั้งคู่บังคับสำหรับ export
 > ⚠️ HACCP = **7 principles** ต้องจำให้ครบ
 
 ---

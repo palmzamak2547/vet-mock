@@ -111,6 +111,7 @@ test('temporary intent read failures cannot discard persisted acknowledgement su
   } finally { sync.close(); }
 });
 
+// Choosing the device copy keeps the account's own notes (2026-10-11): the row's `cloud` note survives the choice.
 test('a committed choice survives an unreadable envelope and retires its commit marker after acknowledgement', async () => {
   const storage = new Storage();
   const legacy = { ...createEmptyUserData(), notes: { local: 'chosen work' } };
@@ -125,13 +126,13 @@ test('a committed choice survives an unreadable envelope and retires its commit 
     await until(() => sync.getSnapshot().sync.error?.code === 'LOCAL_READ_FAILED');
     assert.equal(sync.getSnapshot().sync.phase, 'error');
     assert.equal(sync.getSnapshot().sync.pending, true);
-    assert.deepEqual(sync.getSnapshot().data.notes, legacy.notes);
+    assert.deepEqual(sync.getSnapshot().data.notes, { cloud: 'keep', ...legacy.notes });
     assert.equal(f.calls.length, 0, 'unreadable pending work cannot issue an empty RPC');
     assert.equal(JSON.parse(storage.getItem('vmx-user-data-v2:A')).recoveryCommits.length, 1);
     storage.unreadableIntent = false;
     sync.send({ type: 'REFRESH_REQUESTED' });
     await until(() => sync.getSnapshot().sync.phase === 'synced');
-    assert.deepEqual(f.row().notes, legacy.notes);
+    assert.deepEqual(f.row().notes, { cloud: 'keep', ...legacy.notes });
     assert.deepEqual(JSON.parse(storage.getItem('vmx-user-data-v2:A')).recoveryCommits, []);
     assert.ok([...storage.values.keys()].some(key => key.startsWith('vmx-user-intent-v2:')), 'failed deletion leaves the receipt-suppressed envelope');
     const previous = f.calls.filter(batch => batch.length).length;
@@ -140,7 +141,7 @@ test('a committed choice survives an unreadable envelope and retires its commit 
     assert.equal(f.calls.filter(batch => batch.length).length, previous);
     sync.close(); sync = f.open();
     await until(() => sync.getSnapshot().sync.phase === 'synced');
-    assert.deepEqual(sync.getSnapshot().data.notes, legacy.notes);
+    assert.deepEqual(sync.getSnapshot().data.notes, { cloud: 'keep', ...legacy.notes });
     assert.equal(f.calls.filter(batch => batch.length).length, previous, 'reload also suppresses the retained acknowledged envelope');
   } finally { sync.close(); }
 });

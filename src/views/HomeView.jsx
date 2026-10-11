@@ -16,7 +16,9 @@ import { LATEST_CHANGELOG, SCOPE_LABELS } from '../data/latest-changelog.generat
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { seasonalMochiKey } from '../lib/seasonal-mochi.js';
 import { SEASONAL_MOCHI } from '../data/art.js';
-import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse } from '../lib/daily-q.js';
+import { useBuddy } from '../hooks/useBuddy.js';
+import { homeCompanion } from '../lib/buddy.js';
+import { pickTodaysQ, readTodaysQStatus, dailyQStreak, fetchTodaysClassPulse, todayKey } from '../lib/daily-q.js';
 // Phase Wrapped banner — surfaces a Spotify-Wrapped-style recap once
 // a phase ends. Cheap helpers; the heavy canvas + card UI is lazy.
 import { getCompletedPhase, hasPhaseActivity, isWrappedDismissed, markWrappedDismissed } from '../lib/phase-wrapped.js';
@@ -32,6 +34,13 @@ import { alertDialog } from '../lib/dialog.js';
 import { stillWrong } from '../lib/wrong-pool.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
 import SubjectCover from '../components/SubjectCover.jsx';
+// HomeQuickGrid — the rail's learn group as an icon grid, for screens that
+// have no rail (CSS-gated below 1024px; the feature menu hides its own learn
+// group there, so each destination has one tile).
+import HomeQuickGrid from '../components/HomeQuickGrid.jsx';
+// The student's own record, computed once for Home and the profile hub so
+// the two surfaces cannot disagree about a week, a class or a day.
+import { weekTrack, classRowLabel, shortThaiDay } from '../lib/study-record.js';
 
 // DailyGoalCard is lazy-loaded — it only renders if there's history,
 // and most users will see it after some interaction. Keeps HomeView's
@@ -94,8 +103,6 @@ const shortThaiDate = (dateStr) => {
   const d = new Date(dateStr);
   return Number.isNaN(d.getTime()) ? '' : `${d.getDate()} ${TH_MONTHS[d.getMonth()]}`;
 };
-
-const DOW_TH = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัส', 'ศุกร์', 'เสาร์'];
 
 export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
   // Compute the Home badge here, in its lazy view, from the same context as
@@ -314,8 +321,12 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
     const key = seasonalMochiKey({ daysLeft: nextExam?.daysLeft ?? null, lastExamDate });
     return key ? SEASONAL_MOCHI[key] || null : null;
   }, [nextExam?.daysLeft, lastExamDate]);
-  const companionImg = companionMochi?.src || '/motion/assets/mochi.png';
-  const companionAlt = companionMochi?.alt || 'โมจิ เพื่อนร่วมติว';
+  // The buddy the student picked (Pomodoro or the Mochi page) sits here too;
+  // without a pick it is the season's Mochi picture.
+  const { picked: pickedBuddy, buddy: pickedBuddyArt } = useBuddy();
+  const companion = useMemo(() => homeCompanion(companionMochi, pickedBuddy), [companionMochi, pickedBuddy]);
+  const companionImg = companion.src;
+  const companionAlt = companion.alt;
   const { preferences } = useMotionPreferences();
   const companionOn = preferences.companion && preferences.mode !== 'off';
 
@@ -385,6 +396,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
     const wrongIds = [...wrongKeys].sort((a, b) => (wrongCounts.get(b) || 0) - (wrongCounts.get(a) || 0));
     return { streak, todayCount, wrongCount: wrongIds.length, wrongIds };
   }, [history, yearSubjects, selectedYear, streakData]);
+
+  // The last seven days, for the phone's streak row. Same helper the rhythm
+  // console and the profile hub read, so the three never show three weeks.
+  const weekDots = useMemo(() => weekTrack(history), [history]);
 
   // Quick action: random 1 Q from full QB. Goes STRAIGHT into ExamView
   // via startExam({overrides}) — bypasses ConfigView so the user gets
@@ -653,8 +668,12 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // happened. It runs after the frame so the note exists when it is asked to
   // move, and a second tap while it is already open still brings it back.
   const changelogNoticeRef = useRef(null);
-  const openChangelogNote = () => {
-    setLastSeenChangelog(null);
+  // Opening the note means SHOWING it: the chip in the วันนี้ panel sits two
+  // screens below the note on a phone, so a tap that only mounted the note
+  // looked like nothing happened ("กดเข้าไปเช็คไม่ได้"). Every opener now
+  // scrolls to the note and hands it focus; the bottom strip additionally
+  // clears the read mark so a closed note can be opened again.
+  const revealChangelogNote = () => {
     setForceChangelogOpen(true);
     requestAnimationFrame(() => {
       const note = changelogNoticeRef.current;
@@ -662,6 +681,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       note.scrollIntoView({ block: 'start' });
       note.focus({ preventScroll: true });
     });
+  };
+  const openChangelogNote = () => {
+    setLastSeenChangelog(null);
+    revealChangelogNote();
   };
 
   // Whether the vitals rail's chip row has anything to show.
@@ -763,6 +786,24 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // QuestsPanel passes back an { kind, subject? } action when user
   // clicks "▶️ ลุย" on an incomplete quest. Map to existing handlers
   // so quests are 1-tap actionable instead of just progress bars.
+  // Registry 'practice' invoke → set up a config flow (same as the primary
+  // mode cards). Lands on ConfigView so count/timer can be tweaked before
+  // starting. Mirrors App.startExam's overrides path. The topic is cleared:
+  // Home can be reached with one still set from a subject's topic screen,
+  // and it scoped the "รวมทุกวิชา" set to it. One handler for the feature
+  // menu and the quick grid, so a preset means the same thing from either.
+  const launchPracticePreset = (inv) => {
+    const p = practicePreset(inv);
+    setMode?.(p.mode);
+    setSubject?.(p.subject);
+    setTopic?.(p.topic);
+    setPracticeMode?.(p.practiceMode);
+    if (p.numQuestions != null) setNumQuestions?.(p.numQuestions);
+    if (p.useTimer != null) setUseTimer?.(p.useTimer);
+    if (p.timePerQ != null) setTimePerQ?.(p.timePerQ);
+    setView('config');
+  };
+
   const handleQuestStart = (action /*, quest */) => {
     if (!action) return;
     if (action.kind === 'random') {
@@ -786,7 +827,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
 
   return (
     <>
-      <div className="vmx-hero">
+      <div className="vmx-hero vmx-home-hero">
         <h1>
           {user
             ? <>สวัสดีคุณ <em>{profile?.username || 'นิสิต'}</em></>
@@ -808,8 +849,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         {typeof onOpenTour === 'function' && bannerWinner !== 'welcome' && (
           <button
             type="button"
-            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-            style={{ marginTop: 10 }}
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-home-tour"
             onClick={(e) => onOpenTour(e.currentTarget)}
             aria-label="เปิดทัวร์วิธีใช้งาน"
           >
@@ -1030,6 +1070,17 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           )}
         </div>
       )}
+      {/* Search (in the header) → this grid → the day's plan: the order a
+          phone home is read in. Hidden where the rail already lists these. */}
+      <HomeQuickGrid
+        setView={setView}
+        onPractice={launchPracticePreset}
+        signedIn={!!user}
+        scaffold={isScaffoldYear}
+        hasSupabase={hasSupabase}
+        selectedYear={selectedYear}
+        isAdmin={isAdmin}
+      />
       <div className="vmx-command-center">
         {!isScaffoldYear && (
           <div className="vmx-command-bridge">
@@ -1419,8 +1470,8 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 />
               </div>
               <div className="vmx-companion-card-info">
-                <span className="vmx-companion-card-kicker">Clinical Companion</span>
-                <strong className="vmx-companion-card-name">Mochi</strong>
+                <span className="vmx-companion-card-kicker">คู่หูติว</span>
+                <strong className="vmx-companion-card-name">{companion.name}</strong>
                 <span className="vmx-companion-card-status">
                   {countdown?.text ? `เป้าหมาย: สอบใน ${countdown.text}` : 'พร้อมช่วยติวและทบทวน'}
                 </span>
@@ -1431,9 +1482,21 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
             {/* Vitals Panel */}
             {hasQuickChips && (
               <div className="vmx-vitals-panel">
+                {/* "วันนี้" with today's date: the old head said "Vitals &
+                    Schedule" in English over a Thai panel, with a 10px
+                    "รอบวันนี้" beside it. The date is real and useful; the
+                    tick above keeps it fresh across midnight. */}
                 <div className="vmx-vitals-panel-head">
-                  <span>Vitals & Schedule</span>
-                  <span style={{ fontSize: 10, textTransform: 'none', color: 'var(--clr-ink-soft)' }}>รอบวันนี้</span>
+                  <span>
+                    {/* On a phone the companion card above is folded away, so
+                        Mochi keeps a small seat here instead (CSS shows it only
+                        there); the same preference that hides the card hides this. */}
+                    {companionOn && (pickedBuddy && pickedBuddy !== 'mochi'
+                      ? <img src={pickedBuddyArt.src} alt="" width={26} height={26} className="vmx-vitals-mochi" onError={artImgFallback} />
+                      : <Mochi size={26} slot="companion" className="vmx-vitals-mochi" />)}
+                    วันนี้
+                  </span>
+                  <span className="vmx-vitals-panel-date">{shortThaiDay(Date.now())}</span>
                 </div>
                 {freezeNotice && (
                   <div
@@ -1453,6 +1516,31 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                   >
                     เว้นไป 1 วัน แต่ยังนับต่อเนื่องให้ {freezeNotice.streak} วัน
                   </div>
+                )}
+                {/* Phone twin of the streak card below (CSS shows one or the
+                    other): one line, the real last seven days as dots, and a
+                    tap opens the profile hub where the full record lives.
+                    During an exam window the countdown owns the hero and the
+                    header hides its streak chip on a phone, so without this
+                    row a student's streak was invisible on the phone Home
+                    for the whole exam season. */}
+                {quickStats.streak > 0 && (
+                  <button
+                    type="button"
+                    className={`vmx-streak-mini${quickStats.streak >= 7 ? ' is-hot' : quickStats.streak >= 3 ? ' is-warm' : ''}`}
+                    onClick={() => setView('profile')}
+                    aria-label={`ทำข้อสอบติดต่อกัน ${quickStats.streak} วัน เปิดโปรไฟล์`}
+                  >
+                    <span className="vmx-streak-mini-fire" aria-hidden="true"><NavIcon name="flame" size={18} /></span>
+                    <span className="vmx-streak-mini-text">
+                      <strong>{quickStats.streak}</strong> วันต่อเนื่อง{quickStats.todayCount > 0 ? `, วันนี้ ${quickStats.todayCount} ข้อ` : ''}
+                    </span>
+                    <span className="vmx-streak-mini-week" aria-hidden="true">
+                      {weekDots.map((c) => (
+                        <span key={c.date} className={`vmx-streak-mini-dot${c.studied ? ' is-on' : ''}${c.isToday ? ' is-today' : ''}`} />
+                      ))}
+                    </span>
+                  </button>
                 )}
                 {quickStats.streak > 0 && (
                   <div
@@ -1510,7 +1598,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     title={`${nextClassToday.code}, ${nextClassToday.room}, ${nextClassToday.start}-${nextClassToday.end}`}
                   >
                     <span style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      {currentClassNow ? 'กำลังเรียน' : `${nextClassToday.dayOffset === 1 ? 'พรุ่งนี้ ' : nextClassToday.dayOffset > 1 ? `วัน${DOW_TH[nextClassToday.dow]} ` : ''}${nextClassToday.start} น.`} {truncateThai(nextClassToday.title, 20)}
+                      {classRowLabel(nextClassToday, currentClassNow, (s) => truncateThai(s, 20))}
                     </span>
                     <span className="vmx-vitals-row-meta">{nextClassToday.room}</span>
                   </button>
@@ -1557,7 +1645,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                      plus the date stay on the tooltip. */
                   <button
                     type="button"
-                    onClick={() => setForceChangelogOpen(true)}
+                    onClick={revealChangelogNote}
                     className="vmx-vitals-row"
                     title={`${LATEST_CHANGELOG.headline}, ${fmtThaiDate(LATEST_CHANGELOG.date)}`}
                   >
@@ -1695,22 +1783,8 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         selectedYear={selectedYear}
         onSketch={onSketch}
         onVoiceSettings={onVoiceSettings}
-        onPractice={(inv) => {
-          // Registry 'practice' invoke → set up a config flow (same as the
-          // primary mode cards). Lands on ConfigView so count/timer can be
-          // tweaked before starting. Mirrors App.startExam's overrides path.
-          // The topic is cleared: Home can be reached with one still set from
-          // a subject's topic screen, and it scoped the "รวมทุกวิชา" set to it.
-          const p = practicePreset(inv);
-          setMode?.(p.mode);
-          setSubject?.(p.subject);
-          setTopic?.(p.topic);
-          setPracticeMode?.(p.practiceMode);
-          if (p.numQuestions != null) setNumQuestions?.(p.numQuestions);
-          if (p.useTimer != null) setUseTimer?.(p.useTimer);
-          if (p.timePerQ != null) setTimePerQ?.(p.timePerQ);
-          setView('config');
-        }}
+        onPractice={launchPracticePreset}
+        onPanic={onStartPanic}
       />
       </div>{/* /vmx-command-center */}
 
@@ -1857,32 +1931,8 @@ function StudyRhythmConsole({ quickStats, streakData, history = [], onOpenSchedu
   const streak = streakData?.lastDate ? (streakData.streak || 0) : (quickStats?.streak || 0);
   const todayCount = quickStats?.todayCount || 0;
 
-  const daysTrack = useMemo(() => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const ymd = (d) => new Date(d).toLocaleDateString('en-CA');
-    const historyDates = new Set(
-      (history || []).map((h) => (h?.date ? ymd(h.date) : null)).filter(Boolean),
-    );
-    const track = [];
-    const DOW_SHORT = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date(today);
-      d.setDate(today.getDate() - i);
-      const key = ymd(d);
-      const isToday = i === 0;
-      const studied = historyDates.has(key);
-      track.push({
-        date: key,
-        day: d.getDate(),
-        dow: d.getDay(),
-        dowLabel: DOW_SHORT[d.getDay()],
-        isToday,
-        studied,
-      });
-    }
-    return track;
-  }, [history]);
+  // One week helper for Home and the profile hub (lib/study-record.js).
+  const daysTrack = useMemo(() => weekTrack(history), [history]);
 
   return (
     <section className="vmx-rhythm-console" aria-label={`จังหวะการเรียน ความต่อเนื่อง ${streak} วัน`}>
@@ -2193,7 +2243,15 @@ function DailyQRow({ user, setView, selectedYear }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [QB.length, selectedYear],
   );
-  const [status, setStatus] = useState(() => readTodaysQStatus());
+  // The status of THIS question, not of the day: the pick is per year, so a
+  // student who switches year meets a second question the same day, and the
+  // ✓ must follow the question that was answered (OV-tools-41). The tick
+  // re-reads the record after the modal records an answer.
+  const [statusTick, setStatusTick] = useState(0);
+  const status = useMemo(
+    () => (todaysQ ? readTodaysQStatus(todayKey(), todaysQ) : { completed: false }),
+    [todaysQ, statusTick],
+  );
   const [streak, setStreak] = useState(() => dailyQStreak());
   // Class pulse — Round 3 (2026-05-18). Fetches the public aggregate
   // (anonymous read · pure count, no PII) so HomeView can show "X คน
@@ -2247,7 +2305,7 @@ function DailyQRow({ user, setView, selectedYear }) {
             q={todaysQ}
             onClose={() => setOpen(false)}
             onDone={() => {
-              setStatus(readTodaysQStatus());
+              setStatusTick((n) => n + 1);
               setStreak(dailyQStreak());
               // After the user records, the RPC fires inside
               // recordTodaysQAnswer. Re-fetch the pulse so the chip

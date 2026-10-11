@@ -3,15 +3,20 @@
 // canonical destinations as the desktop Sidebar (from lib/nav.js) so the
 // two never diverge. Hidden on desktop (CSS) and mid-exam (the caller
 // gates it with the same !FOCUS_VIEWS check the Sidebar/Header use).
+//
+// 2026-10-12: the list is lib/nav.js's `navItemsFor('bar')` — the one list,
+// minus the item flagged off the bar (ความคืบหน้า, which the profile hub
+// now carries) and plus the one flagged off the rail (ทบทวน, the daily
+// review queue). Labels are the rail's words; see NAV_ITEMS for why.
 // ============================================================
 import React from 'react';
-import { NAV_ITEMS, runNav, isNavActive } from '../lib/nav.js';
+import { navItemsFor, runNav, isNavActive } from '../lib/nav.js';
 import NavIcon from './NavIcon.jsx';
 
 export default function BottomNav({ view, handlers }) {
   return (
     <nav className="vmx-bottom-nav" aria-label="เมนูหลัก">
-      {NAV_ITEMS.map((item) => {
+      {navItemsFor('bar').map((item) => {
         const active = isNavActive(item.id, view);
         return (
           <button

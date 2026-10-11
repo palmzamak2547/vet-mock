@@ -12,7 +12,7 @@ export default {
   summary: `# Aquatic Clinic — 7 Chelonian (Turtles + Tortoises)
 
 > 🎯 เต่า/ตะพาบ — pet ที่ได้รับความนิยมขึ้นในไทย — unique anatomy + special husbandry needs
-> ⚠️ **MBD = #1 husbandry disease** — UV-B + calcium deficiency · **Salmonella = zoonotic risk** สำคัญ
+> ⚠️ **MBD = #1 husbandry disease** — UV-B + calcium deficiency, **Salmonella = zoonotic risk** สำคัญ
 
 ---
 

@@ -12,7 +12,7 @@ export default {
   summary: `# Aquatic Clinic — 6.2 Diseases in Cultured Frogs
 
 > 🎯 Thai bullfrog (*Rana catesbeiana*, *Rana rugulosa*) = export industry หลักของ amphibian ไทย
-> ⚠️ Red-leg syndrome (Aeromonas) = bacterial ที่พบบ่อยสุด · Chytridiomycosis = global threat
+> ⚠️ Red-leg syndrome (Aeromonas) = bacterial ที่พบบ่อยสุด, Chytridiomycosis = global threat
 
 ---
 

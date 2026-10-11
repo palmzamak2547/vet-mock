@@ -72,7 +72,7 @@ Removed
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ **DO > 5 mg/L · pH 6.5-8.5 · NH₃ <0.05 · NO₂ <0.5**
+- ⭐⭐⭐ **DO > 5 mg/L, pH 6.5-8.5, NH₃ <0.05, NO₂ <0.5**
 - ⭐⭐ **Nitrogen cycle**: NH₃ → NO₂ → NO₃ (Nitrosomonas → Nitrobacter)
 - ⭐⭐ **NO₂ → brown blood** (methemoglobinemia)
 - ⭐ NH₃ → gill damage + neurologic

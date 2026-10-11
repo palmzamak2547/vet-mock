@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก Ornithobacterium rhinotracheale, ORT",
   summary: `# Avian Medicine 12.1 — Ornithobacteriosis (ORT)
 
-> 🎯 **ORT = Ornithobacterium rhinotracheale** · respiratory disease ที่มัก **complicated กับ MG/IB/aMPV**
+> 🎯 **ORT = Ornithobacterium rhinotracheale**, respiratory disease ที่มัก **complicated กับ MG/IB/aMPV**
 > ⚠️ **Antibiotic resistance พุ่ง** — sensitivity testing สำคัญ
 
 ---

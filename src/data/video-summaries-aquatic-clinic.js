@@ -51,7 +51,7 @@ export const VIDEO_SUMMARIES_AQUATIC_CLINIC = {
 - ⭐ White muscle spores (microsporidian)
 - **Control**: pond cleaning, alkaline treatment
 
-> 💡 อาการ 3 โรคต่างกันชัด — WSSV เห็นจุดขาว · EMS เห็น HP ซีด · EHP โตช้าเฉยๆ
+> 💡 อาการ 3 โรคต่างกันชัด — WSSV เห็นจุดขาว, EMS เห็น HP ซีด, EHP โตช้าเฉยๆ
 
 ---
 
@@ -1158,7 +1158,7 @@ Probiotic ส่วนมากใช้เชื้อกลุ่ม *Bacillus
 ## Algal Toxins ⭐⭐
 - ⭐ Dinoflagellates (**red tide**)
 - ⭐ Cyanobacteria toxins
-- ⭐ **Saxitoxin (PSP)** · domoic acid
+- ⭐ **Saxitoxin (PSP)**, domoic acid
 
 > 💡 **Bioaccumulation vs bioconcentration**: 
 > - bioaccumulation = สะสมในตัวสัตว์ตลอดชีวิต
@@ -1202,14 +1202,14 @@ Probiotic ส่วนมากใช้เชื้อกลุ่ม *Bacillus
     examFormat: "Brief overview, course structure",
     summary: `# Aquatic Clinic — 0 Introduction
 
-> 🎯 Intro course สัตวแพทย์สัตว์น้ำ — ปลา · กุ้ง · amphibian · reptile · ornamental fish. ไทยเป็น **#1 ผู้ส่งออก ornamental fish โลก** + ผู้นำกุ้ง/ปลานิล
+> 🎯 Intro course สัตวแพทย์สัตว์น้ำ — ปลา, กุ้ง, amphibian, reptile, ornamental fish. ไทยเป็น **#1 ผู้ส่งออก ornamental fish โลก** + ผู้นำกุ้ง/ปลานิล
 
 ---
 
 # 🔻 Part 1: Course Scope
 
 - โครงสร้าง course
-- ครอบคลุม aquatic species ทั้งหมด (ปลา · shellfish · amphibian · reptile)
+- ครอบคลุม aquatic species ทั้งหมด (ปลา, shellfish, amphibian, reptile)
 - บริบทอุตสาหกรรมไทย
 
 ---
@@ -1229,7 +1229,7 @@ Probiotic ส่วนมากใช้เชื้อกลุ่ม *Bacillus
 ## 📋 Exam Recap
 - ⭐⭐ Thailand = #1 ornamental fish exporter
 - ⭐ Course ครอบคลุม fish / shellfish / amphibian / reptile
-- ⭐ Career: shrimp · ornamental · aquarium · conservation`,
+- ⭐ Career: shrimp, ornamental, aquarium, conservation`,
   },
   "9fABd_2RhNw": {
     videoId: "9fABd_2RhNw",
@@ -1241,7 +1241,7 @@ Probiotic ส่วนมากใช้เชื้อกลุ่ม *Bacillus
     examFormat: "Multiple choice, ออก Thai authorities, DOF, OIE/WAHIS, trade",
     summary: `# Aquatic Clinic — 13 Aquatic Disease Control Authorities
 
-> 🎯 Thai authority = **DOF (Department of Fisheries)** · International = **WOAH (formerly OIE) WAHIS**
+> 🎯 Thai authority = **DOF (Department of Fisheries)**, International = **WOAH (formerly OIE) WAHIS**
 > ⚠️ Reportable disease = ส่งออกไม่ได้ถ้าตรวจเจอ — กระทบเศรษฐกิจรายประเทศ
 
 ---
@@ -2030,7 +2030,7 @@ Probiotic ส่วนมากใช้เชื้อกลุ่ม *Bacillus
     examFormat: "Multiple choice, ออก amphibian anatomy, diseases, husbandry",
     summary: `# Aquatic Clinic — 6.1 Basic Amphibian Medicine
 
-> 🎯 Amphibian medicine — frog · toad · salamander. Thai industry หลัก = bullfrog farming
+> 🎯 Amphibian medicine — frog, toad, salamander. Thai industry หลัก = bullfrog farming
 > ⚠️ **Skin = critical organ** — permeable มาก → drug ดูดซึมเข้าทันที + chlorine ฆ่าได้
 
 ---
@@ -3680,7 +3680,7 @@ ASF คือ African swine fever ตอนขยายตัวย่อนี�
     summary: `# Aquatic Clinic — 7 Chelonian (Turtles + Tortoises)
 
 > 🎯 เต่า/ตะพาบ — pet ที่ได้รับความนิยมขึ้นในไทย — unique anatomy + special husbandry needs
-> ⚠️ **MBD = #1 husbandry disease** — UV-B + calcium deficiency · **Salmonella = zoonotic risk** สำคัญ
+> ⚠️ **MBD = #1 husbandry disease** — UV-B + calcium deficiency, **Salmonella = zoonotic risk** สำคัญ
 
 ---
 
@@ -3755,7 +3755,7 @@ ASF คือ African swine fever ตอนขยายตัวย่อนี�
     examFormat: "Multiple choice, ออก ornamental fish DDx, betta diseases, koi",
     summary: `# Aquatic Clinic — 5 Ornamental Fish Medicine
 
-> 🎯 ไทยเป็น hub ส่งออก ornamental fish ของโลก — เจอบ่อยใน clinic: betta · goldfish · koi · discus
+> 🎯 ไทยเป็น hub ส่งออก ornamental fish ของโลก — เจอบ่อยใน clinic: betta, goldfish, koi, discus
 > ⚠️ **Always check water quality FIRST** — โรคหลายอย่างเกิดจากน้ำ ไม่ใช่ pathogen
 
 ---
@@ -3793,7 +3793,7 @@ ASF คือ African swine fever ตอนขยายตัวย่อนี�
 ## Fungal
 - ⭐ Saprolegnia (water mold)
 
-> 💡 **Ich** = parasitic disease ที่พบบ่อยที่สุด · **KHV** = catastrophic ในฟาร์ม koi
+> 💡 **Ich** = parasitic disease ที่พบบ่อยที่สุด, **KHV** = catastrophic ในฟาร์ม koi
 
 ---
 
@@ -5790,7 +5790,7 @@ Removed
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ **DO > 5 mg/L · pH 6.5-8.5 · NH₃ <0.05 · NO₂ <0.5**
+- ⭐⭐⭐ **DO > 5 mg/L, pH 6.5-8.5, NH₃ <0.05, NO₂ <0.5**
 - ⭐⭐ **Nitrogen cycle**: NH₃ → NO₂ → NO₃ (Nitrosomonas → Nitrobacter)
 - ⭐⭐ **NO₂ → brown blood** (methemoglobinemia)
 - ⭐ NH₃ → gill damage + neurologic
@@ -5806,7 +5806,7 @@ Removed
     examFormat: "Multiple choice, ออก Thai aquaculture statistics, main species",
     summary: `# Aquatic Clinic — 1.1 Aquaculture in Thailand
 
-> 🎯 ไทย = ผู้ผลิต shrimp + tilapia ระดับโลก. รู้ species หลัก · พื้นที่ผลิต · มูลค่าเศรษฐกิจ + ภัยคุกคามหลักของอุตสาหกรรม
+> 🎯 ไทย = ผู้ผลิต shrimp + tilapia ระดับโลก. รู้ species หลัก, พื้นที่ผลิต, มูลค่าเศรษฐกิจ + ภัยคุกคามหลักของอุตสาหกรรม
 
 ---
 
@@ -5817,8 +5817,8 @@ Removed
 | ⭐ **Shrimp** | *Penaeus vannamei*, *P. monodon* |
 | ⭐ **Tilapia** | freshwater ที่เลี้ยงมากที่สุด |
 | ⭐ **Catfish** | *Pangasius*, *Clarias* |
-| Marine | Sea bass · Striped bass · Snapper |
-| Ornamental | Betta · goldfish · koi |
+| Marine | Sea bass, Striped bass, Snapper |
+| Ornamental | Betta, goldfish, koi |
 
 ---
 
@@ -5835,7 +5835,7 @@ Removed
 
 - ⭐ **ใต้** — marine + brackish (กุ้ง)
 - ⭐ **กลาง** — freshwater
-- ⭐ **เหนือ/อีสาน** — ปลานิล · catfish
+- ⭐ **เหนือ/อีสาน** — ปลานิล, catfish
 - ชายฝั่ง — marine cages
 
 ---
@@ -5853,8 +5853,8 @@ Removed
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ ไทย = top global producer หลาย species (shrimp · tilapia · ornamental)
-- ⭐⭐ 3 species หลัก: *P. vannamei* · tilapia · *Pangasius/Clarias*
+- ⭐⭐⭐ ไทย = top global producer หลาย species (shrimp, tilapia, ornamental)
+- ⭐⭐ 3 species หลัก: *P. vannamei*, tilapia, *Pangasius/Clarias*
 - ⭐ Geography: ใต้-marine, กลาง-freshwater, เหนือ/อีสาน-tilapia
 - ⭐ Disease + climate + AMR = 3 ภัยคุกคามหลัก`,
   },
@@ -5900,7 +5900,7 @@ Removed
 - ⭐ Endoscopy
 - ⭐ Surgery — tumor removal, sex change (!)
 
-> 💡 **MS-222** (tricaine) = anesthetic มาตรฐานสำหรับปลา · ทำให้หมดสติด้วยการ immersion
+> 💡 **MS-222** (tricaine) = anesthetic มาตรฐานสำหรับปลา, ทำให้หมดสติด้วยการ immersion
 
 ---
 
@@ -5943,7 +5943,7 @@ Removed
 - ⭐ Gills (lateral)
 - ⭐ Antennae, eyestalks
 
-> 💡 **Hepatopancreas** = target organ ของหลายโรค (EMS · EHP) — ดูสี/ขนาดตอน necropsy บอกโรคได้
+> 💡 **Hepatopancreas** = target organ ของหลายโรค (EMS, EHP) — ดูสี/ขนาดตอน necropsy บอกโรคได้
 
 ---
 
@@ -5970,7 +5970,7 @@ Removed
 - ⭐ Prevention ต้องผ่าน **biosecurity + immune stimulants**
 - ⭐ Probiotic / prebiotic strategies
 
-> ⚠️ ต่างจากปลา (มี adaptive · vaccine ได้) — กุ้งทำ vaccine ไม่ได้เด็ดขาด อย่าสอบสับ
+> ⚠️ ต่างจากปลา (มี adaptive, vaccine ได้) — กุ้งทำ vaccine ไม่ได้เด็ดขาด อย่าสอบสับ
 
 ---
 
@@ -5991,7 +5991,7 @@ Removed
     examFormat: "Multiple choice, ออก fish anatomy/physiology, gill function, osmoregulation",
     summary: `# Aquatic Clinic — 2 Fish Biology
 
-> 🎯 ปลาไม่ใช่หมา/แมวเล็ก — gills · osmoregulation · innate-dominant immunity ต่างจาก mammal ทั้งหมด
+> 🎯 ปลาไม่ใช่หมา/แมวเล็ก — gills, osmoregulation, innate-dominant immunity ต่างจาก mammal ทั้งหมด
 > ⚠️ ถ้าเข้าใจ osmoregulation ผิด → ทำการ transport / treatment พลาด
 
 ---
@@ -6012,8 +6012,8 @@ Removed
 
 | Type | Relative to environment | Behavior |
 |---|---|---|
-| ⭐ **Freshwater fish** | **Hyperosmotic** (เข้มข้นกว่าน้ำ) | ปัสสาวะเจือจาง · ดูดเกลือเข้า |
-| ⭐ **Saltwater fish** | **Hypoosmotic** (เจือจางกว่าน้ำ) | ดื่มน้ำ · ปัสสาวะเข้มข้น |
+| ⭐ **Freshwater fish** | **Hyperosmotic** (เข้มข้นกว่าน้ำ) | ปัสสาวะเจือจาง, ดูดเกลือเข้า |
+| ⭐ **Saltwater fish** | **Hypoosmotic** (เจือจางกว่าน้ำ) | ดื่มน้ำ, ปัสสาวะเข้มข้น |
 
 > 💡 **Critical for transport + treatment** — ใส่ปลาน้ำจืดในน้ำเค็มหรือกลับกัน = osmotic shock
 
@@ -6061,7 +6061,7 @@ Removed
     examFormat: "Multiple choice, ออก aquarium setup, water management, stocking",
     summary: `# Aquatic Clinic — 11.1 Aquarium Management
 
-> 🎯 Aquarium management = balancing water quality + stocking + monitoring · public vs hobby ต่างขนาดแต่หลักเดียวกัน
+> 🎯 Aquarium management = balancing water quality + stocking + monitoring, public vs hobby ต่างขนาดแต่หลักเดียวกัน
 > ⚠️ **Quarantine all new arrivals** — pathogen introduction ทำให้ entire system พังได้
 
 ---
@@ -6123,7 +6123,7 @@ Removed
     examFormat: "Multiple choice, ออก farming systems, technology, biofloc",
     summary: `# Aquatic Clinic — 1.2 Aquaculture Industry & Technology
 
-> 🎯 ระบบเลี้ยงจาก **extensive → intensive** · เทคโนโลยีสมัยใหม่: **Biofloc** + **RAS** ลด water exchange / เพิ่ม density / คุม disease ได้ดีขึ้น
+> 🎯 ระบบเลี้ยงจาก **extensive → intensive**, เทคโนโลยีสมัยใหม่: **Biofloc** + **RAS** ลด water exchange / เพิ่ม density / คุม disease ได้ดีขึ้น
 
 ---
 
@@ -6171,7 +6171,7 @@ Removed
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **5 farming systems** จาก extensive → RAS
-- ⭐⭐ **Biofloc** = no water exchange · bacteria recycle N · เป็น feed ในตัว
+- ⭐⭐ **Biofloc** = no water exchange, bacteria recycle N, เป็น feed ในตัว
 - ⭐ **RAS** = 99% water reuse แต่ capital สูง
 - ⭐ Future: precision aquaculture + AI`,
   },
@@ -6185,7 +6185,7 @@ Removed
     examFormat: "Multiple choice, ออก major shrimp diseases, WSSV, EMS, EHP",
     summary: `# Aquatic Clinic — 9.1.1 Shrimp Diseases
 
-> 🎯 โรคกุ้ง = ภัยคุกคามอันดับ 1 ของอุตสาหกรรมไทย — Top: **WSSV** · **EMS/AHPND** · **EHP**
+> 🎯 โรคกุ้ง = ภัยคุกคามอันดับ 1 ของอุตสาหกรรมไทย — Top: **WSSV**, **EMS/AHPND**, **EHP**
 > ⚠️ **ไม่มี vaccine** สำหรับโรคกุ้ง → biosecurity ทุกขั้นตอน
 
 ---
@@ -6242,7 +6242,7 @@ Removed
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **WSSV** = #1 shrimp killer (viral)
-- ⭐⭐⭐ **EMS** = bacterial (*V. parahaemolyticus*) · hepatopancreas pale/atrophic
+- ⭐⭐⭐ **EMS** = bacterial (*V. parahaemolyticus*), hepatopancreas pale/atrophic
 - ⭐⭐ **EHP** = microsporidian, growth retardation
 - ⭐⭐ **NO vaccines work** → biosecurity primary
 - ⭐ **Real-time PCR** = gold standard diagnostic`,
@@ -10159,7 +10159,7 @@ IgM มีชนิดเดียว แต่มีหลายรูปร่
     summary: `# Aquatic Clinic — 6.2 Diseases in Cultured Frogs
 
 > 🎯 Thai bullfrog (*Rana catesbeiana*, *Rana rugulosa*) = export industry หลักของ amphibian ไทย
-> ⚠️ Red-leg syndrome (Aeromonas) = bacterial ที่พบบ่อยสุด · Chytridiomycosis = global threat
+> ⚠️ Red-leg syndrome (Aeromonas) = bacterial ที่พบบ่อยสุด, Chytridiomycosis = global threat
 
 ---
 
@@ -11398,7 +11398,7 @@ IgM มีชนิดเดียว แต่มีหลายรูปร่
 # 🔻 Part 3: Vaccination ⭐⭐
 
 - ⭐ **Works ในปลา!** (ต่างจากกุ้ง)
-- ⭐ Routes: injection · immersion · oral
+- ⭐ Routes: injection, immersion, oral
 - ⭐ Common diseases ที่ vaccinate:
   - Streptococcus
   - Edwardsiella
@@ -11435,7 +11435,7 @@ IgM มีชนิดเดียว แต่มีหลายรูปร่
     examFormat: "Multiple choice, ออก endangered aquatic species, conservation medicine",
     summary: `# Aquatic Clinic — 10 Conservation Aquatic Animals
 
-> 🎯 Conservation medicine ≠ production medicine — endangered species + wildlife · One Health approach
+> 🎯 Conservation medicine ≠ production medicine — endangered species + wildlife, One Health approach
 > ⚠️ Translocation = bring disease + genetic issue — ต้องคิดให้รอบคอบ
 
 ---

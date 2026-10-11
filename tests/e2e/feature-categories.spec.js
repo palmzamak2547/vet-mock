@@ -49,7 +49,7 @@ test('expanding a group reveals the rest of its items', async ({ page }) => {
   const menu = page.locator('.vmx-feature-menu');
   await expect(menu).toBeVisible();
   const group = menu.locator('.vmx-feature-group')
-    .filter({ has: page.locator('.vmx-feature-more') })
+    .filter({ has: page.locator('.vmx-feature-more'), visible: true })
     .first();
   const more = group.locator('.vmx-feature-more');
   await expect(more).toBeVisible();

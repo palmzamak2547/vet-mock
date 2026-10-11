@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก major shrimp diseases, WSSV, EMS, EHP",
   summary: `# Aquatic Clinic — 9.1.1 Shrimp Diseases
 
-> 🎯 โรคกุ้ง = ภัยคุกคามอันดับ 1 ของอุตสาหกรรมไทย — Top: **WSSV** · **EMS/AHPND** · **EHP**
+> 🎯 โรคกุ้ง = ภัยคุกคามอันดับ 1 ของอุตสาหกรรมไทย — Top: **WSSV**, **EMS/AHPND**, **EHP**
 > ⚠️ **ไม่มี vaccine** สำหรับโรคกุ้ง → biosecurity ทุกขั้นตอน
 
 ---
@@ -68,7 +68,7 @@ export default {
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **WSSV** = #1 shrimp killer (viral)
-- ⭐⭐⭐ **EMS** = bacterial (*V. parahaemolyticus*) · hepatopancreas pale/atrophic
+- ⭐⭐⭐ **EMS** = bacterial (*V. parahaemolyticus*), hepatopancreas pale/atrophic
 - ⭐⭐ **EHP** = microsporidian, growth retardation
 - ⭐⭐ **NO vaccines work** → biosecurity primary
 - ⭐ **Real-time PCR** = gold standard diagnostic`,

@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก endangered aquatic species, conservation medicine",
   summary: `# Aquatic Clinic — 10 Conservation Aquatic Animals
 
-> 🎯 Conservation medicine ≠ production medicine — endangered species + wildlife · One Health approach
+> 🎯 Conservation medicine ≠ production medicine — endangered species + wildlife, One Health approach
 > ⚠️ Translocation = bring disease + genetic issue — ต้องคิดให้รอบคอบ
 
 ---

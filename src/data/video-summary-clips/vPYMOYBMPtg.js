@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก mare + stallion repro surgery",
   summary: `# Equine Repro — 6.2 Reproductive Surgery
 
-> 🎯 **Caslick's = most common mare procedure** · **Castration = most common stallion surgery** · cryptorchid = always remove ⭐⭐⭐
+> 🎯 **Caslick's = most common mare procedure**, **Castration = most common stallion surgery**, cryptorchid = always remove ⭐⭐⭐
 > ⚠️ ออกแน่: Caslick's purpose, castration techniques, cryptorchid cancer risk, C-section emergency only
 
 ---

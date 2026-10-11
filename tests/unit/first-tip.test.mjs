@@ -33,7 +33,7 @@ beforeEach(() => {
   };
 });
 
-const { shouldShowTip, markTipSeen, dismissTip, decideTip, todayKey, TIP_STORAGE_KEY } =
+const { shouldShowTip, markTipSeen, dismissTip, decideTip, tipTurn, todayKey, TIP_STORAGE_KEY, TIP_TURN_KEY } =
   await import('../../src/lib/first-tip.js');
 
 test('the first open of a day shows the hint', () => {
@@ -139,7 +139,7 @@ test('a new id is a new decision, read from the record', () => {
   assert.equal(shown.show, true);
   const quiet = decideTip(shown, 'notes', DAY_1);
   assert.notEqual(quiet, shown, 'a different feature reused the decision of the first one');
-  assert.deepEqual(quiet, { id: 'notes', show: false });
+  assert.deepEqual(quiet, { id: 'notes', show: false, turn: 0 });
 });
 
 test('a hint that was already quiet stays quiet for that id', () => {
@@ -147,6 +147,62 @@ test('a hint that was already quiet stays quiet for that id', () => {
   const decision = decideTip(null, 'videos', DAY_1);
   assert.equal(decision.show, false);
   assert.equal(decideTip(decision, 'videos', DAY_1).show, false);
+});
+
+// ── Which hint is today's: a feature can have several, one per day ─────────
+// A student who opens the notes every day should meet a new capability, not
+// the same sentence. The turn is how many distinct days this feature's hint
+// has been shown before today, kept apart from the day record so the record
+// keeps its { id: 'YYYY-MM-DD' } shape. Day one is always turn 0, which is
+// the hint the owner asked for (notes: print to PDF).
+
+test('the first day a hint is ever shown is turn 0, and each new day it is shown moves on one', () => {
+  assert.equal(tipTurn('notes', DAY_1), 0, 'a never-shown hint did not start at the first one');
+  markTipSeen('notes', DAY_1);
+  assert.equal(tipTurn('notes', DAY_1), 0, 'the turn moved within the day it was shown');
+  assert.equal(tipTurn('notes', DAY_2), 1, 'the next day did not move to the next hint');
+  markTipSeen('notes', DAY_2);
+  assert.equal(tipTurn('notes', DAY_2_LATE), 1, 'a later hour of the same day moved the turn');
+  assert.equal(tipTurn('notes', new Date(2026, 9, 14, 8, 0)), 2, 'a skipped day must not skip a hint');
+});
+
+test('two shows on the same day count as one turn, and dismissing is the same as showing', () => {
+  markTipSeen('videos', DAY_1);
+  markTipSeen('videos', DAY_1);
+  dismissTip('videos', DAY_1);
+  assert.equal(JSON.parse(store.get(TIP_TURN_KEY)).videos, 0, 'one day was counted more than once');
+  dismissTip('videos', DAY_2);
+  assert.equal(JSON.parse(store.get(TIP_TURN_KEY)).videos, 1);
+  assert.deepEqual(JSON.parse(store.get(TIP_STORAGE_KEY)), { videos: todayKey(DAY_2) }, 'the day record changed shape');
+});
+
+test('the decision carries the turn chosen before the card writes its own record', () => {
+  markTipSeen('library', DAY_1);
+  const decision = decideTip(null, 'library', DAY_2);
+  assert.deepEqual(decision, { id: 'library', show: true, turn: 1 });
+  markTipSeen('library', DAY_2);
+  assert.equal(decideTip(decision, 'library', DAY_2).turn, 1, 'writing the record changed the hint on screen');
+});
+
+test('a broken or foreign turn store starts again at the first hint', () => {
+  store.set(TIP_TURN_KEY, '{not json');
+  assert.equal(tipTurn('notes', DAY_1), 0);
+  store.set(TIP_TURN_KEY, JSON.stringify({ notes: -3 }));
+  assert.equal(tipTurn('notes', DAY_1), 0, 'a negative turn was trusted');
+  store.set(TIP_TURN_KEY, JSON.stringify({ notes: 'two' }));
+  assert.equal(tipTurn('notes', DAY_1), 0, 'a non-number turn was trusted');
+  markTipSeen('notes', DAY_1);
+  assert.equal(JSON.parse(store.get(TIP_TURN_KEY)).notes, 0, 'the bad value was not replaced');
+});
+
+test('a store that refuses writes still answers a turn and never throws', () => {
+  globalThis.localStorage = {
+    getItem() { throw new Error('SecurityError'); },
+    setItem() { throw new Error('QuotaExceededError'); },
+    removeItem() {},
+  };
+  assert.equal(tipTurn('notes', DAY_1), 0);
+  assert.doesNotThrow(() => markTipSeen('notes', DAY_1));
 });
 
 // The stub must not leak into the other suites.

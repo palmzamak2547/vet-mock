@@ -32,7 +32,7 @@ export default {
 | Reproductive failure | Lameness |
 
 > 💡 **กฎทอง**: "ต้องรู้ปกติก่อน → ถึงจะรู้ผิดปกติ"
-> ตัวอย่าง baseline: Layer hen feed 100-110 g/day · peak egg production ~90-95% · ducks normal water consumption
+> ตัวอย่าง baseline: Layer hen feed 100-110 g/day, peak egg production ~90-95%, ducks normal water consumption
 
 ---
 
@@ -84,12 +84,12 @@ export default {
 ## C. Epidemic
 - SUDDEN INCREASE above expected level
 - Outbreak situation
-- Examples: HPAI 2547 · ASF entry · LSD 2021 outbreak
+- Examples: HPAI 2547, ASF entry, LSD 2021 outbreak
 
 ## D. Pandemic
 - GLOBAL spread (worldwide)
 - Multiple countries simultaneously
-- Examples: **COVID-19** (classic) · FMD 2566 · HPAI globally
+- Examples: **COVID-19** (classic), FMD 2566, HPAI globally
 
 > 💡 **Memorize Trick**:
 > Sporadic = **occasional** (sometimes)

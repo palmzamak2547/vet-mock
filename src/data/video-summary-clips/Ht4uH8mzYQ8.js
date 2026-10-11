@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก ornamental fish DDx, betta diseases, koi",
   summary: `# Aquatic Clinic — 5 Ornamental Fish Medicine
 
-> 🎯 ไทยเป็น hub ส่งออก ornamental fish ของโลก — เจอบ่อยใน clinic: betta · goldfish · koi · discus
+> 🎯 ไทยเป็น hub ส่งออก ornamental fish ของโลก — เจอบ่อยใน clinic: betta, goldfish, koi, discus
 > ⚠️ **Always check water quality FIRST** — โรคหลายอย่างเกิดจากน้ำ ไม่ใช่ pathogen
 
 ---
@@ -49,7 +49,7 @@ export default {
 ## Fungal
 - ⭐ Saprolegnia (water mold)
 
-> 💡 **Ich** = parasitic disease ที่พบบ่อยที่สุด · **KHV** = catastrophic ในฟาร์ม koi
+> 💡 **Ich** = parasitic disease ที่พบบ่อยที่สุด, **KHV** = catastrophic ในฟาร์ม koi
 
 ---
 

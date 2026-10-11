@@ -164,6 +164,26 @@ export function oauthProviderConfig(provider, origin, env = process.env) {
   return null;
 }
 
+/**
+ * Which accounts a student can connect on this deployment, decided from env
+ * PRESENCE only: the answer is booleans, never a value, so it is safe to
+ * hand to any visitor and to cache publicly.
+ *
+ * A provider is connectable only when /api/external-connect-start could
+ * hand out a consent URL AND the callback could keep the grant: the client
+ * id and secret, a state-signing secret, and the service role that stores
+ * the row. A button the server would answer with not_configured is a dead
+ * button, so the reader shows it only when this says true. Public Google
+ * Docs and Sheets need none of it and are always readable.
+ */
+export function externalCapabilities(env = process.env) {
+  const { url, key } = supabaseEnv(env);
+  const stores = !!(url && key);
+  const signs = !!stateSecret(env);
+  const ready = (provider) => stores && signs && !!oauthProviderConfig(provider, 'https://capability.invalid', env);
+  return { connect: { google: ready('google'), notion: ready('notion') } };
+}
+
 // ── token request builders (pure, pinned by tests) ───────────────────
 
 export function googleTokenRequest({ code, redirectUri, env = process.env }) {

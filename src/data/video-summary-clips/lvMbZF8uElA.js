@@ -11,8 +11,8 @@ export default {
   examFormat: "Multiple choice, ออก meat microbiology, spoilage, pathogens",
   summary: `# Milk-Meat — 10 Microbiology of Meat
 
-> 🎯 Meat microbiology = natural flora + spoilage + pathogen · cold storage ชะลอแต่ไม่หยุด
-> ⚠️ E. coli O157:H7 → HUS · Trichinella ใน pork · Salmonella + Campylobacter ในไก่
+> 🎯 Meat microbiology = natural flora + spoilage + pathogen, cold storage ชะลอแต่ไม่หยุด
+> ⚠️ E. coli O157:H7 → HUS, Trichinella ใน pork, Salmonella + Campylobacter ในไก่
 
 ---
 

@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก mastitis impact on quality, SCC, CMT",
   summary: `# Milk-Meat — 3.2 Mastitis and Milk Quality
 
-> 🎯 **Mastitis ↑ → SCC ↑** = quality ตก · economic loss · public health risk จาก antibiotic residue
+> 🎯 **Mastitis ↑ → SCC ↑** = quality ตก, economic loss, public health risk จาก antibiotic residue
 > ⚠️ Cross-ref: NEEDS_VERIFICATION: broken knowledge reference (herd-health-rum mastitis lecture) — ลึกเรื่อง pathogen + treatment
 
 ---
@@ -61,7 +61,7 @@ export default {
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **Antibiotic withdrawal critical**
-- ⭐⭐ **SCC <200K = healthy** · 200-500K subclinical · >500K clinical
+- ⭐⭐ **SCC <200K = healthy**, 200-500K subclinical, >500K clinical
 - ⭐⭐ **CMT** = field mastitis test
 - ⭐ Mastitis → quality issues + economic loss
 - ⭐ Cross-ref: herd-health-rum mastitis lecture`,

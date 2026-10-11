@@ -3,6 +3,7 @@ import NavIcon from '../components/NavIcon.jsx';
 import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 import { detectCurrentPhase } from '../lib/current-phase.js';
+import { peekPhaseReturn, takePhaseReturn } from '../lib/phase-return.js';
 
 // PhaseSelectView — second step of the year picker.
 // After user picks a year, they pick a 4-quadrant exam phase:
@@ -30,10 +31,15 @@ const PHASES = [
   { id: '2-final', semester: 2, label: 'เทอม 2 ปลายภาค',   sub: 'วิชาเทอม 2 ไม่รวมเนื้อหากลางภาค', iconName: 'exam' },
 ];
 
+// Where to go after a pick: the topic screen sends a student here when the
+// subject has nothing on the paper in scope, and gets them back afterwards
+// (lib/phase-return.js). Everyone else still lands on Home.
 export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, setSelectedPhase, setView }) {
   const yearMeta = YEARS.find((y) => y.id === selectedYear);
   const subjects = SUBJECTS_BY_YEAR[selectedYear] || [];
   const currentPhase = detectCurrentPhase(new Date(), selectedYear);
+  const returnView = peekPhaseReturn();
+  const leaveTo = (view) => { takePhaseReturn(); setView(view); };
 
   return (
     <>
@@ -64,7 +70,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
               className="vmx-mode-card"
               onClick={() => {
                 setSelectedPhase(p.id);
-                setView('home');
+                setView(takePhaseReturn() || 'home');
               }}
               style={{
                 borderColor: isPicked ? accent : (isCurrent ? 'var(--clr-rose)' : undefined),
@@ -110,8 +116,10 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>
-        <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('year-select')}>← เปลี่ยนปี</button>
-        <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>หน้าแรก</button>
+        {returnView
+          ? <button className="vmx-btn vmx-btn-ghost" onClick={() => leaveTo(returnView)}>← กลับหน้าหัวข้อ</button>
+          : <button className="vmx-btn vmx-btn-ghost" onClick={() => leaveTo('year-select')}>← เปลี่ยนปี</button>}
+        <button className="vmx-btn vmx-btn-ghost" onClick={() => { takePhaseReturn(); goHome(); }}>หน้าแรก</button>
       </div>
     </>
   );

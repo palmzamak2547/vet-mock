@@ -157,7 +157,7 @@ export default {
 - ⭐⭐⭐ **Population focus** = key difference from pathology
 - ⭐⭐ **Qualitative**: Natural History, Causation, Microbe characterization
 - ⭐⭐ **Quantitative**: Disease Measuring, Observational, Modelling, Clinical, Economic
-- ⭐⭐⭐ **3 study designs**: Cross-sectional (snapshot) · Retrospective (disease→exposure) · Prospective (exposure→disease)
+- ⭐⭐⭐ **3 study designs**: Cross-sectional (snapshot), Retrospective (disease→exposure), Prospective (exposure→disease)
 - ⭐⭐ **Multiple causation** = norm (not single causes)
 - ⭐ **R-value** = reproduction number for disease spread
 - ⭐ **Mixing vessel** concept (HPAI in pigs example)`,

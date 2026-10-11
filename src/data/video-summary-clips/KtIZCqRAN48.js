@@ -49,7 +49,7 @@ export default {
 - Rotate drug classes
 - Pasture management
 
-> 💡 **ทำไม selective**: blanket deworming → resistance ในระดับสูง · selective = ไม่เกิด selection pressure
+> 💡 **ทำไม selective**: blanket deworming → resistance ในระดับสูง, selective = ไม่เกิด selection pressure
 
 ---
 

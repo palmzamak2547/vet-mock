@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice + calculation, ออก Sensitivity, Specificity, PPV, NPV, 2x2 table, screening vs diagnostic",
   summary: `# Veterinary Epidemiology — 3.1 Screening and Diagnostic Tests
 
-> 🎯 **Sensitivity** หา sick · **Specificity** confirm healthy · **PPV** depends on prevalence ⭐⭐⭐
+> 🎯 **Sensitivity** หา sick, **Specificity** confirm healthy, **PPV** depends on prevalence ⭐⭐⭐
 > ⚠️ ออกแน่: 2x2 table, formulas, screening vs diagnostic, prevalence trap
 
 ---

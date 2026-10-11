@@ -15,9 +15,9 @@ export default {
 
 Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเติมคำง่ายๆ ที่สุดถือว่าเป็นคะแนนช่วยของวิชานี้**" [4:22] — แต่ตอนท้ายย้ำอีกรอบว่า **"หน้าสุดท้ายเป็นข้อสอบทุกปี เติมคำ อาการในคน/อาการในสัตว์/เป็นเชื้ออะไร/โฮสตหลักคืออะไร"** [69:43-70:15] ★
 
-**ช่องทางแพร่ zoonosis (3 ทาง)** [5:26]: direct contact (สัมผัสสัตว์เลี้ยง นกแก้ว), indirect (สิ่งคัดหลั่ง/ปนเปื้อนของเล่น), **vector-borne** (ยุง·เห็บ·หมัด·ไร).
+**ช่องทางแพร่ zoonosis (3 ทาง)** [5:26]: direct contact (สัมผัสสัตว์เลี้ยง นกแก้ว), indirect (สิ่งคัดหลั่ง/ปนเปื้อนของเล่น), **vector-borne** (ยุง, เห็บ, หมัด, ไร).
 
-**Bird population 3 กลุ่ม** [5:57]: (1) **Pet birds** = นกแก้ว/หงส์หยก (2) **Backyard** = เป็ด·ไก่หลังบ้าน — Aj. แซวสว.นโยบายให้เลี้ยงไก่ 2 ตัวเอาไข่กิน [6:29] (3) **Wild bird** = นกอพยพ.
+**Bird population 3 กลุ่ม** [5:57]: (1) **Pet birds** = นกแก้ว/หงส์หยก (2) **Backyard** = เป็ด, ไก่หลังบ้าน — Aj. แซวสว.นโยบายให้เลี้ยงไก่ 2 ตัวเอาไข่กิน [6:29] (3) **Wild bird** = นกอพยพ.
 
 โรคแบ่ง 3 กลุ่ม: **Bacteria, Fungi, Virus**. คาบนี้ครอบ ~11 โรค.
 
@@ -29,15 +29,15 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 - โฮสตหลัก: **psittacine birds** (นกแก้ว, macaw, cockatiel) อาการรุนแรง / ในไก่อาการเบา [7:31]
 - แพร่ในนก: direct, **airborne** (ละอองขนฝุ่น) [8:33], oral, **vertical** (แม่→ลูก), vector
 - เชื้อทนสิ่งแวดล้อมได้นาน [9:34]
-- **2 strains**: low virulent (mortality 1-4%, ซึม·เบื่ออาหาร·อึเขียว) vs **virulent (~30% mortality)** [9:34-10:05]
+- **2 strains**: low virulent (mortality 1-4%, ซึม, เบื่ออาหาร, อึเขียว) vs **virulent (~30% mortality)** [9:34-10:05]
 - อาการนก: respiratory + enteric, severe → systemic **pericarditis, airsacculitis**, ตาบวมเป็นถุงน้ำ, ตายใน 1-2 วัน, ★ **อึเขียวเหลือง** = typical sign [10:37]
 - ไทยเจอ ~7.8% ในนก (PCR) [11:07]
-- **อาการคน** [12:09]: asymptomatic ก็ได้ → mild flu (ไข้·ปวดเมื่อย·conjunctivitis·arthritis) → severe **systemic pneumonia, endocarditis, myocarditis, encephalitis**, เคยมีรายงานเสียชีวิต ★
+- **อาการคน** [12:09]: asymptomatic ก็ได้ → mild flu (ไข้, ปวดเมื่อย, conjunctivitis, arthritis) → severe **systemic pneumonia, endocarditis, myocarditis, encephalitis**, เคยมีรายงานเสียชีวิต ★
 - IP ~2 weeks [13:11]
 - **Tx: tetracycline / doxycycline** [13:11] (intracellular)
-- **Human-to-human transmission ได้** ผ่านทางเดินหายใจ — เคยระบาดในรพ. (Scotland·Sweden) [14:46-15:46], เคสจีนโรงเชือดเป็ด 8 คน + secondary/tertiary wave ในญาติ·บุคลากร [15:46-17:21] ★
+- **Human-to-human transmission ได้** ผ่านทางเดินหายใจ — เคยระบาดในรพ. (Scotland, Sweden) [14:46-15:46], เคสจีนโรงเชือดเป็ด 8 คน + secondary/tertiary wave ในญาติ, บุคลากร [15:46-17:21] ★
 - **ไทย ก.พ. ปีที่แล้ว มีเคสคนติดจากหงส์หยก** — เลี้ยง 19 ตัว ตาย 11 → คนปวดเมื่อย ไข้ [17:51-18:53]
-- คำแนะนำกรมควบคุมโรค: กักนกใหม่ 30 วัน, ใส่ถุงมือ·หน้ากากตอนล้างกรง, อากาศถ่ายเท, สังเกตอึ·ไข้เจ้าของ [19:28-20:32]
+- คำแนะนำกรมควบคุมโรค: กักนกใหม่ 30 วัน, ใส่ถุงมือ, หน้ากากตอนล้างกรง, อากาศถ่ายเท, สังเกตอึ, ไข้เจ้าของ [19:28-20:32]
 
 ---
 
@@ -48,12 +48,12 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 - **มีวัคซีน** (ไม่กันติด แต่ลดความรุนแรง, unvaccinated mortality 40-50%) [21:35]
 - โฮสต susceptible: **ไก่งวง, เป็ด, ห่าน** ★ — โดยเฉพาะไก่งวงอายุเยอะ [21:35-22:08]
 - แพร่: direct contact ผ่านบาดแผล, **insemination**, oral, vector [22:08-22:39]
-- เชื้อ shed ทุก secretion (อึ·ปัสสาวะ·nasal), ทนสิ่งแวดล้อม [22:39-23:11]
-- อาการ: **ไก่งวง = peracute death** หงอน·งวงแดงบวม [23:11], ไก่ทั่วไป = ซึม·ท้องเสีย·ตาย/chronic, ผ่าซากเจอ pericarditis, ตับโต [23:41]
+- เชื้อ shed ทุก secretion (อึ, ปัสสาวะ, nasal), ทนสิ่งแวดล้อม [22:39-23:11]
+- อาการ: **ไก่งวง = peracute death** หงอน, งวงแดงบวม [23:11], ไก่ทั่วไป = ซึม, ท้องเสีย, ตาย/chronic, ผ่าซากเจอ pericarditis, ตับโต [23:41]
 - Dx: impression smear (Gram+), PCR [24:11]
 - Tx: **penicillin, erythromycin** + วัคซีน
 - **อาการคน 3 แบบ** [24:11-25:12]: (1) **Localized cutaneous** = ติดที่บาดแผล รอยโรครูปวงตัว E ตรงกลางเข้ม ★ (2) **Diffuse cutaneous** กระจายผิวหนัง (3) **Septicemic / endocarditis** ในคนภูมิอ่อนแอ
-- กลุ่มเสี่ยง: สัตวแพทย์·คนงานโรงเชือด
+- กลุ่มเสี่ยง: สัตวแพทย์, คนงานโรงเชือด
 
 ---
 
@@ -61,7 +61,7 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 
 - เชื้อ: ***Mycobacterium avium complex (MAC)*** [25:42]
 - โฮสต: นกทุกชนิด, ติดได้ทุก mammal (W life ด้วย)
-- ★ **เจอในไก่หลังบ้าน·สัตว์อายุเยอะ** — **ไม่ค่อยเจอในฟาร์ม** เพราะฟาร์ม cycle เร็ว ไก่ไม่ได้อยู่นานพอที่ Mycobacterium ก่อโรค (chronic disease) [26:12-26:45]
+- ★ **เจอในไก่หลังบ้าน, สัตว์อายุเยอะ** — **ไม่ค่อยเจอในฟาร์ม** เพราะฟาร์ม cycle เร็ว ไก่ไม่ได้อยู่นานพอที่ Mycobacterium ก่อโรค (chronic disease) [26:12-26:45]
 - อาการนก: chronic, น้ำหนักลด, ผอมแกร็น, ไข่รด, ตาย → ผ่าซากเจอ **granulomatous tubercles/ถุงหนอง** [27:16-27:48]
 - Dx: ผ่าซาก, **acid-fast stain อึ**, culture, PCR [27:48]
 - **คน = non-TB Mycobacterium** [27:48], 3 อาการ: (1) internal organ infection (2) **chronic pulmonary** (3) **lymphadenitis** [28:20]
@@ -78,7 +78,7 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 - 2 serovar ก่อโรคในนกแต่ไม่ทำในคน: **S. Pullorum, S. Gallinarum** [30:25] (vertical transmission)
 - ★ **2 serovar ก่อ foodborne ในคน: S. Enteritidis & S. Typhimurium** [30:58]
 - คน: foodborne, จะเรียนละเอียดปี 5
-- Cycle: ไก่ → egg/ลูก → environment → vector (หนู·แมลงวัน) → คน [31:28]
+- Cycle: ไก่ → egg/ลูก → environment → vector (หนู, แมลงวัน) → คน [31:28]
 - ★ **ปัญหาในไข่ดิบ** (US/EU) [31:59]
 - **Farm-to-table outbreak control** ทุก step [32:30] — เนื้อหารายละเอียดปี 5
 - ★ Salmonella ที่ไม่ทำให้คนป่วย ก็ยังสำคัญเพราะ **ส่งผ่าน AMR genes** สู่คน [33:32]
@@ -91,7 +91,7 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 
 - ***Campylobacter jejuni***, Gram-negative [35:38]
 - ★ **ในไก่/wild bird ไม่ก่อโรค** แต่ shed → คน
-- **คน: foodborne, ไข้·ท้องเสีย** [36:09]
+- **คน: foodborne, ไข้, ท้องเสีย** [36:09]
 - Cycle: shed อึ → ลูก → environment
 - Control: feed additives, vaccine, slaughter (water wash, UV light) [36:39-37:12]
 - เนื้อหาเรียนเยอะปี 5
@@ -110,8 +110,8 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 ## 7. Q Fever [38:14-39:49]
 
 - ***Coxiella burnetii*** [38:14]
-- ★ **โฮสตหลัก = วัว** (น้ำนม·placenta) — สัตว์ปีก = secondary host (นกพิราบ·domestic birds) [38:47]
-- คน: asymptomatic / mild flu (ไข้·ไอ·จาม) → severe → **pneumonia, hepatitis** [39:19]
+- ★ **โฮสตหลัก = วัว** (น้ำนม, placenta) — สัตว์ปีก = secondary host (นกพิราบ, domestic birds) [38:47]
+- คน: asymptomatic / mild flu (ไข้, ไอ, จาม) → severe → **pneumonia, hepatitis** [39:19]
 - กลุ่มเสี่ยง: คนช่วยทำคลอดวัว/แมว/หมา (มือเปล่า) [39:49]
 
 ---
@@ -119,10 +119,10 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 ## 8. Cryptococcosis [39:49-42:28]
 
 - ***Cryptococcus neoformans*** [40:22]
-- ★ **ไม่ติดตรงจากนก** — ติดจาก **environmental contamination** (ดิน·เศษใบไม้ชื้น) [40:22]
+- ★ **ไม่ติดตรงจากนก** — ติดจาก **environmental contamination** (ดิน, เศษใบไม้ชื้น) [40:22]
 - ★ **กลุ่มนกพิราบเป็น carrier** อึออกมา → คนสูดสปอเข้าไป
 - ★ Aj. เน้นแยกกับ **Sporothrix** = ติดตรงจากแมว, Crypto **ไม่ติดตรงจากแมว** [40:52] (มัก confuse)
-- คน: ติดเข้าปอด, skin, CNS, ★ ติดเมื่อภูมิดรอป·เครียด
+- คน: ติดเข้าปอด, skin, CNS, ★ ติดเมื่อภูมิดรอป, เครียด
 - เจอ Southeast Asia, Africa
 - Tx: ยาฆ่าเชื้อรา 6 เดือน+ (criteria ไม่ออกสอบ) [42:28]
 
@@ -131,7 +131,7 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 ## 9. Newcastle Disease (NDV) [42:28-45:34]
 
 - ★ **เป็น zoonosis ได้!** [44:02], **ข้อสอบ VCA หลอกบ่อย** — คนมักติ๊ก "ไม่ติดคน" แต่จริง = ติดได้ ★★
-- 2 strains: low virulent (respiratory, ไข่รด) vs **velogenic** (mortality สูง, CNS·GIT) [43:31]
+- 2 strains: low virulent (respiratory, ไข่รด) vs **velogenic** (mortality สูง, CNS, GIT) [43:31]
 - คน: ★ **ส่วนใหญ่ทำให้เกิด conjunctivitis (เยื่อบุตาอักเสบ)** ไข้อ่อนๆ ~1 อาทิตย์ [44:32]
 - ★ **ติดตอนทำวัคซีน** = วัคซีนกระเด็นเข้าตา [44:32], หรือ respiratory/contaminated food
 - ไม่มียาจำเพาะ, supportive
@@ -144,9 +144,9 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 - กลุ่ม encephalitis virus, ★ **vector = ยุง** (Culex) [46:05]
 - **Susceptible host = อีกา (crow), terrestrial bird** [46:05]
 - อาการนก: อ่อนแรง, convulsion, ตัวสั่น, ★ **ตาบอด** [46:35]
-- Cycle: bird ↔ mosquito → **dead-end host = ม้า·คน** [47:11] (Aj. ถามนิยาม dead-end = ไม่แพร่ต่อ ไม่ได้แปลว่าตาย ★)
-- ★ ระบาด US·EU, ไม่มีวัคซีนคน
-- คน: 20% develop อาการ — ไข้·อาเจียน·ท้องเสีย, severe → **encephalitis/meningitis** [47:41]
+- Cycle: bird ↔ mosquito → **dead-end host = ม้า, คน** [47:11] (Aj. ถามนิยาม dead-end = ไม่แพร่ต่อ ไม่ได้แปลว่าตาย ★)
+- ★ ระบาด US, EU, ไม่มีวัคซีนคน
+- คน: 20% develop อาการ — ไข้, อาเจียน, ท้องเสีย, severe → **encephalitis/meningitis** [47:41]
 - ป้องกัน: surveillance ยุง, ป้องกันยุงกัด
 
 ---
@@ -156,7 +156,7 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 ★ ส่วนยาวที่สุด — Aj. เน้นเป็นพิเศษ
 
 **Subtypes**: Influenza A, RNA virus, **HA 16 subtypes, NA 9 subtypes** [49:15-49:45]
-- ★ **Zoonotic subtypes**: H5, H7, H9 (จากสัตว์ปีก), H1, H3 (จากหมู·สุนัข) [49:45-50:18]
+- ★ **Zoonotic subtypes**: H5, H7, H9 (จากสัตว์ปีก), H1, H3 (จากหมู, สุนัข) [49:45-50:18]
 - ★ **Aquatic birds = sentinel host** ติดได้ทุก subtype + แพร่ทั้งสัตว์เลี้ยงลูก/avian [52:25]
 
 **Genetic change** [52:56-53:28]:
@@ -170,7 +170,7 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 **H5N1 history** [55:32-58:36]:
 - ระบาด ปี 2540 (2003) — ไก่ไทยตาย ~60 ล้านตัว, คนติด 17 ตาย 12 (~70% mortality) — ทั่วโลก ~300 case [57:04-58:06]
 - น่ากลัวพอกับโควิด แต่ human-to-human ติดยาก [58:36]
-- ★ **2024-25 กลับมา** — กัมพูชาต้นปีนี้ติด ~9 คน, เพื่อนบ้านลาว·เวียดนามเจอแล้ว [56:03]
+- ★ **2024-25 กลับมา** — กัมพูชาต้นปีนี้ติด ~9 คน, เพื่อนบ้านลาว, เวียดนามเจอแล้ว [56:03]
 - 2003-2022: Egypt 359, Vietnam 127, Indonesia top เคส [60:14]
 - ไทยเป็น white spot บนแผนที่ — ไม่ใช่ไม่มี แต่ไม่รายงาน [59:09]
 
@@ -197,14 +197,14 @@ Aj. เปิดคาบบอกชัดเลย "**ข้อสอบเต
 ★★ **Aj. ย้ำชัด: หน้าสุดท้าย = ข้อสอบทุกปี เติมคำง่ายๆ — ปีนี้อาจเติมมากกว่านี้** เตรียมละเอียด:
 - อาการในคน
 - อาการในสัตว์
-- เป็นเชื้ออะไร (รา·แบคทีเรีย·ไวรัส)
+- เป็นเชื้ออะไร (รา, แบคทีเรีย, ไวรัส)
 - โฮสต์หลัก
 
 ★ จุดเสี่ยงพลาดที่ Aj. เน้น:
 - ★ **NDV ติดคนได้** (ข้อสอบ VCA หลอก)
 - ★ **Crypto ไม่ติดตรงจากแมว** (สับสนกับ Sporothrix)
 - ★ Salmonella **S. Enteritidis + S. Typhimurium** = foodborne คน, **S. Pullorum + Gallinarum** = ในนก
-- ★ Erysipelas **โฮสต = ไก่งวง·เป็ด·ห่าน** + รอยโรคคนรูปวงตัว E
+- ★ Erysipelas **โฮสต = ไก่งวง, เป็ด, ห่าน** + รอยโรคคนรูปวงตัว E
 - ★ AI **HPAI = H5/H7** + dead-end host concept
 - ★ Q fever **โฮสตหลักวัว** (ไม่ใช่นก)
 - ★ Avian TB **non-TB, ดื้อยา TB ปกติ**

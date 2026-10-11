@@ -103,3 +103,28 @@ export function unfinishedWork(record, now = Date.now()) {
   return answered > 0 ? { answered, total: record.questions.length } : null;
 }
 
+/**
+ * A submitted set whose result never reached the local store (finishExam
+ * tags the record localSaved: false when changeUserData refuses). The record
+ * is then the only copy of that result, so starting or replaying another set
+ * under the same key would overwrite it: work to protect, like an unfinished
+ * one, and with no age limit, because a result that was never saved is worth
+ * as much a day later. A record from before the flag existed is not claimed.
+ */
+export function unsavedResult(record) {
+  if (!record || !record.submitted || record.localSaved !== false) return null;
+  if (!Array.isArray(record.questions) || !record.questions.length) return null;
+  return { answered: answeredCount(record.answers), total: record.questions.length };
+}
+
+/**
+ * The subject a finished set is recorded under: the one subject its questions
+ * share, else 'all'. Read off the set, not off App's subject state, which a
+ * resumed set (or a share link) can disagree with; this is the rule the server
+ * applies to a run as well.
+ */
+export function runSubjectFor(questions) {
+  const subjects = new Set((questions || []).map((q) => q?.subject).filter(Boolean));
+  return subjects.size === 1 ? [...subjects][0] : 'all';
+}
+

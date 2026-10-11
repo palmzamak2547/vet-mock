@@ -27,6 +27,18 @@
 // Follows the existing api/grade-summary.js contract exactly: origin-aware
 // CORS, per-IP rate limit, 503 when the key is absent so the UI degrades
 // instead of breaking.
+//
+// Nothing to answer from is an answer too. When retrieval finds that the
+// corpus does not cover the question (meta.covered false), no model is
+// asked: the reply says so and names `related` sections, the nearest ones
+// that account for at least half of the question. Terms VetWiki never
+// mentions come back in meta.unmatched, and the model is told about them.
+//
+// Failures carry a `reason` (timeout, provider, malformed, unexpected) so
+// the search box can say what happened and offer the next step; it retries
+// a transient one once by itself. The platform's own limit is set above the
+// model deadline, so a slow answer ends in this handler's JSON, never in a
+// platform error page the client cannot read.
 // ============================================================
 
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
@@ -34,14 +46,63 @@ import { createHash } from 'node:crypto';
 
 import { chatJSON, extractJSON, llmConfigured, hasCJK, LLM_DAILY_BUDGET } from './_lib/llm.js';
 import { loadTopic } from '../src/lib/vetwiki/index.js';
-import { retrieveSections, sectionsForPicks } from '../src/lib/vetwiki/retrieve.js';
+import { retrieveForQuestion, sectionsForPicks } from '../src/lib/vetwiki/retrieve.js';
 import { validateAnswer, allowedFromSections } from '../src/lib/vetwiki/answer.js';
 
 const MAX_QUESTION = 500;
 const MAX_SECTIONS = 10;         // bounded context — cost + latency ceiling
 const MAX_SECTION_CHARS = 3000;
-const MAX_TOKENS = 1200;
-const TIMEOUT_MS = 25_000;
+// Thai is token-dense: six claims with their limitations came close to the
+// old 1,200 and a reply cut off mid-object parsed as nothing at all.
+const MAX_TOKENS = 1600;
+// One deadline for every model call in a request, the language retry
+// included. It sits under the platform limit below, so a slow provider ends
+// in our own 504 with a reason, not in the platform's text page.
+const MODEL_BUDGET_MS = 24_000;
+const RETRY_MIN_MS = 6_000;
+
+// Without this the platform gives the function its 10-second default, and the
+// model deadline above could never be reached: a slow answer was cut off and
+// the browser got a page it could not read.
+export const config = {
+  runtime: 'nodejs',
+  maxDuration: 30,
+};
+
+/** The complete claims of a reply that was cut off mid-object (the model hit
+ *  its token limit). Each one is still re-validated like any answer; a reply
+ *  with no complete claim is null. */
+export function salvageClaims(text) {
+  const s = String(text ?? '');
+  const key = s.indexOf('"claims"');
+  const open = key < 0 ? -1 : s.indexOf('[', key);
+  if (open < 0) return null;
+  const BACKSLASH = String.fromCharCode(92);
+  const claims = [];
+  let depth = 0, start = -1, inStr = false, esc = false;
+  for (let i = open + 1; i < s.length; i++) {
+    const ch = s[i];
+    if (inStr) {
+      if (esc) esc = false;
+      else if (ch === BACKSLASH) esc = true;
+      else if (ch === '"') inStr = false;
+      continue;
+    }
+    if (ch === '"') inStr = true;
+    else if (ch === '{') { if (depth === 0) start = i; depth++; }
+    else if (ch === '}') {
+      depth--;
+      if (depth === 0 && start >= 0) {
+        try { claims.push(JSON.parse(s.slice(start, i + 1))); } catch { /* an unreadable claim is skipped */ }
+        start = -1;
+      }
+    } else if (ch === ']' && depth === 0) break;
+  }
+  return claims.length ? { claims } : null;
+}
+
+/** The fields the client needs to link a section, nothing more. */
+const sectionLink = ({ subject, topic, topicTitle, sectionId, heading }) => ({ subject, topic, topicTitle, sectionId, heading });
 
 /** Flatten a note body into plain text for the prompt. */
 function bodyText(body, out = []) {
@@ -87,6 +148,9 @@ Rules:
     section literally says.
   * "insufficient-evidence" if the sections do not answer the question — say so
     plainly instead of guessing.
+- If NONE of the sections answers the question, return exactly one
+  "insufficient-evidence" claim saying the knowledge base does not cover it.
+  Do not describe or summarise sections that are about something else.
 - Never invent drug doses, numbers, or guideline names that are not in the sections.
 - If the question is clinical, add a limitation noting this is for learning, not
   clinical decision-making.`;
@@ -144,6 +208,7 @@ export default async function handler(req, res) {
     // the same shape: `picked` = [{ subject, topic, topicTitle, section }].
     let picked;
     let topicMeta = null;
+    let retrieval = null;
     if (subject && topic) {
       const knowledge = loadTopic(subject, topic);
       if (!knowledge) return res.status(404).json({ error: 'Unknown VetWiki topic' });
@@ -154,13 +219,18 @@ export default async function handler(req, res) {
       ).slice(0, MAX_SECTIONS);
       picked = chosen.map((s) => ({ subject, topic, topicTitle: knowledge.title, topicSummary: knowledge.summary || '', section: s }));
     } else {
-      picked = sectionsForPicks(retrieveSections(question, { maxSections: MAX_SECTIONS }));
+      retrieval = retrieveForQuestion(question, { maxSections: MAX_SECTIONS });
+      picked = sectionsForPicks(retrieval.picks);
     }
+    const related = (retrieval?.related || []).map(sectionLink);
+    const unmatched = (retrieval?.unmatched || []).slice(0, 5);
     if (picked.length === 0) {
-      // Retrieval found nothing — say so instead of letting the model guess.
+      // Retrieval found nothing to answer from — say so instead of letting
+      // the model guess, and point at what VetWiki does have. The claim stays
+      // for clients built before meta.covered existed.
       return res.status(200).json({
         claims: [{ id: 'c1', text: 'ยังไม่มีเนื้อหาในคลังความรู้ที่ตอบคำถามนี้ได้', supportType: 'insufficient-evidence', support: [] }],
-        meta: { mode: 'corpus', sectionsUsed: 0, sections: [] },
+        meta: { mode: 'corpus', covered: false, sectionsUsed: 0, sections: [], related, unmatched },
       });
     }
 
@@ -212,20 +282,27 @@ export default async function handler(req, res) {
       return `--- section S${i + 1} (${verified ? 'VERIFIED' : 'DRAFT'})\narticle: ${topicTitle}${topicSummary ? ` — ${topicSummary}` : ''}\nheading: ${s.heading}\n${text}${extra ? `\n${extra}` : ''}`;
     }).join('\n\n');
 
-    const userMsg = `SECTIONS:\n${context}\n\nคำถาม: ${question}`;
+    // A term the question names that no section mentions: tell the model, so
+    // "Norberg angle" is answered as not covered rather than from a hoof angle.
+    const absentNote = unmatched.length
+      ? `\n\nNOTE: no supplied section mentions: ${unmatched.join(', ')}. If the question is about that, answer with an "insufficient-evidence" claim saying the knowledge base does not cover it, instead of answering from loosely related sections.`
+      : '';
+    const userMsg = `SECTIONS:\n${context}\n\nคำถาม: ${question}${absentNote}`;
+    const deadline = Date.now() + MODEL_BUDGET_MS;
+    const remaining = () => Math.max(0, deadline - Date.now());
     let answer = await chatJSON({
       system: SYSTEM,
       user: userMsg,
       maxTokens: MAX_TOKENS,
-      timeoutMs: TIMEOUT_MS,
+      timeoutMs: remaining(),
     });
     if (!answer.ok) {
-      if (answer.status === 504) return res.status(504).json({ error: 'AI request timed out' });
-      return res.status(502).json({ error: 'AI provider error', status: answer.status });
+      if (answer.status === 504) return res.status(504).json({ error: 'AI request timed out', reason: 'timeout' });
+      return res.status(502).json({ error: 'AI provider error', status: answer.status, reason: 'provider' });
     }
 
-    let parsed = extractJSON(answer.text);
-    if (!parsed) return res.status(502).json({ error: 'AI returned malformed output' });
+    let parsed = extractJSON(answer.text) || salvageClaims(answer.text);
+    if (!parsed) return res.status(502).json({ error: 'AI returned malformed output', reason: 'malformed' });
 
     // Language enforcement — the prompt rule is not enforcement. The primary
     // model dropped "主要通过" into a Thai claim live; on detection, ONE
@@ -233,15 +310,19 @@ export default async function handler(req, res) {
     // is dropped rather than rendered as broken Thai.
     const claimHasCJK = (c) => hasCJK(c?.text) || (Array.isArray(c?.limitations) && c.limitations.some(hasCJK));
     if ((parsed.claims || []).some(claimHasCJK)) {
-      const retry = await chatJSON({
-        system: SYSTEM,
-        user: `${userMsg}\n\nคำตอบก่อนหน้าของคุณมีตัวอักษรจีนปนอยู่ ตอบใหม่ทั้งหมดเป็นภาษาไทยล้วน (ศัพท์เทคนิคภาษาอังกฤษได้) ห้ามมีอักษรจีนหรือญี่ปุ่นแม้แต่ตัวเดียว`,
-        maxTokens: MAX_TOKENS,
-        timeoutMs: TIMEOUT_MS,
-      });
-      if (retry.ok) {
-        const reparsed = extractJSON(retry.text);
-        if (reparsed && (reparsed.claims || []).length) { parsed = reparsed; answer = retry; }
+      // Only when the shared deadline still has room: otherwise the CJK
+      // claims are dropped below and the rest of the answer still arrives.
+      if (remaining() >= RETRY_MIN_MS) {
+        const retry = await chatJSON({
+          system: SYSTEM,
+          user: `${userMsg}\n\nคำตอบก่อนหน้าของคุณมีตัวอักษรจีนปนอยู่ ตอบใหม่ทั้งหมดเป็นภาษาไทยล้วน (ศัพท์เทคนิคภาษาอังกฤษได้) ห้ามมีอักษรจีนหรือญี่ปุ่นแม้แต่ตัวเดียว`,
+          maxTokens: MAX_TOKENS,
+          timeoutMs: remaining(),
+        });
+        if (retry.ok) {
+          const reparsed = extractJSON(retry.text) || salvageClaims(retry.text);
+          if (reparsed && (reparsed.claims || []).length) { parsed = reparsed; answer = retry; }
+        }
       }
       parsed.claims = (parsed.claims || []).filter((c) => !claimHasCJK(c));
     }
@@ -270,7 +351,7 @@ export default async function handler(req, res) {
     if (claims.length === 0) {
       return res.status(200).json({
         claims: [{ id: 'c1', text: 'ยังตอบจากเนื้อหาที่มีไม่ได้', supportType: 'insufficient-evidence', support: [] }],
-        meta: { mode: topicMeta ? 'topic' : 'corpus', dropped, downgraded, sectionsUsed: picked.length, sections: sectionMeta },
+        meta: { mode: topicMeta ? 'topic' : 'corpus', covered: true, dropped, downgraded, sectionsUsed: picked.length, sections: sectionMeta, related, unmatched },
       });
     }
 
@@ -279,8 +360,11 @@ export default async function handler(req, res) {
       meta: {
         mode: topicMeta ? 'topic' : 'corpus',
         topicId: topicMeta,
+        covered: true,
         sectionsUsed: picked.length,
         sections: sectionMeta,
+        related,
+        unmatched,
         dropped,
         downgraded,
         model: answer.model,
@@ -291,12 +375,12 @@ export default async function handler(req, res) {
     return res.status(200).json(payload);
 
   } catch (err) {
-    if (err?.name === 'AbortError') return res.status(504).json({ error: 'AI request timed out' });
+    if (err?.name === 'AbortError') return res.status(504).json({ error: 'AI request timed out', reason: 'timeout' });
     // A malformed request body throws when req.body is touched — that is
     // the caller's error, not ours (probed live: it answered 500 before).
     if (/invalid json/i.test(String(err?.message || ''))) {
       return res.status(400).json({ error: 'Invalid JSON body' });
     }
-    return res.status(500).json({ error: 'Unexpected error', detail: String(err?.message || err).slice(0, 200) });
+    return res.status(500).json({ error: 'Unexpected error', reason: 'unexpected', detail: String(err?.message || err).slice(0, 200) });
   }
 }

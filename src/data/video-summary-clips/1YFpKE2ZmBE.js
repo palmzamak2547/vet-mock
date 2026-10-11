@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก equine anesthesia, standing vs general, drugs",
   summary: `# Equine — 10 Anesthesia
 
-> 🎯 Equine anesthesia = challenging — **Recovery = riskiest phase** · death rate ~1% ⭐⭐⭐
+> 🎯 Equine anesthesia = challenging — **Recovery = riskiest phase**, death rate ~1% ⭐⭐⭐
 > ⚠️ ออกแน่: xylazine standard, standing > general when possible, ketamine+diazepam induction, recovery dangers
 
 ---

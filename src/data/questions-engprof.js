@@ -257,7 +257,7 @@ export const QB_ENGPROF = [
       'Introduction → Discussion → Methods → Results',
       'Methods → Results → Introduction → Conclusion',
     ],
-    answer: 1, explain: 'IMRD format = Introduction → Methodology → Results → Discussion / Conclusion',
+    answer: 1, explain: 'IMRD format = Introduction → Methodology → Results → Discussion / Conclusion\nIntroduction บอก gap และวัตถุประสงค์ Methodology บอกว่าศึกษาอย่างไร Results ตอบคำถามวิจัยและโดยปกติยังไม่ตีความ ส่วน Discussion ตีความและบอกข้อจำกัด',
     verified: 'Textbook p.99' },
 
   { id: 51001, subject: 'engprof', topic: 'research-paper-structure', year: 4,

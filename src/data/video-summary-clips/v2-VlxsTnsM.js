@@ -62,7 +62,7 @@ export default {
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐ **SHS in chickens · TRT in turkeys** = same virus, different host
+- ⭐⭐ **SHS in chickens, TRT in turkeys** = same virus, different host
 - ⭐⭐ **Cilia damage → secondary E. coli** (key pathogenesis)
 - ⭐ **Subtypes A/B/C/D** — vaccine ต้อง match
 - ⭐ Pneumovirus ssRNA`,

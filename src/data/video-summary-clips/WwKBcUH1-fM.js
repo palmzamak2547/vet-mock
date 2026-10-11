@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก One Health prevention, case studies",
   summary: `# One Health — 6 Applications for Prevention and Control
 
-> 🎯 **One Health applications** in disease prevention + control · ผ่าน real case studies ⭐⭐
+> 🎯 **One Health applications** in disease prevention + control, ผ่าน real case studies ⭐⭐
 > 💡 Rabies = success story
 
 ---

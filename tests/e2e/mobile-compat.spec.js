@@ -383,7 +383,7 @@ test.describe('whole-app mobile compatibility', () => {
     await recordStage(page, testInfo, failures, 'practice-config');
 
     await page.locator('.vmx-config-panel input[type="number"]').first().fill('1');
-    await page.locator('.vmx-btn-row .vmx-btn-primary').last().click();
+    await page.locator('.vmx-config-start').click();
     await page.locator('.vmx-question-card').waitFor({ state: 'visible', timeout: 25_000 });
     await recordStage(page, testInfo, failures, 'active-question');
 
@@ -398,7 +398,7 @@ test.describe('whole-app mobile compatibility', () => {
 
     await gotoSurface(page, '/');
     await waitForSurface(page);
-    await page.getByRole('button', { name: 'ค้นหา', exact: true }).click();
+    await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
     const commandPalette = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
     await commandPalette.waitFor({ state: 'visible', timeout: 20_000 });
     await recordStage(page, testInfo, failures, 'command-palette');
@@ -423,7 +423,8 @@ test.describe('whole-app mobile compatibility', () => {
     await recordStage(page, testInfo, failures, 'video-editor');
     await videoEditor.getByRole('button', { name: 'ยกเลิก' }).click();
 
-    const firstVideo = page.locator('.vmx-mode-card > button').first();
+    // Clip cards have their own class family (2026-10-12), not .vmx-mode-card.
+    const firstVideo = page.locator('.vmx-video-card > button').first();
     await firstVideo.waitFor({ state: 'visible', timeout: 20_000 });
     // The shelf loads its cover images as cards enter the viewport, so the
     // card re-renders shortly after it first becomes visible. A click that

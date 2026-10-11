@@ -194,3 +194,34 @@ test('the printed sheet hides the app and sets Thai type on white', async ({ pag
   // cream panel behind the text.
   expect(printed.htmlBg).toBe('rgb(255, 255, 255)');
 });
+
+// The way into every summary above is a press on a shelf card. On 2026-10-11
+// Firefox failed the first test on both tries with the Milk card focused and
+// nothing open: the press went down on the card's "กำลังโหลดหน้าปก…" line,
+// the cover arrived and replaced that line before the release, and a press
+// released after its node is gone is not a click in any engine, so the card
+// never opened. A student with a mouse loses the same click when a cover lands
+// mid-press. Every cover here waits until the button is down, so the swap
+// always happens inside the press instead of once in a while.
+test('a card opens when its cover arrives in the middle of the press', async ({ page }) => {
+  let releaseCovers;
+  const pressed = new Promise((resolve) => { releaseCovers = resolve; });
+  await page.route('**/api/playlist**', async (route) => {
+    await pressed;
+    await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(PLAYLIST) });
+  });
+  await page.goto('/app/videos');
+  const card = page.getByRole('button', { name: /VET86/ }).filter({ hasText: /Milk|น้ำนม/ }).first();
+  await card.scrollIntoViewIfNeeded();
+  const loading = card.getByText('กำลังโหลดหน้าปก…');
+  await expect(loading).toBeVisible();
+  const line = await loading.elementHandle();
+  const box = await loading.boundingBox();
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.down();
+  releaseCovers();
+  // The line the press went down on is gone before the button comes up.
+  await expect.poll(() => line.evaluate((el) => el.isConnected)).toBe(false);
+  await page.mouse.up();
+  await expect(page.getByText('Milk microbiology').first()).toBeVisible();
+});

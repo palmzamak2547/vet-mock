@@ -11,17 +11,17 @@ export default {
   examFormat: "Multiple choice, ออก milk microflora, spoilage organisms, pathogens",
   summary: `# Milk-Meat — 2.1 Milk Microbiology
 
-> 🎯 น้ำนมไม่ปลอด microbe — มี natural flora · spoilage · และ pathogen ปนได้
+> 🎯 น้ำนมไม่ปลอด microbe — มี natural flora, spoilage, และ pathogen ปนได้
 > ⚠️ **Psychrotrophs โต 4°C ได้** — refrigeration อย่างเดียวไม่หยุด spoilage
 
 ---
 
 # 🔻 Part 1: Sources of Contamination ⭐⭐
 
-- ⭐ **Udder** — mastitis · environment
-- ⭐ **Equipment** — milking · cooling
-- ⭐ **Personnel** — hands · clothes
-- ⭐ **Environment** — air · water
+- ⭐ **Udder** — mastitis, environment
+- ⭐ **Equipment** — milking, cooling
+- ⭐ **Personnel** — hands, clothes
+- ⭐ **Environment** — air, water
 
 ---
 
@@ -31,7 +31,7 @@ export default {
 - ⭐ Lactobacillus
 - ⭐ Streptococcus
 - ⭐ Lactococcus
-- ⭐ **Beneficial** — ใช้ทำ yogurt · cheese
+- ⭐ **Beneficial** — ใช้ทำ yogurt, cheese
 
 ## Spoilage ⭐
 - ⭐ **Pseudomonas** — cold-tolerant!
@@ -60,7 +60,7 @@ export default {
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ 4 sources: udder · equipment · personnel · environment
+- ⭐⭐⭐ 4 sources: udder, equipment, personnel, environment
 - ⭐⭐ **Pseudomonas** = cold-tolerant spoilage
 - ⭐⭐ **Listeria + Brucella** zoonotic
 - ⭐ LAB = beneficial (yogurt/cheese)

@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก milk composition, quality parameters",
   summary: `# Milk-Meat — 1.1 Composition and Quality of Raw Milk
 
-> 🎯 Raw milk = **น้ำ 87%** เป็นหลัก · fat 3-5% · protein 3.3% (casein 80%) · lactose 4.7% · minerals 0.7%
+> 🎯 Raw milk = **น้ำ 87%** เป็นหลัก, fat 3-5%, protein 3.3% (casein 80%), lactose 4.7%, minerals 0.7%
 > ⚠️ Quality = composition + microbiology — SCC + TPC คือ 2 ตัวบ่งชี้หลัก
 
 ---
@@ -54,7 +54,7 @@ export default {
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ **Water 87% · fat 3-5% · protein 3.3% · lactose 4.7%**
+- ⭐⭐⭐ **Water 87%, fat 3-5%, protein 3.3%, lactose 4.7%**
 - ⭐⭐ **Casein = 80%** ของ milk protein
 - ⭐⭐ **SCC + TPC** = quality markers หลัก
 - ⭐ Premium: SCC <200K

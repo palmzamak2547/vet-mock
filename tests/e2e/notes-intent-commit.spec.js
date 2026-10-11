@@ -25,7 +25,7 @@ test('Home notes intent reaches the subject reader tab and does not leak into no
   }));
 
   await page.goto('/app', { waitUntil: 'domcontentloaded' });
-  await page.locator('.vmx-feature-menu').getByRole('button', { name: /^สรุปบทเรียน / }).click();
+  await page.locator('.vmx-feature-menu, .vmx-quick-grid').getByRole('button', { name: /^สรุปบทเรียน / }).filter({ visible: true }).first().click();
   await expect(page.getByText('เลือกวิชาเพื่ออ่านสรุปจากสไลด์ พร้อมแหล่งอ้างอิงในแต่ละส่วน', { exact: true })).toBeVisible();
   const aggregate = page.locator('.vmx-subject-card').filter({ hasText: 'รวมทุกวิชา' });
   await expect(aggregate).toHaveCount(0);

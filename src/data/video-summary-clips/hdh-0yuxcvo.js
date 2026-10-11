@@ -32,7 +32,7 @@ export default {
 - ⭐ **Rhinoscopy**
 - ⭐ **CT scan** = gold standard
 
-> 💡 **Unilateral** discharge → คิด foreign body หรือ tumor ก่อน · **Bilateral** → คิด infection, allergic
+> 💡 **Unilateral** discharge → คิด foreign body หรือ tumor ก่อน, **Bilateral** → คิด infection, allergic
 
 ---
 
@@ -66,7 +66,7 @@ export default {
 | **Crackles** | Lower — alveolar |
 | **Cyanosis** | Severe lower หรือ cardiac |
 
-> 💡 **Trick**: stertor + stridor มาจากบน · wheeze + crackle มาจากล่าง
+> 💡 **Trick**: stertor + stridor มาจากบน, wheeze + crackle มาจากล่าง
 
 ---
 

@@ -914,7 +914,7 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
     examFormat: "Multiple choice, ออก milk composition, quality parameters",
     summary: `# Milk-Meat — 1.1 Composition and Quality of Raw Milk
 
-> 🎯 Raw milk = **น้ำ 87%** เป็นหลัก · fat 3-5% · protein 3.3% (casein 80%) · lactose 4.7% · minerals 0.7%
+> 🎯 Raw milk = **น้ำ 87%** เป็นหลัก, fat 3-5%, protein 3.3% (casein 80%), lactose 4.7%, minerals 0.7%
 > ⚠️ Quality = composition + microbiology — SCC + TPC คือ 2 ตัวบ่งชี้หลัก
 
 ---
@@ -957,7 +957,7 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ **Water 87% · fat 3-5% · protein 3.3% · lactose 4.7%**
+- ⭐⭐⭐ **Water 87%, fat 3-5%, protein 3.3%, lactose 4.7%**
 - ⭐⭐ **Casein = 80%** ของ milk protein
 - ⭐⭐ **SCC + TPC** = quality markers หลัก
 - ⭐ Premium: SCC <200K
@@ -973,7 +973,7 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
     examFormat: "Multiple choice, ออก GMP, HACCP, 7 principles, CCP",
     summary: `# Milk-Meat — 5 GMP and HACCP Standards
 
-> 🎯 **GMP = pre-requisite · HACCP = systematic hazard control** — ทั้งคู่บังคับสำหรับ export
+> 🎯 **GMP = pre-requisite, HACCP = systematic hazard control** — ทั้งคู่บังคับสำหรับ export
 > ⚠️ HACCP = **7 principles** ต้องจำให้ครบ
 
 ---
@@ -1107,7 +1107,7 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
     examFormat: "Multiple choice, ออก Thai standards, TIS, Codex",
     summary: `# Milk-Meat — 1.2 Standards of Raw Milk and Dairy Products
 
-> 🎯 มี Thai (**TIS**) + International (**Codex** · EU · ISO) — มาตรฐานบังคับใช้ต่างกันตามผลิตภัณฑ์
+> 🎯 มี Thai (**TIS**) + International (**Codex**, EU, ISO) — มาตรฐานบังคับใช้ต่างกันตามผลิตภัณฑ์
 > ⚠️ Trade ระดับ international = ต้อง certify ครบ
 
 ---
@@ -1146,8 +1146,8 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ **TIS** = Thai standards · **Codex** = international
-- ⭐⭐ Pasteurized milk: coliforms <10/mL · TPC <50K/mL
+- ⭐⭐⭐ **TIS** = Thai standards, **Codex** = international
+- ⭐⭐ Pasteurized milk: coliforms <10/mL, TPC <50K/mL
 - ⭐ Microbiological + chemical limits
 - ⭐ Trade requires certification
 - ⭐ Sterilized = commercial sterility (long shelf life)`,
@@ -1163,7 +1163,7 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
     summary: `# Milk-Meat — 13 Slaughterhouse and Sanitary Practices
 
 > 🎯 Slaughterhouse = ระบบ linear flow (clean → dirty) + vet supervise antemortem + postmortem
-> ⚠️ Stress ก่อน slaughter = PSE/DFD · humane stunning เป็นทั้งจริยธรรมและ quality
+> ⚠️ Stress ก่อน slaughter = PSE/DFD, humane stunning เป็นทั้งจริยธรรมและ quality
 
 ---
 
@@ -1180,7 +1180,7 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
 - ⭐ Cooling
 - ⭐ Cutting
 
-> 💡 **Linear flow** = clean เริ่มต้น → dirty ปลายทาง · ไม่ให้ cross-contamination
+> 💡 **Linear flow** = clean เริ่มต้น → dirty ปลายทาง, ไม่ให้ cross-contamination
 
 ---
 
@@ -1285,7 +1285,7 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **Antibiotic residue testing mandatory**
-- ⭐⭐ **Charm / Delvotest** = screening · **HPLC / LC-MS/MS** = confirmatory
+- ⭐⭐ **Charm / Delvotest** = screening, **HPLC / LC-MS/MS** = confirmatory
 - ⭐ **Aflatoxin M1** monitored
 - ⭐ Withdrawal times critical
 - ⭐ Public health concern (AMR)`,
@@ -1300,7 +1300,7 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
     examFormat: "Multiple choice, ออก milk hygiene principles, farm to table",
     summary: `# Milk-Meat — 3.1 Introduction of Milk Hygiene
 
-> 🎯 Hygiene = chain ตั้งแต่ farm → consumer · อ่อนจุดเดียวพังทั้งระบบ
+> 🎯 Hygiene = chain ตั้งแต่ farm → consumer, อ่อนจุดเดียวพังทั้งระบบ
 > ⚠️ ⛓️ Cold chain break = bacterial growth + spoilage
 
 ---
@@ -1356,7 +1356,7 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
     examFormat: "Multiple choice, ออก pasteurization, UHT, cheese, yogurt processing",
     summary: `# Milk-Meat — 7 Processing Technologies for Milk Products
 
-> 🎯 Pasteurization 3 styles (HTST · LTLT · UHT) + processing อื่น (homogenization · standardization · fermentation)
+> 🎯 Pasteurization 3 styles (HTST, LTLT, UHT) + processing อื่น (homogenization, standardization, fermentation)
 > ⚠️ HTST 72°C × 15s = standard ที่ต้องจำให้ขึ้นใจ
 
 ---
@@ -1462,7 +1462,7 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ แต่ละผลิตภัณฑ์ storage ต่างกัน
-- ⭐⭐ **UHT room temp** (sealed) · 6-9 months
+- ⭐⭐ **UHT room temp** (sealed), 6-9 months
 - ⭐ **Hard cheese** long shelf life
 - ⭐ **FIFO** inventory rule
 - ⭐ Temperature logging required`,
@@ -1541,7 +1541,7 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
     examFormat: "Multiple choice, ออก milk-borne diseases, zoonotic risks",
     summary: `# Milk-Meat — 2.2 Milk-borne Pathogens and Diseases
 
-> 🎯 Raw milk เสี่ยงสูง — มี zoonotic pathogen หลายชนิด · **Pasteurization (HTST 72°C × 15s)** = หัวใจของ public health
+> 🎯 Raw milk เสี่ยงสูง — มี zoonotic pathogen หลายชนิด, **Pasteurization (HTST 72°C × 15s)** = หัวใจของ public health
 > ⚠️ **สตรีตั้งครรภ์ + immunocompromised ห้ามดื่ม raw milk** — Listeria fatal สูง
 
 ---
@@ -1606,7 +1606,7 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
     examFormat: "Multiple choice, ออก postmortem chemistry, rigor mortis, cutting, grading",
     summary: `# Milk-Meat — 15 Postmortem Changes & Meat Cutting/Grading
 
-> 🎯 Postmortem 4 phases: **Pre-rigor → Rigor mortis → Resolution → Aging** · pH ตก 7.2 → 5.5 · aging 7-21 วันสำหรับ beef
+> 🎯 Postmortem 4 phases: **Pre-rigor → Rigor mortis → Resolution → Aging**, pH ตก 7.2 → 5.5, aging 7-21 วันสำหรับ beef
 > ⚠️ Rigor mortis ที่ตัดเนื้อผิด phase = เนื้อเหนียวเกินกิน
 
 ---
@@ -1679,8 +1679,8 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **4 postmortem phases** + **pH 7.2 → 5.5**
-- ⭐⭐ **Rigor mortis 1-12 hours** · ATP depletion + actomyosin
-- ⭐⭐ **Aging 7-21 days** for beef · cathepsin + calpain
+- ⭐⭐ **Rigor mortis 1-12 hours**, ATP depletion + actomyosin
+- ⭐⭐ **Aging 7-21 days** for beef, cathepsin + calpain
 - ⭐ USDA Prime / Choice / Select grading
 - ⭐ Marbling = main grading factor`,
   },
@@ -1749,7 +1749,7 @@ biocide บางชนิดเป็นได้ทั้ง antiseptic แล
     examFormat: "Multiple choice, ออก molecular techniques, DNA testing, species ID",
     summary: `# Milk-Meat — 11.3 Application of Molecular Biology in Meat Science
 
-> 🎯 PCR + DNA-based methods = ทุกเรื่อง: species ID · pathogen detection · halal cert · fraud detection
+> 🎯 PCR + DNA-based methods = ทุกเรื่อง: species ID, pathogen detection, halal cert, fraud detection
 > ⚠️ "Horse meat scandal" Europe 2013 → ผลักดัน DNA testing ระดับสากล
 
 ---
@@ -3831,17 +3831,17 @@ UHT ย่อมาจาก ultra high temperature ซึ่งเป็นก�
     examFormat: "Multiple choice, ออก milk microflora, spoilage organisms, pathogens",
     summary: `# Milk-Meat — 2.1 Milk Microbiology
 
-> 🎯 น้ำนมไม่ปลอด microbe — มี natural flora · spoilage · และ pathogen ปนได้
+> 🎯 น้ำนมไม่ปลอด microbe — มี natural flora, spoilage, และ pathogen ปนได้
 > ⚠️ **Psychrotrophs โต 4°C ได้** — refrigeration อย่างเดียวไม่หยุด spoilage
 
 ---
 
 # 🔻 Part 1: Sources of Contamination ⭐⭐
 
-- ⭐ **Udder** — mastitis · environment
-- ⭐ **Equipment** — milking · cooling
-- ⭐ **Personnel** — hands · clothes
-- ⭐ **Environment** — air · water
+- ⭐ **Udder** — mastitis, environment
+- ⭐ **Equipment** — milking, cooling
+- ⭐ **Personnel** — hands, clothes
+- ⭐ **Environment** — air, water
 
 ---
 
@@ -3851,7 +3851,7 @@ UHT ย่อมาจาก ultra high temperature ซึ่งเป็นก�
 - ⭐ Lactobacillus
 - ⭐ Streptococcus
 - ⭐ Lactococcus
-- ⭐ **Beneficial** — ใช้ทำ yogurt · cheese
+- ⭐ **Beneficial** — ใช้ทำ yogurt, cheese
 
 ## Spoilage ⭐
 - ⭐ **Pseudomonas** — cold-tolerant!
@@ -3880,7 +3880,7 @@ UHT ย่อมาจาก ultra high temperature ซึ่งเป็นก�
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ 4 sources: udder · equipment · personnel · environment
+- ⭐⭐⭐ 4 sources: udder, equipment, personnel, environment
 - ⭐⭐ **Pseudomonas** = cold-tolerant spoilage
 - ⭐⭐ **Listeria + Brucella** zoonotic
 - ⭐ LAB = beneficial (yogurt/cheese)
@@ -4714,7 +4714,7 @@ Fermented milk (กลุ่มนมเปรี้ยว), cheese, buttermilk,
     examFormat: "Multiple choice, ออก meat hygiene principles, slaughter to consumer",
     summary: `# Milk-Meat — 9.1 Introduction to Meat Hygiene
 
-> 🎯 Meat hygiene = chain ตั้งแต่ farm → slaughter → processing → consumer · **vet ต้อง supervise ตลอด**
+> 🎯 Meat hygiene = chain ตั้งแต่ farm → slaughter → processing → consumer, **vet ต้อง supervise ตลอด**
 > ⚠️ Antemortem + postmortem inspection = vet duty หลัก
 
 ---
@@ -4771,8 +4771,8 @@ Fermented milk (กลุ่มนมเปรี้ยว), cheese, buttermilk,
     examFormat: "Multiple choice, ออก meat microbiology, spoilage, pathogens",
     summary: `# Milk-Meat — 10 Microbiology of Meat
 
-> 🎯 Meat microbiology = natural flora + spoilage + pathogen · cold storage ชะลอแต่ไม่หยุด
-> ⚠️ E. coli O157:H7 → HUS · Trichinella ใน pork · Salmonella + Campylobacter ในไก่
+> 🎯 Meat microbiology = natural flora + spoilage + pathogen, cold storage ชะลอแต่ไม่หยุด
+> ⚠️ E. coli O157:H7 → HUS, Trichinella ใน pork, Salmonella + Campylobacter ในไก่
 
 ---
 
@@ -4849,8 +4849,8 @@ Fermented milk (กลุ่มนมเปรี้ยว), cheese, buttermilk,
     examFormat: "Multiple choice, ออก inspection procedures, diseases identified, disposition",
     summary: `# Milk-Meat — 14 Antemortem and Postmortem Inspection
 
-> 🎯 Vet มี 2 inspection: **antemortem** (live animal) + **postmortem** (carcass) · ตัดสินใจ disposition ทุกตัว
-> ⚠️ 5 antemortem dispositions: Pass · Hold · Suspect · Condemned · Emergency slaughter
+> 🎯 Vet มี 2 inspection: **antemortem** (live animal) + **postmortem** (carcass), ตัดสินใจ disposition ทุกตัว
+> ⚠️ 5 antemortem dispositions: Pass, Hold, Suspect, Condemned, Emergency slaughter
 
 ---
 
@@ -4922,7 +4922,7 @@ Fermented milk (กลุ่มนมเปรี้ยว), cheese, buttermilk,
     examFormat: "Multiple choice, ออก meat quality factors, grading",
     summary: `# Milk-Meat — 11.2 Meat Quality and Wholesomeness
 
-> 🎯 **Quality** (sensory + appearance) ≠ **Wholesomeness** (safety) — ทั้งคู่ต้องผ่าน · stress = ตัวการของ DFD / PSE
+> 🎯 **Quality** (sensory + appearance) ≠ **Wholesomeness** (safety) — ทั้งคู่ต้องผ่าน, stress = ตัวการของ DFD / PSE
 
 ---
 
@@ -4945,7 +4945,7 @@ Fermented milk (กลุ่มนมเปรี้ยว), cheese, buttermilk,
 | ⭐⭐ **DFD** (Dark Firm Dry) | **High pH** | stress **ก่อน** slaughter (long-term) |
 | ⭐⭐ **PSE** (Pale Soft Exudative) | **Low pH** | stress **ที่** slaughter (acute) |
 
-> 💡 **DFD** = ม้า/วัว/หมูที่ stress นานก่อนตาย → glycogen หมด → lactic acid น้อย → pH สูง · เนื้อแห้ง คล้ำ
+> 💡 **DFD** = ม้า/วัว/หมูที่ stress นานก่อนตาย → glycogen หมด → lactic acid น้อย → pH สูง, เนื้อแห้ง คล้ำ
 > **PSE** = หมูที่ acute stress (genetic Halothane gene) → glycolysis เร็วเกิน → pH ตกเร็ว ที่อุณหภูมิยังสูง → เนื้อขาวซีด แฉะ
 
 ---
@@ -4969,8 +4969,8 @@ Fermented milk (กลุ่มนมเปรี้ยว), cheese, buttermilk,
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **Quality vs Wholesomeness** — concept ต่างกัน
-- ⭐⭐ **DFD** = stress ก่อน slaughter (long-term) · pH สูง
-- ⭐⭐ **PSE** = stress ที่ slaughter (acute) · pH ต่ำ
+- ⭐⭐ **DFD** = stress ก่อน slaughter (long-term), pH สูง
+- ⭐⭐ **PSE** = stress ที่ slaughter (acute), pH ต่ำ
 - ⭐ Normal pH 5.3-5.6
 - ⭐ Multiple grading systems`,
   },
@@ -5661,7 +5661,7 @@ Fermented milk (กลุ่มนมเปรี้ยว), cheese, buttermilk,
     examFormat: "Multiple choice, ออก egg microbiology, Salmonella, contamination routes",
     summary: `# Milk-Meat — 12.2 Microbiology of the Avian Egg
 
-> 🎯 ไข่มี natural defenses (cuticle · shell · membranes · antimicrobial proteins) — แต่ Salmonella Enteritidis เจาะเข้าได้ทั้ง vertical + horizontal
+> 🎯 ไข่มี natural defenses (cuticle, shell, membranes, antimicrobial proteins) — แต่ Salmonella Enteritidis เจาะเข้าได้ทั้ง vertical + horizontal
 > ⚠️ **ห้ามล้างไข่** — ล้าง = ลอก cuticle → bacterial entry ง่ายขึ้น
 
 ---
@@ -5728,7 +5728,7 @@ Fermented milk (กลุ่มนมเปรี้ยว), cheese, buttermilk,
     examFormat: "Multiple choice, ออก quality testing methods, physical/chemical/microbiological",
     summary: `# Milk-Meat — 4.3.1 Determination of Milk Quality I
 
-> 🎯 Quality testing 3 หมวด: **Physical · Chemical · Microbiological** — รู้ method ตัวแทนของแต่ละหมวด
+> 🎯 Quality testing 3 หมวด: **Physical, Chemical, Microbiological** — รู้ method ตัวแทนของแต่ละหมวด
 
 ---
 
@@ -5800,7 +5800,7 @@ Fermented milk (กลุ่มนมเปรี้ยว), cheese, buttermilk,
     examFormat: "Multiple choice, ออก meat storage methods, shelf life",
     summary: `# Milk-Meat — 11.1 Storage of Meat and Meat Products
 
-> 🎯 Storage methods 8 แบบ ตั้งแต่ refrigeration → canning · เลือกตามเงื่อนไข + shelf life ที่ต้องการ
+> 🎯 Storage methods 8 แบบ ตั้งแต่ refrigeration → canning, เลือกตามเงื่อนไข + shelf life ที่ต้องการ
 
 ---
 
@@ -5817,7 +5817,7 @@ Fermented milk (กลุ่มนมเปรี้ยว), cheese, buttermilk,
 | ⭐ **Smoking** | Smoke + heat | Variable |
 | ⭐ **Canning** | Heat sterilized | Years |
 
-> 💡 **MAP** = Modified Atmosphere Packaging — ปรับ O₂/CO₂/N₂ ในซอง · ยืด shelf life
+> 💡 **MAP** = Modified Atmosphere Packaging — ปรับ O₂/CO₂/N₂ ในซอง, ยืด shelf life
 
 ---
 
@@ -5840,7 +5840,7 @@ Fermented milk (กลุ่มนมเปรี้ยว), cheese, buttermilk,
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ **Refrigeration 0-4°C · Freezing -18°C**
+- ⭐⭐⭐ **Refrigeration 0-4°C, Freezing -18°C**
 - ⭐⭐ **Vacuum / MAP** extends shelf life
 - ⭐ **Curing / drying** = historical methods
 - ⭐ **Quick freezing** preserves quality
@@ -5856,7 +5856,7 @@ Fermented milk (กลุ่มนมเปรี้ยว), cheese, buttermilk,
     examFormat: "Multiple choice, ออก mastitis impact on quality, SCC, CMT",
     summary: `# Milk-Meat — 3.2 Mastitis and Milk Quality
 
-> 🎯 **Mastitis ↑ → SCC ↑** = quality ตก · economic loss · public health risk จาก antibiotic residue
+> 🎯 **Mastitis ↑ → SCC ↑** = quality ตก, economic loss, public health risk จาก antibiotic residue
 > ⚠️ Cross-ref: NEEDS_VERIFICATION: broken knowledge reference (herd-health-rum mastitis lecture) — ลึกเรื่อง pathogen + treatment
 
 ---
@@ -5906,7 +5906,7 @@ Fermented milk (กลุ่มนมเปรี้ยว), cheese, buttermilk,
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **Antibiotic withdrawal critical**
-- ⭐⭐ **SCC <200K = healthy** · 200-500K subclinical · >500K clinical
+- ⭐⭐ **SCC <200K = healthy**, 200-500K subclinical, >500K clinical
 - ⭐⭐ **CMT** = field mastitis test
 - ⭐ Mastitis → quality issues + economic loss
 - ⭐ Cross-ref: herd-health-rum mastitis lecture`,

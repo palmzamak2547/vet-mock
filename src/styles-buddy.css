@@ -1,0 +1,242 @@
+/* ============================================================
+   styles-buddy.css — the study buddy: picker, spotlight and 3D stage
+   ============================================================
+   Imported by BuddySelector, MochiView and MascotSquad3DViewer, so the rules
+   ship with the screens that use them. Theme tokens only; every number below
+   says where it comes from.
+   ============================================================ */
+
+/* ── Picker: one row of buddies, the same on every screen ─────────────── */
+.vmx-buddy-picker { width: 100%; min-width: 0; }
+.vmx-buddy-picker-head {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: var(--space-1) var(--space-3); margin-bottom: var(--space-2);
+}
+.vmx-buddy-picker-label { font-size: 0.875rem; font-weight: 600; color: var(--clr-ink); }
+.vmx-buddy-picker-time { font-size: 0.8rem; color: var(--clr-sage-text); }
+
+/* A touch row scrolls sideways. Its 4px padding (cancelled by the margin) is
+   room for the 2px focus ring + 2px offset, which an overflow box would clip. */
+.vmx-buddy-row {
+  position: relative; display: flex; gap: var(--space-2);
+  overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity;
+  padding: 4px; margin: -4px; scrollbar-width: none;
+}
+.vmx-buddy-row::-webkit-scrollbar { display: none; }
+/* A mouse cannot swipe: wrap instead of hiding buddies past the edge. */
+@media (hover: hover) and (pointer: fine) {
+  .vmx-buddy-row { flex-wrap: wrap; overflow: visible; }
+}
+
+.vmx-buddy-chip {
+  flex: 0 0 auto; display: inline-flex; align-items: center; gap: var(--space-2);
+  min-height: var(--touch-min); padding: 5px 14px 5px 5px;
+  border: 1px solid var(--clr-border); border-radius: var(--r-pill);
+  background: var(--clr-surface); color: var(--clr-ink);
+  font: inherit; font-size: 0.875rem; font-weight: 500; line-height: 1.3; white-space: nowrap;
+  cursor: pointer; scroll-snap-align: start; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+  transition: border-color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+/* Selected: a 2px ring drawn as border + 1px shadow (no layout shift) and a
+   check on the avatar, so the state never rests on colour alone. The weight
+   stays 500 either way: a bolder name would widen the chip and nudge the row. */
+.vmx-buddy-chip[aria-pressed="true"] { border-color: var(--clr-sage); box-shadow: 0 0 0 1px var(--clr-sage); }
+.vmx-buddy-chip:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-buddy-chip:active { transform: scale(0.97); }
+@media (hover: hover) {
+  .vmx-buddy-chip:hover { border-color: var(--clr-sage); }
+}
+
+.vmx-buddy-chip-avatar {
+  position: relative; flex: 0 0 auto; display: grid; place-items: center;
+  width: 32px; height: 32px; border-radius: 50%; background: var(--clr-surface-2);
+  transform-origin: 50% 100%;
+}
+.vmx-buddy-chip-avatar img { width: 28px; height: 28px; object-fit: contain; }
+.vmx-buddy-check {
+  position: absolute; right: -4px; bottom: -4px; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--clr-sage); color: var(--clr-sage-on); box-shadow: 0 0 0 2px var(--clr-surface);
+  fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.vmx-buddy-chip-time {
+  font-size: 0.72rem; font-weight: 400; color: var(--clr-ink-soft);
+  background: var(--clr-surface-2); padding: 2px 6px; border-radius: var(--r-sm);
+}
+
+/* The hello hop when a buddy is picked: a real jump. Rising, velocity falls
+   linearly, so height follows y = 2t - t^2, whose exact cubic Bezier is
+   (1/3, 2/3, 2/3, 1); falling is y = t^2, exactly (1/3, 0, 2/3, 1/3). Apex
+   6px after 160ms each way: g = 8h / T^2 = 469 px/s^2 for T = 320ms, a soft
+   hop. The landing squash keeps the area: 1.06 x 0.92 ~ 0.98. Two names with
+   the same frames: switching name is what restarts it on a second tap. */
+@keyframes vmx-buddy-hop-a {
+  0% { transform: translateY(0); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+  42% { transform: translateY(-6px); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+  84% { transform: translateY(0) scale(1.06, 0.92); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  100% { transform: none; }
+}
+@keyframes vmx-buddy-hop-b {
+  0% { transform: translateY(0); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+  42% { transform: translateY(-6px); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+  84% { transform: translateY(0) scale(1.06, 0.92); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  100% { transform: none; }
+}
+.vmx-buddy-chip-avatar[data-hello="a"] { animation: vmx-buddy-hop-a 380ms; }
+.vmx-buddy-chip-avatar[data-hello="b"] { animation: vmx-buddy-hop-b 380ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vmx-buddy-chip { transition: none; }
+  .vmx-buddy-chip:active { transform: none; }
+  .vmx-buddy-chip-avatar[data-hello] { animation: none; }
+}
+
+/* ── The 3D stage ──────────────────────────────────────────────────────── */
+.vmx-buddy-viewer { width: 100%; max-width: 440px; margin-inline: auto; }
+
+/* 330px on a phone held upright. Turned sideways a phone is ~390px tall with
+   the app bar (~64px) and bottom bar (~72px) plus some air (~32px) taking
+   168px, so the stage shrinks to what is left, never below 232px: the figure
+   is framed to the stage (lib/buddy-3d.js), so a shorter stage only makes it
+   smaller, never cut. svh, not vh: the browser toolbar must not resize it
+   mid-scroll. Browsers without svh keep the 330px line. A flat backdrop from
+   the theme (the app draws no gradients); the 3D lights shade the pedestal. */
+.vmx-buddy-stage {
+  position: relative; width: 100%; height: 330px; height: clamp(232px, calc(100svh - 168px), 330px);
+  border-radius: var(--r-lg); overflow: hidden; background: var(--clr-surface-2);
+}
+.vmx-buddy-stage-canvas {
+  position: absolute; inset: 0; cursor: grab; user-select: none; -webkit-user-select: none; outline: none;
+  opacity: 0; transition: opacity var(--dur-slow) var(--ease-out);
+}
+.vmx-buddy-stage-canvas[data-ready] { opacity: 1; }
+/* The buddy drawn where the fitted 3D figure stands: the frame keeps 8% of
+   the stage free at the bottom, the pedestal ellipse rises ~14% above that
+   and the figure, about 3/4 of the framed height, stands on its middle. So
+   the picture's feet sit 12% up and it is 66% tall; the 2D view, the 3D
+   placeholder and the 3D model line up and swap in place. No transform here,
+   so the hello hop can own it. */
+.vmx-buddy-stage-picture {
+  position: absolute; left: 0; right: 0; bottom: 12%; margin-inline: auto;
+  height: 66%; width: auto; max-width: 84%; object-fit: contain; object-position: 50% 100%;
+  pointer-events: none; transform-origin: 50% 100%;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+.vmx-buddy-stage-picture[data-hidden] { opacity: 0; }
+/* The pedestal seen from the front: 70% of the stage wide, its ellipse
+   minor/major 0.22 like the 3D camera's view, in the same theme colours. */
+.vmx-buddy-pedestal {
+  position: absolute; left: 15%; width: 70%; bottom: 8%; height: 14%;
+  border-radius: 50%; background: var(--clr-surface); border: 1px solid var(--clr-border);
+  pointer-events: none; transition: opacity var(--dur-slow) var(--ease-out);
+}
+@supports (aspect-ratio: 1) { .vmx-buddy-pedestal { height: auto; aspect-ratio: 1 / 0.22; } }
+.vmx-buddy-pedestal[data-hidden] { opacity: 0; }
+.vmx-buddy-stage-fallback {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: var(--clr-surface-2);
+}
+.vmx-buddy-hint {
+  position: absolute; right: 10px; bottom: 10px; margin: 0; padding: 3px 8px;
+  font-size: 0.75rem; line-height: 1.4; color: var(--clr-ink-soft);
+  background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-sm);
+  pointer-events: none;
+}
+.vmx-buddy-face {
+  position: absolute; top: 8px; right: 8px; min-height: var(--touch-min); padding: 0 14px;
+  border: 1px solid var(--clr-border); border-radius: var(--r-pill);
+  background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: 0.8rem; cursor: pointer;
+}
+.vmx-buddy-actions {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2); margin-top: var(--space-3);
+}
+.vmx-buddy-action {
+  min-height: var(--touch-min); min-width: 88px; padding: 0 16px;
+  border: 1px solid var(--clr-border); border-radius: var(--r-pill);
+  background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: 0.875rem; cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.vmx-buddy-action[aria-pressed="true"] { background: var(--clr-ink); color: var(--clr-surface); border-color: var(--clr-ink); }
+.vmx-buddy-action:disabled { opacity: 0.55; cursor: default; }
+.vmx-buddy-action:not(:disabled):active { transform: scale(0.97); }
+.vmx-buddy-face:focus-visible, .vmx-buddy-action:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vmx-buddy-stage-canvas, .vmx-buddy-stage-picture, .vmx-buddy-action { transition: none; }
+  .vmx-buddy-action:not(:disabled):active { transform: none; }
+}
+
+/* ── The Mochi page: buddy section and spotlight ──────────────────────── */
+.vmx-rest-doors { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.vmx-buddy-section {
+  display: grid; gap: var(--space-3); min-width: 0;
+  margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--clr-border);
+}
+.vmx-buddy-eyebrow { margin: 0; color: var(--clr-sage-text); }
+.vmx-buddy-title { margin: 0; font-size: 1.25rem; font-weight: 600; line-height: 1.4; color: var(--clr-ink); }
+.vmx-buddy-lede { margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-buddy-spotlight {
+  display: grid; gap: var(--space-3); width: 100%; max-width: 560px; margin-inline: auto; min-width: 0;
+  padding: var(--space-4); border: 1px solid var(--clr-border); border-radius: var(--r-xl);
+  background: var(--clr-surface);
+}
+@media (max-width: 420px) { .vmx-buddy-spotlight { padding: var(--space-3); } }
+.vmx-buddy-spotlight-head {
+  display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--space-2) var(--space-3);
+}
+.vmx-buddy-spotlight-name { display: grid; gap: 2px; min-width: 0; }
+.vmx-buddy-kicker { font-size: 0.75rem; font-weight: 600; color: var(--clr-sage-text); }
+.vmx-buddy-spotlight-name strong { font-size: 1.1rem; font-weight: 600; line-height: 1.4; color: var(--clr-ink); }
+.vmx-buddy-spotlight-name strong span { font-weight: 400; color: var(--clr-ink-soft); }
+.vmx-buddy-role { font-size: 0.85rem; color: var(--clr-sage-text); }
+.vmx-buddy-species { font-size: 0.8rem; color: var(--clr-ink-soft); }
+
+/* 2D | 3D. The chosen side is raised (surface + shadow), not only coloured;
+   both keep one weight so the control never changes width. */
+.vmx-buddy-mode {
+  display: inline-flex; flex: 0 0 auto; gap: 2px; padding: 3px;
+  border: 1px solid var(--clr-border); border-radius: var(--r-pill); background: var(--clr-surface-2);
+}
+.vmx-buddy-mode button {
+  min-height: var(--touch-min); padding: 0 14px; border: 0; border-radius: var(--r-pill);
+  background: transparent; color: var(--clr-ink-soft); font: inherit; font-size: 0.85rem; font-weight: 500;
+  cursor: pointer; touch-action: manipulation;
+  transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+}
+.vmx-buddy-mode button[aria-pressed="true"] { background: var(--clr-surface); color: var(--clr-ink); box-shadow: var(--shadow-sm); }
+.vmx-buddy-mode button:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-buddy-stage-still { display: flex; align-items: center; justify-content: center; }
+
+/* The spotlight greets a new pick with a bigger hop under the same gravity
+   as the chip (469 px/s^2): a 5% hop of a ~220px picture is ~11px, so its
+   airtime is sqrt(8h/g) = sqrt(88/469) = 433ms; with the landing squash the
+   whole move is 520ms (apex at 41.6%, landing at 83.3%). */
+@keyframes vmx-buddy-arrive {
+  0% { transform: translateY(0); animation-timing-function: cubic-bezier(0.333, 0.667, 0.667, 1); }
+  41.6% { transform: translateY(-5%); animation-timing-function: cubic-bezier(0.333, 0, 0.667, 0.333); }
+  83.3% { transform: translateY(0) scale(1.04, 0.95); animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  100% { transform: none; }
+}
+.vmx-buddy-stage-picture[data-arrive] { animation: vmx-buddy-arrive 520ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vmx-buddy-stage-picture[data-arrive] { animation: none; }
+  .vmx-buddy-mode button, .vmx-buddy-pedestal { transition: none; }
+}
+/* In the spotlight the 3D stage takes the card's width, as the 2D one does,
+   so switching never changes the stage size. */
+.vmx-buddy-spotlight .vmx-buddy-viewer { max-width: none; }
+
+/* ── Study break: the breath circle's words stay inside the circle ────────
+   "พร้อมเมื่อไหร่ก็ค่อยเริ่ม" at 20px ran past a 174px circle on a phone. A
+   centred block w wide and h tall fits a circle of diameter D when
+   (w/2)^2 + (h/2)^2 <= (D/2)^2: with two lines and the count below it
+   (h ~ 86px) on D = 174 that allows w <= 151px, 87% of D; 72% leaves room
+   for a third line. Scoped to the break on the Mochi page and in Pomodoro.
+   Plain wrapping, not balance: balancing split the word เมื่อไหร่ across
+   the two lines in both Chromium and WebKit. */
+.vmx-study-break .vm-breath-circle strong,
+.vmx-mochi-page .vm-breath-circle strong {
+  max-width: 72%; text-align: center; line-height: 1.35;
+  font-size: clamp(16px, 4.6vw, 20px);
+}

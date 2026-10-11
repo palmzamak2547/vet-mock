@@ -25,7 +25,7 @@ test('guest search drops saved gated destinations and former-account notes', asy
       { type: 'library-doc', label: 'Former account restricted lecture for regression', payload: { id: 'former-private', status: 'restricted' } },
     ]));
   });
-  await page.getByRole('button', { name: 'ค้นหา', exact: true }).click();
+  await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
   const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
   await expect(dialog).toBeVisible();
   await expect(dialog).not.toContainText('Saved former account settings');
@@ -44,7 +44,7 @@ test('a stale saved recent opens the current exam preset', async ({ page }) => {
       payload: { kind: 'practice', mode: 'exam', subject: 'all', practiceMode: 'all', numQuestions: 999, useTimer: false, timePerQ: 1 },
     }]));
   });
-  await page.getByRole('button', { name: 'ค้นหา', exact: true }).click();
+  await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
   const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
   await expect(dialog).not.toContainText('Obsolete exam action label');
   const first = dialog.locator('[data-flat-idx="0"]');
@@ -60,7 +60,7 @@ test.describe('search input timing', () => {
 
   test('Enter during the search debounce opens the newly typed destination', async ({ page }) => {
     await page.goto('/app');
-    await page.getByRole('button', { name: 'ค้นหา', exact: true }).click();
+    await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
     const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
     const input = dialog.getByRole('textbox', { name: 'ค้นหาใน VetMock' });
     await expect(input).toBeFocused();
@@ -80,7 +80,7 @@ test.describe('search input timing', () => {
 
 test('composition keys keep search open, then ordinary keyboard selection and Escape still work', async ({ page }) => {
   await page.goto('/app');
-  const launch = page.getByRole('button', { name: 'ค้นหา', exact: true });
+  const launch = page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first();
   await launch.click();
   const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
   const input = dialog.getByRole('textbox', { name: 'ค้นหาใน VetMock' });

@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก RSS, multifactorial, differential diagnosis",
   summary: `# Avian Medicine 6.1 — Runting-Stunting Syndrome (RSS)
 
-> 🎯 **RSS = multifactorial growth disease** ในลูกไก่ — ไม่มี single etiology · vaccine ไม่ค่อยตอบ · ต้อง manage รวมๆ
+> 🎯 **RSS = multifactorial growth disease** ในลูกไก่ — ไม่มี single etiology, vaccine ไม่ค่อยตอบ, ต้อง manage รวมๆ
 > 💡 Diagnose by exclusion — เอาโรคชัดๆ ออกก่อน เหลือ RSS ในตอนท้าย
 
 ---

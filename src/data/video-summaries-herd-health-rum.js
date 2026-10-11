@@ -19,7 +19,7 @@ export const VIDEO_SUMMARIES_HERD_HEALTH_RUM = {
     summary: `# Reproductive Performance Index for Dairy Herd Management
 
 > 🎯 **Reproductive index calculation** สำหรับ dairy herd evaluation ⭐⭐⭐
-> 💡 CI (365 days target) = **lagging indicator** (2 years past) · CTFS + CTC = **leading indicators** (current management)
+> 💡 CI (365 days target) = **lagging indicator** (2 years past), CTFS + CTC = **leading indicators** (current management)
 > ⚠️ VWP ~45 days — don't breed too early!
 
 4-quadrant cattle classification: **Milking-Open, Milking-Pregnant, Dry-Open, Dry-Pregnant** with proportions ~24%, 41%, 17%, 17% in well-managed herd.
@@ -443,7 +443,7 @@ export const VIDEO_SUMMARIES_HERD_HEALTH_RUM = {
     summary: `# Lameness in Cattle (Digital Lameness, Hoof Anatomy + Trimming + Common Diseases)
 
 > 🎯 **Lameness = #3 dairy disease** (after mastitis + reproduction). ⭐⭐⭐ **>90% of cattle lameness originates in the FOOT/HOOF/DIGIT** — hence "Digital Lameness"
-> 💡 Hindlimb >> forelimb (3 reasons) · Lateral claw > medial (grows ~10% faster)
+> 💡 Hindlimb >> forelimb (3 reasons), Lateral claw > medial (grows ~10% faster)
 > ⚠️ Locomotion Score 3+ <5% herd = healthy farm
 
 Diseases divided into **Infectious** (Footrot, Digital Dermatitis) and **Non-infectious** (Sole Ulcer, White Line Disease, Laminitis).
@@ -1279,7 +1279,7 @@ Diseases divided into **Infectious** (Footrot, Digital Dermatitis) and **Non-inf
     summary: `# Nutritional & Metabolic Disorders in Ruminants
 
 > 🎯 **Nutritional/Metabolic disorders** = **non-infectious disease cluster** caused by feed imbalance, transition stress, physiological state mismatch ⭐⭐⭐
-> 💡 Group by macronutrient: Carb (Acidosis, Bloat) · Lipid (Ketosis, Pregnancy Toxemia) · Protein (Urea toxicity) · Mineral (Milk Fever, Grass Tetany)
+> 💡 Group by macronutrient: Carb (Acidosis, Bloat), Lipid (Ketosis, Pregnancy Toxemia), Protein (Urea toxicity), Mineral (Milk Fever, Grass Tetany)
 > ⚠️ Prevention via dietary balance + transition management > treatment of established cases
 
 ---
@@ -2425,7 +2425,7 @@ Goal: prepare students for **Year 5/6 fieldwork** + future practice.
 > - ***C. perfringens*** = calf pulpy kidney
 > - **Tetanus** + **Botulism** = neuro extremes (spastic vs flaccid)
 
-Common theme: **Exotoxin damage > antibiotic protection** · prevention = vaccination + clean injection technique.
+Common theme: **Exotoxin damage > antibiotic protection**, prevention = vaccination + clean injection technique.
 
 ---
 
@@ -3571,7 +3571,7 @@ Movement control > vaccine สำหรับ emerging diseases.
     summary: `# โรคระบบทางเดินหายใจในวัว — BRD Complex (IBR, BVD, PI3, BRSV + 2° bacteria)
 
 > 🎯 **BRD Complex** = #1 cause of morbidity/mortality in young cattle. Triangle: **Host (stress, weaning) + Environment (poor ventilation, mixing) + Pathogen (4 viruses → 2° bacteria)**. ⭐⭐⭐
-> ⚠️ Early = virus catchable (yellow flag) · Late = bacteria dominant (red flag, irreversible damage)
+> ⚠️ Early = virus catchable (yellow flag), Late = bacteria dominant (red flag, irreversible damage)
 
 4 viruses: **IBR, BVD, PI3, BRSV** rarely fatal alone — แต่ immune-suppress → bacterial complications (**Mannheimia haemolytica, Pasteurella multocida, Histophilus somni, Mycoplasma**) cause death. Key concepts: **Early detection = yellow flag, Late = red flag (irreversible damage), BVD PI animal = "Time Bomb", IBR marker vaccine = eradication tool**.
 

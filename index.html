@@ -31,8 +31,11 @@
          stores to vetmock.com/api/move-in in one POST (nothing in a URL, the
          Supabase session never), or goes straight on when there is nothing new
          to carry. Every failure keeps the old app, data untouched, and an
-         iOS home-screen app never moves. It must run before the app module;
-         the hosts live only in this meta tag. -->
+         iOS home-screen app never moves. Any other installed app (Android,
+         Samsung Internet, a computer) moves its data the same way, then stops
+         on a short guide to installing again from the new address, because an
+         app cannot change address and the browser's own bar would sit over it.
+         It must run before the app module; the hosts live only in this meta tag. -->
     <meta name="vmx-origin-move" content="vetmock.vercel.app https://vetmock.com" />
     <style>
       .vmx-move{position:fixed;top:0;right:0;bottom:0;left:0;z-index:2147483647;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;background:#f6efe4;color:#2b2419;font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;text-align:center}
@@ -44,6 +47,20 @@
       [data-theme="dark"] .vmx-move i{background:#7ba87b}
       @keyframes vmx-move{50%{opacity:.35;transform:scale(.8)}}
       @media (prefers-reduced-motion:reduce){.vmx-move i{animation:none}}
+      .vmx-guide{justify-content:flex-start;overflow-y:auto;padding:max(24px,env(safe-area-inset-top)) max(24px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(24px,env(safe-area-inset-left))}
+      .vmx-guide>:first-child{margin-top:auto}
+      .vmx-guide>:last-child{margin-bottom:auto}
+      .vmx-guide h1{margin:0 0 14px;max-width:22rem;font-size:22px;line-height:1.35;font-weight:700}
+      .vmx-guide p+p{margin-top:6px}
+      .vmx-guide button{margin-top:22px;min-height:48px;padding:12px 32px;border:0;border-radius:999px;background:#4a6b4a;color:#fdf8ef;font:inherit;font-weight:600;cursor:pointer}
+      .vmx-guide button:focus-visible{outline:3px solid #2b2419;outline-offset:3px}
+      .vmx-guide__next{width:100%;max-width:22rem;margin-top:28px;text-align:left}
+      .vmx-guide__next p{margin:0 0 6px;font-size:14px}
+      .vmx-guide ol{margin:0;padding-left:1.4em;font-size:14px;line-height:1.7;color:#5c4f3d}
+      .vmx-guide li+li{margin-top:6px}
+      [data-theme="dark"] .vmx-guide button{background:#7ba87b;color:#1a1612}
+      [data-theme="dark"] .vmx-guide button:focus-visible{outline-color:#f0e6d2}
+      [data-theme="dark"] .vmx-guide ol{color:#b8a890}
     </style>
     <script id="vmx-origin-move">
       (function (w, d) {
@@ -65,6 +82,20 @@
           installed: 'VetMock กำลังย้ายไปที่ ' + HOST + ' แอปที่ติดตั้งไว้บนหน้าจอใช้ต่อได้ตามปกติ ข้อมูลยังอยู่ครบ',
           big: 'ข้อมูลในเครื่องนี้มากเกินกว่าจะย้ายไป ' + HOST + ' ได้ในตอนนี้ ใช้ที่นี่ต่อได้ตามปกติ ข้อมูลยังอยู่ครบ',
           failed: 'ยังย้ายข้อมูลไป ' + HOST + ' ไม่สำเร็จ ใช้ที่นี่ต่อได้ตามปกติ ข้อมูลยังอยู่ครบ'
+        };
+        // What an installed app stops on once its data is over there (guide() below).
+        var DROP = 'ลบ VetMock อันเก่า คืออันที่เปิดแล้วเจอหน้านี้ (กดไอคอนค้างไว้ แล้วเลือกถอนการติดตั้ง)';
+        var GUIDE = {
+          head: 'VetMock ย้ายบ้านใหม่แล้ว',
+          moved: 'ข้อมูลการเรียนของคุณไปอยู่ที่ ' + HOST + ' เรียบร้อยแล้ว',
+          why: 'แอปนี้ติดตั้งไว้ตอนที่ VetMock ยังใช้ที่อยู่เดิม กดเปิด ' + HOST + ' เพื่อเรียนต่อได้เลย แต่มักมีแถบลิงก์ค้างอยู่ด้านบน ติดตั้งใหม่ครั้งเดียว แถบนั้นจะหายไป',
+          open: 'เปิด ' + HOST,
+          then: 'ติดตั้งใหม่ให้แถบนั้นหายไป',
+          steps: {
+            android: ['เปิด Chrome เข้า ' + HOST + ' กด ⋮ แล้วเลือกเมนูที่ขึ้นต้นด้วย “ติดตั้ง” (Install)', DROP],
+            samsung: ['เปิด Samsung Internet เข้า ' + HOST + ' กดไอคอนติดตั้งที่แถบที่อยู่ หรือกด ≡ แล้วเลือก “Add page to” และ “Home screen”', DROP],
+            desktop: ['เปิด Chrome หรือ Edge เข้า ' + HOST + ' แล้วกดไอคอนติดตั้งที่ปลายแถบที่อยู่', 'ลบแอป VetMock อันเก่า คืออันที่เปิดแล้วเจอหน้านี้ (ถอนการติดตั้งจากเมนูของแอป)']
+          }
         };
         var params = new URLSearchParams(loc.search);
         var ours = params.has('vmx-move') || params.has('vmx-moved');
@@ -132,11 +163,30 @@
           } catch (e) {}
           w.__vmxMoveNote = NOTES[kind];
         }
-        // An iOS home-screen app only. Android and desktop installed apps share
-        // the browser's storage and move like a tab; one that stayed would be
-        // a second writer on the old address for good.
+        // An iOS home-screen app only: it never moves (below). Any other installed
+        // app shares the browser's storage, so it moves like a tab, then stops on
+        // the guide. Once it leaves its scope the browser's own bar (close button,
+        // title, "vetmock.com") sits over every page of the new address for good.
         function installed() {
           try { return w.navigator.standalone === true; } catch (e) { return false; }
+        }
+        // fullscreen is left out on purpose: a computer's browser in F11 reports it too.
+        function standalone() {
+          var modes = ['standalone', 'minimal-ui', 'window-controls-overlay'];
+          try {
+            for (var i = 0; i < modes.length; i++) {
+              if (w.matchMedia('(display-mode: ' + modes[i] + ')').matches) return true;
+            }
+          } catch (e) {}
+          return false;
+        }
+        // Whose steps the guide gives. iOS has none and never needs any (an iPad writes a Mac user agent but has touch points).
+        function device() {
+          try {
+            var ua = String(w.navigator.userAgent || '');
+            if (/iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && w.navigator.maxTouchPoints > 1)) return 'ios';
+            return /SamsungBrowser/.test(ua) ? 'samsung' : /Android/.test(ua) ? 'android' : 'desktop';
+          } catch (e) { return 'desktop'; }
         }
         function backForward() {
           try {
@@ -165,19 +215,54 @@
           body.appendChild(box);
           return body;
         }
+        // Where an installed app stops once its data is at vetmock.com (or had none
+        // to carry): one page, one button, the steps of this device. The app does
+        // not start underneath. The steps come only now, after the data has moved,
+        // so the old app cannot be deleted before it has handed over.
+        function guide(path, moved) {
+          w.__vmxMoving = true;
+          try { w.stop(); } catch (e) {}
+          var body = d.body || d.documentElement.appendChild(d.createElement('body'));
+          function add(parent, tag, text, cls) {
+            var el = d.createElement(tag);
+            if (cls) el.className = cls;
+            if (text) el.textContent = text;
+            return parent.appendChild(el);
+          }
+          var box = add(body, 'main', '', 'vmx-move vmx-guide');
+          add(box, 'h1', GUIDE.head);
+          if (moved) add(box, 'p', GUIDE.moved);
+          add(box, 'p', GUIDE.why, 'vmx-move__sub');
+          var go = add(box, 'button', GUIDE.open);
+          go.type = 'button';
+          go.addEventListener('click', function () { leave(path); });
+          var next = add(box, 'div', '', 'vmx-guide__next');
+          add(next, 'p', GUIDE.then);
+          var list = add(next, 'ol'), steps = GUIDE.steps[device()];
+          for (var i = 0; i < steps.length; i++) add(list, 'li', steps[i]);
+        }
 
         // An iOS home-screen app never moves. iOS keeps its storage apart from
         // Safari's, and leaving the app's scope opens a browser sheet, so
         // nobody can say where the data would land. It boots here as always.
         var app = installed();
         if (app) note('installed');
+        // `retry` is the learner asking again, so nothing stops in the way.
+        var shared = !app && mode !== 'retry' && standalone() && device() !== 'ios';
+        // Where a move ends, or turns out unneeded: on to vetmock.com, except in an
+        // installed app, which stops on the guide at the learner's own page.
+        function endMove(path, moved) {
+          if (!shared) { leave(path); return; }
+          try { w.history.replaceState(w.history.state, '', path); } catch (e) {}
+          guide(path, moved);
+        }
 
         // The ACK from vetmock.com: remember what arrived and go there. Never move from this hop.
         if (params.has('vmx-moved') && !app) {
           try { if (TOKEN.test(params.get('vmx-moved'))) w.localStorage.setItem(SENT, params.get('vmx-moved')); } catch (e) {}
           var back = here();
           forget();
-          leave(back);
+          endMove(back, true);
           return;
         }
 
@@ -235,7 +320,7 @@
           keys = Object.keys(local).sort();
           signedIn = hasToken(ls) || hasToken(w.sessionStorage);
         } catch (e) { stay(); return; }
-        if (!keys.length) { leave(here()); return; }
+        if (!keys.length) { endMove(here(), false); return; }
 
         // 64-bit FNV-style digest of the snapshot, the same on every visit until a byte changes.
         var a = 0x811c9dc5, b = 0x9e3779b9;
@@ -252,7 +337,7 @@
         var hash = ('0000000' + (a >>> 0).toString(16)).slice(-8) + ('0000000' + (b >>> 0).toString(16)).slice(-8);
         var sent = null, failedHash = null, bigHash = null;
         try { sent = w.localStorage.getItem(SENT); failedHash = w.localStorage.getItem(FAILED); bigHash = w.localStorage.getItem(BIG); } catch (e) {}
-        if (sent === hash) { leave(here()); return; }
+        if (sent === hash) { endMove(here(), true); return; }
         // This exact data could not move before: the old app boots and says so. Changed data tries again.
         if (bigHash === hash || failedHash === hash) { stay(); note(bigHash === hash ? 'big' : 'failed'); return; }
 

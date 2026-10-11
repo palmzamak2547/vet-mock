@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก Plasmodium juxtanucleare, vector",
   summary: `# Avian Medicine 6.5 — Avian Malaria (Plasmodium)
 
-> 🎯 **Avian Malaria = Plasmodium spp.** · vector = **mosquito** (similar to human malaria) · ⭐ ในไทย = **P. juxtanucleare** ในไก่
+> 🎯 **Avian Malaria = Plasmodium spp.**, vector = **mosquito** (similar to human malaria), ⭐ ในไทย = **P. juxtanucleare** ในไก่
 > 💡 RBC-stage parasite (vs Leucocytozoon ที่อยู่ใน WBC) — แยกได้จาก blood smear
 
 ---

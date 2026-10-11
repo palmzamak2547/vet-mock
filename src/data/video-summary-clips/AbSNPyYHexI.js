@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก milk hygiene principles, farm to table",
   summary: `# Milk-Meat — 3.1 Introduction of Milk Hygiene
 
-> 🎯 Hygiene = chain ตั้งแต่ farm → consumer · อ่อนจุดเดียวพังทั้งระบบ
+> 🎯 Hygiene = chain ตั้งแต่ farm → consumer, อ่อนจุดเดียวพังทั้งระบบ
 > ⚠️ ⛓️ Cold chain break = bacterial growth + spoilage
 
 ---

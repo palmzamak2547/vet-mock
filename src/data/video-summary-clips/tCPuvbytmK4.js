@@ -31,7 +31,7 @@ export default {
 - ⭐ **Egg binding**
 - Parasites
 
-> 💡 **MBD** = poor UV + low calcium · ป้องกันด้วย UV-B + calcium supplement
+> 💡 **MBD** = poor UV + low calcium, ป้องกันด้วย UV-B + calcium supplement
 
 ---
 

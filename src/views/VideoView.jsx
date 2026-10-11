@@ -8,7 +8,8 @@ import { VIDEO_LIBRARY, getVideoId, getPlaylistId, getThumbnail, handleThumbnail
 //   • Full bodies — lazy-imported ONCE the user clicks "📝 อ่านสรุปคลิป",
 //     one clip at a time, cached at module scope so reopening is instant.
 import { VIDEO_META } from '../data/video-summaries-meta.js';
-import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS } from '../data/curriculum.js';
+import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, yearForSubject } from '../data/curriculum.js';
+import { ownYearFirst, prefersCompactReading } from '../lib/reading-layout.js';
 import { readLocalExtra, writeLocalExtra } from '../lib/local-extras.js';
 import { videoSubjectForNavigation, videoSubjectNavigation } from '../lib/video-navigation.js';
 import { momentFromSearch, sessionLabel, MOMENT_SECOND_PARAM } from '../lib/source-label.js';
@@ -488,7 +489,15 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
 
   const [form, setForm] = useState({ subject: 'surg2', topic: '', url: '', author: '', duration: '' });
 
-  const filtered = filter === 'all' ? allVideos : allVideos.filter((v) => v.subject === filter);
+  // The reader's year first on the full shelf too, matching the chips above.
+  const filtered = filter === 'all'
+    ? ownYearFirst(allVideos, (v) => yearForSubject(v.subject), selectedYear)
+    : allVideos.filter((v) => v.subject === filter);
+  // Other years' chips fold on a phone: 35 chips across five headed groups
+  // filled two and a half screens before the first clip. Wider screens and a
+  // shelf that is already filtered to one of those years keep them open.
+  const [otherYearsOpenByDefault] = useState(() => !prefersCompactReading());
+  const [otherYearsOpen, setOtherYearsOpen] = useState(null);
   // Cards keyed by the clip, not the slot: after a subject switch a card at
   // the same index kept the previous playlist's cover, count, and error state.
   const filteredKeys = videoCardKeys(filtered);
@@ -556,23 +565,12 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
       <div className="vmx-hero">
         <h1>คลิป<em>ย้อนหลัง</em></h1>
         <p>
-          คลิปจากช่อง <a href="https://www.youtube.com/@dai.1387" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage-text)' }}>Dai (@dai.1387)</a> และอื่นๆ — คลิกเข้าไปเพื่อเลือกคลิปในเพลย์ลิสต์ได้
+          คลิปจากช่อง <a href="https://www.youtube.com/@dai.1387" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage-text)' }}>Dai (@dai.1387)</a> และอื่นๆ — กดเข้าไปเพื่อเลือกคลิปในเพลย์ลิสต์ได้
           {watchedCount > 0 && <>, ดูแล้ว <strong>{watchedCount}</strong> คลิป</>}
         </p>
       </div>
 
-      {/* The once-a-day usage hint. Same component the library, notes and
-          article pages use, so the hint looks and behaves identically
-          whichever reading surface a student opens it on. */}
-      <FeatureTip id="videos" title="คลิปที่เปิดมีสรุปให้อ่าน" icon="🎬">
-        <p style={{ margin: '0 0 6px' }}>
-          เปิดคลิปแล้วกดอ่านสรุปได้ที่ท้ายหน้าเครื่องเล่น
-        </p>
-        <ul style={{ margin: 0, paddingLeft: 22, lineHeight: 1.7 }}>
-          <li>จดโน้ต ณ เวลานี้ได้ แล้วกดเวลาในโน้ตเพื่อกระโดดกลับไปฟัง</li>
-          <li>สรุปด้านในบันทึกเป็น PDF เก็บไว้ทบทวนทีหลังได้</li>
-        </ul>
-      </FeatureTip>
+      <FeatureTip id="videos" />
 
       {/* Subject filter — grouped by year + semester. Only subjects that
           actually have videos appear (74 total subjects flat would be
@@ -606,6 +604,39 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
           groups.sort((a, b) => (a.year === selectedYear ? 0 : 1) - (b.year === selectedYear ? 0 : 1));
         }
 
+        const ownGroups = selectedYear ? groups.filter((g) => g.year === selectedYear) : groups;
+        const otherGroups = selectedYear ? groups.filter((g) => g.year !== selectedYear) : [];
+        const otherCount = otherGroups.reduce((n, g) => n + g.subjects.length, 0);
+        const filterInOther = otherGroups.some((g) => g.subjects.some((s) => s.id === filter));
+        const showOther = otherYearsOpen ?? (otherYearsOpenByDefault || filterInOther);
+        const renderGroup = (g) => (
+          <div key={g.key} className="vmx-video-group">
+            <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', marginBottom: 6, paddingLeft: 4 }}>
+              {g.label}
+            </div>
+            <div className="vmx-chip-row vmx-video-chips">
+              {g.subjects.map((s) => {
+                const count = allVideos.filter((v) => v.subject === s.id).length;
+                return (
+                  <button
+                    key={s.id}
+                    className={`vmx-chip ${filter === s.id ? 'active' : ''}`}
+                    aria-pressed={filter === s.id}
+                    onClick={() => setFilter(s.id)}
+                    title={`${count} ชุดวิดีโอ`}
+                  >
+                    {/* .vmx-chip is inline-flex, which drops the space
+                        before the count ('ระบาดวิทยา2'); the margin puts
+                        the gap back. No opacity: a dimmed count falls
+                        below AA contrast. */}
+                    {s.icon} {s.name} <span style={{ marginLeft: 6, fontSize: 11 }}>{count}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        );
+
         return (
           <div style={{ marginBottom: 20 }}>
             {/* Top row — All chip + Add button */}
@@ -622,34 +653,25 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
               <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={startAdd}>เพิ่มคลิป</button>
             </div>
 
-            {/* Year+sem sections */}
-            {groups.map((g) => (
-              <div key={g.key} style={{ marginBottom: 12 }}>
-                <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', marginBottom: 6, paddingLeft: 4 }}>
-                  {g.label}
+            {/* The reader's year, then every other year behind one control. */}
+            {ownGroups.map(renderGroup)}
+            {otherGroups.length > 0 && (
+              <>
+                <button
+                  type="button"
+                  className="vmx-video-other-toggle"
+                  aria-expanded={showOther}
+                  aria-controls="vmx-video-other-years"
+                  onClick={() => setOtherYearsOpen(!showOther)}
+                >
+                  <span>{showOther ? 'ซ่อนวิชาปีอื่น' : `วิชาปีอื่น ${otherCount} วิชา`}</span>
+                  <span aria-hidden="true">{showOther ? '▴' : '▾'}</span>
+                </button>
+                <div id="vmx-video-other-years" hidden={!showOther}>
+                  {showOther && otherGroups.map(renderGroup)}
                 </div>
-                <div className="vmx-chip-row">
-                  {g.subjects.map((s) => {
-                    const count = allVideos.filter((v) => v.subject === s.id).length;
-                    return (
-                      <button
-                        key={s.id}
-                        className={`vmx-chip ${filter === s.id ? 'active' : ''}`}
-                        aria-pressed={filter === s.id}
-                        onClick={() => setFilter(s.id)}
-                        title={`${count} ชุดวิดีโอ`}
-                      >
-                        {/* .vmx-chip is inline-flex, which drops the space
-                            before the count ('ระบาดวิทยา2'); the margin puts
-                            the gap back. No opacity: a dimmed count falls
-                            below AA contrast. */}
-                        {s.icon} {s.name} <span style={{ marginLeft: 6, fontSize: 11 }}>{count}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
+              </>
+            )}
           </div>
         );
       })()}
@@ -662,7 +684,7 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
       {filtered.length === 0 ? (
         <div className="vmx-empty">ยังไม่มีคลิปในวิชานี้ — กด "เพิ่มคลิป" เพื่อเพิ่ม</div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16 }}>
+        <div className="vmx-video-grid">
           {filteredKeys.map(({ v, key }) => (
             <VideoCard
               key={key}
@@ -677,7 +699,7 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
       )}
 
       <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
-        ⚠️ <strong>หมายเหตุ:</strong> คลิปเหล่านี้เป็นของเจ้าของช่องบน YouTube ต้นฉบับ ไม่ใช่ผลงานของ VetMock<br/>
+        <strong>หมายเหตุ:</strong> คลิปเหล่านี้เป็นของเจ้าของช่องบน YouTube ต้นฉบับ ไม่ใช่ผลงานของ VetMock<br/>
         คลิปที่เพิ่มเองและประวัติการดูเก็บไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น
       </div>
 
@@ -699,37 +721,30 @@ function VideoCard({ video, onPlay, onEdit, onDelete, watched }) {
   const isWatched = videoId && watched[videoId];
 
   return (
-    <div className="vmx-mode-card" style={{ textAlign: 'left', padding: 0, overflow: 'hidden', position: 'relative', transition: 'transform 0.15s ease, box-shadow 0.15s ease' }}>
-      <button
-        onClick={onPlay}
-        style={{ all: 'unset', cursor: 'pointer', display: 'block', width: '100%' }}
-        onMouseEnter={(e) => { e.currentTarget.parentElement.style.transform = 'translateY(-2px)'; e.currentTarget.parentElement.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)'; }}
-        onMouseLeave={(e) => { e.currentTarget.parentElement.style.transform = ''; e.currentTarget.parentElement.style.boxShadow = ''; }}
-      >
+    <div className="vmx-video-card">
+      {/* Hover lift is CSS now, on hover-capable pointers only: the inline
+          mouseenter version also fired on touch and left a card lifted. */}
+      <button type="button" onClick={onPlay} className="vmx-video-card-open">
         <ThumbnailWithPlayOverlay video={video} subject={subject} playlist={playlist} isChannel={isChannel} />
-        <div style={{ padding: 14 }}>
-          <div className="vmx-kicker" style={{ color: subjectText(subject?.color), marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
+        <div className="vmx-video-card-body">
+          <div className="vmx-kicker" style={{ color: subjectText(subject?.color), marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
             <span>{subject?.icon} {subject?.name}</span>
             {isWatched && <span title="ดูแล้ว" style={{ color: 'var(--clr-sage-text)' }}>✓ ดูแล้ว</span>}
           </div>
-          <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 15, marginBottom: 4, lineHeight: 1.3 }}>
-            {video.topic}
-          </div>
-          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
-            by {video.author || 'Unknown'}
-          </div>
+          <div className="vmx-video-card-title">{video.topic}</div>
+          <div className="vmx-video-card-author">by {video.author || 'Unknown'}</div>
         </div>
       </button>
 
       {(onEdit || onDelete) && (
-        <div style={{ position: 'absolute', top: 8, right: 8, display: 'flex', gap: 4 }}>
+        <div className="vmx-video-card-actions">
           {onEdit && (
-            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ padding: '4px 8px', fontSize: 11, background: 'rgba(255,255,255,0.95)' }}
-              onClick={(e) => { e.stopPropagation(); onEdit(); }}>✏️</button>
+            <button type="button" className="vmx-video-card-action" aria-label={`แก้ไขคลิป ${video.topic}`}
+              onClick={(e) => { e.stopPropagation(); onEdit(); }}><span aria-hidden="true">✏️</span></button>
           )}
           {onDelete && (
-            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ padding: '4px 8px', fontSize: 11, background: 'rgba(255,255,255,0.95)' }}
-              onClick={(e) => { e.stopPropagation(); onDelete(); }}>🗑</button>
+            <button type="button" className="vmx-video-card-action" aria-label={`ลบคลิป ${video.topic}`}
+              onClick={(e) => { e.stopPropagation(); onDelete(); }}><span aria-hidden="true">🗑</span></button>
           )}
         </div>
       )}
@@ -746,17 +761,23 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
 
   const thumbSrc = directThumb || playlistPreview?.thumb;
 
+  // The cover swaps its own nodes while it loads: the "กำลังโหลดหน้าปก…" line,
+  // then the image, then the placeholder again if the image fails. A press that
+  // starts on one of those nodes and is released after the node was swapped out
+  // is not a click in any engine, so the card silently did not open (Firefox in
+  // CI, 2026-10-11; the same press loses the click on Chromium too). The cover is
+  // decoration to the pointer: every press lands on the card's button, which
+  // stays the same node. (The image's hover zoom never ran, because the overlay
+  // below covers the image, so it is gone rather than kept as dead code.)
   if (thumbSrc && !errored) {
     return (
-      <div ref={previewRef} style={{ width: '100%', aspectRatio: '16/9', background: '#000', position: 'relative', overflow: 'hidden' }}>
-        <img src={thumbSrc} alt={video.topic} loading="lazy"
-          style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }}
+      <div ref={previewRef} className="vmx-video-thumb" style={{ aspectRatio: '16/9', background: '#000', position: 'relative', overflow: 'hidden', pointerEvents: 'none' }}>
+        <img src={thumbSrc} alt="" loading="lazy" className="vmx-video-thumb-img"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           onError={() => setErrored(true)}
-          onMouseEnter={(e) => { e.currentTarget.style.transform = 'scale(1.05)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.transform = ''; }}
         />
         <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(to top, rgba(0,0,0,0.4), transparent 60%)' }}>
-          <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'rgba(0,0,0,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 22, paddingLeft: 4 }}>
+          <div className="vmx-video-play" style={{ borderRadius: '50%', background: 'rgba(0,0,0,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', paddingLeft: 4 }}>
             {playlist ? '📋' : '▶'}
           </div>
         </div>
@@ -791,8 +812,8 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
       // two siblings: a dark ground so the white label holds.
       : 'linear-gradient(135deg, #4a4339, #2b2419)';
   return (
-    <div ref={previewRef} style={{ width: '100%', aspectRatio: '16/9', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 4, color: 'white' }}>
-      <div style={{ fontSize: 50 }}>{playlist ? '📋' : isChannel ? '📺' : '🎬'}</div>
+    <div ref={previewRef} className="vmx-video-thumb" style={{ aspectRatio: '16/9', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 4, color: 'white', pointerEvents: 'none' }}>
+      <div className="vmx-video-thumb-glyph" aria-hidden="true">{playlist ? '📋' : isChannel ? '📺' : '🎬'}</div>
       <div style={{ fontSize: 11, fontFamily: 'var(--vmx-sans)', fontWeight: 600 }}>
         {playlist ? 'เพลย์ลิสต์' : isChannel ? 'ช่อง' : 'คลิป'}
       </div>
@@ -1288,7 +1309,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                 }}>คัดลอกลิงก์</button>
               )}
               <div style={{ flex: 1 }} />
-              <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', opacity: 0.7 }}>
+              <span className="vmx-player-kbd-hint" style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
                 ⌨ ← →, /, Esc
               </span>
             </div>

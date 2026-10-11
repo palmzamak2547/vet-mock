@@ -12,7 +12,7 @@ import DigitRoll from '../components/DigitRoll.jsx';
 import ScoreBurst from '../components/ScoreBurst.jsx';
 import Mochi from '../components/Mochi.jsx';
 import { mochiResultPose } from '../lib/mochi-presence.js';
-import { buildShareUrl, copyShareUrl } from '../lib/share-link.js';
+import { buildShareUrl, copyShareUrl, shareableQuestions } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { NIGHT_RANK_EVENT, takePromotion } from '../lib/night-rank.js';
@@ -20,11 +20,12 @@ import { hasTopic, articleForQuestion } from '../lib/vetwiki/registry-lite.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import WeakSpots from '../components/WeakSpots.jsx';
 import NavIcon from '../components/NavIcon.jsx';
-import { SQUAD_MASCOTS, SUBJECT_MOCHI } from '../data/art.js';
-import { getSelectedBuddy } from '../lib/buddy-stats.js';
+import { resultsCompanion, canShow3D } from '../lib/buddy.js';
 import ErrorBoundary from '../components/ErrorBoundary.jsx';
 import MascotStill from '../components/MascotStill.jsx';
 import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
+import LadderStrip from '../components/LadderStrip.jsx';
+import { ladderStep, ladderStepFor, ladderVerdict, rememberLadderStep, STEP_UP_RATIO, STEP_MIN_SET } from '../lib/practice-ladder.js';
 
 const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer.jsx'));
 
@@ -154,6 +155,9 @@ export default function ResultsView({
   goHome,
   setView,
   mode,
+  // Whether the set ran against a clock: with `mode` it says which rung of
+  // the practice ladder the set was (lib/practice-ladder.js).
+  useTimer = null,
   selectedYear = 4,
   selectedPhase,
   // Phase 2 (2026-05-18): "next play" CTAs need to relaunch exam
@@ -233,15 +237,12 @@ export default function ResultsView({
   const [show3DViewer, setShow3DViewer] = useState(false);
   const { preferences: motionPrefs } = useMotionPreferences();
   const showCompanion = motionPrefs.companion && motionPrefs.mode !== 'off';
-  const companionMascot = useMemo(() => {
-    const subj = questions?.[0]?.subject;
-    const isUniformSubj = subj && questions.every((q) => q.subject === subj);
-    if (isUniformSubj && SUBJECT_MOCHI[subj]?.id) {
-      return SQUAD_MASCOTS[SUBJECT_MOCHI[subj].id] || SQUAD_MASCOTS.moocha;
-    }
-    const selectedId = getSelectedBuddy();
-    return SQUAD_MASCOTS[selectedId] || SQUAD_MASCOTS.moocha;
-  }, [questions]);
+  // The picked buddy wins; without a pick, a one-subject set shows that
+  // clinic's mascot, otherwise Mochi (lib/buddy.js, shared with Home).
+  const companionMascot = useMemo(() => resultsCompanion(questions), [questions]);
+  // No 3D switch where the device cannot draw 3D (WebGL2): a switch that opens
+  // an apology is worse than none.
+  const can3D = useMemo(() => canShow3D(), []);
 
   // mount in dev doesn't trigger the burst twice.
   // Personal-best tracking — per-subject highest pct ever recorded in
@@ -411,15 +412,18 @@ export default function ResultsView({
         {celebrate && <ScoreBurst strong={perfect} />}
         <div className="vmx-results-seal-wrapper">
           <Mochi state={mochiResultPose(score, autoQs.length)} size={84} animate slot="result" className="vmx-result-mochi" />
+          {/* The seal says the verdict in the words the rest of the screen
+              uses. It used to be a mono English stamp above a Thai message
+              that said the same thing. */}
           {autoQs.length > 0 ? (
             <div className={`vmx-clinical-seal ${reached ? 'is-pass' : 'is-review'}`}>
-              <span className="vmx-seal-title">{reached ? 'CLINICAL BENCHMARK ATTAINED' : 'DIAGNOSTIC REFINEMENT NEEDED'}</span>
-              <span className="vmx-seal-sub">ACCURACY {reached ? '≥' : '<'} {PRACTICE_PASS_PCT}% STANDARD</span>
+              <span className="vmx-seal-title">{reached ? 'ถึงเกณฑ์ซ้อมแล้ว' : 'ยังไม่ถึงเกณฑ์ซ้อม'}</span>
+              <span className="vmx-seal-sub">เกณฑ์ซ้อมของแอป {PRACTICE_PASS_PCT}% ของชุด</span>
             </div>
           ) : (
             <div className="vmx-clinical-seal is-writing">
-              <span className="vmx-seal-title">RUBRIC SELF-EVALUATION</span>
-              <span className="vmx-seal-sub">SELF-SCORING REQUIRED</span>
+              <span className="vmx-seal-title">ชุดข้อเขียน</span>
+              <span className="vmx-seal-sub">ตรวจเองตามเกณฑ์ในหน้าเฉลย</span>
             </div>
           )}
         </div>
@@ -439,7 +443,7 @@ export default function ResultsView({
                   style={{ width: `${Math.min(100, Math.max(0, score.pct))}%` }}
                 />
                 <div className="vmx-benchmark-target" style={{ left: `${PRACTICE_PASS_PCT}%` }}>
-                  <div className="vmx-benchmark-flag">{PRACTICE_PASS_PCT}% PASS</div>
+                  <div className="vmx-benchmark-flag">เกณฑ์ {PRACTICE_PASS_PCT}%</div>
                 </div>
               </div>
               <div className="vmx-benchmark-legend">
@@ -471,7 +475,7 @@ export default function ResultsView({
             <NavIcon name="exam" size={13} />
             <span>เวลารวม {fmtTimeSec(receiverDurationSec)}</span>
             {questions?.length > 0 && (
-              <span>• เฉลี่ย {Math.max(1, Math.round(receiverDurationSec / questions.length))} วิ/ข้อ</span>
+              <span>, เฉลี่ย {Math.max(1, Math.round(receiverDurationSec / questions.length))} วิ/ข้อ</span>
             )}
           </div>
         )}
@@ -542,6 +546,7 @@ export default function ResultsView({
             </div>
           </div>
 
+          {can3D && (
           <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
             <button
               type="button"
@@ -566,6 +571,7 @@ export default function ResultsView({
               <span>{show3DViewer ? 'ปิดโมเดล 3D' : 'ดูแบบ 3D'}</span>
             </button>
           </div>
+          )}
 
           {/* Loaded only on the tap (never warmed at exam start: it carries
               three.js). A chunk that fails to load, or a device without
@@ -650,6 +656,9 @@ export default function ResultsView({
         autoQs={autoQs}
         wrongCount={wrongCount}
         score={score}
+        mode={mode}
+        useTimer={useTimer}
+        sessionKind={sessionKind}
         goHome={goHome}
         setView={setView}
         questions={questions}
@@ -710,6 +719,9 @@ function NextPlayPanel({
   autoQs,
   wrongCount,
   score,
+  mode,
+  useTimer,
+  sessionKind,
   goHome,
   setView,
   questions,
@@ -761,12 +773,33 @@ function NextPlayPanel({
     [autoQs, answers],
   );
 
+  // ── The practice ladder: which rung this set was, and what it earned ──
+  // The rung is read off the set's own settings (exam mode, the clock), the
+  // verdict off exact counts against the stated bars. A redo round reuses
+  // questions the student just saw, so it never climbs.
+  const stepId = ladderStepFor({ mode, useTimer: Boolean(useTimer) });
+  const verdict = sessionKind === 'redo'
+    ? { kind: 'redo', step: stepId, next: stepId, ratio: score.total > 0 ? score.correct / score.total : 0 }
+    : ladderVerdict({ stepId, correct: score.correct, total: score.total, passPct: PRACTICE_PASS_PCT });
+  const pctExact = Math.round(verdict.ratio * 100);
+  const nextStep = ladderStep(verdict.next);
+  const climbs = verdict.kind === 'up';
+  // A link carries only bank questions: one the student wrote lives in their
+  // own store and a friend's app cannot find it (lib/share-link.js).
+  const shareable = shareableQuestions(questions);
+  const unshareableNote = shareable.length === 0
+    ? 'ข้อที่สร้างเองแชร์ผ่านลิงก์ไม่ได้'
+    : shareable.length < (questions?.length || 0)
+      ? `ลิงก์มีเฉพาะข้อจากคลัง ${shareable.length} ข้อ ข้อที่สร้างเองแชร์ผ่านลิงก์ไม่ได้`
+      : '';
+
   // Pure-writing → keep classic flow (review needed for self-grading)
   if (autoQs.length === 0) {
     return (
       <div className="vmx-btn-row is-stack" style={{ marginTop: 16 }}>
         <button className="vmx-btn vmx-btn-primary" onClick={() => setView('review')} style={{ minHeight: 44 }}>ดูเฉลย + ให้คะแนนข้อเขียน →</button>
-        <ShareQuizButton questions={questions} />
+        <ShareQuizButton questions={shareable} />
+        {unshareableNote && <span className="vmx-invite-note">{unshareableNote}</span>}
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome} style={{ minHeight: 44 }}>← กลับหน้าแรก</button>
       </div>
     );
@@ -807,6 +840,47 @@ function NextPlayPanel({
     });
   };
 
+  // Start the next rung on the same material: the subject (and topic) this
+  // set drew from, the rung's own count, clock and mode. An exam rung is the
+  // whole subject, because a paper is a subject, not one topic of it.
+  const launchStep = (id) => {
+    rememberLadderStep(id);
+    if (!startExam) return;
+    const step = ladderStep(id);
+    if (id === 'exam') {
+      startExam({
+        mode: 'exam', practiceMode: 'all', subject: ctx.subj || 'all', topic: null, questionCategory: 'all',
+        numQuestions: step.count, useTimer: true, timePerQ: 60,
+      });
+      return;
+    }
+    startExam({
+      mode: 'quick', practiceMode: 'all', subject: ctx.subj || 'all', topic: ctx.topic || null, questionCategory: 'all',
+      numQuestions: step.count, useTimer: step.useTimer, timePerQ: 60,
+      ...(id === 'understand' ? { gentle: true } : {}),
+    });
+  };
+  // Past the top rung: the exam config screen, where the subject is chosen.
+  const openExamConfig = () => {
+    rememberLadderStep('exam');
+    setMode?.('exam'); setSubject?.('all'); setTopic?.(null); setPracticeMode?.('all');
+    setNumQuestions?.(50); setUseTimer?.(true);
+    setView('config');
+  };
+  const scopeName = ctx.topic ? topicLabel : ctx.subj ? subjLabel : 'ทุกวิชาในปีนี้';
+  const upBar = Math.round((STEP_UP_RATIO[verdict.step] || 0) * 100);
+  const ladderNote = verdict.kind === 'up'
+    ? `ได้ ${pctExact}% ในขั้น${ladderStep(verdict.step).label} (เกณฑ์ขึ้นขั้น ${upBar}%) พร้อม${nextStep.label}แล้ว`
+    : verdict.kind === 'hold'
+      ? `ได้ ${pctExact}% ยังไม่ถึง ${upBar}% ที่จะขึ้นขั้นต่อไป ทำขั้นนี้อีกชุดให้แม่นก่อน`
+      : verdict.kind === 'back'
+        ? `ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% กลับไปขั้น${nextStep.label}ก่อน แล้วค่อยขึ้นมาใหม่`
+        : verdict.kind === 'done'
+          ? `ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% ในขั้นซ้อมสอบแล้ว ซ้อมอีกชุดหรือเปลี่ยนวิชาได้เลย`
+          : verdict.kind === 'redo'
+            ? 'รอบแก้ข้อที่ผิดไม่นับเป็นขั้น ทำชุดใหม่เพื่อวัดอีกครั้ง'
+            : `ชุดนี้สั้นกว่า ${STEP_MIN_SET} ข้อ ยังบอกไม่ได้ว่าพร้อมขั้นต่อไปหรือยัง ลองชุด ${ladderStep(verdict.step).count} ข้อ`;
+
   // hasWrong → primary = fix wrong · noWrong → primary = continue
   const hasWrong = wrongQs.length > 0;
   const continueLabel = ctx.topic
@@ -820,11 +894,53 @@ function NextPlayPanel({
       ? subjLabel
       : 'สุ่มจากทุกวิชาในปีนี้';
 
+  const ladderCta = climbs
+    ? {
+        onClick: () => launchStep(verdict.next),
+        label: `ขึ้นขั้น ${nextStep.n} ${nextStep.label} ${nextStep.count} ข้อ`,
+        sub: verdict.next === 'exam' ? `ทั้งวิชา ${subjLabel || 'ที่เลือก'}, นาฬิกาเดียวทั้งชุด เฉลยหลังส่ง` : `${scopeName}, จับเวลาต่อข้อ`,
+      }
+    : verdict.kind === 'done'
+      ? { onClick: openExamConfig, label: 'ซ้อมสอบชุดต่อไป', sub: 'เลือกวิชาได้ในหน้าถัดไป' }
+      : null;
+
   return (
     <div style={{ marginTop: 18 }}>
+      {/* Where this set sits on the ladder, and what it earned. The rung
+          just climbed is marked, the recommended one is named, and the
+          sentence under the strip states the bar in numbers. */}
+      <section className="vmx-next-ladder" aria-labelledby="vmx-next-ladder-title">
+        <h3 id="vmx-next-ladder-title" className="vmx-next-ladder-title">บันไดฝึก</h3>
+        <LadderStrip
+          done={verdict.step}
+          doneLabel={`ได้ ${pctExact}%`}
+          next={verdict.next !== verdict.step ? verdict.next : null}
+          labelledBy="vmx-next-ladder-title"
+        />
+        <p className="vmx-next-ladder-note">{ladderNote}</p>
+      </section>
+
       {/* Action stack — primary card on top, secondary row below. */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {hasWrong ? (
+        {ladderCta ? (
+          <button
+            type="button"
+            onClick={ladderCta.onClick}
+            className="vmx-next-primary is-ladder"
+            aria-label={ladderCta.label}
+          >
+            <span className="vmx-results-card-icon is-more" aria-hidden="true"><NavIcon name="progress" size={26} /></span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
+                {ladderCta.label}
+              </div>
+              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+                {ladderCta.sub}
+              </div>
+            </div>
+            <div className="vmx-next-primary-go">ลุย →</div>
+          </button>
+        ) : hasWrong ? (
           <button
             type="button"
             onClick={handleRedoWrong}
@@ -912,6 +1028,26 @@ function NextPlayPanel({
           <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('review')} style={{ minHeight: 44 }}>
             ดูเฉลย
           </button>
+          {/* When the ladder took the primary slot, fixing the misses is
+              still one tap away; otherwise the rung the verdict named is. */}
+          {ladderCta && hasWrong && (
+            <button type="button" className="vmx-btn vmx-btn-ghost" onClick={handleRedoWrong} style={{ minHeight: 44 }}>
+              แก้ข้อที่ผิด {wrongQs.length} ข้อ
+            </button>
+          )}
+          {!ladderCta && verdict.kind !== 'redo' && (
+            <button
+              type="button"
+              className="vmx-btn vmx-btn-ghost"
+              onClick={() => launchStep(verdict.next)}
+              style={{ minHeight: 44 }}
+              title={`${nextStep.hint}, ${scopeName}`}
+            >
+              {verdict.kind === 'back' && verdict.next !== verdict.step
+                ? `กลับขั้น ${nextStep.n} ${nextStep.label}`
+                : `ทำขั้น ${nextStep.n} อีกชุด ${nextStep.count} ข้อ`}
+            </button>
+          )}
           {/* If this whole set resolves to one governed topic, offer its
               VetWiki page — the natural "I got this wrong, let me read the
               checked version". articleForQuestion (the judged mapping), not
@@ -957,7 +1093,11 @@ function NextPlayPanel({
           <details className="vmx-invite">
             <summary className="vmx-btn vmx-btn-ghost">ชวนเพื่อน</summary>
             <div className="vmx-invite-actions">
-              <ChallengeQuizButton questions={questions} score={score} senderTimeSec={receiverDurationSec} />
+              {/* The two link makers only when a link can be made; a set of
+                  the student's own questions gets the reason instead. */}
+              {shareable.length > 0 ? (
+                <ChallengeQuizButton questions={shareable} score={score} senderTimeSec={receiverDurationSec} />
+              ) : null}
               {/* Round 2B 2026-05-18: race-room shortcut. Skips the Race
                   entry page — just routes to RaceView (it handles its own
                   flow). Future enhancement: pass current questions[] as
@@ -974,7 +1114,10 @@ function NextPlayPanel({
               {/* Round 2B 2026-05-18: "send to group" — same primitive as
                   ChallengeQuizButton but explicitly invokes navigator.share
                   first (mobile system picker → LINE/IG group chat target). */}
-              <SendToGroupButton questions={questions} score={score} senderTimeSec={receiverDurationSec} />
+              {shareable.length > 0 ? (
+                <SendToGroupButton questions={shareable} score={score} senderTimeSec={receiverDurationSec} />
+              ) : null}
+              {unshareableNote && <span className="vmx-invite-note">{unshareableNote}</span>}
             </div>
           </details>
         </div>

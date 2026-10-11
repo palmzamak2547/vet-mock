@@ -11,6 +11,13 @@ const { default: ExternalDocsSection } = await loadModule('src/components/Extern
   { match: '/lib/external-doc-client\\.js$', contents: `
     export const PROVIDER_LABELS = { gdocs: 'Google Docs', notion: 'Notion' };
     export const CONNECT_PROVIDER_LABELS = { google: 'Google', notion: 'Notion' };
+    export const NO_CONNECTABLE = { google: false, notion: false };
+    // These cases are about connected accounts, so both providers are
+    // connectable here; tests/unit/external-connect-availability.test.mjs
+    // owns what the reader shows when they are not.
+    export const peekConnectable = () => ({ google: true, notion: true });
+    export const fetchConnectable = async () => ({ ok: true, connectable: { google: true, notion: true } });
+    export const connectNoteFor = () => null;
     export const connectMessageFor = () => 'Connection failed';
     export const connectNoticeFor = reason => reason === 'cancelled' ? 'Consent cancelled notice' : null;
     export const fetchExternalDoc = (...a) => globalThis.__externalProbe.fetchExternalDoc(...a);

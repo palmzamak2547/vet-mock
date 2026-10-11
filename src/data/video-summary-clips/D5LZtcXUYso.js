@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก amphibian anatomy, diseases, husbandry",
   summary: `# Aquatic Clinic — 6.1 Basic Amphibian Medicine
 
-> 🎯 Amphibian medicine — frog · toad · salamander. Thai industry หลัก = bullfrog farming
+> 🎯 Amphibian medicine — frog, toad, salamander. Thai industry หลัก = bullfrog farming
 > ⚠️ **Skin = critical organ** — permeable มาก → drug ดูดซึมเข้าทันที + chlorine ฆ่าได้
 
 ---

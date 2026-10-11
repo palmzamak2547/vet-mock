@@ -44,7 +44,7 @@ export default {
 - ⭐ White muscle spores (microsporidian)
 - **Control**: pond cleaning, alkaline treatment
 
-> 💡 อาการ 3 โรคต่างกันชัด — WSSV เห็นจุดขาว · EMS เห็น HP ซีด · EHP โตช้าเฉยๆ
+> 💡 อาการ 3 โรคต่างกันชัด — WSSV เห็นจุดขาว, EMS เห็น HP ซีด, EHP โตช้าเฉยๆ
 
 ---
 

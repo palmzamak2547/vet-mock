@@ -14,6 +14,8 @@ import { lessonsForSubject } from '../data/lessons.js';
 import { hasLecturerSet, LECTURER_SETS } from '../data/lecturer-sets.js';
 import { topicLecturerLabel } from '../lib/lecturer-name.js';
 import { hasWrapUp } from '../data/exam-wrapups.js';
+import { ladderPreset, recallLadderStep } from '../lib/practice-ladder.js';
+import { rememberPhaseReturn } from '../lib/phase-return.js';
 
 // Lazy — pulls instructors data (~30KB) only when user clicks an
 // instructor name to view their profile. Most users browse topics
@@ -145,7 +147,13 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     if (!t?.examScope) return true; // unknown scope is kept, as for questions
     return t.examScope === paperScope || t.examScope === 'both';
   });
-  const scopedTopics = Q_COUNTS_BY_TOPIC_BY_SCOPE[selectedPhase]?.[subject] || null;
+  // Once a paper is picked the numbers come from that paper's table. A subject
+  // the table does not name has NOTHING on that paper (epidemiology sits only
+  // the final), which is zero, not "unscoped": falling through to the whole-
+  // subject count printed "รวมทุกหัวข้อ 100 ข้อ" under กลางภาค on a card whose
+  // button then opened a set of none.
+  const phaseTopicTable = selectedPhase ? (Q_COUNTS_BY_TOPIC_BY_SCOPE[selectedPhase] || null) : null;
+  const scopedTopics = phaseTopicTable ? (phaseTopicTable[subject] || {}) : null;
 
   // The generated tables know only the bank. The student's own questions are
   // served by the same buildExamPool under the same questionInScope rule, so
@@ -199,7 +207,8 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // chip could divide a whole-topic numerator by one paper's total — equine
   // pregnancy printed "อิงแนวเดิม 15/1, 1500%" the day the split landed.
   const pastPaperCountFor = (topicId) => {
-    const scopedPast = Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE[selectedPhase]?.[subject] || null;
+    const phasePastTable = selectedPhase ? (Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE[selectedPhase] || null) : null;
+    const scopedPast = phasePastTable ? (phasePastTable[subject] || {}) : null;
     if (topicId === 'all') {
       if (scopedPast) return Object.values(scopedPast).reduce((a, b) => a + b, 0) + customInScope(customMatch.all, true);
       return resources.questions?.pastPaperCount || 0;
@@ -241,13 +250,38 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     setView(next.view);
   };
 
+  // A topic opens the config screen on the rung of the practice ladder the
+  // student last used (lib/practice-ladder.js), rung 1 for a newcomer: no
+  // clock, the answer after every question, ten questions. The clock's
+  // seconds are the student's own and are left alone.
   const choose = (topicId) => {
     const available = countFor(topicId);
     if (setMode) setMode('quick');
-    if (setNumQuestions && available > 0) setNumQuestions(Math.min(10, available));
+    const preset = ladderPreset(recallLadderStep(), { available: available > 0 ? available : null });
+    if (setUseTimer) setUseTimer(preset.useTimer);
+    if (!preset.useTimer && setInstantFeedback) setInstantFeedback(true);
+    if (setNumQuestions && available > 0) setNumQuestions(preset.numQuestions);
     setTopic(topicId === 'all' ? null : topicId);
     setView('config');
   };
+  // Nothing on this paper at all: the subject's topics are all on the other
+  // paper (or it has no written paper). The grid would show one card that
+  // opens an empty set, so the notice below replaces it.
+  const paperLabel = paperScope === 'midterm' ? 'กลางภาค' : 'ปลายภาค';
+  const paperEmpty = Boolean(paperScope && topics.length === 0 && (subjectPage.topics || []).length > 0);
+  const otherPhase = selectedPhase
+    ? (selectedPhase.endsWith('-mid') ? selectedPhase.replace(/-mid$/, '-final') : selectedPhase.replace(/-final$/, '-mid'))
+    : null;
+  const otherPaperCount = otherPhase
+    ? Object.values(Q_COUNTS_BY_TOPIC_BY_SCOPE[otherPhase]?.[subject] || {}).reduce((a, b) => a + b, 0)
+    : 0;
+  const otherPaperLabel = otherPhase?.endsWith('-mid') ? 'กลางภาค' : 'ปลายภาค';
+  const changePaper = () => { rememberPhaseReturn('topic-select'); setView('phase-select'); };
+  // The practice and exam cards on the resources tab promise a set of this
+  // subject; under a paper that holds none of it they must say so, not open
+  // a config screen that counts zero.
+  const scopedAll = countFor('all');
+  const setAvailable = Boolean(resources.questions?.available) && (!paperScope || scopedAll > 0);
 
   // The paper split by lecturer, only where the class has been told how each
   // part is written and only while that paper is the one in scope.
@@ -356,35 +390,35 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       <div className="vmx-mode-grid" style={{ marginBottom: 20 }}>
         <button
           className="vmx-mode-card"
-          disabled={!resources.questions?.available}
-          onClick={() => {
-            if (setMode) setMode('quick');
-            setTopic(null);
-            setView('config');
-          }}
-          style={{ borderColor: subjectMeta?.color, opacity: resources.questions?.available ? 1 : 0.55 }}
+          disabled={!setAvailable}
+          onClick={() => choose('all')}
+          style={{ borderColor: subjectMeta?.color, opacity: setAvailable ? 1 : 0.55 }}
         >
           <div className="icon"><NavIcon name="practice" size={20} /></div>
           <div className="title">ฝึกซ้อม</div>
-          <div className="sub">{resources.questions?.available ? `สุ่ม ${countFor('all')} ข้อในวิชานี้, ปรับจำนวน/เวลาได้` : 'ยังไม่มีข้อสอบในวิชานี้'}</div>
+          <div className="sub">{setAvailable
+            ? `ขั้นฝึกของวิชานี้ ${scopedAll} ข้อ, ปรับจำนวน/เวลาได้`
+            : resources.questions?.available ? `ไม่มีข้อในช่วง${paperLabel}` : 'ยังไม่มีข้อสอบในวิชานี้'}</div>
         </button>
 
         <button
           className="vmx-mode-card"
-          disabled={!resources.questions?.available}
+          disabled={!setAvailable}
           onClick={() => {
             if (setMode) setMode('exam');
-            if (setNumQuestions) setNumQuestions(50);
+            if (setNumQuestions) setNumQuestions(Math.min(50, scopedAll || 50));
             if (setUseTimer) setUseTimer(true);
             if (setTimePerQ) setTimePerQ(60);
             setTopic(null);
             setView('config');
           }}
-          style={{ borderColor: subjectMeta?.color, opacity: resources.questions?.available ? 1 : 0.55 }}
+          style={{ borderColor: subjectMeta?.color, opacity: setAvailable ? 1 : 0.55 }}
         >
           <div className="icon"><NavIcon name="exam" size={20} /></div>
           <div className="title">สอบจริง</div>
-          <div className="sub">{resources.questions?.available ? '50 ข้อ × 60 วิ, เลียนข้อสอบจริง' : 'ยังไม่มีข้อสอบในวิชานี้'}</div>
+          <div className="sub">{setAvailable
+            ? 'ขั้นแบบสอบ 50 ข้อ × 60 วิ, นาฬิกาเดียวทั้งชุด เฉลยหลังส่ง'
+            : resources.questions?.available ? `ไม่มีข้อในช่วง${paperLabel}` : 'ยังไม่มีข้อสอบในวิชานี้'}</div>
         </button>
 
         <button
@@ -570,7 +604,39 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           </Suspense>
         </div>
       )}
-      <div className="vmx-section-label">เลือกหัวข้อที่จะฝึก</div>
+      {/* A subject can be real and still have nothing on the paper the
+          student picked — Epidemiology's topics are seventeen final and
+          seven continuous, and the faculty timetable gives it no midterm at
+          all. Filtering by the paper is right, but a blank grid with one card
+          that opens an empty set is the same dead end as an answer key that
+          points at nothing. Say which paper emptied the page, where the
+          content is, and give back the control that changes it. One block
+          across the page, not a cell beside a card. */}
+      {paperEmpty && (
+        <div className="vmx-paper-empty" role="status">
+          <span className="vmx-paper-empty-icon" aria-hidden="true"><NavIcon name="calendar" size={22} /></span>
+          <div className="vmx-paper-empty-text">
+            <strong>{subjectMeta?.name} ไม่มีหัวข้อในช่วง{paperLabel}</strong>
+            <span>
+              {otherPaperCount > 0
+                ? `เนื้อหาทั้งวิชาอยู่ในช่วง${otherPaperLabel} (${otherPaperCount} ข้อ) ตามตารางเรียนปีนี้`
+                : 'เนื้อหาทั้งหมดของวิชาอยู่ในอีกช่วงสอบหนึ่ง ตามตารางเรียนปีนี้'}
+            </span>
+          </div>
+          <div className="vmx-paper-empty-actions">
+            <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={changePaper}>
+              เปลี่ยนช่วงสอบ
+            </button>
+            {(resources.notes?.available || resources.videos?.available || shelfDocs > 0) && (
+              <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setActiveSection('resources')}>
+                ดูสรุปและคลิปของวิชานี้
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+      {!paperEmpty && <div className="vmx-section-label">เลือกหัวข้อที่จะฝึก</div>}
+      {!paperEmpty && (
       <div className="vmx-topic-grid">
         {/* Panic Mode takes the first cell, immediately before รวมทุกหัวข้อ and
             the same height as it — one cell of this grid, not a banner across
@@ -587,20 +653,23 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           />
         )}
 
-        {/* All-topics card */}
+        {/* All-topics card — not when the paper holds nothing of this
+            subject: the notice above has already said why. */}
+        {!paperEmpty && (
         <button
           key="all"
           className="vmx-subject-card"
-          disabled={!resources.questions?.available}
+          disabled={!setAvailable}
           onClick={() => choose('all')}
-          style={{ opacity: resources.questions?.available ? 1 : 0.5, cursor: resources.questions?.available ? 'pointer' : 'not-allowed', '--subject-accent': subjectMeta?.color || 'var(--clr-ink)' }}
+          style={{ opacity: setAvailable ? 1 : 0.5, cursor: setAvailable ? 'pointer' : 'not-allowed', '--subject-accent': subjectMeta?.color || 'var(--clr-ink)' }}
         >
           <div className="accent" style={{ background: subjectMeta?.color || 'var(--clr-ink)' }}></div>
           <div className="icon"><NavIcon name="practice" size={22} /></div>
           <div className="title">รวมทุกหัวข้อ</div>
           <div className="sub">{subjectMeta?.name} ทุกหัวข้อ</div>
-          <div className="count">{countFor('all')} ข้อ</div>
+          <div className="count">{scopedAll} ข้อ</div>
         </button>
+        )}
 
         {/* Collection cards — virtual "ทำรวม" bundles for grouped topic blocks */}
         {collections.map((c) => {
@@ -625,31 +694,6 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         {/* A topic is useful when any connected resource is ready. Notes-only
             topics stay visible instead of being disabled just because the Q
             bank is still empty. */}
-        {/* A subject can be real and still have nothing on the paper the
-            student picked — Epidemiology's topics are seventeen final and
-            seven continuous, and the faculty timetable gives it no midterm at
-            all. Filtering by the paper is right, but landing on a blank list
-            with no explanation is the same dead end as an answer key that
-            points at nothing. Say which paper emptied the page, and give back
-            the control that changes it. */}
-        {paperScope && topics.length === 0 && (subjectPage.topics || []).length > 0 && (
-          <div className="vmx-empty-state">
-            <span className="icon" aria-hidden="true"><NavIcon name="calendar" size={24} /></span>
-            <div>
-              วิชานี้ไม่มีหัวข้อที่อยู่ใน{paperScope === 'midterm' ? 'ช่วงกลางภาค' : 'ช่วงปลายภาค'}
-              <br />
-              เนื้อหาทั้งหมดของวิชาอยู่ในอีกช่วงสอบหนึ่ง ตามตารางเรียนปีนี้
-            </div>
-            <button
-              type="button"
-              className="vmx-btn vmx-btn-sm cta"
-              onClick={() => setView('phase-select')}
-            >
-              เปลี่ยนช่วงสอบ
-            </button>
-          </div>
-        )}
-
         {(() => {
           const topicEntries = topics.map((t) => ({ t, count: countFor(t.id) }));
           const ready = topicEntries.filter(({ t }) => hasTopicContent(t));
@@ -759,6 +803,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         });
         })()}
       </div>
+      )}
 
       {/* Content-empty topic disclosure — only render when curriculum topics
           have no connected questions, Notes, or VetWiki article yet. */}

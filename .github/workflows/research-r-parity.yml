@@ -19,13 +19,16 @@
 #
 # Job "native-r": the second check. Native R 4.6.0 reruns every
 #   research/tests/fixtures/r/*.R with the package versions recorded in
-#   the committed files and compares with them (compare.mjs NATIVE_REL:
-#   the same R source, a different C library underneath). A different
-#   package version fails the job instead of being compared. The package
-#   list comes from the committed files (run-native.mjs --packages), so a
-#   script that starts to use a package is installed without editing this
-#   file: M3a adds drc 3.0.1 (nonlinear), logistf 1.26.1 (firth) and MASS
-#   7.3.65 (negbin) beside car (anovarm2).
+#   the committed files and compares with them (compare.mjs NATIVE_REL,
+#   1e-9 relative: the same R source, a different C library underneath;
+#   only the nls fixture, nonlinear, has its own documented 5e-8 in
+#   NATIVE_REL_BY_FIXTURE, because where nls stops depends on those last
+#   bits). A different package version fails the job instead of being
+#   compared. The package list comes from the committed files
+#   (run-native.mjs --packages), so a script that starts to use a package
+#   is installed without editing this file: M3a adds drc 3.0.1
+#   (nonlinear), logistf 1.26.1 (firth) and MASS 7.3.65 (negbin) beside
+#   car (anovarm2).
 # ============================================================
 name: Research R parity
 

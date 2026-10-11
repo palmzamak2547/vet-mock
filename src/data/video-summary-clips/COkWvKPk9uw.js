@@ -43,7 +43,7 @@ export default {
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ แต่ละผลิตภัณฑ์ storage ต่างกัน
-- ⭐⭐ **UHT room temp** (sealed) · 6-9 months
+- ⭐⭐ **UHT room temp** (sealed), 6-9 months
 - ⭐ **Hard cheese** long shelf life
 - ⭐ **FIFO** inventory rule
 - ⭐ Temperature logging required`,

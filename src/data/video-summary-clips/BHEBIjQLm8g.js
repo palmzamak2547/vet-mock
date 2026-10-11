@@ -22,7 +22,7 @@ export default {
 - Improper: diet, housing, temperature, humidity
 - ⭐ Fix husbandry → fix disease
 
-> 💡 ถามเจ้าของก่อนเสมอ: **อาหาร · กรง · อุณหภูมิ · ความชื้น** เป็นยังไง
+> 💡 ถามเจ้าของก่อนเสมอ: **อาหาร, กรง, อุณหภูมิ, ความชื้น** เป็นยังไง
 
 ---
 

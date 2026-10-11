@@ -13,8 +13,16 @@
 // 18 MB deck is bandwidth, not a bill.
 
 import { verifyBlobToken } from './_lib/blob-token.js';
+import { rateLimit, clientIP, sendRateLimitFailure } from './_lib/rate-limit.js';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
+
+// Storage ignores Range, so each GET streams the whole object through this
+// function. The budget is per address AND per link. Public links are minted
+// on fixed windows, so a whole lecture hall behind one NAT can open the SAME
+// URL at once: 300 per 10 minutes stays above the largest class (about 150)
+// while a looping viewer or a script is still capped.
+export const BLOB_RATE = { max: 300, windowMs: 10 * 60 * 1000 };
 
 // What the browser is told the bytes are. The catalog is curated under the
 // service role, but this route answers on the app's OWN origin — a row whose
@@ -113,6 +121,11 @@ export default async function handler(req, res) {
     res.setHeader('Cache-Control', cacheControl);
     return res.end();
   }
+
+  const linkKey = String(url.searchParams.get('s') || '').slice(0, 22);
+  const limit = await rateLimit(`library-blob:${clientIP(req)}:${linkKey}`, BLOB_RATE.max, BLOB_RATE.windowMs);
+  // Like the link endpoint: an outage of the shared limiter must not close the library.
+  if (!limit.ok && !limit.unavailable) return sendRateLimitFailure(res, limit);
 
   const objectPath = `${encodeURIComponent(payload.b)}/objects/${payload.k.split('/').map(encodeURIComponent).join('/')}`;
   const upstreamHeaders = { Authorization: `Bearer ${apiToken}` };

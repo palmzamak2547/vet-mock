@@ -571,7 +571,11 @@ const THAI_LABELS = {
   'spaced-repetition interval': chain('div', 'button.vmx-sr-btn', 'div.sub'),
   'fill-in label': chain('div.vmx-question-card', 'label.vmx-fill-label'),
   'calculator field label': chain('div', 'label.vmx-vetcalc-field-label'),
-  'tour skip': chain('div', 'button.vmx-tour-skip'),
+  // The วิธีใช้ guide's text controls and the hint's link (night-b block).
+  'guide back': chain('div', 'button.vmx-guide-back'),
+  'guide go': chain('div', 'button.vmx-guide-go'),
+  'guide goal row': chain('div', 'button.vmx-guide-row'),
+  'hint guide link': chain('div', 'button.vmx-feature-tip-more'),
   'matching answer label': chain('div', 'span.vmx-match-answer-label'),
   'lesson eyebrow': chain('div', 'p.vmx-lesson__eyebrow'),
   'lesson contents head': chain('div', 'p.vmx-lesson__tochead'),

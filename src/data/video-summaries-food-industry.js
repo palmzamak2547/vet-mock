@@ -687,7 +687,7 @@ export const VIDEO_SUMMARIES_FOOD_INDUSTRY = {
     examFormat: "Multiple choice, ออก animal feed industry, quality control",
     summary: `# Food Industry 2 — อุตสาหกรรมอาหารสัตว์และการควบคุมคุณภาพ
 
-> 🎯 **Feed industry = backbone ของ livestock production** · ไทย = ผู้ผลิต feed ระดับ multi-billion baht · **NIR (Near Infrared) = QC technology หลัก**
+> 🎯 **Feed industry = backbone ของ livestock production**, ไทย = ผู้ผลิต feed ระดับ multi-billion baht, **NIR (Near Infrared) = QC technology หลัก**
 > ⚠️ Mycotoxin + antibiotic residue = 2 issues ใหญ่ที่ regulator + buyer ดูตลอด
 
 ---
@@ -754,7 +754,7 @@ export const VIDEO_SUMMARIES_FOOD_INDUSTRY = {
     examFormat: "Multiple choice, ออก Thai food industry, vet role",
     summary: `# Food Industry 1.1 — Introduction
 
-> 🎯 **อุตสาหกรรมอาหารไทย = export sector ใหญ่ ~$30+ billion/ปี** · ไทย = "kitchen of the world" · vet มีบทบาทตั้งแต่ farm → factory → border
+> 🎯 **อุตสาหกรรมอาหารไทย = export sector ใหญ่ ~$30+ billion/ปี**, ไทย = "kitchen of the world", vet มีบทบาทตั้งแต่ farm → factory → border
 > 💡 Frame lecture สำหรับเข้าใจ scope ก่อนเข้า regulation + standards
 
 ---
@@ -806,7 +806,7 @@ export const VIDEO_SUMMARIES_FOOD_INDUSTRY = {
     examFormat: "Multiple choice, ออก agricultural standards, livestock product standards",
     summary: `# Food Industry 4 — มาตรฐานสินค้าเกษตรและผลิตภัณฑ์จากปศุสัตว์
 
-> 🎯 **มาตรฐาน + certification ของอาหารไทย** — multiple bodies (TIS, MAS, Q Mark, organic, Halal) · international standards = key สำหรับ export
+> 🎯 **มาตรฐาน + certification ของอาหารไทย** — multiple bodies (TIS, MAS, Q Mark, organic, Halal), international standards = key สำหรับ export
 > 💡 Certification = ใบเบิกทางสู่ตลาด — แต่ละ trading partner ต้องการ standard ต่างกัน
 
 ---
@@ -1817,7 +1817,7 @@ Transition period ที่ต่างกันตามขนาดฟาร�
     examFormat: "Multiple choice, ออก aquatic product quality control, DOF",
     summary: `# Food Industry 6 — การควบคุมคุณภาพสัตว์น้ำและผลิตภัณฑ์สัตว์น้ำ
 
-> 🎯 **DOF (Department of Fisheries) = lead authority** สำหรับ aquatic products · ไทย = major exporter (กุ้ง, ปลานิล, ornamental) · **HACCP + cold chain = backbone**
+> 🎯 **DOF (Department of Fisheries) = lead authority** สำหรับ aquatic products, ไทย = major exporter (กุ้ง, ปลานิล, ornamental), **HACCP + cold chain = backbone**
 > ⚠️ **Chloramphenicol = banned** สำหรับสัตว์ที่ใช้เป็นอาหาร (carcinogen + aplastic anemia ในคน)
 
 ---
@@ -1879,7 +1879,7 @@ Transition period ที่ต่างกันตามขนาดฟาร�
     examFormat: "Multiple choice, ออก พรบ. สาธารณสุข, food regulations",
     summary: `# Food Industry 1.2 — พระราชบัญญัติการสาธารณสุข (Public Health Act)
 
-> 🎯 **พรบ. การสาธารณสุข** = กฎหมายหลักควบคุม food safety, hygiene, vendors ในไทย · enforcement ระดับ local government
+> 🎯 **พรบ. การสาธารณสุข** = กฎหมายหลักควบคุม food safety, hygiene, vendors ในไทย, enforcement ระดับ local government
 > 💡 Vet มี role indirect — สนับสนุน zoonotic disease control + sanitary inspection
 
 ---
@@ -3771,7 +3771,7 @@ Transition period ที่ต่างกันตามขนาดฟาร�
     examFormat: "Multiple choice, ออก slaughter regulations, meat distribution control",
     summary: `# Food Industry 3 — การควบคุมกระบวนการฆ่าและจำหน่ายเนื้อสัตว์
 
-> 🎯 **DLD = lead regulator ของ slaughter + meat distribution ในไทย** · vet inspection mandatory · ตั้งแต่ antemortem → postmortem → cold chain
+> 🎯 **DLD = lead regulator ของ slaughter + meat distribution ในไทย**, vet inspection mandatory, ตั้งแต่ antemortem → postmortem → cold chain
 > ⚠️ Illegal / unregistered slaughterhouses = ปัญหา public health ที่ยังแก้ไม่จบ
 
 ---

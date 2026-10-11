@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก quality testing methods, physical/chemical/microbiological",
   summary: `# Milk-Meat — 4.3.1 Determination of Milk Quality I
 
-> 🎯 Quality testing 3 หมวด: **Physical · Chemical · Microbiological** — รู้ method ตัวแทนของแต่ละหมวด
+> 🎯 Quality testing 3 หมวด: **Physical, Chemical, Microbiological** — รู้ method ตัวแทนของแต่ละหมวด
 
 ---
 

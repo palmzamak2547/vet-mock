@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก Listeria in poultry, zoonotic",
   summary: `# Avian Medicine 12.3 — Listeriosis
 
-> 🎯 **Listeria monocytogenes** · ⚠️ **EU export concern** — testing mandatory · soil-dwelling, **cold-tolerant** (survive ตู้เย็น)
+> 🎯 **Listeria monocytogenes**, ⚠️ **EU export concern** — testing mandatory, soil-dwelling, **cold-tolerant** (survive ตู้เย็น)
 > 💡 Often asymptomatic ในไก่แต่ zoonotic ระดับสูง (pregnant women, immunocompromised)
 
 ---

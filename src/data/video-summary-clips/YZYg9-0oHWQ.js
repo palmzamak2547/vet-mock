@@ -11,8 +11,8 @@ export default {
   examFormat: "Multiple choice, ออก Histomonas, turkey, blackhead",
   summary: `# Avian Medicine 12.4 — Histomoniasis (Blackhead)
 
-> 🎯 **Histomoniasis = Histomonas meleagridis (protozoan)** · ⭐ **Heterakis gallinarum (cecal worm) = vector** + earthworm intermediate
-> ⚠️ **Turkeys = most susceptible** (มัก fatal) · chickens = mild carriers
+> 🎯 **Histomoniasis = Histomonas meleagridis (protozoan)**, ⭐ **Heterakis gallinarum (cecal worm) = vector** + earthworm intermediate
+> ⚠️ **Turkeys = most susceptible** (มัก fatal), chickens = mild carriers
 
 ---
 
@@ -60,7 +60,7 @@ export default {
 
 ## 📋 Exam Recap
 - ⭐⭐ **Histomonas meleagridis + Heterakis vector + earthworm transport host**
-- ⭐⭐ **Turkeys = severe · chickens = carriers**
+- ⭐⭐ **Turkeys = severe, chickens = carriers**
 - ⭐ **Liver target lesions + cecal cores** = PM signature
 - ⭐ Limited treatment (metronidazole/nitarsone unavailable)
 - ⭐ Don't mix chickens + turkeys`,

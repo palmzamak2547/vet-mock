@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก meat storage methods, shelf life",
   summary: `# Milk-Meat — 11.1 Storage of Meat and Meat Products
 
-> 🎯 Storage methods 8 แบบ ตั้งแต่ refrigeration → canning · เลือกตามเงื่อนไข + shelf life ที่ต้องการ
+> 🎯 Storage methods 8 แบบ ตั้งแต่ refrigeration → canning, เลือกตามเงื่อนไข + shelf life ที่ต้องการ
 
 ---
 
@@ -28,7 +28,7 @@ export default {
 | ⭐ **Smoking** | Smoke + heat | Variable |
 | ⭐ **Canning** | Heat sterilized | Years |
 
-> 💡 **MAP** = Modified Atmosphere Packaging — ปรับ O₂/CO₂/N₂ ในซอง · ยืด shelf life
+> 💡 **MAP** = Modified Atmosphere Packaging — ปรับ O₂/CO₂/N₂ ในซอง, ยืด shelf life
 
 ---
 
@@ -51,7 +51,7 @@ export default {
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ **Refrigeration 0-4°C · Freezing -18°C**
+- ⭐⭐⭐ **Refrigeration 0-4°C, Freezing -18°C**
 - ⭐⭐ **Vacuum / MAP** extends shelf life
 - ⭐ **Curing / drying** = historical methods
 - ⭐ **Quick freezing** preserves quality

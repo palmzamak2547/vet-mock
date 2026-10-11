@@ -12,7 +12,7 @@ export default {
   summary: `# Reproductive Performance Index for Dairy Herd Management
 
 > 🎯 **Reproductive index calculation** สำหรับ dairy herd evaluation ⭐⭐⭐
-> 💡 CI (365 days target) = **lagging indicator** (2 years past) · CTFS + CTC = **leading indicators** (current management)
+> 💡 CI (365 days target) = **lagging indicator** (2 years past), CTFS + CTC = **leading indicators** (current management)
 > ⚠️ VWP ~45 days — don't breed too early!
 
 4-quadrant cattle classification: **Milking-Open, Milking-Pregnant, Dry-Open, Dry-Pregnant** with proportions ~24%, 41%, 17%, 17% in well-managed herd.

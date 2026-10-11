@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก Leucocytozoon, vector, clinical signs",
   summary: `# Avian Medicine 6.4 — Leucocytozoonosis
 
-> 🎯 **Leucocytozoonosis = blood protozoan ที่ vector-transmitted** · ไทยร้อนชื้น = endemic · ⭐ **Black fly (Simulium) = vector**
+> 🎯 **Leucocytozoonosis = blood protozoan ที่ vector-transmitted**, ไทยร้อนชื้น = endemic, ⭐ **Black fly (Simulium) = vector**
 > ⚠️ Outdoor / free-range = high risk
 
 ---

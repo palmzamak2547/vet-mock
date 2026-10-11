@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก duck plague, DVH, waterfowl-specific diseases",
   summary: `# Avian Medicine 10+11 — Duck and Goose Diseases
 
-> 🎯 **Waterfowl-specific diseases** สำหรับอุตสาหกรรมเป็ด/ห่านไทย · 3 ตัวหลักของเป็ด: **DVH (Picornavirus) · Duck Plague (Herpesvirus) · Riemerella**
+> 🎯 **Waterfowl-specific diseases** สำหรับอุตสาหกรรมเป็ด/ห่านไทย, 3 ตัวหลักของเป็ด: **DVH (Picornavirus), Duck Plague (Herpesvirus), Riemerella**
 > 💡 AI = zoonotic risk สูงมากในเป็ด/ห่าน (เป็น natural reservoir)
 
 ---
@@ -62,8 +62,8 @@ export default {
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐ **DVH = Picornavirus · ducklings 1–3 wk · liver hemorrhage**
-- ⭐⭐ **Duck Plague = Herpesvirus · all ages**
+- ⭐⭐ **DVH = Picornavirus, ducklings 1–3 wk, liver hemorrhage**
+- ⭐⭐ **Duck Plague = Herpesvirus, all ages**
 - ⭐ **Riemerella anatipestifer** = duck-specific bacterial septicemia
 - ⭐ **Derzsy's = goose parvovirus**
 - ⭐ **AI zoonotic** + waterfowl reservoir`,

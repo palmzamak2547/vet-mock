@@ -25,14 +25,15 @@
 
 import { useState } from 'react';
 import { MotionButton } from './MotionFeedback.jsx';
-import { FEATURE_CATEGORIES, featuresByCategory, visibleFeatures, rememberViewIntent } from '../lib/feature-registry.js';
-import { commandShortcutLabel } from '../lib/nav.js';
+import { FEATURES, FEATURE_CATEGORIES, visibleFeatures, rememberViewIntent } from '../lib/feature-registry.js';
+import { commandShortcutLabel, homeMenuGroup, homeMenuVisible } from '../lib/nav.js';
 
 const PREVIEW_LIMIT = 4;
 
 export default function FeatureMenu({
   setView,
   onPractice,
+  onPanic,
   onSketch,
   onVoiceSettings,
   signedIn = false,
@@ -48,6 +49,11 @@ export default function FeatureMenu({
     switch (inv.kind) {
       case 'view': rememberViewIntent(inv.intent); setView?.(inv.view); return;
       case 'practice': onPractice?.(inv); return;
+      // ทบทวนเร่งด่วน came back to this menu on 2026-10-11, but the menu had
+      // no case for its invoke, so its card did nothing when tapped: the
+      // palette (CommandPalette.runItem) was the only surface that ran it.
+      // Same handler, same default, so the two surfaces agree.
+      case 'panic': onPanic?.(inv.timeKey || '30'); return;
       case 'event': try { window.dispatchEvent(new Event(inv.event)); } catch { /* no-op */ } return;
       case 'sketch': onSketch?.(); return;
       case 'voice': onVoiceSettings?.(); return;
@@ -72,17 +78,25 @@ export default function FeatureMenu({
         // never skipped: its secondary entries (ทบทวนเร่งด่วน, คิวรอตรวจ)
         // would otherwise have no home screen at all. A group left empty
         // after filtering returns null on its own.
+        // Home's policy (lib/nav.js) is applied on top of the registry's own
+        // gating: a few features are filed where a student looks for them
+        // (Atlas under tools), a few open from their subject page instead
+        // (clips, the faculty index, score weights), and one is the admin's.
         const feats = visibleFeatures(
-          featuresByCategory(cat.id).filter((f) => !f.primary),
+          FEATURES.filter((f) => homeMenuGroup(f) === cat.id && !f.primary),
           { signedIn, scaffold, hasSupabase, selectedYear, isAdmin }
-        );
+        ).filter((f) => homeMenuVisible(f, { isAdmin }));
         if (feats.length === 0) return null;
         const isExpanded = Boolean(expanded[cat.id]);
         const shown = isExpanded ? feats : feats.slice(0, PREVIEW_LIMIT);
         const hiddenCount = Math.max(0, feats.length - PREVIEW_LIMIT);
         const gridId = `vmx-feature-grid-${cat.id}`;
+        // `data-category` lets the stylesheet treat one group differently:
+        // below 1024px the learn group is drawn as the quick grid at the top
+        // of Home (HomeQuickGrid, same registry list), so this copy of it is
+        // hidden there and each destination keeps exactly one tile.
         return (
-          <section key={cat.id} className="vmx-feature-group" aria-labelledby={`${gridId}-title`}>
+          <section key={cat.id} className="vmx-feature-group" data-category={cat.id} aria-labelledby={`${gridId}-title`}>
             <div className="vmx-feature-group-heading">
               <h3 id={`${gridId}-title`}>{cat.label}</h3>
               <span>{feats.length} รายการ</span>

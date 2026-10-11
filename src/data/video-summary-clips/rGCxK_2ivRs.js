@@ -37,7 +37,7 @@ export default {
 # 🔻 Part 3: Vaccination ⭐⭐
 
 - ⭐ **Works ในปลา!** (ต่างจากกุ้ง)
-- ⭐ Routes: injection · immersion · oral
+- ⭐ Routes: injection, immersion, oral
 - ⭐ Common diseases ที่ vaccinate:
   - Streptococcus
   - Edwardsiella

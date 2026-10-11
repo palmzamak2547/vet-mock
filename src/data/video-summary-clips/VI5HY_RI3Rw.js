@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก global initiatives, WHO/FAO/WOAH/UNEP partnership",
   summary: `# One Health — 1 Global One Health Activity Network
 
-> 🎯 **One Health** = integrated approach รวม human + animal + environmental health · ผ่าน Quadripartite (WHO + FAO + WOAH + UNEP) ⭐⭐⭐
+> 🎯 **One Health** = integrated approach รวม human + animal + environmental health, ผ่าน Quadripartite (WHO + FAO + WOAH + UNEP) ⭐⭐⭐
 > ⚠️ 75% emerging diseases zoonotic — One Health = ตัวเชื่อม
 
 ---

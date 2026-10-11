@@ -51,7 +51,17 @@ for (const mode of ['weak', 'bookmarks']) test(`Dashboard ${mode} practice survi
   await named.click();
   await expect(page.getByRole('heading', { level: 1, name: 'เลือก หัวข้อ', exact: true })).toBeVisible();
   await expect(page.locator('.vmx-hero')).toContainText(priorSubject.name);
-  await page.getByRole('button', { name: /คืบหน้า/ }).filter({ visible: true }).first().click();
+  // The desktop rail still has a ความคืบหน้า row; the phone bar gave that
+  // slot to ทบทวน (2026-10-12) and carries progress inside the profile hub,
+  // so a phone reaches the page the way a student does: โปรไฟล์ → ความคืบหน้า.
+  const progressNav = page.getByRole('button', { name: /คืบหน้า/ }).filter({ visible: true });
+  if (await progressNav.count()) {
+    await progressNav.first().click();
+  } else {
+    await page.getByRole('button', { name: 'โปรไฟล์', exact: true }).first().click();
+    await expect(page.locator('.vmx-hero h1')).toContainText('โปรไฟล์');
+    await page.locator('main').getByRole('button', { name: /^ความคืบหน้า/ }).click();
+  }
   await expect(page.locator('h1')).toContainText('ความคืบหน้า');
   const launch = page.getByRole('button', { name: mode === 'weak' ? 'ทำข้อที่อ่อน (1)' : 'ทำ Bookmarks (1)', exact: true });
   await launch.click();

@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก aflatoxin, ochratoxin, trichothecenes, clinical signs",
   summary: `# Avian Medicine 9.2 — Mycotoxicosis
 
-> 🎯 **Mycotoxins = secondary metabolites ของเชื้อรา ใน feed** · major economic concern · 5 groups หลัก: **Aflatoxin, Ochratoxin, Trichothecenes, Fumonisins, Zearalenone**
+> 🎯 **Mycotoxins = secondary metabolites ของเชื้อรา ใน feed**, major economic concern, 5 groups หลัก: **Aflatoxin, Ochratoxin, Trichothecenes, Fumonisins, Zearalenone**
 > ⚠️ **Aflatoxin B1 = most carcinogenic** (hepatocellular carcinoma) — ออกสอบบ่อยสุด
 
 ---

@@ -89,6 +89,17 @@ test('a pending Pinboard clear cancels on browser Back and a fresh keyboard conf
   // can bring it back; the app must have cancelled it before the fresh
   // keyboard confirmation runs, or the second open below would be ambiguous.
   await expect(page.getByRole('dialog')).toHaveCount(0);
+  // Forward is a view change, and every view change hands focus to <main> in
+  // the first frame drawn after it (App.jsx; skipped while a dialog is open).
+  // On a loaded runner that frame can come after the focus call below, and
+  // the hand-off then takes the focus back: the 2026-10-11 release gate saw
+  // Clear stay "inactive" on chromium-mobile, and holding frames back
+  // reproduces it on every engine. Two drawn frames after Pinboard is on
+  // screen, the hand-off has run (or been skipped), so the focus stays.
+  await expect(clear).toBeVisible();
+  await page.evaluate(() => new Promise((resolve) => {
+    requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(resolve, 0)));
+  }));
   await clear.focus();
   await expect(clear).toBeFocused();
   await clear.press('Enter');

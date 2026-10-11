@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก postmortem chemistry, rigor mortis, cutting, grading",
   summary: `# Milk-Meat — 15 Postmortem Changes & Meat Cutting/Grading
 
-> 🎯 Postmortem 4 phases: **Pre-rigor → Rigor mortis → Resolution → Aging** · pH ตก 7.2 → 5.5 · aging 7-21 วันสำหรับ beef
+> 🎯 Postmortem 4 phases: **Pre-rigor → Rigor mortis → Resolution → Aging**, pH ตก 7.2 → 5.5, aging 7-21 วันสำหรับ beef
 > ⚠️ Rigor mortis ที่ตัดเนื้อผิด phase = เนื้อเหนียวเกินกิน
 
 ---
@@ -84,8 +84,8 @@ export default {
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **4 postmortem phases** + **pH 7.2 → 5.5**
-- ⭐⭐ **Rigor mortis 1-12 hours** · ATP depletion + actomyosin
-- ⭐⭐ **Aging 7-21 days** for beef · cathepsin + calpain
+- ⭐⭐ **Rigor mortis 1-12 hours**, ATP depletion + actomyosin
+- ⭐⭐ **Aging 7-21 days** for beef, cathepsin + calpain
 - ⭐ USDA Prime / Choice / Select grading
 - ⭐ Marbling = main grading factor`,
 };

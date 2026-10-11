@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก Thai food industry, vet role",
   summary: `# Food Industry 1.1 — Introduction
 
-> 🎯 **อุตสาหกรรมอาหารไทย = export sector ใหญ่ ~$30+ billion/ปี** · ไทย = "kitchen of the world" · vet มีบทบาทตั้งแต่ farm → factory → border
+> 🎯 **อุตสาหกรรมอาหารไทย = export sector ใหญ่ ~$30+ billion/ปี**, ไทย = "kitchen of the world", vet มีบทบาทตั้งแต่ farm → factory → border
 > 💡 Frame lecture สำหรับเข้าใจ scope ก่อนเข้า regulation + standards
 
 ---

@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก stallion infertility, breeding soundness exam",
   summary: `# Equine Repro — 6.1 Stallion Infertility
 
-> 🎯 **Breeding Soundness Examination (BSE) essential** · ⚠️ Anabolic steroids = sterile! ⭐⭐⭐
+> 🎯 **Breeding Soundness Examination (BSE) essential**, ⚠️ Anabolic steroids = sterile! ⭐⭐⭐
 > ⚠️ ออกแน่: BSE components, anabolic steroids effect, cryptorchid, multiple ejaculates
 
 ---

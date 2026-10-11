@@ -59,11 +59,15 @@ test('the existing storage timeout still aborts with a controlled failure and cl
   const timer = {};
   t.mock.method(globalThis, 'setTimeout', (callback, ms) => { expire = callback; delay = ms; return timer; });
   t.mock.method(globalThis, 'clearTimeout', (value) => { cleared = value; });
-  const req = storage(t, async (_url, { signal }) => new Promise((_, reject) => {
+  let asked;
+  const storageAsked = new Promise((resolve) => { asked = resolve; });
+  const req = storage(t, async (_url, { signal }) => { asked(); return new Promise((_, reject) => {
     signal.addEventListener('abort', () => reject(signal.reason), { once: true });
-  }));
+  }); });
   const res = response();
   const pending = handler(req, res);
+  // The per-link rate check runs first now, so wait until storage is asked.
+  await storageAsked;
   assert.equal(delay, 60_000);
   expire();
   await pending;

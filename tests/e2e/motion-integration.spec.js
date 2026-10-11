@@ -129,7 +129,7 @@ test('a failed animation API cannot break the actual navigation action', async (
   page.on('pageerror', error => errors.push(error.message));
   await page.addInitScript(() => { Element.prototype.animate = () => { throw new Error('Animation unavailable'); }; });
   await page.goto('/');
-  await page.locator('.vmx-feature-menu').getByRole('button', { name: /^คลังเอกสาร / }).click();
+  await page.locator('.vmx-feature-menu, .vmx-quick-grid').getByRole('button', { name: /^คลังเอกสาร / }).filter({ visible: true }).first().click();
   await expect(page.getByRole('heading', { name: 'คลังเอกสารการเรียน', exact: true })).toBeVisible({ timeout: 20_000 });
   expect(errors).toEqual([]);
 });

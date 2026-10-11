@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก aquarium setup, water management, stocking",
   summary: `# Aquatic Clinic — 11.1 Aquarium Management
 
-> 🎯 Aquarium management = balancing water quality + stocking + monitoring · public vs hobby ต่างขนาดแต่หลักเดียวกัน
+> 🎯 Aquarium management = balancing water quality + stocking + monitoring, public vs hobby ต่างขนาดแต่หลักเดียวกัน
 > ⚠️ **Quarantine all new arrivals** — pathogen introduction ทำให้ entire system พังได้
 
 ---

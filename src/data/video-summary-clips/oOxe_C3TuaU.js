@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก horse ID methods, microchip, passport",
   summary: `# Equine — 1.1 Identification + Microchip
 
-> 🎯 Horse ID methods — microchip = gold standard · ตำแหน่งฝัง = left mid-third of neck (nuchal ligament area) ⭐⭐
+> 🎯 Horse ID methods — microchip = gold standard, ตำแหน่งฝัง = left mid-third of neck (nuchal ligament area) ⭐⭐
 > ⚠️ ออกแน่: microchip standard, passport requirement, markings vocab
 
 ---

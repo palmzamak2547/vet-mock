@@ -18,7 +18,7 @@ export const VIDEO_SUMMARIES_AVIAN_MEDICINE = {
     examFormat: "Multiple choice, ออก Listeria in poultry, zoonotic",
     summary: `# Avian Medicine 12.3 — Listeriosis
 
-> 🎯 **Listeria monocytogenes** · ⚠️ **EU export concern** — testing mandatory · soil-dwelling, **cold-tolerant** (survive ตู้เย็น)
+> 🎯 **Listeria monocytogenes**, ⚠️ **EU export concern** — testing mandatory, soil-dwelling, **cold-tolerant** (survive ตู้เย็น)
 > 💡 Often asymptomatic ในไก่แต่ zoonotic ระดับสูง (pregnant women, immunocompromised)
 
 ---
@@ -3676,7 +3676,7 @@ Antibody ที่ถ่ายทอดจากแม่ สามารถล�
     examFormat: "Multiple choice, ออก Ornithobacterium rhinotracheale, ORT",
     summary: `# Avian Medicine 12.1 — Ornithobacteriosis (ORT)
 
-> 🎯 **ORT = Ornithobacterium rhinotracheale** · respiratory disease ที่มัก **complicated กับ MG/IB/aMPV**
+> 🎯 **ORT = Ornithobacterium rhinotracheale**, respiratory disease ที่มัก **complicated กับ MG/IB/aMPV**
 > ⚠️ **Antibiotic resistance พุ่ง** — sensitivity testing สำคัญ
 
 ---
@@ -3736,7 +3736,7 @@ Antibody ที่ถ่ายทอดจากแม่ สามารถล�
     examFormat: "Multiple choice, ออก MG, MS, vertical transmission, vaccination, monitoring",
     summary: `# Avian Medicine 2 — Mycoplasmosis (MG + MS)
 
-> 🎯 **2 ตัวหลักของไก่** — **MG (M. gallisepticum)** = CRD (Chronic Respiratory Disease) · **MS (M. synoviae)** = synovitis + eggshell apex abnormality
+> 🎯 **2 ตัวหลักของไก่** — **MG (M. gallisepticum)** = CRD (Chronic Respiratory Disease), **MS (M. synoviae)** = synovitis + eggshell apex abnormality
 > ⚠️ **Vertical transmission (egg-borne)** = key challenge → Mycoplasma-free breeders เท่านั้นที่ตัดวงจรได้
 
 ---
@@ -3813,7 +3813,7 @@ Antibody ที่ถ่ายทอดจากแม่ สามารถล�
     examFormat: "Multiple choice, ออก E. coli APEC, clinical syndromes, APEC virulence factors",
     summary: `# Avian Medicine 3.1 — Colibacillosis (APEC)
 
-> 🎯 **Colibacillosis = E. coli ในสัตว์ปีก** — เกือบทั้งหมดเป็น **APEC (Avian Pathogenic E. coli)** · มัก secondary to viral/MG infection
+> 🎯 **Colibacillosis = E. coli ในสัตว์ปีก** — เกือบทั้งหมดเป็น **APEC (Avian Pathogenic E. coli)**, มัก secondary to viral/MG infection
 > ⚠️ **Pericarditis + perihepatitis = classic triad** ที่เจอบน necropsy
 
 ---
@@ -3894,7 +3894,7 @@ Antibody ที่ถ่ายทอดจากแม่ สามารถล�
     examFormat: "Multiple choice, ออก IB serotypes, clinical signs, vaccination",
     summary: `# Avian Medicine 1.2 — Infectious Bronchitis (IB)
 
-> 🎯 **IB = Avian Coronavirus** — respiratory + reproductive disease ในไก่ · key challenge = **multiple serotypes** ที่ cross-protection LIMITED
+> 🎯 **IB = Avian Coronavirus** — respiratory + reproductive disease ในไก่, key challenge = **multiple serotypes** ที่ cross-protection LIMITED
 > ⚠️ Vaccine ต้อง match กับ field serotype — strain ผิด = protection ไม่พอ
 
 ---
@@ -5326,7 +5326,7 @@ complication จากเชื้ออื่น ได้แก่ **E. coli**
     examFormat: "Multiple choice, ออก Leucocytozoon, vector, clinical signs",
     summary: `# Avian Medicine 6.4 — Leucocytozoonosis
 
-> 🎯 **Leucocytozoonosis = blood protozoan ที่ vector-transmitted** · ไทยร้อนชื้น = endemic · ⭐ **Black fly (Simulium) = vector**
+> 🎯 **Leucocytozoonosis = blood protozoan ที่ vector-transmitted**, ไทยร้อนชื้น = endemic, ⭐ **Black fly (Simulium) = vector**
 > ⚠️ Outdoor / free-range = high risk
 
 ---
@@ -6641,7 +6641,7 @@ complication จากเชื้ออื่น ได้แก่ **E. coli**
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **Birnavirus → B-cell depletion ใน Bursa → immunosuppression**
-- ⭐⭐⭐ **3–6 weeks** peak age · < 3 wk subclinical
+- ⭐⭐⭐ **3–6 weeks** peak age, < 3 wk subclinical
 - ⭐⭐ **Maternal antibody timing** = vaccine success key
 - ⭐ **Bursal atrophy** ที่ necropsy
 - ⭐ vvIBD strain mortality สูงมาก`,
@@ -8004,7 +8004,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
     examFormat: "Multiple choice, ออก vaccine types, routes, maternal Ab, poultry vaccination programs",
     summary: `# Avian Medicine 13.1 — Vaccines, Methods, Programs
 
-> 🎯 **Vaccination = backbone ของ poultry health** · vaccine types + administration routes + **maternal antibody timing** = หัวใจของ program
+> 🎯 **Vaccination = backbone ของ poultry health**, vaccine types + administration routes + **maternal antibody timing** = หัวใจของ program
 > ⚠️ Live vaccine + high MDA = neutralized → vaccinate ตอน MDA drop พอดี
 
 ---
@@ -8081,8 +8081,8 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
     examFormat: "Multiple choice, ออก Histomonas, turkey, blackhead",
     summary: `# Avian Medicine 12.4 — Histomoniasis (Blackhead)
 
-> 🎯 **Histomoniasis = Histomonas meleagridis (protozoan)** · ⭐ **Heterakis gallinarum (cecal worm) = vector** + earthworm intermediate
-> ⚠️ **Turkeys = most susceptible** (มัก fatal) · chickens = mild carriers
+> 🎯 **Histomoniasis = Histomonas meleagridis (protozoan)**, ⭐ **Heterakis gallinarum (cecal worm) = vector** + earthworm intermediate
+> ⚠️ **Turkeys = most susceptible** (มัก fatal), chickens = mild carriers
 
 ---
 
@@ -8130,7 +8130,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
 
 ## 📋 Exam Recap
 - ⭐⭐ **Histomonas meleagridis + Heterakis vector + earthworm transport host**
-- ⭐⭐ **Turkeys = severe · chickens = carriers**
+- ⭐⭐ **Turkeys = severe, chickens = carriers**
 - ⭐ **Liver target lesions + cecal cores** = PM signature
 - ⭐ Limited treatment (metronidazole/nitarsone unavailable)
 - ⭐ Don't mix chickens + turkeys`,
@@ -8145,7 +8145,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
     examFormat: "Multiple choice, ออก Clostridium perfringens, NE, risk factors",
     summary: `# Avian Medicine 6.3 — Necrotic Enteritis (NE)
 
-> 🎯 **NE = Clostridium perfringens type A** · ปัญหาขึ้นโดดเด่นหลัง **AGP (Antimicrobial Growth Promoter) ban**
+> 🎯 **NE = Clostridium perfringens type A**, ปัญหาขึ้นโดดเด่นหลัง **AGP (Antimicrobial Growth Promoter) ban**
 > ⚠️ **Coccidiosis predisposes** — มัก co-infect → manage coccidia ก่อน NE จะหายตาม
 
 ---
@@ -8219,7 +8219,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
     examFormat: "Multiple choice, ออก aflatoxin, ochratoxin, trichothecenes, clinical signs",
     summary: `# Avian Medicine 9.2 — Mycotoxicosis
 
-> 🎯 **Mycotoxins = secondary metabolites ของเชื้อรา ใน feed** · major economic concern · 5 groups หลัก: **Aflatoxin, Ochratoxin, Trichothecenes, Fumonisins, Zearalenone**
+> 🎯 **Mycotoxins = secondary metabolites ของเชื้อรา ใน feed**, major economic concern, 5 groups หลัก: **Aflatoxin, Ochratoxin, Trichothecenes, Fumonisins, Zearalenone**
 > ⚠️ **Aflatoxin B1 = most carcinogenic** (hepatocellular carcinoma) — ออกสอบบ่อยสุด
 
 ---
@@ -8314,7 +8314,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
     examFormat: "Multiple choice, ออก duck plague, DVH, waterfowl-specific diseases",
     summary: `# Avian Medicine 10+11 — Duck and Goose Diseases
 
-> 🎯 **Waterfowl-specific diseases** สำหรับอุตสาหกรรมเป็ด/ห่านไทย · 3 ตัวหลักของเป็ด: **DVH (Picornavirus) · Duck Plague (Herpesvirus) · Riemerella**
+> 🎯 **Waterfowl-specific diseases** สำหรับอุตสาหกรรมเป็ด/ห่านไทย, 3 ตัวหลักของเป็ด: **DVH (Picornavirus), Duck Plague (Herpesvirus), Riemerella**
 > 💡 AI = zoonotic risk สูงมากในเป็ด/ห่าน (เป็น natural reservoir)
 
 ---
@@ -8365,8 +8365,8 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐ **DVH = Picornavirus · ducklings 1–3 wk · liver hemorrhage**
-- ⭐⭐ **Duck Plague = Herpesvirus · all ages**
+- ⭐⭐ **DVH = Picornavirus, ducklings 1–3 wk, liver hemorrhage**
+- ⭐⭐ **Duck Plague = Herpesvirus, all ages**
 - ⭐ **Riemerella anatipestifer** = duck-specific bacterial septicemia
 - ⭐ **Derzsy's = goose parvovirus**
 - ⭐ **AI zoonotic** + waterfowl reservoir`,
@@ -8381,7 +8381,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
     examFormat: "Multiple choice, ออก Campylobacter zoonotic risk, food safety",
     summary: `# Avian Medicine 12.2 — Campylobacter Infection
 
-> 🎯 **Campylobacter = zoonotic foodborne pathogen** · ⭐ **OFTEN ASYMPTOMATIC ในไก่** แต่ทำให้คนเป็น gastroenteritis
+> 🎯 **Campylobacter = zoonotic foodborne pathogen**, ⭐ **OFTEN ASYMPTOMATIC ในไก่** แต่ทำให้คนเป็น gastroenteritis
 > ⚠️ **C. jejuni = #1 cause ของ human bacterial gastroenteritis** ทั่วโลก
 
 ---
@@ -8440,7 +8440,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
     summary: `# Avian Medicine 5.2 — Neoplastic Diseases (Marek's + Lymphoid Leukosis)
 
 > 🎯 **2 tumor diseases หลัก**: **Marek's (alphaherpesvirus)** vs **Lymphoid Leukosis (retrovirus / ALV)** — มาเทียบให้แม่นเพราะข้อสอบชอบหลอก
-> ⚠️ Marek's มี vaccine (in ovo / day 1) · ALV ไม่มี vaccine ต้อง eradicate ที่ breeder
+> ⚠️ Marek's มี vaccine (in ovo / day 1), ALV ไม่มี vaccine ต้อง eradicate ที่ breeder
 
 ---
 
@@ -8494,13 +8494,14 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
 | Special signs | Paralysis, iridocyclitis | Tumors only |
 | Common | Very common | Less common |
 
-> 💡 จำง่าย: **Marek's = young, T-cell, vaccine · ALV = old, B-cell, eradicate**
+> 💡 จำง่าย: **Marek's = young, T-cell, vaccine**
+> **ALV = old, B-cell, eradicate**
 
 ---
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **Marek's vs ALV comparison table** — must know
-- ⭐⭐ **Marek's = HVT vaccine at hatch · prevents tumor not infection**
+- ⭐⭐ **Marek's = HVT vaccine at hatch, prevents tumor not infection**
 - ⭐⭐ **ALV = vertical transmission → eradicate at breeder level**
 - ⭐ **Iridocyclitis (gray eye)** = Marek's signature
 - ⭐ Different cell origin (Marek's T / ALV B)`,
@@ -9962,7 +9963,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
     examFormat: "Multiple choice, ออก Eimeria species, location, ionophores, treatment",
     summary: `# Avian Medicine 6.2 — Coccidiosis (Eimeria spp.)
 
-> 🎯 **Coccidiosis = #1 parasitic disease ทางเศรษฐกิจ** ของ poultry · **Eimeria spp.** แต่ละ species ลง **specific intestinal site**
+> 🎯 **Coccidiosis = #1 parasitic disease ทางเศรษฐกิจ** ของ poultry, **Eimeria spp.** แต่ละ species ลง **specific intestinal site**
 > ⚠️ **E. tenella = bloody diarrhea + cecum** (จำให้แม่น — ออกข้อสอบบ่อย)
 
 ---
@@ -10047,7 +10048,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
     examFormat: "Multiple choice, ออก HPAI vs LPAI, H5N1, pandemic potential, Thai 2547 outbreak",
     summary: `# Avian Medicine 4.2 — Avian Influenza (AI)
 
-> 🎯 **AI = Influenza A virus** — แบ่งเป็น **HPAI (High Pathogenic)** vs **LPAI (Low Pathogenic)** · subtypes ที่กลัวสุด = **H5, H7**
+> 🎯 **AI = Influenza A virus** — แบ่งเป็น **HPAI (High Pathogenic)** vs **LPAI (Low Pathogenic)**, subtypes ที่กลัวสุด = **H5, H7**
 > ⚠️ **Thailand 2547 (2004) H5N1 outbreak** = success story ระดับโลก — stamping out + NO HPAI ตั้งแต่นั้น 20+ ปี
 
 ---
@@ -10118,7 +10119,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ **HPAI H5/H7 = most lethal · Thailand 2547 stamping out success**
+- ⭐⭐⭐ **HPAI H5/H7 = most lethal, Thailand 2547 stamping out success**
 - ⭐⭐⭐ **NO HPAI in Thailand 20+ years**
 - ⭐⭐ **Zoonotic + pandemic potential** (H5N1 case fatality สูง)
 - ⭐ **No vaccination in Thailand** (stamping out policy)
@@ -10270,7 +10271,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
 | **Lentogenic** | Mild | vaccine strain (LaSota, B1) |
 | **Asymptomatic enteric** | None | subclinical |
 
-> 💡 จำง่าย: **Velogenic = ฆ่า · Lentogenic = วัคซีน · Mesogenic = อยู่กลาง**
+> 💡 จำง่าย: **Velogenic = ฆ่า, Lentogenic = วัคซีน, Mesogenic = อยู่กลาง**
 
 ---
 
@@ -10318,7 +10319,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
     examFormat: "Multiple choice, ออก RSS, multifactorial, differential diagnosis",
     summary: `# Avian Medicine 6.1 — Runting-Stunting Syndrome (RSS)
 
-> 🎯 **RSS = multifactorial growth disease** ในลูกไก่ — ไม่มี single etiology · vaccine ไม่ค่อยตอบ · ต้อง manage รวมๆ
+> 🎯 **RSS = multifactorial growth disease** ในลูกไก่ — ไม่มี single etiology, vaccine ไม่ค่อยตอบ, ต้อง manage รวมๆ
 > 💡 Diagnose by exclusion — เอาโรคชัดๆ ออกก่อน เหลือ RSS ในตอนท้าย
 
 ---
@@ -10439,7 +10440,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ **ELISA most common · HI standard for ND/IB/AI**
+- ⭐⭐⭐ **ELISA most common, HI standard for ND/IB/AI**
 - ⭐⭐ **HI ≥ 8 = protective for ND**
 - ⭐⭐ **Paired sera + 4-fold rise = active infection**
 - ⭐ **CV measures vaccination uniformity** (low CV = good)
@@ -10506,7 +10507,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐ **SHS in chickens · TRT in turkeys** = same virus, different host
+- ⭐⭐ **SHS in chickens, TRT in turkeys** = same virus, different host
 - ⭐⭐ **Cilia damage → secondary E. coli** (key pathogenesis)
 - ⭐ **Subtypes A/B/C/D** — vaccine ต้อง match
 - ⭐ Pneumovirus ssRNA`,
@@ -10519,9 +10520,9 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
     durationMin: 126,
     instructor: "CUVET avian team",
     examFormat: "Multiple choice, ออก mixed bag of poultry diseases",
-    summary: `# Avian Medicine 8 — Mixed Bag: Omphalitis · Ascites · AE · Staph · Salmonella · Adenovirus
+    summary: `# Avian Medicine 8 — Mixed Bag: Omphalitis, Ascites, AE, Staph, Salmonella, Adenovirus
 
-> 🎯 Lecture **มัดรวม 6 โรค** ที่เหลือ — ไม่มี theme เดียวแต่ออกสอบทุกตัว · เน้น **Salmonella** (zoonotic + Pullorum/Gallinarum) และ **Ascites Syndrome** (water belly)
+> 🎯 Lecture **มัดรวม 6 โรค** ที่เหลือ — ไม่มี theme เดียวแต่ออกสอบทุกตัว, เน้น **Salmonella** (zoonotic + Pullorum/Gallinarum) และ **Ascites Syndrome** (water belly)
 
 ---
 
@@ -10671,7 +10672,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
     examFormat: "Multiple choice, ออก fowlpox 2 forms, vector, vaccination",
     summary: `# Avian Medicine 1.5 — Fowlpox
 
-> 🎯 **Fowlpox = DNA poxvirus** มี 2 forms: **cutaneous (dry)** + **diphtheritic (wet)** · transmission สำคัญ = **mosquito vector**
+> 🎯 **Fowlpox = DNA poxvirus** มี 2 forms: **cutaneous (dry)** + **diphtheritic (wet)**, transmission สำคัญ = **mosquito vector**
 > ⚠️ Wet form ตายจาก suffocation เพราะ plaques อุดทางเดินหายใจ
 
 ---
@@ -10696,7 +10697,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
 - Respiratory + digestive tract
 - ⚠️ Can cause death (**suffocation** จาก plaques)
 
-> 💡 **Dry = ดูตามผิว · Wet = ในปาก/คอ · Wet = ตาย**
+> 💡 **Dry = ดูตามผิว, Wet = ในปาก/คอ, Wet = ตาย**
 
 ---
 
@@ -10737,7 +10738,7 @@ IBD = Infectious bursal disease = กัมโบโร "บางทีเค�
     examFormat: "Multiple choice, ออก Plasmodium juxtanucleare, vector",
     summary: `# Avian Medicine 6.5 — Avian Malaria (Plasmodium)
 
-> 🎯 **Avian Malaria = Plasmodium spp.** · vector = **mosquito** (similar to human malaria) · ⭐ ในไทย = **P. juxtanucleare** ในไก่
+> 🎯 **Avian Malaria = Plasmodium spp.**, vector = **mosquito** (similar to human malaria), ⭐ ในไทย = **P. juxtanucleare** ในไก่
 > 💡 RBC-stage parasite (vs Leucocytozoon ที่อยู่ใน WBC) — แยกได้จาก blood smear
 
 ---

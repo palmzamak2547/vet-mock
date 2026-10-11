@@ -142,7 +142,61 @@ export async function startExternalConnection(provider, options = {}) {
   const result = await request(`/api/external-connect-start?provider=${encodeURIComponent(provider)}`, options);
   const url = safeLinkUrl(result.data?.url);
   if (result.ok && url) return { ok: true, url };
+  // The server knows better than the answer this page remembered: a provider
+  // it refuses as not configured stays hidden for the rest of the visit.
+  if (result.reason === 'not_configured' && connectableCache && Object.hasOwn(connectableCache, provider)) {
+    connectableCache = { ...connectableCache, [provider]: false };
+  }
   return { ...result, ok: false, error: connectMessageFor(result.reason) };
+}
+
+// ── Which accounts this deployment can connect ───────────────────────
+// A connect button is shown only when pressing it can work. The server
+// answers from env presence (booleans only); anything else, a failed fetch,
+// an older deployment, a malformed answer, means nothing is connectable
+// here, so the reader offers only what every visitor can use: a link
+// shared with anyone who has it.
+export const NO_CONNECTABLE = Object.freeze({ google: false, notion: false });
+
+/** The server's answer as two booleans, or null when it is not exactly that. */
+export function parseConnectable(data) {
+  const connect = data && typeof data === 'object' ? data.connect : null;
+  if (!connect || typeof connect !== 'object') return null;
+  if (typeof connect.google !== 'boolean' || typeof connect.notion !== 'boolean') return null;
+  return { google: connect.google, notion: connect.notion };
+}
+
+let connectableCache = null;
+
+/** The last answer this page received, without asking again (null before one). */
+export function peekConnectable() {
+  return connectableCache;
+}
+
+/** Ask once per page; only a well-formed answer is remembered. */
+export async function fetchConnectable(options = {}) {
+  if (connectableCache) return { ok: true, connectable: connectableCache };
+  const result = await request('/api/external-connect', { signal: options.signal });
+  const parsed = result.ok ? parseConnectable(result.data) : null;
+  if (parsed) {
+    connectableCache = parsed;
+    return { ok: true, connectable: parsed };
+  }
+  return { ok: false, connectable: NO_CONNECTABLE, aborted: !!result.aborted };
+}
+
+/**
+ * The line under the paste box that names what a connection adds, or null
+ * when no account can be connected here (then nothing about connecting is
+ * said at all).
+ */
+export function connectNoteFor(connectable) {
+  const google = connectable?.google === true;
+  const notion = connectable?.notion === true;
+  if (google && notion) return 'เอกสารส่วนตัวใน Google และหน้าของ Notion เปิดได้หลังเชื่อมบัญชีของคุณด้านล่าง';
+  if (google) return 'เอกสารส่วนตัวใน Google เปิดได้หลังเชื่อมบัญชีของคุณด้านล่าง';
+  if (notion) return 'หน้าของ Notion เปิดได้หลังเชื่อมบัญชีของคุณด้านล่าง';
+  return null;
 }
 
 /** What this account has connected — never carries tokens, only display fields. */

@@ -33,8 +33,8 @@ export default function OfflineGameView({ goBack, online }) {
         <h1 style={{ margin: '0 0 4px', fontSize: 22 }}>🐤 ลูกไก่หนีเชื้อโรค</h1>
         <p style={{ margin: 0, fontSize: 13, color: 'var(--clr-ink-soft, #7a6f5e)' }}>
           {online
-            ? 'อีสเตอร์เอ้กตอนเน็ตหลุด, กระโดดข้าม Salmonella, มูลไก่ติดตูด, เชื้อรา, หมอบหลบแมลงวัน'
-            : 'ตอนนี้ใช้งานออฟไลน์อยู่ — ลองเล่นเกมระหว่างรอเน็ตกลับมาก็ได้นะ'}
+            ? 'เกมสั้น ๆ ช่วงพัก กระโดดข้ามเชื้อ Salmonella มูลไก่ และเชื้อรา แล้วหมอบหลบแมลงวัน'
+            : 'ตอนนี้ใช้งานออฟไลน์อยู่ ลองเล่นเกมระหว่างรอเน็ตกลับมาก็ได้นะ'}
         </p>
       </div>
 
@@ -45,7 +45,7 @@ export default function OfflineGameView({ goBack, online }) {
         <ul style={{ margin: '8px 0 0', paddingLeft: 18 }}>
           <li>คอมพิวเตอร์: <code>Space</code> หรือ <code>↑</code> = กระโดด, <code>↓</code> = หมอบ, <code>Esc</code> = ปิด</li>
           <li>มือถือ: แตะหน้าจอ = กระโดด</li>
-          <li>คะแนนสูงสุดเก็บไว้ในเครื่อง (localStorage) ไม่ส่งขึ้น server</li>
+          <li>คะแนนสูงสุดเก็บไว้ในเครื่องนี้เท่านั้น</li>
         </ul>
       </div>
     </div>

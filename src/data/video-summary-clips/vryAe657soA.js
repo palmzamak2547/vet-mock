@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก egg microbiology, Salmonella, contamination routes",
   summary: `# Milk-Meat — 12.2 Microbiology of the Avian Egg
 
-> 🎯 ไข่มี natural defenses (cuticle · shell · membranes · antimicrobial proteins) — แต่ Salmonella Enteritidis เจาะเข้าได้ทั้ง vertical + horizontal
+> 🎯 ไข่มี natural defenses (cuticle, shell, membranes, antimicrobial proteins) — แต่ Salmonella Enteritidis เจาะเข้าได้ทั้ง vertical + horizontal
 > ⚠️ **ห้ามล้างไข่** — ล้าง = ลอก cuticle → bacterial entry ง่ายขึ้น
 
 ---

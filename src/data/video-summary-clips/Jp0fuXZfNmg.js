@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก E. coli APEC, clinical syndromes, APEC virulence factors",
   summary: `# Avian Medicine 3.1 — Colibacillosis (APEC)
 
-> 🎯 **Colibacillosis = E. coli ในสัตว์ปีก** — เกือบทั้งหมดเป็น **APEC (Avian Pathogenic E. coli)** · มัก secondary to viral/MG infection
+> 🎯 **Colibacillosis = E. coli ในสัตว์ปีก** — เกือบทั้งหมดเป็น **APEC (Avian Pathogenic E. coli)**, มัก secondary to viral/MG infection
 > ⚠️ **Pericarditis + perihepatitis = classic triad** ที่เจอบน necropsy
 
 ---

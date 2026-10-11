@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก SDFT, DDFT, suspensory, treatment, prognosis",
   summary: `# Equine — 13.2 Tendon/Ligament Injuries
 
-> 🎯 **SDFT most commonly injured** ("bowed tendon") · **Ultrasound = gold standard** diagnosis · slow healing months→year ⭐⭐⭐
+> 🎯 **SDFT most commonly injured** ("bowed tendon"), **Ultrasound = gold standard** diagnosis, slow healing months→year ⭐⭐⭐
 > ⚠️ ออกแน่: SDFT vs DDFT vs Suspensory, US diagnosis, stem cells/PRP, re-injury common
 
 ---

@@ -12,7 +12,7 @@ export default {
   summary: `# Milk-Meat — 13 Slaughterhouse and Sanitary Practices
 
 > 🎯 Slaughterhouse = ระบบ linear flow (clean → dirty) + vet supervise antemortem + postmortem
-> ⚠️ Stress ก่อน slaughter = PSE/DFD · humane stunning เป็นทั้งจริยธรรมและ quality
+> ⚠️ Stress ก่อน slaughter = PSE/DFD, humane stunning เป็นทั้งจริยธรรมและ quality
 
 ---
 
@@ -29,7 +29,7 @@ export default {
 - ⭐ Cooling
 - ⭐ Cutting
 
-> 💡 **Linear flow** = clean เริ่มต้น → dirty ปลายทาง · ไม่ให้ cross-contamination
+> 💡 **Linear flow** = clean เริ่มต้น → dirty ปลายทาง, ไม่ให้ cross-contamination
 
 ---
 

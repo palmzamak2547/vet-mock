@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก Thai standards, TIS, Codex",
   summary: `# Milk-Meat — 1.2 Standards of Raw Milk and Dairy Products
 
-> 🎯 มี Thai (**TIS**) + International (**Codex** · EU · ISO) — มาตรฐานบังคับใช้ต่างกันตามผลิตภัณฑ์
+> 🎯 มี Thai (**TIS**) + International (**Codex**, EU, ISO) — มาตรฐานบังคับใช้ต่างกันตามผลิตภัณฑ์
 > ⚠️ Trade ระดับ international = ต้อง certify ครบ
 
 ---
@@ -50,8 +50,8 @@ export default {
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ **TIS** = Thai standards · **Codex** = international
-- ⭐⭐ Pasteurized milk: coliforms <10/mL · TPC <50K/mL
+- ⭐⭐⭐ **TIS** = Thai standards, **Codex** = international
+- ⭐⭐ Pasteurized milk: coliforms <10/mL, TPC <50K/mL
 - ⭐ Microbiological + chemical limits
 - ⭐ Trade requires certification
 - ⭐ Sterilized = commercial sterility (long shelf life)`,

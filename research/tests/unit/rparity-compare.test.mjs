@@ -1,10 +1,14 @@
 // Fixture files (paths listed literally so scripts/regen-verified.mjs sees dynamic load):
 //   tests/fixtures/r/out/glm.json        tests/fixtures/r/out/normality.json
 //   tests/fixtures/r/out/sources.json
+// The nonlinear (nls) fixture is read by name and on purpose not listed: this file checks the native
+// tolerance on it and compares no engine number, so it is not one of its readers (stats-nls-curves and
+// lab-curves are).
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { compareFixtureDocs, NATIVE_REL } from '../../scripts/r-parity/compare.mjs';
+import { compareFixtureDocs, compareNative, NATIVE_REL, NATIVE_REL_BY_FIXTURE, nativeRel } from '../../scripts/r-parity/compare.mjs';
+import { listScripts } from '../../scripts/r-parity/run-webr.mjs';
 import { runLogistic } from '../../src/lib/models/glm.js';
 import { makeTable, spec } from './stats-fixtures.mjs';
 
@@ -131,6 +135,75 @@ test('separation evidence does not waive inputs, signals, metadata, shapes or so
   }
   const identifiable = changed(glm, doc => { doc.cases['logistic.infert'].values.SE[1] *= 1 + 1e-7; });
   assert(compare(glm, identifiable).length > 0);
+});
+
+// Native R 4.6.0 on ubuntu-24.04 against the committed webR 0.6.0 nls fixture: main 919d96b2, Research R
+// parity run 38164236656, every package pin matched. These are all 17 values it put more than 1e-9 away;
+// [case, key, index or null, committed, native]. The committed side is checked against the file first.
+const NLS_NATIVE = [
+  ['ryegrass4pl', 'lower', 1, 0.044387993113564006, 0.04438799318574399],
+  ['michaelisMenten', 'k', null, 0.06412128145293908, 0.06412128167948669],
+  ['michaelisMenten', 'se', 0, 6.947155152362585, 6.947155159890892],
+  ['michaelisMenten', 'se', 1, 0.008280949474078753, 0.00828094949808995],
+  ['michaelisMenten', 'lower', 1, 0.04567017619840891, 0.045670176371456234],
+  ['michaelisMenten', 'upper', 1, 0.08257238670746925, 0.08257238698751715],
+  ['compare', 'separate', 0, 1.3262629173968292, 1.3262629131765138],
+  ['compare', 'separate', 2, 5.632708521701765, 5.632708459908167],
+  ['compare', 'separate', 3, 5.519473212527079, 5.519473205378562],
+  ['compare', 'separate', 6, 1.127717153714816, 1.1277171555776624],
+  ['compare', 'separateSe', 0, 0.07940954682326476, 0.07940954649017141],
+  ['compare', 'separateSe', 2, 1.325893743609591, 1.3258937478238724],
+  ['compare', 'separateSe', 6, 0.05026703014549522, 0.050267030284286626],
+  ['compare', 'ec50Control', null, 3.088597652380903, 3.088597658134486],
+  ['compare', 'ec50Ratio', null, 2.8077519029054754, 2.8077518982233847],
+  ['compare', 'ec50RatioLower', null, 2.385225820159597, 2.385225815687703],
+  ['compare', 'ec50RatioUpper', null, 3.3051255280063296, 3.3051255231798984],
+];
+const valueAt = (doc, [id, key, index]) => (index === null ? doc.cases[id].values[key] : doc.cases[id].values[key][index]);
+const setValue = (doc, [id, key, index], value) => {
+  if (index === null) doc.cases[id].values[key] = value;
+  else doc.cases[id].values[key][index] = value;
+};
+const relDiff = (a, b) => Math.abs(a - b) / Math.max(Math.abs(a), Math.abs(b));
+
+test('the nls fixture alone has its own native tolerance, sized from the actual native R pairs', () => {
+  const nonlinear = load('nonlinear');
+  for (const pair of NLS_NATIVE) assert.equal(valueAt(nonlinear, pair), pair[3], `committed ${pair.slice(0, 3).join('.')}`);
+  const native = changed(nonlinear, doc => { for (const pair of NLS_NATIVE) setValue(doc, pair, pair[4]); });
+  // What failed on CI: every pair is a difference at the common 1e-9 ...
+  assert.equal(compare(nonlinear, native).length, NLS_NATIVE.length);
+  // ... and none is at the nls tolerance, through the same call run-native.mjs makes.
+  assert.equal(nativeRel('nonlinear'), 5e-8);
+  assert.deepEqual(compareNative('nonlinear', nonlinear, native), []);
+  const runNative = readFileSync(new URL('../../scripts/r-parity/run-native.mjs', import.meta.url), 'utf8')
+    .replace(/^\s*\/\/.*$/gm, '');
+  assert.match(runNative, /compareNative\(n, committed, fresh\)/, 'run-native.mjs compares each script at its own tolerance');
+  assert.doesNotMatch(runNative, /compareFixtureDocs\(|\bNATIVE_REL\b/, 'run-native.mjs has no second, fixed tolerance');
+  // The value is the largest observed difference with a margin of about 4.5, far inside the engine's 1e-6 pin.
+  const largest = Math.max(...NLS_NATIVE.map(([, , , a, b]) => relDiff(a, b)));
+  assert(largest > 1.09e-8 && largest < 1.1e-8, `largest observed ${largest}`);
+  const margin = nativeRel('nonlinear') / largest;
+  assert(margin > 4 && margin < 5, `margin ${margin}`);
+  assert(nativeRel('nonlinear') * 20 <= 1e-6);
+  // Still a check: a 1e-7 move fails, and the inputs and the declaration stay exact.
+  for (const edit of [
+    doc => { doc.cases.compare.values.separate[2] *= 1 + 1e-7; },
+    doc => { doc.cases.michaelisMenten.values.k *= 1 - 1e-7; },
+    doc => { doc.datasets.curves.resp[0] += 1e-9; },
+    doc => { doc._fixture.methods = []; },
+  ]) assert(compareNative('nonlinear', nonlinear, changed(native, edit)).length > 0);
+});
+
+test('every other fixture keeps the 1e-9 native tolerance', () => {
+  const scripts = listScripts();
+  for (const name of Object.keys(NATIVE_REL_BY_FIXTURE)) assert(scripts.includes(name), `${name} is a fixture script`);
+  assert.deepEqual(Object.keys(NATIVE_REL_BY_FIXTURE), ['nonlinear']);
+  for (const name of scripts.filter(n => n !== 'nonlinear')) assert.equal(nativeRel(name), NATIVE_REL, name);
+  for (const name of ['constructor', 'toString', '__proto__', 'hasOwnProperty']) assert.equal(nativeRel(name), NATIVE_REL, name);
+  // A move the size of the largest nls pair still fails a non-nls fixture.
+  const moved = changed(glm, doc => { doc.cases['logistic.infert'].values.SE[1] *= 1 + 1.1e-8; });
+  assert(compareNative('glm', glm, moved).length > 0);
+  assert.deepEqual(compareNative('glm', glm, structuredClone(glm)), []);
 });
 
 test('separation method reports null inference while steep finite fits remain usable', () => {

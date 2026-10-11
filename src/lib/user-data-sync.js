@@ -729,6 +729,56 @@ function operationTouchesRemote(operation) {
     .some((field) => Boolean(USER_DATA_FIELDS[field]?.remoteKey));
 }
 
+/** JSON with object keys sorted at every level, so two values that differ only in key
+ *  order read the same. Arrays keep their order; callers sort the ones whose order says
+ *  nothing (items of a set, keys removed). */
+function canonicalJson(value) {
+  if (Array.isArray(value)) return `[${value.map(canonicalJson).join(',')}]`;
+  if (value && typeof value === 'object') {
+    return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(',')}}`;
+  }
+  return JSON.stringify(value) ?? 'null';
+}
+const byCanonical = (a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0);
+const canonicalItems = (items) => items.map((item) => [canonicalJson(item), item]).sort(byCanonical).map(([, item]) => item);
+
+/** What one dirty entry of the previous build claims this device changed: the keys it set
+ *  and removed, the items it put and removed. The shape depends on the change alone, not on
+ *  the row the entry was last rebased on, nor on key or item order. Empty when the entry
+ *  claims nothing (its value already equals its base). */
+function pendingClaims(field, entry) {
+  const definition = USER_DATA_FIELDS[field];
+  if (isItemDelta(entry)) return { put: canonicalItems(entry.put), remove: [...entry.removed].sort() };
+  if (isDelta(entry)) {
+    const added = new Set(entry.added);
+    return { put: canonicalItems((Array.isArray(entry.value) ? entry.value : []).filter((item) => added.has(stableItemKey(item)))),
+      remove: [...entry.removed].sort() };
+  }
+  const value = entry.value;
+  const base = entry.legacy || !Object.prototype.hasOwnProperty.call(entry, 'base') ? clone(definition.initial) : entry.base;
+  if (Array.isArray(value)) {
+    const before = new Map((Array.isArray(base) ? base : []).map((item) => [stableItemKey(item), item]));
+    const after = new Map(value.map((item) => [stableItemKey(item), item]));
+    return { put: canonicalItems([...after].filter(([key, item]) => !before.has(key) || !sameValue(before.get(key), item)).map(([, item]) => item)),
+      remove: [...before.keys()].filter((key) => !after.has(key)).sort() };
+  }
+  if (definition.merge === 'keyed-object' && value && typeof value === 'object') {
+    const from = base && typeof base === 'object' && !Array.isArray(base) ? base : {};
+    const set = {};
+    const remove = [];
+    for (const key of new Set([...Object.keys(from), ...Object.keys(value)])) {
+      const inBase = Object.prototype.hasOwnProperty.call(from, key);
+      const inValue = Object.prototype.hasOwnProperty.call(value, key);
+      if (inValue && (!inBase || !sameValue(from[key], value[key]))) set[key] = value[key];
+      else if (inBase && !inValue) remove.push(key);
+    }
+    return { set, remove: remove.sort() };
+  }
+  return sameValue(base, value) ? {} : { value };
+}
+const claimsNothing = (claims) => Object.values(claims).every((part) =>
+  Array.isArray(part) ? !part.length : part && typeof part === 'object' ? !Object.keys(part).length : part === undefined);
+
 function acknowledgeRemoteOperationParts(storage, operations) {
   for (const operation of operations) {
     const current = parseJson(storage, operation.key, null);
@@ -858,10 +908,41 @@ export function createUserDataSync({
         try { recoverable[field] = reconcileDirty(field, change, recoverable[field]); }
         catch { /* Original malformed metadata is preserved in the recovery evidence. */ }
       }
-      const fingerprint = JSON.stringify({ dirty: meta.dirty, operations: operations.map(op => [op.key, op.token]) });
+      // What the old build still has to send, not what it last read. Its outbox records are
+      // rewritten (with a new token) only when it edits; a dirty entry no record covers (a
+      // swept record, the sign-in mark) counts through the change it claims. A retained old
+      // tab re-reads the row on every retry and rebases every dirty entry on it: base = the
+      // row, value = the row with its own changes applied, in the row's key order. None of
+      // that is new work, and a fingerprint of the entries themselves reopened the prompt
+      // after every retry and re-applied the same stale values. The shape written before
+      // this still counts as unchanged, so an upgrade does not reopen a prompt the learner
+      // already answered.
+      const covered = new Set(operations.flatMap((op) => Object.keys(op.changes)));
+      const claims = {};
+      for (const [field, change] of Object.entries(meta.dirty)) {
+        if (!USER_DATA_FIELDS[field]?.remoteKey || covered.has(field)) continue;
+        try { const claim = pendingClaims(field, change); if (!claimsNothing(claim)) claims[field] = claim; }
+        catch { claims[field] = { malformed: canonicalJson(change) }; }
+      }
+      const tokens = operations.map((op) => [op.key, op.token]);
+      const fingerprint = canonicalJson({ claims, operations: [...tokens].sort(byCanonical) });
+      const previousFingerprint = JSON.stringify({ dirty: meta.dirty, operations: tokens });
       return { data: replayOperations(recoverable, operations).data, found: snapshot.found, visible,
-        pending: Boolean(id && (Object.keys(meta.dirty).length || operations.some(operationTouchesRemote))),
-        fingerprint, evidence: { meta, operations } };
+        pending: Boolean(id && (Object.keys(claims).length || operations.some(operationTouchesRemote))),
+        fingerprint, evidence: { meta, operations },
+        /** True when `stored` (a fingerprint this engine saved) still describes this pending work. */
+        unchangedSince: (stored) => stored === fingerprint || stored === previousFingerprint,
+        // The old build's own changes (its dirty entries and outbox records) applied onto
+        // `remoteData`, for a recovery that keeps them without replacing the rest of the account.
+        merge: (remoteData) => {
+          const merged = { ...remoteData };
+          for (const [field, change] of Object.entries(meta.dirty)) {
+            if (!USER_DATA_FIELDS[field]?.remoteKey) continue;
+            try { merged[field] = reconcileDirty(field, change, merged[field]); }
+            catch { /* Malformed metadata leaves the account's value in place. */ }
+          }
+          return replayOperations(merged, operations).data;
+        } };
     },
   });
 

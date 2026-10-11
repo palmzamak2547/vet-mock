@@ -273,7 +273,7 @@ function checkLengthStrategy(questions, budget = LENGTH_STRATEGY_BUDGET) {
 // The predicate is restatesKey in scripts/lib/question-standard.mjs (ESM,
 // so main() loads it and passes it in). The count may only fall: lower
 // RESTATED_KEY_BUDGET when rows are rewritten into "fact + why".
-const RESTATED_KEY_BUDGET = 89;
+const RESTATED_KEY_BUDGET = 42;
 
 function checkRestatedKeys(questions, restatesKey, budget = RESTATED_KEY_BUDGET) {
   if (typeof restatesKey !== 'function') return [];

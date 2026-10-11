@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก slaughter regulations, meat distribution control",
   summary: `# Food Industry 3 — การควบคุมกระบวนการฆ่าและจำหน่ายเนื้อสัตว์
 
-> 🎯 **DLD = lead regulator ของ slaughter + meat distribution ในไทย** · vet inspection mandatory · ตั้งแต่ antemortem → postmortem → cold chain
+> 🎯 **DLD = lead regulator ของ slaughter + meat distribution ในไทย**, vet inspection mandatory, ตั้งแต่ antemortem → postmortem → cold chain
 > ⚠️ Illegal / unregistered slaughterhouses = ปัญหา public health ที่ยังแก้ไม่จบ
 
 ---

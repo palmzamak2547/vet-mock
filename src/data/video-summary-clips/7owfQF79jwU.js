@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก animal feed industry, quality control",
   summary: `# Food Industry 2 — อุตสาหกรรมอาหารสัตว์และการควบคุมคุณภาพ
 
-> 🎯 **Feed industry = backbone ของ livestock production** · ไทย = ผู้ผลิต feed ระดับ multi-billion baht · **NIR (Near Infrared) = QC technology หลัก**
+> 🎯 **Feed industry = backbone ของ livestock production**, ไทย = ผู้ผลิต feed ระดับ multi-billion baht, **NIR (Near Infrared) = QC technology หลัก**
 > ⚠️ Mycotoxin + antibiotic residue = 2 issues ใหญ่ที่ regulator + buyer ดูตลอด
 
 ---

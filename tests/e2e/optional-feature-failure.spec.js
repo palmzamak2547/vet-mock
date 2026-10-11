@@ -18,7 +18,7 @@ test('a failed search chunk closes the overlay and preserves the editable feedba
   const draft = page.locator('#vmx-feedback-message');
   await draft.fill('ยังเขียนไม่เสร็จ ค้นหาภายหลังได้');
   const identity = await page.evaluate(() => window.__documentIdentity);
-  const search = page.getByRole('button', { name: 'ค้นหา', exact: true });
+  const search = page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first();
   await search.click();
   const notice = page.getByRole('dialog', { name: 'เปิดการค้นหาไม่สำเร็จ' });
   await expect(notice).toBeVisible();

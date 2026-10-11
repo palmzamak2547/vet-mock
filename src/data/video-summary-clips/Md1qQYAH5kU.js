@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก IB serotypes, clinical signs, vaccination",
   summary: `# Avian Medicine 1.2 — Infectious Bronchitis (IB)
 
-> 🎯 **IB = Avian Coronavirus** — respiratory + reproductive disease ในไก่ · key challenge = **multiple serotypes** ที่ cross-protection LIMITED
+> 🎯 **IB = Avian Coronavirus** — respiratory + reproductive disease ในไก่, key challenge = **multiple serotypes** ที่ cross-protection LIMITED
 > ⚠️ Vaccine ต้อง match กับ field serotype — strain ผิด = protection ไม่พอ
 
 ---

@@ -78,7 +78,7 @@ export const QB_COM3 = [
       { left: 'Stuporous', right: 'ไม่ตอบเสียง แต่ตอบสนองต่อความเจ็บ' },
       { left: 'Comatose', right: 'Unconscious — ไม่ตอบสนองอะไรเลย' },
     ],
-    explain: 'ใช้ใน D step (Dysfunction CNS) ของ primary survey',
+    explain: 'ใช้ใน D step (Dysfunction CNS) ของ primary survey\nระดับ consciousness อาศัย ARAS ใน brainstem ร่วมกับ cerebral cortex และในขั้น D จะประเมินร่วมกับ pupils, seizure และการตอบสนองต่อความเจ็บปวด',
     verified: 'triage 1 hr.pdf + master p.42 + neuro_exam 1 hr.pdf' },
 
   { id: 705, subject: 'com3', topic: 'triage', year: 4, source: 'triage 1 hr.pdf',

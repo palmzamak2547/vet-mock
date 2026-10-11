@@ -55,9 +55,17 @@ export default function HeaderBar({
   const showPhase = selectedPhase && view !== 'phase-select' && view !== 'year-select';
   const savedCount = bookmarks?.length || 0;
   const shortcutLabel = commandShortcutLabel();
+  // Home on a phone opens the way a super-app home does: a full-width search
+  // field right under the header, in the place a thumb already expects it
+  // (CUNEX, Trip.com, Grab). It is the ⌘K pill at a width a finger can hit,
+  // and it opens the same palette. CSS shows it only on screens without the
+  // rail and hides the round search button there, so Home on a phone has
+  // one search affordance, not two; every other screen keeps the button.
+  const isHome = view === 'home';
 
   return (
-    <header className="vmx-header">
+    <>
+    <header className={`vmx-header${isHome ? ' vmx-header--home' : ''}`}>
       <div className="vmx-header-context">
         <button
           type="button"
@@ -157,5 +165,17 @@ export default function HeaderBar({
         <ThemePicker theme={theme} setTheme={setTheme} palette={palette} setPalette={setPalette} />
       </div>
     </header>
+    {isHome && (
+      <button
+        type="button"
+        className="vmx-home-search"
+        onClick={() => setPaletteOpen(true)}
+        aria-label={`ค้นหาวิชา ข้อสอบ สรุป และคลิป (${shortcutLabel})`}
+      >
+        <NavIcon name="search" size={18} />
+        <span className="vmx-home-search-text">ค้นหาวิชา ข้อสอบ สรุป คลิป</span>
+      </button>
+    )}
+    </>
   );
 }

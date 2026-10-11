@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก Eimeria species, location, ionophores, treatment",
   summary: `# Avian Medicine 6.2 — Coccidiosis (Eimeria spp.)
 
-> 🎯 **Coccidiosis = #1 parasitic disease ทางเศรษฐกิจ** ของ poultry · **Eimeria spp.** แต่ละ species ลง **specific intestinal site**
+> 🎯 **Coccidiosis = #1 parasitic disease ทางเศรษฐกิจ** ของ poultry, **Eimeria spp.** แต่ละ species ลง **specific intestinal site**
 > ⚠️ **E. tenella = bloody diarrhea + cecum** (จำให้แม่น — ออกข้อสอบบ่อย)
 
 ---

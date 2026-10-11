@@ -89,13 +89,10 @@ export const FEATURES = [
   {
     id: 'exam-mode', category: 'practice', primary: true,
     label: 'โหมดสอบ', labelEn: 'Exam Mode', icon: '🎓',
-    // "เหมือนสนามจริง" promised a room where the clock runs once. It does not:
-    // the timer is a budget PER QUESTION, and moving back or jumping refills
-    // that question's budget, so time is not a fixed resource the way it is in
-    // an exam hall. The mode is a useful timed drill — so it says that, rather
-    // than claiming a simulation it does not implement. Making the clock a
-    // single non-refillable session budget is a live-engine change with a
-    // mid-exam blast radius and is left as an owner decision.
+    // Exam mode runs ONE clock for the whole set (useExamSession's
+    // sessionBudget, pinned by tests/e2e/exam-clock.spec.js): moving back or
+    // jumping does not refill time, and time up submits the set. The hint
+    // states the total; the config screen says what each clock does.
     hint: '50 ข้อ จับเวลารวม 50 นาที',
     kw: 'exam mode สอบ จับเวลา timed mock ข้อละ 60 วิ',
     hideOnScaffold: true,

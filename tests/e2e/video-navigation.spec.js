@@ -101,7 +101,7 @@ test('playlist switching retires stale note decisions and a new clip intent sele
     { id: 'clipTwo0002', title: 'Second clip' },
   ] } }));
   await page.goto(`/app/videos?subject=${firstCourse.id}`);
-  await page.locator('.vmx-mode-card').filter({ hasText: VIDEO_LIBRARY[0].topic }).first().getByRole('button').first().click();
+  await page.locator('.vmx-video-card').filter({ hasText: VIDEO_LIBRARY[0].topic }).first().getByRole('button').first().click();
   await expect(page.locator('iframe[data-test-video="clipOne0001"]')).toBeVisible();
   const player = page.getByRole('dialog', { name: VIDEO_LIBRARY[0].topic });
   await player.getByRole('button', { name: 'ถัดไป →', exact: true }).click();

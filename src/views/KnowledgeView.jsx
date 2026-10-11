@@ -22,12 +22,9 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import FeatureTip from '../components/FeatureTip.jsx';
 import ReadingEffects from '../components/ReadingEffects.jsx';
 import { RichText } from '../lib/richtext.jsx';
-
-// One title for the once-a-day hint on BOTH VetWiki surfaces. The tip id is
-// shared, so a student who opens VetWiki sees it once whichever surface they
-// land on first — the two titles must not be able to drift apart.
-const KNOWLEDGE_TIP_TITLE = 'ทุกหัวข้อบอกที่มา ค้นหาได้ทุกวิชา';
-import { SUBJECTS } from '../data/curriculum.js';
+import { SUBJECTS, yearForSubject } from '../data/curriculum.js';
+import { ownYearFirst, prefersCompactReading, storedSelectedYear } from '../lib/reading-layout.js';
+import { motionIsReduced } from '../lib/motion-preferences.js';
 import {
   listTopics, loadTopic, provenanceSummary, resolveSource,
   EVIDENCE_LABEL, REVIEW_LABEL,
@@ -275,14 +272,20 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
     return m;
   }, [results]);
 
+  // The reader's own year first; on a phone every subject starts folded, so
+  // the index is a short list of subjects instead of a 33,000px column of
+  // 210 summaries. A search opens every subject it found something in.
+  const [ownYear] = useState(() => storedSelectedYear());
+  const [subjectsOpenByDefault] = useState(() => !prefersCompactReading());
+  const [subjectToggles, setSubjectToggles] = useState(() => new Map());
   const groups = useMemo(() => {
     const by = new Map();
     for (const r of results) {
       if (!by.has(r.topic.subject)) by.set(r.topic.subject, []);
       by.get(r.topic.subject).push(r.topic);
     }
-    return [...by.entries()];
-  }, [results]);
+    return ownYearFirst([...by.entries()], ([subjectId]) => yearForSubject(subjectId), ownYear);
+  }, [results, ownYear]);
 
   const total = topics.length;
   const shown = results.length;
@@ -297,15 +300,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
         คลังความรู้ที่ตรวจสอบได้ — ทุกจุดความรู้ผ่านการตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว และทุกหัวข้อบอกได้ว่าเนื้อหามาจากไหน (ข้อมูลรายวิชา เช่น ตารางสอนหรือเกณฑ์คะแนน แยกประกาศไว้ชัดเจน)
       </p>
 
-      <FeatureTip id="knowledge" title={KNOWLEDGE_TIP_TITLE} icon="📚">
-        <p style={{ margin: '0 0 6px' }}>
-          ท้ายทุกส่วนระบุข้อความมาจากไหน พร้อมช่องค้นหาที่ค้นทั้งเนื้อหา
-        </p>
-        <ul style={{ margin: 0, paddingLeft: 22, lineHeight: 1.7 }}>
-          <li>พิมพ์คำหรือหัวข้อที่อยากรู้ เพื่อสำรวจทุกวิชา</li>
-          <li>ผลที่เจอบอกว่าคำนั้นอยู่ในส่วนไหน กดไปอ่านได้</li>
-        </ul>
-      </FeatureTip>
+      <FeatureTip id="knowledge" surface="index" />
 
       <label htmlFor="vw-search" className="vmx-sr-only" style={{ position: 'absolute', left: -9999 }}>ค้นหาในวิกิ</label>
       <input
@@ -335,17 +330,44 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
       ) : null}
 
       {groups.length === 0 && (
-        <div className="vmx-empty">ไม่พบหัวข้อที่ตรงกับ “{q}”</div>
+        <div className="vmx-empty">
+          ไม่พบหัวข้อที่ตรงกับ “{q}”
+          {/* One way on from an empty result: back to every subject. */}
+          <div style={{ marginTop: 10 }}>
+            <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setQ('')}>ล้างคำค้น</button>
+          </div>
+        </div>
       )}
 
       {groups.map(([subjectId, list]) => {
         const meta = subjectMeta(subjectId);
+        const open = query ? true
+          : subjectToggles.has(subjectId) ? subjectToggles.get(subjectId) : subjectsOpenByDefault;
+        const label = (
+          <>
+            <span className="vmx-wiki-subject-title">
+              <span className="vmx-wiki-subject-name">{subjectName(subjectId)}</span>
+              {meta?.code && <span className="vmx-wiki-subject-code">{meta.code}</span>}
+            </span>
+            <span className="vmx-wiki-subject-count">{list.length} หัวข้อ</span>
+          </>
+        );
         return (
-          <section key={subjectId} style={{ marginBottom: 26 }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, paddingBottom: 7, marginBottom: 10, borderBottom: '1px solid var(--clr-border)' }}>
-              <h2 style={{ fontFamily: 'var(--vmx-display)', fontSize: 17, margin: 0 }}>{subjectName(subjectId)}</h2>
-              {meta?.code && <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)' }}>{meta.code}</span>}
-            </div>
+          <section key={subjectId} className="vmx-wiki-subject">
+            <h2 className="vmx-wiki-subject-heading">
+              {query ? <span className="vmx-wiki-subject-row">{label}</span> : (
+                <button
+                  type="button"
+                  className="vmx-wiki-subject-row vmx-wiki-subject-toggle"
+                  aria-expanded={open}
+                  onClick={() => setSubjectToggles((prev) => new Map(prev).set(subjectId, !open))}
+                >
+                  {label}
+                  <span aria-hidden="true" className="vmx-wiki-subject-chevron">{open ? '▾' : '▸'}</span>
+                </button>
+              )}
+            </h2>
+            {open && (
             <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
               {list.map((t) => (
                 <li key={t.id}>
@@ -405,6 +427,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
                 </li>
               ))}
             </ul>
+            )}
           </section>
         );
       })}
@@ -417,6 +440,33 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
   const [copied, setCopied] = useState('');
   const copyTimer = useRef(null);
   useEffect(() => () => clearTimeout(copyTimer.current), []);
+
+  // Long articles get a way back to their contents: a small pill appears once
+  // the contents box has scrolled away above, and hides again when it is in
+  // view. An observer, not a scroll listener, decides.
+  // The pill stands aside at the end of the article, where the related
+  // topics would sit under it (the end marker counts as reached 200px early).
+  const tocRef = useRef(null);
+  const endRef = useRef(null);
+  const [tocAway, setTocAway] = useState(false);
+  const [endNear, setEndNear] = useState(false);
+  useEffect(() => {
+    const el = tocRef.current;
+    const end = endRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return undefined;
+    const io = new IntersectionObserver(([entry]) => {
+      setTocAway(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+    });
+    io.observe(el);
+    const endIo = end ? new IntersectionObserver(([entry]) => setEndNear(entry.isIntersecting), { rootMargin: '0px 0px 200px 0px' }) : null;
+    if (end) endIo.observe(end);
+    return () => { io.disconnect(); endIo?.disconnect(); };
+  }, [knowledge?.id]);
+  const jumpTo = (el) => el?.scrollIntoView({ block: 'start', behavior: motionIsReduced() ? 'auto' : 'smooth' });
+  const backToContents = () => {
+    jumpTo(tocRef.current);
+    tocRef.current?.focus({ preventScroll: true });
+  };
 
   // Deep-link: honour #section-id on mount so a cited section opens in place.
   useEffect(() => {
@@ -459,15 +509,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
   return (
     <div className="vmx-view" style={{ maxWidth: 680, margin: '0 auto' }}>
       <Mochi state="read" size={36} slot="wiki-reading" className="vmx-hero-mochi" />
-      {/* The once-a-day usage hint — same id as the index, so opening VetWiki
-          through the day shows it once, whichever surface the student lands
-          on first. */}
-      <FeatureTip id="knowledge" title={KNOWLEDGE_TIP_TITLE} icon="📚">
-        <ul style={{ margin: 0, paddingLeft: 22, lineHeight: 1.7 }}>
-          <li>ท้ายทุกส่วนระบุข้อความมาจากไหน</li>
-          <li>กลับไปหน้าแรก VetWiki แล้วพิมพ์คำถามในช่องค้นหาเพื่อสำรวจทุกวิชา</li>
-        </ul>
-      </FeatureTip>
+      <FeatureTip id="knowledge" surface="article" />
       {/* Breadcrumb */}
       <nav aria-label="breadcrumb" style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center', fontSize: 12.5, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
         <button type="button" onClick={onBackToIndex} style={{ all: 'unset', cursor: 'pointer', color: 'var(--clr-ocean-text)', minHeight: 44, display: 'inline-flex', alignItems: 'center' }}>VetWiki</button>
@@ -481,14 +523,17 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
       <h1 style={{ fontFamily: 'var(--vmx-display)', fontSize: 28, margin: '0 0 8px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{knowledge.title}</h1>
 
       {/* Metadata line */}
-      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', fontSize: 12.5, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginBottom: 14 }}>
+      {/* Body face: the mono face has no Thai, so บรรยาย and จุด used to fall
+          back to another font in the middle of the line. */}
+      <div className="vmx-wiki-meta">
         {knowledge.lecturer && <span>บรรยาย: {knowledge.lecturer}</span>}
         <span>{knowledge.sections.length} หัวข้อย่อย</span>
         {prov?.verifiedClaimCount > 0 && <span style={{ color: 'var(--clr-sage-text)' }}>ตรวจทานแล้ว {prov.verifiedClaimCount} จุด</span>}
         {conflictCount > 0 && (
           <a
             href={`#${firstConflictId}`}
-            onClick={(e) => { e.preventDefault(); document.getElementById(firstConflictId)?.scrollIntoView({ block: 'start', behavior: 'smooth' }); }}
+            className="vmx-wiki-meta-link"
+            onClick={(e) => { e.preventDefault(); jumpTo(document.getElementById(firstConflictId)); }}
             style={{ color: 'var(--clr-rose-text)', fontWeight: 700 }}
           >
             หลักฐานไม่ตรงกับที่บรรยาย {conflictCount} จุด
@@ -521,17 +566,24 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
           onClick={async () => { const ok = await copyText(shareUrl); setCopied(ok ? '__page__' : 'fail:__page__'); clearTimeout(copyTimer.current); copyTimer.current = setTimeout(() => setCopied(''), 1600); }}>
           {copied === '__page__' ? '✓ คัดลอกลิงก์แล้ว' : copied === 'fail:__page__' ? 'คัดลอกไม่สำเร็จ' : 'คัดลอกลิงก์'}
         </button>
+        {/* The same print entry the notes page has; the browser's print sheet
+            is where saving as PDF lives. Print styles drop the controls. */}
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => window.print()}
+          title="พิมพ์ หรือเลือกบันทึกเป็น PDF จากหน้าพิมพ์ของเบราว์เซอร์">
+          พิมพ์
+        </button>
       </div>
 
       {/* Table of contents */}
       {knowledge.sections.length > 2 && (
-        <nav aria-label="สารบัญ" style={{ marginBottom: 22, padding: '14px 16px', borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', boxShadow: 'var(--shadow-sm)' }}>
+        <nav ref={tocRef} tabIndex={-1} className="vmx-wiki-toc" aria-label="สารบัญ" style={{ marginBottom: 22, padding: '14px 16px', borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', boxShadow: 'var(--shadow-sm)' }}>
           <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 8 }}>สารบัญ</div>
           <ol style={{ margin: 0, paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 3 }}>
             {knowledge.sections.map((s) => (
               <li key={s.id}>
                 <a href={`#${s.id}`}
-                  onClick={(e) => { e.preventDefault(); document.getElementById(s.id)?.scrollIntoView({ block: 'start', behavior: 'smooth' }); }}
+                  className="vmx-wiki-toc-link"
+                  onClick={(e) => { e.preventDefault(); jumpTo(document.getElementById(s.id)); }}
                   style={{ fontSize: 14, color: 'var(--clr-ocean-text)', lineHeight: 1.6 }}>
                   {s.heading}
                 </a>
@@ -583,6 +635,11 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
       </div>
 
       </ReadingEffects>
+      {tocAway && !endNear && (
+        <button type="button" className="vmx-wiki-toc-return" onClick={backToContents}>
+          <span aria-hidden="true">↑</span> สารบัญ
+        </button>
+      )}
       {/* Related topics in the same subject */}
       {related.length > 0 && (
         <section style={{ marginTop: 34, paddingTop: 16, borderTop: '1px solid var(--clr-border)' }}>
@@ -596,6 +653,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
           </ul>
         </section>
       )}
+      <div ref={endRef} aria-hidden="true" className="vmx-reading-end" />
     </div>
   );
 }

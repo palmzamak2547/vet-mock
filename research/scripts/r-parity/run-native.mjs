@@ -8,14 +8,15 @@
 //
 // It writes nothing in the repository: each script runs with RS_OUT set to a temporary folder.
 // Native R and webR are the same R 4.6.0 source; they differ in the C library's exp/log/pow, so the
-// comparison uses NATIVE_REL (compare.mjs). The R version and every package version must equal the
+// comparison uses NATIVE_REL, or the script's documented exception in NATIVE_REL_BY_FIXTURE (compare.mjs;
+// only the nls fixture, nonlinear, has one). The R version and every package version must equal the
 // committed ones, or the run fails before comparing: a different epiR is a different pin, not noise.
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { compareFixtureDocs, NATIVE_REL } from './compare.mjs';
+import { compareNative, nativeRel } from './compare.mjs';
 import { listScripts, OUT_DIR, R_DIR } from './run-webr.mjs';
 
 const RSCRIPT = process.env.RSCRIPT || 'Rscript';
@@ -82,8 +83,8 @@ function main() {
         .filter((p) => want[p] !== got[p])
         .map((p) => `package ${p}: committed ${want[p] ?? 'not used'}, native ${got[p] ?? 'not used'}`);
       if (versionDiffs.length) { problems.push(`${n}:\n    ${versionDiffs.join('\n    ')}`); continue; }
-      const diffs = compareFixtureDocs(committed, fresh, NATIVE_REL);
-      console.log(`  ${n}: ${diffs.length ? `${diffs.length} difference(s)` : `same within ${NATIVE_REL} relative`}`);
+      const diffs = compareNative(n, committed, fresh);
+      console.log(`  ${n}: ${diffs.length ? `${diffs.length} difference(s) beyond ${nativeRel(n)} relative` : `same within ${nativeRel(n)} relative`}`);
       if (diffs.length) problems.push(`${n}:\n    ${diffs.join('\n    ')}`);
     }
   } finally {

@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก pasteurization, UHT, cheese, yogurt processing",
   summary: `# Milk-Meat — 7 Processing Technologies for Milk Products
 
-> 🎯 Pasteurization 3 styles (HTST · LTLT · UHT) + processing อื่น (homogenization · standardization · fermentation)
+> 🎯 Pasteurization 3 styles (HTST, LTLT, UHT) + processing อื่น (homogenization, standardization, fermentation)
 > ⚠️ HTST 72°C × 15s = standard ที่ต้องจำให้ขึ้นใจ
 
 ---

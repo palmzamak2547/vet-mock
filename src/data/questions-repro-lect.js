@@ -197,7 +197,7 @@ export const QB_REPRO_LECT = [
     source: 'Genetic.pdf', sourceType: 'lecture-verified-draft', tags: ['selection'], type: 'mcq',
     q: 'Artificial selection ต่างจาก natural selection ที่จุดใด',
     options: ['ไม่มี reproductive success', 'เกิดเฉพาะใน domestic cat', 'มนุษย์เป็นผู้กำหนด selection', 'ไม่มี genetic response'],
-    answer: 2, explain: 'Artificial selection คือ selection imposed by humans', verified: 'Slide 2026 Lect 21' },
+    answer: 2, explain: 'Artificial selection คือ selection imposed by humans\nNatural selection เกิดจากแรงกดดันของสิ่งแวดล้อม ส่วน artificial selection คือ selective breeding ที่มนุษย์เป็นผู้เลือก เช่น dairy cow กับ beef cow ที่มาจาก cattle เดียวกัน', verified: 'Slide 2026 Lect 21' },
   { id: 1833, subject: 'repro-lect', topic: 'genetics', year: 4,
     source: 'Genetic.pdf', sourceType: 'lecture-verified-draft', tags: ['GBLUP'], type: 'mcq',
     q: 'GBLUP ต่างจาก pedigree-based BLUP โดยเน้นใช้ข้อมูลใด',

@@ -48,8 +48,19 @@ test('a DFA question lands on rabies diagnosis', () => {
   assert.ok(top.includes('com5--rabies--diagnosis'), `got ${top.join(', ')}`);
 });
 
-test('a pasteurization question lands on milk processing', () => {
-  assert.match(topIds('นมพาสเจอร์ไรส์ต่างจาก UHT ยังไง')[0], /milk-meat-hygiene--milk-processing/);
+test('a pasteurization question lands on a section that states both heat treatments', () => {
+  // Pinned to milk-processing until 2026-10-12. The comparison facet now
+  // ranks milk-raw-std's "Heat treatment ตามกฎหมาย และการเก็บ" first, which
+  // gives LTLT/HTST against UHT and how each is stored: a closer answer to
+  // "ต่างจาก UHT ยังไง" than the processing line. Either kind of section is
+  // right; a section that is not about heat-treating milk is not.
+  const heatTreatment = [
+    'milk-meat-hygiene--milk-raw-std--heat-treatment-ตามกฎหมาย-และการเก็บ',
+    'milk-meat-hygiene--milk-processing--heat-treatment-และ-heat-exchangers',
+    'milk-meat-hygiene--milk-processing--heat-treatment-time-temp-product-specific-lines',
+    'milk-meat-hygiene--milk-processing--ผลิตภัณฑ์นม',
+  ];
+  assert.ok(heatTreatment.includes(topIds('นมพาสเจอร์ไรส์ต่างจาก UHT ยังไง')[0]));
 });
 
 test('a rabies-vaccine question retrieves the prevention CPG section', () => {
@@ -81,8 +92,8 @@ test('chatJSON returns the first provider answer', async () => {
     return jsonRes({ choices: [{ message: { content: '{"claims":[]}' } }] });
   }, () => chatJSON({ system: 's', user: 'u', env: { DEEPSEEK_API_KEY: 'k' } }));
   assert.equal(out.ok, true);
-  assert.equal(out.model, 'deepseek-v4-flash');
-  assert.deepEqual(calls, ['deepseek-v4-flash']);
+  assert.equal(out.model, 'deepseek-flash');
+  assert.deepEqual(calls, ['deepseek-flash']);
   // the primary call must disable thinking — with it on, the whole token
   // budget went to reasoning_content and content came back EMPTY (probed live)
 });

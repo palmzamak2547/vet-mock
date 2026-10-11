@@ -99,7 +99,7 @@ export default {
 8. **Experimental evidence** — controlled studies confirm
 9. **Analogy** — similar known causes
 
-> 💡 **Most Important: Temporality** — cause ต้องมาก่อน effect · vaccination ต้องมาก่อน protection · common error คือ correlation แต่ไม่ระบุ direction
+> 💡 **Most Important: Temporality** — cause ต้องมาก่อน effect, vaccination ต้องมาก่อน protection, common error คือ correlation แต่ไม่ระบุ direction
 
 ---
 
@@ -144,7 +144,7 @@ export default {
 - RR/OR > 1: positive association (risk factor)
 - RR/OR < 1: negative association (protective factor)
 
-> 💡 Vet พบ OR=5 ระหว่าง stress + mastitis → focus on stress reduction · effect size drives intervention
+> 💡 Vet พบ OR=5 ระหว่าง stress + mastitis → focus on stress reduction, effect size drives intervention
 
 ---
 

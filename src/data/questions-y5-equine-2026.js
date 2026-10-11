@@ -2759,10 +2759,10 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "Amblyomma testudinarium",
       "Rhipicephalus microplus",
       "Haemaphysalis bispinosa",
-      "Dermacentor variabilis"
+      "Argas persicus"
     ],
     "answer": 1,
-    "explain": "พาหะที่ระบุไว้สำหรับ equine piroplasmosis ในเนื้อหาชุดนี้คือ Rhipicephalus microplus ซึ่งเป็น one host tick และยังระบุไว้ด้วยว่าโรคนี้ติดต่อผ่าน mechanical transmission ได้ เช่น การใช้เข็มฉีดยาซ้ำและการถ่ายเลือด\n\n❌ ทำไมข้ออื่นผิด\n— \"Amblyomma testudinarium\" = เป็นเห็บจริง แต่ไม่ใช่ชนิดที่ถูกระบุไว้เป็นพาหะในข้อนี้\n— \"Haemaphysalis bispinosa\" = เช่นเดียวกัน ไม่ใช่ชนิดที่ถูกระบุไว้เป็นพาหะในข้อนี้\n— \"Dermacentor variabilis\" = เช่นเดียวกัน ไม่ใช่ชนิดที่ถูกระบุไว้เป็นพาหะในข้อนี้\n\n💡 โจทย์ถามชื่อพาหะที่ถูกระบุไว้โดยเฉพาะ จึงตอบด้วยชื่อที่บันทึกไว้ ไม่ใช่การไล่ว่าเห็บสกุลใดเป็นพาหะได้บ้างในธรรมชาติ",
+    "explain": "Rhipicephalus microplus เป็น one host tick ที่มีหลักฐานการทดลองว่าส่งต่อเชื้อ Theileria equi (ชื่อเดิม Babesia equi) ได้ และเป็นพาหะที่บทเรียน Equine Med ใช้สอนโรคนี้ นอกจากนี้โรคยังติดต่อแบบ mechanical transmission ได้ เช่น การใช้เข็มฉีดยาซ้ำและการถ่ายเลือด\n\n❌ ทำไมข้ออื่นผิด\n— \"Amblyomma testudinarium\" = เป็นเห็บจริง แต่ไม่ใช่ชนิดที่บทเรียนระบุเป็นพาหะของโรคนี้\n— \"Haemaphysalis bispinosa\" = เป็นเห็บจริง แต่ไม่ใช่ชนิดที่บทเรียนระบุเป็นพาหะของโรคนี้\n— \"Argas persicus\" = เห็บอ่อนของสัตว์ปีก เป็นพาหะของ Borrelia anserina และ Aegyptianella pullorum ในไก่ ไม่ใช่พาหะของโรคในม้า\n\n💡 เห็บที่เป็นพาหะของโรคนี้ได้จริงมีไม่กี่ชนิด และไม่ได้มีชนิดเดียว เช่น งานทดลองพบว่า Dermacentor variabilis ก็ส่งต่อ Theileria equi ได้เช่นกัน",
     "verified": "Equine Med 85 น.14",
     "sourceType": "lecture-derived",
     "source": "Equine Med deck (Vet 85)"

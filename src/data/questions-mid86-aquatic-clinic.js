@@ -1194,7 +1194,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "past-paper"
     ],
     "type": "mcq",
-    "q": "ยาสลบที่ใช้กันแพร่หลายที่สุดในปลาคือ MS-222 ซึ่งมีชื่อเต็มว่าอะไร",
+    "q": "ยาสลบปลา MS-222 มีชื่อเต็มว่าอะไร",
     "options": [
       "Methane sulfonic anhydride",
       "Tricaine methanesulfonate",
@@ -1202,7 +1202,7 @@ export const QUESTIONS_MID86_AQUATIC_CLINIC = [
       "Quinaldine sulfate solution"
     ],
     "answer": 1,
-    "explain": "MS-222 ย่อมาจาก tricaine methanesulfonate เป็นยาสลบมาตรฐานสำหรับปลา ใช้ละลายน้ำแล้วให้ปลาแช่ นอกจากนี้ยังมีตัวเลือกอื่น เช่น clove oil, benzocaine, quinaldine, 2-phenoxyethanol และคาร์บอนไดออกไซด์\n\n❌ ทำไมข้ออื่นผิด\n— Methane sulfonic anhydride เป็นสารเคมีทั่วไป ไม่ใช่ยาสลบสัตว์น้ำ\n— Metomidate เป็นยาสลบปลาอีกชนิดหนึ่ง แต่ไม่ใช่ชื่อเต็มของ MS-222\n— Quinaldine เป็นยาสลบปลาที่ใช้ได้จริง แต่เป็นคนละตัวยากับ MS-222\n\n💡 Tricaine คือตัวยาจริง ส่วน MS-222 คือรหัสทางการค้า",
+    "explain": "MS-222 ย่อมาจาก tricaine methanesulfonate เป็นผลึกสีขาวที่ละลายน้ำง่าย ใช้ละลายน้ำแล้วให้ปลาแช่ นิยมใช้ในปลาสวยงามขนาดใหญ่ เพราะผลิตเป็นการค้าและพิสูจน์แล้วว่าค่อนข้างปลอดภัย ส่วนตัวที่นิยมในปัจจุบันคือน้ำมันกานพลู (clove oil) ตัวเลือกอื่นยังมี benzocaine, quinaldine, 2-phenoxyethanol และคาร์บอนไดออกไซด์\n\n❌ ทำไมข้ออื่นผิด\n— Methane sulfonic anhydride เป็นสารเคมีทั่วไป ไม่ใช่ยาสลบสัตว์น้ำ\n— Metomidate เป็นยาสลบปลาอีกชนิดหนึ่ง แต่ไม่ใช่ชื่อเต็มของ MS-222\n— Quinaldine เป็นยาสลบปลาที่ใช้ได้จริง แต่เป็นคนละตัวยากับ MS-222\n\n💡 Tricaine คือตัวยาจริง ส่วน MS-222 คือรหัสทางการค้า",
     "verified": "Aqua Med Mid 86 p.14",
     "sourcePages": [{ "doc": "aqua-med-mid86", "edition": "78p", "page": 14 }]
   },

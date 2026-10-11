@@ -25,6 +25,7 @@ import TemplateLibrary from '../components/TemplateLibrary.jsx';
 import { saveNoteRetryTarget } from '../lib/note-retry.js';
 import { recordQuestEvent, todayKey } from '../lib/quests.js';
 import NavIcon from '../components/NavIcon.jsx';
+import { motionIsReduced } from '../lib/motion-preferences.js';
 
 // One topic can only count once a day towards the reading quests, so
 // re-opening the same page cannot tick the counter three times. The day is
@@ -200,6 +201,44 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
   const topic = notes[validTopic];
   const mainRef = useRef(null);
   const sectionRefs = useRef({});
+  const topicHeadRef = useRef(null);
+  // A topic chosen from far down the page (the end-of-topic pager, or the
+  // picker after reading) should open at its first line, not leave the
+  // student mid-way through the next topic's sections.
+  const scrollToTopicRef = useRef(false);
+  const openTopic = (id) => {
+    scrollToTopicRef.current = true;
+    setActiveTopic(id);
+  };
+  // A long topic gets a way back up to its header (the pickers, the search
+  // and the tools live there): a small pill once the header has scrolled
+  // away above. An observer decides, never a scroll listener.
+  // It stands aside near the end of the topic, where the previous and next
+  // buttons sit under it: the end marker counts as reached 200px early.
+  const [headAway, setHeadAway] = useState(false);
+  const [endNear, setEndNear] = useState(false);
+  const endRef = useRef(null);
+  useEffect(() => {
+    const el = topicHeadRef.current;
+    const end = endRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return undefined;
+    const io = new IntersectionObserver(([entry]) => {
+      setHeadAway(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+    });
+    io.observe(el);
+    const endIo = end ? new IntersectionObserver(([entry]) => setEndNear(entry.isIntersecting), { rootMargin: '0px 0px 200px 0px' }) : null;
+    if (end) endIo.observe(end);
+    return () => { io.disconnect(); endIo?.disconnect(); };
+  }, [notesState.status, subject]);
+  const backToTopicHead = () => {
+    const el = topicHeadRef.current;
+    if (!el) return;
+    el.scrollIntoView({ block: 'start', behavior: motionIsReduced() ? 'auto' : 'smooth' });
+    el.focus({ preventScroll: true });
+  };
+  const topicIndex = topicIds.indexOf(validTopic);
+  const prevTopicId = topicIndex > 0 ? topicIds[topicIndex - 1] : null;
+  const nextTopicId = topicIndex >= 0 && topicIndex < topicIds.length - 1 ? topicIds[topicIndex + 1] : null;
 
   // Template picker → ImageAnnotator (in 'template' mode) bridge.
   // showTemplateLibrary controls the picker modal; activeTemplate (set
@@ -213,6 +252,11 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
   useEffect(() => {
     if (mainRef.current) mainRef.current.scrollTop = 0;
     setSearch('');
+    if (scrollToTopicRef.current) {
+      scrollToTopicRef.current = false;
+      const head = topicHeadRef.current;
+      if (head && head.getBoundingClientRect().top < 0) head.scrollIntoView({ block: 'start' });
+    }
   }, [validTopic, subject]);
 
   // Credit the reading quests. The quest templates and their matcher existed,
@@ -310,19 +354,14 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
         </p>
       </div>
 
-      <FeatureTip id="notes" title="จับจุดสำคัญระหว่างอ่านได้" icon="📖">
-        <p style={{ margin: '0 0 6px' }}>
-          มีปุ่มช่วยโฟกัสทีละย่อหน้า ให้อ่านยาว ๆ จับง่ายขึ้น
-        </p>
-        <ul style={{ margin: 0, paddingLeft: 22, lineHeight: 1.7 }}>
-          <li>อยากจำจุดไหน ลากคลุมข้อความแล้วเก็บเป็นการ์ดจำได้เลย</li>
-          <li>ตัวชี้แสงขณะอ่าน เลือกหรือปิดได้จากแถบเครื่องมือเดียวกัน</li>
-        </ul>
-      </FeatureTip>
+      <FeatureTip id="notes" />
 
       <div className="vmx-notes-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(220px, 280px) 1fr', gap: 16, alignItems: 'flex-start' }}>
-        {/* Topic sidebar */}
-        <div className="vmx-notes-sidebar" style={{ position: 'sticky', top: 16, display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {/* Topic sidebar. Up to 880px wide the picker at the top of the
+            content column takes its place (CSS hides this one): stacked whole,
+            it put a nested scroll box of subject pills between the student and
+            the topic they had just chosen. */}
+        <div className="vmx-notes-sidebar">
           {/* Subject switcher */}
           {availableSubjects.length > 1 && (
             <>
@@ -338,25 +377,15 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                   return (
                     <button
                       key={sid}
-                      // vmx-link-btn is the project's remedy for `all: unset`
-                      // pills: it restores the 44px touch floor these had lost
-                      // (measured ~33.4px), which is below the size the design
-                      // system requires for a tap target.
-                      className="vmx-link-btn"
+                      type="button"
+                      // The app's chip, the same control as every other filter
+                      // row: the old all:unset pill plus the 44px rescue class
+                      // grew into a tall oval around 12px text.
+                      className={`vmx-chip ${active ? 'active' : ''}`}
+                      aria-pressed={active}
                       onClick={() => switchSubject(sid)}
                       onPointerEnter={() => preloadNotesSubject(sid)}
                       onFocus={() => preloadNotesSubject(sid)}
-                      style={{
-                        all: 'unset',
-                        cursor: 'pointer',
-                        padding: '6px 12px',
-                        borderRadius: 999,
-                        background: active ? 'var(--clr-ink)' : 'var(--clr-surface)',
-                        color: active ? 'var(--clr-bg)' : 'var(--clr-ink)',
-                        border: '1px solid var(--clr-border)',
-                        fontSize: 12,
-                        fontWeight: active ? 600 : 500,
-                      }}
                     >
                       {meta?.icon} {meta?.name}
                     </button>
@@ -376,7 +405,8 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
             return (
               <button
                 key={id}
-                onClick={() => setActiveTopic(id)}
+                onClick={() => openTopic(id)}
+                aria-current={active ? 'true' : undefined}
                 style={{
                   all: 'unset',
                   display: 'block',
@@ -406,10 +436,6 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
             );
           })}
           <div className="vmx-btn-row" style={{ marginTop: 12, flexDirection: 'column' }}>
-            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => window.print()} style={{ justifyContent: 'center', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-              <NavIcon name="files" size={14} />
-              <span>พิมพ์</span>
-            </button>
             {goBack && <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goBack} style={{ justifyContent: 'center' }}>← ย้อนกลับ</button>}
             <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goHome} style={{ justifyContent: 'center' }}>หน้าแรก</button>
           </div>
@@ -417,9 +443,33 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
 
         {/* Main content */}
         <div ref={mainRef}>
-          <div style={{ marginBottom: 16, padding: 16, borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', boxShadow: 'var(--shadow-sm)' }}>
-            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
-              {topic.lecturer ? `หัวข้อ — ผู้สอน ${topic.lecturer}` : 'หัวข้อ'}
+          {/* Phone and narrow tablet: the platform's own pickers instead of the
+              sidebar, one row each, so the topic starts on the first screen. */}
+          <div className="vmx-notes-picker">
+            <label className="vmx-notes-picker-field">
+              <span>หัวข้อ</span>
+              <select value={validTopic} onChange={(e) => openTopic(e.target.value)}>
+                {topicIds.map((id, i) => <option key={id} value={id}>{`${i + 1}. ${notes[id].title}`}</option>)}
+              </select>
+            </label>
+            {availableSubjects.length > 1 && (
+              <label className="vmx-notes-picker-field">
+                <span>วิชา</span>
+                <select value={subject} onChange={(e) => switchSubject(e.target.value)}>
+                  {subjectShelves.map((shelf) => (
+                    <optgroup key={shelf.year} label={shelf.label}>
+                      {shelf.items.map((sid) => (
+                        <option key={sid} value={sid}>{SUBJECTS.find((s) => s.id === sid)?.name || sid}</option>
+                      ))}
+                    </optgroup>
+                  ))}
+                </select>
+              </label>
+            )}
+          </div>
+          <div ref={topicHeadRef} tabIndex={-1} className="vmx-notes-topic-head" style={{ marginBottom: 16, padding: 16, borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', boxShadow: 'var(--shadow-sm)' }}>
+            <div className="vmx-notes-topic-kicker">
+              {topic.lecturer ? `หัวข้อ ${topicIndex + 1} จาก ${topicIds.length}, ผู้สอน ${topic.lecturer}` : `หัวข้อ ${topicIndex + 1} จาก ${topicIds.length}`}
             </div>
             <h2 style={{ margin: '0 0 8px', fontFamily: 'var(--vmx-display)', fontSize: 22, fontWeight: 600 }}>
               {topic.icon} {topic.title}
@@ -465,10 +515,26 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                 <NavIcon name="pen" size={14} />
                 <span>วาดบนแบบฝึก</span>
               </button>
+              {/* With the topic, on every screen: it used to live only at the
+                  foot of the sidebar, which a phone never shows. The browser's
+                  print sheet is also where "save as PDF" lives. */}
+              <button
+                type="button"
+                onClick={() => window.print()}
+                className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+                style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', gap: 6 }}
+                title="พิมพ์ หรือเลือกบันทึกเป็น PDF จากหน้าพิมพ์ของเบราว์เซอร์"
+              >
+                <NavIcon name="files" size={14} />
+                <span>พิมพ์</span>
+              </button>
             </div>
             <input
               type="search"
-              placeholder="ค้นหาใน notes ของหัวข้อนี้..."
+              className="vmx-notes-search"
+              placeholder="ค้นหาในหัวข้อนี้"
+              aria-label="ค้นหาในหัวข้อนี้"
+              enterKeyHint="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               // No fontSize here: the inline 13px beat styles.css's max(16px, 1em)
@@ -478,7 +544,12 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
           </div>
 
           {filteredSections.length === 0 && (
-            <div className="vmx-empty"><Mochi state="curious" size={48} slot="search-empty" className="vmx-empty-mochi" />ไม่พบเนื้อหาที่ตรงกับ “{search}”</div>
+            <div className="vmx-empty">
+              <Mochi state="curious" size={48} slot="search-empty" className="vmx-empty-mochi" />ไม่พบเนื้อหาที่ตรงกับ “{search}”
+              <div style={{ marginTop: 10 }}>
+                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setSearch(''); setDebouncedSearch(''); }}>ล้างคำค้น</button>
+              </div>
+            </div>
           )}
 
           {/* highlight prop uses the debounced value so RichText doesn't
@@ -504,6 +575,32 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
             );
           })}
           </ReadingEffects>
+
+          {headAway && !endNear && (
+            <button type="button" className="vmx-wiki-toc-return vmx-reading-return" onClick={backToTopicHead}>
+              <span aria-hidden="true">↑</span> กลับไปต้นหัวข้อ
+            </button>
+          )}
+
+          {/* The end of a topic is where the next one is wanted: before this,
+              the only way on was back up to the topic list. */}
+          {(prevTopicId || nextTopicId) && (
+            <nav className="vmx-notes-pager" aria-label="หัวข้อก่อนหน้าและถัดไป">
+              {prevTopicId ? (
+                <button type="button" className="vmx-notes-pager-btn" onClick={() => openTopic(prevTopicId)}>
+                  <span className="vmx-notes-pager-kicker">← หัวข้อก่อนหน้า</span>
+                  <span className="vmx-notes-pager-title">{notes[prevTopicId].title}</span>
+                </button>
+              ) : <span aria-hidden="true" />}
+              {nextTopicId && (
+                <button type="button" className="vmx-notes-pager-btn is-next" onClick={() => openTopic(nextTopicId)}>
+                  <span className="vmx-notes-pager-kicker">หัวข้อถัดไป →</span>
+                  <span className="vmx-notes-pager-title">{notes[nextTopicId].title}</span>
+                </button>
+              )}
+            </nav>
+          )}
+          <div ref={endRef} aria-hidden="true" className="vmx-reading-end" />
         </div>
       </div>
 
@@ -569,7 +666,7 @@ const SectionBlock = memo(function SectionBlock({ section, number, highlight, co
       </h3>
 
       {open && (
-        <MotionEnter effect="accordion" style={{ padding: '16px 20px', fontSize: 14, lineHeight: 1.65 }}>
+        <MotionEnter effect="accordion" className="vmx-notes-section-body">
           {section.body.map((item, i) => <BodyItem key={i} item={item} highlight={highlight} />)}
           {conflicts.map((c, i) => <ConflictNote key={i} item={c} />)}
           {/* Shared with the VetWiki article page — one figure renderer,
@@ -621,7 +718,7 @@ function BodyItem({ item, highlight }) {
     const { headers, rows } = item.table;
     return (
       <div style={{ overflowX: 'auto', margin: '12px 0' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, lineHeight: 1.5 }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.93em', lineHeight: 1.5 }}>
           <thead>
             <tr style={{ background: 'var(--clr-surface-2)' }}>
               {headers.map((h, i) => (
@@ -655,7 +752,7 @@ function BodyItem({ item, highlight }) {
     };
     const p = palette[item.kind] || palette.tip;
     return (
-      <div style={{ margin: '12px 0', padding: '10px 14px', borderRadius: 10, background: p.bg, borderLeft: `4px solid ${p.border}`, fontSize: 13, lineHeight: 1.6 }}>
+      <div style={{ margin: '12px 0', padding: '10px 14px', borderRadius: 10, background: p.bg, borderLeft: `4px solid ${p.border}`, fontSize: '0.93em', lineHeight: 1.65 }}>
         <span style={{ marginRight: 6 }}>{p.icon}</span>
         <RichText text={item.callout} highlight={highlight} />
       </div>

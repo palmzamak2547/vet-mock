@@ -73,7 +73,7 @@ export default {
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **Birnavirus → B-cell depletion ใน Bursa → immunosuppression**
-- ⭐⭐⭐ **3–6 weeks** peak age · < 3 wk subclinical
+- ⭐⭐⭐ **3–6 weeks** peak age, < 3 wk subclinical
 - ⭐⭐ **Maternal antibody timing** = vaccine success key
 - ⭐ **Bursal atrophy** ที่ necropsy
 - ⭐ vvIBD strain mortality สูงมาก`,

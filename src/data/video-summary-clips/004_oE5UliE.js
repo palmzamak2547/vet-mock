@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก mare infertility, differential, workup",
   summary: `# Equine Repro — 2.2 Infertility/Subfertility in Mare
 
-> 🎯 **Endometritis = #1 cause of mare infertility** · multiple categories require systematic workup ⭐⭐⭐
+> 🎯 **Endometritis = #1 cause of mare infertility**, multiple categories require systematic workup ⭐⭐⭐
 > ⚠️ ออกแน่: endometritis #1, PMIE, granulosa cell tumor, workup order
 
 ---

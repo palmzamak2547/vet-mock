@@ -7,10 +7,17 @@
 // server. Disconnect deletes the row outright and then asks the provider to
 // revoke the grant, so the student's consent ends in one tap here (it can
 // also be revoked from the provider's own consent page).
+//
+// GET answers which providers this deployment can connect at all
+// (externalCapabilities: env presence as booleans, never a value), so the
+// reader shows a connect button only when pressing it can work. It needs no
+// account, does no IO, and is the same for every visitor, so it caches
+// publicly: env changes reach Vercel only through a new deployment, and a
+// deployment starts with an empty edge cache.
 // ============================================================
 
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
-import { getUserFromRequest, listConnections, deleteConnection, getConnection, revokeProviderGrant } from './_lib/external-connections.js';
+import { getUserFromRequest, listConnections, deleteConnection, getConnection, revokeProviderGrant, externalCapabilities } from './_lib/external-connections.js';
 
 const PROVIDERS = new Set(['google', 'notion']);
 const HOUR_MS = 60 * 60 * 1000;
@@ -28,12 +35,19 @@ export default async function handler(req, res) {
     res.setHeader('Vary', 'Origin');
   }
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     return res.status(204).end();
   }
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== 'POST' && req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
+  if (req.method === 'GET') {
+    // Vary on Origin so an edge copy made for one origin's CORS answer is
+    // never replayed to another.
+    res.setHeader('Vary', 'Origin');
+    res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=3600');
+    return res.status(200).json(externalCapabilities());
+  }
 
   const ip = clientIP(req);
   const rl = await rateLimit(`external-connect-manage-ip:${ip}`, IP_CEILING_PER_HOUR, HOUR_MS);

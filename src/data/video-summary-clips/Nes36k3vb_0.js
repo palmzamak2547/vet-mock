@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก mare anatomy, estrous cycle, seasonality",
   summary: `# Equine Repro — 1.1 Female Reproductive Anatomy + Estrous Cycle
 
-> 🎯 ม้าตัวเมีย = **SEASONAL polyestrous** (long-day breeder) · cycle ~21 days · ovulation 24-48h ก่อน estrus end ⭐⭐⭐
+> 🎯 ม้าตัวเมีย = **SEASONAL polyestrous** (long-day breeder), cycle ~21 days, ovulation 24-48h ก่อน estrus end ⭐⭐⭐
 > ⚠️ ออกแน่: seasonal polyestrous, cycle phases, ovulation timing, ovulation fossa
 
 ---

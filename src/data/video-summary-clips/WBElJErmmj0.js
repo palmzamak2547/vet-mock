@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก Thai aquaculture statistics, main species",
   summary: `# Aquatic Clinic — 1.1 Aquaculture in Thailand
 
-> 🎯 ไทย = ผู้ผลิต shrimp + tilapia ระดับโลก. รู้ species หลัก · พื้นที่ผลิต · มูลค่าเศรษฐกิจ + ภัยคุกคามหลักของอุตสาหกรรม
+> 🎯 ไทย = ผู้ผลิต shrimp + tilapia ระดับโลก. รู้ species หลัก, พื้นที่ผลิต, มูลค่าเศรษฐกิจ + ภัยคุกคามหลักของอุตสาหกรรม
 
 ---
 
@@ -22,8 +22,8 @@ export default {
 | ⭐ **Shrimp** | *Penaeus vannamei*, *P. monodon* |
 | ⭐ **Tilapia** | freshwater ที่เลี้ยงมากที่สุด |
 | ⭐ **Catfish** | *Pangasius*, *Clarias* |
-| Marine | Sea bass · Striped bass · Snapper |
-| Ornamental | Betta · goldfish · koi |
+| Marine | Sea bass, Striped bass, Snapper |
+| Ornamental | Betta, goldfish, koi |
 
 ---
 
@@ -40,7 +40,7 @@ export default {
 
 - ⭐ **ใต้** — marine + brackish (กุ้ง)
 - ⭐ **กลาง** — freshwater
-- ⭐ **เหนือ/อีสาน** — ปลานิล · catfish
+- ⭐ **เหนือ/อีสาน** — ปลานิล, catfish
 - ชายฝั่ง — marine cages
 
 ---
@@ -58,8 +58,8 @@ export default {
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ ไทย = top global producer หลาย species (shrimp · tilapia · ornamental)
-- ⭐⭐ 3 species หลัก: *P. vannamei* · tilapia · *Pangasius/Clarias*
+- ⭐⭐⭐ ไทย = top global producer หลาย species (shrimp, tilapia, ornamental)
+- ⭐⭐ 3 species หลัก: *P. vannamei*, tilapia, *Pangasius/Clarias*
 - ⭐ Geography: ใต้-marine, กลาง-freshwater, เหนือ/อีสาน-tilapia
 - ⭐ Disease + climate + AMR = 3 ภัยคุกคามหลัก`,
 };

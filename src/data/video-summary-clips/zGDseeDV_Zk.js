@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก fowlpox 2 forms, vector, vaccination",
   summary: `# Avian Medicine 1.5 — Fowlpox
 
-> 🎯 **Fowlpox = DNA poxvirus** มี 2 forms: **cutaneous (dry)** + **diphtheritic (wet)** · transmission สำคัญ = **mosquito vector**
+> 🎯 **Fowlpox = DNA poxvirus** มี 2 forms: **cutaneous (dry)** + **diphtheritic (wet)**, transmission สำคัญ = **mosquito vector**
 > ⚠️ Wet form ตายจาก suffocation เพราะ plaques อุดทางเดินหายใจ
 
 ---
@@ -36,7 +36,7 @@ export default {
 - Respiratory + digestive tract
 - ⚠️ Can cause death (**suffocation** จาก plaques)
 
-> 💡 **Dry = ดูตามผิว · Wet = ในปาก/คอ · Wet = ตาย**
+> 💡 **Dry = ดูตามผิว, Wet = ในปาก/คอ, Wet = ตาย**
 
 ---
 

@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก mare repro exam, ultrasound, palpation",
   summary: `# Equine Repro — 1.2 Examination of Reproductive Organs in Mare
 
-> 🎯 **Ultrasound (transrectal) = gold standard** สำหรับ mare repro · pregnancy detection จาก 12+ days ⭐⭐⭐
+> 🎯 **Ultrasound (transrectal) = gold standard** สำหรับ mare repro, pregnancy detection จาก 12+ days ⭐⭐⭐
 > ⚠️ ออกแน่: rectal palpation, US gold standard, Kenney's biopsy grading
 
 ---

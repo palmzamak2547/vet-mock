@@ -12,7 +12,7 @@ export default {
   summary: `# One Health — 8 Combat Emerging and Re-emerging Diseases
 
 > 🎯 **Emerging + Re-emerging diseases** ผ่าน One Health approach ⭐⭐⭐
-> ⚠️ 75% emerging = zoonotic · spillover จาก wildlife (bats เป็น reservoir บ่อยที่สุด)
+> ⚠️ 75% emerging = zoonotic, spillover จาก wildlife (bats เป็น reservoir บ่อยที่สุด)
 
 ---
 

@@ -11,6 +11,7 @@ import { hasNotes } from '../data/notes-registry.generated.js';
 import { buildExamPool } from '../lib/exam-pool.js';
 import { scopeForPhase, questionInScope } from '../lib/exam-scope.js';
 import BackBar from '../components/BackBar.jsx';
+import FeatureTip from '../components/FeatureTip.jsx';
 
 export default function ScheduleView({ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, setSelectedPhase, selectedYear = 4, selectedPhase, customQuestions = [] }) {
   const [showPast, setShowPast] = useState(false);
@@ -64,6 +65,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
         </p>
       </div>
 
+      {allExams.some((e) => e.daysLeft >= 0 && hasQuestions(e.subject, examPhase(e))) && <FeatureTip id="schedule" />}
       {/* วันนี้เรียนอะไร — the question students open this page for */}
       <WeekTimetable
         year={selectedYear}
@@ -90,28 +92,28 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
           const phase = examPhase(exam);
           const canPractice = hasQuestions(exam.subject, phase);
           return (
-            <div key={exam.id} className="vmx-dash-card" style={{
+            // A past paper used to fade to half opacity, which took its text
+            // under the contrast floor; it now reads at full ink on a quieter
+            // card, with "ผ่านแล้ว" in the date tile saying why.
+            <div key={exam.id} className={`vmx-dash-card vmx-exam-card${isPast ? ' is-past' : ''}`} style={{
               borderLeft: `4px solid ${exam.color}`,
-              opacity: isPast ? 0.5 : 1,
               position: 'relative',
             }}>
-              <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start', flexWrap: 'wrap' }}>
+              {/* Date tile beside the details on every width: wrapping it onto
+                  its own row left a phone-wide gap beside a 90px tile. */}
+              <div className="vmx-exam-row">
                 {/* Date block */}
-                <div style={{
-                  minWidth: 90,
-                  textAlign: 'center',
-                  padding: '12px 8px',
-                  borderRadius: 12,
+                <div className="vmx-exam-date" style={{
                   background: isUrgent ? 'var(--clr-rose-soft)' : 'var(--clr-surface-2)',
                   border: `1px solid ${isUrgent ? 'var(--clr-rose)' : 'var(--clr-border)'}`,
                 }}>
-                  <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, letterSpacing: '0.1em', color: 'var(--clr-ink-soft)', textTransform: 'uppercase' }}>
-                    {new Date(exam.date).toLocaleDateString('en', { month: 'short' })}
+                  <div className="vmx-exam-date-month">
+                    {new Date(exam.date).toLocaleDateString('th-TH', { month: 'short' })}
                   </div>
-                  <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 32, lineHeight: 1, color: 'var(--clr-ink)' }}>
+                  <div className="vmx-exam-date-day">
                     {new Date(exam.date).getDate()}
                   </div>
-                  <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
+                  <div className="vmx-exam-date-left">
                     {(() => {
                       if (isPast) return 'ผ่านแล้ว';
                       const cd = shortCountdown(exam);
@@ -123,12 +125,12 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
                 </div>
 
                 {/* Info */}
-                <div style={{ flex: 1, minWidth: 240 }}>
+                <div className="vmx-exam-info">
                   <h2 style={{ margin: '0 0 8px', fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 18 }}>
                     {exam.icon} {exam.title}
                     {exam.weight_pct && <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontWeight: 400, marginLeft: 8 }}>{exam.weight_pct}%</span>}
                   </h2>
-                  <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 10, display: 'flex', flexWrap: 'wrap', gap: '2px 10px' }}>
+                  <div className="vmx-exam-meta">
                     {exam.term && (
                       <span style={{ color: exam.term === 'midterm' ? 'var(--clr-gold-text)' : 'var(--clr-sage-text)', fontWeight: 600 }}>
                         {exam.term === 'midterm' ? 'กลางภาค' : 'ปลายภาค'}
@@ -162,8 +164,8 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
                   {Array.isArray(exam.links) && exam.links.length > 0 && (
                     <div style={{ marginTop: 8, display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                       {exam.links.map((lnk, i) => (
-                        <a key={i} href={lnk.url} target="_blank" rel="noopener noreferrer"
-                          style={{ fontSize: 12, padding: '4px 10px', borderRadius: 999, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', color: 'var(--clr-ink)', textDecoration: 'none' }}>
+                        <a key={i} href={lnk.url} target="_blank" rel="noopener noreferrer" className="vmx-exam-link"
+                          style={{ borderRadius: 999, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', color: 'var(--clr-ink)', textDecoration: 'none' }}>
                           {lnk.label} ↗
                         </a>
                       ))}
@@ -192,7 +194,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
       <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
         <strong>คำแนะนำ:</strong> เลือกวิชาเพื่อฝึกตามช่วงสอบ หรือเปิดสรุปที่มีให้อ่าน<br/>
         ข้อมูลตารางอาจเปลี่ยนแปลง — เช็กกับเพื่อนในห้องอีกครั้งก่อนสอบ<br/>
-        หากข้อมูลผิดหรือล้าสมัย → ส่งไปที่ <button type="button" className="vmx-inline-action" onClick={() => setView('feedback')}>ฟอร์มแจ้ง</button>
+        หากข้อมูลผิดหรือล้าสมัย → ส่งไปที่ <button type="button" className="vmx-inline-action vmx-schedule-report" onClick={() => setView('feedback')}>ฟอร์มแจ้ง</button>
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 24 }}>

@@ -36,7 +36,7 @@ export default {
 ## Algal Toxins ⭐⭐
 - ⭐ Dinoflagellates (**red tide**)
 - ⭐ Cyanobacteria toxins
-- ⭐ **Saxitoxin (PSP)** · domoic acid
+- ⭐ **Saxitoxin (PSP)**, domoic acid
 
 > 💡 **Bioaccumulation vs bioconcentration**: 
 > - bioaccumulation = สะสมในตัวสัตว์ตลอดชีวิต

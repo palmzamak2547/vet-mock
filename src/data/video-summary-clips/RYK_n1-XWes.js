@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก molecular techniques, DNA testing, species ID",
   summary: `# Milk-Meat — 11.3 Application of Molecular Biology in Meat Science
 
-> 🎯 PCR + DNA-based methods = ทุกเรื่อง: species ID · pathogen detection · halal cert · fraud detection
+> 🎯 PCR + DNA-based methods = ทุกเรื่อง: species ID, pathogen detection, halal cert, fraud detection
 > ⚠️ "Horse meat scandal" Europe 2013 → ผลักดัน DNA testing ระดับสากล
 
 ---

@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก milk-borne diseases, zoonotic risks",
   summary: `# Milk-Meat — 2.2 Milk-borne Pathogens and Diseases
 
-> 🎯 Raw milk เสี่ยงสูง — มี zoonotic pathogen หลายชนิด · **Pasteurization (HTST 72°C × 15s)** = หัวใจของ public health
+> 🎯 Raw milk เสี่ยงสูง — มี zoonotic pathogen หลายชนิด, **Pasteurization (HTST 72°C × 15s)** = หัวใจของ public health
 > ⚠️ **สตรีตั้งครรภ์ + immunocompromised ห้ามดื่ม raw milk** — Listeria fatal สูง
 
 ---

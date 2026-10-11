@@ -50,8 +50,6 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
     window.addEventListener('vmx-exam-submit-request', open);
     return () => window.removeEventListener('vmx-exam-submit-request', open);
   }, []);
-  // Show the navigator opener for medium/long exams; short exams (≤10) just use prev/next
-  const showNavOpener = questions.length >= 15;
   // Live "X buddies on this Q" count — pulls from Supabase presence
   // payload (qKey field). Hidden when 0 or no Supabase. Read straight from
   // the presence store, so this screen renders when someone enters or
@@ -87,9 +85,19 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
           </button>
         )}
         </div>
-        <div className="vmx-progress">
-          <span className="vmx-progress-case" aria-hidden="true">CASE</span>
+        {/* The position pill is also the way into the exam map: one control
+            for "where am I" and "take me somewhere else", which is what a
+            student reaches for the pill to find out. Plain "ข้อ", not CASE. */}
+        {(() => {
+          const Pill = jumpToQ ? 'button' : 'div';
+          const pillProps = jumpToQ
+            ? { type: 'button', onClick: () => setShowNav(true), title: 'ดูแผนผังข้อสอบทั้งหมด', 'aria-label': `ข้อ ${currentIdx + 1} จาก ${questions.length}, เปิดแผนผังข้อสอบ` }
+            : {};
+          return (
+        <Pill className={`vmx-progress${jumpToQ ? ' is-opener' : ''}`} {...pillProps}>
+          <span className="vmx-progress-case" aria-hidden="true">ข้อ</span>
           <strong>{currentIdx + 1}</strong> / {questions.length}
+          {jumpToQ && <span className="vmx-progress-map" aria-hidden="true"><NavIcon name="grid2x2" size={13} /></span>}
           {(currentQ?.type === 'essay' || currentQ?.type === 'short') && (
             <span className="vmx-exam-type-chip" style={{
               marginLeft: 8,
@@ -107,7 +115,9 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
               <NavIcon name="pen" size={12} /> {currentQ.type === 'essay' ? 'เขียนบรรยาย' : 'ตอบสั้น'}
             </span>
           )}
-        </div>
+        </Pill>
+          );
+        })()}
         <div className="vmx-exam-top-right">
         {useTimer && (
           <ExamClock deadline={questionDeadline} writing={currentQ?.type === 'essay' || currentQ?.type === 'short'} />
@@ -125,18 +135,6 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
             </div>
           );
         })()}
-        {jumpToQ && (
-          <button
-            type="button"
-            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-            onClick={() => setShowNav(true)}
-            title="ดูแผนผังข้อสอบทั้งหมด"
-            style={{ padding: '4px 8px', fontSize: 12, display: 'inline-flex', alignItems: 'center', gap: 4 }}
-          >
-            <NavIcon name="practice" size={14} />
-            <span>แผนผัง</span>
-          </button>
-        )}
         </div>
       </div>
       <div className="vmx-progress-bar">
@@ -180,15 +178,14 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
       />
       </div>
 
-      <div className="vmx-btn-row">
-        <button className="vmx-btn vmx-btn-ghost" onClick={prevQ} disabled={currentIdx === 0}>← ข้อก่อนหน้า</button>
-        {showNavOpener && jumpToQ && (
-          <button className="vmx-btn vmx-btn-ghost" onClick={() => setShowNav(true)} title="ดูทุกข้อ + ข้ามไปข้อที่ต้องการ">
-            <NavIcon name="practice" size={18} /> {currentIdx + 1}/{questions.length}
-          </button>
-        )}
+      {/* Previous and next, in one row. A phone keeps this row at the bottom
+          of the screen (.vmx-exam-actions in styles.css) so the next question
+          is always one thumb away, under the answer or under the explanation.
+          The exam map opens from the position pill in the header. */}
+      <div className="vmx-btn-row vmx-exam-actions">
+        <button className="vmx-btn vmx-btn-ghost vmx-exam-prev" onClick={prevQ} disabled={currentIdx === 0}>← ข้อก่อนหน้า</button>
         <button
-          className="vmx-btn vmx-btn-primary"
+          className="vmx-btn vmx-btn-primary vmx-exam-next"
           onClick={() => { if (isLast) setConfirmSubmit(true); else nextQ(); }}
         >
           {isLast ? 'ส่งข้อสอบ ✓' : 'ข้อถัดไป →'}

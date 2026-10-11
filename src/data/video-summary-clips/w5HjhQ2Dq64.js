@@ -9,9 +9,9 @@ export default {
   durationMin: 126,
   instructor: "CUVET avian team",
   examFormat: "Multiple choice, ออก mixed bag of poultry diseases",
-  summary: `# Avian Medicine 8 — Mixed Bag: Omphalitis · Ascites · AE · Staph · Salmonella · Adenovirus
+  summary: `# Avian Medicine 8 — Mixed Bag: Omphalitis, Ascites, AE, Staph, Salmonella, Adenovirus
 
-> 🎯 Lecture **มัดรวม 6 โรค** ที่เหลือ — ไม่มี theme เดียวแต่ออกสอบทุกตัว · เน้น **Salmonella** (zoonotic + Pullorum/Gallinarum) และ **Ascites Syndrome** (water belly)
+> 🎯 Lecture **มัดรวม 6 โรค** ที่เหลือ — ไม่มี theme เดียวแต่ออกสอบทุกตัว, เน้น **Salmonella** (zoonotic + Pullorum/Gallinarum) และ **Ascites Syndrome** (water belly)
 
 ---
 

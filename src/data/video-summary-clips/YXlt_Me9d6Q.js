@@ -24,7 +24,7 @@ export default {
 - ⭐ Gills (lateral)
 - ⭐ Antennae, eyestalks
 
-> 💡 **Hepatopancreas** = target organ ของหลายโรค (EMS · EHP) — ดูสี/ขนาดตอน necropsy บอกโรคได้
+> 💡 **Hepatopancreas** = target organ ของหลายโรค (EMS, EHP) — ดูสี/ขนาดตอน necropsy บอกโรคได้
 
 ---
 
@@ -51,7 +51,7 @@ export default {
 - ⭐ Prevention ต้องผ่าน **biosecurity + immune stimulants**
 - ⭐ Probiotic / prebiotic strategies
 
-> ⚠️ ต่างจากปลา (มี adaptive · vaccine ได้) — กุ้งทำ vaccine ไม่ได้เด็ดขาด อย่าสอบสับ
+> ⚠️ ต่างจากปลา (มี adaptive, vaccine ได้) — กุ้งทำ vaccine ไม่ได้เด็ดขาด อย่าสอบสับ
 
 ---
 

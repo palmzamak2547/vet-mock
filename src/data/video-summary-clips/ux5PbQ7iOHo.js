@@ -75,7 +75,7 @@ export default {
 ---
 
 ## 📋 Exam Recap
-- ⭐⭐⭐ **ELISA most common · HI standard for ND/IB/AI**
+- ⭐⭐⭐ **ELISA most common, HI standard for ND/IB/AI**
 - ⭐⭐ **HI ≥ 8 = protective for ND**
 - ⭐⭐ **Paired sera + 4-fold rise = active infection**
 - ⭐ **CV measures vaccination uniformity** (low CV = good)

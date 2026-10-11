@@ -1,19 +1,48 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import MotionSettings from '../components/MotionSettings.jsx';
 import MotionSurface from '../components/MotionSurface.jsx';
 import StudyBreak from '../components/StudyBreak.jsx';
+import BuddySelector from '../components/BuddySelector.jsx';
 import { MotionButton } from '../components/MotionFeedback.jsx';
 import { EFFECTS, GROUPS } from '../lib/motion-kit/catalog.js';
-import { SQUAD_MASCOTS } from '../data/art.js';
 import { artImgFallback } from '../lib/art-fallback.js';
+import { canShow3D } from '../lib/buddy.js';
+import { useBuddy } from '../hooks/useBuddy.js';
 import ErrorBoundary from '../components/ErrorBoundary.jsx';
 import MascotStill from '../components/MascotStill.jsx';
+import '../styles-buddy.css';
 
 const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer.jsx'));
 
-export default function MochiView({ goHome, onOpenFocus }) {
+export default function MochiView({ goHome, onOpenFocus, onOpenGame }) {
+  const { buddy } = useBuddy();
   const [squadViewMode, setSquadViewMode] = useState('2d');
+  // A new pick greets the student once (a hop on the picture, a wave in 3D);
+  // opening the page or switching 2D and 3D does not.
+  const [arriving, setArriving] = useState(false);
+  const shownBuddy = useRef(buddy.id);
+  useEffect(() => {
+    if (shownBuddy.current === buddy.id) return;
+    shownBuddy.current = buddy.id;
+    setArriving(true);
+  }, [buddy.id]);
+  // Assume a device can draw 3D until the probe (after first paint, off the
+  // critical path) says otherwise; then the 3D switch is not offered at all.
+  const [can3D, setCan3D] = useState(true);
+  useEffect(() => {
+    const ok = canShow3D();
+    setCan3D(ok);
+    if (!ok) setSquadViewMode('2d');
+  }, []);
+  const show3D = can3D && squadViewMode === '3d';
+  // /app/mochi#buddy opens on the buddy section (a link from a companion
+  // card, or a search result), after layout has placed it.
+  useEffect(() => {
+    if (globalThis.location?.hash !== '#buddy') return undefined;
+    const frame = requestAnimationFrame(() => document.getElementById('buddy')?.scrollIntoView({ block: 'start' }));
+    return () => cancelAnimationFrame(frame);
+  }, []);
   const [examplesOpen, setExamplesOpen] = useState(false);
   const [selected, setSelected] = useState('mochi-hello');
   const [group, setGroup] = useState('mochi');
@@ -26,110 +55,43 @@ export default function MochiView({ goHome, onOpenFocus }) {
     <BackBar onBack={goHome} label="กลับไปเรียน" />
     <header className="vmx-mochi-heading">
       <div><img src="/motion/assets/mochi.png" width="64" height="64" className="vmx-mochi-rest-portrait" alt="" onError={artImgFallback} /><p className="vmx-eyebrow">MOCHI / STUDY BREAK</p><h1>พักกับ Mochi</h1><p>พื้นที่เล็ก ๆ ให้พักมือ พักสายตา แล้วกลับไปเรียนในจังหวะของตัวเอง</p></div>
-      {onOpenFocus && <MotionButton className="vmx-btn vmx-btn-ghost" onClick={onOpenFocus}>จับเวลาอ่านพร้อมช่วงพัก</MotionButton>}
+      {(onOpenFocus || onOpenGame) && <div className="vmx-rest-doors">
+        {onOpenFocus && <MotionButton className="vmx-btn vmx-btn-ghost" onClick={onOpenFocus}>จับเวลาอ่านพร้อมช่วงพัก</MotionButton>}
+        {onOpenGame && <MotionButton className="vmx-btn vmx-btn-ghost" onClick={onOpenGame}>เกมลูกไก่หนีเชื้อโรค</MotionButton>}
+      </div>}
     </header>
     <StudyBreak />
     <MotionSettings />
-    <section className="vmx-squad-showcase" style={{ marginTop: 'var(--space-4)', paddingTop: 'var(--space-4)', borderTop: '1px solid var(--clr-border)' }}>
-      <div style={{ marginBottom: 'var(--space-3)', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
-        <div>
-          <p className="vmx-eyebrow" style={{ color: 'var(--clr-sage-text)' }}>VETMOCK STUDY SQUAD</p>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 600, margin: '4px 0', color: 'var(--clr-ink)' }}>ผองเพื่อนประจำคลินิก</h2>
-          <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--clr-ink-soft)' }}>
-            คู่หูตัวการ์ตูนประจำแต่ละหมวดวิชา ที่พร้อมร่วมอ่านและเป็นกำลังใจให้ทุกการทบทวน
-          </p>
-        </div>
-        <div role="group" aria-label="รูปแบบการแสดงคู่หู" style={{ display: 'inline-flex', background: 'var(--clr-surface-2)', padding: '3px', borderRadius: '8px', border: '1px solid var(--clr-border)' }}>
-          <button
-            type="button"
-            aria-pressed={squadViewMode === '2d'}
-            onClick={() => setSquadViewMode('2d')}
-            style={{
-              minHeight: 'var(--touch-min)',
-              padding: '8px 12px',
-              display: 'inline-flex',
-              alignItems: 'center',
-              fontSize: '0.85rem',
-              fontWeight: squadViewMode === '2d' ? 600 : 400,
-              borderRadius: '6px',
-              border: 'none',
-              background: squadViewMode === '2d' ? 'var(--clr-surface)' : 'transparent',
-              color: squadViewMode === '2d' ? 'var(--clr-ink)' : 'var(--clr-ink-soft)',
-              boxShadow: squadViewMode === '2d' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
-              cursor: 'pointer',
-            }}
-          >
-            🖼️ การ์ด 2D
-          </button>
-          <button
-            type="button"
-            aria-pressed={squadViewMode === '3d'}
-            onClick={() => setSquadViewMode('3d')}
-            style={{
-              minHeight: 'var(--touch-min)',
-              padding: '8px 12px',
-              display: 'inline-flex',
-              alignItems: 'center',
-              fontSize: '0.85rem',
-              fontWeight: squadViewMode === '3d' ? 600 : 400,
-              borderRadius: '6px',
-              border: 'none',
-              background: squadViewMode === '3d' ? 'var(--clr-surface)' : 'transparent',
-              color: squadViewMode === '3d' ? 'var(--clr-ink)' : 'var(--clr-ink-soft)',
-              boxShadow: squadViewMode === '3d' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
-              cursor: 'pointer',
-            }}
-          >
-            ✨ ดูแบบ 3D
-          </button>
-        </div>
-      </div>
-      {squadViewMode === '3d' ? (
-        <ErrorBoundary fallback={<MascotStill mascot={SQUAD_MASCOTS.moocha} note="เปิดโมเดล 3D ไม่สำเร็จ จึงแสดงเป็นภาพนิ่งแทน ดูทุกตัวได้ในแบบการ์ด 2D" />}>
-          <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: 'var(--clr-ink-soft)' }}>กำลังโหลดโมเดล 3D...</div>}>
-            <MascotSquad3DViewer initialId="moocha" />
-          </Suspense>
-        </ErrorBoundary>
-      ) : (
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
-        gap: 'var(--space-3)',
-      }}>
-        {Object.values(SQUAD_MASCOTS).map((m) => (
-          <div key={m.id} style={{
-            padding: 'var(--space-3)',
-            borderRadius: 'var(--r-md, 12px)',
-            background: 'var(--clr-surface-2, rgba(255, 255, 255, 0.7))',
-            border: '1px solid var(--clr-border)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-          }}>
-            <img
-              src={m.src}
-              alt={m.alt}
-              width={84}
-              height={84}
-              loading="lazy"
-              decoding="async"
-              style={{ width: '84px', height: '84px', objectFit: 'contain', borderRadius: '10px', marginBottom: '8px' }}
-              onError={artImgFallback}
-            />
-            <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--clr-ink)' }}>
-              {m.nameTh}
-            </div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--clr-sage-text)', fontWeight: 500, marginTop: '2px' }}>
-              {m.role}
-            </div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--clr-ink-soft)', marginTop: '4px', lineHeight: 1.3 }}>
-              {m.species}
-            </div>
+    <section id="buddy" className="vmx-squad-showcase vmx-buddy-section" aria-labelledby="vmx-buddy-title">
+      <p className="vmx-eyebrow vmx-buddy-eyebrow">VETMOCK STUDY SQUAD</p>
+      <h2 id="vmx-buddy-title" className="vmx-buddy-title">ผองเพื่อนประจำคลินิก</h2>
+      <p className="vmx-buddy-lede">เลือกคู่หูไว้หนึ่งตัว แล้วคู่หูจะอ่านไปด้วยกันตอนจับเวลาโฟกัส และฉลองเมื่อคุณโฟกัสครบเวลา</p>
+      <BuddySelector selectedId={buddy.id} label="เลือกคู่หู" />
+      <div className="vmx-buddy-spotlight">
+        <div className="vmx-buddy-spotlight-head">
+          <div className="vmx-buddy-spotlight-name">
+            <span className="vmx-buddy-kicker">คู่หูของคุณ</span>
+            <strong>{buddy.nameTh} <span lang="en">({buddy.name})</span></strong>
+            <span className="vmx-buddy-role">{buddy.role}</span>
+            <span className="vmx-buddy-species">{buddy.species}</span>
           </div>
-        ))}
+          {can3D && <div className="vmx-buddy-mode" role="group" aria-label="รูปแบบการแสดงคู่หู">
+            <button type="button" aria-pressed={!show3D} onClick={() => setSquadViewMode('2d')}>ภาพ 2D</button>
+            <button type="button" aria-pressed={show3D} onClick={() => setSquadViewMode('3d')}>โมเดล 3D</button>
+          </div>}
+        </div>
+        {show3D ? (
+          <ErrorBoundary fallback={<BuddyPicture buddy={buddy} note="เปิดโมเดล 3D ไม่สำเร็จ จึงแสดงเป็นภาพนิ่งแทน" />}>
+            {/* While the 3D chunk loads, the same picture holds the same stage:
+                switching 2D to 3D never jumps. */}
+            <Suspense fallback={<BuddyPicture buddy={buddy} />}>
+              <MascotSquad3DViewer id={buddy.id} />
+            </Suspense>
+          </ErrorBoundary>
+        ) : (
+          <BuddyPicture buddy={buddy} hop={arriving} onHopEnd={() => setArriving(false)} />
+        )}
       </div>
-      )}
     </section>
     <details className="vmx-motion-examples" onToggle={event => setExamplesOpen(event.currentTarget.open)}>
     <summary>ดูตัวอย่างเอฟเฟกต์และท่า Mochi</summary>
@@ -157,5 +119,25 @@ export default function MochiView({ goHome, onOpenFocus }) {
     </div>
     </>}
     </details>
+  </div>;
+}
+
+/** The buddy drawn on the same stage the 3D model uses, standing on a flat
+ *  pedestal like the 3D one, so 2D and 3D swap in place. `hop` greets a new
+ *  pick; the picture is keyed on the buddy, so each pick plays it once. */
+function BuddyPicture({ buddy, note, hop = false, onHopEnd }) {
+  if (note) return <div className="vmx-buddy-stage vmx-buddy-stage-still"><MascotStill mascot={buddy} note={note} /></div>;
+  return <div className="vmx-buddy-stage vmx-buddy-stage-2d">
+    <span className="vmx-buddy-pedestal" aria-hidden="true" />
+    <img
+      key={buddy.src}
+      className="vmx-buddy-stage-picture"
+      data-arrive={hop ? '' : undefined}
+      onAnimationEnd={onHopEnd}
+      src={buddy.src}
+      alt={buddy.alt}
+      decoding="async"
+      onError={artImgFallback}
+    />
   </div>;
 }

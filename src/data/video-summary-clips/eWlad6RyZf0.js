@@ -12,7 +12,7 @@ export default {
   summary: `# Avian Medicine 5.2 — Neoplastic Diseases (Marek's + Lymphoid Leukosis)
 
 > 🎯 **2 tumor diseases หลัก**: **Marek's (alphaherpesvirus)** vs **Lymphoid Leukosis (retrovirus / ALV)** — มาเทียบให้แม่นเพราะข้อสอบชอบหลอก
-> ⚠️ Marek's มี vaccine (in ovo / day 1) · ALV ไม่มี vaccine ต้อง eradicate ที่ breeder
+> ⚠️ Marek's มี vaccine (in ovo / day 1), ALV ไม่มี vaccine ต้อง eradicate ที่ breeder
 
 ---
 
@@ -66,13 +66,14 @@ export default {
 | Special signs | Paralysis, iridocyclitis | Tumors only |
 | Common | Very common | Less common |
 
-> 💡 จำง่าย: **Marek's = young, T-cell, vaccine · ALV = old, B-cell, eradicate**
+> 💡 จำง่าย: **Marek's = young, T-cell, vaccine**
+> **ALV = old, B-cell, eradicate**
 
 ---
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **Marek's vs ALV comparison table** — must know
-- ⭐⭐ **Marek's = HVT vaccine at hatch · prevents tumor not infection**
+- ⭐⭐ **Marek's = HVT vaccine at hatch, prevents tumor not infection**
 - ⭐⭐ **ALV = vertical transmission → eradicate at breeder level**
 - ⭐ **Iridocyclitis (gray eye)** = Marek's signature
 - ⭐ Different cell origin (Marek's T / ALV B)`,

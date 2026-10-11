@@ -1,22 +1,43 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { SUBJECTS } from '../data/questions.js';
+import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
+import {
+  Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE,
+  Q_VISIBLE_COUNTS_BY_YEAR, Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE,
+} from '../data/q-counts.js';
 import { SEMESTER } from '../data/schedule.js';
 import { EXAM_SCOPE_LABELS, examScopeForPhase } from '../lib/question-prediction.js';
 import BackBar from '../components/BackBar.jsx';
+import LadderStrip from '../components/LadderStrip.jsx';
 import { wholeSetTime, wholeSetTimeLabel } from '../hooks/utils.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { hasMeasuredDifficulty } from '../lib/elo.js';
 import { loadQuestionDifficulty } from '../lib/question-difficulty.js';
+import { USER_CURATED_MODES } from '../lib/exam-pool.js';
+import { ladderStep, ladderStepFor, ladderPreset, rememberLadderStep } from '../lib/practice-ladder.js';
 
 // ============================================================
 // ConfigView — ตั้งค่าก่อนเริ่มฝึก/สอบ
 // ============================================================
-// Settings exposed:
-//   • Question category (only for engprof — only subject with
-//     writing items; other subjects are pure MCQ so the picker
-//     would be UI noise)
+// One screen for every way a set starts: a topic card, the subject card,
+// Home's launchers, the sidebar's โหมดสอบ and a Panic card all land here.
+// What it shows, top to bottom, in the order a student changes things:
+//   • The practice ladder (lib/practice-ladder.js): three rungs that set the
+//     mode, the clock, the feedback and the count in one tap. The active rung
+//     is READ from those settings, so the strip and the switches under it can
+//     never disagree. Hidden for Panic (its ranking is its own feature) and
+//     for the curated review pools (bookmarks, weak, wrong).
+//   • The subject, as a native select, when the set is cross-subject or an
+//     exam: the owner's "โหมดสอบเลือกวิชาไม่ได้" (2026-10-11). A topic chosen
+//     one screen back is the student's own narrowing, so the select hides.
+//   • Question category (only for engprof — only subject with writing items;
+//     other subjects are pure MCQ so the picker would be UI noise)
 //   • # of questions (presets + custom)
-//   • Timer toggle + time-per-question
+//   • Timer toggle with its time-per-question presets folded under it
+//   • Instant feedback (practice only)
+//   • How questions are picked (random vs adaptive), de-emphasised
+// The start button and its one-line summary sit in their own bar, which a
+// phone keeps inside the thumb's reach (CSS: .vmx-config-actions).
 //
 // Remote grading was removed from the writing-review flow per
 // user request; ConfigView no longer carries a "writing grading
@@ -53,7 +74,31 @@ export function adaptiveHelpText({ data, pool }) {
   return `เลือกข้อที่ยากพอดีกับคุณจากประวัติการตอบ วัดความยากได้แล้ว ${measured.toLocaleString()} จาก ${pool.length.toLocaleString()} ข้อ ข้อที่เหลือนับเป็นระดับกลาง`;
 }
 
-export default function ConfigView({ practiceMode, setPracticeMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, showCategoryPicker = false, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, availablePool = null, mode, selectedPhase = null }) {
+// The subjects a student can switch to from this screen, with the number the
+// generated tables hold for each under the paper in scope — the same numbers
+// the subject cards print. The live count under "จำนวนข้อ" stays the
+// authority once a pick is made; these are the menu.
+export function subjectChoices({ selectedYear, selectedPhase }) {
+  if (!Number.isFinite(selectedYear)) return null;
+  const scoped = selectedPhase ? (Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE[selectedPhase] || null) : null;
+  const yearCount = scoped
+    ? (Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE[selectedPhase]?.[selectedYear] || 0)
+    : (Q_VISIBLE_COUNTS_BY_YEAR[selectedYear] || 0);
+  const groups = [];
+  for (const s of SUBJECTS_BY_YEAR[selectedYear] || []) {
+    if (!s?.has_questions) continue;
+    const count = scoped ? (scoped[s.id] || 0) : (Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0);
+    const label = s.semester ? `เทอม ${s.semester}` : 'ตลอดปี';
+    let group = groups.find((g) => g.label === label);
+    if (!group) { group = { label, items: [] }; groups.push(group); }
+    group.items.push({ id: s.id, name: s.name, count });
+  }
+  return { yearCount, groups };
+}
+
+const PICKABLE_MODES = new Set(['all', 'adaptive']);
+
+export default function ConfigView({ practiceMode, setPracticeMode, subject, setSubject = null, topic, setTopic = null, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, showCategoryPicker = false, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, availablePool = null, mode, setMode = null, selectedYear = null, selectedPhase = null, panicPending = false, setPanicPending = null }) {
   const knownAvailableCount = Number.isFinite(availableCount)
     ? Math.max(0, Math.floor(availableCount))
     : null;
@@ -128,10 +173,91 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, top
     : topicMeta ? `${subjMeta?.icon} ${subjMeta?.name} → ${topicMeta.icon} ${topicMeta.label}`
     : `${subjMeta?.icon} ${subjMeta?.name}`;
 
+  // ── The ladder ────────────────────────────────────────────────────────
+  // Read, not stored: the rung is whatever the mode and the clock say. The
+  // curated review pools (bookmarks, weak, wrong) are not rungs; Panic is a
+  // way of picking questions and sits on any rung.
+  const activeStep = ladderStepFor({ mode, useTimer });
+  const curated = USER_CURATED_MODES.has(practiceMode);
+  const showLadder = !curated;
+  const pickStep = (id) => {
+    const preset = ladderPreset(id, { available: knownAvailableCount, timePerQ });
+    if (setMode) setMode(preset.mode);
+    // Mode is state App owns; without a setter the strip still shows where the
+    // settings are, but a rung that needs another mode cannot be applied.
+    if (!setMode && preset.mode !== mode) return;
+    setUseTimer(preset.useTimer);
+    // Rung 1 is built on seeing the answer after every question. Rung 2 keeps
+    // whatever the student chose for feedback; the hint under the strip reads
+    // that choice back instead of promising one.
+    if (id === 'understand' && setInstantFeedback) setInstantFeedback(true);
+    if (preset.useTimer) { timePerQuestionRef.current = preset.timePerQ; setTimePerQ(preset.timePerQ); }
+    questionCountRef.current = preset.numQuestions;
+    setNumQuestions(preset.numQuestions);
+    rememberLadderStep(id);
+  };
+  const stepHint = (() => {
+    const step = ladderStep(activeStep);
+    const order = panicPending ? 'เรียงตามแนวข้อสอบก่อน' : practiceMode === 'adaptive' ? 'เลือกข้อตามระดับของคุณ' : 'ข้อที่น่าจะง่ายมาก่อน';
+    if (activeStep === 'exam') return panicPending ? `${order} ${step.hint}` : step.hint;
+    const feedback = instantFeedback ? 'เห็นเฉลยและเหตุผลทันทีหลังตอบ' : 'เฉลยหลังส่งทั้งชุด';
+    if (activeStep === 'timed') return `${panicPending ? `${order} ` : ''}จับเวลาทีละข้อ หมดเวลาข้อไหนจะไปข้อถัดไปเอง ${feedback}`;
+    return `${order} ไม่จับเวลา ${feedback}`;
+  })();
+  // The gentle order is rung 1's promise ("ข้อที่น่าจะง่ายมาก่อน"), so it is
+  // asked for only where that line is on screen: an untimed practice set from
+  // a plain or scope pool. Panic keeps its paper-proximity ranking, the
+  // curated pools keep most-missed-first, and the adaptive pick has its own
+  // easy-to-hard ramp.
+  const gentle = showLadder && !panicPending && activeStep === 'understand' && practiceMode !== 'adaptive';
+  // How questions are picked: random, by level, or Panic's paper-first order.
+  // Panic arrives armed from its card (App's panicPending) and can also be
+  // chosen here, so "ทบทวนเร่งด่วน" is a preset on this page, not another door.
+  const pickMethod = panicPending ? 'panic' : practiceMode === 'adaptive' ? 'adaptive' : 'random';
+  const choosePickMethod = (method) => {
+    if (method === 'panic') { if (setPracticeMode) setPracticeMode('all'); setPanicPending?.(true); return; }
+    setPanicPending?.(false);
+    if (setPracticeMode) setPracticeMode(method === 'adaptive' ? 'adaptive' : 'all');
+  };
+  const pickMethodHelp = pickMethod === 'panic'
+    ? 'เรียงข้อตามแนวข้อสอบจริงก่อน แล้วตามข้อที่คุณผิดบ่อย เหมาะกับคืนก่อนสอบ'
+    : pickMethod === 'adaptive'
+      ? adaptiveHelp
+      : gentle
+        ? 'สุ่มจากทั้งชุด แล้วเรียงข้อที่น่าจะง่ายไว้ก่อน ส่วน "ปรับระดับ" จะเลือกข้อที่ยากพอดีกับคุณเมื่อข้อนั้นมีคนตอบมากพอ'
+        : 'สุ่มจากทั้งชุด ส่วน "ปรับระดับ" จะเลือกข้อที่ยากพอดีกับคุณเมื่อข้อนั้นมีคนตอบมากพอ';
+
+  // ── The subject ───────────────────────────────────────────────────────
+  const choices = useMemo(() => subjectChoices({ selectedYear, selectedPhase }), [selectedYear, selectedPhase]);
+  const showSubjectPick = Boolean(setSubject && choices && !topic
+    && (isExamMode || (PICKABLE_MODES.has(practiceMode) && (!subject || subject === 'all'))));
+  const subjectValue = subject && subject !== 'all' ? subject : 'all';
+  const subjectListed = subjectValue === 'all' || choices?.groups.some((g) => g.items.some((s) => s.id === subjectValue));
+  const pickSubject = (id) => {
+    setSubject(id);
+    if (setTopic) setTopic(null);
+    // Re-apply the rung's count against the menu's number for the new pick, so
+    // a 50-question exam does not stay clamped to the 35 of the subject before.
+    const listed = id === 'all' ? choices.yearCount : choices.groups.flatMap((g) => g.items).find((s) => s.id === id)?.count;
+    const n = ladderPreset(activeStep, { available: listed || null, timePerQ }).numQuestions;
+    questionCountRef.current = n;
+    setNumQuestions(n);
+  };
+
+  // ── The start bar ─────────────────────────────────────────────────────
+  const servedCount = knownAvailableCount ? Math.min(numQuestions, knownAvailableCount) : numQuestions;
+  const practiceMinutes = Math.ceil((servedCount * timePerQ) / 60);
+  const summary = [
+    `${servedCount.toLocaleString()} ข้อ`,
+    !useTimer ? 'ไม่จับเวลา' : isExamMode ? `${examBudgetLabel} นาฬิกาเดียว` : `${timePerQ} วินาทีต่อข้อ (ประมาณ ${practiceMinutes} นาที)`,
+    isExamMode ? 'เฉลยหลังส่ง' : instantFeedback ? 'เฉลยทันทีรายข้อ' : 'เฉลยหลังส่ง',
+    ...(panicPending ? ['เรียงตามแนวข้อสอบก่อน'] : []),
+  ].join(', ');
+
   return (
     <>
-      <BackBar onBack={onBack || goHome} label={subject && subject !== 'all' ? 'เลือกหัวข้อ' : 'หน้าแรก'} subtitle={contextLine} />
-      <div className="vmx-hero">
+      <BackBar onBack={onBack || goHome} label={subject && subject !== 'all' ? 'เลือกหัวข้อ' : 'หน้าแรก'} />
+      <div className="vmx-hero vmx-config-hero">
         <h1>ตั้งค่า <em>{isExamMode ? 'โหมดสอบ' : 'การฝึก'}</em></h1>
         <p>{contextLine}</p>
       </div>
@@ -176,6 +302,48 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, top
       )}
 
       <div className="vmx-config-panel">
+        {/* The ladder: where this set sits on the way to the paper, and one
+            tap to move. Hidden for Panic and the curated review pools. */}
+        {showLadder && (
+          <div className="vmx-config-row vmx-config-ladder" role="group" aria-labelledby="vmx-config-ladder-label">
+            <div id="vmx-config-ladder-label" className="vmx-label">ขั้นการฝึก</div>
+            <LadderStrip active={activeStep} onPick={pickStep} labelledBy="vmx-config-ladder-label" />
+            <div className="vmx-config-hint vmx-config-ladder-hint" aria-live="polite">{stepHint}</div>
+          </div>
+        )}
+
+        {/* The subject, as the review screen already offers it: a native
+            select keeps the paper, the count and the start together on a
+            phone instead of behind a grid of cards. */}
+        {showSubjectPick && (
+          <div className="vmx-config-row vmx-form-group vmx-config-subject">
+            <label htmlFor="vmx-config-subject" className="vmx-label">วิชา</label>
+            <select
+              id="vmx-config-subject"
+              value={subjectValue}
+              onChange={(e) => pickSubject(e.target.value)}
+              style={{ minHeight: 'var(--touch-min)', maxWidth: '100%' }}
+            >
+              {!subjectListed && <option value={subjectValue}>{subjMeta?.name || 'วิชาที่เลือกไว้'}</option>}
+              <option value="all">
+                {`รวมทุกวิชา ปี ${selectedYear}${phaseScope ? ` ${scopeLabel}` : ''} (${choices.yearCount.toLocaleString()} ข้อ)`}
+              </option>
+              {choices.groups.map((group) => (
+                <optgroup key={group.label} label={group.label}>
+                  {group.items.map((s) => (
+                    <option key={s.id} value={s.id} disabled={s.count === 0}>
+                      {s.count > 0 ? `${s.name} (${s.count.toLocaleString()} ข้อ)` : `${s.name} (ไม่มีข้อใน${scopeLabel})`}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+            <div className="vmx-config-hint">
+              {phaseScope ? `ตัวเลขคือข้อของ${scopeLabel} วิชาที่ไม่มีข้อในช่วงนี้เลือกไม่ได้` : 'เปลี่ยนวิชาได้ที่นี่ โดยไม่ต้องย้อนกลับ'}
+            </div>
+          </div>
+        )}
+
         {/* Question category — only shown for engprof (the one subject
             that actually has writing items). For other subjects, the
             picker would be inert noise. */}
@@ -227,29 +395,6 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, top
           </div>
         )}
 
-        {/* Pool mode — ordinary random set vs the adaptive set. Shown only
-            inside the plain-pool family: curated chips (bookmarks/weak/wrong)
-            and the scope modes keep their own launchers, so this toggle can
-            never quietly redirect what one of those screens promised. */}
-        {(practiceMode === 'all' || practiceMode === 'adaptive') && setPracticeMode && (
-          <div className="vmx-config-row" role="group" aria-labelledby="vmx-config-mode-label">
-            <div id="vmx-config-mode-label" className="vmx-label">ลักษณะชุดข้อสอบ</div>
-            <div className="vmx-chip-row">
-              <button className={`vmx-chip ${practiceMode !== 'adaptive' ? 'active' : ''}`} aria-pressed={practiceMode !== 'adaptive'} onClick={() => setPracticeMode('all')}>
-                สุ่มทั่วไป
-              </button>
-              <button className={`vmx-chip ${practiceMode === 'adaptive' ? 'active' : ''}`} aria-pressed={practiceMode === 'adaptive'} onClick={() => setPracticeMode('adaptive')}>
-                ปรับระดับ
-              </button>
-            </div>
-            <div className="vmx-config-availability" aria-live="polite">
-              {practiceMode === 'adaptive'
-                ? adaptiveHelp
-                : 'สุ่มจากทั้งชุด ส่วน "ปรับระดับ" จะเลือกข้อที่ยากพอดีกับคุณเมื่อข้อนั้นมีคนตอบมากพอ'}
-            </div>
-          </div>
-        )}
-
         {/* Number of questions */}
         <div className="vmx-config-row" role="group" aria-labelledby="vmx-config-count-label">
           <div className="vmx-config-label-row">
@@ -286,7 +431,8 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, top
           </div>
         </div>
 
-        {/* Timer toggle */}
+        {/* Timer toggle, with the per-question presets folded under it so the
+            two settings about one clock read as one row. */}
         <div className="vmx-config-row">
           <span className="vmx-label" id="vmx-timer-label">จับเวลา</span>
           <div className="vmx-toggle-row">
@@ -298,12 +444,54 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, top
               aria-labelledby="vmx-timer-label vmx-timer-state"
               onClick={() => setUseTimer(!useTimer)}
             />
+            {/* What the clock does, not just how long it is: an exam clock is
+                one budget for the whole set and submits it when it runs out; a
+                practice clock runs per question and moves on by itself. */}
             <span id="vmx-timer-state" style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
               {!useTimer ? 'ปิด — โหมดอ่านไม่จับเวลา'
-                : isExamMode ? `${examBudgetLabel} สำหรับทั้งชุด`
-                : `${timePerQ} วินาที / ข้อ`}
+                : isExamMode ? `${examBudgetLabel} นาฬิกาเดียวทั้งชุด, หมดเวลาคือส่งทั้งชุด`
+                : `${timePerQ} วินาที / ข้อ, หมดเวลาข้อไหนจะไปข้อถัดไปเอง`}
             </span>
           </div>
+          {useTimer && (
+            <div className="vmx-config-subrow" role="group" aria-labelledby="vmx-config-time-label">
+              <div id="vmx-config-time-label" className="vmx-config-sublabel">{isExamMode ? 'วินาทีต่อข้อ (รวมเป็นงบของทั้งชุด)' : 'วินาทีต่อข้อ'}</div>
+              <div className="vmx-chip-row">
+                {SECONDS_PRESETS.map((t) => (
+                  <button key={t} className={`vmx-chip ${timePerQ === t ? 'active' : ''}`} aria-pressed={timePerQ === t} onClick={() => { timePerQuestionRef.current = t; setTimePerQ(t); }}>
+                    {t}s
+                  </button>
+                ))}
+                <label className="vmx-custom-number">
+                  <span>กำหนดเอง</span>
+                  <input
+                    type="number"
+                    inputMode="numeric"
+                    min={5}
+                    value={timePerQ}
+                    onInput={updateTimePerQuestion}
+                    onChange={updateTimePerQuestion}
+                    aria-label="เวลาต่อข้อแบบกำหนดเอง"
+                    className="vmx-number-pill"
+                  />
+                </label>
+              </div>
+              {isExamMode && !showCategoryPicker && examBudget.min !== examBudget.max && (
+                <div className="vmx-config-hint" style={{ marginTop: 8 }}>
+                  ข้อตอบสั้น เขียนบรรยาย และจับคู่ได้เวลาเพิ่ม เวลารวมจึงขึ้นกับข้อที่อยู่ในชุด
+                </div>
+              )}
+              {/* Writing-time hint only relevant when subject = engprof */}
+              {showCategoryPicker && (
+                <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5, fontStyle: 'italic' }}>
+                  เวลานี้ใช้กับข้อปรนัย ถูก-ผิด และเติมคำ ข้อตอบสั้นกับเขียนบรรยายจะได้เวลามากขึ้นอัตโนมัติ:
+                  <br/>
+                  &nbsp;&nbsp;&nbsp;ตอบสั้น = max({timePerQ * 3 < 180 ? 180 : timePerQ * 3}s = {Math.max(3, timePerQ * 3 / 60)} min)
+                 , เขียนบรรยาย = max({Math.max(1500, timePerQ * 25)}s = {Math.max(25, Math.round(timePerQ * 25 / 60))} min)
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Instant feedback — practice modes only. Exam mode must stay
@@ -327,101 +515,56 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, top
           </div>
         )}
 
-        {/* Time per question — only when timer on */}
-        {useTimer && (
-          <div className="vmx-config-row" role="group" aria-labelledby="vmx-config-time-label">
-            <div id="vmx-config-time-label" className="vmx-label">{isExamMode ? 'เวลาต่อข้อ (รวมเป็นงบของทั้งชุด)' : 'เวลาต่อข้อ'}</div>
+        {/* How questions are picked — a random set, the adaptive set, or
+            Panic's paper-first order. Shown only inside the plain-pool family:
+            curated chips (bookmarks/weak/wrong) and the scope modes keep their
+            own launchers, so this row can never quietly redirect what one of
+            those screens promised. Exam mode is a paper, not a pick. */}
+        {!isExamMode && (practiceMode === 'all' || practiceMode === 'adaptive') && setPracticeMode && (
+          <div className="vmx-config-row" role="group" aria-labelledby="vmx-config-mode-label">
+            <div id="vmx-config-mode-label" className="vmx-label">วิธีเลือกข้อ</div>
             <div className="vmx-chip-row">
-              {SECONDS_PRESETS.map((t) => (
-                <button key={t} className={`vmx-chip ${timePerQ === t ? 'active' : ''}`} aria-pressed={timePerQ === t} onClick={() => { timePerQuestionRef.current = t; setTimePerQ(t); }}>
-                  {t}s
+              <button className={`vmx-chip ${pickMethod === 'random' ? 'active' : ''}`} aria-pressed={pickMethod === 'random'} onClick={() => choosePickMethod('random')}>
+                สุ่มทั่วไป
+              </button>
+              <button className={`vmx-chip ${pickMethod === 'adaptive' ? 'active' : ''}`} aria-pressed={pickMethod === 'adaptive'} onClick={() => choosePickMethod('adaptive')}>
+                ปรับระดับ
+              </button>
+              {(setPanicPending || panicPending) && (
+                <button className={`vmx-chip ${pickMethod === 'panic' ? 'active' : ''}`} aria-pressed={pickMethod === 'panic'} onClick={() => choosePickMethod('panic')} disabled={!setPanicPending}>
+                  เร่งด่วน
                 </button>
-              ))}
-              <label className="vmx-custom-number">
-                <span>กำหนดเอง</span>
-                <input
-                  type="number"
-                  inputMode="numeric"
-                  min={5}
-                  value={timePerQ}
-                  onInput={updateTimePerQuestion}
-                  onChange={updateTimePerQuestion}
-                  aria-label="เวลาต่อข้อแบบกำหนดเอง"
-                  className="vmx-number-pill"
-                />
-              </label>
+              )}
             </div>
-            {isExamMode && !showCategoryPicker && examBudget.min !== examBudget.max && (
-              <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
-                ข้อตอบสั้น เขียนบรรยาย และจับคู่ได้เวลาเพิ่ม เวลารวมจึงขึ้นกับข้อที่อยู่ในชุด
-              </div>
-            )}
-            {/* Writing-time hint only relevant when subject = engprof */}
-            {showCategoryPicker && (
-              <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5, fontStyle: 'italic' }}>
-                เวลานี้ใช้กับข้อปรนัย ถูก-ผิด และเติมคำ ข้อตอบสั้นกับเขียนบรรยายจะได้เวลามากขึ้นอัตโนมัติ:
-                <br/>
-                &nbsp;&nbsp;&nbsp;ตอบสั้น = max({timePerQ * 3 < 180 ? 180 : timePerQ * 3}s = {Math.max(3, timePerQ * 3 / 60)} min)
-               , เขียนบรรยาย = max({Math.max(1500, timePerQ * 25)}s = {Math.max(25, Math.round(timePerQ * 25 / 60))} min)
-              </div>
-            )}
+            <div className="vmx-config-availability" aria-live="polite">{pickMethodHelp}</div>
           </div>
         )}
       </div>
 
-      {/* Protocol Telemetry Summary Bar */}
-      <div style={{
-        marginTop: 20,
-        marginBottom: 16,
-        padding: '14px 18px',
-        borderRadius: 12,
-        background: 'var(--clr-surface)',
-        border: '1px solid var(--clr-border)',
-        boxShadow: 'var(--shadow-sm)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: 12,
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
-          <div>
-            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>ขนาดชุดข้อสอบ</div>
-            <div style={{ fontSize: 15, fontWeight: 700, fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink)' }}>
-              {knownAvailableCount ? Math.min(numQuestions, knownAvailableCount) : numQuestions} ข้อ
-            </div>
-          </div>
-          <div style={{ width: 1, height: 24, background: 'var(--clr-border)' }} />
-          <div>
-            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>งบเวลารวม</div>
-            <div style={{ fontSize: 15, fontWeight: 700, fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink)' }}>
-              {!useTimer ? 'ไม่จำกัดเวลา' : isExamMode ? examBudgetLabel : `${Math.ceil((numQuestions * timePerQ) / 60)} นาที`}
-            </div>
-          </div>
-          <div style={{ width: 1, height: 24, background: 'var(--clr-border)' }} />
-          <div>
-            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>รูปแบบการตรวจ</div>
-            <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>
-              {isExamMode ? 'สรุปผลเมื่อส่ง' : instantFeedback ? 'เฉลยทันทีรายข้อ' : 'ตรวจหลังส่ง'}
-            </div>
-          </div>
+      {/* The start bar: what the set is, in one line, and the one button.
+          A phone keeps it at the bottom of the screen (see .vmx-config-actions)
+          so the primary action is in reach without scrolling past the panel. */}
+      <div className="vmx-config-actions">
+        <div className="vmx-config-summary" id="vmx-config-summary">{summary}</div>
+        {/* Back and start as one pair, the same shape as the exam screen's
+            previous/next bar; the start is the wide one. */}
+        <div className="vmx-config-actions-row">
+          <button className="vmx-btn vmx-btn-ghost vmx-config-back" onClick={onBack || goHome}>
+            ← {subject && subject !== 'all' ? 'เลือกหัวข้อ' : 'หน้าแรก'}
+          </button>
+          <button
+            className="vmx-btn vmx-btn-primary vmx-config-start"
+            disabled={knownAvailableCount === 0}
+            aria-describedby="vmx-config-summary"
+            onClick={() => startExam({
+              numQuestions: questionCountRef.current,
+              timePerQ: timePerQuestionRef.current,
+              ...(gentle ? { gentle: true } : {}),
+            })}
+          >
+            {isExamMode ? 'เริ่มสอบ' : 'เริ่มฝึก'}{knownAvailableCount ? ` ${servedCount.toLocaleString()} ข้อ` : ''} →
+          </button>
         </div>
-      </div>
-
-      <div className="vmx-btn-row">
-        <button className="vmx-btn vmx-btn-ghost" onClick={onBack || goHome}>
-          ← {subject && subject !== 'all' ? 'เลือกหัวข้อ' : 'หน้าแรก'}
-        </button>
-        <button
-          className="vmx-btn vmx-btn-primary"
-          disabled={knownAvailableCount === 0}
-          onClick={() => startExam({
-            numQuestions: questionCountRef.current,
-            timePerQ: timePerQuestionRef.current,
-          })}
-        >
-          {isExamMode ? 'เริ่มสอบ' : 'เริ่มฝึก'}{knownAvailableCount ? ` ${Math.min(numQuestions, knownAvailableCount)} ข้อ` : ''} →
-        </button>
       </div>
     </>
   );

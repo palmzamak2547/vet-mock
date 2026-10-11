@@ -49,9 +49,11 @@ test.describe('Study library', () => {
     });
     await stubVercelAnalytics(page);
     await page.goto('/');
-    const menu = page.locator('.vmx-feature-menu');
-    await expect(menu.getByRole('button', { name: /^สรุปบทเรียน / })).toBeVisible({ timeout: 20_000 });
-    await menu.getByRole('button', { name: /^คลังเอกสาร / }).click();
+    // Wide screens: the menu's learn group; phones: the Home icon grid.
+    // Either way the entry points are on screen without expanding anything.
+    const entry = (name) => page.locator('.vmx-feature-menu, .vmx-quick-grid').getByRole('button', { name }).filter({ visible: true }).first();
+    await expect(entry(/^สรุปบทเรียน /)).toBeVisible({ timeout: 20_000 });
+    await entry(/^คลังเอกสาร /).click();
     await expect(page).toHaveURL(/\/app\/library$/);
     await expect(page.getByRole('button', { name: 'เปิด PDF ของฉัน', exact: true })).toBeVisible();
   });

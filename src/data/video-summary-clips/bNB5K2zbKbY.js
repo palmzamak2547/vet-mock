@@ -157,7 +157,7 @@ export default {
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **Variable types** drive test choice
-- ⭐⭐⭐ **t-test** for 2 means · **ANOVA** for 3+ · **Chi-square** for categorical
+- ⭐⭐⭐ **t-test** for 2 means, **ANOVA** for 3+, **Chi-square** for categorical
 - ⭐⭐ **Mean, Median, Mode** + SD
 - ⭐⭐ **p-value < 0.05** convention (not law!)
 - ⭐⭐ **CI** more informative than p-value alone

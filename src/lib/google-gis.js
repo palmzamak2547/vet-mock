@@ -76,10 +76,11 @@ function loadGisScript() {
   return _gisPromise;
 }
 
-// Google answers GIS only on the Authorized JavaScript origins above, which
-// only the owner can edit. vetmock.com is not listed yet, so sign-in there
-// keeps the Supabase redirect flow. Flip to true once it is listed.
-export const GIS_AUTHORISED_ON_VETMOCK_COM = false;
+// Google answers GIS only on the Authorized JavaScript origins above.
+// https://vetmock.com was added to the VetMock Web client on 2026-10-12
+// (beside vetmock.vercel.app and localhost:5173), so sign-in there uses the
+// popup flow; set this back to false only if that origin is ever removed.
+export const GIS_AUTHORISED_ON_VETMOCK_COM = true;
 
 /** Whether Google lets this origin use the popup flow. */
 export function gisOriginAllowed(origin) {

@@ -17,7 +17,7 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
         <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
           <h3>เพิ่งเริ่มใช้ VetMock?</h3>
           <div style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)', marginBottom: 10 }}>
-            ทัวร์แนะนำ 7 ขั้น พาไปรู้จักฝึกข้อสอบ โหมดสอบ การค้นหา การทบทวน และหน้าติดตามความคืบหน้า — เปิดดูได้ตลอดเวลา ไม่กี่นาทีก็จบ
+            เลือกสิ่งที่อยากทำ เช่น ฝึกทุกวัน เตรียมสอบ หรือทบทวนข้อที่ตอบผิด แล้วทำตามทีละขั้น ทุกขั้นบอกชื่อปุ่มที่ต้องกด และพาไปถึงหน้านั้นได้เลย เปิดดูได้ตลอดเวลา
           </div>
           <button
             type="button"

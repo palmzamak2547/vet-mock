@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก equine eye anatomy, common diseases, uveitis",
   summary: `# Equine — 7.1 Ophthalmology
 
-> 🎯 ม้าตาใหญ่ + lateral → prone to injury + uveitis · **ERU = #1 cause of blindness** ⭐⭐⭐
+> 🎯 ม้าตาใหญ่ + lateral → prone to injury + uveitis, **ERU = #1 cause of blindness** ⭐⭐⭐
 > ⚠️ ออกแน่: ERU + Leptospira link, fluorescein for ulcer, atropine for pain, SCC at limbus
 
 ---

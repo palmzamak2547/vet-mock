@@ -1,4 +1,5 @@
 import { test, expect, PINNED_NOW } from './fixtures.js';
+import { FEATURE_TIPS, GUIDE_PATHS } from '../../src/data/how-to.js';
 
 // The pinned calendar fixes the instant (tests/e2e/fixtures.js) and every
 // project runs Asia/Bangkok, so the LOCAL calendar day
@@ -29,11 +30,14 @@ async function openNotes(page) {
   await expect(page.locator('.vmx-notes-grid')).toBeVisible();
 }
 
+// Day one shows each feature's FIRST hint (data/how-to.js rotates after
+// that); titles are read from the content so a copy edit cannot strand them.
+const firstTitle = (id, surface) => FEATURE_TIPS[id].tips.find((t) => !surface || t.surface === surface).title;
 const WIRED_VIEWS = [
-  { id: 'library', title: 'มีไฟล์ของตัวเอง? เปิดตรงนี้เลย', open: openLibrary },
-  { id: 'knowledge', title: 'ทุกหัวข้อบอกที่มา ค้นหาได้ทุกวิชา', open: openWiki },
-  { id: 'notes', title: 'จับจุดสำคัญระหว่างอ่านได้', open: openNotes },
-  { id: 'videos', title: 'คลิปที่เปิดมีสรุปให้อ่าน', open: openVideos },
+  { id: 'library', title: firstTitle('library'), open: openLibrary },
+  { id: 'knowledge', title: firstTitle('knowledge', 'index'), open: openWiki },
+  { id: 'notes', title: firstTitle('notes'), open: openNotes },
+  { id: 'videos', title: firstTitle('videos'), open: openVideos },
 ];
 
 test.beforeEach(async ({ page }) => {
@@ -96,6 +100,21 @@ test('being shown ends the day: leaving without pressing ✕ keeps the hint away
   await expect(page.locator('.vmx-command-center')).toBeVisible();
   await openVideos(page);
   await expect(page.locator('.vmx-feature-tip')).toHaveCount(0);
+});
+
+test('a hint opens the how-to straight at its own goal, and closing returns to the hint', async ({ page }) => {
+  await openNotes(page);
+  const tip = page.locator('.vmx-feature-tip');
+  await expect(tip).toContainText(firstTitle('notes'));
+  const link = tip.getByRole('button', { name: 'ดูวิธีใช้เรื่องนี้ทั้งหมด' });
+  await link.click();
+  const goal = GUIDE_PATHS.find((p) => p.id === FEATURE_TIPS.notes.guide);
+  const dialog = page.getByRole('dialog', { name: goal.title });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.locator('.vmx-guide-step')).toHaveCount(goal.steps.length);
+  await page.keyboard.press('Escape');
+  await expect(dialog).toBeHidden();
+  await expect(link).toBeFocused();
 });
 
 test('no tip card appears while an exam is running, and none was spent on the way', async ({ page }) => {

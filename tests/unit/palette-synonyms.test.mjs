@@ -39,7 +39,7 @@ const { default: CommandPalette } = await loadModule('src/components/CommandPale
   { match: '(^|/)Mochi\\.jsx$', contents: 'export default () => null;' },
   { match: '(^|/)ErrorBoundary\\.jsx$', contents: 'export default ({ children }) => children;' },
   { match: '/lib/dialog\\.js$', contents: 'export const alertDialog = () => {};' },
-  { match: '/lib/omni-intents\\.js$', contents: 'export const detectIntents = () => [];' },
+  { match: '/lib/omni-intents\\.js$', contents: 'export const detectIntents = () => []; export const detectStudyIntent = () => null; export const studyActions = () => ({ actions: [], missing: null });' },
   { match: '/lib/omni-sources\\.js$', contents: 'export const OMNI_SOURCES = [{ id: "library", label: "คลังเอกสาร", icon: "", load: async () => globalThis.__paletteEntries }];' },
   { match: '/lib/library\\.js$', contents: 'export const docOpenMode = () => ({ action: "read" }); export const readerPayload = doc => doc; export const recordRecentDoc = () => {}; export const resolveDocUrl = async () => "";' },
 ] });

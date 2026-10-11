@@ -75,8 +75,12 @@ function fakeIndexedDb(databases = {}) {
 function element(tag, env) {
   const el = {
     tagName: tag.toUpperCase(), children: [], attributes: {}, className: '', textContent: '', style: {},
+    listeners: {}, parentNode: null,
     setAttribute(k, v) { this.attributes[k] = String(v); },
-    appendChild(child) { this.children.push(child); return child; },
+    appendChild(child) { child.parentNode = this; this.children.push(child); return child; },
+    removeChild(child) { this.children = this.children.filter((c) => c !== child); child.parentNode = null; return child; },
+    addEventListener(type, fn) { this.listeners[type] = fn; },
+    click() { this.listeners.click?.({ type: 'click', target: this }); },
   };
   if (tag === 'form') {
     el.submit = function submit() {
@@ -87,12 +91,27 @@ function element(tag, env) {
   return el;
 }
 
+// The parts of a fake node tree a test reads: every element, depth first, and
+// all the text a reader would see.
+function walk(node, out = []) {
+  if (!node) return out;
+  out.push(node);
+  for (const child of node.children || []) walk(child, out);
+  return out;
+}
+const textOf = (node) => walk(node).map((n) => n.textContent || '').filter(Boolean).join('\n');
+// The guide an installed app stops on: the <main class="vmx-guide"> in the body the script made.
+function guideOf(env) {
+  return env.nodes.flatMap((n) => walk(n)).find((n) => n.tagName === 'MAIN' && /\bvmx-guide\b/.test(n.className)) || null;
+}
+
 // `installed`: { standalone: true } is iOS's home-screen flag; { display: 'standalone' }
 // makes matchMedia('(display-mode: standalone)') match. `navType` is what
-// performance.getEntriesByType('navigation') reports for this load.
+// performance.getEntriesByType('navigation') reports for this load. `ua` is the
+// user agent the guide reads to name the steps of this device.
 function run({
   url = `${OLD}${HERE}`, local = {}, session = {}, online = true, meta = META, compression = true,
-  idb = undefined, failLocal = false, failSession = false, installed = null, navType = 'navigate',
+  idb = undefined, failLocal = false, failSession = false, installed = null, navType = 'navigate', ua = '', maxTouchPoints = 0,
 } = {}) {
   assert.ok(SCRIPT, 'index.html carries the origin-move bridge');
   assert.ok(META, 'index.html names both hosts in its vmx-origin-move meta tag');
@@ -114,7 +133,7 @@ function run({
   };
   const sandbox = {
     location, document, localStorage, sessionStorage,
-    navigator: installed?.standalone ? { onLine: online, standalone: true } : { onLine: online },
+    navigator: { onLine: online, userAgent: ua, maxTouchPoints, ...(installed?.standalone ? { standalone: true } : {}) },
     matchMedia: (query) => ({ matches: query === `(display-mode: ${installed?.display || 'browser'})` }),
     performance: { getEntriesByType: (type) => (type === 'navigation' ? [{ type: navType }] : []) },
     history: { state: null, replaceState(_s, _t, next) { env.stayedAt = String(next); } },
@@ -427,21 +446,24 @@ test('crawlers on the old host are sent to vetmock.com permanently; browsers, th
 
 // ── sign-in that only works on origins the owner registered ─────────────────
 
-test('Google popup sign-in and LINE login stay off on vetmock.com until the owner registers it', async () => {
+test('Google popup sign-in works on vetmock.com; LINE login stays off there until its LIFF endpoint moves', async () => {
   const gis = await import('../../src/lib/google-gis.js');
   const liff = await import('../../src/lib/line-liff.js');
-  // One constant each; flipping it is the owner's step after the console change.
-  assert.equal(gis.GIS_AUTHORISED_ON_VETMOCK_COM, false);
+  // One constant each; flipping it follows the console change. vetmock.com
+  // became an Authorized JavaScript origin of the GIS client on 2026-10-12;
+  // the LIFF endpoint still points at vetmock.vercel.app.
+  assert.equal(gis.GIS_AUTHORISED_ON_VETMOCK_COM, true);
   assert.equal(liff.LIFF_ENDPOINT_ON_VETMOCK_COM, false);
   for (const allowed of [gis.gisOriginAllowed, liff.liffOriginAllowed]) {
     assert.equal(allowed('https://vetmock.vercel.app'), true);
     assert.equal(allowed('http://localhost:5173'), true);
     assert.equal(allowed('http://localhost:4173'), true);
-    assert.equal(allowed('https://vetmock.com'), false, 'the Supabase redirect flow / no LINE button there for now');
     assert.equal(allowed('https://vetmock-git-x-palmzamak2547s-projects.vercel.app'), false);
     assert.equal(allowed('http://localhost.evil.example'), false);
     assert.equal(allowed(undefined), false);
   }
+  assert.equal(gis.gisOriginAllowed('https://vetmock.com'), true, 'the popup flow on the primary origin');
+  assert.equal(liff.liffOriginAllowed('https://vetmock.com'), false, 'no LINE button there until the LIFF endpoint moves');
   const view = readFileSync(new URL('../../src/views/AuthView.jsx', import.meta.url), 'utf8');
   assert.match(view, /\{isLiffAvailable\(\) && \(\s*<button[\s\S]{0,400}onClick=\{lineLogin\}/, 'the LINE button shows only where LIFF can log in');
 });
@@ -596,6 +618,185 @@ test('only an iOS home-screen app stays: it boots, and says once per device that
     await settle(other.env);
     assert.ok(other.env.submitted, `display-mode ${display}: shares the browser's storage, so it moves`);
   }
+});
+
+// ── The installed app that cannot change address ─────────────────────────────
+// An app installed from vetmock.vercel.app is bound to that address. Sent on to
+// vetmock.com it leaves its scope, and the browser puts its own bar (the close
+// button, the page title, "vetmock.com") over every page for good, which is what
+// the owner saw on Android. Its data still moves, once, as for a tab; what it no
+// longer does is go on without a word. It stops on a short guide to installing
+// again, and the learner's one button then opens vetmock.com.
+const CHROME_ANDROID = 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36';
+const SAMSUNG = 'Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/26.0 Chrome/122.0.0.0 Mobile Safari/537.36';
+const DESKTOP_CHROME = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36';
+const ACK = '0123456789abcdef';
+const GUIDE_TITLE = 'VetMock ย้ายบ้านใหม่แล้ว';
+const MOVED_LINE = 'ข้อมูลการเรียนของคุณไปอยู่ที่ vetmock.com เรียบร้อยแล้ว';
+const INSTALLED = ['standalone', 'minimal-ui', 'window-controls-overlay'];
+
+const buttonOf = (guide) => walk(guide).filter((n) => n.tagName === 'BUTTON');
+
+test('an installed app is not sent on once its data has moved: it stops on the guide, and its one button goes on', async () => {
+  for (const display of INSTALLED) {
+    const ack = run({ url: `${OLD}/?vmx-moved=${ACK}&to=%2Fapp%2Fnotes%3Fx%3D1%23n`, installed: { display }, ua: CHROME_ANDROID });
+    assert.deepEqual(ack.env.replaced, [], `display-mode ${display}: the ACK does not carry the installed app away`);
+    assert.equal(ack.localStorage.getItem('vmx-move-sent'), ACK, 'what arrived is still remembered');
+    assert.equal(ack.sandbox.__vmxMoving, true, 'the old app does not boot underneath the guide');
+    assert.equal(ack.env.stopped, 1);
+    assert.equal(ack.env.stayedAt, '/app/notes?x=1#n', 'the address bar goes back to the learner\'s own page');
+    const guide = guideOf(ack.env);
+    assert.ok(guide, 'the guide is on screen');
+    const text = textOf(guide);
+    assert.ok(text.includes(GUIDE_TITLE));
+    assert.ok(text.includes(MOVED_LINE), 'it says the data is already over there');
+    const buttons = buttonOf(guide);
+    assert.equal(buttons.length, 1, 'one button, nothing else to choose');
+    assert.equal(buttons[0].textContent, 'เปิด vetmock.com');
+    assert.deepEqual(ack.env.replaced, [], 'showing the guide goes nowhere');
+    buttons[0].click();
+    assert.deepEqual(ack.env.replaced, [`${NEW}/app/notes?x=1#n`], 'the button opens vetmock.com at the same page');
+    assert.ok(Number(ack.sessionStorage.getItem('vmx-move-out')) > 0, 'and marks the way out, so a redirect back cannot loop');
+  }
+});
+
+test('an installed app with nothing new to carry stops on the guide too, and a tab still goes straight on', async () => {
+  const first = run({ local: STUDY });
+  await settle(first.env);
+  const sent = { ...STUDY, 'vmx-move-sent': first.env.submitted.fields.h };
+  for (const local of [sent, {}]) {
+    const app = run({ local, installed: { display: 'standalone' }, ua: CHROME_ANDROID });
+    assert.deepEqual(app.env.replaced, []);
+    assert.equal(app.env.submitted, null, 'nothing is posted again');
+    const guide = guideOf(app.env);
+    assert.ok(guide, 'the guide is on screen');
+    buttonOf(guide)[0].click();
+    assert.deepEqual(app.env.replaced, [`${NEW}${HERE}`]);
+  }
+  const text = textOf(guideOf(run({ local: {}, installed: { display: 'standalone' }, ua: CHROME_ANDROID }).env));
+  assert.ok(!text.includes(MOVED_LINE), 'with nothing stored it does not claim anything moved');
+  assert.ok(text.includes(GUIDE_TITLE));
+  assert.deepEqual(run({ local: sent, ua: CHROME_ANDROID }).env.replaced, [`${NEW}${HERE}`], 'a tab goes on as ever');
+  assert.equal(guideOf(run({ local: sent, ua: CHROME_ANDROID }).env), null, 'a tab never sees the guide');
+});
+
+test('the guide gives the steps of the device it is on and no other', async () => {
+  const ack = (ua) => textOf(guideOf(run({ url: `${OLD}/?vmx-moved=${ACK}`, installed: { display: 'standalone' }, ua }).env));
+  const android = ack(CHROME_ANDROID);
+  assert.match(android, /เปิด Chrome เข้า vetmock\.com กด ⋮/);
+  assert.match(android, /“ติดตั้ง”/, 'the Install menu items of Chrome all begin with that word');
+  assert.match(android, /ลบ VetMock อันเก่า/);
+  const samsung = ack(SAMSUNG);
+  assert.match(samsung, /เปิด Samsung Internet เข้า vetmock\.com/);
+  assert.match(samsung, /“Add page to”/);
+  assert.match(samsung, /“Home screen”/);
+  const desktop = ack(DESKTOP_CHROME);
+  assert.match(desktop, /เปิด Chrome หรือ Edge เข้า vetmock\.com/);
+  assert.match(desktop, /ปลายแถบที่อยู่/);
+  const own = (text) => text.split('\n').filter((l) => /เปิด (Chrome|Samsung)/.test(l)).length;
+  for (const text of [android, samsung, desktop]) assert.equal(own(text), 1, 'exactly one install step names a browser');
+  assert.ok(!/Samsung/.test(android) && !/Edge/.test(android), 'Android Chrome is not told about Samsung or Edge');
+  assert.ok(!/Chrome/.test(samsung), 'Samsung Internet is not told about Chrome');
+  assert.ok(!/Samsung/.test(desktop) && !/Android/.test(desktop), 'a computer is not told about phones');
+  for (const text of [android, samsung, desktop]) {
+    for (const word of ['Safari', 'iPhone', 'iPad', 'Share', 'Add to Home Screen']) assert.ok(!text.includes(word), `an installed app here never reads iOS wording (${word})`);
+  }
+});
+
+test('the guide is plain, kind and honest: no dot separators, no tool talk, and every number it names is true', () => {
+  const states = [
+    run({ url: `${OLD}/?vmx-moved=${ACK}`, installed: { display: 'standalone' }, ua: CHROME_ANDROID }),
+    run({ url: `${OLD}/?vmx-moved=${ACK}`, installed: { display: 'standalone' }, ua: SAMSUNG }),
+    run({ url: `${OLD}/?vmx-moved=${ACK}`, installed: { display: 'standalone' }, ua: DESKTOP_CHROME }),
+    run({ local: {}, installed: { display: 'standalone' }, ua: CHROME_ANDROID }),
+  ];
+  for (const { env } of states) {
+    const guide = guideOf(env);
+    const text = textOf(guide);
+    assert.ok(!text.includes('·') && !text.includes('•'), 'no middle dot as a separator');
+    assert.ok(!/\bAI\b|Claude|GPT|build|deploy|vercel|cache|bridge|redirect/i.test(text.replace(/vetmock\.vercel\.app/g, '')), text);
+    assert.ok(!text.includes('ข้อสอบเก่า'));
+    const items = walk(guide).filter((n) => n.tagName === 'LI');
+    assert.ok(items.length === 2, 'two steps, not a wall of instructions');
+    assert.ok(text.length < 600, `short enough for one screen (${text.length} characters)`);
+  }
+});
+
+test('holds, offline, sign-in callbacks and marked data keep an installed app booting as a tab\'s would, with no guide', async () => {
+  const cases = [
+    ['hold', { url: `${OLD}/?vmx-move=hold`, local: STUDY }],
+    ['hold after a failed move', { url: `${OLD}/?vmx-move=hold&failed=${ACK}`, local: STUDY }],
+    ['offline', { local: STUDY, online: false }],
+    ['a Google sign-in callback', { url: `${OLD}/?code=abc123&state=x`, local: STUDY }],
+    ['an email sign-in callback', { url: `${OLD}/#access_token=abc&type=magiclink`, local: STUDY }],
+  ];
+  for (const [name, options] of cases) {
+    const app = run({ ...options, installed: { display: 'standalone' }, ua: CHROME_ANDROID });
+    await new Promise((r) => setTimeout(r, 5));
+    assert.equal(guideOf(app.env), null, `${name}: no guide`);
+    assert.notEqual(app.sandbox.__vmxMoving, true, `${name}: the old app boots`);
+    assert.equal(app.env.stopped, 0, name);
+    assert.deepEqual(app.env.replaced, [], name);
+    assert.equal(app.env.submitted, null, name);
+  }
+  // Data that could not move before: the old app boots and says so, as for a tab.
+  const first = run({ local: STUDY });
+  await settle(first.env);
+  const hash = first.env.submitted.fields.h;
+  for (const mark of ['vmx-move-big', 'vmx-move-failed']) {
+    const app = run({ local: { ...STUDY, [mark]: hash }, installed: { display: 'standalone' }, ua: CHROME_ANDROID });
+    assert.equal(guideOf(app.env), null, `${mark}: no guide`);
+    assert.notEqual(app.sandbox.__vmxMoving, true);
+    assert.equal(typeof app.sandbox.__vmxMoveNote, 'string', `${mark}: it says why it stayed`);
+  }
+});
+
+test('display-mode fullscreen and browser are not installed apps: a tab goes straight on, as ever', async () => {
+  for (const display of ['fullscreen', 'browser']) {
+    const ack = run({ url: `${OLD}/?vmx-moved=${ACK}`, installed: { display }, ua: DESKTOP_CHROME });
+    assert.deepEqual(ack.env.replaced, [`${NEW}/`], display);
+    assert.equal(guideOf(ack.env), null, display);
+  }
+});
+
+test('retry is the learner asking again: an installed app moves without the guide in the way', async () => {
+  const app = run({ url: `${OLD}/?vmx-move=retry`, local: STUDY, installed: { display: 'standalone' }, ua: CHROME_ANDROID });
+  await settle(app.env);
+  assert.ok(app.env.submitted, 'the data is posted again');
+  assert.equal(guideOf(app.env), null);
+});
+
+test('an iOS home-screen app never reaches the guide, even though it reports display-mode standalone too', async () => {
+  const IOS = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Mobile/15E148 Safari/604.1';
+  for (const url of [`${OLD}${HERE}`, `${OLD}/?vmx-moved=${ACK}`]) {
+    const app = run({ url, local: STUDY, installed: { standalone: true, display: 'standalone' }, ua: IOS });
+    await new Promise((r) => setTimeout(r, 5));
+    assert.equal(guideOf(app.env), null, url);
+    assert.deepEqual(app.env.replaced, [], 'it stays where it is, as before');
+    assert.equal(app.env.submitted, null);
+    assert.notEqual(app.sandbox.__vmxMoving, true, 'and boots');
+  }
+});
+
+test('an iPhone or iPad is never shown the guide, whatever display-mode says: it has no steps here', async () => {
+  const IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Mobile/15E148 Safari/604.1';
+  const MAC_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Safari/605.1.15';
+  // Without the home-screen flag these are not the app that stays, so they go on as a tab always did.
+  for (const [ua, touch] of [[IPHONE, 5], [MAC_UA, 5]]) {
+    const app = run({ url: `${OLD}/?vmx-moved=${ACK}`, installed: { display: 'standalone' }, ua, maxTouchPoints: touch });
+    assert.deepEqual(app.env.replaced, [`${NEW}/`], ua);
+    assert.equal(guideOf(app.env), null, ua);
+  }
+  // A real Mac has no touch points: its Dock web app is a computer's installed app and gets the computer's steps.
+  const mac = run({ url: `${OLD}/?vmx-moved=${ACK}`, installed: { display: 'standalone' }, ua: MAC_UA, maxTouchPoints: 0 });
+  assert.ok(guideOf(mac.env), 'a Mac is not an iPad');
+});
+
+test('the guide\'s button is a real touch target and the guide follows the dark theme', () => {
+  const css = /<style>([\s\S]*?)<\/style>/.exec(HTML.slice(HTML.indexOf('vmx-origin-move')))?.[1] || '';
+  assert.match(css, /\.vmx-guide button\{[^}]*min-height:(4[4-9]|[5-9]\d)px/, 'at least 44px tall');
+  assert.match(css, /\[data-theme="dark"\] \.vmx-guide button\{/, 'dark theme has its own button colours');
+  assert.match(css, /\.vmx-guide\{[^}]*overflow-y:auto/, 'a small phone can scroll to the last step');
 });
 
 test('where the learner was stays in this tab, never in a URL: the form does not carry it and each hop back finds it', async () => {

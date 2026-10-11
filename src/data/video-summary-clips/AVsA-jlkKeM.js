@@ -54,7 +54,7 @@ export default {
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **Antibiotic residue testing mandatory**
-- ⭐⭐ **Charm / Delvotest** = screening · **HPLC / LC-MS/MS** = confirmatory
+- ⭐⭐ **Charm / Delvotest** = screening, **HPLC / LC-MS/MS** = confirmatory
 - ⭐ **Aflatoxin M1** monitored
 - ⭐ Withdrawal times critical
 - ⭐ Public health concern (AMR)`,

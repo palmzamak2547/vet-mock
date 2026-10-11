@@ -135,7 +135,7 @@ test('grading works with the configured primary provider and no optional provide
       headers: { 'content-type': 'application/json' },
     }), () => handler(gradeReq(), res));
     assert.equal(res.statusCode, 200);
-    assert.equal(res.body._meta.model, 'deepseek-v4-flash');
+    assert.equal(res.body._meta.model, 'deepseek-flash');
   } finally {
     if (old === undefined) delete process.env.ANTHROPIC_API_KEY; else process.env.ANTHROPIC_API_KEY = old;
     if (previousPrimary === undefined) delete process.env.DEEPSEEK_API_KEY; else process.env.DEEPSEEK_API_KEY = previousPrimary;
@@ -213,6 +213,46 @@ test('the library link endpoint refuses one address past its budget before askin
     await mod.default(req('203.0.113.8'), other);
     assert.equal(other.statusCode, 404, 'another address keeps its own budget');
   });
+});
+
+// OV-data-6, the bytes half: storage ignores Range, so every GET streams the
+// whole object through the function. One link hammered from one address (a
+// looping viewer, a script) is the bill; a classroom behind one NAT opening
+// different decks is not, so the budget is per address AND per link.
+test('the library bytes route refuses one link hammered from one address, not the next link', async () => {
+  process.env.CLOUDFLARE_API_TOKEN = 'cfut_test_secret_value';
+  process.env.R2_ACCOUNT_ID = 'test-account';
+  const { mintBlobToken } = await import('../../api/_lib/blob-token.js');
+  const mod = await import('../../api/library-blob.js');
+  const doc = (k) => ({ storage_bucket: 'vetmock-library', storage_key: `docs/${k}.pdf`, mime: 'application/pdf', byte_size: 1000, status: 'public' });
+  const linkFor = (k) => { const { t, s } = mintBlobToken(doc(k)); return `/api/library-blob?t=${t}&s=${s}`; };
+  const req = (url, method = 'GET') => ({ method, url, headers: { 'x-vercel-forwarded-for': '203.0.113.9' }, once() {} });
+  let upstreamCalls = 0;
+  const stub = async () => { upstreamCalls++; return new Response('{}', { status: 404 }); };
+  await withFetch(stub, async () => {
+    const one = linkFor('deck-a');
+    // HEAD is answered from the token and never streams, so it is free.
+    for (let i = 0; i < 5; i++) { const r = fakeRes(); r.once = () => {}; await mod.default(req(one, 'HEAD'), r); assert.equal(r.statusCode, 200); }
+    let served = 0;
+    let limited;
+    while (served < 1000) {
+      const r = fakeRes(); r.once = () => {};
+      await mod.default(req(one), r);
+      if (r.statusCode === 429) { limited = r; break; }
+      assert.equal(r.statusCode, 404);
+      served++;
+    }
+    assert.ok(limited, 'one link was streamed 1000 times from one address with no limit');
+    assert.equal(served, mod.BLOB_RATE?.max);
+    assert.equal(upstreamCalls, served, 'a refused request must not reach storage');
+    assert.equal(limited.body?.reason ?? JSON.parse(limited.body || '{}').reason, 'rate_limited');
+    const next = fakeRes(); next.once = () => {};
+    await mod.default(req(linkFor('deck-b')), next);
+    assert.equal(next.statusCode, 404, 'another deck from the same address keeps its own budget');
+  });
+  const { readFileSync } = await import('node:fs');
+  const src = readFileSync(new URL('../../api/library-blob.js', import.meta.url), 'utf8');
+  assert.match(src, /if \(!limit\.ok && !limit\.unavailable\) return sendRateLimitFailure\(res, limit\);/, 'a limiter outage must not close the library');
 });
 
 // The limit protects the bill, not access: when the shared limiter is down the library still opens.

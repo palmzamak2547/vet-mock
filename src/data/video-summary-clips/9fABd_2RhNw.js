@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก Thai authorities, DOF, OIE/WAHIS, trade",
   summary: `# Aquatic Clinic — 13 Aquatic Disease Control Authorities
 
-> 🎯 Thai authority = **DOF (Department of Fisheries)** · International = **WOAH (formerly OIE) WAHIS**
+> 🎯 Thai authority = **DOF (Department of Fisheries)**, International = **WOAH (formerly OIE) WAHIS**
 > ⚠️ Reportable disease = ส่งออกไม่ได้ถ้าตรวจเจอ — กระทบเศรษฐกิจรายประเทศ
 
 ---

@@ -41,7 +41,7 @@ import { timeForQuestion, isWritingType } from './utils.js';
 import { confirmDialog } from '../lib/dialog.js';
 import { inflightExamKey, isOwnedExam } from '../lib/exam-recovery.js';
 import { secondsUntilDeadline } from '../lib/exam-clock.js';
-import { resumedDeadline } from '../lib/app-flow.js';
+import { resumedDeadline, unsavedResult } from '../lib/app-flow.js';
 import { createQuestionTiming, newStudySessionId, validSessionId } from '../lib/study-events.js';
 
 /**
@@ -247,8 +247,16 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     setCompletedAt(null);
     setSessionId(newStudySessionId());
     // Same hygiene as resetSession — drop in-flight marker so reload
-    // behaves predictably during the replay round.
-    try { window.localStorage?.removeItem(inflightExamKey(ownerId)); } catch {}
+    // behaves predictably during the replay round. Not when that marker is
+    // a submitted set whose result never reached the local store: it is the
+    // only copy of that result, and App's guard (protectUnsavedResult) is
+    // what decides whether it may go. Once the student has agreed, the new
+    // round's autosave replaces it on its own.
+    try {
+      const key = inflightExamKey(ownerId);
+      const stored = JSON.parse(window.localStorage?.getItem(key) || 'null');
+      if (!unsavedResult(stored)) window.localStorage?.removeItem(key);
+    } catch {}
     setQuestions(qs);
     setAnswers({});
     setCurrentIdx(0);

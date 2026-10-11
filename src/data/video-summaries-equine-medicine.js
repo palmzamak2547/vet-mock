@@ -18,7 +18,7 @@ export const VIDEO_SUMMARIES_EQUINE_MEDICINE = {
     examFormat: "Multiple choice, ออก equine anesthesia, standing vs general, drugs",
     summary: `# Equine — 10 Anesthesia
 
-> 🎯 Equine anesthesia = challenging — **Recovery = riskiest phase** · death rate ~1% ⭐⭐⭐
+> 🎯 Equine anesthesia = challenging — **Recovery = riskiest phase**, death rate ~1% ⭐⭐⭐
 > ⚠️ ออกแน่: xylazine standard, standing > general when possible, ketamine+diazepam induction, recovery dangers
 
 ---
@@ -106,7 +106,7 @@ export const VIDEO_SUMMARIES_EQUINE_MEDICINE = {
     examFormat: "Multiple choice, ออก equine respiratory, viral, bacterial, RAO",
     summary: `# Equine — 6 Respiratory Diseases
 
-> 🎯 Equine respiratory = viral (Influenza/EHV) · bacterial (Strangles) · allergic (RAO/equine asthma) ⭐⭐⭐
+> 🎯 Equine respiratory = viral (Influenza/EHV), bacterial (Strangles), allergic (RAO/equine asthma) ⭐⭐⭐
 > ⚠️ ออกแน่: Strangles management, EHV-1 neurologic, RAO, Rhodococcus in foals
 
 ---
@@ -195,7 +195,7 @@ export const VIDEO_SUMMARIES_EQUINE_MEDICINE = {
     examFormat: "Multiple choice, ออก surgical principles, wound management, proud flesh",
     summary: `# Equine — 9 Concept of Equine Surgery + Wound Management
 
-> 🎯 ม้าตัวใหญ่ → anesthesia challenges · **Proud flesh** common บน lower legs · tetanus status ก่อน surgery ⭐⭐⭐
+> 🎯 ม้าตัวใหญ่ → anesthesia challenges, **Proud flesh** common บน lower legs, tetanus status ก่อน surgery ⭐⭐⭐
 > ⚠️ ออกแน่: wound closure decisions, proud flesh management, castration most common
 
 ---
@@ -275,7 +275,7 @@ export const VIDEO_SUMMARIES_EQUINE_MEDICINE = {
     examFormat: "Multiple choice, ออก SDFT, DDFT, suspensory, treatment, prognosis",
     summary: `# Equine — 13.2 Tendon/Ligament Injuries
 
-> 🎯 **SDFT most commonly injured** ("bowed tendon") · **Ultrasound = gold standard** diagnosis · slow healing months→year ⭐⭐⭐
+> 🎯 **SDFT most commonly injured** ("bowed tendon"), **Ultrasound = gold standard** diagnosis, slow healing months→year ⭐⭐⭐
 > ⚠️ ออกแน่: SDFT vs DDFT vs Suspensory, US diagnosis, stem cells/PRP, re-injury common
 
 ---
@@ -359,7 +359,7 @@ export const VIDEO_SUMMARIES_EQUINE_MEDICINE = {
     examFormat: "Multiple choice, ออก specific surgeries, postoperative care",
     summary: `# Equine — 11 Surgery and Pre/Post Surgery Management
 
-> 🎯 Common equine surgeries — **Castration #1** · colic surgery via ventral midline · post-op pain mgmt essential ⭐⭐
+> 🎯 Common equine surgeries — **Castration #1**, colic surgery via ventral midline, post-op pain mgmt essential ⭐⭐
 > ⚠️ ออกแน่: castration techniques, colic surgery approach, perioperative care
 
 ---
@@ -525,7 +525,7 @@ export const VIDEO_SUMMARIES_EQUINE_MEDICINE = {
     examFormat: "Multiple choice, ออก equine skin diseases, pruritus, sweet itch",
     summary: `# Equine — 7.2 Dermatology
 
-> 🎯 ม้าผิวมีหลายโรค — pruritic + non-pruritic · **Sarcoid = most common skin tumor** ⭐⭐⭐
+> 🎯 ม้าผิวมีหลายโรค — pruritic + non-pruritic, **Sarcoid = most common skin tumor** ⭐⭐⭐
 > ⚠️ ออกแน่: Sweet itch (Culicoides), Sarcoid (BPV), Habronema, Ringworm zoonotic
 
 ---
@@ -1739,7 +1739,7 @@ export const VIDEO_SUMMARIES_EQUINE_MEDICINE = {
 - Rotate drug classes
 - Pasture management
 
-> 💡 **ทำไม selective**: blanket deworming → resistance ในระดับสูง · selective = ไม่เกิด selection pressure
+> 💡 **ทำไม selective**: blanket deworming → resistance ในระดับสูง, selective = ไม่เกิด selection pressure
 
 ---
 
@@ -1773,7 +1773,7 @@ export const VIDEO_SUMMARIES_EQUINE_MEDICINE = {
     examFormat: "Multiple choice, ออก equine eye anatomy, common diseases, uveitis",
     summary: `# Equine — 7.1 Ophthalmology
 
-> 🎯 ม้าตาใหญ่ + lateral → prone to injury + uveitis · **ERU = #1 cause of blindness** ⭐⭐⭐
+> 🎯 ม้าตาใหญ่ + lateral → prone to injury + uveitis, **ERU = #1 cause of blindness** ⭐⭐⭐
 > ⚠️ ออกแน่: ERU + Leptospira link, fluorescein for ulcer, atropine for pain, SCC at limbus
 
 ---
@@ -1840,7 +1840,7 @@ export const VIDEO_SUMMARIES_EQUINE_MEDICINE = {
     examFormat: "Multiple choice, ออก equine dentition, dental issues, floating",
     summary: `# Equine — 3 Equine Dentistry
 
-> 🎯 ม้า = **hypsodont** teeth (continuously erupting) · regular floating ทุก 6-12 เดือน ⭐⭐⭐
+> 🎯 ม้า = **hypsodont** teeth (continuously erupting), regular floating ทุก 6-12 เดือน ⭐⭐⭐
 > ⚠️ ออกแน่: 36-44 teeth adult, sharp enamel points, EOTRH, aging by teeth
 
 ---
@@ -1916,7 +1916,7 @@ export const VIDEO_SUMMARIES_EQUINE_MEDICINE = {
     examFormat: "Multiple choice, ออก equine nutrition, forage requirements, supplementation",
     summary: `# Equine — 2 Basic Nutrition
 
-> 🎯 ม้า = **hindgut fermenter** (cecum) ที่มี monogastric stomach เล็ก · **CANNOT VOMIT** = colic risk ⭐⭐⭐
+> 🎯 ม้า = **hindgut fermenter** (cecum) ที่มี monogastric stomach เล็ก, **CANNOT VOMIT** = colic risk ⭐⭐⭐
 > ⚠️ ออกแน่: forage 1-3% body weight, BCS 1-9 Henneke, EMS/PPID, laminitis
 
 ---
@@ -1990,7 +1990,7 @@ export const VIDEO_SUMMARIES_EQUINE_MEDICINE = {
     examFormat: "Multiple choice, ออก lameness exam, grading, localization",
     summary: `# Equine — 12.1 Lameness Introduction
 
-> 🎯 Lameness = common + complex · **Trot = most diagnostic gait** · head bob = forelimb · hip hike = hindlimb ⭐⭐⭐
+> 🎯 Lameness = common + complex, **Trot = most diagnostic gait**, head bob = forelimb, hip hike = hindlimb ⭐⭐⭐
 > ⚠️ ออกแน่: AAEP 0-5 grading, head bob/hip hike rule, diagnostic analgesia
 
 ---
@@ -2105,7 +2105,7 @@ export const VIDEO_SUMMARIES_EQUINE_MEDICINE = {
     examFormat: "Multiple choice, ออก equine infectious diseases, vaccination programs",
     summary: `# Equine — 8 Infectious Disease and Vaccination
 
-> 🎯 **Tetanus = essential** ทุกตัว · Coggins test สำหรับ EIA · EHV-1 > EHV-4 ในความรุนแรง ⭐⭐⭐
+> 🎯 **Tetanus = essential** ทุกตัว, Coggins test สำหรับ EIA, EHV-1 > EHV-4 ในความรุนแรง ⭐⭐⭐
 > ⚠️ ออกแน่: core vaccines, EIA = no treatment + reportable, vaccination schedule
 
 ---
@@ -2182,7 +2182,7 @@ export const VIDEO_SUMMARIES_EQUINE_MEDICINE = {
     examFormat: "Multiple choice, ออก hoof anatomy, navicular, laminitis, sole bruising",
     summary: `# Equine — 13.1 Pathological Conditions of Foot
 
-> 🎯 **"No foot, no horse"** — foot pathology = major source of lameness · **Laminitis = inflammation of laminae** ⭐⭐⭐
+> 🎯 **"No foot, no horse"** — foot pathology = major source of lameness, **Laminitis = inflammation of laminae** ⭐⭐⭐
 > ⚠️ ออกแน่: laminitis causes + rotation, navicular = heel pain forelimb, sole abscess drainage
 
 ---
@@ -6048,7 +6048,7 @@ simple extraction เป็นของแถม เขาให้ไปดู�
     examFormat: "Multiple choice, ออก horse ID methods, microchip, passport",
     summary: `# Equine — 1.1 Identification + Microchip
 
-> 🎯 Horse ID methods — microchip = gold standard · ตำแหน่งฝัง = left mid-third of neck (nuchal ligament area) ⭐⭐
+> 🎯 Horse ID methods — microchip = gold standard, ตำแหน่งฝัง = left mid-third of neck (nuchal ligament area) ⭐⭐
 > ⚠️ ออกแน่: microchip standard, passport requirement, markings vocab
 
 ---
@@ -6110,7 +6110,7 @@ simple extraction เป็นของแถม เขาให้ไปดู�
     examFormat: "Multiple choice, ออก nerve blocks, joint blocks, diagnostic technique",
     summary: `# Equine — 12.2 Diagnostic Analgesia
 
-> 🎯 **Nerve + joint blocks = key tool** สำหรับ localizing lameness · distal → proximal approach ⭐⭐⭐
+> 🎯 **Nerve + joint blocks = key tool** สำหรับ localizing lameness, distal → proximal approach ⭐⭐⭐
 > ⚠️ ออกแน่: PD block = hoof, ASN = pastern/fetlock, lidocaine 2%, joint blocks
 
 ---
@@ -6239,7 +6239,7 @@ simple extraction เป็นของแถม เขาให้ไปดู�
 - ⭐⭐⭐ **Temp 37.5-38.5°C**
 - ⭐⭐ Multiple restraint methods — twitch/stocks/sedation
 - ⭐⭐ Systematic exam — distance → hands-on
-- ⭐ Routine farrier 4-6 wk · dental 6-12 mo`,
+- ⭐ Routine farrier 4-6 wk, dental 6-12 mo`,
   },
   "zJQ3gItuG6E": {
     videoId: "zJQ3gItuG6E",

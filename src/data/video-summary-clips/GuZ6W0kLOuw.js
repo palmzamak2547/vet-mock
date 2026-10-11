@@ -12,7 +12,7 @@ export default {
   summary: `# Nutritional & Metabolic Disorders in Ruminants
 
 > 🎯 **Nutritional/Metabolic disorders** = **non-infectious disease cluster** caused by feed imbalance, transition stress, physiological state mismatch ⭐⭐⭐
-> 💡 Group by macronutrient: Carb (Acidosis, Bloat) · Lipid (Ketosis, Pregnancy Toxemia) · Protein (Urea toxicity) · Mineral (Milk Fever, Grass Tetany)
+> 💡 Group by macronutrient: Carb (Acidosis, Bloat), Lipid (Ketosis, Pregnancy Toxemia), Protein (Urea toxicity), Mineral (Milk Fever, Grass Tetany)
 > ⚠️ Prevention via dietary balance + transition management > treatment of established cases
 
 ---

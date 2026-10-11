@@ -208,9 +208,18 @@ test('an iOS home-screen app on the old address stays, boots, and says once that
   await context.unrouteAll({ behavior: 'ignoreErrors' });
 });
 
-// Android and desktop installed apps share the browser's storage; one that
-// held would leave a second writer on the old address for good.
-test('an installed app that shares the browser\'s storage moves like a tab', async ({ context }) => {
+// Android, Samsung Internet and computers: an installed app shares the browser's
+// storage, so its data moves like a tab's. It cannot change address, though: sent
+// on to vetmock.com it would sit under the browser's own bar (close button, title,
+// "vetmock.com") for good. So once its data is over there it stops on a short
+// guide to installing again, and the guide's one button opens vetmock.com.
+test.describe('an installed app on a phone with Chrome', () => {
+  // Every project's own user agent (the mobile ones write iPhone) would make this
+  // an iOS device, which has its own rule above; this is the Android one.
+  test.use({ userAgent: 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36' });
+
+test('moves its data like a tab, then stops on the guide, and its button opens vetmock.com', async ({ context }) => {
+  test.setTimeout(90_000);
   const posts = await twoOrigins(context);
   await context.addInitScript(() => {
     if (location.hostname !== 'localhost') return;
@@ -222,9 +231,28 @@ test('an installed app that shares the browser\'s storage moves like a tab', asy
   await seedOld(context, { 'vmx-seen-landing': '1', 'vmx-bookmarks': '[90001]' });
   const page = await context.newPage();
   await page.goto(`${OLD}/app/about`, { waitUntil: 'commit' });
+  const guide = page.locator('main.vmx-guide');
+  await expect(guide).toBeVisible({ timeout: 30_000 });
+  expect(posts, 'the data moved once, as for a tab').toEqual(['POST']);
+  expect(page.url(), 'and the app was not sent on by itself').toBe(`${OLD}/app/about`);
+  await expect(guide.getByRole('heading', { level: 1 })).toHaveText('VetMock ย้ายบ้านใหม่แล้ว');
+  await expect(guide.getByRole('button')).toHaveCount(1);
+  // The data is already at the new address, before anyone has pressed anything.
+  const there = await context.newPage();
+  await there.goto(`${NEW}/robots.txt`);
+  expect(JSON.parse(await there.evaluate(() => localStorage.getItem('vmx-bookmarks')))).toEqual([90001]);
+  await there.close();
+  await guide.getByRole('button').click();
   await page.waitForURL(`${NEW}/app/about`, { timeout: 30_000 });
   expect(posts).toEqual(['POST']);
-  expect(JSON.parse(await page.evaluate(() => localStorage.getItem('vmx-bookmarks')))).toEqual([90001]);
+
+  // The next launch has nothing new to carry: the guide again, no second POST.
+  const again = await context.newPage();
+  await again.goto(`${OLD}/app/about`, { waitUntil: 'commit' });
+  await expect(again.locator('main.vmx-guide')).toBeVisible({ timeout: 30_000 });
+  expect(again.url()).toBe(`${OLD}/app/about`);
+  expect(posts).toEqual(['POST']);
+});
 });
 
 // The live worker caches every navigation, so after a visit that went straight

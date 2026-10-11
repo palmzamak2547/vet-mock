@@ -810,13 +810,15 @@ function InstantFeedback({ ok, correctNode, explain, figure = null, coach, wikiL
     <MotionEnter effect="reveal" className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
       <div className="vmx-feedback-header">
         <div className="vmx-feedback-headline">
-          <span className="vmx-feedback-kicker">{ok ? 'CLINICAL VERDICT • ACCURATE' : 'CLINICAL VERDICT • REVIEW REQUIRED'}</span>
+          {/* The verdict is the headline itself; the mono English kicker that
+              sat above it said the same thing a second time in a language the
+              card does not otherwise speak. */}
           <div className="v">{ok ? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง'}</div>
         </div>
         <div className="vmx-feedback-stamp-wrapper">
-          <div className={`vmx-mochi-stamp--${ok ? 'pass' : 'revise'}`} title={ok ? 'Mochi Clinical Stamp: Verified' : 'Mochi Clinical Stamp: Needs Review'}>
+          <div className={`vmx-mochi-stamp--${ok ? 'pass' : 'revise'}`} title={ok ? 'ตราของ Mochi: ถูกแล้ว' : 'ตราของ Mochi: ลองอีกครั้ง'}>
             <Mochi state={ok ? 'correct' : 'encourage'} size={40} slot="feedback" animate className="vmx-feedback-mochi" />
-            <span className="vmx-stamp-label">{ok ? 'APPROVED' : 'REVISE'}</span>
+            <span className="vmx-stamp-label">{ok ? 'ถูกแล้ว' : 'ลองอีกที'}</span>
           </div>
         </div>
       </div>

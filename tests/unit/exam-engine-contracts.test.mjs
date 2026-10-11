@@ -54,9 +54,13 @@ test('a curated set is picked in order; ordinary practice still shuffles', () =>
   // slice. That step must stay AFTER the curated check, or a most-missed-first
   // set would be re-sorted by provenance and stop being most-missed-first.
   assert.match(fn, /picked = ranked\.slice\(/, 'the pick no longer comes from the ranked list');
+  // Anchor on the narrowing block itself: the gentle (rung 1) guard above it
+  // also names overrides.panicPool, only to step aside for Panic sets.
+  const narrowing = fn.indexOf('if (overrides.panicPool)');
+  assert.ok(narrowing > 0, 'the Panic narrowing block is gone');
   assert.ok(
-    fn.indexOf('let ranked = ordered') < fn.indexOf('overrides.panicPool')
-      && fn.indexOf('overrides.panicPool') < fn.indexOf('picked = ranked.slice('),
+    fn.indexOf('let ranked = ordered') < narrowing
+      && narrowing < fn.indexOf('picked = ranked.slice('),
     'the Panic narrowing must sit between the curated check and the slice',
   );
   assert.doesNotMatch(fn, /picked = shuffle\(pool\)\.slice/, 'the unconditional shuffle is back');

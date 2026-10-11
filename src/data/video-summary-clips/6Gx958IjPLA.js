@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก equine respiratory, viral, bacterial, RAO",
   summary: `# Equine — 6 Respiratory Diseases
 
-> 🎯 Equine respiratory = viral (Influenza/EHV) · bacterial (Strangles) · allergic (RAO/equine asthma) ⭐⭐⭐
+> 🎯 Equine respiratory = viral (Influenza/EHV), bacterial (Strangles), allergic (RAO/equine asthma) ⭐⭐⭐
 > ⚠️ ออกแน่: Strangles management, EHV-1 neurologic, RAO, Rhodococcus in foals
 
 ---

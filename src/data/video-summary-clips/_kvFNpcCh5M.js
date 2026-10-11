@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก fish anatomy/physiology, gill function, osmoregulation",
   summary: `# Aquatic Clinic — 2 Fish Biology
 
-> 🎯 ปลาไม่ใช่หมา/แมวเล็ก — gills · osmoregulation · innate-dominant immunity ต่างจาก mammal ทั้งหมด
+> 🎯 ปลาไม่ใช่หมา/แมวเล็ก — gills, osmoregulation, innate-dominant immunity ต่างจาก mammal ทั้งหมด
 > ⚠️ ถ้าเข้าใจ osmoregulation ผิด → ทำการ transport / treatment พลาด
 
 ---
@@ -32,8 +32,8 @@ export default {
 
 | Type | Relative to environment | Behavior |
 |---|---|---|
-| ⭐ **Freshwater fish** | **Hyperosmotic** (เข้มข้นกว่าน้ำ) | ปัสสาวะเจือจาง · ดูดเกลือเข้า |
-| ⭐ **Saltwater fish** | **Hypoosmotic** (เจือจางกว่าน้ำ) | ดื่มน้ำ · ปัสสาวะเข้มข้น |
+| ⭐ **Freshwater fish** | **Hyperosmotic** (เข้มข้นกว่าน้ำ) | ปัสสาวะเจือจาง, ดูดเกลือเข้า |
+| ⭐ **Saltwater fish** | **Hypoosmotic** (เจือจางกว่าน้ำ) | ดื่มน้ำ, ปัสสาวะเข้มข้น |
 
 > 💡 **Critical for transport + treatment** — ใส่ปลาน้ำจืดในน้ำเค็มหรือกลับกัน = osmotic shock
 

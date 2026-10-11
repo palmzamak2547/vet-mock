@@ -11,14 +11,14 @@ export default {
   examFormat: "Brief overview, course structure",
   summary: `# Aquatic Clinic — 0 Introduction
 
-> 🎯 Intro course สัตวแพทย์สัตว์น้ำ — ปลา · กุ้ง · amphibian · reptile · ornamental fish. ไทยเป็น **#1 ผู้ส่งออก ornamental fish โลก** + ผู้นำกุ้ง/ปลานิล
+> 🎯 Intro course สัตวแพทย์สัตว์น้ำ — ปลา, กุ้ง, amphibian, reptile, ornamental fish. ไทยเป็น **#1 ผู้ส่งออก ornamental fish โลก** + ผู้นำกุ้ง/ปลานิล
 
 ---
 
 # 🔻 Part 1: Course Scope
 
 - โครงสร้าง course
-- ครอบคลุม aquatic species ทั้งหมด (ปลา · shellfish · amphibian · reptile)
+- ครอบคลุม aquatic species ทั้งหมด (ปลา, shellfish, amphibian, reptile)
 - บริบทอุตสาหกรรมไทย
 
 ---
@@ -38,5 +38,5 @@ export default {
 ## 📋 Exam Recap
 - ⭐⭐ Thailand = #1 ornamental fish exporter
 - ⭐ Course ครอบคลุม fish / shellfish / amphibian / reptile
-- ⭐ Career: shrimp · ornamental · aquarium · conservation`,
+- ⭐ Career: shrimp, ornamental, aquarium, conservation`,
 };

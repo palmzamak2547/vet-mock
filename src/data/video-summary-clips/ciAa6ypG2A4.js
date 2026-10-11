@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก Campylobacter zoonotic risk, food safety",
   summary: `# Avian Medicine 12.2 — Campylobacter Infection
 
-> 🎯 **Campylobacter = zoonotic foodborne pathogen** · ⭐ **OFTEN ASYMPTOMATIC ในไก่** แต่ทำให้คนเป็น gastroenteritis
+> 🎯 **Campylobacter = zoonotic foodborne pathogen**, ⭐ **OFTEN ASYMPTOMATIC ในไก่** แต่ทำให้คนเป็น gastroenteritis
 > ⚠️ **C. jejuni = #1 cause ของ human bacterial gastroenteritis** ทั่วโลก
 
 ---

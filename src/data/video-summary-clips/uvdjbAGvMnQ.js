@@ -119,7 +119,7 @@ export default {
 
 ## 📋 Exam Recap
 - ⭐⭐⭐ **Disease Triangle**: Agent + Host + Environment
-- ⭐⭐⭐ **5 Host types** — Primary (sexual stage) · Intermediate (asexual) · Transport · Reservoir · Definitive
+- ⭐⭐⭐ **5 Host types** — Primary (sexual stage), Intermediate (asexual), Transport, Reservoir, Definitive
 - ⭐⭐⭐ **Mosquito = PRIMARY for malaria** (sexual stage occurs there)
 - ⭐⭐ **4 Agent properties**: Infectivity, Pathogenicity, Virulence, CFR
 - ⭐⭐ **ID50 = infection dose 50%**, LD50 = lethal dose 50%

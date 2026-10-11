@@ -11,7 +11,7 @@ export default {
   examFormat: "Multiple choice, ออก equine dentition, dental issues, floating",
   summary: `# Equine — 3 Equine Dentistry
 
-> 🎯 ม้า = **hypsodont** teeth (continuously erupting) · regular floating ทุก 6-12 เดือน ⭐⭐⭐
+> 🎯 ม้า = **hypsodont** teeth (continuously erupting), regular floating ทุก 6-12 เดือน ⭐⭐⭐
 > ⚠️ ออกแน่: 36-44 teeth adult, sharp enamel points, EOTRH, aging by teeth
 
 ---

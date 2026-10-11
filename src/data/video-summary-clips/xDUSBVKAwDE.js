@@ -68,5 +68,5 @@ export default {
 - ⭐⭐⭐ **Temp 37.5-38.5°C**
 - ⭐⭐ Multiple restraint methods — twitch/stocks/sedation
 - ⭐⭐ Systematic exam — distance → hands-on
-- ⭐ Routine farrier 4-6 wk · dental 6-12 mo`,
+- ⭐ Routine farrier 4-6 wk, dental 6-12 mo`,
 };
