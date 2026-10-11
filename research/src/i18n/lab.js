@@ -104,6 +104,8 @@ export default {
 
     // ------------------------------------------------------------ undefined values
     'lab.undefined.needTwoLevels': 'แต่ละปัจจัยต้องมีข้อมูลอย่างน้อย 2 ระดับ',
+    'lab.undefined.sharedNotConverged': 'ฟิต curve ที่ใช้ IC50 หรือ EC50 ค่าเดียวกันทุกกลุ่มไม่สำเร็จ (การคำนวณไม่ลงตัว) จึงไม่มี p-value และ AICc ของการเปรียบเทียบนี้ curve ที่ฟิตแยกแต่ละกลุ่มยังใช้ได้ ถ้าต้องการเปรียบเทียบ ลองเทียบทั้ง curve หรือใช้ 4PL',
+    'lab.undefined.oneCurveNotConverged': 'ฟิต curve เดียวให้ทุกกลุ่มไม่สำเร็จ (การคำนวณไม่ลงตัว) จึงไม่มี p-value และ AICc ของการเปรียบเทียบนี้ curve ที่ฟิตแยกแต่ละกลุ่มยังใช้ได้',
     'lab.undefined.termNotEstimable': 'ปัจจัยนี้แยกจากอีกปัจจัยไม่ออกในข้อมูลชุดนี้ (ทุกระดับของมันจับคู่กับระดับเดียวของอีกปัจจัย) จึงทดสอบไม่ได้ ไม่ใช่ว่าไม่มีผล',
     'lab.note.notConnected': 'บางระดับของปัจจัยหนึ่งพบคู่กับอีกปัจจัยเพียงระดับเดียว ข้อมูลจึงแยกผลของสองปัจจัยในส่วนนั้นไม่ได้ df ของแต่ละปัจจัยจึงน้อยกว่าจำนวนระดับลบหนึ่ง และนับเฉพาะส่วนที่ทดสอบได้จริง',
     'lab.undefined.emptyCell': 'บางช่อง (คู่ระดับของสองปัจจัย) ไม่มีสัตว์เลย จึงทดสอบ interaction ไม่ได้ ลองวิเคราะห์แบบไม่ใส่ interaction',
@@ -535,6 +537,8 @@ export default {
     'lab.source.groupTime': 'Group by time (interaction)',
 
     'lab.undefined.needTwoLevels': 'Each factor needs data at 2 or more levels',
+    'lab.undefined.sharedNotConverged': 'Curves sharing one IC50 or EC50 across the groups could not be fitted (the fit did not settle), so this comparison has no p-value or AICc. The separate curves still stand. To compare the groups, try comparing whole curves, or the 4PL.',
+    'lab.undefined.oneCurveNotConverged': 'One curve for every group could not be fitted (the fit did not settle), so this comparison has no p-value or AICc. The separate curves still stand.',
     'lab.undefined.termNotEstimable': 'This factor cannot be told apart from the other in these data (each of its levels is paired with a single level of the other), so it cannot be tested. That is not the same as no effect.',
     'lab.note.notConnected': 'Some level of one factor is seen with only one level of the other, so the data cannot separate the two factors there. Each factor’s df is therefore smaller than its number of levels minus one and counts only what the data can test.',
     'lab.undefined.emptyCell': 'At least one cell (a pairing of the two factors’ levels) has no animals, so the interaction cannot be tested. Try the analysis without the interaction.',

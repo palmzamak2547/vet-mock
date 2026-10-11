@@ -64,8 +64,12 @@ export function m3MethodDetails(spec, env, ctx) {
       if (noteOf(env, 'zeroDose')) out.push(t('report.methods.nls.zero'));
       if (spec.method === 'nls.fourPL' && o.model === '5pl') out.push(t('report.methods.nls.fiveVsFour'));
       if (spec.method === 'nls.doseResponse') {
-        if (testOf(env, 'sharedEc50')) out.push(t('report.methods.nls.compareEc50', { potency }));
-        else if (testOf(env, 'oneCurve')) out.push(t('report.methods.nls.compareAll'));
+        // A comparison whose restricted fit did not converge says it was planned and did not run, never that the
+        // curves were compared (fix-stats finding 9).
+        const sharedT = testOf(env, 'sharedEc50');
+        const oneT = testOf(env, 'oneCurve');
+        if (sharedT) out.push(t(sharedT.reasonKey === 'lab.undefined.sharedNotConverged' ? 'report.methods.nls.compareEc50Failed' : o.model === '5pl' ? 'report.methods.nls.compareEc50Five' : 'report.methods.nls.compareEc50', { potency }));
+        else if (oneT) out.push(t(oneT.reasonKey === 'lab.undefined.oneCurveNotConverged' ? 'report.methods.nls.compareAllFailed' : 'report.methods.nls.compareAll'));
         const ratio = Object.keys(v).find((n) => n === 'ic50Ratio' || n === 'ec50Ratio');
         const named = noteOf(env, 'ratio')?.params;
         if (ratio && named) {
@@ -143,7 +147,11 @@ export function m3Results(spec, env, kit) {
   };
   const testLine = (test, name) => {
     if (!test) return;
-    if (test.p === null || test.p === undefined) say('report.results.pWithheld', { test: name });
+    // a test that could not run says why, as an undefined estimate does
+    if (test.reasonKey === 'lab.undefined.sharedNotConverged') say('report.results.sharedNotFitted', { test: name, potency: potencyWord(env, t) });
+    else if (test.reasonKey === 'lab.undefined.oneCurveNotConverged') say('report.results.oneNotFitted', { test: name });
+    else if ((test.p === null || test.p === undefined) && test.reasonKey) out.push(kit.undefinedText({ label: name, reasonKey: test.reasonKey }));
+    else if (test.p === null || test.p === undefined) say('report.results.pWithheld', { test: name });
     else say('report.results.test', { test: name, stats: kit.statsText(test) });
   };
   switch (spec.method) {

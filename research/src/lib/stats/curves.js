@@ -786,8 +786,11 @@ export function runDoseResponse(spec, table) {
       const F = extraSsF(restricted.rss, N - kRestricted, rssSep, dfSep);
       tests.push(testRow({ id: testId, name: 'F', statistic: F.F, dfPair: [F.df1, F.df2], p: F.p, variant: 'extraSumOfSquares', ...(Number.isNaN(F.F) ? { reasonKey: 'lab.undefined.noComparison' } : {}) }));
     } else {
-      values[aName] = nullVal(restricted.reasonKey);
-      tests.push(testRow({ id: testId, name: 'F', statistic: null, dfPair: [N - kRestricted - dfSep, dfSep], p: null, variant: 'extraSumOfSquares', reasonKey: restricted.reasonKey }));
+      // The restricted fit's own reason: lab.invalid.notConverged would tell the student the data lack the curve's
+      // shape, under separate curves that did fit (fix-stats finding 3: a shared-EC50 5PL runs g to 0).
+      const why = restricted.reasonKey === 'lab.invalid.notConverged' ? (shared ? 'lab.undefined.sharedNotConverged' : 'lab.undefined.oneCurveNotConverged') : restricted.reasonKey;
+      values[aName] = nullVal(why);
+      tests.push(testRow({ id: testId, name: 'F', statistic: null, dfPair: [N - kRestricted - dfSep, dfSep], p: null, variant: 'extraSumOfSquares', reasonKey: why }));
     }
     notes.push({ id: 'compare', severity: 'note', key: shared ? 'lab.note.compareShared' : 'lab.note.compareOne' });
     notes.push({ id: 'aicc', severity: 'note', key: 'lab.note.aicc' });
