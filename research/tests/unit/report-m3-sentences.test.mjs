@@ -179,6 +179,10 @@ for (const lang of ['th', 'en']) {
     for (const e of ['E = 1.95', 'E = 1.98', 'E = 2']) has(pf.methods, e, 'each efficiency as entered');
     has(pf.methods, t('report.methods.qpcr.pooled', { control: 'control' }));
     has(pf.results, t('report.test.pooledT'));
+    // Pfaffl combines the reference genes by the mean of the efficiency-weighted Ct, never the raw Ct (fix-stats finding 10)
+    has(pf.methods, 'Ct × log2 E');
+    lacks(pf.methods, lang === 'en' ? 'the mean of their Ct,' : 'ค่าเฉลี่ยของ Ct ซึ่ง', 'not the raw-Ct sentence');
+    has(lv.methods, lang === 'en' ? 'the mean of their Ct,' : 'ค่าเฉลี่ยของ Ct ซึ่ง', 'Livak keeps the raw-Ct sentence');
     const three = para('qpcrThree', lang);
     has(three.methods, t('report.methods.qpcr.dunnett', { control: 'A' }));
     has(three.methods, t('report.methods.qpcr.refOne', { refs: 'ref' }));

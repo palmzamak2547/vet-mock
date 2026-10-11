@@ -89,7 +89,8 @@ export function m3MethodDetails(spec, env, ctx) {
     case 'qpcr.relative': {
       const refs = [].concat(r.items || []).filter(Boolean);
       if (refs.length === 1) out.push(t('report.methods.qpcr.refOne', { refs: col(refs[0]) }));
-      else if (refs.length > 1) out.push(t('report.methods.qpcr.refMany', { refs: join(refs.map(col)), count: refs.length }));
+      // Pfaffl's method averages the efficiency-weighted Ct (qpcr.js deltaCt), not the raw Ct (fix-stats finding 10)
+      else if (refs.length > 1) out.push(t(o.method === 'pfaffl' ? 'report.methods.qpcr.refManyPfaffl' : 'report.methods.qpcr.refMany', { refs: join(refs.map(col)), count: refs.length }));
       if (o.method === 'pfaffl') {
         const eff = o.efficiency && typeof o.efficiency === 'object' ? o.efficiency : {};
         const genes = [r.outcome, ...refs].filter((k) => k && finite(eff[k]));
