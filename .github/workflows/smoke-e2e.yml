@@ -59,8 +59,10 @@ jobs:
             shard: 2/2
             report: gl-2
     # Setup (~2 min) + the longest browser step cap (16) + 3 min + 1 spare, so a step
-    # that hits its own cap still leaves time to upload the report.
-    timeout-minutes: 22
+    # that hits its own cap still leaves time to upload the report. The chromium
+    # runner also builds the connected bundle (~2 min) and runs its four specs
+    # (cap 6) after a 14-minute step, which is 2 + 2 + 14 + 6 + 3 + 1.
+    timeout-minutes: 28
     steps:
       - uses: actions/checkout@v7
 
@@ -101,6 +103,22 @@ jobs:
         # specific bugs (TDZ, dead-code removal regressions).
         run: npm run build
 
+      - name: Build the connected bundle (chromium runner only)
+        # The same sources with placeholder database settings, into a folder of
+        # its own so the bundle above stays unconfigured. Four specs model a
+        # signed-in account against the back office and skip themselves when
+        # the bundle has no database configuration (admin-recovery,
+        # external-doc-recovery, pdf-recent-delete, private-notes-reader), so
+        # against the plain bundle they never ran. The host is the one those
+        # specs intercept (their auth-token key is derived from it) and the
+        # key is not a key. Setting these on the plain build instead would
+        # configure every spec, including the ones that assume no backend.
+        if: matrix.group == 'chromium'
+        env:
+          VITE_SUPABASE_URL: https://mpovsdzdggvksmeehqfj.supabase.co
+          VITE_SUPABASE_ANON_KEY: ci-placeholder-not-a-real-key
+        run: npx vite build --outDir dist-connected
+
       # Two engine groups, never one runner for both, because the contention
       # was the bug. Chromium is hardware-independent here and parallelises
       # fine. Firefox and WebKit both run headful against Mesa software GL, and
@@ -120,6 +138,56 @@ jobs:
         run: >-
           xvfb-run --auto-servernum npx playwright test
           --project=chromium-desktop --project=chromium-mobile
+
+      - name: Keep the placeholder database host off the real network
+        # The connected specs answer every request to that host themselves and
+        # abort any other *.supabase.co host. This is the second lock: if a
+        # request ever escaped their routes it would reach this machine's own
+        # closed port, never the real project. The step fails if the host
+        # still answers.
+        if: matrix.group == 'chromium'
+        run: |
+          printf '127.0.0.1 mpovsdzdggvksmeehqfj.supabase.co\n::1 mpovsdzdggvksmeehqfj.supabase.co\n' | sudo tee -a /etc/hosts
+          getent ahosts mpovsdzdggvksmeehqfj.supabase.co
+          if curl -s --max-time 5 -o /dev/null https://mpovsdzdggvksmeehqfj.supabase.co/; then
+            echo "::error::the placeholder database host still answers; refusing to run specs that could reach it"
+            exit 1
+          fi
+
+      - name: Run the connected specs (chromium)
+        if: matrix.group == 'chromium'
+        timeout-minutes: 6
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:41732
+          PLAYWRIGHT_JSON_OUTPUT_NAME: connected-e2e.json
+          PLAYWRIGHT_HTML_OPEN: never
+          PLAYWRIGHT_HTML_REPORT: playwright-report/connected
+        run: |
+          set -eu
+          ./node_modules/.bin/vite preview --outDir dist-connected --host 127.0.0.1 --port 41732 --strictPort &
+          server=$!
+          trap 'kill "$server" 2>/dev/null || true' EXIT
+          for _ in $(seq 1 30); do
+            curl -sf http://127.0.0.1:41732/ >/dev/null && break
+            sleep 1
+          done
+          curl -sf http://127.0.0.1:41732/ >/dev/null
+          xvfb-run --auto-servernum npx playwright test \
+            --project=chromium-desktop --project=chromium-mobile \
+            --reporter=github,json,html \
+            tests/e2e/admin-recovery.spec.js \
+            tests/e2e/external-doc-recovery.spec.js \
+            tests/e2e/pdf-recent-delete.spec.js \
+            tests/e2e/private-notes-reader.spec.js
+
+      - name: The connected specs ran, none skipped
+        # A skip is how these specs went unnoticed before: green, 0 run. This
+        # fails if the connected bundle ever stops carrying the database
+        # settings, or the specs stop finding their screen.
+        if: matrix.group == 'chromium'
+        run: |
+          node -e "const s=JSON.parse(require('fs').readFileSync('connected-e2e.json','utf8')).stats;console.log(JSON.stringify(s));if(!s.expected||s.skipped){console.error('connected specs: need at least one passing test and none skipped');process.exit(1)}"
 
       - name: Run smoke e2e (software-GL engines, one worker)
         if: matrix.group == 'gl'
