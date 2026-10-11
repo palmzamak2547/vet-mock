@@ -102,6 +102,7 @@ if (fs.existsSync(artDir)) {
       const full = path.join(dir, f);
       if (fs.statSync(full).isDirectory()) { walk(full, `${rel}/${f}`); continue; }
       const url = `${rel}/${f}`;
+      if (f.endsWith('.glb')) continue;
       if (!referenced.has(url)) warnings.push(`${url} ships but nothing references it`);
     }
   };
