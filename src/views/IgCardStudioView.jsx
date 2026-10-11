@@ -22,6 +22,7 @@ import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
 import { shuffle } from '../hooks/utils.js';
 import { IG_BACKGROUNDS } from '../data/art.js';
+import { drawWrappedText } from '../lib/canvas-wrap.js';
 
 // Render one Q card. Optimised for legibility on a phone-screen IG feed
 // preview at 9:16-cropped size: keeps the question stem inside the
@@ -93,10 +94,12 @@ function renderQCard({ question, brand = '@vetmock.cu', backdrop = null }) {
   ctx.font = `500 ${stemFontSize}px "Fraunces", "Sarabun", "IBM Plex Sans Thai", Georgia, serif`;
   ctx.textAlign = 'left';
   const stem = question.q.replace(/\*\*/g, '').replace(/★/g, ''); // remove star markers
-  wrapText(ctx, stem, 80, 290, W - 160, stemFontSize * 1.4);
+  // Thai has few spaces, so the lines are cut at word boundaries (canvas-wrap),
+  // and the options start below however many lines the stem really took.
+  const stemLines = drawWrappedText(ctx, stem, 80, 290, W - 160, stemFontSize * 1.4);
 
   // Options — only render for MCQ; otherwise show "ตอบในแคปชั่น ⬇"
-  const optsTop = 290 + stemFontSize * 1.4 * Math.ceil(stem.length / Math.floor((W - 160) / (stemFontSize * 0.55))) + 60;
+  const optsTop = 290 + stemFontSize * 1.4 * stemLines + 60;
   if (question.type === 'mcq' && Array.isArray(question.options)) {
     ctx.font = '500 32px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
     let y = Math.max(700, optsTop);
@@ -104,8 +107,8 @@ function renderQCard({ question, brand = '@vetmock.cu', backdrop = null }) {
     question.options.slice(0, 5).forEach((opt, i) => {
       const text = `${labels[i]}.  ${opt.replace(/\*\*/g, '').replace(/★/g, '')}`;
       ctx.fillStyle = '#3d342a';
-      // simple wrap into 2 lines max
-      wrapText(ctx, text, 100, y, W - 200, 42, 2);
+      // at most 2 lines; the last ends in an ellipsis when the option is longer
+      drawWrappedText(ctx, text, 100, y, W - 200, 42, 2);
       y += 88;
     });
   } else {
@@ -121,27 +124,6 @@ function renderQCard({ question, brand = '@vetmock.cu', backdrop = null }) {
   ctx.fillText('vetmock.com, 📷 ' + brand, W / 2, 1280);
 
   return new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 0.95));
-}
-
-function wrapText(ctx, text, x, y, maxW, lineH, maxLines = 999) {
-  const words = text.split(/(\s+)/);
-  let line = '', n = 0;
-  for (const w of words) {
-    const test = line + w;
-    if (ctx.measureText(test).width > maxW && line) {
-      ctx.fillText(line.trim(), x, y);
-      line = w;
-      y += lineH;
-      n++;
-      if (n >= maxLines) {
-        ctx.fillText(line.trim() + '…', x, y);
-        return;
-      }
-    } else {
-      line = test;
-    }
-  }
-  if (line.trim()) ctx.fillText(line.trim(), x, y);
 }
 
 export default function IgCardStudioView({ goHome }) {
