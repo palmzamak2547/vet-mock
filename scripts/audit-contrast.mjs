@@ -49,6 +49,18 @@
 // safety, and it is why lint-accent-tokens.mjs exists beside this: the
 // token half IS deterministic and complete.
 //
+// GRADIENTS. background-color reads transparent through background-image,
+// so a text element on a gradient used to be skipped and only counted. Now a
+// linear or radial gradient is read from the computed stops, each stop is
+// composited over whatever is painted beneath it, and the WORST contrast
+// across the stops decides. That is a bound, not a pixel: white text on the
+// light end of a dark-to-light gradient still reads as a finding, so this is
+// warn-only against a per-surface budget (GRADIENT_BUDGETS) that may only go
+// down; --strict-gradients turns an over-budget run into a failure. url()
+// images, conic gradients, stops in a colour format toRgb cannot read, and a
+// gradient that does not cover its box (no-repeat at a fixed size) stay
+// unmeasured and are counted as such.
+//
 // Still not covered: every other route, and any state behind data this
 // account does not have.
 
@@ -167,6 +179,15 @@ const KNOWN = [
   },
 ];
 
+// Text elements over a gradient that fall below AA at their worst stop, summed
+// over every theme and palette of one run. Recorded when LR-GRADIENTS landed;
+// lower a number when a gradient is fixed, never raise it. A surface with no
+// entry (--exam samples a random question, --route and --url are ad hoc) is
+// reported and never judged.
+const GRADIENT_BUDGETS = { home: 0, landing: 0 };
+const MODE = ROUTE ? 'route' : EXAM ? 'exam' : LANDING ? 'landing' : 'home';
+const STRICT_GRADIENTS = process.argv.includes('--strict-gradients');
+
 const lum = ([r, g, b]) => {
   const f = (c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; };
   return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
@@ -185,29 +206,93 @@ const PAGE_FN = () => {
     const a = m.length > 3 ? +m[3] : 1;
     return [+m[0] * unit, +m[1] * unit, +m[2] * unit, a];
   };
-  // Flatten every translucent layer down onto the first opaque ancestor.
+  // Top-level comma split: a stop such as rgba(1, 2, 3, 0.5) has commas of its own.
+  const splitTop = (str) => {
+    const parts = [];
+    let depth = 0;
+    let from = 0;
+    for (let i = 0; i < str.length; i++) {
+      const ch = str[i];
+      if (ch === '(') depth++;
+      else if (ch === ')') depth--;
+      else if (ch === ',' && depth === 0) { parts.push(str.slice(from, i).trim()); from = i + 1; }
+    }
+    parts.push(str.slice(from).trim());
+    return parts.filter(Boolean);
+  };
+  // A computed gradient stop is rgb(), rgba() or color(srgb ...), the three
+  // forms toRgb reads. Anything else that looks like a colour (oklab(), lab(),
+  // hsl(), #hex, color(display-p3 ...)) makes the layer unmeasured: parsing it
+  // as sRGB would report a confident number about the wrong colour.
+  const STOP_COLOR = /^(rgba?\([^()]*\)|color\(srgb [^()]*\))/i;
+  const MATH_FN = /^(calc|min|max|clamp)\(/i;
+  // The [r,g,b,a] stops of one linear or radial gradient layer, or null.
+  const stopsOf = (layer) => {
+    const open = layer.indexOf('(');
+    if (open < 1 || !layer.endsWith(')')) return null;
+    if (!/^(repeating-)?(linear|radial)-gradient$/i.test(layer.slice(0, open).trim())) return null;
+    const stops = [];
+    for (const arg of splitTop(layer.slice(open + 1, -1))) {
+      const m = arg.match(STOP_COLOR);
+      if (m) {
+        const c = toRgb(m[1]);
+        if (!c) return null;
+        stops.push(c);
+      } else if (arg[0] === '#' || (/^[a-z-]+\(/i.test(arg) && !MATH_FN.test(arg))) {
+        return null;   // a colour in a format toRgb cannot read
+      }
+      // otherwise: the direction, the shape and position, or a stop hint
+    }
+    return stops.length ? stops : null;
+  };
+  // Does one background layer paint its whole box? A gradient is as big as the
+  // box unless a fixed size is combined with no-repeat, which leaves bare gaps.
+  const coversBox = (size, repeat) =>
+    /^(auto|cover|contain|100%)( (auto|100%))?$/.test(size) || /^(repeat|round)( (repeat|round))?$/.test(repeat);
+  const over = ([sr, sg, sb, sa], [br, bg, bb]) =>
+    [sr * sa + br * (1 - sa), sg * sa + bg * (1 - sa), sb * sa + bb * (1 - sa)];
+  const dedupe = (colors) => [...new Map(colors.map((c) => [c.map(Math.round).join(), c])).values()];
+
+  // What is painted behind an element's text, flattened down onto the first
+  // opaque layer. Returns [r,g,b] for a flat background, { gradient: [[r,g,b]...] }
+  // when a gradient is involved (every colour the text may sit on, one per stop
+  // and combination of stops), or null when the background cannot be read.
   const bgOf = (el) => {
-    const stack = [];
+    const stack = [];   // top first: { flat: [r,g,b,a] } or { layers: [stops...] } (bottom first)
+    let sawGradient = false;
     for (let n = el; n; n = n.parentElement) {
       const cs = getComputedStyle(n);
-      // A gradient lives in background-IMAGE; background-color reads
-      // transparent through it. Walking past one and compositing against
-      // the page reported 756 failures on white labels sitting on a dark
-      // gradient — a confident number about a background this cannot see.
-      // Unknown is the honest answer, and it is counted, not swallowed.
-      if (cs.backgroundImage && cs.backgroundImage !== 'none') return null;
-      const c = toRgb(cs.backgroundColor);
-      if (!c || c[3] === 0) continue;
-      stack.push(c);
-      if (c[3] >= 1) break;
+      let opaque = false;
+      // A node paints its background-color first and its images above it.
+      if (cs.backgroundImage && cs.backgroundImage !== 'none') {
+        const layers = splitTop(cs.backgroundImage);
+        const sizes = splitTop(cs.backgroundSize);
+        const repeats = splitTop(cs.backgroundRepeat);
+        const kept = [];   // top first, cut at the first layer that hides everything below it
+        for (let i = 0; i < layers.length; i++) {
+          if (layers[i] === 'none') continue;
+          const stops = stopsOf(layers[i]);   // url(), conic-gradient(), an unreadable colour: null
+          if (!stops) return null;
+          if (!coversBox(sizes[i % sizes.length] || 'auto', repeats[i % repeats.length] || 'repeat')) return null;
+          kept.push(stops);
+          if (stops.every((c) => c[3] >= 1)) { opaque = true; break; }
+        }
+        if (kept.length) { stack.push({ layers: kept.reverse() }); sawGradient = true; }
+      }
+      if (!opaque) {
+        const c = toRgb(cs.backgroundColor);
+        if (c && c[3] > 0) { stack.push({ flat: c }); if (c[3] >= 1) opaque = true; }
+      }
+      if (opaque) break;
     }
-    stack.push([255, 255, 255, 1]);
-    let [r, g, b] = stack[stack.length - 1];
-    for (let i = stack.length - 2; i >= 0; i--) {
-      const [sr, sg, sb, sa] = stack[i];
-      r = sr * sa + r * (1 - sa); g = sg * sa + g * (1 - sa); b = sb * sa + b * (1 - sa);
+    let set = [[255, 255, 255]];   // the page, when nothing opaque stops the walk
+    for (let i = stack.length - 1; i >= 0; i--) {
+      const item = stack[i];
+      if (item.flat) set = set.map((b) => over(item.flat, b));
+      else for (const stops of item.layers) set = dedupe(stops.flatMap((st) => set.map((b) => over(st, b))));
+      if (set.length > 256) return null;   // not a background anyone designed
     }
-    return [r, g, b];
+    return sawGradient ? { gradient: set } : set[0];
   };
 
   const out = [];
@@ -221,11 +306,13 @@ const PAGE_FN = () => {
     const fg = toRgb(cs.color);
     if (!fg || fg[3] === 0) continue;
     const size = parseFloat(cs.fontSize);
+    const bg = bgOf(el);
     out.push({
       text: text.slice(0, 48),
       cls: (el.className || '').toString().slice(0, 60),
       fg: fg.slice(0, 3),
-      bg: bgOf(el),   // null when an ancestor gradient makes it uncomputable
+      bg: Array.isArray(bg) ? bg : null,   // null when unmeasured, or when bgs is set
+      bgs: bg && !Array.isArray(bg) ? bg.gradient : null,   // every colour the text may sit on over a gradient
       // AA: 4.5 for body text, 3.0 once it is 24px, or 18.66px bold.
       floor: size >= 24 || (size >= 18.66 && +cs.fontWeight >= 700) ? 3 : 4.5,
     });
@@ -243,7 +330,9 @@ process.on('exit', () => { try { server?.kill(); } catch {} });
 const browser = await chromium.launch();
 let failures = 0;
 let excused = 0;
-let overGradient = 0;
+let unmeasured = 0;
+let gradientChecked = 0;
+let gradientBelow = 0;
 
 try {
   // One context, one load per page. Switching palette is a CSS-variable
@@ -325,12 +414,34 @@ try {
     await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
 
     const measured = await page.evaluate(PAGE_FN);
-    overGradient += measured.filter((r) => !r.bg).length;
+    unmeasured += measured.filter((r) => !r.bg && !r.bgs).length;
     const rows = measured
       .filter((r) => r.bg)
       .map((r) => ({ ...r, ratio: +ratio(r.fg, r.bg).toFixed(2) }))
       .filter((r) => r.ratio < r.floor)
       .sort((a, b) => a.ratio - b.ratio);
+
+    // Over a gradient the worst stop decides. Warn-only, judged against
+    // GRADIENT_BUDGETS at the end of the run.
+    const onGradients = measured
+      .filter((r) => r.bgs)
+      .map((r) => {
+        const worst = r.bgs.map((c) => ({ c, ratio: +ratio(r.fg, c).toFixed(2) })).sort((a, b) => a.ratio - b.ratio)[0];
+        return { ...r, bg: worst.c, ratio: worst.ratio };
+      });
+    gradientChecked += onGradients.length;
+    const gradientRows = onGradients
+      .filter((r) => r.ratio < r.floor)
+      .filter((r) => !KNOWN.some((k) => (k.onText ? k.match.test(r.text) : k.match.test(r.cls))))
+      .sort((a, b) => a.ratio - b.ratio);
+    gradientBelow += gradientRows.length;
+    if (VERBOSE && gradientRows.length) {
+      console.log(`${label.padEnd(16)} ${gradientRows.length} on gradients below AA at the worst stop (warn-only)`);
+      for (const r of gradientRows) {
+        console.log(`   ${r.ratio} (needs ${r.floor})  ${JSON.stringify(r.text)}`);
+        console.log(`        rgb(${r.fg.map(Math.round)}) on rgb(${r.bg.map(Math.round)})  |  ${r.cls}`);
+      }
+    }
 
     const real = [];
     for (const r of rows) {
@@ -351,15 +462,30 @@ try {
   server?.kill();
 }
 
-if (overGradient) {
+const budget = GRADIENT_BUDGETS[MODE];
+let overBudget = false;
+if (gradientChecked || unmeasured) {
   console.log(`
-ℹ ${overGradient} element(s) sit on a gradient and were not measured —`);
-  console.log('   background-color reads transparent through background-image, so any');
-  console.log('   number here would be about the page behind it, not the gradient.');
+ℹ ${gradientChecked} text check(s) over gradients were measured at their worst stop; ${gradientBelow} fall below AA` +
+    (budget == null ? ' (this surface has no budget).' : ` (budget ${budget}).`));
+  if (budget != null && gradientBelow > budget) {
+    overBudget = true;
+    console.log(`⚠ ${gradientBelow - budget} over the gradient budget. Fix the gradient or its text colour; do not raise the budget.`);
+    console.log('   Run with --verbose to list them.');
+  } else if (budget != null && gradientBelow < budget) {
+    console.log(`   Under budget by ${budget - gradientBelow}: lower GRADIENT_BUDGETS.${MODE} to ${gradientBelow}.`);
+  }
+}
+if (unmeasured) {
+  console.log(`ℹ ${unmeasured} element(s) sit on a background that could not be read (a url() image, a conic`);
+  console.log('   gradient, an unreadable colour format, or a gradient that does not cover its box) and were not measured.');
 }
 if (excused) {
   console.log(`\n${excused} known item(s) excused:`);
   for (const k of KNOWN) console.log(`   • ${k.why}`);
 }
-console.log(failures ? `\n❌ ${failures} unexcused contrast failure(s).` : '\n✅ No unexcused contrast failures.');
-process.exit(failures ? 1 : 0);
+const strictFail = STRICT_GRADIENTS && overBudget;
+console.log(failures
+  ? `\n❌ ${failures} unexcused contrast failure(s).`
+  : strictFail ? '\n❌ Over the gradient budget (--strict-gradients).' : '\n✅ No unexcused contrast failures.');
+process.exit(failures || strictFail ? 1 : 0);
