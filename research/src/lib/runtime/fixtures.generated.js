@@ -732,8 +732,8 @@ export const FIXTURES = [
     "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
    }
   ],
-  "sha": "9214ef8e790e31e4",
-  "lastPassed": "2026-10-11"
+  "sha": "67ca992ea129c9ed",
+  "lastPassed": "2026-10-12"
  },
  {
   "file": "r/out/fisher.json",

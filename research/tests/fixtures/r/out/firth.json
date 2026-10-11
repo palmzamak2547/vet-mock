@@ -20,7 +20,7 @@
    "uniroot": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
   }
  },
- "notes": "Convergence tightened to 1e-12 (logistf.control, logistpl.control). sep is made-up (ข้อมูลสมมุติ / made-up data); ordinary logistic regression stops there with separation (M2), Firth's estimates are finite.",
+ "notes": "Convergence tightened to 1e-12 (logistf.control, logistpl.control). sep is made-up (ข้อมูลสมมุติ / made-up data); ordinary logistic regression stops there with separation (M2), Firth's estimates are finite. tiny, pair and pairTest are made-up six-row sets with a continuous separator (logistpl.control maxit 1000); pair's upper limit of the intercept is the profile's own crossing (optim from a grid of starts, uniroot), where logistpl stops at a lower local maximum (logistplUpper).",
  "datasets": {
   "sex2": {
    "case": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -34,6 +34,20 @@
   "sep": {
    "y": [0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0],
    "x": ["a", "a", "a", "a", "a", "b", "b", "b", "b", "c", "c", "c"]
+  },
+  "tiny": {
+   "x": [1, 2, 3, 4, 2.5, 3.5],
+   "y": [0, 0, 1, 1, 0, 1]
+  },
+  "pair": {
+   "x": [0.40000000000000002, 3.3999999999999999, 1.5, 6.5999999999999996, 3.7999999999999998, 3],
+   "z": [3.2000000000000002, 1.3, 3.5, 2.2000000000000002, 0.80000000000000004, 1.8],
+   "y": [0, 1, 0, 1, 1, 0]
+  },
+  "pairTest": {
+   "x": [1.8, 2.5, 3.3999999999999999, 0.5, 1.3999999999999999, 6.5999999999999996],
+   "z": [3.2999999999999998, 0.90000000000000002, 2.2000000000000002, 1.1000000000000001, 0.69999999999999996, 2.3999999999999999],
+   "y": [0, 1, 1, 0, 0, 1]
   }
  },
  "cases": {
@@ -72,6 +86,49 @@
     "termChisq": 8.5415855180567437,
     "termDf": 2,
     "termP": 0.013970703360893788
+   }
+  },
+  "tiny": {
+   "call": "logistf(y ~ x, tiny), profile limits and penalised likelihood ratio p",
+   "tol": "iterative",
+   "data": "tiny",
+   "values": {
+    "coef": [-5.4640610434110846, 2.0037724425680898],
+    "names": ["(Intercept)", "x"],
+    "lower": [-33.812039468349845, -0.058961209156432152],
+    "upper": [0.39814193889740912, 12.211771196054334],
+    "p": [0.076269947290496409, 0.059940535896771729],
+    "loglik": [-1.9979888382784528, -3.7675034137348566],
+    "iter": 34
+   }
+  },
+  "pair": {
+   "call": "logistf(y ~ x + z, pair); upper limit of the intercept by optim + uniroot on the profile (logistplUpper keeps logistpl's)",
+   "tol": "iterative",
+   "data": "pair",
+   "values": {
+    "coef": [0.62229088863944104, 0.36441525131100744, -0.90280726284585311],
+    "names": ["(Intercept)", "x", "z"],
+    "lower": [-7.3672237537886067, -0.43977254180276903, -9.4867815587174977],
+    "upper": [9.7385533908744275, 1.9259424585039033, 1.1984927721165746],
+    "p": [0.8412159038035516, 0.3878399024477418, 0.35790459344392866],
+    "loglik": [-1.5493978253461576, -3.0864487913690901],
+    "iter": 14,
+    "logistplUpper": [7.9069310304860299, 1.9259424585039033, 1.1984927721165746]
+   }
+  },
+  "pairTest": {
+   "call": "logistf(y ~ x + z, pairTest), profile limits and penalised likelihood ratio p",
+   "tol": "iterative",
+   "data": "pairTest",
+   "values": {
+    "coef": [-2.3025706824842902, 1.3589160424047626, -0.3981010544895095],
+    "names": ["(Intercept)", "x", "z"],
+    "lower": [-13.187529466813306, -0.12738549648867792, -5.1272755277938478],
+    "upper": [2.0883883614410026, 6.2321119850224971, 1.175899174699226],
+    "p": [0.43169591727092049, 0.10538494919668728, 0.62646418234237378],
+    "loglik": [-1.708558649972598, -3.0291154041166619],
+    "iter": 90
    }
   }
  }
