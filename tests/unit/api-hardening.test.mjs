@@ -184,6 +184,37 @@ test('a malformed Authorization header is forwarded as anonymous, not as a broke
   assert.equal(seen[1], 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4In0.sig-part_ok', 'a real token must still be forwarded');
 });
 
+// OV-data-6: the link endpoint answered anyone, any number of times, each
+// answer a catalogue RPC and a function invocation.
+test('the library link endpoint refuses one address past its budget before asking the catalogue', async () => {
+  process.env.VITE_SUPABASE_URL = 'https://example.supabase.co';
+  process.env.VITE_SUPABASE_ANON_KEY = 'anon-key';
+  const mod = await import('../../api/library-file.js');
+  let rpcCalls = 0;
+  const stub = async () => { rpcCalls++; return new Response('[]', { status: 200, headers: { 'content-type': 'application/json' } }); };
+  const req = (ip) => ({ method: 'GET', url: '/api/library-file?slug=some-deck', headers: { 'x-vercel-forwarded-for': ip } });
+  await withFetch(stub, async () => {
+    let served = 0;
+    let limited;
+    while (served < 5000) {
+      const res = fakeRes();
+      await mod.default(req('203.0.113.7'), res);
+      if (res.statusCode === 429) { limited = res; break; }
+      assert.equal(res.statusCode, 404);
+      served++;
+    }
+    assert.ok(limited, 'one address was handed 5000 links with no limit');
+    assert.equal(served, mod.MINT_RATE?.max);
+    assert.equal(rpcCalls, served, 'a refused request must not reach the catalogue');
+    assert.match(limited.headers['cache-control'], /no-store/);
+    assert.ok(Number(limited.headers['retry-after']) > 0);
+    assert.equal(limited.body.reason, 'rate_limited');
+    const other = fakeRes();
+    await mod.default(req('203.0.113.8'), other);
+    assert.equal(other.statusCode, 404, 'another address keeps its own budget');
+  });
+});
+
 test('the grader will not grade a question that is not ours', async () => {
   // The endpoint used to take the question and its model answer from the
   // request body, which made it a language model behind our API key on a

@@ -19,6 +19,13 @@
 
 import { presign, r2Config, cfConfig } from './_lib/r2.js';
 import { mintBlobToken } from './_lib/blob-token.js';
+import { rateLimit, clientIP, sendRateLimitFailure } from './_lib/rate-limit.js';
+
+// Per address, before the catalogue RPC. Generous on purpose: a restricted
+// open asks twice (anonymous, then with the session), the shelf mints on
+// hover, and a whole class can share one campus address. The same budget as
+// exam-result's per-address limit, which faces the same classroom.
+export const MINT_RATE = { max: 600, windowMs: 10 * 60 * 1000 };
 
 const ARCHIVE_ORIGIN = 'https://vetmock-library-archive.palmzamak2547.workers.dev';
 let archiveIndex;
@@ -88,6 +95,9 @@ export default async function handler(req, res) {
   const base = env.VITE_SUPABASE_URL || env.SUPABASE_URL;
   const anon = env.VITE_SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY;
   if (!base || !anon) return send(res, 503, { error: 'not_configured' });
+
+  const limit = await rateLimit(`library-file:${clientIP(req)}`, MINT_RATE.max, MINT_RATE.windowMs);
+  if (!limit.ok) return sendRateLimitFailure(res, limit);
 
   // One RPC answers everything: the row, whether it is published, and —
   // because the login rule lives in the SECURITY DEFINER function, not
