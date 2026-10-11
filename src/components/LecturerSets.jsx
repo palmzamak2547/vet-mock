@@ -16,7 +16,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { LECTURER_SETS, LECTURER_SET_SCOPE, FORMAT_LABEL, lecturerTopics } from '../data/lecturer-sets.js';
 import { getLibraryCatalogFast, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
 import { LECTURE_COVERS } from '../data/art.js';
-import { RevealTimingToggle, REVEAL_ROW, REVEAL_END, writeRevealTiming } from './AnswerReveal.jsx';
+import { RevealTimingToggle, REVEAL_ROW, REVEAL_END, REVEAL_LABELS, writeRevealTiming } from './AnswerReveal.jsx';
 import { Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE } from '../data/q-kind-counts.generated.js';
 import { lecturerCount } from '../lib/lecturer-count.js';
 
@@ -107,7 +107,14 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
         setTimeout(() => setDlNote((cur) => (cur.startsWith('เริ่มดาวน์โหลด') ? '' : cur)), 6000);
       } else {
         const res = await fetch(url);
-        if (!res.ok) throw new Error(`ดาวน์โหลดไม่สำเร็จ (${res.status})`);
+        // The status code is not for the student. A refused, missing or
+        // gone file is almost always a link that expired while the page sat
+        // open, and a fresh page mints a new one.
+        if (!res.ok) {
+          throw new Error([403, 404, 410].includes(res.status)
+            ? 'ลิงก์ไฟล์หมดอายุ เปิดหน้านี้ใหม่แล้วลองอีกครั้ง'
+            : 'ดาวน์โหลดไม่สำเร็จ ลองอีกครั้ง');
+        }
         saveBlob(await res.blob(), name);
       }
       recordRecentDoc(doc);
@@ -150,12 +157,16 @@ export default function LecturerSets({ subject, topics = [], onStart, onOpenInst
       {/* One switch for every format: instantFeedback is what choice and
           true/false read (ExamView revealAnswer), the stored reveal timing is
           what matching rows and written answers read. Set together so
-          "เฉลยทีละข้อ" means the same thing on every button below. */}
+          "เฉลยทีละข้อ" means the same thing on every button below. The second
+          choice turns instant feedback off, so nothing shows until the set is
+          submitted: the written answer's word for it, not the matching set's. */}
       {setInstantFeedback && (
         <div className="vmx-lect-reveal" role="group" aria-label="เวลาที่แสดงเฉลยเมื่อฝึกตามอาจารย์">
           <RevealTimingToggle
             mode={instantFeedback ? REVEAL_ROW : REVEAL_END}
             onChange={(m) => { setInstantFeedback(m === REVEAL_ROW); writeRevealTiming(m); }}
+            rowLabel={REVEAL_LABELS.row}
+            endLabel={REVEAL_LABELS.end}
           />
           <span className="vmx-lect-reveal-hint">
             {instantFeedback

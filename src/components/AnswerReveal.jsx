@@ -81,7 +81,22 @@ export function useRevealTiming() {
   return [mode, setMode];
 }
 
-export function RevealTimingToggle({ mode, onChange, rowLabel = 'เฉลยทีละข้อ', endLabel = 'เฉลยหลังทำครบ' }) {
+// What the two choices are called. It is one stored preference, but "after"
+// is not the same moment everywhere: a written answer, and any set with
+// instant feedback off (the lecturer block's second choice), show nothing
+// until the set is submitted; a matching set in practice shows its key once
+// every row is filled, before anything is sent. Each switch names what it
+// will actually do. The default pair is the matching set's, the one caller
+// that passes none.
+export const REVEAL_LABELS = {
+  row: 'เฉลยทีละข้อ',
+  end: 'เฉลยหลังส่งทั้งชุด',
+  matchEnd: 'เฉลยหลังทำครบ',
+  // A written answer: a button opens this answer's key whenever asked.
+  writtenRow: 'เฉลยได้ทันที',
+};
+
+export function RevealTimingToggle({ mode, onChange, rowLabel = REVEAL_LABELS.row, endLabel = REVEAL_LABELS.matchEnd }) {
   return (
     <div className="vmx-reveal-toggle" role="group" aria-label="เวลาที่แสดงเฉลย">
       <button type="button" className={mode === REVEAL_ROW ? 'is-on' : ''} aria-pressed={mode === REVEAL_ROW} onClick={() => onChange(REVEAL_ROW)}>{rowLabel}</button>

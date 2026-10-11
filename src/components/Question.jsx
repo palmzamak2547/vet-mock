@@ -13,7 +13,7 @@ import NavIcon from './NavIcon.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
 import VoiceInputButton from './VoiceInputButton.jsx';
 import HandwritingInput from './HandwritingInput.jsx';
-import { useRevealTiming, RevealTimingToggle, REVEAL_ROW, WrittenReveal } from './AnswerReveal.jsx';
+import { useRevealTiming, RevealTimingToggle, REVEAL_ROW, REVEAL_LABELS, WrittenReveal } from './AnswerReveal.jsx';
 import { unlockAudio } from '../lib/audio-unlock.js';
 import QSourceChip from './QSourceChip.jsx';
 import PinButton from './PinButton.jsx';
@@ -235,7 +235,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   const writtenReveal = Boolean(revealAnswer) && (currentQ.type === 'short' || currentQ.type === 'essay');
   const writtenRevealBar = writtenReveal ? (
     <div className="vmx-written-reveal-bar">
-      <RevealTimingToggle mode={writtenTiming} onChange={setWrittenTiming} rowLabel="เฉลยได้ทันที" endLabel="เฉลยหลังส่งทั้งชุด" />
+      <RevealTimingToggle mode={writtenTiming} onChange={setWrittenTiming} rowLabel={REVEAL_LABELS.writtenRow} endLabel={REVEAL_LABELS.end} />
       {writtenTiming === REVEAL_ROW && !writtenRevealed && (
         <button type="button" className="vmx-written-reveal-btn" onClick={() => setWrittenRevealed(true)}>ดูเฉลยข้อนี้</button>
       )}
