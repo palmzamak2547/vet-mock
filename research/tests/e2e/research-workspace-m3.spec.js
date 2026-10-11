@@ -146,9 +146,9 @@ test('dose-response: the arms turn on the shared-EC50 comparison, and the whole-
   result = await compute(page);
   await expect(row(result, th['lab.test.oneCurve'])).toContainText('325.00');
 
-  // Without a group there is nothing to compare: the option goes back to none.
+  // Without a group there is nothing to compare: the option is no longer offered (the spec says none).
   await page.locator('#rs-role-group').selectOption('');
-  await expect(page.locator('#rs-opt-compare')).toHaveValue('none');
+  await expect(page.locator('#rs-opt-compare')).toHaveCount(0);
 });
 
 test('qPCR with two reference genes: Livak, then Pfaffl with an efficiency typed for each gene', async ({ page }) => {

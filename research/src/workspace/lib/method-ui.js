@@ -57,7 +57,9 @@ export const METHOD_UI = {
   // area files' allowed values; an option the spec does not know yet is never shown (visibleOptions).
   'anova.twoWay': { pane: 'lab', input: 'dataset', roles: [{ role: 'outcome', accept: NUM }, { role: 'group', accept: CAT }, { role: 'factorB', accept: CAT }], options: { ssType: ['III', 'II', 'I'], interaction: [true, false], posthoc: ['none', 'tukey'] }, test: true },
   // M3a [M3-DESIGN.md C11]: factorB is a second within-animal factor here (one row per animal per combination).
-  'anova.repeated': { pane: 'lab', input: 'dataset', roles: [{ role: 'outcome', accept: NUM }, { role: 'subject', accept: SUBJECT }, { role: 'time', accept: [...CAT, 'count'] }, { role: 'factorB', accept: CAT, optional: true }, { role: 'group', accept: CAT, optional: true }], options: { sphericity: ['gg', 'hf', 'none'], mauchly: [true, false] }, test: true },
+  // time and factorB are read as categories by the engine (anovarm.js), so a column of numbers coded 1 to 5 is not listed
+  // until it is set to Ordered categories in the codebook (the role hints say so).
+  'anova.repeated': { pane: 'lab', input: 'dataset', roles: [{ role: 'outcome', accept: NUM }, { role: 'subject', accept: SUBJECT }, { role: 'time', accept: CAT }, { role: 'factorB', accept: CAT, optional: true }, { role: 'group', accept: CAT, optional: true }], options: { sphericity: ['gg', 'hf', 'none'], mauchly: [true, false] }, test: true },
   'test.friedman': { pane: 'lab', input: 'dataset', roles: [{ role: 'outcome', accept: [...NUM, 'ordinal'] }, { role: 'group', accept: CAT }, { role: 'subject', accept: SUBJECT }], options: {}, test: true },
   'posthoc.dunnett': { pane: 'lab', input: 'dataset', roles: [{ role: 'outcome', accept: NUM }, { role: 'group', accept: CAT, level: 'controlLevel' }], options: {}, test: true },
   'posthoc.dunn': { pane: 'lab', input: 'dataset', roles: [{ role: 'outcome', accept: [...NUM, 'ordinal'] }, { role: 'group', accept: CAT }], options: { adjust: ['holm', 'bonferroni', 'sidak', 'bh', 'none'] }, test: true },
@@ -246,6 +248,10 @@ export function buildSpec({ method, datasetId = null, recipeRev = 0, design = nu
   else if (ui?.input === 'counts') input = { kind: 'counts', counts: { ...(counts || {}) } };
   else input = { kind: 'dataset', datasetId, recipeRev };
   const keep = Object.fromEntries(Object.entries(roles).filter(([, v]) => v && (!Array.isArray(v) || v.length)));
+  // a dose-response comparison needs a group: with none, the spec says no comparison, not a shared EC50 that the
+  // result would then list as applied beside a note that only one curve was fitted
+  const opts = { ...options };
+  if (method === 'nls.doseResponse' && !keep.group && opts.compare !== undefined) opts.compare = 'none';
   return {
     specVersion: 1,
     method,
@@ -253,7 +259,7 @@ export function buildSpec({ method, datasetId = null, recipeRev = 0, design = nu
     design: design || null,
     roles: keep,
     levels: { ...levels },
-    options: { ...options },
+    options: opts,
     cluster: { route: cluster?.route ?? null, column: cluster?.column ?? null },
   };
 }
@@ -338,6 +344,17 @@ export function optionsOnGroupChange(method, hadGroup, hasGroup, options) {
   if (!hasGroup && options.compare !== 'none') return { ...options, compare: 'none' };
   if (hasGroup && !hadGroup && options.compare === 'none') return { ...options, compare: 'ec50' };
   return options;
+}
+
+/**
+ * Whether the screen offers an option for the roles chosen: the comparison of dose-response curves needs a group.
+ * @param {string} method
+ * @param {string} name
+ * @param {Record<string, any>} roles
+ */
+export function optionShown(method, name, roles) {
+  if (method === 'nls.doseResponse' && name === 'compare') return Boolean(roles?.group);
+  return true;
 }
 
 /**

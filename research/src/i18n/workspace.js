@@ -1244,7 +1244,7 @@ const ROWS = [
   ['ws.roleFor.anovaTwoWay.group', 'ปัจจัยแรก', 'First factor'],
   ['ws.roleHintFor.anovaTwoWay.group', 'คอลัมน์ที่แบ่งสัตว์เป็นกลุ่มแบบแรก เช่นสูตรอาหาร', 'The column that splits the animals the first way, such as diet'],
   ['ws.roleFor.anovaRepeated.time', 'ครั้งที่วัด (ปัจจัยแรกที่วัดในตัวเดิม)', 'Time point (first within-animal factor)'],
-  ['ws.roleHintFor.anovaRepeated.time', 'คอลัมน์ที่บอกว่าแถวนั้นวัดครั้งไหน ข้อมูลต้องเป็นหนึ่งแถวต่อสัตว์ต่อครั้ง (แบบยาว)', 'The column that says when the row was measured. The data need one row per animal and time (long form).'],
+  ['ws.roleHintFor.anovaRepeated.time', 'คอลัมน์ที่บอกว่าแถวนั้นวัดครั้งไหน ข้อมูลต้องเป็นหนึ่งแถวต่อสัตว์ต่อครั้ง (แบบยาว) ถ้าครั้งที่วัดเป็นตัวเลข เช่น 1 ถึง 5 ให้ตั้งชนิดเป็นกลุ่มมีลำดับในหน้ารหัสตัวแปรก่อน', 'The column that says when the row was measured. The data need one row per animal and time (long form). If the times are numbers, such as 1 to 5, set the column to Ordered categories in the Codebook first.'],
   ['ws.roleFor.anovaRepeated.group', 'กลุ่มที่ไม่เปลี่ยนตามเวลา (ถ้ามี)', 'Group that stays the same over time (if any)'],
   ['ws.roleHintFor.anovaRepeated.group', 'เช่นกลุ่มยา ถ้าใส่ จะได้ผลของกลุ่ม เวลา และผลร่วม', 'Such as the treatment group. With it you get the group, the time and their interaction.'],
   ['ws.roleFor.testFriedman.group', 'สภาวะหรือเวลาที่เทียบ', 'Conditions or times compared'],

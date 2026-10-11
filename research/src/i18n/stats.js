@@ -225,7 +225,7 @@ export default {
     'stats.error.missingRole': 'ยังเลือกตัวแปรไม่ครบสำหรับวิธีนี้',
     'stats.error.unknownColumn': 'ไม่พบคอลัมน์ที่เลือกในข้อมูลชุดนี้',
     'stats.error.needsNumber': 'วิธีนี้ต้องใช้ตัวแปรที่เป็นตัวเลข',
-    'stats.error.needsCategory': 'ตัวแปรกลุ่มต้องเป็นหมวดหมู่',
+    'stats.error.needsCategory': 'คอลัมน์ที่ใช้แบ่งสัตว์ (กลุ่ม ครั้งที่วัด หรือปัจจัยที่สอง) ต้องเป็นหมวดหมู่ ถ้าเป็นตัวเลข ให้ตั้งชนิดเป็นกลุ่มมีลำดับในหน้ารหัสตัวแปรก่อน',
     'stats.error.noPValues': 'ยังไม่มีค่า p ให้ปรับ',
     'stats.error.pOutOfRange': 'ค่า p ต้องอยู่ระหว่าง 0 ถึง 1',
 
@@ -486,7 +486,7 @@ export default {
     'stats.error.missingRole': 'Not every variable this method needs has been chosen yet.',
     'stats.error.unknownColumn': 'The chosen column is not in this dataset.',
     'stats.error.needsNumber': 'This method needs a number variable.',
-    'stats.error.needsCategory': 'The group variable must be a category.',
+    'stats.error.needsCategory': 'A column that splits the animals (group, time point or second factor) must hold categories. If it is made of numbers, set it to Ordered categories in the Codebook first.',
     'stats.error.noPValues': 'There are no p-values to adjust yet.',
     'stats.error.pOutOfRange': 'A p-value must be between 0 and 1.',
 

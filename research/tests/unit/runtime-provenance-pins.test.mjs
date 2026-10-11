@@ -77,11 +77,11 @@ test('maximum likelihood is what a logistic fit is, so the line does not announc
 
 test('qPCR names its fold-change method, and the two-group test only when a t-test ran', () => {
   const t = envFor('qpcr.relative', { method: 'livak', efficiency: {}, test: 'welch' }, { tests: [{ id: 'tTest' }] });
-  assert.equal(lineOf(t, 'en'), 'qPCR relative quantification (2-ΔΔCt) | 95% CI | Livak method | Welch t-test on ΔCt');
+  assert.equal(lineOf(t, 'en'), 'qPCR relative quantification (ΔΔCt) | 95% CI | Livak method | Welch t-test on ΔCt');
   const pf = envFor('qpcr.relative', { method: 'pfaffl', efficiency: { c3: 1.97 }, test: 'pooled' }, { tests: [{ id: 'tTest' }] });
-  assert.equal(lineOf(pf, 'en'), 'qPCR relative quantification (2-ΔΔCt) | 95% CI | Pfaffl method (corrected for the amplification efficiency of each gene) | pooled-variance t-test on ΔCt');
+  assert.equal(lineOf(pf, 'en'), 'qPCR relative quantification (ΔΔCt) | 95% CI | Pfaffl method (corrected for the amplification efficiency of each gene) | pooled-variance t-test on ΔCt');
   const three = envFor('qpcr.relative', { method: 'livak', efficiency: {}, test: 'welch' }, { tests: [{ id: 'anova' }] });
-  assert.equal(lineOf(three, 'en'), 'qPCR relative quantification (2-ΔΔCt) | 95% CI | Livak method', 'three groups run the F test; "test: welch" would be untrue');
+  assert.equal(lineOf(three, 'en'), 'qPCR relative quantification (ΔΔCt) | 95% CI | Livak method', 'three groups run the F test; "test: welch" would be untrue');
   const rows = provenanceOptions(pf, (k, p) => translate('en', k, p));
   assert.deepEqual(rows.find((r) => r[0] === 'Amplification factor of each gene'), ['Amplification factor of each gene', 'c3: 1.97']);
   assert.deepEqual(provenanceOptions(t, (k, p) => translate('en', k, p)).find((r) => r[0] === 'Amplification factor of each gene')[1], 'every gene taken as 2 (doubling each cycle)');
