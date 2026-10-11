@@ -7,7 +7,8 @@
 // notes, bookmarks and SR cards, its pending sync operations, the in-flight
 // exam and its PDF ink stayed on the device for the next person to use it.
 //
-// Only stores keyed to this account id are touched. The signed-out
+// Only stores keyed to this account id are touched, plus dead legacy keys
+// nothing reads any more (LEGACY_UNOWNED_DEAD below). The signed-out
 // workspace, other accounts on the same browser, and the device tools in
 // local-extras.js (flashcards, image-occlusion decks, pinboard: not keyed to
 // any account) are left alone.
@@ -19,6 +20,10 @@
 const USER_DATA_PREFIXES = ['vmx-user-data-v1:', 'vmx-user-sync-v1:', 'vmx-user-data-v2:', 'vmx-external-docs-v2:'];
 const OPERATION_PREFIXES = ['vmx-user-op-v1:', 'vmx-user-intent-v2:'];
 const LEGACY_INFLIGHT = 'vmx-inflight-exam';
+// Dead keys nothing reads any more that could still hold this account's
+// private data without saying whose it is: the pre-5.141.6 external-doc
+// recents list (links and titles of documents read through a connection).
+const LEGACY_UNOWNED_DEAD = ['vmx-external-docs-v1'];
 
 async function defaults() {
   const [events, pdf] = await Promise.all([import('./study-event-log.js'), import('./pdf-annotations.js')]);
@@ -40,7 +45,7 @@ export async function purgeLocalAccountData(userId, deps = {}) {
   try {
     const storage = d.storage;
     const id = encodeURIComponent(userId);
-    const exact = new Set([...USER_DATA_PREFIXES.map((p) => `${p}${id}`), `vmx-inflight-exam:user:${userId}`]);
+    const exact = new Set([...USER_DATA_PREFIXES.map((p) => `${p}${id}`), `vmx-inflight-exam:user:${userId}`, ...LEGACY_UNOWNED_DEAD]);
     const ops = OPERATION_PREFIXES.map(prefix => `${prefix}${id}:`);
     const doomed = [];
     for (let i = 0; i < storage.length; i++) {

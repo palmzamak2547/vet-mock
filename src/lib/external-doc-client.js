@@ -18,6 +18,10 @@ import { safeLinkUrl } from './safe-url.js';
 
 const RECENT_KEY = 'vmx-external-docs-v2:';
 const RECENT_MAX = 8;
+// 5.140.0 to 5.141.5 kept one list for everybody on the browser, private
+// document links and titles included. Nothing reads it since recents became
+// per account, so the first read removes it rather than leave it behind.
+const LEGACY_UNOWNED_RECENT_KEY = 'vmx-external-docs-v1';
 
 export const PROVIDER_LABELS = { notion: 'Notion', gdocs: 'Google Docs', gsheets: 'Google Sheets' };
 export const CONNECT_PROVIDER_LABELS = { google: 'Google', notion: 'Notion' };
@@ -158,6 +162,7 @@ export async function disconnectExternalConnection(provider, options = {}) {
 }
 
 function readRecents(ownerId) {
+  try { localStorage.removeItem(LEGACY_UNOWNED_RECENT_KEY); } catch { /* storage blocked: nothing to remove */ }
   try {
     const raw = JSON.parse(localStorage.getItem(RECENT_KEY + encodeURIComponent(ownerId || 'guest')) || '[]');
     if (!Array.isArray(raw)) return [];

@@ -46,6 +46,8 @@ test('every device store keyed to the deleted account is purged, and nothing els
     [`vmx-user-data-v2:${UID}`]: '{"archive":{"local":{"notes":{"private":"keep until deletion"}}}}',
     [`vmx-user-intent-v2:${UID}:pending-id`]: '{}',
     [`vmx-external-docs-v2:${UID}`]: '[{"title":"Private recent"}]',
+    // The pre-5.141.6 recents list nobody reads any more, owner unknown.
+    'vmx-external-docs-v1': '[{"title":"Unowned private recent"}]',
     [`vmx-inflight-exam:user:${UID}`]: '{}',
     'vmx-inflight-exam': JSON.stringify({ ownerId: UID, questions: [1] }),
     // Not this account's: another account, the signed-out workspace, device tools.

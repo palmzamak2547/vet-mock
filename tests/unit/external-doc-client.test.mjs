@@ -11,7 +11,7 @@ function setup(t) {
   const previous = { fetch: globalThis.fetch, sdk: globalThis.__externalClientSdk, storage: globalThis.localStorage };
   let session = { user: { id: 'account-a' }, access_token: 'a-token' };
   const store = new Map(), calls = [];
-  globalThis.localStorage = { getItem: key => store.get(key) ?? null, setItem: (key, value) => store.set(key, value) };
+  globalThis.localStorage = { getItem: key => store.get(key) ?? null, setItem: (key, value) => store.set(key, value), removeItem: key => store.delete(key) };
   globalThis.__externalClientSdk = async () => ({ auth: { getSession: async () => ({ data: { session } }) } });
   globalThis.fetch = async (url, options) => { calls.push({ url, options }); return { ok: true, json: async () => doc }; };
   t.after(() => { globalThis.fetch = previous.fetch; globalThis.__externalClientSdk = previous.sdk; globalThis.localStorage = previous.storage; });
@@ -32,6 +32,13 @@ test('private document recents stay in their initiating account, with guest and 
   assert.equal(client.loadRecentExternalDocs('account-a').length, 1);
   client.rememberRecentExternalDoc({ url: doc.sourceUrl, provider: doc.provider }, 'encoded/owner');
   assert.ok(store.has('vmx-external-docs-v2:encoded%2Fowner'));
+});
+
+test('the old list shared by everyone on the browser is removed on the first read', t => {
+  const { store } = setup(t);
+  store.set('vmx-external-docs-v1', JSON.stringify([{ url: doc.sourceUrl, provider: 'gdocs', title: 'Unowned private title' }]));
+  assert.deepEqual(client.loadRecentExternalDocs('account-a'), []);
+  assert.equal(store.has('vmx-external-docs-v1'), false, 'private links and titles of an unknown owner do not stay on the device');
 });
 
 test('late session resolution cannot authorize an old action as the next account', async t => {
