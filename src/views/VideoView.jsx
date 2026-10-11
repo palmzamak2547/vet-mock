@@ -513,7 +513,7 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
     // shapes the player supports; allowing only a video id would reject the
     // playlist and channel entries the library itself is built from.
     if (!getVideoId(form.url) && !getPlaylistId(form.url) && !isChannelUrl(form.url)) {
-      alertDialog('ลิงก์นี้เปิดดูไม่ได้ กรุณาวางลิงก์คลิป playlist หรือ channel ของ YouTube');
+      alertDialog('ลิงก์นี้เปิดดูไม่ได้ กรุณาวางลิงก์คลิป เพลย์ลิสต์ หรือช่องของ YouTube');
       return;
     }
     const newVid = { ...form, custom: true };
@@ -556,7 +556,7 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
       <div className="vmx-hero">
         <h1>คลิป<em>ย้อนหลัง</em></h1>
         <p>
-          คลิปจากช่อง <a href="https://www.youtube.com/@dai.1387" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage-text)' }}>Dai (@dai.1387)</a> และอื่นๆ — คลิกเข้าไปเพื่อเลือกคลิปใน playlist ได้
+          คลิปจากช่อง <a href="https://www.youtube.com/@dai.1387" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-sage-text)' }}>Dai (@dai.1387)</a> และอื่นๆ — คลิกเข้าไปเพื่อเลือกคลิปในเพลย์ลิสต์ได้
           {watchedCount > 0 && <>, ดูแล้ว <strong>{watchedCount}</strong> คลิป</>}
         </p>
       </div>
@@ -768,8 +768,8 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
         )}
         {/* Playlist count badge (top-left ribbon) */}
         {playlist && playlistPreview && (
-          <div style={{ position: 'absolute', top: 8, left: 8, padding: '3px 9px', background: 'rgba(0,0,0,0.78)', color: 'white', borderRadius: 6, fontSize: 11, fontFamily: 'var(--vmx-mono)', fontWeight: 600, letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: 5 }}>
-            PLAYLIST, {playlistPreview.count}
+          <div style={{ position: 'absolute', top: 8, left: 8, padding: '3px 9px', background: 'rgba(0,0,0,0.78)', color: 'white', borderRadius: 6, fontSize: 11, fontFamily: 'var(--vmx-sans)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 5 }}>
+            เพลย์ลิสต์ {playlistPreview.count} คลิป
           </div>
         )}
       </div>
@@ -793,8 +793,8 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
   return (
     <div ref={previewRef} style={{ width: '100%', aspectRatio: '16/9', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 4, color: 'white' }}>
       <div style={{ fontSize: 50 }}>{playlist ? '📋' : isChannel ? '📺' : '🎬'}</div>
-      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', letterSpacing: '0.1em', fontWeight: 600 }}>
-        {playlist ? 'PLAYLIST' : isChannel ? 'CHANNEL' : 'VIDEO'}
+      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-sans)', fontWeight: 600 }}>
+        {playlist ? 'เพลย์ลิสต์' : isChannel ? 'ช่อง' : 'คลิป'}
       </div>
       {playlist && previewLoading && (
         <div style={{ fontSize: 11, marginTop: 4, opacity: 0.85 }}>กำลังโหลดหน้าปก…</div>
@@ -917,7 +917,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
           setListError(r.status === 429
             ? 'กำลังโหลดหลายรายการพร้อมกัน รอสักครู่แล้วกดลองใหม่'
             : data?.reason === 'playlist_not_found'
-              ? 'playlist นี้ไม่มีอยู่บน YouTube แล้ว'
+              ? 'เพลย์ลิสต์นี้ไม่มีอยู่บน YouTube แล้ว'
               : 'เชื่อมต่อ YouTube ไม่ได้ชั่วคราว');
           setLoadingList(false);
           return;
@@ -1221,11 +1221,11 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                 || listReason === 'empty_playlist'
                 || listReason === 'playlist_not_found';
               const headline = listReason === 'playlist_not_found'
-                ? 'playlist นี้ไม่มีอยู่บน YouTube แล้ว'
+                ? 'เพลย์ลิสต์นี้ไม่มีอยู่บน YouTube แล้ว'
                 : listReason === 'empty_playlist'
-                  ? 'playlist นี้ยังไม่มีคลิป'
+                  ? 'เพลย์ลิสต์นี้ยังไม่มีคลิป'
                   : listReason === 'multi_channel'
-                    ? 'playlist นี้รวมคลิปจากหลายช่อง จึงดึงรายชื่อมาแสดงไม่ได้'
+                    ? 'เพลย์ลิสต์นี้รวมคลิปจากหลายช่อง จึงดึงรายชื่อมาแสดงไม่ได้'
                     : (listError || 'ดึงรายการคลิปไม่ได้ชั่วคราว');
               // Each permanent cause needs its own next step: pressing the
               // player's list button works for a multi-channel playlist, and
@@ -1233,7 +1233,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
               const advice = listReason === 'playlist_not_found'
                 ? 'อาจถูกเจ้าของลบหรือตั้งเป็นส่วนตัว หากยังเปิดใน YouTube ไม่ได้เช่นกัน แปลว่าลิงก์นี้หมดอายุแล้ว'
                 : listReason === 'empty_playlist'
-                  ? 'เจ้าของยังไม่ได้ใส่คลิปลงใน playlist นี้'
+                  ? 'เจ้าของยังไม่ได้ใส่คลิปลงในเพลย์ลิสต์นี้'
                   : null;
               return (
                 <div style={{ marginTop: 14, padding: '10px 12px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
@@ -1299,7 +1299,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
             <div className="vmx-player-sidebar" style={{ background: 'var(--clr-surface-2)', borderLeft: '1px solid var(--clr-border)', display: 'flex', flexDirection: 'column', maxHeight: 'min(80vh, 700px)' }}>
               <div style={{ padding: '12px 14px', borderBottom: '1px solid var(--clr-border)', display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <div className="vmx-kicker" style={{ color: 'var(--clr-ink-soft)', display: 'flex', justifyContent: 'space-between' }}>
-                  <span>Playlist</span>
+                  <span>เพลย์ลิสต์</span>
                   <span>{filteredItems.length}/{playlistItems.length}</span>
                 </div>
                 {playlistItems.length >= 6 && (
@@ -1423,7 +1423,7 @@ function AddEditModal({ form, setForm, save, onClose, editing }) {
             type="url"
             value={form.url}
             onChange={(e) => setForm({ ...form, url: e.target.value })}
-            placeholder="https://youtu.be/xxx หรือ playlist link"
+            placeholder="https://youtu.be/xxx หรือลิงก์เพลย์ลิสต์"
           />
           {form.url && (
             <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 6 }}>
@@ -1456,7 +1456,7 @@ function AddEditModal({ form, setForm, save, onClose, editing }) {
           </div>
           <div className="vmx-form-group">
             <label htmlFor="vmx-video-duration">ความยาว (optional)</label>
-            <input id="vmx-video-duration" value={form.duration} onChange={(e) => setForm({ ...form, duration: e.target.value })} placeholder="10:30 หรือ Playlist" />
+            <input id="vmx-video-duration" value={form.duration} onChange={(e) => setForm({ ...form, duration: e.target.value })} placeholder="10:30 หรือ เพลย์ลิสต์" />
           </div>
         </div>
 

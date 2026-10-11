@@ -127,7 +127,7 @@ export default function ClozeEditor({
         return;
       }
       if (cards.length === 0) {
-        setError('บันทึกไม่ได้ — ลองเช็ค cloze marks');
+        setError('บันทึกไม่ได้ — ลองเช็ก cloze marks');
         return;
       }
       onSave?.(cards);

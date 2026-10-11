@@ -72,7 +72,7 @@ export default function ReportConcern({ topicId, sectionId, sectionHeading }) {
       {msg && <div role="alert" style={{ fontSize: 12, color: 'var(--clr-rose-text)', marginTop: 6 }}>{msg}</div>}
       <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
         <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={submit} disabled={state === 'sending' || !text.trim()}>
-          {state === 'sending' ? 'กำลังส่ง...' : 'ส่งข้อกังวล'}
+          {state === 'sending' ? 'กำลังส่ง…' : 'ส่งข้อกังวล'}
         </button>
         <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setOpen(false); setText(''); setState('idle'); setMsg(''); }}>
           ยกเลิก

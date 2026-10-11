@@ -57,7 +57,7 @@ export default function NextActionCard({
           ? `${mins} นาทีที่แล้ว`
           : `${Math.round(mins / 60)} ชั่วโมงที่แล้ว`;
       out.push({
-        title: pendingResume.legacy ? 'พบชุดค้างจากรุ่นก่อน' : pendingResume.submitted ? 'กู้ผลชุดที่ยังบันทึกไม่สำเร็จ' : 'ทำต่อจากครั้งล่าสุด',
+        title: pendingResume.legacy ? 'พบชุดค้างจากเวอร์ชันก่อน' : pendingResume.submitted ? 'กู้ผลชุดที่ยังบันทึกไม่สำเร็จ' : 'ทำต่อจากครั้งล่าสุด',
         sub: pendingResume.legacy ? 'ยืนยันเจ้าของก่อนเปิดคำตอบและกู้คืน' : `ตอบไปแล้ว ${pendingResume.answered}/${pendingResume.qCount} ข้อ (${timeAgo})`,
         cta: pendingResume.legacy ? 'ตรวจแล้วกู้คืน' : pendingResume.submitted ? 'กู้ผลชุดนี้' : 'ทำต่อ',
         kind: 'resume',

@@ -244,7 +244,7 @@ test('B42: on a phone the exam header parts never overlap', () => {
   assert.match(phone, /\.vmx-exam-top-right \{ gap: 6px; flex-wrap: wrap; justify-content: flex-end; row-gap: 4px; \}/,
     'the clock and live score wrap inside their track instead of spilling into the middle');
   assert.match(CSS, /@media \(max-width: 379px\) \{\s*\n\s*\.vmx-exam-type-chip \{ display: none; \}/,
-    'below 380 px the SHORT/WRITING chip leaves; the card\'s own badge already says ตอบสั้น/เขียนบรรยาย');
+    'below 380 px the ตอบสั้น/เขียนบรรยาย chip leaves; the card\'s own badge already says the same words');
   assert.match(CSS, /\.vmx-exam-type-chip \{ display: inline-flex; \}/);
   assert.match(EXAM, /className="vmx-exam-type-chip"/);
   assert.doesNotMatch(EXAM.slice(EXAM.indexOf('vmx-exam-type-chip') - 200, EXAM.indexOf('vmx-exam-type-chip') + 700), /display: 'inline-flex'/,
@@ -254,8 +254,12 @@ test('B42: on a phone the exam header parts never overlap', () => {
   const timer = mono(5, 16) + 2 * 14 + 2;
   const score = mono('✓ 10/12'.length, 13);
   const progress = mono(2, 16) + mono(' / 50'.length, 13);
-  const chip = 8 + 12 + 4 + mono('WRITING'.length, 11, 0.66) + 8 + 8;
-  for (const vw of [320, 340, 360, 375, 390]) {
+  // The chip says the card badge's words in Sarabun 700 at 11 px with no
+  // tracking. Measured in Chromium (2026-10-11) with public/fonts/sarabun-700.woff2:
+  // เขียนบรรยาย 60.8 px, ตอบสั้น 34.4 px. The wider label sets the chip.
+  assert.match(EXAM, /currentQ\.type === 'essay' \? 'เขียนบรรยาย' : 'ตอบสั้น'/);
+  const chip = 8 + 12 + 4 + 60.8 + 8 + 8;
+  for (const vw of [320, 340, 360, 375, 380, 390]) {
     const content = vw - 32;
     const middle = progress + (vw <= 379 ? 0 : chip);
     const track = (content - 2 * 8 - middle) / 2;

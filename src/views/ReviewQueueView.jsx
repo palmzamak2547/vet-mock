@@ -142,7 +142,7 @@ export default function ReviewQueueView({ goHome, setView, user }) {
           <h1>คิว <em>รอตรวจ</em></h1>
         </div>
         <div style={{ ...emptyPanelStyle, color: 'var(--clr-ink-soft)' }}>
-          กำลังตรวจสิทธิ์...
+          กำลังตรวจสิทธิ์…
         </div>
       </>
     );
@@ -548,7 +548,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
               <div style={{ marginBottom: 16 }}>
                 {reviewsLoading ? (
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', padding: '8px 0' }}>
-                    โหลด...
+                    กำลังโหลด…
                   </div>
                 ) : !pastReviews || pastReviews.length === 0 ? (
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', padding: '8px 12px', background: 'var(--clr-bg)', borderRadius: 8 }}>
@@ -618,7 +618,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
               )}
               {submitting && voteMode === 'approve' && (
                 <div style={{ marginTop: 8, fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', textAlign: 'center' }}>
-                  กำลังส่ง approve...
+                  กำลังส่ง approve…
                 </div>
               )}
             </>
@@ -717,7 +717,7 @@ function FeedbackPrompt({ mode, feedback, onFeedbackChange, onCancel, onSubmit, 
               borderColor: config.accent,
             }}
           >
-            {submitting ? 'กำลังส่ง...' : config.confirmLabel}
+            {submitting ? 'กำลังส่ง…' : config.confirmLabel}
           </button>
         </div>
       </div>

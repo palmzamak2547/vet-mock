@@ -41,7 +41,7 @@ test('signing out on the page calls the same hooks and shows the sign-in card', 
   const signedIn = hooksOf(inst);
   const tree = inst.update({ user: null });
   assert.deepEqual(hooksOf(inst), signedIn, 'the view called a different number of hooks after sign-out');
-  assert.match(textOf(tree), /Login เพื่อส่งคำถาม/);
+  assert.match(textOf(tree), /เข้าสู่ระบบเพื่อส่งคำถาม/);
   inst.unmount();
 });
 
@@ -50,6 +50,6 @@ test('signing in on the page calls the same hooks and shows the form', () => {
   const signedOut = hooksOf(inst);
   const tree = inst.update({ user: { id: 'u1' } });
   assert.deepEqual(hooksOf(inst), signedOut, 'the view called a different number of hooks after sign-in');
-  assert.doesNotMatch(textOf(tree), /Login เพื่อส่งคำถาม/);
+  assert.doesNotMatch(textOf(tree), /เข้าสู่ระบบเพื่อส่งคำถาม/);
   inst.unmount();
 });

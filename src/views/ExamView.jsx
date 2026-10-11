@@ -77,7 +77,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
           <button
             type="button"
             onClick={exitExam}
-            title="ออกจากชุดนี้ — คำตอบยังถูกเก็บไว้ผ่าน auto-save"
+            title="ออกจากชุดนี้ — คำตอบบันทึกอัตโนมัติไว้แล้ว"
             aria-label="ออกจากชุดนี้"
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             style={{ padding: '4px 10px', fontSize: 13, marginRight: 8, display: 'inline-flex', alignItems: 'center', gap: 4 }}
@@ -99,11 +99,12 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
               color: 'var(--clr-gold-text)',
               fontSize: 11,
               fontWeight: 700,
-              fontFamily: 'var(--vmx-mono)',
-              letterSpacing: '0.06em',
+              // The card's own badge words (Question.jsx TYPE_LABEL). Thai takes
+              // the sans stack and no tracking: the mono stack has no Thai glyphs.
+              fontFamily: 'var(--vmx-sans)',
               alignItems: 'center', gap: 4, verticalAlign: 'middle',
             }}>
-              <NavIcon name="pen" size={12} /> {currentQ.type === 'essay' ? 'WRITING' : 'SHORT'}
+              <NavIcon name="pen" size={12} /> {currentQ.type === 'essay' ? 'เขียนบรรยาย' : 'ตอบสั้น'}
             </span>
           )}
         </div>

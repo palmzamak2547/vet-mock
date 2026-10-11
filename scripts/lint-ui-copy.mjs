@@ -4,7 +4,7 @@
 // ============================================================
 // Usage: node scripts/lint-ui-copy.mjs [--write] [--list]
 //
-// Three rules over the copy in src/views, src/components, src/lib (not
+// Four rules over the copy in src/views, src/components, src/lib (not
 // *.generated.*), src/hooks, src/App.jsx and src/main.jsx:
 //
 //   1. No middle dot (·). The app separates clauses with a space, a comma or
@@ -15,6 +15,12 @@
 //      docs/ui-copy-budget.json; a file over its number fails, a file with no
 //      row may have none. --write lowers the numbers after a cleanup and
 //      never raises one.
+//   4. One spelling per word: เช็ก (not เช็ค), อัป/อัปเดต (not อัพ/อัพเดต), and
+//      the ellipsis character … (not three dots). The old forms are counted
+//      per file in the same budget file under "spellingDrift", with the same
+//      may-only-go-down rule, so screens other packages own can follow later
+//      without failing the gate today. Quoted lecture text under vetwiki/ and
+//      generated files keep the spelling they were written in.
 //
 // Copy means every string, template and JSX text in those files, except:
 //   - the first argument of replace/split/match/test/includes/RegExp and
@@ -42,6 +48,7 @@ import { parse } from '@babel/parser';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const SCANNED = ['src/views', 'src/components', 'src/lib', 'src/hooks', 'src/App.jsx', 'src/main.jsx'];
 export const BUDGET_FILE = 'docs/ui-copy-budget.json';
+const NOTE = 'lint:ui-copy budgets, per file. englishLeaks counts English words the app already has Thai for; spellingDrift counts the old spellings เช็ค, อัพ and three dots (write เช็ก, อัป and …). A number may only go down; a file with no row may have none. Middle dots and นักศึกษา have no budget: they fail outright. "allow" names text that keeps a middle dot on purpose, with the reason.';
 
 const MIDDLE_DOT = '·';
 const STUDENT = 'นักศึกษา';
@@ -150,6 +157,10 @@ export function extractStrings(source, file = '') {
   return out;
 }
 
+// ── The spelling rule: the forms the app settled on (COPY-23) ────────────────
+export const SPELLING = [[/เช็ค/, 'เช็ก'], [/อัพ/, 'อัป'], [/\.\.\./, '…']];
+const SPELLING_EXCLUDED_FILES = /generated|vetwiki\//;
+
 // ── The English-word rule: the copy audit's own lists, unchanged ─────────────
 const LEAK_EXCLUDED_FILES = /generated|vetwiki\/|tts-phonetic|id-migration|AdminView|PrivateNotes|admin-api|DomainDetail|PublicWiki|OAuthSetupHelp|motion-kit|\/lab\/|LabView|VetCalculator|ReviewQueueView|landing\/LandingBody|IgCardStudio|dicom|web-vitals/;
 const LEAK_NON_UI = /console|logger|skipcall|call:(Error|new Error)|className|^var:(STORAGE|KEY)|prop:(id|kind|key|type|icon|color|bg|slot|view|scope|labelEn|kw)$/;
@@ -172,7 +183,7 @@ export const LEAKS = [
   [/\bembed\b/, 'เล่นในแอป'], [/\bsingle-player\b/, 'ไม่เข้าสู่ระบบ'], [/\blist\b/, 'รายการ'], [/\bLearning Curve\b/i, 'กราฟความแม่นยำ'], [/\bdrill\b/, 'ฝึก'],
 ];
 
-/** Sort one module's strings into the three rules. */
+/** Sort one module's strings into the four rules. */
 export function findIssues(records, { allow = [] } = {}) {
   const allowed = (r) => allow.some((a) => a.file === r.file && a.text === r.text);
   const isCopy = (r) => !r.pattern && !r.content && !LOG_CALL.test(r.ctx) && !allowed(r);
@@ -184,7 +195,12 @@ export function findIssues(records, { allow = [] } = {}) {
     const hit = LEAKS.find(([re]) => re.test(r.text));
     if (hit) leaks.push({ ...r, token: r.text.match(hit[0])[0], thai: hit[1] });
   }
-  return { dots, students, leaks };
+  const spelling = [];
+  for (const r of records) {
+    if (!isCopy(r) || SPELLING_EXCLUDED_FILES.test(r.file)) continue;
+    for (const [re, fix] of SPELLING) if (re.test(r.text)) spelling.push({ ...r, token: r.text.match(re)[0], fix });
+  }
+  return { dots, students, leaks, spelling };
 }
 
 function listFiles(root) {
@@ -209,33 +225,52 @@ export function readBudget(root = ROOT) {
 
 /** Scan the tree. Returns what each rule found, and what fails. */
 export function lintTree({ root = ROOT, budget = readBudget(root) } = {}) {
-  const found = { dots: [], students: [], leaks: [] };
+  const found = { dots: [], students: [], leaks: [], spelling: [] };
   for (const abs of listFiles(root)) {
     const file = path.relative(root, abs).split(path.sep).join('/');
     const issues = findIssues(extractStrings(fs.readFileSync(abs, 'utf8'), file), { allow: budget?.allow || [] });
     for (const rule of Object.keys(found)) found[rule].push(...issues[rule]);
   }
-  const leakCounts = {};
-  for (const leak of found.leaks) leakCounts[leak.file] = (leakCounts[leak.file] || 0) + 1;
-  const caps = budget?.englishLeaks || {};
-  const over = Object.entries(leakCounts)
-    .filter(([file, n]) => n > (caps[file] ?? 0))
-    .map(([file, n]) => ({ file, n, cap: caps[file] ?? 0 }));
-  const lowered = Object.entries(caps)
-    .filter(([file, cap]) => (leakCounts[file] || 0) < cap)
-    .map(([file, cap]) => ({ file, n: leakCounts[file] || 0, cap }));
-  return { ...found, leakCounts, over, lowered, ok: !found.dots.length && !found.students.length && !over.length };
+  const countBy = (rows) => {
+    const counts = {};
+    for (const row of rows) counts[row.file] = (counts[row.file] || 0) + 1;
+    return counts;
+  };
+  const against = (counts, caps = {}) => ({
+    over: Object.entries(counts)
+      .filter(([file, n]) => n > (caps[file] ?? 0))
+      .map(([file, n]) => ({ file, n, cap: caps[file] ?? 0 })),
+    lowered: Object.entries(caps)
+      .filter(([file, cap]) => (counts[file] || 0) < cap)
+      .map(([file, cap]) => ({ file, n: counts[file] || 0, cap })),
+  });
+  const leakCounts = countBy(found.leaks);
+  const spellingCounts = countBy(found.spelling);
+  const { over, lowered } = against(leakCounts, budget?.englishLeaks);
+  const { over: spellingOver, lowered: spellingLowered } = against(spellingCounts, budget?.spellingDrift);
+  return {
+    ...found, leakCounts, over, lowered, spellingCounts, spellingOver, spellingLowered,
+    ok: !found.dots.length && !found.students.length && !over.length && !spellingOver.length,
+  };
 }
 
-/** New English-leak numbers: never above the old ones, files at zero dropped. */
-export function lowerBudget(budget, leakCounts) {
-  const englishLeaks = {};
-  const first = !budget?.englishLeaks;
-  for (const [file, n] of Object.entries(leakCounts).sort()) {
-    const cap = first ? n : Math.min(n, budget.englishLeaks[file] ?? 0);
-    if (cap > 0) englishLeaks[file] = cap;
+/** New per-file numbers: never above the old ones, files at zero dropped.
+ *  With no caps yet (the first --write), the counts become the caps. */
+function lowerCaps(caps, counts) {
+  const next = {};
+  for (const [file, n] of Object.entries(counts).sort()) {
+    const cap = caps ? Math.min(n, caps[file] ?? 0) : n;
+    if (cap > 0) next[file] = cap;
   }
-  return { ...budget, englishLeaks };
+  return next;
+}
+
+/** Lower the English-word and spelling budgets. Leaving out spellingCounts
+ *  leaves the spelling budget as it was. */
+export function lowerBudget(budget, leakCounts, spellingCounts) {
+  const next = { ...budget, englishLeaks: lowerCaps(budget?.englishLeaks, leakCounts) };
+  if (spellingCounts) next.spellingDrift = lowerCaps(budget?.spellingDrift, spellingCounts);
+  return next;
 }
 
 function main() {
@@ -245,15 +280,16 @@ function main() {
   const where = (r) => `  ${r.file}:${r.line}  ${r.text.replace(/\s+/g, ' ').slice(0, 110)}`;
   if (args.includes('--list')) {
     for (const leak of result.leaks) console.log(`${where(leak)}  [${leak.token} -> ${leak.thai}]`);
+    for (const hit of result.spelling) console.log(`${where(hit)}  [${hit.token} -> ${hit.fix}]`);
   }
   if (args.includes('--write')) {
-    const next = lowerBudget(budget || {
-      note: 'lint:ui-copy English-word budget, per file. A number may only go down; a file with no row may have none. Middle dots and นักศึกษา have no budget: they fail outright. "allow" names text that keeps a middle dot on purpose, with the reason.',
-      allow: [],
-    }, result.leakCounts);
+    const next = lowerBudget(budget || { note: NOTE, allow: [] }, result.leakCounts, result.spellingCounts);
+    next.note = NOTE;
     fs.writeFileSync(path.join(ROOT, BUDGET_FILE), `${JSON.stringify(next, null, 2)}\n`);
-    const total = Object.values(next.englishLeaks).reduce((a, b) => a + b, 0);
-    console.log(`lint:ui-copy — wrote ${BUDGET_FILE}: ${total} English words across ${Object.keys(next.englishLeaks).length} files`);
+    const sum = (caps) => Object.values(caps).reduce((a, b) => a + b, 0);
+    console.log(`lint:ui-copy — wrote ${BUDGET_FILE}: ${sum(next.englishLeaks)} English words across `
+      + `${Object.keys(next.englishLeaks).length} files, ${sum(next.spellingDrift)} old spellings across `
+      + `${Object.keys(next.spellingDrift).length} files`);
     return;
   }
   if (!budget) {
@@ -276,15 +312,26 @@ function main() {
       result.leaks.filter((l) => l.file === file).forEach((l) => console.error(`  ${where(l)}  [${l.token} -> ${l.thai}]`));
     }
   }
+  if (result.spellingOver.length) {
+    console.error('lint:ui-copy — old spellings over the file budget. Write เช็ก, อัป and … instead of เช็ค, อัพ and three dots:');
+    for (const { file, n, cap } of result.spellingOver) {
+      console.error(`  ${file}: ${n} > budget ${cap}`);
+      result.spelling.filter((l) => l.file === file).forEach((l) => console.error(`  ${where(l)}  [${l.token} -> ${l.fix}]`));
+    }
+  }
   if (!result.ok) {
     process.exitCode = 1;
     return;
   }
-  const total = result.leaks.length;
-  console.log(`lint:ui-copy — OK (0 middle dots, 0 นักศึกษา, ${total} English words within budget)`);
+  console.log(`lint:ui-copy — OK (0 middle dots, 0 นักศึกษา, ${result.leaks.length} English words and `
+    + `${result.spelling.length} old spellings within budget)`);
   if (result.lowered.length) {
     console.log(`  ${result.lowered.length} file(s) are under their English-word budget; run --write to lower it:`);
     result.lowered.forEach(({ file, n, cap }) => console.log(`  ${file}: ${n} < ${cap}`));
+  }
+  if (result.spellingLowered.length) {
+    console.log(`  ${result.spellingLowered.length} file(s) are under their spelling budget; run --write to lower it:`);
+    result.spellingLowered.forEach(({ file, n, cap }) => console.log(`  ${file}: ${n} < ${cap}`));
   }
 }
 

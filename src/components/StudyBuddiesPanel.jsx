@@ -74,7 +74,7 @@ export default function StudyBuddiesPanel({ buddies = {}, selfUserId, onJumpToSu
               <span style={{ flex: 1, fontSize: 13 }}>
                 <strong>{m?.name || 'ยังไม่เลือกวิชา'}</strong>
                 <span style={{ marginLeft: 8, color: 'var(--clr-ink-soft)' }}>
-                  {g.list.length} คน — {g.list.slice(0, 3).map((b) => `${b.avatar || '🐾'} ${b.username || 'guest'}`).join(', ')}
+                  {g.list.length} คน — {g.list.slice(0, 3).map((b) => `${b.avatar || '🐾'} ${b.username || 'นิสิต'}`).join(', ')}
                   {g.list.length > 3 && ` … +${g.list.length - 3}`}
                 </span>
               </span>

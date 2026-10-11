@@ -38,7 +38,7 @@ export function AuthUnavailableState({ onHome }) {
         เข้าสู่ระบบไม่พร้อมใช้งานชั่วคราว
       </h1>
       <p style={{ margin: '0 0 20px', color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
-        ยังฝึกข้อสอบ อ่านโน้ต และใช้เครื่องมือแบบ Guest ได้ตามปกติ แล้วค่อยลองเข้าสู่ระบบอีกครั้งภายหลัง
+        ยังฝึกข้อสอบ อ่านโน้ต และใช้เครื่องมือในโหมดผู้เยี่ยมชมได้ตามปกติ แล้วค่อยลองเข้าสู่ระบบอีกครั้งภายหลัง
       </p>
       <button type="button" className="vmx-btn vmx-btn-primary" onClick={onHome}>
         กลับหน้าแรก

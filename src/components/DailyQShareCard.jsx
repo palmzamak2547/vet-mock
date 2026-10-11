@@ -235,7 +235,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
       a.href = ready.url;
       a.download = `vetmock-daily-q-${todayDate}.png`;
       document.body.appendChild(a); a.click(); a.remove();
-      flash('✓ ดาวน์โหลดรูปแล้ว — อัพ IG Story ได้เลย');
+      flash('✓ ดาวน์โหลดรูปแล้ว — อัป IG Story ได้เลย');
     } catch {
       flash('ดาวน์โหลดไม่ได้, ลองใหม่');
     } finally {
@@ -405,7 +405,7 @@ export default function DailyQShareCard({ todayResult, streak: streakProp, onClo
         <div style={{ marginTop: 12, display: 'flex', gap: 8, fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', flexWrap: 'wrap' }}>
           <span>✓ {correct} ถูก</span>
           <span>, เล่นไป {completed}/{history.length} วัน</span>
-          {streak > 0 && <span>, streak {streak}</span>}
+          {streak > 0 && <span>, ต่อเนื่อง {streak} วัน</span>}
         </div>
 
         {/* Action buttons */}

@@ -224,7 +224,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
     setError(''); setInfo('');
     try {
       await resendVerificationEmail(emailVerifyPending.email);
-      setInfo('✓ ส่งอีเมลยืนยันใหม่แล้ว — เช็ค inbox + junk folder');
+      setInfo('✓ ส่งอีเมลยืนยันใหม่แล้ว — เช็ก inbox + junk folder');
       setResendCooldown(60);
     } catch (err) {
       const msg = err?.message || '';
@@ -316,14 +316,14 @@ export default function AuthView({ onBack, onSuccess, user }) {
           if (/ยืนยันอีเมล|confirm/i.test(msg) || /not confirmed/i.test(signInErr.message || '')) {
             setEmailVerifyPending({ email });
           } else {
-            setInfo('✓ สมัครสำเร็จ! ลอง Login ด้วย email + password ของคุณ');
+            setInfo('✓ สมัครสำเร็จ! ลองเข้าสู่ระบบด้วยอีเมลและรหัสผ่านของคุณ');
             setMode('signin');
           }
         }
       } else if (mode === 'reset') {
         if (!email.trim()) throw new Error('กรุณาใส่อีเมล');
         await sendPasswordReset(email.trim());
-        setInfo(`✓ ส่งลิงก์รีเซ็ตรหัสผ่านไปที่ ${email} แล้ว — เช็คอีเมล (รวม junk folder)`);
+        setInfo(`✓ ส่งลิงก์รีเซ็ตรหัสผ่านไปที่ ${email} แล้ว — เช็กอีเมล (รวม junk folder)`);
       } else if (mode === 'update-password') {
         if (newPassword.length < 8) throw new Error('รหัสผ่านใหม่ต้องยาว 8 ตัวขึ้นไป');
         if (newPassword !== newPasswordConfirm) throw new Error('รหัสผ่านยืนยันไม่ตรงกัน');
@@ -336,7 +336,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
       } else if (mode === 'magic-link') {
         if (!email.trim()) throw new Error('กรุณาใส่อีเมล');
         await signInWithMagicLink(email.trim());
-        setInfo(`✓ ส่งลิงก์ login ไปที่ ${email} แล้ว — กดลิงก์ในอีเมลเพื่อเข้าระบบ (ลิงก์ใช้ได้ 1 ครั้ง, 1 ชั่วโมง)`);
+        setInfo(`✓ ส่งลิงก์เข้าสู่ระบบไปที่ ${email} แล้ว — กดลิงก์ในอีเมลได้เลย (ลิงก์ใช้ได้ 1 ครั้ง ภายใน 1 ชั่วโมง)`);
       } else {
         // signin
         await signInWithEmail(email, password);
@@ -422,7 +422,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
     try { await signInWithLine(); }
     catch (err) {
       if (err?.message?.startsWith('PROVIDER_NOT_CONFIGURED:')) {
-        setError('LINE login ยังไม่เปิดในตอนนี้ — ใช้ Google, email หรือ magic link แทนได้');
+        setError('การเข้าสู่ระบบด้วย LINE ยังไม่เปิดในตอนนี้ — ใช้ Google, อีเมลกับรหัสผ่าน หรือลิงก์ในอีเมลแทนได้');
       } else {
         setError(thaiAuthError(err));
       }
@@ -434,7 +434,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
     try { await signInWithDiscord(); }
     catch (err) {
       if (err?.message?.startsWith('PROVIDER_NOT_CONFIGURED:')) {
-        setError('Discord login ยังไม่เปิดในตอนนี้ — ใช้ Google, email หรือ magic link แทนได้');
+        setError('การเข้าสู่ระบบด้วย Discord ยังไม่เปิดในตอนนี้ — ใช้ Google, อีเมลกับรหัสผ่าน หรือลิงก์ในอีเมลแทนได้');
       } else {
         setError(thaiAuthError(err));
       }
@@ -444,11 +444,11 @@ export default function AuthView({ onBack, onSuccess, user }) {
 
   // ── Heading text per mode ──
   const heading = {
-    signin:           { title: 'ยินดีต้อนรับ',     sub: 'Login เพื่อ sync progress และ join group กับเพื่อน',  cta: 'Login' },
-    signup:           { title: 'สมัครใช้งาน',     sub: 'สร้าง account ใหม่ — ฟรี ไม่มีค่าใช้จ่าย',           cta: 'สมัคร' },
+    signin:           { title: 'ยินดีต้อนรับ',     sub: 'เข้าสู่ระบบเพื่อซิงก์ความคืบหน้า และเข้าร่วมกลุ่มกับเพื่อน',  cta: 'เข้าสู่ระบบ' },
+    signup:           { title: 'สมัครใช้งาน',     sub: 'สร้างบัญชีใหม่ — ฟรี ไม่มีค่าใช้จ่าย',           cta: 'สมัคร' },
     reset:            { title: 'ลืมรหัสผ่าน?',    sub: 'ใส่อีเมลของคุณ เราจะส่งลิงก์รีเซ็ตให้',                cta: 'ส่งลิงก์รีเซ็ต' },
     'update-password':{ title: 'ตั้งรหัสผ่านใหม่', sub: 'ใส่รหัสผ่านใหม่ที่อยากใช้',                          cta: 'บันทึกรหัสผ่าน' },
-    'magic-link':     { title: 'Login ผ่านอีเมล',  sub: 'ไม่ต้องจำรหัสผ่าน — เราจะส่งลิงก์ login ไปที่อีเมลคุณ',  cta: 'ส่งลิงก์ login' },
+    'magic-link':     { title: 'เข้าสู่ระบบผ่านอีเมล',  sub: 'ไม่ต้องจำรหัสผ่าน — เราจะส่งลิงก์เข้าสู่ระบบไปที่อีเมลคุณ',  cta: 'ส่งลิงก์เข้าสู่ระบบ' },
   }[mode];
 
   // Avoid 100-500ms flash of the signin form when AuthView remounts
@@ -458,7 +458,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
   if (shouldAutoRedirect) {
     return (
       <div style={{ padding: '40px 20px', textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 14, fontFamily: 'var(--vmx-mono)' }}>
-        Login เรียบร้อย — กำลังเด้งไปหน้าแรก...
+        เข้าสู่ระบบเรียบร้อย — กำลังไปหน้าแรก…
       </div>
     );
   }
@@ -478,7 +478,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
           <div style={{ padding: 14, borderRadius: 12, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', marginBottom: 16, fontSize: 13, lineHeight: 1.6 }}>
             📧 <strong>ตรวจอีเมลของคุณ</strong><br/>
             <span style={{ color: 'var(--clr-ink-soft)' }}>
-              เราส่งลิงก์ยืนยันไปที่ <code>{emailVerifyPending.email}</code>, คลิกลิงก์นั้นเพื่อยืนยันก่อน Login (อาจอยู่ใน junk/spam)
+              เราส่งลิงก์ยืนยันไปที่ <code>{emailVerifyPending.email}</code>, คลิกลิงก์นั้นเพื่อยืนยันก่อนเข้าสู่ระบบ (อาจอยู่ใน junk/spam)
             </span>
             <div style={{ marginTop: 10, display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
               <button
@@ -496,7 +496,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"
                 style={{ minHeight: 32, fontSize: 12 }}
               >
-                ✓ ยืนยันแล้ว — ไป Login
+                ✓ ยืนยันแล้ว — ไปเข้าสู่ระบบ
               </button>
             </div>
           </div>
@@ -623,7 +623,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                 disabled={loading}
               >
                 <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-                  Login ผ่านลิงก์ในอีเมล (ไม่ต้องใช้รหัสผ่าน)
+                  เข้าสู่ระบบด้วยลิงก์ในอีเมล (ไม่ต้องใช้รหัสผ่าน)
                 </span>
               </button>
             )}
@@ -640,7 +640,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
           {mode === 'signup' && (
             <div className="vmx-form-group">
               <label htmlFor="vmx-auth-username" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span>ชื่อแสดง (Username)</span>
+                <span>ชื่อผู้ใช้</span>
                 <UsernameStatusBadge status={usernameStatus} username={username} />
               </label>
               <input
@@ -776,7 +776,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                   checked={staySignedIn}
                   onChange={(e) => setStaySignedIn(e.target.checked)}
                 />
-                จดจำ session — login ค้างไว้ แม้ปิดเว็บ
+                จดจำการเข้าสู่ระบบไว้ แม้ปิดเว็บ
               </label>
             </div>
           )}
@@ -787,7 +787,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
               ลองผิดมาแล้ว <strong>{attemptCount} ครั้ง</strong> — ถ้าลืมรหัส {' '}
               <button type="button" className="vmx-inline-action" onClick={() => setMode('reset')} style={{ fontSize: 12 }}>กดที่นี่</button>
               {' '}เพื่อรีเซ็ต หรือใช้ {' '}
-              <button type="button" className="vmx-inline-action" onClick={() => setMode('magic-link')} style={{ fontSize: 12 }}>magic link</button>
+              <button type="button" className="vmx-inline-action" onClick={() => setMode('magic-link')} style={{ fontSize: 12 }}>ลิงก์ในอีเมล</button>
               {' '}แทน
             </div>
           )}
@@ -815,7 +815,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
             }
           >
             {loading
-              ? '⏳ ...'
+              ? '⏳ …'
               : rateLimitCountdown > 0
                 ? `รอ ${rateLimitCountdown}s แล้วลองใหม่`
                 : heading.cta}
@@ -825,23 +825,23 @@ export default function AuthView({ onBack, onSuccess, user }) {
         {/* Mode switch links */}
         <div style={{ textAlign: 'center', marginTop: 16, fontSize: 13, color: 'var(--clr-ink-soft)' }}>
           {mode === 'signin' && (
-            <>ยังไม่มี account? <button type="button" className="vmx-inline-action" onClick={() => setMode('signup')}>สมัครเลย</button></>
+            <>ยังไม่มีบัญชี? <button type="button" className="vmx-inline-action" onClick={() => setMode('signup')}>สมัครเลย</button></>
           )}
           {mode === 'signup' && (
-            <>มี account แล้ว? <button type="button" className="vmx-inline-action" onClick={() => setMode('signin')}>Login</button></>
+            <>มีบัญชีแล้ว? <button type="button" className="vmx-inline-action" onClick={() => setMode('signin')}>เข้าสู่ระบบ</button></>
           )}
           {mode === 'reset' && (
-            <>จำได้แล้ว? <button type="button" className="vmx-inline-action" onClick={() => setMode('signin')}>กลับไป Login</button></>
+            <>จำได้แล้ว? <button type="button" className="vmx-inline-action" onClick={() => setMode('signin')}>กลับไปเข้าสู่ระบบ</button></>
           )}
           {mode === 'magic-link' && (
-            <>อยากใช้รหัสผ่าน? <button type="button" className="vmx-inline-action" onClick={() => setMode('signin')}>กลับไป Login ปกติ</button></>
+            <>อยากใช้รหัสผ่าน? <button type="button" className="vmx-inline-action" onClick={() => setMode('signin')}>เข้าสู่ระบบด้วยรหัสผ่าน</button></>
           )}
         </div>
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 30, justifyContent: 'center' }}>
         <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onBack}>
-          ← ใช้งานแบบไม่ login (single-player)
+          ← ใช้งานในโหมดผู้เยี่ยมชม
         </button>
       </div>
 

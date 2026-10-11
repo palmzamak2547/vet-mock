@@ -1,5 +1,5 @@
 {
-  "note": "lint:ui-copy English-word budget, per file. A number may only go down; a file with no row may have none. Middle dots and นักศึกษา have no budget: they fail outright. \"allow\" names text that keeps a middle dot on purpose, with the reason.",
+  "note": "lint:ui-copy budgets, per file. englishLeaks counts English words the app already has Thai for; spellingDrift counts the old spellings เช็ค, อัพ and three dots (write เช็ก, อัป and …). A number may only go down; a file with no row may have none. Middle dots and นักศึกษา have no budget: they fail outright. \"allow\" names text that keeps a middle dot on purpose, with the reason.",
   "allow": [
     {
       "file": "src/components/SummaryModal.jsx",
@@ -9,7 +9,6 @@
   ],
   "englishLeaks": {
     "src/components/CommandPalette.jsx": 2,
-    "src/components/DailyQShareCard.jsx": 1,
     "src/components/DiagramLabelDrill.jsx": 1,
     "src/components/OnboardingTour.jsx": 1,
     "src/components/PWAInstallChip.jsx": 1,
@@ -21,15 +20,11 @@
     "src/components/VoiceSettings.jsx": 1,
     "src/views/AboutView.jsx": 6,
     "src/views/AccountSettingsView.jsx": 32,
-    "src/views/AuthView.jsx": 22,
-    "src/views/ContributeView.jsx": 2,
-    "src/views/DashboardView.jsx": 11,
-    "src/views/ExamView.jsx": 2,
+    "src/views/DashboardView.jsx": 1,
+    "src/views/ExamView.jsx": 1,
     "src/views/FacultyView.jsx": 1,
-    "src/views/FeedbackView.jsx": 4,
     "src/views/GroupDetailView.jsx": 2,
     "src/views/GroupsView.jsx": 4,
-    "src/views/ImageOcclusionView.jsx": 1,
     "src/views/PinboardView.jsx": 1,
     "src/views/PomodoroView.jsx": 3,
     "src/views/RaceView.jsx": 4,
@@ -38,7 +33,30 @@
     "src/views/ReviewView.jsx": 1,
     "src/views/SRSessionView.jsx": 3,
     "src/views/ScoresView.jsx": 2,
-    "src/views/TopicSelectView.jsx": 6,
-    "src/views/VideoView.jsx": 10
+    "src/views/TopicSelectView.jsx": 6
+  },
+  "spellingDrift": {
+    "src/components/DailyGoalCard.jsx": 1,
+    "src/components/ExternalDocsSection.jsx": 2,
+    "src/components/MascotSquad3DViewer.jsx": 1,
+    "src/components/QComments.jsx": 1,
+    "src/components/Question.jsx": 1,
+    "src/components/SmartGrader.jsx": 2,
+    "src/components/lab/CaseLibrary.jsx": 1,
+    "src/components/lab/DicomViewport.jsx": 1,
+    "src/components/lab/NorbergOverlay.jsx": 1,
+    "src/components/lab/TagInspector.jsx": 2,
+    "src/components/lab/VHSOverlay.jsx": 1,
+    "src/views/AboutView.jsx": 2,
+    "src/views/ConfigView.jsx": 1,
+    "src/views/LabView.jsx": 5,
+    "src/views/MochiView.jsx": 1,
+    "src/views/NotesView.jsx": 1,
+    "src/views/PomodoroView.jsx": 1,
+    "src/views/QuestionManagerView.jsx": 2,
+    "src/views/ResultsView.jsx": 1,
+    "src/views/ReviewView.jsx": 1,
+    "src/views/ScheduleView.jsx": 1,
+    "src/views/SubjectSelectView.jsx": 1
   }
 }

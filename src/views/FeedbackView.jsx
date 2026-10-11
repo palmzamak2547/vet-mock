@@ -182,11 +182,11 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
           <div className="vmx-form-group">
             <label htmlFor="vmx-feedback-type">ประเภท</label>
             <select id="vmx-feedback-type" value={formData.type} onChange={(e) => updateForm({ type: e.target.value })}>
-              <option value="Bug">🐛 Bug Report</option>
-              <option value="Feature">Feature Request</option>
-              <option value="Question">❓ Question</option>
-              <option value="Content">Content (เพิ่มข้อสอบ/ตารางสอบ)</option>
-              <option value="Other">📨 Other</option>
+              <option value="Bug">🐛 แจ้งปัญหา</option>
+              <option value="Feature">ขอฟีเจอร์</option>
+              <option value="Question">❓ คำถาม</option>
+              <option value="Content">เนื้อหา (เพิ่มข้อสอบ/ตารางสอบ)</option>
+              <option value="Other">📨 อื่นๆ</option>
             </select>
           </div>
 
@@ -220,7 +220,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
               id="vmx-feedback-message"
               value={formData.message}
               onChange={(e) => updateForm({ message: e.target.value.slice(0, 5000) })}
-              placeholder="อธิบายปัญหา/ข้อเสนอแนะ..."
+              placeholder="อธิบายปัญหา/ข้อเสนอแนะ…"
               style={{ minHeight: 140 }}
               maxLength={5000}
             />
@@ -238,7 +238,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
             style={{ width: '100%', justifyContent: 'center', padding: '14px' }}
             disabled={status === 'sending' || status === 'success'}
           >
-            {status === 'sending' ? 'กำลังส่ง...' : status === 'success' ? 'ส่งสำเร็จแล้ว' : '📨 ส่งข้อความ'}
+            {status === 'sending' ? 'กำลังส่ง…' : status === 'success' ? 'ส่งสำเร็จแล้ว' : '📨 ส่งข้อความ'}
           </button>
         </form>
 

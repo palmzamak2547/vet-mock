@@ -151,7 +151,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
                 onClick={async () => {
                   const url = buildShareUrl([q]);
                   if (!url) {
-                    setChallengeHint('สร้างลิงก์ไม่ได้');
+                    setChallengeHint('สร้างลิงก์ข้อนี้ไม่ได้ ใช้ปุ่มแชร์ผลลัพธ์แทน');
                     setTimeout(() => setChallengeHint(''), 3000);
                     return;
                   }
@@ -167,8 +167,10 @@ export default function TodaysQModal({ q, onClose, onDone }) {
                     if (err?.name === 'AbortError') return;
                   }
                   const res = await copyText(text);
-                  setChallengeHint(res.ok ? '✓ คัดลอกแล้ว, วางใน LINE / IG ได้เลย' : 'คัดลอกไม่ได้');
-                  setTimeout(() => setChallengeHint(''), 3500);
+                  // The link was built even when the clipboard refused it (LINE and
+                  // Instagram webviews), so show it, as ReviewView and ResultsView do.
+                  setChallengeHint(res.ok ? '✓ คัดลอกแล้ว, วางใน LINE / IG ได้เลย' : 'คัดลอกไม่ได้ กดค้างที่ลิงก์เพื่อคัดลอกเอง: ' + url);
+                  setTimeout(() => setChallengeHint(''), res.ok ? 3500 : 8000);
                 }}
               >
                 ท้าเพื่อนทำข้อนี้
@@ -183,6 +185,7 @@ export default function TodaysQModal({ q, onClose, onDone }) {
             color: 'var(--clr-sage-text, #4a6b4a)',
             fontFamily: 'var(--vmx-mono)',
             textAlign: 'center',
+            overflowWrap: 'anywhere',
           }}>
             {challengeHint}
           </div>

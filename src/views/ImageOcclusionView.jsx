@@ -153,7 +153,7 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
   const handleSave = useCallback((deckPayload) => {
     const saved = saveDeck(deckPayload);
     if (!saved) {
-      setToast('บันทึกไม่สำเร็จ');
+      setToast('บันทึกไม่สำเร็จ ลองลบชุดที่ไม่ใช้แล้ว หรือใช้รูปที่ไฟล์เล็กลง');
       return false;
     }
     setDecks(loadDecks());
@@ -297,7 +297,7 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
         )}
 
         <div style={{ marginTop: 20, fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
-          {decks.length}/30 decks, เก็บใน localStorage ของ device นี้เท่านั้น
+          {decks.length}/30 decks, เก็บไว้ในเครื่องนี้เท่านั้น
         </div>
       </div>
 
@@ -339,7 +339,7 @@ function EditorBootstrap({ initial, onSave, onClose }) {
     reader.onload = () => {
       setResolved({ imageDataUrl: reader.result, masks: [], name: '' });
     };
-    reader.onerror = () => setError('อ่านไฟล์ไม่ได้');
+    reader.onerror = () => setError('อ่านไฟล์ไม่ได้ ลองเลือกไฟล์ภาพอื่น');
     reader.readAsDataURL(initial._bootstrapFile);
   }, [initial]);
 

@@ -515,7 +515,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             "ความคืบหน้า" and the page it opened said "Analytics Dashboard",
             in English, on a Thai-first app. */}
         <h1>ความ<em>คืบหน้า</em></h1>
-        <p>สถิติการฝึกของคุณ, Streak: {streak || 0} วัน</p>
+        <p>สถิติการฝึกของคุณ, ฝึกต่อเนื่อง {streak || 0} วัน</p>
       </div>
 
       {/* Year-scope toggle — sets context for trend chart, heatmap,
@@ -537,11 +537,11 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           onClick={() => setYearScope('all')}
           style={{ minHeight: 32, fontSize: 12 }}
         >
-          🌐 ทุกปี (lifetime)
+          🌐 ทุกปี
         </button>
         {yearScope === 'current' && (
           <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
-            {scopedHistory.length}/{history?.length || 0} attempts
+            {scopedHistory.length}/{history?.length || 0} ข้อที่ทำ
           </span>
         )}
       </div>
@@ -625,7 +625,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           {learningCurve && (
             <div className="vmx-dash-card" style={{ marginTop: 16 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 8 }}>
-                <h2 style={{ margin: 0 }}>Learning Curve รายวิชา</h2>
+                <h2 style={{ margin: 0 }}>กราฟความแม่นยำรายวิชา</h2>
                 <div style={{ display: 'flex', gap: 4 }}>
                   {[7, 14, 30].map((d) => (
                     <button
@@ -647,7 +647,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
                 ))}
               </div>
               <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
-                เส้นแต่ละสีคือความแม่นยำต่อวันของแต่ละวิชา, เส้น 70% เป็น threshold เป้าหมาย, แตะจุดเพื่อดูจำนวนข้อ
+                เส้นแต่ละสีคือความแม่นยำต่อวันของแต่ละวิชา, เส้น 70% เป็นเกณฑ์เป้าหมาย, แตะจุดเพื่อดูจำนวนข้อ
               </div>
             </div>
           )}
@@ -724,7 +724,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       )}
 
       <div className="vmx-dash-card">
-        <h2>OSCE drill</h2>
+        <h2>ฝึก OSCE</h2>
         <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
           ฝึก clinical-skills station แบบจับเวลา + checklist (PE, IV, intubation, suture,
           anesthesia check, CPCR). มี critical step weight เหมือนสถานีจริง.
@@ -734,7 +734,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           className="vmx-btn vmx-btn-primary vmx-btn-sm"
           onClick={() => setOsceOpen(true)}
         >
-          ▶️ เริ่ม OSCE drill
+          ▶️ เริ่มฝึก OSCE
         </button>
       </div>
 
@@ -745,7 +745,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       )}
 
       <div className="vmx-dash-card">
-        <h2>Diagram label drill</h2>
+        <h2>ฝึกระบุชื่อบน diagram</h2>
         <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
           ฝึก label anatomy แบบ active recall — แตะจุดบน diagram → เลือก label, ตอนนี้มี 2 ชุด (Heart, Eye) เริ่มต้นไว้
         </div>
@@ -754,7 +754,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           className="vmx-btn vmx-btn-primary vmx-btn-sm"
           onClick={() => setDiagramOpen(true)}
         >
-          ▶️ เริ่ม Diagram drill
+          ▶️ เริ่มฝึก diagram
         </button>
       </div>
 
@@ -797,7 +797,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
         <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
           if (await confirmDialog({
             title: 'ล้างความคืบหน้าหลัก?',
-            body: 'ข้อที่บันทึก ประวัติการฝึก โน้ต การ์ดทบทวน checklist และ streak จะถูกล้าง ประวัติรายละเอียดและเครื่องมือในเครื่องเป็นข้อมูลแยก',
+            body: 'ข้อที่บันทึก ประวัติการฝึก โน้ต การ์ดทบทวน checklist และวันต่อเนื่องจะถูกล้าง ประวัติรายละเอียดและเครื่องมือในเครื่องเป็นข้อมูลแยก',
             note: 'กู้คืนไม่ได้ — ส่งออกไฟล์สำรองไว้ก่อนถ้ายังไม่แน่ใจ',
             confirmLabel: 'ล้างทั้งหมด',
             tone: 'danger',

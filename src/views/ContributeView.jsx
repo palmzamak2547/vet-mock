@@ -91,12 +91,12 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1><em>ส่งคำถาม</em> ให้ Q bank</h1>
-        <p>Login ก่อนเพื่อส่งคำถาม — ทุกข้อผ่านการตรวจ 4 ชั้น (ระบบคัดกรอง → เพื่อนตรวจ 2 คน → ทีมงาน → เผยแพร่) ก่อนเข้าคลังข้อสอบ</p>
+        <p>เข้าสู่ระบบก่อนเพื่อส่งคำถาม — ทุกข้อผ่านการตรวจ 4 ชั้น (ระบบคัดกรอง → เพื่อนตรวจ 2 คน → ทีมงาน → เผยแพร่) ก่อนเข้าคลังข้อสอบ</p>
       </div>
       <div style={{ ...CARD_BASE, maxWidth: 480, margin: '24px auto', textAlign: 'center' }}>
         <div style={{ fontSize: 36, marginBottom: 12 }}>🔐</div>
         <p style={{ marginBottom: 16, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
-          ต้องล็อกอินด้วยบัญชี VetMock ก่อนถึงจะส่งคำถามได้
+          ต้องเข้าสู่ระบบด้วยบัญชี VetMock ก่อนถึงจะส่งคำถามได้
         </p>
         <button
           type="button"
@@ -104,7 +104,7 @@ export default function ContributeView({ goHome, setView, user, selectedYear = 4
           style={{ padding: '12px 20px' }}
           onClick={() => setView && setView('auth')}
         >
-          Login เพื่อส่งคำถาม →
+          เข้าสู่ระบบเพื่อส่งคำถาม →
         </button>
       </div>
     </>
@@ -333,7 +333,6 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
               {[
                 { id: 'mcq', label: 'MCQ (เลือก 1)' },
                 { id: 'tf', label: 'True / False' },
-                { id: 'multi', label: 'Multi-select' },
               ].map((t) => {
                 const active = payload.q_type === t.id;
                 return (
@@ -373,7 +372,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
               id="vmx-contribute-question"
               value={payload.q_text}
               onChange={(e) => patch({ q_text: e.target.value.slice(0, 2000) })}
-              placeholder="เช่น สุนัขพันธุ์ Doberman 7 ปี เพศผู้ มาด้วยอาการ syncope ออกกำลังกายแล้วเป็นลม ผล echo พบ..."
+              placeholder="เช่น สุนัขพันธุ์ Doberman 7 ปี เพศผู้ มาด้วยอาการ syncope ออกกำลังกายแล้วเป็นลม ผล echo พบ…"
               style={{ width: '100%', minHeight: 110, padding: 10, borderRadius: 8 }}
               maxLength={2000}
             />
@@ -538,7 +537,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
               id="vmx-contribute-note"
               value={payload.contributor_note}
               onChange={(e) => patch({ contributor_note: e.target.value.slice(0, 1000) })}
-              placeholder="เช่น 'จุดที่ไม่แน่ใจคือ option C — ขอ peer ช่วยเช็คให้หน่อย'"
+              placeholder="เช่น 'จุดที่ไม่แน่ใจคือ option C — ขอ peer ช่วยเช็กให้หน่อย'"
               style={{ width: '100%', minHeight: 70, padding: 10, borderRadius: 8 }}
               maxLength={1000}
             />
@@ -616,7 +615,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
             }}
             disabled={!validation.canSubmit || submitting}
           >
-            {submitting ? 'กำลังส่ง...' : '📨 ส่งคำถามเข้า review queue'}
+            {submitting ? 'กำลังส่ง…' : '📨 ส่งคำถามให้ทีมตรวจ'}
           </button>
         </form>
       </div>
@@ -632,7 +631,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
         <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
           {mySubs.length > 0
             ? `${mySubs.length} รายการ, แตะเพื่อดูรายละเอียด`
-            : loadingSubs ? 'กำลังโหลด...'
+            : loadingSubs ? 'กำลังโหลด…'
             : loadError ? 'ยังโหลดรายการไม่ได้'
             : 'ยังไม่มีคำถามที่ส่ง — เริ่มส่งข้อแรกได้เลย ⬆️'}
         </p>
@@ -703,7 +702,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
                         <div key={i} style={{ marginTop: 4 }}>• {typeof line === 'string' ? line : (line?.msg || JSON.stringify(line))}</div>
                       ))}
                       {Array.isArray(s.screen_log) && s.screen_log.length > 2 && (
-                        <div style={{ marginTop: 4, fontStyle: 'italic' }}>+ อีก {s.screen_log.length - 2} ข้อ...</div>
+                        <div style={{ marginTop: 4, fontStyle: 'italic' }}>+ อีก {s.screen_log.length - 2} ข้อ…</div>
                       )}
                     </div>
                   )}

@@ -315,7 +315,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
       a.href = url;
       a.download = `vetmock-wrapped-${stats.phaseId || 'phase'}.png`;
       document.body.appendChild(a); a.click(); a.remove();
-      flash('✓ ดาวน์โหลดแล้ว — อัพ IG Story ได้');
+      flash('✓ ดาวน์โหลดแล้ว — อัป IG Story ได้');
     } catch {
       flash('สร้างรูปไม่ได้, ลองใหม่');
     } finally {
@@ -342,7 +342,7 @@ export default function PhaseWrappedCard({ stats, onClose, onDismissPhase }) {
       } else {
         const res = await copyText(shareText);
         if (res.ok) flash('ไม่มี share sheet — คัดลอกให้แล้ว');
-        else flash('แชร์ไม่ได้');
+        else flash('แชร์ไม่ได้, ดาวน์โหลดรูปแล้วแชร์เองแทน');
       }
     } catch (err) {
       if (err?.name !== 'AbortError') flash('แชร์ไม่ได้, ลองใหม่');

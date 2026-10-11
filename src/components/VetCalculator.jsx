@@ -117,7 +117,7 @@ function DrugTab() {
         ตัวอย่าง: Cefazolin 22 mg/kg, 20 kg dog → 440 mg, vial 100 mg/mL → 4.4 mL.
         <br />
         ระวัง: per-kg dose จากตำราเป็น <em>active drug</em>, concentration ใน vial บางครั้ง
-        เป็น <em>salt form</em> (e.g., enrofloxacin base vs HCl) — เช็คหน้า prescribing info.
+        เป็น <em>salt form</em> (e.g., enrofloxacin base vs HCl) — เช็กหน้า prescribing info.
       </Note>
     </div>
   );
@@ -228,7 +228,7 @@ function CRITab() {
         ตัวอย่าง {CRI_EXAMPLE.drug} {CRI_EXAMPLE.target} µg/kg/min, dog {CRI_EXAMPLE.bw} kg, stock {CRI_EXAMPLE.stock} mg/mL, bag {CRI_EXAMPLE.bag} mL, pump {CRI_EXAMPLE.rate} mL/hr
         → ดูดยา ≈ {example.drugMl} mL ใส่ถุง.
         <br />
-        เช็คผลซ้ำเสมอ: หมุนกลับ — concentration × pump rate ÷ BW × 1000/60 ควรได้ใกล้ target.
+        เช็กผลซ้ำเสมอ: หมุนกลับ — concentration × pump rate ÷ BW × 1000/60 ควรได้ใกล้ target.
       </Note>
     </div>
   );
@@ -385,7 +385,7 @@ function DrugDBTab() {
         <div className="vmx-vetcalc-field-input-wrap">
           <input
             type="text"
-            placeholder="ค้นหายา (ชื่อสามัญ/การค้า/ข้อบ่งใช้)..."
+            placeholder="ค้นหายา (ชื่อสามัญ/การค้า/ข้อบ่งใช้)…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             aria-label="ค้นหายา"

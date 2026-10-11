@@ -86,15 +86,46 @@ test('the English-word budget only goes down, and a new file starts at zero', ()
   assert.deepEqual(lowerBudget(after, { 'src/views/A.jsx': 0 }).englishLeaks, {});
 });
 
+test('the old spellings เช็ค, อัพ and three dots are found wherever a screen shows text (COPY-23)', () => {
+  const found = issues([
+    'export default ({ busy }) => (<div>',
+    '  <p>ลองเช็คอีกครั้ง</p>',
+    "  <button title=\"อัพ IG Story\">{busy ? 'กำลังส่ง...' : 'ส่ง'}</button>",
+    "  {console.log('เช็ค...')}",
+    "  <p>{'a b'.replace('...', '…')}</p>",
+    "  <p>{'เช็กแล้ว อัปเดตแล้ว กำลังโหลด…'}</p>",
+    '</div>);',
+  ].join('\n')).spelling;
+  assert.deepEqual(found.map((s) => `${s.token}>${s.fix}`).sort(), ['...>…', 'อัพ>อัป', 'เช็ค>เช็ก'].sort());
+});
+
+test('quoted lecture text in VetWiki and generated files keep the spelling they were written in', () => {
+  const source = "export const c = { lectureSays: 'ให้เช็ค reflux...' };";
+  assert.deepEqual(issues(source, 'src/lib/vetwiki/corrections.js').spelling, []);
+  assert.deepEqual(issues(source, 'src/lib/vetwiki/verification-generated.js').spelling, []);
+  assert.equal(issues(source, 'src/views/Fixture.jsx').spelling.length, 2);
+});
+
+test('the spelling budget only goes down, and a new file starts at zero', () => {
+  const before = { englishLeaks: { 'src/views/A.jsx': 1 }, spellingDrift: { 'src/views/A.jsx': 2, 'src/views/B.jsx': 1 } };
+  const after = lowerBudget(before, { 'src/views/A.jsx': 1 }, { 'src/views/A.jsx': 3, 'src/views/B.jsx': 0, 'src/views/New.jsx': 2 });
+  assert.deepEqual(after.spellingDrift, { 'src/views/A.jsx': 2 });
+  assert.deepEqual(after.englishLeaks, { 'src/views/A.jsx': 1 });
+  assert.deepEqual(lowerBudget(after, { 'src/views/A.jsx': 1 }).spellingDrift, after.spellingDrift,
+    'a caller that passes no spelling counts leaves the spelling budget alone');
+});
+
 test('the tree passes: no middle dot and no นักศึกษา in UI copy, English words within budget', () => {
   assert.ok(existsSync(new URL(`../../${BUDGET_FILE}`, import.meta.url)), `${BUDGET_FILE} records the English-word baseline`);
   const budget = readBudget();
   assert.ok(Object.keys(budget.englishLeaks).length > 0);
+  assert.ok(budget.spellingDrift && typeof budget.spellingDrift === 'object', `${BUDGET_FILE} records the spelling baseline`);
   for (const entry of budget.allow) assert.ok(entry.file && entry.text && entry.reason, 'every allow entry says why');
   const result = lintTree({ budget });
   assert.deepEqual(result.dots.map((r) => `${r.file}:${r.line} ${r.text}`), []);
   assert.deepEqual(result.students.map((r) => `${r.file}:${r.line} ${r.text}`), []);
   assert.deepEqual(result.over, []);
+  assert.deepEqual(result.spellingOver, []);
 });
 
 test('the Atlas e2e pins follow the rewritten copy', () => {
