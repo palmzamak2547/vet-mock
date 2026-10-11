@@ -28,6 +28,10 @@ export default {
     'power.tTest': { type: 'two-sample', solveFor: 'n', sigLevel: 0.05 },
     'power.correlation': { solveFor: 'n', sigLevel: 0.05 },
     'power.regression': { solveFor: 'n', sigLevel: 0.05 },
+    // M3a curves (M3-DESIGN.md 2, 3.1.1)
+    'nls.fourPL': { model: '4pl' },
+    'nls.doseResponse': { model: '4pl', compare: 'none' },
+    'nls.equation': { equation: 'michaelisMenten' },
     // M3a auc, qpcr, pca [M3-DESIGN.md 2]
     'calc.auc': { baseline: 'zero' },
     'qpcr.relative': { method: 'livak', efficiency: {}, test: 'welch' },
@@ -47,6 +51,10 @@ export default {
     'power.tTest': { type: pick(['two-sample', 'paired', 'one-sample']), solveFor, sigLevel: posNum },
     'power.correlation': { solveFor, sigLevel: posNum },
     'power.regression': { solveFor, sigLevel: posNum },
+    // M3a curves
+    'nls.fourPL': { model: pick(['4pl', '5pl']) },
+    'nls.doseResponse': { model: pick(['4pl', '5pl']), compare: pick(['none', 'ec50', 'all']) },
+    'nls.equation': { equation: pick(['michaelisMenten', 'decay', 'growth']) },
     // M3a auc, qpcr, pca
     'calc.auc': { baseline: pick(['zero', 'first']) },
     'qpcr.relative': { method: pick(['livak', 'pfaffl']), efficiency: v.record(colKey, amplification), test: pick(['welch', 'pooled']) },
@@ -98,6 +106,8 @@ export default {
       'desc.summary', 'desc.table1', 'test.tTest', 'test.anova1', 'test.mannWhitney', 'test.wilcoxonSignedRank', 'test.kruskalWallis',
       'corr.pearson', 'corr.spearman', 'reg.ols', 'test.chisq', 'test.fisher2x2', 'cluster.iccDeff',
       'anova.twoWay', 'anova.repeated', 'test.friedman', 'posthoc.dunn', 'posthoc.gamesHowell', 'posthoc.dunnett', 'diag.shapiro', 'diag.brownForsythe',
+      // M3a curves (descriptive fits within one assay: not in g1Subject, M3-DESIGN.md 2)
+      'nls.fourPL', 'nls.doseResponse', 'nls.equation',
       // M3a auc, qpcr, pca
       'calc.auc', 'qpcr.relative', 'qpcr.efficiency', 'mv.pca',
     ],

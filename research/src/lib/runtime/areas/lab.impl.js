@@ -7,6 +7,8 @@ import { runFriedman } from '../../stats/friedman.js';
 import { runDunn, runDunnett, runGamesHowell } from '../../stats/posthoc.js';
 import { runBrownForsythe, runShapiro } from '../../stats/normality.js';
 import { runPowerAnova, runPowerCorrelation, runPowerRegression, runPowerTTest } from '../../stats/power.js';
+// M3a curves
+import { runDoseResponse, runEquation, runFourPL } from '../../stats/curves.js';
 // M3a auc, qpcr, pca
 import { runAuc } from '../../stats/auc.js';
 import { runQpcrRelative, runQpcrEfficiency } from '../../stats/qpcr.js';
@@ -26,6 +28,10 @@ export default {
   'power.tTest': { impl: runPowerTTest, module: 'stats/power.js', fn: 'runPowerTTest' },
   'power.correlation': { impl: runPowerCorrelation, module: 'stats/power.js', fn: 'runPowerCorrelation' },
   'power.regression': { impl: runPowerRegression, module: 'stats/power.js', fn: 'runPowerRegression' },
+  // M3a curves
+  'nls.fourPL': { impl: runFourPL, module: 'stats/curves.js', fn: 'runFourPL' },
+  'nls.doseResponse': { impl: runDoseResponse, module: 'stats/curves.js', fn: 'runDoseResponse' },
+  'nls.equation': { impl: runEquation, module: 'stats/curves.js', fn: 'runEquation' },
   // M3a auc, qpcr, pca (anova.repeated's second within factor runs inside runAnovaRepeated, M3-DESIGN.md C11)
   'calc.auc': { impl: runAuc, module: 'stats/auc.js', fn: 'runAuc' },
   'qpcr.relative': { impl: runQpcrRelative, module: 'stats/qpcr.js', fn: 'runQpcrRelative' },
