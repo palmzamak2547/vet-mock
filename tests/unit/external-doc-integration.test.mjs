@@ -61,6 +61,29 @@ test('a failed connect request is visible without a prior reader error', async t
   await button(view, 'เชื่อมต่อ').props.onClick(); view.flush();
   assert.match(textOf(view.tree), /Connection failed/);
 });
+test('Google connect inside the LINE app browser explains the way out instead of opening a consent Google refuses', async t => {
+  const previousWindow = globalThis.window, redirects = [];
+  const previousNavigator = Object.getOwnPropertyDescriptor(globalThis, 'navigator');
+  globalThis.window = { location: { href: 'https://vetmock.com/app/library?connect_error=state', search: '', assign: url => redirects.push(url) } };
+  Object.defineProperty(globalThis, 'navigator', { configurable: true, value: { userAgent: 'Mozilla/5.0 (iPhone) AppleWebKit Mobile Line/14.3.1' } });
+  t.after(() => { globalThis.window = previousWindow; Object.defineProperty(globalThis, 'navigator', previousNavigator); });
+  let starts = 0;
+  const view = setup(t, { startExternalConnection: async () => { starts++; return { ok: true, url: 'https://accounts.google.com/o/oauth2/v2/auth' }; } });
+  await settle(view, 1);
+  await button(view, 'เชื่อมต่อ').props.onClick(); view.flush();
+  assert.equal(starts, 0, 'no consent is requested from inside the app browser');
+  assert.deepEqual(redirects, []);
+  assert.match(textOf(view.tree), /ตอนนี้เปิดอยู่ในแอป LINE/);
+  const exit = findAll(view.tree, n => n.type === 'a' && textOf(n) === 'เปิดในเบราว์เซอร์')[0];
+  const href = new URL(exit.props.href);
+  assert.equal(href.searchParams.get('openExternalBrowser'), '1');
+  assert.equal(href.searchParams.get('tab'), 'external', 'the system browser lands on the external tab');
+  assert.equal(href.searchParams.has('connect_error'), false, 'a finished outcome is not announced again');
+  const notion = findAll(view.tree, n => n.type === 'button' && textOf(n) === 'เชื่อมต่อ')[1];
+  await notion.props.onClick(); view.flush();
+  assert.equal(starts, 1, 'Notion consent still opens');
+});
+
 test('a failed disconnect remains connected and displays an actionable error', async t => {
   const view = setup(t, {
     fetchExternalConnections: async () => ({ ok: true, connections: [connection] }),

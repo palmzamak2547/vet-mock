@@ -6853,6 +6853,15 @@ body.vmx-reading .vmx-pdf-body {
   padding: 10px 12px;
   font-size: 13px;
 }
+.vmx-extdoc-inapp {
+  border: 1px solid var(--clr-gold);
+  border-radius: 10px;
+  background: var(--clr-surface);
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.vmx-extdoc-inapp p { margin: 4px 0 8px; }
 /* Moved here from styles-landing.css (2026-10-07) when the landing sheet
    became a lazy chunk of LandingView. Both rules were app-wide by accident
    of where they sat, and the app's small buttons and subject cards have been

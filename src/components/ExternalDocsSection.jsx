@@ -19,6 +19,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { renderMarkdown } from '../lib/markdown-render.js';
 import { safeLinkUrl } from '../lib/safe-url.js';
+import { inAppBrowser, externalUrl, APP_NAMES } from '../lib/inapp.js';
 import {
   PROVIDER_LABELS,
   CONNECT_PROVIDER_LABELS,
@@ -42,6 +43,27 @@ function readCallbackIntent() {
   return { connected, connectError };
 }
 
+/** The app browser this page is open in (LINE, Facebook, ...), or null. */
+function currentInAppBrowser() {
+  return typeof navigator === 'undefined' ? null : inAppBrowser(navigator.userAgent);
+}
+
+/**
+ * Where the system browser should land: this library page on its external
+ * tab, without a finished OAuth outcome that would be announced again.
+ */
+function externalTabHref() {
+  try {
+    const next = new URL(window.location.href);
+    next.searchParams.delete('connected');
+    next.searchParams.delete('connect_error');
+    next.searchParams.set('tab', 'external');
+    return next.toString();
+  } catch {
+    return null;
+  }
+}
+
 export default function ExternalDocsSection({ user }) {
   const ownerId = user?.id || null;
   const [url, setUrl] = useState('');
@@ -57,6 +79,10 @@ export default function ExternalDocsSection({ user }) {
   const [loadingFiles, setLoadingFiles] = useState({});
   const [fileErrors, setFileErrors] = useState({});
   const [notice, setNotice] = useState('');
+  // Google refuses its consent screen inside LINE, Facebook, Instagram and
+  // Messenger ("disallowed_useragent") and leaves the student on its error
+  // page. Say so here, before sending them there.
+  const [inAppBlock, setInAppBlock] = useState(null);
 
   // One request in flight at a time: an older answer never lands after a
   // newer paste, and unmounting cancels what is still running.
@@ -103,7 +129,7 @@ export default function ExternalDocsSection({ user }) {
     setUrl(''); setStatus('idle'); setDoc(null); setError(''); setNotice('');
     setRecents(loadRecentExternalDocs(ownerId));
     setConnections([]); setProviderFiles({}); setLoadingFiles({}); setFileErrors({});
-    setConnectionError(''); setConnectionsLoading(false); setConnectBusy('');
+    setConnectionError(''); setConnectionsLoading(false); setConnectBusy(''); setInAppBlock(null);
     refreshConnections(scope);
     return () => {
       scope.active = false;
@@ -165,6 +191,14 @@ export default function ExternalDocsSection({ user }) {
   const connect = useCallback(async (provider) => {
     const scope = scopeRef.current;
     if (!scope?.active || scope.busy) return;
+    const app = provider === 'google' ? currentInAppBrowser() : null;
+    if (app) {
+      setConnectionError('');
+      setNotice('');
+      setInAppBlock(app);
+      return;
+    }
+    setInAppBlock(null);
     scope.busy = true;
     setConnectBusy(provider);
     setConnectionError('');
@@ -278,6 +312,22 @@ export default function ExternalDocsSection({ user }) {
                 </button>
               )}
             </div>
+            {inAppBlock && !connectedFor('google') && (() => {
+              const exit = externalTabHref();
+              const exitHref = exit ? externalUrl(inAppBlock, exit) : null;
+              return (
+                <div className="vmx-extdoc-inapp" role="note">
+                  <b>ตอนนี้เปิดอยู่ในแอป {APP_NAMES[inAppBlock] || 'อื่น'}</b>
+                  <p>
+                    Google ไม่ให้เชื่อมบัญชีในเบราว์เซอร์ของแอป เปิดหน้านี้ใน Safari หรือ Chrome
+                    แล้วเข้าสู่ระบบ VetMock ที่นั่นอีกครั้งก่อนกดเชื่อมต่อ
+                  </p>
+                  {exitHref
+                    ? <a className="vmx-btn vmx-btn-ghost vmx-btn-sm" href={exitHref}>เปิดในเบราว์เซอร์</a>
+                    : <p>กดปุ่มเมนู (⋯ หรือ ⋮) ที่มุมจอ แล้วเลือกเปิดในเบราว์เซอร์</p>}
+                </div>
+              );
+            })()}
             {connectedFor('google') && renderFiles('google')}
             <div className="vmx-extdoc-connect-row">
               <div className="vmx-extdoc-connect-info">
