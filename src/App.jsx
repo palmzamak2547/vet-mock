@@ -90,7 +90,7 @@ import {
   FeedbackView, IgCardStudioView, YearSelectView, LandingView,
   PhaseSelectView, TopicSelectView, NotesView, LibraryView,
   KnowledgeView, ReadingChecklistView, FacultyView, PrivacyView,
-  AccountSettingsView, OfflineGameView, MochiView, PomodoroView,
+  AccountSettingsView, ProfileView, OfflineGameView, MochiView, PomodoroView,
   RaceView, PdfAnnotateView, ImageOcclusionView, PhaseWrappedView,
   useIdlePrefetch,
 } from './app/lazy-views.js';
@@ -2901,6 +2901,27 @@ export default function App() {
               {view === 'videos' && <VideoView goHome={goHome} initialSubject={videoSubject} selectedYear={selectedYear} />}
               {view === 'privacy' && <PrivacyView {...{ goHome, setView, consent, analyticsAllowed }} onConsent={(choice, prefs) => { setConsent(choice); if (prefs) setConsentPrefs(prefs); }} />}
               {view === 'about' && <AboutView {...{ goHome, setView, onOpenTour: openTour }} />}
+              {/* The hub the bottom bar's fifth tab opens. Local study data +
+                  the controls a student reaches for without an account; only
+                  the account row itself asks for one. */}
+              {view === 'profile' && (
+                <ProfileView
+                  goHome={goHome}
+                  setView={setView}
+                  user={user}
+                  profile={profile}
+                  history={history}
+                  streakData={streakData}
+                  readingChecklist={readingChecklist}
+                  srCards={srCards}
+                  onVoiceSettings={() => setVoiceSettingsOpen(true)}
+                  theme={theme}
+                  setTheme={setTheme}
+                  palette={palette}
+                  setPalette={setPalette}
+                  hasSupabase={hasSupabase}
+                />
+              )}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile, prefill: feedbackPrefill, clearPrefill: () => setFeedbackPrefill(null) }} />}
               {view === 'ig-cards' && <IgCardStudioView {...{ goHome }} />}
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setSelectedPhase, setView, firstTime: selectedYearStored === null }} />}

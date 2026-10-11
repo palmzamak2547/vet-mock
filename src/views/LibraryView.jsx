@@ -23,6 +23,7 @@ import Mochi from '../components/Mochi.jsx';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import ExternalDocsSection from '../components/ExternalDocsSection.jsx';
+import FeatureTip from '../components/FeatureTip.jsx';
 import { thaiError } from '../lib/errors.js';
 import { googleDriveSourceUrl, mergeLibrarySources, vcaFileDoc } from '../lib/vca-library.js';
 import { EMPTY_ART } from '../data/art.js';
@@ -579,6 +580,16 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
           </button>
         )}
       </div>
+
+      <FeatureTip id="library" title="มีไฟล์ของตัวเอง? เปิดตรงนี้เลย" icon="📄">
+        <p style={{ margin: '0 0 6px' }}>
+          ไฟล์จากเครื่องเองก็เปิดอ่านและส่งออกไปปริ้นต่อได้เหมือนกัน
+        </p>
+        <ul style={{ margin: 0, paddingLeft: 22, lineHeight: 1.7 }}>
+          <li>กด <strong>เปิด PDF ของฉัน</strong> แล้วเลือกไฟล์ในเครื่อง</li>
+          <li>เขียนหรือขีดได้ตามใจ แล้วส่งออกทั้งเล่มพร้อมรอยเขียน</li>
+        </ul>
+      </FeatureTip>
 
       <div className="vmx-chip-row" style={{ marginBottom: 16 }}>
         <button

@@ -68,13 +68,21 @@ export default function Sidebar({
     schedule: 'calendar',
     pinboard: 'pin',
     library: 'files',
+    // VetWiki came back to this group when it left the bottom bar, and the
+    // rail speaks line icons — the emoji fallback is a last resort for a
+    // feature whose icon was never mapped, not a look to give a row back.
+    vetwiki: 'wiki',
 
     atlas: 'atlas',
     bench: 'grid2x2',
   };
 
-  // Destinations the primary rows already own — see the note above.
-  const primaryViews = new Set(NAV_ITEMS.map((item) => (item.id === 'wiki' ? 'knowledge' : item.id)));
+  // Destinations the primary rows already own. 'profile' is one of the
+  // canonical nav items now, so it drops out of the learn group by the same
+  // rule; VetWiki ('knowledge') is no longer a primary row — it moved out of
+  // the bottom bar into the profile hub — so it belongs back in this group
+  // rather than disappearing from the rail entirely.
+  const primaryViews = new Set(NAV_ITEMS.map((item) => item.id));
   const learnAll = visibleFeatures(featuresByCategory('learn'), {
     signedIn, hasSupabase, scaffold, selectedYear,
   }).filter((f) => f.invoke?.kind === 'view'

@@ -19,8 +19,14 @@
 // ============================================================
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import FeatureTip from '../components/FeatureTip.jsx';
 import ReadingEffects from '../components/ReadingEffects.jsx';
 import { RichText } from '../lib/richtext.jsx';
+
+// One title for the once-a-day hint on BOTH VetWiki surfaces. The tip id is
+// shared, so a student who opens VetWiki sees it once whichever surface they
+// land on first — the two titles must not be able to drift apart.
+const KNOWLEDGE_TIP_TITLE = 'ทุกหัวข้อบอกที่มา ค้นหาได้ทุกวิชา';
 import { SUBJECTS } from '../data/curriculum.js';
 import {
   listTopics, loadTopic, provenanceSummary, resolveSource,
@@ -291,6 +297,16 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
         คลังความรู้ที่ตรวจสอบได้ — ทุกจุดความรู้ผ่านการตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว และทุกหัวข้อบอกได้ว่าเนื้อหามาจากไหน (ข้อมูลรายวิชา เช่น ตารางสอนหรือเกณฑ์คะแนน แยกประกาศไว้ชัดเจน)
       </p>
 
+      <FeatureTip id="knowledge" title={KNOWLEDGE_TIP_TITLE} icon="📚">
+        <p style={{ margin: '0 0 6px' }}>
+          ท้ายทุกส่วนระบุข้อความมาจากไหน พร้อมช่องค้นหาที่ค้นทั้งเนื้อหา
+        </p>
+        <ul style={{ margin: 0, paddingLeft: 22, lineHeight: 1.7 }}>
+          <li>พิมพ์คำหรือหัวข้อที่อยากรู้ เพื่อสำรวจทุกวิชา</li>
+          <li>ผลที่เจอบอกว่าคำนั้นอยู่ในส่วนไหน กดไปอ่านได้</li>
+        </ul>
+      </FeatureTip>
+
       <label htmlFor="vw-search" className="vmx-sr-only" style={{ position: 'absolute', left: -9999 }}>ค้นหาในวิกิ</label>
       <input
         id="vw-search" type="search" value={q} onChange={(e) => setQ(e.target.value)}
@@ -443,6 +459,15 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
   return (
     <div className="vmx-view" style={{ maxWidth: 680, margin: '0 auto' }}>
       <Mochi state="read" size={36} slot="wiki-reading" className="vmx-hero-mochi" />
+      {/* The once-a-day usage hint — same id as the index, so opening VetWiki
+          through the day shows it once, whichever surface the student lands
+          on first. */}
+      <FeatureTip id="knowledge" title={KNOWLEDGE_TIP_TITLE} icon="📚">
+        <ul style={{ margin: 0, paddingLeft: 22, lineHeight: 1.7 }}>
+          <li>ท้ายทุกส่วนระบุข้อความมาจากไหน</li>
+          <li>กลับไปหน้าแรก VetWiki แล้วพิมพ์คำถามในช่องค้นหาเพื่อสำรวจทุกวิชา</li>
+        </ul>
+      </FeatureTip>
       {/* Breadcrumb */}
       <nav aria-label="breadcrumb" style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center', fontSize: 12.5, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
         <button type="button" onClick={onBackToIndex} style={{ all: 'unset', cursor: 'pointer', color: 'var(--clr-ocean-text)', minHeight: 44, display: 'inline-flex', alignItems: 'center' }}>VetWiki</button>

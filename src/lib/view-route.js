@@ -1,6 +1,10 @@
 // Readable URLs for stable, self-contained app destinations. Stateful flows
 // (topic config, an active exam, results) intentionally stay out of this map:
 // restoring only half their state would be worse than returning to Home.
+// The profile hub is out too: it is a personal screen (streak, settings,
+// install) with no shareable link, and lint:og requires a real 1200×630
+// cover for every route here — which is a public asset nobody needs for a
+// screen only its owner opens.
 const VIEW_TO_PATH = Object.freeze({
   home: '/',
   'subject-select': '/app/study',

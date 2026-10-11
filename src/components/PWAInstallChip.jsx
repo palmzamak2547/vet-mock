@@ -11,6 +11,8 @@
 //
 // On Chrome-family: tapping fires the native prompt.
 // On iOS: opens an instructional modal explaining the manual flow.
+// iPadOS 15+ keeps the Safari toolbar at the TOP of the screen, so the
+// modal swaps the step wording for iPad instead of naming a bottom bar.
 // ============================================================
 
 import { useEffect, useState } from 'react';
@@ -43,6 +45,22 @@ function isIOSSafari() {
   const isSafari = /Safari/.test(ua) && !/CriOS|FxiOS|EdgiOS/.test(ua);
   return isSafari;
 }
+
+// iPad vs iPhone decides WHICH Safari toolbar the instructions name.
+// iPadOS 13+ gives Safari a desktop Mac UA, exactly like isIOSSafari() says
+// above: `iPad` disappears from the UA and a real iPad shows up as a touch
+// Mac. That is the same sanctioned detection path (a Mac platform with more
+// than one touch point, or `ontouchend` present on the document), so an iPad
+// on iPadOS 17 reads the same as one on iPadOS 12 that still says `iPad`.
+// Read once per page load: a user agent never changes while a tab is open, so
+// re-sniffing on every render would only cost work.
+const IS_IPAD = (() => {
+  if (typeof window === 'undefined') return false;
+  const ua = window.navigator.userAgent;
+  if (/iPad/.test(ua)) return true; // iPadOS 12 and older, still identified
+  const isTouchMac = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+  return isTouchMac || (/Macintosh/.test(ua) && 'ontouchend' in document);
+})();
 
 export default function PWAInstallChip() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -95,6 +113,11 @@ export default function PWAInstallChip() {
     setShowIosTip(false);
   };
 
+  // The student reporting the bug is on an iPad: the share button sits in the
+  // toolbar at the TOP of Safari, not the bottom one iPhone uses, so the old
+  // single wording sent them looking at a bar that is not on their screen.
+  const shareRow = IS_IPAD ? 'แถบบน' : 'แถบล่าง';
+
   return (
     <>
       <div style={{
@@ -111,6 +134,7 @@ export default function PWAInstallChip() {
           onClick={handleClick}
           style={{ all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 4 }}
           aria-label="ติดตั้ง VetMock เป็นแอปบนเครื่อง"
+          title="ติดตั้งแล้วไม่มีแถบด้านบนทั้งหน้าจอ เปิดเหมือนแอปในเครื่อง"
         >
           📲 ติดตั้งแอป
         </button>
@@ -142,12 +166,12 @@ export default function PWAInstallChip() {
           >
             <h3 id="vmx-pwa-ios-title" style={{ margin: '0 0 8px', fontSize: 18 }}>ติดตั้งบน iPhone / iPad</h3>
             <ol style={{ paddingLeft: 20, margin: 0, fontSize: 14, lineHeight: 1.7 }}>
-              <li>กดปุ่ม <strong>Share</strong> ⬆ ที่แถบล่าง Safari</li>
+              <li>กดปุ่ม <strong>Share</strong> ⬆ ที่{shareRow} Safari</li>
               <li>เลื่อนหา <strong>"Add to Home Screen"</strong> (เพิ่มที่หน้าจอโฮม)</li>
               <li>กด <strong>Add</strong> มุมขวาบน</li>
             </ol>
             <p style={{ marginTop: 12, fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-              เปิดจาก home screen จะได้ประสบการณ์เหมือน native app, เร็วกว่า, ไม่มีแถบ browser
+              หลังติดตั้งแล้วจะไม่มีแถบด้านบนทั้งหน้าจอ เปิดเหมือนแอปในเครื่องและเร็วกว่าเดิม
             </p>
             <div className="vmx-btn-row" style={{ marginTop: 14 }}>
               <button className="vmx-btn vmx-btn-ghost" onClick={() => setShowIosTip(false)} type="button">ปิด</button>

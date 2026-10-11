@@ -377,6 +377,13 @@ function runItem(item, handlers) {
 
 // Ranked (item, score) pairs — the grouped renderer needs scores to order
 // GROUPS by their best hit while keeping items ranked inside each group.
+//
+// Every token the student typed must still hit (a synonym never widens the
+// match into a guess), but a token may be satisfied by one of the words a
+// feature or article actually uses — so "ทดสอบ" reaches the exam mode whose
+// keywords say สอบ, and "คลิป" reaches the clip summaries whose keywords
+// say video. A synonym hit scores below a literal hit, so an exact match
+// still outranks one found through the dictionary.
 function rankItems(items, query) {
   const q = query.trim().toLowerCase();
   const tokens = q.split(/\s+/).filter(Boolean);
@@ -386,11 +393,20 @@ function rankItems(items, query) {
     let score = 0;
     let allMatch = true;
     for (const t of tokens) {
+      const alts = alternatesFor(t);
+      const hits = [t, ...alts].filter((a) => item._hayLc.indexOf(a) >= 0);
+      if (hits.length === 0) { allMatch = false; break; }
+      const literal = hits[0] === t;
       const pos = item._hayLc.indexOf(t);
-      if (pos < 0) { allMatch = false; break; }
       const labelPos = item._labelLc.indexOf(t);
-      score += labelPos >= 0 ? (100 - labelPos) : (50 - Math.min(50, pos));
-      if (item._labelLc.startsWith(t)) score += 200;
+      if (literal) {
+        score += labelPos >= 0 ? (100 - labelPos) : (50 - Math.min(50, pos));
+        if (item._labelLc.startsWith(t)) score += 200;
+      } else {
+        // Found through the synonym dictionary: a nudge, never a headline.
+        const altPos = item._hayLc.indexOf(hits[0]);
+        score += 25 - Math.min(25, altPos);
+      }
     }
     if (allMatch) scored.push({ item, score });
   }
@@ -490,7 +506,55 @@ const PLACEHOLDERS = [
   'ลองพิมพ์รหัสวิชา เช่น 3104306…',
   'ค้นเอกสาร เช่น "anatomy ปี 1"…',
   'ค้นข้อสอบ อาจารย์ สรุปคลิป โน้ตของคุณ…',
+  'ลองพิมพ์ "ทดสอบ" "คลิป" "สรุปวิชา"…',
 ];
+
+// ── คำพ้อง: คำที่นิสิตพิมพ์ vs คำที่ฟีเจอร์/เนื้อหาใช้จริง ──────────
+// Palm, 2026-10-11: "สำหรับคนที่พิมพ์ค้นหา อยากให้ช่องค้นนอกจากค้นหา
+// แค่ข้อมูล ถ้าใส่คีย์เวิร์ด แบบทดสอบ คลิป หรือ สรุปวิชา### ก็จะขึ้นอัน
+// ที่เกี่ยวโยันกันได้". ทุก token ที่พิมพ์ยังต้องเจอ (ไมกลายเป็นการเดา)
+// แต่คำเหล่านี้ป⋻นำไปหาฟีเจอร์ที่มีคำเกี่ยวข้องอยู่ได้ —
+// "ทดสอบ" → โหมดสอบ, "คลิป" → คลิปย้อนหลัง, "สรุปวิชา" → สรุปบทเรียน.
+const QUERY_SYNONYMS = {
+  'ทดสอบ': ['สอบ', 'ข้อสอบ', 'exam', 'mock', 'โจทย์', 'แบบฝึก'],
+  'สอบ': ['exam', 'ข้อสอบ', 'mock', 'กลางภาค', 'ปลายภาค', 'ตาราง'],
+  'คลิป': ['video', 'summary', 'youtube', 'ย้อนหลัง'],
+  'วิดีโอ': ['video', 'คลิป', 'summary'],
+  'สรุป': ['summary', 'notes', 'โน๊ต', 'สรุปบทเรียน'],
+  'สรุปวิชา': ['notes', 'summary', 'video', 'สรุปบทเรียน'],
+  'โน๊ต': ['notes', 'summary', 'note'],
+  'โน้ต': ['notes', 'summary', 'note'],
+  'โจทย์': ['question', 'ข้อสอบ', 'mcq'],
+  'ตั้งค่า': ['ปรับ', 'settings', 'voice', 'theme'],
+  'ปรับแต่ง': ['ตั้งค่า', 'settings', 'ปรับ'],
+  'เสียง': ['voice', 'tts', 'อ่าน', 'พูด'],
+  'พัก': ['mochi', 'พักสมอง', 'พักใจ', 'break'],
+  'สมาธิ': ['mochi', 'focus', 'pomodoro', 'โฟกัส', 'พักใจ'],
+  'โฟกัส': ['focus', 'pomodoro', 'จับเวลา'],
+  'แก้ใจ': ['mochi', 'พัก'],
+  'เกม': ['game', 'มินิเกม', 'เล่น', 'offline'],
+  'เล่น': ['game', 'มินิเกม', 'offline'],
+  'เพื่อน': ['group', 'กลุ่ม', 'race', 'แข่ง', 'social'],
+  'กลุ่ม': ['group', 'กลุ่มติว', 'เพื่อน'],
+  'แข่ง': ['race', 'group', 'เพื่อน'],
+  'ยาก': ['weak', 'อ่อน', 'เสริม'],
+  'ผิด': ['wrong', 'review', 'ทบทวน'],
+  'ทบทวน': ['review', 'sr', 'spaced', 'repetition', 'flashcard'],
+  'จำ': ['sr', 'flashcard', 'anki', 'spaced'],
+  'วิชา': ['subject', 'course'],
+  'สรุปบทเรียน': ['notes', 'summary'],
+};
+
+// คำที่พิมพ์ → คำอื่นที่คำเดียวกันอาจถูกเขียนไว้ใน `kw` ของรายการ
+function alternatesFor(token) {
+  const own = QUERY_SYNONYMS[token];
+  if (own) return own;
+  // "สรุปวิชาCOM5" ติดกันไม่ได้มีช่องว่าง: ตัดคำนำที่ซ้ำได้ออกให้หมด
+  // แล้วจึงค้นหาคำที่เหลือเป็นคำหลัก
+  const bare = token.replace(/^(สรุป|บท|วิชา|โน้ต|โน๊ต)+/, '');
+  if (bare && bare !== token && QUERY_SYNONYMS[bare]) return QUERY_SYNONYMS[bare];
+  return [];
+}
 
 // ── Answer cards (intent results — computed, never generated) ────────────
 

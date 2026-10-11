@@ -17,6 +17,7 @@ import { correctionsFor } from '../lib/vetwiki/corrections.js';
 import { sectionId } from '../lib/vetwiki/schema.js';
 import SlideFigures from '../components/SlideFigures.jsx';
 import ConflictNote from '../components/ConflictNote.jsx';
+import FeatureTip from '../components/FeatureTip.jsx';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import BackBar from '../components/BackBar.jsx';
 import ImageAnnotator from '../components/ImageAnnotator.jsx';
@@ -308,6 +309,16 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
           {subjectMeta?.icon} {subjectMeta?.name} — เนื้อหาจากสไลด์เลกเชอร์ปี 2569 และสรุปรุ่นพี่ โดยระบุแหล่งที่มาในแต่ละส่วน
         </p>
       </div>
+
+      <FeatureTip id="notes" title="จับจุดสำคัญระหว่างอ่านได้" icon="📖">
+        <p style={{ margin: '0 0 6px' }}>
+          มีปุ่มช่วยโฟกัสทีละย่อหน้า ให้อ่านยาว ๆ จับง่ายขึ้น
+        </p>
+        <ul style={{ margin: 0, paddingLeft: 22, lineHeight: 1.7 }}>
+          <li>อยากจำจุดไหน ลากคลุมข้อความแล้วเก็บเป็นการ์ดจำได้เลย</li>
+          <li>ตัวชี้แสงขณะอ่าน เลือกหรือปิดได้จากแถบเครื่องมือเดียวกัน</li>
+        </ul>
+      </FeatureTip>
 
       <div className="vmx-notes-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(220px, 280px) 1fr', gap: 16, alignItems: 'flex-start' }}>
         {/* Topic sidebar */}

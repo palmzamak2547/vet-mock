@@ -1116,10 +1116,6 @@ html, body {
      of competing with the subject list in the first viewport. */
   .vmx-home-quick-context,
   .vmx-streak-card-home { display: none !important; }
-  /* When EVERY chip in the row is one of the mobile-hidden kinds above, the
-     row itself must go too — otherwise its margin renders as a phantom gap
-     above the subject grid. */
-  .vmx-home-quick-actions:not(:has(> :not(.vmx-home-quick-context):not(.vmx-streak-card-home))) { display: none !important; }
 }
 @media (max-width: 340px) {
   .vmx-header .vmx-logo-btn { display: none; }
@@ -1447,7 +1443,6 @@ html, body {
 
 .vmx-welcome-banner { position: relative; }
 .vmx-welcome-tour-mobile { display: none; }
-.vmx-home-quick-actions { align-items: stretch !important; }
 .vmx-changelog-notice {
   margin-bottom: 12px;
   padding: 10px 12px;
@@ -1461,44 +1456,8 @@ html, body {
 .vmx-subject-scope { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--clr-ink-soft); font-size: var(--text-sm); font-weight: 400; }
 .vmx-subject-scope-action { min-height: var(--touch-min); padding-inline: 8px; display: inline-flex; align-items: center; color: var(--clr-sage-text); font-size: inherit; font-weight: 600; }
 .vmx-group-preview-icon { width: 44px; height: 44px; flex: 0 0 44px; display: grid; place-items: center; border-radius: 50%; background: var(--clr-surface-2); color: var(--clr-sage-text); }
-/* On a phone the four chips each wrapped onto their own line — 228px of the
-   663px a student had to scroll past before reaching the first subject card,
-   the tallest block on the screen. One swipeable row keeps every chip and
-   gives back ~170px. The negative margin + matching padding let it bleed to
-   the screen edge so the cut-off chip reads as "there is more this way".
-   `min-width: 0` on the children is what stops a flex row from refusing to
-   shrink and pushing the page sideways. */
-@media (max-width: 1023px) {
-  .vmx-home-quick-actions {
-    flex-wrap: nowrap !important;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x proximity;
-    margin-left: calc(var(--space-4, 16px) * -1);
-    margin-right: calc(var(--space-4, 16px) * -1);
-    padding-left: var(--space-4, 16px);
-    padding-right: var(--space-4, 16px);
-    padding-bottom: 2px;
-  }
-  .vmx-home-quick-actions::-webkit-scrollbar { display: none; }
-  /* `white-space: nowrap` is what makes this a row rather than four narrow
-     columns: without it the chips shrank to ~99px and wrapped their own text
-     to five lines, so the row stayed 141px tall.
-     !important is not decoration here — the chips carry `all: unset` in their
-     inline style, which beats any stylesheet declaration that isn't marked.
-     (`flex-wrap` and `align-items` above are !important for the same reason.)
-     No `min-width: 0` either; that is the very thing that let them squeeze. */
-  .vmx-home-quick-actions > * {
-    flex: 0 0 auto !important;
-    white-space: nowrap !important;
-    scroll-snap-align: start;
-  }
-}
 @media (max-width: 600px) {
   .vmx-hero { margin-bottom: 16px; }
-  .vmx-home-quick-actions,
   .vmx-changelog-notice:not(.is-forced) { display: none !important; }
   .vmx-subject-scope { width: 100%; justify-content: space-between; }
 }
@@ -6903,4 +6862,133 @@ body.vmx-reading .vmx-pdf-body {
 }
 @media (hover: none) {
   .vmx-subject-card:hover { transform: none; }
+}
+
+/* ── Profile hub rows ──────────────────────────────────────────────
+   The hub's navigation rows were composed from `.vmx-btn` until they were
+   given a class of their own. docs/DESIGN_SYSTEM.md: "Give a navigation
+   surface its own class family; never compose rows from .vmx-btn" — paid for
+   on 2026-08-30 when `.vmx-sidebar-item` declared flex-start, `.vmx-btn`
+   declared center 800 lines later at equal specificity, and source order
+   won. `.vmx-nav-row` above is that same call for the sidebar rail; this is
+   the in-page row, and it applies at every width instead of only inside the
+   rail's min-width: 1024px block.
+
+   The rule owns the shell and the states only — layout, the 44px floor, the
+   hover tint, the focus ring. Label, hint and chevron keep the sizes and
+   colours the view already sets them, so a row can carry a count or a badge
+   in the trailing slot without the stylesheet having to know about it. */
+.vmx-profile-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: var(--space-2) var(--space-3);
+  margin: 0;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--clr-ink);
+  font: inherit;
+  font-size: var(--text-base);
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+/* Label + hint: one left-aligned column that grows, so whatever closes the
+   row keeps the right edge. min-width: 0 is what lets a long Thai label
+   ellipsis instead of shoving the closing affordance off-screen. */
+.vmx-profile-row > :first-child {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+/* The closing affordance never shrinks and never wraps to a line of its own
+   where there is room for it. */
+.vmx-profile-row > :last-child:not(:first-child) { flex: 0 0 auto; }
+
+.vmx-profile-row:hover { background: var(--vmx-surface-muted); }
+
+/* Press feedback without the lift `.vmx-btn` gives: a row that rises under
+   the finger reads as a control being dragged, not as a destination. */
+.vmx-profile-row:active { background: var(--vmx-surface-muted); }
+
+/* The global `:focus-visible` rule at the top of this file draws the ring
+   with !important (59 controls inline `all: unset`, which erases any outline
+   a stylesheet rule asks for), so that rule is what actually renders. This
+   restates the row's own so the ring follows the sage accent the rest of the
+   navigation surfaces use, and sits inside the row rather than outside it —
+   an offset ring on a row stacked inside a card's 20px padding overlaps the
+   card's border. */
+.vmx-profile-row:focus-visible {
+  outline: 2px solid var(--clr-sage-text);
+  outline-offset: -2px;
+}
+
+/* Narrow. At 480px a 14px label, a 12px hint and a chevron no longer share a
+   line, and squeezing them is what made the old composed rows two columns of
+   half-width text. The text block takes the whole width, so the hint sits
+   under the label, and the closing affordance leaves the flow for the
+   top-right corner — still vertically centred, exactly where it was, just no
+   longer competing with the hint for the line. */
+@media (max-width: 480px) {
+  .vmx-profile-row {
+    position: relative;
+    gap: var(--space-1);
+    padding-block: var(--space-2);
+    padding-left: var(--space-2);
+    /* Reserve the closing affordance's slot: it is out of flow now, so
+       without this the text would run underneath it. */
+    padding-right: var(--space-6);
+  }
+  .vmx-profile-row > :first-child { flex: 1 1 100%; }
+  .vmx-profile-row > :last-child:not(:first-child) {
+    position: absolute;
+    top: 50%;
+    right: var(--space-3);
+    transform: translateY(-50%);
+  }
+}
+
+/* ── FeatureTip — the once-a-day usage hint ────────────────────────
+   src/components/FeatureTip.jsx has carried this card on inline styles since
+   the tip was wired, and the class name it renders has had no rule anywhere.
+   The surface, border, radius and padding all live in its `cardStyle` object
+   and stay there for now, so this is NOT a second definition of the same
+   card: it adds only what an inline style cannot say — the in-flow contract
+   and two layout guards — which makes the class a real hook that can be
+   styled and targeted. tests/e2e/first-tip.spec.js already reaches for
+   `.vmx-feature-tip`.
+
+   No animation, on purpose. The hint appears once a day and says nothing
+   motion would make clearer, so there is no transform to fall back from and
+   no `prefers-reduced-motion` block to write. Nothing in the card is sized
+   in px either, so the ≤480px promise the component makes — push the page
+   down, never cover it — holds at every width without a media query.
+
+   Left alone deliberately: the ✕ is a 28px box, under the 44px floor. It is
+   the component's own inline style and growing it changes the card's look,
+   which is not this batch's call to make. */
+.vmx-feature-tip {
+  /* In flow, at every width. The component's own contract: plain in-flow
+     content, never fixed or absolute, so a phone gets the hint above the
+     page instead of on top of it. Written out rather than left to the
+     initial value so the next edit has to argue with this line. */
+  position: static;
+  box-sizing: border-box;
+  /* A long hint must not widen the layout. The app keeps `overflow-x: clip`
+     as a net; this is the rule that avoids needing it here. */
+  max-width: 100%;
+  /* The card names no colour inline, so the title's ink was inherited by
+     accident of wherever the view happened to mount it. Name it. */
+  color: var(--clr-ink);
 }
