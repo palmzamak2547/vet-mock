@@ -187,7 +187,7 @@ export default function OSCEDrill({ onClose }) {
               </button>
             )}
             {timedOut && (
-              <div role="status" style={{ width: '100%', boxSizing: 'border-box', marginBottom: 12, padding: '10px 14px', borderRadius: 10, textAlign: 'center', fontWeight: 700, color: 'var(--clr-rose-text, #c0392b)', background: 'rgba(192, 57, 43, 0.08)', border: '1px solid var(--clr-rose, #c0392b)' }}>
+              <div role="status" style={{ width: '100%', boxSizing: 'border-box', marginBottom: 12, padding: '10px 14px', borderRadius: 10, textAlign: 'center', fontWeight: 700, color: 'var(--clr-rose-text)', background: 'rgba(192, 57, 43, 0.08)', border: '1px solid var(--clr-rose)' }}>
                 หมดเวลา ให้คะแนนจากขั้นที่ติ๊กไว้แล้ว
               </div>
             )}
