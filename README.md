@@ -7,7 +7,7 @@ Made with ♡ by **Vet 86**
 🔬 **VetMock Research:** [research.vetmock.com](https://research.vetmock.com)
 🔗 **Sister sites:** [cuvetsmo.com](https://cuvetsmo.com) (สโมสรนิสิต), [hanong.vercel.app](https://hanong.vercel.app) (stray welfare)
 
-**Study source:** v5.141.5 / SW v216 · candidate 2026-10-08 (ยังไม่เผยแพร่)
+**Study source:** v5.143.0 / SW v218, pushed to main 2026-10-12 (the deployed receipt is in docs/LAUNCH_READINESS.md)
 ปกรายวิชา 85 วิชาในหน้าแรกและหน้าเลือกวิชา; สถานะข้อสอบและสรุปยังแสดงตามเนื้อหาที่มีจริง
 หลักฐาน deployment และข้อจำกัดของการตรวจ รวมถึง Research R parity: [`docs/LAUNCH_READINESS.md`](./docs/LAUNCH_READINESS.md)
 Maintainer map: [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE.md)
@@ -40,9 +40,9 @@ npm run dev
 | ข้อสอบพร้อมฝึก | **6,663 ข้อ** ใน 94 bank files, 43 วิชา |
 | พักไว้เพื่อความถูกต้อง | 68 ข้อรอตรวจเฉลย ขอบเขต หรือภาพประกอบ (เก็บใน source bank แต่ไม่ส่งให้ผู้เรียน) |
 | ชั้นปีที่มีเนื้อหา | ปี 1 (297), ปี 2 (144), ปี 3 (62), ปี 4 (2,076), ปี 5 (4,084) |
-| สรุปโน้ต | 37 ไฟล์, 379 หัวข้อ, 4,053 sections, อ้างอิงแหล่งที่มาครบ 100% |
+| สรุปโน้ต | 37 ไฟล์, 379 หัวข้อ, 4,055 sections, อ้างอิงแหล่งที่มาครบ 100% |
 | สรุปคลิป | 644 คลิป ใน 32 ไฟล์ |
-| VetWiki (governed) | 210 หัวข้อ, 1,782 sections = 44.0% ของ note sections |
+| VetWiki (governed) | 210 หัวข้อ, 1,783 sections = 44.0% ของ note sections |
 | Taxonomy | 86 วิชา, 1,044 หัวข้อ |
 | ชนิดคำถาม | MCQ, True/False, Fill-in, Matching, Short answer, Writing |
 <!-- content-stats:end -->

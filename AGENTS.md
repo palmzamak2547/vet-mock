@@ -1,8 +1,15 @@
 # AGENTS.md — VetMock Project Guide
 
+## Polish sweep release 5.143.0 / SW v218 — 2026-10-12 (Claude Code)
+
+- Reviewed all 31 commits pushed 2026-10-08 to 2026-10-11 (Codex 14a62d02, 9d20d850; Kasem's 28 incl. external docs, FSRS/Elo/adaptive, 3D mascots, d55f709d student feedback) with adversarial verification: 58 + 19 upheld findings, all fixed on claude/polish-1011 except what the release notes list as held. Re-triaged work/loop-2026-09-26/OPEN-ITEMS.md and the Codex audits (194 items: 83 open, 9 partial) and fixed 12 file-disjoint packages; plan and handoffs in work/polish-1011/ (ROUND2-PLAN.md, round2/*.md).
+- Decisions: the sync re-land (sync/reland-0926) is retired, because cc742166 replaced the engine with the atomic RPC sync_user_data_v2; four candidate fixes to the atomic engine sit unreviewed on claude/sync-atomic-tests-1011 (vmu/sync-reland-1011). The library link rate limit fails open when the shared limiter is down (it guards the bill, not access). FSRS review events are labelled vetmock-fsrs6-v2 after the reference fixes. Adaptive practice says how many questions have measured difficulty (production had 0 with 20+ answers on 2026-10-11).
+- Server: six migrations 20261011120100..120600 (imaging policies match live, exam receipt idempotent ack, admin answers by version, q_comments admin delete, private study-buddies channel, race join rate limit); apply order and read-backs in work/polish-1011/round2/H.md (H6 only after the RaceView client is live). The delete-account edge function now revokes Google/Notion grants and needs a deploy.
+- Held for later: summary middle dots (package L), the explanation backlog (M), the figure-extractor deck choice (round 3, see round2/K.md), Kasem's next slices, and owner items (Google verification for drive.readonly, GIS origin and LIFF endpoint on vetmock.com, passkey re-enrol, Search Console).
+
 ## System stability candidate — 2026-10-09 (Codex)
 
-- Isolated `codex/system-stability-1009`, base main `14a62d02`; candidate Study5.141.6/SW217 is not released. Primary dirty work and Research M3a are preserved. Root is sole release owner; shared claim remains primary `work/loop-20260930/COORDINATION.md`.
+- Isolated `codex/system-stability-1009`, base main `14a62d02`; Study5.141.6/SW217 was released on 2026-10-09 (9d20d850, see the release section below). Primary dirty work and Research M3a are preserved. Root is sole release owner; shared claim remains primary `work/loop-20260930/COORDINATION.md`.
 - Confirmed fixes cover retired exam-start intent, equal-size review pagination, repeated offline PDF deletion, cross-tab restored image decks, duplicate wake locks/realtime retries, and external-document account isolation, connection recovery, Google provider/token renewal and selected-sheet reads. Existing controls/imports/normal learning paths remain required checks.
 - Evidence and current status: `work/system-20261009/CHECKPOINT.md`; portable scope: `docs/system-audit-2026-10-09.md`. Focused failure regressions, data/unit52/52, production build, contrast3 and configured native40/40 across4profiles with0retries pass. Windows full gate stopped before browsers on its retained preview port; exact Linux CI and production proof remain pending. External provider/account traffic is modeled; no real OAuth, schema or provider-configuration mutation is claimed.
 - Own locked dependencies installed; audit high0/critical0/moderate8 in the existing Imaging chain. The upstream sprintf advisory has no patched version; do not claim dependency zero or replace the Imaging major version without its own verification.
@@ -222,7 +229,7 @@ npm run gate             # THE release gate: data lints + unit in Bangkok/UTC (+
                          # (auto when research/ moved), then all four E2E profiles
 npm run gate:fast        # Same gate with the two e2e steps concurrent
 npm run gate:data        # Fast data/unit diagnosis; does not replace the full release gate
-npm run gate:serial      # The same steps as one && chain, no orchestrator script
+npm run gate:serial      # Root steps plus the Research suite and build as one && chain; no SQL harnesses (the orchestrator decides those)
 npm run test:e2e          # Cross-browser Playwright suite
 npm run test:e2e:prod     # Live flows against vetmock.com
 npm run lint:all          # All generated/data/content integrity gates — a SUBSET of the gate:

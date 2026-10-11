@@ -1,8 +1,12 @@
 # VetMock — Launch Readiness
 
+## Release 5.143.0 / SW v218 — 2026-10-12 (Claude Code polish sweep)
+
+Review of every commit pushed 2026-10-08 to 2026-10-11 (Codex and Kasem) and the 09-27 open-items ledger, fixed in one release: Google token refresh that never saved, the 3D mascot viewer rebuilding its scene every 2 s, adaptive-practice honesty, FSRS-6 reference fixes, external-docs security and in-app-browser handling, counts and provenance, plain-Thai copy, practice tools, library and offline, imaging, account settings, six server migrations (applied separately, see work/polish-1011/round2/H.md). Gate results, the deploy id and the production checks are recorded in work/polish-1011/RELEASE.md and the COORDINATION log once the deploy is READY.
+
 ## Source checkpoint — 2026-10-08 · External Docs and iOS WebKit fix
 
-Study source **5.141.4** adds the external doc reader for Notion and Google Docs, per-user OAuth integration, and iOS WebKit mobile fixes. The release gate has passed with full Playwright E2E suites verifying the 320px WebKit mobile layout. Merged `codex/external-oauth-1007` and pushed to GitHub main for Vercel production deployment.
+Study source **5.141.4** adds the external doc reader for Notion and Google Docs, per-user OAuth integration, and iOS WebKit mobile fixes. This entry is a source checkpoint, not a gate receipt: the 320px planner budget and the Firefox smoke were changed afterwards in e793d937, and no CI, deploy or SW receipt was recorded here.
 
 ## Source checkpoint — 2026-10-08 · subject bookplates
 

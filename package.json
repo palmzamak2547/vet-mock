@@ -1,7 +1,7 @@
 {
   "name": "vet-mock-exam",
   "private": true,
-  "version": "5.142.0",
+  "version": "5.143.0",
   "type": "module",
   "engines": {
     "node": ">=20"
@@ -27,7 +27,7 @@
     "lint:data": "npm run lint:untracked && npm run lint:mochi && npm run lint:bindings && npm run lint:ids && npm run lint:dupes && npm run lint:academic-safety && npm run lint:questions && npm run lint:deck-refs && npm run lint:question-standard && npm run lint:quotes && npm run lint:brackets && npm run lint:garble && npm run lint:shipped-quotes && npm run lint:delivery && npm run lint:question-difficulty && npm run lint:thai-orthography && npm run lint:empty-sections && npm run lint:registry && npm run lint:changelog-latest && npm run lint:wiki-registry && npm run lint:citation-index && npm run lint:video-meta && npm run lint:panic-cards && npm run lint:question-voice && npm run lint:answer-voice && npm run lint:art && npm run lint:og && npm run lint:exam-scope && npm run lint:provenance && npm run lint:glossary && npm run lint:glossary-related && npm run lint:written-questions && npm run lint:video-summaries && npm run lint:notes-registry && npm run lint:conflict-summary && npm run lint:wiki-runtime && npm run lint:curriculum && npm run lint:q-counts && npm run lint:instructors && npm run validate:wiki && npm run lint:wiki-coverage && npm run stats:check && npm run lint:accent-tokens && npm run lint:hex-budget && npm run lint:css-tokens && npm run lint:ui-copy && npm run lint:citation-moments && npm run lint:source-docs && npm run lint:atlas",
     "lint:dist": "npm run audit:contrast && npm run audit:contrast -- --landing && npm run audit:contrast -- --exam",
     "lint:all": "npm run lint:data && npm run lint:dist",
-    "regen:all": "npm run regen:registry && npm run regen:delivery && npm run regen:exam-papers && npm run regen:q-counts && npm run regen:glossary-related && npm run regen:written-questions && npm run regen:citation-index && npm run regen:conflict-summary && npm run regen:notes-registry && npm run regen:wiki-registry && npm run regen:wiki-runtime && npm run regen:video-meta && npm run regen:atlas && npm run regen:mochi && npm run regen:changelog && npm run stats -- --write",
+    "regen:all": "npm run regen:registry && npm run regen:delivery && npm run regen:exam-papers && npm run regen:q-counts && npm run regen:glossary-related && npm run regen:written-questions && npm run regen:citation-index && npm run regen:conflict-summary && npm run regen:notes-registry && npm run regen:wiki-registry && npm run regen:wiki-runtime && npm run regen:video-meta && npm run regen:clip-labels && npm run regen:atlas && npm run regen:mochi && npm run regen:changelog && npm run stats -- --write",
     "regen:changelog": "node scripts/regen-latest-changelog.mjs",
     "regen:atlas": "node scripts/regen-atlas-registry.mjs",
     "lint:atlas": "node scripts/regen-atlas-registry.mjs --check",
@@ -40,6 +40,7 @@
     "lint:question-difficulty": "node scripts/regen-question-difficulty.mjs --check",
     "regen:registry": "node scripts/regen-bank-registry.mjs",
     "regen:video-meta": "node scripts/regen-video-meta.mjs",
+    "regen:clip-labels": "node scripts/regen-clip-labels.mjs",
     "lint:video-meta": "node scripts/regen-video-meta.mjs --check",
     "lint:question-voice": "node scripts/lint-question-voice.mjs",
     "lint:answer-voice": "node scripts/lint-answer-voice.mjs",
@@ -78,6 +79,7 @@
     "gate:serial": "npm run lint:data && npm run test:unit && npm run test:unit:utc && npm run build && npm run lint:dist && npm --prefix research test && npm --prefix research run test:utc && npm --prefix research run build && npm run test:e2e:ci",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:prod": "node scripts/test-e2e-prod.mjs",
+    "test:rpc-boundaries": "node scripts/test-rpc-boundaries-db.mjs",
     "test:unit": "node --test --test-concurrency=2 tests/unit/*.test.mjs",
     "test:unit:utc": "node -e \"process.env.TZ='UTC';const r=require('child_process').spawnSync(process.execPath,['--test','--test-concurrency=2','tests/unit/*.test.mjs'],{stdio:'inherit'});process.exit(r.status??1)\"",
     "test": "npm run test:unit && npm run test:e2e",
