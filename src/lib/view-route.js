@@ -42,11 +42,21 @@ const VIEW_TO_PATH = Object.freeze({
   admin: '/app/admin',
 });
 
-const PATH_TO_VIEW = new Map(
-  Object.entries(VIEW_TO_PATH)
+// Retired paths that still arrive from shared links, bookmarks and old
+// release notes. Each opens the screen that now holds its feature; nothing
+// writes them back into the address bar (appPathForView never returns one).
+// /app/external-docs: the external-document reader moved onto the library's
+// second tab, which LibraryView opens when it sees this path.
+export const APP_PATH_ALIASES = Object.freeze({
+  '/app/external-docs': 'library',
+});
+
+const PATH_TO_VIEW = new Map([
+  ...Object.entries(VIEW_TO_PATH)
     .filter(([, path]) => path !== '/')
     .map(([view, path]) => [path, view]),
-);
+  ...Object.entries(APP_PATH_ALIASES),
+]);
 
 function normalizePath(pathname) {
   if (typeof pathname !== 'string' || !pathname) return '/';

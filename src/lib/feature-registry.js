@@ -231,6 +231,16 @@ export const FEATURES = [
     kw: 'pinboard pin หมุด รวบรวม board collect saved',
     invoke: { kind: 'view', view: 'pinboard' },
   },
+  {
+    // The external-document reader is the library's second tab. This entry
+    // is how the palette finds it by the words students search with; the
+    // rail already has the library itself.
+    id: 'external-docs', category: 'learn', rail: false,
+    label: 'เอกสารภายนอก', labelEn: 'External docs', icon: '🔗',
+    hint: 'อ่านเอกสารและชีตของ Google หรือหน้าของ Notion ในแอป ทั้งลิงก์ที่แชร์ไว้และบัญชีที่เชื่อม',
+    kw: 'external docs notion google doc docs sheet sheets drive เอกสารภายนอก ลิงก์ link วาง paste เชื่อมบัญชี',
+    invoke: { kind: 'view', view: 'library', intent: 'external' },
+  },
 
   // ── 📊 Progress ──────────────────────────────────────────
   {

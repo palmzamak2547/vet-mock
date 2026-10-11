@@ -24,6 +24,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import ExternalDocsSection from '../components/ExternalDocsSection.jsx';
 import FeatureTip from '../components/FeatureTip.jsx';
+import { takeViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { thaiError } from '../lib/errors.js';
 import { googleDriveSourceUrl, mergeLibrarySources, vcaFileDoc } from '../lib/vca-library.js';
 import { EMPTY_ART } from '../data/art.js';
@@ -241,14 +242,34 @@ function paramOr(key, fallback) {
   } catch { return fallback; } // no window in tests
 }
 
+// The external tab opens from the OAuth callback (?connected / ?connect_error),
+// from ?tab=external (the way back from a chat app's browser), from the
+// retired /app/external-docs path, and from the palette's เอกสารภายนอก entry.
+const EXTERNAL_DOCS_ALIAS = '/app/external-docs';
+
 export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selectedYear = null, user }) {
+  const tabIntentRef = useRef(null);
   const [activeTab, setActiveTab] = useState(() => {
     try {
       const search = new URLSearchParams(window.location.search);
-      if (search.has('connected') || search.has('connect_error')) return 'external';
+      if (search.has('connected') || search.has('connect_error') || search.get('tab') === 'external') return 'external';
+      if (window.location.pathname.replace(/\/+$/, '') === EXTERNAL_DOCS_ALIAS) return 'external';
     } catch { /* ignored */ }
-    return 'internal';
+    return takeViewIntent(tabIntentRef) === 'external' ? 'external' : 'internal';
   });
+  // Read once: the intent is consumed only after this render commits, and the
+  // address bar settles on the canonical /app/library without the tab hint.
+  useEffect(() => {
+    if (tabIntentRef.current === 'external') consumeViewIntent('external');
+    try {
+      const url = new URL(window.location.href);
+      const alias = url.pathname.replace(/\/+$/, '') === EXTERNAL_DOCS_ALIAS;
+      if (!alias && !url.searchParams.has('tab')) return;
+      if (alias) url.pathname = '/app/library';
+      url.searchParams.delete('tab');
+      window.history.replaceState(window.history.state, '', url.toString());
+    } catch { /* no window in tests or history refused: the tab is already open */ }
+  }, []);
   const [docs, setDocs] = useState([]);
   const [configured, setConfigured] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -306,6 +327,12 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
   useEffect(() => {
     const receiveIntent = (event) => {
       if (event.detail?.view !== 'library') return;
+      // The palette's เอกสารภายนอก entry while the library is already open.
+      const pending = { current: null };
+      if (takeViewIntent(pending) === 'external') {
+        consumeViewIntent('external');
+        setActiveTab('external');
+      }
       try {
         const subject = sessionStorage.getItem('vmx-library-subject');
         const query = sessionStorage.getItem('vmx-library-q');

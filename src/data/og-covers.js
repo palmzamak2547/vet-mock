@@ -96,9 +96,11 @@ export const OG_COVERS = [
     title: 'รายการอ่าน',
     description: 'เช็กหัวข้อที่อ่านแล้ว',
     cover: 'ทีละบท ทีละก้าว' },
+  // A retired path kept as an alias (APP_PATH_ALIASES in view-route.js): it
+  // opens the library on its external tab, so old links still preview well.
   { id: 'external-docs', route: '/app/external-docs',
     title: 'เอกสารภายนอก',
-    description: 'วางลิงก์ Notion หรือเอกสารและชีตของ Google ที่แชร์แบบสาธารณะ แล้วอ่านต่อในแอป',
+    description: 'อ่านเอกสารและชีตของ Google หรือหน้าของ Notion ในแอป ทั้งลิงก์ที่แชร์ไว้และบัญชีที่เชื่อม',
     cover: 'วางลิงก์ แล้วอ่านต่อ' },
   { id: 'library', route: '/app/library',
     title: 'คลังเอกสาร',
