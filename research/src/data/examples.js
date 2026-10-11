@@ -108,7 +108,7 @@ export const EXAMPLES = Object.freeze([
   },
   {
     id: 'glucose-tolerance', titleKey: 'trust.example.glucose-tolerance.title', descKey: 'trust.example.glucose-tolerance.story',
-    design: 'experiment', methods: ['calc.auc', 'anova.repeated'], tool: null, guide: 'assays',
+    design: 'experiment', methods: ['calc.auc'], tool: null, guide: 'assays',
     rows: 60, columns: 4, secondRows: null,
     load: () => import('./examples/glucose-tolerance.js'),
   },

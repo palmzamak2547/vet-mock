@@ -225,7 +225,7 @@ test('the M3a examples have the shapes their lab methods need (M3-DESIGN.md 3.1,
   const ratio = half['ผ่านยา'] / half['ควบคุม'];
   assert.ok(ratio > 2 && ratio < 4.5, `the exposed arm's IC50 is about three times the control's: ${ratio}`);
 
-  // Area under the curve and two-factor repeated measures: ten dogs, five per group, each measured once at
+  // Area under the curve: ten dogs, five per group, each measured once at
   // each of the six times, long; the mean area under the curve (trapezoid rule) is larger with prednisolone.
   const gtt = parse((await load('glucose-tolerance')).csv);
   assert.deepEqual(gtt.header, ['dog_id', 'group', 'minute', 'glucose_mg_dl']);

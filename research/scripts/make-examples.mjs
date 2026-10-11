@@ -465,7 +465,7 @@ function doseArms(seed) {
 }
 
 /**
- * An oral glucose tolerance test in dogs (calc.auc, anova.repeated): ten dogs randomised to prednisolone or a
+ * An oral glucose tolerance test in dogs (calc.auc): ten dogs randomised to prednisolone or a
  * placebo for 14 days, five each, then blood glucose at 0, 15, 30, 60, 90 and 120 minutes after oral glucose,
  * long as a lab sheet lists it (one row per dog per time). Prednisolone lifts the fasting value, the peak and
  * the return; each dog keeps its own fasting level and its own size of rise.
