@@ -1,9 +1,10 @@
-// A short user guide in plain Thai and English [M2-DESIGN.md 11.3; competitor-gaps.md D7]: one page per
-// kind of work (from a raw file to a report, animals from several farms, a lab experiment, repeated
-// measures, survival, a diagnostic test, agreement and questionnaires, preparing data) plus what each
-// guardrail means. The page shown is the location hash (/guide#lab), so every page has its own link and
-// the browser's back button moves between them. Each page names the made-up example that walks
-// through it. The structure is GUIDE in ./model.js; every word is in i18n/trust.js. OWNER: trust role.
+// A short user guide in plain Thai and English [M2-DESIGN.md 11.3; M3-DESIGN.md 7; competitor-gaps.md D7]:
+// one page per kind of work (from a raw file to a report, animals from several farms, a lab experiment,
+// repeated measures, standard curves to PCA, separation and overdispersed counts, survival, a diagnostic
+// test, agreement and questionnaires, preparing data) plus what each guardrail means. The page shown is
+// the location hash (/guide#lab), so every page has its own link and the browser's back button moves
+// between them. Each page names the made-up examples that walk through it. The structure is GUIDE in
+// ./model.js; every word is in i18n/trust.js. OWNER: trust role.
 import { useEffect, useState } from 'react';
 import { useT } from '../i18n/index.js';
 import { getExample } from '../data/examples.js';
@@ -44,9 +45,41 @@ function Contents() {
   );
 }
 
+/** The made-up examples a page names: one is told as a sentence, several (one per method family) as a list. */
+function TryExamples({ ids }) {
+  const { t } = useT();
+  const examples = ids.map((id) => getExample(id)).filter(Boolean);
+  if (!examples.length) return null;
+  const one = examples.length === 1 ? examples[0] : null;
+  return (
+    <section aria-labelledby="rs-guide-try" className="rs-pub-try">
+      <h3 id="rs-guide-try" className="rs-pub-h3">
+        {t(one ? 'trust.guide.try' : 'trust.guide.tryMany')} <span className="rs-chip rs-chip--gold rs-chip--inline">{t('trust.madeUp')}</span>
+      </h3>
+      {one ? (
+        <>
+          <p>{t('trust.guide.tryBody', { title: t(one.titleKey) })}</p>
+          <p className="rs-soft">{t(one.descKey)}</p>
+        </>
+      ) : (
+        <>
+          <p>{t('trust.guide.tryBodyMany')}</p>
+          <ul className="rs-pub-trylist">
+            {examples.map((ex) => (
+              <li key={ex.id}>
+                <span className="rs-strong">{t(ex.titleKey)}</span>
+                <span className="rs-soft">{t(ex.descKey)}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </section>
+  );
+}
+
 function GuideBody({ page }) {
   const { t } = useT();
-  const example = page.example ? getExample(page.example) : null;
   const i = GUIDE.findIndex((p) => p.id === page.id);
   const next = GUIDE[i + 1] || null;
   const steps = Array.from({ length: page.steps }, (_, k) => `trust.guide.${page.id}.step${k + 1}`);
@@ -72,15 +105,7 @@ function GuideBody({ page }) {
         </section>
       ) : null}
       {page.warnings || watch.length ? <p className="rs-soft rs-small">{t('trust.guide.warnFromData')}</p> : null}
-      {example ? (
-        <section aria-labelledby="rs-guide-try" className="rs-pub-try">
-          <h3 id="rs-guide-try" className="rs-pub-h3">
-            {t('trust.guide.try')} <span className="rs-chip rs-chip--gold rs-chip--inline">{t('trust.madeUp')}</span>
-          </h3>
-          <p>{t('trust.guide.tryBody', { title: t(example.titleKey) })}</p>
-          <p className="rs-soft">{t(example.descKey)}</p>
-        </section>
-      ) : null}
+      <TryExamples ids={page.examples} />
       {next ? <p><a href={`#${next.id}`} className="rs-pub-next">{t('trust.guide.next', { title: t(`trust.guide.${next.id}.title`) })}</a></p> : null}
     </article>
   );

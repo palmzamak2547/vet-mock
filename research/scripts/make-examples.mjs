@@ -1,12 +1,13 @@
-// Writes the example datasets under src/data/examples/ [M2-DESIGN.md 11.4; competitor-gaps.md D7].
-// Every example is made-up data (ข้อมูลสมมุติ), drawn from PCG32 (O'Neill 2014, pcg32 of pcg-c-basic,
+// Writes the example datasets under src/data/examples/ [M2-DESIGN.md 11.4; M3-DESIGN.md 7; competitor-gaps.md
+// D7]. Every example is made-up data (ข้อมูลสมมุติ), drawn from PCG32 (O'Neill 2014, pcg32 of pcg-c-basic,
 // seeded as pcg32_srandom_r(seed, stream); M2-DESIGN.md 7) with the seed and stream written into the
 // file, so anyone can redraw it. The numbers are rounded as a person would type them (grams as whole
-// numbers, kilograms to 0.1, degrees to 0.1). The generator is its own small PCG32 (checked against the
-// reference output of pcg32-demo in tests/unit/trust-examples.test.mjs), not lib/plan/random.js, so the
-// examples never change when the planning tools do.
+// numbers, kilograms to 0.1, degrees to 0.1) or as the instrument prints them (OD to 0.001, Ct to 0.01).
+// The generator is its own small PCG32 (checked against the reference output of pcg32-demo in
+// tests/unit/trust-examples.test.mjs), not lib/plan/random.js, so the examples never change when the
+// planning tools do.
 //
-//   node scripts/make-examples.mjs          write src/data/examples/*.js
+//   node scripts/make-examples.mjs          write the src/data/examples/*.js files that differ from their seeds
 //   node scripts/make-examples.mjs --check  exit 1 when a written file differs from what the seeds give
 //
 // OWNER: trust role.
@@ -371,6 +372,206 @@ function doubleEntry(seed) {
   };
 }
 
+// ---- M3a [M3-DESIGN.md 7]: the lab methods ----------------------------------------------------------
+
+/**
+ * An ELISA plate for IL-6 in pig serum (nls.fourPL): eight standards in duplicate, 1000 pg/mL down to the zero
+ * standard, then twelve sera whose concentration is left blank to be read off the curve [M3-DESIGN.md C4, C5].
+ * The optical density rises with concentration on a four-parameter logistic curve and is read to three
+ * decimals, as a plate reader prints it. Two sera are written outside the curve on purpose: P05 reads below the
+ * zero standard and P11 above the top of the curve, so neither may be given a concentration.
+ */
+function elisaPlate(seed) {
+  const rng = pcg32(seed);
+  const bottom = 0.06;
+  const top = 2.7;
+  const ec50 = 170;
+  const hill = 1.1;
+  // The zero standard sits on the bottom: ec50 / 0 is Infinity, and so is its power.
+  const od = (x) => bottom + (top - bottom) / (1 + (ec50 / x) ** hill);
+  const read = (mu) => fixed(Math.max(0.001, mu * (1 + 0.035 * rng.normal()) + 0.006 * rng.normal()), 3);
+  const standards = [1000, 500, 250, 125, 62.5, 31.3, 15.6, 0];
+  const rows = [];
+  standards.forEach((x, k) => {
+    const letter = 'ABCDEFGH'[k];
+    for (const column of [1, 2]) rows.push([`${letter}${column}`, `STD${k + 1}`, x, read(od(x))]);
+  });
+  const wells = ['A3', 'B3', 'C3', 'D3', 'E3', 'F3', 'G3', 'H3', 'A4', 'B4', 'C4', 'D4'];
+  wells.forEach((well, i) => {
+    const name = `P${pad(i + 1, 2)}`;
+    let reading;
+    if (name === 'P05') reading = fixed(0.03 + 0.008 * rng.uniform(), 3);
+    else if (name === 'P11') reading = fixed(top * (1.12 + 0.04 * rng.uniform()), 3);
+    else reading = read(od(Math.exp(Math.log(25) + rng.uniform() * Math.log(700 / 25))));
+    rows.push([well, name, '', reading]);
+  });
+  return {
+    files: [{ fileName: 'il6-elisa-plate.csv', csv: toCsv(['well', 'sample', 'conc_pg_ml', 'od450'], rows) }],
+    codebook: [
+      col('well', 'ตำแหน่งหลุมบนเพลต', 'Plate well', 'id', { role: 'id', level: 'sample' }),
+      col('sample', 'ชื่อในเพลต (STD คือสารมาตรฐาน P คือซีรัมสุกร)', 'Name on the plate (STD a standard, P a pig serum)', 'text', { level: 'sample' }),
+      col('conc_pg_ml', 'ความเข้มข้นของ IL-6 ที่รู้ค่า (ว่างไว้ในหลุมซีรัม)', 'Known IL-6 concentration (blank in the serum wells)', 'continuous', {
+        role: 'exposure', level: 'sample', unit: 'pg/mL', range: { min: 0, max: 1000 },
+        missingNote: 'blank for the 12 sera: the concentrations to read off the curve',
+      }),
+      col('od450', 'ค่าการดูดกลืนแสงที่ 450 nm (OD)', 'Optical density at 450 nm (OD)', 'continuous', { role: 'outcome', level: 'sample', range: { min: 0, max: 4 } }),
+    ],
+    planted: [
+      { row: 'E3', column: 'od450', what: 'P05 reads below the zero standard' },
+      { row: 'C4', column: 'od450', what: 'P11 reads above the top of the curve' },
+    ],
+  };
+}
+
+/**
+ * A growth-inhibition assay in two arms (nls.doseResponse): bacteria never exposed to the drug (control) and the
+ * same strain grown in low doses of it before, each at seven two-fold concentrations including 0, three wells
+ * each (plate rows A to C and E to G, concentrations along columns 1 to 7). Growth is the percentage of the
+ * drug-free wells and falls on a logistic curve; the exposed arm's IC50 is three times the control's.
+ */
+function doseArms(seed) {
+  const rng = pcg32(seed);
+  const conc = [0, 0.5, 1, 2, 4, 8, 16];
+  const arms = [
+    { value: 'ควบคุม', rows: ['A', 'B', 'C'], ic50: 1 },
+    { value: 'ผ่านยา', rows: ['E', 'F', 'G'], ic50: 3 },
+  ];
+  const top = 100;
+  const bottom = 4;
+  const hill = 1.8;
+  const growth = (x, ic50) => bottom + (top - bottom) / (1 + (x / ic50) ** hill);
+  const rows = [];
+  for (const arm of arms) {
+    for (const letter of arm.rows) {
+      conc.forEach((x, j) => {
+        const y = Math.max(0, growth(x, arm.ic50) * (1 + 0.04 * rng.normal()) + 1.5 * rng.normal());
+        rows.push([`${letter}${j + 1}`, arm.value, x, fixed(y, 1)]);
+      });
+    }
+  }
+  return {
+    files: [{ fileName: 'growth-inhibition.csv', csv: toCsv(['well', 'arm', 'conc_ug_ml', 'growth_pct'], rows) }],
+    codebook: [
+      col('well', 'ตำแหน่งหลุมบนเพลต', 'Plate well', 'id', { role: 'id', level: 'sample' }),
+      col('arm', 'ชุดเชื้อ', 'Bacteria', 'binary', {
+        role: 'exposure', level: 'sample', reference: 'ควบคุม',
+        levels: [lv('ควบคุม', 'เชื้อตั้งต้น ไม่เคยผ่านยา', 'Parent strain, never exposed'), lv('ผ่านยา', 'เชื้อที่เลี้ยงในยาขนาดต่ำมาก่อน 10 รอบ', 'Grown in low doses of the drug for 10 passages')],
+      }),
+      col('conc_ug_ml', 'ความเข้มข้นของยาต้านจุลชีพในหลุม', 'Antimicrobial concentration in the well', 'continuous', { role: 'exposure', level: 'sample', unit: 'µg/mL', range: { min: 0, max: 16 } }),
+      col('growth_pct', 'การเจริญของเชื้อ (% ของหลุมที่ไม่มียาในชุดเดียวกัน)', 'Growth (% of the drug-free wells of the same arm)', 'continuous', { role: 'outcome', level: 'sample', unit: '%', range: { min: 0, max: 130 } }),
+    ],
+    planted: [],
+  };
+}
+
+/**
+ * An oral glucose tolerance test in dogs (calc.auc, anova.repeated): ten dogs randomised to prednisolone or a
+ * placebo for 14 days, five each, then blood glucose at 0, 15, 30, 60, 90 and 120 minutes after oral glucose,
+ * long as a lab sheet lists it (one row per dog per time). Prednisolone lifts the fasting value, the peak and
+ * the return; each dog keeps its own fasting level and its own size of rise.
+ */
+function glucoseTolerance(seed) {
+  const rng = pcg32(seed);
+  const minutes = [0, 15, 30, 60, 90, 120];
+  const fasting = { 'ยาหลอก': 90, 'เพรดนิโซโลน': 97 };
+  const rise = { 'ยาหลอก': [0, 50, 62, 38, 15, 4], 'เพรดนิโซโลน': [0, 62, 84, 70, 46, 22] };
+  const groups = rng.shuffle([...Array(5).fill('ยาหลอก'), ...Array(5).fill('เพรดนิโซโลน')]);
+  const rows = [];
+  groups.forEach((g, i) => {
+    const dog = `D${pad(i + 1, 2)}`;
+    const base = fasting[g] + 6 * rng.normal();
+    const size = Math.exp(0.2 * rng.normal());
+    minutes.forEach((m, t) => rows.push([dog, g, m, Math.round(base + size * rise[g][t] + 4 * rng.normal())]));
+  });
+  return {
+    files: [{ fileName: 'dog-glucose-tolerance.csv', csv: toCsv(['dog_id', 'group', 'minute', 'glucose_mg_dl'], rows) }],
+    codebook: [
+      col('dog_id', 'รหัสสุนัข', 'Dog ID', 'id', { role: 'id' }),
+      col('group', 'ยาที่ได้รับ 14 วันก่อนทดสอบ', 'Treatment for the 14 days before the test', 'binary', {
+        role: 'exposure', reference: 'ยาหลอก',
+        levels: [lv('ยาหลอก', 'ยาหลอก', 'Placebo'), lv('เพรดนิโซโลน', 'เพรดนิโซโลน', 'Prednisolone')],
+      }),
+      col('minute', 'นาทีหลังกินกลูโคส', 'Minutes after oral glucose', 'count', { role: 'time', level: 'visit', unit: 'min', range: { min: 0, max: 120 } }),
+      col('glucose_mg_dl', 'กลูโคสในเลือด', 'Blood glucose', 'continuous', { role: 'outcome', level: 'visit', unit: 'mg/dL', range: { min: 40, max: 400 } }),
+    ],
+    planted: [],
+  };
+}
+
+/**
+ * Relative qPCR with two reference genes (qpcr.relative): jejunal tissue of twelve broilers, six on the usual
+ * feed and six with a probiotic; the mean Ct of MUC2 (the gene of interest) and of the reference genes GAPDH
+ * and ACTB, one row per bird, to two decimals as the instrument prints it. How much cDNA went into a bird's
+ * wells moves all three Ct values together (what the reference genes correct for); with the probiotic MUC2
+ * sits about two cycles lower, about four times more transcript.
+ */
+function qpcrTwoReferences(seed) {
+  const rng = pcg32(seed);
+  const groups = rng.shuffle([...Array(6).fill('ควบคุม'), ...Array(6).fill('โปรไบโอติก')]);
+  const rows = groups.map((g, i) => {
+    const load = 0.4 * rng.normal();
+    const gapdh = 18.6 + load + 0.15 * rng.normal();
+    const actb = 17.4 + load + 0.15 * rng.normal();
+    const muc2 = (g === 'โปรไบโอติก' ? 24.8 : 26.8) + load + 0.35 * rng.normal();
+    return [`B${pad(i + 1, 2)}`, g, fixed(muc2, 2), fixed(gapdh, 2), fixed(actb, 2)];
+  });
+  const ct = { range: { min: 10, max: 40 } };
+  return {
+    files: [{ fileName: 'broiler-qpcr.csv', csv: toCsv(['bird_id', 'group', 'ct_muc2', 'ct_gapdh', 'ct_actb'], rows) }],
+    codebook: [
+      col('bird_id', 'รหัสไก่', 'Bird ID', 'id', { role: 'id' }),
+      col('group', 'อาหาร', 'Feed', 'binary', {
+        role: 'exposure', reference: 'ควบคุม',
+        levels: [lv('ควบคุม', 'อาหารปกติ', 'Usual feed'), lv('โปรไบโอติก', 'อาหารเสริมโปรไบโอติก', 'Feed with a probiotic')],
+      }),
+      col('ct_muc2', 'ค่า Ct ของยีน MUC2 (ยีนที่สนใจ)', 'Ct of MUC2 (the gene of interest)', 'continuous', { role: 'outcome', ...ct }),
+      col('ct_gapdh', 'ค่า Ct ของยีนอ้างอิง GAPDH', 'Ct of the reference gene GAPDH', 'continuous', ct),
+      col('ct_actb', 'ค่า Ct ของยีนอ้างอิง ACTB (beta-actin)', 'Ct of the reference gene ACTB (beta-actin)', 'continuous', ct),
+    ],
+    planted: [],
+  };
+}
+
+/**
+ * A herd-health panel (mv.pca): sixty cows in early lactation, six blood and milk measures driven by two hidden
+ * patterns, energy balance (BHB and NEFA up, glucose down, milk yield up in the cows in deepest negative energy
+ * balance) and inflammation (haptoglobin and the somatic cell count), with the lactation number for the
+ * colours. Older cows sit deeper in negative energy balance and first-lactation cows give less milk.
+ */
+function herdPanel(seed) {
+  const rng = pcg32(seed);
+  const parity = rng.shuffle([...Array(18).fill('1'), ...Array(20).fill('2'), ...Array(22).fill('3+')]);
+  const shift = { 1: -0.4, 2: 0, '3+': 0.4 };
+  const rows = parity.map((p, i) => {
+    const energy = shift[p] + 0.9 * rng.normal();
+    const inflammation = 0.3 * energy + 0.95 * rng.normal();
+    const bhb = Math.max(0.1, 0.75 * Math.exp(0.38 * energy + 0.14 * rng.normal()));
+    const nefa = Math.max(0.05, 0.38 * Math.exp(0.42 * energy + 0.18 * rng.normal()));
+    const glucose = 56 - 5.5 * energy + 3.2 * rng.normal();
+    const milk = 17 + 2.6 * energy + (p === '1' ? -2.5 : 0) + 1.8 * rng.normal();
+    const hp = Math.max(0.01, 0.22 * Math.exp(0.75 * inflammation + 0.28 * rng.normal()));
+    const scc = 110 * Math.exp(0.85 * inflammation + 0.45 * rng.normal());
+    return [`C${pad(i + 1, 2)}`, p, fixed(bhb, 2), fixed(nefa, 2), Math.round(glucose), fixed(milk, 1), fixed(hp, 2), Math.max(1, Math.round(scc))];
+  });
+  return {
+    files: [{ fileName: 'herd-health-panel.csv', csv: toCsv(['cow_id', 'parity', 'bhb', 'nefa', 'glucose', 'milk_kg', 'hp', 'scc_k'], rows) }],
+    codebook: [
+      col('cow_id', 'รหัสโค', 'Cow ID', 'id', { role: 'id' }),
+      col('parity', 'ลำดับการให้นม', 'Lactation number', 'ordinal', {
+        role: 'group',
+        levels: [lv('1', 'ท้องแรก', 'First lactation'), lv('2', 'ท้องที่ 2', 'Second lactation'), lv('3+', 'ท้องที่ 3 ขึ้นไป', 'Third or later')],
+      }),
+      col('bhb', 'beta-hydroxybutyrate (BHB) ในเลือด', 'Blood beta-hydroxybutyrate (BHB)', 'continuous', { role: 'outcome', unit: 'mmol/L', range: { min: 0.1, max: 6 } }),
+      col('nefa', 'กรดไขมันอิสระ (NEFA) ในเลือด', 'Blood non-esterified fatty acids (NEFA)', 'continuous', { role: 'outcome', unit: 'mmol/L', range: { min: 0.05, max: 3 } }),
+      col('glucose', 'กลูโคสในเลือด', 'Blood glucose', 'continuous', { role: 'outcome', unit: 'mg/dL', range: { min: 20, max: 120 } }),
+      col('milk_kg', 'ปริมาณน้ำนมในวันที่เก็บตัวอย่าง', 'Milk yield on the sampling day', 'continuous', { role: 'outcome', unit: 'kg/day', range: { min: 2, max: 50 } }),
+      col('hp', 'haptoglobin ในเลือด', 'Serum haptoglobin', 'continuous', { role: 'outcome', unit: 'g/L', range: { min: 0.01, max: 5 } }),
+      col('scc_k', 'จำนวนเซลล์โซมาติกในน้ำนม (SCC, พันเซลล์ต่อ mL)', 'Milk somatic cell count (SCC, thousand cells per mL)', 'continuous', { role: 'outcome', range: { min: 1, max: 20000 } }),
+    ],
+    planted: [],
+  };
+}
+
 /** id, seed and builder of every example. The seeds are arbitrary and fixed; changing one redraws the data. */
 export const SPECS = Object.freeze([
   { id: 'feed-trial', seed: 20260928, build: feedTrial },
@@ -381,6 +582,12 @@ export const SPECS = Object.freeze([
   { id: 'questionnaire', seed: 20261003, build: questionnaire },
   { id: 'merge-farms', seed: 20261004, build: mergeFiles },
   { id: 'double-entry', seed: 20261005, build: doubleEntry },
+  // M3a
+  { id: 'elisa-plate', seed: 20261008, build: elisaPlate },
+  { id: 'dose-arms', seed: 20261009, build: doseArms },
+  { id: 'glucose-tolerance', seed: 20261010, build: glucoseTolerance },
+  { id: 'qpcr-two-references', seed: 20261011, build: qpcrTwoReferences },
+  { id: 'herd-panel', seed: 20261012, build: herdPanel },
 ]);
 
 /** @param {typeof SPECS[number]} spec @returns {string} the module text */
@@ -419,13 +626,17 @@ if (isMain) {
         console.error(`stale: src/data/examples/${spec.id}.js (run node scripts/make-examples.mjs)`);
         stale++;
       }
-    } else {
+    } else if (current !== text) {
+      // A file that already redraws from its seed is left as it is (its line endings too).
       writeFileSync(file, text);
       console.log(`wrote src/data/examples/${spec.id}.js`);
+      stale++;
     }
   }
   if (check) {
     if (stale) process.exit(1);
     console.log(`examples are current (${SPECS.length} files).`);
+  } else {
+    console.log(`${stale} written, ${SPECS.length - stale} already current.`);
   }
 }

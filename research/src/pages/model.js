@@ -103,24 +103,29 @@ export function toleranceWords(tol) {
 
 /**
  * The /guide pages, in reading order: the dictionary holds trust.guide.<id>.title, .lead, .step1..stepN
- * and .watch1..watchM; `example` is the example dataset that walks through it.
+ * and .watch1..watchM; `examples` are the example datasets that walk through it (none, one, or one per
+ * method family on a page that covers several, M3-DESIGN.md 7).
  */
 export const GUIDE = Object.freeze([
-  { id: 'start', steps: 7, watch: 2, example: 'feed-trial' },
-  { id: 'farms', steps: 4, watch: 2, example: 'merge-farms' },
-  { id: 'lab', steps: 5, watch: 2, example: 'feed-trial' },
-  { id: 'repeated', steps: 4, watch: 2, example: 'piglet-growth' },
-  { id: 'survival', steps: 4, watch: 1, example: 'calf-survival' },
-  { id: 'diagnostic', steps: 4, watch: 2, example: 'rapid-test' },
-  { id: 'agreement', steps: 4, watch: 1, example: 'thermometers' },
-  { id: 'prepare', steps: 4, watch: 1, example: 'double-entry' },
-  { id: 'warnings', steps: 0, watch: 0, example: null, warnings: ['G1', 'G3', 'G5', 'G7', 'G8', 'G14', 'G26'] },
+  { id: 'start', steps: 7, watch: 2, examples: ['feed-trial'] },
+  { id: 'farms', steps: 4, watch: 2, examples: ['merge-farms'] },
+  { id: 'lab', steps: 5, watch: 2, examples: ['feed-trial'] },
+  { id: 'repeated', steps: 4, watch: 2, examples: ['piglet-growth'] },
+  // M3a: the lab families (standard curve, dose-response, area under the curve, qPCR, PCA) and the model additions.
+  { id: 'assays', steps: 8, watch: 4, examples: ['elisa-plate', 'dose-arms', 'glucose-tolerance', 'qpcr-two-references', 'herd-panel'] },
+  { id: 'models', steps: 5, watch: 2, examples: [] },
+  { id: 'survival', steps: 4, watch: 1, examples: ['calf-survival'] },
+  { id: 'diagnostic', steps: 4, watch: 2, examples: ['rapid-test'] },
+  { id: 'agreement', steps: 4, watch: 1, examples: ['thermometers', 'questionnaire'] },
+  { id: 'prepare', steps: 4, watch: 1, examples: ['double-entry'] },
+  { id: 'warnings', steps: 0, watch: 0, examples: [], warnings: ['G1', 'G3', 'G5', 'G7', 'G8', 'G14', 'G26'] },
 ]);
 
 /** Every dictionary key the guide shows. */
 export function guideKeys() {
   const keys = ['trust.page.guide.title', 'trust.guide.intro', 'trust.guide.pages', 'trust.guide.steps', 'trust.guide.watch',
-    'trust.guide.try', 'trust.guide.tryBody', 'trust.guide.back', 'trust.guide.next', 'trust.guide.warnFromData'];
+    'trust.guide.try', 'trust.guide.tryBody', 'trust.guide.tryMany', 'trust.guide.tryBodyMany', 'trust.guide.back',
+    'trust.guide.next', 'trust.guide.warnFromData'];
   for (const p of GUIDE) {
     keys.push(`trust.guide.${p.id}.title`, `trust.guide.${p.id}.lead`);
     for (let i = 1; i <= p.steps; i++) keys.push(`trust.guide.${p.id}.step${i}`);
