@@ -720,3 +720,34 @@ test('UI-05: topic-card actions are one row of borderless text actions, 44px tal
     assert.notEqual(computed(wide, 'flex-basis', env), '100%', 'the lecturer still takes a line of its own');
   }
 });
+
+// b61d1eac put appearance:none on four select groups so iOS honours min-height.
+// That removes the native arrow in every engine, and a `background` shorthand
+// in the same rule would also reset any image drawn to replace it. Each group
+// must draw its own arrow from a theme token, with room for it, in both themes.
+test('the select groups that drop the native arrow draw their own, from a theme token, with room for it', () => {
+  const selects = {
+    'focus scene picker': chain('label.vmx-focus-scene-picker', 'select'),
+    'study break': chain('section.vmx-study-break', 'select'),
+    'motion settings': chain('details.vmx-motion-settings', 'select'),
+    'mochi activity': chain('label.vmx-mochi-select', 'select'),
+  };
+  for (const env of [PHONE, DESKTOP]) {
+    for (const [name, node] of Object.entries(selects)) {
+      const where = `${name} at ${env.width}px`;
+      assert.equal(declared(node, 'appearance', env)?.value, 'none', `${where} is the premise of this test`);
+      assert.equal(declared(node, 'background', env), null, `${where}: a background shorthand would reset the arrow, use background-color`);
+      const image = declared(node, 'background-image', env)?.value;
+      assert.ok(image, `${where} draws no arrow`);
+      assert.ok(!/#[0-9a-f]{3}|rgb/i.test(image), `${where}: the arrow must come from a theme token, not a fixed colour`);
+      assert.ok(px(declared(node, 'padding-right', env).value) >= 28, `${where}: no room for the arrow, long labels would run under it`);
+      const arrow = image.match(/var\(--[a-z0-9-]+\)/g)?.[0];
+      assert.ok(arrow, `${where}: no token in the arrow`);
+      const fill = declared(node, 'background-color', env).value;
+      for (const [theme, tokens] of Object.entries(THEMES)) {
+        const r = ratio(rgb(arrow, tokens), rgb(fill, tokens));
+        assert.ok(r >= 3, `${where}: the arrow is ${r.toFixed(2)}:1 against its field in ${theme}, 3:1 needed for a control's graphic`);
+      }
+    }
+  }
+});
