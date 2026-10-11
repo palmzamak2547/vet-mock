@@ -158,9 +158,12 @@ export default function ProfileView({
           note={readCount > 0 ? `อ่านแล้ว ${readCount} หัวข้อ` : 'เช็กหัวข้อที่อ่านแล้ว'}
           onClick={() => setView('reading-checklist')}
         />
+        {/* A total, said as a total: srCards holds every card ever stored, due
+            or not, while Home counts only the ones due in the chosen year and
+            phase, so "in the queue" here would contradict Home. */}
         <Row
           label="ทบทวนตามรอบ"
-          note={reviewCount > 0 ? `${reviewCount} ใบอยู่ในคิว` : 'ใบที่ผิดจะกลับมาตามรอบ'}
+          note={reviewCount > 0 ? `มีการ์ดทั้งหมด ${reviewCount} ใบ` : 'ใบที่ผิดจะกลับมาตามรอบ'}
           onClick={() => setView('sr-session')}
         />
         <Row

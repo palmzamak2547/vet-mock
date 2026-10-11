@@ -1,9 +1,15 @@
 import { test, expect } from './fixtures.js';
 
-// The profile hub is the permanent place to install the app. Chromium raises
+// Two things the profile hub promised and did not keep.
+//
+// 1. Install. The hub is the permanent place to install the app. Chromium raises
 // `beforeinstallprompt` once, while the student is still on Home; the hub only
 // mounts when โปรไฟล์ is tapped, long after. The install row has to survive
 // that, so the event is raised on Home here and the hub is opened afterwards.
+//
+// 2. The review count. "ทบทวนตามรอบ" used to say "N ใบอยู่ในคิว" while counting
+// every stored card, due or not, so it disagreed with Home. It now states the
+// total as a total.
 
 test.use({ reducedMotion: 'reduce' });
 
@@ -76,4 +82,21 @@ test('with no prompt and no Safari steps the hub says how to install instead of 
   const hub = await openProfileHub(page);
   await expect(hub.getByText(GUIDANCE)).toBeVisible();
   await expect(hub.getByRole('button', { name: INSTALL_BUTTON })).toHaveCount(0);
+});
+
+test('the review row states the stored cards as a total, not as a queue', async ({ page, context }) => {
+  // Three cards, all scheduled for the year 2100: none of them is due.
+  await context.addInitScript(() => {
+    const card = (id) => ({
+      questionId: id, easeFactor: 2.5, interval: 30, repetitions: 3,
+      nextReview: 4102444800000, lastReview: 1, totalReviews: 3, lapses: 0,
+    });
+    localStorage.setItem('vmx-sr-cards', JSON.stringify({ a: card('a'), b: card('b'), c: card('c') }));
+  });
+  await openHome(page);
+
+  const hub = await openProfileHub(page);
+  const row = hub.getByRole('button', { name: /ทบทวนตามรอบ/ });
+  await expect(row).toContainText('มีการ์ดทั้งหมด 3 ใบ');
+  await expect(row).not.toContainText('อยู่ในคิว');
 });
