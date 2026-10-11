@@ -173,3 +173,56 @@ test('a declined replacement keeps the current configuration and parked state in
   assert.deepEqual(h.writes, []);
   assert.deepEqual(h.starts, []);
 });
+
+test('the count clamp after the bank loads cannot cancel an adaptive start that passed its count', async () => {
+  // ConfigView passes the count and the clock from its refs at tap time. On a
+  // slow network the year bank loads during the start, ConfigView then lowers
+  // the stored count to the pool it can now see, and the adaptive start is
+  // still waiting for the difficulty chunk. That clamp is not a new intent.
+  const bank = deferred(), difficulty = deferred();
+  const h = harness({ practiceMode: 'adaptive', numQuestions: 20,
+    isQBYearLoaded: () => false, loadQBForYear: () => bank.promise, loadQuestionDifficulty: () => difficulty.promise });
+  const pending = h.start({ numQuestions: 20, timePerQ: 60 });
+  await flush();
+  bank.resolve(); await flush();
+  h.render({ qbRevision: 1 });
+  h.render({ numQuestions: 2 });
+  difficulty.resolve({}); await pending;
+  assert.equal(h.starts.length, 1, 'the tap still starts the set');
+  assert.equal(h.starts[0][0].length, 2, 'from the pool it asked for');
+  assert.deepEqual(h.alerts, []);
+});
+
+test('a field the start did not pass still retires it during the adaptive wait', async () => {
+  const difficulty = deferred();
+  const h = harness({ practiceMode: 'adaptive', loadQuestionDifficulty: () => difficulty.promise });
+  const pending = h.start({ numQuestions: 20, timePerQ: 60 });
+  await flush();
+  h.render({ practiceMode: 'all' }); h.render({ practiceMode: 'adaptive' });
+  difficulty.resolve({}); await pending;
+  assert.equal(h.starts.length, 0, 'switching the chip away and back is a new intent');
+
+  const late = deferred();
+  const g = harness({ practiceMode: 'adaptive', loadQuestionDifficulty: () => late.promise });
+  const waiting = g.start({ numQuestions: 20, timePerQ: 60 });
+  await flush();
+  g.render({ useTimer: true });
+  late.resolve({}); await waiting;
+  assert.equal(g.starts.length, 0, 'a setting the start read from the screen still retires it');
+});
+
+test('a newer start after a pinned field moved is not retired by a benign render', async () => {
+  const first = deferred(), second = deferred();
+  let calls = 0;
+  const h = harness({ practiceMode: 'adaptive', numQuestions: 20,
+    loadQuestionDifficulty: () => (++calls === 1 ? first : second).promise });
+  const a = h.start({ numQuestions: 20, timePerQ: 60 });
+  await flush();
+  const latest = h.render({ numQuestions: 2 });
+  const b = latest();
+  await flush();
+  h.render({ qbRevision: 3 });
+  second.resolve({}); await b;
+  first.resolve({}); await a;
+  assert.equal(h.starts.length, 1, 'the newer start runs; the older one was replaced by it');
+});

@@ -1662,14 +1662,29 @@ export default function App() {
   // card's related questions (from inside an exam, too) did not. Nothing
   // answered means nothing to lose, and then nobody is asked.
   const examStartRequestRef = useRef(null);
-  const examStartContext = JSON.stringify([view, user?.id ?? null, authLoading, examSessionId,
+  // The fields a pending start depends on. Keys that startExam also accepts as
+  // overrides use the override's name (panicPool is fed by panicPending).
+  const examStartFields = { view, user: user?.id ?? null, authLoading, examSessionId,
     selectedYear, selectedPhase, subject, topic, practiceMode, questionCategory, mode,
-    numQuestions, useTimer, timePerQ, panicPending]);
-  const examStartContextRef = useRef(examStartContext);
-  // Retire on every context change, including a change away and back while loading.
-  if (examStartContextRef.current !== examStartContext) {
-    examStartContextRef.current = examStartContext;
+    numQuestions, useTimer, timePerQ, panicPool: panicPending };
+  const examStartContextRef = useRef(examStartFields);
+  // Retire on every context change, including a change away and back while
+  // loading, except in a field the pending start passed explicitly ('key' in
+  // overrides, recorded as ticket.pinned): its value is fixed for that start,
+  // so moving the screen's copy is not a new intent. ConfigView passes the
+  // count from its ref at tap time, then lowers the stored count to the pool
+  // that just loaded; that clamp used to cancel an adaptive start waiting for
+  // the difficulty chunk, silently. A pinned field that moves is copied into
+  // the snapshot in place, so it stays current for the next start.
+  const examStartPinned = examStartRequestRef.current?.pinned ?? [];
+  const examStartSnapshot = examStartContextRef.current;
+  const examStartMoved = Object.keys(examStartFields).some((key) => !examStartPinned.includes(key)
+    && JSON.stringify(examStartFields[key]) !== JSON.stringify(examStartSnapshot[key]));
+  if (examStartMoved) {
+    examStartContextRef.current = examStartFields;
     examStartRequestRef.current = null;
+  } else {
+    Object.assign(examStartSnapshot, examStartFields);
   }
   useEffect(() => () => { examStartRequestRef.current = null; }, []);
 
@@ -1696,7 +1711,9 @@ export default function App() {
 
   const startExam = async (overrides = {}) => {
     const ticket = { context: examStartContextRef.current, view: viewRef.current,
-      owner: eventContextRef.current?.owner ?? null, sessionId: eventContextRef.current?.sessionId };
+      owner: eventContextRef.current?.owner ?? null, sessionId: eventContextRef.current?.sessionId,
+      pinned: ['subject', 'topic', 'practiceMode', 'questionCategory', 'mode', 'numQuestions', 'useTimer', 'timePerQ', 'panicPool']
+        .filter((key) => key in overrides) };
     examStartRequestRef.current = ticket;
     const current = () => examStartRequestRef.current === ticket
       && examStartContextRef.current === ticket.context && viewRef.current === ticket.view
