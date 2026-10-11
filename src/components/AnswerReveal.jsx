@@ -29,7 +29,12 @@ export const REVEAL_END = 'end';
 // and a ดูเฉลยข้อนี้ button for written answers. A separate default of
 // "after the whole set" made a first-time student's matching sets and
 // written answers do the opposite of the switch they had just read.
+// A pick the browser would not store (storage blocked or full) still holds
+// for this page, on every toggle.
+let unstoredPick = null;
+
 export function readRevealTiming() {
+  if (unstoredPick) return unstoredPick;
   try {
     const picked = localStorage.getItem(KEY);
     if (picked === REVEAL_ROW || picked === REVEAL_END) return picked;
@@ -37,15 +42,41 @@ export function readRevealTiming() {
   } catch { return REVEAL_ROW; } // storage blocked: instant feedback is on (App.jsx), so is this
 }
 
+// Every mounted toggle hears a pick: ExamView keeps one QuestionComponent
+// for the whole set, so a written answer's toggle that only read storage
+// when it mounted kept the timing a matching item had since changed.
 export function writeRevealTiming(m) {
-  try { localStorage.setItem(KEY, m); } catch {}
+  if (m !== REVEAL_ROW && m !== REVEAL_END) return;
+  try { localStorage.setItem(KEY, m); unstoredPick = null; } catch { unstoredPick = m; }
+  try { window.dispatchEvent(new Event(KEY)); } catch {}
+}
+
+function onRevealTimingChange(sync) {
+  if (typeof window === 'undefined' || typeof window.addEventListener !== 'function') return () => {};
+  // Another tab: its pick, or instant feedback, which the timing follows
+  // until the student picks one (null: that tab cleared storage).
+  const fromOtherTab = (e) => {
+    if (!e || e.key == null || e.key === KEY || e.key === 'vmx-instant-feedback') sync();
+  };
+  window.addEventListener(KEY, sync);
+  window.addEventListener('storage', fromOtherTab);
+  return () => {
+    window.removeEventListener(KEY, sync);
+    window.removeEventListener('storage', fromOtherTab);
+  };
 }
 
 export function useRevealTiming() {
   const [mode, set] = useState(readRevealTiming);
+  useEffect(() => {
+    const sync = () => set(readRevealTiming());
+    sync(); // a pick made between the first render and this subscription
+    return onRevealTimingChange(sync);
+  }, []);
+  // The toggle that was pressed follows at once, event or not.
   const setMode = (m) => {
-    set(m);
     writeRevealTiming(m);
+    set(readRevealTiming());
   };
   return [mode, setMode];
 }
