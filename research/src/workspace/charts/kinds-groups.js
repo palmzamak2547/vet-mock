@@ -61,7 +61,7 @@ function levelText(level) {
 }
 
 /** The swarm of one group: marker nodes, offsets from the centre line. */
-function swarmNodes(ctx, values, x0, yScale, halfWidth, gi, r) {
+export function swarmNodes(ctx, values, x0, yScale, halfWidth, gi, r) {
   const pos = values.map((v) => yScale(v));
   const off = beeswarm(pos, 2 * r + 0.6 * ctx.u, halfWidth);
   const shape = seriesShape(gi);
@@ -73,7 +73,7 @@ function swarmNodes(ctx, values, x0, yScale, halfWidth, gi, r) {
   };
 }
 
-function markerRadius(ctx, groups, bw) {
+export function markerRadius(ctx, groups, bw) {
   const most = Math.max(1, ...groups.map((g) => g.values.length));
   const base = ctx.unit === 'pt' ? 2.1 : 3.6;
   // many points in a narrow band get a smaller dot so the swarm keeps its shape
@@ -81,7 +81,7 @@ function markerRadius(ctx, groups, bw) {
   return r2(Math.max(ctx.unit === 'pt' ? 1.1 : 2, Math.min(base, fit)));
 }
 
-function summaryBar(ctx, x, yScale, s, halfBar) {
+export function summaryBar(ctx, x, yScale, s, halfBar) {
   const u = ctx.u;
   const nodes = [];
   if (num(s.lo) && num(s.hi)) {
@@ -346,5 +346,7 @@ export function finish(ctx, m) {
     ...(m.riskTable ? { riskTable: m.riskTable } : {}),
     ...(m.bins ? { bins: m.bins } : {}),
     ...(m.points ? { points: m.points } : {}),
+    // the M3 kinds: the numbers each drew, in data units (curves, dots, biplot coordinates) and its plot box
+    ...(m.extras || {}),
   };
 }

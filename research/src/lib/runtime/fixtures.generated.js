@@ -338,6 +338,7 @@ export const FIXTURES = [
    "anova.repeated"
   ],
   "tests": [
+   "graphs-m3.test.mjs",
    "lab-anovarm2.test.mjs"
   ],
   "source": {
@@ -379,6 +380,7 @@ export const FIXTURES = [
    "calc.auc"
   ],
   "tests": [
+   "graphs-m3.test.mjs",
    "lab-auc.test.mjs"
   ],
   "source": {
@@ -1152,6 +1154,7 @@ export const FIXTURES = [
    "nls.fourPL"
   ],
   "tests": [
+   "graphs-m3.test.mjs",
    "lab-curves.test.mjs",
    "stats-nls-curves.test.mjs"
   ],
@@ -1317,6 +1320,7 @@ export const FIXTURES = [
    "mv.pca"
   ],
   "tests": [
+   "graphs-m3.test.mjs",
    "lab-pca.test.mjs"
   ],
   "source": {
@@ -1490,6 +1494,7 @@ export const FIXTURES = [
    "qpcr.relative"
   ],
   "tests": [
+   "graphs-m3.test.mjs",
    "lab-qpcr.test.mjs"
   ],
   "source": {

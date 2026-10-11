@@ -6,10 +6,16 @@
 import { boxChart, dotChart, estimationChart, violinChart } from './kinds-groups.js';
 import { blandAltmanChart, ciFunctionChart, kaplanMeierChart, rocChart, scatterChart, timeCourseChart } from './kinds-xy.js';
 import { ciChart, epiCurveChart, forestChart } from './kinds-other.js';
+import { doseResponseChart, fittedCurveChart } from './dose-response.js';
+import { standardCurveChart } from './standard-curve.js';
+import { screeChart } from './scree.js';
+import { biplotChart } from './biplot.js';
+import { qpcrFoldChart } from './qpcr-fold.js';
+import { timePanelsChart } from './time-panels.js';
 import { modelToSvg } from './render.js';
 
-/** The kinds the kit draws, and what each needs as input (see each builder's JSDoc). */
-export const CHART_KINDS = Object.freeze(['dot', 'box', 'violin', 'scatter', 'timeCourse', 'epiCurve', 'forest', 'estimation', 'ciFunction', 'kaplanMeier', 'roc', 'blandAltman', 'ci']);
+/** The kinds the kit draws, and what each needs as input (see each builder's JSDoc). The last six are M3's. */
+export const CHART_KINDS = Object.freeze(['dot', 'box', 'violin', 'scatter', 'timeCourse', 'epiCurve', 'forest', 'estimation', 'ciFunction', 'kaplanMeier', 'roc', 'blandAltman', 'ci', 'doseResponse', 'standardCurve', 'fittedCurve', 'scree', 'biplot', 'qpcrFold']);
 
 const BUILDERS = {
   dot: dotChart,
@@ -17,7 +23,8 @@ const BUILDERS = {
   violin: violinChart,
   estimation: estimationChart,
   scatter: scatterChart,
-  timeCourse: timeCourseChart,
+  // two within factors (M3): one panel per group, one line per level of the second factor (time-panels.js)
+  timeCourse: (input, opts) => (input?.panels ? timePanelsChart(input, opts) : timeCourseChart(input, opts)),
   kaplanMeier: kaplanMeierChart,
   roc: rocChart,
   blandAltman: blandAltmanChart,
@@ -25,10 +32,16 @@ const BUILDERS = {
   forest: forestChart,
   epiCurve: epiCurveChart,
   ci: ciChart,
+  doseResponse: doseResponseChart,
+  standardCurve: standardCurveChart,
+  fittedCurve: fittedCurveChart,
+  scree: screeChart,
+  biplot: biplotChart,
+  qpcrFold: qpcrFoldChart,
 };
 
 /**
- * @param {'dot'|'box'|'violin'|'scatter'|'timeCourse'|'epiCurve'|'forest'|'estimation'|'ciFunction'|'kaplanMeier'|'roc'|'blandAltman'|'ci'} kind
+ * @param {'dot'|'box'|'violin'|'scatter'|'timeCourse'|'epiCurve'|'forest'|'estimation'|'ciFunction'|'kaplanMeier'|'roc'|'blandAltman'|'ci'|'doseResponse'|'standardCurve'|'fittedCurve'|'scree'|'biplot'|'qpcrFold'} kind
  * @param {any} input      what that kind needs (see M2-DESIGN.md 8.2 and the builder's JSDoc)
  * @param {{ width?: number, widthMm?: number, fontPt?: number, height?: number, title?: string, lang: 'th'|'en', t: (k: string, p?: any) => string, fmt: any }} opts
  *   width: screen pixels (the chart is drawn at the width it is shown). widthMm: a figure at its
