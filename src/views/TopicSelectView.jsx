@@ -3,10 +3,11 @@ import BackBar from '../components/BackBar.jsx';
 import PanicCard from '../components/PanicCard.jsx';
 import { PANIC_CARD_SCOPE, panicCardFor } from '../data/panic-cards.js';
 import { Q_PANIC_COUNTS_BY_SUBJECT, Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE, Q_COUNTS_BY_TOPIC_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE } from '../data/q-counts.js';
-import { scopeForPhase } from '../lib/exam-scope.js';
+import { scopeForPhase, questionInScope } from '../lib/exam-scope.js';
+import { isPastPaperQuestion } from '../lib/question-metadata.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
-import { announced } from '../data/curriculum.js';
+import { announced, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { librarySubjectCounts } from '../lib/library.js';
 import { takeViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
@@ -146,6 +147,25 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   });
   const scopedTopics = Q_COUNTS_BY_TOPIC_BY_SCOPE[selectedPhase]?.[subject] || null;
 
+  // The generated tables know only the bank. The student's own questions are
+  // served by the same buildExamPool under the same questionInScope rule, so
+  // once a paper is picked they are counted here the same way: this subject,
+  // this paper, then the topic or collection prefix the card names (รวมทุกหัวข้อ
+  // leaves hidden topics out, as the pool does). The unscoped numbers already
+  // carry them through the catalog; this overlay is for the scoped path, which
+  // used to print 27 beside a topic whose button served 37.
+  const scopedCustom = scopedTopics
+    ? customQuestions.filter((q) => q?.subject === subject && questionInScope(q, paperScope))
+    : [];
+  const hiddenTopics = scopedCustom.length ? hiddenTopicIdsFor(subject) : null;
+  const customInScope = (topicMatches, pastOnly = false) => scopedCustom
+    .filter((q) => topicMatches(q.topic) && (!pastOnly || isPastPaperQuestion(q))).length;
+  const customMatch = {
+    all: (t) => !hiddenTopics?.has(t),
+    prefix: (prefix) => (t) => String(t || '').startsWith(prefix),
+    topic: (topicId) => (t) => t === topicId,
+  };
+
   // Reading-checklist summary for this subject
   const subjReadDone = subjectPage.progress?.read || 0;
 
@@ -159,7 +179,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // selected phase, so once a paper is picked the count is that paper's.
   const countFor = (topicId) => {
     if (topicId === 'all') {
-      if (scopedTopics) return Object.values(scopedTopics).reduce((a, b) => a + b, 0);
+      if (scopedTopics) return Object.values(scopedTopics).reduce((a, b) => a + b, 0) + customInScope(customMatch.all);
       return resources.questions?.count || 0;
     }
     const coll = collections.find((c) => c.id === topicId);
@@ -168,9 +188,9 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       const prefix = coll.topicPrefix || String(coll.id).replace(/^_|-all$/g, '');
       return Object.entries(scopedTopics)
         .filter(([id]) => id.startsWith(prefix))
-        .reduce((a, [, n]) => a + n, 0);
+        .reduce((a, [, n]) => a + n, 0) + customInScope(customMatch.prefix(prefix));
     }
-    if (scopedTopics) return scopedTopics[topicId] || 0;
+    if (scopedTopics) return (scopedTopics[topicId] || 0) + customInScope(customMatch.topic(topicId));
     return topics.find((topic) => topic.id === topicId)?.questionCount || 0;
   };
 
@@ -181,7 +201,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   const pastPaperCountFor = (topicId) => {
     const scopedPast = Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE[selectedPhase]?.[subject] || null;
     if (topicId === 'all') {
-      if (scopedPast) return Object.values(scopedPast).reduce((a, b) => a + b, 0);
+      if (scopedPast) return Object.values(scopedPast).reduce((a, b) => a + b, 0) + customInScope(customMatch.all, true);
       return resources.questions?.pastPaperCount || 0;
     }
     const coll = collections.find((c) => c.id === topicId);
@@ -190,9 +210,9 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       const prefix = coll.topicPrefix || String(coll.id).replace(/^_|-all$/g, '');
       return Object.entries(scopedPast)
         .filter(([id]) => id.startsWith(prefix))
-        .reduce((a, [, n]) => a + n, 0);
+        .reduce((a, [, n]) => a + n, 0) + customInScope(customMatch.prefix(prefix), true);
     }
-    if (scopedPast) return scopedPast[topicId] || 0;
+    if (scopedPast) return (scopedPast[topicId] || 0) + customInScope(customMatch.topic(topicId), true);
     return topics.find((topic) => topic.id === topicId)?.pastPaperCount || 0;
   };
 
@@ -278,13 +298,36 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         )}
       </div>
 
-      <div className="vmx-section-tabs" role="tablist" aria-label="เลือกสิ่งที่ต้องการทำในวิชานี้">
+      {/* One keyboard stop, as the tabs pattern asks: the selected tab is the
+          only one in the Tab order, Left/Right move and wrap, Home/End jump,
+          and focus follows the selection. aria-controls names only the panel
+          that is rendered; the other panel does not exist until its tab is
+          selected, so the unselected tab must not point at it. */}
+      <div
+        className="vmx-section-tabs"
+        role="tablist"
+        aria-label="เลือกสิ่งที่ต้องการทำในวิชานี้"
+        onKeyDown={(e) => {
+          const order = ['topics', 'resources'];
+          const at = order.indexOf(activeSection);
+          let next = null;
+          if (e.key === 'ArrowRight') next = order[(at + 1) % order.length];
+          else if (e.key === 'ArrowLeft') next = order[(at - 1 + order.length) % order.length];
+          else if (e.key === 'Home') next = order[0];
+          else if (e.key === 'End') next = order[order.length - 1];
+          if (!next) return;
+          e.preventDefault();
+          setActiveSection(next);
+          e.currentTarget?.querySelector?.(`#vmx-topic-tab-${next}`)?.focus?.();
+        }}
+      >
         <button
           type="button"
           role="tab"
           id="vmx-topic-tab-topics"
-          aria-controls="vmx-topic-panel-topics"
+          aria-controls={activeSection === 'topics' ? 'vmx-topic-panel-topics' : undefined}
           aria-selected={activeSection === 'topics'}
+          tabIndex={activeSection === 'topics' ? 0 : -1}
           className={activeSection === 'topics' ? 'active' : ''}
           onClick={() => setActiveSection('topics')}
         >
@@ -294,8 +337,9 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           type="button"
           role="tab"
           id="vmx-topic-tab-resources"
-          aria-controls="vmx-topic-panel-resources"
+          aria-controls={activeSection === 'resources' ? 'vmx-topic-panel-resources' : undefined}
           aria-selected={activeSection === 'resources'}
+          tabIndex={activeSection === 'resources' ? 0 : -1}
           className={activeSection === 'resources' ? 'active' : ''}
           onClick={() => setActiveSection('resources')}
         >
