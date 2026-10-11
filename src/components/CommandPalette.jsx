@@ -382,18 +382,22 @@ function runItem(item, handlers) {
 // match into a guess), but a token may be satisfied by one of the words a
 // feature or article actually uses — so "ทดสอบ" reaches the exam mode whose
 // keywords say สอบ, and "คลิป" reaches the clip summaries whose keywords
-// say video. A synonym hit scores below a literal hit, so an exact match
-// still outranks one found through the dictionary.
+// say video. The dictionary is only consulted for the rows it was written for
+// (feature actions and clip summaries). Applied to a question stem or an article
+// it matched raw substrings: "เกม" -> "game" listed every "ligament" question.
+// A synonym hit adds at most 25, where a literal hit in the label adds up to 100
+// (and 200 more at its start), so an exact match outranks one found through it.
 function rankItems(items, query) {
   const q = query.trim().toLowerCase();
-  const tokens = q.split(/\s+/).filter(Boolean);
+  const tokens = splitGluedCodes(q.split(/\s+/).filter(Boolean));
   const scored = [];
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
+    const dictionary = item.type === 'action' || item.type === 'summary';
     let score = 0;
     let allMatch = true;
     for (const t of tokens) {
-      const alts = alternatesFor(t);
+      const alts = dictionary ? alternatesFor(t) : [];
       const hits = [t, ...alts].filter((a) => item._hayLc.indexOf(a) >= 0);
       if (hits.length === 0) { allMatch = false; break; }
       const literal = hits[0] === t;
@@ -512,8 +516,8 @@ const PLACEHOLDERS = [
 // ── คำพ้อง: คำที่นิสิตพิมพ์ vs คำที่ฟีเจอร์/เนื้อหาใช้จริง ──────────
 // Palm, 2026-10-11: "สำหรับคนที่พิมพ์ค้นหา อยากให้ช่องค้นนอกจากค้นหา
 // แค่ข้อมูล ถ้าใส่คีย์เวิร์ด แบบทดสอบ คลิป หรือ สรุปวิชา### ก็จะขึ้นอัน
-// ที่เกี่ยวโยันกันได้". ทุก token ที่พิมพ์ยังต้องเจอ (ไมกลายเป็นการเดา)
-// แต่คำเหล่านี้ป⋻นำไปหาฟีเจอร์ที่มีคำเกี่ยวข้องอยู่ได้ —
+// ที่เกี่ยวโยันกันได้". ทุก token ที่พิมพ์ยังต้องเจอ (ไม่กลายเป็นการเดา)
+// แต่คำเหล่านี้นำไปหาฟีเจอร์ที่มีคำเกี่ยวข้องอยู่ได้ —
 // "ทดสอบ" → โหมดสอบ, "คลิป" → คลิปย้อนหลัง, "สรุปวิชา" → สรุปบทเรียน.
 const QUERY_SYNONYMS = {
   'ทดสอบ': ['สอบ', 'ข้อสอบ', 'exam', 'mock', 'โจทย์', 'แบบฝึก'],
@@ -554,6 +558,19 @@ function alternatesFor(token) {
   const bare = token.replace(/^(สรุป|บท|วิชา|โน้ต|โน๊ต)+/, '');
   if (bare && bare !== token && QUERY_SYNONYMS[bare]) return QUERY_SYNONYMS[bare];
   return [];
+}
+
+// "สรุปวิชาcom5" typed without the space: a glued prefix and a code. Search it as
+// the two words it is, both required, exactly like "สรุปวิชา com5". Only a code
+// (ASCII letters and digits) is split off: a Thai remainder is not safe to cut,
+// since "บทความ" would become "บท" and "ความ", each matching nearly anything.
+const GLUED_PREFIX_CODE = /^((?:สรุป|บท|วิชา|โน้ต|โน๊ต)+)([a-z0-9][a-z0-9-]*)$/;
+function splitGluedCodes(tokens) {
+  return tokens.flatMap((token) => {
+    if (QUERY_SYNONYMS[token]) return [token];
+    const glued = GLUED_PREFIX_CODE.exec(token);
+    return glued ? [glued[1], glued[2]] : [token];
+  });
 }
 
 // ── Answer cards (intent results — computed, never generated) ────────────
