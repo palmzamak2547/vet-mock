@@ -62,7 +62,7 @@ export function translate(lang, key, params) {
 }
 
 const IRREGULAR = { analyses: 'analysis', categories: 'category', strata: 'stratum', times: 'time' };
-const COUNTED = /(^|[^\d.,])1 ((?:[a-z]+ )?)(rows|cells|columns|projects|results|times|farms|animals|things|pairs|steps|conversions|questions|values|items|groups|levels|tests|analyses|files|days|months|years|categories|strata|entries|clusters|sheets|kept results)\b/g;
+const COUNTED = /(^|[^\d.,])1 ((?:[a-z]+ )?)(rows|cells|columns|projects|results|times|farms|animals|things|pairs|steps|conversions|questions|values|items|groups|levels|tests|analyses|files|days|months|years|categories|strata|entries|clusters|sheets|kept results|curves|unknowns|panels|points|lines|components)\b/g;
 
 /**
  * English counts are written "{n} rows"; when n is 1 the noun is made singular ("1 row", "1 kept

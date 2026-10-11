@@ -10,15 +10,35 @@ import { categoryAxis, categoryLayout, groupLegend, line, makeCtx, margins, r2, 
 import { fmtCi, fmtN, heightFor, levelText, noData, num, plotBox } from './common.js';
 
 /**
+ * Round fold changes (steps of 0.05 to 5 that divide 1) inside [lo, hi] whose labels stay `minGap` apart on a log
+ * axis `pixels` long: the smallest step that fits, so a gene whose folds stay between 0.5 and 2 still reads
+ * 0.8, 1, 1.2 and not a single "1". 1 is always among them when it is inside.
+ * @returns {number[]}
+ */
+function nearOneTicks(lo, hi, pixels, minGap) {
+  const span = Math.log(hi) - Math.log(lo);
+  const px = (v) => ((Math.log(v) - Math.log(lo)) / span) * pixels;
+  let last = [];
+  for (const step of [0.05, 0.1, 0.2, 0.25, 0.5, 1, 2, 5]) {
+    const vals = [];
+    for (let k = Math.max(1, Math.ceil(lo / step - 1e-9)); k * step <= hi * (1 + 1e-9); k += 1) vals.push(Number((k * step).toPrecision(12)));
+    if (vals.length >= 2 && vals.every((v, i) => i === 0 || px(v) - px(vals[i - 1]) >= minGap - 1e-9)) return vals;
+    if (vals.length) last = vals;
+  }
+  return last.includes(1) ? [1] : last.slice(0, 1);
+}
+
+/**
  * Powers of two inside [lo, hi] whose labels stay `minGap` apart on an axis `pixels` long: every power, else every
- * second, third... always keeping 1 (2^0) when it is inside.
+ * second, third... always keeping 1 (2^0) when it is inside. When fewer than two powers of two fall inside the axis
+ * (a modest effect: folds between 0.5 and 2), round fold changes near 1 are printed instead (nearOneTicks).
  * @returns {number[]}
  */
 export function log2Ticks(lo, hi, pixels, minGap) {
   if (!(lo > 0) || !(hi > lo)) return lo > 0 ? [lo] : [];
   const e0 = Math.ceil(Math.log2(lo) - 1e-9);
   const e1 = Math.floor(Math.log2(hi) + 1e-9);
-  if (e0 > e1) return [];
+  if (e1 - e0 < 1) return nearOneTicks(lo, hi, pixels, minGap);
   const span = Math.log(hi) - Math.log(lo);
   const px = (v) => ((Math.log(v) - Math.log(lo)) / span) * pixels;
   for (let step = 1; step <= 64; step += 1) {

@@ -404,9 +404,10 @@ export function chartOptions(analysis, table, o = {}) {
       };
       const [bs, bg, b1, b2] = ['subject', 'group', 'pc1', 'pc2'].map((c) => colOf(bp, c));
       const [ai, a1, a2] = ['item', 'pc1', 'pc2'].map((c) => colOf(ba, c));
-      const points = bp.rows.map((r) => ({ label: r[bs] === null || r[bs] === undefined ? null : String(r[bs]), group: r[bg] === null || r[bg] === undefined ? null : levelOf(gk, String(r[bg])), pc1: r[b1], pc2: r[b2] }));
+      const sk = role(spec, 'subject');
+      const points = bp.rows.map((r) => ({ label: r[bs] === null || r[bs] === undefined ? null : levelOf(sk, String(r[bs])), group: r[bg] === null || r[bg] === undefined ? null : levelOf(gk, String(r[bg])), pc1: r[b1], pc2: r[b2] }));
       const groups = [...new Set(points.map((p) => p.group).filter((g) => g !== null))];
-      add('biplot', { points, arrows: ba.rows.map((r) => ({ label: labelOf(r[ai]), pc1: r[a1], pc2: r[a2] })), groups, xTitle: axis(0), yTitle: axis(1) }, false, TITLE.biplot);
+      add('biplot', { points, arrows: ba.rows.map((r) => ({ label: labelOf(r[ai]), pc1: r[a1], pc2: r[a2] })), groups, scale: spec.options?.scale !== false, xTitle: axis(0), yTitle: axis(1) }, false, TITLE.biplot);
     });
   }
   return out;

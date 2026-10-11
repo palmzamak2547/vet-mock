@@ -68,7 +68,13 @@ export function curveModel(kind, input, opts) {
   if (!curves.length) noData('no curve');
   const unknowns = kind === 'standardCurve' ? (input.unknowns || []) : [];
   const drawable = (k) => num(k.x) && num(k.response) && (!log || k.x > 0);
-  const shown = unknowns.filter(drawable);
+  // An unknown read beyond the lowest or the highest standard is an extrapolation, not a reading off the drawn curve
+  // (the curve is drawn from the lowest positive standard to the highest): it is listed and tabled, not crossed.
+  const stdX = curves.length ? (curves[0].points.length ? curves[0].points.map((p) => p.x) : curves[0].rows.map((r) => r.x)).filter((v) => v > 0) : [];
+  const [stdLo, stdHi] = stdX.length ? [Math.min(...stdX), Math.max(...stdX)] : [0, Infinity];
+  const beyond = (k) => drawable(k) && (k.x < stdLo * (1 - 1e-9) || k.x > stdHi * (1 + 1e-9));
+  const shown = unknowns.filter((k) => drawable(k) && !beyond(k));
+  const extrap = unknowns.filter(beyond);
   const listed = unknowns.filter((k) => !drawable(k));
 
   // x domain: the curves, the points and the unknowns drawn; an EC50 interval within a decade of them
@@ -161,13 +167,16 @@ export function curveModel(kind, input, opts) {
 
   // the number table, the summary a screen reader hears, and the sentences under the chart
   const potName = (p) => t(p?.kind === 'ec50' ? 'graphs.curve.ec50' : 'graphs.curve.ic50');
-  const potRow = (p) => [fmtN(ctx, p?.response), fmtN(ctx, p?.estimate, 'ratio'), fmtCi(ctx, p?.estimate, p?.lower, p?.upper, 'ratio')];
+  // concentrations print as the result table prints them (kind 'statistic'): 'ratio' rounds 0.03058 and 0.02694 both to 0.03
+  const potRow = (p) => [fmtN(ctx, p?.response), fmtN(ctx, p?.estimate), fmtCi(ctx, p?.estimate, p?.lower, p?.upper)];
   const potText = (c) => (c.potency && num(c.potency.estimate)
-    ? `${c.label ? `${c.label} ` : ''}${potName(c.potency)} ${fmtN(ctx, c.potency.estimate, 'ratio')} (${lv} CI ${fmtCi(ctx, c.potency.estimate, c.potency.lower, c.potency.upper, 'ratio')})`
+    ? `${c.label ? `${c.label} ` : ''}${potName(c.potency)} ${fmtN(ctx, c.potency.estimate)} (${lv} CI ${fmtCi(ctx, c.potency.estimate, c.potency.lower, c.potency.upper)})`
     : `${c.label ? `${c.label} ` : ''}${potName(c.potency)} —`);
   let table;
   let summary;
-  const notes = [t('graphs.note.curve', { level: lv })];
+  const anyPoints = curves.some((c) => c.points.length);
+  // the first sentence names the points, so it is left out when no point is drawn
+  const notes = [t(anyPoints ? 'graphs.note.curve' : 'graphs.note.curveBand', { level: lv })];
   const kinds = new Set(curves.filter((c) => c.potency).map((c) => c.potency.kind));
   const nameAll = kinds.size === 1 ? potName({ kind: [...kinds][0] }) : t('graphs.curve.ecOrIc');
   if (kind === 'fittedCurve') {
@@ -180,11 +189,12 @@ export function curveModel(kind, input, opts) {
     const rows = [];
     if (c.potency) rows.push([t('graphs.curve.potencyRow', { name: potName(c.potency) }), ...potRow(c.potency)]);
     for (const k of unknowns) {
-      const why = drawable(k) ? fmtCi(ctx, k.x, k.lower, k.upper, 'ratio') : t('graphs.curve.outside');
-      rows.push([rowWord(t, k.label), fmtN(ctx, k.response), num(k.x) ? fmtN(ctx, k.x, 'ratio') : '—', why]);
+      const why = drawable(k) ? fmtCi(ctx, k.x, k.lower, k.upper) : t('graphs.curve.outside');
+      const name = beyond(k) ? `${rowWord(t, k.label)} (${t('graphs.curve.beyond')})` : rowWord(t, k.label);
+      rows.push([name, fmtN(ctx, k.response), num(k.x) ? fmtN(ctx, k.x) : '—', why]);
     }
     table = { columns: [t('graphs.col.readOff'), t('graphs.col.response'), t('graphs.col.concentration'), t('graphs.col.ci', { level: lv })], rows };
-    summary = t('graphs.summary.standardCurve', { potency: potText(c), shown: shown.length, outside: listed.length });
+    summary = t('graphs.summary.standardCurve', { potency: potText(c), shown: shown.length, outside: listed.length + extrap.length });
   } else {
     const named = multi || curves.some((c) => c.label);
     table = {
@@ -195,8 +205,9 @@ export function curveModel(kind, input, opts) {
   }
   if (kind !== 'fittedCurve' && curves.some((c) => c.potency && num(c.potency.estimate))) notes.push(t('graphs.note.curvePotency', { name: nameAll, level: lv }));
   if (log) notes.push(t(hasZero ? 'graphs.note.curveLogZero' : 'graphs.note.curveLog'));
-  if (!curves.some((c) => c.points.length)) notes.push(t('graphs.note.curveNoPoints'));
+  if (!anyPoints) notes.push(t(kind === 'fittedCurve' ? 'graphs.note.curveNoPointsEq' : 'graphs.note.curveNoPoints'));
   if (shown.length) notes.push(t('graphs.note.unknowns'));
+  if (extrap.length) notes.push(t('graphs.note.unknownsBeyond', { rows: extrap.map((k) => `${rowWord(t, k.label)} (${t('graphs.col.response')} ${fmtN(ctx, k.response)}, ${t('graphs.col.concentration')} ${fmtN(ctx, k.x)})`).join('; ') }));
   if (listed.length) notes.push(t('graphs.note.unknownsOutside', { rows: listed.map((k) => `${rowWord(t, k.label)} (${t('graphs.col.response')} ${fmtN(ctx, k.response)})`).join('; ') }));
 
   return finish(ctx, {
@@ -212,6 +223,7 @@ export function curveModel(kind, input, opts) {
     extras: {
       curves: curves.map((c) => ({ label: c.label, band: c.rows.map((r) => ({ x: r.x, fitted: r.fitted, lower: r.lower ?? null, upper: r.upper ?? null })), potency: c.potency, points: c.points })),
       unknowns: shown.map((k) => ({ label: k.label, x: k.x, response: k.response })),
+      unknownsBeyond: extrap.map((k) => ({ label: k.label, x: k.x, response: k.response })),
       unknownsOutside: listed.map((k) => ({ label: k.label, response: k.response })),
       plot: plotBox(box),
       zeroAt: hasZero ? r2(x0) : null,
