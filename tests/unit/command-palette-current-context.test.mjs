@@ -101,17 +101,31 @@ for (const event of [
   { key: 'Escape', nativeEvent: { isComposing: true } },
 ]) {
   test(`composition ${event.key} (${event.keyCode || 'native'}) cannot select or close search`, async () => {
-    let destination = null, closes = 0, prevented = false;
+    let destination = null, closes = 0, prevented = false, stopped = false;
     const view = setup({ props: { goView: value => { destination = value; }, onClose: () => { closes++; } } });
     try {
       await settle(view);
-      searchInput(view).props.onKeyDown({ ...event, preventDefault: () => { prevented = true; } });
+      searchInput(view).props.onKeyDown({ ...event, preventDefault: () => { prevented = true; }, stopPropagation: () => { stopped = true; } });
       assert.equal(destination, null);
       assert.equal(closes, 0);
       assert.equal(prevented, false, 'the input method keeps its native key behavior');
+      // An Escape that only cancels composition must not reach the window listeners behind the palette.
+      assert.equal(stopped, event.key === 'Escape');
     } finally { view.unmount(); }
   });
 }
+
+test('Escape closes the palette and stops there, so window Escape listeners behind it never fire', async () => {
+  let closes = 0, prevented = false, stopped = false;
+  const view = setup({ props: { onClose: () => { closes++; } } });
+  try {
+    await settle(view);
+    searchInput(view).props.onKeyDown({ key: 'Escape', preventDefault: () => { prevented = true; }, stopPropagation: () => { stopped = true; } });
+    assert.equal(closes, 1);
+    assert.equal(prevented, true);
+    assert.equal(stopped, true, 'the search input opts out of the dialog capture handler, so the palette has to stop the key itself');
+  } finally { view.unmount(); }
+});
 
 test('bookmark and missing-note fallback dispatch the supplied topic reset', async () => {
   for (const note of [false, true]) {

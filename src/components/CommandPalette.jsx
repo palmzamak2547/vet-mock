@@ -1202,8 +1202,15 @@ export default function CommandPalette({
   };
 
   const handleKey = (e) => {
-    if (e.nativeEvent?.isComposing || e.keyCode === 229) return;
-    if (e.key === 'Escape') { e.preventDefault(); onClose(); }
+    // The search input owns Escape (data-vmx-owns-escape), so the dialog's capture-phase
+    // handler no longer stops the key. Stop it here, or the same Escape reaches the
+    // window listeners behind the palette (PDF search row, menus, term popup).
+    if (e.nativeEvent?.isComposing || e.keyCode === 229) {
+      // The input method keeps its own key behavior, but a cancelling Escape must not leak either.
+      if (e.key === 'Escape') e.stopPropagation();
+      return;
+    }
+    if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); onClose(); }
     else if (e.key === 'ArrowDown') {
       e.preventDefault();
       setActiveIdx((i) => Math.min(view.flat.length - 1, i + 1));
