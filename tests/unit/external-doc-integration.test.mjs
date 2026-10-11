@@ -43,6 +43,15 @@ async function open(view) {
   findAll(view.tree, n => n.type === 'form')[0].props.onSubmit({ preventDefault() {} });
   await settle(view, 1);
 }
+test('a document read without its pictures says so and points to the original', async t => {
+  const view = setup(t, { fetchExternalDoc: async () => ({ ok: true, doc: { ...doc, imagesOmitted: true } }) });
+  await open(view);
+  assert.match(textOf(view.tree), /รูปภาพในเอกสารนี้ไม่แสดงในหน้าอ่าน กดเปิดต้นฉบับเพื่อดูรูป/);
+  const plain = setup(t);
+  await open(plain);
+  assert.doesNotMatch(textOf(plain.tree), /รูปภาพในเอกสารนี้/);
+});
+
 test('reader clears account A document when user signs out', async t => {
   const view = setup(t); await open(view);
   assert.match(textOf(view.tree), /Private account A document/);
@@ -293,6 +302,27 @@ function backend(t, responder) {
 }
 const request = (method, body = {}, query = {}) => ({ method, body, query,
   headers: { host: 'vetmock.test', authorization: 'Bearer fixture-session' }, socket: { remoteAddress: '10.98.1.2' } });
+
+test('a connected private Doc with big screenshots opens without them instead of being called not public', async t => {
+  const exports = [];
+  backend(t, url => {
+    if (url.pathname === '/rest/v1/external_connections') return { ok: true, json: async () => [{ user_id: 'account-a', provider: 'google', access_token: 'fixture-token', expires_at: '2999-01-01T00:00:00Z' }] };
+    if (url.hostname === 'www.googleapis.com' && url.pathname.endsWith('/export')) {
+      exports.push(url.searchParams.get('mimeType'));
+      return { ok: true, status: 200, url: url.href,
+        text: async () => `# Private lecture\n\n![][image1]\n\nSlide text\n\n[image1]: <data:image/png;base64,${'A'.repeat(3_000_000)}>\n` };
+    }
+    if (url.hostname === 'www.googleapis.com') return { ok: true, json: async () => ({ name: 'Private lecture' }) };
+    return { ok: false, status: 403, url: url.href };
+  });
+  const res = response();
+  await handler(request('POST', { url: doc.sourceUrl }), res);
+  assert.equal(res.statusCode, 200, JSON.stringify(res.body));
+  assert.equal(res.body.imagesOmitted, true);
+  assert.match(res.body.markdown, /Slide text/);
+  assert.doesNotMatch(res.body.markdown, /base64/);
+  assert.deepEqual(exports, ['text/markdown']);
+});
 
 test('a private linked sheet keeps gid including zero and never exports the first tab on failure', async t => {
   let gid = 42, available = true;

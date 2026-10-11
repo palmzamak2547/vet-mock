@@ -22,6 +22,11 @@
 
 export const MAX_UPSTREAM_BYTES = 2_000_000;
 export const MAX_MARKDOWN_CHARS = 200_000;
+// Google's markdown export carries every picture inside the file as base64,
+// so lecture notes with a few slide screenshots arrive many megabytes long.
+// That much is read, the pictures are dropped, and only then do the two caps
+// above apply to what the reader would actually show.
+export const MAX_GOOGLE_MARKDOWN_RAW_BYTES = 25_000_000;
 
 const HEX32 = /^[0-9a-f]{32}$/i;
 const DOCS_PATH = /^\/document\/d\/([\w-]{20,})/; // Google ids run 20+ chars (docs/external-content-sources-2026-10-07.md)
@@ -103,6 +108,25 @@ export function normalizeExternalDocUrl(raw) {
   }
 
   return null;
+}
+
+// ── Google markdown pictures ─────────────────────────────────────────
+
+/**
+ * Drop the pictures from a Google markdown export. Google writes each one
+ * as `![][image1]` in the text plus a `[image1]: <data:image/png;base64,...>`
+ * definition (or, in some exports, `![](data:...)` inline). The reader cannot
+ * draw them, they are most of the bytes, and left in they show up as a wall
+ * of base64 text. Every pattern here is linear in the input length.
+ */
+export function stripMarkdownImages(text) {
+  let imagesOmitted = false;
+  const drop = () => { imagesOmitted = true; return ''; };
+  let out = String(text ?? '')
+    .replace(/^[ \t]*\[[^\]\n]+\]:[ \t]*<?data:[^\n]*$/gm, drop)
+    .replace(/!\[[^\]\n]*\](?:\[[^\]\n]*\]|\([ \t]*<?data:[^)\n]*\))/g, drop);
+  if (imagesOmitted) out = out.replace(/\n{3,}/g, '\n\n').trim();
+  return { text: out, imagesOmitted };
 }
 
 // ── CSV → markdown table ─────────────────────────────────────────────

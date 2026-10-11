@@ -115,7 +115,8 @@ export async function fetchExternalDoc(url, options = {}) {
   const result = await request('/api/fetch-external-doc', { ...options, body: { url } });
   const doc = result.data;
   if (result.ok && typeof doc?.markdown === 'string' && Object.hasOwn(PROVIDER_LABELS, doc.provider)
-      && safeLinkUrl(doc.sourceUrl) && (doc.title == null || typeof doc.title === 'string')) return { ok: true, doc };
+      && safeLinkUrl(doc.sourceUrl) && (doc.title == null || typeof doc.title === 'string')
+      && (doc.imagesOmitted == null || typeof doc.imagesOmitted === 'boolean')) return { ok: true, doc };
   return { ...result, ok: false, error: messageFor(result.reason) };
 }
 

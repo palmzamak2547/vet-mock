@@ -422,6 +422,9 @@ export default function ExternalDocsSection({ user }) {
             )}
           </div>
           {doc.title && <h2 className="vmx-extdoc-doc-title">{doc.title}</h2>}
+          {doc.imagesOmitted && (
+            <p className="vmx-extdoc-connect-hint">รูปภาพในเอกสารนี้ไม่แสดงในหน้าอ่าน กดเปิดต้นฉบับเพื่อดูรูป</p>
+          )}
           <div className="vmx-summary-body" dangerouslySetInnerHTML={{ __html: renderMarkdown(doc.markdown) }} />
         </article>
       )}

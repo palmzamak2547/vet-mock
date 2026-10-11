@@ -364,3 +364,53 @@ test('a Notion answer that lands off api.notion.com is never read', async () => 
   assert.equal(res.body.reason, 'not_public');
   delete process.env.NOTION_TOKEN;
 });
+
+// ── Google markdown pictures ─────────────────────────────────────────
+// Google's markdown export writes each picture as `![][imageN]` plus a
+// `[imageN]: <data:image/png;base64,...>` definition. Lecture notes with a
+// few slide screenshots went over the caps (413, or "not shared publicly"
+// on the connected path) or showed a wall of base64 text.
+
+import { stripMarkdownImages } from '../../api/_lib/external-doc.js';
+
+const screenshot = (n) => 'iVBORw0KGgo' + 'A'.repeat(n);
+const notesWithPictures = (base64Chars) => [
+  '# ระบบทางเดินหายใจ', '', 'สไลด์แรก', '', '![][image1]', '', 'สรุปท้ายบท ![รูปปอด][image2]', '',
+  `[image1]: <data:image/png;base64,${screenshot(base64Chars)}>`, '',
+  `[image2]: <data:image/jpeg;base64,${screenshot(100)}>`, '',
+].join('\n');
+
+test('pictures leave a Google markdown export before any size cap, links and text stay', () => {
+  const { text, imagesOmitted } = stripMarkdownImages(notesWithPictures(1000) + '\nอ่านเพิ่ม [คู่มือ](https://go.vet/x)\n![](data:image/gif;base64,R0lGOD)');
+  assert.equal(imagesOmitted, true);
+  assert.doesNotMatch(text, /data:|base64|!\[|\[image\d\]/);
+  assert.match(text, /# ระบบทางเดินหายใจ/);
+  assert.match(text, /สรุปท้ายบท/);
+  assert.match(text, /\[คู่มือ\]\(https:\/\/go\.vet\/x\)/);
+  const plain = stripMarkdownImages('[ref]: https://keep.example\nไม่มีรูป');
+  assert.deepEqual(plain, { text: '[ref]: https://keep.example\nไม่มีรูป', imagesOmitted: false });
+});
+
+test('a public Google Doc with big screenshots opens without them and says pictures were left out', async () => {
+  const res = fakeRes();
+  await withEnv('GOOGLE_API_KEY', undefined, () => withFetch(async (url) => ({
+    ok: true, status: 200, url: String(url), text: async () => notesWithPictures(3_000_000),
+  }), () => handler(req({ url: 'https://docs.google.com/document/d/PICTURESA1b2C3d4E5f6G7h8/edit' }), res)));
+  assert.equal(res.statusCode, 200, JSON.stringify(res.body));
+  assert.equal(res.body.imagesOmitted, true);
+  assert.doesNotMatch(res.body.markdown, /base64/);
+  assert.match(res.body.markdown, /สไลด์แรก/);
+});
+
+test('markdown still too long without its pictures falls back to the text export instead of 413', async () => {
+  const calls = [];
+  const res = fakeRes();
+  await withEnv('GOOGLE_API_KEY', undefined, () => withFetch(async (url) => {
+    calls.push(String(url));
+    const md = /format=md$/.test(String(url));
+    return { ok: true, status: 200, url: String(url), text: async () => (md ? '**' + 'ก'.repeat(200_001) + '**' : 'ข้อความล้วนที่สั้นกว่า') };
+  }, () => handler(req({ url: 'https://docs.google.com/document/d/LONGMDA1b2C3d4E5f6G7h8I9/edit' }), res)));
+  assert.equal(res.statusCode, 200, JSON.stringify(res.body));
+  assert.equal(res.body.markdown, 'ข้อความล้วนที่สั้นกว่า');
+  assert.equal(calls.length, 2);
+});

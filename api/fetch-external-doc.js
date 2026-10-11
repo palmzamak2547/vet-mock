@@ -32,8 +32,10 @@ import {
   csvToMarkdownTable,
   notionBlocksToMarkdown,
   isAllowedUpstreamHost,
+  stripMarkdownImages,
   MAX_UPSTREAM_BYTES,
   MAX_MARKDOWN_CHARS,
+  MAX_GOOGLE_MARKDOWN_RAW_BYTES,
 } from './_lib/external-doc.js';
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
 import { getUserFromRequest, getConnection, googleTokenStale, refreshGoogleAccess, isGoogleApiHost } from './_lib/external-connections.js';
@@ -68,11 +70,37 @@ function notionLanded(resp) {
   }
 }
 
+/** A body that says up front it is bigger than `cap` is never read. */
+function declaredOver(resp, cap) {
+  const length = Number(resp?.headers?.get?.('content-length'));
+  return Number.isFinite(length) && length > cap;
+}
+
+/**
+ * Read a Google answer that may be markdown. Markdown loses its pictures
+ * before any cap applies (they are base64 inside the file), so a short
+ * document with screenshots is measured by what the reader would show.
+ * Returns { text, imagesOmitted } or { tooLarge: true }.
+ */
+async function readGoogleBody(resp, { markdown }) {
+  const rawCap = markdown ? MAX_GOOGLE_MARKDOWN_RAW_BYTES : MAX_UPSTREAM_BYTES;
+  if (declaredOver(resp, rawCap)) return { tooLarge: true };
+  let text = await resp.text();
+  if (typeof text !== 'string') return { text: null };
+  if (text.length > rawCap) return { tooLarge: true };
+  let imagesOmitted = false;
+  if (markdown) ({ text, imagesOmitted } = stripMarkdownImages(text));
+  if (text.length > MAX_UPSTREAM_BYTES || (markdown && text.length > MAX_MARKDOWN_CHARS)) return { tooLarge: true, imagesOmitted };
+  return { text, imagesOmitted };
+}
+
 /**
  * Fetch one candidate export URL and return its text, or null when the
  * answer is not usable content (bad status, redirect out of the allowlist,
- * login shell, oversized). null means "try the next candidate", so the
- * caller's fallback chain stays honest.
+ * login shell). An oversized answer says so ({ tooLarge }) so the caller
+ * can try the next candidate and, when none fits, answer too_large instead
+ * of claiming the document is private. null means "try the next candidate",
+ * so the caller's fallback chain stays honest.
  */
 async function fetchText(url) {
   let resp;
@@ -91,15 +119,15 @@ async function fetchText(url) {
       return null;
     }
   }
-  let text;
+  let body;
   try {
-    text = await resp.text();
+    body = await readGoogleBody(resp, { markdown: new URL(url).searchParams.get('format') === 'md' });
   } catch {
     return null;
   }
-  if (typeof text !== 'string' || text.length > MAX_UPSTREAM_BYTES) return null;
-  if (looksLikeHtml(text)) return null;
-  return { text };
+  if (body.tooLarge) return body;
+  if (typeof body.text !== 'string' || looksLikeHtml(body.text)) return null;
+  return body;
 }
 
 /**
@@ -129,14 +157,15 @@ async function fetchPublicGoogleDoc(id) {
       return null;
     }
   }
-  let text;
+  let body;
   try {
-    text = await resp.text();
+    body = await readGoogleBody(resp, { markdown: true });
   } catch {
     return null;
   }
-  if (typeof text !== 'string' || text.length > MAX_UPSTREAM_BYTES || looksLikeHtml(text)) return null;
-  return { text };
+  // Too large here still lets the export chain try its plain-text candidate.
+  if (body.tooLarge || typeof body.text !== 'string' || looksLikeHtml(body.text)) return null;
+  return body;
 }
 
 /** Extract the page title from a /v1/pages response, or null. */
@@ -194,33 +223,44 @@ async function fetchConnectedGoogle(target, row) {
       return null;
     }
   }
-  const mimeType = kind === 'gsheets' ? 'text/csv' : 'text/markdown';
-  let resp;
-  try {
-    resp = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(id)}/export?mimeType=${encodeURIComponent(mimeType)}`, {
-      headers: { Authorization: `Bearer ${token}` },
-      signal: AbortSignal.timeout(TIMEOUT_MS),
-    });
-  } catch (err) {
-    if (err?.name === 'TimeoutError' || err?.name === 'AbortError') throw err;
-    return null;
-  }
-  let landed = true;
-  if (resp.url) {
+  // A document whose markdown is still too long once its pictures are gone
+  // is tried once more as plain text, the same fallback the public path has.
+  const mimeTypes = kind === 'gsheets' ? ['text/csv'] : ['text/markdown', 'text/plain'];
+  let text = null;
+  let imagesOmitted = false;
+  for (const mimeType of mimeTypes) {
+    let resp;
     try {
-      landed = isGoogleApiHost(new URL(resp.url).hostname);
-    } catch {
-      landed = false;
+      resp = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(id)}/export?mimeType=${encodeURIComponent(mimeType)}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        signal: AbortSignal.timeout(TIMEOUT_MS),
+      });
+    } catch (err) {
+      if (err?.name === 'TimeoutError' || err?.name === 'AbortError') throw err;
+      return null;
     }
+    let landed = true;
+    if (resp.url) {
+      try {
+        landed = isGoogleApiHost(new URL(resp.url).hostname);
+      } catch {
+        landed = false;
+      }
+    }
+    if (!resp.ok || !landed) return null;
+    let body;
+    try {
+      body = await readGoogleBody(resp, { markdown: mimeType === 'text/markdown' });
+    } catch {
+      return null;
+    }
+    imagesOmitted = imagesOmitted || !!body.imagesOmitted;
+    if (body.tooLarge) continue;
+    if (typeof body.text !== 'string' || looksLikeHtml(body.text)) return null;
+    text = body.text;
+    break;
   }
-  if (!resp.ok || !landed) return null;
-  let text;
-  try {
-    text = await resp.text();
-  } catch {
-    return null;
-  }
-  if (typeof text !== 'string' || text.length > MAX_UPSTREAM_BYTES || looksLikeHtml(text)) return null;
+  if (text === null) return null;
   let title = null;
   try {
     const meta = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(id)}?fields=name`, {
@@ -232,7 +272,7 @@ async function fetchConnectedGoogle(target, row) {
       title = data?.name ? String(data.name).slice(0, 200) : null;
     }
   } catch { /* title is optional */ }
-  return { text, title };
+  return { text, title, imagesOmitted };
 }
 
 async function fetchNotionMarkdown(id, token) {
@@ -354,12 +394,14 @@ export default async function handler(req, res) {
       if (limited) return sendRateLimitFailure(res, limited);
       let markdown = null;
       let title = null;
+      let imagesOmitted = false;
       try {
         if (target.provider === 'gdocs' || target.provider === 'gsheets') {
           const result = await fetchConnectedGoogle(target, connection);
           if (result) {
             markdown = target.provider === 'gsheets' ? csvToMarkdownTable(result.text) : result.text;
             title = result.title;
+            imagesOmitted = !!result.imagesOmitted;
           }
         } else {
           const result = await fetchNotionMarkdown(target.id, connection.access_token);
@@ -383,6 +425,7 @@ export default async function handler(req, res) {
           title: title || null,
           markdown,
           sourceUrl: target.sourceUrl,
+          ...(imagesOmitted ? { imagesOmitted: true } : {}),
         });
       }
       // The connected attempt found nothing usable — a PUBLIC doc should
@@ -406,6 +449,8 @@ export default async function handler(req, res) {
     let title = null;
     let upstreamBlocked = false;
     let upstreamStatus = null;
+    let tooLarge = false;
+    let imagesOmitted = false;
 
     if (target.provider === 'notion') {
       const token = process.env.NOTION_TOKEN || '';
@@ -438,7 +483,10 @@ export default async function handler(req, res) {
       if (target.provider === 'gdocs') {
         try {
           const result = await fetchPublicGoogleDoc(target.id);
-          if (result) markdown = result.text;
+          if (result) {
+            markdown = result.text;
+            imagesOmitted = !!result.imagesOmitted;
+          }
         } catch (err) {
           if (err?.name === 'TimeoutError' || err?.name === 'AbortError') {
             return res.status(504).json({ error: 'Upstream request timed out', reason: 'timeout' });
@@ -458,12 +506,20 @@ export default async function handler(req, res) {
             throw err;
           }
           if (result && result.failed) { upstreamStatus = result.status; continue; }
+          if (result?.tooLarge) { tooLarge = true; imagesOmitted = imagesOmitted || !!result.imagesOmitted; continue; }
           if (!result) { upstreamBlocked = true; continue; }
-          markdown = target.provider === 'gsheets'
+          imagesOmitted = imagesOmitted || !!result.imagesOmitted;
+          const candidate = target.provider === 'gsheets'
             ? csvToMarkdownTable(result.text)
             : result.text;
+          // Too long for the reader: the next candidate (plain text) may fit.
+          if (candidate.length > MAX_MARKDOWN_CHARS) { tooLarge = true; continue; }
+          markdown = candidate;
           if (markdown) break;
         }
+      }
+      if (!markdown && tooLarge) {
+        return res.status(413).json({ error: 'Document too large for the reader', reason: 'too_large' });
       }
       if (!markdown) {
         // A real 4xx/5xx from the export path, or a login shell on every
@@ -490,6 +546,7 @@ export default async function handler(req, res) {
       title: title || null,
       markdown,
       sourceUrl: target.sourceUrl,
+      ...(imagesOmitted ? { imagesOmitted: true } : {}),
     };
     await kvSetJSON(cacheKey, payload, 600);
     return res.status(200).json(payload);
