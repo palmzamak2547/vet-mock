@@ -4,8 +4,9 @@
 //
 // Shown inline in ReviewView under each Q. Reads/writes to the
 // `q_comments` Supabase table (RLS: public read, authenticated insert
-// of own rows). Subscribes to Postgres CDC so new replies appear
-// without a refresh.
+// of own rows, delete of own rows or, for the back-office account, of
+// any row). Subscribes to Postgres CDC so new replies appear without a
+// refresh.
 //
 // Compound key (q_subject, q_id) because Q ids aren't unique across
 // the question bank — a known dupe-id issue tracked in the vault.
@@ -21,6 +22,7 @@ import {
 } from '../lib/api.js';
 import { confirmDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
+import { checkIsAdmin } from '../lib/admin-api.js';
 
 function fmtTime(iso) {
   if (!iso) return '';
@@ -41,7 +43,18 @@ export default function QComments({ qSubject, qId, user, setView }) {
   const [err, setErr] = useState(null);
   const [loadErr, setLoadErr] = useState(null);
   const [reloadTick, setReloadTick] = useState(0);
+  // The back-office account may remove any comment (policy
+  // qc_delete_own_or_admin). The database decides; this only shows the
+  // control, and a refused delete leaves the row on screen (see handleDelete).
+  const [isAdmin, setIsAdmin] = useState(false);
   const channelRef = useRef(null);
+
+  useEffect(() => {
+    if (!hasSupabase || !user) { setIsAdmin(false); return; }
+    let alive = true;
+    checkIsAdmin().then((ok) => { if (alive) setIsAdmin(ok === true); }).catch(() => { if (alive) setIsAdmin(false); });
+    return () => { alive = false; };
+  }, [user?.id]);
 
   // Initial fetch
   useEffect(() => {
@@ -136,10 +149,19 @@ export default function QComments({ qSubject, qId, user, setView }) {
     if (!(await confirmDialog({ title: 'ลบความเห็นนี้?', confirmLabel: 'ลบ', tone: 'danger' }))) return;
     try {
       await deleteQComment(id);
-      setComments((prev) => prev.filter((c) => c.id !== id));
     } catch (e) {
       setErr(thaiError(e, 'ลบไม่สำเร็จ'));
+      return;
     }
+    // deleteQComment reports no error when RLS deleted nothing, so the row
+    // leaves the screen only when the server says it is gone: the realtime
+    // DELETE event removes it, and this read-back covers a missed event. A
+    // failed read-back keeps what is on screen and leaves the rest to the
+    // event.
+    let rows;
+    try { rows = await listQComments(qSubject, qId); } catch { return; }
+    setComments(rows);
+    if (rows.some((c) => c.id === id)) setErr('ลบไม่สำเร็จ ความเห็นนี้ยังอยู่');
   }
 
   if (!hasSupabase) {
@@ -187,7 +209,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
                   <span style={{ fontSize: 14 }}>{avatar}</span>
                   <span style={{ fontSize: 12, fontWeight: 600 }}>{author}</span>
                   <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{fmtTime(c.created_at)}</span>
-                  {mine && (
+                  {(mine || isAdmin) && (
                     <button
                       type="button"
                       onClick={() => handleDelete(c.id)}
@@ -213,7 +235,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
           aria-label="ความคิดเห็นหรือคำแนะนำสำหรับข้อนี้"
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
-          placeholder={user ? 'พิมพ์ความเห็น/แก้ไข/แชร์ tip…' : 'login เพื่อโพสต์ — อ่านได้ไม่ต้อง login'}
+          placeholder={user ? 'พิมพ์ความเห็น/แก้ไข/แชร์ tip…' : 'เข้าสู่ระบบเพื่อโพสต์ อ่านได้โดยไม่ต้องเข้าสู่ระบบ'}
           rows={2}
           maxLength={2000}
           disabled={!user || posting}
@@ -232,7 +254,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
           className="vmx-btn vmx-btn-primary vmx-btn-sm"
           style={{ alignSelf: 'flex-start' }}
         >
-          {!user ? 'Login' : posting ? '...' : 'โพสต์'}
+          {!user ? 'เข้าสู่ระบบ' : posting ? '...' : 'โพสต์'}
         </button>
       </div>
       {err && <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-rose-text)' }}>{err}</div>}

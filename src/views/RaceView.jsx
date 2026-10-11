@@ -55,6 +55,11 @@ export default function RaceView({ goHome, setView, user, profile }) {
 
   async function applySnapshot(snapshot, owner, expectedCode) {
     if (context.current.owner !== owner || (expectedCode && context.current.code !== expectedCode)) return;
+    // enter_race answers null for a code that matches no live room and when
+    // an account has guessed too often (the join counter commits that way).
+    // It is a refusal, not a connection problem: say so instead of reading
+    // snapshot.started_at off null and telling the student to retry.
+    if (!snapshot) throw new Error(RACE_REFUSALS['Room unavailable']);
     let qs = [];
     if (snapshot.started_at) qs = await resolveRoomQuestions(snapshot, QB, loadQBForYear);
     if (context.current.owner !== owner || (expectedCode && context.current.code !== expectedCode)) return;
@@ -84,7 +89,11 @@ export default function RaceView({ goHome, setView, user, profile }) {
       reading = true;
       try {
         const state = await ownedRpc(owner, 'race_snapshot', { p_code: code }, { refusals: RACE_REFUSALS });
-        if (alive) await applySnapshot(state, owner, code);
+        if (!alive) return;
+        // An empty snapshot means the room is gone for this account: stop
+        // polling, as a refusal does below.
+        if (state == null) { alive = false; clearInterval(timer); setError(RACE_REFUSALS['Room unavailable']); return; }
+        await applySnapshot(state, owner, code);
       } catch (failure) {
         if (!alive) return;
         // The room expired or this account is no longer in it: polling again
@@ -113,7 +122,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
   });
   const joinRace = input => act(async () => {
     const value = String(input || '').trim().toUpperCase();
-    if (!/^[A-F0-9]{6}$/.test(value)) throw new Error('ใส่รหัสห้อง 6 ตัวจากเพื่อน (ห้องรุ่นเก่าต้องสร้างใหม่)');
+    if (!/^[A-F0-9]{6}$/.test(value)) throw new Error('ใส่รหัสห้อง 6 ตัวจากเพื่อน (ห้องเวอร์ชันเก่าต้องสร้างใหม่)');
     const owner = user.id;
     await applySnapshot(await ownedRpc(owner, 'enter_race', { p_code: value }, { refusals: RACE_REFUSALS }), owner);
   });
