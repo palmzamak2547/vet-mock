@@ -1386,6 +1386,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
             <div className="vmx-companion-card">
               <div className="vmx-mochi-seal">
                 <img
+                  key={companionImg}
                   src={companionImg}
                   alt={companionAlt}
                   width={48}

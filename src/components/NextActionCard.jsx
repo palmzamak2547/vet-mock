@@ -212,6 +212,7 @@ export default function NextActionCard({
           {seasonal && companionOn && (
             <div className="vmx-mochi-stamp">
               <img
+                key={seasonal.src}
                 className="vmx-next-actions-mochi"
                 src={seasonal.src}
                 alt={seasonal.alt}
