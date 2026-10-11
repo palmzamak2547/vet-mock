@@ -17,6 +17,13 @@ test('SR previews read the live record, grading dispatches the event once, the b
   // (the active scheduler's own arithmetic), never the stale relearn snapshot.
   assert.equal((s.match(/previewIntervals\(liveCard, /g) || []).length, 1, 'the previews read the live card');
   assert.equal((s.match(/intervalPreviews\[/g) || []).length, 4, 'all four buttons serve from that one preview set');
+  // Order, not just count. After the last card is graded currentIdx equals the
+  // session length, so liveCard is undefined and previewIntervals(undefined)
+  // throws under the default SM-2 scheduler: the finished screen crashed when
+  // the call sat above this early return (2500b430 shipped it that way).
+  const sessionEnd = s.indexOf('if (!currentQ || currentIdx >= sessionCards.length) {');
+  assert.ok(sessionEnd > -1, 'the session-complete early return is still where this test looks for it');
+  assert.ok(s.indexOf('previewIntervals(liveCard, ') > sessionEnd, 'previewIntervals must run after the session-complete return, when liveCard exists');
   assert.equal(s.includes('previewInterval(currentCard,'), false);
   assert.equal(s.includes('previewInterval(liveCard,'), false, 'the old per-button sm2 preview call is gone');
   assert.ok(s.includes("new CustomEvent('vmx-sr-card-graded'"), 'the App-level listener finally has a dispatcher');
