@@ -97,7 +97,9 @@ export default async function handler(req, res) {
   if (!base || !anon) return send(res, 503, { error: 'not_configured' });
 
   const limit = await rateLimit(`library-file:${clientIP(req)}`, MINT_RATE.max, MINT_RATE.windowMs);
-  if (!limit.ok) return sendRateLimitFailure(res, limit);
+  // A reading surface, so an outage of the shared limiter does not close the library: this limit guards
+  // the bill against someone streaming whole decks, not access, and a rare outage window is cheap.
+  if (!limit.ok && !limit.unavailable) return sendRateLimitFailure(res, limit);
 
   // One RPC answers everything: the row, whether it is published, and —
   // because the login rule lives in the SECURITY DEFINER function, not

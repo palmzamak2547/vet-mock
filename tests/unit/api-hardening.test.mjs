@@ -215,6 +215,13 @@ test('the library link endpoint refuses one address past its budget before askin
   });
 });
 
+// The limit protects the bill, not access: when the shared limiter is down the library still opens.
+test('the library link endpoint stays open when the shared limiter is unavailable', async () => {
+  const { readFileSync } = await import('node:fs');
+  const src = readFileSync(new URL('../../api/library-file.js', import.meta.url), 'utf8');
+  assert.match(src, /if \(!limit\.ok && !limit\.unavailable\) return sendRateLimitFailure\(res, limit\);/);
+});
+
 test('the grader will not grade a question that is not ours', async () => {
   // The endpoint used to take the question and its model answer from the
   // request body, which made it a language model behind our API key on a
