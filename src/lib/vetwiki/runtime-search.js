@@ -70,12 +70,16 @@ export function createSearchTopics(loadIndex = loadSearchIndex) {
     })));
     const results = [];
     for (const { topic, index } of indexed) {
-      if (!index) continue;
+      // The title and summary come with the registry, not with the subject's
+      // chunk, so an article whose chunk failed is still found by them. Only
+      // its section matches are missing, and incompleteSubjects says so.
       const inTitle = normalize(topic.title).includes(normalized)
         || normalize(topic.summary).includes(normalized);
       const matchedSections = index
-        .filter(([, , text]) => text.includes(normalized))
-        .map(([id, heading]) => ({ id, heading }));
+        ? index
+          .filter(([, , text]) => text.includes(normalized))
+          .map(([id, heading]) => ({ id, heading }))
+        : [];
       if (inTitle || matchedSections.length > 0) {
         results.push({ topic, matchedSections, inTitle });
       }

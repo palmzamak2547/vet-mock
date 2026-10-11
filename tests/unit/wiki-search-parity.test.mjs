@@ -26,7 +26,8 @@ const moduleUrl = (rel) => pathToFileURL(resolve(ROOT, rel)).href;
 const RUNTIME_SEARCH = moduleUrl('src/lib/vetwiki/runtime-search.js');
 
 // ---- The oracle: runtime-search.js as it was before the index existed ----
-// Only change: loadTopic is a parameter, so a failed subject can be simulated.
+// Changes: loadTopic is a parameter, so a failed subject can be simulated; and
+// a failed subject keeps its title and summary matches (OV-reading-16).
 
 function flattenBody(body, out = []) {
   for (const item of body || []) {
@@ -90,12 +91,15 @@ async function createOracle(loadTopicOverride) {
     })));
     const results = [];
     for (const { topic, index } of indexed) {
-      if (!index) continue;
+      // OV-reading-16: a failed subject keeps its title and summary matches
+      // (the same change as runtime-search.js, so parity still holds).
       const inTitle = normalize(topic.title).includes(normalized)
         || normalize(topic.summary).includes(normalized);
-      const matchedSections = index.sections
-        .filter((section) => section.text.includes(normalized))
-        .map((section) => ({ id: section.id, heading: section.heading }));
+      const matchedSections = index
+        ? index.sections
+          .filter((section) => section.text.includes(normalized))
+          .map((section) => ({ id: section.id, heading: section.heading }))
+        : [];
       if (inTitle || matchedSections.length > 0) {
         results.push({ topic, matchedSections, inTitle });
       }
@@ -270,6 +274,31 @@ test('a subject that fails to load is counted once, as before, and the next sear
   assert.equal(recovered.incompleteSubjects, 0);
   assert.equal(calls.get('com5'), 4, 'the failed subject is requested again once it can load');
   assert.equal(calls.get('com4'), 1, 'a subject that loaded is not requested again');
+});
+
+// OV-reading-16. A subject whose text index failed to load used to drop out of
+// the results entirely, so "rabies" with COM V's chunk down did not list the
+// Rabies article even though its own title says rabies. The title and summary
+// travel with the registry, not with the chunk; only the section matches are
+// lost, and the search still reports itself as incomplete.
+test('a subject whose index fails still lists its articles whose title or summary match', async () => {
+  const { createSearchTopics } = await import(RUNTIME_SEARCH);
+  const { loadSearchIndex } = await import(moduleUrl('src/lib/vetwiki/search-index-loaders.generated.js'));
+  const after = createSearchTopics((subject) => (
+    subject === 'com5' ? Promise.reject(new Error('Failed to fetch dynamically imported module')) : loadSearchIndex(subject)
+  ));
+  for (const query of ['rabies', 'โรคพิษสุนัขบ้า']) {
+    const results = await after(query);
+    assert.equal(results.incompleteSubjects, 1, `${query}: the search must still say it is incomplete`);
+    const rabies = results.find((r) => r.topic.id === 'com5--rabies');
+    assert.ok(rabies, `${query}: the Rabies article's title matches, so it must be listed`);
+    assert.equal(rabies.inTitle, true);
+    assert.deepEqual(rabies.matchedSections, [], 'no section can match text that never loaded');
+  }
+  // A query only an article body holds finds nothing in the failed subject.
+  const bodyOnly = await after('xyzzy-no-such-vetwiki-term');
+  assert.deepEqual([...bodyOnly], []);
+  assert.equal(bodyOnly.incompleteSubjects, 1);
 });
 
 test('searches in flight together share one request per subject', async () => {
