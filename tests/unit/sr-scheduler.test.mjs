@@ -33,7 +33,7 @@ test('normalizeScheduler falls back to SM-2 on anything unknown', () => {
 
 test('algorithmFor names the review-event algorithm per scheduler', () => {
   assert.equal(algorithmFor('sm2'), 'vetmock-sm2-v1');
-  assert.equal(algorithmFor('fsrs'), 'vetmock-fsrs6-v1');
+  assert.equal(algorithmFor('fsrs'), 'vetmock-fsrs6-v2');
 });
 
 test('deriveFsrsState reads a card without one and never mutates it', () => {

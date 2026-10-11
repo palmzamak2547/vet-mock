@@ -186,3 +186,18 @@ test('adaptive mode draws from the same pool the config screen counts', () => {
   assert.equal(build('adaptive').length, build('all').length);
   assert.equal(build('adaptive').length, 30);
 });
+
+test('keepPassageOrder puts passage questions in id order and leaves the rest of the ramp in place', async () => {
+  const { keepPassageOrder } = await import('../../src/lib/adaptive-select.js');
+  const ramp = [{ id: 9 }, { id: 42, passage: 'p' }, { id: 3 }, { id: 41, passage: 'p' }, { id: 7 }];
+  const out = keepPassageOrder(ramp);
+  assert.deepEqual(out.map((q) => q.id), [9, 41, 3, 42, 7]);
+  assert.deepEqual(ramp.map((q) => q.id), [9, 42, 3, 41, 7], 'input is not mutated');
+  assert.deepEqual(keepPassageOrder([{ id: 5 }, { id: 1 }]).map((q) => q.id), [5, 1], 'no passages: ramp unchanged');
+});
+
+test('App keeps the adaptive ramp: it calls keepPassageOrder instead of sorting the whole set by id', async () => {
+  const { readFileSync } = await import('node:fs');
+  const src = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
+  assert.match(src, /if \(isAdaptive\) picked = keepPassageOrder\(picked\);/);
+});

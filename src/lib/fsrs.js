@@ -14,7 +14,9 @@
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
 
-export const FSRS_ALGORITHM = 'vetmock-fsrs6-v1';
+// v2 (5.142.1): mean reversion and the post-lapse cap now match the FSRS-6 reference, so review
+// events written before and after the fix can be told apart.
+export const FSRS_ALGORITHM = 'vetmock-fsrs6-v2';
 
 // FSRS-6 default parameters, w[0]..w[20].
 export const DEFAULT_W = Object.freeze([

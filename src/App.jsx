@@ -68,7 +68,7 @@ import {
   normalizePracticeMode, categoryPickerShown, appliedCategory, buildExamPool,
 } from './lib/exam-pool.js';
 import { panicPool } from './lib/question-metadata.js';
-import { adaptiveSelect, computeAbility } from './lib/adaptive-select.js';
+import { adaptiveSelect, computeAbility, keepPassageOrder } from './lib/adaptive-select.js';
 import { questionDifficulty } from './lib/elo.js';
 import { loadQuestionDifficulty } from './lib/question-difficulty.js';
 
@@ -1951,7 +1951,10 @@ export default function App() {
       // missed first, and most past-paper questions carry examOrigin, so the
       // re-sort put 'ทบทวนข้อที่ตอบผิด' back in id order under a screen that
       // says ผิดบ่อยขึ้นก่อน.
-      if (!ordered) picked = picked.sort((a, b) => a.id - b.id);
+      // An adaptive set keeps its easy-to-hard ramp: only passage questions go back
+      // into id order, inside the slots they already hold.
+      if (isAdaptive) picked = keepPassageOrder(picked);
+      else if (!ordered) picked = picked.sort((a, b) => a.id - b.id);
     }
     // Per-question time uses timeForQuestion(): essays get 25 min minimum,
     // short answers 3 min minimum, MCQ/TF stay at the user's base setting

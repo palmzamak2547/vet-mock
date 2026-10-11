@@ -113,3 +113,18 @@ export function computeAbility(history, difficultyData, { start = DEFAULT_RATING
   }
   return Math.round(ability);
 }
+
+/**
+ * Put passage questions back in id order inside the slots they already hold, so passage
+ * Q1 still comes before Q2 while every other question keeps its place in the ramp.
+ * @template {{ id: number, passage?: string }} Q
+ * @param {Q[]} picked
+ * @returns {Q[]}
+ */
+export function keepPassageOrder(picked) {
+  const out = [...picked];
+  const slots = out.flatMap((q, i) => (q?.passage ? [i] : []));
+  const inOrder = slots.map((i) => out[i]).sort((a, b) => a.id - b.id);
+  slots.forEach((slot, k) => { out[slot] = inOrder[k]; });
+  return out;
+}
