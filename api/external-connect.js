@@ -4,13 +4,13 @@
 // ============================================================
 // The only read this endpoint answers is sanitizeConnection's output —
 // provider, display label, scope, expiry. Token columns never leave the
-// server, and disconnect deletes the row outright: the student's consent
-// is revocable from this app in one tap (and can also be revoked from
-// the provider's own consent page).
+// server. Disconnect deletes the row outright and then asks the provider to
+// revoke the grant, so the student's consent ends in one tap here (it can
+// also be revoked from the provider's own consent page).
 // ============================================================
 
 import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
-import { getUserFromRequest, listConnections, deleteConnection } from './_lib/external-connections.js';
+import { getUserFromRequest, listConnections, deleteConnection, getConnection, revokeProviderGrant } from './_lib/external-connections.js';
 
 const PROVIDERS = new Set(['google', 'notion']);
 const HOUR_MS = 60 * 60 * 1000;
@@ -56,9 +56,12 @@ export default async function handler(req, res) {
       if (!PROVIDERS.has(provider)) {
         return res.status(400).json({ error: 'Unsupported provider', reason: 'unsupported_provider' });
       }
+      // Read the grant first: after the delete there is nothing left to revoke.
+      const row = await getConnection({ userId, provider });
       const ok = await deleteConnection({ userId, provider });
       if (!ok) return res.status(503).json({ error: 'Could not update connections', reason: 'storage' });
-      return res.status(200).json({ ok: true });
+      const revoked = row ? await revokeProviderGrant(row) : false;
+      return res.status(200).json({ ok: true, revoked });
     }
     return res.status(400).json({ error: 'Unknown action', reason: 'unknown_action' });
 

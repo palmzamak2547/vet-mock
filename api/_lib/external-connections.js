@@ -210,6 +210,64 @@ export function notionTokenRequest({ code, redirectUri, env = process.env }) {
   };
 }
 
+// Revocation ends the grant at the provider, so a disconnect is a real
+// disconnect: VetMock leaves the student's Google third-party access list and
+// no stored copy of the token (a backup, say) keeps working. Google's
+// endpoint takes the token alone; revoking the refresh token ends the whole
+// grant. Notion's takes the token with the client's Basic credentials.
+// https://developers.google.com/identity/protocols/oauth2/web-server#tokenrevoke
+// https://developers.notion.com/reference/revoke-token
+export const NOTION_REVOKE_VERSION = '2026-03-11';
+
+export function googleRevokeRequest({ token }) {
+  return {
+    url: 'https://oauth2.googleapis.com/revoke',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ token }).toString(),
+  };
+}
+
+export function notionRevokeRequest({ token, env = process.env }) {
+  const clientId = env.NOTION_OAUTH_CLIENT_ID || '';
+  const clientSecret = env.NOTION_OAUTH_CLIENT_SECRET || '';
+  if (!clientId || !clientSecret) return null;
+  return {
+    url: 'https://api.notion.com/v1/oauth/revoke',
+    headers: {
+      'Content-Type': 'application/json',
+      'Notion-Version': NOTION_REVOKE_VERSION,
+      Authorization: `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+    },
+    body: JSON.stringify({ token }),
+  };
+}
+
+/**
+ * Ask the provider to end a stored grant. Best effort: never throws, and
+ * answers true only when the provider confirmed. The caller has already
+ * deleted the row, so a provider that is down cannot keep a student
+ * connected in this app.
+ */
+export async function revokeProviderGrant(row, deps = {}) {
+  const { env = process.env, fetch = globalThis.fetch } = deps;
+  const req = row?.provider === 'google'
+    ? (row.refresh_token || row.access_token ? googleRevokeRequest({ token: row.refresh_token || row.access_token }) : null)
+    : row?.provider === 'notion' && row.access_token ? notionRevokeRequest({ token: row.access_token, env }) : null;
+  if (!req) return false;
+  try {
+    const res = await fetch(req.url, {
+      method: 'POST',
+      headers: req.headers,
+      body: req.body,
+      redirect: 'error',
+      signal: AbortSignal.timeout(IO_TIMEOUT_MS),
+    });
+    return !!res?.ok;
+  } catch {
+    return false;
+  }
+}
+
 /** What a UI may see about a connection — token columns never survive this. */
 export function sanitizeConnection(row) {
   if (!row || typeof row !== 'object') return null;

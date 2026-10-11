@@ -495,3 +495,46 @@ test('the recent-link pills are 44px tap targets that still clip a long title', 
   assert.match(pill, /align-items: center;/);
   assert.match(rule('.vmx-extdoc-recent-text'), /text-overflow: ellipsis;/);
 });
+
+test('disconnect deletes the row, then ends the grant at Google or Notion, and a provider outage cannot keep it connected', async t => {
+  const prior = Object.fromEntries(['NOTION_OAUTH_CLIENT_ID', 'NOTION_OAUTH_CLIENT_SECRET'].map(k => [k, process.env[k]]));
+  process.env.NOTION_OAUTH_CLIENT_ID = 'notion-client'; process.env.NOTION_OAUTH_CLIENT_SECRET = 'notion-secret';
+  t.after(() => { for (const [k, v] of Object.entries(prior)) { if (v === undefined) delete process.env[k]; else process.env[k] = v; } });
+  let providerUp = true;
+  const events = [];
+  backend(t, (url, options = {}) => {
+    if (url.pathname === '/rest/v1/external_connections') {
+      const provider = url.searchParams.get('provider').slice(3);
+      events.push(`${options.method || 'GET'} ${provider}`);
+      if (options.method === 'DELETE') return { ok: true, json: async () => [] };
+      return { ok: true, json: async () => [{ user_id: 'account-a', provider, access_token: `${provider}-access`, refresh_token: provider === 'google' ? '1//google-refresh' : null }] };
+    }
+    if (url.href === 'https://oauth2.googleapis.com/revoke') {
+      events.push(`revoke google ${new URLSearchParams(options.body).get('token')}`);
+      assert.equal(options.headers['Content-Type'], 'application/x-www-form-urlencoded');
+      return { ok: providerUp, status: providerUp ? 200 : 503 };
+    }
+    if (url.href === 'https://api.notion.com/v1/oauth/revoke') {
+      events.push(`revoke notion ${JSON.parse(options.body).token}`);
+      assert.equal(options.headers.Authorization, `Basic ${Buffer.from('notion-client:notion-secret').toString('base64')}`);
+      assert.equal(options.headers['Notion-Version'], '2026-03-11');
+      return { ok: providerUp, status: providerUp ? 200 : 503 };
+    }
+    throw new Error(`unexpected call ${url.href}`);
+  });
+  for (const provider of ['google', 'notion']) {
+    events.length = 0;
+    const res = response();
+    await manageConnections(request('POST', { action: 'disconnect', provider }), res);
+    assert.equal(res.statusCode, 200, JSON.stringify(res.body));
+    assert.deepEqual(res.body, { ok: true, revoked: true });
+    assert.deepEqual(events, [`GET ${provider}`, `DELETE ${provider}`,
+      provider === 'google' ? 'revoke google 1//google-refresh' : 'revoke notion notion-access'], 'the refresh token ends the whole Google grant');
+  }
+  providerUp = false;
+  const res = response();
+  await manageConnections(request('POST', { action: 'disconnect', provider: 'google' }), res);
+  assert.equal(res.statusCode, 200);
+  assert.deepEqual(res.body, { ok: true, revoked: false }, 'the student is disconnected here even when Google is down');
+});
+
