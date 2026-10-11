@@ -76,14 +76,16 @@ export const REVIEWED_PAST_AND_ALIGNED = Object.freeze([
   104732, 104740, 104742, 104748, 104770, 104786,
 ]);
 
-// Carry only "อิงแนวสอบ", so band 1 cannot see them. Normalising them, and
-// the academic-safety replacement that writes that spelling, is its own
-// change (AGENTS.md 2026-09-22). Delete an id here when it is fixed.
-export const KNOWN_SHORT_SPELLING = Object.freeze([4046, 5000, 5066]);
+// Rows that carry only "อิงแนวสอบ", so band 1 cannot see them. Emptied
+// 2026-10-11: 4046, 5000 and 5066 were rewritten to the full marker and
+// lint-academic-safety no longer writes the short spelling. A new id here is
+// a new wrong row; fix the row instead (lint-provenance.test.mjs pins empty).
+export const KNOWN_SHORT_SPELLING = Object.freeze([]);
 
-// Counted as a sat paper because "Swine Medicine midterm study notes" says
-// "midterm". Clears when isPastPaperQuestion reads the map for typed rows.
-export const KNOWN_ORIGIN_OVERCLAIMS = Object.freeze([105636]);
+// Rows counted as a sat paper through an origin filed as something else.
+// Emptied 2026-10-11: isPastPaperQuestion now reads "study notes" and
+// "lecture slides" as documents, which is what lifted #105636 out of band 0.
+export const KNOWN_ORIGIN_OVERCLAIMS = Object.freeze([]);
 
 const label = (q) => `${q.subject || '?'} #${q.id}`;
 const carries = (q, text) => (Array.isArray(q.tags) && q.tags.some((t) => String(t).includes(text)))

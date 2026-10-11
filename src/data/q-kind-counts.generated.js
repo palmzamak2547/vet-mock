@@ -6117,7 +6117,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 1
       },
       "swine-pornchalit-set": {
-        "mcq": 18,
+        "mcq": 17,
         "tf": 0,
         "match": 0,
         "writing": 6
@@ -7161,7 +7161,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 1
       },
       "swine-pornchalit-set": {
-        "mcq": 18,
+        "mcq": 17,
         "tf": 0,
         "match": 0,
         "writing": 6

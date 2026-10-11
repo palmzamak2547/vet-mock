@@ -6,7 +6,11 @@ export const UNASSIGNED_TOPIC = '__unassigned__';
 
 const PAST_PAPER_SOURCE_PATTERN = /ข้อสอบ(?:เก่า)?|\b(?:FINAL|MID)\s*86\b|past\s*(?:paper|exam)/i;
 const PAST_PAPER_ORIGIN_PATTERN = /ข้อสอบเก่า|past\s*(?:paper|exam)|exam(?:ination)?\s*recall|\b(?:final|mid(?:term)?|osce|prac\s*final|lab\s*final)\b|\bER\s*Q\d+/i;
-const NON_PAPER_ORIGIN_PATTERN = /\bmock\b|station\s+prep/i;
+// The word that names the DOCUMENT wins over the word that names the paper
+// it was written for: "Swine Medicine midterm study notes" is notes, not the
+// midterm, and counting it as a paper put #105636 in band 0 and in the swine
+// wrap-up's ข้อสอบเก่า list (DATA-05, 2026-10-11).
+const NON_PAPER_ORIGIN_PATTERN = /\bmock\b|station\s+prep|study\s+notes|lecture\s+slides/i;
 
 export function questionTopicId(question) {
   return question?.topic || UNASSIGNED_TOPIC;

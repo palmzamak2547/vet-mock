@@ -16,8 +16,12 @@
 //   • "ซซดาวที่ออก" / similar — senior-attribution that doubles as
 //     "this came out on the test" hint
 //
-// SAFE substitutions (faculty-neutral phrasing):
-//   ออกตามนี้      → อิงแนวสอบรอบเดียวกัน
+// SAFE substitutions (faculty-neutral phrasing). The exam-guidance marker is
+// always the full spelling "อิงแนวข้อสอบ": isExamAlignedQuestion reads that
+// string and nothing shorter, so a rewrite that dropped ข้อ from the marker
+// took the row out of Panic Mode's band 1 (rows 4046, 5000, 5066 until
+// 2026-10-11). lint-provenance.test.mjs pins the full spelling in this file.
+//   ออกตามนี้      → อิงแนวข้อสอบรอบเดียวกัน
 //   ตรงข้อสอบ      → ตรงตามแนวสอบ
 //   ตรงเป๊ะ        → ใกล้เคียง (or remove)
 //   ข้อสอบรั่ว     → เอกสารบันทึกหลังสอบ
@@ -69,10 +73,10 @@ const REPLACEMENTS = [
 
   // ── "exam-leak" / "prior-knowledge" patterns ──
   // "ออกตามนี้" implies the senior had inside info on what came up
-  ['Vet 85 ออกตามนี้', 'อิงแนวสอบ Vet 85'],
-  ['85 ออกตามนี้', 'อิงแนวสอบ Vet 85'],
-  ['Vet 84 ออกตามนี้', 'อิงแนวสอบ Vet 84'],
-  ['ออกตามนี้', 'อิงแนวสอบรอบเดียวกัน'],
+  ['Vet 85 ออกตามนี้', 'อิงแนวข้อสอบ Vet 85'],
+  ['85 ออกตามนี้', 'อิงแนวข้อสอบ Vet 85'],
+  ['Vet 84 ออกตามนี้', 'อิงแนวข้อสอบ Vet 84'],
+  ['ออกตามนี้', 'อิงแนวข้อสอบรอบเดียวกัน'],
 
   // "ตรงข้อสอบ" / "ตรงเป๊ะ" — implies seeing the actual paper
   ['ตรงข้อสอบ', 'ตรงตามแนวสอบ'],
@@ -120,12 +124,12 @@ const CLAIM_PATTERNS = [
     // not need this — they name a cohort or a paper themselves.
     needsExamContext: true,
     why: 'อ้างว่าข้อสอบเก่าตรงกับข้อสอบจริง',
-    use: 'เขียนว่า "อิงแนวสอบ <รุ่น>" แทน',
+    use: 'เขียนว่า "อิงแนวข้อสอบ <รุ่น>" แทน',
   },
   {
     re: /(Vet|วีเอ็ท|รุ่น)\s*\d{2}\s*(final|midterm)?\s*ออก(?!แบบ|เสียง|กำลัง)/gi,
     why: 'อ้างว่ารู้ว่ารุ่นนั้นออกอะไร',
-    use: 'เขียนว่า "อิงแนวสอบ Vet NN" หรืออ้างบันทึกหลังสอบ',
+    use: 'เขียนว่า "อิงแนวข้อสอบ Vet NN" หรืออ้างบันทึกหลังสอบ',
   },
   {
     // NOT a bare /density สูง/ — that is ordinary science in this corpus

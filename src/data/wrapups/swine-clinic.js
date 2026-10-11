@@ -313,7 +313,7 @@ export const WRAPUP = {
             "YlS2efVw0OQ (4 ก.ย. 2569, Swine Medicine II: วัคซีน APP, A. suis, Pasteurella multocida, atrophic rhinitis, M. hyopneumoniae)",
             "130fSmEeitU (11 ก.ย. 2569, Swine Medicine III: M. hyorhinis, M. hyosynoviae, Glässer's disease, S. suis; ส่วน locomotor ท่านประกาศว่าไม่อยู่ในกลางภาค จึงไม่ได้ใช้)",
             "src/data/notes-85-swine-clinic.js หัวข้อ swine-pornchalit-set (Swine Med mid น.5 ถึง 7)",
-            "ข้อสอบเก่าในคลังหัวข้อ swine-pornchalit-set: 202353, 202354, 202478, 105621 ถึง 105630, 105636, 8019, 8023, 8353, 8358",
+            "ข้อสอบเก่าในคลังหัวข้อ swine-pornchalit-set: 202353, 202354, 202478, 105621 ถึง 105630, 8019, 8023, 8353, 8358",
             "src/data/glossary.js หัวข้อ Actinobacillus pleuropneumoniae, atrophic rhinitis, Mycoplasma hyopneumoniae, Streptococcus suis"
           ]
         }

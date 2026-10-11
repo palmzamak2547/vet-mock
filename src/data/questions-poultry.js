@@ -1836,15 +1836,15 @@ export const QB_POULTRY = [
   // Spread across all 6 final-scope topics
   // ════════════════════════════════════════════════════════════════════
 
-  // ── L10-11 Drugs additions (Vet 85 explicit "อิงแนวสอบรอบเดียวกัน") ──
+  // ── L10-11 Drugs additions (Vet 85 explicit "อิงแนวข้อสอบรอบเดียวกัน") ──
   { id: 4046, subject: 'poultry', topic: 'mahahon-poultry-drugs', year: 4,
-    source: 'สรุปรวมไก่ p32 (Vet 85 "อิงแนวสอบรอบเดียวกัน" marker)', sourceType: 'student-compilation',
+    source: 'สรุปรวมไก่ p32 (Vet 85 "อิงแนวข้อสอบรอบเดียวกัน" marker)', sourceType: 'student-compilation',
     tags: ['enrofloxacin', 'banned-broiler', 'banned-layer', 'fluoroquinolone'], type: 'mcq',
     q: 'ยาที่ห้ามใช้ทั้งในไก่เนื้อและไก่ไข่',
     options: ['Enrofloxacin', 'Penicillin', 'Tylosin', 'Doxycycline'],
     answer: 0,
     explain: 'Enrofloxacin = Fluoroquinolones, กรมปศุสัตว์ห้ามใช้ในไก่ไข่และไก่เนื้อเด็ดขาด เพราะ EU ห้ามใช้ในสัตว์อาหาร (50% ส่งออก EU), เป็น Extra-label use ที่ห้าม, ไทยส่งออก EU 50% + JP 40% → ระเบียบยึด EU เป็นหลัก\n\n💡 กลุ่ม Fluoroquinolones',
-    verified: 'สรุปรวมไก่ p32 (Vet 85 "อิงแนวสอบรอบเดียวกัน") + p36-39 by praewpsr' },
+    verified: 'สรุปรวมไก่ p32 (Vet 85 "อิงแนวข้อสอบรอบเดียวกัน") + p36-39 by praewpsr' },
 
   { id: 4047, subject: 'poultry', topic: 'mahahon-poultry-drugs', year: 4,
     source: 'สรุปรวมไก่ p32 (Vet 85 "อิงแนวสอบรอบเดียวกัน") + p1361 detail', sourceType: 'student-compilation',

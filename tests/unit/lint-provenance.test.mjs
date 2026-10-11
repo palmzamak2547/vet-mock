@@ -29,8 +29,10 @@ import {
 import {
   BUDGETS,
   KNOWN_ORIGIN_OVERCLAIMS,
+  KNOWN_SHORT_SPELLING,
   checkProvenance,
 } from '../../scripts/lint-provenance.mjs';
+import { isPastPaperQuestion } from '../../src/lib/question-metadata.js';
 
 const rows = [];
 for (const entry of BANK_REGISTRY) for (const q of await entry.load()) rows.push(q);
@@ -144,10 +146,46 @@ test('an exam-aligned row without the marker fails', () => {
 });
 
 test('a row counted as a paper through an origin filed as something else fails', () => {
-  const origins = { 'Poultry midterm study notes (Vet 85)': { kind: 'source-doc' } };
-  const notes = row({ sourceType: 'student-compilation', examOrigin: 'Poultry midterm study notes (Vet 85)' });
+  // "summary", not "study notes": the predicate no longer reads study notes as
+  // a paper (next test), so this fixture has to be a wording the regex still
+  // misreads, or it would prove nothing about rule 8.
+  const origins = { 'Poultry midterm summary (Vet 85)': { kind: 'source-doc' } };
+  const notes = row({ sourceType: 'student-compilation', examOrigin: 'Poultry midterm summary (Vet 85)' });
   assert.match(lintOnly([notes], { origins }).errors.join('\n'), /counted as a sat paper through examOrigin/);
   assert.deepEqual(lintOnly([notes], { origins, knownOverclaims: [notes.id] }).errors, []);
+});
+
+test('study notes and lecture slides are documents, never a sat paper, whatever paper they name', () => {
+  // Row 105636: "Swine Medicine midterm study notes, author-added lesion list
+  // (Vet 85)" counted as a paper because it says "midterm", and the swine
+  // wrap-up listed it among ข้อสอบเก่า. The word that names the DOCUMENT wins
+  // over the word that names the paper the document was written for.
+  for (const examOrigin of [
+    'Swine Medicine midterm study notes, author-added lesion list (Vet 85)',
+    'Poultry final study notes (Vet 85)',
+    'Avian Medicine midterm lecture slides (Vet 85 notes)',
+  ]) {
+    assert.equal(isPastPaperQuestion(row({ sourceType: 'student-compilation', examOrigin })), false, examOrigin);
+    assert.equal(isPastPaperQuestion(row({ examOrigin })), false, `${examOrigin} (untyped row)`);
+  }
+  // ...and a recall of a paper still is one.
+  assert.equal(isPastPaperQuestion(row({ sourceType: 'student-compilation', examOrigin: 'Swine Medicine Vet 85 midterm recall' })), true);
+});
+
+test('no row needs an exception any more: the known-overclaim and short-spelling lists are empty and stay empty', () => {
+  // Both lists existed to let the lint pass while the data was wrong. The data
+  // is now right; a new exception is a new wrong row, and the fix is the row.
+  assert.deepEqual([...KNOWN_ORIGIN_OVERCLAIMS], []);
+  assert.deepEqual([...KNOWN_SHORT_SPELLING], []);
+});
+
+test('the academic-safety rewrite table writes the spelling band 1 can read', () => {
+  // scripts/lint-academic-safety.mjs --apply rewrote "ออกตามนี้" to "อิงแนวสอบ …",
+  // the short spelling isExamAlignedQuestion does not read, so every row it
+  // touched left Panic Mode. Rows 4046, 5000 and 5066 carried only that.
+  const script = readFileSync(new URL('../../scripts/lint-academic-safety.mjs', import.meta.url), 'utf8');
+  assert.doesNotMatch(script, /อิงแนวสอบ/, 'a replacement or advice string still writes the short spelling');
+  assert.match(script, /อิงแนวข้อสอบ/);
 });
 
 test('the budgets may only fall', () => {

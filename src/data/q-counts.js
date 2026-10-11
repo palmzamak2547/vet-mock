@@ -118,7 +118,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 299,
   'avian-medicine': 216,
   'biochem-1': 271,
-  'cliapprum': 8,
+  'cliapprum': 10,
   'com1': 31,
   'com2': 42,
   'com3': 178,
@@ -136,7 +136,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'milk-meat-hygiene': 516,
   'one-health': 78,
   'poa-clinical': 16,
-  'poultry': 68,
+  'poultry': 69,
   'practrum': 17,
   'rec-adv-bioscience': 4,
   'repro': 31,
@@ -145,7 +145,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'surg1': 29,
   'surg2': 18,
   'surg3': 40,
-  'swine-clinic': 95,
+  'swine-clinic': 94,
   'swine-herd': 27,
   'swine-repro': 29,
   'vca': 18,
@@ -163,7 +163,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'aquatic-clinic': 210,
     'avian-medicine': 201,
     'biochem-1': 271,
-    'cliapprum': 8,
+    'cliapprum': 10,
     'com1': 4,
     'com2': 14,
     'com3': 178,
@@ -180,7 +180,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'livestock-pathology': 67,
     'milk-meat-hygiene': 516,
     'one-health': 67,
-    'poultry': 68,
+    'poultry': 69,
     'practrum': 17,
     'rec-adv-bioscience': 4,
     'repro': 31,
@@ -189,7 +189,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'surg1': 29,
     'surg2': 18,
     'surg3': 40,
-    'swine-clinic': 71,
+    'swine-clinic': 70,
     'swine-herd': 22,
     'swine-repro': 17,
     'vca': 18,
@@ -201,7 +201,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'aquatic-clinic': 89,
     'avian-medicine': 60,
     'biochem-1': 271,
-    'cliapprum': 8,
+    'cliapprum': 10,
     'com1': 31,
     'com2': 39,
     'com3': 178,
@@ -217,7 +217,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'herd-health-rum': 33,
     'livestock-pathology': 67,
     'one-health': 11,
-    'poultry': 68,
+    'poultry': 69,
     'practrum': 17,
     'rec-adv-bioscience': 4,
     'repro': 31,
@@ -226,7 +226,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'surg1': 29,
     'surg2': 18,
     'surg3': 40,
-    'swine-clinic': 83,
+    'swine-clinic': 82,
     'swine-herd': 11,
     'swine-repro': 18,
     'vca': 18,
@@ -1518,7 +1518,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
     'swine-clinic': {
       'swine-cns': 1,
       'swine-gi-viral': 11,
-      'swine-pornchalit-set': 24,
+      'swine-pornchalit-set': 23,
       'swine-resp-viral': 12,
     },
     'swine-herd': {
@@ -1721,7 +1721,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'swine-gi-viral': 11,
       'swine-ileitis-bacti': 1,
       'swine-pcv2': 4,
-      'swine-pornchalit-set': 24,
+      'swine-pornchalit-set': 23,
     },
     'swine-herd': {
       'asf-acute-signs': 1,
@@ -3089,7 +3089,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "swine-gi-viral": 11,
     "swine-ileitis-bacti": 1,
     "swine-pcv2": 4,
-    "swine-pornchalit-set": 24,
+    "swine-pornchalit-set": 23,
     "swine-resp-viral": 12,
   },
   "swine-herd": {
@@ -3230,4 +3230,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-09-26T17:37:11.599Z
+// Built: 2026-10-11T13:37:24.115Z

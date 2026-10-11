@@ -516,7 +516,7 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 3,
     explain: 'GA problems มาตรฐานในวัว: Regurgitation (active vs passive), Bloat, Respiratory complication, Hypoventilation, Nerve paralysis (จากท่านอนนาน) — Hyperthyroidism ไม่เกี่ยวกับ GA ในสัตว์เคี้ยวเอื้อง เป็น distractor หลอก',
-    verified: 'Clin approach final TJ p1 #1 (อิงแนวสอบ Vet 86)',
+    verified: 'Clin approach final TJ p1 #1 (อิงแนวข้อสอบ Vet 86)',
     sourcePages: [{ doc: 'clin-approach-final-tj', edition: '7p', page: 1 }] },
 
   { id: 5001, subject: 'cliapprum', topic: 'mahahon-cliapprum-anes', year: 4,
@@ -1485,7 +1485,7 @@ export const QB_CLIAPPRUM = [
     ],
     answer: 0,
     explain: '**Thiopental**: เหมาะกับ adult goat/sheep และ calves (อายุ ≥ 3 เดือน). ไม่แนะนำใน young calves อายุ **< 3 เดือน** — hepatic enzyme ยังไม่พร้อม metabolize barbiturate ทำให้ recovery ช้าและกดการหายใจรุนแรง',
-    verified: 'TJ p1 #7 (อิงแนวสอบ Vet 86)' },
+    verified: 'TJ p1 #7 (อิงแนวข้อสอบ Vet 86)' },
 
   { id: 5067, subject: 'cliapprum', topic: 'mahahon-cliapprum-anes', year: 4,
     source: 'TJ p1 #8-9 (Vet 86) + Anesthesia 2026 slide p81, p97', sourceType: 'student-compilation',

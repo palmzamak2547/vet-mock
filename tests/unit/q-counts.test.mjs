@@ -174,11 +174,20 @@ test('a row that is both a sat paper and อิงแนวข้อสอบ na
   assert.match(String(pastAndAlignedFault({ examOrigin: 'COM I Final 86', tags: [marker] })), /no sourceType/);
   assert.ok(pastAndAlignedFault({ sourceType: 'past-paper', examOrigin: marker, tags: [marker] }),
     'past-paper with the marker as its origin names no paper');
+  // A wording the origin regex still misreads as a paper ("midterm") that the
+  // map does not file as one. Study notes used to be this fixture; since
+  // 2026-10-11 isPastPaperQuestion reads "study notes" as a document, so that
+  // row is no longer a paper and there is nothing left to contradict.
   assert.ok(pastAndAlignedFault({
+    sourceType: 'student-compilation',
+    examOrigin: 'Swine Medicine midterm summary sheet (Vet 85)',
+    tags: [marker],
+  }), 'a summary is counted as a paper by the regex, and the map does not file it as one');
+  assert.equal(pastAndAlignedFault({
     sourceType: 'student-compilation',
     examOrigin: 'Swine Medicine midterm study notes, author-added lesion list (Vet 85)',
     tags: [marker],
-  }), 'study notes are counted as a paper by the regex, and are not one');
+  }), null, 'study notes are not a paper at all, so the row is only อิงแนวข้อสอบ');
   // The reviewed shapes.
   assert.equal(pastAndAlignedFault({ sourceType: 'past-paper', tags: ['avian-myco', marker] }), null);
   assert.equal(pastAndAlignedFault({
