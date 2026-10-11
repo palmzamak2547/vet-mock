@@ -14,11 +14,17 @@
 //
 // Numbers pinned in tests/unit/models-glm.test.mjs (R 4.6.0 values in docs/research/M2-DESIGN.md 3.2.1 and
 // the models role's own webR run, script in the test header).
+//
+// M3a [M3-DESIGN.md 3.2]: fitGlm also takes a family object (negbin.js passes the negative binomial family at a
+// fixed theta); glmData is the shared reading of roles, rows, outcome and design that the maximum likelihood
+// GLMs, Firth's correction (firth.js, reg.logistic with options.method 'firth') and negative binomial
+// regression (negbin.js) all start from.
 import { pnormTwoSided, pchisqUpper, qnorm, lgamma, ptTwoSided, qt } from '../stats/dist.js';
 import { val, nullVal, testRow, role, common, completeRows, column, invalid, ksum } from '../stats/common.js';
 import { buildDesign } from './design-matrix.js';
 import { profileCi } from './profile.js';
 import { clusterRobustVcov } from './robust.js';
+import { runFirth } from './firth.js';
 
 const EPS = 2.220446049250313e-16;
 const INVEPS = 1 / EPS;
@@ -33,7 +39,15 @@ export const ROBUST_MIN_FARMS = 10;
 
 const ylogy = (y, mu) => (y !== 0 ? y * Math.log(y / mu) : 0);
 
-/** @type {Record<'binomial'|'poisson', any>} */
+/**
+ * What fitGlm needs of a family (R's family object): the link and its inverse and derivative, the variance
+ * function, one row's deviance residual, the starting mean, the validity check and one row's -2 log likelihood.
+ * @typedef {{ linkfun: (mu: number) => number, linkinv: (eta: number) => number, muEta: (eta: number) => number,
+ *   variance: (mu: number) => number, devRes: (y: number, mu: number) => number, mustart: (y: number) => number,
+ *   validmu: (mu: number) => boolean, aicTerm: (y: number, mu: number) => number }} GlmFamily
+ */
+
+/** @type {Record<'binomial'|'poisson', GlmFamily>} */
 export const FAMILIES = {
   binomial: {
     linkfun: (mu) => Math.log(mu / (1 - mu)),
@@ -122,6 +136,18 @@ function norm(c, from) {
   return scale * Math.sqrt(s);
 }
 
+/**
+ * Columns of X that are not aliased, in order: the same Householder rule as the IRLS step (a column whose
+ * remaining norm falls below 1e-11 of its own norm is a combination of the columns before it). For fits that do
+ * not go through IRLS (firth.js), on the unweighted columns.
+ * @param {Float64Array[]} X
+ * @returns {number[]}
+ */
+export function keptColumns(X) {
+  if (!X.length) return [];
+  return qrSolve(X.map((c) => Float64Array.from(c)), new Float64Array(X[0].length)).kept;
+}
+
 /** (R'R)^-1 for upper-triangular R. */
 function covUnscaled(R) {
   const r = R.length;
@@ -145,15 +171,16 @@ function covUnscaled(R) {
 /**
  * @param {Float64Array[]} X         columns of the design matrix (intercept first)
  * @param {Float64Array} y
- * @param {'binomial'|'poisson'} family
+ * @param {'binomial'|'poisson'|GlmFamily} family  a name in FAMILIES, or a family object with the same members
+ *   (negbin.js: the negative binomial family at a fixed theta, as MASS negative.binomial(theta))
  * @param {{ offset?: Float64Array, maxIter?: number, epsilon?: number, etastart?: Float64Array, nullDeviance?: boolean }} [opts]
  *   nullDeviance false skips the null model (profile and drop-one refits need only the deviance); it is then NaN.
  * @returns {{ beta: number[], vcov: number[][], deviance: number, nullDeviance: number, aic: number, iter: number, converged: boolean, fitted: Float64Array, separated: boolean, aliased: boolean[], rank: number, eta: Float64Array, pearson: number, dfResidual: number, workingWeights: Float64Array, workingResiduals: Float64Array }}
  *   beta and vcov have one entry per column of X; an aliased column has beta NaN and a NaN row and column.
  */
 export function fitGlm(X, y, family, opts = {}) {
-  const fam = FAMILIES[family];
-  if (!fam) throw new Error(`models: unknown family ${family}`);
+  const fam = typeof family === 'string' ? FAMILIES[family] : family;
+  if (!fam || typeof fam.linkinv !== 'function') throw new Error(`models: unknown family ${family}`);
   const n = y.length;
   const p = X.length;
   const maxIter = opts.maxIter ?? 25;
@@ -258,12 +285,16 @@ export function fitGlm(X, y, family, opts = {}) {
 // ---------------------------------------------------------------- the methods
 
 /**
- * roles outcome (binary, levels.outcomePositive), covariates[]; options ciMethod; farm route 'robust' uses models/robust.js (Wald only).
+ * roles outcome (binary, levels.outcomePositive), covariates[]; options ciMethod, method ('ml' when absent, or
+ * 'firth': Firth's penalised likelihood, firth.js [M3-DESIGN.md C9]); farm route 'robust' uses models/robust.js
+ * (Wald only, maximum likelihood only).
  * @param {import('../runtime/types.js').AnalysisSpec} spec
  * @param {import('../runtime/types.js').WorkingTable|null} table
  * @returns {import('../runtime/registry.js').MethodOutput}
  */
 export function runLogistic(spec, table) {
+  // Firth's correction only when the student chose it; separation on the default path stops as in M2.
+  if (spec?.options?.method === 'firth') return runFirth(spec, table);
   return runGlm(spec, table, 'binomial');
 }
 
@@ -291,42 +322,57 @@ function referencesOf(spec, table, covs) {
   return out;
 }
 
-function runGlm(spec, table, family) {
+/**
+ * What every GLM-type fit reads from the spec and the table [M2-DESIGN.md 3.2.1; M3-DESIGN.md 3.2]: the roles,
+ * the rows complete in every role (missing values dropped and counted against the first role where they are
+ * missing), the outcome (binary for 'binomial', a count otherwise), the time role as a log offset (counts only;
+ * rows with time 0 or below dropped as 'invalid'), and the design matrix with its references. Shared by the
+ * maximum likelihood GLMs here, Firth's correction (firth.js) and negative binomial regression (negbin.js).
+ * @param {import('../runtime/types.js').AnalysisSpec} spec
+ * @param {import('../runtime/types.js').WorkingTable|null} table
+ * @param {'binomial'|'poisson'} family     which outcome and roles: binary, or a count with the time role
+ * @param {{ needCountKey?: string }} [opts] the reason a non-count outcome gives (Poisson's sentence by default)
+ * @returns {{ fail: import('../runtime/registry.js').MethodOutput } | { fail: null, yKey: string, covs: string[],
+ *   tKey: string|null, cKey: string|null, robust: boolean, confLevel: number, rows: number[], dropped: any[],
+ *   design: ReturnType<typeof buildDesign>, n: number, y: Float64Array, offset: Float64Array|undefined }}
+ */
+export function glmData(spec, table, family, opts = {}) {
   const logistic = family === 'binomial';
+  const needCount = opts.needCountKey || 'models.error.needCount';
   const yKey = role(spec, 'outcome');
   const covs = [...new Set([].concat(spec?.roles?.covariates ?? []).filter(Boolean))];
   const tKey = logistic ? null : role(spec, 'time');
-  if (!table || !yKey || !covs.length) return invalid('stats.error.missingRole');
+  if (!table || !yKey || !covs.length) return { fail: invalid('stats.error.missingRole') };
   const { confLevel } = common(spec);
   const robust = spec?.cluster?.route === 'robust';
   const cKey = robust ? spec?.cluster?.column ?? null : null;
-  if (robust && !cKey) return invalid('models.error.needCluster');
+  if (robust && !cKey) return { fail: invalid('models.error.needCluster') };
   const keys = [yKey, ...covs, ...(tKey ? [tKey] : []), ...(cKey ? [cKey] : [])];
   let { rows, dropped } = completeRows(table, keys);
   for (const k of [...covs, ...(tKey ? [tKey] : [])]) {
     const c = column(table, k);
-    if (c.kind !== 'number' && c.kind !== 'category') return invalid('stats.error.needsNumber', { dropped });
-    if (k === tKey && c.kind !== 'number') return invalid('stats.error.needsNumber', { dropped });
+    if (c.kind !== 'number' && c.kind !== 'category') return { fail: invalid('stats.error.needsNumber', { dropped }) };
+    if (k === tKey && c.kind !== 'number') return { fail: invalid('stats.error.needsNumber', { dropped }) };
   }
   // Outcome: logistic 0/1 (a category read through levels.outcomePositive, or a number column of 0 and 1);
-  // Poisson a count (non-negative whole numbers).
+  // counts are non-negative whole numbers.
   const yc = column(table, yKey);
   let yOf;
   if (logistic) {
     if (yc.kind === 'category') {
       const pos = spec?.levels?.outcomePositive ?? null;
       const posIdx = pos == null ? -1 : (yc.levels || []).indexOf(pos);
-      if (posIdx < 0) return invalid('models.error.needOutcomeLevel', { dropped });
+      if (posIdx < 0) return { fail: invalid('models.error.needOutcomeLevel', { dropped }) };
       const present = new Set(rows.map((i) => yc.values[i]));
-      if (present.size > 2) return invalid('models.error.outcomeNotBinary', { dropped });
+      if (present.size > 2) return { fail: invalid('models.error.outcomeNotBinary', { dropped }) };
       yOf = (i) => (yc.values[i] === posIdx ? 1 : 0);
     } else if (yc.kind === 'number') {
-      if (rows.some((i) => yc.values[i] !== 0 && yc.values[i] !== 1)) return invalid('models.error.outcomeNotBinary', { dropped });
+      if (rows.some((i) => yc.values[i] !== 0 && yc.values[i] !== 1)) return { fail: invalid('models.error.outcomeNotBinary', { dropped }) };
       yOf = (i) => yc.values[i];
-    } else return invalid('models.error.outcomeNotBinary', { dropped });
+    } else return { fail: invalid('models.error.outcomeNotBinary', { dropped }) };
   } else {
-    if (yc.kind !== 'number') return invalid('models.error.needCount', { dropped });
-    if (rows.some((i) => !(yc.values[i] >= 0) || !Number.isInteger(yc.values[i]))) return invalid('models.error.needCount', { dropped });
+    if (yc.kind !== 'number') return { fail: invalid(needCount, { dropped }) };
+    if (rows.some((i) => !(yc.values[i] >= 0) || !Number.isInteger(yc.values[i]))) return { fail: invalid(needCount, { dropped }) };
     yOf = (i) => yc.values[i];
   }
   // Animal-time must be positive: a row with time 0 or below cannot carry a log offset; it is dropped and counted.
@@ -344,9 +390,17 @@ function runGlm(spec, table, family) {
   const offset = tKey ? Float64Array.from(rows, (i) => Math.log(column(table, tKey).values[i])) : undefined;
   if (logistic) {
     const ones = y.reduce((s, v) => s + v, 0);
-    if (ones === 0 || ones === n) return invalid('models.undefined.oneOutcome', { used: n, dropped });
+    if (ones === 0 || ones === n) return { fail: invalid('models.undefined.oneOutcome', { used: n, dropped }) };
   }
-  if (n <= design.X.length) return invalid('stats.undefined.noResidualDf', { used: n, dropped });
+  if (n <= design.X.length) return { fail: invalid('stats.undefined.noResidualDf', { used: n, dropped }) };
+  return { fail: null, yKey, covs, tKey, cKey, robust, confLevel, rows, dropped, design, n, y, offset };
+}
+
+function runGlm(spec, table, family) {
+  const logistic = family === 'binomial';
+  const data = glmData(spec, table, family);
+  if (data.fail) return data.fail;
+  const { cKey, robust, confLevel, rows, dropped, design, n, y, offset } = data;
   let fit;
   try {
     fit = fitGlm(design.X, y, family, { offset });
@@ -386,7 +440,8 @@ function runGlm(spec, table, family) {
       ],
       used: n,
       dropped,
-      notes: [...notes, { id: 'separation', severity: 'note', key: 'models.note.separation' }],
+      // Logistic: merge levels, or Firth's correction (M3-DESIGN.md C9); counts: merge levels.
+      notes: [...notes, { id: 'separation', severity: 'note', key: logistic ? 'models.note.separation' : 'models.note.zeroCounts' }],
       warnings,
       resolvedOptions,
     };
@@ -538,16 +593,16 @@ export function divergingRows(X, y, family, fit) {
   });
 }
 
-function referencesTable(refs) {
+export function referencesTable(refs) {
   return { id: 'references', columns: ['models.col.column', 'models.col.referenceLevel'], rows: Object.entries(refs).map(([k, l]) => [k, l]) };
 }
 
 /**
  * Rows of the 'separation' table: [column, level (for a number: models.cell.sideLow or models.cell.sideHigh,
  * the end of its range that is separated), the one outcome of those rows (0 or 1), n]. Empty when the fit
- * is not separated.
+ * is not separated. The count branch reads only the design and y (negbin.js calls it before fitting).
  */
-function separationTable(fit, design, y, family, diverging = null) {
+export function separationTable(fit, design, y, family, diverging = null) {
   const { X, names, terms, rows } = design;
   const out = [];
   if (family === 'binomial') {

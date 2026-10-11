@@ -611,6 +611,47 @@ export const FIXTURES = [
   "lastPassed": "2026-09-28"
  },
  {
+  "file": "r/out/firth.json",
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": [
+   "reg.logistic"
+  ],
+  "tests": [
+   "models-firth.test.mjs"
+  ],
+  "source": {
+   "text": null,
+   "r": "R version 4.6.0 (2026-04-24)",
+   "webR": "0.6.0",
+   "packages": {
+    "logistf": "1.26.1"
+   },
+   "python": null,
+   "script": "research/tests/fixtures/r/firth.R",
+   "urls": [],
+   "file": null,
+   "commit": null,
+   "date": null
+  },
+  "tolerance": [
+   {
+    "scope": "closed",
+    "rel": "1e-10"
+   },
+   {
+    "scope": "iterative",
+    "rel": "1e-6"
+   },
+   {
+    "scope": "uniroot",
+    "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+   }
+  ],
+  "sha": "9214ef8e790e31e4",
+  "lastPassed": "2026-10-11"
+ },
+ {
   "file": "r/out/fisher.json",
   "family": "r-4.6.0",
   "kind": "pin",
@@ -936,6 +977,47 @@ export const FIXTURES = [
   ],
   "sha": "dcd4f63d5db6c094",
   "lastPassed": "2026-09-28"
+ },
+ {
+  "file": "r/out/negbin.json",
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": [
+   "reg.negbin"
+  ],
+  "tests": [
+   "models-negbin.test.mjs"
+  ],
+  "source": {
+   "text": null,
+   "r": "R version 4.6.0 (2026-04-24)",
+   "webR": "0.6.0",
+   "packages": {
+    "MASS": "7.3.65"
+   },
+   "python": null,
+   "script": "research/tests/fixtures/r/negbin.R",
+   "urls": [],
+   "file": null,
+   "commit": null,
+   "date": null
+  },
+  "tolerance": [
+   {
+    "scope": "closed",
+    "rel": "1e-10"
+   },
+   {
+    "scope": "iterative",
+    "rel": "1e-6"
+   },
+   {
+    "scope": "uniroot",
+    "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+   }
+  ],
+  "sha": "1d5754422f3810b1",
+  "lastPassed": "2026-10-11"
  },
  {
   "file": "r/out/noncentral.json",
