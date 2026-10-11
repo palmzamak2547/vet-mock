@@ -647,6 +647,22 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // Once the full banner is open, the chip that opened it must go — two
   // changelog affordances on screen at once read as a glitch.
   const showChangelogChip = showAnnouncement && !forceChangelogOpen;
+  // The bottom-strip link opens the note itself. The note renders at the top
+  // of Home and the link sits at the very bottom, so the note has to be
+  // scrolled to and handed focus, or on a phone the tap looks like nothing
+  // happened. It runs after the frame so the note exists when it is asked to
+  // move, and a second tap while it is already open still brings it back.
+  const changelogNoticeRef = useRef(null);
+  const openChangelogNote = () => {
+    setLastSeenChangelog(null);
+    setForceChangelogOpen(true);
+    requestAnimationFrame(() => {
+      const note = changelogNoticeRef.current;
+      if (!note) return;
+      note.scrollIntoView({ block: 'start' });
+      note.focus({ preventScroll: true });
+    });
+  };
 
   // Whether the vitals rail's chip row has anything to show.
   // ⚠️ This MUST list every child of the rail's chip row. The condition
@@ -929,6 +945,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           banner opens only from the chip. */}
       {forceChangelogOpen && (
         <div
+          ref={changelogNoticeRef}
+          tabIndex={-1}
+          role="region"
+          aria-label="อัปเดตล่าสุด"
           className={`vmx-changelog-notice${forceChangelogOpen ? ' is-forced' : ''}`}
           style={{ position: 'relative' }}
         >
@@ -1714,10 +1734,12 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           This is also the escape hatch for the banner's own ✕: that button
           writes the version into lastSeenChangelog, which makes
           showAnnouncement false, and this link then sits below the fold-out
-          menu waiting to be tapped. Setting lastSeenChangelog back to null
-          returns the reader to the same list (the banner when forceChangelog
-          is already open, the chip otherwise) — details open, since
-          `expanded` now starts true.
+          menu waiting to be tapped. The link opens the note itself
+          (openChangelogNote clears the read mark, opens the banner, scrolls to
+          it and hands it focus) with the details open, since `expanded` now
+          starts true. Bringing back only the chip is not enough: on a phone it
+          sits far above this link, so the tap would look like nothing
+          happened.
 
           It renders whenever there is a release, on every screen size. The
           chip itself sits in the vitals rail next to the countdown and the
@@ -1736,7 +1758,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           fontSize: 12,
           color: 'var(--clr-ink-soft)',
         }}>
-          <button type="button" className="vmx-link-btn" onClick={() => setLastSeenChangelog(null)} style={linkStyle}>
+          <button type="button" className="vmx-link-btn" onClick={openChangelogNote} style={linkStyle}>
             {showAnnouncement ? `มีอะไรใหม่ (${LATEST_CHANGELOG.version})` : `อัปเดตล่าสุด (${LATEST_CHANGELOG.version})`}
           </button>
         </div>

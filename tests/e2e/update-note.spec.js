@@ -62,30 +62,49 @@ test('tapping the chip opens the announcement with the whole change list already
 test('the ✕ closes the announcement and the bottom strip re-opens the release', async ({ page }) => {
   await page.goto('/');
   const { stripLink, entry } = await releaseUnderTest(page);
+  const notice = page.locator('.vmx-changelog-notice');
   await page.getByTitle(entry.headline).click();
   await page.getByRole('button', { name: 'ปิดประกาศ', exact: true }).click();
-  await expect(page.locator('.vmx-changelog-notice')).toHaveCount(0);
+  await expect(notice).toHaveCount(0);
   // A read release is no longer new news.
   await expect(stripLink).toHaveText(`อัปเดตล่าสุด (${entry.version})`);
+  // The link itself opens the note again, list expanded, and hands it focus.
   await stripLink.click();
-  await expect(page.getByTitle(entry.headline)).toBeVisible();
+  await expect(notice).toBeVisible();
+  await expect(notice.locator('li')).toHaveCount(entry.changes.length);
+  await expect(notice).toBeFocused();
+  // One changelog affordance at a time: the note is open, so the chip is gone.
+  await expect(page.getByTitle(entry.headline)).toHaveCount(0);
   await expect(stripLink).toHaveText(`มีอะไรใหม่ (${entry.version})`);
 });
 
-test('on a phone the bottom strip still leads to the release note', async ({ page }) => {
+test('on a phone the bottom strip opens the release note by itself, unread or read', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto('/');
   const { stripLink, entry } = await releaseUnderTest(page);
-  // The headline chip itself sits in the vitals rail, a container no
-  // viewport hides, so it stays visible on a phone too — but this strip
-  // link is what a phone user is guaranteed either way. Tapping it
-  // re-surfaces the release note, and the note it opens is the .is-forced
-  // one that the ≤600px rule does NOT hide.
-  await expect(stripLink).toBeVisible();
+  const notice = page.locator('.vmx-changelog-notice');
+  // The note opens from the link and nothing else: no chip tap in between.
+  // It is the .is-forced one, which the ≤600px rule does NOT hide, and the
+  // link sits at the bottom of Home while the note sits at the top, so the
+  // note has to be brought into view and handed focus as well.
+  const expectOpenedByLink = async () => {
+    await expect(notice).toBeVisible();
+    await expect(notice.locator('li').first()).toBeVisible();
+    await expect(notice).toBeInViewport();
+    await expect(notice).toBeFocused();
+  };
+
+  // Unread: the release has not been opened yet.
+  await expect(notice).toHaveCount(0);
+  await stripLink.scrollIntoViewIfNeeded();
   await stripLink.click();
-  const chip = page.getByTitle(entry.headline);
-  await expect(chip).toBeVisible();
-  await chip.click();
-  await expect(page.locator('.vmx-changelog-notice')).toBeVisible();
-  await expect(page.locator('.vmx-changelog-notice li').first()).toBeVisible();
+  await expectOpenedByLink();
+
+  // After closing it with the ✕, the same link opens it again.
+  await page.getByRole('button', { name: 'ปิดประกาศ', exact: true }).click();
+  await expect(notice).toHaveCount(0);
+  await expect(stripLink).toHaveText(`อัปเดตล่าสุด (${entry.version})`);
+  await stripLink.scrollIntoViewIfNeeded();
+  await stripLink.click();
+  await expectOpenedByLink();
 });
