@@ -277,7 +277,11 @@ test('DA-07: sign-out deletes only the restricted decks\' bytes; public decks, t
   assert.deepEqual(env.caches._entries('vmx-assets-v1'), ['/assets/app.css']);
   assert.deepEqual(env.caches._entries('vmx-library-catalog-v1'), snapshotBefore, 'the public shelf snapshot is untouched');
   const localAfter = new Map(env.local._map);
-  assert.deepEqual(localAfter, localBefore, 'bookmarks, notes and recents are untouched');
+  // OV-data-11: the recently opened row names the previous student's decks,
+  // so it goes with the sign-out; the rest of the device workspace stays.
+  assert.equal(localAfter.has('vmx-library-recent-v1'), false, 'the previous student\'s recently opened decks are gone');
+  localBefore.delete('vmx-library-recent-v1');
+  assert.deepEqual(localAfter, localBefore, 'bookmarks and notes are untouched');
 
   // Read the student's work back through a fresh module, from storage itself.
   const inkAfter = await import(`../../src/lib/pdf-annotations.js?after=${loads}`);

@@ -429,6 +429,13 @@ export function setLibraryAccess(signedIn, { initial = false } = {}) {
     const state = { signedIn: allowed, epoch: allowed && previous?.signedIn && previous.epoch
       ? previous.epoch : [...crypto.getRandomValues(new Uint8Array(16))].map(n => n.toString(16).padStart(2, '0')).join('') };
     await cache.put(LIB_ACCESS_URL, new Response(JSON.stringify(state), { headers: { 'Content-Type': 'application/json' } }));
+    // The recently opened row is per device and names the previous student's
+    // decks; the next person must not inherit it. Only a signed-in to
+    // signed-out change clears it: a guest's own list survives a guest boot.
+    // Account deletion signs out too, so it passes through here.
+    if (!allowed && previous?.signedIn) {
+      try { window.localStorage.removeItem(RECENT_KEY); } catch { /* storage disabled: nothing was kept */ }
+    }
     if (!allowed) await purgeRestrictedDocBytes();
     return state;
   });

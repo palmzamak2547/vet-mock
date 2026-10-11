@@ -228,9 +228,19 @@ test('bytes the server hands over only as a download are never relabelled to ope
   assert.match(disposition(opened), /^attachment; filename="page\.html"; /);
 });
 
+function memoryStorage() {
+  const map = new Map();
+  return {
+    get length() { return map.size; },
+    key: index => [...map.keys()][index] ?? null,
+    getItem: key => (map.has(key) ? map.get(key) : null),
+    setItem: (key, value) => { map.set(key, String(value)); },
+    removeItem: key => { map.delete(key); },
+  };
+}
+
 let moduleLoads = 0;
-async function library(caches) {
-  const store = { getItem: () => null, length: 0 };
+async function library(caches, store = { getItem: () => null, length: 0 }) {
   globalThis.window = new EventTarget(); window.localStorage = store;
   globalThis.localStorage = globalThis.sessionStorage = store;
   globalThis.caches = caches;
@@ -280,6 +290,23 @@ test('a guest tab boot preserves another live signed-in reader without granting 
     if (previousNavigator) Object.defineProperty(globalThis, 'navigator', previousNavigator);
     else delete globalThis.navigator;
   }
+});
+
+// OV-data-11: the recently opened row is per device, not per account, and
+// sign-out left the previous student's deck titles for the next person.
+test('signing out clears the recently opened decks; a guest boot keeps a guest list', async () => {
+  const store = memoryStorage();
+  const lib = await library(memoryCaches(), store);
+  await lib.setLibraryAccess(true);
+  lib.recordRecentDoc({ slug: 'restricted-deck', title: 'Restricted deck' });
+  assert.equal(lib.listRecentDocs().length, 1);
+  await lib.setLibraryAccess(false);
+  assert.deepEqual(lib.listRecentDocs(), []);
+  assert.equal(store.getItem('vmx-library-recent-v1'), null);
+  // A guest's own list is not an account's: booting signed out keeps it.
+  lib.recordRecentDoc({ slug: 'public-deck', title: 'Public deck' });
+  await lib.setLibraryAccess(false, { initial: true });
+  assert.deepEqual(lib.listRecentDocs().map(doc => doc.slug), ['public-deck']);
 });
 
 test('signed access status is public only by explicit server designation, including HTTP HEAD caching', async () => {
