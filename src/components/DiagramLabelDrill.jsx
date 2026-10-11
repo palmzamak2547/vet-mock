@@ -58,7 +58,10 @@ export default function DiagramLabelDrill({ onClose }) {
 
 function DrillRunner({ drill, onBack, onClose }) {
   const [activeAnchor, setActiveAnchor] = useState(null);
-  // Map anchor id → { picked: labelText, correct: bool }
+  // Map anchor id → { picked: labelText, correct: bool, firstCorrect: bool }.
+  // `picked` and `correct` follow the latest pick; `firstCorrect` is set by
+  // the first pick on that anchor and never changes, because it is what the
+  // score counts.
   const [progress, setProgress] = useState({});
   const [revealed, setRevealed] = useState(false);
   const dialogRef = useModalFocus({ onClose });
@@ -76,15 +79,18 @@ function DrillRunner({ drill, onBack, onClose }) {
     const correct = anchor?.label === label;
     setProgress((prev) => ({
       ...prev,
-      [activeAnchor]: { picked: label, correct },
+      [activeAnchor]: { picked: label, correct, firstCorrect: prev[activeAnchor]?.firstCorrect ?? correct },
     }));
     setActiveAnchor(null);
   }
 
   const completedCount = Object.keys(progress).length;
   const correctCount = Object.values(progress).filter((p) => p.correct).length;
+  // Retries are allowed (that is how the drill teaches) but they must not buy
+  // a perfect score: it counts the anchors that were right on the first pick.
+  const firstTryCount = Object.values(progress).filter((p) => p.firstCorrect).length;
   const allDone = completedCount === drill.anchors.length;
-  const scorePct = drill.anchors.length > 0 ? Math.round((correctCount / drill.anchors.length) * 100) : 0;
+  const scorePct = drill.anchors.length > 0 ? Math.round((firstTryCount / drill.anchors.length) * 100) : 0;
 
   // Available labels — drop ones the user has correctly placed already
   // so they can't reuse them. Wrong picks stay available so user has
@@ -178,8 +184,13 @@ function DrillRunner({ drill, onBack, onClose }) {
         {revealed && (
           <div style={{ marginTop: 14, padding: 14, borderRadius: 10, background: scorePct >= 70 ? 'rgba(74,107,74,0.10)' : 'rgba(192,57,43,0.10)', border: `1px solid ${scorePct >= 70 ? 'var(--clr-sage)' : 'var(--clr-rose, #c0392b)'}` }}>
             <div style={{ fontSize: 22, fontFamily: 'var(--vmx-display)', fontWeight: 700, marginBottom: 4 }}>
-              {scorePct}%, {correctCount}/{drill.anchors.length} ถูก
+              {scorePct}%, ถูกตั้งแต่ครั้งแรก {firstTryCount}/{drill.anchors.length}
             </div>
+            {correctCount > firstTryCount && (
+              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 4 }}>
+                ตอบถูกเมื่อลองใหม่ {correctCount - firstTryCount} จุด
+              </div>
+            )}
             <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>
               {scorePct === 100 ? 'perfect! anatomy แม่นมาก' : scorePct >= 70 ? 'ผ่านเกณฑ์' : 'ลองใหม่อีกรอบ — เน้น label ที่ตอบผิด'}
             </div>
