@@ -216,6 +216,57 @@ function fillCorrect(q, ua) {
     && q.blanks.every((b, i) => inGroup.has(i) || blankCorrect(q, i, ua[i], b));
 }
 
+// ── Does a written answer mention a keyword? ───────────────────────────
+// One rule for the short-answer grade below and SmartGrader's checklist.
+// Case and spacing never decide it, and punctuation reads as a space on both
+// sides ("T-cell" is "T cell", "10-16" is "10–16"), except a point or comma
+// between two digits, which belongs to the number. Then:
+//   • a number never runs on into more number: '5' is not in '15', '54',
+//     '2.5' or '1,500', and '5 วัน' is not in '15 วัน'. A unit written
+//     against it ('5mg') or Thai running on ('5วัน') is fine;
+//   • a Latin keyword starts a word and may run on to the end of it, because
+//     the bank writes stems: 'Strept' for Streptococcus, 'apx' for ApxIV,
+//     'herpes' for herpesvirus, 'biolog' for biological. So 'men' is not in
+//     'women', 'cat' is not in 'concatenated', 'virus' is in 'viruses', and
+//     a keyword ending in s also matches without it ('cells' in 'cell');
+//   • Thai runs its words together, so a Thai keyword is a plain substring.
+// Character checks rather than a lookbehind: the support floor (iOS 14)
+// cannot parse one (tests/unit/no-lookbehind.test.mjs).
+const THAI_CHAR = /[฀-๿]/;
+const DIGIT = /[0-9]/;
+const LATIN_OR_DIGIT = /[a-z0-9]/;
+function keywordText(s) {
+  return String(s ?? '').toLowerCase()
+    .replace(/[^a-z0-9฀-๿.,\s]/g, ' ')
+    .replace(/[.,]/g, (m, at, all) => (DIGIT.test(all[at - 1] || '') && DIGIT.test(all[at + 1] || '') ? m : ' '))
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+// Whether a match ending in a digit continues into more number: a digit just
+// outside it at `i`, or a point or comma there and a digit one step further.
+const runsOnAsNumber = (hay, i, d) => DIGIT.test(hay[i] || '')
+  || ((hay[i] === '.' || hay[i] === ',') && DIGIT.test(hay[i + d] || ''));
+export function keywordHit(text, keyword) {
+  const hay = keywordText(text);
+  const key = keywordText(keyword);
+  if (!key || !hay) return false;
+  const latin = !THAI_CHAR.test(key) && /[a-z]/.test(key);
+  const forms = latin && key.length > 3 && key.endsWith('s') ? [key, key.slice(0, -1)] : [key];
+  return forms.some((form) => {
+    const first = form[0];
+    const last = form[form.length - 1];
+    for (let at = hay.indexOf(form); at !== -1; at = hay.indexOf(form, at + 1)) {
+      const before = at - 1;
+      const after = at + form.length;
+      if (DIGIT.test(first) && runsOnAsNumber(hay, before, -1)) continue;
+      if (DIGIT.test(last) && runsOnAsNumber(hay, after, 1)) continue;
+      if (latin && LATIN_OR_DIGIT.test(first) && LATIN_OR_DIGIT.test(hay[before] || '')) continue;
+      return true;
+    }
+    return false;
+  });
+}
+
 export const isCorrect = (q, ua) => {
   if (ua === null || ua === undefined) return false;
   if (q.type === 'mcq' || q.type === 'tf') return ua === q.answer;
@@ -231,10 +282,9 @@ export const isCorrect = (q, ua) => {
     // student needs to mention. ≥75% coverage = "correct" (heuristic).
     // Stricter graders should self-assess in Review.
     if (typeof ua !== 'string' || !ua.trim()) return false;
-    const text = ua.toLowerCase();
     const keys = Array.isArray(q.keywords) ? q.keywords : [];
     if (keys.length === 0) return false; // ungraded — Review will self-assess
-    const hit = keys.filter((k) => text.includes(String(k).toLowerCase())).length;
+    const hit = keys.filter((k) => keywordHit(ua, k)).length;
     return hit / keys.length >= 0.75;
   }
   if (q.type === 'essay') {

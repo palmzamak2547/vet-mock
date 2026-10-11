@@ -144,3 +144,79 @@ test('Results and Review hold the same no-raw-presence-check rule as ExamView', 
   }
   assert.ok(REVIEW.includes('const answered = isAnswered(userAns);'), 'the Review row decides answered its own way');
 });
+
+// ── A number in a short answer is a number, not a run of digits (OV-exam-4) ──
+// The short-answer auto-grade counted a keyword as mentioned when its text
+// appeared anywhere, so a keyword '5' was found inside '15' or '54', and
+// '5 วัน' inside '15 วัน'. SmartGrader's checklist had the opposite slip: its
+// word-boundary variants for Latin and numbers were dropped when shorter than
+// four characters, so a one-digit keyword was never found at all. Both now
+// ask one shared question, keywordHit.
+
+const shortQ = (keywords) => ({ id: 'kw', type: 'short', keywords });
+
+test('a number keyword is not found inside a longer number', () => {
+  assert.equal(utils.isCorrect(shortQ(['5']), 'ให้ยา 15 วัน'), false, "'5' was found inside '15'");
+  assert.equal(utils.isCorrect(shortQ(['5']), 'ได้ 54 ตัว'), false, "'5' was found inside '54'");
+  assert.equal(utils.isCorrect(shortQ(['5']), 'ราคา 1,500 บาท'), false, "'5' was found inside '1,500'");
+  assert.equal(utils.isCorrect(shortQ(['5']), 'ขนาด 2.5 มก.'), false, "'5' was found inside '2.5'");
+  assert.equal(utils.isCorrect(shortQ(['5']), 'ให้ยา 5 วัน'), true);
+  assert.equal(utils.isCorrect(shortQ(['5']), '5'), true, "'5' alone is the keyword");
+  assert.equal(utils.isCorrect(shortQ(['5']), 'ให้ 5mg'), true, 'a unit written against the number still counts');
+});
+
+test('a Thai keyword with a number in it keeps the number whole', () => {
+  assert.equal(utils.isCorrect(shortQ(['5 วัน']), 'รักษา 15 วัน'), false, "'5 วัน' was found inside '15 วัน'");
+  assert.equal(utils.isCorrect(shortQ(['5 วัน']), 'รักษา 5 วัน'), true);
+  assert.equal(utils.isCorrect(shortQ(['5 วัน']), 'รักษาต่อเนื่อง5 วัน'), true, 'Thai runs words together; no space is needed before the number');
+});
+
+test('Thai keywords still match inside running Thai text', () => {
+  assert.equal(utils.isCorrect(shortQ(['สื่อสาร']), 'สัตวแพทย์สื่อสารความเสี่ยง'), true);
+  assert.equal(utils.isCorrect(shortQ(['ไข้หวัดนก']), 'โรคไข้หวัดนกในสัตว์ปีก'), true);
+});
+
+test('a Latin keyword starts a word, and may be a stem of it', () => {
+  assert.equal(utils.isCorrect(shortQ(['cat']), 'a concatenated string'), false, "'cat' was found inside 'concatenated'");
+  assert.equal(utils.isCorrect(shortQ(['men']), 'only women answered'), false, "'men' was found inside 'women'");
+  assert.equal(utils.isCorrect(shortQ(['cat']), 'Cats shed'), true);
+  assert.equal(utils.isCorrect(shortQ(['virus']), 'two viruses'), true);
+  assert.equal(utils.isCorrect(shortQ(['cells']), 'one cell'), true);
+  assert.equal(utils.isCorrect(shortQ(['T-cell']), 'T cell response'), true, 'punctuation reads as a space on both sides');
+  assert.equal(utils.isCorrect(shortQ(['serotype 2']), 'serotype 22'), false);
+  assert.equal(utils.isCorrect(shortQ(['serotype 2']), 'Serotype 2.'), true);
+  // The bank writes stems, and its own model answers rely on them.
+  assert.equal(utils.isCorrect(shortQ(['Strept']), 'เกิดจาก Streptococcus agalactiae'), true);
+  assert.equal(utils.isCorrect(shortQ(['apx']), 'ใช้ ApxIV ELISA'), true);
+  assert.equal(utils.isCorrect(shortQ(['herpes']), 'koi herpesvirus disease'), true);
+});
+
+test('the bank\'s own numeric keywords: one digit is found, and only as itself', () => {
+  // questions-engprof.js has a keyword list ['460', '207', '5', '30', ...];
+  // two of its keywords are enough to show a whole grade turning on '5'.
+  const q = shortQ(['460', '5']);
+  assert.equal(utils.isCorrect(q, '460 15'), false, "'5' counted from '15'");
+  assert.equal(utils.isCorrect(q, '460 5'), true);
+});
+
+test("SmartGrader's checklist finds a one-digit keyword, and only as itself", async () => {
+  const { loadModule } = await import('../helpers/fake-react.mjs');
+  const { keywordCoverage } = await loadModule('src/components/SmartGrader.jsx', {
+    stubs: [{ match: 'AiGradePanel\.jsx$', contents: 'export default function AiGradePanel() { return null; }' }],
+  });
+  assert.deepEqual(keywordCoverage('ให้ยา 5 วัน', ['5']).found, ['5'], 'a one-digit keyword was never found');
+  assert.deepEqual(keywordCoverage('ให้ยา 15 วัน', ['5']).found, [], "'5' was found inside '15'");
+  assert.deepEqual(keywordCoverage('รักษา 15 วัน', ['5 วัน']).found, [], "'5 วัน' was found inside '15 วัน'");
+  assert.deepEqual(keywordCoverage('รักษา 5 วัน', ['5 วัน']).found, ['5 วัน']);
+  // What it already did right stays right.
+  assert.deepEqual(keywordCoverage('two viruses, one cell', ['virus', 'cells']).found, ['virus', 'cells']);
+  assert.deepEqual(keywordCoverage('สัตวแพทย์สื่อสารความเสี่ยง', ['สื่อสาร']).found, ['สื่อสาร']);
+  assert.deepEqual(keywordCoverage('a concatenated string', ['cat']).found, []);
+  assert.equal(keywordCoverage('anything', ['', '  ']).found.length + keywordCoverage('anything', ['', '  ']).missing.length, 0, 'a blank keyword is neither found nor missing');
+});
+
+test('the auto-grade and the checklist ask the same question', () => {
+  const SG = read('src/components/SmartGrader.jsx');
+  assert.match(SG, /import \{[^}]*\bkeywordHit\b[^}]*\} from '\.\.\/hooks\/utils\.js'/, 'SmartGrader matches keywords its own way');
+  assert.match(read('src/hooks/utils.js'), /keys\.filter\(\(k\) => keywordHit\(/, 'the short-answer grade matches keywords its own way');
+});
