@@ -4777,7 +4777,7 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 }
 /* Running ✓ n/m chip in the exam header during practice */
 .vmx-live-score { font-family: var(--vmx-mono); font-variant-numeric: tabular-nums; font-size: 13px; font-weight: 700; color: var(--clr-sage-text); white-space: nowrap; }
-.vmx-live-score.low { color: color-mix(in oklch, var(--clr-gold-text) 80%, var(--clr-ink)); } /* gold over the header gradient fell to 4.3:1 on four light palettes; a fifth of ink lifts it past 4.5 */
+.vmx-live-score.low { color: var(--clr-ink); text-decoration: underline 2px var(--clr-rose); text-underline-offset: 3px; } /* over the header gradient no accent text colour reaches 4.5:1 on every palette (gold 4.3, rose 4.45), so the number keeps ink and the low state rides on a rose underline */
 
 /* ============================================================
    Vet Calculator Redesign (Glassmorphism + Premium UI)
