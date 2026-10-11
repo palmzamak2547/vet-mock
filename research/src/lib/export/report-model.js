@@ -81,7 +81,7 @@ export function buildReportModel(input) {
     ? strobeFlow({ rawRows: dataset.rawRows ?? null, steps, analyses, codebook, excluded: dataset.table?.excluded })
     : null;
   const hasFlow = Boolean(flow && analyses.some((a) => (a.envelope.spec || a.spec)?.input?.kind === 'dataset'));
-  const used = analyses.map((a) => ({ method: a.envelope.spec?.method || a.spec?.method, route: a.envelope.spec?.cluster?.route || null }));
+  const used = analyses.map((a) => ({ method: a.envelope.spec?.method || a.spec?.method, route: a.envelope.spec?.cluster?.route || null, variant: a.envelope.spec?.options?.method || null }));
   const refs = referencesFor(used, { flow: hasFlow, design: project.design || null });
   if (refs.length) {
     const cites = refs.filter((r) => r.id !== 'strobeVet2016' && r.id !== 'arrive2020').map((r) => shortCite(r, lang, t));

@@ -11,6 +11,7 @@
  */
 
 const CHECKED = '2026-09-28';
+const CHECKED_M3 = '2026-10-11';
 
 /** @type {readonly Reference[]} */
 export const REFERENCES = Object.freeze([
@@ -40,6 +41,15 @@ export const REFERENCES = Object.freeze([
   // ARRIVE 2.0 (checked against PubMed 32663219 on 2026-09-28): the reporting guideline for animal experiments, cited
   // instead of STROBE-Vet when the project's design is a laboratory or animal experiment (review round 2).
   { id: 'arrive2020', methods: ['report.arrive'], type: 'article', authors: ['Percie du Sert, N.', 'Hurst, V.', 'Ahluwalia, A.', 'Alam, S.', 'Avey, M. T.', 'Baker, M.', 'Browne, W. J.', 'Clark, A.', 'Cuthill, I. C.', 'Dirnagl, U.', 'Emerson, M.', 'Garner, P.', 'Holgate, S. T.', 'Howells, D. W.', 'Karp, N. A.', 'Lazic, S. E.', 'Lidster, K.', 'MacCallum, C. J.', 'Macleod, M.', 'Pearl, E. J.', 'Petersen, O. H.', 'Rawle, F.', 'Reynolds, P.', 'Rooney, K.', 'Sena, E. S.', 'Silberberg, S. D.', 'Steckler, T.', 'Würbel, H.'], title: 'The ARRIVE guidelines 2.0: updated guidelines for reporting animal research', year: 2020, journal: 'PLoS Biology', volume: '18', issue: '7', pages: 'e3000410', doi: '10.1371/journal.pbio.3000410', checked: CHECKED },
+  // M3a (resolved on api.crossref.org on CHECKED_M3). A key with a third part names an option: the method's
+  // `method` option (qpcr.relative.livak or .pfaffl, reg.logistic.firth), so an ordinary logistic regression never cites Firth.
+  { id: 'livak2001', methods: ['qpcr.relative.livak'], type: 'article', authors: ['Livak, Kenneth J.', 'Schmittgen, Thomas D.'], title: 'Analysis of relative gene expression data using real-time quantitative PCR and the 2−ΔΔCT method', year: 2001, journal: 'Methods', volume: '25', issue: '4', pages: '402-408', doi: '10.1006/meth.2001.1262', checked: CHECKED_M3 },
+  { id: 'pfaffl2001', methods: ['qpcr.relative.pfaffl', 'qpcr.efficiency'], type: 'article', authors: ['Pfaffl, M. W.'], title: 'A new mathematical model for relative quantification in real-time RT-PCR', year: 2001, journal: 'Nucleic Acids Research', volume: '29', issue: '9', pages: 'e45', doi: '10.1093/nar/29.9.e45', checked: CHECKED_M3 },
+  { id: 'vandesompele2002', methods: ['qpcr.relative'], type: 'article', authors: ['Vandesompele, Jo', 'De Preter, Katleen', 'Pattyn, Filip', 'Poppe, Bruce', 'Van Roy, Nadine', 'De Paepe, Anne', 'Speleman, Frank'], title: 'Accurate normalization of real-time quantitative RT-PCR data by geometric averaging of multiple internal control genes', year: 2002, journal: 'Genome Biology', volume: '3', issue: '7', pages: 'research0034', doi: '10.1186/gb-2002-3-7-research0034', checked: CHECKED_M3 },
+  { id: 'hellemans2007', methods: ['qpcr.relative'], type: 'article', authors: ['Hellemans, Jan', 'Mortier, Geert', 'De Paepe, Anne', 'Speleman, Frank', 'Vandesompele, Jo'], title: 'qBase relative quantification framework and software for management and automated analysis of real-time quantitative PCR data', year: 2007, journal: 'Genome Biology', volume: '8', issue: '2', pages: 'R19', doi: '10.1186/gb-2007-8-2-r19', checked: CHECKED_M3 },
+  { id: 'yuan2006', methods: ['qpcr.relative'], type: 'article', authors: ['Yuan, Joshua S.', 'Reed, Ann', 'Chen, Feng', 'Stewart, C. Neal'], title: 'Statistical analysis of real-time PCR data', year: 2006, journal: 'BMC Bioinformatics', volume: '7', issue: '1', pages: '85', doi: '10.1186/1471-2105-7-85', checked: CHECKED_M3 },
+  { id: 'firth1993', methods: ['reg.logistic.firth'], type: 'article', authors: ['Firth, David'], title: 'Bias reduction of maximum likelihood estimates', year: 1993, journal: 'Biometrika', volume: '80', issue: '1', pages: '27-38', doi: '10.1093/biomet/80.1.27', checked: CHECKED_M3 },
+  { id: 'heinzeSchemper2002', methods: ['reg.logistic.firth'], type: 'article', authors: ['Heinze, Georg', 'Schemper, Michael'], title: 'A solution to the problem of separation in logistic regression', year: 2002, journal: 'Statistics in Medicine', volume: '21', issue: '16', pages: '2409-2419', doi: '10.1002/sim.1047', checked: CHECKED_M3 },
 ]);
 
 /**
@@ -53,6 +63,7 @@ export function referencesFor(used, opts = {}) {
   const keys = [];
   for (const u of used || []) {
     if (u?.method) keys.push(u.method);
+    if (u?.method && u.variant) keys.push(`${u.method}.${u.variant}`);
     if (u?.route && u.route !== 'none') keys.push(`route.${u.route}`);
   }
   // An animal experiment reports against ARRIVE 2.0; an observational study against STROBE-Vet.

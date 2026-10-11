@@ -99,9 +99,20 @@ test('every reference was checked, has a real-looking DOI or null, and names cat
     assert.match(r.checked, /^\d{4}-\d{2}-\d{2}$/);
     assert.ok(r.doi === null || /^10\.\d{4,9}\/\S+$/.test(r.doi), r.id);
     assert.ok(r.authors.length && r.title && r.year && r.journal, r.id);
-    for (const m of r.methods) assert.ok(ids.has(m) || /^(route|report)\./.test(m), `${r.id} names ${m}`);
+    // A third part names the method's `method` option (reg.logistic.firth): the first two must be a catalogue id.
+    for (const m of r.methods) assert.ok(ids.has(m) || ids.has(m.split('.').slice(0, 2).join('.')) || /^(route|report)\./.test(m), `${r.id} names ${m}`);
   }
   // The M2 methods whose sources are in the list are cited when used.
   const got = referencesFor([{ method: 'roc.delong' }, { method: 'reg.logistic', route: 'robust' }, { method: 'rel.cronbach' }], { flow: true }).map((r) => r.id);
   assert.deepEqual(got, ['delong1988', 'youden1950', 'nelderWedderburn1972', 'liangZeger1986', 'cronbach1951', 'feldt1965', 'strobeVet2016']);
+});
+
+test('an option-specific source is cited only when that option ran (M3a: Firth, Livak, Pfaffl)', () => {
+  const ids = (used) => referencesFor(used).map((r) => r.id);
+  assert.deepEqual(ids([{ method: 'reg.logistic' }]), ['nelderWedderburn1972']);
+  assert.deepEqual(ids([{ method: 'reg.logistic', variant: 'firth' }]), ['nelderWedderburn1972', 'firth1993', 'heinzeSchemper2002']);
+  assert.ok(ids([{ method: 'qpcr.relative', variant: 'livak' }]).includes('livak2001'));
+  assert.ok(!ids([{ method: 'qpcr.relative', variant: 'livak' }]).includes('pfaffl2001'));
+  assert.ok(ids([{ method: 'qpcr.relative', variant: 'pfaffl' }]).includes('pfaffl2001'));
+  assert.deepEqual(ids([{ method: 'qpcr.efficiency' }]), ['pfaffl2001']);
 });
