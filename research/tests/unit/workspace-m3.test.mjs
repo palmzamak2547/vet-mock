@@ -296,7 +296,8 @@ function resultWordProblems(env, codebook) {
     }
     for (const tr of env.tests || []) {
       const l = testLabel(tr, t, { methodId: m, roles: env.spec.roles, columnName });
-      if (l === tr.id || missingKey(l)) problems.push(`${lang} test ${tr.id}`);
+      // a label that is only the statistic's symbol ("W") names no test (fix-stats finding 0: three Mauchly rows read "W")
+      if (l === tr.id || SYMBOLS.has(l) || missingKey(l)) problems.push(`${lang} test ${tr.id}`);
     }
     for (const tb of env.tables || []) {
       const x = envTableText(tb, t, { spec: env.spec, codebook, columnName, levelName });

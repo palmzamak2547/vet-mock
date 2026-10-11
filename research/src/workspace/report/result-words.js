@@ -68,20 +68,22 @@ export function optionApplies(name, value, env) {
 function optionValueText(name, value, env, t, columnName, lang) {
   const k = keyPart(name);
   const method = methodOf(env);
+  // the same words the result view passes, so a value named after the student's columns reads the same here
+  const words = { spec: env?.spec || null, env, codebook: null, columnName };
   if (name === 'confLevel' && typeof value === 'number') return `${Math.round(value * 1000) / 10}%`;
   if (name === 'measures' && Array.isArray(value)) {
     // English reads the list as one phrase: the first word keeps its capital, the rest go lower case
     // (acronyms such as OR keep theirs).
     return value
       .map((v, i) => {
-        const x = valueLabel(String(v), t, method);
+        const x = valueLabel(String(v), t, method, words);
         return lang === 'en' && i > 0 && /^[A-Z][a-z]/.test(x) ? x[0].toLowerCase() + x.slice(1) : x;
       })
       .join(', ');
   }
   if (name === 'measure') {
     const shown = Object.keys(env?.values || {}).find((n) => MH_RATIOS.includes(n));
-    if (shown) return valueLabel(shown, t, method);
+    if (shown) return valueLabel(shown, t, method, words);
   }
   if (name === 'summaries' && value && typeof value === 'object') {
     const parts = Object.entries(value).map(([key, code]) => `${columnName(key)}: ${firstOf(t, [SUMMARY_KEY[code]]) || code}`);

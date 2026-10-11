@@ -241,6 +241,15 @@ export function testLabel(test, t, ctx = {}) {
     const named = t('ws.test.ofTerm', { test: base, term: suffixText(ctx.methodId || null, test.id.slice(colon + 1), ctx.words ? { t, ...ctx.words } : null) });
     return stat ? t('ws.result.testWithStat', { test: named, stat }) : named;
   }
+  // Two within factors give one Mauchly test per within effect (mauchlyTime, mauchlyFactorB, mauchlyTimeFactorB):
+  // each is named by its effect, as the effect rows are, so three rows never read just "W".
+  const mauchly = /^mauchly(Time|FactorB|TimeFactorB)$/.exec(String(test?.id || ''));
+  if (mauchly) {
+    const effectId = mauchly[1][0].toLowerCase() + mauchly[1].slice(1);
+    const term = effectLabel({ id: effectId }, t, ctx) || t(`lab.test.mauchlyPart.${effectId}`);
+    const named = t('ws.test.ofTerm', { test: t('ws.test.mauchly'), term });
+    return stat ? t('ws.result.testWithStat', { test: named, stat }) : named;
+  }
   const area = wordAreaOf(ctx.methodId);
   const keys = [`ws.test.${keyPart(test?.id || '')}`, area && `${area}.test.${keyPart(test?.id || '')}`].filter(Boolean);
   const key = keys.find((k) => t(k) !== `[${k}]`);
