@@ -7,7 +7,7 @@ import { QB, SUBJECTS, loadQB, loadQBForYear, isQBYearLoaded, isQBFullyLoaded } 
 import { yearForSubject } from '../data/curriculum.js';
 import { initCard } from '../hooks/sm2.js';
 import {
-  algorithmFor, gradeCard, getCardStats, getDueCards, previewIntervals,
+  algorithmFor, dueAt, gradeCard, getCardStats, getDueCards, previewIntervals,
   readSchedulerPreference, saveSchedulerPreference, subscribeSchedulerPreference,
   SCHEDULER_CHOICES, SCHEDULER_LABELS,
 } from '../lib/sr-scheduler.js';
@@ -636,7 +636,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         <div className="vmx-exam-top">
           <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
           <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-            ถึงรอบ {fmtDate(currentCard.nextReview)}
+            ถึงรอบ {fmtDate(dueAt(currentCard, scheduler))}
           </div>
         </div>
         <div className="vmx-progress-bar">
@@ -662,7 +662,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         <div className="vmx-exam-top">
           <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
           <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-            ถึงรอบ {fmtDate(currentCard.nextReview)}
+            ถึงรอบ {fmtDate(dueAt(currentCard, scheduler))}
           </div>
         </div>
         <div className="vmx-progress-bar">
@@ -687,7 +687,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       <div className="vmx-exam-top">
         <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
         <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
-          ถึงรอบ {fmtDate(currentCard.nextReview)}
+          ถึงรอบ {fmtDate(dueAt(currentCard, scheduler))}
         </div>
       </div>
       <div className="vmx-progress-bar">
