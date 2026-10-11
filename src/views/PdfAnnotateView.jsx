@@ -269,7 +269,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const [exporting, setExporting] = useState(null); // null | {done,total}
   // Page text, extracted once per document and reused for every later search.
   // `pending` is the extraction still running, so a second query joins it.
-  const textRef = useRef({ hash: null, pages: null });
+  // `doc` is the pdf.js document it was read from: the same file opened again
+  // has the same hash but is a new document (OV-media-14).
+  const textRef = useRef({ hash: null, doc: null, pages: null });
   const searchAbortRef = useRef(0);
   // The search whose result may still be shown. Clearing or editing the box,
   // submitting again or changing document moves it on, and a search that
@@ -1455,13 +1457,14 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   async function ensureText() {
     if (!pdfDoc) return [];
     const cached = textRef.current;
-    if (cached.hash === fileHash && cached.pages) return cached.pages;
-    if (cached.hash === fileHash && cached.pending) return cached.pending;
+    if (cached.doc === pdfDoc && cached.hash === fileHash && cached.pages) return cached.pages;
+    if (cached.doc === pdfDoc && cached.hash === fileHash && cached.pending) return cached.pending;
     const doc = pdfDoc;
     const hash = fileHash;
     const token = ++searchAbortRef.current;
     const pending = (async () => {
       const pages = [];
+      let failed = false;
       for (let i = 1; i <= doc.numPages; i++) {
         if (token !== searchAbortRef.current) return pages;
         try {
@@ -1470,12 +1473,19 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           pages[i] = pageTextFromItems(tc.items);
         } catch {
           pages[i] = '';
+          failed = true;
         }
       }
-      if (token === searchAbortRef.current) textRef.current = { hash, pages };
+      // A page that could not be read (or a document destroyed under the
+      // read) is not a page with no text. Caching it made every later search
+      // miss what is on it, so an incomplete read answers this search only
+      // and the next one reads again.
+      if (token === searchAbortRef.current) {
+        textRef.current = failed ? { hash: null, doc: null, pages: null } : { hash, doc, pages };
+      }
       return pages;
     })();
-    textRef.current = { hash, pages: null, pending };
+    textRef.current = { hash, doc, pages: null, pending };
     return pending;
   }
 
@@ -1529,14 +1539,15 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   // A new document invalidates the extracted text, abandons any extraction
   // still running for the previous one, and withdraws a search waiting on it.
+  // The same file opened again is a new document too, so pdfDoc is a dep.
   useEffect(() => {
     searchAbortRef.current += 1;
     searchReqRef.current += 1;
-    textRef.current = { hash: null, pages: null };
+    textRef.current = { hash: null, doc: null, pages: null };
     setQuery('');
     setHits(null);
     setSearching(false);
-  }, [fileHash]);
+  }, [fileHash, pdfDoc]);
 
   // Choosing a tool closes whatever was open. The colour panel is hidden while
   // the eraser is selected, so leaving `optionsOpen` true meant it sprang back
@@ -2130,7 +2141,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       <BackBar onBack={backToEmpty} label={onExit ? exitLabel : 'เปลี่ยน PDF'} subtitle={fileName} />
       {legacyAvailable && (
         <div role="status" style={{ padding: 12, background: 'var(--clr-surface)', color: 'var(--clr-ink)', fontSize: 14 }}>
-          <p style={{ margin: '0 0 8px' }}>พบลายเส้นรุ่นเก่าในเครื่องที่ยังไม่ได้ระบุเจ้าของ</p>
+          <p style={{ margin: '0 0 8px' }}>พบลายเส้นเวอร์ชันเก่าในเครื่องที่ยังไม่ได้ระบุเจ้าของ</p>
           <button type="button" className="vmx-btn vmx-btn-ghost" onClick={recoverLegacy}>นำเข้าลายเส้นของฉัน</button>
         </div>
       )}

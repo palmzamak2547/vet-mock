@@ -354,7 +354,7 @@ function searcher(pages) {
   vm.createContext(ctx);
   const head = '  async function ensureText()';
   const fns = vm.runInContext(`${head}${between(head, '\n  // Results,')}\n({ ensureText, runSearch, dropSearch })`, ctx);
-  const effect = between('// A new document invalidates the extracted text', '}, [fileHash]);');
+  const effect = between('// A new document invalidates the extracted text', '}, [fileHash, pdfDoc]);');
   const documentChanged = vm.runInContext(`(() => {${effect.slice(effect.indexOf('{') + 1)}})`, ctx);
   // Lets the read finish one page at a time, as pdf.js would.
   const finishRead = async () => { while (waiting.length) { waiting.shift()(); await tick(); } };
