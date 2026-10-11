@@ -480,3 +480,18 @@ test('file listings enforce origin, no-store and provider response shape', async
   }
 });
 
+
+test('the recent-link pills are 44px tap targets that still clip a long title', async () => {
+  const { readFileSync } = await import('node:fs');
+  const css = readFileSync(new URL('../../src/styles.css', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+  const rule = selector => {
+    const start = css.indexOf(`\n${selector} {`);
+    assert.ok(start !== -1, `${selector} rule exists`);
+    return css.slice(start, css.indexOf('}', start));
+  };
+  const pill = rule('.vmx-extdoc-recent');
+  assert.match(pill, /min-height: var\(--touch-min\);/);
+  assert.match(pill, /display: inline-flex;/);
+  assert.match(pill, /align-items: center;/);
+  assert.match(rule('.vmx-extdoc-recent-text'), /text-overflow: ellipsis;/);
+});

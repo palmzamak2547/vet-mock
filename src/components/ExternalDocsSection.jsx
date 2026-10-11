@@ -403,7 +403,9 @@ export default function ExternalDocsSection({ user }) {
               className="vmx-extdoc-recent"
               onClick={() => { setUrl(entry.url); open(entry.url); }}
             >
-              {PROVIDER_LABELS[entry.provider] || 'ลิงก์'}{entry.title ? ` — ${entry.title}` : ''}
+              <span className="vmx-extdoc-recent-text">
+                {PROVIDER_LABELS[entry.provider] || 'ลิงก์'}{entry.title ? ` — ${entry.title}` : ''}
+              </span>
             </button>
           ))}
         </div>

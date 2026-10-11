@@ -68,6 +68,15 @@ test('?tab=external opens the external tab once and leaves the address clean', a
   await settle(view);
   assert.equal(reading(view), true);
   assert.equal(window.location.search, '');
+  // A screen reader hears which of the two tabs is showing, as the filter
+  // chips on the same screen already say.
+  const chip = label => findAll(view.tree, n => n.type === 'button' && textOf(n) === label)[0];
+  assert.equal(chip('เอกสารภายนอก').props['aria-pressed'], true);
+  assert.equal(chip('เอกสารในระบบ').props['aria-pressed'], false);
+  chip('เอกสารในระบบ').props.onClick(); view.flush();
+  assert.equal(chip('เอกสารในระบบ').props['aria-pressed'], true);
+  assert.equal(chip('เอกสารภายนอก').props['aria-pressed'], false);
+  assert.equal(findAll(view.tree, n => n.props?.role === 'group' && textOf(n).includes('เอกสารภายนอก')).length, 1);
   view.unmount();
   const plain = mount(LibraryView, {});
   await settle(plain);

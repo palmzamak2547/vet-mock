@@ -618,10 +618,11 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
         </ul>
       </FeatureTip>
 
-      <div className="vmx-chip-row" style={{ marginBottom: 16 }}>
+      <div className="vmx-chip-row" role="group" aria-label="แหล่งเอกสาร" style={{ marginBottom: 16 }}>
         <button
           type="button"
           className={`vmx-chip ${activeTab === 'internal' ? 'active' : ''}`}
+          aria-pressed={activeTab === 'internal'}
           onClick={() => setActiveTab('internal')}
         >
           เอกสารในระบบ
@@ -629,6 +630,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
         <button
           type="button"
           className={`vmx-chip ${activeTab === 'external' ? 'active' : ''}`}
+          aria-pressed={activeTab === 'external'}
           onClick={() => setActiveTab('external')}
         >
           เอกสารภายนอก
