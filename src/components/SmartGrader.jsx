@@ -68,9 +68,10 @@ function normalize(s) {
 }
 
 // Which keywords the answer mentions, by the same rule as the short-answer
-// grade (keywordHit in hooks/utils.js): Latin keywords as whole words with or
-// without a plural, Thai as a substring (Thai runs words together), and a
-// number never found inside a longer one. A blank keyword is skipped.
+// grade (keywordHit in hooks/utils.js): a Latin keyword from the start of a
+// word (the bank writes stems such as 'Strept'), Thai as a substring (Thai
+// runs words together), and a number never found inside a longer one. A
+// blank keyword is skipped.
 export function keywordCoverage(answer, keywords) {
   if (!keywords?.length) return null;
   const found = [], missing = [];

@@ -221,15 +221,15 @@ function fillCorrect(q, ua) {
 // Case and spacing never decide it, and punctuation reads as a space on both
 // sides ("T-cell" is "T cell", "10-16" is "10–16"), except a point or comma
 // between two digits, which belongs to the number. Then:
-//   • a number never runs on into more number: '5' is not in '15', '54',
+//   - a number never runs on into more number: '5' is not in '15', '54',
 //     '2.5' or '1,500', and '5 วัน' is not in '15 วัน'. A unit written
 //     against it ('5mg') or Thai running on ('5วัน') is fine;
-//   • a Latin keyword starts a word and may run on to the end of it, because
+//   - a Latin keyword starts a word and may run on to the end of it, because
 //     the bank writes stems: 'Strept' for Streptococcus, 'apx' for ApxIV,
 //     'herpes' for herpesvirus, 'biolog' for biological. So 'men' is not in
 //     'women', 'cat' is not in 'concatenated', 'virus' is in 'viruses', and
 //     a keyword ending in s also matches without it ('cells' in 'cell');
-//   • Thai runs its words together, so a Thai keyword is a plain substring.
+//   - Thai runs its words together, so a Thai keyword is a plain substring.
 // Character checks rather than a lookbehind: the support floor (iOS 14)
 // cannot parse one (tests/unit/no-lookbehind.test.mjs).
 const THAI_CHAR = /[฀-๿]/;

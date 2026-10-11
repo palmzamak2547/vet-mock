@@ -6,8 +6,9 @@
 // nextQ(). nextQ then asked again for a blank short or essay item, in a
 // second dialog whose confirm was also labelled ส่งข้อสอบ, so a student who
 // had just confirmed was asked the same thing twice. Every path to the last
-// question's nextQ goes through that dialog (App's arrow keys and swipe stop
-// one short and raise it), so the per-question guard is only for moving on.
+// question's nextQ goes through that dialog (App's Space/Enter and J raise it
+// on the last question, ArrowRight stops one short), so the per-question
+// guard is only for moving on.
 //
 // Driven through the real useExamSession source under a stand-in for React
 // whose state persists between renders.

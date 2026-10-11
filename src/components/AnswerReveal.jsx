@@ -23,16 +23,16 @@ const KEY = 'vmx-reveal-timing';
 export const REVEAL_ROW = 'row';
 export const REVEAL_END = 'end';
 
+// A pick the browser would not store (storage blocked or full) still holds
+// for this page, on every toggle.
+let unstoredPick = null;
+
 // Until the student picks a timing of their own, it follows instant
 // feedback (on unless switched off, App.jsx), which is what the lecturer
 // block's switch draws and what its hint promises: row by row for matching
 // and a ดูเฉลยข้อนี้ button for written answers. A separate default of
 // "after the whole set" made a first-time student's matching sets and
 // written answers do the opposite of the switch they had just read.
-// A pick the browser would not store (storage blocked or full) still holds
-// for this page, on every toggle.
-let unstoredPick = null;
-
 export function readRevealTiming() {
   if (unstoredPick) return unstoredPick;
   try {
