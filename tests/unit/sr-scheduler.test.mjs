@@ -11,6 +11,7 @@ import {
   getDueCards,
   getCardStats,
   previewIntervals,
+  dueAt,
 } from '../../src/lib/sr-scheduler.js';
 
 // Dispatcher tests read real due filters (Date.now() inside), so timestamps
@@ -53,6 +54,63 @@ test('ensureFsrsState accepts a stored sub-object and re-derives a broken one', 
   assert.equal(ensureFsrsState({ fsrs: stored }), stored);
   assert.equal(ensureFsrsState({ fsrs: { due: 'soon' } }).stability, null,
     'a shape-invalid sub-object falls back to derivation');
+});
+
+test('ensureFsrsState re-derives a sub-object SM-2 has graded past', () => {
+  // A device still on a build from before FSRS grades the card with updateCard,
+  // which copies the old fsrs object along and advances only the SM-2 fields.
+  // That object then syncs back looking well-formed but describes an older review.
+  const T1 = NOW - 20 * DAY;
+  const T2 = NOW - 2 * DAY;
+  const card = {
+    ...initCard(5), totalReviews: 5, repetitions: 5, interval: 18, easeFactor: 2.5,
+    lastReview: T2, nextReview: T2 + 18 * DAY,
+    fsrs: { stability: 6, difficulty: 5, interval: 6, due: T1 + 6 * DAY, lastReview: T1 },
+  };
+  const state = ensureFsrsState(card);
+  assert.notEqual(state, card.fsrs, 'a sub-object older than the last SM-2 grade is not current');
+  assert.deepEqual(state, deriveFsrsState(card));
+  assert.equal(state.lastReview, T2);
+  assert.equal(state.due, card.nextReview, 'the due date follows the newer review');
+  assert.equal(card.fsrs.lastReview, T1, 'reading still never mutates the card');
+
+  const current = { ...card, fsrs: { ...card.fsrs, lastReview: T2, due: T2 + 6 * DAY } };
+  assert.equal(ensureFsrsState(current), current.fsrs, 'a sub-object written by the same grade stays as is');
+  const graded = gradeCard(card, 2, { now: NOW, scheduler: 'fsrs' });
+  assert.equal(ensureFsrsState(graded), graded.fsrs, 'gradeCard output is current by construction');
+
+  // The due date FSRS mode serves and shows follows the same rule: the stale
+  // sub-object said "due 14 days ago", the newer SM-2 review says 16 days out.
+  assert.equal(dueAt(card, 'fsrs'), card.nextReview, 'a stale sub-object does not decide when the card is due');
+  assert.deepEqual(getDueCards({ 5: card }, 0, 'fsrs'), [], 'so FSRS mode does not serve it today');
+  assert.equal(dueAt(current, 'fsrs'), current.fsrs.due);
+});
+
+test('an existing SM-2 card round-trips the dispatcher unchanged', () => {
+  // A saved card from before FSRS existed (no fsrs field) is read under both
+  // schedulers and must come out byte-identical, with SM-2 dates as before.
+  const saved = {
+    ...initCard(6), totalReviews: 4, repetitions: 4, interval: 15, easeFactor: 2.36, lapses: 1,
+    lastReview: NOW - 15 * DAY, nextReview: NOW - 1000,
+  };
+  const frozen = Object.freeze(JSON.parse(JSON.stringify(saved)));
+  const before = JSON.stringify(frozen);
+  for (const scheduler of ['sm2', 'fsrs']) {
+    ensureFsrsState(frozen);
+    previewIntervals(frozen, scheduler);
+    getCardStats({ 6: frozen }, scheduler);
+    assert.deepEqual(getDueCards({ 6: frozen }, 0, scheduler).map((c) => c.questionId), [6],
+      `the SM-2 due date still serves the card under ${scheduler}`);
+  }
+  assert.equal(JSON.stringify(frozen), before, 'reading never writes to a saved card');
+  const sm2Previews = previewIntervals(frozen, 'sm2');
+  assert.deepEqual(sm2Previews, [0, 1, 2, 3].map((quality) => updateCard(frozen, quality).interval),
+    'SM-2 previews are the pinned SM-2 arithmetic');
+  const graded = gradeCard(frozen, 2, { now: NOW, scheduler: 'sm2' });
+  const direct = updateCard(frozen, 2);
+  for (const field of ['interval', 'easeFactor', 'repetitions', 'lapses', 'totalReviews', 'questionId']) {
+    assert.deepEqual(graded[field], direct[field], `${field} moved exactly as updateCard moves it`);
+  }
 });
 
 test('gradeCard advances the SM-2 fields exactly as updateCard always has', () => {

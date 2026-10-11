@@ -48,11 +48,17 @@ export function retrievability(elapsedDays, stability) {
   return (1 + FACTOR * (elapsedDays / stability)) ** DECAY;
 }
 
+// Mean-reversion target: D0(Easy) UNCLAMPED (about -4.77 with the defaults).
+// Both references use the raw value here (py-fsrs _initial_difficulty(Easy,
+// clamp=False), fsrs-rs init_difficulty); clamping it to 1 drifted every
+// review's difficulty about 0.006 harder.
+const MEAN_REVERSION_TARGET = DEFAULT_W[4] - Math.exp(DEFAULT_W[5] * 3) + 1;
+
 // Difficulty update: linear damping then mean reversion toward D0(4).
 export function nextDifficulty(difficulty, grade) {
   const delta = -DEFAULT_W[6] * (grade - 3);
   const damped = difficulty + delta * ((10 - difficulty) / 9);
-  return clampDifficulty(DEFAULT_W[7] * initialDifficulty(4) + (1 - DEFAULT_W[7]) * damped);
+  return clampDifficulty(DEFAULT_W[7] * MEAN_REVERSION_TARGET + (1 - DEFAULT_W[7]) * damped);
 }
 
 // Stability after a successful recall (G=2 Hard carries the penalty, G=4 Easy the bonus).
@@ -66,16 +72,22 @@ export function stabilityAfterRecall(difficulty, stability, retrievability_, gra
   return stability * (1 + increment);
 }
 
-// Stability after a lapse: the card was seen but forgotten.
+// Stability after a lapse: the card was seen but forgotten. FSRS-6 caps the
+// long-term result at S / e^(w17·w18), so a weak card forgotten after a long
+// gap can never come out of Again more stable than it went in.
 export function stabilityAfterForget(difficulty, stability, retrievability_) {
-  return DEFAULT_W[11]
+  const longTerm = DEFAULT_W[11]
     * difficulty ** (-DEFAULT_W[12])
     * ((stability + 1) ** DEFAULT_W[13] - 1)
     * Math.exp(DEFAULT_W[14] * (1 - retrievability_));
+  return Math.min(longTerm, stability / Math.exp(DEFAULT_W[17] * DEFAULT_W[18]));
 }
 
 // Same-day reviews grow small stabilities and leave large ones put
 // (the increment is floored at 1 for passes; a same-day lapse may shrink it).
+// "Passes" includes Hard (G=2), exactly as both references apply it: py-fsrs
+// _short_term_stability floors Hard/Good/Easy and fsrs-rs next_state_scalar
+// floors rating >= 2. Do not narrow this to Good/Easy.
 export function sameDayStabilityIncrement(stability, grade) {
   const inc = Math.exp(DEFAULT_W[17] * (grade - 3 + DEFAULT_W[18])) * stability ** (-DEFAULT_W[19]);
   return grade >= 2 ? Math.max(inc, 1) : inc;

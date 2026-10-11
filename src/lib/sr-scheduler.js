@@ -61,10 +61,11 @@ export function algorithmFor(scheduler) {
 }
 
 // The timestamp the given scheduler treats as this card's due moment. A card
-// that has never been graded under FSRS falls back to the SM-2 date until its
-// first FSRS grade writes a real one.
+// that has never been graded under FSRS, or whose sub-object SM-2 has graded
+// past (see ensureFsrsState), falls back to the SM-2 date until its next FSRS
+// grade writes a real one.
 export function dueAt(card, scheduler = readSchedulerPreference()) {
-  if (scheduler === 'fsrs' && card?.fsrs?.due) return card.fsrs.due;
+  if (scheduler === 'fsrs' && card?.fsrs?.due && ensureFsrsState(card) === card.fsrs) return card.fsrs.due;
   return card?.nextReview ?? 0;
 }
 
@@ -80,13 +81,21 @@ export function deriveFsrsState(card) {
   return { stability, difficulty, interval: Math.max(1, Math.round(intervalFor(stability))), due: card.nextReview, lastReview: card.lastReview };
 }
 
-// `fsrs` present and shape-valid wins; anything else re-derives. Reading the
-// card never mutates it — the derived object is only written back by a grade.
+// `fsrs` present, shape-valid and current wins; anything else re-derives.
+// Current means SM-2 has not graded the card since: a build from before FSRS
+// grades through updateCard, which copies the old sub-object along unchanged,
+// so a newer card.lastReview marks it as describing an older review (its due
+// date and elapsed time would both be wrong). gradeCard stamps both with the
+// same instant, so its own output is always current. Reading the card never
+// mutates it — the derived object is only written back by a grade.
 export function ensureFsrsState(card) {
   const s = card?.fsrs;
-  if (s && (s.stability === null || typeof s.stability === 'number')
+  const shaped = s && (s.stability === null || typeof s.stability === 'number')
     && (s.difficulty === null || typeof s.difficulty === 'number')
-    && typeof s.due === 'number') return s;
+    && typeof s.due === 'number';
+  const gradedSince = shaped && Number.isFinite(card.lastReview) && Number.isFinite(s.lastReview)
+    && card.lastReview > s.lastReview;
+  if (shaped && !gradedSince) return s;
   return deriveFsrsState(card);
 }
 

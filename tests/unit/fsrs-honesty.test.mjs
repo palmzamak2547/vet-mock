@@ -105,3 +105,55 @@ test('target interval at the requested retention equals stability', () => {
   assert.ok(Math.abs(intervalFor(42) - 42) < 1e-9,
     'inverting the curve at 0.9 must give the interval the curve was built on');
 });
+
+// Reference values for the FSRS-6 default parameters, computed 2026-10-11 from
+// the formulas of py-fsrs main (fsrs/scheduler.py: _initial_difficulty,
+// _short_term_stability, _next_difficulty, _next_forget_stability,
+// _next_recall_stability, _next_interval), cross-read against fsrs-rs main
+// (src/model_v6.rs next_state_scalar). Whole-day gaps keep both references'
+// day counting identical to ours. Pinned so the port cannot drift silently.
+const REFERENCE_TOLERANCE = 1e-9;
+const assertState = (state, [stability, difficulty, interval], label) => {
+  assert.ok(Math.abs(state.stability - stability) < REFERENCE_TOLERANCE,
+    `${label}: stability ${state.stability} is not the reference ${stability}`);
+  assert.ok(Math.abs(state.difficulty - difficulty) < REFERENCE_TOLERANCE,
+    `${label}: difficulty ${state.difficulty} is not the reference ${difficulty}`);
+  assert.equal(state.interval, interval, `${label}: interval`);
+};
+
+test('a short review sequence lands on the FSRS-6 reference values', () => {
+  // Good (new), Good after 2 days, Again after 11 days, Hard 10 minutes later
+  // (same day: the reference floors the short-term increment at 1 for Hard,
+  // Good and Easy), Easy after 2 days.
+  const MINUTE = 60 * 1000;
+  let state = nextFsrsState(null, 2, NOW);
+  assertState(state, [2.3065, 2.118103970459016, 2], 'first Good');
+  let at = NOW + 2 * DAY;
+  state = nextFsrsState(state, 2, at);
+  assertState(state, [10.964332335820698, 2.111214235785395, 11], 'Good after 2 days');
+  at += 11 * DAY;
+  state = nextFsrsState(state, 0, at);
+  assertState(state, [1.5383372358832694, 7.392238132342694, 2], 'Again after 11 days');
+  at += 10 * MINUTE;
+  state = nextFsrsState(state, 1, at);
+  assertState(state, [1.5383372358832694, 8.254074519842886, 2], 'Hard 10 minutes later');
+  at += 2 * DAY;
+  state = nextFsrsState(state, 3, at);
+  assertState(state, [6.296527165716427, 7.655895953798593, 6], 'Easy after 2 days');
+});
+
+test('a lapse is capped below the stability it started from (FSRS-6 post-lapse cap)', () => {
+  // A card failed once, left for a year and failed again. The long-term forget
+  // formula alone gives 0.2112; the reference caps a lapse at S / e^(w17 w18).
+  let state = nextFsrsState(null, 0, NOW);
+  assertState(state, [0.212, 6.4133, 1], 'first Again');
+  state = nextFsrsState(state, 0, NOW + 365 * DAY);
+  assertState(state, [0.20176633585888237, 8.806304468856837, 1], 'Again after 365 days');
+
+  // A very weak, very easy card forgotten after a long gap: without the cap
+  // the long-term formula gives 0.2253, more stable after Again than before.
+  const weak = { stability: 0.2, difficulty: 1, interval: 1, due: NOW - 364 * DAY, lastReview: NOW - 365 * DAY };
+  const forgot = nextFsrsState(weak, 0, NOW);
+  assertState(forgot, [0.19034559986687016, 7.0269895692968385, 1], 'weak card Again after 365 days');
+  assert.ok(forgot.stability < weak.stability, 'forgetting must not raise stability');
+});
