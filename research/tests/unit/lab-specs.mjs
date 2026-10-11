@@ -4,6 +4,8 @@
 // lab-*.test.mjs. OWNER: lab role.
 import { makeSpec } from '../../src/lib/runtime/spec.js';
 import { WARPBREAKS, WB_WOOL, WB_TENSION, RM, RM_GROUP, ROUNDING, THREE } from './lab-fixtures.mjs';
+// M3a auc, qpcr, pca: the R fixtures' own datasets (made-up gtt, qpcr, dilution; R's USArrests)
+import { readJson } from './stats-fixtures.mjs';
 
 /** @param {{ smallTable: Function }} ctx */
 export function specs({ smallTable }) {
@@ -55,5 +57,42 @@ export function specs({ smallTable }) {
     { spec: p('power.tTest', { delta: 1, sd: 1, n: 20 }, { solveFor: 'power', sigLevel: 0.05, type: 'two-sample' }) },
     { spec: p('power.correlation', { r: 0.3, power: 0.8, m: 10, icc: 0.05 }, { solveFor: 'n', sigLevel: 0.05 }) },
     { spec: p('power.regression', { u: 3, f2: 0.15, power: 0.8 }, { solveFor: 'n', sigLevel: 0.05 }) },
+    // M3a auc, qpcr, pca (numbers pinned by lab-auc, lab-qpcr and lab-pca.test.mjs)
+    ...m3aCases(d, smallTable),
+  ];
+}
+
+// M3a auc, qpcr, pca
+function m3aCases(d, smallTable) {
+  const gtt = readJson('r/out/auc.json').datasets.gtt;
+  const g = { y: [], animal: [], t: [], arm: [] };
+  gtt.glucose.forEach((row, i) => row.forEach((v, j) => { g.y.push(v); g.animal.push(gtt.animal[i]); g.t.push(gtt.times[j]); g.arm.push(gtt.group[i]); }));
+  const auc = smallTable([
+    { name: 'glucose', type: 'continuous', values: g.y },
+    { name: 'animal', type: 'id', values: g.animal },
+    { name: 'minute', type: 'continuous', values: g.t },
+    { name: 'arm', type: 'nominal', levels: ['control', 'treated'], values: g.arm },
+  ]);
+  const q = readJson('r/out/qpcr.json').datasets;
+  const qpcr = smallTable([
+    { name: 'target', type: 'continuous', values: q.qpcr.target },
+    { name: 'gapdh', type: 'continuous', values: q.qpcr.gapdh },
+    { name: 'actb', type: 'continuous', values: q.qpcr.actb },
+    { name: 'arm', type: 'nominal', levels: ['control', 'treated'], values: q.qpcr.group },
+  ]);
+  const dilution = smallTable([
+    { name: 'log10input', type: 'continuous', values: q.dilution.log10input },
+    { name: 'ct', type: 'continuous', values: q.dilution.ct },
+  ]);
+  const us = readJson('r/out/pca.json').datasets.USArrests;
+  const arrests = smallTable([
+    ...us.columns.map((name, j) => ({ name, type: 'continuous', values: us.values.map((r) => r[j]) })),
+    { name: 'state', type: 'id', values: us.rows },
+  ]);
+  return [
+    { spec: d('calc.auc', { roles: { outcome: 'c1', subject: 'c2', time: 'c3', group: 'c4' }, options: { baseline: 'zero' } }), ...auc },
+    { spec: d('qpcr.relative', { roles: { outcome: 'c1', items: ['c2', 'c3'], group: 'c4' }, levels: { controlLevel: 'control' } }), ...qpcr },
+    { spec: d('qpcr.efficiency', { roles: { x: 'c1', outcome: 'c2' } }), ...dilution },
+    { spec: d('mv.pca', { roles: { items: ['c1', 'c2', 'c3', 'c4'], subject: 'c5' }, options: { scale: true } }), ...arrests },
   ];
 }
