@@ -15,12 +15,13 @@ import { OKABE_ITO, THEMES } from '../../src/workspace/charts/palette.js';
 import { chartOptions, epiCurveInput } from '../../src/workspace/charts/from-result.js';
 import { formatCi, formatNumber, formatP } from '../../src/lib/stats/format.js';
 import graphs from '../../src/i18n/graphs.js';
+import graphsM3 from '../../src/i18n/graphs-m3.js';
 import workspace from '../../src/i18n/workspace.js';
 import terms from '../../src/i18n/terms.js';
 
 const FMT = { formatNumber, formatP, formatCi };
 const tFor = (lang) => {
-  const d = { ...workspace[lang], ...terms[lang], ...graphs[lang] };
+  const d = { ...workspace[lang], ...terms[lang], ...graphs[lang], ...graphsM3[lang] };
   return (k, p) => {
     let s = d[k] ?? `[${k}]`;
     for (const [a, b] of Object.entries(p || {})) s = s.split(`{${a}}`).join(String(b));
@@ -215,7 +216,11 @@ test('every graphs.* word the kit and its screens use exists in Thai and English
   for (const k of CHART_KINDS) keys.add(`graphs.kind.${k}`);
   for (const u of ['day', 'isoWeek', 'month']) keys.add(`graphs.epi.xTitle.${u}`).add(`graphs.note.epi.${u}`).add(`graphs.epi.unit.${u}`);
   for (const s of ['absolute', 'percent', 'ratio']) keys.add(`graphs.ba.yTitle.${s}`);
-  const missing = [...keys].filter((k) => !graphs.th[k] || !graphs.en[k]);
+  // the M3 kinds' words live in graphs-m3.js (lazily registered with the chart kit); no key in both files
+  const th = { ...graphs.th, ...graphsM3.th };
+  const en = { ...graphs.en, ...graphsM3.en };
+  assert.deepEqual(Object.keys(graphsM3.th).filter((k) => k in graphs.th), [], 'a key in graphs.js and graphs-m3.js');
+  const missing = [...keys].filter((k) => !th[k] || !en[k]);
   assert.deepEqual(missing, []);
   assert.ok(keys.size > 80, `scan found ${keys.size} keys`);
 });

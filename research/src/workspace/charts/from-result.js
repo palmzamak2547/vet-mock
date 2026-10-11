@@ -29,6 +29,8 @@
 import { completeRows, groupsAt, numbersAt, role } from '../../lib/stats/common.js';
 import { seFromLogCi } from './helpers.js';
 import { valueKind } from '../lib/method-ui.js';
+// the M3 charts' titles and words (src/i18n/graphs-m3.js), registered before a listed chart's title renders
+import './words.js';
 
 const num = (v) => typeof v === 'number' && Number.isFinite(v);
 /** Chart titles of the M3 charts (graphs words; the M2 charts take ws.chart.title.<kind>). */

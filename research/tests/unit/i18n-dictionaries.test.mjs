@@ -13,6 +13,7 @@ const PREFIX = {
   lab: 'lab.', models: 'models.', measure: 'measure.', data: 'data.', graphs: 'graphs.', tools: 'tools.', trust: 'trust.',
   // the M2 statistics terms, kept apart from terms.js so the landing does not load them
   'terms-m2': 'term.',
+  'graphs-m3': 'graphs.',
 };
 
 const files = readdirSync(dir).filter((f) => f.endsWith('.js') && f !== 'index.js');

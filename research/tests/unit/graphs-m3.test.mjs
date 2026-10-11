@@ -15,6 +15,7 @@
 // (stats-fixtures.mjs close shifts each pinned value by 1e-5 relative). Data: R datasets ryegrass (Inderjit et al.
 // 2002), USArrests, OBrienKaiser; made-up curves, gtt and qpcr (ข้อมูลสมมุติ / made-up data). OWNER: graphs role.
 import { test } from 'node:test';
+import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
 import { buildChart, chartToSvg } from '../../src/workspace/charts/model.js';
 import { chartOptions } from '../../src/workspace/charts/from-result.js';
@@ -29,12 +30,13 @@ import { runAnovaRepeated } from '../../src/lib/stats/anovarm.js';
 import { formatCi, formatNumber, formatP } from '../../src/lib/stats/format.js';
 import { close, TOL, makeTable, spec, readJson } from './stats-fixtures.mjs';
 import graphs from '../../src/i18n/graphs.js';
+import graphsM3 from '../../src/i18n/graphs-m3.js';
 import workspace from '../../src/i18n/workspace.js';
 import terms from '../../src/i18n/terms.js';
 
 const FMT = { formatNumber, formatP, formatCi };
 const tFor = (lang) => {
-  const d = { ...workspace[lang], ...terms[lang], ...graphs[lang] };
+  const d = { ...workspace[lang], ...terms[lang], ...graphs[lang], ...graphsM3[lang] };
   return (k, p) => {
     let s = d[k] ?? `[${k}]`;
     for (const [a, b] of Object.entries(p || {})) s = s.split(`{${a}}`).join(String(b));
@@ -543,4 +545,20 @@ test('at 320 px and at 85 mm, in Thai and English, no label runs off the figure,
     }
   }
   close(checked, 24, EXACT, 'charts checked');
+});
+
+test('the M3 chart words are registered by the chart kit itself, so no M3 chart or title shows a raw key', async () => {
+  const { translate } = await import('../../src/i18n/index.js');
+  // model.js and from-result.js are imported at the top of this file; their import of charts/words.js registered
+  // graphs-m3 with the app's own dictionary, without any registerArea call from a screen
+  for (const lang of ['th', 'en']) {
+    for (const k of ['graphs.title.standardCurve', 'graphs.kind.biplot', 'graphs.note.qpcrFold', 'graphs.title.twoWithin']) {
+      assert.equal(translate(lang, k), graphsM3[lang][k], `${lang} ${k}`);
+    }
+  }
+  const src = (p) => readFileSync(new URL(p, import.meta.url), 'utf8');
+  assert.match(src('../../src/workspace/charts/model.js'), /import '\.\/words\.js';/);
+  assert.match(src('../../src/workspace/charts/from-result.js'), /import '\.\/words\.js';/);
+  assert.ok(!/graphs-m3|charts\/words/.test(src('../../src/workspace/Workspace.jsx')), 'not in the first workspace chunk');
+  close(Object.keys(graphsM3.th).length, Object.keys(graphsM3.en).length, EXACT, 'Thai and English carry the same keys');
 });

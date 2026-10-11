@@ -13,6 +13,8 @@ import { biplotChart } from './biplot.js';
 import { qpcrFoldChart } from './qpcr-fold.js';
 import { timePanelsChart } from './time-panels.js';
 import { modelToSvg } from './render.js';
+// the M3 kinds' words (src/i18n/graphs-m3.js), registered before any chart is built
+import './words.js';
 
 /** The kinds the kit draws, and what each needs as input (see each builder's JSDoc). The last six are M3's. */
 export const CHART_KINDS = Object.freeze(['dot', 'box', 'violin', 'scatter', 'timeCourse', 'epiCurve', 'forest', 'estimation', 'ciFunction', 'kaplanMeier', 'roc', 'blandAltman', 'ci', 'doseResponse', 'standardCurve', 'fittedCurve', 'scree', 'biplot', 'qpcrFold']);
