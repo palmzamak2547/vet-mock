@@ -7,7 +7,10 @@
 // panes. There the methods are listed under the student's question and the study layout it comes from
 // (method-questions.js), every option carries a plain sentence on what it changes, the result is followed
 // by its charts (chart-inputs.js, drawn by the chart kit) and, after a t-test or ANOVA, a folded
-// diagnostics panel that never switches the test.
+// diagnostics panel that never switches the test. M3a [M3-DESIGN.md 2, 6]: the efficiency boxes of Pfaffl's
+// method (one per chosen gene), the dose-response comparison set when groups are chosen, the second within factor
+// of repeated measures, and the Firth switch beside the separation stop (it sets options.method = 'firth' when the
+// student turns it on; the engine never does).
 import { useEffect, useMemo, useState } from 'react';
 import { formatNumber } from '../../lib/stats/format.js';
 import { useT } from '../../i18n/index.js';
@@ -16,8 +19,8 @@ import { clusterPanel } from '../../lib/epi/guardrails.js';
 import { getMethod } from '../../lib/runtime/catalog.js';
 import { COMMON_OPTIONS, DEFAULT_OPTIONS } from '../../lib/runtime/spec.js';
 import { useWs, errorInfo } from '../ws-context.js';
-import { ALTERNATIVES, CONF_LEVELS, METHOD_UI, buildSpec, columnsForRole, initialChoices, methodsForPane, missingRoles, rolesFor, testValue, visibleOptions } from '../lib/method-ui.js';
-import { METHOD_TERMS, QUESTION_PANES, groupByQuestion } from '../lib/method-questions.js';
+import { ALTERNATIVES, CONF_LEVELS, METHOD_UI, buildSpec, columnsForRole, initialChoices, methodsForPane, missingRoles, rolesFor, testValue, visibleOptions, efficiencyGenes, efficiencyRecord, isSeparationStop, optionsOnGroupChange, parseEfficiency, withFirth } from '../lib/method-ui.js';
+import { QUESTION_PANES, groupByQuestion, termsFor } from '../lib/method-questions.js';
 import { chartsForResult, repeatsCiPlot } from '../lib/chart-inputs.js';
 import ResultCharts from '../components/ResultCharts.jsx';
 import DiagnosticsPanel from '../components/DiagnosticsPanel.jsx';
@@ -29,7 +32,7 @@ import Herd from '../components/Herd.jsx';
 import Icon from '../components/Icon.jsx';
 import Link from '../components/Link.jsx';
 import ResultView, { FMT } from '../components/ResultView.jsx';
-import { primaryValueName, valueCells } from '../lib/result-model.js';
+import { ownOptionLabel, primaryValueName, valueCells } from '../lib/result-model.js';
 import { valueKind } from '../lib/method-ui.js';
 import { levelNameFor } from '../report/build.js';
 
@@ -60,6 +63,17 @@ function roleWord(t, method, role, kind) {
   return hasKey(t, own) ? t(own) : t(`ws.${kind}.${role}`);
 }
 
+/** A level picker's label: the method's own word (qPCR's calibrator), else the level's. */
+function levelWord(t, method, level) {
+  const own = `ws.levelFor.${keyPart(method)}.${level}`;
+  return hasKey(t, own) ? t(own) : t(`ws.level.pick.${level}`);
+}
+
+/** An option's label: the method's own word when one option name means two things (qPCR's method, PCA's scale). */
+function optionLabel(t, method, name) {
+  return ownOptionLabel(t, method, name) || t(`ws.opt.${name}.label`);
+}
+
 /** Option controls for one method: a select per option with more than one allowed value. */
 function OptionControls({ method, options, setOptions }) {
   const { t } = useT();
@@ -68,7 +82,7 @@ function OptionControls({ method, options, setOptions }) {
   return (
     <div className="rs-formgrid">
       {entries.map(([name, vals]) => (
-        <Field key={name} label={t(`ws.opt.${name}.label`)} hint={optionHelp(t, method, name)} htmlFor={`rs-opt-${name}`}>
+        <Field key={name} label={optionLabel(t, method, name)} hint={optionHelp(t, method, name)} htmlFor={`rs-opt-${name}`}>
           <select id={`rs-opt-${name}`} className="rs-select" value={String(options[name])} onChange={(e) => {
             const raw = e.target.value;
             const v = vals.find((x) => String(x) === raw);
@@ -94,6 +108,34 @@ function OptionControls({ method, options, setOptions }) {
   );
 }
 
+/**
+ * Pfaffl's efficiencies, one box per chosen gene [M3-DESIGN.md 2, 6]: an amplification factor or a percent, the
+ * value used shown under the box, a plain sentence when it cannot be used.
+ */
+function EfficiencyBoxes({ genes, texts, setText, nameOf }) {
+  const { t } = useT();
+  if (!genes.length) return null;
+  return (
+    <fieldset className="rs-fieldset">
+      <legend className="rs-field-label">{t('ws.qpcr.effTitle')}</legend>
+      <div className="rs-formgrid">
+        {genes.map((key) => {
+          const text = texts[key] ?? '';
+          const r = parseEfficiency(text);
+          const hint = r.ok
+            ? t('ws.qpcr.effReadAs', { factor: formatNumber(r.value, { kind: 'statistic', digits: 3 }), percent: formatNumber((r.value - 1) * 100, { kind: 'statistic', digits: 1 }) })
+            : String(text).trim() === '' ? t('ws.qpcr.effHint') : t(r.key);
+          return (
+            <Field key={key} label={t('ws.qpcr.effLabel', { gene: nameOf(key) })} hint={hint} htmlFor={`rs-eff-${key}`}>
+              <input id={`rs-eff-${key}`} className="rs-input rs-input--num rs-num" inputMode="decimal" autoComplete="off" aria-invalid={!r.ok && String(text).trim() !== '' ? true : undefined} value={text} onChange={(e) => setText(key, e.target.value)} />
+            </Field>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
+
 /** @param {{ p: any, pane: 'prev'|'assoc'|'lab'|'models'|'survival'|'measure' }} props */
 export default function AnalysisPane({ p, pane }) {
   const { t, lang } = useT();
@@ -116,6 +158,8 @@ export default function AnalysisPane({ p, pane }) {
   const [compare, setCompare] = useState([]);
   const [independent, setIndependent] = useState(null);
   const [kept, setKept] = useState(false);
+  // A separation stop was seen on this method: the Firth switch stays in the setup panel from then on.
+  const [firthSeen, setFirthSeen] = useState(false);
   const byQuestion = QUESTION_PANES.includes(pane);
   const groups = useMemo(() => (byQuestion ? groupByQuestion(pane, offered) : [{ id: null, layout: null, methods: offered.map((o) => o.method) }]), [byQuestion, pane, offered]);
   const cluster = codebook.columns.find((c) => c.key === codebook.clusterKey) || null;
@@ -127,9 +171,12 @@ export default function AnalysisPane({ p, pane }) {
   useEffect(() => {
     if (!method) return;
     const o = { ...COMMON_OPTIONS, ...(DEFAULT_OPTIONS[method] || {}) };
-    setOptions(o);
-    setChoices(initialChoices(method, codebook, o));
+    const start = initialChoices(method, codebook, o);
+    // a group the codebook already names turns on the dose-response comparison, as choosing it does
+    setOptions(optionsOnGroupChange(method, false, Boolean(start.roles.group), o));
+    setChoices(start);
     setExtra({});
+    setFirthSeen(false);
     setEnv(null);
     setSpec(null);
     setError(null);
@@ -155,10 +202,17 @@ export default function AnalysisPane({ p, pane }) {
   const oneSample = method === 'test.tTest' && options.variant === 'one-sample';
   const muText = extra.mu ?? '0';
   const muOk = !oneSample || testValue(muText) !== null;
-  const canRun = Boolean(method && engine && cat?.shipped && gaps.length === 0 && !needsCluster && extraOk && countsOk && muOk && !busy);
+  // Pfaffl's method needs an efficiency for every chosen gene (the boxes keep their text under 'eff:<column>').
+  const qpcr = method === 'qpcr.relative';
+  const effTexts = Object.fromEntries(Object.entries(extra).filter(([k]) => k.startsWith('eff:')).map(([k, v]) => [k.slice(4), v]));
+  const eff = qpcr ? efficiencyRecord(options.method, choices.roles, effTexts) : null;
+  const effOk = !eff || eff.ok;
+  const canRun = Boolean(method && engine && cat?.shipped && gaps.length === 0 && !needsCluster && extraOk && countsOk && muOk && effOk && !busy);
+  const firthShown = method === 'reg.logistic' && (firthSeen || options.method === 'firth');
 
-  const makeSpec = (route) => {
-    const opts = { ...options };
+  const makeSpec = (route, chosen = options) => {
+    const opts = { ...chosen };
+    if (eff) opts.efficiency = chosen.method === 'pfaffl' ? efficiencyRecord('pfaffl', choices.roles, effTexts).efficiency : {};
     if (ui?.params) for (const k of ui.params) opts[k] = Number(extra[k]) / (k === 'se' || k === 'sp' ? 100 : 1);
     if (oneSample) opts.mu = testValue(muText);
     // only the roles this method (and its variant) shows: a role left from another t-test variant stays in the
@@ -179,7 +233,7 @@ export default function AnalysisPane({ p, pane }) {
     });
   };
 
-  const run = async (route = null) => {
+  const run = async (route = null, chosen = options) => {
     if (!engine) return;
     setBusy(true);
     setError(null);
@@ -187,10 +241,11 @@ export default function AnalysisPane({ p, pane }) {
     setIndependent(null);
     setKept(false);
     try {
-      const s = makeSpec(route);
+      const s = makeSpec(route, chosen);
       const e = await engine.run(s, p.table, codebook, steps);
       setSpec(s);
       setEnv(e);
+      if (isSeparationStop(e)) setFirthSeen(true);
       // Beside a farm-adjusted prevalence, the same count read as if every animal were independent:
       // the engine's Wald interval on x of n, so the plot shows how much the farms widen it.
       if (route === 'deff' && method === 'freq.proportion' && e?.status === 'ok' && e.values?.x && e.values?.n) {
@@ -287,6 +342,7 @@ export default function AnalysisPane({ p, pane }) {
   })].filter(Boolean);
 
   const charts = env && env.status === 'ok' ? chartsForResult({ spec, envelope: env }, p.table, { labelOf, levelOf, t }) : [];
+  const terms = method ? termsFor(method, { roles: choices.roles, options }) : [];
 
   return (
     <>
@@ -388,17 +444,18 @@ export default function AnalysisPane({ p, pane }) {
                               }
                             }
                           }
-                          if (r.level) levels[r.level] = entry?.positive || null;
+                          if (r.level) levels[r.level] = (r.level === 'controlLevel' ? entry?.reference : entry?.positive) || null;
                           if (r.reference) levels[r.reference] = entry?.reference || null;
                           return { roles: next, levels };
                         });
+                        if (r.role === 'group') setOptions((o) => optionsOnGroupChange(method, Boolean(val), Boolean(key), o));
                       }}>
                         <option value="">{r.optional ? t(r.role === 'group' || r.role === 'strata' ? 'ws.analysis.optionalNone' : 'ws.analysis.optionalEmpty') : t('ws.steps.chooseColumn')}</option>
                         {fits.map((c) => <option key={c.key} value={c.key}>{colName(c)}</option>)}
                       </select>
                     </Field>
                     {val && r.level ? (
-                      <Field label={t(r.role === 'event' ? 'ws.level.pick.event' : `ws.level.pick.${r.level}`)} htmlFor={`rs-lv-${r.level}`}>
+                      <Field label={r.role === 'event' ? t('ws.level.pick.event') : levelWord(t, method, r.level)} htmlFor={`rs-lv-${r.level}`}>
                         <select id={`rs-lv-${r.level}`} className="rs-select" value={choices.levels[r.level] || ''} onChange={(e) => setChoices((ch) => ({ ...ch, levels: { ...ch.levels, [r.level]: e.target.value || null } }))}>
                           <option value="">{t('ws.steps.chooseLevel')}</option>
                           {lv.map((v) => <option key={v} value={v}>{levelOf(val, v)}</option>)}
@@ -445,10 +502,22 @@ export default function AnalysisPane({ p, pane }) {
               <details className="rs-options">
                 <summary>{t('ws.analysis.options')}</summary>
                 <OptionControls method={method} options={options} setOptions={setOptions} />
+                {qpcr && options.method === 'pfaffl' ? (
+                  <EfficiencyBoxes genes={efficiencyGenes(choices.roles)} texts={effTexts} nameOf={labelOf} setText={(key, v) => setExtra((x) => ({ ...x, [`eff:${key}`]: v }))} />
+                ) : null}
               </details>
-              {(METHOD_TERMS[method] || []).length ? (
+              {firthShown ? (
+                <div className="rs-field">
+                  <label className="rs-check" htmlFor="rs-opt-firth">
+                    <input id="rs-opt-firth" type="checkbox" checked={options.method === 'firth'} onChange={(e) => setOptions((o) => withFirth(o, e.target.checked))} />
+                    <span lang="en">{t('ws.firth.switch')}</span>
+                  </label>
+                  <p className="rs-field-hint">{t('ws.firth.switchHint')}</p>
+                </div>
+              ) : null}
+              {terms.length ? (
                 <dl className="rs-g1-glosses rs-small" aria-label={t('ws.analysis.termsTitle')}>
-                  {METHOD_TERMS[method].map((k) => (
+                  {terms.map((k) => (
                     <div key={k}><dt lang="en">{t(`term.${k}.name`)}</dt><dd className="rs-soft">{t(`term.${k}.gloss`)}</dd></div>
                   ))}
                 </dl>
@@ -456,7 +525,8 @@ export default function AnalysisPane({ p, pane }) {
               {needsCluster ? <Notice tone="info">{t('ws.analysis.needsCluster')}</Notice> : null}
               {hasKey(t, `ws.analysis.${pane}.before`) ? <p className="rs-soft rs-small">{t(`ws.analysis.${pane}.before`)}</p> : null}
               {cat && !cat.shipped ? <Notice tone="info">{t('ws.analysis.notReadyBody')}</Notice> : null}
-              {gaps.length ? <p className="rs-soft rs-small">{t('ws.analysis.stillNeeds', { what: gaps.map((g) => (hasKey(t, `ws.role.${g}`) ? roleWord(t, method, g, 'role') : t(roles.some((x) => x.role === 'event' && x.level === g) ? 'ws.level.pick.event' : `ws.level.pick.${g}`))).join(', ') })}</p> : null}
+              {gaps.length ? <p className="rs-soft rs-small">{t('ws.analysis.stillNeeds', { what: gaps.map((g) => (hasKey(t, `ws.role.${g}`) ? roleWord(t, method, g, 'role') : roles.some((x) => x.role === 'event' && x.level === g) ? t('ws.level.pick.event') : levelWord(t, method, g))).join(', ') })}</p> : null}
+              {!gaps.length && eff && !eff.ok ? <p className="rs-soft rs-small">{t('ws.analysis.stillNeeds', { what: t('ws.qpcr.effStill', { genes: eff.bad.map(labelOf).join(', ') }) })}</p> : null}
               {cluster && !ui?.needsCluster && ui?.input === 'dataset' ? <p className="rs-soft rs-small">{t('ws.analysis.clusterAhead', { column: cluster.name })}</p> : null}
               <button type="button" className="rs-btn rs-btn--primary rs-btn--block" disabled={!canRun} onClick={() => run(pane === 'prev' && cluster && PREV_DEFAULT_DEFF.has(method) ? 'deff' : null)}>
                 <Icon name="play" size={18} />
@@ -472,6 +542,15 @@ export default function AnalysisPane({ p, pane }) {
           {herd.length ? <Herd groups={herd} clusterName={cluster?.name || ''} /> : null}
           {clusterStop ? (
             <G1Panel panel={panel} stops={env.guard.stops} onChoose={(r) => run(r)} busy={busy} columnName={cluster ? colName(cluster) : ''} single={String(method || '').startsWith('freq.')} />
+          ) : null}
+          {isSeparationStop(env) ? (
+            <Notice
+              tone="warn"
+              title={t('ws.firth.stopTitle')}
+              action={<button type="button" className="rs-btn rs-btn--sm" disabled={busy || !engine} onClick={() => { const o = withFirth(options, true); setOptions(o); run(null, o); }}>{t('ws.firth.run')}</button>}
+            >
+              {t('ws.firth.stopBody')}
+            </Notice>
           ) : null}
           {env && !clusterStop ? (
             <ResultView

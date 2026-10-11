@@ -18,11 +18,20 @@ import { METHOD_UI } from './method-ui.js';
 export const QUESTIONS = Object.freeze([
   { id: 'twoFactors', pane: 'lab', layout: 'factorial', methods: ['anova.twoWay'] },
   { id: 'sameAnimals', pane: 'lab', layout: 'repeated', methods: ['anova.repeated', 'test.friedman'] },
+  // M3a [M3-DESIGN.md 2]: the same animals over time summed up one number each, next to repeated measures.
+  { id: 'areaUnderCurve', pane: 'lab', layout: 'repeated', methods: ['calc.auc'] },
   { id: 'againstControl', pane: 'lab', layout: 'doseControl', methods: ['posthoc.dunnett'] },
   { id: 'whichPairs', pane: 'lab', layout: 'groups', methods: ['posthoc.gamesHowell', 'posthoc.dunn'] },
+  // M3a: assays and curves, gene expression, many measures at once.
+  { id: 'standardCurve', pane: 'lab', layout: 'assay', methods: ['nls.fourPL'] },
+  { id: 'doseResponse', pane: 'lab', layout: 'doseResponse', methods: ['nls.doseResponse'] },
+  { id: 'curveEquation', pane: 'lab', layout: 'curve', methods: ['nls.equation'] },
+  { id: 'geneExpression', pane: 'lab', layout: 'qpcr', methods: ['qpcr.relative', 'qpcr.efficiency'] },
+  { id: 'manyMeasures', pane: 'lab', layout: 'multivariate', methods: ['mv.pca'] },
   { id: 'assumptions', pane: 'lab', layout: 'check', methods: ['diag.shapiro', 'diag.brownForsythe'] },
   { id: 'binaryOutcome', pane: 'models', layout: 'regression', methods: ['reg.logistic'] },
-  { id: 'countOutcome', pane: 'models', layout: 'regression', methods: ['reg.poisson'] },
+  // M3a [M3-DESIGN.md C10]: negative binomial is offered wherever Poisson is.
+  { id: 'countOutcome', pane: 'models', layout: 'regression', methods: ['reg.poisson', 'reg.negbin'] },
   { id: 'timeToEvent', pane: 'survival', layout: 'survivalCohort', methods: ['surv.kaplanMeier'] },
   { id: 'separateSick', pane: 'measure', layout: 'diagnosticRoc', methods: ['roc.delong'] },
   { id: 'twoMethodsAgree', pane: 'measure', layout: 'methodComparison', methods: ['agree.blandAltman'] },
@@ -87,4 +96,27 @@ export const METHOD_TERMS = Object.freeze({
   'roc.delong': ['auc', 'youden'],
   'agree.blandAltman': ['loa'],
   'rel.cronbach': ['cronbachAlpha'],
+  // M3a [M3-DESIGN.md 6]
+  'nls.fourPL': ['fourPL', 'ec50', 'interpolation'],
+  'nls.doseResponse': ['fourPL', 'ec50', 'hillSlope', 'extraSsF', 'aicc'],
+  'nls.equation': ['aicc'],
+  'calc.auc': ['areaUnderCurve'],
+  'qpcr.relative': ['dCt', 'ddCt', 'referenceGene', 'amplificationEfficiency'],
+  'qpcr.efficiency': ['amplificationEfficiency'],
+  'mv.pca': ['eigenvalue', 'loading', 'biplot'],
+  'reg.negbin': ['rateRatio', 'overdispersion', 'theta'],
 });
+
+/**
+ * The terms a method's screen explains, for what the student chose now: METHOD_TERMS, plus sphericity per
+ * effect once a second within factor is chosen, plus Firth's correction once it is switched on.
+ * @param {string} methodId
+ * @param {{ roles?: Record<string, any>, options?: Record<string, any> }} [chosen]
+ * @returns {string[]}
+ */
+export function termsFor(methodId, { roles = {}, options = {} } = {}) {
+  const out = [...(METHOD_TERMS[methodId] || [])];
+  if (methodId === 'anova.repeated' && roles.factorB) out.push('sphericityPerEffect');
+  if (methodId === 'reg.logistic' && options.method === 'firth') out.push('firth');
+  return out;
+}

@@ -10,6 +10,8 @@ import assert from 'node:assert/strict';
 import workspace from '../../src/i18n/workspace.js';
 import terms from '../../src/i18n/terms.js';
 import termsM2 from '../../src/i18n/terms-m2.js';
+import workspaceM3 from '../../src/i18n/workspace-m3.js';
+import termsM3 from '../../src/i18n/terms-m3.js';
 import { METHOD_UI, EXTRA_OPTIONS, initialChoices, methodsForPane, testValue, valueKind, visibleOptions } from '../../src/workspace/lib/method-ui.js';
 import { METHOD_TERMS, QUESTIONS, QUESTION_PANES, groupByQuestion, questionOf, unquestioned } from '../../src/workspace/lib/method-questions.js';
 import { chartsForResult, colIndex, extraCharts, repeatsCiPlot } from '../../src/workspace/lib/chart-inputs.js';
@@ -21,7 +23,8 @@ import { keyPart } from '../../src/workspace/lib/keys.js';
 import { DESIGNS } from '../../src/lib/epi/design.js';
 import { DEFAULT_OPTIONS } from '../../src/lib/runtime/spec.js';
 
-const DICT = { th: { ...workspace.th, ...terms.th, ...termsM2.th }, en: { ...workspace.en, ...terms.en, ...termsM2.en } };
+// M3a's words and terms (workspace-m3, terms-m3) are registered by the project screen before these screens render.
+const DICT = { th: { ...workspace.th, ...terms.th, ...termsM2.th, ...workspaceM3.th, ...termsM3.th }, en: { ...workspace.en, ...terms.en, ...termsM2.en, ...workspaceM3.en, ...termsM3.en } };
 const tFor = (lang) => (k, p) => {
   const s = DICT[lang][k];
   if (s === undefined) return `[${k}]`;
@@ -46,7 +49,8 @@ test('every method on the lab, models, survival and measure panes sits under a q
 test('the lab picker for an experiment lists the questions in order; a design without lab methods lists none', () => {
   const exp = DESIGNS.find((d) => d.id === 'experiment');
   const groups = groupByQuestion('lab', methodsForPane('lab', exp));
-  assert.deepEqual(groups.map((g) => g.id), ['twoFactors', 'sameAnimals', 'againstControl', 'whichPairs', 'assumptions']);
+  // M3a's questions (assays, curves, qPCR, PCA, the area under the curve) sit among them; workspace-m3 checks those.
+  assert.deepEqual(groups.map((g) => g.id).filter((id) => ['twoFactors', 'sameAnimals', 'againstControl', 'whichPairs', 'assumptions'].includes(id)), ['twoFactors', 'sameAnimals', 'againstControl', 'whichPairs', 'assumptions']);
   assert.deepEqual(groups[1].methods, ['anova.repeated', 'test.friedman']);
   const dx = DESIGNS.find((d) => d.id === 'diagnostic');
   assert.deepEqual(groupByQuestion('lab', methodsForPane('lab', dx)), []);

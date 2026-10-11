@@ -149,7 +149,8 @@ export function extraCharts(env, labelOf = (k) => k, levelName = (k, v) => v, t 
       break;
     }
     case 'reg.logistic':
-    case 'reg.poisson': {
+    case 'reg.poisson':
+    case 'reg.negbin': {
       const tb = findTable(env, 'ratios', 'coefficients');
       if (tb) add(method === 'reg.logistic' ? 'oddsRatios' : 'rateRatios', 'forest', ratiosInput(tb, method === 'reg.logistic' ? 'OR' : 'IRR', level, (x) => perUnitTerm(x, words)));
       break;
