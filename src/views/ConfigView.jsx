@@ -1,10 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { SUBJECTS } from '../data/questions.js';
 import { SEMESTER } from '../data/schedule.js';
 import { EXAM_SCOPE_LABELS, examScopeForPhase } from '../lib/question-prediction.js';
 import BackBar from '../components/BackBar.jsx';
 import { wholeSetTime, wholeSetTimeLabel } from '../hooks/utils.js';
 import NavIcon from '../components/NavIcon.jsx';
+import { hasMeasuredDifficulty } from '../lib/elo.js';
+import { loadQuestionDifficulty } from '../lib/question-difficulty.js';
 
 // ============================================================
 // ConfigView — ตั้งค่าก่อนเริ่มฝึก/สอบ
@@ -34,6 +36,23 @@ const CATEGORIES = [
   { id: 'writing', label: 'ข้อเขียนเท่านั้น',    iconName: 'pen',      desc: 'ตอบสั้น เขียนบรรยาย และเติมคำ — พิมพ์คำตอบเอง' },
 ];
 
+// What the adaptive chip can honestly say about the pool on screen. Difficulty
+// comes only from measured attempts (src/lib/elo.js); a question without them
+// sits at the neutral rating, so a pool with none measured is served as an
+// ordinary topic-spread shuffle and the copy must not promise level matching.
+// The order is not promised either: App re-sorts sets holding past-paper
+// questions by id. `data` is undefined while loading and null on failure.
+export function adaptiveHelpText({ data, pool }) {
+  if (data === undefined) return 'กำลังตรวจว่าข้อในชุดนี้วัดความยากได้แล้วกี่ข้อ…';
+  if (data === null) return 'ยังโหลดข้อมูลความยากไม่ได้ ตอนกดเริ่มจะลองโหลดอีกครั้ง';
+  const noneYet = 'ข้อในชุดนี้ยังมีคนตอบไม่พอจะวัดความยาก ตอนนี้จะสุ่มให้แบบกระจายหัวข้อ ยังไม่ได้เลือกตามระดับของคุณ';
+  if (!Object.keys(data).some((id) => hasMeasuredDifficulty({ id }, data))) return noneYet;
+  if (!Array.isArray(pool)) return 'กำลังตรวจว่าข้อในชุดนี้วัดความยากได้แล้วกี่ข้อ…';
+  const measured = pool.filter((q) => hasMeasuredDifficulty(q, data)).length;
+  if (measured === 0) return noneYet;
+  return `เลือกข้อที่ยากพอดีกับคุณจากประวัติการตอบ วัดความยากได้แล้ว ${measured.toLocaleString()} จาก ${pool.length.toLocaleString()} ข้อ ข้อที่เหลือนับเป็นระดับกลาง`;
+}
+
 export default function ConfigView({ practiceMode, setPracticeMode, subject, topic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, showCategoryPicker = false, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, availablePool = null, mode, selectedPhase = null }) {
   const knownAvailableCount = Number.isFinite(availableCount)
     ? Math.max(0, Math.floor(availableCount))
@@ -44,6 +63,22 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, top
   ])).sort((a, b) => a - b);
   const questionCountRef = useRef(numQuestions);
   const timePerQuestionRef = useRef(timePerQ);
+  // The difficulty snapshot is its own lazy chunk; it is fetched only once the
+  // student picks the adaptive chip (undefined = not loaded, null = failed).
+  const [difficultyData, setDifficultyData] = useState(undefined);
+  useEffect(() => {
+    if (practiceMode !== 'adaptive' || difficultyData !== undefined) return undefined;
+    let live = true;
+    loadQuestionDifficulty().then(
+      (data) => { if (live) setDifficultyData(data || {}); },
+      () => { if (live) setDifficultyData(null); },
+    );
+    return () => { live = false; };
+  }, [practiceMode, difficultyData]);
+  const adaptiveHelp = useMemo(
+    () => (practiceMode === 'adaptive' ? adaptiveHelpText({ data: difficultyData, pool: availablePool }) : ''),
+    [practiceMode, difficultyData, availablePool],
+  );
 
   useEffect(() => {
     if (knownAvailableCount == null || knownAvailableCount < 1 || numQuestions <= knownAvailableCount) return;
@@ -90,7 +125,6 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, top
     : practiceMode === 'wrong' ? 'ทบทวนข้อที่ตอบผิด — เรียงตามความถี่ (ผิดบ่อยขึ้นก่อน)'
     : practiceMode === 'current-scope' ? `ตามสไลด์ปัจจุบัน — ${scopeLabel}, เฉลยตรวจแล้ว ตรง ${SEMESTER.id}`
     : practiceMode === 'predicted' ? `ชุดน่าจะออก — ${scopeLabel}, หลักฐานอย่างน้อย 2 ทาง ไม่ใช่ข้อสอบยืนยัน`
-    : practiceMode === 'adaptive' ? 'ปรับระดับ — เลือกข้อให้พอดีกับระดับของคุณจากประวัติการตอบ เรียงง่ายไปยาก'
     : topicMeta ? `${subjMeta?.icon} ${subjMeta?.name} → ${topicMeta.icon} ${topicMeta.label}`
     : `${subjMeta?.icon} ${subjMeta?.name}`;
 
@@ -208,10 +242,10 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, top
                 ปรับระดับ
               </button>
             </div>
-            <div className="vmx-config-availability">
+            <div className="vmx-config-availability" aria-live="polite">
               {practiceMode === 'adaptive'
-                ? 'เลือกข้อให้ตรงระดับของคุณจากประวัติการตอบ เรียงจากง่ายไปยาก'
-                : 'สุ่มจากทั้งชุด กด "ปรับระดับ" ให้ชุดข้อสอบจับระดับให้เอง'}
+                ? adaptiveHelp
+                : 'สุ่มจากทั้งชุด ส่วน "ปรับระดับ" จะเลือกข้อที่ยากพอดีกับคุณเมื่อข้อนั้นมีคนตอบมากพอ'}
             </div>
           </div>
         )}
