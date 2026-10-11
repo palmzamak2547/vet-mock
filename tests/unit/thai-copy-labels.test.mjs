@@ -95,7 +95,8 @@ test('the spaced-repetition start and finish screens label their numbers in Thai
   assert.ok(s.includes('ในรอบทบทวนมี <strong>{eligibleCount}</strong> ข้อ ไม่รวม <strong>{excludedCount}</strong> ข้อ'));
   // The date beside a card is the day it came due, which is today or earlier
   // for every card in a round; "รอบถัดไป 3 วันที่แล้ว" would contradict itself.
-  assert.equal(count(s, 'ถึงรอบ {fmtDate(currentCard.nextReview)}'), 3);
+  // It is the due date of the scheduler that served the card (FSRS or SM-2).
+  assert.equal(count(s, 'ถึงรอบ {fmtDate(dueAt(currentCard, scheduler))}'), 3);
   // Pinned by mochi-presence and motion-integration.
   assert.ok(s.includes("'เริ่ม Session →'"));
   assert.ok(s.includes('แสดงคำตอบ (Space)'));
