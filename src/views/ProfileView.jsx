@@ -210,7 +210,9 @@ export default function ProfileView({
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
         <h2>แอปของฉัน</h2>
         <div style={{ marginBottom: 12 }}>
-          <PWAInstallChip />
+          {/* The permanent place to install: ignores Home's "don't show again"
+              and explains the manual steps when the browser offers nothing. */}
+          <PWAInstallChip hub />
         </div>
         <Row
           label="เกี่ยวกับ VetMock"

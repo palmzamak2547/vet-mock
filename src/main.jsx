@@ -11,6 +11,7 @@ import { applyIdMigration } from './lib/id-migration.js'
 
 import './lib/dom-compat.js'
 import './lib/app-lifecycle.js'
+import './lib/install-prompt.js'
 import { applyMotionPreference, subscribeMotionPreferences } from './lib/motion-preferences.js'
 
 applyMotionPreference()

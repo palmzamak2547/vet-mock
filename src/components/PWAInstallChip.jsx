@@ -9,14 +9,23 @@
 //   • AND user hasn't dismissed for this version
 //   • AND not already installed (display-mode: standalone)
 //
+// The install event itself is caught once at boot by lib/install-prompt.js
+// and read from there: Chromium raises it once per page load, so a chip that
+// mounts later (the profile hub's) would otherwise never see it.
+//
+// In the profile hub (`hub`) the chip is the permanent way to install: it
+// ignores the dismissal Home's chip stores, has no "don't show again", and
+// says how to install by hand when the browser offers nothing.
+//
 // On Chrome-family: tapping fires the native prompt.
 // On iOS: opens an instructional modal explaining the manual flow.
 // iPadOS 15+ keeps the Safari toolbar at the TOP of the screen, so the
 // modal swaps the step wording for iPad instead of naming a bottom bar.
 // ============================================================
 
-import { useEffect, useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 import { useModalFocus } from '../hooks/useModalFocus.js';
+import { clearInstallPrompt, getInstallPrompt, subscribeInstallPrompt } from '../lib/install-prompt.js';
 
 const DISMISS_KEY = 'vmx-pwa-install-dismissed';
 
@@ -62,25 +71,18 @@ const IS_IPAD = (() => {
   return isTouchMac || (/Macintosh/.test(ua) && 'ontouchend' in document);
 })();
 
-export default function PWAInstallChip() {
-  const [deferredPrompt, setDeferredPrompt] = useState(null);
+const noInstallPrompt = () => null;
+
+export default function PWAInstallChip({ hub = false }) {
+  const deferredPrompt = useSyncExternalStore(subscribeInstallPrompt, getInstallPrompt, noInstallPrompt);
   const [showIosTip, setShowIosTip] = useState(false);
+  const [installed, setInstalled] = useState(false);
   const dialogRef = useModalFocus({ active: showIosTip, onClose: () => setShowIosTip(false) });
   const [dismissed, setDismissed] = useState(() => {
     try { return window.localStorage.getItem(DISMISS_KEY) === '1'; } catch { return false; }
   });
 
-  useEffect(() => {
-    if (isStandalone()) return; // already installed
-    const onBeforeInstall = (e) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-    };
-    window.addEventListener('beforeinstallprompt', onBeforeInstall);
-    return () => window.removeEventListener('beforeinstallprompt', onBeforeInstall);
-  }, []);
-
-  if (dismissed || isStandalone()) return null;
+  if (installed || isStandalone() || (dismissed && !hub)) return null;
 
   // Show on iOS Safari even without beforeinstallprompt — the path is
   // manual (Share → Add to Home Screen) but the chip helps users find
@@ -88,10 +90,21 @@ export default function PWAInstallChip() {
   // and don't have a clean A2HS path either).
   const canPrompt = !!deferredPrompt;
   const canIosTip = isIOSSafari();
-  if (!canPrompt && !canIosTip) return null;
+  if (!canPrompt && !canIosTip) {
+    // The hub is where a student goes on purpose to install, so an empty slot
+    // is a dead end: say how to do it by hand (in-app browsers, Firefox, or
+    // a browser that has not offered the install yet).
+    return hub ? (
+      <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink-soft)' }}>
+        เปิดด้วย Chrome หรือ Safari แล้วเลือกติดตั้งแอปหรือเพิ่มที่หน้าจอโฮมจากเมนูของเบราว์เซอร์
+      </p>
+    ) : null;
+  }
 
   const handleClick = async () => {
     if (canPrompt && deferredPrompt) {
+      // A prompt can be shown once, so it leaves the store as it is used.
+      clearInstallPrompt();
       try {
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
@@ -99,8 +112,8 @@ export default function PWAInstallChip() {
           // Native prompt closes itself; clear and persist dismissal
           try { window.localStorage.setItem(DISMISS_KEY, '1'); } catch {}
           setDismissed(true);
+          setInstalled(true);
         }
-        setDeferredPrompt(null);
       } catch {}
     } else if (canIosTip) {
       setShowIosTip(true);
@@ -138,14 +151,16 @@ export default function PWAInstallChip() {
         >
           📲 ติดตั้งแอป
         </button>
-        <button
-          type="button"
-          className="vmx-link-btn"
-          onClick={dismiss}
-          aria-label="ปิดข้อความนี้"
-          title="ไม่แสดงอีก"
-          style={{ all: 'unset', cursor: 'pointer', color: 'var(--clr-ink-soft)', fontSize: 14, lineHeight: 1 }}
-        >×</button>
+        {!hub && (
+          <button
+            type="button"
+            className="vmx-link-btn"
+            onClick={dismiss}
+            aria-label="ปิดข้อความนี้"
+            title="ไม่แสดงอีก"
+            style={{ all: 'unset', cursor: 'pointer', color: 'var(--clr-ink-soft)', fontSize: 14, lineHeight: 1 }}
+          >×</button>
+        )}
       </div>
 
       {showIosTip && (
@@ -175,7 +190,7 @@ export default function PWAInstallChip() {
             </p>
             <div className="vmx-btn-row" style={{ marginTop: 14 }}>
               <button className="vmx-btn vmx-btn-ghost" onClick={() => setShowIosTip(false)} type="button">ปิด</button>
-              <button className="vmx-btn vmx-btn-ghost" onClick={dismiss} type="button">ไม่แสดงอีก</button>
+              {!hub && <button className="vmx-btn vmx-btn-ghost" onClick={dismiss} type="button">ไม่แสดงอีก</button>}
             </div>
           </div>
         </div>
