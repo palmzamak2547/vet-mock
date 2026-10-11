@@ -191,7 +191,7 @@ export function chartsForResult(analysis, table, ctx = {}) {
   } catch {
     kit = [];
   }
-  const out = kit.map((c) => ({ id: c.id, kind: c.kind, titleKey: `ws.chart.title.${c.kind}`, input: c.input, needsRows: Boolean(c.needsRows) }));
+  const out = kit.map((c) => ({ id: c.id, kind: c.kind, titleKey: c.titleKey || `ws.chart.title.${c.kind}`, input: c.input, needsRows: Boolean(c.needsRows) }));
   const base = analysis.id || env.method?.id || 'result';
   const extra = extraCharts(env, labelOf, levelOf, ctx.t || null).map((c) => ({ ...c, id: `${base}:${c.id}` }));
   // A two-way ANOVA is read from its cell means, and the report's figure is that chart (it needs no rows):

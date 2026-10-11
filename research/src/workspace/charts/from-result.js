@@ -12,11 +12,39 @@
 //   roc.delong          'coords' [test, threshold, se, sp] (test = 'test' or 'test2'), 'youden' the same
 //                       columns for the tied best cut-offs; values AUC (and AUC2) with ci (measure)
 //   agree.blandAltman   'points' [mean, difference]; values bias, loaLower, loaUpper with ci (measure)
+// M3a (lab; M3-DESIGN.md 5, the lab builders' notes):
+//   nls.fourPL          'curve' [x, fitted, lower, upper] (a row at x = 0 first when a dose of 0 exists),
+//                       'potency' [kind, estimate, lower, upper, response], 'unknowns' [rowId, response, x, lower,
+//                       upper, reason] (x null = outside the curve)
+//   nls.doseResponse    'curve' [group, x, fitted, lower, upper], 'potency' [group, kind, estimate, lower, upper,
+//                       response, n, r2] (group null without a group role)
+//   nls.equation        'curve' [x, fitted, lower, upper]
+//   calc.auc            'means' [time, group, n, mean, sd, lower, upper] (numeric times), 'areas' [animal, group,
+//                       area, nTimes]
+//   qpcr.relative       'samples' [rowId, group, dCt, fold], 'groups' [level, n, meanDCt, sdDCt, lower, upper,
+//                       fold, foldLower, foldUpper]
+//   mv.pca              'components' [component, eigenvalue, sdev, proportion, cumulative], 'biplotPoints'
+//                       [rowId, subject, group, pc1, pc2], 'biplotArrows' [item, pc1, pc2]
+//   anova.repeated      with factorB: 'means' [time, factorB, group, n, mean, sd, lower, upper]
 import { completeRows, groupsAt, numbersAt, role } from '../../lib/stats/common.js';
 import { seFromLogCi } from './helpers.js';
 import { valueKind } from '../lib/method-ui.js';
+// the M3 charts' titles and words (src/i18n/graphs-m3.js), registered before a listed chart's title renders
+import './words.js';
 
 const num = (v) => typeof v === 'number' && Number.isFinite(v);
+/** Chart titles of the M3 charts (graphs words; the M2 charts take ws.chart.title.<kind>). */
+const TITLE = Object.freeze({
+  standardCurve: 'graphs.title.standardCurve', doseResponse: 'graphs.title.doseResponse', fittedCurve: 'graphs.title.fittedCurve',
+  aucCourse: 'graphs.title.aucCourse', aucAreas: 'graphs.title.aucAreas', qpcrFold: 'graphs.title.qpcrFold',
+  scree: 'graphs.title.scree', biplot: 'graphs.title.biplot', twoWithin: 'graphs.title.twoWithin',
+});
+/** A table cell as a group key: '' for a null group (one curve, no group role). */
+const cellKey = (v) => (v === null || v === undefined ? '' : String(v));
+/** A share (0 to 1) as a percent with one decimal. */
+const pct1 = (v) => (num(v) ? `${(v * 100).toFixed(1)}%` : '');
+/** The text a subject or level cell of the open table shows (a category's level, else the value). */
+const cellText = (col, i) => (col.kind === 'category' ? cellKey((col.levels || [])[col.values[i]]) : cellKey(col.values[i]));
 const tableOf = (env, id) => (env?.tables || []).find((tb) => tb.id === id) || null;
 const colOf = (tb, ...names) => {
   if (!tb) return -1;
@@ -68,7 +96,8 @@ export function chartOptions(analysis, table, o = {}) {
   const rowsOk = Boolean(table) && !o.stale;
   const level = Object.values(env.values || {}).find((v) => v?.ciLevel)?.ciLevel ?? spec.options?.confLevel ?? 0.95;
   const out = [];
-  const add = (kind, input, needsRows) => out.push({ id: `${analysis.id || method}:${kind}`, kind, input, needsRows });
+  // titleKey: an M3 chart's own title (graphs words); without it the screen uses ws.chart.title.<kind>
+  const add = (kind, input, needsRows, titleKey) => out.push({ id: `${analysis.id || method}:${kind}`, kind, input, needsRows, ...(titleKey ? { titleKey } : {}) });
   const safe = (fn) => { try { fn(); } catch { /* a role column that no longer exists: no chart */ } };
 
   const yKey = role(spec, 'outcome');
@@ -117,6 +146,18 @@ export function chartOptions(analysis, table, o = {}) {
         add('violin', base, true);
       });
     }
+    if (method === 'qpcr.efficiency') {
+      // the dilution series: Ct against log10 of the input amount, with its least-squares line (the slope the
+      // efficiency comes from; the line is the kit's pinned OLS helper on the same points the result used)
+      safe(() => {
+        const xk = role(spec, 'x');
+        const yk = role(spec, 'outcome');
+        const { rows } = completeRows(table, [xk, yk]);
+        const xs = numbersAt(table, xk, rows);
+        const ys = numbersAt(table, yk, rows);
+        add('scatter', { points: xs.map((x, i) => ({ x, y: ys[i] })), xTitle: labelOf(xk), yTitle: labelOf(yk), line: true, level }, true);
+      });
+    }
     if (method === 'corr.pearson' || method === 'corr.spearman' || method === 'reg.ols') {
       safe(() => {
         const xk = method === 'reg.ols' ? [].concat(spec.roles?.covariates ?? role(spec, 'x') ?? [])[0] : role(spec, 'x');
@@ -155,7 +196,33 @@ export function chartOptions(analysis, table, o = {}) {
     const se = num(r.se) && r.ciMethod === 'wald-log' ? r.se : symmetric ? seFromLogCi(r.ci, r.ciLevel ?? level) : null;
     if (se) add('ciFunction', { est: r.value, se, label: nameOf(r.name), xTitle: nameOf(r.name), level: r.ciLevel ?? level }, false);
   }
-  if (method === 'anova.repeated') {
+  if (method === 'anova.repeated' && tableOf(env, 'means') && colOf(tableOf(env, 'means'), 'factorB') >= 0) {
+    // two within factors (M3): one panel per group, one line per level of the second factor (time-panels.js)
+    safe(() => {
+      const tb = tableOf(env, 'means');
+      const [ti, bi, gi, ni, mi, li, ui] = ['time', 'factorB', 'group', 'n', 'mean', 'lower', 'upper'].map((c) => colOf(tb, c));
+      const timeKey = role(spec, 'time');
+      const fbKey = role(spec, 'factorB');
+      const times = [];
+      const levels = [];
+      const groups = [];
+      for (const row of tb.rows) {
+        if (!times.includes(cellKey(row[ti]))) times.push(cellKey(row[ti]));
+        if (!levels.includes(cellKey(row[bi]))) levels.push(cellKey(row[bi]));
+        const g = gi >= 0 ? cellKey(row[gi]) : '';
+        if (!groups.includes(g)) groups.push(g);
+      }
+      const panels = groups.map((g) => ({
+        label: g ? levelOf(gKey, g) : null,
+        series: levels.map((b) => ({
+          label: levelOf(fbKey, b),
+          points: tb.rows.filter((row) => (gi >= 0 ? cellKey(row[gi]) : '') === g && cellKey(row[bi]) === b)
+            .map((row) => ({ time: times.indexOf(cellKey(row[ti])), mean: row[mi], lo: row[li], hi: row[ui], n: ni >= 0 ? row[ni] : undefined })),
+        })),
+      }));
+      add('timeCourse', { panels, times: times.map((x) => levelOf(timeKey, x)), seriesTitle: labelOf(fbKey), panelTitle: groups.some(Boolean) && gKey ? labelOf(gKey) : '', yTitle: labelOf(yKey), xTitle: labelOf(timeKey), level }, false, TITLE.twoWithin);
+    });
+  } else if (method === 'anova.repeated') {
     const tb = tableOf(env, 'means');
     if (tb) {
       const [ti, gi, ni, mi, li, ui] = [colOf(tb, 'time'), colOf(tb, 'group'), colOf(tb, 'n'), colOf(tb, 'mean'), colOf(tb, 'lower', 'ciLow'), colOf(tb, 'upper', 'ciHigh')];
@@ -216,6 +283,131 @@ export function chartOptions(analysis, table, o = {}) {
         xTitle: o.t ? o.t('graphs.ba.xTitle') : '', yTitle: o.t ? o.t(`graphs.ba.yTitle.${spec.options?.scale || 'absolute'}`, { a: labelOf(role(spec, 'raterA')), b: labelOf(role(spec, 'raterB')) }) : '',
       }, false);
     }
+  }
+  // ---- M3a charts (M3-DESIGN.md 5)
+  if (method === 'nls.fourPL' || method === 'nls.doseResponse' || method === 'nls.equation') {
+    safe(() => {
+      const tb = tableOf(env, 'curve');
+      if (!tb) return;
+      const [gi, xi, fi, li, ui] = ['group', 'x', 'fitted', 'lower', 'upper'].map((c) => colOf(tb, c));
+      const xKey = role(spec, 'x');
+      const gk = method === 'nls.doseResponse' ? role(spec, 'group') : null;
+      const groupOf = (row) => (gi >= 0 ? cellKey(row[gi]) : '');
+      const labels = [];
+      for (const row of tb.rows) if (!labels.includes(groupOf(row))) labels.push(groupOf(row));
+      const pot = method === 'nls.equation' ? null : tableOf(env, 'potency');
+      const potOf = (g) => {
+        if (!pot) return null;
+        const [pg, pk, pe, pl, pu, pr] = ['group', 'kind', 'estimate', 'lower', 'upper', 'response'].map((c) => colOf(pot, c));
+        const row = pot.rows.find((r) => (pg >= 0 ? cellKey(r[pg]) : '') === g);
+        return row ? { kind: row[pk], estimate: row[pe], lower: row[pl], upper: row[pu], response: row[pr] } : null;
+      };
+      // the measured points come from the rows the result used (a standard curve's unknowns have no
+      // concentration: they are drawn from the envelope's 'unknowns' table)
+      let pts = null;
+      if (rowsOk) {
+        const keys = [xKey, yKey, ...(gk ? [gk] : [])];
+        const { rows } = completeRows(table, keys);
+        const xs = numbersAt(table, xKey, rows);
+        const ys = numbersAt(table, yKey, rows);
+        const gcol = gk ? table.columns[gk] : null;
+        pts = rows.map((r, j) => ({ x: xs[j], y: ys[j], g: gcol ? cellText(gcol, r) : '' }));
+      }
+      const curves = labels.map((g) => ({
+        label: g ? levelOf(gk, g) : null,
+        curve: tb.rows.filter((row) => groupOf(row) === g).map((row) => ({ x: row[xi], fitted: row[fi], lower: row[li], upper: row[ui] })),
+        potency: potOf(g),
+        points: pts ? pts.filter((p) => p.g === g).map(({ x, y }) => ({ x, y })) : [],
+      }));
+      const ut = method === 'nls.fourPL' ? tableOf(env, 'unknowns') : null;
+      const unknowns = ut ? ut.rows.map((row) => ({ label: row[colOf(ut, 'rowId')], response: row[colOf(ut, 'response')], x: row[colOf(ut, 'x')], lower: row[colOf(ut, 'lower')], upper: row[colOf(ut, 'upper')], reason: row[colOf(ut, 'reason')] })) : [];
+      const kind = method === 'nls.fourPL' ? 'standardCurve' : method === 'nls.equation' ? 'fittedCurve' : 'doseResponse';
+      add(kind, { curves, unknowns, xTitle: labelOf(xKey), yTitle: labelOf(yKey), level }, Boolean(pts && pts.length), TITLE[kind]);
+    });
+  }
+  if (method === 'calc.auc') {
+    safe(() => {
+      const mt = tableOf(env, 'means');
+      const at = tableOf(env, 'areas');
+      const gk = role(spec, 'group');
+      const tk = role(spec, 'time');
+      const sk = role(spec, 'subject');
+      if (mt) {
+        const [ti, gi, ni, mi, li, ui] = ['time', 'group', 'n', 'mean', 'lower', 'upper'].map((c) => colOf(mt, c));
+        const tvals = [...new Set(mt.rows.map((r) => r[ti]).filter(num))].sort((a, b) => a - b);
+        const groups = [];
+        for (const row of mt.rows) { const g = gi >= 0 ? cellKey(row[gi]) : ''; if (!groups.includes(g)) groups.push(g); }
+        const series = groups.map((g) => ({
+          label: g ? levelOf(gk, g) : labelOf(yKey),
+          points: mt.rows.filter((row) => (gi >= 0 ? cellKey(row[gi]) : '') === g).map((row) => ({ time: tvals.indexOf(row[ti]), mean: row[mi], lo: row[li], hi: row[ui], n: ni >= 0 ? row[ni] : undefined })),
+        }));
+        // one thin line per animal the result kept (the areas table), on that animal's own times
+        const animals = [];
+        if (rowsOk && at && sk && tk) {
+          const kept = new Set(at.rows.map((r) => cellKey(r[colOf(at, 'animal')])));
+          const { rows } = completeRows(table, [sk, tk, yKey, ...(gk ? [gk] : [])]);
+          const [sc, tc, yc] = [table.columns[sk], table.columns[tk], table.columns[yKey]];
+          const gc = gk ? table.columns[gk] : null;
+          const byAnimal = new Map();
+          for (const r of rows) {
+            const id = cellText(sc, r);
+            if (!kept.has(id)) continue;
+            if (!byAnimal.has(id)) byAnimal.set(id, { series: gc ? groups.indexOf(cellText(gc, r)) : 0, values: new Array(tvals.length).fill(null) });
+            const k = tvals.indexOf(tc.values[r]);
+            if (k >= 0) byAnimal.get(id).values[k] = yc.values[r];
+          }
+          for (const a of byAnimal.values()) if (a.series >= 0) animals.push(a);
+        }
+        add('timeCourse', { variant: 'auc', baseline: spec.options?.baseline ?? 'zero', times: tvals.map((v) => String(v)), timeValues: tvals, series, animals, yTitle: labelOf(yKey), xTitle: labelOf(tk), level }, animals.length > 0, TITLE.aucCourse);
+      }
+      if (at) {
+        const [gi, ri] = [colOf(at, 'group'), colOf(at, 'area')];
+        const levels = [];
+        for (const row of at.rows) { const g = gi >= 0 ? cellKey(row[gi]) : ''; if (!levels.includes(g)) levels.push(g); }
+        const groups = levels.map((g) => ({ label: g ? levelOf(gk, g) : labelOf(yKey), values: at.rows.filter((row) => (gi >= 0 ? cellKey(row[gi]) : '') === g).map((row) => row[ri]).filter(num) }));
+        add('dot', { groups, center: 'mean', yTitle: o.t ? o.t('graphs.auc.yTitle', { outcome: labelOf(yKey) }) : labelOf(yKey), xTitle: gk ? labelOf(gk) : '', level }, false, TITLE.aucAreas);
+      }
+    });
+  }
+  if (method === 'qpcr.relative') {
+    safe(() => {
+      const st = tableOf(env, 'samples');
+      const gt = tableOf(env, 'groups');
+      if (!st || !gt) return;
+      const gk = role(spec, 'group');
+      const [sg, sf] = [colOf(st, 'group'), colOf(st, 'fold')];
+      const [gl, gn, gf, gfl, gfu] = ['level', 'n', 'fold', 'foldLower', 'foldUpper'].map((c) => colOf(gt, c));
+      const cal = cellKey(spec.levels?.controlLevel ?? gt.rows[0]?.[gl]);
+      const groups = gt.rows.map((row) => ({
+        label: levelOf(gk, cellKey(row[gl])),
+        n: row[gn],
+        folds: st.rows.filter((r) => cellKey(r[sg]) === cellKey(row[gl])).map((r) => r[sf]),
+        center: row[gf], lo: row[gfl], hi: row[gfu],
+      }));
+      add('qpcrFold', { groups, calibrator: levelOf(gk, cal), xTitle: labelOf(gk), level }, false, TITLE.qpcrFold);
+    });
+  }
+  if (method === 'mv.pca') {
+    safe(() => {
+      const ct = tableOf(env, 'components');
+      if (!ct) return;
+      const [ci, ei, pi, cu] = ['component', 'eigenvalue', 'proportion', 'cumulative'].map((c) => colOf(ct, c));
+      add('scree', { components: ct.rows.map((r) => ({ label: String(r[ci]), eigenvalue: r[ei], proportion: r[pi], cumulative: r[cu] })), reference: spec.options?.scale !== false }, false, TITLE.scree);
+      const bp = tableOf(env, 'biplotPoints');
+      const ba = tableOf(env, 'biplotArrows');
+      if (!bp || !ba) return;
+      const gk = role(spec, 'group');
+      const axis = (k) => {
+        const share = ct.rows[k]?.[pi];
+        const pc = String(ct.rows[k]?.[ci] ?? `PC${k + 1}`);
+        return num(share) && o.t ? o.t('graphs.biplot.axis', { pc, share: pct1(share) }) : pc;
+      };
+      const [bs, bg, b1, b2] = ['subject', 'group', 'pc1', 'pc2'].map((c) => colOf(bp, c));
+      const [ai, a1, a2] = ['item', 'pc1', 'pc2'].map((c) => colOf(ba, c));
+      const points = bp.rows.map((r) => ({ label: r[bs] === null || r[bs] === undefined ? null : String(r[bs]), group: r[bg] === null || r[bg] === undefined ? null : levelOf(gk, String(r[bg])), pc1: r[b1], pc2: r[b2] }));
+      const groups = [...new Set(points.map((p) => p.group).filter((g) => g !== null))];
+      add('biplot', { points, arrows: ba.rows.map((r) => ({ label: labelOf(r[ai]), pc1: r[a1], pc2: r[a2] })), groups, xTitle: axis(0), yTitle: axis(1) }, false, TITLE.biplot);
+    });
   }
   return out;
 }
