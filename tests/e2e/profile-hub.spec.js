@@ -50,6 +50,8 @@ async function openProfileHub(page) {
 test('an install prompt raised on Home is still offered in the hub, and is spent by one tap', async ({ page, browserName }) => {
   test.skip(browserName !== 'chromium', 'only Chromium-family browsers raise beforeinstallprompt');
   await openHome(page);
+  // chromium-mobile carries an iPhone user agent, so the hub shows the Safari steps instead of a prompt row.
+  test.skip(await page.evaluate(() => /iPhone|iPad|iPod/.test(navigator.userAgent)), 'an iOS user agent gets the Safari steps');
   await page.evaluate(raiseInstallPrompt);
 
   const hub = await openProfileHub(page);
@@ -78,6 +80,7 @@ test('the hub keeps the install row after the chip was dismissed on Home', async
 test('with no prompt and no Safari steps the hub says how to install instead of showing nothing', async ({ page, browserName }) => {
   test.skip(browserName === 'webkit', 'iOS Safari has its own install steps behind the chip');
   await openHome(page);
+  test.skip(await page.evaluate(() => /iPhone|iPad|iPod/.test(navigator.userAgent)), 'an iOS user agent gets the Safari steps');
 
   const hub = await openProfileHub(page);
   await expect(hub.getByText(GUIDANCE)).toBeVisible();

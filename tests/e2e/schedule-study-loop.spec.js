@@ -33,7 +33,12 @@ test('a final timetable entry launches its own paper despite the selected midter
   expect(saved.questions.every(question => question.subject === exam.subject && questionInScope(question, 'final'))).toBe(true);
 });
 
+// The suite's pinned day (25 Sep) is inside the midterm, when the timetable says classes are suspended,
+// so this one sets its own clock in a teaching week.
+test.describe('in a teaching week', () => {
+  test.use({ pinCalendar: false });
 test('a timetable class with notes and no current-paper practice opens reading and returns', async ({ page }) => {
+  await page.clock.install({ time: new Date('2026-10-13T10:00:00+07:00') });
   const lesson = CLASS_TIMETABLE.y5.find(item => hasNotes(item.subject)
     && !Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE['1-mid'][item.subject]);
   expect(lesson).toBeTruthy();
@@ -44,4 +49,5 @@ test('a timetable class with notes and no current-paper practice opens reading a
   await expect(page.locator('[data-reading-content]')).not.toBeEmpty();
   await page.getByRole('button', { name: /ตารางเรียนและสอบ/ }).first().click();
   await expect(page.getByRole('heading', { name: /ตาราง\s*เรียนและสอบ/ })).toBeVisible();
+});
 });
