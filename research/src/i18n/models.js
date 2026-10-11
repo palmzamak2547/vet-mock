@@ -35,7 +35,7 @@ export default {
     // notes
     'models.note.emptyLevels': 'ระดับเหล่านี้ไม่มีสัตว์ในแถวที่ใช้ จึงไม่อยู่ในสมการ: {levels}',
     'models.note.fittedExtreme': 'บางตัวมีความน่าจะเป็นที่คำนวณได้ใกล้ 0 หรือ 1 มาก แต่ค่าประมาณยังนิ่งและหาค่าได้ ตรวจค่าของตัวเหล่านั้นว่าบันทึกถูกต้อง',
-    'models.note.separation': 'ทางแก้ที่ทำได้: รวมระดับที่มีสัตว์น้อยเข้ากับระดับข้างเคียง หรือใช้ Firth\'s correction (การปรับค่าประมาณที่ให้ค่ามีขอบเขตแม้ผลลัพธ์แยกกันเด็ดขาด)',
+    'models.note.separation': 'ทางแก้ที่ทำได้: รวมระดับที่มีสัตว์น้อยเข้ากับระดับข้างเคียง ตัดตัวแปรนั้นออก หรือใช้ Firth\'s correction (การปรับค่าประมาณที่ให้ค่ามีขอบเขตแม้ผลลัพธ์แยกกันเด็ดขาด)',
     'models.note.zeroCounts': 'ทางแก้ที่ทำได้: รวมระดับที่มีสัตว์น้อยเข้ากับระดับข้างเคียง หรือตัดตัวแปรนั้นออก',
     'models.note.firth': 'ค่าประมาณใช้ Firth\'s correction (penalised likelihood คือ likelihood ที่บวกค่าปรับ ทำให้ค่าประมาณมีขอบเขตแม้มีกลุ่มที่ผลลัพธ์เป็นค่าเดียวทั้งกลุ่ม และลดความเอนเมื่อสัตว์น้อย) CI ใช้ profile penalised likelihood ค่า p ของแต่ละค่าสัมประสิทธิ์ แต่ละตัวแปร และทั้งสมการ มาจาก penalised likelihood-ratio test',
     'models.note.firthWald': 'ค่าประมาณใช้ Firth\'s correction (penalised likelihood คือ likelihood ที่บวกค่าปรับ ทำให้ค่าประมาณมีขอบเขตแม้มีกลุ่มที่ผลลัพธ์เป็นค่าเดียวทั้งกลุ่ม และลดความเอนเมื่อสัตว์น้อย) CI และค่า p ของแต่ละค่าสัมประสิทธิ์ใช้วิธี Wald ส่วนค่า p ของแต่ละตัวแปรและทั้งสมการมาจาก penalised likelihood-ratio test',
@@ -127,7 +127,7 @@ export default {
     'models.undefined.noLower': 'The lower confidence band never reaches 50%, so there is no lower limit.',
     'models.note.emptyLevels': 'These levels have no animals in the rows used, so they are not in the model: {levels}',
     'models.note.fittedExtreme': 'Some animals have a fitted probability very close to 0 or 1, but the estimates are stable and finite. Check that those animals’ values were recorded correctly.',
-    'models.note.separation': 'What can help: merge a level with few animals into its neighbour, or use Firth\'s correction (it keeps the estimates finite even when the outcome is split completely).',
+    'models.note.separation': 'What can help: merge a level with few animals into its neighbour, leave that variable out, or use Firth\'s correction (it keeps the estimates finite even when the outcome is split completely).',
     'models.note.zeroCounts': 'What can help: merge a level with few animals into its neighbour, or leave that variable out.',
     'models.note.firth': 'Estimates use Firth\'s correction (penalised likelihood: the likelihood plus a penalty that keeps the estimates finite even when a group has one outcome for every animal, and reduces their bias when there are few animals). Intervals use profile penalised likelihood; the p-values of each coefficient, each variable and the whole model come from penalised likelihood-ratio tests.',
     'models.note.firthWald': 'Estimates use Firth\'s correction (penalised likelihood: the likelihood plus a penalty that keeps the estimates finite even when a group has one outcome for every animal, and reduces their bias when there are few animals). Intervals and the test of each coefficient use the Wald method; the p-values of each variable and of the whole model come from penalised likelihood-ratio tests.',

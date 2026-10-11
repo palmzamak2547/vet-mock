@@ -9,7 +9,11 @@
 //     lim (both components, both ends), on the top and right axes, so the origin is shared;
 //   - each axis is extended by 4% at both ends (R's default xaxs = "r"); arrows run to 0.8 of the loading
 //     coordinates and their labels sit at the full coordinates.
-// Point labels come from `subject` when there are 40 points or fewer; colours and shapes from `group`.
+// Point labels come from `subject` when there are 40 points or fewer; colours and shapes from `group`. A point with no
+// group value is drawn as an open grey circle and named in the legend, never in the first group's colour. The arrows,
+// their names and their axis numbers are drawn in the ink, not in a group colour (a series colour is contrast 3.7 to
+// 4.0 on the paper, below 4.5 for text, and group 2 has the same hue). Names of arrows that load alike are moved to
+// the next free line, or numbered when no line is free.
 // Pure. OWNER: graphs role.
 import { markerNode, seriesShape, seriesToken } from './palette.js';
 import { linearScale, textWidth } from './scale.js';
@@ -38,7 +42,7 @@ export function biplotScales(points, arrows) {
 }
 
 /**
- * @param {{ points: { label?: string|null, group?: string|null, pc1: number, pc2: number }[], arrows: { label: string, pc1: number, pc2: number }[], groups?: string[], xTitle?: string, yTitle?: string }} input
+ * @param {{ points: { label?: string|null, group?: string|null, pc1: number, pc2: number }[], arrows: { label: string, pc1: number, pc2: number }[], groups?: string[], scale?: boolean, xTitle?: string, yTitle?: string }} input
  */
 export function biplotChart(input, opts) {
   const ctx = makeCtx(opts);
@@ -51,7 +55,8 @@ export function biplotChart(input, opts) {
   const dom = [lim[0] - 0.04 * span, lim[1] + 0.04 * span];
   const domA = [dom[0] * ratio, dom[1] * ratio];
   const groups = input.groups?.length ? input.groups : [...new Set(pts.map((p) => p.group).filter((g) => g !== null && g !== undefined && g !== ''))];
-  const legend = groups.length > 1 ? groupLegend(groups) : [];
+  const loose = groups.length ? pts.filter((p) => !groups.includes(p.group)).length : 0; // points with no group value
+  const legend = groups.length > 1 || (groups.length === 1 && loose) ? [...groupLegend(groups), ...(loose ? [{ label: t('graphs.biplot.noGroup'), color: 'soft', shape: 'circle', open: true }] : [])] : [];
   const labelled = pts.length <= BIPLOT_LABEL_MAX && pts.some((p) => p.label !== null && p.label !== undefined && p.label !== '');
   const xTitle = input.xTitle || 'PC1';
   const yTitle = input.yTitle || 'PC2';
@@ -83,16 +88,16 @@ export function biplotChart(input, opts) {
   const aL = tickLabels(aT);
 
   const nodes = [...yAxis(ctx, box, y, yT, yL, yTitle, { grid: false }), ...xAxis(ctx, box, x, xTicks, xLabs, xTitle)];
-  // the arrows' axes, top and right, in the arrows' colour
+  // the arrows' axes, top and right: numbers in the ink, like the arrows
   const axisLine = { stroke: 'soft', 'stroke-width': r2(u) };
   nodes.push(line(box.left, box.top, box.right, box.top, axisLine), line(box.right, box.top, box.right, box.bottom, axisLine));
   aTicksX.forEach((v, i) => {
     nodes.push(line(xa(v), box.top, xa(v), box.top - 4 * u, axisLine));
-    nodes.push(text(xa(v), box.top - fs * 0.55, aLabsX[i], { 'text-anchor': 'middle', 'font-size': fs, fill: 's1' }));
+    nodes.push(text(xa(v), box.top - fs * 0.55, aLabsX[i], { 'text-anchor': 'middle', 'font-size': fs, fill: 'ink' }));
   });
   aT.forEach((v, i) => {
     nodes.push(line(box.right, ya(v), box.right + 4 * u, ya(v), axisLine));
-    nodes.push(text(box.right + 6 * u, ya(v) + fs * 0.35, aL[i], { 'font-size': fs, fill: 's1' }));
+    nodes.push(text(box.right + 6 * u, ya(v) + fs * 0.35, aL[i], { 'font-size': fs, fill: 'ink' }));
   });
   const dotted = { stroke: 'line', 'stroke-width': r2(0.8 * u), 'stroke-dasharray': `${r2(2 * u)} ${r2(3 * u)}` };
   nodes.push(line(x(0), box.top, x(0), box.bottom, dotted), line(box.left, y(0), box.right, y(0), dotted));
@@ -106,30 +111,59 @@ export function biplotChart(input, opts) {
   const taken = []; // boxes of the labels placed so far: [left, right, top, bottom]
   const clash = (b) => taken.some((q) => b[0] < q[1] && b[1] > q[0] && b[2] < q[3] && b[3] > q[2]);
   const arrowNodes = [];
-  for (const a of arrows) {
+  // a name (or number) goes where it is wanted, else on the nearest free line above or below it (a number may also
+  // move sideways, by whole widths of itself); null when nothing near is free
+  const lyMin = box.top + fs * 1.1;
+  const lyMax = box.bottom - fs * 0.4;
+  const lineStep = fs * 1.1;
+  const slotFor = (w, lx0, ly0, sideways) => {
+    for (let k = 0; k <= 12; k += 1) {
+      for (const dir of k ? [1, -1] : [1]) {
+        const ly = ly0 + dir * k * lineStep;
+        if (ly < lyMin - 1e-9 || ly > lyMax + 1e-9) continue;
+        for (const j of sideways ? [0, -1, 1, -2, 2, -3, 3] : [0]) {
+          const lx = lx0 + j * w * 1.6;
+          if (lx - w / 2 < box.left + 2 * u || lx + w / 2 > box.right - 2 * u) continue;
+          const b = [lx - w / 2, lx + w / 2, ly - fs * 0.8, ly + fs * 0.25];
+          if (!clash(b)) return { lx, ly, b };
+        }
+      }
+    }
+    return null;
+  };
+  const numbered = []; // arrows whose name found no free line: drawn as their number in the table, named in a note
+  arrows.forEach((a, ai) => {
     const x1 = xa(a.pc1 * 0.8);
     const y1 = ya(a.pc2 * 0.8);
     const x0 = xa(0);
     const y0 = ya(0);
-    arrowNodes.push(line(x0, y0, x1, y1, { stroke: 's1', 'stroke-width': r2(1.4 * u) }));
+    arrowNodes.push(line(x0, y0, x1, y1, { stroke: 'ink', 'stroke-width': r2(1.4 * u) }));
     const ang = Math.atan2(y1 - y0, x1 - x0);
     if (Math.hypot(x1 - x0, y1 - y0) > head * 0.5) {
-      arrowNodes.push(pathOf([[x1 - head * Math.cos(ang - 0.45), y1 - head * Math.sin(ang - 0.45)], [x1, y1], [x1 - head * Math.cos(ang + 0.45), y1 - head * Math.sin(ang + 0.45)]], { fill: 'none', stroke: 's1', 'stroke-width': r2(1.4 * u) }));
+      arrowNodes.push(pathOf([[x1 - head * Math.cos(ang - 0.45), y1 - head * Math.sin(ang - 0.45)], [x1, y1], [x1 - head * Math.cos(ang + 0.45), y1 - head * Math.sin(ang + 0.45)]], { fill: 'none', stroke: 'ink', 'stroke-width': r2(1.4 * u) }));
     }
-    const w = textWidth(a.label, fs);
-    const lx = Math.min(box.right - w / 2 - 2 * u, Math.max(box.left + w / 2 + 2 * u, xa(a.pc1)));
-    const ly = Math.min(box.bottom - fs * 0.4, Math.max(box.top + fs * 1.1, ya(a.pc2) + fs * 0.35));
-    taken.push([lx - w / 2, lx + w / 2, ly - fs * 0.8, ly + fs * 0.25]);
-    late.push(text(lx, ly, a.label, { 'text-anchor': 'middle', 'font-size': fs, fill: 's1', stroke: 'paper', 'stroke-width': r2(3 * u), 'paint-order': 'stroke' }));
-  }
+    const place = (str, sideways) => {
+      const w = textWidth(str, fs);
+      const lx0 = Math.min(box.right - w / 2 - 2 * u, Math.max(box.left + w / 2 + 2 * u, xa(a.pc1)));
+      const ly0 = Math.min(lyMax, Math.max(lyMin, ya(a.pc2) + fs * 0.35));
+      const slot = slotFor(w, lx0, ly0, sideways);
+      if (!slot) return false;
+      taken.push(slot.b);
+      late.push(text(slot.lx, slot.ly, str, { 'text-anchor': 'middle', 'font-size': fs, fill: 'ink', stroke: 'paper', 'stroke-width': r2(3 * u), 'paint-order': 'stroke' }));
+      return true;
+    };
+    if (!place(a.label, false) && place(String(ai + 1), true)) numbered.push(ai + 1);
+  });
   // points, and their names where a name fits: right of the point, else left, above, below; a name that would
   // cover another name (or an arrow's) is left out and counted, so no two names are ever printed over each other
   let unlabelled = 0;
   for (const p of pts) {
-    const gi = Math.max(0, groups.indexOf(p.group));
+    const gi = groups.length ? groups.indexOf(p.group) : 0;
     const px = x(p.pc1);
     const py = y(p.pc2);
-    nodes.push(markerNode(seriesShape(gi), px, py, rad, { fill: seriesToken(gi), 'fill-opacity': 0.8, stroke: 'paper', 'stroke-width': r2(0.5 * u) }));
+    nodes.push(gi < 0
+      ? markerNode('circle', px, py, rad, { fill: 'none', stroke: 'soft', 'stroke-width': r2(1.2 * u) }) // no group value: never a group's colour
+      : markerNode(seriesShape(gi), px, py, rad, { fill: seriesToken(gi), 'fill-opacity': 0.8, stroke: 'paper', 'stroke-width': r2(0.5 * u) }));
     if (!labelled || p.label === null || p.label === undefined || p.label === '') continue;
     const str = String(p.label);
     const w = textWidth(str, small);
@@ -149,7 +183,9 @@ export function biplotChart(input, opts) {
   nodes.push(rect(box.left, box.top, side, side, { fill: 'none', stroke: 'soft', 'stroke-width': r2(u) }), ...late);
 
   const rows = arrows.map((a) => [a.label, fmtN(ctx, a.pc1), fmtN(ctx, a.pc2)]);
-  const notes = [t('graphs.note.biplot')];
+  const notes = [t(input.scale === false ? 'graphs.note.biplotCov' : 'graphs.note.biplot')];
+  if (loose) notes.push(t('graphs.note.biplotNoGroup', { n: loose }));
+  if (numbered.length) notes.push(t('graphs.note.biplotArrowNumbers', { list: numbered.map((n) => `${n} = ${arrows[n - 1].label}`).join('; ') }));
   if (!labelled && pts.length > BIPLOT_LABEL_MAX && pts.some((p) => p.label !== null && p.label !== undefined && p.label !== '')) notes.push(t('graphs.note.biplotNoLabels', { n: BIPLOT_LABEL_MAX }));
   if (unlabelled) notes.push(t('graphs.note.biplotLabelsLeft', { n: unlabelled }));
   return finish(ctx, {

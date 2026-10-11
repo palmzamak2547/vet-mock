@@ -82,7 +82,7 @@ const ROWS = [
   ['ws.roleFor.regNegbin.time', 'เวลาที่ติดตาม (ถ้ามี)', 'Follow-up time (if any)'],
   ['ws.roleHintFor.regNegbin.time', 'เช่นจำนวนวันที่ติดตามแต่ละตัว ใช้เป็น offset ในสมการ', 'For example days each animal was followed; used as the offset in the model'],
   ['ws.roleFor.anovaRepeated.factorB', 'ปัจจัยที่สองที่วัดในตัวเดิม (ถ้ามี)', 'Second within-animal factor (if any)'],
-  ['ws.roleHintFor.anovaRepeated.factorB', 'เช่นชั่วโมงหลังให้อาหารในแต่ละช่วงที่วัด ข้อมูลต้องมีหนึ่งแถวต่อสัตว์ต่อทุกคู่ของสองปัจจัย', 'Such as the hour after feeding within each phase. The data need one row per animal for every pair of the two factors.'],
+  ['ws.roleHintFor.anovaRepeated.factorB', 'เช่นชั่วโมงหลังให้อาหารในแต่ละช่วงที่วัด ข้อมูลต้องมีหนึ่งแถวต่อสัตว์ต่อทุกคู่ของสองปัจจัย ถ้าปัจจัยนี้เป็นตัวเลข เช่น 1 ถึง 5 ให้ตั้งชนิดเป็นกลุ่มมีลำดับในหน้ารหัสตัวแปรก่อน', 'Such as the hour after feeding within each phase. The data need one row per animal for every pair of the two factors. If this factor is made of numbers, such as 1 to 5, set the column to Ordered categories in the Codebook first.'],
 
   ['ws.opt.model.label', 'รูปแบบเส้นโค้ง', 'Curve model'],
   ['ws.opt.model.4pl', '4PL (สมมาตร)', '4PL (symmetric)'],
@@ -132,7 +132,7 @@ const ROWS = [
   ['ws.firth.switch', 'ใช้ Firth’s correction', 'Use Firth’s correction'],
   ['ws.firth.switchHint', 'สำหรับผลลัพธ์ที่แยกกันเด็ดขาด (separation) ระบบไม่เปิดให้เอง CI คิดแบบ profile penalised likelihood หรือ Wald ตามตัวเลือกวิธีคำนวณ CI', 'For an outcome that is split completely (separation). It is never switched on for you. Intervals use profile penalised likelihood, or Wald, as the CI method option says.'],
   ['ws.firth.stopTitle', 'สมการแบบปกติให้ตัวเลขไม่ได้ เพราะเกิด separation', 'The usual model gives no numbers here: separation'],
-  ['ws.firth.stopBody', 'มีกลุ่มที่ผลลัพธ์เป็นค่าเดียวทั้งกลุ่ม ทางเลือกคือรวมระดับที่มีสัตว์น้อยเข้ากับระดับข้างเคียงก่อน หรือคำนวณใหม่ด้วย Firth’s correction ซึ่งให้ค่าประมาณมีขอบเขต เลือกเองว่าจะใช้ทางไหน ผลที่ได้จะบอกว่าใช้ Firth’s correction', 'A group has the same outcome for every animal. You can merge a level with few animals into its neighbour first, or compute again with Firth’s correction, which keeps the estimates finite. The choice is yours; the result says when Firth’s correction was used.'],
+  ['ws.firth.stopBody', 'ผลลัพธ์แยกกันเด็ดขาดด้วยตัวแปรหนึ่งตัวหรือหลายตัวรวมกัน คือสัตว์ทุกตัวในระดับ ช่วงค่า หรือชุดค่าชุดหนึ่งมีผลลัพธ์เหมือนกันหมด ทางเลือกคือรวมระดับที่มีสัตว์น้อยเข้ากับระดับข้างเคียง เอาตัวแปรออกจากสมการ หรือคำนวณใหม่ด้วย Firth’s correction ซึ่งให้ค่าประมาณมีขอบเขต เลือกเองว่าจะใช้ทางไหน ผลที่ได้จะบอกว่าใช้ Firth’s correction', 'The outcome is split completely by one variable or a combination of them: every animal in a level, a range of values or a combination has the same outcome. You can merge a level with few animals into its neighbour, leave a variable out, or compute again with Firth’s correction, which keeps the estimates finite. The choice is yours; the result says when Firth’s correction was used.'],
   ['ws.firth.run', 'คำนวณใหม่ด้วย Firth’s correction', 'Compute again with Firth’s correction'],
   // chart titles of the M3a kinds the chart kit draws (M3-DESIGN.md 5; chart-inputs.js titles a kit chart ws.chart.title.<kind>)
   ['ws.chart.title.doseResponse', 'เส้น dose-response และแถบ 95% CI', 'Dose-response curves with their 95% CI bands'],

@@ -19,7 +19,7 @@ import { clusterPanel } from '../../lib/epi/guardrails.js';
 import { getMethod } from '../../lib/runtime/catalog.js';
 import { COMMON_OPTIONS, DEFAULT_OPTIONS } from '../../lib/runtime/spec.js';
 import { useWs, errorInfo } from '../ws-context.js';
-import { ALTERNATIVES, CONF_LEVELS, METHOD_UI, buildSpec, columnsForRole, initialChoices, methodsForPane, missingRoles, rolesFor, testValue, visibleOptions, efficiencyGenes, efficiencyRecord, isSeparationStop, optionsOnGroupChange, parseEfficiency, withFirth } from '../lib/method-ui.js';
+import { ALTERNATIVES, CONF_LEVELS, METHOD_UI, buildSpec, columnsForRole, initialChoices, methodsForPane, missingRoles, rolesFor, testValue, visibleOptions, optionShown, efficiencyGenes, efficiencyRecord, isSeparationStop, optionsOnGroupChange, parseEfficiency, withFirth } from '../lib/method-ui.js';
 import { QUESTION_PANES, groupByQuestion, termsFor } from '../lib/method-questions.js';
 import { chartsForResult, repeatsCiPlot } from '../lib/chart-inputs.js';
 import ResultCharts from '../components/ResultCharts.jsx';
@@ -75,10 +75,10 @@ function optionLabel(t, method, name) {
 }
 
 /** Option controls for one method: a select per option with more than one allowed value. */
-function OptionControls({ method, options, setOptions }) {
+function OptionControls({ method, options, setOptions, roles }) {
   const { t } = useT();
   const ui = METHOD_UI[method];
-  const entries = visibleOptions(method, DEFAULT_OPTIONS[method] || {});
+  const entries = visibleOptions(method, DEFAULT_OPTIONS[method] || {}).filter(([name]) => optionShown(method, name, roles));
   return (
     <div className="rs-formgrid">
       {entries.map(([name, vals]) => (
@@ -501,7 +501,7 @@ export default function AnalysisPane({ p, pane }) {
               ) : null}
               <details className="rs-options">
                 <summary>{t('ws.analysis.options')}</summary>
-                <OptionControls method={method} options={options} setOptions={setOptions} />
+                <OptionControls method={method} options={options} setOptions={setOptions} roles={choices.roles} />
                 {qpcr && options.method === 'pfaffl' ? (
                   <EfficiencyBoxes genes={efficiencyGenes(choices.roles)} texts={effTexts} nameOf={labelOf} setText={(key, v) => setExtra((x) => ({ ...x, [`eff:${key}`]: v }))} />
                 ) : null}
@@ -510,7 +510,7 @@ export default function AnalysisPane({ p, pane }) {
                 <div className="rs-field">
                   <label className="rs-check" htmlFor="rs-opt-firth">
                     <input id="rs-opt-firth" type="checkbox" checked={options.method === 'firth'} onChange={(e) => setOptions((o) => withFirth(o, e.target.checked))} />
-                    <span lang="en">{t('ws.firth.switch')}</span>
+                    <span>{t('ws.firth.switch')}</span>
                   </label>
                   <p className="rs-field-hint">{t('ws.firth.switchHint')}</p>
                 </div>

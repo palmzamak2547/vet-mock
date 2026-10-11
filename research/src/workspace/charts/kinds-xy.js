@@ -137,7 +137,9 @@ export function timeCourseChart(input, opts) {
   const tv = input.timeValues;
   const numeric = Array.isArray(tv) && tv.length === times.length && tv.every(num);
   const drawLegend = series.length > 1 && !input.noLegend;
-  const yDomain = Array.isArray(input.yDomain) && input.yDomain.every(num) ? input.yDomain : paddedDomain(allY, { pad: 0.06 });
+  // the area of calc.auc with baseline 0 is measured from 0: the value axis shows 0, so the area drawn is the area computed
+  const aucFromZero = input.variant === 'auc' && input.baseline !== 'first';
+  const yDomain = Array.isArray(input.yDomain) && input.yDomain.every(num) ? input.yDomain : paddedDomain(allY, { pad: 0.06, include: aucFromZero ? [0] : [] });
   const f = xyFrame(ctx, numeric
     ? { xDomain: paddedDomain(tv, { pad: 0.04 }), yDomain, xTitle: input.xTitle, yTitle: input.yTitle, legend, drawLegend }
     : { xDomain: [-0.5, times.length - 0.5], xCategories: times, yDomain, xTitle: input.xTitle, yTitle: input.yTitle, legend, drawLegend });
@@ -186,8 +188,9 @@ export function timeCourseChart(input, opts) {
       : t('graphs.summary.timeCourse', { k: series.length, times: times.length, rows: rows.map((r) => `${r[0]} ${r[1]} ${r[3]} (${r[4]})`).join('; ') }),
     notes: [
       t(cells ? (input.factorTitle ? 'graphs.note.cellMeansNamed' : 'graphs.note.cellMeans') : (input.animals || []).length ? 'graphs.note.timeCourse' : 'graphs.note.timeCourseMeans', { level: lv, factor: input.factorTitle || '' }),
-      // area under the curve (calc.auc): the times at their real spacing, so each line encloses the area computed
-      ...(input.variant === 'auc' && numeric ? [t(input.baseline === 'first' ? 'graphs.note.aucCourseFirst' : 'graphs.note.aucCourse')] : []),
+      // area under the curve (calc.auc): the times at their real spacing; the zero-baseline sentence is about the animals'
+      // lines, so it is printed only when those lines are drawn
+      ...(input.variant === 'auc' && numeric ? (input.baseline === 'first' ? [t('graphs.note.aucCourseFirst')] : (input.animals || []).length ? [t('graphs.note.aucCourse')] : []) : []),
     ],
     extras: { plot: plotBox(f.box) },
   });

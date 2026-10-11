@@ -149,8 +149,10 @@ export function valueLabel(name, t, methodId = null, words = null) {
   // ones. The area comes before the general words so an M1 word does not shadow it (review round 1: a
   // logistic model's count of positive outcomes read "new cases" through ws.value.cases).
   const area = wordAreaOf(methodId);
+  // two within factors: the values the one-factor screen words by 'time' name the student's columns instead
+  const two = methodId === 'anova.repeated' && words?.spec?.roles?.factorB;
   const keys = methodId
-    ? [`ws.value.${keyPart(methodId)}.${name}`, area && `${area}.value.${keyPart(methodId)}.${name}`, area && `${area}.value.${name}`, `ws.value.${name}`, `epi.value.${name}`].filter(Boolean)
+    ? [`ws.value.${keyPart(methodId)}.${name}`, area && two && `${area}.value.two.${name}`, area && `${area}.value.${keyPart(methodId)}.${name}`, area && `${area}.value.${name}`, `ws.value.${name}`, `epi.value.${name}`].filter(Boolean)
     : [`ws.value.${name}`, `epi.value.${name}`];
   const params = labelParams(methodId, t, words);
   for (const key of keys) {
@@ -185,6 +187,13 @@ function labelParams(methodId, t, words) {
     const roles = words?.spec?.roles || {};
     const name = (r, fallback) => (roles[r] && words?.columnName ? words.columnName(roles[r]) : t(fallback));
     return { a: name('group', 'lab.word.firstFactor'), b: name('factorB', 'lab.word.secondFactor') };
+  }
+  if (methodId === 'anova.repeated') {
+    // the effects of a repeated-measures model by the columns chosen (two within factors: "phase by hour", not
+    // "time by second within factor"); the generic words stand in where no column is known
+    const roles = words?.spec?.roles || {};
+    const name = (r, fallback) => (roles[r] && words?.columnName ? words.columnName(roles[r]) : t(fallback));
+    return { a: name('time', 'lab.word.time'), b: name('factorB', 'lab.word.secondWithin'), g: name('group', 'lab.word.group') };
   }
   if (methodId !== 'agree.blandAltman') return undefined;
   const roles = words?.spec?.roles || {};
