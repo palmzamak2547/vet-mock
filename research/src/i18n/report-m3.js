@@ -117,6 +117,8 @@ const ROWS = [
   ['report.test.lrPoisson', 'likelihood-ratio test เทียบกับ Poisson regression (หารค่า p ครึ่งหนึ่ง)', 'the likelihood-ratio test against Poisson regression (p halved)'],
   ['report.test.plr.lrNull', 'penalised likelihood-ratio test ของทั้งสมการ', 'the penalised likelihood-ratio test of the whole model'],
   ['report.test.plr.lr', 'penalised likelihood-ratio test', 'the penalised likelihood-ratio test'],
+  // a table caption one method gives a table id another method also uses (result-words.js envTableText)
+  ['report.tableFor.mvPca.items', 'ค่าเฉลี่ยและ SD ของแต่ละตัวแปรที่วัด', 'Mean and SD of each measurement'],
   ['report.effect.interaction3', 'ผลร่วม (interaction) ของ{a} {b}และ{c}', 'the interaction of {a}, {b} and {c}'],
   // M3a script comments (R and SPSS)
   ['report.script.name.ic50', 'IC50', 'IC50'],
