@@ -9,7 +9,7 @@
 // a syntax error. This test keeps the local scripts and the workflow in step.
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 
 const read = (rel) => readFileSync(new URL(`../../${rel}`, import.meta.url), 'utf8');
 const { scripts } = JSON.parse(read('package.json'));
@@ -22,9 +22,15 @@ const { default: ciConfig } = await import('../../playwright.config.js');
 const flag = (cmd, name) => cmd.match(new RegExp(`--${name}=(\\d+)`))?.[1];
 const projectsOf = (cmd) => [...cmd.matchAll(/--project=([\w-]+)/g)].map((m) => m[1]).sort();
 
-const ciSteps = workflow
+const playwrightSteps = workflow
   .split(/\n\s*- name: /)
-  .filter((step) => /npx playwright test/.test(step))
+  .filter((step) => /npx playwright test/.test(step));
+// One step is not part of the suite: it runs a few named specs against a second,
+// database-configured bundle (see the last test). It names its spec files; the
+// two suite steps never do.
+const namesSpecFiles = (step) => /tests\/e2e\/[\w-]+\.spec\.js/.test(step);
+const ciSteps = playwrightSteps
+  .filter((step) => !namesSpecFiles(step))
   .map((step) => ({
     projects: projectsOf(step),
     workers: Number(flag(step, 'workers') ?? ciConfig.workers),
@@ -61,4 +67,29 @@ test('test:e2e:ci runs each CI step with the same projects, workers, retries and
 test('between them the two steps cover every Playwright project', () => {
   const covered = [...localStep('test:e2e:chromium').projects, ...localStep('test:e2e:gl').projects].sort();
   assert.deepEqual(covered, ciConfig.projects.map((p) => p.name).sort());
+});
+
+// Specs that model a signed-in account skip themselves when the bundle has no
+// database configuration, and the suite steps above build none, so they ran
+// nowhere in CI while the check stayed green. The workflow builds a second,
+// configured bundle and runs exactly those specs against it on chromium. This
+// keeps that list equal to the specs that skip, so a fifth one cannot go unrun.
+test('the connected-bundle step runs every spec that skips without a database, and only on chromium', () => {
+  const skipping = readdirSync(new URL('../e2e/', import.meta.url))
+    .filter((name) => name.endsWith('.spec.js'))
+    .filter((name) => /no Supabase configuration/.test(read(`tests/e2e/${name}`)))
+    .map((name) => `tests/e2e/${name}`)
+    .sort();
+  assert.ok(skipping.length >= 4, `expected at least the four known specs, found ${skipping.join(', ')}`);
+  const connected = playwrightSteps.filter(namesSpecFiles);
+  assert.equal(connected.length, 1, 'one step runs the specs that need a configured bundle');
+  const [step] = connected;
+  const named = [...step.matchAll(/tests\/e2e\/[\w-]+\.spec\.js/g)].map((m) => m[0]).sort();
+  assert.deepEqual(named, skipping, 'every spec that skips without database settings must be named in the connected step');
+  assert.deepEqual(projectsOf(step), ['chromium-desktop', 'chromium-mobile']);
+  // The settings live on the build of that second bundle, never on the suite build.
+  assert.match(workflow, /VITE_SUPABASE_URL: https:\/\/mpovsdzdggvksmeehqfj\.supabase\.co/);
+  assert.match(step, /PLAYWRIGHT_BASE_URL: http:\/\/127\.0\.0\.1:\d+/);
+  const suiteBuild = workflow.split(/\n\s*- name: /).find((s) => /^Build production bundle/.test(s));
+  assert.doesNotMatch(suiteBuild, /SUPABASE/, 'the suite bundle stays unconfigured: other specs assume no backend');
 });
