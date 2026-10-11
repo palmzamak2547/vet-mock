@@ -6,9 +6,13 @@ import { METHODS } from '../../src/lib/runtime/catalog.js';
 
 const base = (method, input = { kind: 'counts', counts: { table: [[1, 2], [3, 4]] } }) => ({ specVersion: 1, method, input, design: null, roles: {}, levels: {}, options: {}, cluster: { route: null, column: null } });
 
-test('every M1 and M2 catalogue method has defaults and allowed values, and nothing else does', () => {
-  const built = METHODS.filter((m) => m.milestone === 'M1' || m.milestone === 'M2').map((m) => m.id).sort();
-  assert.deepEqual([...METHOD_IDS].sort(), built);
+test('every M1 and M2 catalogue method has defaults and allowed values, an M3 row with an owner may, nothing else does', () => {
+  const built = METHODS.filter((m) => m.milestone === 'M1' || m.milestone === 'M2').map((m) => m.id);
+  // M3a (M3-DESIGN.md 2, 8): an area writes an M3 row's options when its builder starts on it; every M3a row names
+  // its owner, the M3b rows (owner null) cannot have any yet.
+  const m3 = new Set(METHODS.filter((m) => m.milestone === 'M3' && m.owner).map((m) => m.id));
+  for (const id of built) assert.ok(METHOD_IDS.includes(id), `${id} has no defaults`);
+  for (const id of METHOD_IDS) assert.ok(built.includes(id) || m3.has(id), `${id} has defaults but is not an M1, M2 or owned M3 row`);
   for (const id of METHOD_IDS) {
     assert.ok(ALLOWED[id], `no allowed values for ${id}`);
     for (const k of Object.keys(DEFAULT_OPTIONS[id])) assert.ok(ALLOWED[id][k], `${id}.${k} has a default but no allowed list`);

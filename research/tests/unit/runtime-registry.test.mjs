@@ -11,9 +11,13 @@ import { collect, render } from '../../scripts/regen-verified.mjs';
 
 const here = (p) => fileURLToPath(new URL(p, import.meta.url));
 
-test('every M1 and M2 method has exactly one candidate implementation, and nothing else does', () => {
-  const built = METHODS.filter((m) => m.milestone === 'M1' || m.milestone === 'M2').map((m) => m.id).sort();
-  assert.deepEqual(Object.keys(CANDIDATES).sort(), built);
+test('every M1 and M2 method has exactly one candidate implementation, an M3 row with an owner may, nothing else does', () => {
+  const built = METHODS.filter((m) => m.milestone === 'M1' || m.milestone === 'M2').map((m) => m.id);
+  // M3a (M3-DESIGN.md 2, 8): an area adds an M3 row's implementation as its builder writes it (registration still
+  // waits for the fixture test, below); the M3b rows (owner null) cannot have one yet.
+  const m3 = new Set(METHODS.filter((m) => m.milestone === 'M3' && m.owner).map((m) => m.id));
+  for (const id of built) assert.ok(CANDIDATES[id], `${id} has no candidate`);
+  for (const id of Object.keys(CANDIDATES)) assert.ok(built.includes(id) || m3.has(id), `${id} is a candidate but not an M1, M2 or owned M3 row`);
   for (const c of Object.values(CANDIDATES)) assert.equal(typeof c.impl, 'function');
 });
 
