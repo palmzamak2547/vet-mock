@@ -8,6 +8,9 @@ import { fmtKind, isStale, pText, primaryValueName, valueRows, valueLabel as val
 import { keyPart } from '../lib/keys.js';
 import { pairText, suffixText } from '../lib/term-words.js';
 import { usesHiddenColumns } from '../../lib/runtime/export.js';
+import { m3MethodDetails, m3Results, potencyWord } from './m3.js';
+// The M3a words load with the report code, not with the workspace's first chunk.
+import './words-m3.js';
 
 /**
  * @typedef {{ formatNumber: Function, formatP: Function, formatCi: Function }} Fmt
@@ -83,7 +86,8 @@ export function publicVersion(engine) {
 /** Sentences ending as the language writes them, joined into one paragraph. */
 function sentences(list, lang) {
   const { end } = punct(lang);
-  return list.filter(Boolean).map((x) => x.replace(/\s{2,}/g, ' ').trim().replace(/[.\s]+$/, '') + end).join(' ');
+  // A name padded for Thai (padInThai) inside brackets loses the padding next to them: "(Ct ของ IL-6)", not "( Ct ของ IL-6 )".
+  return list.filter(Boolean).map((x) => x.replace(/\s{2,}/g, ' ').replace(/\(\s+/g, '(').replace(/\s+\)/g, ')').trim().replace(/[.\s]+$/, '') + end).join(' ');
 }
 
 /** The last top-level "(...)" that ends a text: { head, body }, or null when the text does not end in one. */
@@ -169,13 +173,20 @@ function variantOf(spec) {
     case 'adjust.pValues': return o.method === 'none' ? 'none' : null;
     // M2 [M2-DESIGN.md 3]: the option that changes what the methods sentence must say.
     case 'anova.twoWay': return o.ssType === 'II' ? 'typeII' : 'typeIII';
-    case 'anova.repeated': return o.sphericity === 'hf' ? 'hf' : o.sphericity === 'none' ? 'none' : 'gg';
+    case 'anova.repeated': {
+      // A second within factor (M3a, C11) has its own opening sentence: two within effects and their interaction.
+      const v = o.sphericity === 'hf' ? 'hf' : o.sphericity === 'none' ? 'none' : 'gg';
+      return spec.roles?.factorB ? `twoWithin${v[0].toUpperCase()}${v.slice(1)}` : v;
+    }
     case 'posthoc.dunn': return o.adjust === 'none' ? 'none' : null;
     case 'diag.brownForsythe': return o.center === 'mean' ? 'mean' : null;
     case 'diag.shapiro': return o.on === 'groups' ? 'groups' : null;
     case 'test.mannWhitney':
     case 'test.wilcoxonSignedRank': return o.estimate === 'hodges-lehmann' ? 'hodgesLehmann' : null;
+    // Firth's correction (M3a, C9) is its own sentence: profile penalised likelihood, never "profile likelihood".
     case 'reg.logistic':
+      if (o.method === 'firth') return o.ciMethod === 'wald' ? 'firthWald' : 'firthProfile';
+      return spec.cluster?.route === 'robust' || o.ciMethod === 'wald' ? 'wald' : 'profile';
     case 'reg.poisson': return spec.cluster?.route === 'robust' || o.ciMethod === 'wald' ? 'wald' : 'profile';
     case 'agree.blandAltman': return o.scale === 'percent' ? 'percent' : o.scale === 'ratio' ? 'ratio' : null;
     case 'rel.cronbach': return o.ciMethod === 'none' ? 'none' : null;
@@ -183,9 +194,23 @@ function variantOf(spec) {
     case 'surv.kaplanMeier': return o.test === 'none' || !spec.roles?.group ? 'noTest' : null;
     case 'power.tTest': return o.type === 'paired' ? 'paired' : o.type === 'one.sample' || o.type === 'one-sample' ? 'oneSample' : null;
     case 'design.randomisation': return ['block', 'stratified-block'].includes(o.scheme) ? keyPart(o.scheme) : 'simple';
+    // M3a [M3-DESIGN.md 6]: the model, equation, baseline, qPCR method and PCA matrix each change the sentence.
+    case 'nls.fourPL':
+    case 'nls.doseResponse': return o.model === '5pl' ? 'fivePL' : 'fourPL';
+    case 'nls.equation': return ['decay', 'growth'].includes(o.equation) ? o.equation : 'michaelisMenten';
+    case 'calc.auc': return o.baseline === 'first' ? 'first' : 'zero';
+    case 'qpcr.relative': return o.method === 'pfaffl' ? 'pfaffl' : 'livak';
+    case 'mv.pca': return o.scale === false ? 'covariance' : 'correlation';
+    case 'reg.negbin': return o.ciMethod === 'wald' ? 'wald' : 'profile';
     default: return null;
   }
 }
+
+/**
+ * The key part a method's own words are filed under: repeated measures with a second within factor has its own
+ * role and drop words ('anovaRepeated2'), every other method its id's.
+ */
+const wordKey = (spec) => (spec?.method === 'anova.repeated' && spec.roles?.factorB ? 'anovaRepeated2' : keyPart(spec?.method || ''));
 
 /**
  * The opening sentence for one method, from the method's own sentence in the report dictionary
@@ -233,6 +258,9 @@ function methodLead(spec, env, ctx) {
     within: spec.roles?.time ? col(spec.roles.time) : '',
     // the one-sample t-test's test value, as saved in the spec (R's mu; 0 when absent)
     mu: typeof o.mu === 'number' ? String(o.mu) : '0',
+    // M3a: the potency named by the curve's direction in the envelope, and the qPCR gene of interest
+    potency: potencyWord(env, t),
+    target: spec.roles?.outcome ? col(spec.roles.outcome) : '',
   };
   const base = `report.methods.method.${keyPart(method)}`;
   const variant = variantOf(spec);
@@ -258,7 +286,7 @@ export function methodsSentence(analysis, ctx) {
     .filter(([role, v]) => !(route === 'mh-within' && role === 'strata' && [].concat(v).every((k) => k === clusterColumn)));
   // A role can mean something else in one method (the time role is the follow-up time of a survival
   // analysis and the time points of a repeated-measures ANOVA), so a method's own word wins.
-  const roleName = (role) => [`report.role.${keyPart(spec.method || '')}.${role}`, `report.role.${role}`].map((k) => (has(t, k) ? t(k) : null)).find(Boolean) || t(`ws.role.${role}`);
+  const roleName = (role) => [`report.role.${wordKey(spec)}.${role}`, `report.role.${keyPart(spec.method || '')}.${role}`, `report.role.${role}`].map((k) => (has(t, k) ? t(k) : null)).find(Boolean) || t(`ws.role.${role}`);
   const out = [methodLead(spec, env, ctx)];
   if (spec.method === 'desc.table1') {
     // Table 1 lists what it describes and what splits its columns, in its own words (review round 3:
@@ -291,6 +319,8 @@ export function methodsSentence(analysis, ctx) {
     const joined = several ? roles.join(punct(lang).sep) : joinList(roles, lang, t);
     if (roles.length) out.push(each ? roles.join(punct(lang).sep) : t(count === 1 ? 'report.methods.rolesOne' : 'report.methods.roles', { roles: joined }));
   }
+  // M3a: how the intervals were made, what was read off a curve, how groups were compared [M3-DESIGN.md 6].
+  out.push(...m3MethodDetails(spec, env, { t, lang, col, levelName: ctx.levelName || ((k, v) => v), join: (items) => joinList(items, lang, t), level: levelText(spec) }));
   // One-way ANOVA says how the groups were compared pairwise, when it did so.
   if (spec.method === 'test.anova1' && (env?.tables || []).some((tb) => tb.id === 'posthoc') && spec.options?.posthoc && spec.options.posthoc !== 'none') {
     const k = `runtime.optv.${keyPart(spec.options.posthoc)}`;
@@ -304,7 +334,10 @@ export function methodsSentence(analysis, ctx) {
   // "679 rows with missing values were left out" for the 728 animals analysed as 49 farms).
   const aggregated = sum((d) => d.reason === 'aggregated');
   const removed = sum((d) => d.reason === 'excluded' || d.reason === 'filter');
-  const missing = sum((d) => d.reason !== 'aggregated' && d.reason !== 'excluded' && d.reason !== 'filter');
+  // Animals left out whole for an incomplete set of measurements are not rows with missing values (repeated
+  // measures, the area under the curve): they get their own sentence.
+  const incomplete = sum((d) => d.reason === 'incomplete');
+  const missing = sum((d) => d.reason !== 'aggregated' && d.reason !== 'excluded' && d.reason !== 'filter' && d.reason !== 'incomplete');
   const column = clusterColumn ? col(clusterColumn) : '';
   if (route === 'aggregate' && aggregated > 0) {
     const used = env?.provenance?.rowsUsed ?? 0;
@@ -312,6 +345,7 @@ export function methodsSentence(analysis, ctx) {
     if (spec.levels?.outcomePositive != null && spec.roles?.outcome) out.push(t('report.methods.aggregatePositive'));
   } else if (route && route !== 'none' && has(t, routeKey)) out.push(t(routeKey, { column }));
   if (removed > 0) out.push(t('report.methods.removed', { n: removed }));
+  if (incomplete > 0) out.push(t(has(t, `report.methods.incomplete.${wordKey(spec)}`) ? `report.methods.incomplete.${wordKey(spec)}` : 'report.methods.incomplete', { n: incomplete }));
   if (missing === 1) out.push(t('report.methods.droppedOne'));
   else if (missing > 1) out.push(t('report.methods.dropped', { n: missing }));
   return sentences(out, lang);
@@ -319,9 +353,10 @@ export function methodsSentence(analysis, ctx) {
 
 /** Tests that are effects of one model, written all together [M2-DESIGN.md 3.1.1, 3.1.2]. */
 const POSTHOC = new Set(['posthoc.dunnett', 'posthoc.gamesHowell', 'posthoc.dunn']);
-const EFFECT_TESTS = { 'anova.twoWay': ['A', 'B', 'AB'], 'anova.repeated': ['time', 'group', 'groupTime'] };
+// M3a (C11): a second within factor adds factorB, timeFactorB and their interactions with the group.
+const EFFECT_TESTS = { 'anova.twoWay': ['A', 'B', 'AB'], 'anova.repeated': ['time', 'group', 'groupTime', 'factorB', 'groupFactorB', 'timeFactorB', 'groupTimeFactorB'] };
 /** Repeated-measures effects inside animals, whose p carries the sphericity correction. */
-const WITHIN = new Set(['time', 'groupTime']);
+const WITHIN = new Set(['time', 'groupTime', 'factorB', 'groupFactorB', 'timeFactorB', 'groupTimeFactorB']);
 
 /** "the effect of <column>" / "the interaction of <A> and <B>", from the roles of the spec. */
 function effectName(test, spec, col, t) {
@@ -334,6 +369,10 @@ function effectName(test, spec, col, t) {
     case 'anova.repeated|time': return one(r.time);
     case 'anova.repeated|group': return one(r.group);
     case 'anova.repeated|groupTime': return t('report.effect.interaction', { a: col(r.group || ''), b: col(r.time || '') });
+    case 'anova.repeated|factorB': return one(r.factorB);
+    case 'anova.repeated|timeFactorB': return t('report.effect.interaction', { a: col(r.time || ''), b: col(r.factorB || '') });
+    case 'anova.repeated|groupFactorB': return t('report.effect.interaction', { a: col(r.group || ''), b: col(r.factorB || '') });
+    case 'anova.repeated|groupTimeFactorB': return t('report.effect.interaction3', { a: col(r.group || ''), b: col(r.time || ''), c: col(r.factorB || '') });
     default: return String(test.id);
   }
 }
@@ -364,13 +403,19 @@ function correctionOf(test, spec, t) {
   return t(`report.correction.${v === 'hf' ? 'hf' : v === 'none' ? 'none' : 'gg'}`);
 }
 
+/** Test variants that change a test's name in a sentence. */
+const NAMED_VARIANTS = new Set(['plr']);
+
 /** A test's name inside a sentence ("the chi-square test"), falling back to its table label. */
 function testName(test, t, words = null) {
   // One test per model term ('wald:c2=B'): the test's name with the term in the student's words, never
   // the envelope id (review round 1: "No p-value is shown for wald:c2=B").
   const id = String(test?.id || '');
   const colon = id.indexOf(':');
-  if (colon > 0) return t('ws.test.ofTerm', { test: testName({ id: id.slice(0, colon) }, t), term: suffixText(words?.spec?.method || null, id.slice(colon + 1), words ? { t, ...words } : null) });
+  if (colon > 0) return t('ws.test.ofTerm', { test: testName({ id: id.slice(0, colon), variant: test.variant }, t), term: suffixText(words?.spec?.method || null, id.slice(colon + 1), words ? { t, ...words } : null) });
+  // Firth's tests are penalised likelihood-ratio tests (variant 'plr'), and say so (M3a, C9).
+  const own = NAMED_VARIANTS.has(test?.variant) ? `report.test.${keyPart(test.variant)}.${keyPart(id)}` : null;
+  if (own && has(t, own)) return t(own);
   const key = `report.test.${keyPart(test?.id || '')}`;
   if (has(t, key)) return t(key);
   const k2 = `ws.test.${keyPart(test?.id || '')}`;
@@ -476,12 +521,31 @@ export function resultsSentence(analysis, ctx) {
     });
     return sentences(lines.map((x) => cap(lang, x)), lang);
   }
+  // M3a methods write their own sentences from their values, tests and tables (m3.js).
+  const m3 = m3Results(spec, env, {
+    t, lang, fmt, col, levelName, valueText, cap: (s) => cap(lang, s), level: levelText(spec),
+    statsText: (test) => statsText(test, fmt),
+    num: (x) => minus(fmt.formatNumber(x, { kind: 'statistic' })),
+    pText: (p) => pText(fmt, p),
+    join: (items) => joinList(items, lang, t),
+    estimate: (name) => {
+      const r = valueRows(env).find((x) => x.name === name);
+      if (!r) return null;
+      if (r.value === null || r.value === undefined) return t('report.results.undefined', { label: cap(lang, label(r.name)), reason: inBrackets(r.reasonKey ? t(r.reasonKey) : t('ws.result.undefinedNoReason')) });
+      return cap(lang, t('report.results.estimate', { label: label(r.name), value: valueText(r) }));
+    },
+    undefinedText: (r) => t('report.results.undefined', { label: cap(lang, r.label), reason: inBrackets(r.reasonKey ? t(r.reasonKey) : t('ws.result.undefinedNoReason')) }),
+  });
+  if (m3) return sentences(m3.length ? m3 : [t('report.results.tableOnly')], lang);
   const strata = [].concat(roles.strata || []).filter(Boolean);
   // A model's paragraph reports its ratios; the coefficients on the log scale and the intercept's test
   // stay in the table (review round 1: the report wrote "the coefficient B (intercept)" and its z).
-  const model = spec.method === 'reg.logistic' || spec.method === 'reg.poisson';
+  const model = spec.method === 'reg.logistic' || spec.method === 'reg.poisson' || spec.method === 'reg.negbin';
   const rows = valueRows(env, primary).filter((r) => !(model && r.name.startsWith('b:')));
-  const tests = (env.tests || []).filter((x) => !NOT_WRITTEN.has(x.id) && !(model && x.id === 'wald:(Intercept)'));
+  // Firth's terms are tested by penalised likelihood-ratio tests, as its methods sentence says; its Wald z (Wald
+  // intervals) stays in the table.
+  const firth = spec.method === 'reg.logistic' && spec.options?.method === 'firth';
+  const tests = (env.tests || []).filter((x) => !NOT_WRITTEN.has(x.id) && !(model && x.id === 'wald:(Intercept)') && !(firth && String(x.id).startsWith('wald:')));
   const sentenceFor = (r) => {
     if (r.value === null || r.value === undefined) {
       return t('report.results.undefined', { label: cap(lang, label(r.name)), reason: inBrackets(r.reasonKey ? t(r.reasonKey) : t('ws.result.undefinedNoReason')) });
@@ -510,6 +574,11 @@ export function resultsSentence(analysis, ctx) {
     out.push(strata.length ? t('report.results.compareAdjusted', { ...params, strata: joinList(strata.map(col), lang, t) }) : t('report.results.compare', params));
   }
   for (const r of chosen) if (!compared.includes(r)) out.push(sentenceFor(r));
+  // Negative binomial regression reports its dispersion parameter beside the ratios (M3a, C10).
+  const theta = spec.method === 'reg.negbin' ? env.values?.theta : null;
+  if (theta && typeof theta.value === 'number' && Number.isFinite(theta.value)) {
+    out.push(cap(lang, t('report.results.theta', { theta: minus(fmt.formatNumber(theta.value, { kind: 'statistic' })), se: typeof theta.se === 'number' ? fmt.formatNumber(theta.se, { kind: 'statistic' }) : '—' })));
+  }
   // Methods whose tests are effects of one model (two-way and repeated-measures ANOVA) write every
   // effect, named by its columns; other methods write their first two tests as in M1.
   const effects = EFFECT_TESTS[spec.method];
@@ -535,6 +604,12 @@ export function resultsSentence(analysis, ctx) {
 }
 
 /**
+ * The method whose words name a value: a negative binomial model's terms are named as Poisson's are (the same
+ * roles, ratios and references), until the term words list reg.negbin themselves.
+ */
+const termMethod = (methodId, name) => (methodId === 'reg.negbin' && String(name).includes(':') ? 'reg.poisson' : methodId);
+
+/**
  * The methods and results sentences under one result, in one language: the same sentences the
  * report draft writes for it, with columns and levels named from the codebook (review round 3: the
  * paragraphs under a result printed the column keys, "The prevalence of c13").
@@ -550,7 +625,7 @@ export function resultParagraphs(env, ctx) {
   const methodId = env?.method?.id || env?.spec?.method || '';
   // The same words the result view uses (an M2 method's area names its own values).
   const words = { spec: env?.spec || null, env, codebook: ctx.codebook || null, columnName, levelName };
-  const valueLabel = (name) => valueWord(name, t, methodId, words);
+  const valueLabel = (name) => valueWord(name, t, termMethod(methodId, name), words);
   return {
     methods: methodsSentence(analysis, { t, lang, nameKeyOf: ctx.nameKeyOf, columnName, levelName }),
     results: resultsSentence(analysis, { t, fmt: ctx.fmt, lang, nameKeyOf: ctx.nameKeyOf, designRow: ctx.designRow, valueLabel, columnName, levelName, words }),
@@ -568,7 +643,7 @@ export function buildDraft(data, ctx) {
   const columnName = columnNameFor(data.codebook, ctx.lang);
   const levelName = levelNameFor(data.codebook, ctx.lang);
   const wordsFor = (a) => ({ spec: a.envelope?.spec || a.spec || null, env: a.envelope || null, codebook: data.codebook || null, columnName, levelName });
-  const valueLabelFor = (a) => (name) => valueWord(name, t, (a.envelope?.spec || a.spec)?.method || null, wordsFor(a));
+  const valueLabelFor = (a) => (name) => valueWord(name, t, termMethod((a.envelope?.spec || a.spec)?.method || null, name), wordsFor(a));
   const fp = data.table?.fingerprint || null;
   const kept = (data.analyses || []).filter((a) => a.envelope && !usesHiddenColumns(a.envelope.spec || a.spec, data.codebook));
   const stale = kept.filter((a) => isStale(a, fp, data.table?.codebookFingerprint)).map((a) => a.id);

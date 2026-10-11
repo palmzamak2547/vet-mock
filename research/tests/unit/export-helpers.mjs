@@ -6,6 +6,7 @@ import common from '../../src/i18n/common.js';
 import terms from '../../src/i18n/terms.js';
 import ws from '../../src/i18n/workspace.js';
 import report from '../../src/i18n/report.js';
+import reportM3 from '../../src/i18n/report-m3.js';
 import runtime from '../../src/i18n/runtime.js';
 import stats from '../../src/i18n/stats.js';
 import epi from '../../src/i18n/epi.js';
@@ -16,7 +17,7 @@ import measure from '../../src/i18n/measure.js';
 import data from '../../src/i18n/data.js';
 import { singularEn } from '../../src/i18n/index.js';
 
-const DICTS = [common, terms, ws, report, runtime, stats, epi, intake, lab, models, measure, data];
+const DICTS = [common, terms, ws, report, reportM3, runtime, stats, epi, intake, lab, models, measure, data];
 
 /** `t` over every dictionary the report reads, filling {name} placeholders; a missing key prints [key]. */
 export const tOf = (lang) => (key, params) => {

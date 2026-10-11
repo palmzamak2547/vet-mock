@@ -1,10 +1,13 @@
 // An R script that re-runs each analysis of the report on the exported analysed-data CSV with base R and
-// named packages (stats, survival, pROC, epiR, sandwich, survey, psych, multcomp, pwr), VetMock Research's
+// named packages (stats, survival, pROC, epiR, sandwich, survey, psych, multcomp, pwr; M3a adds logistf and MASS,
+// and drc as an optional check that is never loaded unless it is installed), VetMock Research's
 // numbers written as comments above each block. It says the numbers matched R 4.6.0 only for a method
 // whose envelope is verified against the 'r-4.6.0' fixtures; otherwise it asks the reader to compare. The
 // app shows the code and hands it over as a download; it never runs it [M2-DESIGN.md 6.4]. OWNER: report role.
 import { getMethod } from '../runtime/catalog.js';
-import { columnIndex, envNumbers, valueNamer, matchesR, oneLine, rolesOf, scriptAnalyses, wrapComment } from './script-common.js';
+import { columnIndex, envNumbers, valueNamer, matchesR, num6, oneLine, rolesOf, scriptAnalyses, wrapComment } from './script-common.js';
+// The M3a script comments (i18n/report-m3.js), registered when this lazily loaded writer loads.
+import '../../workspace/report/words-m3.js';
 
 /** An R string literal. */
 export const rq = (s) => `"${String(s ?? '').replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/[\u0000-\u001f\u007f\u2028\u2029]/g, ' ')}"`;
@@ -55,6 +58,270 @@ const HELPERS = {
     '}',
   ],
 };
+
+// M3a helpers [M3-DESIGN.md 3.1]: the curve fits use base R's nls in the log-EC50 form (C2, C3), so the standard
+// errors are VetMock Research's s^2 (J'J)^-1; data go into a frame with fixed names (X, Y, grp) so a column called
+// b, c, d, e or g can never clash with a parameter.
+HELPERS.curve = [
+  '# Starting values for a 4PL in the log-EC50 form, worked out as VetMock Research does: bottom c and top d from the',
+  '# lowest and highest mean response, e from the concentration nearest the half-way response, b > 0 when the response falls',
+  'start4 <- function(x, y) {',
+  '  m <- tapply(y, x, mean); xs <- as.numeric(names(m)); pos <- xs > 0',
+  '  list(b = if (m[which.max(xs)] < m[which.min(xs)]) 1 else -1, c = min(m), d = max(m),',
+  '       e = log(xs[pos][which.min(abs(m[pos] - (min(m) + max(m)) / 2))]))',
+  '}',
+  '# A delta-method interval on the log scale, transformed back (fn gives a log concentration from the parameters)',
+  'delta_exp <- function(fit, fn, level = 0.95) {',
+  '  p <- coef(fit); est <- fn(p)',
+  '  g <- sapply(seq_along(p), function(j) { h <- 1e-6 * max(abs(p[[j]]), 1e-3); u <- p; l <- p; u[j] <- p[j] + h; l[j] <- p[j] - h; (fn(u) - fn(l)) / (2 * h) })',
+  '  se <- sqrt(drop(t(g) %*% vcov(fit) %*% g)); tq <- qt(1 - (1 - level) / 2, df.residual(fit))',
+  '  c(estimate = exp(est), lower = exp(est - tq * se), upper = exp(est + tq * se))',
+  '}',
+  '# AICc as VetMock Research reports it: n log(RSS / n) + 2K + 2K(K + 1) / (n - K - 1), K = parameters + 1',
+  'aicc <- function(fit) { n <- length(residuals(fit)); K <- length(coef(fit)) + 1; n * log(deviance(fit) / n) + 2 * K + 2 * K * (K + 1) / (n - K - 1) }',
+  '# Parameters with intervals estimate +- t (residual df) x SE, as VetMock Research gives them',
+  'nls_table <- function(fit, level = 0.95) { se <- sqrt(diag(vcov(fit))); tq <- qt(1 - (1 - level) / 2, df.residual(fit)); cbind(estimate = coef(fit), se = se, lower = coef(fit) - tq * se, upper = coef(fit) + tq * se) }',
+];
+HELPERS.readX = [
+  '# The concentration of a sample read off the curve, with the interval of the curve only; NA outside the standard curve',
+  'read_x <- function(fit, y0, level = 0.95) {',
+  '  p <- coef(fit)',
+  '  if (y0 <= min(p[["c"]], p[["d"]]) || y0 >= max(p[["c"]], p[["d"]])) return(c(estimate = NA, lower = NA, upper = NA))',
+  '  delta_exp(fit, function(q) { g <- if ("g" %in% names(q)) q[["g"]] else 1; q[["e"]] + log(((q[["d"]] - q[["c"]]) / (y0 - q[["c"]]))^(1 / g) - 1) / q[["b"]] }, level)',
+  '}',
+];
+HELPERS.auc = [
+  '# Area under one animal\'s curve by the trapezoidal rule on its own times; "first" measures from its first value',
+  'auc_trap <- function(t, y, baseline = "zero") {',
+  '  o <- order(t); t <- t[o]; y <- y[o]',
+  '  if (baseline == "first") y <- y - y[1]',
+  '  sum(diff(t) * (head(y, -1) + tail(y, -1)) / 2)',
+  '}',
+];
+
+/** A finite number from an envelope as R code, else NA. */
+const rnum = (x) => (typeof x === 'number' && Number.isFinite(x) ? String(x) : 'NA');
+/** A number the envelope carries for one column key (Pfaffl's amplification factors), else null. */
+const effOf = (env, key) => {
+  const e = env?.spec?.options?.efficiency;
+  const x = e && typeof e === 'object' ? e[key] : null;
+  return typeof x === 'number' && Number.isFinite(x) ? x : null;
+};
+
+/** The 4PL or 5PL model formula in the log-EC50 form, on the fixed names X and Y; `i` indexes a parameter per group. */
+function curveFormula(five, { i = '', e = null } = {}) {
+  const ee = e || `e${i}`;
+  return `Y ~ c${i} + (d${i} - c${i}) / (1 + exp(b${i} * (log(X) - ${ee})))${five ? `^g${i}` : ''}`;
+}
+
+/** R code for the standard curve, dose-response curves and curve equations (nls). */
+function rCurves(spec, env, ix, t) {
+  const v = ix.v;
+  const o = spec.options || {};
+  const one = (role) => rolesOf(spec, role)[0] || null;
+  const level = lvl(spec);
+  const code = [];
+  const helpers = ['curve'];
+  const ctl = 'control = nls.control(maxiter = 200)';
+  const cm = (key) => wrapComment(t(key)).map((l) => `# ${l}`);
+  code.push(...cm('report.script.nlsWhy'));
+  if (spec.method === 'nls.equation') {
+    code.push(`s <- data.frame(X = a$${v(one('x'))}, Y = a$${v(one('outcome'))}); s <- s[complete.cases(s), ]`);
+    const eq = ['decay', 'growth'].includes(o.equation) ? o.equation : 'michaelisMenten';
+    if (eq === 'michaelisMenten') code.push(`fit <- nls(Y ~ Vmax * X / (Km + X), data = s, start = list(Vmax = max(s$Y), Km = median(s$X)), ${ctl})`);
+    else if (eq === 'decay') {
+      code.push('st <- getInitial(Y ~ SSasymp(X, Asym, R0, lrc), data = s)  # starting values from R\'s self-starting model');
+      code.push(`fit <- nls(Y ~ (Y0 - Plateau) * exp(-K * X) + Plateau, data = s, start = list(Y0 = st[["R0"]], Plateau = st[["Asym"]], K = exp(st[["lrc"]])), ${ctl})`);
+    } else {
+      code.push('st <- coef(lm(log(Y) ~ X, data = s[s$Y > 0, ]))  # starting values from the log-linear line');
+      code.push(`fit <- nls(Y ~ Y0 * exp(k * X), data = s, start = list(Y0 = exp(st[[1]]), k = st[[2]]), ${ctl})`);
+    }
+    code.push('summary(fit)');
+    code.push(...cm('report.script.nlsCi'));
+    code.push(`nls_table(fit, level = ${level})`);
+    if (eq !== 'michaelisMenten') {
+      const k = eq === 'decay' ? 'K' : 'k';
+      code.push(`ck <- nls_table(fit, level = ${level})[${rq(k)}, ]; c(${eq === 'decay' ? 'half_life' : 'doubling_time'} = log(2) / ck[["estimate"]], lower = log(2) / ck[["upper"]], upper = if (ck[["lower"]] > 0) log(2) / ck[["lower"]] else Inf)`);
+    }
+    code.push('c(R2 = 1 - deviance(fit) / sum((s$Y - mean(s$Y))^2), residual_SD = summary(fit)$sigma, AICc = aicc(fit))');
+    return { code, packages: [], helpers };
+  }
+  const five = o.model === '5pl';
+  const g = spec.method === 'nls.doseResponse' ? one('group') : null;
+  if (!g) {
+    code.push(`s <- data.frame(X = a$${v(one('x'))}, Y = a$${v(one('outcome'))})`);
+    if (spec.method === 'nls.fourPL') code.push('u <- s[is.na(s$X) & !is.na(s$Y), ]  # the samples to read off the curve');
+    code.push('s <- s[complete.cases(s), ]  # the standards');
+    code.push(`fit4 <- nls(${curveFormula(false)}, data = s, start = start4(s$X, s$Y), ${ctl})`);
+    if (five) code.push(`fit <- nls(${curveFormula(true)}, data = s, start = c(as.list(coef(fit4)), g = 1), ${ctl})  # the 5PL starts from the 4PL`);
+    else code.push('fit <- fit4');
+    code.push('summary(fit)  # e is the log of the IC50 or EC50 in the 4PL; SEs are s^2 (J\'J)^-1');
+    code.push(`nls_table(fit, level = ${level})`);
+    code.push(five
+      ? `delta_exp(fit, function(p) p[["e"]] + log(2^(1 / p[["g"]]) - 1) / p[["b"]], level = ${level})  # IC50 or EC50 and its interval`
+      : `delta_exp(fit, function(p) p[["e"]], level = ${level})  # IC50 or EC50 and its interval`);
+    code.push('c(R2 = 1 - deviance(fit) / sum((s$Y - mean(s$Y))^2), residual_SD = summary(fit)$sigma, AICc = aicc(fit))');
+    if (five) code.push('anova(fit4, fit)  # extra sum-of-squares F test of the 5PL against the 4PL', 'c(AICc_5PL = aicc(fit), AICc_4PL = aicc(fit4))');
+    if (spec.method === 'nls.fourPL') {
+      helpers.push('readX');
+      code.push(`if (nrow(u)) cbind(response = u$Y, t(sapply(u$Y, function(y0) read_x(fit, y0, level = ${level}))))`);
+    }
+    code.push(...cm('report.script.drc'));
+    code.push('# install.packages("drc")');
+    code.push(`if (requireNamespace("drc", quietly = TRUE)) print(drc::ED(drc::drm(Y ~ X, data = s, fct = drc::${five ? 'LL2.5' : 'LL2.4'}()), 50, interval = "fls", level = ${level}))`);
+    return { code, packages: [], helpers };
+  }
+  // One curve per group with one residual variance: nls with a parameter per group (indexed by grp).
+  const levels = ix.col(g)?.levels || [];
+  code.push(`s <- data.frame(X = a$${v(one('x'))}, Y = a$${v(one('outcome'))}, G = a$${v(g)}); s <- s[complete.cases(s), ]`);
+  code.push(`s$G <- droplevels(factor(s$G${levels.length ? `, levels = ${rvec(levels)}` : ''})); s$grp <- as.integer(s$G)`);
+  code.push('st <- lapply(split(s, s$G), function(z) start4(z$X, z$Y)); sv <- function(k) unname(sapply(st, `[[`, k))');
+  const i = '[grp]';
+  code.push(`fit4 <- nls(${curveFormula(false, { i })}, data = s, start = list(b = sv("b"), c = sv("c"), d = sv("d"), e = sv("e")), ${ctl})`);
+  if (five) {
+    code.push('p4 <- coef(fit4); pk <- function(k) unname(p4[grep(paste0("^", k, "[0-9]+$"), names(p4))])');
+    code.push(`fit <- nls(${curveFormula(true, { i })}, data = s, start = list(b = pk("b"), c = pk("c"), d = pk("d"), e = pk("e"), g = rep(1, nlevels(s$G))), ${ctl})`);
+  } else code.push('fit <- fit4');
+  code.push('summary(fit)  # one residual variance; parameters numbered by group in level order');
+  code.push(`nls_table(fit, level = ${level})`);
+  code.push(five
+    ? `for (j in seq_len(nlevels(s$G))) print(c(group = j, delta_exp(fit, function(p) p[[paste0("e", j)]] + log(2^(1 / p[[paste0("g", j)]]) - 1) / p[[paste0("b", j)]], level = ${level})))`
+    : `for (j in seq_len(nlevels(s$G))) print(c(group = j, delta_exp(fit, function(p) p[[paste0("e", j)]], level = ${level})))`);
+  code.push('summary(fit)$sigma  # the residual SD shared by the groups');
+  if (o.compare === 'ec50') {
+    const shared = five
+      ? 'Y ~ c[grp] + (d[grp] - c[grp]) / (1 + exp(b[grp] * (log(X) - (l50 - log(2^(1 / g[grp]) - 1) / b[grp]))))^g[grp]'
+      : curveFormula(false, { i, e: 'e' });
+    const start = five
+      ? 'list(b = pk("b"), c = pk("c"), d = pk("d"), l50 = mean(pk("e")), g = rep(1, nlevels(s$G)))'
+      : 'list(b = sv("b"), c = sv("c"), d = sv("d"), e = mean(sv("e")))';
+    code.push(`restricted <- try(nls(${shared}, data = s, start = ${start}, ${ctl}))  # one IC50 or EC50 for every group`);
+  } else if (o.compare === 'all') {
+    code.push(`one4 <- try(nls(${curveFormula(false)}, data = s, start = start4(s$X, s$Y), ${ctl}))`);
+    code.push(five ? `restricted <- if (inherits(one4, "try-error")) one4 else try(nls(${curveFormula(true)}, data = s, start = c(as.list(coef(one4)), g = 1), ${ctl}))  # one curve for every group` : 'restricted <- one4  # one curve for every group');
+  }
+  // A restricted model may not converge (VetMock Research then shows no test); try() keeps the rest of the script running.
+  if (o.compare === 'ec50' || o.compare === 'all') code.push('if (!inherits(restricted, "try-error")) { print(anova(restricted, fit)); print(c(AICc_separate = aicc(fit), AICc_restricted = aicc(restricted))) }  # extra sum-of-squares F test');
+  if (env?.values?.ic50Ratio || env?.values?.ec50Ratio) {
+    code.push(five
+      ? `delta_exp(fit, function(p) (p[["e2"]] + log(2^(1 / p[["g2"]]) - 1) / p[["b2"]]) - (p[["e1"]] + log(2^(1 / p[["g1"]]) - 1) / p[["b1"]]), level = ${level})  # the ratio, second group over the first`
+      : `delta_exp(fit, function(p) p[["e2"]] - p[["e1"]], level = ${level})  # the ratio, second group over the first`);
+  }
+  return { code, packages: [], helpers };
+}
+
+/** R code for the area under the curve, qPCR, the efficiency of a dilution series and PCA. */
+function rLabMore(spec, env, ix, t) {
+  const v = ix.v;
+  const o = spec.options || {};
+  const one = (role) => rolesOf(spec, role)[0] || null;
+  const level = lvl(spec);
+  const code = [];
+  const packages = [];
+  const helpers = [];
+  const cm = (key, params) => wrapComment(t(key, params)).map((l) => `# ${l}`);
+  switch (spec.method) {
+    case 'calc.auc': {
+      helpers.push('auc');
+      const y = v(one('outcome'));
+      const s = v(one('subject'));
+      const tm = v(one('time'));
+      const g = one('group') ? v(one('group')) : null;
+      const gl = g ? ix.col(one('group'))?.levels || [] : [];
+      code.push(`b <- a[complete.cases(a[, ${rvec([y, s, tm, ...(g ? [g] : [])])}]), ]`);
+      code.push(`ar <- do.call(rbind, lapply(split(b, as.character(b$${s})), function(z) data.frame(animal = z$${s}[1], ${g ? `group = as.character(z$${g}[1]), ` : ''}times = nrow(z), area = if (nrow(z) >= 2) auc_trap(z$${tm}, z$${y}, ${rq(o.baseline === 'first' ? 'first' : 'zero')}) else NA)))`);
+      code.push('ar <- ar[!is.na(ar$area), ]; ar  # animals measured at fewer than 2 times are left out');
+      if (g) {
+        code.push(`ar$group <- droplevels(factor(ar$group${gl.length ? `, levels = ${rvec(gl)}` : ''}))`);
+        code.push(`tapply(ar$area, ar$group, function(x) c(n = length(x), mean = mean(x), sd = sd(x), lower = mean(x) - qt(1 - (1 - ${level}) / 2, length(x) - 1) * sd(x) / sqrt(length(x)), upper = mean(x) + qt(1 - (1 - ${level}) / 2, length(x) - 1) * sd(x) / sqrt(length(x))))`);
+        code.push(...cm('report.script.aucDirection'));
+        code.push(`if (nlevels(ar$group) == 2) t.test(area ~ group, data = ar, var.equal = FALSE, conf.level = ${level}) else summary(aov(area ~ group, data = ar))`);
+      } else code.push(`t.test(ar$area, conf.level = ${level})  # the mean area and its interval`);
+      break;
+    }
+    case 'qpcr.relative': {
+      const target = one('outcome');
+      const refs = rolesOf(spec, 'items');
+      const g = v(one('group'));
+      const control = spec.levels?.controlLevel ?? ix.col(one('group'))?.levels?.[0] ?? null;
+      code.push(`b <- a[complete.cases(a[, ${rvec([v(target), ...refs.map(v), g])}]), ]`);
+      if (o.method === 'pfaffl') {
+        const all = [target, ...refs];
+        const effs = all.map((k) => effOf(env, k));
+        code.push(`E <- c(${all.map((k, i) => `${v(k)} = ${rnum(effs[i])}`).join(', ')})  # amplification factors per cycle (Pfaffl)`);
+        code.push(`b$dCt <- b$${v(target)} * log2(E[[${rq(v(target))}]]) - rowMeans(sweep(as.matrix(b[, ${rvec(refs.map(v))}, drop = FALSE]), 2, log2(E[${rvec(refs.map(v))}]), "*"))  # efficiency-weighted dCt`);
+      } else code.push(`b$dCt <- b$${v(target)} - rowMeans(b[, ${rvec(refs.map(v))}, drop = FALSE])  # target Ct minus the mean reference Ct (Livak)`);
+      code.push(`b$grp <- relevel(factor(b$${g}), ref = ${rq(control)})  # the calibrator first`);
+      code.push('tapply(b$dCt, b$grp, mean)');
+      code.push(...cm('report.script.qpcrTests'));
+      if ((env?.tests || []).some((x) => x.id === 'anova')) {
+        // three or more groups: one-way ANOVA on dCt and Dunnett against the calibrator (multcomp)
+        packages.push('multcomp');
+        code.push('summary(aov(dCt ~ grp, data = b))');
+        code.push(`dn <- glht(aov(dCt ~ grp, data = b), linfct = mcp(grp = "Dunnett")); summary(dn); ci <- confint(dn, level = ${level})$confint; ci  # ddCt`);
+        code.push('cbind(fold = 2^-ci[, "Estimate"], lower = 2^-ci[, "upr"], upper = 2^-ci[, "lwr"])');
+      } else {
+        code.push(`tt <- t.test(b$dCt[b$grp == levels(b$grp)[2]], b$dCt[b$grp == levels(b$grp)[1]], var.equal = ${o.test === 'pooled' ? 'TRUE' : 'FALSE'}, conf.level = ${level}); tt`);
+        code.push('ddct <- unname(tt$estimate[1] - tt$estimate[2]); c(ddCt = ddct, lower = tt$conf.int[1], upper = tt$conf.int[2])');
+        code.push('c(fold = 2^-ddct, lower = 2^-tt$conf.int[2], upper = 2^-tt$conf.int[1])');
+      }
+      break;
+    }
+    case 'qpcr.efficiency': {
+      code.push(`fit <- lm(${v(one('outcome'))} ~ ${v(one('x'))}, data = a); summary(fit)`);
+      code.push(`sl <- coef(fit)[[2]]; ci <- confint(fit, level = ${level})[2, ]`);
+      code.push('E <- c(estimate = 10^(-1 / sl), lower = 10^(-1 / ci[[1]]), upper = 10^(-1 / ci[[2]])); E  # amplification factor per cycle');
+      code.push('100 * (E - 1)  # efficiency %');
+      break;
+    }
+    case 'mv.pca': {
+      const items = rolesOf(spec, 'items').map(v);
+      code.push(`X <- na.omit(a[, ${rvec(items)}]); nrow(X)`);
+      code.push(`p <- prcomp(X, scale. = ${o.scale === false ? 'FALSE' : 'TRUE'})  # ${o.scale === false ? 'covariance' : 'correlation'} matrix`);
+      code.push(...cm('report.script.pcaSigns'));
+      code.push('sg <- apply(p$rotation, 2, function(w) sign(w[which.max(abs(w))])); p$rotation <- sweep(p$rotation, 2, sg, "*"); p$x <- sweep(p$x, 2, sg, "*")');
+      code.push('summary(p)  # standard deviations and proportions of variance');
+      code.push('p$sdev^2  # eigenvalues');
+      code.push('p$rotation  # loadings');
+      code.push('head(p$x)  # scores');
+      code.push('biplot(p, scale = 1)');
+      const comp = (env?.tables || []).find((tb) => tb.id === 'components');
+      const ei = comp ? comp.columns.indexOf('eigenvalue') : -1;
+      if (ei >= 0) code.push(`# ${oneLine(t('report.script.ours', { numbers: '' }).trim())} eigenvalues ${comp.rows.map((r) => num6(r[ei])).join(', ')}`);
+      break;
+    }
+    default:
+      return null;
+  }
+  return { code, packages, helpers };
+}
+
+/** R code for repeated measures with a second within factor: anova.mlm on the wide matrix, each effect on its own contrasts. */
+function rRepeated2(spec, ix) {
+  const v = ix.v;
+  const one = (role) => rolesOf(spec, role)[0] || null;
+  const y = v(one('outcome'));
+  const s = v(one('subject'));
+  const A = v(one('time'));
+  const B = v(one('factorB'));
+  const g = one('group') ? v(one('group')) : null;
+  const la = ix.col(one('time'))?.levels || [];
+  const lb = ix.col(one('factorB'))?.levels || [];
+  const code = [];
+  code.push(`b <- a[complete.cases(a[, ${rvec([y, s, A, B, ...(g ? [g] : [])])}]), ]`);
+  code.push(`b$${A} <- factor(b$${A}${la.length ? `, levels = ${rvec(la)}` : ''}); b$${B} <- factor(b$${B}${lb.length ? `, levels = ${rvec(lb)}` : ''}); b$${s} <- factor(b$${s})`);
+  code.push(`idata <- data.frame(${A} = factor(rep(levels(b$${A}), each = nlevels(b$${B})), levels = levels(b$${A})), ${B} = factor(rep(levels(b$${B}), times = nlevels(b$${A})), levels = levels(b$${B})))`);
+  code.push(`b$cell <- paste(b$${A}, b$${B}, sep = ".")`);
+  code.push(`W <- reshape(b[, c(${rq(s)}, "cell", ${rq(y)})], idvar = ${rq(s)}, timevar = "cell", direction = "wide")`);
+  code.push(`Y <- as.matrix(W[, paste(${rq(y)}, idata$${A}, idata$${B}, sep = ".")]); keep <- complete.cases(Y); Y <- Y[keep, ]  # animals measured at every combination`);
+  code.push(g ? `grp <- factor(b$${g}[match(W$${s}[keep], b$${s})]); fit <- lm(Y ~ grp)` : 'fit <- lm(Y ~ 1)');
+  code.push(`anova(fit, M = ~${A}, X = ~1, idata = idata, test = "Spherical")  # ${A}: F, Greenhouse-Geisser and Huynh-Feldt p`);
+  code.push(`anova(fit, M = ~${A} + ${B}, X = ~${A}, idata = idata, test = "Spherical")  # ${B}`);
+  code.push(`anova(fit, M = ~${A} * ${B}, X = ~${A} + ${B}, idata = idata, test = "Spherical")  # ${A} x ${B}`);
+  if (g) code.push('anova(fit, M = ~1, X = ~0, idata = idata, test = "Spherical")  # between the groups');
+  code.push(`mauchly.test(fit, M = ~${A}, X = ~1, idata = idata); mauchly.test(fit, M = ~${A} + ${B}, X = ~${A}, idata = idata); mauchly.test(fit, M = ~${A} * ${B}, X = ~${A} + ${B}, idata = idata)`);
+  return code;
+}
 
 /** The epiR method for a study design. */
 const epiMethod = (design) => (design === 'cross-sectional' ? 'cross.sectional' : design === 'case-control' ? 'case.control' : 'cohort.count');
@@ -242,6 +509,7 @@ function rCode(spec, env, ix, t) {
       break;
     }
     case 'anova.repeated': {
+      if (one('factorB')) { code.push(...rRepeated2(spec, ix)); break; }
       const y = v(one('outcome'));
       const s = v(one('subject'));
       const tm = v(one('time'));
@@ -310,6 +578,16 @@ function rCode(spec, env, ix, t) {
       }
       const offset = !logistic && one('time') ? ` + offset(log(${v(one('time'))}))` : '';
       if (logistic) code.push(`a$y01 <- as.integer(a$${y} == ${rq(pos)})`);
+      if (logistic && o.method === 'firth') {
+        // Firth's correction (M3a, C9): logistf, profile penalised likelihood intervals (pl = TRUE) or Wald (pl = FALSE).
+        need('logistf');
+        code.push(...wrapComment(t('report.script.firthMl')).map((l) => `# ${l}`));
+        code.push(`fit <- logistf(${formula('y01')}, data = a, pl = ${o.ciMethod === 'wald' ? 'FALSE' : 'TRUE'}, alpha = ${Math.round((1 - level) * 1000) / 1000}, control = logistf.control(maxit = 200, maxstep = 5, lconv = 1e-12, gconv = 1e-12, xconv = 1e-12), plcontrol = logistpl.control(maxit = 200, xconv = 1e-12, lconv = 1e-12))`);
+        code.push('summary(fit)  # coefficients, intervals and p-values; the likelihood ratio test of the whole model is penalised');
+        code.push('drop1(fit)  # the penalised likelihood-ratio test of each term');
+        code.push('exp(cbind(OR = coef(fit), lower = fit$ci.lower, upper = fit$ci.upper))');
+        break;
+      }
       code.push(`fit <- glm(${formula(logistic ? 'y01' : y)}${offset}, family = ${logistic ? 'binomial' : 'poisson'}, data = a); summary(fit)`);
       code.push('drop1(fit, test = "LRT")');
       if (route === 'robust') {
@@ -386,6 +664,36 @@ function rCode(spec, env, ix, t) {
       need('pwr');
       const p = spec.input?.params || {};
       code.push(`pwr.f2.test(u = ${p.u ?? 'NA'}, f2 = ${p.f2 ?? 'NA'}, ${o.solveFor === 'power' ? `v = ${p.n != null && p.u != null ? p.n - p.u - 1 : 'NA'}` : `power = ${p.power ?? 'NA'}`}, sig.level = ${o.sigLevel ?? 0.05})  # n = v + u + 1`);
+      break;
+    }
+    // M3a [M3-DESIGN.md 6]
+    case 'nls.fourPL':
+    case 'nls.doseResponse':
+    case 'nls.equation':
+      return rCurves(spec, env, ix, t);
+    case 'calc.auc':
+    case 'qpcr.relative':
+    case 'qpcr.efficiency':
+    case 'mv.pca':
+      return rLabMore(spec, env, ix, t);
+    case 'reg.negbin': {
+      need('MASS');
+      const y = v(one('outcome'));
+      for (const k of rolesOf(spec, 'covariates')) {
+        const cc = ix.col(k);
+        const ref = spec.levels?.references?.[k] ?? cc?.reference ?? null;
+        if (cc && cc.type !== 'number' && cc.levels.length) code.push(`a$${cc.name} <- ${ref ? `relevel(factor(a$${cc.name}, levels = ${rvec(cc.levels)}), ref = ${rq(ref)})` : `factor(a$${cc.name}, levels = ${rvec(cc.levels)})`}`);
+      }
+      const offset = one('time') ? ` + offset(log(${v(one('time'))}))` : '';
+      const ctl = 'control = glm.control(epsilon = 1e-10, maxit = 50)';
+      code.push(`fit <- glm.nb(${formula(y)}${offset}, data = a, ${ctl}); summary(fit)`);
+      code.push('c(theta = fit$theta, SE = fit$SE.theta)');
+      code.push(`exp(cbind(IRR = coef(fit), ${o.ciMethod === 'wald' ? `confint.default(fit, level = ${level})` : `confint(fit, level = ${level})`}))${o.ciMethod === 'wald' ? '' : '  # profile intervals with theta held at its estimate'}`);
+      code.push(`pois <- glm(${formula(y)}${offset}, family = poisson, data = a)`);
+      code.push('lr <- 2 * (as.numeric(logLik(fit)) - as.numeric(logLik(pois))); c(chisq = lr, p = 0.5 * pchisq(lr, 1, lower.tail = FALSE))  # against Poisson, p halved');
+      code.push(`null <- glm.nb(${y} ~ 1${offset}, data = a, ${ctl}); x <- fit$twologlik - null$twologlik; c(chisq = x, df = length(coef(fit)) - 1, p = pchisq(x, length(coef(fit)) - 1, lower.tail = FALSE))  # the whole model`);
+      code.push(...wrapComment(t('report.script.negbinDrop')).map((l) => `# ${l}`));
+      code.push('for (tl in attr(terms(fit), "term.labels")) { m0 <- update(fit, paste(". ~ . -", tl)); x <- fit$twologlik - m0$twologlik; df <- length(coef(fit)) - length(coef(m0)); print(c(term = tl, chisq = x, df = df, p = pchisq(x, df, lower.tail = FALSE))) }');
       break;
     }
     case 'design.randomisation':
