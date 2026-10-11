@@ -270,7 +270,7 @@ test('a failing SQL harness is a phase A failure, runs with the module it was gi
     assert.equal(r.status, 1, r.out);
     assert.match(r.out, /✗ sql harness \(annotations, pglite\)/);
     assert.match(r.out, /✓ sql harness \(user-data, pglite\)/);
-    assert.match(r.out, new RegExp(`HARNESS annotations module=${MODULE.replace(/[./]/g, '\$&')}`), 'the harness got PGLITE_MODULE from the gate');
+    assert.ok(r.out.includes(`HARNESS annotations module=${MODULE}`), `the harness got PGLITE_MODULE from the gate; got ${r.out}`);
     assert.match(r.out, /1 step\(s\) failed in phase A/);
     assert.doesNotMatch(r.out, /BUILD RAN/);
   } finally { f.done(); }
