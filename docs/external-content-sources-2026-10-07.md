@@ -582,17 +582,37 @@ line above for the reader feature.
 
 Shaped like the rest of the app:
 
-- `GET /api/external-connect/start?provider=` — signed-in students only;
+Paths as of 2026-10-11 (commit 8d1fd669 renamed the callback from
+`/api/external-connect/callback` to `/api/external-connect-callback`, and
+the reader moved onto the library's external tab):
+
+- `GET /api/external-connect-start?provider=` — signed-in students only;
   answers the provider consent URL and sets an HttpOnly state cookie
-  scoped to this endpoint's path.
-- `GET /api/external-connect/callback?provider=` — the query state must
+  scoped to the callback path.
+- `GET /api/external-connect-callback?provider=` — the query state must
   equal the start cookie (so one student cannot complete a consent that
   stores tokens under another student's account); exchanges the code;
   stores the tokens server-side; redirects back to
-  `/app/external-docs?connected=…` or `?connect_error=…`.
+  `/app/library?connected=…` or `?connect_error=…` (the library opens on
+  its external tab; Cancel on the consent screen comes back as
+  `connect_error=cancelled` and shows a plain notice). The retired
+  `/app/external-docs` path is an alias that opens the same tab.
 - `POST /api/external-connect` — `{ action: 'status' | 'disconnect' }`.
   Status answers provider, display label, scope and expiry — token
-  columns never leave the server.
+  columns never leave the server. Disconnect deletes the row, then revokes
+  the grant at the provider (Google
+  `POST https://oauth2.googleapis.com/revoke`, per
+  https://developers.google.com/identity/protocols/oauth2/web-server#tokenrevoke;
+  Notion `POST https://api.notion.com/v1/oauth/revoke` with the client's
+  Basic credentials, per https://developers.notion.com/reference/revoke-token).
+- `GET /api/list-external-files?provider=` — the connected account's 20
+  most recently edited Docs and Sheets (Google) or pages (Notion).
+- Rate limits (2026-10-11), shaped for a lecture hall behind one campus
+  address: every endpoint has a wide per-address ceiling (600 an hour; 120
+  for connect start and callback), a shared-cache hit costs nothing more,
+  and the real budget is per signed-in account (60 reads, 60 lists, 60
+  status calls, 10 connect starts an hour). Guests' upstream reads share 40
+  an hour per address.
 - `api/fetch-external-doc.js` reads through the student's own connection
   when they have one (Google: Drive `files.export`, markdown or csv, one
   refresh on a stale token; Notion: their token against the markdown
@@ -601,22 +621,61 @@ Shaped like the rest of the app:
   Without a connection, the public path and its cache apply as before.
 - Tokens live in `public.external_connections`: RLS enabled with NO
   policies (every client role denied; only the service role inside Vercel
-  functions touches rows), FK cascade on the account so the existing
-  deletion flow cleans up. Migration:
+  functions touches rows), FK cascade on the account. The delete-account
+  edge function revokes each connected grant first, while the tokens still
+  exist, then deletes the rows with the rest of the account. Migration:
   `supabase/migrations/20261007150000_external_connections.sql`.
+  Tokens are stored as plain text; encrypting them at rest needs a new
+  secret and is a recorded follow-up.
 
 Owner setup, once, before this goes live:
 
-1. Google Cloud console → OAuth client (Web application) with redirect
-   URI `https://vetmock.vercel.app/api/external-connect/callback?provider=google`;
-   scopes openid, email, drive.readonly. Set `GOOGLE_OAUTH_CLIENT_ID` +
+The redirect URI is built from the host the student is on
+(`api/_lib/external-connections.js`, `oauthProviderConfig`), and both
+providers require an exact match, so each serving host needs its own entry.
+Register the vetmock.com pair, and keep the vetmock.vercel.app pair while
+iOS home-screen apps installed from the old host still run there.
+
+1. Google Cloud console → OAuth client (Web application) with redirect URIs
+   - `https://vetmock.com/api/external-connect-callback?provider=google`
+   - `https://vetmock.vercel.app/api/external-connect-callback?provider=google`
+
+   Scopes openid, email, drive.readonly. Set `GOOGLE_OAUTH_CLIENT_ID` +
    `GOOGLE_OAUTH_CLIENT_SECRET` on Vercel.
-2. Notion → new public integration with redirect URI
-   `https://vetmock.vercel.app/api/external-connect/callback?provider=notion`
-   and read-content capability only. Set `NOTION_OAUTH_CLIENT_ID` +
-   `NOTION_OAUTH_CLIENT_SECRET` on Vercel.
+2. Notion → new public integration with redirect URIs
+   - `https://vetmock.com/api/external-connect-callback?provider=notion`
+   - `https://vetmock.vercel.app/api/external-connect-callback?provider=notion`
+
+   Read-content capability only. Set `NOTION_OAUTH_CLIENT_ID` +
+   `NOTION_OAUTH_CLIENT_SECRET` on Vercel, and also as secrets on the
+   `delete-account` Supabase function so account deletion can revoke a
+   Notion grant (Google revocation needs no secret).
 3. Apply the migration on the provider once. `EXTERNAL_OAUTH_STATE_SECRET`
    is optional — state signing falls back to the service role key.
+4. **Google verification, before announcing the Google connection to the
+   cohort.** `drive.readonly` is a restricted scope (see the scope list
+   cited above). Until the app is verified:
+   - students see Google's "unverified app" screen before the consent
+     screen, and the app is limited to 100 new users in total
+     (https://support.google.com/cloud/answer/7454865);
+   - while the consent screen is in **Testing** (external user type), only
+     listed test users can connect, and their refresh tokens expire after
+     7 days, so every connection silently needs a reconnect each week
+     (https://developers.google.com/identity/protocols/oauth2#expiration).
+
+   Verification for a restricted scope means brand verification, a scope
+   justification with a demo video of the consent flow, and, because the
+   server stores restricted-scope tokens, a CASA security assessment by a
+   Google-empanelled assessor that is renewed at least every 12 months; the
+   process can take several weeks
+   (https://developers.google.com/identity/protocols/oauth2/production-readiness/restricted-scope-verification).
+   The scope stays as it is for now. Until verification passes, treat the
+   Google connection as a small pilot (publish the consent screen to
+   "In production" so tokens do not expire weekly, and keep it under the
+   100-user cap); public links and Notion are unaffected.
+5. Deploy the `delete-account` function after the revoke change
+   (`supabase functions deploy delete-account`); it does not ship with
+   the web build.
 
 A provider whose variable pair is missing answers 503 `not_configured`;
 the reader keeps working for public links and for whichever provider IS
