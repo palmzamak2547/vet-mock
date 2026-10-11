@@ -686,6 +686,10 @@ function rCode(spec, env, ix, t) {
       }
       const offset = one('time') ? ` + offset(log(${v(one('time'))}))` : '';
       const ctl = 'control = glm.control(epsilon = 1e-10, maxit = 50)';
+      // Every model below (the null model, the Poisson fit, each term's refit) on the full fit's rows: glm.nb drops a
+      // row with a blank covariate, and a refit on all of `a` would compare likelihoods over different rows.
+      const used = [y, ...rolesOf(spec, 'covariates').map(v), ...(one('time') ? [v(one('time'))] : [])];
+      code.push(`a <- a[complete.cases(a[, ${rvec(used)}]), ]  # the rows the model uses, for every fit below`);
       code.push(`fit <- glm.nb(${formula(y)}${offset}, data = a, ${ctl}); summary(fit)`);
       code.push('c(theta = fit$theta, SE = fit$SE.theta)');
       code.push(`exp(cbind(IRR = coef(fit), ${o.ciMethod === 'wald' ? `confint.default(fit, level = ${level})` : `confint(fit, level = ${level})`}))${o.ciMethod === 'wald' ? '' : '  # profile intervals with theta held at its estimate'}`);

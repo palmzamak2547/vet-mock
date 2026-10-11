@@ -124,9 +124,15 @@ for (const lang of ['th', 'en']) {
     const none = para('doseNone', lang);
     assert.ok(!/(^|\s)F = /.test(none.results), `no comparison asked: ${none.results}`);
     lacks(none.methods, t('report.methods.nls.compareEc50', { potency: 'IC50' }));
-    // The shared 5PL did not converge on these data (R's nls fails there too): the test has no p, and the paragraph says so.
+    // The shared 5PL did not converge on these data (R's nls fails there too): the test has no p, and the paragraph says
+    // why; the methods say the comparison was planned and did not run, never that the curves were compared
+    // (fix-stats findings 3 and 9).
     const five = para('dose5pl', lang);
-    has(five.results, t('report.results.pWithheld', { test: t('report.test.sharedEc50', { potency: 'IC50' }) }).slice(0, 30));
+    has(five.results, t('report.results.sharedNotFitted', { test: t('report.test.sharedEc50', { potency: 'IC50' }), potency: 'IC50' }));
+    has(five.methods, t('report.methods.nls.compareEc50Failed', { potency: 'IC50' }));
+    lacks(five.methods, lang === 'th' ? 'ความไม่สมมาตร g' : 'asymmetry g', 'no comparison sentence for a fit that did not run');
+    assert.equal(m3Case('dose5pl').env.tests[0].reasonKey, 'lab.undefined.sharedNotConverged');
+    assert.equal(m3Case('dose5pl').env.values.aiccShared.reasonKey, 'lab.undefined.sharedNotConverged');
   });
 
   test(`${lang}: curve equations give Vmax and Km, the half-life from K, the doubling time from k`, () => {
@@ -173,6 +179,10 @@ for (const lang of ['th', 'en']) {
     for (const e of ['E = 1.95', 'E = 1.98', 'E = 2']) has(pf.methods, e, 'each efficiency as entered');
     has(pf.methods, t('report.methods.qpcr.pooled', { control: 'control' }));
     has(pf.results, t('report.test.pooledT'));
+    // Pfaffl combines the reference genes by the mean of the efficiency-weighted Ct, never the raw Ct (fix-stats finding 10)
+    has(pf.methods, 'Ct × log2 E');
+    lacks(pf.methods, lang === 'en' ? 'the mean of their Ct,' : 'ค่าเฉลี่ยของ Ct ซึ่ง', 'not the raw-Ct sentence');
+    has(lv.methods, lang === 'en' ? 'the mean of their Ct,' : 'ค่าเฉลี่ยของ Ct ซึ่ง', 'Livak keeps the raw-Ct sentence');
     const three = para('qpcrThree', lang);
     has(three.methods, t('report.methods.qpcr.dunnett', { control: 'A' }));
     has(three.methods, t('report.methods.qpcr.refOne', { refs: 'ref' }));

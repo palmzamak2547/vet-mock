@@ -55,5 +55,24 @@ test('a negative binomial result draws the forest of its IRRs, as Poisson regres
   assert.equal(chartKindFor({ method: { id: 'reg.poisson' }, values: {} }), 'forest');
   const charts = chartsForResult({ id: 'x', spec: c.spec, envelope: c.env }, null, { t: tOf('en') }).filter((x) => !x.needsRows);
   assert.ok(charts.some((x) => x.kind === 'forest'), `the chart kit draws it: ${charts.map((x) => x.kind).join(', ')}`);
-  assert.equal(chartKindFor(m3Case('pcaCorrelation').env), null, 'a PCA result has no interval to plot here');
+});
+
+test('each M3a lab result draws its own curve or plot in the report, never a CI plot of mixed units (fix-stats finding 8)', async () => {
+  const kit = await import('../../src/workspace/charts/model.js');
+  const { formatNumber, formatP, formatCi } = await import('../../src/lib/stats/format.js');
+  const want = {
+    fourPL: 'standardCurve', fivePL: 'standardCurve', doseEc50: 'doseResponse', dose5pl: 'doseResponse', michaelisMenten: 'fittedCurve',
+    decay: 'fittedCurve', growth: 'fittedCurve', livak: 'qpcrFold', qpcrThree: 'qpcrFold', aucZero: 'dot', aucThree: 'dot', pcaCorrelation: 'scree',
+  };
+  for (const [name, kind] of Object.entries(want)) {
+    const c = m3Case(name);
+    assert.equal(chartKindFor(c.env), kind, name);
+    const chart = chartsForResult({ id: 'x', spec: c.spec, envelope: c.env }, null, { t: tOf('en') }).filter((x) => !x.needsRows).find((x) => x.kind === kind);
+    assert.ok(chart, `${name}: the kit offers ${kind} without the rows`);
+    const model = kit.buildChart(chart.kind, chart.input, { widthMm: 140, lang: 'en', t: tOf('en'), fmt: { formatNumber, formatP, formatCi } });
+    assert.ok(kit.chartToSvg(model, { theme: 'print' }), `${name}: an SVG`);
+    assert.ok(model, `${name}: drawn`);
+  }
+  // a dilution series' scatter needs the rows: no figure rather than slope, intercept and efficiency on one axis
+  assert.equal(chartKindFor(m3Case('efficiency').env), null);
 });

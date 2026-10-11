@@ -382,3 +382,36 @@ test('a rising curve is an EC50; groups going opposite ways are each named by th
   assert.deepEqual(both.tables.find((x) => x.id === 'potency').rows.map((r) => r[1]), ['ic50', 'ec50']);
   wordsExist('nls.doseResponse', both);
 });
+
+test('nls.equation growth over widely spaced days with a 1e8-fold rise converges to R\'s minimum (fix-stats finding 2)', () => {
+  // The grid start sits across a long narrow valley; before 0.2.0 Levenberg-Marquardt swung between overshooting and
+  // crawling steps and refused after 200. Gauss-Newton with step halving from the log-linear start reaches it.
+  const w = R.cases.growthWide.values;
+  const D = R.datasets.growthWide;
+  const g = runEquation(spec('nls.equation', { roles: { x: 'x', outcome: 'y' }, options: { equation: 'growth' } }), makeTable({ x: { kind: 'number', values: D.time }, y: { kind: 'number', values: D.count } }));
+  assert.equal(g.status, 'ok', g.values?.reason?.reasonKey);
+  close(g.values.ssResidual.value, w.rss, tol, 'residual SS');
+  close(g.values.doublingTime.value, w.doubling, tol, 'doubling time');
+  const rows = g.tables.find((t) => t.id === 'parameters').rows;
+  close(rows[0][2], w.y0, tol, 'Y0');
+  close(rows[1][2], w.k, tol, 'k');
+  close(rows[0][3], w.se[0], tol, 'SE Y0');
+  close(rows[1][3], w.se[1], tol, 'SE k');
+});
+
+test("words: the 5PL's e is its location parameter, and a singular fit says no estimates are reported (fix-stats findings 4, 5)", () => {
+  // f = c + (d - c)(1 + e^t)^-g, t = b(ln x - e): at ln x = e the response is c + (d - c)/2^g; the inflection point is
+  // at ln x = e - ln(g)/b, so for g not 1 e is neither the inflection point nor the IC50 or EC50.
+  for (const lang of ['th', 'en']) {
+    const words = lab[lang] || lab;
+    const e = words['lab.param.logMidpoint5'];
+    assert.ok(e.includes('c + (d − c)/2^g'), `${lang}: ${e}`);
+    assert.ok(!/at the inflection point|ที่จุดเปลี่ยนความโค้ง \(/.test(e), `${lang}: e is not the inflection point: ${e}`);
+    const sing = words['lab.invalid.singular'];
+    assert.ok(/no estimates|ไม่รายงานค่าประมาณ/.test(sing), `${lang}: ${sing}`);
+  }
+  // the claim itself, on the ryegrass 5PL estimates of the R fixture: the response at x = exp(e) is c + (d - c)/2^g
+  const p = [3.930, 0.3215, 7.761, 0.7951, 0.4679];
+  const f = MODELS.ll5.value(Math.exp(p[3]), p, null);
+  close(f, p[1] + (p[2] - p[1]) / 2 ** p[4], 1e-12, 'response at exp(e)');
+});

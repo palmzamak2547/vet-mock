@@ -4,12 +4,16 @@
 //
 // The estimate maximises l*(beta) = l(beta) + 0.5 log|X'WX| (Firth 1993; Heinze and Schemper 2002), which has a
 // finite maximum also when the outcome is separated, where ordinary maximum likelihood (M2) has none and stops.
-// Fitting as logistf 1.26.1: from beta = 0, Newton steps with Fisher's information X'WX and the hat-adjusted score
-// U*_r = sum_i x_ir (y_i - pi_i + h_i (1/2 - pi_i)), h_i the diagonal of W^1/2 X (X'WX)^-1 X' W^1/2 (U* is the exact
-// gradient of l*); a step is scaled so no coefficient moves by more than 5 (logistf's maxstep) and halved while
-// l* falls. Converged when no coefficient moves by more than 1e-10 and every score is below 1e-10 times the sum
-// of |x| in its column (the size of that sum's own rounding error, so a column of herd sizes converges as a
-// column of 0 and 1 does). logistf's fixture run used 1e-12 controls; 1e-10 changes no printed digit.
+// Fitting: from beta = 0, steps on the hat-adjusted score U*_r = sum_i x_ir (y_i - pi_i + h_i (1/2 - pi_i)), h_i the
+// diagonal of W^1/2 X (X'WX)^-1 X' W^1/2 (U* is the exact gradient of l*). Each step is logistf 1.26.1's own
+// (its "NR" fit: the inverse of X' diag(w (1 + h)) X times U*) while that step shrinks fast, and Newton's with the
+// exact Hessian of l* once it shrinks slowly, as it does near a separated direction (see fisherStep, newtonStep);
+// both climb to the same maximum. A step is scaled so no coefficient moves by more than 5 (logistf's maxstep) and
+// halved while l* falls. Converged when logistf's step moves no coefficient by more than 1e-10 (relative to the
+// coefficient once it is above 1) and every score is below 1e-10 times the sum of |x| in its column (the size of
+// that sum's own rounding error, so a column of herd sizes converges as a column of 0 and 1 does). logistf's
+// fixture run used 1e-12 controls; 1e-10 changes no printed digit. Before 0.2.0 the step used X'WX alone and
+// crawled on separated data with a continuous separator, declaring non-convergence at the maximum.
 //
 // The penalty always uses the information of the whole model, also when some coefficients are held fixed: that
 // is logistf's convention for its profile intervals (logistpl), its test per coefficient (prob) and drop1/anova
@@ -17,7 +21,13 @@
 //   - Intervals (ciMethod 'profile', the default): the b where 2 (l*(beta hat) - l*_j(b)) = qchisq(level, 1), with
 //     l*_j(b) the penalised log-likelihood maximised over the other coefficients with beta_j = b. logistpl solves
 //     the same two equations by Venzon and Moolgavkar's method; here a safeguarded Newton search on b, whose
-//     derivative dl*_j/db is U*_j at the restricted maximum (the other scores are 0 there).
+//     derivative dl*_j/db is U*_j at the restricted maximum (the other scores are 0 there). Far from the estimate
+//     the restricted l* can have more than one local maximum; the search fits a point from several starts, keeps
+//     the highest, and accepts a limit only when the branch joined to the estimate (followed in small steps, as
+//     logistpl follows it) is not above the cut-off there either (profileBound). On such data logistpl can stop
+//     on a lower local maximum where the profile is still above the cut-off; the fixture case `pair` pins one. A
+//     peak that none of these starts reaches can still be missed, as logistpl can miss one: the limit is then the
+//     crossing of a lower branch, nearer the estimate than the profile's own.
 //     ciMethod 'wald': b +- z SE, with logistf's SE: the inverse of X' diag(w (1 + h)) X at the estimate (the
 //     information of the augmented data Firth's estimate is the maximum likelihood fit of; see augmentedVcov).
 //   - Tests: penalised likelihood ratio 2 (l*(beta hat) - l*_0), l*_0 the fit with the coefficient (or every column
@@ -26,7 +36,8 @@
 // Aliased columns (a combination of earlier columns, glm.js keptColumns) are left out of the fit and reported as
 // in M2. The farm route 'robust' is refused: there is no pinned sandwich estimator for the penalised fit.
 //
-// Pins: tests/unit/models-firth.test.mjs against tests/fixtures/r/out/firth.json (logistf 1.26.1 on sex2 and sep).
+// Pins: tests/unit/models-firth.test.mjs against tests/fixtures/r/out/firth.json (logistf 1.26.1 on sex2, sep and
+// three made-up six-row sets with a continuous separator).
 import { pnormTwoSided, pchisqUpper, qnorm, qchisq } from '../stats/dist.js';
 import { val, nullVal, testRow, invalid } from '../stats/common.js';
 import { glmData, keptColumns, referencesTable } from './glm.js';
@@ -35,6 +46,8 @@ import { glmData, keptColumns, referencesTable } from './glm.js';
 export const FIRTH_CONTROL = Object.freeze({ maxIter: 100, maxStep: 5, maxHalvings: 30, xconv: 1e-10, gconv: 1e-10 });
 const PROFILE_MAX_EXPAND = 60;
 const PROFILE_MAX_ITER = 100;
+const PROFILE_MAX_RESTART = 20;
+const PROFILE_WALK_STEPS = 24;
 
 // ---------------------------------------------------------------- small dense algebra
 
@@ -149,7 +162,7 @@ function evaluate(X, y, offset, beta) {
   }
   const pll = ll + 0.5 * logdet;
   if (!Number.isFinite(pll)) return null;
-  return { pll, ll, info, U, pi, w, hat };
+  return { pll, ll, info, L, U, pi, w, hat };
 }
 
 /**
@@ -174,15 +187,103 @@ function augmentedVcov(X, st) {
   return L ? cholInverse(L) : null;
 }
 
-/** Newton direction on the free columns, (I_FF)^-1 U*_F, zero elsewhere; null when I_FF is singular. */
-function newtonStep(st, free) {
-  const A = free.map((a) => free.map((b) => st.info[a][b]));
+/** Solve A x = rhs on the free columns and spread x back over every column; null when A is not positive definite. */
+function solveFree(A, st, free) {
   const L = cholesky(A);
   if (!L) return null;
   const x = cholSolve(L, free.map((j) => st.U[j]));
   const delta = new Float64Array(st.U.length);
   free.forEach((j, a) => { delta[j] = x[a]; });
   return delta;
+}
+
+/**
+ * The step directions on the free columns (zero elsewhere).
+ *  - fisherStep, logistf's: (J_FF)^-1 U*_F with J = X' diag(w (1 + h)) X, the information of the augmented data
+ *    (augmentedVcov), always positive definite. logistf 1.26.1's "NR" fit steps with it (checked in webR:
+ *    logistf(maxit = m) reproduces these steps to 12 digits). It converges only linearly, and slowly where the
+ *    penalty's curvature dominates, near a separated direction: there it needed 130 steps to reach the maximum to
+ *    1e-10, and X'WX alone (the step before 0.2.0) crawled further still.
+ *  - newtonStep: (-H_FF)^-1 U*_F with H the exact Hessian of l*, null where -H_FF is not positive definite. With
+ *    c_i = 1/2 - pi_i, v_i = L^-1 x_i (L L' = X'WX) and Q_il = v_i . v_l,
+ *      -H = X' diag(w (1 + h) - 2 c^2 h) X + 2 X' diag(c w) (Q o Q) diag(c w) X,
+ *    the last term summed as 2 sum_ab z_ab z_ab', z_ab = sum_i c_i w_i v_ia v_ib x_i over every pair of columns
+ *    (the penalty uses the whole model's information), checked against finite differences of l*. It converges
+ *    quadratically near the maximum.
+ * Both climb to the same maximum.
+ */
+function fisherStep(X, st, free) {
+  const n = st.w.length;
+  const f = free.length;
+  const Xf = free.map((j) => X[j]);
+  const J = free.map(() => new Array(f).fill(0));
+  for (let a = 0; a < f; a++) {
+    const xa = Xf[a];
+    for (let b = 0; b <= a; b++) {
+      const xb = Xf[b];
+      let sj = 0;
+      for (let i = 0; i < n; i++) sj += st.w[i] * (1 + st.hat[i]) * xa[i] * xb[i];
+      J[a][b] = sj;
+      J[b][a] = sj;
+    }
+  }
+  return solveFree(J, st, free);
+}
+
+function newtonStep(X, st, free) {
+  const n = st.w.length;
+  const k = X.length;
+  const f = free.length;
+  const Xf = free.map((j) => X[j]);
+  const N = free.map(() => new Array(f).fill(0));
+  const c2h = new Float64Array(n);
+  const cw = new Float64Array(n);
+  for (let i = 0; i < n; i++) {
+    const c = 0.5 - st.pi[i];
+    c2h[i] = st.w[i] * (1 + st.hat[i]) - 2 * c * c * st.hat[i];
+    cw[i] = c * st.w[i];
+  }
+  for (let a = 0; a < f; a++) {
+    const xa = Xf[a];
+    for (let b = 0; b <= a; b++) {
+      const xb = Xf[b];
+      let sn = 0;
+      for (let i = 0; i < n; i++) sn += c2h[i] * xa[i] * xb[i];
+      N[a][b] = sn;
+      N[b][a] = sn;
+    }
+  }
+  // v_i = L^-1 x_i, stored by column of the model
+  const { L } = st;
+  const V = Array.from({ length: k }, () => new Float64Array(n));
+  for (let a = 0; a < k; a++) {
+    const va = V[a];
+    const xa = X[a];
+    for (let i = 0; i < n; i++) {
+      let s = xa[i];
+      for (let c = 0; c < a; c++) s -= L[a][c] * V[c][i];
+      va[i] = s / L[a][a];
+    }
+  }
+  const g = new Float64Array(n);
+  const z = new Float64Array(f);
+  for (let a = 0; a < k; a++) {
+    for (let b = a; b < k; b++) {
+      const va = V[a];
+      const vb = V[b];
+      for (let i = 0; i < n; i++) g[i] = cw[i] * va[i] * vb[i];
+      for (let r = 0; r < f; r++) {
+        const xr = Xf[r];
+        let s = 0;
+        for (let i = 0; i < n; i++) s += g[i] * xr[i];
+        z[r] = s;
+      }
+      const m = a === b ? 2 : 4;
+      for (let r = 0; r < f; r++) for (let q = 0; q <= r; q++) N[r][q] += m * z[r] * z[q];
+    }
+  }
+  for (let r = 0; r < f; r++) for (let q = 0; q < r; q++) N[q][r] = N[r][q];
+  return solveFree(N, st, free);
 }
 
 /**
@@ -195,25 +296,38 @@ function maximise(model, start, free) {
   let beta = Float64Array.from(start);
   let st = evaluate(X, y, offset, beta);
   if (!st) return null;
+  let lastMx = Infinity;
   for (let iter = 0; ; iter++) {
     if (!free.length) return { converged: true, beta, st, iter };
-    const delta = newtonStep(st, free);
-    if (!delta) return null;
+    // The convergence rule reads logistf's step (always defined, and cheap), so it means the same whichever
+    // direction then climbs; Newton's is worked out only when the fit has not converged.
+    const ref = fisherStep(X, st, free);
+    if (!ref) return null;
     let mx = 0;
-    for (const j of free) mx = Math.max(mx, Math.abs(delta[j]));
+    for (const j of free) mx = Math.max(mx, Math.abs(ref[j]) / Math.max(1, Math.abs(beta[j])));
     if (mx <= C.xconv && free.every((j) => Math.abs(st.U[j]) <= C.gconv * scale[j])) return { converged: true, beta, st, iter };
     if (iter >= C.maxIter) return { converged: false, beta, st, iter };
-    if (mx > C.maxStep) for (const j of free) delta[j] *= C.maxStep / mx;
-    // Halve while l* falls; a fall within rounding of l* itself (1e-12 relative) is not a fall.
+    // logistf's step while it shrinks fast; Newton's once it shrinks by less than a factor of 4 a step
+    const newton = iter > 0 && mx > 0.25 * lastMx ? newtonStep(X, st, free) : null;
+    lastMx = mx;
+    const dirs = newton ? [newton, ref] : [ref];
+    // Halve while l* falls; a fall within rounding of l* itself (1e-12 relative) is not a fall. Newton's direction
+    // first; logistf's when no halving of Newton's raises l*.
     const tol = 1e-12 * Math.max(1, Math.abs(st.pll));
-    let f = 1;
     let next = null;
     let nst = null;
-    for (let h = 0; h <= C.maxHalvings; h++, f /= 2) {
-      const cand = Float64Array.from(beta);
-      for (const j of free) cand[j] += f * delta[j];
-      const cst = evaluate(X, y, offset, cand);
-      if (cst && cst.pll >= st.pll - tol) { next = cand; nst = cst; break; }
+    for (const delta of dirs) {
+      let big = 0;
+      for (const j of free) big = Math.max(big, Math.abs(delta[j]));
+      const cap = big > C.maxStep ? C.maxStep / big : 1;
+      let fr = cap;
+      for (let h = 0; h <= C.maxHalvings; h++, fr /= 2) {
+        const cand = Float64Array.from(beta);
+        for (const j of free) cand[j] += fr * delta[j];
+        const cst = evaluate(X, y, offset, cand);
+        if (cst && cst.pll >= st.pll - tol) { next = cand; nst = cst; break; }
+      }
+      if (next) break;
     }
     if (!next) return { converged: false, beta, st, iter };
     beta = next;
@@ -287,42 +401,134 @@ export function firthProfileCi(fit, j, confLevel) {
 function profileBound(fit, j, side, target, q) {
   const { model } = fit;
   const bhat = fit.beta[j];
-  const at = (b, start) => {
-    const r = restricted(model, new Map([[j, b]]), start);
-    return r ? { b, g: r.st.pll - target, d: r.st.U[j], beta: r.beta } : null;
+  const gTol = 1e-12 * Math.max(1, Math.abs(target));
+  // l*_j(b) is the maximum over the other coefficients, and away from the estimate l* can have more than one local
+  // maximum there (the penalty is not concave): a fit started from one point can settle on a lower peak and make
+  // the profile seem to cross the target where it does not. So each point is fitted from several starts (the
+  // nearest points already fitted, a straight-line prediction along the path, the estimate) and keeps the highest
+  // maximum; a start that does not converge is skipped, and the point is lost only when none converges. And when
+  // the refinement moves the inner point, the outer one is fitted again from the inner one's coefficients: if it
+  // then lies above the target the bracket was false, and the search goes on outwards from there.
+  // A point clearly inside (g above rounding of the cut-off) stays inside whatever higher peak the other starts
+  // might find, so they are tried only when the first start says g <= 0 (or fails).
+  // On one branch g(b) is smooth, so the slope of the chord between two points lies between (or near) their
+  // derivatives U*_j; a chord far outside them marks a jump to another branch.
+  let jumped = false;
+  const jump = (A, B) => {
+    const s = (B.g - A.g) / (B.b - A.b);
+    const lo = Math.min(A.d, B.d);
+    const hi = Math.max(A.d, B.d);
+    const margin = 0.25 * (hi - lo) + 0.05 * Math.max(Math.abs(A.d), Math.abs(B.d)) + 1e-9;
+    const out = !(s >= lo - margin && s <= hi + margin);
+    if (out) jumped = true;
+    return out;
   };
-  // Bracket: from the estimate (g = q / 2 > 0) outwards, doubling from the Wald half-width, until g < 0.
+  // A point clearly inside (g above rounding of the cut-off) stays inside whatever higher peak another start might
+  // find, and a point reached smoothly from `from` (no jump) is on that point's branch: the other starts are tried
+  // only for a point that is neither.
+  const at = (b, starts, from) => {
+    let best = null;
+    const seen = [];
+    for (const start of starts) {
+      if (!start || seen.includes(start)) continue;
+      seen.push(start);
+      const r = restricted(model, new Map([[j, b]]), start);
+      if (r && (!best || r.st.pll > best.st.pll)) best = r;
+      if (!best) continue;
+      const pt = { b, g: best.st.pll - target, d: best.st.U[j], beta: best.beta };
+      if (pt.g > gTol || (from && !jump(from, pt))) return pt;
+    }
+    return best ? { b, g: best.st.pll - target, d: best.st.U[j], beta: best.beta } : null;
+  };
+  // coefficients predicted at b on the straight line through the last two points of the path
+  const predict = (a, c, b) => {
+    if (!a || a.b === c.b) return null;
+    const t = (b - c.b) / (c.b - a.b);
+    const out = Float64Array.from(c.beta, (v, i) => v + t * (v - a.beta[i]));
+    out[j] = b;
+    return out;
+  };
+  // The branch joined to the estimate, followed in small steps (as logistpl follows it): a root is accepted only
+  // when this branch is not above the cut-off there either.
+  const walk = (b) => {
+    let a = null;
+    let c = { b: bhat, beta: model.beta };
+    for (let t = 1; t <= PROFILE_WALK_STEPS; t++) {
+      const bt = bhat + ((b - bhat) * t) / PROFILE_WALK_STEPS;
+      const pt = at(bt, [c.beta, predict(a, c, bt)]);
+      if (!pt) return null;
+      a = c;
+      c = pt;
+    }
+    return c;
+  };
+  const accept = (b, pt) => {
+    const w = walk(b);
+    return w && w.g > gTol && (!pt || w.g > pt.g) ? w : null;
+  };
+  let prev = null;
   let inner = { b: bhat, g: fit.logLik - target, d: 0, beta: model.beta };
-  let outer = null;
   let step = Math.sqrt(q) * fit.se[j];
   if (!(step > 0) || !Number.isFinite(step)) step = 1;
-  for (let e = 0; e < PROFILE_MAX_EXPAND && !outer; e++, step *= 2) {
-    const pt = at(bhat + side * step, inner.beta);
-    if (!pt) return null;
-    if (pt.g <= 0) outer = pt; else inner = pt;
-  }
-  if (!outer) return null;
-  if (outer.g === 0) return outer.b;
-  // Safeguarded Newton (dg/db = U*_j at the restricted maximum), bisecting when Newton leaves the bracket or the
-  // bracket fails to halve over two steps.
-  let cur = inner.b !== bhat && Math.abs(inner.g) < Math.abs(outer.g) ? inner : outer;
-  let width = Math.abs(outer.b - inner.b);
-  let widthBefore = Infinity;
-  const gTol = 1e-12 * Math.max(1, Math.abs(target));
-  for (let it = 0; it < PROFILE_MAX_ITER; it++) {
-    const lo = Math.min(inner.b, outer.b);
-    const hi = Math.max(inner.b, outer.b);
-    let b = cur.d !== 0 ? cur.b - cur.g / cur.d : NaN;
-    if (!(b > lo && b < hi) || width > widthBefore / 2) b = (lo + hi) / 2;
-    const near = Math.abs(b - inner.b) < Math.abs(b - outer.b) ? inner : outer;
-    const pt = at(b, near.beta);
-    if (!pt) return null;
-    if (Math.abs(pt.g) <= gTol || (pt.d !== 0 && Math.abs(pt.g / pt.d) <= 1e-12 * Math.max(1, Math.abs(b)))) return b;
-    if (pt.g > 0) inner = pt; else outer = pt;
-    widthBefore = width;
-    width = Math.abs(outer.b - inner.b);
-    if (width <= 1e-12 * Math.max(1, Math.abs(b))) return b;
-    cur = pt;
+  let base = bhat;
+  for (let round = 0; round < PROFILE_MAX_RESTART; round++) {
+    // Bracket: from `base` outwards, doubling, until g < 0 (the first round from the estimate, g = q / 2 > 0).
+    let outer = null;
+    for (let e = 0; e < PROFILE_MAX_EXPAND && !outer; e++, step *= 2) {
+      const b = base + side * step;
+      const pt = at(b, [inner.beta, predict(prev, inner, b), model.beta], inner);
+      if (!pt) return null;
+      if (pt.g <= 0) outer = pt; else { prev = inner; inner = pt; }
+    }
+    if (!outer) return null;
+    if (outer.g === 0) {
+      const w = accept(outer.b, outer);
+      if (!w) return outer.b;
+      prev = inner; inner = w; base = inner.b; step = Math.max(Math.abs(inner.b - prev.b), 1e-8 * Math.max(1, Math.abs(inner.b)));
+      continue;
+    }
+    // Safeguarded Newton (dg/db = U*_j at the restricted maximum), bisecting when Newton leaves the bracket or the
+    // bracket fails to halve over two steps.
+    let cur = inner.b !== bhat && Math.abs(inner.g) < Math.abs(outer.g) ? inner : outer;
+    let width = Math.abs(outer.b - inner.b);
+    let widthBefore = Infinity;
+    let falseBracket = null;
+    for (let it = 0; it < PROFILE_MAX_ITER; it++) {
+      const lo = Math.min(inner.b, outer.b);
+      const hi = Math.max(inner.b, outer.b);
+      let b = cur.d !== 0 ? cur.b - cur.g / cur.d : NaN;
+      if (!(b > lo && b < hi) || width > widthBefore / 2) b = (lo + hi) / 2;
+      const near = Math.abs(b - inner.b) < Math.abs(b - outer.b) ? inner : outer;
+      const pt = at(b, [near.beta, near === inner ? outer.beta : inner.beta, model.beta], near);
+      if (!pt) return null;
+      if (Math.abs(pt.g) <= gTol || (pt.d !== 0 && Math.abs(pt.g / pt.d) <= 1e-12 * Math.max(1, Math.abs(b)))) {
+        falseBracket = accept(b, pt);
+        if (!falseBracket) return b;
+        break;
+      }
+      if (pt.g > 0) {
+        prev = inner;
+        inner = pt;
+        if (jump(inner, outer)) {
+          const o = at(outer.b, [inner.beta, predict(prev, inner, outer.b)]);
+          if (o && o.g > 0) { falseBracket = o; break; }
+          if (o && o.g > outer.g) outer = o;
+        }
+      } else outer = pt;
+      widthBefore = width;
+      width = Math.abs(outer.b - inner.b);
+      if (width <= 1e-12 * Math.max(1, Math.abs(b))) {
+        falseBracket = accept(b, pt);
+        if (!falseBracket) return b;
+        break;
+      }
+      cur = pt;
+    }
+    if (!falseBracket) return null;
+    prev = inner;
+    inner = falseBracket;
+    base = inner.b;
+    step = Math.max(Math.abs(inner.b - prev.b), 1e-8 * Math.max(1, Math.abs(inner.b)));
   }
   return null;
 }

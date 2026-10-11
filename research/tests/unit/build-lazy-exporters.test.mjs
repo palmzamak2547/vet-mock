@@ -68,8 +68,10 @@ test('the workspace opens without the project screen, the analysis panes or the 
   for (const heavy of ['workspace/screens/Project.jsx', 'workspace/screens/AnalysisPane.jsx', 'workspace/components/FigureComposer.jsx', 'workspace/screens/ReportPane.jsx', 'workspace/screens/SampleSize.jsx', 'workspace/screens/tools/PowerTool.jsx', 'workspace/screens/tools/RandomiseTool.jsx']) {
     assert.ok(!rel.includes(heavy), `${heavy} is reached statically from Workspace.jsx`);
   }
-  // A byte budget on the source the first chunk carries: 1.28 MB of source here (built chunk 729 kB); 2.08 MB
-  // before the split (built chunk 1.56 MB). Counted with LF line ends, so a Windows checkout (CRLF) and CI agree.
+  // A byte budget on the source the first chunk carries: 1.28 MB of source at M2 (built chunk 729 kB), 1.43 MB at
+  // M3a 0.2.0 (measured 1,434,711 bytes, 15 kB under the budget: most of the growth is the M3a words in the eagerly
+  // imported i18n/lab.js, which belong in a lazy lab-m3.js as workspace-m3.js is); 2.08 MB before the split (built
+  // chunk 1.56 MB). Counted with LF line ends, so a Windows checkout (CRLF) and CI agree.
   const bytes = [...closure].filter((f) => f.startsWith(SRC) && existsSync(f) && /\.(m?js|jsx)$/.test(f)).reduce((s, f) => s + Buffer.byteLength(readFileSync(f, 'utf8').replace(/\r\n/g, '\n')), 0);
   assert.ok(bytes < 1_450_000, `Workspace.jsx reaches ${bytes} bytes of source statically`);
 });

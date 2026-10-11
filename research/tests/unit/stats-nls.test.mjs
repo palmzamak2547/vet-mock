@@ -11,6 +11,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { nlsFit, deltaSe, aicc, extraSsF, rSquared } from '../../src/lib/stats/nls.js';
 import { readJson, readText, lre } from './stats-fixtures.mjs';
+import { VERIFIED } from '../../src/lib/runtime/verified.generated.js';
 
 const FIXTURE = readJson('stats/nist-strd-nls/fixture.json');
 
@@ -85,11 +86,16 @@ function nlsModel(name, d) {
 }
 
 // The higher sets that do not converge from NIST's Start 1 (each refuses with no number; recorded in the notes):
-// MGH09 and Eckerle4 run out of the 200 steps; BoxBOD takes b2 to 8e47, where it no longer moves any fitted value.
-const REFUSE_FROM_START1 = ['BoxBOD', 'Eckerle4', 'MGH09'];
+// MGH09 and Eckerle4 run out of the 200 steps. BoxBOD Start 1 refused before 0.2.0 (b2 ran away to 8e47); with
+// Gauss-Newton step halving first it converges to the certified values (LRE 8.4), and is checked like the rest.
+const REFUSE_FROM_START1 = ['Eckerle4', 'MGH09'];
 
 test('the fixture declares the ten sets with their difficulty and LRE thresholds', () => {
   assert.equal(FIXTURE._fixture.family, 'nist-strd');
+  // a second check of the shared core, never the curve models' pin (fix-stats finding 14): no 4PL, 5PL, curve
+  // equation, EC50 or read-off concentration is in a NIST set, so these methods are not "verified against NIST"
+  assert.equal(FIXTURE._fixture.kind, 'crosscheck');
+  for (const m of ['nls.fourPL', 'nls.doseResponse', 'nls.equation']) assert.deepEqual(VERIFIED[m], ['r-4.6.0'], m);
   assert.deepEqual([...FIXTURE.lower, ...FIXTURE.higher].sort(), Object.keys(MODELS).sort());
   assert.deepEqual(FIXTURE.minLre, { lower: 6, higher: 5 });
 });

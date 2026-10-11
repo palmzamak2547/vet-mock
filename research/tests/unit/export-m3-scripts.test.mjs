@@ -47,6 +47,10 @@ test('R: the standard curve is fitted with nls in the log-EC50 form, drc only as
   has(r, 'if (requireNamespace("drc", quietly = TRUE)) print(drc::ED(drc::drm(Y ~ X, data = s, fct = drc::LL2.4()), 50, interval = "fls", level = 0.95))');
   has(r, '# install.packages("drc")');
   lacks(r, 'library(drc)', 'drc must never stop the script when it is not installed');
+  // the comment points at the install line where it is, right below it (fix-stats finding 12)
+  const drcAt = r.indexOf('# install.packages("drc")');
+  assert.ok(r.lastIndexOf('drc', drcAt - 1) < drcAt && /line below|ข้างล่าง/.test(r.slice(Math.max(0, drcAt - 600), drcAt)), 'the drc comment says the line is below');
+  assert.ok(!/install\.packages line above|install\.packages ข้างบน/.test(r), 'never "above"');
   for (const lang of ['th', 'en']) {
     const t = tOf(lang);
     const text = R('fourPL', lang).replace(/\n# /g, ' ');
@@ -157,7 +161,12 @@ test("R: Firth's correction with logistf (profile or Wald) and drop1; negative b
   has(nb, 'exp(cbind(IRR = coef(fit), confint(fit, level = 0.95)))  # profile intervals with theta held at its estimate');
   has(nb, 'c(chisq = lr, p = 0.5 * pchisq(lr, 1, lower.tail = FALSE))  # against Poisson, p halved');
   has(nb, 'm0 <- update(fit, paste(". ~ . -", tl))');
+  // fix-stats finding 7: the null model and the term refits run on the full fit's rows (a blank covariate would
+  // otherwise leave them on more rows than the fit), so the complete rows are kept before the first fit
+  has(nb, 'a <- a[complete.cases(a[, c("Days", "Eth", "Sex", "Age")]), ]');
+  assert.ok(nb.indexOf('a <- a[complete.cases(') < nb.indexOf('fit <- glm.nb('), 'rows kept before the first fit');
   const w = R('negbinWald');
+  has(w, 'a <- a[complete.cases(a[, c("Days", "Eth", "Sex", "py")]), ]');
   has(w, 'fit <- glm.nb(Days ~ Eth + Sex + offset(log(py)), data = a');
   has(w, 'confint.default(fit, level = 0.95)');
   has(w, 'null <- glm.nb(Days ~ 1 + offset(log(py))');

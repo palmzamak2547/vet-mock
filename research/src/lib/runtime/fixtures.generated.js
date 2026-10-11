@@ -732,8 +732,8 @@ export const FIXTURES = [
     "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
    }
   ],
-  "sha": "9214ef8e790e31e4",
-  "lastPassed": "2026-10-11"
+  "sha": "67ca992ea129c9ed",
+  "lastPassed": "2026-10-12"
  },
  {
   "file": "r/out/fisher.json",
@@ -1186,8 +1186,8 @@ export const FIXTURES = [
     "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
    }
   ],
-  "sha": "e7d463f11aa2d8e6",
-  "lastPassed": "2026-10-11"
+  "sha": "add6b11a105d891f",
+  "lastPassed": "2026-10-12"
  },
  {
   "file": "r/out/normality.json",
@@ -1903,7 +1903,7 @@ export const FIXTURES = [
  {
   "file": "stats/nist-strd-nls/fixture.json",
   "family": "nist-strd",
-  "kind": "pin",
+  "kind": "crosscheck",
   "methods": [
    "nls.doseResponse",
    "nls.equation",
@@ -1913,7 +1913,7 @@ export const FIXTURES = [
    "stats-nls.test.mjs"
   ],
   "source": {
-   "text": "NIST/ITL Statistical Reference Datasets, nonlinear regression (public domain), downloaded 2026-10-08",
+   "text": "NIST/ITL Statistical Reference Datasets, nonlinear regression (public domain), downloaded 2026-10-08. They check the shared nonlinear least-squares core (its steps, stopping rule and covariance) with NIST's own models, not the 4PL, 5PL or curve equations, their EC50 or read-off concentrations; those are pinned by R 4.6.0 (r/out/nonlinear.json), so this file is a second check and does not count toward verified.",
    "r": null,
    "webR": null,
    "packages": null,
@@ -1936,8 +1936,8 @@ export const FIXTURES = [
     "lre": 5
    }
   ],
-  "sha": "07e401356738f4a9",
-  "lastPassed": "2026-10-11"
+  "sha": "07153d5d3ffc25fa",
+  "lastPassed": "2026-10-12"
  },
  {
   "file": "stats/nist-strd/fixture.json",

@@ -183,3 +183,52 @@ test('Firth refuses the robust farm route, leaves an aliased column out, and war
   near(out.values['b:x=b'].value, FX.cases.separation.values.coef[1], TOL, 'the rest of the fit is the fit without the aliased column');
   assert.ok(out.warnings.some((w) => w.id === 'G14' && w.bodyKey === 'models.guard.G14.epvFirth'), '5 positives for 2 variables');
 });
+
+// fix-stats finding 6: on separated data with a continuous separator the fitter before 0.2.0 stepped with X'WX
+// alone, crawled, and declared non-convergence at the maximum; profile limits and penalised LR tests came back
+// null and `pair` was refused outright. Six-row sets from tests/fixtures/r/firth.R (logistf 1.26.1).
+const sixRow = (name) => {
+  const d = FX.datasets[name];
+  const n = d.y.length;
+  const X = [new Float64Array(n).fill(1), Float64Array.from(d.x)];
+  const cols = { y: { kind: 'number', values: d.y }, x: { kind: 'number', values: d.x } };
+  if (d.z) { X.push(Float64Array.from(d.z)); cols.z = { kind: 'number', values: d.z }; }
+  return { X, y: Float64Array.from(d.y), table: makeTable(cols), covariates: d.z ? ['x', 'z'] : ['x'] };
+};
+
+for (const name of ['tiny', 'pair', 'pairTest']) {
+  test(`${name}: a continuous separator converges to logistf's maximum, every profile limit and p found`, () => {
+    const v = FX.cases[name].values;
+    const s = sixRow(name);
+    const f = fitFirth(s.X, s.y);
+    assert.ok(f.converged, 'converged');
+    assert.ok(f.iter <= 40, `iterations ${f.iter}`);
+    nearAll(f.beta, v.coef, TOL, 'coef');
+    near(f.logLik, v.loglik[0], TOL, 'loglik full');
+    for (let j = 0; j < s.X.length; j++) {
+      const [lo, hi] = firthProfileCi(f, j, 0.95);
+      near(lo, v.lower[j], TOL, `lower ${j}`);
+      near(hi, v.upper[j], TOL, `upper ${j}`);
+      near(firthTest(f, [j]).p, v.p[j], TOL, `p ${j}`);
+    }
+    const out = firth(s.table, { outcome: 'y', covariates: s.covariates });
+    assert.equal(out.status, 'ok');
+    const coef = out.tables.find((t) => t.id === 'coefficients');
+    coef.rows.forEach((r, j) => {
+      near(r[5], v.lower[j], TOL, `table lower ${j}`);
+      near(r[6], v.upper[j], TOL, `table upper ${j}`);
+    });
+    for (const [k, x] of Object.entries(out.values)) assert.notEqual(x?.noteKey, 'models.undefined.profileBound', `${k} has a lost bound`);
+    near(out.values.logLikPenalisedNull.value, v.loglik[1], TOL, 'penalised loglik null');
+  });
+}
+
+test('pair: the intercept\'s upper limit is the profile\'s own crossing, not logistpl\'s lower local maximum', () => {
+  const v = FX.cases.pair.values;
+  // logistpl prints 7.907; the profile (the maximum over x and z) is still above the cut-off there, and the fixture
+  // finds its crossing at 9.739 by optim from a grid of starts and uniroot.
+  assert.ok(v.logistplUpper[0] < v.upper[0] - 1, 'the fixture keeps both numbers');
+  const s = sixRow('pair');
+  const f = fitFirth(s.X, s.y);
+  near(firthProfileCi(f, 0, 0.95)[1], v.upper[0], TOL, 'upper intercept');
+});

@@ -14,7 +14,7 @@ import { describeStep } from '../../lib/intake/recipe.js';
 import { getMethod } from '../../lib/runtime/catalog.js';
 import { download, svgToPng } from '../../lib/runtime/export.js';
 import { RELEASES } from '../../data/cite.js';
-import { referencesFor } from '../../data/references.js';
+import { referencesFor, usedOf } from '../../data/references.js';
 import { citationText, softwareRecord, toBibtex, toRis, dateWithEra } from '../../lib/export/cite.js';
 import { useWs } from '../ws-context.js';
 import { buildDraft, columnNameFor, levelNameFor, publicVersion } from '../report/build.js';
@@ -131,7 +131,7 @@ export default function ReportPane({ p }) {
   const citeRelease = version ? { ...(release || {}), version, year: release?.year || Number(today.slice(0, 4)) } : null;
   const citeLine = citeRelease ? citationText(citeRelease, { lang, t, accessed: today }) : '';
   const refs = useMemo(() => {
-    const used = p.analyses.filter((a) => a.envelope).map((a) => ({ method: a.envelope.spec?.method || a.spec?.method, route: a.envelope.spec?.cluster?.route || null, variant: a.envelope.spec?.options?.method || null }));
+    const used = p.analyses.filter((a) => a.envelope).map((a) => usedOf(a.envelope.spec || a.spec));
     return [...referencesFor(used, { flow: Boolean(flow), design: p.project?.design || null }), ...(citeRelease ? [softwareRecord(citeRelease, today)] : [])];
   }, [p.analyses, flow, citeRelease?.version, today]);
   const base = safeFileBase(p.project.name || 'report');
