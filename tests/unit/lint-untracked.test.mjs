@@ -6,8 +6,9 @@
 // could not resolve search-index-loaders.generated.js at all.
 //
 // lint:untracked fails when `git status` lists an untracked file under src/,
-// api/ or public/. Ignored paths (.gitignore, dist/, test-results/,
-// playwright-report/) never count. Each case builds a throwaway git repo.
+// api/, public/, scripts/ or supabase/. Ignored paths (.gitignore, dist/,
+// test-results/, playwright-report/) never count. Each case builds a throwaway
+// git repo.
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { execFileSync, spawnSync } from 'node:child_process';
@@ -30,7 +31,7 @@ function makeRepo() {
     fs.mkdirSync(path.dirname(path.join(dir, rel)), { recursive: true });
     fs.writeFileSync(path.join(dir, rel), text);
   };
-  put('.gitignore', 'dist/\ntest-results/\nplaywright-report/\nsrc/local-only/\n');
+  put('.gitignore', 'dist/\ntest-results/\nplaywright-report/\nsrc/local-only/\nscripts/debug-*.mjs\n');
   put('src/app.js');
   git('add', '-A');
   git('commit', '-q', '-m', 'init');
@@ -69,17 +70,48 @@ test('a tracked file passes, and so does a staged new one', () => {
   } finally { r.done(); }
 });
 
-test('ignored files and untracked files outside src, api and public pass', () => {
+test('ignored files and untracked files outside the source roots pass', () => {
   const r = makeRepo();
   try {
     r.put('src/local-only/scratch.js');
     r.put('dist/assets/entry.js');
     r.put('test-results/.last-run.json');
     r.put('playwright-report/index.html');
+    r.put('scripts/debug-probe.mjs'); // ignored by .gitignore, like the real one
     r.put('docs/notes.md');
     r.put('scratchpad/idea.txt');
     const out = lint(r.dir);
     assert.equal(out.status, 0, out.out);
+  } finally { r.done(); }
+});
+
+// The build runs scripts/ (prebuild and the regen scripts) and a migration or
+// edge function under supabase/ that exists only on one machine breaks the next
+// checkout exactly as the untracked src/ modules did.
+test('an untracked helper under scripts/ or file under supabase/ fails, and the message names the roots', () => {
+  const r = makeRepo();
+  try {
+    r.put('scripts/regen-new-thing.mjs');
+    r.put('supabase/migrations/20261011000000_new.sql');
+    r.put('supabase/functions/new-fn/index.ts');
+    const out = lint(r.dir);
+    assert.equal(out.status, 1, out.out);
+    assert.match(out.out, /scripts\/regen-new-thing\.mjs/);
+    assert.match(out.out, /supabase\/migrations\/20261011000000_new\.sql/);
+    assert.match(out.out, /supabase\/functions\/new-fn\/index\.ts/);
+    assert.match(out.out, /3 file\(s\) under src\/, api\/, public\/, scripts\/ or supabase\//);
+  } finally { r.done(); }
+});
+
+test('a staged scripts/ and supabase/ file passes, and the success line names all five roots', () => {
+  const r = makeRepo();
+  try {
+    r.put('scripts/staged.mjs');
+    r.put('supabase/migrations/20261011000001_staged.sql');
+    r.git('add', 'scripts/staged.mjs', 'supabase/migrations/20261011000001_staged.sql');
+    const out = lint(r.dir);
+    assert.equal(out.status, 0, out.out);
+    assert.match(out.out, /no untracked files under src\/, api\/, public\/, scripts\/ or supabase\//);
   } finally { r.done(); }
 });
 
