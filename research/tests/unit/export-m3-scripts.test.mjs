@@ -157,7 +157,12 @@ test("R: Firth's correction with logistf (profile or Wald) and drop1; negative b
   has(nb, 'exp(cbind(IRR = coef(fit), confint(fit, level = 0.95)))  # profile intervals with theta held at its estimate');
   has(nb, 'c(chisq = lr, p = 0.5 * pchisq(lr, 1, lower.tail = FALSE))  # against Poisson, p halved');
   has(nb, 'm0 <- update(fit, paste(". ~ . -", tl))');
+  // fix-stats finding 7: the null model and the term refits run on the full fit's rows (a blank covariate would
+  // otherwise leave them on more rows than the fit), so the complete rows are kept before the first fit
+  has(nb, 'a <- a[complete.cases(a[, c("Days", "Eth", "Sex", "Age")]), ]');
+  assert.ok(nb.indexOf('a <- a[complete.cases(') < nb.indexOf('fit <- glm.nb('), 'rows kept before the first fit');
   const w = R('negbinWald');
+  has(w, 'a <- a[complete.cases(a[, c("Days", "Eth", "Sex", "py")]), ]');
   has(w, 'fit <- glm.nb(Days ~ Eth + Sex + offset(log(py)), data = a');
   has(w, 'confint.default(fit, level = 0.95)');
   has(w, 'null <- glm.nb(Days ~ 1 + offset(log(py))');
