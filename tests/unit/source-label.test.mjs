@@ -324,6 +324,85 @@ test('a question that cites no moment gets no clip link', () => {
   }
 });
 
+// ── a summarised clip that is not a timetabled session (OV-reading-17) ──
+// 208044 and 208058 were checked against COM V's heartworm and protozoa
+// clips. Neither is a session in lecturer-sets.js, so the ตรวจกับ row printed
+// "ZblHFqIn5wA [14:59]" and "v6uVIpRJxZU [24:05] [24:18]" and offered no
+// minute to open, although both clips have summaries in the app. A small
+// generated map (subject name and date per summarised clip) names them now;
+// the 270 KB clip index itself never loads with the chip.
+
+const { CLIPS_BY_SUBJECT } = await import('../../src/data/clip-labels.generated.js');
+const { clipDate, generateClipLabels, OUT: CLIP_LABELS_FILE } = await import('../../scripts/regen-clip-labels.mjs');
+const { sameGenerated } = await import('../../scripts/lib/same-generated.mjs');
+const KNOWN_CLIPS = new Set(Object.values(CLIPS_BY_SUBJECT).flatMap((clips) => Object.keys(clips)));
+
+test('a summarised clip that is not a session is named by its course and date', () => {
+  assert.equal(sessionLabel('ZblHFqIn5wA'), 'คลิป COM V (11 ก.พ.)');
+  assert.equal(sessionLabel('v6uVIpRJxZU'), 'คลิป COM V (1 เม.ย.)');
+  // A clip whose summary carries no date is still named by its course.
+  assert.equal(sessionLabel('0zkTYJYCUWA'), 'คลิป Vet Surg Lab II');
+  // A timetabled session keeps its session name.
+  assert.match(sessionLabel('gwgmq6oGOWc'), /^คาบ \d/);
+  assert.equal(sessionLabel('7XyI0SjnuBA'), 'คาบ 1 (4 ส.ค.)');
+  assert.equal(humanSource('v6uVIpRJxZU [24:05] [24:18]'), 'คลิป COM V (1 เม.ย.) นาที 24:05, 24:18');
+  assert.equal(humanSource('ZblHFqIn5wA'), 'คลิป COM V (11 ก.พ.)');
+  assert.deepEqual(recordingMoments('ZblHFqIn5wA [14:59]-[15:36]'), [
+    { videoId: 'ZblHFqIn5wA', seconds: 899, stamp: '14:59', session: 'คลิป COM V (11 ก.พ.)', label: 'คลิป COM V (11 ก.พ.) นาที 14:59' },
+  ]);
+});
+
+test('208044 and 208058 show readable clip names and clickable minutes', () => {
+  const heartworm = renderChip(bankRow('zoonoses', 208044), { open: true });
+  assert.doesNotMatch(heartworm.text, /ZblHFqIn5wA|gwgmq6oGOWc/);
+  assert.match(heartworm.text, /คลิป COM V \(11 ก\.พ\.\) นาที 14:59/);
+  assert.ok(momentLinks(heartworm.tree).some((a) => a.props.href === '/app/videos?v=ZblHFqIn5wA&at=899'),
+    'the heartworm clip minute must open');
+
+  const protozoa = renderChip(bankRow('zoonoses', 208058), { open: true });
+  assert.doesNotMatch(protozoa.text, /v6uVIpRJxZU|gwgmq6oGOWc/);
+  assert.match(protozoa.text, /คลิป COM V \(1 เม\.ย\.\) นาที 24:05, 24:18/);
+  const hrefs = momentLinks(protozoa.tree).map((a) => a.props.href);
+  for (const at of [1445, 1458]) assert.ok(hrefs.includes(`/app/videos?v=v6uVIpRJxZU&at=${at}`), `v6uVIpRJxZU at ${at}`);
+});
+
+test('no question shows the raw id of a clip the app has a summary for', () => {
+  const ID_RUN = /(?<![0-9A-Za-z_-])([0-9A-Za-z_-]{11})(?![0-9A-Za-z_-])/g;
+  const cites = (q) => [q.source, q.verified].some((f) => [...String(f || '').matchAll(ID_RUN)].some((m) => KNOWN_CLIPS.has(m[1])));
+  const rows = QB.filter(cites);
+  assert.ok(rows.length >= 2, `rows citing a summarised clip (${rows.length})`);
+  const shown = [];
+  for (const q of rows) {
+    const { text } = renderChip(q, { open: true });
+    const raw = [...text.matchAll(ID_RUN)].map((m) => m[1]).filter((id) => KNOWN_CLIPS.has(id));
+    if (raw.length) shown.push(`${q.subject}#${q.id}: ${raw.join(', ')}`);
+  }
+  assert.deepEqual(shown, []);
+});
+
+test('a clip summary date is read the ways the index writes it, and never guessed', () => {
+  assert.equal(clipDate('2025-10-14'), '14 ต.ค.');
+  assert.equal(clipDate('2025-5-6'), '6 พ.ค.');
+  assert.equal(clipDate('11 Feb 68'), '11 ก.พ.');
+  assert.equal(clipDate('1 Apr 69'), '1 เม.ย.');
+  assert.equal(clipDate('7 Oct 2024 (DekDokVet85, อ.วชิรา)'), '7 ต.ค.');
+  assert.equal(clipDate('27 มิ.ย. 69'), '27 มิ.ย.');
+  for (const none of ['มิถุนายน 69', 'surg1 lab', '31 Foo 68', '2025-13-01', '', null, undefined]) {
+    assert.equal(clipDate(none), '', JSON.stringify(none));
+  }
+});
+
+test('the clip label map is current with the clip summaries, and stays small', async () => {
+  const current = readFileSync(CLIP_LABELS_FILE, 'utf8');
+  assert.ok(sameGenerated(current, await generateClipLabels()),
+    'src/data/clip-labels.generated.js is stale; run node scripts/regen-clip-labels.mjs');
+  assert.doesNotMatch(current, /^\s*import\b/m, 'the map is data only');
+  assert.ok(Buffer.byteLength(current) < 40_000, `the map grew to ${Buffer.byteLength(current)} bytes`);
+  const label = readFileSync(new URL('../../src/lib/source-label.js', import.meta.url), 'utf8');
+  assert.doesNotMatch(label, /(?:from|import\()\s*['"][^'"]*video-summaries-meta/, 'the source chip must not load the whole clip index');
+  assert.match(label, /from '\.\.\/data\/clip-labels\.generated\.js'/);
+});
+
 // ── the clip page ───────────────────────────────────────────────────
 
 // VideoView reads the address and the browser's storage when it renders.

@@ -13,6 +13,10 @@
 // an honest raw pointer beats a pretty guess.
 // ============================================================
 import { LECTURER_SETS } from '../data/lecturer-sets.js';
+// Course name and date of every summarised clip, generated from
+// video-summaries-meta.js by scripts/regen-clip-labels.mjs. The meta itself is
+// about 270 KB and must not load with every question's source chip.
+import { CLIPS_BY_SUBJECT } from '../data/clip-labels.generated.js';
 
 const TH_MONTH = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 const thaiDate = (iso) => {
@@ -38,10 +42,25 @@ const SESSIONS = (() => {
   return map;
 })();
 
-/** "คาบ 1 (4 ส.ค.)" for a recording, or null when it is not a taught session. */
+/** "คลิป COM V (1 เม.ย.)" for a clip the app has a summary for, or null.
+ *  hasOwnProperty, not Object.hasOwn: this module loads on iOS 14. */
+function clipLabel(videoId) {
+  for (const subject of Object.keys(CLIPS_BY_SUBJECT)) {
+    const clips = CLIPS_BY_SUBJECT[subject];
+    if (!Object.prototype.hasOwnProperty.call(clips, videoId)) continue;
+    const date = clips[videoId];
+    return `คลิป ${subject}${date ? ` (${date})` : ''}`;
+  }
+  return null;
+}
+
+/** "คาบ 1 (4 ส.ค.)" for a recording, or null when it is not a taught session.
+ *  A clip from another course that the app has a summary for (208044 cites
+ *  COM V's heartworm clip) is named "คลิป COM V (11 ก.พ.)" instead, so it
+ *  reads as a lecture and its cited minutes can be opened. */
 export function sessionLabel(videoId) {
   const row = SESSIONS.get(videoId);
-  if (!row) return null;
+  if (!row) return clipLabel(videoId);
   const ns = [...new Set(row.ns)];
   const date = thaiDate(row.dates[0]);
   return `คาบ ${ns.join(' และ ')}${date ? ` (${date})` : ''}`;
@@ -164,7 +183,8 @@ function recordingMatches(text) {
  * Every moment of a taught session one citation names, in order and once
  * each: { videoId, seconds, stamp, session, label }. A bracket can hold a list
  * ("[131:42-133:10, 121:47]"), and a range opens at its first second. An id
- * that is not a taught session is skipped, as humanSource leaves it unnamed.
+ * that is neither a taught session nor a summarised clip is skipped, as
+ * humanSource leaves it unnamed.
  */
 export function recordingMoments(raw) {
   const out = [];
