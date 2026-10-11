@@ -59,10 +59,11 @@ run <- function(fit, between) {
 cases <- list()
 cases[["withinOnly"]] <- case("anova(lm(Y ~ 1), M, X, idata, test = 'Spherical'); mauchly.test; car::Anova type 3 sums of squares", "iterative",
   run(lm(Y ~ 1), FALSE), data = "OBrienKaiser")
-options(contrasts = c("contr.sum", "contr.poly"))
+old_contrasts <- options(contrasts = c("contr.sum", "contr.poly"))
 treatment <- ok$treatment
 cases[["withBetween"]] <- case("anova(lm(Y ~ treatment), M, X, idata, test = 'Spherical'); sum contrasts", "iterative",
   run(lm(Y ~ treatment), TRUE), data = "OBrienKaiser")
+options(old_contrasts)  # the webR runner shares one session across the scripts: later fixtures must see the default contrasts
 
 rs_emit("anovarm2", c("anova.repeated"), cases, packages = "car",
   datasets = list(OBrienKaiser = list(treatment = arr(as.character(ok$treatment)), columns = arr(colnames(Y)), values = unname(Y),

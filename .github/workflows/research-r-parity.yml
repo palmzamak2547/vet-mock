@@ -1,5 +1,5 @@
 # ============================================================
-# VetMock Research: R parity (M1-DESIGN.md 13.2, M2-DESIGN.md 3)
+# VetMock Research: R parity (M1-DESIGN.md 13.2, M2-DESIGN.md 3, M3-DESIGN.md 4)
 # ============================================================
 # Runs only when something under research/ changes.
 #
@@ -11,12 +11,21 @@
 #   Any mismatch fails. M1 methods: rparity-engine.test.mjs; M2 methods:
 #   rparity-m2.test.mjs (a case whose module still carries the STUB(m2)
 #   marker is skipped with its reason; M2 ships only with none left).
+#   M3a methods keep their R pins in their own test files (the fixtures
+#   nonlinear, auc, qpcr, pca, anovarm2, firth, negbin and the NIST StRD
+#   nonlinear sets); rparity-m3.test.mjs checks that each of those files is
+#   listed below and reads its fixture, and that the native job below covers
+#   every script and installs every package the fixtures record.
 #
 # Job "native-r": the second check. Native R 4.6.0 reruns every
 #   research/tests/fixtures/r/*.R with the package versions recorded in
 #   the committed files and compares with them (compare.mjs NATIVE_REL:
 #   the same R source, a different C library underneath). A different
-#   package version fails the job instead of being compared.
+#   package version fails the job instead of being compared. The package
+#   list comes from the committed files (run-native.mjs --packages), so a
+#   script that starts to use a package is installed without editing this
+#   file: M3a adds drc 3.0.1 (nonlinear), logistf 1.26.1 (firth) and MASS
+#   7.3.65 (negbin) beside car (anovarm2).
 # ============================================================
 name: Research R parity
 
@@ -59,12 +68,26 @@ jobs:
         run: npm ci --no-audit --no-fund
 
       - name: Engine against the R 4.6.0 fixtures
-        run: node --test tests/unit/rparity-engine.test.mjs tests/unit/rparity-m2.test.mjs tests/unit/rparity-compare.test.mjs
+        run: >-
+          node --test
+          tests/unit/rparity-engine.test.mjs
+          tests/unit/rparity-m2.test.mjs
+          tests/unit/rparity-m3.test.mjs
+          tests/unit/rparity-compare.test.mjs
+          tests/unit/stats-nls.test.mjs
+          tests/unit/stats-nls-curves.test.mjs
+          tests/unit/lab-curves.test.mjs
+          tests/unit/lab-auc.test.mjs
+          tests/unit/lab-qpcr.test.mjs
+          tests/unit/lab-pca.test.mjs
+          tests/unit/lab-anovarm2.test.mjs
+          tests/unit/models-firth.test.mjs
+          tests/unit/models-negbin.test.mjs
 
   native-r:
     runs-on: ubuntu-24.04
-    # M2 adds car, multcomp, FSA, pROC, survey, sandwich, psych, MethComp and boot at pinned versions;
-    # an archived version installs from source, so the job gets more time than M1's 30 minutes.
+    # M2 adds car, multcomp, FSA, pROC, survey, sandwich, psych, MethComp and boot at pinned versions; M3a adds
+    # drc, logistf and MASS. An archived version installs from source, so the job gets more time than M1's 30 minutes.
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v7
