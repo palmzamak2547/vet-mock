@@ -6,15 +6,20 @@
 //   npm run gate          node scripts/gate.mjs
 //   npm run gate:fast     node scripts/gate.mjs --e2e-concurrent
 //   npm run gate:data     node scripts/gate.mjs --data-only  (phase A, ~10-20 s)
-//   npm run gate:serial   the same steps as one && chain, no script involved
+//   npm run gate:serial   the root steps and the Research phase as one && chain,
+//                         no script involved. Not the SQL harnesses: they run
+//                         only when a SQL-touching file moved and pglite is
+//                         reachable, which a plain chain cannot decide.
 // Flags: --e2e-concurrent   run both e2e steps at once (second on its own port)
 //        --data-only        stop after phase A: no build, no browsers
 //        --jobs=N           phase A runs N steps at a time (default 6)
 //        --with-research    force the Research phase (it is auto-detected
 //                           anyway: any change under research/ turns it on)
-//        --with-sql         force the two pglite SQL harnesses (auto-detected
-//                           too: supabase/migrations, the RPC-backed libs and
-//                           the harnesses themselves)
+//        --with-sql         force the two pglite SQL harnesses; fails when no
+//                           pglite module is reachable (auto-detected too: the
+//                           three migrations they apply, the RPC-backed libs
+//                           and the harnesses themselves. Any other changed
+//                           migration is reported as not covered)
 //        --no-sql           never run the pglite harnesses
 //        --audit            append npm audit as a warn-only step (never
 //                           changes the verdict, like CI's soft check)
@@ -147,16 +152,28 @@ export function researchChanged(cwd = process.cwd()) {
  */
 export function researchTasks() {
   return [
-    { label: 'research unit (TZ=Asia/Bangkok)', command: 'npm test', shell: true },
+    // Explicit, like the root suite: inherited, both legs would be UTC on a UTC host.
+    { label: 'research unit (TZ=Asia/Bangkok)', command: 'npm test', shell: true, env: { TZ: 'Asia/Bangkok' } },
     { label: 'research unit (TZ=UTC, as CI)', command: 'npm test', shell: true, env: { TZ: 'UTC' } },
     { label: 'research build', command: 'npm run build', shell: true },
   ];
 }
 
 // ── The disposable-database SQL harnesses (pglite locally, postgres on CI) ─
-/** Files whose change must be proven against a real database before shipping. */
+/**
+ * The only migrations the harnesses apply: test-user-data-db.mjs loads the
+ * sync one (its default for --migration), test-annotation-db.mjs the other two.
+ * A change to any other migration cannot be proven by them.
+ */
+export const HARNESS_MIGRATIONS = [
+  'supabase/migrations/20260902000000_pdf_annotations_copy_of_record.sql',
+  'supabase/migrations/20261001030000_pdf_annotations_atomic_merge.sql',
+  'supabase/migrations/20261005140235_user_data_operation_sync.sql',
+];
+
+/** Files whose change the harnesses can actually prove against a real database. */
 const SQL_TOUCHING_PATHS = [
-  'supabase/migrations',
+  ...HARNESS_MIGRATIONS,
   'src/lib/user-data-sync.js',
   'src/lib/user-data-row.js',
   'src/lib/pdf-annotations.js',
@@ -179,6 +196,25 @@ export function sqlChanged(cwd = process.cwd()) {
       { cwd, encoding: 'utf8', maxBuffer: 16 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] });
     return out.trim().length > 0;
   } catch { return false; }
+}
+
+/**
+ * Moved migration files that no harness applies. Without this a new or edited
+ * migration would turn the harness steps on (or leave a green gate beside it)
+ * and read as proven when the harnesses never executed it.
+ */
+export function uncoveredMigrations(cwd = process.cwd()) {
+  try {
+    const out = execFileSync('git', ['status', '--porcelain=v1', '-z', '--untracked-files=all', '--', 'supabase/migrations'],
+      { cwd, encoding: 'utf8', maxBuffer: 16 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] });
+    const entries = out.split('\0').filter(Boolean);
+    const files = [];
+    for (let i = 0; i < entries.length; i++) {
+      files.push(entries[i].slice(3));
+      if (entries[i][0] === 'R' || entries[i][0] === 'C') i++; // the next entry is the old name
+    }
+    return files.filter((file) => /\.sql$/i.test(file) && !HARNESS_MIGRATIONS.includes(file));
+  } catch { return []; }
 }
 
 /**
@@ -354,20 +390,38 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
     log('  The gate proved a tree that no longer exists, so this run is not green. Run it again on a quiet tree.');
     return true;
   };
+  // Said at the start and again beside the verdict, so a green gate is never
+  // read as proof of a database change the harnesses did not execute.
+  const notes = [];
+  const uncovered = uncoveredMigrations(cwd);
+  if (uncovered.length) {
+    notes.push(`⚠ not covered by a disposable-database harness: ${uncovered.join(', ')}`);
+    notes.push('  The harnesses apply only the three migrations they pin, so this gate says nothing about the file(s) above.');
+    notes.push('  Prove them against a real database (CI postgres; test-user-data-db.mjs takes --migration=<file> for a user-data one).');
+  }
   const finish = (verdict, code) => {
     log('\n── gate timings');
     for (const [name, ms] of timings) log(`   ${name.padEnd(12)} ${seconds(ms)}`);
     log(`   ${'total'.padEnd(12)} ${seconds(Date.now() - t0)}`);
+    if (notes.length) log(`\n${notes.join('\n')}`);
     log(`\n${code === 0 ? '✓' : '✗'} gate: ${verdict}`);
     return code;
   };
 
   // A — data, lints and unit tests
   if (wantSql && !sql.length) {
+    // Asked for by name, the proof must run or the gate must say it could not:
+    // the same rule as --with-research. Auto-detected, it stays a warning.
+    if (withSql) {
+      log('✗ --with-sql was given, but no pglite module is reachable from this checkout.');
+      log('  Set PGLITE_MODULE=<path>/index.js or install @electric-sql/pglite in node_modules, or drop --with-sql.');
+      return finish('pglite module missing for --with-sql', 1);
+    }
     log('⚠ a SQL-touching file changed, but no pglite module is reachable from this checkout.');
     log('  The disposable-database proof needs PGLITE_MODULE=<path>/index.js or @electric-sql/pglite in node_modules;');
     log('  CI postgres remains the concurrent-lock proof (the harness receipts say the same).');
   }
+  if (notes.length) log(notes.join('\n'));
   const tasks = phaseATasks(scripts, { extra: sql });
   log(`── phase A (data): ${tasks.length} steps, ${jobs} at a time`);
   let t = Date.now();

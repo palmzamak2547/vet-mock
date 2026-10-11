@@ -24,7 +24,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   resolveSteps, phaseATasks, runPool, strayProcesses, treeChange, CONCURRENT_E2E_PORT,
-  researchChanged, sqlChanged, sqlTasks,
+  researchChanged, researchTasks, sqlChanged, sqlTasks, uncoveredMigrations, HARNESS_MIGRATIONS,
 } from '../../scripts/gate.mjs';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -69,10 +69,17 @@ test('every generator the gate runs is a --check, so the gate never regenerates'
 test('the gate scripts are the orchestrator, its concurrent variant and a no-script fallback', () => {
   assert.equal(scripts.gate, 'node scripts/gate.mjs');
   assert.equal(scripts['gate:fast'], 'node scripts/gate.mjs --e2e-concurrent');
+  // The no-script fallback is the gate's phases in the gate's order, Research
+  // included: a research/ change must not pass it unproven. (The SQL harnesses
+  // stay orchestrator-only: they depend on which files moved.)
   assert.deepEqual(chain('gate:serial'), [
     'npm run lint:data', 'npm run test:unit', 'npm run test:unit:utc',
-    'npm run build', 'npm run lint:dist', 'npm run test:e2e:ci',
+    'npm run build', 'npm run lint:dist',
+    'npm --prefix research test', 'npm --prefix research run test:utc', 'npm --prefix research run build',
+    'npm run test:e2e:ci',
   ]);
+  const research = JSON.parse(fs.readFileSync(path.join(repo, 'research', 'package.json'), 'utf8')).scripts;
+  for (const name of ['test', 'test:utc', 'build']) assert.ok(research[name], `research/package.json has no "${name}" script for gate:serial to run`);
 });
 
 test('npm "-- args" land on the last command of the script they follow', () => {
@@ -171,30 +178,160 @@ test('--with-research forces the phase, and a research/ without node_modules fai
   } finally { f.done(); }
 });
 
-test('a moved SQL file joins phase A when pglite is reachable, and says so when it is not (--no-sql opts out)', () => {
+test('both Research unit legs pin their own timezone, so a UTC host still tests Bangkok time', () => {
+  const units = researchTasks().filter((t) => /unit/.test(t.label));
+  assert.deepEqual(units.map((u) => u.env?.TZ).sort(), ['Asia/Bangkok', 'UTC']);
+  assert.match(units.find((u) => u.env.TZ === 'Asia/Bangkok').label, /Asia\/Bangkok/);
+});
+
+// A research/ fixture: dependencies "installed", a unit suite whose single test
+// is `testSource`, and a build that only announces itself.
+function withResearch(f, testSource) {
+  fs.mkdirSync(path.join(f.dir, 'research', 'node_modules'), { recursive: true });
+  f.put('research/package.json', `${JSON.stringify({
+    type: 'module', scripts: { test: 'node --test tests/unit/*.test.mjs', build: 'node scripts/build.mjs' },
+  }, null, 2)}\n`);
+  f.put('research/tests/unit/suite.test.mjs', `import test from 'node:test';\nimport assert from 'node:assert/strict';\n${testSource}\n`);
+  f.put('research/scripts/build.mjs', "console.log('RESEARCH BUILD RAN');\n");
+}
+
+test('a failing Research suite turns the gate red before the browsers, naming each failed leg', () => {
   const f = fixture();
   try {
-    fs.mkdirSync(path.join(f.dir, 'supabase', 'migrations'), { recursive: true });
-    f.put('supabase/migrations/20261010000000_probe.sql', '-- a migration under test\n');
+    withResearch(f, "test('research is broken', () => { throw new Error('RESEARCH SUITE BROKEN'); });");
+    const r = gate(f.dir, '--with-research');
+    assert.equal(r.status, 1, r.out);
+    assert.match(r.out, /✗ research unit \(TZ=Asia\/Bangkok\)/);
+    assert.match(r.out, /✗ research unit \(TZ=UTC, as CI\)/);
+    assert.match(r.out, /✓ research build/, 'the build is judged on its own');
+    assert.match(r.out, /RESEARCH SUITE BROKEN/, 'the failure output is printed, not swallowed');
+    assert.match(r.out, /✗ gate: 2 research step\(s\) failed/);
+    assert.doesNotMatch(r.out, /E2E |gate: green/, 'phase D never starts behind a red Research phase');
+  } finally { f.done(); }
+});
 
-    // Without a pglite module there is nothing to run: the gate says why
-    // instead of staying quiet, and phase A keeps its 2 steps.
-    assert.deepEqual(sqlTasks(f.dir, {}), []);
-    const warned = gate(f.dir, '--data-only');
-    assert.equal(warned.status, 0, warned.out);
-    assert.match(warned.out, /no pglite module is reachable/);
-    assert.match(warned.out, /CI postgres remains the concurrent-lock proof/);
+test('the Bangkok Research leg runs in Bangkok time even on a UTC host', () => {
+  const f = fixture();
+  try {
+    // Half past midnight in Bangkok is still the previous day in UTC: passes only in Bangkok.
+    withResearch(f, "test('a date pinned to +07:00 across midnight', () => { assert.equal(new Date('2026-09-23T00:30:00+07:00').getDate(), 23); });");
+    const r = gateWith(f.dir, { TZ: 'UTC' }, '--with-research');
+    assert.equal(r.status, 1, r.out);
+    assert.match(r.out, /✓ research unit \(TZ=Asia\/Bangkok\)/, 'inheriting the host zone would make this leg UTC and red');
+    assert.match(r.out, /✗ research unit \(TZ=UTC, as CI\)/, 'the same test is red in UTC, which is why both legs exist');
+    assert.match(r.out, /✗ gate: 1 research step\(s\) failed/);
+  } finally { f.done(); }
+});
 
-    // --no-sql is an opt-out even when a module exists.
-    const module = path.join('node_modules', '@electric-sql', 'pglite', 'dist', 'index.js');
-    const tasks = sqlTasks(f.dir, { PGLITE_MODULE: module });
+// What the harness stubs and the research fixtures below stand in for: the
+// real harnesses need pglite, which the repository does not ship.
+const MODULE = 'stub/pglite/index.js';
+const PINNED_MIGRATION = 'supabase/migrations/20261005140235_user_data_operation_sync.sql';
+const harnessStub = (name, code = 0) => `console.log('HARNESS ${name} module=' + process.env.PGLITE_MODULE); process.exit(${code});\n`;
+function withHarnesses(f, { failing = null } = {}) {
+  f.put('scripts/test-user-data-db.mjs', harnessStub('user-data', failing === 'user-data' ? 1 : 0));
+  f.put('scripts/test-annotation-db.mjs', harnessStub('annotations', failing === 'annotations' ? 1 : 0));
+}
+
+test('a moved SQL file joins phase A when a pglite module is reachable, and --no-sql takes the harnesses out again', () => {
+  const f = fixture();
+  try {
+    withHarnesses(f);
+    f.put(PINNED_MIGRATION, '-- an edit to a migration the harness applies\n');
+    assert.equal(sqlChanged(f.dir), true);
+    const tasks = sqlTasks(f.dir, { PGLITE_MODULE: MODULE });
     assert.deepEqual(tasks.map((t) => t.args), [
       ['scripts/test-user-data-db.mjs', '--backend=pglite'],
       ['scripts/test-annotation-db.mjs', '--backend=pglite'],
     ]);
-    for (const t of tasks) assert.equal(t.env.PGLITE_MODULE, module);
-    assert.equal(sqlChanged(f.dir), true);
+    for (const t of tasks) assert.equal(t.env.PGLITE_MODULE, MODULE);
+
+    // Through runGate itself: the harnesses are phase A steps, 4 + 2.
+    const on = gateWith(f.dir, { PGLITE_MODULE: MODULE }, '--data-only');
+    assert.equal(on.status, 0, on.out);
+    assert.match(on.out, /phase A \(data\): 6 steps/);
+    assert.match(on.out, /✓ sql harness \(user-data, pglite\)/);
+    assert.match(on.out, /✓ sql harness \(annotations, pglite\)/);
+
+    // --no-sql is an opt-out even when a module exists and a file moved.
+    const off = gateWith(f.dir, { PGLITE_MODULE: MODULE }, '--data-only', '--no-sql');
+    assert.equal(off.status, 0, off.out);
+    assert.match(off.out, /phase A \(data\): 4 steps/);
+    assert.doesNotMatch(off.out, /sql harness/);
   } finally { f.done(); }
+});
+
+test('a failing SQL harness is a phase A failure, runs with the module it was given, and the build never starts', () => {
+  const f = fixture();
+  try {
+    withHarnesses(f, { failing: 'annotations' });
+    f.put(PINNED_MIGRATION, '-- edited\n');
+    const r = gateWith(f.dir, { PGLITE_MODULE: MODULE });
+    assert.equal(r.status, 1, r.out);
+    assert.match(r.out, /✗ sql harness \(annotations, pglite\)/);
+    assert.match(r.out, /✓ sql harness \(user-data, pglite\)/);
+    assert.match(r.out, new RegExp(`HARNESS annotations module=${MODULE.replace(/[./]/g, '\$&')}`), 'the harness got PGLITE_MODULE from the gate');
+    assert.match(r.out, /1 step\(s\) failed in phase A/);
+    assert.doesNotMatch(r.out, /BUILD RAN/);
+  } finally { f.done(); }
+});
+
+test('without a pglite module a detected SQL change only warns, but an explicit --with-sql fails the gate', () => {
+  const f = fixture();
+  try {
+    assert.deepEqual(sqlTasks(f.dir, {}), []);
+    f.put(PINNED_MIGRATION, '-- edited\n');
+    const warned = gateWith(f.dir, {}, '--data-only');
+    assert.equal(warned.status, 0, warned.out);
+    assert.match(warned.out, /no pglite module is reachable/);
+    assert.match(warned.out, /CI postgres remains the concurrent-lock proof/);
+
+    // Asked for by name, the proof cannot be skipped: a green gate would read as a database proof.
+    const forced = gateWith(f.dir, {}, '--data-only', '--with-sql');
+    assert.equal(forced.status, 1, forced.out);
+    assert.match(forced.out, /--with-sql was given, but no pglite module is reachable/);
+    assert.match(forced.out, /✗ gate: pglite module missing for --with-sql/);
+    assert.doesNotMatch(forced.out, /phase A \(data\)/, 'it fails before the lints, like the research precondition');
+
+    // With --no-sql it is the user's own contradiction, and --no-sql wins.
+    assert.equal(gateWith(f.dir, {}, '--data-only', '--with-sql', '--no-sql').status, 0);
+  } finally { f.done(); }
+});
+
+test('only the migrations the harnesses apply turn them on; any other changed migration is reported as not covered', () => {
+  const f = fixture();
+  try {
+    withHarnesses(f);
+    f.commit('harness stubs, so only the migrations below count as moved');
+    f.put('supabase/migrations/20261012000000_unrelated.sql', '-- applied by no harness\n');
+    assert.equal(sqlChanged(f.dir), false, 'a migration no harness applies proves nothing, so it cannot start them');
+    assert.deepEqual(uncoveredMigrations(f.dir), ['supabase/migrations/20261012000000_unrelated.sql']);
+
+    const r = gateWith(f.dir, { PGLITE_MODULE: MODULE }, '--data-only');
+    assert.equal(r.status, 0, r.out);
+    assert.doesNotMatch(r.out, /sql harness/);
+    assert.match(r.out, /not covered by a disposable-database harness: supabase\/migrations\/20261012000000_unrelated\.sql/);
+    // Said again beside the verdict, where a green line is read.
+    assert.ok(r.out.lastIndexOf('not covered by a disposable-database harness') > r.out.indexOf('gate timings'), r.out);
+
+    // A pinned migration beside it still brings the harnesses in, and is not "uncovered".
+    f.put(PINNED_MIGRATION, '-- edited\n');
+    assert.equal(sqlChanged(f.dir), true);
+    assert.deepEqual(uncoveredMigrations(f.dir), ['supabase/migrations/20261012000000_unrelated.sql']);
+    const both = gateWith(f.dir, { PGLITE_MODULE: MODULE }, '--data-only');
+    assert.match(both.out, /✓ sql harness \(user-data, pglite\)/);
+    assert.match(both.out, /not covered by a disposable-database harness: supabase\/migrations\/20261012000000_unrelated\.sql/);
+  } finally { f.done(); }
+});
+
+test('the migrations the gate names are the ones the harnesses really apply', () => {
+  const userData = read('scripts/test-user-data-db.mjs');
+  const annotations = read('scripts/test-annotation-db.mjs');
+  const [copyOfRecord, atomicMerge, operationSync] = HARNESS_MIGRATIONS;
+  for (const file of HARNESS_MIGRATIONS) assert.ok(fs.existsSync(path.join(repo, file)), `${file} no longer exists: repoint HARNESS_MIGRATIONS in scripts/gate.mjs`);
+  assert.ok(userData.includes(operationSync), `test-user-data-db.mjs no longer defaults to ${operationSync}: repoint HARNESS_MIGRATIONS`);
+  assert.ok(annotations.includes(copyOfRecord) && annotations.includes(atomicMerge), 'test-annotation-db.mjs applies other migrations: repoint HARNESS_MIGRATIONS');
+  assert.equal(HARNESS_MIGRATIONS.length, 3);
 });
 
 test('--audit is a warn-only tail step that never changes a green verdict', () => {
@@ -259,7 +396,8 @@ function fixture({ stale = false, tzBound = false, e2eWrites = false } = {}) {
   git('config', 'core.autocrlf', 'false');
   git('add', '-A');
   git('commit', '-q', '-m', 'fixture');
-  return { dir, done: () => fs.rmSync(dir, { recursive: true, force: true }), put };
+  const commit = (message = 'more fixture') => { git('add', '-A'); git('commit', '-q', '-m', message); };
+  return { dir, done: () => fs.rmSync(dir, { recursive: true, force: true }), put, commit };
 }
 
 // node --test marks its children with NODE_TEST_CONTEXT, and a `node --test`
@@ -268,14 +406,18 @@ function fixture({ stale = false, tzBound = false, e2eWrites = false } = {}) {
 const shellEnv = () => {
   const env = { ...process.env };
   delete env.NODE_TEST_CONTEXT;
+  // The machine running the suite may have a pglite module configured; a case
+  // that wants one says so through gateWith.
+  delete env.PGLITE_MODULE;
   return env;
 };
 
-const gate = (dir, ...args) => {
+const gateWith = (dir, env, ...args) => {
   const t0 = Date.now();
-  const r = spawnSync(process.execPath, [GATE, ...args], { cwd: dir, encoding: 'utf8', env: shellEnv() });
+  const r = spawnSync(process.execPath, [GATE, ...args], { cwd: dir, encoding: 'utf8', env: { ...shellEnv(), ...env } });
   return { status: r.status, out: `${r.stdout}${r.stderr}`, ms: Date.now() - t0 };
 };
+const gate = (dir, ...args) => gateWith(dir, {}, ...args);
 
 // No wall-clock bound here: this file runs inside the unit suite, often next
 // to a second copy of it, and a timing assertion under that load measures the

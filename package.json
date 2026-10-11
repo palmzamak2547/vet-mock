@@ -75,7 +75,7 @@
     "gate": "node scripts/gate.mjs",
     "gate:fast": "node scripts/gate.mjs --e2e-concurrent",
     "gate:data": "node scripts/gate.mjs --data-only",
-    "gate:serial": "npm run lint:data && npm run test:unit && npm run test:unit:utc && npm run build && npm run lint:dist && npm run test:e2e:ci",
+    "gate:serial": "npm run lint:data && npm run test:unit && npm run test:unit:utc && npm run build && npm run lint:dist && npm --prefix research test && npm --prefix research run test:utc && npm --prefix research run build && npm run test:e2e:ci",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:prod": "node scripts/test-e2e-prod.mjs",
     "test:unit": "node --test --test-concurrency=2 tests/unit/*.test.mjs",
