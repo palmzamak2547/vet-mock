@@ -4,30 +4,31 @@
 // B35: SLIDE_IMAGES is keyed by note section id. Cutting a section whose body
 // only said the slide was an image left its figures under an id nothing
 // renders: 11 keys, 24 figures (the only labelled neuroanatomy images among
-// them). Which surviving section each belongs to is a content call, so the
-// known 11 are listed below until someone reattaches them; the list can only
-// shrink, and any NEW orphan fails. The generator now drops a regenerated
-// subject's stale keys instead of merging them back in.
+// them). Which surviving section each belongs to is a content call. Round 2
+// (2026-10-11) placed 13 of them by the words printed on the figure and took 4
+// non-teaching images out, through the REKEYS table in
+// scripts/extract-slide-figures.mjs. The 3 keys below hold the 7 figures whose
+// place would need the original deck; the list can only shrink, and any NEW
+// orphan fails. The generator drops a regenerated subject's stale keys instead
+// of merging them back in, and re-applies the hand placements.
 // ============================================================
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { SLIDE_IMAGES } from '../../src/data/slide-images.generated.js';
 import { sectionId } from '../../src/lib/vetwiki/schema.js';
 
 const KNOWN_ORPHANS = new Set([
-  'vet-histo--histo--bone-marrow--สไลด์ที่เป็นรูปภาพล้วน',
-  'vet-histo--histo--bone-marrow--คำถามที่สไลด์ตั้งไว้แต่ไม่ได้ตอบ',
-  'vet-histo--histo--epithelium--functions-ของ-epithelium',
-  'vet-histo--histo--lymphatic-organs-ii--ภาพ-aggregated-lymphatic-nodules',
+  // A book cover on the further-reading slide; no section lists readings.
   'vet-microbio-1--microbio-1--immune-responses-to-viral-infections--further-readings-ที่อาจารย์แนะนำ',
+  // p.4 divider photos with no printed label, and the p.12 Day 1-22 embryo
+  // strip, whose heading (Development of chick embryo) has no section.
   'vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--สไลด์ที่เป็นหน้าคั่นหรือรูปล้วน',
+  // Three micrographs with no label on the closing outline slide.
   'vet-parasit-1--parasit-1--lect-8-amoeba-histomonas-balantidium-final--สรุปท้าย-lecture',
-  'vet-neuroanat--neuroanat--diencephalon--สไลด์ที่ไม่มีข้อความให้สรุป',
-  'vet-neuroanat--neuroanat--midbrain--ภาพ-auditory-pathway-label-ล้วน',
-  'vet-neuroanat--neuroanat--midbrain--ภาพระดับ-caudal-colliculus-label-ล้วน',
-  'vet-physio-lab-1--physio-lab-1--pbl-case-6-endocrinology--รูปประกอบและหน้าที่เหลือของไฟล์',
 ]);
 
 async function liveSectionIds() {
@@ -57,4 +58,12 @@ test('the generator drops a regenerated subject\'s stale keys instead of merging
   assert.match(src, /if \(id\.startsWith\(`\$\{SUBJECT\}--`\) && !liveIds\.has\(id\) && !manifest\[id\]\)/);
   assert.match(src, /const merged = \{ \.\.\.retained, \.\.\.manifest \};/);
   assert.doesNotMatch(src, /const merged = \{ \.\.\.existing, \.\.\.manifest \};/);
+});
+
+test('the map carries every hand placement in the REKEYS table', () => {
+  // The dry run exits 1 when a placement or drop is missing from the map, or
+  // when a placement names a section that no longer exists.
+  const root = fileURLToPath(new URL('../..', import.meta.url));
+  const out = execFileSync(process.execPath, ['scripts/extract-slide-figures.mjs', '--rekey'], { cwd: root, encoding: 'utf8' });
+  assert.match(out, /carries all \d+ hand placement/);
 });

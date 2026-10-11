@@ -477,6 +477,9 @@ export const NOTES_Y2_NEUROANAT = {
             "kind": "tip"
           },
           {
+            "text": "รูปที่แนบในหัวข้อนี้ระบายสีแยก Lateral nuclei, Medial nuclei และ Anterior nuclei พร้อมคำอธิบายตัวย่อ LD, LP, VA, VL, VP, VI, VPM, VPL โดย VI พิมพ์ว่า Ventral intermediat nucleus ซึ่งไม่อยู่ในตารางของสไลด์ และสไลด์ไม่ได้บอกหน้าที่ของ VI"
+          },
+          {
             "text": "สไลด์แปะลิงก์วิดีโอประกอบไว้ท้ายหน้า: https://www.youtube.com/watch?v=JiTz2i4VHFw&t=77s"
           }
         ]
@@ -1509,7 +1512,7 @@ export const NOTES_Y2_NEUROANAT = {
       },
       {
         "heading": "Tectum: rostral และ caudal colliculi",
-        "source": "Midbrain p.8",
+        "source": "Midbrain p.8-9",
         "body": [
           {
             "sub": "Rostral colliculi",
@@ -1538,6 +1541,20 @@ export const NOTES_Y2_NEUROANAT = {
           {
             "callout": "จุดที่ต้องจำให้ไม่สลับกัน คือ rostral colliculus คู่กับ lateral geniculate body และงานเห็น ส่วน caudal colliculus คู่กับ medial geniculate body และงานได้ยิน",
             "kind": "tip"
+          },
+          {
+            "sub": "ภาพหน้า 9",
+            "body": [
+              {
+                "bullets": [
+                  "ภาพแรกของหน้า 9 พิมพ์ชื่อ Optic nerve, Optic chiasm, Optic tract, Lateral geniculate nucleus, Rostral colliculus, Internal capsule (optic radiation) และ Occipital lobe",
+                  "ภาพที่สองของหน้า 9 ไม่มีชื่อบนตัวภาพ สไลด์วางชื่อ Medial geniculate body, Caudal colliculus, Trapezoid nuclei, Lateral lemniscus และ Cochlear nuclei ไว้รอบภาพ"
+                ]
+              },
+              {
+                "text": "ตัวเลข 1-8 บนภาพที่สอง สไลด์ไม่ได้บอกว่าเลขใดคือโครงสร้างใด"
+              }
+            ]
           }
         ]
       },
@@ -1654,6 +1671,48 @@ export const NOTES_Y2_NEUROANAT = {
                 ]
               }
             ]
+          }
+        ]
+      },
+      {
+        "heading": "Cross section ที่ระดับ caudal colliculus (ภาพ label)",
+        "source": "Midbrain p.17-19",
+        "body": [
+          {
+            "text": "หน้า 17 เป็นภาพชื่อ Level of caudal colliculus และหน้า 18 เป็นภาพชื่อ Level of caudal part of caudal colliculus คำที่พิมพ์บนภาพตัดขวางหน้า 18 ได้แก่"
+          },
+          {
+            "bullets": [
+              "Caudal colliculus of the midbrain",
+              "**Trochlear nerve in the rostral medullary velum**",
+              "Fourth ventricle",
+              "Medial tectospinal tract",
+              "Middle cerebellar peduncle",
+              "Rubrospinal tract",
+              "Spinothalamic tract",
+              "Medial lemniscus"
+            ]
+          },
+          {
+            "text": "อีกภาพในหน้า 18 เป็นก้านสมองทั้งแท่ง กำกับเลขโรมัน II, IV, V, VIII และตัวเลข 1-14 สไลด์ไม่ได้บอกว่าตัวเลขแต่ละตัวคือโครงสร้างใด"
+          },
+          {
+            "sub": "หน้า 19",
+            "body": [
+              {
+                "text": "สไลด์วางชื่อ Rostral colliculus, Medial geniculate body, Caudal colliculus และ Middle cerebellar peduncle ไว้ข้างภาพตัด ส่วนบนตัวภาพพิมพ์ Midbrain (Atlas 15) และ Midbrain (Atlas 14) กับชื่อเหล่านี้"
+              },
+              {
+                "bullets": [
+                  "**Parasympathetic nucleus III** และ **Motor nucleus III**, Oculomotor nerve, Ciliary ganglion",
+                  "**Motor nucleus IV**, Medial longitudinal fasciculus, Trochlear nerve, Nerve in rostral medullary velum",
+                  "Pupillary sphincter muscle, Ciliary muscle และตัวย่อรอบลูกตา DR, DO, MR, VR, VO"
+                ]
+              }
+            ]
+          },
+          {
+            "text": "ทั้งสามหน้าไม่ได้เขียนคำอธิบายเป็นประโยค ใช้ฝึกชี้ตำแหน่งบนภาพแบบเดียวกับภาพระดับ rostral colliculi"
           }
         ]
       },

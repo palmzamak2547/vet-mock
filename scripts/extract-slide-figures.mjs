@@ -14,6 +14,7 @@
 //   • at most PER_PAGE per page, largest first
 //
 //   node scripts/extract-slide-figures.mjs --subject vet-histo --folder "เทอม 1/Vet Histol" [--write]
+//   node scripts/extract-slide-figures.mjs --rekey [--write]   (hand placements only, no decks)
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -43,6 +44,128 @@ const MIN_PX = Number(argOf('--min-px', 250));
 const MAX_COVER = Number(argOf('--max-cover', 0.7));
 const PER_PAGE = Number(argOf('--per-page', 3));
 const WRITE = process.argv.includes('--write');
+
+// ── Figures placed by hand ───────────────────────────────────────────
+// Page matching files a figure under every section whose source cites its
+// page. Some figures land nowhere because their section was cut (B35, 2026-09:
+// 11 keys, 24 figures), and some are not teaching figures at all. Each entry
+// below is a content call made from the words printed on the figure, or the
+// slide text the note records, and `label` says which. The table is applied
+// after every extraction, so a re-run cannot undo it, and `--rekey` applies it
+// to the existing map without the decks: a dry run exits 1 when the map is
+// missing a placement, `--rekey --write` writes it.
+//
+//   { figure, to: [topic, heading], label }  file it under that note section
+//   { figure, drop }                         take it out of the map (the file stays)
+//
+// A figure whose place would need the original deck is NOT listed here. It
+// stays an orphan in tests/unit/slide-figures-resolve.test.mjs until someone
+// can read the deck.
+const REKEYS = [
+  { figure: '/figures/vet-neuroanat/neuroanat--midbrain/p9-0.webp', to: ['neuroanat--midbrain', 'Tectum: rostral และ caudal colliculi'],
+    label: 'printed on the figure: Rostral colliculus, Lateral geniculate nucleus, Optic tract, Optic chiasm, Optic nerve' },
+  { figure: '/figures/vet-neuroanat/neuroanat--midbrain/p9-1.webp', to: ['neuroanat--midbrain', 'Tectum: rostral และ caudal colliculi'],
+    label: 'slide p.9 labels around it (note 37c53eff): Medial geniculate body, Caudal colliculus, Trapezoid nuclei, Cochlear nuclei, Lateral lemniscus' },
+  { figure: '/figures/vet-neuroanat/neuroanat--midbrain/p18-0.webp', to: ['neuroanat--midbrain', 'Cross section ที่ระดับ caudal colliculus (ภาพ label)'],
+    label: 'slide p.18 caption: Level of caudal part of caudal colliculus' },
+  { figure: '/figures/vet-neuroanat/neuroanat--midbrain/p18-1.webp', to: ['neuroanat--midbrain', 'Cross section ที่ระดับ caudal colliculus (ภาพ label)'],
+    label: 'printed on the figure: Caudal colliculus of the midbrain, Trochlear nerve in the rostral medullary velum' },
+  { figure: '/figures/vet-neuroanat/neuroanat--midbrain/p19-0.webp', to: ['neuroanat--midbrain', 'Cross section ที่ระดับ caudal colliculus (ภาพ label)'],
+    label: 'printed on the figure: Motor nucleus IV, Trochlear nerve, Nerve in rostral medullary velum; slide labels Caudal colliculus' },
+  { figure: '/figures/vet-neuroanat/neuroanat--diencephalon/p3-0.webp', to: ['neuroanat--diencephalon', 'Lateral nuclei ของ thalamus: ส่วนบนกับส่วนล่าง'],
+    label: 'printed legend: Lateral nuclei, Medial nuclei, Anterior nuclei, Pulvinar, LD, LP, VA, VL, VPM, VPL' },
+  { figure: '/figures/vet-histo/histo--bone-marrow/p9-1.webp', to: ['histo--bone-marrow', 'Vascular compartment'],
+    label: 'printed on the figure: Nutrient Artery, Central Artery, Radial Arteries, Venous Sinuses, Central Vein, Nutrient Vein' },
+  { figure: '/figures/vet-histo/histo--bone-marrow/p39-0.webp', to: ['histo--bone-marrow', 'ความต่างหลักระหว่างเซลล์ต้นกำเนิดของ erythropoiesis กับ granulopoiesis'],
+    label: 'printed on the figure: COLOR OF CYTOPLASM, Originating cell of RBC, Originating cell of WBC' },
+  { figure: '/figures/vet-histo/histo--epithelium/p6-0.webp', to: ['histo--epithelium', 'Simple columnar epithelium และ cell modification'],
+    label: 'printed on the figure: Simple columnar epithelium with goblet cell, goblet cell, Jejunum' },
+  { figure: '/figures/vet-histo/histo--lymphatic-organs-ii/p4-0.webp', to: ['histo--lymphatic-organs-ii', 'Diffuse lymphoid tissue และ lymphatic nodules'],
+    label: "printed on the figure: Peyer's patch and M cells, V, N; slide p.4 title Aggregated lymphatic nodules" },
+  { figure: '/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p11-0.webp', to: ['microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout', 'Route of inoculation ทั้ง 3 ทาง'],
+    label: 'printed on the figure: Chorioallantoic membrane, Amniotic, Yolk sac and Allantoic inoculation; slide p.11 title Route of inoculation' },
+  { figure: '/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p13-0.webp', to: ['microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout', 'Route of inoculation ทั้ง 3 ทาง'],
+    label: 'printed on the figure: Chorioallantoic membrane, Amniotic, Allantoic and Yolk sac inoculation; slide p.13 title Route of inoculation' },
+  { figure: '/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p19-0.webp', to: ['microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout', 'Recognition of virus-infected eggs'],
+    label: 'the note itself places p.19 in this heading; the figure is labelled control against numbered embryos' },
+  { figure: '/figures/vet-histo/histo--bone-marrow/p9-0.webp', drop: 'blank dark vignette from the slide template, byte-identical to 33 other figure files' },
+  { figure: '/figures/vet-histo/histo--bone-marrow/p39-1.webp', drop: 'blank dark vignette from the slide template, byte-identical to 33 other figure files' },
+  { figure: '/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p2-0.webp', drop: 'a web text snippet pasted onto the source copy, not part of the PBL handout; it names the diagnosis the case leaves open' },
+  { figure: '/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p2-1.webp', drop: 'a web text snippet pasted onto the source copy, not part of the PBL handout; it names the diagnosis the case leaves open' },
+];
+
+const MAP_FILE = 'src/data/slide-images.generated.js';
+
+async function liveIdsOf(subject) {
+  const m = await import(`../src/data/notes-y2-${subject.replace(/^vet-/, '')}.js`);
+  const ids = new Set();
+  for (const [topicId, topic] of Object.entries(Object.values(m)[0])) {
+    for (const s of topic.sections || []) ids.add(sectionId(subject, topicId, s.heading));
+  }
+  return ids;
+}
+
+// Two passes, so applying the table twice gives the same map byte for byte:
+// every listed figure leaves every key first, then each move is appended in
+// table order.
+async function applyRekeys(map, onlySubject = null) {
+  const rows = REKEYS.filter((r) => !onlySubject || r.figure.split('/')[2] === onlySubject);
+  const problems = [];
+  const moves = [];
+  const live = new Map();
+  for (const r of rows) {
+    const subject = r.figure.split('/')[2];
+    if (!fs.existsSync(path.join('public', r.figure))) { problems.push(`${r.figure}: no such file`); continue; }
+    if (!r.to) continue;
+    if (!live.has(subject)) live.set(subject, await liveIdsOf(subject));
+    const to = sectionId(subject, r.to[0], r.to[1]);
+    if (!live.get(subject).has(to)) { problems.push(`${r.figure}: no section "${r.to[1]}" in ${r.to[0]}`); continue; }
+    moves.push([r.figure, to]);
+  }
+  const listed = new Set(rows.map((r) => r.figure));
+  const out = {};
+  for (const [id, figs] of Object.entries(map)) {
+    const kept = figs.filter((f) => !listed.has(f));
+    if (kept.length) out[id] = kept;
+  }
+  for (const [figure, to] of moves) (out[to] ||= []).push(figure);
+  return { map: out, problems };
+}
+
+function writeMap(map) {
+  fs.writeFileSync(MAP_FILE, `// ============================================================
+// slide-images.generated.js — DO NOT EDIT BY HAND
+// ============================================================
+// Generated by scripts/extract-slide-figures.mjs. Maps a note section to the
+// figures on the slides it cites — the images themselves, not the pages.
+// ============================================================
+
+export const SLIDE_IMAGES = ${JSON.stringify(map, null, 2)};
+
+export function slidesFor(id) {
+  return SLIDE_IMAGES[id] || null;
+}
+`);
+}
+
+if (process.argv.includes('--rekey')) {
+  const current = (await import(`../${MAP_FILE}?t=${Date.now()}`)).SLIDE_IMAGES || {};
+  const { map, problems } = await applyRekeys(current);
+  for (const p of problems) console.error(`  ✗ ${p}`);
+  if (problems.length) process.exit(1);
+  if (JSON.stringify(map) === JSON.stringify(current)) {
+    console.log(`✅ ${MAP_FILE} carries all ${REKEYS.length} hand placement(s)`);
+    process.exit(0);
+  }
+  if (!WRITE) {
+    console.log(`✗ ${MAP_FILE} is missing hand placements; run: node scripts/extract-slide-figures.mjs --rekey --write`);
+    process.exit(1);
+  }
+  writeMap(map);
+  console.log(`  wrote ${MAP_FILE} (${Object.keys(map).length} sections total)`);
+  process.exit(0);
+}
+
 if (!SUBJECT || !FOLDER) { console.error('need --subject and --folder'); process.exit(1); }
 
 const slug = SUBJECT.replace(/^vet-/, '');
@@ -214,18 +337,10 @@ if (WRITE) {
     retained[id] = figs;
   }
   const merged = { ...retained, ...manifest };
-  fs.writeFileSync(out, `// ============================================================
-// slide-images.generated.js — DO NOT EDIT BY HAND
-// ============================================================
-// Generated by scripts/extract-slide-figures.mjs. Maps a note section to the
-// figures on the slides it cites — the images themselves, not the pages.
-// ============================================================
-
-export const SLIDE_IMAGES = ${JSON.stringify(merged, null, 2)};
-
-export function slidesFor(id) {
-  return SLIDE_IMAGES[id] || null;
-}
-`);
-  console.log(`  wrote ${out} (${Object.keys(merged).length} sections total)`);
+  // Re-apply this subject's hand placements, so a fresh extraction keeps them.
+  const { map: placed, problems } = await applyRekeys(merged, SUBJECT);
+  for (const p of problems) console.error(`  ✗ ${p}`);
+  if (problems.length) process.exit(1);
+  writeMap(placed);
+  console.log(`  wrote ${out} (${Object.keys(placed).length} sections total)`);
 }

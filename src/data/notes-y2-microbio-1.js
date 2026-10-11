@@ -8938,7 +8938,7 @@ export const NOTES_Y2_MICROBIO_1 = {
     "title": "Virus isolation and propagation: embryonated egg",
     "icon": "🧬",
     "lecturer": "Aunyaratana Thontiravong",
-    "summary": "เด็คนี้ว่าด้วยการใช้ embryonated egg เป็น host system สำหรับ virus isolation โดยเริ่มจากกรอบใหญ่ของ laboratory diagnosis of virus infection แล้วลงรายละเอียดเฉพาะไข่ ได้แก่ ข้อดีของระบบไข่ การใช้ประโยชน์ แหล่งไข่ SPF สภาวะ incubator การ candling ปัจจัยที่มีผลต่อการเจริญของไวรัส route of inoculation 3 ทาง (allantoic cavity, CA membrane, amniotic cavity) พร้อมอายุ embryo ปริมาณ inoculum และตัวอย่างไวรัส อุณหภูมิ incubation ก่อนและหลัง inoculation การอ่านผลไข่ที่ติดเชื้อ การ harvest ไวรัส และปิดท้ายด้วยขั้นตอน LAB จริง 3 สไลด์ (materials, allantoic cavity inoculation, CA membrane inoculation) ส่วนที่ต้องบอกตามตรงคือมีหลายสไลด์ที่เป็นหน้าคั่นหรือเป็นรูปล้วนโดยไม่มีข้อความ (p.4, p.11, p.12, p.13, p.19) เหลือแค่ชื่อหัวข้อกับ URL ที่มาของรูป จึงไม่มีเนื้อหาให้สรุป",
+    "summary": "เด็คนี้ว่าด้วยการใช้ embryonated egg เป็น host system สำหรับ virus isolation โดยเริ่มจากกรอบใหญ่ของ laboratory diagnosis of virus infection แล้วลงรายละเอียดเฉพาะไข่ ได้แก่ ข้อดีของระบบไข่ การใช้ประโยชน์ แหล่งไข่ SPF สภาวะ incubator การ candling ปัจจัยที่มีผลต่อการเจริญของไวรัส route of inoculation 3 ทาง (allantoic cavity, CA membrane, amniotic cavity) พร้อมอายุ embryo ปริมาณ inoculum และตัวอย่างไวรัส อุณหภูมิ incubation ก่อนและหลัง inoculation การอ่านผลไข่ที่ติดเชื้อ การ harvest ไวรัส และปิดท้ายด้วยขั้นตอน LAB จริง 3 สไลด์ (materials, allantoic cavity inoculation, CA membrane inoculation) ส่วนที่ต้องบอกตามตรงคือมีหลายสไลด์ที่เป็นหน้าคั่นหรือเป็นรูปล้วนโดยไม่มีข้อความ (p.4, p.11, p.12, p.13, p.19) เหลือแค่ชื่อหัวข้อกับ URL ที่มาของรูป รูปของ p.11, p.13 และ p.19 แนบไว้ในหัวข้อที่รูปนั้นอยู่",
     "sections": [
       {
         "heading": "กรอบใหญ่: Laboratory diagnosis of virus infection",
@@ -9087,7 +9087,7 @@ export const NOTES_Y2_MICROBIO_1 = {
       },
       {
         "heading": "Route of inoculation ทั้ง 3 ทาง",
-        "source": "Lab Virus isolation propagation embryonated egg Handout p.14-16",
+        "source": "Lab Virus isolation propagation embryonated egg Handout p.11, p.13-16",
         "body": [
           {
             "sub": "Allantoic cavity (p.14)",
@@ -9129,6 +9129,17 @@ export const NOTES_Y2_MICROBIO_1 = {
           {
             "callout": "จุดที่ออกสอบง่ายคือคู่ อายุ embryo กับ route: allantoic 9-11 วัน, CAM 10-12 วัน, amniotic 7-15 วัน และสังเกตว่า **IAV ปรากฏทั้งทาง allantoic cavity และ amniotic cavity** ส่วนสไลด์ไม่ได้บอกว่าเลือกทางไหนในสถานการณ์ใด",
             "kind": "tip"
+          },
+          {
+            "sub": "ภาพประกอบ p.11 และ p.13 (หัวข้อ Route of inoculation)",
+            "body": [
+              {
+                "text": "ภาพทั้งสองหน้าวาดทางฉีดไว้ **4 ทาง** คือ chorioallantoic membrane, amniotic, allantoic และ **yolk sac inoculation** ซึ่งทาง yolk sac ไม่อยู่ในสไลด์ข้อความ p.14-16"
+              },
+              {
+                "text": "ชื่อไวรัสข้างแต่ละทางบนภาพ p.11 เป็นตัวอย่างของภาพเอง บางตัวไม่อยู่ในรายชื่อของสไลด์ข้อความ เช่น Herpes simplex virus และ Mumps virus ส่วนภาพซ้ายของ p.13 เป็นส่วนประกอบของไข่ (Shell membrane, Air sac, Egg shell, Allantoic fluid, Amniotic fluid, Embryo, Yolk, Albumen)"
+              }
+            ]
           }
         ]
       },
@@ -9149,7 +9160,7 @@ export const NOTES_Y2_MICROBIO_1 = {
       },
       {
         "heading": "Recognition of virus-infected eggs",
-        "source": "Lab Virus isolation propagation embryonated egg Handout p.18, p.20-21",
+        "source": "Lab Virus isolation propagation embryonated egg Handout p.18-21",
         "body": [
           {
             "sub": "Embryonic changes (p.18)",
@@ -9171,7 +9182,7 @@ export const NOTES_Y2_MICROBIO_1 = {
             ]
           },
           {
-            "callout": "p.19 อยู่ในชุดหัวข้อนี้เช่นกันแต่เป็นสไลด์รูปล้วน ไม่มีข้อความใด ๆ ให้สรุป",
+            "callout": "p.19 อยู่ในชุดหัวข้อนี้เช่นกัน เป็นสไลด์รูปล้วนไม่มีข้อความ รูปเป็นตัวอ่อนวางเรียงกันพร้อมไม้บรรทัด ตัวแรกเขียนกำกับว่า control ตัวอื่นเขียนเลขกำกับพร้อม D4 ถึง D6 สไลด์ไม่ได้เขียนว่าแต่ละตัวคืออะไรหรือมีรอยโรคแบบไหน",
             "kind": "flag"
           }
         ]

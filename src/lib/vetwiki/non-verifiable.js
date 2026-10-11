@@ -241,6 +241,13 @@ export const METADATA_SECTIONS = new Set([
   // there is nothing a published source can confirm or refute.
   "vet-neuroanat--neuroanat--midbrain--cross-section-ที่ระดับ-rostral-colliculi-ภาพ-label",
 
+  // Its caudal twin, restored 2026-10-11 so the p.18-19 figures have a section
+  // to sit under: slide captions (Level of caudal colliculus, Level of caudal
+  // part of caudal colliculus) and the names printed on two cross-sections and
+  // a CN III/IV figure. Like the rostral page, it says where structures sit on
+  // these particular figures and asserts nothing a paper could confirm.
+  "vet-neuroanat--neuroanat--midbrain--cross-section-ที่ระดับ-caudal-colliculus-ภาพ-label",
+
 
   // The slide is an image page of cranial nerve nuclei carrying only three
   // bare symptom headings (MEDIAL STRABISMUS, FACIAL PARALYSIS, NYSTAGMUS

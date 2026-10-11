@@ -66,10 +66,7 @@ export const SLIDE_IMAGES = {
   "vet-histo--histo--bone-marrow--vascular-compartment": [
     "/figures/vet-histo/histo--bone-marrow/p7-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p7-1.webp",
-    "/figures/vet-histo/histo--bone-marrow/p8-0.webp"
-  ],
-  "vet-histo--histo--bone-marrow--สไลด์ที่เป็นรูปภาพล้วน": [
-    "/figures/vet-histo/histo--bone-marrow/p9-0.webp",
+    "/figures/vet-histo/histo--bone-marrow/p8-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p9-1.webp"
   ],
   "vet-histo--histo--bone-marrow--extravascular-compartment": [
@@ -113,10 +110,6 @@ export const SLIDE_IMAGES = {
     "/figures/vet-histo/histo--bone-marrow/p32-0.webp",
     "/figures/vet-histo/histo--bone-marrow/p32-1.webp",
     "/figures/vet-histo/histo--bone-marrow/p32-2.webp"
-  ],
-  "vet-histo--histo--bone-marrow--คำถามที่สไลด์ตั้งไว้แต่ไม่ได้ตอบ": [
-    "/figures/vet-histo/histo--bone-marrow/p39-0.webp",
-    "/figures/vet-histo/histo--bone-marrow/p39-1.webp"
   ],
   "vet-histo--histo--bone-marrow--agranulopoiesis-monocytopoiesis": [
     "/figures/vet-histo/histo--bone-marrow/p40-0.webp",
@@ -550,9 +543,6 @@ export const SLIDE_IMAGES = {
   "vet-histo--histo--epithelium--development-จาก-germ-layers": [
     "/figures/vet-histo/histo--epithelium/p5-0.webp"
   ],
-  "vet-histo--histo--epithelium--functions-ของ-epithelium": [
-    "/figures/vet-histo/histo--epithelium/p6-0.webp"
-  ],
   "vet-histo--histo--epithelium--epithelium-แบ่งใหญ่เป็น-2-ประเภท": [
     "/figures/vet-histo/histo--epithelium/p7-0.webp"
   ],
@@ -577,7 +567,8 @@ export const SLIDE_IMAGES = {
   ],
   "vet-histo--histo--epithelium--simple-columnar-epithelium-และ-cell-modification": [
     "/figures/vet-histo/histo--epithelium/p21-0.webp",
-    "/figures/vet-histo/histo--epithelium/p22-0.webp"
+    "/figures/vet-histo/histo--epithelium/p22-0.webp",
+    "/figures/vet-histo/histo--epithelium/p6-0.webp"
   ],
   "vet-histo--histo--epithelium--pseudostratified-columnar-epithelium": [
     "/figures/vet-histo/histo--epithelium/p25-0.webp",
@@ -1081,9 +1072,7 @@ export const SLIDE_IMAGES = {
   ],
   "vet-histo--histo--lymphatic-organs-ii--diffuse-lymphoid-tissue-และ-lymphatic-nodules": [
     "/figures/vet-histo/histo--lymphatic-organs-ii/p3-0.webp",
-    "/figures/vet-histo/histo--lymphatic-organs-ii/p3-1.webp"
-  ],
-  "vet-histo--histo--lymphatic-organs-ii--ภาพ-aggregated-lymphatic-nodules": [
+    "/figures/vet-histo/histo--lymphatic-organs-ii/p3-1.webp",
     "/figures/vet-histo/histo--lymphatic-organs-ii/p4-0.webp"
   ],
   "vet-histo--histo--lymphatic-organs-ii--m-cell-ใน-peyer-s-patch": [
@@ -2515,10 +2504,7 @@ export const SLIDE_IMAGES = {
   "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--สไลด์ที่เป็นหน้าคั่นหรือรูปล้วน": [
     "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p4-0.webp",
     "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p4-1.webp",
-    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p11-0.webp",
-    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p12-0.webp",
-    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p13-0.webp",
-    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p19-0.webp"
+    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p12-0.webp"
   ],
   "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--ทำไมใช้-embryonated-eggs": [
     "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p5-0.webp"
@@ -2532,7 +2518,9 @@ export const SLIDE_IMAGES = {
   "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--route-of-inoculation-ทั้ง-3-ทาง": [
     "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p14-0.webp",
     "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p15-0.webp",
-    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p16-0.webp"
+    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p16-0.webp",
+    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p11-0.webp",
+    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p13-0.webp"
   ],
   "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--temperature-of-incubation": [
     "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p17-0.webp"
@@ -2543,7 +2531,8 @@ export const SLIDE_IMAGES = {
     "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p20-0.webp",
     "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p20-1.webp",
     "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p21-0.webp",
-    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p21-1.webp"
+    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p21-1.webp",
+    "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p19-0.webp"
   ],
   "vet-microbio-1--microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout--harvesting-of-virus": [
     "/figures/vet-microbio-1/microbio-1--lab-virus-isolation-propagation-embryonated-egg-handout/p22-0.webp",
@@ -3811,9 +3800,6 @@ export const SLIDE_IMAGES = {
   "vet-neuroanat--neuroanat--basal-nuclei--claustrum": [
     "/figures/vet-neuroanat/neuroanat--basal-nuclei/p13-0.webp"
   ],
-  "vet-neuroanat--neuroanat--diencephalon--สไลด์ที่ไม่มีข้อความให้สรุป": [
-    "/figures/vet-neuroanat/neuroanat--diencephalon/p3-0.webp"
-  ],
   "vet-neuroanat--neuroanat--diencephalon--แผนผัง-diencephalon-สไลด์เติมคำ": [
     "/figures/vet-neuroanat/neuroanat--diencephalon/p5-0.webp"
   ],
@@ -3949,9 +3935,7 @@ export const SLIDE_IMAGES = {
   ],
   "vet-neuroanat--neuroanat--midbrain--tectum-rostral-และ-caudal-colliculi": [
     "/figures/vet-neuroanat/neuroanat--midbrain/p8-0.webp",
-    "/figures/vet-neuroanat/neuroanat--midbrain/p8-1.webp"
-  ],
-  "vet-neuroanat--neuroanat--midbrain--ภาพ-auditory-pathway-label-ล้วน": [
+    "/figures/vet-neuroanat/neuroanat--midbrain/p8-1.webp",
     "/figures/vet-neuroanat/neuroanat--midbrain/p9-0.webp",
     "/figures/vet-neuroanat/neuroanat--midbrain/p9-1.webp"
   ],
@@ -3960,11 +3944,6 @@ export const SLIDE_IMAGES = {
   ],
   "vet-neuroanat--neuroanat--midbrain--cross-section-ที่ระดับ-rostral-colliculi-ภาพ-label": [
     "/figures/vet-neuroanat/neuroanat--midbrain/p14-0.webp"
-  ],
-  "vet-neuroanat--neuroanat--midbrain--ภาพระดับ-caudal-colliculus-label-ล้วน": [
-    "/figures/vet-neuroanat/neuroanat--midbrain/p18-0.webp",
-    "/figures/vet-neuroanat/neuroanat--midbrain/p18-1.webp",
-    "/figures/vet-neuroanat/neuroanat--midbrain/p19-0.webp"
   ],
   "vet-neuroanat--neuroanat--midbrain--red-nucleus": [
     "/figures/vet-neuroanat/neuroanat--midbrain/p22-0.webp"
@@ -4282,10 +4261,6 @@ export const SLIDE_IMAGES = {
     "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-1.webp",
     "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p1-2.webp"
   ],
-  "vet-physio-lab-1--physio-lab-1--pbl-case-6-endocrinology--รูปประกอบและหน้าที่เหลือของไฟล์": [
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p2-0.webp",
-    "/figures/vet-physio-lab-1/physio-lab-1--pbl-case-6-endocrinology/p2-1.webp"
-  ],
   "vet-physio-lab-1--physio-lab-1--pbl-neuro-down-frenchie--โจทย์-pbl-ตัวเคสและประวัติ": [
     "/figures/vet-physio-lab-1/physio-lab-1--pbl-neuro-down-frenchie/p1-0.webp"
   ],
@@ -4518,6 +4493,17 @@ export const SLIDE_IMAGES = {
   "vet-physio-lab-2--physio-lab-2--pbl-kidney--โครง-pbl-ที่สไลด์ทิ้งไว้ให้เติม": [
     "/figures/vet-physio-lab-2/physio-lab-2--pbl-kidney/p3-0.webp",
     "/figures/vet-physio-lab-2/physio-lab-2--pbl-kidney/p3-1.webp"
+  ],
+  "vet-neuroanat--neuroanat--midbrain--cross-section-ที่ระดับ-caudal-colliculus-ภาพ-label": [
+    "/figures/vet-neuroanat/neuroanat--midbrain/p18-0.webp",
+    "/figures/vet-neuroanat/neuroanat--midbrain/p18-1.webp",
+    "/figures/vet-neuroanat/neuroanat--midbrain/p19-0.webp"
+  ],
+  "vet-neuroanat--neuroanat--diencephalon--lateral-nuclei-ของ-thalamus-ส่วนบนกับส่วนล่าง": [
+    "/figures/vet-neuroanat/neuroanat--diencephalon/p3-0.webp"
+  ],
+  "vet-histo--histo--bone-marrow--ความต่างหลักระหว่างเซลล์ต้นกำเนิดของ-erythropoiesis-กับ-granulop": [
+    "/figures/vet-histo/histo--bone-marrow/p39-0.webp"
   ]
 };
 

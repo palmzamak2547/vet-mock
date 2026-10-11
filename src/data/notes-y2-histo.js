@@ -1155,7 +1155,7 @@ export const NOTES_Y2_HISTO = {
     "title": "Bone Marrow",
     "icon": "📖",
     "lecturer": "Associate Professor Dr. Paisan Tienthai, Ph.D., D.T.B.T., Department of Anatomy, Faculty of Veterinary Science, Chulalongkorn University",
-    "summary": "เด็คนี้ครอบคลุม bone marrow ตั้งแต่นิยามและหน้าที่ ชนิด red vs yellow marrow โครงสร้าง 2 compartment (vascular และ extravascular) Monophyletic theory จากนั้นไล่ hematopoiesis ทีละสาย คือ erythropoiesis granulopoiesis agranulopoiesis (monocytopoiesis กับ lymphopoiesis) plasma cell formation และ thrombopoiesis โดยให้ลักษณะจำเพาะของแต่ละระยะ (ขนาด N:C ratio สีของ cytoplasm nucleoli) ปิดท้ายด้วยการเคลื่อนเซลล์ออกจากไขกระดูกผ่าน sinusoid วิธี aspiration และ M:E ratio ทางคลินิก ส่วนสไลด์หน้า 9, 26, 30, 48, 55-56 เป็นรูปภาพล้วนไม่มีข้อความ หน้า 13 มีเพียงคำกำกับรูปว่า (Pluripotential stem cells) และหน้า 39 เป็นหัวข้อคำถามที่สไลด์ไม่ได้ให้คำตอบไว้",
+    "summary": "เด็คนี้ครอบคลุม bone marrow ตั้งแต่นิยามและหน้าที่ ชนิด red vs yellow marrow โครงสร้าง 2 compartment (vascular และ extravascular) Monophyletic theory จากนั้นไล่ hematopoiesis ทีละสาย คือ erythropoiesis granulopoiesis agranulopoiesis (monocytopoiesis กับ lymphopoiesis) plasma cell formation และ thrombopoiesis โดยให้ลักษณะจำเพาะของแต่ละระยะ (ขนาด N:C ratio สีของ cytoplasm nucleoli) ปิดท้ายด้วยการเคลื่อนเซลล์ออกจากไขกระดูกผ่าน sinusoid วิธี aspiration และ M:E ratio ทางคลินิก ส่วนสไลด์หน้า 9, 26, 30, 48, 55-56 เป็นรูปภาพล้วนไม่มีข้อความ หน้า 13 มีเพียงคำกำกับรูปว่า (Pluripotential stem cells) และหน้า 39 ตั้งหัวข้อเทียบเซลล์ต้นกำเนิดของสองสาย โดยรูปในหน้านั้นเทียบที่สีของ cytoplasm",
     "sections": [
       {
         "heading": "Bone marrow คืออะไร และหน้าที่",
@@ -1237,7 +1237,7 @@ export const NOTES_Y2_HISTO = {
       },
       {
         "heading": "Vascular compartment",
-        "source": "Bone Marrow p.7-8",
+        "source": "Bone Marrow p.7-9",
         "body": [
           {
             "text": "ลำดับการไหลของเลือดในไขกระดูก"
@@ -1250,6 +1250,9 @@ export const NOTES_Y2_HISTO = {
               "**Venous sinuses หรือ sinusoids (mature blood cells ทุกตัวในไขกระดูกออกผ่านทาง sinusoid นี้)** ซึ่งรวมกันเป็น",
               "Central longitudinal vein ที่นำเลือดออกจากไขกระดูกเข้าสู่ general circulation"
             ]
+          },
+          {
+            "text": "รูปหน้า 9 ไม่มีข้อความบนสไลด์ ตัวภาพพิมพ์ชื่อ Nutrient Artery, Nutrient Vein, Central Artery, Central Vein, Radial Arteries, Venous Sinuses, Hematopoietic Tissue Spaces, Periosteal Artery และ Cortical Bone"
           },
           {
             "callout": "Notice: bone marrow ไม่มี Lymphatic drainage",
@@ -1606,6 +1609,22 @@ export const NOTES_Y2_HISTO = {
                   "Cytoplasm เต็มไปด้วย mature specific granules"
                 ]
               }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ความต่างหลักระหว่างเซลล์ต้นกำเนิดของ erythropoiesis กับ granulopoiesis",
+        "source": "Bone Marrow p.39",
+        "body": [
+          {
+            "text": "สไลด์ตั้งหัวข้อว่า THE MAIN DIFFERENCE BETWEEN ORIGINATING CELL OF ERYTHROPOIESIS AND ORIGINATING CELL OF GRANULOPOIESIS และรูปในหน้าเดียวกันใช้หัวรูปว่า **COLOR OF CYTOPLASM** เทียบเซลล์สองตัว"
+          },
+          {
+            "bullets": [
+              "Originating cell of RBC: cytoplasm **Dark blue**",
+              "Originating cell of WBC: cytoplasm **Light blue or pink**",
+              "ทั้งสองภาพมีลูกศรชี้ nucleolus"
             ]
           }
         ]
@@ -9690,7 +9709,7 @@ export const NOTES_Y2_HISTO = {
       },
       {
         "heading": "Diffuse lymphoid tissue และ lymphatic nodules",
-        "source": "Lymphatic organs II p.3",
+        "source": "Lymphatic organs II p.3-4",
         "body": [
           {
             "text": "สไลด์แบ่งองค์ประกอบเป็น 2 ส่วนคือ (1) localized lymphocyte infiltration และ (2) lymphoid nodules ใน mucosa ของ gastrointestinal, respiratory และ urinary tract โดยตำแหน่งที่พบ lymphocyte คือ lamina propria (ใน tunica mucosa) และ tunica submucosa"
@@ -9715,6 +9734,20 @@ export const NOTES_Y2_HISTO = {
                   "Non-encapsulated lymphoid tissue เรียกรวมว่า MALT",
                   "GALT = gut-associated lymphoid tissue",
                   "BALT = bronchus-associated lymphoid tissue"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "ภาพ aggregated lymphatic nodules (p.4)",
+            "body": [
+              {
+                "text": "หัวภาพพิมพ์ว่า FIGURE 14-13 **Peyer's patch and M cells**"
+              },
+              {
+                "bullets": [
+                  "ภาพ ileum ย้อม H&E ดูด้วย light microscope: **V = villi, N = lymphoid nodules**",
+                  "ภาพ SEM ที่ลอก epithelial cells ออก แสดง lymphoid nodules (N)"
                 ]
               }
             ]
