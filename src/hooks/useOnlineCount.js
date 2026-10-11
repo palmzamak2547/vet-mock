@@ -1,13 +1,18 @@
 // ============================================================
-// useOnlineCount — realtime "X คนกำลังเรียนอยู่" via Supabase Presence
+// useOnlineCount — how many devices have the app open right now
 // ============================================================
-// แสดงจำนวนคนที่เปิดเว็บอยู่ ณ ตอนนี้ (anonymous, ไม่ต้อง login)
+// Supabase Presence on the public channel 'vet-mock-online' (anonymous, no
+// login). The number is shown only in the back-office (AdminView).
 //
 // How it works
 // ────────────
-//   • Supabase Realtime channel "online-users" w/ Presence config
-//   • ทุก tab subscribe → Supabase ส่ง presence sync event ให้ทุกคน
-//   • นับจำนวน unique presence keys = จำนวนคนที่ active อยู่
+//   • every tab subscribes → Supabase sends a presence sync to everyone
+//   • the presence key is one id per device per day, kept in localStorage
+//     ({ id, day }), so several tabs on one device merge under one key;
+//     when storage is unavailable the tab falls back to a key of its own
+//   • unique presence keys = devices open right now, not people: one
+//     student on a phone and a laptop counts twice, and a device whose
+//     storage is blocked counts once per tab
 //
 // Performance
 // ───────────
@@ -24,6 +29,26 @@ import { useEffect, useState } from 'react';
 import { getSupabase, hasSupabase } from '../lib/supabase.js';
 
 const CHANNEL_NAME = 'vet-mock-online';
+const DEVICE_KEY = 'vmx-online-device-v1';
+
+/**
+ * The presence key for this device: the same for every tab on one device
+ * for one calendar day (UTC), a fresh one the next day. `storage` is
+ * localStorage; a missing or throwing storage (private mode, blocked site
+ * data) gives a per-tab key, so the count still works, one tab at a time.
+ */
+export function onlineDeviceKey(storage, now = new Date(), random = Math.random) {
+  const day = now.toISOString().slice(0, 10);
+  let saved = null;
+  try { saved = JSON.parse(storage.getItem(DEVICE_KEY) || 'null'); } catch { saved = null; }
+  if (saved && saved.day === day && typeof saved.id === 'string' && /^dev-[a-z0-9]{6,}$/.test(saved.id)) return saved.id;
+  // A missing, stale, garbled or foreign value is replaced, never trusted.
+  const id = `dev-${random().toString(36).slice(2, 10)}${now.getTime().toString(36)}`;
+  try { storage.setItem(DEVICE_KEY, JSON.stringify({ id, day })); } catch {
+    return `tab-${random().toString(36).slice(2, 10)}-${now.getTime()}`;
+  }
+  return id;
+}
 
 export function useOnlineCount() {
   const [count, setCount] = useState(0);
@@ -58,8 +83,9 @@ export function useOnlineCount() {
       }
       if (!supabase || cancelled) return;
 
-      // Random anon ID per tab (regenerated on refresh — that's OK for a counter)
-      const id = `anon-${Math.random().toString(36).slice(2, 10)}-${Date.now()}`;
+      // One key per device per day (see onlineDeviceKey), so a second tab on
+      // the same device does not count again.
+      const id = onlineDeviceKey(typeof window !== 'undefined' ? window.localStorage : undefined);
 
       const joined = supabase.channel(CHANNEL_NAME, {
         config: { presence: { key: id } },

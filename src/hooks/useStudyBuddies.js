@@ -75,12 +75,16 @@ export function useBuddyPanel() {
 // re-sent, and joined_at is fixed for the life of the channel.
 const RETRACK_DELAY_MS = 1500;
 
-// 'vet-mock-buddies' is a public Realtime channel: anyone holding the
-// shipped anon key can join it. So it carries no auth id (the presence key
-// is a digest of it, see presenceKeyFor), and a student who
-// turned the leaderboard off is published without their name or avatar,
-// matching how get_leaderboard_by_source reads show_on_leaderboard. Moving
-// the channel behind Realtime authorization needs a database change.
+// 'vet-mock-buddies' is a private Realtime channel: the server checks the
+// RLS policies on realtime.messages (migration
+// 20261011120500_study_buddies_private_channel) with the student's JWT when
+// the channel is joined, so only a signed-in account can read or publish
+// presence here. A public join of the same name lands on a separate topic
+// and sees none of it. Every signed-in classmate still reads what is
+// published, so the payload keeps the two older measures: it carries no
+// auth id (the presence key is a digest of it, see presenceKeyFor), and a
+// student who turned the leaderboard off is published without their name or
+// avatar, matching how get_leaderboard_by_source reads show_on_leaderboard.
 const SHOWN_VALUES = new Set(['true', 't', 'yes', 'y', 'on', '1']);
 function showsOnLeaderboard(user) {
   const flag = user?.user_metadata?.show_on_leaderboard;
@@ -161,8 +165,13 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
       const supabase = await getSupabase();
       if (!supabase || cancelled) return;
       const selfKey = presenceKeyFor(user.id);
+      // A private channel is authorised with the token the socket holds when
+      // the join frame is built, so the session JWT is put there first.
+      // Without a session the join is refused and the list stays empty.
+      try { await supabase.realtime?.setAuth?.(); } catch {}
+      if (cancelled) return;
       channel = supabase.channel(CHANNEL_NAME, {
-        config: { presence: { key: selfKey } },
+        config: { private: true, presence: { key: selfKey } },
       });
       channel.on('presence', { event: 'sync' }, () => {
         if (cancelled || !channel) return;
