@@ -20,6 +20,7 @@ import { useWs } from '../ws-context.js';
 import { buildDraft, columnNameFor, levelNameFor, publicVersion } from '../report/build.js';
 import { strobeStatus } from '../report/strobe.js';
 import { strobeFlow } from '../report/flow.js';
+import { chartKindFor } from '../report/figure-kind.js';
 import { copyParagraph } from '../lib/clipboard.js';
 import { formatMoment, isoLocalDay } from '../lib/era.js';
 import { isStale, plottable, valueLabel } from '../lib/result-model.js';
@@ -32,22 +33,7 @@ import '../../styles/report.css';
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-/** The chart kind the report draws for a kept result, when it draws one [M2-DESIGN.md 8.2]. */
-function chartKindFor(env) {
-  switch (env?.method?.id || env?.spec?.method) {
-    case 'surv.kaplanMeier': return 'kaplanMeier';
-    case 'roc.delong': return 'roc';
-    case 'agree.blandAltman': return 'blandAltman';
-    case 'epi.mantelHaenszel': return 'forest';
-    // the models' ratios by the kit's labelled forest (review round 2: the plottable fallback printed c2=, c4)
-    case 'reg.logistic':
-    case 'reg.poisson': return 'forest';
-    case 'anova.repeated': return 'timeCourse';
-    // two-way ANOVA: the cell means from the envelope (review round 2: the Word file had no figure and no word why)
-    case 'anova.twoWay': return 'timeCourse';
-    default: return plottable(env).rows.length ? 'ci' : null;
-  }
-}
+// The chart kind the report draws for a kept result: report/figure-kind.js (reg.negbin, M3a, draws its forest of IRRs).
 
 /**
  * Figures for the exports from the graphs role's chart kit, one per kept result that has a chart drawn from
