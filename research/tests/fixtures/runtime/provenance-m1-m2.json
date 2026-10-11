@@ -1,0 +1,2321 @@
+{
+ "_meta": {
+  "what": "The first provenance line and the options panel of every M1 and M2 method on its end-to-end case (tests/unit/*-specs.mjs), captured on 2026-10-11 from claude/research-m3 at 8eb2b016 before the M3a provenance words were added. runtime-provenance-pins.test.mjs fails when any of them changes: a new option word must not move an older result.",
+  "lines": "first line, th and en",
+  "panel": "provenanceOptions rows, th and en"
+ },
+ "methods": {
+  "adjust.pValues": {
+   "th": {
+    "line": "ปรับค่า p เมื่อทดสอบหลายครั้ง | ปรับค่า p ด้วย Holm",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีปรับค่า p",
+      "Holm"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Adjust p-values for multiple tests | p-values adjusted by Holm",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "p-value adjustment",
+      "Holm"
+     ]
+    ]
+   }
+  },
+  "agree.blandAltman": {
+   "th": {
+    "line": "Bland-Altman | 95% CI",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "scale",
+      "absolute"
+     ],
+     [
+      "loaMultiplier",
+      "1.96"
+     ],
+     [
+      "loaCi",
+      "approx"
+     ],
+     [
+      "proportionalBias",
+      "ใช่"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Bland-Altman | 95% CI",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "scale",
+      "absolute"
+     ],
+     [
+      "loaMultiplier",
+      "1.96"
+     ],
+     [
+      "loaCi",
+      "approx"
+     ],
+     [
+      "proportionalBias",
+      "yes"
+     ]
+    ]
+   }
+  },
+  "agree.kappa": {
+   "th": {
+    "line": "kappa ความสอดคล้องที่เกินกว่าบังเอิญ | 95% CI | kappa แบบถ่วงน้ำหนัก ไม่มี",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "น้ำหนักของ kappa",
+      "ไม่มี"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Kappa: agreement beyond chance | 95% CI | kappa weights none",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Kappa weights",
+      "none"
+     ]
+    ]
+   }
+  },
+  "agree.percent": {
+   "th": {
+    "line": "ร้อยละที่ตรงกัน | 95% CI (Wilson)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีคำนวณ CI",
+      "Wilson"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Percent agreement | 95% CI (Wilson)",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "CI method",
+      "Wilson"
+     ]
+    ]
+   }
+  },
+  "anova.repeated": {
+   "th": {
+    "line": "repeated-measures ANOVA (วัดซ้ำในตัวเดิม)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "sphericity",
+      "gg"
+     ],
+     [
+      "mauchly",
+      "ใช่"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Repeated-measures ANOVA",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "sphericity",
+      "gg"
+     ],
+     [
+      "mauchly",
+      "yes"
+     ]
+    ]
+   }
+  },
+  "anova.twoWay": {
+   "th": {
+    "line": "two-way ANOVA",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "ssType",
+      "III"
+     ],
+     [
+      "interaction",
+      "ใช่"
+     ],
+     [
+      "เปรียบเทียบรายคู่",
+      "ไม่มี"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Two-way ANOVA",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "ssType",
+      "III"
+     ],
+     [
+      "interaction",
+      "yes"
+     ],
+     [
+      "Pairwise comparisons",
+      "none"
+     ]
+    ]
+   }
+  },
+  "cluster.iccDeff": {
+   "th": {
+    "line": "ICC และ design effect | 95% CI | design effect จากขนาดฟาร์ม ค่าเฉลี่ย",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีประมาณ ICC",
+      "one-way ANOVA"
+     ],
+     [
+      "ขนาดฟาร์มที่ใช้คำนวณ design effect",
+      "ค่าเฉลี่ย"
+     ]
+    ]
+   },
+   "en": {
+    "line": "ICC and design effect | 95% CI | design effect from farm size mean",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "ICC estimator",
+      "one-way ANOVA"
+     ],
+     [
+      "Farm size used for the design effect",
+      "mean"
+     ]
+    ]
+   }
+  },
+  "corr.pearson": {
+   "th": {
+    "line": "Pearson correlation | 95% CI (Fisher z)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีคำนวณ CI",
+      "Fisher z"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Pearson correlation | 95% CI (Fisher z)",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "CI method",
+      "Fisher z"
+     ]
+    ]
+   }
+  },
+  "corr.spearman": {
+   "th": {
+    "line": "Spearman correlation | 95% CI | ค่า p: เลือกจากข้อมูล",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "คำนวณแบบ exact",
+      "เลือกจากข้อมูล"
+     ],
+     [
+      "วิธีคำนวณ CI",
+      "ไม่มี"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Spearman correlation | 95% CI | p-value: chosen from the data",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Exact calculation",
+      "chosen from the data"
+     ],
+     [
+      "CI method",
+      "none"
+     ]
+    ]
+   }
+  },
+  "desc.summary": {
+   "th": {
+    "line": "สรุปข้อมูลตัวเลข | ควอร์ไทล์แบบที่ 7",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีคำนวณควอร์ไทล์",
+      "7"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Summary of a number column | quartiles type 7",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Quartile method",
+      "7"
+     ]
+    ]
+   }
+  },
+  "desc.table1": {
+   "th": {
+    "line": "Table 1 ลักษณะของกลุ่มตัวอย่าง | ควอร์ไทล์แบบที่ 7",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีคำนวณควอร์ไทล์",
+      "7"
+     ],
+     [
+      "ค่าสรุปของแต่ละตัวแปร",
+      "c7: n-percent, c8: n-percent, c9: median-iqr"
+     ],
+     [
+      "ตัวหารของร้อยละ",
+      "known"
+     ],
+     [
+      "แสดงจำนวนที่ไม่มีค่า",
+      "ใช่"
+     ],
+     [
+      "สรุปตามระดับ (ฟาร์มหรือสัตว์)",
+      "ใช่"
+     ],
+     [
+      "columnLevels",
+      "c7: animal, c8: animal, c9: animal"
+     ],
+     [
+      "unitOfAnalysis",
+      "animal"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Table 1: who is in the sample | quartiles type 7",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Quartile method",
+      "7"
+     ],
+     [
+      "Summary for each variable",
+      "c7: n-percent, c8: n-percent, c9: median-iqr"
+     ],
+     [
+      "Denominator of percentages",
+      "known"
+     ],
+     [
+      "Show missing counts",
+      "yes"
+     ],
+     [
+      "Summarise by level (farm or animal)",
+      "yes"
+     ],
+     [
+      "columnLevels",
+      "c7: animal, c8: animal, c9: animal"
+     ],
+     [
+      "unitOfAnalysis",
+      "animal"
+     ]
+    ]
+   }
+  },
+  "design.randomisation": {
+   "th": {
+    "line": "สุ่มจัดกลุ่ม",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "scheme",
+      "block"
+     ],
+     [
+      "blockSizes",
+      "4, 6"
+     ],
+     [
+      "blinding",
+      "ใช่"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Randomisation",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "scheme",
+      "block"
+     ],
+     [
+      "blockSizes",
+      "4, 6"
+     ],
+     [
+      "blinding",
+      "yes"
+     ]
+    ]
+   }
+  },
+  "design.sampling": {
+   "th": {
+    "line": "สุ่มเลือกฟาร์มหรือสัตว์จากรายชื่อ",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "scheme",
+      "stratified"
+     ],
+     [
+      "allocation",
+      "proportional"
+     ],
+     [
+      "stream",
+      "54"
+     ],
+     [
+      "size",
+      "30"
+     ],
+     [
+      "seed",
+      "7"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Random selection of farms or animals from a list",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "scheme",
+      "stratified"
+     ],
+     [
+      "allocation",
+      "proportional"
+     ],
+     [
+      "stream",
+      "54"
+     ],
+     [
+      "size",
+      "30"
+     ],
+     [
+      "seed",
+      "7"
+     ]
+    ]
+   }
+  },
+  "diag.brownForsythe": {
+   "th": {
+    "line": "Brown-Forsythe test (ความแปรปรวนเท่ากันไหม)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "center",
+      "median"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Brown-Forsythe test (equal variances)",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "center",
+      "median"
+     ]
+    ]
+   }
+  },
+  "diag.shapiro": {
+   "th": {
+    "line": "Shapiro-Wilk test (ตรวจว่าข้อมูลใกล้การแจกแจงปกติไหม)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "on",
+      "residuals"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Shapiro-Wilk test",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "on",
+      "residuals"
+     ]
+    ]
+   }
+  },
+  "dx.accuracy": {
+   "th": {
+    "line": "ความถูกต้องของชุดตรวจ | 95% CI (Wilson, log)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีคำนวณ CI",
+      "Wilson"
+     ],
+     [
+      "วิธีคำนวณ CI ของ likelihood ratio",
+      "log"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Diagnostic test accuracy | 95% CI (Wilson, log)",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "CI method",
+      "Wilson"
+     ],
+     [
+      "CI method for likelihood ratios",
+      "log"
+     ]
+    ]
+   }
+  },
+  "epi.mantelHaenszel": {
+   "th": {
+    "line": "Mantel-Haenszel รวมผลจากหลายชั้น | 95% CI (Robins-Breslow-Greenland, Greenland-Robins) | ค่าที่รายงาน prevalence ratio | CMH มี continuity correction | ทดสอบว่าทุกชั้นมีค่าเท่ากันด้วย Woolf",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "ค่าที่รายงาน",
+      "ความเสี่ยงสัมพัทธ์"
+     ],
+     [
+      "วิธีคำนวณ CI ของ odds ratio",
+      "Robins-Breslow-Greenland"
+     ],
+     [
+      "วิธีคำนวณ CI ของความเสี่ยงสัมพัทธ์หรือ prevalence ratio",
+      "Greenland-Robins"
+     ],
+     [
+      "continuity correction ของ CMH",
+      "ใช่"
+     ],
+     [
+      "ทดสอบว่าแต่ละชั้นให้ผลเหมือนกัน",
+      "Woolf"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Mantel-Haenszel across strata | 95% CI (Robins-Breslow-Greenland, Greenland-Robins) | reporting prevalence ratio | CMH with continuity correction | homogeneity across strata tested by Woolf",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Measure reported",
+      "relative risk"
+     ],
+     [
+      "CI method for the odds ratio",
+      "Robins-Breslow-Greenland"
+     ],
+     [
+      "CI method for the relative risk or prevalence ratio",
+      "Greenland-Robins"
+     ],
+     [
+      "CMH continuity correction",
+      "yes"
+     ],
+     [
+      "Test that strata agree",
+      "Woolf"
+     ]
+    ]
+   }
+  },
+  "epi.twoByTwo": {
+   "th": {
+    "line": "ตาราง 2x2 ปัจจัยกับตัวแปรผล | 95% CI (Woolf, Wald บนสเกล log, Wald) | ช่องศูนย์: ไม่มี",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีคำนวณ CI ของ odds ratio",
+      "Woolf"
+     ],
+     [
+      "วิธีคำนวณ CI ของความเสี่ยงสัมพัทธ์หรือ prevalence ratio",
+      "Wald บนสเกล log"
+     ],
+     [
+      "วิธีคำนวณ CI ของผลต่าง",
+      "Wald"
+     ],
+     [
+      "เมื่อมีช่องที่เป็นศูนย์",
+      "ไม่มี"
+     ],
+     [
+      "ค่าที่รายงาน",
+      "PR, POR, PD"
+     ]
+    ]
+   },
+   "en": {
+    "line": "2x2 table: exposure and outcome | 95% CI (Woolf, Wald on the log scale, Wald) | zero cells: none",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "CI method for the odds ratio",
+      "Woolf"
+     ],
+     [
+      "CI method for the relative risk or prevalence ratio",
+      "Wald on the log scale"
+     ],
+     [
+      "CI method for the difference",
+      "Wald"
+     ],
+     [
+      "When a cell is zero",
+      "none"
+     ],
+     [
+      "Measures reported",
+      "PR, POR, PD"
+     ]
+    ]
+   }
+  },
+  "freq.incidenceRate": {
+   "th": {
+    "line": "อัตราอุบัติการณ์ต่อเวลาที่สัตว์เสี่ยง | 95% CI (exact Poisson) | ต่อ 1000",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีคำนวณ CI",
+      "exact Poisson"
+     ],
+     [
+      "ต่อจำนวน",
+      "1000"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Incidence rate per animal-time | 95% CI (exact Poisson) | per 1000",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "CI method",
+      "exact Poisson"
+     ],
+     [
+      "Per",
+      "1000"
+     ]
+    ]
+   }
+  },
+  "freq.incidenceRisk": {
+   "th": {
+    "line": "อุบัติการณ์สะสม (ความเสี่ยงที่จะป่วยในช่วงที่ติดตาม) | 95% CI (Wilson)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีคำนวณ CI",
+      "Wilson"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Incidence risk (chance of falling ill during follow-up) | 95% CI (Wilson)",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "CI method",
+      "Wilson"
+     ]
+    ]
+   }
+  },
+  "freq.proportion": {
+   "th": {
+    "line": "ความชุก (สัดส่วนที่ตรวจพบ) | 95% CI (Wilson)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีคำนวณ CI",
+      "Wilson"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Prevalence (apparent proportion) | 95% CI (Wilson)",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "CI method",
+      "Wilson"
+     ]
+    ]
+   }
+  },
+  "freq.truePrevalence": {
+   "th": {
+    "line": "ความชุกจริง แก้ตามความไวและความจำเพาะ | 95% CI (Wilson)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีคำนวณ CI ของความชุกปรากฏ",
+      "Wilson"
+     ],
+     [
+      "จำกัดค่าให้อยู่ระหว่าง 0 ถึง 1",
+      "ใช่"
+     ],
+     [
+      "ความไวของชุดตรวจ",
+      "0.95"
+     ],
+     [
+      "ความจำเพาะของชุดตรวจ",
+      "0.98"
+     ]
+    ]
+   },
+   "en": {
+    "line": "True prevalence, corrected for sensitivity and specificity | 95% CI (Wilson)",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "CI method for apparent prevalence",
+      "Wilson"
+     ],
+     [
+      "Keep values between 0 and 1",
+      "yes"
+     ],
+     [
+      "Test sensitivity",
+      "0.95"
+     ],
+     [
+      "Test specificity",
+      "0.98"
+     ]
+    ]
+   }
+  },
+  "posthoc.dunn": {
+   "th": {
+    "line": "Dunn test (เทียบรายคู่หลัง Kruskal-Wallis)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "adjust",
+      "Holm"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Dunn test",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "adjust",
+      "Holm"
+     ]
+    ]
+   }
+  },
+  "posthoc.dunnett": {
+   "th": {
+    "line": "Dunnett test (เทียบทุกกลุ่มกับกลุ่มควบคุม)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Dunnett test",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ]
+    ]
+   }
+  },
+  "posthoc.gamesHowell": {
+   "th": {
+    "line": "Games-Howell (เทียบรายคู่เมื่อความแปรปรวนไม่เท่ากัน)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Games-Howell",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ]
+    ]
+   }
+  },
+  "posthoc.tukey": {
+   "th": {
+    "line": "Tukey HSD | 95% CI",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Tukey HSD | 95% CI",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ]
+    ]
+   }
+  },
+  "power.anova": {
+   "th": {
+    "line": "power ของ ANOVA",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "solveFor",
+      "n"
+     ],
+     [
+      "sigLevel",
+      "0.05"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Power for ANOVA",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "solveFor",
+      "n"
+     ],
+     [
+      "sigLevel",
+      "0.05"
+     ]
+    ]
+   }
+  },
+  "power.correlation": {
+   "th": {
+    "line": "power ของ correlation",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "solveFor",
+      "n"
+     ],
+     [
+      "sigLevel",
+      "0.05"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Power for a correlation",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "solveFor",
+      "n"
+     ],
+     [
+      "sigLevel",
+      "0.05"
+     ]
+    ]
+   }
+  },
+  "power.regression": {
+   "th": {
+    "line": "power ของ regression",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "solveFor",
+      "n"
+     ],
+     [
+      "sigLevel",
+      "0.05"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Power for a regression",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "solveFor",
+      "n"
+     ],
+     [
+      "sigLevel",
+      "0.05"
+     ]
+    ]
+   }
+  },
+  "power.tTest": {
+   "th": {
+    "line": "power ของ t-test",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "type",
+      "two-sample"
+     ],
+     [
+      "solveFor",
+      "power"
+     ],
+     [
+      "sigLevel",
+      "0.05"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Power for a t-test",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "type",
+      "two-sample"
+     ],
+     [
+      "solveFor",
+      "power"
+     ],
+     [
+      "sigLevel",
+      "0.05"
+     ]
+    ]
+   }
+  },
+  "reg.logistic": {
+   "th": {
+    "line": "logistic regression | 95% CI (profile likelihood)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีคำนวณ CI",
+      "profile likelihood"
+     ],
+     [
+      "references",
+      "d2: < 24, c10: ไม่ฉีด"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Logistic regression | 95% CI (profile likelihood)",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "CI method",
+      "profile likelihood"
+     ],
+     [
+      "references",
+      "d2: < 24, c10: ไม่ฉีด"
+     ]
+    ]
+   }
+  },
+  "reg.ols": {
+   "th": {
+    "line": "Linear regression | 95% CI | มีค่าคงที่",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "มีค่าคงที่ (intercept)",
+      "ใช่"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Linear regression | 95% CI | with intercept",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Intercept",
+      "yes"
+     ]
+    ]
+   }
+  },
+  "reg.poisson": {
+   "th": {
+    "line": "Poisson regression (อัตราและจำนวนนับ) | 95% CI (profile likelihood)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีคำนวณ CI",
+      "profile likelihood"
+     ],
+     [
+      "references",
+      "c8: เจอร์ซีย์ลูกผสม"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Poisson regression (rates and counts) | 95% CI (profile likelihood)",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "CI method",
+      "profile likelihood"
+     ],
+     [
+      "references",
+      "c8: เจอร์ซีย์ลูกผสม"
+     ]
+    ]
+   }
+  },
+  "rel.cronbach": {
+   "th": {
+    "line": "Cronbach’s alpha | 95% CI (Feldt)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "วิธีคำนวณ CI",
+      "Feldt"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Cronbach’s alpha | 95% CI (Feldt)",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "CI method",
+      "Feldt"
+     ]
+    ]
+   }
+  },
+  "roc.delong": {
+   "th": {
+    "line": "ROC curve และการเทียบแบบ DeLong | 95% CI (DeLong)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "direction",
+      "higher-positive"
+     ],
+     [
+      "วิธีคำนวณ CI",
+      "DeLong"
+     ],
+     [
+      "youden",
+      "ใช่"
+     ]
+    ]
+   },
+   "en": {
+    "line": "ROC curve with the DeLong comparison | 95% CI (DeLong)",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "direction",
+      "higher-positive"
+     ],
+     [
+      "CI method",
+      "DeLong"
+     ],
+     [
+      "youden",
+      "yes"
+     ]
+    ]
+   }
+  },
+  "ss.caseControl": {
+   "th": {
+    "line": "ขนาดตัวอย่างสำหรับ case-control | สูตร: pooled variance ตามรายวิชา | ค่า z: exact | ปัดขึ้น",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "สูตร",
+      "pooled variance ตามรายวิชา"
+     ],
+     [
+      "ค่า z",
+      "exact"
+     ],
+     [
+      "ปัดขึ้นเป็นจำนวนเต็ม",
+      "ใช่"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Sample size for a case-control study | formula: pooled variance, as in the course | z: exact | rounded up",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Formula",
+      "pooled variance, as in the course"
+     ],
+     [
+      "z value",
+      "exact"
+     ],
+     [
+      "Round up to a whole number",
+      "yes"
+     ]
+    ]
+   }
+  },
+  "ss.mean": {
+   "th": {
+    "line": "ขนาดตัวอย่างเพื่อประมาณค่าเฉลี่ย | สูตร: ประมาณด้วยการแจกแจงปกติ | ค่า z: exact | ปัดขึ้น",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "สูตร",
+      "ประมาณด้วยการแจกแจงปกติ"
+     ],
+     [
+      "ค่า z",
+      "exact"
+     ],
+     [
+      "ปัดขึ้นเป็นจำนวนเต็ม",
+      "ใช่"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Sample size to estimate a mean | formula: normal approximation | z: exact | rounded up",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Formula",
+      "normal approximation"
+     ],
+     [
+      "z value",
+      "exact"
+     ],
+     [
+      "Round up to a whole number",
+      "yes"
+     ]
+    ]
+   }
+  },
+  "ss.paired": {
+   "th": {
+    "line": "ขนาดตัวอย่างเมื่อวัดก่อนและหลังในตัวเดิม | สูตร: ประมาณด้วยการแจกแจงปกติ | ค่า z: exact | ปัดขึ้น",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "สูตร",
+      "ประมาณด้วยการแจกแจงปกติ"
+     ],
+     [
+      "ค่า z",
+      "exact"
+     ],
+     [
+      "ปัดขึ้นเป็นจำนวนเต็ม",
+      "ใช่"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Sample size for before and after in the same animals | formula: normal approximation | z: exact | rounded up",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Formula",
+      "normal approximation"
+     ],
+     [
+      "z value",
+      "exact"
+     ],
+     [
+      "Round up to a whole number",
+      "yes"
+     ]
+    ]
+   }
+  },
+  "ss.proportion": {
+   "th": {
+    "line": "ขนาดตัวอย่างเพื่อประมาณความชุก | ค่า z: exact | FPC: ตามรายวิชา | ปัดขึ้น",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "ค่า z",
+      "exact"
+     ],
+     [
+      "ปรับตามขนาดประชากร (FPC)",
+      "ตามรายวิชา"
+     ],
+     [
+      "ปัดขึ้นเป็นจำนวนเต็ม",
+      "ใช่"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Sample size to estimate a prevalence | z: exact | FPC: as in the course | rounded up",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "z value",
+      "exact"
+     ],
+     [
+      "Finite population correction (FPC)",
+      "as in the course"
+     ],
+     [
+      "Round up to a whole number",
+      "yes"
+     ]
+    ]
+   }
+  },
+  "ss.twoMeans": {
+   "th": {
+    "line": "ขนาดตัวอย่างเพื่อเทียบสองค่าเฉลี่ย | สูตร: ประมาณด้วยการแจกแจงปกติ | ค่า z: exact | ปัดขึ้น",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "สูตร",
+      "ประมาณด้วยการแจกแจงปกติ"
+     ],
+     [
+      "ค่า z",
+      "exact"
+     ],
+     [
+      "ปัดขึ้นเป็นจำนวนเต็ม",
+      "ใช่"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Sample size to compare two means | formula: normal approximation | z: exact | rounded up",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Formula",
+      "normal approximation"
+     ],
+     [
+      "z value",
+      "exact"
+     ],
+     [
+      "Round up to a whole number",
+      "yes"
+     ]
+    ]
+   }
+  },
+  "ss.twoProportions": {
+   "th": {
+    "line": "ขนาดตัวอย่างเพื่อเทียบสองสัดส่วน | สูตร: pooled variance | ค่า z: exact | ปัดขึ้น",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "สูตร",
+      "pooled variance"
+     ],
+     [
+      "ค่า z",
+      "exact"
+     ],
+     [
+      "ปัดขึ้นเป็นจำนวนเต็ม",
+      "ใช่"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Sample size to compare two proportions | formula: pooled variance | z: exact | rounded up",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Formula",
+      "pooled variance"
+     ],
+     [
+      "z value",
+      "exact"
+     ],
+     [
+      "Round up to a whole number",
+      "yes"
+     ]
+    ]
+   }
+  },
+  "surv.kaplanMeier": {
+   "th": {
+    "line": "Kaplan-Meier และ log-rank | 95% CI",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "confType",
+      "log"
+     ],
+     [
+      "test",
+      "logrank"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Kaplan-Meier and log-rank | 95% CI",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "confType",
+      "log"
+     ],
+     [
+      "test",
+      "logrank"
+     ]
+    ]
+   }
+  },
+  "test.anova1": {
+   "th": {
+    "line": "One-way ANOVA | 95% CI | เปรียบเทียบรายคู่ Tukey",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "เปรียบเทียบรายคู่",
+      "Tukey"
+     ]
+    ]
+   },
+   "en": {
+    "line": "One-way ANOVA | 95% CI | pairwise comparisons by Tukey",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Pairwise comparisons",
+      "Tukey"
+     ]
+    ]
+   }
+  },
+  "test.chisq": {
+   "th": {
+    "line": "Chi-square test | 95% CI | ไม่มี Yates continuity correction",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "Yates continuity correction",
+      "ไม่"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Chi-square test | 95% CI | no Yates continuity correction",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Yates continuity correction",
+      "no"
+     ]
+    ]
+   }
+  },
+  "test.fisher2x2": {
+   "th": {
+    "line": "Fisher's exact test | 95% CI",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Fisher's exact test | 95% CI",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ]
+    ]
+   }
+  },
+  "test.friedman": {
+   "th": {
+    "line": "Friedman test (เทียบหลายครั้งที่วัดในตัวเดิม โดยใช้ลำดับที่)",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Friedman test",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ]
+    ]
+   }
+  },
+  "test.kruskalWallis": {
+   "th": {
+    "line": "Kruskal-Wallis test | 95% CI",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Kruskal-Wallis test | 95% CI",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ]
+    ]
+   }
+  },
+  "test.mannWhitney": {
+   "th": {
+    "line": "Mann-Whitney U test | 95% CI | ค่า p: เลือกจากข้อมูล | มี continuity correction",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "คำนวณแบบ exact",
+      "เลือกจากข้อมูล"
+     ],
+     [
+      "continuity correction",
+      "ใช่"
+     ],
+     [
+      "estimate",
+      "Hodges-Lehmann"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Mann-Whitney U test | 95% CI | p-value: chosen from the data | with continuity correction",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Exact calculation",
+      "chosen from the data"
+     ],
+     [
+      "Continuity correction",
+      "yes"
+     ],
+     [
+      "estimate",
+      "Hodges-Lehmann"
+     ]
+    ]
+   }
+  },
+  "test.mcnemar": {
+   "th": {
+    "line": "McNemar's test | 95% CI | ใช้การประมาณ | มี continuity correction",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "continuity correction",
+      "ใช่"
+     ],
+     [
+      "คำนวณแบบ exact",
+      "ไม่"
+     ]
+    ]
+   },
+   "en": {
+    "line": "McNemar's test | 95% CI | approximation | with continuity correction",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Continuity correction",
+      "yes"
+     ],
+     [
+      "Exact calculation",
+      "no"
+     ]
+    ]
+   }
+  },
+  "test.tTest": {
+   "th": {
+    "line": "t-test | 95% CI | Welch",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "รูปแบบ",
+      "Welch"
+     ],
+     [
+      "ค่าที่ใช้เทียบ",
+      "0"
+     ]
+    ]
+   },
+   "en": {
+    "line": "t-test | 95% CI | Welch",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Variant",
+      "Welch"
+     ],
+     [
+      "Value compared with",
+      "0"
+     ]
+    ]
+   }
+  },
+  "test.trend": {
+   "th": {
+    "line": "Chi-square test for trend | 95% CI | คะแนน: ลำดับ 1, 2, 3",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "คะแนนของแต่ละระดับ",
+      "ลำดับ 1, 2, 3"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Chi-square test for trend | 95% CI | scores: ranks 1, 2, 3",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Scores of the levels",
+      "ranks 1, 2, 3"
+     ]
+    ]
+   }
+  },
+  "test.wilcoxonSignedRank": {
+   "th": {
+    "line": "Wilcoxon signed-rank test | 95% CI | ค่า p: เลือกจากข้อมูล | มี continuity correction",
+    "panel": [
+     [
+      "ระดับความเชื่อมั่นของ CI",
+      "0.95"
+     ],
+     [
+      "ทิศทางการทดสอบ",
+      "two.sided"
+     ],
+     [
+      "คำนวณแบบ exact",
+      "เลือกจากข้อมูล"
+     ],
+     [
+      "continuity correction",
+      "ใช่"
+     ],
+     [
+      "estimate",
+      "Hodges-Lehmann"
+     ]
+    ]
+   },
+   "en": {
+    "line": "Wilcoxon signed-rank test | 95% CI | p-value: chosen from the data | with continuity correction",
+    "panel": [
+     [
+      "CI confidence level",
+      "0.95"
+     ],
+     [
+      "Direction of the test",
+      "two.sided"
+     ],
+     [
+      "Exact calculation",
+      "chosen from the data"
+     ],
+     [
+      "Continuity correction",
+      "yes"
+     ],
+     [
+      "estimate",
+      "Hodges-Lehmann"
+     ]
+    ]
+   }
+  }
+ }
+}

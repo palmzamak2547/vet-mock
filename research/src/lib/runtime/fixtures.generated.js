@@ -1186,7 +1186,7 @@ export const FIXTURES = [
     "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
    }
   ],
-  "sha": "3312204fd2480806",
+  "sha": "e7d463f11aa2d8e6",
   "lastPassed": "2026-10-11"
  },
  {

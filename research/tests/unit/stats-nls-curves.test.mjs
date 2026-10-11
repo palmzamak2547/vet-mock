@@ -3,11 +3,11 @@
 // (script tests/fixtures/r/nonlinear.R; datasets inside the JSON; curves, decay and growth are made-up data,
 // ข้อมูลสมมุติ). Every case carries tol 'iterative' (1e-6 relative).
 //
-// How the pins are split, and why. R's nls stops when its convergence value sqrt(||Q1'r||^2 / ||Q2'r||^2) falls below
-// its default tol = 1e-5, so its printed estimates sit up to one Gauss-Newton step short of the least-squares minimum:
-// in these cases by up to 4.5e-5 relative (the shared-EC50 fit's control bottom), far below a standard error but
-// above 1e-6. The Levenberg-Marquardt core goes to the minimum itself (relative offset below 1e-7, RSS at or below
-// R's). So:
+// How the pins are split, and why. nonlinear.R once let nls stop at its default tol = 1e-5 (the convergence value
+// sqrt(||Q1'r||^2 / ||Q2'r||^2)), which left the printed estimates up to one Gauss-Newton step short of the
+// least-squares minimum: by up to 4.5e-5 relative (the shared-EC50 fit's control bottom), far below a standard error
+// but above 1e-6. The script now runs every fit to the minimum (tight convergence, the rparity role), so R and the
+// Levenberg-Marquardt core (relative offset below 1e-7, RSS at or below R's) reach the same point. Still:
 //   1. every printed value that is a function of the estimates (standard errors and parameter intervals, EC50 and
 //      its interval, the log-scale SE, the curve and its band, interpolated concentrations and their intervals,
 //      half-life and doubling time with their intervals, the EC50 ratio) is computed by our formulas AT R'S PRINTED
@@ -15,11 +15,9 @@
 //   2. every value that depends on the fit only through its residual sum of squares (RSS, residual SD, R squared,
 //      AICc, the extra sum-of-squares F and p) is taken from OUR fit and must match at 1e-6 (the RSS is flat at the
 //      minimum: our RSS and R's agree to about 1e-10);
-//   3. our estimates must be the same least-squares solution as R's: RSS no larger than R's, and each estimate
-//      within a thousandth of its standard error of R's (and R's point must satisfy R's own stopping rule on our
-//      model, which also proves the model formula is the one R fitted).
-// The finding for the rparity role: rerunning nonlinear.R with nls.control(tol = 1e-10) would let point 3 be a plain
-// 1e-6 comparison (lab notes).
+//   3. our estimates must be the same least-squares solution as R's: RSS no larger than R's (to 1e-12), and each
+//      estimate equal to R's at 1e-6 relative (and R's point must satisfy R's stopping rule on our model with a
+//      convergence value far below nls's default, which also proves the model formula is the one R fitted).
 // Injected-wrong-value proof: STATS_INJECT=1 node --test tests/unit/stats-nls-curves.test.mjs must go red (lab notes).
 // OWNER: lab role.
 import { test } from 'node:test';
@@ -32,10 +30,11 @@ const R = readJson('r/out/nonlinear.json');
 const INJECT = process.env.STATS_INJECT === '1';
 const LN2 = Math.LN2;
 
-/** Same least-squares solution: |ours - R| within a thousandth of R's standard error (or 1e-6 relative). */
+/** Same least-squares solution: |ours - R| within 1e-6 relative (R's standard error is no longer the yardstick). */
 function sameSolution(got, want, se, label) {
   if (INJECT && want !== 0) want *= 1 + 1e-5;
-  const tol = Math.max(TOL.iterative * Math.abs(want), 1e-3 * se);
+  void se;
+  const tol = TOL.iterative * Math.abs(want);
   assert.ok(Math.abs(got - want) <= tol, `${label}: ours ${got}, R ${want}, difference ${Math.abs(got - want).toExponential(3)} > ${tol.toExponential(3)}`);
 }
 
@@ -45,19 +44,19 @@ function rssNoLarger(got, want, label) {
   assert.ok(got <= want * (1 + 1e-12), `${label}: ours ${got} above R's ${want}`);
 }
 
-test('every case is pinned at the iterative tolerance and R stopped by its own rule on our model', () => {
+test('every case is pinned at the iterative tolerance and R reached the minimum of our model', () => {
   for (const c of Object.values(R.cases)) assert.equal(c.tol, 'iterative');
   assert.equal(R._fixture.family, 'r-4.6.0');
   assert.deepEqual(R._fixture.methods, ['nls.fourPL', 'nls.doseResponse', 'nls.equation']);
   const D = R.datasets.ryegrass;
   const v4 = R.cases.ryegrass4pl.values;
   const v5 = R.cases.ryegrass5pl.values;
-  // R's convergence value at R's printed estimates, on our model: below nls's tol = 1e-5, and not much below it
-  // (R stops on the first iterate under tol), which is why point 3 of the header is needed.
+  // R's convergence value at R's printed estimates, on our model: far below nls's default tol = 1e-5, because
+  // nonlinear.R runs nls to the minimum (a wrong model formula would leave it large).
   const r4 = nlsAt(pointModel(MODELS.ll4, D.conc), D.rootl, [v4.b, v4.c, v4.d, v4.e]).rOffset;
   const r5 = nlsAt(pointModel(MODELS.ll5, D.conc), D.rootl, [v5.b, v5.c, v5.d, v5.e, v5.g]).rOffset;
-  assert.ok(r4 < 1e-5 && r4 > 1e-8, `4PL R convergence value ${r4}`);
-  assert.ok(r5 < 1e-5 && r5 > 1e-8, `5PL R convergence value ${r5}`);
+  assert.ok(r4 < 1e-8, `4PL R convergence value ${r4}`);
+  assert.ok(r5 < 1e-8, `5PL R convergence value ${r5}`);
 });
 
 test('ryegrass 4PL at R\'s estimates: SEs, intervals, EC50, the band on the grid and the interpolated unknowns', () => {

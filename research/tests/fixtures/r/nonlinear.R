@@ -8,11 +8,24 @@
 # + 1. drc 3.0.1 must give the same fitted parameters (stopifnot at 1e-6); its standard errors come from a numerical
 # Hessian and are not the pin. Data: ryegrass (drc; Inderjit et al. 2002), Puromycin treated (R datasets; Treloar
 # 1974), and the made-up sets of _data_m3.R.
+# Every nls call runs to the least-squares minimum. nls stops at its default tol = 1e-5, which leaves the printed
+# estimates up to one Gauss-Newton step short (relative error up to 5e-5 on the made-up curves), so the pins would not
+# be the minimum the engine's Levenberg-Marquardt reaches. nls.control(tol = 1e-10) is the aim, but nls differentiates
+# numerically and its convergence value cannot get that small for every model (step factor reduced below minFactor), so
+# each fit is tried at tol = 1e-10, 1e-9, then 1e-8 with central differences (nDcentral) and keeps the tightest that
+# converges; tight() refuses a fit that did not.
 # packages: drc
 source("_common.R")
 source("_data_m3.R")
 rs_require("drc")
 
+tight <- function(fit) {
+  for (tol in c(1e-10, 1e-9, 1e-8)) {
+    f <- tryCatch(fit(nls.control(tol = tol, maxiter = 200, nDcentral = TRUE)), error = function(e) NULL)
+    if (!is.null(f)) { stopifnot(isTRUE(f$convInfo$isConv), f$convInfo$finTol < tol); return(f) }
+  }
+  stop("nls did not converge to tol = 1e-8")
+}
 tq <- function(df) qt(0.975, df)
 L0 <- function(x) log(x)                                   # log(0) = -Inf on purpose: a zero dose sits on an asymptote
 ll5 <- function(x, b, c, d, e, g) c + (d - c) / (1 + exp(b * (L0(x) - e)))^g
@@ -49,7 +62,7 @@ grid <- c(0.5, 1, 2, 4, 8, 16)
 unknowns <- c(2, 4, 6)
 
 # 4PL on ryegrass (g fixed at 1)
-f4 <- nls(rootl ~ c + (d - c) / (1 + exp(b * (log(conc) - e))), data = rg, start = list(b = 3, c = 0.5, d = 7.8, e = 1.1))
+f4 <- tight(function(ct) nls(rootl ~ c + (d - c) / (1 + exp(b * (log(conc) - e))), data = rg, start = list(b = 3, c = 0.5, d = 7.8, e = 1.1), control = ct))
 v4 <- vfit(f4); V4 <- vcov(f4); p4 <- coef(f4)
 dr4 <- coef(drm(rootl ~ conc, data = rg, fct = LL2.4()))
 stopifnot(isTRUE(all.equal(unname(dr4), unname(p4), tolerance = 1e-6)))
@@ -73,8 +86,8 @@ cases[["ryegrass4pl"]] <- case("nls(rootl ~ c + (d - c) / (1 + exp(b * (log(conc
 
 # 5PL on ryegrass, started from drc's fit
 m5d <- drm(rootl ~ conc, data = rg, fct = LL2.5()); d5 <- coef(m5d)
-f5 <- nls(rootl ~ c + (d - c) / (1 + exp(b * (log(conc) - e)))^g, data = rg,
-          start = list(b = d5[[1]], c = d5[[2]], d = d5[[3]], e = d5[[4]], g = d5[[5]]))
+f5 <- tight(function(ct) nls(rootl ~ c + (d - c) / (1 + exp(b * (log(conc) - e)))^g, data = rg,
+          start = list(b = d5[[1]], c = d5[[2]], d = d5[[3]], e = d5[[4]], g = d5[[5]]), control = ct))
 v5 <- vfit(f5); V5 <- vcov(f5); p5 <- coef(f5)
 # The 5PL is loosely determined here (SE of g about its own size): drc's optimiser stops near, not at, the
 # least-squares minimum. nls's minimum is the pin; it must not be worse than drc's.
@@ -97,14 +110,14 @@ cases[["ryegrass5pl"]] <- case("nls(rootl ~ c + (d - c) / (1 + exp(b * (log(conc
 
 # Michaelis-Menten on Puromycin (treated cells)
 pur <- subset(Puromycin, state == "treated")
-fm <- nls(rate ~ Vm * conc / (K + conc), data = pur, start = list(Vm = 200, K = 0.05))
+fm <- tight(function(ct) nls(rate ~ Vm * conc / (K + conc), data = pur, start = list(Vm = 200, K = 0.05), control = ct))
 vm <- vfit(fm)
 cases[["michaelisMenten"]] <- case("nls(rate ~ Vm * conc / (K + conc), subset(Puromycin, state == 'treated'))", "iterative",
   list(vm = coef(fm)[["Vm"]], k = coef(fm)[["K"]], se = arr(unname(vm$se)), lower = arr(unname(vm$lower)), upper = arr(unname(vm$upper)),
        rss = vm$rss, df = vm$df, r2 = r2(fm, pur$rate)), data = "puromycin")
 
 # one-phase decay: Y = (Y0 - P) exp(-K t) + P; half-life ln 2 / K with its interval from K's interval
-fd <- nls(conc ~ (y0 - plateau) * exp(-k * time) + plateau, data = decay, start = list(y0 = 98, plateau = 6, k = 0.3))
+fd <- tight(function(ct) nls(conc ~ (y0 - plateau) * exp(-k * time) + plateau, data = decay, start = list(y0 = 98, plateau = 6, k = 0.3), control = ct))
 vd <- vfit(fd); kk <- coef(fd)[["k"]]
 cases[["decay"]] <- case("nls(conc ~ (y0 - plateau) * exp(-k * time) + plateau, decay)", "iterative",
   list(y0 = coef(fd)[["y0"]], plateau = coef(fd)[["plateau"]], k = kk, se = arr(unname(vd$se)), lower = arr(unname(vd$lower)), upper = arr(unname(vd$upper)),
@@ -112,7 +125,7 @@ cases[["decay"]] <- case("nls(conc ~ (y0 - plateau) * exp(-k * time) + plateau, 
        halfLife = log(2) / kk, halfLifeLower = log(2) / vd$upper[["k"]], halfLifeUpper = log(2) / vd$lower[["k"]]), data = "decay")
 
 # exponential growth: Y = Y0 exp(k t); doubling time ln 2 / k
-fg <- nls(count ~ y0 * exp(k * time), data = growth, start = list(y0 = 1, k = 0.35))
+fg <- tight(function(ct) nls(count ~ y0 * exp(k * time), data = growth, start = list(y0 = 1, k = 0.35), control = ct))
 vg <- vfit(fg); kg <- coef(fg)[["k"]]
 cases[["growth"]] <- case("nls(count ~ y0 * exp(k * time), growth)", "iterative",
   list(y0 = coef(fg)[["y0"]], k = kg, se = arr(unname(vg$se)), lower = arr(unname(vg$lower)), upper = arr(unname(vg$upper)),
@@ -121,11 +134,11 @@ cases[["growth"]] <- case("nls(count ~ y0 * exp(k * time), growth)", "iterative"
 
 # Curve comparison on `curves`: separate 4PLs (one residual variance), one curve for both, and a shared EC50
 cv <- curves; cv$arm <- factor(cv$arm, levels = c("control", "drug")); cv$a <- as.integer(cv$arm); n <- nrow(cv)
-fs <- nls(resp ~ c[a] + (d[a] - c[a]) / (1 + exp(b[a] * (log(dose) - e[a]))), data = cv,
-          start = list(b = c(1.2, 1.2), c = c(6, 6), d = c(99, 99), e = c(log(3), log(10))))
-f1 <- nls(resp ~ c + (d - c) / (1 + exp(b * (log(dose) - e))), data = cv, start = list(b = 1.2, c = 6, d = 99, e = log(5)))
-fe <- nls(resp ~ c[a] + (d[a] - c[a]) / (1 + exp(b[a] * (log(dose) - e))), data = cv,
-          start = list(b = c(1.2, 1.2), c = c(6, 6), d = c(99, 99), e = log(5)))
+fs <- tight(function(ct) nls(resp ~ c[a] + (d[a] - c[a]) / (1 + exp(b[a] * (log(dose) - e[a]))), data = cv,
+          start = list(b = c(1.2, 1.2), c = c(6, 6), d = c(99, 99), e = c(log(3), log(10))), control = ct))
+f1 <- tight(function(ct) nls(resp ~ c + (d - c) / (1 + exp(b * (log(dose) - e))), data = cv, start = list(b = 1.2, c = 6, d = 99, e = log(5)), control = ct))
+fe <- tight(function(ct) nls(resp ~ c[a] + (d[a] - c[a]) / (1 + exp(b[a] * (log(dose) - e))), data = cv,
+          start = list(b = c(1.2, 1.2), c = c(6, 6), d = c(99, 99), e = log(5)), control = ct))
 rs <- sum(residuals(fs)^2); r1 <- sum(residuals(f1)^2); re <- sum(residuals(fe)^2)
 ds <- df.residual(fs); d1 <- df.residual(f1); de <- df.residual(fe)
 F1 <- ((r1 - rs) / (d1 - ds)) / (rs / ds); Fe <- ((re - rs) / (de - ds)) / (rs / ds)
@@ -146,4 +159,4 @@ rs_emit("nonlinear", c("nls.fourPL", "nls.doseResponse", "nls.equation"), cases,
                   decay = list(time = arr(decay$time), conc = arr(decay$conc)),
                   growth = list(time = arr(growth$time), count = arr(growth$count)),
                   curves = list(arm = arr(curves$arm), dose = arr(curves$dose), resp = arr(curves$resp))),
-  notes = "Gauss-Newton covariance (vcov.nls), as NIST StRD and Prism's asymptotic standard errors; drc's numerical-Hessian SEs differ by about 1% and are not the pin. A zero dose sits on an asymptote (log 0 = -Inf), and the gradient's u (L - e) term is 0 there. Interpolated concentrations cover the curve's uncertainty only, not the unknown's own measurement error. curves, decay and growth are made-up (ข้อมูลสมมุติ / made-up data).")
+  notes = "Every fit runs to the least-squares minimum (nls.control tol 1e-10, 1e-9 or 1e-8, the tightest each model reaches with central differences), not to nls's default tol of 1e-5, which stops a Gauss-Newton step short by up to 5e-5 relative. Gauss-Newton covariance (vcov.nls), as NIST StRD and Prism's asymptotic standard errors; drc's numerical-Hessian SEs differ by about 1% and are not the pin. A zero dose sits on an asymptote (log 0 = -Inf), and the gradient's u (L - e) term is 0 there. Interpolated concentrations cover the curve's uncertainty only, not the unknown's own measurement error. curves, decay and growth are made-up (ข้อมูลสมมุติ / made-up data).")

@@ -74,6 +74,8 @@ async function main() {
   if (!check) mkdirSync(OUT_DIR, { recursive: true });
   for (const n of names) {
     await webR.FS.writeFile(`${work}/${n}.R`, new TextEncoder().encode(sources[n]));
+    // One session runs every script: R's default contrasts for each, whatever an earlier script set (anovarm2.R once left sum contrasts on, which broke firth.R).
+    await webR.evalRVoid('options(contrasts = c(unordered = "contr.treatment", ordered = "contr.poly"))');
     const shelter = await new webR.Shelter();
     try {
       const res = await shelter.captureR(`source("${n}.R", local = new.env(), encoding = "UTF-8")`, { withAutoprint: false, captureStreams: true, captureConditions: false });

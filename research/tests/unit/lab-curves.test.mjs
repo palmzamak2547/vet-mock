@@ -2,9 +2,10 @@
 // with the unknowns read off it), nls.doseResponse (curves per group, their comparison and the EC50 ratio) and
 // nls.equation (Michaelis-Menten, decay, growth). Rows, drops and refusals, the envelope's values, tests, tables and
 // notes, and every word the result needs in Thai and English. Numbers: the R 4.6.0 fixture
-// tests/fixtures/r/out/nonlinear.json at its 1e-6 where our fit carries that precision (the potencies, the
-// interpolated concentrations, the RSS-based values and the F tests; stats-nls-curves.test.mjs explains why
-// parameters are pinned as the same least-squares solution instead). Made-up data (ข้อมูลสมมุติ) are labelled.
+// tests/fixtures/r/out/nonlinear.json at its 1e-6: the estimates and their standard errors too, since nonlinear.R
+// runs nls to the minimum (tight convergence; it once stopped at nls's default tol = 1e-5, a step short, and the
+// estimates were pinned as the same solution within a thousandth of a standard error). Made-up data (ข้อมูลสมมุติ)
+// are labelled.
 // Injected-wrong-value proof: STATS_INJECT=1 node --test tests/unit/lab-curves.test.mjs must go red (lab notes).
 // OWNER: lab role.
 import { test } from 'node:test';
@@ -79,7 +80,7 @@ test('nls.fourPL on ryegrass: IC50, fit values, the parameters table and the cur
   assert.deepEqual(par.rows.map((r) => r[1]), ['lab.param.hillSlope', 'lab.param.bottom', 'lab.param.top', 'lab.param.logMidpoint4']);
   const tm = tMultiplier(0.95, v.df);
   par.rows.forEach((r, j) => {
-    assert.ok(Math.abs(r[2] - [v.b, v.c, v.d, v.e][j]) <= 1e-3 * v.se[j], `same solution as R: ${r[0]}`);
+    close(r[2], [v.b, v.c, v.d, v.e][j], tol, `${r[0]} estimate against R`);
     close(r[4], r[2] - tm * r[3], 1e-12, `${r[0]} lower is estimate minus t SE`);
     close(r[5], r[2] + tm * r[3], 1e-12, `${r[0]} upper`);
   });
@@ -229,8 +230,8 @@ test('nls.doseResponse, shared EC50: IC50 per arm, the ratio with its interval, 
   assert.deepEqual(par.rows.map((r) => `${r[0]} ${r[1]}`), ['control b', 'control c', 'control d', 'control e', 'drug b', 'drug c', 'drug d', 'drug e']);
   par.rows.forEach((r, i) => {
     const j = 2 * (i % 4) + Math.floor(i / 4); // R lists b1 b2 c1 c2 d1 d2 e1 e2
-    assert.ok(Math.abs(r[3] - v.separate[j]) <= 1e-3 * v.separateSe[j], `same solution ${r[0]} ${r[1]}`);
-    close(r[4], v.separateSe[j], 1e-5, `pooled SE ${r[0]} ${r[1]}`);
+    close(r[3], v.separate[j], tol, `${r[0]} ${r[1]} estimate against R`);
+    close(r[4], v.separateSe[j], tol, `pooled SE ${r[0]} ${r[1]}`);
   });
   const pot = out.tables.find((x) => x.id === 'potency');
   assert.deepEqual(pot.columns, ['group', 'kind', 'estimate', 'lower', 'upper', 'response', 'n', 'r2']);
@@ -302,9 +303,9 @@ test('nls.equation: Michaelis-Menten on Puromycin, decay and growth against R; t
   const run = (equation, x, y) => runEquation(spec('nls.equation', { roles: { x: 'x', outcome: 'y' }, options: { equation } }), makeTable({ x: { kind: 'number', values: x }, y: { kind: 'number', values: y } }));
   const a = run('michaelisMenten', P.conc, P.rate);
   assert.equal(a.status, 'ok');
-  assert.ok(Math.abs(a.values.vmax.value - mm.vm) <= 1e-3 * mm.se[0], 'Vmax: same solution as R');
-  assert.ok(Math.abs(a.values.km.value - mm.k) <= 1e-3 * mm.se[1], 'Km: same solution as R');
-  close(a.values.vmax.se, mm.se[0], 1e-5, 'Vmax SE');
+  close(a.values.vmax.value, mm.vm, tol, 'Vmax against R');
+  close(a.values.km.value, mm.k, tol, 'Km against R');
+  close(a.values.vmax.se, mm.se[0], tol, 'Vmax SE');
   close(a.values.ssResidual.value, mm.rss, tol, 'MM residual SS');
   close(a.values.r2.value, mm.r2, tol, 'MM R squared');
   assert.equal(a.values.dfResidual.value, mm.df);
