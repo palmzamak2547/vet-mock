@@ -48,6 +48,21 @@ if (dangling.length) {
   process.exitCode = 1;
 }
 
+// Two options that read the same are one option shown twice. A past paper
+// carried 'Allosteric activation' twice (biochem 75017), the bank copied it,
+// and the explanation had to apologise for it. Nothing flagged it, because no
+// lint compared options with each other. Case, width and spacing are ignored.
+const sameText = (s) => String(s ?? '').normalize('NFKC').replace(/\s+/g, ' ').trim().toLowerCase();
+const repeated = [...byYear.values()].flat().filter((q) => {
+  if (!Array.isArray(q.options)) return false;
+  const texts = q.options.map(sameText).filter(Boolean);
+  return new Set(texts).size !== texts.length;
+});
+if (repeated.length) {
+  console.error(`✗ ${repeated.length} question(s) list the same option twice: ${repeated.map((q) => `${q.subject}:${q.id}`).join(', ')}`);
+  process.exitCode = 1;
+}
+
 const years = [...byYear.keys()].sort((a, b) => a - b);
 const pct = (n, d) => (d ? `${Math.round((100 * n) / d)}%` : '—');
 const col = (s) => String(s).padStart(7);
