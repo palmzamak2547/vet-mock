@@ -10,4 +10,8 @@ export default Object.freeze([
   // power.*: rparity-m2 power and noncentral (R 4.6.0 power.anova.test, power.t.test; pwr 1.3.0), injected
   // proof in work/loop-2026-09-26/research-m2/integrator.md.
   'power.anova', 'power.tTest', 'power.correlation', 'power.regression',
+  // M3a auc, qpcr, pca: lab-auc, lab-qpcr, lab-pca and lab-anovarm2.test.mjs on tests/fixtures/r/out/{auc,qpcr,pca,anovarm2}.json
+  // (anova.repeated's second within factor ships with the method above); injected proof in
+  // work/loop-2026-10-08/research-m3/labmore.md.
+  'calc.auc', 'qpcr.relative', 'qpcr.efficiency', 'mv.pca',
 ]);

@@ -214,6 +214,8 @@ export const FIXTURES = [
    "test.anova1"
   ],
   "tests": [
+   "lab-auc.test.mjs",
+   "lab-qpcr.test.mjs",
    "rparity-engine.test.mjs",
    "stats-anova.test.mjs"
   ],
@@ -327,6 +329,86 @@ export const FIXTURES = [
   ],
   "sha": "b80009d847ee24f0",
   "lastPassed": "2026-09-28"
+ },
+ {
+  "file": "r/out/anovarm2.json",
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": [
+   "anova.repeated"
+  ],
+  "tests": [
+   "lab-anovarm2.test.mjs"
+  ],
+  "source": {
+   "text": null,
+   "r": "R version 4.6.0 (2026-04-24)",
+   "webR": "0.6.0",
+   "packages": {
+    "car": "3.1.5"
+   },
+   "python": null,
+   "script": "research/tests/fixtures/r/anovarm2.R",
+   "urls": [],
+   "file": null,
+   "commit": null,
+   "date": null
+  },
+  "tolerance": [
+   {
+    "scope": "closed",
+    "rel": "1e-10"
+   },
+   {
+    "scope": "iterative",
+    "rel": "1e-6"
+   },
+   {
+    "scope": "uniroot",
+    "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+   }
+  ],
+  "sha": "1c74f4a6920a6069",
+  "lastPassed": "2026-10-11"
+ },
+ {
+  "file": "r/out/auc.json",
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": [
+   "calc.auc"
+  ],
+  "tests": [
+   "lab-auc.test.mjs"
+  ],
+  "source": {
+   "text": null,
+   "r": "R version 4.6.0 (2026-04-24)",
+   "webR": "0.6.0",
+   "packages": null,
+   "python": null,
+   "script": "research/tests/fixtures/r/auc.R",
+   "urls": [],
+   "file": null,
+   "commit": null,
+   "date": null
+  },
+  "tolerance": [
+   {
+    "scope": "closed",
+    "rel": "1e-10"
+   },
+   {
+    "scope": "iterative",
+    "rel": "1e-6"
+   },
+   {
+    "scope": "uniroot",
+    "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+   }
+  ],
+  "sha": "06fb16f623626e7f",
+  "lastPassed": "2026-10-11"
  },
  {
   "file": "r/out/blandaltman.json",
@@ -1184,6 +1266,45 @@ export const FIXTURES = [
   "lastPassed": "2026-09-28"
  },
  {
+  "file": "r/out/pca.json",
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": [
+   "multi.pca"
+  ],
+  "tests": [
+   "lab-pca.test.mjs"
+  ],
+  "source": {
+   "text": null,
+   "r": "R version 4.6.0 (2026-04-24)",
+   "webR": "0.6.0",
+   "packages": null,
+   "python": null,
+   "script": "research/tests/fixtures/r/pca.R",
+   "urls": [],
+   "file": null,
+   "commit": null,
+   "date": null
+  },
+  "tolerance": [
+   {
+    "scope": "closed",
+    "rel": "1e-10"
+   },
+   {
+    "scope": "iterative",
+    "rel": "1e-6"
+   },
+   {
+    "scope": "uniroot",
+    "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+   }
+  ],
+  "sha": "d8278773dbb3c9cc",
+  "lastPassed": "2026-10-11"
+ },
+ {
   "file": "r/out/posthoc.json",
   "family": "r-4.6.0",
   "kind": "pin",
@@ -1194,6 +1315,7 @@ export const FIXTURES = [
    "posthoc.gamesHowell"
   ],
   "tests": [
+   "lab-qpcr.test.mjs",
    "rparity-m2.test.mjs"
   ],
   "source": {
@@ -1314,6 +1436,46 @@ export const FIXTURES = [
   ],
   "sha": "789af52a7f8d5d19",
   "lastPassed": "2026-09-28"
+ },
+ {
+  "file": "r/out/qpcr.json",
+  "family": "r-4.6.0",
+  "kind": "pin",
+  "methods": [
+   "qpcr.efficiency",
+   "qpcr.relative"
+  ],
+  "tests": [
+   "lab-qpcr.test.mjs"
+  ],
+  "source": {
+   "text": null,
+   "r": "R version 4.6.0 (2026-04-24)",
+   "webR": "0.6.0",
+   "packages": null,
+   "python": null,
+   "script": "research/tests/fixtures/r/qpcr.R",
+   "urls": [],
+   "file": null,
+   "commit": null,
+   "date": null
+  },
+  "tolerance": [
+   {
+    "scope": "closed",
+    "rel": "1e-10"
+   },
+   {
+    "scope": "iterative",
+    "rel": "1e-6"
+   },
+   {
+    "scope": "uniroot",
+    "text": "|js - R| <= 2 * 1.220703125e-4 * max(1, |R|)"
+   }
+  ],
+  "sha": "22d3a58b71b4a9e2",
+  "lastPassed": "2026-10-11"
  },
  {
   "file": "r/out/rank.json",
