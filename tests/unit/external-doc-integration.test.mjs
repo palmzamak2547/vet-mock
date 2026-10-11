@@ -354,7 +354,7 @@ test('a connected private Doc with big screenshots opens without them instead of
 });
 
 test('a private linked sheet keeps gid including zero and never exports the first tab on failure', async t => {
-  let gid = 42, available = true;
+  let gid = 42, mode = 'ok';
   const calls = [];
   backend(t, (url, options) => {
     calls.push(url.href);
@@ -362,13 +362,16 @@ test('a private linked sheet keeps gid including zero and never exports the firs
     if (url.hostname === 'sheets.googleapis.com') {
       assert.equal(options.headers.Authorization, 'Bearer sheet-token');
       assert.equal(options.redirect, 'error');
-      if (!available) return { ok: false, status: 403 };
+      if (mode === 'forbidden') return { ok: false, status: 403, json: async () => ({ error: { errors: [{ reason: 'forbidden' }] } }) };
+      if (mode === 'expired') return { ok: false, status: 401 };
       if (url.pathname.includes('/values/')) {
+        if (mode === 'values-fail') return { ok: false, status: 500 };
         assert.equal(decodeURIComponent(url.pathname.split('/values/')[1]), "'Tab ''Two'''", 'the matched gid decides the range');
         return { ok: true, text: async () => JSON.stringify({ values: [['Linked tab', 'Value'], ['Selected', String(gid)]] }) };
       }
       return { ok: true, json: async () => ({ properties: { title: 'Private workbook' }, sheets: [
-        { properties: { sheetId: gid + 1, title: 'Wrong first tab' } }, { properties: { sheetId: gid, title: "Tab 'Two'" } },
+        { properties: { sheetId: gid + 1, title: 'Wrong first tab' } },
+        ...(mode === 'missing-tab' ? [] : [{ properties: { sheetId: gid, title: "Tab 'Two'" } }]),
       ] }) };
     }
     assert.notEqual(url.hostname, 'www.googleapis.com', 'a linked tab must never use first-tab Drive export');
@@ -382,11 +385,53 @@ test('a private linked sheet keeps gid including zero and never exports the firs
     assert.match(res.body.sourceUrl, new RegExp(`gid=${gid}$`));
     assert.equal(res.headers['cache-control'], 'private, no-store');
   }
-  available = false;
-  const res = response();
-  await handler(request('POST', { url: 'https://docs.google.com/spreadsheets/d/PRIVATEWORKBOOK000000001/edit#gid=42' }), res);
-  assert.equal(res.statusCode, 422);
-  assert.equal(res.body.reason, 'sheet_unavailable');
+  // sheet_unavailable ("retry or open the original") only when the
+  // spreadsheet itself was readable and the linked tab was not. A
+  // spreadsheet this account cannot open is the sharing problem it is, and
+  // an expired grant asks for a reconnect.
+  for (const [failure, reason] of [['missing-tab', 'sheet_unavailable'], ['values-fail', 'sheet_unavailable'],
+    ['forbidden', 'not_public'], ['expired', 'reconnect']]) {
+    mode = failure;
+    const res = response();
+    await handler(request('POST', { url: 'https://docs.google.com/spreadsheets/d/PRIVATEWORKBOOK000000001/edit#gid=42' }), res);
+    assert.equal(res.statusCode, 422, failure);
+    assert.equal(res.body.reason, reason, failure);
+  }
+});
+
+test('a connected read that fails says reconnect or too large, never "make it public"', async t => {
+  let scenario;
+  backend(t, url => {
+    if (url.pathname === '/rest/v1/external_connections') {
+      const expired = scenario === 'refresh-refused';
+      return { ok: true, json: async () => [{ user_id: 'account-a', provider: url.searchParams.get('provider').slice(3),
+        access_token: 'fixture-token', refresh_token: 'fixture-refresh', expires_at: expired ? '2000-01-01T00:00:00Z' : '2999-01-01T00:00:00Z' }] };
+    }
+    if (url.hostname === 'oauth2.googleapis.com') return { ok: false, status: 400, json: async () => ({ error: 'invalid_grant' }) };
+    if (url.hostname === 'www.googleapis.com') {
+      if (scenario === 'revoked') return { ok: false, status: 401, url: url.href };
+      if (scenario === 'drive-limit') return { ok: false, status: 403, url: url.href, json: async () => ({ error: { errors: [{ reason: 'exportSizeLimitExceeded' }] } }) };
+      if (scenario === 'google-down') return { ok: false, status: 503, url: url.href };
+    }
+    if (url.hostname === 'api.notion.com') return { ok: false, status: scenario === 'notion-revoked' ? 401 : 404, url: url.href };
+    // The public export of a private document lands on Google's sign-in page.
+    return { ok: true, status: 200, url: 'https://accounts.google.com/v3/signin', text: async () => '<!doctype html><html>Sign in</html>' };
+  });
+  const notionPage = 'https://www.notion.so/Private-' + 'b'.repeat(32);
+  for (const [name, url, status, reason] of [
+    ['revoked', doc.sourceUrl, 422, 'reconnect'],
+    ['refresh-refused', doc.sourceUrl, 422, 'reconnect'],
+    ['drive-limit', doc.sourceUrl, 413, 'too_large'],
+    ['google-down', doc.sourceUrl, 503, 'temporarily_unavailable'],
+    ['notion-revoked', notionPage, 422, 'reconnect'],
+    ['notion-unpicked', notionPage, 422, 'notion_not_shared'],
+  ]) {
+    scenario = name;
+    const res = response();
+    await handler(request('POST', { url }), res);
+    assert.equal(res.statusCode, status, `${name}: ${JSON.stringify(res.body)}`);
+    assert.equal(res.body.reason, reason, name);
+  }
 });
 
 test('connection storage outage stays an error instead of claiming disconnection', async t => {

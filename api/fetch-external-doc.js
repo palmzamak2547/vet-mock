@@ -179,48 +179,72 @@ function notionTitleFromPage(page) {
 }
 
 /**
+ * Why a Google API answer refused, in the words the reader explains:
+ * a token the provider no longer honours asks for a reconnect, a document
+ * this account cannot see is "forbidden" (the public path may still read
+ * it), an export over Drive's own size limit is too large, and the rest is
+ * a temporary failure.
+ */
+async function googleRefusal(resp) {
+  if (resp.status === 401) return 'reconnect';
+  if (resp.status === 403) {
+    const body = typeof resp.json === 'function' ? await resp.json().catch(() => null) : null;
+    const reasons = (body?.error?.errors || []).map((e) => String(e?.reason || ''));
+    if (reasons.includes('exportSizeLimitExceeded')) return 'too_large';
+    if (reasons.some((r) => /rateLimitExceeded$/i.test(r))) return 'unavailable';
+    return 'forbidden';
+  }
+  if (resp.status === 404) return 'forbidden';
+  return 'unavailable';
+}
+
+/**
  * The connected path: the student's own Google account reads the file, so
  * private documents work the same way public ones do. One refresh is tried
- * when the stored access token has aged out. Null means "unusable — let
- * the public path try", which keeps a public doc readable even when the
- * connection hiccups.
+ * when the stored access token has aged out. A failure comes back as
+ * { failure } — reconnect, too_large, forbidden, sheet_tab or unavailable —
+ * so the public path can still try a public doc, and when it cannot either,
+ * the student hears what actually went wrong instead of "make it public".
  */
 async function fetchConnectedGoogle(target, row) {
   const { id, provider: kind } = target;
   let token = row.access_token;
   if (googleTokenStale(row)) {
     const refreshed = await refreshGoogleAccess(row);
-    if (!refreshed) return null;
+    if (!refreshed) return { failure: 'reconnect' };
     token = refreshed.accessToken;
   }
   const gid = kind === 'gsheets' ? new URL(target.exportUrls[0]).searchParams.get('gid') : null;
   if (gid !== null) {
     // Drive CSV export always reads the first tab; resolve the linked tab by id.
-    if (!/^\d+$/.test(gid) || !Number.isSafeInteger(Number(gid))) return null;
+    // sheet_tab means the spreadsheet itself was readable and only the linked
+    // tab was not; a spreadsheet this account cannot open is "forbidden".
+    if (!/^\d+$/.test(gid) || !Number.isSafeInteger(Number(gid))) return { failure: 'sheet_tab' };
     try {
       const base = `https://sheets.googleapis.com/v4/spreadsheets/${encodeURIComponent(id)}`;
       const headers = { Authorization: `Bearer ${token}` };
       const meta = await fetch(`${base}?fields=properties(title),sheets(properties(sheetId,title))`, {
         headers, signal: AbortSignal.timeout(TIMEOUT_MS), redirect: 'error',
       });
-      if (!meta.ok) return null;
+      if (!meta.ok) return { failure: await googleRefusal(meta) };
       const data = await meta.json().catch(() => null);
+      if (!data) return { failure: 'unavailable' };
       const sheet = data?.sheets?.find(s => s?.properties?.sheetId === Number(gid))?.properties;
-      if (typeof sheet?.title !== 'string') return null;
+      if (typeof sheet?.title !== 'string') return { failure: 'sheet_tab' };
       const range = `'${sheet.title.replace(/'/g, "''")}'`;
       const values = await fetch(`${base}/values/${encodeURIComponent(range)}?majorDimension=ROWS`, {
         headers, signal: AbortSignal.timeout(TIMEOUT_MS), redirect: 'error',
       });
-      if (!values.ok) return null;
+      if (!values.ok) return { failure: values.status === 401 ? 'reconnect' : 'sheet_tab' };
       const raw = await values.text();
-      if (raw.length > MAX_UPSTREAM_BYTES) return null;
+      if (raw.length > MAX_UPSTREAM_BYTES) return { failure: 'too_large' };
       const cells = JSON.parse(raw).values || [];
-      if (!Array.isArray(cells) || cells.some(r => !Array.isArray(r) || r.some(c => !['string', 'number', 'boolean'].includes(typeof c)))) return null;
+      if (!Array.isArray(cells) || cells.some(r => !Array.isArray(r) || r.some(c => !['string', 'number', 'boolean'].includes(typeof c)))) return { failure: 'sheet_tab' };
       const text = cells.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
       return { text, title: typeof data.properties?.title === 'string' ? data.properties.title.slice(0, 200) : sheet.title };
     } catch (err) {
       if (err?.name === 'TimeoutError' || err?.name === 'AbortError') throw err;
-      return null;
+      return { failure: 'unavailable' };
     }
   }
   // A document whose markdown is still too long once its pictures are gone
@@ -237,7 +261,7 @@ async function fetchConnectedGoogle(target, row) {
       });
     } catch (err) {
       if (err?.name === 'TimeoutError' || err?.name === 'AbortError') throw err;
-      return null;
+      return { failure: 'unavailable' };
     }
     let landed = true;
     if (resp.url) {
@@ -247,20 +271,26 @@ async function fetchConnectedGoogle(target, row) {
         landed = false;
       }
     }
-    if (!resp.ok || !landed) return null;
+    if (!landed) return { failure: 'unavailable' };
+    if (!resp.ok) {
+      const failure = await googleRefusal(resp);
+      // Drive refuses an export over its own size limit; plain text may fit.
+      if (failure === 'too_large') continue;
+      return { failure };
+    }
     let body;
     try {
       body = await readGoogleBody(resp, { markdown: mimeType === 'text/markdown' });
     } catch {
-      return null;
+      return { failure: 'unavailable' };
     }
     imagesOmitted = imagesOmitted || !!body.imagesOmitted;
     if (body.tooLarge) continue;
-    if (typeof body.text !== 'string' || looksLikeHtml(body.text)) return null;
+    if (typeof body.text !== 'string' || looksLikeHtml(body.text)) return { failure: 'unavailable' };
     text = body.text;
     break;
   }
-  if (text === null) return null;
+  if (text === null) return { failure: 'too_large' };
   let title = null;
   try {
     const meta = await fetch(`https://www.googleapis.com/drive/v3/files/${encodeURIComponent(id)}?fields=name`, {
@@ -389,6 +419,9 @@ export default async function handler(req, res) {
       return limit.ok ? null : limit;
     };
 
+    // Why the student's own connection could not read the document, kept
+    // for the answer below when the public path cannot read it either.
+    let connectedFailure = null;
     if (connection?.access_token) {
       const limited = await chargeUpstream();
       if (limited) return sendRateLimitFailure(res, limited);
@@ -398,7 +431,9 @@ export default async function handler(req, res) {
       try {
         if (target.provider === 'gdocs' || target.provider === 'gsheets') {
           const result = await fetchConnectedGoogle(target, connection);
-          if (result) {
+          if (result.failure) {
+            connectedFailure = result.failure;
+          } else {
             markdown = target.provider === 'gsheets' ? csvToMarkdownTable(result.text) : result.text;
             title = result.title;
             imagesOmitted = !!result.imagesOmitted;
@@ -408,6 +443,10 @@ export default async function handler(req, res) {
           if (result.markdown != null) {
             markdown = result.markdown;
             title = result.title;
+          } else {
+            // 401: the student's Notion grant is gone. Anything else: the
+            // page was not among those they picked when they connected.
+            connectedFailure = result.status === 401 ? 'reconnect' : 'notion_not_shared';
           }
         }
       } catch (err) {
@@ -454,6 +493,11 @@ export default async function handler(req, res) {
 
     if (target.provider === 'notion') {
       const token = process.env.NOTION_TOKEN || '';
+      if (!token && connectedFailure) {
+        // The student's own connection is what failed; "Notion is not
+        // enabled" would be untrue for someone who just used it.
+        return res.status(422).json({ error: 'The connected Notion account cannot read this page', reason: connectedFailure });
+      }
       if (!token) {
         return res.status(503).json({
           error: 'Notion is not configured',
@@ -465,6 +509,9 @@ export default async function handler(req, res) {
       if (result.markdown == null) {
         // 401 → the token itself was rejected; anything else reads as a
         // page the integration was never asked to see.
+        if (connectedFailure) {
+          return res.status(422).json({ error: 'The connected Notion account cannot read this page', reason: connectedFailure });
+        }
         if (result.status === 401) {
           return res.status(503).json({
             error: 'Notion rejected the integration token',
@@ -521,13 +568,25 @@ export default async function handler(req, res) {
       if (!markdown && tooLarge) {
         return res.status(413).json({ error: 'Document too large for the reader', reason: 'too_large' });
       }
+      if (!markdown && connectedFailure === 'too_large') {
+        return res.status(413).json({ error: 'Document too large for the reader', reason: 'too_large' });
+      }
+      if (!markdown && connectedFailure === 'unavailable') {
+        return res.status(503).json({ error: 'Google could not be reached', reason: 'temporarily_unavailable' });
+      }
       if (!markdown) {
         // A real 4xx/5xx from the export path, or a login shell on every
-        // candidate, both mean the same thing to the student: the doc is
-        // not reachable without being signed in to its owner account.
+        // candidate, both mean the same thing to a guest: the doc is not
+        // reachable without being signed in to its owner account. A
+        // connected student whose own grant failed is told to reconnect
+        // instead, and a linked tab that could not be resolved in a
+        // readable spreadsheet says so; making the document public is
+        // advice only for a document the account truly cannot see.
         return res.status(422).json({
           error: 'The document is not publicly readable',
-          reason: connection && target.provider === 'gsheets' && new URL(target.exportUrls[0]).searchParams.has('gid') ? 'sheet_unavailable' : 'not_public',
+          reason: connectedFailure === 'reconnect' ? 'reconnect'
+            : connectedFailure === 'sheet_tab' ? 'sheet_unavailable'
+              : 'not_public',
           ...(upstreamStatus && upstreamStatus !== 200 ? { status: upstreamStatus } : {}),
           ...(upstreamBlocked && !upstreamStatus ? { hint: 'The link answered a sign-in page.' } : {}),
         });

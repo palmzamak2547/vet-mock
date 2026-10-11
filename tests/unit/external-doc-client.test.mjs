@@ -88,3 +88,12 @@ test('Cancel on the consent screen is a plain notice, never one of the error mes
     assert.equal(client.connectNoticeFor(reason), null, reason);
   }
 });
+
+test('a connected read that failed asks for a reconnect, not for the document to be made public', () => {
+  for (const reason of ['reconnect', 'notion_not_shared']) {
+    const message = client.messageFor(reason);
+    assert.notEqual(message, client.messageFor('unknown-reason'), reason);
+    assert.match(message, /เชื่อม/, reason);
+    assert.doesNotMatch(message, /สาธารณะ/, reason);
+  }
+});
