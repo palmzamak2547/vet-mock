@@ -6,7 +6,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { toRis, toBibtex, softwareRecord, citationText, referenceLine, dateWithEra, SOFTWARE_URL } from '../../src/lib/export/cite.js';
-import { REFERENCES, referencesFor } from '../../src/data/references.js';
+import { REFERENCES, referencesFor, usedOf } from '../../src/data/references.js';
 import { METHODS } from '../../src/lib/runtime/catalog.js';
 import { tOf } from './export-helpers.mjs';
 
@@ -115,4 +115,9 @@ test('an option-specific source is cited only when that option ran (M3a: Firth, 
   assert.ok(!ids([{ method: 'qpcr.relative', variant: 'livak' }]).includes('pfaffl2001'));
   assert.ok(ids([{ method: 'qpcr.relative', variant: 'pfaffl' }]).includes('pfaffl2001'));
   assert.deepEqual(ids([{ method: 'qpcr.efficiency' }]), ['pfaffl2001']);
+  // Vandesompele 2002 (geometric averaging of several reference genes) only when two or more were chosen (fix-stats 11, 16)
+  const qspec = (items) => ({ method: 'qpcr.relative', roles: { outcome: 'c1', items, group: 'c4' }, options: { method: 'livak' }, cluster: { route: null } });
+  assert.ok(!ids([usedOf(qspec(['c2']))]).includes('vandesompele2002'), 'one reference gene: no geometric averaging');
+  assert.ok(ids([usedOf(qspec(['c2', 'c3']))]).includes('vandesompele2002'), 'two reference genes');
+  assert.ok(ids([usedOf(qspec(['c2']))]).includes('livak2001'), 'the method is still cited');
 });

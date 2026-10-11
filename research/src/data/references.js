@@ -45,7 +45,8 @@ export const REFERENCES = Object.freeze([
   // `method` option (qpcr.relative.livak or .pfaffl, reg.logistic.firth), so an ordinary logistic regression never cites Firth.
   { id: 'livak2001', methods: ['qpcr.relative.livak'], type: 'article', authors: ['Livak, Kenneth J.', 'Schmittgen, Thomas D.'], title: 'Analysis of relative gene expression data using real-time quantitative PCR and the 2−ΔΔCT method', year: 2001, journal: 'Methods', volume: '25', issue: '4', pages: '402-408', doi: '10.1006/meth.2001.1262', checked: CHECKED_M3 },
   { id: 'pfaffl2001', methods: ['qpcr.relative.pfaffl', 'qpcr.efficiency'], type: 'article', authors: ['Pfaffl, M. W.'], title: 'A new mathematical model for relative quantification in real-time RT-PCR', year: 2001, journal: 'Nucleic Acids Research', volume: '29', issue: '9', pages: 'e45', doi: '10.1093/nar/29.9.e45', checked: CHECKED_M3 },
-  { id: 'vandesompele2002', methods: ['qpcr.relative'], type: 'article', authors: ['Vandesompele, Jo', 'De Preter, Katleen', 'Pattyn, Filip', 'Poppe, Bruce', 'Van Roy, Nadine', 'De Paepe, Anne', 'Speleman, Frank'], title: 'Accurate normalization of real-time quantitative RT-PCR data by geometric averaging of multiple internal control genes', year: 2002, journal: 'Genome Biology', volume: '3', issue: '7', pages: 'research0034', doi: '10.1186/gb-2002-3-7-research0034', checked: CHECKED_M3 },
+  // Geometric averaging of several reference genes: cited only when two or more were chosen (fix-stats findings 11, 16).
+  { id: 'vandesompele2002', methods: ['qpcr.relative.multipleReferences'], type: 'article', authors: ['Vandesompele, Jo', 'De Preter, Katleen', 'Pattyn, Filip', 'Poppe, Bruce', 'Van Roy, Nadine', 'De Paepe, Anne', 'Speleman, Frank'], title: 'Accurate normalization of real-time quantitative RT-PCR data by geometric averaging of multiple internal control genes', year: 2002, journal: 'Genome Biology', volume: '3', issue: '7', pages: 'research0034', doi: '10.1186/gb-2002-3-7-research0034', checked: CHECKED_M3 },
   { id: 'hellemans2007', methods: ['qpcr.relative'], type: 'article', authors: ['Hellemans, Jan', 'Mortier, Geert', 'De Paepe, Anne', 'Speleman, Frank', 'Vandesompele, Jo'], title: 'qBase relative quantification framework and software for management and automated analysis of real-time quantitative PCR data', year: 2007, journal: 'Genome Biology', volume: '8', issue: '2', pages: 'R19', doi: '10.1186/gb-2007-8-2-r19', checked: CHECKED_M3 },
   { id: 'yuan2006', methods: ['qpcr.relative'], type: 'article', authors: ['Yuan, Joshua S.', 'Reed, Ann', 'Chen, Feng', 'Stewart, C. Neal'], title: 'Statistical analysis of real-time PCR data', year: 2006, journal: 'BMC Bioinformatics', volume: '7', issue: '1', pages: '85', doi: '10.1186/1471-2105-7-85', checked: CHECKED_M3 },
   { id: 'firth1993', methods: ['reg.logistic.firth'], type: 'article', authors: ['Firth, David'], title: 'Bias reduction of maximum likelihood estimates', year: 1993, journal: 'Biometrika', volume: '80', issue: '1', pages: '27-38', doi: '10.1093/biomet/80.1.27', checked: CHECKED_M3 },
@@ -53,9 +54,22 @@ export const REFERENCES = Object.freeze([
 ]);
 
 /**
+ * What one analysis contributes to referencesFor, from its spec: the method, the farm route, the `method` option
+ * (variant) and keys for options that cite a source of their own (two or more qPCR reference genes).
+ * @param {any} spec
+ * @returns {{ method: string, route: string|null, variant: string|null, extra: string[] }}
+ */
+export function usedOf(spec) {
+  const method = spec?.method;
+  const extra = [];
+  if (method === 'qpcr.relative' && [].concat(spec?.roles?.items || []).filter(Boolean).length >= 2) extra.push('qpcr.relative.multipleReferences');
+  return { method, route: spec?.cluster?.route || null, variant: spec?.options?.method || null, extra };
+}
+
+/**
  * The references the given analyses cite, in the order of first mention, each once. A farm route cites its
  * own source ('route.<id>'); a report with a participant flow cites STROBE-Vet.
- * @param {{ method: string, route?: string|null }[]} used
+ * @param {{ method: string, route?: string|null, variant?: string|null, extra?: string[] }[]} used
  * @param {{ flow?: boolean }} [opts]
  * @returns {Reference[]}
  */
@@ -64,6 +78,7 @@ export function referencesFor(used, opts = {}) {
   for (const u of used || []) {
     if (u?.method) keys.push(u.method);
     if (u?.method && u.variant) keys.push(`${u.method}.${u.variant}`);
+    for (const k of u?.extra || []) keys.push(k);
     if (u?.route && u.route !== 'none') keys.push(`route.${u.route}`);
   }
   // An animal experiment reports against ARRIVE 2.0; an observational study against STROBE-Vet.
