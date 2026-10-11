@@ -12,11 +12,15 @@
 //   {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
 // alongside the existing view branches.
 
-import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import PomodoroTimer from '../components/PomodoroTimer.jsx';
 import BuddySelector from '../components/BuddySelector.jsx';
-import { getSelectedBuddy, recordBuddyFocus } from '../lib/buddy-stats.js';
+import ErrorBoundary from '../components/ErrorBoundary.jsx';
+import MascotStill from '../components/MascotStill.jsx';
+import { getPickedBuddy, recordBuddyFocus } from '../lib/buddy-stats.js';
+import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 import { SQUAD_MASCOTS } from '../data/art.js';
 import {
   loadConfig,
@@ -30,9 +34,25 @@ import {
 
 const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer.jsx'));
 
+// Pomodoro's own story is the hatching chick: the status line, the escape
+// banner and Strict Mode all talk about it. It stays the buddy here until the
+// student picks another one (the app-wide default buddy is not a pick).
+const POMODORO_BUDDY = 'chicky';
+
 export default function PomodoroView({ goHome }) {
-  const [selectedBuddyId, setSelectedBuddyId] = useState(() => getSelectedBuddy());
+  const [selectedBuddyId, setSelectedBuddyId] = useState(() => {
+    const picked = getPickedBuddy();
+    return picked && SQUAD_MASCOTS[picked] ? picked : POMODORO_BUDDY;
+  });
   const [showCelebration, setShowCelebration] = useState(false);
+  // The celebration is a companion moment: it follows the same device
+  // preference as Mochi, and reduced motion gets a still picture.
+  const { preferences: motionPrefs, reduced } = useMotionPreferences();
+  const companionOn = motionPrefs.companion && motionPrefs.mode !== 'off';
+  const celebrationOpen = showCelebration && companionOn;
+  const closeCelebration = useCallback(() => setShowCelebration(false), []);
+  const celebrationCloseRef = useRef(null);
+  const celebrationRef = useModalFocus({ active: celebrationOpen, onClose: closeCelebration, initialFocusRef: celebrationCloseRef });
   const [config, setConfig] = useState(() => loadConfig());
   const [stats, setStats] = useState(() => ({
     today: getTotalMinutesToday(),
@@ -94,10 +114,10 @@ export default function PomodoroView({ goHome }) {
       if (selectedBuddyId && durationMin > 0) {
         recordBuddyFocus(selectedBuddyId, durationMin);
       }
-      setShowCelebration(true);
+      if (companionOn) setShowCelebration(true);
     }
     refreshStats();
-  }, [refreshStats, selectedBuddyId]);
+  }, [refreshStats, selectedBuddyId, companionOn]);
 
   // Slider handler (debounced through setState since saveConfig is cheap)
   const setConfigField = useCallback((field, value) => {
@@ -304,11 +324,18 @@ export default function PomodoroView({ goHome }) {
           : 'Relaxed Mode: สลับแอปอ่าน PDF/สรุปได้ โดยไม่พัง session'}
       </div>
 
-      {/* 3D Mascot Celebration Modal on Focus Completion */}
-      {showCelebration && (
+      {/* Mascot celebration on focus completion. useModalFocus moves focus
+          to the close control, traps Tab, closes on Escape and gives focus
+          back. The close control sits at the top so a short phone reaches it
+          without scrolling past the 3D canvas. */}
+      {celebrationOpen && (
         <div
+          ref={celebrationRef}
           role="dialog"
           aria-modal="true"
+          aria-labelledby="pomodoro-celebration-title"
+          data-vmx-modal="true"
+          tabIndex={-1}
           style={{
             position: 'fixed',
             inset: 0,
@@ -323,57 +350,97 @@ export default function PomodoroView({ goHome }) {
         >
           <div
             style={{
+              position: 'relative',
               background: 'var(--clr-surface)',
               borderRadius: 20,
               border: '1px solid var(--clr-border)',
-              padding: '24px 16px',
               maxWidth: 440,
               width: '100%',
               maxHeight: '90vh',
-              overflowY: 'auto',
+              overflow: 'hidden',
               boxShadow: 'var(--shadow-lg)',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center',
             }}
           >
-            <div style={{ textAlign: 'center', marginBottom: 12 }}>
-              <div style={{ fontSize: 28, marginBottom: 4 }}>🎉</div>
-              <h2 style={{ margin: 0, fontSize: 18, fontWeight: 700, color: 'var(--clr-ink)' }}>
-                สำเร็จแล้ว! โฟกัสครบเวลา
-              </h2>
-              <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--clr-sage-text)', fontWeight: 500 }}>
-                {selectedBuddy?.nameTh || 'คู่หู'} ร่วมฉลองความสำเร็จกับคุณ!
-              </p>
-            </div>
-
-            <Suspense
-              fallback={
-                <div style={{ padding: 40, fontSize: 13, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
-                  กำลังโหลดโมเดล 3D...
-                </div>
-              }
-            >
-              <MascotSquad3DViewer initialId={selectedBuddyId} initialAction="celebrate" />
-            </Suspense>
-
             <button
+              ref={celebrationCloseRef}
               type="button"
-              onClick={() => setShowCelebration(false)}
+              aria-label="ปิด"
+              onClick={closeCelebration}
               style={{
-                marginTop: 16,
-                padding: '10px 28px',
+                position: 'absolute',
+                top: 8,
+                right: 8,
+                zIndex: 1,
+                minWidth: 'var(--touch-min)',
+                minHeight: 'var(--touch-min)',
                 borderRadius: 999,
-                background: 'var(--clr-sage)',
-                color: 'var(--clr-sage-on)',
-                border: 'none',
-                fontWeight: 600,
-                fontSize: 14,
+                border: '1px solid var(--clr-border)',
+                background: 'var(--clr-surface)',
+                color: 'var(--clr-ink)',
+                fontSize: 18,
+                lineHeight: 1,
                 cursor: 'pointer',
               }}
             >
-              พักผ่อนสักครู่ / ปิด
+              <span aria-hidden="true">✕</span>
             </button>
+            <div
+              style={{
+                padding: '24px 16px',
+                overflowY: 'auto',
+                minHeight: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              <div style={{ textAlign: 'center', marginBottom: 12, padding: '0 40px' }}>
+                <div style={{ fontSize: 28, marginBottom: 4 }} aria-hidden="true">🎉</div>
+                <h2 id="pomodoro-celebration-title" style={{ margin: 0, fontSize: 18, fontWeight: 700, color: 'var(--clr-ink)' }}>
+                  สำเร็จแล้ว! โฟกัสครบเวลา
+                </h2>
+                <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--clr-sage-text)', fontWeight: 500 }}>
+                  {selectedBuddy?.nameTh || 'คู่หู'} ร่วมฉลองความสำเร็จกับคุณ!
+                </p>
+              </div>
+
+              {reduced ? (
+                <MascotStill mascot={selectedBuddy} />
+              ) : (
+                <ErrorBoundary fallback={<MascotStill mascot={selectedBuddy} note="เปิดโมเดล 3D ไม่สำเร็จ จึงแสดงเป็นภาพนิ่งแทน" />}>
+                  <Suspense
+                    fallback={
+                      <div style={{ padding: 40, fontSize: 13, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
+                        กำลังโหลดโมเดล 3D...
+                      </div>
+                    }
+                  >
+                    <MascotSquad3DViewer initialId={selectedBuddyId} initialAction="celebrate" />
+                  </Suspense>
+                </ErrorBoundary>
+              )}
+
+              <button
+                type="button"
+                onClick={closeCelebration}
+                style={{
+                  marginTop: 16,
+                  minHeight: 'var(--touch-min)',
+                  padding: '10px 28px',
+                  borderRadius: 999,
+                  background: 'var(--clr-sage)',
+                  color: 'var(--clr-sage-on)',
+                  border: 'none',
+                  fontWeight: 600,
+                  fontSize: 14,
+                  cursor: 'pointer',
+                }}
+              >
+                ปิด
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -7,6 +7,8 @@ import { MotionButton } from '../components/MotionFeedback.jsx';
 import { EFFECTS, GROUPS } from '../lib/motion-kit/catalog.js';
 import { SQUAD_MASCOTS } from '../data/art.js';
 import { artImgFallback } from '../lib/art-fallback.js';
+import ErrorBoundary from '../components/ErrorBoundary.jsx';
+import MascotStill from '../components/MascotStill.jsx';
 
 const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer.jsx'));
 
@@ -37,12 +39,13 @@ export default function MochiView({ goHome, onOpenFocus }) {
             คู่หูตัวการ์ตูนประจำแต่ละหมวดวิชา ที่พร้อมร่วมอ่านและเป็นกำลังใจให้ทุกการทบทวน
           </p>
         </div>
-        <div style={{ display: 'inline-flex', background: 'var(--clr-surface-2)', padding: '3px', borderRadius: '8px', border: '1px solid var(--clr-border)' }}>
+        <div role="group" aria-label="รูปแบบการแสดงคู่หู" style={{ display: 'inline-flex', background: 'var(--clr-surface-2)', padding: '3px', borderRadius: '8px', border: '1px solid var(--clr-border)' }}>
           <button
             type="button"
+            aria-pressed={squadViewMode === '2d'}
             onClick={() => setSquadViewMode('2d')}
             style={{
-              minHeight: '44px',
+              minHeight: 'var(--touch-min)',
               padding: '8px 12px',
               display: 'inline-flex',
               alignItems: 'center',
@@ -60,9 +63,10 @@ export default function MochiView({ goHome, onOpenFocus }) {
           </button>
           <button
             type="button"
+            aria-pressed={squadViewMode === '3d'}
             onClick={() => setSquadViewMode('3d')}
             style={{
-              minHeight: '44px',
+              minHeight: 'var(--touch-min)',
               padding: '8px 12px',
               display: 'inline-flex',
               alignItems: 'center',
@@ -76,14 +80,16 @@ export default function MochiView({ goHome, onOpenFocus }) {
               cursor: 'pointer',
             }}
           >
-            ✨ 3D Chibi (Three.js)
+            ✨ ดูแบบ 3D
           </button>
         </div>
       </div>
       {squadViewMode === '3d' ? (
-        <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: 'var(--clr-ink-soft)' }}>กำลังโหลดโมเดล 3D...</div>}>
-          <MascotSquad3DViewer initialId="moocha" />
-        </Suspense>
+        <ErrorBoundary fallback={<MascotStill mascot={SQUAD_MASCOTS.moocha} note="เปิดโมเดล 3D ไม่สำเร็จ จึงแสดงเป็นภาพนิ่งแทน ดูทุกตัวได้ในแบบการ์ด 2D" />}>
+          <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: 'var(--clr-ink-soft)' }}>กำลังโหลดโมเดล 3D...</div>}>
+            <MascotSquad3DViewer initialId="moocha" />
+          </Suspense>
+        </ErrorBoundary>
       ) : (
       <div style={{
         display: 'grid',
