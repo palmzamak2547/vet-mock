@@ -426,6 +426,30 @@ test('reduced motion: no automatic celebration and no confetti', () => {
   frames(inst, 30);
   assert.equal(confetti().material.opacity, 0, 'a tap on celebrate plays the clip without confetti');
   inst.unmount();
+
+  // Turning reduced motion on while a celebration runs stops it at once.
+  globalThis.__motion = { preferences: { mode: 'auto', companion: true }, systemReduced: false, reduced: false };
+  const live = mount(Viewer, { initialId: 'moocha', initialAction: 'celebrate' });
+  attach(live);
+  resolveAll(live);
+  frames(live, 20);
+  assert.ok(confetti().material.opacity > 0.5, 'confetti while motion is allowed');
+  globalThis.__motion = { preferences: { mode: 'quiet', companion: true }, systemReduced: false, reduced: true };
+  live.render();
+  frames(live, 90);
+  assert.ok(confetti().material.opacity < 0.01, 'the confetti fades out as soon as reduced motion is chosen');
+  assert.equal(timers.list.size, 0, 'and its timer is cleared');
+  live.unmount();
+});
+
+test('unmounting after the GPU refused a call never throws into the screen', () => {
+  const inst = mount(Viewer, { initialId: 'moocha' });
+  attach(inst);
+  resolveAll(inst);
+  const r = GL.renderers.at(-1);
+  r.forceContextLoss = () => { throw new Error('context already lost'); };
+  r.dispose = () => { throw new Error('context already lost'); };
+  assert.doesNotThrow(() => inst.unmount());
 });
 
 test('the canvas lets the page scroll and only zooms on ctrl/meta or focus', () => {

@@ -42,6 +42,8 @@ const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
 function disposeTree(root) {
   root?.traverse?.((obj) => {
+    // Lights own their shadow map render target.
+    if (obj.isLight) obj.dispose?.();
     obj.geometry?.dispose?.();
     const mats = obj.material ? (Array.isArray(obj.material) ? obj.material : [obj.material]) : [];
     for (const mat of mats) {
@@ -77,16 +79,26 @@ export default function MascotSquad3DViewer({ initialId = 'moocha', initialActio
   });
 
   const reducedRef = useRef(reduced);
-  useEffect(() => { reducedRef.current = reduced; }, [reduced]);
+  const actionsRef = useRef({});
+  const celebratingRef = useRef(false);
+  const confettiTimerRef = useRef(0);
+  // A preference changed while the viewer is open applies at once.
+  useEffect(() => {
+    reducedRef.current = reduced;
+    if (actionsRef.current.idle) actionsRef.current.idle.paused = reduced;
+    if (reduced) {
+      clearTimeout(confettiTimerRef.current);
+      confettiTimerRef.current = 0;
+      celebratingRef.current = false;
+    }
+  }, [reduced]);
   // The first model plays the action the screen asked for (Pomodoro and
   // Results celebrate); a model picked later starts on idle.
   const pendingActionRef = useRef(initialAction);
   const headRef = useRef(null);
-  const trackRef = useRef(newTrack());
+  const trackRef = useRef(null);
+  if (!trackRef.current) trackRef.current = newTrack();
   const mixerRef = useRef(null);
-  const actionsRef = useRef({});
-  const celebratingRef = useRef(false);
-  const confettiTimerRef = useRef(0);
 
   // Interaction controls
   const mouseTargetRef = useRef({ x: 0, y: 0 });
@@ -449,9 +461,11 @@ export default function MascotSquad3DViewer({ initialId = 'moocha', initialActio
       document.removeEventListener('visibilitychange', onVisibility);
       host.removeEventListener('wheel', onWheel);
       canvas.removeEventListener('webglcontextlost', onContextLost);
-      disposeTree(scene);
-      renderer.dispose();
-      renderer.forceContextLoss();
+      // A throw here would reach the screen's error boundary; a context that
+      // is already lost may refuse the calls, which is fine.
+      try { disposeTree(scene); } catch { /* already released */ }
+      try { renderer.dispose(); } catch { /* already released */ }
+      try { renderer.forceContextLoss(); } catch { /* already lost */ }
       if (canvas.parentNode === host) host.removeChild(canvas);
       setStage(null);
     };
@@ -475,7 +489,7 @@ export default function MascotSquad3DViewer({ initialId = 'moocha', initialActio
       (gltf) => {
         // A pick made while this was loading wins; the late model is dropped.
         if (cancelled || stage.disposed) {
-          disposeTree(gltf.scene);
+          try { disposeTree(gltf.scene); } catch { /* nothing to release */ }
           return;
         }
         root = gltf.scene;
@@ -521,14 +535,16 @@ export default function MascotSquad3DViewer({ initialId = 'moocha', initialActio
     return () => {
       cancelled = true;
       stopConfetti();
-      if (mixer) {
-        mixer.stopAllAction();
-        if (root) mixer.uncacheRoot(root);
-      }
-      if (root) {
-        root.parent?.remove(root);
-        disposeTree(root);
-      }
+      try {
+        if (mixer) {
+          mixer.stopAllAction();
+          if (root) mixer.uncacheRoot(root);
+        }
+        if (root) {
+          root.parent?.remove(root);
+          disposeTree(root);
+        }
+      } catch { /* the stage may already be gone */ }
       headRef.current = null;
       mixerRef.current = null;
       actionsRef.current = {};
