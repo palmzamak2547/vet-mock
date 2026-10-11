@@ -54,7 +54,12 @@ for (const file of sourceFiles(resolve(ROOT, 'src'))) {
   const code = fs.readFileSync(file, 'utf8')
     .replace(/\/\*[\s\S]*?\*\//g, '')
     .replace(/\/\/.*$/gm, '');
-  for (const m of code.matchAll(/var\(\s*(--[a-z0-9-]+)\s*(,[^)]*)?\)/gi)) {
+  // Match the head of each var( only. A pattern that also swallowed the
+  // fallback (`,[^)]*\)`) stopped at the first `)` and resumed after it, so the
+  // inner token of var(--a, var(--b)) was never visited. Reading just
+  // `var(--name` plus an optional comma lets matchAll land on every nested
+  // var( on its own; the comma is what says a fallback exists.
+  for (const m of code.matchAll(/var\(\s*(--[a-z0-9-]+)\s*(,)?/gi)) {
     const [, token, fallback] = m;
     if (defined.has(token)) continue;
     if (!found.has(token)) found.set(token, { files: new Set(), noFallback: 0 });
