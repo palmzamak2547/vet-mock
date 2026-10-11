@@ -24,16 +24,16 @@ globalThis.Event = class Event {
   }
 };
 
+const buddyStats = await import('../../src/lib/buddy-stats.js');
 const {
   getSelectedBuddy,
+  getPickedBuddy,
   setSelectedBuddy,
   getBuddyStats,
-  getAllBuddyStats,
   recordBuddyFocus,
-  recordBuddyExam,
   formatBuddyTime,
   DEFAULT_BUDDY,
-} = await import('../../src/lib/buddy-stats.js');
+} = buddyStats;
 
 test('Buddy Stats: 1. getSelectedBuddy returns default buddy when storage is empty', () => {
   localStorage.clear();
@@ -59,14 +59,25 @@ test('Buddy Stats: 3. recordBuddyFocus increments minutes and session counts', (
   assert.equal(stats.questions, 0);
 });
 
-test('Buddy Stats: 4. recordBuddyExam increments question count correctly', () => {
-  localStorage.clear();
-  recordBuddyExam('oto', 15);
-  recordBuddyExam('oto', 5);
+// The Results screen used to add score.correct on every mount, so Back from
+// the answers or a reload counted the same exam again, in a device-wide key
+// shared by every account on the browser. Nothing ever displayed the figure
+// (BuddySelector shows minutes only), so the recording is gone rather than
+// fixed; bring it back keyed on the session's completion time, per account,
+// when a screen shows it.
+test('Buddy Stats: 4. exam scores are not recorded while nothing displays them', async () => {
+  assert.equal(buddyStats.recordBuddyExam, undefined, 'no exam recorder is exported');
+  const { readFileSync } = await import('node:fs');
+  const results = readFileSync(new URL('../../src/views/ResultsView.jsx', import.meta.url), 'utf8');
+  assert.doesNotMatch(results, /recordBuddyExam/, 'ResultsView records nothing per mount');
+});
 
-  const stats = getBuddyStats('oto');
-  assert.equal(stats.questions, 20);
-  assert.equal(stats.minutes, 0);
+test('Buddy Stats: 6. getPickedBuddy tells an explicit pick from the default', () => {
+  localStorage.clear();
+  assert.equal(getPickedBuddy(), null, 'no pick yet');
+  assert.equal(getSelectedBuddy(), DEFAULT_BUDDY, 'the default still answers getSelectedBuddy');
+  setSelectedBuddy('porky');
+  assert.equal(getPickedBuddy(), 'porky');
 });
 
 test('Buddy Stats: 5. formatBuddyTime formats minutes correctly into Thai string', () => {

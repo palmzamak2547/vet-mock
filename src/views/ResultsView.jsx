@@ -21,7 +21,10 @@ import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import WeakSpots from '../components/WeakSpots.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import { SQUAD_MASCOTS, SUBJECT_MOCHI } from '../data/art.js';
-import { getSelectedBuddy, recordBuddyExam } from '../lib/buddy-stats.js';
+import { getSelectedBuddy } from '../lib/buddy-stats.js';
+import ErrorBoundary from '../components/ErrorBoundary.jsx';
+import MascotStill from '../components/MascotStill.jsx';
+import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
 
 const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer.jsx'));
 
@@ -225,8 +228,11 @@ export default function ResultsView({
     return () => window.removeEventListener(NIGHT_RANK_EVENT, onPromo);
   }, []);
 
-  // Study Squad Mascot Companion Resolution & Exam Stats
+  // Study Squad mascot companion. It follows the same device preference as
+  // Mochi: unticking "แสดง Mochi" or turning effects off hides the card.
   const [show3DViewer, setShow3DViewer] = useState(false);
+  const { preferences: motionPrefs } = useMotionPreferences();
+  const showCompanion = motionPrefs.companion && motionPrefs.mode !== 'off';
   const companionMascot = useMemo(() => {
     const subj = questions?.[0]?.subject;
     const isUniformSubj = subj && questions.every((q) => q.subject === subj);
@@ -236,12 +242,6 @@ export default function ResultsView({
     const selectedId = getSelectedBuddy();
     return SQUAD_MASCOTS[selectedId] || SQUAD_MASCOTS.moocha;
   }, [questions]);
-
-  useEffect(() => {
-    if (companionMascot?.id && score?.correct > 0) {
-      recordBuddyExam(companionMascot.id, score.correct);
-    }
-  }, [companionMascot?.id, score?.correct]);
 
   // mount in dev doesn't trigger the burst twice.
   // Personal-best tracking — per-subject highest pct ever recorded in
@@ -478,7 +478,7 @@ export default function ResultsView({
       </div>
 
       {/* Study Squad Companion Encouragement Badge & 3D Toggle */}
-      {companionMascot && (
+      {companionMascot && showCompanion && (
         <div
           style={{
             margin: '16px auto',
@@ -546,7 +546,9 @@ export default function ResultsView({
             <button
               type="button"
               onClick={() => setShow3DViewer((prev) => !prev)}
+              aria-expanded={show3DViewer}
               style={{
+                minHeight: 'var(--touch-min)',
                 fontSize: 12,
                 fontWeight: 600,
                 color: show3DViewer ? 'var(--clr-ink)' : 'var(--clr-sage-text)',
@@ -565,28 +567,33 @@ export default function ResultsView({
             </button>
           </div>
 
+          {/* Loaded only on the tap (never warmed at exam start: it carries
+              three.js). A chunk that fails to load, or a device without
+              WebGL, shows the picture; the score screen stays. */}
           {show3DViewer && (
-            <Suspense
-              fallback={
-                <div
-                  style={{
-                    padding: 24,
-                    textAlign: 'center',
-                    fontSize: 13,
-                    color: 'var(--clr-ink-soft)',
-                  }}
-                >
-                  กำลังโหลดโมเดล 3D...
+            <ErrorBoundary fallback={<MascotStill mascot={companionMascot} note="เปิดโมเดล 3D ไม่สำเร็จ จึงแสดงเป็นภาพนิ่งแทน" />}>
+              <Suspense
+                fallback={
+                  <div
+                    style={{
+                      padding: 24,
+                      textAlign: 'center',
+                      fontSize: 13,
+                      color: 'var(--clr-ink-soft)',
+                    }}
+                  >
+                    กำลังโหลดโมเดล 3D...
+                  </div>
+                }
+              >
+                <div style={{ marginTop: 6 }}>
+                  <MascotSquad3DViewer
+                    initialId={companionMascot.id}
+                    initialAction={celebrate || reached ? 'celebrate' : 'idle'}
+                  />
                 </div>
-              }
-            >
-              <div style={{ marginTop: 6 }}>
-                <MascotSquad3DViewer
-                  initialId={companionMascot.id}
-                  initialAction={celebrate || reached ? 'celebrate' : 'idle'}
-                />
-              </div>
-            </Suspense>
+              </Suspense>
+            </ErrorBoundary>
           )}
         </div>
       )}

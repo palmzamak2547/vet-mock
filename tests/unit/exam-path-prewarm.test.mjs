@@ -58,6 +58,16 @@ function warmedOnExamStart() {
   return out;
 }
 
+// The one deliberate exception. Warming a chunk means downloading and
+// evaluating it at exam start, on every exam, on every phone. The 3D mascot
+// viewer pulls in all of three.js (vendor-atlas) for a toggle most students
+// never press, so it is NOT warmed: it loads only when "ดูแบบ 3D" is tapped,
+// and ResultsView renders it inside its own ErrorBoundary whose fallback is
+// the mascot's 2D picture. A deploy that 404s this chunk costs the student
+// the 3D model, never the score screen. Anything added here must be optional,
+// tap-loaded and behind a local boundary — the tests below hold it to that.
+const OPTIONAL_BEHIND_LOCAL_BOUNDARY = new Set(['components/MascotSquad3DViewer.jsx']);
+
 test('every lazy chunk on the exam path is warmed before the exam starts', () => {
   const warm = warmedOnExamStart();
 
@@ -70,7 +80,7 @@ test('every lazy chunk on the exam path is warmed before the exam starts', () =>
 
   assert.ok(reachable.size > 0, 'found no dynamic imports at all — the extraction is broken');
 
-  const missing = [...reachable].filter((spec) => !warm.has(spec));
+  const missing = [...reachable].filter((spec) => !warm.has(spec) && !OPTIONAL_BEHIND_LOCAL_BOUNDARY.has(spec));
   assert.deepEqual(
     missing,
     [],
@@ -79,6 +89,24 @@ test('every lazy chunk on the exam path is warmed before the exam starts', () =>
       + missing.join('\n  ')
       + "\nAdd them to the `if (view === 'exam')` effect in App.jsx.",
   );
+});
+
+test('an optional chunk is kept off the exam path and cannot take the screen down', () => {
+  const warm = warmedOnExamStart();
+  const results = read('views/ResultsView.jsx');
+  for (const spec of OPTIONAL_BEHIND_LOCAL_BOUNDARY) {
+    assert.ok(!warm.has(spec), `${spec} is optional: warming it would fetch and evaluate it on every exam start`);
+    assert.ok(importsIn('views/ResultsView.jsx').has(spec), `${spec} is no longer on the answer path; remove it from the exception`);
+    const name = path.posix.basename(spec, '.jsx');
+    const use = results.indexOf(`<${name}`);
+    assert.notEqual(use, -1, `ResultsView no longer renders ${name}`);
+    const open = results.lastIndexOf('<ErrorBoundary', use);
+    const close = results.lastIndexOf('</ErrorBoundary>', use);
+    assert.ok(open !== -1 && open > close, `${name} must render inside a local <ErrorBoundary> in ResultsView`);
+    const boundary = results.slice(open, results.indexOf('>', open));
+    assert.match(boundary, /fallback=/, `the boundary around ${name} needs a fallback that keeps the screen`);
+    assert.ok(results.indexOf('</ErrorBoundary>', use) !== -1, `the boundary around ${name} is closed after it`);
+  }
 });
 
 test('the views themselves are warmed, not just their children', () => {

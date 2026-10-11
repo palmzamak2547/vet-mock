@@ -3,8 +3,15 @@
 // Tracks:
 // - Selected study companion (buddyId)
 // - Focus minutes accumulated per companion
-// - Practice questions answered correctly alongside companion
 // - Total study sessions completed with companion
+//
+// Both keys are device-wide on purpose: they sit beside the Pomodoro history
+// they come from ('vmx-pomodoro', also device-wide). Exam scores used to be
+// added here on every Results mount; nothing displayed them, a Back or a
+// reload counted the same exam again and every account on the browser shared
+// them, so that recording was removed. A screen that wants it back should key
+// each exam on its completion time and scope the key per account (and add it
+// to src/lib/account-local-purge.js).
 
 const BUDDY_STATS_KEY = 'vmx-buddy-stats';
 const SELECTED_BUDDY_KEY = 'vmx-selected-buddy';
@@ -27,6 +34,17 @@ export function getSelectedBuddy() {
     return localStorage.getItem(SELECTED_BUDDY_KEY) || DEFAULT_BUDDY;
   } catch {
     return DEFAULT_BUDDY;
+  }
+}
+
+/** The companion the student explicitly picked, or null when they never
+ *  picked one (getSelectedBuddy answers the default in that case). */
+export function getPickedBuddy() {
+  try {
+    if (typeof localStorage === 'undefined') return null;
+    return localStorage.getItem(SELECTED_BUDDY_KEY) || null;
+  } catch {
+    return null;
   }
 }
 
@@ -75,25 +93,6 @@ export function recordBuddyFocus(buddyId, minutes = 25) {
       minutes: (current.minutes || 0) + Math.round(minutes),
       questions: current.questions || 0,
       sessions: (current.sessions || 0) + 1,
-      lastActive: Date.now(),
-    };
-    localStorage.setItem(BUDDY_STATS_KEY, JSON.stringify(all));
-    broadcast();
-  } catch {
-    /* ignore storage errors */
-  }
-}
-
-/** Record practice questions solved alongside a companion */
-export function recordBuddyExam(buddyId, correctCount = 0) {
-  if (!buddyId || correctCount <= 0) return;
-  try {
-    const all = getAllBuddyStats();
-    const current = all[buddyId] || { minutes: 0, questions: 0, sessions: 0 };
-    all[buddyId] = {
-      minutes: current.minutes || 0,
-      questions: (current.questions || 0) + correctCount,
-      sessions: current.sessions || 0,
       lastActive: Date.now(),
     };
     localStorage.setItem(BUDDY_STATS_KEY, JSON.stringify(all));
