@@ -320,6 +320,36 @@ async function libraryDoc(request, hash, event) {
   const cache = await caches.open(LIB_DOCS);
   const key = new Request(`/__lib-doc/${hash}`);
   const access = await libraryAccess();
+  const url = new URL(request.url);
+  const download = url.searchParams.get('dl') === '1';
+  // One copy answers every later read of this hash, so the way it was first
+  // fetched must not label them: the stored copy is always the inline open,
+  // and a download (?dl=1, the deck's download button) is named per request,
+  // cleaned as /api/library-blob cleans it. A filename in this header beats
+  // <a download>. Types the server hands over only as downloads stay so.
+  const labelled = (response, asDownload) => {
+    const headers = new Headers(response.headers);
+    const current = headers.get('Content-Disposition') || '';
+    const clean = value => String(value || '').replace(/[\r\n"\\/]+/g, ' ').trim().slice(0, 150);
+    let name = '';
+    try {
+      // The storage key's basename, as the server names an inline open. Read
+      // for this label only: the token never decides which bytes are served.
+      const token = url.searchParams.get('t').replace(/-/g, '+').replace(/_/g, '/');
+      const storageKey = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(token), c => c.charCodeAt(0)))).k;
+      name = typeof storageKey === 'string' ? storageKey.split('/').pop() : '';
+    } catch { name = ''; }
+    if (!clean(name)) {
+      const encoded = /filename\*=UTF-8''([^;\s]+)/i.exec(current)?.[1];
+      try { name = encoded ? decodeURIComponent(encoded) : /filename="([^"]*)"/i.exec(current)?.[1]; } catch { name = ''; }
+    }
+    name = (asDownload && clean(url.searchParams.get('name'))) || clean(name) || 'document';
+    const type = asDownload || /html|xml|javascript|ecmascript|octet-stream/i.test(headers.get('Content-Type') || '') ? 'attachment' : 'inline';
+    const ascii = name.replace(/[^\x20-\x7E]/g, '_').replace(/"/g, '').trim() || 'document';
+    const utf8 = encodeURIComponent(name).replace(/[!'()*]/g, c => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
+    headers.set('Content-Disposition', `${type}; filename="${ascii}"; filename*=UTF-8''${utf8}`);
+    return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+  };
   const hit = await cache.match(key);
   if (hit) {
     let kind = hit.headers.get('X-VetMock-Library-Access');
@@ -334,14 +364,14 @@ async function libraryDoc(request, hash, event) {
       kind = kind === 'restricted' || !publicHash ? 'restricted' : 'public';
       response = await verifiedLibraryResponse(hit, hash, kind).catch(() => null);
     }
-    if (response && kind === 'public') return response;
+    if (response && kind === 'public') return labelled(response, download);
     if (response && await libraryClientAllowed(request, event, access)) {
       const current = await libraryAccess();
-      if (current?.signedIn && current.epoch === access?.epoch) return response;
+      if (current?.signedIn && current.epoch === access?.epoch) return labelled(response, download);
     }
   }
 
-  const offlineOnly = new URL(request.url).searchParams.get('offline') === '1';
+  const offlineOnly = url.searchParams.get('offline') === '1';
   if (offlineOnly) {
     // The page could not even reach the mint endpoint; only the cache can
     // answer. This document was never opened on this device.
@@ -368,14 +398,14 @@ async function libraryDoc(request, hash, event) {
         }
         // A logout deletes this named cache; this captured handle then writes
         // only into its detached predecessor, never the replacement cache.
-        await cache.put(key, response);
+        await cache.put(key, labelled(response, false));
         const keys = await cache.keys();
         for (const old of keys.slice(0, Math.max(0, keys.length - LIB_DOC_MAX_ENTRIES))) await cache.delete(old);
       });
       keepAlive(event, libraryWrites);
     }
   }
-  return res;
+  return download && res?.ok ? labelled(res, true) : res;
 }
 
 // ── Fetch handler ───────────────────────────────────────────────────

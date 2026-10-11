@@ -45,7 +45,7 @@ function worker(caches = memoryCaches()) {
   const listeners = new Map();
   let clients = [{ id: 'reader', url: ORIGIN + '/app/library' }];
   const context = {
-    caches, crypto: crypto.webcrypto, URL, Headers, Response, MessageChannel, AbortController, setTimeout, clearTimeout,
+    caches, crypto: crypto.webcrypto, URL, Headers, Response, MessageChannel, AbortController, setTimeout, clearTimeout, atob, TextDecoder,
     Request: class extends Request { constructor(input, init) { super(new URL(input?.url || input, ORIGIN), init); } },
     fetch: async () => { throw Error('offline'); },
     self: {
@@ -147,6 +147,85 @@ test('a logout during download prevents a late restricted write; public offline 
   await publicDownload.response; await publicDownload.settled();
   app.context.fetch = async () => { throw Error('offline'); };
   assert.equal(await (await app.request(`offline=1&h=${publicHash}`).response).text(), publicBytes);
+});
+
+// OV-media-12: the worker keeps one copy per hash, so the way that copy was
+// first fetched must not label every later read. A deck opened in a tab was
+// saved under its storage slug when downloaded later (the stored inline
+// filename beat <a download>), and a deck first downloaded came back as a
+// download when opened in a tab.
+const token = key => Buffer.from(JSON.stringify({ b: 'vetmock-library', k: key, m: 'application/pdf', a: 'public', e: 4102444800 })).toString('base64url');
+const disposition = response => response.headers.get('Content-Disposition') || '';
+const savedName = response => decodeURIComponent(/filename\*=UTF-8''([^;\s]+)/.exec(disposition(response))?.[1] || '');
+const SLUG_KEY = 'docs/one-health/role-735daf.pdf';
+async function seedLabelled(app, bytes, h, headers) {
+  await (await app.caches.open(DOCS)).put('/__lib-doc/' + h, new Response(bytes, { headers: {
+    'X-VetMock-Library-Access': 'public', 'X-VetMock-Library-Hash': hash(bytes), 'Content-Type': 'application/pdf', ...headers,
+  } }));
+}
+
+test('a deck read in a tab and downloaded later is saved under the title it asks for', async () => {
+  const app = worker();
+  await seedLabelled(app, publicBytes, publicHash, { 'Content-Disposition': `inline; filename="role-735daf.pdf"; filename*=UTF-8''role-735daf.pdf` });
+  const title = 'One Health/บทบาทสัตวแพทย์.pdf';
+  const saved = await app.request(`t=${token(SLUG_KEY)}&s=sig&h=${publicHash}&dl=1&name=${encodeURIComponent(title)}`).response;
+  assert.equal(await saved.text(), publicBytes);
+  assert.match(disposition(saved), /^attachment; filename="One Health _+\.pdf"; filename\*=UTF-8''/);
+  assert.equal(savedName(saved), 'One Health บทบาทสัตวแพทย์.pdf');
+  // The name is not signed: it is cleaned exactly as /api/library-blob cleans it.
+  const hostile = await app.request(`t=${token(SLUG_KEY)}&s=sig&h=${publicHash}&dl=1&name=${encodeURIComponent('x"\r\nSet-Cookie: a=b\\..\\/.pdf')}`).response;
+  assert.doesNotMatch(disposition(hostile), /[\r\n]/);
+  assert.match(disposition(hostile), /^attachment; filename="x Set-Cookie: a=b \.\. \.pdf"; /);
+  // Without a name the download keeps the storage key's basename.
+  const unnamed = await app.request(`t=${token(SLUG_KEY)}&s=sig&h=${publicHash}&dl=1`).response;
+  assert.match(disposition(unnamed), /^attachment; /);
+  assert.equal(savedName(unnamed), 'role-735daf.pdf');
+  // The tab still reads it inline.
+  const reopened = await app.request(`t=${token(SLUG_KEY)}&s=sig&h=${publicHash}`).response;
+  assert.match(disposition(reopened), /^inline; /);
+});
+
+test('a copy first saved as a download still opens in the tab', async () => {
+  const app = worker();
+  // Stored before the fix: the first fetch of this hash was a download.
+  await seedLabelled(app, publicBytes, publicHash, { 'Content-Disposition': `attachment; filename="Role of Veterinarians.pdf"; filename*=UTF-8''Role%20of%20Veterinarians.pdf` });
+  const offline = await app.request(`offline=1&h=${publicHash}`).response;
+  assert.equal(await offline.text(), publicBytes);
+  assert.match(disposition(offline), /^inline; /);
+  assert.equal(savedName(offline), 'Role of Veterinarians.pdf');
+  const online = await app.request(`t=${token(SLUG_KEY)}&s=sig&h=${publicHash}`).response;
+  assert.match(disposition(online), /^inline; /);
+  assert.equal(savedName(online), 'role-735daf.pdf');
+  const download = await app.request(`t=${token(SLUG_KEY)}&s=sig&h=${publicHash}&dl=1&name=${encodeURIComponent('Role of Veterinarians.pdf')}`).response;
+  assert.match(disposition(download), /^attachment; /);
+  assert.equal(savedName(download), 'Role of Veterinarians.pdf');
+});
+
+test('a first download is stored as the inline open, named by its storage key', async () => {
+  const app = worker();
+  app.context.fetch = async () => new Response(publicBytes, { headers: {
+    'Content-Length': String(publicBytes.length), 'Content-Type': 'application/pdf', 'X-VetMock-Library-Access': 'public',
+    'Content-Disposition': `attachment; filename="Role of Veterinarians.pdf"; filename*=UTF-8''Role%20of%20Veterinarians.pdf`,
+  } });
+  const download = app.request(`t=${token(SLUG_KEY)}&s=sig&h=${publicHash}&dl=1&name=${encodeURIComponent('Role of Veterinarians.pdf')}`);
+  const saved = await download.response;
+  assert.equal(await saved.text(), publicBytes);
+  assert.match(disposition(saved), /^attachment; /);
+  assert.equal(savedName(saved), 'Role of Veterinarians.pdf');
+  await download.settled();
+  const stored = await (await app.caches.open(DOCS)).match('/__lib-doc/' + publicHash);
+  assert.match(disposition(stored), /^inline; filename="role-735daf\.pdf"; filename\*=UTF-8''role-735daf\.pdf$/);
+  app.context.fetch = async () => { throw Error('offline'); };
+  const opened = await app.request(`offline=1&h=${publicHash}`).response;
+  assert.equal(await opened.text(), publicBytes);
+  assert.match(disposition(opened), /^inline; /);
+});
+
+test('bytes the server hands over only as a download are never relabelled to open in the tab', async () => {
+  const app = worker();
+  await seedLabelled(app, publicBytes, publicHash, { 'Content-Type': 'application/octet-stream', 'Content-Disposition': `attachment; filename="page.html"; filename*=UTF-8''page.html` });
+  const opened = await app.request(`offline=1&h=${publicHash}`).response;
+  assert.match(disposition(opened), /^attachment; filename="page\.html"; /);
 });
 
 let moduleLoads = 0;
