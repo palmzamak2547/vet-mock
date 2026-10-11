@@ -135,6 +135,30 @@ const incrementScopedPrediction = (index, question, subject) => {
   }
 };
 const deliverableQuestions = QB.filter(isQuestionDeliverable);
+
+// A phase narrows a year to its TERM and never empties it: buildExamPool keeps
+// the whole year when no question in it belongs to the term, then applies the
+// paper filter (exam-pool.js, "The phase narrows the pool; it must never empty
+// it"). Years 1 and 3 hold term-2 banks only, so under เทอม 1 that guard hands
+// the whole year over. The year table below has to count the same way, or the
+// รวมทุกวิชา card reads 0 and is disabled while its button would serve 297.
+// Which years hold anything in a term is decided over the SAME set the pool
+// decides on: every deliverable question in the year, hidden topics included,
+// before the paper filter. Only the year table follows the guard; a subject or
+// topic card still prints its term's share, as the pool does for a named one.
+const PHASE_TERM = Object.fromEntries(PHASE_IDS.map((phase) => [phase, Number(phase.split('-')[0])]));
+const inTerm = (subj, phase) => {
+  const sem = semesterForSubject(subj);
+  return sem == null || sem === 0 || sem === PHASE_TERM[phase];
+};
+const yearHasTermQuestions = Object.fromEntries(PHASE_IDS.map((phase) => [phase, new Set()]));
+for (const q of deliverableQuestions) {
+  if (q.year == null) continue;
+  for (const phase of PHASE_IDS) {
+    if (inTerm(q.subject || '__unknown__', phase)) yearHasTermQuestions[phase].add(q.year);
+  }
+}
+
 for (const q of deliverableQuestions) {
   const subj = q.subject || '__unknown__';
   const topic = questionTopicId(q);
@@ -148,10 +172,16 @@ for (const q of deliverableQuestions) {
     // What Panic Mode will actually serve for this subject, counted the same
     // way the session builds it so the card's number and the set agree.
     for (const phase of PHASE_IDS) {
-      const [termKey, paperKey] = phase.split('-');
+      const paperKey = phase.split('-')[1];
       if (!questionInScope(q, paperKey === 'mid' ? 'midterm' : 'final')) continue;
-      const sem = semesterForSubject(subj);
-      if (sem != null && sem !== 0 && sem !== Number(termKey)) continue;
+      if (!inTerm(subj, phase)) {
+        // Out of term, but the year has nothing in this term at all: the pool's
+        // never-empty guard serves the whole year, so the YEAR table counts it.
+        if (q.year != null && !yearHasTermQuestions[phase].has(q.year)) {
+          byYearScope[phase][q.year] = (byYearScope[phase][q.year] || 0) + 1;
+        }
+        continue;
+      }
       byVisibleSubjectScope[phase][subj] = (byVisibleSubjectScope[phase][subj] || 0) + 1;
       if (q.year != null) byYearScope[phase][q.year] = (byYearScope[phase][q.year] || 0) + 1;
       incrementNested(byTopicScope[phase], subj, topic);
@@ -265,6 +295,10 @@ for (const phase of PHASE_IDS) {
 }
 lines.push('};');
 lines.push('');
+lines.push('// What รวมทุกวิชา serves for a year under a phase. Follows the pool\'s');
+lines.push('// never-empty guard: a year with no questions in the phase\'s term keeps the');
+lines.push('// whole year, then the paper filter, so this is NOT always the sum of the');
+lines.push('// subject table above (years 1 and 3 under เทอม 1).');
 lines.push('export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {');
 for (const phase of PHASE_IDS) {
   lines.push(`  '${phase}': {`);

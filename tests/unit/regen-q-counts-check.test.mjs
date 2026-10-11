@@ -120,3 +120,68 @@ test('lint:all runs the q-counts check (through lint:data)', () => {
     'lint:data must include npm run lint:q-counts',
   );
 });
+
+// ── The year table follows the pool's never-empty guard (OV-content-27) ──
+// buildExamPool narrows a year to the phase's term and never empties it: years
+// 1 and 3 hold term-2 banks only, so under เทอม 1 the whole year is kept and
+// then the paper filter runs. The generator counted the term strictly, so the
+// year table had no year 1 or 3 under '1-mid'/'1-final' and the รวมทุกวิชา card
+// read 0 and was disabled, while the same button would have served 297.
+test('the year table prints what รวมทุกวิชา serves, for every year and phase', async () => {
+  const { QB, loadQB } = await import('../../src/data/questions.js');
+  const { buildExamPool } = await import('../../src/lib/exam-pool.js');
+  const { Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE, Q_VISIBLE_COUNTS_BY_YEAR } = await import('../../src/data/q-counts.js');
+  await loadQB();
+  const years = Object.keys(Q_VISIBLE_COUNTS_BY_YEAR).map(Number);
+  assert.ok(years.length >= 5, 'the bank did not load');
+  const faults = [];
+  for (const phase of ['1-mid', '1-final', '2-mid', '2-final']) {
+    for (const year of years) {
+      const printed = Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE[phase]?.[year] ?? 0;
+      const served = buildExamPool({ questions: QB, practiceMode: 'all', subject: 'all', topic: null, questionCategory: 'all', selectedYear: year, selectedPhase: phase }).length;
+      if (printed !== served) faults.push(`${phase} year ${year}: card ${printed}, served ${served}`);
+    }
+  }
+  assert.deepEqual(faults, []);
+});
+
+test('the รวมทุกวิชา card reads the year table once a paper is picked, not the sum of its subject cards', async (t) => {
+  // Stubbed tables: no subject holds anything for this phase, while the year
+  // table (which follows the pool's guard) says 42. The card must say 42.
+  const { loadModule, mount, settle, findAll, textOf } = await import('../helpers/fake-react.mjs');
+  const library = await import('../../src/lib/library.js');
+  globalThis.__allCardLibrary = { ...library, librarySubjectCounts: async () => new Map() };
+  const stubs = [
+    { match: '\.css$', contents: '' },
+    { match: '/components/Mochi\.jsx$', contents: 'export default () => null;' },
+    { match: '/hooks/useMotionPreferences\.js$', contents: 'export const useMotionPreferences = () => ({ reduced: true });' },
+    { match: '/lib/library\.js$', contents: `export const { ${Object.keys(library).join(', ')} } = globalThis.__allCardLibrary;` },
+    { match: '/data/questions\.js$', contents: 'export const QB = []; export const isQBYearLoaded = () => true; export const isQBFullyLoaded = () => true;' },
+    { match: '/data/q-counts\.js$', contents: `
+      export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = { '1-mid': {}, '2-final': {} };
+      export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = { '1-mid': { 1: 42 }, '2-final': {} };` },
+  ];
+  const { default: SubjectSelectView } = await loadModule('src/views/SubjectSelectView.jsx', { stubs });
+  const storage = () => { const m = new Map(); return { getItem: (k) => m.get(k) ?? null, setItem: (k, v) => m.set(k, String(v)), removeItem: (k) => m.delete(k) }; };
+  globalThis.sessionStorage = storage();
+  globalThis.localStorage = storage();
+  globalThis.window = { sessionStorage, localStorage, location: new URL('https://fixture.test/app/subjects'), addEventListener() {}, removeEventListener() {} };
+  t.after(() => { delete globalThis.window; delete globalThis.sessionStorage; delete globalThis.localStorage; });
+
+  const allCard = (tree) => findAll(tree, (n) => n.props.className?.split(/\s+/).includes('vmx-subject-card') && textOf(n).includes('รวมทุกวิชา'))[0];
+  const props = { selectedYear: 1, mode: 'quick', setSubject() {}, setTopic() {}, setPracticeMode() {}, setView() {} };
+
+  // The card's text runs its title straight into the number ("…Subjects42 ข้อ"),
+  // so the number is anchored on what precedes a digit, not on \b.
+  let view = mount(SubjectSelectView, { ...props, selectedPhase: '1-mid' });
+  await settle(view);
+  assert.match(textOf(allCard(view.tree)), /(?<!\d)42 ข้อ/, 'the year table is the card\'s number');
+  assert.equal(allCard(view.tree).props.disabled, false, 'and a year with questions is not greyed out');
+  view.unmount();
+
+  view = mount(SubjectSelectView, { ...props, selectedPhase: '2-final' });
+  await settle(view);
+  assert.match(textOf(allCard(view.tree)), /ยังไม่มีเนื้อหา/, 'a phase the year table has nothing for is the empty card, not a number');
+  assert.equal(allCard(view.tree).props.disabled, true);
+  view.unmount();
+});

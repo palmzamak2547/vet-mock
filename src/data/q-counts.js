@@ -333,14 +333,22 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
   },
 };
 
+// What รวมทุกวิชา serves for a year under a phase. Follows the pool's
+// never-empty guard: a year with no questions in the phase's term keeps the
+// whole year, then the paper filter, so this is NOT always the sum of the
+// subject table above (years 1 and 3 under เทอม 1).
 export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
   '1-mid': {
+    1: 297,
     2: 104,
+    3: 62,
     4: 139,
     5: 3322,
   },
   '1-final': {
+    1: 297,
     2: 104,
+    3: 62,
     4: 302,
     5: 1227,
   },
@@ -3230,4 +3238,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-10-11T13:37:24.115Z
+// Built: 2026-10-11T13:37:27.725Z

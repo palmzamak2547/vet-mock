@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { QB, isQBYearLoaded, isQBFullyLoaded } from '../data/questions.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, visibleQuestionCount, announced } from '../data/curriculum.js';
-import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
+import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE, Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE } from '../data/q-counts.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import BackBar from '../components/BackBar.jsx';
 import Mochi from '../components/Mochi.jsx';
@@ -220,10 +220,16 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           // ระบาดวิทยา under กลางภาค, a course with no midterm at all.
           const scopedCounts = Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE[selectedPhase] || null;
           // The all-card never falls back to a bank scan — it reads the memo or
-          // zero, once per year subject.
-          const countOf = (id) => (scopedCounts ? (scopedCounts[id] || 0) : (countBySubject.get(id) ?? 0));
+          // zero, once per year subject. With a paper picked it reads the YEAR
+          // table, not the sum of the subject cards: buildExamPool keeps a whole
+          // year whose term holds nothing (years 1 and 3 under เทอม 1), and the
+          // year table counts that way too. Summing the subject cards read 0
+          // and disabled a card whose button would have served 297.
+          const countOf = (id) => countBySubject.get(id) ?? 0;
           const count = s.id === 'all' && selectedYear
-            ? yearSubjects.reduce((n, y) => n + countOf(y.id), 0)
+            ? (scopedCounts
+              ? (Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE[selectedPhase]?.[selectedYear] || 0)
+              : yearSubjects.reduce((n, y) => n + countOf(y.id), 0))
             : (scopedCounts
               ? (scopedCounts[s.id] || 0)
               : (countBySubject.get(s.id) ?? visibleQuestionCount(s.id, allQuestions)));
