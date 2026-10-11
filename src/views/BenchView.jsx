@@ -14,6 +14,10 @@ import { MODULE5, ALL_CHECKS } from '../data/epi-module5.js';
 import ScreeningBench from '../components/ScreeningBench.jsx';
 
 const PROGRESS_KEY = 'vmx-epi-m5-progress-v1';
+const GROUPS = [
+  { id: 'core', label: 'บทเรียนหลัก' },
+  { id: 'extended', label: 'ช่วงขยาย' },
+];
 
 function readProgress() {
   try {
@@ -212,6 +216,19 @@ function Check({ check, cleared, onClear }) {
         <div className={`vmx-check__why ${correct ? 'is-right' : 'is-wrong'}`}>
           <p className="vmx-check__verdict">{correct ? 'ถูกต้อง' : 'ยังไม่ใช่'}</p>
           <p>{check.why}</p>
+          {/* A check locks after one pick, and "เริ่มนับใหม่" only appears once
+              something is cleared. Without this a student whose answers were
+              all wrong had no way to try again short of reloading. */}
+          {!correct && (
+            <button
+              type="button"
+              className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+              style={{ marginTop: 10 }}
+              onClick={() => setPicked(null)}
+            >
+              ลองอีกครั้ง
+            </button>
+          )}
         </div>
       )}
     </div>
@@ -266,10 +283,14 @@ export default function BenchView({ goHome }) {
     sectionRefs.current[id]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const groups = [
-    { id: 'core', label: 'บทเรียนหลัก', minutes: 60 },
-    { id: 'extended', label: 'ช่วงขยาย', minutes: 30 },
-  ];
+  // The minutes come from the sections themselves, so the contents list can
+  // never disagree with the times printed beside each section.
+  const groups = GROUPS.map((g) => ({
+    ...g,
+    minutes: MODULE5.sections
+      .filter((s) => s.group === g.id)
+      .reduce((sum, s) => sum + (s.minutes || 0), 0),
+  }));
 
   return (
     <div className="vmx-lesson">
