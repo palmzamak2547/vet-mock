@@ -176,14 +176,20 @@ test('a connected Google private document uses the saved Google provider', async
 });
 test('refresh compare-and-update keeps the owner and cannot revive a disconnected or reconnected row', async () => {
   const writes = [];
-  let current = { user_id: 'account-a', provider: 'google', access_token: 'expired-token', refresh_token: 'fixture-refresh', expires_at: '2000-01-01T00:00:00Z' };
+  // Real Google refresh tokens carry slashes and dots ("1//0g..."): the filter
+  // must survive URL encoding and still compare equal to the stored text.
+  let current = { user_id: 'account-a', provider: 'google', access_token: 'ya29.expired-token', refresh_token: '1//fixture-refresh.token', expires_at: '2000-01-01T00:00:00Z' };
   const deps = { url: 'https://fixture.supabase.test', key: 'fixture-key', fetch: async (raw, options = {}) => {
     if (options.method === 'PATCH') {
       const url = new URL(raw), body = JSON.parse(options.body);
       writes.push({ url, body });
       const matched = current?.user_id === url.searchParams.get('user_id').slice(3)
-        && current?.access_token === JSON.parse(url.searchParams.get('access_token').slice(3))
-        && current?.refresh_token === JSON.parse(url.searchParams.get('refresh_token').slice(3));
+        // PostgREST reads everything after a top-level `eq.` as the literal
+        // value (quotes are stripped only inside in.() lists and or/and
+        // trees), so the stub compares the raw value. A quoted filter
+        // matches no stored token and the refresh is thrown away.
+        && current?.access_token === url.searchParams.get('access_token').slice(3)
+        && current?.refresh_token === url.searchParams.get('refresh_token').slice(3);
       if (matched) current = { ...current, ...body };
       return { ok: true, json: async () => matched ? [{ user_id: current.user_id }] : [] };
     }
@@ -196,6 +202,8 @@ test('refresh compare-and-update keeps the owner and cannot revive a disconnecte
   const result = await refreshGoogleAccess(row, deps);
   assert.equal(result.accessToken, 'fresh-fixture-token');
   assert.equal(writes[0].url.searchParams.get('user_id'), 'eq.account-a');
+  assert.equal(writes[0].url.searchParams.get('access_token'), 'eq.ya29.expired-token', 'the compare-and-swap filters on the raw stored token, never a JSON-quoted one');
+  assert.equal(writes[0].url.searchParams.get('refresh_token'), 'eq.1//fixture-refresh.token');
   assert.equal(writes[0].body.user_id, undefined);
   assert.equal(current.access_token, 'fresh-fixture-token');
   current = null;
@@ -221,8 +229,8 @@ test('concurrent Google refreshes reuse only a fresh token from the same survivi
       if (options.method === 'PATCH') {
         const body = JSON.parse(options.body);
         writes.push(body);
-        const matched = current?.user_id === row.user_id && current?.access_token === JSON.parse(url.searchParams.get('access_token').slice(3))
-          && current?.refresh_token === JSON.parse(url.searchParams.get('refresh_token').slice(3));
+        const matched = current?.user_id === row.user_id && current?.access_token === url.searchParams.get('access_token').slice(3)
+          && current?.refresh_token === url.searchParams.get('refresh_token').slice(3);
         if (matched) current = { ...current, ...body };
         return { ok: true, json: async () => matched ? [{ user_id: row.user_id }] : [] };
       }

@@ -345,8 +345,12 @@ export async function refreshGoogleAccess(row, deps = {}) {
     if (!data?.access_token) return null;
     const expiresAt = data.expires_in ? new Date(Date.now() + data.expires_in * 1000).toISOString() : null;
     const { url, key } = { ...supabaseEnv(), ...rest };
+    // PostgREST takes everything after a top-level `eq.` as the literal value
+    // (quotes are stripped only inside in.() lists and or/and trees), so the
+    // stored token goes in raw. A JSON-quoted value matched no row, and every
+    // refreshed token was thrown away an hour after each consent.
     const saved = await restFetch(
-      `/rest/v1/external_connections?user_id=eq.${encodeURIComponent(row.user_id)}&provider=eq.google&access_token=eq.${encodeURIComponent(JSON.stringify(row.access_token))}&refresh_token=eq.${encodeURIComponent(JSON.stringify(row.refresh_token))}&select=user_id`,
+      `/rest/v1/external_connections?user_id=eq.${encodeURIComponent(row.user_id)}&provider=eq.google&access_token=eq.${encodeURIComponent(row.access_token)}&refresh_token=eq.${encodeURIComponent(row.refresh_token)}&select=user_id`,
       { url, key, fetch, method: 'PATCH', body: {
         access_token: data.access_token, refresh_token: data.refresh_token || row.refresh_token, expires_at: expiresAt,
       } },
