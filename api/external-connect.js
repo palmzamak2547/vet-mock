@@ -13,6 +13,11 @@ import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib
 import { getUserFromRequest, listConnections, deleteConnection } from './_lib/external-connections.js';
 
 const PROVIDERS = new Set(['google', 'notion']);
+const HOUR_MS = 60 * 60 * 1000;
+// Status is read on every visit to the external tab, and a lecture hall
+// shares one campus address: a wide address ceiling, the budget per account.
+const IP_CEILING_PER_HOUR = 600;
+const USER_CALLS_PER_HOUR = 60;
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store');
@@ -31,12 +36,14 @@ export default async function handler(req, res) {
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
 
   const ip = clientIP(req);
-  const rl = await rateLimit(`external-connect-manage:${ip}`, 30, 60 * 60 * 1000);
+  const rl = await rateLimit(`external-connect-manage-ip:${ip}`, IP_CEILING_PER_HOUR, HOUR_MS);
   if (!rl.ok) return sendRateLimitFailure(res, rl);
 
   try {
     const userId = await getUserFromRequest(req);
     if (!userId) return res.status(401).json({ error: 'Sign in required', reason: 'login_required' });
+    const userLimit = await rateLimit(`external-connect-manage-user:${userId}`, USER_CALLS_PER_HOUR, HOUR_MS);
+    if (!userLimit.ok) return sendRateLimitFailure(res, userLimit);
 
     const action = String(req.body?.action || '');
     if (action === 'status') {

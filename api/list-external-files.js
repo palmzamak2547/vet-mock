@@ -3,6 +3,12 @@ import { allowedOrigin, clientIP, rateLimit, sendRateLimitFailure } from './_lib
 import { normalizeExternalDocUrl } from './_lib/external-doc.js';
 
 const TIMEOUT_MS = 10000;
+const HOUR_MS = 60 * 60 * 1000;
+// The external tab lists each connected provider's files on every visit,
+// and a lecture hall shares one campus address. The address gets a ceiling
+// only; the real budget belongs to the signed-in account.
+const IP_CEILING_PER_HOUR = 600;
+const USER_LISTS_PER_HOUR = 60;
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store');
@@ -21,13 +27,15 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'method_not_allowed' });
   }
   if (req.headers.origin && !origin) return res.status(403).json({ error: 'Origin not allowed' });
-  const limit = await rateLimit(`external-files:${clientIP(req)}`, 60, 60 * 60 * 1000);
-  if (!limit.ok) return sendRateLimitFailure(res, limit);
-  
+  const ceiling = await rateLimit(`external-files-ip:${clientIP(req)}`, IP_CEILING_PER_HOUR, HOUR_MS);
+  if (!ceiling.ok) return sendRateLimitFailure(res, ceiling);
+
   const userId = await getUserFromRequest(req);
   if (!userId) {
     return res.status(401).json({ error: 'login_required' });
   }
+  const limit = await rateLimit(`external-files-user:${userId}`, USER_LISTS_PER_HOUR, HOUR_MS);
+  if (!limit.ok) return sendRateLimitFailure(res, limit);
 
   const provider = req.query.provider;
   if (provider !== 'google' && provider !== 'notion') {

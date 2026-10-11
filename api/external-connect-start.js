@@ -17,6 +17,11 @@ import { randomUUID } from 'node:crypto';
 
 const PROVIDERS = new Set(['google', 'notion']);
 const STATE_TTL_SECONDS = 600;
+const HOUR_MS = 60 * 60 * 1000;
+// A class may connect together from one campus address, so the address gets
+// a wide ceiling and the per-person budget is keyed on the account.
+const IP_STARTS_PER_HOUR = 120;
+const USER_STARTS_PER_HOUR = 10;
 
 /** Where the deployment is actually serving from (Vercel fills the forwarded headers). */
 function requestOrigin(req) {
@@ -42,12 +47,14 @@ export default async function handler(req, res) {
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
 
   const ip = clientIP(req);
-  const rl = await rateLimit(`external-connect-start:${ip}`, 10, 60 * 60 * 1000);
+  const rl = await rateLimit(`external-connect-start:${ip}`, IP_STARTS_PER_HOUR, HOUR_MS);
   if (!rl.ok) return sendRateLimitFailure(res, rl);
 
   try {
     const userId = await getUserFromRequest(req);
     if (!userId) return res.status(401).json({ error: 'Sign in required', reason: 'login_required' });
+    const userLimit = await rateLimit(`external-connect-start-user:${userId}`, USER_STARTS_PER_HOUR, HOUR_MS);
+    if (!userLimit.ok) return sendRateLimitFailure(res, userLimit);
 
     const provider = String(req.query?.provider || '');
     if (!PROVIDERS.has(provider)) {

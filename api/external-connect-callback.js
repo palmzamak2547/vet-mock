@@ -55,8 +55,10 @@ export default async function handler(req, res) {
 
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
+  // Each callback answers one start, which is already limited per account;
+  // the address ceiling only has to let a class finish connecting together.
   const ip = clientIP(req);
-  const rl = await rateLimit(`external-connect-callback:${ip}`, 20, 60 * 60 * 1000);
+  const rl = await rateLimit(`external-connect-callback:${ip}`, 120, 60 * 60 * 1000);
   if (!rl.ok) return sendRateLimitFailure(res, rl);
 
   try {

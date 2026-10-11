@@ -19,8 +19,12 @@
 //   3. Size — an upstream answer that cannot fit the reader is refused
 //      outright rather than silently truncated.
 //
-// Follows the api/wiki-explain.js contract exactly: origin-aware CORS,
-// per-IP rate limit, honest 503 when the integration is not configured.
+// Follows the api/wiki-explain.js contract: origin-aware CORS and an honest
+// 503 when the integration is not configured. Rate limits are shaped for a
+// lecture hall behind one campus address: a generous per-address ceiling
+// covers every request, a shared-cache hit costs nothing more, and only an
+// upstream read spends a budget, keyed on the student's account when they
+// are signed in and on the address only for guests.
 // ============================================================
 
 import {
@@ -39,6 +43,10 @@ const NOTION_VERSION = '2026-03-11'; // the dated version that serves /pages/{id
 const NOTION_API = 'https://api.notion.com/v1';
 const TIMEOUT_MS = 15_000;
 const MAX_NOTION_PAGES = 10;
+const HOUR_MS = 60 * 60 * 1000;
+const IP_CEILING_PER_HOUR = 600;      // every request from one address, cache hits included
+const USER_READS_PER_HOUR = 60;       // upstream reads for one signed-in account
+const GUEST_IP_READS_PER_HOUR = 40;   // upstream reads for guests sharing one address
 
 /** A login/consent wall comes back as 200 with an HTML shell — never read it as content. */
 function looksLikeHtml(text) {
@@ -307,8 +315,8 @@ export default async function handler(req, res) {
   if (reqOrigin && !allowed) return res.status(403).json({ error: 'Origin not allowed' });
 
   const ip = clientIP(req);
-  const rl = await rateLimit(`external-doc:${ip}`, 20, 60 * 60 * 1000);
-  if (!rl.ok) return sendRateLimitFailure(res, rl);
+  const ceiling = await rateLimit(`external-doc-ip:${ip}`, IP_CEILING_PER_HOUR, HOUR_MS);
+  if (!ceiling.ok) return sendRateLimitFailure(res, ceiling);
 
   try {
     const rawUrl = typeof req.body?.url === 'string' ? req.body.url.trim() : '';
@@ -329,7 +337,21 @@ export default async function handler(req, res) {
     const userId = await getUserFromRequest(req);
     const connection = userId ? await getConnection({ userId, provider: target.provider === 'notion' ? 'notion' : 'google' }) : null;
 
+    // One upstream budget per request, spent at most once: the connected
+    // attempt and a public fallback after it are the same student's read.
+    let upstreamCharged = false;
+    const chargeUpstream = async () => {
+      if (upstreamCharged) return null;
+      upstreamCharged = true;
+      const limit = userId
+        ? await rateLimit(`external-doc-user:${userId}`, USER_READS_PER_HOUR, HOUR_MS)
+        : await rateLimit(`external-doc:${ip}`, GUEST_IP_READS_PER_HOUR, HOUR_MS);
+      return limit.ok ? null : limit;
+    };
+
     if (connection?.access_token) {
+      const limited = await chargeUpstream();
+      if (limited) return sendRateLimitFailure(res, limited);
       let markdown = null;
       let title = null;
       try {
@@ -377,6 +399,8 @@ export default async function handler(req, res) {
     if (cached && typeof cached.markdown === 'string') {
       return res.status(200).json({ ...cached, cached: true });
     }
+    const limited = await chargeUpstream();
+    if (limited) return sendRateLimitFailure(res, limited);
 
     let markdown = null;
     let title = null;
