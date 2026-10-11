@@ -24,6 +24,7 @@ import {
   PROVIDER_LABELS,
   CONNECT_PROVIDER_LABELS,
   connectMessageFor,
+  connectNoticeFor,
   fetchExternalDoc,
   fetchExternalConnections,
   disconnectExternalConnection,
@@ -145,8 +146,13 @@ export default function ExternalDocsSection({ user }) {
     if (intent.connected && Object.hasOwn(CONNECT_PROVIDER_LABELS, intent.connected)) {
       setNotice(`เชื่อมต่อ${CONNECT_PROVIDER_LABELS[intent.connected]}สำเร็จแล้ว`);
     } else if (intent.connectError) {
-      setError(connectMessageFor(intent.connectError));
-      setStatus('error');
+      const neutral = connectNoticeFor(intent.connectError);
+      if (neutral) {
+        setNotice(neutral);
+      } else {
+        setError(connectMessageFor(intent.connectError));
+        setStatus('error');
+      }
     }
     if (typeof window !== 'undefined' && window.history?.replaceState) {
       const next = new URL(window.location.href);

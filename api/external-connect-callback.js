@@ -2,8 +2,10 @@
 // /api/external-connect/callback.js — finish a Notion / Google OAuth flow
 // ============================================================
 // The consent screen lands here with ?code&state&provider. Every outcome
-// redirects back to /app/external-docs (success ?connected=, failure
-// ?connect_error=) so the student is never left on a JSON error page.
+// redirects back to the library's external tab, /app/library (success
+// ?connected=, failure ?connect_error=), so the student is never left on a
+// JSON error page. Pressing Cancel on the consent screen comes back as
+// error=access_denied and is reported as cancelled, not as a failure.
 //
 // Acceptance, in order: the provider is known, the query state equals the
 // HttpOnly cookie this browser received at start time, the state
@@ -64,6 +66,8 @@ export default async function handler(req, res) {
   try {
     const provider = String(req.query?.provider || '');
     if (!PROVIDERS.has(provider)) return fail('unsupported_provider');
+    // RFC 6749 4.1.2.1: the student declined. Nothing is stored either way.
+    if (String(req.query?.error || '') === 'access_denied') return fail('cancelled');
 
     const state = String(req.query?.state || '');
     const cookieState = cookieValue(req, OAUTH_STATE_COOKIE);

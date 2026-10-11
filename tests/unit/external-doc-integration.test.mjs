@@ -5,12 +5,14 @@ import handler from '../../api/fetch-external-doc.js';
 import { getConnection, refreshGoogleAccess } from '../../api/_lib/external-connections.js';
 import manageConnections from '../../api/external-connect.js';
 import listFiles from '../../api/list-external-files.js';
+import callback from '../../api/external-connect-callback.js';
 
 const { default: ExternalDocsSection } = await loadModule('src/components/ExternalDocsSection.jsx', { stubs: [
   { match: '/lib/external-doc-client\\.js$', contents: `
     export const PROVIDER_LABELS = { gdocs: 'Google Docs', notion: 'Notion' };
     export const CONNECT_PROVIDER_LABELS = { google: 'Google', notion: 'Notion' };
     export const connectMessageFor = () => 'Connection failed';
+    export const connectNoticeFor = reason => reason === 'cancelled' ? 'Consent cancelled notice' : null;
     export const fetchExternalDoc = (...a) => globalThis.__externalProbe.fetchExternalDoc(...a);
     export const fetchExternalConnections = (...a) => globalThis.__externalProbe.fetchExternalConnections(...a);
     export const disconnectExternalConnection = (...a) => globalThis.__externalProbe.disconnectExternalConnection(...a);
@@ -91,6 +93,33 @@ test('Google connect inside the LINE app browser explains the way out instead of
   const notion = findAll(view.tree, n => n.type === 'button' && textOf(n) === 'เชื่อมต่อ')[1];
   await notion.props.onClick(); view.flush();
   assert.equal(starts, 1, 'Notion consent still opens');
+});
+
+test('cancelling on the consent screen comes back as a plain notice, a real failure as an alert', async t => {
+  const previousWindow = globalThis.window;
+  t.after(() => { globalThis.window = previousWindow; });
+  for (const [search, expectAlert] of [['?connect_error=cancelled', false], ['?connect_error=exchange', true]]) {
+    const replaced = [];
+    globalThis.window = { location: { href: `https://vetmock.com/app/library${search}`, search },
+      history: { state: null, replaceState: (_s, _t, url) => replaced.push(String(url)) } };
+    const view = setup(t); await settle(view, 1);
+    const alerts = findAll(view.tree, n => n.props?.role === 'alert');
+    const notes = findAll(view.tree, n => n.props?.role === 'status' && textOf(n) === 'Consent cancelled notice');
+    assert.equal(alerts.length > 0, expectAlert, search);
+    assert.equal(notes.length, expectAlert ? 0 : 1, search);
+    assert.doesNotMatch(replaced.at(-1), /connect_error/, 'the outcome is announced once');
+    view.unmount();
+  }
+});
+
+test('the OAuth callback reports Cancel on the consent screen as cancelled', async t => {
+  backend(t, () => { throw new Error('a cancelled consent must not call anything'); });
+  const res = response();
+  await callback({ method: 'GET', query: { provider: 'google', state: 'any', error: 'access_denied' },
+    headers: { host: 'vetmock.test' }, socket: { remoteAddress: '10.98.1.3' } }, res);
+  assert.equal(res.statusCode, 302);
+  assert.equal(res.headers.location, '/app/library?connect_error=cancelled');
+  assert.match(res.headers['set-cookie'], /vmx-oc=; Max-Age=0/);
 });
 
 test('a failed disconnect remains connected and displays an actionable error', async t => {
@@ -180,7 +209,7 @@ test('a failed status retry leaves existing file requests able to settle', async
 });
 
 const response = () => ({ statusCode: 200, headers: {}, body: null,
-  setHeader(k, v) { this.headers[k.toLowerCase()] = v; }, status(c) { this.statusCode = c; return this; },
+  setHeader(k, v) { this.headers[k.toLowerCase()] = v; return this; }, status(c) { this.statusCode = c; return this; },
   json(b) { this.body = b; return this; }, end() { return this; } });
 test('a connected Google private document uses the saved Google provider', async t => {
   const priorFetch = globalThis.fetch;

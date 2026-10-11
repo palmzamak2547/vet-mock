@@ -64,6 +64,17 @@ export function connectMessageFor(reason) {
   return CONNECT_MESSAGES[reason] || CONNECT_MESSAGES.default;
 }
 
+// Outcomes the callback reports that are the student's own choice, not a
+// failure: shown as a plain notice, never as an error alert.
+const CONNECT_NOTICES = {
+  cancelled: 'ยังไม่ได้เชื่อมบัญชี เพราะกดยกเลิกที่หน้าให้สิทธิ์ กดเชื่อมต่อใหม่ได้เมื่อพร้อม',
+};
+
+/** The neutral notice for a callback outcome, or null when it is an error. */
+export function connectNoticeFor(reason) {
+  return Object.hasOwn(CONNECT_NOTICES, reason) ? CONNECT_NOTICES[reason] : null;
+}
+
 /** The signed-in student's Supabase access token, or null. */
 async function accessToken(ownerId) {
   if (!ownerId) return null;

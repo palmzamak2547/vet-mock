@@ -81,3 +81,10 @@ test('request timeout settles as a retryable error and aborts upstream fetch', a
   assert.equal(result.ok, false); assert.equal(result.reason, 'timeout');
   assert.equal(result.aborted, false); assert.equal(signal.aborted, true);
 });
+
+test('Cancel on the consent screen is a plain notice, never one of the error messages', () => {
+  assert.match(client.connectNoticeFor('cancelled'), /กดยกเลิกที่หน้าให้สิทธิ์/);
+  for (const reason of ['code', 'state', 'exchange', 'store', 'unknown', '__proto__', 'toString']) {
+    assert.equal(client.connectNoticeFor(reason), null, reason);
+  }
+});
