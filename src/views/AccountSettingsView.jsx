@@ -3,7 +3,7 @@
 // ============================================================
 // Sections:
 //   • Profile info (email + username, read-only)
-//   • Change password
+//   • Change password (not for LINE-only accounts: see lib/line-account.js)
 //   • Change email (sends verify link to new email)
 //   • Logout all devices (security)
 //   • Delete account (danger zone — best-effort client-side delete)
@@ -37,6 +37,13 @@ import {
 } from '../lib/auth-utils.js';
 import BackBar from '../components/BackBar.jsx';
 import { confirmDialog } from '../lib/dialog.js';
+import { isSyntheticLineEmail } from '../lib/line-account.js';
+
+// Typed to confirm a delete. Thai only, so nobody switches keyboards halfway.
+const DELETE_PHRASE = 'ลบบัญชี';
+// A LINE-only account has no mailbox for the reauth code, so it cannot set a
+// password until it has a real email (OV-data-9).
+const LINE_ONLY_PASSWORD = 'บัญชีนี้เข้าด้วย LINE เพิ่มอีเมลจริงก่อนจึงตั้งรหัสผ่านได้';
 
 export default function AccountSettingsView({ user, goHome, onSignedOut, coreData }) {
   const [section, setSection] = useState(null); // null | 'profile' | 'password' | 'email' | 'delete'
@@ -58,7 +65,9 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
 
   // Profile-edit form state — pre-populated from current user_metadata
   const md = user?.user_metadata || {};
-  const [editUsername, setEditUsername] = useState(md.username || user?.email?.split('@')[0] || '');
+  // The LINE placeholder's local part is line_<sub>, never a username to offer.
+  const lineOnly = isSyntheticLineEmail(user);
+  const [editUsername, setEditUsername] = useState(md.username || (lineOnly ? '' : user?.email?.split('@')[0]) || '');
   const [editYear, setEditYear] = useState(md.year ?? '');
   const [editCohort, setEditCohort] = useState(md.cohort || '');
   const [editAvatar, setEditAvatar] = useState(md.avatar_emoji || '🐾');
@@ -70,13 +79,13 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
       <>
         <BackBar onBack={goHome} label="หน้าแรก" />
         <div className="vmx-empty" style={{ marginTop: 40 }}>
-          ต้อง login ก่อนเข้าหน้านี้
+          ต้องเข้าสู่ระบบก่อนเปิดหน้านี้
         </div>
       </>
     );
   }
 
-  const email = user.email || '(no email)';
+  const email = user.email || '';
   const username = user.user_metadata?.username || '—';
 
   const reset = () => { setError(''); setInfo(''); };
@@ -90,7 +99,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
       const currentUsername = md.username || '';
       if (editUsername && editUsername !== currentUsername) {
         const v = validateUsername(editUsername);
-        if (!v.ok) { setError(`Username: ${v.reason}`); setLoading(false); return; }
+        if (!v.ok) { setError(`ชื่อผู้ใช้: ${v.reason}`); setLoading(false); return; }
         await updateUsername(editUsername);
       }
       // Other profile fields → user_metadata in one batched updateUser call
@@ -176,6 +185,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
   const handleRequestReauth = async (e) => {
     e?.preventDefault();
     reset();
+    if (lineOnly) { setError(LINE_ONLY_PASSWORD); return; }
     if (newPassword.length < 8) { setError('รหัสผ่านใหม่ต้องยาว 8 ตัวขึ้นไป'); return; }
     if (newPassword !== newPasswordConfirm) { setError('รหัสผ่านยืนยันไม่ตรงกัน'); return; }
     setLoading(true);
@@ -214,7 +224,10 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
     setLoading(true);
     try {
       await updateEmail(newEmail.trim());
-      setInfo(`✓ ส่งลิงก์ยืนยันไปที่ ${newEmail} แล้ว — กดลิงก์ในอีเมลใหม่เพื่อยืนยัน, อีเมลเก่ายังใช้ login ได้จนกว่าจะยืนยัน`);
+      // A LINE-only account has no old email to keep using, so it is not promised one.
+      setInfo(lineOnly
+        ? `✓ ส่งลิงก์ยืนยันไปที่ ${newEmail} แล้ว — กดลิงก์ในอีเมลนั้นเพื่อยืนยัน`
+        : `✓ ส่งลิงก์ยืนยันไปที่ ${newEmail} แล้ว — กดลิงก์ในอีเมลใหม่เพื่อยืนยัน อีเมลเก่ายังใช้เข้าสู่ระบบได้จนกว่าจะยืนยัน`);
       setNewEmail('');
       setTimeout(() => { setSection(null); setInfo(''); }, 4000);
     } catch (err) {
@@ -223,12 +236,12 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
   };
 
   const handleLogoutAll = async () => {
-    if (!(await confirmDialog({ title: 'ออกจากระบบทุกเครื่อง?', body: 'ต้อง login ใหม่ทุกเครื่องที่เคยเข้าไว้', confirmLabel: 'ออกทุกเครื่อง', tone: 'danger' }))) return;
+    if (!(await confirmDialog({ title: 'ออกจากระบบทุกเครื่อง?', body: 'ต้องเข้าสู่ระบบใหม่ทุกเครื่องที่เคยเข้าไว้', confirmLabel: 'ออกทุกเครื่อง', tone: 'danger' }))) return;
     reset();
     setLoading(true);
     try {
       await signOutAllDevices();
-      setInfo('✓ Logout ทุก device แล้ว');
+      setInfo('✓ ออกจากระบบทุกเครื่องแล้ว');
       if (onSignedOut) onSignedOut();
     } catch (err) {
       setError(thaiAuthError(err));
@@ -249,8 +262,8 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
   const handleDelete = async (e) => {
     e?.preventDefault();
     reset();
-    if (deleteConfirmText !== 'ลบ account') {
-      setError('พิมพ์ "ลบ account" ให้ตรงเพื่อยืนยัน');
+    if (deleteConfirmText !== DELETE_PHRASE) {
+      setError(`พิมพ์ "${DELETE_PHRASE}" ให้ตรงเพื่อยืนยัน`);
       return;
     }
     if (!(await confirmDialog({ title: 'ลบบัญชีถาวร?', body: 'ความคืบหน้า คะแนน และ bookmarks ทั้งหมดจะหายไป', note: 'กู้คืนไม่ได้', confirmLabel: 'ลบบัญชี', tone: 'danger' }))) return;
@@ -283,7 +296,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
       }
       setInfo(result.devicePurged === false
         ? '✓ ลบบัญชีสำเร็จและออกจากระบบแล้ว แต่ล้างข้อมูลบางส่วนในเครื่องนี้ไม่สำเร็จ ลบข้อมูลเว็บไซต์ในการตั้งค่าเบราว์เซอร์เองได้'
-        : '✓ ลบ account สำเร็จ — Logout แล้ว');
+        : '✓ ลบบัญชีสำเร็จและออกจากระบบแล้ว');
       setTimeout(() => {
         if (onSignedOut) onSignedOut();
       }, 2000);
@@ -298,36 +311,37 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
 
       <div className="vmx-hero">
         <h1>ตั้งค่า <em>บัญชี</em></h1>
-        <p>จัดการ account, เปลี่ยนรหัสผ่าน อีเมล หรือลบ account</p>
+        <p>จัดการบัญชี เปลี่ยนรหัสผ่าน อีเมล หรือลบบัญชี</p>
       </div>
 
       <div className="vmx-config-panel" style={{ maxWidth: 560, margin: '0 auto' }}>
         {/* Profile info — read-only summary + last sign-in metadata */}
         <Card>
-          <h3 style={cardHeading}>ข้อมูล account</h3>
-          <KV label="อีเมล" value={
+          <h3 style={cardHeading}>ข้อมูลบัญชี</h3>
+          {/* The LINE placeholder is not the student's email; it is never printed. */}
+          <KV label="อีเมล" value={lineOnly ? 'ยังไม่มีอีเมล (เข้าด้วย LINE)' : !email ? 'ยังไม่มีอีเมล' : (
             <>
               {email}
               {user.email_confirmed_at
                 ? <span style={{ marginLeft: 6, color: 'var(--clr-sage-text)', fontSize: 11 }}>✓ ยืนยันแล้ว</span>
                 : <span style={{ marginLeft: 6, color: 'var(--clr-gold-text)', fontSize: 11 }}>ยังไม่ยืนยัน</span>}
             </>
-          } />
-          <KV label="Username" value={
+          )} />
+          <KV label="ชื่อผู้ใช้" value={
             <>
               {md.avatar_emoji || ''} {username}
             </>
           } />
           {md.year && <KV label="ชั้นปี" value={`ปี ${md.year}${md.cohort ? `, ${md.cohort}` : ''}`} />}
-          {md.bio && <KV label="Bio" value={<span style={{ maxWidth: 280, textAlign: 'right' }}>{md.bio}</span>} />}
+          {md.bio && <KV label="แนะนำตัว" value={<span style={{ maxWidth: 280, textAlign: 'right' }}>{md.bio}</span>} />}
           {user.last_sign_in_at && (
-            <KV label="Login ล่าสุด" value={
+            <KV label="เข้าสู่ระบบล่าสุด" value={
               <span title={new Date(user.last_sign_in_at).toLocaleString('th-TH')}>
                 {timeAgoTh(user.last_sign_in_at)}
               </span>
             } />
           )}
-          <KV label="User ID" value={<code style={{ fontSize: 11 }}>{user.id?.slice(0, 8)}…</code>} />
+          <KV label="รหัสบัญชี" value={<code style={{ fontSize: 11 }}>{user.id?.slice(0, 8)}…</code>} />
         </Card>
 
         {/* Edit profile (year + cohort + avatar + bio + privacy) */}
@@ -335,12 +349,12 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
           <h3 style={cardHeading}>แก้ไขโปรไฟล์</h3>
           {section !== 'profile' ? (
             <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { reset(); setSection('profile'); }}>
-              แก้ไข username, ชั้นปี, avatar, bio, privacy →
+              แก้ไขชื่อผู้ใช้ ชั้นปี รูปโปรไฟล์ และแนะนำตัว →
             </button>
           ) : (
             <form onSubmit={handleSaveProfile}>
               <div className="vmx-form-group">
-                <label htmlFor="vmx-account-username">Username</label>
+                <label htmlFor="vmx-account-username">ชื่อผู้ใช้</label>
                 <input
                   id="vmx-account-username"
                   type="text"
@@ -368,7 +382,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
                   </select>
                 </div>
                 <div className="vmx-form-group" style={{ flex: 1, minWidth: 140 }}>
-                  <label htmlFor="vmx-account-cohort">Cohort</label>
+                  <label htmlFor="vmx-account-cohort">รุ่น</label>
                   <input
                     id="vmx-account-cohort"
                     type="text"
@@ -379,7 +393,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
                   />
                 </div>
                 <div className="vmx-form-group" style={{ flex: '0 0 90px' }}>
-                  <label htmlFor="vmx-account-avatar">Avatar</label>
+                  <label htmlFor="vmx-account-avatar">รูปโปรไฟล์</label>
                   <input
                     id="vmx-account-avatar"
                     type="text"
@@ -392,7 +406,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
                 </div>
               </div>
               <div className="vmx-form-group">
-                <label htmlFor="vmx-account-bio">Bio (≤140 ตัว)</label>
+                <label htmlFor="vmx-account-bio">แนะนำตัว (ไม่เกิน 140 ตัวอักษร)</label>
                 <textarea
                   id="vmx-account-bio"
                   value={editBio}
@@ -413,7 +427,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
                     checked={editShowLb}
                     onChange={(e) => setEditShowLb(e.target.checked)}
                   />
-                  แสดงบน Leaderboard (ปิดถ้าอยากเก็บ progress เป็น private)
+                  แสดงในอันดับคะแนน (ปิดไว้ถ้าอยากเก็บความคืบหน้าเป็นส่วนตัว)
                 </label>
               </div>
               <div style={{ display: 'flex', gap: 8 }}>
@@ -477,8 +491,14 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
 
         {/* Change password */}
         <Card>
-          <h3 style={cardHeading}>เปลี่ยนรหัสผ่าน</h3>
-          {section !== 'password' ? (
+          <h3 style={cardHeading}>{lineOnly ? 'ตั้งรหัสผ่าน' : 'เปลี่ยนรหัสผ่าน'}</h3>
+          {lineOnly ? (
+            /* The reauth code would go to the LINE placeholder, which no mail
+               reaches, so the form could never finish. Say what to do instead. */
+            <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', margin: 0, lineHeight: 1.6 }}>
+              {LINE_ONLY_PASSWORD}
+            </p>
+          ) : section !== 'password' ? (
             <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { reset(); setSection('password'); }}>
               เปลี่ยนรหัสผ่าน →
             </button>
@@ -525,10 +545,10 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
 
         {/* Change email */}
         <Card>
-          <h3 style={cardHeading}>เปลี่ยนอีเมล</h3>
+          <h3 style={cardHeading}>{lineOnly ? 'เพิ่มอีเมล' : 'เปลี่ยนอีเมล'}</h3>
           {section !== 'email' ? (
             <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { reset(); setSection('email'); }}>
-              เปลี่ยนอีเมล →
+              {lineOnly ? 'เพิ่มอีเมล →' : 'เปลี่ยนอีเมล →'}
             </button>
           ) : (
             <form onSubmit={handleChangeEmail}>
@@ -553,7 +573,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
 
         {/* Export data — GDPR portability + offline backup */}
         <Card>
-          <h3 style={cardHeading}>Export ข้อมูล</h3>
+          <h3 style={cardHeading}>ส่งออกข้อมูล</h3>
           <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
             ดาวน์โหลด progress ทั้งหมด (bookmarks, history, notes, custom Q, streak) เป็น JSON
           </p>
@@ -564,55 +584,55 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
 
         {/* Logout all devices */}
         <Card>
-          <h3 style={cardHeading}>Session</h3>
+          <h3 style={cardHeading}>ออกจากระบบ</h3>
           <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
-            Logout ครั้งเดียวจากทุก device — ใช้ตอนสงสัยว่ารหัสรั่ว
+            ออกจากระบบทุกเครื่องในครั้งเดียว ใช้ตอนสงสัยว่ารหัสรั่ว
           </p>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
             <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleSignOut} disabled={loading}>
-              Logout (เฉพาะ device นี้)
+              ออกจากระบบเฉพาะเครื่องนี้
             </button>
             <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleLogoutAll} disabled={loading} style={{ borderColor: 'var(--clr-gold)' }}>
-              Logout ทุก device
+              ออกจากระบบทุกเครื่อง
             </button>
           </div>
         </Card>
 
         {/* Danger zone — delete account */}
         <Card style={{ borderColor: 'var(--clr-rose)', borderWidth: 1, borderStyle: 'solid' }}>
-          <h3 style={{ ...cardHeading, color: 'var(--clr-rose-text)' }}>Danger Zone</h3>
+          <h3 style={{ ...cardHeading, color: 'var(--clr-rose-text)' }}>ลบบัญชี</h3>
           {section !== 'delete' ? (
             <>
               <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
-                ลบ account + ข้อมูลทั้งหมด, ไม่สามารถกู้คืนได้
+                ลบบัญชีและข้อมูลทั้งหมด กู้คืนไม่ได้
               </p>
               <button
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"
                 onClick={() => { reset(); setSection('delete'); }}
                 style={{ color: 'var(--clr-rose-text)', borderColor: 'var(--clr-rose)' }}
               >
-                ลบ account →
+                ลบบัญชี →
               </button>
             </>
           ) : (
             <form onSubmit={handleDelete}>
               <div style={{ padding: 12, borderRadius: 8, background: 'var(--clr-rose-soft)', marginBottom: 12, fontSize: 12, lineHeight: 1.6 }}>
-                <strong>การลบ account จะ:</strong>
+                <strong>การลบบัญชีจะ:</strong>
                 <ul style={{ margin: '6px 0 0 16px', padding: 0 }}>
-                  <li>ลบ progress, scores, bookmarks และข้อมูลของบัญชีนี้ทั้งหมด ทั้งในบัญชีและในเครื่องนี้</li>
+                  <li>ลบความคืบหน้า คะแนน bookmarks และข้อมูลของบัญชีนี้ทั้งหมด ทั้งในบัญชีและในเครื่องนี้</li>
                   <li>Flashcard ชุดปิดภาพ และ Pinboard เก็บไว้ในเบราว์เซอร์นี้ ไม่ได้อยู่ในบัญชี จึงไม่ถูกลบ ลบเองได้จากหน้าเครื่องมือนั้น หรือล้างข้อมูลเว็บไซต์ในเบราว์เซอร์</li>
-                  <li>Logout จากทุก device</li>
+                  <li>ออกจากระบบทุกเครื่อง</li>
                   <li>ไม่สามารถกู้คืนได้</li>
                 </ul>
               </div>
               <div className="vmx-form-group">
-                <label htmlFor="vmx-account-delete-confirm">พิมพ์ <code>ลบ account</code> เพื่อยืนยัน</label>
+                <label htmlFor="vmx-account-delete-confirm">พิมพ์ <code>{DELETE_PHRASE}</code> เพื่อยืนยัน</label>
                 <input
                   id="vmx-account-delete-confirm"
                   type="text"
                   value={deleteConfirmText}
                   onChange={(e) => setDeleteConfirmText(e.target.value)}
-                  placeholder="ลบ account"
+                  placeholder={DELETE_PHRASE}
                   autoComplete="off"
                 />
               </div>
@@ -620,10 +640,10 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
                 <button
                   type="submit"
                   className="vmx-btn vmx-btn-sm"
-                  disabled={loading || deleteConfirmText !== 'ลบ account'}
+                  disabled={loading || deleteConfirmText !== DELETE_PHRASE}
                   style={{ background: 'var(--clr-rose)', color: '#fff', borderColor: 'var(--clr-rose)' }}
                 >
-                  {loading ? '…' : '☠️ ยืนยัน ลบ account'}
+                  {loading ? '…' : '☠️ ยืนยันลบบัญชี'}
                 </button>
                 <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setSection(null); setDeleteConfirmText(''); reset(); }}>
                   ยกเลิก
@@ -675,7 +695,7 @@ function KV({ label, value }) {
   );
 }
 
-// Cheap Thai relative-time formatter — used for "Login ล่าสุด" display.
+// Cheap Thai relative-time formatter — used for "เข้าสู่ระบบล่าสุด" display.
 // No timezone math; relies on the user's clock matching their actual TZ
 // (always true for browser-based UIs).
 function timeAgoTh(iso) {
