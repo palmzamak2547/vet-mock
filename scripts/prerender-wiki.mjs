@@ -51,7 +51,7 @@ for (const t of topics) {
   const checked = prov.verifiedClaimCount > 0
     ? `ตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว ${prov.verifiedClaimCount} จุด`
     : 'เนื้อหาจากโน้ตเลกเชอร์ ยังไม่ได้ตรวจทานกับแหล่งอ้างอิงภายนอก';
-  const description = `${k.summary || k.title} — ${subjectName(t.subject)} · ${k.sections.length} หัวข้อย่อย · ${checked}`.slice(0, 300);
+  const description = `${k.summary || k.title} — ${subjectName(t.subject)}, ${k.sections.length} หัวข้อย่อย, ${checked}`.slice(0, 300);
 
   let html = buildOgHead(shell, {
     title, description, url, type: 'article', indexable: true,
@@ -66,7 +66,7 @@ for (const t of topics) {
     headline: k.title,
     description,
     url,
-    isPartOf: { '@type': 'WebSite', name: 'VetMock · VetWiki', url: `${ORIGIN}/wiki` },
+    isPartOf: { '@type': 'WebSite', name: 'VetWiki', url: `${ORIGIN}/wiki` },
     inLanguage: 'th-TH',
     articleSection: subjectName(t.subject),
     ...(prov.sources.length ? { citation: prov.sources.map((s) => s.citation) } : {}),
