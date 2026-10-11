@@ -183,22 +183,22 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
 
   const nextQ = useCallback(async () => {
     const cur = questions[currentIdx];
+    const isLast = currentIdx === questions.length - 1;
     // Confirm before skipping a blank short/essay — these take real
-    // effort so accidental "Next →" clicks shouldn't lose them.
-    if (cur && isWritingType(cur)) {
+    // effort so accidental "Next →" clicks shouldn't lose them. Not on the
+    // last question: the only way here is ExamView's submit dialog, which
+    // already counts the blanks, so asking again would make a student who
+    // just pressed ส่งข้อสอบ confirm the same thing twice.
+    if (cur && !isLast && isWritingType(cur)) {
       const ua = answers[cur.id];
       const isBlank = !ua || (typeof ua === 'string' && !ua.trim());
-      const isLast = currentIdx === questions.length - 1;
       if (isBlank) {
-        const msg = isLast
-          ? 'ยังไม่ได้เขียนข้อนี้ — ส่งข้อสอบเลยจริงๆ?'
-          : 'ยังไม่ได้เขียนคำตอบ — ข้ามไปข้อถัดไปเลย?';
         // Async on purpose: nothing reads nextQ's return value, so the
         // advance simply happens a microtask later once they answer.
         const go = await confirmDialog({
-          title: isLast ? 'ยังไม่ได้เขียนข้อนี้' : 'ยังไม่ได้เขียนคำตอบ',
-          body: msg,
-          confirmLabel: isLast ? 'ส่งข้อสอบ' : 'ข้ามไปข้อถัดไป',
+          title: 'ยังไม่ได้เขียนคำตอบ',
+          body: 'ยังไม่ได้เขียนคำตอบ — ข้ามไปข้อถัดไปเลย?',
+          confirmLabel: 'ข้ามไปข้อถัดไป',
         });
         if (!go) return;
         // The timer or navigation may have moved on while the dialog was open.

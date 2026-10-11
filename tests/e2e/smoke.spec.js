@@ -268,25 +268,18 @@ test.describe('VetMock smoke flow', () => {
     await answerCurrentQuestion(page);
     await page.getByRole('button', { name: 'ข้อถัดไป →', exact: true }).click();
     await page.getByRole('button', { name: /ส่งข้อสอบ ✓/ }).click();
-    // The set is drawn at random, so question 2 is SOMETIMES a writing
-    // question. Leaving one blank — which is the whole point of this test —
-    // raises its own confirm ("ยังไม่ได้เขียนข้อนี้"), and that dialog's
-    // button is also labelled "ส่งข้อสอบ". So one click could land on either
-    // that guard or the submit confirm, and when it landed on the guard the
-    // submit confirm was still open and the test timed out waiting for
-    // results. Which of the two appears was pure luck of the draw, which is
-    // why this failed intermittently on one engine at a time.
-    // Clear whichever confirms are actually on screen instead of assuming.
-    for (let i = 0; i < 3; i++) {
-      const confirm = page.getByRole('button', { name: 'ส่งข้อสอบ', exact: true });
-      if (!(await confirm.isVisible().catch(() => false))) break;
-      await confirm.click();
-      await page.waitForTimeout(250);
-    }
+    // Question 2 is left blank, and the set is drawn at random, so it is
+    // sometimes a writing question. That used to raise a second confirm
+    // ("ยังไม่ได้เขียนข้อนี้", its button also "ส่งข้อสอบ") after the submit
+    // dialog had already counted the blank. The submit dialog is now the only
+    // confirm: one press submits, whatever the draw.
+    await expect(page.getByRole('heading', { name: 'ส่งข้อสอบ?' })).toBeVisible();
+    await page.getByRole('button', { name: 'ส่งข้อสอบ', exact: true }).click();
 
     await expect(page.getByText(
       /Auto-graded Score|Writing Practice Done|คะแนนตรวจอัตโนมัติ|ฝึกข้อเขียนเสร็จแล้ว/,
     )).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole('button', { name: 'ส่งข้อสอบ', exact: true })).toHaveCount(0);
     // The duplicate "🏠 หน้าแรก" button under the back bar was removed —
     // the back bar itself was already the way home. Same destination.
     await page.getByRole('button', { name: 'หน้าแรก', exact: true }).click();
