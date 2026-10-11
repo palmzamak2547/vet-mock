@@ -1061,7 +1061,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
       "CBC ร่วมกับอัลตราซาวด์ช่องท้องและการตัดชิ้นเนื้อตับ"
     ],
     "answer": 1,
-    "explain": "CBC, blood chemistry, Woo's technique สำหรับดู Trypanosoma, buffy coat smear และ AGID สำหรับ EIA โดยเน้นว่า Woo และ AGID ต้องมี ซึ่งเข้ากับบริบทที่เลี้ยงรวมกับวัวและไม่เคยตรวจโรคก่อนซื้อ ส่วน PCR, ELISA และ viral isolation เป็นชุดที่บันทึกไว้ว่ามีคนตอบเยอะแต่ไม่ได้คะแนน นี่เป็นการเรียบเรียงจากความจำของรุ่นก่อน สถานีของปีนี้อาจต่างออกไป",
+    "explain": "CBC, blood chemistry, Woo's technique สำหรับดู Trypanosoma, buffy coat smear และ AGID สำหรับ EIA โดยเน้นว่า Woo และ AGID ต้องมี ซึ่งเข้ากับบริบทที่เลี้ยงรวมกับวัวและไม่เคยตรวจโรคก่อนซื้อ ส่วน PCR, ELISA และ viral isolation เป็นชุดที่มีคนตอบเยอะแต่ไม่ได้คะแนน นี่เป็นการเรียบเรียงจากความจำของรุ่นก่อน สถานีของปีนี้อาจต่างออกไป",
     "verified": "Ekwai Med น.3",
     "sourceType": "student-compilation",
     "examOrigin": "บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)"

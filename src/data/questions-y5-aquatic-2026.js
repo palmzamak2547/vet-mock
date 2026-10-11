@@ -551,7 +551,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
     "topic": "aqua-intro-thailand",
     "year": 5,
     "type": "mcq",
-    "q": "ชื่อวิทยาศาสตร์ของหอยแมลงภู่และหอยนางรมที่พิมพ์กำกับไว้ ตรงกับข้อใด",
+    "q": "ชื่อวิทยาศาสตร์ของหอยแมลงภู่ (green mussel) และหอยนางรม (oyster) ตรงกับข้อใด",
     "options": [
       "หอยแมลงภู่ Crassostrea gigas และหอยนางรม Perna viridis",
       "หอยแมลงภู่ Perna viridis และหอยนางรม Crassostrea gigas",
@@ -1077,7 +1077,7 @@ export const QUESTIONS_Y5_AQUATIC_2026 = [
       "chondroitin AC lyase และ protease"
     ],
     "answer": 3,
-    "explain": "pathogenesis ของ columnaris ที่บันทึกไว้ไล่จากขั้น colonization คือ attraction, adhesion และ aggregation แล้วจึงถึงกลุ่ม exotoxins, bacteriocins และ endotoxins ซึ่งระบุชื่อไว้สองตัวคือ chondroitin AC lyase และ protease ตรงกับตัวเลือกนี้\n\n❌ ทำไมข้ออื่นผิด\n— \"hyaluronidase และ lecithinase\" = ไม่ใช่ชื่อที่ถูกระบุไว้ในชุดสารพิษของข้อนี้ทั้งคู่\n— \"chondroitin AC lyase และ hemolysin\" = ชื่อแรกตรง แต่ตัวที่ถูกระบุไว้คู่กับ chondroitin AC lyase คือ protease ไม่ใช่ hemolysin\n— \"collagenase และ elastase\" = เป็นเอนไซม์ที่พบได้ในแบคทีเรียก่อโรคทั่วไป แต่ไม่ใช่ชื่อที่ถูกระบุไว้ในข้อนี้\n\n💡 ข้อนี้เป็นคำถามแบบจับคู่สองชื่อ ถูกครึ่งเดียวยังไม่พอ ต้องตรงทั้งสองตัว",
+    "explain": "pathogenesis ของ columnaris เริ่มจากขั้น colonization คือ attraction, adhesion และ aggregation แล้วจึงถึงกลุ่ม exotoxins, bacteriocins และ endotoxins ซึ่งได้แก่ chondroitin AC lyase และ protease ตรงกับตัวเลือกนี้\n\n❌ ทำไมข้ออื่นผิด\n— \"hyaluronidase และ lecithinase\" = ไม่ใช่ชื่อที่ถูกระบุไว้ในชุดสารพิษของข้อนี้ทั้งคู่\n— \"chondroitin AC lyase และ hemolysin\" = ชื่อแรกตรง แต่ตัวที่ถูกระบุไว้คู่กับ chondroitin AC lyase คือ protease ไม่ใช่ hemolysin\n— \"collagenase และ elastase\" = เป็นเอนไซม์ที่พบได้ในแบคทีเรียก่อโรคทั่วไป แต่ไม่ใช่ชื่อที่ถูกระบุไว้ในข้อนี้\n\n💡 ข้อนี้เป็นคำถามแบบจับคู่สองชื่อ ถูกครึ่งเดียวยังไม่พอ ต้องตรงทั้งสองตัว",
     "verified": "Aquaculture_Industry_Tech p.71"
   },
   {

@@ -1350,13 +1350,13 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
     "q": "สารละลายที่เหมาะสมที่สุดในการตรวจ Giardia ด้วยวิธี flotation คือข้อใด",
     "options": [
       "น้ำตาลเข้มข้น (Sheather's sugar)",
-      "น้ำเกลืออิ่มตัว (saturated NaCl)",
+      "Lugol's solution",
       "Zinc sulfate 33%",
       "Formalin 10%"
     ],
     "answer": 2,
-    "explain": "Zinc sulfate 33% เป็นสารละลายมาตรฐานสำหรับลอย cyst ของ Giardia ส่วนน้ำตาลเข้มข้น (Sheather's sugar) และน้ำเกลืออิ่มตัวเป็นสารละลายเข้มข้นสูงที่ทำให้ cyst ของ Giardia เหี่ยวบิดเบี้ยวจนจำแนกยาก และ formalin 10% เป็นน้ำยารักษาสภาพตัวอย่าง ไม่ใช่ flotation solution",
-    "verified": "ซูสุขติ mid น.12",
+    "explain": "Zinc sulfate 33% เป็นสารละลายมาตรฐานสำหรับลอย cyst ของ Giardia ส่วนน้ำตาลเข้มข้น (Sheather's sugar) เป็นสารละลายเข้มข้นสูงที่ทำให้ cyst ของ Giardia หดและบิดเบี้ยวจนจำแนกยาก Lugol's solution ใช้ย้อม trophozoite และ cyst เพื่อเพิ่ม contrast ของนิวเคลียส ไม่ใช่ flotation solution และ formalin 10% เป็นน้ำยารักษาสภาพตัวอย่าง ไม่ใช่ flotation solution",
+    "verified": "ซูสุขติ mid น.12; ตัวเลือกเดิมน้ำเกลืออิ่มตัว (saturated NaCl) ถูกแทนด้วย Lugol's solution เพราะ NaCl อิ่มตัวใช้ลอย cyst ของ Giardia ได้เช่นกัน ตัวเลือกนั้นจะถูกได้สองข้อ; ตรวจกับ v6uVIpRJxZU [23:04] Giardia ใช้ zinc sulphate หรือ saturated NaCl ก็ได้ และ notes-y2-parasit-1 หัวข้อ Giardia: Dx (flotation ใช้ ZnSO4 SG 1.18, sucrose ทำให้ cyst หดและบิดเบี้ยว, Lugol's solution ใช้ย้อม trophozoite และ cyst)",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 12 }],
     "sourceType": "student-compilation",
     "examOrigin": "Zoonoses midterm recall (Vet 85)"

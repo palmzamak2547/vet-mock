@@ -92,11 +92,9 @@ const SOURCE_POINTER = /ตามคำอธิบาย|โครงคำต�
 const FIGURE_POINTER = /กำกับไว้|กำกับว่า|ในรูป(?!แบบ)|ในภาพ(?!รวม)|จากรูป(?!แบบ)|จากภาพ(?!รวม)|ตามรูป(?!แบบ)|ตามภาพ/;
 // Known, and left for after the exams. May only shrink.
 const RESIDUAL = {
-  104006: 'needs the deck figure attached; without it, 6 feet is as defensible as the keyed 3 feet',
   104005: '"ตามเส้นเวลาการแพร่เชื้อในบทเรียน" — the timeline wording needs a reread before it changes',
   104010: '"ตามตัวอย่างในบทเรียน" carries lecture-specific numbers; dropping it can make the key arguable',
   104011: '"ตามวัตถุประสงค์ในบทเรียน" — reword with the lecture open',
-  105165: '"ที่พิมพ์กำกับไว้" — reword with the slide open',
 };
 
 test('stems and options in the swine, aquatic and zoonoses banks point at no unseen source or figure', () => {
