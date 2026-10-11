@@ -948,6 +948,7 @@ export default function App() {
       // without being added here.
       import('./components/ImageAnnotator.jsx').catch(() => {});
       import('./components/QComments.jsx').catch(() => {});
+      import('./components/MascotSquad3DViewer.jsx').catch(() => {});
       // Confetti is cosmetic, but its import is a bare .then() in ResultsView,
       // so a 404 there is an unhandled rejection on the score screen.
       import('./lib/confetti.js').catch(() => {});

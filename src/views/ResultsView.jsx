@@ -4,7 +4,7 @@ import { clearCompletedExam } from '../lib/exam-recovery.js';
 // threshold, and this number applies across every subject and format the
 // engine can auto-grade.
 export const PRACTICE_PASS_PCT = 60;
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { answerOutcome, isWritingType } from '../hooks/utils.js';
 import BackBar from '../components/BackBar.jsx';
 import ExamSaveNotice from '../components/ExamSaveNotice.jsx';
@@ -20,6 +20,10 @@ import { hasTopic, articleForQuestion } from '../lib/vetwiki/registry-lite.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import WeakSpots from '../components/WeakSpots.jsx';
 import NavIcon from '../components/NavIcon.jsx';
+import { SQUAD_MASCOTS, SUBJECT_MOCHI } from '../data/art.js';
+import { getSelectedBuddy, recordBuddyExam } from '../lib/buddy-stats.js';
+
+const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer.jsx'));
 
 // Render a 1080×1920 portrait score card (IG Story aspect 9:16) onto a
 // canvas and return a Blob. Pure-canvas, no external deps. Designed to
@@ -221,6 +225,24 @@ export default function ResultsView({
     return () => window.removeEventListener(NIGHT_RANK_EVENT, onPromo);
   }, []);
 
+  // Study Squad Mascot Companion Resolution & Exam Stats
+  const [show3DViewer, setShow3DViewer] = useState(false);
+  const companionMascot = useMemo(() => {
+    const subj = questions?.[0]?.subject;
+    const isUniformSubj = subj && questions.every((q) => q.subject === subj);
+    if (isUniformSubj && SUBJECT_MOCHI[subj]?.id) {
+      return SQUAD_MASCOTS[SUBJECT_MOCHI[subj].id] || SQUAD_MASCOTS.moocha;
+    }
+    const selectedId = getSelectedBuddy();
+    return SQUAD_MASCOTS[selectedId] || SQUAD_MASCOTS.moocha;
+  }, [questions]);
+
+  useEffect(() => {
+    if (companionMascot?.id && score?.correct > 0) {
+      recordBuddyExam(companionMascot.id, score.correct);
+    }
+  }, [companionMascot?.id, score?.correct]);
+
   // mount in dev doesn't trigger the burst twice.
   // Personal-best tracking — per-subject highest pct ever recorded in
   // a 5+ Q session. Surfaced as a "🏆 NEW PERSONAL BEST" banner +
@@ -338,6 +360,14 @@ export default function ResultsView({
   const perfect = score.total > 0 && score.correct === score.total;
   const showPassFail = isExam && autoQs.length > 0;
 
+  const companionEncouragement = useMemo(() => {
+    if (perfect) return 'เก่งสุดๆ เลย! ถูกหมดทุกข้อแบบนี้ ยอดเยี่ยมมาก!';
+    if (celebrate) return 'สุดยอดมากเลย! คะแนนรอบนี้สวยมาก ลุยต่อกันนะ!';
+    if (passed) return 'ทำได้ดีมาก! ผ่านเกณฑ์แล้ว ทบทวนข้อผิดอีกนิดจะคล่องขึ้น!';
+    if (autoQs.length === 0) return 'ฝึกเขียนเสร็จแล้ว ลองเทียบกับเกณฑ์เฉลยดูนะ!';
+    return 'สู้ๆ นะ! ทุกการฝึกซ้อมทำให้เราเก่งขึ้นเรื่อยๆ เสมอ!';
+  }, [perfect, celebrate, passed, autoQs.length]);
+
   return (
     <>
       <BackBar onBack={goHome} label="หน้าแรก" mochi={false} />
@@ -446,6 +476,120 @@ export default function ResultsView({
           </div>
         )}
       </div>
+
+      {/* Study Squad Companion Encouragement Badge & 3D Toggle */}
+      {companionMascot && (
+        <div
+          style={{
+            margin: '16px auto',
+            maxWidth: 480,
+            padding: '14px 16px',
+            borderRadius: 16,
+            background: 'var(--clr-surface-2)',
+            border: '1px solid var(--clr-border)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 12,
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+            <img
+              src={companionMascot.src}
+              alt={companionMascot.alt}
+              style={{
+                width: 52,
+                height: 52,
+                objectFit: 'contain',
+                borderRadius: '50%',
+                background: 'var(--clr-surface)',
+                border: '1.5px solid var(--clr-border)',
+                padding: 4,
+                flexShrink: 0,
+              }}
+            />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+                <span style={{ fontWeight: 600, fontSize: 13, color: 'var(--clr-ink)' }}>
+                  {companionMascot.nameTh} ({companionMascot.name})
+                </span>
+                <span
+                  style={{
+                    fontSize: 11,
+                    padding: '2px 8px',
+                    borderRadius: 999,
+                    background: 'var(--clr-sage-soft)',
+                    color: 'var(--clr-sage-text)',
+                    fontWeight: 500,
+                  }}
+                >
+                  {companionMascot.role}
+                </span>
+              </div>
+              <div
+                style={{
+                  marginTop: 6,
+                  fontSize: 13,
+                  color: 'var(--clr-ink-soft)',
+                  lineHeight: 1.4,
+                  background: 'var(--clr-surface)',
+                  padding: '6px 10px',
+                  borderRadius: 8,
+                  border: '1px solid var(--clr-border)',
+                }}
+              >
+                {companionEncouragement}
+              </div>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <button
+              type="button"
+              onClick={() => setShow3DViewer((prev) => !prev)}
+              style={{
+                fontSize: 12,
+                fontWeight: 600,
+                color: show3DViewer ? 'var(--clr-ink)' : 'var(--clr-sage-text)',
+                background: show3DViewer ? 'var(--clr-surface)' : 'var(--clr-sage-soft)',
+                border: '1px solid var(--clr-border)',
+                borderRadius: 999,
+                padding: '6px 14px',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                transition: 'all 0.2s ease',
+              }}
+            >
+              <span>{show3DViewer ? 'ปิดโมเดล 3D' : 'ดูแบบ 3D'}</span>
+            </button>
+          </div>
+
+          {show3DViewer && (
+            <Suspense
+              fallback={
+                <div
+                  style={{
+                    padding: 24,
+                    textAlign: 'center',
+                    fontSize: 13,
+                    color: 'var(--clr-ink-soft)',
+                  }}
+                >
+                  กำลังโหลดโมเดล 3D...
+                </div>
+              }
+            >
+              <div style={{ marginTop: 6 }}>
+                <MascotSquad3DViewer
+                  initialId={companionMascot.id}
+                  initialAction={celebrate || reached ? 'celebrate' : 'idle'}
+                />
+              </div>
+            </Suspense>
+          )}
+        </div>
+      )}
 
       <div className="vmx-stat-grid">
         <div className="vmx-stat-card">
