@@ -2,7 +2,8 @@
 //
 // Design notes:
 // - Wall-clock (Date.now()) is the source of truth for remaining time —
-//   setInterval(1000ms) only drives UI refresh. iOS Safari aggressively throttles
+//   setInterval(1000ms) copies it into state once a second (render never reads
+//   the clock itself). iOS Safari aggressively throttles
 //   background timers, so if we counted ticks instead of comparing wall clock,
 //   a backgrounded tab would lie about remaining time even if the user came back.
 //   (Background throttling is *also* why we have the visibility-escape rule — but
@@ -119,8 +120,12 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
   // Minutes the running phase started with; a slider change applies next phase.
   const [runMin, setRunMin] = useState(restored?.runMin ?? null);
 
-  // Force re-render every second while a timer state is active
-  const [, setTickN] = useState(0);
+  // The wall clock is state the one-second tick writes, so render stays pure.
+  // Reading Date.now() during render let a render React bailed out of keep
+  // "0 left" in the expiry effect's deps without running it: in WebKit a clock
+  // jump past the end (a locked phone, a throttled tab) left the timer at 00:00
+  // for good, with no break and the focus never counted.
+  const [now, setNow] = useState(() => Date.now());
 
   // Visibility escape bookkeeping
   const escapeTimerRef = useRef(null);
@@ -134,23 +139,18 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
     return phaseMinutes(active ? state : 'focus', config) * 60_000; // idle preview
   }, [state, runMin, config]);
 
-  // Pure: compute remaining ms from wall clock
-  const computeRemaining = useCallback(() => {
-    if (!startedAt) return totalMs;
-    const now = Date.now();
-    let pausedMs = pausedAcc;
-    if (paused && pauseStartedAt) pausedMs += now - pauseStartedAt;
-    return Math.max(0, totalMs - (now - startedAt - pausedMs));
-  }, [startedAt, pausedAcc, paused, pauseStartedAt, totalMs]);
-
-  const remainingMs = computeRemaining();
+  // Remaining ms from the clock state. `now` can trail an anchor set a moment
+  // ago (the tick has not run yet), so elapsed time never goes below zero.
+  let pausedMs = pausedAcc;
+  if (paused && pauseStartedAt) pausedMs += now - pauseStartedAt;
+  const remainingMs = startedAt ? Math.max(0, totalMs - Math.max(0, now - startedAt - pausedMs)) : totalMs;
   const progress = startedAt ? 1 - remainingMs / totalMs : 0;
 
   // Tick: only run when a timer state is active and not paused
   const isTimerActive = state === 'focus' || state === 'shortBreak' || state === 'longBreak';
   useEffect(() => {
     if (!isTimerActive || paused) return undefined;
-    const id = setInterval(() => setTickN((n) => (n + 1) % 1_000_000), 1000);
+    const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
   }, [isTimerActive, paused]);
 
@@ -256,6 +256,7 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
           escapeTimerRef.current = null;
         }
         if (escapedWhileAway(away)) { failFocus(runMin); return; }
+        setNow(Date.now());
         saveRun({
           state, startedAt, runMin, pausedAcc, paused, pauseStartedAt, focusCount, strict: true,
         });
@@ -274,7 +275,9 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
 
   // --- Actions ------------------------------------------------------------
   const startFocus = useCallback(() => {
-    setStartedAt(Date.now());
+    const at = Date.now();
+    setNow(at);
+    setStartedAt(at);
     setRunMin(phaseMinutes('focus', config));
     setPausedAcc(0);
     setPauseStartedAt(null);
@@ -285,13 +288,17 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
 
   const pause = useCallback(() => {
     if (!isTimerActive || paused) return;
-    setPauseStartedAt(Date.now());
+    const at = Date.now();
+    setNow(at);
+    setPauseStartedAt(at);
     setPaused(true);
   }, [isTimerActive, paused]);
 
   const resume = useCallback(() => {
     if (!paused) return;
-    if (pauseStartedAt) setPausedAcc((acc) => acc + (Date.now() - pauseStartedAt));
+    const at = Date.now();
+    setNow(at);
+    if (pauseStartedAt) setPausedAcc((acc) => acc + (at - pauseStartedAt));
     setPauseStartedAt(null);
     setPaused(false);
   }, [paused, pauseStartedAt]);

@@ -1189,7 +1189,7 @@ html, body {
 }
 .vmx-countdown-clock b { font-weight: 600; }
 .vmx-countdown-clock b:last-of-type { color: var(--clr-rose-text); }
-.vmx-countdown-clock i { font-family: var(--vmx-sans); font-style: normal; font-size: 10.5px; letter-spacing: 0; color: var(--clr-ink-soft); margin: 0 10px 0 3px; }
+.vmx-countdown-clock i { font-family: var(--vmx-sans); font-style: normal; font-size: 11px; letter-spacing: 0; color: var(--clr-ink-soft); margin: 0 10px 0 3px; }
 .vmx-countdown-clock i:last-of-type { margin-right: 0; }
 /* Under a day the clock is the hero. */
 .vmx-countdown.is-hours .vmx-countdown-clock { font-size: clamp(36px, 4.6vw, 50px); letter-spacing: 0; margin-top: 4px; }
@@ -1251,7 +1251,7 @@ html, body {
   .vmx-countdown-num { font-size: 24px; letter-spacing: -0.02em; }
   .vmx-countdown-unit { font-size: 12px; margin-left: 4px; }
   .vmx-countdown-clock { font-size: 15px; margin-top: 0; flex-wrap: nowrap; white-space: nowrap; }
-  .vmx-countdown-clock i { font-size: 9.5px; margin: 0 6px 0 2px; }
+  .vmx-countdown-clock i { font-size: 11px; margin: 0 6px 0 2px; }
   .vmx-countdown.is-hours .vmx-countdown-clock { font-size: 22px; }
   .vmx-countdown-caption,
   .vmx-countdown-strip { display: none; }
@@ -1260,7 +1260,7 @@ html, body {
   .vmx-countdown { gap: 2px 8px; padding: 8px 12px; }
   .vmx-countdown-num { font-size: 20px; }
   .vmx-countdown-clock { font-size: 13px; }
-  .vmx-countdown-clock i { font-size: 9px; margin-right: 4px; }
+  .vmx-countdown-clock i { margin-right: 4px; }
   .vmx-countdown.is-hours .vmx-countdown-clock { font-size: 19px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -2998,15 +2998,14 @@ html.dark .vmx-panic-scrim {
   padding: 4px 14px;
   border-radius: 4px;
   font-family: var(--vmx-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0;
   border: 1px solid currentColor;
   line-height: 1.35;
   user-select: none;
 }
 .vmx-clinical-seal .vmx-seal-title { font-weight: 700; }
-.vmx-clinical-seal .vmx-seal-sub { font-size: 9.5px; opacity: 0.85; }
+.vmx-clinical-seal .vmx-seal-sub { font-size: 11px; }
 .vmx-clinical-seal.is-pass {
   color: var(--clr-sage-text);
   background: rgba(74, 107, 74, 0.08);
@@ -4610,9 +4609,9 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 .vmx-stamp-label {
   display: block;
   font-family: var(--vmx-mono);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
   margin-top: 2px;
 }
 .vmx-mochi-stamp--pass .vmx-stamp-label { color: var(--clr-sage-text); }
@@ -5634,7 +5633,7 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-lesson__toclist { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; }
 .vmx-lesson__tocitem {
   display: flex; align-items: baseline; gap: var(--space-2); width: 100%;
-  padding: 7px var(--space-2); text-align: left; cursor: pointer;
+  min-height: var(--touch-min); padding: 11px var(--space-2); text-align: left; cursor: pointer;
   background: none; border: 0; border-radius: var(--r-sm);
   font-size: 13px; line-height: 1.4; color: var(--clr-ink-soft);
 }

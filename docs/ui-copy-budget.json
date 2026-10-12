@@ -1,5 +1,5 @@
 {
-  "note": "lint:ui-copy budgets, per file. englishLeaks counts English words the app already has Thai for; spellingDrift counts the old spellings เช็ค, อัพ and three dots (write เช็ก, อัป and …). A number may only go down; a file with no row may have none. Middle dots and นักศึกษา have no budget: they fail outright. \"allow\" names text that keeps a middle dot on purpose, with the reason.",
+  "note": "lint:ui-copy budgets, per file. englishLeaks counts English words the app already has Thai for; spellingDrift counts the old spellings เช็ค, อัพ, หน้าหลัก and three dots (write เช็ก, อัป, หน้าแรก and …). A number may only go down; a file with no row may have none. Middle dots and นักศึกษา have no budget: they fail outright. \"allow\" names text that keeps a middle dot on purpose, with the reason.",
   "allow": [
     {
       "file": "src/components/SummaryModal.jsx",
@@ -8,7 +8,7 @@
     }
   ],
   "englishLeaks": {
-    "src/components/CommandPalette.jsx": 2,
+    "src/components/CommandPalette.jsx": 1,
     "src/components/DiagramLabelDrill.jsx": 1,
     "src/components/PomodoroTimer.jsx": 1,
     "src/components/QComments.jsx": 1,
@@ -23,7 +23,6 @@
     "src/views/FacultyView.jsx": 1,
     "src/views/GroupDetailView.jsx": 2,
     "src/views/GroupsView.jsx": 4,
-    "src/views/PinboardView.jsx": 1,
     "src/views/RaceView.jsx": 4,
     "src/views/ReadingChecklistView.jsx": 2,
     "src/views/ResultsView.jsx": 1,

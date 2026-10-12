@@ -927,10 +927,11 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
             type="button"
             className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-welcome-tour"
             onClick={(e) => onOpenTour(e.currentTarget)}
-            aria-label="เปิดคำแนะนำการใช้งาน"
           >
+            {/* The width hides one span with display:none, which also takes it
+                out of the accessible name: the button is called what it shows. */}
             <span className="vmx-welcome-tour-desktop">คำแนะนำการใช้งาน</span>
-            <span className="vmx-welcome-tour-mobile" aria-hidden="true">ดูวิธีใช้</span>
+            <span className="vmx-welcome-tour-mobile">ดูวิธีใช้</span>
           </button>
           <button
             type="button"

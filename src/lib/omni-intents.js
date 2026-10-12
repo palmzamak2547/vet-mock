@@ -18,6 +18,7 @@ import { drugDose } from '../hooks/utils.js';
 import { subjectMeta } from './library.js';
 import { SUBJECTS, yearForSubject } from '../data/curriculum.js';
 import { createStudyCatalog } from './study-catalog.js';
+import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_BANK_YEAR as BY_BANK_YEAR } from '../data/q-counts.js';
 
 // ── Drug lookup ───────────────────────────────────────────────────────────
 
@@ -209,13 +210,35 @@ export function detectStudyIntent(query, { selectedYear } = {}) {
   const matches = matchSubjects(rest, year).filter((m) => want || m.score - (year != null && Number(m.entry.year) === Number(year) ? 15 : 0) >= 90);
   if (!matches.length) return null;
   const catalog = createStudyCatalog();
-  const subjects = matches.map(({ entry }) => ({
-    meta: entry.s,
-    year: entry.year,
-    resources: catalog.browse({ subject: entry.s.id }).resources || {},
-  })).filter((x) => ['questions', 'notes', 'videos', 'wiki'].some((k) => x.resources[k]?.available));
-  // A course with nothing behind it would be a card that leads nowhere.
+  const subjects = matches.map(({ entry }) => {
+    const resources = catalog.browse({ subject: entry.s.id }).resources || {};
+    const total = resources.questions?.available ? resources.questions.count : 0;
+    // Against the year App has selected, not a year typed in the query: that
+    // year's question banks are the ones loaded, and its practice screens
+    // count only them.
+    const practiceCount = practiceCountIn(entry.s.id, total, selectedYear);
+    return { meta: entry.s, year: entry.year, practiceOpen: practiceCount > 0, practiceCount, resources };
+  }).filter((x) => {
+    // A course with nothing behind it would be a card that leads nowhere. The
+    // document shelf counts while its number is still unknown (it opens and
+    // shows what it has), and practice asked for in another year keeps the
+    // course so the card can say which year.
+    const { actions, missing } = studyActions(x, want, null);
+    return actions.length > 0 || (want === 'practice' && x.practiceOpen === false && Boolean(missing) && Boolean(x.resources.questions?.available));
+  });
   return subjects.length ? { kind: 'study', want, subjects } : null;
+}
+
+// App loads the selected year's question banks plus the shared ones, and the
+// practice screens count only what is loaded: a course of another year opened
+// on topics that each said ยังไม่มีข้อที่พร้อมใช้ในชุดนี้. Its shared banks
+// still load (questions-vca.js serves VCA in every year), so practice opens on
+// those, at their count. Notes, clips, VetWiki and documents open for any year.
+// ponytail: phase-blind like the card was before, so under a chosen exam period
+// the topic screen can serve fewer; counting per paper means passing the phase in.
+function practiceCountIn(subjectId, total, selectedYear) {
+  if (selectedYear == null || !total) return total;
+  return (BY_BANK_YEAR.shared?.[subjectId] || 0) + (BY_BANK_YEAR[selectedYear]?.[subjectId] || 0);
 }
 
 // What each shelf is called on the card, and the unit its count is in —
@@ -234,25 +257,42 @@ const SHELF_ORDER = ['practice', 'notes', 'videos', 'wiki', 'library'];
  * for first when it has something on it, otherwise a plain line saying it is
  * empty and the shelves that are not. Only shelves with something behind them
  * become buttons.
- * @param {{ resources }} subject  one entry of detectStudyIntent().subjects
+ * @param {{ resources, year?, practiceOpen? }} subject  one entry of detectStudyIntent().subjects
  * @param {string|null} want
- * @param {number} libraryCount  documents for this subject the student can open
- * @returns {{ actions: Array<{ target, label, count, unit }>, missing: string|null }}
+ * @param {number|null} libraryCount  documents for this subject the student can
+ *   open; null while the document shelf has not loaded (or could not), when
+ *   the count is not known
+ * @returns {{ actions: Array<{ target, label, count: number|null, unit }>, missing: string|null }}
  */
 export function studyActions(subject, want, libraryCount = 0) {
   const r = subject?.resources || {};
+  // Another year's questions are not loaded, so their practice shelf would
+  // open on an empty set; the entry says so (detectStudyIntent).
+  const practiceElsewhere = subject?.practiceOpen === false && Boolean(r.questions?.available);
   const counts = {
-    practice: r.questions?.available ? r.questions.count : 0,
+    practice: r.questions?.available && !practiceElsewhere ? (subject.practiceCount ?? r.questions.count) : 0,
     notes: r.notes?.available ? r.notes.count : 0,
     videos: r.videos?.available ? r.videos.count : 0,
     wiki: r.wiki?.available ? r.wiki.count : 0,
     library: libraryCount > 0 ? libraryCount : 0,
   };
+  // An unknown count is not zero. Asked for, the shelf still opens (it shows
+  // what it has, or its own offline state) with no number on the button; it
+  // is never reported empty, and never replaced by another shelf.
+  const libraryUnknown = libraryCount === null;
+  const offered = (t) => counts[t] > 0 || (t === 'library' && libraryUnknown && want === 'library');
   const order = want ? [want, ...SHELF_ORDER.filter((t) => t !== want)] : SHELF_ORDER;
   const actions = order
-    .filter((t) => counts[t] > 0)
-    .map((t) => ({ target: t, label: SHELVES[t].label, count: counts[t], unit: SHELVES[t].unit }));
-  return { actions, missing: want && !counts[want] ? SHELVES[want].none : null };
+    .filter(offered)
+    .map((t) => ({ target: t, label: SHELVES[t].label, count: counts[t] > 0 ? counts[t] : null, unit: SHELVES[t].unit }));
+  let missing = null;
+  if (want && !offered(want)) {
+    // The course has questions, in another year's set: say where, not "none".
+    missing = want === 'practice' && practiceElsewhere && subject.year != null
+      ? `ข้อสอบวิชานี้อยู่ในชั้นปี ${subject.year} เปลี่ยนเป็นชั้นปี ${subject.year} ก่อนจึงจะฝึกได้`
+      : SHELVES[want].none;
+  }
+  return { actions, missing };
 }
 
 /** All intents for a query, strongest first. Cheap enough per keystroke —

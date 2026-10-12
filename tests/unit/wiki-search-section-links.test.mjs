@@ -39,7 +39,8 @@ test('openSection opens the article and puts the section in the address', () => 
 });
 
 test('the index receives onOpenSection and renders each matched heading as a control', () => {
-  assert.match(SRC, /<WikiIndex topics=\{topics\} onOpen=\{openTopic\} onOpenSection=\{openSection\} goHome=\{goHome\} \/>/);
+  // Further props may follow (the subject the search card asked for).
+  assert.match(SRC, /<WikiIndex topics=\{topics\} onOpen=\{openTopic\} onOpenSection=\{openSection\} goHome=\{goHome\}[\s/]/);
   const index = cut('function WikiIndex(', '\n}\n');
   assert.match(index, /onClick=\{\(\) => onOpenSection\?\.\(t\.id, s\.id\)\}/);
   assert.doesNotMatch(index, /\.map\(\(s\) => s\.heading\)\.join\(', '\)/, 'headings are no longer joined into plain text');

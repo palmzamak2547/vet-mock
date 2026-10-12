@@ -53,7 +53,7 @@ import { detectIntents, detectStudyIntent, studyActions } from '../lib/omni-inte
 // there is no answer: pure, so every state is unit-tested (omni-ask.test).
 import {
   ASK_COPY, classifyAskResponse, shouldAutoRetry, AUTO_RETRY_DELAY_MS, isEmptyAnswer,
-  relatedSections, relatedTopicsFor, libraryTerms, unmatchedLine,
+  relatedSections, relatedTopicsFor, librarySuggestion, unmatchedLine,
 } from '../lib/omni-ask.js';
 import { docOpenMode, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
 
@@ -163,7 +163,7 @@ function buildStaticItems(ownerId, notes) {
   // registry makes it searchable automatically — closing the old gap
   // where race/groups/lab/leaderboard/contribute/review-queue/mini-game
   // were navigable from somewhere but never showed up in ⌘K.
-  push({ type: 'action', payload: { kind: 'view', view: 'home' }, label: 'หน้าแรก', hint: 'Home', icon: '🏠', kw: 'home หน้าแรก main' });
+  push({ type: 'action', payload: { kind: 'view', view: 'home' }, label: 'หน้าแรก', hint: 'แผนวันนี้และทางลัด', icon: '🏠', kw: 'home หน้าแรก main' });
   push({ type: 'action', payload: { kind: 'bookmarks' }, label: 'Bookmarks', hint: 'ข้อที่บันทึกไว้', icon: '⭐', kw: 'bookmark saved star ดาว ข้อบันทึก' });
   for (const f of FEATURES) {
     push({ type: 'action', payload: f.invoke, label: f.label, hint: f.hint, icon: f.icon, kw: f.kw, category: f.category, featureId: f.id });
@@ -837,12 +837,18 @@ function AskFallbackCard({ ask, onOpenWiki, onClose, onRetry, nearby = [], libra
 // "คลิป COM5": the course and the shelf asked for, first in the keyboard
 // order, with the course's other shelves beside it. Counts come from the same
 // catalog as the topic screen, and only shelves with something on them show.
-function GoCard({ intent, active, flatIdx, onHover, onOpen, selectedYear, libraryCounts }) {
+// A count that is not known yet (the document shelf still loading) prints no
+// number at all.
+function GoCard({ intent, active, flatIdx, onHover, onOpen, selectedYear, libraryCountFor }) {
   const [main, ...others] = intent.subjects;
-  const { actions, missing } = studyActions(main, intent.want, libraryCounts[main.meta.id] || 0);
+  const { actions, missing } = studyActions(main, intent.want, libraryCountFor(main.meta.id));
   if (!actions.length) return null;
   const [primary, ...rest] = actions;
   const otherYear = main.year != null && selectedYear != null && Number(main.year) !== Number(selectedYear);
+  const sub = [
+    primary.count != null ? `${primary.count.toLocaleString()} ${primary.unit}` : null,
+    otherYear ? `ปี ${main.year}` : null,
+  ].filter(Boolean).join(', ');
   return (
     <div className="vmx-omni-card vmx-omni-go" style={{ margin: '10px 12px 4px', padding: '12px 14px' }}>
       {missing && <p className="vmx-omni-go-missing">{missing}</p>}
@@ -856,9 +862,7 @@ function GoCard({ intent, active, flatIdx, onHover, onOpen, selectedYear, librar
         <span className="vmx-omni-go-icon" aria-hidden="true">{main.meta.icon || '📚'}</span>
         <span className="vmx-omni-go-text">
           <span className="vmx-omni-go-title">{primary.label} {main.meta.name}</span>
-          <span className="vmx-omni-go-sub">
-            {primary.count.toLocaleString()} {primary.unit}{otherYear ? `, ปี ${main.year}` : ''}
-          </span>
+          {sub && <span className="vmx-omni-go-sub">{sub}</span>}
         </span>
         {active && <span className="vmx-omni-go-enter" aria-hidden="true">↵</span>}
       </button>
@@ -866,7 +870,7 @@ function GoCard({ intent, active, flatIdx, onHover, onOpen, selectedYear, librar
         <div className="vmx-omni-next">
           {rest.map((a) => (
             <button key={a.target} type="button" className="vmx-omni-next-btn" onClick={() => onOpen(main.meta.id, a.target)}>
-              {a.label} <span className="vmx-omni-next-count">{a.count.toLocaleString()} {a.unit}</span>
+              {a.label}{a.count != null && <> <span className="vmx-omni-next-count">{a.count.toLocaleString()} {a.unit}</span></>}
             </button>
           ))}
         </div>
@@ -875,7 +879,7 @@ function GoCard({ intent, active, flatIdx, onHover, onOpen, selectedYear, librar
         <div className="vmx-omni-next vmx-omni-go-others">
           <span className="vmx-omni-go-or">หรือ</span>
           {others.map((o) => {
-            const first = studyActions(o, intent.want, libraryCounts[o.meta.id] || 0).actions[0];
+            const first = studyActions(o, intent.want, libraryCountFor(o.meta.id)).actions[0];
             return first ? (
               <button key={o.meta.id} type="button" className="vmx-omni-next-btn" onClick={() => onOpen(o.meta.id, first.target)}>
                 {first.label} {o.meta.name}
@@ -1053,7 +1057,10 @@ export default function CommandPalette({
   );
   const study = intents.find((i) => i.kind === 'study') || null;
   // Documents the student can open, per course: the shelf button on a study
-  // card only appears when this is above zero.
+  // card only appears when this is above zero. Until the shelf's own source
+  // has loaded for this account the count is not known (null), not zero:
+  // "เอกสาร epidem" used to say the course had no documents and open practice.
+  const libraryReady = sourceState.library?.status === 'ready' && sourceState.library.ownerId === ownerId;
   const libraryCounts = useMemo(() => {
     const out = {};
     for (const it of items) {
@@ -1062,13 +1069,14 @@ export default function CommandPalette({
     }
     return out;
   }, [items]);
+  const libraryCountFor = (subjectId) => (libraryReady ? libraryCounts[subjectId] || 0 : null);
   // The study card's main button as a keyboard row: first, so Enter opens it.
   const goFor = (intent) => {
     const main = intent?.subjects?.[0];
-    const first = main && studyActions(main, intent.want, libraryCounts[main.meta.id] || 0).actions[0];
+    const first = main && studyActions(main, intent.want, libraryCountFor(main.meta.id)).actions[0];
     return first ? { type: 'go', subject: main.meta.id, target: first.target } : null;
   };
-  const go = useMemo(() => goFor(study), [study, libraryCounts]); // eslint-disable-line react-hooks/exhaustive-deps
+  const go = useMemo(() => goFor(study), [study, libraryCounts, libraryReady]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Grouped result model. With a query: rank everything flat, then bucket
   // by type, order groups by their best-ranked hit. Without: recents first,
@@ -1127,26 +1135,26 @@ export default function CommandPalette({
 
   const sourcesLoading = Object.values(sourceState).some((s) => s.status === 'loading');
 
-  // Where a question with no answer can still go. Sections the server named
-  // first; without them (or without the server) the VetWiki articles the
-  // question is near, read from titles alone.
+  // Where a question with no answer can still go. When the server answered,
+  // the sections it named, and none when it named none: it read the whole
+  // corpus and left them out on purpose ("TPLO ผ่าตัดยังไง" listed unrelated
+  // surgery articles guessed from titles). Only a server that was not
+  // reached, or one that said nothing about related sections, leaves the
+  // VetWiki articles the question is near, read from titles alone.
   const askOpen = ask && (ask.phase === 'error' || ask.phase === 'empty');
   const askNearby = useMemo(() => {
     if (!askOpen) return [];
-    if (ask.phase === 'empty' && ask.related?.length) return ask.related;
+    if (ask.phase === 'empty' && Array.isArray(ask.related)) return ask.related;
     return relatedTopicsFor(ask.question || '', listTopics());
   }, [ask, askOpen]);
   // One word the document shelf really contains, so the shelf link never
-  // opens on an empty search.
+  // opens on an empty search, counted against the shelf's own text for each
+  // document (_shelfLc), not this box's index, which adds the shelf's name
+  // ("คลัง", "เอกสาร" ...) to every document.
   const askLibrary = useMemo(() => {
     if (!askOpen) return null;
-    const docs = items.filter((it) => it.type === 'library-doc');
-    for (const term of [...(ask.unmatched || []), ...libraryTerms(ask.question || '')]) {
-      const t = String(term).toLowerCase();
-      const n = docs.filter((d) => (d._hayLc || '').includes(t)).length;
-      if (n) return { term: t, count: n };
-    }
-    return null;
+    const shelf = items.filter((it) => it.type === 'library-doc').map((it) => it._shelfLc || '');
+    return librarySuggestion(ask.question || '', ask.unmatched || [], shelf);
   }, [ask, askOpen, items]);
   // A search that found nothing still points at the nearest articles.
   const emptyNearby = useMemo(() => {
@@ -1269,8 +1277,15 @@ export default function CommandPalette({
       return classifyAskResponse({ networkError: true });
     }
     const contentType = res.headers?.get?.('content-type') || '';
-    const body = contentType.includes('application/json') ? await res.json().catch(() => null) : null;
-    return classifyAskResponse({ status: res.status, contentType, body });
+    // A body that will not parse was cut off on the way (a dropped
+    // connection, a function stopped mid-reply): a failure worth the one
+    // automatic retry, never an empty answer.
+    let body = null;
+    let unreadable = false;
+    if (contentType.includes('application/json')) {
+      try { body = await res.json(); } catch { unreadable = true; }
+    }
+    return classifyAskResponse({ status: res.status, contentType, body, unreadable });
   };
 
   const runAsk = async (spoken, { manual = false } = {}) => {
@@ -1318,7 +1333,10 @@ export default function CommandPalette({
       const { claims } = validateAnswer(data.claims, allowed);
       // "Nothing on this" is an answer with somewhere to go, not an error.
       if (isEmptyAnswer(claims, data.meta)) {
-        respond(request, { phase: 'empty', question, unmatched: data.meta?.unmatched || [], related: relatedSections(data.meta) });
+        // null: the reply did not say (a cached or older answer), so the
+        // palette may still offer the articles the question is near.
+        const related = Array.isArray(data.meta?.related) ? relatedSections(data.meta) : null;
+        respond(request, { phase: 'empty', question, unmatched: data.meta?.unmatched || [], related });
         return;
       }
       respond(request, { phase: 'done', claims, sections: data.meta?.sections || [], labels: ANSWER_SUPPORT_LABEL, question });
@@ -1558,6 +1576,13 @@ export default function CommandPalette({
           </div>
         )}
 
+        {/* "ข้อสอบ com5" in year 5: nothing on the card to open here, so it
+            says where the questions are instead of leaving the search silent. */}
+        {!go && study && (() => {
+          const main = study.subjects[0];
+          const { missing } = studyActions(main, study.want, libraryCountFor(main.meta.id));
+          return missing ? <p className="vmx-omni-card vmx-omni-go-missing" role="status" style={{ margin: '10px 12px 4px', padding: '12px 14px' }}>{missing}</p> : null;
+        })()}
         {/* "คลิป COM5": the course's shelf first, Enter opens it. */}
         {go && study && (
           <GoCard
@@ -1567,7 +1592,7 @@ export default function CommandPalette({
             onHover={() => setActiveIdx(0)}
             onOpen={openStudy}
             selectedYear={selectedYear}
-            libraryCounts={libraryCounts}
+            libraryCountFor={libraryCountFor}
           />
         )}
 

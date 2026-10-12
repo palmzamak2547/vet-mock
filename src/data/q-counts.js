@@ -110,6 +110,72 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'zoonoses': 367,
 };
 
+// The same visible counts by the year of the bank they load from: 'shared'
+// banks load in every year, the others only in their own. A course has
+// shared + [selected year] questions to practise in the selected year.
+export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_BANK_YEAR = {
+  '1': {
+    'biochem-1': 271,
+    'vet-dev-anat': 26,
+  },
+  '2': {
+    'vet-histo': 104,
+    'vet-neuroanat': 40,
+  },
+  '3': {
+    'vet-pharm-2': 62,
+  },
+  '4': {
+    'cliapprum': 132,
+    'com1': 31,
+    'com2': 42,
+    'com3': 359,
+    'com4': 291,
+    'com5': 129,
+    'engprof': 70,
+    'engprof1': 30,
+    'exotic': 108,
+    'food-safety-y4': 31,
+    'herd-health-rum': 39,
+    'poultry': 128,
+    'practrum': 111,
+    'repro': 31,
+    'repro-lect': 104,
+    'surg1': 29,
+    'surg2': 18,
+    'surg3': 40,
+    'swine-herd': 36,
+    'swine-repro': 29,
+    'vet-imaging': 35,
+    'vet-juris': 46,
+  },
+  '5': {
+    'aquatic-clinic': 412,
+    'avian-medicine': 519,
+    'comp-repro-clinic': 48,
+    'epidemiology': 100,
+    'equine-medicine': 455,
+    'equine-repro': 183,
+    'food-industry': 273,
+    'livestock-pathology': 67,
+    'milk-meat-hygiene': 804,
+    'one-health': 188,
+    'poa-clinical': 71,
+    'rec-adv-bioscience': 4,
+    'ruminant-clinical': 15,
+    'swine-clinic': 107,
+    'vca': 139,
+    'zoonoses': 367,
+  },
+  shared: {
+    'cliapprum': 2,
+    'poultry': 4,
+    'practrum': 2,
+    'repro-lect': 104,
+    'vca': 316,
+  },
+};
+
 // What Panic Mode holds per subject: questions from a real paper plus the
 // ones written from what a senior cohort marked, hidden topics excluded.
 // A subject missing from this map has neither, and its Panic card falls
@@ -3238,4 +3304,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-10-11T13:37:27.725Z
+// Built: 2026-10-12T13:18:05.267Z

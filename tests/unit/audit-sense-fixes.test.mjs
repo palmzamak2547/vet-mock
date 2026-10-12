@@ -181,8 +181,13 @@ test('the shelf says a group is capped instead of rendering nothing', () => {
   assert.ok(!s.includes('if (budget <= 0) return null;'),
     'returning null made an expanded year silently empty when another year used the budget');
   assert.ok(s.includes('Math.max(0, MAX_BROWSE_CARDS - rendered)'));
-  assert.ok(s.includes('ใช้ช่องค้นหาเพื่อเปิดดูได้เลย'),
-    'the starved group must explain itself, and point at something that works');
+  // It used to point at "แสดงเฉพาะวิชานี้", a button the one-subject filter
+  // removes while the cap stays; each capped subject now offers more of
+  // itself (behaviour in library-show-more.test.mjs).
+  assert.ok(s.includes('ยังไม่ได้แสดง ${sg.docs.length} ไฟล์ของวิชานี้'),
+    'the starved group must explain itself');
+  assert.ok(s.includes('แสดงอีก {Math.min(BROWSE_STEP, hidden)} ไฟล์'),
+    'and offer something that works');
   assert.ok(!s.includes('เพราะเปิดหลายชั้นปีพร้อมกัน'),
     'one year is open by default and already exceeds the budget on its own, so '
     + 'blaming open years told a student with none open to go and close them');

@@ -173,6 +173,13 @@ test('Pomodoro uses the ambience and opens playable activities only during a rea
   // so the break-visible wait gets the same measured budget the cold-load
   // waits already use — a step budget, not a weaker assertion.
   await expect(page.locator('[data-break-activity="breath"]')).toBeVisible({ timeout: 15_000 });
+  // The focus ends with a celebration that opens over the break and takes
+  // focus; pressing keys behind it raced that focus move and lost the first
+  // bubble. A student closes it first.
+  const celebration = page.getByRole('dialog', { name: 'สำเร็จแล้ว! โฟกัสครบเวลา' });
+  await expect(celebration).toBeVisible();
+  await celebration.getByRole('button', { name: 'ปิด', exact: true }).first().click();
+  await expect(celebration).toHaveCount(0);
   await page.getByRole('combobox', { name: 'กิจกรรมระหว่างพัก', exact: true }).selectOption('bubbles');
   // Bubbles intentionally float. Keyboard activation tests the accessible
   // interaction without asking Playwright to wait for a stationary target.

@@ -101,3 +101,24 @@ test('composition keys keep search open, then ordinary keyboard selection and Es
   await expect(dialog).toBeHidden();
   await expect(launch).toBeFocused();
 });
+
+// The study card follows the banks the selected year loads: VCA's main bank
+// is shared, so a year-4 student practises it there at the count that year
+// serves; a year-1 course asked for from year 5 says which year instead of
+// showing nothing (review of 5.144.2, 2026-10-12).
+test('the study card offers what the selected year can practise, and names the year otherwise', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('vmx-selected-year', '4'));
+  await page.goto('/app');
+  await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
+  const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
+  const box = dialog.getByRole('textbox', { name: 'ค้นหาใน VetMock' });
+  await box.fill('ข้อสอบ vca');
+  const card = dialog.locator('.vmx-omni-go-primary');
+  await expect(card).toContainText('ฝึกข้อสอบ');
+  await expect(card).toContainText('316 ข้อ');
+  await page.evaluate(() => localStorage.setItem('vmx-selected-year', '5'));
+  await page.reload();
+  await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
+  await dialog.getByRole('textbox', { name: 'ค้นหาใน VetMock' }).fill('ข้อสอบ biochem');
+  await expect(dialog.getByRole('status').filter({ hasText: 'ข้อสอบวิชานี้อยู่ในชั้นปี 1 เปลี่ยนเป็นชั้นปี 1 ก่อนจึงจะฝึกได้' })).toBeVisible();
+});

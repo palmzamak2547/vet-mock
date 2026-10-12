@@ -20,7 +20,7 @@ export default function OfflineGameView({ goBack, online }) {
         <button
           className="vmx-btn vmx-btn-ghost vmx-btn-sm"
           onClick={goBack}
-          aria-label="กลับหน้าหลัก"
+          aria-label="กลับหน้าแรก"
         >
           ← กลับ
         </button>

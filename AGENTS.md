@@ -1,7 +1,8 @@
 # AGENTS.md — VetMock Project Guide
 
-## Night release 5.144.0 / SW v219, hotfix 5.144.1 / SW v220 — 2026-10-12 (Claude Code)
+## Night release 5.144.0 / SW v219, hotfixes 5.144.1 / SW v220 and 5.144.2 / SW v221 — 2026-10-12 (Claude Code)
 
+- 5.144.2: the seven search/reading fixes plus four found after 5.144.1 (dark phone first visit, Thai under 10px, the welcome button's name, the Pomodoro expiry stuck at 00:00 in WebKit). Never feed a value read from the wall clock during render into an effect's deps: keep the clock in state the tick writes. React's bail-out keeps a render's deps without running its effect.
 - 5.144.1: three reviews of 5.144.0 found 21 bugs; the high one (the how-to guide styled by index.html's global `.vmx-guide` rules) and twelve more are fixed with failing-first tests; seven search/reading items follow in 5.144.2. Never give an app component a class that index.html's inline screens already style (scope inline-screen CSS to its own root).
 
 - Owner review "Vet Mock.pdf" (phone 4/10 vs iPad 8/10) finished: phone Home as an app home (search, icon grid, plan; HomeQuickGrid + one nav list in lib/nav.js), the profile hub as the personal place (lib/study-record.js), exam-mode subject picker on every size, the practice ladder (lib/practice-ladder.js, LadderStrip; rung 1 = gentlePick, measured difficulty only at DIFFICULTY_MIN_ATTEMPTS), sticky start/next bars, the how-to rewritten as goals (src/data/how-to.js; a unit test fails if a quoted button disappears), one buddy everywhere (lib/buddy.js, hooks/useBuddy.js, styles-buddy.css), reading surfaces on phones (lib/reading-layout.js: own year first, subjects fold at 640 px), search read as concepts (lib/vetwiki/query-terms.js, omni-intents.js; `npm run eval:vetwiki`; recall@5 59% to 94%), the installed-app guide on the old host (lib/install-guide.js).

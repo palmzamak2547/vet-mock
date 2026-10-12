@@ -263,7 +263,7 @@ test('a malformed recent archive does not prevent ordinary search actions', asyn
 });
 
 const { OMNI_SOURCES } = await loadModule('src/lib/omni-sources.js', { stubs: [
-  { match: '(^|/)library\\.js$', contents: 'export const getLibraryCatalog = async () => typeof globalThis.__currentPaletteCatalog === "function" ? globalThis.__currentPaletteCatalog() : globalThis.__currentPaletteCatalog; export const subjectMeta = () => null; export const formatBytes = () => "";' },
+  { match: '(^|/)library\\.js$', contents: 'export const getLibraryCatalog = async () => typeof globalThis.__currentPaletteCatalog === "function" ? globalThis.__currentPaletteCatalog() : globalThis.__currentPaletteCatalog; export const subjectMeta = () => null; export const formatBytes = () => ""; export const indexDocs = (docs) => docs.map((doc) => ({ doc, _hayLc: "" }));' },
 ] });
 test('the real omni source drops its library cache across A, logout and B auth events', async () => {
   const catalog = id => ({ docs: [{ id, title: id, status: id === 'public' ? 'public' : 'restricted' }] });

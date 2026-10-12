@@ -188,7 +188,7 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
           onClick={() => (typeof goHome === 'function' ? goHome() : setView?.('home'))}
           style={{ minHeight: 44 }}
         >
-          ← Home
+          ← หน้าแรก
         </button>
         <h1 style={{ margin: 0, fontFamily: 'var(--vmx-display)', fontSize: 22, fontWeight: 600, flex: 1, minWidth: 200 }}>
           <Mochi state="read" size={32} slot="pinboard" className="vmx-status-mochi" />Pinboard
@@ -216,8 +216,9 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
         <button
           type="button"
           onClick={() => setYearScope('current')}
+          aria-pressed={yearScope === 'current'}
           style={{
-            minHeight: 44, padding: '4px 10px', borderRadius: 999,
+            minHeight: 44, minWidth: 44, padding: '4px 10px', borderRadius: 999,
             border: '1px solid ' + (yearScope === 'current' ? 'var(--clr-ink)' : 'var(--clr-border)'),
             background: yearScope === 'current' ? 'var(--clr-ink)' : 'transparent',
             color: yearScope === 'current' ? 'var(--clr-surface, #fff)' : 'var(--clr-ink)',
@@ -229,8 +230,9 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
         <button
           type="button"
           onClick={() => setYearScope('all')}
+          aria-pressed={yearScope === 'all'}
           style={{
-            minHeight: 44, padding: '4px 10px', borderRadius: 999,
+            minHeight: 44, minWidth: 44, padding: '4px 10px', borderRadius: 999,
             border: '1px solid ' + (yearScope === 'all' ? 'var(--clr-ink)' : 'var(--clr-border)'),
             background: yearScope === 'all' ? 'var(--clr-ink)' : 'transparent',
             color: yearScope === 'all' ? 'var(--clr-surface, #fff)' : 'var(--clr-ink)',

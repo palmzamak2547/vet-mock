@@ -132,3 +132,17 @@ test('the Atlas e2e pins follow the rewritten copy', () => {
   const spec = readFileSync(new URL('../e2e/atlas-visible-dog.spec.js', import.meta.url), 'utf8');
   assert.ok(!spec.includes('·'), 'the Visible dog spec still pins a middle dot the page no longer shows');
 });
+
+test('หน้าหลัก is the home screen\'s old name, and only that word is counted', () => {
+  // The bottom bar says หน้าแรก; หน้าหลัก is counted like an old spelling.
+  // Longer words that start the same way are other words: ความคืบหน้าหลัก,
+  // หน้าหลักสูตร, หน้าหลักเกณฑ์, หน้าหลักฐาน, หน้าหลักการ.
+  const found = issues([
+    'export default () => (<div>',
+    '  <button>← หน้าหลัก</button>',
+    "  <p>{'กลับหน้าหลัก'}</p>",
+    "  <p>{'ล้างความคืบหน้าหลัก ดูหน้าหลักสูตร อ่านหน้าหลักเกณฑ์ เปิดหน้าหลักฐาน และหน้าหลักการ'}</p>",
+    '</div>);',
+  ].join('\n')).spelling;
+  assert.deepEqual(found.map((s) => `${s.text}>${s.fix}`).sort(), ['← หน้าหลัก>หน้าแรก', 'กลับหน้าหลัก>หน้าแรก'].sort());
+});

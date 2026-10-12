@@ -7,7 +7,7 @@ Made with ♡ by **Vet 86**
 🔬 **VetMock Research:** [research.vetmock.com](https://research.vetmock.com)
 🔗 **Sister sites:** [cuvetsmo.com](https://cuvetsmo.com) (สโมสรนิสิต), [hanong.vercel.app](https://hanong.vercel.app) (stray welfare)
 
-**Study source:** v5.144.1 / SW v220, pushed to main 2026-10-12 (the deployed receipt is in docs/LAUNCH_READINESS.md)
+**Study source:** v5.144.2 / SW v221, pushed to main 2026-10-12 (the deployed receipt is in docs/LAUNCH_READINESS.md)
 ปกรายวิชา 85 วิชาในหน้าแรกและหน้าเลือกวิชา; สถานะข้อสอบและสรุปยังแสดงตามเนื้อหาที่มีจริง
 หลักฐาน deployment และข้อจำกัดของการตรวจ รวมถึง Research R parity: [`docs/LAUNCH_READINESS.md`](./docs/LAUNCH_READINESS.md)
 Maintainer map: [`docs/PROJECT_KNOWLEDGE_BASE.md`](./docs/PROJECT_KNOWLEDGE_BASE.md)

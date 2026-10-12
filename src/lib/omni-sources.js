@@ -19,7 +19,7 @@
 // 'vmx-palette-invalidate' event the static index listens to, so the
 // search always follows the data without anyone maintaining an index.
 
-import { getLibraryCatalog, subjectMeta, formatBytes } from './library.js';
+import { getLibraryCatalog, subjectMeta, formatBytes, indexDocs } from './library.js';
 
 const cache = new Map(); // sourceId → entries[]
 let cacheEpoch = 0;
@@ -45,15 +45,21 @@ export function libraryDocEntry(doc) {
     doc.description || null,
     formatBytes(doc.byte_size) || null,
   ].filter(Boolean).join(', ');
-  return lowered({
-    type: 'library-doc',
-    payload: doc,
-    label: doc.title,
-    hint,
-    icon: meta?.icon || '📄',
-    kw: [subjectName, meta?.name_en, meta?.code, doc.subject, doc.description, 'library เอกสาร คลัง ชีท สไลด์']
-      .filter(Boolean).join(' '),
-  });
+  return {
+    ...lowered({
+      type: 'library-doc',
+      payload: doc,
+      label: doc.title,
+      hint,
+      icon: meta?.icon || '📄',
+      kw: [subjectName, meta?.name_en, meta?.code, doc.subject, doc.description, 'library เอกสาร คลัง ชีท สไลด์']
+        .filter(Boolean).join(' '),
+    }),
+    // The shelf's own search text for this document (LibraryView searches
+    // indexDocs), without the words above that every entry carries: a count
+    // offered for the shelf is the count the shelf will list.
+    _shelfLc: indexDocs([doc])[0]?._hayLc || '',
+  };
 }
 
 export function drugEntry(drug) {

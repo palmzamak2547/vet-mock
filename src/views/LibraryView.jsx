@@ -55,6 +55,8 @@ import {
 // and say so rather than truncating silently.
 const MAX_RESULTS = 60;
 const MAX_BROWSE_CARDS = 150;
+// One tap on a capped subject's "แสดงอีก" mounts this many more of its cards.
+const BROWSE_STEP = 150;
 
 const KIND_TONE = {
   textbook: 'var(--clr-plum-text)',
@@ -487,6 +489,15 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
     touchedRef.current = false;
     try { document.querySelector('.vmx-lib-search')?.scrollIntoView({ block: 'start' }); } catch { /* the filter still applies */ }
   };
+  // Cards a student asked for beyond the shared budget, per subject. The
+  // one-subject filter alone never lifted the cap (the VCA shelf has 294
+  // files and still showed 150), so a capped subject opens further a step at
+  // a time, and what it adds never takes another subject's share.
+  const [subjectExtra, setSubjectExtra] = useState(() => new Map());
+  const showMore = (year, sg) => {
+    const key = `${year}|${sg.subject}`;
+    setSubjectExtra((prev) => new Map(prev).set(key, (prev.get(key) || 0) + BROWSE_STEP));
+  };
 
   // Filter options come from the shelf itself, so a dimension nobody has filled
   // in never renders a row.
@@ -863,8 +874,11 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
                         // skipped, so nothing extra is mounted.
                         const budget = Math.max(0, MAX_BROWSE_CARDS - rendered);
                         const subjectIsOpen = subjectOpen(group.year, sg, group.subjects.length);
-                        const shown = subjectIsOpen ? sg.docs.slice(0, budget) : [];
-                        rendered += shown.length;
+                        const extra = subjectExtra.get(`${group.year}|${sg.subject}`) || 0;
+                        const shown = subjectIsOpen ? sg.docs.slice(0, budget + extra) : [];
+                        // Only the shared share counts against the subjects below.
+                        rendered += Math.min(shown.length, budget);
+                        const hidden = sg.docs.length - shown.length;
                         const code = subjectMeta(sg.subject)?.code;
                         return (
                           <div key={sg.subject} className="vmx-lib-subject">
@@ -902,18 +916,24 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
                                 ))}
                               </div>
                             )}
-                            {subjectIsOpen && shown.length < sg.docs.length && (
+                            {subjectIsOpen && hidden > 0 && (
                               <div className="vmx-lib-capped">
                                 <p>
                                   {/* Do not blame open years. One year is open by
                                       default and a single year's shelf already
                                       passes the card budget on its own, so the
                                       old wording told a student with nothing else
-                                      open to go and close it. */}
+                                      open to go and close it. The line states
+                                      what is shown and the buttons below say what
+                                      to do: it once pointed at a button the
+                                      one-subject filter had just removed. */}
                                   {shown.length === 0
-                                    ? `ยังไม่ได้แสดง ${sg.docs.length} ไฟล์ของวิชานี้ กดแสดงเฉพาะวิชานี้ หรือใช้ช่องค้นหาเพื่อเปิดดูได้เลย`
-                                    : `แสดง ${shown.length} จาก ${sg.docs.length} ไฟล์ กดแสดงเฉพาะวิชานี้เพื่อดูที่เหลือ`}
+                                    ? `ยังไม่ได้แสดง ${sg.docs.length} ไฟล์ของวิชานี้`
+                                    : `แสดง ${shown.length} จาก ${sg.docs.length} ไฟล์`}
                                 </p>
+                                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => showMore(group.year, sg)}>
+                                  แสดงอีก {Math.min(BROWSE_STEP, hidden)} ไฟล์
+                                </button>
                                 {subjectFilter !== sg.subject && (
                                   <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => showOnlySubject(sg.subject)}>
                                     แสดงเฉพาะวิชานี้

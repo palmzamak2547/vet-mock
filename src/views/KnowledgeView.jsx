@@ -51,6 +51,14 @@ const TONE = {
 
 const subjectMeta = (id) => SUBJECTS.find((s) => s.id === id) || null;
 const subjectName = (id) => subjectMeta(id)?.name || id.toUpperCase();
+// A subject's group in the index, as a place to scroll to.
+const subjectAnchor = (id) => `wiki-subject-${id}`;
+
+// The newest open request (App's openNonce) this page has acted on. App keeps
+// the subject and topic it last opened in its own state, so a mount from the
+// Home tile or the menu arrives with a subject as well; only a request newer
+// than this one moves the reader.
+let actedOnOpenNonce = 0;
 
 function StatusBadge({ label }) {
   if (!label) return null;
@@ -195,7 +203,7 @@ function ProvenancePanel({ prov, onClose }) {
 }
 
 // ================= INDEX =================
-function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
+function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject = null }) {
   // Survive the stale-deploy reload. When a subject chunk fails to load, the
   // app reloads to pick up a fresh deploy — correct, and not something to
   // remove — but it took the student's search term with it, so a recovery in
@@ -341,8 +349,11 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
 
       {groups.map(([subjectId, list]) => {
         const meta = subjectMeta(subjectId);
+        // A subject asked for by name (the search card's VetWiki button)
+        // starts open, folded or not; a tap still wins.
         const open = query ? true
-          : subjectToggles.has(subjectId) ? subjectToggles.get(subjectId) : subjectsOpenByDefault;
+          : subjectToggles.has(subjectId) ? subjectToggles.get(subjectId)
+          : subjectId === focusSubject || subjectsOpenByDefault;
         const label = (
           <>
             <span className="vmx-wiki-subject-title">
@@ -353,7 +364,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome }) {
           </>
         );
         return (
-          <section key={subjectId} className="vmx-wiki-subject">
+          <section key={subjectId} id={subjectAnchor(subjectId)} className="vmx-wiki-subject" style={{ scrollMarginTop: 'var(--space-4)' }}>
             <h2 className="vmx-wiki-subject-heading">
               {query ? <span className="vmx-wiki-subject-row">{label}</span> : (
                 <button
@@ -665,6 +676,8 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   // contents); a direct subject+topic entry (e.g. from a note page) opens the
   // article itself.
   const [openId, setOpenId] = useState(() => (subject && topic && topics.some((t) => t.id === `${subject}--${topic}`) ? `${subject}--${topic}` : null));
+  // The subject the index was last asked to show ({ subject, nonce }).
+  const [indexFocus, setIndexFocus] = useState(null);
   const [showProv, setShowProv] = useState(false);
   const [articleLoad, setArticleLoad] = useState({ id: null, status: 'idle', data: null, error: '' });
 
@@ -737,14 +750,36 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   // the student just left, so setting subject/topic to those values changes
   // nothing and React bails out before this effect would ever run.
   useEffect(() => {
+    const fresh = openNonce > actedOnOpenNonce;
+    if (fresh) actedOnOpenNonce = openNonce;
     const id = subject && topic ? `${subject}--${topic}` : null;
-    if (!id || id === openId) return;
+    if (!id) {
+      // A subject with no topic (the search card's VetWiki button): the
+      // index, with that subject open and in view. It used to land on every
+      // subject folded on a phone, and from inside an article on nothing.
+      if (fresh && subject && topics.some((t) => t.subject === subject)) {
+        // An earlier search (kept by WikiIndex) would list only its own hits.
+        try { sessionStorage.removeItem('vmx-wiki-q'); } catch { /* the index still opens */ }
+        setOpenId(null);
+        syncUrl(null);
+        setIndexFocus({ subject, nonce: openNonce });
+      }
+      return;
+    }
+    if (id === openId) return;
     if (!topics.some((t) => t.id === id)) return;
     setOpenId(id);
     syncUrl(id);
     window.scrollTo({ top: 0, behavior: 'auto' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subject, topic, openNonce]);
+
+  // Runs after the index has rendered the asked-for subject open.
+  useEffect(() => {
+    if (!indexFocus) return;
+    const el = typeof document === 'undefined' ? null : document.getElementById(subjectAnchor(indexFocus.subject));
+    el?.scrollIntoView?.({ block: 'start', behavior: motionIsReduced() ? 'auto' : 'smooth' });
+  }, [indexFocus]);
 
   // Normalise the URL on first paint (e.g. entering from the app's feature
   // button, which arrives at "/"), and follow Back/Forward. Topic buttons
@@ -764,7 +799,12 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   }, []);
 
   if (!current) {
-    return <WikiIndex topics={topics} onOpen={openTopic} onOpenSection={openSection} goHome={goHome} />;
+    // A new request remounts the index, so its search box starts from the
+    // cleared search and the asked-for subject starts open.
+    return (
+      <WikiIndex topics={topics} onOpen={openTopic} onOpenSection={openSection} goHome={goHome}
+        key={indexFocus ? `focus-${indexFocus.nonce}` : 'index'} focusSubject={indexFocus?.subject || null} />
+    );
   }
 
   if (!knowledge) {

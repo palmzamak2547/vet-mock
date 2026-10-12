@@ -47,12 +47,17 @@ export function unmatchedLine(terms) {
 
 /**
  * What a reply means for the student.
- * @param {{ status?: number, contentType?: string, body?: any, networkError?: boolean }} r
+ * @param {{ status?: number, contentType?: string, body?: any, networkError?: boolean, unreadable?: boolean }} r
+ *   unreadable: the JSON body could not be parsed (cut off on the way)
  * @returns {{ kind: 'reply', body } | { kind: 'transient'|'busy'|'rate'|'budget'|'unconfigured'|'local-only'|'bad-request', message: string, retryable: boolean }}
  */
-export function classifyAskResponse({ status, contentType = '', body, networkError = false } = {}) {
+export function classifyAskResponse({ status, contentType = '', body, networkError = false, unreadable = false } = {}) {
   if (networkError) return { kind: 'transient', message: ASK_COPY.network, retryable: true };
   const json = contentType.includes('application/json');
+  // A success whose body never arrived whole is a dropped connection: read
+  // as a reply, its missing body became "VetWiki has nothing on this". An
+  // error status still says what happened on its own (below).
+  if (unreadable && json && status < 400) return { kind: 'transient', message: ASK_COPY.network, retryable: true };
   if (status === 503 && json) {
     if (body?.reason === 'budget') return { kind: 'budget', message: ASK_COPY.budget, retryable: false };
     if (body?.reason === 'temporarily_unavailable') return { kind: 'busy', message: ASK_COPY.busy, retryable: true };
@@ -118,7 +123,9 @@ const isThaiForm = (f) => isThai(f.replace(/\s+/g, ''));
  * What a question names, as concepts: each curated alias group it mentions is
  * one concept (ลมชัก reaches "seizure"); any other word of three letters or
  * more is its own. Groups that only say what kind of answer is wanted
- * (รักษา, อาการ ...) are left out, or "treatment" in a title would win.
+ * (รักษา, อาการ, ผ่าตัด ...) are left out, or "treatment" in a title would
+ * win, and so are their words: skipping the group alone let ผ่าตัด come back
+ * as a plain word, and "TPLO ผ่าตัดยังไง" offered every surgery article.
  */
 function questionConcepts(q, words) {
   const starts = new Set(words.map((w) => w.start));
@@ -126,7 +133,7 @@ function questionConcepts(q, words) {
   const spans = [];
   const concepts = [];
   for (const group of ALIAS_GROUPS) {
-    if (GENERIC_ALIAS_HEADS.has(group[0])) continue;
+    const generic = GENERIC_ALIAS_HEADS.has(group[0]);
     let hit = null;
     for (const f of group) {
       if (isThaiForm(f)) {
@@ -136,12 +143,19 @@ function questionConcepts(q, words) {
       } else {
         const stem = f.replace(/\*$/, '');
         const i = q.indexOf(stem);
-        if (i >= 0 && (i === 0 || !/[a-z0-9]/.test(q[i - 1]))) hit = { start: i, end: i + stem.length };
+        if (i >= 0 && (i === 0 || !/[a-z0-9]/.test(q[i - 1]))) {
+          let end = i + stem.length;
+          // A kind word's stem form (emergenc*) covers its whole word, or
+          // "emergency" would be left behind as a concept of its own.
+          if (generic && f.endsWith('*')) while (end < q.length && /[a-z0-9-]/.test(q[end])) end++;
+          hit = { start: i, end };
+        }
       }
       if (hit) break;
     }
     if (!hit) continue;
     spans.push(hit);
+    if (generic) continue; // its words are covered above, and name no article
     const forms = group.map((f) => f.replace(/\*$/, '')).filter((f) => f.length >= 3);
     if (forms.length) concepts.push({ forms, weight: SPECIES_ALIAS_HEADS.has(group[0]) ? 0.5 : 1 });
   }
@@ -205,6 +219,15 @@ function mentions(hay, term) {
   return false;
 }
 
+// Words that name the document shelf itself, not what a document is about:
+// "คลังมีเรื่อง TPLO ไหม" is asking about TPLO. Typed into the shelf's search
+// they match by kind label or nothing, never by topic.
+const SHELF_WORDS = new Set([
+  'คลัง', 'คลังเอกสาร', 'เอกสาร', 'ชีท', 'ชีต', 'สไลด์', 'ไฟล์',
+  'library', 'pdf', 'pdfs', 'slide', 'slides', 'sheet', 'sheets', 'handout', 'handouts',
+  'document', 'documents', 'doc', 'docs', 'file', 'files',
+]);
+
 /**
  * Words of a question worth typing into the document shelf's search, most
  * specific first: Latin terms (the shelf's titles are mostly English), then
@@ -214,8 +237,35 @@ function mentions(hay, term) {
 export function libraryTerms(question) {
   const q = contentQuery(normalizeQuery(question));
   const words = segmentWords(q).filter((w) => w.wordLike).map((w) => w.word.trim())
-    .filter((w) => w.length >= 3 && !STOPWORDS.has(w));
+    .filter((w) => w.length >= 3 && !STOPWORDS.has(w) && !SHELF_WORDS.has(w));
   const latin = words.filter((w) => isLatin(w)).sort((a, b) => b.length - a.length);
   const thai = words.filter((w) => isThai(w) && w.length >= 4).sort((a, b) => b.length - a.length);
   return [...new Set([...latin, ...thai])];
+}
+
+/**
+ * The one word to offer for the document shelf after a question found no
+ * answer: the first term (the knowledge base's unmatched terms, then the
+ * question's own words) that some document really contains, counted the way
+ * the shelf searches (every space-separated part of the term must appear in a
+ * document's text). Counting against the search box's own index once offered
+ * "คลัง" with every file, because that index adds the shelf's name to each.
+ * @param {string} question
+ * @param {string[]} unmatched  terms the knowledge base does not use
+ * @param {string[]} shelf  each document's search text, as the shelf indexes it
+ * @returns {{ term: string, count: number } | null}
+ */
+export function librarySuggestion(question, unmatched, shelf) {
+  const docs = (Array.isArray(shelf) ? shelf : []).filter((h) => typeof h === 'string' && h);
+  if (!docs.length) return null;
+  const seen = new Set();
+  for (const raw of [...(unmatched || []), ...libraryTerms(question || '')]) {
+    const term = String(raw || '').trim().toLowerCase();
+    if (!term || seen.has(term) || SHELF_WORDS.has(term)) continue;
+    seen.add(term);
+    const parts = term.split(/\s+/);
+    const count = docs.filter((h) => parts.every((p) => h.includes(p))).length;
+    if (count) return { term, count };
+  }
+  return null;
 }

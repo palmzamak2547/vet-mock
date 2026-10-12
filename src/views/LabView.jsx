@@ -282,7 +282,7 @@ export default function LabView({ goHome }) {
             <span className="vmx-lab-safety-note">Experimental — เพื่อการเรียนรู้ ไม่ใช้แทนการ workup ผู้ป่วยจริง</span>
           </p>
         </div>
-        <button onClick={handleBack} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← Home</button>
+        <button onClick={handleBack} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← หน้าแรก</button>
       </header>
 
       {subView === 'home' && (

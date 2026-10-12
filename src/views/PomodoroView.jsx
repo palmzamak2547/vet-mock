@@ -167,7 +167,7 @@ export default function PomodoroView({ goHome }) {
         gap: 16,
       }}
     >
-      <BackBar onBack={goHome} label="หน้าหลัก" subtitle="Pomodoro โฟกัสกับคู่หู" />
+      <BackBar onBack={goHome} label="หน้าแรก" subtitle="Pomodoro โฟกัสกับคู่หู" />
 
       {/* Title — short, no clutter; the ring is the hero. */}
       <h1

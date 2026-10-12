@@ -31,7 +31,7 @@
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const CSS = read('../../src/styles.css');
@@ -754,4 +754,26 @@ test('the select groups that drop the native arrow draw their own, from a theme 
       }
     }
   }
+});
+
+// Thai below 10px loses its tone marks on a 1x or 1.5x screen. The 2026-10-12
+// review found the countdown's ชม./นาที/วินาที at 9-9.5px, the results seal's
+// criterion line at 9.5px under 0.85 opacity, the answer stamp's ถูกแล้ว at
+// 9px and two atlas counts at 9px. The landing's photo credit sits inside a
+// fixed circle and is checked on screen, so this covers every other sheet
+// (src/styles*.css), including ones added later.
+test('no app stylesheet sets text below 10px', () => {
+  const small = [];
+  const sheets = readdirSync(new URL('../../src/', import.meta.url))
+    .filter((f) => /^styles.*\.css$/.test(f) && f !== 'styles-landing.css');
+  assert.ok(sheets.length >= 5, `found ${sheets.join(', ')}`);
+  for (const file of sheets) {
+    const css = read(`../../src/${file}`);
+    css.split('\n').forEach((line, i) => {
+      for (const m of line.matchAll(/font-size:\s*([0-9.]+)px/g)) {
+        if (Number(m[1]) < 10) small.push(`${file}:${i + 1} ${m[0]}`);
+      }
+    });
+  }
+  assert.deepEqual(small, [], 'text this small is unreadable in Thai');
 });

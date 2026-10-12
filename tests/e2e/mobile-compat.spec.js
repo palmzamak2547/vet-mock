@@ -490,3 +490,38 @@ test.describe('whole-app mobile compatibility', () => {
     expect(failures, JSON.stringify(failures, null, 2)).toEqual([]);
   });
 });
+
+// The app's own floor is 44 px (--touch-min). A sweep of the live site on
+// 2026-10-12 found three surfaces under it on a phone: the reading list's
+// "เปิด Notes" buttons (38 px wide), the bench lesson contents (32 px rows)
+// and the pinboard's year chip (40 px wide). Links inside running text are
+// exempt (WCAG 2.5.8), and so is a small input whose label is the target.
+test('controls on the reading list, the bench lesson and the pinboard are 44 px', async ({ page }, testInfo) => {
+  test.skip(!/mobile/.test(testInfo.project.name), 'a phone check');
+  await page.setViewportSize({ width: 390, height: 844 });
+  const small = [];
+  for (const path of ['/app/reading', '/app/bench', '/app/pinboard']) {
+    await gotoSurface(page, path);
+    await waitForSurface(page);
+    await page.waitForTimeout(600);
+    const found = await page.evaluate(() => {
+      const out = [];
+      for (const el of document.querySelectorAll('button, a[href], [role=button], select, summary')) {
+        const r = el.getBoundingClientRect();
+        const cs = getComputedStyle(el);
+        if (!r.width || !r.height || cs.visibility === 'hidden') continue;
+        if (r.width >= 43.5 && r.height >= 43.5) continue;
+        const parent = el.parentElement;
+        const runningText = el.tagName === 'A' && parent
+          && [...parent.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
+        if (runningText) continue;
+        const label = el.closest('label')?.getBoundingClientRect();
+        if (label && label.width >= 43.5 && label.height >= 43.5) continue;
+        out.push(`${(el.getAttribute('aria-label') || el.textContent || '').trim().slice(0, 30)} ${Math.round(r.width)}x${Math.round(r.height)}`);
+      }
+      return out;
+    });
+    for (const f of new Set(found)) small.push(`${path}: ${f}`);
+  }
+  expect(small).toEqual([]);
+});

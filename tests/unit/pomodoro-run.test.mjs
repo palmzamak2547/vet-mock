@@ -79,6 +79,9 @@ function mount(props) {
   const effects = [];
   let cursor = 0; let effectCursor = 0; let dirty = false;
   const queued = [];
+  // The one-second tick: the component's setInterval lands here and
+  // view.tick() runs it, the way a second passing does.
+  const intervals = new Map(); let nextInterval = 1;
   const changed = (a, b) => !a || !b || a.length !== b.length || a.some((d, n) => !Object.is(d, b[n]));
   const hooks = {
     useState(init) {
@@ -101,6 +104,8 @@ function mount(props) {
       const prev = effects[i];
       if (!prev || !deps || changed(prev.deps, deps)) queued.push({ i, fn, deps });
     },
+    setInterval(fn) { const id = nextInterval++; intervals.set(id, fn); return id; },
+    clearInterval(id) { intervals.delete(id); },
   };
   const Component = make(hooks);
   const view = {
@@ -118,6 +123,20 @@ function mount(props) {
           effects[e.i] = { deps: e.deps, cleanup: typeof cleanup === 'function' ? cleanup : null };
         }
       } while (dirty);
+      return view;
+    },
+    tick() {
+      for (const fn of [...intervals.values()]) fn();
+      return view.render();
+    },
+    // React's bail-out: the component ran but neither its state nor its props
+    // changed, so React drops that render's effects and keeps its hook list,
+    // deps included (what WebKit showed on 2026-10-12: the expiry effect never
+    // ran again once a bail-out render had seen the time run out).
+    bailout() {
+      cursor = 0; effectCursor = 0; dirty = false;
+      view.tree = Component(props);
+      for (const e of queued.splice(0)) effects[e.i] = { cleanup: effects[e.i]?.cleanup ?? null, deps: e.deps };
       return view;
     },
     unmount() {
@@ -259,7 +278,7 @@ test('(b) the break line says the break length the student set', () => {
   button(view, 'เริ่ม focus session').props.onClick();
   view.render();
   now += 25 * MIN;
-  view.render();
+  view.tick();
   assert.equal(clock(view), '10:00');
   assert.equal(status(view), 'พักสายตา 10 นาที');
 });
@@ -271,15 +290,35 @@ test('(c) moving a slider mid-session changes the next phase, not the running on
   view.render();
   now += 12 * MIN;
   view.render({ ...props, config: { ...props.config, focusMin: 10 } });
+  view.tick();
   assert.equal(clock(view), '13:00', 'the running focus kept its 25 minutes');
   assert.deepEqual(log, []);
   now += 13 * MIN;
-  view.render();
+  view.tick();
   assert.deepEqual(log, [{ durationMin: 25, completed: true }], 'logged as the length that ran');
   now += 5 * MIN;
-  view.render();
+  view.tick();
   assert.match(status(view), /พร้อมเริ่ม/);
   assert.equal(clock(view), '10:00', 'the next focus uses the new slider value');
+});
+
+// ── 2026-10-12 ────────────────────────────────────────────────────────────
+// The remaining time was read from Date.now() during render. A render React
+// bailed out of (nothing in state or props changed) then kept "0 left" in the
+// expiry effect's deps without running it, so the effect never ran again: in
+// WebKit a clock jump past the end of a focus (a locked phone, a throttled
+// tab) left the timer at 00:00 for good, with no break and no session logged.
+test('a clock jump past the end of a focus starts the break even after a render React bails out of', () => {
+  const { props, log } = fresh({ focusMin: 5, shortBreakMin: 1 });
+  const view = mount(props);
+  button(view, 'เริ่ม focus session').props.onClick();
+  view.render();
+  now += 301_000; // the phone was locked through the end; no tick ran
+  view.bailout();
+  view.tick(); // the first second after waking
+  assert.deepEqual(log, [{ durationMin: 5, completed: true }], 'the focus is counted');
+  assert.equal(status(view), 'พักสายตา 1 นาที', 'and the break has started');
+  assert.equal(clock(view), '00:59', 'the break began when the focus ended');
 });
 
 test('a stored run that cannot be read is ignored', () => {

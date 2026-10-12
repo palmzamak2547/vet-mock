@@ -11,8 +11,9 @@ import assert from 'node:assert/strict';
 
 import {
   ASK_COPY, classifyAskResponse, shouldAutoRetry, isEmptyAnswer, relatedSections,
-  relatedTopicsFor, libraryTerms, unmatchedLine,
+  relatedTopicsFor, libraryTerms, librarySuggestion, unmatchedLine,
 } from '../../src/lib/omni-ask.js';
+import { listTopics } from '../../src/lib/vetwiki/registry.js';
 
 const JSON_CT = 'application/json; charset=utf-8';
 
@@ -52,6 +53,18 @@ test('quota, missing setup, rate limits and local dev are told straight and neve
   assert.equal(classifyAskResponse({ status: 200, contentType: 'text/html' }).kind, 'local-only');
   assert.equal(classifyAskResponse({ status: 400, contentType: JSON_CT, body: {} }).kind, 'bad-request');
   for (const r of [budget, busy]) assert.equal(shouldAutoRetry(r), false);
+});
+
+test('a reply cut off mid-body is a dropped connection, not an empty answer', () => {
+  // A 200 whose JSON cannot be parsed came back as a null body, and a null
+  // body read as "VetWiki has nothing on this".
+  const cut = classifyAskResponse({ status: 200, contentType: JSON_CT, unreadable: true });
+  assert.equal(cut.kind, 'transient');
+  assert.equal(cut.message, ASK_COPY.network);
+  assert.equal(shouldAutoRetry(cut), true, 'it gets the one automatic retry');
+  // Where the status alone already says what happened, it still decides.
+  assert.equal(classifyAskResponse({ status: 429, contentType: JSON_CT, unreadable: true }).kind, 'rate');
+  assert.equal(classifyAskResponse({ status: 504, contentType: JSON_CT, unreadable: true }).message, ASK_COPY.timeout);
 });
 
 test('a JSON 200 is a reply to read', () => {
@@ -96,6 +109,19 @@ test('the document shelf is offered one real word at a time, most specific first
   assert.ok(!libraryTerms('ค่าเทอมเท่าไหร่').includes('เท่า'));
 });
 
+test('the shelf link is counted the way the shelf searches, and never offers the shelf\'s own name', () => {
+  const shelf = ['gi anatomy com v lecture slides', 'stifle surgery: tplo and tta', 'คลังข้อสอบ avian'];
+  assert.deepEqual(librarySuggestion('คลังมีเรื่องการทำ TPLO ไหม', ['tplo'], shelf), { term: 'tplo', count: 1 });
+  // คลัง names the shelf: skipped even though a document contains it.
+  assert.equal(librarySuggestion('คลังมีเรื่องการทำ TPLO ไหม', [], ['คลังข้อสอบ avian']), null);
+  assert.equal(librarySuggestion('มีสไลด์เรื่อง avian ไหม', [], shelf)?.term, 'avian');
+  // A term of several words needs each of them, as the shelf's search does.
+  assert.equal(librarySuggestion('x', ['tplo tta'], shelf)?.count, 1);
+  assert.equal(librarySuggestion('x', ['tplo cat'], shelf), null);
+  assert.equal(librarySuggestion('TPLO', ['tplo'], []), null, 'no shelf, no link');
+  assert.ok(!libraryTerms('คลังเอกสารมีชีท pdf เรื่อง TPLO ไหม').some((t) => ['คลัง', 'คลังเอกสาร', 'ชีท', 'pdf'].includes(t)));
+});
+
 test('the missing-term line quotes at most three terms and says nothing when there are none', () => {
   assert.equal(unmatchedLine(['norberg']), 'ไม่พบคำว่า “norberg” ในคลังความรู้');
   assert.equal(unmatchedLine([]), '');
@@ -108,6 +134,19 @@ test('the copy is plain Thai: no separator dots and no tooling words', () => {
     assert.doesNotMatch(text, /\b(AI|model|Claude|DeepSeek|LLM)\b/i, `${key} names tooling`);
     assert.ok(!text.includes('ข้อสอบเก่า'), key);
   }
+});
+
+test('a word that only says what kind of answer is wanted never picks the nearest articles', () => {
+  // Production, 5.144.0: "TPLO ผ่าตัดยังไง" listed Penile Deviation Surgery,
+  // a mare infertility article and surgical colic. ผ่าตัด belongs to an alias
+  // group that names the kind of answer (like รักษา, อาการ), so the group was
+  // skipped, but its word then came back as a concept of its own.
+  const real = listTopics();
+  for (const q of ['TPLO ผ่าตัดยังไง', 'TPLO surgery how', 'ผ่าตัดฉุกเฉิน ทำยังไง', 'emergency TPLO']) {
+    assert.deepEqual(relatedTopicsFor(q, real), [], q);
+  }
+  // Beside a word that names something, the kind word changes nothing.
+  assert.equal(relatedTopicsFor('ลมชักผ่าตัดได้ไหม', TOPICS)[0]?.topic, 'seizure');
 });
 
 test('a weak guess offers nothing: no short Thai fragments, no animal alone, no "examine" titles', () => {

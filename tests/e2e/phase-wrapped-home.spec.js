@@ -22,7 +22,7 @@ test('a student with no history keeps the welcome card after the midterm ends', 
   await seed(context, null);
   await page.clock.setFixedTime(AFTER_MIDTERM);
   await page.goto('/');
-  await expect(page.getByRole('button', { name: 'เปิดคำแนะนำการใช้งาน' })).toBeVisible();
+  await expect(page.getByRole('button', { name: /^(คำแนะนำการใช้งาน|ดูวิธีใช้)$/ })).toBeVisible();
   await expect(page.getByText('สรุปผลการเรียนประจำเทอม')).toHaveCount(0);
 });
 

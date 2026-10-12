@@ -1087,7 +1087,13 @@ export default function App() {
   // then clears so a manual revisit isn't pre-stuffed with old context.
   const [feedbackPrefill, setFeedbackPrefill] = useState(null);
 
-  const [theme, setTheme] = useLocalStorage('vmx-theme', 'light');
+  // No stored choice yet: keep what index.html painted first (the phone's
+  // light or dark setting), so a dark phone is not flipped to light on its
+  // first visit. atlas-main.jsx starts the same way.
+  const [theme, setTheme] = useLocalStorage(
+    'vmx-theme',
+    document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
+  );
   // Landing page: language (landing-local; the app itself is Thai-first
   // with no i18n framework) + cookie consent. Consent gates the optional
   // analytics mount below — 'ask' | 'all' | 'essential' | 'custom'.

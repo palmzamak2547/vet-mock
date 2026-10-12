@@ -467,7 +467,7 @@ test.describe('connected study experience', () => {
     const actionableErrors = pageErrors.filter((message) => !/favicon\.ico.*access control/i.test(message));
     expect(actionableErrors).toEqual([]);
 
-    await page.getByRole('button', { name: '← Home' }).click();
+    await page.getByRole('button', { name: '← หน้าแรก' }).click();
     await expect(page).toHaveURL(/^https?:\/\/[^/]+\/$/);
     await expect(page.getByRole('heading', { level: 1, name: 'Practical Imaging Lab' })).toBeHidden();
   });
@@ -644,7 +644,9 @@ test.describe('landing accessibility', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
 
-    const launcher = page.getByRole('button', { name: 'เปิดคำแนะนำการใช้งาน' });
+    // A phone shows ดูวิธีใช้, and the button is called what it shows, so a
+    // voice-control user can say it (WCAG 2.5.3).
+    const launcher = page.getByRole('button', { name: 'ดูวิธีใช้', exact: true });
     await expect(launcher).toBeVisible();
     await launcher.click();
 

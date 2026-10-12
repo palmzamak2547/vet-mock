@@ -15,7 +15,8 @@
 //      docs/ui-copy-budget.json; a file over its number fails, a file with no
 //      row may have none. --write lowers the numbers after a cleanup and
 //      never raises one.
-//   4. One spelling per word: เช็ก (not เช็ค), อัป/อัปเดต (not อัพ/อัพเดต), and
+//   4. One spelling per word: เช็ก (not เช็ค), อัป/อัปเดต (not อัพ/อัพเดต),
+//      หน้าแรก for the home screen (the bottom bar's word, not หน้าหลัก), and
 //      the ellipsis character … (not three dots). The old forms are counted
 //      per file in the same budget file under "spellingDrift", with the same
 //      may-only-go-down rule, so screens other packages own can follow later
@@ -48,7 +49,7 @@ import { parse } from '@babel/parser';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const SCANNED = ['src/views', 'src/components', 'src/lib', 'src/hooks', 'src/App.jsx', 'src/main.jsx'];
 export const BUDGET_FILE = 'docs/ui-copy-budget.json';
-const NOTE = 'lint:ui-copy budgets, per file. englishLeaks counts English words the app already has Thai for; spellingDrift counts the old spellings เช็ค, อัพ and three dots (write เช็ก, อัป and …). A number may only go down; a file with no row may have none. Middle dots and นักศึกษา have no budget: they fail outright. "allow" names text that keeps a middle dot on purpose, with the reason.';
+const NOTE = 'lint:ui-copy budgets, per file. englishLeaks counts English words the app already has Thai for; spellingDrift counts the old spellings เช็ค, อัพ, หน้าหลัก and three dots (write เช็ก, อัป, หน้าแรก and …). A number may only go down; a file with no row may have none. Middle dots and นักศึกษา have no budget: they fail outright. "allow" names text that keeps a middle dot on purpose, with the reason.';
 
 const MIDDLE_DOT = '·';
 const STUDENT = 'นักศึกษา';
@@ -158,7 +159,7 @@ export function extractStrings(source, file = '') {
 }
 
 // ── The spelling rule: the forms the app settled on (COPY-23) ────────────────
-export const SPELLING = [[/เช็ค/, 'เช็ก'], [/อัพ/, 'อัป'], [/\.\.\./, '…']];
+export const SPELLING = [[/เช็ค/, 'เช็ก'], [/อัพ/, 'อัป'], [/(?<!คืบ)หน้าหลัก(?!สูตร|เกณฑ์|ฐาน|การ)/, 'หน้าแรก'], [/\.\.\./, '…']];
 const SPELLING_EXCLUDED_FILES = /generated|vetwiki\//;
 
 // ── The English-word rule: the copy audit's own lists, unchanged ─────────────
@@ -313,7 +314,7 @@ function main() {
     }
   }
   if (result.spellingOver.length) {
-    console.error('lint:ui-copy — old spellings over the file budget. Write เช็ก, อัป and … instead of เช็ค, อัพ and three dots:');
+    console.error('lint:ui-copy — old spellings over the file budget. Write เช็ก, อัป, หน้าแรก and … instead of เช็ค, อัพ, หน้าหลัก and three dots:');
     for (const { file, n, cap } of result.spellingOver) {
       console.error(`  ${file}: ${n} > budget ${cap}`);
       result.spelling.filter((l) => l.file === file).forEach((l) => console.error(`  ${where(l)}  [${l.token} -> ${l.fix}]`));

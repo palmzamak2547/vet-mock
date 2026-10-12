@@ -50,3 +50,15 @@ test('a ready landing model draws normally', async ({ page }) => {
   await expect(stage.locator('canvas')).toBeVisible();
   expect(await stage.locator('canvas').evaluate(canvas => canvas.getContext('webgl2').getError())).toBe(0);
 });
+
+test.describe('a phone in dark mode, first visit', () => {
+  test.use({ colorScheme: 'dark' });
+
+  test('the app keeps the dark theme the first paint chose', async ({ page }) => {
+    await page.goto('/');
+    // The app writes its theme to storage once it has started.
+    await expect.poll(() => page.evaluate(() => localStorage.getItem('vmx-theme'))).not.toBeNull();
+    expect(await page.evaluate(() => localStorage.getItem('vmx-theme'))).toBe('"dark"');
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  });
+});

@@ -117,6 +117,42 @@ test('a failure that stays says what happened and offers one tap to ask again, n
   } finally { view.unmount(); net.restore(); restoreTimers(); }
 });
 
+// A 200 whose body was cut off: the headers arrived, the JSON did not.
+const cutOff = () => ({ ok: true, status: 200, headers: { get: () => 'application/json' }, json: async () => { throw new SyntaxError('Unexpected end of JSON input'); } });
+
+test('a reply cut off mid-body is retried once by itself, not read as "nothing on this"', async () => {
+  const restoreTimers = fastRetry();
+  const net = withFetch((n) => (n === 1 ? cutOff() : json(200, ANSWER)));
+  const view = mount(CommandPalette, { open: true, onClose() {}, selectedYear: 5 });
+  try {
+    await settle(view);
+    await type(view, QUESTION);
+    await ask(view);
+    await settle(view, 12);
+    assert.equal(net.calls.length, 2, 'one automatic retry');
+    const text = textOf(view.tree);
+    assert.ok(text.includes('การวินิจฉัยหลักคือ DFA'), text);
+    assert.ok(!text.includes('คลังความรู้ยังไม่มีคำตอบเรื่องนี้'), text);
+  } finally { view.unmount(); net.restore(); restoreTimers(); }
+});
+
+test('a reply that stays cut off says the connection failed and offers to ask again', async () => {
+  const restoreTimers = fastRetry();
+  const net = withFetch(() => cutOff());
+  const view = mount(CommandPalette, { open: true, onClose() {}, selectedYear: 5 });
+  try {
+    await settle(view);
+    await type(view, QUESTION);
+    await ask(view);
+    await settle(view, 12);
+    assert.equal(net.calls.length, 2, 'the first try and one automatic retry, no more');
+    const text = textOf(view.tree);
+    assert.ok(text.includes('ตอบไม่สำเร็จ') && text.includes('เชื่อมต่อไม่ได้'), text);
+    assert.ok(!text.includes('คลังความรู้ยังไม่มีคำตอบเรื่องนี้'), 'never "VetWiki has nothing on this"');
+    assert.ok(buttons(view, 'ลองถามอีกครั้ง')[0], 'one tap to ask again');
+  } finally { view.unmount(); net.restore(); restoreTimers(); }
+});
+
 test('a spent daily quota is told straight and not retried', async () => {
   const net = withFetch(() => json(503, { reason: 'budget' }));
   const view = mount(CommandPalette, { open: true, onClose() {}, selectedYear: 5 });
@@ -150,6 +186,27 @@ test('"nothing on this" names the missing term and opens the related section it 
     link.props.onClick();
     assert.deepEqual(opened, [['com3', 'spinal', 'com3--spinal--hansen-type-i-ivdd']]);
     assert.equal(closed, 1);
+  } finally { view.unmount(); net.restore(); }
+});
+
+test('an answer that names no related section is not given titles guessed on this device', async () => {
+  // The server reads the whole corpus and offered nothing on purpose
+  // (production, "TPLO ผ่าตัดยังไง": covered false, related []). The title
+  // guess is for when the server could not be reached at all.
+  const net = withFetch(() => json(200, {
+    claims: [{ id: 'c1', text: 'ยังไม่มีเนื้อหาในคลังความรู้ที่ตอบคำถามนี้ได้', supportType: 'insufficient-evidence', support: [] }],
+    meta: { covered: false, unmatched: [], related: [] },
+  }));
+  const view = mount(CommandPalette, { open: true, onClose() {}, selectedYear: 5 });
+  try {
+    await settle(view);
+    // ลมชัก names the seizure article, so a title guess would offer it.
+    await type(view, 'ลมชักในสุนัขรักษายังไงดี');
+    await ask(view);
+    const text = textOf(view.tree);
+    assert.ok(text.includes('คลังความรู้ยังไม่มีคำตอบเรื่องนี้'), text);
+    assert.equal(buttons(view, 'Seizure & Narcolepsy').length, 0, `no guessed article under the server's answer: ${text}`);
+    assert.ok(!text.includes('หัวข้อที่ใกล้เคียงที่สุด'), 'and no empty heading either');
   } finally { view.unmount(); net.restore(); }
 });
 
