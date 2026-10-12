@@ -56,9 +56,29 @@ test.describe('a phone in dark mode, first visit', () => {
 
   test('the app keeps the dark theme the first paint chose', async ({ page }) => {
     await page.goto('/');
-    // The app writes its theme to storage once it has started.
+    // The app writes its theme setting once it has started: follow the phone.
     await expect.poll(() => page.evaluate(() => localStorage.getItem('vmx-theme'))).not.toBeNull();
-    expect(await page.evaluate(() => localStorage.getItem('vmx-theme'))).toBe('"dark"');
+    expect(await page.evaluate(() => localStorage.getItem('vmx-theme'))).toBe('"system"');
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   });
+});
+
+// Until the student picks a mode, the app follows the phone, live: a phone
+// that turns dark at night takes VetMock with it. A pick stays put.
+test('the theme follows the phone until the student picks one', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.addInitScript(() => { localStorage.setItem('vmx-seen-landing', '1'); localStorage.setItem('vmx-selected-year', '5'); });
+  await page.goto('/app/');
+  const html = page.locator('html');
+  await expect(html).toHaveAttribute('data-theme', 'dark');
+  await page.emulateMedia({ colorScheme: 'light' });
+  await expect(html).toHaveAttribute('data-theme', 'light');
+  await page.getByRole('button', { name: 'ตัวเลือกธีมและจานสี' }).filter({ visible: true }).first().click();
+  const system = page.getByRole('button', { name: 'ตามเครื่อง', exact: true });
+  await expect(system).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: 'มืด', exact: true }).click();
+  await expect(html).toHaveAttribute('data-theme', 'dark');
+  await page.emulateMedia({ colorScheme: 'light' });
+  await page.reload();
+  await expect(html).toHaveAttribute('data-theme', 'dark');
 });

@@ -903,6 +903,7 @@ export default function CommandPalette({
   scaffold = false,
   hasSupabase = true,
   selectedYear,
+  selectedPhase = null,
   isAdmin = false,
   ...handlers
 }) {
@@ -1052,8 +1053,8 @@ export default function CommandPalette({
 
   const hasQuery = !!debouncedQuery.trim();
   const intents = useMemo(
-    () => (hasQuery ? detectIntents(debouncedQuery, { selectedYear }) : []),
-    [hasQuery, debouncedQuery, selectedYear],
+    () => (hasQuery ? detectIntents(debouncedQuery, { selectedYear, selectedPhase }) : []),
+    [hasQuery, debouncedQuery, selectedYear, selectedPhase],
   );
   const study = intents.find((i) => i.kind === 'study') || null;
   // Documents the student can open, per course: the shelf button on a study
@@ -1467,7 +1468,7 @@ export default function CommandPalette({
       // Enter can arrive before the debounce; only the current query may navigate.
       if (query !== debouncedQuery) {
         const currentQuery = query.trim();
-        const goNow = currentQuery ? goFor(detectStudyIntent(currentQuery, { selectedYear })) : null;
+        const goNow = currentQuery ? goFor(detectStudyIntent(currentQuery, { selectedYear, selectedPhase })) : null;
         if (!currentQuery) item = currentRecents(items)[0] || items[0];
         else if (goNow) item = goNow;
         else if (looksLikeQuestion(currentQuery)) item = { type: 'ask' };

@@ -24,7 +24,17 @@ const PALETTES = [
   { id: 'mono',    name: 'Mono',        dot: '#4a4a4a' },
 ];
 
-export default function ThemePicker({ theme, setTheme, palette, setPalette }) {
+export default function ThemePicker({ theme, themePref = theme, setTheme, palette, setPalette }) {
+  // The pick, not the colour on screen: under 'system' neither สว่าง nor มืด is
+  // chosen, the phone is.
+  const picked = themePref === 'light' || themePref === 'dark' ? themePref : 'system';
+  // A pick closes the menu and hands focus back to the button that opened it,
+  // as Escape does, instead of dropping it on the page.
+  const choose = (apply) => {
+    apply();
+    setOpen(false);
+    wrapRef.current?.querySelector('button')?.focus();
+  };
   const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
   const DROPDOWN_MIN_W = 220;
@@ -87,19 +97,28 @@ export default function ThemePicker({ theme, setTheme, palette, setPalette }) {
           <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--vmx-mono)', marginBottom: 6 }}>
             โหมด
           </div>
-          <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginBottom: 12 }}>
             <button
               type="button"
-              onClick={() => { setTheme('light'); setOpen(false); }}
-              className={`vmx-chip ${theme === 'light' ? 'active' : ''}`}
-              style={{ flex: 1, gap: 6 }}
+              onClick={() => choose(() => setTheme('light'))}
+              className={`vmx-chip ${picked === 'light' ? 'active' : ''}`}
+              aria-pressed={picked === 'light'}
+              style={{ gap: 6 }}
             ><NavIcon name="sun" size={15} /> สว่าง</button>
             <button
               type="button"
-              onClick={() => { setTheme('dark'); setOpen(false); }}
-              className={`vmx-chip ${theme === 'dark' ? 'active' : ''}`}
-              style={{ flex: 1, gap: 6 }}
+              onClick={() => choose(() => setTheme('dark'))}
+              className={`vmx-chip ${picked === 'dark' ? 'active' : ''}`}
+              aria-pressed={picked === 'dark'}
+              style={{ gap: 6 }}
             ><NavIcon name="moon" size={15} /> มืด</button>
+            <button
+              type="button"
+              onClick={() => choose(() => setTheme('system'))}
+              className={`vmx-chip ${picked === 'system' ? 'active' : ''}`}
+              aria-pressed={picked === 'system'}
+              style={{ gap: 6, gridColumn: '1 / -1' }}
+            ><NavIcon name="settings" size={15} /> ตามเครื่อง</button>
           </div>
           <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--vmx-mono)', marginBottom: 6 }}>
             จานสี
@@ -109,8 +128,9 @@ export default function ThemePicker({ theme, setTheme, palette, setPalette }) {
               <button
                 key={p.id}
                 type="button"
-                onClick={() => { setPalette(p.id); setOpen(false); }}
+                onClick={() => choose(() => setPalette(p.id))}
                 className={`vmx-chip ${palette === p.id ? 'active' : ''}`}
+                aria-pressed={palette === p.id}
                 style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, padding: '5px 10px' }}
               >
                 <span style={{ width: 12, height: 12, borderRadius: '50%', background: p.dot, border: '1px solid var(--clr-border)' }} />

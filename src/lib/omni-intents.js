@@ -18,7 +18,11 @@ import { drugDose } from '../hooks/utils.js';
 import { subjectMeta } from './library.js';
 import { SUBJECTS, yearForSubject } from '../data/curriculum.js';
 import { createStudyCatalog } from './study-catalog.js';
-import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_BANK_YEAR as BY_BANK_YEAR } from '../data/q-counts.js';
+import {
+  Q_VISIBLE_COUNTS_BY_SUBJECT_BY_BANK_YEAR as BY_BANK_YEAR,
+  Q_VISIBLE_COUNTS_BY_SUBJECT_BY_BANK_YEAR_BY_PAPER as BY_PAPER,
+  Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE as SCOPED,
+} from '../data/q-counts.js';
 
 // ── Drug lookup ───────────────────────────────────────────────────────────
 
@@ -186,7 +190,7 @@ function matchSubjects(rest, selectedYear) {
  * A subject the query names, and what the student wants from it.
  * @returns {{ kind: 'study', want: string|null, subjects: Array<{ meta, year, resources }> } | null}
  */
-export function detectStudyIntent(query, { selectedYear } = {}) {
+export function detectStudyIntent(query, { selectedYear, selectedPhase = null } = {}) {
   const q = normalizeCourseNames(String(query || '').toLowerCase().normalize('NFC').trim());
   if (q.length < 3 || SCHEDULE_RE.test(q)) return null;
   // "anatomy ปี 1": the year the student names outranks the one selected.
@@ -216,8 +220,12 @@ export function detectStudyIntent(query, { selectedYear } = {}) {
     // Against the year App has selected, not a year typed in the query: that
     // year's question banks are the ones loaded, and its practice screens
     // count only them.
-    const practiceCount = practiceCountIn(entry.s.id, total, selectedYear);
-    return { meta: entry.s, year: entry.year, practiceOpen: practiceCount > 0, practiceCount, resources };
+    const practiceCount = practiceCountIn(entry.s.id, entry.year, total, selectedYear, selectedPhase);
+    // A course of the selected year with nothing in the chosen period: its
+    // topic screen shows no set, so the card names the period, not "none".
+    const outOfPeriod = total > 0 && practiceCount === 0 && Boolean(SCOPED[selectedPhase])
+      && Number(entry.year) === Number(selectedYear);
+    return { meta: entry.s, year: entry.year, practiceOpen: practiceCount > 0, practiceCount, outOfPeriod, resources };
   }).filter((x) => {
     // A course with nothing behind it would be a card that leads nowhere. The
     // document shelf counts while its number is still unknown (it opens and
@@ -234,11 +242,25 @@ export function detectStudyIntent(query, { selectedYear } = {}) {
 // on topics that each said ยังไม่มีข้อที่พร้อมใช้ในชุดนี้. Its shared banks
 // still load (questions-vca.js serves VCA in every year), so practice opens on
 // those, at their count. Notes, clips, VetWiki and documents open for any year.
-// ponytail: phase-blind like the card was before, so under a chosen exam period
-// the topic screen can serve fewer; counting per paper means passing the phase in.
-function practiceCountIn(subjectId, total, selectedYear) {
+// The number is what the next screen shows. A course of the selected year has
+// every bank loaded, and its topic screen counts a chosen period by term and
+// paper, as Home's subject cards do. Another year's course opens on its
+// shared banks, where the pool narrows a named course to the paper only and
+// keeps it whole when none of it is on the paper (exam-pool.js).
+const loadedIn = (table, subjectId, year) => (table?.shared?.[subjectId] || 0) + (table?.[year]?.[subjectId] || 0);
+function practiceCountIn(subjectId, subjectYear, total, selectedYear, selectedPhase) {
   if (selectedYear == null || !total) return total;
-  return (BY_BANK_YEAR.shared?.[subjectId] || 0) + (BY_BANK_YEAR[selectedYear]?.[subjectId] || 0);
+  if (Number(subjectYear) === Number(selectedYear)) {
+    const scoped = SCOPED[selectedPhase];
+    return scoped ? (scoped[subjectId] || 0) : total;
+  }
+  const loaded = loadedIn(BY_BANK_YEAR, subjectId, selectedYear);
+  // exam-scope.js scopeForPhase, kept here so the palette chunk does not pull the paper tables.
+  const paper = typeof selectedPhase === 'string'
+    ? (selectedPhase.endsWith('-mid') ? 'midterm' : selectedPhase.endsWith('-final') ? 'final' : null)
+    : null;
+  if (!paper || !loaded) return loaded;
+  return loadedIn(BY_PAPER[paper], subjectId, selectedYear) || loaded;
 }
 
 // What each shelf is called on the card, and the unit its count is in —
@@ -268,7 +290,7 @@ export function studyActions(subject, want, libraryCount = 0) {
   const r = subject?.resources || {};
   // Another year's questions are not loaded, so their practice shelf would
   // open on an empty set; the entry says so (detectStudyIntent).
-  const practiceElsewhere = subject?.practiceOpen === false && Boolean(r.questions?.available);
+  const practiceElsewhere = subject?.practiceOpen === false && !subject?.outOfPeriod && Boolean(r.questions?.available);
   const counts = {
     practice: r.questions?.available && !practiceElsewhere ? (subject.practiceCount ?? r.questions.count) : 0,
     notes: r.notes?.available ? r.notes.count : 0,
@@ -290,18 +312,20 @@ export function studyActions(subject, want, libraryCount = 0) {
     // The course has questions, in another year's set: say where, not "none".
     missing = want === 'practice' && practiceElsewhere && subject.year != null
       ? `ข้อสอบวิชานี้อยู่ในชั้นปี ${subject.year} เปลี่ยนเป็นชั้นปี ${subject.year} ก่อนจึงจะฝึกได้`
-      : SHELVES[want].none;
+      : want === 'practice' && subject?.outOfPeriod
+        ? 'ข้อสอบวิชานี้ไม่อยู่ในช่วงสอบที่เลือก เปลี่ยนช่วงสอบก่อนจึงจะฝึกได้'
+        : SHELVES[want].none;
   }
   return { actions, missing };
 }
 
 /** All intents for a query, strongest first. Cheap enough per keystroke —
  *  one pass over 57 drug names, one regex and the subject index. */
-export function detectIntents(query, { selectedYear } = {}) {
+export function detectIntents(query, { selectedYear, selectedPhase = null } = {}) {
   const out = [];
   const dose = detectDoseIntent(query);
   if (dose) out.push(dose);
-  const study = detectStudyIntent(query, { selectedYear });
+  const study = detectStudyIntent(query, { selectedYear, selectedPhase });
   if (study) out.push(study);
   const course = detectCourseIntent(query);
   // A curriculum course already has its shelves on the study card; the

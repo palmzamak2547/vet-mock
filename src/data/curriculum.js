@@ -2082,7 +2082,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'rum-reproduction', label: 'Reproduction (lactation curve, calving interval, peak yield)', icon: '🐄', lecturer: 'TBD', lecturer_year: 2026 },
       ] },
 
-    { id: 'comp-repro-clinic', code: 'TBD-comp-repro-clinic', name: 'คลินิกสูติกรรมสัตว์เลก',
+    { id: 'comp-repro-clinic', code: 'TBD-comp-repro-clinic', name: 'คลินิกสูติกรรมสัตว์เล็ก',
       name_en: 'Companion Animal Reproductive Clinic',
       icon: '🐶', color: '#c26d8e', semester: 2, has_questions: true, scaffold: false, has_notes: false,
       vault_lecturers: [],

@@ -172,3 +172,55 @@ test('a course with nothing behind it is not offered at all', () => {
   const r = intent('สรุป anatomy ปี 1');
   assert.ok(!r || r.subjects.every((s) => studyActions(s, r.want).actions.length > 0));
 });
+
+// The card's practice number is what the next screen shows. For a course of
+// the selected year that is the topic screen's "รวมทุกหัวข้อ" (term and paper,
+// as Home's subject cards count it); for another year's course, opened on the
+// banks that load in every year, it is what buildExamPool serves from them.
+// Checked over every course, year 1-5 and period (2026-10-12: avian-medicine in
+// year 5 under เทอม 1 ปลายภาค printed 519 over a screen of 108, and
+// milk-meat-hygiene printed 804 over a disabled set of 0).
+test('the card\'s practice count is what the next screen shows, for every course, year and period', async () => {
+  const { QB, loadQB } = await import('../../src/data/questions.js');
+  const { BANK_REGISTRY } = await import('../../src/data/bank-registry.generated.js');
+  const { buildExamPool } = await import('../../src/lib/exam-pool.js');
+  const { Q_COUNTS_BY_TOPIC_BY_SCOPE } = await import('../../src/data/q-counts.js');
+  await loadQB();
+  const bankYear = new Map();
+  for (const entry of BANK_REGISTRY) for (const q of await entry.load()) bankYear.set(q, entry.year);
+  const subjects = [...new Set(QB.map((q) => q.subject).filter(Boolean))];
+  const catalog = createStudyCatalog();
+  const screenAll = (id, phase) => {
+    const scoped = phase ? Q_COUNTS_BY_TOPIC_BY_SCOPE[phase] : null;
+    return scoped ? Object.values(scoped[id] || {}).reduce((a, b) => a + b, 0) : catalog.browse({ subject: id }).resources.questions.count;
+  };
+  const wrong = [];
+  for (const year of [1, 2, 3, 4, 5]) {
+    const loaded = QB.filter((q) => { const y = bankYear.get(q); return y === null || y === year; });
+    for (const phase of [null, '1-mid', '1-final', '2-mid', '2-final']) {
+      for (const id of subjects) {
+        const r = detectStudyIntent(`ข้อสอบ ${id}`, { selectedYear: year, selectedPhase: phase });
+        const card = r?.subjects.find((s) => s.meta.id === id);
+        if (!card) continue;
+        const shown = studyActions(card, r.want).actions.find((a) => a.target === 'practice')?.count || 0;
+        const own = Number(card.year) === year;
+        const expected = own
+          ? screenAll(id, phase)
+          : buildExamPool({ questions: loaded, practiceMode: 'all', subject: id, topic: null, selectedYear: year, selectedPhase: phase }).length;
+        if (shown !== expected) wrong.push(`${id} year ${year} ${phase || 'no period'}: card ${shown}, ${own ? 'screen' : 'pool'} ${expected}`);
+      }
+    }
+  }
+  assert.deepEqual(wrong, []);
+});
+
+test('a course of the selected year outside the chosen period says so', () => {
+  // milk-meat-hygiene holds nothing for เทอม 1 ปลายภาค in year 5: its topic
+  // screen shows no set there, so the card offers none and names the reason.
+  const r = detectStudyIntent('ข้อสอบ milk-meat-hygiene', { selectedYear: 5, selectedPhase: '1-final' });
+  const main = r?.subjects.find((s) => s.meta.id === 'milk-meat-hygiene');
+  assert.ok(main, 'the course keeps its card');
+  const { actions, missing } = studyActions(main, r.want, null);
+  assert.ok(!actions.some((a) => a.target === 'practice'));
+  assert.equal(missing, 'ข้อสอบวิชานี้ไม่อยู่ในช่วงสอบที่เลือก เปลี่ยนช่วงสอบก่อนจึงจะฝึกได้');
+});

@@ -49,7 +49,7 @@ export default function HeaderBar({
   bookmarks, setPracticeMode, setMode,
   streakData,
   user, profile, handleSignOut,
-  theme, setTheme, palette, setPalette,
+  theme, themePref, setTheme, palette, setPalette,
 }) {
   const showYear = selectedYearStored !== null && view !== 'year-select';
   const showPhase = selectedPhase && view !== 'phase-select' && view !== 'year-select';
@@ -162,7 +162,7 @@ export default function HeaderBar({
             <span>เข้าสู่ระบบ</span>
           </button>
         )}
-        <ThemePicker theme={theme} setTheme={setTheme} palette={palette} setPalette={setPalette} />
+        <ThemePicker theme={theme} themePref={themePref} setTheme={setTheme} palette={palette} setPalette={setPalette} />
       </div>
     </header>
     {isHome && (

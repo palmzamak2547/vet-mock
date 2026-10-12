@@ -183,8 +183,10 @@ test('failed preference storage reports the failure while keeping the current ch
 
 test('320px dark mode keeps every control reachable', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 740 });
-  await page.addInitScript(() => localStorage.setItem('vmx-theme', 'dark'));
+  // Storage holds JSON: a raw 'dark' was unreadable and the test ran light.
+  await page.addInitScript(() => localStorage.setItem('vmx-theme', JSON.stringify('dark')));
   await open(page);
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await page.getByText('ตั้งค่า Mochi และการเคลื่อนไหว', { exact: true }).click();
   for (const g of GROUPS) {
     await group(page, g.id);

@@ -86,6 +86,7 @@ export default function ProfileView({
   srCards,
   onVoiceSettings,
   theme = 'light',
+  themePref,
   setTheme = () => {},
   palette = 'default',
   setPalette = () => {},
@@ -322,7 +323,7 @@ export default function ProfileView({
             keeps them from drifting instead of growing a second copy. */}
         <div className="vmx-profile-theme">
           <span>ธีมและสี</span>
-          <ThemePicker theme={theme} setTheme={setTheme} palette={palette} setPalette={setPalette} />
+          <ThemePicker theme={theme} themePref={themePref} setTheme={setTheme} palette={palette} setPalette={setPalette} />
         </div>
         {/* The scheduler choice (SM-2 or FSRS) lives on the review planner,
             where its effect is visible; this row names where, no second copy. */}

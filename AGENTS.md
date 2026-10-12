@@ -1,7 +1,8 @@
 # AGENTS.md — VetMock Project Guide
 
-## Night release 5.144.0 / SW v219, hotfixes 5.144.1 / SW v220 and 5.144.2 / SW v221 — 2026-10-12 (Claude Code)
+## Night release 5.144.0 / SW v219, hotfixes 5.144.1 / SW v220, 5.144.2 / SW v221 and 5.144.3 / SW v222 — 2026-10-12 (Claude Code)
 
+- 5.144.3: the theme follows the phone until a pick (lib/theme-pref.js; vmx-theme 'system' is the new-device default; toggles flip the effective theme), and the study card's practice count is what the next screen shows under a chosen period (own-year courses: the topic screen's scoped count; another year's shared banks: buildExamPool; a test checks both for every course, year and period). A hook that reads matchMedia in useState must read it again after subscribing (lib/theme-pref.js).
 - 5.144.2: the seven search/reading fixes plus four found after 5.144.1 (dark phone first visit, Thai under 10px, the welcome button's name, the Pomodoro expiry stuck at 00:00 in WebKit). Never feed a value read from the wall clock during render into an effect's deps: keep the clock in state the tick writes. React's bail-out keeps a render's deps without running its effect.
 - 5.144.1: three reviews of 5.144.0 found 21 bugs; the high one (the how-to guide styled by index.html's global `.vmx-guide` rules) and twelve more are fixed with failing-first tests; seven search/reading items follow in 5.144.2. Never give an app component a class that index.html's inline screens already style (scope inline-screen CSS to its own root).
 

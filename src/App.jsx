@@ -6,6 +6,7 @@ import { flushSync } from 'react-dom';
 // App.jsx kicks off loadQB() in a top-level effect (background load
 // after first paint) and gates exam-start paths on the populated QB.
 import { QB, loadQB, loadQBForYear, isQBLoaded, isQBYearLoaded, isQBFullyLoaded } from './data/questions.js';
+import { THEME_SYSTEM, effectiveTheme, systemPrefersDark, useSystemDark } from './lib/theme-pref.js';
 import { SUBJECTS, YEARS, CURRENT_YEAR, yearForSubject } from './data/curriculum.js';
 import { stillWrong } from './lib/wrong-pool.js';
 
@@ -1087,13 +1088,16 @@ export default function App() {
   // then clears so a manual revisit isn't pre-stuffed with old context.
   const [feedbackPrefill, setFeedbackPrefill] = useState(null);
 
-  // No stored choice yet: keep what index.html painted first (the phone's
-  // light or dark setting), so a dark phone is not flipped to light on its
-  // first visit. atlas-main.jsx starts the same way.
-  const [theme, setTheme] = useLocalStorage(
-    'vmx-theme',
-    document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
-  );
+  // The student's pick ('light', 'dark' or 'system'); a new device follows the
+  // phone, live, as index.html paints it first (lib/theme-pref.js).
+  const [themePref, setThemePref] = useLocalStorage('vmx-theme', THEME_SYSTEM);
+  const systemDark = useSystemDark();
+  const theme = effectiveTheme(themePref, systemDark);
+  // A function receives the theme on screen, so a toggle flips what the
+  // student sees even while the setting is 'system'.
+  const setTheme = useCallback((next) => setThemePref((prev) => (
+    typeof next === 'function' ? next(effectiveTheme(prev, systemPrefersDark())) : next
+  )), [setThemePref]);
   // Landing page: language (landing-local; the app itself is Thai-first
   // with no i18n framework) + cookie consent. Consent gates the optional
   // analytics mount below — 'ask' | 'all' | 'essential' | 'custom'.
@@ -2926,6 +2930,7 @@ export default function App() {
               profile={profile}
               handleSignOut={handleSignOut}
               theme={theme}
+              themePref={themePref}
               setTheme={setTheme}
               palette={palette}
               setPalette={setPalette}
@@ -3031,6 +3036,7 @@ export default function App() {
                   srCards={srCards}
                   onVoiceSettings={() => setVoiceSettingsOpen(true)}
                   theme={theme}
+                  themePref={themePref}
                   setTheme={setTheme}
                   palette={palette}
                   setPalette={setPalette}
@@ -3154,6 +3160,7 @@ export default function App() {
             scaffold={Boolean(YEARS.find((year) => year.id === selectedYear)?.scaffold)}
             hasSupabase={hasSupabase}
             selectedYear={selectedYear}
+            selectedPhase={selectedPhase}
             isAdmin={isAdmin}
           />
         </OptionalFeature>
