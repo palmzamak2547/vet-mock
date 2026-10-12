@@ -716,7 +716,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
     if (typeof window === 'undefined') return;
     let cancelled = false;
     const prefetch = () => {
-      if (cancelled) return;
+      // Offline, a prefetch only records a failed import (WebKit then failed
+      // the exam view itself after the network returned, 5.144.4 review).
+      if (cancelled || navigator.onLine === false) return;
       import('./ExamView.jsx').catch(() => {});
       import('./ResultsView.jsx').catch(() => {});
       import('./ReviewView.jsx').catch(() => {});

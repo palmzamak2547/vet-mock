@@ -140,3 +140,34 @@ test('playlist switching retires stale note decisions and a new clip intent sele
   await expect(page.getByRole('dialog')).toHaveCount(0);
   expect(errors).toEqual([]);
 });
+
+// A course on the shelf only through the student's own clip. Deleting that
+// clip drops the shelf to ทั้งหมด, and the address has to follow: 5.144.4 left
+// ?subject= behind, so adding a clip for the course again jumped the shelf
+// back to it (5.144.4 review, Chromium and WebKit).
+test('deleting the last clip of the chosen course clears it from the address too', async ({ page }) => {
+  const course = SUBJECTS.find((subject) => subject.id === 'ruminant-clinical');
+  expect(VIDEO_LIBRARY.some((video) => video.subject === course.id), 'the course has no library clips').toBe(false);
+  const addClip = async (topic) => {
+    await page.getByRole('button', { name: 'เพิ่มคลิป', exact: true }).click();
+    await page.locator('#vmx-video-url').fill('https://youtu.be/dQw4w9WgXcQ');
+    await page.locator('#vmx-video-topic').fill(topic);
+    await page.locator('#vmx-video-subject').selectOption(course.id);
+    await page.getByRole('button', { name: 'บันทึก', exact: true }).click();
+  };
+  const address = () => page.evaluate(() => ({ url: location.pathname + location.search, course: history.state?.vmxVideoSubject ?? null }));
+  await page.goto('/app/videos');
+  await addClip('คลิปของฉัน');
+  const courseChip = page.getByRole('button', { name: `${course.icon} ${course.name} 1`, exact: true });
+  await courseChip.click();
+  await expect(courseChip).toHaveAttribute('aria-pressed', 'true');
+  expect(await address()).toEqual({ url: `/app/videos?subject=${course.id}`, course: course.id });
+  await page.locator('.vmx-video-card').first().getByRole('button', { name: /ลบ/ }).first().click();
+  await page.getByRole('dialog', { name: 'ลบคลิปนี้?' }).getByRole('button', { name: 'ลบ', exact: true }).click();
+  await expect(allChip(page)).toHaveAttribute('aria-pressed', 'true');
+  await expect.poll(address).toEqual({ url: '/app/videos', course: null });
+  await addClip('คลิปของฉันอีกครั้ง');
+  await expect(page.getByRole('button', { name: `${course.icon} ${course.name} 1`, exact: true })).toHaveAttribute('aria-pressed', 'false');
+  await expect(allChip(page)).toHaveAttribute('aria-pressed', 'true');
+  expect(await address()).toEqual({ url: '/app/videos', course: null });
+});

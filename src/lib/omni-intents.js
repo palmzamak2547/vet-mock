@@ -18,11 +18,8 @@ import { drugDose } from '../hooks/utils.js';
 import { subjectMeta } from './library.js';
 import { SUBJECTS, yearForSubject } from '../data/curriculum.js';
 import { createStudyCatalog } from './study-catalog.js';
-import {
-  Q_VISIBLE_COUNTS_BY_SUBJECT_BY_BANK_YEAR as BY_BANK_YEAR,
-  Q_VISIBLE_COUNTS_BY_SUBJECT_BY_BANK_YEAR_BY_PAPER as BY_PAPER,
-  Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE as SCOPED,
-} from '../data/q-counts.js';
+import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE as SCOPED } from '../data/q-counts.js';
+import { phaseForCourse } from './exam-scope.js';
 
 // ── Drug lookup ───────────────────────────────────────────────────────────
 
@@ -217,50 +214,28 @@ export function detectStudyIntent(query, { selectedYear, selectedPhase = null } 
   const subjects = matches.map(({ entry }) => {
     const resources = catalog.browse({ subject: entry.s.id }).resources || {};
     const total = resources.questions?.available ? resources.questions.count : 0;
-    // Against the year App has selected, not a year typed in the query: that
-    // year's question banks are the ones loaded, and its practice screens
-    // count only them.
-    const practiceCount = practiceCountIn(entry.s.id, entry.year, total, selectedYear, selectedPhase);
-    // A course of the selected year with nothing in the chosen period: its
-    // topic screen shows no set, so the card names the period, not "none".
-    const outOfPeriod = total > 0 && practiceCount === 0 && Boolean(SCOPED[selectedPhase])
-      && Number(entry.year) === Number(selectedYear);
+    // The topic screen's number: the course's count, or for a course of the
+    // student's own year under a chosen period, that period's term and paper,
+    // as Home's subject cards count it. Another year's course is counted
+    // whole, as its topic screen shows it (phaseForCourse); its banks load
+    // when it opens (App). The period is the selected year's, whatever year
+    // the query names.
+    const coursePhase = phaseForCourse(entry.s.id, selectedYear, selectedPhase);
+    const scoped = coursePhase ? SCOPED[coursePhase] : null;
+    const practiceCount = scoped ? (scoped[entry.s.id] || 0) : total;
+    // Nothing in the chosen period: the topic screen shows no set, so the card
+    // names the period, not "none".
+    const outOfPeriod = total > 0 && practiceCount === 0;
     return { meta: entry.s, year: entry.year, practiceOpen: practiceCount > 0, practiceCount, outOfPeriod, resources };
   }).filter((x) => {
     // A course with nothing behind it would be a card that leads nowhere. The
     // document shelf counts while its number is still unknown (it opens and
-    // shows what it has), and practice asked for in another year keeps the
-    // course so the card can say which year.
-    const { actions, missing } = studyActions(x, want, null);
-    return actions.length > 0 || (want === 'practice' && x.practiceOpen === false && Boolean(missing) && Boolean(x.resources.questions?.available));
+    // shows what it has), and practice asked for outside the chosen period
+    // keeps the course so the card can say so.
+    const { actions } = studyActions(x, want, null);
+    return actions.length > 0 || (want === 'practice' && x.outOfPeriod);
   });
   return subjects.length ? { kind: 'study', want, subjects } : null;
-}
-
-// App loads the selected year's question banks plus the shared ones, and the
-// practice screens count only what is loaded: a course of another year opened
-// on topics that each said ยังไม่มีข้อที่พร้อมใช้ในชุดนี้. Its shared banks
-// still load (questions-vca.js serves VCA in every year), so practice opens on
-// those, at their count. Notes, clips, VetWiki and documents open for any year.
-// The number is what the next screen shows. A course of the selected year has
-// every bank loaded, and its topic screen counts a chosen period by term and
-// paper, as Home's subject cards do. Another year's course opens on its
-// shared banks, where the pool narrows a named course to the paper only and
-// keeps it whole when none of it is on the paper (exam-pool.js).
-const loadedIn = (table, subjectId, year) => (table?.shared?.[subjectId] || 0) + (table?.[year]?.[subjectId] || 0);
-function practiceCountIn(subjectId, subjectYear, total, selectedYear, selectedPhase) {
-  if (selectedYear == null || !total) return total;
-  if (Number(subjectYear) === Number(selectedYear)) {
-    const scoped = SCOPED[selectedPhase];
-    return scoped ? (scoped[subjectId] || 0) : total;
-  }
-  const loaded = loadedIn(BY_BANK_YEAR, subjectId, selectedYear);
-  // exam-scope.js scopeForPhase, kept here so the palette chunk does not pull the paper tables.
-  const paper = typeof selectedPhase === 'string'
-    ? (selectedPhase.endsWith('-mid') ? 'midterm' : selectedPhase.endsWith('-final') ? 'final' : null)
-    : null;
-  if (!paper || !loaded) return loaded;
-  return loadedIn(BY_PAPER[paper], subjectId, selectedYear) || loaded;
 }
 
 // What each shelf is called on the card, and the unit its count is in —
@@ -288,11 +263,8 @@ const SHELF_ORDER = ['practice', 'notes', 'videos', 'wiki', 'library'];
  */
 export function studyActions(subject, want, libraryCount = 0) {
   const r = subject?.resources || {};
-  // Another year's questions are not loaded, so their practice shelf would
-  // open on an empty set; the entry says so (detectStudyIntent).
-  const practiceElsewhere = subject?.practiceOpen === false && !subject?.outOfPeriod && Boolean(r.questions?.available);
   const counts = {
-    practice: r.questions?.available && !practiceElsewhere ? (subject.practiceCount ?? r.questions.count) : 0,
+    practice: r.questions?.available ? (subject.practiceCount ?? r.questions.count) : 0,
     notes: r.notes?.available ? r.notes.count : 0,
     videos: r.videos?.available ? r.videos.count : 0,
     wiki: r.wiki?.available ? r.wiki.count : 0,
@@ -309,12 +281,10 @@ export function studyActions(subject, want, libraryCount = 0) {
     .map((t) => ({ target: t, label: SHELVES[t].label, count: counts[t] > 0 ? counts[t] : null, unit: SHELVES[t].unit }));
   let missing = null;
   if (want && !offered(want)) {
-    // The course has questions, in another year's set: say where, not "none".
-    missing = want === 'practice' && practiceElsewhere && subject.year != null
-      ? `ข้อสอบวิชานี้อยู่ในชั้นปี ${subject.year} เปลี่ยนเป็นชั้นปี ${subject.year} ก่อนจึงจะฝึกได้`
-      : want === 'practice' && subject?.outOfPeriod
-        ? 'ข้อสอบวิชานี้ไม่อยู่ในช่วงสอบที่เลือก เปลี่ยนช่วงสอบก่อนจึงจะฝึกได้'
-        : SHELVES[want].none;
+    // The course has questions, just none in the chosen period: say so, not "none".
+    missing = want === 'practice' && subject?.outOfPeriod
+      ? 'ข้อสอบวิชานี้ไม่อยู่ในช่วงสอบที่เลือก เปลี่ยนช่วงสอบก่อนจึงจะฝึกได้'
+      : SHELVES[want].none;
   }
   return { actions, missing };
 }

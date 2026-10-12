@@ -71,22 +71,23 @@ function setup(selectedYear) {
   return { view, calls };
 }
 
-test('in year 5 a year-4 course offers what opens in any year, never its practice', async () => {
+// A year-4 course from year 5: opening it loads year 4's banks (App), so the
+// card offers its practice like any course's, with the year beside it, and
+// Enter opens its topics. (Until 5.144.4 the card withheld practice and asked
+// the student to switch year.)
+test('in year 5 a year-4 course offers its practice, and Enter opens its topics', async () => {
   globalThis.__studyLibrary = { load: async () => [] };
   const { view, calls } = setup(5);
   try {
     await settle(view);
     await type(view, 'ข้อสอบ com5');
     const first = cardButton(view);
-    assert.ok(first, 'the card still leads');
-    assert.ok(textOf(first).includes('COM V'), textOf(first));
-    assert.ok(!textOf(first).includes('ฝึกข้อสอบ'), `the card must not offer another year's practice: ${textOf(first)}`);
-    const text = textOf(view.tree);
-    assert.ok(!text.includes('ฝึกข้อสอบ COM V'), text);
-    assert.ok(text.includes('ข้อสอบวิชานี้อยู่ในชั้นปี 4'), 'asked for practice, the card says where the questions are');
+    assert.ok(first, 'the card leads');
+    assert.ok(textOf(first).includes('ฝึกข้อสอบ COM V'), textOf(first));
+    assert.ok(textOf(first).includes('ปี 4'), `the card says which year the course is: ${textOf(first)}`);
+    assert.ok(!textOf(view.tree).includes('ข้อสอบวิชานี้อยู่ในชั้นปี'), 'no line asking to switch year');
     pressEnter(view);
-    assert.ok(!calls.some(([kind, v]) => kind === 'view' && v === 'topic-select'), `Enter must not open COM V's topics: ${JSON.stringify(calls)}`);
-    assert.deepEqual(calls, [['subject', 'com5'], ['topic', null], ['view', 'notes']], 'Enter opens the first shelf that opens: the notes');
+    assert.deepEqual(calls.at(-1), ['view', 'topic-select']);
   } finally { view.unmount(); }
 });
 

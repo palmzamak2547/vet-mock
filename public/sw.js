@@ -18,7 +18,7 @@
 // version-scoped, while immutable hashed assets survive across deploys.
 // ============================================================
 
-const SW_VERSION = 'v222-2026-10-12';
+const SW_VERSION = 'v223-2026-10-12';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = 'vmx-assets-v1';
 // Atlas verifies content hashes and owns a bounded public-model cache.
@@ -190,9 +190,9 @@ async function trimAssetsWhenUnused(cache, incoming = 0) {
   } catch { /* An uncertain cache graph must never be pruned. */ }
 }
 
-function cacheFirst(request, cacheName, event) {
+function cacheFirst(request, cacheName, event, key = request) {
   return caches.open(cacheName).then((cache) =>
-    cache.match(request).then(async (hit) => {
+    cache.match(key).then(async (hit) => {
       if (hit) return hit;
       if (cacheName === ASSETS) {
         const atlasHit = await caches.open(ATLAS_SHELL).then(atlas => atlas.match(request)).catch(() => undefined);
@@ -203,7 +203,7 @@ function cacheFirst(request, cacheName, event) {
           const clone = res.clone();
           keepAlive(event, (async () => {
             if (cacheName === ASSETS) await trimAssetsWhenUnused(cache, 1);
-            await cache.put(request, clone);
+            await cache.put(key, clone);
           })());
         }
         return res;
@@ -450,7 +450,16 @@ self.addEventListener('fetch', (event) => {
   // Vite-hashed chunks under /assets/ are immutable — perfect for
   // cache-first. Once cached, they survive offline forever.
   if (url.pathname.startsWith('/assets/')) {
-    event.respondWith(cacheFirst(request, ASSETS, event));
+    // A question bank retried after a failed import (?retry=N, importBank in
+    // src/data/questions.js) is the same immutable file. Kept under its plain
+    // URL, an offline reload finds it, and a retry adds no second copy.
+    let key = request;
+    if (url.searchParams.has('retry')) {
+      const plain = new URL(url.href);
+      plain.searchParams.delete('retry');
+      key = new Request(plain.href);
+    }
+    event.respondWith(cacheFirst(request, ASSETS, event, key));
     return;
   }
 

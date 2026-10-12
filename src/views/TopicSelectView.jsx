@@ -3,7 +3,7 @@ import BackBar from '../components/BackBar.jsx';
 import PanicCard from '../components/PanicCard.jsx';
 import { PANIC_CARD_SCOPE, panicCardFor } from '../data/panic-cards.js';
 import { Q_PANIC_COUNTS_BY_SUBJECT, Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE, Q_COUNTS_BY_TOPIC_BY_SCOPE, Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE } from '../data/q-counts.js';
-import { scopeForPhase, questionInScope } from '../lib/exam-scope.js';
+import { scopeForPhase, questionInScope, phaseForCourse } from '../lib/exam-scope.js';
 import { isPastPaperQuestion } from '../lib/question-metadata.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
@@ -60,7 +60,12 @@ function lecturerChip(label, profile) {
   return { kind: 'text', text: label.name };
 }
 
-export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase = null, onStartPanic = null, onStartLecturer = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null, onOpenWrapUp = null }) {
+export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, setTimePerQ, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase: chosenPhase = null, onStartPanic = null, onStartLecturer = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null, onOpenWrapUp = null }) {
+  // The period narrows a course of the student's own year only; another
+  // year's course opens whole (phaseForCourse), as its study card counts it
+  // and as the config pool serves it. Every period-driven number and notice
+  // below reads this one value.
+  const selectedPhase = phaseForCourse(subject, selectedYear, chosenPhase);
   // Real documents on this subject's shelf — the fourth study resource,
   // fetched from the same session-cached catalog Home uses.
   const [shelfDocs, setShelfDocs] = useState(0);

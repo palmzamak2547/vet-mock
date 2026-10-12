@@ -53,7 +53,51 @@ const LOADERS = BANK_REGISTRY.map((b) => ({
   file: b.file,
   year: b.year,
   fn: b.load,
+  exportName: b.export,
 }));
+
+// Chromium keeps a failed dynamic import failed for the life of the page: once
+// a bank chunk failed (offline, a dropped connection), importing the same URL
+// fails again after the network is back, so the count stayed "checking" and
+// Start's ลองใหม่ failed until a reload (5.144.4 review). Its error names the
+// URL, and the same URL under a fresh query is a new module and a new fetch.
+// WebKit retries the original import itself and never reaches the fallback.
+let _retrySerial = 0;
+export function importBank(fn, exportName, {
+  importer = (href) => import(/* @vite-ignore */ href),
+  origin = typeof location === 'undefined' ? null : location.origin,
+} = {}) {
+  return fn().catch((err) => {
+    const found = /https?:\/\/[^\s'"]+?\.js/.exec(String(err?.message || ''))?.[0];
+    let url = null;
+    try { url = found ? new URL(found) : null; } catch { url = null; }
+    if (!url || !exportName || url.origin !== origin || !url.pathname.startsWith('/assets/')) throw err;
+    url.searchParams.set('retry', String(++_retrySerial));
+    return importer(url.href).then((mod) => {
+      // Only a chunk that is this bank alone exports it by name; anything
+      // else keeps the first failure rather than a load with no questions.
+      if (!Array.isArray(mod?.[exportName])) throw err;
+      return mod[exportName];
+    });
+  });
+}
+
+// Merge loaded banks into the shared array, once each. A bank that did not
+// come back as an array fails the whole load: marked loaded with nothing in
+// it, its questions stayed missing until a reload with no error shown (a
+// retry read undefined from a two-bank VCA chunk, 437 questions).
+export function mergeBanks(parts, loadedBanks = _loadedBanks, target = _qbArr) {
+  for (const { file, questions } of parts) {
+    if (!Array.isArray(questions)) throw new Error(`question bank ${file} did not load as a list`);
+  }
+  for (const { file, questions } of parts) {
+    // Promise callbacks run to completion without interleaving, so this
+    // check-and-add also deduplicates overlapping in-flight scopes.
+    if (loadedBanks.has(file)) continue;
+    target.push(...questions);
+    loadedBanks.add(file);
+  }
+}
 
 // SAME reference forever — mutated when loadQB resolves so closures
 // over `QB` see populated data on the next React render.
@@ -71,20 +115,27 @@ const _loadedBanks = new Set();
 
 export const QB = _qbArr;
 
+// Told after every merge, whichever caller started the load. App recounts from
+// a revision it bumps here: a bump left to each caller was lost whenever that
+// caller had moved on (a student who left another year's course before its
+// banks arrived got a config screen of none on the way back, 5.144.4 review).
+const _mergeListeners = new Set();
+export function onQBMerged(listener) {
+  _mergeListeners.add(listener);
+  return () => _mergeListeners.delete(listener);
+}
+
 function _runLoaders(loaders, scopeKey) {
   if (_loadPromises.has(scopeKey)) return _loadPromises.get(scopeKey);
-  const p = Promise.all(loaders.map(({ file, fn }) => (
-    fn().then((questions) => ({ file, questions }))
+  const p = Promise.all(loaders.map(({ file, fn, exportName }) => (
+    importBank(fn, exportName).then((questions) => ({ file, questions }))
   )))
     .then((parts) => {
-      for (const { file, questions } of parts) {
-        // Promise callbacks run to completion without interleaving, so
-        // this check-and-add also deduplicates overlapping in-flight scopes.
-        if (_loadedBanks.has(file)) continue;
-        if (Array.isArray(questions)) _qbArr.push(...questions);
-        _loadedBanks.add(file);
-      }
+      mergeBanks(parts);
       _loadedScopes.add(scopeKey);
+      for (const listener of _mergeListeners) {
+        try { listener(scopeKey); } catch { /* a listener never fails the load */ }
+      }
       return _qbArr;
     })
     .catch((err) => {
@@ -137,9 +188,12 @@ export function isQBLoaded() {
   return _qbArr.length > 0;
 }
 
-/** Has the requested year scope (including shared banks) finished loading? */
+/** Has the requested year scope (including shared banks) finished loading?
+ *  A full load holds every year's banks, so it answers yes for any year: the
+ *  config count and Start asked about the year and kept waiting after SR's
+ *  ทุกปี had merged everything (fourth review of the 5.144.4 fixes). */
 export function isQBYearLoaded(year) {
-  return Number.isFinite(year) && _loadedScopes.has(`year-${year}`);
+  return Number.isFinite(year) && (_loadedScopes.has(`year-${year}`) || _loadedScopes.has('all'));
 }
 
 /**

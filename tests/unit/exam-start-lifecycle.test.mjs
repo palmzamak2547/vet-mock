@@ -29,6 +29,7 @@ function harness(initial = {}) {
     viewRef, eventContextRef, finishingRef: { current: true }, sessionRef: { current: null },
     confirmReplaceUnfinished: async () => true, isQBFullyLoaded: () => true, isQBYearLoaded: () => true,
     loadQBForYear: async () => {}, loadQB: async () => {}, offerBankRetry: async () => false,
+    yearForSubject: () => null,
     confirmDialog: async () => false, alertDialog: message => alerts.push(message),
     buildExamPool, normalizePracticeMode, appliedCategory, USER_CURATED_MODES,
     isQuestionDeliverable: () => true, SUBJECTS: [], shuffle: rows => [...rows], timeForQuestion: () => 0,
@@ -55,6 +56,34 @@ function harness(initial = {}) {
   };
   return { starts, alerts, writes, viewRef, eventContextRef, render, unmount: () => cleanups.forEach(cleanup => cleanup()), start: render({}) };
 }
+
+// Another year's course (COM V from year 5): Start waits for that year's banks
+// too. 5.144.4 checked only the selected year, so a set started mid-load came
+// from the banks already merged (VCA from year 4 served 316 of 455).
+test('another year\'s course waits for its own year\'s banks before starting', async () => {
+  const loaded = [];
+  const courseBank = deferred();
+  const h = harness({
+    subject: 'com5', selectedYear: 5, yearForSubject: () => 4, isQBFullyLoaded: () => false,
+    isQBYearLoaded: (year) => year === 5 || loaded.includes(year),
+    loadQBForYear: (year) => (year === 4 ? courseBank.promise.then(() => { loaded.push(4); }) : Promise.resolve()),
+    QB: [{ ...q(60200), subject: 'com5' }],
+  });
+  const pending = h.start();
+  await flush();
+  assert.equal(h.starts.length, 0, 'no set before the course\'s year has merged');
+  courseBank.resolve();
+  await pending;
+  assert.deepEqual(loaded, [4]);
+  assert.equal(h.starts.length, 1);
+});
+
+test('a course of the selected year loads that year once', async () => {
+  const calls = [];
+  const h = harness({ yearForSubject: () => 4, isQBYearLoaded: () => false, loadQBForYear: async (year) => { calls.push(year); } });
+  await h.start();
+  assert.deepEqual(calls, [4]);
+});
 
 test('a delayed bank load cannot replace newer navigation', async () => {
   const bank = deferred();

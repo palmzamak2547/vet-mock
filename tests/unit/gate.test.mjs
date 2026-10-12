@@ -38,6 +38,9 @@ test('lint:all is lint:data then lint:dist, and only lint:dist reads the build (
   assert.equal(scripts['lint:all'], 'npm run lint:data && npm run lint:dist');
   const dist = resolveSteps(scripts, 'lint:dist');
   assert.deepEqual(dist.map((l) => l.command), [
+    // Each question bank its own chunk, importing none (importBank's retry
+    // depends on it; 5.144.4).
+    'node scripts/lint-bank-chunks.mjs',
     'node scripts/audit-contrast.mjs',
     'node scripts/audit-contrast.mjs --landing',
     'node scripts/audit-contrast.mjs --exam',

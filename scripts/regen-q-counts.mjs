@@ -54,17 +54,6 @@ if (!Array.isArray(QB)) throw new Error('QB import did not return an array');
 // resolves. Without this await the regen would emit zero counts.
 await loadQB();
 
-// The bank each question loads from, and so the years it loads in: App loads
-// the selected year's banks plus the shared ones (registry year null), so a
-// course opens for practice in another year only on its shared banks
-// (questions-vca.js serves VCA in every year). The loaders hand QB the same
-// question objects these imports return.
-const { BANK_REGISTRY } = await import(pathToFileURL(path.join(root, 'src/data/bank-registry.generated.js')).href);
-const bankYearOf = new Map();
-for (const entry of BANK_REGISTRY) {
-  for (const q of await entry.load()) bankYearOf.set(q, entry.year);
-}
-
 // Build a hidden-topic set per subject from the curriculum metadata —
 // matches the `hiddenTopicIdsFor()` runtime behaviour so the
 // precomputed "visible" counts stay in sync with what HomeView's
@@ -87,11 +76,6 @@ const incrementNested = (index, subject, topic) => {
 // without scanning the full QB.
 const bySubject = {};
 const byVisibleSubject = {};
-const byVisibleSubjectBankYear = {};
-// ...and narrowed to one paper. A course the student names is not narrowed to
-// the term (exam-pool.js leaves a named subject alone), only to the paper, and
-// when nothing of it sits on that paper the pool keeps it whole.
-const byVisibleSubjectBankYearPaper = { midterm: {}, final: {} };
 const byYear = {};
 const byVisibleYear = {};
 const byTopic = {};
@@ -185,15 +169,6 @@ for (const q of deliverableQuestions) {
   const isVisible = !hidden || !hidden.has(q.topic);
   if (isVisible) {
     byVisibleSubject[subj] = (byVisibleSubject[subj] || 0) + 1;
-    if (!bankYearOf.has(q)) throw new Error(`question ${q.id} of ${subj} is in no registered bank`);
-    const bankKey = bankYearOf.get(q) ?? 'shared';
-    byVisibleSubjectBankYear[bankKey] ||= {};
-    byVisibleSubjectBankYear[bankKey][subj] = (byVisibleSubjectBankYear[bankKey][subj] || 0) + 1;
-    for (const paper of ['midterm', 'final']) {
-      if (!questionInScope(q, paper)) continue;
-      const row = (byVisibleSubjectBankYearPaper[paper][bankKey] ||= {});
-      row[subj] = (row[subj] || 0) + 1;
-    }
     // What Panic Mode will actually serve for this subject, counted the same
     // way the session builds it so the card's number and the set agree.
     for (const phase of PHASE_IDS) {
@@ -281,35 +256,6 @@ lines.push('// the page doesn\'t need to scan the full QB at render time.');
 lines.push('export const Q_VISIBLE_COUNTS_BY_SUBJECT = {');
 for (const k of Object.keys(byVisibleSubject).sort()) {
   lines.push(`  '${k}': ${byVisibleSubject[k]},`);
-}
-lines.push('};');
-lines.push('');
-lines.push('// The same visible counts by the year of the bank they load from: \'shared\'');
-lines.push('// banks load in every year, the others only in their own. A course has');
-lines.push('// shared + [selected year] questions to practise in the selected year.');
-lines.push('export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_BANK_YEAR = {');
-for (const key of Object.keys(byVisibleSubjectBankYear).sort()) {
-  lines.push(`  ${key === 'shared' ? 'shared' : `'${key}'`}: {`);
-  for (const k of Object.keys(byVisibleSubjectBankYear[key]).sort()) {
-    lines.push(`    '${k}': ${byVisibleSubjectBankYear[key][k]},`);
-  }
-  lines.push('  },');
-}
-lines.push('};');
-lines.push('');
-lines.push('// The same, counting only the questions on one paper. A course the student');
-lines.push('// names keeps its whole loaded set when none of it sits on that paper.');
-lines.push('export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_BANK_YEAR_BY_PAPER = {');
-for (const paper of ['midterm', 'final']) {
-  lines.push(`  ${paper}: {`);
-  for (const key of Object.keys(byVisibleSubjectBankYearPaper[paper]).sort()) {
-    lines.push(`    ${key === 'shared' ? 'shared' : `'${key}'`}: {`);
-    for (const k of Object.keys(byVisibleSubjectBankYearPaper[paper][key]).sort()) {
-      lines.push(`      '${k}': ${byVisibleSubjectBankYearPaper[paper][key][k]},`);
-    }
-    lines.push('    },');
-  }
-  lines.push('  },');
 }
 lines.push('};');
 lines.push('');

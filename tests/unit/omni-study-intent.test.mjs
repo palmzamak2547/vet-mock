@@ -11,7 +11,7 @@ import assert from 'node:assert/strict';
 
 import { detectStudyIntent, detectIntents, studyActions } from '../../src/lib/omni-intents.js';
 import { createStudyCatalog } from '../../src/lib/study-catalog.js';
-import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_BANK_YEAR as BY_BANK_YEAR } from '../../src/data/q-counts.js';
+import { Q_VISIBLE_COUNTS_BY_SUBJECT } from '../../src/data/q-counts.js';
 
 const intent = (q, year = 5) => detectStudyIntent(q, { selectedYear: year });
 const first = (q, year) => intent(q, year)?.subjects[0]?.meta.id;
@@ -91,123 +91,64 @@ test('a document count that is not known yet is neither "none" nor a number', ()
   assert.equal(studyActions(subject, 'library', 3).actions[0].count, 3);
 });
 
-test('practice is offered only for a course of the selected year', () => {
-  // App loads the selected year's question banks and its practice screens
-  // count that year's pool. COM V is a year-4 course: in year 5 the card said
-  // "ฝึกข้อสอบ COM V 129 ข้อ, ปี 4", Enter opened the topics, and every topic
-  // said ยังไม่มีข้อที่พร้อมใช้ในชุดนี้ with start disabled.
-  for (const q of ['ข้อสอบ com5', 'com5', 'COM V', 'ข้อสอบ com5 ปี 4']) {
-    const r = intent(q, 5);
-    const main = r?.subjects[0];
-    assert.equal(main?.meta.id, 'com5', q);
-    const { actions } = studyActions(main, r.want);
-    assert.ok(!actions.some((a) => a.target === 'practice'), `${q}: no practice button outside year 4`);
-    assert.ok(actions.length > 0, `${q}: notes, clips and VetWiki open in any year`);
-  }
-  // Asked for practice, the card says where the questions are instead of
-  // claiming the course has none.
-  const asked = intent('ข้อสอบ com5', 5);
-  assert.equal(studyActions(asked.subjects[0], asked.want).missing,
-    'ข้อสอบวิชานี้อยู่ในชั้นปี 4 เปลี่ยนเป็นชั้นปี 4 ก่อนจึงจะฝึกได้');
-  // In its own year the same card leads with practice.
-  const own = intent('ข้อสอบ com5', 4);
-  assert.equal(studyActions(own.subjects[0], own.want).actions[0].target, 'practice');
-  assert.equal(studyActions(own.subjects[0], own.want).missing, null);
-  // A course of the selected year keeps its practice shelf.
-  const y5 = intent('ข้อสอบ epidemiology', 5);
-  assert.equal(studyActions(y5.subjects[0], y5.want).actions[0].target, 'practice');
-});
-
-test('a course whose only shelf is another year\'s practice gets no card', () => {
-  // Hypothetical entry with questions and nothing else: in another year
-  // there is nothing on the card a tap could open.
-  const subject = { year: 4, practiceOpen: false, resources: { questions: { available: true, count: 40 } } };
-  assert.deepEqual(studyActions(subject, null).actions, []);
-  for (const q of ['ข้อสอบ com5', 'com5']) {
-    for (const s of intent(q, 5)?.subjects || []) {
-      assert.ok(studyActions(s, null).actions.length > 0, `${q}: ${s.meta.id} is offered only with something to open`);
-    }
-  }
-});
-
-// 2026-10-12 review of the rule above: practice follows the banks App loads,
-// not the course's year. questions-vca.js is a shared bank (registry year
-// null), so VCA practice opens in years 1-4 on it; the card had vanished there.
-test('a course with a bank that loads in every year keeps practice in every year, at the count that year serves', () => {
-  const shared = BY_BANK_YEAR.shared.vca;
-  const own5 = BY_BANK_YEAR['5'].vca;
-  assert.ok(shared > 0 && own5 > 0, 'VCA has a shared bank and year-5 banks');
-  for (const year of [1, 3, 4]) {
-    const r = intent('ข้อสอบ vca', year);
-    const vca = r?.subjects.find((s) => s.meta.id === 'vca');
-    assert.ok(vca, `year ${year}: the card is there`);
-    const practice = studyActions(vca, r.want).actions[0];
-    assert.equal(practice?.target, 'practice', `year ${year}: practice leads`);
-    assert.equal(practice.count, shared, `year ${year}: the shared bank is what loads`);
-  }
-  const r5 = intent('ข้อสอบ vca', 5);
-  const vca5 = r5.subjects.find((s) => s.meta.id === 'vca');
-  assert.equal(studyActions(vca5, r5.want).actions[0].count, shared + own5);
-});
-
-test('documents asked for open the shelf of a course from any year', () => {
-  // biochem-1 (year 1) has questions and documents and nothing else. From
-  // year 5, "เอกสาร biochem" got no card: practice was closed and the
-  // document count was not known when the card was decided.
-  const r = intent('เอกสาร biochem', 5);
-  const main = r?.subjects.find((s) => s.meta.id === 'biochem-1');
-  assert.ok(main, 'the card is there');
-  assert.equal(studyActions(main, r.want, null).actions[0]?.target, 'library');
-});
-
-test('practice asked for in another year says which year even with nothing else to open', () => {
-  const r = intent('ข้อสอบ biochem', 5);
-  const main = r?.subjects.find((s) => s.meta.id === 'biochem-1');
-  assert.ok(main, 'the course is kept so the card can say where its questions are');
-  assert.equal(studyActions(main, r.want, null).missing, 'ข้อสอบวิชานี้อยู่ในชั้นปี 1 เปลี่ยนเป็นชั้นปี 1 ก่อนจึงจะฝึกได้');
-});
-
 test('a course with nothing behind it is not offered at all', () => {
   // Year-1 anatomy courses with no questions, notes, clips or articles.
   const r = intent('สรุป anatomy ปี 1');
   assert.ok(!r || r.subjects.every((s) => studyActions(s, r.want).actions.length > 0));
 });
 
-// The card's practice number is what the next screen shows. For a course of
-// the selected year that is the topic screen's "รวมทุกหัวข้อ" (term and paper,
-// as Home's subject cards count it); for another year's course, opened on the
-// banks that load in every year, it is what buildExamPool serves from them.
-// Checked over every course, year 1-5 and period (2026-10-12: avian-medicine in
-// year 5 under เทอม 1 ปลายภาค printed 519 over a screen of 108, and
-// milk-meat-hygiene printed 804 over a disabled set of 0).
-test('the card\'s practice count is what the next screen shows, for every course, year and period', async () => {
-  const { QB, loadQB } = await import('../../src/data/questions.js');
-  const { BANK_REGISTRY } = await import('../../src/data/bank-registry.generated.js');
-  const { buildExamPool } = await import('../../src/lib/exam-pool.js');
+// Another year's course: opening it loads its year's banks (App), so the card
+// offers practice from any year at the topic screen's count. A year-5 student
+// reviewing COM V (year 4) used to get no practice button and a line telling
+// them to switch their year.
+test('another year\'s course offers practice at its full count', () => {
+  for (const q of ['ข้อสอบ com5', 'com5']) {
+    const r = intent(q, 5);
+    const main = r?.subjects.find((s) => s.meta.id === 'com5');
+    assert.ok(main, q);
+    const practice = studyActions(main, r.want).actions.find((a) => a.target === 'practice');
+    assert.equal(practice?.count, Q_VISIBLE_COUNTS_BY_SUBJECT.com5, `${q}: practice at the course's count`);
+  }
+  // VCA, a year-5 course with a bank every year loads, counts the same everywhere.
+  for (const year of [1, 4, 5]) {
+    const r = intent('ข้อสอบ vca', year);
+    const vca = r.subjects.find((s) => s.meta.id === 'vca');
+    assert.equal(studyActions(vca, r.want).actions[0].count, Q_VISIBLE_COUNTS_BY_SUBJECT.vca, `year ${year}`);
+  }
+});
+
+test('documents asked for open the shelf of a course from any year', () => {
+  const r = intent('เอกสาร biochem', 5);
+  const main = r?.subjects.find((s) => s.meta.id === 'biochem-1');
+  assert.ok(main, 'the card is there');
+  assert.equal(studyActions(main, r.want, null).actions[0]?.target, 'library');
+});
+
+// The card's practice number is what the topic screen it opens shows: the
+// course's count, or for a course of the selected year under a chosen period,
+// the period's term-and-paper count (as Home's subject cards). The period is
+// the selected year's calendar, so another year's course is counted whole
+// (5.144.4 review: under เทอม 1 ปลายภาค the card withheld 12 of 22 year-4
+// courses from a year-5 student). Checked over every course, year 1-5 and period.
+test('the card\'s practice count is what the topic screen shows, for every course, year and period', async () => {
   const { Q_COUNTS_BY_TOPIC_BY_SCOPE } = await import('../../src/data/q-counts.js');
-  await loadQB();
-  const bankYear = new Map();
-  for (const entry of BANK_REGISTRY) for (const q of await entry.load()) bankYear.set(q, entry.year);
-  const subjects = [...new Set(QB.map((q) => q.subject).filter(Boolean))];
+  const { yearForSubject } = await import('../../src/data/curriculum.js');
   const catalog = createStudyCatalog();
-  const screenAll = (id, phase) => {
-    const scoped = phase ? Q_COUNTS_BY_TOPIC_BY_SCOPE[phase] : null;
+  const screenAll = (id, phase, year) => {
+    const ownYear = yearForSubject(id) == null || yearForSubject(id) === year;
+    const scoped = phase && ownYear ? Q_COUNTS_BY_TOPIC_BY_SCOPE[phase] : null;
     return scoped ? Object.values(scoped[id] || {}).reduce((a, b) => a + b, 0) : catalog.browse({ subject: id }).resources.questions.count;
   };
   const wrong = [];
   for (const year of [1, 2, 3, 4, 5]) {
-    const loaded = QB.filter((q) => { const y = bankYear.get(q); return y === null || y === year; });
     for (const phase of [null, '1-mid', '1-final', '2-mid', '2-final']) {
-      for (const id of subjects) {
+      for (const id of Object.keys(Q_VISIBLE_COUNTS_BY_SUBJECT)) {
         const r = detectStudyIntent(`ข้อสอบ ${id}`, { selectedYear: year, selectedPhase: phase });
         const card = r?.subjects.find((s) => s.meta.id === id);
         if (!card) continue;
         const shown = studyActions(card, r.want).actions.find((a) => a.target === 'practice')?.count || 0;
-        const own = Number(card.year) === year;
-        const expected = own
-          ? screenAll(id, phase)
-          : buildExamPool({ questions: loaded, practiceMode: 'all', subject: id, topic: null, selectedYear: year, selectedPhase: phase }).length;
-        if (shown !== expected) wrong.push(`${id} year ${year} ${phase || 'no period'}: card ${shown}, ${own ? 'screen' : 'pool'} ${expected}`);
+        const expected = screenAll(id, phase, year);
+        if (shown !== expected) wrong.push(`${id} year ${year} ${phase || 'no period'}: card ${shown}, screen ${expected}`);
       }
     }
   }
@@ -215,12 +156,28 @@ test('the card\'s practice count is what the next screen shows, for every course
 });
 
 test('a course of the selected year outside the chosen period says so', () => {
-  // milk-meat-hygiene holds nothing for เทอม 1 ปลายภาค in year 5: its topic
+  // milk-meat-hygiene (year 5) holds nothing for เทอม 1 ปลายภาค: its topic
   // screen shows no set there, so the card offers none and names the reason.
-  const r = detectStudyIntent('ข้อสอบ milk-meat-hygiene', { selectedYear: 5, selectedPhase: '1-final' });
-  const main = r?.subjects.find((s) => s.meta.id === 'milk-meat-hygiene');
-  assert.ok(main, 'the course keeps its card');
-  const { actions, missing } = studyActions(main, r.want, null);
-  assert.ok(!actions.some((a) => a.target === 'practice'));
-  assert.equal(missing, 'ข้อสอบวิชานี้ไม่อยู่ในช่วงสอบที่เลือก เปลี่ยนช่วงสอบก่อนจึงจะฝึกได้');
+  for (const [q, id, year] of [['ข้อสอบ milk-meat-hygiene', 'milk-meat-hygiene', 5], ['ข้อสอบ com5', 'com5', 4]]) {
+    const r = detectStudyIntent(q, { selectedYear: year, selectedPhase: '1-final' });
+    const main = r?.subjects.find((s) => s.meta.id === id);
+    assert.ok(main, `${id}: the course keeps its card`);
+    const { actions, missing } = studyActions(main, r.want, null);
+    assert.ok(!actions.some((a) => a.target === 'practice'), id);
+    assert.equal(missing, 'ข้อสอบวิชานี้ไม่อยู่ในช่วงสอบที่เลือก เปลี่ยนช่วงสอบก่อนจึงจะฝึกได้', id);
+  }
+});
+
+test('another year\'s course is offered whole under any period', () => {
+  // The period is the selected year's calendar. biochem-1 (year 1, term 2) and
+  // COM V (year 4, term 2) from year 5 under เทอม 1 ปลายภาค: 5.144.4 named the
+  // period and offered no practice, though the student asked for the course.
+  for (const [q, id] of [['ข้อสอบ biochem', 'biochem-1'], ['ข้อสอบ com5', 'com5']]) {
+    for (const phase of ['1-mid', '1-final', '2-mid', '2-final']) {
+      const r = detectStudyIntent(q, { selectedYear: 5, selectedPhase: phase });
+      const main = r?.subjects.find((s) => s.meta.id === id);
+      const practice = studyActions(main, r.want, null).actions.find((a) => a.target === 'practice');
+      assert.equal(practice?.count, Q_VISIBLE_COUNTS_BY_SUBJECT[id], `${id} under ${phase}`);
+    }
+  }
 });

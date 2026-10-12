@@ -438,11 +438,22 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
 
   // Share/reload and a trip to another page must return to the shelf the
   // student chose. Changing chips replaces the entry instead of adding a
-  // Back step for every filter change, matching the document shelf.
-  useEffect(() => {
-    const navigation = videoSubjectNavigation(window.location.href, window.history.state, filter);
+  // Back step for every filter change, matching the document shelf. The entry
+  // is written in the same task as the student's change: as an effect it ran
+  // after a quick Back then Forward had already moved on and overwrote the
+  // newer entry with the older course (WebKit, 3 runs in 20). A change that
+  // comes from Back/Forward writes nothing; its entry already says it.
+  const recordFilter = (value) => {
+    const navigation = videoSubjectNavigation(window.location.href, window.history.state, value);
     if (navigation) window.history.replaceState(navigation.state, '', navigation.url);
-  }, [filter]);
+  };
+  const chooseFilter = (value) => {
+    setFilter(value);
+    recordFilter(value);
+  };
+  // The shelf it opened on, written once into the entry it opened in.
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- only on mount
+  useEffect(() => { recordFilter(filter); }, []);
 
   useEffect(() => {
     const followNavigation = (event) => {
@@ -468,7 +479,7 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
           if (summaryOnly) {
             setSummaryClip(clip);
             setPlaying(null);
-            setFilter(videoSubjectForNavigation('', clip.subject, availableSubjects));
+            chooseFilter(videoSubjectForNavigation('', clip.subject, availableSubjects));
             return;
           }
           setSummaryClip(null);
@@ -476,9 +487,16 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
         } else if (detail.navigationState.openSummary === true) return;
       }
       if (!Object.prototype.hasOwnProperty.call(detail.navigationState || {}, 'subject')) return;
-      setFilter(videoSubjectForNavigation('', detail.navigationState.subject, availableSubjects));
+      chooseFilter(videoSubjectForNavigation('', detail.navigationState.subject, availableSubjects));
     };
-    followNavigation();
+    // Settle the open entry against the clips there are now. A course whose
+    // last clip was deleted falls back to ทั้งหมด, and the entry has to say so
+    // too, or adding a clip for that course again jumped the shelf back to it
+    // (5.144.4 review). It reads the entry it writes, so it never carries an
+    // older course into a newer entry.
+    if (window.location.pathname.replace(/\/+$/, '') === '/app/videos') {
+      chooseFilter(videoSubjectForNavigation(window.location.search, window.history.state?.vmxVideoSubject, availableSubjects));
+    }
     window.addEventListener('popstate', followNavigation);
     window.addEventListener('vmx-view-intent', followIntent);
     return () => {
@@ -622,7 +640,7 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
                     key={s.id}
                     className={`vmx-chip ${filter === s.id ? 'active' : ''}`}
                     aria-pressed={filter === s.id}
-                    onClick={() => setFilter(s.id)}
+                    onClick={() => chooseFilter(s.id)}
                     title={`${count} ชุดวิดีโอ`}
                   >
                     {/* .vmx-chip is inline-flex, which drops the space
@@ -644,7 +662,7 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
               <button
                 className={`vmx-chip ${filter === 'all' ? 'active' : ''}`}
                 aria-pressed={filter === 'all'}
-                onClick={() => setFilter('all')}
+                onClick={() => chooseFilter('all')}
                 style={{ fontWeight: 600 }}
               >
                 ทั้งหมด {allVideos.length} ชุด

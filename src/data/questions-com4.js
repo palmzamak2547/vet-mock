@@ -9,7 +9,7 @@
 //   q, options/answer/blanks/pairs, explain, verified?, flag?
 // ==========================================================
 
-import { IMG_HAIR_CYCLE, IMG_SPHEROCYTE } from './images-com.js';
+import { IMG_HAIR_CYCLE, IMG_SPHEROCYTE } from './images-com4.js';
 
 export const QB_COM4 = [
   {

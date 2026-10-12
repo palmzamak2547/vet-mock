@@ -5,7 +5,7 @@ import { flushSync } from 'react-dom';
 // array reference forever, but it's empty until `loadQB()` resolves.
 // App.jsx kicks off loadQB() in a top-level effect (background load
 // after first paint) and gates exam-start paths on the populated QB.
-import { QB, loadQB, loadQBForYear, isQBLoaded, isQBYearLoaded, isQBFullyLoaded } from './data/questions.js';
+import { QB, loadQB, loadQBForYear, isQBLoaded, isQBYearLoaded, isQBFullyLoaded, onQBMerged } from './data/questions.js';
 import { THEME_SYSTEM, effectiveTheme, systemPrefersDark, useSystemDark } from './lib/theme-pref.js';
 import { SUBJECTS, YEARS, CURRENT_YEAR, yearForSubject } from './data/curriculum.js';
 import { stillWrong } from './lib/wrong-pool.js';
@@ -535,46 +535,69 @@ export default function App() {
   // HomeView/etc. don't crash if the user somehow lands there pre-pick.
   const selectedYear = selectedYearStored ?? CURRENT_YEAR;
 
-  // ── QB year-scoped loaders ─────────────────────────────────────
-  // CRITICAL: these effects MUST live AFTER `selectedYear` is
-  // declared (above) — they were originally up near `qbReady` and
-  // caused a production TDZ ("Cannot access 'P' before initialization"
-  // at <App>) because the dep array `[selectedYear, ...]` got
-  // evaluated synchronously at render BEFORE the const above existed.
-  // Build hash `index-CXPDEjJ3.js` reproduced this — left the entire
-  // site blank. Don't move them back up.
-  useEffect(() => {
-    if (qbReady) return;
-    // The first-run year picker uses precomputed counts. Do not download the
-    // fallback Y4 bank before the visitor has actually chosen a year.
-    if (selectedYearStored == null) return;
-    // Background load — non-blocking, fires once per page life. Errors
-    // are swallowed at this layer; explicit awaits in startExam() will
-    // surface real failures via alert().
-    //
-    // Year-scoped (Palm audit 2026-05-20): pull only the current year's
-    // chunks instead of all 34. Y4-only users skip the ~7 Y5 banks
-    // (~250 KB savings on slow networks). Cross-year banks (vca/short/
-    // mahahon/termpaper) still load. If the user later switches year,
-    // loadQBForYear() is re-called by the year-watcher effect below.
-    loadQBForYear(selectedYear).then(() => {
-      setQbReady(true);
-      setQbRevision((revision) => revision + 1);
-    }).catch(() => {});
-  }, [qbReady, selectedYear, selectedYearStored]);
+  // ── QB year-scoped loading ─────────────────────────────────────
+  // CRITICAL: the loading effect below MUST live AFTER `selectedYear` is
+  // declared (above): it once sat up near `qbReady` and caused a production
+  // TDZ ("Cannot access 'P' before initialization" at <App>) because its
+  // dep array was evaluated at render BEFORE the const existed. Build hash
+  // `index-CXPDEjJ3.js` reproduced this and left the whole site blank.
+  // Only the selected year's banks load (Palm audit 2026-05-20), plus the
+  // cross-year ones; the first-run year picker uses precomputed counts and
+  // downloads nothing until a year is chosen. The boot load and the year
+  // switch were two more effects calling the same load; banksToEnsure now
+  // does both, with retries, so one caller asks for each year.
 
-  // When user switches year (e.g. Y4 → Y5), pull the new year's chunks
-  // in the background. `loadQBForYear` is idempotent — already-loaded
-  // scopes are no-ops. New chunks merge into the same `_qbArr` so
-  // existing closures over QB get the union next render.
+  // Another year's course, opened from the search or a link (a year-5 student
+  // reviewing COM V): App holds only the selected year's banks, so its topic
+  // and config screens offered a set of none. Opening it loads its own year's
+  // banks; the revision bump recounts the screens that read the bank.
+  const openCourseYear = subject && subject !== 'all' ? yearForSubject(subject) : null;
+  // isQBYearLoaded also answers yes after a full load (bookmarks, wrong
+  // answers, SR's ทุกปี, a share link), which holds every year already.
+  const courseYearMissing = (view === 'topic-select' || view === 'config')
+    && openCourseYear != null && Number(openCourseYear) !== Number(selectedYear)
+    && !isQBYearLoaded(openCourseYear);
+  // Every completed load, from any caller, bumps the revision that
+  // allQuestions and the config pool recount from (see onQBMerged).
+  // A merge also means the bank is ready: a boot load that failed and was
+  // retried here never reached the boot effect's setQbReady.
+  useEffect(() => onQBMerged(() => {
+    setQbReady(true);
+    setQbRevision((revision) => revision + 1);
+  }), []);
+  // The banks the screens need: the selected year's, and an open course's
+  // own year. Tried even offline (an installed app's worker cache, or the
+  // browser's, often holds the chunks). A failed load is tried again: when the
+  // network returns if the browser is offline, otherwise after 5, 15 and 45 s.
+  // A boot load that failed was never retried, so its counts stayed checking
+  // until Start (5.144.4 review). importBank in data/questions.js makes a retry
+  // work in Chromium, which keeps a failed import failed.
+  const banksToEnsure = [];
+  if (selectedYearStored != null && !isQBYearLoaded(selectedYear)) banksToEnsure.push(selectedYear);
+  if (courseYearMissing) banksToEnsure.push(openCourseYear);
+  const ensureKey = banksToEnsure.join(',');
+  const [bankAttempt, setBankAttempt] = useState(0);
+  const bankRetryRef = useRef({ key: '', count: 0 });
   useEffect(() => {
-    if (!qbReady) return;
-    if (selectedYearStored == null) return;
-    if (isQBYearLoaded(selectedYear)) return;
-    loadQBForYear(selectedYear)
-      .then(() => setQbRevision((revision) => revision + 1))
-      .catch(() => {});
-  }, [selectedYear, selectedYearStored, qbReady]);
+    // Nothing to load: the next need starts with a fresh set of retries (the
+    // budget used to survive leaving the screen, so a course reopened after
+    // failing got one attempt and no timed retries).
+    if (!ensureKey) { bankRetryRef.current = { key: '', count: 0 }; return undefined; }
+    if (bankRetryRef.current.key !== ensureKey) bankRetryRef.current = { key: ensureKey, count: 0 };
+    let alive = true;
+    let timer = null;
+    const retry = () => { if (alive) setBankAttempt((attempt) => attempt + 1); };
+    Promise.all(ensureKey.split(',').map((year) => loadQBForYear(Number(year)))).catch(() => {
+      if (!alive) return;
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+        window.addEventListener('online', retry, { once: true });
+        return;
+      }
+      const wait = [5000, 15000, 45000][bankRetryRef.current.count++];
+      if (wait) timer = setTimeout(retry, wait);
+    });
+    return () => { alive = false; clearTimeout(timer); window.removeEventListener('online', retry); };
+  }, [ensureKey, bankAttempt]);
 
   // Every year's banks, for a screen that offers them all (SR's 'ทุกปี').
   // A cold visit loads only the selected year, so without this that chip
@@ -1659,7 +1682,7 @@ export default function App() {
   const configServedPool = useMemo(() => {
     const scopeReady = USER_CURATED_MODES.has(configPracticeMode)
       ? isQBFullyLoaded()
-      : isQBYearLoaded(selectedYear);
+      : isQBYearLoaded(selectedYear) && !courseYearMissing;
     if (!scopeReady) return null;
     const pool = buildExamPool({
       questions: allQuestions,
@@ -1677,7 +1700,7 @@ export default function App() {
     // Panic keeps only the questions closest to a paper, so counting the whole
     // subject here printed a number the session would never serve.
     return panicPending ? panicPool(pool) : pool;
-  }, [allQuestions, analytics?.weakQuestions, bookmarks, configPracticeMode, history, panicPending, practiceMode, questionCategory, selectedPhase, selectedYear, subject, topic]);
+  }, [allQuestions, analytics?.weakQuestions, bookmarks, configPracticeMode, courseYearMissing, history, panicPending, practiceMode, questionCategory, selectedPhase, selectedYear, subject, topic]);
   const configAvailableCount = configServedPool ? configServedPool.length : null;
 
   // startExam accepts an optional `overrides` object so a caller (like the
@@ -1801,13 +1824,20 @@ export default function App() {
     // we hold here until QB is populated rather than starting an exam
     // against an empty pool.
     const needsFullRegistry = isUserCuratedPool || !!onlyIds;
+    // Another year's course needs its own year's banks too: started while
+    // they were still loading, a VCA set from year 4 served 316 of 455.
+    const subjectYear = _subject && _subject !== 'all' ? yearForSubject(_subject) : null;
+    const courseYear = subjectYear != null && Number(subjectYear) !== Number(selectedYear) ? subjectYear : null;
     const scopeReady = needsFullRegistry
       ? isQBFullyLoaded()
-      : isQBYearLoaded(selectedYear);
+      : isQBYearLoaded(selectedYear) && (courseYear == null || isQBYearLoaded(courseYear));
     if (!scopeReady) {
       try {
         if (needsFullRegistry) await loadQB();
-        else await loadQBForYear(selectedYear);
+        else {
+          await loadQBForYear(selectedYear);
+          if (courseYear != null) await loadQBForYear(courseYear);
+        }
         if (!current()) return;
         setQbReady(true);
         setQbRevision((revision) => revision + 1);

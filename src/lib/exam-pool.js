@@ -14,7 +14,7 @@ import { questionCategory as catOf } from '../hooks/utils.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 import { SEMESTER } from '../data/semester.js';
 import { isCurrentScopeQuestion, isHighPredictionQuestion } from './question-prediction.js';
-import { scopeForPhase, questionInScope } from './exam-scope.js';
+import { scopeForPhase, questionInScope, phaseForCourse } from './exam-scope.js';
 import { isPastPaperQuestion } from './question-metadata.js';
 
 // Which semester each exam phase belongs to. Mid vs final inside one semester
@@ -255,7 +255,7 @@ export function buildExamPool({
   // for หัวข้อ fiqc-aquatic under เทอม 1 กลางภาค — the syllabus marks it
   // "ไม่ออกสอบ — handout only", which is a reason to keep it out of a WHOLE-
   // subject set, not a reason to refuse the student who asked for it by name.
-  const wantedScope = scopeForPhase(selectedPhase);
+  const wantedScope = scopeForPhase(phaseForCourse(subject, selectedYear, selectedPhase));
   if (wantedScope && !curated) {
     const onPaper = pool.filter((q) => questionInScope(q, wantedScope));
     // The never-empty guard is only kind when the student NAMED what they

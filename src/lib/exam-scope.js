@@ -38,7 +38,7 @@
 // and must never pad one.
 // ============================================================
 
-import { SUBJECTS } from '../data/curriculum.js';
+import { SUBJECTS, yearForSubject } from '../data/curriculum.js';
 import { SUBJECT_PAPERS } from '../data/exam-papers.generated.js';
 
 export const EXAM_SCOPES = ['midterm', 'final', 'both', 'continuous'];
@@ -57,6 +57,21 @@ export function scopeForPhase(selectedPhase) {
   if (selectedPhase.endsWith('-mid')) return 'midterm';
   if (selectedPhase.endsWith('-final')) return 'final';
   return null;
+}
+
+/**
+ * The period a course is narrowed by. The period is the student's own year's
+ * calendar; a course of another year, opened from search (a year-5 student
+ * reviewing COM V), is studied whole, since its term and paper are not the
+ * student's. Under เทอม 1 ปลายภาค the card withheld practice from 12 of 22
+ * year-4 courses for a year-5 student (5.144.4 review). The card, the topic
+ * screen and the pool all read this, so they keep one number.
+ */
+export function phaseForCourse(subjectId, selectedYear, selectedPhase) {
+  if (!selectedPhase || !subjectId || subjectId === 'all') return selectedPhase || null;
+  const courseYear = yearForSubject(subjectId);
+  if (courseYear == null || !Number.isFinite(Number(selectedYear)) || selectedYear === null) return selectedPhase;
+  return Number(courseYear) === Number(selectedYear) ? selectedPhase : null;
 }
 
 // subject id -> { scope, topics: Map<topicId, scope> }, built once.

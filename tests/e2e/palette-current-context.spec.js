@@ -102,11 +102,13 @@ test('composition keys keep search open, then ordinary keyboard selection and Es
   await expect(launch).toBeFocused();
 });
 
-// The study card follows the banks the selected year loads: VCA's main bank
-// is shared, so a year-4 student practises it there at the count that year
-// serves; a year-1 course asked for from year 5 says which year instead of
-// showing nothing (review of 5.144.2, 2026-10-12).
-test('the study card offers what the selected year can practise, and names the year otherwise', async ({ page }) => {
+// The study card counts what the topic screen will show: any course, from any
+// year (opening another year's course loads its banks), and for a course of
+// the student's own year under the chosen period, that period's term and
+// paper. Another year's course is counted whole: the period is the student's
+// own calendar (5.144.4 review). An own-year course with nothing in the
+// period says so (reviews of 5.144.2 and 5.144.3, 2026-10-12).
+test('the study card offers any year\'s course at its count, and names the period when an own-year course holds none', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('vmx-selected-year', '4'));
   await page.goto('/app');
   await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
@@ -115,10 +117,17 @@ test('the study card offers what the selected year can practise, and names the y
   await box.fill('ข้อสอบ vca');
   const card = dialog.locator('.vmx-omni-go-primary');
   await expect(card).toContainText('ฝึกข้อสอบ');
-  await expect(card).toContainText('316 ข้อ');
-  await page.evaluate(() => localStorage.setItem('vmx-selected-year', '5'));
-  await page.reload();
-  await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
-  await dialog.getByRole('textbox', { name: 'ค้นหาใน VetMock' }).fill('ข้อสอบ biochem');
-  await expect(dialog.getByRole('status').filter({ hasText: 'ข้อสอบวิชานี้อยู่ในชั้นปี 1 เปลี่ยนเป็นชั้นปี 1 ก่อนจึงจะฝึกได้' })).toBeVisible();
+  await expect(card).toContainText('455 ข้อ');
+  await expect(card).toContainText('ปี 5');
+  // biochem-1 is a year-1, term-2 course; the selected period (เทอม 1 กลางภาค)
+  // is year 4's calendar, so the course is offered whole.
+  await box.fill('ข้อสอบ biochem');
+  await expect(card).toContainText('ฝึกข้อสอบ');
+  await expect(card).toContainText('271 ข้อ');
+  await expect(card).toContainText('ปี 1');
+  // COM V is year 4's own course and sits in term 2: the period holds none of
+  // it. The card keeps its summary, clips and VetWiki, so the line sits inside it.
+  await box.fill('ข้อสอบ com5');
+  await expect(dialog.locator('.vmx-omni-go-missing').filter({ hasText: 'ข้อสอบวิชานี้ไม่อยู่ในช่วงสอบที่เลือก เปลี่ยนช่วงสอบก่อนจึงจะฝึกได้' })).toBeVisible();
+  await expect(card).not.toContainText('ฝึกข้อสอบ');
 });
