@@ -174,8 +174,11 @@ test('B25/B63: starting a set asks before throwing away unfinished work', () => 
   const start = START_EXAM;
   const askAt = start.indexOf('await confirmReplaceUnfinished()');
   assert.ok(askAt >= 0, 'startExam must ask first: the tour, Home launchers and the palette all start through it');
-  assert.match(start, /if \(!\(await confirmReplaceUnfinished\(\)\) \|\| !current\(\)\) return;/,
+  // `__guarded` marks startExam's own restarts (bank retry, full-bank load,
+  // repeat, whole subject): the student already answered for this start.
+  assert.match(start, /if \(\(!overrides\.__guarded && !\(await confirmReplaceUnfinished\(\)\)\) \|\| !current\(\)\) return;/,
     'both consent and the still-current request must survive the confirmation');
+  assert.equal((start.match(/return startExam\(\{[^}]*__guarded: true/g) || []).length, 5, 'every internal restart is marked as already confirmed');
   assert.ok(askAt < start.indexOf('setPendingResume(null);'), 'ask before the resume card is dropped');
   const selectionAt = start.indexOf('const firstTime = picked[0]');
   const currentAt = start.indexOf('if (!current()) return;', selectionAt);

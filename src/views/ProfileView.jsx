@@ -165,7 +165,9 @@ export default function ProfileView({
           <span className="vmx-level-meta">
             {xp.totalXp > 0
               ? `${xp.totalXp.toLocaleString()} XP, อีก ${(progress.needed - progress.current).toLocaleString()} XP ถึง Lv ${progress.nextLevel}`
-              : 'ตอบข้อแรกเพื่อเริ่มสะสม XP'}
+              : stats.total === 0
+                ? 'ตอบข้อแรกเพื่อเริ่มสะสม XP'
+                : `0 XP ในเครื่องนี้, อีก ${(progress.needed - progress.current).toLocaleString()} XP ถึง Lv ${progress.nextLevel}`}
           </span>
           <span className="vmx-level-bar" aria-hidden="true">
             <span style={{ width: `${progress.pct}%` }} />
@@ -241,12 +243,12 @@ export default function ProfileView({
         <div className="vmx-dash-card vmx-profile-card">
           <h2>กิจกรรมล่าสุด</h2>
           <ul className="vmx-activity">
-            {sessions.map((s) => {
+            {sessions.map((s, i) => {
               const parts = (
                 <>
                   <span className="vmx-activity-when">{sessionWhen(s.startedAt)}</span>
                   <span className="vmx-activity-what">
-                    <strong>{subjectName(s.subject)}</strong> {s.total} ข้อ ถูก {s.correct}
+                    <strong>{s.subject === 'all' ? 'หลายวิชา' : subjectName(s.subject)}</strong> {s.total} ข้อ ถูก {s.correct}
                   </span>
                 </>
               );
@@ -254,7 +256,7 @@ export default function ProfileView({
               // or an unknown id stays a plain line.
               const canOpen = typeof openSubject === 'function' && SUBJECTS.some((x) => x.id === s.subject);
               return (
-                <li key={`${s.subject}-${s.startedAt}`} className={canOpen ? 'vmx-activity-item' : 'vmx-activity-row'}>
+                <li key={`${s.startedAt}-${i}`} className={canOpen ? 'vmx-activity-item' : 'vmx-activity-row'}>
                   {canOpen
                     ? (
                       <button type="button" className="vmx-activity-row vmx-activity-open" onClick={() => openSubject(s.subject)}>

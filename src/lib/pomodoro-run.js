@@ -35,10 +35,10 @@ export function statusLabel(state, strictFocus = true, minutes, buddy) {
   const who = buddy || 'ลูกไก่';
   switch (state) {
     case 'idle':
-      if (!strictFocus) return 'พร้อมเริ่ม — กด Start เพื่อเริ่มโฟกัส (Relaxed Mode)';
+      if (!strictFocus) return 'พร้อมเริ่ม — กด เริ่ม เพื่อเริ่มโฟกัส (Relaxed Mode)';
       return buddy
-        ? `พร้อมเริ่ม — กด Start เพื่อโฟกัสกับ${buddy} (Strict Mode: ห้ามออกจากหน้าเกิน 5 วินาที)`
-        : 'พร้อมเริ่ม — กด Start เพื่อฟักลูกไก่ (Strict Mode: ห้ามออกจากหน้าเกิน 5 วินาที)';
+        ? `พร้อมเริ่ม — กด เริ่ม เพื่อโฟกัสกับ${buddy} (Strict Mode: ห้ามออกจากหน้าเกิน 5 วินาที)`
+        : 'พร้อมเริ่ม — กด เริ่ม เพื่อฟักลูกไก่ (Strict Mode: ห้ามออกจากหน้าเกิน 5 วินาที)';
     case 'focus':
       return strictFocus
         ? `กำลังโฟกัส — อย่าออกจากหน้านี้เกิน 5 วินาทีนะ ${buddy || 'ไก่'}จะหนี!`

@@ -79,6 +79,9 @@ export function weekTrack(history, now = Date.now()) {
  * Recent practice as sessions, newest first, at most `limit`.
  * Consecutive answers in one subject with less than `gapMs` between them
  * are one session; a change of subject or a longer pause starts another.
+ * Rows that share one timestamp are one graded set (App writes every row of
+ * a set with the set's completion time), so they stay one session even when
+ * the set crosses subjects; such a session's subject is 'all'.
  *   { subject, startedAt, endedAt, total, correct }
  */
 export function recentSessions(history, { limit = 4, gapMs = 45 * 60 * 1000 } = {}) {
@@ -89,7 +92,9 @@ export function recentSessions(history, { limit = 4, gapMs = 45 * 60 * 1000 } = 
   const sessions = [];
   for (const row of rows) {
     const last = sessions[sessions.length - 1];
-    if (last && last.subject === row.subject && row.t - last.endedAt <= gapMs) {
+    const sameSet = last && row.t === last.endedAt;
+    if (last && (sameSet || (last.subject === row.subject && row.t - last.endedAt <= gapMs))) {
+      if (last.subject !== row.subject) last.subject = 'all';
       last.endedAt = row.t;
       last.total += 1;
       if (row.correct) last.correct += 1;

@@ -83,7 +83,9 @@ export default function FeatureMenu({
         // (Atlas under tools), a few open from their subject page instead
         // (clips, the faculty index, score weights), and one is the admin's.
         const feats = visibleFeatures(
-          FEATURES.filter((f) => homeMenuGroup(f) === cat.id && !f.primary),
+          // `rail: false` learn items (a lesson, a library tab) live on their
+          // subject page or tab and in search; the phone grid skips them too.
+          FEATURES.filter((f) => homeMenuGroup(f) === cat.id && !f.primary && !(cat.id === 'learn' && f.rail === false)),
           { signedIn, scaffold, hasSupabase, selectedYear, isAdmin }
         ).filter((f) => homeMenuVisible(f, { isAdmin }));
         if (feats.length === 0) return null;

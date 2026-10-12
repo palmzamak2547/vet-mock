@@ -114,6 +114,20 @@ test('the ladder reads the rung off the settings and a tap applies the preset', 
   view.unmount();
 });
 
+test('climbing to the paper drops a level pick the paper would hide', async (t) => {
+  browser(t);
+  const { props, calls } = baseProps();
+  const view = mount(ConfigView, { ...props, practiceMode: 'adaptive' });
+  ladderSteps(view.tree)[2].props.onClick();
+  assert.deepEqual(calls.setMode, ['exam']);
+  assert.equal(calls.setPracticeMode.at(-1), 'all', 'exam mode starts as a random draw');
+  // Rung 2 keeps the level pick: the pick-method row is still on screen there.
+  const { props: p2, calls: c2 } = baseProps();
+  const v2 = mount(ConfigView, { ...p2, practiceMode: 'adaptive' });
+  ladderSteps(v2.tree)[1].props.onClick();
+  assert.deepEqual(c2.setPracticeMode, []);
+});
+
 test('the start button asks for the gentle order only on rung 1 of a plain pool', async (t) => {
   browser(t);
   const { props, calls } = baseProps();

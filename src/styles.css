@@ -5464,7 +5464,7 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-bench-dial__value--miss { color: var(--clr-ocean-text); }
 .vmx-bench-dial__hint { margin: 0; font-size: 12px; line-height: 1.5; color: var(--clr-ink-soft); }
 
-.vmx-bench-range { width: 100%; height: 22px; accent-color: var(--clr-gold); cursor: pointer; }
+.vmx-bench-range { width: 100%; height: var(--touch-min); accent-color: var(--clr-gold); cursor: pointer; }
 .vmx-bench-range--hit { accent-color: var(--clr-sage); }
 .vmx-bench-range--miss { accent-color: var(--clr-ocean); }
 
@@ -6307,7 +6307,7 @@ body.vmx-reading .vmx-pdf-body {
   padding-bottom: 8px;
   border-bottom: 1px solid var(--clr-border);
 }
-.vmx-vitals-panel-head span:first-child {
+.vmx-vitals-panel-head > span:first-child {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -7189,7 +7189,13 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
   .vmx-feature-group[data-category="learn"] { display: none; }
 }
 @media (min-width: 640px) and (max-width: 1023px) {
-  .vmx-quick-grid-list { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  /* Seven destinations plus เมนูทั้งหมด: eight across, one row on a tablet. */
+  .vmx-quick-grid-list { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+}
+@media (max-width: 1023px) {
+  /* Every tile in a row is as tall as the tallest (a label may wrap). */
+  .vmx-quick-grid-list > li { display: flex; }
+  .vmx-quick-grid-list > li > .vmx-quick-tile { flex: 1 1 auto; }
 }
 @media (max-width: 360px) {
   /* A 76px tile holds a 12-glyph Thai word (กระดานทบทวน, คลิปย้อนหลัง) at

@@ -170,7 +170,6 @@ export default function HeaderBar({
         type="button"
         className="vmx-home-search"
         onClick={() => setPaletteOpen(true)}
-        aria-label={`ค้นหาวิชา ข้อสอบ สรุป และคลิป (${shortcutLabel})`}
       >
         <NavIcon name="search" size={18} />
         <span className="vmx-home-search-text">ค้นหาวิชา ข้อสอบ สรุป คลิป</span>

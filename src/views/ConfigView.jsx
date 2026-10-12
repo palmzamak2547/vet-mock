@@ -186,6 +186,9 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
     // Mode is state App owns; without a setter the strip still shows where the
     // settings are, but a rung that needs another mode cannot be applied.
     if (!setMode && preset.mode !== mode) return;
+    // The paper hides the pick-method row, so a level pick chosen on a lower
+    // rung must not ride along silently into exam mode.
+    if (preset.mode === 'exam' && practiceMode === 'adaptive' && setPracticeMode) setPracticeMode('all');
     setUseTimer(preset.useTimer);
     // Rung 1 is built on seeing the answer after every question. Rung 2 keeps
     // whatever the student chose for feedback; the hint under the strip reads

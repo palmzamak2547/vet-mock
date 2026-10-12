@@ -15,7 +15,7 @@ import { hasLecturerSet, LECTURER_SETS } from '../data/lecturer-sets.js';
 import { topicLecturerLabel } from '../lib/lecturer-name.js';
 import { hasWrapUp } from '../data/exam-wrapups.js';
 import { ladderPreset, recallLadderStep } from '../lib/practice-ladder.js';
-import { rememberPhaseReturn } from '../lib/phase-return.js';
+import { rememberPhaseReturn, takePhaseReturn } from '../lib/phase-return.js';
 
 // Lazy — pulls instructors data (~30KB) only when user clicks an
 // instructor name to view their profile. Most users browse topics
@@ -79,6 +79,11 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     return takeViewIntent(initialIntentRef) === 'notes' ? 'resources' : 'topics';
   });
   useEffect(() => { consumeViewIntent(initialIntentRef.current); }, []);
+  // Arriving here means any trip to the phase picker is over, whether the
+  // picker sent the student back or the browser's Back did. Clearing the
+  // key on arrival stops a later, ordinary visit to the picker from
+  // routing to this subject instead of Home (taking it twice is harmless).
+  useEffect(() => { takePhaseReturn(); }, []);
   // Preserve the tab that actually opened Notes, including topic-card entry.
   useEffect(() => { onSectionChange?.(activeSection); }, [activeSection, onSectionChange]);
   // Palm bug 2026-05-20: subjects with 50+ topics in curriculum but only

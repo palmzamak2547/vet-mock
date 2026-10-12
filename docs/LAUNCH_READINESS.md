@@ -1,5 +1,11 @@
 # VetMock — Launch Readiness
 
+## Hotfix 5.144.1 / SW v220 — 2026-10-12 (Claude Code)
+
+Three adversarial reviews of 5.144.0 found 21 confirmed bugs. This hotfix ships the high one (the how-to guide inherited the old-host move screen's global `.vmx-guide` styles and became unreadable; the move screen's rules are now scoped to `.vmx-move.vmx-guide`) with the exam-flow five (a paper is always a draw, stale phase-return key, rung-1 copy, the unsaved-result question asked once per start, the writing-only snapshot subject) and the Home/profile seven (one graded set is one recent session, level hint, Pomodoro button name, desktop Mochi once, tablet grid of eight, lessons off the desktop menu, the search field's name). The seven search/reading items follow in 5.144.2.
+
+5.144.0 production proof: vetmock.com `dpl_48uPh12H2wuL1KHfg7gMsPtBQhc4` PROMOTED after Build, Smoke e2e, R parity and Lint questions passed on 99570807; production e2e on 22 changed flows 191 passed / 0 failed (chromium-desktop + webkit-mobile); production sweep 192 loads, 0 errors, 0 overflow; Thai asks answered with 6 verified claims each.
+
 ## Release 5.144.0 / SW v219 — 2026-10-12 (Claude Code night lane)
 
 The owner review's open slices (phone Home and profile, exam-mode subject picker, practice ladder, how-to rewrite, phone reading surfaces, one buddy everywhere, the installed-app guide), search read as concepts, the reviewed atomic-sync fixes, the CI failures on 919d96b2 (native R nls tolerance, a real lost click on clip cards) and the 2b ledger items listed in AGENTS.md. Gate before the push: unit (Asia/Bangkok and UTC), lint:data, build, lint:dist and e2e on four profiles; production proof follows in this section after the deploy.

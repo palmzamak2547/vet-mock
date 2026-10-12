@@ -47,20 +47,20 @@
       [data-theme="dark"] .vmx-move i{background:#7ba87b}
       @keyframes vmx-move{50%{opacity:.35;transform:scale(.8)}}
       @media (prefers-reduced-motion:reduce){.vmx-move i{animation:none}}
-      .vmx-guide{justify-content:flex-start;overflow-y:auto;padding:max(24px,env(safe-area-inset-top)) max(24px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(24px,env(safe-area-inset-left))}
-      .vmx-guide>:first-child{margin-top:auto}
-      .vmx-guide>:last-child{margin-bottom:auto}
-      .vmx-guide h1{margin:0 0 14px;max-width:22rem;font-size:22px;line-height:1.35;font-weight:700}
-      .vmx-guide p+p{margin-top:6px}
-      .vmx-guide button{margin-top:22px;min-height:48px;padding:12px 32px;border:0;border-radius:999px;background:#4a6b4a;color:#fdf8ef;font:inherit;font-weight:600;cursor:pointer}
-      .vmx-guide button:focus-visible{outline:3px solid #2b2419;outline-offset:3px}
+      .vmx-move.vmx-guide{justify-content:flex-start;overflow-y:auto;padding:max(24px,env(safe-area-inset-top)) max(24px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(24px,env(safe-area-inset-left))}
+      .vmx-move.vmx-guide>:first-child{margin-top:auto}
+      .vmx-move.vmx-guide>:last-child{margin-bottom:auto}
+      .vmx-move.vmx-guide h1{margin:0 0 14px;max-width:22rem;font-size:22px;line-height:1.35;font-weight:700}
+      .vmx-move.vmx-guide p+p{margin-top:6px}
+      .vmx-move.vmx-guide button{margin-top:22px;min-height:48px;padding:12px 32px;border:0;border-radius:999px;background:#4a6b4a;color:#fdf8ef;font:inherit;font-weight:600;cursor:pointer}
+      .vmx-move.vmx-guide button:focus-visible{outline:3px solid #2b2419;outline-offset:3px}
       .vmx-guide__next{width:100%;max-width:22rem;margin-top:28px;text-align:left}
       .vmx-guide__next p{margin:0 0 6px;font-size:14px}
-      .vmx-guide ol{margin:0;padding-left:1.4em;font-size:14px;line-height:1.7;color:#5c4f3d}
-      .vmx-guide li+li{margin-top:6px}
-      [data-theme="dark"] .vmx-guide button{background:#7ba87b;color:#1a1612}
-      [data-theme="dark"] .vmx-guide button:focus-visible{outline-color:#f0e6d2}
-      [data-theme="dark"] .vmx-guide ol{color:#b8a890}
+      .vmx-move.vmx-guide ol{margin:0;padding-left:1.4em;font-size:14px;line-height:1.7;color:#5c4f3d}
+      .vmx-move.vmx-guide li+li{margin-top:6px}
+      [data-theme="dark"] .vmx-move.vmx-guide button{background:#7ba87b;color:#1a1612}
+      [data-theme="dark"] .vmx-move.vmx-guide button:focus-visible{outline-color:#f0e6d2}
+      [data-theme="dark"] .vmx-move.vmx-guide ol{color:#b8a890}
     </style>
     <script id="vmx-origin-move">
       (function (w, d) {

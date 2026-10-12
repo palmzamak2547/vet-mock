@@ -68,7 +68,7 @@ test('a curated set is picked in order; ordinary practice still shuffles', () =>
 
 test('the adaptive set is selected, never shuffled, and skips the Panic narrowing', () => {
   const fn = between('const startExam = async (overrides = {}) => {', 'const finishExam = async () => {');
-  assert.match(fn, /const isAdaptive = _practiceMode === 'adaptive';/);
+  assert.match(fn, /const isAdaptive = _practiceMode === 'adaptive' && _mode !== 'exam';/, 'exam mode is always a draw');
   // The adaptive pick replaces the shuffle+slice for its mode and must come
   // from the shared selector over the SAME pool the config screen counts.
   assert.match(fn, /picked = adaptiveSelect\(pool, \{/, 'the adaptive pick must come from the shared selector');

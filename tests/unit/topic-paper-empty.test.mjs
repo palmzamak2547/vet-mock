@@ -122,6 +122,15 @@ test('the phase picker goes back where it came from, once, and never anywhere it
 
   rememberPhaseReturn('admin');
   assert.equal(takePhaseReturn(), null, 'an unlisted view is never stored');
+
+  // Browser Back from the picker lands on the topic screen without the
+  // picker's buttons ever running; arriving there must end the trip.
+  rememberPhaseReturn('topic-select');
+  assert.equal(peekPhaseReturn(), 'topic-select');
+  const topic = mount(TopicSelectView, { subject: 'epidemiology', selectedYear: 5, selectedPhase: '1-final', mode: 'quick', setView() {}, setTopic() {}, setMode() {}, setSubject() {} });
+  await settle(topic);
+  assert.equal(peekPhaseReturn(), null, 'the topic screen clears a trip that Back cut short');
+  topic.unmount();
   globalThis.sessionStorage.setItem('vmx-phase-return', 'library');
   assert.equal(takePhaseReturn(), null, 'a forged value routes nowhere');
 });

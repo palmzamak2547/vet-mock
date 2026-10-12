@@ -874,7 +874,9 @@ function NextPlayPanel({
     : verdict.kind === 'hold'
       ? `ได้ ${pctExact}% ยังไม่ถึง ${upBar}% ที่จะขึ้นขั้นต่อไป ทำขั้นนี้อีกชุดให้แม่นก่อน`
       : verdict.kind === 'back'
-        ? `ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% กลับไปขั้น${nextStep.label}ก่อน แล้วค่อยขึ้นมาใหม่`
+        ? (verdict.next === verdict.step
+          ? `ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% ทำขั้นนี้อีกชุดให้ถึง ${PRACTICE_PASS_PCT}% ก่อน`
+          : `ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% กลับไปขั้น${nextStep.label}ก่อน แล้วค่อยขึ้นมาใหม่`)
         : verdict.kind === 'done'
           ? `ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% ในขั้นซ้อมสอบแล้ว ซ้อมอีกชุดหรือเปลี่ยนวิชาได้เลย`
           : verdict.kind === 'redo'

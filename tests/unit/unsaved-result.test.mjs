@@ -65,6 +65,8 @@ test('finishExam records the subject of the set it graded, not the subject on sc
   const finish = APP.slice(APP.indexOf('const finishExam = async () => {'), APP.indexOf('finishExamRef.current = finishExam;'));
   assert.match(finish, /const runSubject = runSubjectFor\(autoQs\);/);
   assert.match(finish, /id: examSessionId, user_id: user\.id, mode, subject: runSubject,/, 'the leaderboard run');
-  assert.match(finish, /mode, subject: runSubject, topic, practiceMode, selectedYear, selectedPhase,/, 'the ทำซ้ำ preset');
+  // The ทำซ้ำ snapshot reads the WHOLE set: a writing-only set has no
+  // auto-graded items, so autoQs alone would say 'all' and Home would drop it.
+  assert.match(finish, /mode, subject: runSubjectFor\(questions\), topic, practiceMode, selectedYear, selectedPhase,/, 'the ทำซ้ำ preset');
   assert.equal((finish.match(/\bsubject,\n/g) || []).length, 0, 'no copy of the screen subject is saved any more');
 });

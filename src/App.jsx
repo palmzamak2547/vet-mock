@@ -1741,7 +1741,8 @@ export default function App() {
       && examStartContextRef.current === ticket.context && viewRef.current === ticket.view
       && (eventContextRef.current?.owner ?? null) === ticket.owner
       && eventContextRef.current?.sessionId === ticket.sessionId;
-    if (!(await confirmReplaceUnfinished()) || !current()) return;
+    // `__guarded`: startExam's own restarts below were already confirmed once.
+    if ((!overrides.__guarded && !(await confirmReplaceUnfinished())) || !current()) return;
     let _practiceMode = 'practiceMode' in overrides ? overrides.practiceMode : practiceMode;
     const _subject = 'subject' in overrides ? overrides.subject : subject;
     const _topic = 'topic' in overrides ? overrides.topic : topic;
@@ -1804,7 +1805,7 @@ export default function App() {
         if (!current()) return;
         if (await offerBankRetry()) {
           if (!current()) return;
-          return startExam(overrides);
+          return startExam({ ...overrides, __guarded: true });
         }
         return;
       }
@@ -1855,7 +1856,7 @@ export default function App() {
         if (!current()) return;
         if (again) {
           const { excludeIds: _drop, ...rest } = overrides;
-          return startExam(rest);
+          return startExam({ ...rest, __guarded: true });
         }
         return;
       }
@@ -1873,12 +1874,12 @@ export default function App() {
           if (!current()) return;
           setQbReady(true);
           setQbRevision((revision) => revision + 1);
-          return startExam({ ...overrides, __retriedFullLoad: true });
+          return startExam({ ...overrides, __retriedFullLoad: true, __guarded: true });
         } catch {
           if (!current()) return;
           if (await offerBankRetry()) {
             if (!current()) return;
-            return startExam(overrides);
+            return startExam({ ...overrides, __guarded: true });
           }
           return;
         }
@@ -1901,7 +1902,7 @@ export default function App() {
           cancelLabel: 'ไว้ก่อน',
         });
         if (!current()) return;
-        if (goSubject) return startExam({ ...overrides, topic: null, __retriedFullLoad: true });
+        if (goSubject) return startExam({ ...overrides, topic: null, __retriedFullLoad: true, __guarded: true });
         return;
       }
       alertDialog('ไม่มีข้อสอบในหมวดนี้');
@@ -1918,7 +1919,8 @@ export default function App() {
     // ten random ones from everything they had ever missed, not their ten
     // weakest. Ordinary practice still shuffles.
     const ordered = USER_CURATED_MODES.has(_practiceMode);
-    const isAdaptive = _practiceMode === 'adaptive';
+    // Exam mode never shows the pick-method row, so it is always a draw.
+    const isAdaptive = _practiceMode === 'adaptive' && _mode !== 'exam';
     // Rung 1 of the practice ladder (lib/practice-ladder.js): the config
     // screen asks for the gentle order only for an untimed practice set from a
     // plain or scope pool. Never over a curated set (most-missed-first is what
@@ -2170,7 +2172,7 @@ export default function App() {
     // these — only auto-graded session settings need preservation.
     try {
       window.localStorage?.setItem('vmx-last-session-config', JSON.stringify({
-        mode, subject: runSubject, topic, practiceMode, selectedYear, selectedPhase,
+        mode, subject: runSubjectFor(questions), topic, practiceMode, selectedYear, selectedPhase,
         numQuestions, useTimer, timePerQ, questionCategory,
         savedAt: Date.now(),
         score: { correct, total: autoQs.length, pct: autoQs.length ? Math.round((correct / autoQs.length) * 100) : 0 },

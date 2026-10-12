@@ -148,7 +148,7 @@ export const GUIDE_PATHS = [
         src: ['src/components/ReadingEffects.jsx'],
       },
       {
-        text: 'อยากได้เป็นไฟล์ กด {ui:พิมพ์} ท้ายรายการหัวข้อ แล้วเลือกบันทึกเป็น PDF',
+        text: 'อยากได้เป็นไฟล์ กด {ui:พิมพ์} ข้างชื่อหัวข้อ แล้วเลือกบันทึกเป็น PDF',
         src: ['src/views/NotesView.jsx'],
       },
       {
@@ -284,7 +284,7 @@ export const FEATURE_TIPS = {
     tips: [
       {
         title: 'พิมพ์เป็น PDF ได้',
-        text: 'กด {ui:พิมพ์} ท้ายรายการหัวข้อ แล้วเลือกบันทึกเป็น PDF เก็บไว้อ่านต่อ',
+        text: 'กด {ui:พิมพ์} ข้างชื่อหัวข้อ แล้วเลือกบันทึกเป็น PDF เก็บไว้อ่านต่อ',
         src: ['src/views/NotesView.jsx'],
       },
       {

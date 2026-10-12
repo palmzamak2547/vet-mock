@@ -20,7 +20,9 @@ const css = read('../../src/styles.css');
 test('a failed question-bank load offers a retry that re-runs the same start', () => {
   assert.doesNotMatch(app, /alertDialog\(\{ title: 'โหลดคลังโจทย์ไม่ได้'/, 'the dead-end notice is back');
   assert.match(app, /function offerBankRetry\(\) \{\n  return confirmDialog\(\{[\s\S]*?confirmLabel: 'ลองใหม่'/);
-  const retries = app.match(/if \(await offerBankRetry\(\)\) \{\s*if \(!current\(\)\) return;\s*return startExam\(overrides\);/g) || [];
+  // The retry re-runs the same start, marked as already confirmed (`__guarded`)
+  // so the unsaved-result question is not asked a second time.
+  const retries = app.match(/if \(await offerBankRetry\(\)\) \{\s*if \(!current\(\)\) return;\s*return startExam\(\{ \.\.\.overrides, __guarded: true \}\);/g) || [];
   assert.equal(retries.length, 2, 'both load paths (scoped load and the full-bank fallback) must offer the retry');
 });
 

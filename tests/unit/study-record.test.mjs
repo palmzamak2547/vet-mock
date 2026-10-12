@@ -75,6 +75,23 @@ test('recentSessions: answers in one subject with short gaps are one session; a 
   assert.deepEqual(recentSessions(null), []);
 });
 
+test('recentSessions: one graded set is one session even across subjects (every row shares the set time)', () => {
+  // App writes every row of a set with the set's completion time; a mixed
+  // set used to split into one fake 1-question session per subject run.
+  const t = NOW - 60_000;
+  const set = ['zoonoses', 'com4', 'zoonoses', 'repro-lect', 'com4', 'zoonoses', 'com4', 'epidemiology', 'com4', 'zoonoses']
+    .map((subject, i) => ({ date: t, subject, correct: i % 2 === 0 }));
+  const sessions = recentSessions(set, { limit: 10 });
+  assert.equal(sessions.length, 1, 'one set, one row');
+  assert.equal(sessions[0].total, 10);
+  assert.equal(sessions[0].correct, 5);
+  assert.equal(sessions[0].subject, 'all', 'a set across subjects is named as many subjects');
+  // A one-subject set keeps its subject; an earlier set stays its own session.
+  const earlier = [1, 2, 3].map(() => ({ date: t - 3 * 3600_000, subject: 'com4', correct: true }));
+  const two = recentSessions([...earlier, ...set.map((r) => ({ ...r, subject: 'zoonoses' }))], { limit: 10 });
+  assert.deepEqual(two.map((s) => [s.subject, s.total]), [['zoonoses', 10], ['com4', 3]]);
+});
+
 test('sessionWhen: today and yesterday by name, older by day', () => {
   assert.equal(sessionWhen(NOW - 20 * 60_000, NOW), 'วันนี้ 12:40');
   assert.equal(sessionWhen(NOW - D + 5 * H, NOW), 'เมื่อวาน 18:00');

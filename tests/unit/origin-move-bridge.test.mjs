@@ -794,9 +794,12 @@ test('an iPhone or iPad is never shown the guide, whatever display-mode says: it
 
 test('the guide\'s button is a real touch target and the guide follows the dark theme', () => {
   const css = /<style>([\s\S]*?)<\/style>/.exec(HTML.slice(HTML.indexOf('vmx-origin-move')))?.[1] || '';
-  assert.match(css, /\.vmx-guide button\{[^}]*min-height:(4[4-9]|[5-9]\d)px/, 'at least 44px tall');
-  assert.match(css, /\[data-theme="dark"\] \.vmx-guide button\{/, 'dark theme has its own button colours');
-  assert.match(css, /\.vmx-guide\{[^}]*overflow-y:auto/, 'a small phone can scroll to the last step');
+  // Scoped to the move screen's root (.vmx-move.vmx-guide): the app's own
+  // how-to dialog is also a .vmx-guide and must not inherit these pills.
+  assert.match(css, /\.vmx-move\.vmx-guide button\{[^}]*min-height:(4[4-9]|[5-9]\d)px/, 'at least 44px tall');
+  assert.doesNotMatch(css, /(^|[^-\w.])\.vmx-guide (button|ol|h1)\{/m, 'no unscoped .vmx-guide rule leaks into the app');
+  assert.match(css, /\[data-theme="dark"\] \.vmx-move\.vmx-guide button\{/, 'dark theme has its own button colours');
+  assert.match(css, /\.vmx-move\.vmx-guide\{[^}]*overflow-y:auto/, 'a small phone can scroll to the last step');
 });
 
 test('where the learner was stays in this tab, never in a URL: the form does not carry it and each hop back finds it', async () => {
