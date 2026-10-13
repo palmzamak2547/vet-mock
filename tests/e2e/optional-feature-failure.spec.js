@@ -15,6 +15,10 @@ test('a failed search chunk closes the overlay and preserves the editable feedba
   let chunkFailed = false;
   await page.route(/\/assets\/CommandPalette-[^/]+\.js/, route => { chunkFailed = true; return route.abort(); });
   await page.goto('/app/feedback');
+  // Typed after the navigation's focus hand-off to <main>, as a student can
+  // (update-and-intent.spec.js explains it). Typed before it, WebKit moved
+  // focus to <main> between fill's focus and its typing (3 of 20 runs).
+  await expect(page.locator('#main')).toBeFocused();
   const draft = page.locator('#vmx-feedback-message');
   await draft.fill('ยังเขียนไม่เสร็จ ค้นหาภายหลังได้');
   const identity = await page.evaluate(() => window.__documentIdentity);

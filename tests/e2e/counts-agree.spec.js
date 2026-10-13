@@ -156,6 +156,7 @@ test('another year\'s course opened offline gets its count once the network is b
   await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
   await expect(page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' })).toBeVisible();
   await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' })).toHaveCount(0);
   await context.setOffline(true);
   const onCard = await openFromSearch(page, 'ข้อสอบ com5');
   await page.locator('.vmx-subject-card', { hasText: 'รวมทุกหัวข้อ' }).first().click();
@@ -180,7 +181,10 @@ async function warmViews(page) {
   await expect(page.locator('.vmx-subject-grid')).toBeVisible({ timeout: 20000 });
   await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
   await expect(page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' })).toBeVisible();
+  // Pressed as the palette appears. A palette that stayed open sat over Home
+  // until the next search click timed out at 120 s (CI, 5.146.0, WebKit).
   await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' })).toHaveCount(0);
 }
 
 // Every bank already in memory (SR's ทุกปี loads them all): offline, another

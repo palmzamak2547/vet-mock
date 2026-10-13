@@ -62,12 +62,22 @@ async function twoOrigins(context) {
   // 127.0.0.1 (no reliance on how this machine resolves localhost); HTML
   // documents name the test origins in their meta tag.
   await context.route((url) => url.origin === OLD, async (route) => {
-    const response = await route.fetch({ url: route.request().url().replace(OLD, NEW) });
-    const type = response.headers()['content-type'] || '';
-    if (route.request().resourceType() !== 'document' || !type.includes('text/html')) return route.fulfill({ response });
-    const html = (await response.text())
-      .replace(/<meta name="vmx-origin-move" content="[^"]*"/, `<meta name="vmx-origin-move" content="localhost ${NEW}"`);
-    return route.fulfill({ response, body: html });
+    // A request the page has already abandoned (the move navigates away)
+    // has nothing left to answer: Playwright disposes its fetched response
+    // and fulfil throws "Fetch response has been disposed", which failed the
+    // test once in a local gate (13 Oct, chromium-mobile) although the move
+    // itself had worked.
+    try {
+      const response = await route.fetch({ url: route.request().url().replace(OLD, NEW) });
+      const type = response.headers()['content-type'] || '';
+      if (route.request().resourceType() !== 'document' || !type.includes('text/html')) return await route.fulfill({ response });
+      const html = (await response.text())
+        .replace(/<meta name="vmx-origin-move" content="[^"]*"/, `<meta name="vmx-origin-move" content="localhost ${NEW}"`);
+      return await route.fulfill({ response, body: html });
+    } catch (error) {
+      if (/has been disposed|has been closed|Test ended/i.test(String(error?.message))) return undefined;
+      throw error;
+    }
   });
   return posts;
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',
@@ -53,28 +53,12 @@ export function useModalFocus({ active = true, onClose, initialFocusRef, returnF
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
 
-  useEffect(() => {
+  // Keys are listened for from the commit that shows the dialog. A passive
+  // effect runs after the browser paints, and WebKit delivered an Escape
+  // pressed in that gap to a dialog on screen that was not listening yet:
+  // the search palette stayed open over Home (smoke e2e, 5.146.0).
+  useLayoutEffect(() => {
     if (!active) return undefined;
-
-    const explicitReturnTarget = returnFocusRef?.current instanceof HTMLElement
-      ? returnFocusRef.current
-      : null;
-    const activeElement = document.activeElement instanceof HTMLElement
-      ? document.activeElement
-      : null;
-    const returnTarget = explicitReturnTarget || (lastPointerLauncher?.isConnected
-      ? lastPointerLauncher
-      : activeElement && activeElement !== document.body ? activeElement : null);
-    lastPointerLauncher = null;
-
-    const focusDialog = () => {
-      const target = initialFocusRef?.current
-        || getFocusableElements(dialogRef.current)[0]
-        || dialogRef.current;
-      target?.focus({ preventScroll: true });
-    };
-
-    const frame = window.requestAnimationFrame(focusDialog);
 
     const onKeyDown = (event) => {
       const dialog = dialogRef.current;
@@ -144,9 +128,37 @@ export function useModalFocus({ active = true, onClose, initialFocusRef, returnF
     };
 
     document.addEventListener('keydown', onKeyDown, true);
+    return () => document.removeEventListener('keydown', onKeyDown, true);
+  }, [active]);
+
+  // Focus entry and return stay passive. In a layout effect the return ran in
+  // the commit that removes the dialog, and WebKit dropped it in 5 of 10
+  // first-tip runs (10 of 10 pass here).
+  useEffect(() => {
+    if (!active) return undefined;
+
+    const explicitReturnTarget = returnFocusRef?.current instanceof HTMLElement
+      ? returnFocusRef.current
+      : null;
+    const activeElement = document.activeElement instanceof HTMLElement
+      ? document.activeElement
+      : null;
+    const returnTarget = explicitReturnTarget || (lastPointerLauncher?.isConnected
+      ? lastPointerLauncher
+      : activeElement && activeElement !== document.body ? activeElement : null);
+    lastPointerLauncher = null;
+
+    const focusDialog = () => {
+      const target = initialFocusRef?.current
+        || getFocusableElements(dialogRef.current)[0]
+        || dialogRef.current;
+      target?.focus({ preventScroll: true });
+    };
+
+    const frame = window.requestAnimationFrame(focusDialog);
+
     return () => {
       window.cancelAnimationFrame(frame);
-      document.removeEventListener('keydown', onKeyDown, true);
       if (returnTarget?.isConnected) returnTarget.focus({ preventScroll: true });
     };
   }, [active, initialFocusRef, returnFocusRef]);

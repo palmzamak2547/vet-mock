@@ -4,9 +4,10 @@
 // (14 + 16) plus setup exceeded the 30 min job cap, so a slow run could lose
 // the report it promised to keep (STAB-14).
 //
-// It is now three runners (chromium; webkit + firefox in two shards) and one
-// aggregating job that keeps the required name `smoke`. e2e-ci-parity.test.mjs
-// still pins the flags of the two Playwright steps against test:e2e:ci.
+// It is now five runners (chromium; WebKit and Firefox each in two shards)
+// and one aggregating job that keeps the required name `smoke`.
+// e2e-ci-parity.test.mjs still pins the flags of the two Playwright steps
+// against test:e2e:ci.
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFileSync } from 'node:fs';
@@ -37,13 +38,20 @@ test('smoke waits for every e2e runner and passes only when all of them passed',
   assert.match(jobs.smoke, /test "\$RESULT" = "success"/);
 });
 
-test('the software-GL engines are split across two runners, one worker each', () => {
+test('each software-GL engine is split across two runners, one worker each', () => {
   const e2e = jobs.e2e;
   assert.ok(e2e, 'a matrix job with id e2e');
   assert.match(e2e, /fail-fast: false/);
-  const shards = [...e2e.matchAll(/^\s+shard: (\S+)$/gm)].map((m) => m[1]).sort();
-  assert.deepEqual(shards, ['1/2', '2/2']);
-  const gl = e2e.split(/\n\s*- name: /).find((s) => /--project=webkit-mobile/.test(s));
+  // One --shard over both projects cut the ordered list, every WebKit test and
+  // then every Firefox one, so "half 1" was the whole of WebKit (311 of 311,
+  // 13 Oct) and ran out of its cap. Each engine is sharded on its own.
+  const halves = e2e.split(/\n\s+- label: /).slice(1)
+    .filter((entry) => /^\s+group: gl$/m.test(entry))
+    .map((entry) => `${/^\s+project: (\S+)$/m.exec(entry)?.[1]} ${/^\s+shard: (\S+)$/m.exec(entry)?.[1]}`)
+    .sort();
+  assert.deepEqual(halves, ['firefox-desktop 1/2', 'firefox-desktop 2/2', 'webkit-mobile 1/2', 'webkit-mobile 2/2']);
+  const gl = e2e.split(/\n\s*- name: /).find((s) => /^Run smoke e2e \(software-GL/.test(s));
+  assert.match(gl, /--project=\$\{\{ matrix\.project \}\}/);
   assert.match(gl, /--workers=1/);
   assert.match(gl, /--shard=\$\{\{ matrix\.shard \}\}/);
   assert.match(gl, /if: matrix\.group == 'gl'/);
@@ -58,7 +66,7 @@ test('a runner whose browser step hits its cap still has time to upload the repo
   assert.ok(stepCaps.length >= 2, 'each browser step has its own cap');
   const SETUP = 2; // checkout, npm ci, browsers, build: 2.0 min in run 35761306637
   assert.ok(jobCap >= SETUP + Math.max(...stepCaps) + 3, `job cap ${jobCap} < setup + ${Math.max(...stepCaps)} + 3`);
-  // Three runners upload into one run: the artifact names must differ.
+  // Every runner uploads into one run: the artifact names must differ.
   assert.match(e2e, /name: playwright-report-\$\{\{ matrix\.report \}\}/);
   const reports = [...e2e.matchAll(/^\s+report: (\S+)$/gm)].map((m) => m[1]);
   assert.equal(new Set(reports).size, reports.length);

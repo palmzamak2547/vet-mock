@@ -17,11 +17,20 @@
 # the two browser steps back to back. The one job took 18-23 min (median
 # 22.4): about 2 min of setup, 4.7 min of Chromium, then 11.3 min of
 # WebKit + Firefox on one worker. Now Chromium runs on its own runner and
-# the software-GL pair is split into two halves (--shard) on two more, each
-# still one worker with the whole machine to itself, which is the property
-# that made them stable. Expected wall time is about 2 + max(4.7, ~5.7) min.
+# the software-GL engines run on runners of their own, each still one worker
+# with the whole machine to itself, which is the property that made them
+# stable.
+#
+# 2026-10-13: "--shard=1/2" over --project=webkit-mobile --project=firefox-desktop
+# never split the pair. Shards cut the ordered test list, which is every WebKit
+# test and then every Firefox one, so half 1 ran all 311 WebKit tests and half 2
+# all 311 Firefox ones. Green runs of half 1 took 9.7-15.1 min against its
+# 16-minute cap (two of the last seven at 15.1), so one failed attempt and its
+# retry ran it out of time: on 5.146.0 a 120 s and a 30 s failure, each passing
+# on retry, turned the required check red. Each engine is now cut in two, four
+# runners of about half that time each.
 # The job named `smoke` below is what Vercel and branch protection wait for;
-# it passes only when all three runners passed.
+# it passes only when every runner passed.
 
 name: Smoke e2e
 
@@ -48,16 +57,30 @@ jobs:
             group: chromium
             browsers: chromium
             report: chromium
-          - label: webkit + firefox, half 1
+          - label: webkit, half 1
             group: gl
-            browsers: webkit firefox
+            browsers: webkit
+            project: webkit-mobile
             shard: 1/2
-            report: gl-1
-          - label: webkit + firefox, half 2
+            report: webkit-1
+          - label: webkit, half 2
             group: gl
-            browsers: webkit firefox
+            browsers: webkit
+            project: webkit-mobile
             shard: 2/2
-            report: gl-2
+            report: webkit-2
+          - label: firefox, half 1
+            group: gl
+            browsers: firefox
+            project: firefox-desktop
+            shard: 1/2
+            report: firefox-1
+          - label: firefox, half 2
+            group: gl
+            browsers: firefox
+            project: firefox-desktop
+            shard: 2/2
+            report: firefox-2
     # Setup (~2 min) + the longest browser step cap (16) + 3 min + 1 spare, so a step
     # that hits its own cap still leaves time to upload the report. The chromium
     # runner also builds the connected bundle (~2 min) and runs its four specs
@@ -80,20 +103,20 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ matrix.group }}-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-playwright-${{ matrix.browsers }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-playwright-${{ matrix.group }}-
+            ${{ runner.os }}-playwright-${{ matrix.browsers }}-
 
       - name: Install Playwright browsers
-        # Only the engines this runner uses: chromium (desktop + mobile), or
-        # webkit (real iOS Safari) and firefox (Gecko).
+        # Only the engine this runner uses: chromium (desktop + mobile),
+        # webkit (real iOS Safari) or firefox (Gecko).
         run: npx playwright install --with-deps ${{ matrix.browsers }}
 
       - name: Prepare software graphics
         run: sudo apt-get install -y libgl1-mesa-dri libglx-mesa0 libegl-mesa0 mesa-utils
 
       - name: Verify Firefox WebGL2
-        if: matrix.group == 'gl'
+        if: matrix.browsers == 'firefox'
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: xvfb-run --auto-servernum node scripts/check-ci-graphics.mjs
@@ -191,14 +214,14 @@ jobs:
 
       - name: Run smoke e2e (software-GL engines, one worker)
         if: matrix.group == 'gl'
-        # A half of the serial suite. The serial whole took 11.3-16.2+ min on
-        # 22-23 Sep and shards need not split time evenly, so a half gets 16.
+        # Half of one engine. A whole engine took up to 15.1 min (WebKit,
+        # 311 tests, 13 Oct); the cap stays 16, now with room for a retry.
         timeout-minutes: 16
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: >-
           xvfb-run --auto-servernum npx playwright test
-          --project=webkit-mobile --project=firefox-desktop --workers=1
+          --project=${{ matrix.project }} --workers=1
           --shard=${{ matrix.shard }}
 
       - name: Upload HTML report on failure

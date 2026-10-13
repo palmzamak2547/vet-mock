@@ -20,7 +20,13 @@ process.env.CI = '1';
 const { default: ciConfig } = await import('../../playwright.config.js');
 
 const flag = (cmd, name) => cmd.match(new RegExp(`--${name}=(\\d+)`))?.[1];
-const projectsOf = (cmd) => [...cmd.matchAll(/--project=([\w-]+)/g)].map((m) => m[1]).sort();
+// The software-GL step takes its project from the matrix (each engine in two
+// shards), so it covers every project the matrix lists.
+const matrixProjects = [...workflow.matchAll(/^\s+project: ([\w-]+)$/gm)].map((m) => m[1]);
+const projectsOf = (cmd) => [...new Set([
+  ...[...cmd.matchAll(/--project=([\w-]+)/g)].map((m) => m[1]),
+  ...(/--project=\$\{\{ matrix\.project \}\}/.test(cmd) ? matrixProjects : []),
+])].sort();
 
 const playwrightSteps = workflow
   .split(/\n\s*- name: /)

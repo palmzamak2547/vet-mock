@@ -60,8 +60,13 @@ export default function IgCardStudioView({ goHome }) {
   // kept saying it was being prepared. Track the outcome so the three states
   // (loading, failed, loaded-but-nothing-matches) can be told apart.
   const [qbFailed, setQbFailed] = useState(false);
+  // Count what is here now, then the whole bank: the subject picker lists
+  // every year, and a load already done answers at once. Skipping the load
+  // when QB had questions read the bank twice: a render that saw none and an
+  // effect that saw the year's banks merged in between left the pool at 0 for
+  // good (WebKit, CI).
   useEffect(() => {
-    if (QB.length > 0) return undefined;
+    setQbTick(QB.length);
     let alive = true;
     loadQB()
       .then(() => { if (alive) setQbTick(QB.length); })
