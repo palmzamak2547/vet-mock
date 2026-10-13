@@ -319,7 +319,11 @@ test('the skip link on the timer adds no history step, so its back control still
 test('a double tap on the timer back control takes one step, never out of VetMock', async ({ page }) => {
   await page.goto('/robots.txt');
   await timerFromRest(page);
-  await page.locator('.vmx-back-bar').getByRole('button', { name: 'พักใจ', exact: true }).dblclick();
+  // Both taps reach the timer's own control before the page changes, as a
+  // 0 ms double tap does. (A slower second tap lands on the rest page's back
+  // control and is a second, legitimate step: Linux WebKit is fast enough
+  // for that, which made a dblclick() test of this race unreliable.)
+  await page.locator('.vmx-back-bar').getByRole('button', { name: 'พักใจ', exact: true }).evaluate((b) => { b.click(); b.click(); });
   await expect(page).toHaveURL(/\/app\/mochi$/);
   await page.waitForTimeout(1000);
   await expect(page).toHaveURL(/\/app\/mochi$/);
