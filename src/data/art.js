@@ -266,6 +266,15 @@ export const LECTURE_COVERS = {
 };
 
 /** Every path this module can hand out — the lint walks exactly this. */
+// The friezes across the top of the share cards (lib/share-card): Muybridge's
+// zoetrope strips of 1882, public domain, made into ink masks by
+// scripts/og/prepare-art.mjs. Sources: public/og/ATTRIBUTION.md.
+export const CARD_PLATES = Object.freeze({
+  phase: '/art/plates/muybridge-horse-trotting.webp',
+  daily: '/art/plates/muybridge-hound-running.webp',
+  score: '/art/plates/muybridge-horse-leaping.webp',
+});
+
 export function allArtPaths() {
   const out = new Set();
   const take = (v) => { if (typeof v === 'string') out.add(v); else if (v && v.src) out.add(v.src); };
@@ -273,6 +282,7 @@ export function allArtPaths() {
     for (const v of Object.values(group)) take(v);
   }
   for (const v of IG_BACKGROUNDS) take(v);
+  for (const v of Object.values(CARD_PLATES)) take(v);
   for (const subject of Object.values(LECTURE_COVERS)) for (const v of Object.values(subject)) take(v);
   return [...out];
 }

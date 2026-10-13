@@ -178,6 +178,16 @@ export const OG_COVERS = [
     cover: 'เห็นก่อนใครจะแจ้ง' },
 ];
 
+// Facebook, LINE and X keep a preview image by its URL for days or weeks,
+// so a redrawn cover is served under a new query string. Bump this whenever
+// scripts/render-og-covers.mjs writes new covers; every page that names a
+// cover (the prerendered shells, index.html, the blog) carries it, and
+// tests/unit/og-image-version.test.mjs fails if one does not.
+export const OG_IMAGE_VERSION = '20261013';
+
+/** A cover's absolute URL, versioned. */
+export const ogImageUrl = (origin, id) => `${origin}/og/${id}.png?v=${OG_IMAGE_VERSION}`;
+
 export const OG_IMAGE_WIDTH = 1200;
 export const OG_IMAGE_HEIGHT = 630;
 

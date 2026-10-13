@@ -3,21 +3,17 @@
     "views/AccountSettingsView.jsx": 1,
     "views/AuthView.jsx": 10,
     "views/HomeView.jsx": 1,
-    "views/IgCardStudioView.jsx": 10,
     "views/ImageOcclusionView.jsx": 4,
     "views/LabView.jsx": 2,
     "views/OfflineGameView.jsx": 5,
     "views/PdfAnnotateView.jsx": 48,
-    "views/PhaseWrappedView.jsx": 5,
     "views/PinboardView.jsx": 9,
     "views/QuestionManagerView.jsx": 7,
     "views/RaceView.jsx": 2,
-    "views/ResultsView.jsx": 16,
     "views/TopicSelectView.jsx": 4,
     "views/VideoView.jsx": 9,
     "components/ClozeCard.jsx": 6,
     "components/ClozeEditor.jsx": 11,
-    "components/DailyQShareCard.jsx": 14,
     "components/DiagramLabelDrill.jsx": 11,
     "components/ErrorBoundary.jsx": 8,
     "components/HighlightToCard.jsx": 7,
@@ -29,10 +25,9 @@
     "components/OfflineGame.jsx": 27,
     "components/PdfPage.jsx": 3,
     "components/PdfThumbnailSidebar.jsx": 12,
-    "components/PhaseWrappedCard.jsx": 47,
     "components/PinButton.jsx": 2,
     "components/PomodoroChick.jsx": 54,
-    "components/PomodoroTimer.jsx": 16,
+    "components/PomodoroTimer.jsx": 10,
     "components/SmartGrader.jsx": 3,
     "components/SmartPassage.jsx": 6,
     "components/StreakHeatmap.jsx": 5,
@@ -58,14 +53,15 @@
     "lib/motion-kit/mochi/renderer-3d.js": 5,
     "lib/motion-kit/mochi/svg-art.js": 50,
     "lib/motion-kit/particles.js": 21,
-    "components/HandwritingInput.jsx": 3
+    "components/HandwritingInput.jsx": 3,
+    "lib/share-card/kit.js": 28
   },
   "exempt": {
-    "views/ResultsView.jsx": "Canvas IG-story export needs literal colors (ctx.fillStyle cannot resolve CSS vars; shared image must not follow dark mode) + alpha-suffix gradient literals.",
     "lib/motion-kit/mochi/model-3d.js": "Mochi illustration pigments and scene lighting; UI controls use semantic tokens.",
     "lib/motion-kit/mochi/renderer-3d.js": "Mochi illustration pigments and scene lighting; UI controls use semantic tokens.",
     "lib/motion-kit/mochi/svg-art.js": "Mochi illustration pigments and scene lighting; UI controls use semantic tokens.",
     "lib/motion-kit/particles.js": "Bounded decorative particle and cursor artwork; no text surfaces.",
-    "components/HandwritingInput.jsx": "Canvas ink, paper and guide colours: the pad is exported as an image for handwriting reading and must stay dark ink on white in every theme."
+    "components/HandwritingInput.jsx": "Canvas ink, paper and guide colours: the pad is exported as an image for handwriting reading and must stay dark ink on white in every theme.",
+    "lib/share-card/kit.js": "Share-card canvas palette: ctx.fillStyle cannot resolve CSS vars, and a card renders in the theme the student picks (light or dark) whatever the app shows. The values mirror the --clr-* tokens; the card modules read every colour from here."
   }
 }

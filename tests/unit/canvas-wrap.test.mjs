@@ -135,7 +135,8 @@ test('maxLines keeps at most that many lines and ends the last with an ellipsis'
     }
   }
   const short = 'ตอบสั้น ๆ';
-  assert.deepEqual(wrapLines(measure, short, 400, { maxLines: 2 }), [short], 'text that fits gets no ellipsis');
+  // ๆ keeps a no-break space to the word it repeats.
+  assert.deepEqual(wrapLines(measure, short, 400, { maxLines: 2 }).map((l) => l.replace(/\u00a0/gu, ' ')), [short], 'text that fits gets no ellipsis');
   const exactlyTwo = wrapLines(measure, 'กขคงจฉชซ กขคงจฉชซ', 100, { maxLines: 2 });
   assert.ok(!exactlyTwo.join('').includes('…'), 'text that just fits in maxLines gets no ellipsis');
 });
@@ -173,8 +174,15 @@ test('drawWrappedText draws each line one line height apart and says how many it
 });
 
 test('the IG card studio wraps with this module and keeps no copy of the space-only splitter', () => {
-  const src = readFileSync(new URL('../../src/views/IgCardStudioView.jsx', import.meta.url), 'utf8');
-  assert.match(src, /from '\.\.\/lib\/canvas-wrap\.js'/);
-  assert.doesNotMatch(src, /function wrapText/);
-  assert.doesNotMatch(src, /split\(\/\(\\s\+\)\/\)/);
+  // The studio draws through the share-card kit, whose text goes through here.
+  const view = readFileSync(new URL('../../src/views/IgCardStudioView.jsx', import.meta.url), 'utf8');
+  const card = readFileSync(new URL('../../src/lib/share-card/ig-card.js', import.meta.url), 'utf8');
+  const kit = readFileSync(new URL('../../src/lib/share-card/kit.js', import.meta.url), 'utf8');
+  assert.match(view, /from '\.\.\/lib\/share-card\/ig-card\.js'/);
+  assert.match(card, /from '\.\/kit\.js'/);
+  assert.match(kit, /from '\.\.\/canvas-wrap\.js'/);
+  for (const src of [view, card, kit]) {
+    assert.doesNotMatch(src, /function wrapText/);
+    assert.doesNotMatch(src, /split\(\/\(\\s\+\)\/\)/);
+  }
 });

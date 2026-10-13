@@ -38,7 +38,7 @@ const customQuestions = [{ id: 60001, q: 'my own question' }];
 const ids = (badges) => badges.map((b) => b.id).sort();
 
 test('a completed phase with a 10/10 set earns จบช่วงสอบ and ชุดเต็ม, and nothing it did not do', () => {
-  const stats = buildPhaseStats({ phase: { ...base, _state: 'completed' }, history });
+  const stats = buildPhaseStats({ phase: base, history, now: new Date(2026, 8, 27, 10, 0) });
   assert.equal(stats.phaseCompleted, true);
   assert.equal(stats.perfectSets, 1);
   const got = ids(earnedBadges({ history, customQuestions, stats }));
@@ -50,7 +50,7 @@ test('a completed phase with a 10/10 set earns จบช่วงสอบ and �
 
 test('the current phase is not finished, and a short or imperfect set is not ชุดเต็ม', () => {
   const rows = [...set(T, 9, 9), ...set(T + 60_000, 12, 11)];
-  const stats = buildPhaseStats({ phase: { ...base, _state: 'current' }, history: rows });
+  const stats = buildPhaseStats({ phase: base, history: rows, now: new Date(2026, 8, 24, 10, 0) });
   assert.equal(stats.phaseCompleted, false);
   assert.equal(stats.perfectSets, 0);
   const got = ids(earnedBadges({ history: rows, stats }));
@@ -59,7 +59,7 @@ test('the current phase is not finished, and a short or imperfect set is not ช
 });
 
 test('Panic and contributor badges follow the counts passed for them', () => {
-  const stats = buildPhaseStats({ phase: { ...base, _state: 'current' }, history });
+  const stats = buildPhaseStats({ phase: base, history, now: new Date(2026, 8, 24, 10, 0) });
   const got = ids(earnedBadges({ history, stats, panicAnswers: 50, contributions: 1 }));
   assert.ok(got.includes('panic-survivor'));
   assert.ok(got.includes('contributor'));

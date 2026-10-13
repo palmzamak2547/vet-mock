@@ -5,35 +5,28 @@
 //   • CommandPalette → "ig card studio"
 //   • Or manually setView('ig-cards')
 //
-// Picks a random sample of questions, renders each as a 1080×1350
-// portrait card (IG feed-friendly 4:5 aspect — bigger than 9:16 story
-// because feed cropping is tighter), and bundles them as PNG downloads
-// so the operator can drag into IG and queue for the week.
-//
-// Designed for low touch: pick subject, pick count, click "Generate",
-// click "Download all". No deps beyond canvas + JSZip is too heavy for
-// occasional admin use → we just download per-card.
+// Picks a random sample of questions and draws each as a 1080×1350 feed
+// post (lib/share-card/ig-card.js), in the same type and colour system as
+// the app's share cards, light or dark. Each card downloads on its own; a
+// zip library would be heavy for an occasional admin task.
 // ============================================================
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { QB, loadQB } from '../data/questions.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import BackBar from '../components/BackBar.jsx';
 import { shuffle } from '../hooks/utils.js';
 import { IG_BACKGROUNDS } from '../data/art.js';
-import { drawWrappedText } from '../lib/canvas-wrap.js';
+import { drawIgCard } from '../lib/share-card/ig-card.js';
+import { ensureCardFonts } from '../lib/share-card/fonts.js';
+import { toBlob } from '../lib/share-card/kit.js';
+import { triggerDownload } from '../lib/share-card/share.js';
+import { isTextOnlyQuestion } from '../lib/question-surfaces.js';
 
-// Render one Q card. Optimised for legibility on a phone-screen IG feed
-// preview at 9:16-cropped size: keeps the question stem inside the
-// safe vertical band, options below, and a "Answer in caption" pointer
-// at the bottom — IG captions live below the image so this matches the
-// reading flow.
-// `backdrop` is a decoded 1080x1350 plate from IG_BACKGROUNDS. Every plate is
-// drawn with its middle left as flat paper, so the question text that lands
-// there stays readable; drawing it first means nothing can cover the words.
-// Decode the plate once per batch. A failed load returns null and the card
-// falls back to the plain gradient rather than failing the whole export.
+// A decoded 1080x1350 plate from IG_BACKGROUNDS. Every plate leaves its
+// middle as flat paper, so the question that lands there stays readable.
+// A failed load returns null and the card falls back to plain paper.
 function loadBackdrop(src) {
   if (!src) return Promise.resolve(null);
   return new Promise((resolve) => {
@@ -44,94 +37,21 @@ function loadBackdrop(src) {
   });
 }
 
-function renderQCard({ question, brand = '@vetmock.cu', backdrop = null }) {
-  const W = 1080, H = 1350;
-  const canvas = document.createElement('canvas');
-  canvas.width = W; canvas.height = H;
-  const ctx = canvas.getContext('2d');
+// Subjects by year, then by Thai name: the bank's own order is the order
+// they were added in.
+const SUBJECT_OPTIONS = [...SUBJECTS].sort((a, b) => (a.year ?? 99) - (b.year ?? 99) || String(a.name).localeCompare(String(b.name), 'th'));
 
-  // Background — same warm palette as score cards
-  const bg = ctx.createLinearGradient(0, 0, 0, H);
-  bg.addColorStop(0, '#fdf6e9');
-  bg.addColorStop(1, '#f5ead0');
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, W, H);
-
-  if (backdrop) {
-    ctx.drawImage(backdrop, 0, 0, W, H);
-  } else {
-    // Speckle texture
-    ctx.fillStyle = 'rgba(43, 36, 25, 0.04)';
-    for (let i = 0; i < 60; i++) {
-      const x = Math.random() * W, y = Math.random() * H, r = 1 + Math.random() * 2;
-      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
-    }
-  }
-
-  // Top label — VetMock + subject pill
-  ctx.fillStyle = '#2b2419';
-  ctx.font = '600 56px "Fraunces", "Sarabun", "IBM Plex Sans Thai", Georgia, serif';
-  ctx.textAlign = 'left';
-  ctx.fillText('VetMock', 80, 130);
-
-  const subj = SUBJECTS.find((s) => s.id === question.subject);
-  if (subj) {
-    ctx.fillStyle = subj.color || '#4a6b4a';
-    const text = `${subj.icon || ''}  ${subj.name}`;
-    ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
-    const tw = ctx.measureText(text).width;
-    ctx.fillStyle = (subj.color || '#4a6b4a') + '24';
-    ctx.beginPath();
-    ctx.roundRect(80, 158, tw + 36, 56, 28);
-    ctx.fill();
-    ctx.fillStyle = subj.color || '#4a6b4a';
-    ctx.fillText(text, 80 + 18, 196);
-  }
-
-  // Question stem — wrap text
-  const stemFontSize = question.q.length > 280 ? 36 : question.q.length > 180 ? 42 : 48;
-  ctx.fillStyle = '#2b2419';
-  ctx.font = `500 ${stemFontSize}px "Fraunces", "Sarabun", "IBM Plex Sans Thai", Georgia, serif`;
-  ctx.textAlign = 'left';
-  const stem = question.q.replace(/\*\*/g, '').replace(/★/g, ''); // remove star markers
-  // Thai has few spaces, so the lines are cut at word boundaries (canvas-wrap),
-  // and the options start below however many lines the stem really took.
-  const stemLines = drawWrappedText(ctx, stem, 80, 290, W - 160, stemFontSize * 1.4);
-
-  // Options — only render for MCQ; otherwise show "ตอบในแคปชั่น ⬇"
-  const optsTop = 290 + stemFontSize * 1.4 * stemLines + 60;
-  if (question.type === 'mcq' && Array.isArray(question.options)) {
-    ctx.font = '500 32px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
-    let y = Math.max(700, optsTop);
-    const labels = ['A', 'B', 'C', 'D', 'E'];
-    question.options.slice(0, 5).forEach((opt, i) => {
-      const text = `${labels[i]}.  ${opt.replace(/\*\*/g, '').replace(/★/g, '')}`;
-      ctx.fillStyle = '#3d342a';
-      // at most 2 lines; the last ends in an ellipsis when the option is longer
-      drawWrappedText(ctx, text, 100, y, W - 200, 42, 2);
-      y += 88;
-    });
-  } else {
-    ctx.font = '400 36px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
-    ctx.fillStyle = '#6b6055';
-    ctx.fillText('ตอบในแคปชั่น ⬇', 80, 1100);
-  }
-
-  // Bottom — VetMock + IG handle
-  ctx.fillStyle = '#2b2419';
-  ctx.font = '500 32px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
-  ctx.textAlign = 'center';
-  ctx.fillText('vetmock.com, 📷 ' + brand, W / 2, 1280);
-
-  return new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 0.95));
-}
+const appTheme = () => (typeof document !== 'undefined' && document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
 
 export default function IgCardStudioView({ goHome }) {
   const [subject, setSubject] = useState('all');
   const [count, setCount] = useState(7);
   const [bgId, setBgId] = useState('none');
+  const [theme, setTheme] = useState(appTheme);
   const [cards, setCards] = useState([]);
   const [busy, setBusy] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const urls = useRef([]);
   // QB is lazy-loaded and mutated in place. Without this tick, opening the
   // studio before the bank finished loading froze the pool at 0 questions
   // and the generate button stayed dead forever.
@@ -148,44 +68,57 @@ export default function IgCardStudioView({ goHome }) {
       .catch((err) => { console.warn('[ig-studio] question bank failed to load:', err?.message); if (alive) setQbFailed(true); });
     return () => { alive = false; };
   }, []);
+  useEffect(() => () => { for (const u of urls.current) URL.revokeObjectURL(u); }, []);
 
   const pool = useMemo(() => {
     const deliverable = QB.filter(isQuestionDeliverable);
     const filtered = subject === 'all' ? deliverable : deliverable.filter((q) => q.subject === subject);
-    // Prefer past-paper sourceType when present, ตัด writing-only Qs
-    const usable = filtered.filter((q) => q.type === 'mcq' || q.type === 'tf');
-    return usable;
+    // The card carries the stem and up to five lettered options, nothing else.
+    return filtered.filter((q) => isTextOnlyQuestion(q)
+      && (q.type === 'tf' || (q.type === 'mcq' && q.options?.length >= 2 && q.options.length <= 5)));
   }, [subject, qbTick]);
 
   const generate = async () => {
     if (busy) return;
-    setBusy(true); setCards([]);
-    const picks = shuffle([...pool]).slice(0, count);
-    const backdrop = await loadBackdrop(IG_BACKGROUNDS.find((b) => b.id === bgId)?.src || null);
-    const built = [];
-    for (const q of picks) {
-      const blob = await renderQCard({ question: q, backdrop });
-      if (blob) built.push({ q, url: URL.createObjectURL(blob), blob });
+    setBusy(true);
+    setFailed(false);
+    for (const u of urls.current) URL.revokeObjectURL(u);
+    urls.current = [];
+    setCards([]);
+    // A card that throws must not leave the button saying it is still busy.
+    try {
+      await ensureCardFonts();
+      const backdrop = theme === 'light' ? await loadBackdrop(IG_BACKGROUNDS.find((b) => b.id === bgId)?.src || null) : null;
+      const built = [];
+      for (const q of shuffle([...pool])) {
+        if (built.length >= count) break;
+        const subjectName = SUBJECTS.find((s) => s.id === q.subject)?.name || '';
+        const { card, problems } = drawIgCard(q, { theme, subjectName, backdrop });
+        // Too long for one post even at the smallest type: draw another instead.
+        if (problems.length) continue;
+        const blob = await toBlob(card.canvas, 'image/png');
+        const url = URL.createObjectURL(blob);
+        urls.current.push(url);
+        built.push({ q, url, blob, subjectName, theme });
+      }
+      setCards(built);
+    } catch (err) {
+      console.warn('[ig-studio] a card could not be drawn:', err?.message);
+      setFailed(true);
+    } finally {
+      setBusy(false);
     }
-    setCards(built);
-    setBusy(false);
   };
 
-  const downloadOne = (card, i) => {
-    const a = document.createElement('a');
-    a.href = card.url;
-    a.download = `vetmock-q${card.q.id}-${i + 1}.png`;
-    document.body.appendChild(a); a.click(); a.remove();
-  };
-
-  const downloadAll = () => cards.forEach((c, i) => setTimeout(() => downloadOne(c, i), i * 200));
+  const fileName = (card, i) => `vetmock-q${card.q.id}-${i + 1}-${card.theme}.png`;
+  const downloadAll = () => cards.forEach((c, i) => setTimeout(() => triggerDownload(c.blob, fileName(c, i)), i * 200));
 
   return (
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
         <h1>สร้างการ์ด <em>Instagram</em></h1>
-        <p>สร้างการ์ดคำถามพร้อมโพสต์ลง Instagram ขนาด 1080×1350 (สัดส่วน 4:5)</p>
+        <p>การ์ดคำถามขนาด 1080×1350 (สัดส่วน 4:5) พร้อมโพสต์ เฉลยใส่ในแคปชัน</p>
       </div>
 
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
@@ -196,21 +129,29 @@ export default function IgCardStudioView({ goHome }) {
               row and let the label shrink. */}
           <label style={{ fontSize: 13, minWidth: 0, maxWidth: '100%', display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: 4 }}>
             วิชา:
-            <select value={subject} onChange={(e) => setSubject(e.target.value)} style={{ padding: '6px 10px', borderRadius: 8, maxWidth: '100%', minWidth: 0 }}>
-              {SUBJECTS.map((s) => (
-                <option key={s.id} value={s.id}>{s.icon} {s.name}</option>
+            <select value={subject} onChange={(e) => setSubject(e.target.value)} style={{ padding: '6px 10px', borderRadius: 8, maxWidth: '100%', minWidth: 0, minHeight: 44 }}>
+              <option value="all">ทุกวิชา</option>
+              {SUBJECT_OPTIONS.map((s) => (
+                <option key={s.id} value={s.id}>{s.year ? `ปี ${s.year} ` : ''}{s.name}</option>
               ))}
             </select>
           </label>
           <label style={{ fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 4, minHeight: 44 }}>
             จำนวน:
-            <input type="number" min="1" max="30" value={count} onChange={(e) => setCount(Math.max(1, Math.min(30, parseInt(e.target.value) || 7)))} style={{ width: 72, padding: '6px 10px', borderRadius: 8, minHeight: 44, boxSizing: 'border-box' }} />
+            <input type="number" min="1" max="30" value={count} onChange={(e) => setCount(Math.max(1, Math.min(30, parseInt(e.target.value, 10) || 7)))} style={{ width: 72, padding: '6px 10px', borderRadius: 8, minHeight: 44, boxSizing: 'border-box' }} />
           </label>
+          <div role="group" aria-label="ธีมของการ์ด" className="vmx-share-seg">
+            {[['light', 'สว่าง'], ['dark', 'มืด']].map(([id, label]) => (
+              <button key={id} type="button" aria-pressed={theme === id} disabled={busy} onClick={() => setTheme(id)}>{label}</button>
+            ))}
+          </div>
           <label style={{ fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 4, minHeight: 44 }}>
             ลาย:
             <select
               value={bgId}
               onChange={(e) => setBgId(e.target.value)}
+              disabled={theme === 'dark'}
+              title={theme === 'dark' ? 'ลายพื้นใช้กับการ์ดสว่างเท่านั้น' : undefined}
               style={{ padding: '6px 10px', borderRadius: 8, maxWidth: '100%', minWidth: 0, minHeight: 44 }}
             >
               {IG_BACKGROUNDS.map((b) => (
@@ -218,37 +159,39 @@ export default function IgCardStudioView({ goHome }) {
               ))}
             </select>
           </label>
-          <button className="vmx-btn vmx-btn-primary" onClick={generate} disabled={busy || pool.length === 0}>
+          <button className="vmx-btn vmx-btn-primary" onClick={generate} disabled={busy || pool.length === 0} style={{ minHeight: 44 }}>
             {busy ? 'กำลังสร้าง…' : `สร้างการ์ด ${count} ใบ`}
           </button>
           {cards.length > 0 && (
-            <button className="vmx-btn vmx-btn-ghost" onClick={downloadAll}>
-              ⬇ ดาวน์โหลดทั้งหมด ({cards.length})
+            <button className="vmx-btn vmx-btn-ghost" onClick={downloadAll} style={{ minHeight: 44 }}>
+              บันทึกทั้งหมด ({cards.length})
             </button>
           )}
         </div>
-        <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 8 }}>
-          {pool.length > 0
-            ? `สุ่มจากข้อสอบ ${pool.length.toLocaleString()} ข้อ (เฉพาะแบบตัวเลือกและถูก/ผิด)`
-            : qbFailed
-              ? 'โหลดคลังข้อสอบไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วเปิดหน้านี้ใหม่'
-              : qbTick === 0
-                ? 'กำลังเตรียมคลังข้อสอบ…'
-                : subject === 'all'
-                  ? 'ยังไม่มีข้อสอบแบบตัวเลือกหรือถูก/ผิดให้ทำการ์ด'
-                  : 'วิชานี้ยังไม่มีข้อสอบแบบตัวเลือกหรือถูก/ผิด ลองเลือกวิชาอื่นหรือเลือกทุกวิชา'}
+        <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 8 }} role="status">
+          {failed
+            ? 'สร้างการ์ดไม่สำเร็จ ลองกดสร้างอีกครั้ง'
+            : pool.length > 0
+              ? `สุ่มจากข้อสอบ ${pool.length.toLocaleString()} ข้อ (แบบตัวเลือกและถูก/ผิด ที่ไม่มีรูปหรือบทอ่าน)`
+              : qbFailed
+                ? 'โหลดคลังข้อสอบไม่สำเร็จ ตรวจอินเทอร์เน็ตแล้วเปิดหน้านี้ใหม่'
+                : qbTick === 0
+                  ? 'กำลังเตรียมคลังข้อสอบ…'
+                  : subject === 'all'
+                    ? 'ยังไม่มีข้อสอบแบบตัวเลือกหรือถูก/ผิดให้ทำการ์ด'
+                    : 'วิชานี้ยังไม่มีข้อสอบแบบตัวเลือกหรือถูก/ผิด ลองเลือกวิชาอื่นหรือเลือกทุกวิชา'}
         </div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 16 }}>
         {cards.map((card, i) => (
           <div key={card.q.id} className="vmx-dash-card" style={{ padding: 12 }}>
-            <img src={card.url} alt={`card ${i + 1}`} style={{ width: '100%', borderRadius: 8, display: 'block' }} />
-            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 8, fontFamily: 'var(--vmx-mono)' }}>
-              Q{card.q.id}, {card.q.subject}, {card.q.topic || '—'}
+            <img src={card.url} alt={`การ์ดคำถามข้อ ${i + 1}: ${card.subjectName}`} width={1080} height={1350} style={{ width: '100%', height: 'auto', borderRadius: 8, display: 'block' }} />
+            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 8 }}>
+              ข้อ {card.q.id}, {card.subjectName || card.q.subject}{card.q.topic ? `, ${card.q.topic}` : ''}
             </div>
-            <button className="vmx-btn vmx-btn-ghost" onClick={() => downloadOne(card, i)} style={{ marginTop: 8, width: '100%', fontSize: 12 }}>
-              ⬇ Download PNG
+            <button className="vmx-btn vmx-btn-ghost" onClick={() => triggerDownload(card.blob, fileName(card, i))} style={{ marginTop: 8, width: '100%', minHeight: 44 }}>
+              บันทึกรูป
             </button>
           </div>
         ))}

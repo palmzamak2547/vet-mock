@@ -34,7 +34,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
 const ORIGIN = process.env.VETMOCK_ORIGIN || 'https://vetmock.com';
 
-const { OG_COVERS, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } =
+const { OG_COVERS, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT, ogImageUrl } =
   await import(pathToFileURL(path.join(ROOT, 'src/data/og-covers.js')).href);
 
 if (!fs.existsSync(path.join(DIST, 'index.html'))) {
@@ -53,7 +53,7 @@ for (const cover of OG_COVERS) {
     missingCovers.push(`${cover.id}.png`);
     continue;
   }
-  const image = `${ORIGIN}/og/${cover.id}.png`;
+  const image = ogImageUrl(ORIGIN, cover.id);
   const imageAlt = `${cover.cover} — ${cover.title} บน VetMock`;
 
   // The atlas route is its own Vite entry, reached through a rewrite. Patch

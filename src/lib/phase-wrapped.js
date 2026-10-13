@@ -7,8 +7,8 @@
 // card — total Qs answered, mastery %, weakest/strongest
 // subject, peak streak, hours studied, daily bar chart.
 //
-// Pure helpers here. UI lives in <PhaseWrappedCard /> +
-// <PhaseWrappedView />.
+// Pure helpers here. The poster is drawn by lib/share-card/phase-card.js
+// and shown by <PhaseWrappedView />.
 //
 // Phase ID convention (mirrors PhaseSelectView's PHASES):
 //   '1-mid'   · เทอม 1 กลางภาค · sem 1 midterm  · months 8-10
@@ -188,8 +188,14 @@ export function getCurrentPhase(now = new Date(), year = `y${CURRENT_YEAR}`) {
  *
  * "Completed" = today is strictly AFTER the phase's last exam
  * AND within POST_PHASE_WINDOW_DAYS of it.
+ *
+ * Dismissing only quiets the Home banner: the recap page itself passes
+ * includeDismissed, so a student can come back and share it again. (It
+ * used to fall back to a live preview of the next phase instead.)
+ * The year defaults to the current curriculum year, as getCurrentPhase's
+ * does; it defaulted to 'y4' while the other said y5.
  */
-export function getCompletedPhase(now = new Date(), year = 'y4') {
+export function getCompletedPhase(now = new Date(), year = `y${CURRENT_YEAR}`, { includeDismissed = false } = {}) {
   const yearKey = yearKeyOf(year);
   const bounds = phaseBoundsByYear(yearKey);
   const today = startOfDay(now);
@@ -203,7 +209,7 @@ export function getCompletedPhase(now = new Date(), year = 'y4') {
     }
   }
   if (!best) return null;
-  if (isWrappedDismissed(best.phase.id)) return null;
+  if (!includeDismissed && isWrappedDismissed(best.phase.id)) return null;
 
   // Phase span — same shape as getCurrentPhase return.
   const b = bounds[best.phase.id];
@@ -252,7 +258,7 @@ export function hasPhaseActivity(phase, history) {
   return historyInPhase(phase, history).length > 0;
 }
 
-export function buildPhaseStats({ phase, history = [], srCards = {}, bookmarks = [], allQuestions = [], subjects = [] }) {
+export function buildPhaseStats({ phase, history = [], srCards = {}, bookmarks = [], allQuestions = [], subjects = [], now = new Date() }) {
   if (!phase) {
     return emptyStats();
   }
@@ -272,9 +278,14 @@ export function buildPhaseStats({ phase, history = [], srCards = {}, bookmarks =
   let secondsExplicit = 0;
   let qsWithoutDuration = 0;
   const dayKeys = new Set();
-  // Daily Q count for the mini bar chart — last 30 days ending today
-  const todayKey = ymd(Date.now());
-  const todayMs = startOfDay(Date.now()).getTime();
+  // Daily counts for the 30-day strip. A finished phase's strip ends on the
+  // last whole day its window holds (the day after the last paper), not
+  // today: opened in the break, it used to show three weeks of empty days.
+  // Finished is read from the clock: past the 21-day banner window the recap
+  // finds the same phase through getCurrentPhase.
+  const today = startOfDay(now).getTime();
+  const phaseCompleted = today > phase.endDate.getTime();
+  const todayMs = Math.min(today, phase.endDate.getTime() + 24 * 60 * 60 * 1000);
   const dailyMap = new Map(); // dayKey -> count
 
   for (const h of scoped) {
@@ -380,6 +391,7 @@ export function buildPhaseStats({ phase, history = [], srCards = {}, bookmarks =
   return {
     phaseId: phase.id,
     phaseLabel: phase.label,
+    phaseEnd: phase.endDate.toISOString(),
     qCount,
     correct,
     correctPct,
@@ -393,8 +405,7 @@ export function buildPhaseStats({ phase, history = [], srCards = {}, bookmarks =
     byDay,
     bookmarkCount: Array.isArray(bookmarks) ? bookmarks.length : 0,
     perfectSets,
-    // The recap opens on a completed phase first (PhaseWrappedView marks it).
-    phaseCompleted: phase._state === 'completed',
+    phaseCompleted,
     isEmpty: qCount === 0,
   };
 }
@@ -403,6 +414,7 @@ function emptyStats() {
   return {
     phaseId: null,
     phaseLabel: '',
+    phaseEnd: null,
     qCount: 0,
     correct: 0,
     correctPct: 0,
@@ -446,23 +458,58 @@ export function isWrappedDismissed(phaseId) {
 // ── Plain-text version (for clipboard "คัดลอกสรุป") ───────────
 
 /** Render the stats as an IG-caption / chat-paste friendly block. */
+/**
+ * Study time as [figure, unit]: minutes under an hour, then hours with one
+ * decimal under ten. 598 min used to print "10.0" beside 600 min's "10", and
+ * one question "0.0 ชม.".
+ */
+export function studyTime(min) {
+  const m = Math.max(0, Number(min) || 0);
+  if (m < 1) return ['<1', 'นาที'];
+  if (m < 59.5) return [String(Math.round(m)), 'นาที'];
+  const tenths = Math.round(m / 6) / 10;
+  return [tenths >= 10 ? Math.round(m / 60).toLocaleString('en-US') : tenths.toFixed(1), 'ชม.'];
+}
+
+/** The same time in words: 'ไม่ถึง 1 นาที', '40 นาที', '6.5 ชั่วโมง'. */
+export function studyTimeText(min, { spoken = false } = {}) {
+  const [value, unit] = studyTime(min);
+  if (value === '<1') return 'ไม่ถึง 1 นาที';
+  return `${value} ${spoken && unit === 'ชม.' ? 'ชั่วโมง' : unit}`;
+}
+
+/**
+ * The subject rows a recap can stand behind. One subject is named, not
+ * called the best; the weakest is shown only when it is lower than the best
+ * (two at 75% used to be "best" and "needs review").
+ */
+export function subjectRows(stats) {
+  const best = stats?.strongestSubject;
+  if (!best) return { best: null, weak: null };
+  const other = stats.weakestSubject;
+  if (!other || other.id === best.id) return { best: { label: 'วิชาที่ฝึก', subject: best, single: true }, weak: null };
+  return {
+    best: { label: 'ทำได้ดีที่สุด', subject: best, single: false },
+    weak: other.pct < best.pct ? { label: 'ควรทบทวนเพิ่ม', subject: other } : null,
+  };
+}
+
 export function statsToText(stats) {
   if (!stats || stats.isEmpty) return '';
   const lines = [];
   lines.push(`📊 VetMock Wrapped, ${stats.phaseLabel}`);
   lines.push('');
   lines.push(`🎯 ${stats.qCount.toLocaleString()} ข้อ, ${stats.correctPct}% ถูก`);
-  if (stats.strongestSubject) lines.push(`🏆 ดีที่สุด: ${stats.strongestSubject.name} (${stats.strongestSubject.pct}%)`);
-  if (stats.weakestSubject && stats.weakestSubject.id !== stats.strongestSubject?.id) {
-    lines.push(`💪 ต้องเก็บอีก: ${stats.weakestSubject.name} (${stats.weakestSubject.pct}%)`);
-  }
+  const { best, weak } = subjectRows(stats);
+  if (best) lines.push(`${best.single ? '📚 วิชาที่ฝึก' : '🏆 ดีที่สุด'}: ${best.subject.name} (${best.subject.pct}%)`);
+  if (weak) lines.push(`💪 ต้องเก็บอีก: ${weak.subject.name} (${weak.subject.pct}%)`);
   if (stats.longestStreak > 0) lines.push(`🔥 streak สูงสุด: ${stats.longestStreak} วัน`);
   if (stats.totalStudyMin > 0) {
-    const hr = (stats.totalStudyMin / 60).toFixed(1);
     // "~" unless the stats say every minute was measured. A stats object
     // that never heard of the flag keeps the hedge it always had.
-    const approx = stats.studyTimeEstimated === false ? '' : '~';
-    lines.push(`⏱ อ่านไป ${approx}${hr} ชม.`);
+    const time = studyTimeText(stats.totalStudyMin);
+    const approx = stats.studyTimeEstimated === false || time.startsWith('ไม่ถึง') ? '' : '~';
+    lines.push(`⏱ อ่านไป ${approx}${time}`);
   }
   if (stats.masteredCards > 0) lines.push(`🧠 ${stats.masteredCards} cards mastered`);
   lines.push('');

@@ -16,8 +16,8 @@
 //   1. buildPhaseStats flags an estimated total (and does not flag a
 //      fully measured one);
 //   2. statsToText hedges only when told the number is a guess;
-//   3. the card's on-screen cell and its canvas block both consult the
-//      flag (JSX can't be imported here, so that part is a source pin).
+//   3. the poster (lib/share-card/phase-card.js) and the page's alt text
+//      both consult the flag (canvas can't run here: a source pin).
 // ============================================================
 
 import test from 'node:test';
@@ -76,24 +76,20 @@ test('statsToText hedges the guess and does not hedge a measurement', () => {
   const guessed = statsToText(buildPhaseStats({ phase, history: rows(240) }));
   assert.match(guessed, /⏱ อ่านไป ~3\.0 ชม\./);
   const measured = statsToText(buildPhaseStats({ phase, history: rows(240, { durationSec: 10 }) }));
-  assert.match(measured, /⏱ อ่านไป 0\.7 ชม\./);
+  assert.match(measured, /⏱ อ่านไป 40 นาที/);
   assert.doesNotMatch(measured, /~/);
 });
 
-// ── Card source pin ──────────────────────────────────────────
-const CARD = readFileSync(join(resolve(process.cwd()), 'src/components/PhaseWrappedCard.jsx'), 'utf8');
+// ── Poster source pin ────────────────────────────────────────
+const CARD = readFileSync(join(resolve(process.cwd()), 'src/lib/share-card/phase-card.js'), 'utf8');
+const VIEW = readFileSync(join(resolve(process.cwd()), 'src/views/PhaseWrappedView.jsx'), 'utf8');
 
-test('the on-screen ที่อ่าน cell prints the hedge, not a bare number', () => {
-  const cell = CARD.split('\n').find((l) => l.includes('<StatCell') && l.includes('unit="ชม."'));
-  assert.ok(cell, 'the study-time StatCell must still exist');
-  assert.doesNotMatch(cell, /label="ที่อ่าน"/, 'a fixed "ที่อ่าน" label presents the estimate as measured');
-  assert.match(cell, /studyTimeEstimated|hrApprox/, 'the cell must consult the estimate flag');
+test('the poster labels a guessed total "เวลาอ่านราว", and only a guessed one', () => {
+  assert.ok(CARD.includes("const approx = stats.studyTimeEstimated !== false;"), 'the poster must consult the estimate flag');
+  assert.ok(CARD.includes("[approx ? 'เวลาอ่านราว' : 'เวลาอ่าน', ...studyTime(stats.totalStudyMin)]"),
+    'a fixed "เวลาอ่าน" label presents the estimate as measured');
 });
 
-test('the shared PNG prints the hedge next to the hours', () => {
-  const label = CARD.indexOf("'ที่อ่าน");
-  assert.notEqual(label, -1, 'the canvas study-time label must still be drawn');
-  const block = CARD.slice(CARD.lastIndexOf('\n', label), CARD.indexOf("'ชม.'", label));
-  assert.match(block, /studyTimeEstimated|hrApprox/, 'the canvas block must consult the estimate flag');
-  assert.doesNotMatch(block, /fillText\(`\$\{hr\}`/, 'the hours must not be drawn bare');
+test('the picture\'s alt text carries the same hedge', () => {
+  assert.ok(VIEW.includes("`เวลาอ่าน${s.studyTimeEstimated === false ? '' : 'ราว'} ${studyTimeText(s.totalStudyMin, { spoken: true })}`"));
 });

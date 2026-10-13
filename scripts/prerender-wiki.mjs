@@ -36,6 +36,7 @@ const shell = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8');
 
 const vw = await import(new URL('../src/lib/vetwiki/index.js', import.meta.url).href);
 const { SUBJECTS } = await import(new URL('../src/data/curriculum.js', import.meta.url).href);
+const { ogImageUrl } = await import(new URL('../src/data/og-covers.js', import.meta.url).href);
 const subjectName = (id) => SUBJECTS.find((s) => s.id === id)?.name || id.toUpperCase();
 
 const topics = vw.listTopics();
@@ -55,7 +56,7 @@ for (const t of topics) {
 
   let html = buildOgHead(shell, {
     title, description, url, type: 'article', indexable: true,
-    image: `${ORIGIN}/og/wiki.png`,
+    image: ogImageUrl(ORIGIN, 'wiki'),
     imageAlt: `ความรู้ที่ เชื่อมถึงกัน — ${k.title} บน VetWiki`,
   });
 
@@ -87,7 +88,7 @@ for (const t of topics) {
     description: `คลังความรู้ที่ตรวจสอบได้ ${topics.length} หัวข้อ — ทุกหัวข้อบอกได้ว่าเนื้อหามาจากไหน ส่วนไหนตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว`,
     url,
     indexable: true,
-    image: `${ORIGIN}/og/wiki.png`,
+    image: ogImageUrl(ORIGIN, 'wiki'),
     imageAlt: 'ความรู้ที่ เชื่อมถึงกัน — VetWiki บน VetMock',
   });
   fs.mkdirSync(path.join(DIST, 'wiki'), { recursive: true });

@@ -8279,3 +8279,72 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
   .vmx-exam-date-day { font-size: 28px; }
 }
 /* === end night-a2 === */
+
+/* ── Share cards (components/ShareCardPanel.jsx) ─────────────────────
+   The preview is the exact file that leaves. Its options pick the
+   picture's theme and shape: a 9:16 story, or the 4:5 post cut from it. */
+.vmx-share-panel { display: grid; gap: 14px; }
+.vmx-share-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+.vmx-share-head h2 { margin: 0; font-size: 20px; }
+.vmx-share-head .vmx-btn { min-height: 44px; }
+.vmx-share-options { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.vmx-share-seg { display: inline-flex; padding: 3px; border-radius: 999px; background: color-mix(in srgb, var(--clr-ink) 7%, transparent); }
+.vmx-share-seg button {
+  min-height: 44px; padding: 0 16px; border: 0; border-radius: 999px;
+  background: transparent; color: var(--clr-ink-soft); font: inherit; font-size: 14px; cursor: pointer;
+}
+.vmx-share-seg button[aria-pressed="true"] { background: var(--clr-surface); color: var(--clr-ink); font-weight: 600; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14); }
+.vmx-share-seg button:focus-visible { outline: 2px solid var(--clr-sage-text); outline-offset: 2px; }
+.vmx-share-preview {
+  position: relative; margin: 0 auto; border-radius: 14px; overflow: hidden;
+  width: min(100%, calc(58dvh * 9 / 16)); aspect-ratio: 9 / 16;
+  background: color-mix(in srgb, var(--clr-ink) 6%, transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--clr-ink) 10%, transparent), 0 14px 34px rgba(0, 0, 0, 0.16);
+}
+.vmx-share-preview[data-format="post"] { aspect-ratio: 4 / 5; width: min(100%, calc(58dvh * 4 / 5)); }
+.vmx-share-page .vmx-share-preview { width: min(100%, calc(72dvh * 9 / 16)); }
+.vmx-share-page .vmx-share-preview[data-format="post"] { width: min(100%, calc(72dvh * 4 / 5)); }
+.vmx-share-preview img {
+  display: block; width: 100%; height: 100%; object-fit: cover;
+  -webkit-touch-callout: default; -webkit-user-select: auto; user-select: auto;
+  animation: vmx-share-in 320ms cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+}
+.vmx-share-preview[data-state="rendering"] { animation: vmx-share-pulse 1.4s ease-in-out infinite; }
+.vmx-share-preview-msg { position: absolute; inset: 0; display: grid; place-content: center; gap: 10px; text-align: center; color: var(--clr-ink-soft); font-size: 14px; }
+.vmx-share-hold {
+  display: grid; gap: 6px; padding: 12px 14px; border-radius: 12px; font-size: 14px; line-height: 1.6; color: var(--clr-ink);
+  border: 1px solid color-mix(in srgb, var(--clr-gold-text) 40%, transparent);
+  background: color-mix(in srgb, var(--clr-gold-text) 9%, transparent);
+}
+.vmx-share-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 8px; }
+.vmx-share-actions .vmx-btn { min-height: 44px; }
+.vmx-share-status { min-height: 1.6em; margin: 0; text-align: center; font-size: 13px; color: var(--clr-ink-soft); }
+@keyframes vmx-share-in { from { opacity: 0; transform: translateY(6px) scale(0.985); } to { opacity: 1; transform: none; } }
+@keyframes vmx-share-pulse { 50% { opacity: 0.55; } }
+@media (prefers-reduced-motion: reduce) {
+  .vmx-share-preview img { animation: none; }
+  .vmx-share-preview[data-state="rendering"] { animation: none; }
+}
+
+/* ── Phase Wrapped page (views/PhaseWrappedView.jsx) ─────────────── */
+.vmx-wrapped { max-width: 560px; margin: 0 auto; padding: 8px 0 max(40px, env(safe-area-inset-bottom)); display: grid; gap: 18px; }
+.vmx-wrapped-head h1 { margin: 0; font-family: var(--vmx-display); font-size: clamp(24px, 6vw, 30px); line-height: 1.35; color: var(--clr-ink); }
+.vmx-wrapped-head p { margin: 6px 0 0; font-size: 14px; line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-wrapped-none, .vmx-wrapped-empty p { font-size: 15px; line-height: 1.7; color: var(--clr-ink-soft); }
+.vmx-wrapped-empty { max-width: 480px; margin: 24px auto; padding: clamp(20px, 5vw, 32px); border-radius: 24px; border: 1px dashed var(--clr-border); text-align: center; }
+.vmx-wrapped-empty h1 { margin: 0; font-family: var(--vmx-display); font-size: 22px; color: var(--clr-ink); }
+.vmx-wrapped-dismiss { justify-self: center; min-height: 44px; }
+.vmx-wrapped-badges h2 { font-size: 15px; margin: 0 0 12px; color: var(--clr-ink); }
+.vmx-wrapped-badges ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 14px; }
+.vmx-wrapped-badges li { text-align: center; min-width: 0; }
+.vmx-wrapped-badges img { width: 72px; height: 72px; object-fit: contain; display: block; margin: 0 auto 6px; }
+.vmx-wrapped-badge-name { font-size: 12.5px; font-weight: 600; color: var(--clr-ink); }
+.vmx-wrapped-badge-why { font-size: 11.5px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-share-cta {
+  margin-top: 24px; padding: 16px; border-radius: 14px; display: flex; flex-wrap: wrap; gap: 12px;
+  align-items: center; justify-content: space-between;
+  border: 1px solid color-mix(in srgb, var(--clr-sage-text) 30%, transparent);
+  background: color-mix(in srgb, var(--clr-sage-text) 6%, transparent);
+}
+.vmx-share-cta > p { margin: 0; flex: 1 1 200px; font-size: 14px; line-height: 1.6; color: var(--clr-ink); }
+.vmx-share-cta > .vmx-btn { min-height: 44px; white-space: nowrap; }

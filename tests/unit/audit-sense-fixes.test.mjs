@@ -427,10 +427,11 @@ test('the results screen reaches one verdict and every part of it agrees', () =>
   assert.ok(!s.includes('score.pct >= PRACTICE_PASS_PCT') && !s.includes('score.pct >= 60'),
     'nothing about the bar may go back to the rounded percentage');
   // The shared card is a second surface that must not contradict the first.
-  assert.ok(s.includes('const reached = total > 0 && correct / total >= PRACTICE_PASS_PCT / 100;'),
-    'buildScoreCard has the counts, so it can use the same bar');
-  assert.ok(!s.includes('else if (pct >= 60)'),
-    'and must not caption the share card off the rounded value');
+  const card = src('src/lib/share-card/score-card.js');
+  assert.ok(card.includes('export const scoreReached = (d) => d.total > 0 && d.correct / d.total >= d.passPct / 100;'),
+    'the score card has the counts, so it uses the same bar');
+  assert.ok(s.includes('passPct: PRACTICE_PASS_PCT'), 'and the results screen hands it the same line');
+  assert.ok(!card.includes('pct >= 60'), 'and must not caption the share card off the rounded value');
 });
 
 test('a stored question id opens the question it names', () => {

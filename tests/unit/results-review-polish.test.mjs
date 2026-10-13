@@ -10,6 +10,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { scoreLine, scoreReached } from '../../src/lib/share-card/score-card.js';
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const results = read('../../src/views/ResultsView.jsx');
@@ -17,19 +18,13 @@ const results = read('../../src/views/ResultsView.jsx');
 // ---------------------------------------------------------------
 // COPY-01: the Story card's caption ladder
 // ---------------------------------------------------------------
-// buildScoreCard draws on a canvas and cannot be rendered here, so the
-// caption ladder is lifted out of the source and run as written, with the
-// same `reached` line the function itself uses.
+// The score card (lib/share-card/score-card.js) draws on a canvas, but its
+// caption ladder and its bar are plain functions, run here as the card runs
+// them.
 function cardCaption({ correct, total, isWritingOnly = false }) {
-  const fn = results.slice(results.indexOf('function buildScoreCard('), results.indexOf('// Phase label map'));
-  const reachedLine = fn.match(/const reached = [^;]+;/)?.[0];
-  const from = fn.indexOf('let msg =');
-  const ladder = fn.slice(from, fn.indexOf('ctx.font', from));
-  assert.ok(reachedLine && ladder.includes('msg'), 'the caption ladder must still be findable in buildScoreCard');
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
-  // eslint-disable-next-line no-new-func
-  return new Function('PRACTICE_PASS_PCT', 'pct', 'correct', 'total', 'isWritingOnly',
-    `${reachedLine}\n${ladder}\nreturn msg;`)(60, pct, correct, total, isWritingOnly);
+  const d = { correct, total, pct, passPct: 60, isWritingOnly };
+  return scoreLine({ ...d, reached: scoreReached(d) });
 }
 
 // The in-app message the card has to agree with, read the same way.

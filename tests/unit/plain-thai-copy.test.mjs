@@ -141,8 +141,10 @@ test('the daily question challenge link offers a way out when it cannot be made 
   assert.ok(modal.includes("overflowWrap: 'anywhere'"), 'a long link wraps inside the modal');
 });
 
-test('a phase-wrapped share that cannot share or copy points at the download', () => {
-  const card = read('src/components/PhaseWrappedCard.jsx');
-  assert.ok(!card.includes("flash('แชร์ไม่ได้')"), 'the share failure is still bare');
-  assert.ok(card.includes("flash('แชร์ไม่ได้, ดาวน์โหลดรูปแล้วแชร์เองแทน')"));
+test('a share card that cannot be shared or saved says how to keep it', () => {
+  const panel = read('src/components/ShareCardPanel.jsx');
+  // Inside LINE or Instagram the picture is still there to press and hold.
+  assert.ok(panel.includes('กดค้างที่รูปด้านบน แล้วเลือกบันทึกรูป'));
+  assert.ok(panel.includes("flash('คัดลอกรูปไม่ได้ ใช้บันทึกรูปแทน')"), 'a failed image copy names the other way');
+  assert.ok(!panel.includes("flash('แชร์ไม่ได้')"), 'no bare failure');
 });

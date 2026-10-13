@@ -4,7 +4,7 @@ import { clearCompletedExam } from '../lib/exam-recovery.js';
 // threshold, and this number applies across every subject and format the
 // engine can auto-grade.
 export const PRACTICE_PASS_PCT = 60;
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { answerOutcome, isWritingType } from '../hooks/utils.js';
 import BackBar from '../components/BackBar.jsx';
 import ExamSaveNotice from '../components/ExamSaveNotice.jsx';
@@ -15,6 +15,10 @@ import { mochiResultPose } from '../lib/mochi-presence.js';
 import { buildShareUrl, copyShareUrl, shareableQuestions } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/curriculum.js';
+import ShareCardSheet from '../components/ShareCardSheet.jsx';
+import { drawScoreCard, SCORE_STRIP } from '../lib/share-card/score-card.js';
+import { picture } from '../lib/share-card/kit.js';
+import { MOCHI_POSE_ASSETS } from '../data/mochi-poses.generated.js';
 import { NIGHT_RANK_EVENT, takePromotion } from '../lib/night-rank.js';
 import { hasTopic, articleForQuestion } from '../lib/vetwiki/registry-lite.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
@@ -28,116 +32,6 @@ import LadderStrip from '../components/LadderStrip.jsx';
 import { ladderStep, ladderStepFor, ladderVerdict, rememberLadderStep, STEP_UP_RATIO, STEP_MIN_SET } from '../lib/practice-ladder.js';
 
 const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer.jsx'));
-
-// Render a 1080×1920 portrait score card (IG Story aspect 9:16) onto a
-// canvas and return a Blob. Pure-canvas, no external deps. Designed to
-// look readable on a phone-screen story preview without IG-internal
-// chrome cropping anything important. The "VetMock @vetmock.cu" mark
-// is a small but persistent watermark — when shared, friends who see
-// the story can find the app from that handle.
-function buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, writingDone, writingTotal }) {
-  // The card must agree with the screen the student shared it from, so it
-  // reads the same exact-count bar rather than the rounded percentage it
-  // prints. At 28/47 the number rounds to 60 while the session did not reach
-  // the bar, and a card captioned "ถึงเกณฑ์ซ้อมแล้ว" would contradict the banner.
-  const reached = total > 0 && correct / total >= PRACTICE_PASS_PCT / 100;
-  const W = 1080, H = 1920;
-  const canvas = document.createElement('canvas');
-  canvas.width = W; canvas.height = H;
-  const ctx = canvas.getContext('2d');
-
-  // Background gradient (warm cream → soft sage, matches app palette)
-  const bg = ctx.createLinearGradient(0, 0, 0, H);
-  bg.addColorStop(0, '#fdf6e9');
-  bg.addColorStop(0.55, '#f5ead0');
-  bg.addColorStop(1, '#dde6dc');
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, W, H);
-
-  // Subtle dotted texture
-  ctx.fillStyle = 'rgba(43, 36, 25, 0.04)';
-  for (let i = 0; i < 80; i++) {
-    const x = Math.random() * W, y = Math.random() * H, r = 1 + Math.random() * 2;
-    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
-  }
-
-  // Academic Credential double hairline border
-  ctx.strokeStyle = 'rgba(43, 36, 25, 0.12)';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(40, 40, W - 80, H - 80);
-  ctx.strokeStyle = 'rgba(43, 36, 25, 0.05)';
-  ctx.lineWidth = 1;
-  ctx.strokeRect(48, 48, W - 96, H - 96);
-
-  // Top label row: VetMock + mode tag
-  ctx.fillStyle = '#2b2419';
-  ctx.font = '600 64px "Fraunces", "Sarabun", "IBM Plex Sans Thai", Georgia, serif';
-  ctx.textAlign = 'left';
-  ctx.fillText('VetMock', 80, 180);
-  ctx.font = '500 28px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
-  ctx.fillStyle = '#6b6055';
-  ctx.fillText(mode === 'exam' ? 'EXAM MODE' : 'PRACTICE', 80, 230);
-
-  // Big score (or writing icon)
-  if (isWritingOnly) {
-    ctx.textAlign = 'center';
-    ctx.font = '600 360px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
-    ctx.fillStyle = '#b88940';
-    ctx.fillText('✍️', W / 2, 800);
-    ctx.font = '500 60px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
-    ctx.fillStyle = '#2b2419';
-    ctx.fillText('Writing Practice', W / 2, 920);
-    ctx.font = '400 44px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
-    ctx.fillStyle = '#6b6055';
-    ctx.fillText(`${writingDone} / ${writingTotal}`, W / 2, 990);
-  } else {
-    ctx.textAlign = 'center';
-    ctx.font = '700 480px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
-    const scoreColor = pct >= 80 ? '#4a6b4a' : reached ? '#b88940' : '#c26d6d';
-    ctx.fillStyle = scoreColor;
-    ctx.fillText(`${pct}`, W / 2, 850);
-    ctx.font = '500 100px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
-    ctx.fillText('%', W / 2 + (`${pct}`.length === 3 ? 280 : 220), 700);
-    ctx.font = '500 56px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
-    ctx.fillStyle = '#2b2419';
-    ctx.fillText(`${correct} / ${total} ถูก`, W / 2, 970);
-  }
-
-  // Subject pill
-  if (subject && subject !== 'all') {
-    ctx.fillStyle = 'rgba(74, 107, 74, 0.15)';
-    ctx.beginPath();
-    const pillW = 360, pillH = 80, pillX = (W - pillW) / 2, pillY = 1080;
-    ctx.roundRect(pillX, pillY, pillW, pillH, 40);
-    ctx.fill();
-    ctx.fillStyle = '#4a6b4a';
-    ctx.font = '500 36px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
-    ctx.fillText(subject.toUpperCase(), W / 2, 1135);
-  }
-
-  // Encouragement line — short Thai, one tier per tier of the in-app
-  // message below, so the story says what the screen said.
-  let msg = '';
-  if (isWritingOnly) msg = 'เขียนไปแล้ว, ไปดูเฉลยกันใน VetMock';
-  else if (total > 0 && correct === total) msg = 'ถูกทุกข้อ รักษาระดับนี้ไว้';
-  else if (total > 0 && correct / total >= 0.8) msg = 'แม่นดีมาก ลองเพิ่มจำนวนข้อดู';
-  else if (reached) msg = 'ถึงเกณฑ์ซ้อมแล้ว ทบทวนข้อที่ผิดต่อ';
-  else if (pct >= 40) msg = 'ยังมีจุดที่ควรทบทวน เริ่มจากข้อที่ผิด';
-  else msg = 'เริ่มใหม่ได้เสมอ';
-  ctx.font = '400 44px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
-  ctx.fillStyle = '#3d342a';
-  ctx.fillText(msg, W / 2, 1300);
-
-  // Bottom watermark — persistent IG handle
-  ctx.font = '600 56px "Fraunces", "Sarabun", "IBM Plex Sans Thai", serif';
-  ctx.fillStyle = '#2b2419';
-  ctx.fillText('vetmock.com', W / 2, 1700);
-  ctx.font = '500 40px "JetBrains Mono", "IBM Plex Sans Thai", monospace';
-  ctx.fillStyle = '#b88940';
-  ctx.fillText('📷 @vetmock.cu', W / 2, 1770);
-
-  return new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 0.95));
-}
 
 // Phase label map — mirrors header pill in App.jsx
 const PHASE_LABEL_RES = {
@@ -699,11 +593,12 @@ export default function ResultsView({
           pct={score.pct}
           correct={score.correct}
           total={autoQs.length}
-          subject={questions[0]?.subject || 'all'}
+          subject={new Set(questions.map((q) => q.subject)).size === 1 ? questions[0].subject : 'all'}
           mode={mode}
           isWritingOnly={autoQs.length === 0}
           writingDone={writingAttempted}
           writingTotal={writingQs.length}
+          completedAt={completedAt}
         />
       )}
     </>
@@ -1471,67 +1366,40 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
   );
 }
 
-function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writingDone, writingTotal }) {
-  const [busy, setBusy] = useState(false);
-  const [hint, setHint] = useState('');
-
-  const handleShare = async () => {
-    if (busy) return;
-    setBusy(true); setHint('');
-    try {
-      const blob = await buildScoreCard({ pct, correct, total, subject, mode, isWritingOnly, writingDone, writingTotal });
-      if (!blob) throw new Error('canvas blob failed');
-      const file = new File([blob], `vetmock-score-${Date.now()}.png`, { type: 'image/png' });
-
-      // Mobile path: native share sheet
-      if (typeof navigator !== 'undefined' && navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: 'VetMock score',
-          text: `ทำข้อสอบ VetMock ได้ ${isWritingOnly ? 'writing ' + writingDone + '/' + writingTotal : pct + '% (' + correct + '/' + total + ')'} 📚, ลองดูที่ vetmock.com, IG @vetmock.cu`,
-        });
-        setHint('แชร์เรียบร้อย เลือก Instagram Story หรือ Direct ได้เลย');
-      } else {
-        // Desktop path: download PNG, open IG
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url; a.download = `vetmock-score-${Date.now()}.png`;
-        document.body.appendChild(a); a.click(); a.remove();
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
-        setHint('ดาวน์โหลดรูปแล้ว อัปโหลดเข้า IG Story ได้เลย @vetmock.cu');
-      }
-    } catch (e) {
-      // Dismissing the OS share sheet rejects with AbortError. Reporting that
-      // as "แชร์ไม่สำเร็จ" told a student their deliberate cancel was a bug.
-      if (e?.name === 'AbortError' || /abort|cancel/i.test(e?.message || '')) {
-        setHint('');
-      } else {
-        setHint('แชร์ไม่สำเร็จ ลองใหม่อีกครั้ง');
-      }
-    } finally {
-      setBusy(false);
-    }
-  };
+function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writingDone, writingTotal, completedAt }) {
+  const [open, setOpen] = useState(false);
+  const subjectName = subject && subject !== 'all' ? (SUBJECTS.find((s) => s.id === subject)?.name || null) : null;
+  // The picture (lib/share-card/score-card.js) is drawn when the sheet opens,
+  // so the share tap itself hands over a finished file.
+  const draw = useCallback(async (theme) => {
+    const [mochi, strip] = await Promise.all([
+      picture(MOCHI_POSE_ASSETS[isWritingOnly ? 'read' : mochiResultPose({ correct, total }, total)]),
+      picture(SCORE_STRIP),
+    ]);
+    return drawScoreCard({
+      pct, correct, total, passPct: PRACTICE_PASS_PCT, mode, subjectName,
+      isWritingOnly, writingDone, writingTotal, completedAt,
+    }, { theme, mochi, strip });
+  }, [pct, correct, total, mode, subjectName, isWritingOnly, writingDone, writingTotal, completedAt]);
+  const shareText = isWritingOnly
+    ? `เขียนตอบ ${writingDone}/${writingTotal} ข้อใน VetMock ลองดูที่ vetmock.com`
+    : `ทำข้อสอบ${subjectName ? ` ${subjectName}` : ''} ใน VetMock ได้ ${pct}% (${correct}/${total}) ลองดูที่ vetmock.com`;
 
   return (
-    <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'linear-gradient(135deg, rgba(225,48,108,0.06), rgba(247,119,55,0.06))', border: '1px dashed rgba(225,48,108,0.35)' }}>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ fontSize: 13, color: 'var(--clr-ink)', flex: '1 1 200px', lineHeight: 1.5 }}>
-          อยากแชร์คะแนนให้เพื่อน? กดสร้าง score card สำหรับ <strong>IG Story</strong> ได้
-        </div>
-        <button
-          className="vmx-btn vmx-btn-primary"
-          onClick={handleShare}
-          disabled={busy}
-          style={{ fontSize: 14, padding: '8px 16px', whiteSpace: 'nowrap' }}
-        >
-          {busy ? 'กำลังสร้างรูป…' : 'แชร์คะแนนเป็นรูป (IG Story)'}
-        </button>
-      </div>
-      {hint && (
-        <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
-          {hint}
-        </div>
+    <div className="vmx-share-cta">
+      <p>เก็บคะแนนชุดนี้ไว้เป็นรูป หรือแชร์ให้เพื่อน</p>
+      <button type="button" className="vmx-btn vmx-btn-primary" onClick={() => setOpen(true)}>
+        สร้างรูปคะแนน
+      </button>
+      {open && (
+        <ShareCardSheet
+          title="รูปคะแนน"
+          onClose={() => setOpen(false)}
+          draw={draw}
+          fileBase={`vetmock-score-${subject || 'all'}-${pct}`}
+          shareText={shareText}
+          alt={isWritingOnly ? `เขียนตอบ ${writingDone} จาก ${writingTotal} ข้อ` : `${subjectName || 'หลายวิชา'} ได้ ${pct}% ถูก ${correct} จาก ${total} ข้อ`}
+        />
       )}
     </div>
   );

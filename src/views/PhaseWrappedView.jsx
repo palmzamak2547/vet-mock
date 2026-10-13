@@ -2,30 +2,33 @@
 // PhaseWrappedView — host view for the Phase Wrapped recap
 // ============================================================
 //
-// Mounted on the 'phase-wrapped' route. Renders one of:
-//   - PhaseWrappedCard for the most recently completed phase
-//   - PhaseWrappedCard for the current phase (preview mode)
-//     when the user opens it from CommandPalette mid-term
-//   - Empty state with countdown to the next phase end when
-//     no phase data is available
+// Mounted on the 'phase-wrapped' route. Shows the recap poster for the most
+// recently completed phase (even after its Home banner was dismissed), or
+// for the current phase while it is still running, with the share panel
+// under it: the poster on screen is the exact image that is shared.
 //
 // Reads from history / srCards / bookmarks / customQuestions
 // already-loaded in App. No own storage.
 // ============================================================
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import BackBar from '../components/BackBar.jsx';
-import PhaseWrappedCard from '../components/PhaseWrappedCard.jsx';
+import ShareCardPanel from '../components/ShareCardPanel.jsx';
 import {
   getCompletedPhase,
   getCurrentPhase,
   buildPhaseStats,
   markWrappedDismissed,
+  statsToText,
+  studyTimeText,
+  subjectRows,
 } from '../lib/phase-wrapped.js';
+import { drawPhaseCard, academicYear, PHASE_STRIP } from '../lib/share-card/phase-card.js';
+import { picture } from '../lib/share-card/kit.js';
+import { MOCHI_POSE_ASSETS } from '../data/mochi-poses.generated.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { earnedBadges } from '../lib/badges.js';
 
-// Day formatter shared with the empty-state countdown.
 function daysUntil(date) {
   if (!date) return null;
   const today = new Date();
@@ -35,30 +38,31 @@ function daysUntil(date) {
   return Math.round((target - today) / (24 * 60 * 60 * 1000));
 }
 
-export default function PhaseWrappedView({ goHome, history = [], srCards = {}, bookmarks = [], customQuestions = [], selectedYear = null }) {
-  const [, setTick] = useState(0); // forces a re-read of dismissal state
+// What the picture says, for a screen reader.
+function altText(s) {
+  const parts = [`สรุป${s.phaseLabel}`, `ฝึกไป ${s.qCount.toLocaleString('en-US')} ข้อ`, `ความแม่นยำ ${s.correctPct}%`, `ต่อเนื่องสูงสุด ${s.longestStreak} วัน`,
+    `เวลาอ่าน${s.studyTimeEstimated === false ? '' : 'ราว'} ${studyTimeText(s.totalStudyMin, { spoken: true })}`];
+  const { best, weak } = subjectRows(s);
+  if (best) parts.push(`${best.label} ${best.subject.name} ${best.subject.pct}%`);
+  if (weak) parts.push(`${weak.label} ${weak.subject.name} ${weak.subject.pct}%`);
+  return parts.join(', ');
+}
 
-  // Prefer a completed phase first; fall back to the current
-  // phase so the user can peek mid-term ("how am I doing?").
-  const phase = useMemo(() => {
+export default function PhaseWrappedView({ goHome, history = [], srCards = {}, bookmarks = [], customQuestions = [], selectedYear = null }) {
+  // bannerId: the phase Home is still offering, so "stop reminding me" only
+  // shows where it changes something.
+  const { phase, bannerId } = useMemo(() => {
+    const now = new Date();
     const year = selectedYear ? `y${selectedYear}` : undefined;
-    const completed = getCompletedPhase(new Date(), year);
-    if (completed) return { ...completed, _state: 'completed' };
-    const current = getCurrentPhase(new Date(), year);
-    if (current) return { ...current, _state: 'current' };
-    return null;
+    return {
+      phase: getCompletedPhase(now, year, { includeDismissed: true }) ?? getCurrentPhase(now, year),
+      bannerId: getCompletedPhase(now, year)?.id ?? null,
+    };
   }, [selectedYear]);
 
   const stats = useMemo(() => {
     if (!phase) return null;
-    return buildPhaseStats({
-      phase,
-      history,
-      srCards,
-      bookmarks,
-      customQuestions,
-      subjects: SUBJECTS,
-    });
+    return buildPhaseStats({ phase, history, srCards, bookmarks, customQuestions, subjects: SUBJECTS });
   }, [phase, history, srCards, bookmarks, customQuestions]);
 
   // Earned marks, derived from the same history the numbers above come from —
@@ -68,103 +72,77 @@ export default function PhaseWrappedView({ goHome, history = [], srCards = {}, b
     [stats, history, srCards, customQuestions],
   );
 
-  // Mark "shown" so the home banner stops surfacing it.
-  // We treat opening the wrapped view as an implicit "I've seen
-  // this" signal — banner doesn't need a separate dismiss click.
-  useEffect(() => {
-    if (phase?._state === 'completed' && phase?.id) {
-      // No-op until user closes — completion-mark happens via
-      // onDismissPhase below. We don't auto-mark on open so a
-      // user who navigates away mid-view still sees the banner.
-    }
-  }, [phase]);
+  const draw = useCallback(async (theme) => {
+    const [mochi, strip] = await Promise.all([picture(MOCHI_POSE_ASSETS.happy), picture(PHASE_STRIP)]);
+    return drawPhaseCard(stats, { theme, mochi, strip });
+  }, [stats]);
 
-  function handleDismissPhase(phaseId) {
-    if (phaseId) markWrappedDismissed(phaseId);
-    setTick((n) => n + 1);
-  }
-
-  // Empty state — no phase context at all (cold install, scaffold year, …)
   if (!phase || !stats) {
     return (
       <>
         <BackBar onBack={goHome} label="หน้าแรก" />
-        <div style={{
-          padding: 'clamp(20px, 5vw, 32px)', maxWidth: 480, margin: '24px auto',
-          borderRadius: 24, background: 'var(--clr-surface, #fdf6e9)',
-          border: '1px dashed var(--clr-border, rgba(43,36,25,0.18))',
-          textAlign: 'center',
-        }}>
-          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft, #6b6055)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-            Phase Wrapped
-          </div>
-          <h2 style={{ margin: '8px 0 0', fontSize: 22, fontFamily: 'var(--vmx-display)' }}>
-            ยังไม่มี phase ที่จบ
-          </h2>
-          <p style={{ margin: '12px 0 0', fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink, #2b2419)' }}>
-            รอสอบเสร็จก่อน — ระบบจะเด้งสรุปขึ้นมาเองหลังสอบจบ
-          </p>
+        <div className="vmx-wrapped-empty">
+          <h1>สรุปช่วงสอบ</h1>
+          <p>ยังไม่มีช่วงสอบที่จบ สรุปจะขึ้นให้เองหลังสอบเสร็จ</p>
         </div>
       </>
     );
   }
 
-  // "Current phase" mode — show a preview headline so the user
-  // knows this is a live snapshot, not the final wrapped.
-  const isPreview = phase._state === 'current';
+  const isPreview = !stats.phaseCompleted;
   const daysLeft = isPreview ? daysUntil(phase.endDate) : null;
+  const year = academicYear(phase.endDate);
+
+  function dismiss() {
+    markWrappedDismissed(stats.phaseId);
+    goHome?.();
+  }
 
   return (
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
-      <div style={{
-        minHeight: 'calc(100dvh - 80px)',
-        padding: '12px 0 max(40px, env(safe-area-inset-bottom))',
-      }}>
-        {isPreview && (
-          <div style={{
-            maxWidth: 480, margin: '0 auto 14px', padding: '10px 14px',
-            borderRadius: 12, background: 'rgba(184, 137, 64, 0.10)',
-            border: '1px solid var(--clr-gold, #b88940)',
-            fontSize: 12, lineHeight: 1.6, textAlign: 'center',
-            color: 'var(--clr-ink, #2b2419)',
-          }}>
-            👀 พรีวิวสด — phase ยังไม่จบ
-            {typeof daysLeft === 'number' && daysLeft >= 0 && (
-              <strong>, เหลืออีก {daysLeft} วันถึง phase ปิด</strong>
-            )}
-          </div>
+      <div className="vmx-wrapped vmx-share-page">
+        <header className="vmx-wrapped-head">
+          <h1>สรุป{stats.phaseLabel}</h1>
+          {isPreview && (
+            <p>
+              ช่วงสอบนี้ยังไม่จบ ตัวเลขยังขยับได้
+              {daysLeft === 0 ? ' วันนี้เป็นวันสอบวันสุดท้าย' : ''}
+              {daysLeft > 0 ? ` อีก ${daysLeft} วันถึงวันสอบวันสุดท้าย` : ''}
+            </p>
+          )}
+        </header>
+        {stats.isEmpty ? (
+          <p className="vmx-wrapped-none">
+            {isPreview
+              ? 'ช่วงนี้ยังไม่ได้ทำข้อในแอป ทำสักชุดแล้วกลับมาดูสรุปได้'
+              : 'ช่วงสอบนี้ไม่ได้ทำข้อในแอป เลยไม่มีสรุปให้ดู'}
+          </p>
+        ) : (
+          <ShareCardPanel
+            draw={draw}
+            fileBase={`vetmock-wrapped-${stats.phaseId}-${year}`}
+            title="สรุปช่วงสอบ VetMock"
+            shareText={statsToText(stats)}
+            alt={altText(stats)}
+          />
         )}
-        <PhaseWrappedCard
-          stats={stats}
-          onClose={goHome}
-          onDismissPhase={handleDismissPhase}
-        />
+        {bannerId === stats.phaseId && (
+          <button type="button" className="vmx-btn vmx-btn-ghost vmx-wrapped-dismiss" onClick={dismiss}>
+            ไม่ต้องเตือนที่หน้าแรกแล้ว
+          </button>
+        )}
         {badges.length > 0 && (
-          <section style={{ maxWidth: 480, margin: '28px auto 0' }} aria-label="เหรียญที่ได้">
-            <h2 style={{ fontSize: 15, margin: '0 0 12px', color: 'var(--clr-ink)' }}>
-              เหรียญที่ได้ {badges.length} อัน
-            </h2>
-            <ul style={{
-              listStyle: 'none', margin: 0, padding: 0, display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(104px, 1fr))', gap: 14,
-            }}>
+          <section className="vmx-wrapped-badges" aria-label="เหรียญที่ได้">
+            <h2>เหรียญที่ได้ {badges.length} อัน</h2>
+            <ul>
               {badges.map((b) => (
-                <li key={b.id} style={{ textAlign: 'center', minWidth: 0 }}>
-                  <img
-                    src={b.src}
-                    alt=""
-                    aria-hidden="true"
-                    width={512}
-                    height={512}
-                    loading="lazy"
-                    decoding="async"
-                    style={{ width: 72, height: 72, objectFit: 'contain', display: 'block', margin: '0 auto 6px' }}
-                  />
-                  <div style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--clr-ink)' }}>{b.label}</div>
+                <li key={b.id}>
+                  <img src={b.src} alt="" aria-hidden="true" width={512} height={512} loading="lazy" decoding="async" />
+                  <div className="vmx-wrapped-badge-name">{b.label}</div>
                   {/* The reason is the point: a mark with no stated basis is
                       decoration pretending to be an achievement. */}
-                  <div style={{ fontSize: 11.5, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>{b.why}</div>
+                  <div className="vmx-wrapped-badge-why">{b.why}</div>
                 </li>
               ))}
             </ul>
