@@ -127,7 +127,7 @@ test('screen readers hear Thai names on the glossary close button, charts, dialo
     ['src/views/DashboardView.jsx', 'aria-label="Learning curve per subject"', 'aria-label="กราฟความแม่นยำรายวิชา"'],
     ['src/views/DashboardView.jsx', 'aria-label="7-day study trend"', 'aria-label="กราฟการฝึก 7 วันล่าสุด"'],
     ['src/components/VoiceSettings.jsx', 'aria-label="Voice settings"', 'aria-label="ตั้งค่าเสียงอ่าน"'],
-    ['src/components/OfflineGame.jsx', 'aria-label="Mini-game canvas"', 'aria-label="พื้นที่เล่นมินิเกม"'],
+    ['src/components/OfflineGame.jsx', 'aria-label="Mini-game canvas"', 'aria-label="พื้นที่เล่นเกมลูกไก่หนีเชื้อโรค"'],
     ['src/components/VetCalculator.jsx', 'aria-label="Search drugs"', 'aria-label="ค้นหายา"'],
   ];
   for (const [file, before, after] of cases) {

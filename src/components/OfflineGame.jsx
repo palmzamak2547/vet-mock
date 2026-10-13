@@ -265,6 +265,10 @@ export default function OfflineGame({ onClose }) {
     const supportsPointer = typeof window !== 'undefined' && 'PointerEvent' in window;
 
     const onKeyDown = (e) => {
+      // Keys typed in a field or a dialog (search opened over the game) are
+      // theirs: Space was swallowed, so "พักกับ Mochi" became "พักกับMochi",
+      // and Escape left the game while closing the search.
+      if (e.target instanceof Element && e.target.closest('input, textarea, select, [contenteditable="true"], [role="dialog"]')) return;
       if (e.code === 'Space' || e.code === 'ArrowUp') {
         e.preventDefault();
         trigger();
@@ -579,7 +583,7 @@ export default function OfflineGame({ onClose }) {
           WebkitTapHighlightColor: 'transparent',
           border: '1px solid var(--clr-border, #d8c9a8)',
         }}
-        aria-label="พื้นที่เล่นมินิเกม"
+        aria-label="พื้นที่เล่นเกมลูกไก่หนีเชื้อโรค"
       />
 
       <div style={{ fontSize: 12, color: 'var(--clr-ink-soft, #7a6f5e)', textAlign: 'center', lineHeight: 1.5 }}>

@@ -199,9 +199,37 @@ test('the existing Mochi page leads to real rest and focus, with its examples ke
   await expect(page.locator('.vmx-motion-stage')).toHaveAttribute('data-ready', 'true');
   await page.getByText('ดูตัวอย่างเอฟเฟกต์และท่า Mochi', { exact: true }).click();
   await expect(page.locator('.vmx-motion-stage')).toHaveCount(0);
-  await page.getByRole('button', { name: 'จับเวลาอ่านพร้อมช่วงพัก', exact: true }).click();
+  await page.getByRole('button', { name: 'จับเวลาโฟกัส', exact: true }).click();
   await expect(page).toHaveURL(/\/app\/focus$/);
   await expect(page.getByRole('button', { name: 'เริ่ม focus session', exact: true })).toBeVisible();
+});
+
+test('Home lists one rest place, and its doors open the timer and the game', async ({ page }) => {
+  await page.goto('/');
+  const group = page.locator('.vmx-feature-group[data-category="focus"]');
+  await expect(group.locator('.vmx-feature-card')).toHaveCount(1, { timeout: 20_000 });
+  await expect(page.locator('.vmx-feature-card-title').filter({ hasText: /^(จับเวลาโฟกัส|มินิเกม)$/ })).toHaveCount(0);
+  await group.getByRole('button', { name: /พักใจ/ }).click();
+  await expect(page).toHaveURL(/\/app\/mochi$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'พักใจ' })).toBeVisible();
+  // Each door's own back control returns to พักใจ, not Home.
+  await page.getByRole('button', { name: 'เกมลูกไก่หนีเชื้อโรค', exact: true }).click();
+  await expect(page).toHaveURL(/\/app\/game$/);
+  await page.getByRole('button', { name: 'กลับไปหน้าพักใจ', exact: true }).click();
+  await expect(page.getByRole('heading', { level: 1, name: 'พักใจ' })).toBeVisible();
+  await page.getByRole('button', { name: 'จับเวลาโฟกัส', exact: true }).click();
+  await expect(page).toHaveURL(/\/app\/focus$/);
+  // A reload keeps where the back control leads.
+  await page.reload();
+  await page.locator('.vmx-back-bar').getByRole('button', { name: 'พักใจ', exact: true }).click();
+  await expect(page).toHaveURL(/\/app\/mochi$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'พักใจ' })).toBeVisible();
+});
+
+test('the timer opened from anywhere else still goes back Home', async ({ page }) => {
+  await page.goto('/app/focus');
+  await page.locator('.vmx-back-bar').getByRole('button', { name: 'หน้าแรก', exact: true }).click();
+  await expect(page).toHaveURL(/\/app\/?$|\/$/);
 });
 
 test('bookmark motion follows a persisted pin, and a failed write never looks saved', async ({ page }) => {
@@ -267,4 +295,59 @@ test('PDF progress is measured from the actual download stream and the document 
   expect(value).toBeLessThan(100);
   await expect(page.locator('[data-page="1"][data-render-state="ready"]')).toBeVisible({ timeout: 20_000 });
   await expect(progress).toHaveCount(0);
+});
+
+// Second review of the rest place: the back controls trust only their own
+// history entry and take one step per tap, the skip link adds no entry, and
+// the game's keys leave the search box alone.
+async function timerFromRest(page) {
+  await page.goto('/app/mochi');
+  await expect(page.getByRole('heading', { level: 1, name: 'พักใจ' })).toBeVisible({ timeout: 20_000 });
+  await page.getByRole('button', { name: 'จับเวลาโฟกัส', exact: true }).click();
+  await expect(page).toHaveURL(/\/app\/focus$/);
+}
+
+test('the skip link on the timer adds no history step, so its back control still returns to the rest page', async ({ page }) => {
+  await timerFromRest(page);
+  await page.locator('.vmx-skip-link').focus();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/\/app\/focus$/);
+  await page.locator('.vmx-back-bar').getByRole('button', { name: 'พักใจ', exact: true }).click();
+  await expect(page).toHaveURL(/\/app\/mochi$/);
+});
+
+test('a double tap on the timer back control takes one step, never out of VetMock', async ({ page }) => {
+  await page.goto('/robots.txt');
+  await timerFromRest(page);
+  await page.locator('.vmx-back-bar').getByRole('button', { name: 'พักใจ', exact: true }).dblclick();
+  await expect(page).toHaveURL(/\/app\/mochi$/);
+  await page.waitForTimeout(1000);
+  await expect(page).toHaveURL(/\/app\/mochi$/);
+});
+
+test('leaving a set opened from the timer: one tap on the back control leaves the timer', async ({ page }) => {
+  await timerFromRest(page);
+  await page.keyboard.press('Control+k');
+  const input = page.getByLabel('ค้นหาใน VetMock', { exact: true });
+  await input.fill('ketamine');
+  const row = page.locator('[data-vmx-modal="true"] button.vmx-omni-row').filter({ hasText: /, Q\d+/ }).first();
+  await row.click({ timeout: 30_000 });
+  await page.waitForFunction(() => history.state?.vmxView === 'exam', null, { timeout: 30_000 });
+  await page.goBack();
+  await page.getByRole('button', { name: 'ออกจากชุด', exact: true }).click();
+  await expect(page).toHaveURL(/\/app\/focus$/);
+  await page.locator('.vmx-back-bar').getByRole('button').first().click();
+  await expect(page).not.toHaveURL(/\/app\/focus$/);
+});
+
+test('on the game page, search keeps its spaces and Escape closes only the search', async ({ page }) => {
+  await page.goto('/app/game');
+  await expect(page.getByRole('heading', { level: 1, name: /เกมลูกไก่หนีเชื้อโรค/ })).toBeVisible({ timeout: 20_000 });
+  await page.keyboard.press('Control+k');
+  const box = page.getByLabel('ค้นหาใน VetMock', { exact: true });
+  await box.pressSequentially('พักกับ Mochi');
+  await expect(box).toHaveValue('พักกับ Mochi');
+  await page.keyboard.press('Escape');
+  await expect(box).toHaveCount(0);
+  await expect(page).toHaveURL(/\/app\/game$/);
 });

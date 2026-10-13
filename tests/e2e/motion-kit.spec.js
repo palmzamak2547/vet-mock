@@ -13,7 +13,7 @@ async function open(page) {
   await page.goto('/app/mochi', { waitUntil: 'domcontentloaded' });
   // A cold WebKit page can still be inside Suspense at five seconds while
   // the cross-engine suite is busy. Wait for this view's actual readiness.
-  await expect(page.getByRole('heading', { level: 1, name: 'พักกับ Mochi' })).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByRole('heading', { level: 1, name: 'พักใจ' })).toBeVisible({ timeout: 20_000 });
   await page.getByText('ดูตัวอย่างเอฟเฟกต์และท่า Mochi', { exact: true }).click();
   await expect(page.locator('.vmx-motion-stage')).toHaveAttribute('data-ready', 'true', { timeout: 20_000 });
 }

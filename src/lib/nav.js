@@ -62,13 +62,19 @@ export function navItemsFor(surface) {
  *                          The clips stay: Home's global clips entry is a
  *                          student path the connected-study flow walks
  *                          (subject clips, back, all clips), and 400
- *                          summaries deserve a door on the home screen
+ *                          summaries deserve a door on the home screen.
+ *                          The focus timer and the game open from the
+ *                          พักใจ page (its two doors), so Home lists that
+ *                          one place (vision 4.3, owner 2026-10-12:
+ *                          "รวมเมนูพักใจ"). The timer keeps the desktop
+ *                          tools button, the game the offline notice; both
+ *                          stay in search
  *    HOME_MENU_ADMIN_ONLY  not a student's task
  *    HOME_MENU_GROUP       where Home files a feature when its registry
  *                          category is not where a student looks for it
  *  These belong in feature-registry.js as flags; they sit here until that
  *  file's owner moves them, so Home has one policy and not three. */
-export const HOME_MENU_HIDDEN = Object.freeze(['faculty', 'scores']);
+export const HOME_MENU_HIDDEN = Object.freeze(['faculty', 'scores', 'pomodoro', 'offline-game']);
 export const HOME_MENU_ADMIN_ONLY = Object.freeze(['ig-cards']);
 export const HOME_MENU_GROUP = Object.freeze({ atlas: 'tools' });
 

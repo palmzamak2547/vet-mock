@@ -174,7 +174,15 @@ test('Mochi page: no WebGL2 means no 3D switch at all; a game door only when the
   assert.ok(door, 'the game door appears when the app passes onOpenGame');
   door.props.onClick();
   assert.equal(opened, 1);
-  assert.ok(findAll(withGame.tree, (n) => n.type === 'button' && textOf(n) === 'จับเวลาอ่านพร้อมช่วงพัก')[0], 'the focus door keeps its name');
+  // One name for the timer everywhere (the menu, search, the tools button), and
+  // it is the page's main door; the game door stays small (owner: "ไม่ต้องเด่น").
+  const focusDoor = findAll(withGame.tree, (n) => n.type === 'button' && textOf(n) === 'จับเวลาโฟกัส')[0];
+  assert.ok(focusDoor, 'the focus door has the one name the timer has everywhere');
+  assert.match(focusDoor.props.className, /vmx-btn-primary/);
+  assert.doesNotMatch(door.props.className, /vmx-btn-primary/);
+  // Quiet, but not 11px: .vmx-btn-sm drops to the micro-label size on phones.
+  assert.doesNotMatch(door.props.className, /vmx-btn-sm/);
+  assert.equal(findAll(withGame.tree, (n) => n.type === 'h1' && textOf(n) === 'พักใจ').length, 1, 'the page is named as Home names it');
   assert.equal(findAll(withGame.tree, (n) => n.props?.id === 'buddy').length, 1, 'the buddy section can be linked to');
   withGame.unmount();
 });

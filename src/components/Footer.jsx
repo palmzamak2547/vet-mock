@@ -38,7 +38,6 @@ export default function Footer({ setView }) {
           <button type="button" className="vmx-footer-link" onClick={() => handleNav('landing')}>หน้าแนะนำ</button>
           <a href="/blog/">บทความ</a>
           <button type="button" className="vmx-footer-link" onClick={() => handleNav('feedback')}>แจ้งปัญหา</button>
-          <button type="button" className="vmx-footer-link" onClick={() => handleNav('offline-game')} title="เกมเล็ก ๆ — ลูกไก่หนีเชื้อโรค">มินิเกม</button>
         </nav>
 
         <nav className="vmx-footer-col" aria-label="เครือข่าย Vet 86">

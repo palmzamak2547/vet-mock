@@ -40,7 +40,7 @@ const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer
 // student picks another one (the app-wide default buddy is not a pick).
 const POMODORO_BUDDY = 'chicky';
 
-export default function PomodoroView({ goHome }) {
+export default function PomodoroView({ goHome, backToRest = false }) {
   // The buddy is the one kept for every screen (lib/buddy.js), live; with no
   // pick Pomodoro keeps its chick.
   const { id: selectedBuddyId, buddy: selectedBuddy } = useBuddy(POMODORO_BUDDY);
@@ -167,7 +167,7 @@ export default function PomodoroView({ goHome }) {
         gap: 16,
       }}
     >
-      <BackBar onBack={goHome} label="หน้าแรก" subtitle="Pomodoro โฟกัสกับคู่หู" />
+      <BackBar onBack={goHome} label={backToRest ? 'พักใจ' : 'หน้าแรก'} subtitle="โฟกัสกับคู่หู" />
 
       {/* Title — short, no clutter; the ring is the hero. */}
       <h1
@@ -179,7 +179,7 @@ export default function PomodoroView({ goHome }) {
           textAlign: 'center',
         }}
       >
-        🍅 Pomodoro
+        🍅 จับเวลาโฟกัส
       </h1>
 
       {/* Buddy selector: a pick here is the buddy on every screen */}

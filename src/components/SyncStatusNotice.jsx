@@ -147,7 +147,7 @@ export default function SyncStatusNotice({
               border: '1px solid currentColor',
               background: 'transparent',
             }}
-            aria-label="เล่นมินิเกมระหว่างรอเน็ตกลับ"
+            aria-label="เล่นเกมลูกไก่หนีเชื้อโรคระหว่างรอเน็ตกลับ"
           >
             🎮 เล่นเกม
           </button>

@@ -1166,18 +1166,19 @@ export default function CommandPalette({
 
   const indexTotal = items.length;
 
+  // Cleared when it closes, not when it opens. An effect runs after the box is
+  // on screen, so clearing on open wiped what a quick typist had already typed
+  // (seen on vetmock.com in WebKit, 5.144.4); the next open starts clean anyway.
   useEffect(() => {
-    if (open) {
-      setQuery('');
-      setDebouncedQuery('');
-      setActiveIdx(0);
-      setExpandedGroups(new Map());
-      setAsk(null);
-      setAgent(null);
-      setVoice(null);
-    } else {
-      try { recRef.current?.stop(); } catch { /* closing while idle */ }
-    }
+    if (open) return undefined;
+    try { recRef.current?.stop(); } catch { /* closing while idle */ }
+    setQuery('');
+    setDebouncedQuery('');
+    setActiveIdx(0);
+    setExpandedGroups((groups) => (groups.size ? new Map() : groups));
+    setAsk(null);
+    setAgent(null);
+    setVoice(null);
     return undefined;
   }, [open]);
 

@@ -3,8 +3,9 @@
 //
 // Reachable two ways:
 //   1. Auto-suggested when navigator.onLine flips false (banner in App)
-//   2. Manual easter egg: tap the offline-status pill or use the
-//      🎮 button in the footer (so it works even when online).
+//   2. The พักใจ page's game door, search, and /app/game (the footer link
+//      went in 5.144.5, when the rest place became the game's one home).
+//      Opened from พักใจ, its back control returns there.
 //
 // Why a separate view (vs. a modal): the game wants the whole screen
 // real estate on mobile, and tab away / Escape should restore the
@@ -13,14 +14,14 @@
 // ──────────────────────────────────────────────────────────────────
 import OfflineGame from '../components/OfflineGame.jsx';
 
-export default function OfflineGameView({ goBack, online }) {
+export default function OfflineGameView({ goBack, online, backToRest = false }) {
   return (
     <div className="vmx-page" style={{ padding: '24px 16px 48px' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
         <button
           className="vmx-btn vmx-btn-ghost vmx-btn-sm"
           onClick={goBack}
-          aria-label="กลับหน้าแรก"
+          aria-label={backToRest ? 'กลับไปหน้าพักใจ' : 'กลับหน้าแรก'}
         >
           ← กลับ
         </button>
@@ -30,7 +31,7 @@ export default function OfflineGameView({ goBack, online }) {
       </div>
 
       <div style={{ textAlign: 'center', marginBottom: 16 }}>
-        <h1 style={{ margin: '0 0 4px', fontSize: 22 }}>🐤 ลูกไก่หนีเชื้อโรค</h1>
+        <h1 style={{ margin: '0 0 4px', fontSize: 22 }}>🐤 เกมลูกไก่หนีเชื้อโรค</h1>
         <p style={{ margin: 0, fontSize: 13, color: 'var(--clr-ink-soft, #7a6f5e)' }}>
           {online
             ? 'เกมสั้น ๆ ช่วงพัก กระโดดข้ามเชื้อ Salmonella มูลไก่ และเชื้อรา แล้วหมอบหลบแมลงวัน'

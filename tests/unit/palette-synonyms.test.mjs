@@ -67,6 +67,19 @@ test('a keyword the registry never writes still reaches its feature', async () =
   } finally { view.unmount(); }
 });
 
+// 5.144.5 renamed พักกับ Mochi to พักใจ and gave the game one name. A student
+// types what the cards used to say, or what the door says now.
+test('the rest page and its game answer to their old names and to the door\'s', async () => {
+  const view = mount(CommandPalette, { open: true, onClose() {}, selectedYear: 5, signedIn: true, ownerId: 'A' });
+  try {
+    await settle(view);
+    for (const [query, label] of [['พักกับ Mochi', 'พักใจ'], ['พักกับ', 'พักใจ'], ['มินิเกม', 'เกมลูกไก่หนีเชื้อโรค'], ['เกมลูกไก่', 'เกมลูกไก่หนีเชื้อโรค'], ['ลูกไก่หนีเชื้อโรค', 'เกมลูกไก่หนีเชื้อโรค']]) {
+      await type(view, query);
+      assert.ok(labelsFor(view).some(l => l.includes(label)), `"${query}" must reach ${label}; got ${labelsFor(view).join(' | ')}`);
+    }
+  } finally { view.unmount(); }
+});
+
 test('a subject-prefixed summary keyword reaches the lecture notes', async () => {
   const view = mount(CommandPalette, { open: true, onClose() {}, selectedYear: 5, signedIn: true, ownerId: 'A' });
   try {
@@ -118,7 +131,7 @@ test('a synonym widens only feature actions and clip summaries, never a question
     // "เกม" -> "game": the mini game, but not "ligament", which hides g-a-m-e inside it.
     await type(view, 'เกม');
     const labels = labelsFor(view);
-    assert.ok(labels.some(l => l.includes('มินิเกม')), `"เกม" must still reach the mini game; got ${labels.join(' | ')}`);
+    assert.ok(labels.some(l => l.includes('เกมลูกไก่หนีเชื้อโรค')), `"เกม" must still reach the game; got ${labels.join(' | ')}`);
     assert.ok(!labels.some(l => l.includes('ligament')),
       `a question stem is matched literally only; got ${labels.join(' | ')}`);
     // The same stem is still found by its own words.
@@ -153,4 +166,25 @@ test('the palette source has no stray math symbol inside a Thai word, and the co
   const stray = source.match(new RegExp(`${thai}${block(0x2200, 0x22FF)}${thai}`, 'g')) || [];
   assert.deepEqual(stray, [], 'a symbol from the math block sits between two Thai letters');
   assert.ok(source.includes('ไม่กลายเป็นการเดา'), 'the "never a guess" note lost its tone mark again');
+});
+
+// The box is cleared when the palette closes, never by an effect after it
+// opens: that effect runs once the box is on screen, and on vetmock.com it
+// wiped what a quick typist had already typed (WebKit, 5.144.4).
+test('the palette keeps what was typed while open, and starts empty the next time', async () => {
+  const view = mount(CommandPalette, { open: true, onClose() {}, selectedYear: 5, signedIn: true, ownerId: 'A' });
+  try {
+    await settle(view);
+    await type(view, 'ketamine');
+    view.update({ open: true });
+    view.flush();
+    assert.equal(searchInput(view).props.value, 'ketamine', 'a render while open keeps the query');
+    view.update({ open: false });
+    view.flush();
+    view.update({ open: true });
+    view.flush();
+    assert.equal(searchInput(view).props.value, '', 'the next open starts empty');
+  } finally { view.unmount(); }
+  const src = readFileSync(new URL('../../src/components/CommandPalette.jsx', import.meta.url), 'utf8');
+  assert.doesNotMatch(src, /if \(open\) \{\s*setQuery\(''\)/, 'no clearing in the branch that runs on open');
 });

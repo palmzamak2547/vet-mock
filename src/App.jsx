@@ -267,6 +267,9 @@ function offerBankRetry() {
   });
 }
 
+// The rest page's two doors (see vmxRestReturn in setView).
+const REST_TOOLS = new Set(['pomodoro', 'offline-game']);
+
 // Mount inside the view's Suspense boundary: a cold chunk must finish before
 // the browser can restore a long page's scroll position.
 function ViewEntry({ view, returnScrollRef }) {
@@ -495,6 +498,10 @@ export default function App() {
   const [topicSection, setTopicSection] = useState('topics');
   useEffect(() => { window.dispatchEvent(new Event('vmx-view-change')); }, [view]);
   const viewRef = useRef(initialView);
+  // Set while a back control's history.back() is on its way: a second tap
+  // before it lands took a second step, out of VetMock (Chromium, 0 ms
+  // double click). Cleared when any traversal lands.
+  const restLeavingRef = useRef(false);
   const [mode, setMode] = useState('quick');
   // Seed from /wiki/<subject>/<topic> so a shared article link opens directly
   // on that article instead of the wiki index.
@@ -748,6 +755,10 @@ export default function App() {
           vmxNotesReturn: next === 'notes' ? notesReturnRef.current.view : null,
           vmxNotesScroll: next === 'notes' ? notesReturnRef.current.top : null,
           vmxNotesPath: next === 'notes' ? notesReturnRef.current.path : null,
+          // The timer and the game are the rest page's doors: an entry opened
+          // from it returns there (5.144.5 review: their back went Home).
+          // Always written, since the state above spreads the previous entry.
+          vmxRestReturn: REST_TOOLS.has(next) && previous === 'mochi' ? true : null,
         };
         // Wiki, Practical, and stable app destinations own canonical URLs.
         // Stateful flows return to root so refresh never reconstructs a
@@ -814,6 +825,7 @@ export default function App() {
     } catch {}
     const onPopState = (event) => {
       examStartRequestRef.current = null;
+      restLeavingRef.current = false;
       // The restored URL names the article, not just the view. Reading only
       // `isWiki` to pick 'knowledge' threw the subject and topic away, so Back
       // out of an article landed on the index instead of the article — the page
@@ -858,6 +870,7 @@ export default function App() {
           title: 'ออกจากชุดนี้?',
           body: 'ความคืบหน้าจะถูกเก็บไว้ให้กลับมาทำต่อได้',
           confirmLabel: 'ออกจากชุด',
+          scope: 'exam',
         }).then((leave) => {
           if (!leave) return;
           setVideoSubject(nextVideoSubject);
@@ -871,7 +884,12 @@ export default function App() {
       withTransition(() => setViewRaw(next));
     };
     window.addEventListener('popstate', onPopState);
-    return () => window.removeEventListener('popstate', onPopState);
+    const onPageShow = () => { restLeavingRef.current = false; };
+    window.addEventListener('pageshow', onPageShow);
+    return () => {
+      window.removeEventListener('popstate', onPopState);
+      window.removeEventListener('pageshow', onPageShow);
+    };
   }, []);
 
   // Deep components (e.g. the per-question source panel) open the library
@@ -2529,6 +2547,20 @@ export default function App() {
     setView(target, { path });
   };
 
+  // Read from the entry, so Back, Forward and a reload keep it. Only the
+  // tool's own entry counts: the exam guard re-pushes the entry it lands on,
+  // copying the flag into an exam entry, and Back from there then landed on
+  // the timer itself (the first tap did nothing).
+  const ownRestEntry = (v) => REST_TOOLS.has(v) && typeof window !== 'undefined'
+    && window.history.state?.vmxRestReturn === true && window.history.state?.vmxView === v;
+  const restReturn = ownRestEntry(view);
+  const leaveRestTool = () => {
+    if (!ownRestEntry(viewRef.current)) { goHome(); return; }
+    if (restLeavingRef.current) return;
+    restLeavingRef.current = true;
+    window.history.back();
+  };
+
   const goHome = () => {
     // Park the set as it stands right now. The autosave is throttled, and its
     // savedAt is what a resumed clock counts from: without this the resumed
@@ -2902,7 +2934,9 @@ export default function App() {
             purpose: rendered after the sidebar it was the thirteenth tab
             stop on desktop, with nothing left to skip. It is position:fixed,
             so moving it changes nothing visually. */}
-        <a href="#main" className="vmx-skip-link">ข้ามไปเนื้อหาหลัก</a>
+        {/* Focus without a history entry: the #main entry carried no state, so
+            the timer's back control said พักใจ and went Home. */}
+        <a href="#main" className="vmx-skip-link" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus(); }}>ข้ามไปเนื้อหาหลัก</a>
         {!FOCUS_VIEWS.has(view) && (
           <Sidebar
             view={view}
@@ -3081,9 +3115,9 @@ export default function App() {
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, selectedPhase, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setTopic, setView }} />}
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
               {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist }} {...{ user, goHome, onSignedOut: goHome }} />}
-              {view === 'offline-game' && <OfflineGameView goBack={goHome} online={networkOnline} />}
+              {view === 'offline-game' && <OfflineGameView goBack={leaveRestTool} backToRest={restReturn} online={networkOnline} />}
               {view === 'mochi' && <MochiView goHome={goHome} onOpenFocus={() => setView('pomodoro')} onOpenGame={() => setView('offline-game')} />}
-              {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
+              {view === 'pomodoro' && <PomodoroView goHome={leaveRestTool} backToRest={restReturn} />}
               {view === 'bench' && <BenchView goHome={goHome} />}
               {view === 'admin' && <AdminView goHome={goHome} user={user} onOpenQuestion={openQuestionById} onlineCount={onlineCount} onlineStatus={onlineStatus} />}
               {view === 'race' && user && <RaceView key={user?.id ?? 'guest'} goHome={goHome} setView={setView} user={user} profile={profile} />}

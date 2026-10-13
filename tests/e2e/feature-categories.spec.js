@@ -29,10 +29,14 @@ test('the home menu is grouped under the categories the feedback asked for', asy
   for (const rendered of await menu.locator('.vmx-feature-group-heading h3').allTextContents()) {
     expect(registered, `"${rendered.trim()}" is not a registered category`).toContain(rendered.trim());
   }
-  // The three that replaced the old module-ordered sections.
-  for (const id of ['tune', 'social', 'focus']) {
+  // Groups that replaced the old module-ordered sections. Since the game moved
+  // into the rest place (5.144.5), the social group holds only account
+  // features (race, groups), so this signed-out student has none to show; the
+  // unit test in nav-surfaces pins what it holds once signed in.
+  for (const id of ['tune', 'focus']) {
     await expect(menu.getByRole('heading', { level: 3, name: categoryLabel(id), exact: true })).toBeVisible();
   }
+  await expect(menu.getByRole('heading', { level: 3, name: categoryLabel('social'), exact: true })).toHaveCount(0);
 });
 
 test('panic mode is back in its practice group instead of vanishing from Home', async ({ page }) => {

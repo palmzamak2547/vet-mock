@@ -17,7 +17,7 @@ import {
   learnInOwnerOrder, splitLearnForRail, splitForQuickGrid,
   HOME_MENU_HIDDEN, HOME_MENU_ADMIN_ONLY, HOME_MENU_GROUP, homeMenuGroup, homeMenuVisible,
 } from '../../src/lib/nav.js';
-import { FEATURES, FEATURE_CATEGORIES, featuresByCategory, visibleFeatures } from '../../src/lib/feature-registry.js';
+import { FEATURES, FEATURE_CATEGORIES, featuresByCategory, visibleFeatures, fabFeatures } from '../../src/lib/feature-registry.js';
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
 
@@ -71,6 +71,35 @@ test('Home\'s menu policy demotes what opens elsewhere and files Atlas under too
   assert.equal(homeMenuVisible(undefined), false);
   // Demoted, not deleted: the clips and the faculty index still have a view to open.
   for (const id of HOME_MENU_HIDDEN) assert.equal(byId.get(id).invoke.kind, 'view');
+});
+
+test('the rest place is one card on Home; the timer and the game open from it and stay in search', () => {
+  // Owner 2026-10-12, "รวมเมนูพักใจ": three cards (พักกับ Mochi, จับเวลาโฟกัส,
+  // มินิเกม) were one place. The menu's own filter, signed out and in.
+  for (const signedIn of [false, true]) {
+    const onHome = (group) => visibleFeatures(
+      FEATURES.filter((f) => homeMenuGroup(f) === group && !f.primary),
+      { signedIn, scaffold: false, hasSupabase: true, selectedYear: 4 },
+    ).filter((f) => homeMenuVisible(f)).map((f) => f.id);
+    assert.deepEqual(onHome('focus'), ['mochi'], `signedIn=${signedIn}`);
+    // The social group keeps the account features; signed out it has none, so it is not drawn.
+    assert.deepEqual(onHome('social'), signedIn ? ['race', 'groups'] : [], `signedIn=${signedIn}`);
+  }
+  const byId = new Map(FEATURES.map((f) => [f.id, f]));
+  assert.equal(byId.get('mochi').label, 'พักใจ');
+  // The game belongs to the rest place, under one name (the door's).
+  assert.equal(byId.get('offline-game').category, 'focus');
+  assert.equal(byId.get('offline-game').label, 'เกมลูกไก่หนีเชื้อโรค');
+  assert.equal(byId.get('mochi').invoke.view, 'mochi');
+  // Demoted, not deleted: search and the rest page's doors still open both.
+  assert.equal(byId.get('pomodoro').invoke.view, 'pomodoro');
+  assert.equal(byId.get('offline-game').invoke.view, 'offline-game');
+  // The desktop tools button keeps the timer (a tool), not a second door to the page.
+  const fab = fabFeatures().map((f) => f.id);
+  assert.ok(fab.includes('pomodoro'));
+  assert.ok(!fab.includes('mochi'));
+  // The footer's "มินิเกม" sat under เกี่ยวกับ; the game has one home now.
+  assert.doesNotMatch(read('../../src/components/Footer.jsx'), /offline-game/);
 });
 
 test('the starred rail rows are real learn features, and every mapped line icon exists', () => {

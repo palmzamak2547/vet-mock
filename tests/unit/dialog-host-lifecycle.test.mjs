@@ -74,3 +74,20 @@ test('dialog replacement and retirement cancel pending decisions; accepted decis
   assert.equal(scoped.tree, null);
   scoped.unmount();
 });
+
+test('a decision that names its page survives that page arriving, and no other move', async () => {
+  const { DialogHost, confirmDialog } = await loadModule('tests/helpers/dialog-host-entry.js', {
+    stubs: [{ match: '/components/ConfirmDialog\\.jsx$', contents: 'export default props => ({ type: "div", props });' }],
+  });
+  // Back pressed while a set is still fading in: the question is asked while
+  // the screen still shows the timer, then the exam finishes arriving.
+  const host = mount(DialogHost, { owner: null, scope: 'pomodoro' });
+  const leave = confirmDialog({ title: 'ออกจากชุดนี้?', scope: 'exam' });
+  host.flush();
+  host.update({ owner: null, scope: 'exam' });
+  assert.equal(host.tree?.props.title, 'ออกจากชุดนี้?');
+  host.update({ owner: null, scope: 'home' });
+  assert.equal(await leave, false);
+  assert.equal(host.tree, null);
+  host.unmount();
+});

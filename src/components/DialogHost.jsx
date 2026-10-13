@@ -38,7 +38,10 @@ export default function DialogHost({ scope, owner } = {}) {
   useEffect(() => {
     const pending = reqRef.current;
     // Notices can explain a navigation result; decisions belong to their page.
-    if (!pending || pending.mode === 'alert') return;
+    // A decision that names its page stays while that page arrives: Back
+    // pressed while a set is still fading in asks "leave?" before the exam has
+    // rendered, and the exam's own arrival used to cancel the question.
+    if (!pending || pending.mode === 'alert' || pending.scope === scope) return;
     reqRef.current = null;
     setReq(null);
     pending.resolve(cancelValue(pending));

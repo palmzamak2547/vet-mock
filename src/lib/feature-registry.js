@@ -324,10 +324,13 @@ export const FEATURES = [
     invoke: { kind: 'view', view: 'pdf-annotate' },
   },
   {
-    id: 'mochi', category: 'focus', fab: true, fabHint: 'พักสมอง',
-    label: 'พักกับ Mochi', labelEn: 'Mochi break', icon: '♡',
-    hint: 'เล่น พักสายตา และตั้งค่าการเคลื่อนไหว',
-    kw: 'mochi motion effect animation มอจิ โมจิ พัก สงบ เคลื่อนไหว เกม หายใจ 3d',
+    // One rest place (owner 2026-10-12): the page holds the doors to the
+    // focus timer and the mini game, so Home shows this card alone. The
+    // tools button keeps the timer, a tool, rather than a second door here.
+    id: 'mochi', category: 'focus',
+    label: 'พักใจ', labelEn: 'Rest & focus', icon: '♡',
+    hint: 'จับเวลาโฟกัส พักสายตา และเลือกคู่หู',
+    kw: 'mochi motion effect animation มอจิ โมจิ พัก พักใจ พักกับ mochi break สงบ เคลื่อนไหว เกม หายใจ 3d คู่หู buddy',
     invoke: { kind: 'view', view: 'mochi' },
   },
   {
@@ -374,10 +377,11 @@ export const FEATURES = [
     invoke: { kind: 'voice' },
   },
   {
-    id: 'offline-game', category: 'social',
-    label: 'มินิเกม', labelEn: 'Mini game', icon: '🎮',
-    hint: 'ลูกไก่หนีเชื้อโรค (เล่นตอนออฟไลน์ได้)',
-    kw: 'game เกม มินิเกม ลูกไก่ offline เล่น สนุก',
+    // One name on the rest page's door, here, in search and on its share card.
+    id: 'offline-game', category: 'focus',
+    label: 'เกมลูกไก่หนีเชื้อโรค', labelEn: 'Chick vs germs', icon: '🎮',
+    hint: 'เกมสั้น ๆ ช่วงพัก เล่นตอนออฟไลน์ได้',
+    kw: 'game เกม มินิเกม เกมลูกไก่ ลูกไก่หนีเชื้อโรค ลูกไก่ offline เล่น สนุก',
     invoke: { kind: 'view', view: 'offline-game' },
   },
   {

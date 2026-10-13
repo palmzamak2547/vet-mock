@@ -54,9 +54,10 @@ export default function MochiView({ goHome, onOpenFocus, onOpenGame }) {
   return <div className="vmx-mochi-page">
     <BackBar onBack={goHome} label="กลับไปเรียน" />
     <header className="vmx-mochi-heading">
-      <div><img src="/motion/assets/mochi.png" width="64" height="64" className="vmx-mochi-rest-portrait" alt="" onError={artImgFallback} /><p className="vmx-eyebrow">MOCHI / STUDY BREAK</p><h1>พักกับ Mochi</h1><p>พื้นที่เล็ก ๆ ให้พักมือ พักสายตา แล้วกลับไปเรียนในจังหวะของตัวเอง</p></div>
+      <div><img src="/motion/assets/mochi.png" width="64" height="64" className="vmx-mochi-rest-portrait" alt="" onError={artImgFallback} /><p className="vmx-eyebrow">MOCHI / STUDY BREAK</p><h1>พักใจ</h1><p>โฟกัสทีละรอบ พักมือ พักสายตา แล้วกลับไปเรียนในจังหวะของตัวเอง</p></div>
       {(onOpenFocus || onOpenGame) && <div className="vmx-rest-doors">
-        {onOpenFocus && <MotionButton className="vmx-btn vmx-btn-ghost" onClick={onOpenFocus}>จับเวลาอ่านพร้อมช่วงพัก</MotionButton>}
+        {/* The timer is this page's main door; the game is a quieter ghost button (owner: "ไม่ต้องเด่น"). */}
+        {onOpenFocus && <MotionButton className="vmx-btn vmx-btn-primary" onClick={onOpenFocus}>จับเวลาโฟกัส</MotionButton>}
         {onOpenGame && <MotionButton className="vmx-btn vmx-btn-ghost" onClick={onOpenGame}>เกมลูกไก่หนีเชื้อโรค</MotionButton>}
       </div>}
     </header>
