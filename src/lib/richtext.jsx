@@ -48,10 +48,25 @@ function highlightMatches(text, query, baseKey) {
   return <>{out}</>;
 }
 
+// Chromium and WebKit break Thai by dictionary, and a word missing from it (a
+// loanword such as เลกเชอร์) can break before its silent final, so a line
+// starts with "ร์" (seen on VetWiki, 5.146.0). The silent final stays on the
+// line of the letter before it. The span holds whole clusters, a base and its
+// marks, never a mark cut from its base.
+const SILENT_FINAL_RE = /([\u{0E01}-\u{0E30}\u{0E32}\u{0E33}\u{0E40}-\u{0E46}][\u{0E31}\u{0E34}-\u{0E3A}\u{0E47}-\u{0E4E}]*[\u{0E01}-\u{0E2E}]{1,2}[\u{0E34}\u{0E38}]?\u{0E4C})/u;
+const NOBR = { whiteSpace: 'nowrap' };
+export function keepSilentFinals(text, baseKey = 'sf') {
+  const parts = String(text).split(SILENT_FINAL_RE);
+  if (parts.length === 1) return text;
+  return parts.map((p, i) => (i % 2 ? <span key={`${baseKey}-${i}`} style={NOBR}>{p}</span> : p));
+}
+
 export function RichText({ text, highlight }) {
   if (text === null || text === undefined) return null;
   const str = String(text);
   if (!str) return null;
+  // A search highlight cuts the text by its own offsets, so it wins there.
+  const plain = (s, key) => (highlight ? highlightMatches(s, highlight, key) : keepSilentFinals(s, key));
   const parts = str.split(TOKEN_RE);
   return (
     <>
@@ -61,15 +76,15 @@ export function RichText({ text, highlight }) {
         if (p.length >= 4 && p.startsWith('**') && p.endsWith('**')) {
           // Inherit color from parent so the bold stays readable on
           // dark/selected backgrounds (e.g. selected MCQ option)
-          return <strong key={i} style={{ fontWeight: 700 }}>{highlightMatches(p.slice(2, -2), highlight, i)}</strong>;
+          return <strong key={i} style={{ fontWeight: 700 }}>{plain(p.slice(2, -2), i)}</strong>;
         }
         if (p.length >= 3 && p.startsWith('*') && p.endsWith('*')) {
-          return <em key={i}>{highlightMatches(p.slice(1, -1), highlight, i)}</em>;
+          return <em key={i}>{plain(p.slice(1, -1), i)}</em>;
         }
         if (p.length >= 3 && p.startsWith('`') && p.endsWith('`')) {
           return <code key={i} style={{ fontFamily: 'var(--vmx-mono)', fontSize: '0.92em', background: 'var(--clr-surface-2)', padding: '1px 5px', borderRadius: 4 }}>{highlightMatches(p.slice(1, -1), highlight, i)}</code>;
         }
-        return <Fragment key={i}>{highlightMatches(p, highlight, i)}</Fragment>;
+        return <Fragment key={i}>{plain(p, i)}</Fragment>;
       })}
     </>
   );

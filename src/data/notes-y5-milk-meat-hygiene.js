@@ -1346,7 +1346,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
   'meat-egg-micro': {
     topic: 'meat-egg-micro',
     title: 'Microbiology of the avian egg',
-    lecturer: 'Suphachai (initials on slide) — DVM, MPVM, PhD',
+    lecturer: 'Suphachai Nuanualsuwan',
     icon: '🥚',
     summary: 'Microbial contamination → spoilage (economic) + foodborne disease (Salmonella หลัก, E. coli, Campylobacter รอง), egg shell = true shell + shell accessory, tough & flexible, protect embryogenesis.',
     sections: [

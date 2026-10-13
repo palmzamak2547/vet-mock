@@ -21,7 +21,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import FeatureTip from '../components/FeatureTip.jsx';
 import ReadingEffects from '../components/ReadingEffects.jsx';
-import { RichText } from '../lib/richtext.jsx';
+import { RichText, keepSilentFinals } from '../lib/richtext.jsx';
 import { SUBJECTS, yearForSubject } from '../data/curriculum.js';
 import { ownYearFirst, prefersCompactReading, storedSelectedYear } from '../lib/reading-layout.js';
 import { motionIsReduced } from '../lib/motion-preferences.js';
@@ -38,6 +38,10 @@ import SlideFigures from '../components/SlideFigures.jsx';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import StatePanel from '../components/StatePanel.jsx';
 import Mochi from '../components/Mochi.jsx';
+import WikiShelves, { WikiFeatured, thaiDay } from '../components/WikiShelves.jsx';
+import { Q_COUNTS_BY_TOPIC } from '../data/q-counts.js';
+import { SHELF_TOTALS } from '../lib/vetwiki/shelf.generated.js';
+import '../styles-wiki.css';
 
 const ConflictNote = React.lazy(() => import('../components/ConflictNote.jsx'));
 
@@ -53,6 +57,36 @@ const subjectMeta = (id) => SUBJECTS.find((s) => s.id === id) || null;
 const subjectName = (id) => subjectMeta(id)?.name || id.toUpperCase();
 // A subject's group in the index, as a place to scroll to.
 const subjectAnchor = (id) => `wiki-subject-${id}`;
+// A topic with a recorded disagreement between the lecture and the evidence.
+const hasConflict = (t) => conflictCountFor(t.subject, t.topic) > 0;
+
+
+// A note's shorthand runs up to 695 characters; the index row keeps about the
+// first 140, cut between words, and the article shows it whole.
+let teaserWords;
+function summaryTeaser(s, max = 140) {
+  const text = String(s || '');
+  if (Array.from(text).length <= max) return text;
+  if (teaserWords === undefined) {
+    try { teaserWords = new Intl.Segmenter('th', { granularity: 'word' }); } catch { teaserWords = null; }
+  }
+  const words = teaserWords ? Array.from(teaserWords.segment(text), (x) => x.segment) : text.split(/(\s+)/);
+  let out = '';
+  for (const w of words) {
+    if (Array.from(out + w).length > max) break;
+    out += w;
+  }
+  return `${out.trimEnd()}…`;
+}
+
+// Topics whose title or summary holds the query (every topic for none): what
+// a search shows at once, before the full text has been read.
+function titleHitsFor(topics, query) {
+  const normalized = query.toLocaleLowerCase();
+  return topics
+    .filter((entry) => !query || `${entry.title} ${entry.summary}`.toLocaleLowerCase().includes(normalized))
+    .map((entry) => ({ topic: entry, matchedSections: [], inTitle: !!query }));
+}
 
 // The newest open request (App's openNonce) this page has acted on. App keeps
 // the subject and topic it last opened in its own state, so a mount from the
@@ -71,13 +105,14 @@ function StatusBadge({ label }) {
 }
 
 // ---- note-body renderer (bullets | sub | table | callout | string) ----
+// Set by styles-wiki.css (.vw-body): 17 px Sarabun on a 30 px line.
 function NoteBody({ item }) {
-  if (typeof item === 'string') return <p style={{ margin: '0 0 12px', lineHeight: 1.75 }}><RichText text={item} /></p>;
+  if (typeof item === 'string') return <p><RichText text={item} /></p>;
   if (item?.bullets) {
     return (
-      <ul style={{ margin: '0 0 12px', paddingLeft: 20, lineHeight: 1.7 }}>
+      <ul>
         {item.bullets.map((b, i) => (
-          <li key={i} style={{ marginBottom: 7 }}>
+          <li key={i}>
             <RichText text={typeof b === 'string' ? b : `${b.label}: ${b.value}`} />
           </li>
         ))}
@@ -86,8 +121,8 @@ function NoteBody({ item }) {
   }
   if (item?.sub) {
     return (
-      <div style={{ margin: '0 0 12px' }}>
-        <div style={{ fontWeight: 600, marginBottom: 4, color: 'var(--clr-ink)' }}><RichText text={item.sub} /></div>
+      <div className="vw-body-sub">
+        <div><RichText text={item.sub} /></div>
         {(item.body || []).map((b, i) => <NoteBody key={i} item={b} />)}
       </div>
     );
@@ -95,21 +130,21 @@ function NoteBody({ item }) {
   if (item?.table) {
     const { headers = [], rows = [] } = item.table;
     return (
-      <div style={{ overflowX: 'auto', margin: '0 0 12px' }}>
-        <table style={{ borderCollapse: 'collapse', width: '100%', fontSize: 14, lineHeight: 1.5 }}>
+      <div className="vw-table">
+        <table>
           <thead><tr>{headers.map((h, i) => (
-            <th key={i} style={{ textAlign: 'left', padding: '9px 12px', borderBottom: '2px solid var(--clr-border)', color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}><RichText text={h} /></th>
+            <th key={i} style={{ whiteSpace: 'nowrap' }}><RichText text={h} /></th>
           ))}</tr></thead>
           <tbody>{rows.map((r, i) => (
             <tr key={i}>{r.map((c, j) => (
-              <td key={j} style={{ padding: '9px 12px', borderBottom: '1px solid var(--clr-border)', verticalAlign: 'top' }}><RichText text={c} /></td>
+              <td key={j}><RichText text={c} /></td>
             ))}</tr>
           ))}</tbody>
         </table>
       </div>
     );
   }
-  if (item?.callout) return <p style={{ margin: '0 0 12px', padding: '12px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', lineHeight: 1.7 }}><RichText text={item.callout} /></p>;
+  if (item?.callout) return <p className="vw-callout"><RichText text={item.callout} /></p>;
   return null;
 }
 
@@ -120,28 +155,29 @@ function NoteBody({ item }) {
 function VerifiedClaim({ claim }) {
   const ev = EVIDENCE_LABEL[claim.evidenceStatus];
   return (
-    <div style={{ marginTop: 12, padding: '12px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', borderLeft: '3px solid var(--clr-sage)' }}>
-      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center', marginBottom: 5 }}>
-        <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--clr-sage-text)' }}>✓ ตรวจทานกับแหล่งอ้างอิง</span>
+    <div className="vw-claim">
+      <div className="vw-claim-head">
+        <span>ตรวจทานกับแหล่งอ้างอิง</span>
         {ev && <StatusBadge label={ev} />}
       </div>
-      <div style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--clr-ink)' }}><RichText text={claim.statement} /></div>
-      <div style={{ marginTop: 6, display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <div className="vw-claim-text"><RichText text={claim.statement} /></div>
+      <ul className="vw-claim-sources">
         {(claim.sourceRefs || []).map((ref, i) => {
           const src = resolveSource(ref);
           if (!src) return null;
           return (
-            <div key={i} style={{ fontSize: 12.5, color: 'var(--clr-ink-soft)', lineHeight: 1.55 }}>
+            <li key={i}>
+              {/* 185 cited sources carry a title but no citation line. */}
               {src.url
-                ? <a href={src.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ocean-text)' }}>{src.citation}</a>
-                : <span>{src.citation}</span>}
+                ? <a href={src.url} target="_blank" rel="noopener noreferrer">{src.citation || src.title}</a>
+                : <span>{src.citation || src.title}</span>}
               {ref.locator ? `, ${ref.locator}` : ''}
-            </div>
+            </li>
           );
         })}
-      </div>
+      </ul>
       {Array.isArray(claim.limitations) && claim.limitations.length > 0 && (
-        <ul style={{ margin: '6px 0 0', paddingLeft: 18, fontSize: 12.5, color: 'var(--clr-ink-soft)', lineHeight: 1.55 }}>
+        <ul className="vw-claim-limits">
           {claim.limitations.map((l, i) => <li key={i}>{l}</li>)}
         </ul>
       )}
@@ -167,13 +203,13 @@ function ProvenancePanel({ prov, onClose }) {
           {prov.draftSectionCount > 0 && (
             <div style={{ flex: 1, minWidth: 130, padding: 12, borderRadius: 12, background: 'var(--clr-surface-2)' }}>
               <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--clr-ink-soft)' }}>{prov.draftSectionCount}</div>
-              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>หัวข้อรอตรวจทาน</div>
+              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>หัวข้อย่อยรอตรวจทาน</div>
             </div>
           )}
           {(prov.metadataSectionCount || 0) > 0 && (
             <div style={{ flex: 1, minWidth: 130, padding: 12, borderRadius: 12, background: 'var(--clr-surface-2)' }}>
               <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--clr-ink-soft)' }}>{prov.metadataSectionCount}</div>
-              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>ข้อมูลรายวิชา (ตาราง, เกณฑ์คะแนน)</div>
+              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>หัวข้อย่อยที่ไม่ได้ตรวจทาน</div>
             </div>
           )}
         </div>
@@ -184,8 +220,8 @@ function ProvenancePanel({ prov, onClose }) {
               {prov.sources.map((s) => (
                 <div key={s.id} style={{ fontSize: 12.5, lineHeight: 1.5, color: 'var(--clr-ink)' }}>
                   {s.url
-                    ? <a href={s.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ocean-text)' }}>{s.citation}</a>
-                    : <span>{s.citation}</span>}
+                    ? <a href={s.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ocean-text)' }}>{s.citation || s.title}</a>
+                    : <span>{s.citation || s.title}</span>}
                   <span style={{ color: 'var(--clr-ink-soft)' }}>, {s.organization}</span>
                 </div>
               ))}
@@ -194,8 +230,8 @@ function ProvenancePanel({ prov, onClose }) {
         )}
         <p style={{ fontSize: 12, lineHeight: 1.5, color: 'var(--clr-ink-soft)', marginTop: 14, paddingTop: 12, borderTop: '1px dashed var(--clr-border)' }}>
           {prov.draftSectionCount > 0
-            ? 'เนื้อหาที่รอตรวจทานมาจากโน้ตเลกเชอร์ ยังไม่ได้เทียบกับตำราต้นฉบับ — ใช้เพื่อการเรียนรู้ ไม่ใช่คำแนะนำทางคลินิก'
-            : 'ใช้เพื่อการเรียนรู้ ไม่ใช่คำแนะนำทางคลินิก — ทุกจุดความรู้บอกแหล่งอ้างอิงที่ตามไปอ่านได้'}
+            ? 'เนื้อหาที่รอตรวจทานมาจากโน้ตใน VetMock ยังไม่ได้เทียบกับแหล่งอ้างอิง ใช้เพื่อการเรียนรู้ ไม่ใช่คำแนะนำทางคลินิก'
+            : 'ใช้เพื่อการเรียนรู้ ไม่ใช่คำแนะนำทางคลินิก จุดที่ตรวจทานแล้วทุกจุดบอกแหล่งอ้างอิงที่ตามไปอ่านได้'}
         </p>
       </div>
     </div>
@@ -203,7 +239,8 @@ function ProvenancePanel({ prov, onClose }) {
 }
 
 // ================= INDEX =================
-function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject = null }) {
+// Exported for tests: mounted alone, its own state can be driven.
+export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject = null }) {
   // Survive the stale-deploy reload. When a subject chunk fails to load, the
   // app reloads to pick up a fresh deploy — correct, and not something to
   // remove — but it took the student's search term with it, so a recovery in
@@ -250,10 +287,7 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject = null 
       return undefined;
     }
     let active = true;
-    const normalized = query.toLocaleLowerCase();
-    const metadataHits = topics
-      .filter((entry) => `${entry.title} ${entry.summary}`.toLocaleLowerCase().includes(normalized))
-      .map((entry) => ({ topic: entry, matchedSections: [], inTitle: true }));
+    const metadataHits = titleHitsFor(topics, query);
     setSearchState({ query, loading: true, results: metadataHits });
     const timer = window.setTimeout(() => {
       import('../lib/vetwiki/runtime-search.js')
@@ -273,7 +307,13 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject = null 
       window.clearTimeout(timer);
     };
   }, [query, topics, retryNonce]);
-  const results = searchState.results;
+  // The render before that effect runs still holds the previous query's state
+  // (a frame of "พบ 210 จาก 210" and every row while typing "z"). Until it
+  // catches up, a query shows its title hits, no count and no empty state.
+  const settled = searchState.query === query;
+  const titleHits = useMemo(() => titleHitsFor(topics, query), [topics, query]);
+  const results = settled ? searchState.results : titleHits;
+  const searching = !!query && (!settled || searchState.loading);
   const matchById = useMemo(() => {
     const m = new Map();
     for (const r of results) m.set(r.topic.id, r.matchedSections);
@@ -286,6 +326,39 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject = null 
   const [ownYear] = useState(() => storedSelectedYear());
   const [subjectsOpenByDefault] = useState(() => !prefersCompactReading());
   const [subjectToggles, setSubjectToggles] = useState(() => new Map());
+  // The library (one shelf per year) or the list, remembered on this device.
+  // A search always lists; a subject asked for by name opens in the list.
+  const [layout, setLayoutState] = useState(() => {
+    if (focusSubject) return 'list';
+    try { return localStorage.getItem('vmx-wiki-layout') === 'list' ? 'list' : 'shelf'; } catch { return 'shelf'; }
+  });
+  const setLayout = (next) => {
+    setLayoutState(next);
+    try { localStorage.setItem('vmx-wiki-layout', next); } catch { /* the choice lasts this visit */ }
+  };
+  const [onlyConflicts, setOnlyConflicts] = useState(false);
+  // The filter belongs to the list; a search lists every hit (its control is
+  // hidden while searching, so it must not quietly cut the results).
+  const filtering = onlyConflicts && !query;
+  const showShelves = !query && layout === 'shelf';
+  // "ดูหัวข้อที่มีจุดเหล่านี้" at the foot of the page: the filtered list for
+  // this visit (the reader's own choice of view is not overwritten), with the
+  // filter's control brought into view and focused.
+  const filterRef = useRef(null);
+  const [jumpToFilter, setJumpToFilter] = useState(0);
+  useEffect(() => {
+    if (jumpToFilter) filterRef.current?.focus();
+  }, [jumpToFilter]);
+  // The count is read out once it has settled and typing has paused, not on
+  // every keystroke (the visible line above it updates at once).
+  const [announce, setAnnounce] = useState('');
+  useEffect(() => {
+    if (!query || searching) { setAnnounce(''); return undefined; }
+    const t = window.setTimeout(() => setAnnounce(results.length
+      ? `พบ ${results.length} จาก ${topics.length} หัวข้อ`
+      : `ไม่พบหัวข้อที่ตรงกับ ${query}`), 600);
+    return () => window.clearTimeout(t);
+  }, [query, searching, results.length, topics.length]);
   const groups = useMemo(() => {
     const by = new Map();
     for (const r of results) {
@@ -297,37 +370,84 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject = null 
 
   const total = topics.length;
   const shown = results.length;
+  // One heading per year, the reader's own first, then the later years first:
+  // the registry order alone mixed years with no label (COM V, then year 5).
+  const yearGroups = useMemo(() => {
+    const by = new Map();
+    for (const g of groups) {
+      const y = yearForSubject(g[0]) || 0;
+      if (!by.has(y)) by.set(y, []);
+      by.get(y).push(g);
+    }
+    const rank = (y) => (y === ownYear ? -100 : -y);
+    return [...by.entries()].sort((a, b) => rank(a[0]) - rank(b[0]));
+  }, [groups, ownYear]);
+  // "เฉพาะหัวข้อที่มีหลักฐานไม่ตรงกับที่บรรยาย": the list cut to those topics.
+  const listGroups = useMemo(() => (filtering
+    ? yearGroups
+      .map(([y, subjects]) => [y, subjects
+        .map(([id, list]) => [id, list.filter(hasConflict)])
+        .filter(([, list]) => list.length)])
+      .filter(([, subjects]) => subjects.length)
+    : yearGroups), [yearGroups, filtering]);
+  const shelfYears = useMemo(() => yearGroups.map(([y, subjects]) => [y, subjects.map(([id]) => id)]), [yearGroups]);
+  const topicsBySubject = useMemo(() => new Map(groups), [groups]);
+  // The flagship to start from, and the five topics with the most practice
+  // questions in the reader's year (every year without one). Ranked, not
+  // counted: a practice set serves only as many as it is asked for.
+  const flagship = useMemo(() => topics.find((t) => t.flagship) || null, [topics]);
+  const ranked = useMemo(() => topics
+    .filter((t) => t.id !== flagship?.id && (!ownYear || yearForSubject(t.subject) === ownYear))
+    .map((t, i) => ({ t, i, count: Q_COUNTS_BY_TOPIC[t.subject]?.[t.topic] || 0 }))
+    .filter((r) => r.count > 0)
+    .sort((a, b) => b.count - a.count || a.i - b.i)
+    .slice(0, 5)
+    .map((r) => r.t), [topics, flagship, ownYear]);
 
   return (
-    <div className="vmx-view" style={{ maxWidth: 780, margin: '0 auto' }}>
+    <div className="vmx-view vw vw-index">
       <Mochi state="read" size={44} slot="wiki-index" className="vmx-hero-mochi" />
-      <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goHome} style={{ marginBottom: 16 }}>← หน้าแรก</button>
+      <button type="button" className="vw-home" onClick={goHome}>← หน้าแรก</button>
 
-      <h1 style={{ fontFamily: 'var(--vmx-display)', fontSize: 30, margin: '0 0 6px', letterSpacing: '-0.01em' }}>VetWiki</h1>
-      <p style={{ color: 'var(--clr-ink-soft)', margin: '0 0 20px', lineHeight: 1.65, fontSize: 14.5, maxWidth: '60ch' }}>
-        คลังความรู้ที่ตรวจสอบได้ — ทุกจุดความรู้ผ่านการตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว และทุกหัวข้อบอกได้ว่าเนื้อหามาจากไหน (ข้อมูลรายวิชา เช่น ตารางสอนหรือเกณฑ์คะแนน แยกประกาศไว้ชัดเจน)
-      </p>
+      <header className="vw-mast">
+        <h1 className="vw-wordmark">Vet<em>Wiki</em></h1>
+        {/* Kept whole: on a phone the line used to end on its last word alone.
+            "ความรู้ที่เชื่อมถึงกัน" went: articles do not link across subjects yet. */}
+        <p className="vw-tagline"><span>ความรู้ที่บอกได้ว่ามาจากไหน</span></p>
+        {/* Says what the data holds: checked points are the key statements of
+            a section, not every sentence in it. */}
+        <p className="vw-lede">
+          ทุกหัวข้อบอกได้ว่าเนื้อหามาจากไหน จุดที่ตรวจทานกับแหล่งอ้างอิงภายนอกแล้วมีแหล่งให้ตามไปอ่าน และหัวข้อย่อยที่ไม่ได้ตรวจทานมีป้ายบอกไว้
+        </p>
+        <ul className="vw-totals" aria-label="ในคลังนี้">
+          <li><b>{SHELF_TOTALS.topics.toLocaleString('en-US')}</b>หัวข้อ</li>
+          <li><b>{SHELF_TOTALS.sections.toLocaleString('en-US')}</b>หัวข้อย่อย</li>
+          <li><b>{SHELF_TOTALS.claims.toLocaleString('en-US')}</b>จุดที่ตรวจทานแล้ว</li>
+          <li><b>{SHELF_TOTALS.sources.toLocaleString('en-US')}</b>แหล่งอ้างอิง</li>
+        </ul>
+      </header>
 
       <FeatureTip id="knowledge" surface="index" />
 
       <label htmlFor="vw-search" className="vmx-sr-only" style={{ position: 'absolute', left: -9999 }}>ค้นหาในวิกิ</label>
       <input
         id="vw-search" type="search" value={q} onChange={(e) => setQ(e.target.value)}
-        placeholder="ค้นหาหัวข้อ เช่น rabies, วัคซีน, protozoa"
-        className="vmx-fill-input"
-        style={{ width: '100%', marginBottom: 8, boxSizing: 'border-box' }}
+        placeholder="ค้นชื่อโรค อาการ หรือคำในเนื้อหา"
+        className="vw-search"
       />
-      <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 18, fontFamily: 'var(--vmx-mono)' }}>
+      {/* The count shows during a search; the masthead already says how many. */}
+      <p className="vw-search-count">
         {query
-          ? searchState.loading ? 'กำลังค้นหาในเนื้อหาทุกหัวข้อ…' : `${shown} / ${total} หัวข้อ`
-          : `${total} หัวข้อ`}
-      </div>
+          ? searching ? 'กำลังค้นหาในเนื้อหาทุกหัวข้อ…' : `พบ ${shown} จาก ${total} หัวข้อ`
+          : ''}
+      </p>
+      <p className="vmx-sr-only" role="status">{announce}</p>
 
       {/* An incomplete search is a different answer from "found nothing", so it
           is never presented as a finished one. -1 means the whole full-text
           pass failed and only titles and summaries were matched. */}
-      {query && !searchState.loading && searchState.incomplete ? (
-        <div style={{ padding: 10, borderRadius: 10, background: 'var(--clr-gold-soft)', marginBottom: 14, fontSize: 12.5 }}>
+      {query && !searching && searchState.incomplete ? (
+        <div className="vw-notice">
           {searchState.incomplete === -1
             ? 'ค้นได้เฉพาะชื่อหัวข้อและคำโปรย เพราะโหลดเนื้อหาไม่สำเร็จ ผลจึงยังไม่ครบ'
             : `ค้นไม่ครบ ${searchState.incomplete} วิชา เพราะโหลดเนื้อหาไม่สำเร็จ`}
@@ -337,7 +457,41 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject = null 
         </div>
       ) : null}
 
-      {groups.length === 0 && (
+      {!query && (
+        <div className="vw-view-bar">
+          <div className="vw-view-switch" role="group" aria-label="มุมมอง">
+            <button type="button" aria-pressed={showShelves} onClick={() => setLayout('shelf')}>ชั้นหนังสือ</button>
+            <button type="button" aria-pressed={!showShelves} onClick={() => setLayout('list')}>รายการ</button>
+          </div>
+          {!showShelves && (
+            <button type="button" ref={filterRef} className="vw-filter" aria-pressed={onlyConflicts} onClick={() => setOnlyConflicts((v) => !v)}>
+              เฉพาะหัวข้อที่มีหลักฐานไม่ตรงกับที่บรรยาย
+            </button>
+          )}
+        </div>
+      )}
+
+      {showShelves && flagship && (
+        <WikiFeatured
+          flagship={flagship}
+          ranked={ranked}
+          heading={ownYear ? `หัวข้อที่มีโจทย์ฝึกมากที่สุดในปี ${ownYear}` : 'หัวข้อที่มีโจทย์ฝึกมากที่สุด'}
+          subjectInfo={(id) => ({ name: subjectName(id), code: subjectMeta(id)?.code || '' })}
+          onOpenTopic={onOpen}
+        />
+      )}
+
+      {showShelves && (
+        <WikiShelves
+          years={shelfYears}
+          ownYear={ownYear}
+          topicsBySubject={topicsBySubject}
+          subjectInfo={(id) => ({ name: subjectName(id), code: subjectMeta(id)?.code || '' })}
+          onOpenTopic={onOpen}
+        />
+      )}
+
+      {query && !searching && groups.length === 0 && (
         <div className="vmx-empty">
           ไม่พบหัวข้อที่ตรงกับ “{q}”
           {/* One way on from an empty result: back to every subject. */}
@@ -347,107 +501,120 @@ function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject = null 
         </div>
       )}
 
-      {groups.map(([subjectId, list]) => {
-        const meta = subjectMeta(subjectId);
-        // A subject asked for by name (the search card's VetWiki button)
-        // starts open, folded or not; a tap still wins.
-        const open = query ? true
-          : subjectToggles.has(subjectId) ? subjectToggles.get(subjectId)
-          : subjectId === focusSubject || subjectsOpenByDefault;
-        const label = (
-          <>
-            <span className="vmx-wiki-subject-title">
-              <span className="vmx-wiki-subject-name">{subjectName(subjectId)}</span>
-              {meta?.code && <span className="vmx-wiki-subject-code">{meta.code}</span>}
-            </span>
-            <span className="vmx-wiki-subject-count">{list.length} หัวข้อ</span>
-          </>
-        );
-        return (
-          <section key={subjectId} id={subjectAnchor(subjectId)} className="vmx-wiki-subject" style={{ scrollMarginTop: 'var(--space-4)' }}>
-            <h2 className="vmx-wiki-subject-heading">
-              {query ? <span className="vmx-wiki-subject-row">{label}</span> : (
-                <button
-                  type="button"
-                  className="vmx-wiki-subject-row vmx-wiki-subject-toggle"
-                  aria-expanded={open}
-                  onClick={() => setSubjectToggles((prev) => new Map(prev).set(subjectId, !open))}
-                >
-                  {label}
-                  <span aria-hidden="true" className="vmx-wiki-subject-chevron">{open ? '▾' : '▸'}</span>
-                </button>
-              )}
-            </h2>
-            {open && (
-            <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
-              {list.map((t) => (
-                <li key={t.id}>
-                  <button
-                    type="button" onClick={() => onOpen(t.id)}
-                    style={{ all: 'unset', boxSizing: 'border-box', cursor: 'pointer', display: 'flex', gap: 11, alignItems: 'flex-start', width: '100%', padding: '11px 10px', borderRadius: 10, minHeight: 44 }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--clr-surface-2)'; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
-                  >
-                    {/* No per-topic emoji — a reference list is grouped by subject,
-                        so a decorative glyph per row is noise that stops scaling
-                        once the corpus grows (Palm's "emoji won't scale" note).
-                        A thin subject-toned rule anchors the row instead. */}
-                    <span aria-hidden="true" style={{ alignSelf: 'stretch', width: 3, flexShrink: 0, borderRadius: 2, background: 'var(--clr-sage-soft)' }} />
-                    <span style={{ flex: 1, minWidth: 0 }}>
-                      <span style={{ display: 'block', fontSize: 15, fontWeight: 600, color: 'var(--clr-ocean-text)', lineHeight: 1.35 }}>
-                        {t.title}
-                        {/* Counted from corrections.js, so a row can only claim
-                            a disagreement that is actually written down. The
-                            words are the article header's own: a bare "!6"
-                            explained only by a title meant nothing on a phone. */}
-                        {conflictCountFor(t.subject, t.topic) > 0 && (
-                          <span
-                            title="มีจุดที่หลักฐานไม่ตรงกับที่บรรยาย"
-                            style={{ display: 'inline-block', marginLeft: 7, padding: '0 8px', border: '1px solid currentColor', borderRadius: 999, fontSize: 11.5, fontWeight: 600, lineHeight: 1.6, color: 'var(--clr-rose-text)', whiteSpace: 'nowrap', verticalAlign: 'middle' }}
-                          >
-                            หลักฐานไม่ตรงกับที่บรรยาย {conflictCountFor(t.subject, t.topic)} จุด
-                          </span>
-                        )}
-                      </span>
-                      {t.summary && <span style={{ display: 'block', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.55, marginTop: 2, overflowWrap: 'anywhere' }}>{t.summary}</span>}
-                    </span>
-                  </button>
-                  {/* Which sections matched — a hit is only useful if you can
-                      see where in the article it landed, and go there. Outside
-                      the row button: each heading is its own control, and
-                      opens the article at that section. */}
-                  {query && (matchById.get(t.id) || []).length > 0 && (
-                    <div style={{ fontSize: 12, color: 'var(--clr-sage-text)', lineHeight: 1.5, padding: '0 10px 8px 24px', marginTop: -6 }}>
-                      พบใน:{' '}
-                      {(matchById.get(t.id) || []).slice(0, 3).map((s, i) => (
-                        <React.Fragment key={s.id}>
-                          {i > 0 ? ', ' : ''}
-                          <button
-                            type="button"
-                            onClick={() => onOpenSection?.(t.id, s.id)}
-                            title={`เปิดที่หัวข้อ ${s.heading}`}
-                            style={{ all: 'unset', cursor: 'pointer', color: 'inherit', textDecoration: 'underline', textUnderlineOffset: 2, padding: '2px 0' }}
-                          >
-                            {s.heading}
-                          </button>
-                        </React.Fragment>
-                      ))}
-                      {(matchById.get(t.id) || []).length > 3 ? ` และอีก ${(matchById.get(t.id) || []).length - 3} หัวข้อ` : ''}
-                    </div>
+      {!showShelves && listGroups.map(([year, yearList]) => (
+        <React.Fragment key={year}>
+          <h2 className="vw-year">
+            {year ? `ปี ${year}` : 'วิชาอื่น'}
+            {year && year === ownYear ? <small>ปีของคุณ</small> : null}
+          </h2>
+          {yearList.map(([subjectId, list]) => {
+            const meta = subjectMeta(subjectId);
+            // A subject asked for by name (the search card's VetWiki button)
+            // starts open, folded or not; a tap still wins.
+            const open = query || filtering ? true
+              : subjectToggles.has(subjectId) ? subjectToggles.get(subjectId)
+              : subjectId === focusSubject || subjectsOpenByDefault;
+            const label = (
+              <>
+                <span className="vmx-wiki-subject-title">
+                  <span className="vmx-wiki-subject-name">{subjectName(subjectId)}</span>
+                  {meta?.code && <span className="vmx-wiki-subject-code">{meta.code}</span>}
+                </span>
+                <span className="vmx-wiki-subject-count">{list.length} หัวข้อ</span>
+              </>
+            );
+            return (
+              <section key={subjectId} id={subjectAnchor(subjectId)} className="vmx-wiki-subject" style={{ scrollMarginTop: 'var(--space-4)' }}>
+                <h3 className="vmx-wiki-subject-heading">
+                  {/* Searching or filtering, every subject shows its rows, so a
+                      toggle here would do nothing now and fold the subject later. */}
+                  {query || filtering ? <span className="vmx-wiki-subject-row">{label}</span> : (
+                    <button
+                      type="button"
+                      className="vmx-wiki-subject-row vmx-wiki-subject-toggle"
+                      aria-expanded={open}
+                      onClick={() => setSubjectToggles((prev) => new Map(prev).set(subjectId, !open))}
+                    >
+                      {label}
+                      <span aria-hidden="true" className="vmx-wiki-subject-chevron">{open ? '▾' : '▸'}</span>
+                    </button>
                   )}
-                </li>
-              ))}
-            </ul>
-            )}
-          </section>
-        );
-      })}
+                </h3>
+                {open && (
+                <ul className="vw-topics">
+                  {list.map((t) => (
+                    <li key={t.id}>
+                      <button type="button" className="vw-topic" onClick={() => onOpen(t.id)}>
+                        {/* No per-topic emoji: a reference list is grouped by
+                            subject, so a decorative glyph per row is noise that
+                            stops scaling once the corpus grows. A thin
+                            subject-toned rule anchors the row instead. */}
+                        <span aria-hidden="true" className="vw-topic-rule" />
+                        <span className="vw-topic-text">
+                          <span className="vw-topic-title">{keepSilentFinals(t.title)}</span>
+                          {/* Counted from corrections.js, so a row can only claim
+                              a disagreement that is actually written down, in the
+                              article header's own words. */}
+                          {conflictCountFor(t.subject, t.topic) > 0 && (
+                            <span
+                              title="มีจุดที่หลักฐานไม่ตรงกับที่บรรยาย"
+                              className="vw-conflict-chip"
+                            >
+                              หลักฐานไม่ตรงกับที่บรรยาย {conflictCountFor(t.subject, t.topic)} จุด
+                            </span>
+                          )}
+                          {t.summary && <span className="vw-topic-summary">{keepSilentFinals(summaryTeaser(t.summary))}</span>}
+                        </span>
+                      </button>
+                      {/* Which sections matched: a hit is only useful if you can
+                          see where in the article it landed, and go there. Each
+                          heading is its own control, outside the row button. */}
+                      {query && (matchById.get(t.id) || []).length > 0 && (
+                        <div className="vw-found">
+                          พบใน:{' '}
+                          {(matchById.get(t.id) || []).slice(0, 3).map((s, i) => (
+                            <React.Fragment key={s.id}>
+                              {i > 0 ? ', ' : ''}
+                              <button
+                                type="button"
+                                onClick={() => onOpenSection?.(t.id, s.id)}
+                                title={`เปิดที่หัวข้อย่อย ${s.heading}`}
+                              >
+                                {keepSilentFinals(s.heading)}
+                              </button>
+                            </React.Fragment>
+                          ))}
+                          {(matchById.get(t.id) || []).length > 3 ? ` และอีก ${(matchById.get(t.id) || []).length - 3} หัวข้อย่อย` : ''}
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+                )}
+              </section>
+            );
+          })}
+        </React.Fragment>
+      ))}
+
+      {!query && (
+        <footer className="vw-colophon">
+          <p>
+            <b>หลักฐานไม่ตรงกับที่บรรยาย {SHELF_TOTALS.conflicts.toLocaleString('en-US')} จุด ใน {SHELF_TOTALS.conflictTopics.toLocaleString('en-US')} หัวข้อ</b>
+            {' '}แต่ละจุดแสดงทั้งที่บรรยายสอนและที่แหล่งอ้างอิงพบ พร้อมคำแนะนำเวลาสอบ
+          </p>
+          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => { setLayoutState('list'); setOnlyConflicts(true); setJumpToFilter((n) => n + 1); }}>
+            ดูหัวข้อที่มีจุดเหล่านี้
+          </button>
+          {SHELF_TOTALS.newestReview && <p className="vw-colophon-date">ตรวจทานครั้งล่าสุด {thaiDay(SHELF_TOTALS.newestReview)}</p>}
+        </footer>
+      )}
     </div>
   );
 }
 
 // ================= ARTICLE =================
-function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, related, goPractice, practiceLabel, goNotes, onShowProv, shareUrl }) {
+function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, related, chapter, goPractice, practiceLabel, goNotes, onShowProv, shareUrl }) {
   const [copied, setCopied] = useState('');
   const copyTimer = useRef(null);
   useEffect(() => () => clearTimeout(copyTimer.current), []);
@@ -474,7 +641,9 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
     return () => { io.disconnect(); endIo?.disconnect(); };
   }, [knowledge?.id]);
   const jumpTo = (el) => el?.scrollIntoView({ block: 'start', behavior: motionIsReduced() ? 'auto' : 'smooth' });
+  const [tocOpen, setTocOpen] = useState(() => !prefersCompactReading());
   const backToContents = () => {
+    setTocOpen(true);
     jumpTo(tocRef.current);
     tocRef.current?.focus({ preventScroll: true });
   };
@@ -494,7 +663,8 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
   // lib/clipboard.js already implements the fallback chain.
   const copyAnchor = async (sectionId) => {
     const url = wikiUrl(window.location.origin, current.subject, current.topic, sectionId);
-    const ok = await copyText(url);
+    // copyText answers { ok, ... }; the object itself is always truthy.
+    const { ok } = await copyText(url);
     setCopied(ok ? sectionId : `fail:${sectionId}`);
     clearTimeout(copyTimer.current);
     copyTimer.current = setTimeout(() => setCopied(''), 1600);
@@ -517,124 +687,217 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
     [knowledge],
   );
 
+  // One "แชร์" menu in place of three buttons: copy the link, the phone's own
+  // share sheet where there is one, and print (where saving a PDF lives).
+  const [shareOpen, setShareOpen] = useState(false);
+  const shareRef = useRef(null);
+  const shareButtonRef = useRef(null);
+  // Closed from the keyboard or by choosing an item, the menu hands focus back
+  // to แชร์ (it used to drop to <body>); a tap elsewhere keeps its own focus.
+  const closeShare = () => { setShareOpen(false); shareButtonRef.current?.focus(); };
+  useEffect(() => {
+    if (!shareOpen) return undefined;
+    const away = (e) => { if (!shareRef.current?.contains(e.target)) setShareOpen(false); };
+    const esc = (e) => { if (e.key === 'Escape') { setShareOpen(false); shareButtonRef.current?.focus(); } };
+    document.addEventListener('pointerdown', away);
+    document.addEventListener('keydown', esc);
+    return () => { document.removeEventListener('pointerdown', away); document.removeEventListener('keydown', esc); };
+  }, [shareOpen]);
+  // The menu opens upward when there is no room under the button: on a phone
+  // the button can sit just above the tab bar, which covered the menu.
+  const [shareUp, setShareUp] = useState(false);
+  const toggleShare = () => {
+    if (!shareOpen) {
+      const r = shareButtonRef.current?.getBoundingClientRect();
+      const nav = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--vmx-bottom-nav-h')) || 0;
+      setShareUp(!!r && r.bottom + 170 > window.innerHeight - nav && r.top > 170);
+    }
+    setShareOpen((v) => !v);
+  };
+  // Tabbing out of the menu closes it. Only a move to another element counts:
+  // Safari does not focus a button it clicks, so a click on an item blurs to
+  // nothing and must not close the menu before the click lands.
+  const onShareBlur = (e) => {
+    if (e.relatedTarget && !shareRef.current?.contains(e.relatedTarget)) setShareOpen(false);
+  };
+  const copyPage = async () => {
+    closeShare();
+    const { ok } = await copyText(shareUrl);
+    setCopied(ok ? '__page__' : 'fail:__page__');
+    clearTimeout(copyTimer.current);
+    copyTimer.current = setTimeout(() => setCopied(''), 1600);
+  };
+  const canShare = typeof navigator !== 'undefined' && typeof navigator.share === 'function';
+  const sharePage = async () => {
+    closeShare();
+    try { await navigator.share({ title: knowledge.title, url: shareUrl }); } catch { /* closed, or refused: nothing to undo */ }
+  };
+  // What a copy did, read out: the button's own label changes out of sight
+  // of a screen reader.
+  const copiedSaid = !copied ? '' : copied.startsWith('fail:') ? 'คัดลอกไม่สำเร็จ'
+    : copied === '__page__' ? 'คัดลอกลิงก์แล้ว' : 'คัดลอกลิงก์หัวข้อย่อยแล้ว';
+  const sourceCount = prov?.sources?.length || 0;
+
   return (
-    <div className="vmx-view" style={{ maxWidth: 680, margin: '0 auto' }}>
+    <div className="vmx-view vw vw-article">
       <Mochi state="read" size={36} slot="wiki-reading" className="vmx-hero-mochi" />
       <FeatureTip id="knowledge" surface="article" />
-      {/* Breadcrumb */}
-      <nav aria-label="breadcrumb" style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center', fontSize: 12.5, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
-        <button type="button" onClick={onBackToIndex} style={{ all: 'unset', cursor: 'pointer', color: 'var(--clr-ocean-text)', minHeight: 44, display: 'inline-flex', alignItems: 'center' }}>VetWiki</button>
+      {/* Breadcrumb, with the chapter's place in its subject */}
+      <nav aria-label="breadcrumb" className="vw-crumbs">
+        <button type="button" onClick={onBackToIndex}>VetWiki</button>
         <span aria-hidden="true">›</span>
         <span>{subjectName(current.subject)}</span>
-        <span aria-hidden="true">›</span>
-        <span style={{ color: 'var(--clr-ink)' }}>{knowledge.title}</span>
+        {chapter && <span className="vw-chapter">หัวข้อที่ {chapter.index} จาก {chapter.count}</span>}
       </nav>
 
-      {/* Title — plain text, no emoji (citable, screen-reader clean) */}
-      <h1 style={{ fontFamily: 'var(--vmx-display)', fontSize: 28, margin: '0 0 8px', lineHeight: 1.2, letterSpacing: '-0.01em' }}>{knowledge.title}</h1>
+      {/* Title: plain text, no emoji (citable, screen-reader clean) */}
+      <h1 className="vw-title">{keepSilentFinals(knowledge.title, 't')}</h1>
+      {/* A person or nothing: "TBD" names nobody (topics built from MSD
+          tables have no lecturer at all; tests/unit/wiki-bylines.test.mjs). */}
+      {knowledge.lecturer && !/^tbd\b/i.test(knowledge.lecturer) && <p className="vw-byline">บรรยายโดย {knowledge.lecturer}</p>}
+      {knowledge.summary && <p className="vw-dek">{keepSilentFinals(knowledge.summary, 'd')}</p>}
 
-      {/* Metadata line */}
-      {/* Body face: the mono face has no Thai, so บรรยาย and จุด used to fall
-          back to another font in the middle of the line. */}
-      <div className="vmx-wiki-meta">
-        {knowledge.lecturer && <span>บรรยาย: {knowledge.lecturer}</span>}
-        <span>{knowledge.sections.length} หัวข้อย่อย</span>
-        {prov?.verifiedClaimCount > 0 && <span style={{ color: 'var(--clr-sage-text)' }}>ตรวจทานแล้ว {prov.verifiedClaimCount} จุด</span>}
-        {conflictCount > 0 && (
-          <a
-            href={`#${firstConflictId}`}
-            className="vmx-wiki-meta-link"
-            onClick={(e) => { e.preventDefault(); jumpTo(document.getElementById(firstConflictId)); }}
-            style={{ color: 'var(--clr-rose-text)', fontWeight: 700 }}
-          >
-            หลักฐานไม่ตรงกับที่บรรยาย {conflictCount} จุด
-          </a>
-        )}
-        {lastReviewed && <span>ตรวจทานล่าสุด {lastReviewed}</span>}
-      </div>
-
-      {knowledge.summary && (
-        <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--clr-ink)', margin: '0 0 18px', paddingLeft: 14, borderLeft: '3px solid var(--clr-border)' }}>
-          {knowledge.summary}
-        </p>
+      {/* Provenance: one strip in place of the meta line, the provenance box
+          and the sources button. An absent count is left out, not shown as 0,
+          which would read as "checked and found none"; an article with no
+          checked point says so in words instead. */}
+      {prov && prov.verifiedClaimCount === 0 && <p className="vw-strip-note">{prov.headline}</p>}
+      {/* Sources and the review date exist only with checked points, so with
+          neither checked points nor conflicts the strip would be an empty box. */}
+      {prov && (prov.verifiedClaimCount > 0 || conflictCount > 0) && (
+        <div className="vw-strip">
+          {prov.verifiedClaimCount > 0 && (
+            <button type="button" className="vw-strip-cell" onClick={onShowProv}>
+              <b>{prov.verifiedClaimCount.toLocaleString('en-US')}</b>
+              <span>จุดที่ตรวจทานแล้ว</span>
+            </button>
+          )}
+          {sourceCount > 0 && (
+            <button type="button" className="vw-strip-cell" onClick={onShowProv}>
+              <b>{sourceCount.toLocaleString('en-US')}</b>
+              <span>แหล่งอ้างอิง</span>
+            </button>
+          )}
+          {conflictCount > 0 && (
+            <a
+              href={`#${firstConflictId}`}
+              className="vw-strip-cell is-conflict"
+              onClick={(e) => { e.preventDefault(); jumpTo(document.getElementById(firstConflictId)); }}
+            >
+              <b aria-hidden="true">{conflictCount}</b>
+              <span aria-hidden="true">หลักฐานไม่ตรงกับที่บรรยาย</span>
+              <span className="vmx-sr-only">หลักฐานไม่ตรงกับที่บรรยาย {conflictCount} จุด</span>
+            </a>
+          )}
+          {lastReviewed && (
+            <button type="button" className="vw-strip-cell is-date" onClick={onShowProv}>
+              <b>{thaiDay(lastReviewed)}</b>
+              <span>ตรวจทานล่าสุด</span>
+            </button>
+          )}
+        </div>
       )}
-
-      {/* Provenance trigger */}
       {prov && (
-        <button type="button" onClick={onShowProv}
-          style={{ all: 'unset', cursor: 'pointer', boxSizing: 'border-box', display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', padding: '10px 14px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', marginBottom: 16, minHeight: 44, width: '100%' }}>
-          <span style={{ fontSize: 12.5, color: 'var(--clr-ink-soft)', flex: 1, minWidth: 0 }}>{prov.headline}</span>
-          <span className="vmx-chip" style={{ fontSize: 12, fontWeight: 600, color: 'var(--clr-sage-text)' }}>VetMock รู้เรื่องนี้ได้อย่างไร?</span>
-        </button>
+        <button type="button" className="vw-how" onClick={onShowProv}>VetMock รู้เรื่องนี้ได้อย่างไร?</button>
       )}
 
       {/* Actions */}
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 22 }}>
+      <div className="vw-actions">
         <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={goPractice}>{practiceLabel}</button>
         <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goNotes}>อ่านโน้ตเต็ม</button>
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onShowProv}>ดูแหล่งอ้างอิง</button>
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-          onClick={async () => { const ok = await copyText(shareUrl); setCopied(ok ? '__page__' : 'fail:__page__'); clearTimeout(copyTimer.current); copyTimer.current = setTimeout(() => setCopied(''), 1600); }}>
-          {copied === '__page__' ? '✓ คัดลอกลิงก์แล้ว' : copied === 'fail:__page__' ? 'คัดลอกไม่สำเร็จ' : 'คัดลอกลิงก์'}
-        </button>
-        {/* The same print entry the notes page has; the browser's print sheet
-            is where saving as PDF lives. Print styles drop the controls. */}
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => window.print()}
-          title="พิมพ์ หรือเลือกบันทึกเป็น PDF จากหน้าพิมพ์ของเบราว์เซอร์">
-          พิมพ์
-        </button>
+        <div className="vw-share" ref={shareRef} onBlur={onShareBlur}>
+          <button type="button" ref={shareButtonRef} className="vmx-btn vmx-btn-ghost vmx-btn-sm" aria-expanded={shareOpen} onClick={toggleShare}>
+            {copied === '__page__' ? '✓ คัดลอกลิงก์แล้ว' : copied === 'fail:__page__' ? 'คัดลอกไม่สำเร็จ' : 'แชร์'}
+          </button>
+          {shareOpen && (
+            <ul className={`vw-share-menu${shareUp ? ' is-up' : ''}`}>
+              <li><button type="button" onClick={copyPage}>คัดลอกลิงก์</button></li>
+              {canShare && <li><button type="button" onClick={sharePage}>ส่งผ่านแอปอื่น</button></li>}
+              <li>
+                <button type="button" onClick={() => { closeShare(); window.print(); }}
+                  title="พิมพ์ หรือเลือกบันทึกเป็น PDF จากหน้าพิมพ์ของเบราว์เซอร์">
+                  พิมพ์หรือบันทึก PDF
+                </button>
+              </li>
+            </ul>
+          )}
+        </div>
       </div>
+      <p className="vmx-sr-only" role="status">{copiedSaid}</p>
 
-      {/* Table of contents */}
+      {/* Contents: numbered, and marked only where something differs from the
+          norm (1,625 of 1,783 sections are checked, so a tick on each was noise). */}
       {knowledge.sections.length > 2 && (
-        <nav ref={tocRef} tabIndex={-1} className="vmx-wiki-toc" aria-label="สารบัญ" style={{ marginBottom: 22, padding: '14px 16px', borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', boxShadow: 'var(--shadow-sm)' }}>
-          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 8 }}>สารบัญ</div>
-          <ol style={{ margin: 0, paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 3 }}>
-            {knowledge.sections.map((s) => (
+        <nav ref={tocRef} tabIndex={-1} className="vmx-wiki-toc vw-toc" aria-label="สารบัญ">
+          <div className="vw-toc-head">
+            {/* Folded at first on a phone: nine entries pushed the first
+                section a screen and a half down. */}
+            <h2>
+              <button type="button" className="vw-toc-toggle" aria-expanded={tocOpen} onClick={() => setTocOpen((v) => !v)}>
+                สารบัญ {knowledge.sections.length} หัวข้อย่อย
+                <span aria-hidden="true">{tocOpen ? '▾' : '▸'}</span>
+              </button>
+            </h2>
+            {tocOpen && conflictCount > 0 && (
+              <p><span className="vw-flag" aria-hidden="true">!</span> คือมีจุดที่หลักฐานไม่ตรงกับที่บรรยาย</p>
+            )}
+          </div>
+          {tocOpen && (
+          <ol className={knowledge.sections.length > 6 ? 'is-long' : undefined}>
+            {knowledge.sections.map((s, i) => (
               <li key={s.id}>
+                <span className="vw-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                 <a href={`#${s.id}`}
                   className="vmx-wiki-toc-link"
-                  onClick={(e) => { e.preventDefault(); jumpTo(document.getElementById(s.id)); }}
-                  style={{ fontSize: 14, color: 'var(--clr-ocean-text)', lineHeight: 1.6 }}>
-                  {s.heading}
+                  onClick={(e) => { e.preventDefault(); jumpTo(document.getElementById(s.id)); }}>
+                  {keepSilentFinals(s.heading)}
                 </a>
-                {(s.claims || []).some((c) => c.reviewStatus === 'verified') && (
-                  <span title="มีจุดที่ตรวจทานกับแหล่งอ้างอิงแล้ว" style={{ color: 'var(--clr-sage-text)', fontSize: 11, marginLeft: 6 }}>✓</span>
-                )}
                 {s.corrections?.length > 0 && (
-                  <span title="หลักฐานไม่ตรงกับที่บรรยาย" style={{ color: 'var(--clr-rose-text)', fontSize: 11, marginLeft: 5, fontWeight: 700 }}>!</span>
+                  <span className="vw-flag" title="หลักฐานไม่ตรงกับที่บรรยาย">
+                    <span aria-hidden="true">!</span>
+                    <span className="vmx-sr-only">มีจุดที่หลักฐานไม่ตรงกับที่บรรยาย</span>
+                  </span>
                 )}
+                {s.reviewStatus === 'metadata' && <span className="vw-meta-tag">{REVIEW_LABEL.metadata.th}</span>}
               </li>
             ))}
           </ol>
+          )}
         </nav>
       )}
 
       {/* Sections */}
       <ReadingEffects contentKey={knowledge.id}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
-        {knowledge.sections.map((s) => {
-          const rev = REVIEW_LABEL[s.reviewStatus];
+      <div className="vw-sections">
+        {knowledge.sections.map((s, i) => {
+          // The checked state is the norm and goes unmarked; only an exception
+          // (course logistics, a draft) carries a badge.
+          const rev = s.reviewStatus === 'verified' ? null : REVIEW_LABEL[s.reviewStatus];
           const noteRef = (s.sourceRefs || [])[0];
           return (
-            <section key={s.id} id={s.id} style={{ scrollMarginTop: 70 }}>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap', marginBottom: 8, paddingBottom: 6, borderBottom: '1px solid var(--clr-border)' }}>
-                <h2 style={{ fontFamily: 'var(--vmx-display)', fontSize: 20, margin: 0, flex: 1, minWidth: 0, lineHeight: 1.3 }}>{s.heading}</h2>
+            <section key={s.id} id={s.id} className="vw-section">
+              <div className="vw-h2row">
+                <span className="vw-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <h2 className="vw-h2">{keepSilentFinals(s.heading)}</h2>
                 <StatusBadge label={rev} />
                 <button type="button" onClick={() => copyAnchor(s.id)}
-                  title="คัดลอกลิงก์มายังหัวข้อนี้" aria-label={`คัดลอกลิงก์: ${s.heading}`}
-                  style={{ all: 'unset', cursor: 'pointer', color: copied === s.id ? 'var(--clr-sage-text)' : 'var(--clr-ink-soft)', fontSize: 13, minWidth: 44, minHeight: 44, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                  className={`vw-anchor${copied === s.id ? ' is-done' : ''}`}
+                  title="คัดลอกลิงก์มายังหัวข้อนี้" aria-label={`คัดลอกลิงก์: ${s.heading}`}>
                   {copied === s.id ? '✓' : copied === `fail:${s.id}` ? '✕' : '#'}
                 </button>
               </div>
-              {s.body.map((item, i) => <NoteBody key={i} item={item} />)}
-              {/* Real figures from the lecture deck this section cites —
-                  the neuroanatomy articles were describing structures the
+              <div className="vw-body">
+                {s.body.map((item, j) => <NoteBody key={j} item={item} />)}
+              </div>
+              {/* Real figures from the lecture deck this section cites: the
+                  neuroanatomy articles were describing structures the
                   extracted slides already show. */}
               <SlideFigures sectionId={s.id} source={noteRef?.locator || ''} />
-              {noteRef && <div style={{ marginTop: 4, fontSize: 12.5, color: 'var(--clr-ink-soft)' }}>ที่มา: {noteRef.locator}</div>}
-              {(s.corrections || []).map((c, i) => (
-                <React.Suspense key={i} fallback={<div className="vmx-skeleton" style={{ height: 72, borderRadius: 10, marginTop: 12 }} />}>
+              {/* "ที่มา", not "ที่มาในเลกเชอร์": 547 sections come from Vet 85
+                  summaries, MSD tables or VetMock's own catalog pages. */}
+              {noteRef && <div className="vw-source">ที่มา: {noteRef.locator}</div>}
+              {(s.corrections || []).map((c, k) => (
+                <React.Suspense key={k} fallback={<div className="vmx-skeleton" style={{ height: 72, borderRadius: 10, marginTop: 12 }} />}>
                   <ConflictNote item={c} />
                 </React.Suspense>
               ))}
@@ -653,12 +916,12 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, r
       )}
       {/* Related topics in the same subject */}
       {related.length > 0 && (
-        <section style={{ marginTop: 34, paddingTop: 16, borderTop: '1px solid var(--clr-border)' }}>
-          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', marginBottom: 8 }}>ดูเพิ่มใน {subjectName(current.subject)}</div>
-          <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        <section className="vw-more">
+          <h2>ดูเพิ่มใน {subjectName(current.subject)}</h2>
+          <ul>
             {related.map((r) => (
               <li key={r.id}>
-                <button type="button" className="vmx-chip" onClick={() => onOpen(r.id)} style={{ cursor: 'pointer' }}>{r.title}</button>
+                <button type="button" className="vmx-chip" onClick={() => onOpen(r.id)} style={{ cursor: 'pointer' }}>{keepSilentFinals(r.title)}</button>
               </li>
             ))}
           </ul>
@@ -712,6 +975,13 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
     () => (current ? topics.filter((t) => t.subject === current.subject && t.id !== current.id) : []),
     [topics, current],
   );
+  // "หัวข้อที่ 3 จาก 7": the article's place in its subject, in the registry's
+  // order, which is the course's (lib/vetwiki/index.js).
+  const chapter = useMemo(() => {
+    if (!current) return null;
+    const list = topics.filter((t) => t.subject === current.subject);
+    return { index: list.findIndex((t) => t.id === current.id) + 1, count: list.length };
+  }, [topics, current]);
 
   // Keep the address bar in step with what's on screen, so every article is
   // shareable/bookmarkable and browser Back/Forward behave as expected.
@@ -723,12 +993,15 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
     window.history[replace ? 'replaceState' : 'pushState']({ vetwiki: id || null }, '', path);
   };
 
-  const openTopic = (id) => { setOpenId(id); syncUrl(id); window.scrollTo({ top: 0, behavior: 'auto' }); };
+  // Opening an article ends a subject request (the search card's VetWiki
+  // button): coming back, the index opens in the reader's own view again.
+  const openTopic = (id) => { setIndexFocus(null); setOpenId(id); syncUrl(id); window.scrollTo({ top: 0, behavior: 'auto' }); };
   // A search hit's matched heading: the article, at that section. WikiArticle
   // scrolls to the address's #section once the article has loaded.
   const openSection = (id, sectionId) => {
     const t = topics.find((x) => x.id === id);
     if (!t) return;
+    setIndexFocus(null);
     setOpenId(id);
     if (typeof window !== 'undefined' && window.history?.pushState) {
       window.history.pushState({ vetwiki: id }, '', wikiPath(t.subject, t.topic, sectionId));
@@ -845,7 +1118,7 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   return (
     <>
       <WikiArticle
-        topic={current} knowledge={knowledge} prov={prov} related={related}
+        topic={current} knowledge={knowledge} prov={prov} related={related} chapter={chapter}
         onBackToIndex={backToIndex} onOpen={openTopic}
         goPractice={goPractice} practiceLabel={practice.label} goNotes={goNotes} onShowProv={() => setShowProv(true)}
         shareUrl={wikiUrl(typeof window!=='undefined'?window.location.origin:'', current.subject, current.topic)}

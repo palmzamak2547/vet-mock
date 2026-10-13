@@ -43,8 +43,9 @@ import { NOTES_85_ZOONOSES } from '../../data/notes-85-zoonoses.js';
 import { NOTES_Y2_NEUROANAT } from '../../data/notes-y2-neuroanat.js';
 import { noteToKnowledge, verifiedClaimCount } from './adapter.js';
 import { validateTopic } from './validate.js';
-import { resolveSource } from './sources.js';
-import { EVIDENCE_LABEL, REVIEW_LABEL, wikiTitle, wikiSummary } from './schema.js';
+import { resolveSource, workOf } from './sources.js';
+import { EVIDENCE_LABEL, REVIEW_LABEL, wikiTitle, wikiSummary, provenanceHeadline } from './schema.js';
+import { SUBJECTS } from '../../data/curriculum.js';
 
 // subject id → its notes module. Mirrors NotesView's NOTES_BY_SUBJECT (kept a
 // local copy rather than refactoring the live, actively-edited NotesView).
@@ -121,10 +122,13 @@ const REGISTRY = (() => {
       });
     }
   }
-  // Flagship first, then a stable code-unit order (locale-independent).
-  rows.sort((a, b) => (Number(b.flagship) - Number(a.flagship))
-    || (a.subject < b.subject ? -1 : a.subject > b.subject ? 1 : 0)
-    || (a.topic < b.topic ? -1 : a.topic > b.topic ? 1 : 0));
+  // Subjects in a stable code-unit order (locale-independent); topics in the
+  // course's own order, as the notes list them ("หัวข้อที่ 4 จาก 6" is the
+  // fourth lecture), topics the curriculum does not list after, in note order.
+  // The flagship is found by its flag, not by sorting it first.
+  const courseOrder = new Map(SUBJECTS.map((s) => [s.id, new Map((s.topics || []).map((t, i) => [t.id, i]))]));
+  const place = (r) => courseOrder.get(r.subject)?.get(r.topic) ?? 1e9;
+  rows.sort((a, b) => (a.subject < b.subject ? -1 : a.subject > b.subject ? 1 : 0) || place(a) - place(b));
   return rows;
 })();
 
@@ -185,16 +189,18 @@ export function provenanceSummary(knowledgeTopic) {
   const draftSections = sections.filter((s) => s.reviewStatus === 'draft').length;
   const metadataSections = sections.filter((s) => s.reviewStatus === 'metadata').length;
 
-  // Distinct external sources actually cited by verified claims.
-  const citedIds = new Set();
+  // Distinct external works actually cited by verified claims (one work under
+  // several registry ids counts once: sources.js SAME_WORK).
+  const cited = new Map();
   for (const s of sections) {
     for (const c of s.claims || []) {
       for (const ref of c.sourceRefs || []) {
-        if (resolveSource(ref)) citedIds.add(ref.sourceId);
+        const src = resolveSource(ref);
+        if (src && !cited.has(workOf(src))) cited.set(workOf(src), src);
       }
     }
   }
-  const sources = [...citedIds].map((id) => resolveSource({ sourceId: id })).filter(Boolean);
+  const sources = [...cited.values()];
 
   return {
     sectionCount: sections.length,
@@ -202,14 +208,7 @@ export function provenanceSummary(knowledgeTopic) {
     draftSectionCount: draftSections,
     metadataSectionCount: metadataSections,
     sources,
-    // Honest one-liner for the UI (no jargon). Three states, told apart:
-    // everything verifiable is verified (the corpus norm now) / some
-    // sections still pending / nothing verified yet.
-    headline: verified > 0 && draftSections === 0
-      ? `ทุกจุดความรู้ในหัวข้อนี้ตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว (${verified} จุด)`
-      : verified > 0
-        ? `เนื้อหามาจากโน้ตเลกเชอร์, ${verified} จุดตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว, อีก ${draftSections} หัวข้อรอตรวจ`
-        : 'เนื้อหามาจากโน้ตเลกเชอร์, ยังไม่ได้ตรวจทานกับแหล่งอ้างอิงภายนอก',
+    headline: provenanceHeadline(verified, draftSections),
   };
 }
 

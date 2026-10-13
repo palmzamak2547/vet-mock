@@ -154,7 +154,6 @@ export const NOTES_Y5_ZOONOSES = {
   'zoo-ebola-nipah': {
     topic: 'zoo-ebola-nipah',
     title: 'Ebola + Nipah Virus Disease',
-    lecturer: 'TBD',
     icon: '🩸',
     summary: 'Ebola (Filoviridae) — severe contagious disease ในคนและ non-human primates, Africa outbreak, 6 species (Zaire/Sudan/Bundibugyu/Taï/Reston/Bombali), Reston ไม่เคยก่อโรคในคน. Nipah originate จาก fruit bat.',
     sections: [
@@ -223,7 +222,6 @@ export const NOTES_Y5_ZOONOSES = {
   'zoo-ai-basic': {
     topic: 'zoo-ai-basic',
     title: 'Avian Influenza Virus (AI) — Basic',
-    lecturer: 'TBD',
     icon: '🐦',
     summary: 'Influenza A (Orthomyxoviridae) — 8 segments ssRNA, HA (จับ receptor) + NA (release virion), Wild aquatic birds เป็น natural reservoir (H1-16), HPAI H5N1 จาก A/Goose/Guangdong/1/1996 → 2004 ระบาดทั่วโลก + ติดคน.',
     sections: [
@@ -311,7 +309,6 @@ export const NOTES_Y5_ZOONOSES = {
   'zoo-siv-civ': {
     topic: 'zoo-siv-civ',
     title: 'SIV + CIV — Swine + Canine Influenza',
-    lecturer: 'TBD',
     icon: '🐷',
     summary: 'Swine Influenza Virus (SIV) — 2 lineage หลัก (NA-SIV จากอเมริกาเหนือ classical swine + EU-SIV avian-like H1N1). 1918 Spanish flu = pandemic แรก, 1930 First SIV in pigs USA, 2020 China พบ swine flu ที่มี pandemic potential.',
     sections: [
@@ -375,7 +372,6 @@ export const NOTES_Y5_ZOONOSES = {
   'zoo-vbz': {
     topic: 'zoo-vbz',
     title: 'Vector-borne Viral Zoonoses',
-    lecturer: 'TBD',
     icon: '🦟',
     summary: 'Vector-borne viral diseases — 2 vector หลัก: Mosquito (Rift Valley fever, Yellow Fever, Japanese encephalitis, West Nile fever) + Tick (Crimean-Congo Haemorrhagic fever, SFTS virus).',
     sections: [

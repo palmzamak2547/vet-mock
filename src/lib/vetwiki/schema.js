@@ -179,12 +179,25 @@ export const REVIEW_LABEL = {
   verified: { th: 'ตรวจทานแล้ว', tone: 'strong' },
   reviewed: { th: 'อ่านทานเบื้องต้น', tone: 'ok' },
   draft: { th: 'ฉบับร่าง', tone: 'weak' },
-  // Course logistics — timetables, marking schemes, reading lists. Real
-  // information, declared in non-verifiable.js, but not a scientific claim,
-  // so neither 'draft' (nothing pending) nor 'verified' (nothing to verify).
-  metadata: { th: 'ข้อมูลรายวิชา', tone: 'muted' },
+  // Sections declared in non-verifiable.js: course logistics (timetables,
+  // marking schemes), exam notes, placeholders, and a few tables no source
+  // was found for. "ข้อมูลรายวิชา" was true of about half of the 158, so the
+  // label says the one thing true of all of them.
+  metadata: { th: 'ไม่ได้ตรวจทาน', tone: 'muted' },
   deprecated: { th: 'มีเนื้อหาใหม่กว่า', tone: 'muted' },
 };
+
+/**
+ * The article's one-line provenance, in three states. It counts checked
+ * points and never says "every point": a section holds several statements
+ * and its checked points are the key ones. "โน้ตใน VetMock", not "โน้ต
+ * เลกเชอร์": a third of the sections come from Vet 85 summaries or MSD tables.
+ */
+export function provenanceHeadline(verified, draftSections) {
+  if (verified > 0 && draftSections === 0) return `หัวข้อนี้มี ${verified} จุดที่ตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว`;
+  if (verified > 0) return `หัวข้อนี้มี ${verified} จุดที่ตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว อีก ${draftSections} หัวข้อย่อยรอตรวจทาน`;
+  return 'เนื้อหาหัวข้อนี้มาจากโน้ตใน VetMock และยังไม่ได้ตรวจทานกับแหล่งอ้างอิงภายนอก';
+}
 
 export const ALL_EVIDENCE = Object.keys(EVIDENCE_LABEL);
 export const ALL_REVIEW = Object.keys(REVIEW_LABEL);

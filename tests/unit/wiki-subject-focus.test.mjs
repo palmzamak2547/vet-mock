@@ -25,7 +25,8 @@ const { default: KnowledgeView } = await loadModule('src/views/KnowledgeView.jsx
 function browser(t, { reduced = false, search = null } = {}) {
   // `search`: a VetWiki search left from earlier in the visit.
   const session = new Map(search ? [['vmx-wiki-q', search]] : []);
-  const local = { getItem: (k) => (k === 'vmx-selected-year' ? '5' : null), setItem() {}, removeItem() {} };
+  // The list view, as a visit that chose it; a request by subject opens there anyway.
+  const local = { getItem: (k) => (k === 'vmx-selected-year' ? '5' : k === 'vmx-wiki-layout' ? 'list' : null), setItem() {}, removeItem() {} };
   globalThis.localStorage = local;
   globalThis.sessionStorage = { getItem: (k) => session.get(k) ?? null, setItem: (k, v) => session.set(k, String(v)), removeItem: (k) => session.delete(k) };
   const scrolled = [];

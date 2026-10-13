@@ -189,6 +189,10 @@ export async function loadModule(entry, { stubs = [] } = {}) {
           : `const R = globalThis.__fakeReact; export const jsx = R.jsx; export const jsxs = R.jsx; export const jsxDEV = R.jsx; export const Fragment = R.Fragment;`,
         loader: 'js',
       }));
+      // A view's own stylesheet (views import theirs, as AtlasView does) is
+      // nothing to a test of its markup.
+      b.onResolve({ filter: /\.css$/ }, (args) => ({ path: args.path, namespace: 'fake-css' }));
+      b.onLoad({ filter: /.*/, namespace: 'fake-css' }, () => ({ contents: '', loader: 'js' }));
       for (const [i, s] of stubs.entries()) {
         const re = new RegExp(s.match);
         b.onResolve({ filter: re }, (args) => ({ path: `stub-${i}:${args.path}`, namespace: 'fake-stub' }));

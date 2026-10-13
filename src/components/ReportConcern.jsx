@@ -37,7 +37,7 @@ export default function ReportConcern({ topicId, sectionId, sectionHeading }) {
 
   if (state === 'done') {
     return (
-      <div style={{ marginTop: 8, fontSize: 12, color: 'var(--clr-sage-text)' }}>
+      <div style={{ marginTop: 8, fontSize: 14, color: 'var(--clr-sage-text)' }}>
         ✓ ขอบคุณ — ส่งข้อกังวลให้ทีมตรวจทานแล้ว
       </div>
     );
@@ -48,7 +48,7 @@ export default function ReportConcern({ topicId, sectionId, sectionHeading }) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        style={{ all: 'unset', cursor: 'pointer', marginTop: 8, fontSize: 12, color: 'var(--clr-ink-soft)', minHeight: 44, display: 'inline-flex', alignItems: 'center' }}
+        style={{ all: 'unset', cursor: 'pointer', marginTop: 8, fontSize: 14, color: 'var(--clr-ink-soft)', minHeight: 44, display: 'inline-flex', alignItems: 'center' }}
         title="แจ้งว่าหัวข้อนี้มีข้อมูลที่อาจไม่ถูกต้อง"
       >
         ⚑ พบข้อมูลที่อาจไม่ถูกต้อง?
@@ -58,7 +58,7 @@ export default function ReportConcern({ topicId, sectionId, sectionHeading }) {
 
   return (
     <div style={{ marginTop: 10, padding: 12, borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
-      <label htmlFor={`concern-${sectionId}`} style={{ display: 'block', fontSize: 12.5, fontWeight: 600, color: 'var(--clr-ink)', marginBottom: 6 }}>
+      <label htmlFor={`concern-${sectionId}`} style={{ display: 'block', fontSize: 14, fontWeight: 600, color: 'var(--clr-ink)', marginBottom: 6 }}>
         แจ้งข้อกังวลเกี่ยวกับ “{sectionHeading}”
       </label>
       <textarea
@@ -67,9 +67,9 @@ export default function ReportConcern({ topicId, sectionId, sectionHeading }) {
         onChange={(e) => setText(e.target.value.slice(0, 1000))}
         rows={3}
         placeholder="เช่น ตัวเลข/ขนาดยา/แหล่งอ้างอิงตรงไหนที่อาจคลาดเคลื่อน"
-        style={{ width: '100%', boxSizing: 'border-box', padding: 8, borderRadius: 8, border: '1px solid var(--clr-border)', fontFamily: 'inherit', fontSize: 13, lineHeight: 1.5, resize: 'vertical', background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
+        style={{ width: '100%', boxSizing: 'border-box', padding: 8, borderRadius: 8, border: '1px solid var(--clr-border)', fontFamily: 'inherit', fontSize: 16, lineHeight: 1.5, resize: 'vertical', background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
       />
-      {msg && <div role="alert" style={{ fontSize: 12, color: 'var(--clr-rose-text)', marginTop: 6 }}>{msg}</div>}
+      {msg && <div role="alert" style={{ fontSize: 14, color: 'var(--clr-rose-text)', marginTop: 6 }}>{msg}</div>}
       <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
         <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={submit} disabled={state === 'sending' || !text.trim()}>
           {state === 'sending' ? 'กำลังส่ง…' : 'ส่งข้อกังวล'}
@@ -78,7 +78,7 @@ export default function ReportConcern({ topicId, sectionId, sectionHeading }) {
           ยกเลิก
         </button>
       </div>
-      <div style={{ fontSize: 11.5, color: 'var(--clr-ink-soft)', marginTop: 6, lineHeight: 1.5 }}>
+      <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 6, lineHeight: 1.5 }}>
         ข้อกังวลจะถูกส่งให้ทีมตรวจทาน ไม่เปลี่ยนเนื้อหาทันที
       </div>
     </div>

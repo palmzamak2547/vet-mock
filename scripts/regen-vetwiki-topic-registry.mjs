@@ -24,11 +24,17 @@ const OUT = path.join(ROOT, 'src/lib/vetwiki/topic-registry.generated.js');
 // it instead of the full catalog, which carries titles and section lists
 // they never render — and which Home prefetches on their behalf.
 const OUT_KEYS = path.join(ROOT, 'src/lib/vetwiki/topic-keys.generated.js');
+// The shelves' numbers and cloth (scripts/lib/vetwiki-shelf.mjs): what the
+// index shows without loading a single article.
+const OUT_SHELF = path.join(ROOT, 'src/lib/vetwiki/shelf.generated.js');
 const CHECK = process.argv.includes('--check');
 
-const { listTopics } = await import(
+const { listTopics, loadTopic, provenanceSummary } = await import(
   new URL(`../src/lib/vetwiki/index.js?registry=${Date.now()}`, import.meta.url).href
 );
+const { SUBJECT_COVERS } = await import(new URL('../src/data/subject-covers.js', import.meta.url).href);
+const { buildShelf } = await import(new URL('./lib/vetwiki-shelf.mjs', import.meta.url).href);
+const { yearForSubject } = await import(new URL('../src/data/curriculum.js', import.meta.url).href);
 
 const topics = listTopics();
 const output = `// ============================================================
@@ -51,10 +57,29 @@ const keysOutput = `// =========================================================
 export const VETWIKI_TOPIC_KEYS = ${JSON.stringify(topics.map((t) => t.id), null, 2)};
 `;
 
+// A shelf is a year: the cloth only has to part from the subjects beside it.
+const shelf = buildShelf({ topics, loadTopic, provenanceSummary, covers: SUBJECT_COVERS, shelfOf: yearForSubject });
+const shelfOutput = `// ============================================================
+// VetWiki shelves -- GENERATED, do not hand-edit
+// ============================================================
+// Written by npm run regen:wiki-registry, with the topic registry.
+// Per subject: topics, sections, checked points, conflicts, the newest check
+// and the spine cloth; in total: the masthead's figures. Counted by
+// scripts/lib/vetwiki-shelf.mjs the way stats.mjs counts the inventory.
+
+export const SHELF_TOTALS = ${JSON.stringify(shelf.totals, null, 2)};
+
+export const SHELF_SUBJECTS = ${JSON.stringify(shelf.subjects, null, 2)};
+
+// Per topic: [sections, checked points], for the featured book.
+export const SHELF_TOPICS = ${JSON.stringify(Object.fromEntries(Object.entries(shelf.topics).map(([id, t]) => [id, [t.sections, t.claims]])))};
+`;
+
 if (CHECK) {
   const current = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : '';
   const currentKeys = fs.existsSync(OUT_KEYS) ? fs.readFileSync(OUT_KEYS, 'utf8') : '';
-  if (eol(current) !== eol(output) || eol(currentKeys) !== eol(keysOutput)) {
+  const currentShelf = fs.existsSync(OUT_SHELF) ? fs.readFileSync(OUT_SHELF, 'utf8') : '';
+  if (eol(current) !== eol(output) || eol(currentKeys) !== eol(keysOutput) || eol(currentShelf) !== eol(shelfOutput)) {
     console.error('VetWiki topic registry is stale. Run node scripts/regen-vetwiki-topic-registry.mjs');
     process.exit(1);
   }
@@ -62,5 +87,6 @@ if (CHECK) {
 } else {
   fs.writeFileSync(OUT, output, 'utf8');
   fs.writeFileSync(OUT_KEYS, keysOutput, 'utf8');
-  console.log(`Wrote ${path.relative(ROOT, OUT)} and ${path.relative(ROOT, OUT_KEYS)} (${topics.length} topics)`);
+  fs.writeFileSync(OUT_SHELF, shelfOutput, 'utf8');
+  console.log(`Wrote ${path.relative(ROOT, OUT)}, ${path.relative(ROOT, OUT_KEYS)} and ${path.relative(ROOT, OUT_SHELF)} (${topics.length} topics)`);
 }

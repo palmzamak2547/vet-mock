@@ -411,7 +411,7 @@ test.describe('VetMock smoke flow', () => {
     // VetWiki opens at its index (a reference opens at its contents).
     await expect(page.getByRole('heading', { level: 1, name: 'VetWiki' })).toBeVisible({ timeout: 10_000 });
     // In-wiki search narrows the list, then we open the article.
-    await page.getByPlaceholder(/ค้นหาหัวข้อ/).fill('rabies');
+    await page.getByRole('searchbox', { name: 'ค้นหาในวิกิ' }).fill('rabies');
     await page.getByRole('button', { name: /Rabies — โรคพิษสุนัขบ้า/ }).click();
 
     // The article renders with its real note content.

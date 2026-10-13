@@ -23,9 +23,12 @@ function cut(start, end) {
 test('openSection opens the article and puts the section in the address', () => {
   const pushed = [];
   const opened = [];
+  const focus = [];
   const ctx = {
     topics: [{ id: 'com5--rabies', subject: 'com5', topic: 'rabies' }],
     setOpenId: (id) => opened.push(id),
+    // Opening an article ends a subject request, so Back finds the reader's own view.
+    setIndexFocus: (f) => focus.push(f),
     wikiPath,
     window: { history: { pushState: (state, _t, url) => pushed.push([state.vetwiki, url]) }, scrollTo() {} },
   };
@@ -33,6 +36,7 @@ test('openSection opens the article and puts the section in the address', () => 
   const openSection = vm.runInContext(`(() => { ${cut('const openSection = (id, sectionId) => {', '\n  };\n')} return openSection; })()`, ctx);
   openSection('com5--rabies', 'com5--rabies--diagnosis');
   assert.deepEqual(opened, ['com5--rabies']);
+  assert.deepEqual(focus, [null], 'the subject request is over');
   assert.deepEqual(pushed, [['com5--rabies', '/wiki/com5/rabies#com5--rabies--diagnosis']]);
   openSection('no--such', 'x');
   assert.equal(opened.length, 1, 'an unknown topic opens nothing');

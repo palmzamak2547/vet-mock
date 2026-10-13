@@ -8348,3 +8348,14 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 }
 .vmx-share-cta > p { margin: 0; flex: 1 1 200px; font-size: 14px; line-height: 1.6; color: var(--clr-ink); }
 .vmx-share-cta > .vmx-btn { min-height: 44px; white-space: nowrap; }
+
+/* ── Conflict note (components/ConflictNote.jsx): the wiki and the notes ── */
+.vmx-conflict { margin-top: 16px; border: 1px solid var(--clr-border); border-left: 3px solid var(--clr-rose); border-radius: 10px; background: var(--clr-surface); }
+.vmx-conflict.is-narrows { border-left-color: var(--clr-gold); }
+.vmx-conflict-label { padding: 12px 16px 0; font-size: 14px; font-weight: 700; line-height: 1.5; color: var(--clr-rose-text); }
+.vmx-conflict.is-narrows .vmx-conflict-label { color: var(--clr-gold-text); }
+.vmx-conflict-sides { display: grid; gap: 12px 24px; padding: 10px 16px 14px; font-size: 15px; line-height: 1.7; }
+@media (min-width: 640px) { .vmx-conflict-sides { grid-template-columns: 1fr 1fr; } }
+.vmx-conflict-side { margin-bottom: 2px; font-size: 14px; font-weight: 600; color: var(--clr-ink-soft); }
+.vmx-conflict-exam { padding: 12px 16px 14px; border-top: 1px solid var(--clr-border); border-radius: 0 0 9px 9px; background: var(--clr-surface-2); font-size: 15px; line-height: 1.7; }
+.vmx-conflict-exam .vmx-conflict-side { color: var(--clr-ink); }

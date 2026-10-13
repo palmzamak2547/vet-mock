@@ -884,7 +884,6 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
   'equine-farabella': {
     topic: 'equine-farabella',
     title: 'Farabella (miniature horse / Falabella)',
-    lecturer: 'TBD',
     icon: '🐎',
     summary: 'Lecture เรื่อง Farabella / Falabella (miniature horse breed): orthopedic case ภาพ X-ray (mandible fracture + plate fixation).',
     sections: [
@@ -1001,7 +1000,6 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
   'equine-rvf': {
     topic: 'equine-rvf',
     title: 'Rectovaginal fistula (RVF)',
-    lecturer: 'TBD',
     icon: '🩹',
     summary: 'Rectovaginal fistula tract = ม้าหายจาก vagina เปิดเข้า rectum (มักจากคลอดยาก). Technique: standing sedation + epidural block (xylazine + mepivacaine) → ตัดแยกเป็น 2 ชั้น (vagina + rectum) → suture pattern เช่น six-bite (Auer, Equine Surgery).',
     sections: [
@@ -1124,7 +1122,6 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
   'equine-ortho': {
     topic: 'equine-ortho',
     title: 'Equine orthopedic',
-    lecturer: 'Niphapha (ดู Vet 84 final reference)',
     icon: '🦴',
     summary: 'Orthopedic — case-based images (mandibular fracture repair: pre-op X-ray + post-op plate/screw fixation), wound healing ในม้าเทียบกับ pony, exuberant granulation tissue (EGT) และ bandage แต่ละชนิด.',
     sections: [
@@ -1156,7 +1153,6 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
   'equine-pythium': {
     topic: 'equine-pythium',
     title: 'Pythium / Equine pythiosis',
-    lecturer: 'TBD',
     icon: '🦠',
     summary: 'Pythium insidiosum (oomycete, ไม่ใช่เชื้อรา true fungus) แม้ในหัวข้อ equine infectious disease จะจัด pythiosis ไว้ในหมวด Fungi.',
     sections: [
@@ -1353,7 +1349,6 @@ export const NOTES_Y5_EQUINE_MEDICINE = {
   'equine-poa': {
     topic: 'equine-poa',
     title: 'POA equine (Practical / Objective Approach)',
-    lecturer: 'TBD',
     icon: '🩺',
     summary: 'POA = Practical Objective Assessment-style station(s) เน้น lameness + infectious dz workup: history-taking (9-best-question approach), PE checklist (BCS, palpation), lameness scoring (5-grade), nerve block ladder (PD → abaxial → low 4 → high 4), hoof tester, radiograph diff-dx (navicular bone dz).',
     sections: [

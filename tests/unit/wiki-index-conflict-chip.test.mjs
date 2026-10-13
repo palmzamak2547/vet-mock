@@ -21,8 +21,13 @@ test('the index row says in words what the conflict mark means', () => {
   assert.match(chip, /title="มีจุดที่หลักฐานไม่ตรงกับที่บรรยาย"/, 'the tooltip stays for pointer users');
 });
 
-test('the chip is set in the body face, in the rose text colour', () => {
+test('the chip is set in the label face, in the rose text colour, at the 14 px floor', () => {
   assert.ok(!chip.includes('--vmx-mono'), 'Thai in the mono face renders in a fallback font');
-  assert.ok(chip.includes("color: 'var(--clr-rose-text)'"));
+  assert.match(chip, /className="vw-conflict-chip"/);
+  const css = fs.readFileSync(new URL('../../src/styles-wiki.css', import.meta.url), 'utf8');
+  const rule = css.slice(css.indexOf('.vw-conflict-chip {'), css.indexOf('}', css.indexOf('.vw-conflict-chip {')));
+  assert.match(rule, /color: var\(--clr-rose-text\)/);
+  assert.match(rule, /font-family: var\(--vw-label\)/);
+  assert.match(rule, /font-size: 14px/);
   assert.ok(!chip.includes('·'));
 });

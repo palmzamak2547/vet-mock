@@ -1,7 +1,7 @@
 // Browser runtime for VetWiki. Discovery stays metadata-only; note bodies and
 // the correction/verification adapter load only after an article is opened.
 import { listTopics } from './registry.js';
-import { EVIDENCE_LABEL, REVIEW_LABEL } from './schema.js';
+import { EVIDENCE_LABEL, REVIEW_LABEL, provenanceHeadline } from './schema.js';
 import { loadRuntimeData } from './runtime-data.generated.js';
 import { loadNotesSubject } from '../../data/note-corpus.js';
 
@@ -47,26 +47,24 @@ export function provenanceSummary(knowledgeTopic) {
   const verified = verifiedClaimCount(knowledgeTopic);
   const draftSections = sections.filter((section) => section.reviewStatus === 'draft').length;
   const metadataSections = sections.filter((section) => section.reviewStatus === 'metadata').length;
-  const citedIds = new Set();
+  // One work under several registry ids counts once (sources.js SAME_WORK).
+  const cited = new Map();
   for (const section of sections) {
     for (const claim of section.claims || []) {
       for (const ref of claim.sourceRefs || []) {
-        if (resolveSource(ref)) citedIds.add(ref.sourceId);
+        const src = resolveSource(ref);
+        const work = src && (src.work || src.id);
+        if (src && !cited.has(work)) cited.set(work, src);
       }
     }
   }
-  const sources = [...citedIds].map((id) => resolveSource({ sourceId: id })).filter(Boolean);
   return {
     sectionCount: sections.length,
     verifiedClaimCount: verified,
     draftSectionCount: draftSections,
     metadataSectionCount: metadataSections,
-    sources,
-    headline: verified > 0 && draftSections === 0
-      ? `ทุกจุดความรู้ในหัวข้อนี้ตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว (${verified} จุด)`
-      : verified > 0
-        ? `เนื้อหามาจากโน้ตเลกเชอร์, ${verified} จุดตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว, อีก ${draftSections} หัวข้อรอตรวจ`
-        : 'เนื้อหามาจากโน้ตเลกเชอร์, ยังไม่ได้ตรวจทานกับแหล่งอ้างอิงภายนอก',
+    sources: [...cited.values()],
+    headline: provenanceHeadline(verified, draftSections),
   };
 }
 

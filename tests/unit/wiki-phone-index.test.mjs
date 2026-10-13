@@ -36,7 +36,8 @@ const { default: KnowledgeView } = await loadModule('src/views/KnowledgeView.jsx
 ] });
 
 function browser(t, { compact, year = '5' }) {
-  const local = { getItem: (k) => (k === 'vmx-selected-year' ? year : null), setItem() {}, removeItem() {} };
+  // These tests are about the list view; the index opens on the shelves.
+  const local = { getItem: (k) => (k === 'vmx-selected-year' ? year : k === 'vmx-wiki-layout' ? 'list' : null), setItem() {}, removeItem() {} };
   globalThis.localStorage = local;
   globalThis.sessionStorage = { getItem: () => null, setItem() {}, removeItem() {} };
   globalThis.window = {

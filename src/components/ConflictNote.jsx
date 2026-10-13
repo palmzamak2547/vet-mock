@@ -17,22 +17,31 @@ import React from 'react';
 import { RichText } from '../lib/richtext.jsx';
 
 /** @param {{ item: {severity: string, lectureSays: string, evidenceSays: string, examAdvice?: string, sourceRef?: string} }} props */
+// Both sides side by side from 640 px (styles.css .vmx-conflict), then what to
+// do in the exam across the full width. Nothing is struck through.
 export default function ConflictNote({ item }) {
   const strong = item.severity === 'contradicts';
   return (
-    <div style={{ marginTop: 12, padding: '11px 13px', borderRadius: 10, background: 'var(--clr-surface-2)', borderLeft: `3px solid ${strong ? 'var(--clr-rose)' : 'var(--clr-gold)'}` }}>
-      <div style={{ fontSize: 11.5, fontWeight: 700, color: strong ? 'var(--clr-rose-text)' : 'var(--clr-gold-text)', marginBottom: 6 }}>
+    <div className={`vmx-conflict${strong ? '' : ' is-narrows'}`}>
+      <div className="vmx-conflict-label">
         {strong ? 'หลักฐานขัดกับที่บรรยาย' : 'ที่บรรยายกว้างกว่าที่หลักฐานรองรับ'}
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 5, fontSize: 14, lineHeight: 1.65 }}>
-        <div><span style={{ color: 'var(--clr-ink-soft)' }}>ที่บรรยายสอน: </span><RichText text={item.lectureSays} /></div>
-        <div><span style={{ color: 'var(--clr-ink-soft)' }}>ที่แหล่งอ้างอิงพบ: </span><RichText text={item.evidenceSays} /></div>
-        {item.examAdvice && (
-          <div style={{ marginTop: 2, paddingTop: 6, borderTop: '1px solid var(--clr-border)', color: 'var(--clr-ink)' }}>
-            <span style={{ fontWeight: 700 }}>เวลาสอบ: </span><RichText text={item.examAdvice} />
-          </div>
-        )}
+      <div className="vmx-conflict-sides">
+        <div>
+          <div className="vmx-conflict-side">ที่บรรยายสอน</div>
+          <RichText text={item.lectureSays} />
+        </div>
+        <div>
+          <div className="vmx-conflict-side">ที่แหล่งอ้างอิงพบ</div>
+          <RichText text={item.evidenceSays} />
+        </div>
       </div>
+      {item.examAdvice && (
+        <div className="vmx-conflict-exam">
+          <span className="vmx-conflict-side">เวลาสอบ</span>
+          <RichText text={item.examAdvice} />
+        </div>
+      )}
     </div>
   );
 }

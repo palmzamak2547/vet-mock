@@ -27,7 +27,7 @@ import { resolve, join, sep } from 'node:path';
 
 const ROOT = resolve(import.meta.dirname, '..');
 const BASELINE_PATH = resolve(ROOT, 'docs/css-token-baseline.json');
-const STYLESHEETS = ['src/styles.css', 'src/styles-landing.css'];
+const STYLESHEETS = ['src/styles.css', 'src/styles-landing.css', 'src/styles-wiki.css'];
 
 function definedTokens() {
   const css = STYLESHEETS

@@ -1042,7 +1042,6 @@ export const NOTES_COM4 = {
   'behavior-med': {
     topic: 'behavior-med',
     title: 'Veterinary Behavioral Medicine & Psychopharmacology',
-    lecturer: 'Vet Clinical Behavioral Medicine',
     icon: '🧠',
     summary: 'Medical rule-outs for behavior signs, feline urine marking vs undesirable toileting, controlled exposure & behavior modification, canine behavior psychopharmacology (SSRIs/TCAs/Azapirones).',
     sections: [

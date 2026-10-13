@@ -445,7 +445,6 @@ export const NOTES_EXOTIC = {
   'small-mammal-amphibian-medicine': {
     topic: 'small-mammal-amphibian-medicine',
     title: 'Small Mammal Physiology & Amphibian Infectious Diseases',
-    lecturer: 'Exotic & Amphibian Medicine',
     icon: '🐸',
     summary: 'Ferret/Mouse/Hamster physiological constants, hamster pregnancy & cannibalism risks, and amphibian chytridiomycosis & red-leg syndrome.',
     sections: [
@@ -499,7 +498,6 @@ export const NOTES_EXOTIC = {
   'rabbit-nutritional-requirements': {
     topic: 'rabbit-nutritional-requirements',
     title: 'Rabbit Nutritional Requirements & Passive Calcium Physiology',
-    lecturer: 'Exotic Clinical Nutrition',
     icon: '🥕',
     summary: 'Rabbit dietary fiber, protein, and passive calcium absorption mechanism, risk of bladder sludge & urolithiasis.',
     sections: [
@@ -537,7 +535,6 @@ export const NOTES_EXOTIC = {
   'exotic-emergencies-nursing': {
     topic: 'exotic-emergencies-nursing',
     title: 'Exotic Emergencies, Safe Environment & Ferret Nursing',
-    lecturer: 'Exotic Emergency & Critical Care',
     icon: '🚨',
     summary: 'Emergency indicators in exotic pets, environmental safety & substrate hazards, sick ferret syringe feeding, gerbil sore nose & seizures.',
     sections: [
@@ -589,7 +586,6 @@ export const NOTES_EXOTIC = {
   'aquarium-water-quality-ph': {
     topic: 'aquarium-water-quality-ph',
     title: 'Aquarium Water Chemistry, pH Dynamics & Filter Maintenance',
-    lecturer: 'Aquatic Animal Medicine',
     icon: '🐠',
     summary: 'Aquarium maintenance schedule, nitrifying bacteria protection, pH logarithmic scale, and ammonia toxicity dynamics.',
     sections: [
@@ -624,7 +620,6 @@ export const NOTES_EXOTIC = {
   'small-mammal-pig-zoonoses': {
     topic: 'small-mammal-pig-zoonoses',
     title: 'Zoonotic Diseases of Exotic Small Mammals & Pigs',
-    lecturer: 'Exotic Zoonoses & Public Health',
     icon: '🦠',
     summary: 'Zoonoses transmitted from ferrets, rabbits, hamsters, gerbils, mice, and potbellied pigs to humans.',
     sections: [
@@ -897,7 +892,6 @@ export const NOTES_EXOTIC = {
   'rabbit-chinchilla-care': {
     topic: 'rabbit-chinchilla-care',
     title: 'Rabbit Breeds, Buying Checklist & Chinchilla Care',
-    lecturer: 'Exotic Mammal Medicine',
     icon: '🐇',
     summary: 'Rabbit breed categories, physical examination checklist for new rabbits, and chinchilla dust bath & cooling requirements.',
     sections: [
@@ -951,7 +945,6 @@ export const NOTES_EXOTIC = {
   'rodent-fish-health': {
     topic: 'rodent-fish-health',
     title: 'Signs of Illness in Rodents, Fish & Small Animal Biting',
-    lecturer: 'Lab Animal & Aquatic Medicine',
     icon: '🐭',
     summary: 'Clinical illness signs in mice, rats, and aquarium fish, plus biting triggers and handling protocols in small animals.',
     sections: [
@@ -1002,7 +995,6 @@ export const NOTES_EXOTIC = {
   'reptile-lifespan-husbandry': {
     topic: 'reptile-lifespan-husbandry',
     title: 'Captive Reptile Lifespan & Species Husbandry',
-    lecturer: 'Herpetological Medicine',
     icon: '🦎',
     summary: 'Average lifespans of captive snakes, lizards, and tortoises, and species-specific husbandry requirements.',
     sections: [

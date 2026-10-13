@@ -24859,6 +24859,40 @@ export const SOURCES = {
   },
 };
 
+// One work registered under several ids: the ingest pipeline minted an id per
+// citation string, so the WOAH rabies chapter (one PDF) became three entries
+// and a page counted it three times. verification-generated.js is rewritten
+// by every ingest, so the ids stay; each alias names the work it is, and a
+// page counts and lists works (`work`), while a claim keeps its own entry,
+// title and link (a CDC lesson section, a Code chapter). Entries that share a
+// link, PMID or DOI must be listed here or in DISTINCT_AT_SAME_LINK
+// (tests/unit/vetwiki-sources-work.test.mjs).
+export const SAME_WORK = {
+  'guide-woah-world-organisat-2023': 'woah-tahm-rabies',
+  'guide-world-organisation-for-2023': 'woah-tahm-rabies',
+  'guide-centers-for-disease-co-na': 'guide-centers-for-disease-co-2006',
+  'guide-centers-for-disease-co-2011': 'guide-centers-for-disease-co-2006',
+  'guide-centers-for-disease-co-2012': 'guide-centers-for-disease-co-2006',
+  'guide-world-organisation-for-na': 'guide-world-organisation-for-2024',
+  'guide-food-and-agriculture-o-2022': 'guide-fao-unep-who-and-woah--2022',
+  'guide--acfs--2019': 'guide--national-bureau-of-ag-2019',
+  'guide-world-organisation-for-n.d. (accessed 2026)': 'guide-world-organisation-for-2025',
+  'guide-food-and-agriculture-o-2024': 'guide-fao-food-and-agricultu-2024',
+  'guide--130-87--2013': 'guide---2556',
+  'guide-codex-alimentarius-com-2022': 'guide-codex-alimentarius-com-2020',
+};
+// Different works behind one listing page (Codex links its codes of practice
+// to the index of codes, not to each code).
+export const DISTINCT_AT_SAME_LINK = [
+  ['guide-codex-alimentarius-com-2022', 'codex-cxc-67-2009-amr'],
+];
+for (const [alias, work] of Object.entries(SAME_WORK)) {
+  if (SOURCES[alias] && SOURCES[work]) SOURCES[alias] = { ...SOURCES[alias], work };
+}
+
+/** The work a source record belongs to: its own id unless it is an alias. */
+export const workOf = (source) => source?.work || source?.id;
+
 /** Resolve a SourceRef to its Source record (or null if it points at a
  *  lecture-note locator rather than an external source). */
 export function resolveSource(ref) {

@@ -95,7 +95,7 @@ for (const t of govTopics) {
   govSections += k.sections.length;
   const p = vw.provenanceSummary(k);
   govVerified += p.verifiedClaimCount;
-  for (const s of p.sources) govSources.add(s.id);
+  for (const s of p.sources) govSources.add(s.work || s.id); // one work under several ids counts once (sources.js SAME_WORK)
 }
 
 // ---- VetWiki coverage of questions ---------------------------------------
