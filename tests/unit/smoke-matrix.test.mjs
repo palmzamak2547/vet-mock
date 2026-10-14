@@ -4,10 +4,10 @@
 // (14 + 16) plus setup exceeded the 30 min job cap, so a slow run could lose
 // the report it promised to keep (STAB-14).
 //
-// It is now five runners (chromium; WebKit and Firefox each in two shards)
-// and one aggregating job that keeps the required name `smoke`.
-// e2e-ci-parity.test.mjs still pins the flags of the two Playwright steps
-// against test:e2e:ci.
+// It is now seven runners (Chromium desktop and mobile, WebKit in thirds,
+// Firefox in halves) and one aggregating job that keeps the required name
+// `smoke`. e2e-ci-parity.test.mjs still pins the flags of the two Playwright
+// steps against test:e2e:ci.
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { readFileSync } from 'node:fs';
@@ -38,25 +38,40 @@ test('smoke waits for every e2e runner and passes only when all of them passed',
   assert.match(jobs.smoke, /test "\$RESULT" = "success"/);
 });
 
-test('each software-GL engine is split across two runners, one worker each', () => {
+test('every engine runs on runners of its own, the software-GL ones on one worker', () => {
   const e2e = jobs.e2e;
   assert.ok(e2e, 'a matrix job with id e2e');
   assert.match(e2e, /fail-fast: false/);
+  const entries = e2e.split(/\n\s+- label: /).slice(1).map((entry) => ({
+    group: /^\s+group: (\S+)$/m.exec(entry)?.[1],
+    project: /^\s+project: (\S+)$/m.exec(entry)?.[1],
+    shard: /^\s+shard: (\S+)$/m.exec(entry)?.[1],
+    connected: /^\s+connected: true$/m.test(entry),
+  }));
   // One --shard over both projects cut the ordered list, every WebKit test and
   // then every Firefox one, so "half 1" was the whole of WebKit (311 of 311,
-  // 13 Oct) and ran out of its cap. Each engine is sharded on its own.
-  const halves = e2e.split(/\n\s+- label: /).slice(1)
-    .filter((entry) => /^\s+group: gl$/m.test(entry))
-    .map((entry) => `${/^\s+project: (\S+)$/m.exec(entry)?.[1]} ${/^\s+shard: (\S+)$/m.exec(entry)?.[1]}`)
-    .sort();
-  assert.deepEqual(halves, ['firefox-desktop 1/2', 'firefox-desktop 2/2', 'webkit-mobile 1/2', 'webkit-mobile 2/2']);
-  const gl = e2e.split(/\n\s*- name: /).find((s) => /^Run smoke e2e \(software-GL/.test(s));
-  assert.match(gl, /--project=\$\{\{ matrix\.project \}\}/);
-  assert.match(gl, /--workers=1/);
-  assert.match(gl, /--shard=\$\{\{ matrix\.shard \}\}/);
-  assert.match(gl, /if: matrix\.group == 'gl'/);
-  const chromium = e2e.split(/\n\s*- name: /).find((s) => /--project=chromium-desktop/.test(s));
-  assert.match(chromium, /if: matrix\.group == 'chromium'/);
+  // 13 Oct) and ran out of its cap. Each engine is sharded on its own, and a
+  // shard stays near 40% of its cap (WebKit's first half was at 57%).
+  const gl = entries.filter((e) => e.group === 'gl').map((e) => `${e.project} ${e.shard}`).sort();
+  assert.deepEqual(gl, ['firefox-desktop 1/2', 'firefox-desktop 2/2', 'webkit-mobile 1/3', 'webkit-mobile 2/3', 'webkit-mobile 3/3']);
+  // Both Chromium projects on one runner took 12.2-12.3 of 14 min in three of
+  // five runs (14 Oct): one project per runner, the connected specs on one.
+  const chromium = entries.filter((e) => e.group === 'chromium');
+  assert.deepEqual(chromium.map((e) => e.project).sort(), ['chromium-desktop', 'chromium-mobile']);
+  assert.equal(chromium.filter((e) => e.connected).length, 1, 'the connected bundle and specs run on one Chromium runner');
+  assert.equal(entries.filter((e) => e.connected).length, 1);
+  const steps = e2e.split(/\n\s*- name: /);
+  const glStep = steps.find((s) => /^Run smoke e2e \(software-GL/.test(s));
+  assert.match(glStep, /--project=\$\{\{ matrix\.project \}\}/);
+  assert.match(glStep, /--workers=1/);
+  assert.match(glStep, /--shard=\$\{\{ matrix\.shard \}\}/);
+  assert.match(glStep, /if: matrix\.group == 'gl'/);
+  const chromiumStep = steps.find((s) => /^Run smoke e2e \(chromium\)/.test(s));
+  assert.match(chromiumStep, /if: matrix\.group == 'chromium'/);
+  assert.match(chromiumStep, /--project=\$\{\{ matrix\.project \}\}/);
+  for (const name of [/^Build the connected bundle/, /^Keep the placeholder database host/, /^Run the connected specs/, /^The connected specs ran/]) {
+    assert.match(steps.find((s) => name.test(s)), /if: matrix\.connected$/m, String(name));
+  }
 });
 
 test('a runner whose browser step hits its cap still has time to upload the report', () => {

@@ -20,13 +20,19 @@ process.env.CI = '1';
 const { default: ciConfig } = await import('../../playwright.config.js');
 
 const flag = (cmd, name) => cmd.match(new RegExp(`--${name}=(\\d+)`))?.[1];
-// The software-GL step takes its project from the matrix (each engine in two
-// shards), so it covers every project the matrix lists.
-const matrixProjects = [...workflow.matchAll(/^\s+project: ([\w-]+)$/gm)].map((m) => m[1]);
-const projectsOf = (cmd) => [...new Set([
-  ...[...cmd.matchAll(/--project=([\w-]+)/g)].map((m) => m[1]),
-  ...(/--project=\$\{\{ matrix\.project \}\}/.test(cmd) ? matrixProjects : []),
-])].sort();
+// A suite step takes its project from the matrix (one runner per project or
+// per shard of one), so it covers every project its group lists there.
+const matrixEntries = workflow.split(/\n\s+- label: /).slice(1).map((entry) => ({
+  group: /^\s+group: (\S+)$/m.exec(entry)?.[1],
+  project: /^\s+project: (\S+)$/m.exec(entry)?.[1],
+}));
+const projectsOf = (cmd) => {
+  const group = /if: matrix\.group == '(\w+)'/.exec(cmd)?.[1];
+  const fromMatrix = /--project=\$\{\{ matrix\.project \}\}/.test(cmd)
+    ? matrixEntries.filter((e) => e.group === group && e.project).map((e) => e.project)
+    : [];
+  return [...new Set([...[...cmd.matchAll(/--project=([\w-]+)/g)].map((m) => m[1]), ...fromMatrix])].sort();
+};
 
 const playwrightSteps = workflow
   .split(/\n\s*- name: /)

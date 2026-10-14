@@ -27,8 +27,14 @@
 # all 311 Firefox ones. Green runs of half 1 took 9.7-15.1 min against its
 # 16-minute cap (two of the last seven at 15.1), so one failed attempt and its
 # retry ran it out of time: on 5.146.0 a 120 s and a 30 s failure, each passing
-# on retry, turned the required check red. Each engine is now cut in two, four
-# runners of about half that time each.
+# on retry, turned the required check red. Each engine is now cut on its own.
+#
+# 2026-10-14: every shard about 40% of its cap or less, so a slow runner and a
+# retried test still fit. Measured on 262880db: chromium (both projects, one
+# runner) 10.6 of 14 min, and 12.2-12.3 in three of the five runs before it;
+# WebKit half 1 9.1 of 16 (its Atlas WebGL specs come first and are slow on
+# Mesa). Chromium now runs one project per runner, WebKit in thirds, Firefox
+# (6.7 and 5.9) stays in halves. Add a shard when one passes about 40%.
 # The job named `smoke` below is what Vercel and branch protection wait for;
 # it passes only when every runner passed.
 
@@ -53,22 +59,35 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - label: chromium
+          - label: chromium desktop
             group: chromium
             browsers: chromium
-            report: chromium
-          - label: webkit, half 1
+            project: chromium-desktop
+            connected: true
+            report: chromium-desktop
+          - label: chromium mobile
+            group: chromium
+            browsers: chromium
+            project: chromium-mobile
+            report: chromium-mobile
+          - label: webkit, third 1
             group: gl
             browsers: webkit
             project: webkit-mobile
-            shard: 1/2
+            shard: 1/3
             report: webkit-1
-          - label: webkit, half 2
+          - label: webkit, third 2
             group: gl
             browsers: webkit
             project: webkit-mobile
-            shard: 2/2
+            shard: 2/3
             report: webkit-2
+          - label: webkit, third 3
+            group: gl
+            browsers: webkit
+            project: webkit-mobile
+            shard: 3/3
+            report: webkit-3
           - label: firefox, half 1
             group: gl
             browsers: firefox
@@ -126,7 +145,7 @@ jobs:
         # specific bugs (TDZ, dead-code removal regressions).
         run: npm run build
 
-      - name: Build the connected bundle (chromium runner only)
+      - name: Build the connected bundle (connected runner only)
         # The same sources with placeholder database settings, into a folder of
         # its own so the bundle above stays unconfigured. Four specs model a
         # signed-in account against the back office and skip themselves when
@@ -136,7 +155,7 @@ jobs:
         # specs intercept (their auth-token key is derived from it) and the
         # key is not a key. Setting these on the plain build instead would
         # configure every spec, including the ones that assume no backend.
-        if: matrix.group == 'chromium'
+        if: matrix.connected
         env:
           VITE_SUPABASE_URL: https://mpovsdzdggvksmeehqfj.supabase.co
           VITE_SUPABASE_ANON_KEY: ci-placeholder-not-a-real-key
@@ -151,7 +170,7 @@ jobs:
       # byte-identical bundle had passed the same suite 20 minutes earlier and
       # the same two tests finish in 11.4s on a developer machine. Raising the
       # timeout again would have been treating the symptom; giving the
-      # software-GL engines the machine to themselves removes it. Each half
+      # software-GL engines the machine to themselves removes it. Each part
       # below still runs one worker on a runner of its own.
       - name: Run smoke e2e (chromium)
         if: matrix.group == 'chromium'
@@ -160,7 +179,7 @@ jobs:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: >-
           xvfb-run --auto-servernum npx playwright test
-          --project=chromium-desktop --project=chromium-mobile
+          --project=${{ matrix.project }}
 
       - name: Keep the placeholder database host off the real network
         # The connected specs answer every request to that host themselves and
@@ -168,7 +187,7 @@ jobs:
         # request ever escaped their routes it would reach this machine's own
         # closed port, never the real project. The step fails if the host
         # still answers.
-        if: matrix.group == 'chromium'
+        if: matrix.connected
         run: |
           printf '127.0.0.1 mpovsdzdggvksmeehqfj.supabase.co\n::1 mpovsdzdggvksmeehqfj.supabase.co\n' | sudo tee -a /etc/hosts
           getent ahosts mpovsdzdggvksmeehqfj.supabase.co
@@ -178,7 +197,7 @@ jobs:
           fi
 
       - name: Run the connected specs (chromium)
-        if: matrix.group == 'chromium'
+        if: matrix.connected
         timeout-minutes: 6
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
@@ -208,13 +227,13 @@ jobs:
         # A skip is how these specs went unnoticed before: green, 0 run. This
         # fails if the connected bundle ever stops carrying the database
         # settings, or the specs stop finding their screen.
-        if: matrix.group == 'chromium'
+        if: matrix.connected
         run: |
           node -e "const s=JSON.parse(require('fs').readFileSync('connected-e2e.json','utf8')).stats;console.log(JSON.stringify(s));if(!s.expected||s.skipped){console.error('connected specs: need at least one passing test and none skipped');process.exit(1)}"
 
       - name: Run smoke e2e (software-GL engines, one worker)
         if: matrix.group == 'gl'
-        # Half of one engine. A whole engine took up to 15.1 min (WebKit,
+        # A part of one engine. A whole engine took up to 15.1 min (WebKit,
         # 311 tests, 13 Oct); the cap stays 16, now with room for a retry.
         timeout-minutes: 16
         env:
