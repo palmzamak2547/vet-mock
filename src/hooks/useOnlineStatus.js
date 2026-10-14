@@ -36,6 +36,12 @@ async function pingReachable() {
       // priority the ping queues behind that flood and times out on a
       // healthy link (seen in the local e2e: a 200 that arrived too late).
       priority: 'high',
+      // WebKit (every iOS browser) refuses a request a page starts while
+      // the next page is loading, keepalive ones excepted. On a slow link
+      // the ping and its retry were both refused and the page still on
+      // screen said ออฟไลน์ until the next one arrived. A HEAD has no body
+      // to count against keepalive's 64 KB.
+      keepalive: true,
       signal: ac.signal,
     });
     clearTimeout(t);

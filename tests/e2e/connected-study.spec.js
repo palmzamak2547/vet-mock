@@ -461,11 +461,7 @@ test.describe('connected study experience', () => {
     ]) {
       expect((anonymized.string(tag) || '').trim(), `${tag} must be blank in the downloaded copy`).toBe('');
     }
-    // WebKit can emit a local-preview-only favicon CORS warning when the test
-    // server is saturated in a fully parallel run. It is not a page/runtime
-    // error and does not occur on the production same-origin asset.
-    const actionableErrors = pageErrors.filter((message) => !/favicon\.ico.*access control/i.test(message));
-    expect(actionableErrors).toEqual([]);
+    expect(pageErrors).toEqual([]);
 
     await page.getByRole('button', { name: '← หน้าแรก' }).click();
     await expect(page).toHaveURL(/^https?:\/\/[^/]+\/$/);

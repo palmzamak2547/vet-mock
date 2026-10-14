@@ -33,6 +33,31 @@ test('a successful network probe overrides a stale navigator offline flag', asyn
   await expect(offline(page)).toHaveCount(0);
 });
 
+test('a probe made while the next page loads still reaches the network', async ({ page }) => {
+  // WebKit refuses a request a page starts while its next document is
+  // pending, unless it is keepalive. The probe was refused there: two
+  // refusals, and a slow navigation away left the old page saying offline.
+  await setup(page);
+  const errors = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  let probes = 0;
+  await page.route(ping, (route) => { probes += 1; return route.fulfill({ status: 200, body: '' }); });
+  await page.goto('/app/library', { waitUntil: 'domcontentloaded' });
+  await expect.poll(() => probes).toBeGreaterThanOrEqual(1);
+  const before = probes;
+  let release;
+  const held = new Promise((resolve) => { release = resolve; });
+  await page.route(/\/app\/study$/, async (route) => { await held; await route.continue(); });
+  // The hook probes again whenever the page becomes visible: a second after
+  // the goto below, while the next document is held.
+  await page.evaluate(() => setTimeout(() => document.dispatchEvent(new Event('visibilitychange')), 1000));
+  const navigation = page.goto('/app/study', { waitUntil: 'domcontentloaded' });
+  // Locators wait for the held navigation, so the probe count is the check.
+  try { await expect.poll(() => probes, { timeout: 5000 }).toBeGreaterThan(before); } finally { release(); }
+  await navigation;
+  expect(errors).toEqual([]);
+});
+
 test('an old successful probe cannot overwrite a newer native offline event', async ({ page }) => {
   await setup(page);
   let probes = 0;

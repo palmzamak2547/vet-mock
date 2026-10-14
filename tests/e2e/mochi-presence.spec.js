@@ -60,7 +60,15 @@ async function startQuestions(page, exam = false) {
 test('Mochi inhabits real study destinations without fetching the 3D engine', async ({ page }) => {
   const requests = [], errors = [];
   page.on('request', r => requests.push(r.url()));
-  page.on('pageerror', e => errors.push(e.message));
+  page.on('pageerror', e => {
+    // Every load writes the library access state through the Cache API. When
+    // the next goto replaces the page before that settles, WebKit logs
+    // "Cache API operation failed: Context is stopped" (DOMCacheEngine), and
+    // Playwright reports the line as a page error (5 of 270 WebKit runs at
+    // 12 workers, 14 Oct). That message means the page is already gone, so
+    // nobody sees it; any other Cache API failure still counts.
+    if (`${e.name}: ${e.message}` !== 'Cache API operation failed: Context is stopped') errors.push(e.message);
+  });
   for (const [path, slot, pose] of [
     ['/', 'welcome', 'wave'], ['/app/study', 'wayfinding', 'curious'],
     ['/app/schedule', 'wayfinding', 'think'], ['/app/library', 'wayfinding', 'read'],
