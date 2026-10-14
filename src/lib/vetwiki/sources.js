@@ -24857,6 +24857,52 @@ export const SOURCES = {
     citation: 'Destoumieux-Garzón D, Mavingui P, Boetsch G, et al. The One Health Concept: 10 Years Old and a Long Road Ahead. Front Vet Sci. 2018;5:14. PMID: 29484301. doi:10.3389/fvets.2018.00014.',
     availability: 'verified-online',
   },
+
+  // ---- zoonoses sourcing pass, 2026-10-13 ----
+  'pmid-10827955': {
+    id: 'pmid-10827955',
+    title: 'Nipah virus: a recently emergent deadly paramyxovirus.',
+    organization: 'Science',
+    kind: 'primary-literature',
+    year: 2000,
+    pmid: '10827955',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/10827955/',
+    citation: 'Chua KB. Nipah virus: a recently emergent deadly paramyxovirus.. Science. 2000;288(5470):1432-5. PMID: 10827955.',
+    availability: 'verified-online',
+  },
+  'pmid-33219655': {
+    id: 'pmid-33219655',
+    title: 'Direct Transmission of Severe Fever with Thrombocytopenia Syndrome Virus from Domestic Cat to Veterinary Personnel.',
+    organization: 'Emerg Infect Dis',
+    kind: 'primary-literature',
+    year: 2020,
+    pmid: '33219655',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/33219655/',
+    citation: 'Yamanaka A. Direct Transmission of Severe Fever with Thrombocytopenia Syndrome Virus from Domestic Cat to Veterinary Personnel.. Emerg Infect Dis. 2020;26(12):2994-2998. PMID: 33219655.',
+    availability: 'verified-online',
+  },
+  'pmid-36217605': {
+    id: 'pmid-36217605',
+    title: 'Describing the appropriate use and interpretation of odds and risk ratios.',
+    organization: 'Res Sports Med',
+    kind: 'primary-literature',
+    year: 2024,
+    pmid: '36217605',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/36217605/',
+    citation: 'Lininger MR. Describing the appropriate use and interpretation of odds and risk ratios.. Res Sports Med. 2024;32(3):504-510. PMID: 36217605.',
+    availability: 'verified-online',
+  },
+  'pmid-15752436': {
+    id: 'pmid-15752436',
+    title: 'Human disease from influenza A (H5N1), Thailand, 2004.',
+    organization: 'Emerg Infect Dis',
+    kind: 'primary-literature',
+    year: 2005,
+    pmid: '15752436',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/15752436/',
+    citation: 'Chotpitayasunondh T. Human disease from influenza A (H5N1), Thailand, 2004.. Emerg Infect Dis. 2005;11(2):201-9. PMID: 15752436.',
+    availability: 'verified-online',
+  },
 };
 
 // One work registered under several ids: the ingest pipeline minted an id per

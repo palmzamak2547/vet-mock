@@ -1743,6 +1743,15 @@ export const CORRECTIONS = {
       "sourceRef": "PMID 11875246 (DOI 10.1353/bhm.2002.0022)"
     }
   ],
+  "zoonoses--zoo-intro--zoonosis-eids-tads-การจัดกลุ่มโรค-และ-one-health": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์จัดกลุ่ม zoonoses ตามทิศทางการติดเชื้อ (Direction of infection) โดยลูกศรของ Zooanthroponoses ชี้จากสัตว์ไปคน ลูกศรของ Anthropozoonoses ชี้จากคนไปสัตว์ และ Amphixenoses ติดได้ทั้งสองทาง",
+      "evidenceSays": "Hubálek (2003) เขียนว่าโรคที่ติดจากสัตว์สู่คนเคยเรียกว่า anthropozoonoses และโรคที่ติดจากคนสู่สัตว์เรียกว่า zooanthroponoses ซึ่งกลับทิศกับลูกศรบนสไลด์ และบอกว่านักวิทยาศาสตร์จำนวนมากใช้สองคำนี้กลับทิศหรือปนกัน คณะผู้เชี่ยวชาญจึงเลิกใช้ทั้งสองคำ แล้วแนะนำให้เรียกว่า zoonoses คือโรคและการติดเชื้อที่ติดต่อระหว่างสัตว์มีกระดูกสันหลังกับคนตามธรรมชาติ (Emerging human infectious diseases: anthroponoses, zoonoses, and sapronoses, PMID 12643844, doi 10.3201/eid0903.020208)",
+      "examAdvice": "ถ้าโจทย์ในวิชานี้ถามตามสไลด์ ให้ตอบตามลูกศรบนสไลด์ คือ Zooanthroponoses สัตว์ → คน และ Anthropozoonoses คน → สัตว์ แต่ให้รู้ไว้ว่าความหมายเดิมกลับทิศกัน และสองคำนี้ถูกใช้ไม่ตรงกันจนเลิกใช้ไปแล้ว ถ้าเจอโจทย์นอกวิชานี้ให้อ่านนิยามที่โจทย์ให้มาก่อนตอบ ส่วนคำที่ใช้แทนทั้งสองคำในปัจจุบันคือ zoonoses",
+      "sourceRef": "Hubálek Z. Emerging human infectious diseases: anthroponoses, zoonoses, and sapronoses. Emerg Infect Dis 2003;9(3):403-4. PMID 12643844 (doi 10.3201/eid0903.020208)"
+    }
+  ],
   "zoonoses--zoo-mycoses--yeast-appearance-culture-microscopic": [
     {
       "severity": "narrows",

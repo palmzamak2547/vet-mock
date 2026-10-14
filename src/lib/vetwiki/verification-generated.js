@@ -25739,6 +25739,56 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "zoonoses--zoo-ebola-nipah--ebola-nipah-การระบาด-การแพร่-อาการ-การรักษาและป้องกัน": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-ebola-nipah--ebola-nipah-การระบาด-การแพร่-อาการ-การรักษาและป้องกัน--v1",
+          "statement": "Nipah virus ถูกระบุว่าเป็นสาเหตุของการระบาดของโรคสมองอักเสบรุนแรงในคนที่สัมผัสใกล้ชิดกับสุกรใน Malaysia และ Singapore โดยพบการระบาดครั้งแรกปลายเดือนกันยายน 1998 และถึงกลางเดือนมิถุนายน 1999 มีรายงานผู้ป่วยสมองอักเสบใน Malaysia มากกว่า 265 ราย เสียชีวิต 105 ราย และใน Singapore 11 ราย เสียชีวิต 1 ราย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-10827955",
+              "locator": "Abstract; Science 288(5470):1432-5",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-10-13",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "A paramyxovirus virus termed Nipah virus has been identified as the etiologic agent of an outbreak of severe encephalitis in people with close contact exposure to pigs in Malaysia and Singapore. The outbreak was first noted in late Septembe"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-ebola-nipah--ebola-nipah-การระบาด-การแพร่-อาการ-การรักษาและป้องกัน--v2",
+          "statement": "การตรวจสัตว์มีกระดูกสันหลังขนาดเล็กมากกว่าหนึ่งพันตัวที่เก็บระหว่างการระบาดของ Ebola ในคนและลิงใหญ่ (great apes) ใน Gabon และ Republic of the Congo ช่วงปี 2001-2003 พบหลักฐานการติดเชื้อ Ebola virus แบบไม่แสดงอาการในค้างคาวผลไม้ 3 species ซึ่งบ่งว่าค้างคาวผลไม้อาจเป็นแหล่งรังโรค (reservoir) ของไวรัสนี้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16319873",
+              "locator": "Abstract; Nature 438(7068):575-6",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-10-13",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Here we test for Ebola in more than a thousand small vertebrates that were collected during Ebola outbreaks in humans and great apes between 2001 and 2003 in Gabon and the Republic of the Congo. We find evidence of asymptomatic infection by"
+          }
+        }
+      ]
     }
   },
   "zoonoses--zoo-siv-civ": {
@@ -25842,10 +25892,10 @@ export const GENERATED_VERIFICATIONS = {
         }
       ]
     },
-    "zoonoses--zoo-siv-civ--รอเติม-body-content-จาก-slide-4": {
+    "zoonoses--zoo-siv-civ--pandemic-h1n1-2009-siv-ในไทย-และ-civ-h3n2-2012": {
       "claims": [
         {
-          "id": "zoonoses--zoo-siv-civ--รอเติม-body-content-จาก-slide-4--v1",
+          "id": "zoonoses--zoo-siv-civ--pandemic-h1n1-2009-siv-ในไทย-และ-civ-h3n2-2012--v1",
           "statement": "Canine influenza virus H3N8 เกิดจาก equine influenza virus H3N8 ข้ามชนิดมาสู่สุนัข โดย phylogenetic analysis พบว่า genome ของ CIV รวมเป็น monophyletic group เดียว ซึ่งสอดคล้องกับการเกิด interspecies transfer เพียงครั้งเดียว ตรวจพบครั้งแรกจาก racing greyhound ที่ป่วยเป็นโรคทางเดินหายใจรุนแรง",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -25868,7 +25918,7 @@ export const GENERATED_VERIFICATIONS = {
           }
         },
         {
-          "id": "zoonoses--zoo-siv-civ--รอเติม-body-content-จาก-slide-4--v2",
+          "id": "zoonoses--zoo-siv-civ--pandemic-h1n1-2009-siv-ในไทย-และ-civ-h3n2-2012--v2",
           "statement": "Canine influenza virus H3N2 มีต้นกำเนิดจาก avian influenza โดยแยกเชื้อได้จากสุนัขที่ป่วยทางเดินหายใจรุนแรงในเกาหลีใต้ (A/canine/Korea/01-03/2007) และตรวจพบ avian influenza binding receptor (SAα2,3-Gal) ปริมาณมากใน tracheal, bronchial และ bronchiolar epithelial cell ของสุนัข",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -26585,6 +26635,56 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "zoonoses--zoo-eid-wildlife--spillover-drivers-wildlife-zoonoses-และ-prevention": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-eid-wildlife--spillover-drivers-wildlife-zoonoses-และ-prevention--v1",
+          "statement": "Zoonotic spillover คือการส่งผ่านเชื้อก่อโรคจากสัตว์มีกระดูกสันหลังสู่คน ซึ่งต้องอาศัยหลายปัจจัยมาบรรจบกัน ทั้งปัจจัยทางนิเวศ ระบาดวิทยา และพฤติกรรมที่กำหนดการสัมผัสเชื้อ รวมถึงปัจจัยในตัวคนที่มีผลต่อความไวรับต่อการติดเชื้อ โดยเชื้อ zoonotic ทุกชนิดต้องผ่านอุปสรรคเป็นลำดับขั้น (hierarchical series of barriers) จึงจะก่อการติดเชื้อแบบ spillover ในคนได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-28555073",
+              "locator": "Abstract; Nat Rev Microbiol 15(8):502-510",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-10-13",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Zoonotic spillover, which is the transmission of a pathogen from a vertebrate animal to a human, presents a global public health burden but is a poorly understood phenomenon. Zoonotic spillover requires several factors to align, including t"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-eid-wildlife--spillover-drivers-wildlife-zoonoses-และ-prevention--v2",
+          "statement": "การวิเคราะห์ EID events 335 เหตุการณ์ช่วงปี 1940-2004 พบว่า zoonoses คิดเป็น 60.3% ของ EID events และส่วนใหญ่ (71.8%) มีต้นกำเนิดจากสัตว์ป่า เช่น SARS และ Ebola virus โดยจุดกำเนิดของ EID สัมพันธ์อย่างมีนัยสำคัญกับปัจจัยทางเศรษฐสังคม สิ่งแวดล้อม และนิเวศ และมีความเสี่ยงสูงที่ zoonotic EID จากสัตว์ป่าและโรคที่นำโดยแมลงจะเกิดขึ้นในเขตละติจูดต่ำซึ่งการรายงานโรคมีน้อย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-18288193",
+              "locator": "Abstract; Nature 451(7181):990-3",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-10-13",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Here we analyse a database of 335 EID 'events' (origins of EIDs) between 1940 and 2004 ... EID events are dominated by zoonoses (60.3% of EIDs): the majority of these (71.8%) originate in wildlife (for example, severe acute respiratory viru"
+          }
+        }
+      ]
     }
   },
   "zoonoses--zoo-eid-cuvet": {
@@ -26687,6 +26787,33 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "zoonoses--zoo-eid-cuvet--anthrax-brucellosis-leptospirosis-rabies-nipah-ihr-jee": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-eid-cuvet--anthrax-brucellosis-leptospirosis-rabies-nipah-ihr-jee--v1",
+          "statement": "การเฝ้าระวังทั่วประเทศไทยช่วง 1 มกราคม ถึง 31 มีนาคม 2004 ทบทวนรายงาน 610 ราย พบผู้ป่วยยืนยัน influenza A (H5N1) 12 รายและผู้ป่วยสงสัย 21 ราย ผู้ป่วยยืนยันทั้ง 12 รายอาศัยในหมู่บ้านที่มีไก่ตายผิดปกติ 9 รายอยู่ในครัวเรือนที่ไก่หลังบ้านตาย 8 รายสัมผัสไก่ตายโดยตรง และ 7 รายเป็นเด็กอายุต่ำกว่า 14 ปี",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-15752436",
+              "locator": "Abstract; Emerg Infect Dis 11(2):201-9",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-10-13",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "In Thailand, we instituted nationwide surveillance and tested respiratory specimens by polymerase chain reaction and viral isolation. From January 1 to March 31, 2004, we reviewed 610 reports and identified 12 confirmed and 21 suspected cas"
+          }
+        }
+      ]
     }
   },
   "zoonoses--zoo-helminthic": {
@@ -26763,10 +26890,10 @@ export const GENERATED_VERIFICATIONS = {
         }
       ]
     },
-    "zoonoses--zoo-helminthic--รอเติม-body-content-จาก-slide-4": {
+    "zoonoses--zoo-helminthic--รายโรคพยาธิ-opisthorchiasis-ถึง-dirofilaria-repens": {
       "claims": [
         {
-          "id": "zoonoses--zoo-helminthic--รอเติม-body-content-จาก-slide-4--v1",
+          "id": "zoonoses--zoo-helminthic--รายโรคพยาธิ-opisthorchiasis-ถึง-dirofilaria-repens--v1",
           "statement": "วงจรชีวิต Echinococcus granulosus มี definitive host = สุนัขและ canid อื่น (พยาธิตัวเต็มวัยอยู่ในลำไส้) และ intermediate host = แกะและสัตว์กินพืชอื่น (ระยะ metacestode/larval) คนติดเชื้อโดยบังเอิญเป็น dead end host เมื่อกลืนไข่พยาธิเข้าไป และเกิด hydatid cyst ที่ตับกับปอดเป็นส่วนใหญ่",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -26789,7 +26916,7 @@ export const GENERATED_VERIFICATIONS = {
           }
         },
         {
-          "id": "zoonoses--zoo-helminthic--รอเติม-body-content-จาก-slide-4--v2",
+          "id": "zoonoses--zoo-helminthic--รายโรคพยาธิ-opisthorchiasis-ถึง-dirofilaria-repens--v2",
           "statement": "Echinococcus multilocularis ทำให้เกิด alveolar echinococcosis (AE) ซึ่งมีอัตราตายสูงในรายที่ไม่ได้รับการรักษา โดยมี red fox เป็น definitive host หลัก ต่างจาก E. granulosus ที่ทำให้เกิด cystic echinococcosis (CE)",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -26812,7 +26939,7 @@ export const GENERATED_VERIFICATIONS = {
           }
         },
         {
-          "id": "zoonoses--zoo-helminthic--รอเติม-body-content-จาก-slide-4--v3",
+          "id": "zoonoses--zoo-helminthic--รายโรคพยาธิ-opisthorchiasis-ถึง-dirofilaria-repens--v3",
           "statement": "คนเป็น definitive host ของ Taenia solium (เกิด taeniasis จากการกินเนื้อหมูสุกไม่พอที่มีระยะตัวอ่อน) แต่จะเกิด cysticercosis เมื่อกลืน \"ไข่\" พยาธิเข้าไป โดยคนกลายเป็น accidental intermediate host และเมื่อ cysticerci เข้าสมองจะเกิด neurocysticercosis (NCC) ซึ่งเป็นสาเหตุอันดับหนึ่งของ acquired epilepsy ในพื้นที่ระบาด",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -27061,10 +27188,10 @@ export const GENERATED_VERIFICATIONS = {
         }
       ]
     },
-    "zoonoses--zoo-protozoal--รอเติม-body-content-จาก-slide-4-per-disease-detail": {
+    "zoonoses--zoo-protozoal--toxoplasmosis-ถึง-sarcocystosis-รายโรคโปรโตซัว": {
       "claims": [
         {
-          "id": "zoonoses--zoo-protozoal--รอเติม-body-content-จาก-slide-4-per-disease-detail--v1",
+          "id": "zoonoses--zoo-protozoal--toxoplasmosis-ถึง-sarcocystosis-รายโรคโปรโตซัว--v1",
           "statement": "Giardia และเชื้อไวรัส/แบคทีเรียส่วนใหญ่ถูกทำลายได้ด้วยการเติมคลอรีน แต่ Cryptosporidium ทนต่อสภาพแวดล้อมและต่อคลอรีนมากกว่า จึงมีการนำ UV disinfection มาใช้ในโรงผลิตน้ำและโรงบำบัดน้ำเสียหลายแห่งเพื่อเพิ่ม log inactivation",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -27087,7 +27214,7 @@ export const GENERATED_VERIFICATIONS = {
           }
         },
         {
-          "id": "zoonoses--zoo-protozoal--รอเติม-body-content-จาก-slide-4-per-disease-detail--v2",
+          "id": "zoonoses--zoo-protozoal--toxoplasmosis-ถึง-sarcocystosis-รายโรคโปรโตซัว--v2",
           "statement": "Cryptosporidium hominis และ C. parvum เป็นสองสปีชีส์หลักที่ก่อโรคในคน โดย C. hominis เป็นสาเหตุของการระบาดทางน้ำ (waterborne outbreaks) ส่วนใหญ่ที่มีการ typing ไว้ ขณะที่ C. parvum เป็นสาเหตุของการระบาดทางอาหาร (foodborne outbreaks) ส่วนใหญ่ และปศุสัตว์เป็นทั้งแหล่งรังโรคและแหล่งติดเชื้อสู่คน",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -27263,10 +27390,10 @@ export const GENERATED_VERIFICATIONS = {
         }
       ]
     },
-    "zoonoses--zoo-mycoses--รอเติม-body-content-จาก-slide-4-sporotrichosis-อื่นๆ": {
+    "zoonoses--zoo-mycoses--mycozoonoses-8-โรค-dermatophytosis-ถึง-cryptococcosis": {
       "claims": [
         {
-          "id": "zoonoses--zoo-mycoses--รอเติม-body-content-จาก-slide-4-sporotrichosis-อื่นๆ--v1",
+          "id": "zoonoses--zoo-mycoses--mycozoonoses-8-โรค-dermatophytosis-ถึง-cryptococcosis--v1",
           "statement": "Dermatophytosis ในสุนัขและแมวเป็นโรคผิวหนังจากเชื้อราชั้นตื้น (superficial) โดยเชื้อก่อโรคที่พบบ่อยที่สุดในสัตว์เล็กอยู่ในสกุล Microsporum และ Trichophyton และเป็นโรคที่ติดต่อสู่คนได้",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -27289,7 +27416,7 @@ export const GENERATED_VERIFICATIONS = {
           }
         },
         {
-          "id": "zoonoses--zoo-mycoses--รอเติม-body-content-จาก-slide-4-sporotrichosis-อื่นๆ--v2",
+          "id": "zoonoses--zoo-mycoses--mycozoonoses-8-โรค-dermatophytosis-ถึง-cryptococcosis--v2",
           "statement": "ไม่มี test ตัวใดตัวหนึ่งที่เป็น gold standard สำหรับวินิจฉัย dermatophytosis ในสุนัขและแมว และการรักษาให้สำเร็จต้องใช้ systemic oral antifungal ร่วมกับ topical disinfection ของเส้นขนพร้อมกัน",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -27312,7 +27439,7 @@ export const GENERATED_VERIFICATIONS = {
           }
         },
         {
-          "id": "zoonoses--zoo-mycoses--รอเติม-body-content-จาก-slide-4-sporotrichosis-อื่นๆ--v3",
+          "id": "zoonoses--zoo-mycoses--mycozoonoses-8-โรค-dermatophytosis-ถึง-cryptococcosis--v3",
           "statement": "ในลาตินอเมริกา แมวบ้านเป็นแหล่งติดเชื้อหลักในวงจร zoonotic transmission ของ sporotrichosis โดย Sporothrix brasiliensis เป็นสปีชีส์ที่พบบ่อยที่สุดในผู้ป่วยคนในบราซิล ขณะที่ Sporothrix schenckii พบเด่นในประเทศอื่น",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -27335,7 +27462,7 @@ export const GENERATED_VERIFICATIONS = {
           }
         },
         {
-          "id": "zoonoses--zoo-mycoses--รอเติม-body-content-จาก-slide-4-sporotrichosis-อื่นๆ--v4",
+          "id": "zoonoses--zoo-mycoses--mycozoonoses-8-โรค-dermatophytosis-ถึง-cryptococcosis--v4",
           "statement": "นอกจากเส้นทาง zoonotic จากแมวแล้ว sporotrichosis ยังมีประวัติการติดต่อแบบ sapronosis จากวัสดุพืชที่ปนเปื้อนเชื้อ ตัวอย่างคลาสสิกคือการระบาดในคนงานเหมืองทองของแอฟริกาใต้ช่วงคริสต์ทศวรรษ 1930-1940 ซึ่งเชื่อว่าเกิดจากสภาพร้อนชื้นร่วมกับไม้ค้ำยันในอุโมงค์เหมือง",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -27880,10 +28007,10 @@ export const GENERATED_VERIFICATIONS = {
         }
       ]
     },
-    "zoonoses--zoo-rickettsial--รอเติม-body-content-จาก-slide-4": {
+    "zoonoses--zoo-rickettsial--รายโรค-rickettsial-rmsf-ถึง-q-fever-dx-และ-control": {
       "claims": [
         {
-          "id": "zoonoses--zoo-rickettsial--รอเติม-body-content-จาก-slide-4--v1",
+          "id": "zoonoses--zoo-rickettsial--รายโรค-rickettsial-rmsf-ถึง-q-fever-dx-และ-control--v1",
           "statement": "Doxycycline คือ treatment of choice สำหรับ tickborne rickettsial diseases ที่สงสัย ทั้งในผู้ใหญ่และเด็ก และควรให้แบบ empiric ตั้งแต่ระยะแรกของโรคเพราะช่วยป้องกันการเจ็บป่วยรุนแรงและการเสียชีวิต ไม่ควรรอผลยืนยันทางห้องปฏิบัติการ",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -28132,10 +28259,10 @@ export const GENERATED_VERIFICATIONS = {
         }
       ]
     },
-    "zoonoses--zoo-intro--รอเติม-body-content-จาก-slide-4": {
+    "zoonoses--zoo-intro--zoonosis-eids-tads-การจัดกลุ่มโรค-และ-one-health": {
       "claims": [
         {
-          "id": "zoonoses--zoo-intro--รอเติม-body-content-จาก-slide-4--v1",
+          "id": "zoonoses--zoo-intro--zoonosis-eids-tads-การจัดกลุ่มโรค-และ-one-health--v1",
           "statement": "การจำแนก zoonoses ตามวงจรชีวิตของเชื้อ แบ่งออกเป็น 4 กลุ่ม คือ orthozoonoses (direct zoonoses), cyclozoonoses, metazoonoses และ saprozoonoses",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -28158,7 +28285,7 @@ export const GENERATED_VERIFICATIONS = {
           }
         },
         {
-          "id": "zoonoses--zoo-intro--รอเติม-body-content-จาก-slide-4--v2",
+          "id": "zoonoses--zoo-intro--zoonosis-eids-tads-การจัดกลุ่มโรค-และ-one-health--v2",
           "statement": "จากการทบทวนวรรณกรรมอย่างครอบคลุม พบเชื้อก่อโรคในคน 1,415 species โดย 868 species (61%) เป็น zoonotic และในจำนวนเชื้อ 175 species ที่จัดว่าเป็น emerging นั้น 132 species (75%) เป็น zoonotic",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -28181,7 +28308,7 @@ export const GENERATED_VERIFICATIONS = {
           }
         },
         {
-          "id": "zoonoses--zoo-intro--รอเติม-body-content-จาก-slide-4--v3",
+          "id": "zoonoses--zoo-intro--zoonosis-eids-tads-การจัดกลุ่มโรค-และ-one-health--v3",
           "statement": "จากฐานข้อมูล emerging infectious disease (EID) events 335 เหตุการณ์ ระหว่างปี 1940-2004 พบว่า 60.3% ของ EID events เป็น zoonoses และในกลุ่ม zoonoses เหล่านี้ 71.8% มีต้นกำเนิดจากสัตว์ป่า (wildlife)",
           "evidenceStatus": "established",
           "reviewStatus": "verified",
@@ -34026,6 +34153,56 @@ export const GENERATED_VERIFICATIONS = {
           }
         }
       ]
+    },
+    "zoonoses--zoo-epi-approach--epidemiology-approach-aims-triad-study-design-genomic": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-epi-approach--epidemiology-approach-aims-triad-study-design-genomic--v1",
+          "statement": "การสอบสวนการระบาด (outbreak investigation) ช่วยระบุแหล่งที่มาของการระบาดที่ยังดำเนินอยู่และป้องกันผู้ป่วยรายใหม่ และแม้การระบาดจะสิ้นสุดแล้ว การสอบสวนทางระบาดวิทยาและสิ่งแวดล้อมอย่างละเอียดก็ช่วยเพิ่มความรู้เกี่ยวกับโรคและป้องกันการระบาดครั้งต่อไปได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-9452395",
+              "locator": "Abstract; Emerg Infect Dis 4(1):21-7",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-10-13",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Outbreak investigations, an important and challenging component of epidemiology and public health, can help identify the source of ongoing outbreaks and prevent additional cases. Even when an outbreak is over, a thorough epidemiologic and e"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-epi-approach--epidemiology-approach-aims-triad-study-design-genomic--v2",
+          "statement": "Odds ratio (OR) และ risk ratio (RR) เป็นสถิติที่ใช้วัดความสัมพันธ์ระหว่าง exposure กับ outcome และการเลือกใช้กับการตีความ OR หรือ RR ที่เหมาะสมขึ้นกับ study design (เช่น prospective cohort, case-control, cross-sectional) และ incidence ของ outcome ในประชากรเป้าหมาย",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-36217605",
+              "locator": "Abstract; Res Sports Med 32(3):504-510",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-10-13",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Odds ratios (OR) and risk ratios (RR) are two statistics used to quantify the association between exposure and outcome and are frequently seen in sports medicine literature. While similarities exist, there are optimal ways to use and interp"
+          }
+        }
+      ]
     }
   },
   "zoonoses--zoo-vbz": {
@@ -34402,6 +34579,56 @@ export const GENERATED_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "Severe fever with thrombocytopenia syndrome (SFTS), a tick-borne disease caused by Dabie bandavirus (SFTSV) is an emerging infectious disease of substantial concern in East Asia. In 2019, Ongkittikul S et al. reported the first case of SFTS"
+          }
+        }
+      ]
+    },
+    "zoonoses--zoo-vbz--รายโรค-rvf-yellow-fever-je-west-nile-cchf-sftsv": {
+      "claims": [
+        {
+          "id": "zoonoses--zoo-vbz--รายโรค-rvf-yellow-fever-je-west-nile-cchf-sftsv--v1",
+          "statement": "Japanese encephalitis virus อยู่ในวงจร enzootic transmission ที่ยุงพาไวรัสระหว่างนกซึ่งเป็น reservoir hosts (นกน้ำวงศ์ Ardeidae เช่น cattle egret และ pond heron) กับสุกรซึ่งเป็น amplifying hosts โดยมี Culex tritaeniorhynchus เป็นยุงพาหะหลัก และคนเป็น dead-end host ของไวรัส",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-26086337",
+              "locator": "Abstract; PLoS Negl Trop Dis 9(6):e0003576",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-10-13",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The virus exists in an enzootic transmission cycle, with mosquitoes transmitting JEV between birds as reservoir hosts and pigs as amplifying hosts. The reservoir avian hosts include cattle egrets, pond herons, and other species of water bir"
+          }
+        },
+        {
+          "id": "zoonoses--zoo-vbz--รายโรค-rvf-yellow-fever-je-west-nile-cchf-sftsv--v2",
+          "statement": "บุคลากรทางสัตวแพทย์ 2 คนในญี่ปุ่นติด SFTSV ขณะจัดการแมวป่วย และ whole-genome sequence ของไวรัสที่แยกได้จากคนกับแมวตรงกัน 100% จึงเป็นการระบาดในโรงพยาบาลสัตว์ (nosocomial outbreak) ที่ติดต่อโดยไม่มีเห็บเป็นพาหะ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-33219655",
+              "locator": "Abstract; Emerg Infect Dis 26(12):2994-2998",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-10-13",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Two veterinary personnel in Japan were infected with severe fever with thrombocytopenia syndrome virus (SFTSV) while handling a sick cat. Whole-genome sequences of SFTSV isolated from the personnel and the cat were 100% identical. These res"
           }
         }
       ]

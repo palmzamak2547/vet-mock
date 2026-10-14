@@ -312,11 +312,6 @@ export const METADATA_SECTIONS = new Set([
 
 /** Sections with no body yet. These need CONTENT before they need a source. */
 export const PLACEHOLDER_SECTIONS = new Set([
-  "zoonoses--zoo-ebola-nipah--รอเติม-body-content-จาก-slide-4", // 🚧 รอเติม — body content จาก slide 4+
-  "zoonoses--zoo-eid-cuvet--รอเติม-body-content-จาก-slide-4", // 🚧 รอเติม — body content จาก slide 4+
-  "zoonoses--zoo-eid-wildlife--รอเติม-body-content-จาก-slide-4", // 🚧 รอเติม — body content จาก slide 4+
-  "zoonoses--zoo-epi-approach--รอเติม-body-content-จาก-slide-4", // 🚧 รอเติม — body content จาก slide 4+
-  "zoonoses--zoo-vbz--รอเติม-body-content-จาก-slide-4", // 🚧 รอเติม — body content จาก slide 4+
 ]);
 
 export const NON_VERIFIABLE = new Set([...METADATA_SECTIONS, ...PLACEHOLDER_SECTIONS]);

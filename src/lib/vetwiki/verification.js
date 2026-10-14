@@ -508,10 +508,10 @@ const CURATED = {
     },
   },
   'zoonoses--zoo-bacterial': {
-    'zoonoses--zoo-bacterial--รอเติม-body-content-จาก-slide-4-per-disease-detail': {
+    'zoonoses--zoo-bacterial--biological-weapons-และรายโรค-anthrax-ถึง-psittacosis': {
       claims: [
         {
-          id: 'zoonoses--zoo-bacterial--รอเติม-body-content-จาก-slide-4-per-disease-detail--v1',
+          id: 'zoonoses--zoo-bacterial--biological-weapons-และรายโรค-anthrax-ถึง-psittacosis--v1',
           statement: 'คนติด Leptospira ได้ทั้งทาง direct contact กับ urine ของ animal reservoir host ที่ติดเชื้อ และทาง indirect contact กับดินและน้ำในสิ่งแวดล้อมที่ปนเปื้อน',
           evidenceStatus: 'established',
           reviewStatus: 'verified',
@@ -519,7 +519,7 @@ const CURATED = {
           review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Humans can become infecteddirect contact with the urine of infected animal reservoir hosts or by indirect contact with contaminated soil and water in the environment.' },
         },
         {
-          id: 'zoonoses--zoo-bacterial--รอเติม-body-content-จาก-slide-4-per-disease-detail--v2',
+          id: 'zoonoses--zoo-bacterial--biological-weapons-และรายโรค-anthrax-ถึง-psittacosis--v2',
           statement: 'ในประเทศไทย ผู้ติดเชื้อ leptospirosis ส่วนใหญ่เป็นเกษตรกร (farmers) และชาวประมง (fishermen) และมี severe epidemic ที่สัมพันธ์กับฤดูฝนเกิดขึ้นมาตั้งแต่ปี 1996 โดยพบ persisting hotspot ในภาคตะวันออกเฉียงเหนือและภาคใต้',
           evidenceStatus: 'established',
           reviewStatus: 'verified',
@@ -527,7 +527,7 @@ const CURATED = {
           review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The majority of those infected are farmers and fishermen. Severe epidemics of leptospirosis in association with the rainy reason have occurred since 1996. ... there were persisting hotspots in north-eastern and southern parts of Thailand ov' },
         },
         {
-          id: 'zoonoses--zoo-bacterial--รอเติม-body-content-จาก-slide-4-per-disease-detail--v3',
+          id: 'zoonoses--zoo-bacterial--biological-weapons-และรายโรค-anthrax-ถึง-psittacosis--v3',
           statement: 'Streptococcus suis เป็น commensal ของสุกร โดย colonize ที่ tonsil และ nasal cavity โดยเฉพาะลูกสุกรหย่านมอายุ 4-10 สัปดาห์ คนติดเชื้อจากการสัมผัสใกล้ชิดสุกรหรือผลิตภัณฑ์จากสุกร มักผ่านการปนเปื้อนของบาดแผลถลอกเล็กๆ ที่มือหรือแขน หรือถูกสุกรกัด จึงเป็น occupational zoonosis ของผู้เลี้ยงสุกร คนงานโรงฆ่าสัตว์ คนชำแหละเนื้อ คนงานโรงงานแปรรูปเนื้อ สัตวแพทย์ และพนักงานตรวจเนื้อ',
           evidenceStatus: 'established',
           reviewStatus: 'verified',
@@ -535,7 +535,7 @@ const CURATED = {
           review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'is a commensal of pigs, commonly colonizing their tonsils and nasal cavities, mostly in weaning piglets between 4-10 weeks of age. ... The human disease has mostly a zoonotic and occupational origin and occurs in pig breeders, abattoir work' },
         },
         {
-          id: 'zoonoses--zoo-bacterial--รอเติม-body-content-จาก-slide-4-per-disease-detail--v4',
+          id: 'zoonoses--zoo-bacterial--biological-weapons-และรายโรค-anthrax-ถึง-psittacosis--v4',
           statement: 'Meningitis เป็น primary disease syndrome ของ S. suis ทั้งในสุกรและในคน (ประมาณ 68.0% ของผู้ป่วยคนที่รายงานจนถึงสิ้นปี 2012) และ hearing loss และ/หรือ vestibular dysfunction เป็น sequelae ที่พบบ่อยที่สุดหลังหายจาก meningitis คือพบในผู้ป่วยมากกว่า 50% โดย strain ที่ก่อโรคส่วนใหญ่เป็น serotype 2',
           evidenceStatus: 'established',
           reviewStatus: 'verified',
@@ -543,7 +543,7 @@ const CURATED = {
           review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Some strains, mostly those belonging to serotype 2, are also pathogenic for pigs, as well as for other animals and humans. Meningitis is the primary disease syndrome caused by, both in pigs and in humans. It is estimated that meningitis acc' },
         },
         {
-          id: 'zoonoses--zoo-bacterial--รอเติม-body-content-จาก-slide-4-per-disease-detail--v5',
+          id: 'zoonoses--zoo-bacterial--biological-weapons-และรายโรค-anthrax-ถึง-psittacosis--v5',
           statement: 'S. suis เป็น zoonotic disease ที่รุนแรงและพบบ่อยในภาคเหนือของประเทศไทย ซึ่งประชาชนมักบริโภคเนื้อหมูดิบและ/หรือเลือดหมู โดย clinical presentation ที่พบบ่อยที่สุดคือ meningitis, sepsis และ endocarditis ร่วมกับอัตราการเสียชีวิตและ hearing loss sequelae ที่สูงกว่า',
           evidenceStatus: 'established',
           reviewStatus: 'verified',
@@ -551,7 +551,7 @@ const CURATED = {
           review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Streptococcus suis infection is a severe zoonotic disease commonly found in Northern Thailand where people often consume raw pork and/or pig\'s blood. The most frequent clinical presentations are meningitis, sepsis, and endocarditis with hig' },
         },
         {
-          id: 'zoonoses--zoo-bacterial--รอเติม-body-content-จาก-slide-4-per-disease-detail--v6',
+          id: 'zoonoses--zoo-bacterial--biological-weapons-และรายโรค-anthrax-ถึง-psittacosis--v6',
           statement: 'Brucella melitensis ยังคงเป็นสาเหตุหลัก (principal cause) ของ human brucellosis แม้จะมี vaccination campaign ด้วย Rev 1 strain แล้วก็ตาม โดยในบางพื้นที่ B. melitensis เป็นสาเหตุการติดเชื้อทั้งในโค แพะ และแกะ',
           evidenceStatus: 'established',
           reviewStatus: 'verified',
@@ -559,7 +559,7 @@ const CURATED = {
           review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Although many countries have eradicated Brucella abortus from cattle, in some areas Brucella melitensis has emerged as a cause of infection in this species as well as in sheep and goats. Despite vaccination campaigns with the Rev 1 strain,' },
         },
         {
-          id: 'zoonoses--zoo-bacterial--รอเติม-body-content-จาก-slide-4-per-disease-detail--v7',
+          id: 'zoonoses--zoo-bacterial--biological-weapons-และรายโรค-anthrax-ถึง-psittacosis--v7',
           statement: 'Brucellosis เป็น occupational disease ชัดเจน โดยข้อมูลเฝ้าระวังระดับชาติของกรีซ ปี 2004-2015 พบ incidence ในสัตวแพทย์สูงที่สุดคือ 53.2 ต่อ 100,000 ต่อปี รองลงมาคือคนชำแหละเนื้อและคนงานโรงฆ่าสัตว์ 12.7 และเจ้าหน้าที่ห้องปฏิบัติการ 3.1 เทียบกับเกษตรกรและผู้เลี้ยงปศุสัตว์ 7.1 ขณะที่ผู้ป่วย 77.1% รายงานว่าดื่มนมที่ไม่ผ่าน pasteurization หรือสัมผัสปศุสัตว์',
           evidenceStatus: 'established',
           reviewStatus: 'verified',
@@ -567,7 +567,7 @@ const CURATED = {
           review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'A large majority of cases (77.1%) reported consumption of unpasteurized milk or contact with livestock animals. Most cases occured in farmers and livestock breeders (1079 [87.7%] of 1231 cases reporting their occupation), corresponding to a' },
         },
         {
-          id: 'zoonoses--zoo-bacterial--รอเติม-body-content-จาก-slide-4-per-disease-detail--v8',
+          id: 'zoonoses--zoo-bacterial--biological-weapons-และรายโรค-anthrax-ถึง-psittacosis--v8',
           statement: 'แมวเป็น main reservoir ของ Bartonella henselae ซึ่งเป็นสาเหตุของ cat scratch disease ในคน โดยเชื้อแพร่ระหว่างแมวด้วยกันผ่าน cat flea (Ctenocephalides felis felis) หรืออุจจาระหมัด ส่วนการติดต่อสู่คนและสัตว์อื่นมักเกิดจากการถูกแมวข่วน และแมวที่ติดเชื้อตามธรรมชาติส่วนใหญ่ไม่แสดงอาการ',
           evidenceStatus: 'established',
           reviewStatus: 'verified',
@@ -646,10 +646,10 @@ const CURATED = {
         },
       ],
     },
-    'zoonoses--zoo-ai-basic--รอเติม-body-content-จาก-slide-4': {
+    'zoonoses--zoo-ai-basic--receptor-lpai-hpai-aiv-subtype-และ-surveillance-ในไทย': {
       claims: [
         {
-          id: 'zoonoses--zoo-ai-basic--รอเติม-body-content-จาก-slide-4--v1',
+          id: 'zoonoses--zoo-ai-basic--receptor-lpai-hpai-aiv-subtype-และ-surveillance-ในไทย--v1',
           statement: 'Highly pathogenic avian influenza virus ในกลุ่ม HA subtype H5 และ H7 วิวัฒนาการมาจาก low-pathogenic precursor โดยได้ multiple basic amino acid residues เพิ่มเข้ามาที่ HA cleavage site และในธรรมชาติกลไกนี้พบเฉพาะใน HA subtype เหล่านี้ ขณะที่ waterfowl reservoir เป็นแหล่งที่คง HA subtype H1 ถึง H16 ไว้',
           evidenceStatus: 'established',
           reviewStatus: 'verified',
@@ -724,10 +724,10 @@ const CURATED = {
         },
       ],
     },
-    'zoonoses--zoo-corona--รอเติม-body-content-จาก-slide-4': {
+    'zoonoses--zoo-corona--sars-mers-sars-cov-2-origin-host-และการติดเชื้อในสัตว์': {
       claims: [
         {
-          id: 'zoonoses--zoo-corona--รอเติม-body-content-จาก-slide-4--v1',
+          id: 'zoonoses--zoo-corona--sars-mers-sars-cov-2-origin-host-และการติดเชื้อในสัตว์--v1',
           statement: 'จากการทดลอง SARS-CoV-2 replicate ได้ไม่ดีในสุนัข หมู ไก่ และเป็ด แต่ ferret และแมวติดเชื้อได้ (permissive) และแมวยังติดต่อกันทาง airborne transmission ได้ด้วย',
           evidenceStatus: 'established',
           reviewStatus: 'verified',
@@ -852,10 +852,10 @@ const CURATED = {
         },
       ],
     },
-    'zoonoses--zoo-prion--รอเติม-body-content-จาก-slide-4-animal-tse-diagnosis': {
+    'zoonoses--zoo-prion--prion-biology-cjd-vcjd-bse-และ-scrapie': {
       claims: [
         {
-          id: 'zoonoses--zoo-prion--รอเติม-body-content-จาก-slide-4-animal-tse-diagnosis--v1',
+          id: 'zoonoses--zoo-prion--prion-biology-cjd-vcjd-bse-และ-scrapie--v1',
           statement: 'BSE strain ให้ pattern ของโรคในหนูที่จำเพาะ และคง signature นี้ไว้แม้ผ่าน intermediate species — พบ BSE signature เดียวกันใน TSE ของแมวบ้านและ ruminant แปลกถิ่น 2 ชนิด ซึ่งเป็น direct evidence ชิ้นแรกของการแพร่ TSE ข้าม species โดยอุบัติเหตุ',
           evidenceStatus: 'established',
           reviewStatus: 'verified',
@@ -863,7 +863,7 @@ const CURATED = {
           review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'We have shown that the strain of agent from cattle affected by bovine spongiform encephalopathy (BSE) produces a characteristic pattern of disease in mice that is retained after experimental passage through a variety of intermediate species' },
         },
         {
-          id: 'zoonoses--zoo-prion--รอเติม-body-content-จาก-slide-4-animal-tse-diagnosis--v2',
+          id: 'zoonoses--zoo-prion--prion-biology-cjd-vcjd-bse-และ-scrapie--v2',
           statement: 'ข้อมูล epidemiology ของ BSE สอดคล้องกับ extended common source epidemic ที่เริ่มจากการเปลี่ยนแปลงการสัมผัส scrapie-like agent ใน meat and bone meal ที่ผสมใน commercial animal feedstuffs ของโคในสหราชอาณาจักร ตั้งแต่ปี 1981-82',
           evidenceStatus: 'established',
           reviewStatus: 'verified',
@@ -871,7 +871,7 @@ const CURATED = {
           review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Epidemiological data are consistent with an extended common source epidemic originating from an abrupt change, commencing in 1981-82, in the exposure of domestic cattle to a scrapie-like agent in meat and bone meal incorporated into commerc' },
         },
         {
-          id: 'zoonoses--zoo-prion--รอเติม-body-content-จาก-slide-4-animal-tse-diagnosis--v3',
+          id: 'zoonoses--zoo-prion--prion-biology-cjd-vcjd-bse-และ-scrapie--v3',
           statement: 'Scrapie เป็น TSE ที่เกิดตามธรรมชาติในแกะและแพะ — ความไวหรือความต้านทานต่อ classical scrapie ในแกะถูกกำหนดอย่างมากโดย polymorphism ที่ codon 136, 154 และ 171 ของยีน PRNP โดยแผนคัดเลือกพันธุ์มุ่งลด susceptible allele และเพิ่ม resistant allele ARR',
           evidenceStatus: 'established',
           reviewStatus: 'verified',
@@ -879,7 +879,7 @@ const CURATED = {
           review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Scrapie is a naturally occurring transmissible spongiform encephalopathy in sheep and goat. ... Sheep susceptibility or resistance to classical scrapie is strongly regulated by the polymorphisms at codons 136, 154 and 171 of the PRNP. ... t' },
         },
         {
-          id: 'zoonoses--zoo-prion--รอเติม-body-content-จาก-slide-4-animal-tse-diagnosis--v4',
+          id: 'zoonoses--zoo-prion--prion-biology-cjd-vcjd-bse-และ-scrapie--v4',
           statement: 'ใน CWD สัตว์ที่ติดเชื้อสามารถ shed prion ออกทาง bodily excretions ทำให้เกิดการติดต่อโดยตรงระหว่างตัวสัตว์ หรือโดยอ้อมผ่านสิ่งแวดล้อมที่ปนเปื้อน prion — ความทนทานของ prion ทำให้การแพร่ทางสิ่งแวดล้อมประสบผลสำเร็จสูงและควบคุม CWD ได้ยาก',
           evidenceStatus: 'established',
           reviewStatus: 'verified',

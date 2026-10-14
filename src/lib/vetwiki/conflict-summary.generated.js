@@ -87,7 +87,7 @@ export const VETWIKI_CONFLICT_COUNTS = Object.freeze({
   "repro-lect--surgical-neutering": 4,
   "zoonoses--zoo-bacterial": 1,
   "zoonoses--zoo-corona": 1,
-  "zoonoses--zoo-intro": 1,
+  "zoonoses--zoo-intro": 2,
   "zoonoses--zoo-mycoses": 1,
   "zoonoses--zoo-rabies": 3,
   "zoonoses--zoo-siv-civ": 1

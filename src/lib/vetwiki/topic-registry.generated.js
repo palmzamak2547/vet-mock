@@ -1874,7 +1874,7 @@ export const VETWIKI_TOPICS = [
     "topic": "zoo-helminthic",
     "title": "Helminthic Zoonoses",
     "icon": "🪱",
-    "summary": "Helminth zoonoses — 3 groups: Trematode (Opisthorchiasis, Paragonimiasis), Cestode (รอเติม), Nematode (รอเติม).",
+    "summary": "Helminth zoonoses — 3 groups: Trematode (Opisthorchiasis, Paragonimiasis), Cestode (Spirometriasis, Taeniasis, Dipylidiasis, Echinococcosis), Nematode (Ancylostomiasis, Toxocariasis, Trichuriasis, Anatrichosomiasis) และ Dirofilaria repens ท้ายบท.",
     "flagship": false
   },
   {

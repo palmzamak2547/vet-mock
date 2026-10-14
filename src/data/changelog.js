@@ -47,6 +47,14 @@ export const SCOPE_LABELS = {
 
 export const CHANGELOG = [
   {
+    version: '5.146.1',
+    date: '2026-10-14',
+    headline: 'สรุป Zoonoses ครบทั้ง 15 หัวข้อ',
+    changes: [
+      { kind: 'content', scope: 'multi', title: 'สรุป Zoonoses ครบทุกหัวข้อ', desc: '15 หัวข้อของ Zoonoses ที่เคยขึ้นว่ารอเติมมีเนื้อหาแล้ว เขียนจากสไลด์ตั้งแต่หน้า 4 จนจบเด็คของแต่ละบท ตั้งแต่ Coronavirus, Ebola และ Nipah ไปจนถึงพยาธิและโปรโตซัว อ่านได้ทั้งในทวนเนื้อหาและ VetWiki' },
+    ],
+  },
+  {
     version: '5.146.0',
     date: '2026-10-13',
     headline: 'VetWiki เป็นชั้นหนังสือ',

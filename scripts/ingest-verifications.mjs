@@ -319,7 +319,11 @@ if (fresh.length) {
     if (emitting) keep.push(line);
     if (line === '  },') emitting = false;
   }
-  const at = sourcesText.lastIndexOf('\n};');
+  // The end of SOURCES, not the end of the file: SAME_WORK and its helpers
+  // follow SOURCES (5.146.0), and appending before the file's last `};` put
+  // new sources inside SAME_WORK, where no claim can resolve them.
+  const sourcesStart = sourcesText.indexOf('export const SOURCES');
+  const at = sourcesStart === -1 ? -1 : sourcesText.indexOf('\n};', sourcesStart);
   if (at === -1) throw new Error('could not find the end of SOURCES');
   fs.writeFileSync('src/lib/vetwiki/sources.js',
     `${sourcesText.slice(0, at)}\n\n  // ---- ${SUBJECT} sourcing pass, ${TODAY} ----\n`
