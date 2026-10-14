@@ -93,6 +93,9 @@ async function openTopicPractice(page, { count = 3, instant = true } = {}) {
   await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
   await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 30_000 });
   await expect(page.locator('.vmx-option').first()).toBeVisible();
+  // The navigation's focus hand-off to <main> (mochi-presence.spec.js explains
+  // it): an option focused before it lost its Enter here (CI 2026-10-06).
+  await expect(page.locator('#main')).toBeFocused();
 }
 
 /** The exam entry on the subject screen's second tab: whole-subject pool, exam mode. */

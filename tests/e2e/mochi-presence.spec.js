@@ -40,6 +40,16 @@ async function startQuestions(page, exam = false) {
   }
   await page.getByRole('button', { name: /เริ่มฝึก|เริ่มสอบ/ }).click();
   await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 30_000 });
+  // App.jsx hands focus to <main> on the first animation frame after a view
+  // change. With the exam chunk already cached, the card is in the DOM before
+  // that frame and Playwright can focus an option in it. The hand-off then
+  // lands between that focus and the Enter, which goes to <main> as "next
+  // question" (no verdict), or after the answer and takes the focus off the
+  // option: one or the other in 5 of the 40 Smoke runs to 2026-10-14. Holding
+  // that frame reproduces the first every time. No student can reach an
+  // option before that frame, so the test waits for the hand-off, as
+  // update-and-intent.spec.js does.
+  await expect(page.locator('#main')).toBeFocused();
   for (let i = 0; i < 10; i++) {
     if (await page.locator('.vmx-option').first().isVisible()) return;
     await page.getByRole('button', { name: /ข้อถัดไป/ }).first().click();
