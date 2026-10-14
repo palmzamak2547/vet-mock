@@ -31,7 +31,7 @@ test('the stored year is read the way App writes it', () => {
 const { default: KnowledgeView } = await loadModule('src/views/KnowledgeView.jsx', { stubs: [
   { match: '\\.css$', contents: '' },
   { match: 'Mochi\\.jsx$', contents: 'export default () => null;' },
-  { match: '/components/(FeatureTip|ReadingEffects|ReportConcern|SlideFigures|ConflictNote|StatePanel)\\.jsx$',
+  { match: '/components/(FeatureTip|ReadingEffects|ReportConcern|SlideFigures|ConflictNote|StatePanel|OptionalFeature)\\.jsx$',
     contents: 'export default (p) => (p && p.children) || null;' },
 ] });
 
@@ -81,13 +81,24 @@ test('wider screens keep every subject open', async (t) => {
   v.unmount();
 });
 
-test('the way back to the contents is observed, not polled, and leaves print alone', () => {
-  const src = readFileSync(new URL('../../src/views/KnowledgeView.jsx', import.meta.url), 'utf8');
+test('the way back to the contents follows the reading once a frame, and leaves print alone', () => {
+  const src = readFileSync(new URL('../../src/views/KnowledgeView.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
   const article = src.slice(src.indexOf('function WikiArticle('), src.indexOf('// ================= SHELL'));
-  assert.match(article, /new IntersectionObserver\(/);
-  assert.doesNotMatch(article, /addEventListener\('scroll'/);
+  // The one scroll listener is the reading position (progress, the rail's
+  // entry, and the pill): passive, at most once a frame, and no render unless
+  // something changed. The pill is measured there, not observed: a jump past
+  // the contents box (a shared #section link) never made an observer fire.
+  assert.doesNotMatch(article, /new IntersectionObserver\(/);
+  assert.match(article, /setTocAway\(tocRef\.current\.getBoundingClientRect\(\)\.bottom < 0\)/);
+  assert.equal(article.match(/addEventListener\('scroll'/g)?.length, 1);
+  assert.match(article, /addEventListener\('scroll', onScroll, \{ passive: true \}\)/);
+  assert.match(article, /if \(!frame\) frame = window\.requestAnimationFrame\(measure\)/);
   assert.match(article, /className="vmx-wiki-toc-return"/);
-  assert.match(article, /tocRef\.current\?\.focus\(\{ preventScroll: true \}\)/, 'focus follows the jump for keyboard users');
+  assert.match(article, /target\?\.focus\(\{ preventScroll: true \}\)/, 'focus follows the jump for keyboard users');
+  const sheet = src.slice(src.indexOf('function TocSheet('), src.indexOf('function ReadMark('));
+  assert.match(sheet, /const dialogRef = useModalFocus\(\{ onClose, initialFocusRef: activeRef \}\)/, "the pill's sheet holds focus, from the entry being read");
+  assert.match(article, /onClick=\{\(\) => setSheetOpen\(true\)\}/, 'the pill opens the sheet');
+  assert.match(article, /\{hasToc && \(sheetOpen \|\| \(tocAway && !endNear\)\) && \(/, 'the pill stays while its sheet is open, to take focus back');
   assert.match(article, /motionIsReduced\(\) \? 'auto' : 'smooth'/, 'no smooth scroll under reduced motion');
   const css = readFileSync(new URL('../../src/styles.css', import.meta.url), 'utf8');
   assert.match(css, /@media print \{\s*\.vmx-wiki-toc-return \{ display: none !important; \}/);

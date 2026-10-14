@@ -330,7 +330,14 @@ export function masthead(card, left, right) {
   const { core, live } = card.frame;
   const y = core.top + 62;
   card.textInk(left, live.left, y, { weight: 600, size: SIZE.xs, family: FAMILY.label, color: card.pal.sage }, 'masthead');
-  if (right) card.text(right, live.right, y, { weight: 500, size: SIZE.xs, family: FAMILY.label, color: card.pal.soft, align: 'right' }, 'masthead');
+  if (right) {
+    const style = { weight: 500, size: SIZE.xs, family: FAMILY.label, color: card.pal.soft, align: 'right' };
+    // Set by the ink: a closing mark (the ์ of "สัตว์") inks past the advance
+    // and left the live area by 5 px.
+    card.style(style);
+    const over = Math.max(0, card.ctx.measureText(String(right)).actualBoundingBoxRight ?? 0);
+    card.text(right, live.right - over, y, style, 'masthead');
+  }
   rule(card, y + 22);
 }
 

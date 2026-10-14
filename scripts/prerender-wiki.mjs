@@ -36,7 +36,10 @@ const shell = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8');
 
 const vw = await import(new URL('../src/lib/vetwiki/index.js', import.meta.url).href);
 const { SUBJECTS } = await import(new URL('../src/data/curriculum.js', import.meta.url).href);
-const { ogImageUrl } = await import(new URL('../src/data/og-covers.js', import.meta.url).href);
+const { ogImageUrl, wikiCoverId } = await import(new URL('../src/data/og-covers.js', import.meta.url).href);
+const { citationText } = await import(new URL('../src/lib/vetwiki/cite.js', import.meta.url).href);
+// A subject's own cover where scripts/render-og-covers.mjs has drawn one.
+const coverOf = (subject) => (fs.existsSync(path.join(ROOT, 'public', 'og', `${wikiCoverId(subject)}.png`)) ? wikiCoverId(subject) : 'wiki');
 const subjectName = (id) => SUBJECTS.find((s) => s.id === id)?.name || id.toUpperCase();
 
 const topics = vw.listTopics();
@@ -51,13 +54,13 @@ for (const t of topics) {
   // Honest description: say what the article is AND how well-checked it is.
   const checked = prov.verifiedClaimCount > 0
     ? `ตรวจทานกับแหล่งอ้างอิงภายนอกแล้ว ${prov.verifiedClaimCount} จุด`
-    : 'เนื้อหาจากโน้ตเลกเชอร์ ยังไม่ได้ตรวจทานกับแหล่งอ้างอิงภายนอก';
+    : 'เนื้อหาจากโน้ตใน VetMock ยังไม่ได้ตรวจทานกับแหล่งอ้างอิงภายนอก';
   const description = `${k.summary || k.title} — ${subjectName(t.subject)}, ${k.sections.length} หัวข้อย่อย, ${checked}`.slice(0, 300);
 
   let html = buildOgHead(shell, {
     title, description, url, type: 'article', indexable: true,
-    image: ogImageUrl(ORIGIN, 'wiki'),
-    imageAlt: `ความรู้ที่ เชื่อมถึงกัน — ${k.title} บน VetWiki`,
+    image: ogImageUrl(ORIGIN, coverOf(t.subject)),
+    imageAlt: coverOf(t.subject) === 'wiki' ? `ความรู้ที่ เชื่อมถึงกัน — ${k.title} บน VetWiki` : `VetWiki ${subjectName(t.subject)}: ${k.title}`,
   });
 
   // Article JSON-LD. Only facts we actually hold; no invented author/date.
@@ -70,7 +73,7 @@ for (const t of topics) {
     isPartOf: { '@type': 'WebSite', name: 'VetWiki', url: `${ORIGIN}/wiki` },
     inLanguage: 'th-TH',
     articleSection: subjectName(t.subject),
-    ...(prov.sources.length ? { citation: prov.sources.map((s) => s.citation) } : {}),
+    ...(prov.sources.length ? { citation: prov.sources.map(citationText) } : {}),
   };
   html = html.replace('</head>', `    <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>\n  </head>`);
 

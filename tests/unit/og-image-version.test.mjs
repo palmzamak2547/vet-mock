@@ -19,6 +19,8 @@ test('every cover URL a page names carries the current version', () => {
 
 test('the prerendered shells take their cover URL from ogImageUrl', () => {
   assert.match(read('scripts/prerender-og.mjs'), /const image = ogImageUrl\(ORIGIN, cover\.id\);/);
-  assert.equal((read('scripts/prerender-wiki.mjs').match(/image: ogImageUrl\(ORIGIN, 'wiki'\),/g) || []).length, 2);
+  // The index uses the wiki's cover; an article its subject's (or the wiki's).
+  assert.equal((read('scripts/prerender-wiki.mjs').match(/image: ogImageUrl\(ORIGIN, 'wiki'\),/g) || []).length, 1);
+  assert.equal((read('scripts/prerender-wiki.mjs').match(/image: ogImageUrl\(ORIGIN, coverOf\(t\.subject\)\),/g) || []).length, 1);
   assert.doesNotMatch(read('scripts/prerender-wiki.mjs'), /\/og\/wiki\.png`/);
 });

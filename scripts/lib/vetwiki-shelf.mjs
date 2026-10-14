@@ -100,6 +100,7 @@ export function buildShelf({ topics, loadTopic, provenanceSummary, covers, shelf
   const subjects = new Map();
   const perTopic = {};
   const sources = new Set();
+  const worksOf = {};
   const totals = { topics: 0, subjects: 0, sections: 0, claims: 0, sources: 0, conflicts: 0, conflictTopics: 0, newestReview: '' };
   for (const t of topics) {
     const k = loadTopic(t.subject, t.topic);
@@ -121,7 +122,8 @@ export function buildShelf({ topics, loadTopic, provenanceSummary, covers, shelf
     totals.conflicts += conflicts;
     if (conflicts) totals.conflictTopics += 1;
     if (newest > totals.newestReview) totals.newestReview = newest;
-    for (const s of p.sources) sources.add(s.work || s.id); // one work under several ids counts once (sources.js SAME_WORK)
+    worksOf[t.id] = new Set(p.sources.map((s) => s.work || s.id));
+    for (const w of worksOf[t.id]) sources.add(w); // one work under several ids counts once (sources.js SAME_WORK)
   }
   totals.subjects = subjects.size;
   totals.sources = sources.size;
@@ -130,5 +132,27 @@ export function buildShelf({ topics, loadTopic, provenanceSummary, covers, shelf
     totals,
     subjects: Object.fromEntries([...subjects].map(([id, row]) => [id, { ...row, cloth: cloth[id] }])),
     topics: perTopic,
+    related: sharedSources(worksOf),
   };
+}
+
+/**
+ * "อ้างแหล่งเดียวกัน" at the end of an article: the topics that check their
+ * points against at least two of the same sources, most shared first (ties
+ * in registry order), four at most. A topic with none is left out.
+ */
+export function sharedSources(worksOf, { min = 2, max = 4 } = {}) {
+  const ids = Object.keys(worksOf);
+  const out = {};
+  for (const a of ids) {
+    const near = [];
+    for (const b of ids) {
+      if (a === b) continue;
+      let shared = 0;
+      for (const w of worksOf[a]) if (worksOf[b].has(w)) shared += 1;
+      if (shared >= min) near.push([b, shared]);
+    }
+    if (near.length) out[a] = near.sort((x, y) => y[1] - x[1]).slice(0, max);
+  }
+  return out;
 }

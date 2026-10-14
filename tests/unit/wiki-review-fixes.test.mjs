@@ -20,7 +20,7 @@ import { provenanceHeadline } from '../../src/lib/vetwiki/schema.js';
 const { default: KnowledgeView, WikiIndex } = await loadModule('src/views/KnowledgeView.jsx', { stubs: [
   { match: '\\.css$', contents: '' },
   { match: 'Mochi\\.jsx$', contents: 'export default () => null;' },
-  { match: '/components/(FeatureTip|ReadingEffects|ReportConcern|SlideFigures|ConflictNote|StatePanel)\\.jsx$',
+  { match: '/components/(FeatureTip|ReadingEffects|ReportConcern|SlideFigures|ConflictNote|StatePanel|OptionalFeature)\\.jsx$',
     contents: 'export default (p) => (p && p.children) || null;' },
 ] });
 

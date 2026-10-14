@@ -156,3 +156,37 @@ test('the IG studio draws question cards on the kit, light or dark, and saves th
   await page.getByRole('button', { name: 'บันทึกรูป', exact: true }).first().click();
   expect((await download).suggestedFilename()).toMatch(/^vetmock-q\d+-1-dark\.png$/);
 });
+
+// A VetWiki topic as a card: drawn on the device in the app's theme, clean
+// for the longest title and the shortest, with the counts of the article.
+test('a VetWiki topic draws a clean card in the app theme, for the longest and the shortest title', async ({ page }) => {
+  await seed(page, { theme: 'dark' });
+  for (const [path, title] of [
+    ['/wiki/com5/rabies', /Rabies/],
+    ['/wiki/one-health/vet-standards-catalog', /Vet Standards Reference/],
+    ['/wiki/com3/shock', /SHOCK/],
+  ]) {
+    await page.goto(path);
+    await expect(page.getByRole('heading', { level: 1, name: title })).toBeVisible({ timeout: 20_000 });
+    await page.getByRole('button', { name: 'แชร์', exact: true }).click();
+    await page.getByRole('button', { name: 'บันทึกเป็นภาพการ์ด' }).click();
+    const sheet = page.getByRole('dialog', { name: 'การ์ดหัวข้อนี้' });
+    await expect(sheet).toBeVisible();
+    expect(await picture(page)).toEqual({ w: 1080, h: 1920, paper: 'dark' });
+    await expect(page.locator('.vmx-share-preview')).toHaveAttribute('data-layout', 'clean');
+    await page.keyboard.press('Escape');
+    await expect(sheet).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'แชร์', exact: true })).toBeFocused();
+  }
+  // The card tells what the article's strip tells.
+  await page.goto('/wiki/com5/rabies');
+  await expect(page.getByRole('heading', { level: 1, name: /Rabies/ })).toBeVisible({ timeout: 20_000 });
+  const checked = await page.locator('.vw-strip-cell', { hasText: 'จุดที่ตรวจทานแล้ว' }).locator('b').textContent();
+  const sources = await page.locator('.vw-strip-cell', { hasText: 'แหล่งอ้างอิง' }).locator('b').textContent();
+  await page.getByRole('button', { name: 'แชร์', exact: true }).click();
+  await page.getByRole('button', { name: 'บันทึกเป็นภาพการ์ด' }).click();
+  await expect(page.locator('.vmx-share-preview img')).toHaveAttribute('alt', new RegExp(`ตรวจทาน ${checked} จุด กับแหล่งอ้างอิง ${sources} แหล่ง`));
+  await page.getByRole('button', { name: 'โพสต์ 4:5', exact: true }).click();
+  await expect.poll(async () => (await picture(page)).h).toBe(1350);
+  await expect(page.locator('.vmx-share-preview')).toHaveAttribute('data-layout', 'clean');
+});

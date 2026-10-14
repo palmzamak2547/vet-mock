@@ -24,12 +24,33 @@ const { OG_COVERS, OG_IMAGE_WIDTH: W, OG_IMAGE_HEIGHT: H } =
   await import(pathToFileURL(path.join(ROOT, 'src/data/og-covers.js')).href);
 const { PALETTES, PLATES, ART } = await import(pathToFileURL(path.join(ROOT, 'scripts/og/plates.mjs')).href);
 const { MOCHI_POSE_ASSETS } = await import(pathToFileURL(path.join(ROOT, 'src/data/mochi-poses.generated.js')).href);
+const { wikiCoverId } = await import(pathToFileURL(path.join(ROOT, 'src/data/og-covers.js')).href);
+const { SHELF_SUBJECTS } = await import(pathToFileURL(path.join(ROOT, 'src/lib/vetwiki/shelf.generated.js')).href);
+const { SUBJECT_COVERS } = await import(pathToFileURL(path.join(ROOT, 'src/data/subject-covers.js')).href);
+const { SUBJECTS } = await import(pathToFileURL(path.join(ROOT, 'src/data/curriculum.js')).href);
+
+// VetWiki's subjects, one cover each: the kicker, the subject's name as the
+// headline, and its bookplate (VetMock's own course print, a transparent
+// mask) printed in ink on the cloth its volume has on the shelf, on the
+// paper of its course card. Numbered after the app's own covers.
+const WIKI_COVERS = Object.keys(SHELF_SUBJECTS).map((subject) => ({
+  id: wikiCoverId(subject),
+  route: '/wiki',
+  cover: SUBJECTS.find((s) => s.id === subject)?.name || subject,
+  wiki: {
+    plate: {
+      kicker: 'VetWiki',
+      colors: { paper: SUBJECT_COVERS[subject]?.paper || '#f3eee3', ink: '#2b2419', accent: '#355a39', soft: '#5c5246', artInk: '#2b2419', artPaper: SHELF_SUBJECTS[subject].cloth.light },
+    },
+    art: { publicFile: SUBJECT_COVERS[subject]?.src, treatment: 'line', scale: 'contain', focus: 'center', credit: 'ภาพประจำวิชาใน VetMock' },
+  },
+}));
 
 const args = process.argv.slice(2);
 const sheetAt = args.indexOf('--sheet');
 const sheet = sheetAt >= 0 ? args.splice(sheetAt, 2)[1] : null;
 const only = new Set(args);
-const covers = OG_COVERS.filter((c) => only.size === 0 || only.has(c.id));
+const covers = [...OG_COVERS, ...WIKI_COVERS].filter((c) => only.size === 0 || only.has(c.id));
 
 const b64 = (rel, type) => `data:${type};base64,${fs.readFileSync(path.join(ROOT, rel)).toString('base64')}`;
 const SERIF = b64('public/fonts/noto-serif-thai-var.woff2', 'font/woff2');
@@ -39,16 +60,17 @@ const LOGO = fs.readFileSync(path.join(ROOT, 'public/vetmock-logo.svg'), 'utf8')
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 function page(cover, index) {
-  const plate = PLATES[cover.id];
+  const plate = cover.wiki?.plate || PLATES[cover.id];
   if (!plate) throw new Error(`no plate for ${cover.id} in scripts/og/plates.mjs`);
-  const p = PALETTES[plate.palette];
-  const art = ART[cover.id] || null;
+  const p = plate.colors || PALETTES[plate.palette];
+  const art = cover.wiki?.art || ART[cover.id] || null;
   const no = String(index + 1).padStart(2, '0');
   // Phrases are the cover's own words between spaces; a line breaks only
   // between them, never inside one.
   const phrases = String(cover.cover).split(' ').map((w) => `<span>${esc(w)}</span>`).join(' ');
-  const artFile = art?.file ? path.join(ROOT, 'scripts/og/art', art.file) : null;
-  const artData = artFile ? `data:${art.file.endsWith('.webp') ? 'image/webp' : 'image/png'};base64,${fs.readFileSync(artFile).toString('base64')}` : null;
+  const artFile = art?.publicFile ? path.join(ROOT, 'public', art.publicFile)
+    : art?.file ? path.join(ROOT, 'scripts/og/art', art.file) : null;
+  const artData = artFile ? `data:${artFile.endsWith('.webp') ? 'image/webp' : 'image/png'};base64,${fs.readFileSync(artFile).toString('base64')}` : null;
   // Mochi, the app's own mascot, stands in the panel of the pages that are hers.
   const mochiData = art?.mochi
     ? `data:image/svg+xml;base64,${fs.readFileSync(path.join(ROOT, 'public', MOCHI_POSE_ASSETS[art.mochi])).toString('base64')}`
@@ -129,7 +151,7 @@ const ctx = await browser.newContext({ viewport: { width: W, height: H }, device
 const tab = await ctx.newPage();
 const shots = [];
 for (const cover of covers) {
-  const index = OG_COVERS.indexOf(cover);
+  const index = cover.wiki ? OG_COVERS.length + WIKI_COVERS.indexOf(cover) : OG_COVERS.indexOf(cover);
   await tab.setContent(page(cover, index), { waitUntil: 'networkidle' });
   await tab.evaluate(() => document.fonts.ready);
   const fit = await tab.evaluate(() => window.fit());
@@ -150,9 +172,10 @@ const lines = [
   '',
   'Written by scripts/render-og-covers.mjs from scripts/og/plates.mjs; edit those, not this file.',
   '',
-  'Every cover is our own design. Where a cover prints an artwork, the artwork is in the public domain',
-  'or dedicated to it (CC0), as its source page states. Changes: cropped to the cover\'s panel and printed',
-  'in two colours (the ink as one colour on a paper tint), except where noted as printed in colour.',
+  'Every cover is our own design. Where one of the app\'s covers prints an artwork, the artwork is in the',
+  'public domain or dedicated to it (CC0), as its source page states. Changes: cropped to the cover\'s panel',
+  'and printed in two colours (the ink as one colour on a paper tint), except where noted as printed in colour.',
+  'The VetWiki subject covers (wiki-*.png) print VetMock\'s own course artwork instead: see their entry below.',
   '',
 ];
 for (const c of credited) {
@@ -162,6 +185,8 @@ for (const c of credited) {
     a.treatment === 'colour' ? 'Printed in colour, cropped.' : 'Cropped, printed in two colours.', '');
 }
 lines.push('## mochi.png, about.png', '', 'Mochi is VetMock\'s own mascot (public/motion/poses).', '');
+lines.push(`## ${WIKI_COVERS.map((c) => `${c.id}.png`).join(', ')}`, '',
+  'Each prints its course\'s bookplate from the app: VetMock\'s own artwork, not a public-domain work. Nine are the Panic Mode drawings (public/panic-art, September 2026); the rest are the course-card bookplates (public/subject-art, October 2026). Printed in one ink on the cloth colour of the course\'s volume on the VetWiki shelves.', '');
 lines.push('# Share-card plates', '', 'The friezes across the top of the share cards (src/data/art.js, CARD_PLATES): crops of one strip each, printed in the card\'s ink.', '');
 for (const a of Object.values(ART).filter((x) => x.out && x.source)) {
   lines.push(`## ${a.out.replace(/^public\//, '')}`, '', `${a.creator}, *${a.title}*, ${a.year}. ${a.institution}.`, `Source: ${a.source}`, `Licence: ${a.licence}.`, 'Cropped, printed in one colour.', '');

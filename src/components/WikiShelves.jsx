@@ -59,8 +59,12 @@ export function thaiDay(iso) {
 
 const n = (v) => Number(v || 0).toLocaleString('en-US');
 
-function Volume({ id, name, code, year, topics, onOpenTopic, onClose }) {
+function Volume({ id, name, code, year, topics, onOpenTopic, onClose, isRead, isListed }) {
   const s = SHELF_SUBJECTS[id];
+  // Out of the topics the reading list holds: a VetWiki-only page cannot be
+  // marked, and "6 of 7" could never become 7.
+  const listed = topics.filter(isListed);
+  const read = listed.filter(isRead).length;
   const cover = SUBJECT_COVERS[id];
   return (
     <div className="vw-volume" id={`vw-volume-${id}`} role="region" aria-label={`สารบัญเล่ม ${name}`}
@@ -81,6 +85,7 @@ function Volume({ id, name, code, year, topics, onOpenTopic, onClose }) {
           <li><b>{n(s.claims)}</b> จุดที่ตรวจทานแล้ว</li>
           {s.conflicts > 0 && <li className="is-conflict">หลักฐานไม่ตรงกับที่บรรยาย {n(s.conflicts)} จุด</li>}
           {s.newestReview && <li>ตรวจทานล่าสุด {thaiDay(s.newestReview)}</li>}
+          {read > 0 && <li className="is-read">อ่านแล้ว <b>{n(read)}</b> จาก {n(listed.length)} หัวข้อ</li>}
         </ul>
         <ol className="vw-volume-chapters">
           {topics.map((t, i) => (
@@ -88,6 +93,7 @@ function Volume({ id, name, code, year, topics, onOpenTopic, onClose }) {
               <button type="button" onClick={() => onOpenTopic(t.id)}>
                 <span className="vw-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                 <span>{keepSilentFinals(t.title)}</span>
+                {isRead(t) && <span className="vw-read-mark">อ่านแล้ว</span>}
               </button>
             </li>
           ))}
@@ -103,7 +109,8 @@ function Volume({ id, name, code, year, topics, onOpenTopic, onClose }) {
  *   topicsBySubject: Map<string, Array<{id,title}>>, subjectInfo: (id) => {name, code},
  *   onOpenTopic: (id) => void }} props
  */
-export default function WikiShelves({ years, ownYear, topicsBySubject, subjectInfo, onOpenTopic }) {
+export default function WikiShelves({ years, ownYear, topicsBySubject, subjectInfo, onOpenTopic, isRead = () => false, isListed = () => true }) {
+  const anyRead = years.some(([, ids]) => ids.some((id) => (topicsBySubject.get(id) || []).some(isRead)));
   const [pulled, setPulled] = useState(() => {
     const id = typeof window === 'undefined' ? null : pulledInHistory();
     return id && SHELF_SUBJECTS[id] && years.some(([, ids]) => ids.includes(id)) ? id : null;
@@ -174,6 +181,8 @@ export default function WikiShelves({ years, ownYear, topicsBySubject, subjectIn
               const { width, height } = spineSize(s);
               const { name } = subjectInfo(id);
               const label = spineLabel(name);
+              // A ribbon in a volume with a topic marked read in รายการอ่าน.
+              const read = (topicsBySubject.get(id) || []).filter(isRead).length;
               return (
                 <li key={id} style={{
                   '--vw-spine-w': `${width}px`, '--vw-spine-h': `${height}px`, '--vw-spine-type': `${spineFontSize(label, height)}px`,
@@ -185,10 +194,11 @@ export default function WikiShelves({ years, ownYear, topicsBySubject, subjectIn
                     className="vw-spine"
                     aria-expanded={pulled === id}
                     aria-controls={pulled === id ? `vw-volume-${id}` : undefined}
-                    aria-label={`${name}, ${s.topics} หัวข้อ`}
+                    aria-label={`${name}, ${s.topics} หัวข้อ${read ? `, อ่านแล้ว ${read} หัวข้อ` : ''}`}
                     tabIndex={id === stop ? 0 : -1}
                     onClick={() => pull(id)}
                   >
+                    {read > 0 && <span className="vw-spine-ribbon" aria-hidden="true" />}
                     <span className="vw-spine-title" aria-hidden="true">{label}</span>
                     <span className="vw-spine-count" aria-hidden="true">{s.topics}</span>
                   </button>
@@ -204,12 +214,16 @@ export default function WikiShelves({ years, ownYear, topicsBySubject, subjectIn
               topics={topicsBySubject.get(pulled) || []}
               onOpenTopic={onOpenTopic}
               onClose={putBack}
+              isRead={isRead}
+              isListed={isListed}
             />
           )}
         </section>
         );
       })}
-      <p className="vw-shelf-legend">ความหนาของเล่มคือจำนวนหัวข้อ ความสูงคือจำนวนหัวข้อย่อย</p>
+      <p className="vw-shelf-legend">
+        ความหนาของเล่มคือจำนวนหัวข้อ ความสูงคือจำนวนหัวข้อย่อย{anyRead ? ' ริบบิ้นคือเล่มที่มีหัวข้ออ่านแล้ว' : ''}
+      </p>
     </div>
   );
 }

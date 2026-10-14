@@ -34,7 +34,7 @@
   color: var(--clr-ink);
 }
 .vw-index { max-width: 780px; margin: 0 auto; }
-.vw-article { max-width: 680px; margin: 0 auto; }
+/* The article's own width is set by .vw-grid (article layout, below). */
 
 /* ── Index: masthead ─────────────────────────────────────────── */
 .vw-home {
@@ -230,21 +230,6 @@
 .vw-callout { margin: 0 0 14px; padding: 12px 16px; border-radius: 10px; background: var(--clr-surface-2); }
 .vw-source { margin-top: 6px; font-family: var(--vw-label); font-size: 14px; line-height: 1.55; color: var(--clr-ink-soft); }
 
-/* A checked point: a hairline and its sources, not another box. */
-.vw-claim { margin-top: 16px; padding-left: 14px; border-left: 2px solid var(--clr-sage-soft); }
-.vw-claim-head { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin-bottom: 4px; font-family: var(--vw-label); font-size: 14px; font-weight: 600; color: var(--clr-sage-text); }
-.vw-claim-text { font-family: var(--vw-body); font-size: 15px; line-height: 1.7; }
-.vw-claim-sources { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 3px; }
-.vw-claim-sources li, .vw-claim-limits li { font-family: var(--vw-label); font-size: 14px; line-height: 1.55; color: var(--clr-ink-soft); }
-.vw-claim-sources a { color: var(--clr-ocean-text); }
-.vw-claim-limits { margin: 6px 0 0; padding-left: 18px; }
-
-/* ── Article: end ────────────────────────────────────────────── */
-.vw-more { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--clr-border); }
-.vw-more h2 { margin: 0 0 10px; font-family: var(--vw-label); font-size: 15px; font-weight: 600; color: var(--clr-ink-soft); }
-.vw-more ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.vw-more .vmx-chip { min-height: 44px; font-size: 14px; }
-
 /* The contents pill: bottom left, out from under the line being read. */
 .vw .vmx-wiki-toc-return { left: max(16px, env(safe-area-inset-left)); transform: none; animation-name: vmx-a2-fade-in; }
 /* Past the 256 px sidebar and its 16 px gap, where the sidebar shows. */
@@ -334,6 +319,12 @@
 .vw-spine-title { writing-mode: vertical-rl; font-family: var(--vw-display); font-size: var(--vw-spine-type, 15px); font-weight: 600; line-height: 1.5; white-space: nowrap; }
 /* 0.9, not 0.8: at 0.8 every count read 4.2 to 4.4:1 on its cloth (now 5.1 or more). */
 .vw-spine-count { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 600; font-variant-numeric: lining-nums; opacity: 0.9; }
+/* A reader's ribbon: a topic of this volume is marked read in the reading
+   list. It pokes out of the head of the book, as a bookmark does. */
+.vw-spine-ribbon {
+  position: absolute; top: -6px; right: 8px; width: 7px; height: 40px; pointer-events: none;
+  background: var(--clr-sage); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+}
 .vw-shelf-legend { margin: 16px 0 0; font-family: var(--vw-label); font-size: 14px; color: var(--clr-ink-soft); }
 
 /* The pulled-out volume: its cover printed in two colours, then the chapters. */
@@ -357,6 +348,8 @@
 .vw-volume-facts { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 10px 0 14px; padding: 0; list-style: none; font-family: var(--vw-label); font-size: 14px; color: var(--clr-ink-soft); }
 .vw-volume-facts b { margin-right: 4px; font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600; color: var(--clr-ink); font-variant-numeric: lining-nums tabular-nums; }
 .vw-volume-facts .is-conflict { color: var(--clr-rose-text); }
+.vw-volume-facts .is-read { color: var(--clr-sage-text); }
+.vw-read-mark { margin-left: auto; padding-left: 8px; font-family: var(--vw-label); font-size: 14px; color: var(--clr-sage-text); white-space: nowrap; }
 .vw-volume-chapters { list-style: none; margin: 0 0 14px; padding: 0; border-top: 1px solid var(--clr-border); }
 .vw-volume-chapters li { border-bottom: 1px solid var(--clr-border); }
 .vw-volume-chapters button {
@@ -441,4 +434,232 @@
 @media (prefers-reduced-motion: reduce) {
   .vw-book { transition: none; }
   .vw-book:hover, .vw-book:focus-visible { transform: perspective(900px) rotateY(-14deg); }
+}
+
+/* ── Article: layout ──────────────────────────────────────────────
+   One column on a phone. The rail beside it from a main area of 852 px
+   (rail 208 + gap 32 + column 612); the margin too from 1,100 px (+ gap 32
+   + margin 216 = 1,100, the shell's widest main). The shell's main is the
+   window less 288 px from 1,024 px up (the 256 px sidebar, its 16 px gap and
+   the 16 px page edge, styles.css .vmx-app) and less 32 px below, so 852 px
+   of main is a window of 884 to 1,023 px or of 1,140 px and up, and 1,100 px
+   of main is a window of 1,388 px. Media queries, not container queries:
+   iOS 14 has none, and the pill and sheet outside the grid follow too. */
+.vw-grid { max-width: 680px; margin: 0 auto; }
+.vw-rail { display: none; }
+.vw-main { position: relative; min-width: 0; }
+
+/* Reading progress: a 2 px line held at the top of the screen while the
+   article scrolls under it. KnowledgeView writes its scaleX each frame; it is
+   information, so it tracks under reduced motion too, without easing. */
+.vw-progress { position: sticky; top: env(safe-area-inset-top, 0px); z-index: var(--z-raised); height: 2px; margin-bottom: -2px; pointer-events: none; }
+.vw-progress > span { display: block; height: 100%; background: var(--clr-sage); transform: scaleX(0); transform-origin: left center; }
+
+@media (min-width: 884px) and (max-width: 1023.98px), (min-width: 1140px) {
+  .vw-grid.has-rail { display: grid; grid-template-columns: 208px minmax(0, 612px); column-gap: 32px; align-items: start; max-width: 852px; }
+  .vw-rail {
+    display: block; position: sticky; top: max(16px, env(safe-area-inset-top)); grid-column: 1; grid-row: 1;
+    max-height: calc(100vh - 32px); overflow-y: auto; padding: 4px 6px 16px 0; scrollbar-width: thin;
+  }
+  .vw-grid.has-rail .vw-main { grid-column: 2; grid-row: 1; }
+  .vw-grid.has-rail .vw-toc, .vw .vmx-wiki-toc-return { display: none; }
+}
+@media (min-width: 1388px) {
+  .vw-grid.has-rail { grid-template-columns: 208px minmax(0, 860px); max-width: 1100px; }
+  .vw-grid { max-width: 860px; }
+  /* Header, contents, end and sources keep the 612 px column; the sections
+     reach into the margin, where their evidence stands as a sidenote. */
+  .vw-main > :not(.vmx-reading-effects), .vw-main .vmx-reading-tools { max-width: 612px; }
+  .vw-section { display: grid; grid-template-columns: minmax(0, 612px) 216px; column-gap: 32px; align-items: start; }
+  .vw-section-text, .vw-section-report { grid-column: 1; }
+  .vw-section > .vw-ev { grid-column: 2; grid-row: 1 / span 2; margin-top: 2px; padding-left: 14px; border-left: 1px solid var(--clr-border); }
+  .vw-ev-chips { flex-direction: column; align-items: flex-start; }
+  /* The drawer is wider than the margin: it hangs from the margin's right
+     edge over the text, which a tap asked to see. */
+  .vw-section > .vw-ev .vw-ev-drawer { position: absolute; right: 0; z-index: var(--z-raised); width: 380px; box-shadow: var(--shadow-md); }
+  .vw-section > .vw-ev { position: relative; }
+}
+
+/* ── Article: the rail ─────────────────────────────────────────── */
+.vw-rail-head { margin: 0 0 6px; font-family: var(--vw-label); font-size: 15px; font-weight: 600; color: var(--clr-ink); }
+.vw-legend { margin: 0 0 8px; font-family: var(--vw-label); font-size: 14px; line-height: 1.55; color: var(--clr-ink-soft); }
+.vw-rail .vw-legend { display: flex; gap: 6px; align-items: baseline; }
+.vw-rail-list { position: relative; padding-left: 14px; }
+/* The track is the article; its ink grows with the reading, and the entry
+   being read carries a 2 px ink bar on it. */
+.vw-rail-track { position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--clr-border); }
+.vw-rail-track > span { position: absolute; inset: 0; background: var(--clr-ink-soft); transform: scaleY(0); transform-origin: center top; }
+.vw-rail ol { list-style: none; margin: 0; padding: 0; }
+.vw-rail li { position: relative; display: flex; align-items: baseline; gap: 8px; }
+.vw-rail li.is-active::before { content: ''; position: absolute; left: -15px; top: 10px; bottom: 10px; width: 2px; border-radius: 1px; background: var(--clr-ink); }
+.vw-rail .vw-num { min-width: 2ch; font-size: 14px; }
+/* A block, not a flex box: flex would make each run of a heading (the
+   nowrap spans of keepSilentFinals) its own column. 11.5 px a side makes a
+   one-line entry 44 px (21 + 23), the touch floor. */
+.vw-rail a {
+  flex: 1; min-width: 0; display: block; padding: 11.5px 0;
+  font-family: var(--vw-label); font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); text-decoration: none;
+}
+.vw-rail a:hover { color: var(--clr-ink); text-decoration: underline; text-underline-offset: 3px; }
+.vw-rail a:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; border-radius: 4px; }
+.vw-rail li.is-active a { color: var(--clr-ink); font-weight: 600; }
+.vw-rail .vw-meta-tag { display: none; }
+.vw-toc li.is-active > a { font-weight: 600; }
+/* A section reached from the contents takes focus on its heading. */
+.vw-h2:focus { outline: none; }
+.vw-h2:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 4px; border-radius: 4px; }
+
+/* The phone's pill says where the reader is: "สารบัญ 3/9". */
+.vw-pill-count { font-family: 'Fraunces', serif; font-weight: 500; font-variant-numeric: lining-nums tabular-nums; color: var(--clr-ink-soft); }
+/* Its sheet: a flat tint behind (a blur over a long article costs every
+   frame on a phone), rising from the bottom edge. */
+.vw-sheet-overlay { align-items: flex-end; padding: max(12px, env(safe-area-inset-top, 0px)) 0 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.vw-sheet-head .vmx-btn { min-width: 44px; min-height: 44px; justify-content: center; }
+.vw-sheet {
+  width: 100%; max-width: 560px; max-height: min(78vh, 640px); overflow-y: auto;
+  padding: 14px 16px max(16px, env(safe-area-inset-bottom));
+  border: 1px solid var(--clr-border); border-bottom: 0; border-radius: 18px 18px 0 0; background: var(--clr-surface); color: var(--clr-ink);
+}
+.vw-sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.vw-sheet-head h2 { margin: 0; font-family: var(--vw-label); font-size: 16px; font-weight: 600; }
+.vw-sheet-head h2 span { margin-left: 6px; font-family: 'Fraunces', serif; font-weight: 500; color: var(--clr-ink-soft); font-variant-numeric: lining-nums tabular-nums; }
+.vw-sheet ol { list-style: none; margin: 0; padding: 0; }
+.vw-sheet li { display: flex; align-items: baseline; gap: 10px; border-bottom: 1px solid var(--clr-border); }
+.vw-sheet li.is-active { box-shadow: inset 2px 0 0 var(--clr-ink); padding-left: 8px; }
+.vw-sheet .vw-num { min-width: 2ch; font-size: 15px; }
+.vw-sheet a { flex: 1; display: block; padding: 11px 0; font-family: var(--vw-body); font-size: 16px; line-height: 1.55; color: var(--clr-ocean-text); text-decoration: none; }
+.vw-sheet li.is-active a { color: var(--clr-ink); font-weight: 600; }
+
+/* ── Article: evidence under a section ───────────────────────────── */
+.vw-ev { margin-top: 12px; }
+.vw-ev-head { margin: 0; font-family: var(--vw-label); font-size: 14px; font-weight: 600; line-height: 1.5; color: var(--clr-sage-text); }
+.vw-ev-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; column-gap: 6px; }
+/* 44 px to touch, a 30 px chip to see. */
+.vw-chip { all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; }
+.vw-chip-face {
+  display: inline-flex; align-items: center; gap: 7px; max-width: 100%; min-height: 30px; padding: 2px 10px 2px 3px;
+  border: 1px solid var(--clr-border); border-radius: 8px; background: var(--clr-surface);
+  font-family: var(--vw-label); font-size: 14px; line-height: 1.45; color: var(--clr-ink);
+}
+.vw-chip-n {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; padding: 0 5px; border-radius: 6px;
+  background: var(--clr-surface-2); font-family: 'Fraunces', serif; font-size: 14px; font-weight: 500; line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums; color: var(--clr-ink-soft);
+}
+.vw-chip-name { min-width: 0; overflow-wrap: anywhere; }
+.vw-chip:hover .vw-chip-face { border-color: var(--clr-sage); }
+.vw-chip[aria-expanded='true'] .vw-chip-face { border-color: var(--clr-sage); background: var(--clr-sage-soft); color: var(--clr-ink); }
+.vw-chip[aria-expanded='true'] .vw-chip-n { background: var(--clr-surface); }
+.vw-chip:focus-visible .vw-chip-face { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+/* Brought into view when it opens: 68 px clears the contents pill (44 px
+   and its 16 px from the tab bar, plus 8) above the tab bar's own height. */
+.vw-ev-drawer {
+  margin: 6px 0 4px; padding: 14px 16px; border: 1px solid var(--clr-border); border-left: 3px solid var(--clr-sage); border-radius: 10px; background: var(--clr-surface);
+  scroll-margin: 70px 0 calc(var(--vmx-bottom-nav-h, 0px) + 68px);
+}
+.vw-ev-cite { margin: 0; font-family: var(--vw-body); font-size: 15px; line-height: 1.65; overflow-wrap: anywhere; }
+.vw-ev-kind {
+  display: inline-block; margin-right: 8px; padding: 0 8px; border-radius: var(--r-pill); background: var(--clr-surface-2);
+  font-family: var(--vw-label); font-size: 14px; font-weight: 600; line-height: 1.7; color: var(--clr-ink-soft);
+}
+.vw-ev-sub { margin: 12px 0 4px; font-family: var(--vw-label); font-size: 14px; font-weight: 600; color: var(--clr-ink-soft); }
+.vw-ev-points { margin: 0; padding-left: 18px; font-family: var(--vw-body); font-size: 15px; line-height: 1.7; }
+.vw-ev-points li { margin-bottom: 8px; }
+.vw-ev-points li::marker { color: var(--clr-ink-soft); }
+.vw-ev-note { display: block; margin-top: 2px; font-family: var(--vw-label); font-size: 14px; line-height: 1.55; color: var(--clr-ink-soft); }
+.vw-ev-limits { margin: 4px 0 0; padding-left: 18px; font-family: var(--vw-label); font-size: 14px; line-height: 1.55; color: var(--clr-ink-soft); }
+.vw-ev-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.vw-ev-actions .vmx-btn { min-height: 44px; display: inline-flex; align-items: center; }
+.vw-tone-strong { color: var(--clr-sage-text); }
+.vw-tone-ok { color: var(--clr-ocean-text); }
+.vw-tone-weak { color: var(--clr-gold-text); }
+.vw-tone-warn { color: var(--clr-rose-text); }
+.vw-tone-muted { color: var(--clr-ink-soft); }
+.vw-section-report { margin-top: 4px; }
+
+/* ── Article: end of the chapter ─────────────────────────────────── */
+.vw-end { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--clr-border); }
+.vw-readmark { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-bottom: 26px; }
+.vw-readmark-said { flex-basis: 100%; margin: 0; min-height: 1px; font-family: var(--vw-label); font-size: 14px; color: var(--clr-ink-soft); }
+.vw-readmark-said.is-fail { color: var(--clr-rose-text); }
+/* A library stamp: a double rule in the sage ink, a few degrees off true.
+   It lands at 1.08 and settles in 160 ms; with reduced motion it is just there. */
+.vw-stamp {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 0; margin: 0; padding: 6px 16px 7px;
+  border: 3px double var(--clr-sage-text); border-radius: 8px; color: var(--clr-sage-text);
+  font-family: var(--vw-label); font-size: 14px; line-height: 1.45; text-align: center;
+  transform: rotate(-4deg); animation: vw-stamp 160ms var(--ease-out) both;
+}
+.vw-stamp b { font-family: var(--vw-display); font-size: 21.25px; font-weight: 700; line-height: 1.35; letter-spacing: 0; }
+@keyframes vw-stamp { from { transform: rotate(-4deg) scale(1.08); opacity: 0.4; } to { transform: rotate(-4deg); opacity: 1; } }
+.vw-quiet {
+  all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px;
+  font-family: var(--vw-label); font-size: 14px; color: var(--clr-ink-soft); text-decoration: underline; text-underline-offset: 3px;
+}
+.vw-quiet:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; border-radius: 4px; }
+.vw-pager { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 30px; }
+.vw-pager-btn {
+  all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; gap: 2px; min-height: 64px; padding: 12px 16px;
+  border: 1px solid var(--clr-border); border-radius: 12px; background: var(--clr-surface);
+}
+.vw-pager-btn.is-next { grid-column: 2; text-align: right; align-items: flex-end; }
+.vw-pager-btn > span { font-family: var(--vw-label); font-size: 14px; color: var(--clr-ink-soft); }
+.vw-pager-btn > b { font-family: var(--vw-display); font-size: 17px; font-weight: 600; line-height: 1.45; color: var(--clr-ocean-text); }
+.vw-pager-btn:hover { border-color: var(--clr-sage); }
+.vw-pager-btn:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vw-end-block { margin-bottom: 30px; }
+.vw-end-block h2, .vw-sources h2 { margin: 0 0 8px; font-family: var(--vw-label); font-size: 15px; font-weight: 600; color: var(--clr-ink); }
+.vw-end-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--clr-border); }
+.vw-end-list li { border-bottom: 1px solid var(--clr-border); }
+.vw-end-list button, .vw-end-list .is-here {
+  all: unset; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; width: 100%; min-height: 44px; padding: 10px 4px;
+}
+.vw-end-list button { cursor: pointer; }
+.vw-end-list button:hover { background: var(--clr-surface-2); }
+.vw-end-list button:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: -2px; }
+.vw-end-list b { flex: 1 1 60%; min-width: 0; font-family: var(--vw-display); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--clr-ocean-text); }
+.vw-end-list b + span { font-family: var(--vw-label); font-size: 14px; color: var(--clr-ink-soft); }
+.vw-end-list .vw-num { min-width: 2ch; font-size: 15px; }
+.vw-end-list .is-here b { color: var(--clr-ink); }
+.vw-end-list .vw-read-mark { margin-left: auto; padding-left: 8px; font-family: var(--vw-label); font-size: 14px; color: var(--clr-sage-text); white-space: nowrap; }
+
+/* ── Article: the sources, numbered as in the chips ──────────────── */
+.vw-sources { margin-top: 8px; padding-top: 22px; border-top: 1px solid var(--clr-border); }
+.vw-sources:focus { outline: none; }
+.vw-sources ol { list-style: none; margin: 0; padding: 0; }
+.vw-sources li { display: grid; grid-template-columns: 2.4em minmax(0, 1fr); gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--clr-border); scroll-margin-top: 70px; }
+.vw-sources li:focus { outline: none; background: var(--clr-surface-2); }
+.vw-src-n { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 500; line-height: 1.5; color: var(--clr-ink-soft); font-variant-numeric: lining-nums tabular-nums; text-align: right; }
+.vw-src-cite { margin: 0; font-family: var(--vw-body); font-size: 15px; line-height: 1.65; overflow-wrap: anywhere; }
+.vw-src-cite a { color: var(--clr-ocean-text); }
+.vw-src-meta { display: flex; flex-wrap: wrap; gap: 2px 14px; margin: 4px 0 0; font-family: var(--vw-label); font-size: 14px; line-height: 1.6; color: var(--clr-ink-soft); }
+.vw-src-meta a {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; margin: -11px -6px;
+  color: var(--clr-ocean-text); font-variant-numeric: lining-nums tabular-nums;
+}
+.vw-src-meta a:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: -6px; border-radius: 8px; }
+
+/* Entrances: the drawer and the sheet on the springs of Appendix B (the card
+   spring, response 0.35 s, zeta 0.82: 480 ms; the pull-out, 0.45 s, zeta 1.0:
+   661 ms). Reduced motion: they are simply there. */
+@keyframes vw-rise { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@keyframes vw-sheet-in { from { transform: translateY(100%); } to { transform: none; } }
+.vw-ev-drawer { animation: vw-rise 180ms var(--ease-out) both; }
+.vw-sheet { animation: vw-sheet-in 300ms var(--ease-out) both; }
+@supports (animation-timing-function: linear(0, 1)) {
+  .vw-ev-drawer { animation-duration: 480ms; animation-timing-function: linear(0, 0.053, 0.174, 0.32, 0.467, 0.6, 0.712, 0.802, 0.871, 0.922, 0.958, 0.982, 0.997, 1.005, 1.01, 1.011, 1.011, 1.01, 1.008, 1.006, 1.005, 1.004, 1.002, 1.002, 1); }
+  .vw-sheet { animation-duration: 661ms; animation-timing-function: linear(0, 0.057, 0.18, 0.321, 0.455, 0.573, 0.671, 0.75, 0.812, 0.86, 0.896, 0.924, 0.944, 0.96, 0.971, 0.979, 0.985, 0.989, 0.992, 0.994, 0.996, 0.997, 0.998, 0.999, 1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vw-ev-drawer, .vw-sheet, .vw-stamp { animation: none; }
+}
+
+@media (max-width: 640px) {
+  .vw-pager { grid-template-columns: 1fr; }
+  .vw-pager-btn.is-next { grid-column: 1; }
+}
+
+@media print {
+  .vw-rail, .vw-progress, .vw-ev, .vw-end, .vw-section-report { display: none !important; }
+  .vw-sources li { break-inside: avoid; }
 }

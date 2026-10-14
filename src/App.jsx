@@ -275,8 +275,13 @@ const REST_TOOLS = new Set(['pomodoro', 'offline-game']);
 function ViewEntry({ view, returnScrollRef }) {
   useEffect(() => {
     const id = requestAnimationFrame(() => {
-      const top = returnScrollRef.current?.view === view ? returnScrollRef.current.top : 0;
+      const saved = returnScrollRef.current?.view === view ? returnScrollRef.current.top : null;
       returnScrollRef.current = null;
+      // A shared VetWiki link to a section (/wiki/com5/rabies#...) scrolls
+      // itself once the article has loaded. This frame often comes after
+      // that, and put the reader back at the top.
+      if (saved == null && (view === 'wiki' || view === 'knowledge') && window.location.hash.length > 1) return;
+      const top = saved ?? 0;
       try { window.scrollTo({ top, behavior: 'instant' }); }
       catch { window.scrollTo(0, top); }
     });
@@ -3071,7 +3076,7 @@ export default function App() {
                 />
               )}
 {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={NOTES_RETURN_LABELS.get(notesReturnRef.current.view) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}
-              {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam }} />}
+              {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam, readingChecklist, setReadingChecklist }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, setPracticeMode, subject, setSubject, topic, setTopic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, setMode, selectedYear, selectedPhase, panicPending, setPanicPending }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, questionDeadline, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}

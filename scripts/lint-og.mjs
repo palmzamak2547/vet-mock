@@ -21,7 +21,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const load = (rel) => import(pathToFileURL(path.join(ROOT, rel)).href);
 
-const { OG_COVERS, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT } = await load('src/data/og-covers.js');
+const { OG_COVERS, OG_IMAGE_WIDTH, OG_IMAGE_HEIGHT, wikiCoverId } = await load('src/data/og-covers.js');
+const { SHELF_SUBJECTS } = await load('src/lib/vetwiki/shelf.generated.js');
 const { APP_VIEW_ROUTES, APP_PATH_ALIASES } = await load('src/lib/view-route.js');
 
 const errors = [];
@@ -76,6 +77,25 @@ for (const c of OG_COVERS) {
   }
 }
 
+// ── VetWiki's subject covers ─────────────────────────────────────
+// Every subject on the shelves previews its articles with its own cover
+// (scripts/prerender-wiki.mjs falls back to wiki.png without one, so a
+// missing file would only look generic; here it is an error). 150 KB each at
+// most: 21 of them shipped in the repository.
+const WIKI_COVER_MAX = 150 * 1024;
+for (const subject of Object.keys(SHELF_SUBJECTS)) {
+  const id = wikiCoverId(subject);
+  seenIds.add(id);
+  const file = path.join(ROOT, 'public', 'og', `${id}.png`);
+  if (!fs.existsSync(file)) { err(id, `public/og/${id}.png does not exist (node scripts/render-og-covers.mjs ${id})`); continue; }
+  const buf = fs.readFileSync(file);
+  if (buf.subarray(0, 8).toString('hex') !== '89504e470d0a1a0a') { err(id, `public/og/${id}.png is not a PNG`); continue; }
+  if (buf.readUInt32BE(16) !== OG_IMAGE_WIDTH || buf.readUInt32BE(20) !== OG_IMAGE_HEIGHT) {
+    err(id, `cover is ${buf.readUInt32BE(16)}x${buf.readUInt32BE(20)}, but the tags declare ${OG_IMAGE_WIDTH}x${OG_IMAGE_HEIGHT}`);
+  }
+  if (buf.length > WIKI_COVER_MAX) err(id, `cover is ${Math.round(buf.length / 1024)} KB (150 KB at most)`);
+}
+
 // ── covers nobody can reach ──────────────────────────────────────
 // An alias (an old address that still opens its view) is a real way in, so its cover counts.
 const routeSet = new Set([...Object.values(APP_VIEW_ROUTES), ...Object.keys(APP_PATH_ALIASES || {})]);
@@ -103,4 +123,4 @@ if (errors.length) {
   process.exit(1);
 }
 const indexable = OG_COVERS.filter((c) => c.indexable).length;
-console.log(`✓ ${OG_COVERS.length} share covers, all ${OG_IMAGE_WIDTH}x${OG_IMAGE_HEIGHT}; ${Object.keys(APP_VIEW_ROUTES).length} routes covered, ${indexable} indexable${warnings.length ? `, ${warnings.length} warning(s)` : ''}`);
+console.log(`✓ ${OG_COVERS.length} share covers and ${Object.keys(SHELF_SUBJECTS).length} VetWiki subject covers, all ${OG_IMAGE_WIDTH}x${OG_IMAGE_HEIGHT}; ${Object.keys(APP_VIEW_ROUTES).length} routes covered, ${indexable} indexable${warnings.length ? `, ${warnings.length} warning(s)` : ''}`);

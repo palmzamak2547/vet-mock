@@ -18,7 +18,7 @@ import { COMPACT_READING_QUERY } from '../../src/lib/reading-layout.js';
 const { default: KnowledgeView } = await loadModule('src/views/KnowledgeView.jsx', { stubs: [
   { match: '\\.css$', contents: '' },
   { match: 'Mochi\\.jsx$', contents: 'export default () => null;' },
-  { match: '/components/(FeatureTip|ReadingEffects|ReportConcern|SlideFigures|ConflictNote|StatePanel)\\.jsx$',
+  { match: '/components/(FeatureTip|ReadingEffects|ReportConcern|SlideFigures|ConflictNote|StatePanel|OptionalFeature)\\.jsx$',
     contents: 'export default (p) => (p && p.children) || null;' },
 ] });
 

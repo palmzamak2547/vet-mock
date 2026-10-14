@@ -423,14 +423,17 @@ test.describe('VetMock smoke flow', () => {
 
     // Honest governance is visible. This used to require a "ฉบับร่าง" badge,
     // but drafts were deliberately eliminated when every section reached a
-    // verified state — so the assertion outlived the thing it described and
-    // sat red. What must hold now is the opposite: a governed badge is shown,
-    // and nothing on the page still calls itself a draft.
-    await expect(page.locator('.vmx-qtype-badge').first()).toBeVisible();
-    await expect(page.locator('.vmx-qtype-badge', { hasText: 'ฉบับร่าง' })).toHaveCount(0);
+    // verified state. Then it required an evidence badge on every checked
+    // point; since 5.147.0 the evidence sits behind the source chips. What
+    // must hold now: the strip counts the checked points, and nothing on the
+    // page still calls itself a draft.
+    await expect(page.locator('.vw-strip-cell', { hasText: 'จุดที่ตรวจทานแล้ว' })).toBeVisible();
+    await expect(page.getByText('ฉบับร่าง')).toHaveCount(0);
 
-    // A claim cross-checked against an external reference is marked as such.
-    await expect(page.getByText('ตรวจทานกับแหล่งอ้างอิง').first()).toBeVisible();
+    // A section cross-checked against an external reference says so, with
+    // its sources as numbered chips.
+    await expect(page.locator('.vw-ev-head').first()).toHaveText('ตรวจทานกับ');
+    await expect(page.locator('.vw-chip').first()).toBeVisible();
 
     // Provenance panel opens and cites a REAL source (never fabricated).
     await page.getByRole('button', { name: /VetMock รู้เรื่องนี้ได้อย่างไร/ }).click();
@@ -462,5 +465,123 @@ test.describe('VetMock smoke flow', () => {
       consoleErrors,
       `Unexpected console errors on a shared VetWiki link:\n${consoleErrors.join('\n')}`
     ).toEqual([]);
+  });
+
+  // A source chip opens its citation in place; Escape closes it and gives
+  // focus back to the chip; the list at the end carries the same number.
+  test('a VetWiki source chip opens its citation, and the list keeps its number', async ({ page }) => {
+    await page.goto('/wiki/com5/rabies');
+    await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible({ timeout: 10_000 });
+    const chip = page.locator('#com5--rabies--overview .vw-chip').first();
+    await expect(chip).toContainText('WOAH');
+    expect((await chip.boundingBox()).height).toBeGreaterThanOrEqual(44);
+    await chip.click();
+    await expect(chip).toHaveAttribute('aria-expanded', 'true');
+    const drawer = page.getByRole('region', { name: 'แหล่งอ้างอิงที่ 1' });
+    await expect(drawer).toBeVisible();
+    await expect(drawer).toContainText('Terrestrial Manual');
+    await expect(drawer).toContainText('จุดในหัวข้อย่อยนี้ที่ตรวจทานกับแหล่งนี้');
+    await expect(drawer).toContainText('ระดับหลักฐาน:');
+    // Escape from inside the drawer closes it and returns focus to its chip.
+    await drawer.getByRole('link', { name: 'ดูในรายการแหล่งอ้างอิง' }).focus();
+    await page.keyboard.press('Escape');
+    await expect(drawer).toBeHidden();
+    await expect(chip).toBeFocused();
+    // Its close button does the same; a tap outside closes it too.
+    await chip.click();
+    await page.getByRole('region', { name: 'แหล่งอ้างอิงที่ 1' }).getByRole('button', { name: 'ปิด', exact: true }).click();
+    await expect(page.getByRole('region', { name: 'แหล่งอ้างอิงที่ 1' })).toBeHidden();
+    await expect(chip).toBeFocused();
+    await chip.click();
+    await page.getByRole('heading', { level: 1, name: /Rabies/i }).click();
+    await expect(page.getByRole('region', { name: 'แหล่งอ้างอิงที่ 1' })).toBeHidden();
+    // The list at the end has it as 1, focused, and links back to its section.
+    await chip.click();
+    await page.getByRole('region', { name: 'แหล่งอ้างอิงที่ 1' }).getByRole('link', { name: 'ดูในรายการแหล่งอ้างอิง' }).click();
+    const entry = page.locator('#vw-src-1');
+    await expect(entry).toBeFocused();
+    await expect(entry).toBeInViewport();
+    await expect(entry).toContainText('Terrestrial Manual');
+    await expect(entry.getByRole('link', { name: /หัวข้อย่อย 01 Overview/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /แหล่งอ้างอิงทั้งหมด \d+ แหล่ง/ })).toBeVisible();
+
+    expect(consoleErrors, `Unexpected console errors on a VetWiki chip:\n${consoleErrors.join('\n')}`).toEqual([]);
+  });
+
+  // Where the main area has room (a 1,440 px window), the contents stand
+  // beside the article and follow the reading, and a section's sources sit
+  // in the margin beside it.
+  test('on a wide screen the VetWiki contents follow the reading', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name.includes('mobile'), 'the rail needs a wide window');
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/wiki/com5/rabies');
+    const rail = page.getByRole('navigation', { name: 'สารบัญ', exact: true });
+    await expect(rail).toBeVisible({ timeout: 10_000 });
+    await expect(page.locator('.vw-toc')).toBeHidden();
+    await expect(rail.locator('[aria-current="location"]')).toHaveText('Overview');
+    const ev = await page.locator('#com5--rabies--overview > .vw-ev').boundingBox();
+    const text = await page.locator('#com5--rabies--overview > .vw-section-text').boundingBox();
+    expect(ev.x).toBeGreaterThanOrEqual(text.x + text.width);
+    // A rail entry goes to its section and hands it focus.
+    await rail.getByRole('link', { name: 'Diagnosis' }).click();
+    await expect(page.locator('#com5--rabies--diagnosis .vw-h2')).toBeFocused();
+    await expect(rail.locator('[aria-current="location"]')).toHaveText('Diagnosis');
+    const progress = await page.locator('.vw-progress > span').evaluate((el) => el.style.transform);
+    expect(progress).toMatch(/^scaleX\(0\.\d+\)$/);
+
+    expect(consoleErrors, `Unexpected console errors on the VetWiki rail:\n${consoleErrors.join('\n')}`).toEqual([]);
+  });
+
+  // On a phone the contents pill says where the reader is and opens the
+  // contents as a sheet that holds focus and closes with Escape.
+  test('on a phone the VetWiki contents pill says where you are', async ({ page }, testInfo) => {
+    test.skip(!testInfo.project.name.includes('mobile'), 'the pill is the phone layout');
+    await page.goto('/wiki/com5/rabies');
+    await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible({ timeout: 10_000 });
+    // The article is in the DOM before the first frame is drawn, and the app
+    // puts a newly opened view at the top on that frame (App.jsx ViewEntry):
+    // a scroll before it is undone, as it would be for a reader who could
+    // scroll before anything was on screen. Two frames, then scroll.
+    await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+    await page.evaluate(() => document.getElementById('com5--rabies--diagnosis').scrollIntoView({ block: 'start' }));
+    const pill = page.locator('.vmx-wiki-toc-return');
+    await expect(pill).toBeVisible();
+    await expect(pill).toHaveText(/^สารบัญ \d\/9$/);
+    const at = (await pill.textContent()).match(/(\d)\/9/)[1];
+    await expect(pill).toHaveAttribute('aria-label', `สารบัญ อ่านถึงหัวข้อย่อยที่ ${at} จาก 9`);
+    await pill.click();
+    const sheet = page.getByRole('dialog', { name: 'สารบัญ' });
+    await expect(sheet).toBeVisible();
+    // Focus starts on the entry being read.
+    await expect(sheet.locator('[aria-current="location"]')).toBeFocused();
+    expect(await sheet.locator('li').nth(Number(at) - 1).locator('[aria-current="location"]').count()).toBe(1);
+    await page.keyboard.press('Escape');
+    await expect(sheet).toBeHidden();
+    // Closed, the sheet hands focus back to the pill that opened it.
+    await expect(pill).toBeFocused();
+    await pill.click();
+    await page.getByRole('dialog', { name: 'สารบัญ' }).getByRole('link', { name: 'Overview' }).click();
+    await expect(page.getByRole('dialog', { name: 'สารบัญ' })).toBeHidden();
+    await expect(page.locator('#com5--rabies--overview .vw-h2')).toBeFocused();
+
+    expect(consoleErrors, `Unexpected console errors on the VetWiki pill:\n${consoleErrors.join('\n')}`).toEqual([]);
+  });
+
+  // The end of a chapter writes รายการอ่าน itself.
+  test('marking a VetWiki topic read ticks it in the reading list', async ({ page }) => {
+    await page.goto('/wiki/com5/rabies');
+    await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible({ timeout: 10_000 });
+    await page.getByRole('button', { name: 'ทำเครื่องหมายว่าอ่านแล้ว' }).click();
+    await expect(page.locator('.vw-stamp')).toContainText('อ่านแล้ว');
+    await expect(page.locator('.vw-readmark-said')).toHaveText('บันทึกในรายการอ่านแล้ว');
+    const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-reading-checklist') || '{}'));
+    expect(stored['topic:com5/rabies']).toBeGreaterThan(0);
+    // The pressed button gives way to the other, and focus follows it.
+    const undo = page.getByRole('button', { name: 'ยกเลิกว่าอ่านแล้ว' });
+    await expect(undo).toBeFocused();
+    await undo.click();
+    await expect(page.getByRole('button', { name: 'ทำเครื่องหมายว่าอ่านแล้ว' })).toBeFocused();
+
+    expect(consoleErrors, `Unexpected console errors on the VetWiki chapter end:\n${consoleErrors.join('\n')}`).toEqual([]);
   });
 });

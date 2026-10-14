@@ -188,6 +188,14 @@ export const OG_IMAGE_VERSION = '20261013';
 /** A cover's absolute URL, versioned. */
 export const ogImageUrl = (origin, id) => `${origin}/og/${id}.png?v=${OG_IMAGE_VERSION}`;
 
+/**
+ * VetWiki articles preview with their subject's cover, public/og/wiki-<subject>.png:
+ * the subject's bookplate on its spine's cloth (scripts/render-og-covers.mjs
+ * draws one per subject on the shelves). Not routes of their own, so not in
+ * OG_COVERS; scripts/lint-og.mjs checks each.
+ */
+export const wikiCoverId = (subject) => `wiki-${subject}`;
+
 export const OG_IMAGE_WIDTH = 1200;
 export const OG_IMAGE_HEIGHT = 630;
 

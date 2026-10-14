@@ -2,9 +2,10 @@
 
 Written by scripts/render-og-covers.mjs from scripts/og/plates.mjs; edit those, not this file.
 
-Every cover is our own design. Where a cover prints an artwork, the artwork is in the public domain
-or dedicated to it (CC0), as its source page states. Changes: cropped to the cover's panel and printed
-in two colours (the ink as one colour on a paper tint), except where noted as printed in colour.
+Every cover is our own design. Where one of the app's covers prints an artwork, the artwork is in the
+public domain or dedicated to it (CC0), as its source page states. Changes: cropped to the cover's panel
+and printed in two colours (the ink as one colour on a paper tint), except where noted as printed in colour.
+The VetWiki subject covers (wiki-*.png) print VetMock's own course artwork instead: see their entry below.
 
 ## home.png
 
@@ -247,6 +248,10 @@ Cropped, printed in two colours.
 ## mochi.png, about.png
 
 Mochi is VetMock's own mascot (public/motion/poses).
+
+## wiki-aquatic-clinic.png, wiki-avian-medicine.png, wiki-cliapprum.png, wiki-com3.png, wiki-com4.png, wiki-com5.png, wiki-engprof.png, wiki-epidemiology.png, wiki-equine-medicine.png, wiki-equine-repro.png, wiki-exotic.png, wiki-food-industry.png, wiki-milk-meat-hygiene.png, wiki-one-health.png, wiki-poa-clinical.png, wiki-poultry.png, wiki-practrum.png, wiki-repro-lect.png, wiki-swine-clinic.png, wiki-vet-neuroanat.png, wiki-zoonoses.png
+
+Each prints its course's bookplate from the app: VetMock's own artwork, not a public-domain work. Nine are the Panic Mode drawings (public/panic-art, September 2026); the rest are the course-card bookplates (public/subject-art, October 2026). Printed in one ink on the cloth colour of the course's volume on the VetWiki shelves.
 
 # Share-card plates
 

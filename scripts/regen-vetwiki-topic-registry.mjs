@@ -73,6 +73,10 @@ export const SHELF_SUBJECTS = ${JSON.stringify(shelf.subjects, null, 2)};
 
 // Per topic: [sections, checked points], for the featured book.
 export const SHELF_TOPICS = ${JSON.stringify(Object.fromEntries(Object.entries(shelf.topics).map(([id, t]) => [id, [t.sections, t.claims]])))};
+
+// Per topic: [[topic, sources both cite], ...], the end of an article's
+// "อ้างแหล่งเดียวกัน" (at least two shared, four topics at most).
+export const SHELF_RELATED = ${JSON.stringify(shelf.related)};
 `;
 
 if (CHECK) {

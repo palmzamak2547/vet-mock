@@ -234,8 +234,10 @@ for (const [id, c] of sources) {
   // the string is always short of the truth and never ahead of it.
   const vol = [c._vol, c._issue && `(${c._issue})`].filter(Boolean).join('');
   const volPages = [vol, c._pages].filter(Boolean).join(':');
+  // Each part loses its own closing full stop first: PubMed titles end in
+  // one, and joined with ". " they read "saliva of dogs.. J Infect Dis".
   const citation = [c._author, c._title, c._org, c._year && String(c._year)]
-    .filter(Boolean).join('. ')
+    .filter(Boolean).map((part) => String(part).replace(/\.+$/, '')).join('. ')
     + (volPages ? `;${volPages}` : '')
     + (c.pmid ? `. PMID: ${c.pmid}` : '')
     + (c.doi ? `. doi:${c.doi}` : '')

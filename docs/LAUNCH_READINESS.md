@@ -1,5 +1,13 @@
 # VetMock — Launch Readiness
 
+## Release 5.147.0 — 2026-10-14 (Claude Code)
+
+VetWiki phase 3 of `work/vetwiki-redesign/BRIEF.md`, on top of 5.146.1 (8c4add0c): numbered source chips with a drawer in place and a numbered source list with back links; a contents rail with the section being read and progress lines; the phone pill "สารบัญ 3/9" with a sheet; a chapter end that marks the topic read in the reading list, the topics either side, the topics sharing two or more sources and the volume; a reading ribbon on the shelves; a topic share card; 21 per-subject link previews. Fixed on the way, each with a test: shared #section links that landed at the top (App ViewEntry), the pill that never appeared after a jump, a jump to the list that overshot by a drawer's height, a right-aligned Thai masthead past the card's live area, 1,722 doubled full stops in citations, and the Practice Ruminant bookplate's rope.
+
+Two independent reviews before the push (logic and edge cases; UX, accessibility and Thai copy): no data risk; every upheld finding fixed and covered.
+
+Checks: `npm run gate` on the final tree, exit 0: data 52/52 steps (lints, units in Bangkok and UTC), build, dist, e2e Chromium 593 passed / 39 skipped and WebKit + Firefox 582 passed / 50 skipped, no failure or retry. The VetWiki and card e2e also ran twice on four profiles, 48 passed. Production proof follows the push.
+
 ## Release 5.146.1 — 2026-10-14 (Claude Code)
 
 The 15 Zoonoses sections that read "🚧 รอเติม — body content จาก slide 4+" are written from the decks named in their `source`, slide 4 to the last page (Vector-borne from slide 4: slide 3 is an agenda). Most decks are a 2024 student's annotated copies, so only printed slide content is used and handwriting never is; clean MyCourseVille copies with the same pages were used for Rickettsial, Mycoses and the Sporotrichosis field study. Each section was drafted by one agent and re-read against every page by an independent checker. Slide typos that only misspell a term are corrected; anything that changes meaning stays as printed and is listed in the checker reports, never resolved toward a textbook. One literature conflict is recorded in corrections.js: the slide's direction for Zooanthroponoses and Anthropozoonoses is the reverse of the original sense (Hubálek 2003, PMID 12643844).

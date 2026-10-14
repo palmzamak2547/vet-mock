@@ -101,7 +101,7 @@ test('the index opens on the shelves: every subject a volume, the masthead count
   const { default: KnowledgeView } = await loadModule('src/views/KnowledgeView.jsx', { stubs: [
     { match: '\\.css$', contents: '' },
     { match: 'Mochi\\.jsx$', contents: 'export default () => null;' },
-    { match: '/components/(FeatureTip|ReadingEffects|ReportConcern|SlideFigures|ConflictNote|StatePanel)\\.jsx$',
+    { match: '/components/(FeatureTip|ReadingEffects|ReportConcern|SlideFigures|ConflictNote|StatePanel|OptionalFeature)\\.jsx$',
       contents: 'export default (p) => (p && p.children) || null;' },
   ] });
   const stored = new Map([['vmx-selected-year', '5']]);
@@ -213,4 +213,44 @@ test('a shelf is one Tab stop, Escape from anywhere puts the volume back, and Ba
   assert.equal(window.history.state.vetwiki, null, "the entry's own state is kept");
   assert.deepEqual(spines().map((s) => s.props.tabIndex), [0, -1], 'with nothing open, the first spine is the stop');
   v.unmount();
+});
+
+test('a volume with a topic read in the reading list carries a ribbon, and its contents say which', async () => {
+  const topics = new Map([['com5', [{ id: 'com5--rabies', subject: 'com5', topic: 'rabies', title: 'Rabies' }, { id: 'com5--cve', subject: 'com5', topic: 'cve', title: 'CVE' }]]]);
+  const spineOf = (v) => findAll(v.tree, (n) => n.type === 'button' && /vw-spine/.test(n.props.className || ''))[0];
+  const ribbons = (v) => findAll(v.tree, (n) => n.props?.className === 'vw-spine-ribbon').length;
+  const unread = mount(WikiShelves, {
+    years: [[4, ['com5']]], ownYear: 4, topicsBySubject: topics,
+    subjectInfo: () => ({ name: 'COM V', code: '3107417' }), onOpenTopic() {},
+  });
+  await settle(unread);
+  assert.equal(ribbons(unread), 0, 'no reading list, no ribbon');
+  unread.unmount();
+  const v = mount(WikiShelves, {
+    years: [[4, ['com5']]], ownYear: 4, topicsBySubject: topics,
+    subjectInfo: () => ({ name: 'COM V', code: '3107417' }), onOpenTopic() {},
+    isRead: (t) => t.id === 'com5--rabies',
+  });
+  await settle(v);
+  assert.equal(ribbons(v), 1);
+  assert.equal(spineOf(v).props['aria-label'], `COM V, ${SHELF_SUBJECTS.com5.topics} หัวข้อ, อ่านแล้ว 1 หัวข้อ`);
+  assert.match(textOf(v.tree), /ริบบิ้นคือเล่มที่มีหัวข้ออ่านแล้ว/, 'the legend says what a ribbon means');
+  spineOf(v).props.onClick();
+  v.flush();
+  const text = textOf(v.tree);
+  assert.match(text, /อ่านแล้ว\s*1\s*จาก 2 หัวข้อ/);
+  const marks = findAll(v.tree, (n) => n.props?.className === 'vw-read-mark');
+  assert.equal(marks.length, 1);
+  v.unmount();
+  // Out of the topics the reading list holds: a VetWiki-only page cannot be marked.
+  const listedOnly = mount(WikiShelves, {
+    years: [[4, ['com5']]], ownYear: 4, topicsBySubject: topics,
+    subjectInfo: () => ({ name: 'COM V', code: '3107417' }), onOpenTopic() {},
+    isRead: (t) => t.id === 'com5--rabies', isListed: (t) => t.id === 'com5--rabies',
+  });
+  await settle(listedOnly);
+  spineOf(listedOnly).props.onClick();
+  listedOnly.flush();
+  assert.match(textOf(listedOnly.tree), /อ่านแล้ว\s*1\s*จาก 1 หัวข้อ/);
+  listedOnly.unmount();
 });

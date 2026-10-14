@@ -33,3 +33,19 @@ test('the Article JSON-LD names the wiki section VetWiki and not the site twice'
   assert.match(m[1], /name:\s*'VetWiki'/);
   assert.doesNotMatch(m[1], /VetMock/);
 });
+
+test("an article previews with its subject's cover, where one is drawn, else the wiki's", async () => {
+  const { existsSync } = await import('node:fs');
+  const { SHELF_SUBJECTS } = await import('../../src/lib/vetwiki/shelf.generated.js');
+  const { wikiCoverId } = await import('../../src/data/og-covers.js');
+  assert.match(code, /image: ogImageUrl\(ORIGIN, coverOf\(t\.subject\)\)/, 'each article asks for its subject cover');
+  assert.match(code, /const coverOf = \(subject\) => \(fs\.existsSync\(path\.join\(ROOT, 'public', 'og', `\$\{wikiCoverId\(subject\)\}\.png`\)\) \? wikiCoverId\(subject\) : 'wiki'\);/);
+  for (const subject of Object.keys(SHELF_SUBJECTS)) {
+    assert.ok(existsSync(new URL(`../../public/og/${wikiCoverId(subject)}.png`, import.meta.url)), `${subject} has its cover`);
+  }
+});
+
+test('an unchecked article is described as notes in VetMock, not as lecture notes', () => {
+  assert.doesNotMatch(code, /โน้ตเลกเชอร์/, 'a third of the sections come from Vet 85 summaries or MSD tables');
+  assert.match(code, /'เนื้อหาจากโน้ตใน VetMock ยังไม่ได้ตรวจทานกับแหล่งอ้างอิงภายนอก'/);
+});
