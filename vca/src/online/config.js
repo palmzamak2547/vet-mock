@@ -1,5 +1,5 @@
 // What the community needs from the build: the shared VetMock backend's address and public key,
-// and the LIFF app that signs in with LINE on this site (ARCHITECTURE.md, "Configuration").
+// and the LIFF app that signs in with LINE on this site (ARCHITECTURE.md, "Turning the community on").
 // From them, one of three modes:
 //   live   the real backend: accounts, the board and chat
 //   demo   an in-memory community, in development and tests, so the pages can be built and
