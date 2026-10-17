@@ -40,7 +40,7 @@
 .desk-stats { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; min-height: 64px; }
 .desk-stats div { display: grid; }
 .desk-stats b { font: 400 26px/1.1 var(--serif); }
-.desk-stats span { font-size: 13px; color: var(--ink-3); }
+.desk-stats div > span { font-size: 13px; color: var(--ink-3); }
 .desk-more { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; min-height: var(--touch); padding: 0 14px; border-radius: var(--r-pill); color: var(--ink); text-decoration: none; font-weight: 600; font-size: 14.5px; }
 .desk-more:hover { background: var(--line); }
 .desk:not(:has(.desk-resume)) { grid-template-columns: 1fr; }
