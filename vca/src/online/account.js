@@ -85,10 +85,10 @@ export function takeReturn() {
 }
 
 /** @param {'google'|'line'|'email'} method */
-export async function signIn(method, email) {
+export async function signIn(method, ...args) {
   rememberReturn();
   const b = await listen();
-  return b.auth[method](email);
+  return b.auth[method](...args);
 }
 
 export async function signOut() {

@@ -149,13 +149,21 @@ export function initScenes() {
   if (typeof window === 'undefined' || reducedMotion() || !('IntersectionObserver' in window) || !('MutationObserver' in window)) return () => {};
   const live = new Set();
   let frame = 0;
+  const shown = new WeakMap();
   const update = () => {
     frame = 0;
     const vh = window.innerHeight;
+    // Every rect first, then every write: reading after a write forced a layout per element per
+    // frame. A value that has not moved is not written again, so its subtree keeps its style.
+    const next = [];
     for (const el of live) {
       const r = el.getBoundingClientRect();
-      const p = Math.min(1, Math.max(0, (vh - r.top) / (r.height + vh * 0.12)));
-      el.style.setProperty('--p', p.toFixed(3));
+      next.push([el, Math.min(1, Math.max(0, (vh - r.top) / (r.height + vh * 0.12))).toFixed(3)]);
+    }
+    for (const [el, p] of next) {
+      if (shown.get(el) === p) continue;
+      shown.set(el, p);
+      el.style.setProperty('--p', p);
     }
   };
   const queue = () => { if (!frame) frame = requestAnimationFrame(update); };
@@ -165,7 +173,9 @@ export function initScenes() {
       else {
         live.delete(entry.target);
         // Off screen it rests where the scroll left it: risen above, sunk below.
-        entry.target.style.setProperty('--p', entry.boundingClientRect.top < 0 ? '1' : '0');
+        const rest = entry.boundingClientRect.top < 0 ? '1.000' : '0.000';
+        shown.set(entry.target, rest);
+        entry.target.style.setProperty('--p', rest);
       }
     }
     queue();

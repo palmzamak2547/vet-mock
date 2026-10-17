@@ -45,6 +45,11 @@ export const auth = {
     const sb = await getClient();
     await must(sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: callback(), queryParams: { prompt: 'select_account' } } }));
   },
+  /** Google Identity Services handed back an ID token (online/gis.js): trade it for a session. */
+  async googleIdToken(token, nonce) {
+    const sb = await getClient();
+    await must(sb.auth.signInWithIdToken({ provider: 'google', token, nonce }));
+  },
   async email(address) {
     const sb = await getClient();
     await must(sb.auth.signInWithOtp({ email: address, options: { emailRedirectTo: callback(), shouldCreateUser: true } }));

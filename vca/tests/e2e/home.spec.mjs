@@ -3,7 +3,7 @@ import { test, expect, overflow, answer } from './fixtures.mjs';
 
 test('home shows the countdown to the next round and fits the screen', async ({ page }) => {
   await page.goto('/');
-  const countdown = page.locator('a.countdown');
+  const countdown = page.locator('main a.countdown');
   await expect(countdown).toBeVisible();
   await expect(countdown).toHaveAttribute('href', '/exam');
   await expect(countdown).toContainText('98');
@@ -16,7 +16,7 @@ test('home shows the countdown to the next round and fits the screen', async ({ 
 
 test('the countdown opens the exam page', async ({ page }) => {
   await page.goto('/');
-  await page.locator('a.countdown').click();
+  await page.locator('main a.countdown').click();
   await expect(page).toHaveURL(/\/exam$/);
   await expect(page.locator('.ticket')).toHaveCount(2);
 });
@@ -50,4 +50,13 @@ test('an unknown address shows the not-found page', async ({ page }) => {
   await expect(page.locator('.empty-page')).toBeVisible();
   await expect(page.locator('.empty-page h1')).toBeVisible();
   await expect(page.locator('.empty-page a[href="/"]')).toBeVisible();
+});
+
+// The footer closes on the same countdown and a way in, beside the VCA letters.
+test('the footer offers the countdown and a start', async ({ page }) => {
+  await page.goto('/');
+  const go = page.locator('footer .foot-go');
+  await expect(go.locator('a.countdown')).toHaveAttribute('href', '/exam');
+  await go.getByRole('link', { name: 'เริ่มฝึก' }).click();
+  await expect(page).toHaveURL(/\/practice/);
 });

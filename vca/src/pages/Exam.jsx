@@ -59,7 +59,7 @@ function Cell({ cell, col }) {
   const heat = Math.min(1, v / 40);
   return (
     <td className={`alm-c${heat >= 0.5 ? ' is-deep' : ''}`} style={{ '--v': heat.toFixed(3), '--col': col }}>
-      {Array.isArray(cell) ? cell.join('+') : v}
+      <span className="alm-v">{Array.isArray(cell) ? cell.join('+') : v}</span>
     </td>
   );
 }

@@ -31,16 +31,18 @@
 @keyframes shimmer { to { transform: translateX(100%); } }
 @keyframes drift-a { to { transform: translate3d(4vw, 3vh, 0) scale(1.08); } }
 @keyframes drift-b { to { transform: translate3d(-5vw, -4vh, 0) scale(1.12); } }
-@keyframes breathe { 50% { box-shadow: 0 0 0 6px var(--verd-soft); } }
+@keyframes breathe { 50% { transform: scale(2.714); } }
 @keyframes sheet-out { to { opacity: 0; transform: translateY(14px) scale(.985); } }
 @keyframes veil-out { to { opacity: 0; } }
 @keyframes ring-glow { 0% { filter: drop-shadow(0 0 0 transparent); } 50% { filter: drop-shadow(0 0 10px var(--verd-line)); } 100% { filter: drop-shadow(0 0 0 transparent); } }
 
 /* ── The gallery light drifts, very slowly: two pools on their own layers ─────────────── */
 .atmos { background: var(--bg); }
-.atmos-a, .atmos-b { position: absolute; border-radius: 50%; filter: blur(40px); will-change: transform; pointer-events: none; }
-.atmos-a { left: -18vw; top: -22vh; width: 72vw; height: 64vh; background: radial-gradient(closest-side, var(--light-a), transparent); animation: drift-a 38s var(--ease-in-out) infinite alternate; }
-.atmos-b { right: -20vw; top: 18vh; width: 64vw; height: 74vh; background: radial-gradient(closest-side, var(--light-b), transparent); animation: drift-b 46s var(--ease-in-out) infinite alternate; }
+/* The radial gradient fades to nothing at its own edge, so the pools need no blur filter: a 40px
+   blur over two near-full-screen layers was re-rasterised on every frame of the drift. */
+.atmos-a, .atmos-b { position: absolute; border-radius: 50%; will-change: transform; pointer-events: none; }
+.atmos-a { left: -18vw; top: -22vh; width: 72vw; height: 64vh; background: radial-gradient(closest-side, var(--light-a), transparent); background: radial-gradient(closest-side, var(--light-a), color-mix(in srgb, var(--light-a) 45%, transparent) 55%, transparent); animation: drift-a 38s var(--ease-in-out) infinite alternate; }
+.atmos-b { right: -20vw; top: 18vh; width: 64vw; height: 74vh; background: radial-gradient(closest-side, var(--light-b), transparent); background: radial-gradient(closest-side, var(--light-b), color-mix(in srgb, var(--light-b) 45%, transparent) 55%, transparent); animation: drift-b 46s var(--ease-in-out) infinite alternate; }
 
 /* ── Light on glass: a soft sheen that follows the pointer (lib/motion.js sets --mx/--my) ─ */
 [data-sheen] { position: relative; isolation: isolate; }
@@ -53,7 +55,9 @@
 [data-sheen].is-lit::after { opacity: 1; }
 
 /* A plate tilts a few degrees toward the pointer, as a print in a case catches the light. */
-[data-tilt] { transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 600ms var(--ease-out), box-shadow var(--t) var(--ease); will-change: transform; }
+[data-tilt] { transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 600ms var(--ease-out), box-shadow var(--t) var(--ease); }
+/* A layer of its own only while it tilts: one per card on every page cost more than the tilt. */
+[data-tilt].is-lit { will-change: transform; }
 [data-tilt].is-lit { transition: transform 120ms linear, box-shadow var(--t) var(--ease); }
 .dcard[data-tilt].is-lit { box-shadow: var(--shadow-lift); }
 .dcard[data-tilt]:hover { transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-3px); }
@@ -79,8 +83,8 @@
 
 /* ── Arrival: the hero sets itself, line by line, then the wall, then the glass ────────── */
 .hero .kicker, .hero .countdown { animation: rise-in 700ms var(--ease-out) both; }
-@keyframes beacon { 50% { box-shadow: 0 0 0 8px var(--brass-soft); } }
-.countdown-dot { animation: beacon 2.6s var(--ease) infinite; }
+@keyframes beacon { 50% { transform: scale(3); } }
+.countdown-dot::before { animation: beacon 2.6s var(--ease) infinite; }
 .hero .kicker::before { transform-origin: left; animation: line-grow 900ms 120ms var(--ease-out) both; }
 .hero-h .nw, .hero-h .words { display: inline-block; animation: focus-in 1000ms var(--ease-out) both; }
 .hero-h .nw:nth-of-type(1) { animation-delay: 90ms; }
@@ -191,7 +195,7 @@ html[data-vt="theme"] .topbar-in, html[data-vt="theme"] .tabbar { view-transitio
 .activity-bars i { transform-origin: bottom; animation: meter-in 900ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 25ms); }
 @keyframes bar-up { from { transform: scaleY(0); } }
 .activity-bars i { animation-name: bar-up; }
-.sample-tag .dot { animation: breathe 2.8s var(--ease-in-out) infinite; }
+.sample-tag .dot::before { animation: breathe 2.8s var(--ease-in-out) infinite; }
 
 /* ── Waiting looks like the thing it waits for ────────────────────────────────────────── */
 .skel { position: relative; overflow: hidden; border-radius: 10px; background: var(--line); }

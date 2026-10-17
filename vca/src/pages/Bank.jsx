@@ -137,6 +137,9 @@ export default function Bank({ route }) {
           : <>{num(results.length)} ข้อ{domain !== 'all' && <Link to={`/d/${domain}`} className="text-link status-link">ไปหน้าหมวดนี้ <Icon name="arrowRight" size={14} /></Link>}</>)}
       </div>
 
+      {/* Holds the list's place while the bank loads, so the footer does not show and then jump. */}
+      {state.status === 'loading' && <div className="bk-wait" aria-hidden="true" />}
+
       {state.status === 'ready' && results.length === 0 && (
         <div className="empty">
           <h2>ไม่พบข้อที่ตรงกับคำค้น</h2>

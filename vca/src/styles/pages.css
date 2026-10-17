@@ -19,7 +19,8 @@
 .sample { position: absolute; left: -2%; right: 6%; top: 50%; transform: translateY(-50%); padding: 22px 24px 18px; border-radius: var(--r-xl); background: var(--glass-2); box-shadow: var(--shadow-lift); }
 .sample-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .sample-tag { display: inline-flex; align-items: center; gap: 8px; font: 600 13px/1 var(--sans); color: var(--verd); }
-.sample-tag .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--verd); box-shadow: 0 0 0 4px var(--verd-soft); }
+.sample-tag .dot { position: relative; width: 7px; height: 7px; border-radius: 50%; background: var(--verd); }
+.sample-tag .dot::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 50%; background: var(--verd-soft); transform: scale(2.143); pointer-events: none; }
 .sample-no { margin-left: auto; font: 500 12px/1 var(--mono); letter-spacing: .06em; color: var(--ink-3); }
 .sample .q-head { margin-bottom: 8px; }
 .sample .q-stem { font-size: 17.5px; margin-bottom: 14px; }
@@ -82,7 +83,9 @@
 .lede { font-size: 18.5px; }
 .countdown { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 16px 0 14px; border-radius: var(--r-pill); color: var(--ink); text-decoration: none; font-size: 14.5px; transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease); }
 .countdown:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
-.countdown-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brass-fill); box-shadow: 0 0 0 4px var(--brass-soft); }
+/* The halo is a disc behind the dot, scaled (motion.css): a box-shadow that grows repaints every frame. */
+.countdown-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; background: var(--brass-fill); }
+.countdown-dot::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 50%; background: var(--brass-soft); transform: scale(2); pointer-events: none; }
 .countdown-k { color: var(--ink-2); }
 .countdown-n { font-weight: 700; }
 .countdown .ic { color: var(--ink-3); transition: transform var(--t) var(--ease); }
@@ -296,8 +299,10 @@
 .run-line i { position: absolute; inset: 0 auto 0 0; background: var(--verd); border-radius: inherit; transition: width var(--t-slow) var(--ease); }
 .run-timer { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border-radius: var(--r-pill); background: var(--line); font: 500 15px/1 var(--mono); font-variant-numeric: tabular-nums; }
 .run-timer.warn { background: var(--brass-soft); color: var(--brass); }
-.run-timer.urgent { background: var(--cinn-soft); color: var(--cinn); animation: pulse 1s var(--ease) infinite alternate; }
-@keyframes pulse { to { box-shadow: 0 0 0 4px var(--cinn-soft); } }
+/* The urgent ring fades in and out on a layer of its own (opacity), not as a repainted shadow. */
+.run-timer.urgent { position: relative; background: var(--cinn-soft); color: var(--cinn); }
+.run-timer.urgent::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 0 0 4px var(--cinn-soft); opacity: 0; pointer-events: none; animation: pulse 1s var(--ease) infinite alternate; }
+@keyframes pulse { to { opacity: 1; } }
 .run-body { flex: 1; width: min(860px, calc(100% - 24px)); margin: 18px auto 0; padding-bottom: 120px; }
 /* The question slides in inside its card, never past the edge of a phone. */
 .run-card { overflow-x: clip; overflow-clip-margin: 6px; }
@@ -391,6 +396,7 @@
 .bank-filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .bank-status { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 14px 4px 4px; font-size: 14.5px; color: var(--ink-2); }
 .bank-status b { color: var(--ink); }
+.bk-wait { min-height: 100vh; min-height: 100svh; }
 .bk-list { display: grid; gap: 12px; }
 .bk { padding: 20px 22px; border-radius: var(--r-lg); background: var(--glass-solid); box-shadow: inset 0 0 0 1px var(--line), 0 10px 24px -20px rgba(0, 0, 0, .4); }
 .bk-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-bottom: 12px; }

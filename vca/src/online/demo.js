@@ -67,6 +67,7 @@ export const auth = {
   async session() { await tick(); return load().session; },
   onChange(cb) { authListeners.add(cb); return () => authListeners.delete(cb); },
   async google() { await tick(); signIn(); },
+  async googleIdToken() { await tick(); signIn(); },
   async line() { await tick(); signIn(); },
   async email() { await tick(); signIn(); return { sent: false, signedIn: true }; },
   async complete() { return load().session; },

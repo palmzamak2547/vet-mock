@@ -2,10 +2,10 @@
 // uses vetmock.com signs in as themselves, and one who starts here gets an account that works
 // there too. Practice never needs it.
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Sheet } from '../../components/Sheet.jsx';
 import { Icon } from '../../components/Icon.jsx';
-import { LINE_LIFF_ID, MODE } from '../config.js';
+import { GOOGLE_CLIENT_ID, LINE_LIFF_ID, MODE } from '../config.js';
 import { signIn } from '../account.js';
 import '../community.css';
 
@@ -31,17 +31,39 @@ function LineMark() {
   );
 }
 
+/** Google's own button (online/gis.js), so Google's popup names this site. If it cannot load,
+ *  onFail hands the place back to the redirect button. */
+function GoogleGisButton({ onToken, onFail }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    let undo = () => {};
+    let gone = false;
+    const el = ref.current;
+    import('../gis.js')
+      .then(({ renderGoogleButton }) => renderGoogleButton(el, {
+        clientId: GOOGLE_CLIENT_ID,
+        theme: document.documentElement.dataset.theme === 'dark' ? 'filled_black' : 'outline',
+        width: el.clientWidth,
+        onCredential: onToken,
+      }))
+      .then((u) => { if (gone) u(); else undo = u; })
+      .catch(() => { if (!gone) onFail(); });
+    return () => { gone = true; undo(); };
+  }, [onToken, onFail]);
+  return <div ref={ref} className="signin-gis" aria-label="ดำเนินการต่อด้วย Google" />;
+}
+
 export default function SignInSheet({ open, onClose }) {
   const [email, setEmail] = useState('');
   const [busy, setBusy] = useState(null);
   const [sent, setSent] = useState('');
   const [error, setError] = useState('');
 
-  const go = async (method, arg) => {
+  const go = async (method, arg, extra) => {
     setBusy(method);
     setError('');
     try {
-      const res = await signIn(method, arg);
+      const res = await signIn(method, arg, extra);
       if (method === 'email' && res?.sent) setSent(arg);
     } catch (err) {
       setError(err?.message || 'เข้าสู่ระบบไม่สำเร็จ ลองอีกครั้ง');
@@ -50,6 +72,9 @@ export default function SignInSheet({ open, onClose }) {
     }
   };
   const lineReady = MODE === 'demo' || !!LINE_LIFF_ID;
+  const [gis, setGis] = useState(MODE === 'live' && !!GOOGLE_CLIENT_ID);
+  const onGisToken = useRef((token, nonce) => go('googleIdToken', token, nonce)).current;
+  const onGisFail = useRef(() => setGis(false)).current;
 
   return (
     <Sheet open={open} onClose={onClose} title="เข้าสู่ระบบ">
@@ -63,11 +88,15 @@ export default function SignInSheet({ open, onClose }) {
         <>
           <p className="sheet-p">ใช้บัญชีเดียวกับ VetMock ได้เลย ถ้ายังไม่มี ระบบจะสร้างให้ใหม่</p>
           <div className="signin-ways">
-            <button type="button" className="signin-way signin-google" onClick={() => go('google')} disabled={!!busy} data-autofocus>
-              <span className="signin-logo"><GoogleMark /></span>
-              <span>ดำเนินการต่อด้วย Google</span>
-              {busy === 'google' && <span className="spinner" aria-hidden="true" />}
-            </button>
+            {gis ? (
+              <GoogleGisButton onToken={onGisToken} onFail={onGisFail} />
+            ) : (
+              <button type="button" className="signin-way signin-google" onClick={() => go('google')} disabled={!!busy} data-autofocus>
+                <span className="signin-logo"><GoogleMark /></span>
+                <span>ดำเนินการต่อด้วย Google</span>
+                {busy === 'google' && <span className="spinner" aria-hidden="true" />}
+              </button>
+            )}
             {lineReady && (
               <button type="button" className="signin-way signin-line" onClick={() => go('line')} disabled={!!busy}>
                 <span className="signin-logo"><LineMark /></span>

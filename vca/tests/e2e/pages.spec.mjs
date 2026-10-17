@@ -35,7 +35,7 @@ test('the exam date set on the exam page carries to the home countdown', async (
   await page.goto('/exam');
   await page.locator('.xhero-actions button[aria-pressed]').click();
   await page.goto('/');
-  await expect(page.locator('a.countdown')).toContainText('98');
+  await expect(page.locator('main a.countdown')).toContainText('98');
 });
 
 test('bank search finds Leptospira', async ({ page }) => {

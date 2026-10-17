@@ -397,3 +397,6 @@ a.post-card:active { transform: translateY(0) scale(.995); }
   .pform-hero { flex-direction: column; align-items: flex-start; }
   .signin-email { flex-direction: column; }
 }
+
+/* Google draws its own button here (online/gis.js); keep the row as tall as the others. */
+.signin-gis { display: flex; justify-content: center; min-height: 44px; }

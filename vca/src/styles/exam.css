@@ -94,7 +94,10 @@ a.ask-row:hover .ask-name { color: var(--verd); }
 .alm tbody tr:hover .alm-subj { color: var(--verd); }
 .alm-group th { padding: 22px 0 6px 20px; text-align: left; font: 600 13px/1.3 var(--sans); color: var(--verd); }
 .alm-group th > * { position: sticky; left: 20px; }
-.alm-c { min-width: 40px; height: 30px; padding: 0 2px; border-radius: 6px; text-align: center; color: var(--ink); background: rgb(var(--heat-rgb) / calc(var(--v, 0) * .9 + .05)); }
+.alm-c { min-width: 40px; height: 30px; padding: 0 2px; text-align: center; color: var(--ink); }
+/* The tint and the entrance live on a box inside the cell: a table cell does not animate on the
+   compositor, so hundreds of them restyled the page on every frame of the reveal. */
+.alm-v { display: grid; place-items: center; height: 30px; border-radius: 6px; background: rgb(var(--heat-rgb) / calc(var(--v, 0) * .9 + .05)); }
 .alm-c.is-deep { color: var(--heat-ink); }
 .alm-none, .alm-word { min-width: 40px; height: 30px; text-align: center; }
 .alm-none { color: var(--line-3); }
@@ -166,10 +169,10 @@ a.ask-row:hover .ask-name { color: var(--verd); }
 .ticket { animation: ticket-in 1150ms var(--ease-out) both; animation-delay: calc(260ms + var(--i, 0) * 150ms); }
 [data-reveal].is-in .ask-bar i { animation: grow-x 1100ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 45ms + 160ms); }
 .reveal-ready [data-reveal]:not(.is-in) .ask-bar i { transform: scaleX(0); }
-[data-reveal].is-in .alm-c { animation: cell-in 560ms var(--ease-out) both; animation-delay: calc(var(--col, 0) * 55ms + 120ms); }
-.reveal-ready [data-reveal]:not(.is-in) .alm-c { opacity: 0; }
+[data-reveal].is-in .alm-v { animation: cell-in 560ms var(--ease-out) both; animation-delay: calc(var(--col, 0) * 55ms + 120ms); }
+.reveal-ready [data-reveal]:not(.is-in) .alm-v { opacity: 0; }
 @media (prefers-reduced-motion: reduce) {
-  .xhero .kicker, .xhero-h, .xhero-sub, .xhero-actions, .xhero-src, .ticket, [data-reveal].is-in .ask-bar i, [data-reveal].is-in .alm-c { animation: none; }
+  .xhero .kicker, .xhero-h, .xhero-sub, .xhero-actions, .xhero-src, .ticket, [data-reveal].is-in .ask-bar i, [data-reveal].is-in .alm-v { animation: none; }
   .reveal-ready [data-reveal]:not(.is-in) .ask-bar i { transform: none; }
-  .reveal-ready [data-reveal]:not(.is-in) .alm-c { opacity: 1; }
+  .reveal-ready [data-reveal]:not(.is-in) .alm-v { opacity: 1; }
 }

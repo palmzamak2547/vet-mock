@@ -7,6 +7,7 @@ import { Lockup } from './Mark.jsx';
 import { Icon } from './Icon.jsx';
 import { Nw } from './bits.jsx';
 import { InstallLink } from './Install.jsx';
+import { Countdown } from './Countdown.jsx';
 import { toggleTheme, useTheme } from '../lib/prefs.js';
 import { useActiveSession } from '../lib/hooks.js';
 import { mountLiquidBar } from '../lib/liquid.js';
@@ -224,14 +225,21 @@ export function Footer() {
           ภาพพิมพ์ <i>A Lost Horseman Enquiring the Way</i> <Nw>คนขี่ม้าหลงทางแวะถามทาง</Nw> โดย <Nw>Stefano della Bella</Nw> (1649) <Nw>The Cleveland Museum of Art</Nw>
         </p>
       </div>
-      <div className="foot-vca" data-scene aria-hidden="true">
+      <div className="foot-vca" data-scene>
         <div className="wrap foot-vca-in">
-          {VCA_WORDS.map(([letter, word], i) => (
-            <span key={letter} className="vca-l" style={{ '--i': i }}>
-              <span className="vca-w">{word}</span>
-              <span className="vca-g">{letter}</span>
-            </span>
-          ))}
+          <span className="vca-word" aria-hidden="true">
+            {VCA_WORDS.map(([letter, word], i) => (
+              <span key={letter} className="vca-l" style={{ '--i': i }}>
+                <span className="vca-w">{word}</span>
+                <span className="vca-g">{letter}</span>
+              </span>
+            ))}
+          </span>
+          {/* The row's other end: how long until the next round, and the way in. */}
+          <span className="foot-go">
+            <Countdown className="countdown-foot" />
+            <Link to="/practice" className="btn foot-start">เริ่มฝึก <Icon name="arrowRight" size={16} /></Link>
+          </span>
         </div>
       </div>
       <div className="foot-print" data-reveal aria-hidden="true">

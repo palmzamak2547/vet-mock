@@ -11,6 +11,8 @@ const env = (typeof import.meta !== 'undefined' && import.meta.env) || {};
 export const SUPABASE_URL = env.VITE_SUPABASE_URL || '';
 export const SUPABASE_ANON_KEY = env.VITE_SUPABASE_ANON_KEY || '';
 export const LINE_LIFF_ID = env.VITE_LINE_LIFF_ID || '';
+/** VetMock's Google OAuth client; set once this origin is one of its Authorized JavaScript origins. */
+export const GOOGLE_CLIENT_ID = env.VITE_GOOGLE_CLIENT_ID || '';
 
 /** @type {'live' | 'demo' | 'off'} */
 export const MODE = SUPABASE_URL && SUPABASE_ANON_KEY ? 'live' : (env.DEV || env.VITE_COMMUNITY === 'demo') ? 'demo' : 'off';

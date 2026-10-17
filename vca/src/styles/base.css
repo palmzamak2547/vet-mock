@@ -55,7 +55,7 @@ h1:focus, h1:focus-visible { outline: none; }
 .text-link { display: inline-flex; align-items: center; gap: 6px; color: var(--verd); font-weight: 600; text-decoration: none; }
 .text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 
-.page-loading { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 50vh; color: var(--ink-2); font-size: 15px; }
+.page-loading { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 100vh; min-height: 100svh; color: var(--ink-2); font-size: 15px; }
 .spinner { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line-2); border-top-color: var(--verd); animation: spin .8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
