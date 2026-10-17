@@ -3,7 +3,7 @@
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "ignoreCommand": "case \"$VERCEL_GIT_COMMIT_REF\" in claude/*|codex/*|agent/*|grok/*) exit 0;; esac; [ -n \"$VERCEL_GIT_PREVIOUS_SHA\" ] || exit 1; git diff --quiet $VERCEL_GIT_PREVIOUS_SHA HEAD -- . ':!*.md' ../src/data ../src/lib/question-metadata.js ../src/lib/option-shuffle.js ../src/lib/richtext.jsx ../public || exit 1",
+  "ignoreCommand": "sh scripts/vercel-ignore.sh",
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
