@@ -313,6 +313,56 @@ export const BLOCKED_QUESTIONS = [
     "source": "questions-y5-final-mixed.js"
   },
   {
+    "key": "vca:692006",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-vca-2569.js"
+  },
+  {
+    "key": "vca:692031",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-vca-2569.js"
+  },
+  {
+    "key": "vca:692050",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-vca-2569.js"
+  },
+  {
+    "key": "vca:692052",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-vca-2569.js"
+  },
+  {
+    "key": "vca:692061",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-vca-2569.js"
+  },
+  {
+    "key": "vca:692074",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-vca-2569.js"
+  },
+  {
+    "key": "vca:692089",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-vca-2569.js"
+  },
+  {
+    "key": "vca:692091",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-vca-2569.js"
+  },
+  {
+    "key": "vca:692122",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-vca-2569.js"
+  },
+  {
+    "key": "vca:692123",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-vca-2569.js"
+  },
+  {
     "key": "vca:8000",
     "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
     "source": "questions-y5-final-mixed.js"
@@ -348,4 +398,4 @@ const BLOCKED_KEYS = new Set(BLOCKED_QUESTIONS.map((item) => item.key));
 
 export const questionDeliveryKey = (question) => `${question?.subject || ''}:${question?.id ?? ''}`;
 export const isQuestionDeliverable = (question) => !BLOCKED_KEYS.has(questionDeliveryKey(question));
-export const BLOCKED_QUESTION_COUNT = 68;
+export const BLOCKED_QUESTION_COUNT = 78;

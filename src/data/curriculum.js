@@ -2002,6 +2002,7 @@ export const SUBJECTS_BY_YEAR = {
         choiceCount: 5,
         notes: [
           'แหล่งข้อมูล: ชุด VCA ของ @Fukfangfluffy และคลังเอกสาร CUVET85 พร้อมชุดย้อนหลัง',
+          'ข้อสอบ VCA รอบ 1/2569 ที่ผู้เข้าสอบบันทึกหลังสอบ เรียบเรียงใหม่พร้อมเฉลยและคำอธิบาย ข้อที่ยังตอบอย่างมั่นใจไม่ได้พักไว้ก่อน',
           'แบบฝึกที่เพิ่มเติมระบุหน้าและข้อจากต้นฉบับ รวมถึงแหล่งตรวจเทียบเมื่อมีการปรับเฉลย',
           'เปิดชุดเอกสารและข้อสอบย้อนหลังทั้งหมดได้จากคลังเอกสารของวิชานี้',
           'ข้อมูลย้อนหลังเป็นแนวทบทวน ไม่ใช่ประกาศขอบเขตหรือกำหนดการสอบรอบปัจจุบัน',
@@ -2022,6 +2023,14 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'neurology', label: 'ประสาทวิทยา', icon: '🧠' },
         { id: 'epidemiology', label: 'ระบาดวิทยา', icon: '📊' },
         { id: 'parasitology', label: 'ปรสิตวิทยา', icon: '🪱' },
+        { id: 'anatomy', label: 'กายวิภาคและสรีรวิทยา', icon: '🦴' },
+        { id: 'pharmacology', label: 'เภสัชวิทยาและพิษวิทยา', icon: '💊' },
+        { id: 'microbiology', label: 'แบคทีเรีย ไวรัส และเชื้อรา', icon: '🦠' },
+        { id: 'theriogenology', label: 'วิทยาการสืบพันธุ์', icon: '🧬' },
+        { id: 'surgery', label: 'ศัลยศาสตร์และวิสัญญีวิทยา', icon: '🩺' },
+        { id: 'food-hygiene', label: 'สุขศาสตร์อาหาร', icon: '🥛' },
+        { id: 'zoonoses', label: 'โรคสัตว์สู่คน', icon: '🌏' },
+        { id: 'juris', label: 'กฎหมาย จริยธรรม และสวัสดิภาพสัตว์', icon: '⚖️' },
       ] },
 
     // Y5 sem 2 — only true lecture course is RAVB (3100-508). The other
