@@ -16,15 +16,13 @@
 // CI installs all 3 browser engines (chromium + webkit + firefox).
 
 import { defineConfig, devices } from '@playwright/test';
+import { LOCAL_E2E_PORT } from './tests/e2e/local-port.js';
 
 // Keep local E2E isolated from ordinary Vite previews. Reusing whatever owns
 // port 4173 once made a green suite test a different app entirely. A dedicated
 // strict port fails loudly instead; PLAYWRIGHT_PORT remains available for
-// parallel local runs.
-// The port sits below every OS's ephemeral range (Linux 32768-60999, Windows and macOS
-// 49152-65535): an outgoing connection can be handed any port in that range, and on 17 Oct
-// one held 41732 just as CI started the connected preview ("Port 41732 is already in use").
-const localE2ePort = Number(process.env.PLAYWRIGHT_PORT || 24731);
+// parallel local runs. Why that port, and who else reads it: tests/e2e/local-port.js.
+const localE2ePort = LOCAL_E2E_PORT;
 const localE2eUrl = `http://127.0.0.1:${localE2ePort}`;
 
 export default defineConfig({

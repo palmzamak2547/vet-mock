@@ -14,8 +14,9 @@
 // goes straight on without posting anything.
 import { test, expect } from './fixtures.js';
 import { createMoveInHandler } from '../../api/move-in.js';
+import { LOCAL_E2E_PORT } from './local-port.js';
 
-const PORT = Number(process.env.PLAYWRIGHT_PORT || 41731);
+const PORT = LOCAL_E2E_PORT;
 const NEW = `http://127.0.0.1:${PORT}`;
 const OLD = `http://localhost:${PORT}`;
 const PATH = '/app/about?from=move#top';
