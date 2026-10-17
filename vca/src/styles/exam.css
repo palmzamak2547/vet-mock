@@ -170,6 +170,9 @@ a.ask-row:hover .ask-name { color: var(--verd); }
 [data-reveal].is-in .ask-bar i { animation: grow-x 1100ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 45ms + 160ms); }
 .reveal-ready [data-reveal]:not(.is-in) .ask-bar i { transform: scaleX(0); }
 [data-reveal].is-in .alm-v { animation: cell-in 560ms var(--ease-out) both; animation-delay: calc(var(--col, 0) * 55ms + 120ms); }
+/* On a phone the table scrolls sideways and shows its first columns: only those play the
+   entrance, so a few dozen cells animate instead of every one. */
+@media (max-width: 760px) { [data-reveal].is-in .alm-v:not(.is-near) { animation: none; } }
 .reveal-ready [data-reveal]:not(.is-in) .alm-v { opacity: 0; }
 @media (prefers-reduced-motion: reduce) {
   .xhero .kicker, .xhero-h, .xhero-sub, .xhero-actions, .xhero-src, .ticket, [data-reveal].is-in .ask-bar i, [data-reveal].is-in .alm-v { animation: none; }

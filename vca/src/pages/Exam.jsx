@@ -52,6 +52,10 @@ function Ticket({ part, i, round }) {
   );
 }
 
+// The columns a phone shows before the table is scrolled sideways: only these play their
+// entrance there (exam.css); the rest are off screen and simply appear.
+const NEAR_COLS = 7;
+
 function Cell({ cell, col }) {
   const v = cellValue(cell);
   if (cell === null) return <td className="alm-none"><span aria-label="ไม่มีบันทึก">–</span></td>;
@@ -59,7 +63,7 @@ function Cell({ cell, col }) {
   const heat = Math.min(1, v / 40);
   return (
     <td className={`alm-c${heat >= 0.5 ? ' is-deep' : ''}`} style={{ '--v': heat.toFixed(3), '--col': col }}>
-      <span className="alm-v">{Array.isArray(cell) ? cell.join('+') : v}</span>
+      <span className={`alm-v${col < NEAR_COLS ? ' is-near' : ''}`}>{Array.isArray(cell) ? cell.join('+') : v}</span>
     </td>
   );
 }
