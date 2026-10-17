@@ -495,3 +495,7 @@ a.post-card:active { transform: translateY(0) scale(.995); }
 .board-mine-k { margin-right: 4px; font: 600 13px/1 var(--sans); color: var(--ink-3); }
 .board-mine .chip { min-height: 34px; font-size: 13.5px; }
 .pform-hero.is-cropping .pform-picks { flex: 1; display: grid; justify-items: center; }
+.mg-video-fail { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 10px; background: #000 center / cover no-repeat; color: #fff; text-align: center; }
+.mg-video-fail::before { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, .6); }
+.mg-video-fail > * { position: relative; }
+.mg-video-fail .btn { color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5); gap: 8px; }

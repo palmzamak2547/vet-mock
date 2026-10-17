@@ -42,6 +42,18 @@ Done from the local checkout, each checked:
    attached. Its ignore step is `vca/scripts/vercel-ignore.sh` and builds production only: the
    first deploy failed because the inline command was over Vercel's 256-character limit.
 6. **DNS.** `vca` CNAME to Vercel in the Cloudflare zone, DNS only.
+7. **Google sign-in names the site (18 Oct).** `https://vca.vetmock.com` is an Authorized
+   JavaScript origin of the "VetMock Web" OAuth client, and `VITE_GOOGLE_CLIENT_ID` is set on
+   `vetmock-vca`: the sheet shows Google's own button (Google Identity Services), whose popup
+   names the site instead of the Supabase project. Without the variable the redirect button
+   comes back.
+8. **Photos, video and onboarding (18 Oct).** Migrations `20261018090000_vca_media`,
+   `20261018090100_vca_media_storage` and `20261018093000_vca_media_jpeg` are applied:
+   buckets `vca-media` (public) and `vca-private` (direct rooms), five storage policies, and
+   `photo`, `focus`, `onboarded_at` on profiles and `media` on posts, comments and messages.
+   `npm run test:db` checks the row rules (14 checks); the storage policies need Supabase's
+   storage schema, so they were checked on the project. Not built yet: removing a deleted
+   post's files from storage (they stay until a cleanup job exists).
 
 Left, and it needs the owner signed in to the LINE Developers console (no channel secret is on
 this machine, so the LIFF API is not an option):
@@ -65,6 +77,9 @@ project. Whoever owns those features should apply them.
 - **The community on a phone:** post, reply, like, chat in a room, report a post and block a
   person. A post that three people report is hidden until a moderator looks.
 - **The installed app:** a domain opened once can still be practised offline.
+- **Media on a phone:** set a profile photo (iPhone HEIC and an Android JPEG), post four
+  photos, post a 30-second iPhone video (a MOV that Chrome on Android may not play: check), send
+  a photo in a direct chat and see it on the other phone.
 
 ## VCA round 1/2569 Part 2: the nine held questions
 
