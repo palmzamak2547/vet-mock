@@ -41,6 +41,10 @@ and self-hosted in `public/fonts/` with their licences. The footer print is Stef
 Bella's *A Lost Horseman Enquiring the Way* (1649), The Cleveland Museum of Art, CC0, stored as
 an ink mask in `public/art/footer-della-bella.webp`; the domain plates are the main app's art.
 
+Motion: the top bar's three pieces run together into one liquid-glass capsule once the page moves
+(`src/lib/liquid.js`, its outline tested in `tests/unit/liquid.test.mjs`), and the footer's VCA
+rises with the scroll (`initScenes` in `src/lib/motion.js`). Reduce motion keeps both still.
+
 ## Deploy
 
 `vercel.json` here builds this folder as its own project. The root `vercel.json` ignores

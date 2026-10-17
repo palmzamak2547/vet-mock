@@ -1,7 +1,7 @@
 // The frame every page sits in: the glass bar on top, the tab bar on a phone, the footer.
 // A running set takes the whole screen; its own bar replaces these (pages/Session.jsx).
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { Link } from './Link.jsx';
 import { Lockup } from './Mark.jsx';
 import { Icon } from './Icon.jsx';
@@ -9,6 +9,7 @@ import { Nw } from './bits.jsx';
 import { InstallLink } from './Install.jsx';
 import { toggleTheme, useTheme } from '../lib/prefs.js';
 import { useActiveSession } from '../lib/hooks.js';
+import { mountLiquidBar } from '../lib/liquid.js';
 
 const NAV = [
   { name: 'practice', to: '/practice', label: 'ฝึก', icon: 'target' },
@@ -44,31 +45,33 @@ export function ThemeButton() {
   );
 }
 
-/** True once the page has moved off its top edge: the free-standing pieces take on glass. */
-function useScrolled(threshold = 8) {
-  const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' && window.scrollY > threshold);
-  useEffect(() => {
-    let raf = 0;
-    const check = () => { raf = 0; setScrolled(window.scrollY > threshold); };
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(check); };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    check();
-    return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); };
-  }, [threshold]);
-  return scrolled;
-}
-
 /**
- * Three pieces that float apart: the mark on its own at the left, the sections as one glass
- * capsule in the middle, and on the right the theme and the way in. At the top of a page the
- * mark and the actions stand on the wall itself; once the page moves they take on glass too.
+ * Three pieces that float apart at the top of a page: the mark on its own at the left, the
+ * sections as one glass capsule in the middle, and on the right the theme and the way in, the
+ * outer two standing on the wall itself. Once the page moves they take on glass, glide together
+ * and run into one capsule, and the mark folds VetMock away to keep VCA (lib/liquid.js).
  */
 export function TopBar({ route }) {
   const session = useActiveSession();
-  const scrolled = useScrolled();
+  const barRef = useRef(null);
+  const innerRef = useRef(null);
+  const glassRef = useRef(null);
   const listRef = useRef(null);
   const indRef = useRef(null);
   const active = NAV.findIndex((item) => isOn(item, route));
+
+  useLayoutEffect(() => {
+    const inner = innerRef.current;
+    return mountLiquidBar({
+      bar: barRef.current,
+      inner,
+      brand: inner.querySelector('.brand'),
+      nav: listRef.current,
+      act: inner.querySelector('.topbar-act'),
+      glass: glassRef.current,
+      outlines: inner.querySelectorAll('[data-liq]'),
+    });
+  }, []);
 
   // The active pill slides to the link it marks.
   useLayoutEffect(() => {
@@ -90,9 +93,32 @@ export function TopBar({ route }) {
   }, [active]);
 
   return (
-    <header className={`topbar${scrolled ? ' is-scrolled' : ''}`}>
-      <nav className="topbar-in" aria-label="หลัก">
-        <Link to="/" className="brand cap" aria-label="VetMock VCA หน้าแรก"><Lockup size={30} /></Link>
+    <header className="topbar" ref={barRef}>
+      <nav className="topbar-in" ref={innerRef} aria-label="หลัก">
+        {/* Under the glass: its shadow, kept outside it, and a hairline just past its edge. */}
+        <svg className="liq" aria-hidden="true" focusable="false">
+          <defs>
+            <filter id="liq-drop" x="-10%" y="-60%" width="120%" height="280%">
+              <feMorphology operator="erode" radius="7" />
+              <feGaussianBlur stdDeviation="12" />
+              <feOffset dy="13" />
+            </filter>
+            <mask id="liq-outside" maskUnits="userSpaceOnUse" x="-200" y="-200" width="4000" height="600">
+              <rect x="-200" y="-200" width="4000" height="600" fill="#fff" />
+              <path data-liq="edge" fill="#000" />
+            </mask>
+            <mask id="liq-hair"><path data-liq="out" fill="#fff" /><path data-liq="edge" fill="#000" /></mask>
+          </defs>
+          <path data-liq="edge" className="liq-shade" filter="url(#liq-drop)" mask="url(#liq-outside)" />
+          <rect className="liq-line" width="100%" height="100%" mask="url(#liq-hair)" />
+        </svg>
+        <span className="liq liq-glass" ref={glassRef} aria-hidden="true" />
+        {/* Over it: the rim, a pixel of light along the inside of its edge. */}
+        <svg className="liq" aria-hidden="true" focusable="false">
+          <defs><mask id="liq-ring"><path data-liq="edge" fill="#fff" /><path data-liq="in" fill="#000" /></mask></defs>
+          <rect className="liq-rim" width="100%" height="100%" mask="url(#liq-ring)" />
+        </svg>
+        <Link to="/" className="brand cap" aria-label="VetMock VCA หน้าแรก"><Lockup size={30} kinetic /></Link>
         <div className="topnav glass" ref={listRef}>
           <span className="topnav-ind" ref={indRef} aria-hidden="true" />
           <ul className="topnav-list">
@@ -103,8 +129,8 @@ export function TopBar({ route }) {
             ))}
           </ul>
         </div>
-        <div className="topbar-act">
-          <span className="cap cap-round"><ThemeButton /></span>
+        <div className="topbar-act cap">
+          <ThemeButton />
           {session ? (
             <Link to="/session" className="btn btn-ink btn-sm">ทำต่อ <span className="btn-meta">{session.cursor + 1}/{session.items.length}</span></Link>
           ) : (
@@ -132,10 +158,13 @@ export function TabBar({ route }) {
   );
 }
 
+const VCA_WORDS = [['V', 'Veterinary'], ['C', 'Competency'], ['A', 'Assessment']];
+
 /**
- * The footer is the gallery's last wall, painted cobalt, and along its floor a print runs the
- * full width: Stefano della Bella's horseman asking the way (1649), inked in the wall's own
- * blue on cream paper by day and in cream on the blue at night, as a two-colour print would be.
+ * The footer is the gallery's last wall, painted cobalt. Across it stands VCA, engraved like the
+ * print below and rising letter by letter as the wall comes up; along its floor runs Stefano
+ * della Bella's horseman asking the way (1649), inked in the wall's own blue on cream paper by
+ * day and in cream on the blue at night, as a two-colour print would be.
  */
 export function Footer() {
   return (
@@ -177,8 +206,18 @@ export function Footer() {
       <div className="wrap footer-base">
         <p>ข้อสอบในเว็บนี้มีไว้ฝึกซ้อม ไม่ใช่ข้อสอบจริง และไม่ได้จัดทำโดย<Nw>สัตวแพทยสภา</Nw></p>
         <p className="foot-credit">
-          ภาพพิมพ์ Stefano della Bella <i>A Lost Horseman Enquiring the Way</i> (1649) <Nw>The Cleveland Museum of Art</Nw>
+          ภาพพิมพ์ <i>A Lost Horseman Enquiring the Way</i> <Nw>คนขี่ม้าหลงทางแวะถามทาง</Nw> โดย <Nw>Stefano della Bella</Nw> (1649) <Nw>The Cleveland Museum of Art</Nw>
         </p>
+      </div>
+      <div className="foot-vca" data-scene aria-hidden="true">
+        <div className="wrap foot-vca-in">
+          {VCA_WORDS.map(([letter, word], i) => (
+            <span key={letter} className="vca-l" style={{ '--i': i }}>
+              <span className="vca-w">{word}</span>
+              <span className="vca-g">{letter}</span>
+            </span>
+          ))}
+        </div>
       </div>
       <div className="foot-print" data-reveal aria-hidden="true">
         <span className="foot-ink" />

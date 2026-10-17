@@ -112,7 +112,11 @@ html:not(.has-vt) .page { animation: rise-in 520ms var(--ease-out) both; }
 @keyframes vt-out { to { opacity: 0; transform: scale(.985); filter: blur(3px); } }
 @keyframes vt-in { from { opacity: 0; transform: translateY(16px); filter: blur(4px); } }
 ::view-transition-group(*) { animation-duration: 560ms; animation-timing-function: var(--ease-out); }
-.topbar-in { view-transition-name: topbar; }
+/* The bar keeps still while the page changes under it. It takes its name only for the change:
+   a named element hides the page behind from any glass inside it, so at rest it has none. Its
+   glass thickens for that half second, which a snapshot cannot blur. */
+html[data-vt="page"] .topbar-in { view-transition-name: topbar; }
+html[data-vt="page"] .liq-glass { background: var(--glass-2); }
 /* The middle capsule eases in on arrival, a beat after the wall. */
 .topnav { animation: rise-in 800ms 120ms var(--ease-out) both; }
 .tabbar { view-transition-name: tabbar; }

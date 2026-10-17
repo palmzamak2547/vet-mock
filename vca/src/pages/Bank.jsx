@@ -10,7 +10,7 @@ import { Provenance } from '../components/Question.jsx';
 import { BANK, CARD_BY_ID, DOMAIN_CARDS, loadDomains } from '../lib/bank.js';
 import { searchQuestions } from '../lib/search.js';
 import { navigate, withQuery } from '../router.js';
-import { useTitle } from '../lib/hooks.js';
+import { useTitle, useTuck } from '../lib/hooks.js';
 import { LETTERS, num, plateNo } from '../lib/format.js';
 
 const PAGE = 30;
@@ -51,6 +51,8 @@ function BankItem({ q, query, showAnswers }) {
 
 export default function Bank({ route }) {
   useTitle('คลังข้อสอบ');
+  const toolsRef = useRef(null);
+  useTuck(toolsRef);
   const initialQ = route.query.get('q') || '';
   const [query, setQuery] = useState(initialQ);
   const [domain, setDomain] = useState(() => (CARD_BY_ID[route.query.get('d')] ? route.query.get('d') : 'all'));
@@ -97,18 +99,18 @@ export default function Bank({ route }) {
         <p className="page-p">ค้นทุกโจทย์ ตัวเลือก และคำอธิบายใน {num(BANK.total)} ข้อ พิมพ์ได้ทั้งไทยและอังกฤษ เว้นวรรคเพื่อค้นหลายคำพร้อมกัน</p>
       </header>
 
-      <div className="bank-tools glass">
+      <div className="bank-tools glass" ref={toolsRef}>
         <label className="search">
           <Icon name="search" />
           <span className="sr">ค้นหาในคลังข้อสอบ</span>
-          <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="เช่น Leptospira, PCV2, ค่า pH ของน้ำนม" autoComplete="off" enterKeyHint="search" />
+          <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="เช่น Leptospira, PCV2, น้ำนม" autoComplete="off" enterKeyHint="search" />
         </label>
         <div className="bank-filters">
           <label className="select">
             <span className="sr">หมวด</span>
             <select value={domain} onChange={(e) => setDomain(e.target.value)}>
               <option value="all">ทุกหมวด ({num(BANK.total)})</option>
-              {DOMAIN_CARDS.map((d) => <option key={d.id} value={d.id}>{plateNo(d.plate)} {d.th} ({num(d.count)})</option>)}
+              {DOMAIN_CARDS.map((d) => <option key={d.id} value={d.id}>{d.th} ({num(d.count)})</option>)}
             </select>
             <Icon name="chevronDown" size={18} />
           </label>

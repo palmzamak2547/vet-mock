@@ -100,7 +100,9 @@ function figure(src) {
 // copy, so it is named, never linked from this public site, and its address is left out of the
 // text the site ships as well.
 const DRIVE_URL = /\s*;?\s*https?:\/\/(?:drive|docs)\.google\.com\/[^\s,;)]*/g;
-const scrub = (text) => String(text).replace(DRIVE_URL, '').replace(/[\s;,]+$/, '').trim();
+// Drive links go (they need a sign-in); so do the separators a removed link or a file name
+// left at either end ("-swine herd mid….pdf").
+const scrub = (text) => String(text).replace(DRIVE_URL, '').replace(/^[\s;,:|\-–—]+/, '').replace(/[\s;,:|\-–—]+$/, '').trim();
 
 function refsOf(q) {
   const list = Array.isArray(q.verificationSources) ? q.verificationSources : [];
@@ -232,9 +234,27 @@ for (const m of VCA_MATERIALS) {
   const years = yearsOf(m.title) || files.map((f) => yearsOf(f.title)).find(Boolean) || null;
   docs.push({
     id: m.id, title: String(m.title).trim(), shelf: shelf.id, kind: m.kind === 'pastpaper' ? 'paper' : 'handout',
-    years, pages: pages || null, files: files.length,
+    years, pages: pages || null, fileKeys: files.map((f) => f.sha256 || f.id || f.path || `${f.title}:${f.mime}`),
     formats: [...new Set(files.map((f) => formatOf(f.mime)))],
   });
+}
+// One set uploaded twice (a scan in one folder, the scan and its transcript in another) is one
+// set on the shelf, with every format it comes in: same shelf, kind, title and years.
+const sameSet = (d) => [d.shelf, d.kind, d.title.toLowerCase().replace(/[’`]/g, "'").replace(/_+/g, ' ').replace(/[\s.]*\.{2,}\s*$/, '').replace(/\s+/g, ' ').trim(), d.years?.from, d.years?.to].join('|');
+const merged = new Map();
+for (const d of docs) {
+  const key = sameSet(d);
+  const had = merged.get(key);
+  if (!had) { merged.set(key, d); continue; }
+  had.id = had.id < d.id ? had.id : d.id;
+  had.pages = Math.max(had.pages || 0, d.pages || 0) || null;
+  had.fileKeys = [...new Set([...had.fileKeys, ...d.fileKeys])];
+  had.formats = [...new Set([...had.formats, ...d.formats])];
+}
+docs.length = 0;
+for (const d of merged.values()) {
+  const { fileKeys, ...rest } = d;
+  docs.push({ ...rest, files: fileKeys.length });
 }
 const collator = new Intl.Collator('th');
 const shelfOrder = [...DISCIPLINES.map((d) => d.id), GENERAL_SHELF.id];

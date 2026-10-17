@@ -146,7 +146,7 @@ a.ask-row:hover .ask-name { color: var(--verd); }
   .ask-bar { grid-area: bar; height: 6px; }
   .ask-pct { grid-area: pct; font-size: 18px; }
   .ask-move { grid-area: move; }
-  .alm-scroll { margin-inline: -16px; border-radius: 0; padding-inline: 0; box-shadow: 0 0 0 1px var(--line); }
+  .alm-scroll { max-width: none; margin-inline: -16px; border-radius: 0; padding-inline: 0; box-shadow: 0 0 0 1px var(--line); }
   .alm-subj { min-width: 150px; padding-left: 16px; font-size: 13px; }
   .alm-group th { padding-left: 16px; }
   .alm-group th > * { left: 16px; }

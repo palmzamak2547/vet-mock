@@ -7,6 +7,7 @@
 //   initPointer     light that follows the pointer across glass, a slight tilt on the plates,
 //                   and depth on the hero's wall (fine pointers only)
 //   initReveal      sections and cards settle in as they scroll into view
+//   initScenes      a few pieces move with the scroll itself, both ways (the footer's VCA)
 
 const media = (q) => (typeof window !== 'undefined' && window.matchMedia ? window.matchMedia(q) : null);
 export const reducedMotion = () => !!media('(prefers-reduced-motion: reduce)')?.matches;
@@ -138,6 +139,58 @@ export function initReveal() {
   return () => { io.disconnect(); mo.disconnect(); cancelAnimationFrame(queued); };
 }
 
+/**
+ * [data-scene] elements follow the scroll both ways: --p runs from 0, as the element's top
+ * reaches the bottom of the window, to 1, a little after it stands fully in view. The CSS
+ * decides what moves with it. Without this (reduce motion, or before it runs) --p is unset and
+ * the CSS reads it as 1: everything in place, nothing hidden.
+ */
+export function initScenes() {
+  if (typeof window === 'undefined' || reducedMotion() || !('IntersectionObserver' in window) || !('MutationObserver' in window)) return () => {};
+  const live = new Set();
+  let frame = 0;
+  const update = () => {
+    frame = 0;
+    const vh = window.innerHeight;
+    for (const el of live) {
+      const r = el.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (vh - r.top) / (r.height + vh * 0.12)));
+      el.style.setProperty('--p', p.toFixed(3));
+    }
+  };
+  const queue = () => { if (!frame) frame = requestAnimationFrame(update); };
+  const io = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) live.add(entry.target);
+      else {
+        live.delete(entry.target);
+        // Off screen it rests where the scroll left it: risen above, sunk below.
+        entry.target.style.setProperty('--p', entry.boundingClientRect.top < 0 ? '1' : '0');
+      }
+    }
+    queue();
+  }, { rootMargin: '10% 0px 10% 0px' });
+  let scanQueued = 0;
+  const scan = () => {
+    scanQueued = 0;
+    document.querySelectorAll('[data-scene]:not([data-scene-on])').forEach((el) => {
+      el.setAttribute('data-scene-on', '');
+      io.observe(el);
+    });
+  };
+  const mo = new MutationObserver(() => { if (!scanQueued) scanQueued = requestAnimationFrame(scan); });
+  mo.observe(document.body, { childList: true, subtree: true });
+  window.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', queue);
+  scan();
+  return () => {
+    io.disconnect(); mo.disconnect();
+    window.removeEventListener('scroll', queue);
+    window.removeEventListener('resize', queue);
+    cancelAnimationFrame(frame); cancelAnimationFrame(scanQueued);
+  };
+}
+
 /** A tap that the hand can feel, on phones that allow it. */
 export function haptic(pattern = 8) {
   if (reducedMotion()) return;
@@ -149,4 +202,5 @@ export function initMotion() {
   document.documentElement.classList.toggle('has-vt', hasViewTransitions());
   initPointer();
   initReveal();
+  initScenes();
 }

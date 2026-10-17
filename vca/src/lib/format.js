@@ -47,3 +47,6 @@ export function yearRange(years) {
 export const plateNo = (n) => `Pl. ${two(n)}`;
 
 export const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+
+/** A document's file name as a title: underscores read as spaces, no trailing dots. */
+export const docTitle = (t) => String(t).replace(/_+/g, ' ').replace(/[\s.]*\.{2,}\s*$/, '').replace(/\s{2,}/g, ' ').trim();

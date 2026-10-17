@@ -7,7 +7,8 @@ Enquiring the Way*, 1649. Etching. The Cleveland Museum of Art, Gift of Carl Fre
 1945.401.4.
 Source: https://clevelandart.org/art/1945.401.4
 Licence: CC0 1.0 (Cleveland Museum of Art Open Access).
-Changes: cropped inside the plate mark, the inscription line removed, and the ink kept as an
+Changes: cropped inside the plate mark with the open sky above the rider kept, so he is whole;
+the inscription line and the fallen horse in the left foreground removed; the ink kept as an
 alpha mask so the site prints it in two colours.
 
 ## Domain plates

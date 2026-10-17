@@ -1,9 +1,20 @@
 // VetMock VCA offline: pages come from the network first and fall back to the last copy, so a
-// new release is never held back; content-hashed files (the app, the bank, fonts, plates) come
-// from the cache first, so a set that was opened once can be practised again on a train.
+// new release is never held back. Content-hashed files (the app, the bank, figures) never change
+// under their names, so they come from the cache first and a set opened once can be practised
+// again on a train. Fonts, art and icons keep their names when they change: they come from the
+// cache too, and are refreshed behind it for the next visit.
 const CACHE = 'vca-v1';
 const SHELL = '/index.html';
-const IMMUTABLE = /^\/(assets|bank|fonts|art|q|icons)\//;
+const IMMUTABLE = /^\/(assets|bank|q)\//;
+const NAMED = /^\/(fonts|art|icons)\//;
+
+const keep = (request, res) => {
+  if (res.ok) {
+    const copy = res.clone();
+    caches.open(CACHE).then((cache) => cache.put(request, copy));
+  }
+  return res;
+};
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.add(SHELL)).then(() => self.skipWaiting()));
@@ -36,14 +47,16 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (IMMUTABLE.test(url.pathname)) {
-    event.respondWith(
-      caches.match(request).then((hit) => hit || fetch(request).then((res) => {
-        if (res.ok) {
-          const copy = res.clone();
-          caches.open(CACHE).then((cache) => cache.put(request, copy));
-        }
-        return res;
-      })),
-    );
+    event.respondWith(caches.match(request).then((hit) => hit || fetch(request).then((res) => keep(request, res))));
+    return;
+  }
+
+  if (NAMED.test(url.pathname)) {
+    event.respondWith(caches.match(request).then((hit) => {
+      const fresh = fetch(request).then((res) => keep(request, res));
+      if (!hit) return fresh;
+      event.waitUntil(fresh.catch(() => {}));
+      return hit;
+    }));
   }
 });

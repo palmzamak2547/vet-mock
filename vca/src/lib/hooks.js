@@ -59,3 +59,37 @@ export function useMedia(query) {
   }, [query]);
   return match;
 }
+
+/**
+ * A sticky panel that steps out of the way on a phone: it slides up out of sight while the
+ * reader scrolls down the list under it, and comes back the moment they scroll up, or reach for
+ * it. A panel being typed in stays put.
+ */
+export function useTuck(ref, query = '(max-width: 760px)') {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof window === 'undefined' || !window.matchMedia) return undefined;
+    const mq = window.matchMedia(query);
+    let lastY = window.scrollY;
+    let frame = 0;
+    // Where the panel starts sticking: its place in the page, less the gap it keeps from the top.
+    const sticksAt = () => {
+      el.classList.remove('is-tucked');
+      return el.getBoundingClientRect().top + window.scrollY - (parseFloat(getComputedStyle(el).top) || 0);
+    };
+    let start = window.scrollY < 4 ? sticksAt() : Infinity;
+    const check = () => {
+      frame = 0;
+      const y = window.scrollY;
+      if (start === Infinity && y < 4) start = sticksAt();
+      const dy = y - lastY;
+      if (Math.abs(dy) < 8) return;
+      lastY = y;
+      const typing = el.contains(document.activeElement) && document.activeElement.matches('input, select');
+      el.classList.toggle('is-tucked', mq.matches && dy > 0 && y > Math.min(start, 600) + 40 && !typing);
+    };
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(check); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => { window.removeEventListener('scroll', onScroll); cancelAnimationFrame(frame); el.classList.remove('is-tucked'); };
+  }, [ref, query]);
+}

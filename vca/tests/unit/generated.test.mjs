@@ -147,6 +147,16 @@ test('the catalog explains everything left out', () => {
   assert.ok(BANK.held >= CATALOG.left.held, 'held in scope covers the held questions left out');
 });
 
+test('a set uploaded twice is listed once, with every format it comes in', () => {
+  const key = (d) => [d.shelf, d.kind, d.title.toLowerCase().replace(/[’`]/g, "'").replace(/_+/g, ' ').replace(/[\s.]*\.{2,}\s*$/, '').replace(/\s+/g, ' ').trim(), d.years?.from, d.years?.to].join('|');
+  const seen = new Map();
+  for (const d of LIBRARY.docs) {
+    assert.ok(!seen.has(key(d)), `${d.id} repeats ${seen.get(key(d))}`);
+    seen.set(key(d), d.id);
+    assert.ok(d.files >= d.formats.length, `${d.id}: a file for every format`);
+  }
+});
+
 test('the library summary matches the library module', () => {
   assert.equal(BANK.library.documents, LIBRARY.documents);
   assert.equal(LIBRARY.documents, LIBRARY.docs.length);

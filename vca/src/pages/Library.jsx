@@ -2,14 +2,14 @@
 // Reading a file happens in the VetMock library, which checks the reader's sign-in; this page is
 // the catalogue, so every row opens the document there.
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from '../components/Link.jsx';
 import { Icon } from '../components/Icon.jsx';
-import { useAsync, useTitle } from '../lib/hooks.js';
+import { useAsync, useTitle, useTuck } from '../lib/hooks.js';
 import { BANK, CARD_BY_ID } from '../lib/bank.js';
 import { searchDocs } from '../lib/search.js';
 import { navigate, withQuery } from '../router.js';
-import { num, yearRange } from '../lib/format.js';
+import { docTitle, num, yearRange } from '../lib/format.js';
 
 const SHELF_SHOWN = 6;
 const loadLibrary = () => import('../generated/library.js').then((m) => m.LIBRARY);
@@ -17,6 +17,8 @@ const readerUrl = (title) => `https://vetmock.com/app/library?${new URLSearchPar
 
 export default function Library({ route }) {
   useTitle('เอกสาร VCA');
+  const toolsRef = useRef(null);
+  useTuck(toolsRef);
   const lib = useAsync(loadLibrary, 'library');
   const [query, setQuery] = useState(route.query.get('q') || '');
   const [kind, setKind] = useState(() => (['paper', 'handout'].includes(route.query.get('kind')) ? route.query.get('kind') : 'all'));
@@ -65,7 +67,7 @@ export default function Library({ route }) {
         <p className="lib-note"><Icon name="info" size={18} />เอกสารเปิดในคลังเอกสาร VetMock บางไฟล์ต้องเข้าสู่ระบบก่อน เป็นบันทึกของรุ่นพี่สำหรับทบทวน ไม่ใช่ประกาศขอบเขตการสอบ</p>
       </div>
 
-      <div className="bank-tools glass">
+      <div className="bank-tools glass" ref={toolsRef}>
         <label className="search">
           <Icon name="search" />
           <span className="sr">ค้นหาเอกสาร</span>
@@ -111,7 +113,7 @@ export default function Library({ route }) {
                       <li key={d.id}>
                         <a className="doc" href={readerUrl(d.title)} target="_blank" rel="noopener noreferrer">
                           <span className={`doc-kind doc-${d.kind}`}>{d.kind === 'paper' ? 'ข้อสอบเก่า' : 'เอกสารติว'}</span>
-                          <span className="doc-title">{d.title}</span>
+                          <span className="doc-title">{docTitle(d.title)}</span>
                           <span className="doc-meta">
                             {d.years && <span>{yearRange(d.years)}</span>}
                             {d.pages && <span>{num(d.pages)} หน้า</span>}

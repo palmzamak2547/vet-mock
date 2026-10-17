@@ -97,7 +97,7 @@ export default function Progress() {
       </header>
 
       <section className="band glass progress-band" aria-label="ภาพรวม">
-        <div className="fig"><div className="fig-n">{num(all.seen)}<small>/{num(BANK.total)}</small></div><div className="fig-t">ข้อที่เคยทำ <b>{pct(all.seen / BANK.total, 1)}</b> ของคลัง</div></div>
+        <div className="fig"><div className="fig-n">{num(all.seen)}<small>/{num(BANK.total)}</small></div><div className="fig-t">ข้อที่เคยทำ <b>{pct(all.seen / BANK.total, all.seen ? 1 : 0)}</b> ของคลัง</div></div>
         <div className="fig"><div className="fig-n">{all.seen ? pct(all.accuracy) : '–'}</div><div className="fig-t">ตอบถูกในครั้งล่าสุด</div></div>
         <div className="fig"><div className="fig-n">{num(streak(progress, localDay()))}<small>วัน</small></div><div className="fig-t">ทำติดกันถึงวันนี้</div></div>
         <div className="fig"><div className="fig-n">{num(results.length)}</div><div className="fig-t">ชุดที่ทำจบ (เก็บล่าสุด {RESULTS_KEPT} ชุด)</div></div>
@@ -112,10 +112,16 @@ export default function Progress() {
           <p className="missed-n">{num(missed.length)}<small>ข้อ</small></p>
           <p className="hint">ข้อที่คำตอบล่าสุดยังผิด ตอบถูกเมื่อไหร่จะหายไปจากรายการเอง</p>
           <div className="row-gap">
-            <button type="button" className="btn btn-ink" onClick={retryMissed} disabled={!missed.length || busy}>
-              {busy ? <>กำลังเตรียม<span className="spinner" aria-hidden="true" /></> : <>ฝึก{missed.length > 50 ? ' 50 ข้อล่าสุด' : 'ทั้งหมด'} <Icon name="arrowRight" /></>}
-            </button>
-            {missed.length > 0 && <Link to={withQuery('/practice', { st: 'wrong' })} className="btn btn-ghost">เลือกหมวดเอง</Link>}
+            {missed.length > 0 ? (
+              <>
+                <button type="button" className="btn btn-ink" onClick={retryMissed} disabled={busy}>
+                  {busy ? <>กำลังเตรียม<span className="spinner" aria-hidden="true" /></> : <>ฝึก{missed.length > 50 ? ' 50 ข้อล่าสุด' : 'ทั้งหมด'} <Icon name="arrowRight" /></>}
+                </button>
+                <Link to={withQuery('/practice', { st: 'wrong' })} className="btn btn-ghost">เลือกหมวดเอง</Link>
+              </>
+            ) : (
+              <Link to="/practice" className="btn btn-ghost">เริ่มฝึก <Icon name="arrowRight" /></Link>
+            )}
           </div>
         </section>
       </div>

@@ -1,7 +1,7 @@
 // Numbers, clocks and dates as a Thai reader expects them, the same in Bangkok and in UTC.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { num, pct, clock, duration, thaiDay, thaiDate, yearRange, plateNo, LETTERS } from '../../src/lib/format.js';
+import { num, pct, clock, duration, thaiDay, thaiDate, yearRange, plateNo, docTitle, LETTERS } from '../../src/lib/format.js';
 
 test('num groups thousands and marks a missing number', () => {
   assert.equal(num(5783), '5,783');
@@ -60,4 +60,11 @@ test('yearRange, plate numbers and option letters', () => {
   assert.equal(plateNo(7), 'Pl. 07');
   assert.equal(plateNo(19), 'Pl. 19');
   assert.deepEqual(LETTERS.slice(0, 5), ['A', 'B', 'C', 'D', 'E']);
+});
+
+test('a document file name reads as a title', () => {
+  assert.equal(docTitle('physio_VCA 66-58'), 'physio VCA 66-58');
+  assert.equal(docTitle('VCA-physio_65-58..'), 'VCA-physio 65-58');
+  assert.equal(docTitle('Pathology_revised by RT (VCA58-67)'), 'Pathology revised by RT (VCA58-67)');
+  assert.equal(docTitle('Anatomy (VCA58-68)'), 'Anatomy (VCA58-68)', 'a clean title is left alone');
 });

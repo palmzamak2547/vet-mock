@@ -18,12 +18,19 @@ export function Mark({ size = 28, title }) {
   );
 }
 
-/** "VetMock | VCA", the family lockup Research also uses. */
-export function Lockup({ size = 28 }) {
+const NAME = [...'VetMock'];
+
+/**
+ * "VetMock | VCA", the family lockup Research also uses. A kinetic one sets each letter of the
+ * name apart, so the top bar can fold them away into VCA as it runs together.
+ */
+export function Lockup({ size = 28, kinetic = false }) {
   return (
     <span className="lockup">
       <Mark size={size} />
-      <span className="lockup-name">VetMock</span>
+      <span className="lockup-name">
+        {kinetic ? NAME.map((ch, i) => <span key={i} className="ch" style={{ '--k': NAME.length - 1 - i }}>{ch}</span>) : 'VetMock'}
+      </span>
       <span className="lockup-rule" aria-hidden="true" />
       <span className="lockup-sub">VCA</span>
     </span>

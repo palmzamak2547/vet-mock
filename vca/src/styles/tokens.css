@@ -45,6 +45,7 @@
   --line: rgba(21, 23, 26, .09); --line-2: rgba(21, 23, 26, .16); --line-3: rgba(21, 23, 26, .28);
   --glass: rgba(255, 255, 255, .58); --glass-2: rgba(255, 255, 255, .82); --glass-solid: #fbfaf8;
   --rim-a: rgba(255, 255, 255, .95); --rim-b: rgba(255, 255, 255, .08);
+  --liq-shade: rgba(28, 34, 40, .34); --liq-line: rgba(21, 23, 26, .07);
   --shadow: 0 0 0 1px rgba(21, 23, 26, .06), 0 18px 40px -20px rgba(28, 34, 40, .30), 0 3px 8px -3px rgba(28, 34, 40, .10);
   --shadow-lift: 0 0 0 1px rgba(21, 23, 26, .07), 0 28px 56px -24px rgba(28, 34, 40, .38), 0 6px 14px -6px rgba(28, 34, 40, .14);
   --verd: #1d7a62; --verd-ink: #ffffff; --verd-soft: rgba(29, 122, 98, .11); --verd-line: rgba(29, 122, 98, .40); --verd-mark: #2a9a7b;
@@ -72,6 +73,7 @@
   --line: rgba(255, 255, 255, .08); --line-2: rgba(255, 255, 255, .15); --line-3: rgba(255, 255, 255, .26);
   --glass: rgba(24, 28, 32, .54); --glass-2: rgba(22, 26, 30, .84); --glass-solid: #171a1e;
   --rim-a: rgba(255, 255, 255, .26); --rim-b: rgba(255, 255, 255, .02);
+  --liq-shade: rgba(0, 0, 0, .7); --liq-line: rgba(0, 0, 0, .45);
   --shadow: 0 0 0 1px rgba(0, 0, 0, .45), 0 24px 48px -22px rgba(0, 0, 0, .75), 0 3px 10px -3px rgba(0, 0, 0, .5);
   --shadow-lift: 0 0 0 1px rgba(0, 0, 0, .5), 0 32px 64px -24px rgba(0, 0, 0, .85), 0 6px 16px -6px rgba(0, 0, 0, .55);
   --verd: #56c9a6; --verd-ink: #04221a; --verd-soft: rgba(86, 201, 166, .12); --verd-line: rgba(86, 201, 166, .44); --verd-mark: #56c9a6;
