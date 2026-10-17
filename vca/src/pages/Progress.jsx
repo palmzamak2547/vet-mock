@@ -10,7 +10,7 @@ import { Plan } from '../components/Plan.jsx';
 import { Sheet } from '../components/Sheet.jsx';
 import { BANK, DOMAIN_CARDS } from '../lib/bank.js';
 import { emptyProgress, normalizeProgress, progressStore, statsFor, streak, wrongKeys } from '../lib/progress.js';
-import { resultsStore, RESULTS_KEPT } from '../lib/session.js';
+import { normalizeResults, resultsStore, RESULTS_KEPT } from '../lib/session.js';
 import { useStartGuard } from '../components/StartGuard.jsx';
 import { startSet } from '../lib/start.js';
 import { useProgress, useResults, useTitle } from '../lib/hooks.js';
@@ -80,7 +80,7 @@ export default function Progress() {
       const raw = JSON.parse(await file.text());
       if (raw?.app !== 'vetmock-vca' || raw.v !== 1) throw new Error('shape');
       const p = normalizeProgress(raw.progress);
-      const r = Array.isArray(raw.results) ? raw.results.filter((x) => x && x.v === 1 && Array.isArray(x.items)).slice(0, RESULTS_KEPT) : [];
+      const r = normalizeResults(raw.results);
       setImportState({ ok: true, progress: p, results: r, seen: Object.keys(p.q).length });
     } catch {
       setImportState({ ok: false });

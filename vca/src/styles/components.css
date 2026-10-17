@@ -249,7 +249,7 @@
 .seg-hint { font-size: 13px; line-height: 1.4; color: var(--ink-3); }
 
 .badge { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: var(--r-pill); font: 600 12.5px/1 var(--sans); white-space: nowrap; }
-.badge-verd { background: var(--verd-soft); color: var(--verd); }
+.badge-verd { background: var(--verd-soft); color: var(--verd-text, var(--verd)); }
 .badge-brass { background: var(--brass-soft); color: var(--brass); }
 .badge-plain { background: var(--line); color: var(--ink-2); }
 

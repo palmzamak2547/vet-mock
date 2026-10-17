@@ -125,13 +125,17 @@ export function Home() {
   const progress = useProgress();
   const { guard, sheet } = useStartGuard();
   const [busy, setBusy] = useState(false);
+  const [failed, setFailed] = useState('');
   const lib = BANK.library;
 
+  // A start that cannot load its questions says so, rather than spinning back to the button.
   const go = (run) => guard(async () => {
     setBusy(true);
+    setFailed('');
     const res = await run().catch(() => null);
     setBusy(false);
-    if (res?.ok) navigate('/session');
+    if (res?.ok) { navigate('/session'); return; }
+    setFailed(res?.reason === 'empty' ? 'ยังไม่มีข้อที่ตรงกับชุดนี้ ลองตั้งชุดเองได้' : navigator.onLine === false ? 'ตอนนี้ออฟไลน์อยู่ ข้อสอบชุดนี้ยังไม่เคยเปิดในเครื่องนี้ ต่อเน็ตแล้วลองอีกครั้ง' : 'โหลดข้อสอบไม่สำเร็จ ตรวจการเชื่อมต่อแล้วลองอีกครั้ง');
   });
   const startQuick = () => go(() => quickStart());
   const startMissed = (keys) => go(() => {
@@ -157,6 +161,7 @@ export function Home() {
             </button>
             <Link to="/practice?mode=mock" className="btn btn-glass btn-lg glass"><Icon name="timer" />สอบจำลอง</Link>
           </div>
+          {failed && <p className="notice notice-error start-fail" role="alert"><Icon name="info" />{failed}</p>}
           <p className="fine"><Link to="/practice" className="text-link">ตั้งชุดเอง <Icon name="arrowRight" size={16} /></Link></p>
         </div>
         <div className="vitrine" data-parallax>

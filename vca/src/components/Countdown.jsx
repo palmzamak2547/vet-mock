@@ -4,13 +4,13 @@
 import { Link } from './Link.jsx';
 import { Icon } from './Icon.jsx';
 import { upcomingRound } from '../data/exam.js';
-import { daysBetween, localDay } from '../lib/dates.js';
+import { daysBetween } from '../lib/dates.js';
 import { num } from '../lib/format.js';
-import { useProgress } from '../lib/hooks.js';
+import { useProgress, useToday } from '../lib/hooks.js';
 
 export function Countdown({ className = '' }) {
   const progress = useProgress();
-  const today = localDay();
+  const today = useToday();
   const round = upcomingRound(today);
   const own = progress.examDate && progress.examDate >= today ? progress.examDate : null;
   const roundDay = round?.parts[0].date;

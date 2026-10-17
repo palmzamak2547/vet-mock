@@ -41,15 +41,17 @@
 
   /* Gallery by day */
   --bg: #f2f0eb; --bg-2: #e9e6df; --paper: #fbfaf7;
-  --ink: #15171a; --ink-2: #474c54; --ink-3: #676c74;
+  /* --ink-3 and --brass are set so small text reads at 4.5:1 or better on every day surface,
+     down to --bg-2 under a tint (computed); --verd-text is the accent when it is text. */
+  --ink: #15171a; --ink-2: #474c54; --ink-3: #5f646b;
   --line: rgba(21, 23, 26, .09); --line-2: rgba(21, 23, 26, .16); --line-3: rgba(21, 23, 26, .28);
   --glass: rgba(255, 255, 255, .58); --glass-2: rgba(255, 255, 255, .82); --glass-solid: #fbfaf8;
   --rim-a: rgba(255, 255, 255, .95); --rim-b: rgba(255, 255, 255, .08);
   --liq-shade: rgba(28, 34, 40, .34); --liq-line: rgba(21, 23, 26, .07);
   --shadow: 0 0 0 1px rgba(21, 23, 26, .06), 0 18px 40px -20px rgba(28, 34, 40, .30), 0 3px 8px -3px rgba(28, 34, 40, .10);
   --shadow-lift: 0 0 0 1px rgba(21, 23, 26, .07), 0 28px 56px -24px rgba(28, 34, 40, .38), 0 6px 14px -6px rgba(28, 34, 40, .14);
-  --verd: #1d7a62; --verd-ink: #ffffff; --verd-soft: rgba(29, 122, 98, .11); --verd-line: rgba(29, 122, 98, .40); --verd-mark: #2a9a7b;
-  --brass: #8a601d; --brass-fill: #c99a45; --brass-soft: rgba(201, 154, 69, .16);
+  --verd: #1d7a62; --verd-ink: #ffffff; --verd-soft: rgba(29, 122, 98, .11); --verd-line: rgba(29, 122, 98, .40); --verd-mark: #2a9a7b; --verd-text: #176a54;
+  --brass: #7f581a; --brass-fill: #c99a45; --brass-soft: rgba(201, 154, 69, .16);
   --cinn: #b4432d; --cinn-ink: #ffffff; --cinn-soft: rgba(180, 67, 45, .10); --cinn-line: rgba(180, 67, 45, .38);
   --light-a: rgba(29, 122, 98, .15); --light-b: rgba(201, 154, 69, .15);
   --art-filter: none; --art-opacity: .94;
@@ -59,7 +61,9 @@
   --foot-paper: #efe7d6; --foot-print-ink: #1c3192; --foot-sky-mid: rgba(28, 49, 146, .55);
   --k-vca: var(--verd); --k-paper: var(--brass-fill); --k-aligned: #8f9a8b; --k-lecture: #b6b2a6; --k-course: #d7d3c8;
   /* The almanac's ink: verdigris by count, and the figure that sits on a deep cell. */
-  --heat-rgb: 29 122 98; --heat-ink: #ffffff;
+  /* Almanac tint: dark ink reads on every step of this green (white only on the darkest), so the
+     tint stops at 85% and the ink stays (contrast at least 4.5 on every step, computed). */
+  --heat-rgb: 29 122 98; --heat-ink: var(--ink); --heat-k: .8;
   --ticket-a: #f6eedf; --ticket-b: #e6eef0;
   /* Names ../src/lib/richtext.jsx reads for inline code. */
   --vmx-mono: var(--mono); --clr-surface-2: var(--bg-2);
@@ -76,7 +80,7 @@
   --liq-shade: rgba(0, 0, 0, .7); --liq-line: rgba(0, 0, 0, .45);
   --shadow: 0 0 0 1px rgba(0, 0, 0, .45), 0 24px 48px -22px rgba(0, 0, 0, .75), 0 3px 10px -3px rgba(0, 0, 0, .5);
   --shadow-lift: 0 0 0 1px rgba(0, 0, 0, .5), 0 32px 64px -24px rgba(0, 0, 0, .85), 0 6px 16px -6px rgba(0, 0, 0, .55);
-  --verd: #56c9a6; --verd-ink: #04221a; --verd-soft: rgba(86, 201, 166, .12); --verd-line: rgba(86, 201, 166, .44); --verd-mark: #56c9a6;
+  --verd: #56c9a6; --verd-ink: #04221a; --verd-soft: rgba(86, 201, 166, .12); --verd-line: rgba(86, 201, 166, .44); --verd-mark: #56c9a6; --verd-text: #56c9a6;
   --brass: #e3b867; --brass-fill: #c99a45; --brass-soft: rgba(227, 184, 103, .14);
   --cinn: #f08a72; --cinn-ink: #2b0d06; --cinn-soft: rgba(240, 138, 114, .12); --cinn-line: rgba(240, 138, 114, .42);
   --light-a: rgba(86, 201, 166, .09); --light-b: rgba(227, 184, 103, .07);
@@ -87,7 +91,7 @@
   --foot-bg: #111d5c; --foot-ink: #ece5d6; --foot-ink-2: rgba(236, 229, 214, .64); --foot-line: rgba(236, 229, 214, .2);
   --foot-paper: #111d5c; --foot-print-ink: rgba(236, 229, 214, .82); --foot-sky-mid: rgba(17, 29, 92, .6);
   --k-aligned: #5f6b62; --k-lecture: #464c50; --k-course: #31363a;
-  --heat-rgb: 86 201 166; --heat-ink: #04221a;
+  --heat-rgb: 86 201 166; --heat-ink: #04221a; --heat-k: .9;
   --ticket-a: #1b1e21; --ticket-b: #171c1f;
   color-scheme: dark;
 }

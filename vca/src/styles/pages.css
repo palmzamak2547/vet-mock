@@ -614,3 +614,4 @@
 /* A page that could not load (App.jsx PageBoundary). */
 .page-error { padding-block: 64px; }
 .page-error .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.start-fail { margin-top: 14px; }

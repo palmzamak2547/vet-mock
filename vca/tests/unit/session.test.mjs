@@ -15,7 +15,11 @@ const stored = {
   items: [{ key: 'vca:1', domain: 'swine', order: [2, 0, 1], answer: 0 }, { key: 'vca:2', domain: 'swine', order: [0, 1], answer: 1 }],
 };
 storage.set('vca:session:v1', JSON.stringify(stored));
-storage.set('vca:results:v1', JSON.stringify([{ v: 1, id: 'r1', items: [] }, { v: 2, id: 'old', items: [] }, { nope: true }]));
+// r1 is whole; 'empty' has no items or finish time (it once broke the result page), 'old' is v2.
+storage.set('vca:results:v1', JSON.stringify([
+  { v: 1, id: 'r1', finishedAt: 5, items: [{ key: 'vca:1', domain: 'swine', order: [0, 1], answer: 1, choice: 1 }] },
+  { v: 1, id: 'empty', items: [] }, { v: 2, id: 'old', items: [] }, { nope: true },
+]));
 
 const S = await import('../../src/lib/session.js');
 const {
@@ -183,9 +187,11 @@ test('malformed stored sets and results are dropped instead of throwing', async 
   const ok = normalizeSession({ v: 1, status: 'active', items: [{ key: 'a:1', order: [0, 1], answer: 1 }], answers: [], flags: [1, 'a:1'] });
   assert.deepEqual(ok.answers, {});
   assert.deepEqual(ok.flags, ['a:1']);
-  const r = normalizeResults([{ v: 1, id: 'x', items: [null, { key: 'a:1', order: [0], answer: 0 }] }, null, 5]);
+  const r = normalizeResults([{ v: 1, id: 'x', finishedAt: 9, total: 'many', items: [null, { key: 'a:1', order: [0], answer: 0, choice: 0 }] }, null, 5]);
   assert.equal(r.length, 1);
   assert.equal(r[0].items.length, 1);
+  assert.equal(r[0].total, 1);
+  assert.equal(r[0].correct, 1);
 });
 
 test('a question held back after the set was made, and left unanswered, is not scored', async () => {

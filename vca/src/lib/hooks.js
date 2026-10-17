@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { progressStore } from './progress.js';
 import { sessionStore, resultsStore } from './session.js';
+import { localDay } from './dates.js';
 
 export const useProgress = () => useSyncExternalStore(progressStore.subscribe, progressStore.get, progressStore.get);
 export const useActiveSession = () => useSyncExternalStore(sessionStore.subscribe, sessionStore.get, sessionStore.get);
@@ -18,6 +19,25 @@ export function useNow(ms = 1000, on = true) {
     return () => { clearInterval(id); document.removeEventListener('visibilitychange', tick); };
   }, [ms, on]);
   return now;
+}
+
+/** Today as 'YYYY-MM-DD' on this device, turning over at midnight (and when the page shows
+ *  again after the phone slept), so a countdown left open does not stay a day behind. */
+export function useToday() {
+  const [day, setDay] = useState(() => localDay());
+  useEffect(() => {
+    let t = 0;
+    const check = () => setDay(localDay());
+    const arm = () => {
+      const now = new Date();
+      const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 1);
+      t = setTimeout(() => { check(); arm(); }, next - now);
+    };
+    arm();
+    document.addEventListener('visibilitychange', check);
+    return () => { clearTimeout(t); document.removeEventListener('visibilitychange', check); };
+  }, []);
+  return day;
 }
 
 /** Document title per page. */

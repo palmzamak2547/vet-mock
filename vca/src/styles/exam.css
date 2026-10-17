@@ -97,7 +97,10 @@ a.ask-row:hover .ask-name { color: var(--verd); }
 .alm-c { min-width: 40px; height: 30px; padding: 0 2px; text-align: center; color: var(--ink); }
 /* The tint and the entrance live on a box inside the cell: a table cell does not animate on the
    compositor, so hundreds of them restyled the page on every frame of the reveal. */
-.alm-v { display: grid; place-items: center; height: 30px; border-radius: 6px; background: rgb(var(--heat-rgb) / calc(var(--v, 0) * .9 + .05)); }
+.alm-v { display: grid; place-items: center; height: 30px; border-radius: 6px; background: rgb(var(--heat-rgb) / calc(var(--v, 0) * var(--heat-k, .9) + .05)); }
+/* After dark the middle of the scale suits neither light nor dark text: the deep cells start
+   at a tint dark text reads on (4.8 and up), light text keeps the cells below (5.0 and up). */
+:root[data-theme="dark"] .alm-c.is-deep .alm-v { background: rgb(var(--heat-rgb) / calc(.74 + (var(--v, 0) - .55) * .58)); }
 .alm-c.is-deep { color: var(--heat-ink); }
 .alm-none, .alm-word { min-width: 40px; height: 30px; text-align: center; }
 .alm-none { color: var(--line-3); }

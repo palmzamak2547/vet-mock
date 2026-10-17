@@ -13,10 +13,10 @@ import { googleCalendarUrl, saveRoundCalendar } from '../lib/connect.js';
 import { Sheet } from '../components/Sheet.jsx';
 import { ShareButton } from '../components/Share.jsx';
 import { GROUPS, NOTES, RECENT, SUBJECTS, YEARS, cellValue, domainProfile, recentMean, trend } from '../data/almanac.js';
-import { daysBetween, localDay } from '../lib/dates.js';
+import { daysBetween } from '../lib/dates.js';
 import { num, pct, thaiDay } from '../lib/format.js';
 import { progressStore } from '../lib/progress.js';
-import { useProgress, useTitle } from '../lib/hooks.js';
+import { useProgress, useTitle, useToday } from '../lib/hooks.js';
 import { startSet } from '../lib/start.js';
 import { navigate } from '../router.js';
 import '../styles/exam.css';
@@ -88,7 +88,7 @@ function Cell({ cell, col }) {
   if (v === null) return <td className="alm-word">{cell}</td>;
   const heat = Math.min(1, v / 40);
   return (
-    <td className={`alm-c${heat >= 0.5 ? ' is-deep' : ''}`} style={{ '--v': heat.toFixed(3), '--col': col }}>
+    <td className={`alm-c${heat >= 0.55 ? ' is-deep' : ''}`} style={{ '--v': heat.toFixed(3), '--col': col }}>
       <span className={`alm-v${col < NEAR_COLS ? ' is-near' : ''}`}>{Array.isArray(cell) ? cell.join('+') : v}</span>
     </td>
   );
@@ -103,10 +103,12 @@ function Trend({ value }) {
 export default function Exam() {
   useTitle('สนามสอบ');
   const progress = useProgress();
-  const today = localDay();
+  const today = useToday();
   const round = upcomingRound(today);
   const days = countdown(round, today);
-  const mine = round && progress.examDate === round.parts[0].date;
+  // Once the round is under way its first day has passed: the day to count to is the last.
+  const examDay = round ? (round.parts[0].date >= today ? round.parts[0].date : round.parts[round.parts.length - 1].date) : null;
+  const mine = round && (progress.examDate === round.parts[0].date || progress.examDate === examDay);
   const lag = resultsLag();
   const { guard, sheet } = useStartGuard();
   const [busy, setBusy] = useState(null);
@@ -145,7 +147,7 @@ export default function Exam() {
     }
   });
 
-  const setMine = () => progressStore.set((s) => ({ ...s, examDate: round.parts[0].date }));
+  const setMine = () => progressStore.set((s) => ({ ...s, examDate: examDay }));
 
   return (
     <div className="exam">

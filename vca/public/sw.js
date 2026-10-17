@@ -10,10 +10,15 @@ const SHELL = '/';
 const IMMUTABLE = /^\/(assets|bank|q)\//;
 const NAMED = /^\/(fonts|art|icons)\//;
 
+// Hashed files from old releases are never asked for again: past this many entries the oldest
+// go, so a phone does not keep every release's app and bank for good.
+const MAX_ENTRIES = 400;
+const trim = (cache) => cache.keys().then((keys) => Promise.all(keys.slice(0, Math.max(0, keys.length - MAX_ENTRIES)).filter((k) => new URL(k.url).pathname !== SHELL).map((k) => cache.delete(k))));
+
 const keep = (request, res) => {
   if (res.ok && !res.redirected) {
     const copy = res.clone();
-    caches.open(CACHE).then((cache) => cache.put(request, copy));
+    caches.open(CACHE).then((cache) => cache.put(request, copy).then(() => trim(cache))).catch(() => {});
   }
   return res;
 };
@@ -40,7 +45,11 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(request)
         .then((res) => {
-          if (res.ok && !res.redirected) caches.open(CACHE).then((cache) => cache.put(SHELL, res.clone()));
+          // Cloned now, before the page reads the body: a clone made later fails.
+          if (res.ok && !res.redirected) {
+            const copy = res.clone();
+            event.waitUntil(caches.open(CACHE).then((cache) => cache.put(SHELL, copy)));
+          }
           return res;
         })
         .catch(() => caches.match(SHELL)),

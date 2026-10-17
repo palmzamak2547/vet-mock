@@ -155,15 +155,37 @@ export function normalizeSession(raw) {
     answers: isObject(raw.answers) ? raw.answers : {},
     flags: Array.isArray(raw.flags) ? raw.flags.filter((k) => typeof k === 'string') : [],
     cursor: Math.min(Math.max(0, raw.cursor | 0), raw.items.length - 1),
+    // A clock that cannot be read is no clock: a damaged deadline showed NaN:NaN.
+    ...(finite(raw.deadline) && finite(raw.limitSec) ? {} : { deadline: null, limitSec: null }),
+  };
+}
+
+const finite = (n) => typeof n === 'number' && Number.isFinite(n);
+
+/** One stored or imported result, made whole: its counts are recomputed from its items, so a
+ *  truncated or hand-edited file cannot show NaN% or break the result page. */
+function normalizeResult(r) {
+  if (!isObject(r) || r.v !== 1 || typeof r.id !== 'string' || !Array.isArray(r.items)) return null;
+  const items = r.items.filter(goodItem).map((it) => {
+    const choice = Number.isInteger(it.choice) ? it.choice : null;
+    return { ...it, domain: typeof it.domain === 'string' ? it.domain : '', choice, correct: choice !== null && choice === it.answer };
+  });
+  if (!items.length || !finite(r.finishedAt)) return null;
+  return {
+    ...r, items,
+    mode: r.mode === 'mock' ? 'mock' : 'practice',
+    total: items.length,
+    correct: items.filter((x) => x.correct).length,
+    answered: items.filter((x) => x.choice !== null).length,
+    createdAt: finite(r.createdAt) ? r.createdAt : r.finishedAt,
+    durationMs: finite(r.durationMs) && r.durationMs >= 0 ? r.durationMs : 0,
+    flags: Array.isArray(r.flags) ? r.flags.filter((k) => typeof k === 'string') : [],
   };
 }
 
 export function normalizeResults(raw) {
   if (!Array.isArray(raw)) return [];
-  return raw
-    .filter((r) => isObject(r) && r.v === 1 && typeof r.id === 'string' && Array.isArray(r.items))
-    .map((r) => (r.items.every(goodItem) ? r : { ...r, items: r.items.filter(goodItem) }))
-    .slice(0, RESULTS_KEPT);
+  return raw.map(normalizeResult).filter(Boolean).slice(0, RESULTS_KEPT);
 }
 
 export const sessionStore = createStore(SESSION_KEY, null, normalizeSession);
