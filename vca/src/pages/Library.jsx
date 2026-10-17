@@ -5,6 +5,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from '../components/Link.jsx';
 import { Icon } from '../components/Icon.jsx';
+import { TypingHint } from '../components/TypingHint.jsx';
 import { useAsync, useTitle, useTuck } from '../lib/hooks.js';
 import { BANK, CARD_BY_ID } from '../lib/bank.js';
 import { searchDocs } from '../lib/search.js';
@@ -14,6 +15,8 @@ import { docTitle, num, yearRange } from '../lib/format.js';
 const SHELF_SHOWN = 6;
 const loadLibrary = () => import('../generated/library.js').then((m) => m.LIBRARY);
 const readerUrl = (title) => `https://vetmock.com/app/library?${new URLSearchParams({ subject: 'vca', q: title })}`;
+
+const LIBRARY_EXAMPLES = ['Swine', 'Ruminant', 'Juris', '2567'];
 
 export default function Library({ route }) {
   useTitle('เอกสาร VCA');
@@ -71,7 +74,9 @@ export default function Library({ route }) {
         <label className="search">
           <Icon name="search" />
           <span className="sr">ค้นหาเอกสาร</span>
-          <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="เช่น Swine, Juris, 2567" autoComplete="off" enterKeyHint="search" />
+          <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="เช่น Swine, Ruminant, Juris, 2567" autoComplete="off" enterKeyHint="search" />
+          {/* Each finds documents on the shelves (15, 11, 4 and 2 on 18 Oct). */}
+          <TypingHint examples={LIBRARY_EXAMPLES} />
         </label>
         <div className="bank-filters">
           {[['all', 'ทุกประเภท'], ['paper', 'ข้อสอบเก่า'], ['handout', 'เอกสารติว']].map(([v, th]) => (

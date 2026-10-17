@@ -396,3 +396,14 @@
 .install-steps { display: grid; gap: 12px; margin-top: 18px; counter-reset: none; }
 .install-steps li { display: flex; align-items: center; gap: 14px; font-size: 15.5px; line-height: 1.5; }
 .install-n { display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--verd-soft); color: var(--verd); font: 600 14px/1 var(--mono); }
+
+/* An example typing itself into an empty field (components/TypingHint.jsx places it over the
+   field's text box and copies its font). The caret stays solid while keys land and blinks once
+   the line is done, as an editor's does; 1.06 s is the common blink period (530 ms on, 530 off). */
+.typing-hint { position: absolute; display: none; overflow: hidden; white-space: pre; color: var(--ink-3); pointer-events: none; }
+.typing-hint.is-on { display: flex; align-items: center; }
+textarea + .typing-hint.is-on { display: block; white-space: pre-wrap; }
+.typing-caret { display: inline-block; flex: none; width: 1.5px; height: 1.15em; margin-left: 1px; vertical-align: text-bottom; background: currentColor; }
+.typing-hint.is-holding .typing-caret { animation: caret-blink 1.06s steps(1) infinite; }
+@keyframes caret-blink { 50% { opacity: 0; } }
+[data-typing]::placeholder { color: transparent !important; }

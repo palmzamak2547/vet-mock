@@ -12,6 +12,8 @@ async function join(page, handle = 'palm_vet') {
   await expect(page.locator('.steps li.on')).toContainText('ตัวตน');
   await form.getByLabel('ชื่อที่แสดง').fill('ปาล์ม');
   await form.getByLabel('ชื่อผู้ใช้').fill(handle);
+  await expect(form.locator('.claim-note.is-free')).toContainText(`vca.vetmock.com/u/${handle}`);
+  await expect(page.locator('.sheet .pcard-name')).toHaveText('ปาล์ม');
   await form.locator('.pform-go .btn-ink').click();
   await expect(page.locator('.steps li.on')).toContainText('เกี่ยวกับคุณ');
   await form.locator('.pform-go .btn-ink').click();
@@ -20,8 +22,9 @@ async function join(page, handle = 'palm_vet') {
   await expect(form.locator('.pform-focus .chip[aria-pressed="true"]')).toHaveCount(1);
   await form.locator('.pform-go .btn-ink').click();
   const welcome = page.locator('.sheet .welcome');
-  await expect(welcome).toContainText('ยินดีต้อนรับ ปาล์ม');
-  await expect(welcome.locator('.welcome-way')).toHaveCount(3);
+  await expect(welcome.locator('.pcard.is-stamped .pcard-stamp')).toBeVisible();
+  await expect(welcome.locator('.welcome-h')).toHaveText(`@${handle} เป็นของคุณแล้ว`);
+  await expect(welcome.locator('.welcome-go a, .welcome-go button, .welcome-ways a')).toHaveCount(4);
   await page.keyboard.press('Escape');
   await expect(welcome).toBeHidden();
   await expect(page.locator('.acct-btn.is-in')).toBeVisible();
@@ -116,7 +119,7 @@ test('a profile picture, and pictures on a thread and a reply', async ({ page })
   await expect(page.locator('.crop-stage')).toBeVisible();
   await page.locator('.crop-zoom input').fill('1.5');
   await page.locator('.crop-go .btn-ink').click();
-  await expect(page.locator('.pform-hero .av.has-photo')).toBeVisible();
+  await expect(page.locator('.sheet .pcard .av.has-photo')).toBeVisible();
   await page.locator('.pform-go .btn-ink').click();
   await expect(page.locator('.acct-btn .av.has-photo')).toBeVisible();
 

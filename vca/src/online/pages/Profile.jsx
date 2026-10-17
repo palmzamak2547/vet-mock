@@ -130,13 +130,20 @@ export default function Profile({ route }) {
 
   return (
     <div className="wrap prof">
-      <section className="prof-hero">
-        <Avatar profile={profile} size={112} ring />
+      {/* The same card the setup steps showed as "what friends will see", at page size. */}
+      <section className="pcard is-page" aria-label={`โปรไฟล์ของ ${profile.name}`}>
+       <div className="pcard-sheet prof-hero">
+        {mine ? (
+          <button type="button" className="prof-av-edit" onClick={askProfile} aria-label="แก้ไขรูปและโปรไฟล์">
+            <Avatar profile={profile} size={112} ring />
+            <span className="prof-av-pen" aria-hidden="true"><Icon name="edit" size={16} /></span>
+          </button>
+        ) : <Avatar profile={profile} size={112} ring />}
         <div className="prof-main">
-          <p className="kicker">{mine ? 'Your page' : 'Member'}</p>
           <h1 className="prof-name">{profile.name}</h1>
           <p className="prof-handle">@{profile.handle}</p>
-          {profile.bio && <p className="prof-bio">{profile.bio}</p>}
+          {profile.bio ? <p className="prof-bio">{profile.bio}</p>
+            : mine && <button type="button" className="text-link prof-add" onClick={askProfile}><Icon name="plus" size={14} />เพิ่มแนะนำตัว</button>}
           {profile.focus?.length > 0 && (
             <ul className="prof-focus" aria-label="หมวดที่สนใจ">
               {profile.focus.filter((d) => CARD_BY_ID[d]).map((d) => <li key={d}><Link to={`/community?d=${d}`} className="chip">{CARD_BY_ID[d].th}</Link></li>)}
@@ -169,6 +176,7 @@ export default function Profile({ route }) {
           {error && <p className="form-error" role="alert">{error}</p>}
           {blocked && <p className="hint">บล็อกไว้แล้ว ไม่เห็นข้อความของกันและกันในแชท</p>}
         </div>
+       </div>
       </section>
 
       <Stats stats={profile.stats || {}} />

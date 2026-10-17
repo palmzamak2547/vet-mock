@@ -324,7 +324,14 @@ a.post-card:active { transform: translateY(0) scale(.995); }
 
 .pform { display: grid; gap: 18px; }
 .pform-hero { display: flex; align-items: center; gap: 20px; }
-.pform-picks { display: grid; gap: 10px; min-width: 0; }
+.pform-picks { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; min-width: 0; }
+.pform-more { min-width: 0; }
+.pform-more[open] { flex-basis: 100%; }
+.pform-more summary { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; padding: 0 6px; border-radius: var(--r-pill); color: var(--ink-2); font: 500 15px/1 var(--sans); cursor: pointer; list-style: none; }
+.pform-more summary::-webkit-details-marker { display: none; }
+.pform-more summary .ic { transition: rotate var(--t) var(--ease); }
+.pform-more[open] summary .ic { rotate: 180deg; }
+.pform-more > .pform-row { margin-top: 8px; }
 .pform-row { display: flex; flex-wrap: wrap; gap: 4px; }
 .pform-emoji { display: grid; place-items: center; width: 38px; height: 38px; border: 0; border-radius: 12px; background: transparent; font-size: 20px; line-height: 1; cursor: pointer; transition: background-color var(--t) var(--ease), transform var(--t) var(--ease-spring); }
 .pform-emoji:hover { background: var(--line); }
@@ -337,8 +344,8 @@ a.post-card:active { transform: translateY(0) scale(.995); }
   background: var(--verd-soft); box-shadow: inset 0 0 0 1px var(--verd-line);
 }
 .pform-found-mark { flex: none; font-size: 28px; line-height: 1; }
-.pform-found-text { display: grid; flex: 1; gap: 2px; min-width: 0; font-size: 14px; color: var(--ink-2); }
-.pform-found-text b { color: var(--ink); font-size: 15px; }
+.pform-found-text { flex: 1; min-width: 0; margin: 0; font-size: 14.5px; color: var(--ink-2); }
+.pform-found-text b { color: var(--ink); font-weight: 600; }
 
 .acct-head { display: flex; align-items: center; gap: 16px; }
 .acct-name { font: 400 28px/1.3 var(--serif); overflow-wrap: anywhere; }
@@ -482,12 +489,7 @@ a.post-card:active { transform: translateY(0) scale(.995); }
 .pform-skip { margin-left: auto; }
 .welcome { display: grid; justify-items: center; gap: 10px; text-align: center; padding-block: 8px 4px; }
 .welcome-h { font: 400 clamp(24px, 4vw, 30px)/1.3 var(--serif); }
-.welcome-ways { display: grid; gap: 8px; width: 100%; margin-top: 10px; text-align: left; }
-.welcome-way { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: var(--r-md); box-shadow: inset 0 0 0 1px var(--line-2); color: var(--ink); text-decoration: none; transition: box-shadow var(--t) var(--ease), background var(--t) var(--ease); }
-.welcome-way:hover { background: var(--glass); box-shadow: inset 0 0 0 1px var(--line-3); }
-.welcome-way > span { display: grid; gap: 2px; }
-.welcome-way > span > span { font-size: 13.5px; color: var(--ink-3); }
-.welcome-way .ic { color: var(--verd-text, var(--verd)); }
+.welcome-ways { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 22px; margin: 2px 0 0; font-size: 14.5px; }
 @media (max-width: 520px) { .steps li { font-size: 0; gap: 0; justify-content: center; } .steps li.on { font-size: 12.5px; gap: 6px; } }
 .prof-focus { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; padding: 0; list-style: none; }
 .prof-focus .chip { min-height: 32px; font-size: 13.5px; text-decoration: none; }
@@ -499,3 +501,87 @@ a.post-card:active { transform: translateY(0) scale(.995); }
 .mg-video-fail::before { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, .6); }
 .mg-video-fail > * { position: relative; }
 .mg-video-fail .btn { color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5); gap: 8px; }
+
+/* ── The profile card (ui/ProfileCard.jsx): a sheet of Thai exercise-book paper on a small
+   stack. Rules are 26px apart because the facts line is 14.5px type at line-height 26px, so the
+   writing sits on the rules; the red margin line sits 18px in, as in a school notebook. ── */
+.pcard {
+  --pc-paper: var(--paper);
+  --pc-rule: rgba(28, 49, 146, .13);
+  --pc-margin: rgba(180, 67, 45, .42);
+  --pc-blank: rgba(21, 23, 26, .2);
+  --pc-ink: #1d7a62;
+  position: relative; isolation: isolate; margin: 16px 6px 18px; text-align: left;
+}
+:root[data-theme="dark"] .pcard { --pc-rule: rgba(150, 170, 255, .12); --pc-margin: rgba(240, 138, 114, .4); --pc-blank: rgba(255, 255, 255, .22); --pc-ink: #56c9a6; }
+/* The two sheets under it, a little askew, as paper lies in a pile. */
+.pcard::before, .pcard::after { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 14px; background: var(--pc-paper); box-shadow: 0 0 0 1px var(--line); }
+.pcard::before { translate: 5px 7px; rotate: 1.8deg; filter: brightness(.97); }
+.pcard::after { translate: -4px 4px; rotate: -1.2deg; filter: brightness(.985); }
+.pcard-sheet {
+  position: relative; display: grid; gap: 10px; padding: 16px 18px 14px 34px; border-radius: 14px;
+  background: linear-gradient(90deg, transparent var(--pc-mx, 18px), var(--pc-margin) var(--pc-mx, 18px) calc(var(--pc-mx, 18px) + 1.5px), transparent calc(var(--pc-mx, 18px) + 1.5px)), var(--pc-paper);
+  box-shadow: 0 0 0 1px var(--line), 0 10px 26px -14px rgba(20, 23, 26, .45);
+}
+.pcard-top { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.pcard-who { display: grid; gap: 4px; min-width: 0; }
+.pcard-name { overflow: hidden; font: 400 26px/1.15 var(--serif); text-overflow: ellipsis; white-space: nowrap; }
+.pcard-handle { overflow: hidden; font: 500 13px/1.2 var(--mono); color: var(--ink-3); text-overflow: ellipsis; white-space: nowrap; }
+.pcard-lines { display: grid; background: repeating-linear-gradient(to bottom, transparent 0 25px, var(--pc-rule) 25px 26px); }
+.pcard-facts, .pcard-focus { display: flex; flex-wrap: wrap; column-gap: 14px; margin: 0; font-size: 14.5px; line-height: 26px; color: var(--ink-2); }
+.pcard-focus span { color: var(--verd-text); }
+.pcard-more { font: 500 13px/26px var(--mono); color: var(--ink-3) !important; }
+/* A blank on a form: the line still to be written on. */
+.pcard-blank { display: block; width: 7em; height: 1.05em; border-bottom: 1.5px solid var(--pc-blank); }
+.pcard-blank-name { width: 9em; height: 1.4em; }
+.pcard-blank-wide { width: 70%; height: 20px; }
+
+/* The stamp: pressed by hand. It comes down in about 0.34 s, the paper gives under it, and it
+   settles with one small rebound (an underdamped spring, damping ratio about 0.5), 0.62 s in all. */
+.pcard-stamp { position: absolute; top: 8px; right: 10px; width: 86px; height: 86px; color: var(--pc-ink); opacity: .86; rotate: -11deg; pointer-events: none; }
+:root:not([data-theme="dark"]) .pcard-stamp { mix-blend-mode: multiply; }
+.pcard-stamp svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.pcard-stamp text { fill: currentColor; }
+.pcard-stamp-arc { font: 600 7.4px var(--mono); letter-spacing: .2em; }
+.pcard-stamp-big { font: 700 15px var(--sans); }
+.pcard-stamp-day { font: 600 8.6px var(--mono); }
+.pcard.is-stamped .pcard-stamp { animation: pcard-press 620ms cubic-bezier(.3, 0, .2, 1) both; }
+.pcard.is-stamped .pcard-sheet { animation: pcard-give 620ms ease-out both; }
+@keyframes pcard-press {
+  0% { opacity: 0; scale: 1.7; rotate: -24deg; translate: -10px -16px; }
+  55% { opacity: .9; scale: .94; rotate: -10deg; translate: 0 0; }
+  74% { scale: 1.025; }
+  100% { opacity: .86; scale: 1; rotate: -11deg; }
+}
+@keyframes pcard-give { 0%, 50% { translate: 0 0; } 58% { translate: 0 2px; } 100% { translate: 0 0; } }
+@media (max-width: 520px) {
+  .pcard-sheet { padding: 14px 14px 12px 30px; }
+  .pcard-name { font-size: 23px; }
+  .pcard-stamp { width: 74px; height: 74px; top: 6px; right: 6px; }
+}
+
+/* The username, claimed: big, with what the check found under it. */
+.claim-row .form-prefix { padding-left: 16px; font-size: 20px; }
+.claim-row .form-prefix input { min-height: 54px; font: 500 20px/1 var(--mono); }
+.claim-note { display: flex; align-items: center; gap: 6px; min-height: 20px; }
+.claim-note.is-free { color: var(--verd-text); }
+.claim-note .spinner { width: 12px; height: 12px; border-width: 1.5px; }
+.claim-try { display: flex; flex-wrap: wrap; gap: 6px; }
+.claim-try .chip { min-height: 32px; font: 500 13px/1 var(--mono); }
+
+/* The last step: the stamped card, then one thing to do and two ways in. */
+.welcome-card { width: 100%; max-width: 420px; }
+.welcome-go { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 6px; }
+
+/* The profile page's card: the setup card at page size. The margin line moves to 30px so the
+   112px photo keeps a gutter as wide as the small card's (18px of 60px is about 30 of 112 x 0.27). */
+.pcard.is-page { margin: 36px 8px 34px; }
+.pcard.is-page .pcard-sheet { --pc-mx: 30px; grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: 28px; padding: 32px 32px 28px 58px; }
+.prof-av-edit { position: relative; justify-self: start; width: fit-content; padding: 0; border: 0; border-radius: 50%; background: none; cursor: pointer; }
+.prof-av-pen { position: absolute; right: 2px; bottom: 2px; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--paper); box-shadow: 0 0 0 1px var(--line-2), 0 2px 6px rgba(0, 0, 0, .14); color: var(--ink); transition: scale var(--t) var(--ease); }
+.prof-av-edit:hover .prof-av-pen { scale: 1.08; }
+.prof-add { display: inline-flex; align-items: center; gap: 4px; min-height: 36px; padding: 0; border: 0; background: none; font-size: 15px; cursor: pointer; }
+@media (max-width: 760px) {
+  .pcard.is-page { margin: 22px 4px 26px; }
+  .pcard.is-page .pcard-sheet { --pc-mx: 20px; grid-template-columns: 1fr; gap: 16px; padding: 22px 18px 20px 38px; }
+}

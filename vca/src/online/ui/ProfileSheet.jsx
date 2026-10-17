@@ -7,12 +7,14 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Sheet } from '../../components/Sheet.jsx';
 import { Icon } from '../../components/Icon.jsx';
 import { Link } from '../../components/Link.jsx';
+import { ShareButton } from '../../components/Share.jsx';
+import { TypingHint } from '../../components/TypingHint.jsx';
 import { num } from '../../lib/format.js';
 import { DOMAIN_CARDS } from '../../lib/bank.js';
 import { progressStore, statsFor, streak } from '../../lib/progress.js';
 import { resultsStore } from '../../lib/session.js';
-import { Avatar } from './Avatar.jsx';
 import { PhotoPicker } from './PhotoPicker.jsx';
+import { ProfileCard } from './ProfileCard.jsx';
 import { getBackend, saveProfile, useAccount } from '../account.js';
 import '../community.css';
 import { AVATARS, TONES, handleProblem, problemText, statsFrom, suggestHandle } from '../shapes.js';
@@ -21,33 +23,62 @@ const SCHOOLS = ['จุฬาลงกรณ์มหาวิทยาลั�
 const ROUNDS = ['2/2569', '1/2570', '2/2570'];
 const FOCUS_MAX = 8;
 const STEPS = ['ตัวตน', 'เกี่ยวกับคุณ', 'หมวดที่สนใจ'];
+// Typed into the empty fields as examples (components/TypingHint.jsx).
+const NAME_EXAMPLES = ['มิ้นท์', 'ภูมิ Vet 86', 'แพรวา'];
+const BIO_EXAMPLES = ['อ่อนสัตว์ปีก หาเพื่อนติว', 'ถนัดสัตว์เล็ก ถามได้เลย', 'ติวด้วยกันทุกคืนวันพุธ'];
+
+// Other usernames to try when the one typed is taken: the same name with the student's cohort
+// number (Vet 86 gives _86) or marked as a vet student. Each is checked again when picked.
+function alternatives(handle, cohort) {
+  const base = handle.replace(/_+$/, '').slice(0, 16);
+  const year = String(cohort || '').match(/\d{2,3}/)?.[0];
+  return [year && `${base}_${year}`, `${base}_vet`, `${base}_vca`].filter((h) => h && h !== handle && !handleProblem(h)).slice(0, 2);
+}
 
 function localStats() {
   const all = statsFor(progressStore.get());
   return statsFrom({ seen: all.seen, correct: all.known, streak: streak(progressStore.get()), mocks: resultsStore.get().filter((r) => r.mode === 'mock').length });
 }
 
+/** What the username check found, under the field: checking, free, taken (with others to try)
+ *  or a rule it breaks. */
+function ClaimNote({ form, set, problem, free, existing }) {
+  if (problem) {
+    const tries = problem === 'ชื่อนี้มีคนใช้แล้ว' ? alternatives(form.handle, form.cohort) : [];
+    return (
+      <>
+        <span id="handle-note" className="form-note claim-note is-bad" role="status">{problem}{tries.length > 0 && ' ลองชื่อนี้แทน'}</span>
+        {tries.length > 0 && (
+          <span className="claim-try">
+            {tries.map((h) => <button key={h} type="button" className="chip" onClick={() => set('handle')(h)}>@{h}</button>)}
+          </span>
+        )}
+      </>
+    );
+  }
+  if (form.handle === existing?.handle) return <span id="handle-note" className="form-note claim-note">ชื่อผู้ใช้ปัจจุบันของคุณ</span>;
+  if (free) return <span id="handle-note" className="form-note claim-note is-free" role="status"><Icon name="check" size={14} />ว่าง ลิงก์ของคุณคือ vca.vetmock.com/u/{form.handle}</span>;
+  return <span id="handle-note" className="form-note claim-note"><span className="spinner" aria-hidden="true" />กำลังเช็กว่ามีคนใช้หรือยัง</span>;
+}
+
 /** Photo or animal, colour, name and handle: the part every profile needs. */
-function Identity({ form, set, snapshot, useSnapshot, problem, existing, onCropping, cropping }) {
+function Identity({ form, set, snapshot, useSnapshot, problem, free, existing, onCropping, cropping }) {
   return (
     <>
       {!existing && snapshot && !form.fromVetmock && (
         <div className="pform-found">
           <span className="pform-found-mark" aria-hidden="true">{snapshot.avatar || '🐾'}</span>
-          <div className="pform-found-text">
-            <b>เจอบัญชี VetMock ของคุณ</b>
-            <span>{snapshot.username ? `@${snapshot.username}` : snapshot.name}{snapshot.answered ? ` ทำไปแล้ว ${num(snapshot.answered)} ข้อ` : ''}</span>
-          </div>
-          <button type="button" className="btn btn-ghost btn-sm" onClick={useSnapshot}>ใช้ชื่อและรูปนี้</button>
+          <p className="pform-found-text">ใช้ชื่อจาก VetMock <b>{snapshot.username ? `@${snapshot.username}` : snapshot.name}</b></p>
+          <button type="button" className="btn btn-ghost btn-sm" onClick={useSnapshot}>ใช้</button>
         </div>
       )}
       <div className={`pform-hero${cropping ? ' is-cropping' : ''}`}>
-        {!cropping && <Avatar profile={form} size={88} ring />}
         <div className="pform-picks">
           <PhotoPicker photo={form.photo} onChange={set('photo')} onCropping={onCropping} />
           {!cropping && !form.photo && (
-            <>
-              <div className="pform-row" role="radiogroup" aria-label="หรือเลือกสัตว์ประจำตัว">
+            <details className="pform-more">
+              <summary>เลือกสัตว์แทน <Icon name="chevronDown" size={16} /></summary>
+              <div className="pform-row" role="radiogroup" aria-label="สัตว์ประจำตัว">
                 {AVATARS.map((a) => (
                   <button key={a} type="button" role="radio" aria-checked={form.avatar === a} className={`pform-emoji${form.avatar === a ? ' on' : ''}`} onClick={() => set('avatar')(a)}>{a}</button>
                 ))}
@@ -57,7 +88,7 @@ function Identity({ form, set, snapshot, useSnapshot, problem, existing, onCropp
                   <button key={t} type="button" role="radio" aria-checked={form.tone === t} aria-label={t} className={`pform-tone av-${t}${form.tone === t ? ' on' : ''}`} onClick={() => set('tone')(t)} />
                 ))}
               </div>
-            </>
+            </details>
           )}
         </div>
       </div>
@@ -65,15 +96,16 @@ function Identity({ form, set, snapshot, useSnapshot, problem, existing, onCropp
         <>
           <label className="form-row">
             <span className="form-label">ชื่อที่แสดง</span>
-            <input value={form.name} onChange={set('name')} maxLength={40} required autoComplete="nickname" data-autofocus />
+            <input value={form.name} onChange={set('name')} maxLength={40} required autoComplete="nickname" placeholder="ชื่อเล่นหรือชื่อจริงก็ได้" data-autofocus />
+            <TypingHint examples={NAME_EXAMPLES} />
           </label>
-          <label className="form-row">
-            <span className="form-label">ชื่อผู้ใช้</span>
+          <div className="form-row claim-row">
+            <label className="form-label" htmlFor="handle-input">ชื่อผู้ใช้</label>
             <span className="form-prefix"><span aria-hidden="true">@</span>
-              <input value={form.handle} onChange={(e) => set('handle')(e.target.value.toLowerCase())} maxLength={20} required autoCapitalize="none" autoComplete="username" spellCheck="false" aria-invalid={!!problem} aria-describedby="handle-note" />
+              <input id="handle-input" value={form.handle} onChange={(e) => set('handle')(e.target.value.toLowerCase())} maxLength={20} required autoCapitalize="none" autoComplete="username" spellCheck="false" aria-invalid={!!problem} aria-describedby="handle-note" />
             </span>
-            <span id="handle-note" className={`form-note${problem ? ' is-bad' : ''}`}>{problem || `ลิงก์โปรไฟล์ของคุณ vca.vetmock.com/u/${form.handle}`}</span>
-          </label>
+            <ClaimNote form={form} set={set} problem={problem} free={free} existing={existing} />
+          </div>
         </>
       )}
     </>
@@ -105,6 +137,7 @@ function About({ form, set }) {
       <label className="form-row">
         <span className="form-label">แนะนำตัวสั้น ๆ</span>
         <textarea value={form.bio} onChange={set('bio')} maxLength={160} rows={2} placeholder="เช่น อ่อนสัตว์ปีก หาเพื่อนติว" />
+        <TypingHint examples={BIO_EXAMPLES} />
         <span className="form-note">{form.bio.length}/160</span>
       </label>
     </>
@@ -119,13 +152,13 @@ function Focus({ form, set, showStats, setShowStats, local }) {
   };
   return (
     <>
-      <p className="sheet-p">เลือกหมวดที่กำลังเตรียมหรืออยากชวนเพื่อนคุย ได้สูงสุด {FOCUS_MAX} หมวด จะขึ้นบนโปรไฟล์ และใช้เป็นตัวกรองลัดในกระดาน</p>
+      <p className="sheet-p">หมวดที่กำลังเตรียม ได้ถึง {FOCUS_MAX} หมวด ขึ้นบนโปรไฟล์และเป็นทางลัดในกระดาน ตัวเลขคือจำนวนข้อ</p>
       <div className="chips pform-focus" role="group" aria-label="หมวดที่สนใจ">
         {DOMAIN_CARDS.map((d) => {
           const on = form.focus.includes(d.id);
           return (
             <button key={d.id} type="button" aria-pressed={on} className={`chip${on ? ' on' : ''}`} onClick={() => toggle(d.id)} disabled={!on && form.focus.length >= FOCUS_MAX}>
-              {on && <Icon name="check" size={14} />}{d.th}
+              {on && <Icon name="check" size={14} />}{d.th}<span className="chip-n">{num(d.count)}</span>
             </button>
           );
         })}
@@ -140,18 +173,21 @@ function Focus({ form, set, showStats, setShowStats, local }) {
   );
 }
 
-/** The last step: a profile exists, and three ways in. */
+/** The last step: the card gets its stamp, the username is theirs, one thing to do (share it)
+ *  and three ways in. */
 function Welcome({ profile, onClose }) {
   return (
     <div className="welcome">
-      <Avatar profile={profile} size={96} ring />
-      <h3 className="welcome-h">ยินดีต้อนรับ {profile.name}</h3>
-      <p className="sheet-p">โปรไฟล์ของคุณพร้อมแล้ว เพื่อนในชุมชนจะเห็นคุณเป็น @{profile.handle}</p>
-      <div className="welcome-ways">
-        <Link to="/community/new" className="welcome-way" onClick={onClose}><Icon name="edit" /><span><b>ตั้งกระทู้แรก</b><span>ถามข้อที่ติด หรือแบ่งเทคนิค</span></span></Link>
-        <Link to="/chat/lobby" className="welcome-way" onClick={onClose}><Icon name="chat" /><span><b>ทักทายในห้องรวม</b><span>คุยกับคนที่สอบรอบเดียวกัน</span></span></Link>
-        <Link to={`/u/${profile.handle}`} className="welcome-way" onClick={onClose}><Icon name="user" /><span><b>ดูโปรไฟล์ของคุณ</b><span>หน้าที่เพื่อนจะเห็น</span></span></Link>
+      <div className="welcome-card"><ProfileCard profile={profile} stamped /></div>
+      <h3 className="welcome-h">@{profile.handle} เป็นของคุณแล้ว</h3>
+      <div className="welcome-go">
+        <ShareButton path={`/u/${profile.handle}`} title={`${profile.name} (@${profile.handle})`} text="มาฝึกข้อสอบ VCA ด้วยกันที่ VetMock VCA" label="แชร์โปรไฟล์" className="btn btn-ink" />
+        <Link to="/community/new" className="btn btn-ghost" onClick={onClose}><Icon name="edit" size={18} />ตั้งกระทู้แรก</Link>
       </div>
+      <p className="welcome-ways">
+        <Link to="/chat/lobby" className="text-link" onClick={onClose}>ทักทายในห้องรวม</Link>
+        <Link to={`/u/${profile.handle}`} className="text-link" onClick={onClose}>ดูโปรไฟล์ของคุณ</Link>
+      </p>
     </div>
   );
 }
@@ -169,6 +205,7 @@ export default function ProfileSheet({ open, onClose }) {
   const [showStats, setShowStats] = useState(() => !!existing?.stats?.answered);
   const [snapshot, setSnapshot] = useState(null);
   const [taken, setTaken] = useState(false);
+  const [checked, setChecked] = useState(''); // the last username the backend said is free
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const local = useMemo(localStats, []);
@@ -188,7 +225,11 @@ export default function ProfileSheet({ open, onClose }) {
     setTaken(false);
     if (handleProblem(form.handle) || form.handle === existing?.handle) return undefined;
     const t = setTimeout(() => {
-      getBackend().then((b) => b.profiles.taken(form.handle)).then((v) => { if (id === check.current) setTaken(v); }).catch(() => {});
+      getBackend().then((b) => b.profiles.taken(form.handle)).then((v) => {
+        if (id !== check.current) return;
+        setTaken(v);
+        if (!v) setChecked(form.handle);
+      }).catch(() => {});
     }, 400);
     return () => clearTimeout(t);
   }, [form.handle, existing?.handle]);
@@ -212,6 +253,7 @@ export default function ProfileSheet({ open, onClose }) {
     fromVetmock: true,
   }));
   const problem = handleProblem(form.handle) || (taken ? 'ชื่อนี้มีคนใช้แล้ว' : null);
+  const free = !problem && checked === form.handle;
   const identityOk = form.name.trim() && !problem;
 
   const save = async () => {
@@ -233,14 +275,15 @@ export default function ProfileSheet({ open, onClose }) {
     }
   };
 
+  const props = { form, set, snapshot, useSnapshot, problem, free, existing, cropping, onCropping: setCropping };
+  const card = !cropping && <ProfileCard profile={form} />;
   if (done) {
-    return <Sheet open={open} onClose={onClose} title="เรียบร้อย" wide><Welcome profile={done} onClose={onClose} /></Sheet>;
+    return <Sheet open={open} onClose={onClose} title="โปรไฟล์ของคุณ" wide><Welcome profile={done} onClose={onClose} /></Sheet>;
   }
-
-  const props = { form, set, snapshot, useSnapshot, problem, existing, cropping, onCropping: setCropping };
   if (existing) {
     return (
       <Sheet open={open} onClose={leave} title="แก้ไขโปรไฟล์" wide>
+        {card}
         <form className="pform" onSubmit={(e) => { e.preventDefault(); save(); }}>
           <Identity {...props} />
           {!cropping && (
@@ -269,6 +312,7 @@ export default function ProfileSheet({ open, onClose }) {
       <ol className="steps" aria-label={`ขั้นที่ ${step + 1} จาก ${STEPS.length}`}>
         {STEPS.map((s, i) => <li key={s} className={i === step ? 'on' : i < step ? 'done' : ''} aria-current={i === step ? 'step' : undefined}><span className="steps-dot" aria-hidden="true">{i < step ? <Icon name="check" size={12} /> : i + 1}</span>{s}</li>)}
       </ol>
+      {card}
       <form className="pform" onSubmit={next}>
         {step === 0 && <Identity {...props} />}
         {step === 1 && <About form={form} set={set} />}

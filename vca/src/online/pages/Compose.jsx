@@ -5,6 +5,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from '../../components/Link.jsx';
 import { Icon } from '../../components/Icon.jsx';
+import { TypingHint } from '../../components/TypingHint.jsx';
 import { useTitle } from '../../lib/hooks.js';
 import { DOMAIN_CARDS, CARD_BY_ID } from '../../lib/bank.js';
 import { navigate } from '../../router.js';
@@ -19,6 +20,10 @@ import '../community.css';
 const DRAFT = 'vca:community:draft';
 const TITLE_MAX = 140;
 const BODY_MAX = 8000;
+// What a good thread looks like, typed into the empty fields (components/TypingHint.jsx).
+// Each fits a 360px phone's title field (about 268px of text) in one line.
+const TITLE_EXAMPLES = ['milk fever กับ grass tetany จำยังไง', 'สรุปยาที่ห้ามใช้ในแมว', 'ข้อ Leptospira ในโคนม ทำไมตอบ C'];
+const BODY_EXAMPLES = ['ข้อนี้ตอบ B เพราะคิดว่า… แต่เฉลยเป็น C อยากรู้ว่าพลาดตรงไหน', 'วิธีที่ใช้จำ: ทำตารางเทียบอาการกับค่าเลือด แล้วทวนก่อนนอนทุกคืน'];
 
 function readDraft() {
   try { return JSON.parse(localStorage.getItem(DRAFT) || 'null'); } catch { return null; }
@@ -127,11 +132,13 @@ export default function Compose({ route }) {
         <label className="form-row">
           <span className="form-label">หัวข้อ</span>
           <input value={form.title} onChange={set('title')} maxLength={TITLE_MAX} required placeholder="สรุปสิ่งที่อยากถามหรืออยากเล่าในบรรทัดเดียว" />
+          <TypingHint examples={TITLE_EXAMPLES} />
           <span className={`form-note${form.title && !titleOk ? ' is-bad' : ''}`}>{form.title && !titleOk ? 'อย่างน้อย 4 ตัวอักษร' : `${form.title.length}/${TITLE_MAX}`}</span>
         </label>
         <label className="form-row">
           <span className="form-label">รายละเอียด</span>
           <textarea value={form.body} onChange={set('body')} maxLength={BODY_MAX} rows={8} required placeholder="เล่าให้ครบพอที่เพื่อนจะตอบได้ เช่น ข้อไหน ตอบอะไรไป ติดตรงไหน" />
+          <TypingHint examples={BODY_EXAMPLES} />
           <span className="form-note">{form.body.length > BODY_MAX * 0.8 ? `${form.body.length}/${BODY_MAX}` : 'เว้นบรรทัดว่างเพื่อขึ้นย่อหน้าใหม่'}</span>
         </label>
         {editing ? (form.media?.length ? <div className="compose-media-kept"><MediaGrid media={form.media} compact /><span className="hint">รูปและวิดีโอของกระทู้แก้ภายหลังไม่ได้</span></div> : null) : (

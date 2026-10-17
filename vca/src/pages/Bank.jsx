@@ -5,6 +5,7 @@ import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 import { RichText } from '@vetmock/lib/richtext.jsx';
 import { Link } from '../components/Link.jsx';
 import { Icon } from '../components/Icon.jsx';
+import { TypingHint } from '../components/TypingHint.jsx';
 import { KindBadge } from '../components/bits.jsx';
 import { Provenance } from '../components/Question.jsx';
 import { BANK, CARD_BY_ID, DOMAIN_CARDS, loadDomains } from '../lib/bank.js';
@@ -14,6 +15,8 @@ import { useTitle, useTuck } from '../lib/hooks.js';
 import { LETTERS, num, plateNo } from '../lib/format.js';
 
 const PAGE = 30;
+
+const BANK_EXAMPLES = ['Leptospira', 'พิษสุนัขบ้า', 'PCV2', 'ยาสลบ'];
 
 function BankItem({ q, query, showAnswers }) {
   const [open, setOpen] = useState(false);
@@ -103,7 +106,9 @@ export default function Bank({ route }) {
         <label className="search">
           <Icon name="search" />
           <span className="sr">ค้นหาในคลังข้อสอบ</span>
-          <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="เช่น Leptospira, PCV2, น้ำนม" autoComplete="off" enterKeyHint="search" />
+          <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="เช่น Leptospira, พิษสุนัขบ้า, PCV2, ยาสลบ" autoComplete="off" enterKeyHint="search" />
+          {/* Each example finds questions in the bank (11, 34, 18 and 48 on 18 Oct). */}
+          <TypingHint examples={BANK_EXAMPLES} />
         </label>
         <div className="bank-filters">
           <label className="select">
