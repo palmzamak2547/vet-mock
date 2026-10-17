@@ -55,13 +55,14 @@ Done from the local checkout, each checked:
    storage schema, so they were checked on the project. Not built yet: removing a deleted
    post's files from storage (they stay until a cleanup job exists).
 
-Left, and it needs the owner signed in to the LINE Developers console (no channel secret is on
-this machine, so the LIFF API is not an option):
-
-- In the LINE Login channel 2010109536 (the one VetMock's LIFF app is in), add a LIFF app with
-  endpoint `https://vca.vetmock.com/auth/line`, size Full, scopes `openid` and `profile`.
-- Put its LIFF ID in the `vetmock-vca` project as `VITE_LINE_LIFF_ID` and redeploy. Until then
-  the sign-in sheet offers Google and email only; the LINE button is hidden, not broken.
+9. **LINE (18 Oct).** LIFF app "VetMock VCA" `2010109536-5BNvEpks` in LINE Login channel
+   2010109536 (endpoint `https://vca.vetmock.com/auth/line`, size Full, scopes `openid` and
+   `profile`), `VITE_LINE_LIFF_ID` set on `vetmock-vca`. The sign-in sheet shows the LINE button
+   and it hands over to LINE Login; a full sign-in was not completed here. The channel console
+   says "Developing": if a student who is not an admin or tester of the channel cannot sign in,
+   publish the channel (the same channel serves vetmock.com's LINE sign-in).
+   The VCA ignore step now builds a redeploy of the same commit, so an environment change can be
+   shipped with `vercel redeploy` (it cancelled itself before).
 
 Not part of VCA, noticed on the way: `20261006090000_feedback_usage_log` and
 `20261007150000_external_connections` are in `supabase/migrations` but not applied to the
