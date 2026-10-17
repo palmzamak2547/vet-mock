@@ -2,14 +2,15 @@
 // the rows are the vca schema's (supabase/migrations/20261017120000_vca_community.sql), and the
 // policies there decide who may read and write what. This module only asks.
 
-import { CALLBACK_PATH, LINE_LIFF_ID } from './config.js';
+import { CALLBACK_PATH, LINE_LIFF_ID, SUPABASE_URL } from './config.js';
 import { anonHeaders, functionUrl, getClient } from './client.js';
-import { fromProfile, toComment, toMessage, toPost, toProfile } from './shapes.js';
+import { fromMedia, fromProfile, toComment, toMessage, toPost, toProfile } from './shapes.js';
+import { randomName } from './media.js';
 
-const AUTHOR = 'author:profiles(user_id, handle, display_name, avatar, tone)';
-const POST_COLUMNS = `id, author_id, kind, domain, question_no, title, body, comment_count, like_count, hidden, created_at, edited_at, last_activity_at, ${AUTHOR}`;
-const COMMENT_COLUMNS = `id, post_id, author_id, parent_id, body, like_count, hidden, created_at, edited_at, ${AUTHOR}`;
-const MESSAGE_COLUMNS = 'id, room_id, author_id, body, reply_to, hidden, created_at, edited_at';
+const AUTHOR = 'author:profiles(user_id, handle, display_name, avatar, tone, photo)';
+const POST_COLUMNS = `id, author_id, kind, domain, question_no, title, body, media, comment_count, like_count, hidden, created_at, edited_at, last_activity_at, ${AUTHOR}`;
+const COMMENT_COLUMNS = `id, post_id, author_id, parent_id, body, media, like_count, hidden, created_at, edited_at, ${AUTHOR}`;
+const MESSAGE_COLUMNS = 'id, room_id, author_id, body, media, reply_to, hidden, created_at, edited_at';
 
 const callback = () => `${window.location.origin}${CALLBACK_PATH}`;
 
@@ -163,9 +164,9 @@ export const board = {
     const sb = await getClient();
     return (await must(sb.from('comments').select(COMMENT_COLUMNS).eq('post_id', postId).order('created_at'))).map(toComment);
   },
-  async comment(postId, body, parentId = null) {
+  async comment(postId, body, parentId = null, media = []) {
     const sb = await getClient();
-    return toComment(await must(sb.from('comments').insert({ post_id: postId, parent_id: parentId, body }).select(COMMENT_COLUMNS).single()));
+    return toComment(await must(sb.from('comments').insert({ post_id: postId, parent_id: parentId, body, media: fromMedia(media) }).select(COMMENT_COLUMNS).single()));
   },
   async removeComment(id) {
     const sb = await getClient();
@@ -211,6 +212,7 @@ function postRow(f) {
   return {
     kind: f.kind, domain: f.domain || null, question_no: f.questionNo ? Number(f.questionNo) : null,
     title: String(f.title).trim(), body: String(f.body).trim(),
+    ...(f.media ? { media: fromMedia(f.media) } : {}),
   };
 }
 
@@ -238,9 +240,9 @@ export const chat = {
     if (before) q = q.lt('id', before);
     return (await must(q)).map(toMessage).reverse();
   },
-  async send(roomId, body, replyTo = null) {
+  async send(roomId, body, replyTo = null, media = []) {
     const sb = await getClient();
-    return toMessage(await must(sb.from('messages').insert({ room_id: roomId, body, reply_to: replyTo }).select(MESSAGE_COLUMNS).single()));
+    return toMessage(await must(sb.from('messages').insert({ room_id: roomId, body, reply_to: replyTo, media: fromMedia(media) }).select(MESSAGE_COLUMNS).single()));
   },
   async remove(id) {
     const sb = await getClient();
@@ -285,5 +287,55 @@ export const safety = {
   async moderate(target, id, action) {
     const sb = await getClient();
     await must(sb.rpc('moderate', { target, target_id: String(id), action }));
+  },
+};
+
+// Files on Supabase Storage (20261018090100_vca_media_storage.sql): public pictures and video in
+// vca-media, a direct room's in vca-private, each under the uploader's own folder.
+const PUBLIC_BUCKET = 'vca-media';
+const PRIVATE_BUCKET = 'vca-private';
+const isPrivate = (path) => /^[0-9a-f-]{36}\/dm\//.test(path);
+const signed = new Map();
+
+export const media = {
+  /**
+   * Send one prepared file (online/media.js) and get back the path a row points at.
+   * @param {'avatar'|'post'|'comment'|'chat'} kind
+   * @param {{ blob: Blob, ext: string, type: string }} file
+   * @param {{ room?: string|null, name?: string }} [where] room: a direct room's id
+   */
+  async upload(kind, file, { room = null, name = randomName() } = {}) {
+    const me = await uid();
+    if (!me) throw new Error('not authenticated');
+    const sb = await getClient();
+    const path = room ? `${me}/dm/${room}/${name}.${file.ext}` : `${me}/${kind}/${name}.${file.ext}`;
+    const { error } = await sb.storage.from(room ? PRIVATE_BUCKET : PUBLIC_BUCKET).upload(path, file.blob, { contentType: file.type, cacheControl: '31536000', upsert: false });
+    if (error) throw Object.assign(new Error(error.message || 'upload failed'), { cause: error });
+    return path;
+  },
+  /** Where to draw a file from. Pictures can ask for a width (Supabase resizes them on the way). */
+  url(path, { width } = {}) {
+    if (!path) return '';
+    if (isPrivate(path)) return signed.get(path)?.url || '';
+    const base = SUPABASE_URL.replace(/\/$/, '');
+    if (width && /\.(webp|jpg)$/.test(path)) return `${base}/storage/v1/render/image/public/${PUBLIC_BUCKET}/${path}?width=${Math.round(width)}&quality=75&resize=contain`;
+    return `${base}/storage/v1/object/public/${PUBLIC_BUCKET}/${path}`;
+  },
+  /** A direct room's files are signed for an hour; this fetches what the url() above returns. */
+  async sign(paths) {
+    const want = paths.filter((p) => isPrivate(p) && !(signed.get(p)?.until > Date.now() + 60_000));
+    if (!want.length) return;
+    const sb = await getClient();
+    const { data } = await sb.storage.from(PRIVATE_BUCKET).createSignedUrls(want, 3600);
+    for (const d of data || []) if (d.signedUrl) signed.set(d.path, { url: d.signedUrl, until: Date.now() + 3600_000 });
+  },
+  /** Take back files that were sent but not used (a post that was not published). */
+  async discard(paths) {
+    if (!paths.length) return;
+    const sb = await getClient();
+    const pub = paths.filter((p) => !isPrivate(p));
+    const priv = paths.filter(isPrivate);
+    if (pub.length) await sb.storage.from(PUBLIC_BUCKET).remove(pub);
+    if (priv.length) await sb.storage.from(PRIVATE_BUCKET).remove(priv);
   },
 };

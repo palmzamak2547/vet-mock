@@ -3,15 +3,27 @@
 // and a question in the bank leads to its threads.
 import { test, expect, overflow } from './fixtures.mjs';
 
+// Onboarding: who you are, about you, what you are revising, then the welcome with three ways in.
 async function join(page, handle = 'palm_vet') {
   await page.locator('.acct-btn').click();
   await page.locator('.signin-google').click();
   const form = page.locator('.sheet .pform');
   await expect(form).toBeVisible();
+  await expect(page.locator('.steps li.on')).toContainText('ตัวตน');
   await form.getByLabel('ชื่อที่แสดง').fill('ปาล์ม');
   await form.getByLabel('ชื่อผู้ใช้').fill(handle);
   await form.locator('.pform-go .btn-ink').click();
-  await expect(form).toBeHidden();
+  await expect(page.locator('.steps li.on')).toContainText('เกี่ยวกับคุณ');
+  await form.locator('.pform-go .btn-ink').click();
+  await expect(page.locator('.steps li.on')).toContainText('หมวดที่สนใจ');
+  await form.locator('.pform-focus .chip').first().click();
+  await expect(form.locator('.pform-focus .chip[aria-pressed="true"]')).toHaveCount(1);
+  await form.locator('.pform-go .btn-ink').click();
+  const welcome = page.locator('.sheet .welcome');
+  await expect(welcome).toContainText('ยินดีต้อนรับ ปาล์ม');
+  await expect(welcome.locator('.welcome-way')).toHaveCount(3);
+  await page.keyboard.press('Escape');
+  await expect(welcome).toBeHidden();
   await expect(page.locator('.acct-btn.is-in')).toBeVisible();
 }
 
@@ -88,4 +100,46 @@ test('a question in the bank leads to its threads', async ({ page }) => {
   await talk.click();
   await expect(page.locator('.peek .peek-stem')).toBeVisible();
   await expect(page.locator('.empty-h')).toContainText('ยังไม่มีกระทู้เกี่ยวกับข้อนี้');
+});
+
+// Photos: a profile picture framed in the cropper, pictures on a thread and on a reply, and the
+// full-screen viewer. The demo backend keeps the files in the tab.
+const PHOTO = new URL('../../public/icons/icon-512.png', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
+
+test('a profile picture, and pictures on a thread and a reply', async ({ page }) => {
+  await page.goto('/community');
+  await join(page, 'photo_vet');
+
+  await page.locator('.acct-btn').click();
+  await page.locator('.sheet').getByRole('button', { name: /แก้ไขโปรไฟล์|โปรไฟล์/ }).first().click();
+  await page.locator('.photo-pick input[type="file"]').setInputFiles(PHOTO);
+  await expect(page.locator('.crop-stage')).toBeVisible();
+  await page.locator('.crop-zoom input').fill('1.5');
+  await page.locator('.crop-go .btn-ink').click();
+  await expect(page.locator('.pform-hero .av.has-photo')).toBeVisible();
+  await page.locator('.pform-go .btn-ink').click();
+  await expect(page.locator('.acct-btn .av.has-photo')).toBeVisible();
+
+  await page.goto('/community/new');
+  const form = page.locator('.compose-form');
+  await form.getByLabel('หัวข้อ').fill('รูปรอยโรคที่ไม่แน่ใจ');
+  await form.getByLabel('รายละเอียด').fill('ช่วยดูหน่อย');
+  await form.locator('.compose-media input[type="file"]').setInputFiles([PHOTO, PHOTO]);
+  await expect(form.locator('.tray-item.is-ready')).toHaveCount(2);
+  await form.locator('button[type="submit"]').click();
+  await expect(page.locator('.thread .mg-2 .mg-item')).toHaveCount(2);
+
+  await page.locator('.thread .mg-item').first().click();
+  await expect(page.locator('.lb')).toBeVisible();
+  await page.keyboard.press('ArrowRight');
+  await expect(page.locator('.lb')).toHaveAttribute('aria-label', 'รูป 2 จาก 2');
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.lb')).toHaveCount(0);
+
+  // A reply can be a picture alone.
+  await page.locator('.composer input[type="file"]').setInputFiles(PHOTO);
+  await expect(page.locator('.composer .tray-item.is-ready')).toHaveCount(1);
+  await page.locator('.composer button[type="submit"]').click();
+  await expect(page.locator('.cmt .mg .mg-item')).toHaveCount(1);
+  expect(await overflow(page)).toBe(0);
 });

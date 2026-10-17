@@ -8,6 +8,7 @@ import { Icon } from '../../components/Icon.jsx';
 import { Figure } from '../../components/bits.jsx';
 import { ShareButton } from '../../components/Share.jsx';
 import { useTitle } from '../../lib/hooks.js';
+import { CARD_BY_ID } from '../../lib/bank.js';
 import { navigate } from '../../router.js';
 import NotFound from '../../pages/NotFound.jsx';
 import { Avatar } from '../ui/Avatar.jsx';
@@ -136,6 +137,11 @@ export default function Profile({ route }) {
           <h1 className="prof-name">{profile.name}</h1>
           <p className="prof-handle">@{profile.handle}</p>
           {profile.bio && <p className="prof-bio">{profile.bio}</p>}
+          {profile.focus?.length > 0 && (
+            <ul className="prof-focus" aria-label="หมวดที่สนใจ">
+              {profile.focus.filter((d) => CARD_BY_ID[d]).map((d) => <li key={d}><Link to={`/community?d=${d}`} className="chip">{CARD_BY_ID[d].th}</Link></li>)}
+            </ul>
+          )}
           {facts.length > 0 && (
             <ul className="prof-facts">
               {facts.map((f) => <li key={f.text}><Icon name={f.icon} size={16} />{f.text}</li>)}

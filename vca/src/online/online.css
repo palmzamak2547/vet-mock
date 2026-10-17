@@ -30,3 +30,8 @@
 .acct-btn.is-loading .ic { animation: acct-wait 1.2s var(--ease) infinite alternate; }
 @keyframes acct-wait { from { opacity: .35; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .acct-btn.is-loading .ic { animation: none; } }
+/* A photo covers the animal once it has drawn (ui/Avatar.jsx). */
+.av { position: relative; overflow: hidden; }
+.av-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; opacity: 0; transition: opacity var(--t) var(--ease); }
+.av.has-photo .av-photo { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .av-photo { transition: none; } }

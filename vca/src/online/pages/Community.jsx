@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from '../../components/Link.jsx';
 import { Icon } from '../../components/Icon.jsx';
 import { useTitle } from '../../lib/hooks.js';
-import { DOMAIN_CARDS } from '../../lib/bank.js';
+import { CARD_BY_ID, DOMAIN_CARDS } from '../../lib/bank.js';
 import { navigate, withQuery } from '../../router.js';
 import { JoinPrompt, KindSeg, Soon } from '../ui/bits.jsx';
 import { PostCard } from '../ui/PostCard.jsx';
@@ -82,6 +82,16 @@ export default function Community({ route }) {
           </button>
         )}
       </div>
+
+      {/* The domains the student follows (their profile), one tap each. */}
+      {account.profile?.focus?.length > 0 && !questionNo && (
+        <div className="board-mine" role="group" aria-label="หมวดของคุณ">
+          <span className="board-mine-k">หมวดของคุณ</span>
+          {account.profile.focus.filter((d) => CARD_BY_ID[d]).map((d) => (
+            <button key={d} type="button" className="chip" aria-pressed={domain === d} onClick={() => setFilter({ d: domain === d ? '' : d })}>{CARD_BY_ID[d].th}</button>
+          ))}
+        </div>
+      )}
 
       {questionNo && domain && <QuestionPeek no={questionNo} domain={domain} />}
       {questionNo && canPost && (

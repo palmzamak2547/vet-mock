@@ -3,7 +3,7 @@
 // signs in at once as a demo student. What happens is kept for the tab's life (sessionStorage),
 // so a reload keeps the conversation. Never used in a production build (config.js).
 
-import { fromProfile, toComment, toMessage, toPost, toProfile } from './shapes.js';
+import { fromMedia, fromProfile, toComment, toMessage, toPost, toProfile } from './shapes.js';
 
 const KEY = 'vca:demo:community:v1';
 const ME = '00000000-0000-4000-8000-00000000d3e0';
@@ -112,7 +112,7 @@ export const board = {
     await tick();
     if (!person(me())) throw new Error('ตั้งโปรไฟล์ก่อน');
     const now = new Date().toISOString();
-    const row = { id: uuid(), author_id: me(), kind: f.kind, domain: f.domain || null, question_no: f.questionNo ? Number(f.questionNo) : null, title: String(f.title).trim(), body: String(f.body).trim(), comment_count: 0, like_count: 0, hidden: false, created_at: now, edited_at: null, last_activity_at: now };
+    const row = { id: uuid(), author_id: me(), kind: f.kind, domain: f.domain || null, question_no: f.questionNo ? Number(f.questionNo) : null, title: String(f.title).trim(), body: String(f.body).trim(), media: fromMedia(f.media), comment_count: 0, like_count: 0, hidden: false, created_at: now, edited_at: null, last_activity_at: now };
     load().posts.push(row); save();
     return toPost(withAuthor(row));
   },
@@ -120,17 +120,17 @@ export const board = {
     await tick();
     const p = load().posts.find((x) => x.id === id && x.author_id === me());
     if (!p) throw new Error('แก้ไม่ได้');
-    Object.assign(p, { kind: f.kind, domain: f.domain || null, question_no: f.questionNo ? Number(f.questionNo) : null, title: String(f.title).trim(), body: String(f.body).trim(), edited_at: new Date().toISOString() });
+    Object.assign(p, { kind: f.kind, domain: f.domain || null, question_no: f.questionNo ? Number(f.questionNo) : null, title: String(f.title).trim(), body: String(f.body).trim(), ...(f.media ? { media: fromMedia(f.media) } : {}), edited_at: new Date().toISOString() });
     save();
     return toPost(withAuthor(p));
   },
   async remove(id) { const d = load(); d.posts = d.posts.filter((p) => !(p.id === id && p.author_id === me())); save(); },
   async comments(postId) { await tick(); return load().comments.filter((c) => c.post_id === postId && (!c.hidden || c.author_id === me())).sort((a, b) => a.created_at.localeCompare(b.created_at)).map(withAuthor).map(toComment); },
-  async comment(postId, body, parentId = null) {
+  async comment(postId, body, parentId = null, media = []) {
     await tick();
     const d = load();
     if (!person(me())) throw new Error('ตั้งโปรไฟล์ก่อน');
-    const row = { id: uuid(), post_id: postId, author_id: me(), parent_id: parentId, body: String(body).trim(), like_count: 0, hidden: false, created_at: new Date().toISOString(), edited_at: null };
+    const row = { id: uuid(), post_id: postId, author_id: me(), parent_id: parentId, body: String(body).trim(), media: fromMedia(media), like_count: 0, hidden: false, created_at: new Date().toISOString(), edited_at: null };
     d.comments.push(row);
     const p = d.posts.find((x) => x.id === postId);
     if (p) { p.comment_count += 1; p.last_activity_at = row.created_at; }
@@ -195,10 +195,10 @@ export const chat = {
     if (before) rows = rows.filter((m) => m.id < before);
     return rows.slice(-limit).map(toMessage);
   },
-  async send(roomId, body, replyTo = null) {
+  async send(roomId, body, replyTo = null, media = []) {
     const d = load();
     if (!person(me())) throw new Error('ตั้งโปรไฟล์ก่อน');
-    const row = { id: d.nextId++, room_id: roomId, author_id: me(), body: String(body).trim(), reply_to: replyTo, hidden: false, created_at: new Date().toISOString(), edited_at: null };
+    const row = { id: d.nextId++, room_id: roomId, author_id: me(), body: String(body).trim(), media: fromMedia(media), reply_to: replyTo, hidden: false, created_at: new Date().toISOString(), edited_at: null };
     d.messages.push(row);
     const r = d.rooms.find((x) => x.id === roomId);
     if (r) r.last_message_at = row.created_at;
@@ -246,4 +246,21 @@ export const safety = {
   async block(userId) { load().blocks.push({ blocker: me(), blocked: userId }); save(); },
   async unblock(userId) { const d = load(); d.blocks = d.blocks.filter((b) => !(b.blocker === me() && b.blocked === userId)); save(); },
   async moderate() { throw new Error('เฉพาะผู้ดูแล'); },
+};
+
+// Files stay in the tab: an upload keeps an object URL under the path a row would point at.
+const files = new Map();
+let fileN = 0;
+export const media = {
+  async upload(kind, file, { room = null } = {}) {
+    await tick();
+    fileN += 1;
+    const name = `demo${String(fileN).padStart(8, '0')}`;
+    const path = room ? `${ME}/dm/${room}/${name}.${file.ext}` : `${ME}/${kind}/${name}.${file.ext}`;
+    files.set(path, URL.createObjectURL(file.blob));
+    return path;
+  },
+  url(path) { return files.get(path) || ''; },
+  async sign() {},
+  async discard(paths) { for (const p of paths) { const u = files.get(p); if (u) URL.revokeObjectURL(u); files.delete(p); } },
 };

@@ -54,6 +54,20 @@ export const OPEN_ROOMS = [
 ];
 export const ROOM_BY_SLUG = Object.fromEntries(OPEN_ROOMS.map((r) => [r.slug, r]));
 
+/** Media on a row, as the pages draw it: only well-formed items, in order. */
+export function toMedia(raw) {
+  if (!Array.isArray(raw)) return [];
+  return raw.filter((m) => m && typeof m.path === 'string' && (m.kind === 'image' || m.kind === 'video') && m.w > 0 && m.h > 0)
+    .map((m) => ({ path: m.path, kind: m.kind, w: m.w, h: m.h, poster: m.poster || null, dur: m.dur ?? null, alt: m.alt || '' }));
+}
+/** Media as the database stores it (the inverse of toMedia). */
+export const fromMedia = (list) => (list || []).map((m) => {
+  const o = { path: m.path, kind: m.kind, w: Math.round(m.w), h: Math.round(m.h) };
+  if (m.kind === 'video') { o.poster = m.poster; o.dur = Math.round(m.dur * 10) / 10; }
+  if (m.alt) o.alt = String(m.alt).slice(0, 300);
+  return o;
+});
+
 export const toProfile = (r) => (r ? {
   id: r.user_id,
   handle: r.handle,
@@ -66,6 +80,9 @@ export const toProfile = (r) => (r ? {
   bio: r.bio || '',
   stats: r.stats && typeof r.stats === 'object' ? r.stats : {},
   fromVetmock: !!r.from_vetmock,
+  photo: r.photo || null,
+  focus: Array.isArray(r.focus) ? r.focus : [],
+  onboardedAt: r.onboarded_at || null,
   createdAt: r.created_at,
 } : null);
 
@@ -81,6 +98,9 @@ export const fromProfile = (p) => ({
   bio: p.bio?.trim() || null,
   stats: p.stats || {},
   from_vetmock: !!p.fromVetmock,
+  photo: p.photo || null,
+  focus: Array.isArray(p.focus) ? p.focus.slice(0, 8) : [],
+  onboarded_at: p.onboardedAt || null,
 });
 
 export const toPost = (r) => ({
@@ -91,6 +111,7 @@ export const toPost = (r) => ({
   questionNo: r.question_no || null,
   title: r.title,
   body: r.body,
+  media: toMedia(r.media),
   comments: r.comment_count || 0,
   likes: r.like_count || 0,
   hidden: !!r.hidden,
@@ -105,6 +126,7 @@ export const toComment = (r) => ({
   parentId: r.parent_id || null,
   author: toProfile(r.author) || { id: r.author_id, handle: '', name: 'ผู้ใช้', avatar: '🐾', tone: 'ink' },
   body: r.body,
+  media: toMedia(r.media),
   likes: r.like_count || 0,
   hidden: !!r.hidden,
   createdAt: r.created_at,
@@ -116,6 +138,7 @@ export const toMessage = (r) => ({
   roomId: r.room_id,
   authorId: r.author_id,
   body: r.body,
+  media: toMedia(r.media),
   replyTo: r.reply_to || null,
   hidden: !!r.hidden,
   createdAt: r.created_at,
@@ -199,6 +222,9 @@ const PROBLEMS = [
   [/duplicate|unique/i, 'ชื่อผู้ใช้นี้มีคนใช้แล้ว'],
   [/failed to fetch|network|load failed/i, 'เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองใหม่'],
   [/jwt|not authenticated|permission denied|row-level security|42501/i, 'เข้าสู่ระบบใหม่อีกครั้งแล้วลองใหม่'],
+  [/media not allowed|media_ok|photo_check/i, 'แนบไฟล์นี้ไม่ได้ ลองรูปหรือวิดีโออื่น'],
+  [/payload too large|exceeded the maximum allowed size|413/i, 'ไฟล์ใหญ่เกินไป'],
+  [/mime type|invalid_mime/i, 'ไฟล์ชนิดนี้แนบไม่ได้'],
   [/check constraint|22001|23514/i, 'ข้อความสั้นหรือยาวเกินไป'],
 ];
 export function problemText(err) {

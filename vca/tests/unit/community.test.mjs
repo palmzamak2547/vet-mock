@@ -127,9 +127,9 @@ test('the community has its own addresses', () => {
 
 test('the demo backend answers the way the live one does', async () => {
   const b = await import('../../src/online/demo.js');
-  assert.deepEqual(Object.keys(b).sort(), ['auth', 'board', 'chat', 'profiles', 'safety']);
+  assert.deepEqual(Object.keys(b).sort(), ['auth', 'board', 'chat', 'media', 'profiles', 'safety']);
   const live = await import('../../src/online/live.js');
-  for (const part of ['auth', 'profiles', 'board', 'chat', 'safety']) {
+  for (const part of ['auth', 'profiles', 'board', 'chat', 'safety', 'media']) {
     assert.deepEqual(Object.keys(b[part]).sort(), Object.keys(live[part]).sort(), `${part} offers the same calls`);
   }
 
@@ -187,4 +187,22 @@ test('the demo backend answers the way the live one does', async () => {
 
   await b.auth.signOut();
   assert.equal(await b.auth.session(), null);
+});
+
+test('media on a row: only well-formed items reach the page, and go back as the database stores them', async () => {
+  const { toMedia, fromMedia } = await import('../../src/online/shapes.js');
+  const raw = [
+    { path: 'u/post/abcdefgh12.webp', kind: 'image', w: 1200, h: 800 },
+    { path: 'u/post/clip0001.mp4', kind: 'video', w: 1080, h: 1920, poster: 'u/post/clip0001.webp', dur: 42.37 },
+    { path: 'u/post/x.gif', kind: 'gif', w: 1, h: 1 },
+    null,
+    { kind: 'image', w: 1, h: 1 },
+  ];
+  const m = toMedia(raw);
+  assert.equal(m.length, 2);
+  assert.equal(toMedia('nope').length, 0);
+  const back = fromMedia(m);
+  assert.deepEqual(back[0], { path: 'u/post/abcdefgh12.webp', kind: 'image', w: 1200, h: 800 });
+  assert.equal(back[1].dur, 42.4);
+  assert.equal(back[1].poster, 'u/post/clip0001.webp');
 });

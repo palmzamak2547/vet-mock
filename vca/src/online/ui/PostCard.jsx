@@ -5,6 +5,7 @@ import { Link } from '../../components/Link.jsx';
 import { Icon } from '../../components/Icon.jsx';
 import { Avatar, Byline } from './Avatar.jsx';
 import { PostChips } from './bits.jsx';
+import { MediaThumbs } from './Media.jsx';
 import { ago, excerpt } from '../shapes.js';
 
 export function PostCard({ post, i = 0 }) {
@@ -18,6 +19,7 @@ export function PostCard({ post, i = 0 }) {
         </span>
         <span className="post-title">{post.title}</span>
         <span className="post-excerpt">{excerpt(post.body)}</span>
+        <MediaThumbs media={post.media} />
         <span className="post-foot">
           <PostChips post={post} />
           <span className="post-counts">

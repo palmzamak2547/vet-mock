@@ -7,6 +7,7 @@ import { Link } from '../../components/Link.jsx';
 import { Icon } from '../../components/Icon.jsx';
 import { useMedia, useTitle } from '../../lib/hooks.js';
 import { Avatar } from '../ui/Avatar.jsx';
+import { AttachButton, MediaGrid, MediaTray, useMediaTray } from '../ui/Media.jsx';
 import { JoinPrompt, ReportSheet, Soon } from '../ui/bits.jsx';
 import { MODE } from '../config.js';
 import { ensureAccount, getBackend, useAccount } from '../account.js';
@@ -76,6 +77,9 @@ function Room({ room, me, blocked, onRead }) {
   const keep = useRef(null);
   const touch = useMedia('(pointer: coarse)');
   const info = room.kind === 'open' ? ROOM_BY_SLUG[room.slug] : null;
+  // A direct room's files go to the private bucket, under the room.
+  const tray = useMediaTray({ kind: 'chat', max: 1, video: true, room: room.kind === 'direct' ? room.id : null });
+  const said = (m) => (m.body.trim() ? m.body : m.media?.[0]?.kind === 'video' ? 'วิดีโอ' : m.media?.length ? 'รูปภาพ' : '');
 
   const meet = useCallback(async (list) => {
     const missing = [...new Set(list.map((m) => m.authorId))].filter((id) => !known.current.has(id));
@@ -148,12 +152,13 @@ function Room({ room, me, blocked, onRead }) {
 
   const send = async () => {
     const body = text.trim();
-    if (!body || sending) return;
+    if ((!body && !tray.media.length) || sending || tray.busy) return;
     setSending(true);
     setError('');
     try {
       const b = await getBackend();
-      const m = await b.chat.send(room.id, body, replyTo);
+      const m = await b.chat.send(room.id, body, replyTo, tray.media);
+      tray.done();
       atEnd.current = true;
       setMessages((cur) => (cur.some((x) => x.id === m.id) ? cur : [...cur, m]));
       setText('');
@@ -223,9 +228,10 @@ function Room({ room, me, blocked, onRead }) {
                         return (
                           <div key={m.id} className={`msg${m.hidden ? ' is-hidden' : ''}${picked === m.id ? ' is-picked' : ''}`} onClick={() => setPicked(picked === m.id ? null : m.id)}>
                             {m.replyTo && (
-                              <p className="msg-quote">{quoted ? <><b>{quoted.authorId === me ? 'คุณ' : who(quoted.authorId)?.name || 'ผู้ใช้'}</b> {quoted.body.slice(0, 80)}</> : 'ตอบข้อความก่อนหน้า'}</p>
+                              <p className="msg-quote">{quoted ? <><b>{quoted.authorId === me ? 'คุณ' : who(quoted.authorId)?.name || 'ผู้ใช้'}</b> {said(quoted).slice(0, 80)}</> : 'ตอบข้อความก่อนหน้า'}</p>
                             )}
-                            <p className="msg-body" title={clockOf(m.createdAt)}><Text body={m.body} /></p>
+                            {m.body.trim() && <p className="msg-body" title={clockOf(m.createdAt)}><Text body={m.body} /></p>}
+                            <MediaGrid media={m.media} compact />
                             {m.hidden && <p className="msg-note">ซ่อนไว้ระหว่างรอผู้ดูแลตรวจ</p>}
                             <span className="msg-acts">
                               <button type="button" className="act" onClick={(e) => { e.stopPropagation(); setReplyTo(m.id); setPicked(null); input.current?.focus({ preventScroll: true }); }}><Icon name="reply" size={15} />ตอบ</button>
@@ -253,12 +259,14 @@ function Room({ room, me, blocked, onRead }) {
         {replying && (
           <p className="room-replying">
             <Icon name="reply" size={15} />
-            <span>ตอบ <b>{replying.authorId === me ? 'ตัวเอง' : who(replying.authorId)?.name || 'ผู้ใช้'}</b> {replying.body.slice(0, 60)}</span>
+            <span>ตอบ <b>{replying.authorId === me ? 'ตัวเอง' : who(replying.authorId)?.name || 'ผู้ใช้'}</b> {said(replying).slice(0, 60)}</span>
             <button type="button" className="icon-btn" onClick={() => setReplyTo(null)} aria-label="ยกเลิกการตอบ"><Icon name="x" size={16} /></button>
           </p>
         )}
         {error && <p className="form-error" role="alert">{error}</p>}
+        <MediaTray tray={tray} />
         <div className="room-input">
+          <AttachButton tray={tray} className="icon-btn room-attach" />
           <label className="sr" htmlFor="chat-input">ข้อความ</label>
           <textarea
             id="chat-input" ref={input} rows={1} maxLength={2000} value={text} placeholder={info ? `ส่งข้อความถึง #${info.name}` : 'ส่งข้อความ'}
@@ -269,7 +277,7 @@ function Room({ room, me, blocked, onRead }) {
             }}
           />
           {/* Pressing send leaves the cursor in the box, so a phone's keyboard stays up between messages. */}
-          <button type="submit" className="room-send" disabled={!text.trim() || sending} aria-label="ส่ง" onMouseDown={(e) => e.preventDefault()}>
+          <button type="submit" className="room-send" disabled={(!text.trim() && !tray.media.length) || sending || tray.busy} aria-label="ส่ง" onMouseDown={(e) => e.preventDefault()}>
             {sending ? <span className="spinner" aria-hidden="true" /> : <Icon name="send" size={20} />}
           </button>
         </div>

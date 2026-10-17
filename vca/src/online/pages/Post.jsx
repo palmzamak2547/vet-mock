@@ -10,6 +10,7 @@ import { navigate, withQuery } from '../../router.js';
 import { Avatar, Byline } from '../ui/Avatar.jsx';
 import { JoinPrompt, PostChips, ReportSheet, Soon } from '../ui/bits.jsx';
 import { QuestionPeek } from '../ui/QuestionPeek.jsx';
+import { AttachButton, MediaGrid, MediaTray, useMediaTray } from '../ui/Media.jsx';
 import { askJoin } from '../ui/AccountButton.jsx';
 import { MODE } from '../config.js';
 import { ensureAccount, getBackend, useAccount } from '../account.js';
@@ -30,7 +31,8 @@ function Comment({ c, acts, child = false }) {
           {c.author.handle ? <Link to={`/u/${c.author.handle}`} className="cmt-who"><Byline profile={c.author} /></Link> : <Byline profile={c.author} />}
           <span className="post-when">{ago(c.createdAt)}{c.editedAt ? ' แก้ไขแล้ว' : ''}</span>
         </span>
-        <div className="cmt-body"><Paragraphs text={c.body} /></div>
+        {c.body.trim() && <div className="cmt-body"><Paragraphs text={c.body} /></div>}
+        <MediaGrid media={c.media} compact />
         {c.hidden && <p className="hint">ซ่อนไว้ระหว่างรอผู้ดูแลตรวจ เห็นได้เฉพาะคุณ</p>}
         <span className="cmt-acts">
           <button type="button" className={`act${liked.has(c.id) ? ' on' : ''}`} onClick={() => acts.like(c.id)} aria-pressed={liked.has(c.id)} aria-label={`ถูกใจ${c.likes ? ` ${c.likes} คน` : ''}`}><Icon name="heart" size={16} />{c.likes || ''}</button>
@@ -56,6 +58,7 @@ export default function Post({ route }) {
   const [busy, setBusy] = useState(false);
   const [report, setReport] = useState(null);
   const [error, setError] = useState('');
+  const tray = useMediaTray({ kind: 'comment', max: 1, video: false });
   useTitle(post?.title || 'กระทู้');
   const me = account.user?.id;
   const canWrite = account.status === 'in' && account.profile;
@@ -117,11 +120,12 @@ export default function Post({ route }) {
   };
   const send = async (e) => {
     e.preventDefault();
-    if (!reply.body.trim()) return;
+    if ((!reply.body.trim() && !tray.media.length) || tray.busy) return;
     setBusy(true); setError('');
     try {
       const b = await getBackend();
-      await b.board.comment(id, reply.body.trim(), reply.to);
+      await b.board.comment(id, reply.body.trim(), reply.to, tray.media);
+      tray.done();
       setReply({ to: null, body: '' });
       await loadComments();
     } catch (err) {
@@ -173,6 +177,7 @@ export default function Post({ route }) {
         </header>
         {post.hidden && <p className="notice">กระทู้นี้ถูกซ่อนไว้ระหว่างรอผู้ดูแลตรวจ เห็นได้เฉพาะคุณ</p>}
         <div className="thread-body"><Paragraphs text={post.body} /></div>
+        <MediaGrid media={post.media} />
         {post.questionNo && (post.domain ? <QuestionPeek no={post.questionNo} domain={post.domain} /> : (
           <Link to={withQuery('/bank', { q: post.questionNo })} className="thread-q"><Icon name="search" size={18} />เปิดข้อ No. {post.questionNo} ในคลัง</Link>
         ))}
@@ -209,10 +214,14 @@ export default function Post({ route }) {
             )}
             <label className="sr" htmlFor="reply-body">คำตอบ</label>
             <textarea id="reply-body" rows={3} maxLength={4000} placeholder="เขียนคำตอบ" value={reply.body} onChange={(e) => setReply({ ...reply, body: e.target.value })} />
+            <MediaTray tray={tray} />
             {error && <p className="form-error" role="alert">{error}</p>}
-            <button type="submit" className="btn btn-ink btn-sm" disabled={busy || !reply.body.trim()} onMouseDown={(e) => e.preventDefault()}>
+            <span className="composer-go">
+              <AttachButton tray={tray} />
+            <button type="submit" className="btn btn-ink btn-sm" disabled={busy || tray.busy || (!reply.body.trim() && !tray.media.length)} onMouseDown={(e) => e.preventDefault()}>
               {busy ? <span className="spinner" aria-hidden="true" /> : <Icon name="send" size={16} />}ส่งคำตอบ
             </button>
+            </span>
           </form>
         ) : <JoinPrompt what="ตอบกระทู้" />}
       </section>

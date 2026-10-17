@@ -17,6 +17,10 @@ import fs from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const MIGRATION = fileURLToPath(new URL('../../supabase/migrations/20261017120000_vca_community.sql', import.meta.url));
+// Photos and video on the rows (the storage buckets and their policies need Supabase's storage
+// schema, so 20261018090100_vca_media_storage.sql is checked on the project, not here).
+const MEDIA = fileURLToPath(new URL('../../supabase/migrations/20261018090000_vca_media.sql', import.meta.url));
+const MEDIA_JPEG = fileURLToPath(new URL('../../supabase/migrations/20261018093000_vca_media_jpeg.sql', import.meta.url));
 const option = (name, fallback) => process.argv.find((a) => a.startsWith(`--${name}=`))?.slice(name.length + 3) || fallback;
 const backend = option('backend', 'pglite');
 assert(['pglite', 'postgres'].includes(backend), 'backend is pglite or postgres');
@@ -101,6 +105,8 @@ await exec(`
   insert into public.admin_users (user_id) values (${lit(ids.mod)});
 `);
 await exec(fs.readFileSync(MIGRATION, 'utf8'));
+await exec(fs.readFileSync(MEDIA, 'utf8'));
+await exec(fs.readFileSync(MEDIA_JPEG, 'utf8'));
 
 // ── Profiles ──────────────────────────────────────────────────────────────────────────────
 await check('a profile is made by its owner, with a free and proper handle', async () => {
@@ -242,6 +248,42 @@ await check('chat and comment threads are published for live updates', async () 
 await check('the helpers and calls are closed to anon and to direct use of triggers', async () => {
   await refused(null, `select vca.open_direct(${lit(ids.bob)})`, /permission denied/);
   await refused('alice', `select vca.guard_post()`, /permission denied|trigger functions can only be called/);
+});
+
+// ── Media ─────────────────────────────────────────────────────────────────────────────────
+await check('media points only at the writer\'s own files, in the right shape and number', async () => {
+  const img = (who, kind, name = 'abcdefgh12') => JSON.stringify({ path: `${ids[who]}/${kind}/${name}.webp`, kind: 'image', w: 1200, h: 800 });
+  const vid = (who) => JSON.stringify({ path: `${ids[who]}/post/clip000001.mp4`, kind: 'video', w: 1080, h: 1920, poster: `${ids[who]}/post/clip000001.webp`, dur: 42 });
+  const insertPost = (who, media, title = 'With a picture') => as(who, `insert into vca.posts (title, body, media) values (${lit(title)}, 'see', ${lit(media)}) returning id`);
+  const [p] = await insertPost('dave', `[${img('dave', 'post')}]`);
+  assert.ok(p.id, 'one image of your own');
+  // Safari's canvas falls back to JPEG.
+  await insertPost('dave', JSON.stringify([{ path: `${ids.dave}/post/safari0001.jpg`, kind: 'image', w: 10, h: 10 }]), 'From Safari');
+  await refused('dave', `insert into vca.posts (title, body, media) values ('A gif', 'x', ${lit(JSON.stringify([{ path: `${ids.dave}/post/animated01.gif`, kind: 'image', w: 10, h: 10 }]))})`, /check constraint/);
+  await insertPost('dave', `[${vid('dave')}]`, 'With a video');
+  const bad = [
+    ['not mine', `[${img('carol', 'post')}]`],
+    ['wrong folder', `[${img('dave', 'avatar')}]`],
+    ['five images', `[${[1, 2, 3, 4, 5].map((n) => img('dave', 'post', `picture0${n}`)).join(',')}]`],
+    ['video with an image', `[${vid('dave')},${img('dave', 'post')}]`],
+    ['video without a poster', JSON.stringify([{ path: `${ids.dave}/post/clip000002.mp4`, kind: 'video', w: 1, h: 1, dur: 3 }])],
+    ['a key that is not allowed', JSON.stringify([{ path: `${ids.dave}/post/abcdefgh12.webp`, kind: 'image', w: 1, h: 1, url: 'https://evil.example' }])],
+  ];
+  for (const [why, media] of bad) await refused('dave', `insert into vca.posts (title, body, media) values (${lit(why)}, 'x', ${lit(media)})`, /check constraint/);
+  // A comment may be a picture alone; a message too. An empty one is still refused.
+  await as('carol', `insert into vca.comments (post_id, body, media) values (${lit(p.id)}, '', ${lit(`[${img('carol', 'comment')}]`)})`);
+  await refused('carol', `insert into vca.comments (post_id, body) values (${lit(p.id)}, '  ')`, /check constraint/);
+  const lobby = (await query(`select id from vca.rooms where slug = 'lobby'`))[0].id;
+  // (The moderator: the rate-limit check above used up the others' minute.)
+  await as('mod', `insert into vca.messages (room_id, body, media) values (${lit(lobby)}, '', ${lit(`[${img('mod', 'chat')}]`)})`);
+  // In a direct room the file sits under that room, in the private bucket's layout.
+  const room = (await one('dave', `select vca.open_direct(${lit(ids.mod)}) as r`)).r;
+  await refused('dave', `insert into vca.messages (room_id, body, media) values (${lit(room)}, '', ${lit(`[${img('dave', 'chat')}]`)})`, /media not allowed/);
+  await as('dave', `insert into vca.messages (room_id, body, media) values (${lit(room)}, '', ${lit(JSON.stringify([{ path: `${ids.dave}/dm/${room}/abcdefgh12.webp`, kind: 'image', w: 10, h: 10 }]))})`);
+  // A profile picture is your own avatar file; the focus list holds domain ids.
+  await as('dave', `update vca.profiles set photo = ${lit(`${ids.dave}/avatar/abcdefgh12.webp`)}, focus = '{surgery,swine}', onboarded_at = now() where user_id = auth.uid()`);
+  await refused('dave', `update vca.profiles set photo = ${lit(`${ids.carol}/avatar/abcdefgh12.webp`)} where user_id = auth.uid()`, /check constraint/);
+  await refused('dave', `update vca.profiles set focus = '{"Not A Domain"}' where user_id = auth.uid()`, /check constraint/);
 });
 
 // ── Leaving ───────────────────────────────────────────────────────────────────────────────

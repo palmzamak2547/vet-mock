@@ -128,7 +128,8 @@ export async function saveProfile(profile) {
   // After a failed load the profile may exist: ask again rather than create a second one.
   const existing = state.profile || (state.profileFailed ? await b.profiles.mine() : null);
   const saved = await b.profiles.save(profile, { create: !existing });
-  set({ profile: saved, setup: false });
+  // A first profile keeps its sheet open for the welcome; closing it ends setup (openSetup).
+  set(existing ? { profile: saved, setup: false } : { profile: saved });
   return saved;
 }
 

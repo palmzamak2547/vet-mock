@@ -10,6 +10,7 @@ import { DOMAIN_CARDS, CARD_BY_ID } from '../../lib/bank.js';
 import { navigate } from '../../router.js';
 import { JoinPrompt, KindSeg, Soon } from '../ui/bits.jsx';
 import { QuestionPeek } from '../ui/QuestionPeek.jsx';
+import { AttachButton, MediaGrid, MediaTray, useMediaTray } from '../ui/Media.jsx';
 import { MODE } from '../config.js';
 import { ensureAccount, getBackend, useAccount } from '../account.js';
 import { problemText } from '../shapes.js';
@@ -46,6 +47,7 @@ export default function Compose({ route }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [missing, setMissing] = useState(false);
+  const tray = useMediaTray({ kind: 'post', max: 4, video: true });
   useTitle(editing ? 'แก้ไขกระทู้' : 'ตั้งกระทู้');
 
   useEffect(() => { ensureAccount(); }, []);
@@ -55,7 +57,7 @@ export default function Compose({ route }) {
     getBackend().then((b) => b.board.get(editing)).then((p) => {
       if (!live) return;
       if (!p) { setMissing(true); return; }
-      setForm({ kind: p.kind, domain: p.domain || '', questionNo: p.questionNo || '', title: p.title, body: p.body, authorId: p.author.id });
+      setForm({ kind: p.kind, domain: p.domain || '', questionNo: p.questionNo || '', title: p.title, body: p.body, authorId: p.author.id, media: p.media });
     }).catch(() => { if (live) setMissing(true); });
     return () => { live = false; };
   }, [editing]);
@@ -101,14 +103,14 @@ export default function Compose({ route }) {
 
   const submit = async (e) => {
     e.preventDefault();
-    if (!ready || busy) return;
+    if (!ready || busy || tray.busy) return;
     setBusy(true);
     setError('');
     try {
       const b = await getBackend();
-      const fields = { kind: form.kind, domain: form.domain, questionNo: form.questionNo, title: form.title, body: form.body };
+      const fields = { kind: form.kind, domain: form.domain, questionNo: form.questionNo, title: form.title, body: form.body, ...(editing ? {} : { media: tray.media }) };
       const post = editing ? await b.board.update(editing, fields) : await b.board.create(fields);
-      if (!editing) dropDraft();
+      if (!editing) { dropDraft(); tray.done(); }
       navigate(`/community/p/${post.id}`, { replace: true });
     } catch (err) {
       setError(problemText(err));
@@ -132,6 +134,15 @@ export default function Compose({ route }) {
           <textarea value={form.body} onChange={set('body')} maxLength={BODY_MAX} rows={8} required placeholder="เล่าให้ครบพอที่เพื่อนจะตอบได้ เช่น ข้อไหน ตอบอะไรไป ติดตรงไหน" />
           <span className="form-note">{form.body.length > BODY_MAX * 0.8 ? `${form.body.length}/${BODY_MAX}` : 'เว้นบรรทัดว่างเพื่อขึ้นย่อหน้าใหม่'}</span>
         </label>
+        {editing ? (form.media?.length ? <div className="compose-media-kept"><MediaGrid media={form.media} compact /><span className="hint">รูปและวิดีโอของกระทู้แก้ภายหลังไม่ได้</span></div> : null) : (
+          <div className="compose-media">
+            <div className="compose-attach">
+              <AttachButton tray={tray} className="btn btn-ghost btn-sm" label="รูปหรือวิดีโอ" />
+              <span className="hint">สูงสุด 4 รูป หรือวิดีโอ 1 คลิปไม่เกิน 2 นาที</span>
+            </div>
+            <MediaTray tray={tray} />
+          </div>
+        )}
         {lockedQuestion ? (
           <p className="compose-about"><Icon name="link" size={16} />ผูกกับข้อ No. {form.questionNo} ในหมวด{CARD_BY_ID[form.domain]?.th}</p>
         ) : (
@@ -156,7 +167,7 @@ export default function Compose({ route }) {
         )}
         {error && <p className="form-error" role="alert">{error}</p>}
         <div className="compose-go">
-          <button type="submit" className="btn btn-ink" disabled={!ready || busy}>
+          <button type="submit" className="btn btn-ink" disabled={!ready || busy || tray.busy}>
             {busy ? <span className="spinner" aria-hidden="true" /> : <Icon name={editing ? 'check' : 'send'} size={18} />}
             {editing ? 'บันทึก' : 'โพสต์'}
           </button>
