@@ -146,3 +146,17 @@ test('a profile picture, and pictures on a thread and a reply', async ({ page })
   await expect(page.locator('.cmt .mg .mg-item')).toHaveCount(1);
   expect(await overflow(page)).toBe(0);
 });
+
+// The link preview a profile shares (online/cover.js): drawn in the page at the size every
+// network asks for, and not blank.
+test('a profile cover draws at 1200 x 630', async ({ page }) => {
+  await page.goto('/community');
+  const out = await page.evaluate(async () => {
+    const { drawCover } = await import('/src/online/cover.js');
+    const blob = await drawCover({ name: 'ปาล์ม', handle: 'palm_vet', avatar: '🐶', tone: 'verd', school: 'จุฬาลงกรณ์มหาวิทยาลัย', cohort: 'Vet 86', round: '2/2569', focus: ['equine', 'swine'] });
+    const bmp = await createImageBitmap(blob);
+    return { type: blob.type, size: blob.size, w: bmp.width, h: bmp.height };
+  });
+  expect(out).toMatchObject({ type: 'image/jpeg', w: 1200, h: 630 });
+  expect(out.size).toBeGreaterThan(30_000);
+});

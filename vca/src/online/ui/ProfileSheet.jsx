@@ -15,6 +15,7 @@ import { progressStore, statsFor, streak } from '../../lib/progress.js';
 import { resultsStore } from '../../lib/session.js';
 import { PhotoPicker } from './PhotoPicker.jsx';
 import { ProfileCard } from './ProfileCard.jsx';
+import { refreshCover } from '../cover.js';
 import { getBackend, saveProfile, useAccount } from '../account.js';
 import '../community.css';
 import { AVATARS, TONES, handleProblem, problemText, statsFrom, suggestHandle } from '../shapes.js';
@@ -267,6 +268,8 @@ export default function ProfileSheet({ open, onClose }) {
       const drop = [...tried.current, ...(firstPhoto.current && firstPhoto.current !== kept ? [firstPhoto.current] : [])];
       tried.current.clear();
       if (drop.length) getBackend().then((b) => b.media.discard(drop)).catch(() => {});
+      // The link preview follows the profile; it is drawn on this device, off the main path.
+      getBackend().then((b) => refreshCover(saved, b)).catch(() => {});
       if (existing) onClose(); else setDone(saved);
     } catch (err) {
       setError(/duplicate|unique/i.test(err.message) ? 'ชื่อผู้ใช้นี้มีคนใช้แล้ว' : problemText(err));

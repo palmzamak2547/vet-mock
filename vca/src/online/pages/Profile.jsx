@@ -18,6 +18,7 @@ import { askJoin, askProfile } from '../ui/AccountButton.jsx';
 import { MODE } from '../config.js';
 import { ensureAccount, getBackend, useAccount } from '../account.js';
 import { problemText } from '../shapes.js';
+import { refreshCover } from '../cover.js';
 import '../community.css';
 
 const joined = (iso) => (iso ? new Date(iso).toLocaleDateString('th-TH', { month: 'long', year: 'numeric', timeZone: 'Asia/Bangkok' }) : '');
@@ -47,6 +48,15 @@ export default function Profile({ route }) {
   useTitle(profile ? `${profile.name} (@${profile.handle})` : handle ? `@${handle}` : 'โปรไฟล์ของฉัน');
 
   useEffect(() => { ensureAccount(); }, []);
+  // The owner's visit draws their link preview if this device has not drawn the current one
+  // (profiles made before covers existed get theirs this way); idle, so it never slows the page.
+  useEffect(() => {
+    if (!mine || !account.profile) return undefined;
+    const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1500));
+    const cancel = window.cancelIdleCallback || clearTimeout;
+    const id = idle(() => { getBackend().then((b) => refreshCover(account.profile, b)).catch(() => {}); });
+    return () => cancel(id);
+  }, [mine, account.profile]);
   // /me, and a page whose handle you just changed, go to your current address.
   useEffect(() => {
     if (!account.profile) return;

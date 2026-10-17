@@ -260,6 +260,14 @@ export const media = {
     files.set(path, URL.createObjectURL(file.blob));
     return path;
   },
+  // The profile's cover, kept like any other file so a test or a developer can look at it.
+  async putCover(blob) {
+    const path = `${ME}/avatar/og.jpg`;
+    const old = files.get(path);
+    if (old) URL.revokeObjectURL(old);
+    files.set(path, URL.createObjectURL(blob));
+    return path;
+  },
   url(path) { return files.get(path) || ''; },
   async sign() {},
   async discard(paths) { for (const p of paths) { const u = files.get(p); if (u) URL.revokeObjectURL(u); files.delete(p); } },

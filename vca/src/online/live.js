@@ -313,6 +313,19 @@ export const media = {
     if (error) throw Object.assign(new Error(error.message || 'upload failed'), { cause: error });
     return path;
   },
+  /** The profile's link preview (online/cover.js draws it): one file a student, replaced in place.
+   *  Kept in the avatar folder, which the upload policy already allows; a short cache, because
+   *  the same path gets a new picture. */
+  async putCover(blob) {
+    const me = await uid();
+    if (!me) throw new Error('not authenticated');
+    const sb = await getClient();
+    const path = `${me}/avatar/og.jpg`;
+    await sb.storage.from(PUBLIC_BUCKET).remove([path]);
+    const { error } = await sb.storage.from(PUBLIC_BUCKET).upload(path, blob, { contentType: 'image/jpeg', cacheControl: '300', upsert: false });
+    if (error) throw Object.assign(new Error(error.message || 'upload failed'), { cause: error });
+    return path;
+  },
   /** Where to draw a file from. Pictures can ask for a width (Supabase resizes them on the way). */
   url(path, { width } = {}) {
     if (!path) return '';
