@@ -90,6 +90,7 @@ export default function Library({ route }) {
       </div>
 
       {lib.status === 'loading' && <p className="bank-status" role="status"><span className="spinner" aria-hidden="true" />กำลังเปิดชั้นเอกสาร…</p>}
+      {lib.status === 'loading' && <div className="bk-wait" aria-hidden="true" />}
       {lib.status === 'error' && <p className="notice notice-error"><Icon name="info" />เปิดชั้นเอกสารไม่สำเร็จ <button type="button" className="text-link" onClick={lib.retry}>ลองอีกครั้ง</button></p>}
       {lib.status === 'ready' && (
         <>

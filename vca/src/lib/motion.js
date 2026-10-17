@@ -31,7 +31,9 @@ function waitForPage(ms = 1400) {
 
 /** Run a route change inside a view transition when the browser can. */
 export function pageTransition(update) {
-  if (!hasViewTransitions() || reducedMotion()) { update(); return; }
+  // A sheet on screen (closing, as a "leave" button closes it) already moves; snapshotting its
+  // glass mid-exit crashed WebKit's tab every time (press sweep, 18 Oct), so it just leaves.
+  if (!hasViewTransitions() || reducedMotion() || document.querySelector('.sheet')) { update(); return; }
   const root = document.documentElement;
   root.dataset.vt = 'page';
   try {

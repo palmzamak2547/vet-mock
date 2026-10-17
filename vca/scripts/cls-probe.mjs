@@ -4,7 +4,7 @@ import { chromium } from '@playwright/test';
 const [base, ...paths] = process.argv.slice(2);
 const browser = await chromium.launch();
 for (const p of paths) {
-  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, serviceWorkers: 'block' });
+  const ctx = await browser.newContext(process.env.DESK ? { viewport: { width: 1440, height: 900 }, serviceWorkers: 'block' } : { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, serviceWorkers: 'block' });
   const page = await ctx.newPage();
   if (process.env.CPU) await (await ctx.newCDPSession(page)).send('Emulation.setCPUThrottlingRate', { rate: Number(process.env.CPU) });
   await page.addInitScript(() => {

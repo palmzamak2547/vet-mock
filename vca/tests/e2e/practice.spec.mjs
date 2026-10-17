@@ -52,3 +52,23 @@ test('the builder keeps its choices in the address', async ({ page }) => {
   await expect(page.locator('.builder-sum .sum-n')).toContainText('20');
   expect(await overflow(page)).toBe(0);
 });
+
+// Leaving from the leave sheet skips the page's view transition: snapshotting the closing glass
+// sheet crashed WebKit's tab every time (press sweep, 18 Oct). Chromium can't crash here, so this
+// checks the cause: no page transition starts while a sheet is on screen.
+test.describe('with motion on', () => {
+  test.use({ contextOptions: { reducedMotion: 'no-preference' } });
+  test('pause from the leave sheet goes home without a page transition', async ({ page }) => {
+    await start(page, 'd=swine&n=10');
+    await page.evaluate(() => {
+      window.__vt = [];
+      new MutationObserver(() => window.__vt.push(document.documentElement.dataset.vt || ''))
+        .observe(document.documentElement, { attributes: true, attributeFilter: ['data-vt'] });
+    });
+    await page.getByRole('button', { name: 'พักหรือจบชุดนี้' }).click();
+    await page.getByRole('button', { name: 'พักไว้ก่อน กลับหน้าแรก' }).click();
+    await expect(page).toHaveURL(/\/$/);
+    await expect(page.getByText('ทำต่อ').first()).toBeVisible();
+    expect(await page.evaluate(() => window.__vt)).not.toContain('page');
+  });
+});
