@@ -124,7 +124,7 @@ export default function Result({ route }) {
           <p className="kicker">{result.mode === 'mock' ? 'Mock exam result' : 'Practice result'}</p>
           <h1 className="page-h verdict-hand">
             {verdict}
-            <svg className="swash" viewBox="0 0 240 16" aria-hidden="true" focusable="false"><path d="M4 11 C 58 3, 150 2, 236 8" /></svg>
+            <svg className="swash" viewBox="0 0 240 16" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M4 11 C 58 3, 150 2, 236 8" /></svg>
           </h1>
           <ul className="result-facts">
             <li><Icon name="calendar" size={16} />{thaiDateTime(result.finishedAt)}</li>

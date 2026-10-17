@@ -232,7 +232,7 @@ export default function Exam() {
         <div className="sec-head" data-reveal>
           <div>
             <p className="kicker">Almanac {YEARS[0]}–{YEARS[YEARS.length - 1]}</p>
-            <h2 id="alm-h" className="sec-h">{YEARS.length} ปีที่รุ่นพี่จดไว้</h2>
+            <h2 id="alm-h" className="sec-h"><Words text={`${YEARS.length} ปีที่|รุ่นพี่จดไว้`} /></h2>
           </div>
           <div className="movers" aria-label="วิชาที่เปลี่ยนมากในปี 68">
             <p><span className="movers-k">ปี 68 ขึ้น</span>{movers.up.map((m) => <span key={m.en} className="mover">{m.en} <Trend value={m.t} /></span>)}</p>

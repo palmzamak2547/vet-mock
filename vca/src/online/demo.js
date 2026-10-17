@@ -42,7 +42,8 @@ let db = null;
 function load() {
   if (db) return db;
   try { db = JSON.parse(sessionStorage.getItem(KEY) || 'null'); } catch { db = null; }
-  if (!db) db = seed();
+  // Kept from the first look, so a reload or a shared link finds the same threads.
+  if (!db) { db = seed(); save(); }
   return db;
 }
 function save() { try { sessionStorage.setItem(KEY, JSON.stringify(db)); } catch { /* the tab keeps it */ } }

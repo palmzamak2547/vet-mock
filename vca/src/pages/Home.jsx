@@ -234,8 +234,8 @@ export function Home() {
           <div className="cell" data-reveal style={{ '--i': 0 }}>
             <Link to="/practice" className="mode glass" data-sheen data-tilt="4">
               <div className="mode-vis" aria-hidden="true">
-                <span className="mv-opt"><i>B</i>Trichodina, formalin 25 ppm</span>
-                <span className="mv-opt mv-right"><i>A</i>Ichthyophthirius, เกลือ 5 ppt<Icon name="check" size={16} strokeWidth={2.2} /></span>
+                <span className="mv-opt"><i>B</i><span className="mv-t">Trichodina, formalin</span></span>
+                <span className="mv-opt mv-right"><i>A</i><span className="mv-t">Ichthyophthirius, เกลือ</span><Icon name="check" size={16} strokeWidth={2.2} /></span>
                 <span className="mv-why"><b>ทำไม</b> วงจรชีวิตของ Ich …</span>
               </div>
               <h3><Icon name="target" size={20} />ฝึกทีละข้อ</h3>
@@ -302,7 +302,7 @@ export function Home() {
           </div>
           <ul className="shelf-chips">
             {lib.shelves.map((s) => (
-              <li key={s.id}><Link to={`/library?shelf=${s.id}`} className="chip">{s.th}<span className="chip-n">{s.count}</span></Link></li>
+              <li key={s.id}><Link to={`/library?shelf=${s.id}`} className="chip"><Words text={s.th} /><span className="chip-n">{s.count}</span></Link></li>
             ))}
           </ul>
         </div>

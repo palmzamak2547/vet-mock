@@ -119,13 +119,18 @@ h1 .nw { white-space: nowrap; }
 
 const page = (body) => `<!doctype html><html lang="th"><head><meta charset="utf-8"><base href="${base}"><style>${CSS}</style></head><body><div class="og"><div class="atmos"></div><div class="grain"></div><div class="brand">${MARK}<b>VetMock</b><i></i><span>VCA</span></div>${body}</div></body></html>`;
 
-const plateAt = (id, x, y, w, h, extra = '') => {
+/** A plate. Its caption is whole ('full'), its number alone where a wall crowds it or runs off
+ *  the edge ('number'), or left off where something stands in front of it ('none'): a caption
+ *  never shows cut short. */
+const plateAt = (id, x, y, w, h, extra = '', caption = 'full') => {
   const d = card(id);
-  return `<figure class="plate" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;background:${d.paper};${extra}"><img src="${d.art.slice(1)}" alt=""><figcaption><span>Pl. ${String(d.plate).padStart(2, '0')}</span><span>${esc(d.tag)}</span></figcaption></figure>`;
+  const no = `<span>Pl. ${String(d.plate).padStart(2, '0')}</span>`;
+  const cap = caption === 'none' ? '' : `<figcaption>${no}${caption === 'full' ? `<span>${esc(d.tag)}</span>` : ''}</figcaption>`;
+  return `<figure class="plate" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;background:${d.paper};${extra}"><img src="${d.art.slice(1)}" alt="">${cap}</figure>`;
 };
 
 function wall(ids, { x0 = 700, y0 = 34, w = 168, h = 196, gap = 16, cols = 3 } = {}) {
-  return ids.map((id, i) => plateAt(id, x0 + (i % cols) * (w + gap), y0 + Math.floor(i / cols) * (h + gap), w, h)).join('');
+  return ids.map((id, i) => plateAt(id, x0 + (i % cols) * (w + gap), y0 + Math.floor(i / cols) * (h + gap), w, h, '', 'number')).join('');
 }
 
 /** A Thai name broken only between its phrases (spaces and | marks), as the site sets it. */
@@ -160,7 +165,7 @@ function domainCover(d) {
   const share = p ? `ออกสอบราว ${Math.round(p.share * 100)}%` : null;
   const neighbour = BANK.domains[(BANK.domains.indexOf(d) + 1) % BANK.domains.length];
   return page(`
-    ${plateAt(neighbour.id, 900, 120, 300, 360, 'rotate:7deg;opacity:.55')}
+    ${plateAt(neighbour.id, 900, 120, 300, 360, 'rotate:7deg;opacity:.55', 'none')}
     ${plateAt(d.id, 700, 96, 380, 450, 'rotate:-2.5deg')}
     <div class="copy" style="top:170px;width:560px">
       <p class="kicker"><span class="no">Pl. ${String(d.plate).padStart(2, '0')}</span>${esc(d.tag)}</p>

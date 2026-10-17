@@ -91,10 +91,20 @@
   content: ""; position: absolute; top: 15px; bottom: 15px; left: 0; width: 1px; background: var(--line-2); pointer-events: none;
   opacity: clamp(0, (var(--join, 0) - .86) * 7, 1);
 }
-/* The mark folds VetMock away, last letter first, as VCA slides over to take its place. */
+/* The mark folds VetMock away, last letter first, as VCA slides over to take its place. Each
+   letter has folded up and gone just before VCA's leading edge reaches it, and that edge wipes
+   away whatever is left, so at no point does one letter sit on another. The rule between them
+   goes first. --fold is how far VCA travels (lib/liquid.js). */
 .lockup-name .ch { display: inline-block; }
-.is-liquid .lockup-name .ch { --t: clamp(0, var(--join, 0) * 2.1 - var(--k) * .17, 1); opacity: calc(1 - var(--t)); translate: 0 calc(var(--t) * -.36em); scale: calc(1 - var(--t) * .3); }
-.is-liquid .lockup-rule { scale: 1 calc(1 - var(--join, 0)); opacity: calc(1 - var(--join, 0) * 1.4); }
+.is-liquid .lockup-name {
+  /* Room above and below for letters folding upward, so the wipe covers them too. */
+  padding-block: .5em; margin-block: -.5em;
+  --edge: calc(var(--fold, 0px) * (1 - var(--join, 0)));
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(var(--edge) - 14px), transparent calc(var(--edge) - 3px));
+  mask-image: linear-gradient(90deg, #000 calc(var(--edge) - 14px), transparent calc(var(--edge) - 3px));
+}
+.is-liquid .lockup-name .ch { --t: clamp(0, var(--join, 0) * 5.5 - var(--k) * .63, 1); opacity: calc(1 - var(--t)); translate: 0 calc(var(--t) * -.36em); scale: calc(1 - var(--t) * .3); }
+.is-liquid .lockup-rule { scale: 1 clamp(0, 1 - var(--join, 0) * 12, 1); opacity: clamp(0, 1 - var(--join, 0) * 16, 1); }
 .is-liquid .lockup-sub { translate: calc(var(--join, 0) * var(--fold, 0px) * -1) 0; color: color-mix(in srgb, var(--ink) calc(var(--join, 0) * 100%), var(--ink-2)); }
 
 /* Narrower desks: the sections tighten, then the mark sets the name aside and keeps VCA, then
@@ -202,9 +212,10 @@
 
 /* ── Chips, segmented choices, badges, keys ──────────────────────────────────────────── */
 .chip {
-  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: var(--r-pill);
+  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 14px; border-radius: var(--r-pill);
   background: var(--glass); box-shadow: inset 0 0 0 1px var(--line-2); color: var(--ink); text-decoration: none;
-  font: 500 14.5px/1.2 var(--sans); cursor: pointer; transition: background-color var(--t) var(--ease), box-shadow var(--t) var(--ease), color var(--t) var(--ease);
+  /* A long name may take two lines on a phone: even ones, with room for Thai marks between them. */
+  font: 500 14.5px/1.35 var(--sans); text-wrap: balance; cursor: pointer; transition: background-color var(--t) var(--ease), box-shadow var(--t) var(--ease), color var(--t) var(--ease);
   border: 0;
 }
 .chip:hover { box-shadow: inset 0 0 0 1px var(--line-3); }
