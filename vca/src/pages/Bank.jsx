@@ -20,7 +20,7 @@ function BankItem({ q, query, showAnswers }) {
   const reveal = showAnswers || open;
   const card = CARD_BY_ID[q.domain];
   return (
-    <li className="bk">
+    <li className="bk" data-reveal>
       <div className="bk-top">
         <span className="q-plate"><span className="q-plate-no">{plateNo(card.plate)}</span>{card.th}</span>
         <KindBadge kind={q.kind} />

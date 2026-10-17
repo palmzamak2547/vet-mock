@@ -62,7 +62,7 @@ export default function Domain({ route }) {
       </nav>
 
       <header className="dhero glass">
-        <Plate card={card} caption={false} className="dhero-plate" eager />
+        <Plate card={card} caption={false} className="dhero-plate" eager style={{ viewTransitionName: `plate-${card.id}` }} />
         <div className="dhero-copy">
           <p className="kicker"><span className="kicker-no">{plateNo(card.plate)}</span>{card.en}</p>
           <h1 className="page-h dhero-h"><Words text={card.thw} /></h1>

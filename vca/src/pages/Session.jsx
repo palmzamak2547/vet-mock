@@ -9,6 +9,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Question } from '../components/Question.jsx';
 import { Icon } from '../components/Icon.jsx';
+import { haptic } from '../lib/motion.js';
 import { Kbd } from '../components/bits.jsx';
 import { Sheet } from '../components/Sheet.jsx';
 import { Link } from '../components/Link.jsx';
@@ -60,6 +61,13 @@ export default function Session() {
   const [sheet, setSheet] = useState(null); // 'map' | 'submit' | 'exit' | null
   const stemRef = useRef(null);
   const nextRef = useRef(null);
+  // Which way the student moved, fixed per question so an answer never replays the slide.
+  const lastCursor = useRef(session?.cursor ?? 0);
+  const swap = useRef({ key: null, dir: 'next' });
+  const here = session?.items[session.cursor]?.key ?? null;
+  if (here !== swap.current.key) swap.current = { key: here, dir: session && session.cursor < lastCursor.current ? 'prev' : 'next' };
+  const dir = swap.current.dir;
+  useEffect(() => { if (session) lastCursor.current = session.cursor; });
 
   const timed = session?.deadline != null;
 
@@ -113,6 +121,7 @@ export default function Session() {
     const next = choose(s, it.key, orig);
     if (next === s) return;
     sessionStore.set(next);
+    haptic(s.mode === 'practice' ? (orig === it.answer ? 10 : [8, 50, 8]) : 6);
     if (s.mode === 'practice') {
       progressStore.set((p) => recordAnswer(p, { key: it.key, domain: it.domain, correct: orig === it.answer }));
       // Continue sits where the thumb is; Enter follows it there.
@@ -196,7 +205,7 @@ export default function Session() {
       <header className="run-bar glass">
         <button type="button" className="icon-btn" onClick={() => setSheet('exit')} aria-label="พักหรือจบชุดนี้"><Icon name="x" /></button>
         <div className="run-progress">
-          <span className="run-count">ข้อ <b>{session.cursor + 1}</b><span> / {session.items.length}</span></span>
+          <span className="run-count">ข้อ <b key={session.cursor} className="tick">{session.cursor + 1}</b><span> / {session.items.length}</span></span>
           <span className="run-line" aria-hidden="true"><i style={{ width: `${(t.answered / t.total) * 100}%` }} /></span>
         </div>
         {timed && <RunTimer deadline={session.deadline} onExpire={complete} />}
@@ -216,7 +225,13 @@ export default function Session() {
           </div>
         ) : data.status !== 'ready' ? (
           <div className="run-card glass run-loading" role="status">
-            <span className="spinner" aria-hidden="true" />กำลังโหลดข้อสอบ {data.total > 1 ? `${data.done}/${data.total} หมวด` : ''}
+            <div className="skel-card" aria-hidden="true">
+              <span className="skel skel-line w40" />
+              <span className="skel skel-line w80" />
+              <span className="skel skel-line w60" />
+              {[0, 1, 2, 3, 4].map((i) => <span key={i} className="skel skel-opt" />)}
+            </div>
+            <span className="run-loading-t">กำลังโหลดข้อสอบ {data.total > 1 ? `${data.done}/${data.total} หมวด` : ''}</span>
           </div>
         ) : !q ? (
           <div className="run-card glass">
@@ -224,11 +239,13 @@ export default function Session() {
           </div>
         ) : (
           <div className="run-card glass">
-            <Question
-              q={q} order={item.order} choice={answer?.choice ?? null} revealed={revealed}
-              onChoose={revealed ? undefined : onChoose}
-              mode={session.mode}
-            />
+            <div key={item.key} className={`q-swap${dir === 'prev' ? ' from-prev' : ''}`}>
+              <Question
+                q={q} order={item.order} choice={answer?.choice ?? null} revealed={revealed}
+                onChoose={revealed ? undefined : onChoose}
+                mode={session.mode}
+              />
+            </div>
             {session.mode === 'mock' && flagged && <p className="run-flag"><Icon name="flag" size={16} />ปักธงไว้ ตรวจอีกครั้งก่อนส่ง</p>}
           </div>
         )}

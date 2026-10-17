@@ -100,7 +100,7 @@ export default function Library({ route }) {
               const whole = openShelves.has(shelf.id) || query.trim() || shelf.id === focusShelf || docs.length <= SHELF_SHOWN + 1;
               const shown = whole ? docs : docs.slice(0, SHELF_SHOWN);
               return (
-                <section key={shelf.id} id={`shelf-${shelf.id}`} className={`shelf${shelf.id === focusShelf ? ' is-focus' : ''}`} aria-labelledby={`sh-${shelf.id}`}>
+                <section key={shelf.id} id={`shelf-${shelf.id}`} className={`shelf${shelf.id === focusShelf ? ' is-focus' : ''}`} aria-labelledby={`sh-${shelf.id}`} data-reveal>
                   <div className="shelf-head">
                     <h2 id={`sh-${shelf.id}`} className="shelf-h">{shelf.th}<span className="shelf-en">{shelf.en}</span></h2>
                     <span className="shelf-n">{docs.length} ชุด</span>

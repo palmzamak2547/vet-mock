@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 import { Link } from '../components/Link.jsx';
 import { Icon } from '../components/Icon.jsx';
 import { Ring, Meter } from '../components/bits.jsx';
+import { CountUp } from '../components/CountUp.jsx';
 import { Question } from '../components/Question.jsx';
 import { CARD_BY_ID, questionByKey } from '../lib/bank.js';
 import { byDomain } from '../lib/session.js';
@@ -116,7 +117,7 @@ export default function Result({ route }) {
     <div className="wrap result">
       <header className="result-hero glass">
         <Ring value={score} size={196} stroke={7}>
-          <span className="ring-n">{Math.round(score * 100)}<small>%</small></span>
+          <span className="ring-n"><CountUp value={Math.round(score * 100)} duration={1100} /><small>%</small></span>
           <span className="ring-t">ถูก {num(result.correct)} จาก {num(result.total)}</span>
         </Ring>
         <div className="result-copy">
@@ -168,10 +169,10 @@ export default function Result({ route }) {
       <section className="result-domains glass" aria-labelledby="by-domain">
         <h2 id="by-domain" className="block-h">รายหมวด</h2>
         <ul className="drows">
-          {rows.map((r) => {
+          {rows.map((r, i) => {
             const card = CARD_BY_ID[r.domain];
             return (
-              <li key={r.domain} className="drow">
+              <li key={r.domain} className="drow" style={{ '--i': Math.min(i, 12) }}>
                 <Link to={`/d/${r.domain}`} className="drow-name"><span className="drow-pl">{card ? plateNo(card.plate) : ''}</span>{card?.th || r.domain}</Link>
                 <Meter value={r.correct / r.total} label={`ถูก ${r.correct} จาก ${r.total}`} tone={r.correct / r.total >= 0.6 ? 'verd' : r.correct / r.total >= 0.4 ? 'brass' : 'cinn'} />
                 <span className="drow-n">{r.correct}/{r.total}</span>

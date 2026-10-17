@@ -291,8 +291,12 @@
 .run-timer.urgent { background: var(--cinn-soft); color: var(--cinn); animation: pulse 1s var(--ease) infinite alternate; }
 @keyframes pulse { to { box-shadow: 0 0 0 4px var(--cinn-soft); } }
 .run-body { flex: 1; width: min(860px, calc(100% - 24px)); margin: 18px auto 0; padding-bottom: 120px; }
+/* The question slides in inside its card, never past the edge of a phone. */
+.run-card { overflow-x: clip; overflow-clip-margin: 6px; }
 .run-card { padding: 28px 30px 26px; border-radius: var(--r-xl); background: var(--glass-2); }
-.run-loading { display: flex; align-items: center; gap: 12px; color: var(--ink-2); min-height: 200px; justify-content: center; }
+.run-loading { display: grid; gap: 14px; color: var(--ink-3); }
+.run-loading .skel-card { padding: 0; background: none; box-shadow: none; }
+.run-loading-t { font-size: 13.5px; text-align: center; }
 .run-flag { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 14px; color: var(--brass); }
 .run-actions { position: fixed; z-index: 30; left: 50%; bottom: max(12px, env(safe-area-inset-bottom)); transform: translateX(-50%); display: flex; align-items: center; gap: 10px; width: min(860px, calc(100% - 24px)); min-height: 72px; padding: 10px 10px 10px 22px; border-radius: 24px; }
 .run-hint { flex: 1; font-size: 14.5px; color: var(--ink-3); }

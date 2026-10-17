@@ -134,7 +134,7 @@ export default function Progress() {
               {DOMAIN_CARDS.filter((d) => d.family === f.id).map((d) => {
                 const s = statsFor(progress, d.id);
                 return (
-                  <li key={d.id} className="mrow">
+                  <li key={d.id} className="mrow" data-reveal>
                     <Link to={`/d/${d.id}`} className="mrow-name"><span className="drow-pl">{plateNo(d.plate)}</span>{d.th}</Link>
                     <Meter value={s.seen / d.count} label={`ทำแล้ว ${s.seen} จาก ${d.count} ข้อ`} />
                     <span className="mrow-n">{num(s.seen)}/{num(d.count)}</span>

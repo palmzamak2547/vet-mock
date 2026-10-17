@@ -175,6 +175,7 @@ html[data-vt="theme"] .topbar-in, html[data-vt="theme"] .tabbar { view-transitio
 /* Moving between questions: the next one slides in from the side it comes from. */
 .q-swap { animation: swap-next 520ms var(--ease-out) both; }
 .q-swap.from-prev { animation-name: swap-prev; }
+@media (prefers-reduced-motion: reduce) { .q-swap { animation: none; } }
 .tick { display: inline-block; animation: tick 360ms var(--ease-out) both; }
 .run-line i { transition: width 700ms var(--ease-out); }
 
