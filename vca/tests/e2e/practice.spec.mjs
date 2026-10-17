@@ -37,6 +37,12 @@ test('a ten-question swine set runs to its result', async ({ page, isMobile }) =
   const seen = await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem('vca:progress:v1')).q).length);
   expect(seen).toBe(10);
   expect(await overflow(page)).toBe(0);
+  // The way out to the revision apps: each option shows its app's own mark.
+  await page.getByRole('button', { name: /ส่งออกไป Anki/ }).click();
+  const sheet = page.getByRole('dialog', { name: 'ส่งออก' }).or(page.locator('.export-list'));
+  await expect(page.locator('.export-list .brand-tile')).toHaveCount(4);
+  await page.screenshot({ path: test.info().outputPath('export.png') });
+  await expect(sheet.first()).toBeVisible();
 });
 
 test('the builder keeps its choices in the address', async ({ page }) => {

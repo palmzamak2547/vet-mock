@@ -610,3 +610,7 @@
 .hand-note { display: inline-flex; align-items: flex-end; gap: 6px; font: 600 17px/1.2 var(--hand); color: var(--brass); rotate: -2.5deg; transform-origin: left bottom; }
 .hand-note svg { width: 34px; height: 24px; overflow: visible; }
 .hand-note path { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 80; stroke-dashoffset: 80; animation: draw 900ms 1500ms var(--ease-out) forwards; }
+
+/* A page that could not load (App.jsx PageBoundary). */
+.page-error { padding-block: 64px; }
+.page-error .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }

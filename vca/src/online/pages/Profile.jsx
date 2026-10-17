@@ -61,10 +61,10 @@ export default function Profile({ route }) {
     setPosts(null);
     (async () => {
       const b = await getBackend();
-      const p = await b.profiles.byHandle(handle).catch(() => null);
+      const p = await b.profiles.byHandle(handle).catch(() => 'error');
       if (!live) return;
       setFound(p);
-      if (!p) return;
+      if (!p || p === 'error') return;
       const r = await b.board.list({ authorId: p.id, limit: 30 }).catch(() => ({ posts: [] }));
       if (live) setPosts(r.posts);
     })();
@@ -88,6 +88,13 @@ export default function Profile({ route }) {
       </div>
     );
   }
+  if (found === 'error' && !mine) return (
+      <div className="wrap prof empty" role="alert">
+        <p className="empty-h">โหลดไม่สำเร็จ</p>
+        <p className="hint">ตรวจการเชื่อมต่อแล้วลองอีกครั้ง</p>
+        <button type="button" className="btn btn-ink" onClick={() => window.location.reload()}>ลองอีกครั้ง</button>
+      </div>
+    );
   if (found === null && !mine) return <NotFound />;
   if (!profile) {
     return <div className="wrap prof"><div className="prof-hero"><span className="skel prof-skel-av" /><div className="skel-card"><span className="skel skel-line w60" /><span className="skel skel-line w40" /></div></div></div>;

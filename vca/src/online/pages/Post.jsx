@@ -74,11 +74,14 @@ export default function Post({ route }) {
     let stop = () => {};
     (async () => {
       const b = await getBackend();
-      const p = await b.board.get(id).catch(() => null);
+      // A failed request is not a missing post: say which it was.
+      const p = await b.board.get(id).catch(() => 'error');
       if (!live) return;
       setPost(p);
-      if (!p) return;
+      if (!p || p === 'error') return;
       const list = await loadComments();
+      // Left (or the account changed) while comments loaded: the cleanup already ran.
+      if (!live) return;
       stop = b.board.watchComments(id, () => { loadComments(); });
       if (account.status === 'in') setLiked(await b.board.myLikes({ posts: [id], comments: list.map((c) => c.id) }));
     })();
@@ -87,6 +90,13 @@ export default function Post({ route }) {
 
   if (MODE === 'off') return <Soon />;
   if (post === undefined) return <div className="wrap thread"><div className="skel-card"><span className="skel skel-line w60" /><span className="skel skel-line w80" /></div></div>;
+  if (post === 'error') return (
+      <div className="wrap thread empty" role="alert">
+        <p className="empty-h">โหลดไม่สำเร็จ</p>
+        <p className="hint">ตรวจการเชื่อมต่อแล้วลองอีกครั้ง</p>
+        <button type="button" className="btn btn-ink" onClick={() => window.location.reload()}>ลองอีกครั้ง</button>
+      </div>
+    );
   if (post === null) {
     return (
       <div className="wrap thread empty">

@@ -173,3 +173,38 @@ test('the store writes through and resets', () => {
   off();
   assert.equal(calls, 3);
 });
+
+// Stored sets are read before any page: a malformed one is dropped, never thrown (a null item
+// once stopped the app from opening at all).
+test('malformed stored sets and results are dropped instead of throwing', async () => {
+  const { normalizeSession, normalizeResults } = await import('../../src/lib/session.js');
+  assert.equal(normalizeSession({ v: 1, status: 'active', items: [null] }), null);
+  assert.equal(normalizeSession('garbage'), null);
+  const ok = normalizeSession({ v: 1, status: 'active', items: [{ key: 'a:1', order: [0, 1], answer: 1 }], answers: [], flags: [1, 'a:1'] });
+  assert.deepEqual(ok.answers, {});
+  assert.deepEqual(ok.flags, ['a:1']);
+  const r = normalizeResults([{ v: 1, id: 'x', items: [null, { key: 'a:1', order: [0], answer: 0 }] }, null, 5]);
+  assert.equal(r.length, 1);
+  assert.equal(r[0].items.length, 1);
+});
+
+test('a question held back after the set was made, and left unanswered, is not scored', async () => {
+  const { createSession, choose, finish } = await import('../../src/lib/session.js');
+  let s = createSession({ mode: 'practice', items: [{ key: 'a:1', domain: 'a', order: [0, 1], answer: 0 }, { key: 'a:2', domain: 'a', order: [0, 1], answer: 1 }], now: 0 });
+  s = choose(s, 'a:1', 0, 1);
+  const r = finish(s, 2, { paused: (k) => k === 'a:2' });
+  assert.equal(r.total, 1);
+  assert.equal(r.correct, 1);
+});
+
+test('a set made before a corrected key is graded against the key as it is now', async () => {
+  const { createSession, refreshItems } = await import('../../src/lib/session.js');
+  const s = createSession({ mode: 'practice', items: [{ key: 'a:1', domain: 'a', order: [1, 0], answer: 0 }, { key: 'a:2', domain: 'a', order: [0, 1], answer: 1 }], now: 0 });
+  const bank = { 'a:1': { answer: 1, options: ['x', 'y'] }, 'a:2': { answer: 1, options: ['x', 'y', 'z'] } };
+  const next = refreshItems({ ...s, answers: { 'a:2': { choice: 1, at: 1 } } }, (k) => bank[k]);
+  assert.equal(next.items[0].answer, 1);
+  assert.deepEqual(next.items[0].order, [1, 0]);
+  assert.deepEqual(next.items[1].order, [0, 1, 2]);
+  assert.equal(next.answers['a:2'], undefined);
+  assert.equal(refreshItems(s, () => null), s);
+});

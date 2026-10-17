@@ -14,9 +14,10 @@ export function getBackend() {
 
 /**
  * @typedef {{ status: 'off'|'idle'|'loading'|'anon'|'in', user: null|{ id: string, email: string, name: string },
- *   profile: null|ReturnType<typeof import('./shapes.js').toProfile>, moderator: boolean, setup: boolean }} Account
+ *   profile: null|ReturnType<typeof import('./shapes.js').toProfile>, moderator: boolean, setup: boolean,
+ *   profileFailed: boolean }} Account
  */
-let state = /** @type {Account} */ ({ status: MODE === 'off' ? 'off' : 'idle', user: null, profile: null, moderator: false, setup: false });
+let state = /** @type {Account} */ ({ status: MODE === 'off' ? 'off' : 'idle', user: null, profile: null, moderator: false, setup: false, profileFailed: false });
 const listeners = new Set();
 const set = (patch) => { state = { ...state, ...patch }; for (const l of listeners) l(); };
 
@@ -41,17 +42,42 @@ async function listen() {
   return b;
 }
 
+// The profile sheet opens by itself once per signed-in person: closed with "later", it stays closed.
+let setupOffered = null;
+
 async function follow(session) {
-  if (!session) { set({ status: 'anon', user: null, profile: null, moderator: false, setup: false }); return; }
-  set({ status: 'loading', user: session.user });
+  if (!session) { setupOffered = null; set({ status: 'anon', user: null, profile: null, moderator: false, setup: false, profileFailed: false }); return; }
   const b = await getBackend();
+  // The same person again (the tab came back, the hourly token refresh): refresh quietly. Going
+  // through 'loading' unmounted the chat room and the open sheets, and lost what was being typed.
+  if (state.status === 'in' && state.user?.id === session.user.id) {
+    try {
+      const [profile, moderator] = await Promise.all([b.profiles.mine(), b.profiles.isModerator().catch(() => state.moderator)]);
+      set({ user: session.user, profile, moderator, profileFailed: false });
+    } catch { /* keep what is on screen; the next event tries again */ }
+    return;
+  }
+  set({ status: 'loading', user: session.user });
   try {
     const [profile, moderator] = await Promise.all([b.profiles.mine(), b.profiles.isModerator().catch(() => false)]);
-    // A first sign-in has no profile yet: the profile sheet opens by itself.
-    set({ status: 'in', profile, moderator, setup: !profile });
+    // A first sign-in has no profile yet: the profile sheet opens by itself, once.
+    const offer = !profile && setupOffered !== session.user.id;
+    if (offer) setupOffered = session.user.id;
+    set({ status: 'in', profile, moderator, setup: offer, profileFailed: false });
   } catch {
-    set({ status: 'in', profile: null, moderator: false, setup: true });
+    // Not knowing is not having none: no setup sheet (saving would try to create a second
+    // profile and read as "username taken"); the pages offer a retry instead.
+    set({ status: 'in', profile: null, moderator: false, setup: false, profileFailed: true });
   }
+}
+
+/** Try loading the signed-in student's profile again, after a failure. */
+export async function retryProfile() {
+  const b = await getBackend();
+  const session = await b.auth.session();
+  if (!session) return follow(null);
+  set({ status: 'idle', user: null });
+  return follow(session);
 }
 
 /** Called once at start-up: signs a returning student back in, or settles as signed out. */
@@ -99,7 +125,9 @@ export async function signOut() {
 
 export async function saveProfile(profile) {
   const b = await getBackend();
-  const saved = await b.profiles.save(profile, { create: !state.profile });
+  // After a failed load the profile may exist: ask again rather than create a second one.
+  const existing = state.profile || (state.profileFailed ? await b.profiles.mine() : null);
+  const saved = await b.profiles.save(profile, { create: !existing });
   set({ profile: saved, setup: false });
   return saved;
 }

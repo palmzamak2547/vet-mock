@@ -83,7 +83,9 @@ export const auth = {
   },
   async signOut() {
     const sb = await getClient();
-    await sb.auth.signOut();
+    // This device only: the account is shared with vetmock.com, and the default (global) revokes
+    // every refresh token, which signed the student out of VetMock on all their devices.
+    await sb.auth.signOut({ scope: 'local' });
   },
 };
 

@@ -3,13 +3,15 @@
 // under their names, so they come from the cache first and a set opened once can be practised
 // again on a train. Fonts, art and icons keep their names when they change: they come from the
 // cache too, and are refreshed behind it for the next visit.
-const CACHE = 'vca-v1';
-const SHELL = '/index.html';
+const CACHE = 'vca-v2';
+// The app shell as the host serves it: /index.html answers 308 to / (cleanUrls), and a redirected
+// response stored and served to a navigation is refused by the browser, so offline never opened.
+const SHELL = '/';
 const IMMUTABLE = /^\/(assets|bank|q)\//;
 const NAMED = /^\/(fonts|art|icons)\//;
 
 const keep = (request, res) => {
-  if (res.ok) {
+  if (res.ok && !res.redirected) {
     const copy = res.clone();
     caches.open(CACHE).then((cache) => cache.put(request, copy));
   }
@@ -38,7 +40,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(request)
         .then((res) => {
-          if (res.ok) caches.open(CACHE).then((cache) => cache.put(SHELL, res.clone()));
+          if (res.ok && !res.redirected) caches.open(CACHE).then((cache) => cache.put(SHELL, res.clone()));
           return res;
         })
         .catch(() => caches.match(SHELL)),

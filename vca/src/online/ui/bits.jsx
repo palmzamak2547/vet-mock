@@ -8,7 +8,7 @@ import { Seg } from '../../components/bits.jsx';
 import { CARD_BY_ID } from '../../lib/bank.js';
 import { plateNo } from '../../lib/format.js';
 import { KIND_LABEL, REPORT_REASONS } from '../shapes.js';
-import { getBackend, useAccount } from '../account.js';
+import { getBackend, retryProfile, useAccount } from '../account.js';
 import { askJoin } from './AccountButton.jsx';
 import '../community.css';
 
@@ -66,6 +66,15 @@ export function JoinPrompt({ what = 'ร่วมพูดคุย' }) {
   // Still finding out who this is: say nothing rather than ask a signed-in student to sign in.
   if (account.status === 'idle' || account.status === 'loading') return null;
   if (account.status === 'in' && account.profile) return null;
+  if (account.status === 'in' && account.profileFailed) {
+    return (
+      <div className="join" role="status">
+        <Icon name="info" size={20} />
+        <p>โหลดโปรไฟล์ของคุณไม่สำเร็จ ตรวจการเชื่อมต่อแล้วลองอีกครั้ง</p>
+        <button type="button" className="btn btn-ink btn-sm" onClick={() => { retryProfile(); }}>ลองอีกครั้ง</button>
+      </div>
+    );
+  }
   const needsProfile = account.status === 'in' && !account.profile;
   return (
     <div className="join">

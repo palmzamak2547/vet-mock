@@ -13,8 +13,8 @@ import { haptic } from '../lib/motion.js';
 import { Kbd } from '../components/bits.jsx';
 import { Sheet } from '../components/Sheet.jsx';
 import { Link } from '../components/Link.jsx';
-import { loadDomains, questionByKey } from '../lib/bank.js';
-import { choose, finish, go, isExpired, keepResult, resultsStore, sessionStore, tally, toggleFlag } from '../lib/session.js';
+import { isLoaded, loadDomains, questionByKey } from '../lib/bank.js';
+import { choose, finish, go, isExpired, keepResult, refreshItems, resultsStore, sessionStore, tally, toggleFlag } from '../lib/session.js';
 import { progressStore, recordAnswer, recordAnswers } from '../lib/progress.js';
 import { useActiveSession, useNow, useTitle } from '../lib/hooks.js';
 import { navigate } from '../router.js';
@@ -75,7 +75,8 @@ export default function Session() {
     const s = sessionStore.get();
     if (!s || done.current) return;
     done.current = true;
-    let result = finish(s, Date.now());
+    // A question held back since the set was made (its domain loaded, the question gone) does not count.
+    let result = finish(s, Date.now(), { paused: (key) => { const it = s.items.find((x) => x.key === key); return !!it && isLoaded(it.domain) && !questionByKey(key); } });
     if (s.mode === 'practice' && early) {
       const answered = result.items.filter((it) => it.choice !== null);
       if (!answered.length) { sessionStore.set(null); navigate('/practice', { replace: true }); return; }
@@ -96,6 +97,16 @@ export default function Session() {
     const s = sessionStore.get();
     if (s && s.deadline != null && isExpired(s, Date.now())) complete();
   }, [complete]);
+
+  // Once the questions are loaded, grade the set against them as they are now (a key corrected
+  // since the set was made would otherwise be marked one way on screen and another in the score).
+  useEffect(() => {
+    if (data.status !== 'ready') return;
+    const s = sessionStore.get();
+    if (!s) return;
+    const next = refreshItems(s, questionByKey);
+    if (next !== s) sessionStore.set(next);
+  }, [data.status, session?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const item = session?.items[session.cursor];
   const q = item ? questionByKey(item.key) : null;

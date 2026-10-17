@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { Icon } from './Icon.jsx';
 import { Sheet } from './Sheet.jsx';
+import { BrandTile } from './Brands.jsx';
 import { canShareNatively, copyText, shareNatively, shareTargets, siteUrl } from '../lib/connect.js';
 
 export function ShareButton({ path, title, text, label = 'แชร์', className = 'btn btn-ghost', iconSize = 18 }) {
@@ -23,7 +24,7 @@ export function ShareButton({ path, title, text, label = 'แชร์', classNa
         <div className="share-apps">
           {shareTargets({ url, text }).map((t) => (
             <a key={t.id} className={`share-app share-${t.id}`} href={t.href} target="_blank" rel="noopener noreferrer">
-              <span className="share-mark" aria-hidden="true">{t.label.slice(0, 1)}</span>{t.label}
+              <BrandTile name={t.id} />{t.label}
             </a>
           ))}
         </div>

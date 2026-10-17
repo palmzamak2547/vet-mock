@@ -84,11 +84,16 @@ export function tally(s) {
   return { total: s.items.length, answered, unanswered: s.items.length - answered, flagged: s.flags.length };
 }
 
-/** The finished set: what was asked, what was chosen, and the score. */
-export function finish(s, now = Date.now()) {
+/**
+ * The finished set: what was asked, what was chosen, and the score. A question held back from
+ * learners after the set was made (paused(key)) and left unanswered is not counted: the page
+ * says so on that question.
+ * @param {{ paused?: (key: string) => boolean }} [opts]
+ */
+export function finish(s, now = Date.now(), { paused = () => false } = {}) {
   const expired = isExpired(s, now);
   const end = s.deadline != null ? Math.min(now, s.deadline) : now;
-  const items = s.items.map((it) => {
+  const items = s.items.filter((it) => !(paused(it.key) && !s.answers[it.key])).map((it) => {
     const choice = s.answers[it.key]?.choice ?? null;
     return { key: it.key, domain: it.domain, order: it.order, answer: it.answer, choice, correct: choice === it.answer };
   });
@@ -99,6 +104,30 @@ export function finish(s, now = Date.now()) {
     answered: items.filter((x) => x.choice !== null).length,
     flags: s.flags.slice(), items, meta: s.meta,
   };
+}
+
+/**
+ * Bring a set made before a bank update in line with the questions as they are now: a corrected
+ * key is graded against the new answer (the page already shows it), and a question whose options
+ * changed in number gets a fresh order and loses a choice that no longer points anywhere.
+ * Returns the same object when nothing changed.
+ * @param {(key: string) => null | { answer: number, options: unknown[] }} lookup
+ */
+export function refreshItems(s, lookup) {
+  let changed = false;
+  const answers = { ...s.answers };
+  const items = s.items.map((it) => {
+    const q = lookup(it.key);
+    if (!q || !Array.isArray(q.options) || !Number.isInteger(q.answer)) return it;
+    if (q.options.length !== it.order.length) {
+      changed = true;
+      delete answers[it.key];
+      return { ...it, answer: q.answer, order: q.options.map((_, i) => i) };
+    }
+    if (q.answer !== it.answer) { changed = true; return { ...it, answer: q.answer }; }
+    return it;
+  });
+  return changed ? { ...s, items, answers } : s;
 }
 
 /** Score per domain, in the order the domains first appear in the set. */
@@ -113,15 +142,28 @@ export function byDomain(result) {
   return [...map.values()];
 }
 
-function normalizeSession(raw) {
-  if (!raw || raw.v !== 1 || raw.status !== 'active' || !Array.isArray(raw.items) || !raw.items.length) return null;
-  if (!raw.items.every((it) => typeof it.key === 'string' && Array.isArray(it.order) && Number.isInteger(it.answer))) return null;
-  return { ...raw, answers: raw.answers || {}, flags: Array.isArray(raw.flags) ? raw.flags : [], cursor: Math.min(Math.max(0, raw.cursor | 0), raw.items.length - 1) };
+// Stored data is read at start-up, before any page: anything malformed is dropped here rather
+// than throwing, which would stop the app from opening at all.
+const goodItem = (it) => !!it && typeof it === 'object' && typeof it.key === 'string' && Array.isArray(it.order) && Number.isInteger(it.answer);
+const isObject = (o) => !!o && typeof o === 'object' && !Array.isArray(o);
+
+export function normalizeSession(raw) {
+  if (!isObject(raw) || raw.v !== 1 || raw.status !== 'active' || !Array.isArray(raw.items) || !raw.items.length) return null;
+  if (!raw.items.every(goodItem)) return null;
+  return {
+    ...raw,
+    answers: isObject(raw.answers) ? raw.answers : {},
+    flags: Array.isArray(raw.flags) ? raw.flags.filter((k) => typeof k === 'string') : [],
+    cursor: Math.min(Math.max(0, raw.cursor | 0), raw.items.length - 1),
+  };
 }
 
-function normalizeResults(raw) {
+export function normalizeResults(raw) {
   if (!Array.isArray(raw)) return [];
-  return raw.filter((r) => r && r.v === 1 && typeof r.id === 'string' && Array.isArray(r.items)).slice(0, RESULTS_KEPT);
+  return raw
+    .filter((r) => isObject(r) && r.v === 1 && typeof r.id === 'string' && Array.isArray(r.items))
+    .map((r) => (r.items.every(goodItem) ? r : { ...r, items: r.items.filter(goodItem) }))
+    .slice(0, RESULTS_KEPT);
 }
 
 export const sessionStore = createStore(SESSION_KEY, null, normalizeSession);

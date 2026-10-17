@@ -14,7 +14,9 @@ export function Countdown({ className = '' }) {
   const round = upcomingRound(today);
   const own = progress.examDate && progress.examDate >= today ? progress.examDate : null;
   const roundDay = round?.parts[0].date;
-  const day = own || (roundDay && roundDay >= today ? roundDay : null);
+  // Under way (the second day of the round): count to its last day, as the exam page does.
+  const lastDay = round?.parts[round.parts.length - 1].date;
+  const day = own || (roundDay && roundDay >= today ? roundDay : lastDay && lastDay >= today ? lastDay : null);
   const days = day ? daysBetween(today, day) : null;
   const label = own && own !== roundDay ? 'วันสอบของคุณ' : round ? `สอบรอบ ${round.id}` : 'รอบสอบถัดไป';
   return (

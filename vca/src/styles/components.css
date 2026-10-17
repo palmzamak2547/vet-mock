@@ -372,10 +372,10 @@
 .share-apps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
 .share-app { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 8px; border-radius: var(--r-md); box-shadow: inset 0 0 0 1px var(--line-2); color: var(--ink); text-decoration: none; font: 600 14px/1.2 var(--sans); transition: background-color var(--t) var(--ease), transform var(--t) var(--ease); }
 .share-app:hover { background: var(--line); transform: translateY(-1px); }
-.share-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; font: 700 18px/1 var(--sans); color: #fff; }
-.share-line .share-mark { background: #06c755; }
-.share-facebook .share-mark { background: #1877f2; }
-.share-x .share-mark { background: #0f1419; }
+/* An app's own mark on its brand colour (components/Brands.jsx). */
+.brand-tile { display: inline-grid; place-items: center; flex: none; border-radius: 11px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
+.brand-pair { display: inline-flex; flex: none; gap: 2px; align-self: center; }
+.brand-pair .brand-tile { border-radius: 7px; }
 .share-link { display: flex; align-items: center; gap: 10px; margin-top: 14px; padding: 6px 6px 6px 14px; border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--line-2); }
 .share-url { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 500 13.5px/1 var(--mono); color: var(--ink-2); }
 .export-list { display: grid; gap: 8px; margin-top: 16px; }
@@ -386,10 +386,11 @@
 .export-opt .ic, .cal-opt .ic { grid-column: 2; grid-row: 1 / span 2; color: var(--ink-2); }
 .cal-list { display: grid; gap: 8px; margin-top: 16px; }
 /* An option that names an app carries the app's own icon in front. */
-.cal-opt.has-logo { grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 14px; }
-.cal-opt.has-logo .cal-app, .cal-opt.has-logo .cal-how { grid-column: 2; }
-.cal-opt.has-logo .ic { grid-column: 3; }
-.cal-logo { grid-column: 1; grid-row: 1 / span 2; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; background: #fff; box-shadow: inset 0 0 0 1px var(--line); }
+.cal-opt.has-logo, .export-opt.has-logo { grid-template-columns: 44px minmax(0, 1fr) auto; column-gap: 14px; }
+.cal-opt.has-logo .cal-app, .cal-opt.has-logo .cal-how, .export-opt.has-logo .export-app, .export-opt.has-logo .export-how { grid-column: 2; }
+.cal-opt.has-logo .ic, .export-opt.has-logo .ic { grid-column: 3; }
+.export-logo { grid-column: 1; grid-row: 1 / span 2; justify-self: start; }
+.cal-logo { grid-column: 1; grid-row: 1 / span 2; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 11px; background: #fff; box-shadow: inset 0 0 0 1px var(--line); }
 .cal-logo-apple { color: #000; }
 
 .install-steps { display: grid; gap: 12px; margin-top: 18px; counter-reset: none; }

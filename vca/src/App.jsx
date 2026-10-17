@@ -3,7 +3,7 @@
 // paints without a second request. A running set (/session) takes the whole screen. The
 // community's pages (online/) load only when visited: practice never pays for them.
 
-import { Suspense, lazy, useEffect, useLayoutEffect, useRef } from 'react';
+import { Component, Suspense, lazy, useEffect, useLayoutEffect, useRef } from 'react';
 import { useRoute } from './router.js';
 import { TopBar, TabBar, Footer } from './components/Shell.jsx';
 import { Home } from './pages/Home.jsx';
@@ -36,9 +36,50 @@ function Loading() {
   return <div className="page-loading" role="status"><span className="spinner" aria-hidden="true" />กำลังเปิด…</div>;
 }
 
+const RELOADED = 'vca:chunk-reload';
+
+/**
+ * A page that cannot load or throws while drawing. A tab left open across a deploy asks for the
+ * old build's chunks, which no longer exist: one reload fetches the new build (once per session,
+ * so a real outage cannot loop). Anything else shows a card with a way out, instead of a blank
+ * screen with the whole app unmounted.
+ */
+class PageBoundary extends Component {
+  constructor(props) { super(props); this.state = { failed: false }; }
+  static getDerivedStateFromError() { return { failed: true }; }
+  componentDidCatch(error) {
+    const stale = /dynamically imported module|Importing a module script failed|Failed to fetch|error loading dynamically/i.test(String(error?.message || error));
+    let tried = false;
+    try { tried = sessionStorage.getItem(RELOADED) === '1'; } catch { /* storage off: no reload */ tried = true; }
+    if (stale && !tried && navigator.onLine !== false) {
+      try { sessionStorage.setItem(RELOADED, '1'); } catch { /* ignore */ }
+      window.location.reload();
+    }
+  }
+  componentDidUpdate(prev) { if (prev.resetKey !== this.props.resetKey && this.state.failed) this.setState({ failed: false }); }
+  render() {
+    if (!this.state.failed) return this.props.children;
+    return (
+      <div className="wrap page-error" role="alert">
+        <h1 className="page-h">เปิดหน้านี้ไม่สำเร็จ</h1>
+        <p className="page-p">{navigator.onLine === false ? 'ตอนนี้ออฟไลน์อยู่ หน้านี้ยังไม่เคยเปิดในเครื่องนี้ ต่อเน็ตแล้วลองอีกครั้ง' : 'อาจมีเวอร์ชันใหม่เพิ่งขึ้น โหลดหน้าใหม่แล้วจะใช้ได้ตามปกติ'}</p>
+        <div className="ctas">
+          <button type="button" className="btn btn-ink" onClick={() => window.location.reload()}>โหลดหน้าใหม่</button>
+          <a className="btn btn-ghost" href="/">กลับหน้าแรก</a>
+        </div>
+      </div>
+    );
+  }
+}
+
 /** Tells a waiting view transition that the new page is on screen. */
 function Mounted({ path, children }) {
-  useLayoutEffect(() => { pageReady(); }, [path]);
+  useLayoutEffect(() => {
+    pageReady();
+    // A page drew: a later stale chunk may reload once again (cleared only after a success, so a
+    // chunk that is broken in the new build too cannot reload forever).
+    try { sessionStorage.removeItem(RELOADED); } catch { /* ignore */ }
+  }, [path]);
   return children;
 }
 
@@ -78,11 +119,13 @@ export function App() {
       <div className="atmos" aria-hidden="true"><span className="atmos-a" /><span className="atmos-b" /></div>
       {!focus && <TopBar route={route} />}
       <main id="main" className="main">
-        <Suspense fallback={<Loading />}>
-          <Mounted path={path}>
-            <div className="page" key={path}><Page route={route} /></div>
-          </Mounted>
-        </Suspense>
+        <PageBoundary resetKey={path}>
+          <Suspense fallback={<Loading />}>
+            <Mounted path={path}>
+              <div className="page" key={path}><Page route={route} /></div>
+            </Mounted>
+          </Suspense>
+        </PageBoundary>
       </main>
       {!focus && <Footer />}
       {!focus && <TabBar route={route} />}
