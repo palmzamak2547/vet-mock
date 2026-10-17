@@ -201,20 +201,20 @@ jobs:
         timeout-minutes: 6
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-          PLAYWRIGHT_BASE_URL: http://127.0.0.1:41732
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:24732
           PLAYWRIGHT_JSON_OUTPUT_NAME: connected-e2e.json
           PLAYWRIGHT_HTML_OPEN: never
           PLAYWRIGHT_HTML_REPORT: playwright-report/connected
         run: |
           set -eu
-          ./node_modules/.bin/vite preview --outDir dist-connected --host 127.0.0.1 --port 41732 --strictPort &
+          ./node_modules/.bin/vite preview --outDir dist-connected --host 127.0.0.1 --port 24732 --strictPort &
           server=$!
           trap 'kill "$server" 2>/dev/null || true' EXIT
           for _ in $(seq 1 30); do
-            curl -sf http://127.0.0.1:41732/ >/dev/null && break
+            curl -sf http://127.0.0.1:24732/ >/dev/null && break
             sleep 1
           done
-          curl -sf http://127.0.0.1:41732/ >/dev/null
+          curl -sf http://127.0.0.1:24732/ >/dev/null
           xvfb-run --auto-servernum npx playwright test \
             --project=chromium-desktop --project=chromium-mobile \
             --reporter=github,json,html \

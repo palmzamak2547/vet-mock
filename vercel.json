@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "ignoreCommand": "[ \"$VERCEL_ENV\" = production ] || exit 0; git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- . ':!docs' ':!.github' ':!.claude' ':!research' ':!vca' ':(exclude,glob)*.md' || exit 1",
+  "ignoreCommand": "[ \"$VERCEL_ENV\" = production ] || exit 0; git diff --quiet ${VERCEL_GIT_PREVIOUS_SHA:-HEAD^} HEAD -- . ':!docs' ':!.github' ':!.claude' ':!research' ':!vca' ':!tests' ':!playwright.config.js' ':(exclude,glob)*.md' || exit 1",
   "headers": [
     {
       "source": "/(.*)",

@@ -5,7 +5,9 @@ import os from 'node:os';
 import path from 'node:path';
 import { defineConfig } from '@playwright/test';
 
-const PORT = 43125;
+// Below every ephemeral range (Linux 32768-60999), so no outgoing connection can be holding it
+// when the suite starts its server (see the root playwright.config.js).
+const PORT = 24125;
 const chromium = process.env.PLAYWRIGHT_CHROMIUM || (fs.existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined);
 
 export default defineConfig({

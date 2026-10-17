@@ -17,7 +17,7 @@ Run from `vca/`.
 | `npm run build` | Builds the bank, `vite build`, then `scripts/prerender.mjs` writes one HTML head per route and `sitemap.xml` |
 | `npm test` | Unit tests (Bangkok time); `npm run test:utc` runs them in UTC |
 | `npm run test:db` | The community schema in a throwaway in-memory Postgres (PGlite) |
-| `npm run e2e` | Playwright, desktop and phone, against a dev server on port 43125 |
+| `npm run e2e` | Playwright, desktop and phone, against a dev server on port 24125 |
 | `npm run og` | Redraws the link-preview covers in `public/og/` |
 | `npm run icons` | Redraws the app icons in `public/icons/` |
 

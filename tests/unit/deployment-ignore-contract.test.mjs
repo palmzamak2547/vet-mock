@@ -13,6 +13,10 @@ test('Vercel builds production only, and a production push still skips documenta
   assert.doesNotMatch(ignore, /VERCEL_GIT_COMMIT_REF/, 'no branch-prefix list: the environment decides');
   assert.match(ignore, /:!docs/);
   assert.match(ignore, /:!\.github/);
+  // Tests and the Playwright config never reach the site: a commit touching only them (the e2e
+  // port move of 18 Oct) is not a production build.
+  assert.match(ignore, /:!tests'/);
+  assert.match(ignore, /:!playwright\.config\.js/);
   assert.match(ignore, /VERCEL_GIT_PREVIOUS_SHA/);
   assert.doesNotMatch(ignore, /exclude[^']*(wiki|scripts|src|api)/);
 });
