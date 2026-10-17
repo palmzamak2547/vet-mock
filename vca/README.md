@@ -4,6 +4,9 @@ The exam hub at **vca.vetmock.com**: practice and timed mock exams for the Thai 
 licensing exam (VCA), drawn from the VetMock bank and arranged by the domains the exam asks.
 It is its own Vite + React app, deployed as its own Vercel project, like `research/`.
 
+How it is put together, what it shares with VetMock and what it keeps to itself, and how to
+switch on and grow the community: [ARCHITECTURE.md](ARCHITECTURE.md).
+
 ## Commands
 
 Run from `vca/`.
@@ -13,6 +16,7 @@ Run from `vca/`.
 | `npm run dev` | Builds the bank, then serves on port 43120 |
 | `npm run build` | Builds the bank, `vite build`, then `scripts/prerender.mjs` writes one HTML head per route and `sitemap.xml` |
 | `npm test` | Unit tests (Bangkok time); `npm run test:utc` runs them in UTC |
+| `npm run test:db` | The community schema in a throwaway in-memory Postgres (PGlite) |
 | `npm run e2e` | Playwright, desktop and phone, against a dev server on port 43125 |
 | `npm run og` | Redraws the link-preview covers in `public/og/` |
 | `npm run icons` | Redraws the app icons in `public/icons/` |
@@ -44,6 +48,12 @@ an ink mask in `public/art/footer-della-bella.webp`; the domain plates are the m
 Motion: the top bar's three pieces run together into one liquid-glass capsule once the page moves
 (`src/lib/liquid.js`, its outline tested in `tests/unit/liquid.test.mjs`), and the footer's VCA
 rises with the scroll (`initScenes` in `src/lib/motion.js`). Reduce motion keeps both still.
+
+## Community
+
+Profiles, an open exam board and chat, on VetMock's own accounts (Google, LINE or an email
+link), live in `src/online/` and the `vca` schema. They are off until the backend is configured
+(ARCHITECTURE.md, "Turning the community on"); a dev server runs them against an in-memory demo.
 
 ## Deploy
 

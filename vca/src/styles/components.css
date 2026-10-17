@@ -97,6 +97,21 @@
 .is-liquid .lockup-rule { scale: 1 calc(1 - var(--join, 0)); opacity: calc(1 - var(--join, 0) * 1.4); }
 .is-liquid .lockup-sub { translate: calc(var(--join, 0) * var(--fold, 0px) * -1) 0; color: color-mix(in srgb, var(--ink) calc(var(--join, 0) * 100%), var(--ink-2)); }
 
+/* Narrower desks: the sections tighten, then the mark sets the name aside and keeps VCA, then
+   the sections a phone's tab bar also leaves out step aside (home, the footer and the account
+   menu still reach them). */
+@media (max-width: 1180px) and (min-width: 761px) {
+  .topbar-in { gap: 10px; }
+  .topnav-link { padding: 0 11px; }
+}
+@media (max-width: 1080px) and (min-width: 761px) {
+  .brand .lockup-name, .brand .lockup-rule { display: none; }
+  .brand { padding-right: 14px; }
+}
+@media (max-width: 960px) and (min-width: 761px) {
+  .topnav-extra { display: none; }
+}
+
 /* ── Tab bar: a phone's own navigation, in reach of a thumb ───────────────────────────── */
 .tabbar { display: none; }
 @media (max-width: 760px) {
@@ -113,6 +128,8 @@
   .tab .ic { transition: transform var(--t) var(--ease-spring); }
   .tab.on { color: var(--ink); }
   .tab.on .ic { color: var(--verd); transform: translateY(-1px); }
+  .app-room .tabbar, .app-room .footer { display: none; }
+  .app-room .main { padding-bottom: 0; }
 }
 
 /* ── Footer: the last wall, painted cobalt, with a print along its floor ───────────────────
@@ -125,7 +142,7 @@
 .footer .lockup-sub { color: var(--foot-ink-2); }
 .footer-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 40px 64px; padding-block: 84px 28px; }
 .footer-tag { margin-top: 24px; max-width: 13em; font: 400 clamp(28px, 2.8vw, 38px)/1.25 var(--serif); color: var(--foot-ink); text-wrap: balance; }
-.footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.footer-cols { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 24px; }
 .footer-h { margin-bottom: 12px; font: 600 13px/1.3 var(--sans); color: var(--foot-ink-2); }
 .footer-cols a, .foot-btn { display: inline-flex; align-items: center; gap: 4px; min-height: 40px; color: var(--foot-ink); text-decoration: none; font-size: 15.5px; opacity: .88; transition: opacity var(--t) var(--ease); }
 .footer-cols a:hover, .foot-btn:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--foot-line); }
@@ -288,6 +305,8 @@
 .prov { display: grid; gap: 10px; padding: 14px 4px 2px; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.6; color: var(--ink-2); }
 .prov-head { display: flex; align-items: center; gap: 10px; }
 .prov-no { margin-left: auto; font: 500 12.5px/1 var(--mono); color: var(--ink-3); }
+.prov-talk { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; padding: 0 10px; border-radius: var(--r-pill); color: var(--verd); font: 600 13px/1 var(--sans); text-decoration: none; box-shadow: inset 0 0 0 1px var(--verd-line); transition: background-color var(--t) var(--ease); }
+.prov-talk:hover { background: var(--verd-soft); }
 .prov dl { display: grid; gap: 4px; }
 .prov-row { display: grid; grid-template-columns: 64px 1fr; gap: 12px; }
 .prov dt { color: var(--ink-3); }

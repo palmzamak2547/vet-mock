@@ -15,6 +15,11 @@ export const PAGES = {
   '/progress': 'progress',
   '/exam': 'exam',
   '/about': 'about',
+  // The community (online/): open to read, signed in to join.
+  '/community': 'community',
+  '/community/new': 'compose',
+  '/chat': 'chat',
+  '/me': 'profile',
 };
 
 /** @returns {{ name: string, params: Record<string,string>, query: URLSearchParams }} */
@@ -26,6 +31,14 @@ export function parseRoute(pathname, search = '') {
   if (m) return { name: 'domain', params: { id: m[1] }, query };
   m = /^\/result\/([a-z0-9-]{4,40})$/.exec(path);
   if (m) return { name: 'result', params: { id: m[1] }, query };
+  m = /^\/community\/p\/([0-9a-f-]{8,40})(\/edit)?$/.exec(path);
+  if (m) return { name: m[2] ? 'compose' : 'post', params: { id: m[1] }, query };
+  m = /^\/chat\/([a-z0-9-]{2,48})$/.exec(path);
+  if (m) return { name: 'chat', params: { room: m[1] }, query };
+  m = /^\/u\/([a-z0-9_]{3,20})$/.exec(path);
+  if (m) return { name: 'profile', params: { handle: m[1] }, query };
+  m = /^\/auth\/(callback|line)$/.exec(path);
+  if (m) return { name: 'auth', params: { via: m[1] }, query };
   return { name: 'notFound', params: {}, query };
 }
 

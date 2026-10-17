@@ -141,7 +141,8 @@ export function mountLiquidBar(els) {
       .map((p) => ({ ...p, x: p.el.offsetLeft, w: p.el.offsetWidth, h: p.el.offsetHeight }));
     const name = brand.querySelector('.lockup-name');
     const sub = brand.querySelector('.lockup-sub');
-    const fold = name && sub ? sub.offsetLeft - name.offsetLeft : 0;
+    // Where the name is set aside (a narrow window shows the mark and VCA alone), nothing folds.
+    const fold = name && sub && name.offsetWidth > 0 ? sub.offsetLeft - name.offsetLeft : 0;
     brand.style.setProperty('--fold', `${fold}px`);
     const joinedW = pieces.map((p) => (p.name === 'brand' ? p.w - fold : p.w));
     const lefts = joinedLefts(inner.clientWidth, joinedW);

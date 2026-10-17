@@ -10,6 +10,7 @@ import { InstallLink } from './Install.jsx';
 import { toggleTheme, useTheme } from '../lib/prefs.js';
 import { useActiveSession } from '../lib/hooks.js';
 import { mountLiquidBar } from '../lib/liquid.js';
+import { AccountButton, COMMUNITY_ON } from '../online/index.js';
 
 const NAV = [
   { name: 'practice', to: '/practice', label: 'ฝึก', icon: 'target' },
@@ -18,13 +19,16 @@ const NAV = [
   { name: 'library', to: '/library', label: 'เอกสาร', icon: 'book' },
   { name: 'exam', to: '/exam', label: 'สนามสอบ', icon: 'calendar', desktopOnly: true },
   { name: 'progress', to: '/progress', label: 'ความคืบหน้า', short: 'ฉัน', icon: 'chart' },
+  ...(COMMUNITY_ON ? [{ name: 'community', to: '/community', label: 'ชุมชน', icon: 'users', desktopOnly: true }] : []),
 ];
+const COMMUNITY_PAGES = new Set(['community', 'post', 'compose', 'chat', 'profile']);
 
 function isOn(item, route) {
   if (item.name === 'home') return route.name === 'home';
   if (item.name === 'mock') return route.name === 'practice' && route.query.get('mode') === 'mock';
   if (item.name === 'practice') return (route.name === 'practice' && route.query.get('mode') !== 'mock') || route.name === 'domain';
   if (item.name === 'progress') return route.name === 'progress' || route.name === 'result';
+  if (item.name === 'community') return COMMUNITY_PAGES.has(route.name);
   return route.name === item.name;
 }
 
@@ -80,7 +84,7 @@ export function TopBar({ route }) {
     if (!list || !ind) return undefined;
     const place = () => {
       const link = list.querySelectorAll('.topnav-link')[active];
-      if (!link) { ind.style.opacity = '0'; return; }
+      if (!link || !link.offsetWidth) { ind.style.opacity = '0'; return; }
       ind.style.opacity = '1';
       ind.style.setProperty('--x', `${link.offsetLeft}px`);
       ind.style.setProperty('--w', `${link.offsetWidth}px`);
@@ -123,7 +127,7 @@ export function TopBar({ route }) {
           <span className="topnav-ind" ref={indRef} aria-hidden="true" />
           <ul className="topnav-list">
             {NAV.map((item, i) => (
-              <li key={item.name}>
+              <li key={item.name} className={item.desktopOnly ? 'topnav-extra' : undefined}>
                 <Link to={item.to} className={`topnav-link${i === active ? ' on' : ''}`} aria-current={i === active ? 'page' : undefined}>{item.label}</Link>
               </li>
             ))}
@@ -131,6 +135,7 @@ export function TopBar({ route }) {
         </div>
         <div className="topbar-act cap">
           <ThemeButton />
+          <AccountButton />
           {session ? (
             <Link to="/session" className="btn btn-ink btn-sm">ทำต่อ <span className="btn-meta">{session.cursor + 1}/{session.items.length}</span></Link>
           ) : (
@@ -174,7 +179,7 @@ export function Footer() {
           <Lockup size={30} />
           <p className="footer-tag"><Nw>ซ้อมสอบใบประกอบฯ</Nw> <Nw>ให้เหมือนวันจริง</Nw></p>
         </div>
-        <nav className="footer-cols" aria-label="ลิงก์ท้ายหน้า">
+        <nav className="footer-cols" aria-label="ลิงก์ท้ายหน้า" style={{ '--cols': COMMUNITY_ON ? 4 : 3 }}>
           <div>
             <h2 className="footer-h">ซ้อม</h2>
             <ul>
@@ -192,6 +197,16 @@ export function Footer() {
               <li><Link to="/about">ที่มาของข้อสอบ</Link></li>
             </ul>
           </div>
+          {COMMUNITY_ON && (
+            <div>
+              <h2 className="footer-h">ชุมชน</h2>
+              <ul>
+                <li><Link to="/community">กระดานถามตอบ</Link></li>
+                <li><Link to="/chat">แชท</Link></li>
+                <li><Link to="/me">โปรไฟล์ของฉัน</Link></li>
+              </ul>
+            </div>
+          )}
           <div>
             <h2 className="footer-h">VetMock</h2>
             <ul>

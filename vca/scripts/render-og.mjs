@@ -216,6 +216,7 @@ const COVERS = [
   ['library', () => plainCover({ kicker: 'The archive', title: 'เอกสาร VCA', items: [`<b>${n(lib.documents)} ชุด</b>`, `${n(lib.pages)} หน้า`, `ตั้งแต่ พ.ศ. ${lib.firstYear}`], ids: ['juris', 'epidemiology', 'zoonoses', 'food-hygiene', 'swine', 'ruminant'], url: '/library' })],
   ['progress', () => plainCover({ kicker: 'Your progress', title: 'ความคืบหน้า', items: ['เก็บในเครื่องของคุณ', 'ไม่ต้องสมัคร'], ids: ['aquatic', 'exotic', 'avian', 'equine', 'swine', 'small-animal'], url: '/progress' })],
   ['about', () => plainCover({ kicker: 'About the bank', title: 'ที่มาของข้อสอบ', items: ['ทุกข้อบอกที่มา', 'คัดเฉพาะข้อที่เฉลยชัด'], ids: ['anatomy', 'pathology', 'juris', 'imaging', 'epidemiology', 'surgery'], url: '/about' })],
+  ['community', () => plainCover({ kicker: 'The commons', title: 'ชุมชน VCA', items: ['ถามข้อที่ติด', 'แชทตามหมวด', 'บัญชีเดียวกับ VetMock'], ids: ['small-animal', 'ruminant', 'zoonoses', 'swine', 'avian', 'theriogenology'], url: '/community' })],
   ...BANK.domains.map((d) => [`d-${d.id}`, () => domainCover(d)]),
 ];
 

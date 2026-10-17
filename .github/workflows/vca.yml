@@ -9,7 +9,12 @@
 #   npm run bank   rebuilds the per-domain bank from ../src/data and
 #                  fails on a bank the generator cannot place
 #   npm test       the unit tests (sets, sessions, progress, almanac,
-#                  exam calendar, domain mapping)
+#                  exam calendar, domain mapping, the layers' import
+#                  rules, the community's shapes and demo backend)
+#   npm run test:db  the community schema (supabase/migrations/
+#                  *_vca_community.sql) in a throwaway in-memory
+#                  Postgres (PGlite): policies, guards, counts, the
+#                  VetMock bridge and account deletion
 #   npm run build  the production bundle plus the per-route heads
 #                  and sitemap (scripts/prerender.mjs)
 # The covers in public/og and the icons in public/icons are drawn
@@ -28,6 +33,8 @@ on:
       - 'src/lib/option-shuffle.js'
       - 'src/lib/richtext.jsx'
       - 'public/**'
+      - 'supabase/migrations/*vca*'
+      - 'supabase/functions/_shared/app-origins.js'
       - '.github/workflows/vca.yml'
   pull_request:
     branches: [main]
@@ -38,6 +45,8 @@ on:
       - 'src/lib/option-shuffle.js'
       - 'src/lib/richtext.jsx'
       - 'public/**'
+      - 'supabase/migrations/*vca*'
+      - 'supabase/functions/_shared/app-origins.js'
       - '.github/workflows/vca.yml'
 
 concurrency:
@@ -71,6 +80,9 @@ jobs:
 
       - name: Unit tests
         run: npm test
+
+      - name: Community schema in a throwaway database
+        run: npm run test:db
 
       - name: Build production bundle and route heads
         run: npm run build

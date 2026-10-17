@@ -1,0 +1,32 @@
+/* The community's pieces that sit in the frame on every page: a student's mark and the account
+   button in the top bar. Everything else the community draws is in community.css, which loads
+   with the community's own pages and sheets. */
+
+.av {
+  --tone: var(--verd); --tone-soft: var(--verd-soft);
+  position: relative; display: inline-grid; place-items: center; flex: none; width: var(--av, 36px); height: var(--av, 36px);
+  border-radius: 50%; background: var(--tone-soft); box-shadow: inset 0 0 0 1px var(--line);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone) 30%, transparent);
+}
+.av-glyph { font-size: calc(var(--av, 36px) * .54); line-height: 1; translate: 0 .02em; }
+.av-ring { box-shadow: 0 0 0 3px var(--bg), 0 0 0 4.5px var(--tone); }
+.av-verd { --tone: var(--verd); --tone-soft: var(--verd-soft); }
+.av-brass { --tone: var(--brass); --tone-soft: var(--brass-soft); }
+.av-cinn { --tone: var(--cinn); --tone-soft: var(--cinn-soft); }
+.av-cobalt { --tone: #3048b4; --tone-soft: rgba(48, 72, 180, .12); }
+.av-plum { --tone: #8a3f86; --tone-soft: rgba(138, 63, 134, .12); }
+.av-ink { --tone: var(--ink-2); --tone-soft: var(--line); }
+:root[data-theme="dark"] .av-cobalt { --tone: #93a5ff; --tone-soft: rgba(147, 165, 255, .14); }
+:root[data-theme="dark"] .av-plum { --tone: #e2a0da; --tone-soft: rgba(226, 160, 218, .14); }
+
+.byline { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; min-width: 0; }
+.byline-name { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
+.byline-handle { font: 500 12.5px/1.2 var(--mono); color: var(--ink-3); overflow-wrap: anywhere; }
+
+.acct-btn.is-in { padding: 0; }
+.acct-btn.is-in:hover { background: transparent; }
+.acct-btn.is-in .av { transition: transform var(--t) var(--ease-spring), box-shadow var(--t) var(--ease); }
+.acct-btn.is-in:hover .av { transform: scale(1.06); }
+.acct-btn.is-loading .ic { animation: acct-wait 1.2s var(--ease) infinite alternate; }
+@keyframes acct-wait { from { opacity: .35; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .acct-btn.is-loading .ic { animation: none; } }

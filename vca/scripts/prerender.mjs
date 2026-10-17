@@ -99,6 +99,15 @@ const PAGES = [
     description: `ข้อสอบ ${n(BANK.total)} ข้อในคลังมาจากไหน คัดอย่างไร ข้อไหนเป็นแนว VCA ข้อไหนมาจากข้อสอบเก่าหรือคลังรายวิชา และทำไมบางข้อถูกพักไว้ก่อน`,
     alt: 'ที่มาของข้อสอบ บนภาพพิมพ์สัตว์ลายเส้น',
   },
+  // The community's front page, in a build that has a backend for it (src/online/config.js).
+  ...(process.env.VITE_SUPABASE_URL && process.env.VITE_SUPABASE_ANON_KEY ? [{
+    route: '/community',
+    cover: 'community',
+    title: 'ชุมชน',
+    ogTitle: 'ชุมชน VetMock VCA',
+    description: 'ถามข้อสอบที่ติด แชร์เทคนิค เล่าประสบการณ์สอบ และแชทตามหมวดวิชา กับเพื่อนที่เตรียมสอบ VCA รอบเดียวกัน เข้าสู่ระบบด้วยบัญชีเดียวกับ VetMock',
+    alt: 'ชุมชน VCA บนภาพพิมพ์สัตว์ลายเส้น',
+  }] : []),
   ...BANK.domains.map((d) => {
     const p = profile.get(d.id);
     const pctOf = p ? Math.round(p.share * 100) : null;

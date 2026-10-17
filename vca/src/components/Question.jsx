@@ -8,7 +8,9 @@
 import { memo, useRef } from 'react';
 import { RichText } from '@vetmock/lib/richtext.jsx';
 import { Icon } from './Icon.jsx';
+import { Link } from './Link.jsx';
 import { KindBadge } from './bits.jsx';
+import { discussHref } from '../online/index.js';
 import { CARD_BY_ID, subjectName } from '../lib/bank.js';
 import { LETTERS, plateNo } from '../lib/format.js';
 
@@ -27,6 +29,7 @@ function SourceText({ text }) {
 }
 
 export function Provenance({ q }) {
+  const talk = discussHref(q.id, q.domain);
   const rows = [];
   if (q.subject !== 'vca') rows.push(['รายวิชา', subjectName(q.subject)]);
   if (q.origin) rows.push(['ข้อสอบ', q.origin]);
@@ -34,7 +37,11 @@ export function Provenance({ q }) {
   if (q.verified && q.verified !== q.source) rows.push(['ตรวจทาน', <SourceText key="v" text={q.verified} />]);
   return (
     <div className="prov">
-      <div className="prov-head"><KindBadge kind={q.kind} /><span className="prov-no">No. {q.id}</span></div>
+      <div className="prov-head">
+        <KindBadge kind={q.kind} />
+        <span className="prov-no">No. {q.id}</span>
+        {talk && <Link to={talk} className="prov-talk"><Icon name="chat" size={15} />คุยข้อนี้</Link>}
+      </div>
       {rows.length > 0 && (
         <dl>
           {rows.map(([k, v]) => (

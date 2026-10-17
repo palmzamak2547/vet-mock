@@ -4,9 +4,13 @@ const ALLOWED_ORIGINS = new Set([
   PRODUCTION_ORIGIN,
   // The old address stays allowed while learners move to vetmock.com.
   'https://vetmock.vercel.app',
+  // VetMock VCA (vca/): the same accounts, signed in on its own site.
+  'https://vca.vetmock.com',
   'http://localhost:5173',
   'http://localhost:4173',
   'http://localhost:4174',
+  'http://localhost:43120',
+  'http://localhost:43121',
 ]);
 
 const PREVIEW_ORIGIN_RE = /^https:\/\/vetmock-[a-z0-9-]+-palmzamak2547s-projects\.vercel\.app$/i;
