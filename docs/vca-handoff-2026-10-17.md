@@ -1,6 +1,6 @@
 # VetMock VCA: handoff for local work, 2026-10-17
 
-Branch `ccr-207d6695-bl2wyq`, draft PR #37. This is what the cloud checkout could not do:
+Branch `ccr-207d6695-bl2wyq`, PR #37. This is what the cloud checkout could not do:
 steps that need the owner's accounts (Supabase, LINE, Vercel, DNS), checks that need real
 phones, and the questions that need a person's judgement. The app itself, its tests and the
 data are on the branch. How the app is put together is in `vca/ARCHITECTURE.md`.
@@ -21,41 +21,39 @@ data are on the branch. How the app is put together is in `vca/ARCHITECTURE.md`.
   - The six figures are in `public/images/vca-2569/`.
   - Everything is in our own bank: nothing links to the seniors' Drive or sheet.
 
-## Needs your accounts, in this order
+## Accounts: done on 2026-10-17, and the one step left
 
-Each step is the owner's call. `vca/ARCHITECTURE.md`, "Turning the community on", has the
-reasons; these are the clicks.
+Done from the local checkout, each checked:
 
-1. **Supabase (the VetMock project): the schema.**
-   1. Run `npm run test:db` in `vca/` first.
-   2. Check `supabase migration list` so nothing else is pending, then apply
-      `supabase/migrations/20261017120000_vca_community.sql`.
-   3. In Project Settings > Data API > Exposed schemas, add `vca`.
-   4. Check it: signed in, `select * from vca.vetmock_snapshot()` returns your own name and
-      totals. Signed out, the board reads but cannot be written.
-2. **Supabase: auth redirects.** In Authentication > URL Configuration > Redirect URLs, add:
-   - `https://vca.vetmock.com/auth/callback`
-   - the preview domain's `/auth/callback`
-   - `http://localhost:43120/auth/callback`
-3. **LINE.** In the LINE Login channel VetMock already uses:
-   1. Add a LIFF app with endpoint `https://vca.vetmock.com/auth/line`, size Full, scopes
-      `openid` and `profile`.
-   2. Add that URL as a callback URL.
-   3. Deploy `supabase/functions/line-auth` so that the VCA origin it now lists
-      (`_shared/app-origins.js`) is live.
-4. **Vercel: a new project for VCA.**
-   1. Create it from this repository with Root Directory `vca` and framework Vite.
-      `vca/vercel.json` already sets the build, output, CSP and caching. Keep files outside
-      the root directory included, because the bank build reads `../src/data` and `../public`.
-   2. Set the environment: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (the publishable
-      key) and `VITE_LINE_LIFF_ID`. A build with them switches the community to live.
-   3. Add the domain `vca.vetmock.com` and its DNS record.
-5. **Release.** Merging PR #37 also deploys vetmock.com, because the branch changes
-   `src/data`:
-   - the new bank, the counts and the VCA topics in `curriculum.js`;
-   - `tests/unit/config-ladder.test.mjs` now reads the year count instead of a fixed number.
+1. **Supabase schema.** `npm run test:db` passed 13/13, then the migration was applied as
+   `vca_community`: 9 tables, 28 policies, RLS on every table, the 5 open rooms, and `messages`
+   and `comments` in realtime. The security advisor added nothing for `vca`.
+2. **Exposed schemas.** The project's Data API config is now `public,graphql_public,vca`
+   (Management API). Signed out, `vca.posts` reads and `vca.rooms` is refused; `public` still
+   answers 200.
+3. **Auth redirects.** Added `https://vca.vetmock.com/auth/callback`,
+   `https://vetmock-vca-*-palmzamak2547s-projects.vercel.app/auth/callback` and
+   `http://localhost:43120/auth/callback`. The site URL and every existing entry are unchanged.
+   A Google sign-in started with the VCA callback now keeps it (it fell back to vetmock.com
+   before).
+4. **`line-auth`** redeployed (version 6) with the VCA origin; the function body is main's.
+5. **Vercel.** Project `vetmock-vca` (root `vca`, Vite, Node 24, files outside the root
+   included), `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` set, domain `vca.vetmock.com`
+   attached. Its ignore step is `vca/scripts/vercel-ignore.sh` and builds production only: the
+   first deploy failed because the inline command was over Vercel's 256-character limit.
+6. **DNS.** `vca` CNAME to Vercel in the Cloudflare zone, DNS only.
 
-   Follow `docs/LAUNCH_READINESS.md` as for any main push.
+Left, and it needs the owner signed in to the LINE Developers console (no channel secret is on
+this machine, so the LIFF API is not an option):
+
+- In the LINE Login channel 2010109536 (the one VetMock's LIFF app is in), add a LIFF app with
+  endpoint `https://vca.vetmock.com/auth/line`, size Full, scopes `openid` and `profile`.
+- Put its LIFF ID in the `vetmock-vca` project as `VITE_LINE_LIFF_ID` and redeploy. Until then
+  the sign-in sheet offers Google and email only; the LINE button is hidden, not broken.
+
+Not part of VCA, noticed on the way: `20261006090000_feedback_usage_log` and
+`20261007150000_external_connections` are in `supabase/migrations` but not applied to the
+project. Whoever owns those features should apply them.
 
 ## Checks that need real phones
 
