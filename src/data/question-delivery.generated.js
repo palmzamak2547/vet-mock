@@ -323,22 +323,17 @@ export const BLOCKED_QUESTIONS = [
     "source": "questions-vca-2569.js"
   },
   {
+    "key": "vca:692044",
+    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
+    "source": "questions-vca-2569.js"
+  },
+  {
     "key": "vca:692050",
     "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
     "source": "questions-vca-2569.js"
   },
   {
     "key": "vca:692052",
-    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
-    "source": "questions-vca-2569.js"
-  },
-  {
-    "key": "vca:692061",
-    "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
-    "source": "questions-vca-2569.js"
-  },
-  {
-    "key": "vca:692074",
     "reason": "เฉลยหรือขอบเขตยังรอการตรวจสอบ",
     "source": "questions-vca-2569.js"
   },
@@ -398,4 +393,4 @@ const BLOCKED_KEYS = new Set(BLOCKED_QUESTIONS.map((item) => item.key));
 
 export const questionDeliveryKey = (question) => `${question?.subject || ''}:${question?.id ?? ''}`;
 export const isQuestionDeliverable = (question) => !BLOCKED_KEYS.has(questionDeliveryKey(question));
-export const BLOCKED_QUESTION_COUNT = 78;
+export const BLOCKED_QUESTION_COUNT = 77;

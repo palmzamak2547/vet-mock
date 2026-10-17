@@ -780,6 +780,7 @@ export const GLOSSARY_RELATED = {
   692038,
   692053,
   692062,
+  692074,
   692078,
   6101,
   6270,
@@ -809,6 +810,7 @@ export const GLOSSARY_RELATED = {
   623,
   692017,
   692062,
+  692074,
   200193,
   6101,
   6131,
@@ -831,6 +833,7 @@ export const GLOSSARY_RELATED = {
   518,
   567,
   569,
+  692074,
   692078,
   692085,
   200193,
@@ -1004,7 +1007,8 @@ export const GLOSSARY_RELATED = {
  "marbofloxacin|small-animal": [
   919,
   1137,
-  1160
+  1160,
+  692074
  ],
  "clavamox|small-animal": [
   1137,
@@ -1318,6 +1322,7 @@ export const GLOSSARY_RELATED = {
   207438,
   692014,
   692015,
+  692074,
   200342,
   200358,
   200400,

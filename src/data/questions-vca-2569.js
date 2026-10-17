@@ -46,7 +46,7 @@ export const QB_VCA_2569 = [
       }
     ],
     "imagePath": "/images/vca-2569/p2-001-horse-vision.jpg",
-    "imageAlt": "แผนภาพลานสายตาของม้ามองจากด้านบน แบ่งเป็นบริเวณ A ด้านหลังศีรษะ บริเวณ B และ C สองข้างของศีรษะ และบริเวณ D ด้านหน้าจมูก",
+    "imageAlt": "ภาพวาดศีรษะม้ามองจากด้านบน มีพื้นที่สีเหลืองล้อมรอบเป็นวง ตัวอักษร A อยู่บนสุดของภาพเหนือหู ตัวอักษร C อยู่ทางซ้ายและ B อยู่ทางขวาของศีรษะ และตัวอักษร D อยู่ล่างสุดตรงปลายจมูก",
     "noShuffle": true
   },
   // 2: ตัวเลือกทุกข้อในฉบับสรุปถูกทำเครื่องหมายไม่แน่ใจ จึงใช้ชุดตัวเลือกจากบันทึกของผู้สอบอีกคน (FeLV, FIV, CAV-1, CDV, Aleutian disease) แทนชุด Canine distemper, Canine hepatitis, Feline immunodeficiency, Feline panleukopenia, Canine influenza โดยคำตอบคือ CDV ในทั้งสองชุด
@@ -256,6 +256,7 @@ export const QB_VCA_2569 = [
       }
     ]
   },
+  // 8: คำอธิบายเพิ่มเหตุผลที่ dexamethasone ไม่ใช่คำตอบ แม้เป็นส่วนหนึ่งของสูตรรักษา lymphoma
   {
     "id": 692008,
     "subject": "vca",
@@ -278,7 +279,7 @@ export const QB_VCA_2569 = [
       "Cyclophosphamide"
     ],
     "answer": 4,
-    "explain": "แมวอายุน้อยที่มีก้อนใน cranial mediastinum ร่วมกับ pleural effusion และพบ lymphoblast คือ mediastinal lymphoma ซึ่งในไทยพบมากในแมวอายุน้อยที่ติด FeLV และรักษาด้วยเคมีบำบัดสูตร COP (cyclophosphamide, vincristine, prednisolone) หรือสูตรที่มี doxorubicin ร่วมด้วย ส่วน interferon omega และ acyclovir เป็นยาต้านไวรัส และ cyclosporine เป็นยากดภูมิคุ้มกัน ไม่ใช่ยาหลักรักษา lymphoma",
+    "explain": "แมวอายุน้อยที่มีก้อนใน cranial mediastinum ร่วมกับ pleural effusion และพบ lymphoblast คือ mediastinal lymphoma ซึ่งในไทยพบมากในแมวอายุน้อยที่ติด FeLV และรักษาด้วยเคมีบำบัดสูตร COP (cyclophosphamide, vincristine, prednisolone) หรือสูตรที่มี doxorubicin ร่วมด้วย กลูโคคอร์ติคอยด์อย่าง prednisolone หรือ dexamethasone เป็นส่วนหนึ่งของสูตรเคมีบำบัด แต่ถ้าใช้เดี่ยว ๆ เป็นเพียงการรักษาประคับประคอง ยาหลักที่ฆ่าเซลล์มะเร็งในตัวเลือกจึงเป็น cyclophosphamide ส่วน interferon omega และ acyclovir เป็นยาต้านไวรัส และ cyclosporine เป็นยากดภูมิคุ้มกัน ไม่ใช่ยาหลักรักษา lymphoma",
     "source": "ผู้เข้าสอบ VCA รอบ 1/2569 บันทึกหมวด 2 ข้อ 8 หลังสอบ เรียบเรียงใหม่",
     "verified": "Sunpongsri S, et al. Effectiveness and Adverse Events of Cyclophosphamide, Vincristine, and Prednisolone Chemotherapy in Feline Mediastinal Lymphoma Naturally Infected with Feline Leukemia Virus. Animals 2022;12(7):900, Simple Summary; Abstract",
     "verificationSources": [
@@ -311,7 +312,7 @@ export const QB_VCA_2569 = [
       "แมวป่าหัวแบน"
     ],
     "answer": 2,
-    "explain": "ช้างเป็นสัตว์ testicond คืออัณฑะอยู่ในช่องท้องบริเวณใกล้ไตตลอดชีวิตโดยไม่เคลื่อนลงถุงอัณฑะ แต่ยังสร้างอสุจิและผสมพันธุ์ได้ตามปกติ ส่วนยีราฟ สมเสร็จ และแมวป่าหัวแบนมีถุงอัณฑะภายนอก และจิงโจ้มีถุงอัณฑะอยู่ด้านหน้าองคชาต",
+    "explain": "ช้างเป็นสัตว์ testicond คืออัณฑะอยู่ในช่องท้องบริเวณใกล้ไตตลอดชีวิตโดยไม่เคลื่อนลงถุงอัณฑะ แต่ยังสร้างอสุจิและผสมพันธุ์ได้ตามปกติ ส่วนยีราฟและแมวป่าหัวแบนมีถุงอัณฑะภายนอก และจิงโจ้มีถุงอัณฑะอยู่ด้านหน้าองคชาต",
     "source": "ผู้เข้าสอบ VCA รอบ 1/2569 บันทึกหมวด 2 ข้อ 9 หลังสอบ เรียบเรียงใหม่",
     "verified": "Gaeth AP, Short RV, Renfree MB. The developing renal, reproductive, and respiratory systems of the African elephant suggest an aquatic ancestry. PNAS 1999, Abstract; Results and Discussion",
     "verificationSources": [
@@ -760,6 +761,7 @@ export const QB_VCA_2569 = [
       }
     ]
   },
+  // 23: Morbidity rate ใช้ในความหมาย attack rate ได้ซึ่งเป็นการวัดอุบัติการณ์เช่นกัน จึงเปลี่ยนเป็น Odds ratio และระบุนิยามในโจทย์ให้มีคำตอบเดียว
   {
     "id": 692023,
     "subject": "vca",
@@ -773,17 +775,17 @@ export const QB_VCA_2569 = [
       "epidemiology",
       "vca-2569"
     ],
-    "q": "ข้อใดต่อไปนี้เป็นดัชนีที่บอกอัตราการเกิดโรคได้ดีที่สุด",
+    "q": "ดัชนีใดวัดจำนวนสัตว์ป่วยรายใหม่ต่อประชากรที่เสี่ยงต่อหน่วยเวลา (animal-time) จึงบอกอัตราการเกิดโรคได้ดีที่สุด",
     "options": [
       "Mortality rate",
-      "Morbidity rate",
+      "Odds ratio",
       "Case-fatality rate",
       "Prevalence rate",
       "Incidence rate"
     ],
     "answer": 4,
-    "explain": "Incidence rate วัดจำนวนรายใหม่ต่อประชากรที่เสี่ยงต่อหน่วยเวลา (animal-time) จึงบอกอัตราการเกิดโรคได้ดีที่สุด ส่วน prevalence นับรวมทั้งรายเก่าและรายใหม่ ณ ช่วงเวลาหนึ่ง จึงบอกภาระโรคไม่ใช่อัตราการเกิด และ mortality rate กับ case-fatality rate เป็นการวัดการตาย",
-    "source": "ผู้เข้าสอบ VCA รอบ 1/2569 บันทึกหมวด 2 ข้อ 23 หลังสอบ เรียบเรียงใหม่",
+    "explain": "Incidence rate วัดจำนวนรายใหม่ต่อประชากรที่เสี่ยงต่อหน่วยเวลา (animal-time) จึงบอกอัตราการเกิดโรคได้ดีที่สุด ส่วน prevalence นับรวมทั้งรายเก่าและรายใหม่ ณ ช่วงเวลาหนึ่ง จึงบอกภาระโรคไม่ใช่อัตราการเกิด mortality rate กับ case-fatality rate เป็นการวัดการตาย และ odds ratio เป็นการวัดความสัมพันธ์ระหว่างปัจจัยกับโรค ไม่ใช่อัตราการเกิด",
+    "source": "ผู้เข้าสอบ VCA รอบ 1/2569 บันทึกหมวด 2 ข้อ 23 หลังสอบ เรียบเรียงใหม่ บางส่วนของโจทย์หรือตัวเลือกเติมขึ้นจากที่จำได้ไม่ครบ",
     "verified": "Principles of Epidemiology in Public Health Practice, Lesson 3: Measures of Risk, Section 2: Morbidity Frequency Measures (CDC), Incidence rate; Prevalence",
     "verificationSources": [
       {
@@ -1103,6 +1105,7 @@ export const QB_VCA_2569 = [
       }
     ]
   },
+  // 33: Cross-sectional study จัดเป็น descriptive study ได้ ตัวเลือกจึงซ้อนกัน เปลี่ยนเป็น Cohort study
   {
     "id": 692033,
     "subject": "vca",
@@ -1118,15 +1121,15 @@ export const QB_VCA_2569 = [
     ],
     "q": "การศึกษาความถี่ของการเกิดปรสิตภายนอกในปลากะพงขาวกลุ่มหนึ่งเป็นระยะเวลา 1 ปี เป็นการศึกษารูปแบบใด",
     "options": [
-      "Cross-sectional study",
+      "Cohort study",
       "Case-control study",
       "Ecological study",
       "Experimental study",
       "Descriptive study"
     ],
     "answer": 4,
-    "explain": "การศึกษาที่บรรยายความถี่และการกระจายของการเกิดโรคในประชากรกลุ่มเดียวตามเวลา โดยไม่มีกลุ่มเปรียบเทียบและไม่ได้ทดสอบปัจจัยเสี่ยง เป็น descriptive study ส่วน cross-sectional study วัดปัจจัยและโรคพร้อมกัน ณ จุดเวลาเดียวโดยไม่ได้ติดตามนาน 1 ปี และ experimental study ต้องมีการให้ปัจจัยทดลอง",
-    "source": "ผู้เข้าสอบ VCA รอบ 1/2569 บันทึกหมวด 2 ข้อ 33 หลังสอบ เรียบเรียงใหม่",
+    "explain": "การศึกษาที่บรรยายความถี่และการกระจายของการเกิดโรคในประชากรกลุ่มเดียวตามเวลา โดยไม่มีกลุ่มเปรียบเทียบและไม่ได้ทดสอบปัจจัยเสี่ยง เป็น descriptive study ส่วน cohort study ต้องแบ่งกลุ่มตามการได้รับปัจจัยเสี่ยงแล้วติดตามเปรียบเทียบการเกิดโรค case-control study เริ่มจากกลุ่มป่วยเทียบกับกลุ่มไม่ป่วย และ experimental study ต้องมีการให้ปัจจัยทดลอง",
+    "source": "ผู้เข้าสอบ VCA รอบ 1/2569 บันทึกหมวด 2 ข้อ 33 หลังสอบ เรียบเรียงใหม่ บางส่วนของโจทย์หรือตัวเลือกเติมขึ้นจากที่จำได้ไม่ครบ",
     "verified": "Hallal PC, Tassitano RM. Principles of Epidemiology: A Primer, Chapter 5: Descriptive and Analytical Epidemiological Study Designs, Descriptive studies; Cross-sectional studies",
     "verificationSources": [
       {
@@ -1236,7 +1239,7 @@ export const QB_VCA_2569 = [
       }
     ]
   },
-  // 37: ใช้ชื่อ Transmissible venereal tumor แทน Venereal granuloma ซึ่งเป็นชื่อเก่า และเขียนชื่อตัวเลือกอื่นให้เต็ม
+  // 37: ใช้ชื่อ Transmissible venereal tumor แทน Venereal granuloma ซึ่งเป็นชื่อเก่า และเขียนชื่อตัวเลือกอื่นให้เต็ม ภายหลังตัดคำว่าปากออกจากโจทย์และตัดแวคิวโอลออกจากคำบรรยายภาพ เพราะบอกคำตอบก่อนอ่านภาพ
   {
     "id": 692037,
     "subject": "vca",
@@ -1250,7 +1253,7 @@ export const QB_VCA_2569 = [
       "clinical-pathology",
       "vca-2569"
     ],
-    "q": "สุนัขมีก้อนที่ปากและอวัยวะเพศ ทำเซลล์วิทยาแล้วได้ผลดังภาพ ข้อใดเป็นผลการวินิจฉัย",
+    "q": "สุนัขมีก้อนที่อวัยวะเพศ ทำเซลล์วิทยาแล้วได้ผลดังภาพ ข้อใดเป็นผลการวินิจฉัย",
     "options": [
       "Mast cell tumor",
       "Transmissible venereal tumor",
@@ -1270,7 +1273,7 @@ export const QB_VCA_2569 = [
       }
     ],
     "imagePath": "/images/vca-2569/p2-037-cytology.jpg",
-    "imageAlt": "ภาพเซลล์วิทยาย้อมสี เซลล์กลมขนาดใกล้เคียงกันจำนวนมาก นิวเคลียสกลมโครมาตินหยาบ ไซโทพลาซึมสีฟ้าอ่อนมีช่องว่างใสเล็ก ๆ หลายช่อง"
+    "imageAlt": "ภาพเซลล์วิทยาย้อมสี เซลล์กลมขนาดใกล้เคียงกันจำนวนมาก นิวเคลียสกลมโครมาตินหยาบ ไซโทพลาซึมสีฟ้าอ่อนปริมาณปานกลาง"
   },
   // 38: บรรยายการเคลื่อนที่ให้ตรงกับ Giardia (falling leaf) แทนคำว่าเคลื่อนที่อย่างรวดเร็ว
   {
@@ -1471,7 +1474,7 @@ export const QB_VCA_2569 = [
       }
     ]
   },
-  // 44: ภาพที่แนบเป็นภาพไข่ที่นิสิตหามาให้คล้ายของจริง ภาพในข้อสอบจริงไม่มีสเกล มีไข่ 3 ฟอง และหนึ่งฟองแบ่งเป็น 2 เซลล์ จึงตัดหมายเหตุนี้ออกจากโจทย์
+  // 44: held for review. ภาพที่แนบเป็นภาพไข่ที่นิสิตหามาให้คล้ายของจริง ภาพในข้อสอบจริงไม่มีสเกล มีไข่ 3 ฟอง และหนึ่งฟองแบ่งเป็น 2 เซลล์ จึงตัดหมายเหตุนี้ออกจากโจทย์
   {
     "id": 692044,
     "subject": "vca",
@@ -1505,7 +1508,15 @@ export const QB_VCA_2569 = [
       }
     ],
     "imagePath": "/images/vca-2569/p2-044-egg.jpg",
-    "imageAlt": "ไข่พยาธิทรงค่อนข้างกลม เปลือกหนาผิวขรุขระเป็นหลุมเล็ก ๆ ภายในมีเซลล์เดียว ถ่ายผ่านกล้องจุลทรรศน์พร้อมสเกลวัดขนาด"
+    "imageAlt": "ไข่พยาธิทรงค่อนข้างกลม เปลือกหนา ขอบนอกเป็นคลื่น ภายในมีเซลล์เดียวทรงกลม ถ่ายผ่านกล้องจุลทรรศน์พร้อมสเกลวัดขนาด",
+    "flag": {
+      "severity": "unclear",
+      "note": "ภาพไม่ตรงกับเฉลย: ไข่ในภาพสีอ่อน เซลล์ภายในไม่เต็มไข่และมีช่องว่างใสล้อมรอบ ซึ่งเข้ากับ Toxascaris leonina มากกว่า Toxocara canis ที่ไข่สีน้ำตาลเข้มและเซลล์เต็มไข่ ขณะที่ประวัติลูกสุนัขท้องกางชี้ไปทาง Toxocara canis ต้องหาภาพไข่ Toxocara canis ที่ยืนยันได้ หรือยืนยันที่มาของภาพก่อนปล่อย",
+      "sources": [
+        "https://wcvm.usask.ca/learnaboutparasites/parasites/toxascaris-leonina.php",
+        "https://www.msdvetmanual.com/digestive-system/gastrointestinal-parasites-of-small-animals/roundworms-in-small-animals"
+      ]
+    }
   },
   {
     "id": 692045,
@@ -2026,7 +2037,7 @@ export const QB_VCA_2569 = [
     ]
   },
   // 61: ตัดเหตุผลท้ายตัวเลือก จ ที่จำมาว่า 'เนื่องจากยังไม่พบความผิดปกติของการคลอด' เพราะขัดกับโจทย์ที่เบ่งคลอดมา 3 วัน แล้วเขียนใหม่เป็น 'ปล่อยให้ลูกช้างถูกขับออกเองและเฝ้าติดตามอาการ' ผู้ตรวจควรยืนยันว่าข้อสอบจริงตั้งใจให้ข้อนี้เป็นคำตอบ ไม่ใช่ oxytocin
-  // 61: held for review
+  // 61: เพิ่มผล ultrasound (ลูกตายแล้ว ปากมดลูกยังไม่เปิด) ในโจทย์ ซึ่งทำให้ oxytocin ทันทีเป็นข้อผิดตามแหล่งอ้างอิง จึงปล่อยจากการพัก
   {
     "id": 692061,
     "subject": "vca",
@@ -2040,7 +2051,7 @@ export const QB_VCA_2569 = [
       "exotic",
       "vca-2569"
     ],
-    "q": "ช้างตั้งท้อง 20 เดือน เริ่มเบ่งคลอดและมีน้ำคร่ำไหลออกมาเมื่อ 3 วันก่อน แต่ลูกยังไม่คลอด ช้างซึม ไม่กินอาหาร และไม่พบการโป่งบวมของฝีเย็บ เจ้าของจึงนำมาโรงพยาบาล สัตวแพทย์ควรพิจารณาจัดการอย่างไร",
+    "q": "ช้างตั้งท้อง 20 เดือน เริ่มเบ่งคลอดและมีน้ำคร่ำไหลออกมาเมื่อ 3 วันก่อน แต่ลูกยังไม่คลอด ช้างซึม ไม่กินอาหาร ไม่พบการโป่งบวมของฝีเย็บ ตรวจ ultrasound พบว่าลูกช้างตายแล้วและปากมดลูกยังไม่เปิด เจ้าของจึงนำมาโรงพยาบาล สัตวแพทย์ควรพิจารณาจัดการอย่างไร",
     "options": [
       "พิจารณาทำ episiotomy",
       "พิจารณาทำ caesarean section",
@@ -2058,14 +2069,7 @@ export const QB_VCA_2569 = [
         "url": "https://clinicaltheriogenology.net/index.php/CT/article/download/9316/15211",
         "locator": "Parturition"
       }
-    ],
-    "flag": {
-      "severity": "unclear",
-      "note": "เฉลยยังไม่แน่ชัด: แนวทางสูติกรรมช้างใช้ทั้งการรอให้คลอดเองและการให้ oxytocin เมื่อยืนยันท่าลูกได้ โจทย์ไม่ระบุว่าปากมดลูกเปิดหรือลูกยังมีชีวิต",
-      "sources": [
-        "https://clinicaltheriogenology.net/index.php/CT/article/download/9316/15211"
-      ]
-    }
+    ]
   },
   {
     "id": 692062,
@@ -2155,7 +2159,7 @@ export const QB_VCA_2569 = [
       "Neutrophil phagocytosis"
     ],
     "answer": 2,
-    "explain": "Repair หรือ proliferative phase ประกอบด้วยการเพิ่มจำนวนของ fibroblast และหลอดเลือดฝอยใหม่ (angiogenesis) จนเกิด granulation tissue ร่วมกับ epithelialization ส่วน vasoconstriction และการเกาะกลุ่มของเกล็ดเลือดเกิดในระยะ hemostasis และ neutrophil phagocytosis กับ collagenase ทำหน้าที่เก็บกวาดเนื้อตายในระยะ inflammatory หรือ debridement",
+    "explain": "Repair หรือ proliferative phase ประกอบด้วยการเพิ่มจำนวนของ fibroblast และหลอดเลือดฝอยใหม่ (angiogenesis) จนเกิด granulation tissue ร่วมกับ epithelialization ส่วน vasoconstriction และการเกาะกลุ่มของเกล็ดเลือดเกิดในระยะ hemostasis neutrophil phagocytosis ทำหน้าที่เก็บกวาดเนื้อตายในระยะ inflammatory หรือ debridement และ collagenase (matrix metalloproteinase) ทำงานตั้งแต่ระยะ debridement ต่อเนื่องไปจนถึงระยะ remodeling จึงไม่ใช่กระบวนการเฉพาะของ repair phase แบบ angiogenesis",
     "source": "ผู้เข้าสอบ VCA รอบ 1/2569 บันทึกหมวด 2 ข้อ 64 หลังสอบ เรียบเรียงใหม่",
     "verified": "General Principles of Wound Healing in Small Animals (MSD Veterinary Manual), Proliferative Stage in Wound Healing in Small Animals",
     "verificationSources": [
@@ -2468,7 +2472,7 @@ export const QB_VCA_2569 = [
       }
     ]
   },
-  // 74: held for review
+  // 74: MSD ให้ทั้ง fluoroquinolone และ cephalosporin รุ่นที่ 3 เป็นยาเริ่มต้นของ pyelonephritis ตัวเลือก Cefpodoxime จึงถูกด้วย เปลี่ยนเป็น Clindamycin และปล่อยจากการพัก
   {
     "id": 692074,
     "subject": "vca",
@@ -2487,27 +2491,20 @@ export const QB_VCA_2569 = [
       "Metronidazole",
       "Amoxicillin-clavulanic acid",
       "Pradofloxacin",
-      "Cefpodoxime",
+      "Clindamycin",
       "Doxycycline"
     ],
     "answer": 2,
-    "explain": "ไข้ร่วมกับ pyuria และแบคทีเรียรูปแท่งจำนวนมากบ่งชี้การติดเชื้อทางเดินปัสสาวะส่วนบน (pyelonephritis) ซึ่งเชื้อที่พบบ่อยที่สุดคือ E. coli แนวทางของ ISCAID ให้เริ่มรักษาด้วย fluoroquinolone ที่ขับออกทางปัสสาวะในรูปออกฤทธิ์ระหว่างรอผลเพาะเชื้อ โดย cephalosporin รุ่นที่ 3 อย่าง cefpodoxime เป็นทางเลือกรอง ส่วน amoxicillin-clavulanic acid เหมาะกับ sporadic cystitis ที่ไม่มีอาการทางระบบ",
-    "source": "ผู้เข้าสอบ VCA รอบ 1/2569 บันทึกหมวด 2 ข้อ 74 หลังสอบ เรียบเรียงใหม่",
-    "verified": "Antimicrobial Use Guidelines for Treatment of Urinary Tract Disease in Dogs and Cats (ISCAID Antimicrobial Guidelines Working Group, Vet Med Int 2011), Table 1 (first-line options); Section 7.2 Pyelonephritis treatment",
+    "explain": "ไข้ร่วมกับ pyuria และแบคทีเรียรูปแท่งจำนวนมากบ่งชี้การติดเชื้อทางเดินปัสสาวะส่วนบน (pyelonephritis) ซึ่งเชื้อที่พบบ่อยที่สุดคือ E. coli ยาที่เหมาะเริ่มให้ระหว่างรอผลเพาะเชื้อคือ fluoroquinolone หรือ cephalosporin รุ่นที่ 3 ซึ่งในตัวเลือกมีเพียง pradofloxacin (หากมี fluoroquinolone รุ่นที่ 2 อย่าง enrofloxacin หรือ marbofloxacin ควรเลือกใช้ก่อน pradofloxacin) ส่วน amoxicillin-clavulanic acid เหมาะกับ sporadic cystitis ที่ไม่มีอาการทางระบบ clindamycin และ metronidazole ไม่ครอบคลุมแบคทีเรียแกรมลบอย่าง E. coli และ doxycycline ไม่ใช่ยาที่แนะนำสำหรับ pyelonephritis",
+    "source": "ผู้เข้าสอบ VCA รอบ 1/2569 บันทึกหมวด 2 ข้อ 74 หลังสอบ เรียบเรียงใหม่ บางส่วนของโจทย์หรือตัวเลือกเติมขึ้นจากที่จำได้ไม่ครบ",
+    "verified": "Pyelonephritis in Small Animals (MSD Veterinary Manual), Treatment of Pyelonephritis in Small Animals",
     "verificationSources": [
       {
-        "title": "Antimicrobial Use Guidelines for Treatment of Urinary Tract Disease in Dogs and Cats (ISCAID Antimicrobial Guidelines Working Group, Vet Med Int 2011)",
-        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3134992/",
-        "locator": "Table 1 (first-line options); Section 7.2 Pyelonephritis treatment"
+        "title": "Pyelonephritis in Small Animals (MSD Veterinary Manual)",
+        "url": "https://www.msdvetmanual.com/urinary-system/infectious-diseases-of-the-urinary-system-in-small-animals/pyelonephritis-in-small-animals",
+        "locator": "Treatment of Pyelonephritis in Small Animals"
       }
-    ],
-    "flag": {
-      "severity": "unclear",
-      "note": "เฉลยยังไม่แน่ชัด: ไข้ร่วมกับ leukocyturia และแบคทีเรียรูปแท่งชี้ไปทาง pyelonephritis แนวทาง ISCAID ให้เริ่มด้วย fluoroquinolone ที่ขับออกทางปัสสาวะในรูปออกฤทธิ์ แต่ MSD ถือว่า cephalosporin รุ่นที่สามอย่าง cefpodoxime เหมาะสมเท่ากัน ตอบได้สองข้อ",
-      "sources": [
-        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3134992/"
-      ]
-    }
+    ]
   },
   {
     "id": 692075,
@@ -2675,7 +2672,7 @@ export const QB_VCA_2569 = [
       }
     ]
   },
-  // 80: ข้อสอบจริงมีภาพเซลล์วิทยาประกอบ บรรยายลักษณะเชื้อในภาพเป็นข้อความแทน คือยีสต์รูปกลมรีถึงรูปซิการ์จำนวนมากภายในแมคโครฟาจ ซึ่งแยกจาก cryptococcosis ที่ยีสต์มีแคปซูลหนา
+  // 80: ข้อสอบจริงมีภาพเซลล์วิทยาประกอบ บรรยายลักษณะเชื้อในภาพเป็นข้อความแทน คือยีสต์รูปกลมรีถึงรูปซิการ์จำนวนมากภายในแมคโครฟาจ ซึ่งแยกจาก cryptococcosis ที่ยีสต์มีแคปซูลหนา ภายหลังพบว่าโจทย์ถามชื่อเชื้อแต่ตัวเลือกเป็นชื่อโรค จึงเปลี่ยนเป็นถามชื่อโรคและเปลี่ยน Malassezia เป็น Malassezia dermatitis
   {
     "id": 692080,
     "subject": "vca",
@@ -2689,13 +2686,13 @@ export const QB_VCA_2569 = [
       "microbiology",
       "vca-2569"
     ],
-    "q": "แมวมีจมูกบวมนูน และมีแผลหลุมเปื่อยตามตัว นำรอยโรคไปตรวจ cytology พบยีสต์ขนาดเล็กรูปกลมรีถึงรูปซิการ์ (cigar-shaped) จำนวนมากอยู่ภายในแมคโครฟาจและนิวโทรฟิล เชื้อที่เป็นสาเหตุคือข้อใด",
+    "q": "แมวมีจมูกบวมนูน และมีแผลหลุมเปื่อยตามตัว นำรอยโรคไปตรวจ cytology พบยีสต์ขนาดเล็กรูปกลมรีถึงรูปซิการ์ (cigar-shaped) จำนวนมากอยู่ภายในแมคโครฟาจและนิวโทรฟิล แมวตัวนี้น่าจะเป็นโรคใด",
     "options": [
       "Sporotrichosis",
       "Cryptococcosis",
       "Coccidioidomycosis",
       "Dermatophytosis",
-      "Malassezia"
+      "Malassezia dermatitis"
     ],
     "answer": 0,
     "explain": "ภาพ cytology พบยีสต์ขนาดเล็กรูปกลมถึงรีหรือรูปซิการ์จำนวนมาก ทั้งอยู่อิสระและอยู่ภายใน macrophage ร่วมกับรอยโรคที่สันจมูกและแผลหลุมตามตัว เป็นลักษณะของ sporotrichosis ในแมวซึ่งมักพบเชื้อปริมาณมาก ส่วน Cryptococcus จะเป็นยีสต์ที่มีแคปซูลใสหนาล้อมรอบชัดเจนและแตกหน่อแบบฐานแคบ",
@@ -3022,6 +3019,7 @@ export const QB_VCA_2569 = [
       ]
     }
   },
+  // 90: Drug allergy เกิดได้ทั้ง 4 type จึงระบุเป็น Penicillin anaphylaxis ให้มีคำตอบเดียว
   {
     "id": 692090,
     "subject": "vca",
@@ -3038,13 +3036,13 @@ export const QB_VCA_2569 = [
     "q": "ข้อใดเป็น hypersensitivity type IV",
     "options": [
       "Tuberculin test",
-      "Drug allergy",
+      "Penicillin anaphylaxis",
       "Asthma",
       "Allergic rhinitis",
       "IMHA"
     ],
     "answer": 0,
-    "explain": "ปฏิกิริยาต่อ tuberculin เป็น delayed-type hypersensitivity (type IV) ที่อาศัย T lymphocyte ที่จำเพาะต่อแอนติเจนของ Mycobacterium โดยอ่านผลการบวมหนาของผิวหนังหลังฉีด 48 ถึง 72 ชั่วโมง ส่วน drug allergy แบบ anaphylaxis, asthma และ allergic rhinitis เป็น type I ที่อาศัย IgE และ IMHA เป็น type II",
+    "explain": "ปฏิกิริยาต่อ tuberculin เป็น delayed-type hypersensitivity (type IV) ที่อาศัย T lymphocyte ที่จำเพาะต่อแอนติเจนของ Mycobacterium โดยอ่านผลการบวมหนาของผิวหนังหลังฉีด 48 ถึง 72 ชั่วโมง ส่วน penicillin anaphylaxis, asthma และ allergic rhinitis เป็น type I ที่อาศัย IgE และ IMHA เป็น type II",
     "source": "ผู้เข้าสอบ VCA รอบ 1/2569 บันทึกหมวด 2 ข้อ 90 หลังสอบ เรียบเรียงใหม่",
     "verified": "WOAH Terrestrial Manual 2022, Chapter 3.1.13: Mammalian tuberculosis (infection with Mycobacterium tuberculosis complex), Summary; B.2 Delayed hypersensitivity test",
     "verificationSources": [
@@ -3637,7 +3635,7 @@ export const QB_VCA_2569 = [
       }
     ],
     "imagePath": "/images/vca-2569/p2-107-prolapse.jpg",
-    "imageAlt": "กระบือนอนตะแคง มีก้อนเนื้อสีชมพูขนาดใหญ่ ผิวมีปุ่มสีแดงเข้มกระจายอยู่ ยื่นออกมาทางด้านท้ายลำตัว"
+    "imageAlt": "กระบือนอนตะแคง มีก้อนเนื้อสีชมพูขนาดใหญ่ยื่นออกมาทางด้านท้ายลำตัว"
   },
   {
     "id": 692108,
@@ -3763,7 +3761,7 @@ export const QB_VCA_2569 = [
     "answer": 3,
     "explain": "Maceration คือการบดด้วยเครื่องที่มีใบมีดหมุนเร็ว ทำให้ตัวอ่อนในไข่และลูกไก่อายุไม่เกิน 72 ชั่วโมงตายทันที จึงเป็นวิธีที่ยอมรับสำหรับไข่ที่ไม่ฟักและ pipped egg ในโรงฟัก ส่วน decapitation และ cervical dislocation ใช้กับสัตว์ปีกที่ฟักออกแล้วเป็นรายตัว ไม่ใช่กับไข่",
     "source": "ผู้เข้าสอบ VCA รอบ 1/2569 บันทึกหมวด 2 ข้อ 111 หลังสอบ เรียบเรียงใหม่",
-    "verified": "Council Regulation (EC) No 1099/2009 on the protection of animals at the time of killing, Annex I, Annex I, Chapter I Table 1 (mechanical methods, entry 4) and Chapter II point 2",
+    "verified": "Council Regulation (EC) No 1099/2009 on the protection of animals at the time of killing, Annex I, Chapter I Table 1 (mechanical methods, entry 4) and Chapter II point 2",
     "verificationSources": [
       {
         "title": "Council Regulation (EC) No 1099/2009 on the protection of animals at the time of killing, Annex I",
@@ -3996,7 +3994,7 @@ export const QB_VCA_2569 = [
       "อายุ 24 สัปดาห์"
     ],
     "answer": 4,
-    "explain": "ภูมิคุ้มกันจากแม่ต่อ PPV อาจคงอยู่ได้ถึงประมาณ 14 ถึง 26 สัปดาห์และรบกวนการตอบสนองต่อวัคซีน จึงควรฉีดเข็มแรกหลังภูมิจากแม่ลดลง และต้องเหลือเวลาฉีดกระตุ้นเข็มที่สองห่างกัน 2 ถึง 4 สัปดาห์ให้เสร็จก่อนผสมอย่างน้อย 2 ถึง 3 สัปดาห์ ซึ่งตรงกับการเริ่มฉีดที่อายุ 24 สัปดาห์ การเริ่มที่ 30 หรือ 32 สัปดาห์ช้าเกินไปจนภูมิไม่ทันก่อนผสม และวัคซีน PPV ต้องให้ก่อนผสมพันธุ์ ไม่ใช่ก่อนคลอด",
+    "explain": "ภูมิคุ้มกันจากแม่ต่อ PPV รบกวนการตอบสนองต่อวัคซีนในสุกรอายุน้อย จึงควรฉีดเข็มแรกหลังภูมิจากแม่ลดลง และต้องเหลือเวลาฉีดกระตุ้นเข็มที่สองห่างกัน 2 ถึง 4 สัปดาห์ให้เสร็จก่อนผสมอย่างน้อย 2 ถึง 3 สัปดาห์ ซึ่งตรงกับการเริ่มฉีดที่อายุ 24 สัปดาห์ การเริ่มที่ 30 หรือ 32 สัปดาห์ช้าเกินไปจนภูมิไม่ทันก่อนผสม และวัคซีน PPV ต้องให้ก่อนผสมพันธุ์ ไม่ใช่ก่อนคลอด",
     "source": "ผู้เข้าสอบ VCA รอบ 1/2569 บันทึกหมวด 2 ข้อ 118 หลังสอบ เรียบเรียงใหม่",
     "verified": "Meszaros I et al. Biology of Porcine Parvovirus (Ungulate parvovirus 1). Viruses 2017;9(12):393, Section 5 Immunity and Prevention; Figure 1 legend",
     "verificationSources": [
@@ -4527,6 +4525,6 @@ export const QB_VCA_2569 = [
       }
     ],
     "imagePath": "/images/vca-2569/p2-133-nasal-discharge.jpg",
-    "imageAlt": "จมูกม้ามองจากด้านหน้า มีของเหลวเป็นฟองสีขาวอมเหลืองปนเศษหยาบ ๆ ไหลออกจากรูจมูกและหยดลงเป็นสาย"
+    "imageAlt": "จมูกม้ามองจากด้านหน้า มีของเหลวเป็นฟองสีขาวอมเหลืองไหลออกจากรูจมูกและหยดลงเป็นสาย"
   },
 ];

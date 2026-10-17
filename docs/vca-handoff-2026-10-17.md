@@ -17,7 +17,7 @@ data are on the branch. How the app is put together is in `vca/ARCHITECTURE.md`.
   - A production build keeps it out of sight until the backend below is switched on.
   - `npm run test:db` checks the schema on PGlite.
 - **VCA round 1/2569 Part 2** is in the main bank as `src/data/questions-vca-2569.js`:
-  - 132 questions; 122 are ready for learners and 10 are held for review (listed below).
+  - 132 questions; 123 are ready for learners and 9 are held for review (listed below).
   - The six figures are in `public/images/vca-2569/`.
   - Everything is in our own bank: nothing links to the seniors' Drive or sheet.
 
@@ -68,7 +68,7 @@ reasons; these are the clicks.
   person. A post that three people report is hidden until a moderator looks.
 - **The installed app:** a domain opened once can still be practised offline.
 
-## VCA round 1/2569 Part 2: the ten held questions
+## VCA round 1/2569 Part 2: the nine held questions
 
 Each held question carries `flag: { severity: 'unclear', note }`. The note says, in Thai, what
 is unsettled, and the delivery gate keeps the question from learners.
@@ -77,10 +77,9 @@ is unsettled, and the delivery gate keeps the question from learners.
 |---|---|---|---|
 | 6 | 692006 | theriogenology | Sources disagree on the day a pregnant bitch starts producing milk |
 | 31 | 692031 | theriogenology | Cytology at peak progesterone: small intermediate cells or parabasal cells |
+| 44 | 692044 | parasitology | The figure is a look-alike the students found; its pale egg with a clear space reads as Toxascaris leonina, while the history points to Toxocara canis |
 | 50 | 692050 | ruminant | Only 2 options were recalled; a jaw abscess in a goat is usually caseous lymphadenitis, which is not offered |
 | 52 | 692052 | ruminant | The current dairy-farm standard (มกษ. 6402-2562) sets no floor area per cow |
-| 61 | 692061 | exotic | Elephant dystocia: whether to wait or to give oxytocin |
-| 74 | 692074 | dogcat | Pyelonephritis: pradofloxacin or cefpodoxime |
 | 89 | 692089 | equine | Dorsal cannon wound: proud flesh or a bone sequestrum (its key is also 1.7 times the other options' length) |
 | 91 | 692091 | swine | Postpartum dysgalactia: constipation or a large litter |
 | 122 | 692122 | food-hygiene | Raw-milk outbreak: Campylobacter or Salmonella |
@@ -92,6 +91,39 @@ To release one:
 3. Run `npm run regen:all` and `npm run lint:data`.
 
 Questions 54 and 134 were dropped as repeats of 18 and 99.
+
+### Second review, on the local checkout (2026-10-17)
+
+Three reviewers solved all 132 again, blind to the key, and checked the figures. Fixed on the
+branch:
+
+- **Released:** 61 (the stem now says ultrasound found the calf dead and the cervix closed, which
+  is what rules out oxytocin in the cited source) and 74 (MSD names fluoroquinolones and
+  third-generation cephalosporins alike for pyelonephritis, so Cefpodoxime became Clindamycin).
+- **Held:** 44, in the table above.
+- **Two right answers or nested options:** 23 (Morbidity rate can mean attack rate; now Odds
+  ratio, and the stem defines the measure), 33 (Cross-sectional is itself descriptive; now Cohort
+  study), 90 (Drug allergy spans all four types; now Penicillin anaphylaxis).
+- **The stem or the alt text gave the answer away:** 1, 37, 107 and 133.
+- **Wording:** 80 asked for an organism with disease names as options; it now asks for the
+  disease.
+- **Explanations:** 8 (why dexamethasone is not the answer), 9 (the tapir claim rested on one
+  animal), 64 (collagenase also works in remodelling), 118 (dropped a maternal-antibody window
+  that read against the key), 111 (a repeated locator).
+
+What the reviewers suggested for the held ones, if a person wants to release them:
+
+- 6: no option fits milk let-down (the last week, about day 57 to 63). Ask about mammary
+  enlargement instead, or keep it held.
+- 50: add a firm, enlarged mandible to the stem, which leaves actinomycosis as the only answer.
+- 89: add a shallow wound that does not reach the periosteum to keep C, or a chronic discharge
+  after three weeks to make the sequestrum the key.
+- 123: MSD gives no 12-hour limit. Ask instead how long a bitch may strain without a pup (1 to 2
+  hours).
+
+119 was checked again against the Royal Gazette page (เล่ม 133 ตอนที่ 85 ก, หน้า 16): มาตรา 30
+gives the local administrator the appointment, and the director-general for export
+slaughterhouses, as keyed.
 
 ## Part 3 (หมวด 3): follow Part 2
 
