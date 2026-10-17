@@ -2,6 +2,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { num, pct, clock, duration, thaiDay, thaiDate, yearRange, plateNo, docTitle, LETTERS } from '../../src/lib/format.js';
+import { hasEmoji } from '../../src/lib/emoji.js';
+import { LIBRARY } from '../../src/generated/library.js';
 
 test('num groups thousands and marks a missing number', () => {
   assert.equal(num(5783), '5,783');
@@ -67,4 +69,26 @@ test('a document file name reads as a title', () => {
   assert.equal(docTitle('VCA-physio_65-58..'), 'VCA-physio 65-58');
   assert.equal(docTitle('Pathology_revised by RT (VCA58-67)'), 'Pathology revised by RT (VCA58-67)');
   assert.equal(docTitle('Anatomy (VCA58-68)'), 'Anatomy (VCA58-68)', 'a clean title is left alone');
+});
+
+test('a document title carries no emoji, and the rest of the cleaning still applies', () => {
+  // Titles as the library holds them (the collection's own file names).
+  assert.equal(docTitle('🐷 VCA’65 หมวดที่ 2'), 'VCA’65 หมวดที่ 2');
+  assert.equal(docTitle('🐷 Swine Medicine (58-59)'), 'Swine Medicine (58-59)');
+  assert.equal(docTitle('Soft tissue surgery 🧠'), 'Soft tissue surgery');
+  assert.equal(docTitle('Orthopedic surgery 🦴'), 'Orthopedic surgery');
+  assert.equal(docTitle('รวมมิตร VCA🥳 [CUVET85]'), 'รวมมิตร VCA [CUVET85]', 'no double space where one stood');
+  assert.equal(docTitle('🐷_Swine_Medicine_(60-64)..'), 'Swine Medicine (60-64)', 'with underscores and dots to clean as well');
+  assert.equal(docTitle('Pathology ®'), 'Pathology ®', 'a symbol a title may need is not an emoji');
+  assert.equal(docTitle(undefined), '');
+});
+
+test('no library title shows an emoji', () => {
+  assert.ok(LIBRARY.docs.some((d) => hasEmoji(d.title)), 'the library still holds titles with emoji, so the strip has work to do');
+  for (const d of LIBRARY.docs) {
+    const shown = docTitle(d.title);
+    assert.ok(shown && !hasEmoji(shown), `${d.id}: ${JSON.stringify(shown)}`);
+    assert.equal(shown, shown.trim());
+    assert.ok(!/\s{2}/.test(shown), `${d.id}: a double space in ${JSON.stringify(shown)}`);
+  }
 });

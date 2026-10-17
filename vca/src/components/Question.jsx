@@ -12,9 +12,21 @@ import { Link } from './Link.jsx';
 import { KindBadge } from './bits.jsx';
 import { discussHref } from '../online/index.js';
 import { CARD_BY_ID, subjectName } from '../lib/bank.js';
+import { cleanExplain } from '../lib/explain.js';
 import { LETTERS, plateNo } from '../lib/format.js';
 
 const DRIVE = /(?:drive|docs)\.google\.com/;
+
+/**
+ * An explanation as every page draws it: the bank's emoji bullets dropped, and its heading over
+ * the other options ("ทำไมข้ออื่นผิด") drawn as a small label, like the one that heads the box.
+ * Goes inside the <p> that holds the explanation.
+ */
+export function Explain({ text, highlight }) {
+  return cleanExplain(text).map((block, i) => (block.kind === 'label'
+    ? <span key={i} className="why-label"><RichText text={block.text} highlight={highlight} /></span>
+    : <RichText key={i} text={block.text} highlight={highlight} />));
+}
 
 /** Provenance text with its links: public pages stay links, the collection's Drive copies do not. */
 function SourceText({ text }) {
@@ -154,7 +166,7 @@ export const Question = memo(function Question({ q, order, choice, revealed, onC
           {q.explain ? (
             <div className="why-body">
               <span className="why-label">ทำไม</span>
-              <p><RichText text={q.explain} /></p>
+              <p><Explain text={q.explain} /></p>
               {q.explainImage && (
                 <figure className="q-fig"><img src={q.explainImage} alt={q.explainImageAlt || 'ภาพประกอบคำอธิบาย'} loading="lazy" decoding="async" /></figure>
               )}

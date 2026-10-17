@@ -70,8 +70,8 @@ const PAGES = [
     cover: 'library',
     title: 'เอกสาร VCA',
     ogTitle: 'เอกสาร VCA',
-    description: `เอกสารติวและข้อสอบเก่า VCA ${n(lib.documents)} ชุด รวม ${n(lib.pages)} หน้า จัดเป็นชั้นตามสาขาวิชา${lib.firstYear ? ` ตั้งแต่ พ.ศ. ${lib.firstYear}` : ''}`,
-    alt: `เอกสาร VCA ${n(lib.documents)} ชุด บนภาพพิมพ์สัตว์ลายเส้น`,
+    description: `เอกสารติวและข้อสอบเก่า VCA ${n(lib.documents)} รายการ รวม ${n(lib.pages)} หน้า จัดเป็นชั้นตามสาขาวิชา${lib.firstYear ? ` ตั้งแต่ พ.ศ. ${lib.firstYear}` : ''}`,
+    alt: `เอกสาร VCA ${n(lib.documents)} รายการ บนภาพพิมพ์สัตว์ลายเส้น`,
   },
   {
     route: '/progress',

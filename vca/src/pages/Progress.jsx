@@ -2,7 +2,7 @@
 // known now, the days studied, the sets finished, and the questions still missed. Nothing
 // leaves the device unless the student exports it.
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from '../components/Link.jsx';
 import { Icon } from '../components/Icon.jsx';
 import { Meter, Words } from '../components/bits.jsx';
@@ -25,6 +25,14 @@ function Activity({ days }) {
   for (let i = 0; i < 21; i += 1) { list.unshift(d); d = previousDay(d); }
   const max = Math.max(1, ...list.map((x) => days[x] || 0));
   const label = (x) => new Date(`${x}T12:00:00`).toLocaleDateString('th-TH', { day: 'numeric', month: 'short' });
+  if (!list.some((x) => days[x])) {
+    return (
+      <figure className="activity">
+        <figcaption className="label">21 วันที่ผ่านมา</figcaption>
+        <p className="hint">{Object.keys(days).length ? 'ไม่มีวันที่ฝึกในช่วงนี้' : 'ยังไม่มีวันที่ฝึก'}</p>
+      </figure>
+    );
+  }
   return (
     <figure className="activity">
       <figcaption className="label">21 วันที่ผ่านมา</figcaption>
@@ -51,7 +59,14 @@ export default function Progress() {
   const [busy, setBusy] = useState(false);
   const [sheet, setSheet] = useState(null); // 'reset' | 'import'
   const [importState, setImportState] = useState(null);
+  const [saved, setSaved] = useState(null); // the file just written, for a few seconds
   const fileRef = useRef(null);
+
+  useEffect(() => {
+    if (!saved) return undefined;
+    const t = setTimeout(() => setSaved(null), 4000);
+    return () => clearTimeout(t);
+  }, [saved]);
 
   const retryMissed = () => missed.length && guard(async () => {
     setBusy(true);
@@ -69,6 +84,7 @@ export default function Progress() {
     a.download = `vetmock-vca-${localDay()}.json`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    setSaved(a.download);
   };
 
   const onFile = async (e) => {
@@ -182,10 +198,11 @@ export default function Progress() {
           <p className="hint">ส่งออกเป็นไฟล์ไว้ย้ายไปอีกเครื่องหรือเก็บสำรอง การนำเข้าจะแทนที่ข้อมูลในเครื่องนี้ทั้งหมด</p>
         </div>
         <div className="row-gap">
-          <button type="button" className="btn btn-ghost" onClick={exportData}><Icon name="download" />ส่งออก</button>
+          <button type="button" className="btn btn-ghost" onClick={exportData}><Icon name={saved ? 'check' : 'download'} />{saved ? 'บันทึกไฟล์แล้ว' : 'ส่งออก'}</button>
           <button type="button" className="btn btn-ghost" onClick={() => fileRef.current?.click()}><Icon name="upload" />นำเข้า</button>
           <button type="button" className="btn btn-danger" onClick={() => setSheet('reset')} disabled={!all.seen && !results.length}><Icon name="trash" />ล้างข้อมูล</button>
           <input ref={fileRef} type="file" accept="application/json,.json" hidden onChange={onFile} />
+          <span className="sr" role="status">{saved ? `บันทึกไฟล์ ${saved} แล้ว` : ''}</span>
         </div>
       </section>
 

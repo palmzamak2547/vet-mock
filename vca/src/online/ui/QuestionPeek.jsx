@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { RichText } from '@vetmock/lib/richtext.jsx';
 import { Link } from '../../components/Link.jsx';
 import { Icon } from '../../components/Icon.jsx';
+import { Explain } from '../../components/Question.jsx';
 import { CARD_BY_ID, loadDomain } from '../../lib/bank.js';
 import { LETTERS, plateNo } from '../../lib/format.js';
 import { withQuery } from '../../router.js';
@@ -42,7 +43,7 @@ export function QuestionPeek({ no, domain }) {
           </li>
         ))}
       </ol>
-      {open && q.explain && <p className="peek-why"><RichText text={q.explain} /></p>}
+      {open && q.explain && <p className="peek-why"><Explain text={q.explain} /></p>}
       <div className="peek-go">
         <button type="button" className="btn btn-ghost btn-sm" onClick={() => setOpen((v) => !v)} aria-expanded={open}>{open ? 'ซ่อนเฉลย' : 'ดูเฉลย'}</button>
         <Link to={withQuery('/bank', { q: q.id, d: domain })} className="text-link">เปิดในคลัง <Icon name="arrowRight" size={16} /></Link>

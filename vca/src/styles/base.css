@@ -49,11 +49,28 @@ h1:focus, h1:focus-visible { outline: none; }
 .kicker { display: flex; align-items: center; gap: 12px; font: 500 12px/1.3 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
 .kicker::before { content: ""; flex: none; width: 28px; height: 1px; background: var(--verd); }
 /* A plate or round number leading a kicker, set apart by space and tone rather than a dot. */
-.kicker-no { color: var(--verd); margin-right: 6px; }
+.kicker-no { color: var(--verd-text); margin-right: 6px; }
 .label { display: block; font: 600 13px/1.4 var(--sans); color: var(--ink-2); }
 .hint { font-size: 14px; line-height: 1.5; color: var(--ink-3); }
-.text-link { display: inline-flex; align-items: center; gap: 6px; color: var(--verd); font-weight: 600; text-decoration: none; }
+/* Small accent text is --verd-text: --verd itself reads 4.3 to 4.4 on a tinted surface. */
+.text-link { display: inline-flex; align-items: center; gap: 6px; color: var(--verd-text); font-weight: 600; text-decoration: none; }
 .text-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+/* On a touch screen a control answers to 44 px (--touch), however small it draws. Pills, chips
+   and rows that can grow just take a min-height beside their own rules. A link that is shorter
+   and sits in a line cannot grow without moving the page, so it reaches out with an invisible
+   ::after: the link's own box, taller or wider to 44 px and never smaller (so a link that is
+   already 44 px or more is unchanged), and the neighbours' rows are spaced to keep clear. */
+@media (pointer: coarse) {
+  .text-link, .crumbs a, .map-name, .mrow-name, .drow-name, .dhero-exam-link { position: relative; }
+  .text-link::after, .crumbs a::after, .map-name::after, .mrow-name::after, .drow-name::after, .dhero-exam-link::after {
+    content: ""; position: absolute; inset: min(0px, calc((100% - var(--touch)) / 2));
+  }
+  /* Signed-in controls: comment and chat actions grow to the touch height; the profile
+     swatches (28px) and animals (38px) get gaps that make each one's pitch 44px. */
+  .act { min-height: var(--touch); }
+  .pform-tone { margin: 8px; }
+  .pform-row { gap: 6px; }
+}
 
 .page-loading { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 100vh; min-height: 100svh; color: var(--ink-2); font-size: 15px; }
 .spinner { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--line-2); border-top-color: var(--verd); animation: spin .8s linear infinite; }

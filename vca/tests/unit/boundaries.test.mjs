@@ -24,6 +24,8 @@ const VETMOCK_SHARED = new Set(['lib/richtext.jsx', 'lib/option-shuffle.js']);
 const PACKAGES = {
   react: 'any',
   'react-dom/client': ['main.jsx'],
+  // A sheet is drawn straight into <body> (createPortal), clear of any glass pane's clipping.
+  'react-dom': ['components/Sheet.jsx'],
   '@supabase/supabase-js': ['online/client.js'],
   '@line/liff': ['online/line.js'],
 };

@@ -13,11 +13,14 @@ import { quickStart, startSet } from '../lib/start.js';
 import { useAsync, useResults, useTitle } from '../lib/hooks.js';
 import { loadDomains } from '../lib/bank.js';
 import { navigate, withQuery } from '../router.js';
-import { duration, LETTERS, num, pct, plateNo, thaiDateTime } from '../lib/format.js';
+import { duration, LETTERS, num, pct, plateNo, thaiDate } from '../lib/format.js';
 import { useStartGuard } from '../components/StartGuard.jsx';
 import { ShareButton } from '../components/Share.jsx';
 import { ExportSheet } from '../components/ExportSheet.jsx';
 import { localDay } from '../lib/dates.js';
+
+/** "17 ต.ค. 2569 14:05": the day with its Buddhist-era year, as the site writes a date everywhere else, then the time. */
+const finishedOn = (ts) => `${thaiDate(ts)} ${new Date(ts).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })}`;
 
 const FILTERS = [
   { id: 'all', th: 'ทุกข้อ' },
@@ -127,7 +130,7 @@ export default function Result({ route }) {
             <svg className="swash" viewBox="0 0 240 16" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M4 11 C 58 3, 150 2, 236 8" /></svg>
           </h1>
           <ul className="result-facts">
-            <li><Icon name="calendar" size={16} />{thaiDateTime(result.finishedAt)}</li>
+            <li><Icon name="calendar" size={16} />{finishedOn(result.finishedAt)}</li>
             {result.mode === 'mock' && <li><Icon name="clock" size={16} />ใช้เวลา {duration(result.durationMs)}{result.limitSec ? ` จาก ${duration(result.limitSec * 1000)}` : ''}</li>}
             {result.expired && <li className="warn"><Icon name="timer" size={16} />หมดเวลา ระบบส่งให้อัตโนมัติ</li>}
             {result.endedEarly && <li><Icon name="info" size={16} />จบก่อนครบชุด นับเฉพาะข้อที่ตอบ</li>}

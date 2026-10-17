@@ -69,12 +69,12 @@ a.post-card:active { transform: translateY(0) scale(.995); }
 
 .pchips { display: inline-flex; flex-wrap: wrap; gap: 6px; }
 .pchip { display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: var(--r-pill); background: var(--line); color: var(--ink-2); font: 600 12.5px/1 var(--sans); }
-.pchip-question { background: var(--verd-soft); color: var(--verd); }
+.pchip-question { background: var(--verd-soft); color: var(--verd-text); }
 .pchip-tip { background: var(--brass-soft); color: var(--brass); }
 .pchip-experience { background: rgba(48, 72, 180, .10); color: #3048b4; }
 :root[data-theme="dark"] .pchip-experience { background: rgba(147, 165, 255, .14); color: #a9b7ff; }
 .pchip-domain { font-weight: 500; }
-.pchip-domain .drow-pl { margin-right: 6px; font-size: 10.5px; }
+.pchip-domain .drow-pl { margin-right: 6px; font-size: 12px; }
 .pchip-no { font: 500 12px/1 var(--mono); }
 
 .soon { padding-block: 72px 24px; max-width: 760px; }
@@ -105,7 +105,7 @@ a.post-card:active { transform: translateY(0) scale(.995); }
 .thread-post > .notice { margin-top: 16px; }
 .thread-body { display: grid; gap: 14px; margin-top: 22px; font-size: 17px; line-height: 1.8; overflow-wrap: anywhere; }
 .thread-post > .peek { margin: 22px 0 0; }
-.thread-q { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; color: var(--verd); font-weight: 600; text-decoration: none; }
+.thread-q { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; color: var(--verd-text); font-weight: 600; text-decoration: none; }
 .thread-q:hover { text-decoration: underline; text-underline-offset: 4px; }
 .thread-acts { display: flex; flex-wrap: wrap; gap: 4px; margin: 22px -8px 0; padding-top: 12px; border-top: 1px solid var(--line); }
 
@@ -339,6 +339,19 @@ a.post-card:active { transform: translateY(0) scale(.995); }
 .pform-tone { width: 28px; height: 28px; margin: 3px; border: 0; border-radius: 50%; background: var(--tone); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .12); cursor: pointer; transition: box-shadow var(--t) var(--ease); }
 .pform-tone.on { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--tone); }
 .pform-go { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+/* A sheet scrolls, and on a phone "ต่อไป" sat below the fold on the later steps (a row at y 827 to
+   871 of an 844 px screen, then 992 to 1036). The buttons now stay at the foot of the scrolling
+   part, on the sheet's own glass. The sheet's body pads 24 px at the sides and the foot; the bar
+   takes those back with negative margins, so it runs edge to edge. A sticky box measures from
+   inside that padding in every engine, hence bottom: -24px: the bar rests on the sheet's own
+   bottom edge, stuck or at the end of the scroll alike. */
+.sheet .pform-go {
+  position: sticky; bottom: -24px; z-index: 2; margin: 4px -24px -24px; padding: 14px 24px 24px;
+  border-radius: 0 0 var(--r-xl) var(--r-xl); /* the card's own corners on a desk */
+  background: var(--glass-solid); /* solid: whatever scrolls under the bar must not show through it */
+  box-shadow: 0 -1px 0 var(--line);
+}
+@media (max-width: 760px) { .sheet .pform-go { border-radius: 0; } }
 .pform-found {
   display: flex; align-items: center; gap: 14px; margin-bottom: 18px; padding: 14px 16px; border-radius: var(--r-lg);
   background: var(--verd-soft); box-shadow: inset 0 0 0 1px var(--verd-line);
@@ -359,7 +372,7 @@ a.post-card:active { transform: translateY(0) scale(.995); }
 }
 .acct-link:hover { background: var(--line); }
 .acct-link .ic { color: var(--ink-3); }
-.acct-mod { display: inline-flex; align-items: center; gap: 6px; margin: 8px 12px 0; font: 600 12.5px/1 var(--sans); color: var(--verd); }
+.acct-mod { display: inline-flex; align-items: center; gap: 6px; margin: 8px 12px 0; font: 600 12.5px/1 var(--sans); color: var(--verd-text); }
 
 .report-reasons { display: grid; gap: 6px; margin: 0 0 16px; padding: 0; border: 0; }
 .report-reason { display: flex; align-items: center; gap: 12px; min-height: 50px; padding: 0 14px; border-radius: var(--r-md); box-shadow: inset 0 0 0 1px var(--line-2); font-size: 15.5px; cursor: pointer; transition: background-color var(--t) var(--ease), box-shadow var(--t) var(--ease); }
@@ -568,6 +581,7 @@ a.post-card:active { transform: translateY(0) scale(.995); }
 .claim-note .spinner { width: 12px; height: 12px; border-width: 1.5px; }
 .claim-try { display: flex; flex-wrap: wrap; gap: 6px; }
 .claim-try .chip { min-height: 32px; font: 500 13px/1 var(--mono); }
+@media (pointer: coarse) { .prof-focus .chip, .board-mine .chip, .claim-try .chip { min-height: var(--touch); } }
 
 /* The last step: the stamped card, then one thing to do and two ways in. */
 .welcome-card { width: 100%; max-width: 420px; }

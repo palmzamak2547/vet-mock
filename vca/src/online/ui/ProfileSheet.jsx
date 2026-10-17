@@ -23,6 +23,8 @@ import { AVATARS, TONES, handleProblem, problemText, statsFrom, suggestHandle } 
 const SCHOOLS = ['จุฬาลงกรณ์มหาวิทยาลัย', 'มหาวิทยาลัยเกษตรศาสตร์', 'มหาวิทยาลัยขอนแก่น', 'มหาวิทยาลัยเชียงใหม่', 'มหาวิทยาลัยมหิดล', 'มหาวิทยาลัยมหาสารคาม', 'มหาวิทยาลัยสงขลานครินทร์', 'มหาวิทยาลัยแม่โจ้', 'มหาวิทยาลัยวลัยลักษณ์', 'มหาวิทยาลัยเทคโนโลยีมหานคร'];
 const ROUNDS = ['2/2569', '1/2570', '2/2570'];
 const FOCUS_MAX = 8;
+// What a screen reader says for each colour swatch (the tone's own id is a design token's name).
+const TONE_NAMES = { verd: 'เขียว', brass: 'ทอง', cinn: 'ส้มอิฐ', cobalt: 'น้ำเงิน', plum: 'ม่วง', ink: 'เทาเข้ม' };
 const STEPS = ['ตัวตน', 'เกี่ยวกับคุณ', 'หมวดที่สนใจ'];
 // Typed into the empty fields as examples (components/TypingHint.jsx).
 const NAME_EXAMPLES = ['มิ้นท์', 'ภูมิ Vet 86', 'แพรวา'];
@@ -86,7 +88,7 @@ function Identity({ form, set, snapshot, useSnapshot, problem, free, existing, o
               </div>
               <div className="pform-row" role="radiogroup" aria-label="สีพื้น">
                 {TONES.map((t) => (
-                  <button key={t} type="button" role="radio" aria-checked={form.tone === t} aria-label={t} className={`pform-tone av-${t}${form.tone === t ? ' on' : ''}`} onClick={() => set('tone')(t)} />
+                  <button key={t} type="button" role="radio" aria-checked={form.tone === t} aria-label={TONE_NAMES[t] || t} className={`pform-tone av-${t}${form.tone === t ? ' on' : ''}`} onClick={() => set('tone')(t)} />
                 ))}
               </div>
             </details>

@@ -4,6 +4,7 @@
 
 import { BANK } from '../generated/bank.js';
 import { getShuffledOptions } from '@vetmock/lib/option-shuffle.js';
+import { lazyModule } from './lazy-module.js';
 
 export { BANK };
 export const DOMAIN_CARDS = BANK.domains;
@@ -78,9 +79,11 @@ export function toItem(q) {
 
 export const subjectName = (id) => BANK.subjects[id]?.th || id;
 
-/** Topic names, per-domain topic lists and the bank's exclusions: a separate chunk. */
-let catalog = null;
-export function loadCatalog() {
-  catalog ??= import('../generated/catalog.js').then((m) => m.CATALOG);
-  return catalog;
-}
+// The two generated modules the pages fetch on demand, each its own chunk. A failed load is not
+// kept (a retry asks again, and in Chromium under a fresh address: see lazy-module.js).
+
+/** The topics each domain page lists, the subjects behind each domain and the bank's exclusions. */
+export const loadCatalog = lazyModule(() => import('../generated/catalog.js'), (m) => m.CATALOG);
+
+/** The VCA documents, shelved by field: the library page and the domain pages both read it. */
+export const loadLibrary = lazyModule(() => import('../generated/library.js'), (m) => m.LIBRARY);

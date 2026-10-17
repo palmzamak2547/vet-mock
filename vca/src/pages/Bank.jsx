@@ -7,7 +7,7 @@ import { Link } from '../components/Link.jsx';
 import { Icon } from '../components/Icon.jsx';
 import { TypingHint } from '../components/TypingHint.jsx';
 import { KindBadge } from '../components/bits.jsx';
-import { Provenance } from '../components/Question.jsx';
+import { Explain, Provenance } from '../components/Question.jsx';
 import { BANK, CARD_BY_ID, DOMAIN_CARDS, loadDomains } from '../lib/bank.js';
 import { searchQuestions } from '../lib/search.js';
 import { navigate, withQuery } from '../router.js';
@@ -42,7 +42,7 @@ function BankItem({ q, query, showAnswers }) {
       </ol>
       {reveal ? (
         <div className="bk-why">
-          {q.explain && <p><RichText text={q.explain} highlight={query} /></p>}
+          {q.explain && <p><Explain text={q.explain} highlight={query} /></p>}
           <Provenance q={q} />
         </div>
       ) : (

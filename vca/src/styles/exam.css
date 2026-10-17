@@ -78,7 +78,8 @@ a.ask-row:hover .ask-name { color: var(--verd); }
 .movers { display: grid; gap: 8px; padding-bottom: 6px; font-size: 14px; }
 .movers p { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
 .movers-k { min-width: 5.5em; font: 600 13px/1.3 var(--sans); color: var(--ink-3); }
-.mover { white-space: nowrap; color: var(--ink-2); }
+/* One unit, subject and change: a flex row of two, so the number can never wrap onto a line of its own. */
+.mover { display: flex; align-items: baseline; gap: .3em; white-space: nowrap; color: var(--ink-2); }
 
 /* The almanac: a printed table, scrolled sideways on a phone with the subject held in place. */
 .alm-scroll { position: relative; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; border-radius: var(--r-xl); padding: 10px 6px 14px 0; background: var(--paper); box-shadow: var(--shadow); scrollbar-width: thin; }

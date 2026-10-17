@@ -7,13 +7,12 @@ import { Link } from '../components/Link.jsx';
 import { Icon } from '../components/Icon.jsx';
 import { TypingHint } from '../components/TypingHint.jsx';
 import { useAsync, useTitle, useTuck } from '../lib/hooks.js';
-import { BANK, CARD_BY_ID } from '../lib/bank.js';
+import { BANK, CARD_BY_ID, loadLibrary } from '../lib/bank.js';
 import { searchDocs } from '../lib/search.js';
 import { navigate, withQuery } from '../router.js';
 import { docTitle, num, yearRange } from '../lib/format.js';
 
 const SHELF_SHOWN = 6;
-const loadLibrary = () => import('../generated/library.js').then((m) => m.LIBRARY);
 const readerUrl = (title) => `https://vetmock.com/app/library?${new URLSearchParams({ subject: 'vca', q: title })}`;
 
 const LIBRARY_EXAMPLES = ['Swine', 'Ruminant', 'Juris', '2567'];
@@ -60,11 +59,11 @@ export default function Library({ route }) {
       <header className="page-head">
         <p className="kicker">The archive</p>
         <h1 className="page-h">เอกสาร VCA</h1>
-        <p className="page-p">ข้อสอบเก่าและเอกสารติว {num(summary.documents)} ชุด {num(summary.pages)} หน้า ที่รุ่นพี่หลายรุ่นรวบรวมไว้ เรียงตามสาขา กดชื่อเอกสารเพื่อเปิดอ่านในคลังเอกสาร VetMock</p>
+        <p className="page-p">ข้อสอบเก่าและเอกสารติว {num(summary.documents)} รายการ {num(summary.pages)} หน้า ที่รุ่นพี่หลายรุ่นรวบรวมไว้ เรียงตามสาขา กดชื่อเอกสารเพื่อเปิดอ่านในคลังเอกสาร VetMock</p>
       </header>
 
       <div className="lib-stats">
-        <div><b>{num(summary.papers)}</b><span>ชุดข้อสอบเก่า</span></div>
+        <div><b>{num(summary.papers)}</b><span>ข้อสอบเก่า</span></div>
         <div><b>{num(summary.handouts)}</b><span>เอกสารติว</span></div>
         <div><b>{num(summary.pages)}</b><span>หน้า PDF</span></div>
         <p className="lib-note"><Icon name="info" size={18} />เอกสารเปิดในคลังเอกสาร VetMock บางไฟล์ต้องเข้าสู่ระบบก่อน เป็นบันทึกของรุ่นพี่สำหรับทบทวน ไม่ใช่ประกาศขอบเขตการสอบ</p>
@@ -99,7 +98,7 @@ export default function Library({ route }) {
       {lib.status === 'error' && <p className="notice notice-error"><Icon name="info" />เปิดชั้นเอกสารไม่สำเร็จ <button type="button" className="text-link" onClick={lib.retry}>ลองอีกครั้ง</button></p>}
       {lib.status === 'ready' && (
         <>
-          <p className="bank-status" role="status">{num(shownDocs)} ชุด ใน {num(view.length)} ชั้น</p>
+          <p className="bank-status" role="status">{num(shownDocs)} รายการ ใน {num(view.length)} ชั้น</p>
           {view.length === 0 && <div className="empty"><h2>ไม่พบเอกสาร</h2><p>ลองคำค้นที่สั้นลง หรือเลือกทุกประเภท</p></div>}
           <div className="shelves">
             {view.map(({ shelf, docs }) => {
@@ -111,7 +110,7 @@ export default function Library({ route }) {
                 <section key={shelf.id} id={`shelf-${shelf.id}`} className={`shelf${shelf.id === focusShelf ? ' is-focus' : ''}`} aria-labelledby={`sh-${shelf.id}`} data-reveal>
                   <div className="shelf-head">
                     <h2 id={`sh-${shelf.id}`} className="shelf-h">{shelf.th}<span className="shelf-en">{shelf.en}</span></h2>
-                    <span className="shelf-n">{docs.length} ชุด</span>
+                    <span className="shelf-n">{docs.length} รายการ</span>
                     {domain && <Link to={`/d/${domain.id}`} className="text-link shelf-go">ฝึกหมวด{domain.th} <Icon name="arrowRight" size={16} /></Link>}
                   </div>
                   <ul className="docs" id={`docs-${shelf.id}`}>
@@ -133,7 +132,7 @@ export default function Library({ route }) {
                   </ul>
                   {!whole && (
                     <button type="button" className="shelf-more" aria-controls={`docs-${shelf.id}`} onClick={() => setOpenShelves((x) => new Set(x).add(shelf.id))}>
-                      ดูอีก {docs.length - SHELF_SHOWN} ชุดในชั้นนี้<Icon name="chevronDown" size={16} />
+                      ดูอีก {docs.length - SHELF_SHOWN} รายการในชั้นนี้<Icon name="chevronDown" size={16} />
                     </button>
                   )}
                 </section>

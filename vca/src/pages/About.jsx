@@ -73,6 +73,8 @@ export default function About() {
                 </li>
               ))}
             </ol>
+          ) : catalog.status === 'error' ? (
+            <p className="notice notice-error" role="alert"><Icon name="info" />โหลดรายชื่อรายวิชาไม่สำเร็จ <button type="button" className="text-link" onClick={catalog.retry}>ลองอีกครั้ง</button></p>
           ) : <p className="hint">กำลังโหลด…</p>}
         </section>
 

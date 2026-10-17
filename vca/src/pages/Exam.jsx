@@ -197,16 +197,16 @@ export default function Exam() {
       </section>
 
       <section className="wrap band glass" aria-label="รูปแบบข้อสอบ" data-reveal>
-        <Figure value={FORMAT.perPart} unit="ข้อ">ต่อหมวด สอบ<b>สองหมวด</b></Figure>
-        <Figure value={FORMAT.minutesPerPart / 60} unit="ชม.">ต่อหมวด</Figure>
+        <Figure value={FORMAT.perPart} unit="ข้อ"><Nw>ต่อหมวดของข้อสอบ</Nw> <Nw>มี<b>สองหมวด</b></Nw></Figure>
+        <Figure value={FORMAT.minutesPerPart / 60} unit="ชม.">เวลาสอบต่อหมวด</Figure>
         <Figure value={EXAM_SECONDS} unit="วินาที">ต่อข้อ</Figure>
-        <Figure value={FORMAT.feePerPart} unit="บาท">ค่าสมัครต่อหมวด</Figure>
+        <Figure value={FORMAT.feePerPart} unit="บาท">ค่าสมัครสอบต่อหมวด</Figure>
       </section>
 
       <section className="wrap rehearse glass" aria-labelledby="rehearse-h" data-reveal data-sheen>
         <div>
           <h2 id="rehearse-h" className="rehearse-h">ซ้อมให้เหมือนวันจริง</h2>
-          <p className="rehearse-p"><Nw>{FORMAT.perPart} ข้อใน {FORMAT.minutesPerPart / 60} ชั่วโมง</Nw> <Nw>คละหมวดตามที่ข้อสอบจริงถาม</Nw></p>
+          <p className="rehearse-p"><Nw>{FORMAT.perPart} ข้อใน {FORMAT.minutesPerPart / 60} ชั่วโมง</Nw> <Nw>คละหมวดวิชาตามที่ข้อสอบจริงถาม</Nw></p>
         </div>
         <div className="rehearse-go">
           <button type="button" className="btn btn-ink btn-lg" onClick={() => rehearse(FORMAT.perPart)} disabled={!!busy}>
@@ -225,7 +225,7 @@ export default function Exam() {
         <div className="sec-head" data-reveal>
           <div>
             <p className="kicker">Where the questions fall</p>
-            <h2 id="asks-h" className="sec-h">ข้อสอบออกหมวดไหนบ้าง</h2>
+            <h2 id="asks-h" className="sec-h">ข้อสอบออกหมวดวิชาไหนบ้าง</h2>
           </div>
           <p className="sec-note"><Icon name="info" size={16} /><span>สัดส่วนจากข้อที่รุ่นพี่จำได้หลังสอบ <Nw>ปี 66–68</Nw> <Nw>ไม่ใช่ตัวเลขทางการ</Nw></span></p>
         </div>
@@ -318,7 +318,7 @@ export default function Exam() {
         <ul className="notes-more">
           <li>ตัวเลขทั้งหมดคือข้อที่นิสิตจำได้หลังสอบและจัดวิชาได้ ไม่ใช่ตัวเลขทางการ ปี 58–65 บันทึกไว้ 23–25 วิชา ปี 66–68 บันทึก 38–40 วิชา ผลรวมข้ามปีจึงเทียบกันตรง ๆ ไม่ได้</li>
           <li>ค่าแบบ a+b นับรวมเป็นตัวเลขเดียว ปีที่ไม่มีบันทึกนับเป็น 0 ในค่าเฉลี่ย 3 ปี ส่วน “med” ไม่นับ</li>
-          <li>One health / Food safety อ่านเป็น one health + food safety ตามลำดับชื่อ Physiology และ Nutrition ยังไม่มีหมวดในคลัง</li>
+          <li>One health / Food safety อ่านเป็น one health + food safety ตามลำดับชื่อ Physiology และ Nutrition ยังไม่มีหมวดวิชาในคลัง</li>
           {lag.length > 0 && <li>ผลสอบออกหลังวันสอบ {Math.min(...lag)}–{Math.max(...lag)} วัน ในรอบที่มีประกาศ</li>}
         </ul>
         <ul className="notes-src">

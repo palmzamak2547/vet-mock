@@ -6,7 +6,9 @@
 // git-ignored:
 //   public/bank/<domain>.<hash>.json   one file per domain, fetched when a set needs it
 //   public/q/…                          figures a question points at by path, copied as they are
-//   src/generated/bank.js               counts, domain cards, subject and topic names, hero samples
+//   src/generated/bank.js               counts, domain cards, subject names, hero samples
+//   src/generated/catalog.js            per domain: its topic counts, the subjects behind it and the
+//                                       topic rows its page lists (names cleaned in lib/topic-label.js)
 //   src/generated/library.js            the VCA documents, shelved by field
 //
 // Only learner-ready multiple-choice questions enter: the same isQuestionDeliverable gate the
@@ -33,6 +35,7 @@ const { VCA_MATERIALS } = await load('src/data/vca-materials.js');
 const { isPastPaperQuestion, isExamAlignedQuestion } = await load('src/lib/question-metadata.js');
 const { DOMAINS, FAMILIES, EXCLUDED_SUBJECTS, MAPPED_SUBJECTS, domainOf, thPlain } = await import(pathToFileURL(path.join(APP, 'src/data/domains.js')).href);
 const { DISCIPLINES, GENERAL_SHELF, shelfOf, yearsOf, formatOf } = await import(pathToFileURL(path.join(APP, 'src/data/disciplines.js')).href);
+const { topicRows, TOPICS_LISTED } = await import(pathToFileURL(path.join(APP, 'src/lib/topic-label.js')).href);
 
 const sha = (s) => crypto.createHash('sha256').update(s).digest('hex');
 
@@ -186,21 +189,23 @@ for (const d of DOMAINS) {
   total += items.length;
   const cover = SUBJECT_COVERS[d.art];
   if (!cover) throw new Error(`domain ${d.id}: no bookplate ${d.art} in subject-covers.js`);
+  const topicList = Object.entries(topics).sort((a, b) => b[1] - a[1]).map(([key, n]) => ({ key, n }));
+  // What the domain page lists under "most questions": names cleaned for a student, near-duplicates
+  // merged, a name that only repeats the domain left out, none at all under four (lib/topic-label.js).
+  const listed = topicRows(topicList, topicNames, d);
   domainCards.push({
     id: d.id, plate: d.plate, family: d.family, th: thPlain(d.th), thw: d.th, en: d.en, tag: d.tag,
     art: `/art/${path.basename(cover.src)}`, paper: cover.paper,
     count: items.length, kinds, file: `/bank/${file}`, bytes: Buffer.byteLength(body),
     subjects: Object.entries(subjects).sort((a, b) => b[1] - a[1]).map(([id, n]) => ({ id, n })),
-    topics: Object.entries(topics).sort((a, b) => b[1] - a[1]).map(([key, n]) => ({ key, n })),
+    topics: topicList,
+    topicCount: listed.length,
+    shown: listed.slice(0, TOPICS_LISTED),
   });
 }
 
 prune(BANK_DIR);
 prune(FIG_DIR);
-
-// Topic names only for topics some served question carries.
-const usedTopics = new Set(domainCards.flatMap((d) => d.topics.map((t) => t.key)));
-const topicLabels = Object.fromEntries([...usedTopics].map((k) => [k, topicNames[k] || null]).filter(([, v]) => v));
 
 // ── hero samples: short, self-contained VCA items, one per field, in a fixed order ──────────
 const SAMPLE_TOPICS = ['aquatic', 'swine', 'dogcat', 'poultry', 'immunology', 'equine', 'ruminant', 'exotic', 'ophthalmology', 'clinical-pathology'];
@@ -286,7 +291,7 @@ const BANK = {
   kinds: totalsByKind,
   held: heldInScope,
   families: FAMILIES.map((f) => ({ ...f, th: thPlain(f.th), thw: f.th })),
-  domains: domainCards.map(({ topics, subjects, ...card }) => card),
+  domains: domainCards.map(({ topics, subjects, shown, ...card }) => card),
   subjects: subjectNames,
   library: {
     documents: LIBRARY.documents, papers: LIBRARY.papers, handouts: LIBRARY.handouts, pages: LIBRARY.pages,
@@ -295,8 +300,9 @@ const BANK = {
   },
 };
 const CATALOG = {
-  topics: topicLabels,
-  domains: Object.fromEntries(domainCards.map((d) => [d.id, { topics: d.topics, subjects: d.subjects }])),
+  // topics: every topic key with its question count (adds up to the domain's count); shown: the
+  // rows the domain page draws, ready to draw: { label, n, keys }.
+  domains: Object.fromEntries(domainCards.map((d) => [d.id, { topics: d.topics, subjects: d.subjects, shown: d.shown }])),
   left: out,
   excludedSubjects: Object.entries(excludedBySubject).map(([id, n]) => ({ id, n, why: EXCLUDED_SUBJECTS[id], name: SUBJECTS.find((x) => x.id === id)?.name || id })),
   unmapped,
@@ -311,5 +317,7 @@ if (!QUIET) {
   if (Object.keys(unmapped).length) console.warn(`  ⚠ not mapped to a domain: ${JSON.stringify(unmapped)} (map them in vca/src/data/domains.js)`);
   console.log(`  ${domainCards.map((d) => `${d.id} ${d.count} (${kb(d.bytes)})`).join(', ')}`);
   console.log(`  figures copied ${[...figures.values()].filter((v) => v.startsWith('/q/')).length}; samples ${samples.length}`);
+  const unlisted = domainCards.filter((d) => !d.topicCount).map((d) => d.id);
+  console.log(`  topic lists: ${domainCards.length - unlisted.length} of ${domainCards.length} domains${unlisted.length ? ` (none for ${unlisted.join(', ')}: under four topics)` : ''}, ${domainCards.reduce((n, d) => n + d.shown.length, 0)} rows listed`);
   console.log(`vca library: ${LIBRARY.documents} documents (${LIBRARY.papers} past papers, ${LIBRARY.handouts} handouts), ${LIBRARY.files} files, ${LIBRARY.pages} unique PDF pages, ${shelves.length} shelves`);
 }

@@ -14,13 +14,19 @@ async function join(page, handle = 'palm_vet') {
   await form.getByLabel('ชื่อผู้ใช้').fill(handle);
   await expect(form.locator('.claim-note.is-free')).toContainText(`vca.vetmock.com/u/${handle}`);
   await expect(page.locator('.sheet .pcard-name')).toHaveText('ปาล์ม');
-  await form.locator('.pform-go .btn-ink').click();
+  // The way on stays in reach at every step: it is stuck to the foot of the sheet's scrolling
+  // part, never below the fold of a phone's screen.
+  const go = form.locator('.pform-go .btn-ink');
+  await expect(go).toBeInViewport({ ratio: 1 });
+  await go.click();
   await expect(page.locator('.steps li.on')).toContainText('เกี่ยวกับคุณ');
-  await form.locator('.pform-go .btn-ink').click();
+  await expect(go).toBeInViewport({ ratio: 1 });
+  await go.click();
   await expect(page.locator('.steps li.on')).toContainText('หมวดที่สนใจ');
   await form.locator('.pform-focus .chip').first().click();
   await expect(form.locator('.pform-focus .chip[aria-pressed="true"]')).toHaveCount(1);
-  await form.locator('.pform-go .btn-ink').click();
+  await expect(go).toBeInViewport({ ratio: 1 });
+  await go.click();
   const welcome = page.locator('.sheet .welcome');
   await expect(welcome.locator('.pcard.is-stamped .pcard-stamp')).toBeVisible();
   await expect(welcome.locator('.welcome-h')).toHaveText(`@${handle} เป็นของคุณแล้ว`);
@@ -159,4 +165,89 @@ test('a profile cover draws at 1200 x 630', async ({ page }) => {
   });
   expect(out).toMatchObject({ type: 'image/jpeg', w: 1200, h: 630 });
   expect(out.size).toBeGreaterThan(30_000);
+});
+
+// An empty board says so plainly, with the way to the first thread; "in this filter" only when a
+// filter is set. The demo keeps its board in sessionStorage, so an empty one can be seeded.
+test('an empty board says so, and offers the first thread through the sign-in sheet', async ({ page }) => {
+  await page.addInitScript(() => {
+    sessionStorage.setItem('vca:demo:community:v1', JSON.stringify({ people: [], posts: [], comments: [], likes: [], rooms: [], members: [], messages: [], blocks: [], reports: [], session: null, nextId: 1 }));
+  });
+  await page.goto('/community');
+  await expect(page.locator('.empty-h')).toHaveText('ยังไม่มีกระทู้');
+  await page.locator('.empty').getByRole('button', { name: 'ตั้งกระทู้แรก' }).click();
+  await expect(page.locator('.sheet .signin-ways')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('.sheet')).toBeHidden();
+  await page.goto('/community?kind=tip');
+  await expect(page.locator('.empty-h')).toHaveText('ยังไม่มีกระทู้ในตัวกรองนี้');
+});
+
+// Deleting asks in the site's own sheet: window.confirm is not drawn in some in-app browsers
+// (LINE's among them). No browser dialog may open; cancel and Escape keep the thing.
+test('deleting a reply, a thread and a message asks in the site sheet, never a browser dialog', async ({ page }) => {
+  let dialogs = 0;
+  page.on('dialog', (d) => { dialogs += 1; d.dismiss(); });
+  await page.goto('/community');
+  await join(page, 'del_vet');
+
+  await page.locator('.board-go a', { hasText: 'ตั้งกระทู้' }).click();
+  const form = page.locator('.compose-form');
+  await form.getByLabel('หัวข้อ').fill('กระทู้ที่จะลบ');
+  await form.getByLabel('รายละเอียด').fill('ทดสอบการลบ');
+  await form.locator('button[type="submit"]').click();
+  await expect(page.locator('.thread-title')).toHaveText('กระทู้ที่จะลบ');
+  await page.locator('#reply-body').fill('คำตอบที่จะลบ');
+  await page.locator('.composer button[type="submit"]').click();
+  await expect(page.locator('.cmt')).toHaveCount(1);
+
+  const sheet = page.locator('.sheet');
+  const del = page.locator('.cmt-acts .act', { hasText: 'ลบ' });
+  await del.click();
+  await expect(sheet.locator('.sheet-title')).toHaveText('ลบคำตอบนี้?');
+  await expect(sheet.getByRole('button', { name: 'ยกเลิก' })).toBeFocused();
+  await sheet.getByRole('button', { name: 'ยกเลิก' }).click();
+  await expect(sheet).toBeHidden();
+  await expect(page.locator('.cmt')).toHaveCount(1);
+  await expect(del).toBeFocused();
+  await del.click();
+  await expect(sheet).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(sheet).toBeHidden();
+  await expect(page.locator('.cmt')).toHaveCount(1);
+  await del.click();
+  await sheet.getByRole('button', { name: 'ลบคำตอบ' }).click();
+  await expect(page.locator('.cmt')).toHaveCount(0);
+
+  await page.locator('.thread-acts .act', { hasText: 'ลบ' }).click();
+  await expect(sheet.locator('.sheet-title')).toHaveText('ลบกระทู้นี้?');
+  await sheet.getByRole('button', { name: 'ลบกระทู้' }).click();
+  await expect(page).toHaveURL(/\/community$/);
+  await expect(page.locator('a.post-card', { hasText: 'กระทู้ที่จะลบ' })).toHaveCount(0);
+
+  await page.goto('/chat/lobby');
+  await expect(page.locator('.msgs .msg')).toHaveCount(4);
+  await page.locator('#chat-input').fill('ข้อความที่จะลบ');
+  await page.locator('.room-send').click();
+  const mine = page.locator('.mgroup.is-me .msg');
+  await expect(mine).toHaveCount(1);
+  await mine.click();
+  await mine.locator('.act', { hasText: 'ลบ' }).click();
+  await expect(sheet.locator('.sheet-title')).toHaveText('ลบข้อความนี้?');
+  await sheet.getByRole('button', { name: 'ลบข้อความ' }).click();
+  await expect(mine).toHaveCount(0);
+  expect(dialogs).toBe(0);
+});
+
+// The colour swatches of the profile are named in Thai for a screen reader.
+test('the profile colour swatches have Thai names', async ({ page }) => {
+  await page.goto('/community');
+  await page.locator('.acct-btn').click();
+  await page.locator('.signin-google').click();
+  const form = page.locator('.sheet .pform');
+  await expect(form).toBeVisible();
+  await form.locator('.pform-more summary').click();
+  const swatches = form.getByRole('radiogroup', { name: 'สีพื้น' }).getByRole('radio');
+  await expect(swatches).toHaveCount(6);
+  expect(await swatches.evaluateAll((els) => els.map((e) => e.getAttribute('aria-label')))).toEqual(['เขียว', 'ทอง', 'ส้มอิฐ', 'น้ำเงิน', 'ม่วง', 'เทาเข้ม']);
 });

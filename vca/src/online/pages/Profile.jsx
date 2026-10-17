@@ -7,6 +7,7 @@ import { Link } from '../../components/Link.jsx';
 import { Icon } from '../../components/Icon.jsx';
 import { Figure } from '../../components/bits.jsx';
 import { ShareButton } from '../../components/Share.jsx';
+import { ConfirmSheet } from '../../components/Sheet.jsx';
 import { useTitle } from '../../lib/hooks.js';
 import { CARD_BY_ID } from '../../lib/bank.js';
 import { navigate } from '../../router.js';
@@ -26,7 +27,7 @@ const joined = (iso) => (iso ? new Date(iso).toLocaleDateString('th-TH', { month
 function Stats({ stats }) {
   const figs = [
     stats.answered > 0 && <Figure key="a" value={stats.answered} unit="ข้อ">ฝึกไปแล้ว</Figure>,
-    Number.isFinite(stats.accuracy) && stats.answered > 0 && <Figure key="c" value={stats.accuracy} unit="%">ตอบถูก</Figure>,
+    Number.isFinite(stats.accuracy) && stats.answered > 0 && <Figure key="c" value={`${stats.accuracy}%`}>ตอบถูก</Figure>,
     stats.streak > 0 && <Figure key="s" value={stats.streak} unit="วัน">ฝึกต่อเนื่อง</Figure>,
     stats.mocks > 0 && <Figure key="m" value={stats.mocks} unit="ชุด">สอบจำลอง</Figure>,
   ].filter(Boolean);
@@ -43,6 +44,7 @@ export default function Profile({ route }) {
   const [blocked, setBlocked] = useState(false);
   const [busy, setBusy] = useState('');
   const [error, setError] = useState('');
+  const [askBlock, setAskBlock] = useState(false);
   // Your own page follows your edits as you make them.
   const profile = mine ? account.profile : found;
   useTitle(profile ? `${profile.name} (@${profile.handle})` : handle ? `@${handle}` : 'โปรไฟล์ของฉัน');
@@ -120,8 +122,11 @@ export default function Profile({ route }) {
       navigate(`/chat/${room}`);
     } catch (err) { setError(problemText(err)); setBusy(''); }
   };
-  const toggleBlock = async () => {
-    if (!blocked && !window.confirm(`บล็อก ${profile.name}? จะไม่เห็นข้อความของกันและกันในแชท และส่งข้อความหากันไม่ได้`)) return;
+  // Blocking asks first in the site's own sheet (a native confirm can be blocked inside LINE's
+  // browser); unblocking does not ask.
+  const toggleBlock = () => { if (blocked) setBlock(); else setAskBlock(true); };
+  const setBlock = async () => {
+    setAskBlock(false);
     setBusy('block'); setError('');
     try {
       const b = await getBackend();
@@ -204,6 +209,9 @@ export default function Profile({ route }) {
           <ol className="posts">{posts.map((p, i) => <PostCard key={p.id} post={p} i={i} />)}</ol>
         )}
       </section>
+      <ConfirmSheet open={askBlock} onClose={() => setAskBlock(false)} onConfirm={setBlock} title={`บล็อก ${profile.name}?`} confirm="บล็อก">
+        จะไม่เห็นข้อความของกันและกันในแชท และส่งข้อความหากันไม่ได้
+      </ConfirmSheet>
     </div>
   );
 }

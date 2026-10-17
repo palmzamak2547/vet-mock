@@ -36,6 +36,12 @@
 .btn-danger { background: transparent; color: var(--cinn); box-shadow: inset 0 0 0 1px var(--cinn-line); }
 .btn-lg { min-height: 54px; padding: 0 26px; font-size: 16.5px; }
 .btn-sm { min-height: 42px; padding: 0 16px; font-size: 14.5px; }
+/* A finger needs 44 px (--touch): the small button grows to it on a touch screen (the chip and
+   the footer links do beside their own rules), and a short link reaches out with an invisible
+   ::after (base.css), so nothing else moves. */
+@media (pointer: coarse) {
+  .btn-sm { min-height: var(--touch); }
+}
 .btn-meta { font: 500 12.5px/1 var(--mono); opacity: .7; }
 .btn-block { width: 100%; }
 
@@ -133,8 +139,11 @@
   .tabbar {
     position: fixed; z-index: 40; left: 10px; right: 10px; bottom: max(10px, env(safe-area-inset-bottom));
     display: grid; grid-template-columns: repeat(5, 1fr); height: 64px; padding: 0 4px; border-radius: 22px;
+    /* Almost solid: on a short page the bar floats over the cobalt footer, and a clearer glass let
+       the footer's big cream line show through the labels (2.6:1 by day, as low as 2.2:1 after hours). */
+    background: var(--glass-solid); background: color-mix(in srgb, var(--glass-solid) 92%, transparent);
   }
-  .tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: var(--touch); border-radius: 16px; color: var(--ink-3); text-decoration: none; font: 600 11.5px/1.2 var(--sans); }
+  .tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: var(--touch); border-radius: 16px; color: var(--ink-3); text-decoration: none; font: 600 12.5px/1.2 var(--sans); }
   .tab .ic { transition: transform var(--t) var(--ease-spring); }
   .tab.on { color: var(--ink); }
   .tab.on .ic { color: var(--verd); transform: translateY(-1px); }
@@ -157,6 +166,8 @@
 .footer-cols a, .foot-btn { display: inline-flex; align-items: center; gap: 4px; min-height: 40px; color: var(--foot-ink); text-decoration: none; font-size: 15.5px; opacity: .88; transition: opacity var(--t) var(--ease); }
 .footer-cols a:hover, .foot-btn:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--foot-line); }
 .foot-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0; border: 0; background: none; color: var(--foot-ink); font: inherit; font-size: 15.5px; opacity: .88; cursor: pointer; }
+/* Footer links are rows that can grow; a short word ("แชท") is also made 44 px wide. */
+@media (pointer: coarse) { .footer-cols a, .foot-btn { min-height: var(--touch); min-width: var(--touch); } }
 .footer :focus-visible { outline-color: var(--foot-ink); }
 .footer-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 32px; padding-block: 8px 34px; font-size: 13.5px; line-height: 1.6; color: var(--foot-ink-2); }
 /* The sheet keeps its proportions and is never cropped: the rider, his plume and the man he
@@ -232,7 +243,8 @@
 }
 .chip:hover { box-shadow: inset 0 0 0 1px var(--line-3); }
 .chip[aria-pressed="true"], .chip.on { background: var(--ink); color: var(--bg); box-shadow: none; }
-.chip-n { font: 500 12px/1 var(--mono); color: var(--ink-3); }
+.chip-n { font: 500 12px/1 var(--mono); color: var(--ink-2); }
+@media (pointer: coarse) { .chip { min-height: var(--touch); } }
 .chip[aria-pressed="true"] .chip-n, .chip.on .chip-n { color: inherit; opacity: .7; }
 
 .seg { margin: 0; padding: 0; border: 0; min-width: 0; }
@@ -277,7 +289,7 @@
 /* ── The question ────────────────────────────────────────────────────────────────────── */
 .q-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
 .q-plate { display: inline-flex; align-items: baseline; gap: 7px; font: 500 12px/1.3 var(--sans); color: var(--ink-2); padding: 4px 10px; border-radius: var(--r-pill); background: var(--line); }
-.q-plate-no { font: 500 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.q-plate-no { font: 500 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
 .q-count { margin-left: auto; font: 500 13px/1 var(--mono); color: var(--ink-2); }
 .q-of { color: var(--ink-3); }
 .q-stem { font: 500 clamp(17.5px, 1.4vw + 12px, 20px)/1.65 var(--sans); letter-spacing: -.003em; margin: 0 0 18px; overflow-wrap: anywhere; }
@@ -315,12 +327,12 @@
 .why { margin-top: 18px; display: grid; gap: 14px; animation: rise var(--t-slow) var(--ease); }
 @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 .verdict { display: flex; align-items: center; gap: 8px; font: 600 16px/1.4 var(--sans); }
-.verdict.ok { color: var(--verd); }
+.verdict.ok { color: var(--verd-text); }
 .verdict.no { color: var(--cinn); }
 .verdict.skip { color: var(--ink-2); }
 .verdict b { font-family: var(--mono); }
 .why-body { padding: 16px 18px; border-radius: var(--r-md); background: var(--verd-soft); }
-.why-label { display: block; margin-bottom: 6px; font: 600 13px/1.3 var(--sans); color: var(--verd); }
+.why-label { display: block; margin-bottom: 6px; font: 600 13px/1.3 var(--sans); color: var(--verd-text); }
 .why-body p { font-size: 16px; line-height: 1.75; overflow-wrap: anywhere; }
 .why-body .q-fig { margin: 14px 0 0; }
 .why-none { color: var(--ink-3); font-size: 15px; }
@@ -328,13 +340,13 @@
 .prov { display: grid; gap: 10px; padding: 14px 4px 2px; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.6; color: var(--ink-2); }
 .prov-head { display: flex; align-items: center; gap: 10px; }
 .prov-no { margin-left: auto; font: 500 12.5px/1 var(--mono); color: var(--ink-3); }
-.prov-talk { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; padding: 0 10px; border-radius: var(--r-pill); color: var(--verd); font: 600 13px/1 var(--sans); text-decoration: none; box-shadow: inset 0 0 0 1px var(--verd-line); transition: background-color var(--t) var(--ease); }
+.prov-talk { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; padding: 0 10px; border-radius: var(--r-pill); color: var(--verd-text); font: 600 13px/1 var(--sans); text-decoration: none; box-shadow: inset 0 0 0 1px var(--verd-line); transition: background-color var(--t) var(--ease); }
 .prov-talk:hover { background: var(--verd-soft); }
 .prov dl { display: grid; gap: 4px; }
 .prov-row { display: grid; grid-template-columns: 64px 1fr; gap: 12px; }
 .prov dt { color: var(--ink-3); }
 .prov dd { overflow-wrap: anywhere; }
-.prov a { color: var(--verd); }
+.prov a { color: var(--verd-text); }
 .prov-refs { display: grid; gap: 2px; padding-left: 76px; }
 .prov-loc { margin-left: 8px; color: var(--ink-3); }
 
@@ -395,7 +407,7 @@
 
 .install-steps { display: grid; gap: 12px; margin-top: 18px; counter-reset: none; }
 .install-steps li { display: flex; align-items: center; gap: 14px; font-size: 15.5px; line-height: 1.5; }
-.install-n { display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--verd-soft); color: var(--verd); font: 600 14px/1 var(--mono); }
+.install-n { display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--verd-soft); color: var(--verd-text); font: 600 14px/1 var(--mono); }
 
 /* An example typing itself into an empty field (components/TypingHint.jsx places it over the
    field's text box and copies its font). The caret stays solid while keys land and blinks once

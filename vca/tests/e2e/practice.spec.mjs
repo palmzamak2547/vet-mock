@@ -43,6 +43,35 @@ test('a ten-question swine set runs to its result', async ({ page, isMobile }) =
   await expect(page.locator('.export-list .brand-tile')).toHaveCount(4);
   await page.screenshot({ path: test.info().outputPath('export.png') });
   await expect(sheet.first()).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(sheet.first()).toBeHidden();
+  // The date has its Buddhist-era year (the clock is fixed to 17 Oct 2569).
+  await expect(page.locator('.result-facts li').first()).toContainText('17 ต.ค. 2569');
+  // The invitation sits in the glass hero, and its sheet still takes the whole screen.
+  await page.getByRole('button', { name: 'ชวนเพื่อนมาซ้อม' }).click();
+  const veil = page.locator('.sheet-veil');
+  await expect(veil).toBeVisible();
+  const { width, height } = page.viewportSize();
+  expect(await veil.boundingBox()).toMatchObject({ x: 0, y: 0, width, height });
+  await page.keyboard.press('Escape');
+  await expect(veil).toBeHidden();
+});
+
+test('/session with no set to run goes to the set builder, frame and all', async ({ page, isMobile }) => {
+  await page.goto('/session');
+  await expect(page).toHaveURL(/\/practice$/);
+  await expect(page.locator('.builder-form')).toBeVisible();
+  await expect(page.locator('.topbar')).toBeVisible();
+  await expect(page.locator('footer.footer')).toBeAttached();
+  if (isMobile) await expect(page.locator('.tabbar')).toBeVisible();
+  // The entry was replaced, so Back does not return to an empty /session.
+  expect(await page.evaluate(() => history.length)).toBeLessThanOrEqual(2);
+});
+
+test('the set builder names the domains หมวดวิชา and a part of the paper หมวด', async ({ page }) => {
+  await page.goto('/practice?mode=mock&n=200');
+  await expect(page.locator('.builder-sum .sum-list')).toContainText('หมวดวิชา');
+  await expect(page.locator('.builder-sum .sum-real')).toContainText('ข้อสอบจริง 1 หมวด');
 });
 
 test('the builder keeps its choices in the address', async ({ page }) => {

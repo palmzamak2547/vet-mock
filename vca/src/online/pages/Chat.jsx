@@ -5,6 +5,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link } from '../../components/Link.jsx';
 import { Icon } from '../../components/Icon.jsx';
+import { ConfirmSheet } from '../../components/Sheet.jsx';
 import { useMedia, useTitle } from '../../lib/hooks.js';
 import { Avatar } from '../ui/Avatar.jsx';
 import { AttachButton, MediaGrid, MediaTray, useMediaTray } from '../ui/Media.jsx';
@@ -70,6 +71,8 @@ function Room({ room, me, blocked, onRead }) {
   const [error, setError] = useState('');
   const [picked, setPicked] = useState(null);
   const [report, setReport] = useState(null);
+  // The message the student was just asked to confirm deleting; `open` closes the sheet, the id stays while it leaves.
+  const [ask, setAsk] = useState({ open: false, id: null });
   const [fresh, setFresh] = useState(0);
   const scroller = useRef(null);
   const input = useRef(null);
@@ -171,7 +174,6 @@ function Room({ room, me, blocked, onRead }) {
     if (document.activeElement !== input.current) input.current?.focus({ preventScroll: true });
   };
   const remove = async (id) => {
-    if (!window.confirm('ลบข้อความนี้?')) return;
     try {
       const b = await getBackend();
       await b.chat.remove(id);
@@ -236,7 +238,7 @@ function Room({ room, me, blocked, onRead }) {
                             <span className="msg-acts">
                               <button type="button" className="act" onClick={(e) => { e.stopPropagation(); setReplyTo(m.id); setPicked(null); input.current?.focus({ preventScroll: true }); }}><Icon name="reply" size={15} />ตอบ</button>
                               {mine ? (
-                                <button type="button" className="act" onClick={(e) => { e.stopPropagation(); remove(m.id); }}><Icon name="trash" size={15} />ลบ</button>
+                                <button type="button" className="act" onClick={(e) => { e.stopPropagation(); setAsk({ open: true, id: m.id }); }}><Icon name="trash" size={15} />ลบ</button>
                               ) : (
                                 <button type="button" className="act" onClick={(e) => { e.stopPropagation(); setReport(m.id); }}><Icon name="flag" size={15} />รายงาน</button>
                               )}
@@ -283,6 +285,14 @@ function Room({ room, me, blocked, onRead }) {
         </div>
       </form>
       {report && <ReportSheet target="message" id={report} onClose={() => setReport(null)} />}
+      <ConfirmSheet
+        open={ask.open}
+        onClose={() => setAsk((a) => ({ ...a, open: false }))}
+        onConfirm={() => { setAsk((a) => ({ ...a, open: false })); remove(ask.id); }}
+        title="ลบข้อความนี้?" confirm="ลบข้อความ"
+      >
+        ข้อความนี้จะหายไปจากห้อง ย้อนกลับไม่ได้
+      </ConfirmSheet>
     </section>
   );
 }

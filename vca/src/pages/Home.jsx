@@ -177,8 +177,8 @@ export function Home() {
       <section className="wrap band glass" aria-label="คลังในตัวเลข" data-reveal>
         <Figure value={BANK.total} unit="ข้อ">มีเฉลยและเหตุผล<b>ทุกข้อ</b></Figure>
         <Figure value={BANK.kinds.paper} unit="ข้อ"><b>ข้อสอบเก่า</b>ที่รุ่นพี่จดไว้</Figure>
-        <Figure value={BANK.domains.length} unit="หมวด">ครบทุกสาขาที่สอบ</Figure>
-        <Figure value={lib.documents} unit="ชุด">เอกสาร VCA <b><CountUp value={lib.pages} /> หน้า</b></Figure>
+        <Figure value={BANK.domains.length} unit="หมวด">ที่ข้อสอบถาม</Figure>
+        <Figure value={lib.documents} unit="รายการ">เอกสาร VCA <b><CountUp value={lib.pages} /> หน้า</b></Figure>
       </section>
 
       <section className="wrap sec" aria-labelledby="collection-h">
@@ -301,7 +301,7 @@ export function Home() {
         <div className="libteaser glass" data-reveal data-sheen>
           <div className="libteaser-copy">
             <p className="kicker">The archive</p>
-            <h2 id="lib-h" className="sec-h">เอกสาร VCA <CountUp value={lib.documents} /> ชุด</h2>
+            <h2 id="lib-h" className="sec-h">เอกสาร VCA <CountUp value={lib.documents} /> รายการ</h2>
             <p className="sec-p">ข้อสอบเก่าและเอกสารติวรวม <Nw><CountUp value={lib.pages} /> หน้า</Nw>{lib.firstYear ? <> <Nw>ย้อนไปถึงปี {lib.firstYear}</Nw></> : null}</p>
             <Link to="/library" className="btn btn-ink"><Icon name="book" />เปิดชั้นเอกสาร</Link>
           </div>

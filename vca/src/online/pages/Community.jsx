@@ -10,6 +10,7 @@ import { CARD_BY_ID, DOMAIN_CARDS } from '../../lib/bank.js';
 import { navigate, withQuery } from '../../router.js';
 import { JoinPrompt, KindSeg, Soon } from '../ui/bits.jsx';
 import { PostCard } from '../ui/PostCard.jsx';
+import { askJoin } from '../ui/AccountButton.jsx';
 import { QuestionPeek } from '../ui/QuestionPeek.jsx';
 import { MODE } from '../config.js';
 import { ensureAccount, getBackend, useAccount } from '../account.js';
@@ -107,8 +108,14 @@ export default function Community({ route }) {
       {feed.status === 'error' && <p className="notice notice-error" role="alert"><Icon name="info" size={18} />โหลดกระทู้ไม่สำเร็จ ลองรีเฟรชอีกครั้ง</p>}
       {feed.status === 'ready' && feed.posts.length === 0 && (
         <div className="empty">
-          <p className="empty-h">ยังไม่มีกระทู้{questionNo ? 'เกี่ยวกับข้อนี้' : 'ในตัวกรองนี้'}</p>
+          {/* "In this filter" only when a filter is set: an empty board with none is just empty. */}
+          <p className="empty-h">{questionNo ? 'ยังไม่มีกระทู้เกี่ยวกับข้อนี้' : kind || domain ? 'ยังไม่มีกระทู้ในตัวกรองนี้' : 'ยังไม่มีกระทู้'}</p>
           <p className="hint">เปิดประเด็นแรกได้เลย</p>
+          {canPost ? (
+            <Link to={composeHref} className="btn btn-ink"><Icon name="plus" size={18} />ตั้งกระทู้แรก</Link>
+          ) : account.status !== 'idle' && account.status !== 'loading' && (
+            <button type="button" className="btn btn-ink" onClick={askJoin}><Icon name="plus" size={18} />ตั้งกระทู้แรก</button>
+          )}
         </div>
       )}
       <ol className="posts">

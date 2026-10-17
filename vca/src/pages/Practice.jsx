@@ -101,7 +101,7 @@ export default function Practice({ route }) {
         <p className="kicker">{mode === 'mock' ? 'Mock exam' : 'Practice set'}</p>
         <h1 className="page-h">{mode === 'mock' ? 'ตั้งชุดสอบจำลอง' : 'ตั้งชุดฝึก'}</h1>
         <p className="page-p">{mode === 'mock'
-          ? 'จับเวลาทั้งชุดเหมือนในห้องสอบ เฉลยและคะแนนรายหมวดจะเปิดหลังส่ง'
+          ? 'จับเวลาทั้งชุดเหมือนในห้องสอบ เฉลยและคะแนนรายหมวดวิชาจะเปิดหลังส่ง'
           : 'ตอบแล้วเห็นเฉลยกับเหตุผลทันที ครั้งหน้าเลือกเฉพาะข้อที่ยังไม่เคยทำหรือข้อที่เคยผิดได้'}</p>
       </header>
 
@@ -116,10 +116,10 @@ export default function Practice({ route }) {
           />
 
           <fieldset className="pick">
-            <legend className="label">หมวด <span className="label-note">{domains.length ? `เลือกไว้ ${domains.length} หมวด` : 'ทุกหมวด'}</span></legend>
+            <legend className="label">หมวดวิชา <span className="label-note">{domains.length ? `เลือกไว้ ${domains.length} หมวดวิชา` : 'ทุกหมวดวิชา'}</span></legend>
             <div className="pick-all">
               <button type="button" className="chip" aria-pressed={!domains.length} onClick={() => { setDomains([]); sync({ d: [] }); }}>
-                ทุกหมวด<span className="chip-n">{num(BANK.total)}</span>
+                ทุกหมวดวิชา<span className="chip-n">{num(BANK.total)}</span>
               </button>
             </div>
             {familyRows.map(({ f, cards }) => (
@@ -138,10 +138,10 @@ export default function Practice({ route }) {
 
           {domains.length !== 1 && (
             <Seg
-              name="mix" label="สัดส่วนหมวด" value={mix} onChange={(v) => { setMix(v); sync({ mix: v === 'bank' ? 'bank' : null }); }}
+              name="mix" label="สัดส่วนหมวดวิชา" value={mix} onChange={(v) => { setMix(v); sync({ mix: v === 'bank' ? 'bank' : null }); }}
               options={[
                 { value: 'exam', label: 'ตามที่ออกสอบ', hint: 'สถิติปี 66–68' },
-                { value: 'bank', label: 'ตามจำนวนในคลัง', hint: 'หมวดใหญ่ได้มาก' },
+                { value: 'bank', label: 'ตามจำนวนในคลัง', hint: 'หมวดวิชาใหญ่ได้มาก' },
               ]}
             />
           )}
@@ -180,7 +180,7 @@ export default function Practice({ route }) {
             <div className="topic-note">
               <span className="label">เฉพาะหัวข้อ</span>
               <button type="button" className="chip on" onClick={() => sync({ t: [] })} aria-label="เอาตัวกรองหัวข้อออก">
-                {topics.length} หัวข้อจากหน้าหมวด<Icon name="x" size={16} />
+                {topics.length} หัวข้อจากหน้าหมวดวิชา<Icon name="x" size={16} />
               </button>
             </div>
           )}
@@ -189,16 +189,16 @@ export default function Practice({ route }) {
         <aside className="builder-sum glass" aria-label="สรุปชุดนี้">
           <p className="sum-k">{mode === 'mock' ? 'ชุดสอบจำลอง' : 'ชุดฝึก'}</p>
           <p className="sum-n">{num(count)}<small>ข้อ</small></p>
-          {mode === 'mock' && real && <p className="sum-real"><Icon name="target" size={16} />ยาวและเร็วเท่าสนามจริง 1 หมวด</p>}
+          {mode === 'mock' && real && <p className="sum-real"><Icon name="target" size={16} />ยาวและเร็วเท่าข้อสอบจริง 1 หมวด</p>}
           <ul className="sum-list">
-            <li><span>หมวด</span><b>{domains.length ? (domains.length <= 2 ? domains.map((id) => CARD_BY_ID[id].th).join('และ') : `${domains.length} หมวด`) : `ทั้ง ${ALL_DOMAINS.length} หมวด`}</b></li>
+            <li><span>หมวดวิชา</span><b>{domains.length ? (domains.length <= 2 ? domains.map((id) => CARD_BY_ID[id].th).join('และ') : `${domains.length} หมวดวิชา`) : `ทั้ง ${ALL_DOMAINS.length} หมวดวิชา`}</b></li>
             <li><span>คัดจาก</span><b>{pool.exact ? '' : 'ไม่เกิน '}{num(pool.total)} ข้อ</b></li>
             <li><span>เวลา</span><b>{mode === 'mock' && !perQ ? 'ไม่จับเวลา' : `ราว ${duration(minutes * 60000)}`}</b></li>
           </ul>
-          {error === 'empty' && <p className="notice"><Icon name="info" />ยังไม่มีข้อที่ตรงกับทุกตัวเลือก ลองเปลี่ยนเป็นทุกข้อหรือเพิ่มหมวด</p>}
+          {error === 'empty' && <p className="notice"><Icon name="info" />ยังไม่มีข้อที่ตรงกับทุกตัวเลือก ลองเปลี่ยนเป็นทุกข้อหรือเพิ่มหมวดวิชา</p>}
           {error === 'load' && <p className="notice notice-error"><Icon name="info" />โหลดข้อสอบไม่สำเร็จ ตรวจการเชื่อมต่อแล้วลองอีกครั้ง</p>}
           <button type="button" className="btn btn-ink btn-lg btn-block" onClick={onStart} disabled={!!busy || count === 0}>
-            {busy ? <>กำลังเตรียม {busy.total > 1 ? `${busy.done}/${busy.total} หมวด` : ''}<span className="spinner" aria-hidden="true" /></> : <>{mode === 'mock' ? 'เริ่มสอบ' : 'เริ่มฝึก'} {num(count)} ข้อ <Icon name="arrowRight" /></>}
+            {busy ? <>กำลังเตรียม {busy.total > 1 ? `${busy.done}/${busy.total} หมวดวิชา` : ''}<span className="spinner" aria-hidden="true" /></> : <>{mode === 'mock' ? 'เริ่มสอบ' : 'เริ่มฝึก'} {num(count)} ข้อ <Icon name="arrowRight" /></>}
           </button>
           {active && <p className="sum-note">มีชุดที่ทำค้างไว้ <Link to="/session" className="text-link">ทำต่อ</Link></p>}
         </aside>

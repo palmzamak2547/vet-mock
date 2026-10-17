@@ -1,5 +1,7 @@
 // Numbers, times and dates the way a Thai reader expects them.
 
+import { stripEmoji } from './emoji.js';
+
 export const num = (n) => (Number.isFinite(n) ? n.toLocaleString('th-TH') : '–');
 
 export const pct = (x, digits = 0) => (Number.isFinite(x) ? `${(x * 100).toFixed(digits)}%` : '–');
@@ -48,5 +50,5 @@ export const plateNo = (n) => `Pl. ${two(n)}`;
 
 export const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 
-/** A document's file name as a title: underscores read as spaces, no trailing dots. */
-export const docTitle = (t) => String(t).replace(/_+/g, ' ').replace(/[\s.]*\.{2,}\s*$/, '').replace(/\s{2,}/g, ' ').trim();
+/** A document's file name as a title: no emoji, underscores read as spaces, no trailing dots. */
+export const docTitle = (t) => stripEmoji(t).replace(/_+/g, ' ').replace(/[\s.]*\.{2,}\s*$/, '').replace(/\s{2,}/g, ' ').trim();

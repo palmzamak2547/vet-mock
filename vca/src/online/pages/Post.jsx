@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link } from '../../components/Link.jsx';
 import { Icon } from '../../components/Icon.jsx';
 import { ShareButton } from '../../components/Share.jsx';
+import { ConfirmSheet } from '../../components/Sheet.jsx';
 import { useTitle } from '../../lib/hooks.js';
 import { navigate, withQuery } from '../../router.js';
 import { Avatar, Byline } from '../ui/Avatar.jsx';
@@ -58,6 +59,9 @@ export default function Post({ route }) {
   const [busy, setBusy] = useState(false);
   const [report, setReport] = useState(null);
   const [error, setError] = useState('');
+  // The delete the student was just asked to confirm. `open` closes the sheet; kind and id stay
+  // while it leaves, so its words do not change under the exit animation.
+  const [ask, setAsk] = useState({ open: false, kind: 'post', id: null });
   const tray = useMediaTray({ kind: 'comment', max: 1, video: false });
   useTitle(post?.title || 'กระทู้');
   const me = account.user?.id;
@@ -133,7 +137,6 @@ export default function Post({ route }) {
     } finally { setBusy(false); }
   };
   const removePost = async () => {
-    if (!window.confirm('ลบกระทู้นี้และคำตอบทั้งหมด?')) return;
     try {
       const b = await getBackend();
       await b.board.remove(id);
@@ -141,7 +144,6 @@ export default function Post({ route }) {
     } catch (err) { setError(problemText(err)); }
   };
   const removeComment = async (cid) => {
-    if (!window.confirm('ลบคำตอบนี้?')) return;
     try {
       const b = await getBackend();
       await b.board.removeComment(cid);
@@ -155,7 +157,7 @@ export default function Post({ route }) {
     me, canWrite, liked,
     like: (cid) => toggleLike('comment', cid),
     reply: (cid) => { setReply((r) => ({ ...r, to: cid })); document.getElementById('reply-body')?.focus(); },
-    remove: removeComment,
+    remove: (cid) => setAsk({ open: true, kind: 'comment', id: cid }),
     report: (cid) => setReport({ target: 'comment', id: cid }),
   };
 
@@ -189,7 +191,7 @@ export default function Post({ route }) {
           {post.author.id === me ? (
             <>
               <Link to={`/community/p/${post.id}/edit`} className="act act-lg"><Icon name="edit" size={18} />แก้ไข</Link>
-              <button type="button" className="act act-lg" onClick={removePost}><Icon name="trash" size={18} />ลบ</button>
+              <button type="button" className="act act-lg" onClick={() => setAsk({ open: true, kind: 'post', id })}><Icon name="trash" size={18} />ลบ</button>
             </>
           ) : canWrite && (
             <button type="button" className="act act-lg" onClick={() => setReport({ target: 'post', id: post.id })}><Icon name="flag" size={18} />รายงาน</button>
@@ -226,6 +228,15 @@ export default function Post({ route }) {
         ) : <JoinPrompt what="ตอบกระทู้" />}
       </section>
       {report && <ReportSheet target={report.target} id={report.id} onClose={() => setReport(null)} />}
+      <ConfirmSheet
+        open={ask.open}
+        onClose={() => setAsk((a) => ({ ...a, open: false }))}
+        onConfirm={() => { setAsk((a) => ({ ...a, open: false })); if (ask.kind === 'post') removePost(); else removeComment(ask.id); }}
+        title={ask.kind === 'post' ? 'ลบกระทู้นี้?' : 'ลบคำตอบนี้?'}
+        confirm={ask.kind === 'post' ? 'ลบกระทู้' : 'ลบคำตอบ'}
+      >
+        {ask.kind === 'post' ? 'กระทู้นี้และคำตอบทั้งหมดจะถูกลบ ย้อนกลับไม่ได้' : 'คำตอบนี้จะถูกลบ ย้อนกลับไม่ได้'}
+      </ConfirmSheet>
     </div>
   );
 }

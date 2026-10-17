@@ -4,11 +4,12 @@
 // community's pages (online/) load only when visited: practice never pays for them.
 
 import { Component, Suspense, lazy, useEffect, useLayoutEffect, useRef } from 'react';
-import { useRoute } from './router.js';
+import { navigate, useRoute } from './router.js';
 import { TopBar, TabBar, Footer } from './components/Shell.jsx';
 import { Home } from './pages/Home.jsx';
 import { AccountSheets, startAccount } from './online/index.js';
 import { initMotion, pageReady } from './lib/motion.js';
+import { useActiveSession } from './lib/hooks.js';
 
 const LOADERS = {
   practice: () => import('./pages/Practice.jsx'),
@@ -109,8 +110,21 @@ export function App() {
     return () => cancelAnimationFrame(t);
   }, [path]);
 
+  // /session with no set to run (an old link, a set finished in another tab) has nothing to show,
+  // and a full-screen page with no bar and no way on is a dead end: the set builder is the way on,
+  // and the entry is replaced, so Back does not return to an empty page. The address is read, not
+  // the route: when a set ends, the store clears a beat before the route reaches its result, and
+  // the result must not be redirected from under the student. A passive effect, not a layout one:
+  // on a first load it must run after useRoute's own effect has started listening, or the new
+  // address is never heard and the route stays on /session.
+  const session = useActiveSession();
+  const noSet = route.name === 'session' && !session;
+  useEffect(() => {
+    if (noSet && window.location.pathname.replace(/\/+$/, '') === '/session') navigate('/practice', { replace: true });
+  }, [noSet]);
+
   const Page = route.name === 'home' ? Home : PAGES[route.name] || PAGES.notFound;
-  const focus = route.name === 'session';
+  const focus = route.name === 'session' && !noSet;
   // A conversation on a phone is a screen of its own: the tab bar and footer step aside.
   const room = route.name === 'chat' && !!route.params.room;
   return (
@@ -122,7 +136,7 @@ export function App() {
         <PageBoundary resetKey={path}>
           <Suspense fallback={<Loading />}>
             <Mounted path={path}>
-              <div className="page" key={path}><Page route={route} /></div>
+              <div className="page" key={path}>{noSet ? null : <Page route={route} />}</div>
             </Mounted>
           </Suspense>
         </PageBoundary>

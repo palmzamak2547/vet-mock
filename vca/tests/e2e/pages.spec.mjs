@@ -36,6 +36,46 @@ test('the exam date set on the exam page carries to the home countdown', async (
   await page.locator('.xhero-actions button[aria-pressed]').click();
   await page.goto('/');
   await expect(page.locator('main a.countdown')).toContainText('98');
+  // The pace reads as a promise: so many a day, and the bank is done by the exam.
+  await expect(page.locator('.plan-t')).toContainText('ก็ครบ');
+  await expect(page.locator('.plan-t')).not.toContainText('จะครบอีก');
+});
+
+test('the exam page keeps the parts of the paper and the domains of the exam apart', async ({ page }) => {
+  await page.goto('/exam');
+  // The centre's own wording for the two parts of the paper; the nineteen domains are หมวดวิชา.
+  await expect(page.locator('.ticket-k').first()).toContainText('หมวด 2');
+  await expect(page.locator('#asks-h')).toHaveText('ข้อสอบออกหมวดวิชาไหนบ้าง');
+  await expect(page.locator('.band')).toContainText('ค่าสมัครสอบต่อหมวด');
+});
+
+// A share sheet is drawn into <body>: its button sits inside a glass pane, and a parent with a
+// backdrop-filter would otherwise hold the "fixed" sheet inside its own box (shown clipped).
+test('a share sheet opened from inside a glass pane fills the screen and gives focus back', async ({ page }) => {
+  await page.goto('/exam');
+  const open = page.locator('.xhero-actions button', { hasText: 'แชร์' });
+  await open.click();
+  const veil = page.locator('.sheet-veil');
+  await expect(veil).toBeVisible();
+  const { width, height } = page.viewportSize();
+  expect(await veil.boundingBox()).toMatchObject({ x: 0, y: 0, width, height });
+  expect(await veil.evaluate((n) => n.parentElement === document.body)).toBe(true);
+  await page.keyboard.press('Escape');
+  await expect(veil).toBeHidden();
+  await expect(open).toBeFocused();
+});
+
+test('progress: an empty chart says so in one line, and an export says it was saved', async ({ page }) => {
+  await page.goto('/progress');
+  await expect(page.locator('.activity .hint')).toHaveText('ยังไม่มีวันที่ฝึก');
+  await expect(page.locator('.activity-bars')).toHaveCount(0);
+  const download = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'ส่งออก' }).click();
+  expect((await download).suggestedFilename()).toMatch(/^vetmock-vca-\d{4}-\d{2}-\d{2}\.json$/);
+  await expect(page.getByRole('button', { name: 'บันทึกไฟล์แล้ว' })).toBeVisible();
+  await expect(page.locator('.data [role="status"]')).toHaveText(/บันทึกไฟล์ vetmock-vca-.*\.json แล้ว/);
+  // It is a moment's word, not a state: the button goes back to what it was.
+  await expect(page.getByRole('button', { name: 'ส่งออก' })).toBeVisible({ timeout: 8000 });
 });
 
 test('bank search finds Leptospira', async ({ page }) => {

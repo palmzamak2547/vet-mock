@@ -4,6 +4,7 @@
 
 import { FORMAT, SOURCES, roundCalendar } from '../data/exam.js';
 import { LETTERS } from './format.js';
+import { cleanExplain } from './explain.js';
 
 export const SITE = 'https://vca.vetmock.com';
 
@@ -110,7 +111,7 @@ export function exportRows(items) {
     const row = (order && order.length ? order : q.options.map((_, i) => i)).indexOf(q.answer);
     return {
       id: q.id, domain: domainName, stem: plain(q.q), options: shown.map(plain),
-      letter: LETTERS[row], answer: plain(q.options[q.answer]), explain: plain(q.explain), source: plain(q.source),
+      letter: LETTERS[row], answer: plain(q.options[q.answer]), explain: plain(cleanExplain(q.explain).map((s) => s.text).join(' ')), source: plain(q.source),
     };
   });
 }
