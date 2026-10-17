@@ -385,6 +385,12 @@
 .export-how, .cal-how { grid-column: 1; font-size: 13.5px; line-height: 1.5; color: var(--ink-3); }
 .export-opt .ic, .cal-opt .ic { grid-column: 2; grid-row: 1 / span 2; color: var(--ink-2); }
 .cal-list { display: grid; gap: 8px; margin-top: 16px; }
+/* An option that names an app carries the app's own icon in front. */
+.cal-opt.has-logo { grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 14px; }
+.cal-opt.has-logo .cal-app, .cal-opt.has-logo .cal-how { grid-column: 2; }
+.cal-opt.has-logo .ic { grid-column: 3; }
+.cal-logo { grid-column: 1; grid-row: 1 / span 2; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; background: #fff; box-shadow: inset 0 0 0 1px var(--line); }
+.cal-logo-apple { color: #000; }
 
 .install-steps { display: grid; gap: 12px; margin-top: 18px; counter-reset: none; }
 .install-steps li { display: flex; align-items: center; gap: 14px; font-size: 15.5px; line-height: 1.5; }
