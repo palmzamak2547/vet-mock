@@ -124,7 +124,12 @@ html[data-vt="page"] .liq-glass { background: var(--glass-2); }
 /* The middle capsule eases in on arrival, a beat after the wall. */
 .topnav { animation: rise-in 800ms 120ms var(--ease-out) both; }
 .tabbar { view-transition-name: tabbar; }
-::view-transition-old(topbar), ::view-transition-new(topbar), ::view-transition-old(tabbar), ::view-transition-new(tabbar) { animation-duration: 200ms; }
+/* The bars are the same object on both pages, so only the live one shows: crossfading the old
+   bar (run together, mid-page) with the new one (springing apart at the top) drew two bars at
+   once for 200 ms, which read as a flicker (Palm, 18 Oct). The new bar is a live snapshot, so
+   its own spring and the tab pill's slide still play through the transition. */
+::view-transition-old(topbar), ::view-transition-old(tabbar) { display: none; }
+::view-transition-new(topbar), ::view-transition-new(tabbar) { animation: none; }
 /* The theme spreads from the button; no crossfade underneath it. */
 html[data-vt="theme"]::view-transition-old(root), html[data-vt="theme"]::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 html[data-vt="theme"]::view-transition-old(topbar), html[data-vt="theme"]::view-transition-new(topbar),
