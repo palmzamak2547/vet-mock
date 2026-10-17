@@ -92,3 +92,15 @@ test('the VCA project builds production only, and only when the site or its bank
   assert.equal(run({ VERCEL_ENV: 'production', VERCEL_GIT_PREVIOUS_SHA: 'HEAD' }), 0, 'nothing changed: skipped');
   assert.equal(run({ VERCEL_ENV: 'production', VERCEL_GIT_PREVIOUS_SHA: 'no-such-commit' }), 1, 'a git error builds');
 });
+
+// With cleanUrls on, Vercel serves index.html as "/", so a rewrite to "/index.html" found
+// nothing: every route not prerendered (/auth/callback, /chat, /me, /community/new) answered 404
+// on vca.vetmock.com (18 Oct). The SPA fallback goes to "/", as the main project's does.
+test('the VCA project sends unknown routes to the app shell at "/"', () => {
+  const vca = JSON.parse(readFileSync(new URL('../../vca/vercel.json', import.meta.url), 'utf8'));
+  const shell = vca.rewrites.filter((r) => r.source.startsWith('/(('));
+  assert.equal(shell.length, 1);
+  assert.equal(shell[0].destination, '/');
+  for (const path of ['/auth/callback', '/chat', '/me', '/community/new', '/auth/line']) assert.match(path, new RegExp(`^${shell[0].source}$`));
+  for (const path of ['/assets/x.js', '/q/1.json', '/sw.js']) assert.doesNotMatch(path, new RegExp(`^${shell[0].source}$`));
+});

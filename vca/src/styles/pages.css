@@ -192,11 +192,12 @@
   .lede { font-size: 17px; margin-bottom: 24px; }
   .ctas .btn { flex: 1 1 auto; }
   .vitrine { min-height: 0; }
-  .wall { position: relative; inset: auto; grid-template-columns: repeat(4, 1fr); grid-template-rows: none; gap: 8px; height: 112px; overflow: hidden;
-    -webkit-mask-image: linear-gradient(#000 35%, transparent); mask-image: linear-gradient(#000 35%, transparent); }
-  .wall .plate { height: 112px; }
+  /* On a phone the plates are a row of their own and the sample starts under them: laid over
+     them it read as a card dropped on top by mistake (a student's comment, 18 Oct). */
+  .wall { position: relative; inset: auto; grid-template-columns: repeat(4, 1fr); grid-template-rows: none; gap: 8px; }
+  .wall .plate { height: 84px; }
   .wall .plate:nth-child(n+5) { display: none; }
-  .sample { position: relative; left: auto; right: auto; top: auto; transform: none; margin-top: -64px; padding: 18px 16px 14px; }
+  .sample { position: relative; left: auto; right: auto; top: auto; transform: none; margin-top: 14px; padding: 18px 16px 14px; }
   .desk { grid-template-columns: 1fr; padding: 12px 16px; }
   .desk-resume { border-right: 0; padding-right: 0; flex-wrap: wrap; gap: 4px 12px; }
   .desk-resume .btn { margin-left: auto; }

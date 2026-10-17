@@ -7,7 +7,7 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/((?!assets/|bank/|q/|art/|fonts/|og/|icons/|manifest\\.webmanifest$|robots\\.txt$|sitemap\\.xml$|theme-boot\\.js$|sw\\.js$).*)", "destination": "/index.html" }
+    { "source": "/((?!assets/|bank/|q/|art/|fonts/|og/|icons/|manifest\\.webmanifest$|robots\\.txt$|sitemap\\.xml$|theme-boot\\.js$|sw\\.js$).*)", "destination": "/" }
   ],
   "headers": [
     {

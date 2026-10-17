@@ -998,7 +998,10 @@ html.lp-vt-fade::view-transition-new(root) { animation: lp-vt-in .32s ease .06s 
   .lp-countdown-cells { justify-content: flex-start; }
   .lp-countdown-cell { min-width: 0; flex: 1; }
   .lp-qcard { transform: none; }
-  .lp-hero-stage::before { inset: 4% -2% -3% 4%; }
+  /* The card lies flat on a phone, so the tilted sheet behind it only peeked out as a
+     crooked edge at the right and bottom, read as something dropped on top by mistake
+     (a student's comment, 18 Oct). It stays on wider screens, where the card tilts too. */
+  .lp-hero-stage::before { display: none; }
   .lp-sticky { position: relative; right: auto; bottom: auto; width: auto; margin-top: 14px; transform: rotate(-1deg); }
   .lp-qcard-clock { display: none; }
   .lp-qcard-foot { flex-wrap: wrap; }
