@@ -64,6 +64,10 @@ h1:focus, h1:focus-visible { outline: none; }
   html { scroll-padding-top: 72px; }
 }
 
+/* Transitions go to 0s, not .01ms: with the default transition-property "all", any non-zero
+   duration gave every element a transition, so each style change (the mark's letters following
+   --join) ran as a CSSTransition and read back its old value for a tick. Nothing here waits on
+   transitionend. */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: 0s !important; transition-delay: 0s !important; scroll-behavior: auto !important; }
 }
