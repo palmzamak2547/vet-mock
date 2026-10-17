@@ -42,8 +42,9 @@ test('thaiDay writes a calendar day in the Buddhist era, whatever the time zone'
   assert.match(day, /ม\.ค\./);
   assert.match(day, /2570/);
   assert.equal(day, '23 ม.ค. 2570');
-  assert.match(thaiDay('2027-01-23', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }), /^ส\./, 'a Saturday');
-  assert.match(thaiDay('2027-01-24', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }), /^อา\./, 'a Sunday');
+  // ICU builds differ on the short Thai weekday: "ส." in some, the whole "เสาร์" in newer CLDR.
+  assert.match(thaiDay('2027-01-23', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }), /^(ส\.|เสาร์) 23/, 'a Saturday');
+  assert.match(thaiDay('2027-01-24', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }), /^(อา\.|อาทิตย์) 24/, 'a Sunday');
   assert.equal(thaiDay('2027-01-01'), '1 ม.ค. 2570', 'the first of a month stays on it');
   assert.equal(thaiDay('2026-12-31'), '31 ธ.ค. 2569', 'the last day of a year stays in it');
 });
