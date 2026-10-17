@@ -124,16 +124,34 @@ async function serveLocalBuild() {
 
   const server = spawn(process.execPath,
     [join('node_modules', 'vite', 'bin', 'vite.js'), 'preview', '--port', String(PORT), '--strictPort', '--host', '127.0.0.1'],
-    { stdio: 'ignore' });
-  for (let i = 0; i < 60; i++) {
+    { stdio: ['ignore', 'pipe', 'pipe'] });
+  // vite's own output is kept: on 18 Oct a CI run failed with only "never came up", and with
+  // stdio ignored there was no telling a slow start from a crash. The wait is a time budget,
+  // and it stops at once if vite exits.
+  let log = '';
+  const keep = (d) => { log = (log + d).slice(-4000); };
+  server.stdout.on('data', keep);
+  server.stderr.on('data', keep);
+  let exited = null;
+  server.on('exit', (code, signal) => { exited = signal || code; });
+  const started = Date.now();
+  while (Date.now() - started < 45_000 && exited === null) {
     try {
       const res = await fetch(URL, { signal: AbortSignal.timeout(1000) });
-      if (res.ok) return server;
+      if (res.ok) {
+        // Keep draining vite's pipes so a full buffer never stalls it.
+        server.stdout.off('data', keep);
+        server.stderr.off('data', keep);
+        server.stdout.resume();
+        server.stderr.resume();
+        return server;
+      }
     } catch {}
     await new Promise((r) => setTimeout(r, 250));
   }
   server.kill();
-  console.error(`✗ preview server never came up on ${URL}`);
+  const why = exited !== null ? `vite exited (${exited})` : `no answer after ${Math.round((Date.now() - started) / 1000)} s`;
+  console.error(`✗ preview server never came up on ${URL}: ${why}\n${log.trim() || '(vite printed nothing)'}`);
   process.exit(1);
 }
 const THEMES = (arg('themes', 'light,dark')).split(',');
