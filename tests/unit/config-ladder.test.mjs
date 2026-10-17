@@ -60,11 +60,12 @@ test('the subject menu lists the year with its papers and marks a subject with n
 test('exam mode shows the subject select; a pick clears the topic and re-applies the rung count', async (t) => {
   browser(t);
   const { props, calls } = baseProps();
-  const view = mount(ConfigView, { ...props, mode: 'exam', useTimer: true, subject: 'all', numQuestions: 50, availableCount: 3322 });
+  const yearCount = Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE['1-mid'][5];
+  const view = mount(ConfigView, { ...props, mode: 'exam', useTimer: true, subject: 'all', numQuestions: 50, availableCount: yearCount });
   const select = findAll(view.tree, (n) => n.type === 'select')[0];
   assert.ok(select, 'the subject select is on the exam config screen');
   const options = findAll(select, (n) => n.type === 'option');
-  assert.match(textOf(options[0]), /รวมทุกวิชา ปี 5 กลางภาค \(3,322 ข้อ\)/);
+  assert.equal(textOf(options[0]), `รวมทุกวิชา ปี 5 กลางภาค (${yearCount.toLocaleString('en-US')} ข้อ)`);
   const epidem = options.find((o) => o.props.value === 'epidemiology');
   assert.equal(epidem.props.disabled, true, 'a subject with nothing on this paper cannot be chosen');
   assert.match(textOf(epidem), /ไม่มีข้อในกลางภาค/);

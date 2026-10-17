@@ -1,0 +1,379 @@
+/* ── Glass: frosted pane, a 1 px bevel that catches light on its upper-left and lower-right
+      edges, a long soft shadow. Long reading lists use solid surfaces, not this. ───────── */
+.glass {
+  position: relative; isolation: isolate;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(170%);
+  backdrop-filter: blur(var(--blur)) saturate(170%);
+  box-shadow: var(--shadow);
+}
+.glass::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: linear-gradient(155deg, var(--rim-a), var(--rim-b) 36%, var(--rim-b) 64%, var(--rim-a));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass { background: var(--glass-solid); }
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: var(--touch); padding: 0 20px; border: 0; border-radius: var(--r-pill);
+  font: 600 15.5px/1 var(--sans); text-decoration: none; white-space: nowrap; cursor: pointer;
+  transition: transform var(--t-fast) var(--ease), box-shadow var(--t) var(--ease), background-color var(--t) var(--ease), color var(--t) var(--ease);
+}
+.btn:active { transform: scale(.975); }
+.btn[disabled], .btn[aria-disabled="true"] { opacity: .45; cursor: not-allowed; transform: none; }
+.btn-ink { background: var(--ink); color: var(--bg); box-shadow: 0 1px 0 rgba(255, 255, 255, .16) inset, 0 12px 24px -12px rgba(0, 0, 0, .5); }
+.btn-ink:hover { box-shadow: 0 1px 0 rgba(255, 255, 255, .16) inset, 0 16px 30px -12px rgba(0, 0, 0, .55); }
+.btn-verd { background: var(--verd); color: var(--verd-ink); box-shadow: 0 1px 0 rgba(255, 255, 255, .2) inset, 0 12px 24px -12px var(--verd-line); }
+.btn-glass { color: var(--ink); border-radius: var(--r-pill); }
+.btn-glass:hover { background: var(--glass-2); }
+.btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
+.btn-ghost:hover { background: var(--glass); }
+.btn-danger { background: transparent; color: var(--cinn); box-shadow: inset 0 0 0 1px var(--cinn-line); }
+.btn-lg { min-height: 54px; padding: 0 26px; font-size: 16.5px; }
+.btn-sm { min-height: 42px; padding: 0 16px; font-size: 14.5px; }
+.btn-meta { font: 500 12.5px/1 var(--mono); opacity: .7; }
+.btn-block { width: 100%; }
+
+.icon-btn {
+  display: inline-grid; place-items: center; flex: none; width: var(--touch); height: var(--touch);
+  border: 0; border-radius: var(--r-pill); background: transparent; color: var(--ink-2);
+  transition: background-color var(--t) var(--ease), color var(--t) var(--ease);
+}
+.icon-btn:hover { background: var(--line); color: var(--ink); }
+.icon-btn[aria-pressed="true"] { color: var(--brass); background: var(--brass-soft); }
+
+/* ── Lockup and mark ─────────────────────────────────────────────────────────────────── */
+.lockup { display: inline-flex; align-items: center; gap: 10px; }
+.lockup .mark { color: var(--ink); }
+:root[data-theme="dark"] .lockup .mark { color: #eceeef; }
+.lockup-name { font: 650 16.5px/1 var(--sans); letter-spacing: -.012em; }
+.lockup-rule { width: 1px; height: 18px; background: var(--line-3); }
+.lockup-sub { font: 500 13px/1 var(--mono); letter-spacing: .1em; color: var(--ink-2); }
+
+/* ── Top bar: three pieces floating apart, the page scrolling under them ────────────────── */
+.topbar { position: sticky; top: 0; z-index: 40; padding: 14px 20px 0; pointer-events: none; }
+.topbar-in { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 16px; max-width: 1276px; height: 62px; margin: 0 auto; }
+.topbar-in > * { pointer-events: auto; }
+/* A piece that stands on the wall at the top of a page and turns to glass once it moves. */
+.cap { position: relative; border-radius: var(--r-pill); transition: background-color var(--t-slow) var(--ease), box-shadow var(--t-slow) var(--ease), -webkit-backdrop-filter var(--t-slow) var(--ease), backdrop-filter var(--t-slow) var(--ease); }
+.is-scrolled .cap { background: var(--glass); -webkit-backdrop-filter: blur(var(--blur)) saturate(170%); backdrop-filter: blur(var(--blur)) saturate(170%); box-shadow: inset 0 0 0 1px var(--rim-a), var(--shadow); }
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) { .is-scrolled .cap { background: var(--glass-solid); } }
+.brand { justify-self: start; display: flex; align-items: center; height: 54px; padding: 0 16px 0 12px; color: var(--ink); text-decoration: none; }
+.topnav { justify-self: center; position: relative; isolation: isolate; padding: 5px; border-radius: var(--r-pill); }
+.topnav-list { display: flex; gap: 2px; }
+.topbar-act { justify-self: end; display: flex; align-items: center; gap: 6px; padding: 5px; }
+.topnav-link { display: inline-flex; align-items: center; min-height: var(--touch); padding: 0 14px; border-radius: var(--r-pill); color: var(--ink-2); text-decoration: none; font: 500 14.5px/1 var(--sans); transition: color var(--t) var(--ease), background-color var(--t) var(--ease); }
+.topnav-link:hover { color: var(--ink); background: var(--line); }
+.topnav-link.on { color: var(--ink); background: var(--verd-soft); }
+
+/* Liquid glass (lib/liquid.js): one surface clipped to the outline the pieces make together,
+   with its shadow, hairline and rim drawn along the same outline, so two pieces that meet show
+   no seam. The pieces drop their own glass while it runs. Without it (no script yet), each
+   piece keeps its own, as above. */
+.liq { display: none; }
+.is-liquid .liq { display: block; position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.topbar-in > .liq { pointer-events: none; }
+.liq-glass { clip-path: inset(50%); background: var(--glass); -webkit-backdrop-filter: blur(var(--blur)) saturate(170%); backdrop-filter: blur(var(--blur)) saturate(170%); }
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) { .liq-glass { background: var(--glass-solid); } }
+.liq-shade { fill: var(--liq-shade); }
+.liq-line { fill: var(--liq-line); }
+.liq-rim { fill: var(--rim-a); }
+.is-liquid .topnav.glass, .is-liquid.is-joining .cap { background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.is-liquid .topnav.glass::before { display: none; }
+.is-handoff .cap { transition: none; }
+/* Joined, a hairline marks where one piece ends and the next begins. */
+.is-liquid .topnav::after, .is-liquid .topbar-act::before {
+  content: ""; position: absolute; top: 15px; bottom: 15px; left: 0; width: 1px; background: var(--line-2); pointer-events: none;
+  opacity: clamp(0, (var(--join, 0) - .86) * 7, 1);
+}
+/* The mark folds VetMock away, last letter first, as VCA slides over to take its place. Each
+   letter has folded up and gone just before VCA's leading edge reaches it, and that edge wipes
+   away whatever is left, so at no point does one letter sit on another. The rule between them
+   goes first. --fold is how far VCA travels (lib/liquid.js). */
+.lockup-name .ch { display: inline-block; }
+.is-liquid .lockup-name {
+  /* Room above and below for letters folding upward, so the wipe covers them too. */
+  padding-block: .5em; margin-block: -.5em;
+  --edge: calc(var(--fold, 0px) * (1 - var(--join, 0)));
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(var(--edge) - 14px), transparent calc(var(--edge) - 3px));
+  mask-image: linear-gradient(90deg, #000 calc(var(--edge) - 14px), transparent calc(var(--edge) - 3px));
+}
+.is-liquid .lockup-name .ch { --t: clamp(0, var(--join, 0) * 5.5 - var(--k) * .63, 1); opacity: calc(1 - var(--t)); translate: 0 calc(var(--t) * -.36em); scale: calc(1 - var(--t) * .3); }
+.is-liquid .lockup-rule { scale: 1 clamp(0, 1 - var(--join, 0) * 12, 1); opacity: clamp(0, 1 - var(--join, 0) * 16, 1); }
+.is-liquid .lockup-sub { translate: calc(var(--join, 0) * var(--fold, 0px) * -1) 0; color: color-mix(in srgb, var(--ink) calc(var(--join, 0) * 100%), var(--ink-2)); }
+
+/* Narrower desks: the sections tighten, then the mark sets the name aside and keeps VCA, then
+   the sections a phone's tab bar also leaves out step aside (home, the footer and the account
+   menu still reach them). */
+@media (max-width: 1180px) and (min-width: 761px) {
+  .topbar-in { gap: 10px; }
+  .topnav-link { padding: 0 11px; }
+}
+@media (max-width: 1080px) and (min-width: 761px) {
+  .brand .lockup-name, .brand .lockup-rule { display: none; }
+  .brand { padding-right: 14px; }
+}
+@media (max-width: 960px) and (min-width: 761px) {
+  .topnav-extra { display: none; }
+}
+
+/* ── Tab bar: a phone's own navigation, in reach of a thumb ───────────────────────────── */
+.tabbar { display: none; }
+@media (max-width: 760px) {
+  .topbar { padding: 10px 12px 0; }
+  .topbar-in { grid-template-columns: minmax(0, 1fr) auto; height: 56px; gap: 8px; }
+  .brand { height: 48px; padding: 0 14px 0 9px; }
+  .topbar-act { padding: 2px; gap: 4px; }
+  .topnav { display: none; }
+  .tabbar {
+    position: fixed; z-index: 40; left: 10px; right: 10px; bottom: max(10px, env(safe-area-inset-bottom));
+    display: grid; grid-template-columns: repeat(5, 1fr); height: 64px; padding: 0 4px; border-radius: 22px;
+  }
+  .tab { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: var(--touch); border-radius: 16px; color: var(--ink-3); text-decoration: none; font: 600 11.5px/1.2 var(--sans); }
+  .tab .ic { transition: transform var(--t) var(--ease-spring); }
+  .tab.on { color: var(--ink); }
+  .tab.on .ic { color: var(--verd); transform: translateY(-1px); }
+  .app-room .tabbar, .app-room .footer { display: none; }
+  .app-room .main { padding-bottom: 0; }
+}
+
+/* ── Footer: the last wall, painted cobalt, with a print along its floor ───────────────────
+   By day the print is cobalt ink on cream paper and the wall's blue runs down into its sky;
+   after hours it turns to cream line on the blue itself, a print seen by night. The etching is
+   a mask (public/art/footer-della-bella.webp, ink as alpha), so both inks are tokens. */
+.footer { position: relative; isolation: isolate; margin-top: 128px; overflow: hidden; background: var(--foot-bg); color: var(--foot-ink); --mark-paw: var(--foot-bg); --verd-mark: #7fd8bd; }
+.footer .lockup .mark { color: var(--foot-ink); }
+.footer .lockup-rule { background: var(--foot-line); }
+.footer .lockup-sub { color: var(--foot-ink-2); }
+.footer-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 40px 64px; padding-block: 84px 28px; }
+.footer-tag { margin-top: 24px; max-width: 13em; font: 400 clamp(28px, 2.8vw, 38px)/1.25 var(--serif); color: var(--foot-ink); text-wrap: balance; }
+.footer-cols { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 24px; }
+.footer-h { margin-bottom: 12px; font: 600 13px/1.3 var(--sans); color: var(--foot-ink-2); }
+.footer-cols a, .foot-btn { display: inline-flex; align-items: center; gap: 4px; min-height: 40px; color: var(--foot-ink); text-decoration: none; font-size: 15.5px; opacity: .88; transition: opacity var(--t) var(--ease); }
+.footer-cols a:hover, .foot-btn:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--foot-line); }
+.foot-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0; border: 0; background: none; color: var(--foot-ink); font: inherit; font-size: 15.5px; opacity: .88; cursor: pointer; }
+.footer :focus-visible { outline-color: var(--foot-ink); }
+.footer-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 32px; padding-block: 8px 34px; font-size: 13.5px; line-height: 1.6; color: var(--foot-ink-2); }
+/* The sheet keeps its proportions and is never cropped: the rider, his plume and the man he
+   asks stay whole. Where the page is wider than the sheet, the paper runs on past its edges,
+   and the sheet's own edges fade into it. Its top fifth is empty sky, the only part the wall's
+   blue runs into. */
+.foot-print { --sheet: 1786 / 934; position: relative; width: 100%; aspect-ratio: var(--sheet); max-height: 560px; overflow: hidden; background: var(--foot-paper); }
+.foot-ink { position: absolute; bottom: 0; left: 50%; height: 100%; aspect-ratio: var(--sheet); translate: -50% 0; background: var(--foot-print-ink); }
+.foot-print.is-in .foot-ink, html:not(.reveal-ready) .foot-ink {
+  -webkit-mask: url(/art/footer-della-bella.webp) 0 0 / 100% 100% no-repeat, linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  -webkit-mask-composite: source-in;
+  mask: url(/art/footer-della-bella.webp) 0 0 / 100% 100% no-repeat, linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  mask-composite: intersect;
+}
+.reveal-ready .foot-print:not(.is-in) .foot-ink { visibility: hidden; }
+.foot-print::after { content: ""; position: absolute; inset: 0 0 auto; height: 22%; pointer-events: none; background: linear-gradient(color-mix(in srgb, var(--foot-bg) 100%, transparent) 0%, color-mix(in srgb, var(--foot-bg) 74%, transparent) 19%, color-mix(in srgb, var(--foot-bg) 54%, transparent) 34%, color-mix(in srgb, var(--foot-bg) 38%, transparent) 47%, color-mix(in srgb, var(--foot-bg) 28%, transparent) 56.5%, color-mix(in srgb, var(--foot-bg) 19%, transparent) 65%, color-mix(in srgb, var(--foot-bg) 13%, transparent) 73%, color-mix(in srgb, var(--foot-bg) 7.5%, transparent) 80.2%, color-mix(in srgb, var(--foot-bg) 4.2%, transparent) 86.1%, color-mix(in srgb, var(--foot-bg) 2.1%, transparent) 91%, color-mix(in srgb, var(--foot-bg) 0.8%, transparent) 95.2%, color-mix(in srgb, var(--foot-bg) 0.2%, transparent) 98.2%, color-mix(in srgb, var(--foot-bg) 0%, transparent) 100%); }
+.foot-credit { max-width: 46em; }
+.foot-credit i { font: italic 400 15px/1 var(--serif); color: var(--foot-ink); }
+
+/* VCA across the wall, engraved like the print it stands on: hatched in the wall's cream, its
+   outline cut in. Each letter rises from the paper's edge as the wall comes up and sinks back as
+   it goes (lib/motion.js sets --p from the scroll); the word it stands for comes up above it. */
+.foot-vca { position: relative; overflow: hidden; }
+.foot-vca-in { display: flex; align-items: flex-end; gap: .02em; padding-top: 48px; font-size: clamp(112px, 22vw, 300px); }
+.vca-l { --t: clamp(0, var(--p, 1) * 1.8 - var(--i) * .32, 1); position: relative; display: flex; flex-direction: column; align-items: flex-start; }
+.vca-g {
+  display: block; margin-bottom: -.06em; font: 400 1em/.8 var(--serif); letter-spacing: 0;
+  color: transparent; -webkit-text-stroke: 1.25px var(--foot-ink);
+  background: repeating-linear-gradient(-62deg, var(--foot-ink) 0 1px, transparent 1px 5.5px);
+  -webkit-background-clip: text; background-clip: text;
+  translate: 0 calc((1 - var(--t)) * 104%);
+}
+.vca-w { margin: 0 0 14px 4px; font: 500 12px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--foot-ink-2); opacity: calc(var(--t) * 1.6 - .6); translate: 0 calc((1 - var(--t)) * 10px); }
+@media (max-width: 760px) {
+  .footer { margin-top: 80px; }
+  .footer-in { grid-template-columns: 1fr; padding-block: 56px 8px; }
+  .footer-cols { grid-template-columns: 1fr 1fr; }
+  .footer-base { padding-bottom: 28px; }
+  /* On a phone the sheet is cut to the rider and the man he asks, at a size that reads, and it
+     stops above the tab bar; the ground fades into the paper under it. */
+  .foot-print { --tabbar: calc(84px + env(safe-area-inset-bottom)); aspect-ratio: auto; max-height: none; height: calc(90vw + var(--tabbar)); }
+  .foot-ink { left: auto; right: -2%; bottom: var(--tabbar); height: calc(100% - var(--tabbar)); translate: none; }
+  .foot-print::after { height: calc((100% - var(--tabbar)) * .2); }
+  .foot-print.is-in .foot-ink, html:not(.reveal-ready) .foot-ink {
+    -webkit-mask: url(/art/footer-della-bella.webp) 0 0 / 100% 100% no-repeat, linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent), linear-gradient(#000 88%, transparent);
+    -webkit-mask-composite: source-in, source-in;
+    mask: url(/art/footer-della-bella.webp) 0 0 / 100% 100% no-repeat, linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent), linear-gradient(#000 88%, transparent);
+    mask-composite: intersect, intersect;
+  }
+  .foot-vca-in { padding-top: 24px; }
+  .vca-w { margin-bottom: 8px; font-size: 9.5px; letter-spacing: .12em; }
+}
+
+/* ── Chips, segmented choices, badges, keys ──────────────────────────────────────────── */
+.chip {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 6px 14px; border-radius: var(--r-pill);
+  background: var(--glass); box-shadow: inset 0 0 0 1px var(--line-2); color: var(--ink); text-decoration: none;
+  /* A long name may take two lines on a phone: even ones, with room for Thai marks between them. */
+  font: 500 14.5px/1.35 var(--sans); text-wrap: balance; cursor: pointer; transition: background-color var(--t) var(--ease), box-shadow var(--t) var(--ease), color var(--t) var(--ease);
+  border: 0;
+}
+.chip:hover { box-shadow: inset 0 0 0 1px var(--line-3); }
+.chip[aria-pressed="true"], .chip.on { background: var(--ink); color: var(--bg); box-shadow: none; }
+.chip-n { font: 500 12px/1 var(--mono); color: var(--ink-3); }
+.chip[aria-pressed="true"] .chip-n, .chip.on .chip-n { color: inherit; opacity: .7; }
+
+.seg { margin: 0; padding: 0; border: 0; min-width: 0; }
+.seg .label { margin-bottom: 10px; padding: 0; }
+.seg-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg-wide .seg-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.seg-opt { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 2px; min-height: 48px; padding: 8px 16px; border-radius: var(--r-md); background: var(--glass); box-shadow: inset 0 0 0 1px var(--line-2); cursor: pointer; transition: box-shadow var(--t) var(--ease), background-color var(--t) var(--ease); }
+.seg-opt:hover { box-shadow: inset 0 0 0 1px var(--line-3); }
+.seg-opt input { position: absolute; opacity: 0; pointer-events: none; }
+.seg-opt:has(input:focus-visible) { outline: 2px solid var(--verd); outline-offset: 2px; }
+.seg-opt.on { background: var(--verd-soft); box-shadow: inset 0 0 0 1.5px var(--verd); }
+.seg-opt.off { opacity: .45; cursor: not-allowed; }
+.seg-main { font: 600 15px/1.3 var(--sans); }
+.seg-hint { font-size: 13px; line-height: 1.4; color: var(--ink-3); }
+
+.badge { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: var(--r-pill); font: 600 12.5px/1 var(--sans); white-space: nowrap; }
+.badge-verd { background: var(--verd-soft); color: var(--verd); }
+.badge-brass { background: var(--brass-soft); color: var(--brass); }
+.badge-plain { background: var(--line); color: var(--ink-2); }
+
+.kbd { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 5px; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--line-2), 0 1px 0 var(--line-2); font: 500 11.5px/1 var(--mono); color: var(--ink-2); vertical-align: 1px; }
+
+.meter { position: relative; display: block; height: 4px; border-radius: 4px; background: var(--line-2); overflow: hidden; }
+.meter i { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: var(--verd); transition: width var(--t-slow) var(--ease); }
+.meter-brass i { background: var(--brass-fill); }
+.meter-cinn i { background: var(--cinn); }
+
+.ring { position: relative; display: grid; place-items: center; flex: none; }
+.ring svg { position: absolute; inset: 0; }
+.ring svg circle:last-child { transition: stroke-dasharray 900ms var(--ease); }
+.ring-in { position: relative; text-align: center; }
+
+/* ── Plate: a print on its paper, numbered ───────────────────────────────────────────── */
+/* Each plate sets --paper to its own print's paper (subject-covers.js); after hours the
+   paper darkens to slate with a trace of its tint. */
+.plate { position: relative; overflow: hidden; border-radius: var(--r-md); background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+.plate img { position: absolute; inset: 9% 10% 17%; width: 80%; height: 74%; object-fit: contain; filter: var(--art-filter); opacity: var(--art-opacity); }
+.plate figcaption { position: absolute; left: 12px; right: 12px; bottom: 10px; display: flex; justify-content: space-between; gap: 10px; font: 500 10.5px/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.plate-tag { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+:root[data-theme="dark"] .plate { background: #15181b; background: color-mix(in srgb, var(--paper) 7%, #13161a); }
+
+/* ── The question ────────────────────────────────────────────────────────────────────── */
+.q-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.q-plate { display: inline-flex; align-items: baseline; gap: 7px; font: 500 12px/1.3 var(--sans); color: var(--ink-2); padding: 4px 10px; border-radius: var(--r-pill); background: var(--line); }
+.q-plate-no { font: 500 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.q-count { margin-left: auto; font: 500 13px/1 var(--mono); color: var(--ink-2); }
+.q-of { color: var(--ink-3); }
+.q-stem { font: 500 clamp(17.5px, 1.4vw + 12px, 20px)/1.65 var(--sans); letter-spacing: -.003em; margin: 0 0 18px; overflow-wrap: anywhere; }
+.q-fig { margin: 0 0 18px; padding: 12px; border-radius: var(--r-md); background: #fbfaf7; box-shadow: inset 0 0 0 1px var(--line-2); }
+.q-fig img { margin: 0 auto; max-height: 360px; width: auto; object-fit: contain; }
+
+.opts { display: grid; gap: 10px; }
+.opt {
+  position: relative; display: flex; align-items: center; gap: 14px; width: 100%; min-height: 54px; padding: 11px 16px 11px 12px;
+  border: 0; border-radius: var(--r-md); text-align: left; color: var(--ink);
+  background: var(--glass);
+  background: color-mix(in srgb, var(--glass-2) 72%, transparent);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+  font: 400 16.5px/1.5 var(--sans); overflow-wrap: anywhere;
+  transition: box-shadow var(--t) var(--ease), background-color var(--t) var(--ease), transform var(--t-fast) var(--ease), opacity var(--t) var(--ease);
+}
+.opt:hover:not([aria-disabled]) { box-shadow: inset 0 0 0 1px var(--line-3), 0 8px 18px -12px rgba(0, 0, 0, .35); }
+.opt:active:not([aria-disabled]) { transform: scale(.992); }
+.opt[aria-disabled] { cursor: default; }
+.opt-key { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; box-shadow: inset 0 0 0 1px var(--line-2); font: 600 13px/1 var(--mono); color: var(--ink-2); transition: inherit; }
+.opt-text { flex: 1; min-width: 0; }
+.opt-mark { flex: none; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; }
+.opt.chosen { background: var(--glass-2); background: color-mix(in srgb, var(--ink) 7%, var(--glass-2)); box-shadow: inset 0 0 0 1.5px var(--ink); }
+.opt.chosen .opt-key { background: var(--ink); color: var(--bg); box-shadow: none; }
+.opt.right { background: var(--verd-soft); box-shadow: inset 0 0 0 1.5px var(--verd); }
+.opt.right .opt-key { background: var(--verd); color: var(--verd-ink); box-shadow: none; }
+.opt.right .opt-mark { color: var(--verd); }
+.opt.wrong { background: var(--cinn-soft); box-shadow: inset 0 0 0 1.5px var(--cinn); }
+.opt.wrong .opt-key { background: var(--cinn); color: var(--cinn-ink); box-shadow: none; }
+.opt.wrong .opt-mark { color: var(--cinn); }
+.opt.rest { opacity: .62; }
+.is-revealed .opt.right { animation: settle var(--t-slow) var(--ease-spring); }
+@keyframes settle { from { transform: scale(.985); } to { transform: none; } }
+
+.why { margin-top: 18px; display: grid; gap: 14px; animation: rise var(--t-slow) var(--ease); }
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.verdict { display: flex; align-items: center; gap: 8px; font: 600 16px/1.4 var(--sans); }
+.verdict.ok { color: var(--verd); }
+.verdict.no { color: var(--cinn); }
+.verdict.skip { color: var(--ink-2); }
+.verdict b { font-family: var(--mono); }
+.why-body { padding: 16px 18px; border-radius: var(--r-md); background: var(--verd-soft); }
+.why-label { display: block; margin-bottom: 6px; font: 600 13px/1.3 var(--sans); color: var(--verd); }
+.why-body p { font-size: 16px; line-height: 1.75; overflow-wrap: anywhere; }
+.why-body .q-fig { margin: 14px 0 0; }
+.why-none { color: var(--ink-3); font-size: 15px; }
+
+.prov { display: grid; gap: 10px; padding: 14px 4px 2px; border-top: 1px solid var(--line); font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+.prov-head { display: flex; align-items: center; gap: 10px; }
+.prov-no { margin-left: auto; font: 500 12.5px/1 var(--mono); color: var(--ink-3); }
+.prov-talk { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; padding: 0 10px; border-radius: var(--r-pill); color: var(--verd); font: 600 13px/1 var(--sans); text-decoration: none; box-shadow: inset 0 0 0 1px var(--verd-line); transition: background-color var(--t) var(--ease); }
+.prov-talk:hover { background: var(--verd-soft); }
+.prov dl { display: grid; gap: 4px; }
+.prov-row { display: grid; grid-template-columns: 64px 1fr; gap: 12px; }
+.prov dt { color: var(--ink-3); }
+.prov dd { overflow-wrap: anywhere; }
+.prov a { color: var(--verd); }
+.prov-refs { display: grid; gap: 2px; padding-left: 76px; }
+.prov-loc { margin-left: 8px; color: var(--ink-3); }
+
+/* ── Sheet (dialog) ──────────────────────────────────────────────────────────────────── */
+.sheet-veil { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 24px; background: var(--veil); animation: fade var(--t) var(--ease); }
+@keyframes fade { from { opacity: 0; } }
+.sheet { width: min(520px, 100%); max-height: min(86vh, 860px); display: flex; flex-direction: column; border-radius: var(--r-xl); background: var(--glass-2); animation: lift var(--t-slow) var(--ease); }
+.sheet-wide { width: min(760px, 100%); }
+@keyframes lift { from { opacity: 0; transform: translateY(14px) scale(.985); } }
+.sheet-head { display: flex; align-items: center; gap: 12px; padding: 14px 10px 6px 24px; }
+.sheet-title { flex: 1; font: 600 19px/1.35 var(--sans); }
+.sheet-body { padding: 6px 24px 24px; overflow: auto; overscroll-behavior: contain; }
+@media (max-width: 760px) {
+  .sheet-veil { place-items: end stretch; padding: 0; }
+  .sheet, .sheet-wide { width: 100%; max-height: 88vh; border-radius: 24px 24px 0 0; padding-bottom: env(safe-area-inset-bottom); animation-name: rise-sheet; }
+  @keyframes rise-sheet { from { transform: translateY(40px); opacity: 0; } }
+}
+
+/* ── Notices ─────────────────────────────────────────────────────────────────────────── */
+.notice { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: var(--r-md); background: var(--brass-soft); color: var(--ink); font-size: 15px; line-height: 1.6; }
+.notice .ic { flex: none; margin-top: 2px; color: var(--brass); }
+.notice-error { background: var(--cinn-soft); }
+.notice-error .ic { color: var(--cinn); }
+
+.empty { display: grid; justify-items: center; gap: 12px; padding: 48px 20px; text-align: center; color: var(--ink-2); }
+.empty h2 { font: 400 26px/1.3 var(--serif); color: var(--ink); }
+
+/* A change between years, as the almanac marks it: brass when a subject rises, grey when it falls. */
+.tr { font: 600 12.5px/1 var(--mono); color: var(--ink-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tr-up { color: var(--brass); }
+.tr-down { color: var(--ink-2); }
+.tr-none { color: var(--line-3); }
+
+/* ── Out to other apps: the share sheet, calendars, flashcards ─────────────────────────────── */
+.share-apps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
+.share-app { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 8px; border-radius: var(--r-md); box-shadow: inset 0 0 0 1px var(--line-2); color: var(--ink); text-decoration: none; font: 600 14px/1.2 var(--sans); transition: background-color var(--t) var(--ease), transform var(--t) var(--ease); }
+.share-app:hover { background: var(--line); transform: translateY(-1px); }
+.share-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; font: 700 18px/1 var(--sans); color: #fff; }
+.share-line .share-mark { background: #06c755; }
+.share-facebook .share-mark { background: #1877f2; }
+.share-x .share-mark { background: #0f1419; }
+.share-link { display: flex; align-items: center; gap: 10px; margin-top: 14px; padding: 6px 6px 6px 14px; border-radius: var(--r-pill); box-shadow: inset 0 0 0 1px var(--line-2); }
+.share-url { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 500 13.5px/1 var(--mono); color: var(--ink-2); }
+.export-list { display: grid; gap: 8px; margin-top: 16px; }
+.export-opt, .cal-opt { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 2px 14px; width: 100%; padding: 14px 16px; border: 0; border-radius: var(--r-md); background: var(--glass-2); box-shadow: inset 0 0 0 1px var(--line-2); color: var(--ink); text-align: left; text-decoration: none; font: inherit; cursor: pointer; transition: box-shadow var(--t) var(--ease), background-color var(--t) var(--ease); }
+.export-opt:hover, .cal-opt:hover { box-shadow: inset 0 0 0 1px var(--line-3); background: var(--glass); }
+.export-app, .cal-app { grid-column: 1; font: 600 15.5px/1.35 var(--sans); }
+.export-how, .cal-how { grid-column: 1; font-size: 13.5px; line-height: 1.5; color: var(--ink-3); }
+.export-opt .ic, .cal-opt .ic { grid-column: 2; grid-row: 1 / span 2; color: var(--ink-2); }
+.cal-list { display: grid; gap: 8px; margin-top: 16px; }
+
+.install-steps { display: grid; gap: 12px; margin-top: 18px; counter-reset: none; }
+.install-steps li { display: flex; align-items: center; gap: 14px; font-size: 15.5px; line-height: 1.5; }
+.install-n { display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--verd-soft); color: var(--verd); font: 600 14px/1 var(--mono); }

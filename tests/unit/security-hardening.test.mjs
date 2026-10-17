@@ -51,6 +51,12 @@ test('LINE auth redirects stay on production, approved previews, or local develo
   assert.equal(isAllowedAppOrigin('https://vetmock.vercel.app.evil.example'), false);
   assert.equal(isAllowedAppOrigin('https://vetmock.com.evil.example'), false);
   assert.equal(isAllowedAppOrigin('https://www.vetmock.com'), false, 'www redirects to the apex; no page runs there');
+  assert.equal(isAllowedAppOrigin('https://vca.vetmock.com'), true, 'VetMock VCA signs in to the same accounts');
+  assert.equal(isAllowedAppOrigin('https://vca.vetmock.com.evil.example'), false);
+  assert.equal(
+    resolveAppRedirect('https://vca.vetmock.com/auth/callback', 'https://vca.vetmock.com'),
+    'https://vca.vetmock.com/auth/callback',
+  );
 
   assert.equal(
     resolveAppRedirect('https://vetmock.com/app/home?from=line', null),

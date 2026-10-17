@@ -1,0 +1,133 @@
+// A practice set or a mock exam, from the first question to the result. Pure functions over a
+// plain object, so the same rules run in the page, in tests and after a reload.
+//
+// An item carries everything needed to grade and redraw it without the bank:
+//   key     "subject:id"           domain  where it was drawn from
+//   order   display → original option index, fixed when the set is made, so the options
+//           keep their places when the page is reloaded mid-exam
+//   answer  the original index of the right option
+// A choice is always stored as the ORIGINAL option index.
+//
+// Practice reveals each answer at once and locks it. A mock exam keeps every answer open to
+// change until it is submitted, and runs against an absolute deadline: closing the page does
+// not stop the clock, as in the exam room, and a deadline that passed while the page was
+// closed submits the exam the next time it opens.
+
+import { createStore } from './storage.js';
+
+export const SESSION_KEY = 'vca:session:v1';
+export const RESULTS_KEY = 'vca:results:v1';
+export const RESULTS_KEPT = 30;
+
+export function newId(now = Date.now()) {
+  let rand = '';
+  try {
+    const buf = new Uint32Array(2);
+    globalThis.crypto.getRandomValues(buf);
+    rand = buf[0].toString(36) + buf[1].toString(36);
+  } catch {
+    rand = Math.random().toString(36).slice(2);
+  }
+  return `${now.toString(36)}-${rand.slice(0, 8)}`;
+}
+
+/**
+ * @param {{ mode: 'practice'|'mock', items: Array<{key:string,domain:string,order:number[],answer:number}>,
+ *   limitSec?: number|null, now?: number, meta?: object, id?: string }} opts
+ */
+export function createSession({ mode, items, limitSec = null, now = Date.now(), meta = {}, id = newId(now) }) {
+  if (mode !== 'practice' && mode !== 'mock') throw new Error(`unknown mode ${mode}`);
+  if (!items.length) throw new Error('a set needs at least one question');
+  const timed = mode === 'mock' && Number(limitSec) > 0;
+  return {
+    v: 1, id, mode, createdAt: now, items,
+    answers: {}, flags: [], cursor: 0,
+    limitSec: timed ? Number(limitSec) : null,
+    deadline: timed ? now + Number(limitSec) * 1000 : null,
+    status: 'active', meta,
+  };
+}
+
+export const remainingMs = (s, now = Date.now()) => (s.deadline == null ? null : Math.max(0, s.deadline - now));
+export const isExpired = (s, now = Date.now()) => s.deadline != null && now >= s.deadline;
+export const answeredCount = (s) => s.items.filter((it) => s.answers[it.key]).length;
+
+export function choose(s, key, choice, now = Date.now()) {
+  if (s.status !== 'active' || isExpired(s, now)) return s;
+  const item = s.items.find((it) => it.key === key);
+  if (!item || !Number.isInteger(choice) || choice < 0 || choice >= item.order.length) return s;
+  if (s.mode === 'practice' && s.answers[key]) return s;
+  return { ...s, answers: { ...s.answers, [key]: { choice, at: now } } };
+}
+
+/** Mock only: take an answer back. */
+export function unchoose(s, key, now = Date.now()) {
+  if (s.mode !== 'mock' || s.status !== 'active' || isExpired(s, now) || !s.answers[key]) return s;
+  const answers = { ...s.answers };
+  delete answers[key];
+  return { ...s, answers };
+}
+
+export function go(s, index) {
+  const cursor = Math.min(Math.max(0, index), s.items.length - 1);
+  return cursor === s.cursor ? s : { ...s, cursor };
+}
+
+export function toggleFlag(s, key) {
+  if (s.status !== 'active') return s;
+  const flags = s.flags.includes(key) ? s.flags.filter((k) => k !== key) : [...s.flags, key];
+  return { ...s, flags };
+}
+
+export function tally(s) {
+  const answered = answeredCount(s);
+  return { total: s.items.length, answered, unanswered: s.items.length - answered, flagged: s.flags.length };
+}
+
+/** The finished set: what was asked, what was chosen, and the score. */
+export function finish(s, now = Date.now()) {
+  const expired = isExpired(s, now);
+  const end = s.deadline != null ? Math.min(now, s.deadline) : now;
+  const items = s.items.map((it) => {
+    const choice = s.answers[it.key]?.choice ?? null;
+    return { key: it.key, domain: it.domain, order: it.order, answer: it.answer, choice, correct: choice === it.answer };
+  });
+  return {
+    v: 1, id: s.id, mode: s.mode, createdAt: s.createdAt, finishedAt: now,
+    durationMs: Math.max(0, end - s.createdAt), limitSec: s.limitSec, expired,
+    total: items.length, correct: items.filter((x) => x.correct).length,
+    answered: items.filter((x) => x.choice !== null).length,
+    flags: s.flags.slice(), items, meta: s.meta,
+  };
+}
+
+/** Score per domain, in the order the domains first appear in the set. */
+export function byDomain(result) {
+  const map = new Map();
+  for (const it of result.items) {
+    const row = map.get(it.domain) || { domain: it.domain, total: 0, correct: 0 };
+    row.total += 1;
+    if (it.correct) row.correct += 1;
+    map.set(it.domain, row);
+  }
+  return [...map.values()];
+}
+
+function normalizeSession(raw) {
+  if (!raw || raw.v !== 1 || raw.status !== 'active' || !Array.isArray(raw.items) || !raw.items.length) return null;
+  if (!raw.items.every((it) => typeof it.key === 'string' && Array.isArray(it.order) && Number.isInteger(it.answer))) return null;
+  return { ...raw, answers: raw.answers || {}, flags: Array.isArray(raw.flags) ? raw.flags : [], cursor: Math.min(Math.max(0, raw.cursor | 0), raw.items.length - 1) };
+}
+
+function normalizeResults(raw) {
+  if (!Array.isArray(raw)) return [];
+  return raw.filter((r) => r && r.v === 1 && typeof r.id === 'string' && Array.isArray(r.items)).slice(0, RESULTS_KEPT);
+}
+
+export const sessionStore = createStore(SESSION_KEY, null, normalizeSession);
+export const resultsStore = createStore(RESULTS_KEY, [], normalizeResults);
+
+/** Keep a finished result, newest first, at most RESULTS_KEPT. */
+export function keepResult(list, result) {
+  return [result, ...list.filter((r) => r.id !== result.id)].slice(0, RESULTS_KEPT);
+}

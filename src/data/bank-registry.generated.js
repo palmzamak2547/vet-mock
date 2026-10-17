@@ -134,6 +134,9 @@ export const BANK_REGISTRY = [
   { file: 'questions-mid86-zoonoses.js', export: 'QUESTIONS_MID86_ZOONOSES', year: 5, count: 60,
     subjects: ['zoonoses'],
     load: () => import('./questions-mid86-zoonoses.js').then((m) => m.QUESTIONS_MID86_ZOONOSES) },
+  { file: 'questions-vca-2569.js', export: 'QB_VCA_2569', year: 5, count: 132,
+    subjects: ['vca'],
+    load: () => import('./questions-vca-2569.js').then((m) => m.QB_VCA_2569) },
   { file: 'questions-vca-reviewed.js', export: 'QB_VCA_REVIEWED', year: 5, count: 121,
     subjects: ['vca'],
     load: () => import('./questions-vca-reviewed.js').then((m) => m.QB_VCA_REVIEWED) },
@@ -292,4 +295,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-09-26T17:37:08.669Z — 94 banks · 6731 Qs
+// Built: 2026-10-17T16:34:49.094Z — 95 banks · 6863 Qs

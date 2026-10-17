@@ -1,4 +1,5 @@
 import { test, expect } from './fixtures.js';
+import { Q_VISIBLE_COUNTS_BY_SUBJECT } from '../../src/data/q-counts.js';
 
 test.use({ reducedMotion: 'reduce' });
 
@@ -117,13 +118,13 @@ test('the study card offers any year\'s course at its count, and names the perio
   await box.fill('ข้อสอบ vca');
   const card = dialog.locator('.vmx-omni-go-primary');
   await expect(card).toContainText('ฝึกข้อสอบ');
-  await expect(card).toContainText('455 ข้อ');
+  await expect(card).toContainText(`${Q_VISIBLE_COUNTS_BY_SUBJECT.vca} ข้อ`);
   await expect(card).toContainText('ปี 5');
   // biochem-1 is a year-1, term-2 course; the selected period (เทอม 1 กลางภาค)
   // is year 4's calendar, so the course is offered whole.
   await box.fill('ข้อสอบ biochem');
   await expect(card).toContainText('ฝึกข้อสอบ');
-  await expect(card).toContainText('271 ข้อ');
+  await expect(card).toContainText(`${Q_VISIBLE_COUNTS_BY_SUBJECT['biochem-1']} ข้อ`);
   await expect(card).toContainText('ปี 1');
   // COM V is year 4's own course and sits in term 2: the period holds none of
   // it. The card keeps its summary, clips and VetWiki, so the line sits inside it.

@@ -1,0 +1,103 @@
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   VetMock VCA: Vitrine
+   The prints are specimens on a gallery wall; the panels are the glass of the display cases.
+   Materials, not colours, name the palette: porcelain and slate walls, verdigris (the green of
+   aged bronze) for what is right and for the brand, brass for marks and flags, cinnabar for
+   the red of a specimen label that says "wrong".
+
+   Type: text in Inter with Anuphan (Cadson Demak) for Thai, a pair cut to the same colour and
+   x-height, so an English term inside a Thai stem never jumps out of the line. Headlines in
+   Instrument Serif with Noto Serif Thai drawn narrower (87.5% of its width axis) to sit beside
+   Instrument's condensed capitals. Catalogue numbers in Geist Mono. One weight of serif only:
+   a bolder Thai next to Instrument's single weight would read as two voices. And a tutor's
+   hand, Mali, for the handful of notes written to the student, like a comment on a paper.
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+@font-face { font-family: Inter; src: url(/fonts/inter-latin-var.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: Anuphan; src: url(/fonts/anuphan-thai-var.woff2) format("woff2"); font-weight: 100 700; font-display: swap; unicode-range: U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: "Instrument Serif"; src: url(/fonts/instrument-serif-latin.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url(/fonts/instrument-serif-latin-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+/* A single width in the descriptor clamps the axis: every Thai headline is set at 87.5%. */
+@font-face { font-family: "Serif Thai"; src: url(/fonts/noto-serif-thai-var.woff2) format("woff2"); font-weight: 100 900; font-stretch: 87.5%; font-display: swap; unicode-range: U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: "Geist Mono"; src: url(/fonts/geist-mono-latin-var.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+/* A tutor's hand (Mali, Cadson Demak) for the few notes written to the student, never for content. */
+@font-face { font-family: Mali; src: url(/fonts/mali-thai-600.woff2) format("woff2"); font-weight: 600; font-display: swap; unicode-range: U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: Mali; src: url(/fonts/mali-latin-600.woff2) format("woff2"); font-weight: 600; font-display: swap; unicode-range: U+0000-00FF, U+2010-2027; }
+
+:root {
+  --sans: Inter, Anuphan, system-ui, -apple-system, "Segoe UI", "Sukhumvit Set", "Leelawadee UI", sans-serif;
+  --serif: "Instrument Serif", "Serif Thai", Anuphan, Georgia, serif;
+  /* Figures and catalogue numbers in Geist Mono; any Thai inside a label falls to Anuphan,
+     never to a system monospace. Labels that can hold Thai carry no letter-spacing. */
+  --mono: "Geist Mono", Anuphan, ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --hand: Mali, Anuphan, "Comic Sans MS", cursive;
+
+  --r-sm: 10px; --r-md: 14px; --r-lg: 20px; --r-xl: 28px; --r-pill: 999px;
+  --blur: 22px;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --ease-spring: cubic-bezier(.34, 1.4, .64, 1);
+  --t-fast: 140ms; --t: 220ms; --t-slow: 420ms;
+  --touch: 44px;
+
+  /* Gallery by day */
+  --bg: #f2f0eb; --bg-2: #e9e6df; --paper: #fbfaf7;
+  --ink: #15171a; --ink-2: #474c54; --ink-3: #676c74;
+  --line: rgba(21, 23, 26, .09); --line-2: rgba(21, 23, 26, .16); --line-3: rgba(21, 23, 26, .28);
+  --glass: rgba(255, 255, 255, .58); --glass-2: rgba(255, 255, 255, .82); --glass-solid: #fbfaf8;
+  --rim-a: rgba(255, 255, 255, .95); --rim-b: rgba(255, 255, 255, .08);
+  --liq-shade: rgba(28, 34, 40, .34); --liq-line: rgba(21, 23, 26, .07);
+  --shadow: 0 0 0 1px rgba(21, 23, 26, .06), 0 18px 40px -20px rgba(28, 34, 40, .30), 0 3px 8px -3px rgba(28, 34, 40, .10);
+  --shadow-lift: 0 0 0 1px rgba(21, 23, 26, .07), 0 28px 56px -24px rgba(28, 34, 40, .38), 0 6px 14px -6px rgba(28, 34, 40, .14);
+  --verd: #1d7a62; --verd-ink: #ffffff; --verd-soft: rgba(29, 122, 98, .11); --verd-line: rgba(29, 122, 98, .40); --verd-mark: #2a9a7b;
+  --brass: #8a601d; --brass-fill: #c99a45; --brass-soft: rgba(201, 154, 69, .16);
+  --cinn: #b4432d; --cinn-ink: #ffffff; --cinn-soft: rgba(180, 67, 45, .10); --cinn-line: rgba(180, 67, 45, .38);
+  --light-a: rgba(29, 122, 98, .15); --light-b: rgba(201, 154, 69, .15);
+  --art-filter: none; --art-opacity: .94;
+  --mark-paw: #f2f0eb;
+  --veil: rgba(21, 23, 26, .32);
+  --foot-bg: #1c3192; --foot-ink: #f3eddf; --foot-ink-2: rgba(243, 237, 223, .7); --foot-line: rgba(243, 237, 223, .26);
+  --foot-paper: #efe7d6; --foot-print-ink: #1c3192; --foot-sky-mid: rgba(28, 49, 146, .55);
+  --k-vca: var(--verd); --k-paper: var(--brass-fill); --k-aligned: #8f9a8b; --k-lecture: #b6b2a6; --k-course: #d7d3c8;
+  /* The almanac's ink: verdigris by count, and the figure that sits on a deep cell. */
+  --heat-rgb: 29 122 98; --heat-ink: #ffffff;
+  --ticket-a: #f6eedf; --ticket-b: #e6eef0;
+  /* Names ../src/lib/richtext.jsx reads for inline code. */
+  --vmx-mono: var(--mono); --clr-surface-2: var(--bg-2);
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  /* Gallery after hours */
+  --bg: #0c0e10; --bg-2: #15181b; --paper: #121518;
+  --ink: #eceeef; --ink-2: #a9afb6; --ink-3: #8c9299;
+  --line: rgba(255, 255, 255, .08); --line-2: rgba(255, 255, 255, .15); --line-3: rgba(255, 255, 255, .26);
+  --glass: rgba(24, 28, 32, .54); --glass-2: rgba(22, 26, 30, .84); --glass-solid: #171a1e;
+  --rim-a: rgba(255, 255, 255, .26); --rim-b: rgba(255, 255, 255, .02);
+  --liq-shade: rgba(0, 0, 0, .7); --liq-line: rgba(0, 0, 0, .45);
+  --shadow: 0 0 0 1px rgba(0, 0, 0, .45), 0 24px 48px -22px rgba(0, 0, 0, .75), 0 3px 10px -3px rgba(0, 0, 0, .5);
+  --shadow-lift: 0 0 0 1px rgba(0, 0, 0, .5), 0 32px 64px -24px rgba(0, 0, 0, .85), 0 6px 16px -6px rgba(0, 0, 0, .55);
+  --verd: #56c9a6; --verd-ink: #04221a; --verd-soft: rgba(86, 201, 166, .12); --verd-line: rgba(86, 201, 166, .44); --verd-mark: #56c9a6;
+  --brass: #e3b867; --brass-fill: #c99a45; --brass-soft: rgba(227, 184, 103, .14);
+  --cinn: #f08a72; --cinn-ink: #2b0d06; --cinn-soft: rgba(240, 138, 114, .12); --cinn-line: rgba(240, 138, 114, .42);
+  --light-a: rgba(86, 201, 166, .09); --light-b: rgba(227, 184, 103, .07);
+  --art-filter: invert(1) hue-rotate(180deg) saturate(.75) brightness(.95);
+  --art-opacity: .78;
+  --mark-paw: #0c0e10;
+  --veil: rgba(0, 0, 0, .55);
+  --foot-bg: #111d5c; --foot-ink: #ece5d6; --foot-ink-2: rgba(236, 229, 214, .64); --foot-line: rgba(236, 229, 214, .2);
+  --foot-paper: #111d5c; --foot-print-ink: rgba(236, 229, 214, .82); --foot-sky-mid: rgba(17, 29, 92, .6);
+  --k-aligned: #5f6b62; --k-lecture: #464c50; --k-course: #31363a;
+  --heat-rgb: 86 201 166; --heat-ink: #04221a;
+  --ticket-a: #1b1e21; --ticket-b: #171c1f;
+  color-scheme: dark;
+}
+
+/* Glass needs depth behind it; where the reader asked for less, the panes turn solid. */
+@media (prefers-reduced-transparency: reduce) {
+  :root { --glass: var(--glass-solid); --glass-2: var(--glass-solid); --blur: 0px; }
+  :root[data-theme="dark"] { --glass: var(--glass-solid); --glass-2: var(--glass-solid); }
+}
+@media (prefers-contrast: more) {
+  :root { --glass: var(--glass-solid); --glass-2: var(--glass-solid); --blur: 0px; --ink-2: #2f3338; --ink-3: #3f444a; --line: rgba(21, 23, 26, .3); --line-2: rgba(21, 23, 26, .45); }
+  :root[data-theme="dark"] { --glass: var(--glass-solid); --glass-2: var(--glass-solid); --ink-2: #d2d6da; --ink-3: #c1c6cb; --line: rgba(255, 255, 255, .3); --line-2: rgba(255, 255, 255, .45); }
+}

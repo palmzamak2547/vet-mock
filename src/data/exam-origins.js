@@ -57,6 +57,7 @@ export const PAPER_KINDS = Object.freeze(['midterm', 'final', 'quiz', 'osce', 's
 export const EXAM_ORIGINS = Object.freeze({
   // ── paper: A paper a cohort sat, or a recall of one ──
   // rows that carry a sourceType
+  "VCA รอบ 1/2569 หมวด 2 (บันทึกหลังสอบ)": { kind: 'paper', cohort: null, paper: null },
   "ข้อเขียนที่รุ่นพี่ Vet 85 บันทึกว่าเคยออกในข้อสอบกลางภาค Avian Medicine": { kind: 'paper', cohort: 85, paper: 'midterm' },
   "ข้อสอบวิชา One Health in Veterinary Public Health ที่รุ่นก่อนหน้าบันทึกภาพไว้": { kind: 'paper', cohort: null, paper: null },
   "บันทึกหลังสอบสถานี POA วิชาอายุรศาสตร์และศัลยศาสตร์ม้า (Vet 85)": { kind: 'paper', cohort: 85, paper: 'station' },

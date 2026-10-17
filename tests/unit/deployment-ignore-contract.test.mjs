@@ -73,3 +73,22 @@ test('the command skips every preview, builds a production source change, skips 
     assert.equal(sh(docs.dir, { VERCEL_ENV: 'production', VERCEL_GIT_PREVIOUS_SHA: docs.first }), 0);
   } finally { source.done(); docs.done(); }
 });
+
+// The VCA project (root vca/) keeps its rule in a script: Vercel rejects the whole vercel.json
+// when ignoreCommand passes 256 characters, which failed the project's first deploy (17 Oct).
+test('the VCA project builds production only, and only when the site or its bank changed', () => {
+  const vca = JSON.parse(readFileSync(new URL('../../vca/vercel.json', import.meta.url), 'utf8'));
+  assert.ok(vca.ignoreCommand.length <= 256, `vca ignoreCommand is ${vca.ignoreCommand.length} characters`);
+  if (!hasSh) return;
+  const cwd = new URL('../../vca/', import.meta.url);
+  const run = (env) => {
+    const clean = { ...process.env, MSYS_NO_PATHCONV: '1', MSYS2_ARG_CONV_EXCL: '*' };
+    delete clean.VERCEL_ENV;
+    delete clean.VERCEL_GIT_PREVIOUS_SHA;
+    return spawnSync('sh', ['-c', vca.ignoreCommand], { cwd, env: { ...clean, ...env }, encoding: 'utf8' }).status;
+  };
+  assert.equal(run({ VERCEL_ENV: 'preview' }), 0, 'a preview is skipped');
+  assert.equal(run({ VERCEL_ENV: 'production' }), 1, 'the first production build runs');
+  assert.equal(run({ VERCEL_ENV: 'production', VERCEL_GIT_PREVIOUS_SHA: 'HEAD' }), 0, 'nothing changed: skipped');
+  assert.equal(run({ VERCEL_ENV: 'production', VERCEL_GIT_PREVIOUS_SHA: 'no-such-commit' }), 1, 'a git error builds');
+});
