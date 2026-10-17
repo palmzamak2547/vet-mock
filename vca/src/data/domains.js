@@ -22,15 +22,15 @@ export const FAMILIES = [
 // `art` is a bookplate id from ../../../src/data/subject-covers.js: VetMock's own course prints.
 export const DOMAINS = [
   { id: 'anatomy', tag: 'Anatomy', plate: 1, family: 'bio', th: 'กายวิภาคศาสตร์', en: 'Anatomy, histology & embryology', art: 'vet-anat-1',
-    from: [{ subject: 'vet-histo' }, { subject: 'vet-dev-anat' }] },
+    from: [{ subject: 'vet-histo' }, { subject: 'vet-dev-anat' }, { subject: 'vca', topic: 'anatomy' }] },
   { id: 'neuro-ophtho', tag: 'Neuro & eye', plate: 2, family: 'bio', th: 'ประสาท|และจักษุวิทยา', en: 'Neurology & ophthalmology', art: 'surg2',
     from: [{ subject: 'vet-neuroanat' }, { subject: 'vca', topic: 'neurology' }, { subject: 'vca', topic: 'ophthalmology' }] },
   { id: 'pharmacology', tag: 'Pharmacology', plate: 3, family: 'bio', th: 'เภสัชวิทยา', en: 'Pharmacology & toxicology', art: 'vet-pharm-2',
-    from: [{ subject: 'vet-pharm-2' }] },
+    from: [{ subject: 'vet-pharm-2' }, { subject: 'vca', topic: 'pharmacology' }] },
   { id: 'pathology', tag: 'Pathology', plate: 4, family: 'bio', th: 'พยาธิวิทยา', en: 'Pathology & clinical pathology', art: 'vet-path-2',
     from: [{ subject: 'livestock-pathology' }, { subject: 'vca', topic: 'clinical-pathology' }] },
   { id: 'micro-immuno', tag: 'Micro & immuno', plate: 5, family: 'bio', th: 'จุลชีวะ ปรสิต และภูมิคุ้มกัน', en: 'Microbiology, parasitology & immunology', art: 'vet-immuno',
-    from: [{ subject: 'vca', topic: 'immunology' }, { subject: 'vca', topic: 'parasitology' }, { subject: 'rec-adv-bioscience' }] },
+    from: [{ subject: 'vca', topic: 'immunology' }, { subject: 'vca', topic: 'parasitology' }, { subject: 'vca', topic: 'microbiology' }, { subject: 'rec-adv-bioscience' }] },
 
   { id: 'small-animal', tag: 'Small animal', plate: 6, family: 'species', th: 'สุนัขและแมว', en: 'Canine & feline medicine', art: 'rotation-small-animal',
     from: [{ subject: 'com1' }, { subject: 'com2' }, { subject: 'com3' }, { subject: 'com4' }, { subject: 'com5' }, { subject: 'poa-clinical' }, { subject: 'vca', topic: 'dogcat' }] },
@@ -48,20 +48,20 @@ export const DOMAINS = [
     from: [{ subject: 'aquatic-clinic' }, { subject: 'vca', topic: 'aquatic' }] },
 
   { id: 'theriogenology', tag: 'Therio', plate: 13, family: 'clinic', th: 'วิทยาการ|สืบพันธุ์', en: 'Theriogenology', art: 'principles-therio',
-    from: [{ subject: 'repro-lect' }, { subject: 'repro' }, { subject: 'comp-repro-clinic' }, { subject: 'equine-repro' }, { subject: 'swine-repro' }] },
+    from: [{ subject: 'repro-lect' }, { subject: 'repro' }, { subject: 'comp-repro-clinic' }, { subject: 'equine-repro' }, { subject: 'swine-repro' }, { subject: 'vca', topic: 'theriogenology' }] },
   { id: 'surgery', tag: 'Surgery', plate: 14, family: 'clinic', th: 'ศัลยศาสตร์', en: 'Surgery', art: 'principles-surgery',
-    from: [{ subject: 'surg1' }, { subject: 'surg2' }, { subject: 'surg3' }] },
+    from: [{ subject: 'surg1' }, { subject: 'surg2' }, { subject: 'surg3' }, { subject: 'vca', topic: 'surgery' }] },
   { id: 'imaging', tag: 'Imaging', plate: 15, family: 'clinic', th: 'รังสีวิทยา', en: 'Diagnostic imaging', art: 'vet-imaging',
-    from: [{ subject: 'vet-imaging' }] },
+    from: [{ subject: 'vet-imaging' }, { subject: 'vca', topic: 'imaging' }] },
 
   { id: 'food-hygiene', tag: 'Food hygiene', plate: 16, family: 'public', th: 'สุขศาสตร์|อาหาร', en: 'Food hygiene & safety', art: 'milk-meat-hygiene',
-    from: [{ subject: 'milk-meat-hygiene' }, { subject: 'food-industry' }, { subject: 'food-safety-y4' }] },
+    from: [{ subject: 'milk-meat-hygiene' }, { subject: 'food-industry' }, { subject: 'food-safety-y4' }, { subject: 'vca', topic: 'food-hygiene' }] },
   { id: 'zoonoses', tag: 'Zoonoses', plate: 17, family: 'public', th: 'โรคสัตว์|สู่คน', en: 'Zoonoses & One Health', art: 'zoonoses',
-    from: [{ subject: 'zoonoses' }, { subject: 'one-health' }] },
+    from: [{ subject: 'zoonoses' }, { subject: 'one-health' }, { subject: 'vca', topic: 'zoonoses' }] },
   { id: 'epidemiology', tag: 'Epidemiology', plate: 18, family: 'public', th: 'ระบาดวิทยา', en: 'Epidemiology', art: 'epidemiology',
     from: [{ subject: 'epidemiology' }, { subject: 'vca', topic: 'epidemiology' }] },
   { id: 'juris', tag: 'Law & ethics', plate: 19, family: 'public', th: 'กฎหมาย|และจริยธรรม', en: 'Law, ethics & animal welfare', art: 'vet-juris',
-    from: [{ subject: 'vet-juris' }] },
+    from: [{ subject: 'vet-juris' }, { subject: 'vca', topic: 'juris' }] },
 ];
 
 // Subjects with questions that the VCA collection leaves out, and why. Shown on /about.

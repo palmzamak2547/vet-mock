@@ -57,7 +57,8 @@ export function rejection(q) {
 }
 
 function kindOf(q) {
-  if (q.subject === 'vca') return 'vca';
+  // The VCA bank is VCA guidance, except the papers students recalled after sitting the exam.
+  if (q.subject === 'vca') return isPastPaperQuestion(q) ? 'paper' : 'vca';
   if (isPastPaperQuestion(q)) return 'paper';
   if (isExamAlignedQuestion(q)) return 'aligned';
   if (/^lecture/.test(q.sourceType || '')) return 'lecture';
