@@ -1,0 +1,84 @@
+# ============================================================
+# VetMock VCA (vca.vetmock.com)
+# ============================================================
+# Runs when the VCA app changes, or when something it reads from the
+# main app changes: the question banks and registry in src/data, the
+# three shared modules in src/lib, and the art and fonts in public.
+#
+# Steps, in the order a contributor runs them locally:
+#   npm run bank   rebuilds the per-domain bank from ../src/data and
+#                  fails on a bank the generator cannot place
+#   npm test       the unit tests (sets, sessions, progress, almanac,
+#                  exam calendar, domain mapping)
+#   npm run build  the production bundle plus the per-route heads
+#                  and sitemap (scripts/prerender.mjs)
+# The covers in public/og and the icons in public/icons are drawn
+# locally with Playwright (npm run og, npm run icons) and committed,
+# so this job needs no browser.
+# ============================================================
+name: VCA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'vca/**'
+      - 'src/data/**'
+      - 'src/lib/question-metadata.js'
+      - 'src/lib/option-shuffle.js'
+      - 'src/lib/richtext.jsx'
+      - 'public/**'
+      - '.github/workflows/vca.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'vca/**'
+      - 'src/data/**'
+      - 'src/lib/question-metadata.js'
+      - 'src/lib/option-shuffle.js'
+      - 'src/lib/richtext.jsx'
+      - 'public/**'
+      - '.github/workflows/vca.yml'
+
+concurrency:
+  group: vca-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: vca
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: vca/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Build the bank from the main app's data
+        run: npm run bank
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build production bundle and route heads
+        run: npm run build
+
+      - name: Report bundle sizes
+        run: |
+          echo "## VCA bundle" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          du -sh dist/ dist/assets dist/bank >> $GITHUB_STEP_SUMMARY || true
+          ls -lh dist/assets/ | awk 'NR>1 {print $5, $9}' | sort -rh | head -12 >> $GITHUB_STEP_SUMMARY || true
+          echo '```' >> $GITHUB_STEP_SUMMARY

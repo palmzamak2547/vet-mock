@@ -1,0 +1,229 @@
+/* ─────────────────────────────────────────────────────────────────────────────────────────
+   Motion: Vitrine
+   Light moves across glass with the pointer, prints settle onto the wall, labels unroll, a
+   plate lifts off the wall and becomes its own page. Transforms and opacity only, so the
+   compositor does the work. "Reduce motion" turns all of it off (base.css and the guard at
+   the end of this file); lib/motion.js skips the scripted parts on the same setting.
+   ───────────────────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --ease-out: cubic-bezier(.16, 1, .3, 1);      /* expo out: arrives fast, settles long */
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --spring: cubic-bezier(.34, 1.56, .64, 1);     /* a small overshoot, like a card set down */
+}
+
+/* ── Keyframes ─────────────────────────────────────────────────────────────────────────── */
+@keyframes rise-in { from { opacity: 0; transform: translateY(18px); } }
+@keyframes focus-in { from { opacity: 0; transform: translateY(.45em); filter: blur(8px); } }
+@keyframes settle-in { from { opacity: 0; transform: translateY(14px) scale(.965); } }
+@keyframes float-in { from { opacity: 0; transform: translateY(calc(-50% + 34px)) scale(.97); filter: blur(10px); } }
+@keyframes float-in-flat { from { opacity: 0; transform: translateY(34px) scale(.97); filter: blur(10px); } }
+@keyframes line-grow { from { transform: scaleX(0); } }
+@keyframes sweep { from { transform: scaleX(0); } }
+@keyframes shake { 20% { transform: translateX(-5px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(3px); } }
+@keyframes pop { 0% { transform: scale(.6); } 60% { transform: scale(1.14); } 100% { transform: scale(1); } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes unroll { from { opacity: 0; clip-path: inset(0 0 100% 0 round 14px); transform: translateY(-4px); } to { opacity: 1; clip-path: inset(0 0 0 0 round 14px); transform: none; } }
+@keyframes meter-in { from { transform: scaleX(0); } }
+@keyframes swap-next { from { opacity: 0; transform: translateX(26px); filter: blur(4px); } }
+@keyframes swap-prev { from { opacity: 0; transform: translateX(-26px); filter: blur(4px); } }
+@keyframes tick { from { opacity: 0; transform: translateY(60%); } }
+@keyframes shimmer { to { transform: translateX(100%); } }
+@keyframes drift-a { to { transform: translate3d(4vw, 3vh, 0) scale(1.08); } }
+@keyframes drift-b { to { transform: translate3d(-5vw, -4vh, 0) scale(1.12); } }
+@keyframes breathe { 50% { box-shadow: 0 0 0 6px var(--verd-soft); } }
+@keyframes sheet-out { to { opacity: 0; transform: translateY(14px) scale(.985); } }
+@keyframes veil-out { to { opacity: 0; } }
+@keyframes ring-glow { 0% { filter: drop-shadow(0 0 0 transparent); } 50% { filter: drop-shadow(0 0 10px var(--verd-line)); } 100% { filter: drop-shadow(0 0 0 transparent); } }
+
+/* ── The gallery light drifts, very slowly: two pools on their own layers ─────────────── */
+.atmos { background: var(--bg); }
+.atmos-a, .atmos-b { position: absolute; border-radius: 50%; filter: blur(40px); will-change: transform; pointer-events: none; }
+.atmos-a { left: -18vw; top: -22vh; width: 72vw; height: 64vh; background: radial-gradient(closest-side, var(--light-a), transparent); animation: drift-a 38s var(--ease-in-out) infinite alternate; }
+.atmos-b { right: -20vw; top: 18vh; width: 64vw; height: 74vh; background: radial-gradient(closest-side, var(--light-b), transparent); animation: drift-b 46s var(--ease-in-out) infinite alternate; }
+
+/* ── Light on glass: a soft sheen that follows the pointer (lib/motion.js sets --mx/--my) ─ */
+[data-sheen] { position: relative; isolation: isolate; }
+[data-sheen]::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(460px circle at var(--mx, 50%) var(--my, -30%), rgba(255, 255, 255, .55), transparent 42%);
+  opacity: 0; transition: opacity var(--t-slow) var(--ease-out);
+}
+:root[data-theme="dark"] [data-sheen]::after { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, -30%), rgba(110, 230, 190, .10), rgba(255, 255, 255, .04) 30%, transparent 46%); }
+[data-sheen].is-lit::after { opacity: 1; }
+
+/* A plate tilts a few degrees toward the pointer, as a print in a case catches the light. */
+[data-tilt] { transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform 600ms var(--ease-out), box-shadow var(--t) var(--ease); will-change: transform; }
+[data-tilt].is-lit { transition: transform 120ms linear, box-shadow var(--t) var(--ease); }
+.dcard[data-tilt].is-lit { box-shadow: var(--shadow-lift); }
+.dcard[data-tilt]:hover { transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-3px); }
+
+/* ── A print is inked in: a soft edge sweeps across it, as a pen uncovers line art ──────── */
+@keyframes ink-in { from { -webkit-mask-position: 100% 0; mask-position: 100% 0; } to { -webkit-mask-position: 0 0; mask-position: 0 0; } }
+.wall .plate img, .dhero-plate img, [data-reveal].is-in .dcard-art {
+  -webkit-mask-image: linear-gradient(100deg, #000 42%, transparent 58%); mask-image: linear-gradient(100deg, #000 42%, transparent 58%);
+  -webkit-mask-size: 260% 100%; mask-size: 260% 100%; -webkit-mask-position: 0 0; mask-position: 0 0;
+  animation: ink-in 1500ms var(--ease-out) both;
+}
+.wall .plate img { animation-delay: calc(420ms + var(--i, 0) * 90ms); }
+[data-reveal].is-in .dcard-art { animation-delay: calc(var(--i, 0) * 55ms + 160ms); }
+.reveal-ready [data-reveal]:not(.is-in) .dcard-art { opacity: 0; }
+
+/* The index deals its chips in plate order when the card arrives, and lifts them in a wave
+   on hover. */
+@keyframes deal { from { opacity: 0; transform: translateY(6px) scale(.8); } }
+[data-reveal].is-in .dcard-index i { animation: deal 520ms var(--spring) both; animation-delay: calc(240ms + var(--j, 0) * 28ms); }
+.reveal-ready [data-reveal]:not(.is-in) .dcard-index i { opacity: 0; }
+.dcard-all .dcard-index i { transition: transform 420ms var(--spring); }
+.dcard-all:hover .dcard-index i { transform: translateY(-3px); transition-delay: calc(var(--j, 0) * 14ms); }
+
+/* ── Arrival: the hero sets itself, line by line, then the wall, then the glass ────────── */
+.hero .kicker, .hero .countdown { animation: rise-in 700ms var(--ease-out) both; }
+@keyframes beacon { 50% { box-shadow: 0 0 0 8px var(--brass-soft); } }
+.countdown-dot { animation: beacon 2.6s var(--ease) infinite; }
+.hero .kicker::before { transform-origin: left; animation: line-grow 900ms 120ms var(--ease-out) both; }
+.hero-h .nw, .hero-h .words { display: inline-block; animation: focus-in 1000ms var(--ease-out) both; }
+.hero-h .nw:nth-of-type(1) { animation-delay: 90ms; }
+.hero-h .nw:nth-of-type(2) { animation-delay: 210ms; }
+.hero-h em { display: inline-block; animation: slam 1000ms 520ms var(--spring) both; }
+@keyframes slam { from { opacity: 0; transform: scale(1.3) translateY(-.08em); filter: blur(8px); } }
+.hero .lede { animation: rise-in 900ms 320ms var(--ease-out) both; }
+.hero .ctas { animation: rise-in 900ms 420ms var(--ease-out) both; }
+.hero .fine { animation: rise-in 900ms 520ms var(--ease-out) both; }
+.wall .plate { animation: settle-in 1000ms var(--ease-out) both; animation-delay: calc(240ms + var(--i, 0) * 70ms); }
+.sample { animation: float-in 1200ms 620ms var(--ease-out) both; }
+@media (max-width: 760px) { .sample { animation-name: float-in-flat; } }
+
+/* Depth on the wall: the prints drift against the glass as the pointer moves. */
+[data-parallax] .wall .plate { translate: calc(var(--px, 0) * var(--d, 8) * 1px) calc(var(--py, 0) * var(--d, 8) * 1px); transition: translate 900ms var(--ease-out); }
+[data-parallax] .sample { translate: calc(var(--px, 0) * -10px) calc(var(--py, 0) * -8px); transition: translate 900ms var(--ease-out); }
+
+/* ── Scroll: sections and cards settle as they come into view (lib/motion.js) ──────────── */
+.reveal-ready [data-reveal]:not(.is-in) { opacity: 0; transform: translateY(22px); }
+.reveal-ready [data-reveal] { transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out); transition-delay: calc(var(--i, 0) * 55ms); }
+/* Cards that tilt sit inside a [data-reveal] cell, so the arrival delay never holds back the tilt. */
+
+/* ── Pages without view transitions arrive with a short rise ──────────────────────────── */
+html:not(.has-vt) .page { animation: rise-in 520ms var(--ease-out) both; }
+
+/* ── View transitions between pages ───────────────────────────────────────────────────── */
+::view-transition-old(root) { animation: 260ms var(--ease-in-out) both vt-out; }
+::view-transition-new(root) { animation: 520ms 40ms var(--ease-out) both vt-in; }
+@keyframes vt-out { to { opacity: 0; transform: scale(.985); filter: blur(3px); } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(16px); filter: blur(4px); } }
+::view-transition-group(*) { animation-duration: 560ms; animation-timing-function: var(--ease-out); }
+.topbar-in { view-transition-name: topbar; }
+/* The middle capsule eases in on arrival, a beat after the wall. */
+.topnav { animation: rise-in 800ms 120ms var(--ease-out) both; }
+.tabbar { view-transition-name: tabbar; }
+::view-transition-old(topbar), ::view-transition-new(topbar), ::view-transition-old(tabbar), ::view-transition-new(tabbar) { animation-duration: 200ms; }
+/* The theme spreads from the button; no crossfade underneath it. */
+html[data-vt="theme"]::view-transition-old(root), html[data-vt="theme"]::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+html[data-vt="theme"]::view-transition-old(topbar), html[data-vt="theme"]::view-transition-new(topbar),
+html[data-vt="theme"]::view-transition-old(tabbar), html[data-vt="theme"]::view-transition-new(tabbar) { animation: none; }
+html[data-vt="theme"] .topbar-in, html[data-vt="theme"] .tabbar { view-transition-name: none; }
+
+/* ── Buttons, chips, links: they answer the hand ──────────────────────────────────────── */
+.btn { position: relative; overflow: hidden; }
+.btn-ink::after, .btn-verd::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, .22) 50%, transparent 70%);
+  transform: translateX(-120%); transition: transform 800ms var(--ease-out);
+}
+:root[data-theme="dark"] .btn-ink::after { background: linear-gradient(105deg, transparent 30%, rgba(21, 23, 26, .14) 50%, transparent 70%); }
+.btn-ink:hover::after, .btn-verd:hover::after { transform: translateX(120%); }
+.btn .ic { transition: transform var(--t) var(--spring); }
+.btn:hover .ic { transform: translateX(3px); }
+.btn:hover .ic[aria-hidden]:first-child:not(:last-child) { transform: none; }
+.chip, .seg-opt { transition: background-color var(--t) var(--ease), box-shadow var(--t) var(--ease), color var(--t) var(--ease), transform var(--t-fast) var(--ease); }
+.chip:active, .seg-opt:active { transform: scale(.96); }
+.chip[aria-pressed="true"], .seg-opt.on { animation: pop 380ms var(--spring); }
+.icon-btn:active { transform: scale(.9); }
+.icon-btn { transition: background-color var(--t) var(--ease), color var(--t) var(--ease), transform var(--t-fast) var(--ease); }
+.text-link .ic { transition: transform var(--t) var(--spring); }
+.text-link:hover .ic { transform: translateX(3px); }
+:focus-visible { transition: outline-offset var(--t-fast) var(--ease); }
+
+/* ── Navigation: the active pill slides from tab to tab ───────────────────────────────── */
+.topnav { position: relative; }
+.topnav-ind { position: absolute; top: 5px; left: 0; height: var(--touch); width: var(--w, 0px); transform: translateX(var(--x, 0px)); border-radius: var(--r-pill); background: var(--verd-soft); transition: transform 520ms var(--spring), width 520ms var(--spring), opacity var(--t) var(--ease); pointer-events: none; z-index: -1; }
+.topnav.has-ind .topnav-link.on { background: transparent; }
+.tab-ind { display: none; }
+@media (max-width: 760px) {
+  .tab-ind { display: block; position: absolute; top: 8px; bottom: 8px; left: 4px; width: calc((100% - 8px) / 5); transform: translateX(calc(var(--i, 0) * 100%)); border-radius: 16px; background: var(--verd-soft); transition: transform 520ms var(--spring), opacity var(--t) var(--ease); pointer-events: none; }
+  .tab-ind.off { opacity: 0; }
+  .tab { position: relative; z-index: 1; }
+  .tab:active .ic { transform: scale(.88); }
+}
+
+/* ── The question: a choice is pressed, filled, and answered ──────────────────────────── */
+.opt { overflow: hidden; isolation: isolate; }
+.opt::before { content: ""; position: absolute; inset: 0; z-index: -1; transform-origin: left; transform: scaleX(0); border-radius: inherit; }
+.opt.chosen::before { background: color-mix(in srgb, var(--ink) 7%, transparent); transform: scaleX(1); animation: sweep 420ms var(--ease-out); }
+.opt.right::before { background: var(--verd-soft); transform: scaleX(1); animation: sweep 520ms var(--ease-out); }
+.opt.wrong::before { background: var(--cinn-soft); transform: scaleX(1); animation: sweep 420ms var(--ease-out); }
+.opt.right, .opt.wrong, .opt.chosen { background: transparent; }
+.is-revealed .opt.wrong { animation: shake 420ms var(--ease-in-out); }
+.is-revealed .opt.right { animation: none; }
+.is-revealed .opt.right .opt-key, .is-revealed .opt.wrong .opt-key, .opt.chosen .opt-key { animation: pop 420ms var(--spring); }
+.is-revealed .opt.right { transition-delay: 120ms; }
+.opt-mark path { stroke-dasharray: 32; stroke-dashoffset: 32; animation: draw 520ms 140ms var(--ease-out) forwards; }
+.opt.rest { transition: opacity 600ms 200ms var(--ease-out); }
+.why { animation: unroll 700ms 140ms var(--ease-out) both; }
+.verdict .ic path { stroke-dasharray: 32; stroke-dashoffset: 32; animation: draw 520ms 260ms var(--ease-out) forwards; }
+
+/* Moving between questions: the next one slides in from the side it comes from. */
+.q-swap { animation: swap-next 520ms var(--ease-out) both; }
+.q-swap.from-prev { animation-name: swap-prev; }
+.tick { display: inline-block; animation: tick 360ms var(--ease-out) both; }
+.run-line i { transition: width 700ms var(--ease-out); }
+
+/* ── Data that grows into place ────────────────────────────────────────────────────────── */
+.meter i { transform-origin: left; animation: meter-in 1100ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 60ms + 120ms); }
+.ring svg circle:last-child { transition: stroke-dasharray 1400ms var(--ease-out); }
+.ring.is-full svg { animation: ring-glow 1600ms 1200ms var(--ease-in-out); }
+.stack-bar i { transform-origin: left; animation: meter-in 1200ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 90ms + 150ms); }
+.activity-bars i { transform-origin: bottom; animation: meter-in 900ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 25ms); }
+@keyframes bar-up { from { transform: scaleY(0); } }
+.activity-bars i { animation-name: bar-up; }
+.sample-tag .dot { animation: breathe 2.8s var(--ease-in-out) infinite; }
+
+/* ── Waiting looks like the thing it waits for ────────────────────────────────────────── */
+.skel { position: relative; overflow: hidden; border-radius: 10px; background: var(--line); }
+.skel::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .5), transparent); animation: shimmer 1.4s var(--ease-in-out) infinite; }
+:root[data-theme="dark"] .skel::after { background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .06), transparent); }
+.skel-card { display: grid; gap: 12px; padding: 22px; border-radius: var(--r-lg); background: var(--glass-solid); box-shadow: inset 0 0 0 1px var(--line); }
+.skel-line { height: 14px; }
+.skel-line.w60 { width: 60%; } .skel-line.w80 { width: 80%; } .skel-line.w40 { width: 40%; }
+.skel-opt { height: 48px; border-radius: var(--r-md); }
+
+/* ── Sheets leave as they came ────────────────────────────────────────────────────────── */
+.sheet-veil { -webkit-backdrop-filter: blur(6px) saturate(120%); backdrop-filter: blur(6px) saturate(120%); }
+.sheet-veil.is-closing { animation: veil-out 200ms var(--ease-in-out) both; }
+.sheet-veil.is-closing .sheet { animation: sheet-out 200ms var(--ease-in-out) both; }
+
+/* ── Result: the score is drawn, the verdict lands ────────────────────────────────────── */
+.result-copy .page-h { animation: focus-in 900ms 200ms var(--ease-out) both; }
+.result-copy .kicker, .result-facts, .result-copy .row-gap { animation: rise-in 800ms 320ms var(--ease-out) both; }
+.drow { animation: rise-in 700ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 70ms + 300ms); }
+
+/* ── Everything above is decoration; "reduce motion" gets the still version ───────────── */
+@media (prefers-reduced-motion: reduce) {
+  .atmos-a, .atmos-b { animation: none; }
+  [data-tilt], [data-tilt].is-lit, .dcard[data-tilt]:hover { transform: none; }
+  [data-parallax] .wall .plate, [data-parallax] .sample { translate: none; }
+  .reveal-ready [data-reveal]:not(.is-in) { opacity: 1; transform: none; }
+  .reveal-ready [data-reveal]:not(.is-in) .dcard-art { opacity: var(--art-opacity); }
+  .reveal-ready [data-reveal]:not(.is-in) .dcard-index i { opacity: 1; }
+  [data-reveal].is-in .dcard-index i { animation: none; }
+  .dcard-all:hover .dcard-index i { transform: none; }
+  .wall .plate img, .dhero-plate img, [data-reveal].is-in .dcard-art { -webkit-mask-image: none; mask-image: none; animation: none; }
+  [data-sheen]::after { display: none; }
+  .opt-mark path, .verdict .ic path { stroke-dashoffset: 0; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
+
+/* The footer's print is pulled from left to right as it comes into view. */
+@keyframes print-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.foot-print.is-in .foot-ink { animation: print-wipe 2000ms var(--ease-out) both; }
+@media (prefers-reduced-motion: reduce) { .foot-print.is-in .foot-ink { animation: none; } }

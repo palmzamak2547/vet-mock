@@ -1,0 +1,43 @@
+{
+  "name": "VetMock VCA",
+  "short_name": "VCA",
+  "description": "ซ้อมสอบใบประกอบวิชาชีพสัตวแพทย์ ฝึกทีละข้อพร้อมเฉลย สอบจำลองจับเวลา และดูวันสอบรอบถัดไป ใช้ได้ทันทีโดยไม่ต้องสมัคร",
+  "lang": "th",
+  "dir": "ltr",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f2f0eb",
+  "theme_color": "#f2f0eb",
+  "categories": ["education", "medical"],
+  "icons": [
+    { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "ฝึก 10 ข้อ",
+      "short_name": "ฝึก",
+      "description": "ตั้งชุดฝึก เห็นเฉลยทันทีหลังตอบ",
+      "url": "/practice",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "สอบจำลอง",
+      "short_name": "สอบจำลอง",
+      "description": "จับเวลาทั้งชุด ดูผลรายหมวดหลังส่ง",
+      "url": "/practice?mode=mock",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "สนามสอบ",
+      "short_name": "สนามสอบ",
+      "description": "วันสอบรอบถัดไปและสถิติข้อสอบรายวิชา",
+      "url": "/exam",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}

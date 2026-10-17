@@ -1,0 +1,175 @@
+/* ── The exam page ───────────────────────────────────────────────────────────────────────────
+   A countdown set like a poster numeral; the two days as admission tickets, paper with a
+   torn-off stub; the domains as a ranked index; and the almanac as a printed table whose cells
+   are inked by count, the way the cohorts' sheet shades them. */
+
+.xhero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 48px; align-items: center; padding-block: 72px 56px; }
+.xhero-text { min-width: 0; }
+.xhero-h { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 18px; margin-top: 18px; font: 400 clamp(30px, 3.2vw, 42px)/1 var(--serif); }
+.xhero-pre, .xhero-unit { color: var(--ink-2); }
+.xhero-n { font: 400 clamp(124px, 15vw, 216px)/.84 var(--serif); letter-spacing: -.055em; font-variant-numeric: lining-nums tabular-nums; color: var(--ink); }
+.xhero-today, .xhero-wait { font-size: clamp(48px, 6vw, 80px); line-height: 1.15; }
+.xhero-sub { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 22px; font-size: 18px; line-height: 1.6; color: var(--ink-2); }
+.xhero-sub .nw:first-child { color: var(--ink); font-weight: 600; }
+.xhero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.xhero-src { margin-top: 16px; font-size: 14px; }
+.xhero-src .text-link { color: var(--ink-3); }
+
+/* Admission tickets: paper, a perforated stub, two notches where it tears. The notches are cut
+   with a mask, so the shadow comes from a drop-shadow on the stack, which follows the cut. */
+.tickets { display: grid; gap: 22px; justify-items: center; filter: drop-shadow(0 22px 28px rgba(28, 34, 40, .18)) drop-shadow(0 2px 4px rgba(28, 34, 40, .08)); }
+:root[data-theme="dark"] .tickets { filter: drop-shadow(0 24px 30px rgba(0, 0, 0, .6)) drop-shadow(0 2px 4px rgba(0, 0, 0, .4)); }
+.ticket {
+  --stub: 118px; --notch: 13px;
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr) var(--stub); width: min(100%, 470px); min-height: 172px;
+  border-radius: 20px; background: var(--ticket-a); color: var(--ink);
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0, transparent calc(var(--notch) - .5px), #000 var(--notch)) top / 100% 51% no-repeat,
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%, transparent calc(var(--notch) - .5px), #000 var(--notch)) bottom / 100% 51% no-repeat;
+  mask:
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0, transparent calc(var(--notch) - .5px), #000 var(--notch)) top / 100% 51% no-repeat,
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%, transparent calc(var(--notch) - .5px), #000 var(--notch)) bottom / 100% 51% no-repeat;
+}
+.ticket:nth-child(1) { rotate: -2.4deg; translate: -18px 0; }
+.ticket:nth-child(2) { rotate: 1.8deg; translate: 22px 0; background: var(--ticket-b); }
+/* A fine engraved border, inset like a printed frame. */
+.ticket::after { content: ""; position: absolute; inset: 8px; border: 1px solid var(--line-2); border-radius: 13px; pointer-events: none; }
+.ticket-main { display: flex; flex-direction: column; padding: 22px 22px 20px 26px; min-width: 0; }
+.ticket-k { display: flex; align-items: baseline; gap: 8px; font: 500 15px/1 var(--sans); color: var(--ink-2); }
+.ticket-k b { font: 400 54px/.8 var(--serif); letter-spacing: -.03em; color: var(--verd); }
+.ticket-date { margin-top: 16px; font: 600 17px/1.35 var(--sans); }
+.ticket-time { margin-top: 4px; font: 500 26px/1.2 var(--mono); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.ticket-meta { display: flex; gap: 14px; margin-top: auto; padding-top: 12px; font: 500 12.5px/1.2 var(--mono); color: var(--ink-3); }
+.ticket-stub { display: grid; align-content: center; justify-items: center; gap: 2px; padding: 16px 10px; border-left: 2px dashed var(--line-3); text-align: center; }
+.ticket-day { font: 400 64px/.9 var(--serif); letter-spacing: -.04em; font-variant-numeric: lining-nums; }
+.ticket-mon { font: 600 15px/1.3 var(--sans); color: var(--ink-2); }
+.ticket-no { margin-top: 10px; font: 500 11px/1 var(--mono); letter-spacing: .14em; color: var(--ink-3); }
+
+/* The paper as figures, and the way in to a full rehearsal. */
+.exam .band { margin-top: 0; }
+.rehearse { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 32px; margin-top: 16px; padding-block: 28px; border-radius: var(--r-xl); }
+.rehearse-h { font: 400 clamp(24px, 2.4vw, 30px)/1.25 var(--serif); }
+.rehearse-p { display: flex; flex-wrap: wrap; gap: 0 12px; margin-top: 6px; font-size: 16px; color: var(--ink-2); }
+.rehearse-go { display: flex; flex-wrap: wrap; gap: 12px; }
+.rehearse .notice { flex-basis: 100%; }
+
+.sec-note { display: flex; align-items: flex-start; gap: 8px; max-width: 26em; padding-bottom: 6px; font-size: 14px; line-height: 1.6; color: var(--ink-3); }
+.sec-note .ic { flex: none; margin-top: 3px; }
+
+/* Where the questions fall: the domains as a ranked index, two columns on a desk. */
+.asks { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: repeat(10, auto); grid-auto-flow: column; gap: 0 44px; }
+.ask-row { display: grid; grid-template-columns: 24px 40px minmax(0, 1fr) minmax(64px, .9fr) 46px 44px; align-items: center; gap: 12px; min-height: 60px; padding: 8px 10px; border-bottom: 1px solid var(--line); border-radius: 12px; color: inherit; text-decoration: none; transition: background var(--t) var(--ease); }
+a.ask-row:hover { background: var(--glass-2); border-bottom-color: transparent; }
+a.ask-row:hover .ask-name { color: var(--verd); }
+.ask-rank { font: 500 11.5px/1 var(--mono); color: var(--ink-3); }
+.ask-art { width: 40px; height: 40px; object-fit: contain; filter: var(--art-filter); opacity: var(--art-opacity); }
+.ask-art-none { border-radius: 10px; border: 1px dashed var(--line-3); width: 30px; height: 30px; justify-self: center; }
+.ask-name { min-width: 0; font: 600 15.5px/1.35 var(--sans); transition: color var(--t) var(--ease); }
+.ask-name small { display: block; font: italic 400 13px/1.3 var(--serif); color: var(--ink-3); }
+.ask-bar { display: block; height: 8px; border-radius: var(--r-pill); background: var(--line); overflow: hidden; }
+.ask-bar i { display: block; height: 100%; width: calc(var(--w, 0) * 100%); border-radius: inherit; background: var(--verd); transform-origin: left; }
+.ask-row-other .ask-bar i { background: var(--ink-3); }
+.ask-pct { font: 400 21px/1 var(--serif); letter-spacing: -.02em; text-align: right; font-variant-numeric: lining-nums tabular-nums; }
+.ask-move { font: 600 12.5px/1 var(--mono); text-align: right; white-space: nowrap; }
+.asks-legend { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 28px; margin-top: 18px; font-size: 13.5px; color: var(--ink-3); }
+.asks-legend .tr { margin-right: 2px; }
+
+
+.movers { display: grid; gap: 8px; padding-bottom: 6px; font-size: 14px; }
+.movers p { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; }
+.movers-k { min-width: 5.5em; font: 600 13px/1.3 var(--sans); color: var(--ink-3); }
+.mover { white-space: nowrap; color: var(--ink-2); }
+
+/* The almanac: a printed table, scrolled sideways on a phone with the subject held in place. */
+.alm-scroll { position: relative; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; border-radius: var(--r-xl); padding: 10px 6px 14px 0; background: var(--paper); box-shadow: var(--shadow); scrollbar-width: thin; }
+.alm-scroll:focus-visible { outline: 2px solid var(--verd); outline-offset: 3px; }
+.alm { width: 100%; min-width: 820px; border-collapse: separate; border-spacing: 3px; font: 500 13px/1 var(--mono); font-variant-numeric: tabular-nums; }
+.alm thead th { padding: 10px 0 8px; font: 500 12px/1.2 var(--mono); color: var(--ink-3); text-align: center; vertical-align: bottom; }
+.alm thead th.is-recent { color: var(--ink); font-weight: 700; }
+.alm thead th small { font-size: 10.5px; }
+.alm-subj { position: sticky; left: 0; z-index: 1; min-width: 196px; padding: 6px 16px 6px 20px; background: var(--paper); text-align: left; font: 500 14px/1.3 var(--sans); white-space: nowrap; }
+.alm thead .alm-subj { font: 500 12px/1.2 var(--mono); color: var(--ink-3); }
+.alm-subj sup { margin-left: 3px; font: 600 10.5px/1 var(--mono); }
+.alm-subj sup a { color: var(--brass); text-decoration: none; }
+.alm tbody tr:hover .alm-subj { color: var(--verd); }
+.alm-group th { padding: 22px 0 6px 20px; text-align: left; font: 600 13px/1.3 var(--sans); color: var(--verd); }
+.alm-group th > * { position: sticky; left: 20px; }
+.alm-c { min-width: 40px; height: 30px; padding: 0 2px; border-radius: 6px; text-align: center; color: var(--ink); background: rgb(var(--heat-rgb) / calc(var(--v, 0) * .9 + .05)); }
+.alm-c.is-deep { color: var(--heat-ink); }
+.alm-none, .alm-word { min-width: 40px; height: 30px; text-align: center; }
+.alm-none { color: var(--line-3); }
+.alm-word { color: var(--ink-3); font: italic 400 12.5px/1 var(--serif); }
+.alm-avg { padding: 0 10px 0 14px; text-align: right; font: 600 14px/1 var(--sans); white-space: nowrap; }
+.alm thead .alm-avg { font: 500 12px/1.2 var(--mono); color: var(--ink-3); }
+.alm-tr { padding-right: 16px; text-align: right; }
+.alm tfoot th, .alm tfoot td { padding-top: 14px; border-top: 1px solid var(--line-2); text-align: center; font: 600 12.5px/1 var(--mono); color: var(--ink-2); }
+.alm tfoot .alm-subj { text-align: left; font: 600 13px/1.3 var(--sans); color: var(--ink-2); }
+.alm-key { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: 14px; font: 500 12.5px/1 var(--mono); color: var(--ink-3); }
+.alm-scale { display: inline-block; width: 160px; height: 8px; border-radius: 4px; background: linear-gradient(90deg, rgb(var(--heat-rgb) / .05), rgb(var(--heat-rgb) / .95)); }
+.alm-key-none { margin-left: 18px; font-family: var(--sans); }
+
+.notes { font-size: 14.5px; line-height: 1.75; color: var(--ink-2); }
+.notes > * { max-width: 860px; }
+.notes-h { font: 400 24px/1.3 var(--serif); color: var(--ink); }
+.notes-list { margin-top: 14px; padding-left: 1.6em; list-style: decimal; }
+.notes-list li { padding-left: 4px; scroll-margin-top: 110px; }
+.notes-list li::marker { font: 600 12.5px var(--mono); color: var(--brass); }
+.notes-list li:target { color: var(--ink); background: var(--brass-soft); border-radius: 6px; }
+.notes-more { margin-top: 14px; padding-left: 1.2em; list-style: disc; }
+.notes-src { display: grid; gap: 10px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
+.notes-src li { display: flex; gap: 12px; align-items: baseline; }
+.notes-kind { flex: none; padding: 3px 8px; border-radius: var(--r-pill); border: 1px solid var(--line-2); font: 600 11.5px/1.2 var(--sans); color: var(--ink-2); white-space: nowrap; }
+
+@media (max-width: 1080px) {
+  .xhero { grid-template-columns: 1fr; gap: 40px; padding-top: 48px; }
+  .tickets { justify-items: start; padding-inline: 18px; }
+  .asks { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; }
+}
+@media (max-width: 760px) {
+  .xhero { padding-block: 28px 36px; gap: 30px; }
+  .xhero-n { font-size: 112px; }
+  .xhero-actions .btn { flex: 1 1 auto; }
+  .tickets { padding-inline: 4px; gap: 16px; }
+  .ticket { --stub: 92px; min-height: 150px; }
+  .ticket:nth-child(1) { translate: -4px 0; rotate: -1.6deg; }
+  .ticket:nth-child(2) { translate: 6px 0; rotate: 1.2deg; }
+  .ticket-main { padding: 18px 14px 16px 20px; }
+  .ticket-k b { font-size: 44px; }
+  .ticket-time { font-size: 22px; }
+  .ticket-day { font-size: 50px; }
+  .rehearse { padding-block: 22px; }
+  .rehearse-go, .rehearse-go .btn { width: 100%; }
+  .ask-row { grid-template-columns: 34px minmax(0, 1fr) 44px 40px; grid-template-areas: "art name pct move" "art bar bar bar"; gap: 6px 10px; padding: 10px 4px; }
+  .ask-rank { display: none; }
+  .ask-art { grid-area: art; width: 34px; height: 34px; }
+  .ask-name { grid-area: name; font-size: 15px; }
+  .ask-bar { grid-area: bar; height: 6px; }
+  .ask-pct { grid-area: pct; font-size: 18px; }
+  .ask-move { grid-area: move; }
+  .alm-scroll { margin-inline: -16px; border-radius: 0; padding-inline: 0; box-shadow: 0 0 0 1px var(--line); }
+  .alm-subj { min-width: 150px; padding-left: 16px; font-size: 13px; }
+  .alm-group th { padding-left: 16px; }
+  .alm-group th > * { left: 16px; }
+  .alm-key-none { margin-left: 0; flex-basis: 100%; }
+}
+
+/* ── Motion: the tickets are dealt onto the desk, the bars draw out, the cells ink in year by
+   year as the table arrives. */
+@keyframes ticket-in { from { opacity: 0; translate: 70px 90px; rotate: 12deg; } }
+@keyframes grow-x { from { transform: scaleX(0); } }
+@keyframes cell-in { from { opacity: 0; transform: scale(.55); } }
+.xhero .kicker, .xhero-h, .xhero-sub, .xhero-actions, .xhero-src { animation: rise-in 900ms var(--ease-out) both; }
+.xhero-h { animation-delay: 80ms; }
+.xhero-sub { animation-delay: 220ms; }
+.xhero-actions { animation-delay: 320ms; }
+.xhero-src { animation-delay: 420ms; }
+.ticket { animation: ticket-in 1150ms var(--ease-out) both; animation-delay: calc(260ms + var(--i, 0) * 150ms); }
+[data-reveal].is-in .ask-bar i { animation: grow-x 1100ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 45ms + 160ms); }
+.reveal-ready [data-reveal]:not(.is-in) .ask-bar i { transform: scaleX(0); }
+[data-reveal].is-in .alm-c { animation: cell-in 560ms var(--ease-out) both; animation-delay: calc(var(--col, 0) * 55ms + 120ms); }
+.reveal-ready [data-reveal]:not(.is-in) .alm-c { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .xhero .kicker, .xhero-h, .xhero-sub, .xhero-actions, .xhero-src, .ticket, [data-reveal].is-in .ask-bar i, [data-reveal].is-in .alm-c { animation: none; }
+  .reveal-ready [data-reveal]:not(.is-in) .ask-bar i { transform: none; }
+  .reveal-ready [data-reveal]:not(.is-in) .alm-c { opacity: 1; }
+}

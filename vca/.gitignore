@@ -1,0 +1,4 @@
+# Built before every dev and build run by scripts/build-bank.mjs; never committed.
+src/generated/
+public/bank/
+public/q/
