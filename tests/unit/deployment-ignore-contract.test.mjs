@@ -85,11 +85,13 @@ test('the VCA project builds production only, and only when the site or its bank
     const clean = { ...process.env, MSYS_NO_PATHCONV: '1', MSYS2_ARG_CONV_EXCL: '*' };
     delete clean.VERCEL_ENV;
     delete clean.VERCEL_GIT_PREVIOUS_SHA;
+    delete clean.VERCEL_GIT_COMMIT_SHA;
     return spawnSync('sh', ['-c', vca.ignoreCommand], { cwd, env: { ...clean, ...env }, encoding: 'utf8' }).status;
   };
   assert.equal(run({ VERCEL_ENV: 'preview' }), 0, 'a preview is skipped');
   assert.equal(run({ VERCEL_ENV: 'production' }), 1, 'the first production build runs');
   assert.equal(run({ VERCEL_ENV: 'production', VERCEL_GIT_PREVIOUS_SHA: 'HEAD' }), 0, 'nothing changed: skipped');
+  assert.equal(run({ VERCEL_ENV: 'production', VERCEL_GIT_PREVIOUS_SHA: 'abc', VERCEL_GIT_COMMIT_SHA: 'abc' }), 1, 'a redeploy of the same commit builds');
   assert.equal(run({ VERCEL_ENV: 'production', VERCEL_GIT_PREVIOUS_SHA: 'no-such-commit' }), 1, 'a git error builds');
 });
 

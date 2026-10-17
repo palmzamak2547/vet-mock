@@ -5,6 +5,8 @@
 [ "$VERCEL_ENV" = production ] || exit 0
 # The project's first build has nothing to compare against.
 [ -n "$VERCEL_GIT_PREVIOUS_SHA" ] || exit 1
+# A redeploy of the same commit is on purpose (an environment variable changed): build it.
+[ "$VERCEL_GIT_PREVIOUS_SHA" = "$VERCEL_GIT_COMMIT_SHA" ] && exit 1
 # Build when the site changed, or the bank and figures it reads from the main app. A git error
 # (the previous deploy outside the shallow clone) builds instead of failing the deploy.
 git diff --quiet "$VERCEL_GIT_PREVIOUS_SHA" HEAD -- . ':!*.md' ../src/data ../src/lib/question-metadata.js \
