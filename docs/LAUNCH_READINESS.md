@@ -1,5 +1,11 @@
 # VetMock — Launch Readiness
 
+## Release 5.148.0 — 2026-10-17 (Claude Code)
+
+PR #37 (VetMock VCA, vca.vetmock.com) merged into main. For vetmock.com this release is data: VCA round 1/2569 Part 2 (src/data/questions-vca-2569.js, 132 questions, 123 to learners, 9 held with a Thai note each), the VCA topics in curriculum.js and the regenerated counts. A second blind review of all 132 on the local checkout released 61 and 74, held 44, and fixed 14 others (docs/vca-handoff-2026-10-17.md). The VCA site is its own Vercel project, vetmock-vca, root vca/.
+
+Checks: on the final tree before the version bump, unit 3178/3178, lint:data 0 errors, regen:all clean, build; vca/ unit, test:db 13/13 and build; the palette e2e that had expected 455 VCA questions, 10 passed on chromium desktop and mobile. CI on 53a846e7: lint, build, Annotation PostgreSQL and all seven e2e shards green.
+
 ## Release 5.147.0 — 2026-10-14 (Claude Code)
 
 VetWiki phase 3 of `work/vetwiki-redesign/BRIEF.md`, on top of 5.146.1 (8c4add0c): numbered source chips with a drawer in place and a numbered source list with back links; a contents rail with the section being read and progress lines; the phone pill "สารบัญ 3/9" with a sheet; a chapter end that marks the topic read in the reading list, the topics either side, the topics sharing two or more sources and the volume; a reading ribbon on the shelves; a topic share card; 21 per-subject link previews. Fixed on the way, each with a test: shared #section links that landed at the top (App ViewEntry), the pill that never appeared after a jump, a jump to the list that overshot by a drawer's height, a right-aligned Thai masthead past the card's live area, 1,722 doubled full stops in citations, and the Practice Ruminant bookplate's rope.
