@@ -182,8 +182,16 @@ function homeShell(html) {
   return out;
 }
 
+// Inter (45 KB) is preloaded on the front door only. There its sample question is the page's largest
+// text: without the preload it is laid out in a fallback font and again when Inter arrives, and the
+// largest paint came at 3.9 s on a 4G phone against 2.9 s with it (first paint 2.57 s against 2.60 s,
+// eight runs each). On any other page nothing waits for Inter, and the preload only delays the first
+// paint by 80 to 270 ms.
+const INTER_PRELOAD = /<link rel="preload" href="\/fonts\/inter-latin-sub\.woff2"[^>]*>\s*/i;
+
 // ── write ────────────────────────────────────────────────────────────────────────────────────
 const base = homeShell(fs.readFileSync(shell, 'utf8'));
+if (!INTER_PRELOAD.test(base)) throw new Error('prerender: index.html no longer preloads Inter; the front door needs it (see INTER_PRELOAD)');
 fs.writeFileSync(shell, base);
 
 for (const page of PAGES) {
@@ -191,7 +199,7 @@ for (const page of PAGES) {
   if (!fs.existsSync(cover)) throw new Error(`prerender: missing cover public/og/${page.cover}.jpg (run npm run og)`);
   const file = path.join(DIST, `${page.route.slice(1)}.html`);
   fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, render(base, page));
+  fs.writeFileSync(file, render(base.replace(INTER_PRELOAD, ''), page));
 }
 
 const routes = ['/', ...PAGES.map((p) => p.route)];
