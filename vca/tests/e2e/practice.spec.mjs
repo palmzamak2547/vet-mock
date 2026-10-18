@@ -101,3 +101,19 @@ test.describe('with motion on', () => {
     expect(await page.evaluate(() => window.__vt)).not.toContain('page');
   });
 });
+
+// A set that would be empty says why. Picking "ข้อที่เคยตอบผิด" with nothing missed used to leave
+// "เริ่มฝึก 0 ข้อ" disabled and silent.
+test('a set with nothing to draw says why Start is off', async ({ page }) => {
+  await page.goto('/practice?st=wrong');
+  const go = page.locator('.builder-sum button.btn-ink');
+  await expect(go).toBeDisabled();
+  await expect(page.locator('.builder-sum .sum-why')).toHaveText('ยังไม่มีข้อที่เคยตอบผิด');
+  // Missing something in one domain only is a different sentence: the reason is about this choice.
+  await page.goto('/practice?st=wrong&d=swine');
+  await expect(page.locator('.builder-sum .sum-why')).toHaveText('ยังไม่มีข้อที่เคยตอบผิดตามตัวเลือกนี้');
+  // Choosing a way that has questions takes the line away and turns Start on.
+  await page.locator('.seg:has(legend:text("เลือกจาก")) label', { hasText: 'ทุกข้อ' }).click();
+  await expect(page.locator('.builder-sum .sum-why')).toHaveCount(0);
+  await expect(go).toBeEnabled();
+});

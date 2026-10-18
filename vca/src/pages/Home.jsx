@@ -207,7 +207,7 @@ export function Home() {
                 </div>
               </div>,
               ...cards.map((d, i) => (
-                <div key={d.id} className={`cell${i === 0 && cells % 2 === 1 ? ' cell-lead' : ''}`} data-reveal style={{ '--i': Math.min(cell++, 10) }}>
+                <div key={d.id} className="cell" data-lead={i === 0 && cells % 2 === 1 ? '' : undefined} data-reveal style={{ '--i': Math.min(cell++, 10) }}>
                   <DomainCard card={d} progress={progress} lead={i === 0 && cells % 2 === 1} />
                 </div>
               )),

@@ -55,9 +55,12 @@
 
 /* ── Lockup and mark ─────────────────────────────────────────────────────────────────── */
 .lockup { display: inline-flex; align-items: center; gap: 10px; }
+/* No part of the lockup gives way to a tight bar: squeezed, the mark had shrunk to 5 px. When the
+   room is short the name is set aside whole (data-brief, below) instead. */
+.lockup > * { flex: none; }
 .lockup .mark { color: var(--ink); }
 :root[data-theme="dark"] .lockup .mark { color: #eceeef; }
-.lockup-name { font: 650 16.5px/1 var(--sans); letter-spacing: -.012em; }
+.lockup-name { font: 650 16.5px/1 var(--sans); letter-spacing: -.012em; white-space: nowrap; }
 .lockup-rule { width: 1px; height: 18px; background: var(--line-3); }
 .lockup-sub { font: 500 13px/1 var(--mono); letter-spacing: .1em; color: var(--ink-2); }
 
@@ -127,6 +130,15 @@
 @media (max-width: 960px) and (min-width: 761px) {
   .topnav-extra { display: none; }
 }
+/* Wherever the room beside the next piece cannot hold mark, name and VCA on one line (a phone's
+   pill grows with the account button and with "ทำต่อ 12/200"), the mark sets the name aside and
+   keeps VCA, as above. lib/liquid.js measures that room and sets data-brief; the name itself
+   never wraps. */
+.brand[data-brief] .lockup-name, .brand[data-brief] .lockup-rule { display: none; }
+.brand[data-brief] { padding-right: 14px; }
+/* And where not even VCA fits, the mark stands alone in its pill. */
+.brand[data-brief="mark"] .lockup-sub { display: none; }
+.brand[data-brief="mark"] { padding-inline: 9px; }
 
 /* ── Tab bar: a phone's own navigation, in reach of a thumb ───────────────────────────── */
 .tabbar { display: none; }
@@ -353,7 +365,10 @@
 /* ── Sheet (dialog) ──────────────────────────────────────────────────────────────────── */
 .sheet-veil { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 24px; background: var(--veil); animation: fade var(--t) var(--ease); }
 @keyframes fade { from { opacity: 0; } }
-.sheet { width: min(520px, 100%); max-height: min(86vh, 860px); display: flex; flex-direction: column; border-radius: var(--r-xl); background: var(--glass-2); animation: lift var(--t-slow) var(--ease); }
+/* A sheet is as tall as the screen the reader sees: on iPhone Safari with its toolbar showing, vh is
+   the taller screen without it, and the top of a sheet that tall sat off the screen. dvh follows the
+   toolbar; vh stays for a browser that has no dvh. */
+.sheet { width: min(520px, 100%); max-height: min(86vh, 860px); max-height: min(86dvh, 860px); display: flex; flex-direction: column; border-radius: var(--r-xl); background: var(--glass-2); animation: lift var(--t-slow) var(--ease); }
 .sheet-wide { width: min(760px, 100%); }
 @keyframes lift { from { opacity: 0; transform: translateY(14px) scale(.985); } }
 .sheet-head { display: flex; align-items: center; gap: 12px; padding: 14px 10px 6px 24px; }
@@ -361,7 +376,7 @@
 .sheet-body { padding: 6px 24px 24px; overflow: auto; overscroll-behavior: contain; }
 @media (max-width: 760px) {
   .sheet-veil { place-items: end stretch; padding: 0; }
-  .sheet, .sheet-wide { width: 100%; max-height: 88vh; border-radius: 24px 24px 0 0; padding-bottom: env(safe-area-inset-bottom); animation-name: rise-sheet; }
+  .sheet, .sheet-wide { width: 100%; max-height: 88vh; max-height: 88dvh; border-radius: 24px 24px 0 0; padding-bottom: env(safe-area-inset-bottom); animation-name: rise-sheet; }
   @keyframes rise-sheet { from { transform: translateY(40px); opacity: 0; } }
 }
 

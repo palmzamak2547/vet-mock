@@ -4,6 +4,15 @@
 // again on a train. Fonts, art and icons keep their names when they change: they come from the
 // cache too, and are refreshed behind it for the next visit.
 const CACHE = 'vca-v2';
+// A page is asked of the network first, so a release is never held back. But a connection that
+// accepts the request and never answers (a tunnel, a captive Wi-Fi) used to leave a returning visitor
+// on a blank page for as long as the network cared to hang (25.6 s in a test) with the whole app
+// sitting in the cache. After this long the copy answers instead; the request itself carries on, and
+// its answer, if it comes, refreshes the copy for the next visit. 3 s is well past this one small
+// page's round trip on a slow phone connection (a 4 KB document, a few hundred ms on 3G), so a
+// working network is never cut short, and soon enough to read as a slow start rather than a hang.
+// With no copy yet (a first visit) there is nothing to answer with, so the network is waited for.
+const NAV_WAIT = 3000;
 // The app shell as the host serves it: /index.html answers 308 to / (cleanUrls), and a redirected
 // response stored and served to a navigation is refused by the browser, so offline never opened.
 const SHELL = '/';
@@ -42,18 +51,18 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
 
   if (request.mode === 'navigate') {
-    event.respondWith(
-      fetch(request)
-        .then((res) => {
-          // Cloned now, before the page reads the body: a clone made later fails.
-          if (res.ok && !res.redirected) {
-            const copy = res.clone();
-            event.waitUntil(caches.open(CACHE).then((cache) => cache.put(SHELL, copy)));
-          }
-          return res;
-        })
-        .catch(() => caches.match(SHELL)),
-    );
+    // Cloned the moment the answer arrives, before the page reads the body: a clone made later fails.
+    // Only a page is kept as the shell: opening /sitemap.xml once made the offline app an XML file.
+    const page = (res) => res.ok && !res.redirected && /text\/html/i.test(res.headers.get('content-type') || '');
+    const network = fetch(request).then((res) => ({ res, copy: page(res) ? res.clone() : null }));
+    // The copy is kept whenever the network does answer, however late, so the worker is held awake for it.
+    event.waitUntil(network.then(({ copy }) => copy && caches.open(CACHE).then((cache) => cache.put(SHELL, copy))).catch(() => {}));
+    event.respondWith(new Promise((resolve) => {
+      let answered = false;
+      const answer = (res) => { if (!answered) { answered = true; clearTimeout(timer); resolve(res); } };
+      const timer = setTimeout(() => { caches.match(SHELL).then((hit) => { if (hit) answer(hit); }); }, NAV_WAIT);
+      network.then(({ res }) => answer(res), () => caches.match(SHELL).then(answer));
+    }));
     return;
   }
 

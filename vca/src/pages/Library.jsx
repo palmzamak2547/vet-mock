@@ -6,9 +6,10 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from '../components/Link.jsx';
 import { Icon } from '../components/Icon.jsx';
 import { TypingHint } from '../components/TypingHint.jsx';
-import { useAsync, useTitle, useTuck } from '../lib/hooks.js';
+import { useAddressSync, useAsync, useTitle, useTuck } from '../lib/hooks.js';
 import { BANK, CARD_BY_ID, loadLibrary } from '../lib/bank.js';
 import { searchDocs } from '../lib/search.js';
+import { isRestoring } from '../lib/scroll.js';
 import { navigate, withQuery } from '../router.js';
 import { docTitle, num, yearRange } from '../lib/format.js';
 
@@ -17,25 +18,41 @@ const readerUrl = (title) => `https://vetmock.com/app/library?${new URLSearchPar
 
 const LIBRARY_EXAMPLES = ['Swine', 'Ruminant', 'Juris', '2567'];
 
+/** The search the address names, as this page reads it: an unknown kind is none. */
+const readAddress = (query) => ({
+  q: query.get('q') || '',
+  kind: ['paper', 'handout'].includes(query.get('kind')) ? query.get('kind') : 'all',
+});
+const addressKey = ({ q, kind }) => `${q.trim()}\n${kind}`;
+
 export default function Library({ route }) {
   useTitle('เอกสาร VCA');
   const toolsRef = useRef(null);
   useTuck(toolsRef);
   const lib = useAsync(loadLibrary, 'library');
-  const [query, setQuery] = useState(route.query.get('q') || '');
-  const [kind, setKind] = useState(() => (['paper', 'handout'].includes(route.query.get('kind')) ? route.query.get('kind') : 'all'));
+  const address = readAddress(route.query);
+  const [query, setQuery] = useState(address.q);
+  const [kind, setKind] = useState(address.kind);
   const [family, setFamily] = useState('all');
   const [openShelves, setOpenShelves] = useState(() => new Set());
   const focusShelf = route.query.get('shelf');
 
+  // The address keeps the search, and takes one it did not write itself (the tab bar's link to
+  // /library, Back) as the search now, as the bank does.
+  const wrote = useAddressSync(addressKey(address), () => { setQuery(address.q); setKind(address.kind); });
   useEffect(() => {
-    const t = setTimeout(() => navigate(withQuery('/library', { q: query.trim(), kind: kind === 'all' ? null : kind, shelf: focusShelf }), { replace: true }), 350);
+    const t = setTimeout(() => {
+      if (addressKey(readAddress(new URLSearchParams(window.location.search))) !== wrote.current) return;
+      wrote.current = addressKey({ q: query, kind });
+      navigate(withQuery('/library', { q: query.trim(), kind: kind === 'all' ? null : kind, shelf: focusShelf }), { replace: true });
+    }, 350);
     return () => clearTimeout(t);
-  }, [query, kind, focusShelf]);
+  }, [query, kind, focusShelf]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Arriving from a shelf chip scrolls that shelf into view once the catalogue is in.
+  // Arriving from a shelf chip scrolls that shelf into view once the catalogue is in. Coming back
+  // by Back or Forward, the place the reader left stands instead (lib/scroll.js).
   useEffect(() => {
-    if (lib.status !== 'ready' || !focusShelf) return;
+    if (lib.status !== 'ready' || !focusShelf || isRestoring()) return;
     requestAnimationFrame(() => document.getElementById(`shelf-${focusShelf}`)?.scrollIntoView({ block: 'start' }));
   }, [lib.status, focusShelf]);
 
@@ -106,8 +123,11 @@ export default function Library({ route }) {
               // Six to a shelf until asked; a search or the shelf you came for shows all.
               const whole = openShelves.has(shelf.id) || query.trim() || shelf.id === focusShelf || docs.length <= SHELF_SHOWN + 1;
               const shown = whole ? docs : docs.slice(0, SHELF_SHOWN);
+              // The shelf you came for is marked by an attribute, not a class: the class list of a
+              // [data-reveal] element belongs to the reveal observer (lib/motion.js), and React
+              // writing it again wiped the observer's is-in, leaving the shelf at opacity 0.
               return (
-                <section key={shelf.id} id={`shelf-${shelf.id}`} className={`shelf${shelf.id === focusShelf ? ' is-focus' : ''}`} aria-labelledby={`sh-${shelf.id}`} data-reveal>
+                <section key={shelf.id} id={`shelf-${shelf.id}`} className="shelf" data-focus={shelf.id === focusShelf ? '' : undefined} aria-labelledby={`sh-${shelf.id}`} data-reveal>
                   <div className="shelf-head">
                     <h2 id={`sh-${shelf.id}`} className="shelf-h">{shelf.th}<span className="shelf-en">{shelf.en}</span></h2>
                     <span className="shelf-n">{docs.length} รายการ</span>

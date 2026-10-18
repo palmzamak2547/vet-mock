@@ -218,7 +218,7 @@
   .dcard-en { font-size: 13.5px; }
   .dcard-n b { font-size: 26px; }
   .dcard-me { width: 50%; }
-  .cell-text, .cell-lead { grid-column: 1 / -1; }
+  .cell-text, .cell[data-lead] { grid-column: 1 / -1; }
   .walltext { min-height: 0; padding: 22px 4px 10px 14px; }
   .walltext-n { font-size: 44px; }
   .walltext-h { margin-top: 8px; }
@@ -285,6 +285,9 @@
 .sum-list span { color: var(--ink-3); }
 .sum-list b { font-weight: 600; text-align: right; }
 .sum-note { font-size: 14px; color: var(--ink-3); text-align: center; }
+/* Why Start is off, in a line beside it (it stays on a phone, where the rest of the summary folds). */
+.sum-why { display: flex; align-items: flex-start; gap: 8px; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
+.sum-why .ic { flex: none; margin-top: 3px; color: var(--brass); }
 .sum-real { display: inline-flex; align-items: center; gap: 6px; justify-self: start; padding: 6px 12px 6px 10px; border-radius: var(--r-pill); background: color-mix(in srgb, var(--verd) 12%, transparent); color: var(--verd-text); font-size: 13.5px; font-weight: 600; }
 @supports not (background: color-mix(in srgb, red 50%, blue)) { .sum-real { background: var(--line); } }
 .builder-sum .btn .spinner { margin-left: 4px; border-color: rgba(255, 255, 255, .25); border-top-color: currentColor; }
@@ -294,8 +297,13 @@
 .run-bar { background: var(--glass-2); }
 .run-actions { background: var(--glass-2); }
 .run-bar { position: sticky; top: 12px; z-index: 30; display: flex; align-items: center; gap: 6px; width: min(860px, calc(100% - 24px)); margin: 12px auto 0; padding: 0 8px; height: 60px; border-radius: var(--r-pill); }
-.run-progress { flex: 1; display: grid; gap: 6px; min-width: 0; padding: 0 8px; }
-.run-count { font: 500 13.5px/1 var(--mono); color: var(--ink-2); }
+/* The counter shares the bar with the clock and up to three 44 px buttons, so it is a container of
+   its own: it never wraps, and where the column is too narrow for "ข้อ 100 / 200" it gives up the
+   word and keeps the numbers. */
+.run-progress { flex: 1; display: grid; gap: 6px; min-width: 0; padding: 0 8px; container-type: inline-size; }
+.run-count { font: 500 13.5px/1 var(--mono); color: var(--ink-2); white-space: nowrap; }
+@container (max-width: 98px) { .run-count-k { display: none; } }
+@supports not (container-type: inline-size) { @media (max-width: 349px) { .run-count-k { display: none; } } }
 .run-count b { color: var(--ink); font-weight: 600; }
 .run-line { position: relative; display: block; height: 3px; border-radius: 3px; background: var(--line-2); overflow: hidden; }
 .run-line i { position: absolute; inset: 0 auto 0 0; background: var(--verd); border-radius: inherit; transition: width var(--t-slow) var(--ease); }
@@ -431,7 +439,7 @@
 .shelf-en { margin-left: 10px; font: italic 400 15px/1.3 var(--serif); color: var(--ink-3); }
 .shelf-n { font: 500 12.5px/1 var(--mono); color: var(--ink-3); }
 .shelf-go { margin-left: auto; font-size: 14px; }
-.shelf.is-focus .shelf-head { border-bottom-color: var(--verd); }
+.shelf[data-focus] .shelf-head { border-bottom-color: var(--verd); }
 .docs { display: grid; }
 .shelf-more { display: inline-flex; align-items: center; gap: 6px; min-height: var(--touch); margin-top: 6px; padding: 0 14px 0 6px; border: 0; border-radius: var(--r-pill); background: transparent; color: var(--verd-text); font: 600 14.5px/1 var(--sans); }
 .shelf-more:hover { background: var(--verd-soft); }
@@ -561,10 +569,14 @@
   .builder-sum { position: sticky; bottom: 88px; top: auto; z-index: 20; grid-template-columns: auto 1fr; gap: 10px 16px; align-items: center; padding: 14px 14px 14px 18px; }
   .builder-sum .sum-k, .builder-sum .sum-list, .builder-sum .sum-note, .builder-sum .sum-real { display: none; }
   .builder-sum .sum-n { font-size: 38px; }
-  .builder-sum .notice { grid-column: 1 / -1; order: -1; }
+  .builder-sum .notice, .builder-sum .sum-why { grid-column: 1 / -1; order: -1; }
   .builder-sum .btn-lg { min-height: 50px; font-size: 15.5px; padding: 0 16px; }
-  .run-bar { top: 8px; margin-top: 8px; width: calc(100% - 16px); height: 56px; padding: 0 4px; }
-  .run-timer { height: 36px; padding: 0 10px; font-size: 14px; }
+  /* Room for the counter: the buttons keep their 44 px, so it comes from what is only decoration. A
+     button's glyph sits in 10 px of air each side, so the gaps close; the clock's size follows the
+     screen (14 px from 360 px wide, 12.5 px at 320) and its little icon goes below 380 px. */
+  .run-bar { top: 8px; margin-top: 8px; width: calc(100% - 16px); height: 56px; padding: 0 4px; gap: 2px; }
+  .run-progress { padding: 0 4px; }
+  .run-timer { height: 36px; padding: 0 8px; font-size: clamp(12.5px, 3.9vw, 14px); }
   .run-body { width: calc(100% - 16px); margin-top: 12px; padding-bottom: 110px; }
   .run-card { padding: 20px 16px 18px; border-radius: 24px; }
   .run-actions { width: calc(100% - 16px); padding: 8px 8px 8px 16px; min-height: 66px; border-radius: 22px; }
@@ -604,6 +616,7 @@
   .kinds-row, .map li { grid-template-columns: 1fr; }
   .submit-tally b { font-size: 24px; }
 }
+@media (max-width: 380px) { .run-timer .ic { display: none; } }
 
 .mastery-key { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; }
 .mastery-key > span { display: inline-flex; align-items: center; gap: 6px; }

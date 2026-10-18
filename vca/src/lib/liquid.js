@@ -132,6 +132,26 @@ export function mountLiquidBar(els) {
     bar.classList.toggle('is-joined', join.to === 1);
   };
 
+  // The name is set aside (data-brief, styles/components.css) when mark, name, rule and VCA cannot sit
+  // on one line in the room beside the next piece; where even mark and VCA cannot (a paused set's
+  // "ทำต่อ 100/200" beside the account button on the narrowest phones), the mark stands alone
+  // (data-brief="mark"). The room is measured, not guessed: the pill beside it grows with the
+  // account button and with that label, and the name never wraps. A narrow desk that sets the name
+  // aside in CSS has nothing left to measure.
+  const fitName = () => {
+    const sub = brand.querySelector('.lockup-sub');
+    if (!sub || !brand.querySelector('.lockup-name')) return;
+    brand.removeAttribute('data-brief');
+    const beside = nav && nav.offsetParent !== null && nav.offsetWidth > 0 ? nav : act;
+    const room = beside.offsetLeft - (parseFloat(getComputedStyle(inner).columnGap) || 0) - brand.offsetLeft + 0.5;
+    // The parts of the lockup do not shrink (styles/components.css), so VCA's right edge is where it
+    // ends whatever box a browser gives it in a tight pill; the pill adds its right padding.
+    const needs = () => sub.offsetLeft + sub.offsetWidth + parseFloat(getComputedStyle(brand).paddingRight);
+    if (needs() <= room) return;
+    brand.setAttribute('data-brief', '');
+    if (needs() > room) brand.setAttribute('data-brief', 'mark');
+  };
+
   const measure = () => {
     const pieces = [
       { el: brand, name: 'brand' },
@@ -201,15 +221,21 @@ export function mountLiquidBar(els) {
       if (join.to !== before) play();
     });
   };
-  const refit = () => { measure(); render(); };
+  const refit = () => { fitName(); measure(); render(); };
 
   bar.classList.add('is-liquid');
   setTargets();
+  fitName();
   measure();
   finish();
   render();
 
-  const ro = typeof ResizeObserver === 'function' ? new ResizeObserver(refit) : null;
+  // The refit runs a frame after the observer reports, not inside its callback: setting the name
+  // aside resizes the mark's pill, which the observer also watches.
+  let refitQueued = 0;
+  const ro = typeof ResizeObserver === 'function'
+    ? new ResizeObserver(() => { cancelAnimationFrame(refitQueued); refitQueued = requestAnimationFrame(refit); })
+    : null;
   [inner, brand, nav, act].forEach((el) => el && ro?.observe(el));
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', refit);
@@ -223,10 +249,12 @@ export function mountLiquidBar(els) {
     window.removeEventListener('resize', refit);
     motionQuery?.removeEventListener?.('change', onMotion);
     ro?.disconnect();
+    cancelAnimationFrame(refitQueued);
     cancelAnimationFrame(frame);
     cancelAnimationFrame(scrollQueued);
     cancelAnimationFrame(handoff);
     bar.classList.remove('is-liquid', 'is-joined', 'is-joining', 'is-handoff');
+    brand.removeAttribute('data-brief');
     for (const el of [brand, nav, act]) if (el) el.style.translate = '';
   };
 }

@@ -216,7 +216,7 @@ export default function Session() {
       <header className="run-bar glass">
         <button type="button" className="icon-btn" onClick={() => setSheet('exit')} aria-label="พักหรือจบชุดนี้"><Icon name="x" /></button>
         <div className="run-progress">
-          <span className="run-count">ข้อ <b key={session.cursor} className="tick">{session.cursor + 1}</b><span> / {session.items.length}</span></span>
+          <span className="run-count"><span className="run-count-k">ข้อ </span><b key={session.cursor} className="tick">{session.cursor + 1}</b><span> / {session.items.length}</span></span>
           <span className="run-line" aria-hidden="true"><i style={{ width: `${(t.answered / t.total) * 100}%` }} /></span>
         </div>
         {timed && <RunTimer deadline={session.deadline} onExpire={complete} />}

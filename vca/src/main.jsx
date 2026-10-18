@@ -10,9 +10,13 @@ import './styles/motion.css';
 import { App } from './App.jsx';
 import { watchTheme } from './lib/prefs.js';
 import { watchInstall } from './lib/install.js';
+import { initScroll } from './lib/scroll.js';
 
 watchTheme();
 watchInstall();
+// Back, Forward and a reload put a page back where the reader was (lib/scroll.js). Before the first
+// render, so its listener for history moves comes ahead of the router's own.
+initScroll();
 
 // Offline practice and installability, in the built site only (a dev server's modules change).
 if ('serviceWorker' in navigator && import.meta.env.PROD) {

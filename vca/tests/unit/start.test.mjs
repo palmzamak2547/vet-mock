@@ -14,7 +14,7 @@ globalThis.fetch = async (url) => {
   return { ok: true, status: 200, json: async () => JSON.parse(fs.readFileSync(file, 'utf8')) };
 };
 
-const { startSet, quickStart, pickDomains, ALL_DOMAINS, EXAM_WEIGHTS, MOCK_SIZES, PER_QUESTION } = await import('../../src/lib/start.js');
+const { startSet, quickStart, pickDomains, emptyReason, ALL_DOMAINS, EXAM_WEIGHTS, MOCK_SIZES, PER_QUESTION } = await import('../../src/lib/start.js');
 const { allocate, seededRandom } = await import('../../src/lib/sets.js');
 const { sessionStore } = await import('../../src/lib/session.js');
 const { progressStore, emptyProgress } = await import('../../src/lib/progress.js');
@@ -103,6 +103,15 @@ test('a retry keeps exactly the questions asked for', async () => {
 test('nothing left to draw says so', async () => {
   progressStore.set(emptyProgress());
   assert.deepEqual(await startSet({ mode: 'practice', size: 10, status: 'wrong', domains: ['juris'] }), { ok: false, reason: 'empty' });
+});
+
+test('a set that would be empty says why, in a line about this choice', () => {
+  assert.equal(emptyReason({ status: 'wrong', count: 0 }), 'ยังไม่มีข้อที่เคยตอบผิด');
+  assert.equal(emptyReason({ status: 'wrong', narrowed: true, count: 0 }), 'ยังไม่มีข้อที่เคยตอบผิดตามตัวเลือกนี้', 'missing nothing overall is not claimed of one domain');
+  assert.equal(emptyReason({ status: 'unseen', count: 0 }), 'ทำครบทุกข้อแล้ว');
+  assert.equal(emptyReason({ status: 'unseen', narrowed: true, count: 0 }), 'ทำครบทุกข้อตามตัวเลือกนี้แล้ว');
+  assert.equal(emptyReason({ status: 'all', narrowed: true, count: 0 }), 'ไม่มีข้อที่ตรงกับตัวเลือกนี้');
+  for (const status of ['all', 'unseen', 'wrong']) assert.equal(emptyReason({ status, narrowed: true, count: 3 }), null, `${status}: a set with questions needs no reason`);
 });
 
 test('quick-start domains come in proportion to how often the exam asks them', () => {

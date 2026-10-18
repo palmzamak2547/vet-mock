@@ -11,10 +11,18 @@ import { Explain, Provenance } from '../components/Question.jsx';
 import { BANK, CARD_BY_ID, DOMAIN_CARDS, loadDomains } from '../lib/bank.js';
 import { searchQuestions } from '../lib/search.js';
 import { navigate, withQuery } from '../router.js';
-import { useTitle, useTuck } from '../lib/hooks.js';
+import { useAddressSync, useTitle, useTuck } from '../lib/hooks.js';
 import { LETTERS, num, plateNo } from '../lib/format.js';
 
 const PAGE = 30;
+
+/** The search the address names, as this page reads it: an unknown domain or source is none. */
+const readAddress = (query) => ({
+  q: query.get('q') || '',
+  d: CARD_BY_ID[query.get('d')] ? query.get('d') : 'all',
+  src: ['vca', 'paper'].includes(query.get('src')) ? query.get('src') : 'all',
+});
+const addressKey = ({ q, d, src }) => `${q.trim()}\n${d}\n${src}`;
 
 const BANK_EXAMPLES = ['Leptospira', 'พิษสุนัขบ้า', 'PCV2', 'ยาสลบ'];
 
@@ -56,10 +64,10 @@ export default function Bank({ route }) {
   useTitle('คลังข้อสอบ');
   const toolsRef = useRef(null);
   useTuck(toolsRef);
-  const initialQ = route.query.get('q') || '';
-  const [query, setQuery] = useState(initialQ);
-  const [domain, setDomain] = useState(() => (CARD_BY_ID[route.query.get('d')] ? route.query.get('d') : 'all'));
-  const [source, setSource] = useState(() => (['vca', 'paper'].includes(route.query.get('src')) ? route.query.get('src') : 'all'));
+  const address = readAddress(route.query);
+  const [query, setQuery] = useState(address.q);
+  const [domain, setDomain] = useState(address.d);
+  const [source, setSource] = useState(address.src);
   const [showAnswers, setShowAnswers] = useState(false);
   const [limit, setLimit] = useState(PAGE);
   const [state, setState] = useState({ status: 'loading', done: 0, total: 0, questions: [] });
@@ -78,11 +86,19 @@ export default function Bank({ route }) {
     return () => { live = false; };
   }, [idsKey, attempt]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // The address keeps the search, so a result can be sent to a friend or found again.
+  // The address keeps the search, so a result can be sent to a friend or found again. And the other
+  // way: an address this page did not write (the tab bar's link to /bank, Back) is the search now.
+  const wrote = useAddressSync(addressKey(address), () => { setQuery(address.q); setDomain(address.d); setSource(address.src); });
   useEffect(() => {
-    const t = setTimeout(() => navigate(withQuery('/bank', { q: deferred.trim(), d: domain === 'all' ? null : domain, src: source === 'all' ? null : source }), { replace: true }), 350);
+    const t = setTimeout(() => {
+      // The address moved on while the student typed: taking it comes before writing the old search over it.
+      if (addressKey(readAddress(new URLSearchParams(window.location.search))) !== wrote.current) return;
+      const next = { q: deferred.trim(), d: domain, src: source };
+      wrote.current = addressKey(next);
+      navigate(withQuery('/bank', { q: next.q, d: next.d === 'all' ? null : next.d, src: next.src === 'all' ? null : next.src }), { replace: true });
+    }, 350);
     return () => clearTimeout(t);
-  }, [deferred, domain, source]);
+  }, [deferred, domain, source]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { setLimit(PAGE); }, [deferred, domain, source]);
 
   const results = useMemo(() => {

@@ -109,3 +109,82 @@ test('an unknown domain is not found', async ({ page }) => {
   await page.goto('/d/no-such-domain');
   await expect(page.locator('.empty-page')).toBeVisible();
 });
+
+// Motion on: the entrances and the page transition run, and each is checked for what it must not do.
+test.describe('with motion on', () => {
+  test.use({ contextOptions: { reducedMotion: 'no-preference' } });
+
+  /** The page's sideways overflow on every frame for `ms`, scrolling down meanwhile so every entrance on the page plays. */
+  const sweep = (page, ms) => page.evaluate((span) => new Promise((resolve) => {
+    let worst = 0;
+    const t0 = performance.now();
+    const tick = () => {
+      const t = performance.now() - t0;
+      worst = Math.max(worst, document.documentElement.scrollWidth - document.documentElement.clientWidth);
+      window.scrollTo(0, (document.documentElement.scrollHeight - innerHeight) * Math.min(1, t / (span * 0.8)));
+      if (t < span) requestAnimationFrame(tick); else resolve(worst);
+    };
+    tick();
+  }), ms);
+
+  // The tickets are dealt in from the right, 70 px past their place. A document wider than the
+  // screen while a view transition runs crashed WebKit's tab on a phone (7 of 7 routes to /exam, 18 Oct)
+  // and made Chromium abort the transition ("Viewport size changed"), which logged two uncaught errors.
+  test('the exam page never grows sideways while it arrives, by address or by link', async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'a phone: on a desk the tickets have room to travel');
+    for (const width of [320, 390]) {
+      await page.setViewportSize({ width, height: 844 });
+      await page.goto('/exam');
+      expect(await sweep(page, 3600), `an address, ${width}px`).toBe(0);
+    }
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+    await page.locator('main a.countdown').click();
+    await expect(page).toHaveURL(/\/exam$/);
+    expect(await sweep(page, 3600), 'a link').toBe(0);
+  });
+
+  // Arriving from a shelf chip scrolls that shelf into view; opening the library tab then drops the
+  // shelf from the address. The shelf's class changed with it, and React wrote over the class the
+  // reveal observer had added: the shelf stayed at opacity 0, a blank gap in the page.
+  test('a shelf stays on the page when the library tab replaces the address that named it', async ({ page, isMobile }) => {
+    await page.goto('/library?shelf=anatomy');
+    const shelf = page.locator('#shelf-anatomy');
+    await expect(shelf).toHaveClass(/is-in/);
+    await expect(shelf).toHaveCSS('opacity', '1');
+    await page.locator(isMobile ? '.tabbar a[href="/library"]' : '.topnav a[href="/library"]').click();
+    await expect(page).toHaveURL(/\/library$/);
+    await expect(shelf).not.toHaveAttribute('data-focus', '');
+    await expect(shelf).toHaveClass(/is-in/);
+    await expect(shelf).toHaveCSS('opacity', '1');
+  });
+});
+
+// The address and the search box say the same thing. The tab bar's own link to /bank clears the
+// search from the address; the box and the results used to keep it (and wrote it back to the address).
+test('the bank tab clears a search the address no longer carries', async ({ page, isMobile }) => {
+  await page.goto('/bank?q=Leptospira');
+  await expect(page.locator('.bk').first()).toBeVisible({ timeout: 40_000 });
+  await expect(page.locator('.search input')).toHaveValue('Leptospira');
+  await expect(page.locator('.bank-status')).toContainText('พบ');
+  await page.locator(isMobile ? '.tabbar a[href="/bank"]' : '.topnav a[href="/bank"]').click();
+  await expect(page).toHaveURL(/\/bank$/);
+  await expect(page.locator('.search input')).toHaveValue('');
+  await expect(page.locator('.bank-status')).not.toContainText('พบ');
+  // Longer than the page's own 350 ms write to the address: it must not bring the old search back.
+  await page.waitForTimeout(900);
+  await expect(page).toHaveURL(/\/bank$/);
+  await expect(page.locator('.search input')).toHaveValue('');
+});
+
+test('typing in the bank search is not undone by the address catching up', async ({ page }) => {
+  await page.goto('/bank');
+  await expect(page.locator('.bk').first()).toBeVisible({ timeout: 40_000 });
+  const input = page.locator('.search input');
+  // Slower than the 350 ms write, so the address changes several times while the hand is still typing.
+  await input.pressSequentially('Leptospira', { delay: 130 });
+  await expect(input).toHaveValue('Leptospira');
+  await page.waitForTimeout(700);
+  await expect(input).toHaveValue('Leptospira');
+  await expect(page).toHaveURL(/\/bank\?q=Leptospira$/);
+});

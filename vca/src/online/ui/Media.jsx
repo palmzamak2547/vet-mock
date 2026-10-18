@@ -43,11 +43,16 @@ function Video({ item, autoPlay = false }) {
   const poster = useMediaUrl(item.poster, 960);
   // An iPhone video can be HEVC, which some Android browsers cannot play: say so, and offer the file.
   const [failed, setFailed] = useState(false);
+  // The length badge is for the poster: once it plays, the native controls show the time themselves.
+  const [playing, setPlaying] = useState(false);
   return (
     <div className="mg-video" style={{ aspectRatio: `${item.w} / ${item.h}` }}>
       {src && !failed && (
         // preload none: nothing downloads until the student presses play.
-        <video src={src} poster={poster || undefined} controls playsInline preload="none" autoPlay={autoPlay} aria-label={item.alt || 'วิดีโอ'} onError={() => setFailed(true)} />
+        <video
+          src={src} poster={poster || undefined} controls playsInline preload="none" autoPlay={autoPlay} aria-label={item.alt || 'วิดีโอ'}
+          onError={() => setFailed(true)} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}
+        />
       )}
       {failed && (
         <div className="mg-video-fail" style={poster ? { backgroundImage: `url("${poster}")` } : undefined}>
@@ -55,7 +60,7 @@ function Video({ item, autoPlay = false }) {
           <a className="btn btn-ghost btn-sm" href={src} target="_blank" rel="noopener noreferrer"><Icon name="download" size={16} />เปิดไฟล์วิดีโอ</a>
         </div>
       )}
-      {!failed && <span className="mg-dur" aria-hidden="true">{clock(item.dur || 0)}</span>}
+      {!failed && !playing && <span className="mg-dur" aria-hidden="true">{clock(item.dur || 0)}</span>}
     </div>
   );
 }

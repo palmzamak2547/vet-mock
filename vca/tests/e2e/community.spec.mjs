@@ -251,3 +251,39 @@ test('the profile colour swatches have Thai names', async ({ page }) => {
   await expect(swatches).toHaveCount(6);
   expect(await swatches.evaluateAll((els) => els.map((e) => e.getAttribute('aria-label')))).toEqual(['เขียว', 'ทอง', 'ส้มอิฐ', 'น้ำเงิน', 'ม่วง', 'เทาเข้ม']);
 });
+
+// A video in a thread shows its length in a badge on the picture. The native controls (play, the
+// seek bar, volume) run along the bottom of the video, and the badge sat on top of the seek bar.
+// It sits in the top corner now, and goes while the video plays.
+const VIDEO = new URL('../../../public/landing/app-tour.webm', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
+
+test('the length badge on a video keeps off the native controls and goes while it plays', async ({ page }) => {
+  await page.goto('/community');
+  await join(page, 'video_vet');
+  await page.goto('/community/new');
+  const form = page.locator('.compose-form');
+  await form.getByLabel('หัวข้อ').fill('คลิปการตรวจ');
+  await form.getByLabel('รายละเอียด').fill('ดูคลิป');
+  await form.locator('.compose-media input[type="file"]').setInputFiles(VIDEO);
+  await expect(form.locator('.tray-item.is-ready')).toHaveCount(1, { timeout: 30_000 });
+  await form.locator('button[type="submit"]').click();
+  const box = page.locator('.thread .mg-video');
+  await expect(box).toBeVisible();
+  const badge = box.locator('.mg-dur');
+  await expect(badge).toHaveText(/^\d+:\d\d$/);
+  const geo = async () => {
+    const v = await box.boundingBox();
+    const b = await badge.boundingBox();
+    return { fromTop: b.y - v.y, fromBottom: v.y + v.height - (b.y + b.height), fromEdge: v.x + v.width - (b.x + b.width) };
+  };
+  const at = await geo();
+  // The controls take the bottom 56 px; the badge keeps clear of them, near a top corner.
+  expect(at.fromBottom, 'clear of the bottom strip where the controls run').toBeGreaterThan(56);
+  expect(at.fromTop).toBeLessThan(24);
+  expect(at.fromEdge).toBeLessThan(24);
+  // Playing, the controls show the time themselves: the badge steps away.
+  await box.locator('video').evaluate((v) => { v.muted = true; return v.play(); });
+  await expect(badge).toHaveCount(0);
+  await box.locator('video').evaluate((v) => v.pause());
+  await expect(badge).toBeVisible();
+});

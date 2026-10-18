@@ -24,6 +24,19 @@ export const EXAM_WEIGHTS = examWeights();
 const weightsFor = (mix) => (mix === 'bank' ? undefined : EXAM_WEIGHTS);
 
 /**
+ * Why the builder's choices leave no question, as one short line a student can act on; null when
+ * they leave some. `narrowed` says the domains, the source or a topic cut the pool as well as the
+ * status did, so "none missed yet" is never claimed of questions the other choices left out.
+ * @param {{ status?: string, narrowed?: boolean, count: number }} choices
+ */
+export function emptyReason({ status = 'all', narrowed = false, count }) {
+  if (count > 0) return null;
+  if (status === 'wrong') return narrowed ? 'ยังไม่มีข้อที่เคยตอบผิดตามตัวเลือกนี้' : 'ยังไม่มีข้อที่เคยตอบผิด';
+  if (status === 'unseen') return narrowed ? 'ทำครบทุกข้อตามตัวเลือกนี้แล้ว' : 'ทำครบทุกข้อแล้ว';
+  return 'ไม่มีข้อที่ตรงกับตัวเลือกนี้';
+}
+
+/**
  * @param {{ mode: 'practice'|'mock', domains?: string[]|null, size: number, source?: string, status?: string,
  *   topics?: string[]|null, keys?: string[]|null, perQuestion?: number, label?: string,
  *   onProgress?: (done: number, total: number) => void }} opts

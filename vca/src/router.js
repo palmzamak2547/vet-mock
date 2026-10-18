@@ -5,6 +5,7 @@
 
 import { useEffect, useState } from 'react';
 import { pageTransition } from './lib/motion.js';
+import { leavePage } from './lib/scroll.js';
 
 export const PAGES = {
   '/': 'home',
@@ -47,8 +48,12 @@ const EVENT = 'vca:navigate';
 export function navigate(to, { replace = false } = {}) {
   if (to === window.location.pathname + window.location.search) return;
   const samePage = new URL(to, window.location.href).pathname === window.location.pathname;
+  // A new page is a new history entry: the one being left notes where the reader is (before the
+  // view transition's own delay), so Back can put the page back there (lib/scroll.js).
+  if (!replace) leavePage();
   const update = () => {
-    if (replace) window.history.replaceState({}, '', to);
+    // A replaced entry keeps what it remembers, unless it is now another page.
+    if (replace) window.history.replaceState(samePage ? window.history.state : {}, '', to);
     else window.history.pushState({}, '', to);
     window.dispatchEvent(new Event(EVENT));
   };

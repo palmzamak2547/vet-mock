@@ -3,6 +3,13 @@
    torn-off stub; the domains as a ranked index; and the almanac as a printed table whose cells
    are inked by count, the way the cohorts' sheet shades them. */
 
+/* Nothing here may widen the page, whatever an entrance does on its way in. The tickets are dealt
+   from 70 px to the right (ticket-in, below), and a document wider than the screen while a view
+   transition runs makes a phone zoom out to fit: Chromium then aborts the transition ("Viewport
+   size changed") and WebKit's tab crashed outright, on every route to this page. The page clips
+   at the screen's own edge, so the entrance still travels the whole way in. */
+.exam { overflow-x: clip; }
+
 .xhero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 48px; align-items: center; padding-block: 72px 56px; }
 .xhero-text { min-width: 0; }
 .xhero-h { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 18px; margin-top: 18px; font: 400 clamp(30px, 3.2vw, 42px)/1 var(--serif); }

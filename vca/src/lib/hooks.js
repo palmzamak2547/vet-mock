@@ -40,6 +40,29 @@ export function useToday() {
   return day;
 }
 
+/**
+ * Keeps a page's search and filters in step with the address it writes them to. The page writes the
+ * address as they change, so an address it did not write itself (the tab bar's own link to the page,
+ * a link from another page, Back) must reach the page too: otherwise the box keeps the old search
+ * and the page writes it over the new address.
+ *
+ * `key` is the address as the page reads it, as a string that changes when its meaning does;
+ * `adopt` copies the address into the page's state. The returned ref holds the key of the address
+ * the page last wrote or took: set it to the key of whatever the page writes, so its own write
+ * coming back is not mistaken for someone else's.
+ */
+export function useAddressSync(key, adopt) {
+  const seen = useRef(key);
+  const latest = useRef(adopt);
+  latest.current = adopt;
+  useEffect(() => {
+    if (key === seen.current) return;
+    seen.current = key;
+    latest.current();
+  }, [key]);
+  return seen;
+}
+
 /** Document title per page. */
 export function useTitle(title) {
   useEffect(() => {

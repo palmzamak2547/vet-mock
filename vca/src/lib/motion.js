@@ -29,6 +29,19 @@ function waitForPage(ms = 1400) {
   });
 }
 
+// A transition that is skipped or aborted (the window resized under it, a second change started,
+// the page hid) rejects its three promises with an AbortError or an InvalidStateError ("Transition
+// was aborted because of invalid state. Viewport size changed"). That is the browser dropping an
+// effect, not a fault in the page, so it is not left as an uncaught error; anything else a promise
+// rejects with still is, and `done` runs either way.
+const isAbort = (e) => typeof DOMException !== 'undefined' && e instanceof DOMException && (e.name === 'AbortError' || e.name === 'InvalidStateError');
+function watch(t, done) {
+  const quiet = (e) => { if (!isAbort(e)) throw e; };
+  t.ready?.catch(quiet);
+  t.updateCallbackDone?.catch(quiet);
+  t.finished?.catch(quiet).finally(done);
+}
+
 /** Run a route change inside a view transition when the browser can. */
 export function pageTransition(update) {
   // A sheet on screen (closing, as a "leave" button closes it) already moves; snapshotting its
@@ -38,7 +51,7 @@ export function pageTransition(update) {
   root.dataset.vt = 'page';
   try {
     const t = document.startViewTransition(async () => { update(); await waitForPage(); });
-    t.finished.finally(() => { if (root.dataset.vt === 'page') delete root.dataset.vt; });
+    watch(t, () => { if (root.dataset.vt === 'page') delete root.dataset.vt; });
   } catch {
     delete root.dataset.vt;
     update();
@@ -59,7 +72,7 @@ export function themeTransition(update, x, y) {
         { duration: 620, easing: 'cubic-bezier(.16, 1, .3, 1)', pseudoElement: '::view-transition-new(root)' },
       );
     }).catch(() => {});
-    t.finished.finally(() => { if (root.dataset.vt === 'theme') delete root.dataset.vt; });
+    watch(t, () => { if (root.dataset.vt === 'theme') delete root.dataset.vt; });
   } catch {
     delete root.dataset.vt;
     update();

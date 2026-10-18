@@ -9,6 +9,7 @@ import { TopBar, TabBar, Footer } from './components/Shell.jsx';
 import { Home } from './pages/Home.jsx';
 import { AccountSheets, startAccount } from './online/index.js';
 import { initMotion, pageReady } from './lib/motion.js';
+import { isRestoring } from './lib/scroll.js';
 import { useActiveSession } from './lib/hooks.js';
 
 const LOADERS = {
@@ -99,10 +100,11 @@ export function App() {
   }, []);
 
   // A new page starts at its top with focus on its heading, as a page load would, except on
-  // the first paint, where the browser's own position and focus stand.
+  // the first paint, where the browser's own position and focus stand. A page reached by Back or
+  // Forward is put back where the reader left it instead (lib/scroll.js), once it is tall enough.
   useEffect(() => {
     if (first.current) { first.current = false; return undefined; }
-    window.scrollTo(0, 0);
+    if (!isRestoring()) window.scrollTo(0, 0);
     const t = requestAnimationFrame(() => {
       const h = document.querySelector('main h1');
       if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }

@@ -8,7 +8,7 @@ import { Icon } from '../components/Icon.jsx';
 import { Seg, Words } from '../components/bits.jsx';
 import { useStartGuard } from '../components/StartGuard.jsx';
 import { BANK, CARD_BY_ID, DOMAIN_CARDS } from '../lib/bank.js';
-import { ALL_DOMAINS, MOCK_SIZES, PER_QUESTION, PRACTICE_SIZES, startSet } from '../lib/start.js';
+import { ALL_DOMAINS, MOCK_SIZES, PER_QUESTION, PRACTICE_SIZES, emptyReason, startSet } from '../lib/start.js';
 import { EXAM_SECONDS, FORMAT } from '../data/exam.js';
 import { navigate, withQuery } from '../router.js';
 import { useActiveSession, useProgress, useTitle } from '../lib/hooks.js';
@@ -72,6 +72,7 @@ export default function Practice({ route }) {
   }, [chosen, source, status, progress, topics.length]);
 
   const count = Math.min(size, pool.total);
+  const why = emptyReason({ status, narrowed: domains.length > 0 || source !== 'all' || topics.length > 0, count });
   // A full part as the centre sets it: 200 questions at its pace, drawn as the exam asks.
   const real = count === FORMAT.perPart && perQ === EXAM_SECONDS && mix === 'exam' && !domains.length;
   const minutes = mode === 'mock' && perQ ? (count * perQ) / 60 : count;
@@ -195,6 +196,7 @@ export default function Practice({ route }) {
             <li><span>คัดจาก</span><b>{pool.exact ? '' : 'ไม่เกิน '}{num(pool.total)} ข้อ</b></li>
             <li><span>เวลา</span><b>{mode === 'mock' && !perQ ? 'ไม่จับเวลา' : `ราว ${duration(minutes * 60000)}`}</b></li>
           </ul>
+          {why && <p className="sum-why" role="status"><Icon name="info" size={16} />{why}</p>}
           {error === 'empty' && <p className="notice"><Icon name="info" />ยังไม่มีข้อที่ตรงกับทุกตัวเลือก ลองเปลี่ยนเป็นทุกข้อหรือเพิ่มหมวดวิชา</p>}
           {error === 'load' && <p className="notice notice-error"><Icon name="info" />โหลดข้อสอบไม่สำเร็จ ตรวจการเชื่อมต่อแล้วลองอีกครั้ง</p>}
           <button type="button" className="btn btn-ink btn-lg btn-block" onClick={onStart} disabled={!!busy || count === 0}>
