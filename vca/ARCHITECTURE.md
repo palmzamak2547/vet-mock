@@ -10,7 +10,7 @@ is layered, and what to do to grow it.
 
 | | Shared with VetMock | VCA's own |
 |---|---|---|
-| Questions | Read at build time from `../src/data` (registry, delivery gate, curriculum, VCA library). VCA never edits them. | Its 19 exam domains (`src/data/domains.js`), how a set is drawn, the per-domain JSON in `public/bank/` |
+| Questions | Read at build time from `../src/data` (registry, delivery gate, curriculum, VCA library). VCA never edits them. | Its 19 exam domains (`src/data/domains.js`), how a set is drawn, the index and shards per domain in `public/bank/` |
 | Display helpers | `@vetmock/lib/richtext.jsx` and `@vetmock/lib/option-shuffle.js`, so a question reads and shuffles the same on both sites | Everything else on screen |
 | Art and fonts | The domain plates and fonts in `../public` | The type scale, colours, glass, motion (`src/styles`) |
 | Account | VetMock's Supabase project: `auth.users`, Google, email links, LINE through VetMock's `line-auth` function | Its session in its own storage key (`vmx-vca-auth`), so the two sites never sign each other out |
@@ -87,8 +87,43 @@ refusals into Thai a student can act on (`problemText`).
 `scripts/build-bank.mjs` runs before every dev, build and test. It reads the registry and the
 delivery gate (`isQuestionDeliverable`), keeps learner-ready multiple-choice questions, maps
 each to an exam domain (`src/data/domains.js`; an unmapped deliverable subject fails the tests),
-and writes one content-hashed file per domain. A question's kind (`vca`, `paper`, `aligned`,
+and writes each domain as an index and shards. A question's kind (`vca`, `paper`, `aligned`,
 `lecture`, `course`) decides its badge; `paper` means a real sat paper, named by `examOrigin`.
+
+**Index and shards** (`src/lib/bank-index.js` is the one place that knows the layout; the writer
+is `scripts/bank-shards.mjs`). A domain used to be one file of megabytes, fetched whole to draw ten
+questions. Now it is:
+
+- `<domain>.index.<hash>.json`: every question's key, source, topic and place, no text (0.7 to 15
+  KB raw, 0.3 to 2.5 KB compressed). It is all a set needs to filter by source, topic and what the
+  student has answered, and to draw.
+- `<domain>-<n>.<hash>.json`: shard n, the full text of 12 consecutive questions in bank order
+  (about 20 KB raw, 4.2 KB compressed). Question number `at` is in shard `floor(at / 12)`.
+  `SHARD_SIZE`'s comment in `bank-shards.mjs` gives the reasoning: ten random questions land in
+  ten different shards, so a start costs shards x shard size, and 12 puts it near the cost of
+  the round trips.
+
+`lib/bank.js` loads indexes (`loadEntries`), then the shards that hold chosen entries
+(`loadQuestions`), once each and shared by whoever asks. Starting a set, resuming one, the result
+review and the community's question peek all fetch only the shards they need; the bank page shows
+its first page from three shards and fetches the rest in order behind it (`openBank`). A file that
+fails is asked for again once; after that the caller sees the failure, and nothing about it is
+remembered. `tests/unit/bank-shards.test.mjs` proves that the shards of each domain, put back in
+order, are the questions its single file held, field for field; each index carries the digest the
+old file's name had.
+
+What small files cost, and where it shows. All 520 are 2.0 MB compressed where 19 whole-domain
+files were 1.4 MB (brotli 11; 2.2 against 1.7 at level 5), so reading the whole bank (the bank
+page, to search every question) pays 30 to 45% more bytes, and a 200-question paper fetches some
+140 shards. The bank page therefore shows its first page at once, answers a search from what has
+arrived and says so, and renders three times in all (not once per file). And a set reopens
+offline from the bank cache, but a new set offline can draw only from shards this device already
+holds: one visit no longer caches a whole domain.
+
+The service worker (`public/sw.js`) keeps the bank (indexes, shards, figures) in a cache of its
+own, apart from the app's files, so a run of shards cannot push the app's entry scripts out of
+a shared limit; at install it also stores the files the shell names (script, stylesheet, fonts), so
+a first visit that ends offline opens.
 
 Recalled papers such as VCA round 1/2569 Part 2 live in the main bank like any other source
 (`../src/data/questions-vca-2569.js`), with their images in `../public/images/vca-2569/`. An

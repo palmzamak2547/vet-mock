@@ -17,17 +17,20 @@ Run from `vca/`.
 | `npm run build` | Builds the bank, `vite build`, then `scripts/prerender.mjs` writes one HTML head per route and `sitemap.xml` |
 | `npm test` | Unit tests (Bangkok time); `npm run test:utc` runs them in UTC |
 | `npm run test:db` | The community schema in a throwaway in-memory Postgres (PGlite) |
-| `npm run e2e` | Playwright, desktop and phone, against a dev server on port 24125 |
+| `npm run e2e` | Playwright, desktop and phone, against a dev server on port 24125 (`VCA_E2E_PORT=24126 npm run e2e` runs another checkout's suite beside this one's) |
 | `npm run og` | Redraws the link-preview covers in `public/og/` |
 | `npm run icons` | Redraws the app icons in `public/icons/` |
 
 ## How the data flows
 
 - `scripts/build-bank.mjs` reads the main app's `../src/data` read-only: the bank registry, the
-  delivery gate, the curriculum, the subject covers and the VCA library. It writes one
-  content-hashed JSON file per domain to `public/bank/`, figures to `public/q/`, and
+  delivery gate, the curriculum, the subject covers and the VCA library. It writes, per domain,
+  a small content-hashed index (every question's key, source and topic, no text) and shards of
+  12 questions each to `public/bank/`, figures to `public/q/`, and
   `src/generated/{bank,catalog,library}.js`. All three outputs are git-ignored and rebuilt
-  before every dev, build and test run, so counts on the site always come from the bank.
+  before every dev, build and test run, so counts on the site always come from the bank. A page
+  reads the index to draw a set and fetches only the shards that hold the questions drawn
+  (`src/lib/bank.js`; ARCHITECTURE.md, "Questions").
 - `src/data/domains.js` maps course subjects and VCA topics onto the 19 exam domains. A new
   subject in the main bank is either mapped there or listed in `EXCLUDED_SUBJECTS` with a reason;
   `tests/unit/domains.test.mjs` fails while a deliverable subject is neither.
@@ -44,6 +47,7 @@ headlines, Geist Mono for catalogue numbers, Mali for the few handwritten notes.
 and self-hosted in `public/fonts/` with their licences. The footer print is Stefano della
 Bella's *A Lost Horseman Enquiring the Way* (1649), The Cleveland Museum of Art, CC0, stored as
 an ink mask in `public/art/footer-della-bella.webp`; the domain plates are the main app's art.
+Inter and the headline Thai are subsets of the fonts in `fonts-src/` (`scripts/subset-fonts.py`).
 
 Motion: the top bar's three pieces run together into one liquid-glass capsule once the page moves
 (`src/lib/liquid.js`, its outline tested in `tests/unit/liquid.test.mjs`), and the footer's VCA
