@@ -20,6 +20,7 @@ Run from `vca/`.
 | `npm run e2e` | Playwright, desktop and phone, against a dev server on port 24125 |
 | `npm run og` | Redraws the link-preview covers in `public/og/` |
 | `npm run icons` | Redraws the app icons in `public/icons/` |
+| `npm run plates` | Redraws the domain plates' smaller copies in `public/art/224/` and `public/art/448/` (listed in `src/data/plates.js`). Run it after the art or the domain list changes; `tests/unit/plates.test.mjs` fails while they are stale. Needs `sharp` from the repo root |
 
 ## How the data flows
 
@@ -43,11 +44,16 @@ Type: Inter with Anuphan for text, Instrument Serif with Noto Serif Thai (87.5% 
 headlines, Geist Mono for catalogue numbers, Mali for the few handwritten notes. All are OFL
 and self-hosted in `public/fonts/` with their licences. The footer print is Stefano della
 Bella's *A Lost Horseman Enquiring the Way* (1649), The Cleveland Museum of Art, CC0, stored as
-an ink mask in `public/art/footer-della-bella.webp`; the domain plates are the main app's art.
+an ink mask in `public/art/footer-della-bella.webp`, asked for only as a reader nears the footer (`data-near`
+in `src/lib/motion.js`); the domain plates are the main app's art, drawn from the smallest copy that is
+sharp on the screen asking (`srcset`, `public/art/224` and `448`).
 
 Motion: the top bar's three pieces run together into one liquid-glass capsule once the page moves
 (`src/lib/liquid.js`, its outline tested in `tests/unit/liquid.test.mjs`), and the footer's VCA
-rises with the scroll (`initScenes` in `src/lib/motion.js`). Reduce motion keeps both still.
+rises with the scroll (`initScenes` in `src/lib/motion.js`). Reduce motion keeps both still. Nothing that
+loops may run under a pane of glass: each frame makes the GPU blur the pane again, so the light's drift
+moves in steps and the hero's pulsing dots rest after three beats (`src/styles/motion.css`). Prints are
+inked in with transforms, not a mask position, so the compositor draws them.
 
 ## Community
 

@@ -5,12 +5,27 @@
 
 import { Suspense, lazy, useEffect, useState } from 'react';
 import { Icon } from '../../components/Icon.jsx';
+import { lazyModule } from '../../lib/lazy-module.js';
 import { Avatar } from './Avatar.jsx';
 import { accountStore, openSetup, useAccount } from '../account.js';
 
-const SignInSheet = lazy(() => import('./SignInSheet.jsx'));
+// The sign-in sheet is the one a visitor opens, so its chunk is fetched while the page is being read
+// (prefetchSignIn, from the route shell's idle time) rather than on the tap: the first open took
+// 0.5 s with nothing on screen, the next 0.1. Through lazyModule, so that a fetch that failed (the
+// connection dropped in that idle moment) is not what the tap then gets: Chromium keeps a failed
+// import() failed, and the tap asks again under a fresh address.
+const loadSignIn = lazyModule(() => import('./SignInSheet.jsx'), (module) => module.default);
+const SignInSheet = lazy(() => loadSignIn().then((component) => ({ default: component })));
 const ProfileSheet = lazy(() => import('./ProfileSheet.jsx'));
 const AccountMenu = lazy(() => import('./AccountMenu.jsx'));
+
+/** Fetch the sign-in sheet in the background, for a visitor who may open it; never raises. */
+export function prefetchSignIn() {
+  const { status } = accountStore.get();
+  // Nobody to sign in: no community here, or a student who is signed in already (or about to be).
+  if (status === 'off' || status === 'in' || status === 'loading') return;
+  loadSignIn().catch(() => {});
+}
 
 const EVENT = 'vca:account';
 const ask = (sheet) => window.dispatchEvent(new CustomEvent(EVENT, { detail: sheet }));

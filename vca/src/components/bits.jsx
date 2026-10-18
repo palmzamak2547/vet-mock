@@ -2,15 +2,21 @@
 // the provenance badge, keyboard hints.
 
 import { useEffect, useState } from 'react';
+import { artSet } from '../lib/art.js';
 import { plateNo, num } from '../lib/format.js';
 import { reducedMotion } from '../lib/motion.js';
 import { CountUp } from './CountUp.jsx';
 
-/** A print from VetMock's own course art, on its paper, numbered like a plate on the wall. */
-export function Plate({ card, caption = true, className = '', eager = false, style, ...rest }) {
+/**
+ * A print from VetMock's own course art, on its paper, numbered like a plate on the wall. Given
+ * `sizes` (how wide the print draws, as in <img sizes>), it is drawn from the smallest copy that is
+ * sharp on the screen asking: the art is 418 to 512 px and a print on the wall is 62 px on a phone.
+ * Without `sizes` (the page's own big print) it is the art itself.
+ */
+export function Plate({ card, caption = true, className = '', eager = false, sizes, style, ...rest }) {
   return (
-    <figure className={`plate ${className}`} style={{ '--paper': card.paper, ...style }} {...rest}>
-      <img src={card.art} alt="" width="512" height="512" loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    <figure className={`plate ${className}`} style={{ '--paper': card.paper, '--paper-0': `${card.paper}00`, ...style }} {...rest}>
+      <img src={card.art} srcSet={sizes ? artSet(card.art) : undefined} sizes={sizes} alt="" width="512" height="512" loading={eager ? 'eager' : 'lazy'} decoding="async" />
       {caption && <figcaption><span>{plateNo(card.plate)}</span><span className="plate-tag">{card.tag}</span></figcaption>}
     </figure>
   );

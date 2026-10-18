@@ -9,6 +9,7 @@ import { Figure, Nw, Words } from '../components/bits.jsx';
 import { useStartGuard } from '../components/StartGuard.jsx';
 import { CARD_BY_ID } from '../lib/bank.js';
 import { EXAM_SECONDS, FORMAT, SOURCES, resultsLag, upcomingRound } from '../data/exam.js';
+import { artSet } from '../lib/art.js';
 import { googleCalendarUrl, saveRoundCalendar } from '../lib/connect.js';
 import { Sheet } from '../components/Sheet.jsx';
 import { ShareButton } from '../components/Share.jsx';
@@ -235,7 +236,7 @@ export default function Exam() {
             const body = (
               <>
                 <span className="ask-rank" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                {card ? <img className="ask-art" src={card.art} alt="" width="40" height="40" loading="lazy" decoding="async" /> : <span className="ask-art ask-art-none" aria-hidden="true" />}
+                {card ? <img className="ask-art" src={card.art} srcSet={artSet(card.art)} sizes="40px" alt="" width="40" height="40" loading="lazy" decoding="async" /> : <span className="ask-art ask-art-none" aria-hidden="true" />}
                 <span className="ask-name">{card ? <Words text={card.thw} /> : <>อื่น ๆ <small>Physiology, Nutrition</small></>}</span>
                 <span className="ask-bar" aria-hidden="true"><i style={{ '--w': (r.share / asks.top).toFixed(3) }} /></span>
                 <span className="ask-pct">{pct(r.share)}</span>

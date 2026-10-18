@@ -20,6 +20,7 @@
     "test:db": "node scripts/test-community-db.mjs",
     "e2e": "node ../node_modules/@playwright/test/cli.js test -c playwright.config.js",
     "og": "node scripts/render-og.mjs",
+    "plates": "node scripts/make-plates.mjs",
     "icons": "node scripts/make-icons.mjs"
   },
   "browserslist": [

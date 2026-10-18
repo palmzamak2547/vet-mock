@@ -7,7 +7,7 @@ import { Component, Suspense, lazy, useEffect, useLayoutEffect, useRef } from 'r
 import { navigate, useRoute } from './router.js';
 import { TopBar, TabBar, Footer } from './components/Shell.jsx';
 import { Home } from './pages/Home.jsx';
-import { AccountSheets, startAccount } from './online/index.js';
+import { AccountSheets, prefetchSignIn, startAccount } from './online/index.js';
 import { initMotion, pageReady } from './lib/motion.js';
 import { isRestoring } from './lib/scroll.js';
 import { useActiveSession } from './lib/hooks.js';
@@ -94,9 +94,12 @@ export function App() {
     initMotion();
     // A student signed in on an earlier visit is signed back in; nobody else loads anything.
     startAccount();
-    // Fetch the other pages while the reader looks at this one.
+    // Fetch the other pages, and the sheet a visitor signs in with, while the reader looks at this one.
     const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1200));
-    idle(() => { for (const load of Object.values(LOADERS)) load().catch(() => {}); });
+    idle(() => {
+      for (const load of Object.values(LOADERS)) load().catch(() => {});
+      prefetchSignIn();
+    });
   }, []);
 
   // A new page starts at its top with focus on its heading, as a page load would, except on

@@ -242,7 +242,7 @@ export function Footer() {
           </span>
         </div>
       </div>
-      <div className="foot-print" data-reveal aria-hidden="true">
+      <div className="foot-print" data-reveal data-near aria-hidden="true">
         <span className="foot-ink" />
       </div>
     </footer>

@@ -6,7 +6,7 @@ import { MODE } from './config.js';
 
 export { MODE } from './config.js';
 export { useAccount, startAccount, signOut, openSetup } from './account.js';
-export { AccountButton, AccountSheets } from './ui/AccountButton.jsx';
+export { AccountButton, AccountSheets, prefetchSignIn } from './ui/AccountButton.jsx';
 
 /** Whether the community shows at all: hidden in a production build with no backend yet. */
 export const COMMUNITY_ON = MODE !== 'off';

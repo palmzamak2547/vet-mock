@@ -14,6 +14,7 @@ import { Plate, Meter, Nw, Figure, Kbd, Words } from '../components/bits.jsx';
 import { BANK, CARD_BY_ID, DOMAIN_CARDS } from '../lib/bank.js';
 import { SAMPLES } from '../generated/bank.js';
 import { getShuffledOptions } from '@vetmock/lib/option-shuffle.js';
+import { artSet } from '../lib/art.js';
 import { num, plateNo, pct } from '../lib/format.js';
 import { useActiveSession, useProgress, useTitle } from '../lib/hooks.js';
 import { statsFor, streak, wrongKeys } from '../lib/progress.js';
@@ -28,6 +29,14 @@ const WALL = [
   ['avian', 7], ['ruminant', 4], ['small-animal', 9],
   ['exotic', 11], ['theriogenology', 5], ['zoonoses', 8],
 ];
+// How wide each print draws, for the browser to pick the smallest copy that is sharp (the art is
+// 418 to 512 px). On the wall: a phone's four prints in a row are a fifth of the screen less the
+// gaps (58 px at 360, 106 at 600), a desk's 130 to 170. On a card: a quarter of a phone's screen,
+// or 37 % on the one wide card that opens a family; 165 on a desk. Only the first four prints
+// show on a phone, so only they are asked for with the page.
+const WALL_SIZES = '(max-width: 760px) calc(20vw - 14px), 170px';
+const CARD_SIZES = '(max-width: 760px) 26vw, 165px';
+const LEAD_CARD_SIZES = '(max-width: 760px) 37vw, 165px';
 
 function SampleCard() {
   const [at, setAt] = useState(0);
@@ -97,7 +106,7 @@ function DomainCard({ card, progress, lead = false }) {
   const s = statsFor(progress, card.id);
   return (
     <Link to={`/d/${card.id}`} className={`dcard glass${lead ? ' dcard-lead' : ''}`} data-sheen data-tilt="6">
-      <img className="dcard-art" src={card.art} alt="" width="512" height="512" loading="lazy" decoding="async" style={{ viewTransitionName: `plate-${card.id}` }} />
+      <span className="dcard-ink"><img className="dcard-art" src={card.art} srcSet={artSet(card.art)} sizes={lead ? LEAD_CARD_SIZES : CARD_SIZES} alt="" width="512" height="512" loading="lazy" decoding="async" style={{ viewTransitionName: `plate-${card.id}` }} /></span>
       <span className="dcard-pl">{plateNo(card.plate)}</span>
       <h4 className="dcard-th"><Words text={card.thw} /></h4>
       <span className="dcard-en">{card.en}</span>
@@ -166,7 +175,7 @@ export function Home() {
         </div>
         <div className="vitrine" data-parallax>
           <div className="wall" aria-hidden="true">
-            {WALL.map(([id, depth], i) => CARD_BY_ID[id] && <Plate key={id} card={CARD_BY_ID[id]} eager={i < 6} style={{ '--i': i, '--d': depth }} />)}
+            {WALL.map(([id, depth], i) => CARD_BY_ID[id] && <Plate key={id} card={CARD_BY_ID[id]} eager={i < 4} sizes={WALL_SIZES} style={{ '--i': i, '--d': depth }} />)}
           </div>
           <SampleCard />
         </div>

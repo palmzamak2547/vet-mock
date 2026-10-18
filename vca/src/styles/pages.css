@@ -12,7 +12,7 @@
 
 .vitrine { position: relative; min-height: 640px; }
 .wall { position: absolute; inset: 0 0 0 8%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 14px; }
-.wall .plate { box-shadow: inset 0 0 0 1px var(--line), 0 1px 0 rgba(255, 255, 255, .5); }
+.wall .plate { box-shadow: 0 1px 0 rgba(255, 255, 255, .5); }
 /* The card in front covers part of the wall and grows when it is answered, so a caption on the
    wall would show half a word at its edge. The prints carry no captions here. */
 .wall .plate figcaption { display: none; }
@@ -93,7 +93,11 @@
 .countdown:hover .ic { transform: translateX(3px); color: var(--ink); }
 .dcard { position: relative; display: flex; flex-direction: column; min-height: 236px; padding: 18px 18px 16px; overflow: hidden; border-radius: var(--r-lg); color: inherit; text-decoration: none; transition: transform var(--t) var(--ease), box-shadow var(--t) var(--ease); }
 .dcard:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
-.dcard-art { position: absolute; right: -16px; bottom: -14px; width: 58%; height: auto; aspect-ratio: 1; object-fit: contain; filter: var(--art-filter); opacity: var(--art-opacity); transition: transform var(--t-slow) var(--ease); pointer-events: none; }
+/* The print is drawn 58% of the card wide, 16px past its right edge and 14px below its foot. It stands in an
+   .dcard-ink box 2.6 times as wide as itself, at its left end (motion.css), so the box's right edge is 1.6
+   prints further out than the print's, where the card's overflow clips it. */
+.dcard-ink { position: absolute; right: calc(-16px - 58% * 1.6); bottom: -14px; width: calc(58% * 2.6); aspect-ratio: 2.6; pointer-events: none; }
+.dcard-art { position: absolute; left: 0; bottom: 0; width: calc(100% / 2.6); height: auto; aspect-ratio: 1; object-fit: contain; filter: var(--art-filter); opacity: var(--art-opacity); transition: transform var(--t-slow) var(--ease); pointer-events: none; }
 .dcard:hover .dcard-art { transform: scale(1.04) rotate(-1deg); }
 .dcard-pl { font: 500 12px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); }
 .dcard-th { position: relative; max-width: 12em; margin-top: 10px; font: 600 18.5px/1.35 var(--sans); }
@@ -213,7 +217,8 @@
   .sec-head .sec-p { margin-top: 12px; }
   .dgrid { grid-template-columns: 1fr 1fr; gap: 10px; }
   .dcard { min-height: 214px; padding: 14px 14px 12px; }
-  .dcard-art { width: 52%; right: -12px; bottom: -10px; opacity: calc(var(--art-opacity) * .85); }
+  .dcard-ink { width: calc(52% * 2.6); right: calc(-12px - 52% * 1.6); bottom: -10px; }
+  .dcard-art { opacity: calc(var(--art-opacity) * .85); }
   .dcard-th { font-size: 16.5px; }
   .dcard-en { font-size: 13.5px; }
   .dcard-n b { font-size: 26px; }
@@ -223,7 +228,7 @@
   .walltext-n { font-size: 44px; }
   .walltext-h { margin-top: 8px; }
   .dcard-lead { min-height: 176px; }
-  .dcard-lead .dcard-art { width: 40%; right: 0; bottom: -18px; }
+  .dcard-lead .dcard-ink { width: calc(40% * 2.6); right: calc(40% * -1.6); bottom: -18px; }
   .dcard-lead .dcard-me { width: 46%; }
   .modes { grid-template-columns: 1fr; }
   .source { padding: 20px 16px 16px; }
@@ -498,6 +503,7 @@
 .dhero { display: grid; grid-template-columns: minmax(220px, 360px) minmax(0, 1fr); gap: 36px; align-items: center; margin-top: 14px; padding: 22px; border-radius: var(--r-xl); }
 .dhero-plate { aspect-ratio: 1; border-radius: var(--r-lg); }
 .dhero-plate img { inset: 8%; width: 84%; height: 84%; }
+.dhero-plate::before { left: 8%; top: 8%; bottom: 8%; width: calc(84% * 2.6); }
 .dhero-copy { display: grid; gap: 14px; align-content: center; padding-right: 12px; }
 .dhero-h { margin-top: 2px; }
 .dhero-n { font-size: 15px; color: var(--ink-2); }

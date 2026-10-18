@@ -187,14 +187,31 @@
    and the sheet's own edges fade into it. Its top fifth is empty sky, the only part the wall's
    blue runs into. */
 .foot-print { --sheet: 1786 / 934; position: relative; width: 100%; aspect-ratio: var(--sheet); max-height: 560px; overflow: hidden; background: var(--foot-paper); }
-.foot-ink { position: absolute; bottom: 0; left: 50%; height: 100%; aspect-ratio: var(--sheet); translate: -50% 0; background: var(--foot-print-ink); }
-.foot-print.is-in .foot-ink, html:not(.reveal-ready) .foot-ink {
-  -webkit-mask: url(/art/footer-della-bella.webp) 0 0 / 100% 100% no-repeat, linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
-  -webkit-mask-composite: source-in;
-  mask: url(/art/footer-della-bella.webp) 0 0 / 100% 100% no-repeat, linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
-  mask-composite: intersect;
+/* The etching (244 KB) is asked for when the print is about to be shown, not with every page. A rule
+   that names the image costs the request wherever it matches, hidden or not, and the old "until the
+   script has run" rule matched on every first paint: 244 KB at the foot of every page, ahead of the
+   page itself. Now the rule matches a screen before the print comes up (is-near) and as it does
+   (is-in), both set by lib/motion.js, and until then the print is hidden; with no script to reveal
+   it (scripting: none) it is simply shown. A mask still on its way paints nothing, not a solid
+   block (Chromium, checked with the request held back). The mask is one value for all of them: a
+   custom property holds a url() without fetching it. */
+.foot-ink { --mask: url(/art/footer-della-bella.webp) 0 0 / 100% 100% no-repeat, linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); position: absolute; bottom: 0; left: 50%; height: 100%; aspect-ratio: var(--sheet); translate: -50% 0; background: var(--foot-print-ink); visibility: hidden; }
+.foot-print.is-near .foot-ink, .foot-print.is-in .foot-ink {
+  -webkit-mask: var(--mask);
+  -webkit-mask-composite: source-in, source-in;
+  mask: var(--mask);
+  mask-composite: intersect, intersect;
 }
-.reveal-ready .foot-print:not(.is-in) .foot-ink { visibility: hidden; }
+.foot-print.is-in .foot-ink { visibility: visible; }
+@media (scripting: none) {
+  .foot-ink {
+    visibility: visible;
+    -webkit-mask: var(--mask);
+    -webkit-mask-composite: source-in, source-in;
+    mask: var(--mask);
+    mask-composite: intersect, intersect;
+  }
+}
 .foot-print::after { content: ""; position: absolute; inset: 0 0 auto; height: 22%; pointer-events: none; background: linear-gradient(color-mix(in srgb, var(--foot-bg) 100%, transparent) 0%, color-mix(in srgb, var(--foot-bg) 74%, transparent) 19%, color-mix(in srgb, var(--foot-bg) 54%, transparent) 34%, color-mix(in srgb, var(--foot-bg) 38%, transparent) 47%, color-mix(in srgb, var(--foot-bg) 28%, transparent) 56.5%, color-mix(in srgb, var(--foot-bg) 19%, transparent) 65%, color-mix(in srgb, var(--foot-bg) 13%, transparent) 73%, color-mix(in srgb, var(--foot-bg) 7.5%, transparent) 80.2%, color-mix(in srgb, var(--foot-bg) 4.2%, transparent) 86.1%, color-mix(in srgb, var(--foot-bg) 2.1%, transparent) 91%, color-mix(in srgb, var(--foot-bg) 0.8%, transparent) 95.2%, color-mix(in srgb, var(--foot-bg) 0.2%, transparent) 98.2%, color-mix(in srgb, var(--foot-bg) 0%, transparent) 100%); }
 .foot-credit { max-width: 46em; }
 .foot-credit i { font: italic 400 15px/1 var(--serif); color: var(--foot-ink); }
@@ -229,14 +246,9 @@
   /* On a phone the sheet is cut to the rider and the man he asks, at a size that reads, and it
      stops above the tab bar; the ground fades into the paper under it. */
   .foot-print { --tabbar: calc(84px + env(safe-area-inset-bottom)); aspect-ratio: auto; max-height: none; height: calc(90vw + var(--tabbar)); }
-  .foot-ink { left: auto; right: -2%; bottom: var(--tabbar); height: calc(100% - var(--tabbar)); translate: none; }
+  /* and its ground fades into the paper (a third layer on the mask) */
+  .foot-ink { --mask: url(/art/footer-della-bella.webp) 0 0 / 100% 100% no-repeat, linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent), linear-gradient(#000 88%, transparent); left: auto; right: -2%; bottom: var(--tabbar); height: calc(100% - var(--tabbar)); translate: none; }
   .foot-print::after { height: calc((100% - var(--tabbar)) * .2); }
-  .foot-print.is-in .foot-ink, html:not(.reveal-ready) .foot-ink {
-    -webkit-mask: url(/art/footer-della-bella.webp) 0 0 / 100% 100% no-repeat, linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent), linear-gradient(#000 88%, transparent);
-    -webkit-mask-composite: source-in, source-in;
-    mask: url(/art/footer-della-bella.webp) 0 0 / 100% 100% no-repeat, linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent), linear-gradient(#000 88%, transparent);
-    mask-composite: intersect, intersect;
-  }
   .foot-vca-in { padding-top: 24px; }
   /* On a phone the letters run the column's width, and the way in sits under them. */
   @supports (font-size: 1cqi) { .vca-word { font-size: 66cqi; } }
@@ -292,11 +304,19 @@
 /* ── Plate: a print on its paper, numbered ───────────────────────────────────────────── */
 /* Each plate sets --paper to its own print's paper (subject-covers.js); after hours the
    paper darkens to slate with a trace of its tint. */
-.plate { position: relative; overflow: hidden; border-radius: var(--r-md); background: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+.plate { position: relative; overflow: hidden; border-radius: var(--r-md); background: var(--paper); }
 .plate img { position: absolute; inset: 9% 10% 17%; width: 80%; height: 74%; object-fit: contain; filter: var(--art-filter); opacity: var(--art-opacity); }
-.plate figcaption { position: absolute; left: 12px; right: 12px; bottom: 10px; display: flex; justify-content: space-between; gap: 10px; font: 500 10.5px/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+/* A print is inked in under a sheet of its own paper that slides off it (motion.css). The sheet is 2.6
+   prints wide, from the print's left edge, clear over the print and fading to paper between 42 % and
+   58 % of its width (from the paper's own colour at no opacity, --paper-0, so that no browser fades
+   through grey); its box is the print's (the 10 % and 9 % and 17 % above, 80 % wide) and the
+   hairline below is drawn over it, so the sheet never covers that. */
+.plate::before { content: ""; position: absolute; z-index: 1; left: 10%; top: 9%; bottom: 17%; width: calc(80% * 2.6); background: linear-gradient(100deg, var(--paper-0, transparent) 42%, var(--paper) 58%); pointer-events: none; }
+.plate::after { content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit; box-shadow: inset 0 0 0 1px var(--line); pointer-events: none; }
+.plate figcaption { position: absolute; z-index: 2; left: 12px; right: 12px; bottom: 10px; display: flex; justify-content: space-between; gap: 10px; font: 500 10.5px/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
 .plate-tag { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 :root[data-theme="dark"] .plate { background: #15181b; background: color-mix(in srgb, var(--paper) 7%, #13161a); }
+:root[data-theme="dark"] .plate::before { background: linear-gradient(100deg, #15181b00 42%, #15181b 58%); background: linear-gradient(100deg, transparent 42%, color-mix(in srgb, var(--paper) 7%, #13161a) 58%); }
 
 /* ── The question ────────────────────────────────────────────────────────────────────── */
 .q-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
