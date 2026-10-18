@@ -20,10 +20,11 @@ async function unhandledDuring(run) {
   return seen;
 }
 
-/** A browser with view transitions: `make` builds the transition object startViewTransition returns. */
-function browser(make) {
+/** A browser with view transitions: `make` builds the transition object startViewTransition returns.
+ *  It has a mouse (page changes run as transitions only with a fine pointer) and motion on. */
+function browser(make, { mouse = true } = {}) {
   const root = { dataset: {}, classList: { toggle() {} }, animate() {} };
-  globalThis.window = { matchMedia: () => ({ matches: false }) };
+  globalThis.window = { matchMedia: (q) => ({ matches: mouse && /pointer: fine/.test(q) }) };
   globalThis.innerWidth = 390;
   globalThis.innerHeight = 800;
   globalThis.document = {
@@ -111,4 +112,17 @@ test('where the browser has no view transitions the change simply happens', () =
   let changed = 0;
   pageTransition(() => { changed += 1; });
   assert.equal(changed, 1);
+});
+
+// On a touch screen a page change is not a view transition: the glass bars could only be shown
+// as snapshots, which cannot blur what is behind them, and the bar's spring ran unseen while the
+// old page was frozen (Palm, phone, 18 Oct: the bar flickered on every page change).
+test('a touch screen changes page directly, with no view transition', () => {
+  let started = 0;
+  let changed = 0;
+  const root = browser(() => { started += 1; return {}; }, { mouse: false });
+  pageTransition(() => { changed += 1; });
+  assert.equal(started, 0);
+  assert.equal(changed, 1);
+  assert.equal(root.dataset.vt, undefined);
 });

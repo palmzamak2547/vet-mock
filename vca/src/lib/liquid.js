@@ -211,14 +211,32 @@ export function mountLiquidBar(els) {
     if (!frame) frame = requestAnimationFrame(step);
   };
 
+  // A page change scrolls to the top while the new page is still being built, which holds the
+  // main thread for a moment on a phone: a spring started then froze half-way for up to 0.8 s
+  // and jumped to its end (Palm, phone, 18 Oct: the bar flickered on every page change). So for
+  // a moment after a page change the bar keeps its shape, then runs apart in one go once the
+  // page has settled: when the browser is next idle, or 600 ms at most.
+  const SETTLE_MS = 1000;
+  let navAt = -Infinity;
+  let settle = 0;
+  const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 200));
+  const cancelIdle = window.cancelIdleCallback || clearTimeout;
+  const onNavigate = () => { navAt = performance.now(); };
+  const apply = () => {
+    const before = join.to;
+    setTargets();
+    if (join.to !== before) play();
+  };
   let scrollQueued = 0;
   const onScroll = () => {
-    if (scrollQueued) return;
+    if (scrollQueued || settle) return;
     scrollQueued = requestAnimationFrame(() => {
       scrollQueued = 0;
-      const before = join.to;
-      setTargets();
-      if (join.to !== before) play();
+      if (performance.now() - navAt < SETTLE_MS) {
+        settle = idle(() => { settle = 0; apply(); }, { timeout: 600 });
+        return;
+      }
+      apply();
     });
   };
   const refit = () => { fitName(); measure(); render(); };
@@ -239,6 +257,8 @@ export function mountLiquidBar(els) {
   [inner, brand, nav, act].forEach((el) => el && ro?.observe(el));
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', refit);
+  window.addEventListener('vca:navigate', onNavigate);
+  window.addEventListener('popstate', onNavigate);
   document.fonts?.ready?.then(refit);
   const motionQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
   const onMotion = () => { still = reducedMotion(); setTargets(); play(); };
@@ -247,6 +267,9 @@ export function mountLiquidBar(els) {
   return () => {
     window.removeEventListener('scroll', onScroll);
     window.removeEventListener('resize', refit);
+    window.removeEventListener('vca:navigate', onNavigate);
+    window.removeEventListener('popstate', onNavigate);
+    cancelIdle(settle);
     motionQuery?.removeEventListener?.('change', onMotion);
     ro?.disconnect();
     cancelAnimationFrame(refitQueued);

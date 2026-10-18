@@ -13,6 +13,13 @@ const media = (q) => (typeof window !== 'undefined' && window.matchMedia ? windo
 export const reducedMotion = () => !!media('(prefers-reduced-motion: reduce)')?.matches;
 const finePointer = () => !!media('(hover: hover) and (pointer: fine)')?.matches;
 const hasViewTransitions = () => typeof document !== 'undefined' && typeof document.startViewTransition === 'function';
+// Page changes run as view transitions only with a mouse. On a touch screen the top bar and the
+// tab bar are glass over the page, and a transition can show them only as snapshots, which
+// cannot blur what is behind them: the glass jumped twice on every page change, and the bar's
+// spring ran unseen while the old page was frozen, so it arrived already apart (Palm, phone,
+// 18 Oct). Without a transition the bars stay live and the page rises in (motion.css,
+// html:not(.has-vt) .page); a tab change also reaches its first frame in about 0.3 s, not 0.85.
+const pageTransitions = () => hasViewTransitions() && !!media('(hover: hover) and (pointer: fine)')?.matches;
 
 // A view transition holds the old page on screen until the new one has really mounted; the
 // route shell calls pageReady() from a layout effect inside its Suspense boundary.
@@ -46,7 +53,7 @@ function watch(t, done) {
 export function pageTransition(update) {
   // A sheet on screen (closing, as a "leave" button closes it) already moves; snapshotting its
   // glass mid-exit crashed WebKit's tab every time (press sweep, 18 Oct), so it just leaves.
-  if (!hasViewTransitions() || reducedMotion() || document.querySelector('.sheet')) { update(); return; }
+  if (!pageTransitions() || reducedMotion() || document.querySelector('.sheet')) { update(); return; }
   const root = document.documentElement;
   root.dataset.vt = 'page';
   try {
@@ -128,7 +135,13 @@ export function initPointer() {
   };
 }
 
-/** [data-reveal] elements settle in once, when they first come into view. */
+/**
+ * [data-reveal] elements settle in once, when they first come into view. A [data-near] one also
+ * gets `is-near` a screen before that, for what must be on its way by the time it is shown (the
+ * footer's etching is asked for then, not with the page). Only once the reader has begun to
+ * scroll: a page still loading is short for a moment, with its footer a screen away, and asking
+ * for the etching then would only make it compete with the page.
+ */
 export function initReveal() {
   if (typeof window === 'undefined' || !('IntersectionObserver' in window) || !('MutationObserver' in window)) return () => {};
   const root = document.documentElement;
@@ -140,6 +153,14 @@ export function initReveal() {
       io.unobserve(entry.target);
     }
   }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+  const early = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add('is-near');
+      early.unobserve(entry.target);
+    }
+  }, { rootMargin: '0px 0px 120% 0px' });
+  let scrolled = false;
   let queued = 0;
   const scan = () => {
     queued = 0;
@@ -147,11 +168,18 @@ export function initReveal() {
       el.setAttribute('data-watched', '');
       io.observe(el);
     });
+    if (!scrolled) return;
+    document.querySelectorAll('[data-near]:not(.is-near):not([data-near-watched])').forEach((el) => {
+      el.setAttribute('data-near-watched', '');
+      early.observe(el);
+    });
   };
+  const begin = () => { scrolled = true; scan(); };
+  window.addEventListener('scroll', begin, { once: true, passive: true });
   const mo = new MutationObserver(() => { if (!queued) queued = requestAnimationFrame(scan); });
   mo.observe(document.getElementById('root') || document.body, { childList: true, subtree: true });
   scan();
-  return () => { io.disconnect(); mo.disconnect(); cancelAnimationFrame(queued); };
+  return () => { window.removeEventListener('scroll', begin); io.disconnect(); early.disconnect(); mo.disconnect(); cancelAnimationFrame(queued); };
 }
 
 /**
@@ -224,7 +252,7 @@ export function haptic(pattern = 8) {
 
 export function initMotion() {
   if (typeof document === 'undefined') return;
-  document.documentElement.classList.toggle('has-vt', hasViewTransitions());
+  document.documentElement.classList.toggle('has-vt', pageTransitions());
   initPointer();
   initReveal();
   initScenes();
