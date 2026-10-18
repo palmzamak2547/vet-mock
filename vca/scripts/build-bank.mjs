@@ -4,7 +4,11 @@
 // Reads (never writes) ../src: the bank registry, the fail-closed delivery gate, the curriculum's
 // subject and topic names, the bookplate registry and the VCA source inventory. Writes, all
 // git-ignored:
-//   public/bank/<domain>.<hash>.json   one file per domain, fetched when a set needs it
+//   public/bank/<domain>.index.<hash>.json   per domain: every question's key, source, topic and
+//                                       place, no text (a few KB), fetched by whatever draws a set
+//   public/bank/<domain>-<n>.<hash>.json     per domain, shards of SHARD_SIZE questions each in full,
+//                                       fetched only when one of their questions is wanted
+//                                       (scripts/bank-shards.mjs, src/lib/bank-index.js)
 //   public/q/…                          figures a question points at by path, copied as they are
 //   src/generated/bank.js               counts, domain cards, subject names, hero samples
 //   src/generated/catalog.js            per domain: its topic counts, the subjects behind it and the
@@ -15,16 +19,24 @@
 // main app uses, so a question held for answer or figure review is never served here either.
 //
 // Usage: node scripts/build-bank.mjs [--quiet]
+//
+// Importing this file runs the build (it is a script), and exports what it made so a test can
+// check the files against it: DOMAIN_ITEMS, each domain's records in bank order, exactly what the
+// per-domain file used to hold.
 
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { SHARD_SIZE, shardDomain } from './bank-shards.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const APP = path.resolve(HERE, '..');
 const REPO = path.resolve(APP, '..');
-const QUIET = process.argv.includes('--quiet');
+const QUIET = process.argv.includes('--quiet') || process.env.VCA_BUILD_QUIET === '1';
+
+/** @type {Map<string, object[]>} domain id -> its question records, as written into its shards */
+export const DOMAIN_ITEMS = new Map();
 const load = (rel) => import(pathToFileURL(path.join(REPO, rel)).href);
 
 const { BANK_REGISTRY } = await load('src/data/bank-registry.generated.js');
@@ -145,7 +157,7 @@ for (const s of SUBJECTS) {
   for (const t of s.topics || []) topicNames[`${s.id}/${t.id}`] = String(t.label || t.id).trim();
 }
 
-// ── one file per domain ────────────────────────────────────────────────────────────────────
+// ── an index and shards per domain ─────────────────────────────────────────────────────────
 const BANK_DIR = path.join(APP, 'public', 'bank');
 fs.mkdirSync(BANK_DIR, { recursive: true });
 
@@ -173,9 +185,10 @@ let total = 0;
 const totalsByKind = { vca: 0, paper: 0, aligned: 0, lecture: 0, course: 0 };
 for (const d of DOMAINS) {
   const items = ready.filter((x) => x.domain === d.id).map((x) => x.q).sort(byKey).map(record);
-  const body = JSON.stringify({ domain: d.id, questions: items });
-  const file = `${d.id}.${sha(body).slice(0, 10)}.json`;
-  writeIfChanged(path.join(BANK_DIR, file), body);
+  DOMAIN_ITEMS.set(d.id, items);
+  const files = shardDomain(d.id, items);
+  for (const shard of files.shards) writeIfChanged(path.join(BANK_DIR, shard.name), shard.body);
+  writeIfChanged(path.join(BANK_DIR, files.indexName), files.indexBody);
   const kinds = { vca: 0, paper: 0, aligned: 0, lecture: 0, course: 0 };
   const topics = {};
   const subjects = {};
@@ -196,7 +209,7 @@ for (const d of DOMAINS) {
   domainCards.push({
     id: d.id, plate: d.plate, family: d.family, th: thPlain(d.th), thw: d.th, en: d.en, tag: d.tag,
     art: `/art/${path.basename(cover.src)}`, paper: cover.paper,
-    count: items.length, kinds, file: `/bank/${file}`, bytes: Buffer.byteLength(body),
+    count: items.length, kinds, index: `/bank/${files.indexName}`, shards: files.shards.length, bytes: files.bytes,
     subjects: Object.entries(subjects).sort((a, b) => b[1] - a[1]).map(([id, n]) => ({ id, n })),
     topics: topicList,
     topicCount: listed.length,
@@ -315,7 +328,8 @@ if (!QUIET) {
   console.log(`vca bank: ${total} questions in ${DOMAINS.length} domains (vca ${totalsByKind.vca}, past papers ${totalsByKind.paper}), held in scope ${heldInScope}`);
   console.log(`  left out: ${Object.entries(out).filter(([, n]) => n).map(([k, n]) => `${k} ${n}`).join(', ') || 'none'}; excluded subjects ${Object.values(excludedBySubject).reduce((a, b) => a + b, 0)}`);
   if (Object.keys(unmapped).length) console.warn(`  ⚠ not mapped to a domain: ${JSON.stringify(unmapped)} (map them in vca/src/data/domains.js)`);
-  console.log(`  ${domainCards.map((d) => `${d.id} ${d.count} (${kb(d.bytes)})`).join(', ')}`);
+  console.log(`  ${domainCards.map((d) => `${d.id} ${d.count} (${d.shards} shards, ${kb(d.bytes)})`).join(', ')}`);
+  console.log(`  ${domainCards.reduce((n, d) => n + d.shards, 0)} shards of up to ${SHARD_SIZE} questions and ${domainCards.length} indexes in public/bank`);
   console.log(`  figures copied ${[...figures.values()].filter((v) => v.startsWith('/q/')).length}; samples ${samples.length}`);
   const unlisted = domainCards.filter((d) => !d.topicCount).map((d) => d.id);
   console.log(`  topic lists: ${domainCards.length - unlisted.length} of ${domainCards.length} domains${unlisted.length ? ` (none for ${unlisted.join(', ')}: under four topics)` : ''}, ${domainCards.reduce((n, d) => n + d.shown.length, 0)} rows listed`);

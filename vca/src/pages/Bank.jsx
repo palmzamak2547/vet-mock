@@ -8,7 +8,7 @@ import { Icon } from '../components/Icon.jsx';
 import { TypingHint } from '../components/TypingHint.jsx';
 import { KindBadge } from '../components/bits.jsx';
 import { Explain, Provenance } from '../components/Question.jsx';
-import { BANK, CARD_BY_ID, DOMAIN_CARDS, loadDomains } from '../lib/bank.js';
+import { BANK, CARD_BY_ID, DOMAIN_CARDS, openBank, peekBank } from '../lib/bank.js';
 import { searchQuestions } from '../lib/search.js';
 import { navigate, withQuery } from '../router.js';
 import { useAddressSync, useTitle, useTuck } from '../lib/hooks.js';
@@ -25,6 +25,11 @@ const readAddress = (query) => ({
 const addressKey = ({ q, d, src }) => `${q.trim()}\n${d}\n${src}`;
 
 const BANK_EXAMPLES = ['Leptospira', 'พิษสุนัขบ้า', 'PCV2', 'ยาสลบ'];
+
+const domainIds = (domain) => (domain === 'all' ? DOMAIN_CARDS.map((d) => d.id) : [domain]);
+
+/** The sources a first view may start from: the same cut the list makes once everything is in. */
+const keepSource = (source) => (source === 'vca' ? (e) => e.kind === 'vca' : source === 'paper' ? (e) => e.kind === 'vca' || e.kind === 'paper' : undefined);
 
 function BankItem({ q, query, showAnswers }) {
   const [open, setOpen] = useState(false);
@@ -70,21 +75,36 @@ export default function Bank({ route }) {
   const [source, setSource] = useState(address.src);
   const [showAnswers, setShowAnswers] = useState(false);
   const [limit, setLimit] = useState(PAGE);
-  const [state, setState] = useState({ status: 'loading', done: 0, total: 0, questions: [] });
+  // loading: nothing yet. partial: the first shards are in, so the page can show its first view
+  // while the rest comes (`failed`: the rest did not come). ready: every question is in. A search
+  // works on whatever is in, and says so while it is partial. The page renders three times in all,
+  // not once per shard (a render per file doubled the blocking time of the page).
+  const [state, setState] = useState(() => {
+    const ids = domainIds(address.d);
+    const all = peekBank(ids);
+    return { status: all ? 'ready' : 'loading', questions: all || [], failed: false, for: ids.join(',') };
+  });
   const [attempt, setAttempt] = useState(0);
   const deferred = useDeferredValue(query);
   const cache = useRef(new WeakMap());
 
-  const ids = domain === 'all' ? DOMAIN_CARDS.map((d) => d.id) : [domain];
-  const idsKey = ids.join(',');
+  const idsKey = domainIds(domain).join(',');
+  const sourceNow = useRef(source);
+  sourceNow.current = source;
   useEffect(() => {
     let live = true;
-    setState((s) => ({ ...s, status: 'loading', done: 0, total: ids.length }));
-    loadDomains(ids, (done, total) => { if (live) setState((s) => ({ ...s, done, total })); })
-      .then((questions) => { if (live) setState({ status: 'ready', done: ids.length, total: ids.length, questions }); },
-        () => { if (live) setState((s) => ({ ...s, status: 'error' })); });
-    return () => { live = false; };
-  }, [idsKey, attempt]); // eslint-disable-line react-hooks/exhaustive-deps
+    const ids = idsKey.split(',');
+    // `for` names the domains the state is about, so a render that would change nothing is skipped.
+    const say = (status, questions = [], failed = false) => setState((s) => (s.status === status && s.for === idsKey && s.failed === failed && (status !== 'ready' || s.questions.length === questions.length) ? s : { status, questions, failed, for: idsKey }));
+    const everything = peekBank(ids);
+    if (everything) { say('ready', everything); return undefined; }
+    say('loading');
+    const view = openBank(ids, { page: PAGE, keep: keepSource(sourceNow.current) });
+    view.first.then((questions) => { if (live) say('partial', questions); }, () => { if (live) say('error'); });
+    view.all.then((questions) => { if (live) say('ready', questions); },
+      () => { if (live) setState((s) => (s.status === 'partial' ? { ...s, failed: true } : s)); });
+    return () => { live = false; view.cancel(); };
+  }, [idsKey, attempt]);
 
   // The address keeps the search, so a result can be sent to a friend or found again. And the other
   // way: an address this page did not write (the tab bar's link to /bank, Back) is the search now.
@@ -101,14 +121,20 @@ export default function Bank({ route }) {
   }, [deferred, domain, source]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { setLimit(PAGE); }, [deferred, domain, source]);
 
+  // What the state holds is about the domains named in `for`; after a pick of another domain, until
+  // the effect has answered, the page is loading rather than showing the old domain's questions.
+  const current = state.for === idsKey;
+  const status = current ? state.status : 'loading';
   const results = useMemo(() => {
-    let list = state.questions;
+    let list = current ? state.questions : [];
     if (source === 'vca') list = list.filter((q) => q.kind === 'vca');
     if (source === 'paper') list = list.filter((q) => q.kind === 'vca' || q.kind === 'paper');
     return searchQuestions(list, deferred, cache.current);
-  }, [state.questions, source, deferred]);
+  }, [state.questions, current, source, deferred]);
 
   const total = domain === 'all' ? BANK.total : CARD_BY_ID[domain].count;
+  const partial = status === 'partial';
+  const shown = partial || status === 'ready';
 
   return (
     <div className="wrap bank">
@@ -151,29 +177,34 @@ export default function Bank({ route }) {
       </div>
 
       <div className="bank-status" role="status" aria-live="polite">
-        {state.status === 'loading' && <><span className="spinner" aria-hidden="true" />กำลังโหลดคลัง {state.total > 1 ? `${state.done}/${state.total} หมวด` : ''}</>}
-        {state.status === 'error' && <span className="notice notice-error"><Icon name="info" />โหลดคลังไม่สำเร็จ <button type="button" className="text-link" onClick={() => setAttempt((n) => n + 1)}>ลองอีกครั้ง</button></span>}
-        {state.status === 'ready' && (deferred.trim()
-          ? <>พบ <b>{num(results.length)}</b> ข้อ จาก {num(total)} ข้อ</>
-          : <>{num(results.length)} ข้อ{domain !== 'all' && <Link to={`/d/${domain}`} className="text-link status-link">ไปหน้าหมวดนี้ <Icon name="arrowRight" size={14} /></Link>}</>)}
+        {status === 'loading' && <><span className="spinner" aria-hidden="true" />กำลังโหลดคลัง</>}
+        {status === 'error' && <span className="notice notice-error"><Icon name="info" />โหลดคลังไม่สำเร็จ <button type="button" className="text-link" onClick={() => setAttempt((n) => n + 1)}>ลองอีกครั้ง</button></span>}
+        {/* Kept to one line while partial, as it is when ready: a second line would move the list when the rest arrives. */}
+        {shown && (deferred.trim()
+          ? (partial ? <>พบ <b>{num(results.length)}</b> ข้อ</> : <>พบ <b>{num(results.length)}</b> ข้อ จาก {num(total)} ข้อ</>)
+          : <>{partial ? <><b>{num(results.length)}</b> ข้อแรก</> : <>{num(results.length)} ข้อ</>}{domain !== 'all' && !partial && <Link to={`/d/${domain}`} className="text-link status-link">ไปหน้าหมวดนี้ <Icon name="arrowRight" size={14} /></Link>}</>)}
+        {partial && !state.failed && <><span className="spinner" aria-hidden="true" /><span className="hint">กำลังโหลดที่เหลือ</span></>}
+        {partial && state.failed && <span className="notice notice-error"><Icon name="info" />โหลดส่วนที่เหลือไม่สำเร็จ <button type="button" className="text-link" onClick={() => setAttempt((n) => n + 1)}>ลองอีกครั้ง</button></span>}
       </div>
 
       {/* Holds the list's place while the bank loads, so the footer does not show and then jump. */}
-      {state.status === 'loading' && <div className="bk-wait" aria-hidden="true" />}
+      {status === 'loading' && <div className="bk-wait" aria-hidden="true" />}
 
-      {state.status === 'ready' && results.length === 0 && (
+      {status === 'ready' && results.length === 0 && (
         <div className="empty">
           <h2>ไม่พบข้อที่ตรงกับคำค้น</h2>
           <p>ลองคำที่สั้นลง สะกดแบบอื่น หรือเลือกทุกหมวด</p>
         </div>
       )}
+      {/* Nothing found yet is not nothing found: the part still on its way may hold the answer. */}
+      {partial && results.length === 0 && !state.failed && <div className="bk-wait" aria-hidden="true" />}
 
-      {state.status === 'ready' && results.length > 0 && (
+      {shown && results.length > 0 && (
         <>
           <ol className="bk-list">
             {results.slice(0, limit).map((q) => <BankItem key={q.key} q={q} query={deferred.trim()} showAnswers={showAnswers} />)}
           </ol>
-          {results.length > limit && (
+          {!partial && results.length > limit && (
             <div className="more">
               <button type="button" className="btn btn-ghost" onClick={() => setLimit((n) => n + PAGE)}>แสดงอีก {num(Math.min(PAGE, results.length - limit))} ข้อ</button>
               <span className="hint">แสดง {num(limit)} จาก {num(results.length)}</span>

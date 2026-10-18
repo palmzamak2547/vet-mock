@@ -129,3 +129,60 @@ test('quick-start domains come in proportion to how often the exam asks them', (
   assert.ok(picks.theriogenology > picks.imaging, `therio ${picks.theriogenology} vs imaging ${picks.imaging}`);
   assert.equal(Object.keys(picks).length, ALL_DOMAINS.length, 'every domain turns up');
 });
+
+// ── the filters, which now read the index rather than the questions ───────────────────────────
+
+const kindOf = (item) => questionByKey(item.key).kind;
+const topicOf = (item) => { const q = questionByKey(item.key); return `${q.subject}/${q.topic || ''}`; };
+
+test('a source cuts the pool by what each question came from', async () => {
+  progressStore.set(emptyProgress());
+  const vca = await startSet({ mode: 'practice', size: 40, source: 'vca' });
+  assert.equal(vca.session.items.length, 40);
+  assert.ok(vca.session.items.every((it) => kindOf(it) === 'vca'));
+  const paper = await startSet({ mode: 'practice', size: 60, source: 'paper', domains: ['swine', 'equine', 'avian'] });
+  assert.ok(paper.session.items.every((it) => ['vca', 'paper'].includes(kindOf(it))));
+  assert.ok(paper.session.items.some((it) => kindOf(it) === 'paper'), 'past papers are in it');
+});
+
+test('a topic list cuts the pool to those topics', async () => {
+  const { CATALOG } = await import('../../src/generated/catalog.js');
+  const row = CATALOG.domains.swine.shown[0];
+  const res = await startSet({ mode: 'practice', size: 10, domains: ['swine'], topics: row.keys });
+  assert.ok(res.session.items.length >= 1 && res.session.items.length <= Math.min(10, row.n));
+  assert.ok(res.session.items.every((it) => row.keys.includes(topicOf(it))), 'every question is on one of the topics');
+});
+
+test('wrong and unseen read the progress record by key', async () => {
+  const swine = await loadDomain('swine');
+  const missed = swine.slice(20, 25).map((q) => q.key);
+  const right = swine.slice(25, 40).map((q) => q.key);
+  const q = {};
+  for (const k of missed) q[k] = { d: 'swine', n: 2, c: 1, l: 0, t: 5 };
+  for (const k of right) q[k] = { d: 'swine', n: 1, c: 1, l: 1, t: 4 };
+  progressStore.set({ ...emptyProgress(), q });
+  const wrong = await startSet({ mode: 'practice', size: 20, status: 'wrong', domains: ['swine'] });
+  assert.deepEqual(wrong.session.items.map((it) => it.key).sort(), missed.slice().sort(), 'exactly the questions last answered wrongly');
+  const unseen = await startSet({ mode: 'practice', size: swine.length, status: 'unseen', domains: ['swine'] });
+  const keys = unseen.session.items.map((it) => it.key);
+  assert.equal(keys.length, swine.length - missed.length - right.length);
+  assert.ok(keys.every((k) => !q[k]), 'none of the questions already answered');
+  progressStore.set(emptyProgress());
+});
+
+test('asking for more than the pool holds gives the pool, each question once', async () => {
+  progressStore.set(emptyProgress());
+  const res = await startSet({ mode: 'practice', size: 500, domains: ['imaging'] });
+  assert.equal(res.session.items.length, CARD_BY_ID.imaging.count);
+  assert.equal(new Set(res.session.items.map((it) => it.key)).size, CARD_BY_ID.imaging.count);
+});
+
+test('a domain list keeps a set to those domains, and a card\'s count is the index\'s', async () => {
+  for (const id of ['juris', 'pathology']) {
+    const list = await loadDomain(id);
+    assert.equal(list.length, CARD_BY_ID[id].count);
+  }
+  const res = await startSet({ mode: 'practice', size: 30, domains: ['juris', 'pathology'] });
+  assert.ok(res.session.items.every((it) => ['juris', 'pathology'].includes(it.domain)));
+  assert.ok(res.session.items.some((it) => it.domain === 'juris') && res.session.items.some((it) => it.domain === 'pathology'));
+});

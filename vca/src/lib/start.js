@@ -1,7 +1,8 @@
-// Making a set and opening it: load the domains it draws from, keep the questions that pass
-// the filters, draw, fix each question's option order, and store the session.
+// Making a set and opening it: read the index of each domain it draws from (a few KB each), keep
+// the entries that pass the filters, draw, then fetch the text of only the questions drawn (the
+// shards that hold them), fix each one's option order, and store the session.
 
-import { DOMAIN_CARDS, loadDomains, toItem } from './bank.js';
+import { DOMAIN_CARDS, loadEntries, loadQuestions, toItem } from './bank.js';
 import { eligible, draw, shuffle, seededRandom } from './sets.js';
 import { createSession, sessionStore } from './session.js';
 import { progressStore } from './progress.js';
@@ -37,6 +38,7 @@ export function emptyReason({ status = 'all', narrowed = false, count }) {
 }
 
 /**
+ * `onProgress(done, total)` counts the questions drawn whose text has arrived.
  * @param {{ mode: 'practice'|'mock', domains?: string[]|null, size: number, source?: string, status?: string,
  *   topics?: string[]|null, keys?: string[]|null, perQuestion?: number, label?: string,
  *   onProgress?: (done: number, total: number) => void }} opts
@@ -45,8 +47,9 @@ export function emptyReason({ status = 'all', narrowed = false, count }) {
 export async function startSet(opts) {
   const { mode, size, source = 'all', status = 'all', topics = null, keys = null, perQuestion = EXAM_SECONDS, mix = 'exam', label = '', prefer = null, onProgress } = opts;
   const domains = opts.domains?.length ? opts.domains : ALL_DOMAINS;
-  const questions = await loadDomains(domains, onProgress);
-  const pool = eligible(questions, { source, status, topics, keys }, progressStore.get());
+  // Entries carry what the filters and the draw read (key, domain, source, topic), not the text.
+  const entries = await loadEntries(domains);
+  const pool = eligible(entries, { source, status, topics, keys }, progressStore.get());
   if (!pool.length) return { ok: false, reason: 'empty' };
   const rand = seededRandom();
   // A list of keys (retrying what was missed) keeps every one it can, in a fresh order.
@@ -62,7 +65,9 @@ export async function startSet(opts) {
     const rest = first.length < size ? draw(pool.filter((q) => seen[q.key]), size - first.length, rand, weights) : [];
     picked = shuffle([...first, ...rest], rand);
   } else picked = draw(pool, size, rand, weights);
-  const items = picked.map(toItem);
+  // The text of the questions drawn: onProgress counts them as their shards arrive.
+  const questions = await loadQuestions(picked, onProgress);
+  const items = questions.map(toItem);
   const timed = mode === 'mock' && perQuestion > 0;
   const session = createSession({
     mode,
@@ -79,9 +84,9 @@ export async function startSet(opts) {
 }
 
 /**
- * A few domains for a quick set, chosen with weight by how often the exam asks them: four files
- * to fetch instead of nineteen, so the first question is on screen fast, and over many sets
- * every domain turns up about as often as the exam turns to it.
+ * A few domains for a quick set, chosen with weight by how often the exam asks them: a set of
+ * ten from four domains (four indexes to read, not nineteen), and over many sets every domain
+ * turns up about as often as the exam turns to it.
  */
 export function pickDomains(k, rand = seededRandom()) {
   const pool = DOMAIN_CARDS.map((d) => ({ id: d.id, w: EXAM_WEIGHTS[d.id] || 0 })).filter((d) => d.w > 0);

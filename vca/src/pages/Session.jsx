@@ -6,14 +6,14 @@
 // chooses the focused option, Enter continues, ← → move between questions outside the option
 // list, F flags, G opens the question map.
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Question } from '../components/Question.jsx';
 import { Icon } from '../components/Icon.jsx';
 import { haptic } from '../lib/motion.js';
 import { Kbd } from '../components/bits.jsx';
 import { Sheet } from '../components/Sheet.jsx';
 import { Link } from '../components/Link.jsx';
-import { isLoaded, loadDomains, questionByKey } from '../lib/bank.js';
+import { isWithdrawn, itemsReady, loadItems, questionByKey } from '../lib/bank.js';
 import { choose, finish, go, isExpired, keepResult, refreshItems, resultsStore, sessionStore, tally, toggleFlag } from '../lib/session.js';
 import { progressStore, recordAnswer, recordAnswers } from '../lib/progress.js';
 import { useActiveSession, useNow, useTitle } from '../lib/hooks.js';
@@ -22,19 +22,27 @@ import { clock, num } from '../lib/format.js';
 
 const KEY_ROW = { Digit1: 0, Digit2: 1, Digit3: 2, Digit4: 3, Digit5: 4, Digit6: 5, Numpad1: 0, Numpad2: 1, Numpad3: 2, Numpad4: 3, Numpad5: 4, Numpad6: 5, KeyA: 0, KeyB: 1, KeyC: 2, KeyD: 3, KeyE: 4 };
 
-function useDomainsFor(session) {
-  const ids = useMemo(() => (session ? [...new Set(session.items.map((it) => it.domain))].sort() : []), [session?.id]); // eslint-disable-line react-hooks/exhaustive-deps
-  const [state, setState] = useState({ status: 'loading', done: 0, total: ids.length });
+/**
+ * The questions behind the set's items, fetched as the shards that hold them (nothing more of the
+ * bank). A set just made has them already, and opens ready; one resumed after a reload asks the
+ * browser's cache or the network for them.
+ */
+function useQuestionsFor(session) {
+  const id = session?.id;
+  const [state, setState] = useState(() => ({ status: session && !itemsReady(session.items) ? 'loading' : 'ready', done: 0, total: 0 }));
   const [attempt, setAttempt] = useState(0);
   useEffect(() => {
-    if (!ids.length) return undefined;
+    const items = sessionStore.get()?.items;
+    if (!items) return undefined;
+    // Everything is here already (a set just made): nothing to fetch, and no second render to say so.
+    if (itemsReady(items)) { setState((s) => (s.status === 'ready' ? s : { status: 'ready', done: 0, total: 0 })); return undefined; }
     let live = true;
-    setState({ status: 'loading', done: 0, total: ids.length });
-    loadDomains(ids, (done, total) => { if (live) setState((s) => ({ ...s, done, total })); })
-      .then(() => { if (live) setState({ status: 'ready', done: ids.length, total: ids.length }); },
+    setState({ status: 'loading', done: 0, total: items.length });
+    loadItems(items, (done, total) => { if (live) setState((s) => (s.status === 'loading' ? { ...s, done, total } : s)); })
+      .then(() => { if (live) setState({ status: 'ready', done: 0, total: 0 }); },
         () => { if (live) setState((s) => ({ ...s, status: 'error' })); });
     return () => { live = false; };
-  }, [ids, attempt]);
+  }, [id, attempt]);
   return { ...state, retry: () => setAttempt((n) => n + 1) };
 }
 
@@ -56,7 +64,7 @@ function RunTimer({ deadline, onExpire }) {
 export default function Session() {
   const session = useActiveSession();
   useTitle(session ? (session.mode === 'mock' ? 'สอบจำลอง' : 'ฝึกทีละข้อ') : 'ไม่มีชุดที่กำลังทำ');
-  const data = useDomainsFor(session);
+  const data = useQuestionsFor(session);
   const done = useRef(false);
   const [sheet, setSheet] = useState(null); // 'map' | 'submit' | 'exit' | null
   const stemRef = useRef(null);
@@ -75,8 +83,8 @@ export default function Session() {
     const s = sessionStore.get();
     if (!s || done.current) return;
     done.current = true;
-    // A question held back since the set was made (its domain loaded, the question gone) does not count.
-    let result = finish(s, Date.now(), { paused: (key) => { const it = s.items.find((x) => x.key === key); return !!it && isLoaded(it.domain) && !questionByKey(key); } });
+    // A question held back since the set was made (its domain's index no longer lists it) does not count.
+    let result = finish(s, Date.now(), { paused: (key) => { const it = s.items.find((x) => x.key === key); return !!it && isWithdrawn(it.domain, key); } });
     if (s.mode === 'practice' && early) {
       const answered = result.items.filter((it) => it.choice !== null);
       if (!answered.length) { sessionStore.set(null); navigate('/practice', { replace: true }); return; }
@@ -242,7 +250,7 @@ export default function Session() {
               <span className="skel skel-line w60" />
               {[0, 1, 2, 3, 4].map((i) => <span key={i} className="skel skel-opt" />)}
             </div>
-            <span className="run-loading-t">กำลังโหลดข้อสอบ {data.total > 1 ? `${data.done}/${data.total} หมวด` : ''}</span>
+            <span className="run-loading-t">กำลังโหลดข้อสอบ {data.total > 1 && data.done ? `${data.done}/${data.total} ข้อ` : ''}</span>
           </div>
         ) : !q ? (
           <div className="run-card glass">
