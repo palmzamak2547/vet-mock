@@ -6,8 +6,10 @@ import path from 'node:path';
 import { defineConfig } from '@playwright/test';
 
 // Below every ephemeral range (Linux 32768-60999), so no outgoing connection can be holding it
-// when the suite starts its server (see the root playwright.config.js).
-const PORT = 24125;
+// when the suite starts its server (see the root playwright.config.js). VCA_E2E_PORT lets a
+// second checkout run the suite beside the first without reusing its dev server; unset, the
+// default below is the one CI and everyone else uses (tests/unit/e2e-ports.test.mjs holds it).
+const PORT = Number(process.env.VCA_E2E_PORT || 24125);
 const chromium = process.env.PLAYWRIGHT_CHROMIUM || (fs.existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined);
 
 export default defineConfig({

@@ -79,7 +79,7 @@ export default function Practice({ route }) {
 
   const go = async () => {
     setError(null);
-    setBusy({ done: 0, total: chosen.length });
+    setBusy({ done: 0, total: 0 });
     try {
       const res = await startSet({
         mode, domains, size, source, status, topics, mix, perQuestion: perQ,
@@ -200,7 +200,7 @@ export default function Practice({ route }) {
           {error === 'empty' && <p className="notice"><Icon name="info" />ยังไม่มีข้อที่ตรงกับทุกตัวเลือก ลองเปลี่ยนเป็นทุกข้อหรือเพิ่มหมวดวิชา</p>}
           {error === 'load' && <p className="notice notice-error"><Icon name="info" />โหลดข้อสอบไม่สำเร็จ ตรวจการเชื่อมต่อแล้วลองอีกครั้ง</p>}
           <button type="button" className="btn btn-ink btn-lg btn-block" onClick={onStart} disabled={!!busy || count === 0}>
-            {busy ? <>กำลังเตรียม {busy.total > 1 ? `${busy.done}/${busy.total} หมวดวิชา` : ''}<span className="spinner" aria-hidden="true" /></> : <>{mode === 'mock' ? 'เริ่มสอบ' : 'เริ่มฝึก'} {num(count)} ข้อ <Icon name="arrowRight" /></>}
+            {busy ? <>กำลังเตรียม {busy.total > 1 ? `${busy.done}/${busy.total} ข้อ` : ''}<span className="spinner" aria-hidden="true" /></> : <>{mode === 'mock' ? 'เริ่มสอบ' : 'เริ่มฝึก'} {num(count)} ข้อ <Icon name="arrowRight" /></>}
           </button>
           {active && <p className="sum-note">มีชุดที่ทำค้างไว้ <Link to="/session" className="text-link">ทำต่อ</Link></p>}
         </aside>

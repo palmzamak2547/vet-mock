@@ -13,12 +13,12 @@
    hand, Mali, for the handful of notes written to the student, like a comment on a paper.
    ───────────────────────────────────────────────────────────────────────────────────────── */
 
-@font-face { font-family: Inter; src: url(/fonts/inter-latin-var.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: Inter; src: url(/fonts/inter-latin-sub.woff2) format("woff2"); font-weight: 400 900; font-display: swap; }
 @font-face { font-family: Anuphan; src: url(/fonts/anuphan-thai-var.woff2) format("woff2"); font-weight: 100 700; font-display: swap; unicode-range: U+0E01-0E5B, U+200C-200D, U+25CC; }
 @font-face { font-family: "Instrument Serif"; src: url(/fonts/instrument-serif-latin.woff2) format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Instrument Serif"; src: url(/fonts/instrument-serif-latin-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
 /* A single width in the descriptor clamps the axis: every Thai headline is set at 87.5%. */
-@font-face { font-family: "Serif Thai"; src: url(/fonts/noto-serif-thai-var.woff2) format("woff2"); font-weight: 100 900; font-stretch: 87.5%; font-display: swap; unicode-range: U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: "Serif Thai"; src: url(/fonts/noto-serif-thai-400.woff2) format("woff2"); font-weight: 400; font-stretch: 87.5%; font-display: swap; unicode-range: U+0E01-0E5B, U+200C-200D, U+25CC; }
 @font-face { font-family: "Geist Mono"; src: url(/fonts/geist-mono-latin-var.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
 /* A tutor's hand (Mali, Cadson Demak) for the few notes written to the student, never for content. */
 @font-face { font-family: Mali; src: url(/fonts/mali-thai-600.woff2) format("woff2"); font-weight: 600; font-display: swap; unicode-range: U+0E01-0E5B, U+200C-200D, U+25CC; }

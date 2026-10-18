@@ -5,14 +5,11 @@
 // (the main app's source file is named beside each); the last test runs all of them.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { cleanExplain } from '../../src/lib/explain.js';
 import { hasEmoji, stripEmoji } from '../../src/lib/emoji.js';
 import { BANK } from '../../src/generated/bank.js';
+import { readDomain } from '../support/bank-files.mjs';
 
-const PUBLIC = path.join(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..'), 'public');
 // The warning sign as the bank writes it: mostly with the emoji selector after it, in com1 without.
 const WARN_SIGN = String.fromCodePoint(0x26A0);
 const SELECTOR = String.fromCodePoint(0xFE0F);
@@ -145,7 +142,7 @@ test('every explanation in the bank: no emoji left, every word kept, a label onl
   let labels = 0;
   let checked = 0;
   for (const card of BANK.domains) {
-    const { questions } = JSON.parse(fs.readFileSync(path.join(PUBLIC, card.file), 'utf8'));
+    const { questions } = readDomain(card);
     for (const q of questions) {
       if (!q.explain) continue;
       checked += 1;

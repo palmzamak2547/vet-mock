@@ -3,7 +3,13 @@
 // under their names, so they come from the cache first and a set opened once can be practised
 // again on a train. Fonts, art and icons keep their names when they change: they come from the
 // cache too, and are refreshed behind it for the next visit.
-const CACHE = 'vca-v2';
+//
+// Two caches, because they grow differently. The app's own files (APP) are a few dozen a release.
+// The bank (BANK) is one index and a run of shards per domain, 520 small files, and a set takes
+// whichever shards its questions happen to be in. Kept together, a few mock exams' worth of
+// shards pushed the oldest files out first, and the oldest files are the app's entry scripts.
+const APP = 'vca-v3';
+const BANK = 'vca-bank-v1';
 // A page is asked of the network first, so a release is never held back. But a connection that
 // accepts the request and never answers (a tunnel, a captive Wi-Fi) used to leave a returning visitor
 // on a blank page for as long as the network cared to hang (25.6 s in a test) with the whole app
@@ -16,30 +22,74 @@ const NAV_WAIT = 3000;
 // The app shell as the host serves it: /index.html answers 308 to / (cleanUrls), and a redirected
 // response stored and served to a navigation is refused by the browser, so offline never opened.
 const SHELL = '/';
-const IMMUTABLE = /^\/(assets|bank|q)\//;
-const NAMED = /^\/(fonts|art|icons)\//;
+const APP_FILES = /^\/assets\//;
+const BANK_FILES = /^\/(bank|q)\//;
+const NAMED = /^\/(fonts|art|icons)\/|^\/theme-boot\.js$/;
 
 // Hashed files from old releases are never asked for again: past this many entries the oldest
-// go, so a phone does not keep every release's app and bank for good.
-const MAX_ENTRIES = 400;
-const trim = (cache) => cache.keys().then((keys) => Promise.all(keys.slice(0, Math.max(0, keys.length - MAX_ENTRIES)).filter((k) => new URL(k.url).pathname !== SHELL).map((k) => cache.delete(k))));
+// go, so a phone does not keep every release's app and bank for good. The app's files are about a
+// hundred, so 400 holds some six releases. A whole bank is 556 entries (520 bank files and 36
+// figures), so 1,200 holds the current one and most of the one before it, which a returning visitor
+// still has open in a tab; each release replaces only the shards whose questions changed.
+const LIMITS = { [APP]: 400, [BANK]: 1200 };
+// Trimming reads every key of a cache, so it runs once for a burst of new files, not for each
+// one: a mock exam stores some forty shards in a second. This long after the first of them.
+const TRIM_AFTER = 4000;
 
-const keep = (request, res) => {
+const trimming = new Set();
+const trim = (name, cache) => cache.keys().then((keys) => Promise.all(keys.slice(0, Math.max(0, keys.length - LIMITS[name])).filter((k) => new URL(k.url).pathname !== SHELL).map((k) => cache.delete(k))));
+const scheduleTrim = (event, name) => {
+  if (trimming.has(name)) return;
+  trimming.add(name);
+  event.waitUntil(new Promise((resolve) => setTimeout(resolve, TRIM_AFTER))
+    .then(() => caches.open(name))
+    .then((cache) => trim(name, cache))
+    .catch(() => {})
+    .then(() => { trimming.delete(name); }));
+};
+
+const keep = (event, name, request, res) => {
   if (res.ok && !res.redirected) {
     const copy = res.clone();
-    caches.open(CACHE).then((cache) => cache.put(request, copy).then(() => trim(cache))).catch(() => {});
+    event.waitUntil(caches.open(name).then((cache) => cache.put(request, copy)).then(() => scheduleTrim(event, name)).catch(() => {}));
   }
   return res;
 };
 
+/** The files a page needs before it can draw: its scripts, stylesheets and preloaded fonts. */
+const entryFiles = (html) => {
+  const urls = new Set();
+  for (const tag of html.match(/<(?:script|link)\b[^>]*>/gi) || []) {
+    const attr = (name) => (new RegExp(`\\s${name}="([^"]*)"`, 'i').exec(tag) || [])[1] || '';
+    const rel = attr('rel').toLowerCase();
+    const url = attr('src') || attr('href');
+    if (!/^\/[^/]/.test(url)) continue;
+    if (/^<script/i.test(tag) || rel === 'modulepreload' || rel === 'stylesheet' || (rel === 'preload' && attr('as') === 'font')) urls.add(url);
+  }
+  return [...urls];
+};
+
+// The shell must be stored for the worker to install. Its entry files are stored too, as a favour
+// to a first visit that ends offline: the page that installed the worker loaded them before the
+// worker was in charge, so nothing else would ever have put them in the cache, and the shell alone
+// is a blank page. They come from the browser's own cache at no cost, and one that cannot be had
+// does not hold the worker back.
+const precache = () => caches.open(APP).then(async (cache) => {
+  await cache.add(SHELL);
+  try {
+    const html = await (await cache.match(SHELL)).text();
+    await Promise.all(entryFiles(html).map((url) => cache.add(url).catch(() => {})));
+  } catch { /* a favour, not a condition */ }
+});
+
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.add(SHELL)).then(() => self.skipWaiting()));
+  event.waitUntil(precache().then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k !== APP && k !== BANK).map((k) => caches.delete(k))))
       .then(() => self.clients.claim()),
   );
 });
@@ -56,7 +106,7 @@ self.addEventListener('fetch', (event) => {
     const page = (res) => res.ok && !res.redirected && /text\/html/i.test(res.headers.get('content-type') || '');
     const network = fetch(request).then((res) => ({ res, copy: page(res) ? res.clone() : null }));
     // The copy is kept whenever the network does answer, however late, so the worker is held awake for it.
-    event.waitUntil(network.then(({ copy }) => copy && caches.open(CACHE).then((cache) => cache.put(SHELL, copy))).catch(() => {}));
+    event.waitUntil(network.then(({ copy }) => copy && caches.open(APP).then((cache) => cache.put(SHELL, copy))).catch(() => {}));
     event.respondWith(new Promise((resolve) => {
       let answered = false;
       const answer = (res) => { if (!answered) { answered = true; clearTimeout(timer); resolve(res); } };
@@ -66,14 +116,15 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  if (IMMUTABLE.test(url.pathname)) {
-    event.respondWith(caches.match(request).then((hit) => hit || fetch(request).then((res) => keep(request, res))));
+  const immutable = APP_FILES.test(url.pathname) ? APP : BANK_FILES.test(url.pathname) ? BANK : null;
+  if (immutable) {
+    event.respondWith(caches.match(request).then((hit) => hit || fetch(request).then((res) => keep(event, immutable, request, res))));
     return;
   }
 
   if (NAMED.test(url.pathname)) {
     event.respondWith(caches.match(request).then((hit) => {
-      const fresh = fetch(request).then((res) => keep(request, res));
+      const fresh = fetch(request).then((res) => keep(event, APP, request, res));
       if (!hit) return fresh;
       event.waitUntil(fresh.catch(() => {}));
       return hit;

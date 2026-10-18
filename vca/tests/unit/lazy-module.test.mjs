@@ -10,6 +10,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { lazyModule } from '../../src/lib/lazy-module.js';
 import { loadCatalog, loadLibrary, loadDomain, DOMAIN_CARDS } from '../../src/lib/bank.js';
+import { installBankFetch } from '../support/bank-files.mjs';
 
 const ORIGIN = 'https://vca.test';
 const SRC = fileURLToPath(new URL('../../src/', import.meta.url));
@@ -135,25 +136,41 @@ test('the catalog and the library load through the retrying loader', async () =>
   assert.equal(await loadLibrary(), library);
 });
 
-test('a domain that failed to load is fetched again on the next call', async () => {
+test('a domain whose index failed to load is fetched again on the next call', async () => {
   const id = DOMAIN_CARDS[0].id;
-  const real = globalThis.fetch;
-  let calls = 0;
   let online = false;
-  globalThis.fetch = async () => {
-    calls += 1;
-    if (!online) throw new TypeError('network down');
-    return { ok: true, status: 200, json: async () => ({ questions: [{ id: 1, subject: 'x', q: 'q', options: ['a', 'b'], answer: 0 }] }) };
-  };
+  const net = installBankFetch({ fail: () => !online });
   try {
     await assert.rejects(loadDomain(id), /network down/);
-    assert.equal(calls, 2, 'one quiet retry, then the page offers its own');
+    assert.equal(net.calls.length, 2, 'one quiet retry, then the page offers its own');
     online = true;
     const list = await loadDomain(id);
-    assert.equal(list.length, 1);
+    assert.equal(list.length, DOMAIN_CARDS[0].count);
     assert.equal(list[0].domain, id);
   } finally {
-    globalThis.fetch = real;
+    net.restore();
+  }
+});
+
+test('a shard that failed to load is fetched again on the next call, and no other shard is lost', async () => {
+  // Not the first domain: the test before this one loaded all of it.
+  const card = DOMAIN_CARDS.filter((d) => d.shards >= 3).at(-1);
+  let online = false;
+  let broken = null;
+  const net = installBankFetch({ fail: (url) => (broken ? url === broken && !online : false) });
+  try {
+    const { loadIndex, loadQuestions } = await import('../../src/lib/bank.js');
+    const index = await loadIndex(card.id);
+    broken = index.shards[1].url;
+    const wanted = [index.entries[0], index.entries[index.size], index.entries[index.size * 2]];
+    await assert.rejects(loadQuestions(wanted), /network down/);
+    assert.equal(net.calls.filter((u) => u === broken).length, 2, 'the broken shard was asked for twice, quietly, then given up on');
+    online = true;
+    const questions = await loadQuestions(wanted);
+    assert.deepEqual(questions.map((q) => q.key), wanted.map((e) => e.key));
+    assert.equal(net.calls.filter((u) => u === index.shards[0].url).length, 1, 'the shard that arrived the first time is not fetched again');
+  } finally {
+    net.restore();
   }
 });
 

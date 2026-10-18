@@ -1,17 +1,16 @@
 // A finished set: the score, how each domain went, and every question with its answer and
 // reason. The questions missed can be practised again in one tap.
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Link } from '../components/Link.jsx';
 import { Icon } from '../components/Icon.jsx';
 import { Ring, Meter } from '../components/bits.jsx';
 import { CountUp } from '../components/CountUp.jsx';
 import { Question } from '../components/Question.jsx';
-import { CARD_BY_ID, questionByKey } from '../lib/bank.js';
+import { CARD_BY_ID, loadItems, questionByKey } from '../lib/bank.js';
 import { byDomain } from '../lib/session.js';
 import { quickStart, startSet } from '../lib/start.js';
 import { useAsync, useResults, useTitle } from '../lib/hooks.js';
-import { loadDomains } from '../lib/bank.js';
 import { navigate, withQuery } from '../router.js';
 import { duration, LETTERS, num, pct, plateNo, thaiDate } from '../lib/format.js';
 import { useStartGuard } from '../components/StartGuard.jsx';
@@ -61,8 +60,8 @@ export default function Result({ route }) {
   const { guard, sheet } = useStartGuard();
   const result = results.find((r) => r.id === route.params.id);
   useTitle(result ? `ผล ${pct(result.correct / result.total)}` : 'ไม่พบผลนี้');
-  const domains = useMemo(() => (result ? [...new Set(result.items.map((it) => it.domain))].sort() : []), [result]);
-  const data = useAsync(() => loadDomains(domains), domains.join(','));
+  // The text of the questions in this result, as the shards that hold them (nothing more of the bank).
+  const data = useAsync(() => (result ? loadItems(result.items) : Promise.resolve()), result?.id ?? '');
   const [filter, setFilter] = useState('all');
   const [open, setOpen] = useState(() => new Set());
   const [busy, setBusy] = useState(false);

@@ -1,13 +1,13 @@
 // The question a thread is about, as the bank shows it: plate, number, stem and options, with
-// its answer and explanation one tap away. It loads that one domain's file, which the practice
-// site has usually cached already.
+// its answer and explanation one tap away. It loads the one shard that holds the question (a few
+// KB), found through its domain's index.
 
 import { useEffect, useState } from 'react';
 import { RichText } from '@vetmock/lib/richtext.jsx';
 import { Link } from '../../components/Link.jsx';
 import { Icon } from '../../components/Icon.jsx';
 import { Explain } from '../../components/Question.jsx';
-import { CARD_BY_ID, loadDomain } from '../../lib/bank.js';
+import { CARD_BY_ID, loadQuestionByNumber } from '../../lib/bank.js';
 import { LETTERS, plateNo } from '../../lib/format.js';
 import { withQuery } from '../../router.js';
 
@@ -20,7 +20,7 @@ export function QuestionPeek({ no, domain }) {
     if (!card || !no) { setQ(null); return undefined; }
     let live = true;
     setQ(undefined);
-    loadDomain(domain).then((list) => { if (live) setQ(list.find((x) => String(x.id) === String(no)) || null); }).catch(() => { if (live) setQ(null); });
+    loadQuestionByNumber(domain, no).then((found) => { if (live) setQ(found); }).catch(() => { if (live) setQ(null); });
     return () => { live = false; };
   }, [domain, no]); // eslint-disable-line react-hooks/exhaustive-deps
 

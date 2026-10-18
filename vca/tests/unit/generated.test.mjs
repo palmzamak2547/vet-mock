@@ -1,6 +1,6 @@
 // What scripts/build-bank.mjs wrote (npm test runs it first): counts that reconcile with the
-// main bank, one content-hashed file per domain holding exactly its card's questions, and no
-// address of the collection's private Drive copies anywhere the site ships.
+// main bank, a content-hashed index and shards per domain that hold exactly its card's questions,
+// and no address of the collection's private Drive copies anywhere the site ships.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -11,16 +11,14 @@ import { BANK, SAMPLES } from '../../src/generated/bank.js';
 import { CATALOG } from '../../src/generated/catalog.js';
 import { LIBRARY } from '../../src/generated/library.js';
 import { MAPPED_SUBJECTS, EXCLUDED_SUBJECTS } from '../../src/data/domains.js';
+import { readDomain } from '../support/bank-files.mjs';
 
 const APP = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const PUBLIC = path.join(APP, 'public');
 const KINDS = ['vca', 'paper', 'aligned', 'lecture', 'course'];
 const sum = (xs) => xs.reduce((a, b) => a + b, 0);
 
-const files = Object.fromEntries(BANK.domains.map((card) => {
-  const text = fs.readFileSync(path.join(PUBLIC, card.file), 'utf8');
-  return [card.id, { text, body: JSON.parse(text) }];
-}));
+const files = Object.fromEntries(BANK.domains.map((card) => [card.id, readDomain(card)]));
 
 test('the total is the sum of the domains and of the kinds', () => {
   assert.ok(BANK.total > 0);
@@ -30,7 +28,7 @@ test('the total is the sum of the domains and of the kinds', () => {
   for (const d of BANK.domains) assert.equal(sum(Object.values(d.kinds)), d.count, `${d.id} kinds`);
 });
 
-test('each domain file holds exactly its card\'s questions', () => {
+test('each domain\'s shards hold exactly its card\'s questions', () => {
   for (const card of BANK.domains) {
     const { body } = files[card.id];
     assert.equal(body.domain, card.id);
@@ -74,15 +72,20 @@ test('a question is served from one domain only', () => {
 });
 
 test('bank files are named by their content, and nothing stale is left beside them', () => {
+  const hash = (text) => crypto.createHash('sha256').update(text).digest('hex').slice(0, 8);
   const named = new Set();
   for (const card of BANK.domains) {
-    const name = path.basename(card.file);
-    const m = /^([a-z-]+)\.([0-9a-f]{10})\.json$/.exec(name);
-    assert.ok(m, `${name}: domain.hash.json`);
-    assert.equal(m[1], card.id);
-    assert.equal(crypto.createHash('sha256').update(files[card.id].text).digest('hex').slice(0, 10), m[2], `${name}: hash`);
-    assert.equal(Buffer.byteLength(files[card.id].text), card.bytes, `${name}: bytes`);
-    named.add(name);
+    const domain = files[card.id];
+    const indexName = path.basename(card.index);
+    assert.equal(indexName, `${card.id}.index.${hash(domain.indexText)}.json`, `${indexName}: domain.index.hash.json`);
+    named.add(indexName);
+    assert.equal(domain.index.shards.length, card.shards, `${card.id}: shards`);
+    domain.index.shards.forEach((shard, n) => {
+      const name = path.basename(shard.url);
+      assert.equal(name, `${card.id}-${n}.${hash(domain.shardTexts[n])}.json`, `${name}: domain-n.hash.json`);
+      named.add(name);
+    });
+    assert.equal(domain.shardTexts.reduce((sum, text) => sum + Buffer.byteLength(text), 0), card.bytes, `${card.id}: bytes`);
   }
   assert.deepEqual(new Set(fs.readdirSync(path.join(PUBLIC, 'bank'))), named);
 });

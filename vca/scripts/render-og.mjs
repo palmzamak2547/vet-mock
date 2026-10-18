@@ -44,10 +44,10 @@ const base = `http://127.0.0.1:${server.address().port}/`;
 const MARK = `<svg class="mark" viewBox="0 0 64 64" width="40" height="40"><rect width="64" height="64" rx="14" fill="#15171a"/><g fill="#f2f0eb"><ellipse cx="32" cy="42.25" rx="11.5" ry="9.25"/><ellipse cx="18.5" cy="29" rx="4.5" ry="6" transform="rotate(-18 18.5 29)"/><ellipse cx="26.5" cy="19.75" rx="4.25" ry="5.75" transform="rotate(-6 26.5 19.75)"/><ellipse cx="45.5" cy="29" rx="4.5" ry="6" transform="rotate(18 45.5 29)"/></g><ellipse cx="37.5" cy="19.75" rx="4.25" ry="5.75" transform="rotate(6 37.5 19.75)" fill="#2a9a7b"/></svg>`;
 
 const CSS = `
-@font-face { font-family: Inter; src: url(fonts/inter-latin-var.woff2); font-weight: 100 900; }
+@font-face { font-family: Inter; src: url(fonts/inter-latin-sub.woff2); font-weight: 400 900; }
 @font-face { font-family: Anuphan; src: url(fonts/anuphan-thai-var.woff2); font-weight: 100 700; unicode-range: U+0E01-0E5B, U+200C-200D, U+25CC; }
 @font-face { font-family: "Instrument Serif"; src: url(fonts/instrument-serif-latin.woff2); font-weight: 400; }
-@font-face { font-family: "Serif Thai"; src: url(fonts/noto-serif-thai-var.woff2); font-weight: 100 900; font-stretch: 87.5%; unicode-range: U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: "Serif Thai"; src: url(fonts/noto-serif-thai-400.woff2); font-weight: 400; font-stretch: 87.5%; unicode-range: U+0E01-0E5B, U+200C-200D, U+25CC; }
 @font-face { font-family: "Geist Mono"; src: url(fonts/geist-mono-latin-var.woff2); font-weight: 100 900; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { width: 1200px; height: 630px; }

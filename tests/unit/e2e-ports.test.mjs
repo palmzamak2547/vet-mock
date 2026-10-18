@@ -12,7 +12,8 @@ const EPHEMERAL_FROM = 32768;
 test('e2e servers listen below the ephemeral port range', () => {
   const ports = [
     ['tests/e2e/local-port.js', Number(read('tests/e2e/local-port.js').match(/PLAYWRIGHT_PORT \|\| (\d+)/)?.[1])],
-    ['vca/playwright.config.js', Number(read('vca/playwright.config.js').match(/const PORT = (\d+)/)?.[1])],
+    // The default only: VCA_E2E_PORT may name another port for a second checkout's run.
+    ['vca/playwright.config.js', Number(read('vca/playwright.config.js').match(/VCA_E2E_PORT \|\| (\d+)/)?.[1])],
   ];
   for (const m of read('.github/workflows/smoke-e2e.yml').matchAll(/--port (\d+)/g)) ports.push(['smoke-e2e.yml', Number(m[1])]);
   assert.ok(ports.length >= 3, `found ${ports.length} ports`);
