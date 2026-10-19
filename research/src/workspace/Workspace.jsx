@@ -10,7 +10,6 @@ import intake from '../i18n/intake.js';
 import stats from '../i18n/stats.js';
 import epi from '../i18n/epi.js';
 import runtime from '../i18n/runtime.js';
-import lab from '../i18n/lab.js';
 import models from '../i18n/models.js';
 import measure from '../i18n/measure.js';
 import data from '../i18n/data.js';
@@ -36,6 +35,7 @@ import Projects from './screens/Projects.jsx';
 // load on first use, so the project list the workspace opens on is a smaller first chunk (review round 1:
 // the first workspace chunk had grown from 706 kB to 1.56 MB).
 const Project = lazy(() => import('./screens/Project.jsx'));
+const OpenEpiTool = lazy(() => import('./screens/tools/OpenEpiTool.jsx'));
 const SampleSize = lazy(() => import('./screens/SampleSize.jsx'));
 const PowerTool = lazy(() => import('./screens/tools/PowerTool.jsx'));
 const RandomiseTool = lazy(() => import('./screens/tools/RandomiseTool.jsx'));
@@ -47,7 +47,6 @@ registerArea('intake', intake);
 registerArea('stats', stats);
 registerArea('epi', epi);
 registerArea('runtime', runtime);
-registerArea('lab', lab);
 registerArea('models', models);
 registerArea('measure', measure);
 registerArea('data', data);
@@ -270,6 +269,8 @@ function Root({ route, owner, user, authError }) {
         <Projects version={version} />
       </div>
     );
+  } else if (route.name === 'openEpi') {
+    body = <OpenEpiTool />;
   } else if (route.name === 'sampleSize') {
     body = <SampleSize />;
   } else if (route.name === 'power') {

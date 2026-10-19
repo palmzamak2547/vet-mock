@@ -10,8 +10,8 @@ export const PANES = Object.freeze([
   'lab', 'models', 'survival', 'measure', 'merge', 'reshape', 'aggregate', 'compute', 'clean', 'compare', 'sampling', 'figures',
 ]);
 
-/** Tools that need no project (M1: sample size; M2: power, randomisation). */
-export const TOOLS = Object.freeze({ 'sample-size': 'sampleSize', power: 'power', randomise: 'randomise' });
+/** Tools that need no project (M1: sample size; M2: power, randomisation; OpenEpi). */
+export const TOOLS = Object.freeze({ openepi: 'openEpi', 'sample-size': 'sampleSize', power: 'power', randomise: 'randomise' });
 
 /** Public pages outside the workspace (trust role). */
 export const PUBLIC_PAGES = Object.freeze({ '/methods': 'methods', '/cite': 'cite', '/guide': 'guide' });
@@ -19,7 +19,7 @@ const ID = '[A-Za-z0-9-]{1,64}';
 
 /**
  * @typedef {{ name: 'landing' } | { name: 'projects' } | { name: 'project', projectId: string, pane: string|null }
- *   | { name: 'result', projectId: string, analysisId: string } | { name: 'sampleSize' } | { name: 'power' } | { name: 'randomise' }
+ *   | { name: 'result', projectId: string, analysisId: string } | { name: 'openEpi' } | { name: 'sampleSize' } | { name: 'power' } | { name: 'randomise' }
  *   | { name: 'methods' } | { name: 'cite' } | { name: 'guide' } | { name: 'licenses' } | { name: 'notFound' }} Route
  */
 
@@ -44,6 +44,7 @@ export function routePath(route) {
   switch (route.name) {
     case 'landing': return '/';
     case 'projects': return '/app';
+    case 'openEpi': return '/app/tools/openepi';
     case 'sampleSize': return '/app/tools/sample-size';
     case 'power': return '/app/tools/power';
     case 'randomise': return '/app/tools/randomise';

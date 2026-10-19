@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { registerArea, useT } from '../../i18n/index.js';
 import workspaceM3 from '../../i18n/workspace-m3.js';
 import termsM3 from '../../i18n/terms-m3.js';
+import lab from '../../i18n/lab.js';
 import { navigate } from '../../router.js';
 import TopBar from '../components/TopBar.jsx';
 import Rail from '../components/Rail.jsx';
@@ -37,6 +38,7 @@ import SamplingPane from './tools/SamplingPane.jsx';
 // kept-result pane, so they are registered before any M3 screen renders and stay out of the first workspace chunk.
 registerArea('workspace-m3', workspaceM3);
 registerArea('terms-m3', termsM3);
+registerArea('lab', lab);
 
 export function ProjectMissing() {
   const { t } = useT();

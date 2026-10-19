@@ -31,6 +31,7 @@ const ROWS = [
   ['ws.rail.table1', 'Table 1', 'Table 1'],
   ['ws.rail.report', 'ร่างรายงาน', 'Report draft'],
   ['ws.rail.sampleSize', 'ขนาดตัวอย่าง', 'Sample size'],
+  ['ws.rail.openEpi', 'เครื่องคิดเลขระบาดวิทยา (OpenEpi)', 'Quick Epi Calculators (OpenEpi)'],
   ['ws.rail.group.dataTools', 'เตรียมข้อมูล', 'Prepare data'],
   ['ws.rail.merge', 'รวมสองไฟล์', 'Merge two files'],
   ['ws.rail.reshape', 'สลับรูปตาราง (กว้างและยาว)', 'Reshape (wide and long)'],

@@ -57,7 +57,7 @@ test('keys built from templates exist', () => {
 });
 
 test('the ws.* words the tool screens borrow exist (rail, steps, levels)', () => {
-  const keys = ['ws.rail.group.dataTools', 'ws.rail.group.tools', 'ws.rail.power', 'ws.rail.randomise', 'ws.rail.sampleSize', 'ws.steps.chooseColumn', 'ws.steps.reasonRequired', 'ws.steps.because', 'ws.steps.added', 'ws.grid.legendMissing', 'ws.ss.noFile', 'ws.analysis.running', 'ws.analysis.notReadyBody', 'ws.action.cancel', 'ws.codebook.col.labelTh', 'ws.codebook.col.labelEn', 'ws.codebook.levelCount'];
+  const keys = ['ws.rail.group.dataTools', 'ws.rail.group.tools', 'ws.rail.openEpi', 'ws.rail.power', 'ws.rail.randomise', 'ws.rail.sampleSize', 'ws.steps.chooseColumn', 'ws.steps.reasonRequired', 'ws.steps.because', 'ws.steps.added', 'ws.grid.legendMissing', 'ws.ss.noFile', 'ws.analysis.running', 'ws.analysis.notReadyBody', 'ws.action.cancel', 'ws.codebook.col.labelTh', 'ws.codebook.col.labelEn', 'ws.codebook.levelCount'];
   for (const o of ['eq', 'ne', 'lt', 'le', 'gt', 'ge', 'missing', 'present']) keys.push(`ws.steps.op.${o}`);
   const bad = keys.filter((k) => !workspace.th[k] || !workspace.en[k]);
   assert.deepEqual(bad, []);

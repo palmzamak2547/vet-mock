@@ -3,6 +3,7 @@
 // OWNER: ui-tools role.
 export const TOOL_RAIL = Object.freeze([
   { h: 'ws.rail.group.tools' },
+  { id: 'openEpi', label: 'ws.rail.openEpi', icon: 'calc', href: '/app/tools/openepi' },
   { id: 'sampleSize', label: 'ws.rail.sampleSize', icon: 'calc', href: '/app/tools/sample-size' },
   { id: 'power', label: 'ws.rail.power', icon: 'calc', href: '/app/tools/power' },
   { id: 'randomise', label: 'ws.rail.randomise', icon: 'lock', href: '/app/tools/randomise' },

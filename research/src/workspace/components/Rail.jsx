@@ -36,6 +36,7 @@ export const RAIL = [
   { id: 'report', label: 'ws.rail.report', icon: 'doc' },
   { id: 'figures', label: 'ws.rail.figures', icon: 'image', needsData: true },
   { h: 'ws.rail.group.tools' },
+  { id: 'openEpi', label: 'ws.rail.openEpi', icon: 'calc', href: '/app/tools/openepi' },
   { id: 'sampleSize', label: 'ws.rail.sampleSize', icon: 'calc', href: '/app/tools/sample-size' },
   { id: 'power', label: 'ws.rail.power', icon: 'calc', href: '/app/tools/power' },
   { id: 'randomise', label: 'ws.rail.randomise', icon: 'lock', href: '/app/tools/randomise' },
