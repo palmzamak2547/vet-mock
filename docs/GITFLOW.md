@@ -7,25 +7,46 @@ a harness does not have to re-derive them (or learn them by causing a regression
 
 ---
 
-## 1. `main` is the deploy
+## 1. Releases are pull requests; a merge to `main` is the deploy
 
-- Every push to `main` auto-deploys via Vercel. There is no staging branch and
-  no separate deploy step. **A main push is a production event, not a save.**
-- Push **one coordinated real commit**. Never add `vercel --prod` on top of it,
-  never push an empty redeploy commit, never burst-push a series.
-- **A release lands as a squashed `main`: one commit, or a handful.** Integrate
-  the lanes on a release branch, then put the result on `main` squashed
-  (`git merge --squash`, or a soft reset onto `origin/main` and one commit); the
-  lane history stays on its branches. One push of 88 commits (5.143.0,
-  2026-10-11) sent Vercel's GitHub fetch into a secondary rate limit (403), and
-  the production deploy failed with `git_info_fail` before it built anything.
-  Recovery is in section 6.
-- Docs-only commits deploy too, which is harmless — but do not push while
-  another lane is mid-work on `src/` unless the change is independent of it.
-  When in doubt, commit locally and let the owner time the push.
-- Production proof stays multi-step (exact-SHA CI + smoke E2E, successful Vercel
-  deployment, live flow against `vetmock.com`), recorded in
-  [LAUNCH_READINESS.md](LAUNCH_READINESS.md). A push is not proof.
+Release pipeline v2 (owner-approved 2026-10-20). Until then sessions negotiated push order and
+version numbers by message and each ran a ~70 min local gate; now:
+
+1. **Worktree from origin/main.** `git worktree add C:/dev/vetmock-<lane> -b <prefix>/<lane> origin/main`,
+   its own `npm ci` (and `npm ci` in research/ when you touch research/).
+2. **Release note as its own file.** User-observable work runs `npm run release:new -- minor`
+   (or `patch`): it writes `src/data/changelog/<version>.js` with the next number free on
+   origin/main and in every open pull request. Proof goes in `docs/releases/<version>.md`.
+   `package.json`'s version is not bumped. Nothing else is edited by every release, so two
+   releases do not conflict.
+3. **Local gate: `npm run gate`.** Phases A-C as before (data, unit in Bangkok and UTC, build,
+   contrast, Research when research/ changed since origin/main), then e2e on Chromium for smoke
+   and the specs your branch changed. Its preview, concurrent and contrast ports are derived from
+   the worktree path (`tests/e2e/local-port.js`), so gates in different worktrees never collide.
+   `npm run gate:full` runs the full four-profile matrix here when you need it.
+4. **Push the branch and open the PR.** `git push -u origin <branch>`, `gh pr create`, then
+   `gh pr merge --squash --auto`. CI runs Build, Annotation PostgreSQL, Smoke e2e (7 runners),
+   VCA and Research R parity (the last two do real work only when their files changed).
+5. **The queue.** The ruleset on `main` requires those checks and an up-to-date branch. The
+   Queue workflow (`.github/workflows/queue.yml`) brings the oldest auto-merge PR that is behind
+   main up to date and re-runs its checks; GitHub squash-merges it when they pass. One PR lands
+   at a time, each tested on the exact main it lands on. GitHub's own merge queue needs an
+   organization-owned repository, which this is not.
+6. **Deploy.** The merge is a push to `main`: CI runs again on that SHA and Vercel promotes the
+   production build once `build` and `smoke` pass. Vercel builds nothing else: every project's
+   Ignored Build Step skips non-production builds (`vercel.json`, `research/vercel.json`,
+   `vca/scripts/vercel-ignore.sh`).
+7. **Prove it** (unchanged): exact-SHA CI, the Vercel production deployment, the live flow on
+   vetmock.com, recorded in `docs/releases/<version>.md`. A merge is not proof.
+
+Rules that stay:
+
+- Never push to `main` directly, never `vercel --prod`, never an empty redeploy commit.
+- A red check is fixed at its cause, never rerun hoping it passes; no timeout raise or
+  `test.slow()` without a measured cause. CI warns on any e2e test over 40% of its timeout
+  (`scripts/e2e-durations.mjs`, report artifact `e2e-durations-*` on every run).
+- One PR is one squash commit on main. Keep a PR to one release; 88 commits in one push
+  (5.143.0) once tripped GitHub's rate limit for Vercel's fetch (section 6).
 
 ## 2. Lanes and the one claim record
 
@@ -55,8 +76,8 @@ cd ../vet-mock-<lane> && npm ci   # the worktree's OWN install — always
 - **A worktree runs its own `npm ci` after any lockfile change.** A node_modules
   junction into the primary checkout silently bundles the primary checkout's
   packages and produces results the worktree cannot reproduce.
-- Keep `PLAYWRIGHT_PORT` scoped to E2E only so parallel lanes do not steal each
-  other's dev server port.
+- E2E ports are per worktree already (derived from its path); `PLAYWRIGHT_PORT` still
+  overrides when two paths happen to hash alike.
 - Integrate back to `main` with the standard checklist below; recheck `main`
   immediately before integrating, and retain the other lanes' edits when
   resolving any conflict.
@@ -75,19 +96,15 @@ cd ../vet-mock-<lane> && npm ci   # the worktree's OWN install — always
 
 ## 5. Integration checklist
 
-Before a lane's work lands on `main`:
+Before a lane's pull request is set to auto-merge:
 
-1. Recheck `main` (`git fetch` + diff against it) — integrate a fresh base, not
-   the base you started from.
-2. `npm run build` passes in the tree you are committing.
-3. Applicable gates pass: `npm run gate:data` for fast data/unit diagnosis, the
-   full `npm run gate` for a release. Read the gate process's own exit code,
-   not a filter's.
-4. Stage exactly your files; confirm `git status` shows no other lane's work
-   staged.
-5. One commit, one push. Watch the Vercel build for that exact SHA.
-6. Verify the real user journey against the deployed URL; record the proof
-   chain in [LAUNCH_READINESS.md](LAUNCH_READINESS.md) and update the claim record.
+1. Branch from a fresh origin/main (the Queue updates it again before merging).
+2. `npm run gate` passes in the tree you are committing; read the gate's own exit code.
+3. Stage exactly your files; confirm `git status` shows no other lane's work staged.
+4. A release note file from `npm run release:new` when the change is user-observable.
+5. `gh pr merge --squash --auto`; after the merge, watch Vercel for that exact SHA.
+6. Verify the real user journey against the deployed URL; record the proof chain in
+   `docs/releases/<version>.md` and update the claim record.
 
 ## 6. When something goes wrong
 

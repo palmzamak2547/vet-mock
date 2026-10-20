@@ -78,7 +78,7 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 
 - **VetMock** — คลังข้อสอบสัตวแพทย์ จุฬา (Vet question bank for Vet 86 + future years)
 - **Stack**: React 18 + Vite 6.4.3 + Supabase (auth/DB) + PWA · plain JSX app code, TS only at the edges (`supabase/functions/*`)
-- **Current source version**: `version` in `package.json`; the newest release note is the top entry of `src/data/changelog.js`. Verify exact-SHA CI/deployment and live flow before describing production as current.
+- **Current source version**: the newest release file in `src/data/changelog/` (or, up to 5.148.0, the top entry of `src/data/changelog.js`); `package.json`'s version is no longer bumped per release. Verify exact-SHA CI/deployment and live flow before describing production as current.
 - **Hosting**: Vercel (auto-deploy on push to `main` · `api/*.js` are Vercel serverless functions · `vercel.json` also CSP-rewrites `/venipuncture/*` to a separate app and `/wiki/*` + `/app/*` to the SPA)
 - **Production**: https://vetmock.com serves the study app; Research runs separately at https://research.vetmock.com. The legacy vetmock.vercel.app host retains the migration relay. Recheck the dated release record before changing an origin.
 - **Audience**: Thai-speaking veterinary students; curriculum cohorts are data, not a fixed public landing audience. User totals require a fresh measurement.
@@ -98,11 +98,15 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 - ❌ Root causes and mechanism: no "สาเหตุคือ…", no model or quota talk. Each change is a title
   plus at most two sentences, 300 characters at most, on what the student will notice.
   `tests/unit/changelog-voice.test.mjs` enforces the voice from 5.124.0 and the length after 5.128.0.
-- See header comment in changelog.js
-- The homepage banner and sidebar badge read `src/data/latest-changelog.generated.js`
-  (newest entry only, so the entry chunk does not carry the whole history).
-  `npm run build` / `npm run dev` regenerate it; `npm run regen:changelog` by hand;
-  `lint:changelog-latest` fails when it is stale. Never hand-edit the generated file.
+- **One file per release**: `npm run release:new -- minor` (or `patch`) writes
+  a file named `<version>.js` in `src/data/changelog/` with the next free number (checked against origin/main and
+  every open pull request), so no session negotiates numbers and two releases never edit the
+  same lines. Fill in its headline and changes; kinds and scopes are in changelog.js's header.
+  Releases up to 5.148.0 stay in `src/data/changelog.js`; `src/data/changelog-all.js` merges both.
+- The banner and sidebar badge read `src/data/latest-changelog.generated.js`, derived and
+  gitignored with `changelog-releases.generated.js` (build, dev and the unit suite write them;
+  `npm run regen:changelog` by hand). `lint:changelog-latest` validates names, uniqueness, shape.
+- The release's proof chain goes in `docs/releases/<version>.md`, not LAUNCH_READINESS.md.
 
 ### 3. Backticks in template literals are landmines
 - `src/data/video-summaries-*.js` uses large template-literal strings for markdown
@@ -202,8 +206,14 @@ Rules that follow from it, and they are not negotiable:
 
 Full rules: [docs/GITFLOW.md](docs/GITFLOW.md). The short form:
 
-- **A `main` push is the deploy.** One coordinated real commit; no `vercel --prod`
-  on top, no empty redeploy commits. A push is not production proof.
+- **Releases are pull requests.** Branch from origin/main in your own worktree, run
+  `npm run gate` (phases A-C plus e2e on smoke and the specs you changed), push the branch,
+  `gh pr create`, then `gh pr merge --squash --auto`. CI runs the full matrix on the PR; the
+  Queue workflow brings the oldest auto-merge PR up to date with main and re-runs it, and
+  GitHub squash-merges it when green. No messages about push order or version numbers.
+- **A merge to `main` is the deploy.** Vercel builds main only and promotes once Build and
+  smoke pass on that SHA. Never push to main directly, never `vercel --prod`. A merge is not
+  production proof.
 - **Disjoint file ownership across harnesses.** Check the one claim record
   (`work/loop-20260930/COORDINATION.md`) and the working tree before touching a
   file; shared surfaces need explicit hunk ownership. Never stage or commit
@@ -257,10 +267,13 @@ npm run dev               # Vite dev server (predev regenerates latest-changelog
 npm run build             # Production build + wiki prerender (always run before commit)
 npm run preview           # Preview built dist
 npm run test:unit         # Node contract suite (tests/unit/*.test.mjs)
-npm run gate             # THE release gate: data lints + unit in Bangkok/UTC (+ SQL harnesses when a
+npm run gate             # THE local gate: data lints + unit in Bangkok/UTC (+ SQL harnesses when a
                          # DB-touching file moved and pglite is reachable), build, contrast, Research
-                         # (auto when research/ moved), then all four E2E profiles
-npm run gate:fast        # Same gate with the two e2e steps concurrent
+                         # (auto when research/ changed since origin/main), then e2e on Chromium for
+                         # smoke + the specs this branch changed. CI runs all four profiles on the PR.
+npm run gate:full        # Same, with the full four-profile e2e here (~65 min on this machine)
+npm run gate:fast        # gate:full with the two e2e steps concurrent
+npm run release:new      # -- minor|patch: a release file in src/data/changelog/ with the next free number
 npm run gate:data        # Fast data/unit diagnosis; does not replace the full release gate
 npm run gate:serial      # Root steps plus the Research suite and build as one && chain; no SQL harnesses (the orchestrator decides those)
 npm run test:e2e          # Cross-browser Playwright suite
@@ -272,7 +285,7 @@ npm run stats:check       # Fail if README/docs inventory drifted
 npm run lint:questions    # Detect bias issues (release gate: 0 errors; warnings tracked separately)
 npm run fix:questions     # Auto-balance answer position
 npm run fix:length        # Auto-trim trailing parentheticals from correct option
-npm run regen:changelog   # Hand-regen latest-changelog.generated.js
+npm run regen:changelog   # Write the derived changelog modules by hand
 npm run fetch:videos      # Fetch YouTube transcripts to data-cache/transcripts/
 npm run flat:transcript   # Flatten transcript JSON → text (with timestamps)
 npm run ping:indexnow     # Notify Bing/Yandex/Naver after deploy
@@ -286,7 +299,7 @@ pglite module the gate prints why and CI postgres remains the concurrent-lock pr
 A mid-run working-tree change is a failure, never green: `gate` is the proof of the tree.
 
 Generated files — never hand-edit; the matching `lint:*` or `regen:*` script owns them:
-`bank-registry.generated.js`, `latest-changelog.generated.js`, `docs/content-inventory.md`,
+`bank-registry.generated.js`, `docs/content-inventory.md`,
 notes/wiki/citation registries (`regen:notes-registry`, `regen:wiki-registry`,
 `regen:citation-index`, `regen:wiki-runtime`), question delivery + q-counts.
 
