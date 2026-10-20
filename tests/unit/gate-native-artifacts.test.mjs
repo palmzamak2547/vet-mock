@@ -98,7 +98,8 @@ test('the actual serial gate preserves both native runner failure attachments in
   try {
     // All earlier phases are tiny fixture commands. Native tests request no
     // page/context/browser fixture and start no web server or application gate.
-    const run = f.run(gateScript);
+    // --full: the default gate runs only test:e2e:quick; this case is about the two CI steps.
+    const run = f.run(gateScript, ['--full']);
     assert.equal(run.status, 1, run.output);
     assert.match(run.output, /failed: test:e2e:chromium, test:e2e:gl/);
     const all = path.join(f.dir, 'test-results');

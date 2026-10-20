@@ -41,10 +41,10 @@ import { NOTES_85_POA_CLINICAL } from '../../data/notes-85-poa-clinical.js';
 import { NOTES_85_SWINE_CLINIC } from '../../data/notes-85-swine-clinic.js';
 import { NOTES_85_ZOONOSES } from '../../data/notes-85-zoonoses.js';
 import { NOTES_Y2_NEUROANAT } from '../../data/notes-y2-neuroanat.js';
-import { noteToKnowledge, verifiedClaimCount } from './adapter.js';
+import { noteToKnowledge } from './adapter.js';
 import { validateTopic } from './validate.js';
-import { resolveSource, workOf } from './sources.js';
-import { EVIDENCE_LABEL, REVIEW_LABEL, wikiTitle, wikiSummary, provenanceHeadline } from './schema.js';
+import { resolveSource } from './sources.js';
+import { EVIDENCE_LABEL, REVIEW_LABEL, wikiTitle, wikiSummary, summarizeProvenance } from './schema.js';
 import { SUBJECTS } from '../../data/curriculum.js';
 
 // subject id → its notes module. Mirrors NotesView's NOTES_BY_SUBJECT (kept a
@@ -183,33 +183,7 @@ export function loadTopic(subject, topic) {
 /** Provenance summary for the read page + "VetMock รู้เรื่องนี้ได้อย่างไร?"
  *  panel. Pure data → the view renders it with vmx-* + Thai labels. */
 export function provenanceSummary(knowledgeTopic) {
-  if (!knowledgeTopic) return null;
-  const sections = knowledgeTopic.sections || [];
-  const verified = verifiedClaimCount(knowledgeTopic);
-  const draftSections = sections.filter((s) => s.reviewStatus === 'draft').length;
-  const metadataSections = sections.filter((s) => s.reviewStatus === 'metadata').length;
-
-  // Distinct external works actually cited by verified claims (one work under
-  // several registry ids counts once: sources.js SAME_WORK).
-  const cited = new Map();
-  for (const s of sections) {
-    for (const c of s.claims || []) {
-      for (const ref of c.sourceRefs || []) {
-        const src = resolveSource(ref);
-        if (src && !cited.has(workOf(src))) cited.set(workOf(src), src);
-      }
-    }
-  }
-  const sources = [...cited.values()];
-
-  return {
-    sectionCount: sections.length,
-    verifiedClaimCount: verified,
-    draftSectionCount: draftSections,
-    metadataSectionCount: metadataSections,
-    sources,
-    headline: provenanceHeadline(verified, draftSections),
-  };
+  return summarizeProvenance(knowledgeTopic, resolveSource);
 }
 
 export { validateTopic, resolveSource, EVIDENCE_LABEL, REVIEW_LABEL };

@@ -23,7 +23,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  resolveSteps, phaseATasks, runPool, strayProcesses, treeChange, CONCURRENT_E2E_PORT,
+  resolveSteps, phaseATasks, runPool, strayProcesses, treeChange, concurrentE2ePort,
   researchChanged, researchTasks, sqlChanged, sqlTasks, uncoveredMigrations, HARNESS_MIGRATIONS, acquireGateLock,
 } from '../../scripts/gate.mjs';
 
@@ -117,7 +117,7 @@ test('CI runs the data lints before the build and only lint:dist after it (STAB-
 test('phase A runs the unit suite in UTC and in Bangkok time (STAB-16)', () => {
   const units = phaseATasks(scripts).filter((t) => /^unit/.test(t.label));
   assert.deepEqual(units.map((u) => u.env.TZ).sort(), ['Asia/Bangkok', 'UTC']);
-  for (const u of units) assert.deepEqual(u.args, ['--test', '--test-concurrency=2', 'tests/unit/*.test.mjs']);
+  for (const u of units) assert.deepEqual(u.args, ['--import', './tests/unit/setup-generated.mjs', '--test', '--test-concurrency=2', 'tests/unit/*.test.mjs']);
   assert.match(scripts['test:unit:utc'], /TZ='UTC'/);
 });
 
@@ -366,6 +366,7 @@ function fixture({ stale = false, tzBound = false, e2eWrites = false } = {}) {
       build: 'node scripts/build.mjs',
       'test:e2e:chromium': 'node scripts/e2e.mjs chromium',
       'test:e2e:gl': 'node scripts/e2e.mjs gl',
+      'test:e2e:quick': 'node scripts/e2e.mjs quick',
     },
   }, null, 2)}\n`);
   put('.gitignore', 'dist/\ntest-results/\n');
@@ -379,7 +380,7 @@ function fixture({ stale = false, tzBound = false, e2eWrites = false } = {}) {
   put('scripts/e2e.mjs', [
     "import fs from 'node:fs';",
     'const which = process.argv[2];',
-    "console.log(`E2E ${which} port=${process.env.PLAYWRIGHT_PORT || '-'} out=${process.env.PLAYWRIGHT_OUTPUT_DIR || '-'}`);",
+    "console.log(`E2E ${which} port=${process.env.PLAYWRIGHT_PORT || '-'} out=${process.env.PLAYWRIGHT_OUTPUT_DIR || '-'} specs=${process.argv.slice(3).join(',')}`);",
     e2eWrites ? "if (which === 'gl') fs.writeFileSync('src/app.js', 'export const app = 2;\\n');" : '',
     '',
   ].join('\n'));
@@ -442,10 +443,11 @@ test('a stale file and a UTC-only unit failure are both reported, and the build 
   } finally { f.done(); }
 });
 
-test('a green run prints one timing line per phase and runs chromium before the GL engines', () => {
+test('a green --full run prints one timing line per phase and runs chromium before the GL engines', () => {
+  assert.equal(scripts['gate:full'], 'node scripts/gate.mjs --full');
   const f = fixture();
   try {
-    const r = gate(f.dir);
+    const r = gate(f.dir, '--full');
     assert.equal(r.status, 0, r.out);
     for (const phase of ['A data', 'B build', 'C dist', 'D e2e', 'total']) {
       assert.match(r.out, new RegExp(`^\\s+${phase}\\s+\\d+\\.\\d s$`, 'm'), `timing line for ${phase}`);
@@ -455,10 +457,28 @@ test('a green run prints one timing line per phase and runs chromium before the 
   } finally { f.done(); }
 });
 
+// The full matrix runs in CI on every pull request; locally the default gate
+// runs smoke plus the specs the branch touches, on Chromium only.
+test('the default gate runs smoke and the changed specs, never the GL engines', () => {
+  const f = fixture();
+  try {
+    f.put('tests/e2e/smoke.spec.js', '// smoke\n');
+    f.put('tests/e2e/other.spec.js', '// untouched\n');
+    f.put('tests/e2e/mine.spec.js', '// v1\n');
+    f.commit();
+    f.put('tests/e2e/mine.spec.js', '// v2\n');
+    const r = gate(f.dir);
+    assert.equal(r.status, 0, r.out);
+    assert.match(r.out, /E2E quick port=- out=test-results\/quick specs=tests\/e2e\/mine\.spec\.js,tests\/e2e\/smoke\.spec\.js/);
+    assert.doesNotMatch(r.out, /E2E (chromium|gl)/);
+    assert.match(r.out, /✓ gate: green/);
+  } finally { f.done(); }
+});
+
 test('a tree that changes during the e2e phase is "tree changed", never green', () => {
   const f = fixture({ e2eWrites: true });
   try {
-    const r = gate(f.dir);
+    const r = gate(f.dir, '--full');
     assert.equal(r.status, 1, r.out);
     assert.match(r.out, /tree changed during phase D/);
     assert.match(r.out, /src\/app\.js/);
@@ -482,7 +502,7 @@ test('--e2e-concurrent gives the second e2e step its own port and output folder'
   try {
     const r = gate(f.dir, '--e2e-concurrent');
     assert.equal(r.status, 0, r.out);
-    assert.match(r.out, new RegExp(`\\[gl\\] E2E gl port=${CONCURRENT_E2E_PORT} out=test-results/gl`));
+    assert.match(r.out, new RegExp(`\\[gl\\] E2E gl port=${concurrentE2ePort(f.dir)} out=test-results/gl`));
     assert.match(r.out, /\[chromium\] E2E chromium port=- out=test-results\/chromium/);
   } finally { f.done(); }
 });

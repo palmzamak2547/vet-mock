@@ -1,5 +1,9 @@
 # VetMock — Launch Readiness
 
+> New releases record their proof chain in `docs/releases/<version>.md`, one file per release,
+> so releases in flight never edit the same lines. The entries below are the record from before
+> release pipeline v2 and stay as written.
+
 ## Release 5.149.0 — 2026-10-20 (Claude Code)
 
 VetWiki phase 4 of `work/vetwiki-redesign/BRIEF.md` without the optional crawler copy (D6): the map of VetWiki behind the colophon's Encyclopédie tree (`src/components/WikiMap.jsx`, every topic a link), the checking history in the provenance panel (`reviewHistory`, from the points' own review dates; the strip's date opens it), Mochi on an empty search and at the end of the first shelf. The gate's phase D takes a machine-wide lock (`acquireGateLock`).

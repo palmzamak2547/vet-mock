@@ -68,6 +68,7 @@ import { chromium } from '@playwright/test';
 import { spawn } from 'node:child_process';
 import { existsSync, statSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { PORTS } from '../tests/e2e/local-port.js';
 
 const arg = (name, fallback) => {
   const hit = process.argv.find((a) => a.startsWith(`--${name}=`));
@@ -77,7 +78,7 @@ const arg = (name, fallback) => {
 };
 
 const REMOTE = arg('url', null);
-const PORT = Number(arg('port', 41732));
+const PORT = Number(arg('port', PORTS.contrast));
 const URL = REMOTE || `http://127.0.0.1:${PORT}/`;
 
 // ── the build this measures ─────────────────────────────────────────

@@ -18,7 +18,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-const { CHANGELOG } = await import('../../src/data/changelog.js');
+const { CHANGELOG } = await import('../../src/data/changelog-all.js');
 
 const parse = (v) => String(v).split('.').map((n) => Number.parseInt(n, 10) || 0);
 const cmp = (a, b) => {

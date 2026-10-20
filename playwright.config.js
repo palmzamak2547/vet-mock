@@ -50,7 +50,11 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 2 : undefined,
-  reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : 'list',
+  // The JSON report carries every test's duration and timeout; CI keeps it as an artifact and
+  // scripts/e2e-durations.mjs warns on a test that uses more than 40% of its timeout.
+  reporter: process.env.CI
+    ? [['github'], ['html', { open: 'never' }], ['json', { outputFile: process.env.PLAYWRIGHT_JSON_OUTPUT_FILE || 'e2e-results.json' }]]
+    : 'list',
   use: {
     // Students read the app in Bangkok and CI runs in UTC: one zone for every
     // project, so a paper at 13:00 means 13:00 on both (STAB-CLOCK). The

@@ -1,0 +1,68 @@
+# ============================================================
+# Queue: a merge queue of one, for a repository that cannot have GitHub's
+# ============================================================
+# GitHub's merge queue exists only for organization-owned repositories, and
+# this one belongs to a user. The ruleset on main asks every pull request to be
+# up to date with main and green on the required checks, and auto-merge
+# (`gh pr merge --squash --auto`) merges it the moment both hold. This workflow
+# supplies the missing step: when main moves, or a pull request turns on
+# auto-merge, it brings the oldest auto-merge pull request that is behind main
+# up to date, then starts the required workflows on it.
+#
+# Why it dispatches: a push made with this workflow's token starts no workflow
+# (GitHub's rule against loops), so the update alone would leave the pull
+# request waiting for checks that never come. workflow_dispatch is the one event
+# that token may start, and its checks land on the same commit.
+#
+# One pull request at a time, oldest first, so a release is tested on exactly
+# the main it lands on. A red pull request is skipped on the next run (it is no
+# longer behind, only blocked) and its author fixes it.
+# ============================================================
+name: Queue
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [auto_merge_enabled]
+    branches: [main]
+  workflow_run:
+    workflows: [Smoke e2e]
+    types: [completed]
+
+concurrency:
+  group: queue
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  next:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Bring the oldest behind pull request up to date
+        run: |
+          set -eu
+          # mergeStateStatus is computed lazily; the first read can say UNKNOWN.
+          for attempt in 1 2 3; do
+            list=$(gh pr list --base main --state open --limit 50 \
+              --json number,headRefName,createdAt,autoMergeRequest,mergeStateStatus,isCrossRepository)
+            echo "$list" | grep -q '"UNKNOWN"' || break
+            sleep 10
+          done
+          next=$(echo "$list" | jq -r '[.[] | select(.autoMergeRequest != null and .isCrossRepository == false
+            and .mergeStateStatus == "BEHIND")] | sort_by(.createdAt) | .[0] | select(.) | "\(.number) \(.headRefName)"')
+          if [ -z "$next" ]; then echo "nothing behind main"; exit 0; fi
+          set -- $next
+          echo "updating #$1 ($2)"
+          gh pr update-branch "$1"
+          for wf in build.yml smoke-e2e.yml vca.yml research-r-parity.yml; do
+            gh workflow run "$wf" --ref "$2"
+          done

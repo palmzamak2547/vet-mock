@@ -24,7 +24,7 @@ import { confirmDialog } from '../lib/dialog.js';
 import { qualityFlags, rankQuestions, answerDistribution, fillDaily, wrongRate } from '../lib/question-quality.js';
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { QB_TOTAL, QB_BLOCKED_TOTAL, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR, Q_PANIC_COUNTS_BY_SUBJECT } from '../data/q-counts.js';
-import { CHANGELOG, SCOPE_LABELS } from '../data/changelog.js';
+import { CHANGELOG, SCOPE_LABELS } from '../data/changelog-all.js';
 import { hasSupabase } from '../lib/supabase.js';
 import PrivateNotes from '../components/PrivateNotes.jsx';
 // The back-office styles travel with this lazy chunk: one account opens

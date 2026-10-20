@@ -1,7 +1,7 @@
 // Browser runtime for VetWiki. Discovery stays metadata-only; note bodies and
 // the correction/verification adapter load only after an article is opened.
 import { listTopics } from './registry.js';
-import { EVIDENCE_LABEL, REVIEW_LABEL, provenanceHeadline } from './schema.js';
+import { EVIDENCE_LABEL, REVIEW_LABEL, summarizeProvenance } from './schema.js';
 import { loadRuntimeData } from './runtime-data.generated.js';
 import { loadNotesSubject } from '../../data/note-corpus.js';
 
@@ -34,38 +34,8 @@ export function resolveSource(ref) {
   return ref ? loadedSources.get(ref.sourceId) || null : null;
 }
 
-function verifiedClaimCount(knowledgeTopic) {
-  return (knowledgeTopic?.sections || []).reduce(
-    (total, section) => total + (section.claims || []).length,
-    0,
-  );
-}
-
 export function provenanceSummary(knowledgeTopic) {
-  if (!knowledgeTopic) return null;
-  const sections = knowledgeTopic.sections || [];
-  const verified = verifiedClaimCount(knowledgeTopic);
-  const draftSections = sections.filter((section) => section.reviewStatus === 'draft').length;
-  const metadataSections = sections.filter((section) => section.reviewStatus === 'metadata').length;
-  // One work under several registry ids counts once (sources.js SAME_WORK).
-  const cited = new Map();
-  for (const section of sections) {
-    for (const claim of section.claims || []) {
-      for (const ref of claim.sourceRefs || []) {
-        const src = resolveSource(ref);
-        const work = src && (src.work || src.id);
-        if (src && !cited.has(work)) cited.set(work, src);
-      }
-    }
-  }
-  return {
-    sectionCount: sections.length,
-    verifiedClaimCount: verified,
-    draftSectionCount: draftSections,
-    metadataSectionCount: metadataSections,
-    sources: [...cited.values()],
-    headline: provenanceHeadline(verified, draftSections),
-  };
+  return summarizeProvenance(knowledgeTopic, resolveSource);
 }
 
 export { listTopics, EVIDENCE_LABEL, REVIEW_LABEL };
