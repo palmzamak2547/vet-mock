@@ -78,7 +78,7 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
 
 - **VetMock** — คลังข้อสอบสัตวแพทย์ จุฬา (Vet question bank for Vet 86 + future years)
 - **Stack**: React 18 + Vite 6.4.3 + Supabase (auth/DB) + PWA · plain JSX app code, TS only at the edges (`supabase/functions/*`)
-- **Current source version**: the newest release file in `src/data/changelog/` (or, up to 5.148.0, the top entry of `src/data/changelog.js`); `package.json`'s version is no longer bumped per release. Verify exact-SHA CI/deployment and live flow before describing production as current.
+- **Current source version**: the newest release file in `src/data/changelog/` (or, for releases before pipeline v2, the top entry of `src/data/changelog.js`); `package.json`'s version is no longer bumped per release. Verify exact-SHA CI/deployment and live flow before describing production as current.
 - **Hosting**: Vercel (auto-deploy on push to `main` · `api/*.js` are Vercel serverless functions · `vercel.json` also CSP-rewrites `/venipuncture/*` to a separate app and `/wiki/*` + `/app/*` to the SPA)
 - **Production**: https://vetmock.com serves the study app; Research runs separately at https://research.vetmock.com. The legacy vetmock.vercel.app host retains the migration relay. Recheck the dated release record before changing an origin.
 - **Audience**: Thai-speaking veterinary students; curriculum cohorts are data, not a fixed public landing audience. User totals require a fresh measurement.
@@ -102,7 +102,7 @@ Do NOT rebuild knowledge backend (→ cuvetsmo-source) · MCP (→ cuvetsmo-mcp)
   a file named `<version>.js` in `src/data/changelog/` with the next free number (checked against origin/main and
   every open pull request), so no session negotiates numbers and two releases never edit the
   same lines. Fill in its headline and changes; kinds and scopes are in changelog.js's header.
-  Releases up to 5.148.0 stay in `src/data/changelog.js`; `src/data/changelog-all.js` merges both.
+  Releases from before pipeline v2 stay in `src/data/changelog.js`; `src/data/changelog-all.js` merges both.
 - The banner and sidebar badge read `src/data/latest-changelog.generated.js`, derived and
   gitignored with `changelog-releases.generated.js` (build, dev and the unit suite write them;
   `npm run regen:changelog` by hand). `lint:changelog-latest` validates names, uniqueness, shape.
