@@ -123,20 +123,17 @@ export function mountLiquidBar(els) {
     }));
   };
 
-  // What the scroll asks of the bar, as one key: joined or not, lifted or not. Most scroll frames
-  // ask nothing new, and those no longer cost a frame on the main thread (onScroll).
-  const wanted = () => {
-    const y = window.scrollY;
-    return `${still ? 0 : +(y > JOIN_AT)}${+(y > LIFT_AT || joining)}`;
-  };
-  let applied = '';
+  // Where the page is, as two facts: past the lift (the outer pieces take on glass) and past the
+  // join. Two markers in the page, at those heights, tell an IntersectionObserver when they leave
+  // the top of the window, so no scroll listener runs at all. Reading scrollY in a scroll listener
+  // made Chromium finish the frame's style and layout there and then, on every scroll event: the
+  // listener alone led the slow frames of a scroll on home (20 Oct).
+  const past = { lift: window.scrollY > LIFT_AT, join: window.scrollY > JOIN_AT };
   const setTargets = () => {
-    const y = window.scrollY;
-    applied = wanted();
-    join.to = still ? 0 : (y > JOIN_AT ? 1 : 0);
+    join.to = still ? 0 : (past.join ? 1 : 0);
     if (join.to === 1) setJoining(true);
     // The outer glass stays while the bar is still apart from a join; it fades once it is not.
-    if (y > LIFT_AT || joining) bar.classList.add('is-scrolled');
+    if (past.lift || joining) bar.classList.add('is-scrolled');
     else bar.classList.remove('is-scrolled');
     bar.classList.toggle('is-joined', join.to === 1);
   };
@@ -247,16 +244,44 @@ export function mountLiquidBar(els) {
     setTargets();
     if (join.to !== before) play();
   };
+  const onCross = () => {
+    if (settle) return;
+    if (performance.now() - navAt < SETTLE_MS) {
+      settle = idle(() => { settle = 0; apply(); }, { timeout: 600 });
+      return;
+    }
+    apply();
+  };
+  const markers = [];
+  const io = typeof IntersectionObserver === 'function'
+    ? new IntersectionObserver((entries) => {
+      let moved = false;
+      for (const e of entries) {
+        const now = !e.isIntersecting && e.boundingClientRect.top < 0;
+        if (past[e.target.dataset.past] !== now) { past[e.target.dataset.past] = now; moved = true; }
+      }
+      if (moved) onCross();
+    })
+    : null;
+  for (const [key, at] of io ? [['lift', LIFT_AT], ['join', JOIN_AT]] : []) {
+    const el = document.createElement('span');
+    el.dataset.past = key;
+    el.setAttribute('aria-hidden', 'true');
+    el.style.cssText = `position:absolute;left:0;top:${at}px;width:1px;height:1px;pointer-events:none;visibility:hidden`;
+    document.body.append(el);
+    markers.push(el);
+    io.observe(el);
+  }
+  // Without the observer, the scroll is read once a frame.
   let scrollQueued = 0;
   const onScroll = () => {
-    if (scrollQueued || settle || wanted() === applied) return;
+    if (scrollQueued) return;
     scrollQueued = requestAnimationFrame(() => {
       scrollQueued = 0;
-      if (performance.now() - navAt < SETTLE_MS) {
-        settle = idle(() => { settle = 0; apply(); }, { timeout: 600 });
-        return;
-      }
-      apply();
+      const y = window.scrollY;
+      past.lift = y > LIFT_AT;
+      past.join = y > JOIN_AT;
+      onCross();
     });
   };
   const refit = () => { fitName(); measure(); render(); };
@@ -275,7 +300,7 @@ export function mountLiquidBar(els) {
     ? new ResizeObserver(() => { cancelAnimationFrame(refitQueued); refitQueued = requestAnimationFrame(refit); })
     : null;
   [inner, brand, nav, act].forEach((el) => el && ro?.observe(el));
-  window.addEventListener('scroll', onScroll, { passive: true });
+  if (!io) window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', refit);
   window.addEventListener('vca:navigate', onNavigate);
   window.addEventListener('popstate', onNavigate);
@@ -286,6 +311,8 @@ export function mountLiquidBar(els) {
 
   return () => {
     window.removeEventListener('scroll', onScroll);
+    io?.disconnect();
+    for (const el of markers) el.remove();
     window.removeEventListener('resize', refit);
     window.removeEventListener('vca:navigate', onNavigate);
     window.removeEventListener('popstate', onNavigate);
