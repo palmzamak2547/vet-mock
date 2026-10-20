@@ -1,4 +1,8 @@
 node_modules
+# Derived from src/data/changelog.js and src/data/changelog/*.js by scripts/regen-latest-changelog.mjs
+# (build, dev and the unit suite write them); one file per release keeps releases conflict-free.
+src/data/latest-changelog.generated.js
+src/data/changelog-releases.generated.js
 dist
 .DS_Store
 .env

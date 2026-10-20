@@ -28,7 +28,6 @@ const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 // importing the module, so line endings never reach it.
 const GENERATORS = [
   { script: 'regen-exam-papers.mjs', out: 'src/data/exam-papers.generated.js' },
-  { script: 'regen-latest-changelog.mjs', out: 'src/data/latest-changelog.generated.js' },
   { script: 'regen-bank-registry.mjs', out: 'src/data/bank-registry.generated.js' },
   { script: 'regen-question-delivery.mjs', out: 'src/data/question-delivery.generated.js' },
   { script: 'regen-mochi-poses.mjs', out: 'src/data/mochi-poses.generated.js' },

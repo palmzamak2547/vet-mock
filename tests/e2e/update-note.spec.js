@@ -1,5 +1,5 @@
 import { test, expect } from './fixtures.js';
-import { CHANGELOG } from '../../src/data/changelog.js';
+import { CHANGELOG } from '../../src/data/changelog-all.js';
 import { truncateThai } from '../../src/lib/thai-text.js';
 
 // The release the build is actually running. Home keys its announcement by

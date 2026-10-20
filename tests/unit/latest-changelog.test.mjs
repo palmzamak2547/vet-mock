@@ -12,7 +12,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
-const full = await import('../../src/data/changelog.js');
+const full = await import('../../src/data/changelog-all.js');
 const gen = await import('../../src/data/latest-changelog.generated.js');
 
 test('the generated module carries exactly the newest release and the scope labels', () => {
@@ -29,12 +29,37 @@ test('the entry-chunk consumers import the generated module, not the full histor
   }
 });
 
-test('build and dev regenerate the module first, and the lint guards the checked-in copy', () => {
+test('build, dev and the unit suite write the modules first, and lint:data validates the releases', () => {
   const pkg = JSON.parse(read('../../package.json'));
   assert.match(pkg.scripts.build, /^node scripts\/regen-latest-changelog\.mjs && vite build/);
   assert.equal(pkg.scripts.predev, 'node scripts/regen-latest-changelog.mjs');
+  assert.match(pkg.scripts['test:unit'], /--import \.\/tests\/unit\/setup-generated\.mjs/);
+  assert.match(pkg.scripts['test:unit:utc'], /setup-generated\.mjs/);
   assert.equal(pkg.scripts['lint:changelog-latest'], 'node scripts/regen-latest-changelog.mjs --check');
-  // lint:data runs before the build, which would otherwise have rewritten
-  // the module the check reads (STAB-13).
   assert.match(pkg.scripts['lint:data'], /npm run lint:changelog-latest/);
+  // Derived files are not committed: two releases in flight would both rewrite them.
+  const ignored = read('../../.gitignore');
+  for (const f of ['src/data/latest-changelog.generated.js', 'src/data/changelog-releases.generated.js']) assert.match(ignored, new RegExp(`^${f}$`, 'm'));
+});
+
+// One file per release (src/data/changelog/<version>.js), so two releases never edit the same lines.
+test('release files join the history newest first, and a misnamed or repeated version is a problem', async () => {
+  const { mkdtempSync, writeFileSync, rmSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
+  const { readChangelog } = await import('../../scripts/regen-latest-changelog.mjs');
+  const dir = mkdtempSync(join(tmpdir(), 'changelog-'));
+  const release = (v) => `export default { version: '${v}', date: '2099-01-01', headline: 'h', changes: [{ kind: 'fix', scope: 'system', title: 't', desc: 'd' }] };\n`;
+  try {
+    writeFileSync(join(dir, '99.1.0.js'), release('99.1.0'));
+    writeFileSync(join(dir, '99.0.9.js'), release('99.0.9'));
+    let r = await readChangelog(dir);
+    assert.deepEqual(r.problems, []);
+    assert.deepEqual(r.all.slice(0, 2).map((e) => e.version), ['99.1.0', '99.0.9']);
+    assert.equal(r.all.length, r.history.length + 2);
+    writeFileSync(join(dir, '99.2.0.js'), release('99.0.9'));
+    r = await readChangelog(dir);
+    assert.ok(r.problems.some((p) => /99\.2\.0\.js: version is 99\.0\.9/.test(p)), r.problems.join('\n'));
+    assert.ok(r.problems.some((p) => /99\.0\.9 appears twice/.test(p)), r.problems.join('\n'));
+  } finally { rmSync(dir, { recursive: true, force: true }); }
 });
