@@ -155,7 +155,7 @@ test('Pomodoro uses the ambience and opens playable activities only during a rea
   await page.goto('/app/focus');
   await expect(page.locator('[data-focus-ambience="rain"] canvas')).toBeVisible({ timeout: 20_000 });
   await expect(page.locator('.vmx-study-break')).toHaveCount(0);
-  await page.getByRole('button', { name: 'เริ่ม focus session', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มโฟกัส', exact: true }).click();
   // The click dispatches an event; it does NOT wait for React to commit the
   // state change. Under the installed clock nothing advances until the test
   // advances it, so a click whose commit is still pending would fast-forward
@@ -164,7 +164,7 @@ test('Pomodoro uses the ambience and opens playable activities only during a rea
   // (webkit-mobile under CI load) produces. The start button renders only in
   // the idle state, so its removal plus the pause control is the commit
   // signal, and it costs nothing on a fast engine.
-  await expect(page.getByRole('button', { name: 'เริ่ม focus session', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'เริ่มโฟกัส', exact: true })).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'หยุดชั่วคราว', exact: true })).toBeVisible();
   await page.clock.fastForward(301_000);
   // fastForward replays 301 ticks of the one-second interval in one burst:
@@ -187,7 +187,7 @@ test('Pomodoro uses the ambience and opens playable activities only during a rea
   await expect(page.locator('.vmx-break-complete')).toBeVisible();
   await page.clock.fastForward(61_000);
   await expect(page.locator('.vmx-study-break')).toHaveCount(0);
-  await expect(page.getByRole('button', { name: 'เริ่ม focus session', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'เริ่มโฟกัส', exact: true })).toBeVisible();
 });
 });
 
@@ -201,7 +201,7 @@ test('the existing Mochi page leads to real rest and focus, with its examples ke
   await expect(page.locator('.vmx-motion-stage')).toHaveCount(0);
   await page.getByRole('button', { name: 'จับเวลาโฟกัส', exact: true }).click();
   await expect(page).toHaveURL(/\/app\/focus$/);
-  await expect(page.getByRole('button', { name: 'เริ่ม focus session', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'เริ่มโฟกัส', exact: true })).toBeVisible();
 });
 
 test('Home lists one rest place, and its doors open the timer and the game', async ({ page }) => {
@@ -334,7 +334,7 @@ test('leaving a set opened from the timer: one tap on the back control leaves th
   await page.keyboard.press('Control+k');
   const input = page.getByLabel('ค้นหาใน VetMock', { exact: true });
   await input.fill('ketamine');
-  const row = page.locator('[data-vmx-modal="true"] button.vmx-omni-row').filter({ hasText: /, Q\d+/ }).first();
+  const row = page.locator('[data-vmx-modal="true"] [role="option"][data-type="question"]').first();
   await row.click({ timeout: 30_000 });
   await page.waitForFunction(() => history.state?.vmxView === 'exam', null, { timeout: 30_000 });
   await page.goBack();

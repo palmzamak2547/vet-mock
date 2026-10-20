@@ -326,11 +326,11 @@ export default function SmartPassage({ text, title, defaultOpen = true }) {
           📄 {title || 'Reading Passage'}
         </span>
         {(highlights.length > 0 || strokes.length > 0) && (
-          <span style={{ fontSize: 11, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontWeight: 600 }}>
+          <span style={{ fontSize: 14, padding: '2px 8px', borderRadius: 999, background: 'var(--clr-gold-soft)', color: 'var(--clr-ink)', fontWeight: 600 }}>
             ✏️ {highlights.length + strokes.length}
           </span>
         )}
-        <span style={{ marginLeft: 'auto', fontSize: 12, color: 'var(--clr-ink-soft)' }}>{open ? '▾ ซ่อน' : '▸ ดู passage'}</span>
+        <span style={{ marginLeft: 'auto', fontSize: 14, color: 'var(--clr-ink-soft)' }}>{open ? '▾ ซ่อน' : '▸ ดู passage'}</span>
       </button>
 
       {open && (
@@ -485,7 +485,7 @@ function ToolBtn({ children, onClick, active, disabled, title }) {
 
 function HelpPanel({ onClose }) {
   return (
-    <div style={{ padding: '10px 14px', background: 'var(--clr-bg)', borderBottom: '1px solid var(--clr-border)', fontSize: 12, lineHeight: 1.6, color: 'var(--clr-ink-soft)' }}>
+    <div style={{ padding: '10px 14px', background: 'var(--clr-bg)', borderBottom: '1px solid var(--clr-border)', fontSize: 14, lineHeight: 1.6, color: 'var(--clr-ink-soft)' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
         <div style={{ flex: 1 }}>
           <div style={{ fontWeight: 700, color: 'var(--clr-ink)', marginBottom: 4 }}>วิธีใช้</div>

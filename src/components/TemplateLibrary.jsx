@@ -106,7 +106,7 @@ export default function TemplateLibrary({ onPick, onClose }) {
             🩻 Template library
           </div>
           <h2 id="vmx-template-library-title" style={{ margin: '4px 0 0', fontSize: 20 }}>เลือก template เพื่อวาดทับ</h2>
-          <p style={{ margin: '6px 0 0', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
+          <p style={{ margin: '6px 0 0', fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
             แต่ละ template เป็น outline เปล่า — เปิดในกระดานวาด แล้วทำ label / mark lesion / hatch
             anatomy ได้ตามต้องการ
           </p>
@@ -195,7 +195,7 @@ export default function TemplateLibrary({ onPick, onClose }) {
                   <div style={{ fontSize: 14, fontWeight: 600, lineHeight: 1.3 }}>{t.title}</div>
                   <div
                     style={{
-                      fontSize: 11,
+                      fontSize: 14,
                       color: 'var(--clr-ink-soft)',
                       fontStyle: 'italic',
                       marginTop: 2,

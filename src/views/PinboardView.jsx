@@ -18,7 +18,7 @@ import NavIcon from '../components/NavIcon.jsx';
 import { useEffect, useMemo, useState, useCallback } from 'react';
 import { subjectText } from '../hooks/utils.js';
 import { loadPins, removePin, clearPinboard, PINBOARD_EVENT, PINBOARD_MAX } from '../lib/pinboard.js';
-import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
+import { SUBJECTS_BY_YEAR, SUBJECTS } from '../data/curriculum.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import { EMPTY_ART } from '../data/art.js';
 import EmptyState from '../components/EmptyState.jsx';
@@ -51,15 +51,39 @@ function relTime(ts) {
   }
 }
 
+const subjectThaiName = (id) => SUBJECTS.find((x) => x.id === id)?.name || '';
+const thaiDate = (value) => {
+  const d = new Date(`${value}T12:00:00+07:00`);
+  return Number.isNaN(d.getTime()) ? '' : d.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Bangkok' });
+};
+
 function snippetFor(pin) {
   const p = pin.payload || {};
   switch (pin.type) {
     case 'question':  return p.stem || p.q || '';
-    case 'summary':   return [p.subject?.toUpperCase?.(), p.instructor, p.date].filter(Boolean).join(', ');
+    // The course's Thai name and a Thai date, as the summary itself shows them.
+    case 'summary':   return [subjectThaiName(p.subject), p.instructor, p.date ? thaiDate(p.date) : ''].filter(Boolean).join(', ');
     case 'flashcard': return p.back || p.front || '';
     case 'note':      return p.snapshot || p.text || '';
     default:          return '';
   }
+}
+
+// What an empty filter says. A chip with nothing behind it is still pressable
+// (disabling it would hide why the list is empty), so pressing it must answer:
+// which category, that it holds nothing, and where the rest went. A year scope
+// that hides pins is named, because "ทั้งหมด 0" while the board has pins reads
+// as data loss.
+export function emptyFilterMessage({ filter, label, yearScope, selectedYear, hiddenByYearScope }) {
+  const hidden = yearScope !== 'all' && hiddenByYearScope > 0;
+  if (filter === 'all') {
+    return hidden
+      ? `ปี ${selectedYear} ยังไม่มีรายการที่ปักหมุด มี ${hiddenByYearScope} รายการในปีอื่น กด "ทุกปี" เพื่อดู`
+      : 'ยังไม่มีรายการที่ปักหมุด';
+  }
+  return hidden
+    ? `ยังไม่มี${label}ที่ปักหมุดในปี ${selectedYear} (มี ${hiddenByYearScope} รายการในปีอื่น กด "ทุกปี" เพื่อดู)`
+    : `ยังไม่มี${label}ที่ปักหมุด เลือกหมวดอื่นที่มีตัวเลขได้เลย`;
 }
 
 export default function PinboardView({ goHome, setView, setSubject, setTopic, setPracticeMode, onOpenQuestion, notes, selectedYear = 4, selectedPhase }) {
@@ -222,7 +246,7 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
             border: '1px solid ' + (yearScope === 'current' ? 'var(--clr-ink)' : 'var(--clr-border)'),
             background: yearScope === 'current' ? 'var(--clr-ink)' : 'transparent',
             color: yearScope === 'current' ? 'var(--clr-surface, #fff)' : 'var(--clr-ink)',
-            fontSize: 12, cursor: 'pointer',
+            fontSize: 14, cursor: 'pointer',
           }}
         >
           ปี {selectedYear}
@@ -236,13 +260,13 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
             border: '1px solid ' + (yearScope === 'all' ? 'var(--clr-ink)' : 'var(--clr-border)'),
             background: yearScope === 'all' ? 'var(--clr-ink)' : 'transparent',
             color: yearScope === 'all' ? 'var(--clr-surface, #fff)' : 'var(--clr-ink)',
-            fontSize: 12, cursor: 'pointer',
+            fontSize: 14, cursor: 'pointer',
           }}
         >
           🌐 ทุกปี
         </button>
         {hiddenByYearScope > 0 && (
-          <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+          <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
             +{hiddenByYearScope} ปีอื่น
           </span>
         )}
@@ -264,6 +288,8 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
               key={chip.id}
               type="button"
               onClick={() => setFilter(chip.id)}
+              aria-pressed={active}
+              aria-label={`${chip.label} ${n} รายการ`}
               style={{
                 minHeight: 44,
                 padding: '6px 12px',
@@ -271,7 +297,7 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
                 border: '1px solid ' + (active ? 'var(--clr-ink)' : 'var(--clr-border)'),
                 background: active ? 'var(--clr-ink)' : 'transparent',
                 color: active ? 'var(--clr-surface, #fff)' : 'var(--clr-ink)',
-                fontSize: 13,
+                fontSize: 14,
                 cursor: 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -282,7 +308,7 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
             >
               <NavIcon name={chip.iconName} size={13} />
               <span>{chip.label}</span>
-              <span style={{ opacity: 0.7, fontFamily: 'var(--vmx-mono)', fontSize: 11 }}>{n}</span>
+              <span aria-hidden="true" style={{ opacity: 0.85, fontSize: 14 }}>{n}</span>
             </button>
           );
         })}
@@ -301,8 +327,8 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
               body="กดปุ่มพินในข้อสอบหรือสรุปเพื่อบันทึกเนื้อหาเก็บไว้ทบทวน"
             />
         ) : (
-          <div className="vmx-empty">
-            <div style={{ fontSize: 14 }}>ไม่มีพินในหมวด <strong>{TYPE_META[filter]?.label || filter}</strong> โปรดเลือกหมวดอื่น</div>
+          <div className="vmx-empty" role="status" aria-live="polite">
+            <div style={{ fontSize: 14 }}>{emptyFilterMessage({ filter, label: TYPE_META[filter]?.label || filter, yearScope, selectedYear, hiddenByYearScope })}</div>
           </div>
         )
       )}
@@ -365,9 +391,9 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
                     aria-label="ลบพินนี้"
                     title="ลบพินนี้"
                     style={{
-                      width: 36,
-                      height: 36,
-                      minWidth: 36,
+                      width: 44,
+                      height: 44,
+                      minWidth: 44,
                       padding: 0,
                       background: 'transparent',
                       border: '1px solid var(--clr-border)',
@@ -401,7 +427,7 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
                 {snip && (
                   <div
                     style={{
-                      fontSize: 12,
+                      fontSize: 14,
                       color: 'var(--clr-ink-soft)',
                       lineHeight: 1.5,
                       display: '-webkit-box',
@@ -426,12 +452,12 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
                         border: '1px solid var(--clr-border)',
                       }}
                     >
-                      <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--clr-ink-soft)', marginBottom: 2 }}>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--clr-ink-soft)', marginBottom: 2 }}>
                         บันทึกส่วนตัว
                       </div>
                       <div
                         style={{
-                          fontSize: 11,
+                          fontSize: 14,
                           color: 'var(--clr-ink)',
                           lineHeight: 1.4,
                           display: '-webkit-box',
@@ -447,7 +473,7 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
                     </div>
                   );
                 })()}
-                <div style={{ marginTop: 'auto', fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', opacity: 0.8 }}>
+                <div style={{ marginTop: 'auto', fontSize: 14, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', opacity: 0.8 }}>
                   เพิ่มเมื่อ {relTime(pin.addedAt)}
                 </div>
               </div>

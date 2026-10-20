@@ -30,6 +30,7 @@ const docListeners = new Map();
 let now = Date.UTC(2026, 8, 26, 3, 0, 0);
 const realNow = Date.now;
 Date.now = () => now;
+let confirmAnswer = true;
 globalThis.window = {
   localStorage: {
     getItem: (k) => (rows.has(k) ? rows.get(k) : null),
@@ -37,6 +38,8 @@ globalThis.window = {
     removeItem: (k) => rows.delete(k),
   },
   dispatchEvent: () => true,
+  // Resetting a running round asks first; the next test answers through this.
+  confirm: () => confirmAnswer,
   matchMedia: () => ({ matches: false, addEventListener() {}, removeEventListener() {} }),
 };
 globalThis.document = {
@@ -48,6 +51,7 @@ test.after(() => { Date.now = realNow; });
 
 const run = await import('../../src/lib/pomodoro-run.js');
 const buddyLib = await import('../../src/lib/buddy.js');
+const dialogLib = await import('../../src/lib/dialog.js');
 
 // ── Harness ───────────────────────────────────────────────────────────────
 const h = (type, props, ...children) => ({ type, props: props || {}, children: children.flat(Infinity) });
@@ -64,7 +68,7 @@ async function compileTimer() {
     const scope = {
       h, Fragment: 'Fragment', ...hooks, ...Object.fromEntries(fromRun.map((n) => [n, run[n]])),
       PomodoroChick: 'PomodoroChick', FocusBackdrop: 'FocusBackdrop', StudyBreak: 'StudyBreak', MotionButton: 'MotionButton',
-      buddyArt: buddyLib.buddyArt,
+      buddyArt: buddyLib.buddyArt, confirmDialog: dialogLib.confirmDialog,
     };
     return new Function(...Object.keys(scope), `${code}\nreturn PomodoroTimer;`)(...Object.values(scope));
   };
@@ -173,7 +177,7 @@ function fresh({ strictFocus = false, focusMin = 25, shortBreakMin = 5, longBrea
 test('a focus left for another screen is still running when the student comes back', () => {
   const { props, log } = fresh();
   let view = mount(props);
-  button(view, 'เริ่ม focus session').props.onClick();
+  button(view, 'เริ่มโฟกัส').props.onClick();
   view.render();
   now += 10 * MIN;
   view.unmount(); // the student opens the library
@@ -187,7 +191,7 @@ test('a focus left for another screen is still running when the student comes ba
 test('a focus that finished while the student was elsewhere is recorded, and its break resumes on time', () => {
   const { props, log } = fresh();
   let view = mount(props);
-  button(view, 'เริ่ม focus session').props.onClick();
+  button(view, 'เริ่มโฟกัส').props.onClick();
   view.render();
   view.unmount();
   now += 27 * MIN; // focus ended two minutes ago
@@ -205,7 +209,7 @@ test('a focus that finished while the student was elsewhere is recorded, and its
 test('Strict Mode: leaving the focus screen for longer than the grace fails the session, a short hop does not', () => {
   let { props, log } = fresh({ strictFocus: true });
   let view = mount(props);
-  button(view, 'เริ่ม focus session').props.onClick();
+  button(view, 'เริ่มโฟกัส').props.onClick();
   view.render();
   view.unmount();
   now += 3_000;
@@ -215,7 +219,7 @@ test('Strict Mode: leaving the focus screen for longer than the grace fails the 
 
   ({ props, log } = fresh({ strictFocus: true }));
   view = mount(props);
-  button(view, 'เริ่ม focus session').props.onClick();
+  button(view, 'เริ่มโฟกัส').props.onClick();
   view.render();
   now += 4 * MIN;
   view.unmount();
@@ -225,13 +229,19 @@ test('Strict Mode: leaving the focus screen for longer than the grace fails the 
   assert.deepEqual(log, [{ durationMin: 25, completed: false }], 'recorded as failed, never as completed');
 });
 
-test('reset and a finished break leave nothing to restore', () => {
+test('reset asks before dropping a running round; reset and a finished break leave nothing to restore', async () => {
   const { props } = fresh();
   let view = mount(props);
-  button(view, 'เริ่ม focus session').props.onClick();
+  button(view, 'เริ่มโฟกัส').props.onClick();
   view.render();
   assert.equal(rows.has(run.POMODORO_RUN_KEY), true);
-  button(view, 'เริ่มใหม่').props.onClick();
+  confirmAnswer = false;
+  await button(view, 'เริ่มใหม่').props.onClick();
+  view.render();
+  assert.equal(rows.has(run.POMODORO_RUN_KEY), true, 'declining the question keeps the running round');
+  assert.equal(button(view, 'หยุดชั่วคราว') != null, true);
+  confirmAnswer = true;
+  await button(view, 'เริ่มใหม่').props.onClick();
   view.render();
   view.unmount();
   assert.equal(rows.has(run.POMODORO_RUN_KEY), false);
@@ -243,7 +253,7 @@ test('reset and a finished break leave nothing to restore', () => {
 test('(a) Strict Mode fails on the wall clock when a suspended page wakes', () => {
   const { props, log } = fresh({ strictFocus: true });
   const view = mount(props);
-  button(view, 'เริ่ม focus session').props.onClick();
+  button(view, 'เริ่มโฟกัส').props.onClick();
   view.render();
   document.hidden = true;
   docListeners.get('visibilitychange')();
@@ -258,7 +268,7 @@ test('(a) Strict Mode fails on the wall clock when a suspended page wakes', () =
 test('(a) a glance under the grace keeps the session', () => {
   const { props, log } = fresh({ strictFocus: true });
   const view = mount(props);
-  button(view, 'เริ่ม focus session').props.onClick();
+  button(view, 'เริ่มโฟกัส').props.onClick();
   view.render();
   document.hidden = true;
   docListeners.get('visibilitychange')();
@@ -275,7 +285,7 @@ test('(b) the break line says the break length the student set', () => {
   assert.match(run.statusLabel('longBreak', true, 30), /^พักยาว 30 นาที/);
   const { props } = fresh({ shortBreakMin: 10 });
   const view = mount(props);
-  button(view, 'เริ่ม focus session').props.onClick();
+  button(view, 'เริ่มโฟกัส').props.onClick();
   view.render();
   now += 25 * MIN;
   view.tick();
@@ -286,7 +296,7 @@ test('(b) the break line says the break length the student set', () => {
 test('(c) moving a slider mid-session changes the next phase, not the running one', () => {
   const { props, log } = fresh();
   const view = mount(props);
-  button(view, 'เริ่ม focus session').props.onClick();
+  button(view, 'เริ่มโฟกัส').props.onClick();
   view.render();
   now += 12 * MIN;
   view.render({ ...props, config: { ...props.config, focusMin: 10 } });
@@ -311,7 +321,7 @@ test('(c) moving a slider mid-session changes the next phase, not the running on
 test('a clock jump past the end of a focus starts the break even after a render React bails out of', () => {
   const { props, log } = fresh({ focusMin: 5, shortBreakMin: 1 });
   const view = mount(props);
-  button(view, 'เริ่ม focus session').props.onClick();
+  button(view, 'เริ่มโฟกัส').props.onClick();
   view.render();
   now += 301_000; // the phone was locked through the end; no tick ran
   view.bailout();
@@ -347,7 +357,7 @@ test('the buddy in the ring: Mochi reads during a focus, a clinic mascot keeps i
   const { props } = fresh({ strictFocus: true });
   const mochi = mount({ ...props, avatar: buddyLib.MOCHI_BUDDY, buddyName: 'โมจิ' });
   assert.equal(ringImg(mochi).props.src, buddyLib.MOCHI_BUDDY.src, 'idle: the portrait');
-  button(mochi, 'เริ่ม focus session').props.onClick();
+  button(mochi, 'เริ่มโฟกัส').props.onClick();
   mochi.render();
   assert.equal(ringImg(mochi).props.src, buddyLib.MOCHI_BUDDY.poses.read, 'focus: Mochi reads along');
   assert.equal(ringImg(mochi).props.key, buddyLib.MOCHI_BUDDY.poses.read, 'keyed on its source');
@@ -355,7 +365,7 @@ test('the buddy in the ring: Mochi reads during a focus, a clinic mascot keeps i
   mochi.unmount();
   const porky = buddyLib.BUDDIES.find((b) => b.id === 'porky');
   const view = mount({ ...fresh().props, avatar: porky, buddyName: porky.nameTh });
-  button(view, 'เริ่ม focus session').props.onClick();
+  button(view, 'เริ่มโฟกัส').props.onClick();
   view.render();
   assert.equal(ringImg(view).props.src, porky.src, 'a clinic mascot keeps its picture in focus');
   view.unmount();
@@ -368,7 +378,7 @@ test('the buddy in the ring: Mochi reads during a focus, a clinic mascot keeps i
 test('the timer follows the theme and speaks Thai', () => {
   const { props } = fresh();
   const view = mount(props);
-  const start = button(view, 'เริ่ม focus session');
+  const start = button(view, 'เริ่มโฟกัส');
   assert.equal(textOf(start).trim(), 'เริ่ม', 'the visible label is part of its name (label in name)');
   start.props.onClick();
   view.render();
@@ -384,4 +394,12 @@ test('the timer follows the theme and speaks Thai', () => {
   assert.match(track.props.style?.stroke || '', /color-mix\(in srgb, var\(--clr-gold\)/, 'the track mixes theme tokens');
   assert.doesNotMatch(textOf(view.tree), /Start|Pause|Resume|Reset|Cycle/, 'no English button text');
   view.unmount();
+});
+
+test('a paused run says it is paused, in every active phase', () => {
+  for (const state of ['focus', 'shortBreak', 'longBreak']) {
+    assert.match(run.statusLabel(state, true, 25, undefined, true), /หยุดไว้ชั่วคราว/);
+  }
+  assert.doesNotMatch(run.statusLabel('focus', true, 25, undefined, false), /หยุดไว้ชั่วคราว/);
+  assert.doesNotMatch(run.statusLabel('idle', true, 25, undefined, true), /หยุดไว้ชั่วคราว/);
 });

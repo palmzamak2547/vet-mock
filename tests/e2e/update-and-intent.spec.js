@@ -66,6 +66,11 @@ test('a missing view chunk offers an explicit retry on a narrow screen without a
   await page.goto('/app/about');
   await expect(page.getByRole('heading', { name: 'หน้านี้ขัดข้อง', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'โหลดหน้านี้ใหม่', exact: true })).toBeVisible();
+  // The card follows the connection: offline it says why, back online it says the reload will work.
+  await page.context().setOffline(true);
+  await expect(page.getByText(/ยังไม่ได้ต่ออินเทอร์เน็ต/)).toBeVisible();
+  await page.context().setOffline(false);
+  await expect(page.getByText(/ต่ออินเทอร์เน็ตแล้ว กดโหลดใหม่/)).toBeVisible();
   expect(await page.evaluate(() => performance.getEntriesByType('navigation')[0].type)).toBe('navigate');
   expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
   await page.screenshot({ path: testInfo.outputPath('chunk-retry-mobile.png') });
@@ -76,11 +81,11 @@ test('choosing notes from the palette while already choosing a subject changes t
   await expect(page.getByRole('textbox', { name: 'ค้นหาวิชา' })).toBeVisible();
   const historyLength = await page.evaluate(() => history.length);
   await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
-  await page.getByRole('textbox', { name: 'ค้นหาใน VetMock' }).fill('สรุปบทเรียน');
+  await page.getByRole('combobox', { name: 'ค้นหาใน VetMock' }).fill('สรุปบทเรียน');
   // The ask-the-corpus button repeats the query and appears before results.
   // Select the actual Quick Action, rather than asking about its label.
   await page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' })
-    .getByRole('button', { name: /^📓 สรุปบทเรียน สรุปจากสไลด์/ }).click();
+    .getByRole('option', { name: /^📓 สรุปบทเรียน สรุปจากสไลด์/ }).click();
   await expect(page.getByText('เลือกวิชาเพื่ออ่านสรุปจากสไลด์ พร้อมแหล่งอ้างอิงในแต่ละส่วน', { exact: true })).toBeVisible();
   expect(await page.evaluate(() => history.length)).toBe(historyLength);
   // A subsequent practice request has no reading intent and must clear it.

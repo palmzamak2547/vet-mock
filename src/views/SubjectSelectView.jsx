@@ -151,7 +151,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           ) : readingIntent ? (
             'เลือกวิชาเพื่ออ่านสรุปจากสไลด์ พร้อมแหล่งอ้างอิงในแต่ละส่วน'
           ) : mode === 'exam' ? (
-            'จำลองสนามสอบ — ตั้งค่าจำนวนข้อและเวลาได้ในขั้นถัดไป'
+            'โหมดสอบ จับเวลาเหมือนสอบจริง ตั้งจำนวนข้อและเวลาได้ในขั้นถัดไป'
           ) : (
             'ฝึกแบบเลือกจำนวน — สุ่มข้อสอบตามจำนวนที่เลือก'
           )}
@@ -200,11 +200,11 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           {group.label && (
             <div style={{
               margin: '24px 20px 10px', display: 'flex', alignItems: 'baseline', gap: 10,
-              fontSize: 13, color: 'var(--clr-ink-soft)',
+              fontSize: 14, color: 'var(--clr-ink-soft)',
             }}>
               <span style={{ fontWeight: 700, color: 'var(--clr-ink)' }}>{group.label}</span>
               <span style={{ flex: 1, height: 1, background: 'var(--clr-border)' }} />
-              <span style={{ fontSize: 11, fontVariantNumeric: 'tabular-nums' }}>{group.items.length} วิชา</span>
+              <span style={{ fontSize: 14, fontVariantNumeric: 'tabular-nums' }}>{group.items.length} วิชา</span>
             </div>
           )}
           <div className="vmx-subject-grid">
@@ -239,6 +239,10 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           // that was sitting right there.
           const subjectHasNotes = hasNotes(s.id);
           const isEmpty = count === 0 && !subjectHasNotes;
+          // Zero under the picked paper is not "no content": a term-1 course
+          // under a term-2 paper holds hundreds of questions, just not for it.
+          const outOfPhase = isEmpty && !!scopedCounts && s.id !== 'all'
+            && (countBySubject.get(s.id) ?? visibleQuestionCount(s.id, allQuestions)) > 0;
           const shelfDocs = isEmpty ? (docCounts?.get(s.id) || 0) : 0;
 
           return (
@@ -277,21 +281,24 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
               }}
               title={qbLoading ? 'กำลังโหลดคลังข้อสอบ'
                 : (shelfDocs > 0 ? `เปิดชั้นเอกสารจริงของวิชานี้ (${shelfDocs} ไฟล์)`
-                  : (isEmpty ? 'ยังไม่มีเนื้อหาของวิชานี้ในแอป' : ''))}
+                  : (outOfPhase ? 'วิชานี้ไม่อยู่ในช่วงสอบที่เลือก สลับช่วงสอบที่หน้าแรกเพื่อฝึก'
+                    : (isEmpty ? 'ยังไม่มีเนื้อหาของวิชานี้ในแอป' : '')))}
             >
               <SubjectCover subjectId={s.id} />
               <div className="title">{s.name}</div>
               <div className="sub">{s.name_en}</div>
-              <div className="count" style={{ color: (isEmpty && !qbLoading && shelfDocs === 0) ? 'var(--clr-rose-text)' : (shelfDocs > 0 ? 'var(--clr-sage-text)' : 'var(--clr-ink-soft)') }}>
+              <div className="count" style={{ color: (isEmpty && !qbLoading && shelfDocs === 0 && !outOfPhase) ? 'var(--clr-rose-text)' : (shelfDocs > 0 ? 'var(--clr-sage-text)' : 'var(--clr-ink-soft)') }}>
                 {qbLoading
                   ? 'กำลังโหลด…'
                   : count === 0 && subjectHasNotes
                     ? 'มีสรุปให้อ่าน'
                     : shelfDocs > 0
                       ? `เอกสารจริง ${shelfDocs} ไฟล์`
+                      : outOfPhase
+                        ? 'ไม่อยู่ในช่วงสอบนี้'
                       : isEmpty
                         ? 'ยังไม่มีเนื้อหา'
-                        : `${count} ข้อ`}
+                        : `${count.toLocaleString()} ข้อ`}
               </div>
               {/* Drop the 7-digit course code on the card — already
                   searchable via ⌘K; redundant visual noise here. */}
@@ -337,7 +344,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                     borderRadius: 999,
                     background: 'var(--clr-surface-2)',
                     border: '1px solid var(--clr-border)',
-                    fontSize: 11,
+                    fontSize: 14,
                     fontVariantNumeric: 'tabular-nums',
                     color: 'var(--clr-ink-soft)',
                     display: 'inline-flex',
@@ -357,7 +364,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
       ))}
 
       {isScaffoldYear && (
-        <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
+        <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
           <strong>ปีนี้กำลังวางโครงสร้าง</strong> — ข้อมูลรายวิชาและผู้สอนมาจากทะเบียนที่ตรวจสอบแล้ว<br/>
           ถ้ามีสไลด์ สรุป หรือข้อสอบเก่าที่ได้รับอนุญาต ส่งผ่านเมนู "แจ้งปัญหา" ได้เลย<br/>
           ชั้นปีที่มีคลังข้อสอบพร้อมใช้: {YEARS.filter((year) => !year.scaffold).map((year) => year.label).join(', ')}

@@ -224,7 +224,7 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
         <div style={emptyStyle}>
           <div style={{ fontSize: '2rem', marginBottom: 8 }}>📭</div>
           <div>ยังไม่มี public case ในระบบ</div>
-          <div style={{ fontSize: '0.78rem', marginTop: 12, color: '#888', lineHeight: 1.5 }}>
+          <div style={{ fontSize: '14px', marginTop: 12, color: '#888', lineHeight: 1.5 }}>
             เคสจะทยอยเพิ่มหลังตรวจ anonymization และสิทธิ์การใช้งานเรียบร้อยแล้ว
           </div>
         </div>
@@ -239,7 +239,7 @@ export default function CaseLibrary({ onOpenCase, onBack }) {
             <div style={emptyModalityStyle}>
               <div style={{ fontSize: '2rem', marginBottom: 6 }}>📭</div>
               <div>ยังไม่มี <strong>{modalityShortLabel(modalityFilter)}</strong> case ใน library</div>
-              <div style={{ fontSize: '0.75rem', color: '#888', marginTop: 6 }}>
+              <div style={{ fontSize: '14px', color: '#888', marginTop: 6 }}>
                 {modalityFilter === 'xray'
                   ? 'ควรมี X-ray cases ใน library, ลอง refresh อีกครั้ง'
                   : `${modalityShortLabel(modalityFilter)} cases จะเพิ่มในเซสชันถัดไป (ขึ้นกับ CC dataset ที่หาเจอ + CUVET path)`}

@@ -70,7 +70,7 @@ test('shared modal behavior traps focus, closes on Escape and restores focus', a
   await searchButton.click();
 
   const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
-  const searchInput = page.getByRole('textbox', { name: 'ค้นหาใน VetMock' });
+  const searchInput = page.getByRole('combobox', { name: 'ค้นหาใน VetMock' });
   await expect(dialog).toBeVisible({ timeout: COLD_CHUNK_TIMEOUT });
   await expect(searchInput).toBeFocused({ timeout: COLD_CHUNK_TIMEOUT });
 
@@ -84,7 +84,7 @@ test('shared modal behavior traps focus, closes on Escape and restores focus', a
 test('signed-out direct links keep their URL and show the auth boundary', async ({ page }) => {
   await page.goto('/app/race');
   const authBoundary = page.locator('section[aria-labelledby="vmx-auth-required-title"]');
-  await expect(authBoundary.getByRole('heading', { name: /หน้านี้ใช้บัญชี VetMock/ })).toBeVisible();
+  await expect(authBoundary.getByRole('heading', { name: 'แข่งกับเพื่อน ใช้บัญชี VetMock', exact: true })).toBeVisible();
   await expect(page).toHaveURL(/\/app\/race$/);
   await expect(authBoundary.getByRole('button', { name: /เข้าสู่ระบบ/ })).toBeVisible();
   await expect(authBoundary.getByRole('button', { name: /กลับหน้าแรก/ })).toBeVisible();

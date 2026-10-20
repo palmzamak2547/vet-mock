@@ -156,7 +156,7 @@ export default function ClozeEditor({
           ทำ cloze ที่เลือก
         </button>
         {parsed.hasCloze && (
-          <span style={{ fontSize: 12, color: 'var(--clr-ink-soft, #5e635e)' }}>
+          <span style={{ fontSize: 14, color: 'var(--clr-ink-soft, #5e635e)' }}>
             {parsed.clozeIndices.length} cloze
             {parsed.clozeIndices.length > 1 ? ' indices' : ''} → จะสร้าง {parsed.clozeIndices.length} ใบ
           </span>
@@ -165,7 +165,7 @@ export default function ClozeEditor({
 
       {/* Textarea */}
       <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>
+        <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--clr-ink)' }}>
           ข้อความ (ใช้ {'{{c1::คำที่ซ่อน}}'} ครอบส่วนที่อยากซ่อน)
         </span>
         <textarea
@@ -219,7 +219,7 @@ export default function ClozeEditor({
                   style={{
                     minHeight: 32,
                     padding: '4px 10px',
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: 600,
                   }}
                 >
@@ -229,7 +229,7 @@ export default function ClozeEditor({
             </div>
           )}
           <div>
-            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--clr-ink-soft, #5e635e)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink-soft, #5e635e)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>
               ด้านหน้า (c{activeIdx})
             </div>
             <div style={{ fontSize: 14, lineHeight: 1.6, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
@@ -256,7 +256,7 @@ export default function ClozeEditor({
             </div>
           </div>
           <div>
-            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--clr-ink-soft, #5e635e)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink-soft, #5e635e)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>
               ด้านหลัง (เฉลย)
             </div>
             <div style={{ fontSize: 14, lineHeight: 1.6, whiteSpace: 'pre-wrap', wordBreak: 'break-word', color: 'var(--clr-ink-soft, #5e635e)' }}>
@@ -268,7 +268,7 @@ export default function ClozeEditor({
 
       {/* Subject */}
       <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>
+        <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--clr-ink)' }}>
           วิชา (ไม่บังคับ)
         </span>
         <select
@@ -303,7 +303,7 @@ export default function ClozeEditor({
             color: 'var(--clr-red-deep, #8a1a1a)',
             padding: '8px 12px',
             borderRadius: 8,
-            fontSize: 13,
+            fontSize: 14,
           }}
         >
           {error}

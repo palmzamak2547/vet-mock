@@ -1,4 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
+import { topicLecturerLabel } from '../lib/lecturer-name.js';
 import ReadingEffects from '../components/ReadingEffects.jsx';
 import { MotionEnter } from '../components/MotionFeedback.jsx';
 import MotionLoader from '../components/MotionLoader.jsx';
@@ -367,7 +368,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
             <>
               {subjectShelves.map((shelf) => (
               <div key={shelf.year}>
-              <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
+              <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
                 {shelf.label}
               </div>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
@@ -396,7 +397,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
               ))}
             </>
           )}
-          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6 }}>
+          <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6 }}>
             หัวข้อ
           </div>
           {topicIds.map((id) => {
@@ -419,17 +420,18 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                   transition: 'all 0.12s',
                 }}
               >
-                <div style={{ fontSize: 13, fontWeight: active ? 600 : 500, lineHeight: 1.3 }}>
+                <div style={{ fontSize: 14, fontWeight: active ? 600 : 500, lineHeight: 1.3 }}>
                   {t.icon} {t.title}
                 </div>
                 {/* Some decks never name their lecturer, and a bare "by Aj."
                     reads as a rendering failure rather than a missing field. */}
-                {t.lecturer && (
-                  <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 4 }}>
-                    ผู้สอน: {t.lecturer}
+                {/* "TBD" is a placeholder in the data, not a person: no line at all. */}
+                {topicLecturerLabel(activeSubject, t.lecturer) && (
+                  <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 4 }}>
+                    ผู้สอน: {topicLecturerLabel(activeSubject, t.lecturer).name}
                   </div>
                 )}
-                <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 4 }}>
+                <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 4 }}>
                   {t.sections.length} ส่วน
                 </div>
               </button>
@@ -446,12 +448,6 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
           {/* Phone and narrow tablet: the platform's own pickers instead of the
               sidebar, one row each, so the topic starts on the first screen. */}
           <div className="vmx-notes-picker">
-            <label className="vmx-notes-picker-field">
-              <span>หัวข้อ</span>
-              <select value={validTopic} onChange={(e) => openTopic(e.target.value)}>
-                {topicIds.map((id, i) => <option key={id} value={id}>{`${i + 1}. ${notes[id].title}`}</option>)}
-              </select>
-            </label>
             {availableSubjects.length > 1 && (
               <label className="vmx-notes-picker-field">
                 <span>วิชา</span>
@@ -466,17 +462,23 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                 </select>
               </label>
             )}
+            <label className="vmx-notes-picker-field">
+              <span>หัวข้อ</span>
+              <select value={validTopic} onChange={(e) => openTopic(e.target.value)}>
+                {topicIds.map((id, i) => <option key={id} value={id}>{`${i + 1}. ${notes[id].title}`}</option>)}
+              </select>
+            </label>
           </div>
           <div ref={topicHeadRef} tabIndex={-1} className="vmx-notes-topic-head" style={{ marginBottom: 16, padding: 16, borderRadius: 12, background: 'var(--clr-surface)', border: '1px solid var(--clr-border)', boxShadow: 'var(--shadow-sm)' }}>
             <div className="vmx-notes-topic-kicker">
-              {topic.lecturer ? `หัวข้อ ${topicIndex + 1} จาก ${topicIds.length}, ผู้สอน ${topic.lecturer}` : `หัวข้อ ${topicIndex + 1} จาก ${topicIds.length}`}
+              {topicLecturerLabel(activeSubject, topic.lecturer) ? `หัวข้อ ${topicIndex + 1} จาก ${topicIds.length}, ผู้สอน ${topicLecturerLabel(activeSubject, topic.lecturer).name}` : `หัวข้อ ${topicIndex + 1} จาก ${topicIds.length}`}
             </div>
             <h2 style={{ margin: '0 0 8px', fontFamily: 'var(--vmx-display)', fontSize: 22, fontWeight: 600 }}>
               {topic.icon} {topic.title}
             </h2>
             {topic.summary && (
               <div style={{
-                fontSize: 13,
+                fontSize: 14,
                 color: 'var(--clr-ink)',
                 lineHeight: 1.6,
                 marginBottom: 12,
@@ -645,7 +647,7 @@ const SectionBlock = memo(function SectionBlock({ section, number, highlight, co
         style={{ all: 'unset', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '14px 18px', width: '100%', boxSizing: 'border-box', borderBottom: open ? '1px solid var(--clr-border)' : 'none' }}
       >
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>
+          <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>
             §{number}
           </div>
           <div style={{ fontFamily: 'var(--vmx-display)', fontSize: 17, fontWeight: 600, lineHeight: 1.3 }}>
@@ -656,7 +658,7 @@ const SectionBlock = memo(function SectionBlock({ section, number, highlight, co
               the corrected version and never learn the lecturer marks it
               differently — which is the opposite of useful before an exam. */}
           {hasConflict && (
-            <div style={{ marginTop: 5, fontSize: 11, fontWeight: 700, color: 'var(--clr-rose-text)' }}>
+            <div style={{ marginTop: 5, fontSize: 14, fontWeight: 700, color: 'var(--clr-rose-text)' }}>
               {conflicts.length === 1 ? 'มี 1 จุดที่หลักฐานไม่ตรงกับที่บรรยาย' : `มี ${conflicts.length} จุดที่หลักฐานไม่ตรงกับที่บรรยาย`}
             </div>
           )}
@@ -673,7 +675,7 @@ const SectionBlock = memo(function SectionBlock({ section, number, highlight, co
               two surfaces, zero drift. */}
           <SlideFigures sectionId={figSectionId} source={section.source || ''} />
           {section.source && (
-            <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+            <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
               แหล่งที่มา: {section.source}
             </div>
           )}
@@ -722,7 +724,7 @@ function BodyItem({ item, highlight }) {
           <thead>
             <tr style={{ background: 'var(--clr-surface-2)' }}>
               {headers.map((h, i) => (
-                <th key={i} style={{ padding: '8px 10px', borderBottom: '1px solid var(--clr-border)', textAlign: 'left', fontFamily: 'var(--vmx-mono)', fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--clr-ink-soft)' }}>
+                <th key={i} style={{ padding: '8px 10px', borderBottom: '1px solid var(--clr-border)', textAlign: 'left', fontFamily: 'var(--vmx-mono)', fontSize: 14, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--clr-ink-soft)' }}>
                   <RichText text={h} highlight={highlight} />
                 </th>
               ))}

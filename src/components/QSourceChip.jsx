@@ -63,7 +63,7 @@ export default function QSourceChip({ q, store }) {
       borderRadius: 10,
       background: 'rgba(74, 107, 74, 0.04)',
       border: '1px solid var(--clr-border)',
-      fontSize: 12,
+      fontSize: 14,
       color: 'var(--clr-ink-soft)',
     }}>
       {/* A class, not an inline all:unset (which reset the very rules the
@@ -88,13 +88,13 @@ export default function QSourceChip({ q, store }) {
         </span>
         {/* Full opacity: at 0.7 this 11px hint measured 3.48:1 in light and
             3.91:1 in dark, under the 4.5 floor. */}
-        <span style={{ fontSize: 12, flex: '0 0 auto' }}>
+        <span style={{ fontSize: 14, flex: '0 0 auto' }}>
           {open ? '▴ ซ่อน' : '▾ ดูเต็ม'}
         </span>
       </button>
 
       {paperNote && (
-        <div style={{ margin: '0 0 8px', fontSize: 12, lineHeight: 1.5 }}>
+        <div style={{ margin: '0 0 8px', fontSize: 14, lineHeight: 1.5 }}>
           หมายเหตุ: {paperNote}
         </div>
       )}
@@ -136,7 +136,7 @@ export default function QSourceChip({ q, store }) {
           {/* Each cited moment of a recording opens that clip at that second.
               A new tab, so the question the student is on stays where it is. */}
           {moments.map((clip) => (
-            <div key={clip.videoId} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 6, fontSize: 11 }}>
+            <div key={clip.videoId} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 6, fontSize: 14 }}>
               <span style={{ color: 'var(--clr-ink)' }}>▶ {clip.session}</span>
               {clip.moments.map((m) => (
                 <a
@@ -149,7 +149,7 @@ export default function QSourceChip({ q, store }) {
                   style={{
                     display: 'inline-flex', alignItems: 'center', minHeight: 44, padding: '0 10px',
                     borderRadius: 999, border: '1px solid var(--clr-border)', textDecoration: 'none',
-                    color: 'var(--clr-sage-text)', fontWeight: 600, fontSize: 11.5, whiteSpace: 'nowrap',
+                    color: 'var(--clr-sage-text)', fontWeight: 600, fontSize: 14, whiteSpace: 'nowrap',
                   }}
                 >
                   นาที {m.stamp}
@@ -191,7 +191,7 @@ export default function QSourceChip({ q, store }) {
               style={{
                 all: 'unset', cursor: 'pointer', marginTop: 4, minHeight: 44,
                 display: 'inline-flex', alignItems: 'center', gap: 6,
-                color: 'var(--clr-sage-text)', fontSize: 11.5, fontWeight: 600,
+                color: 'var(--clr-sage-text)', fontSize: 14, fontWeight: 600,
                 fontFamily: 'inherit',
               }}
               title="เปิดชั้นเอกสารของวิชานี้ในคลังเอกสาร"
@@ -227,16 +227,16 @@ function Row({ label, value, icon, iconColor }) {
   return (
     <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, lineHeight: 1.5 }}>
       {icon && (
-        <span style={{ flex: '0 0 auto', color: iconColor || 'inherit', fontSize: 11 }}>
+        <span style={{ flex: '0 0 auto', color: iconColor || 'inherit', fontSize: 14 }}>
           {icon}
         </span>
       )}
       {/* The labels are Thai now: no uppercasing, and no tracking, which
           pulls Thai tone marks away from their consonants. */}
-      <span style={{ flex: '0 0 auto', minWidth: 60, color: 'var(--clr-ink-soft)', fontSize: 11, letterSpacing: 0 }}>
+      <span style={{ flex: '0 0 auto', minWidth: 60, color: 'var(--clr-ink-soft)', fontSize: 14, letterSpacing: 0 }}>
         {label}
       </span>
-      <span style={{ flex: 1, minWidth: 0, overflowWrap: 'anywhere', color: 'var(--clr-ink)', fontFamily: 'inherit', fontSize: 11 }}>
+      <span style={{ flex: 1, minWidth: 0, overflowWrap: 'anywhere', color: 'var(--clr-ink)', fontFamily: 'inherit', fontSize: 14 }}>
         {value}
       </span>
     </div>

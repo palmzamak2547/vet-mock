@@ -25,7 +25,7 @@ export default function DiagramLabelDrill({ onClose }) {
               Diagram label drill
             </div>
             <h2 id="vmx-diagram-picker-title" style={{ margin: '4px 0 0', fontSize: 22 }}>เลือก diagram ที่จะฝึก</h2>
-            <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+            <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--clr-ink-soft)' }}>
               ฝึก label anatomy แบบ active recall — แตะจุดที่ diagram → เลือก label ที่ตรง
             </p>
           </div>
@@ -39,7 +39,7 @@ export default function DiagramLabelDrill({ onClose }) {
                 style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4, padding: '12px 14px', height: 'auto', textAlign: 'left' }}
               >
                 <span style={{ fontSize: 18 }}>{d.icon} {d.title}</span>
-                <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
+                <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
                   {d.anchors.length} จุดให้ label
                 </span>
               </button>
@@ -105,7 +105,7 @@ function DrillRunner({ drill, onBack, onClose }) {
       <div ref={dialogRef} className="vmx-modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 720, maxHeight: '90vh', overflow: 'auto' }} role="dialog" aria-modal="true" aria-labelledby="vmx-diagram-drill-title" tabIndex={-1} data-vmx-modal="true">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
           <button type="button" onClick={onBack} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← เปลี่ยน diagram</button>
-          <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 13 }}>
+          <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 14 }}>
             {correctCount}/{drill.anchors.length} ถูก
             {revealed && allDone && `, คะแนน ${scorePct}%`}
           </span>
@@ -150,7 +150,7 @@ function DrillRunner({ drill, onBack, onClose }) {
 
         {!revealed && (
           <>
-            <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
+            <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6 }}>
               {activeAnchor ? '⬇ เลือก label สำหรับจุดที่เลือก' : '⬇ แตะจุดบน diagram → แล้วเลือก label จากด้านล่าง'}
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
@@ -187,14 +187,14 @@ function DrillRunner({ drill, onBack, onClose }) {
               {scorePct}%, ถูกตั้งแต่ครั้งแรก {firstTryCount}/{drill.anchors.length}
             </div>
             {correctCount > firstTryCount && (
-              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 4 }}>
+              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 4 }}>
                 ตอบถูกเมื่อลองใหม่ {correctCount - firstTryCount} จุด
               </div>
             )}
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
               {scorePct === 100 ? 'perfect! anatomy แม่นมาก' : scorePct >= 70 ? 'ผ่านเกณฑ์' : 'ลองใหม่อีกรอบ — เน้น label ที่ตอบผิด'}
             </div>
-            <details style={{ marginTop: 10, fontSize: 13, lineHeight: 1.6 }}>
+            <details style={{ marginTop: 10, fontSize: 14, lineHeight: 1.6 }}>
               <summary style={{ cursor: 'pointer', fontWeight: 600 }}>ดูเฉลย</summary>
               <ul style={{ margin: '8px 0 0', paddingLeft: 20 }}>
                 {drill.anchors.map((a) => {

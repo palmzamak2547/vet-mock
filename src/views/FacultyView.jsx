@@ -204,7 +204,7 @@ export default function FacultyView({ goHome }) {
             <button
               type="button"
               className="vmx-fac-search-clear"
-              onClick={() => setFilter('')}
+              onClick={(e) => { setFilter(''); e.currentTarget.parentElement?.querySelector('input')?.focus(); }}
               aria-label="ล้างคำค้นหา"
               title="ล้างคำค้นหา"
             >
@@ -308,7 +308,14 @@ export default function FacultyView({ goHome }) {
 
       {/* Faculty grid */}
       {filtered.length === 0 ? (
-        <div className="vmx-empty">ไม่พบอาจารย์ที่ตรงกับ "{filter}"</div>
+        <div className="vmx-empty">
+          {filter.trim() ? `ไม่พบอาจารย์ที่ตรงกับ "${filter.trim()}"` : 'ไม่พบอาจารย์ที่ตรงกับตัวกรองที่เลือก'}
+          {hasActiveFilters && (
+            <div style={{ marginTop: 10 }}>
+              <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={clearAllFilters}>ล้างตัวกรองทั้งหมด</button>
+            </div>
+          )}
+        </div>
       ) : (
         <div className="vmx-fac-grid" style={{ display: 'grid' }}>
           {filtered.map((ins) => (

@@ -148,6 +148,15 @@ function build7DayTrend(history) {
   return days;
 }
 
+// A file name a student can read back: "vetmock-backup-2026-10-20-2130.json"
+// in Bangkok time, not milliseconds since 1970.
+function fileStamp(now = new Date()) {
+  const p = Object.fromEntries(new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Bangkok', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+  }).formatToParts(now).map((x) => [x.type, x.value]));
+  return `${p.year}-${p.month}-${p.day}-${p.hour}${p.minute}`;
+}
+
 // Compact 7-day trend chart — renders as inline SVG, no chart lib.
 // Bars = attempts count (heights normalized to max), thin gold line
 // = accuracy % (skips days with no attempts so it doesn't dive to 0).
@@ -165,8 +174,10 @@ function TrendChart({ days }) {
   });
 
   return (
-    <div style={{ marginTop: 8 }}>
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', maxHeight: 110, display: 'block' }} aria-label="กราฟการฝึก 7 วันล่าสุด">
+    // Bars and day labels share one width: a height cap on the SVG alone
+    // shrank the bars and left the labels spread under the whole card.
+    <div style={{ marginTop: 8, maxWidth: (110 * W) / H }}>
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', display: 'block' }} aria-label="กราฟการฝึก 7 วันล่าสุด">
         {/* Bars — attempt count */}
         {days.map((d, i) => {
           const h = d.total ? Math.max(2, ((H - PAD * 2) * d.total / maxAttempts)) : 0;
@@ -197,12 +208,12 @@ function TrendChart({ days }) {
           />
         )}
       </svg>
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 4, padding: '0 2px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 4, padding: `0 ${(PAD / W) * 100}%` }}>
         {days.map((d, i) => (
           <span key={i} style={{ flex: 1, textAlign: 'center' }}>{d.label}</span>
         ))}
       </div>
-      <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+      <div style={{ marginTop: 6, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
         แท่ง = จำนวนข้อ, สี = ความแม่น (เขียว ≥70%, ทอง 50-69%, ชมพู &lt;50%)
       </div>
     </div>
@@ -270,7 +281,7 @@ function WebVitalsPanel() {
           return (
             <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '6px 8px', borderRadius: 8, background: 'var(--clr-bg-soft, rgba(0,0,0,0.03))' }}>
               <span style={{ fontSize: 16 }}>{rate(key, s.p75) || '⚪'}</span>
-              <span style={{ flex: 1, fontSize: 13 }}>{labels[key]}</span>
+              <span style={{ flex: 1, fontSize: 14 }}>{labels[key]}</span>
               <span style={{ fontFamily: 'monospace', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
                 p75 {fmt(key, s.p75)}, med {fmt(key, s.median)}
               </span>
@@ -388,7 +399,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       customQuestions,
       readingChecklist,
     };
-    downloadJSON(data, `vetmock-backup-${Date.now()}.json`);
+    downloadJSON(data, `vetmock-backup-${fileStamp()}.json`);
   };
 
   const exportDetails = async () => {
@@ -410,7 +421,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
         chunk.push(event); bytes += size;
       }
       if (chunk.length) parts.push(studyEventArchive(chunk));
-      if (parts.length === 1) downloadJSON(parts[0], `vetmock-study-events-${Date.now()}.json`);
+      if (parts.length === 1) downloadJSON(parts[0], `vetmock-study-events-${fileStamp()}.json`);
       else setEventArchiveParts(parts);
     } catch { alertDialog('อ่านประวัติแบบละเอียดไม่สำเร็จ กรุณาลองใหม่'); }
     finally { if (mountedRef.current) setArchiveBusy(false); }
@@ -419,7 +430,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
   const exportExtras = async () => {
     try {
       const { exportLocalExtras } = await import('../lib/local-extras.js');
-      downloadJSON(exportLocalExtras(), `vetmock-local-tools-${Date.now()}.json`);
+      downloadJSON(exportLocalExtras(), `vetmock-local-tools-${fileStamp()}.json`);
     } catch { alertDialog('อ่านข้อมูลเครื่องมือไม่ครบ ยังไม่สร้างไฟล์สำรอง กรุณาลองใหม่และอย่าเพิ่งล้างข้อมูลเว็บไซต์'); }
   };
 
@@ -643,7 +654,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
                       onClick={() => setCurveDays(d)}
                       className={`vmx-chip ${curveDays === d ? 'active' : ''}`}
                       aria-pressed={curveDays === d}
-                      style={{ fontSize: 12 }}
+                      style={{ fontSize: 14 }}
                     >{d} วัน</button>
                   ))}
                 </div>
@@ -657,7 +668,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
                   </span>
                 ))}
               </div>
-              <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+              <div style={{ marginTop: 6, fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
                 เส้นแต่ละสีคือความแม่นยำต่อวันของแต่ละวิชา, เส้น 70% เป็นเกณฑ์เป้าหมาย, แตะจุดเพื่อดูจำนวนข้อ
               </div>
             </div>
@@ -690,7 +701,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
                       </div>
                     );
                   })}
-                  <div className="vmx-empty" style={{ padding: '10px 0 0', fontSize: 12 }}>
+                  <div className="vmx-empty" style={{ padding: '10px 0 0', fontSize: 14 }}>
                     นับเฉพาะข้อที่เคยตอบอย่างน้อยครั้งเดียว ตอบถูกหรือผิดก็นับ
                   </div>
                 </>
@@ -708,7 +719,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
                   <div key={s.id}>
                     <div className="vmx-subj-row">
                       <span>{s.icon} {s.name}</span>
-                      <span className="pct">{pct}% ({stat.correct}/{stat.total})</span>
+                      <span className="pct">{pct}% (ถูก {stat.correct} จาก {stat.total} ครั้งที่ตอบ)</span>
                     </div>
                     <div className="vmx-bar"><div className={`vmx-bar-fill ${cls}`} style={{ width: `${pct}%` }}></div></div>
                   </div>
@@ -736,7 +747,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
 
       <div className="vmx-dash-card">
         <h2>ฝึก OSCE</h2>
-        <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
+        <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
           ฝึก clinical-skills station แบบจับเวลา + checklist (PE, IV, intubation, suture,
           anesthesia check, CPCR). มี critical step weight เหมือนสถานีจริง.
         </div>
@@ -757,7 +768,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
 
       <div className="vmx-dash-card">
         <h2>ฝึกระบุชื่อบน diagram</h2>
-        <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
+        <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
           ฝึก label anatomy แบบ active recall — แตะจุดบน diagram → เลือก label, ตอนนี้มี 2 ชุด (Heart, Eye) เริ่มต้นไว้
         </div>
         <button
@@ -779,7 +790,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
 
       <div className="vmx-dash-card">
         <h2>สำรองและย้ายข้อมูล</h2>
-        <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
+        <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
           ข้อมูลหลักรวมข้อที่บันทึก ประวัติ โน้ต การ์ดทบทวน และ checklist ส่วนประวัติรายละเอียดและเครื่องมือในเครื่องมีไฟล์สำรองแยก ก่อนนำเข้าระบบจะตรวจและสรุปรายการให้ยืนยัน
         </div>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
@@ -787,7 +798,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" disabled={archiveBusy} onClick={exportDetails}>{archiveBusy ? 'กำลังอ่านประวัติ…' : 'สำรองประวัติแบบละเอียด'}</button>
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={exportExtras}>สำรองเครื่องมือในเครื่อง</button>
           {ownerId && recoveryArchive && <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => {
-            try { downloadJSON({ ...recoveryArchive.local, syncRecovery: recoveryArchive }, `vetmock-sync-recovery-${Date.now()}.json`); }
+            try { downloadJSON({ ...recoveryArchive.local, syncRecovery: recoveryArchive }, `vetmock-sync-recovery-${fileStamp()}.json`); }
             catch (error) { alertDialog(thaiError(error, 'ดาวน์โหลดสำเนากู้คืนไม่สำเร็จ กรุณาลองอีกครั้ง')); }
           }}>ดาวน์โหลดสำเนาก่อนเลือกข้อมูลซิงก์</button>}
           <label className="vmx-btn vmx-btn-ghost vmx-btn-sm" style={{ cursor: 'pointer' }}>
@@ -801,7 +812,7 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
             <button key={index} type="button" className="vmx-btn vmx-btn-ghost" onClick={() => downloadJSON(part, `vetmock-study-events-part-${index + 1}.json`)}>ส่วน {index + 1}, {part.events.length} รายการ</button>
           ))}</div>
         </div>}
-        <p style={{ marginTop: 12, fontSize: 13, color: 'var(--clr-ink-soft)' }}>เครื่องมือในเครื่องรวมโน้ตวิดีโอ Pinboard Flashcard/Cloze และชุดปิดภาพ รอยเขียน PDF ส่งออกพร้อมไฟล์ได้จากหน้าอ่าน PDF</p>
+        <p style={{ marginTop: 12, fontSize: 14, color: 'var(--clr-ink-soft)' }}>เครื่องมือในเครื่องรวมโน้ตวิดีโอ Pinboard Flashcard/Cloze และชุดปิดภาพ รอยเขียน PDF ส่งออกพร้อมไฟล์ได้จากหน้าอ่าน PDF</p>
       </div>
 
       <div className="vmx-btn-row" style={{ marginTop: 20 }}>

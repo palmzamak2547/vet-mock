@@ -41,7 +41,8 @@ test('SubjectGrid memoises the per-subject bookmark counts ahead of its early re
   assert.doesNotMatch(home, /customQuestions=\{customQuestions \|\| \[\]\}/);
 });
 
-test('the progress bar fill moves on the shared motion tokens', () => {
-  assert.match(css, /\.vmx-progress-fill \{[^}]*transition: width var\(--dur-slow\) var\(--ease-out\);/);
+test('the progress bar fill moves on the shared motion tokens, by scale not width', () => {
+  assert.match(css, /\.vmx-progress-fill \{[^}]*transition: transform var\(--dur-slow\) var\(--ease-out\);/);
+  assert.doesNotMatch(css, /\.vmx-progress-fill \{[^}]*transition: width/);
   assert.doesNotMatch(css, /\.vmx-progress-fill \{[^}]*transition: width 0\.3s;/);
 });

@@ -88,7 +88,7 @@ export default function SyncStatusNotice({
   // green as "back online".
   const color = localFailure
     ? 'var(--clr-rose-text, #b3453f)'
-    : (online ? 'var(--clr-sage, #4a6b4a)' : 'var(--clr-gold, #b88940)');
+    : (online ? 'var(--clr-sage-text, #4a6b4a)' : 'var(--clr-gold-text, #b88940)');
   return (
     <div
       role="status"
@@ -101,7 +101,7 @@ export default function SyncStatusNotice({
         padding: '8px 14px',
         marginBottom: 8,
         borderRadius: 8,
-        fontSize: 13,
+        fontSize: 14,
         background: online
           ? 'rgba(74, 107, 74, 0.12)'
           : 'rgba(184, 137, 64, 0.18)',
@@ -126,7 +126,7 @@ export default function SyncStatusNotice({
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             style={{
               padding: '4px 10px',
-              fontSize: 12,
+              fontSize: 14,
               color,
               border: '1px solid currentColor',
               background: 'transparent',
@@ -142,7 +142,7 @@ export default function SyncStatusNotice({
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             style={{
               padding: '4px 10px',
-              fontSize: 12,
+              fontSize: 14,
               color,
               border: '1px solid currentColor',
               background: 'transparent',

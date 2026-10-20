@@ -19,6 +19,7 @@
 // order is applied by lib/nav.js, never here.
 // ============================================================
 
+import { breakUnits } from '../lib/canvas-wrap.js';
 import { useState } from 'react';
 import NavIcon from './NavIcon.jsx';
 import { FEATURES, visibleFeatures, rememberViewIntent } from '../lib/feature-registry.js';
@@ -37,6 +38,14 @@ function openAllMenu() {
   heading.scrollIntoView?.({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
   heading.setAttribute?.('tabindex', '-1');
   heading.focus?.({ preventScroll: true });
+}
+
+// A tile label wraps only between words, never inside one: "สรุปบท / เรียน"
+// read as a broken word on a 360 px phone. canvas-wrap knows the compounds.
+function TileLabel({ text }) {
+  // A space stays plain text: inside a no-wrap span it stops being a place to
+  // break, and "ตารางเรียน & สอบ" ran off a 390 px screen in WebKit.
+  return breakUnits(text).map((unit, i) => (/^\s+$/.test(unit) ? unit : <span key={i} style={{ whiteSpace: 'nowrap' }}>{unit}</span>));
 }
 
 export default function HomeQuickGrid({
@@ -86,7 +95,7 @@ export default function HomeQuickGrid({
                 <span className="vmx-quick-tile-icon" aria-hidden="true">
                   {icon ? <NavIcon name={icon} size={22} /> : f.icon}
                 </span>
-                <span className="vmx-quick-tile-label">{f.label}</span>
+                <span className="vmx-quick-tile-label"><TileLabel text={f.label} /></span>
                 {f.hint && <span className="vmx-sr-only"> {f.hint}</span>}
               </button>
             </li>

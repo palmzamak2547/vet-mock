@@ -75,5 +75,5 @@ test('a saved checkmark remains stored while its paper is hidden and returns wit
   await expect(page.getByRole('button', { name: FINAL_ROW })).toHaveCount(0);
   expect(await page.evaluate((savedKey) => JSON.parse(localStorage.getItem('vmx-reading-checklist'))[savedKey], key)).toBe(123);
   await openChecklist(page, context, '1-final');
-  await expect(page.getByRole('button', { name: /^ยกเลิก Slaughter hygiene design$/ })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByRole('button', { name: /^อ่านแล้ว Slaughter hygiene design$/ })).toHaveAttribute('aria-pressed', 'true');
 });

@@ -70,6 +70,8 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
   const [sessionId, setSessionId] = useState(() => validSessionId(initialSaved?.sessionId) ? initialSaved.sessionId : newStudySessionId());
   const [sessionOwner, setSessionOwner] = useState(ownerId);
   const [completedAt, setCompletedAt] = useState(null);
+  // The question whose own clock ran out and moved the set on, so the exam can say so.
+  const [timedOutIdx, setTimedOutIdx] = useState(null);
   const timingRef = useRef(null);
   if (!timingRef.current) timingRef.current = createQuestionTiming(initialSaved?.questionTimes);
   const getQuestionTimes = useCallback(() => timingRef.current.snapshot(), []);
@@ -148,6 +150,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
       if (sessionClockRef.current) { onFinish?.(); return; }
       if (currentIdx < questions.length - 1) {
         const next = questions[currentIdx + 1];
+        setTimedOutIdx(currentIdx);
         setCurrentIdx((i) => i + 1);
         setTimeLeft(timeForQuestion(next, timePerQ));
       } else onFinish?.();
@@ -351,7 +354,7 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     currentIdx, setCurrentIdx,
     setTimeLeft,
     // What the clock on screen counts down to (ExamClock).
-    questionDeadline,
+    questionDeadline, timedOutIdx,
     examStartTime, setExamStartTime,
     sessionId, getQuestionTimes, sessionOwner, completedAt,
     // Derived

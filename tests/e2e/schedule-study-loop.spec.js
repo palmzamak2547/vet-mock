@@ -1,5 +1,5 @@
 import { test, expect } from './fixtures.js';
-import { EXAM_SCHEDULE, CLASS_TIMETABLE } from '../../src/data/schedule.js';
+import { EXAM_SCHEDULE, CLASS_TIMETABLE, examTitle } from '../../src/data/schedule.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../../src/data/q-counts.js';
 import { hasNotes } from '../../src/data/notes-registry.generated.js';
 import { questionInScope } from '../../src/lib/exam-scope.js';
@@ -19,7 +19,7 @@ test('a final timetable entry launches its own paper despite the selected midter
     && Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE['1-final'][item.subject] > 0);
   expect(exam).toBeTruthy();
   await page.goto('/app/schedule');
-  const card = page.locator('.vmx-dash-card').filter({ has: page.getByRole('heading', { name: exam.title }) });
+  const card = page.locator('.vmx-dash-card').filter({ has: page.getByRole('heading', { name: examTitle(exam) }) });
   await card.getByRole('button', { name: 'ฝึกข้อสอบวิชานี้ →', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'ตั้งค่า การฝึก', exact: true })).toBeVisible();
   await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('vmx-selected-phase')))).toBe('1-final');

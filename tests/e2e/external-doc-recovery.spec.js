@@ -24,6 +24,11 @@ async function prepare(page, context, signedIn = false) {
     if (url.pathname === '/rest/v1/profiles') return route.fulfill({ json: [{ id: owner, username: 'Modeled reader', avatar_emoji: '🧪', created_at: user.created_at }] });
     if (url.pathname === '/rest/v1/rpc/is_admin') return route.fulfill({ json: false });
     if (url.pathname === '/rest/v1/library_docs') return route.fulfill({ json: [], headers: { 'content-range': '*/0' } });
+    // The signed-in launch pulls study events. WebKit reports an aborted
+    // fetch as a page error ("… due to access control checks") even though
+    // the app catches it, which failed the errors check whenever the pull
+    // landed inside the test: answer it with nothing instead.
+    if (url.pathname === '/rest/v1/study_event_batches') return route.fulfill({ json: [] });
     return route.abort();
   });
   await page.addInitScript(({ signedIn, session }) => {

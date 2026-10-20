@@ -8,7 +8,7 @@ import { useBuddyCountOnQ } from '../hooks/useStudyBuddies.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { motionIsReduced } from '../lib/motion-preferences.js';
 
-export default function ExamView({ currentQ, currentIdx, questions, questionDeadline, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, user, goHome, mode, instantFeedback, onOpenWiki }) {
+export default function ExamView({ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, user, goHome, mode, instantFeedback, onOpenWiki }) {
   const [showNote, setShowNote] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
@@ -78,7 +78,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
             title="ออกจากชุดนี้ — คำตอบบันทึกอัตโนมัติไว้แล้ว"
             aria-label="ออกจากชุดนี้"
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-            style={{ padding: '4px 10px', fontSize: 13, marginRight: 8, display: 'inline-flex', alignItems: 'center', gap: 4 }}
+            style={{ padding: '4px 10px', fontSize: 14, marginRight: 8, display: 'inline-flex', alignItems: 'center', gap: 4 }}
           >
             <span aria-hidden="true">✕</span>
             <span>ออก</span>
@@ -105,7 +105,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
               borderRadius: 999,
               background: 'rgba(184, 137, 64, 0.15)',
               color: 'var(--clr-gold-text)',
-              fontSize: 11,
+              fontSize: 14,
               fontWeight: 700,
               // The card's own badge words (Question.jsx TYPE_LABEL). Thai takes
               // the sans stack and no tracking: the mono stack has no Thai glyphs.
@@ -145,16 +145,23 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
           aria-valuemin={1}
           aria-valuemax={questions.length}
           aria-valuenow={currentIdx + 1}
-          style={{ width: `${((currentIdx + 1) / questions.length) * 100}%` }}
+          style={{ '--p': (currentIdx + 1) / questions.length }}
         />
       </div>
       <div className="vmx-sr-only" role="status" aria-live="polite">ข้อ {currentIdx + 1} จาก {questions.length}</div>
+      {timedOutIdx != null && timedOutIdx === currentIdx - 1 && (
+        // The previous question's own clock moved the set on: say so, or the
+        // jump reads as a glitch.
+        <div className="vmx-exam-timeout-note" role="status">
+          หมดเวลาข้อ {timedOutIdx + 1} แล้ว จึงไปข้อถัดไปให้
+        </div>
+      )}
 
       {buddiesHere > 0 && (
         <div style={{
           marginTop: 8, padding: '4px 12px', borderRadius: 999,
           background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)',
-          fontSize: 12,
+          fontSize: 14,
           color: 'var(--clr-sage-text)',
           display: 'inline-flex', alignItems: 'center', gap: 6,
         }}>
@@ -293,11 +300,11 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 16, gap: 12, flexWrap: 'wrap' }}>
           <div>
             <h2 id="vmx-nav-grid-title" style={{ margin: 0, fontSize: 18 }}>แผนผังข้อสอบ (EXAM MAP)</h2>
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
               เลือกข้อที่ต้องการตรวจคำตอบหรือทำต่อ
             </div>
           </div>
-          <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', fontVariantNumeric: 'tabular-nums' }}>
+          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontVariantNumeric: 'tabular-nums' }}>
             ตอบแล้ว <strong style={{ color: 'var(--clr-sage-text)' }}>{answered}</strong>/{questions.length}, เหลือ {remaining}
           </div>
         </div>
@@ -355,7 +362,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
           })}
         </div>
 
-        <div style={{ marginTop: 12, display: 'flex', gap: 12, fontSize: 11, color: 'var(--clr-ink-soft)', flexWrap: 'wrap' }}>
+        <div style={{ marginTop: 12, display: 'flex', gap: 12, fontSize: 14, color: 'var(--clr-ink-soft)', flexWrap: 'wrap' }}>
           <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-rose)', borderRadius: 3, verticalAlign: 'middle', marginRight: 4 }} /> ข้อปัจจุบัน</span>
           <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-sage-soft)', borderRadius: 3, verticalAlign: 'middle', marginRight: 4 }} /> ตอบแล้ว</span>
           <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-surface-2)', borderRadius: 3, border: '1px solid var(--clr-border)', verticalAlign: 'middle', marginRight: 4 }} /> ยังไม่ตอบ</span>

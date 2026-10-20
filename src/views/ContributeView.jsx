@@ -53,7 +53,7 @@ const LABEL_STYLE = {
   marginBottom: 6,
 };
 const FIELD_WRAP = { marginBottom: 16 };
-const ERROR_TEXT = { fontSize: 12, color: 'var(--clr-rose-text)', marginTop: 4, lineHeight: 1.5 };
+const ERROR_TEXT = { fontSize: 14, color: 'var(--clr-rose-text)', marginTop: 4, lineHeight: 1.5 };
 const CARD_BASE = {
   padding: 16,
   borderRadius: 14,
@@ -349,7 +349,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
                       border: `1px solid ${active ? 'var(--clr-sage)' : 'var(--clr-border)'}`,
                       background: active ? 'rgba(74, 107, 74, 0.12)' : 'var(--clr-surface)',
                       color: 'var(--clr-ink)',
-                      fontSize: 13,
+                      fontSize: 14,
                       fontWeight: active ? 600 : 400,
                       cursor: 'pointer',
                     }}
@@ -406,7 +406,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
                         border: `2px solid ${isCorrect ? 'var(--clr-sage)' : 'var(--clr-border)'}`,
                         background: isCorrect ? 'var(--clr-sage)' : 'transparent',
                         color: isCorrect ? 'white' : 'var(--clr-ink-soft)',
-                        fontSize: 13, fontWeight: 700,
+                        fontSize: 14, fontWeight: 700,
                         cursor: 'pointer', flexShrink: 0,
                       }}
                     >
@@ -547,7 +547,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
           {errorByField.academic_safety && (
             <div style={{
               padding: 12, borderRadius: 10, background: 'var(--clr-rose-soft)',
-              border: '1px solid var(--clr-rose)', marginBottom: 12, fontSize: 13,
+              border: '1px solid var(--clr-rose)', marginBottom: 12, fontSize: 14,
             }}>
               <strong>⛔ academic-safety lint:</strong>
               <ul style={{ margin: '6px 0 0', paddingLeft: 18, lineHeight: 1.6 }}>
@@ -562,7 +562,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
               padding: 12, borderRadius: 10,
               background: 'rgba(184, 137, 64, 0.12)',
               border: '1px solid var(--clr-gold)',
-              marginBottom: 12, fontSize: 13,
+              marginBottom: 12, fontSize: 14,
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
                 <strong>ข้อสังเกต ({validation.warnings.length})</strong>
@@ -586,7 +586,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
           {submitError && (
             <div style={{
               padding: 12, borderRadius: 10, background: 'var(--clr-rose-soft)',
-              border: '1px solid var(--clr-rose)', marginBottom: 12, fontSize: 13,
+              border: '1px solid var(--clr-rose)', marginBottom: 12, fontSize: 14,
             }}>
               ❌ {submitError}
             </div>
@@ -597,7 +597,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
             padding: 10, borderRadius: 10,
             background: validation.canSubmit ? 'rgba(74, 107, 74, 0.12)' : 'rgba(184, 137, 64, 0.10)',
             border: `1px solid ${validation.canSubmit ? 'var(--clr-sage)' : 'var(--clr-gold)'}`,
-            marginBottom: 14, fontSize: 13, textAlign: 'center',
+            marginBottom: 14, fontSize: 14, textAlign: 'center',
           }}>
             {validation.canSubmit
               ? 'พร้อมส่ง — ทุกอย่างผ่าน auto-screen'
@@ -628,7 +628,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
         }}>
           คำถามที่ส่งล่าสุด
         </h2>
-        <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
+        <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
           {mySubs.length > 0
             ? `${mySubs.length} รายการ, แตะเพื่อดูรายละเอียด`
             : loadingSubs ? 'กำลังโหลด…'
@@ -669,7 +669,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
                     <span style={{
                       display: 'inline-flex', alignItems: 'center', gap: 4,
-                      fontSize: 11, padding: '2px 8px', borderRadius: 999,
+                      fontSize: 14, padding: '2px 8px', borderRadius: 999,
                       background: `${meta.color}22`, color: meta.color, fontWeight: 600,
                     }}>
                       <span>{meta.icon}</span>
@@ -695,7 +695,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
                   {isNegative && (s.rejection_reason || (Array.isArray(s.screen_log) && s.screen_log.length > 0)) && (
                     <div style={{
                       marginTop: 8, padding: 8, borderRadius: 6,
-                      background: 'var(--clr-rose-soft)', fontSize: 12, lineHeight: 1.5,
+                      background: 'var(--clr-rose-soft)', fontSize: 14, lineHeight: 1.5,
                     }}>
                       {s.rejection_reason && <div>📌 {s.rejection_reason}</div>}
                       {Array.isArray(s.screen_log) && s.screen_log.slice(0, 2).map((line, i) => (
@@ -709,9 +709,9 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
 
                   {/* Expanded full Q + timestamps */}
                   {isOpen && (
-                    <div style={{ marginTop: 10, paddingTop: 10, borderTop: '1px solid var(--clr-border)', fontSize: 13, lineHeight: 1.6 }}>
+                    <div style={{ marginTop: 10, paddingTop: 10, borderTop: '1px solid var(--clr-border)', fontSize: 14, lineHeight: 1.6 }}>
                       <div style={{ marginBottom: 8 }}>
-                        <strong style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase' }}>โจทย์เต็ม</strong>
+                        <strong style={{ fontSize: 14, color: 'var(--clr-ink-soft)', textTransform: 'uppercase' }}>โจทย์เต็ม</strong>
                         <div style={{ marginTop: 4 }}>{s.q_text}</div>
                       </div>
                       <div style={{

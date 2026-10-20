@@ -73,7 +73,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
             onClick={() => setScoreSource(value)}>{label}</button>
         ))}
       </div>
-      <p style={{ textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 13, margin: '10px 0 20px' }}>
+      <p style={{ textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 14, margin: '10px 0 20px' }}>
         {scoreSource === 'server'
           ? 'ตรวจคะแนนกับเฉลยของชุดที่ใช้บนระบบ เป็นผลฝึกทำเอง ไม่มีการคุมสอบ'
           : 'เก็บคะแนนเดิมและชุดส่วนตัวไว้ให้ดูย้อนหลัง คะแนนกลุ่มนี้ส่งมาจากเครื่องผู้ใช้'}
@@ -143,12 +143,12 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
                 <div style={{ flex: 1, minWidth: 160 }}>
                   <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 17 }}>
                     {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'Anon'}
-                    {r.user_id === user?.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
+                    {r.user_id === user?.id && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                   </div>
                   <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
                     {r.mode === 'exam' ? 'Exam' : 'Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
                     {r.attempts > 1 && (
-                      <span title={`ทำ ${r.attempts} ครั้ง, แสดงคะแนนสูงสุด`} style={{ marginLeft: 8, padding: '1px 6px', borderRadius: 4, background: 'var(--clr-surface-2)', fontSize: 11 }}>
+                      <span title={`ทำ ${r.attempts} ครั้ง, แสดงคะแนนสูงสุด`} style={{ marginLeft: 8, padding: '1px 6px', borderRadius: 4, background: 'var(--clr-surface-2)', fontSize: 14 }}>
                         × {r.attempts}
                       </span>
                     )}
@@ -164,7 +164,7 @@ export default function LeaderboardView({ user, goHome, selectedYear }) {
         </div>
       )}
       {!loading && !error && scores.length > 0 && (
-        <p style={{ marginTop: 14, fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
+        <p style={{ marginTop: 14, fontSize: 14, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
           ชุดที่มีไม่ถึง {LEADERBOARD_MIN_QUESTIONS} ข้อจะไม่นับเข้ากระดานอันดับ
         </p>
       )}

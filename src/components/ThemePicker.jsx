@@ -94,7 +94,7 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
             overflowY: 'auto',
           }}
         >
-          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--vmx-mono)', marginBottom: 6 }}>
+          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--vmx-mono)', marginBottom: 6 }}>
             โหมด
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginBottom: 12 }}>
@@ -120,7 +120,7 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
               style={{ gap: 6, gridColumn: '1 / -1' }}
             ><NavIcon name="settings" size={15} /> ตามเครื่อง</button>
           </div>
-          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--vmx-mono)', marginBottom: 6 }}>
+          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--vmx-mono)', marginBottom: 6 }}>
             จานสี
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 6 }}>
@@ -131,7 +131,7 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
                 onClick={() => choose(() => setPalette(p.id))}
                 className={`vmx-chip ${palette === p.id ? 'active' : ''}`}
                 aria-pressed={palette === p.id}
-                style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, padding: '5px 10px' }}
+                style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, padding: '5px 10px' }}
               >
                 <span style={{ width: 12, height: 12, borderRadius: '50%', background: p.dot, border: '1px solid var(--clr-border)' }} />
                 {p.name}

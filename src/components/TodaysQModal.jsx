@@ -71,11 +71,11 @@ export default function TodaysQModal({ q, onClose, onDone }) {
         aria-labelledby="vmx-todays-q-title"
       >
         <div style={{ marginBottom: 10 }}>
-          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             ข้อวันนี้, {subjectMeta?.icon || ''} {subjectMeta?.name || q.subject}
           </div>
           <h2 id="vmx-todays-q-title" style={{ margin: '4px 0 0', fontSize: 20 }}>1 ข้อ ใน 1 วัน</h2>
-          <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+          <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--clr-ink-soft)' }}>
             ลอง 1 ข้อ — ถูกผิดไม่นับเข้า history หลัก, แค่สร้าง habit
           </p>
         </div>
@@ -120,8 +120,8 @@ export default function TodaysQModal({ q, onClose, onDone }) {
         </div>
 
         {revealed && q.explain && (
-          <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px solid var(--clr-sage)', fontSize: 13, lineHeight: 1.6 }}>
-            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', color: 'var(--clr-sage-text)', marginBottom: 4 }}>
+          <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px solid var(--clr-sage)', fontSize: 14, lineHeight: 1.6 }}>
+            <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', color: 'var(--clr-sage-text)', marginBottom: 4 }}>
               เฉลย
             </div>
             <RichText text={q.explain} />

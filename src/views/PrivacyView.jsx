@@ -63,8 +63,8 @@ export default function PrivacyView({ goHome, setView, consent, analyticsAllowed
     <p>สถิติการใช้งาน ความเร็วหน้าเว็บ และรายงานข้อผิดพลาดอัตโนมัติทำงานเมื่อคุณอนุญาต analytics เท่านั้น รายงานข้อผิดพลาดเก็บเป็นจำนวนตามรุ่นเว็บ หน้าที่เปิด และประเภทข้อผิดพลาด ไม่ส่งคำตอบ โน้ต อีเมล ข้อความ error เต็ม หรือ URL ที่มีพารามิเตอร์ รายการนับนี้ล้างเมื่อเกิน 14 วันในการรับรายงานครั้งถัดไป</p>
     <p>สถานะ analytics: <strong>{analyticsAllowed ? 'อนุญาตแล้ว' : 'ยังไม่อนุญาต'}</strong> คุณเปลี่ยนการเลือกได้ทันที</p>
     <div className="vmx-btn-row" style={{ flexWrap: 'wrap' }}>
-      <button className="vmx-btn vmx-btn-ghost" onClick={() => onConsent('essential')}>ใช้เฉพาะที่จำเป็น</button>
-      <button className="vmx-btn vmx-btn-ghost" onClick={() => onConsent('custom', { analytics: true, personal: false })}>อนุญาต analytics</button>
+      <button type="button" className="vmx-btn vmx-btn-ghost" aria-pressed={!analyticsAllowed} onClick={() => onConsent('essential')}>{!analyticsAllowed && <span aria-hidden="true">✓ </span>}ใช้เฉพาะที่จำเป็น</button>
+      <button type="button" className="vmx-btn vmx-btn-ghost" aria-pressed={Boolean(analyticsAllowed)} onClick={() => onConsent('custom', { analytics: true, personal: false })}>{analyticsAllowed && <span aria-hidden="true">✓ </span>}อนุญาต analytics</button>
     </div>
     <h3>สำรอง ลบ และเก็บรักษา</h3>
     <p>หน้า Dashboard ส่งออกข้อมูลหลัก เครื่องมือในเครื่อง และประวัติคำตอบแบบละเอียดแยกไฟล์ได้ ลายมือ PDF ส่งออกจากหน้าอ่าน PDF การสำรองในเครื่องควรทำก่อนล้างข้อมูลเว็บไซต์หรือเปลี่ยนอุปกรณ์ ข้อมูลที่ยังรอส่งจะไม่ปรากฏในอุปกรณ์อื่น</p>

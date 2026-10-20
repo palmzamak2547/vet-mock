@@ -50,7 +50,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
           padding: '6px 12px 6px 6px', borderRadius: 999,
           background: open ? 'var(--clr-surface-2)' : 'var(--clr-surface)',
           border: '1px solid var(--clr-border)',
-          fontSize: 13, fontWeight: 600,
+          fontSize: 14, fontWeight: 600,
           color: 'var(--clr-ink)',
           transition: 'background 0.12s',
         }}
@@ -66,7 +66,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
         <span className="vmx-usermenu-name" style={{ maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {profile.username}
         </span>
-        <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>{open ? '▴' : '▾'}</span>
+        <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>{open ? '▴' : '▾'}</span>
       </button>
 
       {open && (
@@ -90,7 +90,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
                 padding: '8px 12px', borderBottom: '1px solid var(--clr-border)', marginBottom: 4, borderRadius: 8,
               }}
             >
-              <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 บัญชีของคุณ
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 600, marginTop: 2 }}>
@@ -99,11 +99,11 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
                 </span>
                 <span aria-hidden="true" style={{ color: 'var(--clr-ink-soft)', fontSize: 12 }}>›</span>
               </div>
-              <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 3 }}>ดูและแก้ไขโปรไฟล์</div>
+              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 3 }}>ดูและแก้ไขโปรไฟล์</div>
             </button>
           ) : (
             <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--clr-border)', marginBottom: 4 }}>
-              <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 บัญชีของคุณ
               </div>
               <div style={{ fontSize: 14, fontWeight: 600, marginTop: 2 }}>
@@ -140,7 +140,7 @@ function MenuItem({ icon, children, onClick, danger }) {
       style={{
         all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10,
         width: '100%', boxSizing: 'border-box', padding: '8px 12px',
-        borderRadius: 8, fontSize: 13,
+        borderRadius: 8, fontSize: 14,
         color: danger ? 'var(--clr-rose-text)' : 'var(--clr-ink)',
         transition: 'background 0.1s',
       }}

@@ -47,7 +47,7 @@ export default function StudyBuddiesPanel({ buddies = {}, selfUserId, onJumpToSu
     <div className="vmx-dash-card" style={{ padding: 14, marginBottom: 18 }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8, marginBottom: 8 }}>
         <h3 style={{ margin: 0, fontSize: 15 }}>เพื่อนร่วมรุ่นที่ออนไลน์</h3>
-        <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{grouped.total} คน</span>
+        <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{grouped.total} คน</span>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {grouped.groups.map((g) => {
@@ -71,7 +71,7 @@ export default function StudyBuddiesPanel({ buddies = {}, selfUserId, onJumpToSu
               title={idle ? 'ออนไลน์ (ยังไม่เลือกวิชา)' : `ไปยัง ${m.name}`}
             >
               <span style={{ fontSize: 18 }}>{m?.icon || '💤'}</span>
-              <span style={{ flex: 1, fontSize: 13 }}>
+              <span style={{ flex: 1, fontSize: 14 }}>
                 <strong>{m?.name || 'ยังไม่เลือกวิชา'}</strong>
                 <span style={{ marginLeft: 8, color: 'var(--clr-ink-soft)' }}>
                   {g.list.length} คน — {g.list.slice(0, 3).map((b) => `${b.avatar || '🐾'} ${b.username || 'นิสิต'}`).join(', ')}

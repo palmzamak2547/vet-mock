@@ -344,7 +344,7 @@ export default function HighlightToCard() {
             {mode === 'manual' && (
               <>
                 <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>
+                  <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--clr-ink)' }}>
                     ด้านหน้า (คำถาม)
                   </span>
                   <textarea
@@ -369,7 +369,7 @@ export default function HighlightToCard() {
                 </label>
 
                 <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>
+                  <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--clr-ink)' }}>
                     ด้านหลัง (คำตอบ)
                   </span>
                   <textarea
@@ -396,7 +396,7 @@ export default function HighlightToCard() {
                 </label>
 
                 <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>
+                  <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--clr-ink)' }}>
                     วิชา (ไม่บังคับ)
                   </span>
                   <select

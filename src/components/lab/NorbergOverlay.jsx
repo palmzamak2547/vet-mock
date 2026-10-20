@@ -384,7 +384,7 @@ export default function NorbergOverlay({ active, viewportRef, caseId = null }) {
           <div style={{ color: '#9bccff' }}>
             Right: <strong>{angles.right.toFixed(1)}°</strong> — {classify(angles.right)}
           </div>
-          <div style={{ marginTop: 6, fontSize: '0.7rem', color: '#aaa' }}>
+          <div style={{ marginTop: 6, fontSize: '14px', color: '#aaa' }}>
             เครื่องมือเพื่อการเรียนรู้, ไม่ใช้แทนการ workup ผู้ป่วยจริง
           </div>
           <div style={{ display: 'flex', gap: 6, marginTop: 8, flexWrap: 'wrap' }}>

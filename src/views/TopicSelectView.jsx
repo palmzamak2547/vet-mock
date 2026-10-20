@@ -13,7 +13,9 @@ import { takeViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
 import { hasLecturerSet, LECTURER_SETS } from '../data/lecturer-sets.js';
 import { topicLecturerLabel } from '../lib/lecturer-name.js';
-import { hasWrapUp } from '../data/exam-wrapups.js';
+import { hasWrapUp, wrapUpStillAhead } from '../data/exam-wrapups.js';
+import { getUpcomingExams } from '../data/schedule.js';
+import { examEndMs } from '../lib/exam-countdown.js';
 import { ladderPreset, recallLadderStep } from '../lib/practice-ladder.js';
 import { rememberPhaseReturn, takePhaseReturn } from '../lib/phase-return.js';
 
@@ -301,7 +303,9 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   const lecturerCount = LECTURER_SETS[subject]?.lecturers?.length || 1;
   // The one-page wrap-up of this paper (exam-wrapups.js): first thing on the
   // topics tab the week of the exam, above the lecturer block.
-  const showWrapUp = Boolean(onOpenWrapUp && hasWrapUp(subject, selectedYear, selectedPhase));
+  // Gone once its paper is sat, the same rule as Home's strip.
+  const showWrapUp = Boolean(onOpenWrapUp && hasWrapUp(subject, selectedYear, selectedPhase)
+    && wrapUpStillAhead(subject, getUpcomingExams(`y${selectedYear}`), examEndMs, Date.now(), scopeForPhase(selectedPhase)));
 
   // Only for the exam these cards were drawn for. A card that showed all year
   // would stop meaning "this is the one coming up".
@@ -778,7 +782,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                     </button>
                   )}
                   {lecturer?.kind === 'text' && (
-                    <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)', alignSelf: 'center', overflowWrap: 'anywhere' }}>
+                    <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', alignSelf: 'center', overflowWrap: 'anywhere' }}>
                       {lecturer.text}
                     </span>
                   )}
@@ -830,7 +834,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             borderRadius: 10,
             background: 'var(--clr-surface-2)',
             border: '1px dashed var(--clr-border)',
-            fontSize: 13,
+            fontSize: 14,
             color: 'var(--clr-ink-soft)',
           }}>
             <button
@@ -850,7 +854,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               <span aria-hidden="true">{showEmptyTopics ? '▾' : '▸'}</span>
               {showEmptyTopics ? 'ซ่อนหัวข้อที่ยังไม่มีเนื้อหา' : `แสดงหัวข้อที่ยังไม่มีเนื้อหา (${emptyCount} หัวข้อ)`}
             </button>
-            <div style={{ fontSize: 12, lineHeight: 1.5 }}>
+            <div style={{ fontSize: 14, lineHeight: 1.5 }}>
               หัวข้อในแผนการสอนที่ยังไม่มีข้อสอบหรือสรุปพร้อมใช้ คุณแจ้งขอเพิ่มได้จากเมนู "แจ้งปัญหา"
             </div>
           </div>
@@ -896,7 +900,7 @@ function ExamFormatBanner({ format, accent }) {
       {items.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 18px', marginBottom: format.notes?.length || format.questionTypes?.length ? 10 : 0 }}>
           {items.map((it) => (
-            <div key={it.k} style={{ fontSize: 13 }}>
+            <div key={it.k} style={{ fontSize: 14 }}>
               <span style={{ color: 'var(--clr-ink-soft)' }}>{it.k}: </span>
               <strong style={{ color: 'var(--clr-ink)' }}>{it.v}</strong>
             </div>
@@ -905,7 +909,7 @@ function ExamFormatBanner({ format, accent }) {
       )}
 
       {format.questionTypes?.length > 0 && (
-        <ul style={{ margin: '6px 0 0', paddingLeft: 20, fontSize: 12.5, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
+        <ul style={{ margin: '6px 0 0', paddingLeft: 20, fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
           {format.questionTypes.map((q, i) => (
             <li key={i}>
               {q.topic} — <code style={{ background: 'var(--clr-surface-2)', padding: '1px 6px', borderRadius: 4, fontSize: 11 }}>{q.type}</code>
@@ -916,12 +920,12 @@ function ExamFormatBanner({ format, accent }) {
       )}
 
       {format.notes?.length > 0 && (
-        <div style={{ marginTop: 10, padding: '8px 12px', borderRadius: 8, background: 'var(--clr-surface-2)', fontSize: 12, lineHeight: 1.6 }}>
+        <div style={{ marginTop: 10, padding: '8px 12px', borderRadius: 8, background: 'var(--clr-surface-2)', fontSize: 14, lineHeight: 1.6 }}>
           {format.notes.map((n, i) => <div key={i}>{n}</div>)}
         </div>
       )}
 
-      <div style={{ marginTop: 8, fontSize: 11, fontStyle: 'italic', color: 'var(--clr-ink-soft)' }}>
+      <div style={{ marginTop: 8, fontSize: 14, fontStyle: 'italic', color: 'var(--clr-ink-soft)' }}>
         โปรดยืนยันกับอาจารย์/หัวปีอีกครั้งก่อนวันสอบจริง
       </div>
     </div>

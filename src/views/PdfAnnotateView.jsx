@@ -2015,11 +2015,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       <div style={{ minHeight: '100dvh', display: 'flex', flexDirection: 'column' }}>
         <BackBar onBack={onExit || goHome} label={onExit ? exitLabel : 'กลับหน้าแรก'} subtitle="เขียนทับ PDF" />
         <div style={{ padding: '8px 16px 24px', maxWidth: 720, margin: '0 auto', width: '100%' }}>
-          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             สไลด์บรรยาย และตำรา
           </div>
           <h1 style={{ margin: '6px 0 4px', fontSize: 22 }}>เปิด PDF แล้วเขียนทับได้เลย</h1>
-          <p style={{ color: 'var(--clr-ink-soft)', fontSize: 13, margin: '0 0 16px' }}>
+          <p style={{ color: 'var(--clr-ink-soft)', fontSize: 14, margin: '0 0 16px' }}>
             ลากไฟล์มาวางหรือกดเลือกไฟล์ รอยเขียนบันทึกให้เองในเครื่อง
             และถ้าเข้าสู่ระบบไว้จะตามไปทุกเครื่องด้วย ส่วนตัวไฟล์ PDF ไม่ได้ถูกเก็บไว้
             จึงต้องเลือกไฟล์เดิมอีกครั้งเมื่อจะเขียนต่อ
@@ -2036,7 +2036,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
               <NavIcon name="files" size={30} />
             </span>
             <strong style={{ fontSize: 15 }}>ลาก PDF มาวางที่นี่</strong>
-            <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>ไฟล์ขนาดไม่เกิน {SIZE_HARD_MB} MB</span>
+            <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>ไฟล์ขนาดไม่เกิน {SIZE_HARD_MB} MB</span>
             <button type="button" className="vmx-btn vmx-btn-primary" onClick={() => fileInputRef.current?.click()}>
               เลือกไฟล์ PDF
             </button>
@@ -2074,14 +2074,14 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           )}
 
           {loading && (
-            <div style={{ marginTop: 16, textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 13 }}>
+            <div style={{ marginTop: 16, textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 14 }}>
               <div className="vmx-document-loading"><MotionLoader progress={downloadProgress} label="ดาวน์โหลดเอกสาร" /><span>{loadingMsg || 'กำลังประมวลผล…'}</span></div>
             </div>
           )}
 
           {recent.length > 0 && (
             <div style={{ marginTop: 24 }}>
-              <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
+              <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>
                 ไฟล์ล่าสุด และรอยเขียนที่บันทึกไว้
               </div>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -2109,7 +2109,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
                       </span>
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div style={{ fontSize: 14, fontWeight: 500, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.fileName}</div>
-                        <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+                        <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
                           {r.pageCount} หน้า, เขียนไว้ {r.annotatedPageCount} หน้า, {fmtDate(r.lastOpened)}
                         </div>
                       </div>
@@ -2124,7 +2124,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
                   </li>
                 ))}
               </ul>
-              <p style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 8 }}>
+              <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 8 }}>
                 เบราว์เซอร์เก็บตัวไฟล์ PDF ไว้ให้ไม่ได้ เลือกไฟล์เดิมอีกครั้งแล้วรอยเขียนจะกลับมาเอง
               </p>
             </div>
@@ -2325,7 +2325,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
               })()}
             </>
           )}
-          <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, flex: 1, minWidth: 160 }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, flex: 1, minWidth: 160 }}>
             ขนาด
             <input
               type="range" min="1" max="10" value={size}
@@ -2391,7 +2391,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
             style={{
               flex: 1, minWidth: 0, minHeight: 36, padding: '6px 10px',
               border: '1px solid var(--clr-border, #d8d3c4)', borderRadius: 8,
-              background: 'var(--clr-surface, #fff)', color: 'var(--clr-ink)', fontSize: 13,
+              background: 'var(--clr-surface, #fff)', color: 'var(--clr-ink)', fontSize: 14,
             }}
           />
           <button type="submit" className="vmx-btn vmx-btn-sm" disabled={searching || !query.trim()}>
@@ -2406,7 +2406,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           >✍ หน้าที่ผมเขียน</button>
         </form>
         {shownHits && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
             {shownHits.length === 0 ? (
               <span>{onlyMine ? 'ไม่พบคำนี้ในหน้าที่คุณเขียนไว้' : 'ไม่พบคำนี้ในเอกสาร'}</span>
             ) : (
@@ -2430,7 +2430,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       )}
       {searchOpen && shownHits?.length > 0 && shownHits[hitIdx]?.quote && (
         <div style={{
-          padding: '4px 12px 8px', fontSize: 12, color: 'var(--clr-ink-soft)',
+          padding: '4px 12px 8px', fontSize: 14, color: 'var(--clr-ink-soft)',
           borderBottom: '1px solid var(--clr-border, #e1ddd2)',
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
         }}>{shownHits[hitIdx].quote}</div>
@@ -2509,7 +2509,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           onClick={() => goToPage(Math.max(1, currentPage - 1))}
           disabled={currentPage <= 1}
         >← ก่อน</button>
-        <span style={{ fontSize: 13, fontFamily: 'var(--vmx-mono)' }}>
+        <span style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)' }}>
           หน้า <strong>{currentPage}</strong> / {pageCount}
         </span>
         <button
@@ -2643,7 +2643,7 @@ function Toast({ text }) {
         color: '#fff',
         padding: '10px 16px',
         borderRadius: 999,
-        fontSize: 13,
+        fontSize: 14,
         boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
         zIndex: 1100,
         maxWidth: '90vw',

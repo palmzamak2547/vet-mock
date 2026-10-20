@@ -83,7 +83,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
               <div className="sub">{p.sub}</div>
               <div style={{
                 marginTop: 8,
-                fontSize: 11,
+                fontSize: 14,
                 fontFamily: 'var(--vmx-mono)',
                 color: 'var(--clr-ink-soft)',
                 letterSpacing: '0.04em',
@@ -95,7 +95,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
                     : `${subjectsInPhase.length} วิชา, กำลังเตรียมเนื้อหา`}
               </div>
               {isCurrent && (
-                <div className="badge" style={{ '--badge-accent': 'var(--clr-rose)', fontSize: 10 }}>แนะนำ</div>
+                <div className="badge" style={{ '--badge-accent': 'var(--clr-rose)', fontSize: 14 }}>แนะนำ</div>
               )}
             </button>
           );
@@ -107,7 +107,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
         padding: 14,
         borderRadius: 10,
         background: 'var(--clr-surface-2)',
-        fontSize: 12,
+        fontSize: 14,
         color: 'var(--clr-ink-soft)',
         textAlign: 'center',
         lineHeight: 1.6,

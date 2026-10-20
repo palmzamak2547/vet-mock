@@ -402,8 +402,8 @@ test.describe('whole-app mobile compatibility', () => {
     const commandPalette = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
     await commandPalette.waitFor({ state: 'visible', timeout: 20_000 });
     await recordStage(page, testInfo, failures, 'command-palette');
-    await commandPalette.getByRole('textbox', { name: 'ค้นหาใน VetMock' }).fill('เครื่องคิดเลข');
-    await expect(commandPalette.getByRole('button', { name: /เครื่องคิดเลข/ }).first()).toBeVisible();
+    await commandPalette.getByRole('combobox', { name: 'ค้นหาใน VetMock' }).fill('เครื่องคิดเลข');
+    await expect(commandPalette.getByRole('option', { name: /เครื่องคิดเลข/ }).first()).toBeVisible();
     await page.keyboard.press('Escape');
 
     const toolsButton = page.getByRole('button', { name: 'เครื่องมือ', exact: true });

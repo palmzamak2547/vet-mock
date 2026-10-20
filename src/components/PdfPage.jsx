@@ -221,7 +221,7 @@ export default memo(function PdfPage({
       />
       {near && renderStatus !== 'ready' && (
         <div style={{ position: 'absolute', inset: 0, display: 'grid', placeContent: 'center',
-          padding: 16, textAlign: 'center', lineHeight: 1.6, fontSize: 13, color: 'var(--clr-ink)', background: 'var(--clr-surface)' }}>
+          padding: 16, textAlign: 'center', lineHeight: 1.6, fontSize: 14, color: 'var(--clr-ink)', background: 'var(--clr-surface)' }}>
           {renderStatus === 'error' ? <>
             <p role="alert">โหลดหน้า {pageNum} ไม่สำเร็จ</p>
             <button type="button" className="vmx-btn vmx-btn-ghost" onClick={() => setRenderAttempt((n) => n + 1)}>ลองโหลดหน้าอีกครั้ง</button>

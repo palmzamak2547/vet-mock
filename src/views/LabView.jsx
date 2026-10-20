@@ -277,7 +277,7 @@ export default function LabView({ goHome }) {
               disclaimer banner. Liability stays visible on every visit
               (always rendered, not dismissible) but takes a single line
               instead of 50 px of vertical clutter. */}
-          <p style={{ fontSize: '0.82rem', color: 'var(--clr-ink-soft)', margin: '4px 0 0', lineHeight: 1.5 }}>
+          <p style={{ fontSize: '14px', color: 'var(--clr-ink-soft)', margin: '4px 0 0', lineHeight: 1.5 }}>
             เปิดเคส ฝึกวัด และอ่านภาพแบบ practical ได้ทันที
             <span className="vmx-lab-safety-note">Experimental — เพื่อการเรียนรู้ ไม่ใช้แทนการ workup ผู้ป่วยจริง</span>
           </p>
@@ -313,7 +313,7 @@ export default function LabView({ goHome }) {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 12 }}>
             <div style={{ flex: 1 }}>
               <strong style={{ fontSize: '0.95rem' }}>👋 ยินดีต้อนรับ Practical Imaging Lab</strong>
-              <ul style={{ margin: '8px 0 0', paddingLeft: 22, fontSize: '0.85rem', lineHeight: 1.6, color: 'var(--clr-ink-soft)' }}>
+              <ul style={{ margin: '8px 0 0', paddingLeft: 22, fontSize: '14px', lineHeight: 1.6, color: 'var(--clr-ink-soft)' }}>
                 <li>ลาก DICOM (<code>.dcm</code>) ลงด้านล่าง — ลากครั้งละ 2 ไฟล์ได้ (เปิด side-by-side)</li>
                 <li>เปิด viewer แล้วกด <kbd style={kbdInlineStyle}>?</kbd> ดู 16 keyboard shortcuts</li>
                 <li>มี Norberg + VHS + Length/Angle ครบ, Anonymize ก่อน share ภาพออก</li>
@@ -349,7 +349,7 @@ export default function LabView({ goHome }) {
                     ▶️ เปิดเคสจริง: <strong>{demoCases[0].title}</strong>
                   </span>
                   {demoCases.length > 1 && (
-                    <span style={{ display: 'block', fontWeight: 400, fontSize: '0.78rem', opacity: 0.85, marginTop: 4 }}>
+                    <span style={{ display: 'block', fontWeight: 400, fontSize: '14px', opacity: 0.85, marginTop: 4 }}>
                       case แรกจาก {demoCases.length} cases, กด Browse ด้านล่างดูทั้งหมด
                     </span>
                   )}
@@ -389,7 +389,7 @@ export default function LabView({ goHome }) {
             </div>
           )}
           {demoError && (
-            <p role="alert" style={{ color: 'var(--clr-rose-text)', fontSize: '0.82rem', margin: '8px 0 0', textAlign: 'center' }}>
+            <p role="alert" style={{ color: 'var(--clr-rose-text)', fontSize: '14px', margin: '8px 0 0', textAlign: 'center' }}>
               โหลด demo ไม่สำเร็จ: {demoError}
             </p>
           )}
@@ -406,7 +406,7 @@ export default function LabView({ goHome }) {
               <div style={{ fontWeight: 600, fontSize: '0.92rem' }}>
                 Browse case library
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+              <div style={{ fontSize: '14px', color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                 {demoCases.length > 0 ? `${demoCases.length} cases, X-ray / CT / MRI / US` : 'ดู cases ทั้งหมด'}
               </div>
             </button>
@@ -428,7 +428,7 @@ export default function LabView({ goHome }) {
               <div style={{ fontWeight: 600, fontSize: '0.92rem' }}>
                 Upload DICOM ของคุณ
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+              <div style={{ fontSize: '14px', color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                 Drag .dcm, ครั้งละ {MAX_FILES} ไฟล์, ไม่ขึ้น server
               </div>
               <input
@@ -450,16 +450,16 @@ export default function LabView({ goHome }) {
           {recent.length > 0 && (
             <div style={recentBoxStyle}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                <strong style={{ fontSize: '0.85rem', color: 'var(--clr-ink-soft)' }}>🕘 ไฟล์ที่เปิดล่าสุด</strong>
+                <strong style={{ fontSize: '14px', color: 'var(--clr-ink-soft)' }}>🕘 ไฟล์ที่เปิดล่าสุด</strong>
                 <button
                   onClick={clearRecent}
                   className="vmx-tap"
-                  style={{ fontSize: '0.7rem', color: 'var(--clr-ink-soft)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}
+                  style={{ fontSize: '14px', color: 'var(--clr-ink-soft)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}
                 >
                   ล้าง
                 </button>
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
+              <div style={{ fontSize: '14px', color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
                 รายการนี้อยู่จนกว่าจะปิดแท็บ และไม่เก็บตัวไฟล์ ลากไฟล์เดิมจากเครื่องมาเปิดอีกครั้ง
               </div>
               <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>

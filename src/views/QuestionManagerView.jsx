@@ -316,7 +316,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
               <div id="vmx-custom-blanks-label">คำตอบแต่ละช่อง (ใส่ ____ ในคำถามตรงตำแหน่งที่ต้องการให้เติม)</div>
               {formData.blanks.map((b, i) => (
                 <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
-                  <span style={{ minWidth: 70, fontSize: 12, alignSelf: 'center' }}>ช่องที่ {i + 1}</span>
+                  <span style={{ minWidth: 70, fontSize: 14, alignSelf: 'center' }}>ช่องที่ {i + 1}</span>
                   <input value={b} onChange={(e) => { const bs = [...formData.blanks]; bs[i] = e.target.value; setFormData({ ...formData, blanks: bs }); }} aria-label={`คำตอบช่องที่ ${i + 1}`} />
                 </div>
               ))}
@@ -348,10 +348,10 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
                 </div>
               </div>
               <div className="vmx-form-group" role="group" aria-labelledby="vmx-custom-distractors-label">
-                <div id="vmx-custom-distractors-label" style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 6 }}>ตัวลวง (distractors) — ตัวเลือกขวาที่ไม่มีคู่ซ้าย (ทำให้เดาข้อสุดท้ายไม่ได้) — เว้นว่างได้</div>
+                <div id="vmx-custom-distractors-label" style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 6 }}>ตัวลวง (distractors) — ตัวเลือกขวาที่ไม่มีคู่ซ้าย (ทำให้เดาข้อสุดท้ายไม่ได้) — เว้นว่างได้</div>
                 {(formData.distractors || ['']).map((d, i) => (
                   <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
-                    <span style={{ minWidth: 70, fontSize: 12, alignSelf: 'center', color: 'var(--clr-ink-soft)' }}>ตัวลวง {i + 1}</span>
+                    <span style={{ minWidth: 70, fontSize: 14, alignSelf: 'center', color: 'var(--clr-ink-soft)' }}>ตัวลวง {i + 1}</span>
                     <input style={{ flex: 1 }} value={d} placeholder="เช่น ยาหลอก / ชื่อยาผิด" aria-label={`ตัวลวงที่ ${i + 1}`} onChange={(e) => { const ds = [...(formData.distractors || [''])]; ds[i] = e.target.value; setFormData({ ...formData, distractors: ds }); }} />
                   </div>
                 ))}
@@ -406,7 +406,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
         )}
       </div>
       {selectMode && (
-        <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 16, padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 6 }}>
+        <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 16, padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 6 }}>
           คลิกที่ข้อเพื่อเลือก, แล้วแถบจะขึ้นด้านล่าง (กด Shift + คลิก เพื่อเลือกหลายข้อพร้อมกัน)
         </div>
       )}
@@ -508,7 +508,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
             fontWeight: 700,
             borderRadius: 999,
             padding: '4px 10px',
-            fontSize: 13,
+            fontSize: 14,
             minHeight: 28,
             display: 'inline-flex',
             alignItems: 'center',
@@ -558,7 +558,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
             minWidth: 240,
           }}
         >
-          <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 4 }}>เลือกวิชาใหม่สำหรับ {selectedIds.size} ข้อ</div>
+          <div style={{ fontSize: 14, opacity: 0.7, marginBottom: 4 }}>เลือกวิชาใหม่สำหรับ {selectedIds.size} ข้อ</div>
           {SUBJECTS.filter((s) => s.id !== 'all').map((s) => (
             <button
               key={s.id}

@@ -339,7 +339,7 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
         data-vmx-modal="true"
       >
         <div style={{ marginBottom: 10 }}>
-          <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             ✏️ {mode === 'sketch' ? 'กระดานวาด' : mode === 'template' ? 'Template + วาดทับ' : 'ภาพ + วาดทับ'}
           </div>
           <h2 style={{ margin: '4px 0 0', fontSize: 20 }}>{mode === 'sketch' ? 'วาดสรุป / แผนภาพ' : mode === 'template' ? 'วาดบน template' : 'วาดทับภาพ'}</h2>
@@ -365,7 +365,7 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
             />
           ))}
           <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
-          <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12 }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14 }}>
             ขนาด
             <input type="range" min="1" max="10" value={size} onChange={(e) => setSize(parseInt(e.target.value, 10))} aria-label="ขนาดปากกา" style={{ width: 80 }} />
           </label>
@@ -411,7 +411,7 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
                   top: Math.max(8, palmFlash.y - 36),
                   background: 'rgba(20, 20, 20, 0.92)',
                   color: '#fff',
-                  fontSize: 12,
+                  fontSize: 14,
                   padding: '6px 10px',
                   borderRadius: 6,
                   pointerEvents: 'none',

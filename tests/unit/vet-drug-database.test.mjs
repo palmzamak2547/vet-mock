@@ -213,6 +213,10 @@ test('anaesthetic induction doses are the IV / premedicated ones', () => {
   const k = byId('ketamine');
   assert.equal(k.doseLo, 2);
   assert.equal(k.doseHi, 5);
+  // The range is the IV one, so the route printed beside it says IV only: "IV/IM"
+  // next to an IV figure invited the very mix-up the note warns against.
+  assert.equal(k.route, 'IV');
+  assert.doesNotMatch(k.note, /ตัวเลขนี้คือขนาด IV สำหรับ induction \(1-4\.5/, 'the note must not give a different range for the same number');
   assert.match(k.note, /5-10 mg\/kg/, 'the IM restraint range must still be stated');
   assert.match(k.note, /benzodiazepine|α2/, 'ketamine is never given alone');
 

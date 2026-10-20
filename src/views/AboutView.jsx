@@ -53,8 +53,9 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
             href="https://www.instagram.com/vetmock.cu/"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ flexShrink: 0, display: 'block', lineHeight: 0, borderRadius: 12, overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
-            title="Scan หรือกดเพื่อเปิด @vetmock.cu"
+            className="vmx-about-qr"
+            style={{ flexShrink: 0, lineHeight: 0, borderRadius: 12, overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
+            title="สแกนหรือกดเพื่อเปิด @vetmock.cu"
           >
             <img src="/ig-qr.png" alt="QR code → instagram.com/vetmock.cu" width="120" height="120" loading="lazy" decoding="async" style={{ display: 'block' }} />
           </a>
@@ -62,7 +63,7 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
             <div style={{ fontFamily: 'var(--vmx-display)', fontSize: 18, fontWeight: 600, marginBottom: 4 }}>
               @vetmock.cu
             </div>
-            <div style={{ color: 'var(--clr-ink-soft)', marginBottom: 10, fontSize: 13 }}>
+            <div style={{ color: 'var(--clr-ink-soft)', marginBottom: 10, fontSize: 14 }}>
               Daily Q ของวัน, clip recommendations, changelog, study tips จากเพื่อนๆ ในรุ่น
             </div>
             <a
@@ -94,7 +95,7 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
       {/* Features — what's actually in the app */}
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
         <h3>ฟีเจอร์ที่ใช้ได้ตอนนี้</h3>
-        <div style={{ fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
+        <div style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
           <FeatureGroup
             title="ค้นหาอัจฉริยะ + ผู้ช่วย (Ctrl+K)"
             items={[
@@ -178,7 +179,7 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
       {/* Sources */}
       <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
         <h3>ที่มาของโจทย์ฝึก</h3>
-        <div style={{ fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
+        <div style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink-soft)', marginBottom: 14 }}>
           โจทย์ฝึกในเว็บนี้เรียบเรียงจากเนื้อหา lecture + โน้ตทบทวนที่รุ่นพี่ Vet 83–85 ส่งต่อกันมาในรุ่น
         </div>
 
@@ -193,11 +194,11 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 15, marginBottom: 4 }}>
                 {s.icon} {s.name}
               </div>
-              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.6, overflowWrap: 'anywhere' }}>
-                <strong>หัวข้อ:</strong> {src.topics}<br/>
-                <strong>ดึงจาก:</strong> {src.files.join(', ')}<br/>
-                <strong>ต้องขอบคุณ:</strong> {src.contributors.join(', ')}<br/>
-                {src.note && <em>💡 {src.note}</em>}
+              {/* Topics and thanks only: the raw file names and working notes in
+                  sources.js are the maintainers' provenance, not student copy. */}
+              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.6, overflowWrap: 'anywhere' }}>
+                <strong>หัวข้อ:</strong> {src.topics}
+                {src.contributors?.length > 0 && <><br/><strong>ขอบคุณ:</strong> {src.contributors.join(', ')}</>}
               </div>
             </div>
           );
@@ -220,19 +221,8 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
         </div>
       </div>
 
-      {/* Tech */}
-      <div className="vmx-dash-card" style={{ marginBottom: 16 }}>
-        <h3>Tech Stack</h3>
-        <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.7, fontFamily: 'var(--vmx-mono)' }}>
-          Frontend: React 18 + Vite (lazy-loaded views, manual chunks)<br/>
-          Backend: Supabase Postgres + Auth (lazy-loaded — โหลดเฉพาะตอน Login)<br/>
-          Hosting: Vercel + serverless functions<br/>
-          Cost: $0/month (free tier ทั้งหมด)
-        </div>
-      </div>
-
       {/* Disclaimer */}
-      <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
+      <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
         <strong>Disclaimer:</strong> เว็บนี้เป็น unofficial และไม่มีความเกี่ยวข้องกับคณะสัตวแพทยศาสตร์ จุฬาฯ อย่างเป็นทางการ
         เนื้อหาเป็น<strong>โจทย์ฝึก</strong>ที่นิสิตเรียบเรียงเองจากเนื้อหา lecture, ไม่ใช่ข้อสอบจริงและไม่ทดแทนการอ่านเนื้อหาหลัก
         ข้อมูลตารางสอบอาจมีการเปลี่ยนแปลง โปรดตรวจสอบกับทางคณะ/เพื่อนร่วมห้องอีกครั้ง
@@ -252,7 +242,7 @@ function FeatureGroup({ title, items }) {
       <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 14, marginBottom: 4 }}>
         {title}
       </div>
-      <ul style={{ paddingLeft: 22, margin: 0, fontSize: 13, lineHeight: 1.65, color: 'var(--clr-ink)' }}>
+      <ul style={{ paddingLeft: 22, margin: 0, fontSize: 14, lineHeight: 1.65, color: 'var(--clr-ink)' }}>
         {items.map((it, i) => <li key={i}>{it}</li>)}
       </ul>
     </div>

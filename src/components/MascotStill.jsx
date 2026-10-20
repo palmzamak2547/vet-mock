@@ -17,7 +17,7 @@ export default function MascotStill({ mascot, note, size = 160 }) {
         onError={artImgFallback}
         style={{ width: size, height: size, objectFit: 'contain' }}
       />
-      {note && <p style={{ margin: 0, fontSize: '0.82rem', lineHeight: 1.5, color: 'var(--clr-ink-soft)' }}>{note}</p>}
+      {note && <p style={{ margin: 0, fontSize: '14px', lineHeight: 1.5, color: 'var(--clr-ink-soft)' }}>{note}</p>}
     </div>
   );
 }

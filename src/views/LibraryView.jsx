@@ -41,6 +41,7 @@ import {
   getLibraryCatalogFast,
   groupByYearSubject,
   indexDocs,
+  displayDocTitle,
   kindLabel,
   listRecentDocs,
   readerPayload,
@@ -120,7 +121,7 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
   return (
     <article className="vmx-lib-card" style={cardStyle}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, justifyContent: 'space-between' }}>
-        <h3 className="vmx-lib-card-title">{doc.title}</h3>
+        <h3 className="vmx-lib-card-title">{displayDocTitle(doc.title)}</h3>
         <span className="vmx-lib-card-kind" style={{ color: KIND_TONE[doc.kind] || KIND_TONE.other }}>
           {kindLabel(doc.kind)}
         </span>
@@ -165,7 +166,7 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
         )}
       </div>
       {doc.source_files?.length > 0 && (
-        <details style={{ fontSize: 12, lineHeight: 1.6 }}>
+        <details style={{ fontSize: 14, lineHeight: 1.6 }}>
           <summary style={{ cursor: 'pointer', padding: '10px 0', minHeight: 44, boxSizing: 'border-box' }}>ไฟล์ที่เกี่ยวข้อง {doc.source_files.length} ไฟล์</summary>
           {doc.source_files.map((file) => {
             const href = googleDriveSourceUrl(file.url);
@@ -623,13 +624,15 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
       <div className="vmx-library-intro">
         <div className="vmx-library-intro-copy">
         <h1 style={{ margin: '0 0 4px', fontSize: 22 }}>คลังเอกสารการเรียน</h1>
-        <p style={{ color: 'var(--clr-ink-soft)', fontSize: 13, margin: 0 }}>
+        <p style={{ color: 'var(--clr-ink-soft)', fontSize: 14, margin: 0 }}>
           ค้นหาเอกสารตามชั้นปี วิชา และหัวข้อ เปิดอ่าน PDF ในแอปพร้อมขีดเขียน
           หรือเปิดเอกสาร VCA จาก Google Drive ต้นฉบับ
         </p>
         {docs.length > 0 && (
           <div className="vmx-lib-result-count" style={{ marginTop: 6, marginBottom: 0 }}>
-            {docs.length.toLocaleString()} รายการ จาก {subjectTotal} วิชา
+            {hasFilters && !searching
+              ? `แสดง ${filtered.length.toLocaleString()} จาก ${docs.length.toLocaleString()} รายการ`
+              : `${docs.length.toLocaleString()} รายการ จาก ${subjectTotal} วิชา`}
           </div>
         )}
         </div>
@@ -665,7 +668,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
 
       <div style={{ display: activeTab === 'internal' ? 'block' : 'none' }}>
         {(subjectFilter === 'vca' || /vca/i.test(debouncedQuery)) && (
-        <p style={{ fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink-soft)', margin: '0 0 16px' }}>
+        <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink-soft)', margin: '0 0 16px' }}>
           ชุดนี้รวมเอกสารและบันทึกข้อสอบย้อนหลัง เฉลยในต้นฉบับบางข้อยังต้องตรวจเทียบ
           {' '}เปิดอ่านจากสำเนาที่เก็บไว้ในคลัง VetMock ได้ แม้ลิงก์ต้นทางจะใช้งานไม่ได้
           {' '}กำหนดการและเกณฑ์รอบปัจจุบันดูได้ที่{' '}
@@ -713,7 +716,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
         <div role="alert" style={{
           border: '1px solid var(--clr-rose)', background: 'var(--clr-rose-soft)',
           color: 'var(--clr-rose-text)', borderRadius: 8, padding: '10px 14px',
-          fontSize: 13, marginBottom: 14,
+          fontSize: 14, marginBottom: 14,
           display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap',
         }}>
           <span style={{ flex: 1, minWidth: 180 }}>{error}</span>
@@ -740,7 +743,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
       {!loading && !configured && (
         <div className="vmx-empty-state">
           <Mochi state="encourage" size={56} slot="library-status" className="vmx-empty-mochi" /><p>คลังเอกสารยังไม่พร้อมใช้งานในเครื่องนี้</p>
-          <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>ลองเปิดจากเว็บหลักอีกครั้ง หรือกดลองใหม่</p>
+          <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>ลองเปิดจากเว็บหลักอีกครั้ง หรือกดลองใหม่</p>
           <button
             type="button"
             className="vmx-btn vmx-btn-sm"
@@ -763,7 +766,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
             style={{ width: 'min(240px, 70%)', height: 'auto', margin: '0 auto 4px', display: 'block' }}
           />
           <p>ยังไม่มีเอกสารในคลัง</p>
-          <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
+          <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
             เอกสารจะขึ้นที่นี่เมื่อมีการเพิ่มเข้าคลัง
           </p>
         </div>
@@ -799,7 +802,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
             ))}
           </div>
           {filtered.length > visibleFlat.length && (
-            <p style={{ fontSize: 12.5, color: 'var(--clr-ink-soft)', textAlign: 'center', marginTop: 14 }}>
+            <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', textAlign: 'center', marginTop: 14 }}>
               แสดง {visibleFlat.length} จาก {filtered.length} รายการ — พิมพ์คำค้นเพิ่มเพื่อแคบผลลัพธ์
             </p>
           )}
@@ -816,11 +819,11 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
                 key={doc.slug}
                 type="button"
                 className="vmx-chip"
-                title={doc.title}
+                title={displayDocTitle(doc.title)}
                 onClick={() => openDoc(doc)}
                 style={{ maxWidth: 260, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flexShrink: 0 }}
               >
-                {doc.title}
+                {displayDocTitle(doc.title)}
               </button>
             ))}
           </div>

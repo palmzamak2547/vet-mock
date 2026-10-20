@@ -198,7 +198,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
         <div style={{ ...rowBase, flexDirection: 'column', alignItems: 'stretch', marginBottom: 10, gap: 8 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ ...tsBtn, cursor: 'default' }}>{formatTimestamp(composeT)}</span>
-            <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
+            <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
              , timestamp ตอนกดปุ่ม
             </span>
           </div>
@@ -215,7 +215,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
             placeholder="พิมพ์โน้ต… (Enter = save, Shift+Enter = ขึ้นบรรทัด, Esc = ยกเลิก)"
             rows={2}
             style={{
-              width: '100%', padding: '8px 10px', fontSize: 13,
+              width: '100%', padding: '8px 10px', fontSize: 14,
               borderRadius: 6, border: '1px solid var(--clr-border)',
               background: 'var(--clr-bg)', color: 'var(--clr-ink)',
               fontFamily: 'inherit', resize: 'vertical', minHeight: 60,
@@ -230,7 +230,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
 
       {/* Empty state */}
       {!notes.length && !composing && (
-        <div style={{ padding: '14px 10px', fontSize: 13, color: 'var(--clr-ink-soft)', textAlign: 'center', lineHeight: 1.6 }}>
+        <div style={{ padding: '14px 10px', fontSize: 14, color: 'var(--clr-ink-soft)', textAlign: 'center', lineHeight: 1.6 }}>
           ยังไม่มีโน้ต — กด <strong>+ จด ณ เวลานี้</strong> เพื่อจดในจังหวะที่สำคัญ
         </div>
       )}
@@ -272,7 +272,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
                     }}
                     rows={2}
                     style={{
-                      flex: 1, minWidth: 0, padding: '6px 8px', fontSize: 13,
+                      flex: 1, minWidth: 0, padding: '6px 8px', fontSize: 14,
                       borderRadius: 6, border: '1px solid var(--clr-border)',
                       background: 'var(--clr-bg)', color: 'var(--clr-ink)',
                       fontFamily: 'inherit', resize: 'vertical',
@@ -282,7 +282,7 @@ export default function VideoNotePanel({ videoId, playerRef, currentTime }) {
                   <div
                     onClick={() => beginEdit(n)}
                     style={{
-                      flex: 1, minWidth: 0, fontSize: 13, lineHeight: 1.5,
+                      flex: 1, minWidth: 0, fontSize: 14, lineHeight: 1.5,
                       color: 'var(--clr-ink)', whiteSpace: 'pre-wrap', wordBreak: 'break-word',
                       cursor: 'text', padding: '6px 4px', minHeight: 32,
                     }}

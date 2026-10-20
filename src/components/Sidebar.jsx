@@ -49,7 +49,7 @@
 // quick grid reads too, so the two surfaces show one list.
 // ============================================================
 
-import React from 'react';
+import React, { useState } from 'react';
 import { NAV_ITEMS, navItemsFor, runNav, isNavActive, splitLearnForRail, featureLineIcon } from '../lib/nav.js';
 import { featuresByCategory, visibleFeatures } from '../lib/feature-registry.js';
 import { LATEST_CHANGELOG } from '../data/latest-changelog.generated.js';
@@ -60,8 +60,10 @@ import Mochi from './Mochi.jsx';
 export default function Sidebar({
   view, setView, goHome, setSubject, setPracticeMode, setMode, onMockExam,
   signedIn = false, hasSupabase = true, scaffold = false, selectedYear,
-  setPaletteOpen,
 }) {
+  // The overflow row reveals the rest of the learn group in place; the search
+  // palette is a different tool and stays on its own button.
+  const [expanded, setExpanded] = useState(false);
   const handlers = { setView, goHome, setSubject, setPracticeMode, setMode, onMockExam };
   // The rail's own slice of the one list; the marker's row index comes from
   // this slice, so it lands on the row that is actually drawn.
@@ -85,6 +87,32 @@ export default function Sidebar({
   // The rail is a shortcut list, not a site map — the palette is the site
   // map. The starred rows are the list; everything else is one row away.
   const { visible: learn, rest: learnRest } = splitLearnForRail(learnAll);
+
+  const renderLearnRow = (f) => {
+    const active = view === f.invoke.view;
+    // The rail draws line icons, not emoji — a decision made when
+    // the mobile bottom bar was built and one this group has to
+    // keep, or the two halves of the same list would speak two
+    // visual languages. Anything not mapped falls back to the
+    // registry's emoji, so a newly registered learn feature still
+    // appears instead of vanishing.
+    const icon = featureLineIcon(f.id);
+    return (
+      <button
+        key={f.id}
+        type="button"
+        className={`vmx-nav-row is-secondary${active ? ' is-active' : ''}`}
+        aria-current={active ? 'page' : undefined}
+        title={f.hint || undefined}
+        onClick={() => setView(f.invoke.view)}
+      >
+        <span className="vmx-sidebar-icon" aria-hidden="true">
+          {icon ? <NavIcon name={icon} size={17} /> : f.icon}
+        </span>
+        <span className="vmx-sidebar-label">{f.label}</span>
+      </button>
+    );
+  };
 
   return (
     <aside className="vmx-sidebar">
@@ -129,41 +157,19 @@ export default function Sidebar({
           <>
             <p className="vmx-sidebar-heading vmx-sidebar-heading-2">เรียน &amp; ทบทวน</p>
             <div className="vmx-sidebar-list">
-              {learn.map((f) => {
-                const active = view === f.invoke.view;
-                // The rail draws line icons, not emoji — a decision made when
-                // the mobile bottom bar was built and one this group has to
-                // keep, or the two halves of the same list would speak two
-                // visual languages. Anything not mapped falls back to the
-                // registry's emoji, so a newly registered learn feature still
-                // appears instead of vanishing.
-                const icon = featureLineIcon(f.id);
-                return (
-                  <button
-                    key={f.id}
-                    type="button"
-                    className={`vmx-nav-row is-secondary${active ? ' is-active' : ''}`}
-                    aria-current={active ? 'page' : undefined}
-                    title={f.hint || undefined}
-                    onClick={() => setView(f.invoke.view)}
-                  >
-                    <span className="vmx-sidebar-icon" aria-hidden="true">
-                      {icon ? <NavIcon name={icon} size={17} /> : f.icon}
-                    </span>
-                    <span className="vmx-sidebar-label">{f.label}</span>
-                  </button>
-                );
-              })}
-              {learnRest.length > 0 && setPaletteOpen && (
+              {learn.map(renderLearnRow)}
+              {expanded && learnRest.map(renderLearnRow)}
+              {learnRest.length > 0 && (
                 <button
                   type="button"
                   className="vmx-nav-row is-secondary vmx-sidebar-more"
-                  title={learnRest.map((f) => f.label).join(', ')}
-                  onClick={() => setPaletteOpen(true)}
+                  aria-expanded={expanded}
+                  title={expanded ? undefined : learnRest.map((f) => f.label).join(', ')}
+                  onClick={() => setExpanded((open) => !open)}
                 >
                   <span className="vmx-sidebar-icon" aria-hidden="true"><NavIcon name="more" size={17} /></span>
-                  <span className="vmx-sidebar-label">ทั้งหมด</span>
-                  <span className="vmx-sidebar-count" aria-hidden="true">+{learnRest.length}</span>
+                  <span className="vmx-sidebar-label">{expanded ? 'แสดงน้อยลง' : 'ทั้งหมด'}</span>
+                  {!expanded && <span className="vmx-sidebar-count" aria-hidden="true">+{learnRest.length}</span>}
                 </button>
               )}
             </div>

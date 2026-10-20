@@ -187,7 +187,7 @@ export default function ShortcutSheet({ open, onClose }) {
                       justifyContent: 'space-between',
                       gap: 12,
                       padding: '6px 0',
-                      fontSize: 13,
+                      fontSize: 14,
                       color: 'var(--clr-ink)',
                     }}
                   >
@@ -206,7 +206,7 @@ export default function ShortcutSheet({ open, onClose }) {
         <p
           style={{
             margin: '14px 0 0 0',
-            fontSize: 11,
+            fontSize: 14,
             color: 'var(--clr-ink-soft)',
             fontFamily: 'var(--vmx-mono)',
             textAlign: 'center',

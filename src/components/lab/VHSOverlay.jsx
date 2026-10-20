@@ -382,7 +382,7 @@ export default function VHSOverlay({ active, viewportRef, caseId = null, species
           <div style={{ marginTop: 6, fontSize: '1rem', color: '#ffd93d' }}>
             VHS = <strong>{result.vhs.toFixed(2)} v</strong>
           </div>
-          <div style={{ marginTop: 6, fontSize: '0.72rem', color: '#aaa' }}>
+          <div style={{ marginTop: 6, fontSize: '14px', color: '#aaa' }}>
             {ref ? (
               <>
                 ค่าอ้างอิง, <strong>{ref.label}</strong> {ref.lo}–{ref.hi}

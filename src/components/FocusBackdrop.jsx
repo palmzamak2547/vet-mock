@@ -8,7 +8,7 @@ export default function FocusBackdrop({ preset, paused }) {
   const { reduced, preferences } = useMotionPreferences();
   useEffect(() => {
     if (preset === 'none' || preferences.mode === 'off') return undefined;
-    const scope = createScope(root.current, { quiet: reduced, paused });
+    const scope = createScope(root.current, { quiet: reduced, paused, fps: 30 });
     owner.current = scope;
     const fx = createParticles(root.current, { scope, kind: 'ambient', preset, maxDpr: 1.25 });
     return () => { fx.destroy(); scope.destroy(); owner.current = null; };

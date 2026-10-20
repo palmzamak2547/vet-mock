@@ -397,7 +397,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
             ลบกล่อง
           </button>
           <span style={{ flex: 1 }} />
-          <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+          <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
             {masks.length} กล่อง
           </span>
         </div>
@@ -423,7 +423,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
             <div style={{ fontWeight: 600, color: 'var(--clr-ink)', marginBottom: 4 }}>
               อัปโหลดรูป
             </div>
-            <div style={{ fontSize: 13 }}>คลิก หรือ ลากไฟล์มาวาง, PNG / JPG / WebP / SVG</div>
+            <div style={{ fontSize: 14 }}>คลิก หรือ ลากไฟล์มาวาง, PNG / JPG / WebP / SVG</div>
           </div>
         ) : (
           <div
@@ -535,7 +535,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
             background: 'var(--clr-surface-2, var(--clr-surface))',
             border: '1px solid var(--clr-border)',
           }}>
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 6, fontFamily: 'var(--vmx-mono)' }}>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 6, fontFamily: 'var(--vmx-mono)' }}>
               กล่องที่เลือก
             </div>
             <input
@@ -579,7 +579,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
         {/* Mask list (mobile-friendly fallback) */}
         {masks.length > 0 && (
           <details style={{ marginTop: 10 }}>
-            <summary style={{ fontSize: 13, color: 'var(--clr-ink-soft)', cursor: 'pointer' }}>
+            <summary style={{ fontSize: 14, color: 'var(--clr-ink-soft)', cursor: 'pointer' }}>
               รายการกล่อง ({masks.length})
             </summary>
             <ul style={{ listStyle: 'none', padding: 0, margin: '8px 0 0' }}>
@@ -594,7 +594,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
                     marginBottom: 6,
                     cursor: 'pointer',
                     background: m.id === selectedId ? 'var(--clr-sage-soft)' : 'transparent',
-                    fontSize: 13,
+                    fontSize: 14,
                   }}
                 >
                   <strong>#{i + 1}</strong>, {m.label || '(no label)'} → {m.answer || <em style={{ color: 'var(--clr-rose-text)' }}>(ยังไม่มีคำตอบ)</em>}
@@ -614,7 +614,7 @@ export default function ImageOcclusionEditor({ initialDeck, onSave, onClose }) {
             color: '#fff',
             padding: '10px 16px',
             borderRadius: 999,
-            fontSize: 13,
+            fontSize: 14,
             // Toast rung — 9999 is reserved for the skip link and loading bar.
             zIndex: 1500,
             maxWidth: '90%',

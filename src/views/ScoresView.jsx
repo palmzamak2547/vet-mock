@@ -57,14 +57,16 @@ export default function ScoresView({ goHome }) {
             <div key={idx} className="vmx-dash-card">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
                 <h3 style={{ margin: 0, fontSize: 17 }}>
-                  {subject?.icon || '📚'} {s.name}
+                  {/* The course's own name, the one its filter chip and every
+                      other page use; the sheet's label is the fallback. */}
+                  {subject?.icon || '📚'} {subject?.name || s.name}
                 </h3>
                 {totalNote === null ? (
-                  <span style={{ fontSize: 11, fontFamily: 'var(--vmx-sans)', fontVariantNumeric: 'tabular-nums', color: 'var(--clr-sage-text)', padding: '2px 8px', background: 'var(--clr-surface-2)', borderRadius: 999 }}>
+                  <span style={{ fontSize: 14, fontFamily: 'var(--vmx-sans)', fontVariantNumeric: 'tabular-nums', color: 'var(--clr-sage-text)', padding: '2px 8px', background: 'var(--clr-surface-2)', borderRadius: 999 }}>
                     รวม ~{Math.round(knownScoreTotal(s))}%
                   </span>
                 ) : (
-                  <span style={{ fontSize: 11, fontFamily: 'var(--vmx-sans)', fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink-soft)', padding: '2px 8px', background: 'var(--clr-surface-2)', borderRadius: 10 }}>
+                  <span style={{ fontSize: 14, fontFamily: 'var(--vmx-sans)', fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink-soft)', padding: '2px 8px', background: 'var(--clr-surface-2)', borderRadius: 10 }}>
                     {totalNote}
                   </span>
                 )}
@@ -78,7 +80,7 @@ export default function ScoresView({ goHome }) {
               </div>
 
               {s.note && (
-                <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
+                <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
                   <span className="vmx-kicker" style={{ color: 'var(--clr-ink)', flexShrink: 0, marginTop: 1 }}>หมายเหตุ:</span>
                   <span>{s.note}</span>
                 </div>
@@ -89,7 +91,7 @@ export default function ScoresView({ goHome }) {
       </div>
 
       <div className="vmx-empty" style={{ marginBottom: 20, padding: 16, background: 'var(--clr-surface-2)', borderRadius: 12 }}>
-        ข้อมูลอาจไม่ครบหรือมีคลาดเคลื่อน — ส่ง update ได้ที่ <strong>Feedback</strong> หรือ <a href="mailto:palmzamak2547@gmail.com" style={{ color: 'var(--clr-sage-text)' }}>palmzamak2547@gmail.com</a>
+        ข้อมูลอาจไม่ครบหรือคลาดเคลื่อน แจ้งแก้ไขได้ที่หน้า<strong>แจ้งปัญหา</strong> หรือ <a href="mailto:palmzamak2547@gmail.com" style={{ color: 'var(--clr-sage-text)' }}>palmzamak2547@gmail.com</a>
       </div>
 
       <div className="vmx-btn-row">
@@ -103,7 +105,7 @@ function ScoreCell({ label, value, color }) {
   if (value === null || value === undefined) {
     return (
       <div style={{ padding: 10, background: 'var(--clr-bg)', borderRadius: 8, textAlign: 'center', opacity: 0.4 }}>
-        <div style={{ fontSize: 11, fontFamily: 'var(--vmx-sans)', color: 'var(--clr-ink-soft)', marginBottom: 4 }}>{label}</div>
+        <div style={{ fontSize: 14, fontFamily: 'var(--vmx-sans)', color: 'var(--clr-ink-soft)', marginBottom: 4 }}>{label}</div>
         <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>—</div>
       </div>
     );
@@ -113,7 +115,7 @@ function ScoreCell({ label, value, color }) {
 
   return (
     <div style={{ padding: 10, background: 'var(--clr-bg)', borderRadius: 8, textAlign: 'center' }}>
-      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-sans)', color: 'var(--clr-ink-soft)', marginBottom: 4 }}>{label}</div>
+      <div style={{ fontSize: 14, fontFamily: 'var(--vmx-sans)', color: 'var(--clr-ink-soft)', marginBottom: 4 }}>{label}</div>
       <div style={{ fontSize: 16, fontWeight: 600, fontFamily: 'var(--vmx-display)', fontVariantNumeric: 'tabular-nums', color }}>{display}</div>
     </div>
   );

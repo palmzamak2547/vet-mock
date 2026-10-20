@@ -38,7 +38,7 @@ function MilestoneRow({ m }) {
         <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--clr-ink-soft)' }}>
           {KIND_LABEL[m.kind] || m.kind}
         </span>
-        <strong style={{ fontSize: 13.5, color: 'var(--clr-ink)', flex: '1 1 auto', minWidth: 0 }}>
+        <strong style={{ fontSize: 14, color: 'var(--clr-ink)', flex: '1 1 auto', minWidth: 0 }}>
           {m.titleTh}
         </strong>
         <span style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}>
@@ -50,7 +50,7 @@ function MilestoneRow({ m }) {
           closed. The "ดูกำหนดการทั้งหมด" list covers the whole semester, so
           without the closed case a past window either printed
           "จะเริ่มในอีก null วัน" or claimed it had not started yet. */}
-      <div style={{ marginTop: 5, fontSize: 12.5, color: m.active && urgent ? 'var(--clr-rose-text)' : m.past ? 'var(--clr-ink-soft)' : 'var(--clr-sage-text)', fontWeight: 600 }}>
+      <div style={{ marginTop: 5, fontSize: 14, color: m.active && urgent ? 'var(--clr-rose-text)' : m.past ? 'var(--clr-ink-soft)' : 'var(--clr-sage-text)', fontWeight: 600 }}>
         {m.active
           ? (m.daysLeftToEnd === 0 ? 'วันสุดท้ายวันนี้' : `เปิดอยู่ เหลืออีก ${m.daysLeftToEnd} วัน`)
           : m.past
@@ -60,10 +60,10 @@ function MilestoneRow({ m }) {
       </div>
 
       {m.noteTh && (
-        <div style={{ marginTop: 5, fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>{m.noteTh}</div>
+        <div style={{ marginTop: 5, fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>{m.noteTh}</div>
       )}
       {m.warnTh && (
-        <div style={{ marginTop: 5, fontSize: 12, color: 'var(--clr-rose-text)', lineHeight: 1.6 }}>⚠️ {m.warnTh}</div>
+        <div style={{ marginTop: 5, fontSize: 14, color: 'var(--clr-rose-text)', lineHeight: 1.6 }}>⚠️ {m.warnTh}</div>
       )}
     </div>
   );
@@ -100,15 +100,15 @@ function EventRow({ e }) {
       }}
     >
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'baseline' }}>
-        <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--clr-ink-soft)' }}>
+        <span style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--clr-ink-soft)' }}>
           กิจกรรม
         </span>
-        <strong style={{ fontSize: 13.5, color: 'var(--clr-ink)', flex: '1 1 auto', minWidth: 0 }}>{e.titleTh}</strong>
+        <strong style={{ fontSize: 14, color: 'var(--clr-ink)', flex: '1 1 auto', minWidth: 0 }}>{e.titleTh}</strong>
       </div>
-      <div style={{ marginTop: 5, fontSize: 12.5, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
+      <div style={{ marginTop: 5, fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)' }}>
         {fmtThaiDate(e.date)}, {e.start}-{e.end} น., {e.location}
       </div>
-      <div style={{ marginTop: 4, fontSize: 12.5, fontWeight: 600, color: soon ? 'var(--clr-gold-text)' : 'var(--clr-ink-soft)' }}>
+      <div style={{ marginTop: 4, fontSize: 14, fontWeight: 600, color: soon ? 'var(--clr-gold-text)' : 'var(--clr-ink-soft)' }}>
         {e.daysLeft === 0 ? 'วันนี้' : e.daysLeft === 1 ? 'พรุ่งนี้' : `อีก ${e.daysLeft} วัน`}
         {e.noteTh ? `, ${e.noteTh}` : ''}
       </div>
@@ -120,7 +120,7 @@ function EventRow({ e }) {
               href={l.url}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ fontSize: 12, padding: '6px 11px', borderRadius: 999, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', color: 'var(--clr-ink)', textDecoration: 'none', minHeight: 44, display: 'inline-flex', alignItems: 'center', boxSizing: 'border-box' }}
+              style={{ fontSize: 14, padding: '6px 11px', borderRadius: 999, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', color: 'var(--clr-ink)', textDecoration: 'none', minHeight: 44, display: 'inline-flex', alignItems: 'center', boxSizing: 'border-box' }}
             >
               {l.label} ↗
             </a>
@@ -148,7 +148,7 @@ export default function AcademicCalendar({ year = 5 }) {
         <>
           <div className="vmx-section-label" style={{ marginBottom: 12 }}>
             <span>กิจกรรมที่กำลังจะถึง</span>
-            <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>ประกาศจากคณะ/สโมสร</span>
+            <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>ประกาศจากคณะ/สโมสร</span>
           </div>
           <div style={{ display: 'grid', gap: 8, marginBottom: 24 }}>
             {events.map((e) => <EventRow key={e.id} e={e} />)}
@@ -158,11 +158,11 @@ export default function AcademicCalendar({ year = 5 }) {
 
       <div className="vmx-section-label" style={{ marginBottom: 12 }}>
         <span id="vmx-cal-title">ปฏิทินลงทะเบียนและชำระเงิน</span>
-        <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>{SEMESTER.labelTh}</span>
+        <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>{SEMESTER.labelTh}</span>
       </div>
 
       {active.length === 0 && !showAll && (
-        <div className="vmx-empty" style={{ fontSize: 13 }}>
+        <div className="vmx-empty" style={{ fontSize: 14 }}>
           ไม่มีกำหนดการลงทะเบียนในช่วง 14 วันนี้
         </div>
       )}
@@ -180,23 +180,23 @@ export default function AcademicCalendar({ year = 5 }) {
         type="button"
         className="vmx-link-btn"
         onClick={() => setShowAll((v) => !v)}
-        style={{ marginTop: 8, fontSize: 12.5, color: 'var(--clr-ink-soft)' }}
+        style={{ marginTop: 8, fontSize: 14, color: 'var(--clr-ink-soft)' }}
       >
         {showAll ? 'แสดงเฉพาะช่วงที่เกี่ยวกับตอนนี้' : `ดูกำหนดการทั้งหมด (${ACADEMIC_MILESTONES.length} รายการ)`}
       </button>
 
       {group && (
         <div style={{ marginTop: 14, padding: '13px 15px', borderRadius: 'var(--r-md, 12px)', background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--clr-ink)', marginBottom: 6 }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)', marginBottom: 6 }}>
             ลงทะเบียนทั้งชุดด้วยรหัสกลุ่ม{' '}
             <span style={{ fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)' }}>{group.groupCode}</span>
           </div>
-          <div style={{ fontSize: 12.5, color: 'var(--clr-ink-soft)', lineHeight: 1.65 }}>
+          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.65 }}>
             {group.howTo}
             <br />
             รวม {group.courseCount} รายวิชา {group.credits} หน่วยกิต (ตอนเรียน {group.section})
           </div>
-          <div style={{ marginTop: 6, fontSize: 12, color: 'var(--clr-rose-text)', lineHeight: 1.6 }}>⚠️ {group.warning}</div>
+          <div style={{ marginTop: 6, fontSize: 14, color: 'var(--clr-rose-text)', lineHeight: 1.6 }}>⚠️ {group.warning}</div>
         </div>
       )}
     </section>

@@ -885,3 +885,22 @@ export function listRecentDocs() {
     return [];
   }
 }
+
+// What a card prints for a document. Library titles are often the file name a
+// senior uploaded to Drive ("VCA2026_anatomy", "สำเนาของ …", "… (1)"); the
+// stored title stays as it is for search and provenance, and the card reads
+// it as words. A trailing "(1)" is Drive's copy suffix; "(2)" and up are kept,
+// since a part number cannot be told apart from it.
+export function displayDocTitle(title) {
+  let t = String(title ?? '').trim();
+  let compressed = false;
+  t = t.replace(/^\(Minimize\)\s*/i, () => { compressed = true; return ''; });
+  t = t.replace(/^สำเนาของ\s+/, '')
+    .replace(/(?:\.|\s)pdf$/i, '')
+    .replace(/\s+\(1\)$/, '')
+    .replace(/\s+_\s+/g, ', ')
+    .replace(/_+/g, ' ')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+  return compressed ? `${t} (ไฟล์ย่อ)` : t;
+}

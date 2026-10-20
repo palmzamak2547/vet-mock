@@ -14,7 +14,15 @@
 
 // The cohort year lives in curriculum.js so there is exactly one place to
 // move it each August. curriculum.js imports nothing, so no cycle.
-import { CURRENT_YEAR } from './curriculum.js';
+import { CURRENT_YEAR, SUBJECTS } from './curriculum.js';
+
+// What a paper is called on screen: the course's own Thai name, the one Home,
+// the subject picker and every chip use. The timetable's titles are the
+// faculty's abbreviations ("HERD HLTH MGT RUM — กลางภาค"), kept as data and
+// as the fallback for a paper with no course in the curriculum.
+export function examTitle(exam) {
+  return SUBJECTS.find((s) => s.id === exam?.subject)?.name || exam?.title || '';
+}
 import { SEMESTER } from './semester.js';
 
 export const EXAM_SCHEDULE = {

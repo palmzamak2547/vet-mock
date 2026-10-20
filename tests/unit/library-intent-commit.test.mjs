@@ -12,7 +12,7 @@ const { default: LibraryView } = await loadModule('src/views/LibraryView.jsx', {
   { match: '/hooks/useMotionPreferences\\.js$', contents: 'export const useMotionPreferences = () => ({ reduced: true });' },
   { match: '/lib/library\\.js$', contents: `
     export const { LIBRARY_KINDS, SEMESTERS, buddhistYear, docOpenMode, prefetchDocUrl, docTypeLabel,
-      filterIndexed, formatBytes, groupByYearSubject, indexDocs, kindLabel, listRecentDocs,
+      displayDocTitle, filterIndexed, formatBytes, groupByYearSubject, indexDocs, kindLabel, listRecentDocs,
       readerPayload, recordRecentDoc, resolveDocUrl, semesterLabel, subjectMeta } = globalThis.__libraryIntentFunctions;
     export const getLibraryCatalogFast = () => {
       globalThis.__libraryIntentCatalogCalls++;

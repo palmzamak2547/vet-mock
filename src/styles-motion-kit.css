@@ -149,7 +149,7 @@
     padding: 12px 12px 18px;
   }
   .vm-mochi-speed {
-    font-size: 12px;
+    font-size: 14px;
   }
   .vm-mochi-speed input {
     width: 55px;
@@ -161,7 +161,7 @@
     gap: 6px;
   }
   .vm-mochi-status {
-    font-size: 13px;
+    font-size: 14px;
   }
   .vm-mochi-viewport {
     min-height: 215px;
@@ -270,7 +270,7 @@
   gap: 25px;
 }
 .vm-demo-tag {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: .15em;
   color: var(--clr-ink-soft);
@@ -294,7 +294,7 @@
   color: var(--clr-ink-soft);
 }
 .vm-footnote {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--clr-ink-soft);
   text-align: center;
   margin: 0;
@@ -577,7 +577,7 @@
   transition: transform .18s;
 }
 .vm-card-kicker {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: .12em;
 }
 .vm-card-paw {
@@ -592,7 +592,7 @@
   line-height: 1.25;
 }
 .vm-study-card > span:last-child {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--clr-ink-soft);
 }
 .vm-ripple-button {
@@ -648,7 +648,7 @@
   border-color: var(--clr-border);
 }
 .vm-flip-card small {
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: .1em;
 }
 .vm-flip-card strong {
@@ -657,7 +657,7 @@
   line-height: 1.6;
 }
 .vm-flip-card span span span {
-  font-size: 13px;
+  font-size: 14px;
 }
 .vm-answer {
   padding: 25px;
@@ -828,14 +828,14 @@
   font-weight: 500;
 }
 .vm-breath-circle span {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--clr-ink-soft);
 }
 .vm-play-breath .vm-button {
   font-size: 14px;
 }
 .vm-play-breath .vm-game-status {
-  font-size: 12px;
+  font-size: 14px;
 }
 .vm-host[data-effect=rain] {
   background:
@@ -1026,7 +1026,7 @@
 .vm-host .vm-study-card, .vm-host .vm-flip-card { color: var(--clr-ink); max-width: 100%; }
 .vm-host .vm-loader-art { max-width: 100%; }
 .vm-host .vm-mochi-modes { background: var(--clr-surface-2); }
-.vm-host .vm-mochi-pose { display: flex; align-items: center; gap: 8px; width: 100%; font-size: 13px; color: var(--clr-ink-soft); }
+.vm-host .vm-mochi-pose { display: flex; align-items: center; gap: 8px; width: 100%; font-size: 14px; color: var(--clr-ink-soft); }
 .vm-host .vm-mochi-pose select { flex: 1; min-width: 0; max-width: 260px; border: 1px solid var(--clr-border); border-radius: var(--r-sm); color: var(--clr-ink); background: var(--clr-surface); padding: 4px 10px; }
 .vm-host .vm-breath-circle { background: var(--clr-surface-2); color: var(--clr-ink); box-shadow: 0 0 0 16px var(--clr-surface); }
 .vm-host .vm-range-label { flex-wrap: wrap; justify-content: center; }

@@ -348,7 +348,8 @@ test('a query with no match shows the empty state with what was typed', async (t
   await keystroke(view.container, 'zzqx-no-such-lecturer');
   await settle();
   assert.equal(grid(view.container), null, 'the grid should give way to the empty state');
-  assert.equal(emptyState(view.container), 'ไม่พบอาจารย์ที่ตรงกับ "zzqx-no-such-lecturer"');
+  // The message names what was typed, then offers the way out.
+  assert.equal(emptyState(view.container), 'ไม่พบอาจารย์ที่ตรงกับ "zzqx-no-such-lecturer"ล้างตัวกรองทั้งหมด');
   assert.equal(countLine(view.container), `แสดง 0 / ${mod.ALL_INSTRUCTORS.length} โปรไฟล์`);
 });
 

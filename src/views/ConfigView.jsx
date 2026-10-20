@@ -278,7 +278,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
           border: '1px solid color-mix(in srgb, var(--clr-sage) 35%, transparent)',
         }}>
           <div style={{
-            fontSize: 11,
+            fontSize: 14,
             fontFamily: 'var(--vmx-mono)',
             color: 'var(--clr-sage-text)',
             textTransform: 'uppercase',
@@ -292,7 +292,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
             <NavIcon name="pen" size={13} />
             <span>Quick Strategy ก่อนเริ่มเขียน</span>
           </div>
-          <ul style={{ margin: 0, paddingLeft: 20, fontSize: 12.5, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
+          <ul style={{ margin: 0, paddingLeft: 20, fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)' }}>
             <li><strong>อ่าน 2 รอบ:</strong> 1 = gist, 2 = ขีดเส้น main idea + 4-5 details</li>
             <li><strong>เปิดด้วย topic sentence</strong> — paraphrase main idea (อย่าก๊อปประโยคแรก)</li>
             <li><strong>ใช้ transitions:</strong> However, Moreover, In addition, On the other hand</li>
@@ -384,8 +384,8 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
                     <NavIcon name={c.iconName} size={18} />
                   </span>
                   <span style={{ flex: 1 }}>
-                    <span style={{ display: 'block', fontWeight: 600, fontSize: 13.5, color: 'var(--clr-ink)' }}>{c.label}</span>
-                    <span style={{ display: 'block', fontSize: 11.5, color: 'var(--clr-ink-soft)', marginTop: 2 }}>{c.desc}</span>
+                    <span style={{ display: 'block', fontWeight: 600, fontSize: 14, color: 'var(--clr-ink)' }}>{c.label}</span>
+                    <span style={{ display: 'block', fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>{c.desc}</span>
                   </span>
                   {(cat || 'all') === c.id && (
                     <span style={{ color: 'var(--clr-sage-text)' }}>
@@ -450,7 +450,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
             {/* What the clock does, not just how long it is: an exam clock is
                 one budget for the whole set and submits it when it runs out; a
                 practice clock runs per question and moves on by itself. */}
-            <span id="vmx-timer-state" style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
+            <span id="vmx-timer-state" style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
               {!useTimer ? 'ปิด — โหมดอ่านไม่จับเวลา'
                 : isExamMode ? `${examBudgetLabel} นาฬิกาเดียวทั้งชุด, หมดเวลาคือส่งทั้งชุด`
                 : `${timePerQ} วินาที / ข้อ, หมดเวลาข้อไหนจะไปข้อถัดไปเอง`}
@@ -486,7 +486,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
               )}
               {/* Writing-time hint only relevant when subject = engprof */}
               {showCategoryPicker && (
-                <div style={{ marginTop: 8, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5, fontStyle: 'italic' }}>
+                <div style={{ marginTop: 8, fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.5, fontStyle: 'italic' }}>
                   เวลานี้ใช้กับข้อปรนัย ถูก-ผิด และเติมคำ ข้อตอบสั้นกับเขียนบรรยายจะได้เวลามากขึ้นอัตโนมัติ:
                   <br/>
                   &nbsp;&nbsp;&nbsp;ตอบสั้น = max({timePerQ * 3 < 180 ? 180 : timePerQ * 3}s = {Math.max(3, timePerQ * 3 / 60)} min)
@@ -511,7 +511,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
                 aria-labelledby="vmx-instant-label vmx-instant-state"
                 onClick={() => setInstantFeedback(!instantFeedback)}
               />
-              <span id="vmx-instant-state" style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
+              <span id="vmx-instant-state" style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
                 {instantFeedback ? 'เปิด — ตอบปุ๊บรู้ผล + อ่านคำอธิบายทันที' : 'ปิด — เฉลยหลังส่งเท่านั้น'}
               </span>
             </div>

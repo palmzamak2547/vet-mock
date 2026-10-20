@@ -465,9 +465,9 @@ export const VET_DRUGS = [
     brand: 'Ketaset, Ketalar, Narketan',
     category: 'Anesthetics', species: 'both',
     doseLo: 2, doseHi: 5, unit: 'mg/kg',
-    route: 'IV/IM', freq: 'single dose',
+    route: 'IV', freq: 'single dose',
     indication: 'Induction (IV), sedation (IM combo), CRI analgesia',
-    note: '⚠️ ตัวเลขนี้คือขนาด IV สำหรับ induction (1-4.5 mg/kg) — ทาง IM ใช้ 5-10 mg/kg เพราะดูดซึมได้น้อยกว่า อย่าใช้ตัวเลข IM ฉีดเข้าเส้น. ห้ามให้เดี่ยว ๆ ต้องร่วมกับ benzodiazepine หรือ α2-agonist เสมอ (ไม่งั้นชักเกร็ง ตาเปิดค้าง)',
+    note: '⚠️ ตัวเลขนี้คือขนาด IV สำหรับ induction (งานศึกษารายงาน 1-4.5 mg/kg) — ทาง IM ใช้ 5-10 mg/kg เพราะดูดซึมได้น้อยกว่า อย่าใช้ตัวเลข IM ฉีดเข้าเส้น. ห้ามให้เดี่ยว ๆ ต้องร่วมกับ benzodiazepine หรือ α2-agonist เสมอ (ไม่งั้นชักเกร็ง ตาเปิดค้าง)',
   },
   {
     id: 'propofol', generic: 'Propofol',

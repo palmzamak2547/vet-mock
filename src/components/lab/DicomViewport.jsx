@@ -582,7 +582,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
                 <SC k="Esc" desc="Close this help" />
               </tbody>
             </table>
-            <div style={{ fontSize: '0.7rem', color: '#888', marginTop: 10 }}>
+            <div style={{ fontSize: '14px', color: '#888', marginTop: 10 }}>
               Shortcuts ทำงานเมื่อโฟกัสไม่ได้อยู่ใน input/textarea, ใน study mode (2 viewports) shortcut จะ apply กับทั้งสองอันพร้อมกัน
             </div>
           </div>
@@ -659,7 +659,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
         )}
       </div>
       {meta && status === 'ready' && (
-        <div style={{ fontSize: '0.8rem', color: '#666', marginTop: 8 }}>
+        <div style={{ fontSize: '14px', color: '#666', marginTop: 8 }}>
           📐 {meta.width} × {meta.height} pixels
           {meta.mmPerPx && (
             <>, calibrated at <strong>{meta.mmPerPx.toFixed(3)} mm/pixel</strong> (PixelSpacing tag)</>
@@ -668,7 +668,7 @@ export default function DicomViewport({ file, caseId = null, syncEnabled = false
         </div>
       )}
       {meta && status === 'ready' && (
-        <div style={{ fontSize: '0.75rem', color: '#888', marginTop: 4 }}>
+        <div style={{ fontSize: '14px', color: '#888', marginTop: 4 }}>
           เลือก 📏 Length หรือ Angle จาก toolbar แล้วลากบนภาพ — ผลแสดงเป็น mm จาก PixelSpacing tag, ลากซ้าย = active tool, กลาง = pan, ขวา = zoom
         </div>
       )}

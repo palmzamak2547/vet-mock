@@ -23,6 +23,44 @@ import NavIcon from './NavIcon.jsx';
 import { alertDialog } from '../lib/dialog.js';
 import { useMotionFeedback } from './MotionFeedback.jsx';
 
+// One polite status line for every pin press, shared by every PinButton. The
+// icon flip alone said nothing to a screen reader and little to anyone else:
+// pinning from a clip summary changed a 17 px glyph and that was all. The node
+// is created once and kept (a live region has to exist before its text
+// changes to be announced), lives outside React so a button that unmounts with
+// its modal does not take the message with it, and clears itself.
+let statusNode = null;
+let statusTimer = 0;
+export function pinStatusMessage(pinned, label) {
+  const name = String(label || '').trim();
+  const short = name.length > 40 ? `${name.slice(0, 40)}…` : name;
+  const tail = short ? `: ${short}` : '';
+  return pinned ? `เอาหมุดออกจาก Pinboard แล้ว${tail}` : `ปักหมุดใน Pinboard แล้ว${tail}`;
+}
+function announcePin(text) {
+  if (typeof document === 'undefined' || !document.body) return;
+  if (!statusNode) {
+    statusNode = document.createElement('div');
+    statusNode.setAttribute('role', 'status');
+    statusNode.setAttribute('aria-live', 'polite');
+    statusNode.setAttribute('aria-atomic', 'true');
+    Object.assign(statusNode.style, {
+      position: 'fixed', left: '50%', transform: 'translateX(-50%)',
+      bottom: 'calc(88px + env(safe-area-inset-bottom, 0px))',
+      maxWidth: 'min(92vw, 420px)', padding: '10px 16px', borderRadius: '12px',
+      background: 'var(--clr-ink)', color: 'var(--clr-surface)',
+      fontSize: '14px', lineHeight: '1.4', textAlign: 'center',
+      boxShadow: '0 6px 24px rgba(0,0,0,0.25)', zIndex: '10000',
+      pointerEvents: 'none', display: 'none',
+    });
+    document.body.appendChild(statusNode);
+  }
+  clearTimeout(statusTimer);
+  statusNode.textContent = text;
+  statusNode.style.display = 'block';
+  statusTimer = setTimeout(() => { statusNode.style.display = 'none'; statusNode.textContent = ''; }, 2600);
+}
+
 export default function PinButton({ type, payload, label, compact = false, style, className }) {
   const key = payloadKey(type, payload);
   const [pinned, setPinned] = useState(() => isPinned(type, key));
@@ -60,9 +98,12 @@ export default function PinButton({ type, payload, label, compact = false, style
         : `กระดานเต็ม ${PINBOARD_MAX} รายการแล้ว จึงเอารายการที่เก่าสุดออกให้`);
     }
     setPresses((n) => n + 1);
+    announcePin(pinStatusMessage(pinned, label));
   }, [type, key, payload, label, pinned]);
 
-  const size = compact ? 36 : 44;
+  // A compact pin is 36 px beside a mouse; a finger still gets 44.
+  const coarse = typeof window !== 'undefined' && window.matchMedia?.('(pointer: coarse)').matches;
+  const size = compact && !coarse ? 36 : 44;
 
   return (
     <button

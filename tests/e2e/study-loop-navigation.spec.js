@@ -31,7 +31,7 @@ test('checklist Notes returns to the saved list position with its checkmark and 
   expect(originTop).toBeGreaterThan(100);
   await page.locator('.vmx-back-chip').filter({ hasText: 'รายการอ่าน' }).click();
   await expect(page).toHaveURL(/\/app\/reading$/);
-  await expect(page.getByRole('button', { name: 'ยกเลิก Storage of raw milk', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByRole('button', { name: 'อ่านแล้ว Storage of raw milk', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await expect.poll(() => page.evaluate(() => scrollY)).toBeCloseTo(originTop, -1);
   await page.screenshot({ path: testInfo.outputPath('checklist-return.png') });
   await page.goForward();
@@ -71,8 +71,8 @@ test('a Notes entry keeps its selected topic after opening an unrelated Wiki res
   await expect(page.locator('[data-reading-content]')).toBeVisible();
   await expect(page.locator('[data-reading-content]')).toContainText('Storage of raw milk');
   await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
-  await page.getByRole('textbox', { name: 'ค้นหาใน VetMock' }).fill('Rabies');
-  const result = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' }).getByRole('button', { name: /Rabies — โรคพิษสุนัขบ้า VetWiki/ });
+  await page.getByRole('combobox', { name: 'ค้นหาใน VetMock' }).fill('Rabies');
+  const result = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' }).getByRole('option', { name: /Rabies — โรคพิษสุนัขบ้า VetWiki/ });
   await result.click();
   await expect(page).toHaveURL(/\/wiki\/com5\/rabies$/);
   await page.goBack();
@@ -89,7 +89,7 @@ test('a delayed view does not take focus from the search dialog', async ({ page 
   });
   await page.goto('/app/progress', { waitUntil: 'domcontentloaded' });
   await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
-  const search = page.getByRole('textbox', { name: 'ค้นหาใน VetMock' });
+  const search = page.getByRole('combobox', { name: 'ค้นหาใน VetMock' });
   await expect(search).toBeFocused();
   releaseView();
   await expect(page.locator('h1')).toContainText('ความคืบหน้า');
@@ -110,7 +110,7 @@ test('a view that finishes while search is downloading keeps the search return f
   await expect(page.locator('.vmx-subject-card').first()).toBeVisible();
   await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
   releaseSearch();
-  await expect(page.getByRole('textbox', { name: 'ค้นหาใน VetMock' })).toBeFocused();
+  await expect(page.getByRole('combobox', { name: 'ค้นหาใน VetMock' })).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' })).toBeHidden();
   await expect(launch).toBeFocused();

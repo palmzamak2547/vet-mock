@@ -26,6 +26,7 @@ import FocusBackdrop from './FocusBackdrop.jsx';
 import StudyBreak from './StudyBreak.jsx';
 import { MotionButton } from './MotionFeedback.jsx';
 import { buddyArt } from '../lib/buddy.js';
+import { confirmDialog } from '../lib/dialog.js';
 import {
   VISIBILITY_GRACE_MS, phaseMinutes, statusLabel, runEndsAt, escapedWhileAway,
   loadRun, saveRun, markRunAway,
@@ -317,13 +318,35 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
     setState('idle');
   }, []);
 
+  // Each control replaces the one pressed (เริ่ม becomes หยุดชั่วคราว, and so on),
+  // which dropped keyboard focus to the page. Hand it to the row's new first button.
+  const controlsRef = useRef(null);
+  const keepFocus = useCallback((action) => {
+    action();
+    globalThis.requestAnimationFrame?.(() => controlsRef.current?.querySelector('button')?.focus());
+  }, []);
+  // A running round is work: ask before throwing it away. A failed one has nothing to lose.
+  const confirmReset = useCallback(async () => {
+    if (isTimerActive) {
+      const ok = await confirmDialog({
+        title: 'เริ่มรอบนี้ใหม่?',
+        body: 'เวลาที่นับไปแล้วในรอบนี้จะหายไป และไม่นับเป็นรอบที่ทำเสร็จ',
+        confirmLabel: 'เริ่มใหม่',
+        cancelLabel: 'ทำต่อ',
+        tone: 'danger',
+      });
+      if (!ok) return;
+    }
+    keepFocus(reset);
+  }, [isTimerActive, keepFocus, reset]);
+
   // --- SVG ring geometry --------------------------------------------------
   const RING_SIZE = 240;
   const STROKE = 14;
   const RADIUS = (RING_SIZE - STROKE) / 2;
   const CIRC = 2 * Math.PI * RADIUS;
   const dashOffset = CIRC * (1 - Math.max(0, Math.min(1, progress)));
-  const status = statusLabel(state, config?.strictFocus !== false, runMin, buddyName);
+  const status = statusLabel(state, config?.strictFocus !== false, runMin, buddyName, paused);
 
   // Ring color reflects state
   const ringColor =
@@ -395,7 +418,9 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
       <style>{`
         @keyframes pmdTPulse { 0%,100% { transform: scale(1);} 50% { transform: scale(1.05);} }
         .pmd-t-pulse { animation: pmdTPulse 1.8s ease-in-out infinite; }
-        .pmd-t-ring-anim { transition: stroke-dashoffset 1s linear, stroke 0.4s ease; }
+        /* The ring steps once a second with the clock. A 1 s eased offset kept it
+           repainting on every frame of a 25-minute round for a move under a pixel. */
+        .pmd-t-ring-anim { transition: stroke 0.4s ease; }
       `}</style>
 
       {/* Ring + chick */}
@@ -534,7 +559,7 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
 
       {/* Cycle dots */}
       {focusCount > 0 && state !== 'idle' && (
-        <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+        <div style={{ display: 'flex', gap: 6, alignItems: 'center', fontSize: 14, color: 'var(--clr-ink-soft)' }}>
           <span>รอบ</span>
           {[0, 1, 2, 3].map((i) => (
             <span
@@ -555,24 +580,24 @@ export default function PomodoroTimer({ config, avatar, buddyName, onSessionComp
       <label className="vmx-focus-scene-picker">บรรยากาศ <select aria-label="บรรยากาศโฟกัส" value={ambience} onChange={event => setAmbience(event.target.value)}>
         <option value="rain">ฝนเบา ๆ</option><option value="glow">สวนหิ่งห้อย</option><option value="garden">สวนดาว</option><option value="none">ปิดบรรยากาศ</option>
       </select></label>
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
+      <div ref={controlsRef} style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
         {state === 'idle' && (
-          <MotionButton type="button" onClick={startFocus} style={primaryBtn} aria-label="เริ่ม focus session">
+          <MotionButton type="button" onClick={() => keepFocus(startFocus)} style={primaryBtn} aria-label="เริ่มโฟกัส">
             เริ่ม
           </MotionButton>
         )}
         {isTimerActive && !paused && (
-          <button type="button" onClick={pause} style={ghostBtn} aria-label="หยุดชั่วคราว">
+          <button type="button" onClick={() => keepFocus(pause)} style={ghostBtn} aria-label="หยุดชั่วคราว">
             หยุดชั่วคราว
           </button>
         )}
         {paused && (
-          <button type="button" onClick={resume} style={primaryBtn} aria-label="ทำต่อ">
+          <button type="button" onClick={() => keepFocus(resume)} style={primaryBtn} aria-label="ทำต่อ">
             ทำต่อ
           </button>
         )}
         {(isTimerActive || state === 'failed') && (
-          <button type="button" onClick={reset} style={ghostBtn} aria-label="เริ่มใหม่">
+          <button type="button" onClick={confirmReset} style={ghostBtn} aria-label="เริ่มใหม่">
             เริ่มใหม่
           </button>
         )}

@@ -61,7 +61,8 @@ import { recordQuestEvent } from './lib/quests.js';
 import { computePromotion, stashPromotion, NIGHT_RANK_EVENT } from './lib/night-rank.js';
 import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js';
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
-import { appPathForView, isAppPath, viewForAppPath, frontDoorFor } from './lib/view-route.js';
+import { viewTitle } from './lib/nav.js';
+import { appPathForView, isAppPath, isUnknownAppPath, viewForAppPath, frontDoorFor } from './lib/view-route.js';
 import { recordViewOpen } from './lib/nav-usage.js';
 import { isQuestionDeliverable } from './data/question-delivery.generated.js';
 import {
@@ -927,6 +928,38 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // The student typed or followed an address that names no screen: Home opens,
+  // and says why (read once, before the effect below repairs the address bar).
+  const [unknownRoute, setUnknownRoute] = useState(() => {
+    try { return typeof window !== 'undefined' && isUnknownAppPath(window.location.pathname); } catch { return false; }
+  });
+  useEffect(() => {
+    // Any move off Home or its front doors ends the notice for good.
+    if (unknownRoute && view !== 'home' && view !== 'landing' && view !== 'year-select') setUnknownRoute(false);
+  }, [view, unknownRoute]);
+
+  // One title per screen ("<ชื่อหน้า> | VetMock"), from the same labels the
+  // menus use. Home restores the title index.html shipped; VetWiki and the
+  // atlas own theirs (viewTitle returns null for them) and are left alone.
+  // A cold load on a /wiki page ships that article's title, which is not
+  // Home's, so only a non-wiki first title is kept as the base.
+  const baseTitleRef = useRef(
+    typeof document !== 'undefined' && !parseWikiPath(window.location.pathname).isWiki ? document.title : 'VetMock',
+  );
+  const titleSetRef = useRef(false);
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const name = viewTitle(view);
+    if (name) {
+      document.title = `${name} | VetMock`;
+      titleSetRef.current = true;
+    } else if (view === 'home' || view === 'landing' || titleSetRef.current) {
+      // Views that own their title (wiki, atlas) never get a stale one of ours.
+      if (view !== 'atlas') document.title = baseTitleRef.current;
+      titleSetRef.current = false;
+    }
+  }, [view]);
+
   // Unknown /app/* paths must not revive an unrelated stored screen. Repair
   // the address bar to Home once, while known app routes keep their URL.
   useEffect(() => {
@@ -1084,7 +1117,7 @@ export default function App() {
     questions, setQuestions,
     answers, setAnswers,
     currentIdx, setCurrentIdx,
-    setTimeLeft, questionDeadline,
+    setTimeLeft, questionDeadline, timedOutIdx,
     examStartTime, setExamStartTime,
     sessionId: examSessionId, getQuestionTimes,
     currentQ, currentAnswer,
@@ -3026,7 +3059,7 @@ export default function App() {
               }}
             >
               <div style={{ fontSize: 22, lineHeight: 1, flexShrink: 0 }} aria-hidden>📨</div>
-              <div style={{ flex: 1, minWidth: 0, fontSize: 13, lineHeight: 1.5, color: 'var(--clr-ink)' }}>
+              <div style={{ flex: 1, minWidth: 0, fontSize: 14, lineHeight: 1.5, color: 'var(--clr-ink)' }}>
                 <strong>{challengeSender.senderName ? `${challengeSender.senderName}` : 'เพื่อน'}</strong>{' '}
                 ท้าคุณ
                 {challengeSender.senderScore
@@ -3048,11 +3081,28 @@ export default function App() {
             className={`vmx-main${WIDE_VIEWS.has(view) ? ' vmx-main--wide' : ''}`}
             style={{ outline: 'none' }}
           >
+          {unknownRoute && view === 'home' && (
+            <div
+              role="status"
+              style={{
+                marginBottom: 12, padding: '10px 14px', borderRadius: 12,
+                background: 'var(--clr-surface)', border: '1px solid var(--clr-border)',
+                display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap',
+              }}
+            >
+              <span style={{ flex: 1, minWidth: 0, fontSize: 14, lineHeight: 1.5, color: 'var(--clr-ink)' }}>
+                ไม่พบหน้าที่เปิด จึงพามาหน้าแรกให้
+              </span>
+              <button type="button" className="vmx-btn vmx-btn-sm" style={{ minHeight: 44 }} onClick={() => setUnknownRoute(false)}>
+                ปิด
+              </button>
+            </div>
+          )}
           {authLoading ? <ViewFallback /> : (
             <ErrorBoundary onReset={goHome} key={view}>
             <Suspense fallback={<ViewFallback />}>
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
-                <AuthRequiredState onSignIn={() => setView('auth')} onHome={goHome} />
+                <AuthRequiredState page={viewTitle(view)} onSignIn={() => setView('auth')} onHome={goHome} />
               )}
               {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onOpenWrapUp={openWrapUp} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
@@ -3079,7 +3129,7 @@ export default function App() {
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam, readingChecklist, setReadingChecklist }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, setPracticeMode, subject, setSubject, topic, setTopic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, setMode, selectedYear, selectedPhase, panicPending, setPanicPending }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
-              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, questionDeadline, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
+              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, useTimer, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions: replayWrongRound, challengeSender, sessionKind, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki }} />}

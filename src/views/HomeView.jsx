@@ -838,7 +838,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         {isScaffoldYear ? (
           <p><strong>{yearMeta.label}</strong> — อยู่ระหว่างจัดเตรียมข้อสอบและเนื้อหา</p>
         ) : (history.length === 0 ? (
-          <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
+          <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
             ลองทำ <strong>1 ข้อแรก</strong> ใช้เวลาเพียง 20 วินาทีเพื่อเริ่มสะสมสถิติ
           </p>
         ) : null)}
@@ -875,7 +875,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           }}
         >
           <div style={{ flex: 1, minWidth: 200 }}>
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontWeight: 600 }}>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontWeight: 600 }}>
               สรุปผลการเรียนประจำเทอม
             </div>
             <div style={{ fontWeight: 600, fontSize: 16, marginTop: 2, lineHeight: 1.4 }}>
@@ -886,7 +886,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
             <button
               type="button"
               className="vmx-btn vmx-btn-primary"
-              style={{ minHeight: 40, fontSize: 13 }}
+              style={{ minHeight: 40, fontSize: 14 }}
               onClick={() => setView('phase-wrapped')}
               aria-label="ดูสรุปการเรียนของเทอมที่จบ"
             >
@@ -895,7 +895,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
             <button
               type="button"
               className="vmx-btn vmx-btn-ghost"
-              style={{ fontSize: 13 }}
+              style={{ fontSize: 14 }}
               onClick={() => {
                 markWrappedDismissed(completedPhase.id);
                 setWrappedTick((n) => n + 1);
@@ -920,7 +920,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           gap: 12,
           flexWrap: 'wrap',
         }}>
-          <div className="vmx-welcome-copy" style={{ flex: 1, minWidth: 180, fontSize: 13, lineHeight: 1.5 }}>
+          <div className="vmx-welcome-copy" style={{ flex: 1, minWidth: 180, fontSize: 14, lineHeight: 1.5 }}>
             <Mochi state="wave" size={32} animate slot="welcome" className="vmx-welcome-mochi" />
             <strong>ใช้ VetMock ครั้งแรก?</strong>
             <span className="vmx-welcome-copy-detail"> แนะนำตำแหน่งและเมนูสำคัญใน 1 นาที</span>
@@ -967,7 +967,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           gap: 12,
           alignItems: 'center',
           flexWrap: 'wrap',
-          fontSize: 13,
+          fontSize: 14,
         }}>
           <span style={{ flex: 1, minWidth: 200, lineHeight: 1.5 }}>
             <strong>กรุณายืนยันอีเมล</strong>ที่ <code style={{ fontSize: 12 }}>{user.email}</code> เพื่อเริ่มใช้งานเต็มรูปแบบ
@@ -976,7 +976,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
             type="button"
             className="vmx-link-btn vmx-tap"
             onClick={() => setVerifyDismissed(true)}
-            style={{ all: 'unset', cursor: 'pointer', fontSize: 12, color: 'var(--clr-ink-soft)', padding: '4px 8px' }}
+            style={{ all: 'unset', cursor: 'pointer', fontSize: 14, color: 'var(--clr-ink-soft)', padding: '4px 8px' }}
             title="ปิดประกาศ"
             aria-label="ปิดประกาศยืนยันอีเมล"
           >
@@ -1037,7 +1037,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     borderRadius: 8,
                     background: 'var(--clr-bg)',
                     border: '1px solid var(--clr-border)',
-                    fontSize: 13,
+                    fontSize: 14,
                     lineHeight: 1.4,
                   }}
                 >
@@ -1061,7 +1061,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 all: 'unset',
                 cursor: 'pointer',
                 marginTop: 8,
-                fontSize: 12,
+                fontSize: 14,
                 color: 'var(--clr-ink-soft)',
                 textDecoration: 'underline',
               }}
@@ -1513,7 +1513,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                       borderRadius: 999,
                       background: 'var(--clr-surface-2)',
                       border: '1px solid var(--clr-border)',
-                      fontSize: 12,
+                      fontSize: 14,
                       color: 'var(--clr-ink-soft)',
                     }}
                   >
@@ -1590,7 +1590,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     style={{ color: 'var(--clr-rose-text)', border: '1px solid var(--clr-rose)' }}
                   >
                     <span>ทบทวนข้อที่ตอบผิด</span>
-                    <span className="vmx-badge" style={{ background: 'var(--clr-rose)', color: 'var(--clr-surface)', borderRadius: 'var(--r-pill)', padding: '2px 8px', fontSize: 11, fontWeight: 700 }}>{quickStats.wrongCount}</span>
+                    <span className="vmx-badge" style={{ background: 'var(--clr-rose)', color: 'var(--clr-surface)', borderRadius: 'var(--r-pill)', padding: '2px 8px', fontSize: 14, fontWeight: 700 }}>{quickStats.wrongCount}</span>
                   </button>
                 )}
                 {nextClassToday && (
@@ -1746,7 +1746,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     ดูอันดับคะแนนในกลุ่ม แชร์โจทย์ และโจทย์ท้าทายรายวัน
                   </div>
                   <div style={{
-                    fontSize: 12,
+                    fontSize: 14,
                     color: 'var(--clr-ink-soft)',
                     marginTop: 4,
                     lineHeight: 1.45,
@@ -1795,7 +1795,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           Returning users have absorbed these already; hiding declutters
           the home view. The welcome tour covers the same shortcuts. */}
       {showWelcome && (
-        <div style={{ marginTop: 30, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
+        <div style={{ marginTop: 30, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.7 }}>
           ใช้การทบทวนตามรอบทุกวัน วันละ 15-30 นาที จะได้ผลดีที่สุด<br/>
           กด <span className="vmx-kbd">1-5</span> เพื่อเลือก MCQ, <span className="vmx-kbd">T/F</span>, <span className="vmx-kbd">Space</span> ข้อถัดไป<br/>
           สลับโหมดมืด/สว่างที่ปุ่มขวาบน
@@ -1832,7 +1832,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           borderTop: '1px dashed var(--clr-border)',
           display: 'flex',
           justifyContent: 'center',
-          fontSize: 12,
+          fontSize: 14,
           color: 'var(--clr-ink-soft)',
         }}>
           <button type="button" className="vmx-link-btn" onClick={openChangelogNote} style={linkStyle}>
@@ -1873,7 +1873,7 @@ function ScopeChip({ scope }) {
         borderRadius: 999,
         background: meta.bg,
         color: subjectText(meta.color),
-        fontSize: 11,
+        fontSize: 14,
         fontWeight: 600,
         verticalAlign: 'middle',
         whiteSpace: 'nowrap',
@@ -1901,7 +1901,7 @@ function FeedbackChip() {
         borderRadius: 999,
         background: 'rgba(184, 137, 64, 0.15)',
         color: 'var(--clr-gold-text)',
-        fontSize: 11,
+        fontSize: 14,
         fontWeight: 600,
         verticalAlign: 'middle',
         whiteSpace: 'nowrap',
@@ -2022,7 +2022,7 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
         padding: 20,
         borderRadius: 12,
         background: 'var(--clr-surface-2)',
-        fontSize: 13,
+        fontSize: 14,
         color: 'var(--clr-ink-soft)',
         textAlign: 'center',
       }}>
@@ -2054,6 +2054,9 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
           : (Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0);
         const customCount = customQuestions.filter((q) => q.subject === s.id).length;
         const count = builtInCount + customCount;
+        // Zero for the picked paper is not "no questions": the course has
+        // them, just not on this paper (SubjectSelectView says the same).
+        const outOfPhase = Boolean(scopedSubjectCounts) && count === 0 && (Q_VISIBLE_COUNTS_BY_SUBJECT[s.id] || 0) > 0;
         // `scaffold: true` is an explicit flag for placeholder subjects.
         const isScaffold = !!s.scaffold;
         const isEmpty = count === 0 && !isScaffold;
@@ -2097,7 +2100,8 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
             onClick={() => onPick && onPick(s)}
             style={{ cursor: 'pointer', '--subject-accent': s.color }}
             title={
-              hasNotes(s.id) && count === 0 ? 'มีสรุปเนื้อหาให้อ่าน — ข้อสอบยังไม่มี'
+              outOfPhase ? 'วิชานี้ไม่อยู่ในช่วงสอบที่เลือก สลับช่วงสอบที่หน้าแรกเพื่อฝึก'
+              : hasNotes(s.id) && count === 0 ? 'มีสรุปให้อ่าน ข้อสอบยังไม่มี'
               : shelfDocs > 0 ? `เปิดชั้นเอกสารจริงของวิชานี้ (${shelfDocs} ไฟล์)`
               : isScaffold ? 'คลิกเพื่อช่วยเติมเนื้อหา (ส่ง slide/notes/past paper)'
               : isEmpty ? 'ยังไม่มีข้อสอบ — คลิกเพื่อขอเพิ่มเนื้อหา'
@@ -2118,12 +2122,14 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
                 "มีสรุปให้อ่าน" one tap away. */}
             <div className="count" style={{ color: count > 0 ? 'var(--clr-ink-soft)' : (hasNotes(s.id) || shelfDocs > 0 ? 'var(--clr-sage-text)' : 'var(--clr-rose-text)') }}>
               {count > 0
-                ? `${count} ข้อ`
+                ? `${count.toLocaleString()} ข้อ`
                 : hasNotes(s.id)
-                  ? 'มีสรุปเนื้อหา'
+                  ? 'มีสรุปให้อ่าน'
                   : shelfDocs > 0
                     ? `เอกสารจริง ${shelfDocs} ไฟล์`
-                    : 'ยังไม่มีชุดข้อสอบ'}
+                    : outOfPhase
+                      ? 'ไม่อยู่ในช่วงสอบนี้'
+                      : 'ยังไม่มีชุดข้อสอบ'}
             </div>
             {/* With a phase chosen, every card says whether this subject sits
                 a paper in it — read off the faculty exam timetable, so a
@@ -2164,7 +2170,7 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
                   display: 'flex',
                   gap: 6,
                   flexWrap: 'wrap',
-                  fontSize: 11,
+                  fontSize: 14,
                   color: 'var(--clr-ink-soft)',
                 }}>
                   {hasCoverage && (
@@ -2200,7 +2206,7 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
                 padding: '3px 8px',
                 borderRadius: 999,
                 background: 'var(--clr-surface-2)',
-                fontSize: 11,
+                fontSize: 14,
                 color: 'var(--clr-ink-soft)',
                 display: 'inline-block',
               }}>
@@ -2211,7 +2217,7 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
               <div className="vmx-subject-progress-bar" aria-hidden="true">
                 <div
                   className="vmx-subject-progress-fill"
-                  style={{ width: `${Math.min(100, completionPct)}%`, background: s.color }}
+                  style={{ '--p': Math.min(100, completionPct) / 100, background: s.color }}
                 />
               </div>
             )}
@@ -2280,7 +2286,7 @@ function DailyQRow({ user, setView, selectedYear }) {
         ข้อวันนี้{status.completed ? ' ✓' : ''}, {subj?.icon || ''} {subj?.name || todaysQ.subject}
       </button>
       {streak >= 2 && (
-        <span style={{ fontSize: 12, color: 'var(--clr-gold-text, #b88940)' }}>
+        <span style={{ fontSize: 14, color: 'var(--clr-gold-text, #b88940)' }}>
           ตอบข้อวันนี้ติดกัน {streak} วัน
         </span>
       )}
@@ -2295,7 +2301,7 @@ function DailyQRow({ user, setView, selectedYear }) {
             borderRadius: 999,
             background: 'rgba(93, 180, 211, 0.10)',
             border: '1px solid rgba(93, 180, 211, 0.5)',
-            fontSize: 11,
+            fontSize: 14,
             color: 'var(--clr-ocean-text)',
           }}
         >

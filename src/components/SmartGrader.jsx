@@ -286,7 +286,7 @@ export default function SmartGrader({ q, userAnswer }) {
       {trimmedAns && <AiGradePanel q={q} userAnswer={ans} />}
 
       {!trimmedAns && (
-        <div style={{ padding: 12, fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', textAlign: 'center' }}>
+        <div style={{ padding: 12, fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', textAlign: 'center' }}>
           ⏭ ข้อนี้ยังไม่ได้ตอบ — ข้ามไปข้อถัดไปได้
         </div>
       )}
@@ -297,7 +297,7 @@ export default function SmartGrader({ q, userAnswer }) {
 // ── Score badge in the header ──
 function ScoreBadge({ total, max, pct, touched }) {
   if (!touched) return (
-    <div style={{ fontSize: 11, padding: '4px 10px', borderRadius: 999, background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
+    <div style={{ fontSize: 14, padding: '4px 10px', borderRadius: 999, background: 'var(--clr-surface-2)', color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
       ติ๊กเกณฑ์เพื่อให้คะแนน
     </div>
   );
@@ -305,8 +305,8 @@ function ScoreBadge({ total, max, pct, touched }) {
   return (
     <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: 6, padding: '4px 12px', borderRadius: 999, background: color, color: '#fff', fontFamily: 'var(--vmx-mono)', fontWeight: 700 }}>
       <span style={{ fontSize: 16 }}>{total}</span>
-      <span style={{ fontSize: 11, opacity: 0.85 }}>/ {max}</span>
-      <span style={{ fontSize: 11, opacity: 0.85 }}>, {pct}%</span>
+      <span style={{ fontSize: 14, opacity: 0.85 }}>/ {max}</span>
+      <span style={{ fontSize: 14, opacity: 0.85 }}>, {pct}%</span>
     </div>
   );
 }
@@ -344,10 +344,10 @@ function AutoAnalysis({ wordCount, target, softMax, hardMax, coverage, copied, h
             { color: 'rose', text: `${coverage.pct}% — ไม่ครบ` }
           }
           detail={coverage.missing.length > 0 ? (
-            <div style={{ fontSize: 11, marginTop: 4 }}>
+            <div style={{ fontSize: 14, marginTop: 4 }}>
               <span style={{ color: 'var(--clr-ink-soft)' }}>ขาด:</span>{' '}
               {coverage.missing.slice(0, 4).map((m, i) => (
-                <span key={i} style={{ display: 'inline-block', padding: '1px 6px', margin: '2px 3px 0 0', borderRadius: 999, background: 'var(--clr-rose-soft, rgba(184, 88, 88, 0.12))', color: 'var(--clr-rose-text)', fontSize: 11 }}>{m}</span>
+                <span key={i} style={{ display: 'inline-block', padding: '1px 6px', margin: '2px 3px 0 0', borderRadius: 999, background: 'var(--clr-rose-soft, rgba(184, 88, 88, 0.12))', color: 'var(--clr-rose-text)', fontSize: 14 }}>{m}</span>
               ))}
               {coverage.missing.length > 4 && <span style={{ color: 'var(--clr-ink-soft)' }}>+{coverage.missing.length - 4}</span>}
             </div>
@@ -366,7 +366,7 @@ function AutoAnalysis({ wordCount, target, softMax, hardMax, coverage, copied, h
           { color: 'rose', text: 'copy เยอะ — แก้ paraphrase' }
         }
         detail={copied.length > 0 ? (
-          <div style={{ fontSize: 11, marginTop: 4, fontStyle: 'italic', color: 'var(--clr-rose-text)' }}>
+          <div style={{ fontSize: 14, marginTop: 4, fontStyle: 'italic', color: 'var(--clr-rose-text)' }}>
             "{copied[0].slice(0, 50)}{copied[0].length > 50 ? '...' : ''}"
           </div>
         ) : null}
@@ -389,7 +389,7 @@ function Meter({ icon, label, value, status, detail }) {
       </div>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
         <span style={{ fontSize: 18, fontWeight: 700, color: 'var(--clr-ink)' }}>{value}</span>
-        <span style={{ fontSize: 11, color: c.ink, fontWeight: 600 }}>{status?.text}</span>
+        <span style={{ fontSize: 14, color: c.ink, fontWeight: 600 }}>{status?.text}</span>
       </div>
       {detail}
     </div>
@@ -401,10 +401,10 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
   if (!submitted) {
     return (
       <div style={{ marginBottom: 12, padding: 10, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px dashed var(--clr-sage)' }}>
-        <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', fontWeight: 700, marginBottom: 6 }}>
+        <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', fontWeight: 700, marginBottom: 6 }}>
           🔮 ทายคะแนนตัวเองก่อน
         </div>
-        <div style={{ fontSize: 12, color: 'var(--clr-ink)', lineHeight: 1.5, marginBottom: 8 }}>
+        <div style={{ fontSize: 14, color: 'var(--clr-ink)', lineHeight: 1.5, marginBottom: 8 }}>
           คาดว่าคำตอบจะได้กี่คะแนน (0-{maxScore}) ก่อนตรวจตาม rubric, เก็บสถิติ self-calibration ระยะยาว
         </div>
         <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -423,7 +423,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
           <button
             onClick={onSubmit}
             disabled={!predicted}
-            style={{ padding: '6px 14px', minHeight: 44, borderRadius: 8, border: 'none', background: predicted ? 'var(--clr-sage)' : 'var(--clr-surface-2)', color: predicted ? 'var(--clr-sage-on)' : 'var(--clr-ink-soft)', fontSize: 12, cursor: predicted ? 'pointer' : 'not-allowed', fontWeight: 600 }}
+            style={{ padding: '6px 14px', minHeight: 44, borderRadius: 8, border: 'none', background: predicted ? 'var(--clr-sage)' : 'var(--clr-surface-2)', color: predicted ? 'var(--clr-sage-on)' : 'var(--clr-ink-soft)', fontSize: 14, cursor: predicted ? 'pointer' : 'not-allowed', fontWeight: 600 }}
           >
             ทาย → เริ่มตรวจ
           </button>
@@ -440,7 +440,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
           <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', fontWeight: 700, marginBottom: 4 }}>
             🔮 Prediction
           </div>
-          <div style={{ fontSize: 13, color: 'var(--clr-ink)' }}>
+          <div style={{ fontSize: 14, color: 'var(--clr-ink)' }}>
             คาดว่า <strong>{predicted}</strong>/{maxScore}
             {touched && (
               <>
@@ -458,7 +458,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
           </div>
         </div>
         {calibration && calibration.count >= 3 && (
-          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', textAlign: 'right' }}>
+          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', textAlign: 'right' }}>
             <div>Avg bias (n={calibration.count}):</div>
             <div style={{ fontFamily: 'var(--vmx-mono)', color: Math.abs(calibration.bias) < 0.5 ? 'var(--clr-sage-text)' : 'var(--clr-gold-text)' }}>
               {calibration.bias > 0 ? `แม่นยำ มากเกิน +${calibration.bias.toFixed(1)} pts` : calibration.bias < -0.1 ? `ถ่อมตัว เกิน ${calibration.bias.toFixed(1)} pts` : 'แม่นมาก!'}
@@ -483,7 +483,7 @@ function EssayRubric({ checks, setChecks, wcPenalty }) {
         return (
           <div key={g.cat} style={{ marginBottom: 8, padding: 10, borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-              <strong style={{ fontSize: 13, color: g.color }}>{g.cat}</strong>
+              <strong style={{ fontSize: 14, color: g.color }}>{g.cat}</strong>
               <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink)', fontWeight: 600 }}>
                 {earned} / {g.max} pts
               </span>
@@ -492,7 +492,7 @@ function EssayRubric({ checks, setChecks, wcPenalty }) {
               const k = `${g.cat}::${it.label}`;
               const on = !!checks[k];
               return (
-                <label key={k} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, padding: '4px 0', cursor: 'pointer', fontSize: 12, lineHeight: 1.45 }}>
+                <label key={k} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, padding: '4px 0', cursor: 'pointer', fontSize: 14, lineHeight: 1.45 }}>
                   <input
                     type="checkbox"
                     checked={on}
@@ -512,7 +512,7 @@ function EssayRubric({ checks, setChecks, wcPenalty }) {
         );
       })}
       {wcPenalty > 0 && (
-        <div style={{ padding: 8, borderRadius: 8, background: 'rgba(184, 88, 88, 0.10)', border: '1px solid var(--clr-rose)', fontSize: 12, color: 'var(--clr-rose-text)' }}>
+        <div style={{ padding: 8, borderRadius: 8, background: 'rgba(184, 88, 88, 0.10)', border: '1px solid var(--clr-rose)', fontSize: 14, color: 'var(--clr-rose-text)' }}>
           Word-count penalty: −{wcPenalty} pts
         </div>
       )}
@@ -530,7 +530,7 @@ function ShortRubric({ grade, setGrade, rubric }) {
       </div>
       {SHORT_RUBRIC.map((it, i) => (
         <div key={i} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 8px', marginBottom: 4, borderRadius: 8, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)' }}>
-          <span style={{ fontSize: 12, flex: 1 }}>{it.label}</span>
+          <span style={{ fontSize: 14, flex: 1 }}>{it.label}</span>
           <div style={{ display: 'flex', gap: 4 }}>
             {[0, 0.5, 1].map((v) => (
               <button
@@ -550,7 +550,7 @@ function ShortRubric({ grade, setGrade, rubric }) {
         </div>
       ))}
       {rubric && (
-        <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+        <div style={{ marginTop: 6, fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
           จาก KEY: {rubric}
         </div>
       )}

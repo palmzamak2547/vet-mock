@@ -32,7 +32,7 @@ test('guest search drops saved gated destinations and former-account notes', asy
   await expect(dialog).not.toContainText('Saved former account settings');
   await expect(dialog).not.toContainText('Former account restricted lecture for regression');
   await expect(dialog).not.toContainText('Former account private note for regression');
-  await expect(dialog.getByRole('textbox', { name: 'ค้นหาใน VetMock' })).toBeFocused();
+  await expect(dialog.getByRole('combobox', { name: 'ค้นหาใน VetMock' })).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(dialog).toHaveCount(0);
 });
@@ -63,7 +63,7 @@ test.describe('search input timing', () => {
     await page.goto('/app');
     await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
     const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
-    const input = dialog.getByRole('textbox', { name: 'ค้นหาใน VetMock' });
+    const input = dialog.getByRole('combobox', { name: 'ค้นหาใน VetMock' });
     await expect(input).toBeFocused();
     await expect(dialog.locator('[data-flat-idx="0"]')).toContainText('หน้าแรก');
     await page.clock.install({ time: new Date('2026-09-25T18:15:00+07:00') });
@@ -84,7 +84,7 @@ test('composition keys keep search open, then ordinary keyboard selection and Es
   const launch = page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first();
   await launch.click();
   const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
-  const input = dialog.getByRole('textbox', { name: 'ค้นหาใน VetMock' });
+  const input = dialog.getByRole('combobox', { name: 'ค้นหาใน VetMock' });
   await expect(input).toBeFocused();
   for (const key of ['Enter', 'ArrowDown', 'Escape']) {
     // Synthetic composition proves the browser event path, not a physical IME.
@@ -114,7 +114,7 @@ test('the study card offers any year\'s course at its count, and names the perio
   await page.goto('/app');
   await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
   const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
-  const box = dialog.getByRole('textbox', { name: 'ค้นหาใน VetMock' });
+  const box = dialog.getByRole('combobox', { name: 'ค้นหาใน VetMock' });
   await box.fill('ข้อสอบ vca');
   const card = dialog.locator('.vmx-omni-go-primary');
   await expect(card).toContainText('ฝึกข้อสอบ');

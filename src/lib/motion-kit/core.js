@@ -5,8 +5,10 @@ export function random(seed = 47) {
   return () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
 }
 
-/** One owner for every listener, frame, timer and WAAPI animation on a surface. */
-export function createScope(root, { paused = false, quiet = false } = {}) {
+/** One owner for every listener, frame, timer and WAAPI animation on a surface.
+ *  `fps` caps the frame callbacks; the loop still rides the display's frames, so a skipped one costs nothing. */
+export function createScope(root, { paused = false, quiet = false, fps = 0 } = {}) {
+  const minGap = fps > 0 ? 1000 / fps - 2 : 0; // 2 ms of slack for 60 Hz jitter
   const media = window.matchMedia('(prefers-reduced-motion: reduce)');
   const cleanups = new Set(), timers = new Set(), animations = new Set(), callbacks = new Set();
   const elementAnimations = new WeakMap();
@@ -18,6 +20,7 @@ export function createScope(root, { paused = false, quiet = false } = {}) {
   function tick(now) {
     raf = 0;
     if (!enabled()) return;
+    if (minGap && last !== null && now - last < minGap) { raf = requestAnimationFrame(tick); return; }
     const dt = last === null ? 0 : Math.min((now - last) / 1000, .05);
     last = now;
     time += dt;

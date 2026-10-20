@@ -220,7 +220,7 @@ function fetchPreview(playlistId) {
       } catch {}
       // Notify any subscribers (cards mounted before fetch finished)
       const subs = SUBSCRIBERS.get(playlistId);
-      if (subs) subs.forEach((set) => set(data));
+      if (subs) subs.forEach((set) => queueCardUpdate(() => set(data)));
       return data;
     })
     .catch(() => { rememberPreviewMiss(playlistId, MISS_TTL_SOFT); return null; })
@@ -228,6 +228,56 @@ function fetchPreview(playlistId) {
 
   INFLIGHT.set(playlistId, p);
   return p;
+}
+
+// Covers arrive one response at a time, and each card used to commit its own
+// setState (cover, then loading flag, then the loading flag of the card that
+// started the request) the moment its response landed. On a cold scroll that
+// is dozens of separate renders and image-swap layouts inside a few hundred
+// milliseconds: 72-83 layouts and long tasks up to 261 ms at 4x CPU slowdown.
+// Updates now wait for the next frame and run together, so every cover that
+// arrived since the last frame is one commit (React batches all setStates made
+// inside one task), and the cards' viewport checks share one observer so the
+// cards that scroll into range together start together.
+const _cardUpdates = [];
+let _cardFlushScheduled = false;
+function queueCardUpdate(fn) {
+  _cardUpdates.push(fn);
+  if (_cardFlushScheduled) return;
+  _cardFlushScheduled = true;
+  const run = () => {
+    _cardFlushScheduled = false;
+    const batch = _cardUpdates.splice(0);
+    for (const update of batch) update();
+  };
+  if (typeof requestAnimationFrame === 'function') requestAnimationFrame(run);
+  else setTimeout(run, 16);
+}
+
+const _viewportWatchers = new Map(); // node -> callback
+let _viewportObserver = null;
+function watchNearViewport(node, onNear) {
+  if (!_viewportObserver) {
+    _viewportObserver = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          const cb = _viewportWatchers.get(e.target);
+          if (!cb) continue;
+          _viewportWatchers.delete(e.target);
+          _viewportObserver.unobserve(e.target);
+          cb();
+        }
+      },
+      // 300px of runway so a cover is ready by the time the card is read.
+      { rootMargin: '300px' },
+    );
+  }
+  _viewportWatchers.set(node, onNear);
+  _viewportObserver.observe(node);
+  return () => {
+    if (_viewportWatchers.delete(node)) _viewportObserver?.unobserve(node);
+  };
 }
 
 // Returns [preview, attachRef]. The ref gates the request on the card actually
@@ -268,7 +318,7 @@ function usePlaylistPreview(playlistId) {
     const start = () => {
       if (!alive) return;
       setLoading(true);
-      fetchPreview(playlistId).finally(() => { if (alive) setLoading(false); });
+      fetchPreview(playlistId).finally(() => { queueCardUpdate(() => { if (alive) setLoading(false); }); });
     };
 
     if (!node || typeof IntersectionObserver === 'undefined') {
@@ -276,17 +326,8 @@ function usePlaylistPreview(playlistId) {
       return () => { alive = false; unsubscribe(); };
     }
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (!entries.some((e) => e.isIntersecting)) return;
-        io.disconnect();
-        start();
-      },
-      // 300px of runway so a cover is ready by the time the card is read.
-      { rootMargin: '300px' },
-    );
-    io.observe(node);
-    return () => { alive = false; io.disconnect(); unsubscribe(); };
+    const stopWatching = watchNearViewport(node, start);
+    return () => { alive = false; stopWatching(); unsubscribe(); };
   }, [playlistId]);
 
   return [preview, nodeRef, loading];
@@ -647,7 +688,7 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
                         before the count ('ระบาดวิทยา2'); the margin puts
                         the gap back. No opacity: a dimmed count falls
                         below AA contrast. */}
-                    {s.icon} {s.name} <span style={{ marginLeft: 6, fontSize: 11 }}>{count}</span>
+                    {s.icon} {s.name} <span style={{ marginLeft: 6, fontSize: 14 }}>{count}</span>
                   </button>
                 );
               })}
@@ -716,7 +757,7 @@ export default function VideoView({ goHome, initialSubject = null, selectedYear 
         </div>
       )}
 
-      <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
+      <div style={{ marginTop: 24, padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
         <strong>หมายเหตุ:</strong> คลิปเหล่านี้เป็นของเจ้าของช่องบน YouTube ต้นฉบับ ไม่ใช่ผลงานของ VetMock<br/>
         คลิปที่เพิ่มเองและประวัติการดูเก็บไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น
       </div>
@@ -789,8 +830,8 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
   // below covers the image, so it is gone rather than kept as dead code.)
   if (thumbSrc && !errored) {
     return (
-      <div ref={previewRef} className="vmx-video-thumb" style={{ aspectRatio: '16/9', background: '#000', position: 'relative', overflow: 'hidden', pointerEvents: 'none' }}>
-        <img src={thumbSrc} alt="" loading="lazy" className="vmx-video-thumb-img"
+      <div ref={previewRef} className="vmx-video-thumb" style={{ aspectRatio: '16/9', background: '#000', position: 'relative', overflow: 'hidden', pointerEvents: 'none', contain: 'layout paint' }}>
+        <img src={thumbSrc} alt="" loading="lazy" decoding="async" width="480" height="270" className="vmx-video-thumb-img"
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           onError={() => setErrored(true)}
         />
@@ -807,7 +848,7 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
         )}
         {/* Playlist count badge (top-left ribbon) */}
         {playlist && playlistPreview && (
-          <div style={{ position: 'absolute', top: 8, left: 8, padding: '3px 9px', background: 'rgba(0,0,0,0.78)', color: 'white', borderRadius: 6, fontSize: 11, fontFamily: 'var(--vmx-sans)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 5 }}>
+          <div style={{ position: 'absolute', top: 8, left: 8, padding: '3px 9px', background: 'rgba(0,0,0,0.78)', color: 'white', borderRadius: 6, fontSize: 14, fontFamily: 'var(--vmx-sans)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 5 }}>
             เพลย์ลิสต์ {playlistPreview.count} คลิป
           </div>
         )}
@@ -830,13 +871,13 @@ function ThumbnailWithPlayOverlay({ video, subject, playlist, isChannel }) {
       // two siblings: a dark ground so the white label holds.
       : 'linear-gradient(135deg, #4a4339, #2b2419)';
   return (
-    <div ref={previewRef} className="vmx-video-thumb" style={{ aspectRatio: '16/9', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 4, color: 'white', pointerEvents: 'none' }}>
+    <div ref={previewRef} className="vmx-video-thumb" style={{ aspectRatio: '16/9', background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 4, color: 'white', pointerEvents: 'none', contain: 'layout paint' }}>
       <div className="vmx-video-thumb-glyph" aria-hidden="true">{playlist ? '📋' : isChannel ? '📺' : '🎬'}</div>
-      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-sans)', fontWeight: 600 }}>
+      <div style={{ fontSize: 14, fontFamily: 'var(--vmx-sans)', fontWeight: 600 }}>
         {playlist ? 'เพลย์ลิสต์' : isChannel ? 'ช่อง' : 'คลิป'}
       </div>
       {playlist && previewLoading && (
-        <div style={{ fontSize: 11, marginTop: 4, opacity: 0.85 }}>กำลังโหลดหน้าปก…</div>
+        <div style={{ fontSize: 14, marginTop: 4, opacity: 0.85 }}>กำลังโหลดหน้าปก…</div>
       )}
     </div>
   );
@@ -1169,7 +1210,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
           <div style={{ flex: 1, minWidth: 200 }}>
             <h2 id="vmx-player-title" style={{ margin: 0, fontSize: 17, fontFamily: 'var(--vmx-display)', fontWeight: 600 }}>{video.topic}</h2>
             {playlistItems.length > 0 && (
-              <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
+              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
                 📋 {playlistItems.length} คลิป
                 {currentIdx >= 0 && <>, กำลังเล่น <strong>{currentIdx + 1} / {playlistItems.length}</strong></>}
               </div>
@@ -1186,7 +1227,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
               {showList ? 'ซ่อนรายการ' : `ดูรายการ (${playlistItems.length})`}
             </button>
           )}
-          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onClose} style={{ flexShrink: 0, fontSize: 18, padding: '4px 10px' }} title="ปิด (Esc)" aria-label="ปิดเครื่องเล่นวิดีโอ">✕</button>
+          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onClose} style={{ flexShrink: 0, fontSize: 18, padding: '4px 10px', minWidth: 44, minHeight: 44 }} title="ปิด (Esc)" aria-label="ปิดเครื่องเล่นวิดีโอ">✕</button>
         </div>
 
         <div className="vmx-player-grid" style={{ display: 'grid', gridTemplateColumns: showList && playlistItems.length > 0 ? 'minmax(0, 2.2fr) minmax(280px, 1fr)' : '1fr', gap: 0 }}>
@@ -1217,7 +1258,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                   />
                 )}
                 {playerFailed && (
-                  <div role="status" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, textAlign: 'center', color: 'white', fontSize: 13, lineHeight: 1.6 }}>
+                  <div role="status" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16, textAlign: 'center', color: 'white', fontSize: 14, lineHeight: 1.6 }}>
                     เปิดเครื่องเล่นในแอปไม่ได้ กดปุ่ม เปิดใน YouTube ด้านล่าง หรือปิดคลิปนี้แล้วเปิดใหม่อีกครั้ง
                   </div>
                 )}
@@ -1243,7 +1284,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                     {currentItem.title}
                   </div>
                   {currentItem.channel && (
-                    <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 1 }}>by {currentItem.channel}</div>
+                    <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 1 }}>by {currentItem.channel}</div>
                   )}
                 </div>
                 <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={goNext} disabled={currentIdx < 0 || currentIdx >= playlistItems.length - 1} title="ถัดไป (→)" style={{ padding: '6px 12px' }}>ถัดไป →</button>
@@ -1275,9 +1316,9 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                   ? 'เจ้าของยังไม่ได้ใส่คลิปลงในเพลย์ลิสต์นี้'
                   : null;
               return (
-                <div style={{ marginTop: 14, padding: '10px 12px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
+                <div style={{ marginTop: 14, padding: '10px 12px', borderRadius: 10, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
                   <strong>{headline}</strong><br/>
-                  <span style={{ fontSize: 11 }}>
+                  <span style={{ fontSize: 14 }}>
                     {advice
                       || (permanent
                         ? <>คลิกปุ่ม <kbd style={{ padding: '1px 6px', background: 'var(--clr-bg)', borderRadius: 4, fontFamily: 'var(--vmx-mono)' }}>≡</kbd> ในเครื่องเล่นเพื่อดูรายการจาก YouTube โดยตรง</>
@@ -1348,14 +1389,14 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                     placeholder="ค้นหา (กด /)"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    style={{ padding: '6px 10px', fontSize: 12, borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontFamily: 'inherit' }}
+                    style={{ padding: '6px 10px', fontSize: 14, borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontFamily: 'inherit' }}
                   />
                 )}
               </div>
 
               <div ref={sidebarRef} style={{ flex: 1, minHeight: 0, overflowY: 'auto', WebkitOverflowScrolling: 'touch', padding: 8 }}>
                 {filteredItems.length === 0 && search && (
-                  <div style={{ padding: 16, textAlign: 'center', fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+                  <div style={{ padding: 16, textAlign: 'center', fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
                     ไม่พบคลิปที่ตรงกับ "{search}"
                   </div>
                 )}
@@ -1413,12 +1454,12 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                               >📝</span>
                             )}
                           </div>
-                          <div style={{ fontSize: 12, lineHeight: 1.35, color: 'var(--clr-ink)', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', fontWeight: active ? 600 : 400 }}>
+                          <div style={{ fontSize: 14, lineHeight: 1.35, color: 'var(--clr-ink)', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', fontWeight: active ? 600 : 400 }}>
                             {item.title}
                           </div>
                         </div>
                         {item.channel && (
-                          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             {item.channel}
                           </div>
                         )}
@@ -1433,7 +1474,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
 
         {/* Loading state if list pending and no items */}
         {loadingList && playlistId && (
-          <div style={{ position: 'absolute', top: 70, right: 18, padding: '4px 10px', borderRadius: 6, background: 'var(--clr-surface-2)', fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
+          <div style={{ position: 'absolute', top: 70, right: 18, padding: '4px 10px', borderRadius: 6, background: 'var(--clr-surface-2)', fontSize: 14, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
             กำลังโหลดรายการ…
           </div>
         )}
@@ -1465,7 +1506,7 @@ function AddEditModal({ form, setForm, save, onClose, editing }) {
             placeholder="https://youtu.be/xxx หรือลิงก์เพลย์ลิสต์"
           />
           {form.url && (
-            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 6 }}>
+            <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 6 }}>
               {getVideoId(form.url) && `✓ Video ID: ${getVideoId(form.url)}`}
               {!getVideoId(form.url) && getPlaylistId(form.url) && `Playlist ID: ${getPlaylistId(form.url)}`}
               {!getVideoId(form.url) && !getPlaylistId(form.url) && isChannelUrl(form.url) && `Channel link`}

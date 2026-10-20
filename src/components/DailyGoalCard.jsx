@@ -100,7 +100,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
               inputMode="numeric"
               value={inputGoal}
               onChange={(e) => setInputGoal(e.target.value)}
-              style={{ width: 60, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', fontSize: 13, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
+              style={{ width: 60, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', fontSize: 14, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
             />
             <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={saveGoal}>บันทึก</button>
           </span>
@@ -115,7 +115,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
         <span style={{ fontSize: 20, fontWeight: 700, color: hit ? 'var(--vmx-color-success)' : 'var(--clr-ink)' }}>
           {todayCount} / {goal} ข้อ
         </span>
-        {hit && <span style={{ fontSize: 12, color: 'var(--vmx-color-success)', fontWeight: 700 }}>บรรลุเป้าหมายแล้ว</span>}
+        {hit && <span style={{ fontSize: 14, color: 'var(--vmx-color-success)', fontWeight: 700 }}>บรรลุเป้าหมายแล้ว</span>}
       </div>
 
       <div style={{ marginTop: 12, height: 16, borderRadius: 999, background: 'var(--vmx-surface-muted)', overflow: 'hidden' }}>
@@ -130,7 +130,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
 
       {/* Compact Daily Task List */}
       <div style={{ marginTop: 14, borderTop: '1px solid var(--clr-border)', paddingTop: 10 }}>
-        <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
+        <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--clr-ink-soft)', marginBottom: 6 }}>
           รายการสิ่งที่ต้องทำวันนี้
         </div>
         <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
@@ -141,7 +141,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
             onChange={(e) => setTaskInput(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter') addTask(); }}
             placeholder="เพิ่มรายการสิ่งที่ต้องทำ..."
-            style={{ flex: 1, padding: '6px 10px', borderRadius: 6, border: '1px solid var(--clr-border)', fontSize: 13, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
+            style={{ flex: 1, padding: '6px 10px', borderRadius: 6, border: '1px solid var(--clr-border)', fontSize: 14, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
           />
           <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={addTask} disabled={!taskInput.trim()}>
             เพิ่ม
@@ -149,7 +149,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
         </div>
 
         {tasks.length === 0 ? (
-          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>ยังไม่มีรายการประจำวัน</div>
+          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>ยังไม่มีรายการประจำวัน</div>
         ) : (
           <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 4 }}>
             {tasks.map((t) => (
@@ -161,7 +161,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
                   aria-label={`ทำเสร็จ: ${t.text}`}
                   style={{ width: 16, height: 16, cursor: 'pointer' }}
                 />
-                <span style={{ flex: 1, fontSize: 13, textDecoration: t.done ? 'line-through' : 'none', color: t.done ? 'var(--clr-ink-soft)' : 'var(--clr-ink)' }}>
+                <span style={{ flex: 1, fontSize: 14, textDecoration: t.done ? 'line-through' : 'none', color: t.done ? 'var(--clr-ink-soft)' : 'var(--clr-ink)' }}>
                   {t.text}
                 </span>
                 <button
@@ -169,7 +169,7 @@ export default function DailyGoalCard({ history = [], selectedYear }) {
                   onClick={() => deleteTask(t.id)}
                   aria-label="ลบรายการ"
                   className="vmx-icon-close"
-                  style={{ background: 'transparent', border: 'none', color: 'var(--clr-ink-soft)', cursor: 'pointer', fontSize: 13 }}
+                  style={{ background: 'transparent', border: 'none', color: 'var(--clr-ink-soft)', cursor: 'pointer', fontSize: 14 }}
                 >
                   ลบ
                 </button>

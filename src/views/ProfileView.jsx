@@ -284,10 +284,12 @@ export default function ProfileView({
         />
         {/* A total, said as a total: srCards holds every card ever stored, due
             or not, while Home counts only the ones due in the chosen year and
-            phase, so "in the queue" here would contradict Home. */}
+            phase, so "in the queue" here would contradict Home. This is the
+            one row for the review queue: the SM-2 or FSRS choice lives on its
+            planner, so the note names where instead of a second row. */}
         <Row
           label="ทบทวนตามรอบ"
-          note={reviewCount > 0 ? `มีการ์ดทั้งหมด ${reviewCount} ใบ` : 'ใบที่ผิดจะกลับมาตามรอบ'}
+          note={`${reviewCount > 0 ? `มีการ์ดทั้งหมด ${reviewCount} ใบ` : 'ใบที่ผิดจะกลับมาตามรอบ'}, เลือก SM-2 หรือ FSRS ได้ในหน้านี้`}
           onClick={() => setView('sr-session')}
         />
         <Row
@@ -325,13 +327,6 @@ export default function ProfileView({
           <span>ธีมและสี</span>
           <ThemePicker theme={theme} themePref={themePref} setTheme={setTheme} palette={palette} setPalette={setPalette} />
         </div>
-        {/* The scheduler choice (SM-2 or FSRS) lives on the review planner,
-            where its effect is visible; this row names where, no second copy. */}
-        <Row
-          label="ระบบจัดตารางทบทวน"
-          note="เลือก SM-2 หรือ FSRS ได้ในหน้าเตรียมทบทวน"
-          onClick={() => setView('sr-session')}
-        />
         {user && (
           <Row
             label="บัญชี"
@@ -390,7 +385,7 @@ function Row({ label, note, onClick, testId }) {
     >
       <span style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
         <span style={{ fontSize: 14, color: 'var(--clr-ink)' }}>{label}</span>
-        {note && <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>{note}</span>}
+        {note && <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>{note}</span>}
       </span>
       <span aria-hidden="true" style={{ color: 'var(--clr-ink-soft)', flex: '0 0 auto' }}>→</span>
     </button>

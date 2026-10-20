@@ -25,7 +25,7 @@ export default function BackBar({ onBack, label = 'ย้อนกลับ', su
         <span>{label}</span>
       </button>
       {subtitle && (
-        <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+        <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
           {subtitle}
         </span>
       )}

@@ -155,12 +155,12 @@ export default function XpChip() {
             minWidth: DROPDOWN_MIN_W,
             maxWidth: 'calc(100vw - 24px)',
             fontFamily: 'var(--vmx-mono)',
-            fontSize: 12,
+            fontSize: 14,
             color: 'var(--clr-ink)',
             lineHeight: 1.5,
           }}
         >
-          <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 8 }}>
+          <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 8 }}>
             Level {lvl}
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
@@ -175,7 +175,7 @@ export default function XpChip() {
             <span style={{ color: 'var(--clr-ink-soft)' }}>Lifetime Qs</span>
             <span>{(state.lifetimeQs || 0).toLocaleString()}</span>
           </div>
-          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', borderTop: '1px solid var(--clr-border)', paddingTop: 8 }}>
+          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', borderTop: '1px solid var(--clr-border)', paddingTop: 8 }}>
             อีก <strong>{(prog.needed - prog.current).toLocaleString()}</strong> XP ไป Lv {prog.nextLevel}
           </div>
         </div>

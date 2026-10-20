@@ -13,7 +13,7 @@
   gap: var(--space-1) var(--space-3); margin-bottom: var(--space-2);
 }
 .vmx-buddy-picker-label { font-size: 0.875rem; font-weight: 600; color: var(--clr-ink); }
-.vmx-buddy-picker-time { font-size: 0.8rem; color: var(--clr-sage-text); }
+.vmx-buddy-picker-time { font-size: 14px; color: var(--clr-sage-text); }
 
 /* A touch row scrolls sideways. Its 4px padding (cancelled by the margin) is
    room for the 2px focus ring + 2px offset, which an overflow box would clip. */
@@ -59,7 +59,7 @@
   fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
 }
 .vmx-buddy-chip-time {
-  font-size: 0.72rem; font-weight: 400; color: var(--clr-ink-soft);
+  font-size: 14px; font-weight: 400; color: var(--clr-ink-soft);
   background: var(--clr-surface-2); padding: 2px 6px; border-radius: var(--r-sm);
 }
 
@@ -137,14 +137,14 @@
 }
 .vmx-buddy-hint {
   position: absolute; right: 10px; bottom: 10px; margin: 0; padding: 3px 8px;
-  font-size: 0.75rem; line-height: 1.4; color: var(--clr-ink-soft);
+  font-size: 14px; line-height: 1.4; color: var(--clr-ink-soft);
   background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-sm);
   pointer-events: none;
 }
 .vmx-buddy-face {
   position: absolute; top: 8px; right: 8px; min-height: var(--touch-min); padding: 0 14px;
   border: 1px solid var(--clr-border); border-radius: var(--r-pill);
-  background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: 0.8rem; cursor: pointer;
+  background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: 14px; cursor: pointer;
 }
 .vmx-buddy-actions {
   display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2); margin-top: var(--space-3);
@@ -185,11 +185,11 @@
   display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--space-2) var(--space-3);
 }
 .vmx-buddy-spotlight-name { display: grid; gap: 2px; min-width: 0; }
-.vmx-buddy-kicker { font-size: 0.75rem; font-weight: 600; color: var(--clr-sage-text); }
+.vmx-buddy-kicker { font-size: 14px; font-weight: 600; color: var(--clr-sage-text); }
 .vmx-buddy-spotlight-name strong { font-size: 1.1rem; font-weight: 600; line-height: 1.4; color: var(--clr-ink); }
 .vmx-buddy-spotlight-name strong span { font-weight: 400; color: var(--clr-ink-soft); }
-.vmx-buddy-role { font-size: 0.85rem; color: var(--clr-sage-text); }
-.vmx-buddy-species { font-size: 0.8rem; color: var(--clr-ink-soft); }
+.vmx-buddy-role { font-size: 14px; color: var(--clr-sage-text); }
+.vmx-buddy-species { font-size: 14px; color: var(--clr-ink-soft); }
 
 /* 2D | 3D. The chosen side is raised (surface + shadow), not only coloured;
    both keep one weight so the control never changes width. */
@@ -199,7 +199,7 @@
 }
 .vmx-buddy-mode button {
   min-height: var(--touch-min); padding: 0 14px; border: 0; border-radius: var(--r-pill);
-  background: transparent; color: var(--clr-ink-soft); font: inherit; font-size: 0.85rem; font-weight: 500;
+  background: transparent; color: var(--clr-ink-soft); font: inherit; font-size: 14px; font-weight: 500;
   cursor: pointer; touch-action: manipulation;
   transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
 }

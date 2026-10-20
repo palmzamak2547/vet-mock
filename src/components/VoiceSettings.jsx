@@ -55,7 +55,7 @@ export default function VoiceSettings({ onClose }) {
             🎚 Voice settings
           </div>
           <h2 style={{ margin: '4px 0 0', fontSize: 22 }}>ปรับเสียงพูดข้อสอบ</h2>
-          <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', margin: '6px 0 0', lineHeight: 1.5 }}>
+          <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', margin: '6px 0 0', lineHeight: 1.5 }}>
             ค่าจะ apply ทันทีที่กด 🔊 ครั้งต่อไป (ไม่ต้อง refresh).
             {' '}เก็บไว้ในเครื่องนี้เท่านั้น (ไม่ sync ข้ามอุปกรณ์).
           </p>
@@ -123,7 +123,7 @@ function SliderRow({ label, hint, value, min, max, step, format, onChange, input
   return (
     <div style={{ marginBottom: 14 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 4 }}>
-        <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-ink)' }}>{label}</span>
+        <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--clr-ink)' }}>{label}</span>
         <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-sage-text)' }}>
           {format(value)}
         </span>
@@ -139,7 +139,7 @@ function SliderRow({ label, hint, value, min, max, step, format, onChange, input
         aria-label={label}
         style={{ width: '100%', accentColor: 'var(--clr-sage)' }}
       />
-      <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 2 }}>{hint}</div>
+      <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 2 }}>{hint}</div>
     </div>
   );
 }

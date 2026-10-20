@@ -89,10 +89,10 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
                       LIVE
                     </span>
                   </div>
-                  <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
+                  <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
                     {y.desc}
                   </div>
-                  <div style={{ marginTop: 8, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.04em' }}>
+                  <div style={{ marginTop: 8, fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.04em' }}>
                     {totalCount.toLocaleString()} ข้อ, มีชุดฝึก {readySubjects}/{subjectCount} วิชา
                   </div>
                 </div>
@@ -120,7 +120,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
               borderRadius: 10,
               background: 'var(--clr-surface)',
               border: '1px solid var(--clr-border)',
-              fontSize: 13,
+              fontSize: 14,
               color: 'var(--clr-ink-soft)',
               fontFamily: 'inherit',
               width: '100%',
@@ -132,7 +132,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
             <span style={{ fontSize: 14 }}>{showAll ? '▾' : '▸'}</span>
             <span style={{ flex: 1 }}>
               ดูชั้นปีอื่น
-              <span style={{ marginLeft: 8, fontSize: 11, fontFamily: 'var(--vmx-mono)', opacity: 0.6 }}>
+              <span style={{ marginLeft: 8, fontSize: 14, fontFamily: 'var(--vmx-mono)', opacity: 0.6 }}>
                 {scaffoldYears.length} ปี, กำลังเตรียมเนื้อหา
               </span>
             </span>
@@ -159,10 +159,10 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
                     }}
                   >
                     <div style={{ fontSize: 18, marginBottom: 4 }}>🎓 {y.label}</div>
-                    <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.4 }}>
+                    <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.4 }}>
                       {y.desc}
                     </div>
-                    <div style={{ marginTop: 6, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-gold-text)', letterSpacing: '0.05em' }}>
+                    <div style={{ marginTop: 6, fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-gold-text)', letterSpacing: '0.05em' }}>
                       {subjectCount} วิชา, กำลังเตรียมเนื้อหา
                     </div>
                   </button>
@@ -180,7 +180,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
       )}
 
       {firstTime && (
-        <div style={{ marginTop: 20, padding: 12, borderRadius: 10, background: 'var(--clr-surface-2)', fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center', lineHeight: 1.55 }}>
+        <div style={{ marginTop: 20, padding: 12, borderRadius: 10, background: 'var(--clr-surface-2)', fontSize: 14, color: 'var(--clr-ink-soft)', textAlign: 'center', lineHeight: 1.55 }}>
           ระบบจะจำให้ — ครั้งต่อไปเข้าหน้าแรกได้เลย เปลี่ยนชั้นปีภายหลังได้ที่ปุ่ม <strong>ปี N</strong> ด้านบน
         </div>
       )}

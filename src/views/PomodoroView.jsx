@@ -226,10 +226,10 @@ export default function PomodoroView({ goHome, backToRest = false }) {
       >
         {statsRow.map((s) => (
           <div key={s.label} style={{ textAlign: 'center', padding: '4px 2px' }}>
-            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}>{s.label}</div>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}>{s.label}</div>
             <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--clr-gold-text)' }}>
               {s.value}
-              <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginLeft: 2 }}>{s.suffix}</span>
+              <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginLeft: 2 }}>{s.suffix}</span>
             </div>
           </div>
         ))}
@@ -268,8 +268,8 @@ export default function PomodoroView({ goHome, backToRest = false }) {
         </button>
         {settingsOpen && (
           <div style={{ padding: '0 14px 14px', display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 13, color: 'var(--clr-ink)', fontWeight: 600, padding: '4px 0', cursor: 'pointer' }}>
-              <span>🐣 Strict Mode (ห้ามออกจากหน้าเกิน 5 วินาที)</span>
+            <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 14, color: 'var(--clr-ink)', fontWeight: 600, padding: '4px 0', cursor: 'pointer' }}>
+              <span>🐣 โหมดเข้ม (ห้ามออกจากหน้าเกิน 5 วินาที)</span>
               <input
                 type="checkbox"
                 checked={config.strictFocus !== false}
@@ -311,7 +311,7 @@ export default function PomodoroView({ goHome, backToRest = false }) {
                 alignSelf: 'flex-end',
                 minHeight: 36,
                 padding: '6px 12px',
-                fontSize: 13,
+                fontSize: 14,
                 fontWeight: 600,
                 borderRadius: 8,
                 border: '1px solid var(--clr-border)',
@@ -327,10 +327,10 @@ export default function PomodoroView({ goHome, backToRest = false }) {
       </div>
 
       {/* Hint footer */}
-      <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center', padding: '4px 8px' }}>
+      <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', textAlign: 'center', padding: '4px 8px' }}>
         {config.strictFocus !== false
-          ? `Strict Mode: เปลี่ยนแท็บ พับหน้าต่าง หรือล็อกหน้าจอเกิน 5 วินาที ${buddyName || 'ลูกไก่'}จะหนี`
-          : 'Relaxed Mode: สลับแอปอ่าน PDF/สรุปได้ โดยไม่พัง session'}
+          ? `โหมดเข้ม: เปลี่ยนแท็บ พับหน้าต่าง หรือล็อกหน้าจอเกิน 5 วินาที ${buddyName || 'ลูกไก่'}จะหนี`
+          : 'โหมดสบาย: สลับแอปไปอ่าน PDF หรือสรุปได้ รอบโฟกัสยังนับต่อ'}
       </div>
 
       {/* Mascot celebration on focus completion. useModalFocus moves focus
@@ -411,7 +411,7 @@ export default function PomodoroView({ goHome, backToRest = false }) {
                 <h2 id="pomodoro-celebration-title" style={{ margin: 0, fontSize: 18, fontWeight: 700, color: 'var(--clr-ink)' }}>
                   สำเร็จแล้ว! โฟกัสครบเวลา
                 </h2>
-                <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--clr-sage-text)', fontWeight: 500 }}>
+                <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--clr-sage-text)', fontWeight: 500 }}>
                   {selectedBuddy?.nameTh || 'คู่หู'} ร่วมฉลองความสำเร็จกับคุณ!
                 </p>
               </div>
@@ -458,10 +458,10 @@ export default function PomodoroView({ goHome, backToRest = false }) {
 function Slider({ label, suffix, min, max, step, value, onChange }) {
   return (
     <label style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-      <span style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--clr-ink)', fontWeight: 600 }}>
+      <span style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, color: 'var(--clr-ink)', fontWeight: 600 }}>
         <span>{label}</span>
         <span style={{ color: 'var(--clr-gold-text)' }}>
-          {value} <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>{suffix}</span>
+          {value} <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>{suffix}</span>
         </span>
       </span>
       <input

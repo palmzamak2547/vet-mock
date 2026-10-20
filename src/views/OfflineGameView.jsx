@@ -25,14 +25,14 @@ export default function OfflineGameView({ goBack, online, backToRest = false }) 
         >
           ← กลับ
         </button>
-        <div style={{ fontSize: 13, color: online ? 'var(--clr-sage, #4a6b4a)' : 'var(--clr-rose, #a73d3d)' }}>
+        <div style={{ fontSize: 14, color: online ? 'var(--clr-sage, #4a6b4a)' : 'var(--clr-rose, #a73d3d)' }}>
           {online ? '● ออนไลน์' : '● ออฟไลน์'}
         </div>
       </div>
 
       <div style={{ textAlign: 'center', marginBottom: 16 }}>
         <h1 style={{ margin: '0 0 4px', fontSize: 22 }}>🐤 เกมลูกไก่หนีเชื้อโรค</h1>
-        <p style={{ margin: 0, fontSize: 13, color: 'var(--clr-ink-soft, #7a6f5e)' }}>
+        <p style={{ margin: 0, fontSize: 14, color: 'var(--clr-ink-soft, #7a6f5e)' }}>
           {online
             ? 'เกมสั้น ๆ ช่วงพัก กระโดดข้ามเชื้อ Salmonella มูลไก่ และเชื้อรา แล้วหมอบหลบแมลงวัน'
             : 'ตอนนี้ใช้งานออฟไลน์อยู่ ลองเล่นเกมระหว่างรอเน็ตกลับมาก็ได้นะ'}
@@ -41,7 +41,7 @@ export default function OfflineGameView({ goBack, online, backToRest = false }) 
 
       <OfflineGame onClose={goBack} />
 
-      <div style={{ maxWidth: 600, margin: '24px auto 0', fontSize: 12, color: 'var(--clr-ink-soft, #7a6f5e)', lineHeight: 1.6 }}>
+      <div style={{ maxWidth: 600, margin: '24px auto 0', fontSize: 14, color: 'var(--clr-ink-soft, #7a6f5e)', lineHeight: 1.6 }}>
         <strong style={{ color: 'var(--clr-ink, #3d3a36)' }}>วิธีเล่น</strong>
         <ul style={{ margin: '8px 0 0', paddingLeft: 18 }}>
           <li>คอมพิวเตอร์: <code>Space</code> หรือ <code>↑</code> = กระโดด, <code>↓</code> = หมอบ, <code>Esc</code> = ปิด</li>

@@ -402,7 +402,7 @@ function DrugDBTab() {
             onClick={() => setSelectedCat(selectedCat === c.id ? null : c.id)}
             className={`vmx-vetcalc-tab-btn ${selectedCat === c.id ? 'active' : ''}`}
             type="button"
-            style={{ fontSize: 12, padding: '6px 14px' }}
+            style={{ fontSize: 14, padding: '6px 14px' }}
           >
             {c.icon} {c.label.split(' ')[0]}
           </button>
@@ -428,10 +428,10 @@ function DrugDBTab() {
       </div>
 
       {/* Results count */}
-      <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginBottom: 12, fontFamily: 'var(--vmx-mono)', fontWeight: 600 }}>
+      <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12, fontFamily: 'var(--vmx-mono)', fontWeight: 600 }}>
         {filtered.length} รายการ
         {(selectedCat || selectedSpec) && (
-          <button type="button" onClick={clearFilters} className="vmx-inline-action" style={{ marginLeft: 12, fontSize: 12 }}>ล้าง filter</button>
+          <button type="button" onClick={clearFilters} className="vmx-inline-action" style={{ marginLeft: 12, fontSize: 14 }}>ล้าง filter</button>
         )}
       </div>
 
@@ -484,20 +484,20 @@ function DrugDBTab() {
                       {drug.species === 'dog' ? '🐕' : drug.species === 'cat' ? '🐈' : '🐕🐈'}
                     </span>
                   </div>
-                  <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 4, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {drug.brand}, {drug.indication}
                   </div>
                 </div>
                 <div style={{ fontSize: 13, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap', textAlign: 'right', fontWeight: 600 }}>
                   {drug.doseLo}{drug.doseLo !== drug.doseHi ? `-${drug.doseHi}` : ''} {drug.unit}<br />
-                  <span style={{ fontSize: 11, fontWeight: 400 }}>{drug.route}, {drug.freq}</span>
+                  <span style={{ fontSize: 14, fontWeight: 400 }}>{drug.route}, {drug.freq}</span>
                 </div>
               </div>
 
               {/* Expanded card */}
               {isExpanded && (
                 <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid var(--clr-border)' }}>
-                  <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.6 }}>
+                  <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.6 }}>
                     <strong>ข้อบ่งใช้:</strong> {drug.indication}<br />
                     <strong>Route:</strong> {drug.route} — <strong>Frequency:</strong> {drug.freq}<br />
                     <strong>Brands:</strong> {drug.brand}
@@ -514,13 +514,13 @@ function DrugDBTab() {
                       accent
                     />
                     {dd.cappedFor && (
-                      <div style={{ fontSize: 12, marginTop: 6, color: 'var(--clr-rose-text)', fontWeight: 600 }}>
+                      <div style={{ fontSize: 14, marginTop: 6, color: 'var(--clr-rose-text)', fontWeight: 600 }}>
                         ⚠️ จำกัดที่ {dd.cap} {drug.unit} สำหรับ{dd.cappedFor === 'cat' ? 'แมว' : 'สุนัข'} — ช่วงยาเต็มคือ {drug.doseLo}-{drug.doseHi} {drug.unit}
                       </div>
                     )}
                     </>
                   ) : (
-                    <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', padding: '12px 0', textAlign: 'center', background: 'var(--clr-surface)', borderRadius: '8px', border: '1px dashed var(--clr-border)' }}>
+                    <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', padding: '12px 0', textAlign: 'center', background: 'var(--clr-surface)', borderRadius: '8px', border: '1px dashed var(--clr-border)' }}>
                       ใส่น้ำหนักด้านบนเพื่อคำนวณ dose
                     </div>
                   )}
@@ -697,7 +697,7 @@ export default function VetCalculator({ showFab = false, initialOpen = false } =
                 Vet Calculator
               </div>
               <h2 id="vmx-vetcalc-title" style={{ margin: '6px 0 0', fontSize: 26, fontFamily: 'var(--vmx-display)', fontWeight: 800 }}>คำนวณคลินิก</h2>
-              <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', margin: '6px 0 0', lineHeight: 1.5 }}>
+              <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', margin: '6px 0 0', lineHeight: 1.5 }}>
                 สูตรพื้นฐานที่นิสิต/สัตวแพทย์ใช้บ่อย, ทุกผลลัพธ์มีสูตรกำกับให้ตรวจมือซ้ำได้
               </p>
             </div>

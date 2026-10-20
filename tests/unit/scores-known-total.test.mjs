@@ -103,7 +103,8 @@ test('the page flags exactly the rows whose shares do not add up, each in its ow
 
 test('rows that carry their percentage in a word are complete, not flagged', () => {
   const html = render({ goHome() {} });
-  const surg = cards(html).filter((c) => c.includes('Lab Surgery'));
+  // Cards carry the course's own name (Vet Surg Lab II/III), the one its chip uses.
+  const surg = cards(html).filter((c) => c.includes('Vet Surg Lab'));
   assert.equal(surg.length, 2);
   for (const card of surg) {
     assert.ok(!card.includes('สัดส่วนที่ทราบรวม'));

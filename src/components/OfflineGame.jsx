@@ -113,6 +113,7 @@ function cssVar(name, fallback) {
 }
 
 export default function OfflineGame({ onClose }) {
+  const coarsePointer = typeof window !== 'undefined' && !!window.matchMedia?.('(pointer: coarse)').matches;
   // Start fetching the sprites as the game mounts. Nothing waits on them:
   // until each arrives its actor is drawn with the old emoji, so the game
   // is playable on the first frame and offline.
@@ -143,8 +144,12 @@ export default function OfflineGame({ onClose }) {
     // game logic is resolution-independent. CSS scales the visible
     // size to fit container (max 600px). Mobile portrait → ~340px,
     // desktop → 600px. Internal hit-tests stay accurate.
+    // Canvas text is drawn in canvas units; on a phone the 600-unit canvas
+    // shows at about 300 CSS px, so text is scaled up to stay readable.
+    let textScale = 1;
     const applyScale = () => {
       const dpr = window.devicePixelRatio || 1;
+      textScale = Math.max(1, CANVAS_W / (canvas.clientWidth || CANVAS_W));
       canvas.width = CANVAS_W * dpr;
       canvas.height = CANVAS_H * dpr;
       ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -502,7 +507,7 @@ export default function OfflineGame({ onClose }) {
         }
 
         // ── render ──
-        render(ctx, s);
+        render(ctx, s, textScale);
       } catch (err) {
         // Don't kill the loop on a single bad frame — log + continue
         // (e.g. CSS var read failure during theme switch)
@@ -551,18 +556,16 @@ export default function OfflineGame({ onClose }) {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          fontSize: 12,
-          fontFamily: 'var(--vmx-mono)',
+          fontSize: 14,
           color: 'var(--clr-ink-soft, #7a6f5e)',
-          letterSpacing: '0.04em',
         }}
       >
-        <span>SCORE <strong style={{ color: 'var(--clr-ink, #2b2419)', fontSize: 14 }}>{String(scoreDisplay).padStart(5, '0')}</strong></span>
-        <span>HI <strong style={{ color: 'var(--clr-gold-text, #b88940)' }}>{String(highScore).padStart(5, '0')}</strong></span>
-        <span>STAGE <strong style={{ color: 'var(--clr-ocean-text, #3d6b82)' }}>{stageDisplay}</strong></span>
+        <span>คะแนน <strong style={{ color: 'var(--clr-ink, #2b2419)', fontSize: 14 }}>{String(scoreDisplay).padStart(5, '0')}</strong></span>
+        <span>สูงสุด <strong style={{ color: 'var(--clr-gold-text, #b88940)' }}>{String(highScore).padStart(5, '0')}</strong></span>
+        <span>ด่าน <strong style={{ color: 'var(--clr-ocean-text, #3d6b82)' }}>{stageDisplay}</strong></span>
         {comboDisplay >= 5 && (
           <span className="vmx-pop-in" key={comboDisplay} style={{ color: '#d97744' }}>
-            COMBO ×{comboDisplay >= 20 ? 3 : comboDisplay >= 10 ? 2 : comboDisplay >= 5 ? 1.5 : 1}
+            คะแนนคูณ ×{comboDisplay >= 20 ? 3 : comboDisplay >= 10 ? 2 : comboDisplay >= 5 ? 1.5 : 1}
           </span>
         )}
       </div>
@@ -586,8 +589,10 @@ export default function OfflineGame({ onClose }) {
         aria-label="พื้นที่เล่นเกมลูกไก่หนีเชื้อโรค"
       />
 
-      <div style={{ fontSize: 12, color: 'var(--clr-ink-soft, #7a6f5e)', textAlign: 'center', lineHeight: 1.5 }}>
-        🐤 ลูกไก่หนีเชื้อโรค, ↑/Space = กระโดด, ↓ = หมอบ, เก็บ 💉 = โล่, 🌽 = +50, Esc = ปิด
+      <div style={{ fontSize: 14, color: 'var(--clr-ink-soft, #7a6f5e)', textAlign: 'center', lineHeight: 1.5 }}>
+        {coarsePointer
+          ? '🐤 ลูกไก่หนีเชื้อโรค แตะจอเพื่อกระโดด เก็บ 💉 ได้โล่ เก็บ 🌽 ได้ +50'
+          : '🐤 ลูกไก่หนีเชื้อโรค ↑ หรือ Space กระโดด, ↓ หมอบ, เก็บ 💉 ได้โล่, เก็บ 🌽 ได้ +50, Esc ปิด'}
       </div>
 
       {/* Educational fact popup on game-over */}
@@ -602,12 +607,12 @@ export default function OfflineGame({ onClose }) {
             background: 'var(--clr-surface, #fdf8ef)',
             border: '1px solid var(--clr-gold, #b88940)',
             borderLeft: '4px solid var(--clr-gold, #b88940)',
-            fontSize: 13,
+            fontSize: 14,
             lineHeight: 1.55,
             color: 'var(--clr-ink, #2b2419)',
           }}
         >
-          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-gold-text, #b88940)', marginBottom: 6, letterSpacing: '0.08em' }}>
+          <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--clr-gold-text, #b88940)', marginBottom: 6 }}>
             รู้จัก {factText.obstacle} ไหม?
           </div>
           {factText.fact}
@@ -628,7 +633,7 @@ export default function OfflineGame({ onClose }) {
             border: '1px solid var(--clr-gold, #b88940)',
           }}
         >
-          🎉 New High Score! {bestCombo > 0 && <span style={{ fontWeight: 400, color: 'var(--clr-ink-soft)' }}>, best combo {bestCombo}×</span>}
+          🎉 คะแนนสูงสุดใหม่ {bestCombo > 0 && <span style={{ fontWeight: 400, color: 'var(--clr-ink-soft)' }}>, ต่อเนื่องสูงสุด {bestCombo} ครั้ง</span>}
         </div>
       )}
     </div>
@@ -700,12 +705,28 @@ function spawnEntity(s) {
   }
 }
 
-function render(ctx, s) {
-  const inkSoft = cssVar('--clr-ink-soft', '#7a6f5e');
-  const ink = cssVar('--clr-ink', '#2b2419');
-  const gold = cssVar('--clr-gold', '#b88940');
-  const groundLine = cssVar('--clr-border', '#8a7a5c');
-  const dashLine = cssVar('--clr-surface-2', '#c4b694');
+// Theme colours, read about twice a second instead of five style reads a frame.
+let themeColors = null;
+let themeColorsAt = 0;
+function readThemeColors() {
+  const now = performance.now();
+  if (!themeColors || now - themeColorsAt > 500) {
+    themeColors = {
+      ink: cssVar('--clr-ink', '#2b2419'),
+      gold: cssVar('--clr-gold', '#b88940'),
+      groundLine: cssVar('--clr-border', '#8a7a5c'),
+      dashLine: cssVar('--clr-surface-2', '#c4b694'),
+      surface: cssVar('--clr-surface', '#fffaf0'),
+      rose: cssVar('--clr-rose-text', cssVar('--clr-rose', '#a73d3d')),
+    };
+    themeColorsAt = now;
+  }
+  return themeColors;
+}
+
+function render(ctx, s, textScale = 1) {
+  const { ink, gold, groundLine, dashLine, surface, rose } = readThemeColors();
+  const px = (cssPx) => Math.round(cssPx * textScale);
 
   ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
 
@@ -847,27 +868,28 @@ function render(ctx, s) {
   // ── Overlays ─────────────────────────────────────────────────────
   if (s.state === 'ready') {
     ctx.fillStyle = ink;
-    ctx.font = 'bold 18px sans-serif';
+    ctx.font = `bold ${px(18)}px sans-serif`;
     ctx.textAlign = 'center';
-    // Pulse the prompt
+    // Pulse the prompt (the how-to-play line sits under the canvas, in page text)
     const pulse = 0.85 + 0.15 * Math.sin(s.frame * 0.08);
     ctx.globalAlpha = pulse;
-    ctx.fillText('แตะ / กด Space เพื่อเริ่ม', CANVAS_W / 2, CANVAS_H / 2 - 10);
+    ctx.fillText('แตะเพื่อเริ่ม', CANVAS_W / 2, CANVAS_H / 2);
     ctx.globalAlpha = 1;
-    ctx.font = '12px sans-serif';
-    ctx.fillStyle = inkSoft;
-    ctx.fillText('🐤 ลูกไก่หนีเชื้อโรค, ↑ กระโดด, ↓ หมอบ, 💉 = โล่, 🌽 = +50', CANVAS_W / 2, CANVAS_H / 2 + 12);
     ctx.textAlign = 'left';
   } else if (s.state === 'gameover') {
-    ctx.fillStyle = 'rgba(255,255,255,0.78)';
-    ctx.fillRect(CANVAS_W / 2 - 130, CANVAS_H / 2 - 36, 260, 56);
-    ctx.fillStyle = '#a73d3d';
-    ctx.font = 'bold 20px sans-serif';
+    // The theme's own surface, so the box is dark in dark mode and its text readable.
+    const boxH = px(20) + px(14) + 28;
+    ctx.globalAlpha = 0.9;
+    ctx.fillStyle = surface;
+    ctx.fillRect(CANVAS_W / 2 - 170, CANVAS_H / 2 - boxH / 2, 340, boxH);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = rose;
+    ctx.font = `bold ${px(20)}px sans-serif`;
     ctx.textAlign = 'center';
-    ctx.fillText('G A M E   O V E R', CANVAS_W / 2, CANVAS_H / 2 - 10);
+    ctx.fillText('จบเกม', CANVAS_W / 2, CANVAS_H / 2 - boxH / 2 + 10 + px(20));
     ctx.fillStyle = ink;
-    ctx.font = '12px sans-serif';
-    ctx.fillText('แตะเพื่อเล่นอีกครั้ง', CANVAS_W / 2, CANVAS_H / 2 + 10);
+    ctx.font = `${px(14)}px sans-serif`;
+    ctx.fillText('แตะเพื่อเล่นอีกครั้ง', CANVAS_W / 2, CANVAS_H / 2 + boxH / 2 - 10);
     ctx.textAlign = 'left';
   }
 }

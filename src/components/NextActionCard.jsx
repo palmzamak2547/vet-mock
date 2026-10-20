@@ -233,7 +233,7 @@ export default function NextActionCard({
           </div>
         </div>
         {pendingResume || !plan ? <span className="vmx-next-actions-note">{guidanceNote}</span> : (
-          <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12 }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14 }}>
             วันนี้มีเวลา
             <select id="vmx-daily-minutes" value={plan.budget} onChange={e => setMinutes(Number(e.target.value))}
               style={{ minHeight: 44, padding: '4px 7px', borderRadius: 8, background: 'var(--clr-surface)', color: 'var(--clr-ink)' }}>

@@ -84,7 +84,7 @@ export default function PWAInstallChip({ hub = false }) {
     // is a dead end: say how to do it by hand (in-app browsers, Firefox, or
     // a browser that has not offered the install yet).
     return hub ? (
-      <p style={{ margin: 0, fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink-soft)' }}>
+      <p style={{ margin: 0, fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink-soft)' }}>
         เปิดด้วย Chrome หรือ Safari แล้วเลือกติดตั้งแอปหรือเพิ่มที่หน้าจอโฮมจากเมนูของเบราว์เซอร์
       </p>
     ) : null;
@@ -124,7 +124,7 @@ export default function PWAInstallChip({ hub = false }) {
         minHeight: 'var(--touch-min)', padding: hub ? '0 14px' : '0 0 0 14px', borderRadius: 999,
         background: 'rgba(74, 107, 74, 0.10)',
         border: '1px solid var(--clr-sage)',
-        fontSize: 13,
+        fontSize: 14,
         color: 'var(--clr-sage-text)',
       }}>
         <button
@@ -169,7 +169,7 @@ export default function PWAInstallChip({ hub = false }) {
             <ol style={{ paddingLeft: 20, margin: 0, fontSize: 14, lineHeight: 1.7 }}>
               {iosSteps({ ipad: ENVIRONMENT.ipad }).map((step) => <li key={step}>{withBoldLabels(step)}</li>)}
             </ol>
-            <p style={{ marginTop: 12, fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+            <p style={{ marginTop: 12, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
               หลังติดตั้งแล้วจะไม่มีแถบด้านบนทั้งหน้าจอ เปิดเหมือนแอปในเครื่อง
             </p>
             <div className="vmx-btn-row" style={{ marginTop: 14 }}>

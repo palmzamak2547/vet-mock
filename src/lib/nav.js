@@ -11,6 +11,8 @@
 // the way two hand-listed surfaces did before this file existed.
 // ============================================================
 
+import { FEATURES } from './feature-registry.js';
+
 /** id = the `view` (or an action); label = full (sidebar); short = compact
  *  (bottom bar); icon = a NavIcon name (line SVG, not emoji). */
 // 2026-10-11 owner feedback: "ย้ายช่อง short cut vet wiki ด้านล่างขวาออก ใส่ profile
@@ -47,6 +49,36 @@ export const NAV_ITEMS = [
   { id: 'sr-session',     label: 'ทบทวนตามรอบ',   short: 'ทบทวน',         icon: 'repeat',   rail: false },
   { id: 'profile',        label: 'โปรไฟล์',       short: 'โปรไฟล์',       icon: 'user' },
 ];
+
+// Page titles for the browser tab and history. Built from the labels the
+// student already sees (rail/bar, then the feature registry), so a tab never
+// names a screen differently from the menu that opened it. 'home' is null
+// (the base title is restored); VetWiki and the atlas own their titles.
+const TITLE_EXTRAS = Object.freeze({
+  'topic-select': 'เลือกหัวข้อ',
+  config: 'ตั้งค่าชุดข้อสอบ',
+  'mock-exam': 'โหมดสอบ',
+  exam: 'ทำข้อสอบ',
+  results: 'ผลสอบ',
+  'mock-results': 'ผลสอบ',
+  review: 'ทบทวนข้อสอบ',
+  notes: 'สรุปบทเรียน',
+  auth: 'เข้าสู่ระบบ',
+  'year-select': 'เลือกชั้นปี',
+  'phase-select': 'เลือกช่วงสอบ',
+  privacy: 'ความเป็นส่วนตัว',
+  wrapup: 'สรุปการเรียน',
+  'group-detail': 'กลุ่มติว',
+});
+const TITLE_OWNED_ELSEWHERE = new Set(['home', 'landing', 'knowledge', 'wiki', 'atlas', 'lab']);
+
+export function viewTitle(view) {
+  if (!view || TITLE_OWNED_ELSEWHERE.has(view)) return null;
+  const nav = NAV_ITEMS.find((item) => item.id === view);
+  if (nav) return nav.label;
+  const feature = FEATURES.find((f) => f.invoke?.kind === 'view' && f.invoke.view === view);
+  return feature?.label || TITLE_EXTRAS[view] || null;
+}
 
 /** The items one surface draws: 'rail' (desktop sidebar) or 'bar' (phone). */
 export function navItemsFor(surface) {

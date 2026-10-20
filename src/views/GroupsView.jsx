@@ -148,7 +148,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
         </div>
       )}
 
-      {error && <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-rose-soft)', marginBottom: 16, fontSize: 13 }}>⚠️ {error}</div>}
+      {error && <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-rose-soft)', marginBottom: 16, fontSize: 14 }}>⚠️ {error}</div>}
 
       <div className="vmx-section-label">กลุ่มของฉัน ({shownGroups.length})</div>
 

@@ -101,11 +101,11 @@ test('UI-14: the topic card draws the ⚠️ for a caveat only, and a neutral no
   assert.match(view, /const primaryLabel = `\$\{primaryLabelBase\}\$\{isRead \? ', อ่านแล้ว' : ''\}\$\{caveat && !isEmpty \? `, \$\{t\.lecturerNote\}` : ''\}`;/);
 });
 
-test('UI-14: a neutral note reads upright at 12px; a caveat reads in full ink', () => {
+test('UI-14: a neutral note reads upright at 14px (the Thai floor); a caveat reads in full ink', () => {
   const css = read('src/styles.css');
   const rule = css.match(/\n\.vmx-topic-note \{([^}]*)\}/)?.[1];
   assert.ok(rule, '.vmx-topic-note moved');
-  assert.match(rule, /font-size: 12px;/);
+  assert.match(rule, /font-size: 14px;/);
   assert.doesNotMatch(rule, /font-style: italic/, 'slanted Thai at this size is harder to read');
   assert.match(css, /\.vmx-topic-note\.is-caveat \{[^}]*color: var\(--clr-ink\);/);
 });

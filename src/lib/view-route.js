@@ -77,6 +77,16 @@ export function isAppPath(pathname) {
   return normalized === '/app' || normalized.startsWith('/app/');
 }
 
+/**
+ * A /app/* address that names nothing: not a route, not a retired alias, and
+ * not the bare /app door. App.jsx puts the student on Home for these, and
+ * tells them so instead of changing screens silently.
+ */
+export function isUnknownAppPath(pathname) {
+  const normalized = normalizePath(pathname);
+  return normalized.startsWith('/app/') && !viewForAppPath(normalized);
+}
+
 // Views whose CONTENT is filtered by the student's year. A visitor who has
 // never picked one must be asked before any of these is drawn, because the
 // app would otherwise present the default cohort's year as the visitor's own

@@ -591,10 +591,10 @@ test('UI-01: the Thai-bearing label classes are Sarabun, untracked and not upper
   for (const [name, node] of Object.entries(THAI_LABELS)) assertThaiLabel(name, node);
 });
 
-test('UI-01: the shared eyebrow is a Thai-safe label: 12px, line-height at least 1.2, ink-soft', () => {
+test('UI-01: the shared eyebrow is a Thai-safe label: 14px (the Thai floor), line-height at least 1.2, ink-soft', () => {
   const node = THAI_LABELS['shared eyebrow'];
   for (const env of [PHONE, DESKTOP]) {
-    assert.equal(computed(node, 'font-size', env), '12px');
+    assert.equal(computed(node, 'font-size', env), '14px');
     assert.ok(Number(computed(node, 'line-height', env)) >= 1.2);
     assert.equal(computed(node, 'color', env), 'var(--clr-ink-soft)');
   }
@@ -657,7 +657,7 @@ test('UI-07: the exam card meta is a quiet Sarabun row, not a tracked uppercase 
   const meta = chain('div.vmx-question-card', 'div.vmx-qtype-badge.vmx-q-meta');
   for (const env of [PHONE, DESKTOP]) {
     assert.equal(computed(meta, 'display', env), 'flex');
-    assert.equal(computed(meta, 'font-size', env), '12px');
+    assert.equal(computed(meta, 'font-size', env), '14px');
     assert.equal(computed(meta, 'border', env), '0');
     assert.equal(computed(meta, 'background', env), 'none');
   }

@@ -323,8 +323,8 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
             <>
               {email}
               {user.email_confirmed_at
-                ? <span style={{ marginLeft: 6, color: 'var(--clr-sage-text)', fontSize: 11 }}>✓ ยืนยันแล้ว</span>
-                : <span style={{ marginLeft: 6, color: 'var(--clr-gold-text)', fontSize: 11 }}>ยังไม่ยืนยัน</span>}
+                ? <span style={{ marginLeft: 6, color: 'var(--clr-sage-text)', fontSize: 14 }}>✓ ยืนยันแล้ว</span>
+                : <span style={{ marginLeft: 6, color: 'var(--clr-gold-text)', fontSize: 14 }}>ยังไม่ยืนยัน</span>}
             </>
           )} />
           <KV label="ชื่อผู้ใช้" value={
@@ -364,7 +364,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
                   maxLength={30}
                   autoComplete="username"
                 />
-                <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+                <div style={{ marginTop: 4, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
                   ใช้ได้: a-z, A-Z, 0-9, _, 3-30 ตัว
                 </div>
               </div>
@@ -416,11 +416,11 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
                   rows={2}
                   style={{ width: '100%', boxSizing: 'border-box', resize: 'vertical', fontFamily: 'inherit', fontSize: 14, padding: 8, border: '1px solid var(--clr-border)', borderRadius: 8, background: 'var(--clr-bg)', color: 'var(--clr-ink)' }}
                 />
-                <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)', textAlign: 'right' }}>
+                <div style={{ marginTop: 4, fontSize: 14, color: 'var(--clr-ink-soft)', textAlign: 'right' }}>
                   {editBio.length}/140
                 </div>
               </div>
-              <div style={{ marginBottom: 12, fontSize: 13, color: 'var(--clr-ink)' }}>
+              <div style={{ marginBottom: 12, fontSize: 14, color: 'var(--clr-ink)' }}>
                 <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
                   <input
                     type="checkbox"
@@ -444,12 +444,12 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
 
         {/* Banners */}
         {error && (
-          <div style={{ padding: 10, borderRadius: 8, background: 'var(--clr-rose-soft)', color: 'var(--clr-ink)', fontSize: 13, marginBottom: 12, lineHeight: 1.5 }}>
+          <div style={{ padding: 10, borderRadius: 8, background: 'var(--clr-rose-soft)', color: 'var(--clr-ink)', fontSize: 14, marginBottom: 12, lineHeight: 1.5 }}>
             ⚠️ {error}
           </div>
         )}
         {info && (
-          <div style={{ padding: 10, borderRadius: 8, background: 'rgba(74, 107, 74, 0.15)', color: 'var(--clr-ink)', fontSize: 13, marginBottom: 12, lineHeight: 1.5 }}>
+          <div style={{ padding: 10, borderRadius: 8, background: 'rgba(74, 107, 74, 0.15)', color: 'var(--clr-ink)', fontSize: 14, marginBottom: 12, lineHeight: 1.5 }}>
             {info}
           </div>
         )}
@@ -460,18 +460,18 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
         {isPasskeySupported() && (
           <Card>
             <h3 style={cardHeading}>Passkey</h3>
-            <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6, margin: '0 0 12px' }}>
+            <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.6, margin: '0 0 12px' }}>
               เข้าสู่ระบบด้วยลายนิ้วมือ ใบหน้า หรือ PIN ของเครื่อง ไม่ต้องจำรหัสผ่าน
               และหน้าเว็บปลอมขโมยไปใช้ไม่ได้ เพราะ passkey ผูกกับที่อยู่เว็บจริงเท่านั้น
             </p>
             {passkeys.length > 0 && (
               <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 12px', display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {passkeys.map((pk) => (
-                  <li key={pk.id} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 13, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-surface-2)' }}>
+                  <li key={pk.id} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-surface-2)' }}>
                     <span style={{ flex: 1, minWidth: 0 }}>
                       {pk.friendly_name || 'Passkey'}
                       {pk.created_at && (
-                        <span style={{ color: 'var(--clr-ink-soft)', marginLeft: 8, fontSize: 12 }}>
+                        <span style={{ color: 'var(--clr-ink-soft)', marginLeft: 8, fontSize: 14 }}>
                           เพิ่มเมื่อ {new Date(pk.created_at).toLocaleDateString('th-TH')}
                         </span>
                       )}
@@ -495,7 +495,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
           {lineOnly ? (
             /* The reauth code would go to the LINE placeholder, which no mail
                reaches, so the form could never finish. Say what to do instead. */
-            <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', margin: 0, lineHeight: 1.6 }}>
+            <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', margin: 0, lineHeight: 1.6 }}>
               {LINE_ONLY_PASSWORD}
             </p>
           ) : section !== 'password' ? (
@@ -526,7 +526,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
                     value={reauthCode} onChange={(e) => setReauthCode(e.target.value)}
                     placeholder="กรอกรหัสที่ส่งไปทางอีเมล" autoFocus
                   />
-                  <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 6, lineHeight: 1.5 }}>
+                  <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 6, lineHeight: 1.5 }}>
                     ส่งไปที่ {email} หากไม่พบ ลองดูในกล่องสแปม
                   </div>
                 </div>
@@ -555,7 +555,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
               <div className="vmx-form-group">
                 <label htmlFor="vmx-account-email">อีเมลใหม่</label>
                 <input id="vmx-account-email" type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} placeholder="new@example.com" autoComplete="email" />
-                <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+                <div style={{ marginTop: 4, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
                   เราจะส่งลิงก์ยืนยันไปที่อีเมลใหม่ — ต้องกดลิงก์เพื่อยืนยันก่อน
                 </div>
               </div>
@@ -574,7 +574,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
         {/* Export data — GDPR portability + offline backup */}
         <Card>
           <h3 style={cardHeading}>ส่งออกข้อมูล</h3>
-          <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
+          <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
             ดาวน์โหลด progress ทั้งหมด (bookmarks, history, notes, custom Q, streak) เป็น JSON
           </p>
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={handleExportData} disabled={loading}>
@@ -585,7 +585,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
         {/* Logout all devices */}
         <Card>
           <h3 style={cardHeading}>ออกจากระบบ</h3>
-          <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
+          <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
             ออกจากระบบทุกเครื่องในครั้งเดียว ใช้ตอนสงสัยว่ารหัสรั่ว
           </p>
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -603,7 +603,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
           <h3 style={{ ...cardHeading, color: 'var(--clr-rose-text)' }}>ลบบัญชี</h3>
           {section !== 'delete' ? (
             <>
-              <p style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
+              <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
                 ลบบัญชีและข้อมูลทั้งหมด กู้คืนไม่ได้
               </p>
               <button
@@ -616,7 +616,7 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
             </>
           ) : (
             <form onSubmit={handleDelete}>
-              <div style={{ padding: 12, borderRadius: 8, background: 'var(--clr-rose-soft)', marginBottom: 12, fontSize: 12, lineHeight: 1.6 }}>
+              <div style={{ padding: 12, borderRadius: 8, background: 'var(--clr-rose-soft)', marginBottom: 12, fontSize: 14, lineHeight: 1.6 }}>
                 <strong>การลบบัญชีจะ:</strong>
                 <ul style={{ margin: '6px 0 0 16px', padding: 0 }}>
                   <li>ลบความคืบหน้า คะแนน bookmarks และข้อมูลของบัญชีนี้ทั้งหมด ทั้งในบัญชีและในเครื่องนี้</li>
@@ -688,7 +688,7 @@ function Card({ children, style }) {
 
 function KV({ label, value }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '6px 0', fontSize: 13 }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', padding: '6px 0', fontSize: 14 }}>
       <span style={{ color: 'var(--clr-ink-soft)' }}>{label}</span>
       <span style={{ fontFamily: 'var(--vmx-mono)' }}>{value}</span>
     </div>
@@ -719,7 +719,7 @@ function PasswordStrengthBar({ password }) {
       <div style={{ height: 4, background: 'var(--clr-surface-2)', borderRadius: 999, overflow: 'hidden' }}>
         <div style={{ height: '100%', width: `${s.percent}%`, background: s.color, transition: 'width 0.2s ease, background 0.2s ease' }} />
       </div>
-      <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+      <div style={{ marginTop: 4, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
         ความแข็งแรง: <strong style={{ color: s.color }}>{s.label}</strong>
       </div>
     </div>

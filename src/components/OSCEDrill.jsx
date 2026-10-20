@@ -155,7 +155,7 @@ export default function OSCEDrill({ onClose }) {
                   style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4, padding: '12px 14px', height: 'auto' }}
                 >
                   <span style={{ fontSize: 18 }}>{s.icon} {s.title}</span>
-                  <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
+                  <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
                     {s.items.length} ขั้น, {s.minutes} นาที {last ? `, last ${last.score}%` : ''}
                   </span>
                 </button>
@@ -215,7 +215,7 @@ export default function OSCEDrill({ onClose }) {
                         }}
                         style={{ marginTop: 3, width: 16, height: 16, cursor: 'pointer', flexShrink: 0 }}
                       />
-                      <span style={{ flex: 1, fontSize: 13, lineHeight: 1.5, textDecoration: isChecked ? 'line-through' : 'none', color: isChecked ? 'var(--clr-ink-soft)' : 'var(--clr-ink)' }}>
+                      <span style={{ flex: 1, fontSize: 14, lineHeight: 1.5, textDecoration: isChecked ? 'line-through' : 'none', color: isChecked ? 'var(--clr-ink-soft)' : 'var(--clr-ink)' }}>
                         {it.text}
                       </span>
                       {critical && <span title="critical step — must hit" style={{ fontSize: 11, padding: '2px 6px', borderRadius: 999, background: 'var(--clr-gold, #b88940)', color: '#fff', fontFamily: 'var(--vmx-mono)', flexShrink: 0 }}>★ critical</span>}
@@ -230,7 +230,7 @@ export default function OSCEDrill({ onClose }) {
                 <div style={{ fontSize: 22, fontFamily: 'var(--vmx-display)', fontWeight: 700, marginBottom: 4 }}>
                   {liveScore}%, {fmtMs(elapsed)}
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+                <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
                   {liveScore >= 70 ? 'ผ่านเกณฑ์ — keep practicing for consistency' : 'ยังไม่ผ่าน — โฟกัส critical steps ก่อน'}
                 </div>
                 <div style={{ marginTop: 12, display: 'flex', gap: 8 }}>

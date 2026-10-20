@@ -69,7 +69,7 @@ for (const phase of ['1-mid', '1-final']) {
 async function openFromSearch(page, query) {
   await page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first().click();
   const dialog = page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' });
-  await dialog.getByRole('textbox', { name: 'ค้นหาใน VetMock' }).fill(query);
+  await dialog.getByRole('combobox', { name: 'ค้นหาใน VetMock' }).fill(query);
   const card = dialog.locator('.vmx-omni-go-primary');
   await expect(card).toContainText('ฝึกข้อสอบ');
   const onCard = num((await card.innerText()).match(/(\d[\d,]*)\s*ข้อ/)?.[1]);

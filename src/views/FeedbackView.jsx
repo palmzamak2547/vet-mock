@@ -75,6 +75,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
     e.preventDefault();
     if (!formData.message.trim()) {
       setError('กรุณากรอกข้อความ');
+      if (typeof document !== 'undefined') document.getElementById('vmx-feedback-message')?.focus();
       return;
     }
     setError('');
@@ -124,7 +125,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
         {draftRestored && status !== 'success' && (
           <div
             role="status"
-            style={{ padding: 10, borderRadius: 8, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 13, color: 'var(--clr-ink-soft)', marginBottom: 16 }}
+            style={{ padding: 10, borderRadius: 8, background: 'var(--clr-surface-2)', border: '1px solid var(--clr-border)', fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 16 }}
           >
             📝 กู้คืนข้อความที่พิมพ์ค้างไว้จากครั้งก่อนให้แล้ว แก้ต่อหรือส่งได้เลย
           </div>
@@ -133,7 +134,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
         {status === 'success' && (
           <div style={{ padding: 16, borderRadius: 12, background: 'rgba(74, 107, 74, 0.15)', border: '1px solid var(--clr-sage)', marginBottom: 16, textAlign: 'center' }}>
             ✅ <strong>ส่งสำเร็จ!</strong><br/>
-            <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>
+            <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
               ข้อความถูกส่งไปที่ {CONTACT_EMAIL} แล้ว, ขอบคุณมาก! 🙏
               {formData.fromEmail ? ' ใส่อีเมลไว้ ทีมงานตอบกลับทางอีเมลได้' : ''}
             </span>
@@ -149,7 +150,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
                 used to print an HTTP status chip, the server's raw English
                 text and a hint naming Resend + env vars. Diagnostics stay in
                 the console (logged in submit). */}
-            <div style={{ fontSize: 13, color: 'var(--clr-ink)', marginTop: 8, lineHeight: 1.6 }}>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink)', marginTop: 8, lineHeight: 1.6 }}>
               {apiError.messageTh}
             </div>
             <div style={{ marginTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
@@ -215,7 +216,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
           </div>
 
           <div className="vmx-form-group">
-            <label htmlFor="vmx-feedback-message">ข้อความ * <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontWeight: 'normal' }}>({formData.message.length}/5000)</span></label>
+            <label htmlFor="vmx-feedback-message">ข้อความ * <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontWeight: 'normal' }}>({formData.message.length}/5000)</span></label>
             <textarea
               id="vmx-feedback-message"
               value={formData.message}
@@ -223,11 +224,14 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
               placeholder="อธิบายปัญหา/ข้อเสนอแนะ…"
               style={{ minHeight: 140 }}
               maxLength={5000}
+              aria-invalid={Boolean(error)}
+              aria-describedby={error ? 'vmx-feedback-error' : undefined}
             />
           </div>
 
           {error && (
-            <div style={{ padding: 10, borderRadius: 8, background: 'var(--clr-rose-soft)', color: 'var(--clr-ink)', fontSize: 13, marginBottom: 12 }}>
+            // role=alert: a screen reader hears why nothing was sent.
+            <div id="vmx-feedback-error" role="alert" style={{ padding: 10, borderRadius: 8, background: 'var(--clr-rose-soft)', color: 'var(--clr-ink)', fontSize: 14, marginBottom: 12 }}>
               ⚠️ {error}
             </div>
           )}
@@ -242,7 +246,7 @@ export default function FeedbackView({ goHome, user, profile, prefill, clearPref
           </button>
         </form>
 
-        <div style={{ marginTop: 20, fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center', lineHeight: 1.6 }}>
+        <div style={{ marginTop: 20, fontSize: 14, color: 'var(--clr-ink-soft)', textAlign: 'center', lineHeight: 1.6 }}>
           💌 ส่งตรงไปที่ <strong>{CONTACT_EMAIL}</strong>
         </div>
       </div>

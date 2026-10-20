@@ -1,4 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
+import { topicLecturerLabel } from '../lib/lecturer-name.js';
 import { useEffect, useRef } from 'react';
 import { fireConfetti } from '../lib/confetti.js';
 // ============================================================
@@ -94,9 +95,9 @@ export default function ReadingChecklistView({
       <div className="vmx-hero">
         <Mochi state="read" size={44} slot="page-intro" className="vmx-hero-mochi" />
         <h1>รายการ <em>อ่าน</em></h1>
-        <p>ติ๊กหัวข้อที่อ่านเสร็จแล้ว ดูเหลือต้องอ่านอีกกี่คาบ, เก็บไว้ในเครื่อง (sync cloud ถ้า login)</p>
+        <p>ติ๊กหัวข้อที่อ่านเสร็จแล้ว ดูว่าเหลือต้องอ่านอีกกี่คาบ เก็บไว้ในเครื่องนี้ และในบัญชีเมื่อเข้าสู่ระบบ</p>
         {paperScope && (
-          <p style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
+          <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 4 }}>
             ไม่รวมเนื้อหา{paperScope === 'midterm' ? 'ปลายภาค' : 'กลางภาค'}{semester ? ` และวิชาเทอม ${semester === 1 ? 2 : 1}` : ''} ยังแสดงหัวข้อที่ไม่ระบุช่วงสอบ ที่ติ๊กไว้ในอีกช่วงยังอยู่ครบ สลับช่วงสอบที่หน้าแรกแล้วกลับมาดูได้
           </p>
         )}
@@ -113,7 +114,7 @@ export default function ReadingChecklistView({
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
-          <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             ภาพรวม
           </div>
           <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 22, color: 'var(--clr-ink)' }}>
@@ -146,7 +147,7 @@ export default function ReadingChecklistView({
                 <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 17, lineHeight: 1.2 }}>
                   {subj.icon} {subj.name}
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+                <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                   {done}/{total} หัวข้อ, {pct}%
                 </div>
               </div>
@@ -155,7 +156,6 @@ export default function ReadingChecklistView({
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"
                 onClick={() => setSubjectAll(subj, !allDone)}
                 title={allDone ? 'ติ๊กทุกหัวข้อออก' : 'ติ๊กทุกหัวข้อ'}
-                style={{ fontSize: 11 }}
               >
                 {allDone ? '↺ ล้างทั้งหมด' : '✓ ติ๊กทั้งหมด'}
               </button>
@@ -185,7 +185,7 @@ export default function ReadingChecklistView({
                       className="vmx-tap"
                       aria-pressed={checked}
                       onClick={() => toggle(subj.id, t.id)}
-                      aria-label={checked ? `ยกเลิก ${t.label}` : `อ่านแล้ว ${t.label}`}
+                      aria-label={`อ่านแล้ว ${t.label}`}
                       style={{
                         all: 'unset',
                         cursor: 'pointer',
@@ -210,9 +210,10 @@ export default function ReadingChecklistView({
                         >
                           {t.icon} {t.label}
                         </div>
-                        {t.lecturer && (
-                          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 2 }}>
-                            by Aj. {t.lecturer}
+                        {/* "TBD" is a placeholder in the data, not a person: no line at all. */}
+                        {topicLecturerLabel(subj.id, t.lecturer) && (
+                          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 2 }}>
+                            ผู้สอน: {topicLecturerLabel(subj.id, t.lecturer).name}
                           </div>
                         )}
                       </div>

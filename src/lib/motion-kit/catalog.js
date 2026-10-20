@@ -1,7 +1,7 @@
 import { MOCHI_ACTIONS } from "./mochi/actions.js";
 export const GROUPS = [
   { id: "mochi", name: "Mochi", en: "Mochi", symbol: "♡" },
-  { id: "cursor", name: "เมาส์", en: "Cursors", symbol: "↗" },
+  { id: "cursor", name: "ลากเล่น", en: "Cursors", symbol: "↗" },
   { id: "loading", name: "รอโหลด", en: "Loading", symbol: "◌" },
   { id: "interaction", name: "ปุ่มและการ์ด", en: "Interactions", symbol: "◇" },
   { id: "celebration", name: "ฉลอง", en: "Celebrations", symbol: "✦" },

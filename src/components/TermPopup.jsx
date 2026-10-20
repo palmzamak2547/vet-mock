@@ -177,7 +177,7 @@ export default function TermPopup({ entry, anchorRect, onClose, onOpenRelated, r
         <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 }}>
           <div style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.25, wordBreak: 'break-word' }}>{entry.term}</div>
           {entry.thai && entry.thai.toLowerCase() !== entry.term.toLowerCase() && (
-            <div style={{ fontSize: 13, color: 'var(--clr-ink-soft, #666)', marginTop: 1 }}>{entry.thai}</div>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft, #666)', marginTop: 1 }}>{entry.thai}</div>
           )}
         </div>
         <button
@@ -226,7 +226,7 @@ export default function TermPopup({ entry, anchorRect, onClose, onOpenRelated, r
       {entry.defLong && (
         <div style={{
           marginBottom: 10,
-          fontSize: 13,
+          fontSize: 14,
           lineHeight: 1.55,
           color: 'var(--clr-ink-soft, #444)',
         }}>
@@ -250,7 +250,7 @@ export default function TermPopup({ entry, anchorRect, onClose, onOpenRelated, r
               background: 'var(--clr-gold)',
               color: 'var(--clr-gold-on)',
               borderRadius: 999,
-              fontSize: 13,
+              fontSize: 14,
               fontWeight: 600,
               cursor: 'pointer',
               fontFamily: 'inherit',

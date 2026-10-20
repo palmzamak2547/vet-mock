@@ -98,6 +98,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     />
   ) : null;
   const [isSpeaking, setIsSpeaking] = useState(false);
+  // Why the last read-aloud could not speak, shown beside the button.
+  const [ttsNote, setTtsNote] = useState(null);
   const [flagState, setFlagState] = useState(() => readFlags()[compoundId] || null);
 
   // Reset flag display when navigating to a new Q
@@ -113,6 +115,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       speakControllerRef.current.cancelled = true;
       ttsModuleRef.current?.cancelSpeech?.();
       setIsSpeaking(false);
+      setTtsNote(null);
     };
   }, [currentQ?.id]);
 
@@ -131,6 +134,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       return;
     }
     // Fresh controller per speak action
+    setTtsNote(null);
     const controller = { cancelled: false };
     speakControllerRef.current = controller;
     const stem = stripForSpeech(currentQ.q || '');
@@ -149,9 +153,19 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         controller,
         onStart: () => setIsSpeaking(true),
         onEnd: () => { if (!controller.cancelled) setIsSpeaking(false); },
+        onFail: (why) => {
+          if (controller.cancelled) return;
+          setIsSpeaking(false);
+          setTtsNote(why === 'offline'
+            ? 'อ่านออกเสียงไม่ได้ตอนนี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง'
+            : 'เครื่องนี้ไม่มีเสียงอ่านภาษานี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง');
+        },
       });
     } catch {
-      if (!controller.cancelled) setIsSpeaking(false);
+      if (!controller.cancelled) {
+        setIsSpeaking(false);
+        setTtsNote('อ่านออกเสียงไม่ได้ตอนนี้ ต่ออินเทอร์เน็ตแล้วลองกดอีกครั้ง');
+      }
     }
   };
 
@@ -489,7 +503,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                 }}
               />
             </div>
-            <div style={{ fontVariantNumeric: 'tabular-nums', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+            <div style={{ fontVariantNumeric: 'tabular-nums', fontSize: 14, color: 'var(--clr-ink-soft)' }}>
               <strong style={{ color: essayTextColor }}>{essayWords}</strong>
               <span> / target {target} words</span>
               {essayWords > hardMax && <span style={{ color: 'var(--clr-rose-text)', marginLeft: 8 }}>, −2 pts (เกิน {hardMax})</span>}
@@ -532,7 +546,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               }}
             />
           </div>
-          <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
+          <div style={{ marginTop: 6, fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
             Target: <strong>{target}</strong> words, Soft cap: <strong>{softMax}</strong> (penalty −1), Hard cap: <strong>{hardMax}</strong> (penalty −2)
           </div>
         </div>
@@ -594,6 +608,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           label={(currentQ?.q || '').slice(0, 60)}
         />
       </div>
+      {ttsNote && <p className="vmx-tts-note" role="status">{ttsNote}</p>}
 
       {/* The type, subject, topic and paper as separate parts of one quiet
           row — Thai, like the rest of the card, and never uppercased. The
@@ -702,7 +717,7 @@ function FlagChip({ flag }) {
           background: palette.bg,
           border: `1px solid ${palette.border}`,
           borderRadius: 999,
-          fontSize: 12,
+          fontSize: 14,
           color: palette.text,
         }}
         title="ข้อมูลขัดแย้ง — กดดูรายละเอียด"
@@ -718,7 +733,7 @@ function FlagChip({ flag }) {
           background: palette.bg,
           borderLeft: `3px solid ${palette.border}`,
           borderRadius: '0 8px 8px 0',
-          fontSize: 13,
+          fontSize: 14,
           lineHeight: 1.6,
           color: 'var(--clr-ink)',
         }}>

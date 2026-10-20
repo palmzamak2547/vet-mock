@@ -258,7 +258,7 @@ export default function ResultsView({
   const companionEncouragement = useMemo(() => {
     if (perfect) return 'เก่งสุดๆ เลย! ถูกหมดทุกข้อแบบนี้ ยอดเยี่ยมมาก!';
     if (celebrate) return 'สุดยอดมากเลย! คะแนนรอบนี้สวยมาก ลุยต่อกันนะ!';
-    if (passed) return 'ทำได้ดีมาก! ผ่านเกณฑ์แล้ว ทบทวนข้อผิดอีกนิดจะคล่องขึ้น!';
+    if (passed) return 'ทำได้ดีมาก! ถึงเกณฑ์ซ้อมแล้ว ทบทวนข้อผิดอีกนิดจะคล่องขึ้น!';
     if (autoQs.length === 0) return 'ฝึกเขียนเสร็จแล้ว ลองเทียบกับเกณฑ์เฉลยดูนะ!';
     return 'สู้ๆ นะ! ทุกการฝึกซ้อมทำให้เราเก่งขึ้นเรื่อยๆ เสมอ!';
   }, [perfect, celebrate, passed, autoQs.length]);
@@ -270,7 +270,7 @@ export default function ResultsView({
       {(phaseLabel || selectedYear) && (
         <div style={{
           marginBottom: 12, display: 'flex', gap: 6, justifyContent: 'center',
-          fontSize: 12, fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink-soft)',
+          fontSize: 14, fontVariantNumeric: 'tabular-nums', color: 'var(--clr-ink-soft)',
         }}>
           <span style={{
             padding: '3px 10px', borderRadius: 999,
@@ -295,7 +295,7 @@ export default function ResultsView({
           marginBottom: 16, padding: '10px 16px', borderRadius: 12,
           background: 'var(--clr-gold-soft)',
           border: '1px solid var(--clr-gold)', textAlign: 'center',
-          fontSize: 13, fontVariantNumeric: 'tabular-nums',
+          fontSize: 14, fontVariantNumeric: 'tabular-nums',
           color: 'var(--clr-gold-text)', fontWeight: 700,
         }}>
           สถิติใหม่ของคุณ {personalBest.pct}% (เดิม {personalBest.prev}%)
@@ -357,7 +357,7 @@ export default function ResultsView({
           </>
         )}
         {writingQs.length > 0 && autoQs.length > 0 && (
-          <div style={{ marginTop: 8, padding: '6px 12px', borderRadius: 999, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', display: 'inline-block', fontSize: 12, color: 'var(--clr-ink)' }}>
+          <div style={{ marginTop: 8, padding: '6px 12px', borderRadius: 999, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', display: 'inline-block', fontSize: 14, color: 'var(--clr-ink)' }}>
             <NavIcon name="pen" size={13} /> มีข้อเขียน {writingQs.length} ข้อ — ตรวจด้วย rubric ใน "ดูเฉลย"
           </div>
         )}
@@ -407,12 +407,12 @@ export default function ResultsView({
             />
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-                <span style={{ fontWeight: 600, fontSize: 13, color: 'var(--clr-ink)' }}>
+                <span style={{ fontWeight: 600, fontSize: 14, color: 'var(--clr-ink)' }}>
                   {companionMascot.nameTh} ({companionMascot.name})
                 </span>
                 <span
                   style={{
-                    fontSize: 11,
+                    fontSize: 14,
                     padding: '2px 8px',
                     borderRadius: 999,
                     background: 'var(--clr-sage-soft)',
@@ -426,7 +426,7 @@ export default function ResultsView({
               <div
                 style={{
                   marginTop: 6,
-                  fontSize: 13,
+                  fontSize: 14,
                   color: 'var(--clr-ink-soft)',
                   lineHeight: 1.4,
                   background: 'var(--clr-surface)',
@@ -448,7 +448,7 @@ export default function ResultsView({
               aria-expanded={show3DViewer}
               style={{
                 minHeight: 'var(--touch-min)',
-                fontSize: 12,
+                fontSize: 14,
                 fontWeight: 600,
                 color: show3DViewer ? 'var(--clr-ink)' : 'var(--clr-sage-text)',
                 background: show3DViewer ? 'var(--clr-surface)' : 'var(--clr-sage-soft)',
@@ -478,7 +478,7 @@ export default function ResultsView({
                     style={{
                       padding: 24,
                       textAlign: 'center',
-                      fontSize: 13,
+                      fontSize: 14,
                       color: 'var(--clr-ink-soft)',
                     }}
                   >
@@ -831,7 +831,7 @@ function NextPlayPanel({
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
                 {ladderCta.label}
               </div>
-              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                 {ladderCta.sub}
               </div>
             </div>
@@ -860,7 +860,7 @@ function NextPlayPanel({
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
                 แก้ข้อที่ผิด {wrongQs.length} ข้อ ทันที
               </div>
-              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                 ทำซ้ำเฉพาะข้อในรอบนี้ที่ตอบผิด
               </div>
             </div>
@@ -869,7 +869,7 @@ function NextPlayPanel({
               borderRadius: 999,
               background: 'var(--clr-rose)',
               color: 'var(--clr-rose-on)',
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: 700,
               flexShrink: 0,
             }}>
@@ -899,7 +899,7 @@ function NextPlayPanel({
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
                 {continueLabel}
               </div>
-              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
                 {continueSub}
               </div>
             </div>
@@ -908,7 +908,7 @@ function NextPlayPanel({
               borderRadius: 999,
               background: 'var(--clr-sage)',
               color: 'var(--clr-sage-on)',
-              fontSize: 12,
+              fontSize: 14,
               fontWeight: 700,
               flexShrink: 0,
             }}>
@@ -1103,7 +1103,7 @@ function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
               display: 'flex',
               alignItems: 'flex-start',
               gap: 10,
-              fontSize: 13,
+              fontSize: 14,
               lineHeight: 1.5,
               color: 'var(--clr-ink)',
             }}
@@ -1144,7 +1144,7 @@ function ShareQuizButton({ questions }) {
       title="แชร์ชุดโจทย์นี้ให้เพื่อน — เปิดลิงก์แล้วได้ข้อเดียวกัน เรียงเดียวกัน"
     >
       แชร์ชุดนี้
-      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)' }}>{hint}</span>}
     </button>
   );
 }
@@ -1210,7 +1210,7 @@ function ChallengeQuizButton({ questions, label = 'ท้าเพื่อน�
       title="แชร์ลิงก์ชุดโจทย์ + ข้อความท้าทาย — เพื่อนเปิดลิงก์แล้วทำชุดเดียวกัน"
     >
       {label}
-      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)' }}>{hint}</span>}
     </button>
   );
 }
@@ -1261,7 +1261,7 @@ function SendToGroupButton({ questions, score, senderTimeSec }) {
       title="ส่งลิงก์ชุดโจทย์เข้ากลุ่ม LINE / IG / chat"
     >
       ส่งเข้ากลุ่ม
-      {hint && <span style={{ marginLeft: 8, fontSize: 12, color: 'var(--clr-sage-text)' }}>{hint}</span>}
+      {hint && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)' }}>{hint}</span>}
     </button>
   );
 }
@@ -1322,7 +1322,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
           <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 18, color: 'var(--clr-ink)' }}>
             {verdictMeta.label}
           </div>
-          <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', marginTop: 2, lineHeight: 1.45 }}>
+          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2, lineHeight: 1.45 }}>
             {verdictMeta.copy}
           </div>
         </div>
@@ -1340,7 +1340,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
           borderRadius: 10,
           background: 'rgba(0,0,0,0.04)',
           fontVariantNumeric: 'tabular-nums',
-          fontSize: 12,
+          fontSize: 14,
         }}>
           <div>
             <div className="vmx-eyebrow" style={{ marginBottom: 4 }}>
@@ -1348,7 +1348,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
               {s.correct}/{s.total}, เวลา {fmtTimeSec(sender.senderTimeSec)}
-              {fasterSender && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-gold-text)' }}>เร็วกว่า</span>}
+              {fasterSender && <span style={{ marginLeft: 6, fontSize: 14, color: 'var(--clr-gold-text)' }}>เร็วกว่า</span>}
             </div>
           </div>
           <div>
@@ -1357,7 +1357,7 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
             </div>
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
               {r.correct}/{r.total}, เวลา {fmtTimeSec(receiverTimeSec)}
-              {fasterReceiver && <span style={{ marginLeft: 6, fontSize: 11, color: 'var(--clr-sage-text)' }}>เร็วกว่า</span>}
+              {fasterReceiver && <span style={{ marginLeft: 6, fontSize: 14, color: 'var(--clr-sage-text)' }}>เร็วกว่า</span>}
             </div>
           </div>
         </div>

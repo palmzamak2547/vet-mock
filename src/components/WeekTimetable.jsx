@@ -32,9 +32,9 @@ export default function WeekTimetable({ year = 5, onOpenSubject, hasContent, now
         <div className="vmx-section-label" style={{ marginBottom: 12 }}>
           <span id="vmx-week-title">ตารางเรียนสัปดาห์นี้</span>
         </div>
-        <p role="status" style={{ margin: 0, padding: '12px 14px', border: '1px solid var(--clr-border)', borderRadius: 'var(--r-md, 12px)', fontSize: 13.5, lineHeight: 1.5 }}>
+        <p role="status" style={{ margin: 0, padding: '12px 14px', border: '1px solid var(--clr-border)', borderRadius: 'var(--r-md, 12px)', fontSize: 14, lineHeight: 1.5 }}>
           <strong>ช่วงสอบ งดเรียนตามตาราง</strong>
-          <span style={{ display: 'block', fontSize: 11.5, color: 'var(--clr-ink-soft)' }}>{term.labelTh}</span>
+          <span style={{ display: 'block', fontSize: 14, color: 'var(--clr-ink-soft)' }}>{term.labelTh}</span>
         </p>
       </section>
     );
@@ -48,7 +48,7 @@ export default function WeekTimetable({ year = 5, onOpenSubject, hasContent, now
     <section aria-labelledby="vmx-week-title" style={{ marginBottom: 28 }}>
       <div className="vmx-section-label" style={{ marginBottom: 12 }}>
         <span id="vmx-week-title">ตารางเรียนสัปดาห์นี้</span>
-        <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>
+        <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>
           จากตารางสอนของคณะ
         </span>
       </div>
@@ -69,15 +69,15 @@ export default function WeekTimetable({ year = 5, onOpenSubject, hasContent, now
               }}
             >
               <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 6 }}>
-                <strong style={{ fontSize: 13.5, color: isToday ? 'var(--clr-sage-text)' : 'var(--clr-ink)' }}>
+                <strong style={{ fontSize: 14, color: isToday ? 'var(--clr-sage-text)' : 'var(--clr-ink)' }}>
                   {DOW_TH[dow]}
                 </strong>
                 {isToday && (
-                  <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', border: '1px solid var(--clr-sage)', borderRadius: 999, padding: '1px 7px' }}>
+                  <span style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', border: '1px solid var(--clr-sage)', borderRadius: 999, padding: '1px 7px' }}>
                     วันนี้
                   </span>
                 )}
-                <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginLeft: 'auto' }}>
+                <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginLeft: 'auto' }}>
                   {dayRows.length} คาบ
                 </span>
               </div>
@@ -116,7 +116,7 @@ export default function WeekTimetable({ year = 5, onOpenSubject, hasContent, now
                         {c.start}-{c.end}
                       </span>
                       <span style={{ minWidth: 0 }}>
-                        <span style={{ display: 'block', fontSize: 13.5, fontWeight: 600, color: openable ? 'var(--clr-ocean-text)' : 'var(--clr-ink)', lineHeight: 1.35 }}>
+                        <span style={{ display: 'block', fontSize: 14, fontWeight: 600, color: openable ? 'var(--clr-ocean-text)' : 'var(--clr-ink)', lineHeight: 1.35 }}>
                           {c.title}
                           {c.kind === 'lab' && (
                             <span style={{ fontSize: 11, marginLeft: 6, color: 'var(--clr-ink-soft)', fontWeight: 400 }}>LAB</span>
@@ -127,7 +127,7 @@ export default function WeekTimetable({ year = 5, onOpenSubject, hasContent, now
                         </span>
                       </span>
                       {isNow && (
-                        <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--clr-rose-text)', whiteSpace: 'nowrap' }}>
+                        <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-rose-text)', whiteSpace: 'nowrap' }}>
                           กำลังเรียน
                         </span>
                       )}

@@ -374,7 +374,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           <div style={{ marginTop: 8, padding: '14px 16px', borderRadius: 12, background: 'var(--clr-surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
             <div style={{ display: 'flex', gap: 18 }}>
               <div>
-                <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                   Due ทบทวน
                 </div>
                 <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: dueReviewedCount > 100 ? 'var(--clr-rose-text)' : 'var(--clr-ink)' }}>
@@ -384,7 +384,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               </div>
               {newCount > 0 && (
                 <div>
-                  <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     ใหม่
                   </div>
                   <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: 'var(--clr-gold-text)' }}>
@@ -395,7 +395,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               )}
             </div>
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+              <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                 จะทำวันนี้
               </div>
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: 'var(--clr-sage-text)' }}>
@@ -405,26 +405,26 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           </div>
 
           {dueReviewedCount > 100 && sessionSize !== 'all' && (
-            <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 10, background: 'rgba(184, 137, 64, 0.10)', border: '1px solid var(--clr-gold)', fontSize: 12, lineHeight: 1.6 }}>
+            <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 10, background: 'rgba(184, 137, 64, 0.10)', border: '1px solid var(--clr-gold)', fontSize: 14, lineHeight: 1.6 }}>
               <strong>มีใบค้างทบทวน {dueReviewedCount} ใบ — เยอะหน่อย</strong>
               <br />
-              <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+              <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
                 Algorithm จะหยิบ "ใบที่ค้างนานสุด" มาก่อน, ทำ {sessionSize} วันนี้ + ทำต่อพรุ่งนี้ดีกว่ายัดทีเดียว, ทำต่อเนื่องสำคัญสุด
               </span>
             </div>
           )}
           {stats.total === 0 && newCount > 0 && (
-            <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 10, background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)', fontSize: 12, lineHeight: 1.6 }}>
+            <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 10, background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)', fontSize: 14, lineHeight: 1.6 }}>
               <strong>เริ่มจาก 0 — มี {newCount} ใบใหม่รอเปิด</strong>
               <br />
-              <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+              <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
                 ทำ {Math.min(sessionSize === 'all' ? 25 : sessionSize, 25)} ใบวันนี้ก่อน, พรุ่งนี้ค่อยกลับมา review ใบเดิม + เปิดใบใหม่อีก, ติดต่อกันทุกวันสำคัญสุด
               </span>
             </div>
           )}
 
           {excludedCount > 0 && (
-            <div style={{ marginTop: 10, fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', lineHeight: 1.5 }}>
+            <div style={{ marginTop: 10, fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', lineHeight: 1.5 }}>
               ในรอบทบทวนมี <strong>{eligibleCount}</strong> ข้อ ไม่รวม <strong>{excludedCount}</strong> ข้อที่ทบทวนแบบการ์ดไม่ได้ คือข้อที่ต้องเห็นตัวเลือกก่อนถึงจะตอบได้ (ข้อ "ข้อใดถูก" และข้อจับคู่) และข้อเขียน
             </div>
           )}
@@ -635,12 +635,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         {partialNotice}
         <div className="vmx-exam-top">
           <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
-          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 14, color: 'var(--clr-ink-soft)' }}>
             ถึงรอบ {fmtDate(dueAt(currentCard, scheduler))}
           </div>
         </div>
         <div className="vmx-progress-bar">
-          <div className="vmx-progress-fill" style={{ width: `${((currentIdx + 1) / sessionCards.length) * 100}%` }}></div>
+          <div className="vmx-progress-fill" style={{ '--p': (currentIdx + 1) / sessionCards.length }}></div>
         </div>
         <ImageOcclusionCard q={currentQ} showAnswer={showAnswer} onReveal={() => setShowAnswer(true)} />
         {showAnswer && (
@@ -661,12 +661,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         {partialNotice}
         <div className="vmx-exam-top">
           <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
-          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+          <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 14, color: 'var(--clr-ink-soft)' }}>
             ถึงรอบ {fmtDate(dueAt(currentCard, scheduler))}
           </div>
         </div>
         <div className="vmx-progress-bar">
-          <div className="vmx-progress-fill" style={{ width: `${((currentIdx + 1) / sessionCards.length) * 100}%` }}></div>
+          <div className="vmx-progress-fill" style={{ '--p': (currentIdx + 1) / sessionCards.length }}></div>
         </div>
         <ClozeCard q={currentQ} showAnswer={showAnswer} onReveal={() => setShowAnswer(true)} />
         {showAnswer && (
@@ -686,12 +686,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       {partialNotice}
       <div className="vmx-exam-top">
         <div className="vmx-progress"><Mochi state={showAnswer ? 'read' : 'think'} size={32} slot="review-card" className="vmx-status-mochi" /><strong>{currentIdx + 1}</strong> / {sessionCards.length}, SR</div>
-        <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+        <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 14, color: 'var(--clr-ink-soft)' }}>
           ถึงรอบ {fmtDate(dueAt(currentCard, scheduler))}
         </div>
       </div>
       <div className="vmx-progress-bar">
-        <div className="vmx-progress-fill" style={{ width: `${((currentIdx + 1) / sessionCards.length) * 100}%` }}></div>
+        <div className="vmx-progress-fill" style={{ '--p': (currentIdx + 1) / sessionCards.length }}></div>
       </div>
 
       <div key={currentQ.id} className="vmx-flashcard vmx-card-in">
@@ -720,7 +720,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
                   if (ph && ph.dataset.imgFallback) ph.style.display = 'block';
                 }}
               />
-              <div data-img-fallback="1" style={{ display: 'none', padding: '12px 16px', borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px dashed var(--clr-rose)', fontSize: 12, color: 'var(--clr-ink)', fontStyle: 'italic', margin: '0 auto 16px' }}>
+              <div data-img-fallback="1" style={{ display: 'none', padding: '12px 16px', borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px dashed var(--clr-rose)', fontSize: 14, color: 'var(--clr-ink)', fontStyle: 'italic', margin: '0 auto 16px' }}>
                 ภาพประกอบโหลดไม่ได้
               </div>
             </>

@@ -66,16 +66,30 @@ export default function InstructorModal({ instructor, onClose }) {
         aria-modal="true"
         aria-label={`ข้อมูลผู้สอน ${nameTh || nameEn}`}
       >
-        <div style={{ marginBottom: 18 }}>
+        <div style={{
+          position: 'sticky', top: 0, zIndex: 2, background: 'var(--clr-surface)',
+          display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'space-between',
+          paddingBottom: 6,
+        }}>
           <div style={{
             display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap',
-            fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)',
-            marginBottom: 8,
+            fontSize: 14, color: 'var(--clr-ink-soft)',
           }}>
             <span>👨‍🏫 ข้อมูลคณาจารย์และผู้สอน</span>
             <span aria-hidden="true">—</span>
             <span>{STATUS_LABELS[status] || 'ตรวจสอบสถานะแล้ว'}</span>
           </div>
+          <button
+            type="button"
+            className="vmx-btn vmx-btn-ghost"
+            onClick={onClose}
+            aria-label="ปิดข้อมูลผู้สอน"
+            style={{ minWidth: 44, minHeight: 44, padding: 0, flex: '0 0 auto', justifyContent: 'center' }}
+          >
+            <span aria-hidden="true">✕</span>
+          </button>
+        </div>
+        <div style={{ marginBottom: 18 }}>
           <h2 style={{ margin: 0, fontSize: 25, color: 'var(--clr-ink)', lineHeight: 1.25 }}>
             {nameTh || nameEn}
           </h2>
@@ -88,11 +102,11 @@ export default function InstructorModal({ instructor, onClose }) {
 
         <div style={{
           padding: '12px 16px', background: 'var(--clr-surface-2)', borderRadius: 10,
-          fontSize: 13, marginBottom: 20, lineHeight: 1.5,
+          fontSize: 14, marginBottom: 20, lineHeight: 1.5,
         }}>
           <div style={{ fontWeight: 650 }}>{position}</div>
           <div style={{ color: 'var(--clr-ink-soft)', marginTop: 4 }}>{department}</div>
-          <div style={{ color: 'var(--clr-ink-soft)', fontSize: 12, marginTop: 2 }}>{institution}</div>
+          <div style={{ color: 'var(--clr-ink-soft)', fontSize: 14, marginTop: 2 }}>{institution}</div>
           {email && (
             <a
               href={`mailto:${email}`}
@@ -123,8 +137,8 @@ export default function InstructorModal({ instructor, onClose }) {
         <div style={{
           display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'center',
           padding: '9px 12px', marginBottom: 20, border: '1px solid var(--clr-border)',
-          borderRadius: 10, background: 'var(--clr-surface)', fontSize: 11,
-          fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', flexWrap: 'wrap',
+          borderRadius: 10, background: 'var(--clr-surface)', fontSize: 14,
+          color: 'var(--clr-ink-soft)', flexWrap: 'wrap',
         }}>
           <span>{verification.status === 'verified' ? '✓ ยืนยันชื่อและผลงานจากแหล่งอ้างอิงที่เชื่อมโยงได้' : '✓ ตรวจสอบจากแหล่งสาธารณะที่เชื่อมโยงได้'}</span>
           {verifiedDate && <span>ตรวจล่าสุด {verifiedDate}</span>}
@@ -132,11 +146,11 @@ export default function InstructorModal({ instructor, onClose }) {
 
         {areas.length > 0 && (
           <section style={{ marginBottom: 20 }}>
-            <h3 style={{ fontSize: 13, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 4px' }}>
+            <h3 style={{ fontSize: 14, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 4px' }}>
               สาขาวิจัย
             </h3>
             {AREA_SOURCE_LABELS[areaSource] && (
-              <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginBottom: 9 }}>
+              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 9 }}>
                 {AREA_SOURCE_LABELS[areaSource]}
               </div>
             )}
@@ -145,7 +159,7 @@ export default function InstructorModal({ instructor, onClose }) {
                 <span key={area} style={{
                   padding: '4px 10px', background: 'var(--clr-surface)',
                   border: '1px solid var(--clr-border)', borderRadius: 999,
-                  fontSize: 12, color: 'var(--clr-ink)',
+                  fontSize: 14, color: 'var(--clr-ink)',
                 }}>
                   {area}
                 </span>
@@ -155,10 +169,10 @@ export default function InstructorModal({ instructor, onClose }) {
         )}
 
         <section style={{ marginBottom: 20 }}>
-          <h3 style={{ fontSize: 13, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 5px' }}>
+          <h3 style={{ fontSize: 14, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 5px' }}>
             📑 ผลงานวิจัยคัดเลือก ({papers.length})
           </h3>
-          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
+          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12 }}>
             แสดงผลงานตัวอย่างที่ตรวจชื่อผู้เขียนและลิงก์ต้นทางแล้ว ไม่ใช่รายการผลงานทั้งหมด
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -172,12 +186,12 @@ export default function InstructorModal({ instructor, onClose }) {
                     {paper.title}
                   </a>
                 </div>
-                <div style={{ marginTop: 6, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
+                <div style={{ marginTop: 6, fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.5 }}>
                   {[paper.year, paper.journal].filter(Boolean).join(', ')}
                   {paper.verifiedBy && `, ตรวจผ่าน ${paper.verifiedBy}`}
                 </div>
                 {paper.authors && (
-                  <div style={{ marginTop: 6, fontSize: 12, color: 'var(--clr-ink-soft)', lineHeight: 1.45 }}>
+                  <div style={{ marginTop: 6, fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.45 }}>
                     {paper.authors}
                   </div>
                 )}
@@ -188,7 +202,7 @@ export default function InstructorModal({ instructor, onClose }) {
 
         {verification.sources?.length > 0 && (
           <section style={{ marginBottom: 20 }}>
-            <h3 style={{ fontSize: 13, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 8px' }}>
+            <h3 style={{ fontSize: 14, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--clr-ink-soft)', margin: '0 0 8px' }}>
               แหล่งตรวจสอบ
             </h3>
             <div style={{ display: 'flex', gap: 7, flexWrap: 'wrap' }}>
@@ -198,7 +212,7 @@ export default function InstructorModal({ instructor, onClose }) {
                   href={source.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ fontSize: 12, color: 'var(--clr-rose-text)' }}
+                  style={{ fontSize: 14, color: 'var(--clr-rose-text)' }}
                 >
                   {source.label} ↗
                 </a>
@@ -208,7 +222,7 @@ export default function InstructorModal({ instructor, onClose }) {
         )}
 
         <div className="vmx-btn-row" style={{ marginTop: 20 }}>
-          <button className="vmx-btn vmx-btn-ghost" onClick={onClose}>ปิด (esc)</button>
+          <button className="vmx-btn vmx-btn-ghost" onClick={onClose}>ปิด</button>
         </div>
       </div>
     </div>

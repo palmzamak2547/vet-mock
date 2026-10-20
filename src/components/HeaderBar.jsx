@@ -96,7 +96,7 @@ export default function HeaderBar({
                 type="button"
                 className="vmx-context-pill"
                 onClick={() => setView('phase-select')}
-                aria-label="สลับช่วงสอบ (Phase)"
+                aria-label="สลับช่วงสอบ"
               >
                 {PHASE_PILL_LABELS[selectedPhase] || selectedPhase}
                 <span className="vmx-context-caret" aria-hidden="true" />

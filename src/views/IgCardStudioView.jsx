@@ -132,7 +132,7 @@ export default function IgCardStudioView({ goHome }) {
           {/* The subject names are long, so an intrinsically-sized select ran
               past the right edge on a phone and got clipped. Cap it to the
               row and let the label shrink. */}
-          <label style={{ fontSize: 13, minWidth: 0, maxWidth: '100%', display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: 4 }}>
+          <label style={{ fontSize: 14, minWidth: 0, maxWidth: '100%', display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap', gap: 4 }}>
             วิชา:
             <select value={subject} onChange={(e) => setSubject(e.target.value)} style={{ padding: '6px 10px', borderRadius: 8, maxWidth: '100%', minWidth: 0, minHeight: 44 }}>
               <option value="all">ทุกวิชา</option>
@@ -141,7 +141,7 @@ export default function IgCardStudioView({ goHome }) {
               ))}
             </select>
           </label>
-          <label style={{ fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 4, minHeight: 44 }}>
+          <label style={{ fontSize: 14, display: 'inline-flex', alignItems: 'center', gap: 4, minHeight: 44 }}>
             จำนวน:
             <input type="number" min="1" max="30" value={count} onChange={(e) => setCount(Math.max(1, Math.min(30, parseInt(e.target.value, 10) || 7)))} style={{ width: 72, padding: '6px 10px', borderRadius: 8, minHeight: 44, boxSizing: 'border-box' }} />
           </label>
@@ -150,7 +150,7 @@ export default function IgCardStudioView({ goHome }) {
               <button key={id} type="button" aria-pressed={theme === id} disabled={busy} onClick={() => setTheme(id)}>{label}</button>
             ))}
           </div>
-          <label style={{ fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 4, minHeight: 44 }}>
+          <label style={{ fontSize: 14, display: 'inline-flex', alignItems: 'center', gap: 4, minHeight: 44 }}>
             ลาย:
             <select
               value={bgId}
@@ -173,7 +173,7 @@ export default function IgCardStudioView({ goHome }) {
             </button>
           )}
         </div>
-        <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 8 }} role="status">
+        <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 8 }} role="status">
           {failed
             ? 'สร้างการ์ดไม่สำเร็จ ลองกดสร้างอีกครั้ง'
             : pool.length > 0
@@ -192,7 +192,7 @@ export default function IgCardStudioView({ goHome }) {
         {cards.map((card, i) => (
           <div key={card.q.id} className="vmx-dash-card" style={{ padding: 12 }}>
             <img src={card.url} alt={`การ์ดคำถามข้อ ${i + 1}: ${card.subjectName}`} width={1080} height={1350} style={{ width: '100%', height: 'auto', borderRadius: 8, display: 'block' }} />
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 8 }}>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 8 }}>
               ข้อ {card.q.id}, {card.subjectName || card.q.subject}{card.q.topic ? `, ${card.q.topic}` : ''}
             </div>
             <button className="vmx-btn vmx-btn-ghost" onClick={() => triggerDownload(card.blob, fileName(card, i))} style={{ marginTop: 8, width: '100%', minHeight: 44 }}>

@@ -465,7 +465,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
 
   return (
     <>
-      <p style={{ textAlign: 'center', fontSize: 13 }}><a href="/app/privacy">ข้อมูลที่จัดเก็บและความเป็นส่วนตัว</a></p>
+      <p style={{ textAlign: 'center', fontSize: 14 }}><a href="/app/privacy">ข้อมูลที่จัดเก็บและความเป็นส่วนตัว</a></p>
       <div className="vmx-hero">
         <Mochi state="wave" size={56} animate slot="welcome" className="vmx-hero-mochi" />
         <h1>{heading.title} <em>VetMock</em></h1>
@@ -475,7 +475,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
       <div className="vmx-config-panel" style={{ maxWidth: 440, margin: '0 auto' }}>
         {/* Email-verification pending banner */}
         {emailVerifyPending && (
-          <div style={{ padding: 14, borderRadius: 12, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', marginBottom: 16, fontSize: 13, lineHeight: 1.6 }}>
+          <div style={{ padding: 14, borderRadius: 12, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', marginBottom: 16, fontSize: 14, lineHeight: 1.6 }}>
             📧 <strong>ตรวจอีเมลของคุณ</strong><br/>
             <span style={{ color: 'var(--clr-ink-soft)' }}>
               เราส่งลิงก์ยืนยันไปที่ <code>{emailVerifyPending.email}</code>, คลิกลิงก์นั้นเพื่อยืนยันก่อนเข้าสู่ระบบ (อาจอยู่ใน junk/spam)
@@ -486,7 +486,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                 onClick={handleResendVerify}
                 disabled={resendCooldown > 0}
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-                style={{ minHeight: 32, fontSize: 12 }}
+                style={{ minHeight: 32, fontSize: 14 }}
               >
                 {resendCooldown > 0 ? `รอ ${resendCooldown}s` : '↻ ส่งใหม่'}
               </button>
@@ -494,7 +494,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                 type="button"
                 onClick={() => { setEmailVerifyPending(null); setMode('signin'); }}
                 className="vmx-btn vmx-btn-ghost vmx-btn-sm"
-                style={{ minHeight: 32, fontSize: 12 }}
+                style={{ minHeight: 32, fontSize: 14 }}
               >
                 ✓ ยืนยันแล้ว — ไปเข้าสู่ระบบ
               </button>
@@ -506,7 +506,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
         {mode !== 'reset' && mode !== 'update-password' && mode !== 'magic-link' && (
           <>
             {inApp && (
-              <div role="note" style={{ marginBottom: 12, padding: '12px 14px', borderRadius: 12, border: '1px solid var(--clr-gold)', background: 'var(--clr-surface)', fontSize: 13.5, lineHeight: 1.65 }}>
+              <div role="note" style={{ marginBottom: 12, padding: '12px 14px', borderRadius: 12, border: '1px solid var(--clr-gold)', background: 'var(--clr-surface)', fontSize: 14, lineHeight: 1.65 }}>
                 <b>ตอนนี้เปิดอยู่ในแอป {APP_NAMES[inApp]}</b>
                 <p style={{ margin: '4px 0 0' }}>Google มักไม่ให้เข้าสู่ระบบในเบราว์เซอร์ของแอป เปิดหน้านี้ใน Safari หรือ Chrome ก่อน แล้วค่อยเข้าสู่ระบบ</p>
                 {inAppExit
@@ -630,7 +630,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
 
             {mode !== 'signin' && <div style={{ height: 12 }} />}
 
-            <div style={{ textAlign: 'center', margin: '16px 0', fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
+            <div style={{ textAlign: 'center', margin: '16px 0', fontSize: 14, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
               — หรือใช้อีเมล + รหัสผ่าน —
             </div>
           </>
@@ -655,7 +655,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                 maxLength={30}
                 autoComplete="username"
               />
-              <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)', minHeight: 16 }}>
+              <div style={{ marginTop: 4, fontSize: 14, color: 'var(--clr-ink-soft)', minHeight: 16 }}>
                 {(() => {
                   const v = validateUsername(username);
                   if (username && !v.ok) return `⚠️ ${v.reason}`;
@@ -691,7 +691,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                 {mode === 'signin' && (
                   <a
                     onClick={() => setMode('reset')}
-                    style={{ cursor: 'pointer', color: 'var(--clr-sage-text)', fontSize: 11, fontWeight: 400, textDecoration: 'underline' }}
+                    style={{ cursor: 'pointer', color: 'var(--clr-sage-text)', fontSize: 14, fontWeight: 400, textDecoration: 'underline' }}
                   >
                     ลืมรหัสผ่าน?
                   </a>
@@ -758,7 +758,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                   autoComplete="new-password"
                 />
               </div>
-              <div style={{ marginBottom: 12, fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+              <div style={{ marginBottom: 12, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
                 <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
                   <input type="checkbox" checked={showPassword} onChange={(e) => setShowPassword(e.target.checked)} />
                   แสดงรหัสผ่าน
@@ -769,7 +769,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
 
           {/* Stay signed in toggle — visible on signin/signup only */}
           {(mode === 'signin' || mode === 'signup') && (
-            <div style={{ marginBottom: 12, fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+            <div style={{ marginBottom: 12, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
               <label style={{ display: 'inline-flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
                 <input
                   type="checkbox"
@@ -783,22 +783,22 @@ export default function AuthView({ onBack, onSuccess, user }) {
 
           {/* Rate-limit / multiple-failure warning */}
           {mode === 'signin' && attemptCount >= 3 && (
-            <div style={{ padding: 10, borderRadius: 8, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', color: 'var(--clr-ink)', fontSize: 12, marginBottom: 12, lineHeight: 1.5 }}>
+            <div style={{ padding: 10, borderRadius: 8, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', color: 'var(--clr-ink)', fontSize: 14, marginBottom: 12, lineHeight: 1.5 }}>
               ลองผิดมาแล้ว <strong>{attemptCount} ครั้ง</strong> — ถ้าลืมรหัส {' '}
-              <button type="button" className="vmx-inline-action" onClick={() => setMode('reset')} style={{ fontSize: 12 }}>กดที่นี่</button>
+              <button type="button" className="vmx-inline-action" onClick={() => setMode('reset')} style={{ fontSize: 14 }}>กดที่นี่</button>
               {' '}เพื่อรีเซ็ต หรือใช้ {' '}
-              <button type="button" className="vmx-inline-action" onClick={() => setMode('magic-link')} style={{ fontSize: 12 }}>ลิงก์ในอีเมล</button>
+              <button type="button" className="vmx-inline-action" onClick={() => setMode('magic-link')} style={{ fontSize: 14 }}>ลิงก์ในอีเมล</button>
               {' '}แทน
             </div>
           )}
 
           {error && (
-            <div style={{ padding: 10, borderRadius: 8, background: 'var(--clr-rose-soft)', color: 'var(--clr-ink)', fontSize: 13, marginBottom: 12, lineHeight: 1.5 }}>
+            <div style={{ padding: 10, borderRadius: 8, background: 'var(--clr-rose-soft)', color: 'var(--clr-ink)', fontSize: 14, marginBottom: 12, lineHeight: 1.5 }}>
               ⚠️ {error}
             </div>
           )}
           {info && (
-            <div style={{ padding: 10, borderRadius: 8, background: 'rgba(74, 107, 74, 0.15)', color: 'var(--clr-ink)', fontSize: 13, marginBottom: 12, lineHeight: 1.5 }}>
+            <div style={{ padding: 10, borderRadius: 8, background: 'rgba(74, 107, 74, 0.15)', color: 'var(--clr-ink)', fontSize: 14, marginBottom: 12, lineHeight: 1.5 }}>
               {info}
             </div>
           )}
@@ -823,7 +823,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
         </form>
 
         {/* Mode switch links */}
-        <div style={{ textAlign: 'center', marginTop: 16, fontSize: 13, color: 'var(--clr-ink-soft)' }}>
+        <div style={{ textAlign: 'center', marginTop: 16, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
           {mode === 'signin' && (
             <>ยังไม่มีบัญชี? <button type="button" className="vmx-inline-action" onClick={() => setMode('signup')}>สมัครเลย</button></>
           )}
@@ -884,7 +884,7 @@ function PasswordStrengthBar({ password }) {
           }}
         />
       </div>
-      <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)', display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{ marginTop: 4, fontSize: 14, color: 'var(--clr-ink-soft)', display: 'flex', justifyContent: 'space-between' }}>
         <span>ความแข็งแรง: <strong style={{ color: s.color }}>{s.label}</strong></span>
         <span style={{ fontFamily: 'var(--vmx-mono)' }}>{password.length} ตัว</span>
       </div>

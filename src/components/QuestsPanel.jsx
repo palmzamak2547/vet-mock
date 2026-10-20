@@ -107,7 +107,7 @@ function QuestCard({ quest, compact, onStart }) {
       <div style={{ flex: 1, minWidth: 0 }}>
         <div
           style={{
-            fontSize: compact ? 13 : 14,
+            fontSize: 14,
             fontWeight: 600,
             color: 'var(--clr-ink)',
             marginBottom: 6,
@@ -117,13 +117,9 @@ function QuestCard({ quest, compact, onStart }) {
             gap: 8,
           }}
         >
-          <span
-            style={{
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
+          {/* Wraps instead of an ellipsis: at the 14px Thai floor a phone
+              cut most quest names off mid-phrase. */}
+          <span style={{ minWidth: 0, overflowWrap: 'anywhere' }}>
             {quest.label}
           </span>
           <span
@@ -195,7 +191,7 @@ function QuestCard({ quest, compact, onStart }) {
             borderRadius: 999,
             background: 'var(--clr-sage)',
             color: 'var(--clr-sage-on)',
-            fontSize: 13,
+            fontSize: 14,
             fontWeight: 700,
             fontFamily: 'var(--vmx-mono)',
             display: 'inline-flex',
@@ -223,7 +219,7 @@ function QuestCard({ quest, compact, onStart }) {
             background: 'transparent',
             border: '1px solid var(--clr-sage)',
             color: 'var(--clr-sage-text)',
-            fontSize: 12,
+            fontSize: 14,
             fontWeight: 600,
             fontFamily: 'var(--vmx-mono)',
             display: 'inline-flex',
@@ -243,7 +239,7 @@ function QuestCard({ quest, compact, onStart }) {
           aria-hidden
           style={{
             padding: '6px 10px',
-            fontSize: 11,
+            fontSize: 14,
             color: 'var(--clr-ink-soft)',
             fontFamily: 'var(--vmx-mono)',
             flexShrink: 0,
@@ -279,10 +275,10 @@ function BonusCard({ bonus, compact }) {
         🎉
       </div>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--clr-ink)' }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink)' }}>
           ครบทุก quest วันนี้!
         </div>
-        <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+        <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
           โบนัส +{bonus.xp} XP
         </div>
       </div>
@@ -304,7 +300,7 @@ function BonusCard({ bonus, compact }) {
           borderRadius: 999,
           background: 'var(--clr-sage)',
           color: 'var(--clr-sage-on)',
-          fontSize: 13,
+          fontSize: 14,
           fontWeight: 700,
           fontFamily: 'var(--vmx-mono)',
           flexShrink: 0,
@@ -376,7 +372,7 @@ export default function QuestsPanel({ compact = false, onStart, year = null }) {
         </h3>
         <div
           style={{
-            fontSize: 11,
+            fontSize: 14,
             color: 'var(--clr-ink-soft)',
             fontFamily: 'var(--vmx-mono)',
           }}
@@ -413,10 +409,10 @@ export default function QuestsPanel({ compact = false, onStart, year = null }) {
           >
             <div style={{ fontSize: 20, flexShrink: 0 }} aria-hidden>👉</div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: 12, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
+              <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-sage-text)', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 700 }}>
                 ทำต่อ quest ถัดไป
               </div>
-              <div style={{ fontSize: 13, fontWeight: 600, marginTop: 2, color: 'var(--clr-ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              <div style={{ fontSize: 14, fontWeight: 600, marginTop: 2, color: 'var(--clr-ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {recentClaim.next.label.replace('{N}', recentClaim.next.target)}
               </div>
             </div>
@@ -438,7 +434,7 @@ export default function QuestsPanel({ compact = false, onStart, year = null }) {
                 borderRadius: 999,
                 background: 'var(--clr-sage)',
                 color: 'var(--clr-sage-on)',
-                fontSize: 12,
+                fontSize: 14,
                 fontWeight: 700,
                 fontFamily: 'var(--vmx-mono)',
                 flexShrink: 0,
@@ -452,7 +448,7 @@ export default function QuestsPanel({ compact = false, onStart, year = null }) {
         {bonus.claimed && (
           <div
             style={{
-              fontSize: 11,
+              fontSize: 14,
               color: 'var(--clr-ink-soft)',
               textAlign: 'center',
               fontFamily: 'var(--vmx-mono)',

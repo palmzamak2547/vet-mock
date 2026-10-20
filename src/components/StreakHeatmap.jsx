@@ -80,7 +80,7 @@ export default function StreakHeatmap({ history = [] }) {
 
   if (grid.cells.length === 0) {
     return (
-      <div className="vmx-empty" style={{ fontSize: 13 }}>
+      <div className="vmx-empty" style={{ fontSize: 14 }}>
         ยังไม่มีข้อมูลเลย — เริ่มทำข้อสอบเพื่อดูสถิติ
       </div>
     );
@@ -121,7 +121,7 @@ export default function StreakHeatmap({ history = [] }) {
               key={`${m.w}-${m.label}`}
               x={PAD_LEFT + m.w * (CELL + GAP)}
               y={12}
-              fontSize="11"
+              fontSize="14"
               fontFamily="var(--vmx-mono)"
               fill="var(--clr-ink-soft)"
             >
@@ -134,7 +134,7 @@ export default function StreakHeatmap({ history = [] }) {
               key={d}
               x={2}
               y={PAD_TOP + d * (CELL + GAP) + 9}
-              fontSize="9"
+              fontSize="14"
               fontFamily="var(--vmx-mono)"
               fill="var(--clr-ink-soft)"
             >

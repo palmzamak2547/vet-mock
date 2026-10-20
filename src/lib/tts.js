@@ -443,8 +443,16 @@ function speakChunk(text, lang, voices, opts = {}) {
     utter.rate = opts.rate ?? rateFor(lang, tier);
     utter.pitch = opts.pitch ?? 1.0;
     utter.volume = opts.volume ?? 1.0;
-    utter.onend = () => resolve();
-    utter.onerror = () => resolve();
+    // A device with no voice for the language can accept the utterance and
+    // never report back, which left a read-aloud waiting forever. Give up
+    // after the longest this chunk could take, and tell the caller whether
+    // the device ever started speaking.
+    let started = false;
+    const done = () => { clearTimeout(watchdog); resolve(started); };
+    const watchdog = setTimeout(done, 3000 + text.length * 150);
+    utter.onstart = () => { started = true; };
+    utter.onend = done;
+    utter.onerror = done;
     synth.speak(utter);
   });
 }
@@ -454,10 +462,14 @@ const pause = (ms) => new Promise((r) => setTimeout(r, ms));
 // Speak one sentence safely (auto-chunks if too long for Chrome).
 async function speakSentence(text, lang, voices, controller) {
   const pieces = safeSplit(text);
+  let started = false;
   for (const p of pieces) {
-    if (controller?.cancelled) return;
-    await speakChunk(p, lang, voices);
+    if (controller?.cancelled) return started;
+    if (await speakChunk(p, lang, voices)) started = true;
+    // Nothing started on the first piece: this device has no voice for it.
+    else if (!started) return false;
   }
+  return started;
 }
 
 // Public — prefetch a Q's stem audio so tap-to-play is near-instant.
@@ -492,7 +504,7 @@ export async function prefetchQuestion({ stem }) {
 }
 
 // Public — speak a Q stem + options sequence.
-export async function speakQuestion({ stem, options, onStart, onEnd, controller }) {
+export async function speakQuestion({ stem, options, onStart, onEnd, onFail, controller }) {
   if (typeof window === 'undefined' || !window.speechSynthesis) return;
   const synth = window.speechSynthesis;
   synth.cancel();
@@ -644,6 +656,9 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
         const audioPromises = sentences.map((text) =>
           fetcher({ text, lang: qLang, rate: userRate }, fetchAbort.signal)
         );
+        // Each is awaited in order below; once one fails the rest are aborted
+        // and never awaited, which surfaced as unhandled rejections.
+        for (const p of audioPromises) p.catch(() => {});
         const mimeType = provider === 'iapp' ? 'audio/wav' : 'audio/mpeg';
 
         // Caller's `controller.cancelled` is the user-tap flag. Pre-
@@ -707,14 +722,18 @@ export async function speakQuestion({ stem, options, onStart, onEnd, controller 
   // ── Web Speech fallback / direct path ────────────────────────
   try {
     if (stem && stem.trim()) {
-      await speakSentence(sentences[0], qLang, voices, controller);
+      const spoke = await speakSentence(sentences[0], qLang, voices, controller);
       if (controller?.cancelled) { synth.cancel(); return; }
+      // The device could not say the first sentence: stop and say so rather
+      // than sit silent through every option.
+      if (!spoke) { synth.cancel(); onFail?.(cloudFailed ? 'offline' : 'no-voice'); return; }
       await pause(P.afterStem);
     }
     const optStart = (stem && stem.trim()) ? 1 : 0;
     for (let i = optStart; i < sentences.length; i++) {
       if (controller?.cancelled) { synth.cancel(); break; }
-      await speakSentence(sentences[i], qLang, voices, controller);
+      const spoke = await speakSentence(sentences[i], qLang, voices, controller);
+      if (!spoke && i === optStart && !(stem && stem.trim())) { synth.cancel(); onFail?.(cloudFailed ? 'offline' : 'no-voice'); return; }
       const isLast = i === sentences.length - 1;
       await pause(isLast ? P.afterLast : P.betweenOpts);
     }

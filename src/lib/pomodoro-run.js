@@ -31,14 +31,16 @@ export function phaseMinutes(state, config) {
 /** The status line. Break lengths are the ones the student set. `buddy` is the
  *  companion's Thai name when the student picked one; without it the hatching
  *  chick's story stays. */
-export function statusLabel(state, strictFocus = true, minutes, buddy) {
+export function statusLabel(state, strictFocus = true, minutes, buddy, paused = false) {
   const who = buddy || 'ลูกไก่';
+  // A paused run says it is paused, not still "focusing".
+  if (paused && ACTIVE.has(state)) return 'หยุดไว้ชั่วคราว กด ทำต่อ เมื่อพร้อม';
   switch (state) {
     case 'idle':
-      if (!strictFocus) return 'พร้อมเริ่ม — กด เริ่ม เพื่อเริ่มโฟกัส (Relaxed Mode)';
+      if (!strictFocus) return 'พร้อมเริ่ม กด เริ่ม เพื่อเริ่มโฟกัส (โหมดสบาย สลับไปอ่านแอปอื่นได้)';
       return buddy
-        ? `พร้อมเริ่ม — กด เริ่ม เพื่อโฟกัสกับ${buddy} (Strict Mode: ห้ามออกจากหน้าเกิน 5 วินาที)`
-        : 'พร้อมเริ่ม — กด เริ่ม เพื่อฟักลูกไก่ (Strict Mode: ห้ามออกจากหน้าเกิน 5 วินาที)';
+        ? `พร้อมเริ่ม กด เริ่ม เพื่อโฟกัสกับ${buddy} (โหมดเข้ม ห้ามออกจากหน้าเกิน 5 วินาที)`
+        : 'พร้อมเริ่ม กด เริ่ม เพื่อฟักลูกไก่ (โหมดเข้ม ห้ามออกจากหน้าเกิน 5 วินาที)';
     case 'focus':
       return strictFocus
         ? `กำลังโฟกัส — อย่าออกจากหน้านี้เกิน 5 วินาทีนะ ${buddy || 'ไก่'}จะหนี!`

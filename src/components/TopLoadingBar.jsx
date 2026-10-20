@@ -129,7 +129,7 @@ export function ViewFallback() {
       <div
         role="status"
         style={{
-          fontSize: 12,
+          fontSize: 14,
           fontFamily: 'var(--vmx-mono)',
           color: 'var(--clr-ink-soft)',
           marginBottom: 14,

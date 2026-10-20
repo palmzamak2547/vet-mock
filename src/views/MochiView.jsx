@@ -98,7 +98,7 @@ export default function MochiView({ goHome, onOpenFocus, onOpenGame }) {
     <summary>ดูตัวอย่างเอฟเฟกต์และท่า Mochi</summary>
     {examplesOpen && <>
     <div className="vmx-mochi-groups" role="group" aria-label="หมวดกิจกรรม">
-      {GROUPS.map(item => <button type="button" key={item.id} aria-pressed={group === item.id} onClick={() => pickGroup(item.id)}>{item.name}<span>{EFFECTS.filter(e => e.group === item.id).length}</span></button>)}
+      {GROUPS.map(item => { const n = EFFECTS.filter(e => e.group === item.id).length; return <button type="button" key={item.id} aria-pressed={group === item.id} aria-label={`${item.name} ${n}`} onClick={() => pickGroup(item.id)}>{item.name}<span aria-hidden="true">{n}</span></button>; })}
     </div>
     <div className="vmx-mochi-workspace">
       <section className="vmx-mochi-player" aria-labelledby="vmx-mochi-effect-title">

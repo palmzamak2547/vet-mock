@@ -18,6 +18,7 @@ import { useModalFocus } from '../hooks/useModalFocus.js';
 import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
 import { safeLinkUrl } from '../lib/safe-url.js';
 import RecallQuiz from './RecallQuiz.jsx';
+import { SUBJECTS } from '../data/curriculum.js';
 
 // ─────────────────────────────────────────────────────────────
 // Mini markdown → HTML renderer
@@ -167,6 +168,20 @@ function Inline({ text }) {
   return <span dangerouslySetInnerHTML={{ __html: renderInline(String(text ?? '')) }} />;
 }
 
+// The header used to print the subject id and the ISO date as authored
+// ("AQUATIC-CLINIC, 2025-10-14"). A student reads the subject by its Thai name
+// and a date the way a Thai calendar writes it. An id with no catalogue entry
+// is left out rather than shown raw.
+export function subjectThaiName(id) {
+  return SUBJECTS.find((s) => s.id === id)?.name || '';
+}
+export function thaiDate(value) {
+  if (!value) return '';
+  const d = new Date(`${value}T12:00:00+07:00`);
+  if (Number.isNaN(d.getTime())) return '';
+  return new Intl.DateTimeFormat('th-TH', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Bangkok' }).format(d);
+}
+
 // ─────────────────────────────────────────────────────────────
 // Component
 // ─────────────────────────────────────────────────────────────
@@ -295,7 +310,7 @@ export default function SummaryModal({ summary, onClose, onReload }) {
         <p className="vmx-print-eyebrow">สรุปจากคลิปบรรยาย</p>
         <h1 className="vmx-print-title">{summary.title}</h1>
         <p className="vmx-print-meta">
-          <Inline text={[summary.subject?.toUpperCase(), summary.date,
+          <Inline text={[subjectThaiName(summary.subject), thaiDate(summary.date),
             summary.durationMin ? `${summary.durationMin} นาที` : null,
             summary.instructor].filter(Boolean).join('  ·  ').replace(/·/g, '—')} />
         </p>
@@ -350,14 +365,14 @@ export default function SummaryModal({ summary, onClose, onReload }) {
           background: 'linear-gradient(135deg, rgba(194,109,109,0.06), rgba(232,212,168,0.06))',
         }}>
           <div style={{ flex: 1, minWidth: 200 }}>
-            <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
               สรุปจากคลิปอาจารย์
             </div>
             <h2 id="vmx-summary-title" style={{ margin: '4px 0 0', fontSize: 17, fontFamily: 'var(--vmx-display)', fontWeight: 600 }}>
               {summary.title}
             </h2>
-            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', marginTop: 3, fontStyle: 'italic' }}>
-              {summary.subject?.toUpperCase()}, {summary.date}, {summary.durationMin} นาที
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 3 }}>
+              {[subjectThaiName(summary.subject), thaiDate(summary.date), summary.durationMin ? `${summary.durationMin} นาที` : ''].filter(Boolean).join(', ')}
               {summary.instructor && <>, <Inline text={summary.instructor} /></>}
             </div>
           </div>
@@ -388,9 +403,9 @@ export default function SummaryModal({ summary, onClose, onReload }) {
             className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             onClick={downloadMd}
             title="ดาวน์โหลดเป็นไฟล์ .md สำหรับเปิดใน Obsidian หรือ Notability"
-            style={{ flexShrink: 0 }}
+            style={{ flexShrink: 0, minWidth: 44, minHeight: 44 }}
           >
-            .md
+            ดาวน์โหลด .md
           </button>
           <button
             type="button"
@@ -398,7 +413,7 @@ export default function SummaryModal({ summary, onClose, onReload }) {
             onClick={onClose}
             title="ปิด (Esc)"
             aria-label="ปิดสรุปคลิป"
-            style={{ flexShrink: 0, fontSize: 18, padding: '4px 10px' }}
+            style={{ flexShrink: 0, fontSize: 18, padding: '4px 10px', minWidth: 44, minHeight: 44 }}
           >
             ✕
           </button>
@@ -452,15 +467,15 @@ export default function SummaryModal({ summary, onClose, onReload }) {
             padding: '10px 18px',
             borderTop: '1px solid var(--clr-border)',
             background: 'var(--clr-surface-2)',
-            fontSize: 12,
+            fontSize: 14,
             color: 'var(--clr-ink-soft)',
             display: 'flex',
             gap: 12,
             alignItems: 'center',
             flexWrap: 'wrap',
           }}>
-            <span style={{ fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', fontSize: 11, letterSpacing: '0.08em' }}>
-              Exam format
+            <span style={{ fontWeight: 600 }}>
+              แนวข้อสอบ
             </span>
             <span style={{ flex: 1 }}><Inline text={summary.examFormat} /></span>
           </div>

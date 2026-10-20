@@ -180,7 +180,7 @@ export default function RaceView({ goHome, setView, user, profile }) {
           </button>
           <JoinForm onJoin={joinRace} busy={busy} />
         </div>
-        {error && <div style={{ color: 'var(--clr-rose-text, #c0392b)', fontSize: 13 }}>{error}</div>}
+        {error && <div style={{ color: 'var(--clr-rose-text, #c0392b)', fontSize: 14 }}>{error}</div>}
       </>
     );
   }
@@ -194,15 +194,15 @@ export default function RaceView({ goHome, setView, user, profile }) {
         <div style={{ padding: 24, borderRadius: 12, background: 'var(--clr-surface-2)', textAlign: 'center', marginBottom: 16 }}>
           <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>RACE CODE</div>
           <div style={{ fontSize: 44, letterSpacing: '0.18em', fontFamily: 'var(--vmx-mono)', fontWeight: 700, marginTop: 8, color: 'var(--clr-sage-text)' }}>{code}</div>
-          <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-ink-soft)' }}>ส่ง code นี้ให้เพื่อน, ทุกคนต้องอยู่ในห้องก่อนเริ่ม</div>
+          <div style={{ marginTop: 10, fontSize: 14, color: 'var(--clr-ink-soft)' }}>ส่ง code นี้ให้เพื่อน, ทุกคนต้องอยู่ในห้องก่อนเริ่ม</div>
         </div>
 
         {isHost && (
           <div style={{ marginBottom: 16, padding: 12, borderRadius: 10, border: '1px solid var(--clr-border)' }}>
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.05em', fontFamily: 'var(--vmx-mono)', marginBottom: 8 }}>Host: ตั้งค่า</div>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.05em', fontFamily: 'var(--vmx-mono)', marginBottom: 8 }}>Host: ตั้งค่า</div>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginBottom: 8 }}>
-              <label htmlFor="vmx-race-subject" style={{ fontSize: 13 }}>วิชา:</label>
-              <select id="vmx-race-subject" value={subject} onChange={(e) => setSubject(e.target.value)} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13 }}>
+              <label htmlFor="vmx-race-subject" style={{ fontSize: 14 }}>วิชา:</label>
+              <select id="vmx-race-subject" value={subject} onChange={(e) => setSubject(e.target.value)} style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 14 }}>
                 {/* Grouped by year. Flat, this listed every subject in the app
                     together, so a second-year host picking a race scrolled
                     past Year 5 clinical subjects with nothing to say they
@@ -215,8 +215,8 @@ export default function RaceView({ goHome, setView, user, profile }) {
                   </optgroup>
                 ))}
               </select>
-              <label htmlFor="vmx-race-count" style={{ fontSize: 13, marginLeft: 12 }}>จำนวนข้อ:</label>
-              <input id="vmx-race-count" type="number" min="5" max="50" value={count} onChange={(e) => setCount(Math.max(5, Math.min(50, parseInt(e.target.value || 0, 10))))} style={{ width: 60, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 13 }} />
+              <label htmlFor="vmx-race-count" style={{ fontSize: 14, marginLeft: 12 }}>จำนวนข้อ:</label>
+              <input id="vmx-race-count" type="number" min="5" max="50" value={count} onChange={(e) => setCount(Math.max(5, Math.min(50, parseInt(e.target.value || 0, 10))))} style={{ width: 60, padding: '4px 8px', borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontSize: 14 }} />
             </div>
             <button className="vmx-btn vmx-btn-primary" onClick={startRace} disabled={busy || loadingBank || others.length === 0} style={{ width: '100%' }}>
               {others.length === 0 ? '🕐 รอเพื่อนเข้าห้อง…' : `🏁 เริ่ม! (${others.length + 1} คน)`}
@@ -224,16 +224,16 @@ export default function RaceView({ goHome, setView, user, profile }) {
           </div>
         )}
 
-        <div style={{ marginBottom: 8, fontSize: 12, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', fontFamily: 'var(--vmx-mono)', letterSpacing: '0.05em' }}>ในห้อง ({Object.keys(participants).length})</div>
+        <div style={{ marginBottom: 8, fontSize: 14, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', fontFamily: 'var(--vmx-mono)', letterSpacing: '0.05em' }}>ในห้อง ({Object.keys(participants).length})</div>
         <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
           {Object.entries(participants).map(([k, p]) => (
             <li key={k} style={{ padding: '6px 10px', borderRadius: 8, background: 'var(--clr-surface)', display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ fontSize: 16 }}>{p.avatar}</span>
-              <span style={{ fontSize: 13, fontWeight: k === user.id ? 700 : 400 }}>{p.username}{k === user.id && ' (คุณ)'}{k === user.id && isHost && ', host'}</span>
+              <span style={{ fontSize: 14, fontWeight: k === user.id ? 700 : 400 }}>{p.username}{k === user.id && ' (คุณ)'}{k === user.id && isHost && ', host'}</span>
             </li>
           ))}
         </ul>
-        {error && <div style={{ marginTop: 12, color: 'var(--clr-rose-text, #c0392b)', fontSize: 13 }}>{error}</div>}
+        {error && <div style={{ marginTop: 12, color: 'var(--clr-rose-text, #c0392b)', fontSize: 14 }}>{error}</div>}
       </>
     );
   }
@@ -323,7 +323,7 @@ function ProgressBars({ myIdx, myCorrect, mySelf, others, total }) {
     const pct = total > 0 ? (idx / total) * 100 : 0;
     return (
       <div style={{ marginBottom: 10 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 3, fontFamily: 'var(--vmx-mono)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, marginBottom: 3, fontFamily: 'var(--vmx-mono)' }}>
           <span style={{ fontWeight: isMe ? 700 : 400 }}>{name}{isMe && ' (คุณ)'}</span>
           <span>{correct}/{idx} ถูก, Q{idx}/{total}</span>
         </div>

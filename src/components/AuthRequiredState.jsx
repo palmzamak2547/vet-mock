@@ -1,6 +1,6 @@
 import Mochi from './Mochi.jsx';
 
-export default function AuthRequiredState({ onSignIn, onHome }) {
+export default function AuthRequiredState({ page, onSignIn, onHome }) {
   return (
     <section
       className="vmx-empty"
@@ -9,7 +9,8 @@ export default function AuthRequiredState({ onSignIn, onHome }) {
     >
       <div aria-hidden style={{ fontSize: 36, marginBottom: 12 }}><Mochi state="wave" size={64} slot="auth" fallback="🔒" /></div>
       <h1 id="vmx-auth-required-title" style={{ fontSize: 22, margin: '0 0 8px' }}>
-        หน้านี้ใช้บัญชี VetMock
+        {/* Name the page, so a student who followed a link knows where they are. */}
+        {page ? `${page} ใช้บัญชี VetMock` : 'หน้านี้ใช้บัญชี VetMock'}
       </h1>
       <p style={{ margin: '0 0 20px', color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
         เข้าสู่ระบบเพื่อเปิดข้อมูลกลุ่ม อันดับ และการตั้งค่าบัญชี

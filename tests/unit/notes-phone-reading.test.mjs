@@ -64,7 +64,7 @@ const pickers = (v) => findAll(v.tree, n => n.type === 'select');
 test('a native topic picker lists every topic in order and opens the chosen one', async t => {
   const v = view(t);
   await settle(v);
-  const [topicPicker, subjectPicker] = pickers(v);
+  const [subjectPicker, topicPicker] = pickers(v); // subject first: the topics depend on it
   assert.ok(topicPicker, 'the narrow layout has a topic picker');
   assert.deepEqual(findAll(topicPicker, n => n.type === 'option').map(textOf), ['1. First topic', '2. Second topic', '3. Third topic']);
   assert.equal(topicPicker.props.value, 'first');

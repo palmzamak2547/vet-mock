@@ -85,6 +85,8 @@ test('a subject card counts the paper, not the whole subject', async ({ page, co
   await seed(context, '1-final');
   // Milk Hygiene is a midterm-only subject: 457 on the midterm, none on the final.
   expect(await cardCount(page, 'สุขศาสตร์น้ำนม')).toBe(0);
+  // Zero for this paper is not "no content": the course has its notes to read.
+  await expect(page.locator('.vmx-subject-card', { hasText: 'สุขศาสตร์น้ำนม' }).first().locator('.count')).toHaveText('มีสรุปให้อ่าน');
   // Equine medicine has both, and the final is the smaller pile.
   const eqFinal = await cardCount(page, 'เวชปฏิบัติม้า');
   expect(eqFinal).toBeGreaterThan(0);

@@ -166,7 +166,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
 
   if (!hasSupabase) {
     return (
-      <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'var(--clr-surface-2)', fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+      <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'var(--clr-surface-2)', fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
         ความเห็นเปิดเฉพาะเครื่องที่ตั้งค่า Supabase ไว้ — single-player mode
       </div>
     );
@@ -174,14 +174,14 @@ export default function QComments({ qSubject, qId, user, setView }) {
 
   return (
     <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.04)', border: '1px solid var(--clr-border)' }}>
-      <div style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+      <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
         ความเห็น {comments.length > 0 && `(${comments.length})`}
       </div>
 
-      {loading && <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>กำลังโหลด…</div>}
+      {loading && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>กำลังโหลด…</div>}
 
       {!loading && loadErr && (
-        <div style={{ fontSize: 12, color: 'var(--clr-rose-text)', marginBottom: 8 }}>
+        <div style={{ fontSize: 14, color: 'var(--clr-rose-text)', marginBottom: 8 }}>
           {loadErr}{' '}
           <button
             type="button"
@@ -192,7 +192,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
       )}
 
       {!loading && !loadErr && comments.length === 0 && (
-        <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginBottom: 8 }}>
+        <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginBottom: 8 }}>
           ยังไม่มีความเห็น — เป็นคนแรกได้
         </div>
       )}
@@ -207,7 +207,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
               <li key={c.id} style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--clr-surface)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
                   <span style={{ fontSize: 14 }}>{avatar}</span>
-                  <span style={{ fontSize: 12, fontWeight: 600 }}>{author}</span>
+                  <span style={{ fontSize: 14, fontWeight: 600 }}>{author}</span>
                   <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{fmtTime(c.created_at)}</span>
                   {(mine || isAdmin) && (
                     <button
@@ -220,7 +220,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
                     >🗑</button>
                   )}
                 </div>
-                <div style={{ fontSize: 13, lineHeight: 1.55, whiteSpace: 'pre-wrap', color: 'var(--clr-ink)' }}>
+                <div style={{ fontSize: 14, lineHeight: 1.55, whiteSpace: 'pre-wrap', color: 'var(--clr-ink)' }}>
                   {c.body}
                 </div>
               </li>
@@ -241,7 +241,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
           disabled={!user || posting}
           style={{
             flex: 1, padding: 8, borderRadius: 6,
-            border: '1px solid var(--clr-border)', fontSize: 13,
+            border: '1px solid var(--clr-border)', fontSize: 14,
             fontFamily: 'inherit', resize: 'vertical',
             background: user ? 'var(--clr-bg)' : 'var(--clr-surface-2)',
             color: 'var(--clr-ink)',
@@ -257,7 +257,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
           {!user ? 'เข้าสู่ระบบ' : posting ? '...' : 'โพสต์'}
         </button>
       </div>
-      {err && <div style={{ marginTop: 6, fontSize: 11, color: 'var(--clr-rose-text)' }}>{err}</div>}
+      {err && <div style={{ marginTop: 6, fontSize: 14, color: 'var(--clr-rose-text)' }}>{err}</div>}
     </div>
   );
 }

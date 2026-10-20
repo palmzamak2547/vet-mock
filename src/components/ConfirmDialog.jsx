@@ -71,7 +71,7 @@ export default function ConfirmDialog({
           </p>
         )}
         {note && (
-          <p style={{ margin: '0 0 4px', color: 'var(--clr-rose-text)', fontSize: 13.5, fontWeight: 600, lineHeight: 1.6, whiteSpace: 'pre-line' }}>
+          <p style={{ margin: '0 0 4px', color: 'var(--clr-rose-text)', fontSize: 14, fontWeight: 600, lineHeight: 1.6, whiteSpace: 'pre-line' }}>
             {note}
           </p>
         )}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SEMESTER, fmtThaiDate, getUpcomingExams, shortCountdown } from '../data/schedule.js';
+import { SEMESTER, examTitle, fmtThaiDate, getUpcomingExams, shortCountdown } from '../data/schedule.js';
 import WeekTimetable from '../components/WeekTimetable.jsx';
 import AcademicCalendar from '../components/AcademicCalendar.jsx';
 // Phase 2 perf: use precomputed counts instead of QB. ScheduleView
@@ -61,7 +61,9 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
       <div className="vmx-hero">
         <h1>ตาราง<em>เรียนและสอบ</em></h1>
         <p>
-          {SEMESTER.labelTh}, {SEMESTER.cohortNote}, {SEMESTER.midtermPeriod.labelTh}, {SEMESTER.finalPeriod.labelTh}
+          {/* The year whose papers are listed below, not the cohort's own year:
+              "Vet 86 = ชั้นปีที่ 5" above a year-4 table read as a mistake. */}
+          {SEMESTER.labelTh}, ตารางชั้นปีที่ {selectedYear}, {SEMESTER.midtermPeriod.labelTh}, {SEMESTER.finalPeriod.labelTh}
         </p>
       </div>
 
@@ -127,8 +129,8 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
                 {/* Info */}
                 <div className="vmx-exam-info">
                   <h2 style={{ margin: '0 0 8px', fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 18 }}>
-                    {exam.icon} {exam.title}
-                    {exam.weight_pct && <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontWeight: 400, marginLeft: 8 }}>{exam.weight_pct}%</span>}
+                    {exam.icon} {examTitle(exam)}
+                    {exam.weight_pct && <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontWeight: 400, marginLeft: 8 }}>{exam.weight_pct}%</span>}
                   </h2>
                   <div className="vmx-exam-meta">
                     {exam.term && (
@@ -146,7 +148,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
                       officially-published schedule rows don't, so this stays optional
                       rather than assuming the field exists. */}
                   {exam.content?.length > 0 && (
-                    <div style={{ fontSize: 13, color: 'var(--clr-ink)', marginBottom: 8 }}>
+                    <div style={{ fontSize: 14, color: 'var(--clr-ink)', marginBottom: 8 }}>
                       <strong>เนื้อหา:</strong>
                       <ul style={{ margin: '4px 0 0', paddingLeft: 20 }}>
                         {exam.content.map((c, i) => <li key={i}>{c}</li>)}
@@ -154,7 +156,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
                     </div>
                   )}
                   {exam.notes && (
-                    <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 8, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
+                    <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 8, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
                       <span className="vmx-kicker" style={{ color: 'var(--clr-ink)', flexShrink: 0 }}>จุดเน้น:</span>
                       <span>{exam.notes}</span>
                     </div>
@@ -179,7 +181,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
                         {canPractice ? 'ฝึกข้อสอบวิชานี้ →' : 'อ่านสรุปวิชานี้ →'}
                       </button>
                     ) : (
-                      <div style={{ marginTop: 12, fontSize: 12, color: 'var(--clr-ink-soft)', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, display: 'inline-block' }}>
+                      <div style={{ marginTop: 12, fontSize: 14, color: 'var(--clr-ink-soft)', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, display: 'inline-block' }}>
                         ยังไม่มีข้อสอบสำหรับช่วงสอบนี้ในแอป
                       </div>
                     )
@@ -191,7 +193,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
         })}
       </div>
 
-      <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
+      <div style={{ padding: 16, borderRadius: 12, background: 'var(--clr-surface-2)', fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.6 }}>
         <strong>คำแนะนำ:</strong> เลือกวิชาเพื่อฝึกตามช่วงสอบ หรือเปิดสรุปที่มีให้อ่าน<br/>
         ข้อมูลตารางอาจเปลี่ยนแปลง — เช็กกับเพื่อนในห้องอีกครั้งก่อนสอบ<br/>
         หากข้อมูลผิดหรือล้าสมัย → ส่งไปที่ <button type="button" className="vmx-inline-action vmx-schedule-report" onClick={() => setView('feedback')}>ฟอร์มแจ้ง</button>

@@ -184,10 +184,10 @@ export default function ReviewQueueView({ goHome, setView, user }) {
           <div style={{ fontSize: 14, color: 'var(--clr-ink)', marginBottom: 8 }}>
             สถานะปัจจุบัน: <strong style={{ color: roleInfo.color }}>{roleInfo.label}</strong>
           </div>
-          <div style={{ fontSize: 13, color: 'var(--clr-ink-soft)', lineHeight: 1.7, marginBottom: 18, maxWidth: 360, margin: '0 auto 18px' }}>
+          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.7, marginBottom: 18, maxWidth: 360, margin: '0 auto 18px' }}>
             สิทธิ์รีวิวเปิดให้ผู้ที่เคยส่งคำถามผ่านการตรวจทานมาแล้วหลายข้อ — ทีมงานจะเปิดสิทธิ์ให้เองเมื่อถึงเกณฑ์ เริ่มจากส่งคำถามเข้ามาก่อนได้เลย
           </div>
-          <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
+          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
             อยากเริ่ม contribute? → ส่ง Q proposal เข้ามาก่อน
           </div>
           <div className="vmx-btn-row" style={{ marginTop: 18, justifyContent: 'center' }}>
@@ -256,7 +256,7 @@ export default function ReviewQueueView({ goHome, setView, user }) {
 
       {/* Queue */}
       {queueError && queue.length > 0 && (
-        <div style={{ padding: 14, borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px solid var(--clr-rose)', marginBottom: 14, fontSize: 13 }}>
+        <div style={{ padding: 14, borderRadius: 10, background: 'var(--clr-rose-soft)', border: '1px solid var(--clr-rose)', marginBottom: 14, fontSize: 14 }}>
           ⚠️ {queueError}
         </div>
       )}
@@ -455,7 +455,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
 
       {/* Own-submission notice */}
       {isOwn && (
-        <div style={{ fontSize: 12, fontStyle: 'italic', color: 'var(--clr-ink-soft)', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, marginBottom: 8 }}>
+        <div style={{ fontSize: 14, fontStyle: 'italic', color: 'var(--clr-ink-soft)', padding: '8px 12px', background: 'var(--clr-surface-2)', borderRadius: 8, marginBottom: 8 }}>
           (submission ของคุณเอง — ไม่สามารถ vote ได้)
         </div>
       )}
@@ -491,7 +491,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
                       style={{
                         padding: '10px 12px',
                         borderRadius: 8,
-                        fontSize: 13,
+                        fontSize: 14,
                         lineHeight: 1.6,
                         background: isCorrect ? 'rgba(74, 107, 74, 0.15)' : 'var(--clr-bg)',
                         border: isCorrect ? '1px solid var(--clr-sage)' : '1px solid var(--clr-border)',
@@ -508,7 +508,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
                       </span>
                       {opt}
                       {isCorrect && (
-                        <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text)', fontFamily: 'var(--vmx-mono)' }}>
+                        <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)', fontFamily: 'var(--vmx-mono)' }}>
                           ← คำตอบ
                         </span>
                       )}
@@ -523,7 +523,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
           {submission.explain_text && (
             <>
               <div style={sectionLabelStyle}>เฉลย / เหตุผล</div>
-              <div style={{ fontSize: 13, lineHeight: 1.7, color: 'var(--clr-ink)', marginBottom: 14, whiteSpace: 'pre-wrap', padding: 12, background: 'var(--clr-surface-2)', borderRadius: 8 }}>
+              <div style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)', marginBottom: 14, whiteSpace: 'pre-wrap', padding: 12, background: 'var(--clr-surface-2)', borderRadius: 8 }}>
                 {submission.explain_text}
               </div>
             </>
@@ -533,7 +533,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
           {(submission.source_ref || submission.contributor_note) && (
             <>
               <div style={sectionLabelStyle}>แหล่งที่มา + บันทึก contributor</div>
-              <div style={{ fontSize: 12, lineHeight: 1.7, color: 'var(--clr-ink-soft)', marginBottom: 14, padding: 12, background: 'var(--clr-bg)', borderRadius: 8 }}>
+              <div style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink-soft)', marginBottom: 14, padding: 12, background: 'var(--clr-bg)', borderRadius: 8 }}>
                 {submission.source_type && <div style={{ fontFamily: 'var(--vmx-mono)', marginBottom: 4 }}>type: {submission.source_type}</div>}
                 {submission.source_ref && <div style={{ marginBottom: submission.contributor_note ? 6 : 0 }}>📌 {submission.source_ref}</div>}
                 {submission.contributor_note && <div style={{ fontStyle: 'italic' }}>💬 {submission.contributor_note}</div>}
@@ -547,11 +547,11 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
               <div style={sectionLabelStyle}>รีวิวที่ผ่านมา</div>
               <div style={{ marginBottom: 16 }}>
                 {reviewsLoading ? (
-                  <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', padding: '8px 0' }}>
+                  <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', padding: '8px 0' }}>
                     กำลังโหลด…
                   </div>
                 ) : !pastReviews || pastReviews.length === 0 ? (
-                  <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', padding: '8px 12px', background: 'var(--clr-bg)', borderRadius: 8 }}>
+                  <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', padding: '8px 12px', background: 'var(--clr-bg)', borderRadius: 8 }}>
                     ยังไม่มี vote — คุณเป็นคนแรก
                   </div>
                 ) : (
@@ -612,12 +612,12 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
                 />
               )}
               {voteError && (
-                <div style={{ marginTop: 10, fontSize: 12, color: 'var(--clr-rose-text)', padding: '6px 10px', background: 'var(--clr-rose-soft)', borderRadius: 6 }}>
+                <div style={{ marginTop: 10, fontSize: 14, color: 'var(--clr-rose-text)', padding: '6px 10px', background: 'var(--clr-rose-soft)', borderRadius: 6 }}>
                   ⚠️ {voteError}
                 </div>
               )}
               {submitting && voteMode === 'approve' && (
-                <div style={{ marginTop: 8, fontSize: 12, color: 'var(--clr-ink-soft)', fontStyle: 'italic', textAlign: 'center' }}>
+                <div style={{ marginTop: 8, fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', textAlign: 'center' }}>
                   กำลังส่ง approve…
                 </div>
               )}
@@ -625,7 +625,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
           )}
 
           {voted && (
-            <div style={{ padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.15)', border: '1px solid var(--clr-sage)', fontSize: 13, textAlign: 'center', color: 'var(--clr-ink)' }}>
+            <div style={{ padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.15)', border: '1px solid var(--clr-sage)', fontSize: 14, textAlign: 'center', color: 'var(--clr-ink)' }}>
               ✓ บันทึก vote แล้ว — ขอบคุณที่ช่วยรักษาคุณภาพ Q bank 🙏
             </div>
           )}
@@ -664,10 +664,10 @@ function FeedbackPrompt({ mode, feedback, onFeedbackChange, onCancel, onSubmit, 
 
   return (
     <div style={{ padding: 14, borderRadius: 10, background: 'var(--clr-bg)', border: `1px solid ${config.accent}` }}>
-      <div style={{ fontSize: 13, fontWeight: 600, color: config.accent, marginBottom: 4 }}>
+      <div style={{ fontSize: 14, fontWeight: 600, color: config.accent, marginBottom: 4 }}>
         {config.label}
       </div>
-      <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginBottom: 10, lineHeight: 1.6 }}>
+      <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginBottom: 10, lineHeight: 1.6 }}>
         {config.hint}
       </div>
       <textarea
@@ -684,7 +684,7 @@ function FeedbackPrompt({ mode, feedback, onFeedbackChange, onCancel, onSubmit, 
           borderRadius: 8,
           background: 'var(--clr-surface)',
           color: 'var(--clr-ink)',
-          fontSize: 13,
+          fontSize: 14,
           lineHeight: 1.6,
           fontFamily: 'system-ui, sans-serif',
           resize: 'vertical',
@@ -734,7 +734,7 @@ function PastReviewRow({ review }) {
   }[review.verdict] || { icon: 'more', label: review.verdict, color: 'var(--clr-ink-soft)' };
 
   return (
-    <div style={{ padding: 10, background: 'var(--clr-bg)', borderRadius: 8, fontSize: 12, lineHeight: 1.6 }}>
+    <div style={{ padding: 10, background: 'var(--clr-bg)', borderRadius: 8, fontSize: 14, lineHeight: 1.6 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: review.feedback ? 4 : 0 }}>
         <span style={{ color: verdictMeta.color, fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
           <NavIcon name={verdictMeta.icon} size={13} /> {verdictMeta.label}
@@ -773,7 +773,7 @@ function FounderStat({ label, value, color, small }) {
         {label}
       </div>
       <div style={{
-        fontSize: small ? 13 : 18,
+        fontSize: small ? 14 : 18,
         fontWeight: 600,
         fontFamily: 'var(--vmx-display)',
         color: color || 'var(--clr-ink)',
@@ -875,7 +875,7 @@ const inlineToggleStyle = {
   border: 'none',
   color: 'var(--clr-sage-text)',
   cursor: 'pointer',
-  fontSize: 13,
+  fontSize: 14,
   padding: '0 4px',
   fontFamily: 'inherit',
 };
@@ -891,7 +891,7 @@ function voteBtnStyle(kind) {
     color: 'white',
     border: `1px solid ${palette.border}`,
     minHeight: 44,
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: 600,
     justifyContent: 'center',
   };

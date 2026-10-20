@@ -99,7 +99,7 @@ function DeckCard({ deck, onOpen, onDelete }) {
           }}>
             {deck.name}
           </span>
-          <span style={{ display: 'block', fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+          <span style={{ display: 'block', fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
             {(deck.masks?.length || 0)} กล่อง, {formatThaiDate(deck.createdAt)}
           </span>
         </span>
@@ -233,7 +233,7 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
             <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, color: 'var(--clr-ink)' }}>
               Image Occlusion
             </h1>
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
               อัปโหลดรูป → วาดกล่องทับ label → กลายเป็น flashcard อัตโนมัติ
             </div>
           </div>
@@ -279,7 +279,7 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
             <button type="button" className="vmx-btn vmx-btn-primary" onClick={openNew} style={{ marginBottom: 12 }}>
               เลือกรูปและสร้าง deck
             </button>
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
               เหมาะกับ anatomy lateral, radiograph, histology, microbe colony plate
             </div>
           </div>
@@ -296,7 +296,7 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
           </div>
         )}
 
-        <div style={{ marginTop: 20, fontSize: 12, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
+        <div style={{ marginTop: 20, fontSize: 14, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
           {decks.length}/30 decks, เก็บไว้ในเครื่องนี้เท่านั้น
         </div>
       </div>
@@ -311,7 +311,7 @@ export default function ImageOcclusionView({ goHome /*, setView */ }) {
           color: '#fff',
           padding: '10px 16px',
           borderRadius: 999,
-          fontSize: 13,
+          fontSize: 14,
           // Toast rung — 9999 is reserved for the skip link and loading bar.
           zIndex: 1500,
           maxWidth: '90%',

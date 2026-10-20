@@ -17,7 +17,7 @@ import Mochi from './Mochi.jsx';
 // the user is NOT typing in an input/textarea/contenteditable.
 // ============================================================
 
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, useId } from 'react';
 import { SUBJECTS, yearForSubject } from '../data/curriculum.js';
 import { getUpcomingExams, fmtThaiDate } from '../data/schedule.js';
 // CommandPalette only needs {title, subject, instructor} for search —
@@ -121,6 +121,18 @@ function safeReadLS(key, fallback) {
   } catch {
     return fallback;
   }
+}
+
+// Touch has no Ctrl and a fingertip, not a cursor: 44 px controls, 14 px Thai.
+const prefersCoarse = () => typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches;
+
+// What a question row says about where it sits: the course and its topic as
+// the topic screen names them. The question id and tag slugs stay in the
+// search keywords and the payload, never on screen.
+function questionPlace(q, subjects) {
+  const subject = subjects.get(q?.subject);
+  const topic = subject?.topics?.find((t) => t.id === q?.topic);
+  return [subject?.name || 'ข้อสอบ', topic?.label].filter(Boolean).join(', ');
 }
 
 // Each cached entry has shape:
@@ -242,6 +254,7 @@ function buildStaticItems(ownerId, notes) {
   }
 
   // Question stems
+  const subjectsById = new Map(SUBJECTS.map((s) => [s.id, s]));
   const seenQText = new Set();
   for (const q of (QB || [])) {
     if (!isQuestionDeliverable(q)) continue;
@@ -254,7 +267,7 @@ function buildStaticItems(ownerId, notes) {
       type: 'question',
       payload: { subject: q.subject, id: q.id },
       label: stem.length < q.q.length ? stem + '…' : stem,
-      hint: `${q.subject?.toUpperCase() || 'Q'}, Q${q.id}${q.tags?.length ? ', ' + q.tags.slice(0, 2).join(', ') : ''}`,
+      hint: questionPlace(q, subjectsById),
       icon: '❓',
       kw: stem + ' ' + (q.tags || []).join(' '),
     });
@@ -288,6 +301,7 @@ function buildStaticItems(ownerId, notes) {
   // user can fuzzy-search their own annotations and jump back to the
   // Q. Key shape is opaque to us; we pass it through as the payload.
   if (notesMap && typeof notesMap === 'object' && !Array.isArray(notesMap)) {
+    const notedQuestions = new Map((QB || []).map((q) => [String(q?.id), q]));
     for (const [key, raw] of Object.entries(notesMap)) {
       const text = typeof raw === 'string' ? raw : (raw && typeof raw === 'object' ? (raw.text || raw.note || '') : '');
       const trimmed = (text || '').toString().trim();
@@ -296,7 +310,7 @@ function buildStaticItems(ownerId, notes) {
         type: 'q-note',
         payload: key,
         label: trunc(trimmed),
-        hint: 'โน้ต Q ' + key,
+        hint: notedQuestions.has(key) ? `โน้ตของฉัน, ${questionPlace(notedQuestions.get(key), subjectsById)}` : 'โน้ตของฉัน',
         icon: '📝',
         kw: trimmed.toLowerCase(),
       });
@@ -512,6 +526,15 @@ function HighlightedLabel({ label, query }) {
   );
 }
 
+// At 360 px the input gets about 208 px; these measured at most 155 px in
+// Sarabun 16 px. The longer examples are for wider screens.
+const PLACEHOLDERS_NARROW = [
+  'ค้นหาหรือถามได้เลย',
+  'ค้นวิชา ข้อสอบ อาจารย์',
+  'เช่น สรุปคลิป COM5',
+  'เช่น จัดข้อสอบ COM5',
+  'ลองพิมพ์รหัสวิชา',
+];
 const PLACEHOLDERS = [
   'ลองพิมพ์ "ketamine 12 kg แมว"…',
   'ถามได้เลย เช่น "วัคซีนพิษสุนัขบ้าฉีดกี่เข็ม"…',
@@ -590,6 +613,7 @@ function DoseCard({ intent, onOpenCalc }) {
   const range = (r) => (r && r.lo != null ? `${r.lo}–${r.hi} ${r.unit}` : null);
   // A species the database does not list the drug for: no range, no total.
   const listedFor = drug.species === 'cat' ? 'แมว' : 'สุนัข';
+  const touch = prefersCoarse() ? { minHeight: 44, fontSize: 14 } : null;
   const perKgText = speciesMismatch
     ? null
     : perKg?.perKg === false
@@ -600,7 +624,7 @@ function DoseCard({ intent, onOpenCalc }) {
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
         <span style={{ fontSize: 18 }} aria-hidden="true">💊</span>
         <strong style={{ fontSize: 16 }}>{drug.generic}</strong>
-        <span style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>{drug.category}</span>
+        <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>{drug.category}</span>
         {speciesTh && (
           <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, padding: '1px 8px', borderRadius: 10, border: '1px solid var(--clr-border)' }}>
             {speciesTh}
@@ -608,20 +632,20 @@ function DoseCard({ intent, onOpenCalc }) {
         )}
       </div>
       {speciesMismatch && (
-        <div role="alert" style={{ fontSize: 13, fontWeight: 600, color: 'var(--clr-rose-text)', margin: '10px 0 2px', lineHeight: 1.5 }}>
+        <div role="alert" style={{ fontSize: 14, fontWeight: 600, color: 'var(--clr-rose-text)', margin: '10px 0 2px', lineHeight: 1.5 }}>
           ไม่มีขนาดยาสำหรับ{speciesTh}ในฐานข้อมูล ข้อมูลยานี้ในแอปมีเฉพาะ{listedFor}
         </div>
       )}
       <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', margin: '10px 0 2px' }}>
         {perKgText && <div>
-          <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>ช่วงขนาดยา</div>
+          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>ช่วงขนาดยา</div>
           <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 15, fontWeight: 600 }}>
-            {perKgText} <span style={{ fontWeight: 400, fontSize: 12 }}>{drug.route}</span>
+            {perKgText} <span style={{ fontWeight: 400, fontSize: 14 }}>{drug.route}</span>
           </div>
         </div>}
         {!speciesMismatch && dose && dose.perKg && dose.lo != null && (
           <div>
-            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>สำหรับ {weightKg} kg</div>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>สำหรับ {weightKg} kg</div>
             <div style={{ fontFamily: 'var(--vmx-mono)', fontSize: 15, fontWeight: 700, color: 'var(--clr-sage-text)' }}>
               {dose.lo}{'–'}{dose.hi} {dose.unit} รวม
             </div>
@@ -629,27 +653,28 @@ function DoseCard({ intent, onOpenCalc }) {
         )}
         {!speciesMismatch && drug.freq && (
           <div>
-            <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>ความถี่</div>
-            <div style={{ fontSize: 13 }}>{drug.freq}</div>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>ความถี่</div>
+            <div style={{ fontSize: 14 }}>{drug.freq}</div>
           </div>
         )}
       </div>
       {dose?.cappedFor && (
-        <div style={{ fontSize: 12, color: 'var(--clr-rose-text)', marginTop: 6 }}>
+        <div style={{ fontSize: 14, color: 'var(--clr-rose-text)', marginTop: 6 }}>
           เพดานเฉพาะ{dose.cappedFor === 'cat' ? 'แมว' : 'สุนัข'}: ไม่เกิน {dose.cap} {dose.unit}/kg
         </div>
       )}
       {drug.note && (
-        <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', marginTop: 6, lineHeight: 1.5 }}>
-          {String(drug.note).slice(0, 160)}
+        // Whole note, never a cut: it carries the safety warnings ("ต้องร่วมกับ…").
+        <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 6, lineHeight: 1.5 }}>
+          {drug.note}
         </div>
       )}
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 10, flexWrap: 'wrap' }}>
         <button type="button" onClick={onOpenCalc}
-          style={{ font: 'inherit', fontSize: 12.5, fontWeight: 600, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-surface-2)', color: 'var(--clr-ink)', borderRadius: 8, padding: '6px 12px' }}>
+          style={{ font: 'inherit', fontSize: 14, fontWeight: 600, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-surface-2)', color: 'var(--clr-ink)', borderRadius: 8, padding: '6px 12px', ...touch }}>
           🧮 เปิดเครื่องคิดเลขเต็ม
         </button>
-        <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+        <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
           ช่วงอ้างอิงจากฐานข้อมูลยาในแอป — ตรวจกับข้อมูลยาปัจจุบันก่อนใช้จริง
         </span>
       </div>
@@ -659,6 +684,7 @@ function DoseCard({ intent, onOpenCalc }) {
 
 function CourseCard({ intent, onOpenLibraryShelf, onPracticeSubject }) {
   const { code, meta } = intent;
+  const touch = prefersCoarse() ? { minHeight: 44, fontSize: 14 } : null;
   return (
     <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '14px 16px' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
@@ -667,16 +693,16 @@ function CourseCard({ intent, onOpenLibraryShelf, onPracticeSubject }) {
         <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 12, color: 'var(--clr-ink-soft)' }}>{code}</span>
       </div>
       {meta.name_en && (
-        <div style={{ fontSize: 12.5, color: 'var(--clr-ink-soft)', marginTop: 4 }}>{meta.name_en}</div>
+        <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 4 }}>{meta.name_en}</div>
       )}
       <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }}>
         <button type="button" onClick={() => onOpenLibraryShelf(meta)}
-          style={{ font: 'inherit', fontSize: 12.5, fontWeight: 600, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-surface-2)', color: 'var(--clr-ink)', borderRadius: 8, padding: '6px 12px' }}>
+          style={{ font: 'inherit', fontSize: 14, fontWeight: 600, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-surface-2)', color: 'var(--clr-ink)', borderRadius: 8, padding: '6px 12px', ...touch }}>
           📚 เปิดชั้นเอกสารวิชานี้
         </button>
         {meta.has_questions && (
           <button type="button" onClick={() => onPracticeSubject(meta.id)}
-            style={{ font: 'inherit', fontSize: 12.5, fontWeight: 600, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-surface-2)', color: 'var(--clr-ink)', borderRadius: 8, padding: '6px 12px' }}>
+            style={{ font: 'inherit', fontSize: 14, fontWeight: 600, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-surface-2)', color: 'var(--clr-ink)', borderRadius: 8, padding: '6px 12px', ...touch }}>
             ❓ ฝึกข้อสอบวิชานี้
           </button>
         )}
@@ -713,7 +739,7 @@ function AskAnswerCard({ ask, onOpenWiki, onClose, fallback }) {
       <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '14px 16px' }} aria-live="polite">
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <span className="vmx-omni-spark" aria-hidden="true" style={{ color: 'var(--clr-sage-text)' }}>✦</span>
-          <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>{ask.retrying ? ASK_COPY.retrying : ASK_STATUS[statusIdx]}</span>
+          <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>{ask.retrying ? ASK_COPY.retrying : ASK_STATUS[statusIdx]}</span>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 12 }}>
           {[0, 1, 2].map((i) => (
@@ -729,12 +755,13 @@ function AskAnswerCard({ ask, onOpenWiki, onClose, fallback }) {
   }
 
   const sectionMeta = new Map((ask.sections || []).map((s) => [s.sectionId, s]));
+  const touch = prefersCoarse();
   return (
     <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '14px 16px' }}>
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
         <span aria-hidden="true" style={{ color: 'var(--clr-sage-text)' }}>✦</span>
-        <strong style={{ fontSize: 13.5 }}>คำตอบจากคลังความรู้</strong>
-        <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>
+        <strong style={{ fontSize: 14 }}>คำตอบจากคลังความรู้</strong>
+        <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
           ตอบจากเนื้อหาที่ผ่านการตรวจแล้วเท่านั้น และบอกที่มาทุกประโยค
         </span>
       </div>
@@ -743,7 +770,7 @@ function AskAnswerCard({ ask, onOpenWiki, onClose, fallback }) {
           const label = ask.labels?.[c.supportType]?.th;
           return (
             <div key={c.id} className="vmx-omni-row" style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <div style={{ fontSize: 13.5, lineHeight: 1.6 }}>{c.text}</div>
+              <div style={{ fontSize: 14, lineHeight: 1.6 }}>{c.text}</div>
               <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center' }}>
                 {label && (
                   <span style={{
@@ -767,8 +794,9 @@ function AskAnswerCard({ ask, onOpenWiki, onClose, fallback }) {
                       onClick={() => { onOpenWiki?.(m.subject, m.topic, sectionId); onClose(); }}
                       title={m.heading}
                       style={{
-                        all: 'unset', cursor: 'pointer', fontSize: 11, fontWeight: 600,
+                        all: 'unset', cursor: 'pointer', fontSize: touch ? 14 : 14, fontWeight: 600,
                         color: 'var(--clr-ocean-text)', padding: '1px 4px',
+                        ...(touch ? { display: 'inline-flex', alignItems: 'center', minHeight: 44 } : null),
                       }}
                     >
                       → {m.topicTitle}{m.heading ? <span style={{ fontWeight: 400 }}>, {m.heading}</span> : null}
@@ -839,7 +867,7 @@ function AskFallbackCard({ ask, onOpenWiki, onClose, onRetry, nearby = [], libra
 // catalog as the topic screen, and only shelves with something on them show.
 // A count that is not known yet (the document shelf still loading) prints no
 // number at all.
-function GoCard({ intent, active, flatIdx, onHover, onOpen, selectedYear, libraryCountFor }) {
+function GoCard({ intent, active, flatIdx, optionId, onHover, onOpen, selectedYear, libraryCountFor }) {
   const [main, ...others] = intent.subjects;
   const { actions, missing } = studyActions(main, intent.want, libraryCountFor(main.meta.id));
   if (!actions.length) return null;
@@ -854,6 +882,7 @@ function GoCard({ intent, active, flatIdx, onHover, onOpen, selectedYear, librar
       {missing && <p className="vmx-omni-go-missing">{missing}</p>}
       <button
         type="button"
+        id={optionId}
         data-flat-idx={flatIdx}
         onMouseEnter={onHover}
         onClick={() => onOpen(main.meta.id, primary.target)}
@@ -944,7 +973,14 @@ export default function CommandPalette({
   useEffect(() => { setAsk(null); setAgent(null); }, [requestContext]);
   useEffect(() => () => { requestScopeRef.current.context = null; requestScopeRef.current.generation++; }, []);
   // Touch has no Ctrl — the chip and hints must speak tap, not keys.
-  const coarsePointer = useMemo(() => typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches, []);
+  const coarsePointer = useMemo(prefersCoarse, []);
+  // A phone-width box gets the short examples (item 3, polish 2026-10-20).
+  const narrowScreen = useMemo(() => typeof matchMedia === 'function' && matchMedia('(max-width: 480px)').matches, []);
+  const placeholders = narrowScreen ? PLACEHOLDERS_NARROW : PLACEHOLDERS;
+  // Screen readers follow the keyboard through aria-activedescendant: every
+  // row in the flat keyboard order has an id built from its place in it.
+  const listboxId = useId();
+  const optionId = (flatIdx) => `${listboxId}-opt-${flatIdx}`;
   const inputRef = useRef(null);
 
   // Voice input — the browser's own recognizer (th-TH), no key, no dependency.
@@ -1365,7 +1401,7 @@ export default function CommandPalette({
         const why = await res.json().catch(() => null);
         respond(request, { phase: 'error', message: why?.reason === 'budget'
           ? 'วันนี้สั่งงานครบโควตาแล้ว พรุ่งนี้ใช้ได้อีก'
-          : 'ยังไม่ได้เปิดใช้ผู้ช่วยสั่งงาน' });
+          : 'สั่งงานไม่ได้ตอนนี้ ลองอีกครั้ง' });
         return;
       }
       if (res.status === 429) { respond(request, { phase: 'error', message: 'สั่งบ่อยเกินไป ลองใหม่ในอีกสักครู่' }); return; }
@@ -1518,8 +1554,13 @@ export default function CommandPalette({
             }}
             onKeyDown={handleKey}
             data-vmx-owns-escape="true"
-            placeholder={PLACEHOLDERS[placeholderIdx]}
+            placeholder={placeholders[placeholderIdx % placeholders.length]}
             aria-label="ค้นหาใน VetMock"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded={view.flat.length > 0}
+            aria-controls={listboxId}
+            aria-activedescendant={view.flat[activeIdx] ? optionId(activeIdx) : undefined}
             style={{
               all: 'unset',
               flex: 1,
@@ -1527,6 +1568,7 @@ export default function CommandPalette({
               color: 'var(--clr-ink)',
               fontFamily: 'inherit',
               minWidth: 0,
+              textOverflow: 'ellipsis',
             }}
             autoComplete="off"
             spellCheck="false"
@@ -1539,7 +1581,7 @@ export default function CommandPalette({
               aria-pressed={voice === 'listening'}
               title={voice === 'listening' ? 'หยุดฟังเสียง' : 'สั่งงานหรือถามด้วยเสียง'}
               style={{
-                all: 'unset', cursor: 'pointer', width: 34, height: 34, display: 'flex',
+                all: 'unset', cursor: 'pointer', width: coarsePointer ? 44 : 34, height: coarsePointer ? 44 : 34, display: 'flex',
                 alignItems: 'center', justifyContent: 'center', borderRadius: 8, flexShrink: 0,
                 color: voice === 'listening' ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)',
                 background: voice === 'listening' ? 'color-mix(in srgb, currentColor 12%, transparent)' : 'transparent',
@@ -1552,14 +1594,15 @@ export default function CommandPalette({
               </svg>
             </button>
           )}
-          <span style={{
+          {/* A key hint; a phone has no esc key and needs the width. */}
+          {!coarsePointer && <span style={{
             fontFamily: 'var(--vmx-mono)',
             fontSize: 11,
             color: 'var(--clr-ink-soft)',
             padding: '2px 6px',
             border: '1px solid var(--clr-border)',
             borderRadius: 4,
-          }}>esc</span>
+          }}>esc</span>}
         </div>
 
         {/* Voice status lives BELOW the row: inline it squeezed the input
@@ -1567,7 +1610,7 @@ export default function CommandPalette({
         {voice && (
           <div aria-live="polite" style={{
             padding: '6px 20px 0',
-            fontSize: 11.5,
+            fontSize: coarsePointer ? 14 : 14,
             color: voice === 'listening' ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)',
           }}>
             {voice === 'listening'
@@ -1591,6 +1634,7 @@ export default function CommandPalette({
             intent={study}
             active={activeIdx === 0}
             flatIdx={0}
+            optionId={optionId(0)}
             onHover={() => setActiveIdx(0)}
             onOpen={openStudy}
             selectedYear={selectedYear}
@@ -1607,6 +1651,7 @@ export default function CommandPalette({
           <button
             type="button"
             onClick={runAsk}
+            id={view.askInFlow ? optionId(view.askIdx) : undefined}
             data-flat-idx={view.askInFlow ? view.askIdx : undefined}
             onMouseEnter={view.askInFlow ? () => setActiveIdx(view.askIdx) : undefined}
             className="vmx-omni-row"
@@ -1616,14 +1661,14 @@ export default function CommandPalette({
               padding: '10px 12px', minHeight: 44, borderRadius: 10,
               border: '1px dashed color-mix(in srgb, var(--clr-sage) 55%, var(--clr-border))',
               background: view.askInFlow && activeIdx === view.askIdx ? 'var(--clr-surface-2)' : 'transparent',
-              color: 'var(--clr-ink)', fontSize: 13,
+              color: 'var(--clr-ink)', fontSize: coarsePointer ? 14 : 14,
             }}
           >
             <span className="vmx-omni-spark" aria-hidden="true" style={{ color: 'var(--clr-sage-text)' }}>✦</span>
             <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               ถามคลังความรู้: “{debouncedQuery.trim()}”
             </span>
-            <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10.5, color: 'var(--clr-ink-soft)', padding: '2px 6px', border: '1px solid var(--clr-border)', borderRadius: 4, whiteSpace: 'nowrap' }}>
+            <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: coarsePointer ? 14 : 14, color: 'var(--clr-ink-soft)', padding: '2px 6px', border: '1px solid var(--clr-border)', borderRadius: 4, whiteSpace: 'nowrap' }}>
               {coarsePointer ? 'แตะถาม' : view.askInFlow && activeIdx === view.askIdx ? '↵' : 'ctrl ↵'}
             </span>
           </button>
@@ -1655,14 +1700,14 @@ export default function CommandPalette({
               boxSizing: 'border-box', width: 'calc(100% - 24px)', margin: '8px 12px 0',
               padding: '10px 12px', minHeight: 44, borderRadius: 10,
               border: '1px dashed color-mix(in srgb, var(--clr-gold) 55%, var(--clr-border))',
-              color: 'var(--clr-ink)', fontSize: 13,
+              color: 'var(--clr-ink)', fontSize: coarsePointer ? 14 : 14,
             }}
           >
             <span aria-hidden="true" style={{ color: 'var(--clr-gold-text)' }}>⚡</span>
             <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               สั่งให้จัดการ: “{debouncedQuery.trim()}”
             </span>
-            <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 10.5, color: 'var(--clr-ink-soft)', padding: '2px 6px', border: '1px solid var(--clr-border)', borderRadius: 4, whiteSpace: 'nowrap' }}>
+            <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: coarsePointer ? 14 : 14, color: 'var(--clr-ink-soft)', padding: '2px 6px', border: '1px solid var(--clr-border)', borderRadius: 4, whiteSpace: 'nowrap' }}>
               {coarsePointer ? 'แตะสั่ง' : 'คลิก'}
             </span>
           </button>
@@ -1670,27 +1715,27 @@ export default function CommandPalette({
         {agent?.phase === 'loading' && (
           <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '12px 16px', display: 'flex', gap: 10, alignItems: 'center' }} aria-live="polite">
             <span className="vmx-omni-spark" aria-hidden="true" style={{ color: 'var(--clr-gold-text)' }}>⚡</span>
-            <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>กำลังอ่านคำสั่งและเทียบกับสิ่งที่แอปทำได้จริง…</span>
+            <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>กำลังอ่านคำสั่งและเทียบกับสิ่งที่แอปทำได้จริง…</span>
           </div>
         )}
         {(agent?.phase === 'refused' || agent?.phase === 'error') && (
           <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '12px 16px' }}>
-            <span style={{ fontSize: 13, color: 'var(--clr-ink-soft)' }}>{agent.message}</span>
+            <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>{agent.message}</span>
           </div>
         )}
         {agent?.phase === 'confirm' && (
           <div className="vmx-omni-card" style={{ margin: '10px 12px 4px', padding: '14px 16px' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, flexWrap: 'wrap' }}>
               <span aria-hidden="true" style={{ color: 'var(--clr-gold-text)' }}>⚡</span>
-              <span style={{ fontSize: 13.5, lineHeight: 1.6 }}>{agent.say}</span>
+              <span style={{ fontSize: 14, lineHeight: 1.6 }}>{agent.say}</span>
             </div>
             <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
               <button type="button" onClick={() => executeAgent(agent.action)}
-                style={{ font: 'inherit', fontSize: 12.5, fontWeight: 700, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-sage)', color: 'var(--clr-ink)', borderRadius: 8, padding: '7px 14px' }}>
+                style={{ font: 'inherit', fontSize: 14, fontWeight: 700, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-sage)', color: 'var(--clr-ink)', borderRadius: 8, padding: '7px 14px', ...(coarsePointer ? { minHeight: 44, fontSize: 14 } : null) }}>
                 ทำเลย
               </button>
               <button type="button" onClick={() => setAgent(null)}
-                style={{ font: 'inherit', fontSize: 12.5, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-surface-2)', color: 'var(--clr-ink)', borderRadius: 8, padding: '7px 14px' }}>
+                style={{ font: 'inherit', fontSize: 14, cursor: 'pointer', border: '1px solid var(--clr-border)', background: 'var(--clr-surface-2)', color: 'var(--clr-ink)', borderRadius: 8, padding: '7px 14px', ...(coarsePointer ? { minHeight: 44, fontSize: 14 } : null) }}>
                 ยกเลิก
               </button>
             </div>
@@ -1717,13 +1762,13 @@ export default function CommandPalette({
             borderBottom: '1px solid var(--clr-border)',
             background: 'var(--clr-bg)',
           }}>
-            <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', padding: '2px 8px', border: '1px solid var(--clr-border)', borderRadius: 10 }}>
+            <span style={{ fontFamily: 'var(--vmx-mono)', fontSize: coarsePointer ? 14 : 14, color: 'var(--clr-ink-soft)', padding: '2px 8px', border: '1px solid var(--clr-border)', borderRadius: 10 }}>
               {indexTotal.toLocaleString()} รายการในดัชนี
             </span>
             {OMNI_SOURCES.map((src) => {
               const st = sourceState[src.id];
               return (
-                <span key={src.id} style={{ fontFamily: 'var(--vmx-mono)', fontSize: 11, color: 'var(--clr-ink-soft)', padding: '2px 8px', border: '1px solid var(--clr-border)', borderRadius: 10, display: 'inline-flex', gap: 5, alignItems: 'center' }}>
+                <span key={src.id} style={{ fontFamily: 'var(--vmx-mono)', fontSize: coarsePointer ? 14 : 14, color: 'var(--clr-ink-soft)', padding: '2px 8px', border: '1px solid var(--clr-border)', borderRadius: 10, display: 'inline-flex', gap: 5, alignItems: 'center' }}>
                   <span aria-hidden="true">{src.icon}</span>
                   {src.label}
                   {st?.status === 'loading' && ' กำลังโหลด…'}
@@ -1761,11 +1806,14 @@ export default function CommandPalette({
               )}
             </div>
           )}
+          {/* Only rows, grouped under their headings, live in the listbox; the
+              empty state and the loading skeleton sit outside it. */}
+          <div id={listboxId} role="listbox" aria-label="ผลการค้นหา">
           {view.sections.map((section) => (
-            <div key={section.type}>
-              <div style={{
+            <div key={section.type} role="group" aria-labelledby={`${listboxId}-group-${section.type}`}>
+              <div id={`${listboxId}-group-${section.type}`} style={{
                 padding: '10px 16px 4px',
-                fontSize: 11,
+                fontSize: coarsePointer ? 14 : 11,
                 fontFamily: 'var(--vmx-mono)',
                 color: 'var(--clr-ink-soft)',
                 textTransform: 'uppercase',
@@ -1785,7 +1833,12 @@ export default function CommandPalette({
                 return (
                   <button
                     key={`${item.type}-${item.label}-${flatIdx}`}
+                    type="button"
+                    id={optionId(flatIdx)}
+                    role="option"
+                    aria-selected={active}
                     data-flat-idx={flatIdx}
+                    data-type={item.type}
                     className="vmx-omni-row"
                     onClick={() => fire(item)}
                     onMouseEnter={() => setActiveIdx(flatIdx)}
@@ -1798,6 +1851,7 @@ export default function CommandPalette({
                       width: '100%',
                       boxSizing: 'border-box',
                       padding: '9px 16px',
+                      minHeight: coarsePointer ? 44 : undefined,
                       borderRadius: 8,
                       background: active ? 'var(--clr-surface-2)' : 'transparent',
                       transition: 'background 0.05s',
@@ -1818,7 +1872,7 @@ export default function CommandPalette({
                       </div>
                       {item.hint && (
                         <div style={{
-                          fontSize: 11,
+                          fontSize: coarsePointer ? 14 : 11,
                           color: 'var(--clr-ink-soft)',
                           fontFamily: 'var(--vmx-mono)',
                           marginTop: 2,
@@ -1839,15 +1893,19 @@ export default function CommandPalette({
               {section.shown < section.total && (
                 <button
                   type="button"
+                  role="option"
+                  aria-selected={false}
                   onClick={() => setExpandedGroups((prev) => new Map(prev).set(section.type, (prev.get(section.type) || 0) + GROUP_CAP_EXPANDED))}
                   style={{
                     all: 'unset',
                     cursor: 'pointer',
-                    display: 'block',
+                    display: 'flex',
+                    alignItems: 'center',
                     boxSizing: 'border-box',
                     width: '100%',
+                    minHeight: coarsePointer ? 44 : undefined,
                     padding: '6px 16px 10px 48px',
-                    fontSize: 12,
+                    fontSize: coarsePointer ? 14 : 14,
                     color: 'var(--clr-sage-text)',
                     fontWeight: 600,
                   }}
@@ -1857,6 +1915,7 @@ export default function CommandPalette({
               )}
             </div>
           ))}
+          </div>
           {sourcesLoading && (
             <div style={{ padding: '8px 16px 14px', display: 'flex', flexDirection: 'column', gap: 8 }} aria-label="กำลังโหลดแหล่งข้อมูล">
               <Mochi state="loading" size={32} animate slot="search-loading" />
@@ -1875,19 +1934,20 @@ export default function CommandPalette({
           padding: '10px 16px',
           borderTop: '1px solid var(--clr-border)',
           background: 'var(--clr-bg)',
-          fontFamily: 'var(--vmx-mono)',
-          fontSize: 11,
+          fontSize: coarsePointer ? 14 : 14,
           color: 'var(--clr-ink-soft)',
           display: 'flex',
           gap: 16,
           flexWrap: 'wrap',
         }}>
-          <span>↑↓ เลื่อน</span>
-          <span>↵ เลือก</span>
-          <span>esc ปิด</span>
+          {/* Keyboard hints only where there is a keyboard; a phone gets the tap hint. */}
+          {!coarsePointer && <><span>↑↓ เลื่อน</span><span>↵ เลือก</span><span>esc ปิด</span></>}
           <span>{coarsePointer ? 'แตะ ✦ เพื่อถาม' : 'ctrl ↵ ถามคลังความรู้'}</span>
           <span style={{ marginLeft: 'auto' }}>
-            {hasQuery ? `${view.flat.length} ผลลัพธ์` : 'ดัชนีสร้างสดจากข้อมูลจริง'}
+            {/* The same total the section headings print, plus answer cards (a drug dose). */}
+            {hasQuery
+              ? `${(view.sections.reduce((n, sec) => n + (sec.total || 0), 0) + intents.length).toLocaleString()} ผลลัพธ์`
+              : 'ค้นวิชา หัวข้อ ข้อสอบ สรุป และคลิป'}
           </span>
         </div>
       </div>

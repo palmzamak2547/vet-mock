@@ -112,10 +112,10 @@ export default function GroupDetailView({ group, user, goBack }) {
         <button className={`vmx-nav-btn ${tab === 'members' ? 'active' : ''}`} onClick={() => setTab('members')}>👤 Members ({members.length})</button>
       </div>
 
-      {actionError && <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-rose-soft)', marginBottom: 16, fontSize: 13 }}>⚠️ {actionError}</div>}
+      {actionError && <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-rose-soft)', marginBottom: 16, fontSize: 14 }}>⚠️ {actionError}</div>}
 
       {hiddenFailure && (
-        <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-gold-soft)', marginBottom: 16, fontSize: 13 }}>
+        <div style={{ padding: 12, borderRadius: 10, background: 'var(--clr-gold-soft)', marginBottom: 16, fontSize: 14 }}>
           ⚠️ บางส่วนของกลุ่มโหลดไม่สำเร็จ{' '}
           <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={retryFailed} style={{ marginInlineStart: 8 }}>ลองอีกครั้ง</button>
         </div>
@@ -126,7 +126,7 @@ export default function GroupDetailView({ group, user, goBack }) {
 
       {status === 'ready' && tab === 'leaderboard' && (
         <div>
-          <div style={{ marginBottom: 12, fontSize: 12, color: 'var(--clr-ink-soft)' }}>
+          <div style={{ marginBottom: 12, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
             อันดับจากผลดีที่สุดของสมาชิกแต่ละคนที่ระบบตรวจคะแนนแล้ว (อย่างน้อย 5 ข้อ) สมาชิกที่ปิดการแสดงบนอันดับจะไม่ปรากฏ
           </div>
           {leaderboard.length === 0 ? (
@@ -141,7 +141,7 @@ export default function GroupDetailView({ group, user, goBack }) {
                   <div style={{ flex: 1 }}>
                     <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
                       {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'Anon'}
-                      {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 11, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
+                      {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                     </div>
                     <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
                       {r.mode === 'exam' ? 'Exam' : 'Practice'}, {r.subject ? SUBJECTS.find((s) => s.id === r.subject)?.name : 'All'}
@@ -160,7 +160,7 @@ export default function GroupDetailView({ group, user, goBack }) {
 
       {status === 'ready' && tab === 'questions' && (
         <div>
-          <div style={{ marginBottom: 20, fontSize: 13, color: 'var(--clr-ink-soft)' }}>
+          <div style={{ marginBottom: 20, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
             ข้อสอบที่สมาชิกในกลุ่มแชร์ไว้<br/>
             <em>ตอนนี้ยังแชร์ข้อสอบเข้ากลุ่มไม่ได้</em>
           </div>
@@ -209,7 +209,7 @@ export default function GroupDetailView({ group, user, goBack }) {
               <div style={{ fontSize: 40, marginBottom: 8 }}>{m.avatar_emoji || '🐾'}</div>
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
                 {m.username}
-                {m.id === user.id && <div style={{ fontSize: 11, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</div>}
+                {m.id === user.id && <div style={{ fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</div>}
               </div>
               {m.role === 'admin' && <div style={{ fontSize: 11, color: 'var(--clr-gold-text)', marginTop: 4 }}>👑 Admin</div>}
             </div>

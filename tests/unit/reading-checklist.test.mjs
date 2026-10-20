@@ -8,6 +8,7 @@ import * as curriculum from '../../src/data/curriculum.js';
 import * as notes from '../../src/data/notes-registry.generated.js';
 import * as progress from '../../src/lib/study-progress.js';
 import * as scope from '../../src/lib/exam-scope.js';
+import * as lecturerName from '../../src/lib/lecturer-name.js';
 
 // Execute the real view and event handlers. Only React's hook lifecycle and
 // visual children are replaced; curriculum, scope, and progress are real.
@@ -43,6 +44,7 @@ function checklist({ selectedYear = 5, selectedPhase = '1-mid', saved = {}, acce
     '../data/notes-registry.generated.js': notes,
     '../lib/study-progress.js': progress,
     '../lib/exam-scope.js': scope,
+    '../lib/lecturer-name.js': lecturerName,
     '../lib/confetti.js': { fireConfetti: (value) => celebrations.push(value) },
     '../lib/dialog.js': { alertDialog: (value) => { alerts.push(value); return Promise.resolve(); } },
     '../data/art.js': { EMPTY_ART: { reading: 'reading' } },
@@ -137,7 +139,7 @@ test('rejected individual and bulk writes report failure and cannot celebrate a 
   view.remote({ [progress.topicProgressKey(subject.id, topic.id)]: 100 });
   assert.equal(view.celebrations.length, 0);
   view.accepted = true;
-  view.buttons().find((node) => node.props['aria-label'] === `ยกเลิก ${topic.label}`).props.onClick();
+  view.buttons().find((node) => node.props['aria-label'] === `อ่านแล้ว ${topic.label}` && node.props['aria-pressed'] === true).props.onClick();
   view.render();
   assert.equal(progress.isTopicRead(view.saved, subject.id, topic.id), false);
 });
