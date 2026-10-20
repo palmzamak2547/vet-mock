@@ -42,7 +42,7 @@
    blur over two near-full-screen layers was re-rasterised on every frame of the drift.
 
    The drift moves in steps, three a second. Every frame of a layer that moves under a backdrop-filter
-   pane makes the GPU blur that pane again, and about thirty hang on a page (.glass): drawn smoothly
+   pane makes the GPU blur that pane again, and about thirty hung on a page then (.glass): drawn smoothly
    the drift held the GPU process at 74 to 120 % of a core with nothing else moving (phone profile,
    18 Oct); in steps it holds 7 to 9 %, and 0 with every animation paused: what is left is the
    compositor ticking while an animation runs. The pool is a soft glow that fades out at its edge, so
@@ -56,6 +56,10 @@
 .atmos-a, .atmos-b { position: absolute; border-radius: 50%; will-change: transform; pointer-events: none; }
 .atmos-a { left: -18vw; top: -22vh; width: 72vw; height: 64vh; background: radial-gradient(closest-side, var(--light-a), transparent); background: radial-gradient(closest-side, var(--light-a), color-mix(in srgb, var(--light-a) 45%, transparent) 55%, transparent); animation: drift-a 38s steps(114) infinite alternate; }
 .atmos-b { right: -20vw; top: 18vh; width: 64vw; height: 74vh; background: radial-gradient(closest-side, var(--light-b), transparent); background: radial-gradient(closest-side, var(--light-b), color-mix(in srgb, var(--light-b) 45%, transparent) 55%, transparent); animation: drift-b 46s steps(138) infinite alternate; }
+/* While the page moves (lib/motion.js, initScrolling) the drift and the pulsing dots hold still and
+   carry on once it rests: a scroll already redraws the frame, and a loop under or on glass makes
+   that glass blur again on top of it. */
+.is-scrolling .atmos-a, .is-scrolling .atmos-b, .is-scrolling .countdown-dot::before, .is-scrolling .sample-tag .dot::before { animation-play-state: paused; }
 
 /* ── Light on glass: a soft sheen that follows the pointer (lib/motion.js sets --mx/--my) ─ */
 [data-sheen] { position: relative; isolation: isolate; }

@@ -1,7 +1,7 @@
 // A modal sheet: rises from the bottom on a phone, centred on a desk, and leaves the way it
 // came. Owns focus while open (the marked control or the first one in, Tab kept inside,
 // Escape and a tap outside close) and returns it after. It is drawn straight into <body>: a
-// parent with a transform, a filter or a backdrop-filter (every glass pane has one) becomes the
+// parent with a transform, a filter or a backdrop-filter (every floating glass pane has one) becomes the
 // containing block of a fixed child, and the sheet would open as a clipped box inside it.
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';

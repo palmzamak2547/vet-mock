@@ -3,9 +3,17 @@
 .glass {
   position: relative; isolation: isolate;
   background: var(--glass);
+  box-shadow: var(--shadow);
+}
+/* Only a pane that floats over the page frosts what is behind it: the bars, a sticky toolbar, a
+   sheet, and the sample over the hero's prints. A card that scrolls with the page has only the
+   wall's light behind it, a gradient a blur leaves as it was, yet the GPU blurred every such card
+   again on every frame drawn, and a scroll draws every frame: on home, with only the light's
+   drift moving, 6.0 to 6.4 ms of GPU work a frame against 2.7 to 2.9 without (phone profile,
+   20 Oct). The cards look the same without it (largest pixel difference 11/255, mean 0.4). */
+.glass:is(.topnav, .tabbar, .run-bar, .run-actions, .bank-tools, .builder-sum, .sheet, .sample) {
   -webkit-backdrop-filter: blur(var(--blur)) saturate(170%);
   backdrop-filter: blur(var(--blur)) saturate(170%);
-  box-shadow: var(--shadow);
 }
 .glass::before {
   content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; padding: 1px; pointer-events: none;
@@ -68,10 +76,22 @@
 .topbar { position: sticky; top: 0; z-index: 40; padding: 14px 20px 0; pointer-events: none; }
 .topbar-in { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 16px; max-width: 1276px; height: 62px; margin: 0 auto; }
 .topbar-in > * { pointer-events: auto; }
-/* A piece that stands on the wall at the top of a page and turns to glass once it moves. */
-.cap { position: relative; border-radius: var(--r-pill); transition: background-color var(--t-slow) var(--ease), box-shadow var(--t-slow) var(--ease), -webkit-backdrop-filter var(--t-slow) var(--ease), backdrop-filter var(--t-slow) var(--ease); }
-.is-scrolled .cap { background: var(--glass); -webkit-backdrop-filter: blur(var(--blur)) saturate(170%); backdrop-filter: blur(var(--blur)) saturate(170%); box-shadow: inset 0 0 0 1px var(--rim-a), var(--shadow); }
-@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) { .is-scrolled .cap { background: var(--glass-solid); } }
+/* A piece that stands on the wall at the top of a page and turns to glass once it moves. The glass
+   is a layer of its own that fades in and out by opacity, which the compositor runs alone. It used
+   to be the piece's own background, shadow and backdrop-filter in a transition, none of which the
+   compositor can run: every frame of the 420 ms fade restyled and repainted the bar on the main
+   thread and blurred it again at a new radius, and that is the stutter the bar showed each time a
+   page started or stopped moving: in a traced scroll of home, the bar's scroll handler and the
+   animation ticks led the frames that ran over 30 ms (20 Oct). */
+.cap { position: relative; isolation: isolate; border-radius: var(--r-pill); }
+.cap::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background: var(--glass); -webkit-backdrop-filter: blur(var(--blur)) saturate(170%); backdrop-filter: blur(var(--blur)) saturate(170%);
+  box-shadow: inset 0 0 0 1px var(--rim-a), var(--shadow);
+  opacity: 0; transition: opacity var(--t-slow) var(--ease);
+}
+.is-scrolled .cap::after { opacity: 1; }
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) { .cap::after { background: var(--glass-solid); } }
 .brand { justify-self: start; display: flex; align-items: center; height: 54px; padding: 0 16px 0 12px; color: var(--ink); text-decoration: none; }
 .topnav { justify-self: center; position: relative; isolation: isolate; padding: 5px; border-radius: var(--r-pill); }
 .topnav-list { display: flex; gap: 2px; }
@@ -92,9 +112,10 @@
 .liq-shade { fill: var(--liq-shade); }
 .liq-line { fill: var(--liq-line); }
 .liq-rim { fill: var(--rim-a); }
-.is-liquid .topnav.glass, .is-liquid.is-joining .cap { background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.is-liquid .topnav.glass { background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.is-liquid.is-joining .cap::after { opacity: 0; }
 .is-liquid .topnav.glass::before { display: none; }
-.is-handoff .cap { transition: none; }
+.is-handoff .cap::after { transition: none; }
 /* Joined, a hairline marks where one piece ends and the next begins. */
 .is-liquid .topnav::after, .is-liquid .topbar-act::before {
   content: ""; position: absolute; top: 15px; bottom: 15px; left: 0; width: 1px; background: var(--line-2); pointer-events: none;

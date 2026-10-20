@@ -87,6 +87,7 @@ const DAMP = 27;
 const JOIN_AT = 96;
 const LIFT_AT = 8;
 const REACH = 72;
+const SHADE_INSET = 7;
 
 /**
  * The outer pieces take on glass of their own as the page moves (a fade, in CSS: .is-scrolled
@@ -96,7 +97,7 @@ const REACH = 72;
  * @param {{ bar: HTMLElement, inner: HTMLElement, brand: HTMLElement, nav: HTMLElement | null,
  *   act: HTMLElement, glass: HTMLElement, outlines: Iterable<SVGPathElement> }} els
  *   outlines: paths that follow the glass, each naming the copy it draws in data-liq: the edge
- *   itself, or the copy a pixel outside it (out) or inside it (in)
+ *   itself, the copy a pixel outside it (out) or inside it (in), or the shadow's body (shade)
  * @returns {() => void} unmount
  */
 export function mountLiquidBar(els) {
@@ -122,8 +123,16 @@ export function mountLiquidBar(els) {
     }));
   };
 
+  // What the scroll asks of the bar, as one key: joined or not, lifted or not. Most scroll frames
+  // ask nothing new, and those no longer cost a frame on the main thread (onScroll).
+  const wanted = () => {
+    const y = window.scrollY;
+    return `${still ? 0 : +(y > JOIN_AT)}${+(y > LIFT_AT || joining)}`;
+  };
+  let applied = '';
   const setTargets = () => {
     const y = window.scrollY;
+    applied = wanted();
     join.to = still ? 0 : (y > JOIN_AT ? 1 : 0);
     if (join.to === 1) setJoining(true);
     // The outer glass stays while the bar is still apart from a join; it fades once it is not.
@@ -173,7 +182,10 @@ export function mountLiquidBar(els) {
   const render = () => {
     if (!m) return;
     const p = clamp01(join.x);
-    bar.style.setProperty('--join', p.toFixed(4));
+    // Only the pieces read it (the mark's letters, the hairlines between pieces); set on the bar it
+    // made every element under it, the glass and outlines too, work out its style again each frame.
+    const jv = p.toFixed(4);
+    for (const piece of m.pieces) piece.el.style.setProperty('--join', jv);
     const rects = [];
     for (const piece of m.pieces) {
       const dx = piece.dx * p;
@@ -184,7 +196,15 @@ export function mountLiquidBar(els) {
     }
     const reach = REACH * smooth(p);
     const d = liquidPath(rects, { cy: m.cy, reach });
-    const paths = { edge: d, out: liquidPath(rects, { cy: m.cy, reach, inset: -1 }), in: liquidPath(rects, { cy: m.cy, reach, inset: 1 }) };
+    const paths = {
+      edge: d,
+      out: liquidPath(rects, { cy: m.cy, reach, inset: -1 }),
+      in: liquidPath(rects, { cy: m.cy, reach, inset: 1 }),
+      // The shadow's body is the outline drawn 7 px inside itself, which the shadow's filter used
+      // to make with feMorphology every frame of a join: the costliest step of an SVG filter where
+      // a browser runs it on the CPU (WebKit does). The filter now only blurs and drops it.
+      shade: liquidPath(rects, { cy: m.cy, reach, inset: SHADE_INSET }),
+    };
     glass.style.clipPath = d ? `path('${d}')` : 'inset(50%)';
     for (const o of outlines) o.setAttribute('d', paths[o.dataset.liq] || '');
   };
@@ -229,7 +249,7 @@ export function mountLiquidBar(els) {
   };
   let scrollQueued = 0;
   const onScroll = () => {
-    if (scrollQueued || settle) return;
+    if (scrollQueued || settle || wanted() === applied) return;
     scrollQueued = requestAnimationFrame(() => {
       scrollQueued = 0;
       if (performance.now() - navAt < SETTLE_MS) {
@@ -278,6 +298,6 @@ export function mountLiquidBar(els) {
     cancelAnimationFrame(handoff);
     bar.classList.remove('is-liquid', 'is-joined', 'is-joining', 'is-handoff');
     brand.removeAttribute('data-brief');
-    for (const el of [brand, nav, act]) if (el) el.style.translate = '';
+    for (const el of [brand, nav, act]) if (el) { el.style.translate = ''; el.style.removeProperty('--join'); }
   };
 }

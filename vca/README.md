@@ -58,6 +58,11 @@ rises with the scroll (`initScenes` in `src/lib/motion.js`). Reduce motion keeps
 loops may run under a pane of glass: each frame makes the GPU blur the pane again, so the light's drift
 moves in steps and the hero's pulsing dots rest after three beats (`src/styles/motion.css`). Prints are
 inked in with transforms, not a mask position, so the compositor draws them.
+Only panes that float over the page (the bars, sticky toolbars, sheets, the hero's sample) blur what
+is behind them; a card that scrolls with the page keeps the glass's colour and rim without the blur,
+which the GPU otherwise redid on every frame of a scroll. While the page moves, the drift and the
+pulsing dots hold still and carry on when it rests (`initScrolling`). The bar's outer pieces turn to glass by
+fading a layer of their own (opacity), never by animating a blur or a shadow.
 
 ## Community
 

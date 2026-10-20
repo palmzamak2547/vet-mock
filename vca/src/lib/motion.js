@@ -8,6 +8,7 @@
 //                   and depth on the hero's wall (fine pointers only)
 //   initReveal      sections and cards settle in as they scroll into view
 //   initScenes      a few pieces move with the scroll itself, both ways (the footer's VCA)
+//   initScrolling   what loops on its own holds still while the page moves
 
 const media = (q) => (typeof window !== 'undefined' && window.matchMedia ? window.matchMedia(q) : null);
 export const reducedMotion = () => !!media('(prefers-reduced-motion: reduce)')?.matches;
@@ -209,7 +210,8 @@ export function initScenes() {
       el.style.setProperty('--p', p);
     }
   };
-  const queue = () => { if (!frame) frame = requestAnimationFrame(update); };
+  // Nothing in view, nothing to move: a scroll then asks the main thread for no frame at all.
+  const queue = () => { if (!frame && live.size) frame = requestAnimationFrame(update); };
   const io = new IntersectionObserver((entries) => {
     for (const entry of entries) {
       if (entry.isIntersecting) live.add(entry.target);
@@ -244,6 +246,27 @@ export function initScenes() {
   };
 }
 
+/**
+ * While the page is moving, what loops on its own holds still (motion.css, .is-scrolling): the
+ * light's drift and the pulsing dots carry on where they stopped once the page rests. A dot that
+ * pulses on a pane of glass makes the pane blur again every frame, and a scroll already redraws
+ * everything. With software compositing standing in for a phone's GPU, home held 64 to 86 frames
+ * a second with the drift and the sample's dot running, and 159 to 163 with both still (20 Oct).
+ * One class on <html>, set as a scroll starts and cleared 200 ms after it ends.
+ */
+export function initScrolling() {
+  if (typeof window === 'undefined' || reducedMotion()) return () => {};
+  const root = document.documentElement;
+  let rest = 0;
+  const onScroll = () => {
+    if (rest) clearTimeout(rest);
+    else root.classList.add('is-scrolling');
+    rest = setTimeout(() => { rest = 0; root.classList.remove('is-scrolling'); }, 200);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  return () => { window.removeEventListener('scroll', onScroll); clearTimeout(rest); root.classList.remove('is-scrolling'); };
+}
+
 /** A tap that the hand can feel, on phones that allow it. */
 export function haptic(pattern = 8) {
   if (reducedMotion()) return;
@@ -256,4 +279,5 @@ export function initMotion() {
   initPointer();
   initReveal();
   initScenes();
+  initScrolling();
 }

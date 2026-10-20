@@ -104,7 +104,6 @@ export function TopBar({ route }) {
         <svg className="liq" aria-hidden="true" focusable="false">
           <defs>
             <filter id="liq-drop" x="-10%" y="-60%" width="120%" height="280%">
-              <feMorphology operator="erode" radius="7" />
               <feGaussianBlur stdDeviation="12" />
               <feOffset dy="13" />
             </filter>
@@ -114,7 +113,7 @@ export function TopBar({ route }) {
             </mask>
             <mask id="liq-hair"><path data-liq="out" fill="#fff" /><path data-liq="edge" fill="#000" /></mask>
           </defs>
-          <path data-liq="edge" className="liq-shade" filter="url(#liq-drop)" mask="url(#liq-outside)" />
+          <path data-liq="shade" className="liq-shade" filter="url(#liq-drop)" mask="url(#liq-outside)" />
           <rect className="liq-line" width="100%" height="100%" mask="url(#liq-hair)" />
         </svg>
         <span className="liq liq-glass" ref={glassRef} aria-hidden="true" />
