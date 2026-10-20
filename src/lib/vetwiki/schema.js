@@ -199,5 +199,38 @@ export function provenanceHeadline(verified, draftSections) {
   return 'เนื้อหาหัวข้อนี้มาจากโน้ตใน VetMock และยังไม่ได้ตรวจทานกับแหล่งอ้างอิงภายนอก';
 }
 
+/**
+ * Provenance summary for the read page and the "VetMock รู้เรื่องนี้ได้อย่างไร?" panel, shared by
+ * the build-time API (index.js) and the browser runtime (runtime.js), which each pass their own
+ * source resolver. It used to be written twice and the browser copy counted every claim, not only
+ * verified ones: the same today (all 2,984 are verified) but an overclaim the day one is not.
+ * One work under several registry ids counts once (sources.js SAME_WORK).
+ */
+export function summarizeProvenance(knowledgeTopic, resolveSource) {
+  if (!knowledgeTopic) return null;
+  const sections = knowledgeTopic.sections || [];
+  let verified = 0;
+  const cited = new Map();
+  for (const section of sections) {
+    for (const claim of section.claims || []) {
+      if (claim.reviewStatus === 'verified') verified += 1;
+      for (const ref of claim.sourceRefs || []) {
+        const src = resolveSource(ref);
+        const work = src && (src.work || src.id);
+        if (src && !cited.has(work)) cited.set(work, src);
+      }
+    }
+  }
+  const draftSections = sections.filter((s) => s.reviewStatus === 'draft').length;
+  return {
+    sectionCount: sections.length,
+    verifiedClaimCount: verified,
+    draftSectionCount: draftSections,
+    metadataSectionCount: sections.filter((s) => s.reviewStatus === 'metadata').length,
+    sources: [...cited.values()],
+    headline: provenanceHeadline(verified, draftSections),
+  };
+}
+
 export const ALL_EVIDENCE = Object.keys(EVIDENCE_LABEL);
 export const ALL_REVIEW = Object.keys(REVIEW_LABEL);
