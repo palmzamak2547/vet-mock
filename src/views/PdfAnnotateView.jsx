@@ -549,8 +549,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const restoredStrokes = existing?.strokesByPage || {};
       setDeleted(existing?.deleted || []);
       // Resume where the reader left off — a 300-page textbook that always
-      // reopened at page 1 made every return trip start with scrolling.
-      const startPage = Math.min(Math.max(1, Number(existing?.lastPage) || 1), pdf.numPages);
+      // reopened at page 1 made every return trip start with scrolling. A
+      // search hit names its own page, and that wins: the reader asked for it.
+      const askedPage = Number(doc.page) || 0;
+      const startPage = Math.min(Math.max(1, askedPage || Number(existing?.lastPage) || 1), pdf.numPages);
       resumeTo.current = startPage > 1 ? startPage : 0;
       // Published with the document it belongs to (see ingestFile).
       // `resolve` is kept so an export after the signed link has expired can
@@ -577,7 +579,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       if (!storageHealth().persistent) {
         showToast('เบราว์เซอร์นี้เก็บรอยเขียนถาวรไม่ได้ รอยที่เขียนจะอยู่แค่จนกว่าจะปิดแท็บ', 6000);
       }
-      if (startPage > 1) {
+      if (askedPage > 1) {
+        showToast(`เปิดที่หน้า ${startPage} ที่ค้นเจอ`, 2500);
+      } else if (startPage > 1) {
         showToast(`เปิดต่อที่หน้า ${startPage} ✓`, 2500);
       } else if (existing && Object.keys(restoredStrokes).length > 0) {
         showToast('นำรอยเขียนเดิมกลับมาแล้ว', 3000);

@@ -799,6 +799,52 @@ export async function resolveDocUrl(doc) {
   return data.signedUrl;
 }
 
+// ── Search inside documents ───────────────────────────────────────────────
+// public.library_search matches every term against the PDFs' own page text
+// (library_doc_pages, filled by scripts/library-pages.py). RLS on the pages
+// follows their document, so a guest never gets a restricted deck's page.
+// Any failure — offline, the function not deployed yet — answers [] and the
+// shelf's own title search stands alone, as it always did.
+export const TEXT_SEARCH_MIN = 3;
+
+export async function searchLibraryText(query) {
+  const q = String(query || '').trim();
+  if (q.replace(/\s+/g, '').length < TEXT_SEARCH_MIN) return [];
+  try {
+    const { hasSupabase, getSupabase } = await import('./supabase.js');
+    if (!hasSupabase) return [];
+    const sb = await getSupabase();
+    const { data, error } = await sb.rpc('library_search', { q, max_docs: 30 });
+    if (error || !Array.isArray(data)) return [];
+    return data;
+  } catch {
+    return [];
+  }
+}
+
+// Splits a snippet around the query's terms so the view can mark them.
+// Case-insensitive; returns [{ text, hit }] covering the whole snippet.
+export function markTerms(snippet, query) {
+  const text = String(snippet || '');
+  const terms = String(query || '').toLowerCase().split(/\s+/).filter(Boolean);
+  if (!terms.length) return [{ text, hit: false }];
+  const lc = text.toLowerCase();
+  const out = [];
+  let i = 0;
+  while (i < text.length) {
+    let at = -1; let len = 0;
+    for (const t of terms) {
+      const j = lc.indexOf(t, i);
+      if (j !== -1 && (at === -1 || j < at || (j === at && t.length > len))) { at = j; len = t.length; }
+    }
+    if (at === -1) { out.push({ text: text.slice(i), hit: false }); break; }
+    if (at > i) out.push({ text: text.slice(i, at), hit: false });
+    out.push({ text: text.slice(at, at + len), hit: true });
+    i = at + len;
+  }
+  return out;
+}
+
 // ── How a document opens ──────────────────────────────────────────────────
 // 121 shelf rows are not PDFs (Word, PowerPoint, Excel, images, videos, one
 // zip). Sending those into the PDF reader used to fail after the download;
@@ -838,8 +884,9 @@ export function docOpenMode(doc) {
 /** The payload the PDF reader receives. `resolve` defers the mint to the
  *  reader's own loading phase, so tapping a card navigates instantly instead
  *  of freezing the button for the mint round-trip. */
-export function readerPayload(doc) {
+export function readerPayload(doc, { page = null } = {}) {
   return {
+    page,
     resolve: () => resolveDocUrl(doc),
     fileName: `${doc.title}.pdf`,
     sha256: doc.sha256_16,

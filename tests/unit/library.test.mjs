@@ -14,7 +14,10 @@ import {
   indexDocs,
   isSafeStorageKey,
   kindLabel,
+  markTerms,
   normalizeCdnBase,
+  readerPayload,
+  searchLibraryText,
   semesterLabel,
 } from '../../src/lib/library.js';
 import { hashFile } from '../../src/lib/pdf-annotations.js';
@@ -307,4 +310,22 @@ test('recent docs record newest-first, dedupe by slug, and cap at 8', async () =
   } finally {
     delete globalThis.window;
   }
+});
+
+test('a content-search snippet marks every term, case-insensitively, and loses no text', () => {
+  const parts = markTerms('Canine distemper ไข้หัดสุนัข: DISTEMPER virus', 'distemper หัด');
+  assert.equal(parts.map((p) => p.text).join(''), 'Canine distemper ไข้หัดสุนัข: DISTEMPER virus');
+  assert.deepEqual(parts.filter((p) => p.hit).map((p) => p.text), ['distemper', 'หัด', 'DISTEMPER']);
+  assert.deepEqual(markTerms('abc', ''), [{ text: 'abc', hit: false }]);
+});
+
+test('a search hit opens the reader at its page; a plain open names no page', () => {
+  const doc = { slug: 'x', title: 'X', sha256_16: '0123456789abcdef' };
+  assert.equal(readerPayload(doc, { page: 14 }).page, 14);
+  assert.equal(readerPayload(doc).page, null);
+});
+
+test('content search under three characters never reaches the server', async () => {
+  assert.deepEqual(await searchLibraryText('ab'), []);
+  assert.deepEqual(await searchLibraryText(' a b '), []);
 });

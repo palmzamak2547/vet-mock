@@ -152,6 +152,36 @@ npx wrangler r2 object put "library-docs/docs/<sha>/<name>.pdf" \
   --cache-control "public, max-age=31536000, immutable"
 ```
 
+## Searching inside documents
+
+`public.library_doc_pages` holds each PDF's text, one row per page, written by
+`scripts/library-pages.py` (extract downloads from R2 into `.library-text/`,
+load writes the rows and sets `library_docs.page_count` and `text_status`).
+The shelf calls `public.library_search(q)` once the query reaches three
+characters and shows "พบในเนื้อหาเอกสาร" under the title matches; a hit opens
+the reader at its page.
+
+- Search is pg_trgm + ILIKE: every term must appear on the same page. PGroonga
+  and tsvector were tried and rejected (2026-10-20): on this database neither
+  finds Thai words with above/below vowels. ILIKE is rechecked per row, so the
+  index can only speed it up, never change a result.
+- A page's visibility is its document's. Direct reads go through the RLS
+  policy on library_doc_pages (it asks library_docs under the reader's own
+  policies). library_search is SECURITY DEFINER and applies the same rule
+  itself (anon: public; signed in: public + restricted), because under RLS
+  Postgres will not use the trigram index for a non-leakproof ILIKE: the
+  invoker version scanned all 51k pages (p50 898 ms). Change both together.
+- Each term is its own ILIKE joined by AND; `ilike all (array)` skips the
+  index. Measured from Bangkok with the anon key, 10 queries x 6:
+  p50 83 ms, p95 154 ms (2026-10-20).
+- `text_status`: ok, partial (some pages mis-encoded and skipped), garbled,
+  no_text (scanned images), unreadable, pii_held. A pii_held document showed a
+  Chula student ID or a Thai national ID; none of its pages is stored, and the
+  extract cache keeps only masked context for whoever reviews it.
+- The project is on Supabase's free plan (500 MB). `load` stops itself above
+  350 MB. Note: about 96 MB of the database is leftover Groonga files from a
+  PGroonga test on 2026-10-20; removing them needs a superuser (Supabase support).
+
 ## Licensing
 
 `license` is `NOT NULL` and the ingest script refuses to run without it. A row

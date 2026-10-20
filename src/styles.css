@@ -8130,6 +8130,7 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 .vmx-lib-card-title { margin: 0; min-width: 0; font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
 .vmx-lib-card-kind { flex-shrink: 0; font-size: var(--text-sm); font-weight: 600; white-space: nowrap; }
 .vmx-lib-card-desc { margin: 0; font-size: var(--text-sm); line-height: 1.55; color: var(--clr-ink-soft); }
+.vmx-lib-snippet mark { background: var(--clr-gold-soft); color: var(--clr-ink); border-radius: 3px; padding: 0 2px; }
 .vmx-lib-card-meta { font-size: var(--text-sm); line-height: 1.55; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
 .vmx-lib-year-count { margin-left: auto; font-size: var(--text-sm); font-weight: 400; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
 .vmx-lib-year-body { padding: var(--space-1) var(--space-4) var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); }

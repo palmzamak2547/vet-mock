@@ -410,6 +410,10 @@ Avoid:
   source URLs and both dedup checks. Uploaded bytes alone do not prove shelf completion.
   Refresh the current term before coverage claims; never expose credentials or other
   users' private LMS material. Use the available authorized account's actual entitlements.
+- After a library ingest, run `python -I scripts/library-pages.py extract` then `load`
+  (per-page PDF text for in-document search; env SUPABASE_ACCESS_TOKEN + .r2env).
+  A document showing a student or national ID is held (`text_status = 'pii_held'`,
+  no page stored); a person decides what happens to its file. Never store its text.
 - tests/e2e/fixtures.js owns the pinned calendar; projects use Asia/Bangkok.
   Specs that drive page.clock must opt out explicitly. Keep broad gates quiet and
   run day-boundary units in UTC too. A rerun must retain the first failure record.

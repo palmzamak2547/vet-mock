@@ -12,14 +12,14 @@ const { default: LibraryView } = await loadModule('src/views/LibraryView.jsx', {
   { match: '/hooks/useMotionPreferences\\.js$', contents: 'export const useMotionPreferences = () => ({ reduced: true });' },
   { match: '/lib/library\\.js$', contents: `
     export const { LIBRARY_KINDS, SEMESTERS, buddhistYear, docOpenMode, prefetchDocUrl, docTypeLabel,
-      displayDocTitle, filterIndexed, formatBytes, groupByYearSubject, indexDocs, kindLabel, listRecentDocs,
+      displayDocTitle, filterIndexed, markTerms, searchLibraryText, TEXT_SEARCH_MIN, formatBytes, groupByYearSubject, indexDocs, kindLabel, listRecentDocs,
       readerPayload, recordRecentDoc, resolveDocUrl, semesterLabel, subjectMeta } = globalThis.__libraryIntentFunctions;
     export const getLibraryCatalogFast = () => {
       globalThis.__libraryIntentCatalogCalls++;
       return { stale: Promise.resolve(null), fresh: Promise.resolve({ docs: [], configured: true }) };
     };` },
 ] });
-const queryValue = view => findAll(view.tree, node => node.type === 'input' && node.props.placeholder === 'ค้นหาชื่อเอกสาร วิชา ผู้สอน หรือหัวข้อ…')[0].props.value;
+const queryValue = view => findAll(view.tree, node => node.type === 'input' && node.props.placeholder === 'ค้นหาชื่อเอกสาร วิชา ผู้สอน หรือคำในเนื้อหา…')[0].props.value;
 
 test('Library handoffs survive discarded renders, acknowledge only captured rows and retain URL/same-view behavior', async t => {
   const tickets = new Map(), local = new Map(), listeners = new Map();

@@ -47,8 +47,11 @@ import {
   readerPayload,
   recordRecentDoc,
   resolveDocUrl,
+  markTerms,
+  searchLibraryText,
   semesterLabel,
   subjectMeta,
+  TEXT_SEARCH_MIN,
 } from '../lib/library.js';
 
 // An empty query matches everything. Mounting several hundred cards at once is
@@ -462,6 +465,33 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
     [docIndex, debouncedQuery, kind, semester, academicYear, subjectFilter],
   );
 
+  // Matches inside the documents' own pages, asked of the server a beat after
+  // the title search has already answered. Kept per query so a slow answer
+  // for an older query can never fill in under a newer one.
+  const textQuery = debouncedQuery.trim();
+  const wantsText = textQuery.replace(/\s+/g, '').length >= TEXT_SEARCH_MIN;
+  const [textHits, setTextHits] = useState({ q: '', rows: [] });
+  useEffect(() => {
+    if (!wantsText) return undefined;
+    let alive = true;
+    const t = setTimeout(() => {
+      searchLibraryText(textQuery).then((rows) => { if (alive) setTextHits({ q: textQuery, rows }); });
+    }, 220);
+    return () => { alive = false; clearTimeout(t); };
+  }, [textQuery, wantsText]);
+  const textPending = searching && wantsText && textHits.q !== textQuery;
+  const contentHits = useMemo(() => {
+    if (!searching || !wantsText || textHits.q !== textQuery || !textHits.rows.length) return [];
+    // The shelf's own filters apply to these too.
+    const allowed = new Set(filterIndexed(docIndex, {
+      kind, semester, academicYear, subject: subjectFilter || 'all',
+    }).map((d) => d.slug));
+    const bySlug = new Map(docs.map((d) => [d.slug, d]));
+    return textHits.rows
+      .filter((r) => allowed.has(r.slug) && bySlug.has(r.slug))
+      .map((r) => ({ ...r, doc: bySlug.get(r.slug) }));
+  }, [searching, wantsText, textHits, textQuery, docIndex, docs, kind, semester, academicYear, subjectFilter]);
+
   // The reader's own year first, as the clip shelf already does: it is the
   // one that opens, and on a phone it used to sit under four closed years.
   const groups = useMemo(
@@ -580,6 +610,12 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
     openExternally(doc);
   }, [onOpenDoc, openExternally]);
 
+  const openDocAt = useCallback((doc, page) => {
+    recordRecentDoc(doc);
+    setRecentDocs(listRecentDocs());
+    onOpenDoc(readerPayload(doc, { page }));
+  }, [onOpenDoc]);
+
   // Opens the object URL in a new tab, where the browser's own PDF UI offers
   // Save. A `download` attribute is ignored cross-origin, so promising a direct
   // download here would be a lie on every provider.
@@ -682,7 +718,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="ค้นหาชื่อเอกสาร วิชา ผู้สอน หรือหัวข้อ…"
+          placeholder="ค้นหาชื่อเอกสาร วิชา ผู้สอน หรือคำในเนื้อหา…"
           aria-label="ค้นหาเอกสารในคลัง"
           className="vmx-lib-search"
           enterKeyHint="search"
@@ -772,7 +808,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
         </div>
       )}
 
-      {!loading && configured && docs.length > 0 && filtered.length === 0 && (
+      {!loading && configured && docs.length > 0 && filtered.length === 0 && contentHits.length === 0 && !textPending && (
         <div className="vmx-empty-state">
           <Mochi state="curious" size={56} slot="library-status" className="vmx-empty-mochi" /><p>ไม่พบเอกสารที่ตรงกับที่เลือก</p>
           {(searching || hasFilters) && (
@@ -807,6 +843,40 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
             </p>
           )}
         </>
+      )}
+
+      {/* Search mode — where the words appear inside the documents */}
+      {!loading && contentHits.length > 0 && (
+        <section aria-label="พบในเนื้อหาเอกสาร" style={{ marginTop: filtered.length > 0 ? 22 : 0 }}>
+          <div className="vmx-lib-result-count" role="status">
+            พบในเนื้อหาเอกสาร {contentHits.length} ไฟล์
+          </div>
+          <div style={gridStyle}>
+            {contentHits.map(({ doc, page, hits, snippet }) => (
+              <article key={doc.id} className="vmx-lib-card" style={cardStyle}>
+                <h3 className="vmx-lib-card-title">{displayDocTitle(doc.title)}</h3>
+                {snippet && (
+                  <p className="vmx-lib-card-desc vmx-lib-snippet">
+                    …{markTerms(snippet, textQuery).map((part, i) => (part.hit ? <mark key={i}>{part.text}</mark> : <span key={i}>{part.text}</span>))}…
+                  </p>
+                )}
+                <div className="vmx-lib-card-meta">
+                  {[subjectName(doc.subject), `หน้า ${page}`, hits > 1 ? `พบ ${hits} หน้า` : null].filter(Boolean).join(', ')}
+                </div>
+                <div style={{ display: 'flex', gap: 8, marginTop: 'auto', paddingTop: 4 }}>
+                  <button
+                    type="button"
+                    className="vmx-btn vmx-btn-primary vmx-btn-sm"
+                    {...intentProps(doc)}
+                    onClick={() => openDocAt(doc, page)}
+                  >
+                    เปิดหน้า {page}
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
       )}
 
       {/* Recently opened — continue where you left off, ahead of the hunt */}
