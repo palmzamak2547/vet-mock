@@ -38,16 +38,7 @@ on:
       - '.github/workflows/vca.yml'
   pull_request:
     branches: [main]
-    paths:
-      - 'vca/**'
-      - 'src/data/**'
-      - 'src/lib/question-metadata.js'
-      - 'src/lib/option-shuffle.js'
-      - 'src/lib/richtext.jsx'
-      - 'public/**'
-      - 'supabase/migrations/*vca*'
-      - 'supabase/functions/_shared/app-origins.js'
-      - '.github/workflows/vca.yml'
+  workflow_dispatch:
 
 concurrency:
   group: vca-${{ github.ref }}
@@ -57,7 +48,31 @@ permissions:
   contents: read
 
 jobs:
+  # Required checks cannot be path-filtered (a check that never runs blocks the
+  # pull request forever), so pull requests always start this workflow and this
+  # job decides whether the real jobs run. HEAD^1 is main on a pull request's
+  # merge commit; push (already path-filtered) and dispatch (the queue
+  # workflow) always run everything.
+  changes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    outputs:
+      relevant: ${{ steps.diff.outputs.relevant }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+      - id: diff
+        run: |
+          if [ "${{ github.event_name }}" != pull_request ]; then relevant=true
+          elif git diff --quiet HEAD^1 HEAD -- vca src/data src/lib/question-metadata.js src/lib/option-shuffle.js src/lib/richtext.jsx public 'supabase/migrations/*vca*' supabase/functions/_shared/app-origins.js .github/workflows/vca.yml; then relevant=false
+          else relevant=true; fi
+          echo "relevant=$relevant" | tee -a "$GITHUB_OUTPUT"
+
   build:
+    name: VCA bundle
+    needs: changes
+    if: needs.changes.outputs.relevant == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     defaults:
@@ -94,3 +109,20 @@ jobs:
           du -sh dist/ dist/assets dist/bank >> $GITHUB_STEP_SUMMARY || true
           ls -lh dist/assets/ | awk 'NR>1 {print $5, $9}' | sort -rh | head -12 >> $GITHUB_STEP_SUMMARY || true
           echo '```' >> $GITHUB_STEP_SUMMARY
+
+  # The required check. Passes when the jobs above passed, or were skipped
+  # because this pull request does not touch the VCA app or what it reads.
+  vca:
+    name: VCA
+    needs: [changes, build]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+          CHANGES: ${{ needs.changes.result }}
+        run: |
+          echo "results: $RESULTS"
+          test "$CHANGES" = success
+          for r in $RESULTS; do case "$r" in success|skipped) ;; *) exit 1;; esac; done
