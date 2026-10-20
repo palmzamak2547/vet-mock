@@ -2,7 +2,8 @@
 // Supports 2x2 tables, diagnostic test evaluation, proportion intervals, person-time rates,
 // and a directory of original OpenEpi modules with cross-links.
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useT } from '../../../i18n/index.js';
+import { registerArea, useT } from '../../../i18n/index.js';
+import openepi from '../../../i18n/openepi.js';
 import { PageHead, Field } from '../../components/Bits.jsx';
 import Icon from '../../components/Icon.jsx';
 import Rail from '../../components/Rail.jsx';
@@ -20,6 +21,9 @@ import {
   computePersonTimeRates,
 } from './openepi-calc.js';
 import '../../../styles/tools.css';
+
+// This screen is lazy, so its words load with it (see i18n/openepi.js).
+registerArea('openepi', openepi);
 
 const TABS = Object.freeze(['twobytwo', 'diagnostic', 'proportion', 'persontime', 'modules']);
 const CONF_LEVELS = Object.freeze([0.9, 0.95, 0.99]);
@@ -244,10 +248,12 @@ function TwoByTwoPane({ t, lang, notify }) {
   const { marginals, measures, tests } = res;
 
   // Clinical interpretation sentence
+  const conf = String(Math.round(confLevel * 100));
   const interpretationText = useMemo(() => {
     const pStr = formatP(tests.uncorrected.p);
     if (design === 'cohort' && measures.RR) {
       return t('tools.openepi.interp.rr', {
+        conf,
         est: formatNumber(measures.RR.value, { kind: 'ratio' }),
         ci: formatCi(measures.RR, lang),
         p: pStr,
@@ -256,6 +262,7 @@ function TwoByTwoPane({ t, lang, notify }) {
     }
     if (design === 'caseControl' && measures.OR) {
       return t('tools.openepi.interp.or', {
+        conf,
         est: formatNumber(measures.OR.value, { kind: 'ratio' }),
         ci: formatCi(measures.OR, lang),
         p: pStr,
@@ -263,6 +270,7 @@ function TwoByTwoPane({ t, lang, notify }) {
     }
     if (design === 'crossSectional' && measures.PR) {
       return t('tools.openepi.interp.pr', {
+        conf,
         est: formatNumber(measures.PR.value, { kind: 'ratio' }),
         ci: formatCi(measures.PR, lang),
         p: pStr,
@@ -270,7 +278,7 @@ function TwoByTwoPane({ t, lang, notify }) {
       });
     }
     return '';
-  }, [design, measures, tests, lang, t]);
+  }, [design, measures, tests, conf, lang, t]);
 
   const copyInterp = async () => {
     if (!interpretationText) return;
@@ -311,7 +319,7 @@ function TwoByTwoPane({ t, lang, notify }) {
     notify(resHow === 'failed' ? 'ws.copy.failed' : 'tools.openepi.table.copied', {}, resHow === 'failed' ? 'error' : 'ok');
   };
 
-  const isSig = tests.uncorrected.p < 0.05;
+  const isSig = tests.uncorrected.p != null && tests.uncorrected.p < 1 - confLevel;
 
   return (
     <div className="rs-tl-epi-grid">
@@ -323,6 +331,8 @@ function TwoByTwoPane({ t, lang, notify }) {
         <p className="rs-soft rs-small">{t('tools.openepi.twobytwo.desc')}</p>
 
         {/* Veterinary Presets Selector */}
+        {/* The example numbers are made up; say so where they are chosen, not only in the aria-label. */}
+        <p className="rs-soft rs-xsmall">{t('tools.openepi.preset.label')}</p>
         <div className="rs-tl-preset-bar">
           <select
             className="rs-select rs-tl-preset-select"
@@ -637,8 +647,9 @@ function DiagnosticPane({ t, lang, notify }) {
 
   // Diagnostic clinical interpretation narrative
   const interpretationText = useMemo(() => {
-    if (!metrics.Se || !metrics.Sp) return '';
+    if (metrics.Se?.value == null || metrics.Sp?.value == null) return '';
     return t('tools.openepi.interp.dx', {
+      conf: String(Math.round(confLevel * 100)),
       se: formatNumber(metrics.Se.value, { kind: 'proportion' }),
       seCi: formatCi(metrics.Se, lang),
       sp: formatNumber(metrics.Sp.value, { kind: 'proportion' }),
@@ -646,7 +657,7 @@ function DiagnosticPane({ t, lang, notify }) {
       lrp: formatNumber(metrics.LRpos.value, { kind: 'ratio' }),
       lrn: formatNumber(metrics.LRneg.value, { kind: 'ratio' }),
     });
-  }, [metrics, lang, t]);
+  }, [metrics, confLevel, lang, t]);
 
   const copyInterp = async () => {
     if (!interpretationText) return;
@@ -690,6 +701,8 @@ function DiagnosticPane({ t, lang, notify }) {
         <p className="rs-soft rs-small">{t('tools.openepi.dx.desc')}</p>
 
         {/* Veterinary Presets Selector */}
+        {/* The example numbers are made up; say so where they are chosen, not only in the aria-label. */}
+        <p className="rs-soft rs-xsmall">{t('tools.openepi.preset.label')}</p>
         <div className="rs-tl-preset-bar">
           <select
             className="rs-select rs-tl-preset-select"
@@ -940,7 +953,7 @@ function ProportionPane({ t, lang, notify }) {
   const [preset, setPreset] = useState('lepto');
 
   const nx = Math.max(0, parseInt(x, 10) || 0);
-  const nn = Math.max(1, parseInt(n, 10) || 1);
+  const nn = Math.max(0, parseInt(n, 10) || 0);
 
   const res = useMemo(() => {
     return computeProportionMethods(nx, nn, confLevel);
@@ -967,6 +980,7 @@ function ProportionPane({ t, lang, notify }) {
   };
 
   const interpretationText = useMemo(() => {
+    if (!res) return '';
     return t('tools.openepi.interp.prop', {
       p: formatNumber(res.p, { kind: 'proportion' }),
       n: String(nn),
@@ -982,6 +996,7 @@ function ProportionPane({ t, lang, notify }) {
   };
 
   const copyTableData = async () => {
+    if (!res) return;
     const columns = [
       t('tools.openepi.twobytwo.methodUsed'),
       t('tools.openepi.twobytwo.ci'),
@@ -1010,6 +1025,8 @@ function ProportionPane({ t, lang, notify }) {
         <p className="rs-soft rs-small">{t('tools.openepi.prop.desc')}</p>
 
         {/* Veterinary Presets Selector */}
+        {/* The example numbers are made up; say so where they are chosen, not only in the aria-label. */}
+        <p className="rs-soft rs-xsmall">{t('tools.openepi.preset.label')}</p>
         <div className="rs-tl-preset-bar">
           <select
             className="rs-select rs-tl-preset-select"
@@ -1071,6 +1088,8 @@ function ProportionPane({ t, lang, notify }) {
           />
         )}
 
+        {!res && <p className="rs-issue rs-small" role="alert">{t('tools.openepi.prop.invalid')}</p>}
+        {res && (
         <section className="rs-panel rs-pad rs-stack" aria-labelledby="prop-res-head">
           <div className="rs-row">
             <h2 id="prop-res-head" className="rs-h3 rs-grow">{t('tools.openepi.twobytwo.results')}</h2>
@@ -1122,6 +1141,7 @@ function ProportionPane({ t, lang, notify }) {
             </p>
           )}
         </section>
+        )}
       </div>
     </div>
   );
@@ -1140,9 +1160,10 @@ function PersonTimePane({ t, lang, notify }) {
   const [preset, setPreset] = useState('lameness');
 
   const na = Math.max(0, parseInt(a, 10) || 0);
-  const nPt1 = Math.max(1, parseFloat(pt1) || 1);
+  // Person-time is used as entered (0.5 animal-years is valid); 0 or blank gives no result.
+  const nPt1 = parseFloat(pt1) || 0;
   const nc = Math.max(0, parseInt(c, 10) || 0);
-  const nPt0 = Math.max(1, parseFloat(pt0) || 1);
+  const nPt0 = parseFloat(pt0) || 0;
 
   const res = useMemo(() => {
     return computePersonTimeRates({
@@ -1183,13 +1204,14 @@ function PersonTimePane({ t, lang, notify }) {
   const interpretationText = useMemo(() => {
     if (!res) return '';
     return t('tools.openepi.interp.pt', {
+      conf: String(Math.round(confLevel * 100)),
       r1: formatNumber(res.scaledR1, { kind: 'statistic', digits: 2 }),
       r0: formatNumber(res.scaledR0, { kind: 'statistic', digits: 2 }),
       irr: formatNumber(res.irr, { kind: 'ratio' }),
       ci: formatCi({ value: res.irr, ci: res.irrExactCi, kind: 'ratio' }, lang),
       p: formatP(res.test.p),
     });
-  }, [res, lang, t]);
+  }, [res, confLevel, lang, t]);
 
   const copyInterp = async () => {
     if (!interpretationText) return;
@@ -1221,7 +1243,7 @@ function PersonTimePane({ t, lang, notify }) {
     notify(resHow === 'failed' ? 'ws.copy.failed' : 'tools.openepi.table.copied', {}, resHow === 'failed' ? 'error' : 'ok');
   };
 
-  const isSig = res?.test?.p < 0.05;
+  const isSig = res?.test?.p != null && res.test.p < 1 - confLevel;
 
   return (
     <div className="rs-tl-epi-grid">
@@ -1233,6 +1255,8 @@ function PersonTimePane({ t, lang, notify }) {
         <p className="rs-soft rs-small">{t('tools.openepi.pt.desc')}</p>
 
         {/* Veterinary Presets Selector */}
+        {/* The example numbers are made up; say so where they are chosen, not only in the aria-label. */}
+        <p className="rs-soft rs-xsmall">{t('tools.openepi.preset.label')}</p>
         <div className="rs-tl-preset-bar">
           <select
             className="rs-select rs-tl-preset-select"
@@ -1273,7 +1297,7 @@ function PersonTimePane({ t, lang, notify }) {
               <input id="pt-a" type="number" min="0" className="rs-input" value={a} onChange={(e) => setA(e.target.value)} />
             </Field>
             <Field label={t('tools.openepi.pt.time')} htmlFor="pt-pt1">
-              <input id="pt-pt1" type="number" min="1" step="any" className="rs-input" value={pt1} onChange={(e) => setPt1(e.target.value)} />
+              <input id="pt-pt1" type="number" min="0" step="any" className="rs-input" value={pt1} onChange={(e) => setPt1(e.target.value)} />
             </Field>
           </div>
         </div>
@@ -1285,7 +1309,7 @@ function PersonTimePane({ t, lang, notify }) {
               <input id="pt-c" type="number" min="0" className="rs-input" value={c} onChange={(e) => setC(e.target.value)} />
             </Field>
             <Field label={t('tools.openepi.pt.time')} htmlFor="pt-pt0">
-              <input id="pt-pt0" type="number" min="1" step="any" className="rs-input" value={pt0} onChange={(e) => setPt0(e.target.value)} />
+              <input id="pt-pt0" type="number" min="0" step="any" className="rs-input" value={pt0} onChange={(e) => setPt0(e.target.value)} />
             </Field>
           </div>
         </div>

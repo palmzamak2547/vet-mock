@@ -7,11 +7,14 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import tools from '../../src/i18n/tools.js';
+import toolsMain from '../../src/i18n/tools.js';
+import openepi from '../../src/i18n/openepi.js';
 import workspace from '../../src/i18n/workspace.js';
 import { keyPart } from '../../src/workspace/lib/keys.js';
 import { AGG_FNS } from '../../src/workspace/screens/tools/tools-model.js';
 
+// The tool screens' words: tools.js, plus openepi.js that the lazy OpenEpi screen registers itself.
+const tools = { th: { ...toolsMain.th, ...openepi.th }, en: { ...toolsMain.en, ...openepi.en } };
 const here = path.dirname(fileURLToPath(import.meta.url));
 const src = path.resolve(here, '../../src');
 const FILES = [
@@ -74,4 +77,12 @@ test('no Thai text in the tool screens or the planning code', () => {
 test('made-up data is named so in both languages', () => {
   assert.equal(tools.th['tools.examples.madeUp'], 'ข้อมูลสมมุติ');
   assert.equal(tools.en['tools.examples.madeUp'], 'made-up data');
+});
+
+test('the lab words are registered by the workspace, not only by the project screen', () => {
+  // PowerTool prints t(reasonKey) for lab.invalid.power.* and lab.undefined.power.*; /app/tools/power can
+  // open before any project, so the area has to be registered where the workspace starts (69071671 had
+  // moved it into Project.jsx).
+  const ws = readFileSync(path.join(src, 'workspace', 'Workspace.jsx'), 'utf8');
+  assert.match(ws, /registerArea\('lab', lab\)/);
 });

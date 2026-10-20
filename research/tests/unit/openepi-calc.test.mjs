@@ -27,7 +27,8 @@ test('computeTwoByTwo: cohort study calculates RR, OR, RD, and Chi-square', () =
   // Chi-square uncorrected: N * (ad - bc)^2 / (n1 * n0 * m1 * m0) = 200 * (2000)^2 / (100 * 100 * 40 * 160) = 12.5
   assert.ok(Math.abs(res.tests.uncorrected.stat - 12.5) < 1e-4);
   assert.ok(res.tests.uncorrected.p < 0.001);
-  assert.ok(res.tests.fisher.p < 0.001);
+  // null < 0.001 is true in JavaScript, so this line once passed while Fisher's p was always null.
+  assert.ok(res.tests.fisher.p > 0 && res.tests.fisher.p < 0.001);
 });
 
 test('computeTwoByTwo: handles zero cell with Haldane adjustment option', () => {

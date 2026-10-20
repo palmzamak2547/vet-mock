@@ -25,7 +25,9 @@ export function computeTwoByTwo({ a, b, c, d, design = 'cohort', confLevel = 0.9
     measures: ['RR', 'OR', 'RD', 'PR', 'POR', 'PD', 'AFe', 'AFp', 'AFeEst', 'AFpEst'],
   });
 
-  const fisher = fisher2x2(t, { alternative: 'two.sided', confLevel });
+  // ponytail: Fisher walks the whole hypergeometric support (about 0.25 s at N = 2e6, linear in N), so it
+  // is skipped above 5e6 animals (the row shows a dash; the chi-square rows stay).
+  const fisher = N <= 5e6 ? fisher2x2(t, { alternative: 'two.sided', confLevel, pOnly: true }) : null;
 
   // Chi-square statistics (1 degree of freedom)
   let chisqUncorrected = null;
@@ -59,7 +61,8 @@ export function computeTwoByTwo({ a, b, c, d, design = 'cohort', confLevel = 0.9
       uncorrected: { stat: chisqUncorrected, df: 1, p: pUncorrected },
       yates: { stat: chisqYates, df: 1, p: pYates },
       mantelHaenszel: { stat: chisqMh, df: 1, p: pMh },
-      fisher: { p: fisher?.pValue ?? null },
+      // fisher2x2 returns { p }; R fisher.test's two-sided p (OpenEpi prints twice its one-tailed p).
+      fisher: { p: fisher?.p ?? null },
     },
     design,
   };
@@ -80,12 +83,17 @@ export function computeDiagnostic({ TP, FP, FN, TN, confLevel = 0.95, priorProb 
   const dxExact = diagnosticAccuracy({ TP, FN, FP, TN }, { confLevel, ciMethod: 'exact' });
 
   // Diagnostic Odds Ratio: (TP * TN) / (FP * FN)
+  // Log (Woolf) interval, defined only when no cell is 0 (OpenEpi DiagnosticTest gives the same).
   let dor = null;
   if (FP > 0 && FN > 0) {
     const est = (TP * TN) / (FP * FN);
-    const z = qnorm(1 - (1 - confLevel) / 2);
-    const se = Math.sqrt(1 / Math.max(1, TP) + 1 / Math.max(1, FP) + 1 / Math.max(1, FN) + 1 / Math.max(1, TN));
-    dor = { value: est, ci: [est * Math.exp(-z * se), est * Math.exp(z * se)] };
+    let ci = [null, null];
+    if (TP > 0 && TN > 0) {
+      const z = qnorm(1 - (1 - confLevel) / 2);
+      const se = Math.sqrt(1 / TP + 1 / FP + 1 / FN + 1 / TN);
+      ci = [est * Math.exp(-z * se), est * Math.exp(z * se)];
+    }
+    dor = { value: est, ci };
   }
 
   // Pre-test / Post-test probabilities (Fagan / Bayes)
@@ -134,7 +142,8 @@ export function computeDiagnostic({ TP, FP, FN, TN, confLevel = 0.95, priorProb 
  * @param {number} confLevel
  */
 export function computeProportionMethods(x, n, confLevel = 0.95) {
-  const p = n > 0 ? x / n : null;
+  if (!(n > 0) || !(x >= 0) || x > n) return null;
+  const p = x / n;
   return {
     x,
     n,
@@ -202,9 +211,11 @@ export function computePersonTimeRates({ a, pt1, c, pt0, multiplier = 1000, conf
     }
   }
 
-  // Attributable fraction in exposed and population
-  const afe = Number.isFinite(irr) && irr > 0 ? (irr - 1) / irr : null;
-  const afp = T > 0 ? (T - (pt1 + pt0) * r0) / T : null;
+  // Attributable fraction in exposed and population; none for a protective exposure (IRR < 1),
+  // as twoByTwo does for risks (OpenEpi then reports a preventive fraction instead).
+  const harmful = Number.isFinite(irr) && irr >= 1;
+  const afe = harmful ? (irr - 1) / irr : null;
+  const afp = harmful && T > 0 ? (T - (pt1 + pt0) * r0) / T : null;
 
   return {
     a,

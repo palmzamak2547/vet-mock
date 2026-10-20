@@ -12,7 +12,7 @@ import { val, nullVal, testRow, role, completeRows, column } from './common.js';
 
 /**
  * @param {[[number, number], [number, number]]} table
- * @param {{ alternative: 'two.sided'|'less'|'greater', confLevel: number, or?: number }} opts
+ * @param {{ alternative: 'two.sided'|'less'|'greater', confLevel: number, or?: number, pOnly?: boolean }} opts
  * @returns {{ p: number, estimate: number, ci: [number, number] }}
  */
 export function fisher2x2(table, opts = {}) {
@@ -36,7 +36,8 @@ export function fisher2x2(table, opts = {}) {
 
   const dnhyper = (ncp) => {
     const d = logdc.map((l, i) => l + Math.log(ncp) * support[i]);
-    const mx = Math.max(...d);
+    // A loop, not Math.max(...d): spreading a support of ~100k values overflows the call stack.
+    const mx = d.reduce((a, v) => (v > a ? v : a), -Infinity);
     const e = d.map((v) => Math.exp(v - mx));
     const tot = e.reduce((a, b) => a + b, 0);
     return e.map((v) => v / tot);
@@ -68,6 +69,10 @@ export function fisher2x2(table, opts = {}) {
     const dx = d[x - lo] * relErr;
     p = d.reduce((a, v) => (v <= dx ? a + v : a), 0);
   }
+
+  // opts.pOnly: the caller shows only the p-value (the OpenEpi quick 2x2), so skip the conditional MLE
+  // and its interval, whose root finding repeats the whole support many times (seconds at N = 2e6).
+  if (opts.pOnly) return { p: Math.max(0, Math.min(1, p)), estimate: null, ci: [null, null] };
 
   const EPS = Number.EPSILON;
   const mle = () => {

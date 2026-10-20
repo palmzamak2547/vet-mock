@@ -18,6 +18,8 @@ const PREFIX = {
   'report-m3': 'report.',
   // M3a's analysis-screen words and statistics terms, loaded with the project screen (not in the first workspace chunk)
   'workspace-m3': 'ws.', 'terms-m3': 'term.',
+  // the quick epidemiology calculators' words, loaded with their lazy screen (screens/tools/OpenEpiTool.jsx)
+  openepi: 'tools.openepi.',
 };
 
 const files = readdirSync(dir).filter((f) => f.endsWith('.js') && f !== 'index.js');

@@ -13,3 +13,9 @@ src/data/video-summaries-meta.js text eol=lf
 src/data/video-summaries.js text eol=lf
 src/data/video-summary-clips/*.js text eol=lf
 docs/content-inventory.md text eol=lf
+
+# Licence texts are compared byte for byte (research runtime-registry test: the Studio's copy of the
+# Sarabun OFL equals the main app's). The main app's file was committed with CRLF and the copy with LF,
+# so the copy flipped to CRLF in 69071671 to match. Same text either way; both are LF from here on.
+research/src/licenses/*.txt text eol=lf
+public/Sarabun/OFL.txt text eol=lf
