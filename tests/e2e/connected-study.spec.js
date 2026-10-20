@@ -246,6 +246,27 @@ test.describe('connected study experience', () => {
     // this assertion true as the bank grows or shrinks.
     await expect(page.getByRole("button", { name: String(introCount), exact: true })).toHaveAttribute("aria-pressed", "true");
     await expect(page.getByRole('button', { name: '10', exact: true })).toHaveCount(0);
+    expect(pageErrors).toEqual([]);
+  });
+
+  // The second half of the journey, its own test since 20 Oct: the whole
+  // journey took 15.5 s of 30 on CI WebKit even with reduced motion, over the
+  // 40% duration budget. This half walks the same path to the topic's
+  // settings without re-checking it, then sits the set.
+  test('core mobile journey: a set answered wrong is scored and named truthfully', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    const pageErrors = [];
+    page.on('pageerror', (error) => pageErrors.push(error.message));
+    const introCount = Q_COUNTS_BY_TOPIC['epidemiology']?.['epidem-intro'];
+    const introLabel = new RegExp(`ฝึกข้อสอบ Intro to Vet Epidemiology ${introCount} ข้อ`);
+    await page.goto('/app/year', { waitUntil: 'domcontentloaded' });
+    await page.getByRole('button', { name: /ปี 5 LIVE/ }).click();
+    await page.getByRole('button', { name: /เทอม 1 ปลายภาค/ }).click();
+    await page.locator('.vmx-subject-card').filter({ hasText: /ระบาดวิทยา/ }).first().click({ timeout: 15_000 });
+    await page.getByRole('button', { name: introLabel }).click();
+    await expect(page.locator('#vmx-config-count-help')).toContainText(`มี ${introCount} ข้อในชุดนี้`);
+
     // Name the switch: ConfigView grew a second one (เฉลยทันที), and a bare
     // getByRole('switch') that used to be unambiguous now matches both.
     await page.getByRole('switch', { name: /จับเวลา/ }).click();
