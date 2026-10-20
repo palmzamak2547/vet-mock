@@ -244,6 +244,24 @@ jobs:
           --project=${{ matrix.project }} --workers=1
           --shard=${{ matrix.shard }}
 
+      # Per-test durations against their timeouts. Warns (annotation + step summary) on a test that
+      # used more than 40% of its timeout, the same headroom rule the shard caps above follow, so a
+      # slow test shows up before a slow runner turns it red.
+      - name: e2e duration budget
+        if: always()
+        run: node scripts/e2e-durations.mjs e2e-results.json connected-e2e.json
+
+      - name: Upload the duration report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: e2e-durations-${{ matrix.report }}
+          path: |
+            e2e-results.json
+            connected-e2e.json
+          if-no-files-found: ignore
+          retention-days: 14
+
       - name: Upload HTML report on failure
         if: failure() || cancelled()
         uses: actions/upload-artifact@v7
