@@ -3,14 +3,18 @@
 // gate.mjs — the release gate, in the order that answers soonest
 // ============================================================
 // Usage:
-//   npm run gate          node scripts/gate.mjs
-//   npm run gate:fast     node scripts/gate.mjs --e2e-concurrent
+//   npm run gate          node scripts/gate.mjs: phases A-C, then e2e on smoke and
+//                         the specs this branch changes (Chromium). The full
+//                         matrix runs in CI on every pull request.
+//   npm run gate:full     node scripts/gate.mjs --full: the two CI Smoke steps here
+//   npm run gate:fast     node scripts/gate.mjs --e2e-concurrent (implies --full)
 //   npm run gate:data     node scripts/gate.mjs --data-only  (phase A, ~10-20 s)
 //   npm run gate:serial   the root steps and the Research phase as one && chain,
 //                         no script involved. Not the SQL harnesses: they run
 //                         only when a SQL-touching file moved and pglite is
 //                         reachable, which a plain chain cannot decide.
-// Flags: --e2e-concurrent   run both e2e steps at once (second on its own port)
+// Flags: --full             phase D runs the full CI e2e matrix
+//        --e2e-concurrent   --full, both e2e steps at once (second on its own port)
 //        --data-only        stop after phase A: no build, no browsers
 //        --jobs=N           phase A runs N steps at a time (default 6)
 //        --with-research    force the Research phase (it is auto-detected
@@ -50,8 +54,8 @@
 //             the one-line fix, instead of shipping on a suite nobody ran.
 //   D  e2e    test:e2e:chromium, then test:e2e:gl: the two CI Smoke steps with
 //             CI's projects, workers, retry and forbid-only. --e2e-concurrent
-//             runs them together, the second on PLAYWRIGHT_PORT=41733 (41732
-//             is the contrast audit's port) with its own output folder.
+//             runs them together, the second on its own port (this checkout's
+//             concurrent port, tests/e2e/local-port.js) and output folder.
 //
 // Guards:
 //   • HEAD and `git status` (plus the size and mtime of every file it lists)
@@ -69,9 +73,11 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { e2ePorts } from '../tests/e2e/local-port.js';
 
 export const DEFAULT_JOBS = 6;
-export const CONCURRENT_E2E_PORT = '41733';
+// The second e2e step's port, per checkout (tests/e2e/local-port.js).
+export const concurrentE2ePort = (cwd) => String(e2ePorts(cwd).concurrent);
 
 // ── Reading the npm scripts ────────────────────────────────────────────
 // `npm run a && npm run b -- --x` becomes the leaf commands a and b would run,
@@ -137,11 +143,39 @@ export function phaseATasks(scripts, { extra = [] } = {}) {
  * remember to run its suite.
  */
 export function researchChanged(cwd = process.cwd()) {
+  return changedFiles(cwd).some((f) => f.startsWith('research/'));
+}
+
+/**
+ * Every path this branch changes: committed since it left origin/main, plus
+ * what `git status` lists (staged, unstaged, untracked). A pull request's
+ * work is committed before its gate runs, so the working tree alone says
+ * nothing. Without origin/main (a fresh clone, the unit fixtures) only the
+ * working tree counts.
+ */
+export function changedFiles(cwd = process.cwd()) {
+  const git = (...args) => execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+  const files = new Set();
   try {
-    const out = execFileSync('git', ['status', '--porcelain=v1', '--untracked-files=all', '--', 'research'],
-      { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
-    return out.trim().length > 0;
-  } catch { return false; }
+    const base = git('merge-base', 'HEAD', 'origin/main').trim();
+    for (const f of git('diff', '--name-only', base, 'HEAD').split('\n')) if (f) files.add(f);
+  } catch { /* no origin/main */ }
+  try {
+    for (const row of git('status', '--porcelain=v1', '--untracked-files=all').split('\n')) {
+      const f = row.slice(3).split(' -> ').pop().replace(/^"|"$/g, '');
+      if (f) files.add(f);
+    }
+  } catch { /* not a repository */ }
+  return [...files];
+}
+
+/** The e2e specs the quick phase D runs: smoke, and every spec this branch changes. */
+export function quickSpecs(cwd = process.cwd()) {
+  const specs = new Set(['tests/e2e/smoke.spec.js']);
+  for (const f of changedFiles(cwd)) {
+    if (/^tests\/e2e\/[^/]+\.spec\.js$/.test(f) && fs.existsSync(path.join(cwd, f))) specs.add(f);
+  }
+  return [...specs].sort();
 }
 
 /**
@@ -407,6 +441,7 @@ const seconds = (ms) => `${(ms / 1000).toFixed(1)} s`;
 
 export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2), log = console.log } = {}) {
   const concurrentE2e = argv.includes('--e2e-concurrent');
+  const full = concurrentE2e || argv.includes('--full');
   const dataOnly = argv.includes('--data-only');
   const withResearch = argv.includes('--with-research');
   const noSql = argv.includes('--no-sql');
@@ -556,18 +591,31 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
     if (moved('phase E')) return finish('tree changed', 1);
   }
 
-  // D — the two CI Smoke steps
+  // D — e2e. By default only the specs this change touches plus smoke, on
+  // Chromium: the full matrix runs in CI on the pull request (7 runners,
+  // ~10 min) and locally took 45 min on a quiet machine (2,719 s, 5.149.0)
+  // and ~65 under five sessions at once. --full runs the two CI Smoke steps
+  // here as before. Either way the machine-wide browser lock comes first.
   const releaseLock = await acquireGateLock({ cwd, log });
   t = Date.now();
   let e2e;
-  if (concurrentE2e) {
+  let e2eSteps = ['test:e2e:chromium', 'test:e2e:gl'];
+  if (!full) {
+    const specs = quickSpecs(cwd);
+    e2eSteps = ['test:e2e:quick'];
+    log(`\n── phase D (e2e): test:e2e:quick on ${specs.length} spec(s): ${specs.join(' ')}`);
+    log('   (the full matrix runs in CI on the pull request; npm run gate:full runs it here)');
+    e2e = [await runStreaming({ label: 'npm run test:e2e:quick', command: `npm run test:e2e:quick -- ${specs.join(' ')}`, shell: true }, {
+      cwd, env: { PLAYWRIGHT_OUTPUT_DIR: 'test-results/quick' },
+    })];
+  } else if (concurrentE2e) {
     log('\n── phase D (e2e): test:e2e:chromium and test:e2e:gl at once');
     e2e = await Promise.all([
       runStreaming(npmRun('test:e2e:chromium'), {
         cwd, prefix: '[chromium]', env: { PLAYWRIGHT_OUTPUT_DIR: 'test-results/chromium' },
       }),
       runStreaming(npmRun('test:e2e:gl'), {
-        cwd, prefix: '[gl]', env: { PLAYWRIGHT_PORT: CONCURRENT_E2E_PORT, PLAYWRIGHT_OUTPUT_DIR: 'test-results/gl' },
+        cwd, prefix: '[gl]', env: { PLAYWRIGHT_PORT: concurrentE2ePort(cwd), PLAYWRIGHT_OUTPUT_DIR: 'test-results/gl' },
       }),
     ]);
   } else {
@@ -579,7 +627,7 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
   }
   releaseLock();
   timings.push(['D e2e', Date.now() - t]);
-  const e2eFailed = ['test:e2e:chromium', 'test:e2e:gl'].filter((_, i) => e2e[i] !== 0);
+  const e2eFailed = e2eSteps.filter((_, i) => e2e[i] !== 0);
   log(`── phase D (e2e): ${seconds(Date.now() - t)}${e2eFailed.length ? `, failed: ${e2eFailed.join(', ')}` : ''}`);
   if (moved('phase D')) return finish('tree changed', 1);
   if (e2eFailed.length) return finish(`${e2eFailed.join(' and ')} failed`, 1);

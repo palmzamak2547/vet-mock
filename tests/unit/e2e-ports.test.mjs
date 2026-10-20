@@ -9,9 +9,9 @@ import { readFileSync, readdirSync } from 'node:fs';
 const read = (p) => readFileSync(new URL(`../../${p}`, import.meta.url), 'utf8');
 const EPHEMERAL_FROM = 32768;
 
-test('e2e servers listen below the ephemeral port range', () => {
+test('e2e servers listen below the ephemeral port range', async () => {
   const ports = [
-    ['tests/e2e/local-port.js', Number(read('tests/e2e/local-port.js').match(/PLAYWRIGHT_PORT \|\| (\d+)/)?.[1])],
+    ['tests/e2e/local-port.js', (await import('../e2e/local-port.js')).LOCAL_E2E_PORT],
     // The default only: VCA_E2E_PORT may name another port for a second checkout's run.
     ['vca/playwright.config.js', Number(read('vca/playwright.config.js').match(/VCA_E2E_PORT \|\| (\d+)/)?.[1])],
   ];
@@ -30,4 +30,21 @@ test('specs read the local e2e port from tests/e2e/local-port.js, never a defaul
     .filter((f) => /PLAYWRIGHT_PORT\s*\|\|/.test(readFileSync(new URL(f, dir), 'utf8')));
   assert.deepEqual(own, []);
   assert.match(read('playwright.config.js'), /from '\.\/tests\/e2e\/local-port\.js'/);
+});
+
+// Six worktrees on one machine all used 24731 on 20 Oct; a second gate failed at once.
+test('each checkout gets its own stable ports, all below the ephemeral range', async () => {
+  const { e2ePorts } = await import('../e2e/local-port.js');
+  const a = e2ePorts('C:/dev/vmu/wiki4');
+  assert.deepEqual(e2ePorts('c:/DEV/vmu/WIKI4/'), a, 'same checkout, same ports on every spelling of its path');
+  const seen = new Set();
+  for (const dir of ['C:/Users/palmz/Desktop/vet-mock', 'C:/dev/vmu/wiki4', 'C:/dev/vetmock-library', 'C:/dev/vetmock-nodemo',
+    'C:/dev/vetmock-polish-1020', 'C:/dev/vetmock-pipeline-v2', '/home/runner/work/vet-mock/vet-mock']) {
+    const p = e2ePorts(dir);
+    seen.add(p.local);
+    for (const port of Object.values(p)) assert.ok(port > 1024 && port < EPHEMERAL_FROM, `${dir}: ${port}`);
+    assert.equal(p.concurrent - p.local, 1000);
+    assert.equal(p.contrast - p.local, 2000);
+  }
+  assert.equal(seen.size, 7, 'the known worktrees do not share a port');
 });
