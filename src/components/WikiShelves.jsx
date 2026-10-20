@@ -10,6 +10,7 @@
 // ============================================================
 
 import { useEffect, useState } from 'react';
+import Mochi from './Mochi.jsx';
 import { SHELF_SUBJECTS, SHELF_TOPICS } from '../lib/vetwiki/shelf.generated.js';
 import { SUBJECT_COVERS } from '../data/subject-covers.js';
 import { motionIsReduced } from '../lib/motion-preferences.js';
@@ -162,7 +163,7 @@ export default function WikiShelves({ years, ownYear, topicsBySubject, subjectIn
   return (
     <div className="vw-library" onKeyDown={onKeyDown}>
       <p className="vmx-sr-only" role="status" aria-live="polite">{said}</p>
-      {years.map(([year, ids]) => {
+      {years.map(([year, ids], shelfIndex) => {
         // One Tab stop a shelf (its open volume's spine, or its first), so
         // Tab reaches an open volume's chapters next instead of after every
         // spine left on the shelf; the arrow keys walk the spines.
@@ -205,6 +206,12 @@ export default function WikiShelves({ years, ownYear, topicsBySubject, subjectIn
                 </li>
               );
             })}
+            {/* Mochi sits behind the last volume of the first shelf, peeking out. */}
+            {shelfIndex === 0 && (
+              <li className="vw-shelf-mochi" aria-hidden="true">
+                <Mochi state="peek" size={40} slot="wiki-shelf" />
+              </li>
+            )}
           </ul>
           {pulled && ids.includes(pulled) && (
             <Volume

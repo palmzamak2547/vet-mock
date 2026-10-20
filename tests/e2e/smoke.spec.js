@@ -584,4 +584,46 @@ test.describe('VetMock smoke flow', () => {
 
     expect(consoleErrors, `Unexpected console errors on the VetWiki chapter end:\n${consoleErrors.join('\n')}`).toEqual([]);
   });
+
+  // The strip's date opens the panel at the checking history, built from the
+  // points' own review dates; a section in it takes the reader there.
+  test('the VetWiki checking history lists the days and jumps to a section', async ({ page }) => {
+    await page.goto('/wiki/com5/rabies');
+    await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible({ timeout: 10_000 });
+    await page.locator('.vw-strip-cell.is-date').click();
+    const dialog = page.getByRole('dialog', { name: 'ที่มาของเนื้อหา' });
+    const history = dialog.locator('.vw-hist');
+    await expect(history.getByRole('heading', { name: 'ประวัติการตรวจทาน' })).toBeInViewport();
+    await expect(history).toContainText('ไม่ใช่การรับรองโดยอาจารย์หรือผู้เชี่ยวชาญ');
+    await expect(history.locator('li').first()).toContainText(/ตรวจทาน \d+ จุด กับแหล่งอ้างอิง \d+ แหล่ง/);
+    await history.getByRole('button', { name: /^04 Diagnosis/ }).first().click();
+    await expect(dialog).toBeHidden();
+    await expect(page.locator('#com5--rabies--diagnosis .vw-h2')).toBeFocused();
+    await expect(page.locator('#com5--rabies--diagnosis')).toBeInViewport();
+
+    expect(consoleErrors, `Unexpected console errors on the VetWiki history:\n${consoleErrors.join('\n')}`).toEqual([]);
+  });
+
+  // The Encyclopédie tree at the foot of the index opens the map: every
+  // topic as a link; Escape closes it and gives focus back to the tree.
+  test('the VetWiki map lists every topic and opens one', async ({ page }) => {
+    await page.goto('/wiki');
+    await expect(page.getByRole('heading', { level: 1, name: 'VetWiki' })).toBeVisible({ timeout: 10_000 });
+    const door = page.getByRole('button', { name: /แผนที่ VetWiki/ });
+    await door.click();
+    const map = page.getByRole('dialog', { name: 'แผนที่ VetWiki' });
+    await expect(map).toBeVisible();
+    const total = Number((await map.locator('.vw-map-head p').textContent()).match(/(\d+) หัวข้อ/)[1]);
+    expect(total).toBeGreaterThan(100);
+    await expect(map.locator('.vw-tree a')).toHaveCount(total);
+    await page.keyboard.press('Escape');
+    await expect(map).toBeHidden();
+    await expect(door).toBeFocused();
+    await door.click();
+    await map.locator('.vw-tree a[href$="/wiki/com5/rabies"]').click();
+    await expect(page).toHaveURL(/\/wiki\/com5\/rabies$/);
+    await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible();
+
+    expect(consoleErrors, `Unexpected console errors on the VetWiki map:\n${consoleErrors.join('\n')}`).toEqual([]);
+  });
 });

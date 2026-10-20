@@ -29,7 +29,7 @@ import {
   listTopics, loadTopic, provenanceSummary, resolveSource,
   REVIEW_LABEL,
 } from '../lib/vetwiki/runtime.js';
-import { articleCitations, citationText } from '../lib/vetwiki/cite.js';
+import { articleCitations, citationText, reviewHistory } from '../lib/vetwiki/cite.js';
 import { isTopicRead, setTopicRead, topicProgressKey } from '../lib/study-progress.js';
 import { SectionEvidence, SourceList } from '../components/WikiEvidence.jsx';
 import { conflictCountFor } from '../lib/vetwiki/conflict-summary.generated.js';
@@ -43,6 +43,9 @@ import { useModalFocus } from '../hooks/useModalFocus.js';
 import StatePanel from '../components/StatePanel.jsx';
 import Mochi from '../components/Mochi.jsx';
 import WikiShelves, { WikiFeatured, thaiDay } from '../components/WikiShelves.jsx';
+// Bundled, not lazy: small, and a separate chunk left the tap waiting on a
+// cold first load (7 s in Firefox while the index's other chunks loaded).
+import WikiMap from '../components/WikiMap.jsx';
 import { Q_COUNTS_BY_TOPIC } from '../data/q-counts.js';
 import { SHELF_TOTALS, SHELF_RELATED } from '../lib/vetwiki/shelf.generated.js';
 import '../styles-wiki.css';
@@ -158,8 +161,15 @@ function NoteBody({ item }) {
   return null;
 }
 
-function ProvenancePanel({ prov, onClose }) {
+const pad2 = (i) => String(i + 1).padStart(2, '0');
+
+function ProvenancePanel({ prov, history, sections, atHistory, onJump, onClose }) {
   const dialogRef = useModalFocus({ onClose });
+  const historyRef = useRef(null);
+  // Opened from the strip's date, the panel starts at its history.
+  useLayoutEffect(() => {
+    if (atHistory) historyRef.current?.scrollIntoView({ block: 'start' });
+  }, [atHistory]);
   return (
     <div className="vmx-modal-overlay" onClick={onClose}>
       <div ref={dialogRef} className="vmx-modal" role="dialog" aria-modal="true" aria-label="ที่มาของเนื้อหา" tabIndex={-1} data-vmx-modal="true" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 560 }}>
@@ -200,6 +210,27 @@ function ProvenancePanel({ prov, onClose }) {
               ))}
             </div>
           </>
+        )}
+        {history.length > 0 && (
+          <section className="vw-hist" ref={historyRef} aria-labelledby="vw-hist-title">
+            <h3 id="vw-hist-title">ประวัติการตรวจทาน</h3>
+            <p className="vw-hist-how">ทุกจุดตรวจโดยเทียบข้อความกับแหล่งอ้างอิงภายนอกที่ตามไปอ่านได้ ไม่ใช่การรับรองโดยอาจารย์หรือผู้เชี่ยวชาญ</p>
+            <ol>
+              {history.map((day) => (
+                <li key={day.date}>
+                  <b>{thaiDay(day.date)}</b>
+                  <span>ตรวจทาน {day.claims.toLocaleString('en-US')} จุด กับแหล่งอ้างอิง {day.sources.toLocaleString('en-US')} แหล่ง</span>
+                  <span className="vw-hist-secs">
+                    {day.sections.map((si) => (
+                      <button key={si} type="button" onClick={() => onJump(sections[si].id)}>
+                        {pad2(si)} {sections[si].heading}
+                      </button>
+                    ))}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </section>
         )}
         <p style={{ fontSize: 12, lineHeight: 1.5, color: 'var(--clr-ink-soft)', marginTop: 14, paddingTop: 12, borderTop: '1px dashed var(--clr-border)' }}>
           {prov.draftSectionCount > 0
@@ -363,6 +394,7 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
         .filter(([, list]) => list.length)])
       .filter(([, subjects]) => subjects.length)
     : yearGroups), [yearGroups, filtering]);
+  const [mapOpen, setMapOpen] = useState(false);
   const shelfYears = useMemo(() => yearGroups.map(([y, subjects]) => [y, subjects.map(([id]) => id)]), [yearGroups]);
   const topicsBySubject = useMemo(() => new Map(groups), [groups]);
   // The flagship to start from, and the five topics with the most practice
@@ -468,6 +500,7 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
 
       {query && !searching && groups.length === 0 && (
         <div className="vmx-empty">
+          <Mochi state="think" size={56} slot="wiki-empty" className="vw-empty-mochi" />
           ไม่พบหัวข้อที่ตรงกับ “{q}”
           {/* One way on from an empty result: back to every subject. */}
           <div style={{ marginTop: 10 }}>
@@ -582,14 +615,31 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
             ดูหัวข้อที่มีจุดเหล่านี้
           </button>
           {SHELF_TOTALS.newestReview && <p className="vw-colophon-date">ตรวจทานครั้งล่าสุด {thaiDay(SHELF_TOTALS.newestReview)}</p>}
+          <button type="button" className="vw-tree-door" onClick={() => setMapOpen(true)} aria-haspopup="dialog"
+            aria-label="แผนที่ VetWiki ทุกหัวข้อในหน้าเดียว">
+            <span className="vw-tree-print" aria-hidden="true" />
+            <span>
+              <b>แผนที่ VetWiki</b>
+              <span>ทุกหัวข้อในหน้าเดียว แตกกิ่งจากปี ไปวิชา ไปหัวข้อ</span>
+              <small>ภาพ: Diderot and d'Alembert, Encyclopédie, 1751, สาธารณสมบัติ</small>
+            </span>
+          </button>
         </footer>
+      )}
+      {mapOpen && (
+        <WikiMap
+          yearGroups={yearGroups}
+          nameOf={subjectName}
+          isRead={(t) => !!readingChecklist && inReadingList(t.subject, t.topic) && isTopicRead(readingChecklist, t.subject, t.topic)}
+          onOpen={(id) => { setMapOpen(false); onOpen(id); }}
+          onClose={() => setMapOpen(false)}
+        />
       )}
     </div>
   );
 }
 
 // ================= ARTICLE =================
-const pad2 = (i) => String(i + 1).padStart(2, '0');
 
 function ConflictLegend() {
   return <p className="vw-legend"><span className="vw-flag" aria-hidden="true">!</span> คือมีจุดที่หลักฐานไม่ตรงกับที่บรรยาย</p>;
@@ -814,7 +864,7 @@ const Section = React.memo(function Section({ s, i, chips, knowledgeId, copiedSt
   );
 });
 
-function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, chapter, siblings, prev, next, neighbours, reading, checklist, goPractice, practiceLabel, goNotes, onShowProv, shareUrl }) {
+function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, chapter, siblings, prev, next, neighbours, reading, checklist, goPractice, practiceLabel, goNotes, shareUrl }) {
   const [copied, setCopied] = useState('');
   const copyTimer = useRef(null);
   useEffect(() => () => clearTimeout(copyTimer.current), []);
@@ -905,6 +955,14 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
     target?.focus({ preventScroll: true });
   }, []);
   const goToSource = useCallback((n) => jumpTo(`vw-src-${n}`), [jumpTo]);
+  // 'how' or 'history': which part the provenance panel opens at.
+  const [provAt, setProvAt] = useState('');
+  const onShowProv = useCallback(() => setProvAt('how'), []);
+  const history = useMemo(() => reviewHistory(sections, resolveSource), [sections]);
+  const jumpFromProv = (id) => {
+    setProvAt('');
+    window.requestAnimationFrame(() => jumpTo(id));
+  };
   const jumpFromSheet = (id) => {
     setSheetOpen(false);
     // After the sheet has handed focus back to the pill, take it on.
@@ -1060,7 +1118,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
                 </a>
               )}
               {lastReviewed && (
-                <button type="button" className="vw-strip-cell is-date" onClick={onShowProv}>
+                <button type="button" className="vw-strip-cell is-date" onClick={() => setProvAt('history')}>
                   <b>{thaiDay(lastReviewed)}</b>
                   <span>ตรวจทานล่าสุด</span>
                 </button>
@@ -1165,6 +1223,10 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
           />
         </OptionalFeature>
       )}
+      {provAt && prov && (
+        <ProvenancePanel prov={prov} history={history} sections={sections}
+          atHistory={provAt === 'history'} onJump={jumpFromProv} onClose={() => setProvAt('')} />
+      )}
     </div>
   );
 }
@@ -1178,7 +1240,6 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   const [openId, setOpenId] = useState(() => (subject && topic && topics.some((t) => t.id === `${subject}--${topic}`) ? `${subject}--${topic}` : null));
   // The subject the index was last asked to show ({ subject, nonce }).
   const [indexFocus, setIndexFocus] = useState(null);
-  const [showProv, setShowProv] = useState(false);
   const [articleLoad, setArticleLoad] = useState({ id: null, status: 'idle', data: null, error: '' });
 
   const current = openId ? topics.find((t) => t.id === openId) : null;
@@ -1373,10 +1434,9 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
         prev={siblings[chapter.index - 2] || null} next={siblings[chapter.index] || null}
         neighbours={neighbours} reading={reading}
         onBackToIndex={backToIndex} onOpen={openTopic}
-        goPractice={goPractice} practiceLabel={practice.label} goNotes={goNotes} onShowProv={() => setShowProv(true)}
+        goPractice={goPractice} practiceLabel={practice.label} goNotes={goNotes}
         shareUrl={wikiUrl(typeof window!=='undefined'?window.location.origin:'', current.subject, current.topic)}
       />
-      {showProv && prov && <ProvenancePanel prov={prov} onClose={() => setShowProv(false)} />}
     </>
   );
 }

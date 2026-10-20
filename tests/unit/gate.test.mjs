@@ -24,7 +24,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   resolveSteps, phaseATasks, runPool, strayProcesses, treeChange, CONCURRENT_E2E_PORT,
-  researchChanged, researchTasks, sqlChanged, sqlTasks, uncoveredMigrations, HARNESS_MIGRATIONS,
+  researchChanged, researchTasks, sqlChanged, sqlTasks, uncoveredMigrations, HARNESS_MIGRATIONS, acquireGateLock,
 } from '../../scripts/gate.mjs';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
@@ -412,6 +412,8 @@ const shellEnv = () => {
   // The machine running the suite may have a pglite module configured; a case
   // that wants one says so through gateWith.
   delete env.PGLITE_MODULE;
+  // Its own browser lock: a real gate in another worktree holds the shared one.
+  env.VMX_GATE_LOCK = path.join(os.tmpdir(), `gate-test-lock-${process.pid}`);
   return env;
 };
 
@@ -510,4 +512,22 @@ test('a tree change names the files that moved', () => {
   assert.equal(treeChange(before, { ...before }), null);
   assert.match(treeChange(before, { head: before.head, status: ' M src/a.js 11:2' }), /src\/a\.js/);
   assert.match(treeChange(before, { head: 'b'.repeat(40), status: before.status }), /HEAD moved/);
+});
+
+test('phase D takes a machine-wide lock, waits for a live holder and takes over a dead one', async () => {
+  const lockPath = path.join(os.tmpdir(), `gate-lock-unit-${process.pid}`);
+  fs.rmSync(lockPath, { force: true });
+  // A dead holder (no such pid) is taken over at once.
+  fs.writeFileSync(lockPath, JSON.stringify({ pid: 2 ** 22 + 7, cwd: 'gone' }));
+  const release = await acquireGateLock({ lockPath, log: () => {} });
+  assert.equal(JSON.parse(fs.readFileSync(lockPath, 'utf8')).pid, process.pid);
+  // A live holder (this process) makes the next one wait until released.
+  const said = [];
+  let slept = 0;
+  const second = acquireGateLock({ lockPath, log: (m) => said.push(m), sleep: async () => { slept += 1; if (slept === 2) release(); } });
+  const releaseSecond = await second;
+  assert.equal(slept, 2);
+  assert.match(said[0], /another gate is running its browsers/);
+  releaseSecond();
+  assert.equal(fs.existsSync(lockPath), false);
 });

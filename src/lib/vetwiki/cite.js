@@ -105,3 +105,29 @@ export function sourceChipLabel(src) {
   const name = sourceShortName(src);
   return src?.year ? `${name} ${src.year}` : name;
 }
+
+// The article's checking history, built only from what the claims record: the
+// day each was checked against its source (review.reviewedAt). Newest day
+// first; for each day the claims, the sections they sit in (by index, in
+// article order) and the distinct works they cite. No reviewer names: every
+// claim's reviewer is the machine sentinel 'reference-verified' (schema.js).
+export function reviewHistory(sections, resolve) {
+  const days = new Map();
+  (sections || []).forEach((section, si) => {
+    for (const claim of section.claims || []) {
+      const date = claim.review?.reviewedAt;
+      if (!date) continue;
+      let day = days.get(date);
+      if (!day) days.set(date, (day = { date, claims: 0, sections: [], works: new Set() }));
+      day.claims += 1;
+      if (day.sections[day.sections.length - 1] !== si) day.sections.push(si);
+      for (const ref of claim.sourceRefs || []) {
+        const src = resolve(ref);
+        if (src) day.works.add(src.work || src.id);
+      }
+    }
+  });
+  return [...days.values()]
+    .sort((a, b) => (a.date < b.date ? 1 : -1))
+    .map(({ works, ...day }) => ({ ...day, sources: works.size }));
+}

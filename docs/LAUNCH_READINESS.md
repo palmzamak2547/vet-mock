@@ -1,5 +1,13 @@
 # VetMock — Launch Readiness
 
+## Release 5.149.0 — 2026-10-20 (Claude Code)
+
+VetWiki phase 4 of `work/vetwiki-redesign/BRIEF.md` without the optional crawler copy (D6): the map of VetWiki behind the colophon's Encyclopédie tree (`src/components/WikiMap.jsx`, every topic a link), the checking history in the provenance panel (`reviewHistory`, from the points' own review dates; the strip's date opens it), Mochi on an empty search and at the end of the first shelf. The gate's phase D takes a machine-wide lock (`acquireGateLock`).
+
+One independent review before the push (logic, React, accessibility, copy, lints): nothing serious; the empty Mochi slot when the companion is off now takes no room.
+
+Checks: the first two gates failed from machine load only (five sessions ran e2e at once: CPU 82 %, 3.3 of 31.7 GB free; Firefox opened a tab in 23.6 s; then a second gate held the shared port), which is why the lock exists. Final `npm run gate` on a quiet machine, exit 0: data 52/52, build, dist, e2e Chromium 599 passed / 39 skipped and WebKit + Firefox 586 passed / 50 skipped with 2 flaky: a Playwright worker process crash in Firefox before its test started (exit 0xC0000409), and WebKit waiting 30 s for the exam's "ส่งข้อสอบ ✓" button (6.2 s on retry; the second WebKit stall at the exam submit today, handed to the polish session). The VetWiki e2e ran three times on four profiles (82 passed) and the map and history tests 12/12 on Firefox. Production proof follows the push.
+
 ## Release 5.148.0 — 2026-10-17 (Claude Code)
 
 PR #37 (VetMock VCA, vca.vetmock.com) merged into main. For vetmock.com this release is data: VCA round 1/2569 Part 2 (src/data/questions-vca-2569.js, 132 questions, 123 to learners, 9 held with a Thai note each), the VCA topics in curriculum.js and the regenerated counts. A second blind review of all 132 on the local checkout released 61 and 74, held 44, and fixed 14 others (docs/vca-handoff-2026-10-17.md). The VCA site is its own Vercel project, vetmock-vca, root vca/.

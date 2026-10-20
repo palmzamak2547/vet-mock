@@ -357,6 +357,51 @@ function listProcesses() {
   });
 }
 
+// ── One browser phase per machine ──────────────────────────────────────
+// Several sessions share this machine. On 2026-10-20 five ran their gates and
+// e2e together (CPU 82 %, 3.3 of 31.7 GB free, 209 node processes): Firefox
+// took 23.6 s to open a tab, a service worker went silent for 15 s and a
+// 21-second journey ran past its 30-second cap. None of it was the app, and
+// each gate's retry only made the machine slower for the others. Phase D now
+// takes a machine-wide lock and waits its turn. A lock whose process is gone
+// is taken over. VMX_GATE_LOCK moves it (the gate's own tests use a temp one).
+export function gateLockPath(env = process.env) {
+  return env.VMX_GATE_LOCK || path.join(os.tmpdir(), 'vetmock-gate-e2e.lock');
+}
+
+function alive(pid) {
+  try { process.kill(pid, 0); return true; } catch (error) { return error.code === 'EPERM'; }
+}
+
+export async function acquireGateLock({ lockPath = gateLockPath(), cwd = process.cwd(), log = console.log, waitMs = 15_000, sleep = (ms) => new Promise((r) => setTimeout(r, ms)) } = {}) {
+  let told = false;
+  for (;;) {
+    try {
+      fs.writeFileSync(lockPath, JSON.stringify({ pid: process.pid, cwd, at: new Date().toISOString() }), { flag: 'wx' });
+      const release = () => {
+        try {
+          if (JSON.parse(fs.readFileSync(lockPath, 'utf8')).pid === process.pid) fs.unlinkSync(lockPath);
+        } catch { /* already gone */ }
+      };
+      process.once('exit', release);
+      return release;
+    } catch (error) {
+      if (error.code !== 'EEXIST') throw error;
+    }
+    let holder = null;
+    try { holder = JSON.parse(fs.readFileSync(lockPath, 'utf8')); } catch { /* being written or removed */ }
+    if (holder && !alive(holder.pid)) {
+      try { fs.unlinkSync(lockPath); } catch { /* someone else took it over */ }
+      continue;
+    }
+    if (!told && holder) {
+      log(`   waiting: another gate is running its browsers (pid ${holder.pid}, ${holder.cwd})`);
+      told = true;
+    }
+    await sleep(waitMs);
+  }
+}
+
 // ── The gate ───────────────────────────────────────────────────────────
 const seconds = (ms) => `${(ms / 1000).toFixed(1)} s`;
 
@@ -512,6 +557,7 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
   }
 
   // D — the two CI Smoke steps
+  const releaseLock = await acquireGateLock({ cwd, log });
   t = Date.now();
   let e2e;
   if (concurrentE2e) {
@@ -531,6 +577,7 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
       await runStreaming(npmRun('test:e2e:gl'), { cwd, env: { PLAYWRIGHT_OUTPUT_DIR: 'test-results/gl' } }),
     ];
   }
+  releaseLock();
   timings.push(['D e2e', Date.now() - t]);
   const e2eFailed = ['test:e2e:chromium', 'test:e2e:gl'].filter((_, i) => e2e[i] !== 0);
   log(`── phase D (e2e): ${seconds(Date.now() - t)}${e2eFailed.length ? `, failed: ${e2eFailed.join(', ')}` : ''}`);

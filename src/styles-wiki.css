@@ -663,3 +663,83 @@
   .vw-rail, .vw-progress, .vw-ev, .vw-end, .vw-section-report { display: none !important; }
   .vw-sources li { break-inside: avoid; }
 }
+
+/* ---- Phase 4: the checking history, the map, Mochi's last places ---- */
+.vw-hist { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--clr-border); scroll-margin-top: 12px; }
+.vw-hist h3 { margin: 0 0 4px; font-family: var(--vw-label); font-size: 15px; font-weight: 600; color: var(--clr-ink); }
+.vw-hist-how { margin: 0 0 10px; font-family: var(--vw-label); font-size: 14px; line-height: 1.6; color: var(--clr-ink-soft); }
+.vw-hist ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.vw-hist li { display: grid; gap: 2px; padding-left: 12px; border-left: 2px solid var(--clr-sage); font-family: var(--vw-label); font-size: 14px; line-height: 1.55; color: var(--clr-ink); }
+.vw-hist li > b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.vw-hist-secs { display: flex; flex-wrap: wrap; gap: 4px; }
+.vw-hist-secs button {
+  min-height: 44px; padding: 0 10px; border: 1px solid var(--clr-border); border-radius: 8px; background: var(--clr-surface-2);
+  font: inherit; font-size: 14px; color: var(--clr-ink); text-align: left; cursor: pointer;
+}
+.vw-hist-secs button:hover { border-color: var(--clr-ink-soft); }
+.vw-hist-secs button:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+
+.vw-tree-door {
+  display: flex; align-items: center; gap: 16px; width: 100%; margin-top: 18px; padding: 12px; min-height: 44px;
+  border: 1px solid var(--clr-border); border-radius: 12px; background: transparent; color: var(--clr-ink);
+  font: inherit; text-align: left; cursor: pointer;
+}
+.vw-tree-door:hover { border-color: var(--clr-ink-soft); }
+.vw-tree-door:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vw-tree-print {
+  flex: none; width: 72px; height: 91px; background: var(--clr-ink);
+  -webkit-mask: url('/art/wiki-tree.webp') center / contain no-repeat; mask: url('/art/wiki-tree.webp') center / contain no-repeat;
+}
+.vw-tree-door > span:last-child { display: grid; gap: 2px; }
+.vw-tree-door b { font-family: var(--vw-display); font-size: var(--vw-step-1); font-weight: 600; color: var(--clr-ink); }
+.vw-tree-door span span { font-family: var(--vw-label); font-size: 14px; color: var(--clr-ink-soft); }
+.vw-tree-door small { font-family: var(--vw-label); font-size: 14px; color: var(--clr-ink-soft); font-style: italic; }
+
+.vw-map-overlay { align-items: center; justify-content: center; }
+.vw-map {
+  box-sizing: border-box; width: min(960px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow: auto; overscroll-behavior: contain;
+  padding: 20px 24px 28px; border-radius: 16px; background: var(--clr-surface); color: var(--clr-ink);
+}
+.vw-map:focus { outline: none; }
+.vw-map-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.vw-map-head h2 { margin: 0; font-family: var(--vw-display); font-size: var(--vw-step-2); font-weight: 600; }
+.vw-map-head p { margin: 4px 0 0; font-family: var(--vw-label); font-size: 14px; color: var(--clr-ink-soft); }
+.vw-map-close { min-height: 44px; min-width: 44px; flex: none; }
+.vw-tree, .vw-tree ol { margin: 0; padding: 0; list-style: none; }
+.vw-tree ol { position: relative; margin-left: 10px; padding-left: 18px; }
+/* The branch: one ink line down each list, a short stroke to each entry.
+   Only the lines draw on; the names are always there, even if animations
+   never run (a background tab). */
+.vw-tree ol::before {
+  content: ''; position: absolute; left: 0; top: 4px; bottom: 14px; width: 1px; background: var(--clr-ink-soft);
+  transform-origin: top; animation: vw-branch 240ms var(--ease-out) var(--vw-d, 0ms) both;
+}
+.vw-tree ol > li { position: relative; }
+.vw-tree ol > li::before { content: ''; position: absolute; left: -18px; top: 1.05em; width: 12px; height: 1px; background: var(--clr-ink-soft); }
+.vw-tree-node { display: inline-block; padding: 6px 0; font-family: var(--vw-display); font-weight: 600; color: var(--clr-ink); }
+.vw-tree-year { margin-top: 10px; }
+.vw-tree-year > .vw-tree-node { font-size: var(--vw-step-2); }
+.vw-tree-subject > .vw-tree-node { font-size: 17px; }
+.vw-tree-subject > ol { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); column-gap: 18px; }
+.vw-tree-subject > ol::before { bottom: 22px; }
+.vw-tree a {
+  display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 4px 0;
+  font-family: var(--vw-body); font-size: 15px; line-height: 1.45; color: var(--clr-ink); text-decoration: none;
+}
+.vw-tree a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.vw-tree a:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; border-radius: 4px; }
+@keyframes vw-branch { from { transform: scaleY(0); } to { transform: none; } }
+@media (max-width: 640px) {
+  .vw-map-overlay { padding: 0; }
+  .vw-map { width: 100vw; max-height: 100dvh; height: 100dvh; border-radius: 0; padding: 16px 16px calc(24px + env(safe-area-inset-bottom)); }
+}
+
+.vw-shelf-mochi { align-self: flex-end; margin-left: -10px; }
+.vw-shelf-mochi:empty { display: none; } /* Mochi turned off */
+.vw-empty-mochi { display: block; margin: 0 auto 8px; }
+@media (prefers-reduced-motion: reduce) {
+  .vw-tree ol::before { animation: none; }
+}
+@media print {
+  .vw-tree-door, .vw-shelf-mochi { display: none !important; }
+}

@@ -14,7 +14,9 @@ import { loadModule, mount, settle, findAll, textOf } from '../helpers/fake-reac
 import { SHELF_TOTALS, SHELF_SUBJECTS } from '../../src/lib/vetwiki/shelf.generated.js';
 import { SUBJECTS } from '../../src/data/curriculum.js';
 
-const { default: WikiShelves, WikiFeatured, spineSize, spineLabel, spineFontSize, thaiDay } = await loadModule('src/components/WikiShelves.jsx');
+const { default: WikiShelves, WikiFeatured, spineSize, spineLabel, spineFontSize, thaiDay } = await loadModule('src/components/WikiShelves.jsx', { stubs: [
+  { match: '(^|/)Mochi\\.jsx$', contents: 'export default () => null;' },
+] });
 
 test('a spine is as thick as its topics and as tall as its subsections, never under the touch floor', () => {
   assert.deepEqual(spineSize({ topics: 3, sections: 20 }), { width: 44, height: 180 });
