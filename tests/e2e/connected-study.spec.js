@@ -176,6 +176,12 @@ test.describe('connected study experience', () => {
 
   test('core mobile journey keeps year copy, counts and required figures truthful', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
+    // This journey checks copy, counts and figures, not motion (motion-kit and
+    // motion-integration own that). Measured 20 Oct on a quiet machine, WebKit
+    // mobile: 26.4-27.9 s of its 30 s, nearly all in ~40 clicks of 1.0-2.2 s
+    // each, Playwright waiting for each button to stop animating before it may
+    // click. With reduced motion, a real student setting, it is 12.0-12.4 s.
+    await page.emulateMedia({ reducedMotion: 'reduce' });
     const pageErrors = [];
     page.on('pageerror', (error) => pageErrors.push(error.message));
 
