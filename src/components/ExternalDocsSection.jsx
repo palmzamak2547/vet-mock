@@ -38,6 +38,7 @@ import {
   disconnectExternalConnection,
   startExternalConnection,
   listExternalFiles,
+  pickGoogleFiles,
   loadRecentExternalDocs,
   rememberRecentExternalDoc,
 } from '../lib/external-doc-client.js';
@@ -236,6 +237,22 @@ export default function ExternalDocsSection({ user }) {
     }, scope.ownerId));
   }, []);
 
+  const [picking, setPicking] = useState(false);
+  const pickFromDrive = useCallback(async () => {
+    const scope = scopeRef.current;
+    if (!scope?.active || picking) return;
+    setPicking(true);
+    setFileErrors(prev => ({ ...prev, google: '' }));
+    const result = await pickGoogleFiles({ ownerId: scope.ownerId, signal: scope.controller.signal });
+    if (!scope.active) return;
+    setPicking(false);
+    if (!result.ok) { setFileErrors(prev => ({ ...prev, google: result.error })); return; }
+    if (result.files.length === 0) return;
+    await loadFiles('google', scope);
+    setUrl(result.files[0].url);
+    open(result.files[0].url);
+  }, [picking, loadFiles, open]);
+
   const connect = useCallback(async (provider) => {
     const scope = scopeRef.current;
     if (!scope?.active || scope.busy) return;
@@ -310,10 +327,22 @@ export default function ExternalDocsSection({ user }) {
       </div>
     );
     const files = providerFiles[provider] || [];
-    if (files.length === 0) return <p className="vmx-extdoc-connect-hint">ไม่พบเอกสารที่บัญชีนี้เปิดได้</p>;
+    const google = provider === 'google';
+    const pickButton = google && (
+      <button type="button" className="vmx-btn vmx-btn-sm" disabled={picking} onClick={pickFromDrive}>
+        {picking ? 'กำลังเปิด Google Drive…' : 'เลือกไฟล์จาก Google Drive'}
+      </button>
+    );
+    if (files.length === 0) return (
+      <div className="vmx-extdoc-files">
+        <p className="vmx-extdoc-connect-hint">{google ? 'เลือกเอกสารหรือชีตจาก Drive แล้วอ่านต่อในหน้านี้ได้เลย แอปเปิดได้เฉพาะไฟล์ที่คุณเลือก' : 'ไม่พบเอกสารที่บัญชีนี้เปิดได้'}</p>
+        {pickButton}
+      </div>
+    );
     return (
       <div className="vmx-extdoc-files">
-        <p className="vmx-extdoc-files-label">เอกสารล่าสุดที่เปิดได้ (สูงสุด 20 รายการ)</p>
+        {pickButton}
+        <p className="vmx-extdoc-files-label">{google ? 'ไฟล์ที่คุณเลือกไว้' : 'เอกสารล่าสุดที่เปิดได้ (สูงสุด 20 รายการ)'}</p>
         <ul className="vmx-extdoc-file-list">
           {files.map(f => (
             <li key={f.id} className="vmx-extdoc-file">

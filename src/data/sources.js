@@ -37,7 +37,7 @@ export const QUESTION_SOURCES = {
       'COM_III_Final_.pdf',
     ],
     contributors: ['Kimchii 85'],
-    topics: 'Companion Animal Clinical Sciences III — รอข้อสอบเพิ่ม',
+    topics: 'Companion Animal Clinical Sciences III',
     note: 'วิชาซัฟเฟอร์และยากที่สุด, สอบ พุธ 29 เม.ย. 2569',
   },
   com4: {
@@ -91,13 +91,13 @@ export const QUESTION_SOURCES = {
   practrum: {
     files: [],
     contributors: [],
-    topics: 'Practice Ruminant — รอข้อสอบเพิ่ม',
+    topics: 'Practice Ruminant',
     note: 'สอบ พุธ 6 พ.ค. 2569, 13:00-16:00, VET6 B01-B03',
   },
   poultry: {
     files: [],
     contributors: [],
-    topics: 'Poultry Health Management — รอข้อสอบเพิ่ม',
+    topics: 'Poultry Health Management',
     note: 'สอบ พฤหัส 7 พ.ค. 2569, 13:00-15:00, VET6 702',
   },
   engprof: {

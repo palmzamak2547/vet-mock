@@ -57,6 +57,17 @@ export default async function handler(req, res) {
       token = refreshed.accessToken;
     }
 
+    // drive.file only reaches files the student picks, so the Google Picker
+    // opens in the page with the student's own access token. The app id is
+    // the Cloud project number, which every OAuth client id starts with.
+    if (req.query.picker === '1') {
+      const clientId = process.env.GOOGLE_OAUTH_CLIENT_ID || '';
+      const developerKey = process.env.GOOGLE_PICKER_API_KEY || '';
+      const appId = (clientId.match(/^(\d+)-/) || [])[1] || '';
+      if (!developerKey || !appId) return res.status(503).json({ error: 'not_configured' });
+      return res.status(200).json({ accessToken: token, appId, developerKey });
+    }
+
     try {
       // Query for Google Docs and Sheets
       const q = encodeURIComponent(`trashed=false and (mimeType='application/vnd.google-apps.document' or mimeType='application/vnd.google-apps.spreadsheet')`);

@@ -25,6 +25,7 @@ const { default: ExternalDocsSection } = await loadModule('src/components/Extern
     export const disconnectExternalConnection = (...a) => globalThis.__externalProbe.disconnectExternalConnection(...a);
     export const startExternalConnection = (...a) => globalThis.__externalProbe.startExternalConnection(...a);
     export const listExternalFiles = (...a) => globalThis.__externalProbe.listExternalFiles(...a);
+    export const pickGoogleFiles = (...a) => (globalThis.__externalProbe.pickGoogleFiles || (async () => ({ ok: true, files: [] })))(...a);
     export const loadRecentExternalDocs = () => [];
     export const rememberRecentExternalDoc = e => [e];
   ` },

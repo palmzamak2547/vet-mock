@@ -496,7 +496,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
                   <img src={item.poster} alt={`ภาพตัวอย่างจากโมเดล ${item.title}`} width="600" height="600" />
                   <span>
                     {status.views?.[index]?.kind === 'error'
-                      ? 'ภาพตัวอย่าง (3D ยังไม่พร้อม)'
+                      ? 'ภาพนิ่งจากโมเดล (เครื่องนี้เปิด 3D ไม่ได้)'
                       : staticMode
                         ? 'ภาพตัวอย่างจากโมเดล'
                         : 'กำลังเปิด 3D…'}

@@ -71,6 +71,10 @@ test('the methods page lists every catalogue method once, with the catalogue\'s 
     if (r.status === 'verified') assert.ok(r.fixtures.some((f) => f.kind === 'pin'), r.id);
   }
   assert.deepEqual(model.groups.map((g) => g.id), ['now', 'M1', 'M2', 'M3', 'later'].filter((g) => model.rows.some((r) => r.group === g)));
+  // The public page shows only what the program does today: no roadmap, no filter for it.
+  const page = readFileSync(here('../../src/pages/MethodsPage.jsx'), 'utf8');
+  assert.ok(page.includes("model.groups.filter((g) => g.id === 'now')"));
+  for (const k of Object.keys(trust.th).filter((k) => k.startsWith('trust.methods.'))) assert.doesNotMatch(trust.th[k], /วางแผน|ยังไม่มีกำหนด|ยังไม่เปิดให้ใช้/, k);
   // The page follows the data it is given: a method with no fixture shows no checks.
   const bare = buildMethodsModel(catalog, []);
   assert.ok(bare.rows.every((r) => r.fixtures.length === 0));
@@ -85,10 +89,9 @@ test('every word the public pages show exists in Thai and English', () => {
     for (const m of src.matchAll(/t\('(trust\.[A-Za-z0-9_.-]+)'/g)) assert.ok(has(m[1]), `${f}: ${m[1]}`);
   }
   for (const k of guideKeys()) assert.ok(has(k), k);
-  for (const g of ['now', 'M1', 'M2', 'M3', 'later']) assert.ok(has(`trust.methods.group.${g}`), g);
-  for (const s of ['verified', 'shipped', 'planned']) assert.ok(has(`trust.methods.status.${s}`), s);
+  assert.ok(has('trust.methods.group.now'));
+  for (const s of ['verified', 'shipped']) assert.ok(has(`trust.methods.status.${s}`), s);
   for (const k of ['pin', 'crosscheck']) assert.ok(has(`trust.methods.kind.${k}`), k);
-  for (const f of ['all', 'shipped', 'planned']) assert.ok(has(`trust.methods.filter.${f}`), f);
   const tolerances = FIXTURES.flatMap((f) => f.tolerance);
   for (const tol of [...tolerances, { scope: 'all', rel: '1e-6' }, { scope: 'all', text: 'x' }]) assert.ok(has(toleranceWords(tol).key), JSON.stringify(tol));
 });
