@@ -49,20 +49,18 @@ async function openQuestion(page, { clipMs }) {
     try { window.localStorage.setItem('vmx-selected-year', '4'); } catch {}
     window.__plays = 0;
     HTMLMediaElement.prototype.canPlayType = () => 'probably';
+    // The fixture clips are not real audio: the element is built without a
+    // src so the browser never tries to load or decode them (WebKit on Linux
+    // logs "Failed to load resource" for a blob it cannot decode).
+    const NativeAudio = window.Audio;
+    window.Audio = function Audio(src) { const el = new NativeAudio(); el.__src = String(src || ''); return el; };
     HTMLMediaElement.prototype.play = function play() {
       // The silent primer the button plays to unlock audio is not a clip.
-      if (String(this.src).startsWith('data:')) return Promise.resolve();
+      if (!this.__src || this.__src.startsWith('data:')) return Promise.resolve();
       window.__plays += 1;
       const el = this;
       el.__t = setTimeout(() => el.dispatchEvent(new Event('ended')), ms);
       return Promise.resolve();
-    };
-    // The fixture clips are not real audio, so the element's own decode
-    // 'error' is not the page's business here; a refused play() still is.
-    const listen = HTMLMediaElement.prototype.addEventListener;
-    HTMLMediaElement.prototype.addEventListener = function (type, ...rest) {
-      if (type === 'error' && String(this.src).startsWith('blob:')) return undefined;
-      return listen.call(this, type, ...rest);
     };
     const pause = HTMLMediaElement.prototype.pause;
     HTMLMediaElement.prototype.pause = function () { clearTimeout(this.__t); return pause.call(this); };
