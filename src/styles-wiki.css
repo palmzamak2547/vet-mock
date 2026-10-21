@@ -743,3 +743,20 @@
 @media print {
   .vw-tree-door, .vw-shelf-mochi { display: none !important; }
 }
+
+/* ── Article end: library pages about this topic (RelatedDocs variant "wiki")
+   Same rows as the other end blocks, not cards. ───────────────────────────── */
+.vw .vmx-related-docs.is-wiki { margin-top: 0; }
+.vw .vmx-related-docs.is-wiki .vmx-related-heading { margin: 0 0 8px; font-family: var(--vw-label); font-size: 15px; font-weight: 600; color: var(--clr-ink); }
+.vw .vmx-related-docs.is-wiki ul { display: block; border-top: 1px solid var(--clr-border); }
+.vw .vmx-related-docs.is-wiki li { border-bottom: 1px solid var(--clr-border); }
+.vw .vmx-related-docs.is-wiki li button { all: unset; box-sizing: border-box; cursor: pointer; display: grid; gap: 2px; width: 100%; min-height: 44px; padding: 10px 4px; }
+.vw .vmx-related-docs.is-wiki li button:hover { background: var(--clr-surface-2); }
+.vw .vmx-related-docs.is-wiki li button:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: -2px; }
+.vw .vmx-related-docs.is-wiki .vmx-related-title { font-family: var(--vw-display); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--clr-ocean-text); }
+.vw .vmx-related-docs.is-wiki .vmx-related-meta,
+.vw .vmx-related-docs.is-wiki .vmx-related-evidence,
+.vw .vmx-related-docs.is-wiki .vmx-related-note,
+.vw .vmx-related-docs.is-wiki .vmx-related-more { font-family: var(--vw-label); font-size: 14px; }
+.vw .vmx-related-docs.is-wiki .vmx-related-meta { color: var(--clr-ink-soft); }
+.vw .vmx-related-docs.is-wiki .vmx-related-more { padding: 0 4px; }

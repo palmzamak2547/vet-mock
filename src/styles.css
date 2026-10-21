@@ -2742,6 +2742,11 @@ html.dark .vmx-panic-scrim {
   text-decoration: underline; text-underline-offset: 2px; text-align: left;
 }
 .vmx-hand-toggle:hover { color: var(--clr-ink); }
+.vmx-hand-toggle { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; }
+/* Full screen: the pad takes all the height the actions leave. */
+.vmx-hand.is-fullscreen { border: 0; border-radius: 0; padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
+.vmx-hand.is-fullscreen .vmx-hand-hint { display: none; }
+.vmx-hand.is-fullscreen .vmx-hand-pad { flex: 1 1 0; min-height: 0; height: auto; }
 .vmx-hand { margin-top: 8px; padding: 10px; border: 1px solid var(--clr-border); border-radius: 10px; background: var(--clr-surface); }
 .vmx-hand-hint { margin: 0 0 8px; font-size: 14px; line-height: 1.45; color: var(--clr-ink-soft); }
 .vmx-hand-pad {
@@ -2751,7 +2756,8 @@ html.dark .vmx-panic-scrim {
 }
 .vmx-hand-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; }
 .vmx-hand-actions button, .vmx-hand-file {
-  appearance: none; font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px;
+  appearance: none; font: inherit; font-size: 14px; min-height: 44px; padding: 6px 14px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 6px;
   border: 1px solid var(--clr-border); background: var(--clr-bg); color: var(--clr-ink); cursor: pointer;
 }
 .vmx-hand-actions button.is-primary { background: var(--clr-ink); color: var(--clr-bg); border-color: var(--clr-ink); }
@@ -8406,3 +8412,43 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 .vmx-related-note { margin: 6px 0 0; font-size: 14px; color: var(--clr-ink-soft); }
 .vmx-topic-related { padding: 0 8px 10px; }
 .vmx-topic-card:has(> .vmx-topic-related) { grid-column: 1 / -1; }
+.vmx-related-docs li button:focus-visible, .vmx-related-more:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .vmx-related-docs li button { transition: none; } }
+
+/* ── Full screen for writing surfaces (hooks/useFullscreen.js) ──────────────
+   The surface is pinned over the whole viewport, above the app's header,
+   sidebar and bottom nav (--z-nav) and below its dialogs and toasts, so a
+   "ล้างรอยเขียน?" confirm still shows. Safe-area padding keeps tools clear of
+   a notch or the home indicator. */
+.vmx-fs-target.is-fullscreen {
+  position: fixed; inset: 0; z-index: calc(var(--z-nav) + 50);
+  width: 100vw; height: 100vh; height: 100dvh; max-width: none; margin: 0;
+  display: flex; flex-direction: column; overflow: hidden;
+  background: var(--clr-bg);
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  box-sizing: border-box;
+}
+body.vmx-fullscreen { overflow: hidden; overscroll-behavior: none; }
+/* In full screen the reader's way out is the toolbar button; its page back
+   bar would only cost a row of the page. */
+.vmx-reader.is-fullscreen > .vmx-back-bar { display: none; }
+
+/* Image markup (components/ImageAnnotator.jsx): icon tools at touch size,
+   and in full screen the picture takes every pixel the bars leave. */
+.vmx-annot-head { display: flex; align-items: center; gap: 4px; margin-bottom: 8px; }
+.vmx-annot-head h2 { flex: 1; min-width: 0; margin: 0; font-size: 20px; }
+.vmx-annot-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-bottom: 10px; }
+.vmx-annot-sep { width: 1px; height: 24px; margin: 0 4px; background: var(--clr-border); }
+.vmx-annot-tool {
+  display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0;
+  border: 1px solid transparent; border-radius: var(--r-sm); background: none; color: var(--clr-ink); cursor: pointer;
+}
+.vmx-annot-tool:hover { background: var(--clr-surface-2); }
+.vmx-annot-tool.is-active, .vmx-annot-tool[aria-pressed="true"] { background: var(--clr-surface-2); border-color: var(--clr-ink); }
+.vmx-annot-tool:disabled { opacity: .45; cursor: default; }
+.vmx-annot-tool:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-annot.is-fullscreen { max-width: none !important; max-height: none !important; width: 100vw; height: 100dvh; border-radius: 0; padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left)); }
+.vmx-annot.is-fullscreen .vmx-annot-stage > div { display: block !important; width: 100%; max-width: none !important; }
+.vmx-annot.is-fullscreen .vmx-annot-stage canvas { width: 100%; max-width: none !important; height: auto; }
+/* Nothing floats over a full-screen writing surface. */
+body.vmx-fullscreen .vmx-tools-fab, body.vmx-fullscreen .vmx-tools-fab-wrap { display: none !important; }

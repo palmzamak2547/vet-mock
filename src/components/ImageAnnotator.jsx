@@ -20,6 +20,8 @@ import { useEffect, useRef, useState } from 'react';
 import { alertDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
+import { useFullscreen } from '../hooks/useFullscreen.js';
+import NavIcon from './NavIcon.jsx';
 
 const PEN_COLORS = [
   { id: 'red',    rgb: '#c0392b', name: 'แดง' },
@@ -39,7 +41,17 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
   const wrapRef = useRef(null);
   const baseRef = useRef(null);
   const drawRef = useRef(null);
-  const dialogRef = useModalFocus({ onClose });
+  // Esc (and a tap outside) while full screen only leaves full screen: closing
+  // the board there threw the drawing away with it.
+  const fsRef = useRef(null);
+  const dismiss = () => {
+    if (fsRef.current?.on) { fsRef.current.exit(); return; }
+    if (fsRef.current?.justExited()) return;
+    onClose();
+  };
+  const dialogRef = useModalFocus({ onClose: dismiss });
+  const fullscreen = useFullscreen(dialogRef);
+  fsRef.current = fullscreen;
   const [tool, setTool] = useState('pen');         // pen | highlighter | eraser
   const [color, setColor] = useState('red');
   const [size, setSize] = useState(3);
@@ -326,31 +338,38 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
   }
 
   return (
-    <div className="vmx-modal-overlay" onClick={onClose}>
+    <div className="vmx-modal-overlay" onClick={dismiss}>
       <div
         ref={dialogRef}
-        className="vmx-modal"
+        className={`vmx-modal vmx-annot vmx-fs-target${fullscreen.on ? ' is-fullscreen' : ''}`}
         onClick={(e) => e.stopPropagation()}
-        style={{ maxWidth: 960, maxHeight: '90vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
+        style={fullscreen.on ? undefined : { maxWidth: 960, maxHeight: '90vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
         role="dialog"
         aria-modal="true"
         aria-label={alt || 'Image annotator'}
         tabIndex={-1}
         data-vmx-modal="true"
       >
-        <div style={{ marginBottom: 10 }}>
-          <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            ✏️ {mode === 'sketch' ? 'กระดานวาด' : mode === 'template' ? 'Template + วาดทับ' : 'ภาพ + วาดทับ'}
-          </div>
-          <h2 style={{ margin: '4px 0 0', fontSize: 20 }}>{mode === 'sketch' ? 'วาดสรุป / แผนภาพ' : mode === 'template' ? 'วาดบน template' : 'วาดทับภาพ'}</h2>
+        <div className="vmx-annot-head">
+          <h2>{mode === 'sketch' ? 'วาดสรุปหรือแผนภาพ' : mode === 'template' ? 'วาดบนแม่แบบ' : 'วาดทับภาพ'}</h2>
+          <button type="button" className="vmx-annot-tool" onClick={fullscreen.toggle} aria-pressed={fullscreen.on}
+            aria-label={fullscreen.on ? 'ออกจากเต็มจอ' : 'เต็มจอ'} title={fullscreen.on ? 'ออกจากเต็มจอ' : 'เต็มจอ'}>
+            <NavIcon name={fullscreen.on ? 'fullscreen-exit' : 'fullscreen'} size={20} />
+          </button>
+          <button type="button" className="vmx-annot-tool" onClick={onClose} aria-label="ปิด" title="ปิด">
+            <NavIcon name="close" size={20} />
+          </button>
         </div>
 
         {/* Toolbar */}
-        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 10, alignItems: 'center' }}>
-          <button type="button" className={`vmx-chip ${tool === 'pen' ? 'active' : ''}`} onClick={() => setTool('pen')}>ปากกา</button>
-          <button type="button" className={`vmx-chip ${tool === 'highlighter' ? 'active' : ''}`} onClick={() => setTool('highlighter')}>🖍 highlight</button>
-          <button type="button" className={`vmx-chip ${tool === 'eraser' ? 'active' : ''}`} onClick={() => setTool('eraser')}>🧽 ลบ</button>
-          <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
+        <div className="vmx-annot-bar" role="toolbar" aria-label="เครื่องมือวาด">
+          {[['pen', 'ปากกา'], ['highlighter', 'ไฮไลต์'], ['eraser', 'ยางลบ']].map(([id, label]) => (
+            <button key={id} type="button" className={`vmx-annot-tool${tool === id ? ' is-active' : ''}`}
+              onClick={() => setTool(id)} aria-pressed={tool === id} aria-label={label} title={label}>
+              <NavIcon name={id} size={20} />
+            </button>
+          ))}
+          <span className="vmx-annot-sep" aria-hidden="true" />
           {tool === 'pen' && PEN_COLORS.map((c) => (
             <button
               key={c.id}
@@ -358,34 +377,39 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
               onClick={() => setColor(c.id)}
               title={c.name}
               aria-label={`สี ${c.name}`}
+              aria-pressed={color === c.id}
               style={{
-                width: 24, height: 24, borderRadius: '50%', border: color === c.id ? '2px solid var(--clr-ink)' : '1px solid var(--clr-border)',
-                background: c.rgb, cursor: 'pointer', padding: 0,
+                width: 44, height: 44, padding: 10, boxSizing: 'border-box', borderRadius: '50%', backgroundClip: 'content-box',
+                border: color === c.id ? '2px solid var(--clr-ink)' : '2px solid transparent',
+                background: c.rgb, cursor: 'pointer',
               }}
             />
           ))}
-          <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
-          <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14 }}>
+          <span className="vmx-annot-sep" aria-hidden="true" />
+          <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, minHeight: 44 }}>
             ขนาด
             <input type="range" min="1" max="10" value={size} onChange={(e) => setSize(parseInt(e.target.value, 10))} aria-label="ขนาดปากกา" style={{ width: 80 }} />
           </label>
-          <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
-          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={undo} disabled={history.length <= 1}>↶ Undo</button>
-          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={clearAll}>Clear</button>
-          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={downloadPNG}>Save PNG</button>
-          <span style={{ width: 1, height: 20, background: 'var(--clr-border)', margin: '0 4px' }} />
+          <span className="vmx-annot-sep" aria-hidden="true" />
+          <button type="button" className="vmx-annot-tool" onClick={undo} disabled={history.length <= 1} aria-label="ย้อนเส้นล่าสุด" title="ย้อนเส้นล่าสุด">
+            <NavIcon name="undo" size={20} />
+          </button>
+          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={clearAll}>ล้าง</button>
+          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={downloadPNG}>บันทึกเป็นรูป</button>
+          <span className="vmx-annot-sep" aria-hidden="true" />
           <button
             type="button"
             className={`vmx-chip ${palmReject ? 'active' : ''}`}
             onClick={() => setPalmReject((v) => !v)}
-            title={palmReject ? 'รับเฉพาะปากกา/สไตลัส — แตะนิ้วจะไม่วาด (เลื่อนหน้าจอได้)' : 'รับทุกอินพุต — แตะนิ้วก็วาดได้'}
+            aria-pressed={palmReject}
+            title={palmReject ? 'รับเฉพาะปากกา นิ้วใช้เลื่อนหน้า' : 'รับทั้งนิ้วและปากกา'}
           >
-            {palmReject ? '⛔ ปฏิเสธฝ่ามือ' : '✋ รับทุกอินพุต'}
+            รับเฉพาะปากกา
           </button>
         </div>
 
         {/* Canvas stack — base image + draw overlay */}
-        <div ref={wrapRef} style={{ flex: 1, overflow: 'auto', background: '#000', borderRadius: 8, border: '1px solid var(--clr-border)' }}>
+        <div ref={wrapRef} className="vmx-annot-stage" style={{ flex: 1, minHeight: 0, overflow: 'auto', background: '#000', borderRadius: fullscreen.on ? 0 : 8, border: fullscreen.on ? 0 : '1px solid var(--clr-border)' }}>
           {!imgReady && <div className="vmx-empty" style={{ color: '#ccc' }}>กำลังโหลดภาพ…</div>}
           <div style={{ position: 'relative', display: 'inline-block', maxWidth: '100%', lineHeight: 0 }}>
             <canvas ref={baseRef} style={{ display: 'block', maxWidth: '100%', height: 'auto', touchAction: palmReject ? 'pan-y' : 'none' }} />
@@ -419,15 +443,12 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
                   boxShadow: '0 2px 6px rgba(0,0,0,0.4)',
                 }}
               >
-                ⛔ ฝ่ามือถูกปฏิเสธ (ใช้ปากกาเท่านั้น)
+                ไม่นับนิ้วและฝ่ามือ เขียนด้วยปากกา
               </div>
             )}
           </div>
         </div>
 
-        <div className="vmx-btn-row" style={{ marginTop: 12 }}>
-          <button className="vmx-btn vmx-btn-ghost" onClick={onClose} type="button">ปิด (esc)</button>
-        </div>
       </div>
     </div>
   );

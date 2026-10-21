@@ -34,6 +34,9 @@ const PATHS = {
       <path d="M9 21h11M7.5 10.5l6 6" />
     </>
   ),
+  // four corners out / in
+  fullscreen: <path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" />,
+  'fullscreen-exit': <path d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5" />,
   undo: <path d="M4 9h9a5 5 0 1 1 0 10H8M4 9l4-4M4 9l4 4" />,
   redo: <path d="M20 9h-9a5 5 0 1 0 0 10h5M20 9l-4-4M20 9l-4 4" />,
   'zoom-in': (

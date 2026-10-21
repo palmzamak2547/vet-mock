@@ -460,13 +460,13 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             className="vmx-fill-input"
             value={typeof currentAnswer === 'string' ? currentAnswer : ''}
             onChange={(e) => answerCurrent(e.target.value.slice(0, 1000))}
-            placeholder="เขียนคำตอบสั้นๆ (1-3 ประโยค) — กดไมค์เพื่อพูดได้"
+            placeholder="เขียนคำตอบสั้น ๆ 1 ถึง 3 ประโยค หรือกดไมค์เพื่อพูด"
             rows={3}
             style={{ minHeight: 70, fontFamily: 'inherit', resize: 'vertical', width: '100%', boxSizing: 'border-box', padding: 10 }}
             maxLength={1000}
           />
-          <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
-            {(typeof currentAnswer === 'string' ? currentAnswer.length : 0)}/1000 chars
+          <div style={{ marginTop: 4, fontSize: 14, color: 'var(--clr-ink-soft)', fontVariantNumeric: 'tabular-nums' }}>
+            {(typeof currentAnswer === 'string' ? currentAnswer.length : 0).toLocaleString('th-TH')} / 1,000 ตัวอักษร
           </div>
           {/* Optional third way in: handwriting, transcribed into the same
               box so the student edits it before it is graded. */}

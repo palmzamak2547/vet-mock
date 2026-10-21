@@ -177,7 +177,7 @@ function buildRoster(people_) {
   const mu = JSON.parse(readFileSyncSafe(MU_ROSTER));
   for (const person of mu) {
     if (!MU_ACADEMIC_POSITIONS.has(person.position)) continue;
-    const division = person.division && person.division !== '(ทั้งภาค)' ? ` · ${person.division}` : '';
+    const division = person.division && person.division !== '(ทั้งภาค)' ? `, ${person.division}` : '';
     people.push({
       key: `mu:${person.nameTh}`,
       slugSeed: person.nameEn || person.nameTh,
