@@ -8472,18 +8472,22 @@ body.vmx-fullscreen .vmx-tools-fab, body.vmx-fullscreen .vmx-tools-fab-wrap { di
   animation: vmx-lasso-settle 220ms cubic-bezier(.2,.9,.25,1.2) both;
 }
 @keyframes vmx-lasso-settle { from { transform: scale(.94); opacity: .4; } to { transform: none; opacity: 1; } }
-.vmx-lasso-handle {
-  position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; touch-action: none;
-}
+/* Each handle is a 40 px square OUTSIDE its corner (the dot sits on the
+   corner itself), so the box's own area is all "move". */
+.vmx-lasso-handle { position: absolute; width: 40px; height: 40px; touch-action: none; }
 .vmx-lasso-handle::after {
-  content: ''; position: absolute; left: 50%; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px;
+  content: ''; position: absolute; width: 14px; height: 14px;
   border-radius: 50%; background: var(--clr-bg); border: 2px solid var(--clr-sage);
   box-shadow: 0 1px 3px rgba(0,0,0,.25);
 }
-.vmx-lasso-handle.is-tl { left: 0; top: 0; cursor: nwse-resize; }
+.vmx-lasso-handle.is-tl { right: 100%; bottom: 100%; cursor: nwse-resize; }
+.vmx-lasso-handle.is-tl::after { right: -8px; bottom: -8px; }
+.vmx-lasso-handle.is-tr { left: 100%; bottom: 100%; cursor: nesw-resize; }
+.vmx-lasso-handle.is-tr::after { left: -8px; bottom: -8px; }
+.vmx-lasso-handle.is-bl { right: 100%; top: 100%; cursor: nesw-resize; }
+.vmx-lasso-handle.is-bl::after { right: -8px; top: -8px; }
 .vmx-lasso-handle.is-br { left: 100%; top: 100%; cursor: nwse-resize; }
-.vmx-lasso-handle.is-tr { left: 100%; top: 0; cursor: nesw-resize; }
-.vmx-lasso-handle.is-bl { left: 0; top: 100%; cursor: nesw-resize; }
+.vmx-lasso-handle.is-br::after { left: -8px; top: -8px; }
 .vmx-lasso-bar {
   position: absolute; pointer-events: auto; z-index: 2; white-space: nowrap;
   display: flex; align-items: center; gap: 2px; padding: 4px 6px; border-radius: 999px;

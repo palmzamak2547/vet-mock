@@ -14,6 +14,10 @@ import NavIcon from './NavIcon.jsx';
 import { scaleFromHandle } from '../lib/lasso.js';
 
 const CORNERS = ['tl', 'tr', 'bl', 'br'];
+// The box is never smaller than a fingertip, so a single underline can still
+// be dragged; the corner handles sit OUTSIDE it, so they never cover the part
+// that moves.
+const MIN_BOX = 44;
 // Below this many CSS px a pointer that went down and up is a tap, not a drag.
 const DRAG_SLOP = 3;
 
@@ -84,7 +88,11 @@ export default function LassoLayer({
             className="vmx-lasso-box"
             role="group"
             aria-label={`เลือกไว้ ${selection.ids.length} เส้น ลากเพื่อย้าย ลากมุมเพื่อย่อหรือขยาย`}
-            style={{ left: shown.x * w, top: shown.y * h, width: Math.max(12, shown.w * w), height: Math.max(12, shown.h * h) }}
+            style={(() => {
+              const bw = Math.max(MIN_BOX, shown.w * w);
+              const bh = Math.max(MIN_BOX, shown.h * h);
+              return { left: (shown.x + shown.w / 2) * w - bw / 2, top: (shown.y + shown.h / 2) * h - bh / 2, width: bw, height: bh };
+            })()}
             onPointerDown={down('move')} onPointerMove={move} onPointerUp={up} onPointerCancel={up}
           >
             {CORNERS.map((c) => (

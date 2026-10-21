@@ -159,6 +159,33 @@ test('a notebook opens with its pages, keeps its ink when a page is added, and s
   }, { message: 'adding a page keeps the ink already written' }).toBe(1);
 
   await page.goto('/app/tools/pdf');
-  await expect(page.getByRole('button', { name: /สมุดทดสอบ e2e/ })).toBeVisible();
-  await expect(page.getByRole('button', { name: /สมุดทดสอบ e2e/ })).toContainText('5 หน้า');
+  const shelved = page.locator('.vmx-nb-open', { hasText: 'สมุดทดสอบ e2e' });
+  await expect(shelved).toBeVisible();
+  await expect(shelved).toContainText('5 หน้า');
+});
+
+test('dragging a corner handle resizes the selection, with its line width', async ({ page }) => {
+  await openReaderWithPdf(page);
+  const box = await overlayBox(page);
+  await drawLine(page, box, 0.3);
+  await expect.poll(async () => (await strokes(page)).length).toBe(1);
+  const [orig] = await strokes(page);
+
+  await page.locator('button[aria-label^="เลือกเส้น"]').click();
+  await lassoAround(page, box, 0.3);
+  const handle = page.locator('.vmx-lasso-handle.is-br');
+  await expect(handle).toBeVisible();
+  const h = await handle.boundingBox();
+  await page.mouse.move(h.x + h.width / 2, h.y + h.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(h.x + h.width / 2 + box.w * 0.15, h.y + h.height / 2 + box.h * 0.05, { steps: 8 });
+  await page.mouse.up();
+
+  await expect.poll(async () => {
+    const [st] = await strokes(page);
+    return !!st && st.id !== orig.id && st.size > orig.size;
+  }, { message: 'the resized stroke should be stored bigger, under a new id' }).toBe(true);
+  const [big] = await strokes(page);
+  const span = (s) => s.points[s.points.length - 1][0] - s.points[0][0];
+  expect(span(big)).toBeGreaterThan(span(orig) * 1.2);
 });
