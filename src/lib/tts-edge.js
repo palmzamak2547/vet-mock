@@ -92,7 +92,7 @@ const _liveAudios = new Set();
  * finishes (or errors out or is cancelled). The returned controller can
  * stop playback explicitly.
  */
-export function playArrayBuffer(arrayBuffer, mimeType = 'audio/mpeg') {
+export function playArrayBuffer(arrayBuffer, mimeType = 'audio/mpeg', rate = 1) {
   // mimeType hints the decoder. Browsers ALSO content-sniff so WAV
   // bytes in an audio/mpeg-typed blob still play (Chrome/Safari/Firefox
   // tested), but passing the real type keeps things tidy when multiple
@@ -100,6 +100,7 @@ export function playArrayBuffer(arrayBuffer, mimeType = 'audio/mpeg') {
   const blob = new Blob([arrayBuffer], { type: mimeType });
   const url = URL.createObjectURL(blob);
   const audio = new Audio(url);
+  audio.playbackRate = Number.isFinite(rate) && rate > 0 ? rate : 1;
   _liveAudios.add(audio);
 
   let resolved = false;
@@ -110,19 +111,23 @@ export function playArrayBuffer(arrayBuffer, mimeType = 'audio/mpeg') {
     URL.revokeObjectURL(url);
   };
 
-  const finished = new Promise((resolve) => {
-    audio.addEventListener('ended', () => { cleanup(); resolve(); }, { once: true });
-    audio.addEventListener('error', () => { cleanup(); resolve(); }, { once: true });
-  });
+  // Resolves true when the clip played to its end, false when the browser
+  // refused or could not decode it. A refused play() fires neither event,
+  // so without the false branch the read-aloud waited forever.
+  let settle;
+  const finished = new Promise((resolve) => { settle = resolve; });
+  audio.addEventListener('ended', () => { cleanup(); settle(true); }, { once: true });
+  audio.addEventListener('error', () => { cleanup(); settle(false); }, { once: true });
 
-  audio.play().catch(() => { cleanup(); });
+  audio.play().catch(() => { cleanup(); settle(false); });
 
   return {
     audio,
     finished,
     stop() {
-      try { audio.pause(); audio.currentTime = audio.duration || 0; } catch {}
+      try { audio.pause(); } catch {}
       cleanup();
+      settle(true);
     },
   };
 }
@@ -133,7 +138,9 @@ export function playArrayBuffer(arrayBuffer, mimeType = 'audio/mpeg') {
  */
 export function stopAllEdgeAudio() {
   for (const a of _liveAudios) {
-    try { a.pause(); a.currentTime = 0; } catch {}
+    // A paused clip never fires 'ended'; send it so whoever awaits
+    // `finished` moves on instead of waiting forever.
+    try { a.pause(); a.dispatchEvent(new Event('ended')); } catch {}
   }
   _liveAudios.clear();
 }
