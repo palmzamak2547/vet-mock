@@ -10,7 +10,7 @@
 // ============================================================
 
 import { createAudioCache } from './tts-cache.js';
-import { clipKey, clipText, clipUrl, manifestUrl, optionLabel } from './tts-text.js';
+import { SHARED_TTS, clipKey, clipText, clipUrl, manifestUrl, optionLabel } from './tts-text.js';
 
 const FETCH_TIMEOUT_MS = 8000;
 const MANIFEST_TIMEOUT_MS = 3000;
@@ -58,7 +58,7 @@ export async function getSharedAudio(key, signal) {
  * stem and options are the question's own text (options in display order).
  * Each item: { key, kind: 'stem' | 'label' | 'option' }.
  */
-export async function sharedPlan({ stem, options, lang, subject }) {
+export async function sharedPlan({ stem, options, lang, subject, signal }) {
   const parts = [];
   const add = (text, kind) => { if (text) parts.push({ text, kind }); };
   add(clipText(stem, lang), 'stem');
@@ -69,20 +69,39 @@ export async function sharedPlan({ stem, options, lang, subject }) {
     add(t, 'option');
   });
   if (!parts.length) return null;
-  const [manifest, keys] = await Promise.all([
-    loadManifest(subject),
-    Promise.all(parts.map((p) => clipKey(p.text))),
-  ]);
+  const manifestP = loadManifest(subject);
+  const keys = await Promise.all(parts.map((p) => clipKey(p.text)));
   parts.forEach((p, i) => { p.key = keys[i]; delete p.text; });
+  // The stem's clip starts downloading alongside the manifest: on a slow
+  // phone network that saves a round trip before the first word. When the
+  // manifest says no, the request was one small 404.
+  parts[0].buf = getSharedAudio(parts[0].key, signal);
+  parts[0].buf.catch(() => {});
+  const manifest = await manifestP;
   if (manifest) return parts.every((p) => manifest.has(p.key)) ? parts : null;
   // No manifest (offline): play only if every clip is already on the device.
   const hits = await Promise.all(parts.map((p) => cache.read(p.key)));
   return hits.every(Boolean) ? parts : null;
 }
 
+// Opens the connection to the clip host ahead of the first tap (DNS, TCP
+// and TLS are three round trips on a phone network). Once per page.
+let preconnected = false;
+export function preconnect() {
+  if (preconnected || typeof document === 'undefined') return;
+  if (document.querySelector(`link[rel="preconnect"][href="${SHARED_TTS.base}"]`)) return;
+  preconnected = true;
+  const link = document.createElement('link');
+  link.rel = 'preconnect';
+  link.href = SHARED_TTS.base;
+  link.crossOrigin = 'anonymous';
+  document.head.appendChild(link);
+}
+
 // Prefetch the manifest for a student who has used read-aloud before, so
 // their next tap starts without waiting on it.
 export function warmShared(subject) {
+  preconnect();
   try {
     if (window.localStorage.getItem('vmx-tts-used') !== '1') return;
   } catch { return; }
