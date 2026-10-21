@@ -70,3 +70,15 @@ the local gate and all CI e2e passed: `vite preview` sends no CSP. Now the reade
 (`ingestRemote({ bytes })`, `new File([bytes])` for export), and the notebook e2e runs under the
 CSP read from vercel.json (`withProductionCsp`). Proven: that test fails on 5.156.0's reader and
 passes on the fix.
+
+## Slice 2: answer tape (5.157.0)
+
+- `src/lib/tape.js` (unit-tested): a tape is a stroke `{ mode: 'tape', points: [[x0, y0], [x1, y1]] }`,
+  so it syncs, tombstones, undoes and moves with the lasso like ink. Smaller than 1.2% of the page
+  on a side is a tap, not a tape (the student is told so). `drawStroke` never paints a tape, so the
+  ink canvas and the exported PDF never show one; export skips pages that hold only tape.
+- `src/components/TapeLayer.jsx`: washi strips (four colours, fibres, sheen, torn ends, a fixed
+  hand-laid tilt), each a button: tap to peel (lift 2 px, see-through, 260 ms with overshoot; a
+  fade under reduced motion), tap again to cover. Peeled state is this sitting only: every open
+  starts covered. The toolbar's "peeled/total" button peels or covers them all.
+- Tape colours are real values stored in the stroke (like the pen colours): hex-budget baseline 4.

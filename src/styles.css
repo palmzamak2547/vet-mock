@@ -8592,3 +8592,40 @@ body.vmx-fullscreen .vmx-tools-fab, body.vmx-fullscreen .vmx-tools-fab-wrap { di
   .vmx-nb-list li.is-crumpling::after { display: none; }
 }
 @keyframes vmx-nb-fade { to { opacity: 0; } }
+
+/* ── Tape (components/TapeLayer.jsx) ──────────────────────────────────────
+   Washi tape: an opaque colour with faint fibres and a sheen, torn ends
+   (a zig-zag mask on the short sides), a soft lift shadow. Peeling lifts it
+   2 px and turns it see-through in 260 ms with a slight overshoot; under
+   reduced motion it simply turns see-through. */
+.vmx-tapes { position: absolute; inset: 0; pointer-events: none; line-height: normal; }
+.vmx-tape {
+  position: absolute; box-sizing: border-box; padding: 0; border: 0; cursor: pointer; touch-action: manipulation;
+  min-width: 12px; min-height: 12px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0) 40%, rgba(0,0,0,.05)),
+    repeating-linear-gradient(115deg, rgba(255,255,255,.18) 0 2px, transparent 2px 7px),
+    var(--tape);
+  -webkit-mask: linear-gradient(#000 0 0) center / calc(100% - 8px) 100% no-repeat,
+    conic-gradient(from -45deg at left, #000 90deg, transparent 0) left / 4px 6px repeat-y,
+    conic-gradient(from 135deg at right, #000 90deg, transparent 0) right / 4px 6px repeat-y;
+  mask: linear-gradient(#000 0 0) center / calc(100% - 8px) 100% no-repeat,
+    conic-gradient(from -45deg at left, #000 90deg, transparent 0) left / 4px 6px repeat-y,
+    conic-gradient(from 135deg at right, #000 90deg, transparent 0) right / 4px 6px repeat-y;
+  filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.22));
+  transform: rotate(var(--tilt, 0deg));
+  transition: opacity 260ms cubic-bezier(.2,.9,.25,1.2), transform 260ms cubic-bezier(.2,.9,.25,1.2);
+}
+.vmx-tape.is-peeled { opacity: .16; transform: rotate(var(--tilt, 0deg)) translateY(-2px); }
+.vmx-tape:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-tape.is-draft { opacity: .8; pointer-events: none; transition: none; }
+.vmx-tape-swatch { background: var(--tape) !important; background-clip: content-box !important; border-radius: 6px !important; width: 40px; height: 40px; min-width: 40px; padding: 11px 7px; border: 1px solid var(--clr-border); cursor: pointer; }
+.vmx-tape-count {
+  flex: none; min-width: 44px; height: 40px; padding: 0 10px; border-radius: 999px;
+  border: 1px solid var(--clr-border); background: var(--clr-surface-2); color: var(--clr-ink);
+  font: inherit; font-size: 14px; font-variant-numeric: tabular-nums; cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vmx-tape { transition: opacity 120ms linear; }
+  .vmx-tape.is-peeled { transform: rotate(var(--tilt, 0deg)); }
+}

@@ -8,6 +8,8 @@
 // deck starts with every answer covered again.
 
 // Washi colours, light enough to read as tape and opaque enough to hide text.
+// Real colour values, not theme tokens: like PEN_COLORS they are stored in the
+// stroke and must paint the same on every device (hex-budget baseline: 4).
 export const TAPE_COLORS = [
   { id: 'butter', rgb: '#f3d77a', name: 'เหลือง' },
   { id: 'mint', rgb: '#a9dcc4', name: 'เขียว' },

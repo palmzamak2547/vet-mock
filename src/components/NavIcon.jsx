@@ -41,6 +41,13 @@ const PATHS = {
       <path d="M8.5 15.8c-1 1.2-.9 2.7.3 3.4 1.3.8 3-.1 3-1.7" />
     </>
   ),
+  // a strip of tape, torn ends
+  tape: (
+    <>
+      <path d="M4 9.5 5.5 8 7 9.5 8.5 8l11.5 0V16H8.5L7 14.5 5.5 16 4 14.5Z" transform="rotate(-12 12 12)" />
+      <path d="M9 10v4M12 10v4" transform="rotate(-12 12 12)" strokeDasharray="1 2" />
+    </>
+  ),
   copy: (
     <>
       <rect x="8" y="8" width="12" height="12" rx="2" />

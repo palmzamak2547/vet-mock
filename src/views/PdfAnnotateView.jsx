@@ -54,6 +54,8 @@ import { fitShape, strokeHit } from '../lib/shape-fit.js';
 import { exportAnnotatedPdf, exportFileName, downloadBlob, readSourceBytes } from '../lib/pdf-export.js';
 import { useFullscreen } from '../hooks/useFullscreen.js';
 import LassoLayer from '../components/LassoLayer.jsx';
+import TapeLayer from '../components/TapeLayer.jsx';
+import { TAPE_COLORS, isTape, makeTape } from '../lib/tape.js';
 import NotebookShelf from '../components/NotebookShelf.jsx';
 import { buildNotebookPdf, notebookKey, updateNotebook, NOTEBOOK_MAX_PAGES } from '../lib/notebook.js';
 import { selectStrokes, boundsOf, transformStroke } from '../lib/lasso.js';
@@ -210,6 +212,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const [lassoLoop, setLassoLoop] = useState(null);
   const [selection, setSelection] = useState(null);
   const [lassoPreview, setLassoPreview] = useState(null);
+  // Tape: the strip being laid ({ page, start, end }) and the tapes peeled in
+  // this sitting. Peeled is never saved: a deck opens with answers covered.
+  const [tapeDraft, setTapeDraft] = useState(null);
+  const [peeled, setPeeled] = useState(() => new Set());
+  const [tapeColor, setTapeColor] = useState(TAPE_COLORS[0].rgb);
+  useEffect(() => { setPeeled(new Set()); setTapeDraft(null); }, [fileHash]);
   const lassoFrameRef = useRef(0);
   // Lasso actions, newest last. Each remembers the stroke on top of its page
   // right after it ran (tailId): while that is still the top stroke, nothing
@@ -1031,6 +1039,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // turning the pen back over resumes drawing with the same pen.
     const barrelEraser = e.pointerType === 'pen' && (e.button === 5 || (e.buttons & 32) !== 0);
     const usedTool = barrelEraser ? 'eraser' : tool;
+    if (usedTool === 'tape') {
+      const start = pointFromEvent(e).slice(0, 2);
+      drawingRef.current = { on: true, pointerId: e.pointerId, tape: true, page: drawPageRef.current, start, end: start };
+      setTapeDraft({ page: drawPageRef.current, stroke: makeTape(start, start, { id: 'draft', color: tapeColor }) });
+      return;
+    }
     if (usedTool === 'lasso') {
       setSelection(null);
       setLassoPreview(null);
@@ -1081,6 +1095,17 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (!ref?.on || e.pointerId !== ref.pointerId) return;
     e.preventDefault();
     if (ref.erase) { eraseAt(e); return; }
+    if (ref.tape) {
+      ref.end = pointFromEvent(e).slice(0, 2);
+      if (!lassoFrameRef.current) {
+        lassoFrameRef.current = requestAnimationFrame(() => {
+          lassoFrameRef.current = 0;
+          const d = drawingRef.current;
+          if (d.tape) setTapeDraft({ page: d.page, stroke: makeTape(d.start, d.end, { id: 'draft', color: tapeColor }) });
+        });
+      }
+      return;
+    }
     if (ref.lasso) {
       const raw = typeof e.getCoalescedEvents === 'function' ? e.getCoalescedEvents() : [];
       for (const se of (raw.length ? raw : [e])) {
@@ -1217,6 +1242,19 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     drawingRef.current = { on: false, points: [] };
     releaseHighlighterCopy(hlCopyRef.current);
     if (ref.erase) { maybePullAfterStroke(); return; }
+    if (ref.tape) {
+      cancelAnimationFrame(lassoFrameRef.current);
+      lassoFrameRef.current = 0;
+      setTapeDraft(null);
+      const tape = makeTape(ref.start, ref.end, { id: newStrokeId(), color: tapeColor });
+      if (!tape) {
+        showToast('ลากเป็นแถบเพื่อแปะเทปปิดคำตอบ', 2500);
+        return;
+      }
+      replaceOnPage(ref.page, [], [tape]);
+      setRedoStack([]);
+      return;
+    }
     if (ref.lasso) {
       cancelAnimationFrame(lassoFrameRef.current);
       lassoFrameRef.current = 0;
@@ -1718,6 +1756,18 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     redrawOverlay(shown, sel.page);
   }
 
+  // Tapes, counted over the whole document for the toolbar's peel-all button.
+  const tapesOn = (n) => (strokesByPage[n] || []).filter(isTape);
+  const allTapeIds = Object.values(strokesByPage).flatMap((list) => (list || []).filter(isTape).map((t) => t.id));
+  const tapeCount = allTapeIds.length;
+  const peeledCount = allTapeIds.filter((id) => peeled.has(id)).length;
+  function toggleTape(id) {
+    setPeeled((prev) => { const next = new Set(prev); if (next.has(id)) next.delete(id); else next.add(id); return next; });
+  }
+  function toggleAllTapes() {
+    setPeeled(peeledCount === tapeCount ? new Set() : new Set(allTapeIds));
+  }
+
   function pickTool(next) {
     // Tapping the tool already in hand opens its options — the way every
     // notes app does it, and the eraser's only door (it has no swatch).
@@ -1728,6 +1778,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     }
     setTool(next);
     if (next !== 'lasso') { setSelection(null); setLassoLoop(null); }
+    if (next !== 'tape') setTapeDraft(null);
     setOptionsOpen(false);
     setMenuOpen(false);
   }
@@ -2368,9 +2419,29 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         />
         <ToolButton icon="lasso" label="เลือกเส้น วาดวงล้อมแล้วย้าย ย่อขยาย เปลี่ยนสี หรือลบ" active={tool === 'lasso'}
           onClick={() => { if (tool !== 'lasso') pickTool('lasso'); }} />
+        <ToolButton icon="tape" label="เทปปิดคำตอบ ลากเป็นแถบเพื่อแปะ แตะเทปเพื่อลอกดู" active={tool === 'tape'}
+          onClick={() => { if (tool !== 'tape') pickTool('tape'); }} />
+        {tapeCount > 0 && (
+          <button type="button" className="vmx-tape-count" onClick={toggleAllTapes}
+            aria-label={peeledCount === tapeCount ? `ปิดเทปทั้ง ${tapeCount} แถบ` : `ลอกเทปทั้ง ${tapeCount} แถบ`}
+            title={peeledCount === tapeCount ? 'ปิดคำตอบทั้งหมด' : 'ลอกดูทั้งหมด'}>
+            {peeledCount}/{tapeCount}
+          </button>
+        )}
 
         {/* The swatch is both the current colour and the way to change it. */}
-        {tool !== 'eraser' && (
+        {/* Tape has four washi colours and no size: one swatch that steps
+            through them. The lasso has no colour of its own to show. */}
+        {tool === 'tape' && (() => {
+          const i = Math.max(0, TAPE_COLORS.findIndex((c) => c.rgb === tapeColor));
+          const next = TAPE_COLORS[(i + 1) % TAPE_COLORS.length];
+          return (
+            <button type="button" className="vmx-pdf-swatch vmx-tape-swatch"
+              aria-label={`สีเทป ${TAPE_COLORS[i].name} แตะเพื่อเปลี่ยนเป็น${next.name}`}
+              onClick={() => setTapeColor(next.rgb)} style={{ '--tape': tapeColor }} />
+          );
+        })()}
+        {tool !== 'eraser' && tool !== 'lasso' && tool !== 'tape' && (
           <button
             type="button"
             className="vmx-pdf-swatch"
@@ -2693,7 +2764,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
               cursor="crosshair"
               handlers={pageHandlers}
               scrollRoot={wrapperRef}
-              layer={(lassoLoop && drawPageRef.current === n) || selection?.page === n ? (pw, ph) => (
+              layer={tapesOn(n).length || tapeDraft?.page === n || (lassoLoop && drawPageRef.current === n) || selection?.page === n ? (pw, ph) => (
+                <>
+                <TapeLayer w={pw} h={ph} tapes={tapesOn(n)} peeled={peeled} onToggle={toggleTape}
+                  draft={tapeDraft?.page === n ? tapeDraft.stroke : null} interactive={tool !== 'lasso'} />
+                {((lassoLoop && drawPageRef.current === n) || selection?.page === n) && (
                 <LassoLayer
                   w={pw}
                   h={ph}
@@ -2708,6 +2783,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
                   onDelete={lassoDelete}
                   onDone={() => { setSelection(null); setLassoPreview(null); }}
                 />
+                )}
+                </>
               ) : null}
             />
           ))}
