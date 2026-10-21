@@ -82,3 +82,17 @@ passes on the fix.
   fade under reduced motion), tap again to cover. Peeled state is this sitting only: every open
   starts covered. The toolbar's "peeled/total" button peels or covers them all.
 - Tape colours are real values stored in the stroke (like the pen colours): hex-budget baseline 4.
+
+## Slice 3: text notes (5.158.0)
+
+- `src/lib/textnote.js` (unit-tested): a note is a stroke `{ mode: 'text', points: [[x, y]], text,
+  color, size, w }`, so it syncs, tombstones, undoes and moves with the lasso. `w` is the wrap width
+  as a share of the page; a lasso resize scales `size` and `w` together. Lines wrap on
+  `Intl.Segmenter('th')` word boundaries, and a word wider than the line is split by characters.
+- `drawStroke` paints notes into the ink canvas (Sarabun 500, half-leading offset like CSS), so the
+  exported PDF carries them with no extra work.
+- `src/components/TextNoteEditor.jsx`: a textarea in the note's own font, size, colour and width,
+  over the note's spot; screenshots of typing and of the saved note line up. Tap away or
+  Ctrl/Cmd+Enter saves, Esc cancels, an emptied note is deleted. Tapping a note with the text tool
+  edits it (replaced under a new id, one undo brings the old text back); a tap while one is open
+  only closes it. Tapes are not interactive under the text tool.

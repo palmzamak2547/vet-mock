@@ -41,6 +41,13 @@ const PATHS = {
       <path d="M8.5 15.8c-1 1.2-.9 2.7.3 3.4 1.3.8 3-.1 3-1.7" />
     </>
   ),
+  // a capital T with a text caret: type on the page
+  text: (
+    <>
+      <path d="M5 6.5V5h11v1.5M10.5 5v13M8.5 18h4" />
+      <path d="M18.5 10v9" />
+    </>
+  ),
   // a strip of tape, torn ends
   tape: (
     <>

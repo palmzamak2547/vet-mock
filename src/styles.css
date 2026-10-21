@@ -8629,3 +8629,15 @@ body.vmx-fullscreen .vmx-tools-fab, body.vmx-fullscreen .vmx-tools-fab-wrap { di
   .vmx-tape { transition: opacity 120ms linear; }
   .vmx-tape.is-peeled { transform: rotate(var(--tilt, 0deg)); }
 }
+
+/* ── Text note editor (components/TextNoteEditor.jsx) ─────────────────────
+   Sits exactly where the note will be painted, in the note's own font, size
+   and colour, so leaving it changes nothing on screen but the dashed edge. */
+.vmx-textnote-editor {
+  position: absolute; z-index: 3; box-sizing: content-box; margin: 0; padding: 0;
+  border: 0; outline: 1.5px dashed var(--clr-sage); outline-offset: 4px; border-radius: 2px;
+  background: rgba(255, 255, 255, .55); resize: none; overflow: hidden;
+  font-family: "Sarabun", "IBM Plex Sans Thai", system-ui, sans-serif; font-weight: 500;
+  overflow-wrap: anywhere; white-space: pre-wrap; pointer-events: auto; touch-action: manipulation;
+  caret-color: currentColor;
+}

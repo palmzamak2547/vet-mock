@@ -64,7 +64,10 @@ export function transformStroke(stroke, { dx = 0, dy = 0, k = 1, ox = 0, oy = 0 
     q[1] = clamp01(oy + (p[1] - oy) * k + dy);
     return q;
   });
-  return { ...stroke, id: newId, points, size: Math.max(0.5, stroke.size * k) };
+  const out = { ...stroke, id: newId, points, size: Math.max(0.5, stroke.size * k) };
+  // A text note wraps at `w` (a share of the page): it grows with the text.
+  if (typeof stroke.w === 'number') out.w = Math.max(0.05, Math.min(1 - points[0][0], stroke.w * k));
+  return out;
 }
 
 /** The scale a corner handle asks for, kept within [min, max]. */
