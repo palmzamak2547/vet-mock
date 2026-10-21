@@ -85,12 +85,14 @@ test('the lasso moves a stroke as a new stroke, and one undo puts it back', asyn
   await lassoAround(page, box, 0.3);
   const sel = page.locator('.vmx-lasso-box');
   await expect(sel).toBeVisible();
-  await expect(page.locator('.vmx-lasso-count')).toHaveText('1 เส้น');
+  await expect(page.locator('.vmx-lasso-bar')).toHaveAttribute('aria-label', 'จัดการ 1 เส้นที่เลือก');
 
   const b = await sel.boundingBox();
+  const dragPx = Math.min(box.h * 0.25, 160);
+  const pageH = await page.evaluate(() => document.querySelector('[data-page="1"]').getBoundingClientRect().height);
   await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2);
   await page.mouse.down();
-  await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2 + box.h * 0.25, { steps: 8 });
+  await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2 + dragPx, { steps: 8 });
   await page.mouse.up();
 
   await expect.poll(async () => {
@@ -99,7 +101,7 @@ test('the lasso moves a stroke as a new stroke, and one undo puts it back', asyn
     return list.length === 1 && list[0].id !== orig.id && (r.deleted || []).includes(orig.id);
   }, { message: 'the moved stroke should be stored under a new id, the old one tombstoned' }).toBe(true);
   const [moved] = await strokes(page);
-  expect(moved.points[0][1] - orig.points[0][1]).toBeGreaterThan(0.15);
+  expect(moved.points[0][1] - orig.points[0][1], 'moved by the distance dragged').toBeCloseTo(dragPx / pageH, 2);
   expect(Math.abs(moved.points[0][0] - orig.points[0][0])).toBeLessThan(0.01);
 
   await page.locator('button[aria-label="ย้อนกลับ"]').click();
@@ -124,7 +126,7 @@ test('deleting from the lasso bar is undone in one step, even on an emptied page
     await page.mouse.move(box.x + box.w * x, box.y + box.h * y, { steps: 6 });
   }
   await page.mouse.up();
-  await expect(page.locator('.vmx-lasso-count')).toHaveText('2 เส้น');
+  await expect(page.locator('.vmx-lasso-bar')).toHaveAttribute('aria-label', 'จัดการ 2 เส้นที่เลือก');
   await page.locator('button[aria-label="ลบเส้นที่เลือก"]').click();
   await expect.poll(async () => (await strokes(page)).length, { message: 'both strokes should be deleted' }).toBe(0);
 

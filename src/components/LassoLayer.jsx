@@ -9,7 +9,7 @@
 // the end (onCommit); the reader repaints the ink and owns the strokes. A tap
 // on the box without moving does nothing, so a student never nudges ink by
 // accident while reaching for the action bar.
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import NavIcon from './NavIcon.jsx';
 import { scaleFromHandle } from '../lib/lasso.js';
 
@@ -18,6 +18,11 @@ const CORNERS = ['tl', 'tr', 'bl', 'br'];
 // be dragged; the corner handles sit OUTSIDE it, so they never cover the part
 // that moves.
 const MIN_BOX = 44;
+// The bar keeps clear of the corner handles (40 px outside the box) and of the
+// page's edges. Its width is known: count, four 44 px buttons and padding.
+const HANDLE_REACH = 34;
+const BAR_W = 4 * 44 + 12;
+const BAR_H = 52;
 // Below this many CSS px a pointer that went down and up is a tap, not a drag.
 const DRAG_SLOP = 3;
 
@@ -26,6 +31,7 @@ export default function LassoLayer({
   onPreview, onCommit, onDelete, onDuplicate, onRecolor, onDone,
 }) {
   const dragRef = useRef(null);
+  const [palette, setPalette] = useState(false);
   const box = selection?.box || null;
   const t = preview || { dx: 0, dy: 0, k: 1, ox: 0, oy: 0 };
   // The box as the ink will look after the transform.
@@ -72,8 +78,21 @@ export default function LassoLayer({
   const loopPath = loop && loop.length > 1
     ? loop.map(([x, y], i) => `${i ? 'L' : 'M'}${(x * w).toFixed(1)} ${(y * h).toFixed(1)}`).join(' ')
     : null;
-  // The action bar sits above the box, or below it when the box is near the top.
-  const barBelow = shown && shown.y * h < 64;
+  // The box as drawn: never under a fingertip's size, centred on the ink.
+  const dbox = shown && (() => {
+    const bw = Math.max(MIN_BOX, shown.w * w);
+    const bh = Math.max(MIN_BOX, shown.h * h);
+    return { left: (shown.x + shown.w / 2) * w - bw / 2, top: (shown.y + shown.h / 2) * h - bh / 2, width: bw, height: bh };
+  })();
+  // The bar above the box when there is room (handles included), else below;
+  // centred on it, kept inside the page.
+  const bar = dbox && (() => {
+    const above = dbox.top - HANDLE_REACH - BAR_H >= 0;
+    const top = above ? dbox.top - HANDLE_REACH - BAR_H : dbox.top + dbox.height + HANDLE_REACH;
+    const half = BAR_W / 2;
+    const cx = Math.min(Math.max(dbox.left + dbox.width / 2, half + 4), Math.max(half + 4, (w || 0) - half - 4));
+    return { left: cx - half, top };
+  })();
 
   return (
     <div className="vmx-lasso" aria-hidden={!box}>
@@ -88,11 +107,7 @@ export default function LassoLayer({
             className="vmx-lasso-box"
             role="group"
             aria-label={`เลือกไว้ ${selection.ids.length} เส้น ลากเพื่อย้าย ลากมุมเพื่อย่อหรือขยาย`}
-            style={(() => {
-              const bw = Math.max(MIN_BOX, shown.w * w);
-              const bh = Math.max(MIN_BOX, shown.h * h);
-              return { left: (shown.x + shown.w / 2) * w - bw / 2, top: (shown.y + shown.h / 2) * h - bh / 2, width: bw, height: bh };
-            })()}
+            style={dbox}
             onPointerDown={down('move')} onPointerMove={move} onPointerUp={up} onPointerCancel={up}
           >
             {CORNERS.map((c) => (
@@ -103,15 +118,14 @@ export default function LassoLayer({
           <div
             className="vmx-lasso-bar"
             role="toolbar"
-            aria-label="จัดการเส้นที่เลือก"
-            style={{ left: (shown.x + shown.w / 2) * w, top: barBelow ? (shown.y + shown.h) * h + 10 : shown.y * h - 10, transform: `translate(-50%, ${barBelow ? '0' : '-100%'})` }}
+            aria-label={`จัดการ ${selection.ids.length} เส้นที่เลือก`}
+            style={{ left: bar.left, top: bar.top, width: BAR_W }}
             onPointerDown={(e) => e.stopPropagation()}
           >
-            <span className="vmx-lasso-count">{selection.ids.length} เส้น</span>
-            {colors.map((c) => (
-              <button key={c.id} type="button" className="vmx-lasso-swatch" aria-label={`เปลี่ยนเป็นสี${c.name}`} title={c.name}
-                style={{ '--swatch': c.rgb }} onClick={() => onRecolor?.(c.rgb)} />
-            ))}
+            <button type="button" className="vmx-lasso-act" aria-expanded={palette}
+              onClick={() => setPalette((v) => !v)} aria-label="เปลี่ยนสี" title="เปลี่ยนสี">
+              <span className="vmx-lasso-palette" aria-hidden="true" />
+            </button>
             <button type="button" className="vmx-lasso-act" onClick={onDuplicate} aria-label="ทำสำเนา" title="ทำสำเนา (Ctrl+D)">
               <NavIcon name="copy" size={18} />
             </button>
@@ -121,6 +135,14 @@ export default function LassoLayer({
             <button type="button" className="vmx-lasso-act is-done" onClick={onDone} aria-label="เสร็จ" title="เสร็จ (Esc)">
               <NavIcon name="check" size={18} />
             </button>
+            {palette && (
+              <div className="vmx-lasso-colors" role="group" aria-label="สี">
+                {colors.map((c) => (
+                  <button key={c.id} type="button" className="vmx-lasso-swatch" aria-label={`เปลี่ยนเป็นสี${c.name}`} title={c.name}
+                    style={{ '--swatch': c.rgb }} onClick={() => { setPalette(false); onRecolor?.(c.rgb); }} />
+                ))}
+              </div>
+            )}
           </div>
         </>
       )}
