@@ -310,3 +310,26 @@ is a targeted change that keeps the look and the motion.
    lifecycle a frame at 4x CPU while the bar runs together), measured with `scripts/perf-join.mjs`.
 6. **The layout shift when a set starts** (CLS 0.078 at 4x CPU).
 7. **The empty board's first action first.**
+
+## 7. Phase 3 status (paused 2026-10-22 at the weekly-usage pause; resume after 2026-10-25 13:00 UTC)
+
+Direction shown to Palm: https://claude.ai/artifact/GRc9XHcuVNyxRZrVw3WFYb. Five draft PRs, one
+change each, every one on its own branch from main (worktrees under `C:/dev/vca-*`, node_modules
+junctioned to `C:/dev/vca-journeys`; never run `npm ci` in the junctioned ones):
+
+| PR | Branch | Change | Proven so far |
+|---|---|---|---|
+| #48 | `claude/vca-journeys` | This page, the two probes, sign-in in LINE/Facebook/Instagram browsers | inapp + boundaries unit tests pass locally; e2e written |
+| #49 | `claude/vca-results` | Result domains weakest first, one-tap practice of the weakest | session unit tests pass locally (17/17); e2e written |
+| #50 | `claude/vca-thai-14` | Thai at 14 px and up on every rule the audit found; note links 44 px on touch | not yet re-audited |
+| #51 | `claude/vca-exam-date` | Plan uses the announced round until a date is chosen; smaller first goal over 40 a day | e2e written |
+| #52 | `claude/vca-steady-start` | `BusyLabel`: start buttons keep their width (CLS 0.078 on start, cause found) | e2e written |
+
+Not yet done, in order:
+1. Read each PR's CI (GitHub runs the VCA job and the e2e matrix).
+2. Slot A of the heavy-job gate: `scratchpad/verify-a.sh` (unit, build, full VCA e2e for the five
+   branches). Slot B: `verify-b.sh` (base build, previews 4301-4305, perf A/B per PR with
+   `perf-journeys.mjs`, `perf-join.mjs` on main). Turn tokens come from the coordinating session.
+3. With CI green and A/B no worse than main: mark ready, `gh pr merge --squash --auto`, one at a time.
+4. Then: the top bar's join off the main thread (measure with `perf-join.mjs` first; needs a real
+   iPhone to confirm the look), and the real-phone checks in section 4.
