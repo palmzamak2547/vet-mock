@@ -220,6 +220,11 @@ const Analytics = lazy(() =>
 const SpeedInsights = lazy(() =>
   import('@vercel/speed-insights/react').then((m) => ({ default: m.SpeedInsights })),
 );
+// Mochi voice ships dark: only admins ask the server whether it is on, so no
+// one else downloads the panel or calls the route. Flip to true (and set
+// MOCHI_VOICE_OPEN=1 on the server) to open it to every signed-in student.
+const MOCHI_VOICE_FOR_ALL = false;
+const MochiVoice = lazy(() => import('./components/MochiVoice.jsx'));
 const IS_LOCAL_HOST = typeof window !== 'undefined'
   && /^(localhost|127\.|192\.168\.|\[::1\])/.test(window.location.hostname);
 
@@ -307,6 +312,17 @@ export default function App() {
     checkIsAdmin().then((ok) => { if (alive) setIsAdmin(ok); }).catch(() => { if (alive) setIsAdmin(false); });
     return () => { alive = false; };
   }, [user?.id]);
+
+  const [voiceOn, setVoiceOn] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    setVoiceOn(false);
+    if (!user?.id || !(isAdmin || MOCHI_VOICE_FOR_ALL)) return undefined;
+    import('./lib/mochi-voice.js').then((m) => m.voiceApi('status'))
+      .then((r) => { if (alive) setVoiceOn(r.ok && r.body.enabled === true); })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, [user?.id, isAdmin]);
 
   // Phase 3 perf: QB lazy-load tracker. `qbReady` flips true on first
   // successful loadQB() resolution; we use it to (a) trigger a single
@@ -3362,6 +3378,12 @@ export default function App() {
       <OptionalFeature>
         <HighlightToCard />
       </OptionalFeature>
+
+      {voiceOn && (
+        <OptionalFeature label="คุยกับ Mochi">
+          <MochiVoice onTypeInstead={() => setPaletteOpen(true)} />
+        </OptionalFeature>
+      )}
 
       {/* Anonymous, privacy-preserving usage signal so Palm can see
           if Imaging Lab is getting organic visits + which views people
