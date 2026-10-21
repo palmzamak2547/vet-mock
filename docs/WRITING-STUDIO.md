@@ -61,3 +61,12 @@ targets, Thai copy, no middle dots. One slice per PR release.
   crumples the card away (a fade under reduced motion) and says so to screen readers.
 - Not yet: inserting a page in the middle, notebooks listed on other devices (the list is per
   browser; the ink itself syncs by its key).
+
+### 5.156.1 hotfix (2026-10-22)
+
+5.156.0 opened notebooks through a blob: URL that the reader fetched. Production's CSP
+(`connect-src`) has no `blob:`, so every notebook failed on vetmock.com with "เชื่อมต่อไม่ได้", while
+the local gate and all CI e2e passed: `vite preview` sends no CSP. Now the reader takes the bytes
+(`ingestRemote({ bytes })`, `new File([bytes])` for export), and the notebook e2e runs under the
+CSP read from vercel.json (`withProductionCsp`). Proven: that test fails on 5.156.0's reader and
+passes on the fix.

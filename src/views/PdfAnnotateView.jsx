@@ -467,7 +467,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // else is fetched whole, because chasing a trailing cross-reference table
   // over dozens of small ranges is slower than one sequential download.
   const ingestRemote = useCallback(async (doc) => {
-    if (!doc?.url && !doc?.resolve) return;
+    if (!doc?.url && !doc?.resolve && !doc?.bytes) return;
     const gen = supersedeOpen();
     const current = () => gen === loadGenRef.current;
     setError(null);
@@ -478,16 +478,21 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // `resolve` defers the signed-link mint until here, overlapping it
       // with the pdf.js chunk load — the shelf navigates instantly instead
       // of freezing its button for the mint round-trip.
+      // `bytes`: a document the app made itself (a notebook). Handed over as
+      // bytes, never as a blob: URL, because production's CSP (connect-src)
+      // does not allow fetching blob: and should not need to.
       const [pdfjs, url] = await Promise.all([
         loadPdfjs(),
-        doc.url ? Promise.resolve(doc.url) : doc.resolve(),
+        doc.bytes ? Promise.resolve(null) : doc.url ? Promise.resolve(doc.url) : doc.resolve(),
       ]);
       if (!current()) return;
-      const stream = !!(doc.linearized || doc.rangeSupported);
+      const stream = !doc.bytes && !!(doc.linearized || doc.rangeSupported);
       let task;
       if (stream) {
         task = pdfjs.getDocument({ url, rangeChunkSize: doc.rangeSupported ? 262144 : 65536,
           ...(doc.rangeSupported ? { disableAutoFetch: true, disableStream: true } : {}) });
+      } else if (doc.bytes) {
+        task = pdfjs.getDocument({ data: new Uint8Array(doc.bytes) });
       } else {
         // Back, or another document, while this downloads: stop it rather than
         // pull the whole file over mobile data and assemble it in memory for
@@ -573,7 +578,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // Published with the document it belongs to (see ingestFile).
       // `resolve` is kept so an export after the signed link has expired can
       // mint a fresh one instead of failing with a bare status code.
-      sourceRef.current = { kind: 'url', url, resolve: typeof doc.resolve === 'function' ? doc.resolve : null };
+      if (doc.bytes) sourceRef.current = { kind: 'file', file: new File([doc.bytes], doc.fileName || 'notebook.pdf', { type: 'application/pdf' }) };
+      else sourceRef.current = { kind: 'url', url, resolve: typeof doc.resolve === 'function' ? doc.resolve : null };
       setPdfDoc(pdf);
       setFileHash(hash);
       setFileName(doc.fileName || 'document.pdf');
@@ -2157,12 +2163,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const openNotebook = useCallback(async (nb, { page = 0 } = {}) => {
     nb = updateNotebook(nb.id, {}) || nb; // "เปิดล่าสุด" on the shelf
     const bytes = await buildNotebookPdf({ paper: nb.paper, pages: nb.pages });
-    const url = URL.createObjectURL(new Blob([bytes], { type: 'application/pdf' }));
-    const prev = notebookRef.current;
-    notebookRef.current = { ...nb, url };
-    if (prev?.url) setTimeout(() => URL.revokeObjectURL(prev.url), 30000);
+    notebookRef.current = nb;
     ingestRemote({
-      resolve: async () => url,
+      bytes,
       sha256: notebookKey(nb.id),
       title: nb.title,
       fileName: `${nb.title}.pdf`,
