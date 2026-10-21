@@ -8477,7 +8477,7 @@ body.vmx-fullscreen .vmx-tools-fab, body.vmx-fullscreen .vmx-tools-fab-wrap { di
 .vmx-lasso-handle { position: absolute; width: 40px; height: 40px; touch-action: none; }
 .vmx-lasso-handle::after {
   content: ''; position: absolute; width: 14px; height: 14px;
-  border-radius: 50%; background: var(--clr-bg); border: 2px solid var(--clr-sage);
+  border-radius: 50%; background: white; border: 2px solid var(--clr-sage); /* on paper, which is white in both themes */
   box-shadow: 0 1px 3px rgba(0,0,0,.25);
 }
 .vmx-lasso-handle.is-tl { right: 100%; bottom: 100%; cursor: nwse-resize; }
