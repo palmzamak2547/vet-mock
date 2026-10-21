@@ -45,6 +45,7 @@ export default memo(function PdfPage({
   active,
   cursor,
   scrollRoot,
+  layer = null, // the lasso, on the one page that has it
 }) {
   const rowRef = useRef(null);
   const baseRef = useRef(null);
@@ -239,6 +240,7 @@ export default memo(function PdfPage({
           background: 'rgba(20,20,20,0.62)', color: '#fff', pointerEvents: 'none',
         }}
       >{pageNum}{hasInk ? ' ✍' : ''}</span>
+      {layer}
     </div>
   );
 });
