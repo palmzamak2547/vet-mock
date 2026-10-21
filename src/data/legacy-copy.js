@@ -28,19 +28,19 @@
 
 export const LEGACY_COPY_PRE_2026_05_10 = {
   // ── index.html ──────────────────────────────────────────────
-  pageTitle: 'VetMock — คลังข้อสอบสัตวแพทย์ จุฬา · MCQ + ข้อสอบเก่า + คลิปย้อนหลัง',
+  pageTitle: 'VetMock — คลังข้อสอบสัตวแพทย์ จุฬา, MCQ + ข้อสอบเก่า + คลิปย้อนหลัง',
   metaDescription:
-    'VetMock = คลังข้อสอบสัตวแพทย์จุฬา · MCQ + ข้อสอบเก่า COM III / IV / V + Eng Vet Prof II · คลิปย้อนหลัง + summary · กำลังขยายให้ครบทุกชั้นปี (ปี 1-6) · ออกแบบโดยและเพื่อนิสิตในรุ่น',
+    'VetMock = คลังข้อสอบสัตวแพทย์จุฬา, MCQ + ข้อสอบเก่า COM III / IV / V + Eng Vet Prof II, คลิปย้อนหลัง + summary, กำลังขยายให้ครบทุกชั้นปี (ปี 1-6), ออกแบบโดยและเพื่อนิสิตในรุ่น',
   metaKeywords:
     'VetMock, คลังข้อสอบสัตวแพทย์, ข้อสอบสัตวแพทย์ จุฬา, ข้อสอบเก่า สัตวแพทย์, Vet 86, COM III, COM IV, COM V, vet question bank, Chulalongkorn veterinary',
-  ogTitle: 'VetMock — คลังข้อสอบสัตวแพทย์ จุฬา · MCQ + ข้อสอบเก่า + คลิปย้อนหลัง',
-  ogDescription: 'คลังข้อสอบ MCQ + ข้อสอบเก่า + คลิปย้อนหลัง + summary · นิสิตสัตวแพทย์จุฬา · กำลังขยายให้ครบทุกชั้นปี',
+  ogTitle: 'VetMock — คลังข้อสอบสัตวแพทย์ จุฬา, MCQ + ข้อสอบเก่า + คลิปย้อนหลัง',
+  ogDescription: 'คลังข้อสอบ MCQ + ข้อสอบเก่า + คลิปย้อนหลัง + summary, นิสิตสัตวแพทย์จุฬา, กำลังขยายให้ครบทุกชั้นปี',
   ogImageAlt: 'VetMock logo — คลังข้อสอบสัตวแพทย์ จุฬา',
   twitterTitle: 'VetMock — คลังข้อสอบสัตวแพทย์ จุฬา',
-  twitterDescription: 'คลังข้อสอบ MCQ + ข้อสอบเก่า + คลิปย้อนหลัง · นิสิตสัตวแพทย์จุฬา · ขยายครบทุกชั้นปี',
+  twitterDescription: 'คลังข้อสอบ MCQ + ข้อสอบเก่า + คลิปย้อนหลัง, นิสิตสัตวแพทย์จุฬา, ขยายครบทุกชั้นปี',
   jsonLdAlternateName: 'คลังข้อสอบสัตวแพทย์ จุฬา',
   jsonLdDescription:
-    'คลังข้อสอบสัตวแพทย์จุฬา · MCQ + ข้อสอบเก่า COM III / IV / V + Eng Vet Prof II · คลิปย้อนหลัง + summary + spaced repetition · กำลังขยายให้ครบทุกชั้นปี (ปี 1-6)',
+    'คลังข้อสอบสัตวแพทย์จุฬา, MCQ + ข้อสอบเก่า COM III / IV / V + Eng Vet Prof II, คลิปย้อนหลัง + summary + spaced repetition, กำลังขยายให้ครบทุกชั้นปี (ปี 1-6)',
 
   // ── public/manifest.webmanifest ────────────────────────────
   manifestDescription: 'คลังข้อสอบ + ตารางสอบ + คลิปย้อนหลัง สำหรับสัตวแพทย์ จุฬา (Vet 86)',

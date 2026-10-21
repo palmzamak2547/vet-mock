@@ -110,3 +110,18 @@ test('a mount from anywhere else keeps the plain index, even with a subject left
   assert.deepEqual(scrolled, []);
   none.unmount();
 });
+
+test('the VetWiki menu opens the index even when App still names a practised topic', async (t) => {
+  // 2026-10-21 audit: practising COM V Rabies, then tapping VetWiki in the
+  // menu, opened the Rabies article. The menu writes /wiki and no new request
+  // (the nonce was acted on), so the URL decides and the index shows.
+  browser(t);
+  const first = mount(KnowledgeView, { subject: 'com5', topic: 'rabies', openNonce: 7, goHome() {}, setView() {} });
+  await settle(first);
+  first.unmount();
+  window.location = new URL('https://vetmock.com/wiki');
+  const menu = mount(KnowledgeView, { subject: 'com5', topic: 'rabies', openNonce: 7, goHome() {}, setView() {} });
+  await settle(menu);
+  assert.ok(sections(menu).length > 0, 'the index, not the Rabies article');
+  menu.unmount();
+});

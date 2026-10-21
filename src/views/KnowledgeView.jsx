@@ -13,9 +13,9 @@
 // toned rule, and hierarchy comes from type — subject heading, title, summary.
 // (Palm's note: "when the data grows, are emoji even enough?" — no, so remove.)
 //
-// Wiki affordances added here: breadcrumb · in-wiki search · subject grouping ·
-// table of contents · stable per-section anchors (deep-linkable + citable) ·
-// review metadata · related topics.
+// Wiki affordances added here: breadcrumb, in-wiki search, subject grouping,
+// table of contents, stable per-section anchors (deep-linkable + citable),
+// review metadata, related topics.
 // ============================================================
 
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
@@ -40,6 +40,7 @@ import ReportConcern from '../components/ReportConcern.jsx';
 import SlideFigures from '../components/SlideFigures.jsx';
 import RelatedDocs from '../components/RelatedDocs.jsx';
 import { fetchRelatedDocs } from '../lib/library.js';
+import { takeRelatedReturn } from '../lib/related-return.js';
 import OptionalFeature from '../components/OptionalFeature.jsx';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import StatePanel from '../components/StatePanel.jsx';
@@ -183,27 +184,27 @@ function ProvenancePanel({ prov, history, sections, atHistory, onJump, onClose }
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 14 }}>
           <div style={{ flex: 1, minWidth: 130, padding: 12, borderRadius: 12, background: 'var(--clr-surface-2)' }}>
             <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--clr-sage-text)' }}>{prov.verifiedClaimCount}</div>
-            <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>จุดที่ตรวจทานกับแหล่งอ้างอิงแล้ว</div>
+            <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>จุดที่ตรวจทานกับแหล่งอ้างอิงแล้ว</div>
           </div>
           {prov.draftSectionCount > 0 && (
             <div style={{ flex: 1, minWidth: 130, padding: 12, borderRadius: 12, background: 'var(--clr-surface-2)' }}>
               <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--clr-ink-soft)' }}>{prov.draftSectionCount}</div>
-              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>หัวข้อย่อยรอตรวจทาน</div>
+              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>หัวข้อย่อยรอตรวจทาน</div>
             </div>
           )}
           {(prov.metadataSectionCount || 0) > 0 && (
             <div style={{ flex: 1, minWidth: 130, padding: 12, borderRadius: 12, background: 'var(--clr-surface-2)' }}>
               <div style={{ fontSize: 24, fontWeight: 700, color: 'var(--clr-ink-soft)' }}>{prov.metadataSectionCount}</div>
-              <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)' }}>หัวข้อย่อยที่ไม่ได้ตรวจทาน</div>
+              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>หัวข้อย่อยที่ไม่ได้ตรวจทาน</div>
             </div>
           )}
         </div>
         {prov.sources.length > 0 && (
           <>
-            <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', marginBottom: 6 }}>แหล่งอ้างอิงที่ใช้ตรวจทาน</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', marginBottom: 6 }}>แหล่งอ้างอิงที่ใช้ตรวจทาน</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {prov.sources.map((s) => (
-                <div key={s.id} style={{ fontSize: 12.5, lineHeight: 1.5, color: 'var(--clr-ink)' }}>
+                <div key={s.id} style={{ fontSize: 14, lineHeight: 1.5, color: 'var(--clr-ink)' }}>
                   {s.url
                     ? <a href={s.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--clr-ocean-text)' }}>{citationText(s)}</a>
                     : <span>{citationText(s)}</span>}
@@ -234,7 +235,7 @@ function ProvenancePanel({ prov, history, sections, atHistory, onJump, onClose }
             </ol>
           </section>
         )}
-        <p style={{ fontSize: 12, lineHeight: 1.5, color: 'var(--clr-ink-soft)', marginTop: 14, paddingTop: 12, borderTop: '1px dashed var(--clr-border)' }}>
+        <p style={{ fontSize: 14, lineHeight: 1.5, color: 'var(--clr-ink-soft)', marginTop: 14, paddingTop: 12, borderTop: '1px dashed var(--clr-border)' }}>
           {prov.draftSectionCount > 0
             ? 'เนื้อหาที่รอตรวจทานมาจากโน้ตใน VetMock ยังไม่ได้เทียบกับแหล่งอ้างอิง ใช้เพื่อการเรียนรู้ ไม่ใช่คำแนะนำทางคลินิก'
             : 'ใช้เพื่อการเรียนรู้ ไม่ใช่คำแนะนำทางคลินิก จุดที่ตรวจทานแล้วทุกจุดบอกแหล่งอ้างอิงที่ตามไปอ่านได้'}
@@ -754,7 +755,7 @@ function ReadMark({ current, reading }) {
 
 // The end of a chapter: mark it read, the topics either side of it, the ones
 // that check against the same sources, and the rest of its volume.
-function ChapterEnd({ current, siblings, prev, next, neighbours, reading, checklist, onOpen }) {
+function ChapterEnd({ current, siblings, prev, next, neighbours, reading, checklist, onOpen, related = null }) {
   // Read as รายการอ่าน counts it: only a topic it lists can be read.
   const isRead = (t) => !!checklist && inReadingList(t.subject, t.topic) && isTopicRead(checklist, t.subject, t.topic);
   return (
@@ -793,6 +794,7 @@ function ChapterEnd({ current, siblings, prev, next, neighbours, reading, checkl
           </ul>
         </div>
       )}
+      {related}
       {siblings.length > 1 && (
         <div className="vw-end-block">
           <h2>ในเล่มเดียวกัน</h2>
@@ -869,19 +871,32 @@ const Section = React.memo(function Section({ s, i, chips, knowledgeId, copiedSt
 // Library pages that name this article's topic (library_doc_links).
 function WikiRelatedDocs({ target, onOpenDoc }) {
   const [rows, setRows] = useState(null);
+  const [land, setLand] = useState(false);
   useEffect(() => {
     if (!onOpenDoc) return undefined;
     let alive = true;
-    fetchRelatedDocs([target]).then((m) => { if (alive) setRows(m.get(target) || []); });
+    fetchRelatedDocs([target]).then((m) => {
+      if (!alive) return;
+      const list = m.get(target) || [];
+      setRows(list);
+      // Back from the reader: land on this list, not the top of the article.
+      if (list.length && takeRelatedReturn([target])) setLand(true);
+    });
     return () => { alive = false; };
   }, [target, !!onOpenDoc]); // eslint-disable-line react-hooks/exhaustive-deps
-  return <RelatedDocs rows={rows} onOpenDoc={onOpenDoc} />;
+  return <RelatedDocs rows={rows} onOpenDoc={onOpenDoc} target={target} land={land} variant="wiki" />;
 }
 
 function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, chapter, siblings, prev, next, neighbours, reading, checklist, goPractice, practiceLabel, goNotes, shareUrl, onOpenDoc }) {
   const [copied, setCopied] = useState('');
   const copyTimer = useRef(null);
   useEffect(() => () => clearTimeout(copyTimer.current), []);
+  // The article's own tab title, the one its prerendered page ships
+  // (scripts/lib/og-head.mjs). Without it, an article reached inside the app
+  // (or again after the PDF reader) was titled plain "VetMock".
+  useEffect(() => {
+    if (knowledge?.title && typeof document !== 'undefined') document.title = `${knowledge.title} — VetWiki — VetMock`;
+  }, [knowledge?.title]);
   const sections = knowledge.sections;
 
   // Sources numbered across the article (lib/vetwiki/cite.js): the chips under
@@ -1198,9 +1213,9 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
           </ReadingEffects>
 
           <div ref={endRef} aria-hidden="true" className="vmx-reading-end" />
-          <WikiRelatedDocs target={`${current.subject}/${current.topic}`} onOpenDoc={onOpenDoc} />
           <ChapterEnd current={current} siblings={siblings} prev={prev} next={next}
-            neighbours={neighbours} reading={reading} checklist={checklist} onOpen={onOpen} />
+            neighbours={neighbours} reading={reading} checklist={checklist} onOpen={onOpen}
+            related={<WikiRelatedDocs target={`${current.subject}/${current.topic}`} onOpenDoc={onOpenDoc} />} />
           <SourceList list={cites.list} sections={sections} onJump={jumpTo} />
         </div>
         {/* The contents beside the article where there is room, after it in
@@ -1251,8 +1266,19 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   const topics = useMemo(() => listTopics(), []);
   // Opening VetWiki from the app lands on the index (a reference opens at its
   // contents); a direct subject+topic entry (e.g. from a note page) opens the
-  // article itself.
-  const [openId, setOpenId] = useState(() => (subject && topic && topics.some((t) => t.id === `${subject}--${topic}`) ? `${subject}--${topic}` : null));
+  // article itself. App writes the URL before this view mounts (/wiki for the
+  // menu, /wiki/<subject>/<topic> for an article), so the URL decides: App's
+  // subject and topic may still be the practice set or an earlier article,
+  // and the menu then opened that article instead of the index.
+  // A fresh request (openNonce not yet acted on) names its article itself.
+  const [openId, setOpenId] = useState(() => {
+    const at = typeof window !== 'undefined' ? parseWikiPath(window.location.pathname) : { isWiki: false };
+    const [s, t] = at.isWiki && !(openNonce > actedOnOpenNonce) ? [at.subject, at.topic] : [subject, topic];
+    return s && t && topics.some((x) => x.id === `${s}--${t}`) ? `${s}--${t}` : null;
+  });
+  // The open-article effect below reads App's subject/topic; on mount those
+  // only count when they name the article in the URL.
+  const mountedRef = useRef(false);
   // The subject the index was last asked to show ({ subject, nonce }).
   const [indexFocus, setIndexFocus] = useState(null);
   const [articleLoad, setArticleLoad] = useState({ id: null, status: 'idle', data: null, error: '' });
@@ -1283,6 +1309,10 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
     return () => { active = false; };
   }, [current]);
   const knowledge = articleLoad.id === current?.id ? articleLoad.data : null;
+  // The index's tab title (as prerendered); an open article sets its own.
+  useEffect(() => {
+    if (!current && typeof document !== 'undefined') document.title = 'VetWiki — คลังความรู้สัตวแพทย์ที่ตรวจสอบได้ — VetMock';
+  }, [current]);
   const prov = useMemo(() => provenanceSummary(knowledge), [knowledge]);
   // The article's volume, in the registry's order, which is the course's
   // (lib/vetwiki/index.js): "หัวข้อที่ 3 จาก 7", the topics either side, and
@@ -1346,6 +1376,13 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   useEffect(() => {
     const fresh = openNonce > actedOnOpenNonce;
     if (fresh) actedOnOpenNonce = openNonce;
+    // A fresh request (openWiki bumps openNonce) is meant; a mount without one
+    // (the menu, Home's tile) follows the URL and leaves App's leftovers be.
+    if (!mountedRef.current) {
+      mountedRef.current = true;
+      const at = parseWikiPath(window.location.pathname);
+      if (!fresh && at.isWiki && (at.subject !== subject || at.topic !== topic)) return;
+    }
     const id = subject && topic ? `${subject}--${topic}` : null;
     if (!id) {
       // A subject with no topic (the search card's VetWiki button): the

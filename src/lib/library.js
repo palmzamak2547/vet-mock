@@ -851,6 +851,47 @@ export function fetchRelatedDocs(targets) {
   return _related.get(key);
 }
 
+// Evidence is cut from the page at a fixed offset, so it usually starts and
+// ends inside a word ("l pathogens"). Drop a partial first and last word
+// (up to 20 characters each), but never the term itself.
+export function tidyEvidence(text, term = '') {
+  const t = String(term).toLowerCase();
+  const keeps = (s) => !t || s.toLowerCase().includes(t);
+  // Slide bullets, including the ones a Wingdings or Symbol font turns into
+  // stray glyphs when the text is extracted ("§", "¡", "❖", private-use).
+  // Standalone only, and a "§" or "¶" followed by a number is a citation
+  // ("§ 4.2"), so it stays.
+  const raw = String(text || '')
+    .replace(/[\uE000-\uF8FF\uFFFD]/g, ' • ')
+    .replace(/(^|\s)(?:[§¶](?!\s*\d)|[¤¢¡´¨»«◼■□❑❖➢►▶✓✔➤])(?=\s|$)/g, '$1•')
+    .trim();
+  // A side that begins or ends on a bullet already sits on a word boundary.
+  const BULLET = /[•·●▪◦‣∙]/;
+  const cleanHead = BULLET.test(raw[0] || '');
+  const cleanTail = BULLET.test(raw[raw.length - 1] || '');
+  // A slide's bullet markers ("•", "·", "▪") read as separators the app does
+  // not use; on screen they become commas. The stored evidence keeps them.
+  let s = raw
+    .replace(/\s*[•·●▪◦‣∙]\s*/g, ', ')
+    .replace(/(,\s*){2,}/g, ', ')
+    .replace(/^[,\s]+/, '')
+    .trimEnd();
+  // A first word that starts lower-case, with a digit, or with a Thai vowel or
+  // tone mark that cannot begin a word ("ึง") was cut mid-word; one that starts
+  // with a capital or a Thai consonant is taken as whole.
+  const head = s.search(/\s/);
+  // A list number ("1.", "2)") is whole too.
+  if (!cleanHead && head > 0 && head <= 20 && /^[a-z0-9\u0E30-\u0E3A\u0E45\u0E47-\u0E4E]/.test(s)
+    && !/[.):]$/.test(s.slice(0, head)) && keeps(s.slice(head + 1))) s = s.slice(head + 1).trimStart();
+  // Only a Latin last word can be told apart as cut: one in lower case or a
+  // one- or two-letter capital stub ("Un") goes; a capitalised word ("PCR"),
+  // a word ending on punctuation ("Ph.D.") and Thai text stay.
+  const tail = s.length - 1 - s.lastIndexOf(' ');
+  const last = s.slice(s.length - tail);
+  if (!cleanTail && tail > 0 && tail <= 20 && !/[.,;:!?)\]]$/.test(s) && (/^[a-z0-9]/.test(last) || /^[A-Z][a-z]?$/.test(last)) && keeps(s.slice(0, s.length - tail))) s = s.slice(0, s.length - tail).trimEnd();
+  return s.replace(/[,\s]+$/, '');
+}
+
 // Splits a snippet around the query's terms so the view can mark them.
 // Case-insensitive; returns [{ text, hit }] covering the whole snippet.
 export function markTerms(snippet, query) {
@@ -913,9 +954,10 @@ export function docOpenMode(doc) {
 /** The payload the PDF reader receives. `resolve` defers the mint to the
  *  reader's own loading phase, so tapping a card navigates instantly instead
  *  of freezing the button for the mint round-trip. */
-export function readerPayload(doc, { page = null } = {}) {
+export function readerPayload(doc, { page = null, returnTarget = null } = {}) {
   return {
     page,
+    returnTarget,
     resolve: () => resolveDocUrl(doc),
     fileName: `${doc.title}.pdf`,
     sha256: doc.sha256_16,

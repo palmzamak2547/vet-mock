@@ -61,9 +61,21 @@ export function keepSilentFinals(text, baseKey = 'sf') {
   return parts.map((p, i) => (i % 2 ? <span key={`${baseKey}-${i}`} style={NOBR}>{p}</span> : p));
 }
 
+// The middle dot is not a separator this app uses (house style, Palm
+// 2026-10-21), yet 1,615 of them sit in the governed notes and questions,
+// where their text is hashed for review. On screen they read as a list:
+// "pH · density" becomes "pH, density", a line that starts with "· " loses
+// it, and a British decimal "25·4" becomes "25.4". The data is untouched.
+export function plainSeparators(text) {
+  return String(text)
+    .replace(/(\d)·(?=\d)/g, '$1.')
+    .replace(/(^|\n)[ \t]*·[ \t]+/g, '$1')
+    .replace(/[ \t]+·[ \t]+/g, ', ');
+}
+
 export function RichText({ text, highlight }) {
   if (text === null || text === undefined) return null;
-  const str = String(text);
+  const str = plainSeparators(text);
   if (!str) return null;
   // A search highlight cuts the text by its own offsets, so it wins there.
   const plain = (s, key) => (highlight ? highlightMatches(s, highlight, key) : keepSilentFinals(s, key));

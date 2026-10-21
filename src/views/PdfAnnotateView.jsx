@@ -52,6 +52,7 @@ import * as annotationSync from '../lib/annotation-sync.js';
 import { searchPages, pageTextFromItems } from '../lib/thai-search.js';
 import { fitShape, strokeHit } from '../lib/shape-fit.js';
 import { exportAnnotatedPdf, exportFileName, downloadBlob, readSourceBytes } from '../lib/pdf-export.js';
+import { useFullscreen } from '../hooks/useFullscreen.js';
 
 const PEN_COLORS = [
   { id: 'red',  rgb: '#c0392b', name: 'แดง' },
@@ -244,6 +245,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const lastPenToolRef = useRef('pen');
   const footRef = useRef(null);
   const rootRef = useRef(null);
+  const fullscreen = useFullscreen(rootRef);
   // The flush lives inside an effect (it needs the listeners' lifetime) but
   // the exit path needs to call it too.
   const flushRef = useRef(null);
@@ -2141,7 +2143,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   // ── Viewing state ──────────────────────────────────────────
   return (
-    <div ref={rootRef} className="vmx-reader" style={{ display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1 }}>
+    <div ref={rootRef} className={`vmx-reader vmx-fs-target${fullscreen.on ? ' is-fullscreen' : ''}`} style={{ display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1 }}>
       <BackBar onBack={backToEmpty} label={onExit ? exitLabel : 'เปลี่ยน PDF'} subtitle={fileName} />
       {legacyAvailable && (
         <div role="status" style={{ padding: 12, background: 'var(--clr-surface)', color: 'var(--clr-ink)', fontSize: 14 }}>
@@ -2236,6 +2238,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
             discovering that the toolbar scrolls sideways. The single row is
             kept deliberately: wrapping it cost 264px of chrome above the page. */}
         <span style={{ position: 'sticky', right: 0, display: 'inline-flex', alignItems: 'center', background: 'var(--clr-surface, #f7f7f4)', paddingInlineStart: 4 }}>
+          <ToolButton icon={fullscreen.on ? 'fullscreen-exit' : 'fullscreen'}
+            label={fullscreen.on ? 'ออกจากเต็มจอ' : 'เต็มจอ'} active={fullscreen.on}
+            onClick={fullscreen.toggle} />
           <ToolButton icon="more" label="เครื่องมืออื่น" active={menuOpen}
             onClick={() => setMenuOpen((v) => !v)} expanded={menuOpen} />
         </span>

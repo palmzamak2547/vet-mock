@@ -774,7 +774,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'mastitis-subclinical-scc', examScope: 'both', label: "Subclinical mastitis (SCC)" },
         { id: 'milk-letdown-oxytocin', examScope: 'both', label: "Milk let-down (oxytocin)" },
         { id: 'milking-machine-pulsation', examScope: 'both', label: "Milking machine pulsation" },
-        { id: 'mycotoxin-zearalenone', examScope: 'midterm', label: "Mycotoxin · Zearalenone" },
+        { id: 'mycotoxin-zearalenone', examScope: 'midterm', label: "Mycotoxin: Zearalenone" },
         { id: 'npd-calculation', examScope: 'midterm', label: "NPD calculation" },
         { id: 'parakeratosis-zinc-deficiency', examScope: 'midterm', label: "Parakeratosis (Zn deficiency)" },
         { id: 'parity-structure-management', examScope: 'midterm', label: "Parity Structure Management" },
@@ -883,12 +883,12 @@ export const SUBJECTS_BY_YEAR = {
       name_en: 'English for Veterinary Profession I',
       icon: '🗣️', color: '#5c6b7d', semester: 1, has_questions: true,
       vault_lecturers: ['culi-eng-vet-prof-i'], topics: [
-        { id: 'listening-therapy-dogs', label: "Listening · Therapy dogs" },
-        { id: 'listening-vet-patient-consult', label: "Listening · Vet-patient consult" },
-        { id: 'listening-vet-shortage-news', label: "Listening · Vet shortage news" },
-        { id: 'pronunciation-focus-meaning', label: "Pronunciation · Focus & meaning" },
-        { id: 'pronunciation-stress-function', label: "Pronunciation · Stress function" },
-        { id: 'pronunciation-word-stress', label: "Pronunciation · Word stress" },
+        { id: 'listening-therapy-dogs', label: "Listening: Therapy dogs" },
+        { id: 'listening-vet-patient-consult', label: "Listening: Vet-patient consult" },
+        { id: 'listening-vet-shortage-news', label: "Listening: Vet shortage news" },
+        { id: 'pronunciation-focus-meaning', label: "Pronunciation: Focus & meaning" },
+        { id: 'pronunciation-stress-function', label: "Pronunciation: Stress function" },
+        { id: 'pronunciation-word-stress', label: "Pronunciation: Word stress" },
         { id: 'unit3-catnip-lecture', label: "Unit 3 — Catnip lecture" },
         { id: 'unit3-cornell-method', label: "Unit 3 — Cornell method" },
         { id: 'unit3-lecturing-styles', label: "Unit 3 — Lecturing styles" },
@@ -1589,7 +1589,7 @@ export const SUBJECTS_BY_YEAR = {
 
   // ─── Year 5, Clinical Rotation & Specialty ──────────────────────
   // Subject list + course codes resolved 2026-05-12 from senior students'
-  // (Vet 80-85) cache: 6.8 GB · 517 PDFs in `Year5/extracted/`.
+  // (Vet 80-85) cache: 6.8 GB, 517 PDFs in `Year5/extracted/`.
   // See vault: `projects/vetmock/y5-content-cache-inventory.md` for full
   // inventory + past-paper map + buildout plan.
   //
@@ -1739,7 +1739,7 @@ export const SUBJECTS_BY_YEAR = {
         weight: '',
         notes: [
           '🗓 ไม่มีสอบกลางภาคและปลายภาคในตารางสอบฝ่ายวิชาการ ภาคต้น 2569 (Update 20 ก.ค. 69) — ประเมินจากงานระหว่างเรียน',
-          '📌 ไม่มี past-paper สรุป ใน cache (อาจมีในเทอม) — Q seed ต้องอาศัย POA Y4 (COM III) pattern · Chutirat + Krissda สอนทั้งสองชั้นปี',
+          '📌 ไม่มี past-paper สรุป ใน cache (อาจมีในเทอม) — Q seed ต้องอาศัย POA Y4 (COM III) pattern, Chutirat + Krissda สอนทั้งสองชั้นปี',
           '🩺 Format: case-based POA per chief complaint',
         ],
       },
@@ -1797,7 +1797,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'meat-microbiology', examScope: 'final', label: 'Microbiology of meat & meat hygiene', icon: '🦠', lecturer: 'Taradon Luangtongkum (TL)', lecturer_year: 2026, lecturerNote: 'Corrected 2026-05-12 — slide cover names TL (ผศ.ธราดล), not SP' },
         { id: 'meat-storage', examScope: 'final', label: 'Storage of meat', icon: '🧊', lecturer: 'Rungtip Chuanchuen (RC)', lecturer_year: 2026 },
         { id: 'meat-quality', examScope: 'final', label: 'Meat quality & wholesomeness', icon: '✅', lecturer: 'Rungtip Chuanchuen (RC)', lecturer_year: 2026 },
-        { id: 'meat-molecular', examScope: 'final', label: 'Molecular meat science', icon: '🧬', lecturer: 'Rungtip Chuanchuen (RC)', lecturer_year: 2026, lecturerNote: 'Revised 2023 section · slide cover names RC' },
+        { id: 'meat-molecular', examScope: 'final', label: 'Molecular meat science', icon: '🧬', lecturer: 'Rungtip Chuanchuen (RC)', lecturer_year: 2026, lecturerNote: 'Revised 2023 section, slide cover names RC' },
         { id: 'meat-slaughter', examScope: 'final', label: 'Slaughter hygiene design', icon: '🏭', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
         { id: 'meat-ante-post-mortem', examScope: 'final', label: 'Ante / post-mortem inspection', icon: '🔍', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
         { id: 'meat-cutting-grading', examScope: 'final', label: 'Postmortem cutting & grading', icon: '🔪', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },

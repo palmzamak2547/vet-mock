@@ -53,6 +53,7 @@ import './styles.css';
 import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
 import { checkIsAdmin } from './lib/admin-api.js';
 import { parseWikiPath, wikiPath } from './lib/vetwiki/url.js';
+import { markRelatedReturn } from './lib/related-return.js';
 import { useExamResultOutbox } from './hooks/useExamResultOutbox.js';
 import { createAttemptEntries, answeredAttempts } from './lib/study-events.js';
 import { readShareUrlFromLocation, readSenderInfoFromLocation } from './lib/share-link.js';
@@ -958,7 +959,8 @@ export default function App() {
       titleSetRef.current = true;
     } else if (view === 'home' || view === 'landing' || titleSetRef.current) {
       // Views that own their title (wiki, atlas) never get a stale one of ours.
-      if (view !== 'atlas') document.title = baseTitleRef.current;
+      // KnowledgeView titles the index and each article itself.
+      if (view !== 'atlas' && view !== 'knowledge' && view !== 'wiki') document.title = baseTitleRef.current;
       titleSetRef.current = false;
     }
   }, [view]);
@@ -2532,6 +2534,7 @@ export default function App() {
   // Only a transition out of the reader clears, so the render where a cover
   // has handed over its deck but the view has not flipped yet is untouched.
   const readerPrevViewRef = useRef(view);
+  const readerReturnRef = useRef({ target: null, historyLength: 0 });
   useEffect(() => {
     const prev = readerPrevViewRef.current;
     readerPrevViewRef.current = view;
@@ -2539,6 +2542,7 @@ export default function App() {
       setLibraryDoc(null);
       setPdfLibraryReturnPath(null);
       setPdfReturnView('library');
+      readerReturnRef.current = { target: null, historyLength: 0 };
     }
   }, [view]);
   // The reader is keyed by account, so a sign-out in another tab remounted it
@@ -2568,6 +2572,13 @@ export default function App() {
     setPdfLibraryReturnPath(view === 'library' || origin !== 'library'
       ? window.location.pathname + window.location.search
       : '/app/library');
+    // A "เอกสารที่เกี่ยวข้อง" row names its topic so the way back can reopen
+    // that list; the history length says whether the origin is still the
+    // entry right behind the reader.
+    readerReturnRef.current = {
+      target: doc?.returnTarget || null,
+      historyLength: typeof window !== 'undefined' ? window.history.length + 1 : 0,
+    };
     setView('pdf-annotate');
   };
   // The empty reader's "เปิดคลังเอกสาร" and a shelf file under ไฟล์ล่าสุด go
@@ -2582,6 +2593,23 @@ export default function App() {
   const returnToLibrary = () => {
     const path = pdfLibraryReturnPath || '/app/library';
     const target = pdfReturnView;
+    const { target: relatedTarget, historyLength } = readerReturnRef.current;
+    if (relatedTarget) markRelatedReturn(relatedTarget);
+    // The origin is the entry right behind the reader: step back to it, so
+    // browser Back afterwards does not land on an emptied reader. popstate
+    // restores the view (and a wiki article's subject and topic from its URL).
+    if (READER_ORIGINS.has(target) && window.history.state?.vmxView === 'pdf-annotate'
+      && window.history.length === historyLength) {
+      window.history.back();
+      return;
+    }
+    // Otherwise go forward to it. A VetWiki article opens from its own URL:
+    // App's subject/topic may still name the article the student started on.
+    const wiki = parseWikiPath(path.split('?')[0]);
+    if (wiki.isWiki && wiki.subject && wiki.topic) {
+      setSubject(wiki.subject);
+      setTopic(wiki.topic);
+    }
     setLibraryDoc(null);
     setPdfLibraryReturnPath(null);
     setPdfReturnView('library');
