@@ -34,7 +34,7 @@ export function barScale(p, i, n) {
 
 function StatusMark({ status }) {
   // Shape as well as colour: a filled circle for "now", a ring for planned, a dash for later.
-  return <span className={`rs-papers-mark rs-papers-mark-${status === 'now' ? 'now' : status === 'later' ? 'later' : 'soon'}`} aria-hidden="true" />;
+  return <span className={`rs-papers-mark rs-papers-mark-${status === 'now' ? 'now' : 'later'}`} aria-hidden="true" />;
 }
 
 export default function MethodsChapter() {
@@ -201,7 +201,8 @@ export default function MethodsChapter() {
     };
   }, [animate, rows, data, gl, lang]);
 
-  const statusLabel = (s) => t(`landing.papers.status.${s}`);
+  // A finished program names what it has and what it does not: no release roadmap on the front door.
+  const statusLabel = (s) => t(`landing.papers.status.${s === 'now' ? 'now' : 'later'}`);
   const top = data?.rows[0];
 
   return (
@@ -275,7 +276,6 @@ export default function MethodsChapter() {
           <p>{t('landing.papers.caption')}</p>
           <p className="rs-papers-legend">
             <span><StatusMark status="now" />{statusLabel('now')}</span>
-            <span><StatusMark status="M2" />{t('landing.papers.legend.soon')}</span>
             <span><StatusMark status="later" />{statusLabel('later')}</span>
           </p>
           <p>{t('landing.papers.statusNote')}</p>

@@ -90,7 +90,8 @@ export function verifyState(token, { secret, provider, nowMs } = {}) {
 
 // ── provider configuration ───────────────────────────────────────────
 
-const GOOGLE_SCOPE = 'openid email https://www.googleapis.com/auth/drive.readonly';
+// drive.file: only files the student picks in the Google Picker (no restricted-scope review).
+const GOOGLE_SCOPE = 'openid email https://www.googleapis.com/auth/drive.file';
 
 export const GOOGLE_API_HOST = 'www.googleapis.com';
 export const GOOGLE_TOKEN_HOST = 'oauth2.googleapis.com';

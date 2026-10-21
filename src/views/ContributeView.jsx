@@ -685,7 +685,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
                     </span>
                   </div>
                   <div style={{ fontSize: 14, lineHeight: 1.5, marginBottom: 4 }}>
-                    {preview || <em style={{ color: 'var(--clr-ink-soft)' }}>(no stem)</em>}
+                    {preview || <em style={{ color: 'var(--clr-ink-soft)' }}>(ไม่มีโจทย์)</em>}
                   </div>
                   <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: '"JetBrains Mono", "IBM Plex Sans Thai", monospace' }}>
                     {s.subject || '—'}{s.topic ? `, ${s.topic}` : ''}

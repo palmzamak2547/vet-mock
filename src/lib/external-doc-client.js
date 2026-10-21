@@ -253,3 +253,63 @@ export async function listExternalFiles(provider, options = {}) {
       && safeLinkUrl(f.url))) return { ok: true, files };
   return { ...result, ok: false, error: result.reason ? connectMessageFor(result.reason) : 'ดึงข้อมูลไฟล์ไม่สำเร็จ ลองใหม่อีกครั้ง' };
 }
+
+// ── Google Picker ─────────────────────────────────────────────────────
+// The connection asks Google for drive.file only, so the app reads exactly
+// the Docs and Sheets the student picks here. The picker is Google's own
+// window; it gets the student's short-lived token from our server.
+
+let pickerScript = null;
+function loadPickerApi() {
+  if (typeof window === 'undefined') return Promise.reject(new Error('no_window'));
+  if (window.google?.picker) return Promise.resolve();
+  pickerScript ||= new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://apis.google.com/js/api.js';
+    s.async = true;
+    s.onload = () => window.gapi.load('picker', { callback: resolve, onerror: reject });
+    s.onerror = () => { pickerScript = null; reject(new Error('picker_load_failed')); };
+    document.head.appendChild(s);
+  });
+  return pickerScript;
+}
+
+/** Resolves with the picked files as [{ id, title, url }], or [] when the student closes it. */
+export async function pickGoogleFiles(options = {}) {
+  const result = await request('/api/list-external-files?provider=google&picker=1', options);
+  const { accessToken, appId, developerKey } = result.data || {};
+  if (!result.ok || !accessToken) {
+    return { ok: false, error: result.reason ? connectMessageFor(result.reason) : 'เปิดหน้าต่างเลือกไฟล์ไม่สำเร็จ ลองใหม่อีกครั้ง' };
+  }
+  try { await loadPickerApi(); } catch {
+    return { ok: false, error: 'เปิดหน้าต่างเลือกไฟล์ของ Google ไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองใหม่' };
+  }
+  const { picker } = window.google;
+  return new Promise((resolve) => {
+    const docs = new picker.DocsView(picker.ViewId.DOCS)
+      .setMimeTypes('application/vnd.google-apps.document,application/vnd.google-apps.spreadsheet')
+      .setIncludeFolders(true)
+      .setSelectFolderEnabled(false);
+    new picker.PickerBuilder()
+      .setAppId(appId)
+      .setDeveloperKey(developerKey)
+      .setOAuthToken(accessToken)
+      .setLocale('th')
+      .setTitle('เลือกเอกสารหรือชีตที่จะอ่านใน VetMock')
+      .addView(docs)
+      .enableFeature(picker.Feature.MULTISELECT_ENABLED)
+      .setCallback((data) => {
+        const action = data[picker.Response.ACTION];
+        if (action === picker.Action.CANCEL) resolve({ ok: true, files: [] });
+        if (action !== picker.Action.PICKED) return;
+        const files = (data[picker.Response.DOCUMENTS] || []).map((d) => {
+          const sheet = d[picker.Document.MIME_TYPE] === 'application/vnd.google-apps.spreadsheet';
+          const id = d[picker.Document.ID];
+          return { id, title: d[picker.Document.NAME] || '', url: `https://docs.google.com/${sheet ? 'spreadsheets' : 'document'}/d/${id}` };
+        }).filter((f) => typeof f.id === 'string' && safeLinkUrl(f.url));
+        resolve({ ok: true, files });
+      })
+      .build()
+      .setVisible(true);
+  });
+}

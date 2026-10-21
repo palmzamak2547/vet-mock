@@ -52,7 +52,7 @@ export default function Footer({ setView }) {
           <a
             href="#lab"
             onClick={(e) => { e.preventDefault(); if (window.location.hash !== '#lab') window.location.hash = '#lab'; handleNav('lab'); }}
-            title="Imaging Practice Lab — ฝึกอ่าน X-ray + DICOM viewer (Experimental)"
+            title="Imaging Lab ฝึกอ่าน X-ray และเปิดไฟล์ DICOM"
           >
             Imaging Lab ฝึกอ่าน X-ray
           </a>

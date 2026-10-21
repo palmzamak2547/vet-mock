@@ -121,11 +121,11 @@ function MethodRow({ row }) {
 
 export default function Page() {
   const { t } = useT();
-  const [show, setShow] = useState(/** @type {'all'|'shipped'|'planned'} */ ('all'));
   const model = useMemo(() => buildMethodsModel(getCatalog(), FIXTURES), []);
   useEffect(() => { document.title = `${t('trust.page.methods.title')} | ${t('common.appName')}`; }, [t]);
   useEffect(() => { window.scrollTo(0, 0); }, []);
-  const groups = model.groups.filter((g) => show === 'all' || (show === 'shipped' ? g.id === 'now' : g.id !== 'now'));
+  // The public page lists what the program does today; the catalogue's later rows stay internal.
+  const groups = model.groups.filter((g) => g.id === 'now');
   return (
     <PublicShell current="methods">
       <main id="rs-main" className="rs-main rs-main--narrow rs-pub-main">
@@ -134,13 +134,6 @@ export default function Page() {
         <p>{t('trust.methods.how')}</p>
         <p className="rs-pub-summary">{t('trust.methods.summary', { shipped: model.shipped, verified: model.verified, total: model.total })}</p>
         <p className="rs-soft rs-small">{t('trust.methods.kindNote')}</p>
-        <div className="rs-seg" role="group" aria-label={t('trust.methods.filter.label')}>
-          {['all', 'shipped', 'planned'].map((k) => (
-            <button key={k} type="button" className="rs-seg-btn" aria-pressed={show === k} onClick={() => setShow(/** @type {any} */ (k))}>
-              {t(`trust.methods.filter.${k}`)}
-            </button>
-          ))}
-        </div>
         {groups.map((g) => (
           <section key={g.id} className="rs-pub-group" aria-labelledby={`g-${g.id}`}>
             <h2 id={`g-${g.id}`} className="rs-h2">{t(`trust.methods.group.${g.id}`)} <span className="rs-soft rs-small">({g.rows.length})</span></h2>
