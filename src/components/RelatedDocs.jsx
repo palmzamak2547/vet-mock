@@ -21,16 +21,21 @@ function useCatalogBySlug() {
   return bySlug;
 }
 
+// Three first: a topic card or an article end stays short; the rest on tap.
+const FIRST = 3;
+
 export default function RelatedDocs({ rows, onOpenDoc, heading = true }) {
   const bySlug = useCatalogBySlug();
+  const [all, setAll] = useState(false);
   if (!rows?.length || !bySlug || !onOpenDoc) return null;
   const items = rows.map((r) => ({ ...r, doc: bySlug.get(r.slug) })).filter((r) => r.doc);
   if (!items.length) return null;
+  const shown = all ? items : items.slice(0, FIRST);
   return (
     <section className="vmx-related-docs" aria-label="เอกสารที่เกี่ยวข้อง">
       {heading && <div className="vmx-section-label">เอกสารที่เกี่ยวข้อง</div>}
       <ul>
-        {items.map(({ doc, page, pages, term, evidence }) => (
+        {shown.map(({ doc, page, pages, term, evidence }) => (
           <li key={`${doc.slug}:${page}`}>
             <button
               type="button"
@@ -47,8 +52,13 @@ export default function RelatedDocs({ rows, onOpenDoc, heading = true }) {
           </li>
         ))}
       </ul>
+      {items.length > shown.length && (
+        <button type="button" className="vmx-related-more" onClick={() => setAll(true)}>
+          ดูอีก {items.length - shown.length} ไฟล์
+        </button>
+      )}
       {items.some((r) => !r.reviewed) && (
-        <p className="vmx-related-note">เชื่อมจากคำที่พบในหน้าเอกสาร ยังไม่มีคนตรวจทุกรายการ</p>
+        <p className="vmx-related-note">จับคู่จากคำในหน้าเอกสาร ยังไม่ได้ตรวจทีละรายการ</p>
       )}
     </section>
   );

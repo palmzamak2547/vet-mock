@@ -208,7 +208,10 @@ the topic card (TopicSelectView, button "เอกสาร N") and the VetWiki 
   `library_related` is SECURITY INVOKER.
 - Re-running `apply` adds new links and keeps existing ones (`on conflict do
   nothing`); to rebuild, delete the `method = 'term'` rows first.
-- 2026-10-21: 3,379 links, 394 topics, 581 documents, 0 reviewed, 1.4 MB.
+- A document is kept only when its title names the topic, or it names it on
+  2+ pages or with 2+ terms (one mention on one page was 34% of candidates and
+  mostly noise). The UI shows 3 documents first.
+- 2026-10-21: 2,937 links, 317 topics, 473 documents, 0 reviewed, 2.2 MB.
   Anon `library_related` for 6 topics from Bangkok: p50 148 ms.
 
 ## Licensing

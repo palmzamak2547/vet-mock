@@ -8400,7 +8400,9 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 .vmx-related-docs li button:hover { border-color: var(--clr-sage-text); background: var(--clr-surface-2); }
 .vmx-related-title { font-size: 15px; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere; }
 .vmx-related-meta { font-size: 14px; color: var(--clr-sage-text); }
-.vmx-related-evidence { font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); overflow-wrap: anywhere; }
+.vmx-related-evidence { font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); overflow-wrap: anywhere; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+.vmx-related-more { min-height: 44px; margin-top: 4px; padding: 0 8px; border: 0; background: none; color: var(--clr-sage-text); font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.vmx-related-more:hover { color: var(--clr-ink); }
 .vmx-related-note { margin: 6px 0 0; font-size: 14px; color: var(--clr-ink-soft); }
 .vmx-topic-related { padding: 0 8px 10px; }
 .vmx-topic-card:has(> .vmx-topic-related) { grid-column: 1 / -1; }

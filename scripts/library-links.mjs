@@ -16,7 +16,8 @@
 // 3. A one-word term found in more than 80% of a subject's documents (10+)
 //    says nothing about any of them and is dropped for that subject. A page
 //    naming 5+ of the subject's topics (schedule, syllabus, contents) is skipped.
-// 4. Per topic, the 8 documents matching the most of its terms (then the most
+// 4. A document named once, on one page, in a title about something else is
+//    dropped. Per topic, the 8 documents matching the most of its terms (then the most
 //    pages) are kept, with up to 5 pages each.
 // The evidence is cut from the page's own stored text in SQL, and a trigger on
 // library_doc_links refuses any row whose evidence is not on that page.
@@ -192,7 +193,10 @@ async function propose() {
       // matching more of the topic's terms, then more pages.
       const own = topic.terms.map((x) => x.toLowerCase());
       for (const d of docs.values()) d.titled = own.some((x) => String(d.title).toLowerCase().includes(x)) ? 1 : 0;
-      const ranked = [...docs.values()].sort((a, b) => b.titled - a.titled || b.terms.size - a.terms.size || b.pages - a.pages || a.slug.localeCompare(b.slug))
+      // One mention on one page of a document about something else is noise
+      // (34% of candidates on 2026-10-21): keep a document only when its title
+      // names the topic, or it names the topic on 2+ pages, or with 2+ terms.
+      const ranked = [...docs.values()].filter((d) => d.titled || d.pageTerms.size >= 2 || d.terms.size >= 2).sort((a, b) => b.titled - a.titled || b.terms.size - a.terms.size || b.pages - a.pages || a.slug.localeCompare(b.slug))
         .slice(0, DOCS_PER_TOPIC);
       perTopic.push({ target: topic.target, label: topic.label, terms: topic.terms, docs: ranked.length });
       for (const [rank, d] of ranked.entries()) {
