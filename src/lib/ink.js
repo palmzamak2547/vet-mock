@@ -88,6 +88,9 @@ export function strokeAsOnePath(ctx, pts, canvasW, canvasH, width) {
 export function drawStroke(ctx, stroke, canvasW, canvasH, scale = 1) {
   const pts = stroke?.points;
   if (!pts || pts.length === 0) return;
+  // A tape is drawn by the reader's tape layer, never into the ink (and so
+  // never into an exported PDF either): see lib/tape.js.
+  if (stroke.mode === 'tape') return;
   applyBrush(ctx, stroke);
   const X = (i) => pts[i][0] * canvasW;
   const Y = (i) => pts[i][1] * canvasH;

@@ -220,3 +220,42 @@ test('dragging a corner handle resizes the selection, with its line width', asyn
   const span = (s) => s.points[s.points.length - 1][0] - s.points[0][0];
   expect(span(big)).toBeGreaterThan(span(orig) * 1.2);
 });
+
+test('tape covers an answer until it is tapped, never reaches the ink, and is covered again next time', async ({ page }) => {
+  await openReaderWithPdf(page);
+  const box = await overlayBox(page);
+  const inkPixels = () => page.evaluate(() => {
+    const ov = document.querySelector('[data-page="1"] canvas:nth-of-type(2)');
+    const d = ov.getContext('2d').getImageData(0, 0, ov.width, ov.height).data;
+    let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 8) n++; return n;
+  });
+
+  await page.locator('button[aria-label^="เทปปิดคำตอบ"]').click();
+  await page.mouse.move(box.x + box.w * 0.2, box.y + box.h * 0.3);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.w * 0.6, box.y + box.h * 0.36, { steps: 8 });
+  await page.mouse.up();
+
+  await expect.poll(async () => (await strokes(page)).filter((s) => s.mode === 'tape').length,
+    { message: 'the tape should be stored as a tape stroke' }).toBe(1);
+  expect(await inkPixels(), 'a tape is never painted into the ink').toBe(0);
+  const tape = page.locator('.vmx-tape:not(.is-draft)');
+  await expect(tape).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.locator('.vmx-tape-count')).toHaveText('0/1');
+
+  await tape.click();
+  await expect(tape).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('.vmx-tape-count')).toHaveText('1/1');
+  await page.locator('.vmx-tape-count').click();
+  await expect(tape, 'peel-all with everything peeled covers them again').toHaveAttribute('aria-pressed', 'false');
+  await page.locator('.vmx-tape-count').click();
+  await expect(tape).toHaveAttribute('aria-pressed', 'true');
+
+  // A tap is not a tape.
+  await page.mouse.click(box.x + box.w * 0.5, box.y + box.h * 0.7);
+  await expect.poll(async () => (await strokes(page)).filter((s) => s.mode === 'tape').length).toBe(1);
+
+  // Reopening the same file: the tape is back, and covering again.
+  await openReaderWithPdf(page);
+  await expect(page.locator('.vmx-tape:not(.is-draft)')).toHaveAttribute('aria-pressed', 'false');
+});
