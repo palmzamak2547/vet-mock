@@ -182,6 +182,35 @@ the reader at its page.
   350 MB. Note: about 96 MB of the database is leftover Groonga files from a
   PGroonga test on 2026-10-20; removing them needs a superuser (Supabase support).
 
+## Links from pages to topics
+
+`public.library_doc_links` says "page N of this document is about target X"
+and stores the words on that page that show it. Targets are curriculum
+topics as `<subject>/<topic>`, the ids VetWiki also uses, so one link serves
+the topic card (TopicSelectView, button "เอกสาร N") and the VetWiki article
+("เอกสารที่เกี่ยวข้อง" above the chapter end). Both read
+`public.library_related(targets)` and open the reader at the linked page.
+
+- Written by `node scripts/library-links.mjs propose` (writes
+  `.library-links/proposal.md` with counts and samples to review) and then
+  `apply`. Terms come from the topic label (`termsFor`, covered by
+  `selftest`); a term matches whole-word (Latin) or as a substring (Thai) on
+  pages of documents of the same subject. A page naming 5+ of the subject's
+  topics (schedule, syllabus, contents) is skipped. Per topic, documents whose
+  title names it come first, then more matched terms, then more pages; 8
+  documents, 5 pages each.
+- Iron Rule 0 is enforced by a trigger, not by the script: a row whose
+  evidence is not a substring of that page's stored text, or whose term is not
+  in its evidence, or whose document is `pii_held`, is refused. Evidence is
+  cut from the page in SQL. Machine links are `method = 'term'`,
+  `reviewed = false`; the UI says so while any shown link is unreviewed.
+- Visibility follows the document (RLS, same as the pages);
+  `library_related` is SECURITY INVOKER.
+- Re-running `apply` adds new links and keeps existing ones (`on conflict do
+  nothing`); to rebuild, delete the `method = 'term'` rows first.
+- 2026-10-21: 3,379 links, 394 topics, 581 documents, 0 reviewed, 1.4 MB.
+  Anon `library_related` for 6 topics from Bangkok: p50 148 ms.
+
 ## Licensing
 
 `license` is `NOT NULL` and the ingest script refuses to run without it. A row

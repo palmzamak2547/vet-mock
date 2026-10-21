@@ -38,6 +38,8 @@ import { copyText } from '../lib/clipboard.js';
 import { wikiPath, wikiUrl, parseWikiPath, WIKI_BASE } from '../lib/vetwiki/url.js';
 import ReportConcern from '../components/ReportConcern.jsx';
 import SlideFigures from '../components/SlideFigures.jsx';
+import RelatedDocs from '../components/RelatedDocs.jsx';
+import { fetchRelatedDocs } from '../lib/library.js';
 import OptionalFeature from '../components/OptionalFeature.jsx';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import StatePanel from '../components/StatePanel.jsx';
@@ -864,7 +866,19 @@ const Section = React.memo(function Section({ s, i, chips, knowledgeId, copiedSt
   );
 });
 
-function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, chapter, siblings, prev, next, neighbours, reading, checklist, goPractice, practiceLabel, goNotes, shareUrl }) {
+// Library pages that name this article's topic (library_doc_links).
+function WikiRelatedDocs({ target, onOpenDoc }) {
+  const [rows, setRows] = useState(null);
+  useEffect(() => {
+    if (!onOpenDoc) return undefined;
+    let alive = true;
+    fetchRelatedDocs([target]).then((m) => { if (alive) setRows(m.get(target) || []); });
+    return () => { alive = false; };
+  }, [target, !!onOpenDoc]); // eslint-disable-line react-hooks/exhaustive-deps
+  return <RelatedDocs rows={rows} onOpenDoc={onOpenDoc} />;
+}
+
+function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, chapter, siblings, prev, next, neighbours, reading, checklist, goPractice, practiceLabel, goNotes, shareUrl, onOpenDoc }) {
   const [copied, setCopied] = useState('');
   const copyTimer = useRef(null);
   useEffect(() => () => clearTimeout(copyTimer.current), []);
@@ -1184,6 +1198,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
           </ReadingEffects>
 
           <div ref={endRef} aria-hidden="true" className="vmx-reading-end" />
+          <WikiRelatedDocs target={`${current.subject}/${current.topic}`} onOpenDoc={onOpenDoc} />
           <ChapterEnd current={current} siblings={siblings} prev={prev} next={next}
             neighbours={neighbours} reading={reading} checklist={checklist} onOpen={onOpen} />
           <SourceList list={cites.list} sections={sections} onJump={jumpTo} />
@@ -1232,7 +1247,7 @@ function WikiArticle({ topic: current, knowledge, prov, onBackToIndex, onOpen, c
 }
 
 // ================= SHELL =================
-export default function KnowledgeView({ subject, topic, openNonce = 0, setView, setSubject, setTopic, goHome, startExam, readingChecklist, setReadingChecklist }) {
+export default function KnowledgeView({ subject, topic, openNonce = 0, setView, setSubject, setTopic, goHome, startExam, readingChecklist, setReadingChecklist, onOpenDoc = null }) {
   const topics = useMemo(() => listTopics(), []);
   // Opening VetWiki from the app lands on the index (a reference opens at its
   // contents); a direct subject+topic entry (e.g. from a note page) opens the
@@ -1429,7 +1444,7 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
   return (
     <>
       <WikiArticle key={current.id}
-        topic={current} knowledge={knowledge} prov={prov} chapter={chapter} siblings={siblings}
+        topic={current} knowledge={knowledge} prov={prov} chapter={chapter} siblings={siblings} onOpenDoc={onOpenDoc}
         checklist={readingChecklist || null}
         prev={siblings[chapter.index - 2] || null} next={siblings[chapter.index] || null}
         neighbours={neighbours} reading={reading}

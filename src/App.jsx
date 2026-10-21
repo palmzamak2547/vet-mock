@@ -291,6 +291,9 @@ function ViewEntry({ view, returnScrollRef }) {
   return null;
 }
 
+// Views that hand a shelf document to the reader and get it back on exit.
+const READER_ORIGINS = new Set(['topic-select', 'wrapup', 'knowledge', 'wiki']);
+
 export default function App() {
   const { user, profile, loading: authLoading } = useAuth();
 
@@ -2517,7 +2520,7 @@ export default function App() {
   useEffect(() => {
     // The topic screen is an origin too: a lecturer's cover hands the deck
     // to the reader, and the view flips a render later than the payload.
-    if (view !== 'pdf-annotate' && view !== 'library' && view !== 'topic-select' && view !== 'wrapup') {
+    if (view !== 'pdf-annotate' && view !== 'library' && !READER_ORIGINS.has(view)) {
       if (libraryDoc) setLibraryDoc(null);
       if (pdfLibraryReturnPath) setPdfLibraryReturnPath(null);
     }
@@ -2558,9 +2561,9 @@ export default function App() {
     // Local files and shelf documents use the same reader. Explicitly clear
     // the remote payload so opening a personal file never reopens an old deck.
     setLibraryDoc(doc);
-    // The topic screen and the wrap-up both open decks; the reader's back
-    // returns to whichever it was.
-    const origin = view === 'topic-select' || view === 'wrapup' ? view : 'library';
+    // The topic screen, the wrap-up and a VetWiki article open decks; the
+    // reader's back returns to whichever it was.
+    const origin = READER_ORIGINS.has(view) ? view : 'library';
     setPdfReturnView(origin);
     setPdfLibraryReturnPath(view === 'library' || origin !== 'library'
       ? window.location.pathname + window.location.search
@@ -3126,7 +3129,7 @@ export default function App() {
                 />
               )}
 {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={NOTES_RETURN_LABELS.get(notesReturnRef.current.view) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}
-              {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam, readingChecklist, setReadingChecklist }} />}
+              {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam, readingChecklist, setReadingChecklist, onOpenDoc: openLibraryReader }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, setPracticeMode, subject, setSubject, topic, setTopic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, setMode, selectedYear, selectedPhase, panicPending, setPanicPending }} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
@@ -3186,7 +3189,7 @@ export default function App() {
                   goHome={goHome}
                   initialDoc={libraryDoc}
                   onExit={libraryDoc || pdfLibraryReturnPath ? returnToLibrary : null}
-                  exitLabel={pdfReturnView === 'topic-select' ? 'กลับหน้าหัวข้อ' : pdfReturnView === 'wrapup' ? 'กลับหน้า wrap-up' : 'กลับคลังเอกสาร'}
+                  exitLabel={pdfReturnView === 'topic-select' ? 'กลับหน้าหัวข้อ' : pdfReturnView === 'wrapup' ? 'กลับหน้า wrap-up' : pdfReturnView === 'knowledge' || pdfReturnView === 'wiki' ? 'กลับบทความ' : 'กลับคลังเอกสาร'}
                   onOpenLibrary={openLibraryFromReader}
                 />
               )}

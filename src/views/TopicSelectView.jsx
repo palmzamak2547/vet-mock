@@ -7,8 +7,9 @@ import { scopeForPhase, questionInScope, phaseForCourse } from '../lib/exam-scop
 import { isPastPaperQuestion } from '../lib/question-metadata.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
-import { announced, hiddenTopicIdsFor } from '../data/curriculum.js';
-import { librarySubjectCounts } from '../lib/library.js';
+import { SUBJECTS, announced, hiddenTopicIdsFor } from '../data/curriculum.js';
+import { fetchRelatedDocs, librarySubjectCounts } from '../lib/library.js';
+import RelatedDocs from '../components/RelatedDocs.jsx';
 import { takeViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
 import { hasLecturerSet, LECTURER_SETS } from '../data/lecturer-sets.js';
@@ -76,6 +77,18 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     librarySubjectCounts().then((m) => { if (alive) setShelfDocs(m?.get(subject) || 0); });
     return () => { alive = false; };
   }, [subject]);
+  // Library pages linked to each topic by the words on them (one call per
+  // subject, cached per session); a topic card opens its list in place.
+  const [relatedDocs, setRelatedDocs] = useState(() => new Map());
+  const [openRelated, setOpenRelated] = useState(null);
+  useEffect(() => {
+    let alive = true;
+    setRelatedDocs(new Map());
+    setOpenRelated(null);
+    const targets = (SUBJECTS.find((x) => x.id === subject)?.topics || []).map((t) => `${subject}/${t.id}`);
+    if (onOpenDoc) fetchRelatedDocs(targets).then((m) => { if (alive) setRelatedDocs(m); });
+    return () => { alive = false; };
+  }, [subject, !!onOpenDoc]); // eslint-disable-line react-hooks/exhaustive-deps
   const [openInstructor, setOpenInstructor] = useState(null);
   // Open on the reading tab when the student came here from สรุปบทเรียน. The
   // per-topic summary buttons were always on this screen, but under the
@@ -719,6 +732,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           const hasQuestions = count > 0;
           const hasNotesForTopic = t.resources?.notes?.enabled;
           const hasWikiForTopic = t.resources?.wiki?.enabled;
+          const related = relatedDocs.get(`${subject}/${t.id}`) || [];
           const isEmpty = !hasTopicContent(t);
           const isRead = t.read;
           // A note that says the topic is off the paper (curriculum.js flags it)
@@ -774,7 +788,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                 )}
               </button>
 
-              {!isEmpty && (lecturerLabel || hasNotesForTopic || hasWikiForTopic || (subject === 'vca' && VCA_NOTES_MAP[t.id])) && (
+              {!isEmpty && (lecturerLabel || hasNotesForTopic || hasWikiForTopic || related.length > 0 || (subject === 'vca' && VCA_NOTES_MAP[t.id])) && (
                 <div className="vmx-topic-actions" aria-label={`แหล่งเรียน ${t.label}`}>
                   {lecturer?.kind === 'profile' && (
                     <button type="button" className="vmx-topic-action is-wide" onClick={() => openInstructorFor(t.lecturer)} title="ดูโปรไฟล์อาจารย์ + งานวิจัย">
@@ -796,6 +810,16 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                       <NavIcon name="wiki" size={15} /> VetWiki
                     </button>
                   )}
+                  {related.length > 0 && (
+                    <button
+                      type="button"
+                      className="vmx-topic-action"
+                      aria-expanded={openRelated === t.id}
+                      onClick={() => setOpenRelated((cur) => (cur === t.id ? null : t.id))}
+                    >
+                      <NavIcon name="files" size={15} /> เอกสาร {related.length}
+                    </button>
+                  )}
                   {subject === 'vca' && VCA_NOTES_MAP[t.id] && (
                     <button
                       type="button"
@@ -810,6 +834,11 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                       <NavIcon name="note" size={15} /> {VCA_NOTES_MAP[t.id].label}
                     </button>
                   )}
+                </div>
+              )}
+              {openRelated === t.id && related.length > 0 && (
+                <div className="vmx-topic-related">
+                  <RelatedDocs rows={related} onOpenDoc={onOpenDoc} heading={false} />
                 </div>
               )}
             </article>
