@@ -1,5 +1,10 @@
 # AGENTS.md — VetMock Project Guide
 
+## UX journeys 5.155.0 (in progress) — 2026-10-22 (Claude Code)
+
+- Evidence, ranked opportunities and where the work stopped: `docs/ux/journeys.md`. Owner decision: glass is allowed on a few small chrome surfaces (nav, sheets, chips), never on reading text; no frame-costing change ships before the perf baseline in that file exists.
+- In app browsers (`src/lib/inapp.js` `signInPlan`): no Google button (Google refuses OAuth there), LINE login first inside LINE.
+
 ## Polish sweep 5.149.1 — 2026-10-20 (Claude Code)
 
 - Four press-sweep lanes on a production build (360 to 1920, both themes, Chromium/WebKit/Firefox, 4x CPU jank traces). Ranked findings, what was fixed and what stays open: `docs/polish-2026-10-20.md`.

@@ -40,3 +40,12 @@ export function externalUrl(app, href) {
     return null;
   }
 }
+
+/**
+ * Which sign-in buttons an app browser should show. Google refuses OAuth in
+ * these browsers, so offering it there is a dead end; inside LINE, LINE's own
+ * login is the one that works without leaving the app, so it goes first.
+ */
+export function signInPlan(app) {
+  return { google: !app, lineFirst: app === 'line' };
+}
