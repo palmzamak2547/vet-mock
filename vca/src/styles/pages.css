@@ -376,6 +376,8 @@
 .result-facts .warn { color: var(--brass); }
 .result-domains { margin-top: 16px; padding: 22px 24px; border-radius: var(--r-xl); }
 .drows { display: grid; margin-top: 12px; }
+/* The weakest domain, one tap from practice. A long domain name wraps rather than overflowing. */
+.drows-next { margin-top: 14px; white-space: normal; text-align: center; line-height: 1.4; padding-block: 10px; }
 .drow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(80px, 1.2fr) 52px; gap: 18px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); }
 /* A name wraps, hanging under itself beside the plate number: "สัตว์เลี้ยงพิเศษและสัตว์ป่า" was cut at
    "…และสั" on a 390 px phone (a flex row ignores text-overflow), and a phone has no hover to read the

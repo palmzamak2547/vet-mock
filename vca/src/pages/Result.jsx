@@ -8,7 +8,7 @@ import { Ring, Meter } from '../components/bits.jsx';
 import { CountUp } from '../components/CountUp.jsx';
 import { Question } from '../components/Question.jsx';
 import { CARD_BY_ID, loadItems, questionByKey } from '../lib/bank.js';
-import { byDomain } from '../lib/session.js';
+import { byDomain, weakestFirst } from '../lib/session.js';
 import { quickStart, startSet } from '../lib/start.js';
 import { useAsync, useResults, useTitle } from '../lib/hooks.js';
 import { navigate, withQuery } from '../router.js';
@@ -81,7 +81,9 @@ export default function Result({ route }) {
   }
 
   const score = result.total ? result.correct / result.total : 0;
-  const rows = byDomain(result);
+  const rows = weakestFirst(byDomain(result));
+  // Across two domains or more, the weakest one is a tap away; with one, "ฝึกข้อที่พลาด" is that tap.
+  const weak = rows.length > 1 && rows[0].correct < rows[0].total ? CARD_BY_ID[rows[0].domain] : null;
   const missed = result.items.filter((it) => !it.correct);
   const counts = {
     all: result.items.length,
@@ -101,6 +103,12 @@ export default function Result({ route }) {
   const retry = () => missed.length && guard(async () => {
     setBusy(true);
     const res = await startSet({ mode: 'practice', domains: [...new Set(missed.map((it) => it.domain))], keys: missed.map((it) => it.key), size: missed.length, label: 'ฝึกข้อที่พลาด' }).catch(() => null);
+    setBusy(false);
+    if (res?.ok) navigate('/session');
+  });
+  const practiseWeak = () => guard(async () => {
+    setBusy(true);
+    const res = await startSet({ mode: 'practice', domains: [weak.id], size: 10, prefer: 'unseen' }).catch(() => null);
     setBusy(false);
     if (res?.ok) navigate('/session');
   });
@@ -154,7 +162,7 @@ export default function Result({ route }) {
             <ShareButton
               className="text-link" label="ชวนเพื่อนมาซ้อม"
               path="/" title="VetMock VCA"
-              text={`ซ้อมสอบ VCA ได้ ${Math.round(score * 100)}% จาก ${num(result.total)} ข้อ มาซ้อมด้วยกัน`}
+              text={score >= 0.6 ? `ซ้อมสอบ VCA ได้ ${Math.round(score * 100)}% จาก ${num(result.total)} ข้อ มาซ้อมด้วยกัน` : 'มาซ้อมสอบ VCA ด้วยกัน เฉลยทุกข้อ ไม่ต้องสมัคร'}
             />
           </div>
         </div>
@@ -182,6 +190,11 @@ export default function Result({ route }) {
             );
           })}
         </ul>
+        {weak && (
+          <button type="button" className="btn btn-ghost btn-block drows-next" onClick={practiseWeak} disabled={busy}>
+            ฝึก{weak.th} 10 ข้อ <Icon name="arrowRight" />
+          </button>
+        )}
       </section>
 
       <section className="review" aria-labelledby="review-h">

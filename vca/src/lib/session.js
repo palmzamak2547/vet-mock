@@ -142,6 +142,15 @@ export function byDomain(result) {
   return [...map.values()];
 }
 
+/**
+ * The same rows, weakest first: the lowest share right, and between equal shares the domain
+ * that was asked more (the surer reading). After a mock over many domains the first row is
+ * where to practise next.
+ */
+export function weakestFirst(rows) {
+  return rows.slice().sort((a, b) => a.correct / a.total - b.correct / b.total || b.total - a.total);
+}
+
 // Stored data is read at start-up, before any page: anything malformed is dropped here rather
 // than throwing, which would stop the app from opening at all.
 const goodItem = (it) => !!it && typeof it === 'object' && typeof it.key === 'string' && Array.isArray(it.order) && Number.isInteger(it.answer);
