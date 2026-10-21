@@ -45,6 +45,7 @@ export const AtlasView = lazy(() => import('../views/AtlasView.jsx'));
 // notes). Lazy because most sessions never open it.
 export const PinboardView = lazy(() => import('../views/PinboardView.jsx'));
 export const ContributeView = lazy(() => import('../views/ContributeView.jsx'));
+export const ConnectAppsView = lazy(() => import('../views/ConnectAppsView.jsx'));
 export const ReviewQueueView = lazy(() => import('../views/ReviewQueueView.jsx'));
 
 // BenchView — the screening-test bench. Self-contained and rarely the first

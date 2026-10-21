@@ -45,7 +45,7 @@ const DELETE_PHRASE = 'ลบบัญชี';
 // password until it has a real email (OV-data-9).
 const LINE_ONLY_PASSWORD = 'บัญชีนี้เข้าด้วย LINE เพิ่มอีเมลจริงก่อนจึงตั้งรหัสผ่านได้';
 
-export default function AccountSettingsView({ user, goHome, onSignedOut, coreData }) {
+export default function AccountSettingsView({ user, goHome, setView, onSignedOut, coreData }) {
   const [section, setSection] = useState(null); // null | 'profile' | 'password' | 'email' | 'delete'
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -570,6 +570,17 @@ export default function AccountSettingsView({ user, goHome, onSignedOut, coreDat
             </form>
           )}
         </Card>
+
+        {/* Google Drive and Notion grants are ended on the connected-apps page. */}
+        {setView && (
+          <Card>
+            <h3 style={cardHeading}>แอปที่เชื่อมไว้</h3>
+            <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.5 }}>
+              ดูหรือยกเลิกการเชื่อม Google Drive และ Notion และเพิ่มตารางสอบเข้าปฏิทิน
+            </p>
+            <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setView('connect-apps')}>เปิดหน้าเชื่อมแอป</button>
+          </Card>
+        )}
 
         {/* Export data — GDPR portability + offline backup */}
         <Card>
