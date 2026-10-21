@@ -91,7 +91,7 @@ export function drawTextNote(ctx, stroke, canvasW, canvasH) {
   ctx.save();
   ctx.globalCompositeOperation = 'source-over';
   ctx.globalAlpha = 1;
-  ctx.fillStyle = stroke.color || '#222';
+  ctx.fillStyle = stroke.color; // makeTextNote always sets one
   ctx.font = textFont(stroke, canvasH);
   ctx.textBaseline = 'top';
   const lines = wrapLines(stroke.text, (stroke.w || TEXT_WIDTH) * canvasW, (s) => ctx.measureText(s).width);
