@@ -78,3 +78,4 @@ vca/scripts/_*/
 # Playwright JSON report (CI duration budget, scripts/e2e-durations.mjs)
 e2e-results.json
 connected-e2e.json
+.library-links/

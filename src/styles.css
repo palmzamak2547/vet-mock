@@ -8392,3 +8392,17 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 .vmx-conflict-side { margin-bottom: 2px; font-size: 14px; font-weight: 600; color: var(--clr-ink-soft); }
 .vmx-conflict-exam { padding: 12px 16px 14px; border-top: 1px solid var(--clr-border); border-radius: 0 0 9px 9px; background: var(--clr-surface-2); font-size: 15px; line-height: 1.7; }
 .vmx-conflict-exam .vmx-conflict-side { color: var(--clr-ink); }
+
+/* Related library documents (components/RelatedDocs.jsx) */
+.vmx-related-docs { margin-top: 12px; }
+.vmx-related-docs ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.vmx-related-docs li button { width: 100%; min-height: 44px; padding: 10px 12px; display: grid; gap: 2px; text-align: left; font-family: inherit; color: var(--clr-ink); background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-sm); cursor: pointer; transition: border-color 140ms, background 140ms; }
+.vmx-related-docs li button:hover { border-color: var(--clr-sage-text); background: var(--clr-surface-2); }
+.vmx-related-title { font-size: 15px; font-weight: 600; line-height: 1.35; overflow-wrap: anywhere; }
+.vmx-related-meta { font-size: 14px; color: var(--clr-sage-text); }
+.vmx-related-evidence { font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); overflow-wrap: anywhere; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+.vmx-related-more { min-height: 44px; margin-top: 4px; padding: 0 8px; border: 0; background: none; color: var(--clr-sage-text); font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.vmx-related-more:hover { color: var(--clr-ink); }
+.vmx-related-note { margin: 6px 0 0; font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-topic-related { padding: 0 8px 10px; }
+.vmx-topic-card:has(> .vmx-topic-related) { grid-column: 1 / -1; }

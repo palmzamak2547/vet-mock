@@ -822,6 +822,35 @@ export async function searchLibraryText(query) {
   }
 }
 
+// ── Documents linked to a topic, page by page ─────────────────────────────
+// public.library_related reads library_doc_links (scripts/library-links.mjs):
+// each row is a page whose own text names the topic, with those words as
+// evidence. Keyed '<subject>/<topic>', the ids VetWiki shares. Any failure
+// answers an empty Map: the page simply shows no related documents.
+const _related = new Map();
+
+export function fetchRelatedDocs(targets) {
+  const list = [...new Set((targets || []).filter(Boolean))].sort().slice(0, 200);
+  if (!list.length) return Promise.resolve(new Map());
+  const key = list.join('|');
+  if (!_related.has(key)) {
+    _related.set(key, (async () => {
+      const { hasSupabase, getSupabase } = await import('./supabase.js');
+      if (!hasSupabase) return new Map();
+      const sb = await getSupabase();
+      const { data, error } = await sb.rpc('library_related', { targets: list, per_target: 6 });
+      if (error || !Array.isArray(data)) throw error || new Error('library_related');
+      const out = new Map();
+      for (const row of data) {
+        if (!out.has(row.target_id)) out.set(row.target_id, []);
+        out.get(row.target_id).push(row);
+      }
+      return out;
+    })().catch(() => { _related.delete(key); return new Map(); }));
+  }
+  return _related.get(key);
+}
+
 // Splits a snippet around the query's terms so the view can mark them.
 // Case-insensitive; returns [{ text, hit }] covering the whole snippet.
 export function markTerms(snippet, query) {
