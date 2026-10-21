@@ -67,7 +67,8 @@ test('every family and every status has a label in Thai and English', () => {
   for (const f of FAMILIES) {
     for (const lang of ['th', 'en']) assert.ok(landing[lang][`landing.family.${f.id}`], `${lang} landing.family.${f.id}`);
   }
-  for (const s of ['now', 'M1', 'M2', 'M3', 'later']) {
+  // The chart shows two states: every status but now reads as 'later' (MethodsChapter statusLabel).
+  for (const s of ['now', 'later']) {
     for (const lang of ['th', 'en']) assert.ok(landing[lang][`landing.papers.status.${s}`], `${lang} status ${s}`);
   }
 });

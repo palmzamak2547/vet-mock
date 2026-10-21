@@ -231,7 +231,7 @@ export default function LabView({ goHome }) {
   // called without a target — but we guard anyway.
   const tryDemo = useCallback(async () => {
     if (demoCases.length === 0) {
-      setDemoError('ยังไม่มี public case');
+      setDemoError('ยังไม่มีเคสที่เปิดให้ฝึก');
       return;
     }
     setDemoLoading(true);
@@ -246,7 +246,7 @@ export default function LabView({ goHome }) {
         .eq('case_id', c.id)
         .order('display_order');
       if (fErr) throw fErr;
-      if (!caseFiles?.length) throw new Error('Case ไม่มี DICOM file');
+      if (!caseFiles?.length) throw new Error('เคสนี้ยังไม่มีไฟล์ภาพ');
       const fetched = await Promise.all(caseFiles.slice(0, MAX_FILES).map(async (row) => {
         const { data: signed, error: sErr } = await sb.storage.from('lab-dicom').createSignedUrl(row.storage_path, 600);
         if (sErr) throw sErr;
@@ -259,7 +259,7 @@ export default function LabView({ goHome }) {
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error('[tryDemo]', e);
-      setDemoError(thaiError(e, 'โหลดเคสตัวอย่างไม่สำเร็จ'));
+      setDemoError(thaiError(e, 'โหลดไฟล์ของเคสนี้ไม่ได้ ลองอีกครั้ง'));
     } finally {
       setDemoLoading(false);
     }
@@ -279,7 +279,7 @@ export default function LabView({ goHome }) {
               instead of 50 px of vertical clutter. */}
           <p style={{ fontSize: '14px', color: 'var(--clr-ink-soft)', margin: '4px 0 0', lineHeight: 1.5 }}>
             เปิดเคส ฝึกวัด และอ่านภาพแบบ practical ได้ทันที
-            <span className="vmx-lab-safety-note">Experimental — เพื่อการเรียนรู้ ไม่ใช้แทนการ workup ผู้ป่วยจริง</span>
+            <span className="vmx-lab-safety-note">ใช้เพื่อการเรียน ไม่ใช้แทนการ workup ผู้ป่วยจริง</span>
           </p>
         </div>
         <button onClick={handleBack} className="vmx-btn vmx-btn-ghost vmx-btn-sm">← หน้าแรก</button>
@@ -390,7 +390,7 @@ export default function LabView({ goHome }) {
           )}
           {demoError && (
             <p role="alert" style={{ color: 'var(--clr-rose-text)', fontSize: '14px', margin: '8px 0 0', textAlign: 'center' }}>
-              โหลด demo ไม่สำเร็จ: {demoError}
+              เปิดเคสไม่สำเร็จ: {demoError}
             </p>
           )}
 

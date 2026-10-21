@@ -24,14 +24,16 @@ test('a family reads "now" exactly when one of its methods ships, else its earli
   }
 });
 
-test('every status the chart can show has words in Thai and English, and the planned ones name their release', () => {
-  for (const s of ['now', 'M1', 'M2', 'M3', 'later', 'loading']) {
+test('the chart names two states in Thai and English, and no release roadmap', () => {
+  for (const s of ['now', 'later', 'loading']) {
     assert.ok(landing.th[`landing.papers.status.${s}`] && landing.en[`landing.papers.status.${s}`], s);
   }
-  // "next release" would be wrong the day M2 ships; each planned status names its release by number.
-  assert.match(landing.en['landing.papers.status.M2'], /second/);
-  assert.match(landing.en['landing.papers.status.M3'], /third/);
-  assert.match(landing.th['landing.papers.status.M2'], /รุ่นที่ 2/);
+  for (const k of Object.keys(landing.th).filter((k) => k.startsWith('landing.papers.'))) {
+    assert.doesNotMatch(landing.th[k], /วางแผน|รุ่นที่ \d|เร็ว ๆ นี้/, k);
+    assert.doesNotMatch(landing.en[k] || '', /planned|coming soon|beta/i, k);
+  }
+  const chart = readFileSync(here('../../src/landing/chart/MethodsChapter.jsx'), 'utf8');
+  assert.ok(chart.includes("s === 'now' ? 'now' : 'later'"), 'every status but now reads as not in the program');
 });
 
 test('links into the workspace preload it on press and focus; public pages and the front door do not', () => {
