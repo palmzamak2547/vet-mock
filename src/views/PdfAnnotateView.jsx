@@ -56,6 +56,8 @@ import { useFullscreen } from '../hooks/useFullscreen.js';
 import LassoLayer from '../components/LassoLayer.jsx';
 import TapeLayer from '../components/TapeLayer.jsx';
 import { TAPE_COLORS, isTape, makeTape } from '../lib/tape.js';
+import TextNoteEditor from '../components/TextNoteEditor.jsx';
+import { makeTextNote, textNoteAt } from '../lib/textnote.js';
 import NotebookShelf from '../components/NotebookShelf.jsx';
 import { buildNotebookPdf, notebookKey, updateNotebook, NOTEBOOK_MAX_PAGES } from '../lib/notebook.js';
 import { selectStrokes, boundsOf, transformStroke } from '../lib/lasso.js';
@@ -217,7 +219,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const [tapeDraft, setTapeDraft] = useState(null);
   const [peeled, setPeeled] = useState(() => new Set());
   const [tapeColor, setTapeColor] = useState(TAPE_COLORS[0].rgb);
-  useEffect(() => { setPeeled(new Set()); setTapeDraft(null); }, [fileHash]);
+  // Text note being typed: { page, note, replaceId } (replaceId when editing one).
+  const [textEdit, setTextEdit] = useState(null);
+  useEffect(() => { setPeeled(new Set()); setTapeDraft(null); setTextEdit(null); }, [fileHash]);
   const lassoFrameRef = useRef(0);
   // Lasso actions, newest last. Each remembers the stroke on top of its page
   // right after it ran (tailId): while that is still the top stroke, nothing
@@ -1039,6 +1043,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // turning the pen back over resumes drawing with the same pen.
     const barrelEraser = e.pointerType === 'pen' && (e.button === 5 || (e.buttons & 32) !== 0);
     const usedTool = barrelEraser ? 'eraser' : tool;
+    if (usedTool === 'text') {
+      openTextAt(drawPageRef.current, pointFromEvent(e).slice(0, 2), e.currentTarget);
+      return;
+    }
     if (usedTool === 'tape') {
       const start = pointFromEvent(e).slice(0, 2);
       drawingRef.current = { on: true, pointerId: e.pointerId, tape: true, page: drawPageRef.current, start, end: start };
@@ -1715,6 +1723,44 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     });
     lastStrokePageRef.current = page;
     return after[after.length - 1]?.id ?? null; // the page's top stroke afterwards
+  }
+
+  // Text tool: a tap on a note opens it for editing, a tap on blank paper
+  // starts a new one, and a tap while one is open just closes it (the way a
+  // tap away ends typing everywhere else).
+  function openTextAt(page, at, canvas) {
+    if (textEdit) { if (document.activeElement?.blur) document.activeElement.blur(); return; }
+    const list = (latestRef.current.strokesByPage || {})[page] || [];
+    const rect = canvas?.getBoundingClientRect?.();
+    const ctx = rect ? document.createElement('canvas').getContext('2d') : null;
+    const hit = ctx ? textNoteAt(list, at, rect.width, rect.height, ctx) : null;
+    if (hit) {
+      redrawOverlay(list.filter((st) => st.id !== hit.id), page); // the editor shows it instead
+      setTextEdit({ page, note: hit, replaceId: hit.id });
+      return;
+    }
+    setTextEdit({ page, note: { points: [at], text: '', color: resolveToolColor('pen'), size, w: Math.min(0.5, 1 - at[0]) }, replaceId: null });
+  }
+
+  function closeText(edit, text) {
+    setTextEdit(null);
+    const list = (latestRef.current.strokesByPage || {})[edit.page] || [];
+    const old = edit.replaceId ? list.find((st) => st.id === edit.replaceId) : null;
+    const { color, size: sz, w } = edit.note;
+    const note = text == null ? null : makeTextNote(edit.note.points[0], text, { id: newStrokeId(), color, size: sz, w });
+    // Cancelled, or nothing changed: put the page back as it was.
+    if (text == null || (!note && !old) || (old && note && note.text === old.text)) {
+      redrawOverlay(list, edit.page);
+      return;
+    }
+    const tailId = replaceOnPage(edit.page, old ? [old.id] : [], note ? [note] : []);
+    // An edit undoes back to the old text, as one step.
+    if (old) {
+      lassoOpsRef.current = [...lassoOpsRef.current, {
+        page: edit.page, tailId, removed: [old], added: note ? [note.id] : [], addedStrokes: note ? [note] : [],
+      }].slice(-40);
+    }
+    setRedoStack([]);
   }
 
   // Apply one lasso action to the selected strokes. `make` turns each
@@ -2419,6 +2465,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         />
         <ToolButton icon="lasso" label="เลือกเส้น วาดวงล้อมแล้วย้าย ย่อขยาย เปลี่ยนสี หรือลบ" active={tool === 'lasso'}
           onClick={() => { if (tool !== 'lasso') pickTool('lasso'); }} />
+        <ToolButton icon="text" label="ข้อความ แตะหน้าเพื่อพิมพ์ แตะข้อความเดิมเพื่อแก้" active={tool === 'text'}
+          onClick={() => pickTool('text')} />
         <ToolButton icon="tape" label="เทปปิดคำตอบ ลากเป็นแถบเพื่อแปะ แตะเทปเพื่อลอกดู" active={tool === 'tape'}
           onClick={() => { if (tool !== 'tape') pickTool('tape'); }} />
         {tapeCount > 0 && (
@@ -2764,10 +2812,14 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
               cursor="crosshair"
               handlers={pageHandlers}
               scrollRoot={wrapperRef}
-              layer={tapesOn(n).length || tapeDraft?.page === n || (lassoLoop && drawPageRef.current === n) || selection?.page === n ? (pw, ph) => (
+              layer={tapesOn(n).length || tapeDraft?.page === n || textEdit?.page === n || (lassoLoop && drawPageRef.current === n) || selection?.page === n ? (pw, ph) => (
                 <>
+                {textEdit?.page === n && (
+                  <TextNoteEditor key={textEdit.replaceId || 'new'} w={pw} h={ph} note={textEdit.note}
+                    onCommit={(t) => closeText(textEdit, t)} onCancel={() => closeText(textEdit, null)} />
+                )}
                 <TapeLayer w={pw} h={ph} tapes={tapesOn(n)} peeled={peeled} onToggle={toggleTape}
-                  draft={tapeDraft?.page === n ? tapeDraft.stroke : null} interactive={tool !== 'lasso'} />
+                  draft={tapeDraft?.page === n ? tapeDraft.stroke : null} interactive={tool !== 'lasso' && tool !== 'text'} />
                 {((lassoLoop && drawPageRef.current === n) || selection?.page === n) && (
                 <LassoLayer
                   w={pw}

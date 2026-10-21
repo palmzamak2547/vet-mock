@@ -11,6 +11,8 @@
 // Strokes carry points in normalised [0..1] space so the same stroke redraws
 // correctly at any zoom, on any canvas, and in the exported file.
 
+import { drawTextNote } from './textnote.js';
+
 /** Sets up the context for one instrument. */
 export function applyBrush(ctx, stroke) {
   ctx.lineJoin = 'round';
@@ -91,6 +93,8 @@ export function drawStroke(ctx, stroke, canvasW, canvasH, scale = 1) {
   // A tape is drawn by the reader's tape layer, never into the ink (and so
   // never into an exported PDF either): see lib/tape.js.
   if (stroke.mode === 'tape') return;
+  // Typed text is painted here too, so the export carries it for free.
+  if (stroke.mode === 'text') { drawTextNote(ctx, stroke, canvasW, canvasH); return; }
   applyBrush(ctx, stroke);
   const X = (i) => pts[i][0] * canvasW;
   const Y = (i) => pts[i][1] * canvasH;

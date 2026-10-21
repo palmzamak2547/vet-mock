@@ -259,3 +259,47 @@ test('tape covers an answer until it is tapped, never reaches the ink, and is co
   await openReaderWithPdf(page);
   await expect(page.locator('.vmx-tape:not(.is-draft)')).toHaveAttribute('aria-pressed', 'false');
 });
+
+test('a typed note is stored as a stroke, painted into the ink, and edited in place with one-step undo', async ({ page }) => {
+  await openReaderWithPdf(page);
+  const box = await overlayBox(page);
+  const inkPixels = () => page.evaluate(() => {
+    const ov = document.querySelector('[data-page="1"] canvas:nth-of-type(2)');
+    const d = ov.getContext('2d').getImageData(0, 0, ov.width, ov.height).data;
+    let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 8) n++; return n;
+  });
+  const notes = async () => (await strokes(page)).filter((s) => s.mode === 'text');
+
+  await page.locator('button[aria-label^="ข้อความ"]').click();
+  await page.mouse.click(box.x + box.w * 0.2, box.y + box.h * 0.3);
+  const editor = page.locator('.vmx-textnote-editor');
+  await expect(editor).toBeFocused();
+  await page.keyboard.type('CPV ติดทาง fecal-oral');
+  await page.keyboard.press('Control+Enter');
+  await expect(editor).toHaveCount(0);
+  await expect.poll(async () => (await notes()).map((s) => s.text)).toEqual(['CPV ติดทาง fecal-oral']);
+  await expect.poll(inkPixels, { message: 'the note is painted into the ink' }).toBeGreaterThan(50);
+
+  // Tapping the note opens it with its text; the edit replaces it under a new id.
+  const [first] = await notes();
+  await page.mouse.click(box.x + box.w * 0.22, box.y + box.h * 0.3 + 6);
+  await expect(editor).toHaveValue('CPV ติดทาง fecal-oral');
+  await page.keyboard.type(' (เชื้อทนมาก)');
+  await page.mouse.click(box.x + box.w * 0.5, box.y + box.h * 0.8); // tap away saves
+  await expect(editor).toHaveCount(0);
+  await expect.poll(async () => (await notes()).map((s) => s.text)).toEqual(['CPV ติดทาง fecal-oral (เชื้อทนมาก)']);
+  expect((await notes())[0].id).not.toBe(first.id);
+  expect((await notes()).length, 'a tap away does not start a second note').toBe(1);
+
+  await page.locator('button[aria-label="ย้อนกลับ"]').click();
+  await expect.poll(async () => (await notes()).map((s) => s.text), { message: 'one undo brings the old text back' })
+    .toEqual(['CPV ติดทาง fecal-oral']);
+
+  // Esc on a fresh box leaves nothing behind.
+  await page.mouse.click(box.x + box.w * 0.3, box.y + box.h * 0.6);
+  await expect(editor).toBeFocused();
+  await page.keyboard.type('ไม่เอา');
+  await page.keyboard.press('Escape');
+  await expect(editor).toHaveCount(0);
+  expect((await notes()).length).toBe(1);
+});
