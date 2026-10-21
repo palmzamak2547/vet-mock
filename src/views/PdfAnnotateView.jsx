@@ -2690,8 +2690,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
               cursor="crosshair"
               handlers={pageHandlers}
               scrollRoot={wrapperRef}
-              layer={(lassoLoop && drawPageRef.current === n) || selection?.page === n ? (
+              layer={(lassoLoop && drawPageRef.current === n) || selection?.page === n ? (pw, ph) => (
                 <LassoLayer
+                  w={pw}
+                  h={ph}
                   loop={drawPageRef.current === n ? lassoLoop : null}
                   selection={selection?.page === n ? selection : null}
                   preview={selection?.page === n ? lassoPreview : null}

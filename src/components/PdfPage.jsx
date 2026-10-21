@@ -19,7 +19,7 @@
 // parent, because a gesture can begin on one page and end on another. This
 // component only supplies its own page number to the handlers it is given.
 
-import { memo, useEffect, useMemo, useRef, useState, cloneElement } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { redrawInk, inkDpr } from '../lib/ink.js';
 
 // How far outside the viewport a page still renders. One viewport of runway
@@ -45,7 +45,7 @@ export default memo(function PdfPage({
   active,
   cursor,
   scrollRoot,
-  layer = null, // the lasso, on the one page that has it
+  layer = null, // (w, h) => the lasso, on the one page that has it
 }) {
   const rowRef = useRef(null);
   const baseRef = useRef(null);
@@ -241,7 +241,7 @@ export default memo(function PdfPage({
         }}
       >{pageNum}{hasInk ? ' ✍' : ''}</span>
       {/* The layer is laid out in this page's CSS px, which only the page knows. */}
-      {layer && cloneElement(layer, { w, h })}
+      {layer ? layer(w, h) : null}
     </div>
   );
 });
