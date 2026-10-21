@@ -88,10 +88,13 @@ export default function LassoLayer({
   // centred on it, kept inside the page.
   const bar = dbox && (() => {
     const above = dbox.top - HANDLE_REACH - BAR_H >= 0;
-    const top = above ? dbox.top - HANDLE_REACH - BAR_H : dbox.top + dbox.height + HANDLE_REACH;
     const half = BAR_W / 2;
     const cx = Math.min(Math.max(dbox.left + dbox.width / 2, half + 4), Math.max(half + 4, (w || 0) - half - 4));
-    return { left: cx - half, top };
+    // Anchored on the side facing the box, so the colour row opens AWAY from
+    // the ink instead of over it.
+    return above
+      ? { left: cx - half, bottom: (h || 0) - (dbox.top - HANDLE_REACH), above }
+      : { left: cx - half, top: dbox.top + dbox.height + HANDLE_REACH, above };
   })();
 
   return (
@@ -116,12 +119,13 @@ export default function LassoLayer({
             ))}
           </div>
           <div
-            className="vmx-lasso-bar"
+            className={`vmx-lasso-bar${bar.above ? " is-above" : ""}`}
             role="toolbar"
             aria-label={`จัดการ ${selection.ids.length} เส้นที่เลือก`}
-            style={{ left: bar.left, top: bar.top, width: BAR_W }}
+            style={{ left: bar.left, top: bar.top, bottom: bar.bottom, width: BAR_W, flexDirection: bar.above ? 'column-reverse' : 'column' }}
             onPointerDown={(e) => e.stopPropagation()}
           >
+            <div className="vmx-lasso-row">
             <button type="button" className="vmx-lasso-act" aria-expanded={palette}
               onClick={() => setPalette((v) => !v)} aria-label="เปลี่ยนสี" title="เปลี่ยนสี">
               <span className="vmx-lasso-palette" aria-hidden="true" />
@@ -135,6 +139,7 @@ export default function LassoLayer({
             <button type="button" className="vmx-lasso-act is-done" onClick={onDone} aria-label="เสร็จ" title="เสร็จ (Esc)">
               <NavIcon name="check" size={18} />
             </button>
+            </div>
             {palette && (
               <div className="vmx-lasso-colors" role="group" aria-label="สี">
                 {colors.map((c) => (
