@@ -85,7 +85,7 @@ import OptionalFeature from './components/OptionalFeature.jsx';
 import {
   HomeView, CommandPalette, InstructorModal, VoiceSettings,
   ImageAnnotator, LabView, WrapUpView, AtlasView, PinboardView,
-  ContributeView, ReviewQueueView, BenchView, AdminView, HighlightToCard,
+  ContributeView, ConnectAppsView, ReviewQueueView, BenchView, AdminView, HighlightToCard,
   ShortcutSheet, OnboardingTour, SubjectSelectView, ConfigView, ExamView,
   ResultsView, ReviewView, SRSessionView, DashboardView,
   QuestionManagerView, AuthView, GroupsView, GroupDetailView,
@@ -3172,7 +3172,7 @@ export default function App() {
               {view === 'phase-select' && <PhaseSelectView {...{ goHome, selectedYear, selectedPhase, setSelectedPhase, setView }} />}
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, selectedPhase, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setTopic, setView }} />}
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
-              {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist }} {...{ user, goHome, onSignedOut: goHome }} />}
+              {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist }} {...{ user, goHome, setView, onSignedOut: goHome }} />}
               {view === 'offline-game' && <OfflineGameView goBack={leaveRestTool} backToRest={restReturn} online={networkOnline} />}
               {view === 'mochi' && <MochiView goHome={goHome} onOpenFocus={() => setView('pomodoro')} onOpenGame={() => setView('offline-game')} />}
               {view === 'pomodoro' && <PomodoroView goHome={leaveRestTool} backToRest={restReturn} />}
@@ -3196,6 +3196,7 @@ export default function App() {
               {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setTopic, setPracticeMode, onOpenQuestion: openQuestionById, notes, selectedYear, selectedPhase }} />}
               {view === 'image-occlusion' && <ImageOcclusionView {...{ goHome, setView }} />}
               {view === 'phase-wrapped' && <PhaseWrappedView {...{ goHome, history, srCards, bookmarks, customQuestions, selectedYear }} />}
+              {view === 'connect-apps' && <ConnectAppsView {...{ goHome, setView, user, history, selectedYear }} />}
               {view === 'contribute' && <ContributeView {...{ goHome, setView, user, selectedYear }} />}
               {view === 'review-queue' && user && <ReviewQueueView {...{ goHome, setView, user }} />}
               {(view === 'mock-exam' || view === 'mock-results') && <ViewFallback />}

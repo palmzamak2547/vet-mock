@@ -406,6 +406,16 @@ export const FEATURES = [
     kw: 'feedback bug แจ้ง ปัญหา ติชม report ขอ',
     invoke: { kind: 'view', view: 'feedback' },
   },
+  {
+    // Drive, Notion, the exam calendar and Anki in one place. A personal
+    // screen with no URL of its own (like the profile hub). Last in the
+    // registry so the home grid's preview of each group keeps its cards.
+    id: 'connect-apps', category: 'tools',
+    label: 'เชื่อมแอป', labelEn: 'Connected apps', icon: '🔗',
+    hint: 'ตารางสอบเข้าปฏิทิน การ์ด Anki และไฟล์จาก Drive หรือ Notion',
+    kw: 'connect apps เชื่อมแอป google drive notion calendar ปฏิทิน ตารางสอบ anki การ์ด outlook apple ics เชื่อมบัญชี',
+    invoke: { kind: 'view', view: 'connect-apps' },
+  },
 ];
 
 // ── Helpers ──────────────────────────────────────────────
