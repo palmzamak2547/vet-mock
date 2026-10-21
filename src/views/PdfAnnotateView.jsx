@@ -578,9 +578,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       // Published with the document it belongs to (see ingestFile).
       // `resolve` is kept so an export after the signed link has expired can
       // mint a fresh one instead of failing with a bare status code.
-      sourceRef.current = doc.bytes
-        ? { kind: 'file', file: new File([doc.bytes], doc.fileName || 'notebook.pdf', { type: 'application/pdf' }) }
-        : { kind: 'url', url, resolve: typeof doc.resolve === 'function' ? doc.resolve : null };
+      if (doc.bytes) sourceRef.current = { kind: 'file', file: new File([doc.bytes], doc.fileName || 'notebook.pdf', { type: 'application/pdf' }) };
+      else sourceRef.current = { kind: 'url', url, resolve: typeof doc.resolve === 'function' ? doc.resolve : null };
       setPdfDoc(pdf);
       setFileHash(hash);
       setFileName(doc.fileName || 'document.pdf');
