@@ -109,7 +109,7 @@ export default function Progress() {
       <header className="page-head">
         <p className="kicker">Your progress</p>
         <h1 className="page-h">ความคืบหน้า</h1>
-        <p className="page-p">ทุกคำตอบเก็บไว้ในเครื่องนี้เท่านั้น ไม่ต้องมีบัญชี และไม่มีข้อมูลส่งออกไปที่ไหน</p>
+        <p className="page-p">ทุกคำตอบเก็บไว้ในเบราว์เซอร์นี้เท่านั้น ไม่ต้องมีบัญชี และไม่มีข้อมูลส่งออกไปที่ไหน</p>
       </header>
 
       <section className="band glass progress-band" aria-label="ภาพรวม">

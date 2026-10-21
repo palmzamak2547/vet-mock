@@ -308,7 +308,7 @@ a.post-card:active { transform: translateY(0) scale(.995); }
 .signin-line .signin-logo { border-right: 1px solid rgba(0, 0, 0, .08); }
 .signin-google .signin-logo { border-right: 1px solid transparent; }
 .signin-line:hover { filter: brightness(.96); }
-.signin-or { display: flex; align-items: center; gap: 12px; margin: 22px 0 14px; font-size: 13px; color: var(--ink-3); }
+.signin-or { display: flex; align-items: center; gap: 12px; margin: 22px 0 14px; font-size: 14px; color: var(--ink-3); }
 .signin-or::before, .signin-or::after { content: ""; flex: 1; height: 1px; background: var(--line-2); }
 .signin-email { display: flex; gap: 8px; }
 .signin-email input {
@@ -320,6 +320,8 @@ a.post-card:active { transform: translateY(0) scale(.995); }
 .signin-sent { display: grid; justify-items: center; gap: 14px; padding: 8px 0 4px; text-align: center; font-size: 15.5px; line-height: 1.7; }
 .signin-sent-mark { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--verd-soft); color: var(--verd); }
 .signin-fine { margin-top: 18px; }
+.signin-app { margin-top: 10px; }
+.signin-fine + .signin-fine { margin-top: 8px; }
 .sheet .form-error { margin-top: 12px; }
 
 .pform { display: grid; gap: 18px; }
