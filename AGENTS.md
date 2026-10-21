@@ -251,7 +251,7 @@ Full rules: [docs/GITFLOW.md](docs/GITFLOW.md). The short form:
 | Video summaries | `src/data/video-summaries-*.js` + metadata barrel |
 | Changelog (homepage banner) | `src/data/changelog.js` |
 | Curriculum / subjects / topics | `src/data/curriculum.js` |
-| Styles (all CSS) | `src/styles.css` + `src/styles-landing.css` + `src/styles-admin.css` (`.ad-*`, the back-office only) + `src/styles-atlas.css` (AtlasView) + `src/styles-motion-kit.css` (MotionLoader, MotionSurface, StudyBreak) + `src/styles-buddy.css` (BuddySelector, PomodoroTimer, MascotSquad3DViewer) |
+| Styles (all CSS) | `src/styles.css` + `src/styles-landing.css` + `src/styles-admin.css` (`.ad-*`, the back-office only) + `src/styles-atlas.css` (AtlasView) + `src/styles-motion-kit.css` (MotionLoader, MotionSurface, StudyBreak) + `src/styles-buddy.css` (BuddySelector, PomodoroTimer, MascotSquad3DViewer) + `src/styles-connect.css` (`.vmx-conn-*`, ConnectAppsView) |
 | Back-office (one account) | `src/views/AdminView.jsx` at `/app/admin`; reads `src/lib/admin-api.js` (RPCs gated by `is_admin()`), flags from `src/lib/question-quality.js`; schema in `supabase/migrations/20260915121049_admin_backoffice_v1.sql` |
 | Static blog (SEO) | `public/blog/*.html` |
 | SEO config | `public/{robots.txt,sitemap.xml}` + `index.html` meta |

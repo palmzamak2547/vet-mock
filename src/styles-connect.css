@@ -1,0 +1,37 @@
+/* เชื่อมแอป (ConnectAppsView). Tokens only; the logo tile is the one fixed
+   white: brand marks are drawn for a light ground, and a dark mode tile
+   would make Drive's and Calendar's colours muddy. */
+.vmx-conn { max-width: 880px; margin: 0 auto; padding-bottom: max(32px, env(safe-area-inset-bottom)); }
+.vmx-conn-top { margin-bottom: 12px; }
+.vmx-conn h1 { margin: 0; font-family: var(--vmx-display); font-size: 28px; font-weight: 600; color: var(--clr-ink); }
+.vmx-conn-lead { margin: 6px 0 24px; color: var(--clr-ink-soft); font-size: 15px; }
+.vmx-conn-section { margin-bottom: 28px; }
+.vmx-conn-section > h2 { margin: 0 0 10px; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; color: var(--clr-ink-soft); }
+.vmx-conn-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+.vmx-conn-card { display: flex; flex-direction: column; gap: 12px; padding: 18px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-lg); }
+.vmx-conn-head { display: flex; align-items: center; gap: 12px; }
+.vmx-conn-head h3 { margin: 0; flex: 1; min-width: 0; font-size: 17px; font-weight: 700; color: var(--clr-ink); }
+.vmx-conn-logo { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-md); background: #fff; border: 1px solid var(--clr-border); }
+.vmx-conn-logo img { width: 28px; height: 28px; object-fit: contain; }
+.vmx-conn-status { flex: none; padding: 4px 10px; border-radius: var(--r-pill); font-size: 13px; font-weight: 600; }
+.vmx-conn-status.is-on { background: var(--clr-sage-soft); color: var(--clr-sage-text); }
+.vmx-conn-does { margin: 0; color: var(--clr-ink-soft); font-size: 15px; line-height: 1.6; }
+.vmx-conn-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+.vmx-conn-actions .vmx-btn { min-height: 44px; }
+.vmx-conn-years { display: flex; gap: 8px; flex-wrap: wrap; }
+.vmx-conn-targets { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); }
+.vmx-conn-target { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 14px; border: 1px solid var(--clr-border); border-radius: var(--r-md); background: var(--clr-bg); color: var(--clr-ink); font-weight: 600; font-size: 15px; text-decoration: none; transition: border-color 0.15s, background 0.15s; }
+.vmx-conn-target:hover { border-color: var(--clr-border-strong); background: var(--clr-surface-2); }
+.vmx-conn-target:focus-visible { outline: 2px solid var(--clr-ocean); outline-offset: 2px; }
+.vmx-conn-target img { flex: none; width: 22px; height: 22px; padding: 3px; box-sizing: content-box; border-radius: 6px; background: #fff; }
+.vmx-conn-copy { align-self: flex-start; min-height: 44px; }
+.vmx-conn-sets { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.vmx-conn-sets li { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 12px; border-radius: var(--r-md); background: var(--clr-surface-2); }
+.vmx-conn-sets .vmx-btn { min-height: 44px; }
+.vmx-conn-set-label { display: flex; align-items: baseline; gap: 8px; font-weight: 600; color: var(--clr-ink); }
+.vmx-conn-set-label b { font-weight: 500; font-size: 14px; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-conn-set-empty { flex: 1 1 220px; font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-conn-note { margin: 4px 0 0; font-size: 14px; line-height: 1.6; color: var(--clr-ink-soft); }
+@media (prefers-reduced-motion: reduce) { .vmx-conn-target { transition: none; } }
+/* A glyph on the fixed white tile, so its ink is fixed too. */
+.vmx-conn-logo.is-glyph { color: #2b2620; }

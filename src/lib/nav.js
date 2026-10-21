@@ -152,6 +152,7 @@ export const FEATURE_LINE_ICON = Object.freeze({
   bench: 'target',
   notes: 'note',
   'external-docs': 'files',
+  'connect-apps': 'link',
   'panic-mode': 'lightning',
   'sr-session': 'repeat',
 });
