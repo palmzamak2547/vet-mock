@@ -50,7 +50,7 @@
 @media (pointer: coarse) {
   .btn-sm { min-height: var(--touch); }
 }
-.btn-meta { font: 500 12.5px/1 var(--mono); opacity: .7; }
+.btn-meta { font: 500 14px/1 var(--mono); opacity: .7; }
 .btn-block { width: 100%; }
 
 .icon-btn {
@@ -195,14 +195,14 @@
 .footer-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 40px 64px; padding-block: 84px 28px; }
 .footer-tag { margin-top: 24px; max-width: 13em; font: 400 clamp(28px, 2.8vw, 38px)/1.25 var(--serif); color: var(--foot-ink); text-wrap: balance; }
 .footer-cols { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 24px; }
-.footer-h { margin-bottom: 12px; font: 600 13px/1.3 var(--sans); color: var(--foot-ink-2); }
+.footer-h { margin-bottom: 12px; font: 600 14px/1.3 var(--sans); color: var(--foot-ink-2); }
 .footer-cols a, .foot-btn { display: inline-flex; align-items: center; gap: 4px; min-height: 40px; color: var(--foot-ink); text-decoration: none; font-size: 15.5px; opacity: .88; transition: opacity var(--t) var(--ease); }
 .footer-cols a:hover, .foot-btn:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--foot-line); }
 .foot-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0; border: 0; background: none; color: var(--foot-ink); font: inherit; font-size: 15.5px; opacity: .88; cursor: pointer; }
 /* Footer links are rows that can grow; a short word ("แชท") is also made 44 px wide. */
 @media (pointer: coarse) { .footer-cols a, .foot-btn { min-height: var(--touch); min-width: var(--touch); } }
 .footer :focus-visible { outline-color: var(--foot-ink); }
-.footer-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 32px; padding-block: 8px 34px; font-size: 13.5px; line-height: 1.6; color: var(--foot-ink-2); }
+.footer-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 32px; padding-block: 8px 34px; font-size: 14px; line-height: 1.6; color: var(--foot-ink-2); }
 /* The sheet keeps its proportions and is never cropped: the rider, his plume and the man he
    asks stay whole. Where the page is wider than the sheet, the paper runs on past its edges,
    and the sheet's own edges fade into it. Its top fifth is empty sky, the only part the wall's
@@ -303,9 +303,9 @@
 .seg-opt.on { background: var(--verd-soft); box-shadow: inset 0 0 0 1.5px var(--verd); }
 .seg-opt.off { opacity: .45; cursor: not-allowed; }
 .seg-main { font: 600 15px/1.3 var(--sans); }
-.seg-hint { font-size: 13px; line-height: 1.4; color: var(--ink-3); }
+.seg-hint { font-size: 14px; line-height: 1.4; color: var(--ink-3); }
 
-.badge { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: var(--r-pill); font: 600 12.5px/1 var(--sans); white-space: nowrap; }
+.badge { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: var(--r-pill); font: 600 14px/1 var(--sans); white-space: nowrap; }
 .badge-verd { background: var(--verd-soft); color: var(--verd-text, var(--verd)); }
 .badge-brass { background: var(--brass-soft); color: var(--brass); }
 .badge-plain { background: var(--line); color: var(--ink-2); }
@@ -341,7 +341,7 @@
 
 /* ── The question ────────────────────────────────────────────────────────────────────── */
 .q-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-.q-plate { display: inline-flex; align-items: baseline; gap: 7px; font: 500 12px/1.3 var(--sans); color: var(--ink-2); padding: 4px 10px; border-radius: var(--r-pill); background: var(--line); }
+.q-plate { display: inline-flex; align-items: baseline; gap: 7px; font: 500 14px/1.3 var(--sans); color: var(--ink-2); padding: 4px 10px; border-radius: var(--r-pill); background: var(--line); }
 .q-plate-no { font: 500 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
 .q-count { margin-left: auto; font: 500 13px/1 var(--mono); color: var(--ink-2); }
 .q-of { color: var(--ink-3); }
@@ -431,7 +431,7 @@
 .empty h2 { font: 400 26px/1.3 var(--serif); color: var(--ink); }
 
 /* A change between years, as the almanac marks it: brass when a subject rises, grey when it falls. */
-.tr { font: 600 12.5px/1 var(--mono); color: var(--ink-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tr { font: 600 14px/1 var(--mono); color: var(--ink-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .tr-up { color: var(--brass); }
 .tr-down { color: var(--ink-2); }
 .tr-none { color: var(--line-3); }
