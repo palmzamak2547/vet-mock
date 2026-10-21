@@ -211,11 +211,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const [selection, setSelection] = useState(null);
   const [lassoPreview, setLassoPreview] = useState(null);
   const lassoFrameRef = useRef(0);
-  // Undo order between pen strokes and lasso actions. Strokes are persisted
-  // as they are (packStroke spreads them), so the order lives here, in
-  // memory, keyed by the stroke object: { seq } per stroke, a list of ops.
-  const seqRef = useRef(0);
-  const strokeSeq = useRef(new WeakMap());
+  // Lasso actions, newest last. Each remembers the stroke on top of its page
+  // right after it ran (tailId): while that is still the top stroke, nothing
+  // was drawn there since, so undo takes the action back before any stroke.
   const lassoOpsRef = useRef([]);
   // The settled ink under a highlighter swipe, copied once so each movement
   // does not repaint it stroke by stroke (lib/ink.js paintLiveHighlighter).
@@ -591,7 +589,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
         // documents with personal files, and without this it offered the file
         // picker for both — which cannot reopen something the student never
         // had on disk.
-        slug: doc.notebook ? null : (doc.slug || null),
+        slug: doc.slug || null,
       });
       refreshRecent();
       if (!storageHealth().persistent) {
@@ -1236,7 +1234,6 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const ctx = c && inkCtxFor(drawPageRef.current);
       if (ctx) drawStroke(ctx, ref.stroke, c.width, c.height, inkDpr() * pageScale);
     }
-    strokeSeq.current.set(ref.stroke, ++seqRef.current);
     setStrokesByPage((prev) => {
       const page = drawPageRef.current;
       lastStrokePageRef.current = page;
@@ -1318,10 +1315,9 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // (the moved, recoloured or deleted set as one step).
   function lassoOpOnTop(page) {
     const op = lassoOpsRef.current[lassoOpsRef.current.length - 1];
-    if (!op) return null;
+    if (!op || op.page !== page) return null;
     const list = (latestRef.current.strokesByPage || {})[page] || [];
-    const last = list[list.length - 1];
-    return op.seq >= (last ? strokeSeq.current.get(last) || 0 : 0) ? op : null;
+    return (list[list.length - 1]?.id ?? null) === op.tailId ? op : null;
   }
 
   function undoLast() {
@@ -1329,7 +1325,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (op) {
       lassoOpsRef.current = lassoOpsRef.current.slice(0, -1);
       const restored = op.removed.map((st) => ({ ...st, id: newStrokeId() }));
-      replaceOnPage(op.page, op.added, restored, op.seq);
+      replaceOnPage(op.page, op.added, restored);
       setRedoStack((r) => [...r, { page: op.page, lasso: { op, restoredIds: restored.map((st) => st.id) } }].slice(-40));
       setSelection(null);
       return;
@@ -1359,9 +1355,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       if (top?.lasso) {
         const { op, restoredIds } = top.lasso;
         const again = op.addedStrokes.map((st) => ({ ...st, id: newStrokeId() }));
-        const seq = ++seqRef.current;
-        replaceOnPage(op.page, restoredIds, again, seq);
-        lassoOpsRef.current = [...lassoOpsRef.current, { ...op, seq, added: again.map((st) => st.id), addedStrokes: again }];
+        const tailId = replaceOnPage(op.page, restoredIds, again);
+        lassoOpsRef.current = [...lassoOpsRef.current, { ...op, tailId, added: again.map((st) => st.id), addedStrokes: again }];
         return stack.slice(0, -1);
       }
       // Undo history belongs to the page the stroke was made on. Replaying it
@@ -1464,7 +1459,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   useEffect(() => {
     if (!selection) return undefined;
-    const onKey = (e) => {
+    const onLassoKey = (e) => {
       const t = e.target;
       if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
       const mod = e.ctrlKey || e.metaKey;
@@ -1472,8 +1467,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       else if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); e.stopPropagation(); handlersRef.current.lassoDelete?.(); }
       else if (mod && e.key.toLowerCase() === 'd') { e.preventDefault(); e.stopPropagation(); handlersRef.current.lassoDuplicate?.(); }
     };
-    window.addEventListener('keydown', onKey, true);
-    return () => window.removeEventListener('keydown', onKey, true);
+    window.addEventListener('keydown', onLassoKey, true);
+    return () => window.removeEventListener('keydown', onLassoKey, true);
   }, [selection]);
 
   // Undo, redo and zoom from the keyboard. A laptop reader annotating with a
@@ -1661,9 +1656,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // Swap strokes on one page: `removeIds` leave (tombstoned, so every device
   // drops them), `add` join at the top of the page. The one write path for
   // every lasso action, its undo and its redo.
-  function replaceOnPage(page, removeIds, add, seq) {
+  function replaceOnPage(page, removeIds, add) {
     const gone = new Set(removeIds);
-    for (const st of add) strokeSeq.current.set(st, seq);
+    const before = (latestRef.current.strokesByPage || {})[page] || [];
+    const after = [...before.filter((st) => !gone.has(st.id)), ...add];
     setStrokesByPage((prev) => {
       const list = prev[page] || [];
       const nextList = [...list.filter((st) => !gone.has(st.id)), ...add];
@@ -1674,6 +1670,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       return next;
     });
     lastStrokePageRef.current = page;
+    return after[after.length - 1]?.id ?? null; // the page's top stroke afterwards
   }
 
   // Apply one lasso action to the selected strokes. `make` turns each
@@ -1685,11 +1682,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     const picked = list.filter((st) => sel.ids.includes(st.id));
     if (!picked.length) { setSelection(null); return; }
     const added = picked.flatMap((st) => make(st));
-    const seq = ++seqRef.current;
     const removeIds = keep ? [] : picked.map((st) => st.id);
-    replaceOnPage(sel.page, removeIds, added, seq);
+    const tailId = replaceOnPage(sel.page, removeIds, added);
     lassoOpsRef.current = [...lassoOpsRef.current, {
-      page: sel.page, seq, removed: keep ? [] : picked, added: added.map((st) => st.id), addedStrokes: added,
+      page: sel.page, tailId, removed: keep ? [] : picked, added: added.map((st) => st.id), addedStrokes: added,
     }].slice(-40);
     setRedoStack([]);
     setLassoPreview(null);
