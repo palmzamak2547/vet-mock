@@ -8,7 +8,32 @@
 // keeps the ink already written; the shelf lists the notebook afterwards.
 // Every assertion that matters reads IndexedDB, not the canvas alone.
 
+import fs from 'node:fs';
 import { test, expect } from './fixtures.js';
+
+// Production's Content-Security-Policy, as vercel.json serves it. The local
+// preview sends none, so a notebook opened through a blob: URL passed here
+// and failed on vetmock.com (5.156.0: connect-src has no blob:). Pages in
+// this spec get the real policy, minus upgrade-insecure-requests, which
+// would send the http preview's own requests to https.
+const PROD_CSP = (() => {
+  const conf = JSON.parse(fs.readFileSync(new URL('../../vercel.json', import.meta.url), 'utf8'));
+  for (const h of conf.headers || []) {
+    const csp = (h.headers || []).find((x) => x.key === 'Content-Security-Policy');
+    if (csp && /connect-src/.test(csp.value) && /default-src 'self'/.test(csp.value)) {
+      return csp.value.replace(/;\s*upgrade-insecure-requests/, '');
+    }
+  }
+  throw new Error('no app CSP in vercel.json');
+})();
+
+async function withProductionCsp(page) {
+  await page.route('**/*', async (route) => {
+    if (route.request().resourceType() !== 'document') return route.continue();
+    const res = await route.fetch();
+    await route.fulfill({ response: res, headers: { ...res.headers(), 'content-security-policy': PROD_CSP } });
+  });
+}
 
 const TINY_PDF = Buffer.from(
   '%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n'
@@ -137,6 +162,9 @@ test('deleting from the lasso bar is undone in one step, even on an emptied page
 });
 
 test('a notebook opens with its pages, keeps its ink when a page is added, and stays on the shelf', async ({ page }) => {
+  await withProductionCsp(page);
+  const blocked = [];
+  page.on('console', (m) => { if (/Content Security Policy/.test(m.text())) blocked.push(m.text().slice(0, 160)); });
   await page.goto('/app/tools/pdf');
   await page.getByRole('radio', { name: 'ตาราง' }).click();
   await page.getByLabel('ชื่อสมุด').fill('สมุดทดสอบ e2e');
@@ -164,6 +192,7 @@ test('a notebook opens with its pages, keeps its ink when a page is added, and s
   const shelved = page.locator('.vmx-nb-open', { hasText: 'สมุดทดสอบ e2e' });
   await expect(shelved).toBeVisible();
   await expect(shelved).toContainText('5 หน้า');
+  expect(blocked, 'nothing the notebook does may be refused by production CSP').toEqual([]);
 });
 
 test('dragging a corner handle resizes the selection, with its line width', async ({ page }) => {
