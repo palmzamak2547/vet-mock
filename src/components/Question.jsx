@@ -24,20 +24,6 @@ import MissCoach from './MissCoach.jsx';
 import Mochi from './Mochi.jsx';
 import { MotionEnter, useMotionFeedback } from './MotionFeedback.jsx';
 
-// Strip RichText markup so TTS reads naturally — markdown bold/italic
-// markers and HTML entities sound weird as speech.
-function stripForSpeech(s) {
-  if (!s) return '';
-  return String(s)
-    .replace(/\*\*([^*]+)\*\*/g, '$1')
-    .replace(/\*([^*]+)\*/g, '$1')
-    .replace(/_([^_]+)_/g, '$1')
-    .replace(/`([^`]+)`/g, '$1')
-    .replace(/[#>~]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
 // Q-flag persistence — stored in localStorage as { 'subject:id': { reason, ts } }.
 // Cross-machine sync needs Supabase schema; deferred to a future session.
 const FLAGS_KEY = 'vmx-q-flags';
@@ -119,6 +105,16 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     };
   }, [currentQ?.id]);
 
+  // A student who has used read-aloud before gets this subject's clip list
+  // fetched ahead, so the next tap starts without waiting on it.
+  useEffect(() => {
+    const subject = currentQ?.subject;
+    let used = false;
+    try { used = window.localStorage.getItem('vmx-tts-used') === '1'; } catch { /* private mode */ }
+    if (!subject || !used) return;
+    import('../lib/tts-shared.js').then((m) => m.warmShared(subject)).catch(() => {});
+  }, [currentQ?.subject]);
+
   const speakQ = async () => {
     // CRITICAL: prime audio synchronously BEFORE any await. iOS Safari
     // (and stricter browsers) require .play() to happen inside a user
@@ -137,9 +133,11 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     setTtsNote(null);
     const controller = { cancelled: false };
     speakControllerRef.current = controller;
-    const stem = stripForSpeech(currentQ.q || '');
+    // Options in the order the student sees them, so "ตัวเลือก B" is the
+    // row with the B chip (it used to read them in source order).
+    const stem = currentQ.q || '';
     const options = Array.isArray(currentQ.options)
-      ? currentQ.options.map((o) => stripForSpeech(o))
+      ? getShuffledOptions(currentQ).displayOptions.map(String)
       : [];
     try {
       // TTS is an optional feature. Keep its speech/IndexedDB providers out
@@ -150,6 +148,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       tts.speakQuestion({
         stem,
         options,
+        subject: currentQ.subject,
         controller,
         onStart: () => setIsSpeaking(true),
         onEnd: () => { if (!controller.cancelled) setIsSpeaking(false); },

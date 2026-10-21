@@ -48,6 +48,8 @@
 // ============================================================
 
 import { thaiPhoneticTranslit } from './tts-phonetic.js';
+import { normalizeSymbols, expandUnits, questionLang, stripForSpeech } from './tts-text.js';
+import { sharedPlan, getSharedAudio } from './tts-shared.js';
 import {
   speakViaEdge,
   stopAllEdgeAudio,
@@ -247,86 +249,6 @@ function expandAcronyms(text) {
   return text.replace(/\b([A-Z]{2,5})\b/g, (m) => ACRONYM_MAP[m] || m);
 }
 
-// Symbols that confuse TTS — replace with words appropriate to the
-// surrounding language. Also handles fill-in-blank underscore runs
-// (Pattara would read "_____" as "ขีดล่างๆๆๆๆๆ" — ugly) and dash
-// ranges like "5-10" (Pattara reads as "5 ลบ 10" subtraction).
-function normalizeSymbols(text, lang) {
-  if (!text) return text;
-  const isEn = lang === 'en';
-  return text
-    // Fill-in-the-blank: 2+ underscores in a row → "ช่องว่าง" / "blank"
-    // Single underscore (e.g. in a variable name) kept as-is.
-    .replace(/_{2,}/g, isEn ? ' blank ' : ' ช่องว่าง ')
-    // Numeric ranges with hyphen/dash/en-dash: "5-10" / "5–10" → "5 ถึง 10"
-    // Run BEFORE we touch unit slashes so we don't accidentally absorb the
-    // hyphen inside drug names like "Sulfa-Trimethoprim".
-    .replace(/(\d+(?:\.\d+)?)\s*[-–]\s*(\d+(?:\.\d+)?)/g, (m, a, b) => `${a} ${isEn ? 'to' : 'ถึง'} ${b}`)
-    // Three-or-more dots (ellipsis) → comma pause (browser ignores literal dots)
-    .replace(/\.{3,}/g, ', ')
-    .replace(/…/g, ', ')
-    // Arrows
-    .replace(/→|⇒|->/g, isEn ? ' to ' : ' ไป ')
-    .replace(/×/g, isEn ? ' times ' : ' คูณ ')
-    .replace(/±/g, isEn ? ' plus or minus ' : ' บวกลบ ')
-    .replace(/≥/g, isEn ? ' greater than or equal to ' : ' มากกว่าหรือเท่ากับ ')
-    .replace(/≤/g, isEn ? ' less than or equal to ' : ' น้อยกว่าหรือเท่ากับ ')
-    .replace(/%/g, isEn ? ' percent' : ' เปอร์เซ็นต์')
-    // "5 mg/kg" → "5 mg per kg" (preprocessor for unit expansion below)
-    .replace(/(\d+(?:\.\d+)?\s*[a-zA-Zµμ]+)\/([a-zA-Zµμ]+)/g, (m, a, b) => `${a} ${isEn ? 'per' : 'ต่อ'} ${b}`)
-    // Trailing "/min", "/hr"
-    .replace(/\/min\b/g, isEn ? ' per minute' : ' ต่อนาที')
-    .replace(/\/hr\b|\/h\b/g, isEn ? ' per hour' : ' ต่อชั่วโมง')
-    .replace(/\/day\b|\/d\b/g, isEn ? ' per day' : ' ต่อวัน')
-    // Veterinary dosing frequency — "q12h" / "q4h" / "q8h" etc.
-    // Format: q<number>h means "every N hours". Pattara reads "q12h"
-    // letter-by-letter ("คิว ทเวลฟ์ เอช") — confusing. Replace with
-    // natural Thai/English phrasing.
-    .replace(/\bq(\d+)h\b/gi, (m, n) => isEn ? `every ${n} hours` : `ทุก ${n} ชั่วโมง`)
-    // Latin abbreviations for daily frequency (SID/BID/TID/QID).
-    // SID = once a day, BID = twice, TID = 3×, QID = 4×.
-    .replace(/\bSID\b/g, isEn ? 'once a day' : 'วันละครั้ง')
-    .replace(/\bBID\b/g, isEn ? 'twice a day' : 'วันละสองครั้ง')
-    .replace(/\bTID\b/g, isEn ? 'three times a day' : 'วันละสามครั้ง')
-    .replace(/\bQID\b/g, isEn ? 'four times a day' : 'วันละสี่ครั้ง')
-    // PRN = as needed
-    .replace(/\bPRN\b/g, isEn ? 'as needed' : 'เมื่อจำเป็น');
-}
-
-// Common clinical units. Thai voices mangle these letter-by-letter.
-const UNIT_TH = {
-  mg: 'มิลลิกรัม', kg: 'กิโลกรัม', g: 'กรัม', ml: 'มิลลิลิตร', mL: 'มิลลิลิตร',
-  l: 'ลิตร', L: 'ลิตร', µg: 'ไมโครกรัม', mcg: 'ไมโครกรัม', ug: 'ไมโครกรัม',
-  bpm: 'ครั้งต่อนาที', mmHg: 'มิลลิเมตรปรอท', cm: 'เซนติเมตร', mm: 'มิลลิเมตร',
-  hr: 'ชั่วโมง', min: 'นาที', sec: 'วินาที',
-};
-const UNIT_EN = {
-  mg: 'milligrams', kg: 'kilograms', g: 'grams', ml: 'milliliters', mL: 'milliliters',
-  l: 'liters', L: 'liters', µg: 'micrograms', mcg: 'micrograms', ug: 'micrograms',
-  bpm: 'beats per minute', mmHg: 'millimeters of mercury',
-  cm: 'centimeters', mm: 'millimeters',
-  hr: 'hours', min: 'minutes', sec: 'seconds',
-};
-function expandUnits(text, lang) {
-  if (!text) return text;
-  const map = lang === 'en' ? UNIT_EN : UNIT_TH;
-  return text
-    // "5 mg" / "0.5 mcg" — number-prefixed units
-    .replace(/(\d+(?:\.\d+)?)\s*([a-zA-Zµμ]{1,5})\b/g, (m, num, unit) => {
-      const expanded = map[unit];
-      if (!expanded) return m;
-      return `${num} ${expanded}`;
-    })
-    // "ต่อ kg" / "per kg" — bare units after a preposition word
-    // (normalizeSymbols above turns "mg/kg" into "mg ต่อ kg", so the
-    // trailing "kg" loses its leading number and needs this catch).
-    .replace(/(ต่อ|per)\s+([a-zA-Zµμ]{1,5})\b/g, (m, prep, unit) => {
-      const expanded = map[unit];
-      if (!expanded) return m;
-      return `${prep} ${expanded}`;
-    });
-}
-
 // Add light comma breath points to long Thai monologues — Pattara is
 // otherwise relentless. Insert after every ~8 Thai-character word run
 // that doesn't already have a punctuation break. English voices
@@ -504,10 +426,70 @@ export async function prefetchQuestion({ stem }) {
 }
 
 // Public — speak a Q stem + options sequence.
-export async function speakQuestion({ stem, options, onStart, onEnd, onFail, controller }) {
-  if (typeof window === 'undefined' || !window.speechSynthesis) return;
+// Plays the question's pre-generated clips (tts-shared.js). Returns true
+// when the read-aloud was handled here (played, or stopped by the user),
+// false when the clips are not there and the live voices should take over.
+async function playShared({ stem, options, lang, subject, controller, onStart, onEnd }) {
+  // The clips are AAC in MP4. A browser that cannot decode it keeps the
+  // live voices rather than going silent.
+  try {
+    if (!new Audio().canPlayType('audio/mp4; codecs="mp4a.40.2"')) return false;
+  } catch { return false; }
+  let plan = null;
+  try { plan = await sharedPlan({ stem, options, lang, subject }); } catch { plan = null; }
+  if (controller?.cancelled) return true;
+  if (!plan) return false;
+  try { window.localStorage.setItem('vmx-tts-used', '1'); } catch { /* private mode */ }
+  const fetchAbort = new AbortController();
+  const bufs = plan.map((p) => getSharedAudio(p.key, fetchAbort.signal));
+  for (const b of bufs) b.catch(() => {});
+  const prefs = getTtsPrefs();
+  // The clips carry their own breath; these gaps are the read-aloud's
+  // rhythm between pieces. A longer pause set in voice settings still wins.
+  const gapAfter = { stem: Math.max(400, prefs.afterStem), label: 60, option: Math.max(250, prefs.betweenOpts) };
+  let started = false;
+  let heard = false;
+  try {
+    for (let i = 0; i < plan.length; i++) {
+      if (controller?.cancelled) break;
+      const buf = await bufs[i];
+      if (controller?.cancelled) break;
+      const player = playArrayBuffer(buf, 'audio/mp4', prefs.speed);
+      if (controller) {
+        if (!controller._players) controller._players = new Set();
+        controller._players.add(player);
+      }
+      if (!started) { started = true; onStart?.(); }
+      const ok = await player.finished;
+      controller?._players?.delete(player);
+      if (ok === false) throw new Error('playback refused');
+      heard = true;
+      if (i < plan.length - 1) await pause(gapAfter[plan[i].kind]);
+    }
+  } catch (err) {
+    fetchAbort.abort();
+    stopControllerEdge(controller);
+    // Nothing was heard yet: let the live voices try instead.
+    if (!heard) return false;
+    console.warn('[tts] shared clips stopped:', err?.message);
+  }
+  fetchAbort.abort();
+  onEnd?.();
+  return true;
+}
+
+export async function speakQuestion({ stem: rawStem, options: rawOptions, subject, onStart, onEnd, onFail, controller }) {
+  if (typeof window === 'undefined') return;
   const synth = window.speechSynthesis;
-  synth.cancel();
+  synth?.cancel();
+  const rawOpts = Array.isArray(rawOptions) ? rawOptions : [];
+  // ONE voice language per question, decided by the stem (see questionLang).
+  const qLang = questionLang(rawStem, rawOpts);
+  if (await playShared({ stem: rawStem, options: rawOpts, lang: qLang, subject, controller, onStart, onEnd })) return;
+  if (controller?.cancelled) return;
+  if (!synth) { onFail?.('no-voice'); return; }
+  const stem = stripForSpeech(rawStem);
+  const options = rawOpts.map(stripForSpeech);
 
   // Don't block tap-to-audio on voice enumeration. Cloud path (iApp/
   // Edge) doesn't NEED Web Speech voices — those are only for the Web
@@ -546,17 +528,6 @@ export async function speakQuestion({ stem, options, onStart, onEnd, onFail, con
   // แนวทาง parenteral ที่ Aj. X แนะนำใน CPV …") tips to English
   // and the Thai context words get silently skipped by Zira. 25 %
   // captures these correctly.
-  const stemText = (stem || '').trim();
-  let th = 0, en = 0;
-  const target = stemText || ((stem || '') + ' ' + safeOptions.join(' '));
-  for (const ch of target) {
-    if (THAI_RE.test(ch)) th++;
-    else if (ENG_RE.test(ch)) en++;
-  }
-  const total = th + en;
-  // Default Thai when no detected chars (digit-only / empty edge case).
-  // English wins ONLY when Thai content is < 25 % AND English exists.
-  const qLang = (total > 0 && th / total < 0.25 && en > 0) ? 'en' : 'th';
 
   // Single pause schedule for all voices — voice's own punctuation
   // prosody handles intra-sentence rhythm; we only set inter-segment gaps.

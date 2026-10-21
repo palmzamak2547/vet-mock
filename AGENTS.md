@@ -1,5 +1,12 @@
 # AGENTS.md — VetMock Project Guide
 
+## Read-aloud from shared Gemini clips 5.155.0 — 2026-10-21 (Claude Code)
+
+- `speakQuestion` (src/lib/tts.js) first plays pre-generated clips (src/lib/tts-shared.js) from https://tts.vetmock.com (R2 bucket `vetmock-tts`, custom domain on the vetmock.com zone, CORS GET from any origin): stem, then "ตัวเลือก A" + option per row in screen order. Clip names are `clipKey(text)` from `src/lib/tts-text.js`; the generator `scripts/tts-clips.mjs` uses the same functions. Any change to `stripForSpeech`, `normalizeSymbols`, `expandUnits`, `clipText`, `optionLabel`, `questionLang` or `SHARED_TTS` renames every clip: rerun the generator for the covered subjects in the same release (`tests/unit/tts-shared.test.mjs` pins one name). Clips are `.mp4` (Cloudflare caches it by default; `.m4a` is never edge-cached).
+- Coverage: avian-medicine only (1,945 clips). The rest needs about $29 of Gemini TTS (OpenRouter credit left: $7.64 on 21 Oct; the lab's Gemini key has no prepaid credit). Generate with `node scripts/tts-clips.mjs --subject <id>` (resumable, `--dry` for counts and cost).
+- Live voices are down on 21 Oct: Microsoft Edge TTS answers 403 to every client (vetmock.com/api/tts too) and iApp 402, so a question without clips reads in the device voice.
+- Question.jsx passes raw text, options in display order (`getShuffledOptions`) and `subject`; it used to read options in source order.
+
 ## Polish sweep 5.149.1 — 2026-10-20 (Claude Code)
 
 - Four press-sweep lanes on a production build (360 to 1920, both themes, Chromium/WebKit/Firefox, 4x CPU jank traces). Ranked findings, what was fixed and what stays open: `docs/polish-2026-10-20.md`.
