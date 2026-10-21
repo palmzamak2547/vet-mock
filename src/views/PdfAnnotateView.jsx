@@ -53,6 +53,10 @@ import { searchPages, pageTextFromItems } from '../lib/thai-search.js';
 import { fitShape, strokeHit } from '../lib/shape-fit.js';
 import { exportAnnotatedPdf, exportFileName, downloadBlob, readSourceBytes } from '../lib/pdf-export.js';
 import { useFullscreen } from '../hooks/useFullscreen.js';
+import LassoLayer from '../components/LassoLayer.jsx';
+import NotebookShelf from '../components/NotebookShelf.jsx';
+import { buildNotebookPdf, notebookKey, updateNotebook, NOTEBOOK_MAX_PAGES } from '../lib/notebook.js';
+import { selectStrokes, boundsOf, transformStroke } from '../lib/lasso.js';
 
 const PEN_COLORS = [
   { id: 'red',  rgb: '#c0392b', name: 'แดง' },
@@ -201,6 +205,16 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   const fileInputRef = useRef(null);
   const wrapperRef = useRef(null);
   const drawingRef = useRef({ on: false, points: [] });
+  // Lasso: the loop being drawn, what it took ({ page, ids, box }), and the
+  // move or resize being dragged (previewed, not yet committed).
+  const [lassoLoop, setLassoLoop] = useState(null);
+  const [selection, setSelection] = useState(null);
+  const [lassoPreview, setLassoPreview] = useState(null);
+  const lassoFrameRef = useRef(0);
+  // Lasso actions, newest last. Each remembers the stroke on top of its page
+  // right after it ran (tailId): while that is still the top stroke, nothing
+  // was drawn there since, so undo takes the action back before any stroke.
+  const lassoOpsRef = useRef([]);
   // The settled ink under a highlighter swipe, copied once so each movement
   // does not repaint it stroke by stroke (lib/ink.js paintLiveHighlighter).
   // Let go of wherever a stroke ends.
@@ -319,7 +333,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // The store moved to IndexedDB, so the recent list arrives a tick late
   // instead of during render. Nothing depends on it being there immediately.
   const refreshRecent = useCallback(() => {
-    listRecentPdfs().then(setRecent).catch(() => {});
+    listRecentPdfs().then((all) => setRecent(all.filter((r) => !String(r.hash || '').startsWith('nb:')))).catch(() => {});
   }, [listRecentPdfs]);
   useEffect(() => { refreshRecent(); }, [refreshRecent]);
   useEffect(() => onSyncState(setSync), [onSyncState]);
@@ -581,7 +595,11 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       if (!storageHealth().persistent) {
         showToast('เบราว์เซอร์นี้เก็บรอยเขียนถาวรไม่ได้ รอยที่เขียนจะอยู่แค่จนกว่าจะปิดแท็บ', 6000);
       }
-      if (askedPage > 1) {
+      if (doc.notebook && askedPage > 1) {
+        showToast(`เพิ่มหน้า ${startPage} แล้ว`, 2000);
+      } else if (doc.notebook) {
+        // A notebook says nothing on open: its shelf already said what it is.
+      } else if (askedPage > 1) {
         showToast(`เปิดที่หน้า ${startPage} ที่ค้นเจอ`, 2500);
       } else if (startPage > 1) {
         showToast(`เปิดต่อที่หน้า ${startPage} ✓`, 2500);
@@ -1007,6 +1025,14 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // turning the pen back over resumes drawing with the same pen.
     const barrelEraser = e.pointerType === 'pen' && (e.button === 5 || (e.buttons & 32) !== 0);
     const usedTool = barrelEraser ? 'eraser' : tool;
+    if (usedTool === 'lasso') {
+      setSelection(null);
+      setLassoPreview(null);
+      const start = pointFromEvent(e).slice(0, 2);
+      drawingRef.current = { on: true, pointerId: e.pointerId, lasso: true, page: drawPageRef.current, points: [start] };
+      setLassoLoop([start]);
+      return;
+    }
     if (usedTool === 'eraser' && eraserMode === 'stroke') {
       drawingRef.current = { on: true, pointerId: e.pointerId, erase: true, points: [] };
       eraseAt(e);
@@ -1049,6 +1075,21 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (!ref?.on || e.pointerId !== ref.pointerId) return;
     e.preventDefault();
     if (ref.erase) { eraseAt(e); return; }
+    if (ref.lasso) {
+      const raw = typeof e.getCoalescedEvents === 'function' ? e.getCoalescedEvents() : [];
+      for (const se of (raw.length ? raw : [e])) {
+        const pt = pointFromEvent(se).slice(0, 2);
+        const last = ref.points[ref.points.length - 1];
+        if (Math.abs(last[0] - pt[0]) + Math.abs(last[1] - pt[1]) > 0.002) ref.points.push(pt);
+      }
+      if (!lassoFrameRef.current) {
+        lassoFrameRef.current = requestAnimationFrame(() => {
+          lassoFrameRef.current = 0;
+          setLassoLoop(drawingRef.current.lasso ? drawingRef.current.points.slice() : null);
+        });
+      }
+      return;
+    }
     const stroke = ref.stroke;
     const c = overlayFor(drawPageRef.current);
     if (!c) return;
@@ -1170,6 +1211,19 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     drawingRef.current = { on: false, points: [] };
     releaseHighlighterCopy(hlCopyRef.current);
     if (ref.erase) { maybePullAfterStroke(); return; }
+    if (ref.lasso) {
+      cancelAnimationFrame(lassoFrameRef.current);
+      lassoFrameRef.current = 0;
+      setLassoLoop(null);
+      const list = (latestRef.current.strokesByPage || {})[ref.page] || [];
+      const took = ref.points.length > 2 ? selectStrokes(list, ref.points) : [];
+      if (took.length) {
+        setSelection({ page: ref.page, ids: took.map((st) => st.id), box: boundsOf(took, 0.01) });
+      } else if (ref.points.length > 2) {
+        showToast('วงนี้ไม่ได้ล้อมเส้นไหนไว้ ลองวาดวงรอบเส้นที่ต้องการ', 3000);
+      }
+      return;
+    }
     if (!ref.stroke || ref.stroke.points.length < 1) { maybePullAfterStroke(); return; }
     // A tap never reaches onPointerMove, which is the only thing that paints a
     // stroke as it is made — so a single-point stroke went into the record and
@@ -1256,7 +1310,26 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     return (p && (latestRef.current.strokesByPage?.[p] || []).length) ? p : currentPage;
   }
 
+  // Undo takes back the newer of two things: the last lasso action, or the
+  // stroke a plain undo would pop on `page`. A lasso action comes back whole
+  // (the moved, recoloured or deleted set as one step).
+  function lassoOpOnTop(page) {
+    const op = lassoOpsRef.current[lassoOpsRef.current.length - 1];
+    if (!op || op.page !== page) return null;
+    const list = (latestRef.current.strokesByPage || {})[page] || [];
+    return (list[list.length - 1]?.id ?? null) === op.tailId ? op : null;
+  }
+
   function undoLast() {
+    const op = lassoOpOnTop(undoPage());
+    if (op) {
+      lassoOpsRef.current = lassoOpsRef.current.slice(0, -1);
+      const restored = op.removed.map((st) => ({ ...st, id: newStrokeId() }));
+      replaceOnPage(op.page, op.added, restored);
+      setRedoStack((r) => [...r, { page: op.page, lasso: { op, restoredIds: restored.map((st) => st.id) } }].slice(-40));
+      setSelection(null);
+      return;
+    }
     const page = undoPage();
     setStrokesByPage((prev) => {
       const pageList = prev[page] || [];
@@ -1278,6 +1351,14 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   function redoLast() {
     setRedoStack((stack) => {
       const top = stack[stack.length - 1];
+      // A lasso op comes back as it was done (new ids, as always).
+      if (top?.lasso) {
+        const { op, restoredIds } = top.lasso;
+        const again = op.addedStrokes.map((st) => ({ ...st, id: newStrokeId() }));
+        const tailId = replaceOnPage(op.page, restoredIds, again);
+        lassoOpsRef.current = [...lassoOpsRef.current, { ...op, tailId, added: again.map((st) => st.id), addedStrokes: again }];
+        return stack.slice(0, -1);
+      }
       // Undo history belongs to the page the stroke was made on. Replaying it
       // onto whichever page happens to be open would move a student's mark to
       // a page they never drew it on.
@@ -1375,6 +1456,20 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (activePointers.current.size < 2) gestureRef.current = null;
     return activePointers.current.size > 0;
   }
+
+  useEffect(() => {
+    if (!selection) return undefined;
+    const onLassoKey = (e) => {
+      const t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      const mod = e.ctrlKey || e.metaKey;
+      if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); setSelection(null); setLassoPreview(null); }
+      else if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); e.stopPropagation(); handlersRef.current.lassoDelete?.(); }
+      else if (mod && e.key.toLowerCase() === 'd') { e.preventDefault(); e.stopPropagation(); handlersRef.current.lassoDuplicate?.(); }
+    };
+    window.addEventListener('keydown', onLassoKey, true);
+    return () => window.removeEventListener('keydown', onLassoKey, true);
+  }, [selection]);
 
   // Undo, redo and zoom from the keyboard. A laptop reader annotating with a
   // trackpad reaches for these before they reach for the toolbar.
@@ -1558,6 +1653,65 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // Choosing a tool closes whatever was open. The colour panel is hidden while
   // the eraser is selected, so leaving `optionsOpen` true meant it sprang back
   // by itself the moment the reader picked the pen up again.
+  // Swap strokes on one page: `removeIds` leave (tombstoned, so every device
+  // drops them), `add` join at the top of the page. The one write path for
+  // every lasso action, its undo and its redo.
+  function replaceOnPage(page, removeIds, add) {
+    const gone = new Set(removeIds);
+    const before = (latestRef.current.strokesByPage || {})[page] || [];
+    const after = [...before.filter((st) => !gone.has(st.id)), ...add];
+    setStrokesByPage((prev) => {
+      const list = prev[page] || [];
+      const nextList = [...list.filter((st) => !gone.has(st.id)), ...add];
+      const next = { ...prev, [page]: nextList };
+      if (page === drawPageRef.current) currentStrokesRef.current = nextList;
+      redrawOverlay(nextList, page);
+      scheduleSave(next, addTomb(...removeIds));
+      return next;
+    });
+    lastStrokePageRef.current = page;
+    return after[after.length - 1]?.id ?? null; // the page's top stroke afterwards
+  }
+
+  // Apply one lasso action to the selected strokes. `make` turns each
+  // selected stroke into its replacement(s); returning [] deletes it.
+  function lassoApply(make, { keep = false, select = true } = {}) {
+    const sel = selection;
+    if (!sel) return;
+    const list = (latestRef.current.strokesByPage || {})[sel.page] || [];
+    const picked = list.filter((st) => sel.ids.includes(st.id));
+    if (!picked.length) { setSelection(null); return; }
+    const added = picked.flatMap((st) => make(st));
+    const removeIds = keep ? [] : picked.map((st) => st.id);
+    const tailId = replaceOnPage(sel.page, removeIds, added);
+    lassoOpsRef.current = [...lassoOpsRef.current, {
+      page: sel.page, tailId, removed: keep ? [] : picked, added: added.map((st) => st.id), addedStrokes: added,
+    }].slice(-40);
+    setRedoStack([]);
+    setLassoPreview(null);
+    setSelection(select && added.length ? { page: sel.page, ids: added.map((st) => st.id), box: boundsOf(added, 0.01) } : null);
+  }
+
+  const lassoMove = (t) => lassoApply((st) => [transformStroke(st, t, newStrokeId())]);
+  const lassoRecolor = (rgb) => lassoApply((st) => [{ ...st, id: newStrokeId(), color: rgb }]);
+  const lassoDuplicate = () => lassoApply((st) => [transformStroke(st, { dx: 0.02, dy: 0.02 }, newStrokeId())], { keep: true });
+  const lassoDelete = () => {
+    const n = selection?.ids.length || 0;
+    lassoApply(() => [], { select: false });
+    if (n) showToast(`ลบ ${n} เส้นแล้ว กดย้อนกลับเพื่อเอาคืน`, 3000);
+  };
+
+  // While a move or resize is dragged, the page shows the ink where it will
+  // land, painted from the same strokes with the preview applied.
+  function lassoPreviewChange(t) {
+    setLassoPreview(t);
+    const sel = selection;
+    if (!sel) return;
+    const list = (latestRef.current.strokesByPage || {})[sel.page] || [];
+    const shown = t ? list.map((st) => (sel.ids.includes(st.id) ? transformStroke(st, t, st.id) : st)) : list;
+    redrawOverlay(shown, sel.page);
+  }
+
   function pickTool(next) {
     // Tapping the tool already in hand opens its options — the way every
     // notes app does it, and the eraser's only door (it has no swatch).
@@ -1567,6 +1721,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       return;
     }
     setTool(next);
+    if (next !== 'lasso') { setSelection(null); setLassoLoop(null); }
     setOptionsOpen(false);
     setMenuOpen(false);
   }
@@ -1771,7 +1926,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // changes — which is what lets React.memo skip all of them when this view
   // re-renders for a toast, a sync badge, or a panel.
   const handlersRef = useRef({});
-  handlersRef.current = { onPointerDown, onPointerMove, onPointerUp, hoverRing };
+  handlersRef.current = { onPointerDown, onPointerMove, onPointerUp, hoverRing, lassoDelete, lassoDuplicate };
   const pageHandlers = useMemo(() => ({
     onPointerDown: (e) => handlersRef.current.onPointerDown(e),
     onPointerMove: (e) => handlersRef.current.onPointerMove(e),
@@ -1996,6 +2151,36 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     pageCacheRef.current.clear();
   }, []);
 
+  // A notebook opens as the PDF the app makes for it, under its stable key,
+  // so its ink survives the paper being made again with more pages.
+  const notebookRef = useRef(null);
+  const openNotebook = useCallback(async (nb, { page = 0 } = {}) => {
+    nb = updateNotebook(nb.id, {}) || nb; // "เปิดล่าสุด" on the shelf
+    const bytes = await buildNotebookPdf({ paper: nb.paper, pages: nb.pages });
+    const url = URL.createObjectURL(new Blob([bytes], { type: 'application/pdf' }));
+    const prev = notebookRef.current;
+    notebookRef.current = { ...nb, url };
+    if (prev?.url) setTimeout(() => URL.revokeObjectURL(prev.url), 30000);
+    ingestRemote({
+      resolve: async () => url,
+      sha256: notebookKey(nb.id),
+      title: nb.title,
+      fileName: `${nb.title}.pdf`,
+      page,
+      notebook: true,
+    });
+  }, [ingestRemote]);
+
+  const addNotebookPage = useCallback(() => {
+    const nb = notebookRef.current;
+    if (!nb) return;
+    if (nb.pages >= NOTEBOOK_MAX_PAGES) { showToast(`สมุดหนึ่งเล่มมีได้ ${NOTEBOOK_MAX_PAGES} หน้า`, 3000); return; }
+    saveNow();
+    const next = updateNotebook(nb.id, { pages: nb.pages + 1 }) || { ...nb, pages: nb.pages + 1 };
+    openNotebook(next, { page: next.pages });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openNotebook, showToast]);
+
   // Free the previous document's bitmaps. Correctness does not rest on this
   // — the cache key carries the file hash, so a stale entry can never be
   // shown against the wrong document even if this effect runs out of order
@@ -2054,6 +2239,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
               style={{ display: 'none' }}
             />
           </div>
+
+          {!initialDoc && <NotebookShelf onOpen={(nb) => openNotebook(nb)} />}
 
           {!onExit && onOpenLibrary && (
             <div className="vmx-pdf-library-link">
@@ -2176,6 +2363,8 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           active={tool === 'eraser'}
           onClick={() => pickTool('eraser')}
         />
+        <ToolButton icon="lasso" label="เลือกเส้น วาดวงล้อมแล้วย้าย ย่อขยาย เปลี่ยนสี หรือลบ" active={tool === 'lasso'}
+          onClick={() => { if (tool !== 'lasso') pickTool('lasso'); }} />
 
         {/* The swatch is both the current colour and the way to change it. */}
         {tool !== 'eraser' && (
@@ -2198,7 +2387,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
         <span aria-hidden="true" style={{ width: 1, height: 22, background: 'var(--clr-border)', margin: '0 2px', flexShrink: 0 }} />
 
-        <ToolButton icon="undo" label="ย้อนกลับ" onClick={undoLast} disabled={(strokesByPage[undoPage()] || []).length === 0} />
+        <ToolButton icon="undo" label="ย้อนกลับ" onClick={undoLast} disabled={(strokesByPage[undoPage()] || []).length === 0 && !lassoOpsRef.current.length} />
         <ToolButton icon="redo" label="ทำซ้ำ" onClick={redoLast} disabled={!canRedo} />
 
         <span aria-hidden="true" style={{ width: 1, height: 22, background: 'var(--clr-border)', margin: '0 2px', flexShrink: 0 }} />
@@ -2361,6 +2550,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
             onClick={() => { setSidebarOpen((o) => !o); setMenuOpen(false); }} aria-pressed={sidebarOpen}>
             {sidebarOpen ? 'ซ่อน' : 'แสดง'}หน้าทั้งหมด ({pageCount})
           </button>
+          {fileHash?.startsWith('nb:') && (
+            <button type="button" role="menuitem" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+              onClick={() => { setMenuOpen(false); addNotebookPage(); }}>เพิ่มหน้ากระดาษ</button>
+          )}
           <button type="button" role="menuitem" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
             onClick={() => { saveNow(); setMenuOpen(false); }}>บันทึกเดี๋ยวนี้</button>
           <button type="button" role="menuitem" className="vmx-btn vmx-btn-ghost vmx-btn-sm"
@@ -2497,6 +2690,22 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
               cursor="crosshair"
               handlers={pageHandlers}
               scrollRoot={wrapperRef}
+              layer={(lassoLoop && drawPageRef.current === n) || selection?.page === n ? (pw, ph) => (
+                <LassoLayer
+                  w={pw}
+                  h={ph}
+                  loop={drawPageRef.current === n ? lassoLoop : null}
+                  selection={selection?.page === n ? selection : null}
+                  preview={selection?.page === n ? lassoPreview : null}
+                  colors={PEN_COLORS}
+                  onPreview={lassoPreviewChange}
+                  onCommit={lassoMove}
+                  onRecolor={lassoRecolor}
+                  onDuplicate={lassoDuplicate}
+                  onDelete={lassoDelete}
+                  onDone={() => { setSelection(null); setLassoPreview(null); }}
+                />
+              ) : null}
             />
           ))}
         </div>

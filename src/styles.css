@@ -8452,3 +8452,143 @@ body.vmx-fullscreen { overflow: hidden; overscroll-behavior: none; }
 .vmx-annot.is-fullscreen .vmx-annot-stage canvas { width: 100%; max-width: none !important; height: auto; }
 /* Nothing floats over a full-screen writing surface. */
 body.vmx-fullscreen .vmx-tools-fab, body.vmx-fullscreen .vmx-tools-fab-wrap { display: none !important; }
+
+/* ── Lasso (components/LassoLayer.jsx) ────────────────────────────────────
+   The loop is ants marching along a dashed line; the box is a hairline in the
+   theme's accent; the action bar is the one glass surface, a thick pane so its
+   Thai labels keep their contrast over any slide (tint >= 0.72, 14 px blur). */
+.vmx-lasso { position: absolute; inset: 0; pointer-events: none; line-height: normal; }
+.vmx-lasso-loop { position: absolute; inset: 0; overflow: visible; }
+.vmx-lasso-loop path {
+  fill: color-mix(in srgb, var(--clr-sage) 7%, transparent);
+  stroke: var(--clr-sage); stroke-width: 1.5; stroke-dasharray: 5 4; stroke-linejoin: round;
+  animation: vmx-lasso-ants 0.6s linear infinite;
+}
+@keyframes vmx-lasso-ants { to { stroke-dashoffset: -9; } }
+.vmx-lasso-box {
+  position: absolute; box-sizing: border-box; pointer-events: auto; touch-action: none; cursor: move;
+  border: 1.5px dashed var(--clr-sage); border-radius: 6px;
+  background: color-mix(in srgb, var(--clr-sage) 6%, transparent);
+  animation: vmx-lasso-settle 220ms cubic-bezier(.2,.9,.25,1.2) both;
+}
+@keyframes vmx-lasso-settle { from { transform: scale(.94); opacity: .4; } to { transform: none; opacity: 1; } }
+/* Each handle is a 40 px square OUTSIDE its corner (the dot sits on the
+   corner itself), so the box's own area is all "move". */
+.vmx-lasso-handle { position: absolute; width: 40px; height: 40px; touch-action: none; }
+.vmx-lasso-handle::after {
+  content: ''; position: absolute; width: 14px; height: 14px;
+  border-radius: 50%; background: white; border: 2px solid var(--clr-sage); /* on paper, which is white in both themes */
+  box-shadow: 0 1px 3px rgba(0,0,0,.25);
+}
+.vmx-lasso-handle.is-tl { right: 100%; bottom: 100%; cursor: nwse-resize; }
+.vmx-lasso-handle.is-tl::after { right: -8px; bottom: -8px; }
+.vmx-lasso-handle.is-tr { left: 100%; bottom: 100%; cursor: nesw-resize; }
+.vmx-lasso-handle.is-tr::after { left: -8px; bottom: -8px; }
+.vmx-lasso-handle.is-bl { right: 100%; top: 100%; cursor: nesw-resize; }
+.vmx-lasso-handle.is-bl::after { right: -8px; top: -8px; }
+.vmx-lasso-handle.is-br { left: 100%; top: 100%; cursor: nwse-resize; }
+.vmx-lasso-handle.is-br::after { left: -8px; top: -8px; }
+.vmx-lasso-bar {
+  position: absolute; pointer-events: auto; z-index: 2; white-space: nowrap; box-sizing: border-box;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+  display: flex; align-items: stretch; gap: 0; padding: 4px; border-radius: 26px;
+  background: color-mix(in srgb, var(--clr-surface) 78%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid color-mix(in srgb, var(--clr-ink) 12%, transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--clr-bg) 55%, transparent) inset, 0 8px 24px rgba(0,0,0,.18);
+  animation: vmx-lasso-settle 220ms cubic-bezier(.2,.9,.25,1.2) both;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .vmx-lasso-bar { background: var(--clr-surface); }
+}
+@media (prefers-reduced-transparency: reduce) { .vmx-lasso-bar { background: var(--clr-surface); -webkit-backdrop-filter: none; backdrop-filter: none; } }
+.vmx-lasso-row { display: flex; justify-content: center; }
+.vmx-lasso-colors { display: flex; justify-content: center; border-top: 1px solid color-mix(in srgb, var(--clr-ink) 10%, transparent); }
+.vmx-lasso-bar.is-above .vmx-lasso-colors { border-top: 0; border-bottom: 1px solid color-mix(in srgb, var(--clr-ink) 10%, transparent); }
+/* The tool row scrolls sideways on a phone; its scrollbar is noise under the
+   tools (the sticky "more" button already shows there is more). */
+.vmx-pdf-toolbar { scrollbar-width: none; }
+.vmx-pdf-toolbar::-webkit-scrollbar { display: none; }
+.vmx-lasso-palette { width: 20px; height: 20px; border-radius: 50%; background: conic-gradient(var(--clr-rose-text), var(--clr-ocean-text), var(--clr-sage), var(--clr-rose-text)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--clr-ink) 18%, transparent); }
+.vmx-lasso-act, .vmx-lasso-swatch {
+  display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px;
+  padding: 0; border: 0; border-radius: 999px; background: none; color: var(--clr-ink); cursor: pointer;
+}
+.vmx-lasso-act:hover { background: color-mix(in srgb, var(--clr-ink) 8%, transparent); }
+.vmx-lasso-act.is-done { color: var(--clr-sage-text); }
+.vmx-lasso-swatch::before { content: ''; width: 20px; height: 20px; border-radius: 50%; background: var(--swatch); box-shadow: 0 0 0 1px color-mix(in srgb, var(--clr-ink) 18%, transparent); }
+.vmx-lasso-act:focus-visible, .vmx-lasso-swatch:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: -2px; }
+/* Reduced motion: the ants stand still and the box appears without the settle. */
+@media (prefers-reduced-motion: reduce) {
+  .vmx-lasso-loop path { animation: none; }
+  .vmx-lasso-box, .vmx-lasso-bar { animation: none; }
+}
+
+/* ── Notebooks (components/NotebookShelf.jsx) ──────────────────────────────
+   Each paper is shown as a tiny live sheet drawn with gradients, so the
+   choice is seen, not read. Rule spacing is the real paper's, scaled to the
+   44 px sheet: 8 mm lines -> 4 px, 5 mm grid and dots -> 3 px. */
+.vmx-nb { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--clr-border); }
+.vmx-nb-title { margin: 0; font-size: 18px; }
+.vmx-nb-lead { margin: 4px 0 12px; font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-nb-papers { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.vmx-nb-paper {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 6px; min-width: 72px; min-height: 44px;
+  padding: 8px 6px; border: 1px solid var(--clr-border); border-radius: var(--r-sm); background: var(--clr-surface);
+  color: var(--clr-ink); font: inherit; font-size: 14px; cursor: pointer; transition: border-color 140ms, transform 140ms;
+}
+.vmx-nb-paper.is-on { border-color: var(--clr-sage); box-shadow: 0 0 0 1px var(--clr-sage) inset; }
+.vmx-nb-paper:active { transform: scale(.97); }
+.vmx-nb-paper:focus-visible, .vmx-nb-open:focus-visible, .vmx-nb-del:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-nb-sheet {
+  --rule: color-mix(in srgb, var(--clr-ocean-text) 30%, transparent);
+  display: block; width: 34px; height: 44px; flex: none; border-radius: 3px; background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,.06);
+}
+.vmx-nb-sheet.is-lined { background-image: linear-gradient(90deg, transparent 8px, color-mix(in srgb, var(--clr-rose-text) 35%, transparent) 8px, transparent 9px), repeating-linear-gradient(transparent 0 3px, var(--rule) 3px 4px); background-position: 0 0, 0 6px; }
+.vmx-nb-sheet.is-grid { background-image: linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px); background-size: 3px 3px; }
+.vmx-nb-sheet.is-dot { background-image: radial-gradient(circle, var(--rule) 0.6px, transparent 0.8px); background-size: 3px 3px; }
+.vmx-nb-sheet.is-cornell { background-image: linear-gradient(90deg, transparent 10px, var(--rule) 10px, transparent 11px), linear-gradient(transparent 34px, var(--rule) 34px, transparent 35px), linear-gradient(transparent 6px, var(--rule) 6px, transparent 7px); }
+.vmx-nb-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.vmx-nb-name {
+  flex: 1 1 220px; min-width: 0; min-height: 44px; padding: 0 12px; font: inherit; font-size: 16px;
+  color: var(--clr-ink); background: var(--clr-bg); border: 1px solid var(--clr-border); border-radius: var(--r-sm);
+}
+.vmx-nb-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 6px; }
+.vmx-nb-list li { display: flex; align-items: stretch; gap: 4px; }
+.vmx-nb-open {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px;
+  border: 1px solid var(--clr-border); border-radius: var(--r-sm); background: var(--clr-surface);
+  color: var(--clr-ink); font: inherit; text-align: left; cursor: pointer; transition: border-color 140ms, background 140ms;
+}
+.vmx-nb-open:hover { border-color: var(--clr-sage); background: var(--clr-surface-2); }
+.vmx-nb-meta { display: grid; gap: 2px; min-width: 0; }
+.vmx-nb-meta b { font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vmx-nb-meta span { font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-nb-del {
+  flex: none; width: 44px; border: 1px solid transparent; border-radius: var(--r-sm); background: none;
+  color: var(--clr-ink-soft); cursor: pointer;
+}
+.vmx-nb-del:hover { color: var(--clr-rose-text); background: var(--clr-surface-2); }
+@media (prefers-reduced-motion: reduce) { .vmx-nb-paper, .vmx-nb-open { transition: none; } .vmx-nb-paper:active { transform: none; } }
+
+/* A removed notebook crumples: the sheet folds in on its creases (the
+   conic overlay), balls up and drops away. 520 ms, ease-in on the fall so it
+   reads as weight. Reduced motion: a plain fade, nothing flies. */
+.vmx-nb-list li.is-crumpling { pointer-events: none; animation: vmx-nb-crumple 520ms cubic-bezier(.55,.05,.8,.35) forwards; position: relative; }
+.vmx-nb-list li.is-crumpling::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: repeating-conic-gradient(from 20deg, rgba(0,0,0,.10) 0 9deg, transparent 9deg 23deg);
+  animation: vmx-nb-creases 520ms ease-out forwards;
+}
+@keyframes vmx-nb-crumple {
+  0% { transform: none; opacity: 1; border-radius: 8px; }
+  45% { transform: scale(.42, .5) rotate(-14deg); opacity: 1; border-radius: 40%; }
+  100% { transform: translateY(46px) scale(.16) rotate(-40deg); opacity: 0; border-radius: 50%; }
+}
+@keyframes vmx-nb-creases { from { opacity: 0; } 40% { opacity: 1; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .vmx-nb-list li.is-crumpling { animation: vmx-nb-fade 160ms linear forwards; }
+  .vmx-nb-list li.is-crumpling::after { display: none; }
+}
+@keyframes vmx-nb-fade { to { opacity: 0; } }
