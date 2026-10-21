@@ -74,10 +74,10 @@ async function getLiff() {
 }
 
 // LIFF logs in only under the Endpoint URL set in the LINE Developers
-// console (step 4 above), which only the owner can change. It is still the
-// old address, so the LINE button stays hidden on vetmock.com. Flip to true
-// once the endpoint is https://vetmock.com.
-export const LIFF_ENDPOINT_ON_VETMOCK_COM = false;
+// console (step 4 above). The VetMock LIFF app's endpoint is
+// https://vetmock.com since 2026-10-21 (channel published the same day), so
+// the LINE button shows there and no longer on the old host.
+export const LIFF_ENDPOINT_ON_VETMOCK_COM = true;
 
 /** Whether LIFF can log in on this origin. */
 export function liffOriginAllowed(origin) {

@@ -446,16 +446,17 @@ test('crawlers on the old host are sent to vetmock.com permanently; browsers, th
 
 // ── sign-in that only works on origins the owner registered ─────────────────
 
-test('Google popup sign-in works on vetmock.com; LINE login stays off there until its LIFF endpoint moves', async () => {
+test('Google popup and LINE sign-in work on vetmock.com, LINE no longer on the old host', async () => {
   const gis = await import('../../src/lib/google-gis.js');
   const liff = await import('../../src/lib/line-liff.js');
   // One constant each; flipping it follows the console change. vetmock.com
   // became an Authorized JavaScript origin of the GIS client on 2026-10-12;
-  // the LIFF endpoint still points at vetmock.vercel.app.
+  // the LIFF endpoint moved to https://vetmock.com on 2026-10-21.
   assert.equal(gis.GIS_AUTHORISED_ON_VETMOCK_COM, true);
-  assert.equal(liff.LIFF_ENDPOINT_ON_VETMOCK_COM, false);
+  assert.equal(liff.LIFF_ENDPOINT_ON_VETMOCK_COM, true);
+  assert.equal(gis.gisOriginAllowed('https://vetmock.vercel.app'), true);
+  assert.equal(liff.liffOriginAllowed('https://vetmock.vercel.app'), false, 'LIFF logs in under one endpoint only');
   for (const allowed of [gis.gisOriginAllowed, liff.liffOriginAllowed]) {
-    assert.equal(allowed('https://vetmock.vercel.app'), true);
     assert.equal(allowed('http://localhost:5173'), true);
     assert.equal(allowed('http://localhost:4173'), true);
     assert.equal(allowed('https://vetmock-git-x-palmzamak2547s-projects.vercel.app'), false);
@@ -463,7 +464,7 @@ test('Google popup sign-in works on vetmock.com; LINE login stays off there unti
     assert.equal(allowed(undefined), false);
   }
   assert.equal(gis.gisOriginAllowed('https://vetmock.com'), true, 'the popup flow on the primary origin');
-  assert.equal(liff.liffOriginAllowed('https://vetmock.com'), false, 'no LINE button there until the LIFF endpoint moves');
+  assert.equal(liff.liffOriginAllowed('https://vetmock.com'), true, 'the LINE button on the primary origin');
   const view = readFileSync(new URL('../../src/views/AuthView.jsx', import.meta.url), 'utf8');
   assert.match(view, /\{isLiffAvailable\(\) && \(\s*<button[\s\S]{0,400}onClick=\{lineLogin\}/, 'the LINE button shows only where LIFF can log in');
 });
