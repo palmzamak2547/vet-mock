@@ -435,13 +435,19 @@ async function playShared({ stem, options, lang, subject, controller, onStart, o
   try {
     if (!new Audio().canPlayType('audio/mp4; codecs="mp4a.40.2"')) return false;
   } catch { return false; }
-  let plan = null;
-  try { plan = await sharedPlan({ stem, options, lang, subject }); } catch { plan = null; }
-  if (controller?.cancelled) return true;
-  if (!plan) return false;
-  try { window.localStorage.setItem('vmx-tts-used', '1'); } catch { /* private mode */ }
   const fetchAbort = new AbortController();
-  const bufs = plan.map((p) => getSharedAudio(p.key, fetchAbort.signal));
+  let plan = null;
+  try { plan = await sharedPlan({ stem, options, lang, subject, signal: fetchAbort.signal }); } catch { plan = null; }
+  if (controller?.cancelled || !plan) { fetchAbort.abort(); return Boolean(controller?.cancelled); }
+  try { window.localStorage.setItem('vmx-tts-used', '1'); } catch { /* private mode */ }
+  // The first clip downloads alone; the rest start once it has arrived and
+  // fetch while it plays, so they never share a slow link with it.
+  const first = plan[0].buf || getSharedAudio(plan[0].key, fetchAbort.signal);
+  const rest = first.then(
+    () => plan.slice(1).map((p) => getSharedAudio(p.key, fetchAbort.signal)),
+    () => [],
+  );
+  const bufs = plan.map((p, i) => (i === 0 ? first : rest.then((list) => list[i - 1])));
   for (const b of bufs) b.catch(() => {});
   const prefs = getTtsPrefs();
   // The clips carry their own breath; these gaps are the read-aloud's

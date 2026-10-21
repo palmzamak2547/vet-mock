@@ -106,14 +106,32 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   }, [currentQ?.id]);
 
   // A student who has used read-aloud before gets this subject's clip list
-  // fetched ahead, so the next tap starts without waiting on it.
+  // fetched ahead, so the next tap starts without waiting on it. Everyone
+  // else gets only the connection to the clip host opened (DNS, TCP and TLS
+  // are three round trips on a phone network).
   useEffect(() => {
     const subject = currentQ?.subject;
+    if (!subject) return;
     let used = false;
     try { used = window.localStorage.getItem('vmx-tts-used') === '1'; } catch { /* private mode */ }
-    if (!subject || !used) return;
-    import('../lib/tts-shared.js').then((m) => m.warmShared(subject)).catch(() => {});
+    if (used) {
+      import('../lib/tts-shared.js').then((m) => m.warmShared(subject)).catch(() => {});
+    } else {
+      try {
+        if (!document.querySelector('link[rel="preconnect"][href="https://tts.vetmock.com"]')) {
+          const link = document.createElement('link');
+          link.rel = 'preconnect';
+          link.href = 'https://tts.vetmock.com';
+          link.crossOrigin = 'anonymous';
+          document.head.appendChild(link);
+        }
+      } catch { /* a hint only */ }
+    }
   }, [currentQ?.subject]);
+
+  // The read-aloud code loads on the first press; start it on pointer-down
+  // so the tap's own delay overlaps the download.
+  const preloadTts = () => { import('../lib/tts.js').catch(() => {}); };
 
   const speakQ = async () => {
     // CRITICAL: prime audio synchronously BEFORE any await. iOS Safari
@@ -581,6 +599,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           aria-pressed={isSpeaking}
           className={`vmx-note-btn ${isSpeaking ? 'has-note' : ''}`}
           onClick={speakQ}
+          onPointerDown={preloadTts}
           title={isSpeaking ? 'หยุดอ่าน' : 'อ่านออกเสียง'}
         >
           <NavIcon name={isSpeaking ? 'speaker-off' : 'speaker'} size={18} />
