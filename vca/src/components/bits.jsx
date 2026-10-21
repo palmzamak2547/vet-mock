@@ -127,3 +127,18 @@ export function Words({ text }) {
     </span>
   );
 }
+
+/**
+ * A button's words and "กำลังเตรียม" with its spinner, stacked in one place: the button keeps the
+ * width of the wider of the two, so pressing it never reflows what sits beside it (a start on
+ * home moved the row below it up 66 px, CLS 0.078 on a phone). The hidden one is out of the
+ * accessibility tree, so the button's name is always the words on show.
+ */
+export function BusyLabel({ busy, busyText = 'กำลังเตรียม', children }) {
+  return (
+    <span className="busy-swap" data-busy={busy ? '' : undefined}>
+      <span className="busy-a" aria-hidden={busy || undefined}>{children}</span>
+      <span className="busy-b" aria-hidden={busy ? undefined : true}>{busyText}<span className="spinner" aria-hidden="true" /></span>
+    </span>
+  );
+}

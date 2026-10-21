@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { Link } from '../components/Link.jsx';
 import { Icon } from '../components/Icon.jsx';
-import { Ring, Meter } from '../components/bits.jsx';
+import { Ring, Meter, BusyLabel } from '../components/bits.jsx';
 import { CountUp } from '../components/CountUp.jsx';
 import { Question } from '../components/Question.jsx';
 import { CARD_BY_ID, loadItems, questionByKey } from '../lib/bank.js';
@@ -142,7 +142,7 @@ export default function Result({ route }) {
             )}
             {missed.length > 0 && (
               <button type="button" className="btn btn-ink" onClick={retry} disabled={busy}>
-                {busy ? <>กำลังเตรียม<span className="spinner" aria-hidden="true" /></> : <>ฝึกข้อที่พลาด {num(missed.length)} ข้อ <Icon name="arrowRight" /></>}
+                <BusyLabel busy={busy}>ฝึกข้อที่พลาด {num(missed.length)} ข้อ <Icon name="arrowRight" /></BusyLabel>
               </button>
             )}
             <Link to={again} className="btn btn-ghost">ทำชุดใหม่แบบเดิม</Link>
