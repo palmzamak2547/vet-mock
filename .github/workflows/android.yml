@@ -23,6 +23,10 @@ on:
       - '.github/workflows/android.yml'
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pull-requests: write
+
 concurrency:
   group: android-${{ github.ref }}
   cancel-in-progress: true
@@ -89,16 +93,20 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: python3 mobile/scripts/measure.py vetmock-ci.apk measure-out --aab mobile/android/app/build/outputs/bundle/release/app-release.aab --bundletool bundletool.jar
 
-      - name: Numbers in the run summary
+      - name: Numbers in the run summary and on the pull request
         if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          {
-            echo '## Android app measurements (emulator, CPU rendering)'
-            echo
-            echo '```json'
-            cat measure-out/results.json 2>/dev/null || echo '{"error": "no results: see the Measure step"}'
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+          if [ -f measure-out/results.json ]; then
+            python3 mobile/scripts/report.py measure-out/results.json > report.md
+          else
+            echo '## Android app on the emulator: no results, see the Measure step' > report.md
+          fi
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ github.event_name }}" = pull_request ]; then
+            gh pr comment "${{ github.event.pull_request.number }}" --body-file report.md || true
+          fi
 
       - name: Keep the numbers, screenshots and builds
         if: always()
