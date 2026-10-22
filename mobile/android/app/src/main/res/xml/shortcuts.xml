@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Long-press the app icon. Each opens a page by its own web address (src/lib/view-route.js). -->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut android:shortcutId="practice" android:enabled="true" android:icon="@drawable/shortcut_practice"
+        android:shortcutShortLabel="@string/shortcut_practice_short" android:shortcutLongLabel="@string/shortcut_practice_long">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="com.vetmock.app"
+            android:targetClass="com.vetmock.app.MainActivity" android:data="https://vetmock.com/app/study" />
+    </shortcut>
+    <shortcut android:shortcutId="review" android:enabled="true" android:icon="@drawable/shortcut_review"
+        android:shortcutShortLabel="@string/shortcut_review_short" android:shortcutLongLabel="@string/shortcut_review_long">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="com.vetmock.app"
+            android:targetClass="com.vetmock.app.MainActivity" android:data="https://vetmock.com/app/review" />
+    </shortcut>
+    <shortcut android:shortcutId="wiki" android:enabled="true" android:icon="@drawable/shortcut_wiki"
+        android:shortcutShortLabel="@string/shortcut_wiki_short" android:shortcutLongLabel="@string/shortcut_wiki_long">
+        <intent android:action="android.intent.action.VIEW" android:targetPackage="com.vetmock.app"
+            android:targetClass="com.vetmock.app.MainActivity" android:data="https://vetmock.com/wiki" />
+    </shortcut>
+</shortcuts>

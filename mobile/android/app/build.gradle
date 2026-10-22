@@ -1,0 +1,87 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+// Release signing comes from the environment the owner's wizard sets for one build
+// (mobile/scripts/wizard.ps1); no key, path or password is ever written in this repo.
+def uploadKeystore = System.getenv('VETMOCK_UPLOAD_KEYSTORE')
+
+android {
+    namespace = "com.vetmock.app"
+    compileSdk = rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.vetmock.app"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode((System.getenv('VETMOCK_VERSION_CODE') ?: '1') as int)
+        versionName(System.getenv('VETMOCK_VERSION_NAME') ?: '1.0.0')
+        // The app speaks Thai; strings from libraries in other languages are dropped.
+        resourceConfigurations += ['th', 'en']
+        aaptOptions {
+            // Keep files whose names start with a dot out of the bundle, as Capacitor's template does.
+            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+        }
+    }
+    signingConfigs {
+        if (uploadKeystore) {
+            upload {
+                storeFile file(uploadKeystore)
+                storePassword System.getenv('VETMOCK_UPLOAD_STORE_PASSWORD')
+                keyAlias System.getenv('VETMOCK_UPLOAD_KEY_ALIAS') ?: 'upload'
+                keyPassword System.getenv('VETMOCK_UPLOAD_KEY_PASSWORD') ?: System.getenv('VETMOCK_UPLOAD_STORE_PASSWORD')
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (uploadKeystore) signingConfig signingConfigs.upload
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+    buildFeatures {
+        buildConfig true
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21
+    }
+}
+
+repositories {
+    flatDir {
+        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
+    implementation "androidx.core:core-ktx:$androidxCoreVersion"
+    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
+    implementation "androidx.webkit:webkit:$androidxWebkitVersion"
+    // Auth Tab: Google, Discord and LINE sign-in pages open in the browser and return to the app.
+    implementation "androidx.browser:browser:$androidxBrowserVersion"
+    // Android's own account sheet for Google sign-in.
+    implementation "androidx.credentials:credentials:$credentialsVersion"
+    implementation "androidx.credentials:credentials-play-services-auth:$credentialsVersion"
+    implementation "com.google.android.libraries.identity.googleid:googleid:$googleIdVersion"
+    implementation "com.google.android.play:review:$playReviewVersion"
+    implementation "com.google.android.play:app-update:$playAppUpdateVersion"
+    // Installs the baseline profile on devices that did not get it from Play.
+    implementation "androidx.profileinstaller:profileinstaller:$profileInstallerVersion"
+    implementation project(':capacitor-android')
+    implementation project(':capacitor-cordova-android-plugins')
+    testImplementation "junit:junit:$junitVersion"
+    // A real org.json for the JVM tests (android.jar ships only stubs).
+    testImplementation "org.json:json:20250517"
+}
+
+apply from: 'capacitor.build.gradle'

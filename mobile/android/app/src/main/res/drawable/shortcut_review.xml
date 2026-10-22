@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- App shortcut icon: VetMock sage disc, cream glyph. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="48dp" android:height="48dp" android:viewportWidth="48" android:viewportHeight="48">
+    <path android:pathData="M24,2a22,22 0 1,0 0.001,0Z" android:fillColor="#4A6B4A"/>
+    <path android:pathData="M33,20a10,10 0 1,0 1,7" android:strokeColor="#FDF8EF" android:strokeWidth="3.2" android:strokeLineCap="round" android:fillColor="#00000000"/>
+    <path android:pathData="M34.5,13.5v7h-7" android:strokeColor="#FDF8EF" android:strokeWidth="3.2" android:strokeLineCap="round" android:strokeLineJoin="round" android:fillColor="#00000000"/>
+</vector>

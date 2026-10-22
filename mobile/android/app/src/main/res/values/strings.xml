@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VetMock</string>
+    <string name="title_activity_main">VetMock</string>
+    <string name="package_name">com.vetmock.app</string>
+    <string name="custom_url_scheme">com.vetmock.app</string>
+
+    <string name="shortcut_practice_short">ฝึกข้อสอบ</string>
+    <string name="shortcut_practice_long">เริ่มฝึกทำข้อสอบ</string>
+    <string name="shortcut_review_short">ทบทวน</string>
+    <string name="shortcut_review_long">ทบทวนข้อที่ถึงรอบ</string>
+    <string name="shortcut_wiki_short">VetWiki</string>
+    <string name="shortcut_wiki_long">เปิด VetWiki</string>
+
+    <string name="channel_reminder_name">เตือนให้ฝึก</string>
+    <string name="channel_reminder_desc">เตือนวันละครั้ง เฉพาะวันที่ยังไม่ได้ฝึก</string>
+    <string name="reminder_title">วันนี้ยังไม่ได้ฝึก</string>
+    <string name="reminder_body_streak">ฝึกต่อเนื่องมาแล้ว %d วัน ต่ออีกวันกัน</string>
+    <string name="reminder_body_start">ฝึกสักชุดสั้นๆ วันนี้กัน</string>
+
+    <string name="widget_description">วันที่ฝึกต่อเนื่อง ที่ฝึกวันนี้ และวันสอบถัดไป</string>
+    <string name="widget_streak_label">วันต่อเนื่อง</string>
+    <string name="widget_today_done">วันนี้ฝึกแล้ว %d ข้อ</string>
+    <string name="widget_today_none">วันนี้ยังไม่ได้ฝึก</string>
+    <string name="widget_exam_days">%1$s อีก %2$d วัน</string>
+    <string name="widget_exam_today">%1$s วันนี้</string>
+    <string name="widget_open">แตะเพื่อเริ่มฝึก</string>
+    <string name="widget_a11y">ฝึกต่อเนื่อง %1$d วัน %2$s %3$s แตะเพื่อเริ่มฝึก</string>
+</resources>

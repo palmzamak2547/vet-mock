@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite",
     "predev": "node scripts/regen-latest-changelog.mjs",
-    "build": "node scripts/regen-latest-changelog.mjs && vite build && node scripts/prerender-wiki.mjs && node scripts/prerender-atlas.mjs && node scripts/prerender-og.mjs",
+    "build": "node scripts/regen-latest-changelog.mjs && vite build && node scripts/prerender-wiki.mjs && node scripts/prerender-atlas.mjs && node scripts/prerender-og.mjs && node scripts/app-bundle-manifest.mjs",
     "preview": "vite preview",
     "analyze": "npx --yes vite-bundle-visualizer",
     "icons": "node scripts/generate-icons.mjs",

@@ -138,6 +138,22 @@ export async function signInWithGoogle() {
   const supabase = await getSupabase();
   if (!supabase) throw new Error('Supabase not configured');
 
+  // Inside the Android app: Android's own account sheet, no browser at all. A dismissed sheet ends here;
+  // anything else (the Android client not registered yet) falls through to the redirect, which the app
+  // opens in an Auth Tab and brings back.
+  if (window.VetMockApp?.googleIdToken) {
+    try {
+      const { idToken, nonce } = await window.VetMockApp.googleIdToken();
+      const { data, error } = await supabase.auth.signInWithIdToken({ provider: 'google', token: idToken, nonce });
+      if (error) throw error;
+      notifyAuthChanged();
+      return data;
+    } catch (err) {
+      if (/CANCEL/i.test(String(err?.code || ''))) return null;
+      console.warn('[auth] Android sign-in failed, using the redirect:', err?.code || err?.message);
+    }
+  }
+
   // Prefer GIS (Google Identity Services) popup flow when configured —
   // it bypasses Supabase's OAuth callback URL, so users no longer see
   // the raw "<project>.supabase.co" flash mid-flow. Falls back to the
