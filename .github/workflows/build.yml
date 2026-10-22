@@ -27,7 +27,11 @@ on:
 # saves Action minutes on rapid-fire pushes.
 concurrency:
   group: build-${{ github.ref }}
-  cancel-in-progress: true
+  # A newer push replaces a pull request's run. On main every merge is a deploy that Vercel holds
+  # until build and smoke pass, so it is never cancelled: on 22 Oct #58 merged, #48 merged a
+  # minute later, #58's Build was cancelled, its deployment failed its checks and was not promoted,
+  # and #48's commit (vca/ only) was skipped by the Ignored Build Step, so #58 never went live.
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   annotation-db:
