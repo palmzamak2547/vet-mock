@@ -21,9 +21,11 @@ test('connect apps: calendar feed links and an Anki file of pinned questions', a
   await expect(page.getByRole('heading', { level: 1, name: 'เชื่อมแอป' })).toBeVisible();
 
   const feed = 'https://vetmock.com/api/calendar?year=4';
-  await expect(page.getByRole('link', { name: 'Apple Calendar' })).toHaveAttribute('href', feed.replace('https:', 'webcal:'));
-  await expect(page.getByRole('link', { name: 'Google Calendar' })).toHaveAttribute('href', `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(feed.replace('https:', 'webcal:'))}`);
-  await expect(page.getByRole('link', { name: 'Outlook' })).toHaveAttribute('href', new RegExp(`addfromweb\\?url=${encodeURIComponent(feed).replace(/[?.]/g, '\\$&')}`));
+  // The exam feed's own card: the daily reminder below it has calendar links too.
+  const examCard = page.locator('article.vmx-conn-card', { hasText: 'ตารางสอบในปฏิทินของคุณ' });
+  await expect(examCard.getByRole('link', { name: 'Apple Calendar' })).toHaveAttribute('href', feed.replace('https:', 'webcal:'));
+  await expect(examCard.getByRole('link', { name: 'Google Calendar' })).toHaveAttribute('href', `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(feed.replace('https:', 'webcal:'))}`);
+  await expect(examCard.getByRole('link', { name: 'Outlook' })).toHaveAttribute('href', new RegExp(`addfromweb\\?url=${encodeURIComponent(feed).replace(/[?.]/g, '\\$&')}`));
 
   const row = page.getByRole('listitem').filter({ hasText: 'ข้อที่ปักหมุด' });
   await expect(row).toContainText('1 ข้อ');

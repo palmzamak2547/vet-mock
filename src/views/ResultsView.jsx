@@ -12,6 +12,7 @@ import DigitRoll from '../components/DigitRoll.jsx';
 import ScoreBurst from '../components/ScoreBurst.jsx';
 import MochiLive from '../components/MochiLive.jsx';
 import StreakMoment from '../components/StreakMoment.jsx';
+import { ReminderOffer } from '../components/ReminderPicker.jsx';
 import { mochiResultPose } from '../lib/mochi-presence.js';
 import { readStreakMoment, markStreakMomentSeen } from '../lib/streak-moment.js';
 import { haptic } from '../lib/haptics.js';
@@ -422,6 +423,8 @@ export default function ResultsView({
       {/* The first set of a day: what it did to the day count, right under
           the score (lib/streak-moment.js); nothing for a second set. */}
       <StreakMoment moment={moment} className={`vmx-res-step${firstLook ? ' is-paced' : ''}`} style={{ '--res-delay': '70ms' }} />
+      {/* Right after the day count, once ever: a daily reminder. */}
+      {moment && <ReminderOffer usual={moment.usual} className={`vmx-res-step${firstLook ? ' is-paced' : ''}`} style={{ '--res-delay': '126ms' }} />}
 
       {/* Study Squad Companion Encouragement Badge & 3D Toggle */}
       {companionMascot && showCompanion && (

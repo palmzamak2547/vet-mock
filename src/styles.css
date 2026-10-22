@@ -5458,6 +5458,19 @@ body.vmx-reading .vmx-pdf-body {
 @media (prefers-reduced-motion: reduce) { .vmx-streak-moment.is-first .vmx-streak-moment-flame { animation: none; } }
 @media (max-width: 400px) { .vmx-streak-moment-week { display: none; } }
 @media print { .vmx-streak-moment { display: none; } }
+
+/* A daily reminder (ReminderPicker): pick a time, add it to a calendar. */
+.vmx-reminder-offer { display: flex; flex-direction: column; gap: 10px; margin: 0 auto 16px; max-width: 480px; padding: 14px 16px; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); }
+.vmx-reminder-offer > strong { font-size: 16px; color: var(--clr-ink); }
+.vmx-reminder-offer > .vmx-btn { align-self: flex-start; min-height: 44px; }
+.vmx-reminder-picker { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.vmx-reminder-times { display: flex; flex-wrap: wrap; gap: 8px; }
+.vmx-reminder-targets { display: flex; flex-wrap: wrap; gap: 8px; }
+.vmx-reminder-target { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 14px; border: 1px solid var(--clr-border); border-radius: var(--r-pill); background: var(--clr-surface-2); color: var(--clr-ink); font-size: 14px; text-decoration: none; }
+.vmx-reminder-target:hover { border-color: var(--clr-ink); }
+.vmx-reminder-target:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-reminder-note { margin: 0; font-size: 14px; line-height: 1.6; color: var(--clr-ink-soft); }
+@media print { .vmx-reminder-offer { display: none; } }
 .vmx-empty-mochi { display: flex; margin: 0 auto 8px; }
 .vmx-state-panel .vmx-state-panel__mochi { width: 56px; height: 56px; background: transparent; color: inherit; animation: none; }
 .vmx-loading-mark { height: 32px; }
