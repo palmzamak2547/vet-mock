@@ -108,6 +108,7 @@ object BundleUpdater {
             }
             val next = p.getString("next", null)
             if (next != null && complete(File(root(context), next))) {
+                Log.i(TAG, "serving build $next from now on")
                 setBasePath(context, File(root(context), next))
                 edit.putString("previous", p.getString("current", null)).putString("current", next).remove("next")
                     .putString("pending", next).putInt("pendingStarts", 1)

@@ -275,6 +275,20 @@ def main():
     shell("cmd connectivity airplane-mode disable", check=False)
 
     results["dark_start"] = first_frames_luminance(out)
+
+    # The updater: on a build older than production it downloads the changed files after the first paint and
+    # serves them from the next cold start. Before production publishes app-bundle.json there is nothing to fetch.
+    shell(f"am force-stop {PKG}")
+    start_once(True)
+    time.sleep(25)
+    shell(f"am force-stop {PKG}")
+    start_once(True)
+    log = adb("logcat", "-d", "-s", "VetMockBundle", check=False)
+    results["update"] = {
+        "downloaded": re.findall(r"build (\w+) ready for the next start \((\d+) kB downloaded\)", log),
+        "switched": re.findall(r"serving build (\w+)", log),
+        "errors": re.findall(r"update check failed: (.*)", log)[-3:],
+    }
     shell(f"am force-stop {PKG}")
     start_once(True)
     screenshot(out, "home-light-again")
