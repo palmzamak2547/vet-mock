@@ -7,6 +7,7 @@ import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 // dragged every per-subject Q chunk into this view's load graph.
 import { Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { detectCurrentPhase } from '../lib/current-phase.js';
+import { takeFrontDoorReturn } from '../lib/phase-return.js';
 
 // ──────────────────────────────────────────────────────────────
 // YearSelectView — first-time front door for VetMock.
@@ -32,13 +33,14 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
 
   const goToYear = (y) => {
     setSelectedYear(y.id);
-    // Y6 is block-based (rotation) → skip phase picker.
+    // Y6 is block-based (rotation) → skip phase picker. Without a phase pick,
+    // the page a shared link named (lib/phase-return.js) opens from here.
     if (y.id === 6) {
       if (setSelectedPhase) setSelectedPhase(null);
-      setView('home');
+      setView(takeFrontDoorReturn() || 'home');
     } else {
       if (setSelectedPhase) setSelectedPhase(detectCurrentPhase(new Date(), y.id));
-      setView(y.scaffold ? 'home' : 'phase-select');
+      setView(y.scaffold ? (takeFrontDoorReturn() || 'home') : 'phase-select');
     }
   };
 
