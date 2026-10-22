@@ -82,7 +82,7 @@ def screenshot(out, name):
 # ---- start times -----------------------------------------------------------------------------
 
 def logcat_fully_drawn(since):
-    log = adb("logcat", "-d", "-v", "time", "-T", since, "ActivityTaskManager:I", "*:S", check=False)
+    log = adb("logcat", "-d", "-v", "time", "-T", f"'{since}'", "ActivityTaskManager:I", "'*:S'", check=False)
     m = re.findall(r"Fully drawn " + re.escape(ACTIVITY) + r": \+(?:(\d+)s)?(\d+)ms", log)
     return [int(s or 0) * 1000 + int(ms) for s, ms in m]
 
@@ -94,7 +94,8 @@ def start_once(cold):
     else:
         shell("input keyevent KEYCODE_HOME")
         time.sleep(1.5)
-    since = adb("shell", "date", "+%m-%d %H:%M:%S.000").strip()
+    # adb joins shell arguments with spaces, so anything with a space is quoted for the device's shell.
+    since = shell("date '+%m-%d %H:%M:%S.000'").strip()
     out = shell(f"am start -W -n {ACTIVITY}")
     total = re.search(r"TotalTime: (\d+)", out)
     time.sleep(4)
