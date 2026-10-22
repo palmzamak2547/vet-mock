@@ -9,6 +9,7 @@ import NavIcon from '../components/NavIcon.jsx';
 import { createStudyCatalog } from '../lib/study-catalog.js';
 import { SUBJECTS, announced, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { fetchRelatedDocs, librarySubjectCounts } from '../lib/library.js';
+import { takeRelatedReturn } from '../lib/related-return.js';
 import RelatedDocs from '../components/RelatedDocs.jsx';
 import { takeViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
@@ -81,12 +82,25 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // subject, cached per session); a topic card opens its list in place.
   const [relatedDocs, setRelatedDocs] = useState(() => new Map());
   const [openRelated, setOpenRelated] = useState(null);
+  const [landRelated, setLandRelated] = useState(null);
   useEffect(() => {
     let alive = true;
     setRelatedDocs(new Map());
     setOpenRelated(null);
+    setLandRelated(null);
     const targets = (SUBJECTS.find((x) => x.id === subject)?.topics || []).map((t) => `${subject}/${t.id}`);
-    if (onOpenDoc) fetchRelatedDocs(targets).then((m) => { if (alive) setRelatedDocs(m); });
+    if (onOpenDoc) {
+      fetchRelatedDocs(targets).then((m) => {
+        if (!alive) return;
+        setRelatedDocs(m);
+        // Back from the reader: reopen the list the student came from, in view.
+        const back = takeRelatedReturn(targets);
+        if (!back || !m.get(back)?.length) return;
+        const id = back.slice(subject.length + 1);
+        setOpenRelated(id);
+        setLandRelated(id);
+      });
+    }
     return () => { alive = false; };
   }, [subject, !!onOpenDoc]); // eslint-disable-line react-hooks/exhaustive-deps
   const [openInstructor, setOpenInstructor] = useState(null);
@@ -838,7 +852,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               )}
               {openRelated === t.id && related.length > 0 && (
                 <div className="vmx-topic-related">
-                  <RelatedDocs rows={related} onOpenDoc={onOpenDoc} heading={false} />
+                  <RelatedDocs rows={related} onOpenDoc={onOpenDoc} target={`${subject}/${t.id}`} heading={false} land={landRelated === t.id} />
                 </div>
               )}
             </article>

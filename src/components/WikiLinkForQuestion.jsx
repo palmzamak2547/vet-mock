@@ -38,7 +38,7 @@ export default function WikiLinkForQuestion({ q, onOpenWiki, onlyWhenWrong = tru
     <button
       type="button"
       onClick={() => onOpenWiki(article.subject, article.topic, article.sectionId)}
-      style={{ all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 10, minHeight: 44, color: conflicts > 0 ? 'var(--clr-rose-text)' : 'var(--clr-sage-text)', fontSize: 12.5, fontWeight: 600 }}
+      style={{ all: 'unset', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 10, minHeight: 44, color: conflicts > 0 ? 'var(--clr-rose-text)' : 'var(--clr-sage-text)', fontSize: 14, fontWeight: 600 }}
       title={conflicts > 0
         ? 'หัวข้อนี้มีจุดที่หลักฐานไม่ตรงกับที่บรรยาย พร้อมคำแนะนำว่าเวลาสอบควรตอบอะไร'
         : 'อ่านสรุปหัวข้อนี้แบบตรวจสอบที่มาได้'}

@@ -2742,6 +2742,11 @@ html.dark .vmx-panic-scrim {
   text-decoration: underline; text-underline-offset: 2px; text-align: left;
 }
 .vmx-hand-toggle:hover { color: var(--clr-ink); }
+.vmx-hand-toggle { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; }
+/* Full screen: the pad takes all the height the actions leave. */
+.vmx-hand.is-fullscreen { border: 0; border-radius: 0; padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
+.vmx-hand.is-fullscreen .vmx-hand-hint { display: none; }
+.vmx-hand.is-fullscreen .vmx-hand-pad { flex: 1 1 0; min-height: 0; height: auto; }
 .vmx-hand { margin-top: 8px; padding: 10px; border: 1px solid var(--clr-border); border-radius: 10px; background: var(--clr-surface); }
 .vmx-hand-hint { margin: 0 0 8px; font-size: 14px; line-height: 1.45; color: var(--clr-ink-soft); }
 .vmx-hand-pad {
@@ -2751,7 +2756,8 @@ html.dark .vmx-panic-scrim {
 }
 .vmx-hand-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; }
 .vmx-hand-actions button, .vmx-hand-file {
-  appearance: none; font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px;
+  appearance: none; font: inherit; font-size: 14px; min-height: 44px; padding: 6px 14px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 6px;
   border: 1px solid var(--clr-border); background: var(--clr-bg); color: var(--clr-ink); cursor: pointer;
 }
 .vmx-hand-actions button.is-primary { background: var(--clr-ink); color: var(--clr-bg); border-color: var(--clr-ink); }
@@ -8406,3 +8412,232 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 .vmx-related-note { margin: 6px 0 0; font-size: 14px; color: var(--clr-ink-soft); }
 .vmx-topic-related { padding: 0 8px 10px; }
 .vmx-topic-card:has(> .vmx-topic-related) { grid-column: 1 / -1; }
+.vmx-related-docs li button:focus-visible, .vmx-related-more:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .vmx-related-docs li button { transition: none; } }
+
+/* ── Full screen for writing surfaces (hooks/useFullscreen.js) ──────────────
+   The surface is pinned over the whole viewport, above the app's header,
+   sidebar and bottom nav (--z-nav) and below its dialogs and toasts, so a
+   "ล้างรอยเขียน?" confirm still shows. Safe-area padding keeps tools clear of
+   a notch or the home indicator. */
+.vmx-fs-target.is-fullscreen {
+  position: fixed; inset: 0; z-index: calc(var(--z-nav) + 50);
+  width: 100vw; height: 100vh; height: 100dvh; max-width: none; margin: 0;
+  display: flex; flex-direction: column; overflow: hidden;
+  background: var(--clr-bg);
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  box-sizing: border-box;
+}
+body.vmx-fullscreen { overflow: hidden; overscroll-behavior: none; }
+/* In full screen the reader's way out is the toolbar button; its page back
+   bar would only cost a row of the page. */
+.vmx-reader.is-fullscreen > .vmx-back-bar { display: none; }
+
+/* Image markup (components/ImageAnnotator.jsx): icon tools at touch size,
+   and in full screen the picture takes every pixel the bars leave. */
+.vmx-annot-head { display: flex; align-items: center; gap: 4px; margin-bottom: 8px; }
+.vmx-annot-head h2 { flex: 1; min-width: 0; margin: 0; font-size: 20px; }
+.vmx-annot-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-bottom: 10px; }
+.vmx-annot-sep { width: 1px; height: 24px; margin: 0 4px; background: var(--clr-border); }
+.vmx-annot-tool {
+  display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0;
+  border: 1px solid transparent; border-radius: var(--r-sm); background: none; color: var(--clr-ink); cursor: pointer;
+}
+.vmx-annot-tool:hover { background: var(--clr-surface-2); }
+.vmx-annot-tool.is-active, .vmx-annot-tool[aria-pressed="true"] { background: var(--clr-surface-2); border-color: var(--clr-ink); }
+.vmx-annot-tool:disabled { opacity: .45; cursor: default; }
+.vmx-annot-tool:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-annot.is-fullscreen { max-width: none !important; max-height: none !important; width: 100vw; height: 100dvh; border-radius: 0; padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left)); }
+.vmx-annot.is-fullscreen .vmx-annot-stage > div { display: block !important; width: 100%; max-width: none !important; }
+.vmx-annot.is-fullscreen .vmx-annot-stage canvas { width: 100%; max-width: none !important; height: auto; }
+/* Nothing floats over a full-screen writing surface. */
+body.vmx-fullscreen .vmx-tools-fab, body.vmx-fullscreen .vmx-tools-fab-wrap { display: none !important; }
+
+/* ── Lasso (components/LassoLayer.jsx) ────────────────────────────────────
+   The loop is ants marching along a dashed line; the box is a hairline in the
+   theme's accent; the action bar is the one glass surface, a thick pane so its
+   Thai labels keep their contrast over any slide (tint >= 0.72, 14 px blur). */
+.vmx-lasso { position: absolute; inset: 0; pointer-events: none; line-height: normal; }
+.vmx-lasso-loop { position: absolute; inset: 0; overflow: visible; }
+.vmx-lasso-loop path {
+  fill: color-mix(in srgb, var(--clr-sage) 7%, transparent);
+  stroke: var(--clr-sage); stroke-width: 1.5; stroke-dasharray: 5 4; stroke-linejoin: round;
+  animation: vmx-lasso-ants 0.6s linear infinite;
+}
+@keyframes vmx-lasso-ants { to { stroke-dashoffset: -9; } }
+.vmx-lasso-box {
+  position: absolute; box-sizing: border-box; pointer-events: auto; touch-action: none; cursor: move;
+  border: 1.5px dashed var(--clr-sage); border-radius: 6px;
+  background: color-mix(in srgb, var(--clr-sage) 6%, transparent);
+  animation: vmx-lasso-settle 220ms cubic-bezier(.2,.9,.25,1.2) both;
+}
+@keyframes vmx-lasso-settle { from { transform: scale(.94); opacity: .4; } to { transform: none; opacity: 1; } }
+/* Each handle is a 40 px square OUTSIDE its corner (the dot sits on the
+   corner itself), so the box's own area is all "move". */
+.vmx-lasso-handle { position: absolute; width: 40px; height: 40px; touch-action: none; }
+.vmx-lasso-handle::after {
+  content: ''; position: absolute; width: 14px; height: 14px;
+  border-radius: 50%; background: white; border: 2px solid var(--clr-sage); /* on paper, which is white in both themes */
+  box-shadow: 0 1px 3px rgba(0,0,0,.25);
+}
+.vmx-lasso-handle.is-tl { right: 100%; bottom: 100%; cursor: nwse-resize; }
+.vmx-lasso-handle.is-tl::after { right: -8px; bottom: -8px; }
+.vmx-lasso-handle.is-tr { left: 100%; bottom: 100%; cursor: nesw-resize; }
+.vmx-lasso-handle.is-tr::after { left: -8px; bottom: -8px; }
+.vmx-lasso-handle.is-bl { right: 100%; top: 100%; cursor: nesw-resize; }
+.vmx-lasso-handle.is-bl::after { right: -8px; top: -8px; }
+.vmx-lasso-handle.is-br { left: 100%; top: 100%; cursor: nwse-resize; }
+.vmx-lasso-handle.is-br::after { left: -8px; top: -8px; }
+.vmx-lasso-bar {
+  position: absolute; pointer-events: auto; z-index: 2; white-space: nowrap; box-sizing: border-box;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+  display: flex; align-items: stretch; gap: 0; padding: 4px; border-radius: 26px;
+  background: color-mix(in srgb, var(--clr-surface) 78%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid color-mix(in srgb, var(--clr-ink) 12%, transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--clr-bg) 55%, transparent) inset, 0 8px 24px rgba(0,0,0,.18);
+  animation: vmx-lasso-settle 220ms cubic-bezier(.2,.9,.25,1.2) both;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .vmx-lasso-bar { background: var(--clr-surface); }
+}
+@media (prefers-reduced-transparency: reduce) { .vmx-lasso-bar { background: var(--clr-surface); -webkit-backdrop-filter: none; backdrop-filter: none; } }
+.vmx-lasso-row { display: flex; justify-content: center; }
+.vmx-lasso-colors { display: flex; justify-content: center; border-top: 1px solid color-mix(in srgb, var(--clr-ink) 10%, transparent); }
+.vmx-lasso-bar.is-above .vmx-lasso-colors { border-top: 0; border-bottom: 1px solid color-mix(in srgb, var(--clr-ink) 10%, transparent); }
+/* The tool row scrolls sideways on a phone; its scrollbar is noise under the
+   tools (the sticky "more" button already shows there is more). */
+.vmx-pdf-toolbar { scrollbar-width: none; }
+.vmx-pdf-toolbar::-webkit-scrollbar { display: none; }
+.vmx-lasso-palette { width: 20px; height: 20px; border-radius: 50%; background: conic-gradient(var(--clr-rose-text), var(--clr-ocean-text), var(--clr-sage), var(--clr-rose-text)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--clr-ink) 18%, transparent); }
+.vmx-lasso-act, .vmx-lasso-swatch {
+  display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px;
+  padding: 0; border: 0; border-radius: 999px; background: none; color: var(--clr-ink); cursor: pointer;
+}
+.vmx-lasso-act:hover { background: color-mix(in srgb, var(--clr-ink) 8%, transparent); }
+.vmx-lasso-act.is-done { color: var(--clr-sage-text); }
+.vmx-lasso-swatch::before { content: ''; width: 20px; height: 20px; border-radius: 50%; background: var(--swatch); box-shadow: 0 0 0 1px color-mix(in srgb, var(--clr-ink) 18%, transparent); }
+.vmx-lasso-act:focus-visible, .vmx-lasso-swatch:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: -2px; }
+/* Reduced motion: the ants stand still and the box appears without the settle. */
+@media (prefers-reduced-motion: reduce) {
+  .vmx-lasso-loop path { animation: none; }
+  .vmx-lasso-box, .vmx-lasso-bar { animation: none; }
+}
+
+/* ── Notebooks (components/NotebookShelf.jsx) ──────────────────────────────
+   Each paper is shown as a tiny live sheet drawn with gradients, so the
+   choice is seen, not read. Rule spacing is the real paper's, scaled to the
+   44 px sheet: 8 mm lines -> 4 px, 5 mm grid and dots -> 3 px. */
+.vmx-nb { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--clr-border); }
+.vmx-nb-title { margin: 0; font-size: 18px; }
+.vmx-nb-lead { margin: 4px 0 12px; font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-nb-papers { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.vmx-nb-paper {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 6px; min-width: 72px; min-height: 44px;
+  padding: 8px 6px; border: 1px solid var(--clr-border); border-radius: var(--r-sm); background: var(--clr-surface);
+  color: var(--clr-ink); font: inherit; font-size: 14px; cursor: pointer; transition: border-color 140ms, transform 140ms;
+}
+.vmx-nb-paper.is-on { border-color: var(--clr-sage); box-shadow: 0 0 0 1px var(--clr-sage) inset; }
+.vmx-nb-paper:active { transform: scale(.97); }
+.vmx-nb-paper:focus-visible, .vmx-nb-open:focus-visible, .vmx-nb-del:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-nb-sheet {
+  --rule: color-mix(in srgb, var(--clr-ocean-text) 30%, transparent);
+  display: block; width: 34px; height: 44px; flex: none; border-radius: 3px; background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,.06);
+}
+.vmx-nb-sheet.is-lined { background-image: linear-gradient(90deg, transparent 8px, color-mix(in srgb, var(--clr-rose-text) 35%, transparent) 8px, transparent 9px), repeating-linear-gradient(transparent 0 3px, var(--rule) 3px 4px); background-position: 0 0, 0 6px; }
+.vmx-nb-sheet.is-grid { background-image: linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px); background-size: 3px 3px; }
+.vmx-nb-sheet.is-dot { background-image: radial-gradient(circle, var(--rule) 0.6px, transparent 0.8px); background-size: 3px 3px; }
+.vmx-nb-sheet.is-cornell { background-image: linear-gradient(90deg, transparent 10px, var(--rule) 10px, transparent 11px), linear-gradient(transparent 34px, var(--rule) 34px, transparent 35px), linear-gradient(transparent 6px, var(--rule) 6px, transparent 7px); }
+.vmx-nb-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.vmx-nb-name {
+  flex: 1 1 220px; min-width: 0; min-height: 44px; padding: 0 12px; font: inherit; font-size: 16px;
+  color: var(--clr-ink); background: var(--clr-bg); border: 1px solid var(--clr-border); border-radius: var(--r-sm);
+}
+.vmx-nb-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 6px; }
+.vmx-nb-list li { display: flex; align-items: stretch; gap: 4px; }
+.vmx-nb-open {
+  flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px;
+  border: 1px solid var(--clr-border); border-radius: var(--r-sm); background: var(--clr-surface);
+  color: var(--clr-ink); font: inherit; text-align: left; cursor: pointer; transition: border-color 140ms, background 140ms;
+}
+.vmx-nb-open:hover { border-color: var(--clr-sage); background: var(--clr-surface-2); }
+.vmx-nb-meta { display: grid; gap: 2px; min-width: 0; }
+.vmx-nb-meta b { font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vmx-nb-meta span { font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-nb-del {
+  flex: none; width: 44px; border: 1px solid transparent; border-radius: var(--r-sm); background: none;
+  color: var(--clr-ink-soft); cursor: pointer;
+}
+.vmx-nb-del:hover { color: var(--clr-rose-text); background: var(--clr-surface-2); }
+@media (prefers-reduced-motion: reduce) { .vmx-nb-paper, .vmx-nb-open { transition: none; } .vmx-nb-paper:active { transform: none; } }
+
+/* A removed notebook crumples: the sheet folds in on its creases (the
+   conic overlay), balls up and drops away. 520 ms, ease-in on the fall so it
+   reads as weight. Reduced motion: a plain fade, nothing flies. */
+.vmx-nb-list li.is-crumpling { pointer-events: none; animation: vmx-nb-crumple 520ms cubic-bezier(.55,.05,.8,.35) forwards; position: relative; }
+.vmx-nb-list li.is-crumpling::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: repeating-conic-gradient(from 20deg, rgba(0,0,0,.10) 0 9deg, transparent 9deg 23deg);
+  animation: vmx-nb-creases 520ms ease-out forwards;
+}
+@keyframes vmx-nb-crumple {
+  0% { transform: none; opacity: 1; border-radius: 8px; }
+  45% { transform: scale(.42, .5) rotate(-14deg); opacity: 1; border-radius: 40%; }
+  100% { transform: translateY(46px) scale(.16) rotate(-40deg); opacity: 0; border-radius: 50%; }
+}
+@keyframes vmx-nb-creases { from { opacity: 0; } 40% { opacity: 1; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .vmx-nb-list li.is-crumpling { animation: vmx-nb-fade 160ms linear forwards; }
+  .vmx-nb-list li.is-crumpling::after { display: none; }
+}
+@keyframes vmx-nb-fade { to { opacity: 0; } }
+
+/* ── Tape (components/TapeLayer.jsx) ──────────────────────────────────────
+   Washi tape: an opaque colour with faint fibres and a sheen, torn ends
+   (a zig-zag mask on the short sides), a soft lift shadow. Peeling lifts it
+   2 px and turns it see-through in 260 ms with a slight overshoot; under
+   reduced motion it simply turns see-through. */
+.vmx-tapes { position: absolute; inset: 0; pointer-events: none; line-height: normal; }
+.vmx-tape {
+  position: absolute; box-sizing: border-box; padding: 0; border: 0; cursor: pointer; touch-action: manipulation;
+  min-width: 12px; min-height: 12px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0) 40%, rgba(0,0,0,.05)),
+    repeating-linear-gradient(115deg, rgba(255,255,255,.18) 0 2px, transparent 2px 7px),
+    var(--tape);
+  -webkit-mask: linear-gradient(#000 0 0) center / calc(100% - 8px) 100% no-repeat,
+    conic-gradient(from -45deg at left, #000 90deg, transparent 0) left / 4px 6px repeat-y,
+    conic-gradient(from 135deg at right, #000 90deg, transparent 0) right / 4px 6px repeat-y;
+  mask: linear-gradient(#000 0 0) center / calc(100% - 8px) 100% no-repeat,
+    conic-gradient(from -45deg at left, #000 90deg, transparent 0) left / 4px 6px repeat-y,
+    conic-gradient(from 135deg at right, #000 90deg, transparent 0) right / 4px 6px repeat-y;
+  filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.22));
+  transform: rotate(var(--tilt, 0deg));
+  transition: opacity 260ms cubic-bezier(.2,.9,.25,1.2), transform 260ms cubic-bezier(.2,.9,.25,1.2);
+}
+.vmx-tape.is-peeled { opacity: .16; transform: rotate(var(--tilt, 0deg)) translateY(-2px); }
+.vmx-tape:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-tape.is-draft { opacity: .8; pointer-events: none; transition: none; }
+.vmx-tape-swatch { background: var(--tape) !important; background-clip: content-box !important; border-radius: 6px !important; width: 40px; height: 40px; min-width: 40px; padding: 11px 7px; border: 1px solid var(--clr-border); cursor: pointer; }
+.vmx-tape-count {
+  flex: none; min-width: 44px; height: 40px; padding: 0 10px; border-radius: 999px;
+  border: 1px solid var(--clr-border); background: var(--clr-surface-2); color: var(--clr-ink);
+  font: inherit; font-size: 14px; font-variant-numeric: tabular-nums; cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vmx-tape { transition: opacity 120ms linear; }
+  .vmx-tape.is-peeled { transform: rotate(var(--tilt, 0deg)); }
+}
+
+/* ── Text note editor (components/TextNoteEditor.jsx) ─────────────────────
+   Sits exactly where the note will be painted, in the note's own font, size
+   and colour, so leaving it changes nothing on screen but the dashed edge. */
+.vmx-textnote-editor {
+  position: absolute; z-index: 3; box-sizing: content-box; margin: 0; padding: 0;
+  border: 0; outline: 1.5px dashed var(--clr-sage); outline-offset: 4px; border-radius: 2px;
+  background: rgba(255, 255, 255, .55); resize: none; overflow: hidden;
+  font-family: "Sarabun", "IBM Plex Sans Thai", system-ui, sans-serif; font-weight: 500;
+  overflow-wrap: anywhere; white-space: pre-wrap; pointer-events: auto; touch-action: manipulation;
+  caret-color: currentColor;
+}

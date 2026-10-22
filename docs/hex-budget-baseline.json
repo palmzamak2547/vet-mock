@@ -48,6 +48,7 @@
     "components/lab/VHSOverlay.jsx": 32,
     "lib/contributions.js": 15,
     "lib/web-vitals.js": 3,
+    "lib/tape.js": 4,
     "App.jsx": 1,
     "lib/motion-kit/mochi/model-3d.js": 13,
     "lib/motion-kit/mochi/renderer-3d.js": 5,

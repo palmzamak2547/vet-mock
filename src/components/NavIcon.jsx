@@ -34,6 +34,36 @@ const PATHS = {
       <path d="M9 21h11M7.5 10.5l6 6" />
     </>
   ),
+  // a dashed loop with its tail: select by drawing round
+  lasso: (
+    <>
+      <path d="M7.5 15.5C4.4 14.3 3 12.4 3 10.3 3 6.8 7 4 12 4s9 2.8 9 6.3-4 6.2-9 6.2c-.9 0-1.8-.1-2.6-.3" strokeDasharray="2.4 2.4" />
+      <path d="M8.5 15.8c-1 1.2-.9 2.7.3 3.4 1.3.8 3-.1 3-1.7" />
+    </>
+  ),
+  // a capital T with a text caret: type on the page
+  text: (
+    <>
+      <path d="M5 6.5V5h11v1.5M10.5 5v13M8.5 18h4" />
+      <path d="M18.5 10v9" />
+    </>
+  ),
+  // a strip of tape, torn ends
+  tape: (
+    <>
+      <path d="M4 9.5 5.5 8 7 9.5 8.5 8l11.5 0V16H8.5L7 14.5 5.5 16 4 14.5Z" transform="rotate(-12 12 12)" />
+      <path d="M9 10v4M12 10v4" transform="rotate(-12 12 12)" strokeDasharray="1 2" />
+    </>
+  ),
+  copy: (
+    <>
+      <rect x="8" y="8" width="12" height="12" rx="2" />
+      <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+    </>
+  ),
+  // four corners out / in
+  fullscreen: <path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" />,
+  'fullscreen-exit': <path d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5" />,
   undo: <path d="M4 9h9a5 5 0 1 1 0 10H8M4 9l4-4M4 9l4 4" />,
   redo: <path d="M20 9h-9a5 5 0 1 0 0 10h5M20 9l-4-4M20 9l-4 4" />,
   'zoom-in': (
@@ -251,6 +281,13 @@ const PATHS = {
     <>
       <path d="M4 22V4" />
       <path d="M4 4h14l-2 4 2 4H4" />
+    </>
+  ),
+  // Two chain links (lucide 'link', ISC): connected apps.
+  link: (
+    <>
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
     </>
   ),
   bulb: (

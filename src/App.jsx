@@ -53,6 +53,7 @@ import './styles.css';
 import { hasSupabase, signOut, signInWithGoogle, signInWithMagicLink } from './lib/supabase.js';
 import { checkIsAdmin } from './lib/admin-api.js';
 import { parseWikiPath, wikiPath } from './lib/vetwiki/url.js';
+import { markRelatedReturn } from './lib/related-return.js';
 import { useExamResultOutbox } from './hooks/useExamResultOutbox.js';
 import { createAttemptEntries, answeredAttempts } from './lib/study-events.js';
 import { readShareUrlFromLocation, readSenderInfoFromLocation } from './lib/share-link.js';
@@ -85,7 +86,7 @@ import OptionalFeature from './components/OptionalFeature.jsx';
 import {
   HomeView, CommandPalette, InstructorModal, VoiceSettings,
   ImageAnnotator, LabView, WrapUpView, AtlasView, PinboardView,
-  ContributeView, ReviewQueueView, BenchView, AdminView, HighlightToCard,
+  ContributeView, ConnectAppsView, ReviewQueueView, BenchView, AdminView, HighlightToCard,
   ShortcutSheet, OnboardingTour, SubjectSelectView, ConfigView, ExamView,
   ResultsView, ReviewView, SRSessionView, DashboardView,
   QuestionManagerView, AuthView, GroupsView, GroupDetailView,
@@ -219,6 +220,11 @@ const Analytics = lazy(() =>
 const SpeedInsights = lazy(() =>
   import('@vercel/speed-insights/react').then((m) => ({ default: m.SpeedInsights })),
 );
+// Mochi voice ships dark: only admins ask the server whether it is on, so no
+// one else downloads the panel or calls the route. Flip to true (and set
+// MOCHI_VOICE_OPEN=1 on the server) to open it to every signed-in student.
+const MOCHI_VOICE_FOR_ALL = false;
+const MochiVoice = lazy(() => import('./components/MochiVoice.jsx'));
 const IS_LOCAL_HOST = typeof window !== 'undefined'
   && /^(localhost|127\.|192\.168\.|\[::1\])/.test(window.location.hostname);
 
@@ -306,6 +312,17 @@ export default function App() {
     checkIsAdmin().then((ok) => { if (alive) setIsAdmin(ok); }).catch(() => { if (alive) setIsAdmin(false); });
     return () => { alive = false; };
   }, [user?.id]);
+
+  const [voiceOn, setVoiceOn] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    setVoiceOn(false);
+    if (!user?.id || !(isAdmin || MOCHI_VOICE_FOR_ALL)) return undefined;
+    import('./lib/mochi-voice.js').then((m) => m.voiceApi('status'))
+      .then((r) => { if (alive) setVoiceOn(r.ok && r.body.enabled === true); })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, [user?.id, isAdmin]);
 
   // Phase 3 perf: QB lazy-load tracker. `qbReady` flips true on first
   // successful loadQB() resolution; we use it to (a) trigger a single
@@ -958,7 +975,8 @@ export default function App() {
       titleSetRef.current = true;
     } else if (view === 'home' || view === 'landing' || titleSetRef.current) {
       // Views that own their title (wiki, atlas) never get a stale one of ours.
-      if (view !== 'atlas') document.title = baseTitleRef.current;
+      // KnowledgeView titles the index and each article itself.
+      if (view !== 'atlas' && view !== 'knowledge' && view !== 'wiki') document.title = baseTitleRef.current;
       titleSetRef.current = false;
     }
   }, [view]);
@@ -2532,6 +2550,7 @@ export default function App() {
   // Only a transition out of the reader clears, so the render where a cover
   // has handed over its deck but the view has not flipped yet is untouched.
   const readerPrevViewRef = useRef(view);
+  const readerReturnRef = useRef({ target: null, historyLength: 0 });
   useEffect(() => {
     const prev = readerPrevViewRef.current;
     readerPrevViewRef.current = view;
@@ -2539,6 +2558,7 @@ export default function App() {
       setLibraryDoc(null);
       setPdfLibraryReturnPath(null);
       setPdfReturnView('library');
+      readerReturnRef.current = { target: null, historyLength: 0 };
     }
   }, [view]);
   // The reader is keyed by account, so a sign-out in another tab remounted it
@@ -2568,6 +2588,13 @@ export default function App() {
     setPdfLibraryReturnPath(view === 'library' || origin !== 'library'
       ? window.location.pathname + window.location.search
       : '/app/library');
+    // A "เอกสารที่เกี่ยวข้อง" row names its topic so the way back can reopen
+    // that list; the history length says whether the origin is still the
+    // entry right behind the reader.
+    readerReturnRef.current = {
+      target: doc?.returnTarget || null,
+      historyLength: typeof window !== 'undefined' ? window.history.length + 1 : 0,
+    };
     setView('pdf-annotate');
   };
   // The empty reader's "เปิดคลังเอกสาร" and a shelf file under ไฟล์ล่าสุด go
@@ -2582,6 +2609,23 @@ export default function App() {
   const returnToLibrary = () => {
     const path = pdfLibraryReturnPath || '/app/library';
     const target = pdfReturnView;
+    const { target: relatedTarget, historyLength } = readerReturnRef.current;
+    if (relatedTarget) markRelatedReturn(relatedTarget);
+    // The origin is the entry right behind the reader: step back to it, so
+    // browser Back afterwards does not land on an emptied reader. popstate
+    // restores the view (and a wiki article's subject and topic from its URL).
+    if (READER_ORIGINS.has(target) && window.history.state?.vmxView === 'pdf-annotate'
+      && window.history.length === historyLength) {
+      window.history.back();
+      return;
+    }
+    // Otherwise go forward to it. A VetWiki article opens from its own URL:
+    // App's subject/topic may still name the article the student started on.
+    const wiki = parseWikiPath(path.split('?')[0]);
+    if (wiki.isWiki && wiki.subject && wiki.topic) {
+      setSubject(wiki.subject);
+      setTopic(wiki.topic);
+    }
     setLibraryDoc(null);
     setPdfLibraryReturnPath(null);
     setPdfReturnView('library');
@@ -3172,7 +3216,7 @@ export default function App() {
               {view === 'phase-select' && <PhaseSelectView {...{ goHome, selectedYear, selectedPhase, setSelectedPhase, setView }} />}
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, selectedPhase, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setTopic, setView }} />}
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
-              {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist }} {...{ user, goHome, onSignedOut: goHome }} />}
+              {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist }} {...{ user, goHome, setView, onSignedOut: goHome }} />}
               {view === 'offline-game' && <OfflineGameView goBack={leaveRestTool} backToRest={restReturn} online={networkOnline} />}
               {view === 'mochi' && <MochiView goHome={goHome} onOpenFocus={() => setView('pomodoro')} onOpenGame={() => setView('offline-game')} />}
               {view === 'pomodoro' && <PomodoroView goHome={leaveRestTool} backToRest={restReturn} />}
@@ -3196,6 +3240,7 @@ export default function App() {
               {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setTopic, setPracticeMode, onOpenQuestion: openQuestionById, notes, selectedYear, selectedPhase }} />}
               {view === 'image-occlusion' && <ImageOcclusionView {...{ goHome, setView }} />}
               {view === 'phase-wrapped' && <PhaseWrappedView {...{ goHome, history, srCards, bookmarks, customQuestions, selectedYear }} />}
+              {view === 'connect-apps' && <ConnectAppsView {...{ goHome, setView, user, history, selectedYear }} />}
               {view === 'contribute' && <ContributeView {...{ goHome, setView, user, selectedYear }} />}
               {view === 'review-queue' && user && <ReviewQueueView {...{ goHome, setView, user }} />}
               {(view === 'mock-exam' || view === 'mock-results') && <ViewFallback />}
@@ -3333,6 +3378,12 @@ export default function App() {
       <OptionalFeature>
         <HighlightToCard />
       </OptionalFeature>
+
+      {voiceOn && (
+        <OptionalFeature label="คุยกับ Mochi">
+          <MochiVoice onTypeInstead={() => setPaletteOpen(true)} />
+        </OptionalFeature>
+      )}
 
       {/* Anonymous, privacy-preserving usage signal so Palm can see
           if Imaging Lab is getting organic visits + which views people

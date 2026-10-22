@@ -327,6 +327,11 @@ export default function ProfileView({
           <span>ธีมและสี</span>
           <ThemePicker theme={theme} themePref={themePref} setTheme={setTheme} palette={palette} setPalette={setPalette} />
         </div>
+        <Row
+          label="เชื่อมแอป"
+          note="ตารางสอบเข้าปฏิทิน การ์ด Anki ไฟล์จาก Drive และ Notion"
+          onClick={() => setView('connect-apps')}
+        />
         {user && (
           <Row
             label="บัญชี"

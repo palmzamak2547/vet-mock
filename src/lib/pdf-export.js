@@ -108,8 +108,9 @@ export async function exportAnnotatedPdf({
   const pdf = await PDFDocument.load(bytes, { ignoreEncryption: true });
   const pages = pdf.getPages();
 
+  // A page with only tape on it has nothing to export (tape never is).
   const inked = Object.entries(strokesByPage || {})
-    .filter(([, arr]) => Array.isArray(arr) && arr.length > 0)
+    .filter(([, arr]) => Array.isArray(arr) && arr.some((st) => st?.mode !== 'tape'))
     .map(([n]) => Number(n))
     .filter((n) => n >= 1 && n <= pages.length)
     .sort((a, b) => a - b);

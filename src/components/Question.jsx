@@ -24,20 +24,6 @@ import MissCoach from './MissCoach.jsx';
 import Mochi from './Mochi.jsx';
 import { MotionEnter, useMotionFeedback } from './MotionFeedback.jsx';
 
-// Strip RichText markup so TTS reads naturally — markdown bold/italic
-// markers and HTML entities sound weird as speech.
-function stripForSpeech(s) {
-  if (!s) return '';
-  return String(s)
-    .replace(/\*\*([^*]+)\*\*/g, '$1')
-    .replace(/\*([^*]+)\*/g, '$1')
-    .replace(/_([^_]+)_/g, '$1')
-    .replace(/`([^`]+)`/g, '$1')
-    .replace(/[#>~]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
 // Q-flag persistence — stored in localStorage as { 'subject:id': { reason, ts } }.
 // Cross-machine sync needs Supabase schema; deferred to a future session.
 const FLAGS_KEY = 'vmx-q-flags';
@@ -119,6 +105,34 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     };
   }, [currentQ?.id]);
 
+  // A student who has used read-aloud before gets this subject's clip list
+  // fetched ahead, so the next tap starts without waiting on it. Everyone
+  // else gets only the connection to the clip host opened (DNS, TCP and TLS
+  // are three round trips on a phone network).
+  useEffect(() => {
+    const subject = currentQ?.subject;
+    if (!subject) return;
+    let used = false;
+    try { used = window.localStorage.getItem('vmx-tts-used') === '1'; } catch { /* private mode */ }
+    if (used) {
+      import('../lib/tts-shared.js').then((m) => m.warmShared(subject)).catch(() => {});
+    } else {
+      try {
+        if (!document.querySelector('link[rel="preconnect"][href="https://tts.vetmock.com"]')) {
+          const link = document.createElement('link');
+          link.rel = 'preconnect';
+          link.href = 'https://tts.vetmock.com';
+          link.crossOrigin = 'anonymous';
+          document.head.appendChild(link);
+        }
+      } catch { /* a hint only */ }
+    }
+  }, [currentQ?.subject]);
+
+  // The read-aloud code loads on the first press; start it on pointer-down
+  // so the tap's own delay overlaps the download.
+  const preloadTts = () => { import('../lib/tts.js').catch(() => {}); };
+
   const speakQ = async () => {
     // CRITICAL: prime audio synchronously BEFORE any await. iOS Safari
     // (and stricter browsers) require .play() to happen inside a user
@@ -137,9 +151,11 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     setTtsNote(null);
     const controller = { cancelled: false };
     speakControllerRef.current = controller;
-    const stem = stripForSpeech(currentQ.q || '');
+    // Options in the order the student sees them, so "ตัวเลือก B" is the
+    // row with the B chip (it used to read them in source order).
+    const stem = currentQ.q || '';
     const options = Array.isArray(currentQ.options)
-      ? currentQ.options.map((o) => stripForSpeech(o))
+      ? getShuffledOptions(currentQ).displayOptions.map(String)
       : [];
     try {
       // TTS is an optional feature. Keep its speech/IndexedDB providers out
@@ -150,6 +166,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       tts.speakQuestion({
         stem,
         options,
+        subject: currentQ.subject,
         controller,
         onStart: () => setIsSpeaking(true),
         onEnd: () => { if (!controller.cancelled) setIsSpeaking(false); },
@@ -460,13 +477,13 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             className="vmx-fill-input"
             value={typeof currentAnswer === 'string' ? currentAnswer : ''}
             onChange={(e) => answerCurrent(e.target.value.slice(0, 1000))}
-            placeholder="เขียนคำตอบสั้นๆ (1-3 ประโยค) — กดไมค์เพื่อพูดได้"
+            placeholder="เขียนคำตอบสั้น ๆ 1 ถึง 3 ประโยค หรือกดไมค์เพื่อพูด"
             rows={3}
             style={{ minHeight: 70, fontFamily: 'inherit', resize: 'vertical', width: '100%', boxSizing: 'border-box', padding: 10 }}
             maxLength={1000}
           />
-          <div style={{ marginTop: 4, fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>
-            {(typeof currentAnswer === 'string' ? currentAnswer.length : 0)}/1000 chars
+          <div style={{ marginTop: 4, fontSize: 14, color: 'var(--clr-ink-soft)', fontVariantNumeric: 'tabular-nums' }}>
+            {(typeof currentAnswer === 'string' ? currentAnswer.length : 0).toLocaleString('th-TH')} / 1,000 ตัวอักษร
           </div>
           {/* Optional third way in: handwriting, transcribed into the same
               box so the student edits it before it is graded. */}
@@ -582,6 +599,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           aria-pressed={isSpeaking}
           className={`vmx-note-btn ${isSpeaking ? 'has-note' : ''}`}
           onClick={speakQ}
+          onPointerDown={preloadTts}
           title={isSpeaking ? 'หยุดอ่าน' : 'อ่านออกเสียง'}
         >
           <NavIcon name={isSpeaking ? 'speaker-off' : 'speaker'} size={18} />

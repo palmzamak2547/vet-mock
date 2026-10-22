@@ -22,6 +22,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { createPointerPolicy, strokeWidth, padHeight, inkBounds, fitScale } from '../lib/handwriting-pad.js';
+import { useFullscreen } from '../hooks/useFullscreen.js';
+import NavIcon from './NavIcon.jsx';
 
 const INK = '#141414';
 const PAPER = '#ffffff';
@@ -108,6 +110,8 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
   const [status, setStatus] = useState('');
   const [height, setHeight] = useState(() => padHeight(typeof window !== 'undefined' ? window.innerWidth : 375));
   const padRef = useRef(null);
+  const boxRef = useRef(null);
+  const fullscreen = useFullscreen(boxRef);
   const strokes = useRef([]);      // finished strokes: arrays of [x, y, width] in CSS px
   const current = useRef(null);    // { id: pointerId, pts }
   const policy = useRef(createPointerPolicy());
@@ -121,7 +125,8 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
   useEffect(() => { alive.current = true; return () => { alive.current = false; }; }, []);
   const fileRef = useRef(null);
 
-  const padSize = () => [padRef.current?.clientWidth || 320, height];
+  // Full screen: the pad takes whatever height the screen leaves it.
+  const padSize = () => [padRef.current?.clientWidth || 320, fullscreen.on ? (padRef.current?.clientHeight || height) : height];
 
   // Size the backing store to the box at device resolution and paint every
   // stroke again — the pad survives a rotation or a resize with its ink.
@@ -142,8 +147,11 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
     redraw();
     const onResize = () => { setHeight(padHeight(window.innerWidth)); redraw(); };
     window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [open, height]); // eslint-disable-line react-hooks/exhaustive-deps
+    // Entering or leaving full screen resizes the pad without a window resize
+    // (the CSS layer alone, on iPhone): repaint once the new box is laid out.
+    const raf = typeof requestAnimationFrame === 'function' ? requestAnimationFrame(redraw) : 0;
+    return () => { window.removeEventListener('resize', onResize); if (raf) cancelAnimationFrame(raf); };
+  }, [open, height, fullscreen.on]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const point = (ev) => {
     const r = padRef.current.getBoundingClientRect();
@@ -261,21 +269,21 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
   if (!open) {
     return (
       <button type="button" className="vmx-hand-toggle" onClick={() => { setOpen(true); setStatus(''); }}>
-        ✍️ เขียนมือแทนพิมพ์ (นิ้ว ปากกา Apple Pencil หรือถ่ายรูปที่เขียนบนกระดาษ)
+        <NavIcon name="pen" size={15} /> เขียนมือแทนพิมพ์ (นิ้ว ปากกา Apple Pencil หรือถ่ายรูปที่เขียนบนกระดาษ)
       </button>
     );
   }
 
   const hasInk = strokeCount > 0;
   return (
-    <div className="vmx-hand" aria-label="เขียนคำตอบด้วยลายมือ">
+    <div ref={boxRef} className={`vmx-hand vmx-fs-target${fullscreen.on ? ' is-fullscreen' : ''}`} role="group" aria-label="เขียนคำตอบด้วยลายมือ">
       <p className="vmx-hand-hint">
-        เขียนในกรอบด้วยนิ้ว ปากกา หรือ Apple Pencil (เมื่อใช้ปากกา ฝ่ามือที่วางบนจอจะไม่ถูกนับ) แล้วกด แปลงเป็นข้อความ — ข้อความจะไปต่อท้ายในช่องคำตอบให้ตรวจและแก้ก่อนส่ง เขียนตัวใหญ่ตามเส้นบรรทัด ทีละหนึ่งหรือสองบรรทัด อ่านได้แม่นกว่า
+        เขียนในกรอบด้วยนิ้ว ปากกา หรือ Apple Pencil (เมื่อใช้ปากกา ฝ่ามือที่วางบนจอจะไม่ถูกนับ) แล้วกด แปลงเป็นข้อความ ข้อความจะไปต่อท้ายในช่องคำตอบให้ตรวจและแก้ก่อนส่ง เขียนตัวใหญ่ตามเส้นบรรทัด ทีละหนึ่งหรือสองบรรทัด อ่านได้แม่นกว่า
       </p>
       <canvas
         ref={padRef}
         className="vmx-hand-pad"
-        style={{ height }}
+        style={fullscreen.on ? undefined : { height }}
         onPointerDown={down}
         onPointerMove={move}
         onPointerUp={up}
@@ -294,7 +302,10 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
           ถ่ายรูปที่เขียนบนกระดาษ
         </button>
         <input ref={fileRef} type="file" accept="image/*" capture="environment" className="vmx-sr-only" tabIndex={-1} aria-hidden="true" disabled={busy} onChange={onFile} />
-        <button type="button" onClick={() => setOpen(false)} disabled={busy}>ปิด</button>
+        <button type="button" onClick={fullscreen.toggle} aria-pressed={fullscreen.on} className="vmx-hand-fs">
+          <NavIcon name={fullscreen.on ? 'fullscreen-exit' : 'fullscreen'} size={16} /> {fullscreen.on ? 'ออกจากเต็มจอ' : 'เต็มจอ'}
+        </button>
+        <button type="button" onClick={() => { fullscreen.exit(); setOpen(false); }} disabled={busy}>ปิด</button>
         {status && <span className="vmx-hand-status" role="status">{status}</span>}
       </div>
     </div>
