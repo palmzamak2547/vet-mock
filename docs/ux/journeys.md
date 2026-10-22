@@ -185,6 +185,7 @@ the 63-214 ms feedback, the offline banner, the honest empty states, the five-ta
   `minmax(0, 1fr)` (red on production first: the column measured 405 px on a 360 px phone), `signInPlan` in
   lib/inapp.js (unit test), the review page's still-wrong button. What was checked is in
   docs/releases/5.159.0.md and its pull request.
-- Next, round two: item 4 (carry a shared /app/* destination through the year pick), items 5-6 (practice end
-  and results verdict: smoke.spec.js asserts the current dialog, update it in the same PR), item 7 (cookie dock).
+- Next, round two: item 4 (carry a shared /app/* destination through the year pick) and item 7 (cookie dock).
+  Items 5-6 and exam results' skipped questions moved to the app-teardown lane (owns ResultsView, ExamView,
+  Question.jsx), agreed 2026-10-22; that lane updates smoke.spec.js where it pins the submit dialog.
 - Perf baseline (section 4) before item 11.
