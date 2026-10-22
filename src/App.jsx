@@ -64,6 +64,7 @@ import { findAutoPromoteCandidates, makeLowEaseCard } from './lib/wrong-to-sr.js
 import { migrateUniqueTopicProgress } from './lib/study-progress.js';
 import { viewTitle } from './lib/nav.js';
 import { appPathForView, isAppPath, isUnknownAppPath, viewForAppPath, frontDoorFor } from './lib/view-route.js';
+import { rememberFrontDoorReturn } from './lib/phase-return.js';
 import { recordViewOpen } from './lib/nav-usage.js';
 import { isQuestionDeliverable } from './data/question-delivery.generated.js';
 import {
@@ -480,10 +481,13 @@ export default function App() {
       // Year-agnostic surfaces (library, videos, wiki, faculty) stay open.
       const routedView = viewForAppPath(window.location.pathname);
       if (routedView) {
-        return frontDoorFor(routedView, {
+        const door = frontDoorFor(routedView, {
           storedYearRaw: window.localStorage.getItem('vmx-selected-year'),
           seenLanding: window.localStorage.getItem('vmx-seen-landing'),
-        }) || routedView;
+        });
+        // The page the link named opens after the year (and phase) pick.
+        if (door) rememberFrontDoorReturn(routedView);
+        return door || routedView;
       }
       if (isAppPath(window.location.pathname)) {
         return frontDoorFor('home', {

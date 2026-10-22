@@ -3,7 +3,7 @@ import NavIcon from '../components/NavIcon.jsx';
 import { YEARS, SUBJECTS_BY_YEAR } from '../data/curriculum.js';
 import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 import { detectCurrentPhase } from '../lib/current-phase.js';
-import { peekPhaseReturn, takePhaseReturn } from '../lib/phase-return.js';
+import { peekPhaseReturn, takePhaseReturn, takeFrontDoorReturn } from '../lib/phase-return.js';
 
 // PhaseSelectView — second step of the year picker.
 // After user picks a year, they pick a 4-quadrant exam phase:
@@ -70,7 +70,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
               className="vmx-mode-card"
               onClick={() => {
                 setSelectedPhase(p.id);
-                setView(takePhaseReturn() || 'home');
+                setView(takePhaseReturn() || takeFrontDoorReturn() || 'home');
               }}
               style={{
                 borderColor: isPicked ? accent : (isCurrent ? 'var(--clr-rose)' : undefined),
@@ -119,7 +119,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
         {returnView
           ? <button className="vmx-btn vmx-btn-ghost" onClick={() => leaveTo(returnView)}>← กลับหน้าหัวข้อ</button>
           : <button className="vmx-btn vmx-btn-ghost" onClick={() => leaveTo('year-select')}>← เปลี่ยนปี</button>}
-        <button className="vmx-btn vmx-btn-ghost" onClick={() => { takePhaseReturn(); goHome(); }}>หน้าแรก</button>
+        <button className="vmx-btn vmx-btn-ghost" onClick={() => { takePhaseReturn(); takeFrontDoorReturn(); goHome(); }}>หน้าแรก</button>
       </div>
     </>
   );

@@ -487,6 +487,10 @@ test.describe('landing accessibility', () => {
     await page.goto('/?e2e-fresh=1');
 
     const consent = page.getByRole('region', { name: /remember where|จำที่ที่/ });
+    // Not over the hero question at first paint: the card waits for the first scroll.
+    await expect(page.locator('#lp-hero-q')).toBeVisible();
+    await expect(consent).toHaveCount(0);
+    await page.evaluate(() => window.scrollBy(0, 300));
     await expect(consent).toBeVisible();
     const consentBox = await consent.boundingBox();
     const viewport = page.viewportSize();

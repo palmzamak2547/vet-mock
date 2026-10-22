@@ -30,3 +30,24 @@ export function takePhaseReturn(storage = store()) {
   try { storage?.removeItem(PHASE_RETURN_KEY); } catch { /* nicety */ }
   return view;
 }
+
+// A shared /app/* link to a year-scoped page (study, review, progress, the
+// leaderboard) opened by someone who has not picked a year shows the front
+// door first, and after the year (and phase) pick the student landed on Home,
+// not the page the link named. The front door leaves that page here and the
+// pick goes there. Same rules as above: sessionStorage, these views only.
+export const FRONT_DOOR_RETURN_KEY = 'vmx-front-door-return';
+const FRONT_DOOR_VIEWS = new Set(['subject-select', 'sr-session', 'dashboard', 'leaderboard-global']);
+
+export function rememberFrontDoorReturn(view, storage = store()) {
+  try { if (FRONT_DOOR_VIEWS.has(view)) storage?.setItem(FRONT_DOOR_RETURN_KEY, view); } catch { /* nicety */ }
+}
+
+export function takeFrontDoorReturn(storage = store()) {
+  let view = null;
+  try {
+    view = storage?.getItem(FRONT_DOOR_RETURN_KEY);
+    storage?.removeItem(FRONT_DOOR_RETURN_KEY);
+  } catch { /* nicety */ }
+  return FRONT_DOOR_VIEWS.has(view) ? view : null;
+}

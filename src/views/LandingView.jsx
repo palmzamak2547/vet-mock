@@ -190,6 +190,14 @@ export default function LandingView({
     return () => document.documentElement.classList.remove('lp-motion-ready');
   }, []);
 
+  // The consent card waits for the first scroll. On a 390x844 phone it covered
+  // y 692-836 at first paint, over the hero question it asks the visitor to try
+  // (journeys J1). Nothing optional runs before a choice (consent stays 'ask'),
+  // so asking a moment later costs nothing; a visitor who never scrolls is
+  // simply never tracked. The nav's own sentinel says when the page has moved.
+  const [cookieDue, setCookieDue] = useState(false);
+  useEffect(() => { if (navScrolled) setCookieDue(true); }, [navScrolled]);
+
   // The compact consent summary swaps to a preferences panel. Move focus to
   // the first switch because the trigger itself is removed by that swap.
   useEffect(() => {
@@ -601,7 +609,7 @@ export default function LandingView({
       />
 
       {/* ---- Cookie consent (real) ---- */}
-      {cookieOpen && (
+      {cookieOpen && cookieDue && (
         <div className="lp-cookie-dock" role="region" aria-labelledby="lp-cookie-title">
           <div ref={cookiePanelRef} className="lp-cookie-card">
             {!cookiePrefs ? (
