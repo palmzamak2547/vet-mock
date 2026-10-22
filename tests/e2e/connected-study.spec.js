@@ -285,9 +285,8 @@ test.describe('connected study experience', () => {
     }
 
     expect(visualQuestions).toBe(2);
-    await page.getByRole('button', { name: 'ส่งข้อสอบ ✓', exact: true }).click();
-    const submitDialog = page.getByRole('dialog', { name: 'ส่งข้อสอบ?' });
-    await submitDialog.getByRole('button', { name: 'ส่งข้อสอบ', exact: true }).click();
+    // Every answer is in and shown, so the last button shows the result.
+    await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
     await expect(page.getByText('คะแนนตรวจอัตโนมัติ')).toBeVisible();
     await expect(page.getByText(new RegExp(`คุณพลาด ${introCount} ข้อในหัวข้อ "Intro to Vet Epidemiology"`))).toBeVisible();
     await expect(page.getByText(/epidem-intro/)).toHaveCount(0);
