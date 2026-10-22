@@ -475,3 +475,9 @@ textarea + .typing-hint.is-on { display: block; white-space: pre-wrap; }
 .typing-hint.is-holding .typing-caret { animation: caret-blink 1.06s steps(1) infinite; }
 @keyframes caret-blink { 50% { opacity: 0; } }
 [data-typing]::placeholder { color: transparent !important; }
+
+/* BusyLabel (components/bits.jsx): words and "busy" share one grid cell, so the button never resizes. */
+.busy-swap { display: inline-grid; }
+.busy-swap > span { grid-area: 1 / 1; display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
+.busy-b, .busy-swap[data-busy] > .busy-a { visibility: hidden; }
+.busy-swap[data-busy] > .busy-b { visibility: visible; }
