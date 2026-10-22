@@ -48,6 +48,9 @@
 //   B  build  npm run build
 //   C  dist   lint:dist, one step at a time: the contrast audits read the
 //             built bundle and each starts its own preview on one port.
+//             Then perf:budget, the gzip size budgets (perf-budgets.json)
+//             read from the build's manifest: no browser, same numbers on
+//             every machine.
 //   E  research (only when research/ moved, or --with-research)  the Research
 //             origin's unit suite in Bangkok and UTC, then its own build. A
 //             research/ change with no research/node_modules fails here with
@@ -545,8 +548,8 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
   if (built !== 0) return finish('the build failed', 1);
   if (moved('phase B')) return finish('tree changed', 1);
 
-  // C — lints that read dist/
-  const distSteps = resolveSteps(scripts, 'lint:dist');
+  // C — lints that read dist/, then the size budgets (perf-budgets.json), which read its manifest
+  const distSteps = [...resolveSteps(scripts, 'lint:dist'), ...resolveSteps(scripts, 'perf:budget')];
   log(`\n── phase C (dist): ${distSteps.length} step(s)`);
   t = Date.now();
   let distFailed = 0;
@@ -556,7 +559,7 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
   }
   timings.push(['C dist', Date.now() - t]);
   log(`── phase C (dist): ${seconds(Date.now() - t)}, ${distFailed} failed`);
-  if (distFailed) return finish(`${distFailed} lint:dist step(s) failed`, 1);
+  if (distFailed) return finish(`${distFailed} dist step(s) failed (lint:dist or perf:budget)`, 1);
   if (moved('phase C')) return finish('tree changed', 1);
 
   // E — the Research origin, when research/ moved or was asked for
