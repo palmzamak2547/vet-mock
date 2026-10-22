@@ -118,7 +118,8 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
   const physical = [
     mode.action !== 'read' ? (doc.storage_provider === 'external' ? 'ลิงก์ไปเว็บต้นทาง' : docTypeLabel(doc.mime)) : null,
     doc.page_count ? `${doc.page_count} หน้า` : null,
-    formatBytes(doc.byte_size),
+    // A link to a publisher's page has no file here, so no size (formatBytes would print "—").
+    doc.byte_size ? formatBytes(doc.byte_size) : null,
   ].filter(Boolean).join(', ');
   const description = cardDescription(doc, kindLabel(doc.kind));
 
