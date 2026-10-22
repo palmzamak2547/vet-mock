@@ -4,9 +4,11 @@
 // ============================================================
 // Runs after `vite build`. For each governed topic it writes
 //   dist/wiki/<subject>/<topic>/index.html
-// which is byte-identical to the built SPA shell EXCEPT for the <head>:
-// real <title>, description, canonical, Open Graph / Twitter tags and
-// Article JSON-LD for that specific article.
+// which is the built SPA shell with two differences: the <head> (real
+// <title>, description, canonical, Open Graph / Twitter tags and Article
+// JSON-LD for that article) and the body's <noscript>, which holds the
+// article itself for readers and crawlers without JavaScript (D6; browsers
+// that run scripts never render it, so the app's first paint is unchanged).
 //
 // Why this instead of migrating to a framework: the only thing an SPA
 // genuinely cannot do here is serve per-article metadata to a crawler or a
@@ -22,6 +24,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildOgHead, wikiArticleTitle } from './lib/og-head.mjs';
+import { articleNoscript } from './lib/wiki-static.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
@@ -33,6 +36,13 @@ if (!fs.existsSync(path.join(DIST, 'index.html'))) {
 }
 
 const shell = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8');
+// The body's generic <noscript> (right after #root); each article swaps in
+// its own readable copy (scripts/lib/wiki-static.mjs, owner decision D6).
+const BODY_NOSCRIPT = /(<div id="root"><\/div>\s*)<noscript>[\s\S]*?<\/noscript>/;
+if (!BODY_NOSCRIPT.test(shell)) {
+  console.error('prerender-wiki: the shell has no <noscript> after #root to replace');
+  process.exit(1);
+}
 
 const vw = await import(new URL('../src/lib/vetwiki/index.js', import.meta.url).href);
 const { SUBJECTS } = await import(new URL('../src/data/curriculum.js', import.meta.url).href);
@@ -76,6 +86,9 @@ for (const t of topics) {
     ...(prov.sources.length ? { citation: prov.sources.map(citationText) } : {}),
   };
   html = html.replace('</head>', `    <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>\n  </head>`);
+
+  const noscript = articleNoscript(k, { subjectName: subjectName(t.subject), sources: prov.sources, citation: citationText });
+  html = html.replace(BODY_NOSCRIPT, (_, root) => `${root}${noscript}`);
 
   const dir = path.join(DIST, 'wiki', t.subject, t.topic);
   fs.mkdirSync(dir, { recursive: true });
