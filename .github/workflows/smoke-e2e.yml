@@ -130,7 +130,15 @@ jobs:
       - name: Install Playwright browsers
         # Only the engine this runner uses: chromium (desktop + mobile),
         # webkit (real iOS Safari) or firefox (Gecko).
-        run: npx playwright install --with-deps ${{ matrix.browsers }}
+        # On 22 Oct the runners' first apt mirror (azure.archive.ubuntu.com) sent WebKit's system
+        # libraries at 75 kB/s: 117 MB took 25 min 51 s, every WebKit job ran into its 28-minute
+        # cap before or just after its first test, and apt only fell back to archive.ubuntu.com at
+        # the end. apt now starts from the Ubuntu archive, kept only when the list has another mirror.
+        run: |
+          if grep -v 'azure\.archive\.ubuntu\.com' /etc/apt/apt-mirrors.txt | grep -q .; then
+            sudo sed -i '/azure\.archive\.ubuntu\.com/d' /etc/apt/apt-mirrors.txt
+          fi
+          npx playwright install --with-deps ${{ matrix.browsers }}
 
       - name: Prepare software graphics
         run: sudo apt-get install -y libgl1-mesa-dri libglx-mesa0 libegl-mesa0 mesa-utils
