@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
 import { saveMotionPreferences, LOADER_CHOICES, CELEBRATION_CHOICES } from '../lib/motion-preferences.js';
+import { canVibrate } from '../lib/haptics.js';
 
 const names = { pawsteps: 'อุ้งเท้าเดิน', orbital: 'วงโคจร', pages: 'พลิกหน้า', heartbeat: 'ชีพจร', dots: 'จุดสามจุด', helix: 'เกลียวดีเอ็นเอ', skeleton: 'โครงเนื้อหา', progress: 'แถบความคืบหน้า', confetti: 'กระดาษโปรย', pawburst: 'อุ้งเท้า', fireflies: 'หิ่งห้อย', hearts: 'หัวใจ', streak: 'ดาว', chapter: 'จบบท' };
 export default function MotionSettings() {
@@ -28,6 +29,9 @@ export default function MotionSettings() {
         </select>
       </label>
       <label className="vmx-motion-checkbox"><input type="checkbox" checked={preferences.companion} onChange={e => save({ companion: e.target.checked })} />แสดง Mochi ในหน้าต่าง ๆ ของ VetMock</label>
+      {/* Only where a vibration can be felt (lib/haptics.js): an iPhone has
+          no vibration for websites, and a desktop has nothing to vibrate. */}
+      {canVibrate() && <label className="vmx-motion-checkbox"><input type="checkbox" checked={preferences.haptics} onChange={e => save({ haptics: e.target.checked })} />สั่นเบา ๆ เมื่อรู้ผลคำตอบในโหมดฝึก</label>}
       <p>เอฟเฟกต์ฉลองใช้เมื่อทำชุดฝึกสำเร็จ ส่วนโหมดสอบจะเก็บเฉลยไว้จนส่งคำตอบ แถบเปอร์เซ็นต์ใช้กับงานที่วัดความคืบหน้าได้เท่านั้น</p>
       {systemReduced && <p>อุปกรณ์เปิดการลดการเคลื่อนไหวอยู่ ทุกกิจกรรมจึงแสดงเป็นภาพนิ่ง</p>}
       <p className="vmx-motion-notice" role="status">{notice}</p>

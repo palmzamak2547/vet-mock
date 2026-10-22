@@ -7,7 +7,23 @@ export function buildMochi({ detail = 24 } = {}) {
   const palette = { cream: "#F8E3BD", muzzle: "#FFF0D6", caramel: "#CB955F", inner: "#DCA66E", blush: "#F0B08E", ink: "#38251B", green: "#446C47", darkgreen: "#2E4E35", gold: "#C5A05A", page: "#FFF4D9", pageLine: "#CABB96", pink: "#D88979" };
   for (const [k, color] of Object.entries(palette)) m[k] = new THREE.MeshStandardMaterial({ color, roughness: k === "ink" ? 0.27 : 0.78, metalness: k === "gold" ? 0.3 : 0 });
   const white = new THREE.MeshBasicMaterial({ color: "#FFFDF6" });
-  const ballGeo = new THREE.SphereGeometry(1, detail, Math.max(12, detail / 2));
+  // Tessellation from the eye, not a constant. A silhouette edge strays from
+  // the true curve by the sagitta r(1 - cos(pi/n)); in the buddy stage the
+  // head (1.01 units) is about 150 px in radius, so a part of s units is
+  // r = 150 s / 1.01 px, and n = pi / acos(1 - 0.35 / r) keeps it within
+  // 0.35 px: 48 around for the head (was 20: 1.8 px, a visible polygon), 36
+  // for an ear, 32 for an arm, and `detail` for glints and toe pads, whose
+  // error was already under a pixel. Rounded up to a multiple of 4 and shared
+  // per count; rows are two thirds of the columns (the ellipsoids are taller
+  // than wide).
+  const sphereCache = new Map();
+  const geoFor = (scale) => {
+    const r = 150 * Math.max(...scale) / 1.01;
+    const need = r > 0.35 ? Math.ceil(Math.PI / Math.acos(1 - 0.35 / r)) : detail;
+    const n = Math.min(48, Math.max(detail, Math.ceil(need / 4) * 4));
+    if (!sphereCache.has(n)) sphereCache.set(n, new THREE.SphereGeometry(1, n, Math.max(12, Math.round(n * 2 / 3))));
+    return sphereCache.get(n);
+  };
   const group = (name, parent, pos = [0, 0, 0]) => {
     let g = new THREE.Group();
     g.name = name;
@@ -17,7 +33,7 @@ export function buildMochi({ detail = 24 } = {}) {
     return g;
   };
   const ball = (name, parent, pos, scale, mat) => {
-    let o = new THREE.Mesh(ballGeo, mat);
+    let o = new THREE.Mesh(geoFor(scale), mat);
     o.name = name;
     o.position.set(...pos);
     o.scale.set(...scale);
@@ -28,15 +44,27 @@ export function buildMochi({ detail = 24 } = {}) {
   };
   const tube = (name, parent, points, r, mat) => {
     let curve = new THREE.CatmullRomCurve3(points.map((p) => new THREE.Vector3(...p)));
-    let o = new THREE.Mesh(new THREE.TubeGeometry(curve, Math.max(12, points.length * 5), r, 8, false), mat);
+    // 12 sides: an 8-sided tube (the tail, the stethoscope) showed its flats.
+    let o = new THREE.Mesh(new THREE.TubeGeometry(curve, Math.max(16, points.length * 6), r, 12, false), mat);
     o.name = name;
     o.castShadow = true;
     parent.add(o);
     return o;
   };
-  const shape = (name, parent, coords, depth, mat, pos = [0, 0, 0]) => {
+  // `round` softens each corner with a quadratic curve that uses that share
+  // of both edges meeting there (0 keeps it sharp, as the stars need).
+  const shape = (name, parent, coords, depth, mat, pos = [0, 0, 0], round = 0) => {
     let s = new THREE.Shape();
-    coords.forEach(([x, y], i) => i ? s.lineTo(x, y) : s.moveTo(x, y));
+    if (round > 0) {
+      const n = coords.length, at = (i) => coords[(i + n) % n], r = Math.min(round, 0.5);
+      const toward = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+      s.moveTo(...toward(at(0), at(-1), r));
+      for (let i = 0; i < n; i++) {
+        const v = at(i);
+        s.quadraticCurveTo(v[0], v[1], ...toward(v, at(i + 1), r));
+        s.lineTo(...toward(at(i + 1), v, r));
+      }
+    } else coords.forEach(([x, y], i) => i ? s.lineTo(x, y) : s.moveTo(x, y));
     s.closePath();
     let o = new THREE.Mesh(new THREE.ExtrudeGeometry(s, { depth, bevelEnabled: true, bevelSegments: 3, steps: 1, bevelSize: 0.035, bevelThickness: 0.025 }), mat);
     o.name = name;
@@ -73,9 +101,9 @@ export function buildMochi({ detail = 24 } = {}) {
     const a = i * Math.PI / 8;
     return [0.44 * Math.cos(a), 1.56, 0.33 * Math.sin(a)];
   }), 0.052, m.green);
-  shape("Bandana", body, [[-0.48, 1.58], [0.46, 1.58], [0.4, 1.37], [0, 1.08], [-0.4, 1.37]], 0.04, m.green, [0, 0, 0.387]);
+  shape("Bandana", body, [[-0.48, 1.58], [0.46, 1.58], [0.4, 1.37], [0, 1.08], [-0.4, 1.37]], 0.04, m.green, [0, 0, 0.387], 0.3);
   tube("ScarfFold", body, [[-0.43, 1.58, 0.43], [0, 1.47, 0.51], [0.43, 1.58, 0.43]], 0.023, m.darkgreen);
-  shape("ScarfKnot", body, [[0.43, 1.49], [0.7, 1.61], [0.68, 1.47], [0.82, 1.34], [0.57, 1.35]], 0.06, m.green, [0, 0, 0.11]);
+  shape("ScarfKnot", body, [[0.43, 1.49], [0.7, 1.61], [0.68, 1.47], [0.82, 1.34], [0.57, 1.35]], 0.06, m.green, [0, 0, 0.11], 0.3);
   paw(body, [0.065, 1.31, 0.46], 0.7, m.muzzle);
   tube("Stethoscope", body, [[-0.39, 1.56, 0.47], [-0.4, 1.19, 0.51], [-0.25, 0.92, 0.5], [0.1, 0.91, 0.53], [0.36, 1.15, 0.53], [0.37, 1.55, 0.46]], 0.028, m.darkgreen);
   ball("Chestpiece", body, [-0.17, 0.88, 0.57], [0.13, 0.13, 0.049], m.gold);
@@ -101,7 +129,7 @@ export function buildMochi({ detail = 24 } = {}) {
   }
   ball("MuzzleL", head, [-0.14, 0.295, 0.665], [0.265, 0.219, 0.12], m.muzzle);
   ball("MuzzleR", head, [0.14, 0.295, 0.665], [0.265, 0.219, 0.12], m.muzzle);
-  const nose = shape("Nose", head, [[-0.1, 0.435], [0.1, 0.435], [0.065, 0.378], [0, 0.345], [-0.065, 0.378]], 0.045, m.ink, [0, 0, 0.79]);
+  const nose = shape("Nose", head, [[-0.1, 0.435], [0.1, 0.435], [0.065, 0.378], [0, 0.345], [-0.065, 0.378]], 0.045, m.ink, [0, 0, 0.79], 0.4);
   tube("SmileL", head, [[0, 0.35, 0.82], [0, 0.25, 0.804], [-0.075, 0.19, 0.792], [-0.16, 0.205, 0.789], [-0.18, 0.24, 0.786]], 0.018, m.ink);
   tube("SmileR", head, [[0, 0.25, 0.804], [0.075, 0.19, 0.792], [0.16, 0.205, 0.789], [0.18, 0.24, 0.786]], 0.018, m.ink);
   const mouth = group("HappyMouth", head, [0, 0.145, 0.715]);
@@ -113,8 +141,8 @@ export function buildMochi({ detail = 24 } = {}) {
   for (const side of [-1, 1]) {
     const page = group(`BookPage${side}`, book);
     page.rotation.y = side * 0.24;
-    shape(`BookCover${side}`, page, [[0, -0.2], [side * 0.51, -0.13], [side * 0.51, 0.37], [0, 0.28]], 0.035, m.green, [0, 0, -0.025]);
-    shape(`Paper${side}`, page, [[side * 0.015, -0.15], [side * 0.465, -0.09], [side * 0.465, 0.34], [side * 0.015, 0.245]], 0.022, m.page, [0, 0, 0.038]);
+    shape(`BookCover${side}`, page, [[0, -0.2], [side * 0.51, -0.13], [side * 0.51, 0.37], [0, 0.28]], 0.035, m.green, [0, 0, -0.025], 0.12);
+    shape(`Paper${side}`, page, [[side * 0.015, -0.15], [side * 0.465, -0.09], [side * 0.465, 0.34], [side * 0.015, 0.245]], 0.022, m.page, [0, 0, 0.038], 0.12);
     for (let i = 0; i < 3; i++) tube(`Print${side}${i}`, page, [[side * 0.1, 0.19 - i * 0.09, 0.095], [side * 0.37, 0.235 - i * 0.09, 0.095]], 6e-3, m.pageLine);
   }
   const effects = group("Effects", root);
