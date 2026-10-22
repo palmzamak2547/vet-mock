@@ -357,7 +357,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
 
       <FeatureTip id="notes" />
 
-      <div className="vmx-notes-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(220px, 280px) 1fr', gap: 16, alignItems: 'flex-start' }}>
+      <div className="vmx-notes-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(220px, 280px) minmax(0, 1fr)', gap: 16, alignItems: 'flex-start' }}>
         {/* Topic sidebar. Up to 880px wide the picker at the top of the
             content column takes its place (CSS hides this one): stacked whole,
             it put a nested scroll box of subject pills between the student and

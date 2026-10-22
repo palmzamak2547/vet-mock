@@ -3450,6 +3450,9 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
    page scrolling at all from over the left menu. Below 880px the block after
    this one takes over and stacks the two. */
 .vmx-notes-sidebar { max-height: calc(100vh - 32px); overflow-y: auto; }
+/* Grid items default to min-width: auto; a wide table would push the column
+   past the screen instead of scrolling inside its own box. */
+.vmx-notes-grid > * { min-width: 0; }
 
 /* ────────── Responsive layouts for inline-grid views ────────── */
 @media (max-width: 880px) {
@@ -3459,7 +3462,9 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
      they arrived at a screen of navigation and had to scroll past all of it to
      reach the first line. Capping it keeps the picker reachable (it scrolls
      inside itself) while the article starts within the first screen. */
-  .vmx-notes-grid { grid-template-columns: 1fr !important; }
+  /* minmax(0, 1fr), not 1fr: 1fr is minmax(auto, 1fr), so a wide table set the
+     column to 405 px on a 360 px phone and the text was clipped on the right. */
+  .vmx-notes-grid { grid-template-columns: minmax(0, 1fr) !important; }
   /* No overscroll-behavior here on purpose: `contain` on an in-page panel
      swallows the wheel when its content happens to fit, which once stopped the
      page scrolling at all from over the left menu. That property belongs to

@@ -1,5 +1,10 @@
 # AGENTS.md — VetMock Project Guide
 
+## UX journeys 5.159.0 — 2026-10-22 (Claude Code)
+
+- Evidence, ranked opportunities and where the work stopped: `docs/ux/journeys.md` (5.159.0 shipped items 1-3; round two, items 4-7, and the perf baseline are next, section 6). Owner decision: glass is allowed on a few small chrome surfaces (nav, sheets, chips), never on reading text; no frame-costing change ships before the perf baseline in that file exists.
+- In app browsers (`src/lib/inapp.js` `signInPlan`): no Google button (Google refuses OAuth there), LINE login first inside LINE.
+
 ## Read-aloud from shared Gemini clips 5.155.0 — 2026-10-21 (Claude Code)
 
 - `speakQuestion` (src/lib/tts.js) first plays pre-generated clips (src/lib/tts-shared.js) from https://tts.vetmock.com (R2 bucket `vetmock-tts`, custom domain on the vetmock.com zone, CORS GET from any origin): stem, then "ตัวเลือก A" + option per row in screen order. Clip names are `clipKey(text)` from `src/lib/tts-text.js`; the generator `scripts/tts-clips.mjs` uses the same functions. Any change to `stripForSpeech`, `normalizeSymbols`, `expandUnits`, `clipText`, `optionLabel`, `questionLang` or `SHARED_TTS` renames every clip: rerun the generator for the covered subjects in the same release (`tests/unit/tts-shared.test.mjs` pins one name). Clips are `.mp4` (Cloudflare caches it by default; `.m4a` is never edge-cached).
