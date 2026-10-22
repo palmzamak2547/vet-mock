@@ -385,6 +385,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           />
           {mcqRevealed && (
             <InstantFeedback
+              // One panel per question: moving between two answered
+              // questions used to keep the first one's panel, and with it
+              // "answered just now".
+              key={compoundId}
               ok={mcqOk}
               run={answerRun}
               fresh={freshVerdict}
@@ -429,6 +433,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             </div>
             {tfRevealed && (
               <InstantFeedback
+                key={compoundId}
                 ok={tfOk}
                 run={answerRun}
                 fresh={freshVerdict}
