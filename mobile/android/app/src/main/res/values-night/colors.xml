@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The web's dark tokens (src/styles.css [data-theme="dark"]). -->
+<resources>
+    <color name="vmx_bg">#1A1612</color>
+    <color name="vmx_surface">#2B2419</color>
+    <color name="vmx_ink">#F0E6D2</color>
+    <color name="vmx_ink_soft">#B8A890</color>
+    <color name="vmx_sage">#7BA87B</color>
+    <color name="vmx_sage_text">#9BC99B</color>
+    <color name="vmx_gold_text">#E4BA73</color>
+    <color name="vmx_border">#4A3F30</color>
+</resources>

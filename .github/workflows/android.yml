@@ -1,0 +1,125 @@
+# ============================================================
+# Android app: build, unit tests and measurements on an emulator
+# ============================================================
+# Builds the app the way a release is built (R8, resource shrinking, the
+# baseline profile) from this commit's web build, runs the JVM unit tests,
+# then installs it on an x86_64 emulator and measures what
+# docs/ADR-android-app.md's beat table reports: cold and warm start, frames
+# while scrolling, memory, download size, a practice set online and in
+# airplane mode, unlabelled controls, and the frames of a dark-mode start.
+# Not a required check: it runs only when the app or its bridge changes.
+# The emulator renders on the CPU (no GPU on hosted runners), so frame times
+# here are a floor for comparisons between builds, not a phone's numbers.
+# ============================================================
+name: Android app
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'mobile/**'
+      - 'src/lib/native-app.js'
+      - 'scripts/app-bundle-manifest.mjs'
+      - '.github/workflows/android.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  app:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Web build (the app's bundle and its manifest)
+        run: npm ci --no-audit --no-fund && npm run build
+
+      - name: Put the build in the app
+        working-directory: mobile
+        run: |
+          npm ci --no-audit --no-fund && node scripts/fetch-bundle.mjs --dist ../dist && npx cap sync android
+          # This build only: the page's console goes to logcat, so a failed start shows its error.
+          node -e "const f='android/app/src/main/assets/capacitor.config.json',fs=require('fs'),c=JSON.parse(fs.readFileSync(f));c.loggingBehavior='production';fs.writeFileSync(f,JSON.stringify(c))"
+
+      - name: Release build and unit tests
+        working-directory: mobile/android
+        run: ./gradlew --no-daemon testReleaseUnitTest assembleRelease bundleRelease
+
+      - name: Sign the measured APK with a throwaway key
+        run: |
+          keytool -genkeypair -keystore ci.jks -alias ci -keyalg RSA -keysize 2048 -validity 2 \
+            -storepass ci-only-key -keypass ci-only-key -dname "CN=CI"
+          BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
+          "$BT/zipalign" -f 4 mobile/android/app/build/outputs/apk/release/app-release-unsigned.apk aligned.apk
+          "$BT/apksigner" sign --ks ci.jks --ks-pass pass:ci-only-key --out vetmock-ci.apk aligned.apk
+          curl -sSfL -o bundletool.jar https://github.com/google/bundletool/releases/download/1.18.3/bundletool-all-1.18.3.jar
+          sudo apt-get -y -qq install ffmpeg >/dev/null
+          python3 -m pip install --quiet pillow
+
+      - name: Store feature graphic, drawn from the web's art and font
+        run: |
+          google-chrome --headless=new --disable-gpu --hide-scrollbars --allow-file-access-from-files             --virtual-time-budget=4000 --window-size=1024,500 --screenshot="$PWD/feature-graphic.png"             "file://$PWD/mobile/store/feature-graphic.html"
+
+      - name: Enable KVM for the emulator
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Measure on the emulator
+        uses: ReactiveCircus/android-emulator-runner@v2.38.0
+        with:
+          api-level: 36
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          cores: 4
+          ram-size: 4096M
+          disable-animations: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -dns-server 8.8.8.8,1.1.1.1
+          script: python3 mobile/scripts/measure.py vetmock-ci.apk measure-out --aab mobile/android/app/build/outputs/bundle/release/app-release.aab --bundletool bundletool.jar
+
+      - name: Numbers in the run summary and on the pull request
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -f measure-out/results.json ]; then
+            python3 mobile/scripts/report.py measure-out/results.json > report.md
+          else
+            echo '## Android app on the emulator: no results, see the Measure step' > report.md
+          fi
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ github.event_name }}" = pull_request ]; then
+            gh pr comment "${{ github.event.pull_request.number }}" --body-file report.md || true
+          fi
+
+      - name: Keep the numbers, screenshots and builds
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: android-${{ github.sha }}
+          path: |
+            measure-out/
+            feature-graphic.png
+            vetmock-ci.apk
+            mobile/android/app/build/outputs/bundle/release/app-release.aab
+            mobile/android/app/build/reports/tests/
+          retention-days: 30

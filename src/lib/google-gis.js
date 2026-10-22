@@ -96,6 +96,8 @@ export function gisOriginAllowed(origin) {
  */
 export function isGoogleGisAvailable() {
   if (typeof window === 'undefined') return false;
+  // Inside the Android app Google refuses this popup; signInWithGoogle uses Android's account sheet there.
+  if (window.VetMockApp) return false;
   return !!import.meta.env.VITE_GOOGLE_CLIENT_ID && gisOriginAllowed(window.location.origin);
 }
 

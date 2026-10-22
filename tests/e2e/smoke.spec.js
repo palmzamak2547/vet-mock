@@ -229,12 +229,11 @@ test.describe('VetMock smoke flow', () => {
     await expect(page.getByRole('progressbar', { name: /ความคืบหน้า/ })).toBeVisible({ timeout: 15_000 });
     await expect(page.locator('.vmx-question-card')).toBeVisible();
     await answerCurrentQuestion(page);
-    // Last-question submit now opens a confirm dialog (guards accidental
-    // submission) — the exam button is "ส่งข้อสอบ ✓", the modal's confirm is
-    // exactly "ส่งข้อสอบ".
-    await page.getByRole('button', { name: /ส่งข้อสอบ ✓/ }).click();
-    await expect(page.getByRole('heading', { name: 'ส่งข้อสอบ?' })).toBeVisible();
-    await page.getByRole('button', { name: 'ส่งข้อสอบ', exact: true }).click();
+    // Practice with instant answers (the default) and every question
+    // answered: the last button shows the result, with no "ส่งข้อสอบ?" check
+    // (that dialog is for a paper, or for blanks: the next test).
+    await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
+    await expect(page.getByRole('heading', { name: 'ส่งข้อสอบ?' })).toHaveCount(0);
 
     await expect(page.getByText(
       /Auto-graded Score|Writing Practice Done|คะแนนตรวจอัตโนมัติ|ฝึกข้อเขียนเสร็จแล้ว/,

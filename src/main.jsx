@@ -1,5 +1,7 @@
 // First: supplies .at(), Object.hasOwn and AbortSignal.timeout on iOS 14-15 before any module uses them.
 import './lib/platform-compat.js'
+// Inside the Android app: window.VetMockApp and the WebView's missing APIs, before anything below reads them.
+import './lib/native-app.js'
 // Second: study data carried over from vetmock.vercel.app is merged before any module reads it.
 import './lib/origin-move.js'
 import React from 'react'

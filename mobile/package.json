@@ -1,0 +1,18 @@
+{
+  "name": "vetmock-mobile",
+  "private": true,
+  "type": "module",
+  "description": "The VetMock Android app: the vetmock.com web build inside a native shell (Capacitor). See docs/ADR-android-app.md.",
+  "scripts": {
+    "bundle": "node scripts/fetch-bundle.mjs",
+    "sync": "cap sync android",
+    "test": "node --test scripts/*.test.mjs"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.3",
+    "@capacitor/core": "8.5.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.3"
+  }
+}
