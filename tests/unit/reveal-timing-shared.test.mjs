@@ -31,8 +31,11 @@ const STUBS = [
   { match: '/lib/dialog\\.js$', contents: 'export const promptDialog = async () => null; export const alertDialog = async () => {};' },
   { match: '/lib/feedback-client\\.js$', contents: 'export const sendFeedback = async () => ({ ok: true });' },
   { match: 'MotionFeedback\\.jsx$', contents: 'export const MotionEnter = ({ children }) => children ?? null; export const useMotionFeedback = () => null;' },
+  // The verdict panel's reaction and vibration (5.160.0): still, silent here.
+  { match: '/hooks/useMotionPreferences\\.js$', contents: 'export const useMotionPreferences = () => ({ preferences: { mode: "auto", companion: true, haptics: false }, reduced: true });' },
+  { match: '/lib/haptics\\.js$', contents: 'export const haptic = () => false;' },
   ...['WikiLinkForQuestion', 'TermLinkedRichText', 'SmartPassage', 'NavIcon', 'ZoomableImage', 'VoiceInputButton',
-    'HandwritingInput', 'QSourceChip', 'PinButton', 'MissCoach', 'Mochi', 'AiGradePanel']
+    'HandwritingInput', 'QSourceChip', 'PinButton', 'MissCoach', 'Mochi', 'MochiLive', 'AiGradePanel']
     .map((name) => ({ match: `${name}\\.jsx$`, contents: nothing })),
 ];
 
