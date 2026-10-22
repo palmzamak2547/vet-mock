@@ -49,3 +49,12 @@ test('the whole figure stays inside a phone budget and every vertex is finite', 
   // Every state still poses the rig.
   for (const state of Object.keys(STATES)) model.applyPose(poseAt(state, STATES[state].duration * 0.4), 0);
 });
+
+test('a new pose keeps the Mochi element and its image instead of remounting it', async () => {
+  const { readFileSync } = await import('node:fs');
+  const source = readFileSync(new URL('../../src/components/Mochi.jsx', import.meta.url), 'utf8');
+  // Keyed by pose, every pose change unmounted the picture: "seen" reset to
+  // false and the slot was empty until the observer fired again.
+  assert.doesNotMatch(source, /<Picture key=\{pose\}/);
+  assert.match(source, /if \(shownPose !== pose\)/);
+});
