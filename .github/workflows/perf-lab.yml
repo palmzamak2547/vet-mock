@@ -1,0 +1,97 @@
+# Scratch measuring bench for the performance budgets. Lives on scratch/perf-lab-* branches only, never on main.
+# Every step is allowed to fail so that a mistake in the bench cannot send a "run failed" mail; the numbers are
+# in the log and in the artifact.
+name: perf-lab
+on:
+  push:
+    branches: ['scratch/perf-lab-*']
+
+jobs:
+  lab:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: 'npm'
+      - name: Install deps
+        run: npm ci --no-audit
+      - name: Install Chromium
+        run: |
+          if grep -v 'azure\.archive\.ubuntu\.com' /etc/apt/apt-mirrors.txt | grep -q .; then
+            sudo sed -i '/azure\.archive\.ubuntu\.com/d' /etc/apt/apt-mirrors.txt
+          fi
+          npx playwright install --with-deps chromium
+          sudo apt-get install -y libgl1-mesa-dri libglx-mesa0 libegl-mesa0 mesa-utils
+      - name: Build
+        run: npm run build
+
+      - name: Sizes from this build (writes the bundle section)
+        continue-on-error: true
+        run: |
+          node scripts/perf-budget.mjs --write
+          npm run perf:budget
+
+      - name: Inventory of lazy chunks and what each page requests
+        continue-on-error: true
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: |
+          node lab-scripts/inventory.mjs
+          (npx vite preview --outDir dist --host 127.0.0.1 --port 25777 --strictPort > preview.log 2>&1 &)
+          for i in $(seq 1 40); do curl -sf http://127.0.0.1:25777/ > /dev/null && break; sleep 0.5; done
+          for dev in mobile desktop; do xvfb-run --auto-servernum node lab-scripts/explore.mjs http://127.0.0.1:25777 $dev "/,/wiki/com5/rabies,/wiki,/app/study"; done > explore.log 2>&1 || true
+          cat explore.log
+          echo ---- mapped to chunks
+          node lab-scripts/mapreq.mjs explore.log
+          pkill -f "vite preview" || true
+
+      - name: Browser budgets, desktop (writes firstLoad and cls)
+        continue-on-error: true
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          UPDATE_PERF_BUDGETS: '1'
+        run: xvfb-run --auto-servernum npx playwright test tests/e2e/perf-budget.spec.js --project=chromium-desktop --workers=1 --retries=0 --reporter=list
+      - name: Browser budgets, mobile (writes firstLoad and cls)
+        continue-on-error: true
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+          UPDATE_PERF_BUDGETS: '1'
+        run: xvfb-run --auto-servernum npx playwright test tests/e2e/perf-budget.spec.js --project=chromium-mobile --workers=1 --retries=0 --reporter=list
+
+      - name: The budgets file this build produced
+        continue-on-error: true
+        run: cat perf-budgets.json
+
+      - name: Unit tests of the budget logic, in UTC
+        continue-on-error: true
+        env:
+          TZ: UTC
+        run: node --import ./tests/unit/setup-generated.mjs --test tests/unit/perf-budget.test.mjs tests/unit/gate.test.mjs tests/unit/project-docs.test.mjs tests/unit/e2e-clock-pin.test.mjs
+
+      - name: The check itself, as Build runs it
+        continue-on-error: true
+        run: npm run perf:budget
+
+      - name: Same spec again, judged against those budgets, 3 rounds per project
+        continue-on-error: true
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: |
+          for round in 1 2 3; do
+            for project in chromium-desktop chromium-mobile; do
+              echo "---- round $round $project"
+              xvfb-run --auto-servernum npx playwright test tests/e2e/perf-budget.spec.js --project=$project --workers=1 --retries=0 --reporter=list || echo "ROUND FAILED $round $project"
+            done
+          done
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: perf-lab
+          path: |
+            perf-budgets.json
+            explore.log
+          retention-days: 7
