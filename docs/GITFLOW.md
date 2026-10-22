@@ -25,7 +25,7 @@ and each ran a ~70 min local gate; now:
    (`C:\dev\heavy-gate.lock`, held 35-45 min by other projects' gates) and the RAM floor: on 2026-10-22
    six finished changes sat unmerged for hours. Run a spec locally only to debug a CI failure.
    `npm run gate` stays for that, and for anyone who wants local evidence: phases A-C (data, unit in
-   Bangkok and UTC, build, contrast, Research when research/ changed), then every e2e spec on Chromium
+   Bangkok and UTC, build, contrast and size budgets, Research when research/ changed), then every e2e spec on Chromium
    desktop and phone (about 13 min; it used to be smoke plus the specs a branch touched, and PR #42 went
    red in CI in a spec it never touched). Its ports are derived from the worktree path
    (`tests/e2e/local-port.js`). `npm run gate:full` runs the full four-profile matrix.
@@ -42,6 +42,30 @@ and each ran a ~70 min local gate; now:
    skips non-production builds (`vercel.json`, `research/vercel.json`, `vca/scripts/vercel-ignore.sh`).
 7. **Prove it** (unchanged): exact-SHA CI, the Vercel production deployment, the live flow on
    vetmock.com, recorded in `docs/releases/<version>.md`. A merge is not proof.
+8. **Performance budgets** (2026-10-22): smoothness must not regress, and the check must never be the thing
+   that is flaky, so CI fails only on numbers a machine cannot move, and timings are measured by hand.
+   - *What CI enforces* (`perf-budgets.json`, the measured number written beside every budget):
+     the gzip size of the JavaScript and CSS of the first load and of the key lazy views (Home, the exam,
+     results, a VetWiki article), read from the build's manifest by `npm run perf:budget` (a step of Build,
+     and phase C of `npm run gate`, no browser); Home's request count and image bytes on a first visit; and
+     layout shift (CLS) of Home, a practice set, its results and `/wiki/com5/rabies`, the median of 3 fresh
+     visits against 0.01 (`tests/e2e/perf-budget.spec.js`, Chromium projects of Smoke e2e; other hosts are
+     aborted, so a font CDN cannot move it). A page that is above 0.01 today is budgeted at its measured value,
+     so the check is green on the day it lands, and AGENTS.md lists the gap as work to do.
+   - *Changing a budget* needs a measured reason in the pull request body. Measure again
+     (`node scripts/perf-budget.mjs --write` for sizes; `UPDATE_PERF_BUDGETS=1 npx playwright test
+     tests/e2e/perf-budget.spec.js --project=chromium-desktop --workers=1`, then `chromium-mobile`, for the rest) and
+     commit the file. `tests/unit/perf-budget.test.mjs` rejects a budget that is not its measured value plus the
+     stated rule (3%, or 0.01 for CLS), so a looser number cannot be typed in. A breach is fixed at its cause, not rerun.
+   - *Timing, by hand, never in CI*: `npm run perf` (`scripts/perf.mjs`) runs headed Chromium with the GPU, a 4x CPU
+     throttle and a 390x844 touch context, median of 5, under `C:\dev\heavy-gate.lock` (a runner has no GPU, and
+     headless Chromium times transform and opacity animations on the main thread). It measures the slowest
+     interaction (Event Timing) on answer, next, the exam map and a tab bar navigation, LCP of Home and of a VetWiki
+     article, long tasks over 50 ms during the interactions, and frame times while scrolling and while a screen
+     changes. A metric fails only when it is above `perf-baseline.json` by more than max(3 x its median absolute
+     deviation, 5%, 2 ms), after the slower scenario is measured again and the runs are pooled.
+     `npm run perf -- --update` records a new baseline after a change that moves timings on purpose.
+     **Every release pull request body includes the table `npm run perf` prints.**
 
 Rules that stay:
 
