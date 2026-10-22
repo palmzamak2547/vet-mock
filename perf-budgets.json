@@ -1,0 +1,182 @@
+{
+  "about": "The performance budgets CI fails on. A budget is an alarm, not a target: it sits at the size measured when it was set plus a stated headroom, with the measured number beside it. Raise one only with a measured reason in the pull request (docs/GITFLOW.md section 1). tests/unit/perf-budget.test.mjs rejects a budget that is not exactly its measured value plus the rule, so a looser number cannot be typed in. bundle is rewritten by node scripts/perf-budget.mjs --write; firstLoad and cls by UPDATE_PERF_BUDGETS=1 npx playwright test tests/e2e/perf-budget.spec.js (one --project at a time, --workers=1).",
+  "headroom": 0.03,
+  "bundle": {
+    "about": "gzip level 9, Node zlib, each file on its own, from dist/.vite/manifest.json (npm run perf:budget). A route is its manifest entries (a key, or a chunk name) with their static imports and CSS; `after` leaves out what that route already loaded, so a lazy view counts what opening it adds to a visit that has the first load.",
+    "routes": {
+      "firstLoad": {
+        "label": "First load: index.html's entry chunk, its static imports and their CSS",
+        "entries": [
+          "index.html"
+        ],
+        "js": {
+          "measured": 217827,
+          "budget": 224400
+        },
+        "css": {
+          "measured": 44071,
+          "budget": 45400
+        }
+      },
+      "atlas": {
+        "label": "Atlas page (atlas.html) first load",
+        "entries": [
+          "atlas.html"
+        ],
+        "js": {
+          "measured": 90685,
+          "budget": 93500
+        },
+        "css": {
+          "measured": 47842,
+          "budget": 49300
+        }
+      },
+      "home": {
+        "label": "Home view, opened after the first load",
+        "entries": [
+          "HomeView"
+        ],
+        "after": "firstLoad",
+        "js": {
+          "measured": 81994,
+          "budget": 84500
+        },
+        "css": {
+          "measured": 0,
+          "budget": 0
+        }
+      },
+      "exam": {
+        "label": "Practice and exam view, opened after the first load",
+        "entries": [
+          "ExamView"
+        ],
+        "after": "firstLoad",
+        "js": {
+          "measured": 143025,
+          "budget": 147400
+        },
+        "css": {
+          "measured": 0,
+          "budget": 0
+        }
+      },
+      "results": {
+        "label": "Results view, opened after the first load",
+        "entries": [
+          "ResultsView"
+        ],
+        "after": "firstLoad",
+        "js": {
+          "measured": 43263,
+          "budget": 44600
+        },
+        "css": {
+          "measured": 0,
+          "budget": 0
+        }
+      },
+      "wikiIndex": {
+        "label": "VetWiki index (/wiki), opened after the first load: the view alone",
+        "entries": [
+          "KnowledgeView"
+        ],
+        "after": "firstLoad",
+        "js": {
+          "measured": 118532,
+          "budget": 122100
+        },
+        "css": {
+          "measured": 11958,
+          "budget": 12400
+        }
+      },
+      "wikiArticle": {
+        "label": "VetWiki article (/wiki/com5/rabies), opened after the first load: the view and what an article loads with it (the adapter, the subject's text, the conflict note)",
+        "entries": [
+          "KnowledgeView",
+          "src/lib/vetwiki/runtime-adapter.js",
+          "src/lib/vetwiki/runtime-data/subject-com5.generated.js",
+          "src/components/ConflictNote.jsx"
+        ],
+        "after": "firstLoad",
+        "js": {
+          "measured": 162324,
+          "budget": 167200
+        },
+        "css": {
+          "measured": 11958,
+          "budget": 12400
+        }
+      }
+    }
+  },
+  "firstLoad": {
+    "about": "Home on a first visit, Chromium, median of 3 fresh contexts, any request to another host aborted (it still counts as a request). Requests: all http(s) requests started until the screen has settled and the network gone quiet. Image bytes: same-origin image responses. tests/e2e/perf-budget.spec.js.",
+    "projects": {
+      "chromium-desktop": {
+        "requests": {
+          "measured": 136,
+          "budget": 141
+        },
+        "imageBytes": {
+          "measured": 1479720,
+          "budget": 1524200
+        }
+      },
+      "chromium-mobile": {
+        "requests": {
+          "measured": 136,
+          "budget": 141
+        },
+        "imageBytes": {
+          "measured": 1479720,
+          "budget": 1524200
+        }
+      }
+    }
+  },
+  "cls": {
+    "about": "Layout shift (Layout Instability API, shifts within 500 ms of a tap or key left out), median of 3 first visits. The budget is the limit, or, where a page is not under it yet, its measured value (AGENTS.md lists the gap). tests/e2e/perf-budget.spec.js.",
+    "limit": 0.01,
+    "projects": {
+      "chromium-desktop": {
+        "home": {
+          "measured": 0,
+          "budget": 0.01
+        },
+        "practice": {
+          "measured": 0,
+          "budget": 0.01
+        },
+        "results": {
+          "measured": 0,
+          "budget": 0.01
+        },
+        "wikiArticle": {
+          "measured": 0,
+          "budget": 0.01
+        }
+      },
+      "chromium-mobile": {
+        "home": {
+          "measured": 0,
+          "budget": 0.01
+        },
+        "practice": {
+          "measured": 0,
+          "budget": 0.01
+        },
+        "results": {
+          "measured": 0,
+          "budget": 0.01
+        },
+        "wikiArticle": {
+          "measured": 0,
+          "budget": 0.01
+        }
+      }
+    }
+  }
+}

@@ -9,6 +9,15 @@ Palm asked why VetMock ships slowly. Measured that day: no merge after 06:29 whi
 - After each merge, watch main's push CI for that commit: red means fix forward or revert at once.
 - VetMock does not use `C:\dev\heavy-gate.next` (Tipjai's turn file).
 
+## Performance budgets — 2026-10-22 (Claude Code)
+
+- Palm's goal: VetMock as smooth as any web app or app has been. The budget stops smoothness from regressing; it is an alarm, not a target, and it must never turn CI red for a reason that is not the code. The rule is `docs/GITFLOW.md` section 1, item 8; this is the map.
+- CI fails on `perf-budgets.json`, each budget written beside the number it was set from (`tests/unit/perf-budget.test.mjs` rejects a budget that is not exactly that number plus the rule). Sizes: gzip JavaScript and CSS of the first load and of Home, the exam, results and a VetWiki article, read from `dist/.vite/manifest.json` by `npm run perf:budget` (a Build step and phase C of the gate; no browser, so it cannot flake). Routes are named by chunk name, not manifest key: a chunk that another chunk also imports statically loses its source path and is keyed `_Name-<hash>.js`. In the browser (`tests/e2e/perf-budget.spec.js`, Chromium projects of Smoke e2e, median of 3 fresh contexts, every other host aborted): Home's requests and image bytes on a first visit, and CLS of Home, a practice set, its results and `/wiki/com5/rabies`.
+- Timings are by hand, never in CI (no GPU on a runner, and headless Chromium times transform and opacity animations on the main thread): `npm run perf` (`scripts/perf.mjs`) against `perf-baseline.json`, under `C:\dev\heavy-gate.lock`; `npm run perf -- --update` after a change that moves timings on purpose; a release pull request body carries the table it prints.
+- Shared logic is `scripts/lib/perf-logic.mjs` (sizes, medians, the allowance) and `scripts/lib/perf-browser.mjs` (what "the screen has settled" means for both the spec and the script).
+- Gaps, work to do: GAPS.
+- Learned while building it: Playwright's `networkidle` fires once per navigation and stays fired, so work the app starts later (the idle prefetch of the next screens) is invisible to it; the budgets watch requests instead. Event Timing rounds an interaction to 8 ms and a frame time is a whole number of display refreshes, so those two metrics may not move by less than one step.
+
 ## UX journeys 5.159.0 — 2026-10-22 (Claude Code)
 
 - Evidence, ranked opportunities and where the work stopped: `docs/ux/journeys.md` (5.159.0 shipped items 1-3; round two, items 4-7, and the perf baseline are next, section 6). Owner decision: glass is allowed on a few small chrome surfaces (nav, sheets, chips), never on reading text; no frame-costing change ships before the perf baseline in that file exists.

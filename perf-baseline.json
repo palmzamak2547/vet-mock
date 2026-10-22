@@ -1,0 +1,159 @@
+{
+  "about": "Timing baseline for npm run perf (scripts/perf.mjs): the median and median absolute deviation of each metric over the runs. A metric fails when its median goes above this median by more than max(3 x mad, 5% of the median, 2 ms); the last term is 1 for a count, 8 ms for an interaction (Event Timing rounds to 8) and one display refresh (meta.frameMs) for a frame time. Written by npm run perf -- --update, on the machine named in meta; never compare it with a run on another machine or without the GPU.",
+  "meta": {
+    "recordedAt": "2026-10-22T13:14:43.333Z",
+    "commit": "3f099e6fecae096ca6a42e4aedab759cffec238c",
+    "appFilesChangedSinceCommit": 0,
+    "machine": "13th Gen Intel(R) Core(TM) i5-13420H x12",
+    "memoryGB": 32,
+    "chromium": "153.0.8010.12",
+    "node": "v24.22.1",
+    "refreshHz": 164,
+    "frameMs": 6.1,
+    "viewport": "390x844 @3x, isMobile, hasTouch",
+    "cpuThrottle": 4,
+    "runs": 5
+  },
+  "metrics": {
+    "answer.inp": {
+      "scenario": "journey",
+      "unit": "event",
+      "median": 192,
+      "mad": 8,
+      "n": 5
+    },
+    "home.lcp": {
+      "scenario": "journey",
+      "unit": "ms",
+      "median": 2096,
+      "mad": 108,
+      "n": 5
+    },
+    "home.scrollOver50": {
+      "scenario": "journey",
+      "unit": "count",
+      "median": 1,
+      "mad": 0,
+      "n": 5
+    },
+    "home.scrollP95": {
+      "scenario": "journey",
+      "unit": "frame",
+      "median": 12.1,
+      "mad": 0.2,
+      "n": 5
+    },
+    "interactions.blocking": {
+      "scenario": "journey",
+      "unit": "ms",
+      "median": 200,
+      "mad": 79,
+      "n": 5
+    },
+    "interactions.longTasks": {
+      "scenario": "journey",
+      "unit": "count",
+      "median": 7,
+      "mad": 2,
+      "n": 5
+    },
+    "navigate.frameOver50": {
+      "scenario": "journey",
+      "unit": "count",
+      "median": 3,
+      "mad": 0,
+      "n": 5
+    },
+    "navigate.frameP95": {
+      "scenario": "journey",
+      "unit": "frame",
+      "median": 30.1,
+      "mad": 0.4,
+      "n": 5
+    },
+    "navigate.inp": {
+      "scenario": "journey",
+      "unit": "event",
+      "median": 72,
+      "mad": 8,
+      "n": 5
+    },
+    "next.inp": {
+      "scenario": "journey",
+      "unit": "event",
+      "median": 72,
+      "mad": 8,
+      "n": 5
+    },
+    "practice.openOver50": {
+      "scenario": "journey",
+      "unit": "count",
+      "median": 2,
+      "mad": 0,
+      "n": 5
+    },
+    "practice.openP95": {
+      "scenario": "journey",
+      "unit": "frame",
+      "median": 24.1,
+      "mad": 0.1,
+      "n": 5
+    },
+    "results.openOver50": {
+      "scenario": "journey",
+      "unit": "count",
+      "median": 3,
+      "mad": 1,
+      "n": 5
+    },
+    "results.openP95": {
+      "scenario": "journey",
+      "unit": "frame",
+      "median": 30.2,
+      "mad": 6.1,
+      "n": 5
+    },
+    "results.scrollOver50": {
+      "scenario": "journey",
+      "unit": "count",
+      "median": 0,
+      "mad": 0,
+      "n": 5
+    },
+    "results.scrollP95": {
+      "scenario": "journey",
+      "unit": "frame",
+      "median": 12.2,
+      "mad": 0.1,
+      "n": 5
+    },
+    "sheet.inp": {
+      "scenario": "journey",
+      "unit": "event",
+      "median": 80,
+      "mad": 0,
+      "n": 5
+    },
+    "wiki.lcp": {
+      "scenario": "wiki",
+      "unit": "ms",
+      "median": 2148,
+      "mad": 172,
+      "n": 5
+    },
+    "wiki.scrollOver50": {
+      "scenario": "wiki",
+      "unit": "count",
+      "median": 0,
+      "mad": 0,
+      "n": 5
+    },
+    "wiki.scrollP95": {
+      "scenario": "wiki",
+      "unit": "frame",
+      "median": 12.2,
+      "mad": 0.1,
+      "n": 5
+    }
+  }
+}
