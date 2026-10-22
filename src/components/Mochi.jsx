@@ -9,6 +9,17 @@ function Picture({ pose, size, animate, reduced, slot, className }) {
   const [loaded, setLoaded] = useState(false);
   const [failures, setFailures] = useState(0);
   const [settled, setSettled] = useState(!animate || reduced);
+  // A new pose keeps this element, its "seen" and the image on screen: the
+  // browser paints the old pose until the new file has decoded, where a
+  // remount (it was keyed by pose) blanked the slot for a frame or two each
+  // time a review card turned or a verdict came in.
+  const [shownPose, setShownPose] = useState(pose);
+  if (shownPose !== pose) {
+    setShownPose(pose);
+    setLoaded(false);
+    setFailures(0);
+    setSettled(!animate || reduced);
+  }
   useEffect(() => {
     if (typeof IntersectionObserver === 'undefined') { setSeen(true); return; }
     const observer = new IntersectionObserver(entries => {
@@ -48,6 +59,6 @@ const Mochi = memo(function Mochi({ state, size = 44, animate = false, slot = 'i
   const enabled = mochiEnabled(preferences, context, slot);
   if (!enabled) return fallback;
   const pose = state || context.pose;
-  return <Picture key={pose} {...{ pose, size, animate, reduced, slot, className }} />;
+  return <Picture {...{ pose, size, animate, reduced, slot, className }} />;
 });
 export default Mochi;
