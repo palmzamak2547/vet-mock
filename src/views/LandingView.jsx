@@ -197,6 +197,18 @@ export default function LandingView({
   // simply never tracked. The nav's own sentinel says when the page has moved.
   const [cookieDue, setCookieDue] = useState(false);
   useEffect(() => { if (navScrolled) setCookieDue(true); }, [navScrolled]);
+  // The hero question itself leaving the screen upward is the second signal:
+  // on mobile WebKit the nav sentinel alone never reported a scroll (CI, 22 Oct).
+  useEffect(() => {
+    if (!cookieOpen || cookieDue) return undefined;
+    const hero = document.getElementById('lp-hero-q');
+    if (!hero || !('IntersectionObserver' in window)) { setCookieDue(true); return undefined; }
+    const io = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting && entry.boundingClientRect.top < 0) setCookieDue(true);
+    });
+    io.observe(hero);
+    return () => io.disconnect();
+  }, [cookieOpen, cookieDue]);
 
   // The compact consent summary swaps to a preferences panel. Move focus to
   // the first switch because the trigger itself is removed by that swap.
