@@ -89,6 +89,17 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: python3 mobile/scripts/measure.py vetmock-ci.apk measure-out --aab mobile/android/app/build/outputs/bundle/release/app-release.aab --bundletool bundletool.jar
 
+      - name: Numbers in the run summary
+        if: always()
+        run: |
+          {
+            echo '## Android app measurements (emulator, CPU rendering)'
+            echo
+            echo '```json'
+            cat measure-out/results.json 2>/dev/null || echo '{"error": "no results: see the Measure step"}'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Keep the numbers, screenshots and builds
         if: always()
         uses: actions/upload-artifact@v7
