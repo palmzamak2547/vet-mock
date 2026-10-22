@@ -1,7 +1,7 @@
 import { examScopeLabel } from '../lib/question-prediction.js';
 import { scopeOfQuestion } from '../lib/exam-scope.js';
 import { useRef, useState, useEffect, useMemo } from 'react';
-import { subjectText } from '../hooks/utils.js';
+import { subjectText, isAnswered } from '../hooks/utils.js';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
 import WikiLinkForQuestion from './WikiLinkForQuestion.jsx';
@@ -21,8 +21,11 @@ import { promptDialog, alertDialog } from '../lib/dialog.js';
 import { sendFeedback } from '../lib/feedback-client.js';
 import MatchDragDrop from './MatchDragDrop.jsx';
 import MissCoach from './MissCoach.jsx';
-import Mochi from './Mochi.jsx';
+import MochiLive from './MochiLive.jsx';
 import { MotionEnter, useMotionFeedback } from './MotionFeedback.jsx';
+import { feedbackReaction, COMBO_MIN } from '../lib/mochi-reactions.js';
+import { haptic } from '../lib/haptics.js';
+import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
 
 // Q-flag persistence — stored in localStorage as { 'subject:id': { reason, ts } }.
 // Cross-machine sync needs Supabase schema; deferred to a future session.
@@ -62,7 +65,15 @@ const TYPE_LABEL = {
   essay: 'เขียนบรรยาย',
 };
 
-export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki }) {
+export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0 }) {
+  // A verdict is fresh when this visit to the question began unanswered: the
+  // student answered it just now. Coming back to a question answered earlier
+  // shows its verdict again, but Mochi does not react and the phone stays
+  // still. A new question id starts a new visit (this component is not
+  // remounted between questions); recording it during render is idempotent.
+  const visit = useRef({ id: null, startedAnswered: false });
+  if (visit.current.id !== currentQ?.id) visit.current = { id: currentQ?.id, startedAnswered: isAnswered(currentAnswer) };
+  const freshVerdict = !visit.current.startedAnswered && isAnswered(currentAnswer);
   // Count presses, not the value. This component is not remounted between
   // questions, so keying the "saved" bounce to isBookmarked replayed it on
   // plain navigation onto (or off) an already-bookmarked question — a save
@@ -374,7 +385,13 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
           />
           {mcqRevealed && (
             <InstantFeedback
+              // One panel per question: moving between two answered
+              // questions used to keep the first one's panel, and with it
+              // "answered just now".
+              key={compoundId}
               ok={mcqOk}
+              run={answerRun}
+              fresh={freshVerdict}
               correctNode={Array.isArray(currentQ.options) && <RichText text={currentQ.options[currentQ.answer]} />}
               explain={currentQ.explain}
               figure={explainFigure}
@@ -416,7 +433,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             </div>
             {tfRevealed && (
               <InstantFeedback
+                key={compoundId}
                 ok={tfOk}
+                run={answerRun}
+                fresh={freshVerdict}
                 correctNode={<>{correctIsTrue ? '✓ True' : '✗ False'}</>}
                 // Say what the statement was even when the student got it
                 // right: on a true/false question "คุณตอบถูก" and "ข้อความนี้ผิด"
@@ -838,7 +858,16 @@ function MCQOptions({ currentQ, currentAnswer, answerCurrent, revealed }) {
 // Shows ✓/✗ headline, the correct answer when missed, and q.explain.
 // Mirrors ReviewView's answer rows so the visual language carries over
 // when the student later opens full review.
-function InstantFeedback({ ok, correctNode, explain, figure = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
+function InstantFeedback({ ok, run = 0, fresh = false, correctNode, explain, figure = null, coach, wikiLink, subject, alwaysShowCorrect = false }) {
+  // The panel mounts once per revealed answer; whether that answer was given
+  // just now is fixed at mount, so a later re-render cannot replay anything.
+  const [isFresh] = useState(fresh);
+  const reaction = feedbackReaction({ ok, run });
+  const { preferences } = useMotionPreferences();
+  useEffect(() => {
+    if (isFresh) haptic(reaction.haptic, preferences);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once per revealed answer
+  const combo = ok && run >= COMBO_MIN;
   return (
     <MotionEnter effect="reveal" className={`vmx-instant-feedback ${ok ? 'is-ok' : 'is-no'}`} role="status">
       <div className="vmx-feedback-header">
@@ -847,10 +876,13 @@ function InstantFeedback({ ok, correctNode, explain, figure = null, coach, wikiL
               sat above it said the same thing a second time in a language the
               card does not otherwise speak. */}
           <div className="v">{ok ? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง'}</div>
+          {/* How many correct in a row ends here, counted from the set's own
+              verdicts (lib/mochi-reactions.js correctRun). */}
+          {combo && <span className={`vmx-combo-chip${isFresh ? ' is-fresh' : ''}`}>ถูกติดกัน {run} ข้อ</span>}
         </div>
         <div className="vmx-feedback-stamp-wrapper">
           <div className={`vmx-mochi-stamp--${ok ? 'pass' : 'revise'}`} title={ok ? 'ตราของ Mochi: ถูกแล้ว' : 'ตราของ Mochi: ลองอีกครั้ง'}>
-            <Mochi state={ok ? 'correct' : 'encourage'} size={40} slot="feedback" animate className="vmx-feedback-mochi" />
+            <MochiLive pose={reaction.pose} play={isFresh ? reaction.play : null} size={40} slot="feedback" className="vmx-feedback-mochi" />
             <span className="vmx-stamp-label">{ok ? 'ถูกแล้ว' : 'ลองอีกที'}</span>
           </div>
         </div>

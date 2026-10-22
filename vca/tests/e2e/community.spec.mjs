@@ -287,3 +287,37 @@ test('the length badge on a video keeps off the native controls and goes while i
   await box.locator('video').evaluate((v) => v.pause());
   await expect(badge).toBeVisible();
 });
+
+// Inside LINE's, Facebook's or Instagram's own browser, Google refuses to sign anyone in: LINE
+// comes first, and Google becomes a way out to the phone's browser.
+test.describe('in LINE\'s browser', () => {
+  test.use({ userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Safari Line/15.10.0' });
+  test('LINE first, and Google opens this page in the phone\'s browser', async ({ page }) => {
+    await page.goto('/exam');
+    await page.locator('.acct-btn').click();
+    const ways = page.locator('.sheet .signin-ways > *');
+    await expect(ways.first()).toHaveClass(/signin-line/);
+    const google = page.locator('.sheet a.signin-google');
+    await expect(google).toHaveAttribute('href', /\/exam\?openExternalBrowser=1$/);
+    await expect(page.locator('.sheet .signin-app')).toContainText('Google ไม่ให้เข้าสู่ระบบในหน้าต่างของ LINE');
+  });
+});
+
+test.describe('in Facebook\'s browser', () => {
+  test.use({ userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 [FBAN/FBIOS;FBAV/480.0.0]', permissions: ['clipboard-read', 'clipboard-write'] });
+  test('Google copies the link, and says it did', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.acct-btn').click();
+    const google = page.locator('.sheet button.signin-google');
+    await expect(google).toHaveText('คัดลอกลิงก์ไปเปิดใช้ Google');
+    await google.click();
+    await expect(google).toHaveText('คัดลอกลิงก์แล้ว');
+  });
+});
+
+test('an ordinary browser keeps Google first', async ({ page }) => {
+  await page.goto('/');
+  await page.locator('.acct-btn').click();
+  await expect(page.locator('.sheet .signin-ways > *').first()).toHaveClass(/signin-google/);
+  await expect(page.locator('.sheet .signin-app')).toHaveCount(0);
+});

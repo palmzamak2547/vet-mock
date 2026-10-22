@@ -52,8 +52,13 @@ export default defineConfig({
   workers: process.env.CI ? 2 : undefined,
   // The JSON report carries every test's duration and timeout; CI keeps it as an artifact and
   // scripts/e2e-durations.mjs warns on a test that uses more than 40% of its timeout.
+  // 'list' prints each test as it ends and the global timeout stops a stuck run with its reports
+  // written, under the shortest e2e step cap in smoke-e2e.yml (14 min). On 22 Oct a WebKit shard
+  // (PR #57, run 39763888621) printed nothing for 16 min, the step cap killed it, and neither
+  // the log nor any report said which test it was on.
+  globalTimeout: process.env.CI ? 13 * 60_000 : 0,
   reporter: process.env.CI
-    ? [['github'], ['html', { open: 'never' }], ['json', { outputFile: process.env.PLAYWRIGHT_JSON_OUTPUT_FILE || 'e2e-results.json' }]]
+    ? [['list'], ['github'], ['html', { open: 'never' }], ['json', { outputFile: process.env.PLAYWRIGHT_JSON_OUTPUT_FILE || 'e2e-results.json' }]]
     : 'list',
   use: {
     // Students read the app in Bangkok and CI runs in UTC: one zone for every
