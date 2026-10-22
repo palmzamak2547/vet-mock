@@ -97,7 +97,13 @@ jobs:
         run: npm run build
 
       - name: Install browser for contrast checks
-        run: npx playwright install --with-deps chromium
+        # Same mirror as smoke-e2e.yml's install step: on 22 Oct azure.archive.ubuntu.com made this
+        # step take 12.5 min and main's Build ran out its 15-minute cap, so nothing deployed.
+        run: |
+          if grep -v 'azure\.archive\.ubuntu\.com' /etc/apt/apt-mirrors.txt | grep -q .; then
+            sudo sed -i '/azure\.archive\.ubuntu\.com/d' /etc/apt/apt-mirrors.txt
+          fi
+          npx playwright install --with-deps chromium
 
       # The contrast audits measure the built bundle, so only they wait for it.
       - name: Accessibility gates on the built bundle
