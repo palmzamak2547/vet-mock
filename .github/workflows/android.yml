@@ -66,6 +66,10 @@ jobs:
           sudo apt-get -y -qq install ffmpeg >/dev/null
           python3 -m pip install --quiet pillow
 
+      - name: Store feature graphic, drawn from the web's art and font
+        run: |
+          google-chrome --headless=new --disable-gpu --hide-scrollbars --allow-file-access-from-files             --virtual-time-budget=4000 --window-size=1024,500 --screenshot="$PWD/feature-graphic.png"             "file://$PWD/mobile/store/feature-graphic.html"
+
       - name: Enable KVM for the emulator
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -92,6 +96,7 @@ jobs:
           name: android-${{ github.sha }}
           path: |
             measure-out/
+            feature-graphic.png
             vetmock-ci.apk
             mobile/android/app/build/outputs/bundle/release/app-release.aab
             mobile/android/app/build/reports/tests/
