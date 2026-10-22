@@ -41,13 +41,18 @@ const test = base.extend({
         reply.setHeader('Content-Type', 'application/javascript');
         reply.end(`document.documentElement.dataset.entryBuild = '${revision}';\n`
           + (legacyFirst && revision === 'A' ? legacyLifecycleSource : lifecycleSource)
-            .replace("'./update-safety.js'", legacyFirst && revision === 'A' ? "'../update-safety-legacy.js'" : "'../update-safety.js'"));
+            .replace("'./update-safety.js'", legacyFirst && revision === 'A' ? "'./update-safety-legacy.js'" : "'./update-safety.js'"));
         return;
       }
-      if (path === '/update-safety.js') {
+      // The entry's module dependency lives under /assets/ like every chunk of a real Vite build,
+      // which the worker serves cache-first. It used to sit at /update-safety.js, a path no build
+      // has, served network-first: offline, with the fixture resetting each connection, WebKit
+      // intermittently failed that import with "WebKit encountered an internal error", so the
+      // entry module never ran and data-entry-build stayed unset (CI, 21-22 Oct).
+      if (path === '/assets/update-safety.js') {
         reply.setHeader('Content-Type', 'application/javascript'); reply.end(policySource); return;
       }
-      if (path === '/update-safety-legacy.js') {
+      if (path === '/assets/update-safety-legacy.js') {
         reply.setHeader('Content-Type', 'application/javascript'); reply.end(legacyPolicySource); return;
       }
       if (path === '/assets/storage-gc.js' || path === '/assets/daily-q.js') {
@@ -180,16 +185,16 @@ async function prepareVisitedShell(page) {
   // storing it. Establish actual durable A resources before simulating deploy
   // or disconnection; do not seed CacheStorage with test-created responses.
   await page.evaluate(async () => {
-    for (const path of ['/', '/assets/entry-A.js', '/update-safety.js']) {
+    for (const path of ['/', '/assets/entry-A.js', '/assets/update-safety.js']) {
       const result = await fetch(path, { cache: 'reload' });
       if (!result.ok) throw new Error(`Cannot prepare visited shell: ${path} (${result.status})`);
       await result.arrayBuffer();
     }
   });
   await expect.poll(() => page.evaluate(async () => {
-    const runtime = await caches.open('vmx-runtime-browser-test-A');
-    return (await Promise.all(['/', '/update-safety.js'].map(path => runtime.match(path)))).every(Boolean)
-      && Boolean(await (await caches.open('vmx-assets-v1')).match('/assets/entry-A.js'));
+    const assets = await caches.open('vmx-assets-v1');
+    return Boolean(await (await caches.open('vmx-runtime-browser-test-A')).match('/'))
+      && (await Promise.all(['/assets/entry-A.js', '/assets/update-safety.js'].map(path => assets.match(path)))).every(Boolean);
   })).toBe(true);
 }
 
