@@ -10,7 +10,7 @@ import com.getcapacitor.BridgeWebViewClient
 /**
  * Decides, per request to https://vetmock.com, whether the app's own copy answers it or the real site does.
  *
- *   /api/*                              the real site (the WebView sends it with its body, as a browser would)
+ *   /api/ and below                     the real site (the WebView sends it with its body, as a browser would)
  *   a file the build carries            the app's copy (the bundles folder, or the APK)
  *   any other file (figures, atlas...)  the real site; the WebView's HTTP cache keeps what was seen
  *   a page address                      index.html from the app's copy, under the production CSP

@@ -16,7 +16,7 @@ Palm asked why VetMock ships slowly. Measured that day: no merge after 06:29 whi
 - Updates: `npm run build` writes `dist/app-bundle.json` (`scripts/app-bundle-manifest.mjs`: carried files with SHA-256, the production CSP). `BundleUpdater.kt` downloads only changed files, verifies each hash, switches at the next cold start and rolls back a build that never calls `VetMock.ready`. Change `ON_DEMAND` in the manifest script, not the native code, to move files in or out of the app. Raise `MIN_NATIVE` there when a bundle needs native code older installs lack.
 - No service worker inside the app (`app-lifecycle.js` returns early), no GIS popup (`google-gis.js`), Google sign-in tries Android's account sheet first (`supabase.js`).
 - Build and measure in CI: `.github/workflows/android.yml` (not required; path-filtered). Locally: `. mobile/scripts/env.sh`, take `C:\dev\heavy-gate.lock`, `cd mobile && npm ci && node scripts/fetch-bundle.mjs --dist ../dist && npx cap sync android`, then `cd android && ./gradlew --no-daemon assembleRelease` (JVM capped at 3 GB in gradle.properties). This laptop has no accelerated emulator (Windows Hypervisor Platform is off).
-- Owner steps: `bash mobile/scripts/wizard.sh` (upload key in `~/.vetmock-android`, signed AAB, Play Console, internal testing, `public/.well-known/assetlinks.json`, Google Cloud Android OAuth client). Store texts and form answers: `mobile/store/`.
+- Owner steps: `bash mobile/scripts/wizard.sh` (upload key in `~/.vetmock-android`, signed AAB, Play Console, internal testing, the assetlinks file through `mobile/scripts/assetlinks.mjs`, Google Cloud Android OAuth client). Store texts and form answers: `mobile/store/`.
 
 ## Read-aloud from shared Gemini clips 5.155.0 — 2026-10-21 (Claude Code)
 
