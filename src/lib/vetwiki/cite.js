@@ -92,12 +92,11 @@ export function sourceShortName(src) {
 
 /**
  * A source's citation as a reader sees it, or its title where it has none.
- * 1,722 imported citations joined a title that already ends in a full stop
- * with ". " and read "saliva of dogs.. J Infect Dis" (the importer is fixed
- * for new ones; the registry is left as it was imported).
+ * The 1,722 imported citations that read "saliva of dogs.. J Infect Dis" were
+ * corrected in sources.js itself (2026-10-22); wiki-citations.test.mjs keeps them out.
  */
 export function citationText(src) {
-  return String(src?.citation || src?.title || '').replace(/([^.])\.\.(?=\s|$)/g, '$1.');
+  return String(src?.citation || src?.title || '');
 }
 
 /** "WOAH 2023": the short name and the year, where the registry has one. */

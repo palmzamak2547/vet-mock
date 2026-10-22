@@ -82,3 +82,24 @@ test('the map lists every topic once, grouped year then subject, each a link to 
   links[2].props.onClick({ button: 0, ctrlKey: true, preventDefault: () => assert.fail('ctrl-click kept') });
   assert.equal(opened.length, 1);
 });
+
+// D6: every prerendered article carries a readable copy in <noscript>.
+test('the static copy for readers without JavaScript holds every section, escaped, links only to the web', async () => {
+  const { articleNoscript } = await import('../../scripts/lib/wiki-static.mjs');
+  const { citationText } = await import('../../src/lib/vetwiki/cite.js');
+  for (const t of listTopics()) {
+    const k = loadTopic(t.subject, t.topic);
+    const prov = provenanceSummary(k);
+    const html = articleNoscript(k, { subjectName: 'S', sources: prov.sources, citation: citationText });
+    assert.ok(html.startsWith('<noscript>') && html.endsWith('</noscript>'), t.id);
+    assert.equal(html.match(/<noscript>/g).length, 1, `${t.id}: one noscript, never nested`);
+    assert.doesNotMatch(html, /<script|<\/noscript>.+<\/noscript>|javascript:/i, t.id);
+    assert.doesNotMatch(html, /undefined: |: undefined<|\[object Object\]/, `${t.id}: a body shape the copy does not know`);
+    assert.equal((html.match(/<h2>/g) || []).length, k.sections.length + (prov.sources.length ? 1 : 0), `${t.id}: a heading per section`);
+    for (const href of html.match(/href="[^"]*"/g) || []) assert.match(href, /^href="(\/wiki|https?:\/\/)/, `${t.id}: ${href}`);
+  }
+  const evil = articleNoscript({ title: '<b>x</b>', sections: [{ heading: 'a & b', body: ['</noscript><script>1</script>'] }] },
+    { subjectName: '<i>', sources: [{ url: 'javascript:alert(1)', citation: 'c' }], citation: (s) => s.citation });
+  assert.doesNotMatch(evil, /<script|<b>x|<i>|javascript:/);
+  assert.match(evil, /&lt;\/noscript&gt;/);
+});

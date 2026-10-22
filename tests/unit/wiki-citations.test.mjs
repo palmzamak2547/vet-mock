@@ -173,14 +173,15 @@ test('the topics either side follow the course, and the volume marks this one', 
   v.unmount();
 });
 
-test('a citation reads with one full stop where the importer doubled it, and the importer no longer does', () => {
-  assert.equal(citationText({ citation: 'Fekadu M. Excretion of rabies virus in the saliva of dogs.. J Infect Dis. 1982.' }),
-    'Fekadu M. Excretion of rabies virus in the saliva of dogs. J Infect Dis. 1982.');
+test('no source in the registry carries a doubled full stop, and the importer no longer writes one', () => {
   assert.equal(citationText({ title: 'A title only' }), 'A title only');
-  assert.equal(citationText({ citation: 'Ends in an ellipsis...' }), 'Ends in an ellipsis...', 'three dots are left alone');
   for (const src of Object.values(SOURCES)) {
-    assert.doesNotMatch(citationText(src), /[^.]\.\.(\s|$)/, `${src.id} still shows a doubled full stop`);
+    for (const field of ['citation', 'title']) {
+      assert.doesNotMatch(String(src[field] || ''), /[^.]\.\.(\s|$)/, `${src.id}.${field} has a doubled full stop`);
+    }
   }
+  const fekadu = Object.values(SOURCES).find((s) => /saliva of dogs/.test(s.citation || ''));
+  if (fekadu) assert.match(fekadu.citation, /saliva of dogs\. J Infect Dis/);
   const importer = readFileSync(new URL('../../scripts/ingest-verifications.mjs', import.meta.url), 'utf8');
   assert.match(importer, /\.filter\(Boolean\)\.map\(\(part\) => String\(part\)\.replace\(\/\\.\+\$\/, ''\)\)\.join\('\. '\)/);
 });

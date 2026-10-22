@@ -3,9 +3,9 @@
 // gate.mjs — the release gate, in the order that answers soonest
 // ============================================================
 // Usage:
-//   npm run gate          node scripts/gate.mjs: phases A-C, then e2e on smoke and
-//                         the specs this branch changes (Chromium). The full
-//                         matrix runs in CI on every pull request.
+//   npm run gate          node scripts/gate.mjs: phases A-C, then every e2e spec on
+//                         Chromium desktop and phone. WebKit and Firefox run in
+//                         CI on every pull request.
 //   npm run gate:full     node scripts/gate.mjs --full: the two CI Smoke steps here
 //   npm run gate:fast     node scripts/gate.mjs --e2e-concurrent (implies --full)
 //   npm run gate:data     node scripts/gate.mjs --data-only  (phase A, ~10-20 s)
@@ -167,15 +167,6 @@ export function changedFiles(cwd = process.cwd()) {
     }
   } catch { /* not a repository */ }
   return [...files];
-}
-
-/** The e2e specs the quick phase D runs: smoke, and every spec this branch changes. */
-export function quickSpecs(cwd = process.cwd()) {
-  const specs = new Set(['tests/e2e/smoke.spec.js']);
-  for (const f of changedFiles(cwd)) {
-    if (/^tests\/e2e\/[^/]+\.spec\.js$/.test(f) && fs.existsSync(path.join(cwd, f))) specs.add(f);
-  }
-  return [...specs].sort();
 }
 
 /**
@@ -591,21 +582,23 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
     if (moved('phase E')) return finish('tree changed', 1);
   }
 
-  // D — e2e. By default only the specs this change touches plus smoke, on
-  // Chromium: the full matrix runs in CI on the pull request (7 runners,
-  // ~10 min) and locally took 45 min on a quiet machine (2,719 s, 5.149.0)
-  // and ~65 under five sessions at once. --full runs the two CI Smoke steps
-  // here as before. Either way the machine-wide browser lock comes first.
+  // D — e2e. By default every spec on Chromium (desktop and phone, ~13 min
+  // on a quiet machine); WebKit and Firefox run in CI on the pull request
+  // (7 runners, ~10 min). It used to be smoke plus the specs a branch
+  // touched, and PR #42 (2026-10-21) went red on every engine in
+  // connected-study.spec.js, a spec it never touched, after a Home change:
+  // an app change can break any spec, so a red PR mail is a gate that ran
+  // too little. The four-engine matrix here took 45 min on a quiet machine
+  // (2,719 s, 5.149.0); --full still runs it. The lock comes first.
   const releaseLock = await acquireGateLock({ cwd, log });
   t = Date.now();
   let e2e;
   let e2eSteps = ['test:e2e:chromium', 'test:e2e:gl'];
   if (!full) {
-    const specs = quickSpecs(cwd);
     e2eSteps = ['test:e2e:quick'];
-    log(`\n── phase D (e2e): test:e2e:quick on ${specs.length} spec(s): ${specs.join(' ')}`);
-    log('   (the full matrix runs in CI on the pull request; npm run gate:full runs it here)');
-    e2e = [await runStreaming({ label: 'npm run test:e2e:quick', command: `npm run test:e2e:quick -- ${specs.join(' ')}`, shell: true }, {
+    log('\n── phase D (e2e): test:e2e:quick, every spec on Chromium desktop and phone');
+    log('   (WebKit and Firefox run in CI on the pull request; npm run gate:full runs them here)');
+    e2e = [await runStreaming({ label: 'npm run test:e2e:quick', command: 'npm run test:e2e:quick', shell: true }, {
       cwd, env: { PLAYWRIGHT_OUTPUT_DIR: 'test-results/quick' },
     })];
   } else if (concurrentE2e) {
