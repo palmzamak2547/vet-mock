@@ -19,7 +19,8 @@ const results = read('src/views/ResultsView.jsx');
 const css = read('src/styles.css');
 
 test('UI-06: the promotion note renders after the stat grid, not above the score', () => {
-  const hero = results.indexOf('<div className="vmx-results-hero">');
+  // The hero carries its first-look entrance class (5.163.0).
+  const hero = results.indexOf('<div className={`vmx-results-hero');
   const stats = results.indexOf('<div className="vmx-stat-grid">');
   const promo = results.indexOf('className="vmx-night-rank-promo"');
   assert.ok(hero > 0 && stats > hero, 'the hero and the stat grid moved');

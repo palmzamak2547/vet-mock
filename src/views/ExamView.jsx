@@ -36,8 +36,9 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
   // Mochi's reactions (each verdict, the result) play on the Motion Kit rig,
   // a small lazy chunk: fetch it while the student reads the first question.
   useEffect(() => {
-    const idle = window.requestIdleCallback || ((fn) => window.setTimeout(fn, 600));
-    const cancel = window.cancelIdleCallback || window.clearTimeout;
+    // Global timers: a test harness's window may not carry them.
+    const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 600));
+    const cancel = window.cancelIdleCallback || clearTimeout;
     const id = idle(() => { preloadMochiRig(); }, { timeout: 2000 });
     return () => cancel(id);
   }, []);
