@@ -5410,7 +5410,7 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-mochi-live { position: relative; display: inline-flex; line-height: 0; pointer-events: none; }
 .vmx-mochi-live-rig { position: absolute; inset: 0; pointer-events: none; }
 .vmx-mochi-live-rig > .vm-mochi-rig, .vmx-mochi-live-rig svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.vmx-mochi-live[data-mochi-live=playing] > .vmx-mochi { visibility: hidden; }
+.vmx-mochi-live[data-mochi-live=pending] > .vmx-mochi, .vmx-mochi-live[data-mochi-live=playing] > .vmx-mochi { visibility: hidden; }
 @media print { .vmx-mochi-live-rig { display: none; } }
 /* Correct answers in a row (lib/mochi-reactions.js). A chip-sized spring,
    response 0.30 s and damping 0.70: 4.6% overshoot, settled in 491 ms, the
