@@ -77,7 +77,7 @@ test('the gate scripts are the orchestrator, its concurrent variant and a no-scr
   // stay orchestrator-only: they depend on which files moved.)
   assert.deepEqual(chain('gate:serial'), [
     'npm run lint:data', 'npm run test:unit', 'npm run test:unit:utc',
-    'npm run build', 'npm run lint:dist',
+    'npm run build', 'npm run lint:dist', 'npm run perf:budget',
     'npm --prefix research test', 'npm --prefix research run test:utc', 'npm --prefix research run build',
     'npm run test:e2e:ci',
   ]);
@@ -349,7 +349,7 @@ test('--audit is a warn-only tail step that never changes a green verdict', () =
 });
 
 // ── A throwaway repository for the end-to-end cases ───────────────────
-function fixture({ stale = false, tzBound = false, e2eWrites = false } = {}) {
+function fixture({ stale = false, tzBound = false, e2eWrites = false, overBudget = false } = {}) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'vetmock-gate-'));
   const put = (rel, text) => {
     fs.mkdirSync(path.dirname(path.join(dir, rel)), { recursive: true });
@@ -362,6 +362,7 @@ function fixture({ stale = false, tzBound = false, e2eWrites = false } = {}) {
       'lint:ok': 'node scripts/ok.mjs',
       'lint:stale': 'node scripts/stale.mjs --check',
       'lint:dist': 'node scripts/dist.mjs',
+      'perf:budget': 'node scripts/budget.mjs',
       'test:unit': 'node --test tests/unit/*.test.mjs',
       build: 'node scripts/build.mjs',
       'test:e2e:chromium': 'node scripts/e2e.mjs chromium',
@@ -377,6 +378,9 @@ function fixture({ stale = false, tzBound = false, e2eWrites = false } = {}) {
     : "console.log('x.generated.js is current');\n");
   put('scripts/build.mjs', "import fs from 'node:fs'; fs.mkdirSync('dist', { recursive: true }); fs.writeFileSync('dist/built', '1'); console.log('BUILD RAN');\n");
   put('scripts/dist.mjs', "console.log('dist ok');\n");
+  put('scripts/budget.mjs', overBudget
+    ? "console.error('BUDGET: route initial js is 12 B over its budget'); process.exit(1);\n"
+    : "console.log('BUDGET ran: 7 routes within their budgets');\n");
   put('scripts/e2e.mjs', [
     "import fs from 'node:fs';",
     'const which = process.argv[2];',
@@ -455,6 +459,31 @@ test('a green --full run prints one timing line per phase and runs chromium befo
     assert.ok(r.out.indexOf('E2E chromium') < r.out.indexOf('E2E gl'), r.out);
     assert.match(r.out, /✓ gate: green/);
   } finally { f.done(); }
+});
+
+// The size budgets (perf-budgets.json) read the build's manifest, so they run in phase C
+// after lint:dist and before any browser: a bundle that grew past its budget is known
+// within seconds of the build, not after thirteen minutes of e2e. The gate runs the check
+// (never --write) and its exit code is the verdict.
+test('phase C runs the size budgets after lint:dist, and a breach stops the gate before the browsers', () => {
+  const [budget] = resolveSteps(scripts, 'perf:budget');
+  assert.equal(budget.command, 'node scripts/perf-budget.mjs', 'the gate checks the budgets, it never rewrites them');
+  const green = fixture();
+  try {
+    const r = gate(green.dir);
+    assert.equal(r.status, 0, r.out);
+    assert.ok(r.out.indexOf('dist ok') < r.out.indexOf('BUDGET ran'), 'the budgets run after lint:dist');
+    assert.match(r.out, /phase C \(dist\): 2 step\(s\)/);
+    assert.match(r.out, /BUDGET ran: 7 routes within their budgets/);
+  } finally { green.done(); }
+  const over = fixture({ overBudget: true });
+  try {
+    const r = gate(over.dir);
+    assert.equal(r.status, 1, r.out);
+    assert.match(r.out, /BUDGET: route initial js is 12 B over its budget/);
+    assert.match(r.out, /✗ gate: 1 dist step\(s\) failed/);
+    assert.doesNotMatch(r.out, /E2E /, 'no browser ran');
+  } finally { over.done(); }
 });
 
 // The full matrix runs in CI on every pull request; locally the default gate
