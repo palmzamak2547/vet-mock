@@ -7,6 +7,8 @@ import { isCorrect, isWritingType, isAnswered } from '../hooks/utils.js';
 import { useBuddyCountOnQ } from '../hooks/useStudyBuddies.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { motionIsReduced } from '../lib/motion-preferences.js';
+import { correctRun } from '../lib/mochi-reactions.js';
+import { preloadMochiRig } from '../components/MochiLive.jsx';
 
 export default function ExamView({ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, user, goHome, mode, instantFeedback, onOpenWiki }) {
   const [showNote, setShowNote] = useState(false);
@@ -22,6 +24,17 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
   });
   const answeredCount = questions.filter((q) => isAnswered(answers[q.id])).length;
   const isLast = currentIdx === questions.length - 1;
+  // Correct answers in a row up to this question, for the verdict panel.
+  const answerRun = revealAnswer ? correctRun(questions, answers, currentIdx) : 0;
+  // Mochi's reactions play on the Motion Kit rig, a small lazy chunk: fetch it
+  // while the student reads the first question, never in a real exam.
+  useEffect(() => {
+    if (!revealAnswer) return undefined;
+    const idle = window.requestIdleCallback || ((fn) => window.setTimeout(fn, 600));
+    const cancel = window.cancelIdleCallback || window.clearTimeout;
+    const id = idle(() => { preloadMochiRig(); }, { timeout: 2000 });
+    return () => cancel(id);
+  }, [revealAnswer]);
 
   // Advancing a question is the single most repeated moment in the app, and it
   // used to swap with no transition at all. The card is NOT remounted to do
@@ -181,6 +194,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         showNote={showNote}
         setShowNote={setShowNote}
         revealAnswer={revealAnswer}
+        answerRun={answerRun}
         onOpenWiki={revealAnswer ? onOpenWiki : undefined}
       />
       </div>
