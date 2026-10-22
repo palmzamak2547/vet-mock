@@ -382,12 +382,16 @@ test.describe('whole-app mobile compatibility', () => {
     await page.locator('.vmx-config-panel').waitFor({ state: 'visible', timeout: 20_000 });
     await recordStage(page, testInfo, failures, 'practice-config');
 
-    await page.locator('.vmx-config-panel input[type="number"]').first().fill('1');
+    // Two questions, the second left blank: a practice set whose every answer
+    // is in goes straight to its result (5.163.0), and the submit dialog that
+    // this stage checks is the one a blank still opens.
+    await page.locator('.vmx-config-panel input[type="number"]').first().fill('2');
     await page.locator('.vmx-config-start').click();
     await page.locator('.vmx-question-card').waitFor({ state: 'visible', timeout: 25_000 });
     await recordStage(page, testInfo, failures, 'active-question');
 
     await answerCurrentQuestion(page);
+    await page.getByRole('button', { name: 'ข้อถัดไป →', exact: true }).click();
     await page.locator('.vmx-btn-row .vmx-btn-primary').last().click();
     const submitDialog = page.locator('.vmx-modal[role="dialog"]');
     await submitDialog.waitFor({ state: 'visible' });
