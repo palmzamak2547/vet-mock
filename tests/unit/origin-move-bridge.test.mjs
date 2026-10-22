@@ -466,7 +466,7 @@ test('Google popup and LINE sign-in work on vetmock.com, LINE no longer on the o
   assert.equal(gis.gisOriginAllowed('https://vetmock.com'), true, 'the popup flow on the primary origin');
   assert.equal(liff.liffOriginAllowed('https://vetmock.com'), true, 'the LINE button on the primary origin');
   const view = readFileSync(new URL('../../src/views/AuthView.jsx', import.meta.url), 'utf8');
-  assert.match(view, /\{isLiffAvailable\(\) && \(\s*<button[\s\S]{0,400}onClick=\{lineLogin\}/, 'the LINE button shows only where LIFF can log in');
+  assert.match(view, /const lineButton = isLiffAvailable\(\) \? \(\s*<button[\s\S]{0,400}onClick=\{lineLogin\}/, 'the LINE button shows only where LIFF can log in');
 });
 
 test('restored from the back-forward cache, the moving page decides again instead of waiting', async () => {
