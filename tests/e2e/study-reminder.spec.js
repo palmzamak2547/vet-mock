@@ -70,15 +70,21 @@ test('inside the Android app the offer asks the app, and only on a tap', async (
   await seed(context);
   await context.addInitScript(() => {
     window.__asked = 0;
-    window.VetMockApp = { notifications: { status: () => Promise.resolve('prompt'), request: () => { window.__asked += 1; return Promise.resolve('granted'); } } };
+    window.__reminder = null;
+    window.VetMockApp = {
+      notifications: { status: () => Promise.resolve('prompt'), request: () => { window.__asked += 1; return Promise.resolve('granted'); } },
+      reminders: { set: (r) => { window.__reminder = r; } },
+    };
   });
   await finishOneSet(page);
   const offer = page.locator('.vmx-reminder-offer');
   await expect(offer).toContainText('ให้ VetMock เตือนทำโจทย์ทุกวันไหม');
   expect(await page.evaluate(() => window.__asked)).toBe(0);
-  await offer.getByRole('button', { name: 'ให้แอปเตือนทำโจทย์' }).click();
-  await expect(offer).toContainText('แอปจะเตือนให้มาทำโจทย์แล้ว');
+  await offer.getByRole('button', { name: '07:00 น.' }).click();
+  await offer.getByRole('button', { name: 'ให้แอปเตือนเวลา 07:00 น.' }).click();
+  await expect(offer).toContainText('แอปจะเตือนทุกวันเวลา 07:00 น.');
   expect(await page.evaluate(() => window.__asked)).toBe(1);
+  expect(await page.evaluate(() => window.__reminder)).toEqual({ enabled: true, minute: 420 });
 });
 
 test('the connected-apps page keeps the reminder, suggesting the usual study time', async ({ page, context }) => {

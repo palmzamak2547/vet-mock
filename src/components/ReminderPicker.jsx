@@ -58,26 +58,8 @@ export default function ReminderPicker({ usual = null, onChosen }) {
     return () => { live = false; };
   }, [app]);
 
-  if (app) {
-    const ask = async () => {
-      try {
-        const result = await app.request();
-        setAppState(result);
-        if (result === 'granted') onChosen?.('app');
-      } catch { setAppState('error'); }
-    };
-    if (appState === 'granted') return <p className="vmx-reminder-note" role="status">แอปจะเตือนให้มาทำโจทย์แล้ว ปิดได้ในตั้งค่าของเครื่อง</p>;
-    return (
-      <div className="vmx-reminder-picker">
-        <button type="button" className="vmx-btn vmx-btn-primary" onClick={ask}>ให้แอปเตือนทำโจทย์</button>
-        {appState === 'denied' && <p className="vmx-reminder-note" role="status">เครื่องยังไม่อนุญาตให้แจ้งเตือน เปิดได้ในตั้งค่าแอปของเครื่อง</p>}
-        {appState === 'error' && <p className="vmx-reminder-note" role="status">ยังเปิดการแจ้งเตือนไม่ได้ ลองอีกครั้ง</p>}
-      </div>
-    );
-  }
-
-  return (
-    <div className="vmx-reminder-picker">
+  const times = (
+    <>
       <div className="vmx-reminder-times" role="group" aria-label="เวลาที่ให้เตือน">
         {choices.map((t) => (
           <button key={t} type="button" className={`vmx-chip${t === time ? ' active' : ''}`} aria-pressed={t === time} onClick={() => setTime(t)}>
@@ -86,6 +68,42 @@ export default function ReminderPicker({ usual = null, onChosen }) {
         ))}
       </div>
       {usual && <p className="vmx-reminder-note">เวลาที่คุณมักทำโจทย์ในสองสัปดาห์ที่ผ่านมา ราว {usual} น.</p>}
+    </>
+  );
+
+  if (app) {
+    // The app's own reminder: the phone's prompt only on this tap, then the
+    // chosen time (reminders.set takes minutes after midnight).
+    const minute = (() => { const p = time.split(':').map(Number); return p[0] * 60 + p[1]; })();
+    const ask = async () => {
+      try {
+        const result = appState === 'granted' ? 'granted' : await app.request();
+        setAppState(result);
+        if (result === 'granted') {
+          await Promise.resolve(window.VetMockApp?.reminders?.set?.({ enabled: true, minute }));
+          onChosen?.('app');
+        }
+      } catch { setAppState('error'); }
+    };
+    return (
+      <div className="vmx-reminder-picker">
+        {times}
+        <button type="button" className="vmx-btn vmx-btn-primary" onClick={ask}>ให้แอปเตือนเวลา {time} น.</button>
+        {appState === 'granted' && <p className="vmx-reminder-note" role="status">แอปจะเตือนทุกวันเวลา {time} น. ถ้าวันนั้นทำโจทย์แล้วจะไม่เตือน</p>}
+        {appState === 'denied' && (
+          <p className="vmx-reminder-note" role="status">
+            เครื่องยังไม่อนุญาตให้แจ้งเตือน{' '}
+            {app.openSettings && <button type="button" className="vmx-inline-action" onClick={() => app.openSettings()}>เปิดในตั้งค่า</button>}
+          </p>
+        )}
+        {appState === 'error' && <p className="vmx-reminder-note" role="status">ยังเปิดการแจ้งเตือนไม่ได้ ลองอีกครั้ง</p>}
+      </div>
+    );
+  }
+
+  return (
+    <div className="vmx-reminder-picker">
+      {times}
       <div className="vmx-reminder-targets">
         <a className="vmx-reminder-target" href={googleReminderUrl(time)} target="_blank" rel="noopener noreferrer" onClick={() => onChosen?.('google')}>
           <img src="/brand/google-calendar.svg" alt="" width="22" height="22" loading="lazy" decoding="async" />
