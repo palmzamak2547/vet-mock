@@ -5,7 +5,7 @@ import { useMemo, useState } from 'react';
 import { Link } from '../components/Link.jsx';
 import { Icon } from '../components/Icon.jsx';
 import { CountUp } from '../components/CountUp.jsx';
-import { Figure, Nw, Words } from '../components/bits.jsx';
+import { Figure, Nw, Words, BusyLabel } from '../components/bits.jsx';
 import { useStartGuard } from '../components/StartGuard.jsx';
 import { CARD_BY_ID } from '../lib/bank.js';
 import { EXAM_SECONDS, FORMAT, SOURCES, resultsLag, upcomingRound } from '../data/exam.js';
@@ -216,7 +216,7 @@ export default function Exam() {
               : <><Icon name="timer" />เริ่มสนามจริง</>}
           </button>
           <button type="button" className="btn btn-glass btn-lg glass" onClick={() => rehearse(50)} disabled={!!busy}>
-            {busy?.size === 50 ? <>กำลังเตรียม<span className="spinner" aria-hidden="true" /></> : <>ฉบับสั้น <span className="btn-meta">50 ข้อ 45 นาที</span></>}
+            <BusyLabel busy={busy?.size === 50}>ฉบับสั้น <span className="btn-meta">50 ข้อ 45 นาที</span></BusyLabel>
           </button>
         </div>
         {failed && <p className="notice notice-error"><Icon name="info" />โหลดข้อสอบไม่สำเร็จ ตรวจการเชื่อมต่อแล้วลองอีกครั้ง</p>}

@@ -50,7 +50,7 @@ h1:focus, h1:focus-visible { outline: none; }
 .kicker::before { content: ""; flex: none; width: 28px; height: 1px; background: var(--verd); }
 /* A plate or round number leading a kicker, set apart by space and tone rather than a dot. */
 .kicker-no { color: var(--verd-text); margin-right: 6px; }
-.label { display: block; font: 600 13px/1.4 var(--sans); color: var(--ink-2); }
+.label { display: block; font: 600 14px/1.4 var(--sans); color: var(--ink-2); }
 .hint { font-size: 14px; line-height: 1.5; color: var(--ink-3); }
 /* Small accent text is --verd-text: --verd itself reads 4.3 to 4.4 on a tinted surface. */
 .text-link { display: inline-flex; align-items: center; gap: 6px; color: var(--verd-text); font-weight: 600; text-decoration: none; }
@@ -61,8 +61,8 @@ h1:focus, h1:focus-visible { outline: none; }
    ::after: the link's own box, taller or wider to 44 px and never smaller (so a link that is
    already 44 px or more is unchanged), and the neighbours' rows are spaced to keep clear. */
 @media (pointer: coarse) {
-  .text-link, .crumbs a, .map-name, .mrow-name, .drow-name, .dhero-exam-link { position: relative; }
-  .text-link::after, .crumbs a::after, .map-name::after, .mrow-name::after, .drow-name::after, .dhero-exam-link::after {
+  .text-link, .crumbs a, .map-name, .mrow-name, .drow-name, .dhero-exam-link, .alm-subj sup a { position: relative; }
+  .text-link::after, .crumbs a::after, .map-name::after, .mrow-name::after, .drow-name::after, .dhero-exam-link::after, .alm-subj sup a::after {
     content: ""; position: absolute; inset: min(0px, calc((100% - var(--touch)) / 2));
   }
   /* Signed-in controls: comment and chat actions grow to the touch height; the profile

@@ -2,6 +2,7 @@
 
 import { Icon } from './Icon.jsx';
 import { Nw } from './bits.jsx';
+import { Link } from './Link.jsx';
 import { BANK } from '../lib/bank.js';
 import { useProgress } from '../lib/hooks.js';
 import { statsFor, daysToExam, dailyPace, progressStore } from '../lib/progress.js';
@@ -12,12 +13,19 @@ import { upcomingRound } from '../data/exam.js';
 export function Plan({ compact = false }) {
   const progress = useProgress();
   const left = BANK.total - statsFor(progress).seen;
-  const days = daysToExam(progress, localDay());
-  const pace = dailyPace(left, days);
   const setDate = (v) => progressStore.set((s) => ({ ...s, examDate: /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : null }));
-  // The announced round, one tap away, until it is the date already set.
+  // Until the student sets a date, the plan reads from the next announced round: the date is
+  // known, and an empty plan asked for it twice (home and the exam page). Nothing is stored
+  // until they choose; the announced round stays one tap away once another date is set.
   const round = upcomingRound(localDay());
-  const suggest = round && progress.examDate !== round.parts[0].date ? round : null;
+  const assumed = !progress.examDate && round ? round : null;
+  const date = progress.examDate || assumed?.parts[0].date || null;
+  const days = daysToExam({ ...progress, examDate: date }, localDay());
+  const pace = dailyPace(left, days);
+  const suggest = round && progress.examDate && progress.examDate !== round.parts[0].date ? round : null;
+  // A heavy daily amount gets a smaller first goal beside it: the past papers and VCA-style
+  // questions, the closest thing to the paper itself.
+  const heavy = pace != null && pace > 40;
   return (
     <section className={`plan glass${compact ? ' plan-compact' : ''}`} aria-labelledby="plan-h">
       <div>
@@ -27,8 +35,9 @@ export function Plan({ compact = false }) {
       <div className="plan-pick">
         <label className="plan-date">
           <span className="label">วันสอบ</span>
-          <input type="date" value={progress.examDate || ''} min={localDay()} onChange={(e) => setDate(e.target.value)} />
+          <input type="date" value={date || ''} min={localDay()} onChange={(e) => setDate(e.target.value)} />
         </label>
+        {assumed && <span className="hint plan-assumed">ใช้วันสอบรอบ {assumed.id} ไว้ก่อน เปลี่ยนได้</span>}
         {suggest && (
           <button type="button" className="chip plan-suggest" onClick={() => setDate(suggest.parts[0].date)}>
             <Icon name="calendar" size={16} />ใช้รอบ {suggest.id} <span className="plan-suggest-d">{thaiDay(suggest.parts[0].date)}</span>
@@ -47,6 +56,7 @@ export function Plan({ compact = false }) {
               ? 'สอบวันนี้ ขอให้โชคดี'
               : left <= 0 ? 'ทำครบทั้งคลังแล้ว ทบทวนข้อที่พลาดต่อได้เลย'
                 : <>ทำวันละ <b>{num(pace)}</b> ข้อ ก็ครบ <Nw>{num(left)} ข้อ</Nw>ที่ยังไม่เคยทำก่อนวันสอบ</>}</span>
+            {heavy && left > 0 && <Link to="/practice?src=paper" className="text-link plan-first">ยังไม่ต้องครบทุกข้อ เริ่มจากข้อสอบเก่าและแนว VCA ก่อนได้ <Icon name="arrowRight" size={16} /></Link>}
           </>
         )}
       </div>

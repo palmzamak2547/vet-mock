@@ -23,7 +23,7 @@ storage.set('vca:results:v1', JSON.stringify([
 
 const S = await import('../../src/lib/session.js');
 const {
-  createSession, remainingMs, isExpired, answeredCount, choose, unchoose, go, toggleFlag, tally, finish, byDomain,
+  createSession, remainingMs, isExpired, answeredCount, choose, unchoose, go, toggleFlag, tally, finish, byDomain, weakestFirst,
   keepResult, newId, sessionStore, resultsStore, RESULTS_KEPT,
 } = S;
 
@@ -151,6 +151,17 @@ test('scores by domain, in first-seen order', () => {
     { domain: 'swine', total: 2, correct: 2 },
     { domain: 'equine', total: 1, correct: 0 },
   ]);
+});
+
+test('domains read weakest first, the one asked more first on a tie, without touching the input', () => {
+  const rows = [
+    { domain: 'swine', total: 2, correct: 2 },
+    { domain: 'equine', total: 4, correct: 1 },
+    { domain: 'avian', total: 2, correct: 1 },
+    { domain: 'aquatic', total: 4, correct: 2 },
+  ];
+  assert.deepEqual(weakestFirst(rows).map((r) => r.domain), ['equine', 'aquatic', 'avian', 'swine']);
+  assert.equal(rows[0].domain, 'swine');
 });
 
 test('results are kept newest first, once each, at most RESULTS_KEPT', () => {

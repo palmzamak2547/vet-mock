@@ -47,6 +47,16 @@ test('a 25-question mock exam from start to result', async ({ page, isMobile }) 
   expect(results[0].total).toBe(25);
   expect(results[0].answered).toBe(1);
   expect(results[0].flags).toHaveLength(1);
+
+  // Domains read weakest first, and the weakest one is a tap from practice.
+  const shares = await page.locator('.drow-n').evaluateAll((els) => els.map((el) => { const [c, t] = el.textContent.split('/').map(Number); return c / t; }));
+  expect(shares.length).toBeGreaterThan(1);
+  expect(shares).toEqual([...shares].sort((a, b) => a - b));
+  const weakest = (await page.locator('.drow-name').first().textContent()).replace(/^Pl\. \d+/, '').trim();
+  const next = page.locator('.drows-next');
+  await expect(next).toHaveText(new RegExp(`ฝึก${weakest} 10 ข้อ`));
+  await next.click();
+  await expect(page).toHaveURL(/\/session$/);
 });
 
 // The counter at the left of a mock's bar shares it with the clock and three 44 px buttons. At

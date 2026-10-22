@@ -459,7 +459,9 @@ test('a green --full run prints one timing line per phase and runs chromium befo
 
 // The full matrix runs in CI on every pull request; locally the default gate
 // runs smoke plus the specs the branch touches, on Chromium only.
-test('the default gate runs smoke and the changed specs, never the GL engines', () => {
+// Every spec, not smoke plus the touched ones: PR #42 (2026-10-21) changed Home
+// and went red on every engine in a spec it never touched.
+test('the default gate runs every spec on Chromium, never the GL engines', () => {
   const f = fixture();
   try {
     f.put('tests/e2e/smoke.spec.js', '// smoke\n');
@@ -469,7 +471,7 @@ test('the default gate runs smoke and the changed specs, never the GL engines', 
     f.put('tests/e2e/mine.spec.js', '// v2\n');
     const r = gate(f.dir);
     assert.equal(r.status, 0, r.out);
-    assert.match(r.out, /E2E quick port=- out=test-results\/quick specs=tests\/e2e\/mine\.spec\.js,tests\/e2e\/smoke\.spec\.js/);
+    assert.match(r.out, /E2E quick port=- out=test-results\/quick specs=\s*$/m, 'no spec filter: the whole suite');
     assert.doesNotMatch(r.out, /E2E (chromium|gl)/);
     assert.match(r.out, /✓ gate: green/);
   } finally { f.done(); }
