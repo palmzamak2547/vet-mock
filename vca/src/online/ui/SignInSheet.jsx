@@ -7,6 +7,8 @@ import { Sheet } from '../../components/Sheet.jsx';
 import { Icon } from '../../components/Icon.jsx';
 import { GOOGLE_CLIENT_ID, LINE_LIFF_ID, MODE } from '../config.js';
 import { signIn } from '../account.js';
+import { inAppBrowser, lineExternalUrl } from '../../lib/inapp.js';
+import { copyText } from '../../lib/connect.js';
 import '../community.css';
 
 /** Google's own G, as its sign-in guidelines ask a sign-in button to carry. */
@@ -75,6 +77,45 @@ export default function SignInSheet({ open, onClose }) {
   const [gis, setGis] = useState(MODE === 'live' && !!GOOGLE_CLIENT_ID);
   const onGisToken = useRef((token, nonce) => go('googleIdToken', token, nonce)).current;
   const onGisFail = useRef(() => setGis(false)).current;
+  // In LINE's, Facebook's or Instagram's own browser Google refuses to sign anyone in, so Google
+  // becomes a way out to the phone's browser, and LINE (which works there) comes first.
+  const app = inAppBrowser();
+  const [copied, setCopied] = useState(false);
+  const copyLink = async () => setCopied(await copyText(window.location.href));
+
+  const lineButton = lineReady && (
+    <button type="button" className="signin-way signin-line" onClick={() => go('line')} disabled={!!busy} data-autofocus={app ? '' : undefined}>
+      <span className="signin-logo"><LineMark /></span>
+      <span>ดำเนินการต่อด้วย LINE</span>
+      {busy === 'line' && <span className="spinner" aria-hidden="true" />}
+    </button>
+  );
+  let googleWay;
+  if (app === 'line') {
+    googleWay = (
+      <a className="signin-way signin-google" href={lineExternalUrl(window.location.href)}>
+        <span className="signin-logo"><GoogleMark /></span>
+        <span>ใช้ Google ในเบราว์เซอร์ของมือถือ</span>
+      </a>
+    );
+  } else if (app) {
+    googleWay = (
+      <button type="button" className="signin-way signin-google" onClick={copyLink}>
+        <span className="signin-logo"><GoogleMark /></span>
+        <span>{copied ? 'คัดลอกลิงก์แล้ว' : 'คัดลอกลิงก์ไปเปิดใช้ Google'}</span>
+      </button>
+    );
+  } else if (gis) {
+    googleWay = <GoogleGisButton onToken={onGisToken} onFail={onGisFail} />;
+  } else {
+    googleWay = (
+      <button type="button" className="signin-way signin-google" onClick={() => go('google')} disabled={!!busy} data-autofocus>
+        <span className="signin-logo"><GoogleMark /></span>
+        <span>ดำเนินการต่อด้วย Google</span>
+        {busy === 'google' && <span className="spinner" aria-hidden="true" />}
+      </button>
+    );
+  }
 
   return (
     <Sheet open={open} onClose={onClose} title="เข้าสู่ระบบ">
@@ -88,23 +129,15 @@ export default function SignInSheet({ open, onClose }) {
         <>
           <p className="sheet-p">ใช้บัญชีเดียวกับ VetMock ได้เลย ถ้ายังไม่มี ระบบจะสร้างให้ใหม่</p>
           <div className="signin-ways">
-            {gis ? (
-              <GoogleGisButton onToken={onGisToken} onFail={onGisFail} />
-            ) : (
-              <button type="button" className="signin-way signin-google" onClick={() => go('google')} disabled={!!busy} data-autofocus>
-                <span className="signin-logo"><GoogleMark /></span>
-                <span>ดำเนินการต่อด้วย Google</span>
-                {busy === 'google' && <span className="spinner" aria-hidden="true" />}
-              </button>
-            )}
-            {lineReady && (
-              <button type="button" className="signin-way signin-line" onClick={() => go('line')} disabled={!!busy}>
-                <span className="signin-logo"><LineMark /></span>
-                <span>ดำเนินการต่อด้วย LINE</span>
-                {busy === 'line' && <span className="spinner" aria-hidden="true" />}
-              </button>
-            )}
+            {app ? <>{lineButton}{googleWay}</> : <>{googleWay}{lineButton}</>}
           </div>
+          {app && (
+            <p className="hint signin-app" role={copied ? 'status' : undefined}>
+              {app === 'line'
+                ? 'Google ไม่ให้เข้าสู่ระบบในหน้าต่างของ LINE ปุ่มนี้จะเปิดหน้านี้ใน Safari หรือ Chrome'
+                : `Google ไม่ให้เข้าสู่ระบบในหน้าต่างของ ${app === 'instagram' ? 'Instagram' : 'Facebook'} คัดลอกลิงก์แล้ววางใน Safari หรือ Chrome`}
+            </p>
+          )}
           <div className="signin-or"><span>หรือรับลิงก์ทางอีเมล</span></div>
           <form className="signin-email" onSubmit={(e) => { e.preventDefault(); if (email.trim()) go('email', email.trim()); }}>
             <label className="sr" htmlFor="signin-email">อีเมล</label>
@@ -116,7 +149,8 @@ export default function SignInSheet({ open, onClose }) {
         </>
       )}
       {error && <p className="form-error" role="alert">{error}</p>}
-      <p className="hint signin-fine">การฝึกและผลสอบยังเก็บในเครื่องนี้เหมือนเดิม ไม่ต้องเข้าสู่ระบบก็ฝึกได้ บัญชีใช้สำหรับโปรไฟล์ ชุมชน และแชท{MODE === 'demo' ? ' (โหมดทดลอง: กดแล้วเข้าสู่ระบบทันทีด้วยบัญชีจำลอง)' : ''}</p>
+      {app && !sent && <p className="hint signin-fine">ลิงก์ในอีเมลจะเปิดในเบราว์เซอร์ของมือถือ และเข้าสู่ระบบที่นั่น</p>}
+      <p className="hint signin-fine">การฝึกและผลสอบยังเก็บในเบราว์เซอร์นี้เหมือนเดิม ไม่ต้องเข้าสู่ระบบก็ฝึกได้ บัญชีใช้สำหรับโปรไฟล์ ชุมชน และแชท{MODE === 'demo' ? ' (โหมดทดลอง: กดแล้วเข้าสู่ระบบทันทีด้วยบัญชีจำลอง)' : ''}</p>
     </Sheet>
   );
 }
