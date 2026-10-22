@@ -52,7 +52,7 @@ object BundleUpdater {
                 for (i in 0 until list.length()) {
                     val entry = list.getJSONArray(i)
                     val path = entry.getString(0)
-                    require(safePath(path)) { "unsafe path in manifest: $path" }
+                    require(BundleUpdater.safePath(path)) { "unsafe path in manifest: $path" }
                     files[path] = entry.getString(1)
                     sizes[path] = entry.getLong(2)
                 }

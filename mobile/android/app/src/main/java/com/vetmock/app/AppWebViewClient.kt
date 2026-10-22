@@ -22,6 +22,8 @@ class AppWebViewClient(bridge: Bridge, private val activity: MainActivity) : Bri
         if (request.method != "GET") return null
         val path = url.path.orEmpty().ifEmpty { "/" }
         if (path.startsWith("/api/")) return null
+        // Capacitor's own local-file and HTTP routes.
+        if (path.startsWith("/_capacitor_")) return super.shouldInterceptRequest(view, request)
 
         val active = BundleUpdater.active(activity)
         val isFile = url.lastPathSegment?.contains('.') == true

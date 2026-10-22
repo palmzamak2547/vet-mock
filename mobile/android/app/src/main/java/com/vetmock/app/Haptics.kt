@@ -29,8 +29,9 @@ object Haptics {
 
     private fun milestone(view: View): Boolean {
         val context = view.context
+        if (Build.VERSION.SDK_INT < 30) return perform(view, "correct")
         val vibrator = context.getSystemService(Vibrator::class.java)
-        if (Build.VERSION.SDK_INT < 30 || vibrator == null || !vibrator.areAllPrimitivesSupported(VibrationEffect.Composition.PRIMITIVE_CLICK)) {
+        if (vibrator == null || !vibrator.areAllPrimitivesSupported(VibrationEffect.Composition.PRIMITIVE_CLICK)) {
             return perform(view, "correct")
         }
         val effect = VibrationEffect.startComposition()
