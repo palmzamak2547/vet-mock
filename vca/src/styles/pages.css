@@ -176,6 +176,7 @@
 .plan-n { font: 400 48px/1 var(--serif); letter-spacing: -.03em; }
 .plan-n small { margin-left: 6px; font: 500 15px/1 var(--sans); color: var(--ink-2); letter-spacing: 0; }
 .plan-t { font-size: 15px; color: var(--ink-2); }
+.plan-first { margin-top: 6px; font-size: 15px; }
 .plan-t b { color: var(--ink); }
 .sec-last { padding-top: 64px; }
 
