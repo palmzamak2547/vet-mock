@@ -5,7 +5,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from '../components/Link.jsx';
 import { Icon } from '../components/Icon.jsx';
-import { Meter, Words } from '../components/bits.jsx';
+import { Meter, Words, BusyLabel } from '../components/bits.jsx';
 import { Plan } from '../components/Plan.jsx';
 import { Sheet } from '../components/Sheet.jsx';
 import { BANK, DOMAIN_CARDS } from '../lib/bank.js';
@@ -109,7 +109,7 @@ export default function Progress() {
       <header className="page-head">
         <p className="kicker">Your progress</p>
         <h1 className="page-h">ความคืบหน้า</h1>
-        <p className="page-p">ทุกคำตอบเก็บไว้ในเครื่องนี้เท่านั้น ไม่ต้องมีบัญชี และไม่มีข้อมูลส่งออกไปที่ไหน</p>
+        <p className="page-p">ทุกคำตอบเก็บไว้ในเบราว์เซอร์นี้เท่านั้น ไม่ต้องมีบัญชี และไม่มีข้อมูลส่งออกไปที่ไหน</p>
       </header>
 
       <section className="band glass progress-band" aria-label="ภาพรวม">
@@ -131,7 +131,7 @@ export default function Progress() {
             {missed.length > 0 ? (
               <>
                 <button type="button" className="btn btn-ink" onClick={retryMissed} disabled={busy}>
-                  {busy ? <>กำลังเตรียม<span className="spinner" aria-hidden="true" /></> : <>ฝึก{missed.length > 50 ? ' 50 ข้อล่าสุด' : 'ทั้งหมด'} <Icon name="arrowRight" /></>}
+                  <BusyLabel busy={busy}>ฝึก{missed.length > 50 ? ' 50 ข้อล่าสุด' : 'ทั้งหมด'} <Icon name="arrowRight" /></BusyLabel>
                 </button>
                 <Link to={withQuery('/practice', { st: 'wrong' })} className="btn btn-ghost">เลือกหมวดเอง</Link>
               </>

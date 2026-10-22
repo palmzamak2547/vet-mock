@@ -188,3 +188,19 @@ test('typing in the bank search is not undone by the address catching up', async
   await expect(input).toHaveValue('Leptospira');
   await expect(page).toHaveURL(/\/bank\?q=Leptospira$/);
 });
+
+// Before any date is chosen, the plan reads from the announced round (98 days on the fixed day),
+// stores nothing, and a heavy daily amount comes with a smaller first goal.
+test('with no date chosen, the plan uses the announced round and offers a smaller first goal', async ({ page }) => {
+  await page.goto('/');
+  const plan = page.locator('.plan');
+  await expect(plan.locator('input[type="date"]')).toHaveValue('2027-01-23');
+  await expect(plan.locator('.plan-assumed')).toContainText('รอบ 2/2569');
+  await expect(plan.locator('.plan-n')).toContainText('98');
+  await expect(plan.locator('.plan-t')).toContainText('ก็ครบ');
+  const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('vca:progress:v1') || 'null')?.examDate ?? null);
+  expect(stored).toBeNull();
+  await plan.locator('.plan-first').click();
+  await expect(page).toHaveURL(/\/practice\?src=paper$/);
+  await expect(page.getByRole('radio', { name: 'ข้อสอบเก่าและแนว VCA' })).toBeChecked();
+});

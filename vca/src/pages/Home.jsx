@@ -10,7 +10,7 @@ import { Plan } from '../components/Plan.jsx';
 import { Countdown } from '../components/Countdown.jsx';
 import { CountUp } from '../components/CountUp.jsx';
 import { useStartGuard } from '../components/StartGuard.jsx';
-import { Plate, Meter, Nw, Figure, Kbd, Words } from '../components/bits.jsx';
+import { Plate, Meter, Nw, Figure, Kbd, Words, BusyLabel } from '../components/bits.jsx';
 import { BANK, CARD_BY_ID, DOMAIN_CARDS } from '../lib/bank.js';
 import { SAMPLES } from '../generated/bank.js';
 import { getShuffledOptions } from '@vetmock/lib/option-shuffle.js';
@@ -166,7 +166,7 @@ export function Home() {
           </p>
           <div className="ctas">
             <button type="button" className="btn btn-ink btn-lg" onClick={startQuick} disabled={busy}>
-              {busy ? <>กำลังเตรียม<span className="spinner" aria-hidden="true" /></> : <>เริ่มเลย <span className="btn-meta">10 ข้อ</span><Icon name="arrowRight" /></>}
+              <BusyLabel busy={busy}>เริ่มเลย <span className="btn-meta">10 ข้อ</span><Icon name="arrowRight" /></BusyLabel>
             </button>
             <Link to="/practice?mode=mock" className="btn btn-glass btn-lg glass"><Icon name="timer" />สอบจำลอง</Link>
           </div>

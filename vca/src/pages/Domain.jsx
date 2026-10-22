@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { Link } from '../components/Link.jsx';
 import { Icon } from '../components/Icon.jsx';
-import { Meter, KindBadge, Plate, Words } from '../components/bits.jsx';
+import { Meter, KindBadge, Plate, Words, BusyLabel } from '../components/bits.jsx';
 import { BANK, CARD_BY_ID, DOMAIN_CARDS, loadCatalog, loadLibrary, subjectName } from '../lib/bank.js';
 import { statsFor } from '../lib/progress.js';
 import { startSet } from '../lib/start.js';
@@ -109,7 +109,7 @@ export default function Domain({ route }) {
           )}
           <div className="row-gap">
             <button type="button" className="btn btn-ink btn-lg" onClick={() => quick(10)} disabled={!!busy}>
-              {busy === 'practice10' ? <>กำลังเตรียม<span className="spinner" aria-hidden="true" /></> : <>ฝึก 10 ข้อ <Icon name="arrowRight" /></>}
+              <BusyLabel busy={busy === 'practice10'}>ฝึก 10 ข้อ <Icon name="arrowRight" /></BusyLabel>
             </button>
             <Link to={withQuery('/practice', { mode: 'mock', d: [card.id] })} className="btn btn-glass glass btn-lg">สอบจำลองหมวดนี้</Link>
             <Link to={withQuery('/bank', { d: card.id })} className="btn btn-ghost btn-lg">เปิดในคลัง</Link>

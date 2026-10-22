@@ -1,5 +1,14 @@
 # AGENTS.md — VetMock Project Guide
 
+## OWNER DECISION 2026-10-22: CI is the release gate
+
+Palm asked why VetMock ships slowly. Measured that day: no merge after 06:29 while six finished changes waited for the machine-wide lock (other projects' 35-45 min gates) or the 4 GB free-RAM floor; CI already runs everything the local gate runs plus WebKit, Firefox and Postgres, free on GitHub; and the local gate had not caught the recent red runs (#42 failed in a spec it never touched, #48 on WebKit, which the local gate does not run).
+
+- No local gate before a pull request: CI is the gate. `C:\dev\heavy-gate.lock` is for genuinely heavy local runs (REA, Gradle, local perf runs), not for releases. Run a spec locally only to debug a CI failure.
+- The main ruleset no longer requires an up-to-date branch, and the Queue workflow is disabled (its bot updates left runs in `action_required`; #45 sat 215 min). A pull request merges when its own checks pass; rebase only when GitHub reports a conflict.
+- After each merge, watch main's push CI for that commit: red means fix forward or revert at once.
+- VetMock does not use `C:\dev\heavy-gate.next` (Tipjai's turn file).
+
 ## Read-aloud from shared Gemini clips 5.155.0 — 2026-10-21 (Claude Code)
 
 - `speakQuestion` (src/lib/tts.js) first plays pre-generated clips (src/lib/tts-shared.js) from https://tts.vetmock.com (R2 bucket `vetmock-tts`, custom domain on the vetmock.com zone, CORS GET from any origin): stem, then "ตัวเลือก A" + option per row in screen order. Clip names are `clipKey(text)` from `src/lib/tts-text.js`; the generator `scripts/tts-clips.mjs` uses the same functions. Any change to `stripForSpeech`, `normalizeSymbols`, `expandUnits`, `clipText`, `optionLabel`, `questionLang` or `SHARED_TTS` renames every clip: rerun the generator for the covered subjects in the same release (`tests/unit/tts-shared.test.mjs` pins one name). Clips are `.mp4` (Cloudflare caches it by default; `.m4a` is never edge-cached).
@@ -213,14 +222,14 @@ Rules that follow from it, and they are not negotiable:
 
 Full rules: [docs/GITFLOW.md](docs/GITFLOW.md). The short form:
 
-- **Releases are pull requests.** Branch from origin/main in your own worktree, run
-  `npm run gate` (phases A-C plus e2e on smoke and the specs you changed), push the branch,
-  `gh pr create`, then `gh pr merge --squash --auto`. CI runs the full matrix on the PR; the
-  Queue workflow brings the oldest auto-merge PR up to date with main and re-runs it, and
-  GitHub squash-merges it when green. No messages about push order or version numbers.
+- **Releases are pull requests, and CI is the gate** (OWNER DECISION 2026-10-22, top of this
+  file). Branch from origin/main in your own worktree, push the branch, `gh pr create`, then
+  `gh pr merge --squash --auto`; no local gate first. CI runs the full matrix on the PR and
+  GitHub squash-merges it when its own checks pass (no up-to-date rule, no Queue workflow;
+  rebase only on a reported conflict). No messages about push order or version numbers.
 - **A merge to `main` is the deploy.** Vercel builds main only and promotes once Build and
-  smoke pass on that SHA. Never push to main directly, never `vercel --prod`. A merge is not
-  production proof.
+  smoke pass on that SHA; watch that run and fix forward or revert when it goes red. Never
+  push to main directly, never `vercel --prod`. A merge is not production proof.
 - **Disjoint file ownership across harnesses.** Check the one claim record
   (`work/loop-20260930/COORDINATION.md`) and the working tree before touching a
   file; shared surfaces need explicit hunk ownership. Never stage or commit
@@ -274,10 +283,11 @@ npm run dev               # Vite dev server (predev regenerates latest-changelog
 npm run build             # Production build + wiki prerender (always run before commit)
 npm run preview           # Preview built dist
 npm run test:unit         # Node contract suite (tests/unit/*.test.mjs)
-npm run gate             # THE local gate: data lints + unit in Bangkok/UTC (+ SQL harnesses when a
-                         # DB-touching file moved and pglite is reachable), build, contrast, Research
-                         # (auto when research/ changed since origin/main), then e2e on Chromium for
-                         # smoke + the specs this branch changed. CI runs all four profiles on the PR.
+npm run gate             # Local gate, optional since 2026-10-22 (CI is the release gate): data lints +
+                         # unit in Bangkok/UTC (+ SQL harnesses when a DB-touching file moved and pglite
+                         # is reachable), build, contrast, Research (auto when research/ changed since
+                         # origin/main), then every e2e spec on Chromium desktop + phone (~13 min).
+                         # Not smoke + changed specs: PR #42 went red in a spec it never touched.
 npm run gate:full        # Same, with the full four-profile e2e here (~65 min on this machine)
 npm run gate:fast        # gate:full with the two e2e steps concurrent
 npm run release:new      # -- minor|patch: a release file in src/data/changelog/ with the next free number
@@ -286,7 +296,7 @@ npm run gate:serial      # Root steps plus the Research suite and build as one &
 npm run test:e2e          # Cross-browser Playwright suite
 npm run test:e2e:prod     # Live flows against vetmock.com
 npm run lint:all          # All generated/data/content integrity gates — a SUBSET of the gate:
-                         # no unit suite, no build, no e2e. The release gate is `npm run gate`
+                         # no unit suite, no build, no e2e. The release gate is CI on the pull request
 npm run stats             # Authoritative current inventory
 npm run stats:check       # Fail if README/docs inventory drifted
 npm run lint:questions    # Detect bias issues (release gate: 0 errors; warnings tracked separately)

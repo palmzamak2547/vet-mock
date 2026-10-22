@@ -60,3 +60,24 @@ test('the footer offers the countdown and a start', async ({ page }) => {
   await go.getByRole('link', { name: 'เริ่มฝึก' }).click();
   await expect(page).toHaveURL(/\/practice/);
 });
+
+// Pressing start swaps the words for "กำลังเตรียม" in place: the button keeps its size, so the
+// row beside and below it holds still (it used to move up 66 px on a phone).
+test('the start button keeps its size while the set is prepared', async ({ page }) => {
+  let release;
+  const held = new Promise((r) => { release = r; });
+  await page.route('**/bank/**', async (route) => { await held; await route.continue(); });
+  await page.goto('/');
+  const start = page.locator('.hero .ctas button.btn-ink');
+  const mock = page.locator('.hero .ctas a.btn-glass');
+  await expect(start).toBeVisible();
+  const before = { start: await start.boundingBox(), mock: await mock.boundingBox() };
+  await start.click();
+  await expect(start).toBeDisabled();
+  await expect(start).toHaveAccessibleName(/กำลังเตรียม/);
+  const during = { start: await start.boundingBox(), mock: await mock.boundingBox() };
+  expect(during.start.width).toBeCloseTo(before.start.width, 0);
+  expect(during.mock.y).toBeCloseTo(before.mock.y, 0);
+  release();
+  await expect(page).toHaveURL(/\/session$/, { timeout: 30_000 });
+});

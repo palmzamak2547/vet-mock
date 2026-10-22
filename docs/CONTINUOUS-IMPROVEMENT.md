@@ -34,10 +34,10 @@ only after an actual reply; do not infer activity from a branch or process alone
 ## Release pipeline v2 (2026-10-20)
 
 Every harness (Claude, Codex, grok, Kasem) ships through pull requests: own worktree from
-origin/main, `npm run gate` (smoke plus changed specs locally, the full e2e matrix in CI),
-a release note from `npm run release:new`, `gh pr create` and `gh pr merge --squash --auto`.
-The Queue workflow and the ruleset on main order the merges; no session negotiates push order or
-version numbers by message any more. Steps and rules: [GITFLOW.md](GITFLOW.md) section 1. The
+origin/main, a release note from `npm run release:new`, `gh pr create` and
+`gh pr merge --squash --auto`. Since 2026-10-22 CI is the gate (no local gate first) and a pull
+request merges when its own checks pass (the Queue workflow is disabled); no session negotiates
+push order or version numbers by message any more. Steps and rules: [GITFLOW.md](GITFLOW.md) section 1. The
 measured debt that came out of this work is ranked in [TECH-DEBT.md](TECH-DEBT.md).
 
 ## Known lanes and evidence entrypoints

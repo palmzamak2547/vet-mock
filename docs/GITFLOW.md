@@ -9,8 +9,9 @@ a harness does not have to re-derive them (or learn them by causing a regression
 
 ## 1. Releases are pull requests; a merge to `main` is the deploy
 
-Release pipeline v2 (owner-approved 2026-10-20). Until then sessions negotiated push order and
-version numbers by message and each ran a ~70 min local gate; now:
+Release pipeline v2 (owner-approved 2026-10-20), simplified on 2026-10-22 (OWNER DECISION at the top
+of AGENTS.md): CI is the gate. Before v2 sessions negotiated push order and version numbers by message
+and each ran a ~70 min local gate; now:
 
 1. **Worktree from origin/main.** `git worktree add C:/dev/vetmock-<lane> -b <prefix>/<lane> origin/main`,
    its own `npm ci` (and `npm ci` in research/ when you touch research/).
@@ -19,23 +20,26 @@ version numbers by message and each ran a ~70 min local gate; now:
    origin/main and in every open pull request. Proof goes in `docs/releases/<version>.md`.
    `package.json`'s version is not bumped. Nothing else is edited by every release, so two
    releases do not conflict.
-3. **Local gate: `npm run gate`.** Phases A-C as before (data, unit in Bangkok and UTC, build,
-   contrast, Research when research/ changed since origin/main), then e2e on Chromium for smoke
-   and the specs your branch changed. Its preview, concurrent and contrast ports are derived from
-   the worktree path (`tests/e2e/local-port.js`), so gates in different worktrees never collide.
-   `npm run gate:full` runs the full four-profile matrix here when you need it.
+3. **No local gate before the pull request.** CI runs everything the local gate runs and more (WebKit,
+   Firefox, Postgres), free on GitHub, while a local gate waited behind the machine-wide lock
+   (`C:\dev\heavy-gate.lock`, held 35-45 min by other projects' gates) and the RAM floor: on 2026-10-22
+   six finished changes sat unmerged for hours. Run a spec locally only to debug a CI failure.
+   `npm run gate` stays for that, and for anyone who wants local evidence: phases A-C (data, unit in
+   Bangkok and UTC, build, contrast, Research when research/ changed), then every e2e spec on Chromium
+   desktop and phone (about 13 min; it used to be smoke plus the specs a branch touched, and PR #42 went
+   red in CI in a spec it never touched). Its ports are derived from the worktree path
+   (`tests/e2e/local-port.js`). `npm run gate:full` runs the full four-profile matrix.
 4. **Push the branch and open the PR.** `git push -u origin <branch>`, `gh pr create`, then
    `gh pr merge --squash --auto`. CI runs Build, Annotation PostgreSQL, Smoke e2e (7 runners),
    VCA and Research R parity (the last two do real work only when their files changed).
-5. **The queue.** The ruleset on `main` requires those checks and an up-to-date branch. The
-   Queue workflow (`.github/workflows/queue.yml`) brings the oldest auto-merge PR that is behind
-   main up to date and re-runs its checks; GitHub squash-merges it when they pass. One PR lands
-   at a time, each tested on the exact main it lands on. GitHub's own merge queue needs an
-   organization-owned repository, which this is not.
-6. **Deploy.** The merge is a push to `main`: CI runs again on that SHA and Vercel promotes the
-   production build once `build` and `smoke` pass. Vercel builds nothing else: every project's
-   Ignored Build Step skips non-production builds (`vercel.json`, `research/vercel.json`,
-   `vca/scripts/vercel-ignore.sh`).
+5. **Merging.** The ruleset on `main` requires those five checks. It no longer requires the branch to be
+   up to date with main, and the Queue workflow (`.github/workflows/queue.yml`) is disabled: its bot
+   updates left runs waiting in `action_required` (#45 waited 215 min). A pull request merges when its
+   own checks pass. Rebase, or merge main into the branch, only when GitHub reports a conflict.
+6. **Deploy, then watch main.** The merge is a push to `main`: CI runs again on that SHA and Vercel
+   promotes the production build once `build` and `smoke` pass. Watch that run; if it goes red, fix
+   forward or `git revert` at once. Vercel builds nothing else: every project's Ignored Build Step
+   skips non-production builds (`vercel.json`, `research/vercel.json`, `vca/scripts/vercel-ignore.sh`).
 7. **Prove it** (unchanged): exact-SHA CI, the Vercel production deployment, the live flow on
    vetmock.com, recorded in `docs/releases/<version>.md`. A merge is not proof.
 
@@ -98,11 +102,11 @@ cd ../vet-mock-<lane> && npm ci   # the worktree's OWN install — always
 
 Before a lane's pull request is set to auto-merge:
 
-1. Branch from a fresh origin/main (the Queue updates it again before merging).
-2. `npm run gate` passes in the tree you are committing; read the gate's own exit code.
+1. Branch from a fresh origin/main.
+2. CI on the pull request is the gate; a red check is diagnosed at its cause (section 1).
 3. Stage exactly your files; confirm `git status` shows no other lane's work staged.
 4. A release note file from `npm run release:new` when the change is user-observable.
-5. `gh pr merge --squash --auto`; after the merge, watch Vercel for that exact SHA.
+5. `gh pr merge --squash --auto`; after the merge, watch main's CI and Vercel for that exact SHA.
 6. Verify the real user journey against the deployed URL; record the proof chain in
    `docs/releases/<version>.md` and update the claim record.
 
