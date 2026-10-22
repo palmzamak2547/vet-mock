@@ -1,0 +1,13 @@
+{
+  "appId": "com.vetmock.app",
+  "appName": "VetMock",
+  "webDir": "www",
+  "server": {
+    "hostname": "vetmock.com",
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": false
+  }
+}

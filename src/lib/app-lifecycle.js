@@ -67,6 +67,8 @@ window.addEventListener('pagehide', (event) => {
 
 window.addEventListener('load', () => {
   if (!('serviceWorker' in navigator)) return
+  // The Android app serves its own copy of the build and updates it natively (src/lib/native-app.js).
+  if (window.VetMockApp) return
   if (import.meta.env?.MODE !== 'production') {
     // Dev mode — clear any stale SW so HMR flows freely
     navigator.serviceWorker.getRegistrations()

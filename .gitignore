@@ -79,3 +79,6 @@ vca/scripts/_*/
 e2e-results.json
 connected-e2e.json
 .library-links/
+
+# The Android app's copy of the build (mobile/scripts/fetch-bundle.mjs writes it)
+mobile/www/

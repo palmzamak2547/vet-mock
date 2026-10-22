@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The web's own tokens (src/styles.css :root), so the first native frame matches the page. -->
+<resources>
+    <color name="vmx_bg">#F6EFE4</color>
+    <color name="vmx_surface">#FDF8EF</color>
+    <color name="vmx_ink">#2B2419</color>
+    <color name="vmx_ink_soft">#5C4F3D</color>
+    <color name="vmx_sage">#4A6B4A</color>
+    <color name="vmx_sage_text">#355A39</color>
+    <color name="vmx_gold_text">#76511E</color>
+    <color name="vmx_border">#D8C9A8</color>
+    <color name="ic_launcher_background">#4A6B4A</color>
+</resources>

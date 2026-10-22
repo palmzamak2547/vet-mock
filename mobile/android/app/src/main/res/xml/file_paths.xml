@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Only the share folder in the app's cache is ever handed to another app (the share sheet). -->
+<paths>
+    <cache-path name="share" path="share/" />
+</paths>
