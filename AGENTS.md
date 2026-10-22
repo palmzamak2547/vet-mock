@@ -9,6 +9,13 @@ Palm asked why VetMock ships slowly. Measured that day: no merge after 06:29 whi
 - After each merge, watch main's push CI for that commit: red means fix forward or revert at once.
 - VetMock does not use `C:\dev\heavy-gate.next` (Tipjai's turn file).
 
+## Performance budgets — 2026-10-22 (Claude Code)
+
+- The rule is `docs/GITFLOW.md` section 1, item 8: CI fails on numbers a machine cannot move (`perf-budgets.json`, each budget beside the number it was set from) and timings are measured by hand (`npm run perf`, `perf-baseline.json`). A budget is an alarm, not a target; it must never turn CI red for a reason that is not the code.
+- Sizes (`npm run perf:budget`, a Build step and phase C of the gate): gzip JS and CSS of the first load, the Atlas page and, after the first load, Home, the exam, results, the VetWiki index and an article. A lazy view is named by chunk name, not manifest key: a chunk that another chunk also imports statically loses its source path and is keyed `_Name-<hash>.js`. In the browser (`tests/e2e/perf-budget.spec.js`, Chromium only, median of 3 fresh contexts, other hosts aborted): Home's requests and image bytes on a first visit, and CLS of Home, a practice set, its results and `/wiki/com5/rabies`.
+- The first numbers (22 Oct; sizes and requests on main `4cf1e64d`, timings on `3f099e6f`) are work to do, not CLS gaps, because every page measures 0: Home's first visit asks for 136 requests and 1.48 MB of images (103 scripts, 24 images), and the first-load JS is 215 KB gzipped.
+- Traps found: Playwright's `networkidle` fires once per navigation, so the idle prefetch is invisible to it (`scripts/lib/perf-browser.mjs` watches requests instead); `useOnlineStatus` sends a HEAD to /favicon.ico 1.5 s after mount, so a request count taken earlier depends on machine speed; Event Timing rounds to 8 ms and a frame is a whole display refresh (Palm's panel runs about 164 Hz), so those two metrics move in steps (`FLOORS` in `scripts/lib/perf-logic.mjs`).
+
 ## UX journeys 5.159.0 — 2026-10-22 (Claude Code)
 
 - Evidence, ranked opportunities and where the work stopped: `docs/ux/journeys.md` (5.159.0 shipped items 1-3; round two, items 4-7, and the perf baseline are next, section 6). Owner decision: glass is allowed on a few small chrome surfaces (nav, sheets, chips), never on reading text; no frame-costing change ships before the perf baseline in that file exists.
