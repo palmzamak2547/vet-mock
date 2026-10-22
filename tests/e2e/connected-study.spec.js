@@ -490,7 +490,7 @@ test.describe('landing accessibility', () => {
     // Not over the hero question at first paint: the card waits for the first scroll.
     await expect(page.locator('#lp-hero-q')).toBeVisible();
     await expect(consent).toHaveCount(0);
-    await page.evaluate(() => window.scrollBy(0, 300));
+    await page.locator('#lp-hero-q').evaluate((el) => (el.closest('section')?.nextElementSibling || document.body.lastElementChild).scrollIntoView());
     await expect(consent).toBeVisible();
     const consentBox = await consent.boundingBox();
     const viewport = page.viewportSize();
