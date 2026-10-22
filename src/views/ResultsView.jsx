@@ -10,8 +10,11 @@ import BackBar from '../components/BackBar.jsx';
 import ExamSaveNotice from '../components/ExamSaveNotice.jsx';
 import DigitRoll from '../components/DigitRoll.jsx';
 import ScoreBurst from '../components/ScoreBurst.jsx';
-import Mochi from '../components/Mochi.jsx';
+import MochiLive from '../components/MochiLive.jsx';
+import StreakMoment from '../components/StreakMoment.jsx';
 import { mochiResultPose } from '../lib/mochi-presence.js';
+import { readStreakMoment, markStreakMomentSeen } from '../lib/streak-moment.js';
+import { haptic } from '../lib/haptics.js';
 import { buildShareUrl, copyShareUrl, shareableQuestions } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/curriculum.js';
@@ -40,6 +43,10 @@ const PHASE_LABEL_RES = {
   '2-mid':   'ทม.2 กลาง',
   '2-final': 'ทม.2 ปลาย',
 };
+
+// Results already shown once in this page's life, by completion time: Back
+// from the answers shows the page as it is, without its entrance again.
+const shownResults = new Set();
 
 export default function ResultsView({
   saveStatus,
@@ -130,6 +137,17 @@ export default function ResultsView({
   // Mochi: unticking "แสดง Mochi" or turning effects off hides the card.
   const [show3DViewer, setShow3DViewer] = useState(false);
   const { preferences: motionPrefs } = useMotionPreferences();
+  // The first look at this result gets its entrance: Mochi's reaction, the
+  // cards in turn and, after the first set of a day, the day count.
+  const [firstLook] = useState(() => !shownResults.has(completedAt));
+  const [moment] = useState(() => {
+    const found = readStreakMoment(completedAt);
+    return found ? { ...found, first: !found.seen } : null;
+  });
+  useEffect(() => {
+    if (Number.isFinite(completedAt)) shownResults.add(completedAt);
+    markStreakMomentSeen(completedAt);
+  }, [completedAt]);
   const showCompanion = motionPrefs.companion && motionPrefs.mode !== 'off';
   // The picked buddy wins; without a pick, a one-subject set shows that
   // clinic's mascot, otherwise Mochi (lib/buddy.js, shared with Home).
@@ -255,13 +273,37 @@ export default function ResultsView({
   const perfect = score.total > 0 && score.correct === score.total;
   const showPassFail = isExam && autoQs.length > 0;
 
+  // The ladder's verdict, read the same way NextPlayPanel reads it, so the
+  // buddy's words and the ladder under them say one thing: past the practice
+  // mark but under the bar to climb is "almost", not "very good".
+  const ladder = sessionKind === 'redo' ? null
+    : ladderVerdict({ stepId: ladderStepFor({ mode, useTimer: Boolean(useTimer) }), correct: score.correct, total: score.total, passPct: PRACTICE_PASS_PCT });
+  const holdBar = ladder?.kind === 'hold' ? Math.round((STEP_UP_RATIO[ladder.step] || 0) * 100) : null;
   const companionEncouragement = useMemo(() => {
     if (perfect) return 'เก่งสุดๆ เลย! ถูกหมดทุกข้อแบบนี้ ยอดเยี่ยมมาก!';
     if (celebrate) return 'สุดยอดมากเลย! คะแนนรอบนี้สวยมาก ลุยต่อกันนะ!';
+    if (passed && holdBar) return `ถึงเกณฑ์ซ้อมแล้ว อีกนิดถึง ${holdBar}% ก็ขึ้นขั้นถัดไปได้ ลองอีกชุดนะ!`;
     if (passed) return 'ทำได้ดีมาก! ถึงเกณฑ์ซ้อมแล้ว ทบทวนข้อผิดอีกนิดจะคล่องขึ้น!';
     if (autoQs.length === 0) return 'ฝึกเขียนเสร็จแล้ว ลองเทียบกับเกณฑ์เฉลยดูนะ!';
     return 'สู้ๆ นะ! ทุกการฝึกซ้อมทำให้เราเก่งขึ้นเรื่อยๆ เสมอ!';
-  }, [perfect, celebrate, passed, autoQs.length]);
+  }, [perfect, celebrate, passed, holdBar, autoQs.length]);
+
+  // A genuine high point, once: a perfect set of five or more, or a round
+  // day count. The phone ticks; inside the Android app the app may offer a
+  // store review (it decides how rarely, never during a set).
+  const highPointDone = useRef(false);
+  useEffect(() => {
+    if (!firstLook || highPointDone.current) return;
+    highPointDone.current = true;
+    const perfectSet = perfect && autoQs.length >= 5;
+    const milestone = Boolean(moment?.first && moment.milestone);
+    if (perfectSet || milestone) haptic('milestone', motionPrefs);
+    try {
+      if (perfectSet) window.VetMockApp?.happyMoment?.('perfect-set');
+      else if (milestone) window.VetMockApp?.happyMoment?.('streak-milestone');
+    } catch {}
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once per first look
+  const resultPose = mochiResultPose(score, autoQs.length);
 
   return (
     <>
@@ -302,10 +344,12 @@ export default function ResultsView({
         </div>
       )}
 
-      <div className="vmx-results-hero">
+      <div className={`vmx-results-hero vmx-res-step${firstLook ? ' is-paced' : ''}`}>
         {celebrate && <ScoreBurst strong={perfect} />}
         <div className="vmx-results-seal-wrapper">
-          <Mochi state={mochiResultPose(score, autoQs.length)} size={84} animate slot="result" className="vmx-result-mochi" />
+          {/* Mochi reacts once to this result on the rig and settles on the
+              still: celebrating from 80%, encouraging below. */}
+          <MochiLive pose={resultPose} play={firstLook ? resultPose : null} size={84} slot="result" className="vmx-result-mochi" />
           {/* The seal says the verdict in the words the rest of the screen
               uses. It used to be a mono English stamp above a Thai message
               that said the same thing. */}
@@ -374,6 +418,10 @@ export default function ResultsView({
           </div>
         )}
       </div>
+
+      {/* The first set of a day: what it did to the day count, right under
+          the score (lib/streak-moment.js); nothing for a second set. */}
+      <StreakMoment moment={moment} className={`vmx-res-step${firstLook ? ' is-paced' : ''}`} style={{ '--res-delay': '70ms' }} />
 
       {/* Study Squad Companion Encouragement Badge & 3D Toggle */}
       {companionMascot && showCompanion && (
@@ -663,10 +711,19 @@ function NextPlayPanel({
   // Hooks must run before the writing-only early return. goHome clears the
   // finished question array one render before ResultsView unmounts; when this
   // memo lived below the branch React saw fewer hooks and crashed with #300.
-  const wrongQs = useMemo(
-    () => autoQs.filter((q) => answerOutcome(q, answers[q.id]) === 'wrong'),
+  // What to do again: the questions answered wrong and the ones left blank
+  // (a timed paper leaves blanks, and they are misses the student can fix
+  // now too), in the set's order.
+  const missedQs = useMemo(
+    () => autoQs.filter((q) => answerOutcome(q, answers[q.id]) !== 'correct'),
     [autoQs, answers],
   );
+  const skippedMissed = missedQs.filter((q) => answerOutcome(q, answers[q.id]) === 'skipped').length;
+  const missedLabel = skippedMissed === 0
+    ? { title: `แก้ข้อที่ผิด ${missedQs.length} ข้อ ทันที`, sub: 'ทำซ้ำเฉพาะข้อในรอบนี้ที่ตอบผิด', short: `แก้ข้อที่ผิด ${missedQs.length} ข้อ` }
+    : skippedMissed === missedQs.length
+      ? { title: `ทำข้อที่ข้ามไป ${missedQs.length} ข้อ`, sub: 'ข้อในรอบนี้ที่ยังไม่ได้ตอบ', short: `ทำข้อที่ข้ามไป ${missedQs.length} ข้อ` }
+      : { title: `ทำข้อที่ผิดและข้ามไป ${missedQs.length} ข้อ`, sub: `ผิด ${missedQs.length - skippedMissed} ข้อ ยังไม่ได้ตอบ ${skippedMissed} ข้อ`, short: `ทำข้อที่ผิดและข้ามไป ${missedQs.length} ข้อ` };
 
   // ── The practice ladder: which rung this set was, and what it earned ──
   // The rung is read off the set's own settings (exam mode, the clock), the
@@ -701,9 +758,9 @@ function NextPlayPanel({
   }
 
   const handleRedoWrong = () => {
-    if (wrongQs.length === 0) return;
+    if (missedQs.length === 0) return;
     if (typeof replayQuestions === 'function') {
-      replayQuestions(wrongQs);
+      replayQuestions(missedQs);
     } else {
       // Fallback: cross-history wrong via practiceMode='wrong'
       startExam?.({
@@ -711,7 +768,7 @@ function NextPlayPanel({
         subject: 'all',
         topic: null,
         questionCategory: 'all',
-        numQuestions: Math.max(5, Math.min(wrongQs.length, 20)),
+        numQuestions: Math.max(5, Math.min(missedQs.length, 20)),
         useTimer: false,
       });
     }
@@ -778,8 +835,10 @@ function NextPlayPanel({
             ? 'รอบแก้ข้อที่ผิดไม่นับเป็นขั้น ทำชุดใหม่เพื่อวัดอีกครั้ง'
             : `ชุดนี้สั้นกว่า ${STEP_MIN_SET} ข้อ ยังบอกไม่ได้ว่าพร้อมขั้นต่อไปหรือยัง ลองชุด ${ladderStep(verdict.step).count} ข้อ`;
 
-  // hasWrong → primary = fix wrong · noWrong → primary = continue
-  const hasWrong = wrongQs.length > 0;
+  // Misses come first whenever there are any: fixing them now is the step
+  // that pays most, and a climb waits one card below. Without misses the
+  // ladder leads, then "more of the same".
+  const hasWrong = missedQs.length > 0;
   const continueLabel = ctx.topic
     ? `ทำหัวข้อนี้ต่ออีก 5 ข้อ`
     : ctx.subj
@@ -800,6 +859,25 @@ function NextPlayPanel({
     : verdict.kind === 'done'
       ? { onClick: openExamConfig, label: 'ซ้อมสอบชุดต่อไป', sub: 'เลือกวิชาได้ในหน้าถัดไป' }
       : null;
+  const ladderCard = ladderCta && (
+    <button
+      type="button"
+      onClick={ladderCta.onClick}
+      className="vmx-next-primary is-ladder"
+      aria-label={ladderCta.label}
+    >
+      <span className="vmx-results-card-icon is-more" aria-hidden="true"><NavIcon name="progress" size={26} /></span>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
+          {ladderCta.label}
+        </div>
+        <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
+          {ladderCta.sub}
+        </div>
+      </div>
+      <div className="vmx-next-primary-go">ลุย →</div>
+    </button>
+  );
 
   return (
     <div style={{ marginTop: 18 }}>
@@ -819,25 +897,7 @@ function NextPlayPanel({
 
       {/* Action stack — primary card on top, secondary row below. */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {ladderCta ? (
-          <button
-            type="button"
-            onClick={ladderCta.onClick}
-            className="vmx-next-primary is-ladder"
-            aria-label={ladderCta.label}
-          >
-            <span className="vmx-results-card-icon is-more" aria-hidden="true"><NavIcon name="progress" size={26} /></span>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
-                {ladderCta.label}
-              </div>
-              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
-                {ladderCta.sub}
-              </div>
-            </div>
-            <div className="vmx-next-primary-go">ลุย →</div>
-          </button>
-        ) : hasWrong ? (
+        {!hasWrong && ladderCard ? ladderCard : hasWrong ? (
           <button
             type="button"
             onClick={handleRedoWrong}
@@ -853,15 +913,15 @@ function NextPlayPanel({
               gap: 14,
               minHeight: 56,
             }}
-            aria-label={`ทำซ้ำ ${wrongQs.length} ข้อที่ตอบผิดในรอบนี้`}
+            aria-label={`${missedLabel.title} ${missedLabel.sub}`}
           >
             <span className="vmx-results-card-icon is-retry" aria-hidden="true"><NavIcon name="repeat" size={26} /></span>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
-                แก้ข้อที่ผิด {wrongQs.length} ข้อ ทันที
+                {missedLabel.title}
               </div>
               <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
-                ทำซ้ำเฉพาะข้อในรอบนี้ที่ตอบผิด
+                {missedLabel.sub}
               </div>
             </div>
             <div style={{
@@ -916,6 +976,8 @@ function NextPlayPanel({
             </div>
           </button>
         )}
+        {/* With misses on top, a climb the set earned is the next card. */}
+        {hasWrong && ladderCard}
 
         {/* Secondary row, in the order a student reaches for it: the answers,
             the summary, more of the same topic. A stack, so a phone does not
@@ -925,13 +987,7 @@ function NextPlayPanel({
           <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('review')} style={{ minHeight: 44 }}>
             ดูเฉลย
           </button>
-          {/* When the ladder took the primary slot, fixing the misses is
-              still one tap away; otherwise the rung the verdict named is. */}
-          {ladderCta && hasWrong && (
-            <button type="button" className="vmx-btn vmx-btn-ghost" onClick={handleRedoWrong} style={{ minHeight: 44 }}>
-              แก้ข้อที่ผิด {wrongQs.length} ข้อ
-            </button>
-          )}
+          {/* Without a climb, the rung the verdict named is one tap away. */}
           {!ladderCta && verdict.kind !== 'redo' && (
             <button
               type="button"

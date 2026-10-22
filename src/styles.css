@@ -5410,7 +5410,7 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-mochi-live { position: relative; display: inline-flex; line-height: 0; pointer-events: none; }
 .vmx-mochi-live-rig { position: absolute; inset: 0; pointer-events: none; }
 .vmx-mochi-live-rig > .vm-mochi-rig, .vmx-mochi-live-rig svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.vmx-mochi-live[data-mochi-live=playing] > .vmx-mochi { visibility: hidden; }
+.vmx-mochi-live[data-mochi-live=pending] > .vmx-mochi, .vmx-mochi-live[data-mochi-live=playing] > .vmx-mochi { visibility: hidden; }
 @media print { .vmx-mochi-live-rig { display: none; } }
 /* Correct answers in a row (lib/mochi-reactions.js). A chip-sized spring,
    response 0.30 s and damping 0.70: 4.6% overshoot, settled in 491 ms, the
@@ -5424,6 +5424,40 @@ body.vmx-reading .vmx-pdf-body {
 @keyframes vmx-combo-pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
 @keyframes vmx-combo-fade { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .vmx-combo-chip.is-fresh { animation: vmx-combo-fade 160ms ease-out both; } }
+
+/* The end of a set, in turn (ResultsView): the score, then the day count
+   70 ms later (the stat cards keep their own rise-in). Each block rides the
+   control spring, response 0.35 s and damping 0.82: 1.1% overshoot, settled
+   in 480 ms (the curve .vw-volume uses). Only on the first look at a result;
+   Back from the answers shows it still. Decoration, so under reduced motion
+   the blocks are simply there. */
+.vmx-res-step.is-paced { animation: vmx-res-in 480ms var(--ease-out) both; animation-delay: var(--res-delay, 0ms); }
+@supports (animation-timing-function: linear(0, 1)) {
+  .vmx-res-step.is-paced { animation-timing-function: linear(0, 0.053, 0.174, 0.32, 0.467, 0.6, 0.712, 0.802, 0.871, 0.922, 0.958, 0.982, 0.997, 1.005, 1.01, 1.011, 1.011, 1.01, 1.008, 1.006, 1.005, 1.004, 1.002, 1.002, 1); }
+}
+@keyframes vmx-res-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .vmx-res-step.is-paced { animation: none; } }
+
+/* The day count after the first set of a day (StreakMoment). */
+.vmx-streak-moment { display: flex; align-items: center; gap: 12px; margin: 0 auto 16px; max-width: 480px; padding: 12px 16px; border: 1px solid var(--clr-gold); border-radius: var(--r-lg); background: var(--clr-surface); }
+.vmx-streak-moment-flame { display: inline-flex; flex: 0 0 auto; color: var(--clr-gold-text); }
+.vmx-streak-moment-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.vmx-streak-moment-text strong { font-size: 16px; color: var(--clr-ink); font-variant-numeric: tabular-nums; }
+.vmx-streak-moment-text span { font-size: 14px; color: var(--clr-ink-soft); line-height: 1.6; }
+.vmx-streak-moment-week { display: inline-flex; gap: 4px; flex: 0 0 auto; }
+.vmx-streak-moment-week i { width: 8px; height: 8px; border-radius: 50%; background: var(--clr-surface-2); border: 1px solid var(--clr-border); }
+.vmx-streak-moment-week i.is-on { background: var(--clr-gold); border-color: var(--clr-gold); }
+.vmx-streak-moment-week i.is-today { outline: 2px solid var(--clr-gold-text); outline-offset: 1px; }
+/* The flame catches once, after its card has arrived: the chip spring
+   (response 0.30 s, damping 0.70; 491 ms). */
+.vmx-streak-moment.is-first .vmx-streak-moment-flame { animation: vmx-flame-catch 491ms var(--ease-out) 240ms both; transform-origin: 50% 90%; }
+@supports (animation-timing-function: linear(0, 1)) {
+  .vmx-streak-moment.is-first .vmx-streak-moment-flame { animation-timing-function: linear(0, 0.075, 0.242, 0.436, 0.62, 0.772, 0.887, 0.965, 1.013, 1.037, 1.046, 1.044, 1.037, 1.028, 1.02, 1.012, 1.006, 1.002, 1, 0.998, 0.998, 0.998, 0.998, 0.999, 1); }
+}
+@keyframes vmx-flame-catch { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .vmx-streak-moment.is-first .vmx-streak-moment-flame { animation: none; } }
+@media (max-width: 400px) { .vmx-streak-moment-week { display: none; } }
+@media print { .vmx-streak-moment { display: none; } }
 .vmx-empty-mochi { display: flex; margin: 0 auto 8px; }
 .vmx-state-panel .vmx-state-panel__mochi { width: 56px; height: 56px; background: transparent; color: inherit; animation: none; }
 .vmx-loading-mark { height: 32px; }

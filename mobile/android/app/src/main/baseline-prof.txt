@@ -1,0 +1,7 @@
+# Baseline profile: compiled ahead of time at install (Play, or androidx.profileinstaller), so the first start
+# does not run the shell through the interpreter. AndroidX libraries ship their own profiles; these rules cover
+# Capacitor's bridge and this app, both on the start path (splash, bridge, WebView client, plugin calls).
+HSPLcom/getcapacitor/**;->**(**)**
+Lcom/getcapacitor/**;
+HSPLcom/vetmock/app/**;->**(**)**
+Lcom/vetmock/app/**;

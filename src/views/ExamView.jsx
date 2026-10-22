@@ -26,15 +26,22 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
   const isLast = currentIdx === questions.length - 1;
   // Correct answers in a row up to this question, for the verdict panel.
   const answerRun = revealAnswer ? correctRun(questions, answers, currentIdx) : 0;
-  // Mochi's reactions play on the Motion Kit rig, a small lazy chunk: fetch it
-  // while the student reads the first question, never in a real exam.
+  // A practice set whose every answer is already in: the last button shows
+  // the result. The "ส่งข้อสอบ?" check is for a paper, or for blanks.
+  const practiceDone = revealAnswer && answeredCount === questions.length;
+  const practiceDoneRef = useRef(practiceDone);
+  practiceDoneRef.current = practiceDone;
+  const nextQRef = useRef(nextQ);
+  nextQRef.current = nextQ;
+  // Mochi's reactions (each verdict, the result) play on the Motion Kit rig,
+  // a small lazy chunk: fetch it while the student reads the first question.
   useEffect(() => {
-    if (!revealAnswer) return undefined;
-    const idle = window.requestIdleCallback || ((fn) => window.setTimeout(fn, 600));
-    const cancel = window.cancelIdleCallback || window.clearTimeout;
+    // Global timers: a test harness's window may not carry them.
+    const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 600));
+    const cancel = window.cancelIdleCallback || clearTimeout;
     const id = idle(() => { preloadMochiRig(); }, { timeout: 2000 });
     return () => cancel(id);
-  }, [revealAnswer]);
+  }, []);
 
   // Advancing a question is the single most repeated moment in the app, and it
   // used to swap with no transition at all. The card is NOT remounted to do
@@ -59,7 +66,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
   // the same confirm dialog the button opens, so a keypress can't end the
   // exam without an explicit confirm.
   useEffect(() => {
-    const open = () => setConfirmSubmit(true);
+    const open = () => { if (practiceDoneRef.current) nextQRef.current(); else setConfirmSubmit(true); };
     window.addEventListener('vmx-exam-submit-request', open);
     return () => window.removeEventListener('vmx-exam-submit-request', open);
   }, []);
@@ -207,9 +214,9 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         <button className="vmx-btn vmx-btn-ghost vmx-exam-prev" onClick={prevQ} disabled={currentIdx === 0}>← ข้อก่อนหน้า</button>
         <button
           className="vmx-btn vmx-btn-primary vmx-exam-next"
-          onClick={() => { if (isLast) setConfirmSubmit(true); else nextQ(); }}
+          onClick={() => { if (isLast && !practiceDone) setConfirmSubmit(true); else nextQ(); }}
         >
-          {isLast ? 'ส่งข้อสอบ ✓' : 'ข้อถัดไป →'}
+          {isLast ? (practiceDone ? 'ดูผลลัพธ์ →' : 'ส่งข้อสอบ ✓') : 'ข้อถัดไป →'}
         </button>
       </div>
 

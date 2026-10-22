@@ -21,7 +21,7 @@ test('the burst fires only for a strong score over at least three graded questio
   // use correct/total directly (found in post-merge review of #8).
   assert.match(results, /const celebrate = autoQs\.length >= 3 && score\.total > 0 && score\.correct \/ score\.total >= 0\.8;/);
   assert.match(results, /const perfect = score\.total > 0 && score\.correct === score\.total;/);
-  assert.match(results, /<div className="vmx-results-hero">\n\s*\{celebrate && <ScoreBurst strong=\{perfect\} \/>\}/);
+  assert.match(results, /<div className=\{`vmx-results-hero[^`]*`\}>\n\s*\{celebrate && <ScoreBurst strong=\{perfect\} \/>\}/);
   assert.doesNotMatch(results, /strong=\{score\.pct === 100\}/);
 });
 

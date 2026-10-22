@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- Play feature graphic, 1024 x 500. Drawn from the web's own art and font (Mochi, Sarabun) by
+     .github/workflows/android.yml with headless Chrome, which shapes Thai correctly. -->
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: Sarabun; font-weight: 400; src: url(../../public/fonts/sarabun-400.woff2) format('woff2'); }
+  @font-face { font-family: Sarabun; font-weight: 700; src: url(../../public/fonts/sarabun-700.woff2) format('woff2'); }
+  html, body { margin: 0; width: 1024px; height: 500px; overflow: hidden; }
+  body {
+    /* The page's own paper and ink (src/styles.css :root). */
+    background: #f6efe4; color: #2b2419; font-family: Sarabun, sans-serif;
+    display: grid; grid-template-columns: 420px 1fr; align-items: center;
+  }
+  .mochi { width: 400px; height: 400px; justify-self: end; }
+  .text { padding: 0 64px 0 32px; }
+  .brand { display: flex; align-items: center; gap: 14px; font-weight: 700; font-size: 61px; letter-spacing: -0.5px; line-height: 1; }
+  .brand img { width: 61px; height: 61px; }
+  /* Type steps of 1.25: 61, 39, 25. */
+  h1 { font-size: 39px; font-weight: 700; line-height: 1.35; margin: 24px 0 12px; color: #355a39; }
+  p { font-size: 25px; line-height: 1.5; margin: 0; color: #5c4f3d; }
+</style>
+</head>
+<body>
+  <img class="mochi" src="../../public/motion/poses/happy.2d0316d786.svg" alt="">
+  <div class="text">
+    <div class="brand"><img src="../../public/vetmock-logo.svg" alt="">VetMock</div>
+    <h1>ฝึกข้อสอบสัตวแพทย์ ได้ทุกที่</h1>
+    <p>คลังข้อสอบอยู่ในเครื่อง ฝึกได้แม้ไม่มีเน็ต<br>มี Mochi ฝึกเป็นเพื่อนทุกข้อ</p>
+  </div>
+</body>
+</html>
