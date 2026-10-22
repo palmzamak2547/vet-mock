@@ -179,6 +179,11 @@ const LIBRARY_LICENSES = new Map([
   ['cc-by-sa-4.0', 'CC-BY-SA-4.0'],
   ['cc-by-nc-4.0', 'CC-BY-NC-4.0'],
   ['cc-by-nc-sa-4.0', 'CC-BY-NC-SA-4.0'],
+  // WHO, FAO and WOAH publications (src/data/library-open-sources.js).
+  ['cc-by-nc-sa-3.0-igo', 'CC-BY-NC-SA-3.0-IGO'],
+  ['cc-by-nc-nd-4.0', 'CC-BY-NC-ND-4.0'],
+  // A publisher's printed permission to copy for teaching or non-commercial use (FAO/WHO).
+  ['publisher-noncommercial-permission', 'publisher-noncommercial-permission'],
   ['public-domain', 'public-domain'],
   ['internal-original', 'internal-original'],
   ['instructor-permission', 'instructor-permission'],
@@ -193,8 +198,8 @@ export function publicationMetadata(item) {
   const canonicalLicense = LIBRARY_LICENSES.get(license.toLowerCase());
   if (!canonicalLicense) throw new Error(`unsupported library license: ${license}`);
   const permissionEvidence = String(item?.permissionEvidence || item?.permission_evidence || '').trim();
-  if (canonicalLicense === 'instructor-permission' && !permissionEvidence) {
-    throw new Error('instructor-permission requires permissionEvidence');
+  if ((canonicalLicense === 'instructor-permission' || canonicalLicense === 'publisher-noncommercial-permission') && !permissionEvidence) {
+    throw new Error(`${canonicalLicense} requires permissionEvidence`);
   }
   const status = String(item?.status || 'draft').trim();
   if (!LIBRARY_STATUSES.has(status)) throw new Error(`invalid library status: ${status}`);

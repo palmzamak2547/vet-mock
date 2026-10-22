@@ -214,6 +214,15 @@ the topic card (TopicSelectView, button "เอกสาร N") and the VetWiki 
 - 2026-10-21: 2,937 links, 317 topics, 473 documents, 0 reviewed, 2.2 MB.
   Anon `library_related` for 6 topics from Bangkok: p50 148 ms.
 
+## Sources from outside Chula
+
+`src/data/library-open-sources.js` lists official guidance, reference works and peer-reviewed
+reviews from outside Chula, with the licence line read from each source
+(`docs/library/open-sources.md`). An entry with `hosted: '<slug>'` is a normal `library_docs` row
+(its licence allows an unchanged copy) and only gains its source label; an entry without it is a
+card that opens the publisher's page (`storage_provider: 'external'`, `src/lib/open-sources.js`).
+Zoonoses and One Health came first (2026-10-22): 31 entries, 6 hosted.
+
 ## Licensing
 
 `license` is `NOT NULL` and the ingest script refuses to run without it. A row

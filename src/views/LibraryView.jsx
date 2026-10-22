@@ -27,6 +27,7 @@ import FeatureTip from '../components/FeatureTip.jsx';
 import { takeViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { thaiError } from '../lib/errors.js';
 import { googleDriveSourceUrl, mergeLibrarySources, vcaFileDoc } from '../lib/vca-library.js';
+import { openSourceLine } from '../lib/open-sources.js';
 import { EMPTY_ART } from '../data/art.js';
 import { cardDescription, ownYearFirst, prefersCompactReading } from '../lib/reading-layout.js';
 import {
@@ -115,7 +116,7 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
   // PowerPoint, video and images, and their card should say so before the
   // button explains what tapping it will do.
   const physical = [
-    mode.action !== 'read' ? docTypeLabel(doc.mime) : null,
+    mode.action !== 'read' ? (doc.storage_provider === 'external' ? 'ลิงก์ไปเว็บต้นทาง' : docTypeLabel(doc.mime)) : null,
     doc.page_count ? `${doc.page_count} หน้า` : null,
     formatBytes(doc.byte_size),
   ].filter(Boolean).join(', ');
@@ -136,7 +137,9 @@ function DocCard({ doc, busy, onOpen, onOpenOriginal, showSubject }) {
         <div className="vmx-lib-card-meta">{[physical, meta].filter(Boolean).join(', ')}</div>
       )}
 
-      {(doc.lecturer || doc.attribution || doc.cohort) && (
+      {doc.open ? (
+        <div className="vmx-lib-card-meta">แหล่งภายนอก: {openSourceLine(doc.open)}</div>
+      ) : (doc.lecturer || doc.attribution || doc.cohort) && (
         <div className="vmx-lib-card-meta">
           {doc.lecturer ? `ผู้สอน: ${doc.lecturer}` : null}
           {doc.lecturer && (doc.attribution || doc.cohort) ? ', ' : null}
