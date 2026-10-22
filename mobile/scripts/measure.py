@@ -74,6 +74,15 @@ def tap(n):
     shell(f"input tap {(x1 + x2) // 2} {(y1 + y2) // 2}")
 
 
+def save_logs(out, name):
+    """The page's console (Capacitor logs it when loggingBehavior allows), WebView and crash lines, and the UI tree."""
+    log = adb("logcat", "-d", "-v", "time", check=False)
+    keep = [l for l in log.splitlines() if re.search(r"Capacitor|chromium|cr_|AndroidRuntime|VetMock|WebView|FATAL", l)]
+    (out / f"{name}-logcat.txt").write_text(chr(10).join(keep[-400:]), encoding="utf-8")
+    shell("uiautomator dump /sdcard/ui.xml >/dev/null 2>&1 || true", check=False)
+    (out / f"{name}-ui.xml").write_text(adb("exec-out", "cat", "/sdcard/ui.xml", check=False), encoding="utf-8")
+
+
 def screenshot(out, name):
     data = subprocess.run(["adb", "exec-out", "screencap", "-p"], capture_output=True, timeout=30).stdout
     (out / f"{name}.png").write_bytes(data)
@@ -249,8 +258,12 @@ def main():
                 results["size"]["download_min_bytes"], results["size"]["download_max_bytes"] = int(m.group(1)), int(m.group(2))
 
     # First run online: fills nothing but the WebView's HTTP cache for on-demand media.
+    adb("logcat", "-c", check=False)
     start_once(True)
     screenshot(out, "home-light")
+    time.sleep(8)
+    screenshot(out, "home-light-12s")
+    save_logs(out, "first-start")
     results["cold_start"] = {"to_first_frame": None, "to_interactive": None}
     cold = [start_once(True) for _ in range(10)]
     results["cold_start"]["to_first_frame"] = summary([c[0] for c in cold])

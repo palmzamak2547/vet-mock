@@ -33,6 +33,16 @@ function bytesToBase64(bytes) {
   return btoa(binary);
 }
 
+/** Replaces a browser property, including a read-only one (an assignment would throw in a module). */
+function define(target, key, value) {
+  Object.defineProperty(target, key, { value, configurable: true, writable: true, enumerable: true });
+}
+
+/** One failing piece of the app layer must never stop the page from starting. */
+function guarded(name, fn) {
+  try { return fn(); } catch (err) { console.error(`[native-app] ${name} failed`, err); return undefined; }
+}
+
 async function sha256Hex(text) {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
   return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, '0')).join('');
@@ -43,11 +53,11 @@ const SHARE_FILE_MAX = 10 * 1024 * 1024;
 
 function installShare() {
   if (typeof navigator.share === 'function') return;
-  navigator.canShare = (data = {}) => {
+  define(navigator, 'canShare', (data = {}) => {
     const files = data.files ? Array.from(data.files) : [];
     return files.every((f) => f instanceof Blob && f.size <= SHARE_FILE_MAX) && Boolean(files.length || data.text || data.url || data.title);
-  };
-  navigator.share = async (data = {}) => {
+  });
+  define(navigator, 'share', async (data = {}) => {
     if (!navigator.canShare(data)) throw new TypeError('Nothing this phone can share');
     const files = await Promise.all(Array.from(data.files || []).map(async (f, i) => ({
       name: f.name || `vetmock-${i}`,
@@ -55,12 +65,12 @@ function installShare() {
       data: bytesToBase64(new Uint8Array(await f.arrayBuffer())),
     })));
     await call('share', { title: data.title, text: data.text, url: data.url, files });
-  };
+  });
 }
 
 // ---- speechSynthesis, from Android's text-to-speech ----------------------
 function installSpeech() {
-  if (window.speechSynthesis) return;
+  // The WebView's own speechSynthesis, where it exists, has no voices: Android's text-to-speech replaces it.
   const pending = new Map();
   let voices = [];
   let nextId = 0;
@@ -126,20 +136,20 @@ function installSpeech() {
   }).catch(() => {});
   loadVoices();
 
-  window.speechSynthesis = synth;
-  window.SpeechSynthesisUtterance = SpeechSynthesisUtterance;
+  define(window, 'speechSynthesis', synth);
+  define(window, 'SpeechSynthesisUtterance', SpeechSynthesisUtterance);
 }
 
 // ---- display-mode: standalone ---------------------------------------------
 function installStandalone() {
   const matchMedia = window.matchMedia.bind(window);
-  window.matchMedia = (query) => {
+  define(window, 'matchMedia', (query) => {
     if (/display-mode:\s*(standalone|fullscreen|minimal-ui)/.test(query)) {
       const standalone = /standalone/.test(query);
       return { matches: standalone, media: query, onchange: null, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {}, dispatchEvent: () => false };
     }
     return matchMedia(query);
-  };
+  });
 }
 
 // ---- first paint, theme, next exam ------------------------------------------
@@ -179,9 +189,9 @@ async function syncExam() {
 
 // ---- the API other modules call ---------------------------------------------
 if (IS_APP) {
-  installShare();
-  installSpeech();
-  installStandalone();
+  guarded('share', installShare);
+  guarded('speech', installSpeech);
+  guarded('standalone', installStandalone);
 
   window.VetMockApp = Object.freeze({
     /** Mochi's states as Android haptics: 'correct', 'wrong', 'milestone', 'tap'. */
@@ -214,8 +224,8 @@ if (IS_APP) {
     bundle: () => call('bundleStatus'),
   });
 
-  reportFirstPaint();
-  syncTheme();
+  guarded('first paint', reportFirstPaint);
+  guarded('theme', syncTheme);
   syncExam();
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') syncExam(); });
 }
