@@ -3450,6 +3450,9 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
    page scrolling at all from over the left menu. Below 880px the block after
    this one takes over and stacks the two. */
 .vmx-notes-sidebar { max-height: calc(100vh - 32px); overflow-y: auto; }
+/* Grid items default to min-width: auto; a wide table would push the column
+   past the screen instead of scrolling inside its own box. */
+.vmx-notes-grid > * { min-width: 0; }
 
 /* ────────── Responsive layouts for inline-grid views ────────── */
 @media (max-width: 880px) {
@@ -3459,7 +3462,9 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
      they arrived at a screen of navigation and had to scroll past all of it to
      reach the first line. Capping it keeps the picker reachable (it scrolls
      inside itself) while the article starts within the first screen. */
-  .vmx-notes-grid { grid-template-columns: 1fr !important; }
+  /* minmax(0, 1fr), not 1fr: 1fr is minmax(auto, 1fr), so a wide table set the
+     column to 405 px on a 360 px phone and the text was clipped on the right. */
+  .vmx-notes-grid { grid-template-columns: minmax(0, 1fr) !important; }
   /* No overscroll-behavior here on purpose: `contain` on an in-page panel
      swallows the wheel when its content happens to fit, which once stopped the
      page scrolling at all from over the left menu. That property belongs to
@@ -5400,6 +5405,25 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-result-mochi { display: flex; margin: -8px auto 0; }
 .vmx-status-mochi { margin: -5px 5px -5px 0; }
 .vmx-feedback-mochi { float: right; margin: -3px 0 4px 8px; }
+/* Mochi reacting for a moment (MochiLive): the rig plays over the still and
+   hides it while it plays; the still is what stays. */
+.vmx-mochi-live { position: relative; display: inline-flex; line-height: 0; pointer-events: none; }
+.vmx-mochi-live-rig { position: absolute; inset: 0; pointer-events: none; }
+.vmx-mochi-live-rig > .vm-mochi-rig, .vmx-mochi-live-rig svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.vmx-mochi-live[data-mochi-live=playing] > .vmx-mochi { visibility: hidden; }
+@media print { .vmx-mochi-live-rig { display: none; } }
+/* Correct answers in a row (lib/mochi-reactions.js). A chip-sized spring,
+   response 0.30 s and damping 0.70: 4.6% overshoot, settled in 491 ms, the
+   curve .vw-spine uses (physics-math-design 2.1). It is information, so
+   under reduced motion it fades in instead of springing. */
+.vmx-combo-chip { display: inline-flex; align-items: center; margin-top: 6px; padding: 2px 10px; border: 1px solid var(--clr-sage); border-radius: var(--r-pill); background: var(--clr-surface); color: var(--clr-sage-text); font-size: 14px; font-weight: 700; line-height: 1.5; font-variant-numeric: tabular-nums; transform-origin: 0 50%; }
+.vmx-combo-chip.is-fresh { animation: vmx-combo-pop 491ms var(--ease-out) both; }
+@supports (animation-timing-function: linear(0, 1)) {
+  .vmx-combo-chip.is-fresh { animation-timing-function: linear(0, 0.075, 0.242, 0.436, 0.62, 0.772, 0.887, 0.965, 1.013, 1.037, 1.046, 1.044, 1.037, 1.028, 1.02, 1.012, 1.006, 1.002, 1, 0.998, 0.998, 0.998, 0.998, 0.999, 1); }
+}
+@keyframes vmx-combo-pop { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
+@keyframes vmx-combo-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .vmx-combo-chip.is-fresh { animation: vmx-combo-fade 160ms ease-out both; } }
 .vmx-empty-mochi { display: flex; margin: 0 auto 8px; }
 .vmx-state-panel .vmx-state-panel__mochi { width: 56px; height: 56px; background: transparent; color: inherit; animation: none; }
 .vmx-loading-mark { height: 32px; }

@@ -9,6 +9,11 @@ Palm asked why VetMock ships slowly. Measured that day: no merge after 06:29 whi
 - After each merge, watch main's push CI for that commit: red means fix forward or revert at once.
 - VetMock does not use `C:\dev\heavy-gate.next` (Tipjai's turn file).
 
+## UX journeys 5.159.0 — 2026-10-22 (Claude Code)
+
+- Evidence, ranked opportunities and where the work stopped: `docs/ux/journeys.md` (5.159.0 shipped items 1-3; round two, items 4-7, and the perf baseline are next, section 6). Owner decision: glass is allowed on a few small chrome surfaces (nav, sheets, chips), never on reading text; no frame-costing change ships before the perf baseline in that file exists.
+- In app browsers (`src/lib/inapp.js` `signInPlan`): no Google button (Google refuses OAuth there), LINE login first inside LINE.
+
 ## Android app (Capacitor 8) — 2026-10-22 (Claude Code)
 
 - Decision and evidence: `docs/ADR-android-app.md`. The app is `mobile/` (its own package.json; `mobile/android` is the Gradle project). It serves the production build from its own storage under `https://vetmock.com` (`server.hostname`), so `location.origin`, auth redirects and the CSP are production's. `mobile/android/.../AppWebViewClient.kt` sends `/api/*` and any file the bundle does not carry (figures, atlas, og, pre-renders) to the real site.
@@ -17,6 +22,7 @@ Palm asked why VetMock ships slowly. Measured that day: no merge after 06:29 whi
 - No service worker inside the app (`app-lifecycle.js` returns early), no GIS popup (`google-gis.js`), Google sign-in tries Android's account sheet first (`supabase.js`).
 - Build and measure in CI: `.github/workflows/android.yml` (not required; path-filtered). Locally: `. mobile/scripts/env.sh`, take `C:\dev\heavy-gate.lock`, `cd mobile && npm ci && node scripts/fetch-bundle.mjs --dist ../dist && npx cap sync android`, then `cd android && ./gradlew --no-daemon assembleRelease` (JVM capped at 3 GB in gradle.properties). This laptop has no accelerated emulator (Windows Hypervisor Platform is off).
 - Owner steps: `bash mobile/scripts/wizard.sh` (upload key in `~/.vetmock-android`, signed AAB, Play Console, internal testing, the assetlinks file through `mobile/scripts/assetlinks.mjs`, Google Cloud Android OAuth client). Store texts and form answers: `mobile/store/`.
+
 
 ## Read-aloud from shared Gemini clips 5.155.0 — 2026-10-21 (Claude Code)
 

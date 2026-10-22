@@ -9,7 +9,7 @@ test('invalid persisted appearance values cannot turn on unsupported effects', (
   for (const bad of [null, [], 'off', 42, { mode: 'false', loader: '../bad', celebration: 'unknown', companion: 'false' }]) {
     assert.deepEqual(normalizeMotionPreferences(bad), MOTION_DEFAULTS);
   }
-  assert.deepEqual(normalizeMotionPreferences({ mode: 'off', companion: false, loader: 'progress', celebration: 'hearts', history: [] }), { mode: 'off', companion: false, loader: 'progress', celebration: 'hearts', readingPointer: 'auto' });
+  assert.deepEqual(normalizeMotionPreferences({ mode: 'off', companion: false, loader: 'progress', celebration: 'hearts', history: [] }), { mode: 'off', companion: false, loader: 'progress', celebration: 'hearts', readingPointer: 'auto', haptics: true });
 });
 
 test('automatic reading light respects input type, reduced motion and explicit choices', () => {

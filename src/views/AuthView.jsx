@@ -18,7 +18,7 @@ import {
 
 import { isWebAuthnDismissal, thaiAuthError } from '../lib/auth-errors.js';
 import { STAY_SIGNED_IN_KEY } from '../lib/auth-storage.js';
-import { inAppBrowser, externalUrl, APP_NAMES } from '../lib/inapp.js';
+import { inAppBrowser, externalUrl, APP_NAMES, signInPlan } from '../lib/inapp.js';
 import { isLiffAvailable } from '../lib/line-liff.js';
 import {
   deriveUsernameFromEmail,
@@ -62,6 +62,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
   // A link opened from LINE, Facebook, Instagram and the like lands in that
   // app's own browser, where Google usually refuses to sign anyone in.
   const inApp = useMemo(() => (typeof navigator === 'undefined' ? null : inAppBrowser(navigator.userAgent)), []);
+  const plan = signInPlan(inApp);
   const inAppExit = useMemo(() => (inApp && typeof window !== 'undefined' ? externalUrl(inApp, window.location.href) : null), [inApp]);
 
   // Stay signed in (persist session). Default true (most users want).
@@ -463,6 +464,30 @@ export default function AuthView({ onBack, onSuccess, user }) {
     );
   }
 
+  // LINE OAuth: Thailand-popular, through LIFF (src/lib/line-liff.js). Shown only
+  // where LIFF can log in: its endpoint is one origin. Inside LINE's own browser
+  // it goes first, because it is the one sign-in that works without leaving LINE.
+  const lineButton = isLiffAvailable() ? (
+            <button
+              type="button"
+              className="vmx-btn vmx-btn-ghost"
+              style={{ width: '100%', justifyContent: 'center', padding: '14px', marginBottom: 8, background: '#06C755', color: '#fff', borderColor: '#06C755' }}
+              onClick={lineLogin}
+              disabled={loading}
+            >
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 600 }}>
+                {/* Simple LINE chat-bubble — distinctive curved-square
+                    bubble silhouette. Wordmark in the icon was too
+                    small to read at 20px (and the button label already
+                    says "LINE"), so we drop the inner letters. */}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2C5.92 2 1 5.97 1 10.86c0 4.39 3.91 8.07 9.19 8.77.36.08.85.24.97.55.11.28.07.71.04.99l-.16 1.15c-.05.34-.27 1.34 1.17.73 1.44-.61 7.77-4.58 10.6-7.84C24.32 13.07 25 11.55 25 9.86 25 4.97 19.08 1 13 1z" transform="translate(-1 1)"/>
+                </svg>
+                เข้าสู่ระบบด้วย LINE
+              </span>
+            </button>
+  ) : null;
+
   return (
     <>
       <p style={{ textAlign: 'center', fontSize: 14 }}><a href="/app/privacy">ข้อมูลที่จัดเก็บและความเป็นส่วนตัว</a></p>
@@ -505,10 +530,11 @@ export default function AuthView({ onBack, onSuccess, user }) {
         {/* Google OAuth + Magic Link — hide on reset / update / magic-link itself */}
         {mode !== 'reset' && mode !== 'update-password' && mode !== 'magic-link' && (
           <>
+            {plan.lineFirst && lineButton}
             {inApp && (
               <div role="note" style={{ marginBottom: 12, padding: '12px 14px', borderRadius: 12, border: '1px solid var(--clr-gold)', background: 'var(--clr-surface)', fontSize: 14, lineHeight: 1.65 }}>
                 <b>ตอนนี้เปิดอยู่ในแอป {APP_NAMES[inApp]}</b>
-                <p style={{ margin: '4px 0 0' }}>Google มักไม่ให้เข้าสู่ระบบในเบราว์เซอร์ของแอป เปิดหน้านี้ใน Safari หรือ Chrome ก่อน แล้วค่อยเข้าสู่ระบบ</p>
+                <p style={{ margin: '4px 0 0' }}>Google ไม่ให้เข้าสู่ระบบในเบราว์เซอร์ของแอปนี้ ถ้าจะใช้ Google ให้เปิดหน้านี้ใน Safari หรือ Chrome ก่อน</p>
                 {inAppExit
                   ? <a className="vmx-btn vmx-btn-ghost" href={inAppExit} style={{ marginTop: 8, minHeight: 44 }}>เปิดในเบราว์เซอร์</a>
                   : <p style={{ margin: '4px 0 0' }}>กดปุ่มเมนู (⋯ หรือ ⋮) ที่มุมจอ แล้วเลือกเปิดในเบราว์เซอร์</p>}
@@ -520,6 +546,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                 this page, so the user never sees the "<project>.supabase.co"
                 URL flash that the redirect-based fallback exposes.
                 Mounted as a useEffect below; this div is the container. */}
+            {plan.google && (<>
             <div
               ref={gisButtonRef}
               style={{
@@ -548,6 +575,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
                 </span>
               </button>
             )}
+            </>)}
 
             {/* Passkey — no password to type, remember, or leak, and the
                 credential is bound to the real origin so a lookalike page
@@ -571,29 +599,7 @@ export default function AuthView({ onBack, onSuccess, user }) {
               </button>
             )}
 
-            {/* LINE OAuth — Thailand-popular, through LIFF (src/lib/line-liff.js).
-                Shown only where LIFF can log in: its endpoint is one origin, and
-                vetmock.com waits for the owner to move it there. */}
-            {isLiffAvailable() && (
-            <button
-              type="button"
-              className="vmx-btn vmx-btn-ghost"
-              style={{ width: '100%', justifyContent: 'center', padding: '14px', marginBottom: 8, background: '#06C755', color: '#fff', borderColor: '#06C755' }}
-              onClick={lineLogin}
-              disabled={loading}
-            >
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 600 }}>
-                {/* Simple LINE chat-bubble — distinctive curved-square
-                    bubble silhouette. Wordmark in the icon was too
-                    small to read at 20px (and the button label already
-                    says "LINE"), so we drop the inner letters. */}
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12 2C5.92 2 1 5.97 1 10.86c0 4.39 3.91 8.07 9.19 8.77.36.08.85.24.97.55.11.28.07.71.04.99l-.16 1.15c-.05.34-.27 1.34 1.17.73 1.44-.61 7.77-4.58 10.6-7.84C24.32 13.07 25 11.55 25 9.86 25 4.97 19.08 1 13 1z" transform="translate(-1 1)"/>
-                </svg>
-                เข้าสู่ระบบด้วย LINE
-              </span>
-            </button>
-            )}
+            {!plan.lineFirst && lineButton}
 
             {/* Discord OAuth — replaces Apple ($99/yr) with a free
                 option popular in the student community. Supabase

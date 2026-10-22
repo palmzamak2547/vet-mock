@@ -31,6 +31,7 @@ import { loadOcclusionCards } from '../lib/image-occlusion.js';
 import ImageOcclusionCard from '../components/ImageOcclusionCard.jsx';
 import ClozeCard from '../components/ClozeCard.jsx';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
+import { stillWrong } from '../lib/wrong-pool.js';
 
 // ============================================================
 // SRSessionView — Spaced Repetition flashcard session
@@ -46,7 +47,7 @@ import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 
 const SIZE_PRESETS = [25, 50, 100, 200];
 
-export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [], selectedYear = 4, selectedPhase, qbReady = true, qbRevision = 0, loadAllYears = null, onOpenWiki = null, ownerId = null }) {
+export default function SRSessionView({ srCards, setSrCards, goHome, customQuestions = [], selectedYear = 4, selectedPhase, qbReady = true, qbRevision = 0, loadAllYears = null, onOpenWiki = null, ownerId = null, history = [], startExam = null }) {
   // Merge in user-authored flashcards (from "Highlight → Flashcard"
   // in SummaryModal). They live in localStorage and don't trigger
   // React updates by themselves — we read on mount and let the
@@ -165,6 +166,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
   // Stats only for cards belonging to SR-eligible questions in the
   // current subject filter — keeps Total/Mastered consistent with what
   // the user can actually see in SR.
+  const hasStillWrong = useMemo(() => stillWrong(history).keys.size > 0, [history]);
   const stats = useMemo(() => {
     const eligible = new Map();
     const inSubject = reviewQuestionsInContext(allQuestions, {
@@ -420,6 +422,23 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
                 ทำ {Math.min(sessionSize === 'all' ? 25 : sessionSize, 25)} ใบวันนี้ก่อน, พรุ่งนี้ค่อยกลับมา review ใบเดิม + เปิดใบใหม่อีก, ติดต่อกันทุกวันสำคัญสุด
               </span>
+            </div>
+          )}
+          {/* A first miss is not a card yet (a question joins the queue when it is
+              missed twice, App.jsx findAutoPromoteCandidates), so after a first set
+              this page said 0 cards while Home offered the missed questions. Point
+              to the same pool Home uses instead of leaving the student at 0. */}
+          {stats.total === 0 && startExam && hasStillWrong && (
+            <div className="vmx-config-availability" role="note" style={{ marginTop: 12 }}>
+              ข้อที่ตอบผิดครั้งแรกยังไม่เป็นการ์ด จะเข้ามาเมื่อพลาดข้อเดิมอีกครั้ง ทวนข้อที่ยังตอบผิดตอนนี้ได้เลย
+              <button
+                type="button"
+                className="vmx-btn vmx-btn-ghost"
+                style={{ display: 'flex', marginTop: 8, minHeight: 44 }}
+                onClick={() => startExam({ mode: 'quick', practiceMode: 'wrong', subject: 'all', topic: null, questionCategory: 'all', numQuestions: 50, useTimer: false })}
+              >
+                ทวนข้อที่ยังตอบผิด
+              </button>
             </div>
           )}
 

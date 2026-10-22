@@ -26,6 +26,7 @@
 import { SUBJECTS } from '../data/curriculum.js';
 import { EXTERNAL_COURSES } from '../data/library-courses.js';
 import { googleDriveSourceUrl, mergeLibrarySources, vcaLibraryDocs } from './vca-library.js';
+import { openSourceDocs, openSourceUrl, withOpenLabels } from './open-sources.js';
 import { hasStoredAuthToken } from './auth-storage.js';
 
 const CDN_BASE = import.meta.env?.VITE_LIBRARY_CDN_BASE || '';
@@ -316,9 +317,10 @@ export function getLibraryCatalog() {
     _catalogPromise = Promise.all([
       fetchLibraryDocs().catch((error) => ({ docs: [], configured: false, error })),
       import('../data/vca-materials.js'),
+      import('../data/library-open-sources.js'),
     ])
-      .then(([result, { VCA_MATERIALS }]) => {
-        const sources = vcaLibraryDocs(VCA_MATERIALS);
+      .then(([result, { VCA_MATERIALS }, { OPEN_SOURCES }]) => {
+        const sources = [...vcaLibraryDocs(VCA_MATERIALS), ...openSourceDocs(OPEN_SOURCES)];
         if (result.error) {
           // The connected shelf is still unknown. Preserve that failure for
           // subject-count consumers while allowing the view to show sources.
@@ -327,7 +329,7 @@ export function getLibraryCatalog() {
           throw error;
         }
         noteDocHashes(result.docs);
-        const combined = { ...result, docs: mergeLibrarySources(result.docs, sources), configured: result.configured || sources.length > 0 };
+        const combined = { ...result, docs: mergeLibrarySources(withOpenLabels(result.docs, OPEN_SOURCES), sources), configured: result.configured || sources.length > 0 };
         saveCatalogSnapshot(combined);
         return combined;
       })
@@ -678,7 +680,7 @@ const _urlIntent = new Map(); // slug -> { at: number, p: Promise<string> }
 const INTENT_TTL_MS = 60_000;
 
 export function prefetchDocUrl(doc) {
-  if (doc?.storage_provider === 'google-drive') return;
+  if (doc?.storage_provider === 'google-drive' || doc?.storage_provider === 'external') return;
   if (!doc?.slug) return;
   const hit = _urlIntent.get(doc.slug);
   if (hit && Date.now() - hit.at < INTENT_TTL_MS) return;
@@ -711,6 +713,11 @@ export async function resolveDocUrl(doc) {
   if (doc.storage_provider === 'google-drive') {
     const url = googleDriveSourceUrl(doc.external_url);
     if (!url) throw new Error('ลิงก์เอกสารต้นฉบับไม่ถูกต้อง');
+    return url;
+  }
+  if (doc.storage_provider === 'external') {
+    const url = openSourceUrl(doc.external_url);
+    if (!url) throw new Error('ลิงก์ของแหล่งนี้ไม่ถูกต้อง');
     return url;
   }
   const hit = doc.slug ? _urlIntent.get(doc.slug) : null;
@@ -943,6 +950,7 @@ export function docTypeLabel(mime) {
  *  'download' → the browser will save it (Office files, zip, unknown) */
 export function docOpenMode(doc) {
   if (doc?.storage_provider === 'google-drive') return { action: 'tab', label: 'เปิดใน Google Drive' };
+  if (doc?.storage_provider === 'external') return { action: 'tab', label: 'เปิดที่เว็บต้นทาง' };
   const m = String(doc?.mime || '');
   if (m === 'application/pdf') return { action: 'read', label: 'เปิดอ่าน' };
   if (/^image\//.test(m)) return { action: 'tab', label: 'เปิดดูรูป' };

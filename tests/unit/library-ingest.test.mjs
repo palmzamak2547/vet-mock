@@ -177,6 +177,11 @@ test('publication metadata defaults to draft and requires real permission eviden
     () => publicationMetadata({ license: 'CC-BY-4.0', status: 'visible' }),
     /invalid library status/,
   );
+  assert.equal(publicationMetadata({ license: 'cc-by-nc-sa-3.0-igo' }).license, 'CC-BY-NC-SA-3.0-IGO');
+  assert.throws(
+    () => publicationMetadata({ license: 'publisher-noncommercial-permission' }),
+    /requires permissionEvidence/,
+  );
   assert.throws(
     () => publicationMetadata({ license: 'all-rights-reserved', status: 'public' }),
     /unsupported library license/,
