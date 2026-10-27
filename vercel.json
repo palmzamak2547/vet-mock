@@ -6,6 +6,11 @@
       "regions": [
         "sin1"
       ]
+    },
+    "api/ai-transcribe.js": {
+      "regions": [
+        "sin1"
+      ]
     }
   },
   "headers": [

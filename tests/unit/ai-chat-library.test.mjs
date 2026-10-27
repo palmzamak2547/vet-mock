@@ -13,7 +13,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import { garbled, rankFiles, searchPhrases, fileLinks, findFiles, pageSource, subjectLabel } from '../../api/_lib/ai/library.js';
-import { heuristicPlan, parsePlan, fileKindIn } from '../../api/_lib/ai/planner.js';
+import { heuristicPlan, parsePlan, fileKindIn, asksForFiles } from '../../api/_lib/ai/planner.js';
 import { runChat } from '../../api/_lib/ai/pipeline.js';
 
 const ENV = { VITE_SUPABASE_URL: 'https://db.example', VITE_SUPABASE_ANON_KEY: 'anon', DEEPSEEK_API_KEY: 'test' };
@@ -199,4 +199,29 @@ test('two uploads of the same title are one file', async () => {
   const r = await findFiles({ terms: ['distemper'], files: true }, { env: ENV, fetchImpl: lib.fetchImpl });
   assert.equal(r.items.length, 1);
   assert.equal(r.items[0].title, 'Canine and Feline Medicine (58-66)');
+});
+
+test('a syllabus that names the topic does not sit beside an answer', () => {
+  const docs = [
+    { slug: 'cdv', title: 'Canine Distemper', kind: 'slide', subject: 'com5', page_count: 28, hits: 7 },
+    { slug: 'syl', title: 'course syllabus', kind: 'handout', subject: 'vet-path-2', page_count: 14, hits: 3 },
+    { slug: 'wsava', title: 'WSAVA 2025 Vaccine Guideline', kind: 'guideline', subject: 'immuno', page_count: 40, hits: 11 },
+  ];
+  const ranked = rankFiles(docs, { terms: ['canine distemper'] });
+  const syl = ranked.find((d) => d.slug === 'syl');
+  assert.ok(syl.score < 3.5, `syllabus score ${syl.score.toFixed(2)} is under the floor`);
+  assert.equal(ranked[0].slug, 'cdv');
+});
+
+test('asking for files in so many words beats a model that read it as a question', async () => {
+  assert.equal(asksForFiles('ขอสไลด์ rabies หน่อย'), true);
+  assert.equal(asksForFiles('ขอข้อสอบเก่าวิชาสุกร'), true);
+  assert.equal(asksForFiles('ดาวน์โหลดชีท PRRS'), true);
+  assert.equal(asksForFiles('rabies มีระยะฟักตัวเท่าไหร่'), false);
+  assert.equal(asksForFiles('สไลด์เรื่อง rabies บอกว่าอะไร'), false, 'a question about a slide is a question');
+  // production: the model planned "ขอสไลด์ rabies หน่อย" as answer
+  const events = await chatTurn('ขอสไลด์ rabies หน่อย', { intent: 'answer', query_th: 'rabies', terms_en: ['rabies'], subjects: [] }, fakeLibrary({ search: SEARCH, docs: DOCS }));
+  const card = events.find((e) => e.event === 'cards')?.data.items.find((c) => c.type === 'files');
+  assert.ok(card && !card.related, 'the files card, not a related one');
+  assert.equal(card.items[0].slug, 'rabies-com5');
 });

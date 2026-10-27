@@ -51,6 +51,8 @@ export const FILE_KINDS = Object.freeze({
   other: 'เอกสาร',
 });
 
+const ADMIN_TITLE = /syllabus|course (?:outline|plan|schedule)|time ?table|schedule|ประมวลรายวิชา|แผนการสอน|ตารางเรียน|ตารางสอน|ตารางสอบ|มคอ/i;
+
 // What a kind is worth when the student did not ask for one: the lecture's
 // own material first, compilations last.
 const KIND_WEIGHT = { slide: 1.2, handout: 1, summary: 1, guideline: 0.7, textbook: 0.6, other: 0.4, pastpaper: 0.3 };
@@ -158,6 +160,8 @@ export function rankFiles(docs, { subjects = [], kind = '', terms = [] } = {}) {
       // past 100 pages a document is a compilation or a book: it mentions everything
       const bulk = pages > 100 ? Math.log2(pages / 100) * 0.5 : 0;
       let score = (titleHit ? 4 : 0) + Math.log2(1 + hits) * 0.5 + density * 2 + (KIND_WEIGHT[d.kind] ?? 0.4) - bulk;
+      // a syllabus or timetable names every topic of a course and teaches none
+      if (ADMIN_TITLE.test(d.title || '')) score -= 3;
       if (subjects.includes(d.subject)) score += 1.5;
       return { ...d, titleHit, score, kindMatch: wantKind ? d.kind === wantKind : true };
     })

@@ -69,6 +69,8 @@ const RE = {
   // files: a past paper is checked before quiz (ขอข้อสอบเก่า is a download, not a quiz)
   pastpaper: /(ข้อสอบเก่า|ข้อสอบปีก่อน|past\s*papers?|old exams?)/i,
   files: /(สไลด์|\bslides?\b|ชีท|ไฟล์|\bpdf\b|เอกสารประกอบ|\bhandouts?\b|ตำรา|\btextbooks?\b|ดาวน์โหลด|\bdownload\b|โหลด(?:สไลด์|ไฟล์|ชีท|เอกสาร|ตำรา))/i,
+  // asking for files in so many words: this beats a model that read it as a question
+  filesAsk: /(ขอ|หา|ส่ง|เอา|โหลด|ดาวน์โหลด|\bdownload|\bget|\bfind|\bsend)\s*(?:ไฟล์\s*)?(สไลด์|ชีท|ไฟล์|เอกสาร|ตำรา|\bpdf|\bslides?|\bhandouts?)|ข้อสอบเก่า|past\s*papers?/i,
   recent: /(ล่าสุด|ใหม่ๆ|ใหม่ล่าสุด|ปีนี้|ช่วงนี้|recent|latest|newest)/i,
   guide: /(vetmock|เว็บนี้|แอปนี้|แอพนี้|ในแอป|ในแอพ|ฟีเจอร์|feature|วิธีใช้|ใช้ยังไง|ใช้งานยังไง|อยู่ตรงไหน|อยู่เมนูไหน|มีอะไรใหม่|อัปเดต|อัพเดต|ตารางสอบ|สอบวิชา|วันสอบ|กลางภาค|ปลายภาค|ใครสอน|อาจารย์ผู้สอน|วิชาอะไรบ้าง|รายวิชา)/i,
   chat: /^(สวัสดี|หวัดดี|ดีจ้า|ดีครับ|ดีค่ะ|hello|hi|hey|ขอบคุณ|ขอบใจ|thank|thx|โอเค|ok|เยี่ยม|เก่งมาก|ฝันดี|บาย)[\s!.ๆ]*(?:ครับ|ค่ะ|คับ|จ้า|นะ)?[\s!.]*$/i,
@@ -82,6 +84,9 @@ export function isFollowUp(text) {
   const t = String(text || '').trim();
   return t.length < 28 || FOLLOW_UP.test(t);
 }
+
+/** Does the turn ask for files in so many words ("ขอสไลด์...", "ข้อสอบเก่า")? */
+export const asksForFiles = (text) => RE.filesAsk.test(String(text || ''));
 
 /** The kind of file a request names, or 'any'. */
 export function fileKindIn(text) {
