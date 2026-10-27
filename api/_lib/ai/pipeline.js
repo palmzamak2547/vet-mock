@@ -83,7 +83,8 @@ function latinTerms(text) {
 // CPU) inside an async continuation therefore holds the event back until that
 // work is done: measured locally, the first status reached the reader 350 ms
 // after it was "sent". A macrotask boundary lets the write out first.
-const yieldToSocket = () => new Promise((resolve) => setImmediate(resolve));
+// (setTimeout 0, not setImmediate: the repo's globals lint allows only the shared set)
+const yieldToSocket = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 let statsPending = null;
 /**
