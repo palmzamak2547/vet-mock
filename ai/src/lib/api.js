@@ -57,7 +57,9 @@ export function parseEvent(raw) {
  *           signal?: AbortSignal, on: (event: string, data: any) => void }} p
  */
 export async function chat({ messages, image = null, signal, on }) {
-  if (ENV.DEV && typeof location !== 'undefined' && location.search.includes('mock')) {
+  // ?mock, dev only: a build replaces import.meta.env.DEV with false, which drops
+  // this branch and mock.js from the bundle (spelled out so the bundler can see it)
+  if (import.meta.env && import.meta.env.DEV && typeof location !== 'undefined' && location.search.includes('mock')) {
     const { mockChat } = await import('./mock.js');
     return mockChat({ messages, image, signal, on });
   }

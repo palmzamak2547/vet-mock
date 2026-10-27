@@ -26,9 +26,18 @@ function Spinner() {
   return <span className="spin" aria-hidden="true">{SPIN[i]}</span>;
 }
 
+// a shown card is centred on its chip, then slid back inside the window
+function placeCard(e) {
+  const b = e.currentTarget;
+  const r = b.getBoundingClientRect();
+  const w = Math.min(300, innerWidth - 32);
+  const left = r.left + r.width / 2 - w / 2;
+  b.style.setProperty('--dx', `${Math.round(Math.min(Math.max(16, left), innerWidth - 16 - w) - left)}px`);
+}
+
 function Cite({ n, source, onPick }) {
   return (
-    <button type="button" className="cite" onClick={() => onPick(n)} aria-label={`แหล่งที่ ${n}: ${source?.title || ''}`}>
+    <button type="button" className="cite" onClick={() => onPick(n)} onPointerEnter={placeCard} onFocus={placeCard} aria-label={`แหล่งที่ ${n}: ${source?.title || ''}`}>
       {n}
       {source && (
         <span className="cite-card" role="tooltip">
@@ -45,7 +54,20 @@ function Sources({ items, open, setOpen, highlight }) {
   if (!items?.length) return null;
   return (
     <section className={`sources${open ? ' is-open' : ''}`} aria-label="แหล่งที่มา">
-      <button type="button" className="sources-head" onClick={() => setOpen(!open)} aria-expanded={open}>
+      <button
+        type="button"
+        className="sources-head"
+        aria-expanded={open}
+        onClick={(e) => {
+          setOpen(!open);
+          // opened low on the screen: bring the list up instead of opening it under the box
+          const r = e.currentTarget.getBoundingClientRect();
+          if (!open && r.top > innerHeight * 0.55) {
+            const behavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+            requestAnimationFrame(() => window.scrollBy({ top: r.top - innerHeight * 0.3, behavior }));
+          }
+        }}
+      >
         <span className="deck" aria-hidden="true">
           {items.slice(0, 4).map((s, i) => <span key={s.n} className={`deck-card k-${s.kind}`} style={{ '--i': i }} />)}
         </span>

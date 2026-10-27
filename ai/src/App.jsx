@@ -118,24 +118,35 @@ export default function App() {
 
   useEffect(() => {
     let raf = 0;
+    const root = document.documentElement;
+    const vv = window.visualViewport;
+    // iOS keeps the layout viewport under the keyboard: lift the dock by the hidden
+    // part. Only while the box has focus, and only a keyboard's height: toolbars
+    // sliding in and out while you scroll must not move the dock.
+    const keyboard = () => {
+      const typing = document.activeElement?.id === 'composer-input';
+      const kb = vv && typing ? window.innerHeight - vv.height - vv.offsetTop : 0;
+      root.style.setProperty('--kb', `${kb > 120 ? Math.round(kb) : 0}px`);
+    };
     const on = () => {
       if (raf) return;
       raf = requestAnimationFrame(() => {
         raf = 0;
-        oceanRef.current?.resize();
+        oceanRef.current?.resize(); // a no-op unless the canvas really changed size
         syncRects();
-        // iOS keeps the layout viewport under the keyboard: lift the dock by the hidden part
-        const vv = window.visualViewport;
-        const kb = vv ? Math.max(0, window.innerHeight - vv.height - vv.offsetTop) : 0;
-        document.documentElement.style.setProperty('--kb', `${Math.round(kb)}px`);
+        keyboard();
+        // the thread keeps clear of the dock however tall the box grows
+        if (dockRef.current) root.style.setProperty('--dock-h', `${Math.round(dockRef.current.offsetHeight)}px`);
       });
     };
     window.addEventListener('resize', on);
-    window.visualViewport?.addEventListener('resize', on);
-    window.visualViewport?.addEventListener('scroll', on);
+    vv?.addEventListener('resize', on);
+    vv?.addEventListener('scroll', keyboard, { passive: true });
     const onScroll = () => {
+      // the header turns to glass once the page moves under it
+      root.toggleAttribute('data-scrolled', window.scrollY > 4);
       if (modeRef.current === 'landing') { if (!raf) raf = requestAnimationFrame(() => { raf = 0; syncRects(); }); return; }
-      const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 140;
+      const nearBottom = window.innerHeight + window.scrollY >= root.scrollHeight - 140;
       pinned.current = nearBottom;
       setAway(!nearBottom);
     };
@@ -144,8 +155,8 @@ export default function App() {
     if (dockRef.current) ro.observe(dockRef.current);
     return () => {
       window.removeEventListener('resize', on);
-      window.visualViewport?.removeEventListener('resize', on);
-      window.visualViewport?.removeEventListener('scroll', on);
+      vv?.removeEventListener('resize', on);
+      vv?.removeEventListener('scroll', keyboard);
       window.removeEventListener('scroll', onScroll);
       ro.disconnect();
       cancelAnimationFrame(raf);
@@ -164,8 +175,11 @@ export default function App() {
       if (Math.abs(dy) > 2 && !reducedMotion() && el.animate) {
         // Web Animations, not an inline transition: nothing is left behind on the
         // element if the tab is hidden mid-flight, and it can be interrupted
-        const ease = getComputedStyle(document.documentElement).getPropertyValue('--ease-spring').trim() || 'cubic-bezier(0.23, 1, 0.32, 1)';
-        const a = el.animate([{ transform: `translate3d(0, ${dy}px, 0)` }, { transform: 'translate3d(0, 0, 0)' }], { duration: 520, easing: ease });
+        const frames = [{ transform: `translate3d(0, ${dy}px, 0)` }, { transform: 'translate3d(0, 0, 0)' }];
+        const spring = getComputedStyle(document.documentElement).getPropertyValue('--ease-spring').trim();
+        let a;
+        // Safari before 17.2 throws on a linear() easing (it would take the whole page down here)
+        try { a = el.animate(frames, { duration: 520, easing: spring || 'ease-out' }); } catch { a = el.animate(frames, { duration: 520, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }); }
         a.onfinish = syncRects;
       }
     }
@@ -175,9 +189,8 @@ export default function App() {
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     oceanRef.current?.setTheme(theme);
-    let m = document.querySelector('meta[name="theme-color"]:not([media])');
-    if (!m) { m = document.createElement('meta'); m.name = 'theme-color'; document.head.appendChild(m); }
-    m.content = THEME_COLOR[theme];
+    // the browser's bar follows the page's theme, not the system's (both media variants)
+    document.querySelectorAll('meta[name="theme-color"]').forEach((m) => { m.content = THEME_COLOR[theme]; });
   }, [theme]);
   const toggleTheme = () => setTheme((t) => { const n = t === 'dark' ? 'light' : 'dark'; setPref('vmai-theme', n); return n; });
 
@@ -282,6 +295,8 @@ export default function App() {
     } finally {
       cancelAnimationFrame(raf);
       update(asstId, (m) => ({ ...m, content: buf || m.content, done: true, status: null }));
+      // the actions row arrives with the last line: keep it in view if you were following
+      if (pinned.current) requestAnimationFrame(() => scrollToEnd(true));
       setBusy(false);
       abortRef.current = null;
       o?.setMode(document.activeElement?.id === 'composer-input' ? 'focus' : 'idle');
@@ -389,7 +404,8 @@ export default function App() {
         {mode === 'landing' && (
           <section ref={heroRef} className="hero">
             <h1 className="hero-title">ถามให้ลึก</h1>
-            <p className="hero-sub">ตอบจากคลังความรู้ VetMock พร้อมแหล่งอ้างอิง</p>
+            {/* a narrow phone breaks between the two phrases, never inside แหล่งอ้างอิง */}
+            <p className="hero-sub"><span className="nb">ตอบจากคลังความรู้ VetMock</span> <span className="nb">พร้อมแหล่งอ้างอิง</span></p>
           </section>
         )}
         {mode === 'chat' && (

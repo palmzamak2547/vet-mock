@@ -10,7 +10,10 @@ export function Header({ theme, onTheme, onNew, onHistory, hasChat }) {
         <span className="brand-word">VetMock</span>
         <GlyphText text="AI" className="brand-ai" />
       </a>
-      <span className="preview-tag"><GlyphText text="Research preview" /></span>
+      <span className="preview-tag">
+        <GlyphText text="Research preview" className="tag-long" />
+        <GlyphText text="Preview" className="tag-short" />
+      </span>
       <nav className="hdr-actions" aria-label="เมนู">
         {hasChat && (
           <button type="button" className="icon-btn" onClick={onNew} aria-label="แชทใหม่" title="แชทใหม่"><IconNew /></button>
@@ -102,22 +105,6 @@ export function Specimen({ elRef, info }) {
 
 const fmtN = new Intl.NumberFormat('en-US');
 
-// Rows of glyphs that thin out toward the floor (a dissolving edge), drawn once.
-function dissolve(cols = 72, rows = 7, seed = 7) {
-  const pool = '.:-=+*#';
-  let s = seed;
-  const r = () => ((s = (s * 16807) % 2147483647) / 2147483647);
-  const lines = [];
-  for (let y = 0; y < rows; y++) {
-    const p = 0.62 * (1 - y / rows) ** 1.6; // density falls with depth
-    let line = '';
-    for (let x = 0; x < cols; x++) line += r() < p ? pool[Math.min(pool.length - 1, Math.floor(r() * (pool.length - y)))] : ' ';
-    lines.push(line);
-  }
-  return lines.join('\n');
-}
-const BAND = dissolve();
-
 export function Footer({ stats }) {
   const items = stats
     ? [
@@ -129,7 +116,6 @@ export function Footer({ stats }) {
     : [];
   return (
     <footer className="ftr no-print">
-      <pre className="ftr-band" aria-hidden="true">{BAND}</pre>
       {items.length > 0 && (
         <dl className="ftr-stats">
           {items.map(([k, label]) => (

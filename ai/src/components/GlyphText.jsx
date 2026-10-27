@@ -29,8 +29,11 @@ export default function GlyphText({ text, className = '' }) {
       }, i * 28);
     });
   };
+  // the spinning letters are hidden from screen readers; the word itself is read
+  // from a visually hidden copy (aria-label on a plain span is not announced)
   return (
-    <span ref={ref} className={`glyph-text ${className}`} onPointerEnter={spin} aria-label={text}>
+    <span ref={ref} className={`glyph-text ${className}`} onPointerEnter={spin}>
+      <span className="sr-only">{text}</span>
       {[...text].map((c, i) => (
         <span key={i} data-c={c} aria-hidden="true">{c}</span>
       ))}
