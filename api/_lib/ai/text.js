@@ -127,14 +127,31 @@ export function snippetAround(text, needles = [], n = 220) {
   return `${start > 0 ? '…' : ''}${body.trimEnd()}${start + body.length < t.length ? '…' : ''}`;
 }
 
+// Words the model sometimes slips in from Vietnamese ("วัคซีนรวม cùng CAV",
+// production 2026-10-28): a word with a letter only Vietnamese uses goes, and
+// so do its commonest small words, which are spelled with French accents.
+const LATIN = 'A-Za-z\\u00C0-\\u024F\\u1E00-\\u1EFF';
+const VIET_ONLY = 'ăâđêôơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ';
+const FOREIGN_WORD_G = new RegExp(`(?<![${LATIN}])(?:[${LATIN}]*[${VIET_ONLY}][${LATIN}]*|cùng|và|là|các|này|có)(?![${LATIN}])`, 'giu');
+const LATIN_TAIL = new RegExp(`[${LATIN}]*[ \\t·]*$`);
+
 /**
- * Filter for a stream of answer chunks: drops CJK and emoji, turns a middle
- * dot used as a separator into a comma. push() returns what can be shown now;
+ * Filter for a stream of answer chunks: drops CJK, emoji and stray Vietnamese
+ * words, turns a middle dot used as a separator into a comma. push() returns
+ * what can be shown now (a word still being written waits for its end);
  * flush() returns what was held back at the end.
  */
 export function createOutputFilter() {
   let carry = '';
   let dropped = 0;
+  const foreign = (s) => {
+    let out = s.replace(FOREIGN_WORD_G, '');
+    if (out.length === s.length) return s;
+    dropped += s.length - out.length;
+    // the space before the dropped word may already be on screen
+    if (lastChar === ' ' && out.startsWith(' ')) out = out.slice(1);
+    return out;
+  };
   // The last character already shown: a run of spaces is collapsed unless it
   // indents a new line (markdown code and nested lists need indentation).
   let lastChar = '';
@@ -155,16 +172,16 @@ export function createOutputFilter() {
   };
   return {
     push(chunk) {
-      // Strip first, then hold back the trailing spaces and dots: the next
-      // chunk decides whether " ·" is a separator and how many spaces remain.
+      // Strip first, then hold back the trailing spaces and dots (the next
+      // chunk decides whether " ·" is a separator and how many spaces remain)
+      // and a Latin word still being written (it may be a stray foreign one).
       let s = strip(carry + String(chunk ?? ''));
-      const tail = s.match(/[ \t·]+$/);
-      carry = tail ? tail[0] : '';
-      if (tail) s = s.slice(0, -tail[0].length);
-      return tidy(s);
+      carry = s.match(LATIN_TAIL)[0];
+      if (carry) s = s.slice(0, -carry.length);
+      return tidy(foreign(s));
     },
     flush() {
-      const s = tidy(carry);
+      const s = tidy(foreign(carry));
       carry = '';
       return s;
     },
