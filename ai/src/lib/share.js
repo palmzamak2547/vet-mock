@@ -7,19 +7,37 @@
 // file of real bank questions; calendars get review reminders. Pure builders,
 // so the strings can be tested without a browser.
 
-import { speakable } from './speech.js';
 
 const SITE = 'https://ai.vetmock.com';
+
+/** Markdown to plain text that still reads like the answer: paragraphs and line
+ *  breaks kept, bullets as •, table rows as cells joined by ' / ', citation
+ *  marks and emphasis markers removed, links as 'text (url)'. */
+export function plainText(md) {
+  const src = String(md || '').replace(/```\w*\n?/g, '');
+  const out = [];
+  for (const line of src.split(/\r?\n/)) {
+    if (/^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/.test(line)) continue; // table rule
+    let l = line.replace(/^\s*#{1,6}\s+/, '').replace(/^>\s?/, '');
+    if (/^\s*\|.*\|\s*$/.test(l)) l = l.trim().replace(/^\||\|$/g, '').split('|').map((c) => c.trim()).filter(Boolean).join(' / ');
+    l = l.replace(/^(\s*)[-*•]\s+/, '$1• ').replace(/^(\s*)(\d+)[.)]\s+/, '$1$2. ');
+    l = l.replace(/\s*\[(\d{1,2}(?:\s*[,–-]\s*\d{1,2})*)\](?!\()/g, '');
+    l = l.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '$1 ($2)');
+    l = l.replace(/\*\*|__|`/g, '').replace(/(^|[\s(])[*_]([^*_\n]+)[*_](?=[\s).,:;!?]|$)/g, '$1$2');
+    out.push(l.replace(/[ \t]+$/, '').replace(/ {2,}/g, ' '));
+  }
+  return out.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+}
 
 /** Plain text for a chat app: question, answer, where to ask more. LINE's share
  *  URL carries the text in the query, so it is cut on a word under ~1,400 chars. */
 export function shareText(question, answerMd, limit = 1400) {
-  const body = speakable(answerMd);
+  const body = plainText(answerMd);
   let text = `${question.trim()}\n\n${body}`;
   if (text.length > limit) {
     let cut = text.slice(0, limit);
-    const sp = cut.lastIndexOf(' ');
-    if (sp > limit * 0.7) cut = cut.slice(0, sp);
+    const br = Math.max(cut.lastIndexOf('\n'), cut.lastIndexOf(' '));
+    if (br > limit * 0.7) cut = cut.slice(0, br);
     text = `${cut}…`;
   }
   return `${text}\n\nถามต่อที่ ${SITE}`;

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { shareText, lineUrl, markdownWithSources, htmlWithSources, ankiTsv, reviewTimes, googleCalendarUrl, icsFile } from '../../src/lib/share.js';
+import { plainText, shareText, lineUrl, markdownWithSources, htmlWithSources, ankiTsv, reviewTimes, googleCalendarUrl, icsFile } from '../../src/lib/share.js';
 
 test('share text strips markdown and citations, cuts on a word, ends with the address', () => {
   const t = shareText('ระยะฟักตัว rabies', '**Rabies** ฟักตัว 1 ถึง 3 เดือน [1]\n\n- ระยะแรก [2]', 1400);
@@ -48,4 +48,9 @@ test('calendar links and files are well formed', () => {
   assert.equal((ics.match(/BEGIN:VEVENT/g) || []).length, 2);
   assert.ok(ics.includes('SUMMARY:ทบทวน: rabies\\, dog\\; test'));
   for (const line of ics.split('\r\n')) assert.ok(new TextEncoder().encode(line).length <= 75, `folded: ${line.slice(0, 30)}`);
+});
+
+test('plain text keeps the answer readable: breaks, bullets, tables, no markers', () => {
+  const md = '## หัวข้อ\n\n**Rabies** ฟักตัว 1 ถึง 3 เดือน [1]\n\n- ระยะแรก [2]\n- ระยะสอง\n\n| ระยะ | อาการ |\n| --- | --- |\n| A | B |\n\nดู [VetWiki](https://vetmock.com/wiki) *Lyssavirus*';
+  assert.equal(plainText(md), 'หัวข้อ\n\nRabies ฟักตัว 1 ถึง 3 เดือน\n\n• ระยะแรก\n• ระยะสอง\n\nระยะ / อาการ\nA / B\n\nดู VetWiki (https://vetmock.com/wiki) Lyssavirus');
 });
