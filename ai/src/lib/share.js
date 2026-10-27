@@ -34,6 +34,10 @@ export function plainText(md, { citations = false } = {}) {
  *  title apart (two sections of one lecture clip read as the same title). */
 export const sourceLabel = (s) => `${s.title}${s.subtitle && s.subtitle !== s.title ? `, ${s.subtitle}` : ''}`;
 
+/** What the page says above an answer VetMock's sources did not cover; every
+ *  export carries it too, so whoever receives the answer knows where it came from. */
+export const GENERAL_NOTE = 'ไม่พบในคลัง VetMock ตอบจากความรู้ทั่วไป';
+
 /**
  * Plain text for a chat app or a calendar note: the question, the answer with
  * its citation numbers, the numbered sources they point to, where to ask more.
@@ -41,9 +45,10 @@ export const sourceLabel = (s) => `${s.title}${s.subtitle && s.subtitle !== s.ti
  * a paragraph or a bullet ends (never mid-sentence) and marked with "…"; the
  * sources and the link are never the part that is cut.
  */
-export function shareText(question, answerMd, { sources = [], limit = 2000, maxSources = 8 } = {}) {
+export function shareText(question, answerMd, { sources = [], limit = 2000, maxSources = 8, general = false } = {}) {
   const list = sources.slice(0, maxSources);
   const tail = [
+    general ? GENERAL_NOTE : '',
     list.length ? `แหล่งที่มา\n${list.map((s) => `${s.n}. ${sourceLabel(s)}`).join('\n')}` : '',
     `ถามต่อที่ ${SITE}`,
   ].filter(Boolean).join('\n\n');
@@ -78,11 +83,11 @@ export const lineUrl = (text) => `https://line.me/R/share?text=${encodeURICompon
 // the answer is shortened first, the source list only when the sources alone do not fit.
 const LINE_URL_MAX = 8000;
 
-export function lineShareUrl(question, answerMd, sources = []) {
+export function lineShareUrl(question, answerMd, sources = [], { general = false } = {}) {
   let url = '';
   for (const maxSources of [8, 5, 3, 1, 0]) {
     for (let limit = 2000; limit >= 400; limit -= 100) {
-      url = lineUrl(shareText(question, answerMd, { sources, limit, maxSources }));
+      url = lineUrl(shareText(question, answerMd, { sources, limit, maxSources, general }));
       if (url.length <= LINE_URL_MAX) return url;
     }
   }
@@ -94,23 +99,25 @@ const fileLabel = (f) => `${f.title}${f.page > 1 ? ` (หน้า ${f.page})` :
 
 /** Markdown with the sources as a numbered link list and the files as a list
  *  of links that open at their page (Notion keeps both). */
-export function markdownWithSources(question, answerMd, sources = [], files = []) {
+export function markdownWithSources(question, answerMd, sources = [], files = [], { general = false } = {}) {
+  const note = general ? `\n\n_${GENERAL_NOTE}_` : '';
   const src = sources.length ? `\n\n**แหล่งที่มา**\n${sources.map((s) => `${s.n}. [${sourceLabel(s).replace(/[[\]]/g, '')}](${s.url})`).join('\n')}` : '';
   const fl = files.length ? `\n\n**สไลด์และเอกสาร**\n${files.map((f) => `- [${fileLabel(f)}](${f.open})`).join('\n')}` : '';
-  return `## ${question.trim()}\n\n${answerMd.trim()}${src}${fl}\n\n_จาก ${SITE}_`;
+  return `## ${question.trim()}\n\n${answerMd.trim()}${note}${src}${fl}\n\n_จาก ${SITE}_`;
 }
 
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
 /** Rich text for Google Docs: the rendered answer's HTML plus linked sources and files. */
-export function htmlWithSources(question, answerHtml, sources = [], files = []) {
+export function htmlWithSources(question, answerHtml, sources = [], files = [], { general = false } = {}) {
+  const note = general ? `<p><em>${GENERAL_NOTE}</em></p>` : '';
   const src = sources.length
     ? `<p><strong>แหล่งที่มา</strong></p><ol>${sources.map((s) => `<li><a href="${esc(s.url)}">${esc(sourceLabel(s))}</a></li>`).join('')}</ol>`
     : '';
   const fl = files.length
     ? `<p><strong>สไลด์และเอกสาร</strong></p><ul>${files.map((f) => `<li><a href="${esc(f.open)}">${esc(fileLabel(f))}</a></li>`).join('')}</ul>`
     : '';
-  return `<h2>${esc(question.trim())}</h2>${answerHtml}${src}${fl}<p><em>จาก ${SITE}</em></p>`;
+  return `<h2>${esc(question.trim())}</h2>${answerHtml}${note}${src}${fl}<p><em>จาก ${SITE}</em></p>`;
 }
 
 /** Anki "Basic" notes, tab separated, one per line; tabs and newlines inside a
