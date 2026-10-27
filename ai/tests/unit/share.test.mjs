@@ -2,12 +2,30 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { plainText, shareText, lineUrl, markdownWithSources, htmlWithSources, ankiTsv, reviewTimes, googleCalendarUrl, icsFile } from '../../src/lib/share.js';
 
-test('share text strips markdown and citations, cuts on a word, ends with the address', () => {
-  const t = shareText('ระยะฟักตัว rabies', '**Rabies** ฟักตัว 1 ถึง 3 เดือน [1]\n\n- ระยะแรก [2]', 1400);
+test('share text with no sources strips markdown and citations, ends with the address', () => {
+  const t = shareText('ระยะฟักตัว rabies', '**Rabies** ฟักตัว 1 ถึง 3 เดือน [1]\n\n- ระยะแรก [2]');
   assert.ok(!t.includes('**') && !t.includes('[1]'));
   assert.ok(t.endsWith('ถามต่อที่ https://ai.vetmock.com'));
-  const long = shareText('q', 'คำ '.repeat(2000), 300);
-  assert.ok(long.length < 400 && long.includes('…'));
+});
+
+test('share text keeps citation numbers and lists the sources they point to, two with one title told apart', () => {
+  const sources = [
+    { n: 1, title: 'CIRD complex + Canine Distemper', subtitle: '16. Biphasic clinical signs' },
+    { n: 2, title: 'CIRD complex + Canine Distemper', subtitle: '4. อาการทางคลินิก' },
+  ];
+  const t = shareText('q', '**Myoclonus** กระตุก [1][2]', { sources });
+  assert.ok(t.includes('Myoclonus กระตุก [1][2]'));
+  assert.ok(t.includes('แหล่งที่มา\n1. CIRD complex + Canine Distemper, 16. Biphasic clinical signs\n2. CIRD complex + Canine Distemper, 4. อาการทางคลินิก'));
+  assert.ok(t.endsWith('ถามต่อที่ https://ai.vetmock.com'));
+});
+
+test('a long answer is cut where a paragraph ends, marked, and never loses its sources or link', () => {
+  const md = Array.from({ length: 30 }, (_, i) => `ย่อหน้า ${i + 1} ${'ข้อความ '.repeat(12)}`).join('\n\n');
+  const t = shareText('q', md, { sources: [{ n: 1, title: 'Rabies', subtitle: 'COM5' }], limit: 900 });
+  assert.ok(t.length <= 1000, String(t.length));
+  assert.ok(/\n…\n/.test(t), 'marked as cut');
+  assert.ok(/ข้อความ\s*\n…/.test(t), 'cut after a whole paragraph');
+  assert.ok(t.includes('1. Rabies, COM5') && t.endsWith('ถามต่อที่ https://ai.vetmock.com'));
 });
 
 test('LINE share URL carries the text, encoded', () => {

@@ -26,13 +26,14 @@ export default function ShareMenu({ question, answer, sources, quiz, files = [],
   }, [anchor, onClose]);
 
   const title = `ทบทวน: ${question.length > 60 ? `${question.slice(0, 58)}…` : question}`;
-  const details = shareText(question, answer, 700);
+  // a reminder note: the gist, the top sources, the way back (short: it rides in a URL)
+  const details = shareText(question, answer, { sources, limit: 900, maxSources: 3 });
   const times = reviewTimes();
   const done = (msg) => { toast(msg); onClose(); };
   const open = (url) => window.open(url, '_blank', 'noopener,noreferrer');
 
   const items = [
-    { id: 'line', name: 'LINE', act: 'ส่งข้อความ', href: lineUrl(shareText(question, answer)) },
+    { id: 'line', name: 'LINE', act: 'ส่งข้อความ', href: lineUrl(shareText(question, answer, { sources })) },
     {
       id: 'notion', name: 'Notion', act: 'วางในหน้าใหม่',
       run: async () => {
@@ -89,7 +90,7 @@ export default function ShareMenu({ question, answer, sources, quiz, files = [],
       </ul>
       <div className="share-more">
         {canShare && (
-          <button type="button" className="link" onClick={() => navigator.share({ title: question, text: shareText(question, answer) }).then(onClose, () => {})}>แอปอื่น</button>
+          <button type="button" className="link" onClick={() => navigator.share({ title: question, text: shareText(question, answer, { sources }) }).then(onClose, () => {})}>แอปอื่น</button>
         )}
         {!IN_APP && <button type="button" className="link" onClick={() => { onClose(); setTimeout(() => window.print(), 60); }}>พิมพ์หรือ PDF</button>}
       </div>

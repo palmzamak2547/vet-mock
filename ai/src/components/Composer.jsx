@@ -1,11 +1,24 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { IconImage, IconMic, IconSend, IconStop, IconClose } from './icons.jsx';
-import { CAN_LISTEN, TOUCH } from '../lib/env.js';
+import { CAN_LISTEN, IN_APP, TOUCH } from '../lib/env.js';
 import { listen } from '../lib/speech.js';
+import { CAN_RECORD, startRecording } from '../lib/record.js';
+import { transcribe, transcribeAvailable } from '../lib/api.js';
 import { prepareImage } from '../lib/image.js';
 import { graphemes } from '../lib/graphemes.js';
+import { toast } from './ShareMenu.jsx';
 
 const MAX = 4000;
+const MIC_ERRORS = {
+  'not-allowed': 'ยังไม่ได้อนุญาตให้ใช้ไมค์ เปิดสิทธิ์ไมค์ในการตั้งค่าเบราว์เซอร์ก่อน',
+  inapp: 'แอปนี้ไม่ให้หน้าเว็บใช้ไมค์ เปิดลิงก์ในเบราว์เซอร์แล้วลองอีกครั้ง',
+  'audio-capture': 'ไม่พบไมค์ในเครื่องนี้',
+  network: 'การฟังเสียงต้องใช้อินเทอร์เน็ต ลองใหม่อีกครั้ง',
+  'no-speech': 'ไม่ได้ยินเสียง ลองกดแล้วพูดใหม่',
+  other: 'ฟังเสียงไม่ได้ในเบราว์เซอร์นี้ ลองพิมพ์แทน',
+};
+// The browser's own recognition gave up, but recording still can: these go to the recorder.
+const RECORD_INSTEAD = new Set(['network', 'service-not-allowed', 'language-not-supported', 'bad-grammar', 'error']);
 const later = (ms, timer) => new Promise((r) => { timer.id = setTimeout(r, ms); });
 
 // The box you type in. It is uncontrolled while you type (a keystroke never
@@ -21,8 +34,21 @@ const Composer = forwardRef(function Composer({ busy, disabled, onSend, onStop, 
   const [image, setImage] = useState(null);
   const [imgError, setImgError] = useState('');
   const [listening, setListening] = useState(false);
+  const [transcribing, setTranscribing] = useState(false);
   const [drag, setDrag] = useState(false);
   const rec = useRef(null);
+  const recorder = useRef(null);
+  // Whether the server can transcribe a recording (probed once). Without the
+  // browser's own recognition, the microphone shows only when this is true:
+  // no button that would fail.
+  const [recorderOk, setRecorderOk] = useState(false);
+  const probed = useRef(null);
+  const canRecord = () => {
+    if (!CAN_RECORD) return Promise.resolve(false);
+    if (!probed.current) probed.current = transcribeAvailable().then((ok) => { setRecorderOk(ok); return ok; });
+    return probed.current;
+  };
+  useEffect(() => { if (!CAN_LISTEN) canRecord(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const measure = useRef(null);
   const ghostEl = useRef(null);
   const ghostText = useRef('');
@@ -149,17 +175,74 @@ const Composer = forwardRef(function Composer({ busy, disabled, onSend, onStop, 
     if (item) { e.preventDefault(); takeFile(item.getAsFile()); }
   };
 
-  const toggleMic = () => {
-    if (listening) { rec.current?.stop(); return; }
-    const base = ta.current.value ? `${ta.current.value.trim()} ` : '';
-    rec.current = listen({
-      onText: (t) => { ta.current.value = base + t; grow(); setHasText(!!ta.current.value.trim()); },
-      onEnd: () => { setListening(false); onListen?.(false); rec.current = null; ta.current?.focus(); },
-    });
-    if (rec.current) { setListening(true); onListen?.(true); }
+  // text from the microphone joins what is already in the box
+  const addSpoken = (text) => {
+    const el = ta.current;
+    if (!el) return;
+    el.value = el.value.trim() ? `${el.value.trim()} ${text}` : text;
+    grow();
+    setHasText(!!el.value.trim());
+    el.focus();
   };
 
-  useEffect(() => () => rec.current?.stop(), []);
+  // The recorder: where the browser has no recognition (Firefox, LINE and other
+  // in-app browsers) or it failed. Tap to start, tap again when done; the clip
+  // goes to Thai ASR (/api/ai-transcribe) and its text lands in the box.
+  const startRecorder = async () => {
+    try {
+      recorder.current = await startRecording({ onAutoStop: () => finishRecorder() });
+      setListening(true);
+      onListen?.(true);
+    } catch (e) {
+      recorder.current = null;
+      const denied = e?.name === 'NotAllowedError' || e?.name === 'SecurityError';
+      toast(denied ? (IN_APP ? MIC_ERRORS.inapp : MIC_ERRORS['not-allowed']) : e?.name === 'NotFoundError' ? MIC_ERRORS['audio-capture'] : MIC_ERRORS.other);
+    }
+  };
+  const finishRecorder = async () => {
+    const session = recorder.current;
+    if (!session) return;
+    recorder.current = null;
+    setListening(false);
+    onListen?.(false);
+    setTranscribing(true);
+    try {
+      const text = await transcribe(await session.stop());
+      if (text) addSpoken(text);
+      else toast(MIC_ERRORS['no-speech']);
+    } catch (e) {
+      toast(e?.message || MIC_ERRORS.other);
+    } finally {
+      setTranscribing(false);
+    }
+  };
+
+  const toggleMic = () => {
+    if (transcribing) return;
+    if (recorder.current) { finishRecorder(); return; }
+    if (listening) { rec.current?.stop(); return; }
+    if (!CAN_LISTEN) { if (recorderOk) startRecorder(); else toast(MIC_ERRORS.other); return; }
+    const base = ta.current.value ? `${ta.current.value.trim()} ` : '';
+    // the recorder, when the browser's own recognition cannot (only if the server can transcribe)
+    const recordInstead = async (err) => {
+      if (await canRecord()) startRecorder();
+      else toast(MIC_ERRORS[err] || MIC_ERRORS.other);
+    };
+    rec.current = listen({
+      onText: (t) => { ta.current.value = base + t; grow(); setHasText(!!ta.current.value.trim()); },
+      onEnd: (err) => {
+        setListening(false); onListen?.(false); rec.current = null; ta.current?.focus();
+        if (!err || err === 'aborted') return;
+        if (RECORD_INSTEAD.has(err)) { recordInstead(err); return; }
+        // a microphone that fails says why, instead of going quiet
+        toast(MIC_ERRORS[err] || MIC_ERRORS.other);
+      },
+    });
+    if (rec.current) { setListening(true); onListen?.(true); }
+    else recordInstead('other');
+  };
+
+  useEffect(() => () => { rec.current?.stop(); recorder.current?.cancel(); }, []);
 
   const canSend = (hasText || image) && !disabled;
 
@@ -189,7 +272,7 @@ const Composer = forwardRef(function Composer({ busy, disabled, onSend, onStop, 
         ref={ta}
         rows={1}
         maxLength={MAX}
-        placeholder={listening ? 'กำลังฟัง…' : placeholder}
+        placeholder={transcribing ? 'กำลังถอดเสียง…' : listening ? (recorder.current ? 'กำลังฟัง แตะไมค์อีกครั้งเมื่อพูดจบ' : 'กำลังฟัง…') : placeholder}
         onKeyDown={onKey}
         onInput={onInput}
         onPaste={onPaste}
@@ -206,8 +289,16 @@ const Composer = forwardRef(function Composer({ busy, disabled, onSend, onStop, 
           <button type="button" className="tool" onClick={() => file.current?.click()} aria-label="แนบรูป" title="แนบรูป" disabled={disabled}>
             <IconImage />
           </button>
-          {CAN_LISTEN && (
-            <button type="button" className={`tool${listening ? ' is-on' : ''}`} onClick={toggleMic} aria-label={listening ? 'หยุดฟัง' : 'พูด'} aria-pressed={listening} title="พูด" disabled={disabled}>
+          {(CAN_LISTEN || recorderOk) && (
+            <button
+              type="button"
+              className={`tool${listening ? ' is-on' : ''}${transcribing ? ' is-busy' : ''}`}
+              onClick={toggleMic}
+              aria-label={transcribing ? 'กำลังถอดเสียง' : listening ? 'หยุดฟัง' : 'พูด'}
+              aria-pressed={listening}
+              title="พูด"
+              disabled={disabled || transcribing}
+            >
               <IconMic />
             </button>
           )}

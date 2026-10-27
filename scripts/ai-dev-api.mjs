@@ -126,14 +126,19 @@ async function main() {
     delete process.env.VERCEL_ENV;
     delete process.env.NODE_ENV;
   }
-  const { default: handler } = await import(pathToFileURL(path.join(root, 'api', 'ai-chat.js')).href);
+  // the chat route, and the microphone's speech-to-text route beside it
+  const routes = {
+    '/api/ai-chat': (await import(pathToFileURL(path.join(root, 'api', 'ai-chat.js')).href)).default,
+    '/api/ai-transcribe': (await import(pathToFileURL(path.join(root, 'api', 'ai-transcribe.js')).href)).default,
+  };
   const server = http.createServer(async (req, res) => {
     const started = Date.now();
     const url = new URL(req.url, `http://${req.headers.host || `localhost:${PORT}`}`);
     res.on('finish', () => {
       console.log(`${req.method} ${url.pathname} ${res.statusCode} ${Date.now() - started}ms`);
     });
-    if (url.pathname !== '/api/ai-chat') {
+    const handler = routes[url.pathname];
+    if (!handler) {
       res.statusCode = 404;
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
       res.end(JSON.stringify({ error: 'not_found' }));

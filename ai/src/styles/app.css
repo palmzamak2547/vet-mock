@@ -244,7 +244,11 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
   transition: transform var(--dur-press) var(--ease-out), background-color var(--dur-quick) var(--ease-out), color var(--dur-quick) var(--ease-out);
 }
 .tool:active { transform: scale(0.94); }
-.tool.is-on { color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.tool.is-on { color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); animation: mic-on 1.6s ease-in-out infinite; }
+.tool.is-busy { color: var(--accent); opacity: 0.55; }
+/* listening: a slow ring, like breath (a recording has no live text to show it is on) */
+@keyframes mic-on { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 14%, transparent); } }
+@media (prefers-reduced-motion: reduce) { .tool.is-on { animation: none; } }
 @media (hover: hover) and (pointer: fine) { .tool:hover { color: var(--text); background: color-mix(in srgb, var(--text) 7%, transparent); } }
 .send {
   margin-left: auto;
@@ -283,6 +287,10 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
 /* --dock-h is the dock's measured height (App.jsx), so a growing box never covers the last line */
 .mode-chat .stage { padding: calc(84px + var(--safe-t)) 0 calc(var(--dock-h, 112px) + 56px + max(var(--s3), var(--safe-b)) + var(--kb, 0px)); }
 :root:has(.mode-chat) { scroll-padding: calc(72px + var(--safe-t)) 0 calc(var(--dock-h, 112px) + 32px + var(--kb, 0px)); }
+/* the newest answer reaches at least to the dock, so its question can sit at
+   the top of the screen while the answer flows down (App.jsx anchorTurn);
+   72 px is a one-line question and the gap above the answer */
+.thread > .turn-last { min-height: calc(100svh - 84px - var(--safe-t) - 72px - var(--dock-h, 112px) - 56px - max(var(--s3), var(--safe-b)) - var(--kb, 0px)); }
 .thread {
   width: min(720px, calc(100% - 2 * var(--s4)));
   margin: 0 auto;
