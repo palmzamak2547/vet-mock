@@ -4,7 +4,7 @@
 // deterministic exotic/bird-infect topic (every question an MCQ); the answer
 // key comes from the bank, matched by stem, so a test can answer right or
 // wrong on purpose.
-import { test, expect } from './fixtures.js';
+import { test, expect, setPracticeCount } from './fixtures.js';
 import { QB_EXOTIC } from '../../src/data/questions-exotic.js';
 
 test.setTimeout(90_000);
@@ -47,8 +47,7 @@ async function openPractice(page, count = 5) {
   await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า.*การฝึก/ })).toBeVisible();
   const toggle = page.getByRole('switch', { name: /เฉลยทันที/ });
   if ((await toggle.getAttribute('aria-checked')) !== 'true') await toggle.click();
-  await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill(String(count));
-  await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
+  await (await setPracticeCount(page, count)).click();
   await expect(page.locator('.vmx-option').first()).toBeVisible({ timeout: 30_000 });
   await expect(page.locator('#main')).toBeFocused();
 }
@@ -115,7 +114,8 @@ test('a seventh day says so; a second set the same day shows no card', async ({ 
   await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
   await results(page);
   await expect(page.locator('.vmx-streak-moment')).toContainText('ครบ 7 วันติดต่อกัน');
-  expect(await page.evaluate(() => window.__app.filter(([n]) => n === 'happyMoment'))).toEqual([['happyMoment', 'streak-milestone']]);
+  // Polled: the call follows the card's own paint, and a WebKit run under load read the list before it came.
+  await expect.poll(() => page.evaluate(() => window.__app.filter(([n]) => n === 'happyMoment'))).toEqual([['happyMoment', 'streak-milestone']]);
 
   await page.getByRole('button', { name: 'หน้าแรก', exact: true }).click();
   await openPractice(page);

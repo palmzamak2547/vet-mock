@@ -18,7 +18,7 @@
 // To change a budget, measure again: UPDATE_PERF_BUDGETS=1 npx playwright test tests/e2e/perf-budget.spec.js
 // --project=chromium-desktop --workers=1 (then --project=chromium-mobile) rewrites that project's numbers.
 import { readFileSync, writeFileSync, appendFileSync } from 'node:fs';
-import { test, expect, PINNED_NOW, installPinnedCalendar } from './fixtures.js';
+import { test, expect, PINNED_NOW, installPinnedCalendar, setPracticeCount } from './fixtures.js';
 import { median, budgetFor, requestBudgetFor, clsBudgetFor, ceil4 } from '../../scripts/lib/perf-logic.mjs';
 import { watchNetwork, settlePage } from '../../scripts/lib/perf-browser.mjs';
 
@@ -219,11 +219,11 @@ test.describe('performance budgets', () => {
         await page.locator(`[data-subject="${SUBJECT}"]`).click();
         await page.locator('.vmx-topic-main', { hasText: TOPIC_HAS_TEXT }).click();
         await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า.*การฝึก/ })).toBeVisible();
-        await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('1');
+        const start = await setPracticeCount(page, 1);
 
         // The set: from pressing start until the first card is drawn and everything it waits for has arrived.
         await markShifts(page);
-        await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
+        await start.click();
         await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 30_000 });
         await expect(page.locator('.vmx-option').first()).toBeVisible();
         await expect(page.locator('#main')).toBeFocused();
