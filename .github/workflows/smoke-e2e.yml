@@ -51,8 +51,30 @@ on:
   workflow_dispatch:
 
 jobs:
+  changes:
+    # A pull request that changes only docs/ and markdown at the repository root cannot change what a browser sees,
+    # so it skips the e2e runners (7 of them, 7-10 min each on the docs-only #67 and #71) and `smoke` still reports.
+    # Same shape as vca.yml: HEAD^1 is main on a pull request's merge commit. A push to main and a dispatch always run
+    # everything, because Vercel holds the production deployment until `smoke` passes on that commit.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    outputs:
+      app: ${{ steps.diff.outputs.app }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+      - id: diff
+        run: |
+          if [ "${{ github.event_name }}" != pull_request ]; then app=true
+          elif git diff --quiet HEAD^1 HEAD -- . ':(exclude)docs' ':(exclude,glob)*.md'; then app=false
+          else app=true; fi
+          echo "app=$app" | tee -a "$GITHUB_OUTPUT"
+
   e2e:
     name: e2e (${{ matrix.label }})
+    needs: changes
+    if: needs.changes.outputs.app == 'true'
     runs-on: ubuntu-24.04
     strategy:
       # One engine failing must not cancel the others: the report of every
@@ -284,14 +306,18 @@ jobs:
   # was cancelled: a skipped job would count as passing a required check.
   smoke:
     name: smoke
-    needs: e2e
+    needs: [changes, e2e]
     if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - name: Every e2e runner passed
+      - name: Every e2e runner passed, or the change was docs only
         env:
+          CHANGES: ${{ needs.changes.result }}
+          APP: ${{ needs.changes.outputs.app }}
           RESULT: ${{ needs.e2e.result }}
         run: |
-          echo "e2e runners: $RESULT"
+          echo "changes: $CHANGES, app: $APP, e2e runners: $RESULT"
+          test "$CHANGES" = "success"
+          if [ "$APP" = "false" ]; then exit 0; fi
           test "$RESULT" = "success"

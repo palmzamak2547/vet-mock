@@ -31,7 +31,9 @@ and each ran a ~70 min local gate; now:
    (`tests/e2e/local-port.js`). `npm run gate:full` runs the full four-profile matrix.
 4. **Push the branch and open the PR.** `git push -u origin <branch>`, `gh pr create`, then
    `gh pr merge --squash --auto`. CI runs Build, Annotation PostgreSQL, Smoke e2e (7 runners),
-   VCA and Research R parity (the last two do real work only when their files changed).
+   VCA and Research R parity (the last two do real work only when their files changed). A pull request
+   that changes only `docs/` and root markdown skips the 7 e2e runners and Annotation PostgreSQL (a
+   `changes` job decides; `smoke` still reports), so it merges in about 4 min instead of 10.
 5. **Merging.** The ruleset on `main` requires those five checks. It no longer requires the branch to be
    up to date with main, and the Queue workflow (`.github/workflows/queue.yml`) is disabled: its bot
    updates left runs waiting in `action_required` (#45 waited 215 min). A pull request merges when its
