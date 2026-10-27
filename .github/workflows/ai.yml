@@ -1,0 +1,107 @@
+# ============================================================
+# VetMock AI (ai.vetmock.com)
+# ============================================================
+# Runs when the AI app changes, or the shared brand files it serves from
+# the main app's public/. The model route (api/ai-chat.js, api/_lib/ai/)
+# lives in the main project and is covered by its unit suite in build.yml.
+#
+# Steps, in the order a contributor runs them locally:
+#   npm test       physics and colour models, a simulated minute of every
+#                  species at mixed frame rates (no NaN, no stretched
+#                  spine, no lost animal, no mesh overflow), and the SSE
+#                  stream reader against split chunks and cut streams
+#   npm run build  the production bundle
+# ============================================================
+name: AI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ai/**'
+      - 'public/vetmock-logo.svg'
+      - 'public/favicon*'
+      - 'public/icon-512.png'
+      - 'public/art/mochi-subjects/aquatic.webp'
+      - '.github/workflows/ai.yml'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ai-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # Pull requests always start this workflow (a path-filtered required check
+  # would block forever); this job decides whether the real job runs.
+  changes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    outputs:
+      relevant: ${{ steps.diff.outputs.relevant }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+      - id: diff
+        run: |
+          if [ "${{ github.event_name }}" != pull_request ]; then relevant=true
+          elif git diff --quiet HEAD^1 HEAD -- ai public/vetmock-logo.svg 'public/favicon*' public/icon-512.png public/art/mochi-subjects/aquatic.webp .github/workflows/ai.yml; then relevant=false
+          else relevant=true; fi
+          echo "relevant=$relevant" | tee -a "$GITHUB_OUTPUT"
+
+  build:
+    name: AI bundle
+    needs: changes
+    if: needs.changes.outputs.relevant == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: ai
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: ai/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Report bundle sizes
+        run: |
+          echo "## AI bundle" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          du -sh dist/ dist/assets >> $GITHUB_STEP_SUMMARY || true
+          ls -lh dist/assets/ | awk 'NR>1 {print $5, $9}' | sort -rh | head -12 >> $GITHUB_STEP_SUMMARY || true
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+  # Passes when the job above passed, or was skipped because this pull request
+  # does not touch the AI app.
+  ai:
+    name: AI
+    needs: [changes, build]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+          CHANGES: ${{ needs.changes.result }}
+        run: |
+          echo "results: $RESULTS"
+          test "$CHANGES" = success
+          for r in $RESULTS; do case "$r" in success|skipped) ;; *) exit 1;; esac; done

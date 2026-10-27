@@ -1,0 +1,31 @@
+{
+  "name": "vetmock-ai",
+  "private": true,
+  "version": "0.1.0",
+  "description": "VetMock AI research preview, served on ai.vetmock.com",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vite --port 43130 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --port 43131 --strictPort",
+    "test": "node --test \"tests/unit/*.test.mjs\""
+  },
+  "browserslist": [
+    "defaults",
+    "ios >= 14",
+    "android >= 7",
+    "not dead",
+    "not op_mini all"
+  ],
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "4.3.4",
+    "vite": "6.4.3"
+  }
+}

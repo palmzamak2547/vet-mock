@@ -218,6 +218,9 @@ export function allowedOrigin(req) {
     'http://localhost:5173',
     'http://localhost:4173',
     'http://localhost:4174',
+    'https://ai.vetmock.com',
+    'http://localhost:43130',
+    'http://localhost:43131',
   ];
   for (const a of allow) {
     if (typeof a === 'string' && origin === a) return origin;
