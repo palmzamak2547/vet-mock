@@ -211,10 +211,9 @@ function AssistantMessage({ m, last, onRetry, canSpeak, streaming, question = ''
       {m.status && waiting && (
         <p className="status" aria-live="polite"><Spinner /> {m.status.label}</p>
       )}
-      {m.sources && !waiting && (
-        m.sources.covered && sources.length
-          ? null
-          : <p className="ground-note">ไม่พบในคลัง VetMock ตอบจากความรู้ทั่วไป</p>
+      {/* only an explicit miss earns the note: quiz, action and greeting turns send covered with no items */}
+      {m.sources?.covered === false && !waiting && (
+        <p className="ground-note">ไม่พบในคลัง VetMock ตอบจากความรู้ทั่วไป</p>
       )}
       {m.content && <div ref={body}><Markdown text={m.content} streaming={streaming} sources={sources} flagged={flagged} Cite={CiteBound} /></div>}
       {m.cards?.map((c, i) => <Card key={i} card={c} />)}
