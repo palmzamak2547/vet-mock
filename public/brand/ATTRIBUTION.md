@@ -13,3 +13,5 @@ button opens; VetMock is not affiliated with or endorsed by them.
 | anki.svg | Anki-icon.svg | Ankitects Pty Ltd |
 | apple-calendar.svg | Apple_Calendar_(iOS).svg | Apple Inc. |
 | outlook.svg | Microsoft_Outlook_Icon_(2025–present).svg | Microsoft Corporation |
+| line.svg | LINE_logo.svg (2026-10-27, unmodified) | LY Corporation |
+| google-docs.svg | Google_Docs_2020_Logo.svg (2026-10-27, unmodified) | Google LLC |

@@ -1,0 +1,182 @@
+/* ============================================================
+   VetMock AI — tokens and base
+   ============================================================
+   Colours are OKLCH values computed to hex by a script (contrast checked):
+   dark text 17.0:1, secondary 9.9:1, tertiary 5.9:1 on the abyss;
+   light text 15.4:1, secondary 7.9:1, tertiary 4.9:1 on paper.
+   Type scale is geometric (Weber-Fechner): ratio 1.2 on phones, 1.25 from
+   768 px; Thai reading text never below 16 px, line-height 1.7 for stacked
+   marks. Motion tokens: ease-out for enter/exit, never ease-in on UI.        */
+
+@font-face {
+  font-family: 'Anuphan';
+  src: url('/fonts/anuphan-thai-var.woff2') format('woff2');
+  font-weight: 100 700;
+  font-display: swap;
+  unicode-range: U+0E00-0E7F, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-latin-sub.woff2') format('woff2');
+  font-weight: 400 900;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+2013-2014, U+2018-201E, U+2022, U+2026, U+20AC, U+2122, U+2190-2193, U+2212;
+}
+@font-face {
+  font-family: 'Noto Serif Thai';
+  src: url('/fonts/noto-serif-thai-var.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0E00-0E7F, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/geist-mono-latin-var.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --font-ui: 'Anuphan', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Noto Serif Thai', 'Anuphan', Georgia, serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  /* spring (response 0.35 s, damping 0.82) sampled into linear(): 1.1% overshoot, settles 480 ms */
+  --ease-spring: linear(0, 0.0861, 0.2795, 0.4998, 0.6969, 0.8458, 0.9427, 0.9958, 1.0166, 1.0186, 1.0118, 1.0047, 1.0003, 0.9987, 0.9988, 0.9995, 1);
+  --dur-press: 160ms;
+  --dur-quick: 200ms;
+  --dur-move: 320ms;
+
+  /* 4 px baseline; spacing steps ~x1.5 */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 36px; --s7: 54px; --s8: 80px;
+  --r-s: 8px; --r-m: 14px; --r-l: 22px; --r-pill: 999px;
+
+  --t-xs: 0.8125rem;  /* 13 (Latin micro labels only) */
+  --t-s: 0.875rem;    /* 14 */
+  --t-m: 1rem;        /* 16 */
+  --t-l: 1.2rem;      /* 19.2 */
+  --t-xl: 1.44rem;    /* 23 */
+  --t-hero: clamp(2.75rem, 1.856rem + 3.815vw, 5.29rem); /* 44 px at 375 -> 85 px at 1440 */
+
+  --z-ocean: 0;
+  --z-content: 10;
+  --z-header: 40;
+  --z-sheet: 45;
+  --z-toast: 50;
+
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #010c19;
+  --raise: #071725;
+  --text: #e8f0f4;
+  --text-2: #aabac3;
+  --text-3: #7e8f98;
+  --line: #253541;
+  --accent: #55e3e3;
+  --accent-ink: #01111f;
+  --warn: #f2bd68;
+  --user: #142839;
+  /* glass thickness t = 1.4 (chrome): alpha = 1 - e^(-0.909 t) = 0.72 keeps 4.5:1 over bright tiles */
+  --glass: rgba(7, 23, 37, 0.72);
+  --glass-thick: rgba(7, 23, 37, 0.865); /* t = 2.2 */
+  --glass-edge: rgba(170, 220, 235, 0.14);
+  --shadow: 0 18px 50px -20px rgba(0, 0, 0, 0.7);
+  --focus: #55e3e3;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #faf7f1;
+  --raise: #fffdfa;
+  --text: #15202d;
+  --text-2: #424e5e;
+  --text-3: #626d7b;
+  --line: #ddd9d0;
+  --accent: #005bb5;
+  --accent-ink: #fcfaf6;
+  --warn: #b45000;
+  --user: #efebe2;
+  /* light glass, k = ln 2: t 1.4 -> 0.621, t 2.2 -> 0.782 */
+  --glass: rgba(255, 253, 250, 0.72);
+  --glass-thick: rgba(255, 253, 250, 0.86);
+  --glass-edge: rgba(21, 32, 45, 0.1);
+  --shadow: 0 18px 44px -24px rgba(21, 32, 45, 0.28);
+  --focus: #005bb5;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--bg);
+  overscroll-behavior: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: var(--t-m);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+  :root { --t-l: 1.25rem; --t-xl: 1.5625rem; }
+}
+
+button, input, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+a { color: inherit; }
+img, svg, canvas { display: block; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+::selection { background: color-mix(in srgb, var(--accent) 35%, transparent); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* the ocean sits behind everything and never takes a pointer */
+.ocean {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-ocean);
+  pointer-events: none;
+  background: var(--bg);
+}
+/* no WebGL (or a refused context): a still frame the engine drew, in the page's theme */
+.ocean-still {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-ocean);
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+}
+.ocean-still[data-theme-art='dark'] { background-image: url('/art/ocean-dark.webp'); }
+.ocean-still[data-theme-art='light'] { background-image: url('/art/ocean-light.webp'); }
+
+@media print {
+  .ocean, .ocean-still, .no-print { display: none !important; }
+  body { background: #fff; color: #000; }
+}
