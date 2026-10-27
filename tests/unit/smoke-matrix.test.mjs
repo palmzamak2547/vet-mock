@@ -30,12 +30,25 @@ test('the workflow keeps its name and a job called smoke', () => {
 });
 
 test('smoke waits for every e2e runner and passes only when all of them passed', () => {
-  assert.match(jobs.smoke, /^    needs: e2e$/m);
+  assert.match(jobs.smoke, /^    needs: \[changes, e2e\]$/m);
   // Without always(), a failed runner would SKIP smoke, and a skipped job
   // satisfies a required check.
   assert.match(jobs.smoke, /^    if: always\(\)$/m);
   assert.match(jobs.smoke, /RESULT: \$\{\{ needs\.e2e\.result \}\}/);
+  assert.match(jobs.smoke, /test "\$CHANGES" = "success"/);
   assert.match(jobs.smoke, /test "\$RESULT" = "success"/);
+});
+
+// 27 Oct: a pull request that changes only docs/ and root markdown skips the
+// runners; push and dispatch never do, because Vercel waits for smoke there.
+test('only a docs-only pull request skips the e2e runners', () => {
+  assert.ok(jobs.changes, 'a job with id changes');
+  assert.match(jobs.changes, /github\.event_name \}\}" != pull_request \]; then app=true/);
+  assert.match(jobs.changes, /git diff --quiet HEAD\^1 HEAD -- \. ':\(exclude\)docs' ':\(exclude,glob\)\*\.md'; then app=false/);
+  assert.match(jobs.e2e, /^    needs: changes$/m);
+  assert.match(jobs.e2e, /^    if: needs\.changes\.outputs\.app == 'true'$/m);
+  // The skip is only ever for app=false: a changes job that failed fails smoke.
+  assert.match(jobs.smoke, /if \[ "\$APP" = "false" \]; then exit 0; fi/);
 });
 
 test('every engine runs on runners of its own, the software-GL ones on one worker', () => {

@@ -37,8 +37,29 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
+  # The PostgreSQL boundary tests cannot be moved by a pull request that changes only docs/ and root markdown (5-6 min
+  # on #67 and #71): skipped then, a skipped job passes its required check. `build` always runs (Vercel waits for it).
+  # A push to main and a dispatch run everything. Same check as smoke-e2e.yml.
+  changes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    outputs:
+      app: ${{ steps.diff.outputs.app }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+      - id: diff
+        run: |
+          if [ "${{ github.event_name }}" != pull_request ]; then app=true
+          elif git diff --quiet HEAD^1 HEAD -- . ':(exclude)docs' ':(exclude,glob)*.md'; then app=false
+          else app=true; fi
+          echo "app=$app" | tee -a "$GITHUB_OUTPUT"
+
   annotation-db:
     name: Annotation PostgreSQL
+    needs: changes
+    if: needs.changes.outputs.app == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     services:
