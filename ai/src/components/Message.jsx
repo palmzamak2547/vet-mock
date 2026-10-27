@@ -3,6 +3,7 @@ import { Markdown, inline } from '../lib/markdown.jsx';
 import { IconArrowOut, IconCheck, IconCopy, IconRetry, IconSpeaker, IconStop, IconBook, IconShare, IconDownload } from './icons.jsx';
 import { IN_APP } from '../lib/env.js';
 import ShareMenu, { toast } from './ShareMenu.jsx';
+import { GENERAL_NOTE, shareText } from '../lib/share.js';
 import { speak } from '../lib/speech.js';
 import { speciesOf } from '../lib/species.js';
 
@@ -319,6 +320,8 @@ function AssistantMessage({ m, last, onRetry, canSpeak, streaming, question = ''
   const shareBtn = useRef(null);
   const body = useRef(null);
   const sources = m.sources?.items || [];
+  // only an explicit miss earns the note: quiz, action and greeting turns send covered with no items
+  const general = m.sources?.covered === false;
   const flagged = useMemo(() => new Set((m.check?.ungrounded || []).map((x) => String(Number(String(x).replace(/,/g, ''))))), [m.check]);
   const pick = (n) => {
     setOpen(true);
@@ -329,7 +332,8 @@ function AssistantMessage({ m, last, onRetry, canSpeak, streaming, question = ''
   useEffect(() => () => talking?.stop(), [talking]);
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(m.content);
+      // the numbers in the text come with the sources they point to
+      await navigator.clipboard.writeText(shareText(question, m.content, { sources, general, limit: Infinity }));
       setCopied(true);
       toast('คัดลอกแล้ว');
       setTimeout(() => setCopied(false), 1600);
@@ -343,10 +347,7 @@ function AssistantMessage({ m, last, onRetry, canSpeak, streaming, question = ''
       {m.status && waiting && (
         <p className="status" aria-live="polite"><Spinner /> {m.status.label}</p>
       )}
-      {/* only an explicit miss earns the note: quiz, action and greeting turns send covered with no items */}
-      {m.sources?.covered === false && !waiting && (
-        <p className="ground-note">ไม่พบในคลัง VetMock ตอบจากความรู้ทั่วไป</p>
-      )}
+      {general && !waiting && <p className="ground-note">{GENERAL_NOTE}</p>}
       {m.content && <div ref={body}><Markdown text={m.content} streaming={streaming} sources={sources} flagged={flagged} Cite={CiteBound} /></div>}
       {m.cards?.map((c, i) => <Card key={i} card={c} />)}
       {m.error && <ErrorNote text={m.error} retryAt={m.retryAt} onRetry={last ? onRetry : null} />}
@@ -370,6 +371,7 @@ function AssistantMessage({ m, last, onRetry, canSpeak, streaming, question = ''
               question={question}
               answer={m.content}
               sources={sources}
+              general={general}
               quiz={(m.cards || []).filter((c) => c.type === 'quiz').flatMap((c) => c.questions || [])}
               files={(m.cards || []).filter((c) => c.type === 'files').flatMap((c) => c.items || [])}
               getHtml={() => htmlFor(body.current)}

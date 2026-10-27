@@ -10,7 +10,7 @@ export const toast = (text) => window.dispatchEvent(new CustomEvent('vmai:toast'
 /** One answer, sent where the student keeps things. Order follows use: a Thai
  *  student's first move is LINE, then notes, then review. Download-based
  *  targets are left out inside in-app browsers, which do not save files. */
-export default function ShareMenu({ question, answer, sources, quiz, files = [], getHtml, onClose, anchor }) {
+export default function ShareMenu({ question, answer, sources, general = false, quiz, files = [], getHtml, onClose, anchor }) {
   const panel = useRef(null);
   const [placeAbove, setPlaceAbove] = useState(true);
 
@@ -27,17 +27,17 @@ export default function ShareMenu({ question, answer, sources, quiz, files = [],
 
   const title = `ทบทวน: ${question.length > 60 ? `${question.slice(0, 58)}…` : question}`;
   // a reminder note: the gist, the top sources, the way back (short: it rides in a URL)
-  const details = shareText(question, answer, { sources, limit: 900, maxSources: 3 });
+  const details = shareText(question, answer, { sources, limit: 900, maxSources: 3, general });
   const times = reviewTimes();
   const done = (msg) => { toast(msg); onClose(); };
   const open = (url) => window.open(url, '_blank', 'noopener,noreferrer');
 
   const items = [
-    { id: 'line', name: 'LINE', act: 'ส่งข้อความ', href: lineShareUrl(question, answer, sources) },
+    { id: 'line', name: 'LINE', act: 'ส่งข้อความ', href: lineShareUrl(question, answer, sources, { general }) },
     {
       id: 'notion', name: 'Notion', act: 'วางในหน้าใหม่',
       run: async () => {
-        await navigator.clipboard.writeText(markdownWithSources(question, answer, sources, files));
+        await navigator.clipboard.writeText(markdownWithSources(question, answer, sources, files, { general }));
         open('https://www.notion.so/new');
         done('คัดลอกแล้ว วางในหน้า Notion ได้เลย');
       },
@@ -45,7 +45,7 @@ export default function ShareMenu({ question, answer, sources, quiz, files = [],
     {
       id: 'google-docs', name: 'Google Docs', act: 'วางในเอกสารใหม่',
       run: async () => {
-        await copyRich(htmlWithSources(question, getHtml(), sources, files), markdownWithSources(question, answer, sources, files));
+        await copyRich(htmlWithSources(question, getHtml(), sources, files, { general }), markdownWithSources(question, answer, sources, files, { general }));
         open('https://docs.new');
         done('คัดลอกแล้ว วางใน Google Docs ได้เลย');
       },
@@ -90,7 +90,7 @@ export default function ShareMenu({ question, answer, sources, quiz, files = [],
       </ul>
       <div className="share-more">
         {canShare && (
-          <button type="button" className="link" onClick={() => navigator.share({ title: question, text: shareText(question, answer, { sources }) }).then(onClose, () => {})}>แอปอื่น</button>
+          <button type="button" className="link" onClick={() => navigator.share({ title: question, text: shareText(question, answer, { sources, general }) }).then(onClose, () => {})}>แอปอื่น</button>
         )}
         {!IN_APP && <button type="button" className="link" onClick={() => { onClose(); setTimeout(() => window.print(), 60); }}>พิมพ์หรือ PDF</button>}
       </div>

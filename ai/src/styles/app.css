@@ -337,7 +337,9 @@ html[data-lock] { overflow: hidden; scrollbar-gutter: stable; }
 .md-table { margin: 0 0 14px; overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
 .md-table table { border-collapse: collapse; width: 100%; font-size: 15px; line-height: 1.55; }
 .md-table th { text-align: left; font-weight: 600; background: color-mix(in srgb, var(--text) 5%, transparent); }
-.md-table th, .md-table td { padding: 9px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+/* .msg wraps anywhere, which lets a cell's narrowest width fall to one letter:
+   on a phone the first column then stacked หัวข้อ one letter per line */
+.md-table th, .md-table td { padding: 9px 14px; border-bottom: 1px solid var(--line); vertical-align: top; overflow-wrap: break-word; min-width: 5.5em; }
 .md-table tr:last-child td { border-bottom: 0; }
 .is-streaming .md > :last-child::after {
   content: '';

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { plainText, shareText, lineUrl, lineShareUrl, markdownWithSources, htmlWithSources, ankiTsv, reviewTimes, googleCalendarUrl, icsFile } from '../../src/lib/share.js';
+import { plainText, shareText, lineUrl, lineShareUrl, markdownWithSources, htmlWithSources, ankiTsv, reviewTimes, googleCalendarUrl, icsFile, GENERAL_NOTE } from '../../src/lib/share.js';
 
 test('share text with no sources strips markdown and citations, ends with the address', () => {
   const t = shareText('ระยะฟักตัว rabies', '**Rabies** ฟักตัว 1 ถึง 3 เดือน [1]\n\n- ระยะแรก [2]');
@@ -103,4 +103,18 @@ test('the calendar reminder stays well inside Google Calendar\'s URL limit (400 
   const details = shareText(longQ, longMd, { sources: eight, limit: 900, maxSources: 3 });
   const url = googleCalendarUrl(`ทบทวน: ${longQ}`, details, new Date('2026-10-29T13:00:00Z'));
   assert.ok(url.length < 14000, String(url.length));
+});
+
+test('an answer VetMock did not cover says so wherever it is sent', () => {
+  assert.ok(shareText('q', 'คำตอบ', { general: true }).includes(GENERAL_NOTE));
+  assert.ok(!shareText('q', 'คำตอบ').includes(GENERAL_NOTE));
+  assert.ok(markdownWithSources('q', 'คำตอบ', [], [], { general: true }).includes(`_${GENERAL_NOTE}_`));
+  assert.ok(htmlWithSources('q', '<p>คำตอบ</p>', [], [], { general: true }).includes(`<em>${GENERAL_NOTE}</em>`));
+  assert.ok(decodeURIComponent(lineShareUrl('q', 'คำตอบ', [], { general: true }).split('text=')[1]).includes(GENERAL_NOTE));
+});
+
+test('a copy with no length limit keeps the whole answer and its sources', () => {
+  const md = Array.from({ length: 40 }, (_, i) => `ย่อหน้า ${i + 1} ${'ข้อความ '.repeat(12)}`).join('\n\n');
+  const t = shareText('q', md, { sources: [{ n: 1, title: 'Rabies' }], limit: Infinity });
+  assert.ok(!t.includes('\n…\n') && t.includes('ย่อหน้า 40') && t.includes('1. Rabies'));
 });
