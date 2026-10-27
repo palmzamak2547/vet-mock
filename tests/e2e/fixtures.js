@@ -21,7 +21,9 @@ export * from '@playwright/test';
 
 export const PINNED_NOW = '2026-09-25T18:15:00+07:00';
 
-function installPinnedCalendar({ pinned }) {
+// Exported for the specs that build contexts of their own (perf-budget.spec.js opens several per
+// test, each as empty as a first visit) and for scripts/perf.mjs: both must read the same calendar.
+export function installPinnedCalendar({ pinned }) {
   const RealDate = Date;
   const offset = pinned - RealDate.now();
   function PinnedDate(...args) {

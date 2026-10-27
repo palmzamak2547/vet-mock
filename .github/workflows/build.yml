@@ -99,6 +99,13 @@ jobs:
       - name: Build production bundle
         run: npm run build
 
+      # The gzip size of the JavaScript and CSS of the first load and of the key lazy views, read from
+      # dist/.vite/manifest.json and the built files: no browser, the same numbers on every machine, so a
+      # breach is a code change and never a slow runner. perf-budgets.json holds each budget beside the
+      # size it was set from; docs/GITFLOW.md section 1 says how one changes.
+      - name: Bundle size budget
+        run: npm run perf:budget
+
       - name: Install browser for contrast checks
         # Same mirror as smoke-e2e.yml's install step: on 22 Oct azure.archive.ubuntu.com made this
         # step take 12.5 min and main's Build ran out its 15-minute cap, so nothing deployed.

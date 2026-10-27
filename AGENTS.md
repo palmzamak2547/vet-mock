@@ -4,10 +4,19 @@
 
 Palm asked why VetMock ships slowly. Measured that day: no merge after 06:29 while six finished changes waited for the machine-wide lock (other projects' 35-45 min gates) or the 4 GB free-RAM floor; CI already runs everything the local gate runs plus WebKit, Firefox and Postgres, free on GitHub; and the local gate had not caught the recent red runs (#42 failed in a spec it never touched, #48 on WebKit, which the local gate does not run).
 
-- No local gate before a pull request: CI is the gate. `C:\dev\heavy-gate.lock` is for genuinely heavy local runs (REA, Gradle, local perf runs), not for releases. Run a spec locally only to debug a CI failure.
+- No local gate before a pull request: CI is the gate. Run a spec locally only to debug a CI failure.
+- Since 22 Oct 21:35 (Palm, for every project) no run waits on `C:\dev\heavy-gate.lock` or a free-RAM floor, also where an older note below still says to take it. Every gate step and production check stays.
 - The main ruleset no longer requires an up-to-date branch, and the Queue workflow is disabled (its bot updates left runs in `action_required`; #45 sat 215 min). A pull request merges when its own checks pass; rebase only when GitHub reports a conflict.
 - After each merge, watch main's push CI for that commit: red means fix forward or revert at once.
 - VetMock does not use `C:\dev\heavy-gate.next` (Tipjai's turn file).
+
+## Performance budgets — 2026-10-22 (Claude Code)
+
+- The rule is `docs/GITFLOW.md` section 1, item 8: CI fails on numbers a machine cannot move (`perf-budgets.json`, each budget beside the number it was set from) and timings are measured by hand (`npm run perf`, `perf-baseline.json`). A budget is an alarm, not a target; it must never turn CI red for a reason that is not the code.
+- Sizes (`npm run perf:budget`, a Build step and phase C of the gate): gzip JS and CSS of the first load, the Atlas page and, after the first load, Home, the exam, results, the VetWiki index and an article. A lazy view is named by chunk name, not manifest key: a chunk that another chunk also imports statically loses its source path and is keyed `_Name-<hash>.js`. In the browser (`tests/e2e/perf-budget.spec.js`, Chromium only, median of 3 fresh contexts, other hosts aborted): Home's requests and image bytes on a first visit, and CLS of Home, a practice set, its results and `/wiki/com5/rabies`.
+- The first numbers (22 Oct; requests on main `4cf1e64d`, timings on `3f099e6f`; sizes measured again on `2bb1d429`, 27 Oct) are work to do, not CLS gaps, because every page measures 0: Home's first visit asks for 136 requests and 1.48 MB of images (103 scripts, 24 images), and the first-load JS is 215 KB gzipped.
+- Against the targets set for this work (INP 100 ms, no long task over 50 ms during an interaction, CLS 0): CLS is 0 on every page measured. The 22 Oct baseline (4x CPU) has the answer tap at 192 ms (next 72, the exam map 80, a tab bar navigation 72) and 7 long tasks over 50 ms in a practice journey (200 ms past 50 ms in all). Those two are the gaps; 5.163.3 worked on the answer tap, so measure it again plugged in before deciding what is left.
+- Traps found: Playwright's `networkidle` fires once per navigation, so the idle prefetch is invisible to it (`scripts/lib/perf-browser.mjs` watches requests instead); `useOnlineStatus` sends a HEAD to /favicon.ico 1.5 s after mount, so a request count taken earlier depends on machine speed; Event Timing rounds to 8 ms and a frame is a whole display refresh (Palm's panel runs about 164 Hz), so those two metrics move in steps (`FLOORS` in `scripts/lib/perf-logic.mjs`). A laptop on battery slows every timing: on 27 Oct, unplugged at 31% with OneDrive syncing, the `3f099e6f` build read 9 to 14 s for the article's LCP that it read as 2.1 s on 22 Oct, so `npm run perf` warns on battery and refuses `--update`.
 
 ## UX journeys 5.159.0 — 2026-10-22 (Claude Code)
 
