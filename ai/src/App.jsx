@@ -175,8 +175,11 @@ export default function App() {
       if (Math.abs(dy) > 2 && !reducedMotion() && el.animate) {
         // Web Animations, not an inline transition: nothing is left behind on the
         // element if the tab is hidden mid-flight, and it can be interrupted
-        const ease = getComputedStyle(document.documentElement).getPropertyValue('--ease-spring').trim() || 'cubic-bezier(0.23, 1, 0.32, 1)';
-        const a = el.animate([{ transform: `translate3d(0, ${dy}px, 0)` }, { transform: 'translate3d(0, 0, 0)' }], { duration: 520, easing: ease });
+        const frames = [{ transform: `translate3d(0, ${dy}px, 0)` }, { transform: 'translate3d(0, 0, 0)' }];
+        const spring = getComputedStyle(document.documentElement).getPropertyValue('--ease-spring').trim();
+        let a;
+        // Safari before 17.2 throws on a linear() easing (it would take the whole page down here)
+        try { a = el.animate(frames, { duration: 520, easing: spring || 'ease-out' }); } catch { a = el.animate(frames, { duration: 520, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }); }
         a.onfinish = syncRects;
       }
     }
