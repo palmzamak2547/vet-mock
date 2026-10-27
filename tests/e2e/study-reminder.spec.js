@@ -1,7 +1,7 @@
 // A daily study reminder: offered once on the result of the first set of a
 // day, kept on the connected-apps page; on the web it is a repeating event in
 // the student's own calendar, inside the Android app the app's own prompt.
-import { test, expect } from './fixtures.js';
+import { test, expect, PINNED_NOW } from './fixtures.js';
 import { QB_EXOTIC } from '../../src/data/questions-exotic.js';
 
 test.setTimeout(90_000);
@@ -24,10 +24,13 @@ async function finishOneSet(page) {
   await page.goto('/app/study');
   await page.locator('[data-subject="exotic"]').click();
   await page.locator('.vmx-topic-main', { hasText: 'โรคติดเชื้อในนก' }).click();
+  // The settings page fills its own count when it mounts; a count typed before that is lost (10 questions on WebKit).
+  await expect(page.getByRole('heading', { level: 1, name: /ตั้งค่า.*การฝึก/ })).toBeVisible();
   const toggle = page.getByRole('switch', { name: /เฉลยทันที/ });
   if ((await toggle.getAttribute('aria-checked')) !== 'true') await toggle.click();
   await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('1');
-  await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
+  // Start once the button says one question: pressed earlier, a WebKit run under load started a set of 10.
+  await page.getByRole('button', { name: /เริ่มฝึก 1 ข้อ/ }).click();
   await expect(page.locator('.vmx-option').first()).toBeVisible({ timeout: 30_000 });
   await expect(page.locator('#main')).toBeFocused();
   const right = KEY.get(norm(await page.locator('.vmx-qtext').innerText()));
@@ -56,13 +59,14 @@ test('the first set of a day offers a daily reminder once; a time fills both cal
 });
 
 test('an offer answered before is not shown again', async ({ page, context }) => {
-  const yesterday = new Date(); yesterday.setHours(0, 0, 0, 0);
+  // The app reads the suite's pinned calendar (fixtures.js), so "yesterday" is the pinned day's, not the runner's.
+  const yesterday = new Date(PINNED_NOW); yesterday.setHours(0, 0, 0, 0);
   await seed(context, {
     'vmx-reminder-offer': 'google',
     'vmx-streak': JSON.stringify({ streak: 2, lastDate: yesterday.getTime() - 86400000, freezeUsedAt: null }),
   });
   await finishOneSet(page);
-  await expect(page.locator('.vmx-streak-moment')).toContainText('ต่อเนื่อง 3 วัน');
+  await expect(page.locator('.vmx-streak-moment')).toContainText('ครบ 3 วันติดต่อกัน');
   await expect(page.locator('.vmx-reminder-offer')).toHaveCount(0);
 });
 
@@ -88,9 +92,9 @@ test('inside the Android app the offer asks the app, and only on a tap', async (
 });
 
 test('the connected-apps page keeps the reminder, suggesting the usual study time', async ({ page, context }) => {
-  // Three sessions at 21:05 Bangkok (14:05 UTC) in the last two weeks, in any
+  // Three sessions at 21:05 Bangkok (14:05 UTC) in the last two weeks of the pinned calendar, in any
   // runner's time zone.
-  const now = new Date();
+  const now = new Date(PINNED_NOW);
   const rows = [1, 2, 3].map((daysAgo, i) => ({
     date: Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - daysAgo, 14, 5),
     questionId: i + 1, subject: 'exotic', correct: true,

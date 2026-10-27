@@ -12,7 +12,6 @@ import DigitRoll from '../components/DigitRoll.jsx';
 import ScoreBurst from '../components/ScoreBurst.jsx';
 import MochiLive from '../components/MochiLive.jsx';
 import StreakMoment from '../components/StreakMoment.jsx';
-import { ReminderOffer } from '../components/ReminderPicker.jsx';
 import { mochiResultPose } from '../lib/mochi-presence.js';
 import { readStreakMoment, markStreakMomentSeen } from '../lib/streak-moment.js';
 import { haptic } from '../lib/haptics.js';
@@ -36,6 +35,8 @@ import LadderStrip from '../components/LadderStrip.jsx';
 import { ladderStep, ladderStepFor, ladderVerdict, rememberLadderStep, STEP_UP_RATIO, STEP_MIN_SET } from '../lib/practice-ladder.js';
 
 const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer.jsx'));
+// Offered once ever, after the first set of a day: its own chunk, not every result's (1.7 KB gzip).
+const ReminderOffer = lazy(() => import('../components/ReminderPicker.jsx').then((m) => ({ default: m.ReminderOffer })));
 
 // Phase label map — mirrors header pill in App.jsx
 const PHASE_LABEL_RES = {
@@ -424,7 +425,11 @@ export default function ResultsView({
           the score (lib/streak-moment.js); nothing for a second set. */}
       <StreakMoment moment={moment} className={`vmx-res-step${firstLook ? ' is-paced' : ''}`} style={{ '--res-delay': '70ms' }} />
       {/* Right after the day count, once ever: a daily reminder. */}
-      {moment && <ReminderOffer usual={moment.usual} className={`vmx-res-step${firstLook ? ' is-paced' : ''}`} style={{ '--res-delay': '126ms' }} />}
+      {moment && (
+        <Suspense fallback={null}>
+          <ReminderOffer usual={moment.usual} className={`vmx-res-step${firstLook ? ' is-paced' : ''}`} style={{ '--res-delay': '126ms' }} />
+        </Suspense>
+      )}
 
       {/* Study Squad Companion Encouragement Badge & 3D Toggle */}
       {companionMascot && showCompanion && (
